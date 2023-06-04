@@ -1,0 +1,29 @@
+# Maintainer: Morten Linderud <foxboron@archlinux.org>
+# Maintainer: Jelle van der Waa <jelle@archlinux.org>
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=archlinux-repro
+pkgver=20230525
+pkgrel=1
+pkgdesc='Tools to reproduce Arch Linux packages'
+arch=('any')
+license=('MIT')
+makedepends=('git' 'asciidoc')
+depends=('diffoscope' 'curl' 'gnupg' 'git' 'diffutils' 'zstd')
+url="https://github.com/archlinux/archlinux-repro"
+source=(https://github.com/archlinux/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
+        https://github.com/archlinux/${pkgname}/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz.sig)
+validpgpkeys=('C100346676634E80C940FB9E9C02FF419FECBE16'
+              '64B13F7117D6E07D661BBCE0FE763A64F5E54FD6')
+sha256sums=('e0813457cdab838c1f3657941339247a0e89d4ece725dab2a9d2da4d242d154d'
+            'SKIP')
+
+build(){
+  cd "${pkgname}-${pkgver}"
+  make TAG="${pkgver}"
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  make PREFIX=/usr DESTDIR="$pkgdir" install
+}

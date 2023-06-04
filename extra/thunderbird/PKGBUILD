@@ -1,0 +1,292 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+# Contributor: Ionut Biru <ibiru@archlinux.org>
+# Contributor: Alexander Baldeck <alexander@archlinux.org>
+# Contributor: Dale Blount <dale@archlinux.org>
+# Contributor: Anders Bostrom <anders.bostrom@home.se>
+
+pkgbase=thunderbird
+pkgname=(thunderbird)
+pkgver=102.11.2
+pkgrel=1
+pkgdesc='Standalone mail and news reader from mozilla.org'
+url='https://www.mozilla.org/thunderbird/'
+arch=(x86_64)
+license=(MPL GPL LGPL)
+depends=(
+  glibc gtk3 libgdk-3.so libgtk-3.so mime-types dbus libdbus-1.so dbus-glib
+  alsa-lib nss hunspell sqlite ttf-font libvpx libvpx.so zlib bzip2 libbz2.so
+  botan2 libwebp libwebp.so libwebpdemux.so libevent libjpeg-turbo libffi
+  libffi.so nspr gcc-libs libx11 libxrender libxfixes libxext libxcomposite
+  libxdamage pango libpango-1.0.so cairo gdk-pixbuf2 icu libicui18n.so
+  libicuuc.so freetype2 libfreetype.so fontconfig libfontconfig.so glib2
+  libglib-2.0.so pixman libpixman-1.so gnupg json-c libcanberra
+)
+makedepends=(
+  unzip zip diffutils python nasm mesa libpulse libice libsm
+  rust clang llvm cbindgen nodejs lld
+  gawk perl findutils libotr wasi-compiler-rt wasi-libc wasi-libc++ wasi-libc++abi
+)
+options=(!emptydirs !makeflags !lto)
+source=(https://archive.mozilla.org/pub/thunderbird/releases/$pkgver/source/thunderbird-$pkgver.source.tar.xz{,.asc}
+        thunderbird.desktop
+        vendor-prefs.js
+        distribution.ini
+        mozconfig.cfg
+        metainfo.patch
+        rustc_version-0.4.0.patch
+        gcc-13.patch)
+validpgpkeys=(
+  14F26682D0916CDD81E37B6D61B7B526D98F0353 # Mozilla Software Releases <release@mozilla.com>
+  4360FE2109C49763186F8E21EBE41E90F6F12F6D # Mozilla Software Releases <release@mozilla.com>
+)
+
+# Google API keys (see http://www.chromium.org/developers/how-tos/api-keys)
+# Note: These are for Arch Linux use ONLY. For your own distribution, please
+# get your own set of keys. Feel free to contact foutrelis@archlinux.org for
+# more information.
+_google_api_key=AIzaSyDwr302FpOSkGRpLlUpPThNTDPbXcIn_FM
+
+# Mozilla API keys (see https://location.services.mozilla.com/api)
+# Note: These are for Arch Linux use ONLY. For your own distribution, please
+# get your own set of keys. Feel free to contact heftig@archlinux.org for
+# more information.
+_mozilla_api_key=16674381-f021-49de-8622-3021c5942aff
+
+prepare() {
+  cd $pkgname-$pkgver
+
+  echo "${noextract[@]}"
+
+  local src
+  for src in "${source[@]}"; do
+    src="${src%%::*}"
+    src="${src##*/}"
+    [[ $src = *.patch ]] || continue
+    msg2 "Applying patch $src..."
+    patch -Np1 < "../$src"
+  done
+
+  printf "%s" "$_google_api_key" >google-api-key
+  printf "%s" "$_mozilla_api_key" >mozilla-api-key
+  cp ../mozconfig.cfg .mozconfig
+  sed "s|@PWD@|${PWD@Q}|g" -i .mozconfig
+}
+
+build() {
+  cd $pkgname-$pkgver
+  if [[ -n "${SOURCE_DATE_EPOCH}" ]]; then
+    export MOZ_BUILD_DATE=$(date --date "@${SOURCE_DATE_EPOCH}" "+%Y%m%d%H%M%S")
+  fi
+  export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=none
+  export MOZBUILD_STATE_PATH="${srcdir}/mozbuild"
+  ./mach configure
+  ./mach build
+  ./mach buildsymbols
+}
+
+package_thunderbird() {
+  optdepends=(
+    'libotr: OTR support for active one-to-one chats'
+    'libnotify: Notification integration'
+  )
+
+  cd $pkgname-$pkgver
+  DESTDIR="$pkgdir" ./mach install
+
+  install -Dm 644 ../vendor-prefs.js -t "$pkgdir/usr/lib/$pkgname/defaults/pref"
+  install -Dm 644 ../distribution.ini -t "$pkgdir/usr/lib/$pkgname/distribution"
+  install -Dm 644 ../thunderbird.desktop -t "$pkgdir/usr/share/applications"
+  install -Dm 644 comm/mail/branding/thunderbird/net.thunderbird.Thunderbird.appdata.xml \
+    "$pkgdir/usr/share/metainfo/net.thunderbird.Thunderbird.appdata.xml"
+
+  for i in 16 22 24 32 48 64 128 256; do
+    install -Dm644 comm/mail/branding/thunderbird/default${i}.png \
+      "$pkgdir/usr/share/icons/hicolor/${i}x${i}/apps/$pkgname.png"
+  done
+  install -Dm644 comm/mail/branding/thunderbird/TB-symbolic.svg \
+    "$pkgdir/usr/share/icons/hicolor/symbolic/apps/thunderbird-symbolic.svg"
+
+  # Use system-provided dictionaries
+  ln -Ts /usr/share/hunspell "$pkgdir/usr/lib/$pkgname/dictionaries"
+  ln -Ts /usr/share/hyphen "$pkgdir/usr/lib/$pkgname/hyphenation"
+
+  # Install a wrapper to avoid confusion about binary path
+  install -Dm755 /dev/stdin "$pkgdir/usr/bin/$pkgname" <<END
+#!/bin/sh
+exec /usr/lib/$pkgname/thunderbird "\$@"
+END
+
+  # Replace duplicate binary with wrapper
+  # https://bugzilla.mozilla.org/show_bug.cgi?id=658850
+  ln -srf "$pkgdir/usr/bin/$pkgname" \
+    "$pkgdir/usr/lib/$pkgname/thunderbird-bin"
+}
+
+_package_i18n() {
+  pkgdesc="$2 language pack for Thunderbird"
+  depends=("thunderbird>=$pkgver")
+  install -Dm644 thunderbird-i18n-$pkgver-$1.xpi \
+    "$pkgdir/usr/lib/thunderbird/extensions/langpack-$1@thunderbird.mozilla.org.xpi"
+}
+
+_languages=(
+  'af     "Afrikaans"'
+  'ar     "Arabic"'
+  'ast    "Asturian"'
+  'be     "Belarusian"'
+  'bg     "Bulgarian"'
+  'br     "Breton"'
+  'ca     "Catalan"'
+  'cak    "Kaqchikel"'
+  'cs     "Czech"'
+  'cy     "Welsh"'
+  'da     "Danish"'
+  'de     "German"'
+  'dsb    "Lower Sorbian"'
+  'el     "Greek"'
+  'en-GB  "English (British)"'
+  'en-US  "English (US)"'
+  'es-AR  "Spanish (Argentina)"'
+  'es-ES  "Spanish (Spain)"'
+  'et     "Estonian"'
+  'eu     "Basque"'
+  'fi     "Finnish"'
+  'fr     "French"'
+  'fy-NL  "Frisian"'
+  'ga-IE  "Irish"'
+  'gd     "Gaelic (Scotland)"'
+  'gl     "Galician"'
+  'he     "Hebrew"'
+  'hr     "Croatian"'
+  'hsb    "Upper Sorbian"'
+  'hu     "Hungarian"'
+  'hy-AM  "Armenian"'
+  'id     "Indonesian"'
+  'is     "Icelandic"'
+  'it     "Italian"'
+  'ja     "Japanese"'
+  'ka     "Georgian"'
+  'kab    "Kabyle"'
+  'kk     "Kazakh"'
+  'ko     "Korean"'
+  'lt     "Lithuanian"'
+  'ms     "Malay"'
+  'nb-NO  "Norwegian (Bokmål)"'
+  'nl     "Dutch"'
+  'nn-NO  "Norwegian (Nynorsk)"'
+  'pa-IN  "Punjabi (India)"'
+  'pl     "Polish"'
+  'pt-BR  "Portuguese (Brazilian)"'
+  'pt-PT  "Portuguese (Portugal)"'
+  'rm     "Romansh"'
+  'ro     "Romanian"'
+  'ru     "Russian"'
+  'sk     "Slovak"'
+  'sl     "Slovenian"'
+  'sq     "Albanian"'
+  'sr     "Serbian"'
+  'sv-SE  "Swedish"'
+  'th     "Thai"'
+  'tr     "Turkish"'
+  'uk     "Ukrainian"'
+  'uz     "Uzbek"'
+  'vi     "Vietnamese"'
+  'zh-CN  "Chinese (Simplified)"'
+  'zh-TW  "Chinese (Traditional)"'
+)
+_url=https://archive.mozilla.org/pub/thunderbird/releases/$pkgver/linux-x86_64/xpi
+
+for _lang in "${_languages[@]}"; do
+  _locale=${_lang%% *}
+  _pkgname=thunderbird-i18n-${_locale,,}
+
+  pkgname+=($_pkgname)
+  source+=("thunderbird-i18n-$pkgver-$_locale.xpi::$_url/$_locale.xpi")
+  eval "package_$_pkgname() {
+    _package_i18n $_lang
+  }"
+done
+
+# Don't extract languages
+noextract=()
+for _src in "${source[@]%%::*}"; do
+    case "$_src" in 
+      *.xpi) noextract+=("$_src") ;;
+    esac
+done
+
+sha512sums=('631e2fd8f9ce3b480ad6ea820c684a039b3de17f475acbba35ea4d3229223b81081a7f09b4a7c4ae64cf3f58a50dba58a72fe591f6e42ef6bac7c402db3d8558'
+            'SKIP'
+            'a0061fcb2a7f66061e336a8d95948592f56f4752e56467f14ba63846720ebf845cce7511d1a2637e3b80d5a1ffdaa2fb783fa37195103425ef65222d45372012'
+            '6918c0de63deeddc6f53b9ba331390556c12e0d649cf54587dfaabb98b32d6a597b63cf02809c7c58b15501720455a724d527375a8fb9d757ccca57460320734'
+            '5cd3ac4c94ef6dcce72fba02bc18b771a2f67906ff795e0e3d71ce7db6d8a41165bd5443908470915bdbdb98dddd9cf3f837c4ba3a36413f55ec570e6efdbb9f'
+            'a34dd97954f415a5ffe956ca1f10718bd164950566ceba328805c2ccbb54ed9081df07f2e063479bf932c4a443bb5b7443cca2f82eea3914465ed6e4863e0c0e'
+            '7e43b1f25827ddae615ad43fc1e11c6ba439d6c2049477dfe60e00188a70c0a76160c59a97cc01d1fd99c476f261c7cecb57628b5be48874be7cf991c22db290'
+            '36d9662fc94cbf7dcf371adc13a9cda679bc75df961d86de019d3c8ebb0be3062d5ef762d175fab58696db74758100a65de45d7832e0e2bd4e15c901f72d8349'
+            '3fbbcdb2cdce00156ec54d517d4709203b5324cc73b02df32be3891eed24c37d8ea4ac8acee3b462da340ef7e2addd602575f350b10d830cf3eefb707e849794'
+            '4b6f650241309a3dcef9b456602bd054777ed666c5185f724974fa9b0443505460c8edccba0c105322a4fd4b939567feaaa6f5366eacfd2be878d7b4f3cc222c'
+            '875982f30e86a75cd6258fa27112dcb57d552c916d9676f7d6319f474e85e3b5a42eaa17eaa52942bf480d82c4a523c3403579068551ea0092c5770d1e429dcd'
+            'b7e813d001aa994aa5e42c4859e87d98b4fe565821f13b6291e257ba35df2e09b81ec7d63a6d2fdf0cde38e81ec3bc43b32ea1439fd5b2d39ede7fbe6437a039'
+            'a24320e34dde9977897489e9e34c58f00995ca5d39025dc34ac3b4cc2db9a068a31761b77d10386fd827de0ef4c9fcc61b8c64518549ea8b11afb3f60a140aac'
+            'eec2076e7bd5c1a2c2df308d847295c198c3475b8f2aa232259c64736477286bf0aeaeb538319e0a5dcc095b4bdafc7d734ff765385f8966f48dedb7f80dd0a2'
+            'e98ebb043ec0f65047936f37b56a27675d46561717d50a629445fc584462b03863952f0b34be9f5e3f697ff7d9736e2b8991d24cb234fa30452a1f5d8c483497'
+            'a4c08166e4d48af5e00064817df3ae9e5e672a71cbb34a31863e8050a148eb18f6630d2adf475ce965fbccc3f7f9ad6357d7237493aceb8342b059c279deb51d'
+            '4facc2d6ace0147e96e36af4fa102c3cb3fc842d11afd9f982ad1ad3b7b636c8f3f9acfb6dfa7133fa8b9bce1cbbdda33fcd985ad66987f4c3229688005e2e1b'
+            '74c70695341d3ff7cd47a45b3b20497e14e9fba91113be24806b21a06ae888fadbc0c2cf3f870998d7f9979d77b87f6d1b82a924b46be55011d122fdccbc9ccb'
+            '81edb53bafbc4e06225c69daa92c14159351652f9ac24d7e8d66321574fbd4fb85b6a9144f6afddf4e5e47630e7049bfa585daad8d3d73c7cd4f2c83bd386e8e'
+            '3d996ed5576c986e19e4953ede08933c6f3d1d173cbe0cd7c3f7ee2f605a98e6b78663a0c3ec6d834b33f63c835773f56e0e9435d6480b26c19daf8f4134b8a4'
+            'ed3acafeb37a25a0a47b3182c745cc14b0897fa8744343483a4f1b778b8e1d6d45cc67a039553e40b78b88b6dc5fe71db9a7a5f0b1ee4a2d0840751ba168b323'
+            '5c300bf8c9dbe813dd6a7d45bac0cbf209642cb54c62bb1a2d962f54fb800892efe2a1b2160a69ecb7fda97c2886e8f9b8bcb937f7954281574550dbf466b49f'
+            '18b17917668b413ccf01da0a571b4175cf4b2f1bdc13ffc96dbaac689b38ca81af137f2ddaab02c26fa004f912ff61c7b3e2f08ccd72ebb0923d3ac79367a662'
+            '4d81f498d3775da6f9bb4678008982d2e24a1908c2324ad7c0c79baeba50d5f4540746a1971fceff0cae227b7fb812a16558fd1c0a868c53efbed1e265372a76'
+            '0edb8f61756588a91f15ad21d3cc8cce527be575f71feb2b646cf6d0765f907272108f5707b34a292a2f2b5447b79889c1dcada44930812ee30620041938a180'
+            '9b993f86578f0702d3cb43784ac5dc99b1a487aba021187838f79eb2855b940e1ab9935b1243bb6ea121c89cc01e76d378fce9818ac5816e0bc48108d8200967'
+            'd160d5cbe82945e8e5032cb3a777d2db40503080be6c6ad352324d4b368f83f8742898b1fe02807eb8647b25b96b0a7d87d32cddcd494b5d69f4dc21de673bc4'
+            'ffd17d68a5af8ac0e1c1f5df2dacd3f65c0e7c838fc0f7b66223754b0737b1600815ddfabf888cb48951084454090b7f9518ba6f1031a91e71cc117cb48be982'
+            '7f646436797d7063475dc4c64e8a90782c84dbb58ccc7316a6e7d59121c710791979031ff15df7fd4e05fccfbdc61ae6ce67961894f127ca127bbc500f2f0bcf'
+            '784514df687650a10ab406facc8934ac3920105c233b5262502116c9570bd5bca901ab2c45c5fe1e4b2f8f04f6a5e3fc7b280fddcf1edce8a9a41cbef667c9f5'
+            '02a79b46defec6fe2c8b3c057bff4ae77e8ef47fdf9e34bc70df1acdae4890b2b97b276f250c72a23952ae74c440a800d9d9d6c33d6ca7dde925268439bb658e'
+            'e5e00e0eba9b45dc1265200094c182caea214d8d4f7af1fe6e3955f6209f58f75bd3a8014f119ebac1fbf1965eab4d8181109121f0364d529d97195e0bbd9ce6'
+            '53c6949b5827ac84077c52e909b2fe60d1c5e60096e00189d31e238a5826f3eaa0d7fe32b352b9c6b7c9168ddd11a9a1ee6af8fd25d6d83d3b35b3010d0a7457'
+            '0b851e2b52dcef40615fdd74dc4890bbf398dadb458351a4decefa1d40ef3826edf767369ba5f2c2e0c35d7e761820a903d999c2f262dd7cce17f17ca1766d23'
+            '8d61eecd0f79ce665311b5d7c41ca4bf061b9227fbd7514f58a76d78acc61206b87c4d0b4541ef2d7f5738de9d2b29a75a2cd9a6e6c86479005166d8af8beb91'
+            '41a676ccbf9cc970085324b7ef5d5cf53616de73cc4df193ba795eeec8b09df8f7bf6364d5d52904de47f5d7b8f3c66bc5b5445cf74589e6f9450fd7d7590dab'
+            'b1cd4c9c5e485eff73b2b4783043a5ace36ce160394ab77e22317b9d24bd693d3182d01220e44caeb34c69b132e9cb8e1b3b360ce08fa4188ec67b20bcacf549'
+            'b40394b1a78319795731d2320b2c718adfe9ada748e109575e1123d48c7d6101e1e8fb9da69ce35a2cefee93e8439ba4c944dc02f9c2ae1801be860e390f961f'
+            '2c4afd2b6cfdc9bc8b0d8585c803ec50fad80cd990f2968cbde16c72c8abf1d3721a17d1f370c6067868b9d4b403fb4be65e101784416b46ac9abfff384e1e1e'
+            '09f3059314fa6bd83345727e5bcc6ad6b1549dfca2d7a98214b415a427403936419ef0f553cdadc67340db80f048561f4cc75cd9c72cd503308b6865cbaee999'
+            'ac2a9d01e8da2f1f6cd05b35a6e9d2ae705dee6cb623ee74e193cbb1eea6c333ba6f7ea6c08feb77681aa64334470c0f945e57ec0377088c4992ee7dec699e9b'
+            'd815285fcdde53b31638e2ccecb95cf2c2696f0fda245e50003ff988612181877d4f513dd8c1cdb9e49eea0ccc38c2d11fc9b1e416d62953564bef6aa75637ae'
+            'efed78a5d9508656415f9078c587a33190da48a1ee251602bb43a9f662e2abf7f036d686cc1d33a54e66b797f088eec5ee284aa35cc2ce277a82f9ecbd3ba50f'
+            '8135271601dfa2158289db5c0886897bd882d64f68d10740fa296392287e880c5abfb68910c2299e9802d4aa6559aa3c4bb2aa0c2ac41a762cf5eafa19de13f4'
+            '818f910cff92ed615e56ae84aeaecc7e8783f844b579b1083d9e55c2c01385a2f6807f10f7e4f7a68e3c3ed71f044f7cc622cdd10bdd72338c171b9306ed2bcf'
+            '8d0821a487093f6c6b1dedc22e02b5e97a83df5e18ce6afa89476b7b03e64a9bda56488aab181eabb257c548eb507ea4c5c64f011b75363aeebcff9f54cf673b'
+            '30a2556353ed6923d44adbdcc9dee4c136d1a0d498551a391e2946798ee8a46d254008d26ba4cb83296566ba706ed30205fed11df36c1029f26700e74c841cf0'
+            '119192663bcc9e26a314cb92d3fd882aeb47910a6d44c82b863fc6aa36b49afd8ef2c1835740fde2a4836b15c50653f0e58daf39bbea574aa3cb557109ae768c'
+            'f3bf69290ee27184f78c745a1d151081ee67d338a5d6155a5e7c1a2ca96e630691ead82434e3de3408970b5acb4e240fbd62a22a68bb94689d8cfe35d48733a0'
+            'cde3e2c403398c9d62420b96144c0908726cbf527f7bcf4a9aa5a14bfcadb83f4a7ae2d9a0b98fde4d8b029b1b1587385b95d2d91a46e6fbddfc30604fc6dcca'
+            '05105bf0456feb4643f65856cf33e1f72d83e9ed95779deba9197abd00cffa14b3bdde25eccb3df169eea641f7d53b4c897b25c4abd3361895c29324dc43b697'
+            '77147d37993b1580c862be9ccd914e063c9894b2aba0c929a84524e15dd510d7de4ff6bc8ec903ac06fbee5f00b6e16c23012e6ceffba2fac7eceb720b58e480'
+            'c9543a73d2ff95c93f9e9735fd08d5283f791c2a1f8203ca15db887ec51ca251b9dcc8d1d6c9a77fee6efce67c82da654a919193596c81ede2b27ee839f474fc'
+            '67f4f6b9c3891923b01b409bca2bf759fe30a40804e61fe089d1e01d2640d1fa4da15c6064ffd69d29419aa9c05d22c72e74d38c7b0563c06657f7f9c4e2bd4d'
+            'f7754102e88fef14013f539829ce8b1d295d7731fad0ebd7473f492e80a053766f9a3b082c3b3f72160f45ab6fc99d529e40694d601846ea713fe2dba32eb789'
+            'eee53cdaae489af164e312f6d3b2c9fcf847ffba2f2353c0f3cec3b6a820a012b7fc359e8f99301894f62c909f186e795ef4ffa12e93686bf03d9e8766d9507b'
+            'f8857ccef775b1e987e92990c07841cd1aca345a5c955026d62a274964a659a3592efce024f8a8551ea80264e06748d186dd530485d0a0cc061423ca2dd1dae6'
+            '6f8f2bbd8db2506d7349ed1a3669d890b029384b14c5f8ed02075e8b71084aa511f43b782f30cc5c186b0d179f9243e802e66fc7f3ce9a0fcbc20d6238e9cbce'
+            '82176689885bea3f3fcf02d1231e1f7807019273598c7ba80e0f893ab53c4403ecfa42616fef1c7a66e1490d7b71e0c96182e4082f1c20843fd2bedb9b7d2302'
+            'b999cc911943a178a0447287dd5f48edc9d97820714dafa1790dd4a08740e2a842177902d05e3e93f30e3a3c7a576215c9c06490c048ed9762fec2fdea2827c1'
+            '8e71bebbfb0fa48e9c38d86cfc90e63224ce2b0f0c69cec5186f90ef04af7e87c728f452662e0ecac02a4346514c9c05007e7181b407a3055967580cbc290a37'
+            'd41ffca62084badbeaaa34e6df78b2e17a11a1185376039d0509a8ea789162aa194bdc19fbb6a5a219c62a9885a37defbc8ae3fc3b4bd5f822a4988d11b9c1ab'
+            '74a613e6df0aaf018659362314888b9f58285e99eda2db16d15c04d3f291d9add78bc998a9940f8ad7dbdf61b6cff60bf370e6bf50c6f80c599a0ff094ce7b60'
+            '389b7294b60436a54d6569695f2049038305e4fdd9305958b57f7b3cd033d161be0fd0ce6bc25c59eb7c1c4bbed18a513f3834d9d9b2332bc14547f5c4dc610b'
+            '3ee02e0d14868c78bbb36f8ad345ba28d3d765978542256eb4eba2848c5d2ac976573509e10562f14cec514305de3bd9809f83db8c758f260b4f8c0e0581f813'
+            'd562c7f76ba6f7d4660cff2041d49c575288725b60d0c78c1849c08a46564359fb2717488426577db9c1a28a1b9fa42e1cdb2b021c9022b255d1effe52b13923'
+            '1d5fb242d567ee88a7f9e422d395e390b59690e9b5d86c80eaeb0a039089ec1f5f5a30f51285770d25c9ae26d6d89647bdee466444dd543777669b86bdc2b8f2'
+            'ec95da3330429d171120786dba00505195122dd921c5860f395e2d27aa7b36da08992918ffc69083e67ad5618f1e5ac8734a3b24423f02df2205105cb267484b'
+            'b9ff962f19f7ac136e5ba347632804ed11303352520f3299d35881909daba86c0e1092406a1a377be67a8332235758346b9be0d8c4804141238dc594e52c0706'
+            'c697e3b2f7bf3e3940b73ea979c5eb06c2ba08a3e266687d2a7ce2a3a7970b0ea435bbf37e155a2b131845106870a96ada2fffa6a26579759bc16fa2b69f7f90'
+            '528c008e1226cc3db92c1167aa4b3b67ff476a6f81ac7646e1cc90a59d85f84089b1bbad2050998e2e5d22266991bc506af5bc7847f6904037d8cea43f9c4854'
+            '8f9c3ae246d130a46170f3d7df00a9d0c7c5b701d2ee75fd6762796d51cc7f6ce0501ca09f1b4a2536f9fe3c8c8a1a0034ec8365af9212eb5db74523067f9403')
+
+# vim:set sw=2 et:

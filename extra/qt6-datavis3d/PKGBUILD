@@ -1,0 +1,31 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=qt6-datavis3d
+_qtver=6.5.1
+pkgver=${_qtver/-/}
+pkgrel=1
+arch=(x86_64)
+url='https://www.qt.io'
+license=(GPL3 LGPL3 FDL custom)
+pkgdesc='Qt6 Data Visualization module'
+depends=(qt6-base)
+makedepends=(cmake ninja qt6-declarative)
+optdepends=('qt6-declarative: QML bindings')
+groups=(qt6)
+_pkgfn=${pkgname/6-/}-everywhere-src-$_qtver
+source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz)
+sha256sums=('52332abc3131c518fc73cd64e3562bc7ba45b4532fdc5f1249c983c7575da333')
+
+build() {
+  cmake -B build -S $_pkgfn -G Ninja \
+    -DCMAKE_MESSAGE_LOG_LEVEL=STATUS
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  install -d "$pkgdir"/usr/share/licenses
+  ln -s /usr/share/licenses/qt6-base "$pkgdir"/usr/share/licenses/$pkgname
+}

@@ -1,0 +1,37 @@
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: Andreas Radke <andyrtr@archlinux.org>
+# Contributor: aurelien <aurelien@archlinux.org>
+# Contributor: Tobias Kieslich <tobias (at) archlinux.org>
+
+pkgname=xfce4-mpc-plugin
+pkgver=0.5.3
+pkgrel=1
+pkgdesc="Control the Music Player Daemon from the Xfce4 panel"
+arch=('x86_64')
+url="https://docs.xfce.org/panel-plugins/xfce4-mpc-plugin"
+license=('BSD')
+groups=('xfce4-goodies')
+depends=('xfce4-panel' 'libmpd')
+makedepends=('intltool')
+source=(https://archive.xfce.org/src/panel-plugins/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
+sha256sums=('0467fb4d1acd982d3c3e0b89cb41019946850524ff19ed0f658a8d56c7b7664d')
+
+build() {
+  cd $pkgname-$pkgver
+
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-debug
+  make
+}
+
+package(){
+  cd $pkgname-$pkgver
+
+  make DESTDIR="$pkgdir" install
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
+
+# vim:set ts=2 sw=2 et:

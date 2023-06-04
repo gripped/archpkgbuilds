@@ -1,0 +1,28 @@
+# Maintainer: Sven-Hendrik Haase <sh@lutzhaase.com>
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+# Contributor: Donald Carr <sirspudd@gmail.com>
+# Contributor: Jake Petroules <jake.petroules@qt.io>
+
+pkgname=qbs
+pkgver=2.0.1
+pkgrel=1
+pkgdesc='Cross platform build tool'
+arch=(x86_64)
+url='https://wiki.qt.io/Qbs'
+license=(LGPL)
+depends=(qt6-5compat)
+makedepends=(cmake)
+source=(https://download.qt.io/official_releases/qbs/$pkgver/qbs-src-$pkgver.tar.gz)
+sha256sums=('475a170fc4a117c2a93b30356f3c884eb73059b2cb06fed9f090a5f679aa5555')
+
+build() {
+  cmake -B build -S $pkgname-src-$pkgver \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DWITH_TESTS=OFF \
+    -DQBS_LIBEXEC_INSTALL_DIR=lib/qbs
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}

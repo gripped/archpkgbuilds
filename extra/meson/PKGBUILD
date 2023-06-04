@@ -1,0 +1,117 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: Anatol Pomozov <anatol dot pomozov at gmail>
+
+pkgname=meson
+pkgver=1.1.1
+pkgrel=1
+pkgdesc="High productivity build system"
+url="https://mesonbuild.com/"
+arch=(any)
+license=(Apache)
+depends=(
+  ninja
+  python-tqdm
+  python-typing_extensions
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  boost
+  clang
+  cmake
+  cuda
+  cython
+  doxygen
+  gcc-fortran
+  gcc-objc
+  git
+  gmock
+  gnustep-base
+  gobject-introspection
+  graphviz
+  gtest
+  gtk-doc
+  gtk-sharp-2
+  gtk3
+  gtkmm3
+  hotdoc
+  itstool
+  java-environment=8
+  ldc
+  libelf
+  libwmf
+  llvm
+  mercurial
+  mono
+  nasm
+  netcdf-fortran
+  openmpi
+  openssh
+  protobuf
+  python-gobject
+  python-pytest-xdist
+  qt5-base
+  qt5-tools
+  rust
+  rust-bindgen
+  sdl2
+  vala
+  valgrind
+  vulkan-validation-layers
+  wxgtk3
+)
+source=(
+  https://github.com/mesonbuild/meson/releases/download/$pkgver/meson-$pkgver.tar.gz{,.asc}
+  meson-reference-$pkgver.3::https://github.com/mesonbuild/meson/releases/download/$pkgver/meson-reference.3
+  meson-reference-$pkgver.json::https://github.com/mesonbuild/meson/releases/download/$pkgver/reference_manual.json
+  0001-Skip-broken-tests.patch
+  arch-meson
+)
+b2sums=('295b46d19c8a1d64d326a6c826e2abe11d9768902ed2f8816df18677e7f3f58decc0c660925821825ecd9a4955a65bda8b2aa66a7bb1961810d8f78f92a3fd8a'
+        'SKIP'
+        '667fa519da08ffbb6befe7fce3db7e3df44bc722c0c7b679fd4369f59afa20a886cea2ed0d3d2c7d7973696e9a57d61c66f0b3a9cfb6e881ceb5f7ee7a26175c'
+        '4661d7b9643eec3d73af156f8401cadfcc6798e966fbd1bb40b5f87e3a72297e27259a9fa1d32f54806fe16fd129ed142910d30661e7c9a33f666ff7261b5e1d'
+        '742e2c16c6c464e939f68ec7f58951836a75a0fc0170ada25826e7dbc7191bd289f66bfe683941a5ff98d102fd54aeda2c407e9d2ab4276cf607a82ab948093b'
+        '801ad7689aabd2861c760d6001ce2e84c3d5aaed867b087bc1699e7c15d914ee26c9d855999f389d28b4765f081523a1468755768bc0163185f132e157ecced1')
+validpgpkeys=(
+  19E2D6D9B46D8DAA6288F877C24E631BABB1FE70  # Jussi Pakkanen <jpakkane@gmail.com>
+)
+
+prepare() {
+  cd $pkgname-$pkgver
+  patch -Np1 -i ../0001-Skip-broken-tests.patch
+}
+
+build() {
+  cd $pkgname-$pkgver
+  python -m build --wheel --no-isolation
+}
+
+check() (
+  cd $pkgname-$pkgver
+  export LC_CTYPE=en_US.UTF-8 CPPFLAGS= CFLAGS= CXXFLAGS= LDFLAGS=
+  ./run_tests.py --failfast
+)
+
+package() {
+  cd $pkgname-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  install -d "$pkgdir/usr/share/vim/vimfiles"
+  cp -rt "$pkgdir/usr/share/vim/vimfiles" data/syntax-highlighting/vim/*/
+
+  install -Dm644 data/shell-completions/bash/* -t "$pkgdir/usr/share/bash-completion/completions"
+  install -Dm644 data/shell-completions/zsh/*  -t "$pkgdir/usr/share/zsh/site-functions"
+
+  install -Dm644 ../meson-reference-$pkgver.3    "$pkgdir/usr/share/man/man3/meson-reference.3"
+  install -Dm644 ../meson-reference-$pkgver.json "$pkgdir/usr/share/doc/$pkgname/reference_manual.json"
+
+  install -D ../arch-meson -t "$pkgdir/usr/bin"
+}
+
+# vim:set sw=2 sts=-1 et:

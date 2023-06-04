@@ -1,0 +1,18 @@
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -51,14 +51,5 @@ pytest = "7.3.1"
+ types-docutils = "0.19.1.8"
+ 
+ [build-system]
+-requires = ["poetry-core>=1.0.0", "poetry-plugin-tweak-dependencies-version", "poetry-dynamic-versioning"]
++requires = ["poetry-core>=1.0.0"]
+ build-backend = "poetry.core.masonry.api"
+-
+-[tool.poetry-plugin-tweak-dependencies-version]
+-default = "present"
+-sphinx = "major"
+-
+-[tool.poetry-dynamic-versioning]
+-enable = true
+-vcs = "git"
+-pattern = "^((?P<epoch>\\d+)!)?(?P<base>\\d+(\\.\\d+)*)"

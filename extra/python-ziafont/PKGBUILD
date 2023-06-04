@@ -1,0 +1,31 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-ziafont
+pkgver=0.6
+pkgrel=1
+pkgdesc="Convert TTF/OTF font glyphs to SVG paths"
+url="https://ziafont.readthedocs.io/"
+license=('MIT')
+arch=('any')
+depends=('python')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+checkdepends=('python-nbval' 'python-pytest-runner')
+source=("https://github.com/cdelker/ziafont/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('f7aca3fad32c7d773e79594f988d2ad88f37af05e3b4007ede03f2bf4ac20ff965acb25e61676ec1fd9d0db2b8cb1f39650226f58d09678d21eed714de291eed')
+
+build() {
+  cd ziafont-$pkgver
+  python -m build -nw
+}
+
+check() {
+  cd ziafont-$pkgver
+  PYTHONPATH="$PWD" pytest --nbval || echo "Tests failed"
+}
+
+package() {
+  cd ziafont-$pkgver
+  python -m installer -d "$pkgdir" dist/*.whl
+
+  install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
+}

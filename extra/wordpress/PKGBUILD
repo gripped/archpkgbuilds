@@ -1,0 +1,29 @@
+# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Contributor: Thomas Dziedzic <gostrc@gmail.com>
+# Contributor: Jose Valecillos <valecillosjg@gmail.com>
+# Contributor: Kaos <gianlucaatlas@gmail.com>
+# Contributor: Christopher Rogers <slaxemulator@gmail.com>
+
+pkgname=wordpress
+pkgver=6.2.2
+pkgrel=1
+pkgdesc='Blog tool and publishing platform'
+arch=(any)
+url='https://wordpress.org/'
+license=(GPL)
+depends=(php)
+optdepends=('apache: Web server'
+            'mariadb: Database server'
+            'nginx: Web server')
+options=(!debug emptydirs)
+install=$pkgname.install
+source=("https://wordpress.org/$pkgname-$pkgver.tar.gz")
+sha256sums=('d2aa6f3dab866de3f530b1e6cfa808b497fcd04aedb3b13bc76f1333d02600f9')
+b2sums=('36d6a1c5fbc185a33a6ce497d38f2c7a895db28daa35c0440c1797fbb3e24eea7364b334e7d9299f34ec535bd7abfd95a5d043540a7f55f53986dd0789f5d9b8')
+
+package() {
+  install -d "$pkgdir/usr/share/webapps"
+  cp -r $pkgname "$pkgdir/usr/share/webapps"
+}
+
+# getver: core.trac.wordpress.org/timeline?milestone=on

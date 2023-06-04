@@ -1,0 +1,40 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: Caltlgin Stsodaat <contact@fossdaily.xyz>
+
+pkgname=xortool
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='Tool to analyze multi-byte XOR cipher'
+url='https://github.com/hellman/xortool'
+arch=('any')
+license=('MIT')
+depends=('python' 'python-docopt' 'python-importlib-metadata')
+makedepends=('python-build' 'python-installer' 'python-poetry-core')
+source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('e108258f10bd77d084294ea0cb99bf6d27904e5f7b38db5cc88a5760aa757a86b3c74cdbc2322f2bfce5cb5a414fd9db6f8672677d3258d07325136b2080896d')
+b2sums=('33bb121bf386ebcefa5dc48604242e9586e6aedbe8df24bb7407eab90130df8c47d64d4f5cc86b085d1f34b0621ad61e84009549a02dc90bb746e1d9e2d7562c')
+
+build() {
+  cd ${pkgname}-${pkgver}
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd ${pkgname}-${pkgver}
+  export LANG=en_US.UTF-8
+  export LC_CTYPE=en_US.UTF-8
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  PATH="$PWD/test-env/bin:$PATH" \
+  PYTHONPATH="$PWD" \
+  ./test/test.sh
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  python -m installer --destdir="${pkgdir}" dist/*.whl
+# install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:

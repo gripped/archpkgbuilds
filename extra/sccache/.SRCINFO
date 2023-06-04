@@ -1,0 +1,20 @@
+pkgbase = sccache
+	pkgdesc = Shared compilation cache
+	pkgver = 0.5.1
+	pkgrel = 1
+	url = https://github.com/mozilla/sccache
+	arch = x86_64
+	license = Apache
+	makedepends = git
+	makedepends = rust
+	depends = gcc-libs
+	depends = glibc
+	depends = openssl
+	depends = zlib
+	depends = zstd
+	optdepends = memcached: Memcached support
+	optdepends = redis: Redis support
+	source = git+https://github.com/mozilla/sccache.git#tag=81d886764c89ad194b14f0a1af794537606a2623
+	b2sums = SKIP
+
+pkgname = sccache

@@ -1,0 +1,33 @@
+# Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+# Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
+# Contributor: Andrea Scarpino <andrea@archlinux.org>
+# Contributor: Giovanni Scafora <giovanni@archlinux.org>
+# Contributor: Alexander Fehr <pizzapunk@gmail.com>
+# Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
+
+pkgname=poedit
+epoch=1
+pkgver=3.3.1
+pkgrel=1
+pkgdesc="Cross-platform gettext catalogs (.po files) editor"
+arch=('x86_64')
+url="https://www.poedit.net/"
+license=('MIT')
+depends=('gtkspell3' 'lucene++' 'wxwidgets-gtk3' 'webkit2gtk')
+makedepends=('boost')
+source=(https://github.com/vslavik/poedit/releases/download/v$pkgver-oss/poedit-${pkgver}.tar.gz)
+sha256sums=('4a8af5c37be152ebab012ebf5c7e21aec3e3c692be34deaf00c78216e901b926')
+
+build() {
+  cd ${pkgname}-${pkgver}
+
+  ./configure --prefix=/usr --libexecdir=/usr/lib/poedit
+  make CPPFLAGS+=' -DUCHAR_TYPE=uint16_t'
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 COPYING "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+}

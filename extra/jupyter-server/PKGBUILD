@@ -1,0 +1,39 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+pkgname=jupyter-server
+pkgver=2.6.0
+pkgrel=1
+pkgdesc='Provides the backend for Jupyter web applications like Jupyter notebook, JupyterLab, and Voila'
+arch=(any)
+url='https://jupyter.org/'
+license=(custom)
+depends=(python-jupyter_client jupyter-nbformat jupyter-nbconvert python-prometheus_client python-traitlets python-tornado
+         python-jinja python-send2trash python-anyio python-websocket-client python-argon2_cffi python-jupyter-events python-overrides)
+makedepends=(python-build python-installer python-hatch-jupyter-builder)
+checkdepends=(python-pytest-tornasync python-pytest-console-scripts python-pytest-timeout python-pytest-jupyter python-jupyter-server-terminals)
+optdepends=('jupyter-server-mathjax: to use local MathJax' 'python-jupyter-server-terminals: terminals support')
+source=(https://pypi.io/packages/source/j/${pkgname/-/_}/${pkgname/-/_}-$pkgver.tar.gz)
+sha256sums=('ae4af349f030ed08dd78cb7ac1a03a92d886000380c9ea6283f3c542a81f4b06')
+
+prepare() {
+  cd ${pkgname/-/_}-$pkgver
+  sed -e '/jupyter_server_terminals/d' -i pyproject.toml # Prevent cyclic dependencies
+}
+
+build() {
+  cd ${pkgname/-/_}-$pkgver
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd ${pkgname/-/_}-$pkgver
+# Skip tests that fail on the build server
+  pytest -v -k 'not test_api.py and not test_authorized_requests'
+}
+
+package() {
+  cd ${pkgname/-/_}-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+}

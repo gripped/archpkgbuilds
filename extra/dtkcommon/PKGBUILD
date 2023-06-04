@@ -1,0 +1,28 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=dtkcommon
+pkgver=5.6.9
+pkgrel=1
+pkgdesc='DTK common files'
+arch=('any')
+url="https://github.com/linuxdeepin/dtkcommon"
+license=('LGPL3')
+depends=('dconf')
+makedepends=('cmake' 'ninja')
+source=("https://github.com/linuxdeepin/dtkcommon/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('33bc794ff5fc80f7c39e6991467a5bba322a4170aec33df0a5b90201b19ab13765af0a56f5fbb866c8b56326d08989594490f17612a6307e658c2723034b9399')
+
+build() {
+  cd dtkcommon-$pkgver
+  cmake . -GNinja \
+    -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DMKSPECS_INSTALL_DIR=/usr/lib/qt/mkspecs/ \
+    -DCMAKE_INSTALL_PREFIX=/usr  \
+    -DDVERSION=$pkgver
+  ninja
+}
+
+package() {
+  cd dtkcommon-$pkgver
+  DESTDIR="$pkgdir" ninja install
+}

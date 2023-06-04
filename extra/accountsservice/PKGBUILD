@@ -1,0 +1,74 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Contributor: Ionut Biru <ibiru@archlinux.org>
+
+pkgname=accountsservice
+pkgver=23.13.9
+pkgrel=1
+pkgdesc="D-Bus interface for user account query and manipulation"
+url="https://gitlab.freedesktop.org/accountsservice/accountsservice"
+arch=(x86_64)
+license=(GPL3)
+depends=(
+  glib2
+  libxcrypt
+  polkit
+  shadow
+  systemd
+)
+makedepends=(
+  docbook-xsl
+  git
+  gobject-introspection
+  gtk-doc
+  meson
+  vala
+  xmlto
+)
+checkdepends=(
+  python-dbusmock
+  python-gobject
+)
+_commit=57e491f5e6f3da2d5a949f4f8747c8f4e8ed799d  # tags/23.13.9^0
+source=(
+  "git+https://gitlab.freedesktop.org/accountsservice/accountsservice.git#commit=$_commit"
+)
+b2sums=('SKIP')
+
+pkgver() {
+  cd $pkgname
+  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+}
+
+
+prepare() {
+  cd $pkgname
+}
+
+build() {
+  local meson_options=(
+    -D admin_group=wheel
+    -D docbook=true
+    -D gtk_doc=true
+  )
+
+  arch-meson $pkgname build "${meson_options[@]}"
+  meson compile -C build
+}
+
+check() {
+  # Tests fail: build containers lack en_GB.UTF-8
+  meson test -C build --print-errorlogs || :
+}
+
+package() {
+  depends+=(
+    libcrypt.so
+    libg{lib,object,io}-2.0.so
+    libsystemd.so
+  )
+  provides+=(libaccountsservice.so)
+
+  meson install -C build --destdir "$pkgdir"
+}
+
+# vim:set sw=2 sts=-1 et:

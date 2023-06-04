@@ -1,0 +1,32 @@
+# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Contributor: Levente Polyak <anthraxx@archlinux.org>
+# Contributor: Sven-Hendrik Haase <sh@lutzhaase.com>
+# Contributor: Frank Tetzel <frank.tetzel@mailbox.tu-dresden.de>
+# Contributor: Hugo Doria <hugo@archlinux.org>
+# Contributor: Aurelien Foret <orelien@chez.com>
+
+pkgname=zsnes
+pkgver=2.0.12
+pkgrel=1
+pkgdesc='Super Nintendo emulator'
+url='https://github.com/xyproto/zsnes'
+arch=(x86_64)
+license=(GPL2)
+makedepends=(git mesa nasm setconf)
+depends=(lib32-libpng lib32-opengl-driver lib32-sdl)
+optdepends=('lib32-alsa-lib: sound support for ALSA'
+            'lib32-libpulse: sound support for Pulse Audio')
+source=("git+$url#commit=fb8713efa2807dc56b0e3e88bbb09a62ca22bcfb") # tag: 2.0.12
+b2sums=('SKIP')
+
+build() {
+  export CFLAGS=${CFLAGS/-fcf-protection/}
+  export CXXFLAGS=${CXXFLAGS/-fcf-protection/}
+  export CFLAGS=${CFLAGS/-Wp,-D_FORTIFY_SOURCE=2/}
+  export CXXFLAGS=${CXXFLAGS/-Wp,-D_FORTIFY_SOURCE=2/}
+  make -C $pkgname
+}
+
+package() {
+  DESTDIR="$pkgdir" make -C $pkgname install
+}

@@ -1,0 +1,49 @@
+# Maintainer: BlackIkeEagle <ike DOT devolder AT gmail DOT com>
+# Contributor: Cedric Girard <cgirard.archlinux@valinor.fr>
+# Contributor: kevku <kevku@gmx.com>
+
+pkgname=kodi-addon-inputstream-adaptive
+pkgver=20.3.9
+_codename=Nexus
+pkgrel=1
+pkgdesc="InputStream client for adaptive streams for Kodi 18+"
+arch=('x86_64')
+url="https://github.com/peak3d/inputstream.adaptive"
+license=('GPL2')
+groups=('kodi-addons' 'kodi-addons-inputstream')
+makedepends=('cmake' 'kodi-dev' 'gtest')
+options=(!lto)
+
+_bento4_version="1.6.0-639-6"
+
+source=("$pkgname-$pkgver.tar.gz::https://github.com/peak3d/inputstream.adaptive/archive/$pkgver-$_codename.tar.gz"
+        "$pkgname-bento4-$_bento4_version.tar.gz::https://github.com/xbmc/Bento4/archive/refs/tags/$_bento4_version-$_codename.tar.gz"
+        "0001-Fix-error-uint-_t-has-not-been-declared-with-gcc-13.patch")
+noextract=("$pkgname-bento4-$_bento4_version.tar.gz")
+sha512sums=('95045e4438ee02f0fb95908e36e9e4812b5674eea167cd72ad5e75e0009f21e837cb0cc803be13b90b67318f9ef8f3c1b6ede518a8484223861ced8480240127'
+            '08c359fb75f42d095ae040fb4dff020c902ba24677a95360fb845245ba3881423961bff6c8f0d2a791d387aa58ebe50b4998bedb866e0b7b58321bf8cdd4b1c3'
+            'abb232a196dbf9fe133d6901372c5a4bb197308077b07b50e394403fd81f0d044d668d611ed5c73bf69e48d2decb7e1815b420e4bf5ca30040e7c85594f77570')
+
+prepare() {
+    cd "inputstream.adaptive-$pkgver-$_codename"
+    patch -p1 -i "$srcdir/0001-Fix-error-uint-_t-has-not-been-declared-with-gcc-13.patch"
+}
+
+build() {
+    cd "inputstream.adaptive-$pkgver-$_codename"
+    cmake \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DBUILD_SHARED_LIBS=1 \
+        -DUSE_LTO=1 \
+        -DENABLE_INTERNAL_BENTO4=1 \
+        -DBENTO4_URL="$srcdir/$pkgname-bento4-$_bento4_version.tar.gz" \
+        .
+    make
+}
+
+package() {
+    depends=('kodi' 'kodi-platform')
+    cd "inputstream.adaptive-$pkgver-$_codename"
+    make DESTDIR="$pkgdir/" install
+}

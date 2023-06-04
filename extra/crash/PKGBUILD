@@ -1,0 +1,31 @@
+# Maintainer: Anatol Pomozov <anatol.pomozov@gmail.com>
+# Contributor: Bernhard Walle <bernhard.walle@gmx.de>
+# Contributor: Michael Eckert <michael.eckert@linuxmail.org>
+# Contributor: Mathieu Pasquet <mathieui@mathieui.net>
+
+pkgname=crash
+pkgver=8.0.3
+pkgrel=1
+pkgdesc='Linux kernel crashdump analysis tool'
+url='https://crash-utility.github.io/'
+arch=(x86_64)
+license=(GPL)
+depends=(xz ncurses zlib libelf guile mpfr)
+makedepends=(wget)
+optdepends=('binutils: offline vmcore loading functionality')
+source=(crash-$pkgver.tar.gz::https://github.com/crash-utility/crash/archive/refs/tags/$pkgver.tar.gz)
+sha256sums=('22750c927286296e574991edfa9e7bf43bfe4bf9f1163615f08b210854bcb2bd')
+
+build() {
+  cd crash-$pkgver
+  CPPFLAGS+=' -O2' # to fix https://github.com/crash-utility/crash/issues/87
+  make
+}
+
+package() {
+  cd crash-$pkgver
+
+  mkdir -p "$pkgdir"/usr/bin "$pkgdir"/usr/share/man/man8
+  install crash "$pkgdir"/usr/bin/
+  install crash.8 "$pkgdir"/usr/share/man/man8/
+}

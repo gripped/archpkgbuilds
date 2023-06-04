@@ -1,0 +1,37 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Thore Bödecker <foxxx0@archlinux.org>
+# Contributor: Matmas <matmas@matmas.net>
+# Contributor: Thomas Gubler <thomasgubler@gmail.com>
+# Contributor: Daniel YC Lin <dlin.tw at gmail>
+# Contributor: Florian Bruhin <archlinux.org@the-compiler.org>
+
+pkgname=python-websocket-client
+pkgver=1.5.2
+pkgrel=1
+pkgdesc="WebSocket client library for Python"
+arch=('any')
+url="https://github.com/websocket-client/websocket-client"
+license=('LGPL')
+depends=('python')
+makedepends=('python-setuptools')
+checkdepends=('python-pytest')
+source=("https://pypi.io/packages/source/w/websocket-client/websocket-client-$pkgver.tar.gz")
+sha512sums=('0837dae6ea1096421482dc1882e522d9e9041d9777ef31517116592f7b537735d1d8e319e910481be4abaceda8f79855397e4dfce2c9e622d7e7b6e6577e404e')
+
+build() {
+  cd websocket-client-$pkgver
+  python setup.py build
+}
+
+check() {
+  cd websocket-client-$pkgver
+  pytest
+}
+
+package() {
+  cd websocket-client-$pkgver
+  python setup.py install --root="$pkgdir" --optimize=1
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+# vim:set ts=2 sw=2 ft=sh et:

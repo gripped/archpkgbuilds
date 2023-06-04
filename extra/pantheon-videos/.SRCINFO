@@ -1,0 +1,32 @@
+pkgbase = pantheon-videos
+	pkgdesc = The Pantheon Video Player
+	pkgver = 2.9.1
+	pkgrel = 1
+	url = https://github.com/elementary/videos
+	arch = x86_64
+	groups = pantheon
+	license = GPL3
+	makedepends = git
+	makedepends = intltool
+	makedepends = meson
+	makedepends = vala
+	depends = clutter
+	depends = clutter-gst
+	depends = clutter-gtk
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = gst-plugins-base-libs
+	depends = gstreamer
+	depends = gtk3
+	depends = libgee
+	depends = libgranite.so
+	depends = libhandy-1.so
+	depends = libx11
+	optdepends = gst-plugins-base: "Base" plugin libraries
+	optdepends = gst-plugins-good: "Good" plugin libraries
+	optdepends = gst-plugins-bad: "Bad" plugin libraries
+	optdepends = gst-plugins-ugly: "Ugly" plugin libraries
+	source = pantheon-videos::git+https://github.com/elementary/videos.git#tag=ea1e388a7d7c4e612e9a6f448905c8f2c0310bad
+	sha256sums = SKIP
+
+pkgname = pantheon-videos

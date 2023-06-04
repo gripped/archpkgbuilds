@@ -1,0 +1,19 @@
+pkgbase = tomcat-native
+	pkgdesc = Optional component for Tomcat to use certain native resources for performance, compatibility
+	pkgver = 2.0.4
+	pkgrel = 1
+	url = https://tomcat.apache.org/native-doc/
+	arch = x86_64
+	license = APACHE
+	makedepends = git
+	makedepends = java-environment
+	makedepends = python
+	depends = apr
+	depends = openssl
+	options = !emptydirs
+	source = git+https://github.com/apache/tomcat-native.git#tag=2f080011a624527420c202331c0eb4880c7cc035
+	source = tomcat-native-buildconf.patch
+	b2sums = SKIP
+	b2sums = d3603079626b908644331c193452088ef3ce89e92c775c60b232d16d04b8c49d40106d55c76f81c87daea93d335868140df0046c7102796d92b08431ac8749a4
+
+pkgname = tomcat-native

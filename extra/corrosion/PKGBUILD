@@ -1,0 +1,26 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+# Contributor: Vaporeon <vaporeon@vaporeon.io>
+
+pkgname=corrosion
+pkgver=0.4.1
+pkgrel=1
+pkgdesc='Tool for integrating Rust into an existing CMake project'
+arch=(x86_64)
+url='https://github.com/corrosion-rs/corrosion'
+license=(MIT)
+depends=(rust cmake)
+source=(https://github.com/corrosion-rs/corrosion/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('578747db4225acfccb2c251dd251212a0adcdd609fe59be5479cd63080e011e6')
+
+build() {
+  cmake -B build -S $pkgname-$pkgver \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBEXECDIR=lib \
+    -DCORROSION_BUILD_TESTS=OFF
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 $pkgname-$pkgver/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+}

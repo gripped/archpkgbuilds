@@ -1,0 +1,33 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=gitoxide
+pkgver=0.25.0
+pkgrel=1
+pkgdesc="An idiomatic, lean, fast & safe pure Rust implementation of Git"
+url='https://github.com/Byron/gitoxide'
+arch=('x86_64')
+license=('MIT' 'Apache-2.0')
+makedepends=('cargo' 'cmake')
+options=(!lto)
+source=(https://github.com/Byron/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('098bb18e1cae42ab7597b6b442538d3f51b57935a848ea121e20e2921d6a4693')
+b2sums=('77edb8900151b5397c929effdec33d1367bc91a63f8510abc281e7e78cde73e9c5594d4f816e8b71566e2725588cf3aa089012c8f7ff01ea00285ed245245146')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd ${pkgname}-${pkgver}
+  cargo build --frozen --release --no-default-features --features max-pure
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm 755 -t "${pkgdir}/usr/bin" \
+    target/release/gix \
+    target/release/ein
+}
+
+# vim: ts=2 sw=2 et:

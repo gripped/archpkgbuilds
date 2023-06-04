@@ -1,0 +1,56 @@
+# Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
+
+pkgname='vcspull'
+pkgver=1.20.3
+pkgrel=2
+pkgdesc='Synchronize projects via yaml/json manifest. Built using `libvcs`'
+arch=('any')
+url='https://vcspull.git-pull.com/'
+license=('MIT')
+depends=('python' 'python-colorama' 'python-libvcs' 'python-shtab' 'python-yaml')
+makedepends=('python-build' 'python-installer' 'python-poetry-core' 'python-typing_extensions')
+checkdepends=('git' 'python-pytest' 'python-pytest-rerunfailures')
+optdepends=(
+  'bash-completion: for command line completion in bash'
+)
+source=("https://github.com/vcs-python/vcspull/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('1f83e93586ddbd0dbf82baf0e91e4b0194cbb6dcc8b084488d87a2107b8cf9bbd6aa27000de91aa97ed073574100231e35e08bafec4e5d87f6534c035d554f54')
+b2sums=('7a6151233a265f0af84c146a981ad40e9e24832924bd8b4c07f1278b595580d0f95f9df90d50dd136e96b36f6e2f73a29ba6ce672aec929a1447948f1fe4e2ec')
+
+build() {
+  cd  "${pkgname}-${pkgver}"
+
+  local _site_packages="$(python -c "import site; print(site.getsitepackages()[0])")"
+
+  python -m build --wheel --skip-dependency-check --no-isolation
+  python -m installer --destdir=tmp_install dist/*.whl
+
+  export PYTHONPATH="tmp_install${_site_packages}:${PYTHONPATH}"
+}
+
+check() {
+  cd  "${pkgname}-${pkgver}"
+
+  pytest -vv tests
+}
+
+package() {
+  cd  "${pkgname}-${pkgver}"
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
+
+  install --verbose --directory --mode=0755 \
+      "${pkgdir}/usr/share/bash-completion/completions" \
+      "${pkgdir}/usr/share/zsh/site-functions" \
+      "${pkgdir}/etc/profile.d"
+
+  shtab --shell=bash --error-unimportable vcspull.cli.create_parser > "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
+  shtab --shell=zsh --error-unimportable vcspull.cli.create_parser > "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
+  shtab --shell=tcsh --error-unimportable vcspull.cli.create_parser > "${pkgdir}/etc/profile.d/${pkgname}.completion.csh"
+
+  install --verbose -D --mode=0644 LICENSE --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md CHANGES MIGRATION --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
+  install --verbose -D --mode=0644 examples/* --target-directory "${pkgdir}/usr/share/doc/${pkgname}/examples"
+}
+
+# vim: tabstop=2 shiftwidth=2 expandtab:

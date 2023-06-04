@@ -1,0 +1,58 @@
+# Maintainer: kpcyrd <git@rxv.cc>
+
+pkgname=diesel-cli
+pkgver=2.1.0
+pkgrel=1
+pkgdesc="CLI for the Diesel crate"
+arch=('x86_64')
+url="https://diesel.rs/"
+license=('MIT' 'Apache')
+replaces=('diesel_cli')
+depends=('sqlite' 'postgresql-libs' 'libmariadbclient')
+makedepends=('cargo')
+source=(https://github.com/diesel-rs/diesel/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
+        Cargo.lock)
+sha512sums=('55636130b6b42a0d68d55c673e5ad9219a51519793597638cb374a89141c8617b0ad53f98e7890c540633af4ad64c7e23d8f2da1341ff21b22b0f183c07069a8'
+            '46f1074b08dfb95175d8a3a8f6a3abc398703ce520398b3aa372ceda0ec4ba934499bfc6aaad11da20fae473b928a8d3192e0b653587322c27f4e79bc321db8e')
+b2sums=('506502b814f2fb1d80b8efadcfa081628780edeac2ebd7be8b34bfcf5862d0af2a57c7e077c57f620265a28284aa094dd167c5d9fc7c36441788c036ffb15cd8'
+        'bb0a874679fc07c2f213c86f020aab3300b8bc07ed2be34d8aa8eba3ee8b7d598ea4e723069a786637834fbdda98dee23b61ad429cae93b65117f729cdaf81ce')
+
+prepare() {
+  cp Cargo.lock "diesel-${pkgver}"
+  cd "diesel-${pkgver}/diesel_cli"
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+updlockfiles() {
+  cd "diesel-${pkgver}"
+  rm -f Cargo.lock
+  cargo update
+  cp Cargo.lock "${outdir}/"
+}
+
+build() {
+  cd "diesel-${pkgver}/diesel_cli"
+  RUSTFLAGS="--cap-lints allow" cargo build --frozen --release
+}
+
+check() {
+  cd "diesel-${pkgver}/diesel_cli"
+  # tests require a debug build to be present
+  RUSTFLAGS="--cap-lints allow" cargo test --no-default-features --features sqlite
+}
+
+package() {
+  cd "diesel-${pkgver}"
+  install -Dm755 "target/release/diesel" "${pkgdir}/usr/bin/diesel"
+
+  install -d "${pkgdir}/usr/share/bash-completion/completions" \
+             "${pkgdir}/usr/share/zsh/site-functions" \
+             "${pkgdir}/usr/share/fish/vendor_completions.d"
+  "${pkgdir}/usr/bin/diesel" completions bash > "${pkgdir}/usr/share/bash-completion/completions/diesel"
+  "${pkgdir}/usr/bin/diesel" completions zsh > "${pkgdir}/usr/share/zsh/site-functions/_diesel"
+  "${pkgdir}/usr/bin/diesel" completions fish > "${pkgdir}/usr/share/fish/vendor_completions.d/diesel.fish"
+
+  install -Dm644 LICENSE-MIT -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+# vim:set ts=2 sw=2 et:

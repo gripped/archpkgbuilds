@@ -1,0 +1,28 @@
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
+pkgname=python-hcloud
+pkgver=1.20.0
+pkgrel=1
+pkgdesc="Official Hetzner Cloud python library"
+arch=('any')
+url="https://github.com/hetznercloud/hcloud-python"
+license=('MIT')
+replaces=('hcloud-python')
+provides=('hcloud-python')
+depends=('python-requests' 'python-dateutil' 'python-future')
+makedepends=('python-setuptools')
+source=("$pkgname"-$pkgver.tar.gz::https://github.com/hetznercloud/hcloud-python/archive/v${pkgver}.tar.gz)
+sha512sums=('b17abc716ae6f7c78803096f2fd887e47ee746fccbe299cc434b7f445abdd7818e445d186f5adacc715971e2ebe2e92551cdb08aa1891ed58d8f443ea3be61fb')
+
+build() {
+  cd "$srcdir/hcloud-python-$pkgver"
+
+  python setup.py build
+}
+
+package() {
+  cd "$srcdir/hcloud-python-$pkgver"
+
+  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+}
+
+# vim:set ts=2 sw=2 et:

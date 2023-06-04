@@ -1,0 +1,34 @@
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: AndyRTR <andyrtr@archlinux.org>
+# Contributor: Tobias Kieslich <tobias (at) archlinux.org>
+
+pkgname=xfce4-timer-plugin
+pkgver=1.7.2
+pkgrel=1
+pkgdesc="Plugin to track time for the Xfce4 panel"
+arch=('x86_64')
+url="https://docs.xfce.org/panel-plugins/xfce4-timer-plugin"
+license=('GPL2')
+groups=('xfce4-goodies')
+depends=('xfce4-panel')
+makedepends=('intltool')
+source=(https://archive.xfce.org/src/panel-plugins/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
+sha256sums=('feb3b8c2d39505e816683540a3226bd7bda870ccbcb4c7d0f6abfeeff5c58b7d')
+
+build() {
+  cd $pkgname-$pkgver
+
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-debug
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
+}
+
+# vim:set ts=2 sw=2 et:

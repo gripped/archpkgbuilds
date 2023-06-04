@@ -1,0 +1,49 @@
+# Maintainer: Lukas Fleischer <lfleischer@archlinux.org>
+# Contributor: Ronald van Haren <ronald.archlinux.org>
+# Contributor: wain <wain.at.gmx.net>
+
+pkgname=calcurse
+pkgver=4.8.1
+pkgrel=1
+pkgdesc='A text-based personal organizer'
+arch=('x86_64')
+url='https://calcurse.org/'
+license=('BSD')
+depends=('ncurses')
+optdepends=(
+  'python: for CalDAV support'
+  'python-httplib2: for CalDAV support'
+  'python-pyparsing: for CalDAV support'
+  'python-oauth2client: for Google Calendar support'
+)
+source=("https://calcurse.org/files/${pkgname}-${pkgver}.tar.gz"{,.asc})
+sha512sums=('a0a0bcfceb28a4e363168711a3c2de8f6e94d7f12aa78ff40f157c247ea6a41646bd218a1defba2d128b131ed0ab71c4d417820a0af0adbaa215011b11f0a040'
+            'SKIP')
+b2sums=('0c34b85313c3414dffc08635f6f37feb0a1e0f6c03bcf3b71a6cc95ed8fb4430ab1339abce72850364251884d707acb6cbbed0143d930f8bb76310ca5951b779'
+        'SKIP')
+validpgpkeys=('2E36D8620221482FC45CB7F2A91764759326B440') # Lukas Fleischer <lfleischer@calcurse.org>
+
+build() {
+  cd "$pkgname-$pkgver"
+
+  ./configure \
+    --enable-docs \
+    --without-asciidoc \
+    --prefix=/usr \
+    --mandir=/usr/share/man
+
+  make
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  make check
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+
+  make DESTDIR="$pkgdir" install
+
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" COPYING
+}

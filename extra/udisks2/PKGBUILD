@@ -1,0 +1,37 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Ionut Biru <ibiru@archlinux.org>
+
+pkgname=udisks2
+pkgver=2.9.4
+pkgrel=3
+pkgdesc="Disk Management Service, version 2"
+arch=('x86_64')
+url="https://www.freedesktop.org/wiki/Software/udisks/"
+license=('GPL2')
+depends=('acl' 'polkit' 'glib2' 'gcc-libs' 'glibc' 'libatasmart' 'libgudev' 'libblockdev'
+         'systemd-libs' 'util-linux-libs')
+makedepends=('gobject-introspection' 'gtk-doc')
+backup=('etc/udisks2/udisks2.conf')
+source=("https://github.com/storaged-project/udisks/releases/download/udisks-$pkgver/udisks-$pkgver.tar.bz2")
+sha512sums=('35f5429bc2a7092aa659cba9296837d127e2b17c23ab23111d0d9b230d15ef5a6965e112b1f3829748a69a52fb5b09722153f86f1ef70977b3ad7b7a4ec40ec5')
+
+build() {
+  cd udisks-$pkgver
+  ./configure --prefix=/usr --sysconfdir=/etc \
+      --sbindir=/usr/bin --libexecdir=/usr/lib \
+      --with-systemdsystemunitdir=/usr/lib/systemd/system \
+      --localstatedir=/var --disable-static \
+      --enable-gtk-doc enable_available_modules=yes
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  make
+}
+
+check() {
+  cd udisks-$pkgver
+  make check
+}
+
+package() {
+  cd udisks-$pkgver
+  make DESTDIR="$pkgdir" install
+}

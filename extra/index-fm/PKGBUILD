@@ -1,0 +1,23 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+pkgname=index-fm
+pkgver=3.0.0
+pkgrel=1
+pkgdesc='Multi-platform file manager'
+url='https://mauikit.org/'
+arch=(x86_64)
+license=(GPL3)
+depends=(mauikit-filebrowsing hicolor-icon-theme)
+makedepends=(extra-cmake-modules)
+groups=(maui)
+source=(https://download.kde.org/stable/maui/index/$pkgver/$pkgname-$pkgver.tar.xz)
+sha256sums=('1ca0ed4b4af6bfe6bbdd8165872756ff9774c682185d004642c36f7f2c6f2ef1')
+
+build() {
+  cmake -B build -S $pkgname-$pkgver
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}

@@ -1,0 +1,33 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
+
+pkgname=python-heatclient
+pkgver=3.3.0
+_commit=668d85fa8a6c7ee2898ce71f8d531f1257d55b64
+pkgrel=1
+pkgdesc="OpenStack Orchestration API Client Library"
+arch=('any')
+url="https://docs.openstack.org/python-heatclient/latest/"
+license=('Apache')
+depends=('python-babel' 'python-pbr' 'python-cliff' 'python-iso8601' 'python-osc-lib'
+         'python-prettytable' 'python-oslo-i18n' 'python-oslo-serialization' 'python-oslo-utils'
+         'python-keystoneauth1' 'python-swiftclient' 'python-yaml' 'python-requests' 'python-six')
+makedepends=('git')
+checkdepends=('python-stestr' 'python-testscenarios' 'python-requests-mock')
+source=("git+https://github.com/openstack/python-heatclient.git#commit=$_commit")
+sha512sums=('SKIP')
+
+build() {
+  cd python-heatclient
+  python setup.py build
+}
+
+check() {
+  cd python-heatclient
+  stestr run
+}
+
+package() {
+  cd python-heatclient
+  python setup.py install --root="$pkgdir" --optimize=1
+}

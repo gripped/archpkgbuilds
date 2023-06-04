@@ -1,0 +1,56 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=gnome-autoar
+pkgver=0.4.4
+pkgrel=1
+pkgdesc="Automatic archives creating and extracting library"
+url="https://wiki.gnome.org/TingweiLan/GSoC2013Final"
+arch=(x86_64)
+license=(LGPL)
+depends=(
+  glib2
+  gtk3
+  libarchive
+)
+makedepends=(
+  git
+  gobject-introspection
+  gtk-doc
+  meson
+  vala
+)
+provides=(libgnome-autoar{,-gtk}-${pkgver%%.*}.so)
+_commit=b387c2482d2a5c8efdfc8c7498f13cd3881685c0  # tags/0.4.4^0
+source=("git+https://gitlab.gnome.org/GNOME/gnome-autoar.git#commit=$_commit")
+b2sums=('SKIP')
+
+pkgver() {
+  cd $pkgname
+  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+}
+
+prepare() {
+  cd $pkgname
+}
+
+build() {
+  local meson_options=(
+    -D gtk_doc=true
+    -D tests=true
+    -D vapi=true
+  )
+
+  arch-meson $pkgname build "${meson_options[@]}"
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+}
+
+# vim:set sw=2 sts=-1 et:

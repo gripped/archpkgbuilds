@@ -1,0 +1,23 @@
+pkgbase = retroarch-assets
+	pkgdesc = XMB menu assets for RetroArch
+	pkgver = 457
+	pkgrel = 1
+	epoch = 1
+	url = http://www.libretro.com/
+	arch = any
+	groups = libretro
+	license = GPL
+	makedepends = git
+	depends = retroarch
+	source = git+https://github.com/libretro/retroarch-assets.git#commit=7f80735ae776fa99b3e06df3d810d6dc016d9e15
+	sha256sums = SKIP
+
+pkgname = retroarch-assets-glui
+	depends = retroarch
+	depends = retroarch-assets-xmb
+
+pkgname = retroarch-assets-ozone
+	depends = retroarch
+	depends = retroarch-assets-xmb
+
+pkgname = retroarch-assets-xmb

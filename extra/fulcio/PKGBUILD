@@ -1,0 +1,36 @@
+# Maintainer: Santiago Torres-Arias <santiago@archlinux.org>
+# Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
+
+pkgname=fulcio
+pkgver=1.3.1
+pkgrel=1
+pkgdesc='free Root-CA for code signing certs - issuing certificates based on an OIDC email address.'
+arch=('x86_64')
+url="https://github.com/sigstore/fulcio"
+license=('Apache')
+depends=('glibc')
+makedepends=('go' 'git')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/sigstore/fulcio/archive/refs/tags/v${pkgver}.tar.gz")
+sha512sums=('32d469724cb5a98c93dabbed715da4e7ca0b2976605661a32b98496d70b283717f459725599b77ba39bfab21ff2f0951a4752a0664e0c05227255458026679e2')
+b2sums=('b00fab04a262cc4b52d9a74efa533ded712c49c61101174bddd8ba6d10d95867e7ea4eeb0f32abaed942461398de0fece760b74613d113b141354de666e8f6be')
+
+build(){
+  cd "${pkgname}-${pkgver}"
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export CGO_LDFLAGS="${LDFLAGS}"
+  export GOFLAGS="-buildmode=pie -ldflags=-linkmode=external -trimpath -mod=readonly -modcacherw"
+  mkdir build
+  go build -o build/ ./...
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+  make test
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  install -Dm755 build/fulcio "${pkgdir}/usr/bin/${pkgname}"
+}

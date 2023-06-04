@@ -1,0 +1,53 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=qmidinet
+pkgver=0.9.10
+pkgrel=1
+pkgdesc="A MIDI Network Gateway via UDP/IP Multicast"
+arch=(x86_64)
+url="https://qmidinet.sourceforge.io"
+license=(GPL2)
+groups=(pro-audio)
+depends=(
+  gcc-libs
+  glibc
+  hicolor-icon-theme
+  qt6-base
+  qt6-svg
+)
+makedepends=(
+  alsa-lib
+  cmake
+  jack
+  qt6-tools
+)
+optdepends=(
+  'qt6-wayland: for native wayland support'
+)
+source=(https://downloads.sourceforge.net/project/$pkgname/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz)
+sha512sums=('ee61f1e3252571724a6273f8b1cd5bbddb1c5199ac5de8a59709e34a06759a495c70b4faa883c0f03c53fd6836e81bff04f03b1e9302213f7deba1f3fdc3ce57')
+b2sums=('f8425202fb0b0e24aa65c0aa780a5628a56b49a9b8454d0d999d6a556d5e8f20ad74d072370881fb6814412747131b9e2c4e8494ddc38039cccd21ee011b9ada')
+
+build() {
+  local cmake_options=(
+    -B build
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CONFIG_QT6=ON
+    -S $pkgname-$pkgver
+    -W no-dev
+  )
+
+  cmake "${cmake_options[@]}"
+  cmake --build build --verbose
+}
+
+package() {
+  depends+=(
+    alsa-lib libasound.so
+    jack libjack.so
+  )
+
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm 644 $pkgname-$pkgver/{ChangeLog,README} -t "$pkgdir/usr/share/doc/$pkgname"
+}

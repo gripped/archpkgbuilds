@@ -1,0 +1,38 @@
+# Maintainer: Bruno Pagani <archange@archlinux.org>
+# Contributor: Eli Schwartz <eschwartz@archlinux.org>
+# Contributor: Alexandre Filgueria <alexfilgueira@antergos.com>
+# Contributor: Jan de Groot <jan@archlinux.org>
+
+pkgname=cinnamon-desktop
+pkgver=5.8.0
+pkgrel=1
+pkgdesc="Library with common API for various Cinnamon modules"
+arch=(x86_64)
+url="https://github.com/linuxmint/${pkgname}"
+license=(GPL LGPL)
+depends=(accountsservice gtk3 libxkbfile libpulse)
+makedepends=(meson samurai gobject-introspection intltool)
+source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
+        config.patch)
+sha256sums=('53080bd27527a8271d659e143a8d3b333d9b85efc82b77e571075f9cf8d3287c'
+            'e70227c64eca6857fe9adc21c6aee851df40b3a54bf34a145e0dc4b9819a7b6a')
+b2sums=('58be0fcfccce58036bbf867d9619b78bc5357b431e92fc8777a0d102db0ee1abb640d60f429e82afd909dde49764858b3af872aadc55a1c642a3771f0e154f38'
+        '5ae28fca1f3fee35222569afdba3f6f2df00f2b27709d1135589f33a3b80546ca541c391f5ee02759467fcaffe380dc1cbc4117dffe3c10cdf7046fd8588e384')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # Adjust configuration
+  patch -p1 < ../config.patch
+  mkdir -p build
+}
+
+build() {
+  cd ${pkgname}-${pkgver}/build
+  arch-meson ..
+  samu
+}
+
+package() {
+  cd ${pkgname}-${pkgver}/build
+  DESTDIR="${pkgdir}" samu install
+}

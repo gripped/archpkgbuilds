@@ -1,0 +1,33 @@
+# Maintainer: Morten Linderud <foxboron@archlinux.org>
+# Contributor: hexchian <i at hexchain dot org>
+
+pkgname=crun
+pkgver=1.8.5
+pkgrel=1
+pkgdesc="A fast and lightweight fully featured OCI runtime and C library for running containers"
+url="https://github.com/containers/crun"
+license=('LGPL')
+arch=('x86_64')
+provides=('oci-runtime')
+depends=('yajl' 'systemd-libs' 'libcap' 'libseccomp' 'criu')
+makedepends=('libtool' 'python' 'go-md2man' 'systemd' 'git')
+source=("https://github.com/containers/crun/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc})
+validpgpkeys=('AC404C1C0BF735C63FF4D562263D6DF2E163E1EA')
+sha256sums=('00ad733ecfef50b5e8683b1031171f6ecd3539691fbdaf2fa384c05397298c61'
+            'SKIP')
+
+build() {
+    cd "$pkgname-$pkgver"
+    ./autogen.sh
+    ./configure \
+        --prefix=/usr \
+        --enable-shared \
+        --enable-dynamic \
+        --with-python-bindings
+    make
+}
+
+package() {
+    cd "$pkgname-$pkgver"
+    make DESTDIR="$pkgdir" install
+}

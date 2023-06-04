@@ -1,0 +1,27 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
+
+pkgname=frei0r-plugins
+pkgver=2.3.0
+pkgrel=1
+pkgdesc='Collection of video effect plugins'
+arch=('x86_64')
+url='https://frei0r.dyne.org/'
+license=('GPL')
+depends=('gcc-libs' 'glibc')
+makedepends=('cairo' 'cmake' 'gavl' 'ninja' 'opencv')
+optdepends=('cairo: cairoaffineblend, cairoblend, cairogradient and cairoimagegrid plugins'
+            'gavl: rgbparade, scale0tilt and vectorscope plugins'
+            'opencv: facebl0r and facedetect plugins')
+source=("https://github.com/dyne/frei0r/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+validpgpkeys=('6113D89CA825C5CEDD02C87273B35DA54ACB7D10') # Denis Roio (Jaromil)
+sha256sums=('00aa65a887445c806b2a467abc3ccc4b0855f7eaf38ed2011a1ff41e74844fa0')
+
+build() {
+  cmake -S frei0r-$pkgver -B build -G Ninja -DCMAKE_INSTALL_PREFIX='/usr'
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}

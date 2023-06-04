@@ -1,0 +1,60 @@
+# Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+# Contributor: Andrea Scarpino <andrea@archlinux.org>
+# Contributor: examon <examon.mail[at]gmail[dot]com>
+# Contributor: Sebastian Wiesner <lunaryorn googlemail com>
+# Contributor: Dwight Schauer <dschauer@ti.com>
+
+_pkgname=pyudev
+pkgname=python-$_pkgname
+pkgver=0.24.1
+pkgrel=1
+arch=('any')
+url='https://github.com/pyudev/pyudev'
+license=('LGPL')
+pkgdesc='Python bindings to libudev'
+depends=('python-six' 'systemd')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel' 'python-sphinx')
+checkdepends=('python-pytest' 'python-docutils' 'python-hypothesis' 'python-pip')
+optdepends=('python-pyqt5: PyQt integration'
+            'pyside2: PySide integration'
+            'python-wxpython: WX integration')
+source=("$_pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('68d64113a465588411e494a010e1b19f68ed0f8fabff154d6f3066a22ff38fcd52ee73b9a00be15f5e51ea38152cd97f2ff3fda406981431a6d5a6fa0484e874')
+
+prepare() {
+  cd $_pkgname-$pkgver
+
+  # Remove failing tests (we can't test udev inside makepkg)
+  rm tests/test_{util,discover,device,monitor,enumerate,observer}.py
+
+  # Fix documentation build
+  sed -i "s|os.path.join(doc_directory, os.pardir)|os.path.join(doc_directory, os.pardir, 'src')|
+          s|b'autodoc-process-docstring'|'autodoc-process-docstring'|" doc/conf.py
+}
+
+build() {
+  cd $_pkgname-$pkgver
+
+  python -m build -nw
+
+  # Generate documentation
+  sphinx-apidoc -f -e -o doc src/pyudev
+  sphinx-build -a -b html doc doc/html
+}
+
+check() {
+  cd $_pkgname-$pkgver
+
+  PYTHONPATH=src python -m pytest
+}
+
+package() {
+  cd $_pkgname-$pkgver
+
+  python -m installer -d "$pkgdir" dist/*.whl
+
+  # Install documentation
+  install -dm 755 "$pkgdir"/usr/share/doc/$pkgname
+  cp -r -a --no-preserve=ownership doc/html "$pkgdir"/usr/share/doc/$pkgname
+  rm -rf "$pkgdir"/usr/share/doc/$pkgname/html/.doctrees
+}

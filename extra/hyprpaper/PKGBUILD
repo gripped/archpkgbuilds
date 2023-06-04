@@ -1,0 +1,39 @@
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor: ThatOneCalculator <kainoa@t1c.dev>
+
+pkgname=hyprpaper
+pkgver=0.3.0
+pkgrel=1
+pkgdesc='a blazing fast wayland wallpaper utility with IPC controls'
+arch=(x86_64)
+url="https://github.com/hyprwm/$pkgname"
+license=(BSD)
+depends=(cairo
+         libglvnd
+         libjpeg
+         pango
+         wayland)
+makedepends=(cmake
+             wayland-protocols
+             xorgproto)
+_archive="$pkgname-$pkgver"
+source=("$url/archive/v$pkgver/$_archive.tar.gz")
+sha256sums=('0b01e2ea3058e279315f75bedbddc9257c3aeeebd00a781fd56be4897a5d0612')
+
+build() {
+	cd "$_archive"
+	cmake \
+		--no-warn-unused-cli \
+		-G "Unix Makefiles" \
+		-D CMAKE_BUILD_TYPE=Release \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-B build
+	make protocols
+	make -C build all
+}
+
+package() {
+	cd "$_archive"
+	install -Dm0755 -t "$pkgdir/usr/bin/" "build/$pkgname"
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}

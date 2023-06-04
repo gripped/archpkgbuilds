@@ -1,0 +1,60 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-poetry-dynamic-versioning
+pkgver=0.22.0
+pkgrel=1
+pkgdesc='Plugin for Poetry to enable dynamic versioning based on VCS tags'
+arch=('any')
+url='https://github.com/mtkennerly/poetry-dynamic-versioning'
+license=('MIT')
+depends=(
+  'python'
+  'python-dunamai'
+  'python-tomlkit'
+  'python-jinja'
+  'python-poetry'
+  'python-cleo'
+  'python-poetry-core'
+  'python-packaging'
+)
+makedepends=(
+  'git'
+  'python-build'
+  'python-installer'
+  'python-poetry-core'
+)
+checkdepends=(
+  'python-pytest'
+  'python-pytest-cov'
+)
+_commit='e8ba44d631536d07b197306384796189c3edd0cf'
+source=("$pkgname::git+$url#commit=$_commit")
+b2sums=('SKIP')
+
+pkgver() {
+  cd "$pkgname"
+
+  git describe --tags | sed 's/^v//'
+}
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "$pkgname"
+
+  # integration tests are sketchy
+  pytest -v tests/test_unit.py
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}

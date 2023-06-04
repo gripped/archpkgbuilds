@@ -1,0 +1,640 @@
+# Maintainer: T.J. Townsend <blakkheim@archlinux.org>
+
+pkgbase=nerd-fonts
+pkgname=(otf-aurulent-nerd
+         otf-codenewroman-nerd
+         otf-comicshanns-nerd
+         otf-droid-nerd
+         otf-firamono-nerd
+         otf-hasklig-nerd
+         otf-hermit-nerd
+         otf-opendyslexic-nerd
+         otf-overpass-nerd
+         ttf-3270-nerd
+         ttf-agave-nerd
+         ttf-anonymouspro-nerd
+         ttf-arimo-nerd
+         ttf-bigblueterminal-nerd
+         ttf-bitstream-vera-mono-nerd
+         ttf-cascadia-code-nerd
+         ttf-cousine-nerd
+         ttf-daddytime-mono-nerd
+         ttf-dejavu-nerd
+         ttf-fantasque-nerd
+         ttf-firacode-nerd
+         ttf-go-nerd
+         ttf-hack-nerd
+         ttf-heavydata-nerd
+         ttf-iawriter-nerd
+         ttf-ibmplex-mono-nerd
+         ttf-inconsolata-go-nerd
+         ttf-inconsolata-lgc-nerd
+         ttf-inconsolata-nerd
+         ttf-iosevka-nerd
+         ttf-iosevkaterm-nerd
+         ttf-jetbrains-mono-nerd
+         ttf-lekton-nerd
+         ttf-liberation-mono-nerd
+         ttf-lilex-nerd
+         ttf-meslo-nerd
+         ttf-monofur-nerd
+         ttf-monoid-nerd
+         ttf-mononoki-nerd
+         ttf-mplus-nerd
+         ttf-noto-nerd
+         ttf-profont-nerd
+         ttf-proggyclean-nerd
+         ttf-roboto-mono-nerd
+         ttf-sharetech-mono-nerd
+         ttf-sourcecodepro-nerd
+         ttf-space-mono-nerd
+         ttf-terminus-nerd
+         ttf-tinos-nerd
+         ttf-ubuntu-mono-nerd
+         ttf-ubuntu-nerd
+         ttf-victor-mono-nerd)
+pkgdesc="Iconic font aggregator, collection, and patcher"
+pkgver=3.0.1
+pkgrel=1
+arch=('any')
+url='https://github.com/ryanoasis/nerd-fonts'
+_urlbase="${url}/releases/download/v${pkgver}"
+license=('MIT')
+options=('!debug' '!strip')
+provides=('ttf-font-nerd')
+groups=('nerd-fonts')
+source=("3270-${pkgver}.tar.xz::${_urlbase}/3270.tar.xz"
+        "agave-${pkgver}.tar.xz::${_urlbase}/Agave.tar.xz"
+        "anonymouspro-${pkgver}.tar.xz::${_urlbase}/AnonymousPro.tar.xz"
+        "arimo-${pkgver}.tar.xz::${_urlbase}/Arimo.tar.xz"
+        "aurulent-${pkgver}.tar.xz::${_urlbase}/AurulentSansMono.tar.xz"
+        "bigblueterminal-${pkgver}.tar.xz::${_urlbase}/BigBlueTerminal.tar.xz"
+        "bitstreamveramono-${pkgver}.tar.xz::${_urlbase}/BitstreamVeraSansMono.tar.xz"
+        "cascadiacode-${pkgver}.tar.xz::${_urlbase}/CascadiaCode.tar.xz"
+        "codenewroman-${pkgver}.tar.xz::${_urlbase}/CodeNewRoman.tar.xz"
+        "comicshanns-${pkgver}.tar.xz::${_urlbase}/ComicShannsMono.tar.xz"
+        "cousine-${pkgver}.tar.xz::${_urlbase}/Cousine.tar.xz"
+        "daddytimemono-${pkgver}.tar.xz::${_urlbase}/DaddyTimeMono.tar.xz"
+        "dejavu-${pkgver}.tar.xz::${_urlbase}/DejavuSansMono.tar.xz"
+        "droid-${pkgver}.tar.xz::${_urlbase}/DroidSansMono.tar.xz"
+        "fantasque-${pkgver}.tar.xz::${_urlbase}/FantasqueSansMono.tar.xz"
+        "fira-${pkgver}.tar.xz::${_urlbase}/FiraCode.tar.xz"
+        "firamono-${pkgver}.tar.xz::${_urlbase}/FiraMono.tar.xz"
+        "go-${pkgver}.tar.xz::${_urlbase}/Go-Mono.tar.xz"
+        "hack-${pkgver}.tar.xz::${_urlbase}/Hack.tar.xz"
+        "hasklig-${pkgver}.tar.xz::${_urlbase}/Hasklig.tar.xz"
+        "heavydata-${pkgver}.tar.xz::${_urlbase}/HeavyData.tar.xz"
+        "hermit-${pkgver}.tar.xz::${_urlbase}/Hermit.tar.xz"
+        "iawriter-${pkgver}.tar.xz::${_urlbase}/iA-Writer.tar.xz"
+        "ibmplexmono-${pkgver}.tar.xz::${_urlbase}/IBMPlexMono.tar.xz"
+        "inconsolata-${pkgver}.tar.xz::${_urlbase}/Inconsolata.tar.xz"
+        "inconsolatago-${pkgver}.tar.xz::${_urlbase}/InconsolataGo.tar.xz"
+        "inconsolatalgc-${pkgver}.tar.xz::${_urlbase}/InconsolataLGC.tar.xz"
+        "iosevka-${pkgver}.tar.xz::${_urlbase}/Iosevka.tar.xz"
+        "iosevkaterm-${pkgver}.tar.xz::${_urlbase}/IosevkaTerm.tar.xz"
+        "jetbrainsmono-${pkgver}.tar.xz::${_urlbase}/JetBrainsMono.tar.xz"
+        "lekton-${pkgver}.tar.xz::${_urlbase}/Lekton.tar.xz"
+        "liberationmono-${pkgver}.tar.xz::${_urlbase}/LiberationMono.tar.xz"
+        "lilex-${pkgver}.tar.xz::${_urlbase}/Lilex.tar.xz"
+        "meslo-${pkgver}.tar.xz::${_urlbase}/Meslo.tar.xz"
+        "monofur-${pkgver}.tar.xz::${_urlbase}/Monofur.tar.xz"
+        "monoid-${pkgver}.tar.xz::${_urlbase}/Monoid.tar.xz"
+        "mononoki-${pkgver}.tar.xz::${_urlbase}/Mononoki.tar.xz"
+        "mplus-${pkgver}.tar.xz::${_urlbase}/MPlus.tar.xz"
+        "noto-${pkgver}.tar.xz::${_urlbase}/Noto.tar.xz"
+        "opendyslexic-${pkgver}.tar.xz::${_urlbase}/OpenDyslexic.tar.xz"
+        "overpass-${pkgver}.tar.xz::${_urlbase}/Overpass.tar.xz"
+        "profont-${pkgver}.tar.xz::${_urlbase}/ProFont.tar.xz"
+        "proggyclean-${pkgver}.tar.xz::${_urlbase}/ProggyClean.tar.xz"
+        "robotomono-${pkgver}.tar.xz::${_urlbase}/RobotoMono.tar.xz"
+        "sharetechmono-${pkgver}.tar.xz::${_urlbase}/ShareTechMono.tar.xz"
+        "sourcecodepro-${pkgver}.tar.xz::${_urlbase}/SourceCodePro.tar.xz"
+        "spacemono-${pkgver}.tar.xz::${_urlbase}/SpaceMono.tar.xz"
+        "terminus-${pkgver}.tar.xz::${_urlbase}/Terminus.tar.xz"
+        "tinos-${pkgver}.tar.xz::${_urlbase}/Tinos.tar.xz"
+        "ubuntu-${pkgver}.tar.xz::${_urlbase}/Ubuntu.tar.xz"
+        "ubuntumono-${pkgver}.tar.xz::${_urlbase}/UbuntuMono.tar.xz"
+        "victormono-${pkgver}.tar.xz::${_urlbase}/VictorMono.tar.xz")
+sha256sums=('b4c0a7410542a1302c7c057d81999207caccdb0450901b50510bc48a46fc4989'
+            'a87f6e57a4cb9b5bf8fc6e8326bf537d9201e9ac937fccea5dc4da1608e8f09e'
+            '00fd8cc63c885933676046cd8c592d66d45e9ff0398354c9e94b1c825a34f4ca'
+            'ecaeeadcb2d30b5df3cd58e753b5860e0e36ea25f63c51e45fab0c44db784393'
+            '224a85be27a47ff1b72e79d34c9329a210cb747a16937bc103ca04675efc896c'
+            'f0cc29a54eba7f224eb2e0abfe9592e76ecf3f108fed8e0dcd97e705c4bbc182'
+            'a618452368da88740dc428fd72438175aa65068e46c54c274e976ec36f2a89e9'
+            '783d3f9d181fdd93988cf46840e71319eae73b27612b072bb40265717fa75c12'
+            '2f227c77a4660434aac4331c67d431208e1bdefefada3c7e544b7955c3b1ac30'
+            '188aa9c1bd8c4d79534a7e0aacb5374a495ddcbcac8e55cf8c5a11a658074525'
+            '89247b5ddfa33d736d342cfea74c437c0c103a3f3c357250f97d36b49d3cec2b'
+            '1cbdaadac2ade3f5f3bd1088f2fb49e8954dc48b934d3c744fca304e9e48ddde'
+            '543469ec894fc091765260a646c1c2ead5b25a2525c2f3703369e4992f0d7529'
+            'f278d53261218d446309541c95f17d14899dc165307f22ea7e1e8fcbfe50f842'
+            '12d496d7ace33a6d620fdfa84ce081c271875148375ab1ac8132264e2be58b33'
+            'a9a8510109811bc6f437039b0f1a581dd3455af8f0b857edb15f342d4fecc98e'
+            '995378c533955576c4935e066536952968def5948658f4b9abea0aef5aed98fe'
+            '00b2253a5cfd4895b1daeac0010c0becf6d807d30d098e6594f468208e51d6e3'
+            '77d72f3e298c9b398cf73d84ffaef0eaffd9b991b1477f67f286eb619249c1a1'
+            '30f2b643e10e833db080a77654e006592259afc1c0be0f6dd243ee358f20d48b'
+            'c8566d13026475397ee685e449fd7a4ed840a51d3b388e172c9d43aedecaa29c'
+            '03a630724b9c58b27935a7f6654f3ed910f3fdf70c5b50cb27459df35c037117'
+            '03fa3bb52d6346204a210d57d3bc3ed84c5ac4c806ec83ebf9229ca213d17fec'
+            'c8dac3655b9155152bb325d7fb23e01f826df4d4cd2faf168cd0d8604329cf60'
+            '84ba52b55696dabfaf766f14cbaa76e5536d99249fc336cf34f89fa5ad56feba'
+            '41cd37dff248af7d56bd2822363df3ae167009d7c45c8d70b4f46eb779bc224f'
+            '5dd7963ce4554d3da0fb790f9b2586013f25a0bbf55e722605f9d0bd7a0cae08'
+            '9023bea21cc37907064bcf51dee3638729c20eb8fe4dd044188dfe60f44ac9d8'
+            'c6825831b559dc50283a7bb8125c289502ca2d15d4d7a7e85f09aa89376b681a'
+            'c049e5efdbcaf32d66eb07cc1c658f4d7127dcca22abc376ee4b75fb9bd6466a'
+            'ebe08a4b3d13629463ca491854162a609a886b3a1277ae0c037ad9c3c5575248'
+            'fbd745c16510d4d78dc2cb02275f61f4f92d75d26d201d81a38bd1bf653eaca2'
+            '101f354292c2a4efd9b2caab31b5f4d9248228d22c085f9d57e631a0793405cf'
+            '5cff2c9d7cf1f33b93e04fdc95bdc9596cd8051c036c82e74d21ab34a5b2e611'
+            '740f80924dbf13f9edd53da734f8d3176aef647129e521fb4040e067e5bf3114'
+            '758f9df8388086a90ebf6f103f7d9c9c2ec4c98be4a49fc06f6315c6c8c9f89d'
+            '93188ca05c8649f605e948c7d643db085de2e0d8af80c85efc242cc3989d212d'
+            'b3bb889fc7ecd0d4eb9594b2e4ef1e6a422cabd5d120c36a7550c876756d9e50'
+            '355519cabd886017298e0cbd11436205451516cd869047a09a7f9593dcf8996a'
+            'f1e5b47e7b99fc94ccf51b130a801e81356984fecbf0541bd23df3b596a5de1c'
+            'd030ff74b92e4a1a96295adb99b7dbd3bd1f2a371b4b2f8eac2a04f8e33cc659'
+            '842e360e8babf2a02214cfd59532e5e5871043c737e53ddfc99ead196dd6832f'
+            '7acea4cbcfae72b166e10d57104b0022adc82343c1565a326fe3c7b4fc23d5d4'
+            'fbef96534f0e5e665974caa156838512cda8eee7fd89da2e1b4f2ba4bbd09ae2'
+            '8236ae49ca64ff3c7d5be1d64385243b9ebcb023d414d5c399390cfed37d4de9'
+            '32b1373d148ecd7e6cba4988903999492df34b5e9802e5fb8944e8802f81dc24'
+            '0b069fd82ed7f560310b869881fa7c5258968f85dc464326dc8374006524653a'
+            '32908a8773776ca91bef52879e2ee750961f810cf7c92936a774a3d63fdcb52f'
+            'cb03348157c3a05064435ce883e67ee0ee0a9d09d1a4bbf2b496f401be21f322'
+            '651dc0b610388e0ae28b248c3250e8ca0c810bf478f2409f4c48889b756f96bf'
+            '26787bfb188b920e8475b58b46f7ba20dc7cc2957355a2f82ce46c3c2a5c3362'
+            'b9002d4dc58231c682c6e9e207592582d4636b71190dd65dfb4bca8ab35ff8c1')
+noextract=("${source[@]%%::*}")
+
+prepare() {
+  # archives don't include a font-specific directory, so we have to make them
+  for _font in 3270 agave anonymouspro arimo aurulent bigblueterminal \
+               bitstreamveramono cascadiacode codenewroman cousine \
+               daddytimemono dejavu droid fantasque fira firamono go hack \
+               hasklig heavydata hermit iawriter ibmplexmono inconsolata \
+               inconsolatago inconsolatalgc iosevka jetbrainsmono lekton \
+               liberationmono lilex meslo monofur monoid mononoki mplus noto \
+               opendyslexic overpass profont proggyclean robotomono \
+               sharetechmono sourcecodepro spacemono terminus tinos ubuntu \
+               ubuntumono victormono iosevkaterm comicshanns; do
+  rm -rf ${_font}
+  mkdir ${_font}
+  bsdtar xf ${_font}-${pkgver}.tar.xz -C ${_font}
+  done
+}
+
+package_ttf-arimo-nerd() {
+  pkgdesc="Patched font Arimo from nerd fonts library"
+  conflicts=(nerd-fonts-arimo)
+  replaces=(nerd-fonts-arimo)
+
+  install -Dm644 arimo/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 arimo/LICENSE.txt -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
+
+package_otf-aurulent-nerd() {
+  pkgdesc="Patched font Aurulent Sans Mono from nerd fonts library"
+
+  install -Dm644 aurulent/*.otf -t "${pkgdir}/usr/share/fonts/OTF"
+  install -Dm644 aurulent/"SIL Open Font License.txt" \
+          -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
+
+package_ttf-firacode-nerd() {
+  pkgdesc="Patched font Fira (Fura) Code from nerd fonts library"
+  conflicts=(nerd-fonts-fira-code)
+  replaces=(nerd-fonts-fira-code)
+
+  install -Dm644 fira/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 fira/LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
+
+package_otf-firamono-nerd() {
+  pkgdesc="Patched font Fira (Fura) Mono from nerd fonts library"
+  conflicts=(nerd-fonts-fira-mono)
+  replaces=(nerd-fonts-fira-mono)
+
+  install -Dm644 firamono/*.otf -t "${pkgdir}/usr/share/fonts/OTF"
+  install -Dm644 firamono/LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
+
+package_ttf-hack-nerd() {
+  pkgdesc="Patched font Hack from nerd fonts library"
+  conflicts=(nerd-fonts-hack)
+  replaces=(nerd-fonts-hack)
+
+  install -Dm644 hack/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 hack/LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
+
+package_ttf-iosevka-nerd() {
+  pkgdesc="Patched font Iosevka from nerd fonts library"
+  conflicts=(nerd-fonts-iosevka)
+  replaces=(nerd-fonts-iosevka)
+
+  install -Dm644 iosevka/*.ttf -t "${pkgdir}"/usr/share/fonts/TTF/
+  install -Dm644 iosevka/LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
+
+package_ttf-iosevkaterm-nerd() {
+  pkgdesc="Patched font Iosevka Term from nerd fonts library"
+
+  install -Dm644 iosevkaterm/*.ttf -t "${pkgdir}"/usr/share/fonts/TTF/
+  install -Dm644 iosevkaterm/LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
+
+package_ttf-terminus-nerd() {
+  pkgdesc="Patched font Terminus (Terminess) from nerd fonts library"
+  conflicts=(nerd-fonts-terminus)
+  replaces=(nerd-fonts-terminus)
+
+  install -Dm644 terminus/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 terminus/LICENSE.txt -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
+
+package_ttf-ubuntu-nerd() {
+  pkgdesc="Patched font Ubuntu from nerd fonts library"
+  conflicts=(nerd-fonts-ubuntu)
+  replaces=(nerd-fonts-ubuntu)
+
+  install -Dm644 ubuntu/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 ubuntu/LICENCE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+}
+
+package_ttf-ubuntu-mono-nerd() {
+  pkgdesc="Patched font Ubuntu Mono from nerd fonts library"
+  conflicts=(nerd-fonts-ubuntu-mono ttf-ubuntumono-nerd)
+  replaces=(nerd-fonts-ubuntu-mono ttf-ubuntumono-nerd)
+
+  install -Dm644 ubuntumono/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 ubuntumono/LICENCE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+}
+
+package_ttf-3270-nerd() {
+  pkgdesc="Patched font IBM 3270 from nerd fonts library"
+
+  install -Dm644 3270/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 3270/LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+}
+
+package_ttf-agave-nerd() {
+  pkgdesc="Patched font Agave from nerd fonts library"
+  conflicts=(nerd-fonts-agave)
+  replaces=(nerd-fonts-agave)
+
+  install -Dm644 agave/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 agave/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
+
+package_ttf-bigblueterminal-nerd() {
+  pkgdesc="Patched font Big Blue Terminal from nerd fonts library"
+
+  install -Dm644 bigblueterminal/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 bigblueterminal/LICENSE.TXT \
+                    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.TXT"
+}
+
+package_ttf-anonymouspro-nerd() {
+  pkgdesc="Patched font Anonymous Pro (Anonymice) from nerd fonts library"
+  license=('custom:OFL')
+  conflicts=(nerd-fonts-anonymous-pro)
+  replaces=(nerd-fonts-anonymous-pro)
+
+  install -Dm644 anonymouspro/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 anonymouspro/OFL.txt "${pkgdir}/usr/share/licenses/${pkgname}/OFL.txt"
+}
+
+package_ttf-bitstream-vera-mono-nerd() {
+  pkgdesc="Patched font Bitstream Vera Mono from nerd fonts library"
+  conflicts=(nerd-fonts-bitstream-vera-mono)
+  replaces=(nerd-fonts-bitstream-vera-mono)
+
+  install -Dm644 bitstreamveramono/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 bitstreamveramono/"Bitstream Vera License.txt" \
+          "${pkgdir}/usr/share/licenses/${pkgname}/Bitstream Vera License.txt"
+}
+
+package_ttf-cascadia-code-nerd() {
+  pkgdesc="Patched font Cascadia Code (Caskaydia) from nerd fonts library"
+  conflicts=(nerd-fonts-cascadia-code)
+  replaces=(nerd-fonts-cascadia-code otf-cascadia-code-nerd)
+
+  install -Dm644 cascadiacode/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 cascadiacode/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
+
+package_otf-codenewroman-nerd() {
+  pkgdesc="Patched font Code New Roman from nerd fonts library"
+
+  install -Dm644 codenewroman/*.otf -t "${pkgdir}/usr/share/fonts/OTF"
+  install -Dm644 codenewroman/license.txt "${pkgdir}/usr/share/licenses/${pkgname}/license.txt"
+}
+
+package_otf-comicshanns-nerd() {
+  pkgdesc="Patched font Comic Sans (Comic Shanns) from nerd fonts library"
+
+  install -Dm644 comicshanns/*.otf -t "${pkgdir}/usr/share/fonts/OTF"
+  install -Dm644 comicshanns/LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md"
+}
+
+package_ttf-cousine-nerd() {
+  pkgdesc="Patched font Cousine from nerd fonts library"
+
+  install -Dm644 cousine/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 cousine/LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+}
+
+package_ttf-daddytime-mono-nerd() {
+  pkgdesc="Patched font Daddy Time Mono from nerd fonts library"
+
+  install -Dm644 daddytimemono/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 daddytimemono/LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md"
+}
+
+package_ttf-dejavu-nerd() {
+  pkgdesc="Patched font Dejavu Sans Mono from nerd fonts library"
+  conflicts=(nerd-fonts-dejavu-complete)
+  replaces=(nerd-fonts-dejavu-complete)
+
+  install -Dm644 dejavu/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 dejavu/LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+}
+
+package_otf-droid-nerd() {
+  pkgdesc="Patched font Droid Sans Mono from nerd fonts library"
+  conflicts=(nerd-fonts-droid-sans-mono)
+  replaces=(nerd-fonts-droid-sans-mono)
+
+  install -Dm644 droid/*.otf -t "${pkgdir}/usr/share/fonts/OTF"
+  install -Dm644 droid/LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+}
+
+package_ttf-fantasque-nerd() {
+  pkgdesc="Patched font Fantasque Sans Mono from nerd fonts library"
+  license=('custom:OFL')
+  conflicts=(nerd-fonts-fantasque-sans-mono)
+  replaces=(nerd-fonts-fantasque-sans-mono)
+
+  install -Dm644 fantasque/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 fantasque/OFL.txt "${pkgdir}/usr/share/licenses/${pkgname}/OFL.txt"
+}
+
+package_ttf-go-nerd() {
+  pkgdesc="Patched font Go Mono from nerd fonts library"
+  conflicts=(nerd-fonts-go-mono)
+  replaces=(nerd-fonts-go-mono)
+
+  install -Dm644 go/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 go/LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+}
+
+package_otf-hasklig-nerd() {
+  pkgdesc="Patched font Hasklig (Hasklug) from nerd fonts library"
+  conflicts=(nerd-fonts-hasklig)
+  replaces=(nerd-fonts-hasklig)
+
+  install -Dm644 hasklig/*.otf -t "${pkgdir}/usr/share/fonts/OTF"
+  install -Dm644 hasklig/LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md"
+}
+
+package_ttf-heavydata-nerd() {
+  pkgdesc="Patched font Heavy Data from nerd fonts library"
+
+  install -Dm644 heavydata/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 heavydata/"Vic Fieger License.txt" \
+          "${pkgdir}/usr/share/licenses/${pkgname}/Vic Fieger License.txt"
+}
+
+package_otf-hermit-nerd() {
+  pkgdesc="Patched font Hermit from nerd fonts library"
+  conflicts=(nerd-fonts-hermit)
+  replaces=(nerd-fonts-hermit)
+
+  install -Dm644 hermit/*.otf -t "${pkgdir}/usr/share/fonts/OTF"
+  install -Dm644 hermit/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
+
+package_ttf-iawriter-nerd() {
+  pkgdesc="Patched font iA Writer (iM Writing) from nerd fonts library"
+
+  install -Dm644 iawriter/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 iawriter/LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md"
+}
+
+package_ttf-ibmplex-mono-nerd() {
+  pkgdesc="Patched font IBM Plex Mono (Blex) from nerd fonts library"
+  conflicts=(nerd-fonts-ibm-plex-mono)
+  replaces=(nerd-fonts-ibm-plex-mono)
+
+  install -Dm644 ibmplexmono/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 ibmplexmono/LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+}
+
+package_ttf-inconsolata-nerd() {
+  pkgdesc="Patched font Inconsolata from nerd fonts library"
+  license=('custom:OFL')
+  conflicts=(nerd-fonts-inconsolata)
+  replaces=(nerd-fonts-inconsolata)
+
+  install -Dm644 inconsolata/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 inconsolata/OFL.txt "${pkgdir}/usr/share/licenses/${pkgname}/OFL.txt"
+}
+
+package_ttf-inconsolata-go-nerd() {
+  pkgdesc="Patched font Inconsolata Go from nerd fonts library"
+  license=('custom:OFL')
+  conflicts=(nerd-fonts-inconsolata-go)
+  replaces=(nerd-fonts-inconsolata-go)
+
+  install -Dm644 inconsolatago/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 inconsolatago/OFL.txt "${pkgdir}/usr/share/licenses/${pkgname}/OFL.txt"
+}
+
+package_ttf-inconsolata-lgc-nerd() {
+  pkgdesc="Patched font Inconsolata LGC from nerd fonts library"
+  conflicts=(nerd-fonts-inconsolatalgc)
+  replaces=(nerd-fonts-inconsolatalgc)
+
+  install -Dm644 inconsolatalgc/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 inconsolatalgc/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
+
+package_ttf-jetbrains-mono-nerd() {
+  pkgdesc="Patched font JetBrains Mono from nerd fonts library"
+  license=('custom:OFL')
+  conflicts=(nerd-fonts-jetbrains-mono)
+  replaces=(nerd-fonts-jetbrains-mono)
+
+  install -Dm644 jetbrainsmono/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 jetbrainsmono/OFL.txt "${pkgdir}/usr/share/licenses/${pkgname}/OFL.txt"
+}
+
+package_ttf-lekton-nerd() {
+  pkgdesc="Patched font Lekton from nerd fonts library"
+
+  install -Dm644 lekton/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 lekton/"SIL Open Font License.txt" \
+          "${pkgdir}/usr/share/licenses/${pkgname}/SIL Open Font License.txt"
+}
+
+package_ttf-liberation-mono-nerd() {
+  pkgdesc="Patched font Liberation Mono from nerd fonts library"
+  conflicts=(nerd-fonts-liberation-mono)
+  replaces=(nerd-fonts-liberation-mono)
+
+  install -Dm644 liberationmono/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 liberationmono/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
+
+package_ttf-lilex-nerd() {
+  pkgdesc="Patched font Lilex from nerd fonts library"
+
+  install -Dm644 lilex/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 lilex/LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+}
+
+package_ttf-meslo-nerd() {
+  pkgdesc="Patched font Meslo LG from nerd fonts library"
+  conflicts=(nerd-fonts-meslo)
+  replaces=(nerd-fonts-meslo)
+
+  install -Dm644 meslo/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 meslo/LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+}
+
+package_ttf-monofur-nerd() {
+  pkgdesc="Patched font Monofur from nerd fonts library"
+  conflicts=(nerd-fonts-monofur)
+  replaces=(nerd-fonts-monofur)
+
+  install -Dm644 monofur/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 monofur/LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+}
+
+package_ttf-monoid-nerd() {
+  pkgdesc="Patched font Monoid from nerd fonts library"
+  conflicts=(nerd-fonts-monoid)
+  replaces=(nerd-fonts-monoid)
+
+  install -Dm644 monoid/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 monoid/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
+
+package_ttf-mononoki-nerd() {
+  pkgdesc="Patched font Mononoki from nerd fonts library"
+  conflicts=(nerd-fonts-mononoki)
+  replaces=(nerd-fonts-mononoki)
+
+  install -Dm644 mononoki/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 mononoki/LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+}
+
+package_ttf-mplus-nerd() {
+  pkgdesc="Patched font MPlus from nerd fonts library"
+  license=('custom:OFL')
+  conflicts=(nerd-fonts-mplus)
+  replaces=(nerd-fonts-mplus)
+
+  install -Dm644 mplus/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 mplus/OFL.txt "${pkgdir}/usr/share/licenses/${pkgname}/OFL.txt"
+}
+
+package_ttf-noto-nerd() {
+  pkgdesc="Patched font Noto from nerd fonts library"
+  license=('custom:OFL')
+  conflicts=(nerd-fonts-noto)
+  replaces=(nerd-fonts-noto)
+
+  install -Dm644 noto/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 noto/LICENSE_OFL.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE_OFL.txt"
+}
+
+package_otf-opendyslexic-nerd() {
+  pkgdesc="Patched font OpenDyslexic from nerd fonts library"
+
+  install -Dm644 opendyslexic/*.otf -t "${pkgdir}/usr/share/fonts/OTF"
+  install -Dm644 opendyslexic/LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+}
+
+package_otf-overpass-nerd() {
+  pkgdesc="Patched font Overpass from nerd fonts library"
+  conflicts=(nerd-fonts-overpass)
+  replaces=(nerd-fonts-overpass)
+
+  install -Dm644 overpass/*.otf -t "${pkgdir}/usr/share/fonts/OTF"
+  install -Dm644 overpass/LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md"
+}
+
+package_ttf-profont-nerd() {
+  pkgdesc="Patched font ProFont from nerd fonts library"
+  conflicts=(nerd-fonts-profont)
+  replaces=(nerd-fonts-profont)
+
+  install -Dm644 profont/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 profont/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
+
+package_ttf-proggyclean-nerd() {
+  pkgdesc="Patched font ProggyClean from nerd fonts library"
+
+  install -Dm644 proggyclean/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 proggyclean/Licence.txt "${pkgdir}/usr/share/licenses/${pkgname}/Licence.txt"
+}
+
+package_ttf-roboto-mono-nerd() {
+  pkgdesc="Patched font Roboto Mono from nerd fonts library"
+  conflicts=(nerd-fonts-roboto-mono)
+  replaces=(nerd-fonts-roboto-mono)
+
+  install -Dm644 robotomono/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 robotomono/LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+}
+
+package_ttf-sharetech-mono-nerd() {
+  pkgdesc="Patched font Share Tech Mono (Shure Tech Mono) from nerd fonts library"
+  license=('custom:OFL')
+
+  install -Dm644 sharetechmono/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 sharetechmono/OFL.txt "${pkgdir}/usr/share/licenses/${pkgname}/OFL.txt"
+}
+
+package_ttf-sourcecodepro-nerd() {
+  pkgdesc="Patched font Source Code Pro from nerd fonts library"
+  conflicts=(nerd-fonts-source-code-pro)
+  replaces=(nerd-fonts-source-code-pro)
+
+  install -Dm644 sourcecodepro/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 sourcecodepro/LICENSE.txt -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
+
+package_ttf-space-mono-nerd() {
+  pkgdesc="Patched font Space Mono from nerd fonts library"
+  license=('custom:OFL')
+  conflicts=(nerd-fonts-source-space-mono)
+  replaces=(nerd-fonts-source-space-mono)
+
+  install -Dm644 spacemono/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 spacemono/OFL.txt -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
+
+package_ttf-tinos-nerd() {
+  pkgdesc="Patched font Tinos from nerd fonts library"
+  license=('Apache')
+  conflicts=(nerd-fonts-source-tinos)
+  replaces=(nerd-fonts-source-tinos)
+
+  install -Dm644 tinos/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 tinos/"Apache License.txt" -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
+
+package_ttf-victor-mono-nerd() {
+  pkgdesc="Patched font Victor Mono from nerd fonts library"
+  conflicts=(ttf-nerd-fonts-victor-mono)
+  replaces=(ttf-nerd-fonts-victor-mono)
+
+  install -Dm644 victormono/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 victormono/LICENSE.txt -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}

@@ -1,0 +1,33 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
+
+pkgname=python-email-validator
+pkgver=2.0.0
+pkgrel=1
+pkgdesc="A robust email address syntax and deliverability validation library"
+arch=('any')
+url="https://github.com/JoshData/python-email-validator"
+license=('custom:CC0')
+depends=('python-dnspython' 'python-idna')
+makedepends=('python-setuptools')
+checkdepends=('python-pytest')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/JoshData/python-email-validator/archive/v$pkgver.tar.gz")
+sha512sums=('67d457642a574498bf12eb6f4fc3c25c46374724f064b775a7382d8c96c7087e78937ffceb717461b853e1945dd5efe9ef7562a1e639249cd5cfe006a776239e')
+
+build() {
+  cd python-email-validator-$pkgver
+  python setup.py build
+}
+
+check() {
+  cd python-email-validator-$pkgver
+  python -m pytest
+}
+
+package() {
+  cd python-email-validator-$pkgver
+  python setup.py install --root="$pkgdir/" --optimize=1
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+# vim:set ts=2 sw=2 et:

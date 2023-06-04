@@ -1,0 +1,46 @@
+# Maintainer: Christian Rebischke <Chris.Rebischke[at]archlinux[dot]org>
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
+pkgname=packer
+pkgver=1.9.1
+pkgrel=1
+pkgdesc="tool for creating identical machine images for multiple platforms from a single source configuration"
+arch=('x86_64')
+url="https://github.com/hashicorp/packer"
+license=('MPL')
+makedepends=('git' 'go' 'go-tools')
+depends=('glibc')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/hashicorp/packer/archive/v${pkgver}.tar.gz")
+sha512sums=('c24ba1ccb4e0c7ad147482040363e910b1c1d9a47503194fcf744e397c148d93bcf5364f2d3cb673db5c3f9b2b468f3e7488cb982c506fa0ebc982ca1a16b2a1')
+changelog=CHANGELOG.md
+
+prepare() {
+	export GOPATH="${srcdir}"
+	export PATH="$PATH:$GOPATH/bin"
+	mkdir -p "src/github.com/hashicorp"
+	mv "${pkgname}-${pkgver}" "src/github.com/hashicorp/${pkgname}"
+	sed -e '/VersionPrerelease = ""/ {N;N;N;d;}' -i "${srcdir}/src/github.com/hashicorp/${pkgname}/Makefile"
+}
+
+build() {
+  cd "src/github.com/hashicorp/${pkgname}"
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export CGO_LDFLAGS="${LDFLAGS}"
+  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw -ldflags=-linkmode=external"
+	go build -o packer-binary
+}
+
+# Currently broken
+# check() {
+#   cd "src/github.com/hashicorp/${pkgname}"
+#   go test ./...
+# }
+
+package() {
+	cd "src/github.com/hashicorp/${pkgname}"
+	install -Dm755 packer-binary "${pkgdir}/usr/bin/packer"
+	install -Dm644 contrib/zsh-completion/_packer "${pkgdir}"/usr/share/zsh/site-functions/_packer
+}
+
+# vim:set et sw=2 ts=2 tw=79:

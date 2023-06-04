@@ -1,0 +1,41 @@
+# Maintainer: Bruno Pagani <archange@archlinux.org>
+# Contributor: Eli Schwartz <eschwartz@archlinux.org>
+# Contributor: Alexandre Filgueira <alexfilgueira@cinnarch.com>
+# Contributor: Ner0
+
+pkgname=nemo
+pkgver=5.8.0
+pkgrel=1
+pkgdesc="Cinnamon file manager (Nautilus fork)"
+arch=(x86_64)
+url="https://github.com/linuxmint/${pkgname}"
+license=(GPL)
+depends=(cinnamon-desktop dconf gvfs exempi libexif libnotify libxml2
+         python xapp)
+optdepends=('cinnamon-translations: i18n'
+            'ffmpegthumbnailer: support for video thumbnails'
+            'catdoc: search helpers support for legacy MS Office files'
+            'ghostscript: search helpers support for PostScript files'
+            'libgsf: search helpers support for MS Office files'
+            'libreoffice: search helpers support for legacy MS Office powerpoint files'
+            'odt2txt: search helpers support for LibreOffice files'
+            'poppler: search helpers support for PDF')
+makedepends=(meson samurai gobject-introspection intltool libgsf)
+source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha512sums=('886b84e20b166f958ff245acf09df07cf53eca4a0f5da91acb8c6559e4a907386d46c1291d46177da2728a98bf85df64a4fe638211bbe835e00430bc5f70f863')
+b2sums=('74f65ab241b0da46205e54f0c14c29570953a39d50ba09adb829e37bc6b9231336b66d8776505b901dc2dca3ca3dd13bd92a2a62fc24f8874db1ae5f7c45de42')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # Rename 'Files' app name to avoid having the same as nautilus
+  sed -i '/^\[Desktop Entry/,/^\[Desktop Action/ s/^Name\(.*\)=.*/Name\1=Nemo/' data/nemo.desktop.in
+}
+
+build() {
+  arch-meson --libexecdir=lib/${pkgname} ${pkgname}-${pkgver} build
+  samu -C build
+}
+
+package() {
+  DESTDIR="${pkgdir}" samu -C build install
+}

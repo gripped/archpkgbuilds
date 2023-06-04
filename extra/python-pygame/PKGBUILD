@@ -1,0 +1,31 @@
+# Maintainer: Morten Linderud <foxboron@archlinux.org>
+# Contributor: Alad Wenter <alad@archlinux.org>
+# Contributor: Matthew McGinn <mamcgi@gmail.com>
+# Contributor: Gryffyn
+# Contributor: Tetsumi
+
+pkgname=python-pygame
+pkgver=2.4.0
+pkgrel=1
+pkgdesc="Python game library"
+arch=('x86_64')
+url="http://www.pygame.org"
+license=('LGPL')
+depends=('glibc' 'libpng' 'python' 'sdl2' 'sdl2_mixer' 'sdl2_ttf' 'sdl2_image' 'portmidi')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel' 'sdl2')
+optdepends=(
+    'python-numpy: for examples'
+)
+source=("https://pypi.io/packages/source/p/pygame/pygame-$pkgver.tar.gz")
+sha256sums=('e3603e70e96ee30af1954ce57d4922a059402f368013e7138e90f1c03d185267')
+b2sums=('413baa7113cc24e11bdc777c8d7c0ea42e357b60f090e47d0cd66482351f12b668e67846bca52d69b79da4dd4c77e03ca754d1187b5495b7a8a2f9fbe9ab3731')
+
+build() {
+    cd pygame-"$pkgver"
+    python -m build --wheel --no-isolation
+}
+
+package() {
+    cd pygame-"$pkgver"
+    python -m installer --destdir="$pkgdir" dist/*.whl
+}

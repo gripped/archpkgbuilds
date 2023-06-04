@@ -1,0 +1,42 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor: NOGISAKA Sadata <ngsksdt@gmail.com>
+# Contributor: Bennett Piater <bennett at piater dot name>
+
+pkgname=doctl
+pkgver=1.96.1
+pkgrel=1
+pkgdesc='The official command line interface for the DigitalOcean API'
+url='https://github.com/digitalocean/doctl'
+arch=('x86_64')
+license=('Apache')
+depends=('glibc')
+makedepends=('go')
+source=(https://github.com/digitalocean/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha512sums=('6ec9141e84a5e4ecb6853494480ee4e4aaf513981fa1511ccee4f0620f1134404e1af4961a0f329ddecb9190ce67fd8b1800ed114e327f0d27ab009aefa70d73')
+b2sums=('940bbcbe6aa0087875bfb6dea5a434c6ab74a967b73d3b3870d59e45ca7b9dd896e782b744b44f620b997284e86571aff2352b8a1495763b0990a53aae7ba954')
+
+build() {
+  cd ${pkgname}-${pkgver}
+  go build \
+    -trimpath \
+    -buildmode=pie \
+    -mod=readonly \
+    -ldflags "-linkmode external -extldflags \"${LDFLAGS}\"" \
+    ./cmd/...
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm 755 "${pkgname}" -t "${pkgdir}/usr/bin"
+
+  # setup completions
+  install -dm 755 "${pkgdir}/usr/share/bash-completion/completions" \
+                  "${pkgdir}/usr/share/zsh/site-functions" \
+                 "${pkgdir}/usr/share/fish/vendor_completions.d"
+  "${pkgdir}/usr/bin/${pkgname}" completion bash > "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
+  "${pkgdir}/usr/bin/${pkgname}" completion zsh > "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
+  "${pkgdir}/usr/bin/${pkgname}" completion fish > "${pkgdir}/usr/share/fish/vendor_completions.d/${pkgname}.fish"
+}
+
+# vim: ts=2 sw=2 et:

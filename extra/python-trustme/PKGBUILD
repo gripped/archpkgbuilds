@@ -1,0 +1,36 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+
+pkgname=python-trustme
+_pyname=${pkgname/python-/}
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='Library for fake certificate authority (CA) to generate fake TLS certs'
+url='https://trustme.readthedocs.io'
+arch=('any')
+license=('MIT')
+depends=('python' 'python-cryptography' 'python-idna' 'python-pyopenssl')
+makedepends=('python-setuptools')
+checkdepends=('python-pytest' 'python-service-identity')
+source=(https://github.com/python-trio/trustme/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha512sums=('308aacf6fd297fc32605fdd2bfb4b5d3fe1556ec3ed48988f9fb7a33aa256e5fe00bb8d6cbcefd41329b0c552cf616ba64277d30273a4b673b4837bb9f43e24f')
+b2sums=('51be7a202c38868525a21f9d56a5150ade04b008a0de508159fab47c22650748aada792dacc05417476036cf3225fac96e620fe188d5a1b697896db9656dd1cb')
+
+build() {
+  cd ${_pyname}-${pkgver}
+  python setup.py build
+}
+
+check() {
+  cd ${_pyname}-${pkgver}
+  export PYTHONPATH=$(pwd)/src
+  py.test
+}
+
+package() {
+  cd ${_pyname}-${pkgver}
+  python setup.py install -O1 --root="${pkgdir}" --skip-build
+  install -Dm 644 LICENSE.MIT -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm 644 README.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:

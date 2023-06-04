@@ -1,0 +1,20 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+# Maintainer: Daniel Bermond <dbermond@archlinux.org>
+# Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+
+pkgname=wine-mono
+pkgver=8.0.0
+pkgrel=1
+pkgdesc="Wine's built-in replacement for Microsoft's .NET Framework"
+arch=('any')
+url="https://wiki.winehq.org/Mono"
+license=('GPL' 'LGPL2.1' 'MPL')
+depends=('wine')
+source=("https://dl.winehq.org/wine/$pkgname/$pkgver/$pkgname-$pkgver-x86.tar.xz")
+sha512sums=('7ffa8a87c9e23d84fee789da83f29480d91b79915d3acaa15803699d8ee1575097e24c38fb0e23b22fc5b67f64287fa3f7979b1a077c08ed2f5b69643dcacd4f')
+
+package() {
+  install -d -m755 "$pkgdir"/usr/share/wine/mono/
+  cp -r -a --no-preserve='ownership' $pkgname-$pkgver "$pkgdir"/usr/share/wine/mono/
+}

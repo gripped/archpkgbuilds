@@ -1,0 +1,45 @@
+# Maintainer: Konstantin Gizdov <arch at kge dot pw>
+# Contributor: Alejandro Valdes <alejandrovaldes at live dot com>
+
+pkgname=ncspot
+pkgver=0.13.2
+pkgrel=3
+pkgdesc="Cross-platform ncurses Spotify client written in Rust, inspired by ncmpc and the likes."
+arch=('x86_64')
+url="https://github.com/hrkfdn/ncspot"
+license=('BSD')
+depends=('openssl' 'libpulse' 'libxcb' 'dbus' 'hicolor-icon-theme')
+makedepends=('cargo' 'python' 'pkgconf' 'ueberzug' 'pandoc-cli')
+optdepends=('ueberzug: display album art in terminal (X11)')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/hrkfdn/ncspot/archive/v${pkgver}.tar.gz")
+b2sums=('6e64124ba3cade9c9db5698351f6da58cbd5c5ac51a741d42ef7d97275c82d9e52e248215773e322401c5545d81b10ed255d2bab495aba227456988291679e2b')
+options=('!lto')
+
+prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release --features cover
+  # generate docs
+  pandoc README.md -t man -s --columns=500 | grep -vE "\[IMAGE:|Click to show/hide" > ncspot.1
+}
+
+check() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  export RUSTUP_TOOLCHAIN=stable
+  cargo test --frozen --features cover
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  install -Dm 755 "target/release/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+  install -Dm 644 "misc/ncspot.desktop" "${pkgdir}/usr/share/applications/ncspot.desktop"
+  install -Dm 644 "images/logo.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/ncspot.svg"
+  install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm 644 "ncspot.1" "${pkgdir}/usr/share/man/man1/ncspot.1"
+}

@@ -1,0 +1,35 @@
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Maintainer: T.J. Townsend <blakkheim@archlinux.org>
+# Contributor: tobias [tobias at archlinux.org]
+
+pkgname=mousepad
+pkgver=0.6.1
+pkgrel=2
+pkgdesc="Simple text editor for Xfce"
+arch=('x86_64')
+url="https://docs.xfce.org/apps/mousepad/start"
+license=('GPL2')
+groups=('xfce4-goodies')
+depends=('gtksourceview4' 'desktop-file-utils' 'hicolor-icon-theme')
+makedepends=('gspell' 'polkit')
+optdepends=('gspell: spell checking support')
+source=(https://archive.xfce.org/src/apps/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
+sha256sums=('560c5436c7bc7de33fbf3e9f6cc545280772ad898dfb73257d86533880ffff36')
+
+build() {
+  cd $pkgname-$pkgver
+
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-debug
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
+}
+
+# vim:set ts=2 sw=2 et:

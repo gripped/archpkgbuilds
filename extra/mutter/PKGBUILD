@@ -1,0 +1,134 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Contributor: Ionut Biru <ibiru@archlinux.org>
+# Contributor: Michael Kanis <mkanis_at_gmx_dot_de>
+
+pkgbase=mutter
+pkgname=(
+  mutter
+  mutter-docs
+)
+pkgver=44.2
+pkgrel=1
+pkgdesc="Window manager and compositor for GNOME"
+url="https://gitlab.gnome.org/GNOME/mutter"
+arch=(x86_64)
+license=(GPL)
+depends=(
+  colord
+  dconf
+  gnome-desktop-4
+  gnome-settings-daemon
+  graphene
+  gsettings-desktop-schemas
+  lcms2
+  libcanberra
+  libgudev
+  libinput
+  libsm
+  libsysprof-capture
+  libxkbcommon-x11
+  libxkbfile
+  pipewire
+  startup-notification
+  xorg-xwayland
+)
+makedepends=(
+  egl-wayland
+  gi-docgen
+  git
+  gobject-introspection
+  gtk3
+  meson
+  sysprof
+  wayland-protocols
+  xorg-server
+  xorg-server-xvfb
+)
+checkdepends=(
+  python-dbusmock
+  wireplumber
+  zenity
+)
+_commit=e7ed2bf85700a2ff33b69826f6f0fff6e2f28e69  # tags/44.2^0
+source=(
+  "git+https://gitlab.gnome.org/GNOME/mutter.git#commit=$_commit"
+  0001-tests-cogl-test-framebuffer-get-bits-should-fail-on-.patch
+)
+b2sums=('SKIP'
+        'f4ed6920b4823bf3fc1ba0c6df56c8fbd930e0e36ed209430d04835edbc4b07f13dd3851102481b5aac176858093199921ff9e02f5723e9d786a1df8df83b539')
+
+pkgver() {
+  cd mutter
+  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+}
+
+prepare() {
+  cd mutter
+
+  # Unbreak tests with Mesa 23.1
+  # https://gitlab.gnome.org/GNOME/mutter/-/issues/2848
+  git apply -3 ../0001-tests-cogl-test-framebuffer-get-bits-should-fail-on-.patch
+}
+
+build() {
+  local meson_options=(
+    -D docs=true
+    -D egl_device=true
+    -D installed_tests=false
+    -D wayland_eglstream=true
+  )
+
+  CFLAGS="${CFLAGS/-O2/-O3} -fno-semantic-interposition"
+  LDFLAGS+=" -Wl,-Bsymbolic-functions"
+
+  arch-meson mutter build "${meson_options[@]}"
+  meson compile -C build
+}
+
+_check() (
+  export XDG_RUNTIME_DIR="$PWD/rdir" GSETTINGS_SCHEMA_DIR="$PWD/build/data"
+  mkdir -p -m 700 "$XDG_RUNTIME_DIR"
+  glib-compile-schemas "$GSETTINGS_SCHEMA_DIR"
+
+  pipewire &
+  _p1=$!
+
+  wireplumber &
+  _p2=$!
+
+  trap "kill $_p1 $_p2; wait" EXIT
+
+  meson test -C build --print-errorlogs -t 3
+)
+
+check() {
+  dbus-run-session xvfb-run -s '-nolisten local +iglx -noreset' \
+    bash -c "$(declare -f _check); _check"
+}
+
+_pick() {
+  local p="$1" f d; shift
+  for f; do
+    d="$srcdir/$p/${f#$pkgdir/}"
+    mkdir -p "$(dirname "$d")"
+    mv "$f" "$d"
+    rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
+  done
+}
+
+package_mutter() {
+  provides=(libmutter-12.so)
+
+  meson install -C build --destdir "$pkgdir"
+
+  _pick docs "$pkgdir"/usr/share/mutter-*/doc
+}
+
+package_mutter-docs() {
+  pkgdesc+=" (documentation)"
+  depends=()
+
+  mv docs/* "$pkgdir"
+}
+
+# vim:set sw=2 sts=-1 et:

@@ -1,0 +1,83 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+_name=PyMuPDF
+pkgname=python-pymupdf
+pkgver=1.22.3
+pkgrel=1
+pkgdesc="Python bindings for MuPDF's rendering library"
+arch=(x86_64)
+url="https://github.com/pymupdf/PyMuPDF"
+license=(AGPL3)
+depends=(
+  glibc
+  gumbo-parser
+  jbig2dec
+  libmupdf
+  openjpeg2
+  python
+)
+makedepends=(
+  freetype2
+  git
+  libjpeg-turbo
+  python-build
+  python-distro
+  python-installer
+  python-setuptools
+  python-wheel
+  swig
+  systemd
+)
+checkdepends=(
+  python-fonttools
+  python-pillow
+  python-pytest
+)
+optdepends=(
+  'python-fonttools: for building font subsets using fontTools'
+  'python-pillow: for image file saving using pillow'
+)
+source=(
+  https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz
+)
+sha512sums=('aeb325f81dd6cdee71a20e836cce7c553cde72542420608bc2fc12d1d3335385196f62d30f1c84bb3be7c5dca649e3a2f9448bab8cda43a679bf263521e6348c')
+b2sums=('50818bfe2c44be7d48d30d8529ee51a113667454ea8ca2b35c3fc609f37775c6853b691e0c9f7db9fa0a5af83bdd322d3c46129b8b175bb329d16fbc073b5277')
+
+prepare() {
+  # remove bundled mupdf sources
+  rm -frv $pkgname/*.tgz
+  # we package swig and don't need python-swig
+  sed -e 's/, "swig"//' -i $_name-$pkgver/pyproject.toml
+}
+
+build() {
+  cd $_name-$pkgver
+  # NOTE: build against system libmupdf
+  export PYMUPDF_SETUP_MUPDF_BUILD=""
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  local pytest_options=(
+    -vv
+    # disable broken test, that upstream is not interested in fixing or disabling: https://github.com/pymupdf/PyMuPDF/issues/2127
+    --deselect tests/test_pixmap.py::test_color_count
+  )
+  local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
+  cd $_name-$pkgver
+  python -m installer --destdir=test_dir dist/*.whl
+  export PYTHONPATH="$PWD/test_dir/$_site_packages:$PYTHONPATH"
+  pytest "${pytest_options[@]}" tests/
+}
+
+package() {
+  depends+=(
+    freetype2 libfreetype.so
+    libjpeg-turbo libjpeg.so
+  )
+
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
+}

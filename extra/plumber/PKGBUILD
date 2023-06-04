@@ -1,0 +1,35 @@
+# Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
+
+pkgname=plumber
+pkgver=2.5.0
+pkgrel=1
+pkgdesc="Swiss army knife CLI tool for interacting with Kafka, RabbitMQ and other messaging systems."
+arch=('x86_64')
+url="https://github.com/batchcorp/plumber"
+license=('Apache')
+depends=('glibc')
+makedepends=('go' 'git')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/batchcorp/${pkgname}/archive/v${pkgver}.tar.gz")
+sha512sums=('3a58e75843f7011113c808803b2c504b1830f19d871085edd8b0c50e9103b991ec79648273c49a2bcbcf1c671694e40156e03ac158dc6dbff126d633d546bd0c')
+b2sums=('f916d0e11756eb5e9351e756a850d2cb9d193bf413df01c7fe2b0d8c9aceabeb1f24e1efecc0c8eebbdea7ac45ce6f1a92d6a51549f53a6500b90fc38b79d0d9')
+
+build(){
+  cd "${pkgname}-${pkgver}"
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export CGO_LDFLAGS="${LDFLAGS}"
+  export GOFLAGS="-buildmode=pie -ldflags=-linkmode=external -trimpath -mod=readonly -modcacherw"
+  go build -o plumber-bin .
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+  go test ./...
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  install -Dm755 plumber-bin "${pkgdir}/usr/bin/${pkgname}"
+}
+

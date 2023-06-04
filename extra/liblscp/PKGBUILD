@@ -1,0 +1,37 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Contributor: Martin C. Doege <mdoege at compuserve dot com>
+# Contributor: Ray Rashif <schiv@archlinux.org>
+# Contributor: Shinlun Hsieh <yngwiexx@yahoo.com.tw>
+
+pkgname=liblscp
+pkgver=0.9.10
+pkgrel=1
+pkgdesc="LinuxSampler Control Protocol C++ library"
+arch=(x86_64)
+url="https://github.com/rncbc/liblscp"
+license=(LGPL2.1)
+depends=(glibc)
+makedepends=(cmake)
+provides=(liblscp.so)
+source=(https://github.com/rncbc/liblscp/archive/${pkgname}_${pkgver//./_}/$pkgname-${pkgname}_${pkgver//./_}.tar.gz)
+sha512sums=('2a6768872cc86818a313a970a6443c4e39314e931028a168d0a4bb164b8aa256d0f33826af2cea0c2ff90e02d05342dbb55df45da5ea4bf5e09304d3c35acffb')
+b2sums=('20cb83a261474ea56888b849462dd414520abd8e152b406ffa7f91c79744be64dd359c99e74270c30dac1c1a5d4209e4657882d712d58a68e82807cd9af275ff')
+
+build() {
+  local cmake_options=(
+    -B build
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -S $pkgname-${pkgname}_${pkgver//./_}
+    -W no-dev
+  )
+
+  cmake "${cmake_options[@]}"
+  cmake --build build --verbose
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm 644 $pkgname-${pkgname}_${pkgver//./_}/{ChangeLog,README} -t "$pkgdir/usr/share/doc/$pkgname/"
+}
+

@@ -1,0 +1,53 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Contributor: Martin C. Doege <mdoege at compuserve dot com>
+# Contributor: Ray Rashif <schiv@archlinux.org>
+# Contributor: Shinlun Hsieh <yngwiexx@yahoo.com.tw>
+
+pkgname=qsampler
+pkgver=0.9.10
+pkgrel=1
+pkgdesc="A LinuxSampler Qt GUI Interface"
+arch=(x86_64)
+url="https://qsampler.sourceforge.io/"
+license=(GPL2)
+groups=(pro-audio)
+depends=(
+  gcc-libs
+  glibc
+  hicolor-icon-theme
+  libgig libgig.so
+  liblscp liblscp.so
+  linuxsampler
+  qt6-base
+  qt6-svg
+)
+makedepends=(
+  cmake
+  qt6-tools
+)
+optdepends=(
+  'qt6-wayland: for native wayland support'
+)
+source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
+sha512sums=('599db13d35a0cf25e5d5fcd02a8fe7995500552c2f2b298883395af9876ecd7fd5aca4528fa8aa5dcd678038ea8704b69131df95c7d9de8061a2c0d163ccbde9')
+b2sums=('1fc9c4d063dcce9f3cd69e74e0205b4585e2609eb09fea409fccb87560f4eb767ce322b9dc6d18c3e7ae79c5eff7d06a3bc4c408f6880c161f34d9d93f7ca0fd')
+
+build() {
+  local cmake_options=(
+    -B build
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CONFIG_QT6=ON
+    -S $pkgname-$pkgver
+    -W no-dev
+  )
+
+  cmake "${cmake_options[@]}"
+  cmake --build build --verbose
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm 644 $pkgname-$pkgver/{ChangeLog,README} -t "$pkgdir/usr/share/doc/$pkgname/"
+}
+# vim:set ts=2 sw=2 et:

@@ -1,0 +1,26 @@
+# Maintainer: Anatol Pomozov
+
+pkgname=dpdk
+pkgver=23.03
+pkgrel=1
+pkgdesc='A set of libraries and drivers for fast packet processing'
+arch=(x86_64)
+url='http://dpdk.org'
+license=(BSD)
+options=(staticlibs)
+depends=(numactl libelf libpcap libbpf libbsd dtc jansson libarchive)
+makedepends=(linux-headers python-pyelftools meson ninja)
+source=(http://fast.dpdk.org/rel/dpdk-$pkgver.tar.xz)
+sha256sums=('922067ad6b0a0daf934adf833fcdc29c5154837a4a1f6dc0ffbdcf6dab9edef5')
+
+build() {
+  cd dpdk-$pkgver
+  CFLAGS+=' -ffat-lto-objects' \
+  meson build --prefix=/usr -Dplatform=generic
+  ninja -C build -j1
+}
+
+package() {
+  cd dpdk-$pkgver
+  DESTDIR="$pkgdir" ninja -C build install
+}

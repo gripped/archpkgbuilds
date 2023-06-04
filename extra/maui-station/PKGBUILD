@@ -1,0 +1,24 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+pkgname=maui-station
+_pkgname=station
+pkgver=3.0.0
+pkgrel=1
+pkgdesc='Convergent terminal emulator'
+url='https://mauikit.org/'
+arch=(x86_64)
+license=(GPL3)
+depends=(mauikit-filebrowsing mauikit-terminal hicolor-icon-theme)
+makedepends=(extra-cmake-modules)
+groups=(maui)
+source=(https://download.kde.org/stable/maui/$_pkgname/$pkgver/$_pkgname-$pkgver.tar.xz)
+sha256sums=('2641b59ff1f3c4e19e7edf4612cff16d66f3ba5b2562930345ae33882a6e7112')
+
+build() {
+  cmake -B build -S $_pkgname-$pkgver
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}

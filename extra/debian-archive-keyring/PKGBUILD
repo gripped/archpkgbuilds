@@ -1,0 +1,25 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=debian-archive-keyring
+pkgver=2023.3
+pkgrel=1
+pkgdesc="GnuPG archive keys of the Debian archive"
+arch=('any')
+url="https://packages.debian.org/sid/debian-archive-keyring"
+license=('GPL')
+depends=('gnupg')
+makedepends=('jetring')
+source=("https://salsa.debian.org/release-team/$pkgname/-/archive/$pkgver/$pkgname-$pkgver.tar.bz2")
+sha512sums=('266be0866fcaf6b564494da7a7aee34ddd0872bb0c4ac7e3db7b351373586415e987c79b2af7bc3c0e617fe91aa379958d064a2d946ea35c877cb5d34350ae54')
+
+build() {
+  cd $pkgname-$pkgver
+  make -j1
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
+}
+
+# vim:set ts=2 sw=2 et:

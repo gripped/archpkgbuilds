@@ -1,0 +1,34 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Contributor: Dario Ostuni <dario.ostuni@gmail.com>
+
+pkgname=wasm-pack
+pkgver=0.11.1
+pkgrel=1
+pkgdesc="Your favorite rust -> wasm workflow tool!"
+arch=('x86_64')
+url="https://github.com/rustwasm/wasm-pack"
+license=('MIT' 'Apache')
+depends=('bzip2' 'curl')
+makedepends=('cargo' 'openssl')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha384sums=('179aa1f1b3888aced64836a374a0363f119ad3b123eb4e0ac2fbbd437bcc72c2c714ebafcd03ba04de54019796571648')
+options=('!lto')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --frozen --release --no-default-features --features sys-openssl
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  install -Dm 644 LICENSE-MIT -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:

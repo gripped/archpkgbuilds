@@ -1,0 +1,29 @@
+# Maintainer: Bruno Pagani <archange@archlinux.org>
+# Contributor: Eli Schwartz <eschwartz@archlinux.org>
+# Contributor: Alexandre Filgueira <alexfilgueira@cinnarch.com>
+# Contributor: Adam Hani Schakaki <adam@schakaki.net>
+# Contributor: Ner0
+
+pkgname=muffin
+pkgver=5.8.0
+pkgrel=1
+pkgdesc="Cinnamon window manager based on Mutter"
+arch=(x86_64)
+url="https://github.com/linuxmint/${pkgname}"
+license=(GPL)
+depends=(cinnamon-desktop gobject-introspection-runtime libcanberra libinput
+         libsm libxkbcommon-x11 startup-notification zenity graphene pipewire)
+makedepends=(meson intltool gobject-introspection)
+options=(!emptydirs)
+source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('05480fa3d3cd58f6a79f71c2f0c91cef25578ac840a2d9524cd04cb9824e07b7')
+b2sums=('fd21eaedf65110908469da9ed8ac7b8b1b315a34e563876397beb5fa2fbb2d4c11a18004486af3e5331cc85dabf2423ea9211431c12a423ce62fd4e189db3137')
+
+build() {
+  arch-meson build ${pkgname}-${pkgver}
+  meson compile -C build
+}
+
+package() {
+  meson install --destdir="${pkgdir}" -C build
+}

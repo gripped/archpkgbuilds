@@ -1,0 +1,42 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+pkgname=archlinux-appstream-data
+pkgver=20230526
+pkgrel=1
+pkgdesc='Arch Linux application database for AppStream-based software centers'
+arch=(any)
+url='https://www.archlinux.org'
+license=(GPL)
+depends=()
+makedepends=()
+source=()
+noextract=()
+for _repo in core extra multilib; do
+ source+=($_repo-$pkgver.xml.gz::https://sources.archlinux.org/other/packages/$pkgname/$pkgver/$_repo/Components-x86_64.xml.gz
+          $_repo-icons-48x48-$pkgver.tar.gz::https://sources.archlinux.org/other/packages/$pkgname/$pkgver/$_repo/icons-48x48.tar.gz
+          $_repo-icons-64x64-$pkgver.tar.gz::https://sources.archlinux.org/other/packages/$pkgname/$pkgver/$_repo/icons-64x64.tar.gz
+          $_repo-icons-128x128-$pkgver.tar.gz::https://sources.archlinux.org/other/packages/$pkgname/$pkgver/$_repo/icons-128x128.tar.gz)
+ noextract+=($_repo.xml.gz-$pkgver $_repo-icons-{48x48,64x64,128x128}-$pkgver.tar.gz)
+done
+sha256sums=('5c11c9a5ba451806037e9cbeccb21407590156b79cda78e91a36f13a89309fce'
+            '7989bb311baa38ef545250282aa065d23281c46dfb8faabe4c653487bdbded5c'
+            'e6343826637ac2be7ece2155772f139705438e87aaef6e7ab1e11effde480abb'
+            '7989bb311baa38ef545250282aa065d23281c46dfb8faabe4c653487bdbded5c'
+            'a62758d6afdc187aedfe68c08dc80a9b495b0474bc60bfee9089c7bc434ccf43'
+            'bc7a8c810dab41d3e8f7e5b9b7446491ff5b8d6fd9f67dd17b3c85eafb22efe0'
+            'e4b04823855109c357c95630d9689d43193e2c247add5c390841c721a82e05c8'
+            '3133abb24538dbc33134d38f99d30857c084b21386d09ed39039dddc1f56e181'
+            '9b557001c7b8311b3369a505c367b0a6b0ffed9573bda583e49f2f5bd98bdb3f'
+            '28bd487ab946c42590fd23a0e7bf96d538e2aced09d899f8a68bbb31780f9fe4'
+            '032f12be931c8c38cbb8ad70e63c45994971ae81d8fd61e42fcb7812e984c378'
+            '3d969b51c3c4ad5c43af679b15c56a8084810509e6da5f53234ae50e6272589b')
+
+package() {
+  mkdir -p "$pkgdir"/usr/share/app-info/{icons/archlinux-arch-{core,extra,multilib}/{48x48,64x64,128x128},xmls}
+  for _repo in core extra multilib; do
+   tar -xzf $_repo-icons-48x48-$pkgver.tar.gz -C "$pkgdir"/usr/share/app-info/icons/archlinux-arch-$_repo/48x48
+   tar -xzf $_repo-icons-64x64-$pkgver.tar.gz -C "$pkgdir"/usr/share/app-info/icons/archlinux-arch-$_repo/64x64
+   tar -xzf $_repo-icons-128x128-$pkgver.tar.gz -C "$pkgdir"/usr/share/app-info/icons/archlinux-arch-$_repo/128x128
+   install -m644 $_repo-$pkgver.xml.gz "$pkgdir"/usr/share/app-info/xmls/$_repo.xml.gz
+  done
+}

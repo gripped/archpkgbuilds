@@ -1,0 +1,28 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+# Contributor: Arjan <arjan@archlinux.org>
+# contributor Sarah Hay <sarahhay@mb.sympatico.ca>
+
+pkgname=libdvdnav
+pkgver=6.1.1
+pkgrel=2
+pkgdesc='Library to navigate DVD video disks'
+arch=('x86_64')
+url='https://www.videolan.org/developers/libdvdnav.html'
+license=('GPL')
+depends=('glibc' 'libdvdread')
+source=("https://download.videolan.org/pub/videolan/$pkgname/$pkgver/$pkgname-$pkgver.tar.bz2"{,.asc})
+sha256sums=('c191a7475947d323ff7680cf92c0fb1be8237701885f37656c64d04e98d18d48'
+            'SKIP')
+validpgpkeys=('65F7C6B4206BD057A7EB73787180713BE58D1ADC') # VideoLAN Release Signing Key
+
+build() {
+  cd $pkgname-$pkgver
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
+}

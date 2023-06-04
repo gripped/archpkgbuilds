@@ -1,0 +1,27 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=melange
+pkgver=0.3.2
+pkgrel=1
+pkgdesc='Build APKs from source code'
+url='https://github.com/chainguard-dev/melange'
+arch=('x86_64')
+license=('Apache')
+depends=('apk-tools' 'alpine-keyring' 'bubblewrap')
+makedepends=('go')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/chainguard-dev/melange/archive/v${pkgver}.tar.gz")
+b2sums=('bad4b5d3ac98d67a7532d014692a7a2865591f9a922c0c35ce34cba873e12b5b4e6cacd729c710a0efe694a60785d46ae44b0a6d29e116bfcd88fc337f9d8a71')
+
+build() {
+  cd ${pkgname}-${pkgver}
+  make melange
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm 755 melange -t "${pkgdir}/usr/bin"
+  install -dm 755 "${pkgdir}/usr/share/melange"
+  cp -a pkg/build/pipelines/ "${pkgdir}/usr/share/melange"
+}
+
+# vim: ts=2 sw=2 et:

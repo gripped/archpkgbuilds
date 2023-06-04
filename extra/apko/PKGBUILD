@@ -1,0 +1,40 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=apko
+pkgver=0.8.0
+pkgrel=1
+pkgdesc="Declarative APK-based container building tool with support for sigstore signatures"
+url="https://github.com/chainguard-dev/apko"
+arch=('x86_64')
+license=('Apache-2.0')
+depends=('apk-tools' 'alpine-keyring')
+makedepends=('go')
+source=("https://github.com/chainguard-dev/apko/archive/v${pkgver}/apko-${pkgver}.tar.gz")
+b2sums=('095551b193fc97f9759b914831eda1b7bb0316ae6aff3f0c77fb025a65c651409e34f19987e3030ad19e74f8c9e7522363ae5d6e76346a1319136dbd4dead423')
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  mkdir build
+  CGO_LDFLAGS="${LDFLAGS}" \
+    GOFLAGS="-trimpath -buildmode=pie -mod=readonly" \
+    go build -o build/ -tags -tags=pivkey,pkcs11key ./...
+
+  for i in bash fish zsh; do
+    build/apko completion ${i} > ./apko.${i}
+  done
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+  go test ./...
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  install -Dm755 build/apko "${pkgdir}"/usr/bin/apko
+  install -Dm644 apko.bash "${pkgdir}"/usr/share/bash-completion/completions/apko
+  install -Dm644 apko.fish "${pkgdir}"/usr/share/fish/completions/apko.fish
+  install -Dm644 apko.zsh "${pkgdir}"/usr/share/zsh/site-functions/_apko
+}
+
+# vim: ts=2 sw=2 et:

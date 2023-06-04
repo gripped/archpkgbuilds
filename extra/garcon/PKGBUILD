@@ -1,0 +1,33 @@
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: Xavier Devlamynck <magicrhesus@ouranos.be>
+
+pkgname=garcon
+pkgver=4.18.1
+pkgrel=1
+pkgdesc="Freedesktop.org compliant menu library"
+arch=('x86_64')
+url="https://docs.xfce.org/xfce/garcon/start"
+license=('LGPL')
+groups=('xfce4')
+depends=('libxfce4ui')
+makedepends=('intltool' 'python' 'gobject-introspection')
+source=(https://archive.xfce.org/src/xfce/garcon/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
+sha256sums=('fe7a932a6dac95eb1438f3fbfd53096756ff2e1cb179d10d0fb796cefbb4c20b')
+
+build() {
+  cd $pkgname-$pkgver
+
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-debug
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
+}
+
+# vim:set ts=2 sw=2 et:

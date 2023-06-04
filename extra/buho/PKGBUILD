@@ -1,0 +1,23 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+pkgname=buho
+pkgver=3.0.0
+pkgrel=1
+pkgdesc='Task and note keeper'
+url='https://mauikit.org/'
+arch=(x86_64)
+license=(GPL3)
+depends=(mauikit-accounts mauikit-filebrowsing mauikit-texteditor hicolor-icon-theme)
+makedepends=(extra-cmake-modules)
+groups=(maui)
+source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz)
+sha256sums=('07145d1581b49aaee450df96dccac7f735d2d2868c42e55fff195194795a4690')
+
+build() {
+  cmake -B build -S $pkgname-$pkgver
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}

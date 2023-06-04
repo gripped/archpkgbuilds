@@ -1,0 +1,30 @@
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
+# Contributor: TDY <tdy@gmx.com>
+# Contributor: Nelson Menon <nelsonmenon@gmail.com insanatorium.wordpress.com>
+
+pkgname=freecol
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="A turn-based strategy game based on Colonization"
+arch=('any')
+url="http://www.freecol.org/"
+license=('GPL')
+depends=('java-runtime>=11')
+source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.zip
+        freecol.sh)
+sha512sums=('6f869ed9c414e1a8201f3bc5dadcdc4ad5317c3d800f9452dc94504ab8abc967d5782507e52aac8c8463fd9fc3be781edcb75c9cc084d44a5dd4d61403cf586f'
+            '90cf7eed5a81e5dd2bc9c609a18713422e98f0447841aaf650c9408f75d9405995cdfc0e471955c50d383de20c79e3454de139c3221cec8a16fbc0c0a9e79fab')
+
+package() {
+  cd "$srcdir/$pkgname"
+
+  install -Dm644 FreeCol.jar "$pkgdir/usr/share/java/$pkgname/FreeCol.jar"
+  install -Dm644 FreeCol.pdf "$pkgdir/usr/share/doc/$pkgname/FreeCol.pdf"
+  install -Dm644 $pkgname.xpm "$pkgdir/usr/share/pixmaps/$pkgname.xpm"
+  install -Dm644 freecol.desktop "$pkgdir/usr/share/applications/$pkgname.desktop"
+  install -Dm755 "$srcdir"/freecol.sh "$pkgdir/usr/bin/$pkgname"
+
+  cp -r data jars "$pkgdir/usr/share/java/$pkgname/"
+  find "$pkgdir/usr/share/java/$pkgname" -type d -exec chmod 755 '{}' \;
+  find "$pkgdir/usr/share/java/$pkgname" -type f -exec chmod 644 '{}' \;
+}

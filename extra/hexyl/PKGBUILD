@@ -1,0 +1,42 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Contributor: Attenuation <ouyangjun1999@gmail.com>
+
+pkgname=hexyl
+pkgver=0.13.0
+pkgrel=1
+pkgdesc='Colored command-line hex viewer'
+url='https://github.com/sharkdp/hexyl'
+arch=('x86_64')
+license=('Apache' 'MIT')
+depends=('gcc-libs')
+makedepends=('cargo' 'pandoc')
+source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('734f28483baed4a3b0aa93f6c4f84fd656dad858d5302a2edec70998c60854f0f7ecde2c6a53a89291f4bb5bb69ff70fd45f4e04b794ba56d67f66a029837a6a')
+b2sums=('fb102694f601d1555138d64cd0a2dd2427c0c9a2519a8d432ad15cba18b3077377b1d93f4a5a18d446d9521e06f643c6939f3e2a732a748a8640c490234f5ee0')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd ${pkgname}-${pkgver}
+  cargo build --release --frozen
+  pandoc -s -f markdown -t man -o "doc/${pkgname}.1" "doc/${pkgname}.1.md"
+}
+
+check() {
+  cd ${pkgname}-${pkgver}
+  cargo test --frozen
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm 755 target/release/${pkgname} -t "${pkgdir}/usr/bin"
+  install -Dm 644 LICENSE* -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/${pkgname}"
+  install -Dm 644 "doc/$pkgname.1" -t "$pkgdir/usr/share/man/man1"
+}
+
+# vim: ts=2 sw=2 et:

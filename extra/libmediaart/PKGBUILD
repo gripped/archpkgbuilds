@@ -1,0 +1,28 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=libmediaart
+pkgver=1.9.6
+pkgrel=2
+pkgdesc='Library tasked with managing, extracting and handling media art caches'
+url='https://git.gnome.org/browse/libmediaart'
+arch=('x86_64')
+license=('LGPL')
+depends=('gdk-pixbuf2' 'glib2' 'glibc')
+makedepends=('gobject-introspection' 'meson' 'vala')
+source=("https://download.gnome.org/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz")
+sha256sums=('c3bc5025d7db380587f9c8eb800c611f6b5a16d6b4b78fcff93f62876a677f17')
+
+build() {
+  arch-meson $pkgname-$pkgver build -D gtk_doc=true
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+}

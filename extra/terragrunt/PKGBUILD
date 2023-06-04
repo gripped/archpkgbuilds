@@ -1,0 +1,37 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: Benjamin Denhartog <ben@sudoforge.com>
+# Contributor: Andreas 'Segaja' Schleifer <archlinux at segaja dot de>
+
+pkgname=terragrunt
+pkgver=0.45.9
+pkgrel=1
+pkgdesc='Thin wrapper for Terraform that provides extra tools for working with multiple Terraform modules'
+url='https://github.com/gruntwork-io/terragrunt'
+arch=('x86_64')
+makedepends=('git' 'go')
+depends=('glibc' 'terraform')
+license=('MIT')
+source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('fa55db244a60667f8cf7a86a8b9d53c7df6ab22f4498e7665ae6bb8d36a4c97d')
+b2sums=('63ca02919bd0402e7a28e2578b3fcb9532a5b7aca7ca97840abda813ae29b86d18fa2d8e37d23fb544d0aa8add2f010e327d31c8dd70544a56828458162b6c98')
+options=('!lto')
+
+build() {
+  cd ${pkgname}-${pkgver}
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_LDFLAGS="${LDFLAGS}"
+  export GOFLAGS="-buildmode=pie -ldflags=-linkmode=external -trimpath -mod=readonly -modcacherw"
+  go build -v \
+    -ldflags "-linkmode=external -extldflags '${LDFLAGS}' -X main.VERSION=${pkgver}" \
+    .
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm 755 ${pkgname} -t "${pkgdir}/usr/bin"
+  install -Dm 644 LICENSE.txt -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+# vim:set ts=2 sw=2 et:

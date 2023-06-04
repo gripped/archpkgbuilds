@@ -1,0 +1,31 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+
+pkgname=hcxdumptool
+pkgver=6.3.0
+pkgrel=1
+pkgdesc='Small tool to capture packets from wlan devices'
+url='https://github.com/ZerBea/hcxdumptool'
+arch=('x86_64')
+license=('MIT')
+depends=('glibc' 'openssl')
+source=(https://github.com/ZerBea/hcxdumptool/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
+        https://github.com/ZerBea/hcxdumptool/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
+sha512sums=('58df76e79741768b9b794ab4588067740f2d29ae1d21b582dfc55fcaf17c1299012f437ed0d1594568828d67fa60f8063c423abe39b17a515b42a66916dcb37d'
+            'SKIP')
+b2sums=('fe2784e03846c5daf60b8bc665a630fee70f1015f7a6e76334910ba804f4011f73893f7f87333860b53945b54012d33538b3cf080431c3a9469e80dac4c12d7b'
+        'SKIP')
+validpgpkeys=('5920CE1C567948AFD2C0A9B7375516A45DB88630') # ZeroBeat <ZeroBeat@gmx.de>
+
+build() {
+  cd ${pkgname}-${pkgver}
+  make PRODUCTION=1
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  make DESTDIR="${pkgdir}" PREFIX=/usr PRODUCTION=1 install
+  install -Dm 644 README.md changelog -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm 644 license.txt -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:

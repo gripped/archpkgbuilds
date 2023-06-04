@@ -1,0 +1,36 @@
+# Maintainer: Andreas Radke <andyrtr@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=xorg-font-util
+pkgver=1.4.0
+pkgrel=1
+pkgdesc='X.Org font utilities'
+url='https://xorg.freedesktop.org/'
+arch=('x86_64')
+license=('custom')
+makedepends=('xorg-util-macros')
+depends=('glibc')
+source=("${url}"/releases/individual/font/font-util-${pkgver}.tar.xz{,.sig})
+sha512sums=('05fff613019718a4bd8537ff7eb270bd85345ffb006c16f81b739d6e8cdbfaa9d6503aef9bc48d6c7f70330bf90ff1a46bacdff3c99e8017191d935c85f73d60'
+            'SKIP')
+validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
+replaces=('font-util')
+provides=('font-util')
+conflicts=('font-util')
+groups=('xorg-fonts' 'xorg')
+
+build() {
+  cd font-util-${pkgver}
+  ./configure \
+    --prefix=/usr \
+    --mandir=/usr/share/man \
+    --with-mapdir=/usr/share/fonts/util \
+    --with-fontrootdir=/usr/share/fonts
+  make
+}
+
+package() {
+  cd font-util-${pkgver}
+  make DESTDIR="${pkgdir}" install
+  install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
+}

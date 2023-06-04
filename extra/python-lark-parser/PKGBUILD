@@ -1,0 +1,67 @@
+# Maintainer:
+# Contributor: Felix Yan <felixonmars@archlinux.org>
+
+_name=lark
+pkgname=python-lark-parser
+_commit=7d9cfa6ed09a2b125e97e3a1810d9c6443f1718e  # refs/tags/1.1.5
+pkgver=1.1.5
+pkgrel=4
+pkgdesc="A modern parsing library"
+url="https://github.com/lark-parser/lark"
+license=(MIT)
+arch=(any)
+depends=(
+  python
+  python-typing_extensions
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-js2py
+)
+optdepends=(
+  'python-atomicwrites: for atomic_cache'
+  # 'python-interegular: for interegular support'  # TODO: package
+  'python-regex: for regex support'
+  'python-js2py: for nearley support'
+)
+provides=(python-lark)
+source=(
+  git+$url#commit=$_commit
+  $_name-nearly::git+https://github.com/Hardmath123/nearley
+)
+sha512sums=('SKIP'
+            'SKIP')
+
+prepare() {
+  cd $_name
+  git submodule init
+  git config submodule.tests/test_nearley/nearley.url "$srcdir/$_name-nearly"
+  git -c protocol.file.allow=always submodule update
+}
+
+pkgver() {
+  cd $_name
+  git describe --tags --abbrev=7 | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+build() {
+  cd $_name
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd $_name
+  python -m tests
+}
+
+package() {
+  cd $_name
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}

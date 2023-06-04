@@ -1,0 +1,45 @@
+# Maintainer: Daniel Isenmann <daniel@archlinux.org>
+
+pkgname=gegl
+_tag='e10b8c9114614dc724390a7e737eafd97f47430f'
+pkgver=0.4.44
+pkgrel=3
+pkgdesc='Graph based image processing framework'
+arch=('x86_64')
+url='https://www.gegl.org/'
+license=('GPL3' 'LGPL3')
+depends=('babl' 'cairo' 'gcc-libs' 'gdk-pixbuf2' 'glib2' 'glibc' 'jasper' 'json-glib' 'lcms2'
+         'lensfun' 'libjpeg-turbo' 'libpng' 'libraw' 'librsvg' 'libspiro' 'libtiff' 'libwebp'
+         'luajit' 'openexr' 'pango' 'poppler-glib' 'suitesparse')
+makedepends=('ffmpeg' 'git' 'gobject-introspection' 'libgexiv2' 'meson' 'python-gobject' 'sdl2'
+             'vala')
+optdepends=('ffmpeg: FFmpeg Frame Loader and FFmpeg Frame Saver plugins'
+            'graphviz: for gegl-introspect'
+            'sdl2: SDL2 Display plugin')
+source=("git+https://gitlab.gnome.org/GNOME/gegl.git#tag=$_tag")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "${pkgname}"
+  git describe --tags | sed 's/^GEGL_//;s/_$//;s/_/./g;s/-/+/g'
+}
+
+build() {
+  mkdir -p build
+  cd build
+  arch-meson ../"${pkgname}" \
+    -Dworkshop=true \
+    -Dmrg=disabled \
+    -Dmaxflow=disabled
+  ninja
+}
+
+check() {
+  cd build
+  ninja test || :
+}
+
+package() {
+  cd build
+  DESTDIR="${pkgdir}" ninja install
+}

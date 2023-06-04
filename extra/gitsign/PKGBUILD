@@ -1,0 +1,30 @@
+# Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
+# Contriubutor: Jamie Magee <jamie dot magee at gmail dot com>
+
+pkgname=gitsign
+pkgver=0.6.0
+pkgrel=1
+pkgdesc='Keyless Git signing using Sigstore'
+arch=('x86_64')
+url='https://github.com/sigstore/gitsign'
+license=(APACHE)
+makedepends=(go)
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/sigstore/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz")
+b2sums=('0f2174ef401390a5e66b88980518addf4bfe832db1a4b9dc9ed2b73611524380d88296296d15c9267615ff21c0e31ac6c1b3979a2015b74cab2f16c8400bd65e')
+
+build() {
+  cd $pkgname-$pkgver
+  export CGO_LDFLAGS="${LDFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+  make build-all
+}
+
+package() {
+  cd $pkgname-$pkgver
+
+  install -Dm755 "$pkgname" "$pkgdir/usr/bin/$pkgname"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

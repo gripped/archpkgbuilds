@@ -1,0 +1,31 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: AndyRTR <andyrtr@archlinux.org>
+
+pkgname=hyphen-hu
+pkgver=20201216
+pkgrel=1
+pkgdesc='Hungarian hyphenation rules'
+arch=('any')
+url='https://magyarispell.sourceforge.net/'
+license=('LGPL' 'GPL' 'MPL')
+makedepends=('git')
+optdepends=('hyphen: offers hyphenation library functions')
+_commit=2404521a6c320ae5e307c6c0fed31d81de751a88
+source=("git+https://git.libreoffice.org/dictionaries#commit=$_commit")
+sha256sums=('SKIP')
+
+package() {
+  cd dictionaries/hu_HU/
+  install -Dm644 hyph_hu_HU.dic "$pkgdir/usr/share/hyphen/hyph_hu_HU.dic"
+
+  # the symlinks
+  install -dm755 "$pkgdir/usr/share/myspell/dicts"
+  pushd "$pkgdir/usr/share/myspell/dicts"
+    for file in "$pkgdir"/usr/share/hyphen/*; do
+      ln -sv /usr/share/hyphen/$(basename $file) .
+    done
+  popd
+
+  # docs
+  install -Dm644 README_hyph_hu_HU.txt "$pkgdir/usr/share/doc/$pkgname/README_hyph_hu_HU.txt"
+}

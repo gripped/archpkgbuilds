@@ -1,0 +1,81 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Nogweii <me@nogweii.net>
+
+pkgname=zk
+pkgver=0.14.0
+pkgrel=1
+pkgdesc='A command-line tool helping you to maintain a Zettelkasten or personal wiki'
+arch=('x86_64')
+url='https://github.com/mickael-menu/zk'
+license=('GPL3')
+depends=('glibc')
+makedepends=('git' 'go')
+options=('!lto')
+_commit='b71a74eabcfc97df7b31e51edfb8e1b749061a76'
+source=(
+  "$pkgname::git+$url.git#commit=$_commit"
+  'skip-failing-test.patch'
+)
+sha512sums=('SKIP'
+            '2d05dc79cadc3cb6dee71d09de10ec99690e75aaf7cc6622489d88525808c4f84ddd381b5875901d7b87eac1e24c27df19d7789b7ad0f001032504cff8a48dfd')
+b2sums=('SKIP'
+        'fed9d45b9b81b874f0d2fc7beb59badde7a5495b3aa07562fd572679c40275cbfcfe8cbfb5f2cd24735948c34d3f157b97b50704a87ec46f72b927f211469ada')
+
+pkgver() {
+  cd "$pkgname"
+
+  git describe --tags | sed 's/^v//'
+}
+
+prepare() {
+  cd "$pkgname"
+
+  # create directory for build output
+  mkdir build
+
+  # download dependencies
+  export GOPATH="${srcdir}"
+  go mod download
+
+  # skip failing test
+  # https://github.com/mickael-menu/zk/issues/323
+  patch -p1 -i "$srcdir/skip-failing-test.patch"
+}
+
+build() {
+  cd "$pkgname"
+  # set Go flags
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export GOPATH="${srcdir}"
+
+  go build -v \
+    -buildmode=pie \
+    -mod=readonly \
+    -modcacherw \
+    -ldflags "-compressdwarf=false \
+    -linkmode external \
+    -extldflags ${LDFLAGS} \
+    -X main.Version=$(git describe --tags HEAD) \
+    -X main.Build=$(git rev-parse --short HEAD)" \
+    -tags "fts5" \
+    -o build \
+    .
+}
+
+check() {
+  cd "$pkgname"
+  go test -v -race -tags "fts5" ./...
+}
+
+package() {
+  cd "$pkgname"
+
+  # binary
+  install -vDm755 -t "$pkgdir/usr/bin" build/zk
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" *.md
+  cp -vr docs "$pkgdir/usr/share/doc/$pkgname"
+}

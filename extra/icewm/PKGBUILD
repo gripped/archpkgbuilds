@@ -1,0 +1,26 @@
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: Alexander F. Rødseth <xyproto@archlinux.org>
+# Contributor: Eric Bélanger <eric@archlinux.org>
+
+pkgname=icewm
+pkgver=3.3.5
+pkgrel=1
+pkgdesc='Window Manager designed for speed, usability, and consistency'
+arch=(x86_64)
+url='https://ice-wm.org/'
+license=(LGPL)
+depends=(alsa-lib imlib2 librsvg libsndfile libxcomposite libxdamage libxinerama libxpm libxrandr)
+makedepends=(asciidoctor xorg-mkfontdir)
+optdepends=('perl: for icewm-menu-xrandr')
+source=("https://github.com/ice-wm/icewm/releases/download/$pkgver/$pkgname-$pkgver.tar.lz")
+sha256sums=('26e1f3e7789dd77f8ce6484d7bbf7a63bc6be33e486a9945af14feca5f84baaa')
+
+build() {
+  cd $pkgname-$pkgver
+  ./configure --prefix=/usr --sysconfdir=/etc
+  make
+}
+
+package() {
+  make -C $pkgname-$pkgver DESTDIR="$pkgdir" install
+}

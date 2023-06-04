@@ -1,0 +1,25 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=libgtop
+pkgver=2.41.1
+pkgrel=1
+pkgdesc='Library for collecting system monitoring data'
+arch=('x86_64')
+url='https://gitlab.gnome.org/GNOME/libgtop'
+license=('GPL')
+depends=('glib2' 'glibc' 'libxau')
+makedepends=('gobject-introspection')
+source=("https://download.gnome.org/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz")
+sha256sums=('43ea9ad13f7caf98303e64172b191be9b96bab340b019deeec72251ee140fe3b')
+
+build() {
+  cd $pkgname-$pkgver
+  ./configure --prefix=/usr --libexecdir=/usr/lib/$pkgname
+  make
+}
+
+package() {
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
+}
