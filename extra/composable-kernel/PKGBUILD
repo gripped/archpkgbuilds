@@ -1,8 +1,8 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 
 pkgname=composable-kernel
-pkgver=5.5.1
-pkgrel=1
+pkgver=5.4.1
+pkgrel=3
 pkgdesc="High Performance Composable Kernel for AMD GPUs"
 arch=('x86_64')
 url="https://github.com/ROCmSoftwarePlatform/composable_kernel"
@@ -21,7 +21,7 @@ build() {
   # Assertions not supported on GPU
   CXXFLAGS=${CXXFLAGS/-Wp,-D_GLIBCXX_ASSERTIONS/}
   # -fcf-protection is not supported by HIP, see
-  # https://docs.amd.com/bundle/ROCm-Compiler-Reference-Guide-v5.5/page/Compiler_Options_and_Features.html#d2e2018
+  # https://docs.amd.com/bundle/ROCm-Compiler-Reference-Guide-v5.4/page/Appendix_A.html
   export CXXFLAGS="${CXXFLAGS} -fcf-protection=none"
 
   cmake \

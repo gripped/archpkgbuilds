@@ -1,11 +1,11 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 pkgname=hip-runtime-amd
-pkgver=5.5.1
+pkgver=5.4.3
 pkgrel=1
 pkgdesc="Heterogeneous Interface for Portability ROCm"
 arch=('x86_64')
-url='https://docs.amd.com/bundle/HIP-Programming-Guide-v5.5/page/Introduction_to_HIP_Programming_Guide.html'
+url='https://docs.amd.com/bundle/HIP-Programming-Guide-v5.4/page/Introduction_to_HIP_Programming_Guide.html'
 license=('MIT')
 depends=('mesa' 'comgr' 'rocminfo' 'rocm-llvm' 'libelf')
 makedepends=('cmake' 'python' 'python-cppheaderparser')
@@ -18,27 +18,23 @@ _hipamd='https://github.com/ROCm-Developer-Tools/hipamd'
 source=("$pkgname-$pkgver.tar.gz::$_hip/archive/rocm-$pkgver.tar.gz"
         "$pkgname-opencl-$pkgver.tar.gz::$_opencl/archive/rocm-$pkgver.tar.gz"
         "$pkgname-rocclr-$pkgver.tar.gz::$_rocclr/archive/rocm-$pkgver.tar.gz"
-        "$pkgname-hipamd-$pkgver.tar.gz::$_hipamd/archive/rocm-$pkgver.tar.gz"
-        "hip-amd-stdint.patch")
-sha256sums=('1f5f6bb72d8d64335ccc8242ef2e2ea8efeb380cce2997f475b1ee77528d9fb4'
-            'a8a62a7c6fc5398406d2203b8cb75621a24944688e545d917033d87de2724498'
-            '1375fc7723cfaa0ae22a78682186d4804188b0a54990bfd9c0b8eb421b85e37e'
-            '9c8cb7611b3a496a0e9db92269143ee33b608eb69a8384957ace04e135ac90e9'
-            '48849a16c9c72d24cd62a94d49987424e737908fbd0a776b4b4911153f057da8')
+        "$pkgname-hipamd-$pkgver.tar.gz::$_hipamd/archive/rocm-$pkgver.tar.gz")
+sha256sums=('23e51d3af517cd63019f8d199e46b84d5a18251d148e727f3985e8d99ccb0e58'
+            'b0f8339c844a2e62773bd85cd1e7c5ecddfe71d7c8e8d604e1a1d60900c30873'
+            '71d9668619ab57ec8a4564d11860438c5aad5bd161a3e58fbc49555fbd59182d'
+            '475edce0f29c4ccd82e5ee21d4cce4836f2b1e3b13cbc891475e423d38a0ebb9')
 _dirhip="$(basename "$_hip")-$(basename "${source[0]}" ".tar.gz")"
 _diropencl="$(basename "$_opencl")-$(basename "${source[1]}" ".tar.gz")"
 _dirrocclr="$(basename "$_rocclr")-$(basename "${source[2]}" ".tar.gz")"
 _dirhipamd="$(basename "$_hipamd")-$(basename "${source[3]}" ".tar.gz")"
 
-prepare() {
-    cd "$_dirrocclr"
-    patch -Np1 -i "$srcdir/hip-amd-stdint.patch"
-}
-
 build() {
   # build fails if cmake and make are called from outside the build directory
   mkdir build && cd build
 
+  # Disable assertations as a temporary workaround for hipRTC
+  # https://github.com/ROCmSoftwarePlatform/rocFFT/issues/389#issuecomment-1341370581
+  CXXFLAGS="$CXXFLAGS -DNDEBUG" \
   cmake \
     -Wno-dev \
     -S "$srcdir/$_dirhipamd" \

@@ -1,34 +1,24 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 # Maintainer: Bruno Pagani <archange@archlinux.org>
-# Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-compute-runtime
-pkgver=23.13.26032.30
-pkgrel=2
+pkgver=23.09.25812.14
+pkgrel=1
 pkgdesc="Intel(R) Graphics Compute Runtime for oneAPI Level Zero and OpenCL(TM) Driver"
 arch=(x86_64)
 url="https://01.org/compute-runtime"
 license=(MIT)
 depends=(gcc-libs intel-gmmlib intel-graphics-compiler)
-makedepends=(cmake gcc12 igsc libva level-zero-headers opencl-headers)
+makedepends=(cmake igsc libva level-zero-headers opencl-headers)
 optdepends=('libva: for cl_intel_va_api_media_sharing'
             'libdrm: for cl_intel_va_api_media_sharing')
 provides=(opencl-driver level-zero-driver)
 # https://github.com/intel/compute-runtime/issues/528
 options=(!lto)
-source=(https://github.com/intel/compute-runtime/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
-        $pkgname-macro-define.patch)
-sha256sums=('4109ad4d765984f74f701a95cc452d0bf07ce76d7ed74cfa3a15c8cb64992cfb'
-            'd1d044bf9c5ce70fc7f3e90e1cafd816652cdd374ca67d975095923f0a44fd5b')
-
-prepare() {
-  cd compute-runtime-${pkgver}
-  patch -Np1 -i "$srcdir/$pkgname-macro-define.patch"
-}
+source=(https://github.com/intel/compute-runtime/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('abe2e6d9d2ac771d5f42ee2357ce897ca3b00dc6185c06f3f62772f729c7f8e1')
 
 build() {
-  export CXX=/usr/bin/g++-12
-  export CC=/usr/bin/gcc-12
   # ${${pkgver#*.}%.*} not supported by bash?
   # tests currently disabled because of https://github.com/intel/compute-runtime/issues/599
   cmake -B build -S compute-runtime-${pkgver} \

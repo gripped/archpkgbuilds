@@ -2,23 +2,16 @@
 # Contributor: Ranieri Althoff <ranisalt+aur at gmail dot com>
 
 pkgname=rocm-device-libs
-pkgver=5.5.1
+pkgver=5.4.3
 pkgrel=1
 pkgdesc='ROCm Device Libraries'
 arch=('x86_64')
 url='https://github.com/RadeonOpenCompute/ROCm-Device-Libs'
 license=('custom:NCSAOSL')
 makedepends=('rocm-cmake' 'rocm-llvm')
-source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz"
-        "${pkgname}-rm-gfx700.patch")
-sha256sums=('3b5f6dd85f0e3371f6078da7b59bf77d5b210e30f1cc66ef1e2de6bbcb775833'
-            '0b38ab6d8b1a52bac198007af098d6ec5008a7359a4ee174283e6c69c8b1a868')
+source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
+sha256sums=('f4f7281f2cea6d268fcc3662b37410957d4f0bc23e0df9f60b12eb0fcdf9e26e')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
-
-prepare() {
-    cd "$_dirname"
-    patch -Np1 -i "$srcdir/$pkgname-rm-gfx700.patch"
-}
 
 build() {
     cmake \
