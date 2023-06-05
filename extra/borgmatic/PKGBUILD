@@ -1,4 +1,5 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: Kr1ss $(echo \<kr1ss+x-yandex+com\>|sed s/\+/./g\;s/\-/@/)
 # Contributor: Alexander Görtz <aur@nyloc.de>
 # Contributor: Dan Beste <dan.ray.beste@gmail.com>
@@ -6,7 +7,7 @@
 # Contributor: stef204 <https://aur.archlinux.org/account/stef204>
 
 pkgname=borgmatic
-pkgver=1.7.13
+pkgver=1.7.14
 pkgrel=1
 pkgdesc='Simple, configuration-driven backup software for servers and workstations'
 arch=('any')
@@ -18,8 +19,8 @@ makedepends=('python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-flexmock' 'python-pytest')
 optdepends=('python-llfuse: for mount action')
 source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz")
-sha256sums=('af7a6a2f0ae1d9866761bc02aaecc34168d3f059046671f2e157f0ee2985e4b8')
-b2sums=('c20b384853c0ddf52a095250a05d9ebe813a23ee6ef00bd5748dacf05adcff9e4d324eb2e785ebbf139d34cadab3e58d3b8305d50ec5ff20681630040433e5ae')
+sha256sums=('ac00497ddad5f83dafeb21e901bce3ff431219cf5ba38f69c17102e393269a59')
+b2sums=('c30939392df03ce03feed4c5132ef99eaf9c676f51f7ad6b8bd536f45a7e76eff1871fc5bf0d7fd0025835b51325e961f538a661f2f6a78e0ce026550a9ecd84')
 
 prepare() {
   cd $pkgname-$pkgver
