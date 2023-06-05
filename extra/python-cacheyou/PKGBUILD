@@ -1,0 +1,59 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+_name=cacheyou
+pkgname=python-cacheyou
+pkgver=23.3
+pkgrel=2
+pkgdesc="The httplib2 caching algorithms packaged up for use with requests"
+arch=(any)
+url="https://github.com/frostming/cacheyou"
+license=(Apache)
+depends=(
+  python
+  python-msgpack
+  python-requests
+  python-urllib3
+)
+makedepends=(
+  python-build
+  python-installer
+  python-pdm-backend
+  python-wheel
+)
+checkdepends=(
+  python-cherrypy
+  python-filelock
+  python-pytest
+  python-redis
+)
+optdepends=(
+  'python-filelock: for file cache'
+  'python-redis: for redis support'
+)
+source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
+sha256sums=('7e408f15f4978fea2247734b308621f75f7fe169b461679519c72e8a85d61d5d')
+b2sums=('38cb6bf514f531bb13a30dd4ac415b602976d4c16761de551576ed4f1935fcb7a5c95041e3a7719a7113d7ac394afc907bc8645ad15c19458fe5245b6b17b179')
+
+prepare() {
+  # remove script conflicting with python-cachecontrol: https://github.com/frostming/cacheyou/issues/12
+  sed -e '/doesitcache/d' -i $_name-$pkgver/pyproject.toml
+}
+
+build() {
+  cd $_name-$pkgver
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  local pytest_options=(
+    -vv
+  )
+
+  cd $_name-$pkgver
+  pytest "${pytest_options[@]}"
+}
+
+package() {
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
