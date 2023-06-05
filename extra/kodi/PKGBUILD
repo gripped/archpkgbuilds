@@ -20,7 +20,7 @@
 pkgbase=kodi
 pkgname=('kodi' 'kodi-eventclients' 'kodi-tools-texturepacker' 'kodi-dev')
 pkgver=20.1
-pkgrel=4
+pkgrel=5
 arch=('x86_64')
 url="https://kodi.tv"
 license=('GPL2')
@@ -98,6 +98,8 @@ prepare() {
   mkdir "$srcdir/kodi-build"
 
   cd "xbmc-$pkgver-$_codename"
+
+  rm -rf system/certs # remove not needed cacert
 
   [[ "$_sse_workaround" -eq 1 ]] && patch -p1 -i "$srcdir/cheat-sse-build.patch"
   patch -p1 -i ../28ed2221.patch # Fix build with GCC 13
