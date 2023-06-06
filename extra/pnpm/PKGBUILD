@@ -1,0 +1,42 @@
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Contributor: Severen Redwood <me@severen.dev>
+# Contributor: Tomasz Jakub Rup <tomasz.rup@gmail.com>
+
+pkgname=pnpm
+pkgver=8.6.1
+pkgrel=1
+pkgdesc='Fast, disk space efficient package manager'
+arch=('any')
+url=https://pnpm.io
+license=('MIT')
+depends=("nodejs>=16.14")
+makedepends=('jq' 'npm')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/pnpm/$pkgname/archive/v$pkgver.tar.gz")
+b2sums=('SKIP')
+
+package() {
+  npm install -g \
+    --cache "$srcdir/npm-cache" \
+    --prefix "$pkgdir/usr" \
+    $pkgname
+
+  cd "$pkgdir"
+  # npm gives ownership of ALL FILES to build user
+  # https://bugs.archlinux.org/task/63396
+  chown -R root:root .
+
+  # Delete unnecessary JavaScript source maps
+  find usr/lib -depth -name "*.map" -delete
+
+  # Link README and LICENSE to the appropriate locations
+  local _npmdir=/usr/lib/node_modules/$pkgname
+  install -d usr/share/{doc,licenses}/$pkgname
+  ln -s $_npmdir/LICENSE usr/share/licenses/$pkgname
+  ln -s $_npmdir/README.md usr/share/doc/$pkgname
+
+  # Remove references to $srcdir and $pkgdir
+  local _tmp_package="$(mktemp)"
+  jq '.|=with_entries(select(.key|test("_.+")|not))' ./$_npmdir/package.json > "$_tmp_package"
+  mv "$_tmp_package" ./$_npmdir/package.json
+  chmod 644 ./$_npmdir/package.json
+}
