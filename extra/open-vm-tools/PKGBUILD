@@ -4,14 +4,14 @@
 pkgname=open-vm-tools
 epoch=6
 pkgver=12.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc='The Open Virtual Machine Tools (open-vm-tools) are the open source implementation of VMware Tools'
 arch=('x86_64')
 url='https://github.com/vmware/open-vm-tools'
 license=('LGPL')
 depends=('fuse3' 'icu' 'iproute2' 'libdnet' 'libmspack' 'libsigc++'
          'libxcrypt' 'libcrypt.so' 'libxss' 'lsb-release' 'procps-ng'
-         'uriparser' 'gdk-pixbuf-xlib')
+         'uriparser' 'gdk-pixbuf-xlib' 'which')
 makedepends=('chrpath' 'doxygen' 'gtkmm3' 'libxtst' 'python' 'rpcsvc-proto')
 checkdepends=('cunit')
 optdepends=('gtkmm3: DnD/CP plugin'
