@@ -7,19 +7,20 @@ pkgname=(
   libdex-docs
 )
 pkgver=0.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A library supporting 'Deferred Execution'"
 url="https://gitlab.gnome.org/chergert/libdex"
 arch=(x86_64)
 license=(LGPL)
 depends=(
-  libsoup3
+  glib2
   liburing
 )
 makedepends=(
   gi-docgen
   git
   gobject-introspection
+  libsoup3
   libsysprof-capture
   meson
   vala
