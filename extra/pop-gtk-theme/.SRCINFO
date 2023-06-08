@@ -1,0 +1,22 @@
+pkgbase = pop-gtk-theme
+	pkgdesc = System76 Pop GTK+ Theme
+	pkgver = 5.5.1.r6.190b5cce
+	pkgrel = 1
+	url = https://github.com/pop-os/gtk-theme
+	arch = any
+	license = CCPL
+	license = GPL3
+	license = LGPL2.1
+	license = LGPL3
+	makedepends = git
+	makedepends = meson
+	makedepends = sassc
+	optdepends = gtk-engine-murrine: GTK2 theme
+	optdepends = gtk-engine-pixbuf: GTK2 theme
+	optdepends = ttf-fira-mono: Monospace font
+	optdepends = ttf-fira-sans: Interface font
+	optdepends = ttf-roboto-slab: Document font
+	source = pop-gtk-theme::git+https://github.com/pop-os/gtk-theme.git#commit=190b5cce86988025ca681c35d6ae34d9bb6f7458
+	b2sums = SKIP
+
+pkgname = pop-gtk-theme
