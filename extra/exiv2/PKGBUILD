@@ -2,19 +2,19 @@
 # Contributor: tobias <tobias@arhlinux.org>
 
 pkgname=exiv2
-pkgver=0.27.6
-pkgrel=2
+pkgver=0.28.0
+pkgrel=1
 pkgdesc="Exif, Iptc and XMP metadata manipulation library and tools"
 url="https://exiv2.org"
 arch=('x86_64')
 license=('GPL2')
-depends=('gcc-libs' 'zlib' 'expat' 'libexpat.so' 'gettext' 'curl' 'libcurl.so')
+depends=('gcc-libs' 'zlib' 'expat' 'libexpat.so' 'gettext' 'curl' 'libcurl.so' 'libinih')
 makedepends=('cmake' 'gtest' 'ninja')
 checkdepends=('python')
 provides=('libexiv2.so')
 source=(https://github.com/Exiv2/exiv2/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('7d7121770a9394efd31acb74709583e587351fc48c485a2f684cacce4ed19a2d07a6cb1cea986c16bf64851fd53b22a7277c1e1ae1a6cd69a5761afae3c5c731')
-b2sums=('ce80a1f4252b7d12a3fb9b6e17d81703a02dfaf58cb096b5b6d65146e3c6470b7d1120430f2802b679e1648c1eac74a05381b2cf21d054758086b9ac0eacc556')
+sha512sums=('35e483c6123f099167ed8647fae7c6e5512434c24d0afe684180ba6a5114068d5678280a01c8e6cfee0d1e555e1dc2a1606989d46950ce3ef1a3859caeed4dad')
+b2sums=('6ccdc4e6a7dbd4aa2a892e61306f0c63659d804075cae9e771096cfdc21ec0aff0df22232c036551f4e321f497184e7ad100fb9c2011c14cd0315e8118c3e85f')
 
 build() {
   cd ${pkgname}-${pkgver}
