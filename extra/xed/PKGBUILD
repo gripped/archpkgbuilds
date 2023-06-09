@@ -3,7 +3,7 @@
 # Contributor: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=xed
-pkgver=3.4.0
+pkgver=3.4.1
 pkgrel=1
 pkgdesc="A small and lightweight text editor. X-Apps Project."
 arch=(x86_64)
@@ -14,8 +14,8 @@ depends=(gspell gtksourceview4 libpeas xapp)
 makedepends=(meson samurai gobject-introspection intltool itstool)
 optdepends=('python: required for some plugins')
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('09c38303ce1b80c139a623a0586fd6c18841fc678a1b0925362e6f978d9b0b61')
-b2sums=('10f2b32e88f36e72d4060912e65cf987a0af9d4c1ee63c387b80c01a532515a312b132d4bef818750138d406bda3a18cda1ef540d7d2381309a24e152967c0bc')
+sha256sums=('9f383e7b2a11280c30a939f392e8fdf6255fba6eb35784d1bc6b76d5c42d6687')
+b2sums=('0137ad787decf0bc96621a519aec654b59c117e76b1e7711fe67add5ab790a5028cdf51bc81ac547df31029ef321c06b23170aef1aca71d954d8e197a5e77ed2')
 
 build() {
   arch-meson ${pkgname}-${pkgver} build
