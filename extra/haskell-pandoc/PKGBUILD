@@ -4,8 +4,8 @@
 
 _hkgname=pandoc
 pkgname=haskell-pandoc
-pkgver=3.1.1
-pkgrel=4
+pkgver=3.1.2
+pkgrel=2
 pkgdesc='Conversion between markup formats'
 url='https://pandoc.org'
 license=('GPL')
@@ -13,7 +13,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-glob' 'haskell-juicypixels' 'haskell-sha' 'haskell-aeson'
          'haskell-aeson-pretty' 'haskell-attoparsec' 'haskell-base64' 'haskell-blaze-html'
          'haskell-blaze-markup' 'haskell-case-insensitive' 'haskell-citeproc' 'haskell-commonmark'
-         'haskell-commonmark-extensions' 'haskell-commonmark-pandoc' 'haskell-connection'
+         'haskell-commonmark-extensions' 'haskell-commonmark-pandoc' 'haskell-crypton-connection'
          'haskell-data-default' 'haskell-doclayout' 'haskell-doctemplates' 'haskell-emojis'
          'haskell-file-embed' 'haskell-gridtables' 'haskell-haddock-library' 'haskell-http-client'
          'haskell-http-client-tls' 'haskell-http-types' 'haskell-ipynb' 'haskell-jira-wiki-markup'
@@ -29,11 +29,12 @@ optdepends=('pandoc-crossref: for numbering figures, equations, tables and cross
 makedepends=('ghc' 'uusi' 'haskell-diff' 'haskell-tasty' 'haskell-tasty-golden'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('14d12f9c3a9c4233e0da17c0d69b5257783d26446ee2a93d804a3d0a63f9c2f21e3dab700d5f32b449b24f8205c749fcec46ce061fc833eb45179e5d70a51fd2')
+sha512sums=('4172f2101248983dc15753e1c6dafb34442996a1b14754626142491c56bae548bbe16b39ecbbd5ffe60c5fd44eb8227ff595bbf519558de98c548e9315e3dbc2')
 
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
+    uusi -r connection:crypton-connection $_hkgname.cabal
     # TODO: find a better solution
     sed -i "s|let env' = dynlibEnv ++ |let env' = dynlibEnv ++ [(\"LD_LIBRARY_PATH\", \"$PWD/dist/build\")] ++ |" test/Tests/Command.hs
 }
