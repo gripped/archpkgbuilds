@@ -1,18 +1,18 @@
 # Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
 
 pkgname=orbiton
-pkgver=2.62.2
+pkgver=2.62.3
 pkgrel=1
 pkgdesc='Text editor and IDE limited by VT100'
 arch=(x86_64)
 url='https://orbiton.zip'
 license=(BSD)
 makedepends=(git go vte3)
-source=("git+https://github.com/xyproto/orbiton#commit=17e719d18fdf45de5d2bf9192d2bd50d749436b8") # tag: v2.62.2
+source=("git+https://github.com/xyproto/orbiton#commit=41c20ce23cddc0e3015074334a4bd21638bcc4dc") # tag: v2.62.3
+options=(!lto)
 # TODO: consider moving one or more of these from AUR:
 # 'cxx: for compiling C and C++'
 # 'elm-bin: for compiling Elm'
-# 'fstabfmt: for formatting /etc/fstab'
 # 'guessica: for updating PKGBUILD files'
 # 'google-java-format: for formatting Java'
 # 'lua-format: for formatting Lua'
@@ -52,7 +52,6 @@ optdepends=('asciidoctor: for writing man pages'
             'vte3: for og, the Orbiton VTE/GUI frontend'
             'yasm: for compiling Assembly'
             'zig: for compiling and formatting Zig')
-options=(!lto)
 b2sums=('SKIP')
 
 build() {
@@ -65,7 +64,7 @@ package() {
   install -Dm644 o.1 "$pkgdir/usr/share/man/man1/o.1"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 
-  # VTE/GUI
+  # VTE/GUI application
   DESTDIR="$pkgdir" make gui-install
 
   # Recommended symlinks for Orbiton
@@ -80,6 +79,6 @@ package() {
   ln -sf /usr/bin/og "$pkgdir/usr/bin/lig"
   ln -sf /usr/bin/og "$pkgdir/usr/bin/redblackg"
   ln -sf /usr/bin/og "$pkgdir/usr/bin/swg"
-  ln -sf /usr/bin/og "$pkgdir/usr/bin/edig"
-  ln -sf /usr/bin/og "$pkgdir/usr/bin/vsg"
+  ln -sf /usr/bin/og "$pkgdir/usr/bin/edg"
+  ln -sf /usr/bin/og "$pkgdir/usr/bin/vg"
 }
