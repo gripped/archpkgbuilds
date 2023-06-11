@@ -4,7 +4,7 @@
 # Contributor:  <godeater@gmail.com>
 
 pkgname=chezmoi
-pkgver=2.34.0
+pkgver=2.34.1
 pkgrel=1
 pkgdesc="Manage your dotfiles across multiple machines"
 arch=('x86_64')
@@ -15,7 +15,7 @@ depends=('glibc')
 checkdepends=('zip')
 options=('!lto')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz")
-sha512sums=('43e200502acc99b629e0de8396c3478925f6e1f72b5c2516cb6a33bf3a7362bb82c88fbfa5254e89874141568948b955f09f076cbf495e0e7c1a756a69125383')
+sha512sums=('b5d9ffacbeda584f65bb9faa16cc24755294a307dbdb690296f4a3873642bf26367c21ae5373c5d5f5e33048f298069e03f84302aeca22754d38d0f3deedddba')
 
 prepare() {
   cd "$pkgname-$pkgver"
