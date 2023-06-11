@@ -3,7 +3,7 @@
 # Contributor: Vesa Kaihlavirta <vegai@iki.fi>
 
 pkgname=openttd
-pkgver=13.1
+pkgver=13.2
 pkgrel=1
 pkgdesc='Engine for running Transport Tycoon Deluxe'
 arch=(x86_64)
@@ -14,7 +14,7 @@ makedepends=(cmake ninja)
 optdepends=('openttd-opengfx: free graphics'
             'openttd-opensfx: free soundset')
 source=("https://cdn.$pkgname.org/$pkgname-releases/$pkgver/$pkgname-$pkgver-source.tar.xz")
-b2sums=('2d289defa38583c95f90322964ba43756468d7fa50087267119f00ccc3688e68e22631f41b091d44b1afaa878f8621f27ba58a0623d5be9420b61833dba8d6e7')
+b2sums=('abb2238d162ac61d34b3d55968ba1c88f7b1175f4e53b32da0e416db5e30cd84992723e21163219250a34c1ca19bb3be9856eb0c90170465c3608f7c5c82c3c7')
 
 prepare() {
   sed -i '/sse/d;/SSE/d' $pkgname-$pkgver/CMakeLists.txt
