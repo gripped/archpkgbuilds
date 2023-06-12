@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=apparmor
-pkgver=3.1.4
+pkgver=3.1.5
 pkgrel=1
 pkgdesc="Mandatory Access Control (MAC) using Linux Security Module (LSM)"
 arch=(x86_64)
@@ -43,9 +43,9 @@ backup=(
   etc/apparmor/severity.db
 )
 source=(https://launchpad.net/$pkgname/${pkgver%.[0-9]}/$pkgver/+download/$pkgname-$pkgver.tar.gz{,.asc})
-sha512sums=('db65edfa1b9c1f953940165e71dddcab9a2d378f29683b0b4e5d44f0810bb0105ba3820ba89de927ef90d0a94ea6d61e91ce3de09ec2e385817735a93d4039c4'
+sha512sums=('ae414a15d3e652a91f6ef46166e403e99e2d50d5cd132dd71db620a81d4820b35b45574cb7f8975013c0e88e41e68545d01738fc7bda8aeaa81f57c3aed300c0'
             'SKIP')
-b2sums=('a9be29a42bb96c1d2c69a6b7627d59aea023f22fe79bff1a487aa5ddd6845ec98f67be5c597ec51edf4493513dfed3b43fc493f454bcf48b3f43c44572ffc2ae'
+b2sums=('ed9ab88c5b5d9161f7c0fe7da0331be485a0d8d31ea2e6c423d97f170290d20679e3051cd32ed97a84754a5388cc136e5dc765abec24c6248f6cb91377ec8b2b'
         'SKIP')
 validpgpkeys=('3ECDCBA5FB34D254961CC53F6689E64E3D3664BB') # AppArmor Development Team (AppArmor signing key) <apparmor@lists.ubuntu.com>
 _core_perl="/usr/bin/core_perl"
