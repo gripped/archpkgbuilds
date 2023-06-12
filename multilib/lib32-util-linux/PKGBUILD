@@ -3,36 +3,50 @@
 
 _pkgbasename=util-linux
 pkgname=lib32-${_pkgbasename}
-_pkgmajor=2.39
-_realver=${_pkgmajor}
-pkgver=${_realver/-/}
-pkgrel=1
+_tag='8d7cca1a88bb347d7a0b5c32d2d2b1e8d71cafcc' # git rev-parse v${_tag_name}
+_tag_name=2.39
+pkgver=${_tag_name/-/}
+pkgrel=2
 pkgdesc='Miscellaneous system utilities for Linux (32-bit)'
 url='https://github.com/karelzak/util-linux'
 arch=('x86_64')
-depends=('lib32-glibc' 'lib32-libxcrypt' 'util-linux-libs')
+makedepends=('git' 'meson' 'lib32-libxcrypt' 'lib32-ncurses')
+depends=('lib32-glibc' 'util-linux-libs')
 provides=('libuuid.so' 'libblkid.so' 'libfdisk.so' 'libmount.so' 'libsmartcols.so')
 license=('GPL2')
 options=('!emptydirs')
 validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
-source=("https://www.kernel.org/pub/linux/utils/util-linux/v${_pkgmajor}/${_pkgbasename}-${_realver}.tar."{xz,sign})
-sha256sums=('32b30a336cda903182ed61feb3e9b908b762a5e66fe14e43efb88d37162075cb'
-            'SKIP')
+source=("git+https://github.com/karelzak/util-linux#tag=${_tag}?signed")
+sha256sums=('SKIP')
 
 build() {
-  cd "${_pkgbasename}-${_realver}"
+  export CC="gcc -m32"
+  export CXX="g++ -m32"
+  export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 
-  ./configure \
-      CC="${CC:-cc} -m32" \
-      PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
-      --libdir=/usr/lib32
+  local _meson_options=(
+    --libexecdir /usr/lib32
+    --libdir     /usr/lib32
 
-  make lib{uuid,blkid,fdisk,mount,smartcols}.la
+    --auto-features disabled
+
+    -Dbuild-libblkid=enabled
+    -Dbuild-libuuid=enabled
+    -Dbuild-libmount=enabled
+    -Dbuild-libsmartcols=enabled
+    -Dbuild-libfdisk=enabled
+
+    -Dncurses=disabled
+    -Dncursesw=enabled
+  )
+
+  arch-meson "${_pkgbasename}" build "${_meson_options[@]}"
+
+  meson compile -C build
 }
 
 package() {
-  make -C "${_pkgbasename}-${_realver}" \
-    DESTDIR="${pkgdir}" \
-    install-usrlib_execLTLIBRARIES \
-    install-pkgconfigDATA
+  DESTDIR="${pkgdir}" meson install -C build
+
+  rm -rf "${pkgdir}"/usr/{bin,include,share}
 }
