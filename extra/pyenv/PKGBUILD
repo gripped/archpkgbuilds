@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=pyenv
-pkgver=2.3.19
+pkgver=2.3.20
 pkgrel=1
 pkgdesc="Easily switch between multiple versions of Python"
 arch=(any)
@@ -10,8 +10,8 @@ license=(MIT)
 depends=(bash)
 optdepends=('git: installing development versions')
 source=($url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('9edf2e2fec4eacf976c52a2ed713244213923deb0efa627eb62b516cb7b42f722b0db72e27a604985a8f8597be427d184c7b15cc0792c23bceddc25df18c4e58')
-b2sums=('dccc9cc948bedc0666941d0a8cd1457ce485fa5d21a809fa6a146235c4ce4172b648f9595df1021147e7e3f7bd473506ab1c0d2dd6375f9d2142275406c6594a')
+sha512sums=('e178592d293c3e51f2774e786eeb51f3f3e24f06b0b2dac1c22d315a00b5a86f59e834a2d1eb95fecae68fb40a591df511ed461bd8e9d6c98ca2c84bc3edfc01')
+b2sums=('d5650a1ea89a5494294be0ecc4e6c90a0242337aa95c0ebe0aed3c3edd92c925c9f686656f875dabd7fa3e9cb897d0b6f365a0e6b37ecda1ec41a22ce35468db')
 
 package() {
   cd $pkgname-$pkgver
