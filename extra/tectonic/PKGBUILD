@@ -4,7 +4,7 @@
 # Contributor: Jan Tojnar <jtojnar@gmail.com>
 
 pkgname=tectonic
-pkgver=0.13.1
+pkgver=0.14.0
 pkgrel=1
 pkgdesc='Modernized, complete, self-contained TeX/LaTeX engine, powered by XeTeX and TeXLive'
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('fontconfig' 'harfbuzz-icu' 'openssl')
 makedepends=('cargo' 'pkg-config')
 options=(!lto)
 source=("https://github.com/tectonic-typesetting/tectonic/archive/refs/tags/tectonic@${pkgver}.tar.gz")
-b2sums=('96718e5efe6a032305aa0d2147243abf70b0b4cccbcedfb8aafeff20677398060e11d888c428f4d14be8afe9bed384fde2e0576332c75950e37b608f69d61939')
+b2sums=('e6e61067b5c0485e6ee8765d9f45af312fff99ac0752fb58a9b1ec284c752d91a9e9cba6c0815c512fe4859489b80b9e877c5fafdf87081efec609f8391660d5')
 
 prepare() {
   cd ${pkgname}-${pkgname}-${pkgver}
