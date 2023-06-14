@@ -4,9 +4,9 @@
 # Contributor: schuay <jakob.gruber@gmail.com>
 
 pkgname=puzzles
-pkgver=20230110
+pkgver=20230612
 pkgrel=1
-_commit=e66d027
+_commit=1a316f4
 pkgdesc="Simon Tatham's Portable Puzzle Collection"
 arch=(x86_64)
 url='https://www.chiark.greenend.org.uk/~sgtatham/puzzles/'
@@ -14,7 +14,7 @@ license=(MIT)
 depends=(gtk3)
 makedepends=(cmake imagemagick)
 source=(https://www.chiark.greenend.org.uk/~sgtatham/puzzles/puzzles-$pkgver.$_commit.tar.gz)
-sha256sums=('7fbd9b22b05c34955f28d840b980cfd9c58c158b03020a2fdaf74fc928edb768')
+sha256sums=('ba9d69a5e306d5d85b8c56391e95c814daecce83c85f3a2f624f3ae42b6c19a8')
 
 build() {
   cmake -B build -S puzzles-$pkgver.$_commit \
