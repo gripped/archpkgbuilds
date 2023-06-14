@@ -2,18 +2,20 @@
 # Contributor: Streetwalrus <streetwalrus@codewalr.us>
 
 pkgname=shotgun
-pkgver=2.4.0
+pkgver=2.5.0
 pkgrel=1
 pkgdesc='Minimal X screenshot utility'
 arch=('x86_64')
 url=https://github.com/neXromancers/shotgun
 license=('MPL2')
-depends=('gcc-libs' 'libxrandr')
+depends=('gcc-libs')
 makedepends=('git' 'rust')
-optdepends=('hacksaw: for area/window selection'
-            'slop: for area/window selection')
+optdepends=(
+  'hacksaw: for area/window selection'
+  'slop: for area/window selection'
+)
 source=("shotgun-$pkgver.tar.gz::https://static.crates.io/crates/shotgun/shotgun-$pkgver.crate")
-b2sums=('48154978e1d08577fb0beb6a3d53f80d3ffc48416367c14382fa80af8369226d103068bade09289b9612c07f7840f5321516767f90cae5c94565a797fabd0759')
+b2sums=('f3bb45aa2f36a241d4ccc774a725b754c1d417ab05a0bf24799b7504ea2fca7730640c2961c3ef282bba80cab227200198854b4118481d65aa55482a8e72f71a')
 
 prepare() {
   cd shotgun-$pkgver
