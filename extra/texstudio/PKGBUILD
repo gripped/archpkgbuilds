@@ -2,7 +2,7 @@
 # Contributor: Clément DEMOULINS <clement@archivel.fr>
 pkgname=texstudio
 pkgver=4.5.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Integrated writing environment for creating LaTeX documents"
 arch=('x86_64')
 url="http://texstudio.sourceforge.net/"
@@ -46,4 +46,7 @@ package() {
             "${pkgdir}"/usr/share/icons/hicolor/scalable/apps/texstudio.svg \
             "${pkgdir}"/usr/share/icons/hicolor/${res}/apps/texstudio.png
     done
+
+    # Remove the included dictionaries in favor of hunspell (FS#78778)
+    rm -rf "${pkgdir}"/usr/share/texstudio/{*.dic,*.aff}
 }
