@@ -12,7 +12,7 @@ if [[ -f "${flags_file}" ]]; then
 fi
 
 for line in "${MAPFILE[@]}"; do
-    if [[ ! "${line}" =~ ^[[:space:]]*#.* ]] && [[ -n "${line}" ]]; then
+    if [[ ! "${line}" =~ ^[[:space:]]*#.* ]]; then
         flags+=("${line}")
     fi
 done
