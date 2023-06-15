@@ -2,7 +2,7 @@
 
 _name=pdm
 pkgname=python-pdm
-pkgver=2.7.2
+pkgver=2.7.4
 pkgrel=1
 pkgdesc="A modern Python package manager with PEP 582 support"
 arch=(any)
@@ -28,6 +28,7 @@ depends=(
   python-shellingham
   python-tomlkit
   python-unearth
+  python-urllib3  # required by pdm/models/session.py
   python-virtualenv
 )
 makedepends=(
@@ -46,8 +47,8 @@ optdepends=(
   'python-setuptools: for parsing setup.py files'
 )
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('8bda97e7d626929325bdb488fe60f4416f0771ebfafffc78448f6d7482cc4788651c788f7e637e9d67b3fa0fcde7b52426c0de13b223da364b32d67a646379c9')
-b2sums=('26a84e8fc134e2b50af556fc11d277fbb2b0a7bdce192539173ad8ff986d1781b74af4a00112c0ec9c882945e869caa52ae76f2cfb53d1574e1322137acf1cb4')
+sha512sums=('17621b2243251b91737b8c0e4a393b00c7fd23b352ed99b521d965cfcf40c1ca0d33a409ea02fb03647f2662c10d7ee6f4e53f14cc4c276f08f0d7573f2de5b3')
+b2sums=('097ec9f15ef9ed82111509cbad135bf3c4c91bab38337d87f113a92d813c8dc8c980bb5131057819735a53b0a4dbdfb73cd0381b4915dc48a1e01e2652751a38')
 
 build() {
   cd $_name-$pkgver
