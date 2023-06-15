@@ -5,7 +5,7 @@
 
 _gemname=addressable
 pkgname=ruby-addressable
-pkgver=2.8.2
+pkgver=2.8.3
 pkgrel=1
 pkgdesc='URI Implementation'
 arch=('any')
@@ -15,8 +15,8 @@ depends=('ruby' 'ruby-public_suffix')
 makedepends=('ruby-rdoc')
 options=('!emptydirs')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/sporkmonger/addressable/archive/addressable-${pkgver}.tar.gz)
-sha256sums=('09b92311307722e3a34fe19446b00eec4fa59562a350dbd61346f7fb3d490591')
-sha512sums=('e64263fb603a7411d9e6764ecfceb93d3bd31c2ec2172bf460acb665ae9113868981de1c46deb79efebeceb6171bb27e7c9e84ebab5fc0504301236271d9aa1b')
+sha256sums=('b7c882e6a3be343f0a4695edc6fe27218b41bfeb9969e657f12fee9d0e08f499')
+sha512sums=('4751fc304f1baefc6c57ef2cc1aec21a2b3ee58c5c3a159aa762f2eeb8df08276aeb18efaccefa9d887d2a4a03eeb9d1270a92f1d99df3cfa5cfe6eaee17ebdc')
 
 prepare() {
   cd ${_gemname}-${_gemname}-${pkgver}
