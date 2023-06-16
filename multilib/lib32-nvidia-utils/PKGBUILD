@@ -5,7 +5,7 @@
 _pkgbasename=nvidia-utils
 pkgbase=lib32-$_pkgbasename
 pkgname=('lib32-nvidia-utils' 'lib32-opencl-nvidia')
-pkgver=530.41.03
+pkgver=535.54.03
 pkgrel=1
 arch=('x86_64')
 url="http://www.nvidia.com/"
@@ -14,7 +14,7 @@ license=('custom')
 options=('!strip')
 _pkg="NVIDIA-Linux-x86_64-${pkgver}"
 source=("https://us.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/${_pkg}.run")
-sha512sums=('90068122824322884ec8f3e4be2fe7f76bf07ee1163baf6da15d09ba3ff886e5c5ef72016509eef9f4af9d85f154ebbe051d5fb3af5e867f1f67f03af8068100')
+sha512sums=('45b72b34272d3df14b56136bb61537d00145d55734b72d58390af4694d96f03b2b49433beb4a5bede4d978442b707b08e05f2f31b2fcfd9453091e7f0b945cff')
 
 create_links() {
     # create soname links
@@ -39,7 +39,6 @@ package_lib32-opencl-nvidia() {
     cd "${_pkg}"/32
 
     # OpenCL
-    install -D -m755 "libnvidia-compiler.so.${pkgver}" "${pkgdir}/usr/lib32/libnvidia-compiler.so.${pkgver}"
     install -D -m755 "libnvidia-opencl.so.${pkgver}" "${pkgdir}/usr/lib32/libnvidia-opencl.so.${pkgver}"
 
     create_links
