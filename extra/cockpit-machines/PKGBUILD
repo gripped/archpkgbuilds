@@ -2,7 +2,7 @@
 
 pkgname=cockpit-machines
 pkgver=292
-pkgrel=1
+pkgrel=2
 pkgdesc='Cockpit UI for virtual machines'
 arch=('x86_64')
 url='https://github.com/cockpit-project/cockpit-machines'
@@ -14,5 +14,5 @@ sha256sums=('07482207c15f1884caa905e050a75f142473aae9b9f64c287b3f96ed5b430e5d')
 
 package() {
   cd $pkgname
-  make DESTDIR="$pkgdir" install
+  make PREFIX=/usr DESTDIR="$pkgdir" install
 }
