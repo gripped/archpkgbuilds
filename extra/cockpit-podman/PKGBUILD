@@ -2,7 +2,7 @@
 
 pkgname=cockpit-podman
 pkgver=70
-pkgrel=1
+pkgrel=2
 pkgdesc='Cockpit UI for podman containers'
 arch=('x86_64')
 url='https://github.com/cockpit-project/cockpit-podman'
@@ -13,5 +13,5 @@ sha256sums=('10441bd2bc212b52a32d57d295fa6a932df32e5609c28da082d3d77025093b22')
 
 package() {
   cd $pkgname
-  make DESTDIR="$pkgdir" install
+  make PREFIX=/usr DESTDIR="$pkgdir" install
 }
