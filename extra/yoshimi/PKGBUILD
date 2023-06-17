@@ -2,7 +2,7 @@
 # Contributor: David Adler <d dot adler aet posteo dot de>
 
 pkgname=yoshimi
-pkgver=2.3.0
+pkgver=2.3.0.1
 pkgrel=1
 pkgdesc="A sophisticated soft-synth originally forked from ZynAddSubFX"
 arch=(x86_64)
@@ -33,8 +33,8 @@ optdepends=('lv2-host: for LV2 plugin')
 # https://github.com/Yoshimi/yoshimi/issues/164
 options=(!lto)
 source=(https://github.com/$pkgname/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('a5ff3234a1cfa6fefe93eb1088b61e939fb2d89636dacb6ee7f5082532cc0bc04a701d6326b61a3d7d7ba3f4bd58acbf4cc806e9a693f4b89a6db1a8192d872c')
-b2sums=('3c415c4e0460a5a625eda3cd50324cd234f8c1b3c69fe46e01af6a5c3c7b896caba1f4950148bff35433a616163722913db213b2c40b84eba6956213e8ec86fb')
+sha512sums=('a8b2011557983f0cdf2a8149adcf341c04e9b77f75d221ad9e2a6c7691e35bb49383ce4d36db0740d9355d8b3c97703e42b287c7b2140396887ce6be6555e2df')
+b2sums=('9bd9c7c4aa0306dac7ab15b55a300abc5ae719b712d185300f56c63481f715864fc672345a2def40a956f3800ec5dffe1039239945e394749cc9e670c6c32dd4')
 
 build() {
   local cmake_options=(
