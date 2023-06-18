@@ -2,16 +2,16 @@
 # Contributor: Dario Ostuni <dario.ostuni@gmail.com>
 
 pkgname=wasm-pack
-pkgver=0.11.1
+pkgver=0.12.0
 pkgrel=1
 pkgdesc="Your favorite rust -> wasm workflow tool!"
 arch=('x86_64')
 url="https://github.com/rustwasm/wasm-pack"
 license=('MIT' 'Apache')
 depends=('bzip2' 'curl')
-makedepends=('cargo' 'openssl')
+makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha384sums=('179aa1f1b3888aced64836a374a0363f119ad3b123eb4e0ac2fbbd437bcc72c2c714ebafcd03ba04de54019796571648')
+sha384sums=('e0719cb83852c1917427f59494fd657579225e88212359602148cc1c5eb18ca2c652a4deb812ebb7ebadcdf6bae86d6a')
 options=('!lto')
 
 prepare() {
@@ -21,7 +21,7 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --frozen --release --no-default-features --features sys-openssl
+  cargo build --frozen --release
 }
 
 package() {
