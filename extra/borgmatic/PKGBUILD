@@ -7,33 +7,38 @@
 # Contributor: stef204 <https://aur.archlinux.org/account/stef204>
 
 pkgname=borgmatic
+_commit=e80f27f9221d0e7e628708f4e230d21a1d2d0608
 pkgver=1.7.14
-pkgrel=1
+pkgrel=3
 pkgdesc='Simple, configuration-driven backup software for servers and workstations'
 arch=('any')
 url=https://torsion.org/borgmatic
 license=('GPL3')
 depends=('borg' 'python-colorama' 'python-jsonschema' 'python-requests'
          'python-ruamel-yaml' 'python-setuptools')
-makedepends=('python-build' 'python-installer' 'python-wheel')
+makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-flexmock' 'python-pytest')
 optdepends=('python-llfuse: for mount action')
-source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz")
-sha256sums=('ac00497ddad5f83dafeb21e901bce3ff431219cf5ba38f69c17102e393269a59')
-b2sums=('c30939392df03ce03feed4c5132ef99eaf9c676f51f7ad6b8bd536f45a7e76eff1871fc5bf0d7fd0025835b51325e961f538a661f2f6a78e0ce026550a9ecd84')
+source=("git+https://github.com/borgmatic-collective/borgmatic.git#tag=$_commit")
+b2sums=('SKIP')
 
 prepare() {
-  cd $pkgname-$pkgver
-  sed -i 's,root/.local,usr,' sample/systemd/$pkgname.service
+  cd $pkgname
+
+  # this can be dropped after the release of 1.7.15
+  git cherry-pick --strategy recursive -X ours -n \
+    1d7c7eaaa7ec0ab67add6e95c7a95a14ec1498ca
+
+  sed -i 's,root/.local,usr,' sample/systemd/borgmatic{,-user}.service
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m build --wheel --skip-dependency-check --no-isolation
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest -c /dev/null \
@@ -41,9 +46,13 @@ check() {
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
+
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 -t "$pkgdir"/usr/lib/systemd/system sample/systemd/*
+
+  install -Dm644 -t "$pkgdir"/usr/lib/systemd/system/ sample/systemd/borgmatic.{service,timer}
+  install -Dm644 -t "$pkgdir"/usr/lib/systemd/user/ sample/systemd/borgmatic-user.{service,timer}
+
   install -d "$pkgdir"/usr/share/{bash-completion/completions,fish/vendor_completions.d}
   ./test-env/bin/borgmatic --bash-completion > \
     "$pkgdir"/usr/share/bash-completion/completions/$pkgname
