@@ -2,7 +2,7 @@
 # Contributor: genofire
 
 pkgname=ovenmediaengine
-pkgver=0.15.12
+pkgver=0.15.13
 pkgrel=1
 pkgdesc='Open-source streaming video service with sub-second latency'
 arch=('x86_64')
@@ -39,7 +39,7 @@ source=(
 	"${pkgname}-${pkgver}.tar.gz::https://github.com/AirenSoft/OvenMediaEngine/archive/refs/tags/v${pkgver}.tar.gz"
 	"ovenmediaengine.service"
 )
-sha512sums=('b0e6076ae13e74657949f5480f49378f395bf8f6b2dac2fb2074aaa466c365bd66d58abe8edbc1ac3160230372869168bd09b82fc8d01c237fd0d23a30dd7b67'
+sha512sums=('c3e57bf1bfbac0cf9a66fa859d4549f6e9c13b1fdf5686d21b2d487b33a99e5516a12cd0c2e3a9926a281c9c71ad430b7b355f0772d624ef9f5d5cc9f76f2442'
             'c5c4615d4c50a55c6fea177a1bc73b13d1365224c4e102067e45ce956741cb95366ec3b16cdec8932083c923910794e9164b0f9a25a6b0e2f186557fac3e42f1')
 
 backup=(
@@ -53,14 +53,6 @@ prepare() {
 	# Assets take up ~13MB of space
 	rm -Rf docs/.gitbook
 	find docs -type f -name "*.md" -exec sed -i "s|.gitbook/assets|https://raw.githubusercontent.com/AirenSoft/OvenMediaEngine/v${pkgver}/docs/.gitbook/assets|g" {} +
-
-	# error: ‘uint64_t’ does not name a type
-	for f in $(grep -lRE '(uint8_t|uint64_t)'); do
-		sed -i 's|^#include|#include <cstdint>\n#include|' "$f";
-		sed -i 's|uint8_t|std::uint8_t|g' "$f";
-		sed -i 's|uint64_t|std::uint64_t|g' "$f";
-	done
-	
 }
 
 build() {
