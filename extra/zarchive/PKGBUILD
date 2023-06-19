@@ -3,7 +3,7 @@
 
 pkgname=zarchive
 pkgver=0.1.2
-pkgrel=4
+pkgrel=5
 pkgdesc='Library for creating and reading zstd-compressed file archives (.zar)'
 arch=(x86_64)
 url=https://github.com/Exzap/ZArchive
@@ -18,13 +18,12 @@ makedepends=(
   git
   ninja
 )
+provides=(libzarchive.so)
 _tag=d2c717730092c7bf8cbb033b12fd4001b7c4d932
 source=(git+https://github.com/Exzap/ZArchive.git#tag=${_tag})
 b2sums=(SKIP)
 
 build() {
-  export CFLAGS+=' -ffat-lto-objects'
-  export CXXFLAGS+=' -ffat-lto-objects'
   cmake -S ZArchive -B build -G Ninja \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
