@@ -10,7 +10,7 @@ for _coll in ${_collections[@]}; do
 done
 _rev=66594
 pkgver=2023.$_rev
-pkgrel=11
+pkgrel=13
 pkgdesc='TeX Live - '
 license=(GPL)
 arch=(any)
@@ -19,6 +19,7 @@ makedepends=(subversion)
 url='http://tug.org/texlive/'
 source=(svn://tug.org/texlive/tags/texlive-2023.0/Master/texmf-dist#revision=$_rev
         svn://tug.org/texlive/tags/texlive-2023.0/Master/tlpkg#revision=$_rev
+        svn://tug.org/texlive/tags/texlive-2023.0/Master/bin/x86_64-linux#revision=$_rev
         09-texlive-fonts.conf
         texmf.cnf.patch
         texmfcnf.lua.patch
@@ -32,13 +33,14 @@ source=(svn://tug.org/texlive/tags/texlive-2023.0/Master/texmf-dist#revision=$_r
         texlive-updmap.script)
 sha256sums=('SKIP'
             'SKIP'
+            'SKIP'
             '5e79c40cf3ab93348fc89e97890198601767ea2c8fea89ea76088c17a2b35962'
             '6baf9070b96a70e78e3b8365a01fbf4637f76d70f9db2fde5d36640ee518c40a'
             '7bf4b47ed7562dc8967a532fb13aa3c1194db1b74d7725f303612fac54750da9'
             'c76f01fe2a42e5860f7d0b2f16a4fc09101e1a14ea7488985e914cda749f1a21'
             '05afeae62a5d4c9de79c838c9636e2aefe9ad1d6b787fed4e5930c13baf60eba'
             'e6d399faee55ba461cf7e617f2369f5c516de292b28afc6665c9e3fe2b821973'
-            '47167e43ba4796e230330c4b189d0af18f36a3791d47f928623022fec2f09498'
+            'c64c2a6371e94b0f67799c0ac84ea74d8edbc181b26672aa15b8132ec5fbabc3'
             'b641550fe7727422b6964d505db7dbc35b3680a9d47b8d97ac550828bdb9bac7'
             'f96e9f815fa0a4b85e677f2a9215d9106b8abe46eceb3f3e36a6c76eda3e4a85'
             '2141c0842668fb937fd21ca2fae39b642c9665656e404a0d4ee7bdc477bf51fe'
@@ -53,7 +55,7 @@ prepare() {
 # Copy files where format and maps will be extracted from
   cp texmf-dist/web2c/{fmtutil.cnf,updmap.cfg} .
   cp texmf-dist/tex/generic/config/language.{dat,dat.lua,def} .
-
+  
 # Split files per package
   for _coll in ${_collections[@]}; do
     echo -ne "splitting collection ${_coll}"
@@ -101,6 +103,17 @@ prepare() {
         sed -e "0,/from ${_pkg}:/d" -re "/(^--|^})/Q" language.dat.lua >> $_coll.dat.lua
         sed -e "0,/from ${_pkg}:/d" -e "/\%/Q" language.def >> $_coll.def
       fi
+      # extract linked scripts
+      if [[ ${_pkg} != psutils && "$_split" == *${_pkg}.ARCH* ]]; then
+        _links=`sed -e "0,/^name ${_pkg}.x86_64-linux$/d" -e "/^$/Q" tlpkg/texlive.tlpdb | grep "bin/x86_64-linux" | sed -e 's|bin/x86_64-linux||g'`
+        for _link in $_links; do
+          if [[ $(readlink x86_64-linux/$_link) == */scripts/* ]]; then
+            mkdir -p ${_coll}-bin
+            mv x86_64-linux/$_link ${_coll}-bin
+            ln -sfn "$(readlink ${_coll}-bin/$_link | sed 's|..\/..|..\/share|')" ${_coll}-bin/$_link
+          fi
+        done
+      fi
     done
     echo
   done
@@ -113,6 +126,9 @@ _package() {
       depends+=($_dep)
     done
   fi
+  # jadetex depends on ulem
+  [[ $1 == formatsextra ]] && depends+=(texlive-plaingeneric)
+  [[ $1 == latex || $1 == binextra ]] && depends+=(dvisvgm)
   if [[ $1 == basic ]]; then
     conflicts=(texlive-core)
     provides=(texlive-core)
@@ -139,6 +155,11 @@ _package() {
   # some modules wrongly include docs in runfiles
   rm -fr "$pkgdir"/usr/share/texmf-dist/doc
   
+  if [[ -d $1-bin ]]; then
+    mkdir -p "$pkgdir"/usr/bin
+    mv $1-bin/* "$pkgdir"/usr/bin
+  fi
+
   [[ -s $1.fmts ]] && install -Dm644 $1.fmts -t "$pkgdir"/var/lib/texmf/arch/installedpkgs
   [[ -s $1.maps ]] && install -Dm644 $1.maps -t "$pkgdir"/var/lib/texmf/arch/installedpkgs
   [[ -s $1.dat ]] && install -Dm644 $1.dat -t "$pkgdir"/var/lib/texmf/arch/installedpkgs
@@ -204,7 +225,7 @@ done
 package_texlive-doc() {
   pkgdesc+='documentation'
 
-# Remove man and info pages, provided by texlive-binextra
+# Remove man and info pages, provided by texlive-bin
   rm -r texmf-dist/doc/{info,man}
   mkdir -p "$pkgdir"/usr/share/doc
   mv texmf-dist/doc "$pkgdir"/usr/share/doc/texlive

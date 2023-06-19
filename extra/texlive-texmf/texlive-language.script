@@ -4,15 +4,17 @@ LANGUAGE_DAT="etc/texmf/tex/generic/config/language.dat"
 LANGUAGE_DAT_LUA="etc/texmf/tex/generic/config/language.dat.lua"
 LANGUAGE_DEF="etc/texmf/tex/generic/config/language.def"
 
+shopt -s nullglob
+
 cp usr/share/texmf-dist/tex/generic/config/language.us $LANGUAGE_DAT
-ls var/lib/texmf/arch/installedpkgs/*.dat > /dev/null 2>&1 && for file in var/lib/texmf/arch/installedpkgs/*.dat; do
+for file in var/lib/texmf/arch/installedpkgs/*.dat; do
     echo >> $LANGUAGE_DAT
     echo "% $file" >> $LANGUAGE_DAT
     cat $file >> $LANGUAGE_DAT
 done
 
 cp usr/share/texmf-dist/tex/generic/config/language.us.lua $LANGUAGE_DAT_LUA
-ls var/lib/texmf/arch/installedpkgs/*.dat.lua > /dev/null 2>&1 && for file in var/lib/texmf/arch/installedpkgs/*.dat.lua; do
+for file in var/lib/texmf/arch/installedpkgs/*.dat.lua; do
     echo >> $LANGUAGE_DAT_LUA
     echo "-- $file" >> $LANGUAGE_DAT_LUA
     cat $file >> $LANGUAGE_DAT_LUA
@@ -20,7 +22,7 @@ done
 echo "}" >> $LANGUAGE_DAT_LUA
 
 cp usr/share/texmf-dist/tex/generic/config/language.us.def $LANGUAGE_DEF
-ls var/lib/texmf/arch/installedpkgs/*.def > /dev/null 2>&1 && for file in var/lib/texmf/arch/installedpkgs/*.def; do
+for file in var/lib/texmf/arch/installedpkgs/*.def; do
     echo >> $LANGUAGE_DEF
     echo "% $file" >> $LANGUAGE_DEF
     cat $file >> $LANGUAGE_DEF
