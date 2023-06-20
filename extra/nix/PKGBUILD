@@ -2,10 +2,10 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgbase=nix
-pkgname=(nix nix-docs)
+pkgname=('nix' 'nix-docs')
 pkgver=2.16.1
 _commit='cb5bdb4f9c6dd229a4fa7701da7aec889044a631'
-pkgrel=1
+pkgrel=2
 pkgdesc='A purely functional package manager'
 arch=('x86_64')
 url='https://nixos.org/nix'
@@ -57,24 +57,23 @@ b2sums=('SKIP'
         'b644b6313745dca057e265281c318982750e9d55ce9b7705f47832ae66f07006cec97e9cbd79bb918a4c1174c8d20c159f8874d212381596f6fb684cb8ea928d'
         '57610fc5fa370f9c3df50ab411dfe154b273349b3b321ad01768cacdf371e27603e8446a4e4269ccf4ca6cdb59b4a70fdcac59cda29c47eb7e7224555ec7e2e2')
 
-prepare() {
-  cd "$pkgbase"
-  sed -i "s:\$(bindir):src/nix:g" doc/manual/local.mk
-}
-
 pkgver() {
   cd "$pkgbase"
+
   git describe --tags
 }
 
-_pkgver() {
-  curl -fs "https://api.github.com/repos/NixOS/$pkgname/git/ref/tags/$pkgver" |
-    jq -r .object.sha
+prepare() {
+  cd "$pkgbase"
+
+  sed -i "s:\$(bindir):src/nix:g" doc/manual/local.mk
 }
 
 build() {
   cd "$pkgbase"
+
   ./bootstrap.sh
+
   ./configure \
     --prefix=/usr \
     --libexecdir="/usr/lib/$pkgname" \
@@ -84,6 +83,7 @@ build() {
     --enable-static=rapidcheck \
     --enable-gc \
     --enable-lto
+
   make
 }
 
@@ -143,6 +143,7 @@ package_nix() {
 
 package_nix-docs() {
   pkgdesc+=" (documentation)"
+
   cd "$pkgbase"
   install -vd "$pkgdir/usr/share/doc"
   mv nix-docs/nix "$pkgdir/usr/share/doc"
