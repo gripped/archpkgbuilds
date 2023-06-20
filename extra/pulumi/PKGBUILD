@@ -1,22 +1,23 @@
+# Maintainer: Andrew Crerar <crerar@archlinux.org>
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 # Contributor: Christoph Gysin <christoph.gysin@gmail.com>
 
 pkgname=pulumi
-pkgver=3.62.0
+pkgver=3.72.2
 pkgrel=1
 pkgdesc='Modern Infrastructure as Code'
 arch=('x86_64')
 url="https://github.com/$pkgname/$pkgname"
-license=('GPL')
+license=('Apache')
 depends=('glibc')
 makedepends=('go')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('fd75e72ba28723a44685089dff0b77f538df3872270b39d3a070803aa2f856eeafff3b41da5d80f69f8fc248e0f4ffa4ab3c6a5e80621f609cc4d579184795cd')
+b2sums=('19d55642142e7235efee1f3c8ef17772d30f4a285c5b7ed61517e58d2f7fada76407dead6ee27f2a7c0aaabd7e591c8fb648cf5f9a6ecf1bac5e4cc8748f021d')
 options=('!lto') # disable as soon as LTO problems are resolved
 
-_plugins=(
-  "nodejs/cmd/pulumi-language-nodejs"
+_plugin_dirs=(
   "python/cmd/pulumi-language-python"
+  "nodejs/cmd/pulumi-language-nodejs"
   "go/pulumi-language-go"
 )
 
@@ -38,17 +39,22 @@ build() {
 
   # Build the plugins
   cd "${srcdir}/${pkgname}-${pkgver}/sdk"
-  for plugin in "${_plugins[@]}"; do
-    plugin_name=${plugin##*/}
+  for plugin_dir in "${_plugin_dirs[@]}"; do
+    plugin_name="${plugin_dir##*/}"
+    cwd="${PWD}"
+    cd "${plugin_dir}"
+
     go build \
-      -ldflags "-X github.com/pulumi/pulumi/pkg/v${pkgver%%.*}/version.Version=${pkgver} -extldflags ${LDFLAGS}" \
+      -ldflags "-X github.com/pulumi/pulumi/sdk/v${pkgver%%.*}/version.Version=${pkgver} -extldflags ${LDFLAGS}" \
       -o "${srcdir}/${pkgname}-${pkgver}/bin/${plugin_name}" \
-      "./${plugin}"
+      .
 
     # Add possible executor
-    if [ -f "${plugin}-exec" ]; then
-      cp "${plugin}-exec" "${srcdir}/${pkgname}-${pkgver}/bin/"
+    cd ..
+    if [ -f "${plugin_name}-exec" ]; then
+      cp "${plugin_name}-exec" "${srcdir}/${pkgname}-${pkgver}/bin/"
     fi
+    cd "${cwd}"
   done
 }
 
