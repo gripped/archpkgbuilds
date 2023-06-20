@@ -1,0 +1,19 @@
+pkgbase = openfortivpn
+	pkgdesc = An open implementation of Fortinet's proprietary PPP+SSL VPN solution
+	pkgver = 1.20.4
+	pkgrel = 1
+	url = https://github.com/adrienverge/openfortivpn
+	arch = x86_64
+	license = GPL3
+	makedepends = git
+	makedepends = systemd
+	depends = glibc
+	depends = openssl
+	depends = ppp
+	depends = resolvconf
+	depends = systemd-libs
+	backup = etc/openfortivpn/config
+	source = git+https://github.com/adrienverge/openfortivpn.git#tag=0141147530f3516b70ebb78ef89585c3fd1b8f4f
+	sha256sums = SKIP
+
+pkgname = openfortivpn
