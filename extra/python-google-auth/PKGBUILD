@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-google-auth
-pkgver=2.17.2
+pkgver=2.17.3
 pkgrel=1
 pkgdesc="Google Authentication Library"
 url="https://github.com/GoogleCloudPlatform/google-auth-library-python"
@@ -13,7 +13,7 @@ checkdepends=('python-pytest' 'python-mock' 'python-requests' 'python-flask'
               'python-oauth2client' 'python-pytest-localserver' 'python-cryptography'
               'python-freezegun' 'python-responses' 'python-pyopenssl' 'python-pyu2f')
 source=("https://github.com/GoogleCloudPlatform/google-auth-library-python/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('f2d4485367bdd3866d78c529728808b6cb84b9225ae2ad6c21165828ebfa8b9fd4ae8de3fc667dbb51a64762482926ab3e5583ff85d39444440c1557f8d6e514')
+sha512sums=('6e0051c51fb6d3821bf41e142d534d9dfdb62631672ab60ba2f21f20ba90c35e1ad4b0d9a4adf43eba070969c68507a8404a61124f8011f6b2453bc7b43dd423')
 
 prepare() {
   cd google-auth-library-python-$pkgver
