@@ -6,8 +6,8 @@
 
 pkgname=vault
 pkgdesc='A tool for managing secrets'
-pkgver=1.13.3
-pkgrel=2
+pkgver=1.13.4
+pkgrel=1
 url="https://vaultproject.io/"
 license=('MPL')
 arch=('x86_64')
@@ -15,7 +15,7 @@ depends=('glibc')
 makedepends=('go' 'git' 'yarn' 'bower' 'nodejs-lts-gallium' 'npm' 'zip' 'gox' 'go-tools')
 install=vault.install
 backup=('etc/vault.hcl' 'etc/default/vault')
-_vault_commit='3bedf816cbf851656ae9e6bd65dd4a67a9ddff5e'
+_vault_commit='a212330c7b4b3d1ec958a06227b27689790d98b4'
 source=("git+https://github.com/hashicorp/vault#commit=${_vault_commit}"
   'vault.sysusers'
   'vault.tmpfiles'
