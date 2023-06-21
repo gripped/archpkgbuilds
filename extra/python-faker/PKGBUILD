@@ -3,16 +3,18 @@
 # Contributor: dnuux <dnuuxx@gmail.com>
 
 pkgname=python-faker
-pkgver=18.8.0
-_commit=7e4c42df6c937fa6881d1a652b20de25755d7b3d
+pkgver=18.9.0
+_commit=fa79c6b0c510274b08b46ad0f007fd1b517a9ab2
 pkgrel=1
 pkgdesc='Faker generates fake data for you.'
 arch=('any')
 url='https://faker.readthedocs.io/en/master/'
 license=('MIT')
 depends=('python-dateutil')
+optdepends=('python-xmltodict: for xml provider')
 makedepends=('git' 'python-setuptools' 'python-pytest')
-checkdepends=('python-validators' 'python-ukpostcodeparser' 'python-freezegun' 'python-pillow')
+checkdepends=('python-validators' 'python-ukpostcodeparser' 'python-freezegun' 'python-pillow'
+              'python-xmltodict')
 source=("git+https://github.com/joke2k/faker.git#commit=$_commit")
 sha512sums=('SKIP')
 
