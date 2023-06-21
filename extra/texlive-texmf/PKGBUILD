@@ -10,7 +10,7 @@ for _coll in ${_collections[@]}; do
 done
 _rev=66594
 pkgver=2023.$_rev
-pkgrel=13
+pkgrel=14
 pkgdesc='TeX Live - '
 license=(GPL)
 arch=(any)
@@ -60,10 +60,10 @@ prepare() {
   for _coll in ${_collections[@]}; do
     echo -ne "splitting collection ${_coll}"
     # extract description
-    _desc=`sed -e "0,/^name collection-${_coll}$/d" -e "/^$/Q" tlpkg/texlive.tlpdb | grep shortdesc | sed -e 's|shortdesc ||'`
+    _desc=`sed -e "0,/^name collection-${_coll}$/d;/^$/Q" tlpkg/texlive.tlpdb | grep shortdesc | sed -e 's|shortdesc ||'`
     echo $_desc > pkgdesc-$_coll
     # extract depends
-    _pkgs=`sed -e "0,/^name collection-${_coll}$/d" -e "/^$/Q" tlpkg/texlive.tlpdb | grep depend | sed -e 's|depend ||'`
+    _pkgs=`sed -e "0,/^name collection-${_coll}$/d;/^$/Q" tlpkg/texlive.tlpdb | grep depend | sed -e 's|depend ||'`
     _prog=0
     _total=`echo $_pkgs | wc -w`
     for _pkg in $_pkgs; do
@@ -72,47 +72,49 @@ prepare() {
       # collection depends are added as dependencies
       if [[ $_pkg == collection-* ]]; then
         echo ${_pkg/collection-/texlive-} >> depends-$_coll
-      fi
-      # move files to the corresponding subdir
-      _split=`sed -e "0,/^name ${_pkg}$/d" -e "/^$/Q" tlpkg/texlive.tlpdb`
-      _files=`echo "$_split" | sed -e "0,/^runfiles/d" -e "/^[a-z]/Q" | grep texmf-dist` || true
-      for _file in $_files; do
-        mkdir -p texlive-$_coll/$(dirname $_file)
-        mv $_file texlive-$_coll/$(dirname $_file)
-      done
-      # extract formats
-      _fmts=`echo "$_split" | grep "execute AddFormat"` || true
-      if [[ ! -z "$_fmts" ]]; then
-        echo "$_fmts" | while read -r _fmt; do
-          _name=`echo $_fmt | sed 's|.* name=\(\S*\).*|\1|'`
-          _engine=`echo $_fmt | sed 's|.* engine=\(\S*\).*|\1|'`
-          grep -E "(^| )$_name $_engine" fmtutil.cnf >> $_coll.fmts
+      else
+        echo $_pkg >> packages-$_coll
+        # move files to the corresponding subdir
+        _split=`sed -e "0,/^name ${_pkg}$/d;/^$/Q" tlpkg/texlive.tlpdb`
+        _files=`echo "$_split" | sed -e "0,/^runfiles/d;/^[a-z]/Q" | grep texmf-dist` || true
+        for _file in $_files; do
+          mkdir -p texlive-$_coll/$(dirname $_file)
+          mv $_file texlive-$_coll/$(dirname $_file)
         done
-      fi
-      # extract maps
-      _maps=`echo "$_split" | grep -E "execute add(Kanji|Mixed|)Map"` || true
-      if [[ ! -z "$_maps" ]]; then
-        echo "$_maps" | while read -r _map; do
-          grep "${_map/execute add/}" updmap.cfg >> $_coll.maps
-        done
-      fi
-      # extract hyphen rules
-      _langs=`echo "$_split" | grep "execute AddHyphen"` || true
-      if [[ ! -z "$_langs" ]]; then
-        sed -e "0,/from ${_pkg}:/d" -e "/\%/Q" language.dat >> $_coll.dat
-        sed -e "0,/from ${_pkg}:/d" -re "/(^--|^})/Q" language.dat.lua >> $_coll.dat.lua
-        sed -e "0,/from ${_pkg}:/d" -e "/\%/Q" language.def >> $_coll.def
-      fi
-      # extract linked scripts
-      if [[ ${_pkg} != psutils && "$_split" == *${_pkg}.ARCH* ]]; then
-        _links=`sed -e "0,/^name ${_pkg}.x86_64-linux$/d" -e "/^$/Q" tlpkg/texlive.tlpdb | grep "bin/x86_64-linux" | sed -e 's|bin/x86_64-linux||g'`
-        for _link in $_links; do
-          if [[ $(readlink x86_64-linux/$_link) == */scripts/* ]]; then
-            mkdir -p ${_coll}-bin
-            mv x86_64-linux/$_link ${_coll}-bin
-            ln -sfn "$(readlink ${_coll}-bin/$_link | sed 's|..\/..|..\/share|')" ${_coll}-bin/$_link
-          fi
-        done
+        # extract formats
+        _fmts=`echo "$_split" | grep "execute AddFormat"` || true
+        if [[ ! -z "$_fmts" ]]; then
+          echo "$_fmts" | while read -r _fmt; do
+            _name=`echo $_fmt | sed 's|.* name=\(\S*\).*|\1|'`
+            _engine=`echo $_fmt | sed 's|.* engine=\(\S*\).*|\1|'`
+            grep -E "(^| )$_name $_engine" fmtutil.cnf >> $_coll.fmts
+          done
+        fi
+        # extract maps
+        _maps=`echo "$_split" | grep -E "execute add(Kanji|Mixed|)Map"` || true
+        if [[ ! -z "$_maps" ]]; then
+          echo "$_maps" | while read -r _map; do
+            grep "${_map/execute add/}" updmap.cfg >> $_coll.maps
+          done
+        fi
+        # extract hyphen rules
+        _langs=`echo "$_split" | grep "execute AddHyphen"` || true
+        if [[ ! -z "$_langs" ]]; then
+          sed -e "0,/from ${_pkg}:/d;/\%/Q" language.dat >> $_coll.dat
+          sed -re "0,/from ${_pkg}:/d;/(^--|^})/Q" language.dat.lua >> $_coll.dat.lua
+          sed -e "0,/from ${_pkg}:/d;/\%/Q" language.def >> $_coll.def
+        fi
+        # extract linked scripts
+        if [[ ${_pkg} != psutils && "$_split" == *${_pkg}.ARCH* ]]; then
+          _links=`sed -e "0,/^name ${_pkg}.x86_64-linux$/d;/^$/Q" tlpkg/texlive.tlpdb | grep "bin/x86_64-linux" | sed -e 's|bin/x86_64-linux||g'`
+          for _link in $_links; do
+            if [[ $(readlink x86_64-linux/$_link) == */scripts/* ]]; then
+              mkdir -p ${_coll}-bin
+              mv x86_64-linux/$_link ${_coll}-bin
+              ln -sfn "$(readlink ${_coll}-bin/$_link | sed 's|..\/..|..\/share|')" ${_coll}-bin/$_link
+            fi
+          done
+        fi
       fi
     done
     echo
@@ -126,8 +128,8 @@ _package() {
       depends+=($_dep)
     done
   fi
-  # jadetex depends on ulem
-  [[ $1 == formatsextra ]] && depends+=(texlive-plaingeneric)
+  # jadetex depends on ulem and marvosym
+  [[ $1 == formatsextra ]] && depends+=(texlive-plaingeneric texlive-fontsrecommended)
   [[ $1 == latex || $1 == binextra ]] && depends+=(dvisvgm)
   if [[ $1 == basic ]]; then
     conflicts=(texlive-core)
@@ -149,7 +151,10 @@ _package() {
   else
     groups=(texlive)
   fi
-  
+  for _pkg in `cat packages-$1`; do
+    [[ ! ${_collections[@]} =~ (^| )$_pkg($| ) ]] && provides+=(texlive-$_pkg)
+  done
+
   mkdir -p "$pkgdir"/usr/share
   mv texlive-$1/texmf-dist "$pkgdir"/usr/share
   # some modules wrongly include docs in runfiles
@@ -236,7 +241,6 @@ package_texlive-doc() {
  
 package_texlive-meta() {
   pkgdesc='Metapackage to install Tex Live'
-  depends=()
   for _coll in ${_collections[@]}; do
     if [[ $_coll != lang* ]]; then
       depends+=(texlive-$_coll)
