@@ -4,7 +4,7 @@
 pkgname=aalib
 pkgver=1.4rc5
 _pkgver=1.4.0
-pkgrel=16
+pkgrel=17
 pkgdesc='ASCII art graphic library'
 arch=('x86_64')
 url='https://aa-project.sourceforge.net/aalib/'
@@ -13,12 +13,17 @@ depends=('glibc' 'gpm' 'libx11' 'ncurses' 'slang')
 optdepends=('xorg-fonts-misc: x11 driver'
             'xorg-mkfontscale: x11 driver')
 source=("https://downloads.sourceforge.net/aa-project/$pkgname-$pkgver.tar.gz"
+        'aclocal-fixes.patch'
         'aalib.m4.patch')
 sha256sums=('fbddda9230cf6ee2a4f5706b4b11e2190ae45f5eda1f0409dc4f99b35e0a70ee'
+            'f40742677a3e0d58c99a09da7574635411156586acd22867e71dd46c88088bce'
             '0202545881ec34bd637c04b5896b9b3093609530cc4f85e1d5ffe9a3136d9483')
 
 prepare() {
   cd $pkgname-$_pkgver
+
+  # https://bugs.archlinux.org/task/78787
+  patch -Np0 -i ../aclocal-fixes.patch
 
   # https://sourceforge.net/p/aa-project/patches/9/
   # https://bugs.archlinux.org/task/53482
