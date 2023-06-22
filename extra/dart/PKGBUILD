@@ -8,17 +8,30 @@
 # Contributor: Julien Nicoulaud <julien.nicoulaud@gmail.com>
 
 pkgname=dart
-pkgver=3.0.2
-_commit=063c854bc4f55fafc2cf09aad74f0357c4fe69be
+pkgver=3.0.5
+_commit=9830d0d6cb3f9988ad9056a84d55a73cd8299e87
 pkgrel=1
 pkgdesc='The dart programming language SDK'
 arch=('x86_64')
 url='https://www.dartlang.org/'
 depends=('glibc')
 license=('BSD')
-makedepends=('clang' 'dart' 'git' 'gn' 'lld' 'llvm' 'ninja' 'python' 'python-httplib2' 'python-six')
-source=("git+https://chromium.googlesource.com/chromium/tools/depot_tools.git"
-        "$pkgname::git+https://github.com/dart-lang/sdk.git")
+makedepends=(
+  'clang'
+  'dart'
+  'git'
+  'gn'
+  'lld'
+  'llvm'
+  'ninja'
+  'python'
+  'python-httplib2'
+  'python-six'
+)
+source=(
+  "$pkgname::git+https://github.com/dart-lang/sdk.git"
+  "git+https://chromium.googlesource.com/chromium/tools/depot_tools.git"
+)
 sha512sums=('SKIP'
             'SKIP')
 
