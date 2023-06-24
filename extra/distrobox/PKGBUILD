@@ -2,7 +2,7 @@
 # Contributor: robertfoster
 
 pkgname=distrobox
-pkgver=1.5.0.1
+pkgver=1.5.0.2
 pkgrel=1
 pkgdesc="Use any linux distribution inside your terminal."
 arch=('any')
@@ -11,7 +11,7 @@ license=('GPL3')
 optdepends=('docker: Docker support'
 	    'podman: Podman support')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/89luca89/distrobox/archive/${pkgver}.tar.gz")
-sha256sums=('72d7896ac9b669622a74d683c9f1d4c6343dfe7f6f4dc6cb4eefee6f375fadd6')
+sha256sums=('84262770026af306d1e263258445d91790bdedecf30c813316a45adeb2a67de6')
 
 package() {
 	cd "${pkgname}-${pkgver}"
