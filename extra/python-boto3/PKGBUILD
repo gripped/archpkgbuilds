@@ -4,21 +4,21 @@
 
 pkgname=python-boto3
 # UPDATE_BLOCKED: blocked as python-botocore is blocked
-pkgver=1.26.89
-pkgrel=3
+pkgver=1.26.157
+pkgrel=1
 pkgdesc='The AWS SDK for Python'
 arch=('any')
 license=('Apache')
 url='https://github.com/boto/boto3'
 depends=('python' 'python-botocore' 'python-jmespath' 'python-s3transfer')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest' 'python-pytest-xdist')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/boto/boto3/archive/$pkgver.tar.gz")
-sha512sums=('02ee02b05023e9184f779ab8ff21afa6f7e56f7d2e883d021b2567676c5fc57cad6b475d55316a2017c2a837c41d2f5604824f440060e2f96804c5a61ccdd143')
+sha512sums=('7a95efa482ba8fca1578414dc24fa999731347a934ccfe67ea9b56f7497c879749a7cdeedd244741900c8d85f61ef79a5ef9359cb54d34c4e32e28792c76ac4b')
 
 build() {
   cd boto3-$pkgver
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -29,5 +29,5 @@ check() {
 
 package() {
   cd boto3-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
