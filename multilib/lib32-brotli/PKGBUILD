@@ -6,8 +6,8 @@
 
 pkgname=lib32-brotli
 pkgver=1.0.9
-pkgrel=5
-pkgdesc='Brotli compression library'
+pkgrel=12
+pkgdesc='Generic-purpose lossless compression algorithm (32-bit)'
 arch=(x86_64)
 license=(MIT)
 url=https://github.com/google/brotli
@@ -22,17 +22,18 @@ makedepends=(
 provides=(
   libbrotli{common,dec,enc}.so
 )
-options=(
-  debug
-)
 _tag=e61745a6b7add50d380cfd7d3883dd6c62fc2c71
 source=(git+https://github.com/google/brotli#tag=${_tag})
-sha256sums=('SKIP')
+sha512sums=('SKIP')
+
+prepare() {
+  cd brotli
+  git cherry-pick -n 09b0992b6acb7faa6fd3b23f9bc036ea117230fc # Fix broken Libs: in pc file
+}
 
 pkgver() {
   cd brotli
-
-  git describe --tags | sed 's/^v//'
+  git describe --tags --match 'v*' | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 build() {
@@ -40,7 +41,10 @@ build() {
   export PKG_CONFIG=i686-pc-linux-gnu-pkg-config
 
   cmake -S brotli -B build \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_SHARED_LIBS=True \
+    -DCMAKE_C_FLAGS="$CFLAGS -ffat-lto-objects" \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib32
   cmake --build build -v
 }
