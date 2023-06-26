@@ -6,12 +6,14 @@
 
 pkgname=opensmtpd
 pkgver=7.3.0p0
-pkgrel=1
+pkgrel=2
 pkgdesc="Free implementation of the server-side SMTP protocol"
 arch=(x86_64)
 url="https://www.opensmtpd.org/"
 license=(custom)
-depends=(libevent libressl pam libxcrypt zlib)
+# temporarily switched from libressl to openssl + bundled libtls
+# (FS#78879)
+depends=(libevent openssl pam libxcrypt zlib)
 optdepends=('opensmtpd-filter-rspamd: rspamd integration')
 provides=(smtp-server smtp-forwarder)
 conflicts=(smtp-server smtp-forwarder)
@@ -39,6 +41,7 @@ build() {
     --sysconfdir=/etc/smtpd \
     --sbindir=/usr/bin \
     --libexecdir=/usr/lib/smtpd \
+    --with-bundled-libtls \
     --with-path-mbox=/var/spool/mail \
     --with-path-empty=/var/empty \
     --with-path-socket=/run \
@@ -46,8 +49,8 @@ build() {
     --with-user-smtpd=smtpd \
     --with-user-queue=smtpq \
     --with-group-queue=smtpq \
-    --with-auth-pam \
-    --with-cflags='-I/usr/include/libressl -L/usr/lib/libressl -Wl,-rpath=/usr/lib/libressl'
+    --with-auth-pam
+    # --with-cflags='-I/usr/include/libressl -L/usr/lib/libressl -Wl,-rpath=/usr/lib/libressl'
 
   make
 }
