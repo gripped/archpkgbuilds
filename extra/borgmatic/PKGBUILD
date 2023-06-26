@@ -7,9 +7,9 @@
 # Contributor: stef204 <https://aur.archlinux.org/account/stef204>
 
 pkgname=borgmatic
-_commit=e80f27f9221d0e7e628708f4e230d21a1d2d0608
-pkgver=1.7.14
-pkgrel=3
+_commit=37a0a0c42178692a65560e3391a559ad2d5fd800
+pkgver=1.7.15
+pkgrel=1
 pkgdesc='Simple, configuration-driven backup software for servers and workstations'
 arch=('any')
 url=https://torsion.org/borgmatic
@@ -24,11 +24,6 @@ b2sums=('SKIP')
 
 prepare() {
   cd $pkgname
-
-  # this can be dropped after the release of 1.7.15
-  git cherry-pick --strategy recursive -X ours -n \
-    1d7c7eaaa7ec0ab67add6e95c7a95a14ec1498ca
-
   sed -i 's,root/.local,usr,' sample/systemd/borgmatic{,-user}.service
 }
 
