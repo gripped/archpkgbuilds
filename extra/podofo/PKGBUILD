@@ -4,14 +4,15 @@
 # Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
 # Contributor: Preecha Patumchareonpol <yumyai at gmail.com> 
 
-pkgname=podofo
+pkgbase=podofo
+pkgname=(podofo{,-tools})
 pkgver=0.10.0
-pkgrel=3
+pkgrel=4
 pkgdesc='A C++ library to work with the PDF file format'
 arch=(x86_64)
 url="http://$pkgname.sourceforge.net"
 _url="https://github.com/$pkgname/$pkgname"
-license=(GPL2 LGPL2.1)
+license=(LGPL2.1)
 depends=(fontconfig
          freetype2
          libidn
@@ -23,7 +24,6 @@ depends=(fontconfig
          openssl
          zlib)
 makedepends=(cmake)
-provides=(libpodofo.so)
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/$pkgver/$_archive.tar.gz")
 sha256sums=('c9bf607fe4862b5cc6eac1754f0e39674c553350e8bbde68f5fff3e3eb2ed4bc')
@@ -32,13 +32,25 @@ build() {
 	cd "$_archive"
 	cmake -B build \
 		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D PODOFO_BUILD_TOOLS=True \
 		-D PODOFO_HAVE_JPEG_LIB=True \
 		-D PODOFO_HAVE_PNG_LIB=True \
 		-D PODOFO_HAVE_TIFF_LIB=True
 	make -C build
 }
 
-package() {
+package_podofo() {
+	provides=(libpodofo.so)
 	cd "$_archive"
 	make -C build DESTDIR="$pkgdir" install
+	local toolspkg="$pkgdir-tools"
+	mkdir -p "$toolspkg/usr/"
+	mv "$pkgdir/usr/bin" $toolspkg/usr
+}
+
+package_podofo-tools() {
+	license=(GPL2)
+	depends+=(libpodofo.so)
+	cd "$_archive"
+	install -Dm0644 -t "$pkgdir/usr/share/man/man1" man/*.1
 }
