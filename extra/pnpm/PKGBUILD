@@ -3,7 +3,7 @@
 # Contributor: Tomasz Jakub Rup <tomasz.rup@gmail.com>
 
 pkgname=pnpm
-pkgver=8.6.4
+pkgver=8.6.5
 pkgrel=1
 pkgdesc='Fast, disk space efficient package manager'
 arch=('any')
@@ -12,7 +12,7 @@ license=('MIT')
 depends=("nodejs>=16.14")
 makedepends=('jq' 'npm')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/pnpm/$pkgname/archive/v$pkgver.tar.gz")
-b2sums=('1c9cbfd95f596539d7789d3744959cbec3b2f1249e839e9b88688452472255abbbe0645f03ef3e6284f0111dd8a96072447bc6026ada648ab35509027bd774ee')
+b2sums=('26cdc51b9edab9249b6e5f1bf91f5ec6550751b643e0ca2f279ffa211084eff844f0f81fc9da099049d55d6dc2fddf67351c5986323cc0bd3059924e948c54c3')
 
 package() {
   npm install -g \
@@ -33,6 +33,9 @@ package() {
   install -d usr/share/{doc,licenses}/$pkgname
   ln -s $_npmdir/LICENSE usr/share/licenses/$pkgname
   ln -s $_npmdir/README.md usr/share/doc/$pkgname
+
+  # Remove node-gyp and Windows files
+  rm -rf $_npmdir/dist/{node-gyp-bin,/node_modules/node-gyp,vendor/*.exe}
 
   # Remove references to $srcdir and $pkgdir
   local _tmp_package="$(mktemp)"
