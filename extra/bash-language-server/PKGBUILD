@@ -3,7 +3,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=bash-language-server
-pkgver=4.10.0
+pkgver=4.10.1
 pkgrel=1
 pkgdesc="Bash language server implementation based on Tree Sitter and its grammar for Bash"
 arch=("any")
@@ -15,7 +15,7 @@ optdepends=('bash-completion: for CLI args completion'
             'man-db: for documentation via manual pages'
             'shellcheck: to enable linting')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/server-$pkgver.tar.gz")
-b2sums=('aeb494299e48a01be4b66200061c8957cf792251f0da27bab8314e8374eaa60f8595fb18986e315e13d6c7c7f21d60c08995830d5c9ed8ea16b0d2fb841333e8')
+b2sums=('5eca58893b5baf650d42a968297967d3273c7f906687924d86d9c9c223dccced9d29501f4b7644d3e34ad0b7173d2c35984d32dd66d6852f52f3271921487124')
 
 build() {
     cd "$pkgname-server-$pkgver"
