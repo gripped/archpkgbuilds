@@ -5,7 +5,7 @@
 
 pkgname=aws-cli
 # UPDATE_BLOCKED: blocked as python-botocore is blocked
-pkgver=1.27.157
+pkgver=1.27.162
 pkgrel=1
 pkgdesc='Universal Command Line Interface for Amazon Web Services'
 arch=('any')
@@ -17,8 +17,8 @@ depends=('python' 'python-botocore' 'python-dateutil' 'python-jmespath'
          'python-s3transfer' 'python-yaml')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=($pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-md5sums=('a5f2f46b67ec2202abcc7890c6273d8d')
-sha256sums=('927cf27e5911ec95a6cc1486cce64666badb72d70dc921249b4ac0f509c0efe7')
+md5sums=('666e3d1e5a64c7f1c2e530f37442f205')
+sha256sums=('bf4e810cc2b6193454b7c1706d5aa2234c15b19b88300ab45ea56cd633f8466d')
 
 build() {
   cd $pkgname-$pkgver
