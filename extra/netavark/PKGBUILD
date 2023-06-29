@@ -4,7 +4,7 @@
 pkgname=netavark
 _commit=f6a0729c69997a2e36a0a62be1341f1107d6e8e8  # refs/tags/v1.6.0
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Container network stack"
 arch=(x86_64)
 url="https://github.com/containers/netavark"
@@ -40,6 +40,8 @@ build() {
   cd $pkgname
   # generate man page directly as docs target is broken: https://github.com/containers/netavark/issues/524
   mandown docs/$pkgname.1.md > $pkgname.1
+  # create service file manually as we are not using the Makefile
+  sed "s|@@NETAVARK@@|/usr/lib/podman/netavark|" contrib/systemd/system/netavark-dhcp-proxy.service.in > contrib/systemd/system/netavark-dhcp-proxy.service
   cargo build --frozen --release --all-features
 }
 
@@ -54,5 +56,6 @@ package() {
   cd $pkgname
   install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/lib/podman/"
   install -vDm 644 $pkgname.1 -t "$pkgdir/usr/share/man/man1/"
+  install -vDm 644 contrib/systemd/system/*.{service,socket} -t "$pkgdir/usr/lib/systemd/system/"
   install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
 }
