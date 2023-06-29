@@ -1,0 +1,27 @@
+pkgbase = libretro-flycast
+	pkgdesc = Sega Dreamcast core
+	pkgver = 5775
+	pkgrel = 1
+	url = https://github.com/flyinghead/flycast
+	arch = x86_64
+	groups = libretro
+	license = GPL2
+	makedepends = cmake
+	makedepends = git
+	makedepends = mesa
+	makedepends = ninja
+	depends = libgl
+	depends = libretro-core-info
+	depends = zlib
+	source = git+https://github.com/flyinghead/flycast.git#commit=0070f9abad69c67ea47603c516f4e33490aeae2f
+	source = git+https://github.com/KhronosGroup/glslang.git
+	source = flycast-libchdr::git+https://github.com/flyinghead/libchdr.git
+	source = git+https://github.com/KhronosGroup/Vulkan-Headers.git
+	source = git+https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git
+	b2sums = SKIP
+	b2sums = SKIP
+	b2sums = SKIP
+	b2sums = SKIP
+	b2sums = SKIP
+
+pkgname = libretro-flycast
