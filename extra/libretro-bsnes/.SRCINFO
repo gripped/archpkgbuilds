@@ -1,0 +1,18 @@
+pkgbase = libretro-bsnes
+	pkgdesc = Super Nintendo Entertainment System cores
+	pkgver = 3093
+	pkgrel = 1
+	epoch = 1
+	url = https://github.com/libretro/bsnes-libretro
+	arch = x86_64
+	groups = libretro
+	license = GPL3
+	makedepends = git
+	depends = gcc-libs
+	depends = libretro-core-info
+	source = libretro-bsnes::git+https://github.com/libretro/bsnes-libretro.git#commit=4f4e22e83a92e2e3999e5792f52085e1ecd662e2
+	source = libretro-bsnes-flags.patch
+	b2sums = SKIP
+	b2sums = d8d87b92fc0f6d4020333230580bb0e63c73e6833365868f8c71fced923dbbf9df4842d1e7b7fb6bd493ba1e22e53757ae6656a3bcc3408220a18b06f41ea81f
+
+pkgname = libretro-bsnes
