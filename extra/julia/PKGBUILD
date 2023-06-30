@@ -9,13 +9,13 @@
 pkgname=julia
 epoch=2
 pkgver=1.9.1
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 pkgdesc='High-level, high-performance, dynamic programming language'
 url='https://julialang.org/'
 license=(MIT)
 depends=(fftw hicolor-icon-theme libgit2 libunwind libutf8proc blas64-openblas
-         suitesparse mbedtls openlibm pcre2 llvm-libs p7zip libblastrampoline lld)
+         suitesparse mbedtls2 openlibm pcre2 llvm-libs p7zip libblastrampoline lld)
 makedepends=(cmake gcc-fortran python llvm patchelf libwhich)
 optdepends=('gnuplot: If using the Gaston Package from julia')
 source=(https://github.com/JuliaLang/julia/releases/download/v$pkgver/$pkgname-$pkgver-full.tar.gz{,.asc}
@@ -30,7 +30,7 @@ backup=(etc/julia/startup.jl)
 sha256sums=('a13ce716b63d3e46d9108395e1ffc8a1de712e6a848a603ac592bcf080ea0139'
             'SKIP'
             '3c0c03eabb668e3242fcd3058c1011dfbb579cc1c5adc3ae1016531e711cc64e'
-            'b1e265ba36c59db147563213eec9db12aa491e2167ef4a3f887f1599ad671434'
+            '94e6d4fa9c68360c795807b49bcb126bbbbf4c927cf7e8358b3e0e3d2183d63e'
             '481ce9b093969c2433b86d4d2bc0815470225f680712fc6231df3629ca7fbe5e'
             '5e3f55e68e3f7172d545888479cd9a35e7589d0467684c6d98c721e3b1878acd'
             '628d41c0b7739ed6c4c34c7416efd81646fbd17ebab9e88ae46a3668650d3104'
@@ -98,6 +98,7 @@ _buildopts="prefix=/usr \
 
 build() {
   cd $pkgname-$pkgver
+  LD_LIBRARY_PATH="/usr/lib/mbedtls2" \
   make release VERBOSE=1 JLDFLAGS=${LDFLAGS} $_buildopts
 }
 
@@ -127,6 +128,7 @@ check() {
 
 package() {
   cd $pkgname-$pkgver
+  LD_LIBRARY_PATH="/usr/lib/mbedtls2" \
   make DESTDIR="$pkgdir" install $_buildopts
 
   ln -sf /etc/ssl/cert.pem "$pkgdir"/usr/share/julia # Needed by some packages
