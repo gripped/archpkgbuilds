@@ -6,7 +6,7 @@ pkgname=(linux-firmware-whence linux-firmware amd-ucode
 )
 _tag=20230625
 pkgver=20230625.ee91452d
-pkgrel=2
+pkgrel=3
 pkgdesc="Firmware files for Linux"
 url="https://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git;a=summary"
 license=('GPL2' 'GPL3' 'custom')
@@ -73,7 +73,7 @@ package_linux-firmware() {
 
   cd ${pkgbase}
 
-  ZSTD_CLEVEL=19 make DESTDIR="${pkgdir}" FIRMWAREDIR=/usr/lib/firmware install-zst
+  make DESTDIR="${pkgdir}" FIRMWAREDIR=/usr/lib/firmware install-xz
 
   # useless without CONFIG_MICROCODE_LATE_LOADING
   # https://bugs.archlinux.org/task/46591
@@ -87,7 +87,7 @@ package_linux-firmware() {
   cd "${pkgdir}"
 
   # remove arm64 firmware https://bugs.archlinux.org/task/76583
-  rm usr/lib/firmware/mrvl/prestera/mvsw_prestera_fw_arm64-v4.1.img.zst
+  rm usr/lib/firmware/mrvl/prestera/mvsw_prestera_fw_arm64-v4.1.img.xz
 
   # split
   _pick linux-firmware-nfp usr/lib/firmware/netronome
