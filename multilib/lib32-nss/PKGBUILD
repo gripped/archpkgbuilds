@@ -3,8 +3,11 @@
 # Contributor: kfgz <kfgz at interia pl>
 # Contributor: Ionut Biru <ibiru at archlinux dot org>
 
-pkgname=lib32-nss
-pkgver=3.90
+pkgbase=lib32-nss
+pkgname=(
+  lib32-nss
+)
+pkgver=3.91
 pkgrel=1
 pkgdesc="Network Security Services (32-bit)"
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
@@ -18,6 +21,7 @@ depends=(
   'lib32-p11-kit>=0.23.19'
   lib32-sqlite
   lib32-zlib
+
   nss
 )
 makedepends=(
@@ -26,13 +30,13 @@ makedepends=(
   perl
   python
 )
-_revision=a7a037afb2bc43d92065fca9690d223794379e12
+_revision=b7888f994479307ea70bfbd5c2b1bb4cd6c36a55
 source=(
   "hg+https://hg.mozilla.org/projects/nss#revision=$_revision"
   0001-Hack-mpi_x64.s-to-work-with-fno-plt.patch
 )
 b2sums=('SKIP'
-        '733308e0a39d286cba2dc72478f95ca341bb357a8c61aba9dd79681a1210fafc93d8459d5014769f533b54fa987e9e9c5a49437fda5396d42b669d9567919cf4')
+        '5a1f419e0cb6f61413bba9af4264bb1d8cc5b9a7d679b0b8fcceb030f6eeb50291509cd7317e2129d848048ad023818284f10942ce6d8c1bbcaaebc106a9726e')
 
 pkgver() {
   cd nss
@@ -60,7 +64,7 @@ build() {
   ./build.sh "${buildsh_options[@]}"
 }
 
-package() {
+package_lib32-nss() {
   local nsprver="$(i686-pc-linux-gnu-pkg-config --modversion nspr)"
   local libdir=/usr/lib32 includedir=/usr/include/nss
 
