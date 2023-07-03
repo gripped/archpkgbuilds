@@ -2,8 +2,8 @@
 
 _name=inflect
 pkgname=python-inflect
-pkgver=6.0.4
-pkgrel=2
+pkgver=6.1.0
+pkgrel=1
 pkgdesc="Correctly generate plurals, singular nouns, ordinals, indefinite articles"
 arch=(any)
 url="https://github.com/jazzband/inflect"
@@ -21,8 +21,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('96aaa74b3e8c5dcc91d81af336af73535826f3cedaa556d6baf540ca54db1a7c1f17a372c240446c0d81697520eab154bad4f0aad6195c6ab8e131ae443d3811')
-b2sums=('24ec6f25462594fde4558f7a4269c68d31989ead54c982f3a4382b5f0c192fd5fcac7544413fecef0abaf7c3fe2f9b4a8049fc7dc7d324e4397fb6a81763ef8e')
+sha512sums=('2457ed594081a3f26390e88b5d5826867cd3d54ffd73c4cfe52c20cac873157ec64e30ff3e01efebb0b1edf8b0e412930bae434e1cd8c7920a273667d5e6eb68')
+b2sums=('a4f86fa3d64f979ad184d3744dd40c5a220ea904bef3cc87af3f675febdd1346b918797a879ebee368f4d9381e698476229b538fe15f14921c41351450132a04')
 
 build() {
   cd $_name-$pkgver
@@ -42,6 +42,6 @@ check() {
 package() {
   cd $_name-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -vDm 644 {CHANGES,README}.rst -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 {NEWS,README}.rst -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
