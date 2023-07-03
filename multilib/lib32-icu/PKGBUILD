@@ -1,8 +1,8 @@
 # Maintainer: josephgbr <rafael.f.f1@gmail.com>
 
 pkgname=lib32-icu
-pkgver=72.1
-pkgrel=2
+pkgver=73.2
+pkgrel=1
 pkgdesc="International Components for Unicode library (32 bit)"
 arch=('x86_64')
 url="https://icu.unicode.org"
@@ -13,7 +13,7 @@ checkdepends=('python')
 provides=(libicu{data,i18n,io,test,tu,uc}.so)
 source=(https://github.com/unicode-org/icu/releases/download/release-${pkgver//./-}/icu4c-${pkgver//./_}-src.tgz{,.asc})
 # https://github.com/unicode-org/icu/releases/download/release-71-1/SHASUM512.txt
-sha512sums=('848c341b37c0ff077e34a95d92c6200d5aaddd0ee5e06134101a74e04deb08256a5e817c8aefab020986abe810b7827dd7b2169a60dacd250c298870518dcae8'
+sha512sums=('76dd782db6205833f289d7eb68b60860dddfa3f614f0ba03fe7ec13117077f82109f0dc1becabcdf4c8a9c628b94478ab0a46134bdb06f4302be55f74027ce62'
             'SKIP')
 validpgpkeys=('3DA35301A7C330257B8755754058F67406EAA6AB') # Craig Cornelius <ccornelius@google.com>
 
@@ -30,7 +30,7 @@ build() {
 }
 
 check() {
-  cd "$srcdir/icu/source"
+  cd icu/source
   make -k check
 }
 
