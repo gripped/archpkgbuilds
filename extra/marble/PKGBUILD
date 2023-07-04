@@ -7,7 +7,7 @@
 pkgbase=marble
 pkgname=(marble-common marble-qt marble-maps marble)
 pkgver=23.04.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Desktop Globe'
 arch=(x86_64)
 url='https://apps.kde.org/marble/'
@@ -25,6 +25,7 @@ build() {
   cmake -B build -S $pkgbase-$pkgver \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_SYSCONFDIR=/etc \
+    -DCMAKE_CXX_STANDARD=17 \
     -DQT_PLUGINS_DIR=lib/qt/plugins \
     -DBUILD_TESTING=OFF \
     -DBUILD_TOUCH=ON \
