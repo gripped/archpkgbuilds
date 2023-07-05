@@ -2,17 +2,17 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=jupyter-widgetsnbextension
-pkgver=4.0.7
-pkgrel=2
+pkgver=4.0.8
+pkgrel=1
 epoch=1
 pkgdesc='Interactive HTML widgets for Jupyter notebooks'
 arch=(any)
 url='https://pypi.python.org/pypi/widgetsnbextension'
 license=(BSD)
 depends=(jupyter-notebook python-ipywidgets)
-makedepends=(python-build python-installer python-setuptools python-wheel)
+makedepends=(python-build python-installer python-jupyter-packaging)
 source=(https://pypi.io/packages/source/w/widgetsnbextension/widgetsnbextension-$pkgver.tar.gz)
-sha256sums=('ea67c17a7cd4ae358f8f46c3b304c40698bc0423732e3f273321ee141232c8be')
+sha256sums=('9ec291ba87c2dfad42c3d5b6f68713fa18be1acd7476569516b2431682315c17')
 
 build() {
   cd widgetsnbextension-$pkgver
