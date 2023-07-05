@@ -6,7 +6,7 @@ pkgname=(shiboken6 pyside6 pyside6-tools)
 _qtver=6.5.1.1
 _clangver=15.0.7
 pkgver=${_qtver/-/}
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(LGPL)
@@ -28,6 +28,7 @@ build() {
   cmake -B build -S ${_pkgfn%.*} -G Ninja \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=None \
+    -DSHIBOKEN_PYTHON_LIBRARIES=/usr/lib/`python -c "from sysconfig import get_config_var; print(get_config_var('LDLIBRARY'))"` \
     -DBUILD_TESTS=OFF \
     -DNO_QT_TOOLS=yes
   PYTHONPATH="$PWD"/build/sources \
