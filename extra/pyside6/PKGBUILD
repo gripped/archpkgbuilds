@@ -6,7 +6,7 @@ pkgname=(shiboken6 pyside6 pyside6-tools)
 _qtver=6.5.1.1
 _clangver=15.0.7
 pkgver=${_qtver/-/}
-pkgrel=3
+pkgrel=4
 arch=(x86_64)
 url='https://www.qt.io'
 license=(LGPL)
@@ -94,7 +94,8 @@ package_pyside6-tools() {
   DESTDIR="$pkgdir" cmake --install build/sources/pyside-tools
 
 # Add convenience pyside6-designer wrapper
+# Entry points in /usr/bin are not installed in the cmake build. This is the only one that does anything besides wrapping the Qt executable
   echo "export LD_PRELOAD="`python -c "from sysconfig import get_config_var; print(get_config_var('LDLIBRARY'))"` > pyside6-designer
-  echo "exec designer6" >> pyside6-designer
+  echo "exec designer6 \$@" >> pyside6-designer
   install -Dm755 pyside6-designer -t "$pkgdir"/usr/bin
 }
