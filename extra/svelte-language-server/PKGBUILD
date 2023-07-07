@@ -2,8 +2,8 @@
 
 _name=svelte-language-tools
 pkgname=svelte-language-server
-pkgver=0.15.13
-pkgrel=2
+pkgver=0.15.14
+pkgrel=1
 pkgdesc='Language server for Svelte'
 arch=('any')
 url=https://github.com/sveltejs/language-tools/tree/master/packages/language-server
@@ -34,7 +34,7 @@ check() {
 
 package() {
   local _npmdir=/usr/lib/node_modules/$pkgname
-  install -d "$pkgdir"/{/usr/bin,$_npmdir}
+  install -d "$pkgdir"/{usr/bin,$_npmdir}
   ln -s $_npmdir/bin/server.js "$pkgdir"/usr/bin/svelteserver
 
   cd $_name
