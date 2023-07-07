@@ -1,0 +1,46 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=repro-env
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Dependency lockfiles for a reproducible build environment"
+url='https://github.com/kpcyrd/repro-env'
+arch=('x86_64')
+license=('GPL-3.0-or-later')
+depends=('podman')
+makedepends=('cargo')
+options=(!lto)
+source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('9d719ecf393248da8498d54c5b5d21877eff282b9bf94bae3f5707045c9c90d3')
+b2sums=('e374547255bfe0770e2d75392839664b7a58d7be4332725a0003865eba92e1050d40e08bc639f4ac9b3c110b6c990a244237984cf65bb80429d863c149622dbe')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd ${pkgname}-${pkgver}
+  cargo build --frozen --release
+}
+
+check() {
+  cd ${pkgname}-${pkgver}
+  cargo test --frozen
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm 755 -t "${pkgdir}/usr/bin" \
+    target/release/repro-env
+
+  # install completions
+  install -d "${pkgdir}/usr/share/bash-completion/completions" \
+             "${pkgdir}/usr/share/zsh/site-functions" \
+             "${pkgdir}/usr/share/fish/vendor_completions.d"
+  "${pkgdir}/usr/bin/${pkgname}" completions bash > "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
+  "${pkgdir}/usr/bin/${pkgname}" completions zsh > "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
+  "${pkgdir}/usr/bin/${pkgname}" completions fish > "${pkgdir}/usr/share/fish/vendor_completions.d/${pkgname}.fish"
+}
+
+# vim: ts=2 sw=2 et:
