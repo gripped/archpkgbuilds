@@ -2,14 +2,14 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3)
-pkgver=2.62.5
+pkgver=2.62.6
 pkgrel=1
 pkgdesc='Configuration-free text editor and IDE limited by VT100'
 arch=(x86_64)
 url='https://orbiton.zip'
 license=(BSD)
 makedepends=(git go vte3)
-source=("git+https://github.com/xyproto/orbiton#commit=5fd09e3900b9f5472052b1cb6fd525d12770f569") # tag: v2.62.5
+source=("git+https://github.com/xyproto/orbiton#commit=caf39f74332db4975d4e5851d79997da875d8703") # tag: v2.62.6
 options=(!lto)
 b2sums=('SKIP')
 
@@ -51,7 +51,7 @@ package_orbiton() {
               'nasm: for compiling Assembly'
               'ocaml: for compiling and formatting OCaml'
               'perl-tidy: for formatting Perl'
-              'pandoc-bin: for exporting Markdown to PDF'
+              'pandoc: for exporting Markdown to PDF'
               'prettier: for formatting JavaScript, TypeScript and CSS'
               'rustup: for compiling and formatting Rust'
               'scdoc: for writing man pages'
