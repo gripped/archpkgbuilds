@@ -2,18 +2,18 @@
 
 _name=cookiecutter
 pkgname=python-cookiecutter
-pkgver=2.1.1
-pkgrel=3
+pkgver=2.2.0
+pkgrel=1
 pkgdesc="A command-line utility that creates projects from project templates"
 arch=(any)
 url="https://github.com/cookiecutter/cookiecutter"
 license=(BSD)
 depends=(
   python
+  python-arrow
   python-binaryornot
   python-click
   python-jinja
-  python-jinja-time
   python-pyyaml
   python-requests
   python-slugify
@@ -31,8 +31,8 @@ checkdepends=(
   python-pytest-mock
 )
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('5e249dab7a71a4213f81b887912d9aae3747b16fce8ede2fb7c7efbd2802871d512540ddc676b9419bafe3b73f0aa5ad6b0b15b16d429f7081e101ad53564193')
-b2sums=('17d63625b8822ea3f9b592f5b9ab9ba9b782d3b312ac4aee614e23cba16e4e182b5b2d08197da24c678d25590158a1f8d29c528d2e9437b10bcaabc08ad8dd4d')
+sha512sums=('16fe1abc1b0c35ae639a6c5db4f62ec190fb3de0c2180c25146a5b3a00ddc46dbfc74d5308456f564ccf96df439922eb8bcd89e3301367280e4366f05392b015')
+b2sums=('b9c982203ff0c44033d6a655519d5c717580d6a98fd399885f61ddd4d672107d63546bd46f031675b20a7499ffb046a39ab3006fc1aaa7efa0e46c37b6e1b880')
 
 prepare() {
   # we do not care about code coverage in pytest runs
