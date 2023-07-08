@@ -4,8 +4,10 @@
 # Contributor: Mikko Seppälä <t-r-a-y@mbnet.fi>
 
 pkgbase=lib32-glib2
-pkgname=(lib32-glib2)
-pkgver=2.76.3
+pkgname=(
+  lib32-glib2
+)
+pkgver=2.76.4
 pkgrel=1
 pkgdesc="Low level core library - 32-bit"
 url="https://wiki.gnome.org/Projects/GLib"
@@ -36,7 +38,7 @@ checkdepends=(
 options=(
   debug
 )
-_commit=69e209764bcfef599a21b32f82f88f1906bf197c  # tags/2.76.3^0
+_commit=f522c3f94d67493c58e9b0e27a7862c2e7ec105b  # tags/2.76.4^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/glib.git#commit=$_commit"
   "git+https://gitlab.gnome.org/GNOME/gvdb.git"
