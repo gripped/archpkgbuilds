@@ -2,7 +2,7 @@
 
 pkgname=cargo-cyclonedx
 pkgver=0.3.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Creates CycloneDX Software Bill of Materials (SBOM) from Rust (Cargo) projects"
 arch=(x86_64)
 url="https://github.com/CycloneDX/cyclonedx-rust-cargo"
@@ -37,6 +37,8 @@ build() {
 check() {
   cd cyclonedx-rust-cargo-$pkgname-$pkgver
   export RUSTUP_TOOLCHAIN=stable
+  # NOTE: use different target dir to have reproducible executable
+  export CARGO_TARGET_DIR=target_test
   cargo test --frozen --all-features --workspace
 }
 
