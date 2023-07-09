@@ -1,18 +1,22 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=repro-env
-pkgver=0.1.0
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="Dependency lockfiles for a reproducible build environment"
 url='https://github.com/kpcyrd/repro-env'
 arch=('x86_64')
 license=('GPL-3.0-or-later')
-depends=('podman')
+depends=('podman' 'shared-mime-info')
 makedepends=('cargo')
 options=(!lto)
-source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('9d719ecf393248da8498d54c5b5d21877eff282b9bf94bae3f5707045c9c90d3')
-b2sums=('e374547255bfe0770e2d75392839664b7a58d7be4332725a0003865eba92e1050d40e08bc639f4ac9b3c110b6c990a244237984cf65bb80429d863c149622dbe')
+source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
+        https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
+validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
+sha256sums=('ca70ebbbd830c451656824843a023ce16743364422a5a9dc6140cb8d25570b72'
+            'SKIP')
+b2sums=('134b86172ac8799ec3707cb9f4f68acbb13335fbba17118b499ebd8e3cb64e4cbcc030c459b3ba7dd5a6d57a9748e8505713944655020420c9bb8e06843090db'
+        'SKIP')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
