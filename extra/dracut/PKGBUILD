@@ -1,7 +1,7 @@
 # Maintainer: Giancarlo Razzolini <grazzolini@archlinux.org>
 pkgname=dracut
 pkgver=059
-pkgrel=1
+pkgrel=2
 pkgdesc="An event driven initramfs infrastructure"
 arch=('x86_64')
 url="https://github.com/dracutdevs/dracut"
@@ -16,13 +16,19 @@ optdepends=('binutils: --uefi option support'
             'sbsigntools: uefi_secureboot_cert/key configuration option support')
 provides=('initramfs')
 backup=('etc/dracut.conf')
-source=("${pkgname}-${pkgver}::git+${url}#tag=${pkgver}?signed")
-sha512sums=('SKIP')
-b2sums=('SKIP')
+source=("${pkgname}-${pkgver}::git+${url}#tag=${pkgver}?signed"
+        dracut-systemd-253.patch)
+sha512sums=('SKIP'
+            'dfbef5ee06fd0f7b51bfd3571eb284272d7694754eaf232cf1a14f3b2f95a67c87098fabf6d88068ef7e235e717bec26024a3b342c5dba940b8600799cef0791')
+b2sums=('SKIP'
+        '6386d1caf4765974e6f9fffde43cacc20f55a1ed487f6dba9f6f15318dc6dc593ef01309679c8a7f1deffc5dd66138cde7c11d53a825396971d6be29a9388744')
 validpgpkeys=('F66745589DE755B02AD947D71F1139EBBED1ACA9') # Jóhann B. Guðmundsson <johannbg@gmail.com>
 
-# prepare() {
-# }
+prepare() {
+  cd "$srcdir/${pkgname}-${pkgver}"
+
+  patch -Np1 < ../dracut-systemd-253.patch
+}
 
 build() {
   local prefix=/usr sysconfdir=/etc
