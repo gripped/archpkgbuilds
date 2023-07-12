@@ -1,0 +1,45 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=cython-dev
+pkgver=3.0.0rc1
+pkgrel=1
+pkgdesc='C-Extensions for Python (development version)'
+arch=('x86_64')
+url='https://cython.org'
+license=('Apache')
+depends=('python')
+makedepends=(
+  'git'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+provides=('cython')
+conflicts=('cython')
+_commit='f4dc8c1dd769c12b4b6274a36a41145b9da4be78'
+source=("$pkgname::git+https://github.com/cython/cython#commit=$_commit")
+b2sums=('SKIP')
+
+pkgver() {
+  cd "$pkgname"
+
+  git describe --tags | sed 's/^v//'
+}
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  for f in cygdb cython cythonize; do
+    mv "$pkgdir"/usr/bin/$f "$pkgdir"/usr/bin/${f}3
+    ln -s ${f}3 "$pkgdir"/usr/bin/$f
+  done
+}
