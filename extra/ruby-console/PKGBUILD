@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-console
-pkgver=1.17.1
+pkgver=1.17.2
 pkgrel=1
 pkgdesc='Beautiful logging for Ruby'
 arch=(any)
@@ -11,7 +11,7 @@ depends=(ruby-fiber-annotation ruby-fiber-local)
 checkdepends=(ruby-bake ruby-bake-test ruby-bake-test-external ruby-covered ruby-sus)
 options=(!emptydirs)
 source=(https://github.com/socketry/console/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('91c965889dc1cf9397bdcb8e9ffdcb97ba99d8798176eacbd8d1d0787a30c598')
+sha256sums=('915c0df1a53c04addb1179df27f7fa52082f2a43626ffdb10a9780e4fd253b43')
 
 prepare() {
   cd console-$pkgver
