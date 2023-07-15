@@ -2,7 +2,7 @@
 
 _name=findpython
 pkgname=python-findpython
-pkgver=0.3.0
+pkgver=0.3.1
 pkgrel=1
 pkgdesc="A utility to find python versions on your system"
 arch=(any)
@@ -20,8 +20,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('60a0c42614865163654ecf53cc43d320f415df5616b0af2e4b513e95cf606051b3d1e2248d680f227f48e920468260b251c1bb1b4c5dc2d2c56f6f89d4e922af')
-b2sums=('9c983332c94584713e42cc31b73c28a9b8cb115cffe060afb73a125bb30c7371bee707e3c6a7d419d20a6c9ada1d2248983f292a4042e22d61ec271aa6b32f01')
+sha512sums=('a9931cd305a12302753fc74be24f845242ac1d4a0b0bc4494dfaec4a32cb1edc88cc30f0924b24109db01409e20a4aa8dc3c3e3136cc8e780b00cd3a0eeb9816')
+b2sums=('73be0b8c064f0417c7023b367328c2694e74de4559acd48cf9faac8cb73b1450c15269b0078bc20392275cb032e57615e2345e9b72b5623262816f2ea3901aa0')
 
 build() {
   cd $_name-$pkgver
