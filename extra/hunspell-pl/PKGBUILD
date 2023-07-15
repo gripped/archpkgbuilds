@@ -4,14 +4,15 @@
 
 pkgname=hunspell-pl
 pkgver=20220801
-pkgrel=1
+pkgrel=2
 pkgdesc='Polish dictionary for Hunspell'
 arch=('any')
 url='https://www.sjp.pl/slownik/ort/'
 license=('GPL')
 optdepends=('hunspell: the spell checking libraries and apps')
 makedepends=('qt6-webengine')
-source=(https://sources.archlinux.org/other/community/hunspell-pl/sjp-myspell-pl-$pkgver.zip)
+provides=('hunspell-dictionary')
+source=(https://sources.archlinux.org/other/packages/hunspell-pl/sjp-myspell-pl-$pkgver.zip)
 sha256sums=('cc2874c7bf452255cbcd09d5083dd337f9c34daf2b6079bc97e398132a966424')
 
 prepare() {
