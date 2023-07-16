@@ -2,8 +2,8 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=imagemagick
-pkgver=7.1.1.12
-pkgrel=2
+pkgver=7.1.1.13
+pkgrel=1
 _relname=ImageMagick-${pkgver%%.*}
 _tarname=ImageMagick-${pkgver%.*}-${pkgver##*.}
 pkgdesc='An image viewing/manipulation program'
@@ -18,7 +18,6 @@ optdepends=('ghostscript: PS/PDF support'
             'librsvg: SVG support'
             'libwebp: WEBP support'
             'libwmf: WMF support'
-            'libxml2: Magick Scripting Language'
             'libzip: OpenRaster support'
             'ocl-icd: OpenCL support'
             'openexr: OpenEXR support'
@@ -34,7 +33,7 @@ checkdepends=(gsfonts ttf-dejavu)
 replaces=(imagemagick-doc)
 source=(https://imagemagick.org/archive/$_tarname.tar.xz{,.asc}
         arch-fonts.diff)
-sha256sums=('a761aa8c3b0690910600ba838d15379b676820f1ed912382d31c9b5da1ca1878'
+sha256sums=('ae68e02b5576dd485078e7b7cd7fb2eb62767bbba8ba3db7beb0aa1c9630adf0'
             'SKIP'
             'a85b744c61b1b563743ecb7c7adad999d7ed9a8af816650e3ab9321b2b102e73')
 validpgpkeys=(D8272EF51DA223E4D05B466989AB63D48277377A)  # Lexie Parsimoniae
