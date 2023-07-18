@@ -1,0 +1,37 @@
+pkgbase = musescore
+	pkgdesc = Create, play and print beautiful sheet music
+	pkgver = 4.1.0
+	pkgrel = 1
+	url = https://musescore.org/
+	arch = x86_64
+	groups = pro-audio
+	license = GPL
+	makedepends = cmake
+	makedepends = doxygen
+	makedepends = git
+	makedepends = lame
+	makedepends = ninja
+	makedepends = python
+	makedepends = qt5-tools
+	makedepends = texlive-core
+	depends = gcc-libs
+	depends = glibc
+	depends = libasound.so
+	depends = libfreetype.so
+	depends = libsndfile.so
+	depends = qt5-base
+	depends = qt5-declarative
+	depends = qt5-graphicaleffects
+	depends = qt5-networkauth
+	depends = qt5-quickcontrols
+	depends = qt5-quickcontrols2
+	depends = qt5-svg
+	depends = qt5-x11extras
+	depends = qt5-xmlpatterns
+	depends = zlib
+	optdepends = lame: MP3 export
+	options = !lto
+	source = git+https://github.com/musescore/MuseScore.git#tag=2e3a93abe659ff949a7d40c09335c583b2722391
+	sha256sums = SKIP
+
+pkgname = musescore
