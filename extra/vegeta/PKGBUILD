@@ -1,8 +1,7 @@
 # Maintainer: Anatol Pomozov
 
 pkgname=vegeta
-_commit=65f8e702df68da58ec3bc0fa8eb09462dbe5b56f
-pkgver=12.9.0
+pkgver=12.10.0
 pkgrel=1
 pkgdesc="HTTP load testing tool"
 arch=(x86_64)
@@ -10,9 +9,8 @@ url="https://github.com/tsenart/vegeta"
 license=(MIT)
 depends=(glibc)
 makedepends=(git go)
-source=(git+https://github.com/tsenart/vegeta.git?signed#tag=$_commit)
+source=(git+https://github.com/tsenart/vegeta.git#tag=v$pkgver) # add signed= once Tomas' GPG key 82D93F7867A67C19 is published
 sha512sums=('SKIP')
-validpgpkeys=(00E6D947A1BCE5A2A37D48AB82D93F7867A67C19)
 
 build() {
   cd vegeta
