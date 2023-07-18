@@ -2,7 +2,7 @@
 
 pkgname=groff
 pkgver=1.23.0
-pkgrel=2
+pkgrel=3
 pkgdesc='GNU troff text-formatting system'
 arch=('x86_64')
 url='https://www.gnu.org/software/groff/groff.html'
@@ -16,10 +16,12 @@ optdepends=('netpbm: for use together with man -H command interaction in browser
 options=('!docs' '!emptydirs' '!makeflags')
 validpgpkeys=('2D0C08D2B0AD0D3D8626670272D23FBAC99D4E75') # Bertrand Garrigues <bertrand.garrigues@laposte.net>
 source=("https://ftp.gnu.org/gnu/${pkgname}/${pkgname}-${pkgver}.tar.gz"{,.sig}
-        display-utc-times.patch)
+        display-utc-times.patch
+	site.tmac)
 sha256sums=('6b9757f592b7518b4902eb6af7e54570bdccba37a871fddb2d30ae3863511c13'
             'SKIP'
-            '489bb32bbd1c7bced33bf187611219527914ae46ce05238fe80dc11c4b1bb909')
+            '489bb32bbd1c7bced33bf187611219527914ae46ce05238fe80dc11c4b1bb909'
+            'f0b8a69d8dc51fe6812d3c7adbdba59b8206cfa952f2ce3ee7ff7f5412903018')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -51,4 +53,9 @@ package() {
   ln -s eqn "$pkgdir"/usr/bin/geqn
   ln -s tbl "$pkgdir"/usr/bin/gtbl
   ln -s soelim "$pkgdir"/usr/bin/zsoelim
+
+  cat "$srcdir"/site.tmac >> \
+  "$pkgdir"/usr/share/groff/site-tmac/man.local
+  cat "$srcdir"/site.tmac >> \
+  "$pkgdir"/usr/share/groff/site-tmac/mdoc.local
 }
