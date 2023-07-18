@@ -3,7 +3,7 @@
 
 pkgname=waybar
 pkgver=0.9.19
-pkgrel=1
+pkgrel=2
 pkgdesc='Highly customizable Wayland bar for Sway and Wlroots based compositors'
 arch=('x86_64')
 url="https://github.com/Alexays/Waybar/"
@@ -46,8 +46,18 @@ backup=(
 optdepends=(
     'otf-font-awesome: Icons in the default configuration'
 )
-source=("$pkgname-$pkgver.tar.gz::https://github.com/Alexays/Waybar/archive/$pkgver.tar.gz")
-sha256sums=('09695c9d6ae4cf33d8e8a2c3e4ba216e5d293e2d72d4115c64c5d2612976816d')
+source=(
+    "$pkgname-$pkgver.tar.gz::https://github.com/Alexays/Waybar/archive/$pkgver.tar.gz"
+    "https://github.com/Alexays/Waybar/commit/f62b3d0e9dba3847e8029bdbc2fb71ecacc7c667.patch"
+)
+sha256sums=('09695c9d6ae4cf33d8e8a2c3e4ba216e5d293e2d72d4115c64c5d2612976816d'
+            'a298076420cdc75e694780fc132544e3b2eb2643ee4d218935970c0c9d82aedc')
+
+prepare() {
+    cd "Waybar-$pkgver"
+    # https://github.com/Alexays/Waybar/issues/2310
+    patch -p1 < ../f62b3d0e9dba3847e8029bdbc2fb71ecacc7c667.patch
+}
 
 build() {
     cd "Waybar-$pkgver"
