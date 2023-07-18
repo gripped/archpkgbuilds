@@ -1,0 +1,36 @@
+pkgbase = pantheon-files
+	pkgdesc = The Pantheon File Browser
+	pkgver = 6.4.1
+	pkgrel = 1
+	url = https://github.com/elementary/files
+	arch = x86_64
+	groups = pantheon
+	license = GPL3
+	makedepends = flatpak-builder
+	makedepends = git
+	makedepends = gnome-common
+	makedepends = meson
+	makedepends = vala
+	depends = atk
+	depends = cairo
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = gtk3
+	depends = gvfs
+	depends = libcanberra
+	depends = libcloudproviders
+	depends = libgee
+	depends = libgit2-glib
+	depends = libgranite.so
+	depends = libhandy-1.so
+	depends = libnotify
+	depends = pango
+	depends = plank
+	depends = sqlite
+	depends = zeitgeist
+	optdepends = contractor: Various context menu entries
+	optdepends = tumbler: Thumbnails generation
+	source = pantheon-files::git+https://github.com/elementary/files.git#tag=2aac967d8af387a58c87575ce524e6bb9b71db3e
+	sha256sums = SKIP
+
+pkgname = pantheon-files
