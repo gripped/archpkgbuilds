@@ -1,7 +1,7 @@
 # Maintainer: Anatol Pomozov
 
 pkgname=aws-c-common
-pkgver=0.8.17
+pkgver=0.8.23
 pkgrel=1
 pkgdesc='Core c99 package for AWS SDK for C. Includes cross-platform primitives, configuration, data structures, and error handling.'
 arch=(x86_64)
@@ -10,7 +10,7 @@ license=(Apache)
 depends=(glibc)
 makedepends=(cmake)
 source=(aws-c-common-$pkgver.zip::https://github.com/awslabs/aws-c-common/archive/v$pkgver.zip)
-sha256sums=('85fb290789068fc58ab067b4db2db46b81a46ea5311f6bced9dd539b9ea94582')
+sha256sums=('4cd9c9dbe334aec588df3588f396b0b8812860416df7cdf075486d6a6e5dd0d7')
 
 build() {
   cd aws-c-common-$pkgver
