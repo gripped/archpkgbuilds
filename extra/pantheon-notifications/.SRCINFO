@@ -1,0 +1,22 @@
+pkgbase = pantheon-notifications
+	pkgdesc = Gtk Notifications Server
+	pkgver = 7.0.0
+	pkgrel = 1
+	url = https://github.com/elementary/notifications
+	arch = x86_64
+	groups = pantheon
+	license = GPL3
+	makedepends = git
+	makedepends = intltool
+	makedepends = meson
+	makedepends = vala
+	depends = glib2
+	depends = gtk3
+	depends = libcanberra.so
+	depends = libcanberra-gtk3.so
+	depends = libgranite.so
+	depends = libhandy-1.so
+	source = pantheon-notifications::git+https://github.com/elementary/notifications.git#tag=1f12afa8ac631a350df416c855af1be8e8e0092a
+	b2sums = SKIP
+
+pkgname = pantheon-notifications
