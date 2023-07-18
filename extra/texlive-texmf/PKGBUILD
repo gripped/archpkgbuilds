@@ -10,7 +10,7 @@ for _coll in ${_collections[@]}; do
 done
 _rev=66594
 pkgver=2023.$_rev
-pkgrel=17
+pkgrel=18
 pkgdesc='TeX Live - '
 license=(GPL)
 arch=(any)
@@ -254,6 +254,10 @@ package_texlive-doc() {
 # Symlink so texdoc can find it
   mkdir -p "$pkgdir"/usr/share/texmf-dist
   ln -s /usr/share/doc/texlive "$pkgdir"/usr/share/texmf-dist/doc
+# Fix conflicts with asymptote, psutils, dvisvgm, t1utils
+  rm "$pkgdir"/usr/share/info/asy-faq.info
+  rm "$pkgdir"/usr/share/man/man1/{asy,dvisvgm,epsffit,extractres,includeres,psbook,psjoin,psnup,psresize,psselect,pstops,psutils,t1ascii,t1asm,t1binary,t1disasm,t1mac,t1unmac}.1
+  rm -f "$pkgdir"/usr/share/man{,/man*}/{Makefile,*.pdf}
 }
  
 package_texlive-meta() {
