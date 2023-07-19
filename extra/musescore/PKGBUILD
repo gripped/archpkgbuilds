@@ -5,7 +5,7 @@
 
 pkgname=musescore
 pkgver=4.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Create, play and print beautiful sheet music'
 arch=(x86_64)
 url=https://musescore.org/
@@ -62,13 +62,13 @@ build() {
     -DCMAKE_CXX_FLAGS_RELEASE="$CXXFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_SKIP_RPATH=ON \
-    -DBUILD_CRASHPAD_CLIENT=OFF \
-    -DBUILD_UNIT_TESTS=OFF \
-    -DDOWNLOAD_SOUNDFONT=OFF \
-    -DMUSESCORE_BUILD_CONFIG=release \
+    -DMUSESCORE_BUILD_CONFIGURATION=app \
+    -DMUSESCORE_BUILD_MODE=release \
     -DMUSESCORE_REVISION=$(git rev-parse --short=7 HEAD) \
-    -DPACKAGE_FILE_ASSOCIATION=ON \
-    -DUSE_SYSTEM_FREETYPE=ON \
+    -DMUE_BUILD_CRASHPAD_CLIENT=OFF \
+    -DMUE_BUILD_UNIT_TESTS=OFF \
+    -DMUE_ENABLE_FILE_ASSOCIATION=ON \
+    -DMUE_INSTALL_SOUNDFONT=OFF \
     -Wno-dev
   cmake --build build
 }
