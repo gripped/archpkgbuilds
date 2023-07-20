@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=sequoia-chameleon-gnupg
-pkgver=0.2.0
-pkgrel=2
+pkgver=0.3.0
+pkgrel=1
 pkgdesc="A re-implementation and drop-in replacement of gpg and gpgv"
 arch=(x86_64)
 url="https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg"
@@ -11,20 +11,26 @@ groups=(sequoia)
 depends=(
   gcc-libs
   glibc
-  gmp
 )
 makedepends=(
   bzip2
   cargo
   clang
-  nettle
+  openssl
+  sqlite
 )
-source=($url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('1028e58c5e2a51599fed765fec23bbbd608780c9ec6f78ddc197bb5cbce4cc7dc432d736dcc310c1cd16badfc3b38248ac596d58fa271dda4602cee10aff4e09')
-b2sums=('6c371b635512c5f0dce7127c3aba4fc0a0755613f9578cd9c6ed5dc8da499c9bd6140156683c2b876bacd50ab26156357d72f184fae4169ddcb24dfaffcf512d')
+source=(
+  $url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz
+  $pkgname-0.3.0-update_sha1collisiondetection.patch
+)
+sha512sums=('ad0d9297727ec9cc4c381af511cfb61cb9ee7f7cc897a7d1d1d36bc27bc82fe79837ceb8e5efce8f7cda1ff5ee286b30d5cf503fd5878c9f781c4a407ca8ba13'
+            'db0b0bc1f5d475d273aa4ed1b18ab82a49353e035def3b1b681717150b0af7334a0d6c803e4d01a4e0fec5898f36d1a3011b1af5ec8b7f14700e2423adf5f32d')
+b2sums=('e802c89d14717ae6474d0f23bb911ef1fb3a6fb785e8ef70b2f2c590fa3b4fd39dc29a7f578f1b4f50d556ec1df4801c1d97aef8c368c74c243afdbd17cc0de0'
+        '394b79b5b6cd261db3ac670cfb78415ebd2ad3d8c8bbb760805b332bc60e31e837464ea19b131c9fe6422a8d07badea83ae05755aa1089674e4f3f2f8628c2c1')
 
 prepare() {
   cd $pkgname-v$pkgver
+  patch -Np1 -i ../$pkgname-0.3.0-update_sha1collisiondetection.patch
   cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
@@ -32,22 +38,29 @@ build() {
   cd $pkgname-v$pkgver
   export RUSTUP_TOOLCHAIN=stable
   export CARGO_TARGET_DIR=target
-  cargo build --frozen --release --all-features
+  cargo build --frozen --release --no-default-features --features=crypto-openssl
 }
 
 # checks broken: https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/issues/8
-# check() {
-#   cd $pkgname-v$pkgver
-#   export RUSTUP_TOOLCHAIN=stable
-#   cargo test --frozen --all-features
-# }
+check() {
+  cd $pkgname-v$pkgver
+  export RUSTUP_TOOLCHAIN=stable
+  RUST_BACKTRACE=1
+
+  # skip tests that require /run/user/$(id -u), which we can not create:
+  # https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/issues/8
+  cargo test --frozen --no-default-features --features=crypto-openssl -- --skip "gpg::"
+}
 
 package() {
   depends+=(
     bzip2 libbz2.so
-    nettle libnettle.so libhogweed.so
+    openssl libcrypto.so libssl.so
+    sqlite libsqlite3.so
   )
+
   cd $pkgname-v$pkgver
   install -vDm 755 target/release/gpg{,v}-sq -t "$pkgdir/usr/bin/"
+  install -vDm 644 gpg-sq-parcimonie.service -t "$pkgdir/usr/lib/systemd/user/"
   install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
 }
