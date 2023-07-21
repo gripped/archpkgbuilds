@@ -7,8 +7,8 @@
 
 pkgbase=lib32-curl
 pkgname=(lib32-curl lib32-libcurl-compat lib32-libcurl-gnutls)
-_tag='1e205e63e5157a63cd0854429008a7ef201b59c4' # git rev-parse v${_tag_name}
-_tag_name='8_1_2'
+_tag='7d901d74d390a7e9ad7c7b3fa759cd5b9bbc7742' # git rev-parse v${_tag_name}
+_tag_name='8_2_0'
 pkgver="${_tag_name//_/.}"
 pkgrel=1
 pkgdesc='command line tool and library for transferring data with URLs (32-bit)'
@@ -69,7 +69,7 @@ build() {
     --enable-manual
     --enable-threaded-resolver
     --with-gssapi
-    --with-libssh2
+    # --with-libssh2 TODO Fix when new release of libssh2
     --with-random='/dev/urandom'
     --with-ca-bundle='/etc/ssl/certs/ca-certificates.crt'
     --libdir='/usr/lib32'
