@@ -3,7 +3,7 @@
 
 pkgname=singular
 _majver=4-3-2
-_patchver=p3
+_patchver=p4
 _pkgver=${_majver}${_patchver}
 pkgver=${_majver//-/.}${_patchver/p/.p}
 pkgrel=1
@@ -14,9 +14,16 @@ license=(GPL)
 depends=(flint cddlib)
 provides=(singular-factory)
 source=(ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/SOURCES/$_majver/singular-${_pkgver//-/.}.tar.gz)
-#source=(https://github.com/Singular/Singular/archive/Release-$_pkgver/$pkgname-$_pkgver.tar.gz)
-sha256sums=('9f7cfc838eb16c976369e498845f69551a95c4bc9d6d6cfbb4657836aae5ff3e')
+# doc tarball is broken in 4.3.2p4
+source+=(ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/SOURCES/$_majver/doc.tbz2)
+sha256sums=('d7dbfd6c9aea10ab88c48cd38579d1acb5437ea60cd40f3ee72748f3d0647286'
+            '10334afd99fe3a3e91669185ef5c104a25c97f0fd0dd6c53d98b47d5243df939')
 options=(!zipman)
+
+prepare() {
+# doc tarball is broken in 4.3.2p4                                                              
+  mv doc.tbz2 singular-${_majver//-/.}/doc
+}
 
 build() {
   cd singular-${_majver//-/.}
