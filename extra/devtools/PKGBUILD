@@ -4,7 +4,7 @@
 pkgname=devtools
 epoch=1
 pkgver=1.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Tools for Arch Linux package maintainers'
 arch=('any')
 license=('GPL')
@@ -16,6 +16,7 @@ depends=(
   binutils
   coreutils
   diffutils
+  fakeroot
   findutils
   grep
   jq
