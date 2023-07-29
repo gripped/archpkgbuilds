@@ -2,7 +2,7 @@
 
 _pyname=async-lru
 pkgname=python-$_pyname
-pkgver=2.0.3
+pkgver=2.0.4
 pkgrel=1
 pkgdesc='Simple LRU cache for asyncio'
 arch=(any)
@@ -12,7 +12,7 @@ depends=(python-typing_extensions)
 makedepends=(python-build python-installer python-setuptools python-wheel)
 checkdepends=(python-pytest-cov python-pytest-asyncio python-pytest-timeout)
 source=(https://pypi.python.org/packages/source/${_pyname:0:1}/$_pyname/$_pyname-$pkgver.tar.gz)
-sha256sums=('b714c9d1415fca4e264da72a9e2abc66880ce7430e03a973341f88ea4c0d4869')
+sha256sums=('b8a59a5df60805ff63220b2a0c5b5393da5521b113cd5465a44eb037d81a5627')
 
 build() {
   cd $_pyname-$pkgver
