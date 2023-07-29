@@ -2,14 +2,14 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3)
-pkgver=2.62.6
+pkgver=2.62.7
 pkgrel=1
 pkgdesc='Configuration-free text editor and IDE limited by VT100'
 arch=(x86_64)
 url='https://orbiton.zip'
 license=(BSD)
 makedepends=(git go vte3)
-source=("git+https://github.com/xyproto/orbiton#commit=caf39f74332db4975d4e5851d79997da875d8703") # tag: v2.62.6
+source=("git+https://github.com/xyproto/orbiton#commit=8cd5259569af94083eb84b5cf8fa70479a420347") # tag: v2.62.7
 options=(!lto)
 b2sums=('SKIP')
 
@@ -36,6 +36,7 @@ package_orbiton() {
               'clang: for formatting C++ code with clang-format'
               'clojure: for compiling Clojure'
               'crystal: for compiling Crystal'
+              'dart: for compiling and formatting Dart'
               'fpc: for compiling Object Pascal'
               'gdb: for debugging C'
               'gcc-d: for compiling D'
@@ -44,6 +45,7 @@ package_orbiton() {
               'haskell-brittany: for formatting Haskell'
               'jad: for decompiling .class files on the fly'
               'java-environment: for compiling Java'
+              'just: for editing justfiles'
               'kotlin: for compiling Kotlin'
               'lua: for compiling Lua'
               'mlton: for compiling Standard ML'
