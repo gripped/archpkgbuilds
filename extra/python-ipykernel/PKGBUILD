@@ -3,7 +3,7 @@
 
 _pyname=ipykernel
 pkgname=python-$_pyname
-pkgver=6.24.0
+pkgver=6.25.0
 pkgrel=1
 pkgdesc='The ipython kernel for Jupyter'
 arch=(any)
@@ -14,7 +14,7 @@ makedepends=(python-build python-installer python-hatchling)
 checkdepends=(python-pytest-timeout python-pytest-asyncio python-flaky python-ipyparallel python-matplotlib python-debugpy)
 optdepends=('python-debugpy: debugger support')
 source=(https://github.com/ipython/ipykernel/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('58bc071233c79bca0397ee2426cc4c7f25d6ac309f0fcca85b705c0286b98b02')
+sha256sums=('50b2fd4d66fd6351ff0267f55e9b31bb2235f736be083d18e6839a5775b556d1')
 
 build() {
   cd $_pyname-$pkgver
