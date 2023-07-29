@@ -3,7 +3,7 @@
 
 _name=identify
 pkgname=python-identify
-pkgver=2.5.25
+pkgver=2.5.26
 pkgrel=1
 pkgdesc="File identification library for Python"
 arch=(any)
@@ -25,8 +25,8 @@ optdepends=(
   'python-ukkonen: for returning license identifiers'
 )
 source=($_name-$pkgver.tar.gz::https://github.com/pre-commit/$_name/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('4d7845d4941f67a58c3d8e49a4067d852a3a8c4f060b32c9e58c7b400cc7e595ca4dd6268392a7a17f9768f97bc1719d7611c4b029fb91eefbc2a62537df3815')
-b2sums=('4e7403d9d4abc44945a697ca8f2362a707e47ce92c59e4302283d23486510f1b215a08752ed1b737b428d4048fd750997469dbc433a4e78b074aa723f27e7150')
+sha512sums=('4c17c7f40b14fd45649e0a6b6885e2d96a1ce3cf91fbc1092fdb9b92d7bf2ac35b0c04a24bb3e77f3188a3c8d00f57dbe19ca660e1e08b60cdb60385f340c4bd')
+b2sums=('383c6467436107cf98a667f1db3ab63f42aadff8f51d2f6bedf715dd45590eeb5fe7b3d6572b7704a7ae613d079a22a2d84c86581b7a63b7578807e06034aa70')
 
 build() {
   cd $_name-$pkgver
