@@ -3,7 +3,7 @@
 # Contributor: Tomasz Jakub Rup <tomasz.rup@gmail.com>
 
 pkgname=pnpm
-pkgver=8.6.9
+pkgver=8.6.10
 pkgrel=1
 pkgdesc='Fast, disk space efficient package manager'
 arch=('any')
@@ -12,7 +12,7 @@ license=('MIT')
 depends=("nodejs")
 makedepends=('pnpm')
 source=("https://github.com/$pkgname/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('5ce717f620096fa607e674c32116c07725336e9cc351718e74df62de0fdafffe591958a5dee00087d53e3cac12038982d7a9b4679cdc578a5f0b6ce28099bbde')
+b2sums=('12ac6e20023dfe590f4cf97ef07340c8ca041718a42371680318d0f76975d0778835a0add893a23dd09a406f3b009d7fbf083a8ad589018a4552b8728ed9b6b0')
 
 build() {
   cd $pkgname-$pkgver/$pkgname
