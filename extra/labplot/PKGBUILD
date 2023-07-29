@@ -2,13 +2,13 @@
 
 pkgname=labplot
 pkgver=2.10.1
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 pkgdesc='KDE Application for interactive graphing and analysis of scientific data'
 url='https://labplot.kde.org/'
 license=(GPL2)
 depends=(cantor netcdf cfitsio fftw gsl qt5-serialport libcerf qt5-mqtt kuserfeedback
-         discount libmatio readstat qxlsx-qt5 vector-blf) # liborigin - 3.0.1 not supported
+         discount libmatio readstat qxlsx-qt5 vector-blf liborigin)
 makedepends=(extra-cmake-modules kdoctools dbc-parser-cpp)
 source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz)
 sha256sums=('2b6e181517cfb6e0dfff7b895f3eb20c7ce359e6732d38545e0757c9aea2daef')
