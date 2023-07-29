@@ -2,7 +2,7 @@
 
 _name=unearth
 pkgname=python-unearth
-pkgver=0.9.3
+pkgver=0.10.0
 pkgrel=1
 pkgdesc="A utility to fetch and download python packages"
 arch=(any)
@@ -31,8 +31,8 @@ optdepends=('python-keyring: use keyring for authentication')
 source=(
   https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz
 )
-sha256sums=('04073f78c0437e8e3445f45e42e979680184c9f3559a7da9cf29ceb3b9bc6a55')
-b2sums=('6c5cc4f1513b08717140703430a8eb4e10a335814467827a33ced0125c014824c89a871317468b12dc3d7a7d07d80ba1ac3ea7dd2402714fec1214cdf4406174')
+sha256sums=('d5b152a5ab2aa3e5149a11cf7b3ba5c5d493176dca38f66ca8969dadd5a8f645')
+b2sums=('8b18df4616fc72025492aa187101bc1f338967b1738ef9ec33d16cbd906c1cf91c1b84e391538521b4a9d6ea40301eb0b7ed0926aa4e6c4d6ffc57401f9d78d9')
 
 build() {
   cd $_name-$pkgver
