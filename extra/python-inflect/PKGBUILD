@@ -2,7 +2,7 @@
 
 _name=inflect
 pkgname=python-inflect
-pkgver=6.1.0
+pkgver=7.0.0
 pkgrel=1
 pkgdesc="Correctly generate plurals, singular nouns, ordinals, indefinite articles"
 arch=(any)
@@ -11,6 +11,7 @@ license=(MIT)
 depends=(
   python
   python-pydantic
+  python-typing-extensions
 )
 makedepends=(
   python-build
@@ -19,10 +20,13 @@ makedepends=(
   python-toml
   python-wheel
 )
-checkdepends=(python-pytest)
+checkdepends=(
+  python-pytest
+  python-pytest-enabler
+)
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('2457ed594081a3f26390e88b5d5826867cd3d54ffd73c4cfe52c20cac873157ec64e30ff3e01efebb0b1edf8b0e412930bae434e1cd8c7920a273667d5e6eb68')
-b2sums=('a4f86fa3d64f979ad184d3744dd40c5a220ea904bef3cc87af3f675febdd1346b918797a879ebee368f4d9381e698476229b538fe15f14921c41351450132a04')
+sha512sums=('b2ca39d0e36cda8c8c42d208443d3b84b10d659dcd0d368273503d6e76df19c61ac3c623d526ea918ca8b347d6db8bdfb691609e480eaa33dd4f1c37e008473b')
+b2sums=('ae896109acd33946e05902d121ecbd95e04dc33a1d6da6035148521de5baff8cff877a5c56c104bde29d56025e231e20f97e0ee50686de0ec19b567d53612314')
 
 build() {
   cd $_name-$pkgver
@@ -30,12 +34,7 @@ build() {
 }
 
 check() {
-  local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-
   cd $_name-$pkgver
-  # install to temporary location, as importlib is used
-  python -m installer --destdir=test_dir dist/*.whl
-  export PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH"
   pytest -vv
 }
 
