@@ -6,12 +6,12 @@ pkgbase='grpc'
 pkgname=('grpc' 'python-grpcio' 'python-grpcio-tools' 'php-grpc' 'php-legacy-grpc' 'grpc-cli')
 pkgver=1.56.2
 _gtestver=0e402173c97aea7a00749e825b194bfede4f2e45
-pkgrel=1
+pkgrel=2
 pkgdesc="High performance, open source, general RPC framework that puts mobile and HTTP/2 first."
 arch=('x86_64')
 url='https://grpc.io'
 license=('BSD')
-makedepends=('re2' 're2c' 'protobuf' 'php' 'php-legacy' 'c-ares' 'openssl' 'chrpath' 'cython'
+makedepends=('re2' 're2c' 'protobuf' 'php' 'php-legacy' 'c-ares' 'openssl' 'chrpath' 'cython0'
              'cmake' 'benchmark' 'python-setuptools' 'abseil-cpp' 'ninja')
 checkdepends=('python-six')
 source=("https://github.com/grpc/grpc/archive/v$pkgver/$pkgbase-$pkgver.tar.gz"
