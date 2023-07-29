@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=sequoia-chameleon-gnupg
-pkgver=0.3.0
+pkgver=0.3.2
 pkgrel=1
 pkgdesc="A re-implementation and drop-in replacement of gpg and gpgv"
 arch=(x86_64)
@@ -19,18 +19,13 @@ makedepends=(
   openssl
   sqlite
 )
-source=(
-  $url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz
-  $pkgname-0.3.0-update_sha1collisiondetection.patch
-)
-sha512sums=('ad0d9297727ec9cc4c381af511cfb61cb9ee7f7cc897a7d1d1d36bc27bc82fe79837ceb8e5efce8f7cda1ff5ee286b30d5cf503fd5878c9f781c4a407ca8ba13'
-            'db0b0bc1f5d475d273aa4ed1b18ab82a49353e035def3b1b681717150b0af7334a0d6c803e4d01a4e0fec5898f36d1a3011b1af5ec8b7f14700e2423adf5f32d')
-b2sums=('e802c89d14717ae6474d0f23bb911ef1fb3a6fb785e8ef70b2f2c590fa3b4fd39dc29a7f578f1b4f50d556ec1df4801c1d97aef8c368c74c243afdbd17cc0de0'
-        '394b79b5b6cd261db3ac670cfb78415ebd2ad3d8c8bbb760805b332bc60e31e837464ea19b131c9fe6422a8d07badea83ae05755aa1089674e4f3f2f8628c2c1')
+checkdepends=(gnupg)
+source=($url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
+sha512sums=('d69faae869eea58223e1d01cc582214182aa0bb45a848846be01c508b67354f750acbc8f661e5c2364a14a4718a48f558d9b3f1abdfc295a56dc9391d84fca88')
+b2sums=('2b703f891f90798c984c0ca5e0dccd476e0ea0d0561771a2fc6f3efa75ddf3ac98946c2c3523027c3162d7f37b5dca0ab88ba5ac73897481bf5b2856dd84d249')
 
 prepare() {
   cd $pkgname-v$pkgver
-  patch -Np1 -i ../$pkgname-0.3.0-update_sha1collisiondetection.patch
   cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
@@ -41,15 +36,12 @@ build() {
   cargo build --frozen --release --no-default-features --features=crypto-openssl
 }
 
-# checks broken: https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/issues/8
 check() {
   cd $pkgname-v$pkgver
   export RUSTUP_TOOLCHAIN=stable
   RUST_BACKTRACE=1
 
-  # skip tests that require /run/user/$(id -u), which we can not create:
-  # https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/issues/8
-  cargo test --frozen --no-default-features --features=crypto-openssl -- --skip "gpg::"
+  cargo test --frozen --no-default-features --features=crypto-openssl
 }
 
 package() {
