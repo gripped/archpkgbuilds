@@ -2,19 +2,20 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3)
-pkgver=2.62.7
+pkgver=2.62.9
 pkgrel=1
 pkgdesc='Configuration-free text editor and IDE limited by VT100'
 arch=(x86_64)
 url='https://orbiton.zip'
 license=(BSD)
 makedepends=(git go vte3)
-source=("git+https://github.com/xyproto/orbiton#commit=8cd5259569af94083eb84b5cf8fa70479a420347") # tag: v2.62.7
+source=("git+https://github.com/xyproto/orbiton#commit=3ed708f7e6e8a29f45fb6ecf0ebc9d73dfbc4461") # tag: v2.62.9
 options=(!lto)
 b2sums=('SKIP')
 
 build() {
-  make -C $pkgbase o gui
+  CXXFLAGS="$CXXFLAGS -Wl,--as-needed,--strip-all,--sort-common,-z,relro,-z,now" \
+    make -C $pkgbase o gui
 }
 
 package_orbiton() {
@@ -61,33 +62,13 @@ package_orbiton() {
               'tidy: for formatting HTML'
               'yasm: for compiling Assembly'
               'zig: for compiling and formatting Zig')
-  cd $pkgbase
-
-  install -Dm755 o "$pkgdir/usr/bin/o"
-  install -Dm644 o.1 "$pkgdir/usr/share/man/man1/o.1"
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-
-  # Recommended symlinks for Orbiton
-  ln -sf /usr/bin/o "$pkgdir/usr/bin/li"
-  ln -sf /usr/bin/o "$pkgdir/usr/bin/redblack"
-  ln -sf /usr/bin/o "$pkgdir/usr/bin/sw"
-  ln -sf /usr/bin/o "$pkgdir/usr/bin/edi"
-  ln -sf /usr/bin/o "$pkgdir/usr/bin/vs"
-  ln -sf /usr/bin/o "$pkgdir/usr/bin/feedgame"
+  DESTDIR="$pkgdir" \
+    make -C $pkgbase install symlinks easteregg license
 }
 
 package_orbiton-gtk3() {
   pkgdesc='Configuration-free text editor and IDE limited by VT100 (GTK3/VTE)'
   depends=(orbiton vte3)
-  cd $pkgbase
-
-  DESTDIR="$pkgdir" make gui-install
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-
-  # Recommended symlinks for the VTE/GUI version of Orbiton
-  ln -sf /usr/bin/og "$pkgdir/usr/bin/lig"
-  ln -sf /usr/bin/og "$pkgdir/usr/bin/redblackg"
-  ln -sf /usr/bin/og "$pkgdir/usr/bin/swg"
-  ln -sf /usr/bin/og "$pkgdir/usr/bin/edg"
-  ln -sf /usr/bin/og "$pkgdir/usr/bin/vg"
+  DESTDIR="$pkgdir" PROJECT=$pkgname \
+    make -C $pkgbase gui-install gui-symlinks license
 }
