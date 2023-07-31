@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=v2ray-domain-list-community
-pkgver=20230725085751
-_commit=d0e0738bf426cae2f1ebe12815ee419225b07aa7
+pkgver=20230729123058
+_commit=acc8052f25e76c1e7ab698a24663b6027623c1cf
 pkgrel=1
 pkgdesc="A list of domains to be used as geosites for routing purpose in Project V"
 arch=('any')
