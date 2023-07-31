@@ -1,22 +1,19 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=squashfuse
-pkgver=0.3.0
-pkgrel=2
+pkgver=0.4.0
+pkgrel=1
 pkgdesc="FUSE filesystem to mount squashfs archives"
 arch=(x86_64)
 url="https://github.com/vasi/squashfuse"
 license=(custom)
 depends=(fuse zstd)
 makedepends=()
-source=(https://github.com/vasi/squashfuse/archive/$pkgver/$pkgname-$pkgver.tar.gz
-        https://github.com/vasi/squashfuse/commit/662963d0.patch)
-sha256sums=('cc59722e1c7fafb142146f394eacec20f020330ada848113c2e1fc83ab679c05'
-            'c5f2e1e5f28f15ac1117b85234d8559ff9d240cfd9bc0ae155e5f3832e4b035f')
+source=(https://github.com/vasi/squashfuse/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('bddbfeed1b50e795a4a466b2977617e48904108e261d64563234e98ea2cd2f19')
 
 prepare() {
   cd $pkgname-$pkgver
-  patch -p1 -i ../662963d0.patch # Fix ABI break
   ./autogen.sh
 }
 
