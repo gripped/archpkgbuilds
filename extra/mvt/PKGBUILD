@@ -4,13 +4,13 @@
 
 pkgname=mvt
 pkgver=2.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Mobile Verification Toolkit, a forensics tool looking for signs of device compromise"
 arch=(any)
 url="https://github.com/mvt-project/mvt"
 license=(custom:MVT)
 depends=('libusb' 'python' 'python-adb-shell' 'python-appdirs' 'python-click' 'python-cryptography' 'python-iosbackup'
-         'python-libusb1' 'python-packaging' 'python-rich' 'python-tld' 'python-tqdm' 'python-requests'
+         'python-libusb1' 'python-packaging' 'python-pyahocorasick' 'python-requests' 'python-rich' 'python-tld' 'python-tqdm'
          'python-simplejson' 'python-yaml')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("mvt-${pkgver}.tar.gz::https://github.com/mvt-project/mvt/archive/refs/tags/v${pkgver}.tar.gz")
@@ -20,6 +20,12 @@ b2sums=('e6cdbd9c4e8f4bdc716e6cbfdb174e131c4293707c65e5f72da3bf8aed78d1b95b73032
 build() {
   cd "mvt-${pkgver}"
   python -m build -wn
+}
+
+check() {
+  cd "mvt-${pkgver}"
+  dev/mvt-android --help
+  dev/mvt-ios --help
 }
 
 package() {
