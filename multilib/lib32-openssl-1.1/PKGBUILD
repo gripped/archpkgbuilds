@@ -2,7 +2,7 @@
 # Contributor: Pierre Schmitz <pierre@archlinux.de>
 
 pkgname=lib32-openssl-1.1
-_ver=1.1.1u
+_ver=1.1.1v
 pkgver=${_ver/[a-z]/.${_ver//[0-9.]/}}
 pkgrel=1
 pkgdesc='The Open Source toolkit for Secure Sockets Layer and Transport Layer Security'
@@ -13,12 +13,13 @@ depends=('lib32-glibc' 'openssl-1.1')
 source=("https://www.openssl.org/source/openssl-${_ver}.tar.gz"
         "https://www.openssl.org/source/openssl-${_ver}.tar.gz.asc"
         'ca-dir.patch')
-b2sums=('5de9cb856e497596ecba008bad6515eefd093849b9c66dd7447031723996f3ba66ac37a323a5f7d01b1d42df4daaceb523372f5897d5c53b935ffab91c566594'
+b2sums=('9b3066d1911466dec909052667aafe9b974d2fa0a9798105b7501d62300e5a61a154fb94e633e46918303e9fcc1afc077e6efb5727eb967b75a795d8e2ed60a7'
         'SKIP'
         '6375a8994d95ef5e51d724e62558a25a7ec0632577f4cf99d347fc1cecc133ac2cb1dc55bb872ca6bca0449ed5c27ba72afb10c4c55aced300405b542ccbb808')
 validpgpkeys=('8657ABB260F056B1E5190839D9C4D26D0E604491'
               '7953AC1FBC3DC8B3B292393ED5E9E43F7DF9EE8C'
-              'A21FAB74B0088AA361152586B8EF1A6BA9DA2D5C')
+              'A21FAB74B0088AA361152586B8EF1A6BA9DA2D5C'
+              'EFC0A467D613CB83C7ED6D30D894E2CE8B3D79F5')
 
 prepare() {
   cd openssl-${_ver}
