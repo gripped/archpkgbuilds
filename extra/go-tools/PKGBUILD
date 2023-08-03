@@ -3,7 +3,7 @@
 
 pkgname=go-tools
 epoch=4
-pkgver=0.10.0
+pkgver=0.11.1
 pkgrel=1
 pkgdesc='Developer tools for the Go programming language'
 arch=(x86_64)
