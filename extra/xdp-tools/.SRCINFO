@@ -1,0 +1,34 @@
+pkgbase = xdp-tools
+	pkgdesc = Utilities and example programs for use with XDP
+	pkgver = 1.4.0
+	pkgrel = 1
+	url = https://github.com/xdp-project/xdp-tools
+	arch = x86_64
+	license = GPL
+	license = LGPL
+	license = BSD2
+	makedepends = clang
+	makedepends = llvm
+	makedepends = gcc
+	makedepends = make
+	makedepends = m4
+	makedepends = pkgconfig
+	makedepends = libpcap
+	makedepends = zlib
+	makedepends = bpf
+	depends = libelf
+	depends = linux-api-headers
+	depends = libbpf
+	depends = libpcap.so
+	options = !lto
+	source = xdp-tools-1.4.0.tar.gz::https://github.com/xdp-project/xdp-tools/archive/refs/tags/v1.4.0.tar.gz
+	sha512sums = c17bd6e9e6e4cf59c33f4b9ae4e3e0434863d147abf80f87b425215261b96d4574898fa09cc2b201a427a5e9d49ad64d0c70e50e3f72e3a18c6fbdf7f4cd4a3a
+	b2sums = 008dda0fcfd403e47ab2b8c801fc0a5c4e103fb3b9869f1d1bf5af258fc646dd5a0285d3126c012c9b81805408b9669da886b9fcf2fdf33b256f74bbf898222a
+
+pkgname = xdp-tools
+	pkgdesc = Utilities and example programs for use with XDP
+	depends = libxdp
+
+pkgname = libxdp
+	pkgdesc = The libxdp package contains the libxdp library for managing XDP programs
+	provides = libxdp.so
