@@ -6,7 +6,7 @@
 pkgname=mpfr
 _pkgver=4.2.0
 _patchver=12
-pkgrel=2
+pkgrel=3
 pkgver=${_pkgver}.p${_patchver}
 #pkgver=$_pkgver
 pkgdesc='Multiple-precision floating-point library'
