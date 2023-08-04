@@ -1,0 +1,48 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=wl-mirror
+pkgver=0.13.1
+pkgrel=6
+pkgdesc="a simple Wayland output mirror client"
+url="https://github.com/Ferdi265/wl-mirror"
+arch=(x86_64)
+license=(GPL3)
+depends=(
+  bash
+  glibc
+  libglvnd
+  wayland
+)
+makedepends=(
+  cmake
+  ninja
+  scdoc
+)
+optdepends=(
+  'dmenu: for interactive selection of options and wl-present'
+  'pipectl: for wl-present'
+  'rofi: for interactively selecting options and wl-present'
+  'slurp: for selecting regions and outputs and wl-present'
+)
+source=($pkgname-$pkgver.tar.gz::$url/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
+sha512sums=('d644a68aa2786d0d7f91aa859e93282f9696259b8c7b18e2b7207b83b44239fe506cd0b038802ca5ad32ce57745ebd1c0a94f724f3e962daed22fe14973e2ec9')
+b2sums=('1ec3bef94402f445a26e96de0844ef5515a7d0e0c08a2bf63246c5670c6558ef78358981282b99ffe586c6a52e50da1e8146d385865e087841406b41764c1c41')
+
+build() {
+  local cmake_options=(
+    -B build
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D INSTALL_EXAMPLE_SCRIPTS=ON
+    -D INSTALL_DOCUMENTATION=ON
+    -G Ninja
+    -S $pkgname-$pkgver
+    )
+
+  cmake "${cmake_options[@]}"
+  cmake --build build --verbose
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
