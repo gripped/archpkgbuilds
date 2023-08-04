@@ -3,7 +3,7 @@
 
 pkgname=lib32-clang
 pkgver=15.0.7
-pkgrel=1
+pkgrel=9
 pkgdesc="C language family frontend for LLVM (32-bit)"
 arch=('x86_64')
 url="https://clang.llvm.org/"
@@ -12,15 +12,24 @@ depends=('lib32-llvm-libs' 'gcc-multilib')
 makedepends=('lib32-llvm' 'cmake' 'ninja' 'python')
 _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkgver
 source=($_source_base/clang-$pkgver.src.tar.xz{,.sig}
+        $_source_base/clang-tools-extra-$pkgver.src.tar.xz{,.sig}
         $_source_base/llvm-$pkgver.src.tar.xz{,.sig}
         $_source_base/cmake-$pkgver.src.tar.xz{,.sig}
+        $pkgname-linker-wrapper-tool.patch::https://github.com/llvm/llvm-project/commit/c2aabcfc8395.patch
+        $pkgname-structured-bindings-r1.patch::https://github.com/llvm/llvm-project/commit/127bf4438542.patch
+        $pkgname-bitfield-value-capture.patch::https://github.com/llvm/llvm-project/commit/a1a71b7dc97b.patch
         enable-fstack-protector-strong-by-default.patch)
 sha256sums=('a6b673ef15377fb46062d164e8ddc4d05c348ff8968f015f7f4af03f51000067'
+            'SKIP'
+            '809a2ef46d46be3b83ca389356404ac041fa6d8f5496cb02ec35d252afb64fd1'
             'SKIP'
             '4ad8b2cc8003c86d0078d15d987d84e3a739f24aae9033865c027abae93ee7a4'
             'SKIP'
             '8986f29b634fdaa9862eedda78513969fe9788301c9f2d938f4c10a3e7a3e7ea'
             'SKIP'
+            'f82449f41c8258f9ae13bd0c311e940711430d2c979eeb8255b36e0e63cda18c'
+            '4600d9ea66164cc97e4712da9f0f4ebefea8d4a756412d2860ab8fd06a864196'
+            '52b6e09270e08a943b4adf326475ef8ee4fc4cdf4a8c380adeca12a106066cda'
             '7a9ce949579a3b02d4b91b6835c4fb45adc5f743007572fb0e28e6433e48f3a5')
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstellar@redhat.com>
               'D574BD5D1D0E98895E3BF90044F2485E45D59042') # Tobias Hieta <tobias@hieta.se>
@@ -51,7 +60,22 @@ prepare() {
   mv cmake{-$pkgver.src,}
   cd clang-$pkgver.src
   mkdir build
+  mv "$srcdir/clang-tools-extra-$pkgver.src" tools/extra
   patch -Np2 -i ../enable-fstack-protector-strong-by-default.patch
+
+  # https://reviews.llvm.org/D145862
+  patch -Np2 -l -i ../$pkgname-linker-wrapper-tool.patch
+
+  # https://reviews.llvm.org/D122768 (needed for Chromium 113)
+  sed 's|clang-tools-extra|clang/tools/extra|g' \
+    ../$pkgname-structured-bindings-r1.patch | patch -Np2
+
+  # https://reviews.llvm.org/D131202 (regression caused by the above)
+  patch -Np2 -i ../$pkgname-bitfield-value-capture.patch
+
+  # Attempt to convert script to Python 3
+  2to3 -wn --no-diffs \
+    tools/extra/clang-include-fixer/find-all-symbols/tool/run-find-all-symbols.py
 }
 
 build() {
@@ -69,9 +93,12 @@ build() {
     -DCMAKE_CXX_FLAGS:STRING=-m32
     -DCMAKE_C_FLAGS:STRING=-m32
     -DENABLE_LINKER_BUILD_ID=ON
+    -DLLVM_BUILD_DOCS=OFF
     -DLLVM_BUILD_TESTS=OFF
     -DLLVM_CONFIG="/usr/bin/llvm-config32"
     -DLLVM_ENABLE_RTTI=ON
+    -DLLVM_ENABLE_SPHINX=OFF
+    -DLLVM_EXTERNAL_LIT=/usr/bin/lit
     -DLLVM_INCLUDE_DOCS=OFF
     -DLLVM_LIBDIR_SUFFIX=32
     -DLLVM_LINK_LLVM_DYLIB=ON
