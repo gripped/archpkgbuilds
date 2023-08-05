@@ -2,7 +2,7 @@
 
 pkgname=sage-notebook-exporter
 pkgver=3.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Jupyter extension to export notebooks from SageNB'
 arch=(any)
 url='https://github.com/vbraun/ExportSageNB'
@@ -20,4 +20,5 @@ build() {
 package() {
   cd ExportSageNB-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
+  rm -r "$pkgdir"/usr/lib/python*/site-packages/test
 }
