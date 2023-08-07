@@ -7,7 +7,7 @@ pkgbase=plasma-workspace
 pkgname=(plasma-workspace plasma-wayland-session)
 pkgver=5.27.7
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Plasma Workspace'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -18,14 +18,20 @@ depends=(knotifyconfig ksystemstats ktexteditor libqalculate kde-cli-tools appst
          accountsservice kio-extras kio-fuse qt5-tools oxygen-sounds)
 makedepends=(extra-cmake-modules kdoctools gpsd baloo networkmanager-qt plasma-wayland-protocols wayland-protocols kunitconversion)
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgbase-$pkgver.tar.xz{,.sig} kde.pam)
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgbase-$pkgver.tar.xz{,.sig} kde.pam
+        https://invent.kde.org/plasma/plasma-workspace/-/commit/fc01a7f8.patch)
 sha256sums=('0642941dcdf513ac201494897e2c5097a2f2db8be6dcdb597cae1a43d82ece5f'
             'SKIP'
-            '00090291204baabe9d6857d3b1419832376dd2e279087d718b64792691e86739')
+            '00090291204baabe9d6857d3b1419832376dd2e279087d718b64792691e86739'
+            '6da7e83b06e8b881b9368b4c5ccfb24f2957169b34407b384c9fc218aa9f9854')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
+
+prepare() {
+  patch -d $pkgbase-$pkgver -p1 < fc01a7f8.patch # Fix crash when closing popups
+}
 
 build() {
   cmake -B build -S $pkgbase-$pkgver \
