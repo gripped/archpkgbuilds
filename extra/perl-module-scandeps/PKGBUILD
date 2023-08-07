@@ -4,7 +4,7 @@
 pkgname=perl-module-scandeps
 _pkgname=Module-ScanDeps
 pkgver=1.31
-pkgrel=3
+pkgrel=4
 pkgdesc="Scan file prerequisites"
 arch=('any')
 license=('PerlArtistic' 'GPL')
