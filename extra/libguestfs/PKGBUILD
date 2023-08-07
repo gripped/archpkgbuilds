@@ -7,7 +7,7 @@
 
 pkgname=libguestfs
 pkgver=1.48.6
-pkgrel=6
+pkgrel=7
 pkgdesc="Access and modify virtual machine disk images"
 arch=(x86_64)
 url="https://libguestfs.org/"
@@ -98,7 +98,7 @@ optdepends=(
 provides=(libguestfs.so libguestfs-gobject-1.0.so)
 backup=(etc/libguestfs-tools.conf)
 source=(
-  http://download.libguestfs.org/${pkgver%.*}-stable/$pkgname-$pkgver.tar.gz{,.sig}
+  https://download.libguestfs.org/${pkgver%.*}-stable/$pkgname-$pkgver.tar.gz{,.sig}
   $pkgname-1.48.1-disable_php_tests.patch
   ocaml5.patch
 )
