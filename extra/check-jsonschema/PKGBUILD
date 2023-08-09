@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=check-jsonschema
-pkgver=0.23.3
+pkgver=0.24.0
 pkgrel=1
 pkgdesc="A JSON Schema CLI and pre-commit hook built on jsonschema"
 arch=(any)
@@ -35,8 +35,8 @@ source=(
   # https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz
   $url/archive/$pkgver/$pkgname-$pkgver.tar.gz
 )
-sha512sums=('14f9eb6b203e3aec6ca35f75304bd24fd5a09c2b89bcbbf69c22e0c0f44c587972015677498fef1a378683c77f94d9319450daccadddf5fecbe7c738dd16c726')
-b2sums=('a8a40ddc383f38096693a2079b73a8a8fe2ceed5d1e118e539957c205c500807518c0380aa18cae2524efdeda33987f057350ba73b7a699240706ff4e276eafc')
+sha512sums=('fe6ecec27983837c73300b9339320ea98f623887cd0644a2bce800a1617877856bb92a4c14c10d8eb1bff522b6d18ad1918f1e4b5853f1bb5ea3c027daf8bc24')
+b2sums=('4e05329e724a3eedf0d2ad4989fbeb74ce4f195abcfadb904781f6cda7bd0fa4f5d32e934556b316e304743322edf74fa0d30c3c6f186eac0981376e3d8064fb')
 
 check() {
   # we don't support pinning
