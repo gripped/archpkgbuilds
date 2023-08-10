@@ -1,0 +1,17 @@
+pkgbase = libinih
+	pkgdesc = A simple .INI file parser written in C
+	pkgver = 57
+	pkgrel = 1
+	url = https://github.com/benhoyt/inih
+	arch = x86_64
+	license = BSD
+	makedepends = git
+	makedepends = meson
+	depends = gcc-libs
+	depends = glibc
+	provides = libinih.so
+	provides = libINIReader.so
+	source = git+https://github.com/benhoyt/inih.git#tag=9cecf0643da0846e77f64d10a126d9f48b9e05e8
+	b2sums = SKIP
+
+pkgname = libinih
