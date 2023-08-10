@@ -1,8 +1,8 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgbase=nvidia-open
 pkgname=(nvidia-open nvidia-open-dkms)
-pkgver=535.86.05
-pkgrel=9
+pkgver=535.98
+pkgrel=1
 pkgdesc="NVIDIA open kernel modules"
 arch=('x86_64')
 url="https://github.com/NVIDIA/open-gpu-kernel-modules"
@@ -12,7 +12,7 @@ license=('GPL')
 options=('!lto' '!buildflags')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/NVIDIA/open-gpu-kernel-modules/archive/refs/tags/${pkgver}.tar.gz"
         nvidia-open-gcc-ibt-sls.patch)
-sha512sums=('da1964921f2f0a07e136ad5301b633c01d1e045b5fbb4ebb32f5d57471a89e649a1b653bbbb62e97755d070ce911c442ceaac2fb3d81baa53af75f4123075308'
+sha512sums=('045149c1cd01a3bd07059df5e7e2634901230c5c2fb977b62ca74e899cddfb6962880007ddb4e0e01de379d8dad47a14c7d175fda4c3a17b06c3bde5813b9ac8'
             '263c4c5e75ef8cb8ca2641c022dfaf8bd9222fadf68ed15120b0ae7dd9cc901a04ce2e55625d513a0995759c9d82dfbdc4c33d4751159124915d7404b1400e34')
 
 prepare() {
