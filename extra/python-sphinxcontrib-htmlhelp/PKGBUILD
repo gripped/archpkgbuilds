@@ -1,19 +1,18 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
-_name=sphinxcontrib-htmlhelp
+_name=sphinxcontrib_htmlhelp
 pkgname=python-sphinxcontrib-htmlhelp
-pkgver=2.0.1
-pkgrel=3
+pkgver=2.0.3
+pkgrel=1
 pkgdesc='Sphinx extension which renders HTML help files'
 arch=('any')
 url=https://github.com/sphinx-doc/sphinxcontrib-htmlhelp
 license=('BSD')
-makedepends=('python-build' 'python-installer' 'python-setuptools'
-             'python-wheel')
+makedepends=('python-build' 'python-flit-core' 'python-installer')
 checkdepends=('python-html5lib' 'python-pytest' 'python-sphinx')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
-sha256sums=('0cbdd302815330058422b98a113195c9249825d681e18f11e8b1f78a2f11efff')
-b2sums=('922921a52c421bde9787df6fd5107a515bb0af4f4a6a6c8b84f474b9d7b0ce9251437b8780b3464190e494555bbe6d72604e155bce98794c36c03ddbcc5c4cc7')
+sha256sums=('14358d0f88ccf58447f2b54343cdcc0012f32de2f8d27cf934fdbc0b362f9597')
+b2sums=('c21a6b046aff388a05e8a2a3b926f1b5e3e4b280ce0f504cd799efe72470d9602ab67bca3ed7d45ad94bda395682cdc3e501a29602d70ff58e22e897155872ea')
 
 build() {
   cd $_name-$pkgver
@@ -32,6 +31,6 @@ package() {
   # Symlink license file
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
-  ln -s "$site_packages"/sphinxcontrib_htmlhelp-$pkgver.dist-info/LICENSE \
+  ln -s "$site_packages"/$_name-$pkgver.dist-info/LICENSE \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
