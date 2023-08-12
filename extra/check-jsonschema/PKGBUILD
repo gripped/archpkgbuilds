@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=check-jsonschema
-pkgver=0.24.0
+pkgver=0.24.1
 pkgrel=1
 pkgdesc="A JSON Schema CLI and pre-commit hook built on jsonschema"
 arch=(any)
@@ -11,6 +11,7 @@ depends=(
   python
   python-click
   python-jsonschema
+  python-referencing
   python-requests
   python-ruamel-yaml
 )
@@ -29,14 +30,9 @@ checkdepends=(
 optdepends=(
   'python-json5: for JSON5 support'
 )
-source=(
-  # no tests in sdist tarballs
-  # https://github.com/python-jsonschema/check-jsonschema/issues/258
-  # https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz
-  $url/archive/$pkgver/$pkgname-$pkgver.tar.gz
-)
-sha512sums=('fe6ecec27983837c73300b9339320ea98f623887cd0644a2bce800a1617877856bb92a4c14c10d8eb1bff522b6d18ad1918f1e4b5853f1bb5ea3c027daf8bc24')
-b2sums=('4e05329e724a3eedf0d2ad4989fbeb74ce4f195abcfadb904781f6cda7bd0fa4f5d32e934556b316e304743322edf74fa0d30c3c6f186eac0981376e3d8064fb')
+source=($url/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+sha512sums=('7d0f9db1f54c161b2620e6044b0010db5957313fd9faccaadeb190b5ceeb6477379b6ec21898b0ca8715d866c00ae63dbd897744127a0c35ed16418f55c74448')
+b2sums=('1b1080af70cb4df0f0cd62517623136cece6c5c49407dab591bd99f8911f602df314111f221a77df8d718f067b0b713b6c9850e4a2bd01c74227ece0e470969e')
 
 check() {
   # we don't support pinning
