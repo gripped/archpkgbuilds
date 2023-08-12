@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pluggy
-pkgver=1.1.0
-_commit=09aa2e3aa3e16f02669f5df8013e81bfb9daec16
+pkgver=1.2.0
+_commit=9060a4e466a8ef08bd737dd75acf1e976b76dc07
 pkgrel=1
 pkgdesc="Plugin and hook calling mechanisms for python"
 arch=('any')
