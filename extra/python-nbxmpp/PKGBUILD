@@ -1,18 +1,19 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=python-nbxmpp
 pkgdesc="A Python library to use Jabber/XMPP networks in a non-blocking way"
-pkgver=4.3.1
+pkgver=4.3.2
 pkgrel=1
 arch=(any)
 url="https://dev.gajim.org/gajim/python-nbxmpp/"
 license=(GPL3)
-depends=(libsoup3 python-gobject python-idna python-precis_i18n)
+depends=('libsoup3' 'python-gobject' 'python-idna' 'python-precis_i18n' 'python-packaging')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 source=("https://dev.gajim.org/gajim/python-nbxmpp/-/archive/$pkgver/python-nbxmpp-$pkgver.tar.gz")
-sha256sums=('89f56f2495e93d6a55dd9d4981136e2c3b7a3e19ffa11377146695b1ec21102c')
-b2sums=('43d9af2c3c6d3737d01eba11e2128a0c687ee63c13a508f549aa6f67ba141550e655c493cff151dcfd0f891ce2cca5b4df0806e4a873e6f62743a7f5ae6def6f')
+sha256sums=('5d5c3b90f5d2a9d57749503335f65b09c96241fd9caf070a9f08c43d7afe1d93')
+b2sums=('2858d2418182a1d26c7de30873e37b3885d656c2730f14cfb6df1a0c137ebb678827bc8734c4ce931c461238bf16536ea1ff3701f2ebddfdbf557e68f739cbe5')
 
 build() {
   cd $pkgname-$pkgver
