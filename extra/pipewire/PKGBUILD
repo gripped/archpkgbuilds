@@ -21,7 +21,7 @@ pkgname=(
 )
 _commit=31cd694602cc37ada3a6d02a5a381f4e3933ecef  # tags/0.3.77
 pkgver=0.3.77
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Low-latency audio/video router and processor"
 url="https://pipewire.org"
@@ -82,6 +82,10 @@ pkgver() {
 
 prepare() {
   cd pipewire
+
+  # https://bugs.archlinux.org/task/79355
+  # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/3414
+  git cherry-pick -n 820ca90705ae78124958f1b96de3bdc7889c2d1e
 
   # remove export of LD_LIBRARY_PATH for pw-jack as it would add /usr/lib
   git apply -3 ../0001-pipewire-jack-Disable-LD_LIBRARY_PATH-when-libjack-i.patch
