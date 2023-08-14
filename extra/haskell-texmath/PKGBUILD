@@ -3,17 +3,17 @@
 
 _hkgname=texmath
 pkgname=haskell-texmath
-pkgver=0.12.7.1
-pkgrel=2
+pkgver=0.12.8
+pkgrel=1
 pkgdesc="Conversion between math formats."
 url="https://github.com/jgm/texmath"
 license=("GPL2")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-network-uri' 'haskell-pandoc-types' 'haskell-split' 'haskell-syb'
-         'haskell-xml')
+         'haskell-typst-symbols' 'haskell-xml')
 makedepends=('ghc' 'haskell-pretty-show' 'haskell-tagged' 'haskell-tasty' 'haskell-tasty-golden')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('e1c7ed8ee31d912be4f26722a0f0840f8ff03d39fe4df70c952100c9a877608a4fd62f5239b0e92e73ea34b2b54f65a5292b6961c679c9fec2c2d7c7770fe3cc')
+sha512sums=('55b29c338d4b71c3df886c4d6c29cb17f05fb404d89329fe54ff14ae178b07c7db593afa67dd9d0debc41973526141d80c1f5204fe83713f73e96b427cb1fc64')
 
 build() {
     cd $_hkgname-$pkgver
@@ -21,7 +21,9 @@ build() {
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir="/usr/share/doc/$pkgname" --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
-            -fnetwork-uri -f-executable
+        --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
+        --ghc-option='-pie' \
+        -fnetwork-uri -f-executable
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
