@@ -1,0 +1,29 @@
+pkgbase = skia-sharp
+	pkgdesc = The Skia 2D Graphics library from Google exposed to .NET languages and runtimes across the board
+	pkgver = 2.88.3
+	pkgrel = 2
+	url = https://github.com/mono/SkiaSharp
+	arch = x86_64
+	license = MIT
+	makedepends = clang
+	makedepends = git
+	makedepends = python
+	depends = expat
+	depends = fontconfig
+	depends = libfreetype.so
+	depends = libjpeg-turbo
+	depends = libheif
+	depends = libpng
+	depends = libwebp
+	depends = zlib
+	provides = libSkiaSharp.so
+	source = git+https://github.com/mono/SkiaSharp.git#tag=655cff084fa9365efde6e989004eb818294c9b0f
+	source = git+https://chromium.googlesource.com/chromium/tools/depot_tools.git
+	source = git+https://github.com/mono/skia.git
+	source = skia-sharp-missing-include.patch
+	b2sums = SKIP
+	b2sums = SKIP
+	b2sums = SKIP
+	b2sums = 8b4c33381f22225557fceae587fd1b8f7ac6fc75814fbb27db6eb6b0c772825f87d779d8e3d38849603a4f6c7c5ec7cdb88f34ecc58c0e0f83f1890b730b9df7
+
+pkgname = skia-sharp
