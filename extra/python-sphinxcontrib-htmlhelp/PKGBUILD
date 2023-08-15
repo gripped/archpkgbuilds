@@ -2,7 +2,7 @@
 
 _name=sphinxcontrib_htmlhelp
 pkgname=python-sphinxcontrib-htmlhelp
-pkgver=2.0.3
+pkgver=2.0.4
 pkgrel=1
 pkgdesc='Sphinx extension which renders HTML help files'
 arch=('any')
@@ -11,8 +11,8 @@ license=('BSD')
 makedepends=('python-build' 'python-flit-core' 'python-installer')
 checkdepends=('python-html5lib' 'python-pytest' 'python-sphinx')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
-sha256sums=('14358d0f88ccf58447f2b54343cdcc0012f32de2f8d27cf934fdbc0b362f9597')
-b2sums=('c21a6b046aff388a05e8a2a3b926f1b5e3e4b280ce0f504cd799efe72470d9602ab67bca3ed7d45ad94bda395682cdc3e501a29602d70ff58e22e897155872ea')
+sha256sums=('6c26a118a05b76000738429b724a0568dbde5b72391a688577da08f11891092a')
+b2sums=('ef5f5c26696cadc37feefda8b5343562efd45ab7685d472d820f4e391a1699993f26634269087c24971b176ef7b05e0191f90dc6b07093ca25a424bbf7a2a69d')
 
 build() {
   cd $_name-$pkgver
