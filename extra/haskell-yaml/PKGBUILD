@@ -3,8 +3,8 @@
 
 _hkgname=yaml
 pkgname=haskell-yaml
-pkgver=0.11.11.1
-pkgrel=2
+pkgver=0.11.11.2
+pkgrel=1
 pkgdesc="Support for parsing and rendering YAML documents."
 url="https://github.com/snoyberg/yaml/"
 license=("BSD")
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-conduit' 'hask
 makedepends=('ghc' 'haskell-hspec' 'haskell-hunit' 'haskell-mockery' 'haskell-base-compat'
              'haskell-raw-strings-qq' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('a10d44b36fc5658db6a247920b02209822138b680f4139e0769be555946f7e0c50831e7009692fdb0e71840906a87f4dfd07245d45ebdf21e4cbebb52a5a8a4e')
+sha512sums=('419b5fb86d96d2e7adda5b0091d9d32eb2a5c964d32ca9d72e83feb14aef738e5029f43d1760a91ae83c47aebd8d2211e255dfdf28e95c64be3fbb2380cfaf60')
 
 build() {
     cd $_hkgname-$pkgver
