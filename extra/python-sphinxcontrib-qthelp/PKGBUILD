@@ -2,7 +2,7 @@
 
 _name=sphinxcontrib_qthelp
 pkgname=python-sphinxcontrib-qthelp
-pkgver=1.0.5
+pkgver=1.0.6
 pkgrel=1
 pkgdesc='Sphinx extension which outputs QtHelp document'
 arch=('any')
@@ -11,8 +11,8 @@ license=('BSD')
 makedepends=('python-build' 'python-flit-core' 'python-installer')
 checkdepends=('python-pytest' 'python-sphinx')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
-sha256sums=('d31d1a1beaf3894866bb318fb712f1edc82687f1c06235a01e5b2c50c36d5c40')
-b2sums=('fb72e9a1149a021a2ed73fb67380c7a715d687742f7713d1471c7b372848f85f1c075a4f2a16683d1e738e885d680a77b506100eb3a687e370b460c52ed82402')
+sha256sums=('62b9d1a186ab7f5ee3356d906f648cacb7a6bdb94d201ee7adf26db55092982d')
+b2sums=('7fabbd35f5ccf5895f16fd17e335268445e32ee0cb8c596c68e537169d4ad0aa3dc102ee2474c136c62676cff6ab639288c5fff4892d78a257a85a7ab963fe9d')
 
 build() {
   cd $_name-$pkgver
