@@ -7,8 +7,8 @@ pkgname=(
   gtk4-docs
   gtk-update-icon-cache
 )
-pkgver=4.10.5
-pkgrel=1
+pkgver=4.12.0
+pkgrel=2
 epoch=1
 pkgdesc="GObject-based multi-platform GUI toolkit"
 url="https://www.gtk.org/"
@@ -65,8 +65,16 @@ makedepends=(
   shaderc
   wayland-protocols
 )
-checkdepends=(weston)
-_commit=f5516845d451ddc1286d6c9c0d7a5a8ce1dd8bc3  # tags/4.10.5^0
+checkdepends=(
+  gst-plugin-pipewire
+  gst-plugins-base
+  mutter
+  pipewire
+  python-pydbus
+  weston
+  wireplumber
+)
+_commit=fef69881a7bac60b6a89c8b5cd9fd0f36372ee21  # tags/4.12.0^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/gtk.git#commit=$_commit"
   gtk-update-icon-cache.{hook,script}
@@ -85,6 +93,10 @@ pkgver() {
 
 prepare() {
   cd gtk
+
+  # https://bugs.archlinux.org/task/79310
+  # https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6250
+  git cherry-pick -n 4d7277f72c8f4915f237e36982ffd7dfba524b15
 }
 
 build() {
@@ -92,7 +104,7 @@ build() {
     -D broadway-backend=true
     -D cloudproviders=enabled
     -D colord=enabled
-    -D gtk_doc=true
+    -D documentation=true
     -D man-pages=true
     -D tracker=enabled
   )
