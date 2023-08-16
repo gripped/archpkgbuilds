@@ -8,8 +8,8 @@
 pkgname=luajit
 # LuaJIT has abandoned versioned releases and now advises using git HEAD
 # https://github.com/LuaJIT/LuaJIT/issues/665#issuecomment-784452583
-_commit=8635cbabf3094c4d8bd00578c7d812bea87bb2d3
-pkgver="2.1.0.beta3.r493.g${_commit::8}"
+_commit=72efc42ef2258086a9cb797c676e2916b0a9e7e1
+pkgver="2.1.0.beta3.r505.g${_commit::8}"
 pkgrel=1
 pkgdesc='Just-in-time compiler and drop-in replacement for Lua 5.1'
 arch=('x86_64')
@@ -17,9 +17,9 @@ url='https://luajit.org/'
 license=('MIT')
 depends=('gcc-libs')
 source=("LuaJIT-${_commit}.tar.gz::https://repo.or.cz/luajit-2.0.git/snapshot/${_commit}.tar.gz")
-md5sums=('1a23915c4749a49b9384143b37197332')
-sha256sums=('10db55f1b0ea43056276e6b933db40c5dacc5f1c60d63a64f75c4f167d3e46fd')
-b2sums=('f4e4684b03988a324cb3d957564201212e67ebad9d1dc37086c359b3f0984aacd72dd32ce024d4412989db978908671b8309659188f901d35a02c3f30e4fb332')
+md5sums=('aafb18bc642caa2eca493f0d68988658')
+sha256sums=('1dfd39f44645347680a17efc090f4437f795e88f2d297035937bd6c2d02aa7eb')
+b2sums=('cc647e3b5ffbde7fb9f3a9840a399103ea23434673a82b8d429179f162cac7762a338d39d73216d67fa58e3d610d4dac637e3540bad1fefb8c0167c61b60f961')
 
 build() {
   cd "luajit-2.0-${_commit::7}"
