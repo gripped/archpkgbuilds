@@ -5,7 +5,7 @@ pkgbase=lua-lanes
 _rockname=${pkgbase#lua-}
 pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname")
 pkgname=lua-lanes
-pkgver=3.16.1
+pkgver=3.16.2
 pkgrel=1
 _rockrel=0
 pkgdesc='a lightweight, native, lazy evaluating multithreading library'
@@ -20,7 +20,7 @@ makedepends=(lua
 _archive="$_rockname-$pkgver"
 _rock="$_archive-$_rockrel.linux-$CARCH.rock"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('bff35696fe1502270e54523e89e9c2da29738a75d49aeb8237f6b47f4b7b14f2')
+sha256sums=('3af9e599877b7d41dea03a0180ad48c77ed324564ecb08a6e3b8d63612944194')
 
 build() {
 	cd "$_archive"
