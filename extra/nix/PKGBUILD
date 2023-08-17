@@ -3,9 +3,9 @@
 
 pkgbase=nix
 pkgname=('nix' 'nix-docs')
-pkgver=2.16.1
-_commit='cb5bdb4f9c6dd229a4fa7701da7aec889044a631'
-pkgrel=2
+pkgver=2.17.0
+_commit='a212300a1d9f9c7b0daf19c00c87fc50480f54f4'
+pkgrel=1
 pkgdesc='A purely functional package manager'
 arch=('x86_64')
 url='https://nixos.org/nix'
@@ -87,10 +87,12 @@ build() {
   make
 }
 
-check() {
-  cd "$pkgbase"
-  make check
-}
+# https://github.com/NixOS/nix/issues/8737
+#check() {
+#  cd "$pkgbase"
+#
+#  make check
+#}
 
 package_nix() {
   depends=(
