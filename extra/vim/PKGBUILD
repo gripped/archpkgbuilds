@@ -11,7 +11,7 @@
 
 pkgbase=vim
 pkgname=('vim' 'gvim' 'vim-runtime')
-pkgver=9.0.1678
+pkgver=9.0.1736
 _versiondir=90
 pkgrel=1
 pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor'
@@ -21,24 +21,20 @@ license=('custom:vim')
 makedepends=('glibc' 'libgcrypt' 'gpm' 'python' 'ruby' 'libxt' 'gtk3' 'lua'
              'gawk' 'tcl' 'zlib' 'libcanberra')
 source=(https://github.com/vim/vim/archive/v${pkgver}/${pkgbase}-${pkgver}.tar.gz
-        fix-perl-build.patch
         vimrc
         archlinux.vim
         vimdoc.hook)
-sha256sums=('e0b52a997b4f6180c5d8a5dae717075d99650c3e2e7761d1878a3dd7011ec315'
-            'f79c2afd26bbe0b21375293203d8f0e8dad2424146014ceafc4e8eca6ecf7d39'
+sha256sums=('6ccb70e2a1e944b1a936bc804bf1a80b52b7773e6f27b5174b03494068e79997'
             'b16e85e457397ab2043a7ee0a3c84307c6b4eac157fd0b721694761f25b3ed5b'
             'cc3d931129854c298eb22e993ec14c2ad86cc1e70a08a64496f5e06559289972'
             '8e9656934d9d7793063230d15a689e10455e6db9b9fe73afa0f294792795d8ae')
-sha512sums=('c5ffb7ca56ff4eee70f06599dd84db2eb28ddadac229d4f7faf01174805923636a4ce61486bdf5a47910c929613dc9b9290dfc9288006222b4bc4ac891548bb8'
-            '184dd232db5b4a346e9751e58ad0a9b2f60d50d1a2aa2050415d288445606d80c239745f0d8987ff822d2acf6826104a81f8e59c8f1785095d1f319c0fe4abf0'
+sha512sums=('4ab23b5fea77065e1415d3e73106029eb2037f563ba5fbc64efe2605da0c03a1a279928c448d2010153b4624eb834dd83d2090c70301ef63b5cb904d08ae7455'
             '4b5bed0813f22af9e158ea9aa56a4a9862dd786ba2d201f20159ccf652da6190164aaed0b6b7217d578f7b25c33a8adcc307bfcf3caa8d173a7ff29e2a00fee7'
             'fe091d289d876f45319c898f6021ef86d6a238b540c225a279c46efc5c36fa7d868cd0cee73a111811c4be90df160f85340bb251be3a437727dbe5c699950363'
             'a02ad0d66f300160911aeb81d8886c6c558436ac4ee3fcd161dd65c6b1e5d1f41b9005a7f5bb5ba68d57027fc1c8e43daabf055bd6207fb5a216a67f758df8d1')
 
 prepare() {
   (cd vim-${pkgver}/src
-    patch -Np2 -i ../../fix-perl-build.patch
     # define the place for the global (g)vimrc file (set to /etc/vimrc)
     sed -E 's|^.*(#define SYS_.*VIMRC_FILE.*").*$|\1|g' -i feature.h
     sed -E 's|^.*(#define VIMRC_FILE.*").*$|\1|g' -i feature.h
