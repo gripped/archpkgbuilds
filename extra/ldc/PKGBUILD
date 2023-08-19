@@ -7,14 +7,14 @@ groups=('dlang' 'dlang-ldc')
 pkgver=1.33.0
 _pkgcommit=94edb02a3aff4e8dc64814c20ef325f367672f78
 _dversion=2.103.1
-_clangversion=15.0.7 # related to where ldc2 looks for compiler-rt sanitizers
+_clangversion=14.0.6 # related to where ldc2 looks for compiler-rt sanitizers
 epoch=3
-pkgrel=2
+pkgrel=3
 pkgdesc="A D Compiler based on the LLVM Compiler Infrastructure including D runtime and libphobos2"
 arch=('x86_64')
 url="https://github.com/ldc-developers/ldc"
 license=('BSD')
-makedepends=('git' 'cmake' 'llvm' 'ldc' 'ninja')
+makedepends=('git' 'cmake' 'llvm14' 'ldc' 'ninja')
 # Disable lto as linking the ldc2 binary fails
 options=(!lto)
 
@@ -52,7 +52,7 @@ build() {
     -DLDC_WITH_LLD=OFF \
     -DD_COMPILER_FLAGS="-link-defaultlib-shared=false -linker=gold --flto=thin" \
     -DADDITIONAL_DEFAULT_LDC_SWITCHES="\"-link-defaultlib-shared\"" \
-    -DCMAKE_PREFIX_PATH=/usr/lib/llvm \
+    -DCMAKE_PREFIX_PATH=/usr/lib/llvm14 \
     ..
     ninja
 }
@@ -63,7 +63,7 @@ check() {
 }
 
 package_ldc() {
-    depends=('liblphobos' 'llvm-libs' 'gcc' 'compiler-rt')
+    depends=('liblphobos' 'llvm14-libs' 'gcc' 'compiler-rt14')
     backup=('etc/ldc2.conf')
     provides=("d-compiler=$_dversion")
 
