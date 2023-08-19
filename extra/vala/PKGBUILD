@@ -4,7 +4,7 @@
 # Contributor: Timm Preetz <timm@preetz.us>
 
 pkgname=vala
-pkgver=0.56.11
+pkgver=0.56.12
 pkgrel=1
 pkgdesc='Compiler for the GObject type system'
 url='https://wiki.gnome.org/Projects/Vala'
@@ -36,7 +36,7 @@ provides=(
 )
 conflicts=(valadoc)
 replaces=(valadoc)
-_commit=0a4a679270bdb413b4f7d3e759e129ec65597d29  # tags/0.56.11^0
+_commit=2a0ae432b97f6594f859b6fb5b859565457388a7  # tags/0.56.12^0
 source=("git+https://gitlab.gnome.org/GNOME/vala.git#commit=$_commit")
 b2sums=('SKIP')
 
