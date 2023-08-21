@@ -2,7 +2,7 @@
 
 _name=libtmux
 pkgname=python-libtmux
-pkgver=0.22.1
+pkgver=0.23.0post0
 pkgrel=1
 pkgdesc="Python api for tmux"
 arch=(any)
@@ -21,12 +21,20 @@ makedepends=(
 )
 checkdepends=(
   python-pytest
+  python-pytest-mock
+  python-pytest-rerunfailures
   procps-ng
 )
 optdepends=('python-pytest: for pytest plugin')
-source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('a8d1fac716d8fcc918593220b405885e3f5d98cb6826269d9b35ea3efcccf3d82a031e093992e34cb251d72f0b096c7c8bf3e0b52c3d32fc66a16e6c84aa3f05')
-b2sums=('8d9ec760440520c25eee27706cdfecf1b3ef94059506055340bb898efe72ca0310908111f46f052b97cacc14348fa6e30be261576306879deff4963905cf8e95')
+source=($_name-$pkgver.tar.gz::https://github.com/tmux-python/libtmux/archive/refs/tags/v$pkgver.tar.gz)
+sha512sums=('8aca932ccb2026f554d4ba5eada22c1c3b755a500dea5c9a8836d98f6850335bd30520906b8ba1af1a3045e5c8514b44a6a2372454332f2c1fa99eaa5a507d46')
+b2sums=('efaa3398f20521cb1118d7df560980e6d70972252f892c01a42bf7496a038da98fdbc32b0cd74b23e52d75d050328ba17d4ad06db10ef1ec05ef7d4ee3946b16')
+
+prepare() {
+  cd $_name-$pkgver
+  # remove unknown pytest option: https://github.com/tmux-python/libtmux/issues/496
+  sed 's/doctest-docutils-modules/doctest-modules/' -i setup.cfg
+}
 
 build() {
   cd $_name-$pkgver
