@@ -6,7 +6,7 @@
 pkgbase='kea'
 pkgname=("${pkgbase}" "${pkgbase}-docs")
 pkgver=2.4.0
-pkgrel=2
+pkgrel=3
 pkgdesc='High-performance, extensible DHCP server engine from ISC, supporting both DHCPv4 and DHCPv6'
 arch=('x86_64')
 url='https://kea.isc.org'
@@ -16,7 +16,7 @@ makedepends=(
   'boost'
   'mariadb'
   'postgresql'
-  'python'  # kea-shell
+  'python' # kea-shell
   'python-sphinx'
   'python-sphinx_rtd_theme'
   'doxygen'
@@ -113,7 +113,7 @@ package_kea() {
   cd "${pkgbase}-${pkgver}"
   make DESTDIR="${pkgdir}" install
   # Do not package /run
-  rm -rf "${pkgdir}"/run
+  rm -rf "${pkgdir}/run"
   install -Dm644 "${srcdir}/tmpfiles-kea.conf" "${pkgdir}/usr/lib/tmpfiles.d/${pkgbase}.conf"
   # Systemd service files
   install -Dm644 "${srcdir}/kea-dhcp4.service" "${pkgdir}/usr/lib/systemd/system/kea-dhcp4.service"
@@ -121,7 +121,7 @@ package_kea() {
   install -Dm644 "${srcdir}/kea-dhcp-ddns.service" "${pkgdir}/usr/lib/systemd/system/kea-dhcp-ddns.service"
   install -Dm644 "${srcdir}/kea-ctrl-agent.service" "${pkgdir}/usr/lib/systemd/system/kea-ctrl-agent.service"
   # split docs in a separate package
-  rm -rf "${pkgdir}/usr/share/{doc,man}"
+  rm -rf "${pkgdir}/usr/share/"{doc,man}
 }
 
 package_kea-docs() {
@@ -133,5 +133,5 @@ package_kea-docs() {
   install -d "${pkgdir}/usr/share/doc/${pkgbase}/"
   make DESTDIR="${pkgdir}" -C doc install
   cp -r doc/devel/html "${pkgdir}/usr/share/doc/${pkgbase}/devel"
-  rm "${pkgdir}"/usr/share/doc/kea/devel/doxygen{,-error}.log
+  rm -f "${pkgdir}/usr/share/doc/kea/devel/doxygen"{,-error}.log
 }
