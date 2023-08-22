@@ -2,8 +2,8 @@
 # Contributor: Brody <archfan at brodix dot de>
 
 pkgname=markdownlint-cli2
-pkgver=0.8.1
-pkgrel=2
+pkgver=0.9.0
+pkgrel=1
 pkgdesc='MarkdownLint Command Line Interface'
 arch=('any')
 url=https://github.com/DavidAnson/markdownlint-cli2
@@ -15,7 +15,7 @@ b2sums=('SKIP')
 
 prepare() {
   cd $pkgname
-  npm install
+  npm ci
 }
 
 check() {
