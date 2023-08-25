@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgbase=linux-zen
-pkgver=6.4.11.zen2
+pkgver=6.4.12.zen1
 pkgrel=1
 pkgdesc='Linux ZEN'
 _srctag=v${pkgver%.*}-${pkgver##*.}
@@ -19,6 +19,12 @@ makedepends=(
   python
   tar
   xz
+
+  # htmldocs
+  graphviz
+  imagemagick
+  python-sphinx
+  texlive-latexextra
 )
 options=('!strip')
 _srcname=zen-kernel
@@ -74,6 +80,7 @@ prepare() {
 build() {
   cd $_srcname
   _make all
+  _make htmldocs
 }
 
 _package() {
