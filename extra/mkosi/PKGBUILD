@@ -5,15 +5,15 @@
 
 pkgname=mkosi
 pkgver=15.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Build Legacy-Free OS Images"
 arch=(any)
 url="https://github.com/systemd/mkosi"
 license=(LGPL-2.1-or-later)
 depends=(
-  arch-install-scripts
+  bubblewrap
   python
-  python-pexpect
+  systemd
 )
 makedepends=(
   pandoc-cli
@@ -24,25 +24,28 @@ makedepends=(
   python-wheel
 )
 checkdepends=(
-  python-pexpect
   python-pytest
-  systemd
 )
 optdepends=(
+  'acl: for removing directories created by mkosi'
+  # 'apt: for creating Debian and Ubuntu images'  # TODO: package apt
   'btrfs-progs: raw_btrfs and subvolume output formats'
-  'cryptsetup: add dm-verity partitions'
+  'cpio: for cpio output format'
   'debian-archive-keyring: build Debian images'
-  'debootstrap: build Debian or Ubuntu images'
-  'dosfstools: build bootable images'
-  'gnupg: sign images'
+  'dnf: for creating CentOS, Fedora, OpenMandriva, Mageia and OpenSUSE images'
+  'edk2-ovmf: for running bootable images using QEMU'
+  'gnupg: for signing image checksums'
+  'kmod: for images using Linux kernels'
+  'openssl: for UEFI SecureBoot'
   'python-pefile: for bootable images'
-  'qemu: run bootable images using QEMU'
-  'sbsigntools: sign EFI binaries for UEFI SecureBoot'
-  'squashfs-tools: for creating custom scripts to output as squashfs'
-  'tar: tar output format'
-  'ubuntu-keyring: build Ubuntu images'
-  'xz: compress images with xz'
-  'zstd: compress images with zstd'
+  'qemu: for running bootable images using QEMU'
+  'sbsigntools: for UEFI SecureBoot'
+  'swtpm: for adding software TPM when running bootable images using QEMU'
+  'tar: for tar output format and Debian or Ubuntu images'
+  'ubuntu-keyring: for building Ubuntu images'
+  'xz: for compressing images with xz'
+  'zstd: for compressing images with zstd'
+  # 'zypper: for creating OpenSUSE images'  # TODO: package zypper
 )
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz
