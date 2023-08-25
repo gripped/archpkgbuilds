@@ -1,0 +1,33 @@
+pkgbase = tlp
+	pkgver = 1.6.0
+	pkgrel = 1
+	url = https://linrunner.de/en/tlp/tlp.html
+	install = tlp.install
+	arch = any
+	license = GPL2
+	makedepends = git
+	source = git+https://github.com/linrunner/TLP.git#tag=f0030129ca89457670ed5c0bb64377b0d12c83d2
+	sha256sums = SKIP
+
+pkgname = tlp
+	pkgdesc = Linux Advanced Power Management
+	depends = hdparm
+	depends = iw
+	depends = pciutils
+	depends = perl
+	depends = rfkill
+	depends = usbutils
+	depends = util-linux
+	optdepends = bash-completion: Bash completion
+	optdepends = ethtool: Disable Wake On Lan
+	optdepends = smartmontools: Display S.M.A.R.T. data in tlp-stat
+	optdepends = tp_smapi: Older ThinkPad battery functions (before Sandy Bridge)
+	conflicts = laptop-mode-tools
+	conflicts = pm-utils
+	conflicts = power-profiles-daemon
+	backup = etc/tlp.conf
+
+pkgname = tlp-rdw
+	pkgdesc = Linux Advanced Power Management - Radio Device Wizard
+	depends = networkmanager
+	depends = tlp
