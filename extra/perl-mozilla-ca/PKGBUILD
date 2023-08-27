@@ -2,7 +2,7 @@
 # Contributor: Justin Davis (juster) <jrcd83@gmail.com>
 
 pkgname=perl-mozilla-ca
-pkgver=20230801
+pkgver=20230821
 pkgrel=1
 pkgdesc="Mozilla's CA cert bundle in PEM format (using system CA store)"
 arch=('any')
@@ -11,7 +11,7 @@ options=('!emptydirs')
 depends=('perl' 'ca-certificates')
 url='https://metacpan.org/release/Mozilla-CA'
 source=("https://search.cpan.org/CPAN/authors/id/L/LW/LWP/Mozilla-CA-$pkgver.tar.gz")
-sha512sums=('cbd148507f5880825645a46735f2a19378015f5c83b4f90e8aa98256e520251e11662d0a2f7fea5405a22270f7b3421e18d3c73bb7cb03f5a5a6dfc049807e05')
+sha512sums=('2393e8ddd54abbef37987c8bd883e9cd790ed8ad7b1411203c7796b1f0b52fcf7a19e3803c374e9e84bf4310d67e4736f12731c5ca1337f99bb659bdca126c3a')
 
 prepare() {
   cd Mozilla-CA-$pkgver
