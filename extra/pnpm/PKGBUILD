@@ -4,7 +4,7 @@
 
 pkgname=pnpm
 pkgver=8.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast, disk space efficient package manager'
 arch=('any')
 url=https://pnpm.io
@@ -30,5 +30,5 @@ package() {
   cp -r bin package.json "$pkgdir"/$_npmdir
   install -Dt "$pkgdir"/usr/share/licenses/$pkgname LICENSE
   cd dist
-  cp -r $pkgname.cjs pnpmrc scripts "$pkgdir"/$_npmdir/dist
+  cp -r $pkgname.cjs pnpmrc scripts worker.js "$pkgdir"/$_npmdir/dist
 }
