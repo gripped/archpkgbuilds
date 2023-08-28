@@ -2,7 +2,7 @@
 
 pkgname=archlinux-appstream-data
 pkgver=20230827
-pkgrel=1
+pkgrel=2
 pkgdesc='Arch Linux application database for AppStream-based software centers'
 arch=(any)
 url='https://www.archlinux.org'
@@ -32,11 +32,11 @@ sha256sums=('69fed34ea4046a7dc1c9b8e415a52954556116094184a7b8d10ec479c30a26c6'
             '475c7388a71a9ede23b7ff0e5bd78aa61c56166246755955c0c1d82b3d528c72')
 
 package() {
-  mkdir -p "$pkgdir"/usr/share/app-info/{icons/archlinux-arch-{core,extra,multilib}/{48x48,64x64,128x128},xmls}
+  mkdir -p "$pkgdir"/usr/share/swcatalog/{icons/archlinux-arch-{core,extra,multilib}/{48x48,64x64,128x128},xml}
   for _repo in core extra multilib; do
-   tar -xzf $_repo-icons-48x48-$pkgver.tar.gz -C "$pkgdir"/usr/share/app-info/icons/archlinux-arch-$_repo/48x48
-   tar -xzf $_repo-icons-64x64-$pkgver.tar.gz -C "$pkgdir"/usr/share/app-info/icons/archlinux-arch-$_repo/64x64
-   tar -xzf $_repo-icons-128x128-$pkgver.tar.gz -C "$pkgdir"/usr/share/app-info/icons/archlinux-arch-$_repo/128x128
-   install -m644 $_repo-$pkgver.xml.gz "$pkgdir"/usr/share/app-info/xmls/$_repo.xml.gz
+   tar -xzf $_repo-icons-48x48-$pkgver.tar.gz -C "$pkgdir"/usr/share/swcatalog/icons/archlinux-arch-$_repo/48x48
+   tar -xzf $_repo-icons-64x64-$pkgver.tar.gz -C "$pkgdir"/usr/share/swcatalog/icons/archlinux-arch-$_repo/64x64
+   tar -xzf $_repo-icons-128x128-$pkgver.tar.gz -C "$pkgdir"/usr/share/swcatalog/icons/archlinux-arch-$_repo/128x128
+   install -m644 $_repo-$pkgver.xml.gz "$pkgdir"/usr/share/swcatalog/xml/$_repo.xml.gz
   done
 }
