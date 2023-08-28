@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-timecop
-pkgver=0.9.7
+pkgver=0.9.8
 pkgrel=1
 pkgdesc='A gem providing "time travel" and "time freezing" capabilities, making it dead simple to test time-dependent code'
 arch=(any)
@@ -11,7 +11,7 @@ depends=(ruby)
 checkdepends=(ruby-rake ruby-activesupport ruby-minitest-rg ruby-mocha ruby-pry)
 options=(!emptydirs)
 source=(https://github.com/travisjeffery/timecop/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('e303ca0acf148493c1366af13873cafb99588e76acbe87634dbe1d3861a7fd7e')
+sha256sums=('3abb18214bc93fbbf93500b529c95307598911164f87cc32c4380bc819abeb89')
 
 prepare() {
   cd timecop-$pkgver
