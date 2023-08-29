@@ -6,7 +6,7 @@
 
 pkgname=lib32-libva
 pkgver=2.19.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Video Acceleration (VA) API for Linux (32-bit)'
 arch=(x86_64)
 url=https://01.org/linuxmedia/vaapi
@@ -14,6 +14,7 @@ license=(MIT)
 depends=(
   lib32-libdrm
   lib32-libgl
+  lib32-libx11
   lib32-libxext
   lib32-libxfixes
   lib32-wayland
@@ -27,7 +28,7 @@ makedepends=(
 )
 optdepends=(
   'lib32-libva-intel-driver: backend for Intel GPUs (<= Haswell)'
-  'lib32-libva-mesa-driver: backend for AMD and Nvidia GPUs'
+  'lib32-libva-mesa-driver: backend for AMD and NVIDIA GPUs'
 )
 provides=(
   libva-drm.so
@@ -38,20 +39,16 @@ provides=(
 )
 _tag=807044bd0fcb944edf230052fa09acc4266790fe
 source=(git+https://github.com/intel/libva.git#tag=${_tag})
-sha256sums=('SKIP')
+b2sums=('SKIP')
 
 pkgver() {
   cd libva
-  git describe --tags
+  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
 }
 
 build() {
-  export CC='gcc -m32'
-  export CXX='g++ -m32'
-  export PKG_CONFIG='i686-pc-linux-gnu-pkg-config'
-
   CFLAGS+=" -DENABLE_VA_MESSAGING"  # Option missing
-  arch-meson libva build --libdir=/usr/lib32
+  arch-meson libva build --cross-file lib32
   meson compile -C build
 }
 
