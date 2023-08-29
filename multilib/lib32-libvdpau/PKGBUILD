@@ -3,45 +3,51 @@
 
 pkgname=lib32-libvdpau
 pkgver=1.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Nvidia VDPAU library'
 arch=(x86_64)
-url=https://gitlab.freedesktop.org/vdpau/libvdpau
+url=https://www.freedesktop.org/wiki/Software/VDPAU/
 license=(custom)
 depends=(
   lib32-libxext
   libvdpau
 )
 makedepends=(
-  xorgproto
   git
   meson
+  xorgproto
 )
-source=(git+https://gitlab.freedesktop.org/vdpau/libvdpau.git#tag=79f1506a3307d3275b0fdfb2e110c173f68e6f78)
-sha256sums=(SKIP)
+optdepends=(
+  'lib32-mesa-vdpau: driver for Mesa'
+  'lib32-nvidia-utils: driver for NVIDIA'
+)
+provides=(
+  libvdpau.so
+)
+_tag=b40ac3c8f6cac061ddd5ed70c8305238f97a1b25
+source=(git+https://gitlab.freedesktop.org/vdpau/libvdpau.git#tag=${_tag})
+b2sums=('SKIP')
 
 pkgver() {
   cd libvdpau
-
-  git describe --tags
+  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
 }
 
 build() {
-  export CC='gcc -m32'
-  export CXX='g++ -m32'
-  export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+  arch-meson libvdpau build --cross-file lib32
+  meson compile -C build
+}
 
-  arch-meson libvdpau build \
-    --libdir=/usr/lib32
-  ninja -C build
+check() {
+  meson test -C build --print-errorlogs
 }
 
 package() {
-  DESTDIR="${pkgdir}" ninja -C build install
+  meson install -C build --destdir "$pkgdir"
   rm -rf "${pkgdir}"/{etc,usr/include}
 
   install -dm 755 "${pkgdir}"/usr/share/licenses
   ln -s libvdpau "${pkgdir}"/usr/share/licenses/lib32-libvdpau
 }
 
-# vim: ts=2 sw=2 et:
+# vim:set sw=2 sts=-1 et:
