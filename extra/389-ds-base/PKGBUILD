@@ -4,7 +4,7 @@
 # Contributor: Xiao-Long Chen <chenxiaolong@cxl.epac.to>
 
 pkgname=389-ds-base
-pkgver=2.4.2
+pkgver=2.4.3
 pkgdesc="389 Directory Server (base)"
 pkgrel=1
 arch=(x86_64)
@@ -21,11 +21,9 @@ depends=('cracklib' 'libevent' 'nspr' 'nss' 'net-snmp' 'pam' 'openldap' 'icu' 'd
 makedepends=('cargo' 'rsync' 'doxygen' 'cmocka' 'python-setuptools' 'python-argparse-manpage'
              'npm' 'nodejs' 'systemd')
 source=(https://github.com/389ds/389-ds-base/archive/389-ds-base-${pkgver}.tar.gz
-        https://patch-diff.githubusercontent.com/raw/389ds/389-ds-base/pull/5854.patch
         389-ds-base.sysusers
         389-ds-base.tmpfiles)
-sha512sums=('62367e9b729aa9953f55d73555dc2a2b94e03dbf632b02fe77ff3122ccc0d71c095588a238cde5259ee6d980335b855fdacd8abe1a21ac83f8ff783142b2c349'
-            'de090e9cd4d600fee908e758f23521c3a12121ec9fe0f30d90791c83f09407d519a7999fd6529e52094126193a51bb5cbb181849fed49886cc6da8dc96eb1dc0'
+sha512sums=('4467954b6bd078fae4e273bed288d3b52b955f69810982a5f1c6af3142f4cad36cb5098438bb521b3615b0e5ee404968e97ef991f077068d19495544675a45e6'
             '8689b60f13517e6541e1faa62e61781654a8e4678990d14a3fe0cfe4673697cdde1c46763fdc7ef6203e4026286fa004c73b2857fd7fecff69483e6d1e8e6d68'
             '69ed8b8f3bdbf9098088b0c92c41a238f16d14ba9f86ebc2b5debe5f001b4d8e235f7cff4731d72b30b5ac70486b0f4300b99646aa3926a3fa59515a64f16402')
 
@@ -33,8 +31,6 @@ prepare() {
   cd "${pkgname}-${pkgname}-${pkgver}"
 
   ./autogen.sh
-
-  patch -Np1 -i "$srcdir"/5854.patch
 }
 
 build() {
