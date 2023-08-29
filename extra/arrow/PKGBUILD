@@ -2,8 +2,8 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=arrow
-pkgver=10.0.1
-pkgrel=11
+pkgver=13.0.0
+pkgrel=1
 pkgdesc="Columnar in-memory analytics layer for big data."
 arch=(x86_64)
 url="https://arrow.apache.org"
@@ -17,10 +17,10 @@ makedepends=(boost cmake flatbuffers gmock python-numpy git clang)
 source=(https://archive.apache.org/dist/${pkgname}/${pkgname}-${pkgver}/apache-${pkgname}-${pkgver}.tar.gz{,.asc}
         git+https://github.com/apache/parquet-testing.git
         git+https://github.com/apache/arrow-testing.git)
-sha512sums=(c6198e5c9b8fe5ccd89e445c9252da44d8d7c9e0c8eb5a802fa0cabf89482fddf775ed383bac1acc9331bc3195d21df7ea02c4a73aa6ee163c2959f34175d650
-            SKIP
-            SKIP
-            SKIP)
+sha512sums=('3314d79ef20ac2cfc63f2c16fafb30c3f6187c10c6f5ea6ff036f6db766621d7c65401d85bf1e979bd0ecf831fbb0a785467642792d6bf77016f9807243c064e'
+            'SKIP'
+            'SKIP'
+            'SKIP')
 validpgpkeys=(265F80AB84FE03127E14F01125BCCA5220D84079  # Krisztian Szucs (apache) <szucs.krisztian@gmail.com>
               08D3564B7C6A9CAFBFF6A66791D18FCF079F8007) # Kouhei Sutou <kou@cozmixng.org>
 
