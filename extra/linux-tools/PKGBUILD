@@ -15,7 +15,7 @@ pkgname=(
   'x86_energy_perf_policy'
 )
 pkgver=6.3
-pkgrel=4
+pkgrel=5
 license=('GPL2')
 arch=('x86_64')
 url='https://www.kernel.org'
