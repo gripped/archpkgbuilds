@@ -8,7 +8,7 @@
 
 pkgname=blender
 pkgver=3.6.2
-pkgrel=1
+pkgrel=2
 epoch=17
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('x86_64')
@@ -21,7 +21,7 @@ depends=('libpng' 'libtiff' 'openexr' 'python' 'desktop-file-utils' 'python-requ
          'jemalloc' 'libspnav' 'ptex' 'opensubdiv' 'openvdb' 'sdl2' 'embree' 'libharu'
          'draco' 'openpgl' 'level-zero-loader' 'libxkbcommon' 'libepoxy'
          'intel-oneapi-compiler-shared-runtime-libs' 'intel-oneapi-compiler-dpcpp-cpp-runtime-libs')
-makedepends=('cmake' 'boost' 'mesa' 'git' 'svn' 'llvm' 'cuda' 'ninja' 'wayland-protocols' 'libxkbcommon'
+makedepends=('cmake' 'boost' 'mesa' 'git' 'svn' 'llvm15' 'cuda' 'ninja' 'wayland-protocols' 'libxkbcommon'
              'libdecor' 'hip-runtime-amd' 'level-zero-headers' 'intel-oneapi-dpcpp-cpp'
              'intel-oneapi-compiler-shared-runtime' 'intel-compute-runtime')
 optdepends=('cuda: Cycles renderer CUDA support'
@@ -72,6 +72,7 @@ build() {
     -Cbuild_files/cmake/config/blender_release.cmake \
     -C precache \
     -DCUDA_HOST_COMPILER=/usr/bin/gcc-12 \
+    -DLLVM_VERSION=15 \
     -DPYTHON_VERSION=$PYTHON_VER \
     -DHIP_ROOT_DIR=/opt/rocm \
     -DOPTIX_ROOT_DIR="$srcdir" \
