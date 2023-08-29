@@ -4,7 +4,7 @@
 pkgname=archlinux-keyring
 _tag='03dbd253983863950583c94096b0753ab9d740ce' # git rev-parse ${pkgver}
 pkgver=20230821
-pkgrel=1
+pkgrel=2
 pkgdesc='Arch Linux PGP keyring'
 arch=('any')
 url='https://gitlab.archlinux.org/archlinux/archlinux-keyring/'
