@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
-_name=pyproject_api
+_name=pyproject-api
 pkgname=python-pyproject-api
-pkgver=1.5.4
+pkgver=1.6.1
 pkgrel=1
 pkgdesc="API to interact with the python pyproject.toml based projects"
 arch=(any)
@@ -24,13 +24,13 @@ checkdepends=(
   python-pytest-mock
   python-virtualenv
 )
-source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('e97305faa1420afa39274098e3d367ced49be8db4a87fda3f7c81b54e3a4b79eca80cf9b7eeb9b11af580535d758a750be8fb070e343355f43f93ee8a979357c')
-b2sums=('c56e2a98640696cd4f9796bb6d896db792bf956bea8e0f38c675aef03cd087204b254dbaf6d1fcd30dbe3107364409b8a0184dbdda651bedf37e147cd8a1b276')
+source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
+sha512sums=('18f52273766056de36c499fa62dd2b9228110feff149f5471d16d4569c015648c3113e51fa3925146f55096132ac96bd325e44592bb491b1f885148b2cbdeb38')
+b2sums=('de6ea7ddbc203b822a07ebd93da94d4e0a6aaca4ac50eaf725cdb59b29d7379917654a9037314e5666cb22cbe5d65a4095e543491196744c1b6c314127185aba')
 
 build() {
   cd $_name-$pkgver
-  python -m build --wheel --no-isolation
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --no-isolation
 }
 
 check() {
