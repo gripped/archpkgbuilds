@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=rhit
-pkgver=1.7.2
+pkgver=2.0.0
 pkgrel=1
 pkgdesc="A nginx log explorer"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('a9e473047c84f8142d2f099a13fab5e700c99a0175d82b1ce4b62b95b7d6d653d7e1fc85d4532eaf90b646ae2f913486e5a42b21646c5af36002e99d4a1084e4')
+sha512sums=('31ce2653eaad71b9395d3c58d2e42f6752a4589f04d7ffe02e7933ff93135791069803d54f22e2b32ac74580c7e6af0b3187f252754527e53c40ead8b2945435')
 
 prepare() {
   cd "$pkgname-$pkgver"
