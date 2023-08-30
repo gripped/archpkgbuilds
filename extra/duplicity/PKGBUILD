@@ -4,7 +4,7 @@
 # Contributor: Aaron Schaefer <aaron@elasticdog.com>
 
 pkgname=duplicity
-pkgver=2.0.2
+pkgver=2.1.0
 pkgrel=1
 pkgdesc='A utility for encrypted, bandwidth-efficient backups using the rsync algorithm'
 arch=('x86_64')
@@ -38,7 +38,7 @@ optdepends=(
   'python-requests-oauthlib: OneDrive backend'
   'rsync: rsync backend'
 )
-_commit='89cee7cc585ad89edfe49efbd4d637c37e6259b1'
+_commit='80cba3758f6e3562697bb6cc042ca1ae7df0eca4'
 source=(
   "$pkgname::git+https://gitlab.com/duplicity/duplicity#commit=$_commit"
   'fix-documentation-directory.patch'
