@@ -2,7 +2,7 @@
 
 pkgname=prometheus-snmp-exporter
 _pkgname=snmp_exporter
-pkgver=0.23.0
+pkgver=0.24.0
 pkgrel=1
 pkgdesc='Prometheus exporter for SNMP metrics'
 arch=('x86_64')
@@ -13,7 +13,7 @@ makedepends=('git' 'go')
 backup=("etc/conf.d/$pkgname")
 install='package.install'
 options=('!lto')
-_commit='20657d2f486a1ac237238827beed97fa67eb8611'
+_commit='c9fd025309572b81eaca65100de4ca38ea406da9'
 source=(
   "$pkgname::git+$url#commit=$_commit"
   'systemd.service'
