@@ -3,7 +3,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=prettier
-pkgver=3.0.2
+pkgver=3.0.3
 pkgrel=1
 pkgdesc="An opinionated code formatter for JS, JSON, CSS, YAML and much more"
 arch=("any")
@@ -13,7 +13,7 @@ depends=("nodejs")
 makedepends=("yarn")
 checkdepends=("git" "npm")
 source=("https://github.com/$pkgname/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('cebcfabb8793e4fbaaf71d2a2e63cc544ca95007fc8110d3080730c0f8e154b9')
+sha256sums=('378ef7188718a64218c487a72155cf83e75295db948deda0ccd5bb4a38fe6b10')
 
 prepare() {
     cd "$pkgname-$pkgver"
