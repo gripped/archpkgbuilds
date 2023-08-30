@@ -7,7 +7,7 @@
 
 pkgname=fasm
 pkgver=1.73.31
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast and efficient self-assembling x86 assembler for DOS, Windows and Linux operating systems'
 url='https://flatassembler.net/'
 arch=('x86_64')
@@ -16,6 +16,7 @@ depends_x86_64=('lib32-glibc' 'lib32-gcc-libs')
 source=(https://flatassembler.net/${pkgname}-${pkgver}.tgz)
 sha512sums=('8558ce1ac0eae22d84d8b62e9bd3f6358450329085943eb62e5586b035b351f7eae9ea1288e9527985b63ba631e53c68d2a1fb939b4ac8c39ec687afeca93bcd')
 b2sums=('f975ba900cbcbf2c55f57ee37cd6dc2e35573341b93b1a632e0701d6b10776d9642698756d222f50ff6f303a01eba6558a49dac3e39b2b4d3b5ac9d199c051ae')
+options=(!strip)
 
 build() {
   cd ${pkgname}
