@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=jupyter-server
-pkgver=2.7.2
+pkgver=2.7.3
 pkgrel=1
 pkgdesc='Provides the backend for Jupyter web applications like Jupyter notebook, JupyterLab, and Voila'
 arch=(any)
@@ -14,7 +14,7 @@ checkdepends=(python-pytest-tornasync python-pytest-console-scripts python-pytes
               python-flaky python-requests python-terminado)
 optdepends=('jupyter-server-mathjax: to use local MathJax' 'python-jupyter-server-terminals: terminals support')
 source=(https://pypi.io/packages/source/j/${pkgname/-/_}/${pkgname/-/_}-$pkgver.tar.gz)
-sha256sums=('d64fb4e593907290e5df916e3c9399c15ab2cd7bdb71cbcd1d36452dbfb30523')
+sha256sums=('d4916c8581c4ebbc534cebdaa8eca2478d9f3bfdd88eae29fcab0120eac57649')
 
 prepare() {
   cd ${pkgname/-/_}-$pkgver
