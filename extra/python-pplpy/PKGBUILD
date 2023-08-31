@@ -2,22 +2,16 @@
 
 _pipname=pplpy
 pkgname=python-pplpy
-pkgver=0.8.7
-pkgrel=10
+pkgver=0.8.8
+pkgrel=1
 pkgdesc='Python wrapper to the C++ Parma Polyhedra Library (PPL)'
 arch=(x86_64)
 url='https://gitlab.com/videlec/pplpy/'
 license=(LGPL2.1)
 depends=(python-cysignals python-gmpy2 ppl)
 makedepends=(cython0 python-build python-installer python-setuptools python-wheel python-sphinx)
-source=(https://pypi.io/packages/source/${_pipname:0:1}/$_pipname/$_pipname-$pkgver.tar.gz
-        https://gitlab.com/videlec/pplpy/-/commit/653c482f.patch)
-sha256sums=('500bd0f4ae1a76956fae7fcba77854f5ec3e64fce76803664983763c3f2bd8bd'
-            'f9056ea6767fcc97243a4d37ef93f7237d847c7abf650dcc850ea27c9ba44bd1')
-
-prepare() {
-  patch -d $_pipname-$pkgver -p1 < 653c482f.patch # Fix build with cython 3
-}
+source=(https://pypi.io/packages/source/${_pipname:0:1}/$_pipname/$_pipname-$pkgver.tar.gz)
+sha256sums=('eaa50927321fb6c5eb8283262c38f4e9ace26263baf06651deebc271031ef031')
 
 build() {
   cd $_pipname-$pkgver
