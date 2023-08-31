@@ -5,7 +5,7 @@
 
 pkgname=mkosi
 pkgver=15.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Build Legacy-Free OS Images"
 arch=(any)
 url="https://github.com/systemd/mkosi"
@@ -41,6 +41,7 @@ optdepends=(
   'qemu: for running bootable images using QEMU'
   'sbsigntools: for UEFI SecureBoot'
   'swtpm: for adding software TPM when running bootable images using QEMU'
+  'systemd-ukify: for Unified Kernel Image (UKI) support'
   'tar: for tar output format and Debian or Ubuntu images'
   'ubuntu-keyring: for building Ubuntu images'
   'xz: for compressing images with xz'
