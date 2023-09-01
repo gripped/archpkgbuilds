@@ -2,7 +2,7 @@
 
 pkgname=krita
 pkgver=5.1.5
-pkgrel=10
+pkgrel=11
 pkgdesc='Edit and paint images'
 arch=(x86_64)
 url='https://krita.org'
@@ -39,7 +39,8 @@ prepare() {
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_KRITA_QT_DESIGNER_PLUGINS=ON
+    -DBUILD_KRITA_QT_DESIGNER_PLUGINS=ON \
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
