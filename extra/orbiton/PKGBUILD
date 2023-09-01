@@ -2,14 +2,14 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3 orbiton-nano)
-pkgver=2.64.0
+pkgver=2.64.3
 pkgrel=1
 pkgdesc='Fast and configuration-free text editor and IDE limited by VT100'
 arch=(x86_64)
 url='https://orbiton.zip'
 license=(BSD)
 makedepends=(git go vte3)
-source=("git+https://github.com/xyproto/orbiton#commit=9798d682dc0a84d70d799fcd290e7eaa40beca4b") # tag: v2.64.0
+source=("git+https://github.com/xyproto/orbiton#commit=0bd842f0551ac80b6263c907d99d24bf0bf0427a") # tag: v2.64.3
 options=(!lto)
 b2sums=(SKIP)
 
@@ -71,6 +71,7 @@ package_orbiton-gtk3() {
   depends=(orbiton vte3)
   DESTDIR="$pkgdir" PROJECT=$pkgname \
     make -C $pkgbase gui-install gui-symlinks license
+  mv "$pkgdir/usr/share/pixmaps/"{vg,lig}.png
 }
 
 package_orbiton-nano() {
