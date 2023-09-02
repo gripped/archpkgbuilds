@@ -2,7 +2,7 @@
 
 pkgname=reaper
 pkgver=6.82
-pkgrel=1
+pkgrel=2
 pkgdesc="A complete digital audio production application for computers"
 arch=(x86_64)
 url="https://reaper.fm"
@@ -23,6 +23,7 @@ makedepends=(
   xdg-utils
 )
 optdepends=(
+  'ffmpeg4.4: for video rendering'
   'jack: for JACK support'
   'pulseaudio: for PulseAudio support'
   'python: for Python plugins'
