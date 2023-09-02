@@ -7,12 +7,12 @@
 
 pkgname=rpm-tools
 pkgver=4.18.1
-pkgrel=3
+pkgrel=4
 pkgdesc="RPM Package Manager - RPM.org fork, used in major RPM distros"
 arch=('x86_64')
 url='http://www.rpm.org/'
 license=('GPL2')
-depends=('lua' 'file' 'nss' 'popt' 'elfutils' 'libarchive' 'libcap' 'lmdb')
+depends=('lua' 'file' 'nss' 'popt' 'elfutils' 'libarchive' 'libcap')
 makedepends=('python' 'pkg-config')
 conflicts=('rpm' 'rpmextract')
 options=('!libtool')
