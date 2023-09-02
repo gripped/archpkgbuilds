@@ -6,7 +6,7 @@ pkgname=intel-oneapi-mkl
 _pkgver=2023.2.0
 _debpkgrel=49495
 pkgver=${_pkgver}_${_debpkgrel}
-pkgrel=1
+pkgrel=2
 pkgdesc="Intel oneAPI Math Kernel Library"
 arch=('x86_64')
 url='https://software.intel.com/content/www/us/en/develop/tools/oneapi.html'
@@ -78,5 +78,5 @@ package() {
     ln -sf /opt/intel/oneapi/mkl/latest/lib/intel64 ${pkgdir}/opt/intel/mkl/lib/intel64
     ln -sf /opt/intel/oneapi/mkl/latest/lib/intel64 ${pkgdir}/opt/intel/mkl/lib/intel64_lin
     ln -sf /opt/intel/oneapi/mkl/latest/include ${pkgdir}/opt/intel/mkl/include
-    ln -sf ${pkgdir}/opt/intel/mkl/bin/mkl_link_tool ${pkgdir}/usr/bin/mkl_link_tool
+    ln -sf /opt/intel/mkl/bin/mkl_link_tool ${pkgdir}/usr/bin/mkl_link_tool
 }
