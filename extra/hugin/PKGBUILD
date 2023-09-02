@@ -7,7 +7,7 @@
 
 pkgname=hugin
 pkgver=2022.0.0
-pkgrel=10
+pkgrel=11
 pkgdesc="Panorama photo stitcher"
 arch=(x86_64)
 url="http://hugin.sourceforge.net/"
