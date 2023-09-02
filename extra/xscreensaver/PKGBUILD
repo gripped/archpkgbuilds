@@ -3,7 +3,7 @@
 
 pkgname=xscreensaver
 pkgver=6.07
-pkgrel=1
+pkgrel=2
 pkgdesc='Screen saver and locker for the X Window System'
 url='https://www.jwz.org/xscreensaver/'
 arch=('x86_64')
@@ -38,7 +38,9 @@ build() {
     --with-gl \
     --without-gle \
     --with-pixbuf \
-    --with-jpeg
+    --with-jpeg \
+    --with-systemd \
+    --enable-pam-check-account-type
   make
 }
 
