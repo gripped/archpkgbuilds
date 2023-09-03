@@ -5,12 +5,13 @@
 pkgname=sbt
 epoch=1
 pkgver=1.8.2
-pkgrel=1
+pkgrel=2
 pkgdesc='The interactive build tool'
 arch=('any')
 url='https://www.scala-sbt.org/'
 license=('BSD')
 depends=('java-runtime-headless' 'sh')
+optdepends=('rsync: offline installation support')
 IFS='.' read -a _pkgver <<< "${pkgver}"
 _majorver=${_pkgver[0]}.x
 install=sbt.install
