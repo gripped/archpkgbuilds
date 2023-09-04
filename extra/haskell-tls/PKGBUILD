@@ -3,10 +3,10 @@
 
 _hkgname=tls
 pkgname=haskell-tls
-pkgver=1.7.1
-pkgrel=3
+pkgver=1.8.0
+pkgrel=1
 pkgdesc="TLS/SSL protocol native implementation (Server and Client)"
-url="https://github.com/vincenthz/hs-tls"
+url="https://github.com/haskell-tls/hs-tls"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-asn1-encoding' 'haskell-asn1-types' 'haskell-async' 'haskell-cereal'
@@ -16,7 +16,7 @@ depends=('ghc-libs' 'haskell-asn1-encoding' 'haskell-asn1-types' 'haskell-async'
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-hourglass' 'haskell-tasty'
              'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('b00398f6306fda07c84a93e463958db28e6f8c2689d9a550037347730ccbe6eb9ced35b52c0e627ff6a6157523f365b29fb141354d5f3c2a4e71ad782a66f98e')
+sha512sums=('23463ebbe331e02ed3b8d9c5a4e7dccc0b921898709c600e4a0a7b50575029c00ddbdbe6e3a44ffb094059cae377cb388b55be53ab847a1843989359200894b3')
 
 build() {
     cd $_hkgname-$pkgver
