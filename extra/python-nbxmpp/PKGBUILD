@@ -4,7 +4,7 @@
 
 pkgname=python-nbxmpp
 pkgdesc="A Python library to use Jabber/XMPP networks in a non-blocking way"
-pkgver=4.3.2
+pkgver=4.3.3
 pkgrel=1
 arch=(any)
 url="https://dev.gajim.org/gajim/python-nbxmpp/"
@@ -12,8 +12,8 @@ license=(GPL3)
 depends=('libsoup3' 'python-gobject' 'python-idna' 'python-precis_i18n' 'python-packaging')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 source=("https://dev.gajim.org/gajim/python-nbxmpp/-/archive/$pkgver/python-nbxmpp-$pkgver.tar.gz")
-sha256sums=('5d5c3b90f5d2a9d57749503335f65b09c96241fd9caf070a9f08c43d7afe1d93')
-b2sums=('2858d2418182a1d26c7de30873e37b3885d656c2730f14cfb6df1a0c137ebb678827bc8734c4ce931c461238bf16536ea1ff3701f2ebddfdbf557e68f739cbe5')
+sha256sums=('c9cdb54aad692decaa869ec310be4ed4622cf936f920e98b8015818c958f949a')
+b2sums=('b8cb2ac3389cdfdf43a36f553268d00dab2e027491f7dff6189fa483bea86f8a2716211564c0ad4927bc9e604e11efc62beca81daddaeba95ab2ca129805521f')
 
 build() {
   cd $pkgname-$pkgver
