@@ -3,7 +3,7 @@
 
 pkgname=feeluown
 pkgver=3.8.14
-pkgrel=1
+pkgrel=3
 pkgdesc="FeelUOwn Music Player"
 arch=('any')
 url="https://github.com/feeluown/FeelUOwn"
@@ -15,6 +15,7 @@ makedepends=('python-setuptools')
 checkdepends=('python-pytest-benchmark' 'python-pytest-cov' 'python-pycryptodome')
 optdepends=('python-secretstorage: browser cookie extraction support'
             'python-pycryptodome: browser cookie extraction support'
+            'dbus-python: mpris2 server support'
             'feeluown-netease' 'feeluown-qqmusic' 'feeluown-kuwo' 'feeluown-bilibili')
 conflicts=('feeluown-local')
 provides=('feeluown-local')
