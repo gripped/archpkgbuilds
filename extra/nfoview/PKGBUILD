@@ -6,7 +6,7 @@
 pkgname=nfoview
 pkgver=1.99
 _commit=839fbd127765b1d608e3587321e0464d97adb4a2  # refs/tags/1.99
-pkgrel=1
+pkgrel=2
 pkgdesc="Simple NFO file viewer in GTK+ 3"
 arch=(any)
 url="https://otsaloma.io/nfoview/"
@@ -30,7 +30,7 @@ makedepends=(
   python-setuptools
   python-wheel
 )
-optdepends=('terminus-font: recommended font')
+optdepends=('ttf-cascadia-code: recommended font')
 source=($pkgname::git+https://github.com/otsaloma/$pkgname.git#tag=$_commit?signed)
 sha512sums=('SKIP')
 validpgpkeys=('8DD6B3FCDAB33C91EA915B913A584A9504CACA67') # Osmo Salomaa <otsaloma@iki.fi>
