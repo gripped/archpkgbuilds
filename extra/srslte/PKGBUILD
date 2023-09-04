@@ -5,7 +5,7 @@ pkgname=($pkgbase $pkgbase-avx2)
 _pkgname=srsRAN_4G
 pkgver=23.04.1
 _pkgver=release_${pkgver//./_}
-pkgrel=1
+pkgrel=2
 pkgdesc='Open source SDR LTE software suite from Software Radio Systems (SRS)'
 arch=('x86_64')
 url='https://www.srslte.com'
@@ -13,8 +13,8 @@ license=('AGPL3')
 depends=('fftw' 'mbedtls' 'boost-libs' 'lksctp-tools' 'libconfig'
          'libuhd' 'soapysdr' 'bladerf' 'zeromq' 'pcsclite' 'srsgui')
 makedepends=('cmake' 'boost')
-provides=('srsue' 'srsenb' 'srsenb')
-conflicts=('srsue' 'srsenb' 'srsenb')
+provides=('srsue' 'srsenb' 'srsepc')
+conflicts=('srsue' 'srsenb' 'srsepc')
 source=("$_pkgname-$pkgver.tar.gz::https://github.com/srsran/srsRAN/archive/$_pkgver.tar.gz"
          string.patch)
 sha512sums=('725a7d4a317d913d52f10b411cdf647401bcc688ac82f215231b422696b460e16f5d5173e1336be5b7744a338e89eca2293b65689120dab7598bf32bff782f74'
