@@ -3,7 +3,7 @@
 
 pkgname=lzlib
 pkgver=1.13
-pkgrel=2
+pkgrel=3
 pkgdesc="A library providing in-memory LZMA compression and decompression functions"
 arch=('i686' 'x86_64')
 url="http://www.nongnu.org/lzip/lzlib.html"
@@ -25,7 +25,7 @@ build() {
 package() {
   cd "${srcdir}"/$pkgname-$pkgver
 
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR="${pkgdir}" install{,-man}
 
   install -Dm755 minilzip "${pkgdir}"/usr/bin/minilzip
   
