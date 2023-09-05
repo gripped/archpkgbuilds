@@ -7,13 +7,13 @@
 
 pkgname=py3status
 pkgver=3.52
-pkgrel=1
+pkgrel=2
 pkgdesc="An extensible i3status replacement/wrapper written in python"
 url="https://www.ultrabug.fr/tag/py3status/"
 arch=('any')
 license=('BSD')
-depends=('python')
-makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools' 'python-hatch')
+depends=('python' 'python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-wheel' 'python-hatch')
 checkdepends=('python-pytest')
 optdepends=('i3status: for i3status modules'
             'i3blocks: for i3blocks modules'
