@@ -3,19 +3,20 @@
 # Contributor: Tomasz Jakub Rup <tomasz.rup@gmail.com>
 
 pkgname=pnpm
-pkgver=8.7.1
+pkgver=8.7.3
 pkgrel=1
 pkgdesc='Fast, disk space efficient package manager'
 arch=('any')
 url=https://pnpm.io
 license=('MIT')
 depends=("nodejs")
-makedepends=('pnpm')
-source=("https://github.com/$pkgname/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('18d31d420d69c31756620b6428654b47ab1d953b6511193e99986dde5fbe2fa368962492b2614a6974989f5e11f56606a95d86686487e33eda3ee92a8d616358')
+makedepends=('git' 'pnpm')
+source=("git+https://github.com/$pkgname/$pkgname.git#tag=v$pkgver?signed")
+b2sums=('SKIP')
+validpgpkeys=('7B74D1299568B586BA9962B5649E4D4AF74E7DEC') # Zoltan Kochan <z@kochan.io>
 
 build() {
-  cd $pkgname-$pkgver/$pkgname
+  cd $pkgname/$pkgname
   pnpm install --frozen-lockfile
   pnpm run compile
 }
@@ -26,7 +27,7 @@ package() {
   ln -s $_npmdir/bin/$pkgname.cjs "$pkgdir"/usr/bin/$pkgname
   ln -s $_npmdir/bin/pnpx.cjs "$pkgdir"/usr/bin/pnpx
 
-  cd $pkgname-$pkgver/$pkgname
+  cd $pkgname/$pkgname
   cp -r bin package.json "$pkgdir"/$_npmdir
   install -Dt "$pkgdir"/usr/share/licenses/$pkgname LICENSE
   cd dist
