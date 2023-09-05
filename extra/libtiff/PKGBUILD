@@ -3,12 +3,12 @@
 
 pkgname=libtiff
 pkgver=4.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Library for manipulation of TIFF images'
 url='http://www.simplesystems.org/libtiff/'
 arch=('x86_64')
 license=('custom')
-depends=('glibc' 'libjpeg-turbo' 'libjpeg.so' 'zlib' 'xz' 'zstd')
+depends=('gcc-libs' 'glibc' 'jbigkit' 'libjpeg-turbo' 'libjpeg.so' 'zlib' 'xz' 'zstd')
 makedepends=('freeglut' 'glu' 'mesa' 'jbigkit')
 optdepends=('freeglut: for using tiffgt')
 provides=('libtiff.so' 'libtiffxx.so')
