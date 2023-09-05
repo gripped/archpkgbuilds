@@ -3,7 +3,7 @@
 
 pkgname=netplan
 pkgver=0.107
-pkgrel=1
+pkgrel=2
 pkgdesc="Network configuration abstraction renderer"
 arch=('x86_64')
 url="https://github.com/CanonicalLtd/netplan"
@@ -111,4 +111,7 @@ check() {
 
 package() {
   meson install -C build --destdir "$pkgdir"
+  # remove legacy dir which will likely be gone post 0.107:
+  # https://github.com/canonical/netplan/blob/a7e4be03918c986020650743cb6cf0934696ef0c/src/meson.build#L40-L44
+  rm -frv "$pkgdir/lib"
 }
