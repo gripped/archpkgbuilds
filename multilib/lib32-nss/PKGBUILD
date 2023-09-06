@@ -7,7 +7,7 @@ pkgbase=lib32-nss
 pkgname=(
   lib32-nss
 )
-pkgver=3.92
+pkgver=3.93
 pkgrel=1
 pkgdesc="Network Security Services (32-bit)"
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
@@ -30,7 +30,7 @@ makedepends=(
   perl
   python
 )
-_revision=2c2c47e491d060cc5238bd084179bceda7968d39
+_revision=bfb3093c188a06bd08a5c054785950bb8a28a98a
 source=(
   "hg+https://hg.mozilla.org/projects/nss#revision=$_revision"
   0001-Hack-mpi_x64.s-to-work-with-fno-plt.patch
