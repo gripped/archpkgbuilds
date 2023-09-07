@@ -4,7 +4,7 @@
 
 _pkgname=libtiff
 pkgname=lib32-${_pkgname}
-pkgver=4.5.1
+pkgver=4.6.0rc1
 pkgrel=1
 pkgdesc='Library for manipulation of TIFF images (32-bit)'
 url='http://www.simplesystems.org/libtiff/'
@@ -20,12 +20,10 @@ depends=(
   'lib32-zstd'
 )
 provides=('libtiff.so' 'libtiffxx.so')
-source=(
-  "https://download.osgeo.org/libtiff/tiff-${pkgver}.tar.gz"{,.sig}
-)
-sha512sums=('64ad2ae84f3cc67b9774d10cdeed41ab66cde9b50276dd4134318c963d26bea60de8c0b0297e77f47963bae163e0d28ed482fa8e809b1e0fb7b7c8a7f5a1cb9a'
+source=("https://download.osgeo.org/libtiff/tiff-${pkgver}.tar.gz"{,.sig})
+sha512sums=('96266319a1214acd82d22dac8a79c681ba8d2c8ee7dc1672fd2bfa693acc009f82abf1362b8f026267f46214529cec5ff5a038aa29130bdd7b6e065cb0f16938'
             'SKIP')
-b2sums=('ee496a5deeb49b6c4f866dbac0736c4bb84c29f45ae07cea52297679269a835761a3e54eeca5d75903e3d65f8117d4bbd16abdf1487813a31f9c9eb8d03e04c4'
+b2sums=('a87a67d460e1228f63314b668f849f93c572155d69675443283498d30064e02970098641331c282a940ae673dcfa22b49815bc09cb547b8cbffa920b58a1d786'
         'SKIP')
 validpgpkeys=(
   'EBDFDB21B020EE8FD151A88DE301047DE1198975' # Bob Friesenhahn <bfriesen@simple.dallas.tx.us>
@@ -33,7 +31,7 @@ validpgpkeys=(
 )
 
 prepare() {
-  cd tiff-${pkgver}
+  cd tiff-${pkgver//rc*/}
   # apply patch from the source array (should be a pacman feature)
   local src
   for src in "${source[@]}"; do
@@ -60,20 +58,20 @@ build() {
   export CXX="g++ -m32"
   export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 
-  cd tiff-${pkgver}
+  cd tiff-${pkgver//rc*/}
   ./configure "${configure_options[@]}"
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
 
 check() {
-  cd tiff-${pkgver}
+  cd tiff-${pkgver//rc*/}
   make check
 }
 
 package() {
   depends+=('libjpeg.so')
-  cd tiff-${pkgver}
+  cd tiff-${pkgver//rc*/}
   make DESTDIR="${pkgdir}" install
 
   rm -rf "${pkgdir}"/usr/{share,bin}
