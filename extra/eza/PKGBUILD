@@ -2,12 +2,14 @@
 
 pkgname=eza
 pkgver=0.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A modern replacement for ls (communty fork of exa)"
 url="https://github.com/eza-community/eza"
 arch=("x86_64")
 license=("MIT")
 provides=('exa')
+replaces=('exa')
+conflicts=('exa')
 depends=('libgit2.so')
 makedepends=("cargo" "pandoc")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/eza-community/eza/archive/v${pkgver}.tar.gz")
@@ -39,6 +41,7 @@ check() {
 package() {
   cd "${pkgname}-${pkgver}"
   install -Dm755 "target/release/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+  ln -s eza "${pkgdir}/usr/bin/exa"
 
   # install completions
   install -Dm644 "completions/bash/${pkgname}" -t "${pkgdir}/usr/share/bash-completion/completions"
