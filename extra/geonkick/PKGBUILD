@@ -2,12 +2,12 @@
 
 pkgbase=geonkick
 pkgname=(geonkick geonkick-{common,lv2,standalone})
-pkgver=2.9.2
+pkgver=2.10.0
 pkgrel=1
 pkgdesc="A free software percussion synthesizer"
 arch=(x86_64)
 url="https://github.com/free-sm/geonkick"
-license=(GPL3)
+license=(GPL-3.0-or-later)
 makedepends=(
   cairo
   cmake
@@ -24,8 +24,8 @@ checkdepends=(lv2lint)
 # issues with visible symbols during check() if LTO is enabled: https://github.com/free-sm/geonkick/issues/164
 options=(!lto)
 source=($url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('c0c29837ca7a5978b7ad7816542212a19fe70ec1f544e384f226975eb9776ad55d9a4bb1dd91aee8f6300bb4d94d5df87b5c1e514f27407de478a88e4da3fc04')
-b2sums=('ee693c72f2fd6ced488da072d216c77297091defe806d64e58fe2f3ea7eee7bab3c0627eef0429ef41ad3bf90a504b2edec8ad6374a8c758b84e7e1ceb809177')
+sha512sums=('0695a0613dce200c538d497383f8e39d4066ad83c94709c43a95683dcb621f0a9b215295d2843d4d20b6c96fd300acbaf14717aea9be6b4905658fbff75828fb')
+b2sums=('479902b7ea8d6754a493339c8d943c125825603d963bea5b43867f4bf427068836a7950c99366e5d988b69e348b377ef043e946c13b9e1d55fa67b1e16dfd038')
 
 _pick() {
   local p="$1" f d; shift
