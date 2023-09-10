@@ -7,13 +7,16 @@ pkgname=(
   gobject-introspection-runtime
   libgirepository
 )
-pkgver=1.76.1
-pkgrel=3
+pkgver=1.78.0
+pkgrel=1
 pkgdesc="Introspection system for GObject-based libraries"
 url="https://wiki.gnome.org/Projects/GObjectIntrospection"
 arch=(x86_64)
-license=(LGPL GPL)
-_glibver=2.76.2
+license=(
+  GPL
+  LGPL
+)
+_glibver=2.78.0
 makedepends=(
   cairo
   git
@@ -24,15 +27,17 @@ makedepends=(
   python-markdown
   python-sphinx
 )
-_commit=1565805460c3fd65f8630debd0337ec0e33ee2e7  # tags/1.76.1^0
+_commit=610832b3dfc20cd211596e32e8d8254a52faffac  # tags/1.78.0^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/gobject-introspection.git#commit=$_commit"
   "git+https://gitlab.gnome.org/GNOME/glib.git?signed#tag=$_glibver"
 )
 b2sums=('SKIP'
         'SKIP')
-validpgpkeys=('923B7025EE03C1C59F42684CF0942E894B2EAFA0'  # Philip Withnall <philip@tecnocode.co.uk>
-              'D4C501DA48EB797A081750939449C2F50996635F') # Marco Trevisan <marco@trevi.me>
+validpgpkeys=(
+  923B7025EE03C1C59F42684CF0942E894B2EAFA0  # Philip Withnall <philip@tecnocode.co.uk>
+  D4C501DA48EB797A081750939449C2F50996635F  # Marco Trevisan <marco@trevi.me>
+)
 
 pkgver() {
   cd $pkgbase
