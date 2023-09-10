@@ -2,8 +2,8 @@
 
 pkgname=lib32-systemd
 _pkgbasename=systemd
-_tag='2c4171c3c4146fcb32253bfb6423b5a3ee42a553' # git rev-parse v${_tag_name}
-_tag_name=254.1
+_tag='bdc3d31fc044b5c44cc1cf62e833dda189c70dcf' # git rev-parse v${_tag_name}
+_tag_name=254.2
 pkgver="${_tag_name/-/}"
 pkgrel=1
 pkgdesc='system and service manager (32-bit)'
@@ -155,6 +155,10 @@ build() {
     -Dsysvinit-path=
     -Dsysvrcnd-path=
   )
+
+  # this uses malloc_usable_size, which is incompatible with fortification level 3
+  export CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
+  export CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
 
   arch-meson "$_pkgbasename-stable" build "${_meson_options[@]}"
 
