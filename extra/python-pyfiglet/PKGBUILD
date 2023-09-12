@@ -3,7 +3,7 @@
 
 pkgname=python-pyfiglet
 _name=${pkgname#python-}
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 pkgdesc='Pure-python FIGlet implementation'
 url=https://github.com/pwaller/pyfiglet
@@ -18,17 +18,8 @@ makedepends=(
   'python-wheel'
 )
 checkdepends=('figlet' 'python-pytest' 'toilet')
-source=(
-  "git+$url.git#tag=v$pkgver"
-  "pyfiglet-subprocess32-removal.patch::$url/commit/560acfacc85ab64c2d5cba52b6731c8a80bcf879.patch"
-)
-b2sums=('SKIP'
-        '3243d718e0a33d41ac797743f968831942f6e04a2076b20197f78e955929b73ae016e997048798fba036a3f0a5cf2466d55a126bd9fd01209bf58843d50b2182')
-
-prepare() {
-  cd "$_name"
-  git apply ../pyfiglet-subprocess32-removal.patch
-}
+source=("git+$url.git#tag=v$pkgver")
+b2sums=('SKIP')
 
 build() {
   cd "$_name"
