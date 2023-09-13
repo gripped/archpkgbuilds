@@ -4,7 +4,7 @@
 
 _pkgname=libtiff
 pkgname=lib32-${_pkgname}
-pkgver=4.6.0rc1
+pkgver=4.6.0
 pkgrel=1
 pkgdesc='Library for manipulation of TIFF images (32-bit)'
 url='http://www.simplesystems.org/libtiff/'
@@ -21,9 +21,9 @@ depends=(
 )
 provides=('libtiff.so' 'libtiffxx.so')
 source=("https://download.osgeo.org/libtiff/tiff-${pkgver}.tar.gz"{,.sig})
-sha512sums=('96266319a1214acd82d22dac8a79c681ba8d2c8ee7dc1672fd2bfa693acc009f82abf1362b8f026267f46214529cec5ff5a038aa29130bdd7b6e065cb0f16938'
+sha512sums=('80a117780fe5e2519b5c6661efa90a8a1e4591eb6300068b611ff9887285641c0782d9835482f589d6d109c3be6ffab8831c3561bb40e2456258deb1e896f08e'
             'SKIP')
-b2sums=('a87a67d460e1228f63314b668f849f93c572155d69675443283498d30064e02970098641331c282a940ae673dcfa22b49815bc09cb547b8cbffa920b58a1d786'
+b2sums=('aa3d51ffb7d800424a05e6a12e2eaad41adfe7d676650d2857bcc073a25627be88372410a27126e9c067692060c26bd2dec80a42a2188197f6f3ff9d8507fc8f'
         'SKIP')
 validpgpkeys=(
   'EBDFDB21B020EE8FD151A88DE301047DE1198975' # Bob Friesenhahn <bfriesen@simple.dallas.tx.us>
