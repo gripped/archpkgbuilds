@@ -7,7 +7,7 @@ pkgbase=lib32-librsvg
 pkgname=(
   lib32-librsvg
 )
-pkgver=2.56.3
+pkgver=2.57.0
 pkgrel=1
 epoch=2
 pkgdesc="SVG rendering library (32-bit)"
@@ -31,13 +31,11 @@ makedepends=(
   rust
 )
 checkdepends=(ttf-dejavu)
-_commit=312c4b8c28c99b9051ee6de6fa966cf977b0f7b4  # tags/2.56.3^0
+_commit=cd2e29d85df4e09f2af7d24e4254220a051f090d  # tags/2.57.0^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/librsvg.git#commit=$_commit"
-  multilib.diff
 )
-b2sums=('SKIP'
-        '90f6cfc7205b7645c66db22deb045c1455d73ba425a69ed0cf2225d70f6e00a847c86fba1b3df816fa35bdd347575e0e48c1ef24227f10327c67afc45dae84c1')
+b2sums=('SKIP')
 
 pkgver() {
   cd librsvg
@@ -46,10 +44,6 @@ pkgver() {
 
 prepare() {
   cd librsvg
-
-  # Hack to remove docs and cross-compile rust only
-  git apply -3 ../multilib.diff
-
   NOCONFIGURE=1 ./autogen.sh
 }
 
@@ -61,6 +55,8 @@ export CARGO_PROFILE_RELEASE_DEBUG=2
 
 build() {
   local configure_options=(
+    --build="$CHOST"
+    --host=i686-pc-linux-gnu
     --prefix=/usr
     --libdir=/usr/lib32
     --disable-introspection
