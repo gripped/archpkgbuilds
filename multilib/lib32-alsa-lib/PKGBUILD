@@ -4,11 +4,11 @@
 _name=alsa-lib
 pkgname=lib32-alsa-lib
 pkgver=1.2.10
-pkgrel=1
+pkgrel=2
 pkgdesc="An alternative implementation of Linux sound support (32 bit)"
 arch=(x86_64)
 url="https://www.alsa-project.org"
-license=(LGPL2.1)
+license=(LGPL-2.1-or-later)
 depends=(
   lib32-gcc-libs
   lib32-glibc
@@ -18,14 +18,21 @@ provides=(
   libasound.so
   libatopology.so
 )
-source=(https://www.alsa-project.org/files/pub/lib/$_name-$pkgver.tar.bz2{,.sig})
+source=(
+  https://www.alsa-project.org/files/pub/lib/$_name-$pkgver.tar.bz2{,.sig}
+  $_name-1.2.10-config_header.patch::https://github.com/alsa-project/alsa-lib/commit/0e3dfb9f705ca78be34cd70fd59d67c431e29cc7.patch
+)
 sha512sums=('4ccbd1dc5a612044571c26290923009e4c3f7959b30a5d0bed47daa68bbefaff9059c4f0fa3bc16f22c1eed2d36f079139369f40243da5921ae4de02a4541939'
-            'SKIP')
+            'SKIP'
+            '4c10050fb92da9c61e08eb742b60245314362bf8b7f5c34d5edade2f0bcaa0930c1d30267db0a95de2391c01a4aa59f5565423a1c41e42471f3dc9614b4d9b8a')
 b2sums=('b2e4f8431e61f5bb56b2b5d124e67d5a68bbca3c647bebfa93f5e5ff092ec9ef3f6cb6315801fcd93e21151784814ff238d357313b8b44f32d4e7c9ee565388f'
-        'SKIP')
+        'SKIP'
+        '73ce802cfcefed592d3820e4e8fdc2cfcb0666e60e07ede87f5581acf751e2c7552bc9347c1075552337047ec4c2cb64dbc92433d4e4b2e52cf6cad36f2679f2')
 validpgpkeys=('F04DF50737AC1A884C4B3D718380596DA6E59C91') # ALSA Release Team (Package Signing Key v1) <release@alsa-project.org>
 
 prepare() {
+  # fix crashes with 32bit applications: https://bugs.archlinux.org/task/79628
+  patch -Np1 -d $_name-$pkgver -i ../$_name-1.2.10-config_header.patch
   cd $_name-$pkgver
   autoreconf -fiv
 }
