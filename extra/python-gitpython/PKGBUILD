@@ -5,8 +5,8 @@
 _name=gitpython
 pkgdesc="A python library used to interact with Git repositories"
 pkgname=python-gitpython
-_commit=c0be80816c1b826f06530fad3ae7211afa54f894  # refs/tags/3.1.35
-pkgver=3.1.35
+_commit=5297f6210f185c9df9c97392ffef4da8562b58ff  # refs/tags/3.1.36
+pkgver=3.1.36
 pkgrel=1
 url="https://github.com/gitpython-developers/gitpython"
 license=(BSD-3-Clause)
