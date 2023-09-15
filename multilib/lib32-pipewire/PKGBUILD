@@ -9,8 +9,8 @@ pkgname=(
   lib32-pipewire-jack
   lib32-pipewire-v4l2
 )
-_commit=b5c3f217926f9066a1afbee7eb20967dd6896c56  # tags/0.3.79
-pkgver=0.3.79
+_commit=35cca08d2bef14248ac25ff2a1efb0bf274d0a6f  # tags/0.3.80
+pkgver=0.3.80
 pkgrel=1
 epoch=1
 pkgdesc="Low-latency audio/video router and processor - 32-bit"
