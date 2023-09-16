@@ -3,7 +3,7 @@
 
 pkgname=abseil-cpp
 pkgver=20230125.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Collection of C++ library code designed to augment the C++ standard library"
 arch=('x86_64')
 url='https://abseil.io'
