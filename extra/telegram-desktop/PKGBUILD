@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: hexchain <i@hexchain.org>
 pkgname=telegram-desktop
-pkgver=4.9.7
+pkgver=4.9.8
 pkgrel=1
 pkgdesc='Official Telegram Desktop client'
 arch=('x86_64')
@@ -18,7 +18,7 @@ optdepends=('webkit2gtk: embedded browser features'
             'xdg-desktop-portal: desktop integration')
 source=("https://github.com/telegramdesktop/tdesktop/releases/download/v${pkgver}/tdesktop-${pkgver}-full.tar.gz"
         https://download.gnome.org/sources/glibmm/2.77/glibmm-2.77.0.tar.xz)
-sha512sums=('c5339c3f86956fb758ba48016c8c6b7f0f0ddcc23e2404ef442584fd474ad8e372c5f0dbf5dce2f10970d0b7a3d08f258cd33bfa4d587580f6d7f7f7bad8f4db'
+sha512sums=('5271f4de6ee5e70b4083af03f092015a99027aa8619e300ff7b2bb8f11d9a71160519da01ae642dc560142d370877a60567c75e6fb29935e712b633d79ae106e'
             '6650e822de2529582d93291025500afb6a182a0c5a564f656f164d79d8765bb4ca9c9d16227148431cc71c2677923b9364e81bbd4ca4f07f68e36bb380fb9574')
 
 build() {
