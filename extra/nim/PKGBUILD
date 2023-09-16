@@ -8,7 +8,7 @@ pkgname=nim
 _pkgname=Nim
 pkgver=2.0.0
 _csourcesver=86742fb02c6606ab01a532a0085784effb2e753e
-pkgrel=1
+pkgrel=2
 pkgdesc='Imperative, multi-paradigm, compiled programming language'
 url='https://nim-lang.org/'
 arch=('x86_64')
@@ -91,6 +91,9 @@ package() {
   ln -s /usr/share/nim/doc "${pkgdir}/usr/lib/nim/doc"
   install -d "${pkgdir}/usr/share/nim/doc"
   cp -a doc/* "${pkgdir}/usr/share/nim/doc"
+
+  # Fix wrong path for system.nim https://github.com/nim-lang/Nim/issues/22369
+  ln -s /usr/lib/nim "$pkgdir"/usr/lib/nim/lib
 
   install -Dm 644 copying.txt -t "${pkgdir}/usr/share/licenses/${pkgname}"
 
