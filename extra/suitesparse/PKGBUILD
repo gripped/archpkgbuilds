@@ -3,7 +3,7 @@
 
 pkgname=suitesparse
 pkgver=7.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A collection of sparse matrix libraries'
 url='http://faculty.cse.tamu.edu/davis/suitesparse.html'
 arch=(x86_64)
@@ -11,13 +11,19 @@ depends=(lapack mpfr)
 makedepends=(gcc-fortran cmake lapack)
 replaces=('suitesparse64<7.1.0')
 license=(GPL)
-source=(https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('ce63c34f566d0aeae3c85fdc5b72d293f7e834d10ec0a0417b4c0823ce6c0474')
+source=(https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/v$pkgver/$pkgname-$pkgver.tar.gz
+        https://github.com/DrTimothyAldenDavis/SuiteSparse/commit/5ffb460f.patch
+        https://github.com/DrTimothyAldenDavis/SuiteSparse/commit/3344f13c.patch)
+sha256sums=('ce63c34f566d0aeae3c85fdc5b72d293f7e834d10ec0a0417b4c0823ce6c0474'
+            '0c3aa16c082d78ee59600dd9800a6eaac517c77e0723fb92d2dc457c3c82822b'
+            'ce6640789b8d0cee620c8ac33313805e3e11346a421adb476136cada57d4ab4a')
 
 prepare() {
   cd SuiteSparse-$pkgver
 # Fix linking
-  sed -e 's|Mongoose PRIVATE SuiteSparse::SuiteSparseConfig|Mongoose PUBLIC SuiteSparse::SuiteSparseConfig|' -i Mongoose/CMakeLists.txt
+  patch -p1 -i ../5ffb460f.patch
+# Fix cmake files with None build type
+  patch -p1 -i ../3344f13c.patch
 }
 
 build() {
