@@ -4,7 +4,7 @@
 # Contributor: bjoern lindig (bjoern _dot_ lindig _at_ google.com)
 
 pkgname=faust
-pkgver=2.68.0
+pkgver=2.68.1
 pkgrel=1
 pkgdesc="A functional programming language for realtime audio signal processing."
 arch=(x86_64)
@@ -59,8 +59,8 @@ options=(staticlibs)
 source=(
   https://github.com/grame-cncm/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.gz
 )
-sha512sums=('4109e45fffa34f154ba60bae66b6345b166ea44b26e9a8079dbc9a6e54ac21aae52593848181540346ae0d0ead0c6e5adbff8326e7d198923c621cb533aaefd8')
-b2sums=('dd9f830c2c9e5e728cd394bcfe2812f1ebb4ef15a218688db54e49c1cc47657da6404764dc420257faaef1303088c661be213c3a190051d6fefef903f7443e3d')
+sha512sums=('10755e916a5cb40c4180f459abc2d25d9c5a9f712dc8432d861bf299253565befe301281774d8b5d10bff887ee514a31d2913fe7b3e89f87b63732141b23f481')
+b2sums=('7ed318c51f1712bd5a65710756cc6cddedfea6232742d97890910a8a0c628dde35f4dba72fe7d56911c147592f8d802ec37a5dcf0bf5ef155a3d16848bc69269')
 
 build() {
   local cmake_options=(
