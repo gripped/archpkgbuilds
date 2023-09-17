@@ -2,12 +2,10 @@
 # Maintainer: Frederik Schwan <freswa at archlinux dot org>
 # Contributor: Sander Boom <sanderboom@gmail.com>
 
+_commit=fc898ee7befba9ba93dbe7b24f896e76f46e085e
 pkgname=ansible-lint
-# past 6.15.0 because upstream broke ansible-lint with ansible-compat changes:
-# https://github.com/ansible/ansible-lint/issues/3393
-_commit=2fca3fed958702a2b40dd454511ea1b9f624c740
-pkgver=6.15.0.r45.g2fca3fe
-pkgrel=2
+pkgver=6.19.0
+pkgrel=1
 pkgdesc="Checks playbooks for practices and behaviour that could potentially be improved."
 arch=('any')
 url="https://github.com/ansible/ansible-lint"
@@ -29,11 +27,6 @@ prepare() {
   # use pkg version
   #sed -i "s/dynamic = \[\"version\"\]/version = \"${pkgver}\"/" pyproject.toml
   rm .git_archival.txt
-}
-
-pkgver() {
-  cd $pkgname
-  git describe --tags --long --abbrev=7 | sed 's/^v//g;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 build() {
