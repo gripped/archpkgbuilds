@@ -1,0 +1,31 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=xdg-desktop-portal-dde
+pkgver=1.0.5
+pkgrel=2
+pkgdesc='A backend implementation for xdg-desktop-portal on Deepin desktop environment'
+arch=('x86_64')
+url="https://github.com/linuxdeepin/xdg-desktop-portal-dde"
+license=('GPL3')
+depends=('qt5-base' 'wayland' 'dwayland' 'ki18n' 'knotifications' 'glibc' 'gcc-libs')
+makedepends=('cmake' 'ninja' 'extra-cmake-modules')
+provides=(xdg-desktop-portal-impl)
+groups=('deepin')
+source=("https://github.com/linuxdeepin/xdg-desktop-portal-dde/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('e856127e9ed49141a65ea49ddd065566dc60e875dc369846ca2a934b4b74b9bdbe1b1741c620e3f4a7f37a8da8024068b18bc0bbe815038c55c6eda7db3fdfc6')
+
+prepare() {
+  cd xdg-desktop-portal-dde-$pkgver
+  sed -i '/Declarative/d;/GBM/d;/EPOXY/d;s/ Wayland::Client/ Wayland::Client)/' src/CMakeLists.txt
+}
+
+build() {
+  cd xdg-desktop-portal-dde-$pkgver
+  cmake . -GNinja -DCMAKE_INSTALL_LIBEXECDIR=lib
+  ninja
+}
+
+package() {
+  cd xdg-desktop-portal-dde-$pkgver
+  DESTDIR="$pkgdir" ninja install
+}
