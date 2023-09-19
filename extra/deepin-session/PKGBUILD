@@ -1,0 +1,34 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=deepin-session
+pkgver=1.1.9
+pkgrel=4
+pkgdesc='New deepin session, based on systemd and existing projects'
+arch=('x86_64')
+url="https://github.com/linuxdeepin/dde-session"
+license=('GPL3')
+# deepin-session-ui: org.deepin.dde.Osd1
+depends=('glibc' 'gcc-libs' 'glib2' 'libx11' 'libsecret' 'qt5-base' 'gsettings-qt' 'dtkcore'
+         'libxcursor' 'libxfixes' 'systemd-libs' 'deepin-session-ui' 'deepin-kwin')
+makedepends=('cmake' 'ninja')
+groups=('deepin')
+source=("https://github.com/linuxdeepin/dde-session/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+        $pkgname-update-env.patch::https://github.com/linuxdeepin/dde-session/pull/48.patch)
+sha512sums=('bee4ecda31ba99d0cdcf2fe3b47547621f3323d0ca35155812bfcbdea3db657a9984675046c1853a7baeee33a3d257f55de7884b1b3996662e59ae1ef98292f4'
+            '27ac6d98630a8fe887bcc6015393a6f7653bbf6a5268a597d22a7f15a01a6bce81dadb4b5d2c2729971f71346065eb0dafc04673c0a64a6af83dc9cc886a8711')
+
+prepare() {
+  cd dde-session-$pkgver
+  patch -Np1 -i ../$pkgname-update-env.patch
+}
+
+build() {
+  cd dde-session-$pkgver
+  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DCMAKE_INSTALL_LIBEXECDIR=lib
+  ninja
+}
+
+package() {
+  cd dde-session-$pkgver
+  DESTDIR="$pkgdir" ninja install
+}
