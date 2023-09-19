@@ -6,7 +6,7 @@
 # Contributor: Sid Karunaratne
 
 pkgname=tor
-pkgver=0.4.8.5
+pkgver=0.4.8.6
 pkgrel=1
 pkgdesc='Anonymizing overlay network.'
 arch=('x86_64')
@@ -15,6 +15,7 @@ license=('BSD')
 depends=(
   'bash'
   'libcap.so'
+  'libcrypto.so'
   'libevent'
   'liblzma.so'
   'libseccomp.so'
@@ -31,8 +32,8 @@ source=("https://dist.torproject.org/${pkgname}-${pkgver}.tar.gz"{,.sha256sum{,.
         'tor.sysusers'
         'tor.tmpfiles'
         'tor.service')
-b2sums=('71a4807284ecefc4a18d6bc15ce798844304f860338b786590779fb171f851d630e8af3114dbc84fe854561e0085dcb147b4dd87787988a8fb6c3628bfcc8175'
-        'eddb6cf660e9e5b0eef20477d4536a0063bf8dcd0da75238514e620a9f6046431d656d4492f3765f14ff99175525dc4ae5c66f7f5ed0e1f7efe69e8f3b2a9583'
+b2sums=('e26b802d42be24361362bd74dd24b54a336516b58cd717c08864c9a5db54bb591849145156693f4968a8b671be23421d957cd814834a2605b8ae8e46b3264eb4'
+        '0baac2f492c9046273a18161e3d2f102c2d94764cb3a57d6c8ed78562fe33a411e869cb631526ffa13f33fe74d15d835c636f9836f7cc210df8eca74384e1905'
         'SKIP'
         '98baf96cdac36072086f48bf4701cede6cf31eee207f4a1a4cfc81b483ba53b991082aaf4ed638e50dfd67fb006bbd915af97943ab658df29dfa51ea4aa77dd2'
         '9053da53926f2120ac57b6c1442238f5bbd89bf9270347c4e00b721b39939bebc6adfcf814a9d7289dfd14d085d91c193529305336db93190da5b7f586a031df'
