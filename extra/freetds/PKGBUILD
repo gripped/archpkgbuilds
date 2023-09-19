@@ -2,12 +2,16 @@
 
 pkgname=freetds
 pkgver=1.3.20
-pkgrel=1
+pkgrel=2
 pkgdesc='Library for accessing Sybase and MS SQL Server databases'
 url='https://www.freetds.org'
 arch=(x86_64)
 license=(LGPL)
-depends=(openssl unixodbc)
+depends=(glibc
+         krb5
+         openssl
+         readline
+         unixodbc)
 backup=(etc/freetds/freetds.conf
         etc/freetds/locales.conf
         etc/freetds/pool.conf)
@@ -16,8 +20,13 @@ sha256sums=('20ae11f3b806e4fbc0fa0b5931fb473bb5748bee9d487f6aa12885083578a5ed')
 
 build() {
   cd $pkgname-$pkgver
-  ./configure --prefix=/usr --sysconfdir=/etc/freetds --enable-msdblib \
-    --with-unixodbc=/usr --with-openssl
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc/freetds \
+    --enable-msdblib \
+    --enable-krb5 \
+    --with-unixodbc=/usr \
+    --with-openssl
   make 
 }
 
