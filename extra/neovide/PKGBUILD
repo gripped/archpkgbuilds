@@ -3,13 +3,16 @@
 
 pkgname=neovide
 pkgver=0.11.2
-pkgrel=1
+pkgrel=2
 pkgdesc='No Nonsense Neovim Client in Rust'
 arch=(x86_64)
 url="https://github.com/$pkgname/$pkgname"
 license=(MIT)
 depends=(fontconfig
          freetype2
+         hicolor-icon-theme
+         libfontconfig.so
+         libfreetype.so
          libglvnd
          neovim
          sndio)
@@ -23,13 +26,18 @@ sha256sums=('62e973a5407a6bfc731ce78e0495d2ed10930d33b22fe94cfe23acccbf789ae9')
 
 prepare() {
 	cd "$_archive"
-	sed -i -e '/^incremental/a opt-level = 3' Cargo.toml
+	sed -r -i \
+		-e '/^incremental/a opt-level = 3' \
+		-e '/wayland/s/\]/, "embed-icudtl"]/g' \
+		-e '/wayland/a no-default-features = true' \
+		Cargo.toml
 	cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 build() {
 	cd "$_archive"
 	CFLAGS+=' -ffat-lto-objects'
+	export SKIA_USE_SYSTEM_LIBRARIES=true
 	cargo build --frozen --release --features embed-fonts
 }
 
