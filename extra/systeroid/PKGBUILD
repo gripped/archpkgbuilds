@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=systeroid
-pkgver=0.4.3
+pkgver=0.4.4
 pkgrel=1
 pkgdesc="A more powerful alternative to sysctl"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT' 'Apache')
 depends=('libxcb' 'libxkbcommon' 'linux-docs')
 makedepends=('cargo' 'python')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('c998aa62d32a2a53c6e125cc1827d63020608058ef4858a3c5bb9145012453541d94844243d5f40a4a71d4f0625e66db9386c34cc0de324611ab79f49c5c7d82')
+sha512sums=('61d8f8bdd34404f57e237f0843f67c1aaf9d9e552fd7857bc770db1ebf6296ed6f1c86edcf620cde271ba86f9039ce39209908c2a0076bee8cf05aa2925351a3')
 
 prepare() {
   cd "$pkgname-$pkgver"
