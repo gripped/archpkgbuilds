@@ -1,0 +1,25 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=deepin-api-proxy
+pkgver=1.0.8
+pkgrel=1
+pkgdesc='API proxy service for DDE'
+arch=('x86_64')
+url="https://github.com/linuxdeepin/dde-api-proxy"
+license=('GPL3')
+depends=('deepin-daemon' 'dtkcore' 'qt5-base' 'glibc' 'gcc-libs')
+makedepends=('cmake' 'ninja')
+groups=('deepin')
+source=("https://github.com/linuxdeepin/dde-api-proxy/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('a04f444ce5bd97c10a4f0c5008610d6d05ce79f3b6f00a65abd8e631eb29a3eb93e390fa6a8abd78621f4f8c227e7f28ed860de206e5f48f4a7f3a1118122e6a')
+
+build(){
+  cd dde-api-proxy-$pkgver
+  cmake -GNinja . -DCMAKE_INSTALL_PREFIX=/usr
+  ninja
+}
+
+package() {
+  cd dde-api-proxy-$pkgver
+  DESTDIR="$pkgdir" ninja install
+}
