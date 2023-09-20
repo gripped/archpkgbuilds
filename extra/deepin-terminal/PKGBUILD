@@ -3,42 +3,40 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-terminal
-pkgver=5.9.43
+pkgver=6.0.6
 pkgrel=1
 pkgdesc='Default terminal emulation application for Deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-terminal"
 license=('GPL3')
-depends=('at-spi2-core' 'deepin-qt5integration' 'deepin-qt-dbus-factory' 'dtkcore' 'dtkgui'
-         'dtkwidget' 'glib2' 'icu' 'qt5-base' 'qt5-x11extras' 'libsecret' 'uchardet' 'libchardet'
-         'gcc-libs' 'libxcb')
-makedepends=('cmake' 'expac' 'lxqt-build-tools' 'ninja' 'qt5-tools')
+depends=('deepin-qt-dbus-factory' 'dtkcore' 'dtkgui' 'dtkwidget' 'glib2' 'qt5-base' 'qt5-x11extras'
+         'libsecret' 'glibc' 'gcc-libs' 'libxcb' 'fontconfig')
+makedepends=('cmake' 'lxqt-build-tools' 'ninja' 'qt5-tools')
 #checkdepends=('xorg-server-xvfb')
 optdepends=('zssh: for remote management support')
 groups=('deepin-extra')
-source=("https://github.com/linuxdeepin/deepin-terminal/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('f4d43f37637f415f0372039cc071ec34813333c45c452ad068d77bb33bf2fec116d8e59c9c520113c3d418a761afc0bdff06c1e03db48419e6f79ced3272d0a1')
+source=("https://github.com/linuxdeepin/deepin-terminal/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+        $pkgname-missing-include.patch::https://github.com/linuxdeepin/deepin-terminal/commit/9be3f1b2dc23a0b9ae842e921ad636f73205dc17.patch)
+sha512sums=('0a517a310c0190ddad92483d613f91d06bddd0e31ef8274be40c3081cc751b44b2d398d1f2f5c3abff04bca45a46b2a1a9ffb9a59856f4ad5ef55364ac12b784'
+            '2db41b94e93bf304e22c046c50f216a3dfcdfa125cb428bef66decf345a4899dd11705dafba2fdbda2fb69682c7121952698ce9a21aea7352802947ddc57cb33')
 
 prepare() {
-  mkdir build
   cd deepin-terminal-$pkgver
-
-  # ninja: error: '/build/deepin-terminal/src/deepin-terminal-5.4.0.6/default-config.json', needed by '/build/deepin-terminal/src/deepin-terminal-5.4.0.6/settings_translation.cpp', missing and no known rule to make it
-  sed -i 's|default-config.json|src/assets/other/default-config.json|' CMakeLists.txt
+  patch -Np1 -i ../$pkgname-missing-include.patch
 }
 
 build(){
-  cd build
-  cmake -GNinja ../deepin-terminal-$pkgver -DAPP_VERSION=$pkgver -DVERSION=$pkgver
+  cd deepin-terminal-$pkgver
+  cmake . -GNinja -DVERSION=$pkgver -DCMAKE_INSTALL_PREFIX=/usr
   ninja
 }
 
 check() {
-  cd build
+  cd deepin-terminal-$pkgver
   #LD_LIBRARY_PATH="$PWD/3rdparty/terminalwidget" xvfb-run ninja test || echo "Tests failed"
 }
 
 package() {
-  cd build
+  cd deepin-terminal-$pkgver
   DESTDIR="$pkgdir" ninja install
 }
