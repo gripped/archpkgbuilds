@@ -4,7 +4,7 @@
 
 pkgname=startdde
 pkgver=6.0.10
-pkgrel=2
+pkgrel=3
 pkgdesc="starter of deepin desktop environment"
 arch=('x86_64')
 url="https://github.com/linuxdeepin/startdde"
@@ -13,19 +13,13 @@ depends=('deepin-daemon' 'deepin-session' 'deepin-dock' 'deepin-polkit-agent' 'd
          'deepin-session-shell' 'deepin-session-ui' 'libgnome-keyring' 'deepin-wloutput-daemon'
          'deepin-kwin')
 makedepends=('cmake' 'coffeescript' 'go' 'git' 'jq')
-replaces=('deepin-wm-switcher')
 groups=('deepin')
-source=("https://github.com/linuxdeepin/startdde/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        schema.patch)
-sha512sums=('903801976dd9790c15d16b16f5b12c0ab4d03fd61495913f34d34b483a1a9bec7504cf946225210b043005f232bc25f7a79457b56b8d141444a4e3268a202714'
-            'e15ff5b1c649cfc736ba47f7d69ca3d7abeb5593f25ccd71c0965439862204d25833fa7d896cd3073d6c449040b42153d6c6ccbb9e12d5c698603458130d497d')
+source=("https://github.com/linuxdeepin/startdde/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('903801976dd9790c15d16b16f5b12c0ab4d03fd61495913f34d34b483a1a9bec7504cf946225210b043005f232bc25f7a79457b56b8d141444a4e3268a202714')
 
 prepare() {
   cd startdde-$pkgver
-  patch -p2 -i ../schema.patch
-
   sed -i 's/sbin/bin/' Makefile
-
   sed -i 's|/etc/os-version|/etc/uos-version|' misc/Xsession.d/00deepin-dde-env
 }
 
