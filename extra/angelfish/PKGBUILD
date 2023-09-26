@@ -2,14 +2,14 @@
 
 pkgname=angelfish
 pkgver=23.08.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Web browser for Plasma Mobile'
 url='https://apps.kde.org/angelfish/'
 arch=(x86_64)
 license=(GPL LGPL)
 groups=(kde-applications kde-network)
-depends=(kirigami-addons purpose qqc2-desktop-style qt5-webengine qt5-svg qt5-feedback futuresql-qt5)
-makedepends=(extra-cmake-modules corrosion qcoro-qt5)
+depends=(kirigami-addons purpose qqc2-desktop-style qt5-webengine qt5-svg qt5-feedback futuresql-qt5 qcoro-qt5)
+makedepends=(extra-cmake-modules corrosion)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('eee6723e006656410f1279b68cf35a8c472dcd6a6c78ed45a2c49c4a2112f98f'
             'SKIP')
