@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-app-services
-pkgver=1.0.22
+pkgver=1.0.23
 pkgrel=1
 pkgdesc='Service collection of DDE applications, including dconfig-center'
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=(qt5-base dtkcore dtkwidget)
 makedepends=(cmake ninja doxygen gtest qt5-tools)
 groups=(deepin)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/dde-app-services/archive/$pkgver.tar.gz")
-sha512sums=('8317c183f7feb8b60fecfcfd9eb1c85a21c5ab65945dde10cadccaf612841332ed2a8f64dcae10e2783044829b8e52cee5c4f6bb91f9e7d87ae30a75ec424bc8')
+sha512sums=('d0f361c43e570ca9871817c046e840233d7239b928a515e5afda2d118892a1b731b6d7e67b2514077d20f3789704aae96b0058a77e67fa93e24e0867555d8062')
 
 build() {
   cd dde-app-services-$pkgver
