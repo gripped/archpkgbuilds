@@ -1,0 +1,30 @@
+# Maintainer: Campbell Jones <arch at serebit dot com>
+
+pkgname=waycheck
+pkgver=0.1.3
+pkgrel=1
+pkgdesc="Simple GUI that displays the protocols implemented by a Wayland compositor"
+arch=("x86_64")
+url="https://gitlab.freedesktop.org/serebit/$pkgname"
+license=("Apache-2.0")
+depends=("hicolor-icon-theme" "qt6-wayland>=6.5" "wayland")
+makedepends=("meson")
+checkdepends=("appstream")
+source=("https://gitlab.freedesktop.org/serebit/$pkgname/uploads/d8b5c83a3ae312fdabdf8631aaccd15d/${pkgname}-v${pkgver}.tar.xz"
+        "https://gitlab.freedesktop.org/serebit/$pkgname/uploads/d1fcfe44a071695a7a2f53e7057d68b6/${pkgname}-v${pkgver}.tar.xz.asc")
+b2sums=("e275053c97b28d97573da430e9ab2f05da56ffcd5478c342687dd2e58e0c5b164fd87301731aa9642e5cbee94c67b66da738d7a3ad08dad83e1b8ce96266d8a1"
+        "SKIP")
+validpgpkeys=("8A59B135826B2DA453B9707408AD7343E6BD4B56")
+
+build() {
+	arch-meson "$pkgname-$pkgver" build
+	meson compile -C build
+}
+
+check() {
+	meson test -C build
+}
+
+package() {
+	meson install -C build --destdir "$pkgdir"
+}
