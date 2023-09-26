@@ -1,6 +1,6 @@
 pkgbase = nomad
 	pkgdesc = A simple and flexible workload orchestrator
-	pkgver = 1.6.1
+	pkgver = 1.6.2
 	pkgrel = 1
 	url = https://www.nomadproject.io
 	arch = x86_64
@@ -20,7 +20,7 @@ pkgbase = nomad
 	optdepends = nomad-driver-containerd: for containerd driver
 	options = !lto
 	backup = etc/nomad.d/defaults.hcl
-	source = nomad::git+https://github.com/hashicorp/nomad.git#commit=515895c7690cdc72278018dc5dc58aca41204ccc
+	source = nomad::git+https://github.com/hashicorp/nomad.git#commit=73e372ad94033db2ceaf53468b270a31544c23fd
 	source = systemd.service
 	source = tmpfiles.conf
 	source = defaults.hcl
