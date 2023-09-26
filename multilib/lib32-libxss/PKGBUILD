@@ -4,18 +4,18 @@
 
 _pkgbasename=libxss
 pkgname=lib32-$_pkgbasename
-pkgver=1.2.3
-pkgrel=3
+pkgver=1.2.4
+pkgrel=1
 pkgdesc="X11 Screen Saver extension library (32-bit)"
 arch=(x86_64)
 license=('custom')
 url="https://gitlab.freedesktop.org/xorg/lib/libxscrnsaver"
 depends=('lib32-libxext' $_pkgbasename)
 makedepends=('xorg-util-macros' gcc-multilib)
-source=("https://xorg.freedesktop.org/releases/individual/lib/libXScrnSaver-${pkgver}.tar.bz2"{,.sig})
-sha512sums=('7ea628324a11b25ee82c7b11c6bf98f37de219354de51c1e29467b5de422669ba1ab121f3b9dc674093c8f3960e93c5d5428122f5539092f79bc8451c768354a'
+source=("https://xorg.freedesktop.org/releases/individual/lib/libXScrnSaver-${pkgver}.tar.xz"{,.sig})
+sha512sums=('e4395af85f8496618afb23ffdaca1a75f5e3d213478d8dc73249cbc9840d7b993ba7513dbf6015cb38b48fe3f2223496365158a148dd5e1ac7475c5ee569e28c'
             'SKIP')
-validpgpkeys=('995ED5C8A6138EB0961F18474C09DD83CAAA50B2') # Adam Jackson <ajax@nwnk.net>
+validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # "Alan Coopersmith <alan.coopersmith@oracle.com>"
 
 build() {
   export CC="gcc -m32"
