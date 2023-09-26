@@ -5,8 +5,8 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski at archlinux dot org>
 
 pkgname=lib32-libva
-pkgver=2.19.0
-pkgrel=2
+pkgver=2.20.0
+pkgrel=1
 pkgdesc='Video Acceleration (VA) API for Linux (32-bit)'
 arch=(x86_64)
 url=https://01.org/linuxmedia/vaapi
@@ -37,7 +37,7 @@ provides=(
   libva-x11.so
   libva.so
 )
-_tag=807044bd0fcb944edf230052fa09acc4266790fe
+_tag=907b2b5405ca1091b4360bf35060e143bd704b62
 source=(git+https://github.com/intel/libva.git#tag=${_tag})
 b2sums=('SKIP')
 
