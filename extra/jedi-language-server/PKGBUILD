@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=jedi-language-server
-pkgver=0.41.0
+pkgver=0.41.1
 pkgrel=1
 pkgdesc='Language server for Jedi'
 arch=('any')
@@ -10,35 +10,34 @@ license=('MIT')
 depends=(
   'python-docstring-to-markdown'
   'python-jedi'
-  'python-pydantic'
   'python-pygls'
 )
-makedepends=('python-build' 'python-installer' 'python-poetry-core')
+makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core')
 checkdepends=('python-lsp-jsonrpc' 'python-pyhamcrest' 'python-pytest')
-source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('3bd112f17665e5d2273c3c880697c5f4aa7335b8f29b770e00a61a3204a619cd51d14bdf6ae6b3fce1193b816c3177670088447ba4bb1b783027072f419a1a9d')
+source=("git+$url.git#tag=v$pkgver")
+b2sums=('SKIP')
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   # Remove include list https://github.com/pypa/wheel/issues/92
   sed -i '/include = \["README.md"\]/d' pyproject.toml
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m build --wheel --skip-dependency-check --no-isolation
 }
 
 check() {
-  cd $pkgname-$pkgver
-  mkdir -p temp
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  cd $pkgname
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
   python -m installer --destdir=temp dist/*.whl
-  PATH="$PWD/temp/usr/bin:$PATH" PYTHONPATH="$PWD/temp/$site_packages" pytest tests
+  PATH="$PWD/temp/usr/bin:$PATH" test-env/bin/python -m pytest tests
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
 
   # Symlink license file
