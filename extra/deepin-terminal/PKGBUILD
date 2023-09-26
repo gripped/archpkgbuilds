@@ -3,26 +3,27 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-terminal
-pkgver=6.0.6
+pkgver=6.0.7
 pkgrel=1
 pkgdesc='Default terminal emulation application for Deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-terminal"
 license=('GPL3')
-depends=('deepin-qt-dbus-factory' 'dtkcore' 'dtkgui' 'dtkwidget' 'glib2' 'qt5-base' 'qt5-x11extras'
-         'libsecret' 'glibc' 'gcc-libs' 'libxcb' 'fontconfig')
+depends=('dtkcore' 'dtkgui' 'dtkwidget' 'glib2' 'qt5-base' 'qt5-x11extras' 'libsecret' 'glibc'
+         'gcc-libs' 'libxcb' 'fontconfig' 'hicolor-icon-theme')
 makedepends=('cmake' 'lxqt-build-tools' 'ninja' 'qt5-tools')
 #checkdepends=('xorg-server-xvfb')
 optdepends=('zssh: for remote management support')
 groups=('deepin-extra')
 source=("https://github.com/linuxdeepin/deepin-terminal/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        $pkgname-missing-include.patch::https://github.com/linuxdeepin/deepin-terminal/commit/9be3f1b2dc23a0b9ae842e921ad636f73205dc17.patch)
-sha512sums=('0a517a310c0190ddad92483d613f91d06bddd0e31ef8274be40c3081cc751b44b2d398d1f2f5c3abff04bca45a46b2a1a9ffb9a59856f4ad5ef55364ac12b784'
-            '2db41b94e93bf304e22c046c50f216a3dfcdfa125cb428bef66decf345a4899dd11705dafba2fdbda2fb69682c7121952698ce9a21aea7352802947ddc57cb33')
+        $pkgname-break-non-dde.patch::https://github.com/linuxdeepin/deepin-terminal/commit/0df1446c1af214ffb568e7b956edbed7e656abf3.patch)
+sha512sums=('5eaef636b612dd581c4bf32588cb5c3bc5413e59de64553628d18e0152e2c640673daf5976425afc2e3aa0236c25d45b20be27045f1a503d513b4ac8dc82acc9'
+            'b2a6df7aa55ca5a89c117fd784dd5ef2860a3f8410bbee8c224e4e4b98fe044a3248422f93c08a6605d5e4c091022db01e84a56637fcade8e0fd2a2962629b13')
 
 prepare() {
   cd deepin-terminal-$pkgver
-  patch -Np1 -i ../$pkgname-missing-include.patch
+  # https://github.com/linuxdeepin/developer-center/issues/5723
+  patch -Rp1 -i ../$pkgname-break-non-dde.patch
 }
 
 build(){
