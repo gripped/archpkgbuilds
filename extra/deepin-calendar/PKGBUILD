@@ -3,24 +3,29 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-calendar
-pkgver=5.10.1
+pkgver=5.11.0
 pkgrel=1
 pkgdesc='Calendar for Deepin Desktop Environment'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-calendar"
 license=('GPL3')
-depends=('deepin-qt5integration' 'deepin-qt-dbus-factory' 'dtkcore' 'dtkgui' 'dtkwidget'
-         'gcc-libs' 'libical' 'qt5-svg' 'qt5-base')
+depends=('dtkcore' 'dtkgui' 'dtkwidget' 'glibc' 'gcc-libs' 'libical' 'qt5-svg' 'qt5-base')
 makedepends=('cmake' 'ninja' 'qt5-tools')
 groups=('deepin')
 source=("https://github.com/linuxdeepin/dde-calendar/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('ffcfb6e2181c401375d04ba2b812e7b30300d3fbeb5424c882038697a78f57bb1d910c171f0bc19e1d1bea05986f27f5847ffc6a5b798524c989cad8b6efd169')
+sha512sums=('47fd7851d4e3fbbd3d27d31313394bce52abe03ae31ff2185e851d94bdc113038a7467c0d088947bc30d9a9ad246f3fc4fa24baeb43839fee0b9235ef9f73c36')
+
+prepare() {
+  cd dde-calendar-$pkgver
+  sed -i '/DFrameworkdbus/d' */CMakeLists.txt */*/CMakeLists.txt
+}
 
 build() {
   cd dde-calendar-$pkgver
   cmake -GNinja . \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_SYSCONFDIR=/etc \
+    -DCMAKE_INSTALL_LIBEXECDIR=lib \
     -DVERSION=$pkgver
   ninja
 }
