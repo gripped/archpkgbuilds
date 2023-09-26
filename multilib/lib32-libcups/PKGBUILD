@@ -2,7 +2,7 @@
 
 _pkgbasename=libcups
 pkgname=lib32-$_pkgbasename
-pkgver=2.4.6
+pkgver=2.4.7
 pkgrel=1
 pkgdesc="The CUPS Printing System - client libraries (32-bit)"
 arch=('x86_64')
@@ -13,7 +13,7 @@ source=(https://github.com/OpenPrinting/cups/releases/download/v${pkgver}/cups-$
         cups-freebind.patch
         guid.patch
 )
-sha256sums=('58e970cf1955e1cc87d0847c32526d9c2ccee335e5f0e3882b283138ba0e7262'
+sha256sums=('dd54228dd903526428ce7e37961afaed230ad310788141da75cebaa08362cf6c'
             'SKIP'
             '3385047b9ac8a7b13aeb8f0ca55d15f793ce7283516db0155fe28a67923c592d'
             '0bf6a75ba1b051771f155d9a5d36b307a6d40c6857d645b250fe93f3fb713474')
