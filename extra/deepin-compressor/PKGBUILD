@@ -1,23 +1,22 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-compressor
-pkgver=5.12.17
+pkgver=5.12.18
 pkgrel=1
 pkgdesc='A fast and lightweight application for creating and extracting archives'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-compressor"
 license=('GPL3')
-depends=('deepin-qt5integration' 'dtkcore' 'dtkgui' 'dtkwidget' 'gcc-libs' 'qt5-base' 'glib2'
-         'disomaster' 'karchive' 'kcodecs' 'libarchive' 'libzip' 'minizip' 'udisks2-qt5'
-         'util-linux-libs')
+depends=('dtkcore' 'dtkgui' 'dtkwidget' 'glibc' 'gcc-libs' 'qt5-base' 'glib2' 'karchive' 'kcodecs'
+         'libarchive' 'libzip' 'minizip' 'util-linux-libs' 'hicolor-icon-theme')
 makedepends=('cmake' 'ninja' 'qt5-tools')
 groups=('deepin-extra')
 source=("https://github.com/linuxdeepin/deepin-compressor/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('65f28c50011801e24a98bc02450050ee37a2fcfccc66b6a4625be6954d347816ff7204207dc2398c1569856d4e48df95b0532e0085789e039b955a518ca3fc3a')
+sha512sums=('b99e6e25a5cac0a2cca531d8b8865b7d8a334a9c2dd3f6fcdfc6f44b0d5d4b0e9775db90beba2e7dfce59ed8cc90dff77f1c02fac3ebb31d11e6eda77107b45c')
 
 build() {
   cd deepin-compressor-$pkgver
-  cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib .
+  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib
   ninja
 }
 
