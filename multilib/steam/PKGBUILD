@@ -5,17 +5,50 @@
 
 pkgname=steam
 pkgver=1.0.0.78
-pkgrel=1
+pkgrel=2
 pkgdesc="Valve's digital software delivery system"
 url='https://steampowered.com/'
 arch=('x86_64')
 license=('custom')
-depends=('bash' 'desktop-file-utils' 'diffutils' 'hicolor-icon-theme' 'curl' 'dbus'
-         'freetype2' 'gdk-pixbuf2' 'ttf-font' 'zenity' 'lsb-release' 'nss' 'usbutils'
-         'xorg-xrandr' 'vulkan-driver' 'vulkan-icd-loader' 'lsof' 'python')
-depends_x86_64=('lib32-libgl' 'lib32-gcc-libs' 'lib32-libx11' 'lib32-libxss'
-                'lib32-alsa-plugins' 'lib32-libgpg-error'
-                'lib32-nss' 'lib32-vulkan-driver' 'lib32-vulkan-icd-loader')
+depends=(
+  bash
+  desktop-file-utils
+  diffutils
+  hicolor-icon-theme
+  curl
+  dbus
+  freetype2
+  gdk-pixbuf2
+  ttf-font
+  zenity
+  lsb-release
+  nss
+  usbutils
+  xorg-xrandr
+  vulkan-driver
+  vulkan-icd-loader
+  lsof
+  python
+  xdg-user-dirs
+  glibc
+  libxcrypt
+  libxcrypt-compat
+  gcc-libs
+)
+depends_x86_64=(
+  lib32-glibc
+  lib32-libxcrypt
+  lib32-libxcrypt-compat
+  lib32-libgl
+  lib32-gcc-libs
+  lib32-libx11
+  lib32-libxss
+  lib32-alsa-plugins
+  lib32-libgpg-error
+  lib32-nss
+  lib32-vulkan-driver
+  lib32-vulkan-icd-loader
+)
 optdepends=('steam-native-runtime: steam native runtime support')
 source=(https://repo.steampowered.com/${pkgname}/pool/${pkgname}/s/${pkgname}/${pkgname}_${pkgver}{.tar.gz,.dsc}
         steam-runtime.sh)
