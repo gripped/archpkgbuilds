@@ -4,7 +4,7 @@
 
 pkgname=flameshot
 pkgver=12.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Powerful yet simple to use screenshot software"
 arch=('x86_64')
 url="https://github.com/flameshot-org/flameshot"
@@ -19,20 +19,17 @@ optdepends=(
 source=("${pkgname}-v${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
 sha256sums=('c82c05d554e7a6d810aca8417ca12b21e4f74864455ab4ac94602668f85ac22a')
 
-prepare() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  mkdir -p build
-}
-
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}/build"
-  cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DUSE_WAYLAND_CLIPBOARD=1
-  make
+  cmake -B build -S "${pkgname}-${pkgver}" \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DUSE_WAYLAND_CLIPBOARD=1 \
+    -Wno-dev
+  cmake --build build
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}/build"
-  make DESTDIR="${pkgdir}" install
+  DESTDIR="${pkgdir}" cmake --install build
 
   # zsh _flameshot completion is provided by zsh-completions so exclude from packaging
   rm -rf ${pkgdir}/usr/share/zsh/
