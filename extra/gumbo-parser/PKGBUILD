@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=gumbo-parser
-pkgver=0.12.0
+pkgver=0.12.1
 pkgrel=1
 pkgdesc="HTML5 parsing library in pure C99"
 arch=(x86_64)
@@ -10,7 +10,7 @@ license=(Apache)
 depends=(glibc)
 checkdepends=(gtest)
 source=("$pkgname-$pkgver.tar.gz::https://codeberg.org/grisha/gumbo-parser/archive/$pkgver.tar.gz")
-sha256sums=('f4820b8028b07406ba24ac74ef77057f5d9871f1b17c5486ad78e3da6e541e51')
+sha256sums=('c0bb5354e46539680724d638dbea07296b797229a7e965b13305c930ddc10d82')
 
 prepare() {
   cd $pkgname
