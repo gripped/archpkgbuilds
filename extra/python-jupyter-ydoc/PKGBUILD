@@ -2,17 +2,23 @@
 
 _pyname=jupyter_ydoc
 pkgname=python-${_pyname//_/-}
-pkgver=1.0.2
-pkgrel=2
+pkgver=1.1.0
+pkgrel=1
 pkgdesc='Document structures for collaborative editing using Ypy'
 arch=(any)
 url='https://jupyter.org/'
 license=(MIT)
-depends=(python-ypy-websocket)
-makedepends=(python-build python-installer python-hatchling python-hatch-nodejs-version)
-checkdepends=(python-pytest-asyncio python-websockets)
+depends=(python
+         python-y-py)
+makedepends=(python-build
+             python-hatch-nodejs-version
+             python-hatchling
+             python-installer)
+checkdepends=(python-pytest-asyncio
+              python-websockets
+              python-ypy-websocket)
 source=(https://pypi.python.org/packages/source/${_pyname:0:1}/$_pyname/$_pyname-$pkgver.tar.gz)
-sha256sums=('0f95bede3f1e081e07d5c57c03c658e3a5247e0ef18889074fbefa20dd3eca53')
+sha256sums=('6e248c5688420c60a65e4e70d371c234dec2fc8643be829a483d49b128fe6ed6')
 
 build() {
   cd $_pyname-$pkgver
