@@ -3,7 +3,7 @@
 
 pkgbase=lib32-gstreamer
 pkgname=(lib32-gstreamer lib32-gst-plugins-base-libs lib32-gst-plugins-base lib32-gst-plugins-good)
-pkgver=1.22.5
+pkgver=1.22.6
 pkgrel=1
 pkgdesc="Multimedia graph framework (32-bit)"
 url="https://gstreamer.freedesktop.org/"
