@@ -2,15 +2,15 @@
 # Contributor: Adrian Perez de Castro <aperez@igalia.com>
 
 pkgname=mold
-pkgver=2.1.0
+pkgver=2.2.0
 pkgrel=1
-_commit='d78b7486963a0a64f668ba9859c2395dca3fe3c5'
+_commit='79b3fc4b6a99590df1a7a496e10ea1323b7495b8'
 pkgdesc='A Modern Linker'
 arch=('x86_64')
 url='https://github.com/rui314/mold'
 license=('MIT')
 # xxhash is bundled
-depends=('glibc' 'gcc-libs' 'mimalloc' 'openssl' 'zlib' 'tbb' 'zstd')
+depends=('glibc' 'gcc-libs' 'mimalloc' 'zlib' 'tbb' 'zstd')
 makedepends=('git' 'python' 'cmake' 'mold')
 checkdepends=('clang' 'libdwarf')
 source=("$pkgname::git+$url.git#commit=$_commit")
