@@ -3,7 +3,7 @@
 
 pkgname=dtkdeclarative
 pkgver=5.6.16
-pkgrel=1
+pkgrel=2
 pkgdesc='Deepin Toolkit, declarative module for DDE look and feel'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtkdeclarative"
@@ -16,7 +16,7 @@ sha512sums=('e79cf2d68fbe9f32f79e82edfc17cda86bf312fb2b343b2095955723af0374a1064
 build() {
   cd $pkgname-$pkgver
   cmake . -GNinja \
-    -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DCMAKE_INSTALL_LIBDIR=lib \
     -DMKSPECS_INSTALL_DIR=lib/qt/mkspecs/modules \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DQML_INSTALL_DIR=lib/qt/qml \
