@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-cucumber-tag-expressions
-pkgver=5.0.2
+pkgver=5.0.4
 pkgrel=1
 pkgdesc="Cucumber tag expressions for ruby"
 arch=(any)
@@ -11,7 +11,7 @@ depends=(ruby)
 makedepends=(ruby-rake ruby-rspec)
 options=(!emptydirs)
 source=(https://github.com/cucumber/tag-expressions/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('19cd1cb846558aee76f6961f9eee0875116bcb17363d4b46799ffb02bc19f267')
+sha256sums=('ec4ec7850d54ec0289db8494760559dd825de93cf53c5d5c7660a1b001cb4913')
 
 build() {
   local _gemdir="$(gem env gemdir)"
