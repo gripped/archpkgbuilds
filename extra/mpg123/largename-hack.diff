@@ -1,0 +1,9 @@
+diff -Nurp mpg123-1.32.1/libmpg123.pc.in mpg123-1.32.1-hack64/libmpg123.pc.in
+--- mpg123-1.32.1/libmpg123.pc.in	2023-09-24 08:15:03.000000000 +0200
++++ mpg123-1.32.1-hack64/libmpg123.pc.in	2023-09-27 16:23:21.201087382 +0200
+@@ -9,4 +9,4 @@ Requires:
+ Version: @PACKAGE_VERSION@
+ Libs: -L${libdir} -lmpg123 
+ Libs.private: @LIBMPG123_LIBS@
+-Cflags: -I${includedir} 
++Cflags: -I${includedir} -DMPG123_NO_LARGENAME
