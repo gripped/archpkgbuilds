@@ -4,24 +4,20 @@
 # Contributor: Ranieri Althoff <ranisalt+aur at gmail dot com>
 _pkgname=MangoHud
 pkgname=lib32-mangohud
-_pkgver=0.6.9-1
+_pkgver=0.7.0
 _tarpkgver="${_pkgver%-*}"
 pkgver=${_pkgver//-/.}
-pkgrel=6
+pkgrel=2
 pkgdesc="32-bit libraries for MangoHud and MangoApp"
 arch=('x86_64')
 url="https://github.com/flightlessmango/MangoHud"
 license=('MIT')
-makedepends=('glfw-x11' 'glslang' 'lib32-cmocka' 'lib32-libglvnd' 'libxnvctrl' 'meson' 'nlohmann-json' 'python-mako')
+makedepends=('git' 'glfw-x11' 'glslang' 'lib32-cmocka' 'lib32-libglvnd' 'libxnvctrl' 'meson' 'nlohmann-json' 'python-mako')
 depends=('lib32-dbus' 'lib32-gcc-libs' 'lib32-libx11' 'lib32-vulkan-icd-loader')
 conflicts=('lib32-mangoapp')
 replaces=('lib32-mangoapp')
-source=("$pkgname-$pkgver.tar.xz::https://github.com/flightlessmango/MangoHud/releases/download/v$_pkgver/$_pkgname-v$_pkgver-Source.tar.xz"
-        "3f8f036ee8773ae1af23dd0848b6ab487b5ac7de-reversed.patch"
-        https://github.com/flightlessmango/MangoHud/commit/5754ca13ee2cdf19a76b4fc79dd914a58d6371f5.patch)
-sha256sums=('30d9336b60cbc7fdc2a1ba86ec62b9fb7f2986a2b0f6196ca347f5c13e583c6d'
-            '244ef8fffb27042d521993f9e9894f852d3061a980345e5c8c6a3f148dd26707'
-            '8ce4dbd1b5d0d8d798c9c9704c10c887252d8c5ffc579a1fd875804638d465ec')
+source=("$pkgname-$pkgver.tar.xz::https://github.com/flightlessmango/MangoHud/releases/download/v$_pkgver/$_pkgname-v$_pkgver-Source.tar.xz")
+b2sums=('469784266ec4b8805bc5e01aa0db8c7d9b1ef1779c087b3e4817e54ae65a8440418be4ef0730859cfa04807f712734cdc2a15fbe7085c7a22f76218429b5cd70')
 
 prepare() {
     cd "$_pkgname-v$_tarpkgver"
@@ -29,11 +25,6 @@ prepare() {
     # Use system cmocka instead of subproject
     sed -i "s/  cmocka = subproject('cmocka')//g" meson.build
     sed -i "s/cmocka_dep = cmocka.get_variable('cmocka_dep')/cmocka_dep = dependency('cmocka')/g" meson.build
-
-    # Fix build with GCC 13
-    patch --forward --reverse --strip=1 --input="$srcdir/3f8f036ee8773ae1af23dd0848b6ab487b5ac7de-reversed.patch"
-    # bakcport https://github.com/flightlessmango/MangoHud/commit/5754ca13ee2cdf19a76b4fc79dd914a58d6371f5
-    patch -Np1 -i "$srcdir/5754ca13ee2cdf19a76b4fc79dd914a58d6371f5.patch"
 }
 
 build() {
@@ -51,11 +42,10 @@ build() {
 }
 
 package() {
-    depends+=(
-        vulkan-icd-loader libvulkan.so
-        spdlog libspdlog.so
-    )
     meson install -C build --tags runtime,mangoapp --destdir "$pkgdir"
+
+    # mangoplot is provided by mangohud, no option to disable in the build
+    rm -rf "$pkgdir/usr/bin"
 
     install -Dm 0644 "$srcdir/$_pkgname-v$_tarpkgver/LICENSE" -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
