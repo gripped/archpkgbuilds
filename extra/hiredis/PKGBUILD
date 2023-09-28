@@ -3,7 +3,7 @@
 
 pkgname=hiredis
 pkgver=1.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Minimalistic C client library for Redis'
 arch=('x86_64')
 url="https://github.com/redis/hiredis/"
