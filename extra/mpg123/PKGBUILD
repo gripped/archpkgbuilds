@@ -2,44 +2,28 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=mpg123
-pkgver=1.32.1
-pkgrel=2
+pkgver=1.32.2
+pkgrel=1
 pkgdesc='Console based real time MPEG Audio Player for Layer 1, 2 and 3'
-url="https://sourceforge.net/projects/mpg123"
+url='https://mpg123.de/'
 arch=('x86_64')
 license=('LGPL2.1')
 depends=('alsa-lib')
 makedepends=('sdl2' 'jack' 'libpulse')
-optdepends=('sdl2: for sdl audio support'
-            'jack: for jack audio support'
-            'libpulse: for pulse audio support'
-            'perl: for conplay')
-provides=(libmpg123.so libout123.so)
-source=(https://downloads.sourceforge.net/sourceforge/${pkgname}/${pkgname}-${pkgver}.tar.bz2{,.sig}
-        largename-hack.diff)
-sha512sums=('084f4575d3ad88373a04035778b40e4871b6da969f42b426c76d9539632baa12534d7f0f9b976be228fd313dea9c31f7a259e0a8b56d044c7e89fefdf897def2'
-            'SKIP'
-            'bde9d7ae91e1dd8f420b876c71d0d8b30d3cd190b56cf3515754fe202b20f1b74a161b390db46b212428aec0590c9e12cceb09f12e1d599a5356d871bbd361dc')
+optdepends=(
+  'sdl2: for sdl audio support'
+  'jack: for jack audio support'
+  'libpulse: for pulse audio support'
+  'perl: for conplay'
+)
+provides=(lib{mpg,out,syn}123.so)
+source=(https://downloads.sourceforge.net/sourceforge/mpg123/mpg123-${pkgver}.tar.bz2{,.sig})
+sha512sums=('08d94a0c58455e23d3d6a4aedf97775e29ae07a0e1a449d73fe018c8c6094f6db01ce368476b8d0a0d51398e215f7584aeee3ac7b84e37c866713c4dca9c01f1'
+            'SKIP')
 validpgpkeys=('D021FF8ECF4BE09719D61A27231C4CBC60D5CAFE')
 
-prepare() {
-  cd ${pkgname}-${pkgver}
-
-  # Unbreak downstream compiles which add -D_FILE_OFFSET_BITS=64 even when off_t
-  # is already 64-bits long. Meson does this (e.g. when building GStreamer)
-  #
-  # Otherwise, when _FILE_OFFSET_BITS is defined, mpg123.h uses it to rename
-  # functions with a suffix of _64, but these functions do not exist because
-  # configure disables the largefile API when off_t is natively 64-bit.
-  #
-  # Do not apply this hack to lib32-mpg123 or other i686 builds.
-  #
-  # https://sourceforge.net/p/mpg123/bugs/361/
-  patch -Np1 -i ../largename-hack.diff
-}
-
 build() {
-  cd ${pkgname}-${pkgver}
+  cd mpg123-${pkgver}
   ./configure \
     --prefix=/usr \
     --enable-int-quality \
@@ -50,9 +34,9 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd mpg123-${pkgver}
   make DESTDIR="${pkgdir}" install
-  install -Dm 755 scripts/conplay "${pkgdir}/usr/bin/conplay"
+  install -Dm 755 scripts/conplay -t "${pkgdir}/usr/bin"
 }
 
-# vim: ts=2 sw=2 et:
+# vim:set sw=2 sts=-1 et:
