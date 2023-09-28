@@ -1,0 +1,24 @@
+pkgbase = qtqr
+	pkgdesc = Qt GUI that makes easy creating and decoding QR codes
+	pkgver = 2.1
+	pkgrel = 5
+	url = https://launchpad.net/qr-tools
+	arch = any
+	license = GPL3
+	makedepends = breezy
+	depends = python-pillow
+	depends = python-pyqt5
+	depends = qrencode
+	depends = qt5-translations
+	depends = zbar
+	provides = python-qrtools
+	conflicts = python-qrtools
+	replaces = python-qrtools
+	source = qr-tools::bzr+https://launchpad.net/qr-tools/trunk#revision=43
+	source = qtqr.desktop
+	source = qtqr.appdata.xml
+	sha256sums = SKIP
+	sha256sums = 67ea09222b0ad8875e4253f74c02cd88bdd796ac2609a7e594148aefd0f8f565
+	sha256sums = 1a4739e4c61077e17fdc63b10b329c377b40080b8afd8ae9a2e269d3f5c094b0
+
+pkgname = qtqr
