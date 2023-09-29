@@ -1,0 +1,44 @@
+pkgbase = element.io
+	pkgdesc = Glossy Matrix collaboration client —
+	pkgver = 1.11.44
+	pkgrel = 1
+	url = https://element.io
+	arch = x86_64
+	license = Apache
+	makedepends = npm
+	makedepends = git
+	makedepends = yarn
+	makedepends = python
+	makedepends = rust
+	makedepends = tcl
+	makedepends = electron25
+	makedepends = nodejs
+	makedepends = libxcrypt-compat
+	source = element-web-1.11.44.tar.gz::https://github.com/vector-im/element-web/archive/v1.11.44.tar.gz
+	source = element-web-1.11.44.tar.gz.asc::https://github.com/vector-im/element-web/releases/download/v1.11.44/v1.11.44-src.tar.gz.asc
+	source = element-desktop-1.11.44.tar.gz::https://github.com/vector-im/element-desktop/archive/v1.11.44.tar.gz
+	source = element-desktop-1.11.44.tar.gz.asc::https://github.com/vector-im/element-desktop/releases/download/v1.11.44/v1.11.44-src.tar.gz.asc
+	source = autolaunch.patch
+	source = io.element.Element.desktop
+	source = element-desktop.sh
+	validpgpkeys = 712BFBEE92DCA45252DB17D7C7BE97EFA179B100
+	sha256sums = a46e1460a40aaaa1dc82bde972ff631171ad77b2adf571495cfc7d41239cfbbb
+	sha256sums = SKIP
+	sha256sums = 9338b98963b27ff5ad3794a6cc9056107e5a21ed8dfdb4b172341d7f0af4ffda
+	sha256sums = SKIP
+	sha256sums = 268485f35103d00a89be7f5c84703e3d393350c71f4f90932f7bcb5ea2fd094f
+	sha256sums = 0103f28a32fe31f698836516783c1c70a76a0117b5df7fd0af5c422c224220f9
+	sha256sums = c1bd9ace215e3ec9af14d7f28b163fc8c8b42e23a2cf04ce6f4ce2fcc465feba
+
+pkgname = element-web
+	pkgdesc = Glossy Matrix collaboration client — web version.
+	replaces = riot-web
+	replaces = vector-web
+
+pkgname = element-desktop
+	pkgdesc = Glossy Matrix collaboration client — desktop version.
+	depends = element-web=1.11.44
+	depends = electron25
+	depends = libsecret
+	replaces = riot-desktop
+	backup = etc/element/config.json
