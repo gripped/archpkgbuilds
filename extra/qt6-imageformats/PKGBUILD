@@ -3,9 +3,9 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-imageformats
-_qtver=6.5.2
+_qtver=6.5.3
 pkgver=${_qtver/-/}
-pkgrel=2
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
@@ -14,15 +14,8 @@ depends=(qt6-base jasper libwebp libmng)
 makedepends=(cmake ninja)
 groups=(qt6)
 _pkgfn=${pkgname/6-/}-everywhere-src-$_qtver
-source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz
-        CVE-2023-4863.patch)
-sha256sums=('aae0c08924c6a5e47f9d57e031673d611ffff7aab2bee2e1cc460471ecac6743'
-            'a7ece52231f2855e1cf76da3d0fe5e91b69cb250c2250eed23e6b8b91c92c114')
-
-prepare() {
-  cd $_pkgfn
-  patch -Np1 -i ../CVE-2023-4863.patch
-}
+source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz)
+sha256sums=('49c026c49a738ed024c072a4b205cdc1235507da4a2d0ea740bd574fff138ccb')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
