@@ -5,13 +5,13 @@
 pkgname=kdecoration
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='Plugin based library to create window decorations'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
-depends=(ki18n)
-makedepends=(extra-cmake-modules kcoreaddons)
+depends=(ki18n5)
+makedepends=(extra-cmake-modules kcoreaddons5)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('dead3e3fc6fa4a596ad3398a95f1f7e190c43d57f9cb7d6af4497a3d3cb0c889'
