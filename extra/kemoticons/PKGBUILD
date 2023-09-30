@@ -4,12 +4,12 @@
 
 pkgname=kemoticons
 pkgver=5.110.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Support for emoticons and emoticons themes'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL)
-depends=(karchive kservice)
+depends=(karchive5 kservice5)
 makedepends=(extra-cmake-modules doxygen qt5-tools qt5-doc)
 groups=(kf5)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
