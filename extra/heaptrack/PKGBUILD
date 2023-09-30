@@ -2,7 +2,7 @@
 
 pkgname=heaptrack
 pkgver=1.5.0
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 pkgdesc='A heap memory profiler for Linux'
 url='http://milianw.de/tag/heaptrack'
@@ -10,22 +10,22 @@ license=(GPL)
 depends=(boost-libs
          gcc-libs
          glibc
-         kconfig
-         kconfigwidgets
-         kcoreaddons
+         kconfig5
+         kconfigwidgets5
+         kcoreaddons5
          kdiagram
-         ki18n
-         kiconthemes
-         kio
-         kwidgetsaddons
+         ki18n5
+         kiconthemes5
+         kio5
+         kwidgetsaddons5
          libelf
          libunwind
          qt5-base
          qt5-svg
-         threadweaver)
+         threadweaver5)
 makedepends=(boost
              extra-cmake-modules
-             kitemmodels
+             kitemmodels5
              sparsehash)
 source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('a278d9d8f91e8bfb8a1c2f5b73eecab47fd45d0693f5dbea637536413cec2ea5'
