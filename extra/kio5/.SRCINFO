@@ -1,0 +1,36 @@
+pkgbase = kio5
+	pkgdesc = Resource and network access abstraction
+	pkgver = 5.110.0
+	pkgrel = 2
+	url = https://community.kde.org/Frameworks
+	arch = x86_64
+	groups = kf5
+	license = LGPL
+	makedepends = extra-cmake-modules
+	makedepends = kdoctools5
+	makedepends = doxygen
+	makedepends = qt5-tools
+	makedepends = qt5-doc
+	depends = solid5
+	depends = kjobwidgets5
+	depends = kbookmarks5
+	depends = libxslt
+	depends = kwallet5
+	depends = ktextwidgets5
+	depends = kded5
+	optdepends = kio-extras: extra protocols support (sftp, fish and more)
+	optdepends = kdoctools5: for the help kioslave
+	optdepends = kio-fuse: to mount remote filesystems via FUSE
+	optdepends = switcheroo-control: hybrid GPU support
+	provides = kio=5.110.0
+	conflicts = kio<5.111
+	replaces = kio<5.111
+	source = https://download.kde.org/stable/frameworks/5.110/kio-5.110.0.tar.xz
+	source = https://download.kde.org/stable/frameworks/5.110/kio-5.110.0.tar.xz.sig
+	source = https://invent.kde.org/frameworks/kio/-/commit/48322f44.patch
+	validpgpkeys = 53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB
+	sha256sums = 228f9abcdfce1b23deacca97e9dd68d019e6b20607ddfe2295050333e90fc96b
+	sha256sums = SKIP
+	sha256sums = bff9696fc152c06fee2c4f21f1dc8a06c42745dbfe7fe88d47596bfb03d38220
+
+pkgname = kio5
