@@ -2,16 +2,16 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3 orbiton-nano)
-pkgver=2.65.0
+pkgver=2.65.1
 pkgrel=1
 pkgdesc='Fast and configuration-free text editor and IDE limited by VT100'
 arch=(x86_64)
 url='https://orbiton.zip'
 license=(BSD)
 makedepends=(git go vte3)
-source=("git+https://github.com/xyproto/orbiton#commit=e519ca0c4465cef5de6af4137bbc87893a48eb1a") # tag: v2.65.0
+source=("git+https://github.com/xyproto/orbiton#commit=c8138224777241f4c3860d3dd4c4b0490d1a3da5") # tag: v2.65.1
 options=(!lto)
-b2sums=(SKIP)
+b2sums=('SKIP')
 
 build() {
   CXXFLAGS="$CXXFLAGS -Wl,--as-needed,--strip-all,--sort-common,-z,relro,-z,now" \
