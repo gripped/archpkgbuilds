@@ -3,13 +3,13 @@
 
 pkgname=kdesignerplugin
 pkgver=5.110.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Integration of Frameworks widgets in Qt Designer/Creator'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL)
-depends=(kconfig kcoreaddons)
-makedepends=(extra-cmake-modules qt5-tools kdoctools)
+depends=(kconfig5 kcoreaddons5)
+makedepends=(extra-cmake-modules qt5-tools kdoctools5)
 groups=(kf5-aids)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/portingAids/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('cc124e9e0a867b62175ca280afb96f61d8862246e40314fa0050aa9c9345d190'
