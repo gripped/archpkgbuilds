@@ -3,13 +3,13 @@
 pkgname=kgamma5
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='Adjust your monitor gamma settings'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
 depends=(systemsettings)
-makedepends=(extra-cmake-modules kdoctools)
+makedepends=(extra-cmake-modules kdoctools5)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('483f0c271acff8c3851e275674a705ca09a5269f50a1d2d509990f58c1f03416'
