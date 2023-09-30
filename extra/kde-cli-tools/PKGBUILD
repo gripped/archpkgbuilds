@@ -5,13 +5,13 @@
 pkgname=kde-cli-tools
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='Tools based on KDE Frameworks 5 to better interact with the system'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
-depends=(kdesu kcmutils kactivities kparts)
-makedepends=(extra-cmake-modules kdoctools plasma-workspace)
+depends=(kdesu5 kcmutils5 kactivities5 kparts5)
+makedepends=(extra-cmake-modules kdoctools5 plasma-workspace)
 optdepends=('plasma-workspace: for kcmshell5')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
