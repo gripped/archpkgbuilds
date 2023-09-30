@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=dtkcore
-pkgver=5.6.16
+pkgver=5.6.17
 pkgrel=1
 epoch=1
 pkgdesc='DTK core modules'
@@ -14,7 +14,7 @@ depends=('deepin-desktop-base' 'dtkcommon' 'gcc-libs' 'glibc' 'gsettings-qt' 'ic
          'lshw' 'qt5-base' 'uchardet' 'spdlog')
 makedepends=('cmake' 'ninja' 'qt5-tools' 'gtest' 'doxygen')
 source=("https://github.com/linuxdeepin/dtkcore/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('3e45efa2e0b6b012d85c14acea9a3ed737c035dda6b7949a113265a6ebc68fbaa173a5561e26b94f41c49aafc6518b7050c1f30428bda96eab9900033bd732bc')
+sha512sums=('e07e1c178b0f3feb78762273c7201db40a27926c41571769a0460e07614ced5ddef0539d0bbdf965545bd45720d714d134ae3a04b0f0208c1ce7948315bed68f')
 
 prepare() {
   cd dtkcore-$pkgver
