@@ -5,13 +5,13 @@
 pkgname=khotkeys
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='KHotKeys'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
 depends=(plasma-workspace kdelibs4support)
-makedepends=(extra-cmake-modules kdoctools kdesignerplugin kinit)
+makedepends=(extra-cmake-modules kdoctools5 kdesignerplugin kinit)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('8ce2238043e1914802a6c4b3c5ed472133df725dc3264d93c0f1759a8662a11e'
