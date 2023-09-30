@@ -1,0 +1,24 @@
+pkgbase = borgmatic
+	pkgdesc = Simple, configuration-driven backup software for servers and workstations
+	pkgver = 1.8.3
+	pkgrel = 1
+	url = https://torsion.org/borgmatic
+	arch = any
+	license = GPL3
+	checkdepends = python-flexmock
+	checkdepends = python-pytest
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	depends = borg
+	depends = python-colorama
+	depends = python-jsonschema
+	depends = python-requests
+	depends = python-ruamel-yaml
+	depends = python-setuptools
+	optdepends = python-llfuse: for mount action
+	source = git+https://projects.torsion.org/borgmatic-collective/borgmatic.git#tag=cacb81f0862ba1bb44641e167439123cf73e5f6b
+	b2sums = SKIP
+
+pkgname = borgmatic
