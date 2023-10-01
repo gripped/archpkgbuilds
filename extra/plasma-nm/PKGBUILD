@@ -5,12 +5,12 @@
 pkgname=plasma-nm
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='Plasma applet written in QML for managing network connections'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(GPL2)
-depends=(plasma-workspace modemmanager-qt networkmanager-qt)
+depends=(plasma-workspace modemmanager-qt5 networkmanager-qt5)
 makedepends=(extra-cmake-modules openconnect)
 optdepends=('openconnect: Cisco AnyConnect VPN plugin')
 groups=(plasma)
