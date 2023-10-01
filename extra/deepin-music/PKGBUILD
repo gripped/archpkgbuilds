@@ -4,7 +4,7 @@
 
 pkgname=deepin-music
 pkgver=7.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Awesome music player with brilliant and tweakful UI Deepin-UI based.'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-music"
@@ -12,7 +12,7 @@ license=('GPL3')
 # ffmpeg, vlc: dlopen
 # dtkdeclarative: qml: org.deepin.dtk
 depends=('dtkcore' 'dtkgui' 'dtkwidget' 'dtkdeclarative' 'qt5-base' 'qt5-declarative' 'glibc'
-         'gcc-libs' 'kcodecs' 'qt5-multimedia' 'qtmpris' 'ffmpeg' 'taglib' 'udisks2-qt5' 'vlc')
+         'gcc-libs' 'kcodecs5' 'qt5-multimedia' 'qtmpris' 'ffmpeg' 'taglib' 'udisks2-qt5' 'vlc')
 makedepends=('cmake' 'ninja' 'qt5-tools')
 groups=('deepin-extra')
 source=("https://github.com/linuxdeepin/deepin-music/archive/$pkgver/$pkgname-$pkgver.tar.gz"
