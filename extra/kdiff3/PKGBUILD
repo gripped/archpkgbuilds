@@ -3,13 +3,26 @@
 
 pkgname=kdiff3
 pkgver=1.10.5
-pkgrel=1
+pkgrel=2
 pkgdesc='A file comparator/merge tool'
 arch=(x86_64)
 url='https://kde.org/applications/development/kdiff3/'
 license=(GPL)
-depends=(kparts hicolor-icon-theme)
-makedepends=(extra-cmake-modules kdoctools boost)
+depends=(gcc-libs
+         glibc
+         kconfig5
+         kcoreaddons5
+         kconfigwidgets5
+         kcrash5
+         ki18n5
+         kio5
+         kparts5
+         kwidgetsaddons5
+         kxmlgui5
+         qt5-base)
+makedepends=(boost
+             extra-cmake-modules
+             kdoctools5)
 source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('db0326d248411a7a9ac41301c7ff0ef3779cbf040a330ff28500ddc2d4f18c8c'
             'SKIP')
