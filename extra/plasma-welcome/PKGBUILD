@@ -3,12 +3,12 @@
 pkgname=plasma-welcome
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='A friendly onboarding wizard for Plasma'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
-depends=(kaccounts-integration kuserfeedback kirigami2 plasma-framework knewstuff)
+depends=(kaccounts-integration kuserfeedback kirigami2 plasma-framework knewstuff5)
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
