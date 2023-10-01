@@ -1,0 +1,24 @@
+pkgbase = enchant
+	pkgdesc = A wrapper library for generic spell checking
+	pkgver = 2.6.0
+	pkgrel = 1
+	url = https://abiword.github.io/enchant/
+	arch = x86_64
+	license = LGPL
+	checkdepends = unittestpp
+	makedepends = aspell
+	makedepends = hunspell
+	makedepends = hspell
+	makedepends = nuspell
+	makedepends = libvoikko
+	depends = glib2
+	optdepends = aspell: for aspell based spell checking support
+	optdepends = hunspell: for hunspell based spell checking support
+	optdepends = libvoikko: for libvoikko based spell checking support
+	optdepends = hspell: for hspell based spell checking support
+	optdepends = nuspell: for nuspell based spell checking support
+	provides = libenchant-2.so
+	source = https://github.com/AbiWord/enchant/releases/download/v2.6.0/enchant-2.6.0.tar.gz
+	sha512sums = 04dce2fc9fe00978824039e9db09d3c39aeb2dddd682a58e7f2f8e1bdf5213e59e6fc84418339ce61e3e69ad8679d87fb1d960c34f5c1e838cea7d96ca32bde0
+
+pkgname = enchant
