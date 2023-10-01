@@ -3,13 +3,13 @@
 pkgname=discover
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE and Plasma resources management GUI'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
-depends=(knewstuff kidletime qt5-graphicaleffects appstream-qt archlinux-appstream-data
-         kirigami2 discount kuserfeedback purpose qt5-webview)
+depends=(knewstuff5 kidletime5 qt5-graphicaleffects appstream-qt archlinux-appstream-data
+         kirigami2 discount kuserfeedback purpose5 qt5-webview)
 makedepends=(extra-cmake-modules plasma-framework packagekit-qt5 flatpak fwupd)
 optdepends=('packagekit-qt5: to manage packages from Arch Linux repositories (not recommended, use at your own risk)'
             'flatpak: Flatpak packages support'
