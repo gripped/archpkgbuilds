@@ -3,7 +3,7 @@
 
 pkgname=fcitx5-configtool
 pkgver=5.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Configuration Tool for Fcitx5"
 arch=('x86_64')
 url="https://github.com/fcitx/fcitx5-configtool"
@@ -12,11 +12,11 @@ groups=('fcitx5-im')
 provides=('fcitx5-config-qt' 'kcm-fcitx5')
 conflicts=('kcm-fcitx5')
 replaces=('kcm-fcitx5')
-depends=('fcitx5-qt' 'kwidgetsaddons' 'kitemviews' 'qt5-x11extras')
-optdepends=('kdeclarative: for KCM support'
+depends=('fcitx5-qt' 'kwidgetsaddons5' 'kitemviews5' 'qt5-x11extras')
+optdepends=('kdeclarative5: for KCM support'
             'kirigami2: for KCM support'
             'plasma-framework: for fcitx5-plasma-theme-generator')
-makedepends=('extra-cmake-modules' 'kdeclarative' 'kirigami2' 'ninja' 'python' 'plasma-framework')
+makedepends=('extra-cmake-modules' 'kdeclarative5' 'kirigami2' 'ninja' 'python' 'plasma-framework')
 source=("https://download.fcitx-im.org/fcitx5/$pkgname/$pkgname-$pkgver.tar.xz"{,.sig})
 sha512sums=('85215d8b0547976d921fe78c38cd9b0a369fc0fdbe1bd54b514c26b48d5392061970bd9f9fb4866ea0cf7e6833306834c86b9442085a852e4404f4d9bfc7621f'
             'SKIP')
