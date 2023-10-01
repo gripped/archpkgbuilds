@@ -3,13 +3,13 @@
 pkgname=plasma-systemmonitor
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='An interface for monitoring system sensors, process information and other system resources'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(GPL LGPL)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-depends=(ksystemstats kitemmodels qqc2-desktop-style kquickcharts kdeclarative)
+depends=(ksystemstats kitemmodels5 qqc2-desktop-style5 kquickcharts5 kdeclarative5)
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 sha256sums=('bdc6ebfc61f9078319827295bb90465c8b8b5b216a002bdb0a869fd00c350c27'
