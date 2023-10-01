@@ -1,0 +1,27 @@
+pkgbase = owncloud-client
+	pkgdesc = ownCloud client based on mirall
+	pkgver = 4.2.0.11670
+	pkgrel = 2
+	url = http://owncloud.org/
+	arch = x86_64
+	license = GPL2
+	makedepends = extra-cmake-modules
+	makedepends = python-sphinx
+	makedepends = qt5-tools
+	makedepends = doxygen
+	makedepends = kio5
+	makedepends = libre-graph-api
+	depends = qtkeychain-qt5
+	depends = hicolor-icon-theme
+	depends = libcloudproviders
+	optdepends = python-nautilus: integration with Nautilus
+	optdepends = nemo-python: integration with Nemo
+	optdepends = python-caja: integration with Caja
+	backup = etc/ownCloud/sync-exclude.lst
+	source = https://download.owncloud.com/desktop/ownCloud/stable/4.2.0.11670/source/ownCloud-4.2.0.11670.tar.xz
+	source = https://download.owncloud.com/desktop/ownCloud/stable/4.2.0.11670/source/ownCloud-4.2.0.11670.tar.xz.asc
+	validpgpkeys = F05F7DD7953A07DF36579DAA498C45EBE94E7B37
+	sha256sums = e82a17ad3b85d68dfaf7a0e1d1f9b099885afd8d1429f50dbca4aac2fa1f4ecf
+	sha256sums = SKIP
+
+pkgname = owncloud-client
