@@ -5,13 +5,13 @@
 pkgname=kmenuedit
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE menu editor'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
-depends=(kio hicolor-icon-theme)
-makedepends=(extra-cmake-modules kdoctools)
+depends=(kio5)
+makedepends=(extra-cmake-modules kdoctools5)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('ae080a93f4300612d3f7832a903c4473b49ae40f880c944d1a7c2f399614f39f'
