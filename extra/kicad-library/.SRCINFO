@@ -1,0 +1,24 @@
+pkgbase = kicad-library
+	pkgdesc = Assorted libraries for KiCad
+	pkgver = 7.0.8
+	pkgrel = 1
+	url = http://kicad.org/
+	arch = any
+	license = GPL
+	makedepends = git
+	makedepends = cmake
+	options = !strip
+	source = git+https://gitlab.com/kicad/libraries/kicad-packages3D.git#commit=0a94ebca5a5523db9f6474c262ec3c72ea0241bc
+	source = git+https://gitlab.com/kicad/libraries/kicad-symbols.git#commit=c172e7ea381901de32f836d8bcf3792586c02891
+	source = git+https://gitlab.com/kicad/libraries/kicad-templates.git#commit=d7c8c3e950046c095824851880de02d4a1f63786
+	source = git+https://gitlab.com/kicad/libraries/kicad-footprints.git#commit=3fc4da0da272d7398bfda77268f97f03efb7b1ab
+	sha512sums = SKIP
+	sha512sums = SKIP
+	sha512sums = SKIP
+	sha512sums = SKIP
+
+pkgname = kicad-library
+	pkgdesc = KiCad symbol, footprint and template libraries
+
+pkgname = kicad-library-3d
+	pkgdesc = KiCad 3D model libraries
