@@ -6,13 +6,13 @@
 pkgname=ksshaskpass
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='ssh-add helper that uses kwallet and kpassworddialog'
 url='https://kde.org/plasma-desktop/'
 license=(GPL)
 arch=(x86_64)
-depends=(kwallet)
-makedepends=(extra-cmake-modules kdoctools)
+depends=(kwallet5)
+makedepends=(extra-cmake-modules kdoctools5)
 provides=(x11-ssh-askpass)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
