@@ -3,13 +3,13 @@
 pkgname=kwayland-integration
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='Provides integration plugins for various KDE frameworks for the wayland windowing system'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
-depends=(kwindowsystem kwayland)
-makedepends=(extra-cmake-modules wayland-protocols kidletime)
+depends=(kwindowsystem5 kwayland5)
+makedepends=(extra-cmake-modules wayland-protocols kidletime5)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('7a7db7a37c1d61fc33cf0ae814ad832e8755911021fc8d3caf366b5343687385'
