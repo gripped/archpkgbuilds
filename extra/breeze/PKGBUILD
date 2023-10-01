@@ -5,15 +5,15 @@
 pkgname=breeze
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 pkgdesc='Artwork, styles and assets for the Breeze visual style for the Plasma Desktop'
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
-depends=(frameworkintegration kdecoration breeze-icons kirigami2 hicolor-icon-theme)
-makedepends=(extra-cmake-modules kcmutils)
+depends=(frameworkintegration5 kdecoration breeze-icons kirigami2 hicolor-icon-theme)
+makedepends=(extra-cmake-modules kcmutils5)
 optdepends=('breeze-gtk: Breeze widget style for GTK applications'
-            'kcmutils: for breeze-settings')
+            'kcmutils5: for breeze-settings')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('cda48253cb74a4f18c0edbc3065a61055cafcb167362c4e90be52182b0e73e44'
