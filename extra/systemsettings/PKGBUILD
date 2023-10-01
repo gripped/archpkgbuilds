@@ -5,13 +5,13 @@
 pkgname=systemsettings
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE system manager for hardware, software, and workspaces'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
 depends=(plasma-workspace)
-makedepends=(extra-cmake-modules kdoctools)
+makedepends=(extra-cmake-modules kdoctools5)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('3e9411715a2dfb202961110b671d207175056c22af51bdffce01336eb8743fb9'
