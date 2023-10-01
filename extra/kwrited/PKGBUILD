@@ -5,13 +5,13 @@
 pkgname=kwrited
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE daemon listening for wall and write messages'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
-depends=(kpty knotifications kdbusaddons oxygen-sounds)
-makedepends=(extra-cmake-modules kdoctools)
+depends=(kpty5 knotifications5 kdbusaddons5 oxygen-sounds)
+makedepends=(extra-cmake-modules kdoctools5)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('4917b9d333119cb9929e0fda0ed4b2c679af986a778692d19202eaf6099c8578'
