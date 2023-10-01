@@ -4,14 +4,14 @@
 pkgname=remmina
 epoch=1
 pkgver=1.4.33
-pkgrel=1
+pkgrel=2
 pkgdesc="remote desktop client written in GTK+"
 url="https://www.remmina.org/"
 arch=('x86_64')
 license=('GPL')
 depends=('avahi' 'libgcrypt' 'libssh' 'vte3' 'libsodium' 'libayatana-appindicator' 'libsoup3')
 makedepends=('cmake' 'freerdp' 'libvncserver' 'spice-gtk' 'spice-protocol'
-             'harfbuzz' 'xorgproto' 'gobject-introspection' 'kwallet'
+             'harfbuzz' 'xorgproto' 'gobject-introspection' 'kwallet5'
              'webkit2gtk-4.1' 'gtk-vnc' 'ninja')
 optdepends=('freerdp: RDP plugin'
             'libsecret: Secret plugin'
@@ -20,7 +20,7 @@ optdepends=('freerdp: RDP plugin'
 #            'pyhoca-cli: X2Go plugin'
             'webkit2gtk-4.1: WWW plugin'
             'gtk-vnc: GVNC plugin'
-            'kwallet: kwallet plugin'
+            'kwallet5: kwallet plugin'
             'gnome-terminal: external tools')
 replaces=('remmina-plugins')
 provides=('remmina-plugins')
