@@ -3,13 +3,13 @@
 pkgname=plasma-sdk
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='Applications useful for Plasma development'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
 depends=(plasma-framework perl)
-makedepends=(extra-cmake-modules kdoctools ktexteditor)
+makedepends=(extra-cmake-modules kdoctools5 ktexteditor5)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('9f961d5ce3a5fe7e945eb397d103435954669baba521f04a81a40345f47490bb'
