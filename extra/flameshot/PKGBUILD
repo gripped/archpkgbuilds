@@ -4,12 +4,12 @@
 
 pkgname=flameshot
 pkgver=12.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Powerful yet simple to use screenshot software"
 arch=('x86_64')
 url="https://github.com/flameshot-org/flameshot"
 license=('GPL')
-depends=('qt5-svg' 'hicolor-icon-theme' 'kguiaddons')
+depends=('qt5-svg' 'hicolor-icon-theme' 'kguiaddons5')
 makedepends=('make' 'qt5-tools' 'cmake')
 optdepends=(
     'gnome-shell-extension-appindicator: for system tray icon if you are using Gnome'
