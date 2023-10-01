@@ -5,17 +5,17 @@
 pkgname=powerdevil
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='Manages the power consumption settings of a Plasma Shell'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
 depends=(plasma-workspace ddcutil)
-makedepends=(extra-cmake-modules kdoctools bluez-qt networkmanager-qt)
+makedepends=(extra-cmake-modules kdoctools5 bluez-qt5 networkmanager-qt5)
 optdepends=('kinfocenter: for the Energy Information KCM'
             'power-profiles-daemon: power profiles support'
-            'networkmanager-qt: wireless power saving actions'
-            'bluez-qt: wireless power saving actions')
+            'networkmanager-qt5: wireless power saving actions'
+            'bluez-qt5: wireless power saving actions')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('c567e9410cba327845d236ea13ecdd415c2976360780018724b36769aa36774b'
