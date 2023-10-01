@@ -5,13 +5,13 @@
 pkgname=polkit-kde-agent
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='Daemon providing a polkit authentication UI for KDE'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
-depends=(kiconthemes kdbusaddons kcrash)
-makedepends=(extra-cmake-modules kdoctools)
+depends=(kiconthemes5 kdbusaddons5 kcrash5)
+makedepends=(extra-cmake-modules kdoctools5)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-1-$pkgver.tar.xz{,.sig})
 sha256sums=('58973715cca7789caa1c6ffa1d5f7de988b952aa9317caf75119ce800ff9cf8d'
