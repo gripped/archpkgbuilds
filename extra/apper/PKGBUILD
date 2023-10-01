@@ -5,15 +5,21 @@
 
 pkgname=apper
 pkgver=1.0.0
-pkgrel=5
+pkgrel=6
 pkgdesc='An application and package manager using PackageKit'
 arch=(x86_64)
 url='https://www.kde.org/applications/system/apper/'
 license=(GPL)
-depends=(packagekit-qt5 kcmutils appstream-qt qt5-xmlpatterns)
-makedepends=(extra-cmake-modules kdoctools plasma-workspace)
+depends=(appstream-qt
+         kcmutils5
+         packagekit-qt5
+         qt5-xmlpatterns)
+makedepends=(extra-cmake-modules
+             kdoctools5
+             plasma-workspace)
 optdepends=('plasma-workspace: Updates daemon')
-source=("https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz"{,.sig} apper-rpath.patch
+source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig}
+        apper-rpath.patch
         apper-qt5.11.patch::https://invent.kde.org/system/apper/-/commit/d8960ea9.patch
         apper-qt5.14.patch::https://invent.kde.org/system/apper/-/commit/1815d19f.patch
         kdebug-401461.patch::https://invent.kde.org/system/apper/-/commit/d486706f.patch
