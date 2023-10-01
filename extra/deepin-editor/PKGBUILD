@@ -2,14 +2,14 @@
 
 pkgname=deepin-editor
 pkgver=6.0.11
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple editor for Deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-editor"
 license=('GPL3')
 depends=('deepin-qt5integration' 'dtkcore' 'dtkgui' 'dtkwidget' 'deepin-qt-dbus-factory'
          'gcc-libs' 'icu' 'qt5-base' 'qt5-svg'
-         'kcodecs' 'syntax-highlighting' 'libchardet' 'uchardet')
+         'kcodecs5' 'syntax-highlighting5' 'libchardet' 'uchardet')
 makedepends=('git' 'cmake' 'gmock' 'gtest' 'ninja' 'qt5-tools')
 groups=('deepin-extra')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/deepin-editor/archive/refs/tags/$pkgver.tar.gz")
