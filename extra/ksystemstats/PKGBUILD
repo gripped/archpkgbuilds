@@ -3,14 +3,14 @@
 pkgname=ksystemstats
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='A plugin based system monitoring daemon'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
 depends=(libksysguard)
-makedepends=(extra-cmake-modules networkmanager-qt)
-optdepends=('networkmanager-qt: network usage monitor')
+makedepends=(extra-cmake-modules networkmanager-qt5)
+optdepends=('networkmanager-qt5: network usage monitor')
 conflicts=('ksysguard<5.21.90')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
