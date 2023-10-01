@@ -3,12 +3,12 @@
 pkgname=drkonqi
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='The KDE crash handler'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(GPL2)
-depends=(kidletime syntax-highlighting kirigami2 kitemmodels kuserfeedback kio gdb python-distro python-psutil qt5-tools)
+depends=(kidletime5 syntax-highlighting5 kirigami2 kitemmodels5 kuserfeedback kio5 gdb python-distro python-psutil qt5-tools)
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
