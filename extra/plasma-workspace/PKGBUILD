@@ -7,16 +7,16 @@ pkgbase=plasma-workspace
 pkgname=(plasma-workspace plasma-wayland-session)
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Plasma Workspace'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
-depends=(knotifyconfig ksystemstats ktexteditor libqalculate kde-cli-tools appstream-qt
-         xorg-xrdb xorg-xsetroot kactivitymanagerd kholidays xorg-xmessage milou prison kwin
-         plasma-integration kpeople kactivities-stats kquickcharts kuserfeedback kpipewire
+depends=(knotifyconfig5 ksystemstats ktexteditor5 libqalculate kde-cli-tools appstream-qt
+         xorg-xrdb xorg-xsetroot kactivitymanagerd kholidays5 xorg-xmessage milou prison5 kwin
+         plasma-integration kpeople5 kactivities-stats5 kquickcharts5 kuserfeedback kpipewire
          accountsservice kio-extras kio-fuse qt5-tools oxygen-sounds)
-makedepends=(extra-cmake-modules kdoctools gpsd baloo networkmanager-qt plasma-wayland-protocols wayland-protocols kunitconversion)
+makedepends=(extra-cmake-modules kdoctools5 gpsd baloo5 networkmanager-qt5 plasma-wayland-protocols wayland-protocols kunitconversion5)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgbase-$pkgver.tar.xz{,.sig} kde.pam)
 sha256sums=('a565d29851f28e0003018562c929b7d4ac8f00836923c12d199b4964d3b60ef0'
@@ -37,10 +37,10 @@ build() {
 
 package_plasma-workspace() {
   optdepends=('plasma-workspace-wallpapers: additional wallpapers'
-              'gpsd: GPS based geolocation' 'networkmanager-qt: IP based geolocation'
+              'gpsd: GPS based geolocation' 'networkmanager-qt5: IP based geolocation'
               'kdepim-addons: displaying PIM events in the calendar'
               'appmenu-gtk-module: global menu support for GTK2 and some GTK3 applications'
-              'baloo: Baloo search runner' 'discover: manage applications installation from the launcher')
+              'baloo5: Baloo search runner' 'discover: manage applications installation from the launcher')
   backup=('etc/pam.d/kde')
 
   DESTDIR="$pkgdir" cmake --install build
