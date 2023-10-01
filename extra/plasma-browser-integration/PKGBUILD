@@ -3,12 +3,12 @@
 pkgname=plasma-browser-integration
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='Components necessary to integrate browsers into the Plasma Desktop'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(GPL)
-depends=(purpose kfilemetadata plasma-workspace)
+depends=(purpose5 kfilemetadata5 plasma-workspace)
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
