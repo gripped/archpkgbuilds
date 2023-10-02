@@ -1,0 +1,22 @@
+pkgbase = markdownlint
+	pkgdesc = A lint tool to check markdown files and flag style issues
+	pkgver = 0.13.0
+	pkgrel = 1
+	url = https://github.com/markdownlint/markdownlint
+	arch = any
+	license = MIT
+	makedepends = git
+	makedepends = ruby-rdoc
+	depends = ruby
+	depends = ruby-kramdown
+	depends = ruby-kramdown-parser-gfm
+	depends = ruby-mixlib-cli
+	depends = ruby-mixlib-config
+	depends = ruby-mixlib-shellout
+	provides = ruby-mdl
+	replaces = ruby-mdl
+	options = !emptydirs
+	source = markdownlint::git+https://github.com/markdownlint/markdownlint#commit=54b2597eb40d50a16a51d717744239d52218fd5b
+	b2sums = SKIP
+
+pkgname = markdownlint
