@@ -1,0 +1,22 @@
+pkgbase = ruff
+	pkgdesc = An extremely fast Python linter, written in Rust
+	pkgver = 0.0.292
+	pkgrel = 1
+	url = https://github.com/astral-sh/ruff
+	arch = x86_64
+	license = MIT
+	makedepends = cargo
+	makedepends = maturin
+	makedepends = python-installer
+	depends = gcc-libs
+	depends = glibc
+	options = !lto
+	source = https://github.com/astral-sh/ruff/archive/refs/tags/v0.0.292/ruff-0.0.292.tar.gz
+	sha512sums = bc3e8968e9c621d76e1be05a40c17454c3c2ca72d286be1c01c82679dba99caa054e1a5031f92bb16d328d0927c74a1a087771a19c61824cf497d617267768cb
+	b2sums = 405d07119dfdde12e1f7184059ea9db43253f90ca72a7ac7c3862adb15a99534c5349ad396b4f368c0da950c8ad61de7a3af4a3a173ddd8724f5bc72f2dd572c
+
+pkgname = ruff
+
+pkgname = python-ruff
+	depends = python
+	depends = ruff
