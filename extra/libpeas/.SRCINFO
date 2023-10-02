@@ -1,0 +1,33 @@
+pkgbase = libpeas
+	pkgdesc = GObject Plugin System
+	pkgver = 1.36.0
+	pkgrel = 3
+	url = https://wiki.gnome.org/Projects/Libpeas
+	arch = x86_64
+	license = LGPL
+	checkdepends = xorg-server-xvfb
+	makedepends = gi-docgen
+	makedepends = git
+	makedepends = glade
+	makedepends = gobject-introspection
+	makedepends = meson
+	makedepends = python-gobject
+	makedepends = vala
+	depends = gobject-introspection-runtime
+	depends = gtk3
+	source = git+https://gitlab.gnome.org/GNOME/libpeas.git#commit=7f245fa5158204621c3469756a951b68a651c4fe
+	b2sums = SKIP
+
+pkgname = libpeas
+	optdepends = python-gobject: Python loader
+	provides = libpeas-1.0.so
+	provides = libpeas-gtk-1.0.so
+
+pkgname = libpeas-demos
+	pkgdesc = GObject Plugin System (demo applications)
+	depends = libpeas
+	depends = python-gobject
+
+pkgname = libpeas-docs
+	pkgdesc = GObject Plugin System (documentation)
+	depends = 
