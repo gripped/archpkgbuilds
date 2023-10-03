@@ -3,8 +3,8 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-session-shell
-pkgver=6.0.9
-pkgrel=2
+pkgver=6.0.10
+pkgrel=1
 pkgdesc='Deepin desktop-environment - session-shell module'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-session-shell"
@@ -20,13 +20,12 @@ conflicts=('deepin-session-ui<5')
 provides=('lightdm-deepin-greeter')
 groups=('deepin')
 source=("https://github.com/linuxdeepin/dde-session-shell/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('601fb34a5e581c4b7e56135931db064f5bd0e5c77432ff15aa8ed2884a88a78638ce41f630785360b62b131c6a39c2a960b8cd77a6b714f9e579bef1290eab55')
+sha512sums=('570b4253d6a5b0df36d4146bb11f13c7290fb453166a44e6e16cc6ed78d6dcda3e43be81d211838652de5fa82f3d147261d78d34da5bab4c05660ec6565032a9')
 
 prepare() {
   cd dde-session-shell-$pkgver
   # We don't have common-auth on Arch
   sed -i 's/common-auth/system-login/' src/libdde-auth/deepinauthframework.cpp
-  sed -i 's|qdbusxml2cpp-fix|/usr/lib/dtk5/DCore/bin/qdbusxml2cpp-fix|' CMakeLists.txt
 }
 
 build() {
