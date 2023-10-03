@@ -1,0 +1,25 @@
+pkgbase = gedit-plugins
+	pkgdesc = Collection of plugins for the gedit Text Editor
+	pkgver = 46.0
+	pkgrel = 1
+	url = https://wiki.gnome.org/Apps/Gedit/ShippedPlugins
+	arch = x86_64
+	license = GPL
+	makedepends = appstream-glib
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = gucharmap
+	makedepends = libgit2-glib
+	makedepends = meson
+	makedepends = vte3
+	makedepends = yelp-tools
+	depends = gedit
+	depends = python-cairo
+	depends = python-dbus
+	optdepends = gucharmap: for charmap plugin
+	optdepends = libgit2-glib: for git plugin
+	optdepends = vte3: for embedded terminal
+	source = git+https://gitlab.gnome.org/GNOME/gedit-plugins.git#commit=e4f3ca3eaac33f802db23c3ad4227481fdd18015
+	b2sums = SKIP
+
+pkgname = gedit-plugins
