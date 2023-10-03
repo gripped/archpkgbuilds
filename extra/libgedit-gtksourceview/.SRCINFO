@@ -1,0 +1,22 @@
+pkgbase = libgedit-gtksourceview
+	pkgdesc = A source code editing widget
+	pkgver = 299.0.4
+	pkgrel = 1
+	url = https://gedit-technology.net/
+	arch = x86_64
+	license = LGPL2.1
+	checkdepends = xorg-server-xvfb
+	makedepends = git
+	makedepends = gtk-doc
+	makedepends = meson
+	depends = cairo
+	depends = gdk-pixbuf2
+	depends = gobject-introspection
+	depends = gtk3
+	depends = libxml2
+	depends = pango
+	provides = libgedit-gtksourceview-300.so
+	source = git+https://github.com/gedit-technology/libgedit-gtksourceview.git#commit=7062264d635f6efe04d88217a893a97ff385b873
+	sha256sums = SKIP
+
+pkgname = libgedit-gtksourceview
