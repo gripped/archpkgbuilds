@@ -3,7 +3,7 @@
 # Contributor: Florijan Hamzic <florijanh@gmail.com>
 
 pkgname=python-cairocffi
-pkgver=1.5.0
+pkgver=1.5.1
 pkgrel=1
 pkgdesc="cffi-based cairo bindings for Python"
 arch=('any')
@@ -16,7 +16,7 @@ checkdepends=('python-pytest' 'python-numpy' 'python-pikepdf')
 optdepends=('gdk-pixbuf2: for cairocffi.pixbuf'
             'python-xcffib: for cairo xcb support')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Kozea/cairocffi/archive/v${pkgver}.tar.gz")
-sha512sums=('ab3e552bbf0f7452a722a4739972f52de5c4bc83fbd0d1c53ce330cb3a42ce173be748cf8febb43fd7bd040f8d52afd7093efba60a42aa75c3945730693c25e7')
+sha512sums=('0c0f600014873a29ccdb48133e2d2f351e0ffb0c7c13b177f789a39ac6ce4908b6947425757710a09fe4ea5ad355e251f596e7344c28a8ffe13db0ed8589cc31')
 
 build() {
   cd cairocffi-$pkgver

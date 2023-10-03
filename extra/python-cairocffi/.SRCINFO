@@ -1,0 +1,24 @@
+pkgbase = python-cairocffi
+	pkgdesc = cffi-based cairo bindings for Python
+	pkgver = 1.5.1
+	pkgrel = 1
+	url = https://cairocffi.readthedocs.io/
+	arch = any
+	license = BSD
+	checkdepends = python-pytest
+	checkdepends = python-numpy
+	checkdepends = python-pikepdf
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	makedepends = python-xcffib
+	makedepends = gdk-pixbuf2
+	depends = python-cffi
+	depends = cairo
+	optdepends = gdk-pixbuf2: for cairocffi.pixbuf
+	optdepends = python-xcffib: for cairo xcb support
+	source = python-cairocffi-1.5.1.tar.gz::https://github.com/Kozea/cairocffi/archive/v1.5.1.tar.gz
+	sha512sums = 0c0f600014873a29ccdb48133e2d2f351e0ffb0c7c13b177f789a39ac6ce4908b6947425757710a09fe4ea5ad355e251f596e7344c28a8ffe13db0ed8589cc31
+
+pkgname = python-cairocffi
