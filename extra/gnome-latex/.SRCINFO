@@ -1,0 +1,24 @@
+pkgbase = gnome-latex
+	pkgdesc = LaTeX editor for the GNOME desktop
+	pkgver = 3.46.0
+	pkgrel = 1
+	url = https://wiki.gnome.org/Apps/GNOME-LaTeX
+	arch = x86_64
+	license = GPL3
+	makedepends = appstream-glib
+	makedepends = autoconf-archive
+	makedepends = git
+	makedepends = gtk-doc
+	makedepends = gobject-introspection
+	makedepends = intltool
+	makedepends = vala
+	makedepends = yelp-tools
+	depends = gsettings-desktop-schemas
+	depends = gspell
+	depends = libgee
+	depends = tepl
+	optdepends = texlive-core: build LaTeX documents
+	source = git+https://gitlab.gnome.org/swilmet/gnome-latex.git#commit=1a94329dd4c162452f64a96a19fc6bb30bfb006f
+	sha256sums = SKIP
+
+pkgname = gnome-latex
