@@ -1,0 +1,26 @@
+pkgbase = lib32-libnm
+	pkgdesc = NetworkManager client library (32-bit)
+	pkgver = 1.44.2
+	pkgrel = 1
+	url = https://networkmanager.dev/
+	arch = x86_64
+	license = LGPL
+	makedepends = git
+	makedepends = lib32-dbus
+	makedepends = lib32-libndp
+	makedepends = lib32-libpsl
+	makedepends = lib32-polkit
+	makedepends = libxslt
+	makedepends = meson
+	depends = lib32-gcc-libs
+	depends = lib32-glib2
+	depends = lib32-nspr
+	depends = lib32-nss
+	depends = lib32-systemd
+	depends = lib32-util-linux
+	depends = libnm
+	provides = libnm.so
+	source = git+https://gitlab.freedesktop.org/NetworkManager/NetworkManager.git#commit=8bee6ef894a27ffc8a464df3b32b03e811e1a15d
+	b2sums = SKIP
+
+pkgname = lib32-libnm
