@@ -1,0 +1,30 @@
+pkgbase = gedit
+	pkgdesc = GNOME Text Editor
+	pkgver = 46.1
+	pkgrel = 1
+	url = https://wiki.gnome.org/Apps/Gedit
+	arch = x86_64
+	groups = gnome-extra
+	license = GPL
+	makedepends = appstream-glib
+	makedepends = desktop-file-utils
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = gtk-doc
+	makedepends = meson
+	makedepends = vala
+	makedepends = yelp-tools
+	depends = gsettings-desktop-schemas
+	depends = gspell
+	depends = libgedit-amtk
+	depends = libpeas
+	depends = python-gobject
+	depends = tepl
+	optdepends = gedit-plugins: Additional features
+	conflicts = gedit-code-assistance<=3.16.0+4+gd19b879-1
+	source = git+https://gitlab.gnome.org/GNOME/gedit.git#commit=5a08fe0aef0164ab2c21140ca406d47bd9805c25
+	source = git+https://gitlab.gnome.org/GNOME/libgd.git
+	b2sums = SKIP
+	b2sums = SKIP
+
+pkgname = gedit
