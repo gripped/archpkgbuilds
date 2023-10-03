@@ -1,0 +1,29 @@
+pkgbase = libei
+	pkgdesc = Library for Emulated Input
+	pkgver = 1.1.0
+	pkgrel = 1
+	url = https://libinput.pages.freedesktop.org/libei/
+	arch = x86_64
+	license = custom:X11
+	checkdepends = python-pytest-xdist
+	checkdepends = valgrind
+	makedepends = git
+	makedepends = libxkbcommon
+	makedepends = meson
+	makedepends = python-attrs
+	makedepends = python-dbusmock
+	makedepends = python-jinja
+	makedepends = python-pytest
+	makedepends = python-structlog
+	makedepends = python-yaml
+	depends = libevdev
+	depends = systemd
+	provides = libei.so
+	provides = libeis.so
+	provides = liboeffis.so
+	source = git+https://gitlab.freedesktop.org/libinput/libei.git#commit=82cdbc9129a0e2c255fcee6bcaa7abed5578ae14
+	source = git+https://github.com/nemequ/munit#commit=fbbdf1467eb0d04a6ee465def2e529e4c87f2118
+	b2sums = SKIP
+	b2sums = SKIP
+
+pkgname = libei
