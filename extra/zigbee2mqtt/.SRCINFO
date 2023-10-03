@@ -1,0 +1,23 @@
+pkgbase = zigbee2mqtt
+	pkgdesc = A Zigbee to MQTT bridge
+	pkgver = 1.33.1
+	pkgrel = 1
+	url = https://www.zigbee2mqtt.io
+	arch = x86_64
+	license = GPL3
+	makedepends = typescript
+	makedepends = npm
+	depends = nodejs-lts-hydrogen
+	optdepends = mosquitto: MQTT broker
+	options = !emptydirs
+	backup = etc/zigbee2mqtt/configuration.yaml
+	source = zigbee2mqtt-1.33.1.tar.gz::https://github.com/Koenkk/zigbee2mqtt/archive/1.33.1.tar.gz
+	source = zigbee2mqtt.service
+	source = zigbee2mqtt.sysusers
+	source = zigbee2mqtt.tmpfiles
+	sha256sums = d8b1d3477caff2e49bb7bcdfb8962327d77b11a023ebbce98e0917189a682dda
+	sha256sums = 04d58763942cc598ac858f003b174316b695c2a542b2788e50751c3077adf106
+	sha256sums = 3a86716e9036e97d885e9b5f37c7f87d9c2872435e4acf9fc4c9157264cf387b
+	sha256sums = b8cb53b06176abb09e74e68daee702263f3d471b249c51b1b32d693fc7354fd8
+
+pkgname = zigbee2mqtt
