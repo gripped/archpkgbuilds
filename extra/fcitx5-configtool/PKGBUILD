@@ -2,8 +2,8 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-configtool
-pkgver=5.1.0
-pkgrel=2
+pkgver=5.1.1
+pkgrel=1
 pkgdesc="Configuration Tool for Fcitx5"
 arch=('x86_64')
 url="https://github.com/fcitx/fcitx5-configtool"
@@ -18,7 +18,7 @@ optdepends=('kdeclarative5: for KCM support'
             'plasma-framework: for fcitx5-plasma-theme-generator')
 makedepends=('extra-cmake-modules' 'kdeclarative5' 'kirigami2' 'ninja' 'python' 'plasma-framework')
 source=("https://download.fcitx-im.org/fcitx5/$pkgname/$pkgname-$pkgver.tar.xz"{,.sig})
-sha512sums=('85215d8b0547976d921fe78c38cd9b0a369fc0fdbe1bd54b514c26b48d5392061970bd9f9fb4866ea0cf7e6833306834c86b9442085a852e4404f4d9bfc7621f'
+sha512sums=('c3c91914e0975b643bc2cc2164410ee31204c2feb529fa25cec9240965ffba7e6b75a03c065afdc12b98ede92befa68eb42b9f63c94e9b23c486bde325a1d67d'
             'SKIP')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
