@@ -1,0 +1,20 @@
+pkgbase = libgedit-amtk
+	pkgdesc = Actions, Menus and Toolbars Kit for GTK applications'
+	pkgver = 5.8.0
+	pkgrel = 1
+	url = https://gedit-technology.net/
+	arch = x86_64
+	license = LGPL3
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = gtk-doc
+	makedepends = meson
+	depends = glib2
+	depends = glibc
+	depends = gtk3
+	provides = libgedit-amtk-5.so
+	conflicts = amtk
+	source = git+https://github.com/gedit-technology/libgedit-amtk.git#commit=f6fbfd1c57de3d97cab2056a5c3088b0da49e8a4
+	sha256sums = SKIP
+
+pkgname = libgedit-amtk
