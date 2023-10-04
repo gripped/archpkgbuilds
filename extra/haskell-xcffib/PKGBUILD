@@ -2,7 +2,7 @@
 
 _hkgname=xcffib
 pkgname=haskell-xcffib
-pkgver=1.3.0
+pkgver=1.4.0
 pkgrel=1
 pkgdesc="A cffi-based python binding for X"
 url="https://github.com/tych0/xcffib"
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-attoparsec' 'haskell-either' 'haskell-filemanip' 'h
          'haskell-optparse-applicative' 'haskell-split' 'haskell-xcb-types')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('498a27832d93aa6f9c005e93045badceee36b6a8165e317e6b8425f17e51bbe02cffa974d3983217619f8467e08e75274276559104f5f351740276705a33dced')
+sha512sums=('8f055c89dc7fe741258255cbeb3729aa5b5bba2e0a5ae16d34d8f7234f85be6f14a05fabe5f1ed2f2807c88e3a03db6df6b492b314866eb602ecf413c2799a6a')
 
 prepare() {
     cd $_hkgname-$pkgver
