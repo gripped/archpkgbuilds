@@ -6,7 +6,7 @@
 
 pkgname=libgedit-gtksourceview
 pkgver=299.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A source code editing widget"
 arch=(x86_64)
 url="https://gedit-technology.net/"
@@ -14,13 +14,13 @@ license=('LGPL2.1')
 depends=(
   cairo
   gdk-pixbuf2
-  gobject-introspection
   gtk3
   libxml2
   pango
 )
 makedepends=(
   git
+  gobject-introspection
   gtk-doc
   meson
 )
