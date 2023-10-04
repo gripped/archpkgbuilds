@@ -8,7 +8,7 @@ pkgname=(
   libportal-qt5
   libportal-docs
 )
-pkgver=0.7
+pkgver=0.7.1
 pkgrel=1
 pkgdesc="GIO-style async APIs for most Flatpak portals"
 url="https://github.com/flatpak/libportal"
@@ -31,7 +31,7 @@ checkdepends=(
   python-pytest
   xorg-server-xvfb
 )
-_commit=fcfd10af0d60b0e5e81aff1db523145a3e2e87aa  # tags/0.7^0
+_commit=e9ed3a50cdde321eaf42361212480a66eb94a57a  # tags/0.7.1^0
 source=("git+https://github.com/flatpak/libportal#commit=$_commit")
 b2sums=('SKIP')
 
@@ -42,7 +42,6 @@ pkgver() {
 
 prepare() {
   cd libportal
-  git cherry-pick -n f68e30a7fcd98c320d39b981902cc8b48e6b6dec
 }
 
 build() {
