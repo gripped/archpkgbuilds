@@ -1,0 +1,34 @@
+pkgbase = network-manager-applet
+	pkgdesc = Applet for managing network connections
+	pkgver = 1.34.0
+	pkgrel = 1
+	url = https://gitlab.gnome.org/GNOME/network-manager-applet
+	arch = x86_64
+	license = GPL
+	license = LGPL
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = gtk-doc
+	makedepends = meson
+	depends = libappindicator-gtk3
+	depends = libmm-glib
+	depends = libnma
+	depends = libsecret
+	depends = networkmanager
+	source = git+https://gitlab.gnome.org/GNOME/network-manager-applet.git#commit=4a1676231b88cd8ea78c7da74a2f1867007a4a18
+	b2sums = SKIP
+
+pkgname = network-manager-applet
+	depends = libappindicator-gtk3
+	depends = libmm-glib
+	depends = libnma
+	depends = libsecret
+	depends = networkmanager
+	depends = nm-connection-editor
+
+pkgname = nm-connection-editor
+	pkgdesc = NetworkManager GUI connection editor and widgets
+	depends = jansson
+	depends = libnma
+	conflicts = libnm-gtk<1.8.18-1
+	replaces = libnm-gtk<1.8.18-1
