@@ -2,8 +2,8 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=python-typeguard
-pkgver=4.1.2
-_commit=d7a705e329529456898265d94adbdafed0c4c22c
+pkgver=4.1.3
+_commit=3110420f2706fc1871d6cd2f1d0cefc0a529491d
 pkgrel=1
 pkgdesc="Run-time type checker for Python"
 url="https://github.com/agronholm/typeguard"
