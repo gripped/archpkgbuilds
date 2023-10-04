@@ -3,7 +3,7 @@
 
 _pyname=traitlets
 pkgname=python-$_pyname
-pkgver=5.11.1
+pkgver=5.11.2
 pkgrel=1
 pkgdesc='A configuration system for Python applications'
 arch=(any)
@@ -16,7 +16,7 @@ makedepends=(python-build
              python-installer)
 checkdepends=(python-pytest-mock)
 source=(https://pypi.python.org/packages/source/t/traitlets/traitlets-$pkgver.tar.gz)
-sha256sums=('813584bb569ac4a098c64ca494e8a3bbfef42e37c36a6132bca554aabd111480')
+sha256sums=('7564b5bf8d38c40fa45498072bf4dc5e8346eb087bbf1e2ae2d8774f6a0f078e')
 
 build() {
   cd $_pyname-$pkgver
