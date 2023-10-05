@@ -1,0 +1,21 @@
+pkgbase = mediainfo
+	pkgdesc = Supplies technical and tag information about media files
+	pkgver = 23.10
+	pkgrel = 1
+	url = https://mediaarea.net
+	arch = x86_64
+	license = BSD
+	makedepends = wxwidgets-gtk3
+	depends = libmediainfo=23.10
+	source = mediainfo-23.10.tar.gz::https://github.com/MediaArea/MediaInfo/archive/v23.10.tar.gz
+	sha512sums = f182c6cec63d74f03efee558129d3e44c3227e164bd2abfa1b3198848f3534852c319c64db786ac8b28d349fe4132484bacadbdeb698a5c1a60abd8a4fe3d923
+	b2sums = 5c40f2ad7f1e7884d7277ea44983c64a8b2994690ac761dd91f925d44beca816922978098a7da63a2cce6a86b70f7a0c2f5610bcccadd4519621a2aa0ff1d8cf
+
+pkgname = mediainfo
+	pkgdesc = Supplies technical and tag information about media files (CLI interface)
+
+pkgname = mediainfo-gui
+	pkgdesc = Supplies technical and tag information about media files (GUI interface)
+	depends = libmediainfo=23.10
+	depends = wxwidgets-gtk3
+	depends = hicolor-icon-theme
