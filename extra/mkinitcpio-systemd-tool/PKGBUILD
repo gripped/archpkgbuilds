@@ -1,12 +1,12 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=mkinitcpio-systemd-tool
-pkgver=37
-pkgrel=3
+pkgver=38
+pkgrel=1
 pkgdesc="Provisioning tool for systemd in initramfs (systemd-tool)"
 arch=(any)
 url="https://github.com/random-archer/mkinitcpio-systemd-tool"
-license=(Apache)
+license=(Apache-2.0)
 depends=(
   bash
   mkinitcpio
@@ -29,13 +29,14 @@ backup=(
   etc/$pkgname/config/fstab
   etc/$pkgname/config/initrd-nftables.conf
   etc/$pkgname/config/initrd-util-usb-hcd.conf
+  etc/$pkgname/config/ntp.conf
   etc/$pkgname/$pkgname.conf
   etc/$pkgname/network/initrd-network.network
 )
 source=($url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
 install=$pkgname.install
-sha512sums=('1ad854e514fd7c5982f5e3d28b7276dc20dada94e0d8224bd02d83d0c787b3f311790888a0a8e6abd23ac59983a793b6f009697dbbeb6f40af6d18a42cc36181')
-b2sums=('d5b6366de54c377b8d0afb23ca2d22809c65950ea53415793612a40cec8f3735d50e82203cb0951f5621d7ede905fe899382786e8a67cd70f5ec177ef36f3190')
+sha512sums=('2cddc1a56217490b203b0412ea85f2aaf304514ec73ed2bf9aff50ab97248859e18e581a86d519599762189f36f634634d2250ece753d474056ca8079624d1dc')
+b2sums=('d413543030f60f64c38e2a7702cfc369e03cbf2ef47a3c23c982526762a90b3d9df2fc96e956039522cc389674e6809cdc8b416de00292fe4993d831af985adf')
 
 package() {
   make DESTDIR="$pkgdir/" PREFIX=/usr install -C $pkgname-$pkgver
