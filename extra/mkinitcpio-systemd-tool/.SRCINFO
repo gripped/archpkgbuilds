@@ -1,7 +1,7 @@
 pkgbase = mkinitcpio-systemd-tool
 	pkgdesc = Provisioning tool for systemd in initramfs (systemd-tool)
 	pkgver = 38
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/random-archer/mkinitcpio-systemd-tool
 	install = mkinitcpio-systemd-tool.install
 	arch = any
@@ -25,7 +25,10 @@ pkgbase = mkinitcpio-systemd-tool
 	backup = etc/mkinitcpio-systemd-tool/mkinitcpio-systemd-tool.conf
 	backup = etc/mkinitcpio-systemd-tool/network/initrd-network.network
 	source = https://github.com/random-archer/mkinitcpio-systemd-tool/archive/v38/mkinitcpio-systemd-tool-v38.tar.gz
+	source = mkinitcpio-systemd-tool-38-initrdpath.patch::https://github.com/random-archer/mkinitcpio-systemd-tool/commit/2df293ebebfc042588b995b5454d8eb856602c88.patch
 	sha512sums = 2cddc1a56217490b203b0412ea85f2aaf304514ec73ed2bf9aff50ab97248859e18e581a86d519599762189f36f634634d2250ece753d474056ca8079624d1dc
+	sha512sums = 56248f1b93b00a52c5d90744a6e8c99c8fb89286e523fa73091d93d2476aca2604cb78357ae5625cb8dddd2e3aa1f33161bb468d4e7984d86fb9a2642614e4b2
 	b2sums = d413543030f60f64c38e2a7702cfc369e03cbf2ef47a3c23c982526762a90b3d9df2fc96e956039522cc389674e6809cdc8b416de00292fe4993d831af985adf
+	b2sums = 85ea55641ebab733be5846407598d4d0a4ffa8bf2f80d7677e64e5e89ca1d02d2e8d0360e3228640110928b5dd2af162c9311cfc18770682d059c5e2dbd0f32d
 
 pkgname = mkinitcpio-systemd-tool
