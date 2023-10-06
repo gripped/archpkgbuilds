@@ -3,8 +3,8 @@
 # Contributor: Dave Reisner <dreisner@archlinux.org>
 
 pkgname=nawk
-pkgver=20230914
-_commit=c8b4698d57d7b1dc6275fd514fcdf163955e8f67 # master
+pkgver=20231001
+_commit=a7c1fbd7799d40577f4ac0fc79791a23df1381ca # master
 pkgrel=1
 pkgdesc='The one, true implementation of AWK'
 url="https://github.com/onetrueawk/awk"
@@ -19,8 +19,7 @@ sha256sums=('SKIP'
             'fa1bade363896033a50fbdadc8fa2f490f85a044d11afcd537f317067c70d3b5')
 
 pkgver() {
-  cd awk
-  git log -n1 --pretty='format:%cd' --date=format:'%Y%m%d' ${_commit}
+  grep "version " awk/main.c | sed -e 's/[^"]*"\([^"]*\)".*/\1/' -e 's/^\w*\ *//'
 }
 
 prepare() {
