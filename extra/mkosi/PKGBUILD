@@ -4,7 +4,7 @@
 # Contributor: Dave Reisner <dreisner@archlinux.org>
 
 pkgname=mkosi
-pkgver=17.1
+pkgver=18
 pkgrel=1
 pkgdesc="Build Legacy-Free OS Images"
 arch=(any)
@@ -51,8 +51,8 @@ optdepends=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz
 )
-sha512sums=('59988a6a81c0456df6fa9673032d1e25c5cc382b45fd0299c974559d573279c4c38f5600b4e14a71ecdaa013d9b97b90cc815b3b601a7dd061924519cd8b76bf')
-b2sums=('96824568dd53cd83a1f8b95072c750e1a0bbd06356df19c62ea9799a5d8f1b2e55f108a3ec3cf171f5dfdefcc1ac5bc86785a60d80def38a5e1817b91f1d9486')
+sha512sums=('3fc4e0cdfe0ec77f764c57463b99ac3344466ea8b2391800a7a699bb86a108740873bc8ef9eed28b2944e05357872a6563f7a194a6831a9f9332db86d575be21')
+b2sums=('e399ddbf97b11db7c969c8225db9de8063ef55aa78b3fe89aba6c2c271c5d58fcb3e2d644cd890b717f6d27e14f28b86423a8f136fd0976ad32da16a3b475b6c')
 
 build() {
   cd $pkgname-$pkgver
