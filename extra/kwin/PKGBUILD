@@ -5,12 +5,12 @@
 pkgname=kwin
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=2
+pkgrel=3
 pkgdesc='An easy to use, but flexible, composited Window Manager'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
-depends=(kscreenlocker xcb-util-cursor plasma-framework kcmutils5 breeze
+depends=(kscreenlocker xcb-util-cursor plasma-framework5 kcmutils5 breeze
          pipewire-session-manager libqaccessibilityclient lcms2 libxcvt)
 makedepends=(extra-cmake-modules qt5-tools kdoctools5 krunner5 wayland-protocols plasma-wayland-protocols python)
 optdepends=('maliit-keyboard: virtual keyboard for kwin-wayland')
