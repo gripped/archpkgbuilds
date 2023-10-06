@@ -1,0 +1,35 @@
+pkgbase = ovenmediaengine
+	pkgdesc = Open-source streaming video service with sub-second latency
+	pkgver = 0.16.0
+	pkgrel = 1
+	url = https://ovenmediaengine.com
+	arch = x86_64
+	license = AGPL3
+	makedepends = bc
+	makedepends = nasm
+	makedepends = x264
+	makedepends = x265
+	makedepends = libvpx
+	makedepends = fdkaac
+	depends = openssl>=3
+	depends = libsrtp
+	depends = srt
+	depends = opus
+	depends = ffmpeg
+	depends = jemalloc
+	depends = pcre2
+	depends = hiredis
+	optdepends = libva
+	optdepends = intel-gmmlib
+	optdepends = intel-media-sdk
+	optdepends = intel-media-driver
+	optdepends = cuda-tools
+	optdepends = ffnvcodec-headers
+	backup = etc/ovenmediaengine/Server.xml
+	backup = etc/ovenmediaengine/Logger.xml
+	source = ovenmediaengine-0.16.0.tar.gz::https://github.com/AirenSoft/OvenMediaEngine/archive/refs/tags/v0.16.0.tar.gz
+	source = ovenmediaengine.service
+	sha512sums = 0403d7c13c07704646ebf4f87b45b46aacff463a9b24b45c1cc2a754c9c99eee12230d5e07e64a5c967d6d556613e2d9e5596425f1dfe9e5b7cbf7a9935c79ab
+	sha512sums = c5c4615d4c50a55c6fea177a1bc73b13d1365224c4e102067e45ce956741cb95366ec3b16cdec8932083c923910794e9164b0f9a25a6b0e2f186557fac3e42f1
+
+pkgname = ovenmediaengine
