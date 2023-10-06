@@ -1,0 +1,26 @@
+pkgbase = memray
+	pkgdesc = A memory profiler for Python
+	pkgver = 1.10.0
+	pkgrel = 1
+	url = https://github.com/bloomberg/memray
+	arch = x86_64
+	license = Apache
+	checkdepends = python-pytest
+	makedepends = git
+	makedepends = python-setuptools-scm
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	makedepends = cython
+	makedepends = npm
+	depends = python
+	depends = libunwind
+	depends = python-rich
+	depends = python-jinja
+	depends = lz4
+	depends = ipython
+	source = git+https://github.com/bloomberg/memray.git#tag=5b05954cf1c2c7c0935ee5989353662c6414209c?signed
+	validpgpkeys = A035C8C19219BA821ECEA86B64E628F8D684696D
+	sha512sums = SKIP
+
+pkgname = memray
