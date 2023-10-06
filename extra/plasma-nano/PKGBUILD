@@ -3,13 +3,13 @@
 pkgname=plasma-nano
 pkgver=5.27.8
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='A minimal Plasma shell package'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-depends=(plasma-framework)
+depends=(plasma-framework5)
 makedepends=(extra-cmake-modules)
 sha256sums=('c2f255819f56b7da27d2d060585c7d2cdc413c887ef2b0a4205ab2d14d88a694'
             'SKIP')
