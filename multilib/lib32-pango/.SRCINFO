@@ -1,0 +1,24 @@
+pkgbase = lib32-pango
+	pkgdesc = A library for layout and rendering of text (32-bit)
+	pkgver = 1.51.1
+	pkgrel = 1
+	epoch = 1
+	url = https://www.pango.org/
+	arch = x86_64
+	license = LGPL
+	makedepends = git
+	makedepends = meson
+	depends = lib32-cairo
+	depends = lib32-fribidi
+	depends = lib32-harfbuzz
+	depends = lib32-libthai
+	depends = lib32-libxft
+	depends = pango
+	source = git+https://gitlab.gnome.org/GNOME/pango.git#commit=dfdbb8b55effc0feb72a1981944acaf20ee71354
+	b2sums = SKIP
+
+pkgname = lib32-pango
+	provides = libpango-1.0.so
+	provides = libpangocairo-1.0.so
+	provides = libpangoft2-1.0.so
+	provides = libpangoxft-1.0.so
