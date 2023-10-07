@@ -1,0 +1,22 @@
+pkgbase = wasmer
+	pkgdesc = Universal Binaries Powered by WebAssembly
+	pkgver = 4.2.2
+	pkgrel = 1
+	url = https://github.com/wasmerio/wasmer
+	arch = x86_64
+	license = MIT
+	makedepends = rustup
+	makedepends = cmake
+	depends = gcc-libs
+	depends = zlib
+	depends = ncurses
+	depends = libffi
+	depends = libxkbcommon
+	options = staticlibs
+	options = !lto
+	source = wasmer-4.2.2.tar.gz::https://github.com/wasmerio/wasmer/archive/refs/tags/v4.2.2.tar.gz
+	source = wasmer-fix-install-target.patch
+	sha512sums = 196e878652d5b6387ed6d8ae471f62c3cd5bcb73170b3d6cb5c4340a936fd98d0482326965929ec722f737b15a110c3a4b5fa445365a31216b4c09494228f3e4
+	sha512sums = fef3788413e4ab32c6063d0038479c94004a85cd997ff954e3e9d9da835e704f3b9423b640a2134f4bdd5b5ad1b253bce4e3463e34fcc46c9ce6d9e0d034673b
+
+pkgname = wasmer
