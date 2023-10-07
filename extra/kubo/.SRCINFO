@@ -1,0 +1,23 @@
+pkgbase = kubo
+	pkgdesc = IPFS implementation in Go
+	pkgver = 0.23.0
+	pkgrel = 1
+	url = https://github.com/ipfs/kubo
+	arch = x86_64
+	license = MIT
+	makedepends = go
+	makedepends = git
+	depends = glibc
+	optdepends = fuse2: for mounting/advanced use
+	provides = go-ipfs
+	conflicts = go-ipfs
+	replaces = go-ipfs
+	noextract = kubo-0.23.0.tar.gz
+	source = kubo-0.23.0.tar.gz::https://github.com/ipfs/kubo/releases/download/v0.23.0/kubo-source.tar.gz
+	source = ipfs.service
+	source = ipfs@.service
+	sha512sums = 091f9673642b6a319f2b7762bcf9cd81612c3d8b3678fa8718189a09f06b82dd66e83ece204e7797ddc3fd575e36318182326215bd079763c04725d5ea57c7fb
+	sha512sums = b1d0b2ab3008adcd2c1871fe3ff57aa27cf43d6acbd4ab330f0d2efbba661a046b9c8a8cf514ddf131c5fce93ca5d91d10d516c4f39d98f33e4ac46aee1d0abb
+	sha512sums = a1254e40d0bacfceb92071de7f5331cd87cc454bf70be34e892af35dfc677fcf130903577c2a4e7fe6da6b5cedecb22dc0f73d1ad86f5aa27a8333d6bd85fe8c
+
+pkgname = kubo
