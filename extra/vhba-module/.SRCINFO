@@ -1,0 +1,21 @@
+pkgbase = vhba-module
+	pkgdesc = Kernel module that emulates SCSI devices
+	pkgver = 20211218
+	pkgrel = 155
+	url = https://cdemu.sourceforge.io/
+	arch = x86_64
+	license = GPL
+	makedepends = linux-headers
+	source = https://downloads.sourceforge.net/cdemu/vhba-module-20211218.tar.xz
+	source = dkms.conf
+	sha256sums = 72c5a8c1c452805e4cef8cafefcecc2d25ce197ae4c67383082802e5adcd77b6
+	sha256sums = 8cab0ebb4fee72069d63616b0983f105b98d1261e72e9bef5509a6e60bc382a7
+
+pkgname = vhba-module
+	depends = linux
+	provides = VHBA-MODULE
+
+pkgname = vhba-module-dkms
+	depends = dkms
+	provides = VHBA-MODULE
+	conflicts = vhba-module
