@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=passt
-pkgver=2023_09_08.05627dc
+pkgver=2023_10_04.f851084
 pkgrel=1
 pkgdesc="Plug A Simple Socket Transport"
 arch=(x86_64)
@@ -15,8 +15,8 @@ optdepends=(
   'sh: for demo script'
 )
 source=(https://passt.top/$pkgname/snapshot/$pkgname-$pkgver.tar.zst)
-sha512sums=('47c54ff3ab344e6820f49b70d53e30c98ed0f3cd63892ecde7492dc5cc0b0c13a13be6cab4f1153ba5e2ff041cdd17aa890d961cd49fac81c68eb2fe4b83ea9f')
-b2sums=('179bd27ade97ad7f6de6ccf26885fc57e24bf75ff811c2963017d76da4f5a3640c5dde188051a39d8796f0a795d321a0f0cc29cc98a91acf281fd0b377bf73d9')
+sha512sums=('e5c59e6370de10c7a4fa35fcf4e584b27431ac79d97966d403e41c5034e19d0872c5a6d32fe39a0c2df778540abcb7d8da5dda3daf78d8e88da1dad9b787d071')
+b2sums=('477101450806a42ae5151cad3606a3cc6084ac2ce62bb03482d07784e0ccecb86d3bb2f99112bbf506002a382406a5a14d4e4ce13de4b7022499738dde6f981e')
 
 build() {
   make -C $pkgname-$pkgver
