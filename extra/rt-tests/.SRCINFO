@@ -1,0 +1,19 @@
+pkgbase = rt-tests
+	pkgdesc = A collection of latency testing tools for the linux(-rt) kernel
+	pkgver = 2.6
+	pkgrel = 1
+	url = https://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git/
+	arch = x86_64
+	groups = realtime
+	license = GPL-2.0-or-later
+	makedepends = numactl
+	makedepends = python
+	depends = glibc
+	optdepends = bash: for determine_maximum_mpps.sh
+	optdepends = numactl: for cyclictest, oslat and signaltest
+	optdepends = python: for get_cyclictest_snapshot and hwlatdetect
+	source = https://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git//snapshot/rt-tests-2.6.tar.gz
+	sha512sums = 28392b75cf2c9a252c192edb8102a5a371f34daf6d5803a6095fc10747c9401a77c674d6aefac24d8c7e3ca503ff1bb43518dc0292053df40af750da580539bb
+	b2sums = 51bc726a8e3ce281f965f996322144a0079791aa9585728f55056c4c88dcbfa19fbc98aaa973b71b76e35c6a96cea301b09170eab9f8a126ebdd6e9070b5668f
+
+pkgname = rt-tests
