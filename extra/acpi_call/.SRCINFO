@@ -1,0 +1,13 @@
+pkgbase = acpi_call
+	pkgdesc = A linux kernel module that enables calls to ACPI methods through /proc/acpi/call
+	pkgver = 1.2.2
+	pkgrel = 160
+	url = https://github.com/nix-community/acpi_call
+	arch = x86_64
+	license = GPL
+	makedepends = linux-headers
+	makedepends = acpi_call-dkms=1.2.2
+	conflicts = acpi_call-dkms
+
+pkgname = acpi_call
+	depends = linux
