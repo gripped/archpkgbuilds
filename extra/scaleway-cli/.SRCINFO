@@ -1,0 +1,17 @@
+pkgbase = scaleway-cli
+	pkgdesc = Command line interface for Scaleway Cloud
+	pkgver = 2.22.0
+	pkgrel = 1
+	url = https://www.scaleway.com/en/cli/
+	arch = x86_64
+	license = Apache
+	makedepends = go
+	makedepends = git
+	depends = glibc
+	options = !debug
+	source = git+https://github.com/scaleway/scaleway-cli.git#tag=v2.22.0
+	source = 0001-Disable-version-check-and-error-reporting.patch
+	sha256sums = SKIP
+	sha256sums = 86729f02b9da43d651eb099a040ba9a6c7c35e38730296b05163058b768a5730
+
+pkgname = scaleway-cli
