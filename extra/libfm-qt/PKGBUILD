@@ -1,8 +1,9 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
+# Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=libfm-qt
 pkgver=1.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Core library of PCManFM-Qt (Qt binding for libfm)"
 arch=("x86_64")
 url="https://github.com/lxqt/$pkgname"
