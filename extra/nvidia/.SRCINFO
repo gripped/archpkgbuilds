@@ -1,0 +1,16 @@
+pkgbase = nvidia
+	pkgdesc = NVIDIA drivers for linux
+	pkgver = 535.113.01
+	pkgrel = 4
+	url = https://www.nvidia.com/
+	arch = x86_64
+	license = custom
+	makedepends = linux-headers
+	makedepends = nvidia-dkms=535.113.01
+	provides = NVIDIA-MODULE
+	options = !strip
+
+pkgname = nvidia
+	depends = linux
+	depends = nvidia-utils=535.113.01
+	depends = libglvnd
