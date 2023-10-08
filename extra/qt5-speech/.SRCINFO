@@ -1,0 +1,21 @@
+pkgbase = qt5-speech
+	pkgdesc = Qt module to make text to speech and speech recognition easy
+	pkgver = 5.15.11+kde+r1
+	pkgrel = 1
+	url = https://www.qt.io
+	arch = x86_64
+	groups = qt5
+	license = GPL3
+	license = LGPL3
+	license = FDL
+	license = custom
+	makedepends = git
+	makedepends = flite
+	makedepends = speech-dispatcher
+	depends = qt5-multimedia
+	optdepends = flite: flite TTS backend
+	optdepends = speech-dispatcher: speech-dispatcher TTS backend
+	source = git+https://invent.kde.org/qt/qt/qtspeech#commit=3b163bfd46d96bc9ee848dcee49e9cabe6699287
+	sha256sums = SKIP
+
+pkgname = qt5-speech
