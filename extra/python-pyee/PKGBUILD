@@ -2,8 +2,8 @@
 # Contributor: Josh Holbrook <josh.holbrook@gmail.com>
 
 pkgname=python-pyee
-pkgver=9.1.0
-pkgrel=2
+pkgver=11.0.0
+pkgrel=1
 pkgdesc="Port of node.js's EventEmitter to python"
 arch=('any')
 url=https://github.com/jfhbrook/pyee
@@ -14,14 +14,8 @@ makedepends=('python-build' 'python-installer' 'python-setuptools'
 checkdepends=('python-pytest-asyncio' 'python-pytest-trio' 'python-twisted')
 optdepends=('python-trio' 'python-twisted')
 source=("https://files.pythonhosted.org/packages/source/p/pyee/pyee-$pkgver.tar.gz")
-sha256sums=('a2287af31d6ce6e662ebf8034ea2c3e38dea02ebac63f6a41db23825bf6649d4')
-b2sums=('8c011425d83c452f40451f152ed63994f4a76d424fefd1e4a69978ca8a0c4e55313269f93a102ea23b24b071270d3485a1cf0aa6aea911ed3e8a5648134ccbe3')
-
-prepare() {
-  cd pyee-$pkgver
-  # Remove setup_requires list
-  sed -i '/setup_requires/,/\],/d' setup.py
-}
+sha256sums=('27c682bce60bdadc5d3e23eacd4101df328c0280884a3d9c07f3a4e3e595de27')
+b2sums=('4d471531099569baa28d32cb86cc6ff4637ac94288898aaf0de30825d17f242ef588b147480f87497f4dbc7ef1a21a898ad900bcc1a8fe890b17ae046c73ef65')
 
 build() {
   cd pyee-$pkgver
