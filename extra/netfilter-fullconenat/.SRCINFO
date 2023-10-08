@@ -1,0 +1,18 @@
+pkgbase = netfilter-fullconenat
+	pkgdesc = A kernel module that turns MASQUERADE into full cone SNAT
+	pkgver = r73.0cf3b48
+	pkgrel = 325
+	url = https://github.com/Chion82/netfilter-full-cone-nat
+	arch = x86_64
+	license = GPL2
+	makedepends = linux-headers
+	makedepends = git
+	depends = linux
+	source = netfilter-fullconenat::git+https://github.com/Chion82/netfilter-full-cone-nat#commit=0cf3b48fd7d2fa81d0297d1fff12bbd0580fc435
+	source = 0001-Linux-5.15.patch
+	source = 0002-Linux-6.1.patch
+	sha256sums = SKIP
+	sha256sums = a67c52bb58fac8113b4bc9640b626baa1d9e533c9bb8a2019153490d223b918a
+	sha256sums = b164406e56c84b4659f6b17be47dc5314fff74a92d1a3028c629dc91576abf94
+
+pkgname = netfilter-fullconenat
