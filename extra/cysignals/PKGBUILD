@@ -2,7 +2,7 @@
 
 pkgbase=cysignals
 pkgname=python-cysignals
-pkgver=1.11.3
+pkgver=1.11.4
 pkgrel=1
 pkgdesc='Interrupt and signal handling for Cython'
 arch=(x86_64)
@@ -17,11 +17,10 @@ makedepends=(cython
              python-setuptools
              python-wheel)
 source=(https://pypi.python.org/packages/source/c/cysignals/cysignals-$pkgver.tar.gz)
-sha256sums=('c2c01f666e5904948952a2250548d8c36ccedd640383791feacf26ea2b958365')
+sha256sums=('0f1e321e55a07f901c86a36a1e4497f6ff9dfe700681d0130a38c36e4eb238c3')
 
 build() {
   cd $pkgbase-$pkgver
-  CFLAGS+=" -Wp,-U_FORTIFY_SOURCE" \
   python -m build --wheel --no-isolation
 }
 
