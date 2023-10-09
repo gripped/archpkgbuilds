@@ -3,21 +3,45 @@
 
 pkgbase=pyside6
 pkgname=(shiboken6 pyside6 pyside6-tools)
-_qtver=6.5.2
+_qtver=6.5.3
 _clangver=16.0.6
 pkgver=${_qtver/-/}
-pkgrel=2
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(LGPL)
-makedepends=(cmake ninja clang llvm python-setuptools vulkan-headers python-numpy
-             qt6-tools qt6-svg qt6-3d qt6-scxml qt6-datavis3d qt6-charts qt6-multimedia qt6-quick3d
-             qt6-location qt6-positioning qt6-networkauth qt6-remoteobjects qt6-sensors qt6-serialbus qt6-serialport
-             qt6-connectivity qt6-webchannel qt6-webengine qt6-websockets qt6-shadertools qt6-speech qt6-httpserver)
+makedepends=(clang
+             cmake
+             llvm
+             ninja
+             python-numpy
+             python-setuptools
+             qt6-3d
+             qt6-charts
+             qt6-connectivity
+             qt6-datavis3d
+             qt6-httpserver
+             qt6-location
+             qt6-multimedia
+             qt6-networkauth
+             qt6-positioning
+             qt6-quick3d
+             qt6-remoteobjects
+             qt6-scxml
+             qt6-sensors
+             qt6-serialbus
+             qt6-serialport
+             qt6-shadertools
+             qt6-speech
+             qt6-svg
+             qt6-tools
+             qt6-webchannel
+             qt6-webengine
+             qt6-websockets)
 _pkgfn=pyside-setup-everywhere-src-$_qtver
 source=(https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-$pkgver-src/${_pkgfn}.tar.xz
         designer-plugin-install-dir.patch)
-sha256sums=('90dbf1d14fcd41c98a7cbea44b8a4951e10d0b798e154749756e4946654d1ba8'
+sha256sums=('6606b1634fb2981f9ca7ce2e206cc92c252401de328df4ce23f63e8c998de8d3'
             '66e895e07d5b01c64a94092353854c946fd7fc445b6181068dca290b5a3887e0')
 
 prepare() {
@@ -37,7 +61,14 @@ build() {
 
 package_shiboken6() {
   pkgdesc='Generates bindings for C++ libraries using CPython source code'
-  depends=(clang=$_clangver llvm libxslt qt6-base)
+  depends=(clang=$_clangver
+           gcc-libs
+           glibc
+           libxml2
+           libxslt
+           llvm
+           python
+           qt6-base)
   optdepends=('python: Python bindings')
 
   DESTDIR="$pkgdir" cmake --install build/sources/shiboken6
@@ -54,25 +85,32 @@ package_shiboken6() {
 
 package_pyside6() {
   pkgdesc='Enables the use of Qt6 APIs in Python applications'
-  depends=(qt6-declarative shiboken6)
-  optdepends=('qt6-tools: QtHelp, QtUiTools bindings'
-              'qt6-svg: QtSvg bindings'
-              'qt6-3d: Qt3D bindings'
-              'qt6-quick3d: QtQuick3D bindings'
-              'qt6-scxml: QtScxml bindings'
-              'qt6-datavis3d: QtDataVisualization bindings'
+  depends=(gcc-libs
+           glibc
+           python
+           qt6-base
+           qt6-declarative
+           shiboken6)
+  optdepends=('qt6-3d: Qt3D bindings'
               'qt6-charts: QtCharts bindings'
+              'qt6-connectivity: QtBluetooth and QtNfc bindings'
+              'qt6-datavis3d: QtDataVisualization bindings'
               'qt6-httpserver: QtHttpServer bindings'
               'qt6-location: QtLocation bindings'
               'qt6-multimedia: QtMultimedia bindings'
+              'qt6-networkauth: QtNetworkAuth bindings'
+              'qt6-positioning: QtPositioning bindings'
+              'qt6-quick3d: QtQuick3D bindings'
+              'qt6-remoteobjects: QtRemoteObjects bindings'
+              'qt6-scxml: QtScxml bindings'
+              'qt6-sensors: QtSensors bindings'
               'qt6-serialbus: QtSerialBus bindings'
               'qt6-serialport: QtSerialPort bindings'
               'qt6-speech: QtTextToSpeech bindings'
+              'qt6-svg: QtSvg bindings'
+              'qt6-tools: QtHelp, QtUiTools bindings'
               'qt6-webengine: QtWebEngine bindings'
-              'qt6-remoteobjects: QtRemoteObjects bindings'
-              'qt6-sensors: QtSensors bindings'
-              'qt6-websockets: QtWebSockets bindings'
-              'qt6-networkauth: QtNetworkAuth bindings')
+              'qt6-websockets: QtWebSockets bindings')
 
   DESTDIR="$pkgdir" cmake --install build/sources/pyside6
 
@@ -89,7 +127,9 @@ package_pyside6() {
 
 package_pyside6-tools() {
   pkgdesc='Tools for pyside6'
-  depends=(pyside6)
+  depends=(pyside6
+           python)
+  optdepends=('nuitka: for deploy.py')
 
   DESTDIR="$pkgdir" cmake --install build/sources/pyside-tools
 
