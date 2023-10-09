@@ -1,0 +1,23 @@
+pkgbase = nerdctl
+	pkgdesc = Docker-compatible CLI for containerd
+	pkgver = 1.6.0
+	pkgrel = 1
+	url = https://github.com/containerd/nerdctl
+	arch = x86_64
+	license = Apache
+	makedepends = git
+	makedepends = go
+	depends = containerd
+	optdepends = buildkit: to build OCI images
+	optdepends = cni-plugins: to run OCI images
+	optdepends = rootlesskit: for rootless mode
+	optdepends = slirp4netns: for rootless mode
+	options = !lto
+	source = nerdctl::git+https://github.com/containerd/nerdctl.git#commit=5f39d76139344b8aac6fd03cbe0fa2fd50f89929
+	source = skip-failing-test.patch
+	sha512sums = SKIP
+	sha512sums = c168de6147edcebf31df4b2e22dc830cad62b81780d10105aada8e17347523747d413c4398bec3840f079a37177b6f9c3ca87c8f0119f4f651f7e4c6462eb8b3
+	b2sums = SKIP
+	b2sums = c4dd2803d0fb6ef0067ee2ec3fb34f606618e157264e03f9b607629900b11a774f484c8cb320054f90911400bb436ca65f024bf5d63f39766e5b7f19fd8814e5
+
+pkgname = nerdctl
