@@ -1,19 +1,19 @@
 # Maintainer:
 
 pkgname=gettext
-pkgver=0.22.2
+pkgver=0.22.3
 pkgrel=1
 pkgdesc="GNU internationalization library"
 url="https://www.gnu.org/software/gettext/"
 arch=(x86_64)
-license=(GPL)
+license=('GPL-2.0-only' 'LGPL-2.0-only' 'GFDL-1.2-only' 'GPL-2.0-or-later')
 depends=(gcc-libs acl sh libunistring libxml2)
 makedepends=(gettext emacs git)
 optdepends=('git: for autopoint infrastructure updates')
 options=(!docs)
 source=(https://ftp.gnu.org/pub/gnu/gettext/$pkgname-$pkgver.tar.gz{,.sig}
         gettext-0.22-disable-libtextstyle.patch)
-sha256sums=('a99662bafc1cc683ec7740844b465c7f30ccb044967f157f74697df9a9306b0e'
+sha256sums=('839a260b2314ba66274dae7d245ec19fce190a3aa67869bf31354cb558df42c7'
             'SKIP'
             'a28a27192f336f0b0908bdbf840d3b19d7b587c4ac52cad635cb43e95eb3c78d')
 validpgpkeys=('462225C3B46F34879FC8496CD605848ED7E69871'  # Daiki Ueno
