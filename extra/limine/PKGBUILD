@@ -2,7 +2,7 @@
 # Contributor: Mintsuki <mintsuki@protonmail.com>
 
 pkgname=limine
-pkgver=5.20230928.2
+pkgver=5.20231006.0
 pkgrel=1
 pkgdesc="An advanced, portable, multiprotocol bootloader"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('BSD')
 depends=('glibc')
 makedepends=('nasm' 'mtools' 'llvm' 'lld' 'clang')
 source=("https://github.com/limine-bootloader/limine/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('0b647d26fac14392d91d9fbc29a18f7cd84db1b0640510c2b431d77abfd1fb79')
+sha256sums=('e759bc39a59d07260d5def19bff5cd6e3f6147708e691383af7b09c33d00e347')
 
 build() {
 	cd "${pkgname}-${pkgver}"
