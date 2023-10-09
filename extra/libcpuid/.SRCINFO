@@ -1,0 +1,18 @@
+pkgbase = libcpuid
+	pkgdesc = A small C library for x86 CPU detection and feature extraction
+	pkgver = 0.6.4
+	pkgrel = 1
+	url = http://libcpuid.sourceforge.net
+	arch = x86_64
+	license = BSD
+	makedepends = git
+	makedepends = cmake
+	makedepends = ninja
+	makedepends = doxygen
+	makedepends = python
+	makedepends = graphviz
+	depends = glibc
+	source = libcpuid::git+https://github.com/anrieff/libcpuid#commit=f9b833d122efeea11a7c68c6e098db8717221543
+	b2sums = SKIP
+
+pkgname = libcpuid
