@@ -1,0 +1,42 @@
+pkgbase = python-pyopencl
+	pkgdesc = A complete, object-oriented language binding of OpenCL to Python
+	pkgver = 2023.1
+	pkgrel = 2
+	epoch = 1
+	url = https://mathema.tician.de/software/pyopencl
+	arch = x86_64
+	license = MIT
+	license = Apache
+	license = BSD
+	checkdepends = python-six
+	checkdepends = python-appdirs
+	checkdepends = python-pytest
+	checkdepends = python-pytools
+	makedepends = ctags
+	makedepends = python-setuptools
+	makedepends = python-mako
+	makedepends = python-numpy
+	makedepends = git
+	makedepends = pybind11
+	depends = opencl-icd-loader
+	depends = opencl-headers
+	depends = mesa
+	depends = boost-libs
+	source = git+https://github.com/inducer/pyopencl.git?signed#tag=v2023.1
+	validpgpkeys = 900A958D9A0ACA58B1468F2471AA298BCA171145
+	sha256sums = SKIP
+
+pkgname = python-pyopencl
+	depends = opencl-icd-loader
+	depends = opencl-headers
+	depends = mesa
+	depends = boost-libs
+	depends = python
+	depends = python-numpy
+	depends = python-mako
+	depends = python-pytools
+	depends = pyopencl-headers
+	depends = python-setuptools
+	depends = python-cffi
+
+pkgname = pyopencl-headers
