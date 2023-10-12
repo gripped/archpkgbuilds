@@ -1,0 +1,30 @@
+pkgbase = xdg-desktop-portal-gnome
+	pkgdesc = A backend implementation for xdg-desktop-portal for the GNOME desktop environment
+	pkgver = 45.0
+	pkgrel = 1
+	url = https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome
+	arch = x86_64
+	groups = gnome
+	license = LGPL
+	makedepends = git
+	makedepends = meson
+	depends = cairo
+	depends = fontconfig
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = gnome-desktop-4
+	depends = gnome-keyring
+	depends = gtk4
+	depends = libadwaita
+	depends = libx11
+	depends = wayland
+	depends = xdg-desktop-portal
+	depends = xdg-desktop-portal-gtk>=1.10.0-2
+	optdepends = evince: Print previews
+	provides = xdg-desktop-portal-impl
+	conflicts = xdg-desktop-portal-gtk<1.10.0-2
+	replaces = xdg-desktop-portal-gtk<1.10.0-2
+	source = git+https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome.git#commit=3890604cd5e5a0054ed166c37746b75f215778f0
+	b2sums = SKIP
+
+pkgname = xdg-desktop-portal-gnome
