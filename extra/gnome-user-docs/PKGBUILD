@@ -1,8 +1,9 @@
+# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-user-docs
-pkgver=44.5
+pkgver=45.0
 pkgrel=1
 pkgdesc="User documentation for GNOME"
 url="https://gitlab.gnome.org/GNOME/gnome-user-docs"
@@ -14,7 +15,7 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome)
-_commit=451f2b5ccb0a3c0507fe66582caf20a253f66c3d  # tags/44.5^0
+_commit=212a046dfa72da0c9aa8b200264e40b0aaf421fa  # tags/45.0^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-user-docs.git#commit=$_commit")
 b2sums=('SKIP')
 
