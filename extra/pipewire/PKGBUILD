@@ -22,7 +22,7 @@ pkgname=(
 )
 _commit=181fbfee6d3fcc3afd3c93613f126a8346dad586  # tags/0.3.81
 pkgver=0.3.81
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Low-latency audio/video router and processor"
 url="https://pipewire.org"
@@ -82,6 +82,11 @@ pkgver() {
 
 prepare() {
   cd pipewire
+
+  # https://bugs.archlinux.org/task/79931
+  # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/3565
+  git cherry-pick -n a8636b04cbf5e1b22e3344630df47bf4e5ee53ea
+  git cherry-pick -n e940361c947cf8519b11c7e6792441c86fc59042
 }
 
 build() {
