@@ -1,0 +1,45 @@
+pkgbase = sysprof
+	pkgdesc = Kernel based performance profiler
+	pkgver = 45.0
+	pkgrel = 1
+	url = https://wiki.gnome.org/Apps/Sysprof
+	arch = x86_64
+	license = GPL
+	makedepends = git
+	makedepends = meson
+	makedepends = yelp-tools
+	depends = cairo
+	depends = glib2
+	depends = graphene
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = json-glib
+	depends = libadwaita
+	depends = libdex
+	depends = libpanel
+	depends = libunwind
+	depends = pango
+	depends = polkit
+	source = git+https://gitlab.gnome.org/GNOME/sysprof.git#commit=4b5fb5fdc9167b4bb428821ce2481d0c596ea9f2
+	b2sums = SKIP
+
+pkgname = sysprof
+	groups = gnome-extra
+	depends = cairo
+	depends = glib2
+	depends = graphene
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = json-glib
+	depends = libadwaita
+	depends = libdex
+	depends = libpanel
+	depends = libunwind
+	depends = pango
+	depends = polkit
+	depends = libsysprof-capture
+
+pkgname = libsysprof-capture
+	pkgdesc = Kernel based performance profiler - capture library
+	license = BSD
+	depends = 
