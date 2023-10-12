@@ -1,0 +1,36 @@
+pkgbase = gthumb
+	pkgdesc = Image browser and viewer for the GNOME Desktop
+	pkgver = 3.12.4
+	pkgrel = 1
+	url = https://wiki.gnome.org/Apps/gthumb
+	arch = x86_64
+	license = GPL
+	makedepends = brasero
+	makedepends = docbook-xsl
+	makedepends = exiv2
+	makedepends = git
+	makedepends = liboauth
+	makedepends = libraw
+	makedepends = meson
+	makedepends = yelp-tools
+	depends = clutter-gtk
+	depends = dconf
+	depends = gsettings-desktop-schemas
+	depends = gst-plugin-gtk
+	depends = gst-plugins-base-libs
+	depends = json-glib
+	depends = libheif
+	depends = libjxl
+	depends = librsvg
+	depends = libsecret
+	depends = libsoup
+	depends = libwebp
+	depends = webkit2gtk
+	optdepends = brasero: burn discs
+	optdepends = exiv2: metadata support
+	optdepends = liboauth: web albums
+	optdepends = libraw: read RAW files
+	source = git+https://gitlab.gnome.org/GNOME/gthumb.git#commit=6b0bbc693626a5b848c55febab978f983bbef8eb
+	b2sums = SKIP
+
+pkgname = gthumb
