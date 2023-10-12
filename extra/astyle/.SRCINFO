@@ -1,0 +1,18 @@
+pkgbase = astyle
+	pkgdesc = A free, fast and small automatic formatter for C, C++, C#, and Java source code.
+	pkgver = 3.4.8
+	pkgrel = 1
+	url = http://astyle.sourceforge.net/
+	arch = x86_64
+	license = LGPL
+	makedepends = git
+	makedepends = jdk8-openjdk
+	depends = glibc
+	depends = gcc-libs
+	optdepends = java-environment-openjdk
+	source = astyle::git+https://gitlab.com/saalen/astyle.git#commit=44da67c6fb4478f2bcdf5a8afea4de06230ac5f4
+	source = simplify-makefile.patch
+	b2sums = SKIP
+	b2sums = 155dca3520e1669713efbf42431e4ba2c9c05006dcd2a14f58252d9e6913aab799af7b64c9040201e99ff8d12f953918124c83845fcf64ec025fc131e7acdf1f
+
+pkgname = astyle
