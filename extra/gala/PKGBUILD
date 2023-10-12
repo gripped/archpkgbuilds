@@ -2,7 +2,7 @@
 
 pkgname=gala
 pkgver=7.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc='The Pantheon Window Manager'
 arch=(x86_64)
 url=https://github.com/elementary/gala
@@ -53,6 +53,13 @@ b2sums=(SKIP)
 pkgver() {
   cd gala
   git describe --tags | sed 's/-/.r/; s/-g/./'
+}
+
+prepare() {
+  cd gala
+
+  # mutter 45
+  git cherry-pick -n 151e5f01750e9471cceac48f1999ac5e81f625b5
 }
 
 build() {
