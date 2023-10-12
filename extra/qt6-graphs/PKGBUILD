@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=qt6-graphs
-_qtver=6.6.0-rc
+_qtver=6.6.0
 pkgver=${_qtver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -18,8 +18,8 @@ makedepends=(cmake
              qt6-shadertools)
 groups=(qt6)
 _pkgfn=${pkgname/6-/}-everywhere-src-$_qtver
-source=(https://download.qt.io/development_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz)
-sha256sums=('94be7018e056fc55254013ce6b25fa95510a1a27b7c63079f589f9e68ab26dff')
+source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz)
+sha256sums=('56e147fc89031b77002a87da2970c1d6ebf3f595268d0cae52f5f71278e15e7f')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
