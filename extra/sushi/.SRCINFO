@@ -1,0 +1,24 @@
+pkgbase = sushi
+	pkgdesc = A quick previewer for Nautilus
+	pkgver = 45.0
+	pkgrel = 1
+	url = https://gitlab.gnome.org/GNOME/sushi
+	arch = x86_64
+	groups = gnome
+	license = GPL2
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = meson
+	depends = evince
+	depends = gjs
+	depends = gst-plugin-gtk
+	depends = gst-plugins-base-libs
+	depends = gtk3
+	depends = gtksourceview4
+	depends = libsoup3
+	depends = webkit2gtk-4.1
+	optdepends = libreoffice: OpenDocument formats
+	source = git+https://gitlab.gnome.org/GNOME/sushi.git#commit=ecab9e67f8c079303d88e7db4325755de1286b64
+	b2sums = SKIP
+
+pkgname = sushi
