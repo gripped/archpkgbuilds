@@ -1,0 +1,31 @@
+pkgbase = gnome-music
+	pkgdesc = Music player and management application
+	pkgver = 45.0
+	pkgrel = 1
+	epoch = 1
+	url = https://wiki.gnome.org/Apps/Music
+	arch = any
+	groups = gnome
+	license = GPL
+	makedepends = appstream-glib
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = meson
+	makedepends = yelp-tools
+	depends = grilo
+	depends = grilo-plugins
+	depends = gst-plugins-base
+	depends = gst-plugins-good
+	depends = gtk4
+	depends = libadwaita
+	depends = libmediaart
+	depends = python-cairo
+	depends = python-gobject
+	depends = tracker3-miners
+	optdepends = gst-libav: Extra media codecs
+	optdepends = gst-plugins-bad: Extra media codecs
+	optdepends = gst-plugins-ugly: Extra media codecs
+	source = git+https://gitlab.gnome.org/GNOME/gnome-music.git#commit=2f34438a1609ccd51bc054c154e845627156689f
+	b2sums = SKIP
+
+pkgname = gnome-music
