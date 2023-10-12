@@ -1,0 +1,18 @@
+pkgbase = gnome-shell-extensions
+	pkgdesc = Extensions for GNOME shell, including classic mode
+	pkgver = 45.0
+	pkgrel = 2
+	url = https://wiki.gnome.org/Projects/GnomeShell/Extensions
+	arch = any
+	groups = gnome
+	license = GPL
+	makedepends = git
+	makedepends = meson
+	depends = gnome-shell
+	optdepends = gnome-menus: applications menu extension
+	source = git+https://gitlab.gnome.org/GNOME/gnome-shell-extensions.git#commit=ba5783ff8cf9a205874601f92932fd429ec9fb2f
+	source = 0001-drive_menu_remove_left_over_signal_connection.patch::https://gitlab.gnome.org/GNOME/gnome-shell-extensions/-/commit/092b268823746d58a5fea737d9f1234d71a8058d.diff
+	b2sums = SKIP
+	b2sums = f2872b67e6a7ae916a0c5bd8c8f095a89b801fb85abee793c881227caff6352bd4e868a8a9d9903448e93d44b28cf5f44fdb773ad69b04f1c2296a68c835ca76
+
+pkgname = gnome-shell-extensions

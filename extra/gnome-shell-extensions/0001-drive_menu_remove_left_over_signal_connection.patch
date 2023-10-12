@@ -1,0 +1,13 @@
+diff --git a/extensions/drive-menu/extension.js b/extensions/drive-menu/extension.js
+index f377a164986e22e80c613b265122b4308b9b4ad9..a0f7272303374e7c73ec280d1dba8714e5444c0b 100644
+--- a/extensions/drive-menu/extension.js
++++ b/extensions/drive-menu/extension.js
+@@ -39,8 +39,6 @@ class MountMenuItem extends PopupMenu.PopupBaseMenuItem {
+ 
+         this.mount = mount;
+ 
+-        this.connect('destroy', this._onDestroy.bind(this));
+-
+         let ejectIcon = new St.Icon({
+             icon_name: 'media-eject-symbolic',
+             style_class: 'popup-menu-icon',
