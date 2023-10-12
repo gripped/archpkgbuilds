@@ -3,18 +3,18 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=dolphin-plugins
-pkgver=23.08.1
+pkgver=23.08.2
 pkgrel=1
 pkgdesc='Extra Dolphin plugins'
 arch=(x86_64)
 url='https://apps.kde.org/dolphin_plugins/'
 license=(LGPL)
 depends=(dolphin)
-makedepends=(extra-cmake-modules ktexteditor)
+makedepends=(extra-cmake-modules ktexteditor5)
 optdepends=('ktexteditor: Mercurial plugin')
 groups=(kde-applications kdesdk)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('992f429f3b80d6eeb0304a2f38b475868bf86e7929cedcbf5728fe79853a0b55'
+sha256sums=('10ed409555472af476474892a255bebfea34d3581baffd020e252c38c87cb08e'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
