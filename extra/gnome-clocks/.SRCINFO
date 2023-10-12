@@ -1,0 +1,24 @@
+pkgbase = gnome-clocks
+	pkgdesc = Clocks applications for GNOME
+	pkgver = 45.0
+	pkgrel = 1
+	url = https://wiki.gnome.org/Apps/Clocks
+	arch = x86_64
+	groups = gnome
+	license = GPL
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = meson
+	makedepends = vala
+	makedepends = yelp-tools
+	depends = geoclue
+	depends = geocode-glib-2
+	depends = gnome-desktop-4
+	depends = gtk4
+	depends = libadwaita
+	depends = libgweather-4
+	depends = xdg-desktop-portal
+	source = git+https://gitlab.gnome.org/GNOME/gnome-clocks.git#commit=b1c6ff122488fea47833108f7f661481b9b9574a
+	b2sums = SKIP
+
+pkgname = gnome-clocks
