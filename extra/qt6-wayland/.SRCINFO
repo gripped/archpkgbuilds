@@ -1,6 +1,6 @@
 pkgbase = qt6-wayland
 	pkgdesc = Provides APIs for Wayland
-	pkgver = 6.5.3
+	pkgver = 6.6.0
 	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
@@ -11,9 +11,14 @@ pkgbase = qt6-wayland
 	license = custom
 	makedepends = cmake
 	makedepends = ninja
+	depends = gcc-libs
+	depends = glibc
+	depends = libglvnd
+	depends = libxkbcommon
+	depends = qt6-base
 	depends = qt6-declarative
-	depends = libxcomposite
-	source = https://download.qt.io/official_releases/qt/6.5/6.5.3/submodules/qtwayland-everywhere-src-6.5.3.tar.xz
-	sha256sums = f72a8588b7ff9b81bb311f2c8b541c11788b81003537b010360ca80eae52369f
+	depends = wayland
+	source = https://download.qt.io/official_releases/qt/6.6/6.6.0/submodules/qtwayland-everywhere-src-6.6.0.tar.xz
+	sha256sums = 30c3d82d85d050c83370710a26d12c802199c51eba5c2726e9d6243edd03b7e8
 
 pkgname = qt6-wayland
