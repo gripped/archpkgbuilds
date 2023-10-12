@@ -1,6 +1,6 @@
 pkgbase = qt6-5compat
 	pkgdesc = Module that contains unsupported Qt 5 APIs
-	pkgver = 6.5.3
+	pkgver = 6.6.0
 	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
@@ -13,10 +13,13 @@ pkgbase = qt6-5compat
 	makedepends = ninja
 	makedepends = qt6-declarative
 	makedepends = qt6-shadertools
+	depends = gcc-libs
+	depends = glibc
+	depends = icu
 	depends = qt6-base
 	optdepends = qt6-declarative: for QtGraphicalEffects
 	optdepends = qt6-shadertools: for QtGraphicalEffects
-	source = https://download.qt.io/official_releases/qt/6.5/6.5.3/submodules/qt5compat-everywhere-src-6.5.3.tar.xz
-	sha256sums = eeb2a9e27771e15aaa7935f61a8024b46cc8e2044ae0ceacff2754c0cb806464
+	source = https://download.qt.io/official_releases/qt/6.6/6.6.0/submodules/qt5compat-everywhere-src-6.6.0.tar.xz
+	sha256sums = 3d85edb66126f712266dcbfc6cd00383d46cc6d66c8b84607ca21e2bc71a8fca
 
 pkgname = qt6-5compat
