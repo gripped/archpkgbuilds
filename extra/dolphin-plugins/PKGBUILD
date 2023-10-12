@@ -4,14 +4,14 @@
 
 pkgname=dolphin-plugins
 pkgver=23.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Extra Dolphin plugins'
 arch=(x86_64)
 url='https://apps.kde.org/dolphin_plugins/'
 license=(LGPL)
 depends=(dolphin)
 makedepends=(extra-cmake-modules ktexteditor5)
-optdepends=('ktexteditor: Mercurial plugin')
+optdepends=('ktexteditor5: Mercurial plugin')
 groups=(kde-applications kdesdk)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('10ed409555472af476474892a255bebfea34d3581baffd020e252c38c87cb08e'
