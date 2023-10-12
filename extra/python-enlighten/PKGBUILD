@@ -2,8 +2,8 @@
 # Contributor: Tharre <tharre3@gmail.com>
 
 pkgname=python-enlighten
-pkgver=1.11.2
-pkgrel=2
+pkgver=1.12.0
+pkgrel=1
 pkgdesc='Progress bar for Python console apps'
 url=https://github.com/Rockhopper-Technologies/enlighten
 arch=(any)
@@ -16,9 +16,13 @@ makedepends=(
   git
   python-setuptools
 )
-_tag=be19ddbdfb6e76f1e703f0d54a2b26c124c881e1
+_tag=6f8aaae0975e85fbd8533c4baba21364dd1e3886
 source=(git+https://github.com/Rockhopper-Technologies/enlighten.git#tag=${_tag})
 b2sums=(SKIP)
+
+prepare() {
+  rm -rf enlighten/benchmarks
+}
 
 pkgver() {
   cd enlighten
