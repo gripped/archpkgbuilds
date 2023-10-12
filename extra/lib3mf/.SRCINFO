@@ -1,0 +1,21 @@
+pkgbase = lib3mf
+	pkgdesc = Implementation of the 3D Manufacturing Format file standard
+	pkgver = 2.2.0
+	pkgrel = 1
+	url = https://github.com/3MFConsortium/lib3mf
+	arch = x86_64
+	license = BSD
+	checkdepends = gtest
+	makedepends = git
+	makedepends = cmake
+	depends = gcc-libs
+	depends = glibc
+	depends = libzip
+	depends = util-linux-libs
+	depends = zlib
+	replaces = lib3mf-1
+	options = !lto
+	source = lib3mf::git+https://github.com/3MFConsortium/lib3mf#commit=00bababcc968c1b4eeac51af636b88b6182c72b8
+	b2sums = SKIP
+
+pkgname = lib3mf
