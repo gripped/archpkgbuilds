@@ -2,17 +2,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=keditbookmarks
-pkgver=23.08.1
+pkgver=23.08.2
 pkgrel=1
 pkgdesc='Bookmark Organizer and Editor'
 arch=(x86_64)
 url='https://www.kde.org/'
 license=(LGPL)
-depends=(kparts)
-makedepends=(extra-cmake-modules kdoctools)
+depends=(kparts5)
+makedepends=(extra-cmake-modules kdoctools5)
 groups=(kde-applications kde-utilities)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('8d25d9505816a156840233b7463f534f193c9f7b283f4887a11b4c58ef7ba264'
+sha256sums=('1578dbe3f9891b2ea7171cc91026d2f13a8bd8af69f654c8a834a0ad7b6f9349'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
