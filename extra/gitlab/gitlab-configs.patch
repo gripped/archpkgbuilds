@@ -15,7 +15,7 @@ Date:   Tue May 26 00:01:38 2020 -0700
     will cause a conflict that needs to be reviewed manually.
 
 diff --git a/config/database.yml.postgresql b/config/database.yml.postgresql
-index b210b9c412b..19c33fdd1f5 100644
+index da9f458ff09..78b0dedae79 100644
 --- a/config/database.yml.postgresql
 +++ b/config/database.yml.postgresql
 @@ -6,7 +6,7 @@ production:
@@ -97,8 +97,8 @@ index b210b9c412b..19c33fdd1f5 100644
      password: "secure password"
      host: localhost
  
-@@ -106,28 +59,3 @@ test: &test
-     prepared_statements: false
+@@ -107,31 +60,3 @@ test: &test
+     reaping_frequency: nil
      variables:
        statement_timeout: 15s
 -  ci:
@@ -110,6 +110,7 @@ index b210b9c412b..19c33fdd1f5 100644
 -    password:
 -    host: localhost
 -    prepared_statements: false
+-    reaping_frequency: nil
 -    variables:
 -      statement_timeout: 15s
 -  geo:
@@ -119,6 +120,7 @@ index b210b9c412b..19c33fdd1f5 100644
 -    username: postgres
 -    password:
 -    host: localhost
+-    reaping_frequency: nil
 -  embedding:
 -    adapter: postgresql
 -    encoding: unicode
@@ -126,6 +128,7 @@ index b210b9c412b..19c33fdd1f5 100644
 -    username: postgres
 -    password:
 -    host: localhost
+-    reaping_frequency: nil
 diff --git a/config/gitlab.yml.example b/config/gitlab.yml.example
 index 7968d46dad4..ab76b169d55 100644
 --- a/config/gitlab.yml.example
