@@ -4,7 +4,7 @@ pkgbase=pyqt6
 pkgname=python-pyqt6
 pkgdesc='A set of Python bindings for the Qt6 toolkit'
 pkgver=6.5.2
-pkgrel=1
+pkgrel=3
 arch=(x86_64)
 url='https://riverbankcomputing.com/software/pyqt/intro'
 license=(GPL)
@@ -28,11 +28,19 @@ optdepends=('qt6-tools: QtHelp, QtDesigner bindings'
 makedepends=(sip pyqt-builder python-opengl dbus-python
              qt6-tools qt6-svg qt6-declarative qt6-quick3d qt6-shadertools qt6-multimedia qt6-remoteobjects
              qt6-positioning qt6-sensors qt6-serialport qt6-webchannel qt6-websockets qt6-connectivity qt6-speech qt6-webengine)
-source=(https://pypi.python.org/packages/source/P/PyQt6/PyQt6-$pkgver.tar.gz)
-sha256sums=('1487ee7350f9ffb66d60ab4176519252c2b371762cbe8f8340fd951f63801280')
+source=(https://pypi.python.org/packages/source/P/PyQt6/PyQt6-$pkgver.tar.gz
+        qt-6.6.patch)
+sha256sums=('1487ee7350f9ffb66d60ab4176519252c2b371762cbe8f8340fd951f63801280'
+            '18aec9fa60c9a560226560ea69b805874c91e53596640300742f2afa415bac46')
+
+prepare() {
+  cd PyQt6-$pkgver
+  patch -p1 -i ../qt-6.6.patch # Fix build with Qt 6.6
+}
 
 build() {
   cd PyQt6-$pkgver
+  export CXXFLAGS+=" -DQT_NO_INT128" # Fix build with Qt 6.6
   sip-build \
     --confirm-license \
     --no-make \
