@@ -1,6 +1,6 @@
 pkgbase = qt6-grpc
 	pkgdesc = Provides the modules QtGrpc and QtProtobuf
-	pkgver = 6.5.3
+	pkgver = 6.6.0
 	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
@@ -11,12 +11,13 @@ pkgbase = qt6-grpc
 	license = custom
 	makedepends = cmake
 	makedepends = ninja
-	makedepends = protobuf
-	depends = qt6-base
+	depends = abseil-cpp
+	depends = gcc-libs
+	depends = glibc
 	depends = grpc
-	source = https://download.qt.io/official_releases/qt/6.5/6.5.3/submodules/qtgrpc-everywhere-src-6.5.3.tar.xz
-	source = protobuf-23.patch
-	sha256sums = 6ebf7a73daa6388e15e95a1de021dc4d097fe0f6b71b106178c388cc7ec18b83
-	sha256sums = 838bb8aba6f2f855e16fb08741248c8524ea165b546c186c8fb80c9943fa4b98
+	depends = protobuf
+	depends = qt6-base
+	source = https://download.qt.io/official_releases/qt/6.6/6.6.0/submodules/qtgrpc-everywhere-src-6.6.0.tar.xz
+	sha256sums = dab9b95fadc759deaca36e423f5ee6924eeec6e18a806c4b7e0d710f36c7ed92
 
 pkgname = qt6-grpc
