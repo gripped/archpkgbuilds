@@ -1,0 +1,29 @@
+pkgbase = gnome-maps
+	pkgdesc = A simple GNOME 3 maps application
+	pkgver = 45.0
+	pkgrel = 1
+	url = https://wiki.gnome.org/Apps/Maps
+	arch = x86_64
+	groups = gnome
+	license = GPL
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = meson
+	makedepends = yelp-tools
+	depends = dconf
+	depends = hicolor-icon-theme
+	depends = geoclue
+	depends = geocode-glib-2
+	depends = gjs
+	depends = glib2
+	depends = gtk4
+	depends = libadwaita
+	depends = libgweather-4
+	depends = libportal
+	depends = librest
+	depends = libshumate
+	depends = libxml2
+	source = git+https://gitlab.gnome.org/GNOME/gnome-maps.git#commit=9ba1c9ab31037402bfa8d58954f826587fe2bf8c
+	b2sums = SKIP
+
+pkgname = gnome-maps

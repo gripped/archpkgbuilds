@@ -1,20 +1,25 @@
+# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-maps
-pkgver=44.4
+pkgver=45.0
 pkgrel=1
 pkgdesc="A simple GNOME 3 maps application"
 url="https://wiki.gnome.org/Apps/Maps"
 arch=(x86_64)
 license=(GPL)
 depends=(
+  dconf
+  hicolor-icon-theme
   geoclue
   geocode-glib-2
   gjs
+  glib2
   gtk4
   libadwaita
   libgweather-4
+  libportal
   librest
   libshumate
   libxml2
@@ -26,7 +31,7 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome)
-_commit=cac93ce984c1a49beebe5000910742e3b758f614  # tags/v44.4^0
+_commit=9ba1c9ab31037402bfa8d58954f826587fe2bf8c  # tags/v45.0^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-maps.git#commit=$_commit")
 b2sums=('SKIP')
 
