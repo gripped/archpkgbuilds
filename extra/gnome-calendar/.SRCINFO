@@ -1,0 +1,30 @@
+pkgbase = gnome-calendar
+	pkgdesc = Simple and beautiful calendar application designed to perfectly fit the GNOME desktop
+	pkgver = 45.0
+	pkgrel = 1
+	url = https://wiki.gnome.org/Apps/Calendar
+	arch = x86_64
+	groups = gnome
+	license = GPL
+	makedepends = git
+	makedepends = meson
+	depends = dconf
+	depends = evolution-data-server
+	depends = geoclue
+	depends = geocode-glib-2
+	depends = glib2
+	depends = graphene
+	depends = gsettings-desktop-schemas
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita
+	depends = libedataserverui4
+	depends = libgweather-4
+	depends = libical
+	depends = libsoup3
+	depends = pango
+	optdepends = gnome-control-center: Manage online accounts
+	source = git+https://gitlab.gnome.org/GNOME/gnome-calendar.git#commit=619d95c3367691b16b80b69e70dcaa48f3bf1033
+	b2sums = SKIP
+
+pkgname = gnome-calendar
