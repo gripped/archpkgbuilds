@@ -3,7 +3,7 @@
 
 _pyname=jupyter_core
 pkgname=python-${_pyname/_/-}
-pkgver=5.3.2
+pkgver=5.4.0
 pkgrel=1
 pkgdesc='Jupyter core package. A base package on which Jupyter projects rely'
 arch=(any)
@@ -22,7 +22,7 @@ conflicts=(python-jupyter_core)
 provides=(python-jupyter_core)
 replaces=(python-jupyter_core)
 source=(https://files.pythonhosted.org/packages/source/j/jupyter_core/$_pyname-$pkgver.tar.gz)
-sha256sums=('0c28db6cbe2c37b5b398e1a1a5b22f84fd64cd10afc1f6c05b02fb09481ba45f')
+sha256sums=('e4b98344bb94ee2e3e6c4519a97d001656009f9cb2b7f2baf15b3c205770011d')
 
 prepare() {
   cd $_pyname-$pkgver
@@ -36,11 +36,9 @@ build() {
 
 check() {
   cd $_pyname-$pkgver
-  pytest -v \
-    --deselect tests/test_command.py::test_not_on_path \
-    --deselect tests/test_command.py::test_path_priority \
-    --deselect tests/test_command.py::test_argv0 \
-    --deselect tests/test_paths.py::test_jupyter_path_prefer_env # https://github.com/jupyter/jupyter_core/issues/208
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest -v -W ignore::ResourceWarning
 }
 
 package() {
