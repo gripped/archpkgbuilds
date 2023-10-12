@@ -1,0 +1,35 @@
+pkgbase = orca
+	pkgdesc = Screen reader for individuals who are blind or visually impaired
+	pkgver = 45.1
+	pkgrel = 1
+	url = https://wiki.gnome.org/Projects/Orca
+	arch = any
+	groups = gnome
+	license = LGPL
+	makedepends = git
+	makedepends = itstool
+	makedepends = yelp-tools
+	depends = at-spi2-core
+	depends = brltty
+	depends = gobject-introspection-runtime
+	depends = gsettings-desktop-schemas
+	depends = gstreamer
+	depends = gst-plugins-base
+	depends = gst-plugins-good
+	depends = gtk3
+	depends = hicolor-icon-theme
+	depends = liblouis
+	depends = libwnck3
+	depends = pango
+	depends = python
+	depends = python-atspi
+	depends = python-cairo
+	depends = python-gobject
+	depends = python-setproctitle
+	depends = speech-dispatcher
+	depends = xorg-xkbcomp
+	depends = xorg-xmodmap
+	source = git+https://gitlab.gnome.org/GNOME/orca.git#commit=9e77d1baf9bd24b78d7499ad9b2e8bb80c9a0c81
+	b2sums = SKIP
+
+pkgname = orca
