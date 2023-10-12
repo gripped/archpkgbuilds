@@ -2,7 +2,7 @@
 
 _name=unearth
 pkgname=python-unearth
-pkgver=0.11.0
+pkgver=0.11.1
 pkgrel=1
 pkgdesc="A utility to fetch and download python packages"
 arch=(any)
@@ -29,14 +29,14 @@ checkdepends=(
 )
 optdepends=('python-keyring: use keyring for authentication')
 source=(
-  https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz
+  $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
 )
-sha256sums=('af20729b398d2f3b839251d745e4f40f23cb09bd6b797e0a6ff6eed46ca70422')
-b2sums=('405c97ef152afb241cb70d9b309fd1ac454be932c96f95b606bb6038ffb2369fbc55c6afabd86f6a15949182de276dcda035fdb17d4810933286a0fa0b567e42')
+sha256sums=('8ef2a7e809588ab4e7511fb6f24c7349380459d9dfa6dd4315455756ba8481ed')
+b2sums=('a1f322438c45186ef00e72b7d08119d274e1231ce029465b3339daf26ad3ebae9e11b741590fc5e762a1f155df01cf6d47bcd940c5271e91c4672de3da1cb918')
 
 build() {
   cd $_name-$pkgver
-  export PDM_PEP517_SCM_VERSION=$pkgver
+  export PDM_BUILD_SCM_VERSION=$pkgver
   python -m build --wheel --no-isolation
 }
 
