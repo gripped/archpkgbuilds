@@ -4,7 +4,7 @@
 pkgname=python-moto
 _pkgname=moto
 # https://github.com/spulec/moto/blob/master/CHANGELOG.md
-pkgver=4.2.4
+pkgver=4.2.5
 pkgrel=1
 pkgdesc='Moto is a library to mock out the boto library.'
 arch=(any)
@@ -41,17 +41,18 @@ optdepends=(
   'python-crc32c: for s3'
   'python-flask: for moto_server'
   'python-flask-cors: for moto_server'
+  'python-multipart: for moto_proxy'
 )
 checkdepends+=(python-yaml python-jose python-openapi-spec-validator python-docker
                python-graphql-core python-jsondiff python-aws-xray-sdk
                python-cfn-lint python-sshpubkeys python-pyparsing python-py-partiql-parser
                python-crc32c
-               python-flask python-flask-cors)
+               python-flask python-flask-cors python-multipart)
 source=("https://github.com/getmoto/moto/archive/refs/tags/$pkgver/$pkgname-$pkgver.tar.gz"
         "fix-tests.diff"
         "typing-extensions.diff"
         "add-requires_docker.diff")
-sha256sums=('95944c5030bead54743e68ed4618198d5296816b94039f954db4837e94631a95'
+sha256sums=('f5f31db40db0a1366fd26ee562ba80ae4fdb8aa9c5f3184c1045ad2470bf251a'
             '21305cdf3d650ced1acb1d0f7dde8760b26e32a94c56a5571e798d6b6976cf5a'
             '8406f4c68b8b43c3666fe5a153de1321a9bc9f02ad19910c6078d8189d8cb24f'
             '353c77431377ebafef1d433b3a433646117d882aa413a9079e5fceb98d90e3ad')
