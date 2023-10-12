@@ -1,7 +1,7 @@
 pkgbase = libportal
 	pkgdesc = GIO-style async APIs for most Flatpak portals
 	pkgver = 0.7.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/flatpak/libportal
 	arch = x86_64
 	license = LGPL3
@@ -18,6 +18,7 @@ pkgbase = libportal
 	makedepends = qt5-base
 	makedepends = qt5-x11extras
 	makedepends = vala
+	makedepends = xdg-desktop-portal
 	source = git+https://github.com/flatpak/libportal#commit=e9ed3a50cdde321eaf42361212480a66eb94a57a
 	b2sums = SKIP
 
@@ -25,6 +26,7 @@ pkgname = libportal
 	depends = libglib-2.0.so
 	depends = libgobject-2.0.so
 	depends = libgio-2.0.so
+	depends = xdg-desktop-portal
 	provides = libportal.so
 
 pkgname = libportal-gtk3
