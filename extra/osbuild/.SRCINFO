@@ -1,0 +1,26 @@
+pkgbase = osbuild
+	pkgdesc = Build Pipelines for Operating System Artifacts
+	pkgver = 97
+	pkgrel = 1
+	url = https://www.osbuild.org
+	arch = any
+	license = Apache
+	makedepends = make
+	makedepends = python-docutils
+	makedepends = python-setuptools
+	depends = bubblewrap
+	depends = curl
+	depends = e2fsprogs
+	depends = qemu-img
+	depends = python
+	depends = util-linux
+	depends = python-yaml
+	depends = python-jsonschema
+	depends = python-toml
+	depends = skopeo
+	optdepends = dnf: build rpm/dnf images
+	optdepends = pacman: build pacman images
+	source = osbuild-97.tar.gz::https://github.com/osbuild/osbuild/archive/refs/tags/v97.tar.gz
+	sha256sums = 4b8657da0e89b2f64c31fa3144080cbb30441889678d77a5b8712e46e17d690c
+
+pkgname = osbuild
