@@ -1,0 +1,35 @@
+pkgbase = klipper
+	pkgdesc = 3D printer firmware with motion planning on the host
+	pkgver = 0.11.0
+	pkgrel = 3
+	url = https://www.klipper3d.org/
+	arch = x86_64
+	license = GPL3
+	makedepends = git
+	depends = python-cffi
+	depends = python-pyserial
+	depends = python-greenlet
+	depends = python-jinja
+	depends = python-can
+	depends = libusb
+	optdepends = ncurses: for choosing compilation config
+	optdepends = avrdude: for flashing firmware on AVR MCU
+	optdepends = stm32flash: for flashing firmware on STM MCU
+	optdepends = avr-gcc: for AVR MCU firmware compilation
+	optdepends = avr-binutils: for AVR MCU firmware compilation
+	optdepends = avr-libc: for AVR MCU firmware compilation
+	optdepends = python-numpy: for resonance measurement
+	optdepends = python-matplotlib: for resonance measurement
+	optdepends = dfu-util: for flashing firmware on STM32 MCUs
+	source = git+https://github.com/Klipper3d/klipper.git#tag=e02b725602067a2cd098a62be9a4bb10fc74a9bd
+	source = klipper.service
+	source = klipper.sysusers
+	source = klipper.tmpfiles
+	source = klipper-dict.tar.gz::https://github.com/Klipper3d/klipper/files/9992857/klipper-dict-20221111.tar.gz
+	b2sums = SKIP
+	b2sums = 6163736c66e8f8711bf004d3b8b3a072269dd1a2959b5b32cd092c904af778c75b280c8dfb0fce44fd20f6b4beb8e95bb96c8daa49658bf654794fa1e77fe8c4
+	b2sums = 418e30a46010385166a7ca190381c7a9a8d24e36b2663bef3754ad70fa930a91baec4c0f1b1d5c18f5c9ca0045e68b8410f65134c75f504541bc8567350cb9d7
+	b2sums = c41b0d0f0d473684aabc55ce76944473e1edf272d05a301f07e2a1978b7d3e7f8bad05e87295eee489163158fb6809b0ce9be62feee7399cc08451825cb85b81
+	b2sums = 7cbcbbf5815e6449c213db0ac996526244a8d6d9225ce4548d6a8888714aee16414577cfe78ec82884053872f041e8d794b465e005c7c02aca91b1c74cb5d0ba
+
+pkgname = klipper
