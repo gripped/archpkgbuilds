@@ -1,0 +1,26 @@
+pkgbase = snapshot
+	pkgdesc = Take pictures and videos
+	pkgver = 45.0
+	pkgrel = 1
+	url = https://apps.gnome.org/Snapshot
+	arch = x86_64
+	groups = gnome
+	license = GPL3
+	makedepends = git
+	makedepends = meson
+	makedepends = rust
+	depends = dconf
+	depends = glib2
+	depends = graphene
+	depends = gst-plugins-base
+	depends = gst-plugins-base-libs
+	depends = gst-plugins-good
+	depends = gstreamer
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita
+	optdepends = gst-plugins-bad: More Codecs
+	source = git+https://gitlab.gnome.org/GNOME/snapshot.git#commit=9fa1cf5d0ba15d06602a1ad9f54f452df4d57d67
+	sha256sums = SKIP
+
+pkgname = snapshot
