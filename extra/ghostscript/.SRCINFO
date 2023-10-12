@@ -1,0 +1,46 @@
+pkgbase = ghostscript
+	pkgdesc = An interpreter for the PostScript language
+	pkgver = 10.02.0
+	pkgrel = 2
+	url = https://www.ghostscript.com/
+	arch = x86_64
+	license = AGPL3
+	license = custom
+	makedepends = gtk3
+	makedepends = gnutls
+	makedepends = glu
+	makedepends = freeglut
+	depends = libxt
+	depends = libcups
+	depends = fontconfig
+	depends = zlib
+	depends = libpng
+	depends = libjpeg
+	depends = jbig2dec
+	depends = libtiff
+	depends = lcms2
+	depends = libpaper
+	depends = ijs
+	depends = openjpeg2
+	depends = libidn
+	depends = poppler-data
+	depends = cairo
+	depends = glibc
+	depends = libx11
+	depends = gdk-pixbuf2
+	depends = glib2
+	source = https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10020/ghostpdl-10.02.0.tar.xz
+	source = 2010_add_build_timestamp_setting.patch
+	sha512sums = e60d891818bdf01ec89f90d32b634308002d5f52d1289f89763e112f85f1430b70291bf80f793a4aaad44859d01decd6ceda18f0826b0c8755ef5dec55b9eabc
+	sha512sums = cd7794ee4f28b11177021b950196385200b610127ed6cb94a45e3202b690b721a0dfcc0276ff39448d4dab64c1b31a76e6c323696a8315aad9edc22077f18a3d
+
+pkgname = ghostscript
+	optdepends = gtk3:              needed for gsx
+
+pkgname = ghostxps
+	pkgdesc = An interpreter for the XPS document language
+	depends = ghostscript=10.02.0-2
+
+pkgname = ghostpcl
+	pkgdesc = An interpreter for the PCL 6 language
+	depends = ghostscript=10.02.0-2
