@@ -1,0 +1,32 @@
+pkgbase = libpeas-2
+	pkgdesc = GObject Plugin System
+	pkgver = 2.0.0
+	pkgrel = 1
+	url = https://wiki.gnome.org/Projects/Libpeas
+	arch = x86_64
+	license = LGPL
+	checkdepends = xorg-server-xvfb
+	makedepends = gi-docgen
+	makedepends = git
+	makedepends = glade
+	makedepends = gobject-introspection
+	makedepends = lua51-lgi
+	makedepends = luajit
+	makedepends = meson
+	makedepends = python-gobject
+	makedepends = vala
+	depends = gjs
+	depends = js115
+	depends = lua51
+	depends = python
+	source = git+https://gitlab.gnome.org/GNOME/libpeas.git#commit=0733118ae8e7148a1de63616611c7b0fc092eced
+	b2sums = SKIP
+
+pkgname = libpeas-2
+	optdepends = lua51-lgi: Lua loader
+	optdepends = python-gobject: Python loader
+	provides = libpeas-2.so
+
+pkgname = libpeas-2-docs
+	pkgdesc = GObject Plugin System (documentation)
+	depends = 
