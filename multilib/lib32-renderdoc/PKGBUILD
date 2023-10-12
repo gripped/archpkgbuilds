@@ -3,7 +3,7 @@
 
 _pkgname=renderdoc
 pkgname=lib32-$_pkgname
-pkgver=1.28
+pkgver=1.29
 pkgrel=1
 pkgdesc="OpenGL and Vulkan debugging tool (capture-only, 32-bit)"
 arch=(x86_64)
@@ -18,7 +18,7 @@ options=("!lto")
 source=("https://github.com/baldurk/$_pkgname/archive/v${pkgver}.tar.gz"
         "https://github.com/baldurk/$_pkgname/releases/download/v${pkgver}/v${pkgver}.tar.gz.asc")
 validpgpkeys=('1B039DB9A4718A2D699DE031AC612C3120C34695')
-b2sums=('62572e3c2ca4423c3c220f946a419c74951858027a5369ae59e0a026ddaa35c96b44be7d06ce1ff4e8105f3e5edf0bb0227d11f1dd7d8a747cf75ad97e4f354e'
+b2sums=('492b32140c8ad1ab3e753158cfede64ea0b580a2df03094aeeff2d4eac659fbedc62971f65d3fe024e0282de39d5f122b512be2fc6a28ac7abf794b58f116322'
         'SKIP')
 
 build() {

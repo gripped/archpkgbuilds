@@ -1,0 +1,26 @@
+pkgbase = lib32-renderdoc
+	pkgdesc = OpenGL and Vulkan debugging tool (capture-only, 32-bit)
+	pkgver = 1.29
+	pkgrel = 1
+	url = https://github.com/baldurk/renderdoc
+	arch = x86_64
+	license = MIT
+	makedepends = cmake
+	makedepends = python
+	makedepends = ninja
+	depends = lib32-libx11
+	depends = lib32-libxcb
+	depends = lib32-mesa
+	depends = lib32-libgl
+	depends = lib32-xcb-util-keysyms
+	provides = lib32-renderdoc-minimal
+	conflicts = lib32-renderdoc-minimal
+	replaces = lib32-renderdoc-minimal
+	options = !lto
+	source = https://github.com/baldurk/renderdoc/archive/v1.29.tar.gz
+	source = https://github.com/baldurk/renderdoc/releases/download/v1.29/v1.29.tar.gz.asc
+	validpgpkeys = 1B039DB9A4718A2D699DE031AC612C3120C34695
+	b2sums = 492b32140c8ad1ab3e753158cfede64ea0b580a2df03094aeeff2d4eac659fbedc62971f65d3fe024e0282de39d5f122b512be2fc6a28ac7abf794b58f116322
+	b2sums = SKIP
+
+pkgname = lib32-renderdoc
