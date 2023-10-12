@@ -1,0 +1,35 @@
+pkgbase = duplicity
+	pkgdesc = A utility for encrypted, bandwidth-efficient backups using the rsync algorithm
+	pkgver = 2.1.3
+	pkgrel = 1
+	url = https://duplicity.gitlab.io/
+	arch = x86_64
+	license = GPL
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-setuptools-scm
+	makedepends = python-wheel
+	depends = gnupg
+	depends = librsync
+	depends = python-paramiko
+	depends = python-fasteners
+	depends = python-future
+	optdepends = lftp: backend for ftp, ftps, fish
+	optdepends = ncftp: alternative backend for ftp
+	optdepends = python-b2sdk: Backblaze B2 backend
+	optdepends = python-boto3: Amazon S3 and Google Cloud Storage backend
+	optdepends = python-dropbox: Dropbox backend
+	optdepends = python-gobject: GIO backend
+	optdepends = gvfs: GIO backend
+	optdepends = python-pydrive2: Google Drive backend
+	optdepends = python-mediafire: Mediafire backend
+	optdepends = python-requests-oauthlib: OneDrive backend
+	optdepends = rsync: rsync backend
+	source = duplicity::git+https://gitlab.com/duplicity/duplicity#commit=ee293a78de86614e7a1af5c8704d53fea80c0d5b
+	source = fix-documentation-directory.patch
+	b2sums = SKIP
+	b2sums = ca3e295183f6a484f1483bcd20b537c02d37b9190469c36dd21a9fa53510e5ab3f5bf9b01a5b9ce7e251bfdd418bcc32a448cc94fede1ed4201fb5f063034f0f
+
+pkgname = duplicity
