@@ -1,0 +1,25 @@
+pkgbase = gnome-usage
+	pkgdesc = View information about use of system resources
+	pkgver = 45.0
+	pkgrel = 1
+	url = https://wiki.gnome.org/Apps/Usage
+	arch = x86_64
+	license = GPL3
+	makedepends = accountsservice
+	makedepends = gamemode
+	makedepends = git
+	makedepends = meson
+	makedepends = vala
+	depends = glib2
+	depends = gtk4
+	depends = libadwaita
+	depends = libgee
+	depends = libgtop
+	depends = tracker3
+	depends = xdg-user-dirs
+	optdepends = accountsservice: show user tags for processes
+	optdepends = gamemode: show processes requesting game mode
+	source = git+https://gitlab.gnome.org/GNOME/gnome-usage.git#commit=3e3fb2ac7108a2fc54efd983080e34fc5964a742
+	b2sums = SKIP
+
+pkgname = gnome-usage
