@@ -3,7 +3,7 @@
 # Contributor: josephgbr <rafael.f.f1@gmail.com>
 
 pkgname=lib32-libgusb
-pkgver=0.4.6
+pkgver=0.4.7
 pkgrel=1
 pkgdesc='GObject wrapper for libusb1'
 url=https://github.com/hughsie/libgusb
@@ -19,7 +19,7 @@ makedepends=(
   git
   meson
 )
-_tag=03ba6c83de960fbe5aad13a0d0e2d16e2eca771a
+_tag=94f907cbf150eea97c7a44caaade35b0af5707a3
 source=(git+https://github.com/hughsie/libgusb.git#tag=${_tag})
 sha256sums=(SKIP)
 
