@@ -1,0 +1,23 @@
+pkgbase = ghex
+	pkgdesc = A simple binary editor for the Gnome desktop
+	pkgver = 45.0
+	pkgrel = 1
+	url = https://wiki.gnome.org/Apps/Ghex
+	arch = x86_64
+	license = GPL
+	makedepends = gi-docgen
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = meson
+	makedepends = yelp-tools
+	depends = libadwaita
+	source = git+https://gitlab.gnome.org/GNOME/ghex.git#commit=b772be4603d92c2775ae6f8e2e32c19956403442
+	b2sums = SKIP
+
+pkgname = ghex
+	groups = gnome-extra
+	provides = libgtkhex-4.so
+
+pkgname = ghex-docs
+	pkgdesc = A simple binary editor for the Gnome desktop (documentation)
+	depends = 
