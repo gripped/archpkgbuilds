@@ -1,0 +1,26 @@
+pkgbase = openxr
+	pkgdesc = An open standard for virtual reality and augmented reality platforms and devices
+	pkgver = 1.0.30
+	pkgrel = 1
+	url = https://www.khronos.org/openxr/
+	arch = x86_64
+	license = APACHE
+	makedepends = cmake
+	makedepends = vulkan-headers
+	makedepends = python
+	makedepends = ninja
+	makedepends = wayland
+	makedepends = mesa
+	depends = jsoncpp
+	depends = libx11
+	depends = vulkan-icd-loader
+	depends = libglvnd
+	depends = libxrandr
+	depends = libxxf86vm
+	source = https://github.com/KhronosGroup/OpenXR-SDK-Source/releases/download/release-1.0.30/OpenXR-SDK-Source-release-1.0.30.tar.gz
+	source = https://github.com/KhronosGroup/OpenXR-SDK-Source/releases/download/release-1.0.30/OpenXR-SDK-Source-release-1.0.30.tar.gz.asc
+	validpgpkeys = F029455EAB70F520FF4A03BD7F534CD56F00321E
+	sha512sums = 41600c2706897abeb6c1fc7d5b3fb96160ef36162654ca16d05722e16053d06e9b7ee3ed58b61c9b36ae9a14c06ca53c8e7029c13157f876f8a14c46f62439c1
+	sha512sums = SKIP
+
+pkgname = openxr
