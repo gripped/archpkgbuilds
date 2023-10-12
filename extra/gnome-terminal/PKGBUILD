@@ -1,8 +1,9 @@
+# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-terminal
-pkgver=3.48.2
+pkgver=3.50.0
 pkgrel=1
 pkgdesc="The GNOME Terminal Emulator"
 url="https://wiki.gnome.org/Apps/Terminal"
@@ -10,6 +11,7 @@ arch=(x86_64)
 license=(GPL)
 depends=(
   gsettings-desktop-schemas
+  libhandy
   vte3
 )
 makedepends=(
@@ -21,7 +23,7 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome-extra)
-_commit=34572eea23a99f1572808d7d2b42af4c8b8b396c  # tags/3.48.2^0
+_commit=f474a6fc149feabbb7e8e4d9587233e258bcc76f  # tags/3.50.0^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-terminal.git#commit=$_commit")
 b2sums=('SKIP')
 
