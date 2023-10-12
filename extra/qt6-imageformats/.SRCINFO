@@ -1,6 +1,6 @@
 pkgbase = qt6-imageformats
 	pkgdesc = Plugins for additional image formats: TIFF, MNG, TGA, WBMP
-	pkgver = 6.5.3
+	pkgver = 6.6.0
 	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
@@ -11,11 +11,14 @@ pkgbase = qt6-imageformats
 	license = custom
 	makedepends = cmake
 	makedepends = ninja
-	depends = qt6-base
+	depends = gcc-libs
+	depends = glibc
 	depends = jasper
-	depends = libwebp
 	depends = libmng
-	source = https://download.qt.io/official_releases/qt/6.5/6.5.3/submodules/qtimageformats-everywhere-src-6.5.3.tar.xz
-	sha256sums = 49c026c49a738ed024c072a4b205cdc1235507da4a2d0ea740bd574fff138ccb
+	depends = libtiff
+	depends = libwebp
+	depends = qt6-base
+	source = https://download.qt.io/official_releases/qt/6.6/6.6.0/submodules/qtimageformats-everywhere-src-6.6.0.tar.xz
+	sha256sums = e1542cb50176e237809895c6549598c08587c63703d100be54ac2d806834e384
 
 pkgname = qt6-imageformats
