@@ -1,0 +1,43 @@
+pkgbase = evince
+	pkgdesc = Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)
+	pkgver = 45.0
+	pkgrel = 1
+	url = https://wiki.gnome.org/Apps/Evince
+	arch = x86_64
+	license = GPL
+	makedepends = appstream-glib
+	makedepends = gi-docgen
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = meson
+	makedepends = texlive-bin
+	makedepends = yelp-tools
+	depends = dconf
+	depends = djvulibre
+	depends = gnome-desktop
+	depends = gsettings-desktop-schemas
+	depends = gsfonts
+	depends = gspell
+	depends = gst-plugins-base-libs
+	depends = gtk3
+	depends = gvfs
+	depends = libarchive
+	depends = libgxps
+	depends = libhandy
+	depends = libsecret
+	depends = libspectre
+	depends = libsynctex
+	depends = libxml2
+	depends = poppler-glib
+	source = git+https://gitlab.gnome.org/GNOME/evince.git#commit=80b393cac6468561664810d5e4a0f1897507062b
+	b2sums = SKIP
+
+pkgname = evince
+	groups = gnome
+	optdepends = texlive-bin: DVI support
+	provides = libevdocument3.so
+	provides = libevview3.so
+
+pkgname = evince-lib-docs
+	pkgdesc = Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt) (library API documentation)
+	depends = 
