@@ -1,0 +1,56 @@
+pkgbase = mupdf
+	pkgdesc = Lightweight PDF and XPS viewer
+	pkgver = 1.23.4
+	pkgrel = 3
+	url = https://mupdf.com/
+	arch = x86_64
+	license = AGPL3
+	makedepends = desktop-file-utils
+	makedepends = freetype2
+	makedepends = freeglut
+	makedepends = glu
+	makedepends = gumbo-parser
+	makedepends = harfbuzz
+	makedepends = jbig2dec
+	makedepends = libjpeg
+	makedepends = libxext
+	makedepends = mesa-libgl
+	makedepends = openjpeg2
+	makedepends = zlib
+	options = staticlibs
+	source = https://mupdf.com/downloads/archive/mupdf-1.23.4-source.tar.gz
+	source = mupdf.desktop
+	source = mupdf.xpm
+	sha256sums = deb0347a3f9ce0967611d479a8a07b57e2c730b0aaf09dce28ee41abb9ac4838
+	sha256sums = ccff66979249bd4ab4ba8918660f194eb90eb0ae231b16e36a6cecdcf471883f
+	sha256sums = a435f44425f5432c074dee745d8fbaeb879038ec1f1ec64f037c74662f09aca8
+
+pkgname = libmupdf
+	pkgdesc = Library for Lightweight PDF and XPS viewer
+	depends = freetype2
+	depends = gumbo-parser
+	depends = harfbuzz
+	depends = jbig2dec
+	depends = libjpeg
+	depends = zlib
+	depends = openjpeg2
+
+pkgname = mupdf
+	pkgdesc = Lightweight PDF and XPS viewer
+	depends = desktop-file-utils
+	depends = libmupdf
+	depends = libxext
+
+pkgname = mupdf-gl
+	pkgdesc = Lightweight PDF and XPS viewer with OpenGL backend
+	depends = desktop-file-utils
+	depends = glut
+	depends = libgl
+	depends = libmupdf
+	depends = openssl
+	provides = mupdf=1.23.4
+	conflicts = mupdf
+
+pkgname = mupdf-tools
+	pkgdesc = Tools for Lightweight PDF and XPS viewer
+	depends = libmupdf
