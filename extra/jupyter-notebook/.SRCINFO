@@ -1,0 +1,27 @@
+pkgbase = jupyter-notebook
+	pkgdesc = The language-agnostic HTML notebook application for Project Jupyter
+	pkgver = 7.0.5
+	pkgrel = 1
+	url = https://github.com/jupyter/notebook
+	arch = any
+	license = BSD
+	checkdepends = python-pytest-jupyter
+	checkdepends = python-pytest-timeout
+	checkdepends = python-requests
+	makedepends = python-build
+	makedepends = python-hatch-jupyter-builder
+	makedepends = python-installer
+	depends = jupyter-notebook-shim
+	depends = jupyter-server
+	depends = jupyterlab
+	depends = python
+	depends = python-jupyter-client
+	depends = python-jupyter-core
+	depends = python-jupyterlab-server
+	depends = python-tornado
+	depends = python-traitlets
+	replaces = jupyter-retrolab
+	source = https://pypi.io/packages/source/n/notebook/notebook-7.0.5.tar.gz
+	sha256sums = 9e7c7a91de138bc8b5ee50486a20e70fa4d82d407b5622ec8beac9e13e773181
+
+pkgname = jupyter-notebook
