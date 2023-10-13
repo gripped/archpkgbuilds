@@ -1,7 +1,7 @@
 pkgbase = libnvme
 	pkgdesc = C Library for NVM Express on Linux
 	pkgver = 1.6
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/linux-nvme/libnvme
 	arch = x86_64
 	license = LGPL2.1
@@ -15,6 +15,8 @@ pkgbase = libnvme
 	depends = keyutils
 	depends = dbus
 	source = libnvme-1.6.tar.gz::https://github.com/linux-nvme/libnvme/archive/v1.6.tar.gz
+	source = libnvme-1.6-allocate_aligned_payloads.patch::https://github.com/linux-nvme/libnvme/pull/727.patch
 	sha256sums = 0dd8ba8b655abe78c09833edb66632aa6bee82aebf117dd252ded968deaaeec7
+	sha256sums = 21bbdbb312af5c5d1604ebf9d72b28d260083dbb1691357255d83a2e5dc63a10
 
 pkgname = libnvme
