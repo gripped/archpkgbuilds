@@ -1,0 +1,26 @@
+pkgbase = msmtp
+	pkgdesc = A mini smtp client
+	pkgver = 1.8.24
+	pkgrel = 1
+	url = https://marlam.de/msmtp/
+	arch = x86_64
+	license = GPL3
+	makedepends = libsecret
+	makedepends = gsasl
+	makedepends = texlive-plaingeneric
+	source = https://marlam.de/msmtp/releases/msmtp-1.8.24.tar.xz
+	source = https://marlam.de/msmtp/releases/msmtp-1.8.24.tar.xz.sig
+	validpgpkeys = 2F61B4828BBA779AECB3F32703A2A4AB1E32FD34
+	sha512sums = 9bcd1431bd27a74cea931da0e89adfdc53b5be027cef4a735e2fdaba3aed38408b4a266960b51a4071664b88b1af4545a3df5acf64b9ab8ce84000c49a8286ff
+	sha512sums = SKIP
+
+pkgname = msmtp
+	pkgdesc = A mini smtp client
+	depends = libsecret
+	depends = gsasl
+
+pkgname = msmtp-mta
+	pkgdesc = A mini smtp client - the regular MTA
+	depends = msmtp
+	provides = smtp-forwarder
+	conflicts = smtp-forwarder
