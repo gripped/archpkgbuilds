@@ -1,0 +1,20 @@
+pkgbase = grafana-zabbix
+	pkgdesc = Zabbix plugin for Grafana dashboard
+	pkgver = 4.4.3
+	pkgrel = 1
+	url = https://github.com/alexanderzobnin/grafana-zabbix
+	arch = any
+	license = APACHE
+	makedepends = yarn
+	makedepends = libfaketime
+	makedepends = go
+	makedepends = git
+	makedepends = nodejs-lts-hydrogen
+	makedepends = mage
+	depends = grafana
+	source = grafana-zabbix-4.4.3-retagged-1.tar.gz::https://github.com/alexanderzobnin/grafana-zabbix/archive/v4.4.3.tar.gz
+	source = fix_prettier_issues_in_test_files.patch::https://github.com/grafana/grafana-zabbix/commit/43f2c6653bda5a0dcd9b824a11839d2531202906.patch
+	sha256sums = 023c5c143195df6f255132428e90bd8cd107b046f119d88d22538bc683f33eff
+	sha256sums = 3c9d44cab26971417333ef5d1f7f331bed9e10b0048eb61c9b16ebcb7cc67a93
+
+pkgname = grafana-zabbix
