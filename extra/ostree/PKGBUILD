@@ -5,7 +5,7 @@
 pkgname=ostree
 _commit=cf09e9f4e8f10d772a04ebe0ca9f66698e837f6a  # tags/v2023.6
 pkgver=2023.6
-pkgrel=3
+pkgrel=4
 pkgdesc="Operating system and container binary deployment and upgrades"
 url="https://ostreedev.github.io/ostree/"
 arch=(x86_64)
