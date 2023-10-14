@@ -2,13 +2,13 @@
 
 pkgname=kclock
 pkgver=23.08.2
-pkgrel=1
+pkgrel=3
 pkgdesc='Clock app for Plasma Mobile'
 url='https://apps.kde.org/kclock/'
 arch=(x86_64)
 license=(GPL LGPL)
 groups=(kde-applications utilities)
-depends=(kirigami-addons qt5-svg qt5-multimedia plasma-framework5)
+depends=(kirigami-addons5 qt5-svg qt5-multimedia plasma-framework5)
 makedepends=(extra-cmake-modules)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('aba4f4ee64285100594e8a12fe4dd23351873464f6927911657d26a6ae3bae41'
