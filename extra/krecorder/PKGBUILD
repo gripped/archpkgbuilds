@@ -2,13 +2,13 @@
 
 pkgname=krecorder
 pkgver=23.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Audio recorder for Plasma Mobile and other platforms'
 url='https://apps.kde.org/krecorder/'
 arch=(x86_64)
 license=(GPL LGPL FDL)
 groups=(kde-applications kde-utilities)
-depends=(kirigami-addons qt5-multimedia qt5-svg ki18n5 kwindowsystem5 kconfig5 kcoreaddons5)
+depends=(kirigami-addons5 qt5-multimedia qt5-svg ki18n5 kwindowsystem5 kconfig5 kcoreaddons5)
 makedepends=(extra-cmake-modules)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('9b32c8dd26c976518899383f855cf5f3af9309249d1ea921e1d11f2d3579cc29'
