@@ -1,8 +1,9 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
-pkgname=kirigami-addons
+pkgbase=kirigami-addons
+pkgname=(kirigami-addons5)
 pkgver=0.11.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Add-ons for the Kirigami framework'
 url='https://invent.kde.org/libraries/kirigami-addons'
 arch=(x86_64)
@@ -15,19 +16,23 @@ depends=(gcc-libs
          qt5-quickcontrols2)
 makedepends=(extra-cmake-modules
              ki18n5)
-source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/$pkgname/$pkgbase-$pkgver.tar.xz{,.sig})
 sha256sums=('05296c5afbe6804308bf9c0d2751f3b748b40d00fa784946d1dcdf3af4bffbad'
             'SKIP')
 validpgpkeys=(0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D  # Bhushan Shah (mykolab address) <bshah@mykolab.com>
               39FFA93CAE9C6AFC212AD00202325448204E452A) # Carl Schwan <carl@carlschwan.eu>
 
 build() {
-  cmake -B build -S $pkgname-$pkgver \
+  cmake -B build -S $pkgbase-$pkgver \
     -DBUILD_TESTING=OFF \
     -DBUILD_QCH=ON
   cmake --build build
 }
 
-package() {
+package_kirigami-addons5() {
+  conflicts=(kirigami-addons)
+  provides=(kirigami-addons)
+  replaces=(kirigami-addons)
+
   DESTDIR="$pkgdir" cmake --install build
 }
