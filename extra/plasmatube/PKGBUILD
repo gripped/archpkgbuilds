@@ -2,13 +2,13 @@
 
 pkgname=plasmatube
 pkgver=23.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Kirigami YouTube video player based on QtMultimedia and youtube-dl'
 url='https://apps.kde.org/plasmatube/'
 arch=(x86_64)
 license=(GPL LGPL)
 groups=(kde-applications kde-multimedia)
-depends=(kirigami-addons qt5-svg kcoreaddons5 kconfig5 ki18n5 mpv yt-dlp)
+depends=(kirigami-addons5 qt5-svg kcoreaddons5 kconfig5 ki18n5 mpv yt-dlp)
 makedepends=(extra-cmake-modules)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('0e718456d31dfb316dd4cddc01a3164ad9a819629375d16b776a28533b849cb1'
