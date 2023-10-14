@@ -2,13 +2,13 @@
 
 pkgname=audiotube
 pkgver=23.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Client for YouTube Music'
 url='https://apps.kde.org/audiotube/'
 arch=(x86_64)
 license=(GPL LGPL)
 groups=(kde-applications kde-multimedia)
-depends=(kirigami-addons qt5-imageformats qt5-multimedia qt5-svg ki18n5 kcrash5 kwindowsystem5 yt-dlp python-ytmusicapi futuresql-qt5)
+depends=(kirigami-addons5 qt5-imageformats qt5-multimedia qt5-svg ki18n5 kcrash5 kwindowsystem5 yt-dlp python-ytmusicapi futuresql-qt5)
 makedepends=(extra-cmake-modules pybind11 qcoro-qt5)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('a91dfb18f11414f79cad9c5d5966a995d52ec9b864fabc352dc01b2c1fe98147'
