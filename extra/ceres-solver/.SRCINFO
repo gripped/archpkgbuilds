@@ -1,0 +1,22 @@
+pkgbase = ceres-solver
+	pkgdesc = Solver for nonlinear least squares problems
+	pkgver = 2.2.0
+	pkgrel = 1
+	url = http://ceres-solver.org/
+	arch = x86_64
+	license = LGPL
+	makedepends = cmake
+	makedepends = ninja
+	makedepends = eigen
+	depends = google-glog
+	depends = suitesparse
+	optdepends = openmp
+	options = staticlibs
+	source = http://ceres-solver.org/ceres-solver-2.2.0.tar.gz
+	source = 0001-fix-for-suitesparse-6.0.0.patch
+	source = suitesparse-7.2.patch
+	sha256sums = 48b2302a7986ece172898477c3bcd6deb8fb5cf19b3327bc49969aad4cede82d
+	sha256sums = 0eb45170ec3e87839a688b78ce2d2cffe562a7aa3d10619043729252d3a56d79
+	sha256sums = df2baafa45f3f3ab43919eb0b2ce4b900ba1bbb4d363fb3fe8e2795c1e5eb9cc
+
+pkgname = ceres-solver
