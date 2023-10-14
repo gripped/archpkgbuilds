@@ -2,13 +2,13 @@
 
 pkgname=kweather
 pkgver=23.08.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Weather application for Plasma Mobile'
 url='https://apps.kde.org/kweather/'
 arch=(x86_64)
 license=(GPL LGPL)
 groups=(kde-applications kde-utilities)
-depends=(kirigami-addons qt5-svg qt5-charts ki18n5 kconfig5 kcoreaddons5 knotifications5 kweathercore plasma-framework5)
+depends=(kirigami-addons5 qt5-svg qt5-charts ki18n5 kconfig5 kcoreaddons5 knotifications5 kweathercore plasma-framework5)
 makedepends=(extra-cmake-modules)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('0283866378671a30f02029efb47051deeac8bbff8202031f0aec76853e9d68ff'
