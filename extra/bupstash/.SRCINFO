@@ -1,0 +1,20 @@
+pkgbase = bupstash
+	pkgdesc = A tool for encrypted backups
+	pkgver = 0.12.0
+	pkgrel = 2
+	url = https://bupstash.io
+	arch = x86_64
+	license = MIT
+	checkdepends = bash-bats
+	checkdepends = python
+	checkdepends = jq
+	makedepends = git
+	makedepends = rust
+	makedepends = ruby-ronn-ng
+	depends = libsodium
+	depends = gcc-libs
+	options = !lto
+	source = bupstash::git+https://github.com/andrewchambers/bupstash.git#commit=edab7c3db03e20e557272ee6999ede216b7693d2
+	b2sums = SKIP
+
+pkgname = bupstash
