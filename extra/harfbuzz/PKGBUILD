@@ -10,7 +10,7 @@ pkgname=(
   harfbuzz-docs
 )
 pkgver=8.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenType text shaping engine"
 url="https://www.freedesktop.org/wiki/Software/HarfBuzz"
 arch=(x86_64)
@@ -44,6 +44,11 @@ pkgver() {
 
 prepare() {
   cd harfbuzz
+
+  # Unbreak CSS font-features
+  # https://bugs.archlinux.org/task/79966
+  # https://github.com/harfbuzz/harfbuzz/issues/4414
+  git cherry-pick -n 3a1b0f0a72525d847197a8446d9503e44b1f2add
 }
 
 build() {

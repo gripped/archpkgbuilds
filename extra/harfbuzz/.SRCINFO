@@ -1,0 +1,63 @@
+pkgbase = harfbuzz
+	pkgdesc = OpenType text shaping engine
+	pkgver = 8.2.1
+	pkgrel = 2
+	url = https://www.freedesktop.org/wiki/Software/HarfBuzz
+	arch = x86_64
+	license = MIT
+	checkdepends = python-fonttools
+	checkdepends = python-setuptools
+	makedepends = cairo
+	makedepends = chafa
+	makedepends = freetype2
+	makedepends = git
+	makedepends = glib2
+	makedepends = gobject-introspection
+	makedepends = graphite
+	makedepends = gtk-doc
+	makedepends = icu
+	makedepends = meson
+	makedepends = python
+	makedepends = ragel
+	source = git+https://github.com/harfbuzz/harfbuzz#commit=0967a3e24ab5d79cc55dbe224652d8aabd942def
+	b2sums = SKIP
+
+pkgname = harfbuzz
+	depends = libfreetype.so
+	depends = libgraphite2.so
+	depends = libglib-2.0.so
+	depends = libgobject-2.0.so
+	optdepends = harfbuzz-utils: utilities
+	provides = libharfbuzz.so
+	provides = libharfbuzz-subset.so
+	provides = libharfbuzz-gobject.so
+
+pkgname = harfbuzz-cairo
+	pkgdesc = OpenType text shaping engine - Cairo integration
+	depends = libcairo.so
+	depends = libharfbuzz.so
+	provides = libharfbuzz-cairo.so
+
+pkgname = harfbuzz-icu
+	pkgdesc = OpenType text shaping engine - ICU integration
+	depends = libharfbuzz.so
+	depends = libicuuc.so
+	provides = libharfbuzz-icu.so
+
+pkgname = harfbuzz-utils
+	pkgdesc = OpenType text shaping engine - Utilities
+	depends = harfbuzz
+	depends = harfbuzz-cairo
+	depends = libcairo.so
+	depends = libchafa.so
+	depends = libfreetype.so
+	depends = libglib-2.0.so
+	depends = libgobject-2.0.so
+	depends = libharfbuzz-cairo.so
+	depends = libharfbuzz-gobject.so
+	depends = libharfbuzz-subset.so
+	depends = libharfbuzz.so
+
+pkgname = harfbuzz-docs
+	pkgdesc = OpenType text shaping engine - Documentation
+	depends = 
