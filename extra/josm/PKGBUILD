@@ -3,12 +3,13 @@
 
 pkgname=josm
 pkgver=18721
-pkgrel=1
+pkgrel=3
 pkgdesc="An editor for OpenStreetMap written in Java"
 arch=('any')
 url="https://josm.openstreetmap.de/"
 license=('GPL')
 depends=('desktop-file-utils' 'hicolor-icon-theme' 'java-runtime>=11' 'libxtst' 'ttf-font')
+optdepends=('java-openjfx>=11: For some optional plugins')
 makedepends=('subversion')
 changelog=$pkgname.changelog
 backup=('etc/conf.d/josm')
@@ -47,11 +48,14 @@ package() {
   # Load our custom josm config at /etc/conf.d/josm (will append this to line 4 of the start script)
   sed -i '4 a[ -f /etc/conf.d/josm ] && . /etc/conf.d/josm' "${pkgdir}/usr/bin/josm"
 
+  # Add arch env vars to top of josm script
+  # We do this to have a sane default in case the config file gets deleted.
+  sed -i '4 aJOSM_PATH="/usr/share/java/josm/josm.jar"' "${pkgdir}/usr/bin/josm"
+
   # This is a hack -- Arch puts the JavaFX modules in with the rest of the JVM
   # modules, but the JVM doesn't automatically load them.
   # Otherwise, we could remove the module-path for JAVAFX_HOME in the start
   # script.
   # sed -i 's/--module-path ${JAVAFX_HOME} //' "${pkgdir}/usr/bin/josm"
-  # TODO this does not yet work correct, we need to discuss if it is needed. https://bugs.archlinux.org/task/72953
-  #sed -i '5 aJAVAFX_HOME="$(ls /usr/lib/jvm/default-runtime/lib/javafx*.jar | tr "\n" ":" | sed '"'"'s/.$//'"'"')"' "${pkgdir}/usr/bin/josm"
+  sed -i '5 aJAVAFX_HOME="$(shopt -s nullglob && echo /usr/lib/jvm/default-runtime/lib/javafx*.jar | tr " " ":")"' "${pkgdir}/usr/bin/josm"
 }
