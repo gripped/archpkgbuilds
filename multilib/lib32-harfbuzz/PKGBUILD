@@ -8,7 +8,7 @@ pkgname=(
   lib32-harfbuzz-icu
 )
 pkgver=8.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenType text shaping engine - 32-bit"
 url="https://www.freedesktop.org/wiki/Software/HarfBuzz"
 arch=(x86_64)
@@ -38,19 +38,20 @@ pkgver() {
 
 prepare() {
   cd harfbuzz
+
+  # Unbreak CSS font-features
+  # https://bugs.archlinux.org/task/79966
+  # https://github.com/harfbuzz/harfbuzz/issues/4414
+  git cherry-pick -n 3a1b0f0a72525d847197a8446d9503e44b1f2add
 }
 
 build() {
   local meson_options=(
-    --libdir=/usr/lib32
+    --cross-file lib32
     -D chafa=disabled
     -D introspection=disabled
     -D docs=disabled
   )
-
-  export CC="gcc -m32"
-  export CXX="g++ -m32"
-  export PKG_CONFIG="i686-pc-linux-gnu-pkg-config"
 
   # Harfbuzz wants no exceptions
   CFLAGS="${CFLAGS/-fexceptions/}"
