@@ -3,15 +3,15 @@
 
 _pkgname=uvloop
 pkgname=python-$_pkgname
-pkgver=0.17.0
-pkgrel=3
+pkgver=0.18.0
+pkgrel=1
 pkgdesc='Ultra fast asyncio event loop'
 arch=('x86_64')
 url='https://github.com/MagicStack/uvloop'
 license=('Apache' 'MIT')
 depends=('python' 'libuv')
 makedepends=('python-setuptools' 'cython0' 'git')
-_tag=afb326897c26f01b864f65f016a7f3f80d9db8ad
+_tag=5ddf38bccad1107e6488357fd3dbb6b886b95134
 source=(git+https://github.com/MagicStack/uvloop.git#tag=${_tag})
 b2sums=(SKIP)
 
