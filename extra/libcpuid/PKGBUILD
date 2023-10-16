@@ -3,7 +3,7 @@
 
 pkgname=libcpuid
 pkgver=0.6.4
-pkgrel=1
+pkgrel=2
 pkgdesc='A small C library for x86 CPU detection and feature extraction'
 arch=('x86_64')
 url='http://libcpuid.sourceforge.net'
@@ -17,7 +17,8 @@ makedepends=(
   'python'
   'graphviz'
 )
-_commit='f9b833d122efeea11a7c68c6e098db8717221543'
+provides=('libcpuid.so')
+_commit=02237e67f5cbff348c63ad5338a70d75909a23b1  # tags/v0.6.4
 source=("$pkgname::git+https://github.com/anrieff/libcpuid#commit=$_commit")
 b2sums=('SKIP')
 
