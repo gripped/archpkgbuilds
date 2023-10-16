@@ -1,20 +1,44 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=jupyter-server
-pkgver=2.7.3
+pkgver=2.8.0
 pkgrel=1
 pkgdesc='Provides the backend for Jupyter web applications like Jupyter notebook, JupyterLab, and Voila'
 arch=(any)
 url='https://jupyter.org/'
 license=(custom)
-depends=(python-jupyter_client jupyter-nbformat jupyter-nbconvert python-prometheus_client python-traitlets python-tornado
-         python-jinja python-send2trash python-anyio python-websocket-client python-argon2_cffi python-jupyter-events python-overrides)
-makedepends=(python-build python-installer python-hatch-jupyter-builder)
-checkdepends=(python-pytest-tornasync python-pytest-console-scripts python-pytest-timeout python-pytest-jupyter python-jupyter-server-terminals
-              python-flaky python-requests python-terminado)
-optdepends=('jupyter-server-mathjax: to use local MathJax' 'python-jupyter-server-terminals: terminals support')
-source=(https://pypi.io/packages/source/j/${pkgname/-/_}/${pkgname/-/_}-$pkgver.tar.gz)
-sha256sums=('d4916c8581c4ebbc534cebdaa8eca2478d9f3bfdd88eae29fcab0120eac57649')
+depends=(jupyter-nbconvert
+         jupyter-nbformat
+         python
+         python-anyio
+         python-argon2_cffi
+         python-jinja
+         python-jupyter-client
+         python-jupyter-core
+         python-jupyter-events
+         python-overrides
+         python-packaging
+         python-prometheus_client
+         python-send2trash
+         python-tornado
+         python-traitlets
+         python-websocket-client)
+makedepends=(python-build
+             python-hatch-jupyter-builder
+             python-installer)
+checkdepends=(python-flaky
+              python-jupyter-server-terminals
+              python-pytest
+              python-pytest-console-scripts
+              python-pytest-jupyter
+              python-pytest-timeout
+              python-pytest-tornasync
+              python-requests
+              python-terminado)
+optdepends=('jupyter-server-mathjax: to use local MathJax'
+            'python-jupyter-server-terminals: terminals support')
+source=(https://github.com/jupyter-server/${pkgname/-/_}/releases/download/v$pkgver/${pkgname/-/_}-$pkgver.tar.gz)
+sha256sums=('b11e2ba80667c75f55630faf8ac3d5809f8734f9006d65cce117c46a0a516ab8')
 
 prepare() {
   cd ${pkgname/-/_}-$pkgver
