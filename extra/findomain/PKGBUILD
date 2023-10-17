@@ -3,27 +3,30 @@
 
 pkgname=findomain
 _pkgname=Findomain
-pkgver=9.0.1
+pkgver=9.0.2
 pkgrel=1
 pkgdesc='The fastest and cross-platform subdomain enumerator, do not waste your time'
 url='https://github.com/Findomain/Findomain'
 arch=('x86_64')
 license=('GPL3')
-depends=('gcc-libs')
+depends=(
+  'gcc-libs'
+  'libssl.so'
+)
 makedepends=('cargo')
 optdepends=('postgresql: for subdomain monitoring')
 source=("https://github.com/${_pkgname}/${_pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-b2sums=('338eb213a5ec5daf66a99be6bb1b4e6c3f204bbfcca261b04425d70a1878077a9d8e7546cd0a016a677700c597c13dd88d886a4ca6eb7807fceeaea61ecaf6ae')
+b2sums=('932855a8d81801a5063e0085f4b0419acc81a70f93668efaa0a874295f2df9c73e51d9b25aa86346806ebd39f1ba3e15896c408ccc936e60364324b2662bd179')
 options=(!lto)
 
 build() {
   cd ${_pkgname}-${pkgver}
-  cargo build --release --locked
+  OPENSSL_NO_VENDOR=1 cargo build --release --locked
 }
 
 check() {
   cd ${_pkgname}-${pkgver}
-  cargo test --release --locked
+  OPENSSL_NO_VENDOR=1 cargo test --release --locked
 }
 
 package() {
