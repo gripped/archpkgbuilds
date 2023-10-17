@@ -3,7 +3,7 @@
 # Contributor: dorphell <dorphell@archlinux.org>
 
 pkgname=enchant
-pkgver=2.6.0
+pkgver=2.6.1
 pkgrel=1
 pkgdesc="A wrapper library for generic spell checking"
 arch=('x86_64')
@@ -19,7 +19,7 @@ optdepends=('aspell: for aspell based spell checking support'
             'nuspell: for nuspell based spell checking support')
 provides=('libenchant-2.so') # enchant_voikko.so enchant_nuspell.so enchant_hunspell.so enchant_hspell.so enchant_aspell.so)
 source=("https://github.com/AbiWord/enchant/releases/download/v$pkgver/enchant-$pkgver.tar.gz")
-sha512sums=('04dce2fc9fe00978824039e9db09d3c39aeb2dddd682a58e7f2f8e1bdf5213e59e6fc84418339ce61e3e69ad8679d87fb1d960c34f5c1e838cea7d96ca32bde0')
+sha512sums=('e2faabeb6a4edc7237a0a279b210512100fb1662b097cd23f0fc07a3519e48632e5527b0d393793a7623667011eae7e11f15fcddcaa155c4abd26ab6981ddf44')
 
 prepare() {
   cd $pkgname-$pkgver
