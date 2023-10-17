@@ -3,7 +3,7 @@
 _pyname=cvxpy
 pkgname=python-$_pyname
 pkgver=1.4.1
-pkgrel=1
+pkgrel=3
 pkgdesc='A Python-embedded modeling language for convex optimization problems'
 url='https://www.cvxpy.org/'
 license=(Apache)
@@ -11,6 +11,7 @@ arch=(x86_64)
 depends=(gcc-libs
          glibc
          python
+         python-clarabel
          python-ecos
          python-numpy
          python-osqp
@@ -23,7 +24,6 @@ makedepends=(pybind11
              python-wheel)
 optdepends=('python-cvxopt: GLPK solver'
             'python-cylp: CBC solver'
-            'python-cvxopt: GLPK solver'
             'python-pyscipopt: SCIP solver')
 checkdepends=(python-ecos
               python-osqp
