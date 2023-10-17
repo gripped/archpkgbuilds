@@ -1,0 +1,39 @@
+pkgbase = loki
+	pkgdesc = like Prometheus, but for logs
+	pkgver = 2.9.2
+	pkgrel = 1
+	url = https://github.com/grafana/loki
+	arch = x86_64
+	license = AGPL3
+	license = Apache
+	makedepends = go
+	makedepends = systemd
+	depends = glibc
+	options = !lto
+	source = loki-2.9.2.tar.gz::https://github.com/grafana/loki/archive/v2.9.2.tar.gz
+	source = promtail.sysusers
+	source = promtail.service
+	source = promtail.tmpfiles
+	source = loki.sysusers
+	source = loki.service
+	source = loki.tmpfiles
+	sha512sums = 44640fd2026ff21499916c1eb16b871f6af9b83d19fc7bae9c997f45185487093a9b5a33d402a1890024770dadbc98f45e103dacd397c0dd432ee0619838418e
+	sha512sums = 2b6c44b18ea3c9f955a7450222180d0b20b5fc551d0b7e5d0d8949e40adc847c4166829146260f87a75732cc5473eab0347dd56fc2125517698bac0652738c74
+	sha512sums = 18011b135c7817f2542f7a93b607ee46e5d61625921c7dc6e46e1b29e31c67147653b215d8677fde21cdce3b577c479cebd2d85f47e4b8cbe4c30f8be5f910cd
+	sha512sums = 598042c40673a7914c5a1eeccfb78f832379a61f4360212c5d86f667343cf2fc78e98d9025f9717ea64f3e16e0a28f08cd7709706d811656722019f6167dd788
+	sha512sums = f00b3cb64b71d3ca5a422a2bdff1f81a3e2707c4f73bcb27e24338eabff039b96125c847aaae43c9b22ccc47f89585118c1d0e0b29c4eb7b6f9260c68f8a8324
+	sha512sums = 03904b67617e4064a1eb39b6edfaec5d55bc85f142e867d115d3d0e12494a052fddf13bb6f5c541aaca29a18582df2332bb0cc6b8f29928cf6a0d5d2710ead74
+	sha512sums = de40d1e6752edbf8c21317ce1ee10f98dfc869e569c07092c613f7144e261e9438683a145a2e0e37e2a9fc758c5c2f02e1d0ac1c60347e98b147e4a550ec6040
+
+pkgname = loki
+	backup = etc/loki/loki.yaml
+
+pkgname = loki-canary
+	pkgdesc = A standalone app that audits the log capturing performance of Loki
+
+pkgname = promtail
+	pkgdesc = An agent which ships the contents of local logs to a private Loki instance or Grafana Cloud
+	backup = etc/loki/promtail.yaml
+
+pkgname = logcli
+	pkgdesc = A command-line for loki
