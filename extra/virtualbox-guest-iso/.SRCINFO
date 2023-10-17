@@ -1,0 +1,19 @@
+pkgbase = virtualbox-guest-iso
+	pkgdesc = The official VirtualBox Guest Additions ISO image
+	pkgver = 7.0.12
+	pkgrel = 1
+	url = https://www.virtualbox.org/
+	install = virtualbox-guest-iso.install
+	arch = any
+	license = custom:PUEL
+	conflicts = virtualbox-additions
+	conflicts = virtualbox-iso-additions
+	replaces = virtualbox-additions
+	replaces = virtualbox-iso-additions
+	noextract = VBoxGuestAdditions_7.0.12.iso
+	source = https://download.virtualbox.org/virtualbox/7.0.12/VBoxGuestAdditions_7.0.12.iso
+	source = license
+	sha256sums = b37f6aabe5a32e8b96ccca01f37fb49f4fd06674f1b29bc8fe0f423ead37b917
+	sha256sums = fbe9cd6288037bff44716642ee4bea9c42c2d60eb5ed86cb48fa95147d9e8623
+
+pkgname = virtualbox-guest-iso
