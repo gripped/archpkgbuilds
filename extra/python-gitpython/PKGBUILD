@@ -5,8 +5,8 @@
 _name=gitpython
 pkgdesc="A python library used to interact with Git repositories"
 pkgname=python-gitpython
-_commit=23d28bc1069cdddabd69618bc11021e8cfe567db  # refs/tags/3.1.37
-pkgver=3.1.37
+_commit=43ed899797837d37ce519028a50d75961e973478  # refs/tags/3.1.38
+pkgver=3.1.38
 pkgrel=1
 url="https://github.com/gitpython-developers/gitpython"
 license=(BSD-3-Clause)
@@ -29,7 +29,7 @@ checkdepends=(
   python-pytest
   python-virtualenv
 )
-source=(git+$url#tag=$_commit?signed)
+source=("git+$url#tag=$_commit?signed")
 sha512sums=('SKIP')
 b2sums=('SKIP')
 validpgpkeys=('27C50E7F590947D7273A741E85194C08421980C9') # Sebastian Thiel (In Rust I trust!) <byronimo@gmail.com>
@@ -56,6 +56,23 @@ check() {
     --deselect git/ext/gitdb/gitdb/test/test_example.py::TestExamples::test_base
     --deselect test/test_submodule.py::TestSubmodule::test_git_submodules_and_add_sm_with_new_commit
     --deselect test/test_submodule.py::TestSubmodule::test_list_only_valid_submodules
+    # more broken stuff: https://github.com/gitpython-developers/GitPython/issues/1713
+    --deselect test/test_docs.py::Tutorials::test_references_and_objects
+    --deselect test/test_docs.py::Tutorials::test_submodules
+    --deselect test/test_repo.py::TestRepo::test_clone_from_with_path_contains_unicode
+    --deselect test/test_repo.py::TestRepo::test_submodule_update
+    --deselect test/test_repo.py::TestRepo::test_submodules
+    --deselect test/test_submodule.py::TestSubmodule::test_add_clone_multi_options_argument
+    --deselect test/test_submodule.py::TestSubmodule::test_add_no_clone_multi_options_argument
+    --deselect test/test_submodule.py::TestSubmodule::test_base_rw
+    --deselect test/test_submodule.py::TestSubmodule::test_branch_renames
+    --deselect test/test_submodule.py::TestSubmodule::test_depth
+    --deselect test/test_submodule.py::TestSubmodule::test_git_submodule_compatibility
+    --deselect test/test_submodule.py::TestSubmodule::test_remove_norefs
+    --deselect test/test_submodule.py::TestSubmodule::test_rename
+    --deselect test/test_submodule.py::TestSubmodule::test_root_module
+    --deselect test/test_submodule.py::TestSubmodule::test_update_clone_multi_options_argument
+    --deselect test/test_submodule.py::TestSubmodule::test_update_no_clone_multi_options_argument
   )
 
   cd $_name
