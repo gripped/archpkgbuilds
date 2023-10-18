@@ -3,7 +3,7 @@
 # Contributor: minder
 
 pkgname=python-pillow
-pkgver=10.0.1
+pkgver=10.1.0
 pkgrel=1
 pkgdesc='Python Imaging Library (PIL) fork'
 arch=('x86_64')
@@ -42,7 +42,7 @@ optdepends=(
   'python-olefile: OLE2 file support'
   'python-pyqt6: for the ImageQt module'
 )
-_commit='e34d346f10c0b1c814661e662a3e0c1ef084cf1c'
+_commit='da59ad000d1405eaecd557175e29083a87d19f7c'
 source=("$pkgname::git+https://github.com/python-pillow/Pillow#commit=$_commit")
 b2sums=('SKIP')
 
