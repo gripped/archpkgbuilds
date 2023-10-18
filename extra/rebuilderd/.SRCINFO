@@ -1,0 +1,34 @@
+pkgbase = rebuilderd
+	pkgdesc = Independent verification system of binary packages
+	pkgver = 0.20.0
+	pkgrel = 1
+	url = https://github.com/kpcyrd/rebuilderd
+	arch = x86_64
+	license = GPL3
+	makedepends = cargo
+	makedepends = sqlite
+	makedepends = scdoc
+	depends = liblzma.so
+	depends = libssl.so
+	depends = libzstd.so
+	depends = shared-mime-info
+	options = !lto
+	source = rebuilderd-0.20.0.tar.gz::https://github.com/kpcyrd/rebuilderd/archive/refs/tags/v0.20.0.tar.gz
+	source = https://github.com/kpcyrd/rebuilderd/releases/download/v0.20.0/rebuilderd-0.20.0.tar.gz.asc
+	validpgpkeys = 64B13F7117D6E07D661BBCE0FE763A64F5E54FD6
+	sha512sums = 67c9fceea3fae810136f845d7ba018bbc9e51634d52984d30d030ac3ee1e9ac2defcb83ae63bda57d371ef8882a88a3168a5cc2d29a9f351b43af00732937b7c
+	sha512sums = SKIP
+	b2sums = c2bfd1442ef4316dbd4711b6f994027643efacbc5fc65d29f4cf59e9bfd1c8df5b15de8eadc24194dd831114317d7682d1f1f118db0cc9bab246c69612e65b4d
+	b2sums = SKIP
+
+pkgname = rebuilderd
+	pkgdesc = Independent verification system of binary packages (server package)
+	depends = rebuilderd-tools
+	depends = sqlite
+	depends = archlinux-repro
+	backup = etc/rebuilderd.conf
+	backup = etc/rebuilderd-sync.conf
+	backup = etc/rebuilderd-worker.conf
+
+pkgname = rebuilderd-tools
+	pkgdesc = Independent verification system of binary packages (tools package)
