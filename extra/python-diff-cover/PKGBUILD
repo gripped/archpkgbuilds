@@ -2,7 +2,7 @@
 
 _name=diff_cover
 pkgname=python-diff-cover
-pkgver=7.7.0
+pkgver=8.0.0
 pkgrel=1
 pkgdesc="Automatically find diff lines that need test coverage"
 arch=(any)
@@ -28,8 +28,8 @@ checkdepends=(
 )
 optdepends=('python-tomli: for TOML support')
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('294535c947b56453e3d80caff7dddd04f989552a6823a6f294f939001e2c8b3e966a72a32b137041d26cf3d6f4f95cea2a63eb5a9eaf9d1621a3b4983d3684cb')
-b2sums=('b80188010a5d95ea962c40d4d92984bdf6404666994946625111d5171f02d236799ea078e4099f498f2f6f0ee9105558f3c3a3f51d62ced1b52b404e97451d34')
+sha512sums=('d3be65aa84743f7dfe1b92c2f25b9056f1c4f81fb04cc6e6978dc84d1e1b3977501352bc4ec2e9fb573f237445e08ae88b49fecaf4d2033707720908857822e1')
+b2sums=('682d0ab225f535d95cb30c0ed9fe8d0e20790d55a2a4824c9c2d36a6bad82c74e2c4ef3aff7bd6c8c5a2a96d3527a0586edee902f8d63606ea04d89aeb722967')
 
 build() {
   cd $_name-$pkgver
