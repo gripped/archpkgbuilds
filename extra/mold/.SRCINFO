@@ -1,0 +1,23 @@
+pkgbase = mold
+	pkgdesc = A Modern Linker
+	pkgver = 2.3.0
+	pkgrel = 1
+	url = https://github.com/rui314/mold
+	arch = x86_64
+	license = MIT
+	checkdepends = clang
+	checkdepends = libdwarf
+	makedepends = git
+	makedepends = python
+	makedepends = cmake
+	makedepends = mold
+	depends = glibc
+	depends = gcc-libs
+	depends = mimalloc
+	depends = zlib
+	depends = tbb
+	depends = zstd
+	source = mold::git+https://github.com/rui314/mold.git#commit=6ad942cb270f55467842b008312b9b96c9dd99e2
+	b2sums = SKIP
+
+pkgname = mold
