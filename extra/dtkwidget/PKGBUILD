@@ -3,8 +3,8 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=dtkwidget
-pkgver=5.6.17
-pkgrel=2
+pkgver=5.6.18
+pkgrel=1
 pkgdesc='Deepin base graphical widgets library'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtkwidget"
@@ -15,7 +15,7 @@ depends=('dtkcore' 'dtkgui' 'gcc-libs' 'glibc' 'gsettings-qt' 'libx11' 'libxcb' 
 makedepends=('cmake' 'ninja' 'qt5-tools' 'gtest' 'doxygen')
 replaces=('deepin-tool-kit')
 source=("https://github.com/linuxdeepin/dtkwidget/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('706e7aa2ef4ed490fa74ff405c59a19c636c43387dd78eb7efd05134117763481247113fd41df1018ff63d72ef21c85e8f1d9f07d8d3b3c31e6cb6aac3f3075c')
+sha512sums=('147a6cb4a2517f850e2be6bf5d59a7c249154ae744a240cc6ddf7f230ffc663ba2003273434c1016d9ec9cb5e722a4513137bd0d620c81c5a1099dce818abebb')
 
 build() {
   cd dtkwidget-$pkgver
