@@ -1,0 +1,16 @@
+pkgbase = drupal
+	pkgdesc = A PHP-based content management platform
+	pkgver = 10.1.5
+	pkgrel = 1
+	url = https://www.drupal.org/
+	install = drupal.install
+	arch = any
+	license = GPL
+	options = !strip
+	backup = etc/webapps/drupal/.htaccess
+	source = https://ftp.drupal.org/files/projects/drupal-10.1.5.tar.gz
+	sha256sums = 6bd3c616bd03591d46bddd067d8b5bf72d73675defb93f5e05daf81585f30fb1
+
+pkgname = drupal
+	depends = php
+	depends = php-gd
