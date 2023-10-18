@@ -2,7 +2,7 @@
 
 pkgbase=lsp-plugins
 pkgname=(lsp-plugins{,-{clap,docs,ladspa,lv2,standalone,vst}} liblsp-r3d-glx-lib)
-pkgver=1.2.11
+pkgver=1.2.12
 pkgrel=1
 pkgdesc="Collection of open-source plugins"
 arch=(x86_64)
@@ -27,8 +27,8 @@ checkdepends=(
   lv2lint
 )
 source=(https://github.com/sadko4u/$pkgname/releases/download/$pkgver/$pkgname-src-$pkgver.tar.gz)
-sha512sums=('a566b122f9d8281af34423c8d8b7f1473c68289b80a2b41c85296db375354ea8790411a6336bcf510860034e09a38375aa04aad41bd09ac47245208cd7d4d038')
-b2sums=('078571c4c1b29fa6102ef2eb7bba9d0911f4f78504fcc3e6b91051fecbc253e09e676065b42b9c2efbacbd518df60040fa969e0cb79184ec8a94b3cefac6dd4e')
+sha512sums=('cf2be5233997e434842a178cdb9e13e2dab7bb0f2c849f1189f9fb19524fb3f804d36841b4419a8efea9bc6d250cd9ee6ed5c3562dc43fcdc7002581e0b86657')
+b2sums=('59044692d57fb279ca95f9d1456f1f2e21f9fc9fe2776289bccdb5736cebd66c15181b06893fe3a73f269996d51f91a1dd538132de6c7bab06cfd7b552c0e11f')
 
 _pick() {
   local p="$1" f d; shift
