@@ -4,7 +4,7 @@
 # Contributor: somini <dev at somini dot xyz>
 
 pkgname=miniflux
-pkgver=2.0.48
+pkgver=2.0.49
 pkgrel=1
 pkgdesc='Minimalist and opinionated feed reader'
 arch=('x86_64')
@@ -17,7 +17,7 @@ optdepends=(
 makedepends=('git' 'go')
 backup=('etc/miniflux.conf')
 options=('!lto')
-_commit='545c68a0fd132e1eb3e39bcde6ef52d441bc9405'
+_commit='54eb500315c5f506004c4659a6c964f61d40f6d5'
 source=(
   "$pkgname::git+https://github.com/miniflux/v2.git#commit=$_commit"
   'sysusers.conf'
