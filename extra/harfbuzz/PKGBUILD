@@ -9,8 +9,8 @@ pkgname=(
   harfbuzz-utils
   harfbuzz-docs
 )
-pkgver=8.2.1
-pkgrel=2
+pkgver=8.2.2
+pkgrel=1
 pkgdesc="OpenType text shaping engine"
 url="https://www.freedesktop.org/wiki/Software/HarfBuzz"
 arch=(x86_64)
@@ -33,7 +33,7 @@ checkdepends=(
   python-fonttools
   python-setuptools
 )
-_commit=0967a3e24ab5d79cc55dbe224652d8aabd942def  # tags/8.2.1^0
+_commit=18a6e78549e8e04a281129ea8ca784ce85f111b8  # tags/8.2.2^0
 source=("git+https://github.com/harfbuzz/harfbuzz#commit=$_commit")
 b2sums=('SKIP')
 
@@ -44,11 +44,6 @@ pkgver() {
 
 prepare() {
   cd harfbuzz
-
-  # Unbreak CSS font-features
-  # https://bugs.archlinux.org/task/79966
-  # https://github.com/harfbuzz/harfbuzz/issues/4414
-  git cherry-pick -n 3a1b0f0a72525d847197a8446d9503e44b1f2add
 }
 
 build() {
