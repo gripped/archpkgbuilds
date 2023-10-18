@@ -2,8 +2,10 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgbase=pyside6
-pkgname=(shiboken6 pyside6 pyside6-tools)
-_qtver=6.5.3
+pkgname=(pyside6
+         pyside6-tools
+         shiboken6)
+_qtver=6.6.0
 _clangver=16.0.6
 pkgver=${_qtver/-/}
 pkgrel=1
@@ -20,6 +22,7 @@ makedepends=(clang
              qt6-charts
              qt6-connectivity
              qt6-datavis3d
+             qt6-graphs
              qt6-httpserver
              qt6-location
              qt6-multimedia
@@ -40,16 +43,22 @@ makedepends=(clang
              qt6-websockets)
 _pkgfn=pyside-setup-everywhere-src-$_qtver
 source=(https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-$pkgver-src/${_pkgfn}.tar.xz
-        designer-plugin-install-dir.patch)
-sha256sums=('6606b1634fb2981f9ca7ce2e206cc92c252401de328df4ce23f63e8c998de8d3'
-            '66e895e07d5b01c64a94092353854c946fd7fc445b6181068dca290b5a3887e0')
+        designer-plugin-install-dir.patch
+        fix-build.patch
+        fix-install-dir.patch)
+sha256sums=('2dd002db8851a87173354f38aa8c6ec42d0ff1fac99ea422b29e2dfce52d1638'
+            '66e895e07d5b01c64a94092353854c946fd7fc445b6181068dca290b5a3887e0'
+            '77b83cb164ea87d826259864f6a81fb33199510e1948d6daaf5c8d5ab55735a7'
+            '98164d5a37e822bba0edd1f9bc2fc68ce91b8a06385a7087d831d5ae756f754d')
 
 prepare() {
-  patch -d $_pkgfn -p1 < designer-plugin-install-dir.patch # Fix designer plugin install dir
+  patch -d ${_pkgfn%.*} -p1 < designer-plugin-install-dir.patch # Fix designer plugin install dir
+  patch -d ${_pkgfn%.*} -p1 < fix-build.patch
+  patch -d ${_pkgfn%.*} -p1 < fix-install-dir.patch
 }
 
 build() {
-  cmake -B build -S $_pkgfn -G Ninja \
+  cmake -B build -S ${_pkgfn%.*} -G Ninja \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=None \
     -DSHIBOKEN_PYTHON_LIBRARIES=`pkgconf python3-embed --libs` \
@@ -76,7 +85,7 @@ package_shiboken6() {
 # Install egg-info
   export PATH="/usr/lib/qt6/bin:$PATH"
   export SETUPTOOLS_USE_DISTUTILS=stdlib
-  cd $_pkgfn
+  cd ${_pkgfn%.*}
   python setup.py egg_info --build-type=shiboken6
   python setup.py egg_info --build-type=shiboken6-generator
   _pythonpath=`python -c "from sysconfig import get_path; print(get_path('platlib'))"`
@@ -95,6 +104,7 @@ package_pyside6() {
               'qt6-charts: QtCharts bindings'
               'qt6-connectivity: QtBluetooth and QtNfc bindings'
               'qt6-datavis3d: QtDataVisualization bindings'
+              'qt6-graphs: QtGraphs bindings'
               'qt6-httpserver: QtHttpServer bindings'
               'qt6-location: QtLocation bindings'
               'qt6-multimedia: QtMultimedia bindings'
@@ -116,7 +126,7 @@ package_pyside6() {
 
 # Install egg-info
   export PATH="/usr/lib/qt6/bin:$PATH"
-  cd $_pkgfn
+  cd ${_pkgfn%.*}
   python setup.py egg_info --build-type=pyside6
   _pythonpath=`python -c "from sysconfig import get_path; print(get_path('platlib'))"`
   cp -r PySide6.egg-info "$pkgdir"/$_pythonpath
