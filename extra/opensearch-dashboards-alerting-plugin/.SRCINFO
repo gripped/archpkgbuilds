@@ -1,0 +1,24 @@
+pkgbase = opensearch-dashboards-alerting-plugin
+	pkgdesc = OpenSearch Dashboards Alerting Plugin
+	pkgver = 2.10.0.0
+	pkgrel = 1
+	url = https://opensearch.org/docs/latest/monitoring-plugins/alerting
+	arch = x86_64
+	license = Apache
+	makedepends = yarn
+	makedepends = npm
+	makedepends = python
+	makedepends = git
+	depends = opensearch-dashboards=2.10.0
+	depends = opensearch-dashboards-notifications-plugin
+	depends = coffeescript
+	options = !strip
+	options = emptydirs
+	source = git+https://github.com/opensearch-project/alerting-dashboards-plugin.git#tag=2.10.0.0
+	source = git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=2.10.0
+	source = skip-failed-test.patch
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = 767800bde68861c9263d49fb71d259a08506e5048b6b922f0671663dbd3b7a70
+
+pkgname = opensearch-dashboards-alerting-plugin
