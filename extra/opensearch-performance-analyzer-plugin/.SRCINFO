@@ -1,0 +1,17 @@
+pkgbase = opensearch-performance-analyzer-plugin
+	pkgdesc = OpenSearch Performance Analyzer Plugin
+	pkgver = 2.10.0.0
+	pkgrel = 1
+	url = https://opensearch.org/docs/latest/monitoring-plugins/pa
+	arch = x86_64
+	license = Apache
+	makedepends = java-environment=11
+	makedepends = unzip
+	makedepends = git
+	depends = opensearch=2.10.0
+	source = opensearch-performance-analyzer-plugin-2.10.0.0.tar.gz::https://github.com/opensearch-project/performance-analyzer/archive/2.10.0.0.tar.gz
+	source = git+https://github.com/opensearch-project/performance-analyzer-rca.git#branch=2.10
+	sha256sums = fce2e80024a1252906950928c4a60ea0769cb27cdeda9f2e6d80a60df630948a
+	sha256sums = SKIP
+
+pkgname = opensearch-performance-analyzer-plugin
