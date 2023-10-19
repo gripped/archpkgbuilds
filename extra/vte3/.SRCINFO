@@ -1,0 +1,52 @@
+pkgbase = vte3
+	pkgdesc = Virtual Terminal Emulator widget
+	pkgver = 0.74.1
+	pkgrel = 1
+	url = https://wiki.gnome.org/Apps/Terminal/VTE
+	arch = x86_64
+	license = LGPL
+	makedepends = cairo
+	makedepends = fribidi
+	makedepends = gi-docgen
+	makedepends = git
+	makedepends = gnutls
+	makedepends = gobject-introspection
+	makedepends = gperf
+	makedepends = gtk3
+	makedepends = gtk4
+	makedepends = meson
+	makedepends = pcre2
+	makedepends = systemd
+	makedepends = vala
+	options = !lto
+	source = git+https://gitlab.gnome.org/GNOME/vte.git#commit=eee37c871173d04387cd0004dde7f8676f390f62
+	b2sums = SKIP
+
+pkgname = vte-common
+	pkgdesc = Virtual Terminal Emulator widget (common files)
+	depends = sh
+
+pkgname = vte3
+	pkgdesc = Virtual Terminal Emulator widget (GTK3)
+	depends = cairo
+	depends = fribidi
+	depends = gnutls
+	depends = gtk3
+	depends = pcre2
+	depends = systemd
+	depends = vte-common
+	provides = libvte-2.91.so
+
+pkgname = vte4
+	pkgdesc = Virtual Terminal Emulator widget (GTK4)
+	depends = cairo
+	depends = fribidi
+	depends = gnutls
+	depends = gtk4
+	depends = pcre2
+	depends = systemd
+	depends = vte-common
+	provides = libvte-2.91-gtk4.so
+
+pkgname = vte-docs
+	pkgdesc = Virtual Terminal Emulator widget (documentation)
