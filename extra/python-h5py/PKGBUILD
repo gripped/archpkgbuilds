@@ -6,18 +6,18 @@
 
 _pkg=h5py
 pkgname=python-${_pkg}
-pkgver=3.9.0
+pkgver=3.10.0
 pkgrel=1
 pkgdesc="General-purpose Python bindings for the HDF5 library"
 arch=(x86_64)
 url="https://www.h5py.org/"
 license=(BSD)
 depends=(hdf5 liblzf python-numpy)
-makedepends=(cython python-pkgconfig python-setuptools)
+makedepends=(cython0 python-pkgconfig python-setuptools)
 checkdepends=(python-pytest python-pytest-mpi python-pytables)
 conflicts=(hdf5-openmpi)
 source=(https://files.pythonhosted.org/packages/source/h/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-sha256sums=('e604db6521c1e367c6bd7fad239c847f53cc46646f2d2651372d05ae5e95f817')
+sha256sums=('d93adc48ceeb33347eb24a634fb787efc7ae4644e6ea4ba733d099605045c049')
 validpgpkeys=(AC47F71DB275ECD0B3DA46E857FA4540DD4EFCF7  # Thomas A Caswell (Brookhaven National Lab) <tcaswell@bnl.gov>
               96B7334D7610EE3E68AFFE589E027116943D6A8B) # Thomas A Caswell <tcaswell@bnl.gov> (new key)
 # See https://github.com/h5py/h5py/issues/1299 about lack of GPG sigs for recent releases
