@@ -3,7 +3,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=eza
-pkgver=0.14.2
+pkgver=0.15.0
 pkgrel=1
 pkgdesc="A modern replacement for ls (community fork of exa)"
 url="https://github.com/eza-community/eza"
@@ -15,8 +15,8 @@ conflicts=('exa')
 depends=('libgit2.so')
 makedepends=("cargo" "pandoc")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/eza-community/eza/archive/v${pkgver}.tar.gz")
-sha256sums=('155d6e38a37c9d2fd32d2234662dba2e0f50b553826dfff290ae8f7c16dbb389')
-b2sums=('9835f66dcd481c8afcde3e9fdac741f67c371f3d58b43a4114789f6a2c5c816b9f131128e010973f7ffe91761b311c421d62e02ab95f80ec957c3e3426bdf441')
+sha256sums=('e4cce5a6f60e6b7405af911e3f168cf17a1e86c33c292a449c1c25c15052967a')
+b2sums=('570d95d21e7d284658dac6129dfba996090f53d8b0621c6cfe3b4143427d2663ea02bf6d6e528eff75d90b30625efdd1a0aa349fbf6d98a283724a1d127247ea')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
