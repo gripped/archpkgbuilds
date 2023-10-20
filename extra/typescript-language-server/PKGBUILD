@@ -1,36 +1,35 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=typescript-language-server
-pkgver=3.3.2
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='Language Server Protocol (LSP) implementation for TypeScript using tsserver'
 url=https://github.com/theia-ide/typescript-language-server
 arch=('any')
 license=('Apache')
 depends=('typescript')
-makedepends=('jq' 'yarn')
+makedepends=('git' 'jq' 'yarn')
 checkdepends=('npm')
-source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('5fb592ea33870020be78828d53aef150f324782d3980895c777a84ee4c2bf71f5d4b1502463a0b93dfd724fa426a9bc4c71d8afcb40c9a2b936c118bf274ccb4')
+source=("git+$url.git#tag=v$pkgver")
+b2sums=('SKIP')
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   yarn --frozen-lockfile
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   yarn compile # Needs bin links
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   yarn test
 }
 
 package() {
-  cd $pkgname-$pkgver
-
+  cd $pkgname
   # Emulate `npm prune --production`
   cp package.json{,.bak}
   read -ra devDependencies < <(jq -r '.devDependencies | keys | join(" ")' package.json)
