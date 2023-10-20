@@ -4,7 +4,7 @@
 
 _name=sonnet
 pkgname=${_name}5
-pkgver=5.110.0
+pkgver=5.111.0
 pkgrel=1
 pkgdesc='Spelling framework for Qt5'
 arch=(x86_64)
@@ -17,10 +17,9 @@ optdepends=('hunspell: spell checking via hunspell' 'aspell: spell checking via 
             'qt5-declarative: QML bindings')
 conflicts=("$_name<5.111")
 replaces=("$_name<5.111")
-provides=($_name=$pkgver)
 groups=(kf5)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$_name-$pkgver.tar.xz{,.sig})
-sha256sums=('1114a1fe84f390fbadd03cf434c1f741b75a4ffe18014633f903f8e0fd30139b'
+sha256sums=('70ec214af09105a07dd418f10de5ff6590b13442ee170914ad01a9da32c06a35'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB) # David Faure <faure@kde.org>
 
