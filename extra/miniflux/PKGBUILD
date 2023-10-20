@@ -5,7 +5,7 @@
 
 pkgname=miniflux
 pkgver=2.0.49
-pkgrel=1
+pkgrel=2
 pkgdesc='Minimalist and opinionated feed reader'
 arch=('x86_64')
 url='https://miniflux.app'
@@ -66,9 +66,9 @@ build() {
     -ldflags "-compressdwarf=false \
     -linkmode external \
     -extldflags ${LDFLAGS} \
-    -X miniflux.app/version.Version=${pkgver} \
-    -X miniflux.app/version.Commit=${_commit} \
-    -X miniflux.app/version.BuildDate=${BUILD_DATE}" \
+    -X miniflux.app/v2/internal/version.Version=${pkgver} \
+    -X miniflux.app/v2/internal/version.Commit=${_commit} \
+    -X miniflux.app/v2/internal/version.BuildDate=${BUILD_DATE}" \
     -o build \
     .
 }
