@@ -5,7 +5,7 @@
 
 pkgname=terraform
 pkgver=1.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc="HashiCorp tool for building and updating infrastructure as code idempotently"
 url="https://github.com/hashicorp/terraform"
 arch=("x86_64")
@@ -35,7 +35,7 @@ build() {
 	export CGO_CFLAGS="${CFLAGS}"
 	export CGO_CXXFLAGS="${CXXFLAGS}"
 	export CGO_LDFLAGS="${LDFLAGS}"
-	export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw -ldflags=-linkmode=external"
+	export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw '-ldflags=-linkmode=external \"-X=github.com/hashicorp/terraform/version.dev=no\"'"
 	export GOPROXY=off
 	go build -o terraform-binary
 }
