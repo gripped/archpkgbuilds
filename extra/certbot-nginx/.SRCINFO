@@ -1,0 +1,21 @@
+pkgbase = certbot-nginx
+	pkgdesc = Nginx plugin for Certbot
+	pkgver = 2.7.2
+	pkgrel = 1
+	url = https://pypi.python.org/pypi/certbot-nginx
+	arch = any
+	license = Apache
+	checkdepends = python-pytest
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-wheel
+	makedepends = python-installer
+	depends = certbot=2.7.2
+	depends = python-acme=2.7.2
+	depends = python-pyopenssl
+	depends = python-pyparsing
+	depends = python-setuptools
+	source = github.com-certbot-certbot::git+https://github.com/certbot/certbot#commit=a1b773cbdc1027214b2cb9dc46cfba66b0ae7af2
+	b2sums = SKIP
+
+pkgname = certbot-nginx
