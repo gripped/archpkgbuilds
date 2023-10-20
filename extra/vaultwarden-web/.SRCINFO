@@ -1,0 +1,22 @@
+pkgbase = vaultwarden-web
+	pkgdesc = Bitwarden web vault with the patches to make it work with Vaultwarden
+	pkgver = 2023.9.1
+	pkgrel = 2
+	url = https://github.com/dani-garcia/bw_web_builds
+	install = vaultwarden-web.install
+	arch = any
+	license = GPL3
+	makedepends = git
+	makedepends = nodejs-lts-hydrogen
+	makedepends = npm
+	depends = vaultwarden
+	provides = bitwarden_rs-vault
+	provides = bitwarden_rs-web
+	replaces = bitwarden_rs-vault
+	replaces = bitwarden_rs-web
+	source = bitwarden-clients::git+https://github.com/bitwarden/clients.git#tag=web-v2023.9.1
+	source = bw_web_builds::git+https://github.com/dani-garcia/bw_web_builds#tag=v2023.9.1
+	b2sums = SKIP
+	b2sums = SKIP
+
+pkgname = vaultwarden-web
