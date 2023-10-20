@@ -1,0 +1,24 @@
+pkgbase = shattered-pixel-dungeon
+	pkgdesc = A roguelike dungeon crawler with randomized levels and enemies, and hundreds of items
+	pkgver = 2.2.0
+	pkgrel = 1
+	url = https://shatteredpixel.com/shatteredpd/
+	arch = any
+	license = GPL3
+	makedepends = git
+	makedepends = jdk11-openjdk
+	makedepends = gradle
+	depends = bash
+	depends = xorg-xrandr
+	depends = java-runtime>=11
+	depends = hicolor-icon-theme
+	source = shattered-pixel-dungeon::git+https://github.com/00-Evan/shattered-pixel-dungeon#commit=ef4ff6ae84c230798ef080d2b268d20feb0e8928
+	source = shattered-pixel-dungeon.desktop
+	source = wrapper.sh
+	source = gradle-repro.patch
+	b2sums = SKIP
+	b2sums = 94e110340bddcdf64d74922e9ddf4c0f37e72466ea61edcde61f903680f57b10d81ff804b95f2467e4364a577f7c845d66137fedfc700d11638defe6a3359a93
+	b2sums = c0b0d7d7319159716f1e49620c3c9a0bea9dea149cb1b88da0294a343341075557fe86bd45965a23aa34054ee6c454dd9a0b73273e6cafaf75de3d3fa3ef0ab1
+	b2sums = 194480092028d1ab10b7bdb036233ba11984bd994346f9f6b925b7516da80f7214f8dff86e27054a5f9b792d1192732938d88f2121fd5207ad0a93aa5d571e0a
+
+pkgname = shattered-pixel-dungeon
