@@ -2,7 +2,7 @@
 
 pkgname=snapshot
 pkgver=45.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Take pictures and videos"
 arch=(x86_64)
 url="https://apps.gnome.org/Snapshot"
@@ -13,6 +13,7 @@ depends=(
   glib2
   graphene
   gst-plugin-pipewire
+  gst-plugins-bad-libs
   gst-plugins-base
   gst-plugins-base-libs
   gst-plugins-good
@@ -25,9 +26,6 @@ makedepends=(
   git
   meson
   rust
-)
-optdepends=(
-  "gst-plugins-bad: More Codecs"
 )
 _commit=9fa1cf5d0ba15d06602a1ad9f54f452df4d57d67 # tags/45.0^0
 source=("git+https://gitlab.gnome.org/GNOME/snapshot.git#commit=$_commit")
