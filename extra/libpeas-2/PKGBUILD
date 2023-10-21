@@ -7,25 +7,26 @@ pkgname=(
   libpeas-2-docs
 )
 pkgver=2.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="GObject Plugin System"
 url="https://wiki.gnome.org/Projects/Libpeas"
 arch=(x86_64)
 license=(LGPL)
 depends=(
-  gjs
-  js115
-  lua51
-  python
+  glib2
 )
 makedepends=(
   gi-docgen
   git
+  gjs
   glade
   gobject-introspection
+  js115
+  lua51
   lua51-lgi
   luajit
   meson
+  python
   python-gobject
   vala
 )
@@ -70,6 +71,7 @@ _pick() {
 
 package_libpeas-2() {
   optdepends=(
+    'gjs: GJS loader'
     'lua51-lgi: Lua loader'
     'python-gobject: Python loader'
   )
