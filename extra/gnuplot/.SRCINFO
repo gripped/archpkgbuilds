@@ -1,0 +1,36 @@
+pkgbase = gnuplot
+	pkgdesc = Plotting package which outputs to X11, PostScript, PNG, GIF, and others
+	pkgver = 5.4.10
+	pkgrel = 1
+	url = http://www.gnuplot.info
+	arch = x86_64
+	license = custom
+	makedepends = emacs
+	makedepends = qt5-tools
+	makedepends = texlive-latexextra
+	depends = cairo
+	depends = gcc-libs
+	depends = gd
+	depends = glib2
+	depends = glibc
+	depends = gtk3
+	depends = libcaca
+	depends = libcerf
+	depends = libx11
+	depends = lua
+	depends = pango
+	depends = qt5-base
+	depends = qt5-svg
+	depends = readline
+	depends = wxwidgets-common
+	depends = wxwidgets-gtk3
+	source = https://downloads.sourceforge.net/sourceforge/gnuplot/gnuplot-5.4.10.tar.gz
+	source = lua53_compat.patch
+	sha256sums = 975d8c1cc2c41c7cedc4e323aff035d977feb9a97f0296dd2a8a66d197a5b27c
+	sha256sums = bfd8a61abbf4491c74225cb9fd252619d4fc29751838bcb4c0639ffe05a00695
+
+pkgname = gnuplot
+
+pkgname = gnuplot-demos
+	pkgdesc = Demos for gnuplot
+	depends = gnuplot
