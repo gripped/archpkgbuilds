@@ -2,7 +2,7 @@
 # Contributor: Thomas Arnhold <thomas at arnhold dot org>
 
 pkgname=liborcus
-pkgver=0.19.0
+pkgver=0.19.1
 pkgrel=1
 pkgdesc="File import filter library for spreadsheet documents."
 arch=('x86_64')
@@ -13,7 +13,7 @@ makedepends=('boost' 'mdds')
 optdepends=('python-requests: in tool bugzilla')
 source=(https://kohei.us/files/orcus/src/${pkgname}-${pkgver}.tar.xz)
 # https://gitlab.com/orcus/orcus/-/releases
-sha256sums=('1b68f54bb08face4c3dc83c912d921373c44aed817b37d879b7a4e47f2f15e09')
+sha256sums=('6c9a8c03e8187f2749a84f2786d86a88ae45c99ed3a2d5fea36ba556b40c342d')
 
 build() {
     cd "${pkgname}"-${pkgver}
