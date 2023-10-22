@@ -2,19 +2,25 @@
 
 pkgname=msolve
 pkgver=0.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Library for polynomial system solving through algebraic methods'
 url='https://msolve.lip6.fr/'
 arch=(x86_64)
 license=(GPL2)
-depends=(flint)
+depends=(flint
+         gcc-libs
+         glibc
+         gmp)
 makedepends=()
-source=(https://github.com/algebraic-solving/msolve/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('08daa2fc7447ba7074b28a4d263ef05fad42dca5b30310971948307ee3ed38d3')
+source=(https://github.com/algebraic-solving/msolve/archive/v$pkgver/$pkgname-$pkgver.tar.gz
+        https://github.com/algebraic-solving/msolve/commit/fe730579.patch)
+sha256sums=('08daa2fc7447ba7074b28a4d263ef05fad42dca5b30310971948307ee3ed38d3'
+            'f9103720a6ce3d99c378cf750a3359b9a3d8f2e17ad45d9f7a3e2d689f225f82')
 
 prepare() {
   cd $pkgname-$pkgver
   ./autogen.sh
+  patch -p1 -i ../fe730579.patch # Fix build with flint 3
 }
 
 build() {
