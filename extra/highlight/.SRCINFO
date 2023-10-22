@@ -1,0 +1,26 @@
+pkgbase = highlight
+	pkgver = 4.10
+	pkgrel = 1
+	url = http://www.andre-simon.de/doku/highlight/highlight.html
+	arch = x86_64
+	license = GPL
+	makedepends = qt5-base
+	makedepends = lua
+	makedepends = boost
+	source = http://www.andre-simon.de/zip/highlight-4.10.tar.bz2
+	source = http://www.andre-simon.de/zip/highlight-4.10.tar.bz2.asc
+	validpgpkeys = B8C55574187F49180EDC763750FE0279D805A7C7
+	md5sums = 187a16136f7aa4310e57eecb994b7ac4
+	md5sums = SKIP
+	sha256sums = 4389a022367ceafb55a6cf7774c5d82d320ec2df4339bae4aab058c511338ad0
+	sha256sums = SKIP
+
+pkgname = highlight
+	pkgdesc = Fast and flexible source code highlighter (CLI version)
+	depends = lua
+	backup = etc/highlight/filetypes.conf
+
+pkgname = highlight-gui
+	pkgdesc = Fast and flexible source code highlighter (Qt version)
+	depends = qt5-base
+	depends = highlight
