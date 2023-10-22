@@ -6,7 +6,7 @@
 
 _name=pip
 pkgname=python-pip
-pkgver=23.3
+pkgver=23.3.1
 pkgrel=1
 pkgdesc="The PyPA recommended tool for installing Python packages"
 url="https://pip.pypa.io/"
@@ -41,8 +41,8 @@ checkdepends=(
   subversion
 )
 source=(https://github.com/pypa/$_name/archive/$pkgver/$_name-$pkgver.tar.gz)
-sha512sums=('1afef5374410387bd1056a9ada21893f1fbb81e7a2d0ab2c9f4b500c99d25b98b55254e0dc36c4e4e408ad84b7be0e24709d25447168b076ce7723d35462d055')
-b2sums=('6ef608b204a4cb796585c5ff130ee642bce0e7a464099b7eaf9c9199203fc28ff0a1b260a731f9ba462a9b82e6f68be12fc622ed809ad41a1ab92adaa4993cbd')
+sha512sums=('eddca29e8c3727d1d8d793ab0b05f069781cac06df805fcf7a363da738d39498135ccbbb6d2d442604a7bf78ba6c3d101ec2043431ac1832a3f2710db7cc5e56')
+b2sums=('f5085bf1faaca93954abb2dfb99f5a365b7bff385ad9f0f692fb41bbf0586617f0a3d7f36df5e3475f150819fdbf7f79fc6bf8b2425fe06dc570cd0ec98fed6e')
 
 build() {
   cd $_name-$pkgver
@@ -61,6 +61,9 @@ check() {
     --deselect tests/unit/test_direct_url_helpers.py::test_from_link_vcs_with_source_dir_obtains_commit_id
     --deselect tests/unit/test_direct_url_helpers.py::test_from_link_vcs_without_source_dir
     --deselect tests/unit/test_wheel_builder.py::test_should_cache_git_sha
+    # disable downloading the internet
+    --deselect tests/unit/test_req.py::TestRequirementSet::test_download_info_web_archive
+    --deselect tests/unit/test_req.py::TestRequirementSet::test_download_info_vcs
   )
 
   cd $_name-$pkgver
