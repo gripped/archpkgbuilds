@@ -1,18 +1,19 @@
 #Maintainer : Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=openvdb
-pkgver=10.0.1
-pkgrel=5
+pkgver=10.1.0
+pkgrel=1
 pkgdesc='A large suite of tools for the efficient storage and manipulation of sparse volumetric data discretized on three-dimensional grids'
 url='https://github.com/dreamworksanimation/openvdb'
 arch=('x86_64')
 license=('MPL')
 depends=('boost-libs' 'intel-tbb' 'zlib' 'jemalloc' 'blosc' 'log4cplus')
-makedepends=('doxygen' 'boost' 'cmake' 'mesa' 'cppunit' 'glfw-x11' 'glu' 'python' 'python-numpy' 'ninja')
+makedepends=('doxygen' 'boost' 'cmake' 'mesa' 'cppunit' 'glfw-x11' 'glu' 'python'
+             'python-numpy' 'ninja' 'pybind11')
 optdepends=('glfw: for tools'
             'glu: for tools'
             'python-numpy: python module')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/AcademySoftwareFoundation/openvdb/archive/v${pkgver}.tar.gz")
-sha512sums=('361cef8932b69b19ee94c47fe78f665a1acabfabc3f45ff9f490e830f73ff092c42f56ce698677476a8ccf062c89e3e4dc6d4c550aa6842438cbd4d404ee83bb')
+sha512sums=('b1f36fb53ed9fcc65a59a764bb79b7bd0f8469649a70051023f9a8f5d2692f6c32a53c62fc78b7ab57ebda7dedea7b32450b62d90107119f5a30179a660536aa')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
