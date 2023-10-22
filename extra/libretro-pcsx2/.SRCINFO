@@ -1,7 +1,7 @@
 pkgbase = libretro-pcsx2
 	pkgdesc = Sony PlayStation 2 core
 	pkgver = 17053
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/libretro/pcsx2
 	arch = x86_64
 	license = GPL2
@@ -19,11 +19,9 @@ pkgbase = libretro-pcsx2
 	depends = gcc-libs
 	depends = glibc
 	depends = libaio
-	depends = libgio-2.0.so
-	depends = libglib-2.0.so
 	depends = libglvnd
-	depends = libudev.so
 	depends = soundtouch
+	depends = systemd-libs
 	depends = xorg-xrandr
 	depends = zlib
 	source = libretro-pcsx2::git+https://github.com/libretro/pcsx2.git#commit=d86c52557863f27b2504bc9cba9b196790cb3cfd
