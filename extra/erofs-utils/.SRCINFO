@@ -1,0 +1,27 @@
+pkgbase = erofs-utils
+	pkgdesc = Userspace utilities for linux-erofs file system
+	pkgver = 1.7.1
+	pkgrel = 1
+	url = https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git
+	arch = x86_64
+	license = Apache-2.0
+	license = GPL-2.0-or-later
+	makedepends = fuse2
+	makedepends = util-linux
+	makedepends = xz
+	depends = glibc
+	depends = lz4
+	depends = zlib
+	optdepends = fuse2: for erofsfuse
+	source = https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git/snapshot/erofs-utils-1.7.1.tar.gz
+	sha512sums = f5fc08d8d70e3e06c06aaa5a36e9b16ca1ff7c722fc88dba1f5c46fa86914be02e45e948c59504bd0fd4a3a4050ad7a27a5da2657ffbf40ec20ef0d1bfb832ff
+	b2sums = 0d7954d57a7755b4efa566ae2cca443ab15178e02d403cadec7b2e867582044ec4191963c54dac6c0637e428649f5898e0ed921f4a3c5461234a455e609ef5a8
+
+pkgname = erofs-utils
+	depends = glibc
+	depends = lz4
+	depends = zlib
+	depends = util-linux
+	depends = libuuid.so
+	depends = xz
+	depends = liblzma.so
