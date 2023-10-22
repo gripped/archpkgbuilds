@@ -2,7 +2,7 @@
 # Contributor: crab2313 <crab2313@gmail.com>
 
 pkgname=python-gitlab
-pkgver=3.15.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc="Python wrapper for the GitLab API"
 arch=('any')
@@ -16,8 +16,8 @@ optdepends=(
   'python-pyyaml: for YAML support'
 )
 source=($pkgname-$pkgver.tar.gz::https://github.com/python-gitlab/python-gitlab/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('08fc52a8209a2aa6dc258a6bc73a4afecd5d0fc3faae79c9a3d202afcc72508f26f2125e88a1d3e2649857ac47409ad56c10fbfc17b9f7459b939d5385c8306f')
-b2sums=('56069ca1a0291b69d166664b5057df52ad279844b45017282deb3298f4d693f034f4ea5074eaeb8d12038cd9fe14809c40fd572184ffd3417198cf66e445aedd')
+sha512sums=('14c23fdde625c6d75f161f347fa5ff8be26c626530defc914179b1d9a4f66380cb4341b4e2d1b319a0a63dbb0969f441f905dd90762b8af885ad5d4ab67e8bd9')
+b2sums=('4aa84d2150ad3f5dd4b8e50c9f6e0a55d8d51fbff419bf1a74ff5bd8cb7da1251150cc0e7a655c74995cba4a8faf8aa337823cc29ed99b4549b08b9db0b8837d')
 
 build() {
   cd $pkgname-$pkgver
