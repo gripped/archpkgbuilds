@@ -3,7 +3,7 @@
 
 pkgname=uudeview
 pkgver=20230502
-pkgrel=2
+pkgrel=3
 _commit=186f9543e6c7d3fa17ac13906b130cbab8ee9aea
 pkgdesc="UUDeview helps transmitting & receiving binary files using mail or newsgroups. Includes library files."
 arch=('x86_64')
@@ -11,30 +11,25 @@ url="https://github.com/hannob/uudeview"
 license=('GPL')
 makedepends=('git')
 optdepends=('tk: for GUI')
-options=('staticlibs' '!strip')
 source=("git+https://github.com/hannob/uudeview.git#commit=${_commit}")
 sha256sums=('SKIP')
 
-build() {
-  cd "$srcdir"/$pkgname/uulib
-  autoreconf
-  ./configure --prefix=/usr
-  make
-
+prepare() {
   cd "$srcdir"/$pkgname
-  autoreconf
-  ./configure --prefix=/usr --mandir=/usr/share/man CFLAGS="-ffat-lto-objects"
+  autoreconf -fi
+}
+
+build(){
+  cd "$srcdir"/$pkgname
+  CFLAGS="$CFLAGS -ffat-lto-objects"
+  ./configure --prefix=/usr --mandir=/usr/share/man
   make
 }
 
 package() {
   cd "$srcdir"/$pkgname
   make DESTDIR="$pkgdir" install
-  strip "$pkgdir"/usr/bin/*
-
-  cd "$srcdir"/$pkgname/uulib
+  install -Dm0644 uulib/libuu.a "$pkgdir"/usr/lib/libuu.a
   install -d "$pkgdir"/usr/include/uudeview
-  cp -v *.h "$pkgdir"/usr/include/uudeview
-  install -d "$pkgdir"/usr/lib
-  cp -v *.a "$pkgdir"/usr/lib/
+  cp -v uulib/*.h "$pkgdir"/usr/include/uudeview
 }
