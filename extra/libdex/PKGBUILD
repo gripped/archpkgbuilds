@@ -6,7 +6,7 @@ pkgname=(
   libdex
   libdex-docs
 )
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=1
 pkgdesc="A library supporting 'Deferred Execution'"
 url="https://gitlab.gnome.org/GNOME/libdex"
@@ -25,7 +25,7 @@ makedepends=(
   meson
   vala
 )
-_commit=e3d85d804b0f3511bbb90965c3a202623d9ac55c  # tags/0.4.0^0
+_commit=51f86a440d5b30b428a768f0997587cdf5462cf3  # tags/0.4.1^0
 source=("git+$url.git#commit=$_commit")
 b2sums=('SKIP')
 
