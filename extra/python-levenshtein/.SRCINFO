@@ -1,0 +1,23 @@
+pkgbase = python-levenshtein
+	pkgdesc = Python extension for computing string edit distances and similarities
+	pkgver = 0.23.0
+	pkgrel = 1
+	url = https://github.com/maxbachmann/Levenshtein
+	arch = x86_64
+	license = GPL
+	checkdepends = python-pytest
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-scikit-build
+	makedepends = cython
+	makedepends = rapidfuzz-cpp
+	depends = glibc
+	depends = gcc-libs
+	depends = python
+	depends = python-rapidfuzz
+	source = python-levenshtein::git+https://github.com/maxbachmann/Levenshtein#commit=b6069c7940e9274e54b2924d24e3e9861ee3ad34
+	b2sums = SKIP
+
+pkgname = python-levenshtein
