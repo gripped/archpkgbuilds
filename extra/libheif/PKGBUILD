@@ -2,7 +2,7 @@
 # Contributor: Adam Fontenot <fontenot@ucla.edu>
 
 pkgname=libheif
-pkgver=1.17.0
+pkgver=1.17.1
 pkgrel=1
 pkgdesc='An HEIF and AVIF file format decoder and encoder'
 arch=(x86_64)
@@ -27,7 +27,7 @@ optdepends=('libjpeg: for heif-convert and heif-enc'
             'rav1e: rav1e encoder'
             'svt-av1: svt-av1 encoder')
 source=(https://github.com/strukturag/libheif/releases/download/v$pkgver/libheif-$pkgver.tar.gz)
-sha256sums=('c86661e9ef9c43ad8de9d2b38b7b508df5322580b24d22fc25a977e7fdb26f3c')
+sha256sums=('97d74c58a346887c1bbf98dcf0322c13b728286153d0f1be2b350f7107e49dba')
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
