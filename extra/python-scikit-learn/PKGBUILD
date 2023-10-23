@@ -3,7 +3,7 @@
 # Contributor: Andrzej Giniewicz <gginiu@gmail.com>
 
 pkgname=python-scikit-learn
-pkgver=1.3.1
+pkgver=1.3.2
 pkgrel=1
 pkgdesc='A set of python modules for machine learning and data mining'
 arch=(x86_64)
@@ -22,7 +22,7 @@ optdepends=('python-matplotlib: plotting capabilities')
 options=(!emptydirs)
 _archive="${pkgname#python-}-$pkgver"
 source=("$_url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('0b531d02678b562d40d1af19c42d099d635b99eff937a141c47e7a6f6501256f')
+sha256sums=('03d387e2f98c9b34d8e18a8bf316dd1e4d143060f45d21710ccc4b2a816eb44d')
 
 prepare() {
 	cd $_archive
