@@ -3,7 +3,7 @@
 
 pkgname=zeromq
 pkgver=4.3.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast messaging system built on sockets. C and C++ bindings. aka 0MQ, ZMQ.'
 arch=('x86_64')
 url='http://www.zeromq.org'
@@ -61,6 +61,8 @@ build() {
     -D WITH_OPENPGM=ON \
     -D OPENPGM_PKGCONFIG_NAME=openpgm-5.3 \
     -D WITH_LIBBSD=ON \
+    -D WITH_LIBSODIUM=ON \
+    -D ENABLE_CURVE=ON \
     -D WITH_DOC=ON \
     -W no-dev
 
@@ -87,7 +89,7 @@ check() {
     --test-dir build \
     --output-on-failure \
     -j1 \
-    -E "test_(diffserv|security_curve|zmq_poll_fd|connect_rid|heartbeats|radio_dish)"
+    -E "test_(diffserv|zmq|ppoll_fd|zmq_poll_fd|connect_rid|heartbeats|radio_dish)"
 }
 
 package() {
