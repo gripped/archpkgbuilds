@@ -1,0 +1,18 @@
+pkgbase = nsjail
+	pkgdesc = Light-weight process isolation tool
+	pkgver = 3.4
+	pkgrel = 1
+	url = https://nsjail.com
+	arch = x86_64
+	license = Apache
+	makedepends = git
+	depends = protobuf
+	depends = libnl
+	source = https://github.com/google/nsjail/archive/3.4/nsjail-3.4.tar.gz
+	source = git+https://github.com/google/kafel.git#commit=1af0975af45ca4404f357b9a4e1636f53a01bfd3
+	source = protobuf-23.patch
+	sha256sums = d4966e92e3246b69abf58c1d336176a7bef0cfa95a5f2f7369fc65cd2a1a8561
+	sha256sums = SKIP
+	sha256sums = 8f7948c24e5d058208c5db0eed49d6fd23b507cd2ae60528e7ae7a11b58f8f4b
+
+pkgname = nsjail
