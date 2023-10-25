@@ -11,7 +11,7 @@ pkgname=(
   sysprof
   libsysprof-capture
 )
-pkgver=45.0
+pkgver=45.1
 pkgrel=1
 pkgdesc="Kernel based performance profiler"
 url="https://wiki.gnome.org/Apps/Sysprof"
@@ -36,7 +36,7 @@ makedepends=(
   meson
   yelp-tools
 )
-_commit=4b5fb5fdc9167b4bb428821ce2481d0c596ea9f2  # tags/45.0^0
+_commit=d62c94d62a29be82c187e45e2e17181a4e0c4211  # tags/45.1^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/sysprof.git#commit=$_commit"
 )
