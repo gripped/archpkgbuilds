@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-glanceclient
-pkgver=4.2.0
+pkgver=4.3.0
 pkgrel=1
 pkgdesc="OpenStack Image API Client Library"
 arch=('any')
@@ -14,7 +14,7 @@ makedepends=('python-setuptools')
 checkdepends=('python-stestr' 'python-ddt' 'python-requests-mock' 'python-testscenarios')
 options=('!emptydirs')
 source=("https://github.com/openstack/python-glanceclient/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('c5eb86d0c8d6c7e6c90560456bc75a7f40e86dafe7a8c3d3fe0503fddea346c199012c48d2eb53c6fd3f59aa665259295b69ddcb10a0246cd4e5015426f98d7c')
+sha512sums=('54f6595b56b73dc2a9f366e1dcfd3a39f9dc0a433051ec874c1c02b3be9ee9d370a92cbfd58fd74a317439d969bcebb8dafaf1c93f289f2925e38bb67211da18')
 
 export PBR_VERSION=$pkgver
 
