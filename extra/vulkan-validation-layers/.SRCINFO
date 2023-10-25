@@ -1,0 +1,23 @@
+pkgbase = vulkan-validation-layers
+	pkgdesc = Vulkan Validation Layers
+	pkgver = 1.3.268.0
+	pkgrel = 1
+	url = https://www.khronos.org/vulkan/
+	arch = x86_64
+	groups = vulkan-devel
+	license = custom
+	makedepends = cmake
+	makedepends = python-lxml
+	makedepends = libxrandr
+	makedepends = wayland
+	makedepends = git
+	depends = gcc-libs
+	depends = vulkan-icd-loader
+	depends = vulkan-headers
+	depends = libx11
+	options = !lto
+	options = !strip
+	source = https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/vulkan-sdk-1.3.268.0.tar.gz
+	sha256sums = 7f6912ab49c2d379dd9ede59b4257d13dcac218ecd43df395a7d5914c7dfd024
+
+pkgname = vulkan-validation-layers
