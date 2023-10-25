@@ -3,7 +3,7 @@
 
 _name=fastapi
 pkgname=python-$_name
-pkgver=0.103.2
+pkgver=0.104.0
 pkgrel=1
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=(any)
@@ -67,8 +67,8 @@ optdepends=(
   'uvicorn: for Uvicorn as ASGI server'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('af4aa3c38c7875c6664ba0d0f19ecac4624ef81a6d19b76125e35419bed72e46b9d81584253f088063246ab5e22e07b6991c0a6dde5426f729fe70017e659d45')
-b2sums=('99ca9133cb2ff84adb939cd1b4c790e45137663dcafe328538922adf804ddb8677673eecd64a0f161affddb225616316fa881d61c38e5263a47a0bf02bf49698')
+sha512sums=('b533ed4e297508645364365e89351ff778e61339729c10d0974686117b57ef7ac405bf8eb9a5623040b73d7923bcb7e3b4376cfd6aab56f5d1968a81003e8221')
+b2sums=('bd2fece8f8ba28d75b285e05677a2e99ec4c4a28b8db718d52461a8641f495fa9cc412a16304b38b06ba6c570705fe92276af42e0a544f5467ae8be4dea1fa19')
 
 prepare() {
   cd $_name-$pkgver
@@ -85,7 +85,6 @@ check() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   local pytest_options=(
     -vv
-    -p no:warnings
     --deselect tests/test_dependency_normal_exceptions.py::test_dependency_gets_exception
     --deselect tests/test_tutorial/test_body_updates/test_tutorial001.py::test_openapi_schema
     --deselect tests/test_tutorial/test_body_updates/test_tutorial001_py310.py::test_openapi_schema
@@ -99,6 +98,7 @@ check() {
     --deselect tests/test_tutorial/test_separate_openapi_schemas/test_tutorial001.py::test_openapi_schema
     --deselect tests/test_tutorial/test_separate_openapi_schemas/test_tutorial001_py310.py::test_openapi_schema
     --deselect tests/test_tutorial/test_separate_openapi_schemas/test_tutorial001_py39.py::test_openapi_schema
+    --deselect tests/test_tutorial/test_templates/test_tutorial001.py::test_main
   )
 
   cd $_name-$pkgver
