@@ -1,0 +1,26 @@
+pkgbase = lib32-amdvlk
+	pkgdesc = AMD's standalone Vulkan driver
+	pkgver = 2023.Q4.1
+	pkgrel = 1
+	url = https://github.com/GPUOpen-Drivers
+	arch = x86_64
+	license = MIT
+	makedepends = perl-xml-xpath
+	makedepends = python
+	makedepends = lib32-wayland
+	makedepends = lib32-libxrandr
+	makedepends = xorg-server-devel
+	makedepends = cmake
+	makedepends = ninja
+	makedepends = git
+	depends = lib32-zstd
+	provides = lib32-vulkan-driver
+	options = !lto
+	source = https://github.com/GPUOpen-Drivers/AMDVLK/archive/v-2023.Q4.1.tar.gz
+	sha256sums = be2ebaf7f0df1076fd9bffc920cfa6a039d7b51f1ba2c3ae72a0511b644d7b17
+
+pkgname = lib32-amdvlk
+	depends = lib32-glibc
+	depends = lib32-gcc-libs
+	depends = lib32-zlib
+	depends = lib32-zstd
