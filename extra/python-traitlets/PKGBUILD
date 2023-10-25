@@ -3,20 +3,22 @@
 
 _pyname=traitlets
 pkgname=python-$_pyname
-pkgver=5.11.2
+pkgver=5.12.0
 pkgrel=1
 pkgdesc='A configuration system for Python applications'
 arch=(any)
 url='https://traitlets.readthedocs.io/en/stable'
 license=(BSD)
 depends=(python
-         python-argcomplete)
+         python-argcomplete
+         python-typing_extensions)
 makedepends=(python-build
              python-hatchling
              python-installer)
-checkdepends=(python-pytest-mock)
+checkdepends=(python-pytest-mock
+              python-pytest-mypy-testing)
 source=(https://pypi.python.org/packages/source/t/traitlets/traitlets-$pkgver.tar.gz)
-sha256sums=('7564b5bf8d38c40fa45498072bf4dc5e8346eb087bbf1e2ae2d8774f6a0f078e')
+sha256sums=('833273bf645d8ce31dcb613c56999e2e055b1ffe6d09168a164bcd91c36d5d35')
 
 build() {
   cd $_pyname-$pkgver
