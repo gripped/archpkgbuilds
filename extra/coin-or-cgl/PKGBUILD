@@ -3,7 +3,7 @@
 # Contributor: Daniel Ehlers <danielehlers@mindeye.net>
 
 pkgname=coin-or-cgl
-pkgver=0.60.7
+pkgver=0.60.8
 pkgrel=1
 pkgdesc='COIN-OR Cut Generation Library'
 arch=(x86_64)
@@ -12,7 +12,7 @@ license=(EPL)
 groups=(coin-or)
 depends=(coin-or-clp)
 source=($pkgname-$pkgver.tar.gz::https://github.com/coin-or/Cgl/archive/refs/tags/releases/$pkgver.tar.gz)
-sha256sums=('93b30a80b5d2880c2e72d5877c64bdeaf4d7c1928b3194ea2f88b1aa4517fb1b')
+sha256sums=('1482ba38afb783d124df8d5392337f79fdd507716e9f1fb6b98fc090acd1ad96')
 
 build() {
   cd Cgl-releases-$pkgver
