@@ -2,21 +2,41 @@
 
 pkgbase=avogadrolibs
 pkgname=(avogadrolibs avogadrolibs-qt5)
-pkgver=1.97.0
-pkgrel=7
+pkgver=1.98.0
+pkgrel=2
 pkgdesc='Libraries that provide 3D rendering, visualization, analysis and data processing useful in computational chemistry, molecular modeling, bioinformatics, materials science, and related areas'
 arch=(x86_64)
 url='https://www.openchemistry.org/'
 license=(custom)
-makedepends=(cmake eigen boost python glew spglib hdf5 mmtf-cpp libmsym pybind11 vtk qt5-tools qt5-svg genxrdpattern tbb openmpi)
+makedepends=(boost
+             cmake
+             eigen
+             fmt
+             hdf5
+             genxrdpattern
+             glew
+             libmsym
+             mmtf-cpp
+             nlohmann-json
+             openmpi
+             pybind11
+             python
+             qt5-svg
+             qt5-tools
+             spglib
+             tbb
+             vtk)
 source=(https://github.com/OpenChemistry/avogadrolibs/archive/$pkgver/$pkgname-$pkgver.tar.gz
-        https://github.com/OpenChemistry/avogadrolibs/commit/0db79eb1.patch)
-sha256sums=('46641504a1808c5ff6fb7d66be48d866848203899025fd386cc6e3dd5d9ec342'
-            'd7e6f2ba9a123c52313df31763dc9cb043a41ca64bb0dc695fb8af77716ed70a')
+        opengl.patch
+        python.patch)
+sha256sums=('50255a7622159c7884dca0311c7d5beb4d474fe93a2b5d662ebec4b02237166c'
+            '626cd59a79262c26a687d5d382eedd6bdd819d98042256b3d751b31f25a0c0c2'
+            '581c97b90c34a12e00cf7bfb2babb05a5295e6aa94d3cb8ca208c6750aed3ea0')
 
 prepare() {
   mkdir crystals molecules # Dummy dirs to trick cmake, actually provided by avogadro-molecules and avogadro-crystals
-  patch -d $pkgname-$pkgver -p1 < 0db79eb1.patch # Fix build
+  patch -d $pkgname-$pkgver -p1 < opengl.patch # Fix linking to OpenGL
+  patch -d $pkgname-$pkgver -p1 < python.patch # Fix python install dir
 }
 
 build() {
@@ -28,12 +48,23 @@ build() {
     -DUSE_HDF5=ON \
     -DUSE_VTK=ON \
     -DUSE_PYTHON=ON \
-    -DUSE_SYSTEM_GENXRDPATTERN=ON
+    -DUSE_SYSTEM_GENXRDPATTERN=ON \
+    -DUSE_EXTERNAL_NLOHMANN=ON \
+    -DUSE_EXTERNAL_PUGIXML=ON
   cmake --build build
 }
 
 package_avogadrolibs() {
-  depends=(molequeue glew spglib hdf5 avogadro-molecules avogadro-crystals)
+  depends=(avogadro-crystals
+           avogadro-molecules
+           gcc-libs
+           glew
+           glibc
+           hdf5
+           libglvnd
+           molequeue
+           pugixml
+           spglib)
   optdepends=('avogadrolibs-qt5: For the VTK and Qt plugins')
 
   DESTDIR="$pkgdir" cmake --install build
@@ -44,16 +75,20 @@ package_avogadrolibs() {
         "$pkgdir"/usr/lib/avogadro2/{scripts,staticplugins}
 
   install -Dm644 $pkgname-$pkgver/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
-
-# Move python module to the correct place
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  mkdir -p "$pkgdir${site_packages}"
-  mv "$pkgdir"/usr/lib/avogadro "$pkgdir${site_packages}"
 }
 
 package_avogadrolibs-qt5() {
   pkgdesc="Qt 5 modules for Avogadro"
-  depends=(qt5-svg libarchive libmsym avogadrolibs vtk openmpi fmt libxcursor)
+  depends=(avogadrolibs
+           gcc-libs
+           glew
+           glibc
+           libarchive
+           libglvnd
+           libmsym
+           qt5-base
+           qt5-svg
+           vtk)
 
   DESTDIR="$pkgdir" cmake --install build/avogadro/molequeue
   DESTDIR="$pkgdir" cmake --install build/avogadro/qtgui
