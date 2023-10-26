@@ -10,7 +10,7 @@
 
 pkgname=gitlab
 pkgver=16.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
 url='https://gitlab.com/gitlab-org/gitlab-foss'
@@ -60,7 +60,7 @@ conflicts=(gitlab-workhorse)
 replaces=(gitlab-workhorse)
 install=gitlab.install
 sha256sums=('SKIP'
-            'fcb8f0576295fa605962db3cc8708c32183f2c876e156f261c2b21b209af80f1'
+            '6cdb02d042f325dfb65c122527b9a341d5832096a256a8c20291029ffa5a25db'
             '8cc4d933743906b4213b8ea8d8c5a62535e27e4073f73581a5dad40078dde000'
             'f99499116f5d7cf59ccb7bfabd2d1ba68fbf83040571c607f7b0b50e6f50cbcf'
             'd53486a22b2f789bc197673c2fdacd3f1663ecb740ccbdf044e819d3749fe59f'
@@ -84,8 +84,9 @@ prepare() {
 	git rev-parse --short HEAD > REVISION
 
 	patch -p1 -i ../$pkgname-configs.patch
+
 	# '/home/git' path in the config files indicates a default path that need to be adjusted
-	grep -FqR '/home/git' config || exit 1
+	! grep -FqR '/home/git' config
 
 	cp config/gitlab.yml.example config/gitlab.yml
 	cp config/database.yml.postgresql config/database.yml
