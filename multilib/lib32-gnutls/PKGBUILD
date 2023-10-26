@@ -7,7 +7,7 @@
 
 pkgname=lib32-gnutls
 pkgver=3.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A library which provides a secure layer over a reliable transport layer (32-bit)"
 arch=('x86_64')
 license=('GPL3' 'LGPL2.1')
@@ -50,7 +50,11 @@ package() {
   cd gnutls-${pkgver}
   make DESTDIR="${pkgdir}" install
 
-  rm -rf "${pkgdir}"/usr/{bin,include,share}
+  rm -rf "${pkgdir}"/usr/{include,share}
+
+  # lib32-p11-kit tests need a 32-bit p11tool
+  mv "$pkgdir"/usr/bin/p11tool{,-32}
+  find "$pkgdir"/usr/bin -type f -not -name '*-32' -delete
 }
 
 # vim:set sw=2 sts=-1 et:
