@@ -5,8 +5,8 @@
 # Contributor: parchd <parchd@archlinux.info>
 
 pkgname=opensmtpd
-pkgver=7.3.0p2
-pkgrel=1
+pkgver=7.4.0p0
+pkgrel=2
 pkgdesc="Free implementation of the server-side SMTP protocol"
 arch=(x86_64)
 url="https://www.opensmtpd.org/"
@@ -24,8 +24,8 @@ source=("https://www.opensmtpd.org/archives/${pkgname}-${pkgver}.tar.gz"
         opensmtpd.sysusers
         smtpd.service
         smtpd.socket)
-sha256sums=('fccdfbc5b98d150012bf9ccdef51752c18a862ed10888b56289826b83a2b5a4e'
-            '0f5f4373584e8047f26ce6216e320d139c85de584b42941c5e11c23af6e0de98'
+sha256sums=('c181ccc3434a11e583619e00028520d457fe062e34dc03beea358078220ce374'
+            'bbdccb72eac8c713c1d24d6d48f3cfd8eb8ff7bf0f36e8b72bf389405c11dab7'
             'b74dca53567cd5070905a0a1acd77041805b6c0c4a0e1285830ea13654e1dcd5'
             'b38b64f1457b7227d55585edc711cce525e089516d16b093e6c44387380e6b13'
             'abf5baeb2a87c60d668ad18ea41cc08cab7a4f76339dd6df05de15cdaadaf922'
@@ -48,7 +48,7 @@ build() {
     --sysconfdir=/etc/smtpd \
     --sbindir=/usr/bin \
     --libexecdir=/usr/lib/smtpd \
-    --with-bundled-libtls \
+    --without-libbsd \
     --with-path-mbox=/var/spool/mail \
     --with-path-empty=/var/empty \
     --with-path-socket=/run \
