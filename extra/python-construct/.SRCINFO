@@ -1,0 +1,24 @@
+pkgbase = python-construct
+	pkgdesc = A powerful declarative parser/builder for binary data
+	pkgver = 2.10.69
+	pkgrel = 1
+	url = https://construct.readthedocs.org
+	arch = any
+	license = MIT
+	checkdepends = python-arrow
+	checkdepends = python-cloudpickle
+	checkdepends = python-lz4
+	checkdepends = python-numpy
+	checkdepends = python-pytest-runner
+	checkdepends = python-pytest-benchmark
+	checkdepends = python-ruamel-yaml
+	checkdepends = python-cryptography
+	makedepends = python-setuptools
+	depends = python
+	optdepends = python-arrow: for Timestamp
+	optdepends = python-numpy: for array serialization with Numpy protocol
+	optdepends = python-ruamel-yaml: for KaitaiStruct (KSY) exporter
+	source = python-construct-2.10.69.tar.gz::https://github.com/construct/construct/archive/v2.10.69.tar.gz
+	sha512sums = c94a1b3a62c9bf4aed30eb262d4439452f98fe909e399d79ece8da4aa707f95c754d540672c2cc9c307425914e43384b5455eb7970ab5d7830af1c0b06313f9e
+
+pkgname = python-construct
