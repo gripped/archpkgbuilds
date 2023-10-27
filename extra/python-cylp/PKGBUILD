@@ -3,7 +3,7 @@
 
 _pyname=cylp
 pkgname=python-$_pyname
-pkgver=0.92.0
+pkgver=0.92.1
 pkgrel=1
 pkgdesc='A Python interface to CLP, CBC, and CGL to solve LPs and MIPs'
 arch=(x86_64)
@@ -26,7 +26,7 @@ makedepends=(cython
              python-wheel)
 checkdepends=(python-pytest)
 source=(https://github.com/coin-or/CyLP/archive/v$pkgver/$_pyname-$pkgver.tar.gz)
-sha256sums=('e63ad483d3b83d67e07706506b8765ee650f09a2845c4efcc9eb463045e21a72')
+sha256sums=('8943125d39b7981374d66a062c438d96993f81d5c901330b9f0ef3c5a376d634')
 
 build() {
   cd CyLP-$pkgver
