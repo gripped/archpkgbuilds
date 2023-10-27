@@ -5,13 +5,13 @@
 # Contributor: robertfoster
 
 pkgname=easyeffects
-pkgver=7.1.0
+pkgver=7.1.1
 pkgrel=1
 pkgdesc='Audio Effects for Pipewire applications'
 arch=('x86_64')
 url='https://github.com/wwmm/easyeffects'
 license=('GPL3')
-depends=('fftw' 'libfmt.so' 'gsl' 'gtk4' 'libadwaita-1.so'
+depends=('fftw' 'libfmt.so' 'gsl' 'gtk4' 'ladspa' 'libadwaita-1.so'
          'libbs2b.so' 'libebur128' 'libsamplerate.so'
          'libsigc-3.0.so' 'libsndfile.so' 'liblilv-0.so'
          'pipewire' 'rnnoise' 'soundtouch'
@@ -26,7 +26,7 @@ optdepends=(
 )
 replaces=('pulseeffects')
 source=("${url}/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
-sha512sums=('7ef6c5d81bc125f4254bf282947973b443974cffff95bf5bf28364cca3a34a326b2d96a3b15eb99caa1f9b7026ee77b5d63fed19194ef961de5ed5b4e5871699')
+sha512sums=('eb92e033bc83b0766ece0d8d32b87aa265c0143a6871787c0ca5f1597d2d272e653af4bf72fe7518923c0c82cfa6408587256d3b7a00333365958e8cb37da590')
 
 build() {
   arch-meson ${pkgname}-${pkgver} build
