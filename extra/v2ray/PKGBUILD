@@ -2,8 +2,8 @@
 # Contributor: pandada8 <pandada8@gmail.com>
 
 pkgname=v2ray
-pkgver=5.8.0
-_commit=2f60dec37b82f5aa54dac27497739a6069f7fdb8
+pkgver=5.9.0
+_commit=be8e8accb82d4dcffe7e35f17d9e0e5ce1fa6d53
 pkgrel=1
 pkgdesc="A platform for building proxies to bypass network restrictions"
 arch=('x86_64')
