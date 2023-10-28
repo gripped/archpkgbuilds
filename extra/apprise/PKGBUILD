@@ -4,7 +4,7 @@
 
 pkgname=apprise
 pkgver=1.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Push Notifications that work with just about every platform'
 arch=('any')
 url=https://github.com/caronc/apprise
@@ -14,7 +14,7 @@ depends=(
   'python-click'
   'python-markdown'
   'python-requests-oauthlib'
-  'python-pyaml'
+  'python-yaml'
 )
 makedepends=(
   'git'
@@ -27,6 +27,7 @@ makedepends=(
 checkdepends=('dbus-python' 'python-paho-mqtt' 'python-pytest-mock')
 optdepends=(
   'dbus-python: for Linux DBus Notifications'
+  'python-gobject: for Linux DBus Notifications'
   'python-paho-mqtt: for MQTT support'
 )
 provides=("python-$pkgname")
