@@ -3,7 +3,7 @@
 
 pkgname=python-pygls
 _name=${pkgname#python-}
-pkgver=1.1.1
+pkgver=1.1.2
 pkgrel=1
 pkgdesc='Pythonic generic implementation of the Language Server Protocol'
 arch=('any')
@@ -14,11 +14,6 @@ makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core')
 checkdepends=('python-pytest' 'python-pytest-asyncio')
 source=("git+$url.git#tag=v$pkgver")
 b2sums=('SKIP')
-
-prepare() {
-  cd "$_name"
-  sed -i 's/typeguard = "^3.0.0"/typeguard = "^4.0.0"/' pyproject.toml
-}
 
 build() {
   cd "$_name"
