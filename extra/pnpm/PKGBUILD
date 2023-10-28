@@ -4,12 +4,12 @@
 
 pkgname=pnpm
 pkgver=8.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast, disk space efficient package manager'
 arch=('any')
 url=https://pnpm.io
 license=('MIT')
-depends=("nodejs")
+depends=('node-gyp')
 makedepends=('git' 'pnpm')
 source=("git+https://github.com/$pkgname/$pkgname.git#tag=v$pkgver?signed")
 b2sums=('SKIP')
