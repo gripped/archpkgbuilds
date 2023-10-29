@@ -1,0 +1,33 @@
+pkgbase = endless-sky
+	pkgdesc = A sandbox-style space exploration and combat game
+	pkgver = 0.10.4
+	pkgrel = 1
+	url = https://endless-sky.github.io/
+	arch = x86_64
+	license = GPL3
+	license = custom:CC-BY-3.0
+	license = custom:CC-BY-4.0
+	license = custom:CC-BY-NC-3.0
+	license = custom:CC-BY-SA-3.0
+	license = custom:CC-BY-SA-4.0
+	license = custom:public-domain
+	makedepends = git
+	makedepends = scons
+	depends = glibc
+	depends = gcc-libs
+	depends = openal
+	depends = libpng
+	depends = glew
+	depends = hicolor-icon-theme
+	depends = libjpeg-turbo
+	depends = sdl2
+	depends = libmad
+	depends = util-linux-libs
+	depends = libglvnd
+	optdepends = endless-sky-high-dpi: high resolution graphics assets
+	source = endless-sky::git+https://github.com/endless-sky/endless-sky#commit=c7874d3e6d8ffde0f46dd2c048c11dc801ab9665
+	source = fix-binary-install.patch
+	b2sums = SKIP
+	b2sums = c32e4962ab7ceff081df54a7a1cf3488f57b87aef4533a18b0a8ecafa7a7bea29babeaec4a44767124716c8194d5088444fe17dc238ea05bb22c40e9d591700b
+
+pkgname = endless-sky
