@@ -5,8 +5,8 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=lib32-brotli
-pkgver=1.0.9
-pkgrel=12
+pkgver=1.1.0
+pkgrel=1
 pkgdesc='Generic-purpose lossless compression algorithm (32-bit)'
 arch=(x86_64)
 license=(MIT)
@@ -22,14 +22,9 @@ makedepends=(
 provides=(
   libbrotli{common,dec,enc}.so
 )
-_tag=e61745a6b7add50d380cfd7d3883dd6c62fc2c71
+_tag=ed738e842d2fbdf2d6459e39267a633c4a9b2f5d
 source=(git+https://github.com/google/brotli#tag=${_tag})
 sha512sums=('SKIP')
-
-prepare() {
-  cd brotli
-  git cherry-pick -n 09b0992b6acb7faa6fd3b23f9bc036ea117230fc # Fix broken Libs: in pc file
-}
 
 pkgver() {
   cd brotli
