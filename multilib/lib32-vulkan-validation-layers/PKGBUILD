@@ -1,7 +1,7 @@
 # Maintainer: Laurent Carlier <lordheavym@gmail.com>
 
 pkgname=lib32-vulkan-validation-layers
-pkgver=1.3.261.1
+pkgver=1.3.268.0
 pkgrel=1
 arch=(x86_64)
 pkgdesc="Vulkan Validation Layers (32-bit)"
@@ -10,8 +10,8 @@ license=('custom')
 depends=('lib32-gcc-libs' 'lib32-vulkan-icd-loader' 'vulkan-headers')
 makedepends=('cmake' 'python' 'lib32-libx11' 'lib32-libxrandr' 'lib32-wayland' 'git')
 options=('!lto' '!strip') # disable LTO (https://github.com/KhronosGroup/Vulkan-ValidationLayers/issues/5994)
-source=("https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/sdk-${pkgver}.tar.gz")
-sha256sums=('1372d522f297bb3fb386802b1aa4b7f885a9e1e969a6a3c6e9b29d381357f21d')
+source=("https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/vulkan-sdk-${pkgver}.tar.gz")
+sha256sums=('7f6912ab49c2d379dd9ede59b4257d13dcac218ecd43df395a7d5914c7dfd024')
 
 prepare() {
   cd "${srcdir}"/Vulkan-ValidationLayers*
