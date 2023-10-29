@@ -2,20 +2,39 @@
 # Contributor: Jason Stryker <inbox at jasonstryker dot com>
 
 pkgname=('wine-nine')
-pkgver=0.8
-pkgrel=4
+_tag=0.9
+pkgver=0.9
+pkgrel=1
 pkgdesc="Gallium Nine Standalone"
 arch=('x86_64')
 url="https://github.com/iXit/wine-nine-standalone"
 license=('LGPL2')
-makedepends=('git' 'lib32-mesa' 'wine' 'meson')
-source=("${url}/archive/v${pkgver}.tar.gz")
-sha512sums=('3f339f909c6d65a2e5b5c912785aaa6f297e95549c868ab679dfb8e99d67db9906b6e75e3679a4e3e003f512a54ceb9953f941a4129f488973c16e1a3ac7267c')
+makedepends=('git' 'filesystem' 'lib32-mesa' 'wine' 'meson')
+source=("git+${url}.git#tag=v${_tag}")
+sha256sums=('SKIP')
+
+_backports=(7c5e71a584e359814b80cdb411e0ffe2f7ce2f86)
+
+prepare() {
+  cd wine-nine-standalone
+
+  local _c
+  for _c in "${_backports[@]}"; do
+    git log --oneline -1 "${_c}"
+    git cherry-pick -n "${_c}"
+  done
+}
+
+pkgver() {
+  cd wine-nine-standalone
+
+  echo ${_tag}
+}
 
 build() {
-  cd wine-nine-standalone-${pkgver}
+  cd wine-nine-standalone
     
-  ./bootstrap.sh
+  ./bootstrap.sh --distro arch
 
   meson \
     --cross-file "tools/cross-wine64" \
