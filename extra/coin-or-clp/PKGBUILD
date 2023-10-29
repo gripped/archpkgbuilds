@@ -4,13 +4,18 @@
 
 pkgname=coin-or-clp
 pkgver=1.17.9
-pkgrel=1
+pkgrel=2
 pkgdesc='COIN-OR linear programming solver'
 arch=(x86_64)
 url='https://github.com/coin-or/Clp'
 license=(EPL)
 groups=(coin-or)
-depends=(coin-or-osi coin-or-asl suitesparse)
+depends=(coin-or-asl
+         coin-or-coinutils
+         coin-or-osi
+         gcc-libs
+         glibc
+         suitesparse)
 source=($pkgname-$pkgver.tar.gz::https://github.com/coin-or/Clp/archive/refs/tags/releases/$pkgver.tar.gz)
 sha256sums=('b02109be54e2c9c6babc9480c242b2c3c7499368cfca8c0430f74782a694a49f')
 
