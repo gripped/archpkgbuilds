@@ -1,0 +1,37 @@
+pkgbase = podofo
+	pkgdesc = A C++ library to work with the PDF file format
+	pkgver = 0.10.2
+	pkgrel = 1
+	url = http://podofo.sourceforge.net
+	arch = x86_64
+	license = LGPL2.1
+	makedepends = cmake
+	depends = fontconfig
+	depends = freetype2
+	depends = libidn
+	depends = libjpeg-turbo
+	depends = libpng
+	depends = libtiff
+	depends = libxml2
+	depends = lua
+	depends = openssl
+	depends = zlib
+	source = https://github.com/podofo/podofo/archive/0.10.2/podofo-0.10.2.tar.gz
+	sha256sums = 565168132e8fbfcdbad4ea4c5567bcc57ebbffb4528f6273baf3f490a3cf7563
+
+pkgname = podofo
+	provides = libpodofo.so
+
+pkgname = podofo-tools
+	license = GPL2
+	depends = fontconfig
+	depends = freetype2
+	depends = libidn
+	depends = libjpeg-turbo
+	depends = libpng
+	depends = libtiff
+	depends = libxml2
+	depends = lua
+	depends = openssl
+	depends = zlib
+	depends = libpodofo.so
