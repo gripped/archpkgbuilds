@@ -1,0 +1,30 @@
+pkgbase = hypercorn
+	pkgdesc = An ASGI Server based on Hyper libraries and inspired by Gunicorn
+	pkgver = 0.15.0
+	pkgrel = 1
+	url = https://github.com/pgjones/hypercorn
+	arch = any
+	license = MIT
+	checkdepends = python-distlib
+	checkdepends = python-hypothesis
+	checkdepends = python-pytest
+	checkdepends = python-pytest-asyncio
+	checkdepends = python-pytest-sugar
+	checkdepends = python-pytest-trio
+	checkdepends = python-tox
+	checkdepends = python-trio
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-poetry-core
+	depends = python-h11
+	depends = python-h2
+	depends = python-priority
+	depends = python-toml
+	depends = python-typing_extensions
+	depends = python-wsproto
+	optdepends = python-trio: trio support
+	source = git+https://github.com/pgjones/hypercorn.git#tag=2724ad6c307239f6ee7854c7d1794a625f66f7d4
+	sha256sums = SKIP
+
+pkgname = hypercorn
