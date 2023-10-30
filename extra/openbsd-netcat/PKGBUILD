@@ -3,7 +3,7 @@
 
 pkgname="openbsd-netcat"
 pkgver=1.226_1
-pkgrel=1
+pkgrel=2
 pkgdesc="TCP/IP swiss army knife. OpenBSD variant."
 arch=('x86_64')
 url="https://salsa.debian.org/debian/netcat-openbsd"
@@ -23,7 +23,7 @@ build() {
 	cat "debian/patches/$i"
   done | patch -p1
   make \
-	CFLAGS="$CFLAGS -DDEBIAN_VERSION=\"\\\"${pkgrel}\\\"\" -I/usr/include/libbsd" \
+	CFLAGS="$CFLAGS -DDEBIAN_VERSION=\"\\\"${pkgver/_/-}\\\"\" -I/usr/include/libbsd" \
 	LDFLAGS="$LDFLAGS -lbsd"
 }
 
