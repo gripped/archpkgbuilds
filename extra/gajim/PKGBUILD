@@ -3,7 +3,7 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=gajim
-pkgver=1.8.1
+pkgver=1.8.2
 pkgrel=1
 pkgdesc='Full featured and easy to use XMPP (Jabber) client'
 url='https://gajim.org/'
@@ -25,11 +25,12 @@ optdepends=('python-dbus: to have gajim-remote working'
             'gst-plugins-base: for video and audio calls'
             'gst-plugins-ugly: for video and audio calls'
             'gst-libav: for video and audio calls'
+            'gst-plugin-gtk: for video and audio calls'
             'libxss: for idle time checking on X11'
             'python-gnupg: encrypting chat messages with OpenPGP')
 source=(https://www.gajim.org/downloads/${pkgver%.*}/gajim-${pkgver}.tar.gz)
-sha512sums=('b417d76a4225f16730441dee7befacd6db5be782c9271b789d5f9c10232e342f2d46930eef79a58839c13b2887926591d953a87a7544e32c7bf80d2c65390e31')
-b2sums=('b7bbd751a051cd2a46e814a9b3ebc08f10a6570dc071752838a2463019cdf6ea4198f2a349f3935c33d988cd6908cf31dba572bac31f9363675433328e6d679b')
+sha512sums=('ad422084433183af0db3d658810630e11dcdef91042621f8f7bea8b289f5d37e8ea381d6d6150a404b97bba7e6a4c2843b435ab4421aca64ae8d3a05aa52c73f')
+b2sums=('a966a75f0df1778be6948c37f4f73acc043250293bd75b3ef2d1f376387ab31f38061ad36d11c651dba2e59d5980ae0cd636aec6219b3ca35fc6284ff2bf00a0')
 
 build() {
   cd ${pkgname}-${pkgver}
