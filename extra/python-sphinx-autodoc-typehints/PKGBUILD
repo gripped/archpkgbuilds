@@ -3,8 +3,8 @@
 
 pkgname=python-sphinx-autodoc-typehints
 _pyname=${pkgname/python-/}
-_commit=a021cc8b39b10e145fb1f5cc651baf411f746482
-pkgver=1.23.2
+_commit=3eeb6641ae84e679636882269e03ed75dcc5a221
+pkgver=1.24.1
 pkgrel=1
 pkgdesc='Type hints support for the Sphinx autodoc extension'
 url='https://github.com/tox-dev/sphinx-autodoc-typehints'
@@ -18,17 +18,17 @@ source=("git+$url.git#commit=${_commit}")
 sha512sums=('SKIP')
 
 build() {
-  cd ${_pyname}
+  cd "${_pyname}"
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd ${_pyname}
+  cd "${_pyname}"
   PYTHONPATH="$PWD/src" pytest
 }
 
 package() {
-  cd ${_pyname}
+  cd "${_pyname}"
   python -m installer --destdir="${pkgdir}" dist/*.whl
   install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
   install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
