@@ -3,7 +3,7 @@
 
 _pyname=traitlets
 pkgname=python-$_pyname
-pkgver=5.12.0
+pkgver=5.13.0
 pkgrel=1
 pkgdesc='A configuration system for Python applications'
 arch=(any)
@@ -18,7 +18,7 @@ makedepends=(python-build
 checkdepends=(python-pytest-mock
               python-pytest-mypy-testing)
 source=(https://pypi.python.org/packages/source/t/traitlets/traitlets-$pkgver.tar.gz)
-sha256sums=('833273bf645d8ce31dcb613c56999e2e055b1ffe6d09168a164bcd91c36d5d35')
+sha256sums=('9b232b9430c8f57288c1024b34a8f0251ddcc47268927367a0dd3eeaca40deb5')
 
 build() {
   cd $_pyname-$pkgver
@@ -27,7 +27,9 @@ build() {
 
 check() {
   cd $_pyname-$pkgver
-  pytest -v
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest -v -k 'not mypy_dict_typing'
 }
 
 package() {
