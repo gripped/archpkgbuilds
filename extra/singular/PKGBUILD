@@ -3,10 +3,10 @@
 
 pkgname=singular
 _majver=4-3-2
-_patchver=p9
+_patchver=p10
 _pkgver=${_majver}${_patchver}
 pkgver=${_majver//-/.}${_patchver/p/.p}
-pkgrel=2
+pkgrel=1
 pkgdesc='Computer Algebra System for polynomial computations'
 arch=(x86_64)
 url='https://www.singular.uni-kl.de/'
@@ -17,12 +17,11 @@ depends=(bash
          gcc-libs
          glibc
          gmp
-         mpfr
          ntl
          readline)
 provides=(singular-factory)
 source=(ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/SOURCES/$_majver/singular-${_pkgver//-/.}.tar.gz)
-sha256sums=('f3201c348291e4352979d4ff612f37bf8b3f6b72dedde5d1f293bab3f5b22ee1')
+sha256sums=('28c2c9fcfee954e00dfa56eb1a7d418d5b1de67c4398d25a0f2b8f73e71552a8')
 options=(!zipman)
 
 build() {
@@ -42,7 +41,7 @@ build() {
     --enable-gfanlib-module \
     --enable-polymake-module
 # https://bugzilla.gnome.org/show_bug.cgi?id=655517
-  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  sed -e 's/ -shared / -Wl,-O1,--as-needed\0/g' -i libtool -i */libtool
   make
 }
 
