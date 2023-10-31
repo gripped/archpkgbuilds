@@ -2,8 +2,8 @@
 
 _name=importlib_resources
 pkgname=python-importlib_resources
-_commit=dc6d29aa92328fca6f6ae28ef8af2384c106ddb2  # refs/tags/v6.0.1
-pkgver=6.0.1
+_commit=b811debda54825282541d3453b8743b04d357ffb  # refs/tags/v6.1.0
+pkgver=6.1.0
 pkgrel=1
 pkgdesc="Design and implementation for a planned importlib.resources"
 arch=(any)
@@ -11,6 +11,7 @@ url="https://github.com/python/importlib_resources"
 license=(Apache)
 depends=(
   python
+  python-zipp
 )
 makedepends=(
   git
@@ -22,6 +23,7 @@ makedepends=(
 )
 checkdepends=(
   python-pytest
+  python-pytest-enabler
   python-tests
 )
 provides=(python-importlib-resources)
@@ -40,8 +42,16 @@ build() {
 }
 
 check() {
+  local pytest_options=(
+    -vv
+  )
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
   cd $_name
-  pytest -vv
+  # install to temporary location, as importlib is used
+  python -m installer --destdir=test_dir dist/*.whl
+  export PYTHONPATH="$PWD/test_dir/$site_packages:$PYTHONPATH"
+  pytest "${pytest_options[@]}" "$PWD/test_dir/$site_packages/$_name/"
 }
 
 package() {
