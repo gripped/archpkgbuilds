@@ -2,8 +2,8 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-shell-extensions
-pkgver=45.0
-pkgrel=2
+pkgver=45.1
+pkgrel=1
 pkgdesc="Extensions for GNOME shell, including classic mode"
 url="https://wiki.gnome.org/Projects/GnomeShell/Extensions"
 arch=(any)
@@ -15,13 +15,11 @@ makedepends=(
 )
 optdepends=('gnome-menus: applications menu extension')
 groups=(gnome)
-_commit=ba5783ff8cf9a205874601f92932fd429ec9fb2f  # tags/45.0^0
+_commit=f27b239f5566ad587e09e8607d8efc0ac5ba532b  # tags/45.1^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-shell-extensions.git#commit=$_commit"
-  "0001-drive_menu_remove_left_over_signal_connection.patch::https://gitlab.gnome.org/GNOME/gnome-shell-extensions/-/commit/092b268823746d58a5fea737d9f1234d71a8058d.diff"
 )
-b2sums=('SKIP'
-        'f2872b67e6a7ae916a0c5bd8c8f095a89b801fb85abee793c881227caff6352bd4e868a8a9d9903448e93d44b28cf5f44fdb773ad69b04f1c2296a68c835ca76')
+b2sums=('SKIP')
 
 pkgver() {
   cd $pkgname
@@ -30,9 +28,6 @@ pkgver() {
 
 prepare() {
   cd $pkgname
-
-  # https://gitlab.gnome.org/GNOME/gnome-shell-extensions/-/commit/092b268823746d58a5fea737d9f1234d71a8058d
-  git apply -3 ../0001-drive_menu_remove_left_over_signal_connection.patch
 }
 
 build() {
