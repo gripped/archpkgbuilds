@@ -1,0 +1,26 @@
+pkgbase = gnumeric
+	pkgdesc = A GNOME Spreadsheet Program
+	pkgver = 1.12.56
+	pkgrel = 1
+	url = http://www.gnumeric.org/
+	arch = x86_64
+	license = GPL
+	makedepends = intltool
+	makedepends = psiconv
+	makedepends = pygobject-devel
+	makedepends = docbook-xml
+	makedepends = gobject-introspection
+	makedepends = python-gobject
+	makedepends = gtk-doc
+	makedepends = yelp-tools
+	depends = goffice
+	optdepends = python-gobject: for python plugin support
+	optdepends = perl: for perl plugin support
+	optdepends = psiconv: for Psion 5 file support
+	optdepends = yelp: for viewing the help manual
+	source = https://download.gnome.org/sources/gnumeric/1.12/gnumeric-1.12.56.tar.xz
+	source = revert-warnings.patch
+	sha256sums = 51a38f35ac5b0f71defa8b9e20bf2e08563798f1cb33379a9a17726fb1e3e1b2
+	sha256sums = bcafca016b809000c2a5bf911e2e3dfa4de28f9e541d9964574cac5c7ce09e53
+
+pkgname = gnumeric
