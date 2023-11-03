@@ -1,0 +1,31 @@
+pkgbase = python-weasyprint
+	pkgdesc = Utility to render HTML and CSS to PDF
+	pkgver = 60.1
+	pkgrel = 2
+	url = https://weasyprint.org/
+	arch = any
+	license = BSD
+	checkdepends = python-pytest
+	checkdepends = ghostscript
+	checkdepends = ttf-dejavu
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-flit-core
+	depends = pango
+	depends = python
+	depends = python-brotli
+	depends = python-cffi
+	depends = python-cssselect2
+	depends = python-fonttools
+	depends = python-html5lib
+	depends = python-pillow
+	depends = python-pydyf
+	depends = python-pyphen
+	depends = python-tinycss2
+	depends = python-zopfli
+	depends = ttf-font
+	source = python-weasyprint::git+https://github.com/Kozea/WeasyPrint.git#commit=01c5e972b9ff0e7afc0024f1f81b05366474c381
+	b2sums = SKIP
+
+pkgname = python-weasyprint
