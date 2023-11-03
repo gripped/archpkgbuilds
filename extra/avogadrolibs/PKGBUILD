@@ -2,8 +2,8 @@
 
 pkgbase=avogadrolibs
 pkgname=(avogadrolibs avogadrolibs-qt5)
-pkgver=1.98.0
-pkgrel=3
+pkgver=1.98.1
+pkgrel=1
 pkgdesc='Libraries that provide 3D rendering, visualization, analysis and data processing useful in computational chemistry, molecular modeling, bioinformatics, materials science, and related areas'
 arch=(x86_64)
 url='https://www.openchemistry.org/'
@@ -26,17 +26,11 @@ makedepends=(boost
              spglib
              tbb
              vtk)
-source=(https://github.com/OpenChemistry/avogadrolibs/archive/$pkgver/$pkgname-$pkgver.tar.gz
-        opengl.patch
-        python.patch)
-sha256sums=('50255a7622159c7884dca0311c7d5beb4d474fe93a2b5d662ebec4b02237166c'
-            '626cd59a79262c26a687d5d382eedd6bdd819d98042256b3d751b31f25a0c0c2'
-            '581c97b90c34a12e00cf7bfb2babb05a5295e6aa94d3cb8ca208c6750aed3ea0')
+source=(https://github.com/OpenChemistry/avogadrolibs/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('cb1d2c83a7f2c89c46ad46fdecace0d6f4de76c0898708ad52cf1e5a0aad1fb6')
 
 prepare() {
   mkdir crystals molecules # Dummy dirs to trick cmake, actually provided by avogadro-molecules and avogadro-crystals
-  patch -d $pkgname-$pkgver -p1 < opengl.patch # Fix linking to OpenGL
-  patch -d $pkgname-$pkgver -p1 < python.patch # Fix python install dir
 }
 
 build() {
