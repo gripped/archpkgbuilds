@@ -2,20 +2,20 @@
 # Contributor: Josh Holbrook <josh.holbrook@gmail.com>
 
 pkgname=python-pyee
-pkgver=11.0.0
+pkgver=11.0.1
 pkgrel=1
 pkgdesc="Port of node.js's EventEmitter to python"
 arch=('any')
 url=https://github.com/jfhbrook/pyee
 license=('MIT')
-depends=('python-typing-extensions')
+depends=('python-typing_extensions')
 makedepends=('python-build' 'python-installer' 'python-setuptools'
              'python-wheel')
 checkdepends=('python-pytest-asyncio' 'python-pytest-trio' 'python-twisted')
 optdepends=('python-trio' 'python-twisted')
 source=("https://files.pythonhosted.org/packages/source/p/pyee/pyee-$pkgver.tar.gz")
-sha256sums=('27c682bce60bdadc5d3e23eacd4101df328c0280884a3d9c07f3a4e3e595de27')
-b2sums=('4d471531099569baa28d32cb86cc6ff4637ac94288898aaf0de30825d17f242ef588b147480f87497f4dbc7ef1a21a898ad900bcc1a8fe890b17ae046c73ef65')
+sha256sums=('a642c51e3885a33ead087286e35212783a4e9b8d6514a10a5db4e57ac57b2b29')
+b2sums=('ab1d37c6cd7e1d3e773011136b61581aecf009ce1831b9a583761c5b362a78d192abf57d683ba17be00159ecf3370dae641057aacaef208492d2f9b14de07aa7')
 
 build() {
   cd pyee-$pkgver
