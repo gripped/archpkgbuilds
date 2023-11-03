@@ -7,11 +7,11 @@
 
 pkgname=tor
 pkgver=0.4.8.7
-pkgrel=1
+pkgrel=2
 pkgdesc='Anonymizing overlay network.'
 arch=('x86_64')
 url='https://www.torproject.org/download/tor/'
-license=('BSD')
+license=("BSD-3-Clause" "LGPL-3.0-only" "MIT")
 depends=(
   'bash'
   'libcap.so'
@@ -58,7 +58,8 @@ build() {
   ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
-    --localstatedir=/var
+    --localstatedir=/var \
+    --enable-gpl
   make
 }
 
