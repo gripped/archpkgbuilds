@@ -2,11 +2,11 @@
 # Contributor: Hannes Graeuler <hgraeule @ uos dot de>
 
 # this is needed only for building the imagequant-sys crate
-_libver=4.2.1
+_libver=4.2.2
 
 pkgname=pngquant
-pkgver=3.0.1
-pkgrel=5
+pkgver=3.0.3
+pkgrel=1
 pkgdesc="Command-line utility to quantize PNGs down to 8-bit paletted PNGs"
 arch=('x86_64')
 url="https://pngquant.org/"
@@ -15,8 +15,8 @@ depends=('libpng' 'lcms2' 'libimagequant')
 makedepends=('cargo')
 source=("https://github.com/kornelski/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz"
         "https://github.com/ImageOptim/libimagequant/archive/$_libver/libimagequant-$_libver.tar.gz")
-sha256sums=('488e4587c27c7515427b231530cc070a6b123727137b32c501658cff3f8a3451'
-            '14193219fa194d6baee4347bd13bd01fd46d09fe3b59ae35c89b698da96d1198')
+sha256sums=('ddd8889a9c269ba454d0c5e4f7167948d55d77c4570b23f671809fd3a68b6822'
+            'ff1a34d3df9a1a5e5c1fa3895c036a885dc7b9740d7fccdf57e9ed678b8fb3a3')
 
 prepare() {
     cd "$srcdir/$pkgname-$pkgver"
