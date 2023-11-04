@@ -2,7 +2,7 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-qt
-pkgver=5.1.2
+pkgver=5.1.3
 pkgrel=1
 pkgdesc="Fcitx5 Qt Library"
 arch=('x86_64')
@@ -12,7 +12,7 @@ groups=('fcitx5-im')
 depends=('fcitx5' 'qt5-base')
 makedepends=('extra-cmake-modules' 'ninja' 'qt6-base' 'qt6-wayland')
 source=("https://download.fcitx-im.org/fcitx5/$pkgname/$pkgname-$pkgver.tar.xz"{,.sig})
-sha512sums=('0d39c8b659ec49e6d279b777cd2aafe1b8f902e4380a644449c0552911c5297045d85f2edcb8823c946b66771d1b3d0e0a3826dbf4c6fc626c77807dbb8c39f4'
+sha512sums=('7d02409ac8359cea5e199f16b3b06ecfe47886edb00bb2163f9fbe1c319bbef425387e58db25fdfcd2b35261eada35f2acfb93ff0b65ed497da62d35363e8947'
             'SKIP')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
