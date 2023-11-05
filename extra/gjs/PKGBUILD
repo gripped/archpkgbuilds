@@ -4,7 +4,7 @@
 
 pkgname=gjs
 pkgver=1.78.0
-pkgrel=2
+pkgrel=3
 epoch=2
 pkgdesc="Javascript Bindings for GNOME"
 url="https://wiki.gnome.org/Projects/Gjs"
@@ -45,6 +45,10 @@ pkgver() {
 
 prepare() {
   cd gjs
+
+  # Fix some extensions loading modules twice
+  # https://gitlab.gnome.org/GNOME/gjs/-/issues/577
+  git cherry-pick -n 3cae384aaf15dec6653b1a5400032c2c2e5dc34c
 }
 
 build() {
