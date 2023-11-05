@@ -2,7 +2,7 @@
 # Contributor: marlock
 
 pkgname=android-udev
-pkgver=20231030
+pkgver=20231104
 pkgrel=1
 pkgdesc='Udev rules to connect Android devices to your linux box'
 arch=(any)
@@ -10,8 +10,8 @@ url='https://github.com/M0Rf30/android-udev-rules'
 license=(GPL3)
 depends=(udev libmtp)
 source=(android-udev-$pkgver.zip::https://github.com/M0Rf30/android-udev-rules/archive/$pkgver.zip)
-sha1sums=('fdc8732c78003cdd83ef1f40acfcdbbecae5be3b')
-sha256sums=('269b737c5596977983a4c0d25333a421788f318c4d5046713e8f42b9c827cbf3')
+sha1sums=('3d0a05168ea2b6c11e003a39ce84acc853c5229c')
+sha256sums=('2ce37d1fadec72bcbcc371a6e7af21f08a0e748bf91a25cfa4114e1c94cc394d')
 
 package() {
   cd android-udev-rules-$pkgver
