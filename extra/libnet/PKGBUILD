@@ -1,28 +1,50 @@
-# Maintainer:
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
 # Contributor: damir <damir@archlinux.org>
 
 pkgname=libnet
-pkgver=1.1.6
+pkgver=1.3
 pkgrel=1
 epoch=2
-pkgdesc="A library which provides API for commonly used low-level net functions"
+pkgdesc='A library which provides API for commonly used low-level net functions'
 arch=('x86_64')
-url="https://sourceforge.net/projects/libnet-dev/"
+url='https://github.com/libnet/libnet'
 license=('BSD')
 depends=('glibc' 'sh')
-source=("https://downloads.sourceforge.net/libnet-dev/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('a67e502b0e6957ca590e47cb50b0472dd83d622d84c62818d665d771616df91b5a8fa8fcf1040d13b7860aaabaf338152ef40f66ab97c3fc9502edb08cea0bb6')
+makedepends=('git' 'help2man' 'doxygen' 'graphviz')
+checkdepends=('cmocka' 'iproute2')
+_commit='deaebdfe2743e8a6f04d3c307d9272afeeecfade'
+source=("$pkgname::git+$url#commit=$_commit")
+b2sums=('SKIP')
+
+pkgver() {
+  cd "$pkgname"
+
+  git describe --tags | sed 's/^v//'
+}
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  ./configure --prefix=/usr
-  make CFLAGS="${CFLAGS} -fPIC"
+  cd "$pkgname"
+
+  autoreconf -vfi
+
+  ./configure \
+    --prefix=/usr \
+    --enable-tests
+
+  make
+}
+
+check() {
+  cd "$pkgname"
+
+  make check
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  make DESTDIR="${pkgdir}" install
+  cd "$pkgname"
 
-  install -Dm644 doc/COPYING \
-    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  DESTDIR="$pkgdir" make install
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
