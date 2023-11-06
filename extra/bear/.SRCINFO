@@ -1,0 +1,28 @@
+pkgbase = bear
+	pkgdesc = A tool to generate compilation database for clang tooling
+	pkgver = 3.1.3
+	pkgrel = 4
+	url = https://github.com/rizsotto/Bear
+	arch = x86_64
+	license = GPL3
+	makedepends = git
+	makedepends = cmake
+	makedepends = gtest
+	makedepends = python
+	makedepends = llvm
+	depends = glibc
+	depends = gcc-libs
+	depends = grpc
+	depends = libgrpc++.so
+	depends = fmt
+	depends = spdlog
+	depends = nlohmann-json
+	depends = abseil-cpp
+	depends = protobuf
+	depends = openssl
+	depends = c-ares
+	depends = re2
+	source = bear::git+https://github.com/rizsotto/Bear.git#commit=69e94ff7e6b45d46042c4c49b32b420124fd18b3
+	b2sums = SKIP
+
+pkgname = bear
