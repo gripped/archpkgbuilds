@@ -1,0 +1,24 @@
+pkgbase = hefur
+	pkgdesc = A standalone and lightweight BitTorrent tracker
+	pkgver = 1.0
+	pkgrel = 11
+	url = https://github.com/abique/hefur
+	arch = x86_64
+	license = MIT
+	makedepends = git
+	makedepends = cmake
+	depends = gnutls
+	depends = xz
+	depends = protobuf
+	source = git+https://github.com/abique/hefur.git#tag=1.0
+	source = hefurd.service
+	source = tmpfiles.conf
+	source = sysusers.conf
+	source = protobuf-23.patch
+	sha256sums = SKIP
+	sha256sums = 3d8b0a716f35798f6aa25d6ee6a032d8a142811b920338bcb398c24beb1c8b43
+	sha256sums = 7d39eec7c9f004a8651de95d11d32422f0a506f0fe21d5fdf37a407a05d4de0f
+	sha256sums = e265b34eff94197c33a1409191aa75812f099b3638f8877db3d2d43bf0decc19
+	sha256sums = 608a0422c80ac4c6d399ac0d7b0d27c34b436b9d4bd31f32e3ccbb678f1d0ffa
+
+pkgname = hefur
