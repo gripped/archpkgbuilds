@@ -2,8 +2,8 @@
 
 _hkgname=stm-hamt
 pkgname=haskell-stm-hamt
-pkgver=1.2.0.12
-pkgrel=3
+pkgver=1.2.0.13
+pkgrel=1
 pkgdesc="STM-specialised Hash Array Mapped Trie"
 url="https://github.com/nikita-volkov/stm-hamt"
 license=("MIT")
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-deferred-folds' 'haskell-focus' 'haskell-hashable' 
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-rerebase'
              'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('1072522f9f855833f999915a8baca586ad3ed565d9504d62b9e3cebd09f4d6b0')
+sha256sums=('cabfee1bb8b50c23fd68779090dcf8b8698f306bb37e19f80297d1b6e2817659')
 
 prepare() {
   cd $_hkgname-$pkgver
