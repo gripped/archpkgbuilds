@@ -4,9 +4,9 @@
 
 pkgbase='grpc'
 pkgname=('grpc' 'python-grpcio' 'python-grpcio-tools' 'php-grpc' 'php-legacy-grpc' 'grpc-cli')
-pkgver=1.58.1
+pkgver=1.59.2
 _gtestver=0e402173c97aea7a00749e825b194bfede4f2e45
-pkgrel=2
+pkgrel=1
 pkgdesc="High performance, open source, general RPC framework that puts mobile and HTTP/2 first."
 arch=('x86_64')
 url='https://grpc.io'
@@ -15,17 +15,12 @@ makedepends=('re2' 're2c' 'protobuf' 'php' 'php-legacy' 'c-ares' 'openssl' 'chrp
              'cmake' 'benchmark' 'python-setuptools' 'abseil-cpp' 'ninja')
 checkdepends=('python-six')
 source=("https://github.com/grpc/grpc/archive/v$pkgver/$pkgbase-$pkgver.tar.gz"
-        "https://github.com/google/googletest/archive/$_gtestver/googletest-$_gtestver.tar.gz"
-        "https://github.com/grpc/grpc/commit/117dc80e.patch")
-sha256sums=('860bf758a1437a03318bf09db8e87cb8149a2f578954110ce8549e147f868b62'
-            'c8de6c60e12ad014a28225c5247ee735861d85cf906df617f6a29954ca05f547'
-            '96bcc1ab3a1ee6933773cb1ff65662fefebe96e72c364f44dfced6c3840334b4')
+        "https://github.com/google/googletest/archive/$_gtestver/googletest-$_gtestver.tar.gz")
+sha256sums=('a3a65f0129c4922c5d7f4c11dcd40083a12ca54076fd3a927bcd63c53b7e44a5'
+            'c8de6c60e12ad014a28225c5247ee735861d85cf906df617f6a29954ca05f547')
 
 prepare() {
   cd "$srcdir/$pkgbase-$pkgver"
-
-  # Fix find_dependency cmake macro
-  patch -p1 -i ../117dc80e.patch
 
   ln -sf "$srcdir/googletest-$_gtestver/"{googlemock,googletest} \
     third_party/googletest
