@@ -1,0 +1,16 @@
+pkgbase = protobuf-c
+	pkgdesc = Protocol Buffers implementation in C
+	pkgver = 1.4.1
+	pkgrel = 5
+	url = https://github.com/protobuf-c/protobuf-c
+	arch = x86_64
+	license = BSD
+	depends = protobuf
+	provides = libprotobuf-c.so
+	options = !lto
+	source = https://github.com/protobuf-c/protobuf-c/releases/download/v1.4.1/protobuf-c-1.4.1.tar.gz
+	source = protobuf-c-protobuf-23.patch::https://patch-diff.githubusercontent.com/raw/protobuf-c/protobuf-c/pull/556.patch
+	sha256sums = 4cc4facd508172f3e0a4d3a8736225d472418aee35b4ad053384b137b220339f
+	sha256sums = 14de3b6c0a75596fbfd3d5f73bc0c45cd0e41eb546cf2632fd2fd9b3cf864f48
+
+pkgname = protobuf-c
