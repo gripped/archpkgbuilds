@@ -4,7 +4,7 @@
 
 pkgname=gjs
 pkgver=1.78.0
-pkgrel=3
+pkgrel=4
 epoch=2
 pkgdesc="Javascript Bindings for GNOME"
 url="https://wiki.gnome.org/Projects/Gjs"
@@ -55,10 +55,6 @@ build() {
   local meson_options=(
     -D installed_tests=false
   )
-
-  CFLAGS="${CFLAGS/-O2/-O3} -fno-semantic-interposition"
-  CXXFLAGS="${CXXFLAGS/-O2/-O3} -fno-semantic-interposition"
-  LDFLAGS+=" -Wl,-Bsymbolic-functions"
 
   arch-meson gjs build "${meson_options[@]}"
   meson compile -C build
