@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=epiphany
-pkgver=45.0
+pkgver=45.1
 pkgrel=1
 pkgdesc="A GNOME web browser based on the WebKit rendering engine"
 url="https://wiki.gnome.org/Apps/Web"
@@ -38,13 +38,9 @@ checkdepends=(
   xorg-server-xvfb
 )
 groups=(gnome)
-_commit=a3dcb33c646154355698796dcd9e462da88bff7f  # tags/45.0^0
-source=(
-  "git+https://gitlab.gnome.org/GNOME/epiphany.git#commit=$_commit"
-  fix-test.diff
-)
-b2sums=('SKIP'
-        '05121ff5f759ec637a718c9b39406f9a384227a312d69f6dc74e73fde8351689d588a30dddea3cfe0a6edb094fdcf5382eb5ff725bb2adfccdff87ab3cf4c953')
+_commit=1ab8e71bf2ad6ed4ff4c0c5a251edc10fdaedd95  # tags/45.1^0
+source=("git+https://gitlab.gnome.org/GNOME/epiphany.git#commit=$_commit")
+b2sums=('SKIP')
 
 pkgver() {
   cd epiphany
@@ -53,10 +49,6 @@ pkgver() {
 
 prepare() {
   cd epiphany
-
-  # Fix encoding test; perhaps caused by different glibc or locale env
-  # https://gitlab.gnome.org/GNOME/epiphany/-/issues/1842
-  git apply -3 ../fix-test.diff
 }
 
 build() {
@@ -65,7 +57,7 @@ build() {
 }
 
 check() {
-  WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS=1 \
+  WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS=1 LC_COLLATE=en_US.UTF-8 \
     dbus-run-session xvfb-run -s '-nolisten local' \
     meson test -C build --print-errorlogs
 }
