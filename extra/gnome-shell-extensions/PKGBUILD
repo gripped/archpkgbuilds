@@ -3,7 +3,7 @@
 
 pkgname=gnome-shell-extensions
 pkgver=45.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Extensions for GNOME shell, including classic mode"
 url="https://wiki.gnome.org/Projects/GnomeShell/Extensions"
 arch=(any)
@@ -28,6 +28,11 @@ pkgver() {
 
 prepare() {
   cd $pkgname
+
+  # Revert https://gitlab.gnome.org/GNOME/gnome-shell-extensions/-/merge_requests/280
+  # for potentially causing https://bugs.archlinux.org/task/80132
+  git revert -n f576f1b1b67cf78be8d63353ee795f68cfa67446 \
+                b9d2a445b2b9ff3dea771acd557b7f7c55eced7c
 }
 
 build() {
