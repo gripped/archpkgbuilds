@@ -3,7 +3,7 @@
 # Contributor: Alexander Fehr <pizzapunk gmail com>
 
 pkgname=filezilla
-pkgver=3.66.0
+pkgver=3.66.1
 pkgrel=1
 pkgdesc='Fast and reliable FTP, FTPS and SFTP client'
 url='https://filezilla-project.org/'
@@ -25,8 +25,8 @@ makedepends=(
   libidn
 )
 source=(https://download.filezilla-project.org/client/FileZilla_${pkgver}_src.tar.xz)
-sha256sums=('e78eb6bd861fc167b385aa2c05b6cac2dbbd901c4c8bf18a09724c33ab04be1b')
-sha512sums=('8772987ed0772cb23f2ff15f7a9d8b24d9086b6f24d83c9aa430cbbb7c3e3b8fe209116ae590836e708db1a985539d214cd219413485823a7cc031462e20326d')
+sha256sums=('4b74f9ab2fc0ef99c13a655d4a3b24157a66fcbdf0a51bae8137f3bf7292b4bc')
+sha512sums=('2c038bb179e29f96062ee1f871571ed2669689af470ab86ecf9eef8e76ff90c44dc9940506c6ab5b100453811e13546c6c25eb6389b0f7a7e2c61c21c36fdb34')
 
 prepare() {
   cd ${pkgname}-${pkgver}
