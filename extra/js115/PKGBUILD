@@ -2,7 +2,7 @@
 
 pkgname=js115
 pkgver=115.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="JavaScript interpreter and libraries - Version 115"
 url="https://spidermonkey.dev/"
 arch=(x86_64)
@@ -60,7 +60,6 @@ ac_add_options --disable-bootstrap
 ac_add_options --disable-debug
 ac_add_options --disable-jemalloc
 ac_add_options --disable-strip
-ac_add_options --disable-unified-build
 
 # System libraries
 ac_add_options --with-system-zlib
@@ -84,6 +83,10 @@ build() {
   # malloc_usable_size is used in various parts of the codebase
   CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
   CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
+
+  # Greatly reduce size of relocation tables
+  # https://gitlab.archlinux.org/archlinux/rfcs/-/blob/master/rfcs/0023-pack-relative-relocs.rst
+  LDFLAGS+=" -Wl,-z,pack-relative-relocs"
 
   # Do 3-tier PGO
   echo "Building instrumented JS..."
