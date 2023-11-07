@@ -3,7 +3,7 @@
 
 _pyname=jupyter_client
 pkgname=python-${_pyname/_/-}
-pkgver=8.5.0
+pkgver=8.6.0
 pkgrel=1
 pkgdesc='Jupyter protocol implementation and client libraries'
 arch=(any)
@@ -31,7 +31,7 @@ conflicts=(python-jupyter_client)
 provides=(python-jupyter_client)
 replaces=(python-jupyter_client)
 source=(https://files.pythonhosted.org/packages/source/j/jupyter_client/jupyter_client-$pkgver.tar.gz)
-sha256sums=('e8754066510ce456358df363f97eae64b50860f30dc1fe8c6771440db3be9a63')
+sha256sums=('0642244bb83b4764ae60d07e010e15f0e2d275ec4e918a8f7b80fbbef3ca60c7')
 
 build() {
   cd $_pyname-$pkgver
