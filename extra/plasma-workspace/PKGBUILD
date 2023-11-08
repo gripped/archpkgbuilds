@@ -7,14 +7,14 @@ pkgbase=plasma-workspace
 pkgname=(plasma-workspace plasma-wayland-session)
 pkgver=5.27.9.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE Plasma Workspace'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL)
 depends=(knotifyconfig5 ksystemstats ktexteditor5 libqalculate kde-cli-tools appstream-qt
          xorg-xrdb xorg-xsetroot kactivitymanagerd kholidays5 xorg-xmessage milou prison5 kwin
-         plasma-integration kpeople5 kactivities-stats5 kquickcharts5 kuserfeedback kpipewire
+         plasma-integration kpeople5 kactivities-stats5 kquickcharts5 kuserfeedback5 kpipewire
          accountsservice kio-extras kio-fuse qt5-tools oxygen-sounds)
 makedepends=(extra-cmake-modules kdoctools5 gpsd baloo5 networkmanager-qt5 plasma-wayland-protocols wayland-protocols kunitconversion5)
 groups=(plasma)
