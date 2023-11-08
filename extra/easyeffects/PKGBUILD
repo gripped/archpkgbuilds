@@ -5,7 +5,7 @@
 # Contributor: robertfoster
 
 pkgname=easyeffects
-pkgver=7.1.1
+pkgver=7.1.3
 pkgrel=1
 pkgdesc='Audio Effects for Pipewire applications'
 arch=('x86_64')
@@ -26,7 +26,7 @@ optdepends=(
 )
 replaces=('pulseeffects')
 source=("${url}/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
-sha512sums=('eb92e033bc83b0766ece0d8d32b87aa265c0143a6871787c0ca5f1597d2d272e653af4bf72fe7518923c0c82cfa6408587256d3b7a00333365958e8cb37da590')
+sha512sums=('9e277b0c432f5015b33d4ac6961d5eec4cbf498dd2e947d231a9c13d8c7b7680f7ded7bf3d55d2c72ebf46de94308447a0b1e3b8cbbb13ce96c3a79bf027ffa3')
 
 build() {
   arch-meson ${pkgname}-${pkgver} build
