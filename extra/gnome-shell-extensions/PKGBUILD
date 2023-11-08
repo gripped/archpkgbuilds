@@ -3,7 +3,7 @@
 
 pkgname=gnome-shell-extensions
 pkgver=45.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Extensions for GNOME shell, including classic mode"
 url="https://wiki.gnome.org/Projects/GnomeShell/Extensions"
 arch=(any)
@@ -18,8 +18,12 @@ groups=(gnome)
 _commit=f27b239f5566ad587e09e8607d8efc0ac5ba532b  # tags/45.1^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-shell-extensions.git#commit=$_commit"
+  0001-workspace-indicator-Only-initialize-preview-visibili.patch
+  0002-window-list-Only-initialize-preview-visibility-on-ma.patch
 )
-b2sums=('SKIP')
+b2sums=('SKIP'
+        '60a97e3b25b2ebd85c65eaa689ef2768066e258a702da001fc2a6d7cde0308471ea67794cc997efb20c20935f6b5bf7b0a87ad29a43fe282e7578687250475df'
+        '3d3325375707df09d5a622d997f865e69f325be3e36840f681904e228e718ab759e0389b5c7b0591d8c872acda1cd7bca8742065cc02abe31f2d914567509e1e')
 
 pkgver() {
   cd $pkgname
@@ -29,10 +33,10 @@ pkgver() {
 prepare() {
   cd $pkgname
 
-  # Revert https://gitlab.gnome.org/GNOME/gnome-shell-extensions/-/merge_requests/280
-  # for potentially causing https://bugs.archlinux.org/task/80132
-  git revert -n f576f1b1b67cf78be8d63353ee795f68cfa67446 \
-                b9d2a445b2b9ff3dea771acd557b7f7c55eced7c
+  # https://bugs.archlinux.org/task/80132
+  # https://gitlab.gnome.org/GNOME/gnome-shell-extensions/-/merge_requests/286
+  git apply -3 ../0001-workspace-indicator-Only-initialize-preview-visibili.patch
+  git apply -3 ../0002-window-list-Only-initialize-preview-visibility-on-ma.patch
 }
 
 build() {
