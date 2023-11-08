@@ -2,7 +2,7 @@
 
 _name=PyMuPDF
 pkgname=python-pymupdf
-pkgver=1.23.5
+pkgver=1.23.6
 pkgrel=1
 pkgdesc="Python bindings for MuPDF's rendering library"
 arch=(x86_64)
@@ -35,9 +35,9 @@ source=(
   $_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
   $pkgname-1.23.5-tesseract_tessdata_dir.patch
 )
-sha512sums=('544226c6d29d38bf5ed68a1f826e07b96029ca3f8de016ab0e0fa04247094796f9951aed3af07a473b3f5b1c93c3f4581f81ca222f8e447de6b8291108f8a923'
+sha512sums=('7cdd7105f91c7f01839ce4291521bff1534cd7eb99ec506b56fa7b39afaf83a90ef77a2988cd3d710a8c9e273fda6427c367644e2b58459a8ab57eaa362de1d7'
             '849ace7d68e9060f057c1229f2cbfc43f418e761032d821ab50072cef7d32a5e821c2f58bcc16ba78b61d5eb2fbc042d8908c2c7d78b436fe40147e8121a1426')
-b2sums=('1280e2512ad9f17f68a93e511821d80631a2fd91ca27cfec8bb71de61a795f77fc4a35c961b29b5457ce4c8a520ae9dd505683d564f0fe9ef462f2d37eb6fd07'
+b2sums=('dc78b7e85ec9d527d1fd40b8b3be5737fc1c5f9976b39a61ac104bbe210eb41d39ac66df03443383470d5c06f6afbaf9f3e39aebaf3f6b961f994763f3cc9842'
         '6f662ba8175c1960ba0d323cecef25fc283d1dd8f6a5af541bf13df52c2432f76841233389c35ea02182d8543231835cff30f03a2ae9eb231e1165cc83268b65')
 
 prepare() {
