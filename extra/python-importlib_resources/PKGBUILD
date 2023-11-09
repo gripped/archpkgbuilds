@@ -2,13 +2,13 @@
 
 _name=importlib_resources
 pkgname=python-importlib_resources
-_commit=b811debda54825282541d3453b8743b04d357ffb  # refs/tags/v6.1.0
-pkgver=6.1.0
+_commit=e9c946cd1216e0a042d7967253283a95c8e90183  # refs/tags/v6.1.1
+pkgver=6.1.1
 pkgrel=1
 pkgdesc="Design and implementation for a planned importlib.resources"
 arch=(any)
 url="https://github.com/python/importlib_resources"
-license=(Apache)
+license=(Apache-2.0)
 depends=(
   python
   python-zipp
