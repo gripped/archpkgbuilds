@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-image-editor
-pkgver=1.0.36
+pkgver=1.0.37
 pkgrel=1
 pkgdesc='Public library for deepin-image-viewer and deepin-album'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('dtkcore' 'dtkgui' 'dtkwidget' 'qt5-base' 'qt5-svg' 'libtiff' 'ffmpegth
 makedepends=('cmake' 'ninja' 'qt5-tools')
 source=("https://github.com/linuxdeepin/image-editor/archive/$pkgver/$pkgname-$pkgver.tar.gz"
         remove-broken-flags.patch)
-sha512sums=('a77153eff04ff73ae5b560f6e68644683bf906aa22dee1f8c86dc0d957ce844e949d8ebd566b75efb1b7c68c0e0dc06a2911379f0d5efd6aa1c607936fe9ffbb'
+sha512sums=('91ddd6a70996bbd9d4756db26f59d9edc4e7af826e64f3208bd2f7ad7f61e0663a76d92e0fc54b1d428f3b58cd580710ca27b1813e293b21846da53ac73cc37a'
             'bc72e7732ae045a10129336a770d04827c487fb57938c4711e57aeeccde369fca207913477a695cddffc7d0fb6d77add1f75b9b5ca784d0285b8f4f56c2376ad')
 
 prepare() {
