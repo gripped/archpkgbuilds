@@ -3,14 +3,14 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kate
-pkgver=23.08.2
+pkgver=23.08.3
 pkgrel=1
 arch=(x86_64)
 license=(GPL LGPL FDL)
 pkgdesc='Advanced text editor'
 groups=(kde-applications kde-utilities)
 url='https://apps.kde.org/kate/'
-depends=(knewstuff5 ktexteditor5 kactivities5 kuserfeedback hicolor-icon-theme)
+depends=(knewstuff5 ktexteditor5 kactivities5 kuserfeedback5 hicolor-icon-theme)
 optdepends=('konsole: open a terminal in Kate'
             'clang: C and C++ LSP support'
             'python-lsp-server: Python LSP support'
@@ -22,7 +22,7 @@ conflicts=(kwrite)
 provides=(kwrite)
 replaces=(kwrite)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('974716631e6e94e8dfe5a4d58c5080524ce9291ab50d4ade231ebb5d5b341259'
+sha256sums=('17cf08b10ac49ee3afdea239f5821c2e366b6f1350981f082a06505d0dd9a29a'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
