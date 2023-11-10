@@ -3,17 +3,28 @@
 
 pkgname=python-sphinx-autodoc-typehints
 _pyname=${pkgname/python-/}
-_commit=3eeb6641ae84e679636882269e03ed75dcc5a221
-pkgver=1.24.1
+_commit=9735dc6c9baf42c7df310234d7683409a0468444
+pkgver=1.25.0
 pkgrel=1
 pkgdesc='Type hints support for the Sphinx autodoc extension'
 url='https://github.com/tox-dev/sphinx-autodoc-typehints'
 arch=('any')
 license=('MIT')
-depends=('python' 'python-sphinx' 'python-typing_extensions')
-makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-hatch-vcs')
-checkdepends=('python-pytest' 'python-sphobjinv' 'python-nptyping')
-optdpeends=('python-nptyping: for numpydoc support')
+depends=('python' 'python-sphinx')
+makedepends=(
+  'git'
+  'python-build'
+  'python-hatch-vcs'
+  'python-hatchling'
+  'python-installer'
+)
+checkdepends=(
+  'python-nptyping'
+  'python-pytest'
+  'python-sphobjinv'
+  'python-typing_extensions'
+)
+optdepends=('python-nptyping: for numpydoc support')
 source=("git+$url.git#commit=${_commit}")
 sha512sums=('SKIP')
 
