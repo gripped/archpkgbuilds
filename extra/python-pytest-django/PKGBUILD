@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-django
-pkgver=4.6.0
-_commit=a703c8fa864b8e64bd4435476d906cdf1cbc8541
+pkgver=4.7.0
+_commit=baaafd8ceefeb8600bd47bdc1075d9393448eb5e
 pkgrel=1
 pkgdesc="A Django plugin for py.test"
 arch=('any')
