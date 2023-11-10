@@ -4,7 +4,7 @@
 
 pkgname=magic-wormhole
 pkgver=0.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Securely transfer data between computers"
 arch=('any')
 url="https://github.com/magic-wormhole/magic-wormhole"
@@ -15,7 +15,7 @@ depends=('python-click' 'python-cffi' 'python-autobahn' 'python-tqdm'
          'python-pyopenssl')
 makedepends=(python-{build,installer,wheel}
              python-setuptools)
-checkdepends=('python-mock' 'python-magic-wormhole-transit-relay'
+checkdepends=('python-magic-wormhole-transit-relay'
               'python-magic-wormhole-mailbox-server')
 source=("$url/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
 sha512sums=('5a3ade0853511d5bf059814dc43bb2d27d8e733804ab6370a6a18c6eff34df672f0ec1b550ed18c79a99566f4dcc1c390d0dd1171c172f55f1352eb447707a64')
