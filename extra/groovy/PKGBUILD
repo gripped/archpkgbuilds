@@ -6,7 +6,7 @@
 
 pkgname=groovy
 pkgver=4.0.15
-pkgrel=1
+pkgrel=2
 pkgdesc='Programming language for the Java platform, inspired by Python, Ruby and Smalltalk'
 arch=(any)
 url='https://groovy-lang.org/'
@@ -14,9 +14,13 @@ license=(Apache)
 depends=(bash java-environment)
 makedepends=(gendesk)
 optdepends=('groovy-docs: html and pdf documentation for Groovy')
-source=("https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-$pkgver.zip")
-sha256sums=('31d96c1e1cf75c7e8173cdcef9bed1e3edd4e87e6400400584220e0bb42892e5')
-b2sums=('926d8a6ff8c08dd025a0ad388eb08bc9a1b96e5e748a1eee482ab5c4f898e55ae0e4567318ffd465f1632b794dd82dfe4d4f24183dc84c7089026682ce503b90')
+validpgpkeys=('34441E504A937F43EB0DAEF96A65176A0FB1CD0B') # Paul King <paulk@apache.org>
+source=("https://dl.bintray.com/groovy/maven/apache-$pkgname-binary-$pkgver.zip"
+        "https://downloads.apache.org/groovy/$pkgver/distribution/apache-$pkgname-binary-$pkgver.zip.asc")
+sha256sums=('31d96c1e1cf75c7e8173cdcef9bed1e3edd4e87e6400400584220e0bb42892e5'
+            'SKIP')
+b2sums=('926d8a6ff8c08dd025a0ad388eb08bc9a1b96e5e748a1eee482ab5c4f898e55ae0e4567318ffd465f1632b794dd82dfe4d4f24183dc84c7089026682ce503b90'
+        'SKIP')
 
 prepare() {
   gendesk -f -n \
