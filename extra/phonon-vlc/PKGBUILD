@@ -7,7 +7,7 @@ pkgname=(phonon-qt5-vlc
          phonon-qt6-vlc)
 pkgdesc='Phonon VLC backend'
 pkgver=0.12.0
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://community.kde.org/Phonon'
 license=(LGPL)
@@ -51,4 +51,5 @@ package_phonon-qt6-vlc() {
   provides=(phonon-qt6-backend)
 
   DESTDIR="$pkgdir" cmake --install build6
+  rm -r "$pkgdir"/usr/share # Conflicts with qt5
 }
