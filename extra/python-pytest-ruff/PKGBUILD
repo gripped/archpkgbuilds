@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-ruff
-pkgver=0.2
-_commit=df22c01741f8f44d19ad4f9bdfbef8f184318aff
+pkgver=0.2.1
+_commit=2098829cfb8f95c2885c6dec3e229ed3092e2c1e
 pkgrel=1
 pkgdesc="Pytest plugin to check ruff requirements"
 url="https://github.com/businho/pytest-ruff"
@@ -27,7 +27,9 @@ build() {
 
 check() {
   cd pytest-ruff
-  python -m pytest
+  python -m installer -d tmp_install dist/*.whl
+  PYTHONPATH="$PWD/tmp_install/usr/lib/python3.11/site-packages" \
+    pytest
 }
 
 package() {
