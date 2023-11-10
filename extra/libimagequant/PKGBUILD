@@ -2,7 +2,7 @@
 
 pkgname=libimagequant
 pkgver=4.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for high-quality conversion of RGBA images to 8-bit indexed-color (palette) images"
 arch=('x86_64')
 url="https://pngquant.org/lib/"
@@ -26,4 +26,7 @@ package() {
     cd "$srcdir/$pkgname-$pkgver/imagequant-sys"
     cargo cinstall --destdir="$pkgdir" --prefix=/usr --release
     install -Dm644 COPYRIGHT "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    cd "$pkgdir"/usr/lib
+    ln -s libimagequant.so.0.0.* libimagequant.so.0.0
+    ln -s libimagequant.so.0.0 libimagequant.so.0
 }
