@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-tldextract
-pkgver=5.0.1
-_commit=b848277e7c5ddba0663d4df1e0135a27a0febafd
+pkgver=5.1.0
+_commit=40e3f2a35203c207112eeb87861067c2dd50dad1
 pkgrel=1
 pkgdesc="Accurately separate the TLD from the registered domain and subdomains of a URL, using the Public Suffix List"
 arch=('any')
