@@ -4,17 +4,38 @@
 
 pkgbase=appstream
 pkgname=(appstream appstream-qt)
-pkgver=0.16.3
+pkgver=0.16.4
 pkgrel=1
 pkgdesc='Provides a standard for creating app stores across distributions'
 arch=(x86_64)
 url='https://distributions.freedesktop.org/wiki/AppStream'
 license=(GPL)
-depends=(curl librsvg libyaml libxmlb)
-makedepends=(meson xmlto gobject-introspection gtk-doc qt5-tools itstool vala gperf)
+depends=(cairo
+         curl
+         fontconfig
+         freetype2
+         gcc-libs
+         gdk-pixbuf2
+         glib2
+         glibc
+         librsvg
+         libstemmer
+         libxml2
+         libxmlb
+         libyaml
+         pango
+         systemd-libs)
+makedepends=(gobject-introspection
+             gperf
+             gtk-doc
+             itstool
+             meson
+             qt5-tools
+             vala
+             xmlto)
 source=(https://www.freedesktop.org/software/appstream/releases/AppStream-$pkgver.tar.xz{,.asc}
         update-appstream-cache.hook)
-sha256sums=('081c917646e94d7221c9e4aae54dacda95a27c607fa93cd8e6344a2b318b98b1'
+sha256sums=('d4f722d79c6a2f29d9dc5c6f464927469543353f386581c778c9bed7c60a54ed'
             'SKIP'
             '3a96a1479cfd18dad36c2ca3181aabe46af9bf772c00b965d86ec5f55cd0e0eb')
 validpgpkeys=(D33A3F0CA16B0ACC51A60738494C8A5FBF4DECEB) # Matthias Klumpp <matthias@tenstral.net>
@@ -40,7 +61,11 @@ package_appstream() {
 
 package_appstream-qt() {
   pkgdesc='Qt5 interface for AppStream'
-  depends=(appstream qt5-base)
+  depends=(appstream
+           gcc-libs
+           glib2
+           glibc
+           qt5-base)
 
   meson install --destdir "$pkgdir" -C build
 
