@@ -1,16 +1,16 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-testtools
-pkgver=2.6.0
-_commit=280f4272832861cf35aec27d3857669d1053e8a8
-pkgrel=2
+pkgver=2.7.0
+_commit=87ab35910abe305c8918e686823418ec7e8b8675
+pkgrel=1
 pkgdesc="Extensions to the Python standard library unit testing framework"
 arch=('any')
 license=('MIT')
 url="https://github.com/testing-cabal/testtools"
-depends=('python-pbr' 'python-fixtures')
-makedepends=('git' 'python-setuptools')
-checkdepends=('python-testscenarios')
+depends=('python-setuptools')
+makedepends=('git' 'python-setuptools-scm')
+checkdepends=('python-testscenarios' 'python-testresources' 'python-twisted')
 source=("git+https://github.com/testing-cabal/testtools.git#commit=$_commit")
 sha512sums=('SKIP')
 
