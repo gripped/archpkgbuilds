@@ -1,0 +1,36 @@
+pkgbase = pifpaf
+	pkgdesc = Suite of tools and fixtures to manage daemons for testing
+	pkgver = 3.1.5
+	pkgrel = 7
+	url = https://github.com/jd/pifpaf
+	arch = any
+	license = Apache
+	checkdepends = python-testrepository
+	checkdepends = python-requests
+	checkdepends = python-testtools
+	checkdepends = python-oslotest
+	checkdepends = memcached
+	checkdepends = percona-server
+	checkdepends = percona-server-clients
+	checkdepends = postgresql
+	checkdepends = redis
+	checkdepends = consul
+	checkdepends = couchdb
+	checkdepends = httpbin
+	checkdepends = rabbitmq
+	makedepends = git
+	depends = python-daiquiri
+	depends = python-click
+	depends = python-pbr
+	depends = python-jinja
+	depends = python-fixtures
+	depends = python-psutil
+	depends = python-xattr
+	depends = python-setuptools
+	provides = python-pifpaf=3.1.5
+	conflicts = python-pifpaf
+	replaces = python-pifpaf
+	source = git+https://github.com/jd/pifpaf.git#commit=d5e33872c3c2ef3067da6e1150c3f050f4a7b620
+	sha512sums = SKIP
+
+pkgname = pifpaf
