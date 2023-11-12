@@ -2,8 +2,10 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgbase=wxwidgets
-pkgname=(wxwidgets-gtk3 wxwidgets-qt5 wxwidgets-common)
-pkgver=3.2.3
+pkgname=(wxwidgets-common
+         wxwidgets-gtk3
+         wxwidgets-qt5)
+pkgver=3.2.4
 pkgrel=1
 arch=(x86_64)
 url='https://wxwidgets.org'
@@ -18,7 +20,7 @@ makedepends=(cmake
              webkit2gtk)
 source=(https://github.com/wxWidgets/wxWidgets/releases/download/v$pkgver/wxWidgets-$pkgver.tar.bz2
         https://github.com/wxWidgets/wxWidgets/commit/ed510012.patch)
-sha256sums=('c170ab67c7e167387162276aea84e055ee58424486404bba692c401730d1a67a'
+sha256sums=('0640e1ab716db5af2ecb7389dbef6138d7679261fbff730d23845ba838ca133e'
             '0f714caa562269ba40ea55e1ef2f1c800d0669f01c3862f47db183eb2db91567')
 
 prepare() {
@@ -66,9 +68,15 @@ build() {
 
 package_wxwidgets-common() {
   pkgdesc='Common libraries and headers for wxwidgets'
-  depends=(expat
+  depends=(curl
+           gcc-libs
+           glib2
+           glibc
+           expat
            libsecret
-           pcre2)
+           pcre2
+           xz
+           zlib)
   conflicts=(wxgtk-common)
   replaces=(wxgtk-common)
 
@@ -83,12 +91,28 @@ package_wxwidgets-common() {
 
 package_wxwidgets-gtk3() {
   pkgdesc='GTK+3 implementation of wxWidgets API for GUI'
-  depends=(gst-plugins-base-libs
+  depends=(bash
+           cairo
+           fontconfig
+           gcc-libs
+           gdk-pixbuf2
+           glib2
+           glibc
+           gst-plugins-bad-libs
+           gstreamer
            gtk3
+           libglvnd
+           libjpeg-turbo
            libnotify
            libmspack
-           libsm
+           libpng
+           libtiff
+           libx11
+           libxkbcommon
+           libxtst
+           pango
            sdl2
+           wayland
            wxwidgets-common)
   optdepends=('webkit2gtk: for webview support')
   conflicts=(wxgtk3)
@@ -104,7 +128,13 @@ package_wxwidgets-gtk3() {
 
 package_wxwidgets-qt5() {
   pkgdesc='Qt5 implementation of wxWidgets API for GUI'
-  depends=(libmspack
+  depends=(bash
+           gcc-libs
+           glibc
+           libglvnd
+           libjpeg-turbo
+           libmspack
+           libpng
            libtiff
            qt5-base
            sdl2
