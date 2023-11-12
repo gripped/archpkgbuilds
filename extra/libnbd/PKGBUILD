@@ -2,12 +2,13 @@
 # Contributor: Thomas Weißschuh <thomas t-8ch de>
 pkgname=libnbd
 pkgver=1.18.0
-pkgrel=1
+pkgrel=2
 pkgdesc="NBD client library in userspace"
 arch=('x86_64')
 url="https://gitlab.com/nbdkit/libnbd"
 license=('LGPL')
-makedepends=('perl')
+depends=('glibc' 'gnutls' 'libxml2')
+makedepends=('perl' 'ocamlbuild' 'ocaml-findlib' 'rust')
 validpgpkeys=('F7774FB1AD074A7E8C8767EA91738F73E1B768A0')
 _dldir="${pkgver%.*}"
 source=(
@@ -27,6 +28,7 @@ build() {
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   make DESTDIR="$pkgdir" install
+  rm -rf "$pkgdir"/usr/src
 }
 
 check() {
