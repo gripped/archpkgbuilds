@@ -2,7 +2,7 @@
 
 pkgname=perl-io-compress-brotli
 epoch=1
-pkgver=0.007
+pkgver=0.008
 pkgrel=1
 pkgdesc='Read/write Brotli buffers/streams'
 url="https://metacpan.org/release/IO-Compress-Brotli"
@@ -12,8 +12,8 @@ options=('!emptydirs')
 depends=('perl' 'brotli' 'perl-file-slurper')
 source=("https://search.cpan.org/CPAN/authors/id/T/TI/TIMLEGGE/IO-Compress-Brotli-$pkgver.tar.gz"
         use-system-brotli.patch)
-sha512sums=('f3fd67dc2dcb0187e5092aa17f11323d04ed933bf90f4717ff10efd1f7377961778498310be42de6e424b901c4d1bbd8742766d6778f30738458826057b0e718'
-            '0809243c6030b12b652c044deadb5c1c7e9a88033d8f45e66d5651c9289cbfcb94e80560777508986949ea2bd77d4ef1e2826871ea4b90864fd2cc58d5733991')
+sha512sums=('f70228cd763dde5905f686d81d8a3d887b06add69ecee515037dfa48e7a186c226312618467999b9fff587b4d2adac2a2501148b8789659b1624e3a8384d490e'
+            'a6bd9717d13634596f716c407dc46b9f69cc2f80c07ad9281b667f6ebc67937f333de423381655cb521dd4cae2e0f4b4b1e4fd406573f3a8acb7874e9e060195')
 
 prepare() {
   cd IO-Compress-Brotli-$pkgver
