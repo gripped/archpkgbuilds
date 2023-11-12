@@ -2,16 +2,16 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-context
-pkgver=5.1.1
-_commit=7696282cb5bead6d7c6320ff287fb635500bd9a6
-pkgrel=2
+pkgver=5.2.0
+_commit=5168ccdf014e70eacc70cc89c0f15ac1fb4b07e5
+pkgrel=1
 pkgdesc="OpenStack Context library"
 arch=('any')
 url="https://pypi.python.org/pypi/oslo.context/$pkgver"
 license=('Apache')
 depends=('python-pbr' 'python-debtcollector')
 makedepends=('git' 'python-setuptools')
-checkdepends=('python-oslotest')
+checkdepends=('python-oslotest' 'python-stestr')
 source=("git+https://github.com/openstack/oslo.context.git#commit=$_commit")
 sha512sums=('SKIP')
 
