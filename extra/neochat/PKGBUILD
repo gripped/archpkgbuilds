@@ -2,14 +2,14 @@
 
 pkgname=neochat
 pkgver=23.08.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A client for matrix, the decentralized communication protocol'
 url='https://apps.kde.org/neochat/'
 arch=(x86_64)
 license=(GPL LGPL)
 groups=(kde-applications kde-network)
 depends=(qqc2-desktop-style5 kirigami-addons5 kquickcharts5 qt5-location
-         libquotient kquickimageeditor kitemmodels5 kio5 syntax-highlighting5 cmark hicolor-icon-theme)
+         libquotient kquickimageeditor5 kitemmodels5 kio5 syntax-highlighting5 cmark hicolor-icon-theme)
 makedepends=(extra-cmake-modules qcoro-qt5 kdoctools5)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('9ef155dc669d29fd7e99e35c69b0a50c4ff18cc92185a0000857e59721e7f3bf'
