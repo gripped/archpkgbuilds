@@ -2,8 +2,8 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-openstacksdk
-pkgver=1.2.0
-_commit=b7ff0313aa207759d205e68aada572032bfceea0
+pkgver=1.3.0
+_commit=377d734de09f3ce3f0a413dd4d4e452e3c248562
 pkgrel=1
 pkgdesc="An SDK for building applications to work with OpenStack"
 arch=('any')
