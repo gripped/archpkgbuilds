@@ -1,0 +1,24 @@
+pkgbase = python-jsonpickle
+	pkgdesc = Python library for serializing any arbitrary object graph into JSON
+	pkgver = 3.0.2
+	pkgrel = 1
+	url = https://jsonpickle.github.io/
+	arch = any
+	license = BSD
+	checkdepends = python-numpy
+	checkdepends = python-feedparser
+	checkdepends = python-simplejson
+	checkdepends = python-gmpy2
+	checkdepends = python-pymongo
+	checkdepends = python-ujson
+	checkdepends = python-pandas
+	checkdepends = python-pytest
+	makedepends = git
+	makedepends = python-setuptools-scm
+	depends = python
+	optdepends = python-numpy: for serializing sklearn models, numpy arrays, and other numpy-based data
+	optdepends = python-gmpy2: for serializing ecdsa module's keys
+	source = git+https://github.com/jsonpickle/jsonpickle.git#commit=7ceb2e7b61a24cb6ec0fb48a34943e802de019f8
+	sha512sums = SKIP
+
+pkgname = python-jsonpickle
