@@ -3,10 +3,11 @@
 # Contributor: Musikolo <musikolo@hotmail.com>
 # Contributor: Ruben Fonseca <fonseka@gmail.com>
 # Contributor: Andreas W. Hauser <andy-aur@splashground.de>
+# Contributor: YongMing Zhang
 
 pkgname=groovy
 pkgver=4.0.15
-pkgrel=2
+pkgrel=3
 pkgdesc='Programming language for the Java platform, inspired by Python, Ruby and Smalltalk'
 arch=(any)
 url='https://groovy-lang.org/'
@@ -15,7 +16,7 @@ depends=(bash java-environment)
 makedepends=(gendesk)
 optdepends=('groovy-docs: html and pdf documentation for Groovy')
 validpgpkeys=('34441E504A937F43EB0DAEF96A65176A0FB1CD0B') # Paul King <paulk@apache.org>
-source=("https://dl.bintray.com/groovy/maven/apache-$pkgname-binary-$pkgver.zip"
+source=("https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-$pkgname-binary-$pkgver.zip"
         "https://downloads.apache.org/groovy/$pkgver/distribution/apache-$pkgname-binary-$pkgver.zip.asc")
 sha256sums=('31d96c1e1cf75c7e8173cdcef9bed1e3edd4e87e6400400584220e0bb42892e5'
             'SKIP')
