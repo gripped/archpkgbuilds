@@ -1,0 +1,28 @@
+pkgbase = python-oslo-log
+	pkgdesc = Oslo Logging Library
+	pkgver = 5.3.0
+	pkgrel = 1
+	url = https://pypi.python.org/pypi/oslo.log/5.3.0
+	arch = any
+	license = Apache
+	checkdepends = python-stestr
+	checkdepends = python-testtools
+	checkdepends = python-oslotest
+	checkdepends = python-eventlet
+	makedepends = git
+	makedepends = python-setuptools
+	depends = python-pbr
+	depends = python-oslo-config
+	depends = python-oslo-context
+	depends = python-oslo-i18n
+	depends = python-oslo-utils
+	depends = python-oslo-serialization
+	depends = python-debtcollector
+	depends = python-pyinotify
+	depends = python-dateutil
+	source = git+https://github.com/openstack/oslo.log.git#commit=82a59af4360f7918c3427ad9d183dffb43cff541
+	source = python-oslo-log-catch-runtimeerror.patch::https://opendev.org/openstack/oslo.log/commit/0b478677025f713f55b59ded213cc512f0a77b5a.patch
+	sha512sums = SKIP
+	sha512sums = 76b2dcd64af81a7a48aac5edad22dcc133d22eb73c4467fcc7b8e26cda8c33d83855cb7d67944cb53a2afc4ea8f504abc733c95a201e8b33f5ca68351fbb07ce
+
+pkgname = python-oslo-log
