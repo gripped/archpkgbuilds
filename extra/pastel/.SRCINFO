@@ -1,0 +1,24 @@
+pkgbase = pastel
+	pkgdesc = A command-line tool to generate, analyze, convert and manipulate colors
+	pkgver = 0.9.0
+	pkgrel = 2
+	url = https://github.com/sharkdp/pastel
+	arch = x86_64
+	license = MIT
+	license = Apache
+	makedepends = git
+	makedepends = rust
+	optdepends = gpick: external color picker
+	optdepends = xcolor: external color picker
+	optdepends = zenity: external color picker
+	optdepends = yad: external color picker
+	optdepends = kcolorpicker: external color picker
+	source = pastel::git+https://github.com/sharkdp/pastel.git#commit=47f9ddd59ea14df8d9d1f1073d14501751a49fd0
+	b2sums = SKIP
+
+pkgname = pastel
+	depends = gcc-libs
+
+pkgname = pastel-docs
+	pkgdesc = A command-line tool to generate, analyze, convert and manipulate colors (documentation)
+	depends = bash
