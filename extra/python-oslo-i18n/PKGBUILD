@@ -4,14 +4,14 @@
 pkgname=python-oslo-i18n
 pkgver=6.1.0
 _commit=e356fe9059b03b7b22b12e0d3227e163a64bfbd2
-pkgrel=1
+pkgrel=2
 pkgdesc="Oslo i18n library"
 arch=('any')
 url="https://pypi.python.org/pypi/oslo.i18n/$pkgver"
 license=('Apache')
 depends=('python-pbr')
-makedepends=('git')
-checkdepends=('python-oslotest' 'python-oslo-config' 'python-stestr' 'python-testscenarios')
+makedepends=('git' 'python-setuptools')
+checkdepends=('python-stestr' 'python-oslotest' 'python-testscenarios' 'python-oslo-config')
 source=("git+https://github.com/openstack/oslo.i18n.git#commit=$_commit"
         "fix-tests-extra-warning.patch")
 sha512sums=('SKIP'
@@ -19,7 +19,7 @@ sha512sums=('SKIP'
 
 prepare() {
   cd oslo.i18n
-  patch -Np1 -i ${srcdir}/fix-tests-extra-warning.patch
+  patch -Np1 -i ../fix-tests-extra-warning.patch
 }
 
 build() {

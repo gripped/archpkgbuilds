@@ -1,15 +1,16 @@
 pkgbase = python-oslo-i18n
 	pkgdesc = Oslo i18n library
 	pkgver = 6.1.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://pypi.python.org/pypi/oslo.i18n/6.1.0
 	arch = any
 	license = Apache
-	checkdepends = python-oslotest
-	checkdepends = python-oslo-config
 	checkdepends = python-stestr
+	checkdepends = python-oslotest
 	checkdepends = python-testscenarios
+	checkdepends = python-oslo-config
 	makedepends = git
+	makedepends = python-setuptools
 	depends = python-pbr
 	source = git+https://github.com/openstack/oslo.i18n.git#commit=e356fe9059b03b7b22b12e0d3227e163a64bfbd2
 	source = fix-tests-extra-warning.patch
