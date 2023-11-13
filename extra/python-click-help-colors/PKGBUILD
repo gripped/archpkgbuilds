@@ -2,7 +2,7 @@
 
 _name=click-help-colors
 pkgname=python-click-help-colors
-pkgver=0.9.2
+pkgver=0.9.3
 pkgrel=1
 pkgdesc="Colorization of help messages in Click"
 arch=(any)
@@ -20,8 +20,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('1092b256339faf7399274c7cd525895f53e57f31e5d0d4a7068e0fa29e7757d14881a2fd980c501a7277a25ece760623fa4c967c60302359c880899c8a01652f')
-b2sums=('ac8f4b0369f5a1d71115e92d84b6b2229f955c74d2ca443aa98319316d5a6d944d29ce4979fc2d8cd03dd5916c4ab6b0870172f2982a83df6d510e51b779ef60')
+sha512sums=('7d3708ea710de41baca075468e5d434f5536d04ceb1092085c46cccc31f58d16f6ed1095efca1d9dc6bd1e5532a41e8bde4343d8197744fca58642dd80a03c59')
+b2sums=('612789519501858ee8ed415b274b426273b6e4c48b9f650f966f0ee2774c97531c5bbbbf7e0e6edb08f50821635212a04f920a2a26d8897db9dd9413c3999bfd')
 
 build() {
   cd $_name-$pkgver
