@@ -1,22 +1,22 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-testtools
-pkgver=2.7.0
-_commit=87ab35910abe305c8918e686823418ec7e8b8675
+pkgver=2.7.1
+_commit=48d7c5d06919dbdc13f77e4be5c8316806d747d5
 pkgrel=1
 pkgdesc="Extensions to the Python standard library unit testing framework"
 arch=('any')
 license=('MIT')
 url="https://github.com/testing-cabal/testtools"
 depends=('python-setuptools')
-makedepends=('git' 'python-setuptools-scm')
-checkdepends=('python-testscenarios' 'python-testresources' 'python-twisted')
+makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-hatch-vcs')
+checkdepends=('python-testscenarios' 'python-testresources' 'python-fixtures' 'python-twisted')
 source=("git+https://github.com/testing-cabal/testtools.git#commit=$_commit")
 sha512sums=('SKIP')
 
 build() {
   cd testtools
-  python setup.py build
+  python -m build -nw
 }
 
 check() {
@@ -26,6 +26,6 @@ check() {
 
 package() {
   cd testtools
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer -d "$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }

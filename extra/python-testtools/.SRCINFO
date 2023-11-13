@@ -1,17 +1,21 @@
 pkgbase = python-testtools
 	pkgdesc = Extensions to the Python standard library unit testing framework
-	pkgver = 2.7.0
+	pkgver = 2.7.1
 	pkgrel = 1
 	url = https://github.com/testing-cabal/testtools
 	arch = any
 	license = MIT
 	checkdepends = python-testscenarios
 	checkdepends = python-testresources
+	checkdepends = python-fixtures
 	checkdepends = python-twisted
 	makedepends = git
-	makedepends = python-setuptools-scm
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-hatchling
+	makedepends = python-hatch-vcs
 	depends = python-setuptools
-	source = git+https://github.com/testing-cabal/testtools.git#commit=87ab35910abe305c8918e686823418ec7e8b8675
+	source = git+https://github.com/testing-cabal/testtools.git#commit=48d7c5d06919dbdc13f77e4be5c8316806d747d5
 	sha512sums = SKIP
 
 pkgname = python-testtools
