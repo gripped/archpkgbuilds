@@ -4,7 +4,7 @@
 pkgname=python-keystoneauth1
 pkgver=5.3.0
 _commit=e6f3999c6f2f846e3dda505343166ab8c8346c2a
-pkgrel=1
+pkgrel=2
 pkgdesc="Authentication Library for OpenStack Identity"
 arch=('any')
 url="https://docs.openstack.org/developer/keystoneauth"
@@ -15,7 +15,7 @@ optdepends=('python-requests-kerberos: for kerberos support'
             'python-oauthlib: for oauth1 support'
             'python-betamax: for betamax support'
             'python-fixtures: for betamax support')
-makedepends=('git')
+makedepends=('git' 'python-setuptools')
 checkdepends=('python-hacking' 'python-oslo-config' 'python-oslo-utils' 'python-oslotest'
               'python-betamax' 'python-requests-mock' 'python-stestr' 'python-testresources'
               'python-testtools' 'python-yaml' 'python-requests-kerberos' 'python-lxml'
