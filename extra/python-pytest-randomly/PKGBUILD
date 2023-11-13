@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-randomly
-pkgver=3.14.0
+pkgver=3.15.0
 pkgrel=1
 pkgdesc='Pytest plugin to randomly order tests and control random.seed'
 arch=('any')
@@ -11,7 +11,7 @@ depends=('python-importlib-metadata' 'python-pytest')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-factory-boy' 'python-faker' 'python-numpy' 'python-pytest-xdist')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/pytest-dev/pytest-randomly/archive/$pkgver.tar.gz")
-sha512sums=('c088a4c4ef469fdbc1f75b9e8a0014d92256e03d4debdafcc031517c647ef16c20d5563cb0d3c4a53843f87da48c22be053ec31b1f726a3562d6ca3841002b41')
+sha512sums=('7ead074f0b2fbd20ab383258808986f3900ab83ef18bc68440ed55eae2ad21912a30b03be830091e86570cba768c1f13b5f15852f5aa0095ffd7e134e55c884f')
 
 build() {
   cd pytest-randomly-$pkgver
