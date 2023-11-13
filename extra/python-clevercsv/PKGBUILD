@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-clevercsv
-pkgver=0.7.7
-_commit=da37823a5fb1ddf703d16de800875b5d4a1b9969
+pkgver=0.8.0
+_commit=25d696a0adb94e875bad7887ad34ac4be4bd6d3f
 pkgrel=1
 pkgdesc="A Python package for handling messy CSV files"
 url="https://github.com/alan-turing-institute/CleverCSV"
