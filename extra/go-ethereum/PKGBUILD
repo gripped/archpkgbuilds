@@ -1,8 +1,8 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=go-ethereum
-pkgver=1.13.4
-_commit=3f907d6a6f6de09cff1360ed529126765939851d
+pkgver=1.13.5
+_commit=916d6a441a866cb618ae826c220866de118899f7
 pkgrel=1
 pkgdesc='Official Go implementation of the Ethereum protocol'
 arch=('x86_64')
