@@ -2,16 +2,20 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
-pkgname=libkcddb
+pkgbase=libkcddb
+_name=libkcddb
+pkgname=${_name}5
 pkgver=23.08.3
-pkgrel=1
+pkgrel=4
 pkgdesc='KDE CDDB library'
 url='https://www.kde.org/'
 arch=(x86_64)
 license=(GPL LGPL FDL)
 depends=(kio5 libmusicbrainz5)
 makedepends=(extra-cmake-modules kdoctools5 kcmutils5)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+conflicts=('libkcddb<23.08.3-2')
+replaces=('libkcddb<23.08.3-2')
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$_name-$pkgver.tar.xz{,.sig})
 sha256sums=('bfd1516991042f6f660b5f6e85b77ea21394536ebce15ff46105cfedaedfc82c'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
@@ -19,7 +23,7 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
 
 build() {
-  cmake -B build -S $pkgname-$pkgver \
+  cmake -B build -S $_name-$pkgver \
     -DBUILD_TESTING=OFF
   cmake --build build
 }
