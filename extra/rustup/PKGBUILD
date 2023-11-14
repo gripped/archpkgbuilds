@@ -4,7 +4,7 @@
 # Contributor: Jon Gjengset <jon@tsp.io>
 pkgname=rustup
 pkgver=1.26.0
-pkgrel=4
+pkgrel=5
 pkgdesc="The Rust toolchain installer"
 arch=('x86_64')
 url="https://github.com/rust-lang/rustup.rs"
@@ -41,7 +41,7 @@ package() {
   # Special treatment for rust-analyzer to still allow the separate package version to be used.
   ln -s /usr/bin/rustup "${pkgdir}/usr/lib/$pkgname/bin/rust-analyzer"
 
-  install -Dm755 "$srcdir/$pkgname-profile.sh" "$pkgdir/etc/profile.d/$pkgname.sh"
+  install -Dm644 "$srcdir/$pkgname-profile.sh" "$pkgdir/etc/profile.d/$pkgname.sh"
 
   # Generate completion files.
   mkdir -p "$pkgdir/usr/share/bash-completion/completions"
