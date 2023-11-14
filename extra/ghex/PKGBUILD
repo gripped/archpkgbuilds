@@ -7,7 +7,7 @@ pkgname=(
   ghex
   ghex-docs
 )
-pkgver=45.0
+pkgver=45.1
 pkgrel=1
 pkgdesc="A simple binary editor for the Gnome desktop"
 url="https://wiki.gnome.org/Apps/Ghex"
@@ -21,7 +21,7 @@ makedepends=(
   meson
   yelp-tools
 )
-_commit=b772be4603d92c2775ae6f8e2e32c19956403442  # tags/45.0^0
+_commit=8c7e4933a30afde85405d1d7495f069dc870d81b  # tags/45.1^0
 source=("git+https://gitlab.gnome.org/GNOME/ghex.git#commit=$_commit")
 b2sums=('SKIP')
 
