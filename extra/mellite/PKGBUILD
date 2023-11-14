@@ -3,8 +3,8 @@
 _name=Mellite
 _app_name=de.sciss.mellite.Mellite
 pkgname=mellite
-pkgver=3.13.7
-pkgrel=2
+pkgver=3.13.10
+pkgrel=1
 pkgdesc="An environment for creating experimental computer-based music and sound art"
 arch=(any)
 url="https://www.sciss.de/mellite/"
@@ -14,25 +14,26 @@ groups=(pro-audio)
 _java_version=17
 depends=(
   hicolor-icon-theme
-  java-environment=$_java_version
+  java-runtime=$_java_version
   sh
   supercollider
 )
 makedepends=(
   gendesk
+  java-environment=$_java_version
   sbt
 )
 source=(
   $pkgname-$pkgver.tar.gz::$_url/archive/v$pkgver.tar.gz
   $pkgname.sh
 )
-sha512sums=('e4dfa24cb2c84d418e143e6f52f6c0833e80a42dc2863ad826ef066b1043c40903a558112b0e2f52644a47aed72ed5853891052e8cf7021fcc4cef2187eaab22'
+sha512sums=('e94c1002ee1c67c1df5c41940fd2a5a91d05043e38e589b190207a9ff95978a3596e6a75e4e6f61a6b69e4747cbb47e89b5c596f203d9d5575994a2625d12243'
             'a4d046463774393fdbe2ff10d545d0a46ff62761effdca9e1beb7e7f8d43aebe7ee4dc48602c951b59dfa0c4add517c1c8b58284f5c10c751969826ff512529a')
-b2sums=('4c5e32bc1ed2a6f745bf7223e33b93944268a2f817d2f97e9cb55eefd7c3289940aa3c52ae09341fe805910abe5714b499b699daa121f336444bb61b972a4df2'
+b2sums=('f18a3a5f0e1a947bb83e683db6a95438429bad6db69cbe0366002a451ee3fb08c21e549241dc5b0c1f831ee5c0a355828ae6f586d5a217dd99241932efb86d9e'
         '6ca9fa81baf35d0c93ac4d192c591320858e70bc7f981f5fed0a100bcc99d3595c7fbfba177747f7dd2e93e9e399ecb26041937eabacab2654b247df6f4827b9')
 
 prepare() {
-  sed "s/JAVA_VERSION/$_java_version/" -i $pkgname.sh > $pkgname/$pkgname
+  sed "s/JAVA_VERSION/$_java_version/" $pkgname.sh > $pkgname/$pkgname
 
   gendesk -n \
           --pkgname "$_app_name" \
