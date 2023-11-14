@@ -1,0 +1,16 @@
+pkgbase = cudnn
+	pkgdesc = NVIDIA CUDA Deep Neural Network library
+	pkgver = 8.9.6.50
+	pkgrel = 1
+	url = https://developer.nvidia.com/cuDNN
+	arch = x86_64
+	license = custom
+	depends = cuda>=12
+	options = !strip
+	options = staticlibs
+	source = https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-8.9.6.50_cuda12-archive.tar.xz
+	source = NVIDIA_SLA+cuDNN_Supp_Feb2017_release.pdf
+	b2sums = 5b2e052c81d1b06fc3fa7d8a75cfbc115808003cdb48a0d703daa5d3badb4d6f9efffbf4399f12f7ba35296b08ff184e2a18316b483e5ea2aaa59d30a77f0f55
+	b2sums = 222e3d3640808a130dfc339fa8e48ea396f784af77d09d90fae1e5550de8272e643d9a765d832b3d950234a3f7a8706a12191d49717f732cff190e5fd920ed52
+
+pkgname = cudnn
