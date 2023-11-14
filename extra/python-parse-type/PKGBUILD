@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-parse-type
-pkgver=0.6.1
+pkgver=0.6.2
 pkgrel=1
 pkgdesc="Simplifies to build parse types based on the parse module"
 url="https://github.com/jenisys/parse_type"
@@ -11,7 +11,7 @@ depends=('python-parse' 'python-six')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest' 'python-pytest-html')
 source=("https://github.com/jenisys/parse_type/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('6e4efae3ae1bba2b6aadd37e15f366b3146007c1d19874c07cf85ff4d3e4c439febf304fc5f19344e2a036b2605b0ce67fccfe22277ecbdc700cb61049b60dc1')
+sha512sums=('6fe55d97b7f875e21c5c4192affa64be3155e821dcec5b8688eef2b20b1f9ab7836f80927330662c0f2eda4cab0b9907e0b258001aecb80a8796610b18ded1b5')
 
 build() {
   cd parse_type-$pkgver
