@@ -1,0 +1,20 @@
+pkgbase = zim-tools
+	pkgdesc = Various ZIM command line tools
+	pkgver = 3.2.0
+	pkgrel = 5
+	url = https://github.com/openzim/zim-tools
+	arch = x86_64
+	license = GPL3
+	makedepends = meson
+	makedepends = mustache
+	depends = file
+	depends = libzim>=9.0.0
+	depends = docopt
+	depends = gumbo-parser
+	provides = zimwriterfs
+	conflicts = zimwriterfs
+	replaces = zimwriterfs
+	source = zim-tools-3.2.0.tar.gz::https://github.com/openzim/zim-tools/archive/3.2.0.tar.gz
+	sha256sums = ba67da31da199ff8c759ca156501d216a5175fcea72b7e7e6b7b358e5de4af54
+
+pkgname = zim-tools
