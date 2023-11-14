@@ -3,8 +3,8 @@
 
 _hkgname=megaparsec
 pkgname=haskell-megaparsec
-pkgver=9.3.1
-pkgrel=10
+pkgver=9.4.1
+pkgrel=1
 pkgdesc="Monadic parser combinators"
 url="https://github.com/mrkkrp/megaparsec"
 license=("custom:BSD2")
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-case-insensitive' 'haskell-parser-combinators'
          'haskell-scientific')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('2536653ab60f6dfc5c03dafde314ec5c79689c92cca5f1a964eec51ccfadf3f5795e494fdc466a853bde7b701f2bc2c96aeac69dd6e3334f05ed97ccb5bbda36')
+sha512sums=('07da3d19e47195693901645f3be96d240e8b274a9c34001c028b9dac53dc1f3a6cb35a92d10f328850c50790339593cad5a8386c22a94a564939f3913d2ed84d')
 
 build() {
     cd $_hkgname-$pkgver
