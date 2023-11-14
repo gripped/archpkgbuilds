@@ -2,8 +2,8 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-concurrency
-pkgver=5.1.0
-_commit=d1f07ad353986e5dcd24821941ac0a079f31484b
+pkgver=5.1.1
+_commit=0af59425ad09e11cb213e709660e0f8b3ffe67b2
 pkgrel=1
 pkgdesc="OpenStack library for all concurrency-related code"
 arch=('any')
