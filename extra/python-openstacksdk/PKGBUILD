@@ -2,8 +2,8 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-openstacksdk
-pkgver=1.3.0
-_commit=377d734de09f3ce3f0a413dd4d4e452e3c248562
+pkgver=1.3.1
+_commit=2da00af16014e16d447e28940742e381a0c9c1a6
 pkgrel=1
 pkgdesc="An SDK for building applications to work with OpenStack"
 arch=('any')
@@ -29,8 +29,8 @@ check() {
   export OS_LOG_CAPTURE=true OS_STDOUT_CAPTURE=true OS_STDERR_CAPTURE=true
 
   cd openstacksdk
-  # TODO: package statsd
-  stestr run || echo "Tests failed"
+  # TODO: package statsd?
+  stestr run --exclude-regex "openstack.tests.unit.test_stats.TestStats"
 }
 
 package() {
