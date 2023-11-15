@@ -5,8 +5,8 @@
 # Contributor: Bumsik Kim <k.bumsik@gmail.com>
 
 pkgname=nushell
-pkgver=0.86.0
-_commit=5d8763ed1d14048ac9fc09eb21be36e6e622f0d7
+pkgver=0.87.0
+_commit=77a1c3c7b2f3a110d48bcb792968e6b0d85d4bb7
 pkgrel=1
 pkgdesc='A new type of shell'
 arch=('x86_64')
@@ -47,12 +47,7 @@ build() {
 check() {
   cd "$pkgname"
 
-  # https://github.com/nushell/nushell/issues/10468
-  cargo test --frozen --workspace --features=extra,dataframe -- \
-    --skip commands::table::table_expand_exceed_overlap_0 \
-    --skip commands::table::table_expand_padding_not_default \
-    --skip commands::table::test_collapse_big_0 \
-    --skip commands::table::test_expand_big_0
+  cargo test --frozen --workspace --features=extra,dataframe
 }
 
 package() {
