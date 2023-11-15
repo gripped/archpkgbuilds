@@ -263,7 +263,7 @@ index 5002e9e24bf..030fcc6a3cd 100644
    ci_secure_files:
      enabled: true
 -    # storage_path: shared/ci_secure_files
-+    storage_path: /var/lib/gilab/shared/ci_secure_files
++    storage_path: /var/lib/gitlab/shared/ci_secure_files
      object_store:
        enabled: false
        remote_directory: ci-secure-files # The bucket name
@@ -395,13 +395,13 @@ index 65c817bb2d8..52012b50e0d 100644
  rackup 'config.ru'
 -pidfile '/home/git/gitlab/tmp/pids/puma.pid'
 -state_path '/home/git/gitlab/tmp/pids/puma.state'
-+pidfile '/var/lib/gitlab/tmp/pids/puma.pid'
-+state_path '/var/lib/gitlab/tmp/pids/puma.state'
++pidfile '/run/gitlab/puma.pid'
++state_path '/run/gitlab/puma.state'
  
 -stdout_redirect '/home/git/gitlab/log/puma.stdout.log',
 -  '/home/git/gitlab/log/puma.stderr.log',
-+stdout_redirect '/var/lib/gitlab/log/puma.stdout.log',
-+  '/var/lib/gitlab/log/puma.stderr.log',
++stdout_redirect '/var/log/gitlab/puma.stdout.log',
++  '/var/log/gitlab/puma.stderr.log',
    true
  
  # Configure "min" to be the minimum number of threads to use to answer
