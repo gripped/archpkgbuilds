@@ -1,0 +1,24 @@
+pkgbase = kodi-addon-inputstream-adaptive
+	pkgdesc = InputStream client for adaptive streams for Kodi 18+
+	pkgver = 20.3.14
+	pkgrel = 1
+	url = https://github.com/peak3d/inputstream.adaptive
+	arch = x86_64
+	groups = kodi-addons
+	groups = kodi-addons-inputstream
+	license = GPL2
+	makedepends = cmake
+	makedepends = kodi-dev
+	makedepends = gtest
+	noextract = kodi-addon-inputstream-adaptive-bento4-1.6.0-639-6.tar.gz
+	options = !lto
+	source = kodi-addon-inputstream-adaptive-20.3.14.tar.gz::https://github.com/peak3d/inputstream.adaptive/archive/20.3.14-Nexus.tar.gz
+	source = kodi-addon-inputstream-adaptive-bento4-1.6.0-639-6.tar.gz::https://github.com/xbmc/Bento4/archive/refs/tags/1.6.0-639-6-Nexus.tar.gz
+	source = 0001-Fix-error-uint-_t-has-not-been-declared-with-gcc-13.patch
+	sha512sums = 13c8773aede96362ce48b1ce11133275a1ac9e4b3b1d89afc58d6bb91ca09207d65a91d130349ff599139c6c13e4497af2f7ad6f15494a0b29074be19f2b082d
+	sha512sums = 08c359fb75f42d095ae040fb4dff020c902ba24677a95360fb845245ba3881423961bff6c8f0d2a791d387aa58ebe50b4998bedb866e0b7b58321bf8cdd4b1c3
+	sha512sums = abb232a196dbf9fe133d6901372c5a4bb197308077b07b50e394403fd81f0d044d668d611ed5c73bf69e48d2decb7e1815b420e4bf5ca30040e7c85594f77570
+
+pkgname = kodi-addon-inputstream-adaptive
+	depends = kodi
+	depends = kodi-platform
