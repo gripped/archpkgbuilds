@@ -16,14 +16,16 @@ diff --git a/symengine/eval_arb.h b/symengine/eval_arb.h
 index 8d6f00c1..e162a9ff 100644
 --- a/symengine/eval_arb.h
 +++ b/symengine/eval_arb.h
-@@ -11,6 +11,7 @@
+@@ -11,7 +11,8 @@
  
  #ifdef HAVE_SYMENGINE_ARB
  #include <symengine/basic.h>
+-#include <arb.h>
 +#include <mpfr.h>
- #include <arb.h>
++#include <flint/arb.h>
  
  namespace SymEngine
+ {
 diff --git a/symengine/flint_wrapper.h b/symengine/flint_wrapper.h
 index 21cfcef0..edf07e22 100644
 --- a/symengine/flint_wrapper.h
@@ -61,9 +63,14 @@ diff --git a/symengine/ntheory.cpp b/symengine/ntheory.cpp
 index 6108bf2c..7c6d08a1 100644
 --- a/symengine/ntheory.cpp
 +++ b/symengine/ntheory.cpp
-@@ -17,6 +17,7 @@
- #include "arb.h"
- #include "bernoulli.h"
+@@ -14,9 +14,10 @@
+ #include <primesieve.hpp>
+ #endif // HAVE_SYMENGINE_PRIMESIEVE
+ #ifdef HAVE_SYMENGINE_ARB
+-#include "arb.h"
+-#include "bernoulli.h"
++#include <flint/arb.h>
++#include <flint/bernoulli.h>
  #include "rational.h"
 +#include <flint/fmpq.h>
  #endif // HAVE_SYMENGINE_ARB
@@ -80,3 +87,16 @@ index df9bb61f..0eecf647 100644
 -}
 \ No newline at end of file
 +}
+diff --git a/symengine/utilities/catch/catch.cpp b/symengine/utilities/catch/catch.cpp
+index 7291ac5..d0db607 100644
+--- a/symengine/utilities/catch/catch.cpp
++++ b/symengine/utilities/catch/catch.cpp
+@@ -13,7 +13,7 @@
+ #endif // HAVE_SYMENGINE_MPFR
+ 
+ #if defined(HAVE_SYMENGINE_ARB)
+-#include <arb.h>
++#include <flint/arb.h>
+ #endif // HAVE_SYMENGINE_ARB
+ 
+ using SymEngine::print_stack_on_segfault;
