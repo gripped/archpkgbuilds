@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-zope-exceptions
-pkgver=5.0
+pkgver=5.0.1
 pkgrel=1
 pkgdesc="Generic exceptions and implementations for Zope"
 arch=('any')
@@ -11,7 +11,7 @@ depends=('python-setuptools' 'python-zope-interface')
 makedepends=('python-setuptools' 'python-zope-interface')
 checkdepends=('python-zope-testrunner')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/zopefoundation/zope.exceptions/archive/$pkgver.tar.gz")
-sha512sums=('b98765ad7ea55c3bedb13e57bd4d6ad1f4eb1196fe6464f5591841e91391ef1f88f3e07569471d2000f2f0d55fc0fc2e8dfd0da2d9d50d7bd4103030428ab784')
+sha512sums=('1b599b4e4cd3d3e3a9a1dd793d912d2ab860be4167f16cdbef092319fd46105401db8b16e04aacb18299da5d795fcbad488ce644f184b3336e8ffcf7f2306bc4')
 
 build() {
   cd zope.exceptions-$pkgver
