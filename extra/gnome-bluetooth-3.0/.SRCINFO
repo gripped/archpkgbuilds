@@ -1,0 +1,28 @@
+pkgbase = gnome-bluetooth-3.0
+	pkgdesc = GNOME Bluetooth Subsystem
+	pkgver = 42.7
+	pkgrel = 1
+	url = https://wiki.gnome.org/Projects/GnomeBluetooth
+	arch = x86_64
+	license = GPL
+	license = LGPL
+	checkdepends = python-dbusmock
+	makedepends = docbook-xsl
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = gtk-doc
+	makedepends = meson
+	depends = bluez
+	depends = gsound
+	depends = gtk4
+	depends = libadwaita
+	depends = libnotify
+	depends = pulseaudio-bluetooth
+	depends = systemd
+	depends = upower
+	provides = libgnome-bluetooth-3.0.so
+	provides = libgnome-bluetooth-ui-3.0.so
+	source = git+https://gitlab.gnome.org/GNOME/gnome-bluetooth.git#commit=38ff31f029f6243394a661f12ac1df7c50b7bff4
+	b2sums = SKIP
+
+pkgname = gnome-bluetooth-3.0
