@@ -1,7 +1,7 @@
 # Maintainer: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
 pkgname=cockpit-machines
-pkgver=301.1
+pkgver=302
 pkgrel=1
 pkgdesc='Cockpit UI for virtual machines'
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=(LGPL)
 depends=(cockpit libvirt-dbus)
 optdepends=("virt-install: create new virtual machines")
 source=("https://github.com/cockpit-project/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz")
-sha256sums=('fd4f1fad03bd8f1e159d6a4403b5b2495495ed8ea2585fb0b4df76bb567d3398')
+sha256sums=('229c6de18df6138b1802a3770315c449f4bff835125ea90b5f049594bc5f1074')
 
 package() {
   cd $pkgname
