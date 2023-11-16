@@ -1,8 +1,9 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 # Contributor: Christian Muehlhaeuser <muesli at gmail dot com>
 
 pkgname=soft-serve
-pkgver=0.7.1
+pkgver=0.7.2
 pkgrel=1
 pkgdesc='A self-hosted Git server for the command line'
 arch=('x86_64')
@@ -12,7 +13,7 @@ depends=('glibc' 'git')
 makedepends=('go')
 backup=('etc/soft-serve.conf')
 options=('!lto')
-_commit='03ba1abb0c6f40604193f8abdf6e29f28e779129'
+_commit='e0148ca697c9617a36dc96d806720644c38f87a6'
 source=(
   "git+$url.git#commit=$_commit"
   'soft-serve.conf'
