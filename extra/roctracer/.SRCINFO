@@ -1,0 +1,16 @@
+pkgbase = roctracer
+	pkgdesc = ROCm tracer library for performance tracing
+	pkgver = 5.7.1
+	pkgrel = 1
+	url = https://rocm.docs.amd.com/projects/roctracer/en/latest
+	arch = x86_64
+	license = MIT
+	makedepends = cmake
+	makedepends = python-cppheaderparser
+	makedepends = python-ply
+	depends = hip
+	options = !lto
+	source = roctracer-5.7.1.tar.gz::https://github.com/ROCm-Developer-Tools/roctracer/archive/refs/tags/rocm-5.7.1.tar.gz
+	sha256sums = ec0453adac7e62b142eb0df1e1e2506863aac4c3f2ce9d117c3184c08c0c6b48
+
+pkgname = roctracer
