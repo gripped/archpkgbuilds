@@ -1,0 +1,23 @@
+pkgbase = tt-rss
+	pkgdesc = Web-based news feed (RSS/Atom) aggregator
+	pkgver = r11654.1fe1132a1
+	pkgrel = 1
+	epoch = 2
+	url = https://tt-rss.org
+	install = tt-rss.install
+	arch = any
+	license = GPL
+	makedepends = git
+	depends = php-interpreter
+	optdepends = mysql
+	optdepends = postgresql
+	optdepends = php-gd-interpreter: for coloured feed badges
+	backup = etc/webapps/tt-rss/config.php
+	source = git+https://gitlab.tt-rss.org/tt-rss/tt-rss.git#commit=1fe1132a1a68bd0fedc313823b942130167fad86
+	source = tt-rss.service
+	sha1sums = SKIP
+	sha1sums = d764e22065f8e0104b4f1d5dcf41cce01cd7bec5
+	sha512sums = SKIP
+	sha512sums = ffc4316d8f332b75932b36e9e0a18fb346a62a8f83094d3ca510b06b0d9ae0478bdc05e23bca4fe5e6dfcfc8a8c57ab1654b7c6d16a007f151afbcad31e359a5
+
+pkgname = tt-rss
