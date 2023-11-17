@@ -1,0 +1,17 @@
+pkgbase = composable-kernel
+	pkgdesc = High Performance Composable Kernel for AMD GPUs
+	pkgver = 5.7.1
+	pkgrel = 1
+	url = https://github.com/ROCmSoftwarePlatform/composable_kernel
+	arch = x86_64
+	license = MIT
+	makedepends = rocm-cmake
+	makedepends = rocm-llvm
+	makedepends = openmp
+	depends = hip
+	options = !lto
+	options = !buildflags
+	source = composable-kernel-5.7.1.tar.gz::https://github.com/ROCmSoftwarePlatform/composable_kernel/archive/rocm-5.7.1.tar.gz
+	sha256sums = 75f66e023c2e31948e91fa26366eaeac72d871fc2e5188361d4465179f13876e
+
+pkgname = composable-kernel
