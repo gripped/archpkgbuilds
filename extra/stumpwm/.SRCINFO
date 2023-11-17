@@ -1,0 +1,26 @@
+pkgbase = stumpwm
+	pkgdesc = Tiling, keyboard-driven window manager written in Common Lisp
+	pkgver = 22.11
+	pkgrel = 5
+	url = https://stumpwm.github.io/
+	arch = x86_64
+	license = GPL2
+	makedepends = git
+	makedepends = texlive-bin
+	makedepends = texlive-plaingeneric
+	depends = glibc
+	depends = zstd
+	depends = sbcl
+	depends = cl-ppcre
+	depends = cl-clx
+	depends = cl-alexandria
+	optdepends = emacs: edit and eval stumpwm code with M-x stumpwm-mode
+	optdepends = stumpwm-contrib: extension modules for StumpWM
+	options = !strip
+	options = !makeflags
+	source = stumpwm::git+https://github.com/stumpwm/stumpwm#commit=fff2508fd54b4035b0d80bafbd75a13f1756130f
+	source = stumpwm.desktop
+	b2sums = SKIP
+	b2sums = a6bf8083d300854c4252046937e18bea935b4bd496677b8bcf0ca74c3af91f37dcd0f7ce766b23ac0b22a9fbbec40d55ca2804c8ecf46db087cc1842116d8f6c
+
+pkgname = stumpwm
