@@ -1,0 +1,19 @@
+pkgbase = rocsolver
+	pkgdesc = Subset of LAPACK functionality on the ROCm platform
+	pkgver = 5.7.1
+	pkgrel = 1
+	url = https://rocsolver.readthedocs.io/en/latest/
+	arch = x86_64
+	license = BSD 2-Clause
+	makedepends = rocm-cmake
+	makedepends = python-pyaml
+	makedepends = fmt
+	depends = hip
+	depends = rocblas
+	depends = rocsparse
+	options = !lto
+	options = !buildflags
+	source = rocsolver-5.7.1.tar.gz::https://github.com/ROCmSoftwarePlatform/rocSOLVER/archive/rocm-5.7.1.tar.gz
+	sha256sums = 83e0c137b8690dbeb2e85d9e25415d96bd06979f09f2b10b2aff8e4c9f833fa4
+
+pkgname = rocsolver
