@@ -1,0 +1,25 @@
+pkgbase = hip-runtime-amd
+	pkgdesc = Heterogeneous Interface for Portability ROCm
+	pkgver = 5.7.1
+	pkgrel = 1
+	url = https://rocm.docs.amd.com/projects/HIP/en/latest/
+	arch = x86_64
+	license = MIT
+	makedepends = cmake
+	makedepends = python
+	makedepends = python-cppheaderparser
+	depends = mesa
+	depends = comgr
+	depends = rocminfo
+	depends = rocm-llvm
+	depends = libelf
+	provides = hip
+	conflicts = hip
+	source = hip-runtime-amd-5.7.1.tar.gz::https://github.com/ROCm-Developer-Tools/HIP/archive/rocm-5.7.1.tar.gz
+	source = hip-runtime-amd-clr-5.7.1.tar.gz::https://github.com/ROCm-Developer-Tools/clr/archive/rocm-5.7.1.tar.gz
+	source = hip-runtime-amd-hipcc-5.7.1.tar.gz::https://github.com/ROCm-Developer-Tools/HIPCC/archive/rocm-5.7.1.tar.gz
+	sha256sums = eaa0e14a9ae45c58ed37863797b683a7778b3cbbf92f5b6529ec65fd61d61f3e
+	sha256sums = c78490335233a11b4d8a5426ace7417c555f5e2325de10422df06c0f0f00f7eb
+	sha256sums = d47d27ef2b5de7f49cdfd8547832ac9b437a32e6fc6f0e9c1646f4b704c90aee
+
+pkgname = hip-runtime-amd
