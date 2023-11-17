@@ -1,0 +1,25 @@
+pkgbase = rocalution
+	pkgdesc = Next generation library for iterative sparse solvers for ROCm platform
+	pkgver = 5.7.1
+	pkgrel = 1
+	url = https://rocalution.readthedocs.io/en/master
+	arch = x86_64
+	license = MIT
+	makedepends = rocm-cmake
+	makedepends = openmp
+	makedepends = openmpi
+	depends = hip
+	depends = rocsparse
+	depends = rocblas
+	depends = rocsolver
+	depends = rocprim
+	depends = rocrand
+	optdepends = openmp: Multithreaded CPU applications
+	optdepends = openmpi: Distributed CPU and multi GPU applications
+	options = !lto
+	source = rocalution-5.7.1.tar.gz::https://github.com/ROCmSoftwarePlatform/rocALUTION/archive/rocm-5.7.1.tar.gz
+	source = rocalution-disable-hip-property.patch
+	sha256sums = b95afa1285759843c5fea1ad6e1c1edf283922e0d448db03a3e1f42b6942bc24
+	sha256sums = 7335ce3fb8a8663cd2d393632fecab261239de3cbd00e7e7bbda2e1d217c7ec2
+
+pkgname = rocalution
