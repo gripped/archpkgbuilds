@@ -8,7 +8,7 @@ pkgname=(pyside6
 _qtver=6.6.0
 _clangver=16.0.6
 pkgver=${_qtver/-/}
-pkgrel=1
+pkgrel=3
 arch=(x86_64)
 url='https://www.qt.io'
 license=(LGPL)
@@ -43,18 +43,15 @@ makedepends=(clang
              qt6-websockets)
 _pkgfn=pyside-setup-everywhere-src-$_qtver
 source=(https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-$pkgver-src/${_pkgfn}.tar.xz
-        designer-plugin-install-dir.patch
         fix-build.patch
-        fix-install-dir.patch)
+        fix-install-paths.patch::https://code.qt.io/cgit/pyside/pyside-setup.git/patch/?id=d509e486)
 sha256sums=('2dd002db8851a87173354f38aa8c6ec42d0ff1fac99ea422b29e2dfce52d1638'
-            '66e895e07d5b01c64a94092353854c946fd7fc445b6181068dca290b5a3887e0'
             '77b83cb164ea87d826259864f6a81fb33199510e1948d6daaf5c8d5ab55735a7'
-            '98164d5a37e822bba0edd1f9bc2fc68ce91b8a06385a7087d831d5ae756f754d')
+            'f0d339723e74f7213897a3ec6268833749bc6e8bedc3162a64a391a3ccc4d655')
 
 prepare() {
-  patch -d ${_pkgfn%.*} -p1 < designer-plugin-install-dir.patch # Fix designer plugin install dir
+  patch -d ${_pkgfn%.*} -p1 < fix-install-paths.patch # Fix designer plugin and QtAsyncio install dirs
   patch -d ${_pkgfn%.*} -p1 < fix-build.patch
-  patch -d ${_pkgfn%.*} -p1 < fix-install-dir.patch
 }
 
 build() {
@@ -119,8 +116,10 @@ package_pyside6() {
               'qt6-speech: QtTextToSpeech bindings'
               'qt6-svg: QtSvg bindings'
               'qt6-tools: QtHelp, QtUiTools bindings'
+              'qt6-webchannel: QtWebChannel bindings'
               'qt6-webengine: QtWebEngine bindings'
               'qt6-websockets: QtWebSockets bindings')
+  provides=(qt6-python-bindings)
 
   DESTDIR="$pkgdir" cmake --install build/sources/pyside6
 
