@@ -1,0 +1,122 @@
+pkgbase = pcp
+	pkgver = 6.1.1
+	pkgrel = 1
+	url = https://pcp.io
+	arch = x86_64
+	license = LGPL
+	makedepends = avahi
+	makedepends = procps-ng
+	makedepends = which
+	makedepends = libuv
+	makedepends = rsync
+	makedepends = llvm
+	makedepends = debugedit
+	makedepends = qt5-svg
+	makedepends = python-openpyxl
+	makedepends = python-jsonpointer
+	makedepends = python-six
+	makedepends = libvirt-python
+	makedepends = python-lxml
+	makedepends = python-requests
+	makedepends = bpftrace
+	makedepends = python-bcc
+	makedepends = perl-net-snmp
+	makedepends = perl-libwww
+	makedepends = perl-xml-libxml
+	makedepends = perl-file-slurp
+	makedepends = perl-yaml-libyaml
+	makedepends = perl-json
+	makedepends = perl-dbd-mysql
+	makedepends = python-psycopg2
+	makedepends = libvarlink
+	source = https://github.com/performancecopilot/pcp/archive/6.1.1/pcp-6.1.1.tar.gz
+	source = sysuser.conf
+	source = tmpfile.conf
+	source = check-lto.patch
+	sha256sums = a79ec79e15a71ddcc98aae873c89ee24f3d5bfaa31cfb7712a3c02a1d04c228c
+	sha256sums = 3e21ef7925296f73c91fe85c8dba341ce00366163845dd8993e2813b0ad5e4a4
+	sha256sums = 0166ffea180527de5a48a8e8f145cc80860b93e8f44bc5f96836c3d1cb4b01a2
+	sha256sums = 228bb9c24ad8001b1806526d3cb65758dd184af7735038a93ab4465909d9fda9
+
+pkgname = pcp
+	pkgdesc = System performance analysis toolkit
+	install = pcp.install
+	depends = python
+	depends = perl
+	depends = avahi
+	depends = procps-ng
+	depends = which
+	depends = libuv
+	depends = inetutils
+	optdepends = perl-xml-tokeparser: sar2pcp
+	optdepends = perl-date-parse: sar2pcp
+	optdepends = python-openpyxl: pcp2xlsx
+
+pkgname = pcp-gui
+	pkgdesc = Visualization tools for the Performance Co-Pilot toolkit
+	depends = pcp
+	depends = qt5-svg
+
+pkgname = pcp-pmda-activemq
+	pkgdesc = PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from ActiveMQ
+	depends = pcp
+	depends = perl-libwww
+
+pkgname = pcp-pmda-bcc
+	pkgdesc = PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from eBPF/BCC modules
+	depends = pcp
+	depends = python-bcc
+
+pkgname = pcp-pmda-bind2
+	pkgdesc = PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from BIND via its REST interface
+	depends = pcp
+	depends = perl-libwww
+	depends = perl-xml-libxml
+	depends = perl-file-slurp
+
+pkgname = pcp-pmda-bpftrace
+	pkgdesc = PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from bpftrace scripts
+	depends = pcp
+	depends = bpftrace
+
+pkgname = pcp-pmda-libvirt
+	pkgdesc = PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from libvirt virtual machines
+	depends = pcp
+	depends = libvirt-python
+	depends = python-lxml
+
+pkgname = pcp-pmda-mysql
+	pkgdesc = PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from MySQL
+	depends = pcp
+	depends = perl-dbd-mysql
+
+pkgname = pcp-pmda-nginx
+	pkgdesc = PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from Nginx
+	depends = pcp
+	depends = perl-libwww
+
+pkgname = pcp-pmda-nutcracker
+	pkgdesc = PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from NutCracker (TwemCache)
+	depends = pcp
+	depends = perl-yaml-libyaml
+	depends = perl-json
+
+pkgname = pcp-pmda-openmetrics
+	pkgdesc = PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from OpenMetrics endpoints
+	depends = pcp
+	depends = python-requests
+
+pkgname = pcp-pmda-podman
+	pkgdesc = PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from podman
+	depends = pcp
+	depends = libvarlink
+
+pkgname = pcp-pmda-postgresql
+	pkgdesc = PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from PostgreSQL
+	depends = pcp
+	depends = python-psycopg2
+
+pkgname = pcp-pmda-snmp
+	pkgdesc = PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from SNMP
+	depends = pcp
+	depends = perl-net-snmp
