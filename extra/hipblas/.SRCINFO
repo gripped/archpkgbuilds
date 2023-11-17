@@ -1,0 +1,16 @@
+pkgbase = hipblas
+	pkgdesc = ROCm BLAS marshalling library
+	pkgver = 5.7.1
+	pkgrel = 1
+	url = https://hipblas.readthedocs.io/en/latest/
+	arch = x86_64
+	license = MIT
+	makedepends = rocm-cmake
+	makedepends = gcc-fortran
+	depends = hip
+	depends = rocblas
+	depends = rocsolver
+	source = hipblas-5.7.1.tar.gz::https://github.com/ROCmSoftwarePlatform/hipBLAS/archive/rocm-5.7.1.tar.gz
+	sha256sums = 794e9298f48ffbe3bd1c1ab87a5c2c2b953713500155fdec9ef8cbb11f81fc8a
+
+pkgname = hipblas
