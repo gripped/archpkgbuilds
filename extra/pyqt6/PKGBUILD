@@ -4,7 +4,7 @@ pkgbase=pyqt6
 pkgname=python-pyqt6
 pkgdesc='A set of Python bindings for the Qt6 toolkit'
 pkgver=6.6.0
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://riverbankcomputing.com/software/pyqt/intro'
 license=(GPL)
@@ -28,6 +28,7 @@ optdepends=('qt6-tools: QtHelp, QtDesigner bindings'
 makedepends=(sip pyqt-builder python-opengl dbus-python
              qt6-tools qt6-svg qt6-declarative qt6-quick3d qt6-shadertools qt6-multimedia qt6-remoteobjects
              qt6-positioning qt6-sensors qt6-serialport qt6-webchannel qt6-websockets qt6-connectivity qt6-speech qt6-webengine)
+provides=(qt6-python-bindings)
 source=(https://pypi.python.org/packages/source/P/PyQt6/PyQt6-$pkgver.tar.gz)
 sha256sums=('d41512d66044c2df9c5f515a56a922170d68a37b3406ffddc8b4adc57181b576')
 
