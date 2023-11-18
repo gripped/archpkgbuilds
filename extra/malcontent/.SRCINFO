@@ -1,0 +1,46 @@
+pkgbase = malcontent
+	pkgdesc = Parental control support for applications
+	pkgver = 0.11.1
+	pkgrel = 3
+	url = https://gitlab.freedesktop.org/pwithnall/malcontent
+	arch = x86_64
+	license = LGPL2.1
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = gtk-doc
+	makedepends = libglib-testing
+	makedepends = meson
+	makedepends = yelp-tools
+	depends = accountsservice
+	depends = appstream
+	depends = dbus
+	depends = flatpak
+	depends = glib2
+	depends = gtk4
+	depends = libadwaita
+	depends = polkit
+	depends = python-gobject
+	source = git+https://gitlab.freedesktop.org/pwithnall/malcontent.git#commit=0979e6056745efe4bdfbcd1b31ef7546c367838f
+	b2sums = SKIP
+
+pkgname = malcontent
+	groups = gnome
+	depends = accountsservice
+	depends = appstream
+	depends = dbus
+	depends = flatpak
+	depends = glib2
+	depends = gtk4
+	depends = libadwaita
+	depends = polkit
+	depends = python-gobject
+	depends = libmalcontent=0.11.1-3
+	provides = libmalcontent-ui-1.so
+
+pkgname = libmalcontent
+	pkgdesc = Parental control library
+	depends = libglib-2.0.so
+	depends = libgobject-2.0.so
+	depends = libgio-2.0.so
+	depends = gcc-libs
+	provides = libmalcontent-0.so
