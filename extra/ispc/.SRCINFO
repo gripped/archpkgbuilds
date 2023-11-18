@@ -1,0 +1,35 @@
+pkgbase = ispc
+	pkgdesc = Compiler for high-performance SIMD programming on the CPU
+	pkgver = 1.22.0
+	pkgrel = 1
+	url = https://ispc.github.io/
+	arch = x86_64
+	license = BSD
+	checkdepends = intel-compute-runtime
+	makedepends = cmake
+	makedepends = git
+	makedepends = level-zero-headers
+	makedepends = level-zero-loader
+	makedepends = lib32-glibc
+	makedepends = llvm
+	makedepends = openmp
+	makedepends = python
+	makedepends = vc-intrinsics
+	depends = clang
+	depends = gcc-libs
+	depends = glibc
+	depends = llvm-libs
+	depends = spirv-llvm-translator
+	depends = onetbb
+	optdepends = intel-compute-runtime: GPU support
+	optdepends = level-zero-loader: GPU support
+	optdepends = openmp: GPU support
+	options = staticlibs
+	source = git+https://github.com/ispc/ispc#tag=bd2c42d42e0cc3da1baf92160b82d4dc820a02ee
+	source = ispc-benchmark::git+https://github.com/google/benchmark.git
+	source = ispc-googletest::git+https://github.com/google/googletest.git
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+
+pkgname = ispc
