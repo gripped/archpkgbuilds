@@ -4,7 +4,7 @@
 _name=hypothesis
 _alt_name="${_name}-python"
 pkgname=python-hypothesis
-pkgver=6.88.4
+pkgver=6.89.0
 _version="${_alt_name}-${pkgver}"
 pkgrel=1
 pkgdesc="Advanced Quickcheck style testing library for Python"
@@ -56,8 +56,8 @@ optdepends=(
   'python-rich: for CLI'
 )
 source=("$_name-$_version.tar.gz::$_url/archive/$_version.tar.gz")
-sha512sums=('420dd525abb56dad8983b16767cb4d7f4b411ee68439e2317d7be5582fcf9a8735929b4746bbfc37b286d389dcd36c38da797466bd6c4c555d108a56b30511ad')
-b2sums=('d33e764fc02111f37efa678927d48f1de7097156c401ab85c7a3fc16f22ff3582bfaec8fef60e010d9a9953bcdbbd8f212b5a7765a7967b93d6dd4bb1d6e5915')
+sha512sums=('9439a39fcdf4acb530871248d9e673bbc657875d5d1f6d2fd9f9a8f45b8a58de8e6cf418ec86025aa959d6db7dd40538d2d4c2a9aaf762a013dc715246a12533')
+b2sums=('e289c0a77493eed00373dfd91048d46f4030b3728b0d7adf2c6e46fa5749931a4c0077645d94a2ddb737a42cc4ed9213c4112f850f69bf888e82f1c033eab9cc')
 
 build() {
   cd $_name-$_version/$_alt_name
