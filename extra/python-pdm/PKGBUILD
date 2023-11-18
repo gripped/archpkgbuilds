@@ -2,7 +2,7 @@
 
 _name=pdm
 pkgname=python-pdm
-pkgver=2.10.1
+pkgver=2.10.3
 pkgrel=1
 pkgdesc="A modern Python package manager with PEP 582 support"
 arch=(any)
@@ -42,13 +42,15 @@ checkdepends=(
   python-pytest-mock
 )
 optdepends=(
+  'python-cookiecutter: for using cookiecutter when generating project'
+  # 'python-copier: for using copier when generating project'  # TODO: package python-copier
   'python-keyring: for storing credentials'
   'python-pytest-mock: for pytest plugin'
   'python-setuptools: for parsing setup.py files'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('baef496565aeec949e149c187a658b360356b7b38831c509dee69f27cd0911221b770a4c65c855c1881461ebea2f7bed0d1c116d6925b655f2cb2e397a229abf')
-b2sums=('b679a2c0af66206282f3224b8d7f45f4ab3882ecae05b159324854d7c14200a0584e5d3ef008b89eac2580c18421da86970cf45d15f156b0348065b397eace90')
+sha512sums=('99b989e0936e65aa3f31a6f8ea4e69e463fa831b5965332cd1dc4c325416fc913f06d4a3319b6b8234f3565c168265b04b6ba4a076934f17f0532801a8e0b32a')
+b2sums=('53c2c4e8907c76ab0806304918f6511769aba1567318dbaea1fb32bd7e6e1b81bcb22d4f3bbdbf2aa01afa7acfbf98d3c0a92606f330d1578da393fc90703750')
 
 build() {
   cd $_name-$pkgver
