@@ -3,9 +3,9 @@
 # Contributor: tobias <tobias@archlinux.org>
 
 pkgname=inkscape
-pkgver=1.3
-_tag='0e150ed6c4dbbe4e84981434eb6226bb8ce2e39f' # git rev-parse INKSCAPE_${pkgver/./_}
-pkgrel=4
+pkgver=1.3.1
+_tag='91b66b078370477bd794fe0e1db149c34333dae8' # git rev-parse INKSCAPE_${pkgver/./_}
+pkgrel=1
 pkgdesc='Professional vector graphics editor'
 url='https://inkscape.org/'
 license=('GPL' 'LGPL')
@@ -67,6 +67,7 @@ optdepends=(
 
 #source=("https://media.inkscape.org/dl/resources/file/${pkgname}-${pkgver}.tar.bz2")
 source=("git+https://gitlab.com/inkscape/inkscape.git#tag=${_tag}"
+        '0001-include-missing-header-file.patch'
         'inkscape-extensions::git+https://gitlab.com/inkscape/extensions.git'
         'inkscape-lib2geom::git+https://gitlab.com/inkscape/lib2geom.git'
         'inkscape-themes::git+https://gitlab.com/inkscape/themes.git'
@@ -75,6 +76,7 @@ source=("git+https://gitlab.com/inkscape/inkscape.git#tag=${_tag}"
         'inkscape-extras-inkscape-import-clipart::git+https://gitlab.com/inkscape/extras/inkscape-import-clipart.git'
         'inkscape-extras-extension-xaml::git+https://gitlab.com/inkscape/extras/extension-xaml.git')
 sha256sums=('SKIP'
+            'f6598895b083af8528fd00bef163469632a01d47083af66ff8f19f4eb9c7414f'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -105,6 +107,8 @@ prepare() {
 		git log --oneline -1 "${_c}"
 		git cherry-pick -n "${_c}"
 	done
+
+	patch -Np1 < ../0001-include-missing-header-file.patch
 }
 
 build() {
