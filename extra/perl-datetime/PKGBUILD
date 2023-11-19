@@ -2,7 +2,7 @@
 # Contributor: François Charette <firmicus ατ gmx δοτ net>
 
 pkgname=perl-datetime
-pkgver=1.63
+pkgver=1.65
 pkgrel=1
 pkgdesc="A complete, easy to use date and time object"
 arch=('x86_64')
@@ -17,7 +17,7 @@ LC_NUMERIC=C
 provides=("perl-datetime=`printf %.4f $pkgver`")
 options=('!emptydirs')
 source=(https://www.cpan.org/CPAN/authors/id/D/DR/DROLSKY/DateTime-$pkgver.tar.gz)
-sha512sums=('9cbff99f41e62e88c144a0fbe275a894b1425e323bcc50cc34af1345a86b31fa65058cc235db1e2cda821da053cd83338e6d5f39ac136692c59348a4577d1dc3')
+sha512sums=('53b8bb5085420104d9cd2b6df076d353684ec6f347caf17f858c9c09e052aa19421bf980d130dbbe0094b791ff071ee99d8222509717008e5a3cd354639f7720')
 
 build() {
   cd  "$srcdir"/DateTime-$pkgver
