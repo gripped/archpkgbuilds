@@ -4,7 +4,7 @@
 pkgname=python-moto
 _pkgname=moto
 # https://github.com/spulec/moto/blob/master/CHANGELOG.md
-pkgver=4.2.5
+pkgver=4.2.9
 pkgrel=1
 pkgdesc='Moto is a library to mock out the boto library.'
 arch=(any)
@@ -20,8 +20,8 @@ depends=(python python-boto3 python-botocore python-cryptography python-requests
          # urllib3 is used by cfnresponse.py, not directly by moto - just to make namcap happy
          python-urllib3)
 makedepends=(python-build python-installer python-setuptools python-wheel)
-# See reqquirements-test.txt, excluding pytest-cov
-checkdepends=(python-pytest python-pytest-ordering python-freezegun)
+# See requirements-tests.txt, excluding pytest-cov
+checkdepends=(python-pytest python-pytest-order python-freezegun)
 # Check extras_require in upstream `setup.cfg` for optional dependencies.
 # Note that ecdsa is excluded as it is pinned for jose and not used by moto.
 optdepends=(
@@ -52,10 +52,10 @@ source=("https://github.com/getmoto/moto/archive/refs/tags/$pkgver/$pkgname-$pkg
         "fix-tests.diff"
         "typing-extensions.diff"
         "add-requires_docker.diff")
-sha256sums=('f5f31db40db0a1366fd26ee562ba80ae4fdb8aa9c5f3184c1045ad2470bf251a'
+sha256sums=('c5b77fee5f371694ff2b7027c9c1b48f204a43e6da6a6dc7517de0dc7db6da9b'
             '21305cdf3d650ced1acb1d0f7dde8760b26e32a94c56a5571e798d6b6976cf5a'
             '8406f4c68b8b43c3666fe5a153de1321a9bc9f02ad19910c6078d8189d8cb24f'
-            '353c77431377ebafef1d433b3a433646117d882aa413a9079e5fceb98d90e3ad')
+            '178b2c2a4d9b1a74220885ebdf9b521f212534acf8611b0352a2ed59d77e134d')
 
 prepare() {
   cd $_pkgname-$pkgver
