@@ -6,8 +6,8 @@
 
 pkgname=perl-image-exiftool
 _srcname=Image-ExifTool
-pkgver=12.60
-pkgrel=3
+pkgver=12.70
+pkgrel=1
 pkgdesc="Reader and rewriter of EXIF information that supports raw files"
 arch=('any')
 url="https://exiftool.org/"
@@ -18,7 +18,7 @@ provides=("perl-exiftool=${pkgver}")
 replaces=("perl-exiftool")
 options=('!emptydirs')
 source=(https://exiftool.org/${_srcname}-${pkgver}.tar.gz)
-sha256sums=('73dbe06d004c31082a56e78d7f246f2bb0002fbb1835447bc32a2b076f3d32ad')
+sha256sums=('4cb2522445cc3e3f3bd13904c6aeaeada5fc5a5e2498d7abad2957dcb42caffe')
 
 build() {
   cd "${_srcname}-${pkgver}"
