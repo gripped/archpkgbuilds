@@ -1,0 +1,24 @@
+pkgbase = libxslt
+	pkgdesc = XML stylesheet transformation library
+	pkgver = 1.1.39
+	pkgrel = 1
+	url = https://gitlab.gnome.org/GNOME/libxslt/-/wikis/home
+	arch = x86_64
+	license = custom:MIT
+	checkdepends = docbook-xml
+	makedepends = git
+	makedepends = python
+	depends = libgcrypt
+	depends = libxml2
+	depends = xz
+	source = git+https://gitlab.gnome.org/GNOME/libxslt.git#commit=743ab691bed98ed11ac99bbd9d903d59fb814ab8
+	b2sums = SKIP
+
+pkgname = libxslt
+	optdepends = python: Python bindings
+	provides = libxslt.so
+	provides = libexslt.so
+
+pkgname = libxslt-docs
+	pkgdesc = XML stylesheet transformation library (documentation)
+	depends = 
