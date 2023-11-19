@@ -3,7 +3,7 @@
 
 pkgname=grafana-zabbix
 pkgver=4.4.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Zabbix plugin for Grafana dashboard"
 arch=('any')
 url="https://github.com/alexanderzobnin/grafana-zabbix"
@@ -31,7 +31,8 @@ build() {
 	cd "$pkgname-$pkgver"
 	make install
 	make build
-	make dist
+	make dist-frontend
+	make dist-backend-linux
 }
 
 check() {
