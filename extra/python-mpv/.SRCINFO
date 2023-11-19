@@ -1,0 +1,24 @@
+pkgbase = python-mpv
+	pkgdesc = Python interface to the awesome mpv media player
+	pkgver = 1.0.5
+	pkgrel = 1
+	url = https://github.com/jaseg/python-mpv
+	arch = any
+	license = GPL
+	license = LGPL
+	checkdepends = python-pytest
+	checkdepends = python-pyvirtualdisplay
+	checkdepends = xorg-server-xvfb
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	depends = mpv
+	depends = python
+	optdepends = python-pillow: for raw screenshot support
+	source = git+https://github.com/jaseg/python-mpv.git#tag=v1.0.5?signed
+	validpgpkeys = E36F75307F0A0EC2D145FF5CED7A208EEEC76F2D
+	b2sums = SKIP
+
+pkgname = python-mpv
