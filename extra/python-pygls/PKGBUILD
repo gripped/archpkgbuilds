@@ -3,15 +3,15 @@
 
 pkgname=python-pygls
 _name=${pkgname#python-}
-pkgver=1.1.2
+pkgver=1.2.0
 pkgrel=1
 pkgdesc='Pythonic generic implementation of the Language Server Protocol'
 arch=('any')
 url=https://github.com/openlawlibrary/pygls
 license=('APACHE')
-depends=('python-lsprotocol' 'python-typeguard')
+depends=('python-lsprotocol')
 makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core')
-checkdepends=('python-pytest' 'python-pytest-asyncio')
+checkdepends=('python-pytest-asyncio')
 source=("git+$url.git#tag=v$pkgver")
 b2sums=('SKIP')
 
