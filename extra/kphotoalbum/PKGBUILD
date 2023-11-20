@@ -6,19 +6,25 @@
 
 pkgname=kphotoalbum
 pkgver=5.11.0
-pkgrel=2
+pkgrel=3
 pkgdesc="KDE Photo Album, picture collection manager"
 url="https://www.kphotoalbum.org/"
 arch=('x86_64')
 license=('GPL')
-depends=('libkdcraw' 'marble-common' 'exiv2' 'purpose5' 'perl')
+depends=('libkdcraw5' 'marble-common' 'exiv2' 'purpose5' 'perl')
 makedepends=('extra-cmake-modules' 'kdoctools5')
 optdepends=()
-source=("https://download.kde.org/stable/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.xz"{,.sig})
+source=("https://download.kde.org/stable/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.xz"{,.sig}
+         https://invent.kde.org/graphics/kphotoalbum/-/commit/1ceb1ae3.patch)
 sha256sums=('356b4e207257b5cf0f965b586dba766300dfff7408dcc7473435fb59540c8a0e'
-            'SKIP')
+            'SKIP'
+            '2fd41482d81ab3990c8b37226723dae2d584113c8f49ff1632dce88e921df0c9')
 validpgpkeys=('8A53F0CB9F752E6F4F72FEC6F8DECD0DDF0F74A8') # Tobias Leupold <tobias.leupold@gmx.de>
 validpgpkeys+=('A53563BC888E6CE5215535992523842AF9681DDF')
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < 1ceb1ae3.patch # Fix build with exiv2 0.28.1
+}
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
