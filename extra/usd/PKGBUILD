@@ -7,7 +7,7 @@ pkgname=('usd' 'usd-extras')
 _pkgname='OpenUSD'
 pkgbase=usd
 pkgver=23.11
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://openusd.org'
 pkgdesc='3D VFX pipeline interchange file format'
@@ -95,7 +95,7 @@ build() {
     -DPXR_BUILD_DOCUMENTATION=OFF
     -DPXR_BUILD_EXAMPLES=OFF
     -DPXR_BUILD_IMAGING=ON
-    -DPXR_BUILD_MONOLITHIC=OFF
+    -DPXR_BUILD_MONOLITHIC=ON
     -DPXR_BUILD_TESTS=OFF
     -DPXR_BUILD_TUTORIALS=OFF
     -DPXR_BUILD_USD_IMAGING=ON
