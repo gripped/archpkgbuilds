@@ -1,0 +1,24 @@
+pkgbase = foliate
+	pkgdesc = A simple and modern GTK eBook reader
+	pkgver = 3.0.1
+	pkgrel = 1
+	url = https://johnfactotum.github.io/foliate/
+	arch = x86_64
+	license = GPL3
+	makedepends = gettext
+	makedepends = meson
+	makedepends = ninja
+	depends = gjs
+	depends = gtk4
+	depends = libadwaita
+	depends = webkitgtk-6.0
+	optdepends = festival: Text-to-speech support; also voice package needed
+	optdepends = gspell: Spell-checking support
+	optdepends = hyphen: Auto-hyphenation support
+	optdepends = tracker3
+	source = https://github.com/johnfactotum/foliate/archive/3.0.1/foliate-3.0.1.tar.gz
+	source = https://github.com/johnfactotum/foliate-js/archive/2ea63929c73b6a3b98fc772abf6b9249b3bfadab/foliate-3.0.1-js.tar.gz
+	sha256sums = b90a4b3361baefd6c851a40897cf362e74a962a4748272b7933f3baf3b0ef9d4
+	sha256sums = e557435e228bd764d913357bb183c696b55363fd880cf4d31e91dbd061cc3315
+
+pkgname = foliate
