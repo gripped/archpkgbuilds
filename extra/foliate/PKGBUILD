@@ -1,41 +1,31 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
-_js_sha=2ea63929c73b6a3b98fc772abf6b9249b3bfadab
-
 pkgname=foliate
 pkgver=3.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A simple and modern GTK eBook reader'
 arch=(x86_64)
 url="https://johnfactotum.github.io/$pkgname/"
+_url="https://github.com/johnfactotum/$pkgname"
 license=(GPL3)
 depends=(gjs
          gtk4
          libadwaita
          # iso-codes
-         webkitgtk-6.0
-)
+         webkitgtk-6.0)
 makedepends=(gettext
              meson
              ninja)
-optdepends=(#'espeak-ng: Text-to-speech support; also voice package needed'
+optdepends=(#'dictd: Offline dictionary support'
+            'espeak-ng: Text-to-speech support; also voice package needed'
             'festival: Text-to-speech support; also voice package needed'
             'gspell: Spell-checking support'
             'hyphen: Auto-hyphenation support'
             'tracker3')
-_archive="$pkgname-$pkgver"
-_url="https://github.com/johnfactotum/$pkgname"
-source=("$_url/archive/$pkgver/$_archive.tar.gz"
-        "$_url-js/archive/$_js_sha/$_archive-js.tar.gz")
-sha256sums=('b90a4b3361baefd6c851a40897cf362e74a962a4748272b7933f3baf3b0ef9d4'
-            'e557435e228bd764d913357bb183c696b55363fd880cf4d31e91dbd061cc3315')
-
-prepare() {
-	cd "$_archive"
-	rm -rf "src/${pkgname}-js"
-	ln -sf "../../${pkgname}-js-$_js_sha" "src/${pkgname}-js"
-}
+_archive="com.github.johnfactotum.${pkgname^}-$pkgver"
+source=("$_url/releases/download/$pkgver/$_archive.tar.xz")
+sha256sums=('e95c31848500ab408e2498cc3331a367e4037e8f2e7f952a054f9dd04d5fe3ee')
 
 build() {
 	cd "$_archive"
