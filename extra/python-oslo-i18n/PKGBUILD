@@ -2,9 +2,9 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-i18n
-pkgver=6.1.0
-_commit=e356fe9059b03b7b22b12e0d3227e163a64bfbd2
-pkgrel=2
+pkgver=6.2.0
+_commit=4bcda7821bb88bfe200491aefcf7b2ff71150062
+pkgrel=1
 pkgdesc="Oslo i18n library"
 arch=('any')
 url="https://pypi.python.org/pypi/oslo.i18n/$pkgver"
