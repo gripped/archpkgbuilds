@@ -3,7 +3,7 @@
 
 _pyname=igraph
 pkgname=python-$_pyname
-pkgver=0.11.2
+pkgver=0.11.3
 pkgrel=1
 url='https://igraph.org/python/'
 license=(GPL)
@@ -19,7 +19,7 @@ makedepends=(python-build
              python-setuptools
              python-wheel)
 source=(https://github.com/igraph/python-igraph/releases/download/$pkgver/$_pyname-$pkgver.tar.gz)
-sha256sums=('c4053e47156d7685ad48bd72e6ff400d46b09deeebc746b96b5cf9737939fa2d')
+sha256sums=('e55df60f882a51b8e8c1c5e7e940c5f90685d75634ea6df63bebcc983397adfa')
 
 build() {
   cd igraph-$pkgver
