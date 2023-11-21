@@ -1,0 +1,93 @@
+pkgbase = nemo-extensions
+	pkgdesc = Various extensions for Nemo
+	pkgver = 6.0.0
+	pkgrel = 1
+	url = https://github.com/linuxmint/nemo-extensions
+	arch = x86_64
+	license = GPL2
+	makedepends = intltool
+	makedepends = gobject-introspection
+	makedepends = meson
+	makedepends = samurai
+	makedepends = cjs
+	makedepends = clutter-gtk
+	makedepends = clutter-gst
+	makedepends = libmusicbrainz5
+	makedepends = gtksourceview4
+	makedepends = xreader
+	makedepends = webkit2gtk-4.1
+	makedepends = python-gobject
+	makedepends = python-setuptools
+	makedepends = libcryptui
+	depends = nemo
+	options = !emptydirs
+	source = https://github.com/linuxmint/nemo-extensions/archive/6.0.0/nemo-extensions-6.0.0.tar.gz
+	sha256sums = e87ab3fc803c2d0f7bee4bbbbf9074382469352774caeafc88a10b969097cf82
+	b2sums = 85361e3b4450f701478663eb0276ec25c747ee877ad6216e7d845a15bcbe3d341b265c3f6010a2c62ee8566b7bb05bea24fc638a3fe15177d4b5f34fedaa473c
+
+pkgname = nemo-audio-tab
+	pkgdesc = View audio tag information in Nemo properties tab
+	depends = nemo
+	depends = nemo-python
+	depends = python-mutagen
+	optdepends = cinnamon-translations: i18n
+
+pkgname = nemo-emblems
+	pkgdesc = Change a folder or file emblem in Nemo
+	depends = nemo
+	depends = nemo-python
+	optdepends = cinnamon-translations: i18n
+
+pkgname = nemo-fileroller
+	pkgdesc = File archiver extension for Nemo
+	depends = nemo
+	depends = file-roller
+	optdepends = cinnamon-translations: i18n
+
+pkgname = nemo-image-converter
+	pkgdesc = Nemo extension to rotate/resize image files
+	depends = nemo
+	depends = imagemagick
+	optdepends = cinnamon-translations: i18n
+
+pkgname = nemo-pastebin
+	pkgdesc = Nemo extension to send files to a pastebin
+	depends = nemo
+	depends = nemo-python
+	depends = pastebinit
+	optdepends = cinnamon-translations: i18n
+
+pkgname = nemo-preview
+	pkgdesc = Quick file previewer for Nemo
+	depends = nemo
+	depends = cjs
+	depends = clutter-gtk
+	depends = clutter-gst
+	depends = libmusicbrainz5
+	depends = gtksourceview4
+	depends = xreader
+	depends = webkit2gtk-4.1
+	optdepends = cinnamon-translations: i18n
+
+pkgname = nemo-python
+	pkgdesc = Python3 binding for Nemo components
+	depends = nemo
+	depends = python-gobject
+	depends = python-setuptools
+
+pkgname = nemo-seahorse
+	pkgdesc = PGP encryption and signing extension for Nemo
+	depends = nemo
+	depends = libcryptui
+	optdepends = cinnamon-translations: i18n
+
+pkgname = nemo-share
+	pkgdesc = Samba extension for Nemo
+	depends = nemo
+	depends = samba
+	optdepends = cinnamon-translations: i18n
+
+pkgname = nemo-terminal
+	pkgdesc = Embedded terminal window for Nemo
+	depends = nemo-python
+	depends = vte3
