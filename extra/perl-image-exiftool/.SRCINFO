@@ -1,12 +1,13 @@
 pkgbase = perl-image-exiftool
 	pkgdesc = Reader and rewriter of EXIF information that supports raw files
 	pkgver = 12.70
-	pkgrel = 1
+	pkgrel = 2
 	url = https://exiftool.org/
 	arch = any
 	license = GPL
 	depends = perl
-	optdepends = perl-archive-zip: Support for ZIP-files, including EPUB
+	optdepends = perl-archive-zip: Support for zip files, including epub
+	optdepends = perl-io-compress-brotli: Support for brotli-compressed metadata
 	provides = perl-exiftool=12.70
 	replaces = perl-exiftool
 	options = !emptydirs
