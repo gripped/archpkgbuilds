@@ -2,8 +2,8 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-log
-pkgver=5.3.0
-_commit=82a59af4360f7918c3427ad9d183dffb43cff541
+pkgver=5.4.0
+_commit=b5b8c30b0d925aa3d31b58932c94586631827b62
 pkgrel=1
 pkgdesc="Oslo Logging Library"
 arch=('any')
@@ -14,15 +14,8 @@ depends=('python-pbr' 'python-oslo-config' 'python-oslo-context' 'python-oslo-i1
          'python-dateutil')
 makedepends=('git' 'python-setuptools')
 checkdepends=('python-stestr' 'python-testtools' 'python-oslotest' 'python-eventlet')
-source=("git+https://github.com/openstack/oslo.log.git#commit=$_commit"
-        $pkgname-catch-runtimeerror.patch::https://opendev.org/openstack/oslo.log/commit/0b478677025f713f55b59ded213cc512f0a77b5a.patch)
-sha512sums=('SKIP'
-            '76b2dcd64af81a7a48aac5edad22dcc133d22eb73c4467fcc7b8e26cda8c33d83855cb7d67944cb53a2afc4ea8f504abc733c95a201e8b33f5ca68351fbb07ce')
-
-prepare() {
-  cd oslo.log
-  patch -p1 -i ../$pkgname-catch-runtimeerror.patch
-}
+source=("git+https://github.com/openstack/oslo.log.git#commit=$_commit")
+sha512sums=('SKIP')
 
 build() {
   cd oslo.log
