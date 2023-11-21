@@ -1,6 +1,6 @@
 pkgbase = tomcat9
 	pkgdesc = Open source implementation of the Java Servlet 4.0 and JavaServer Pages 2.3 technologies
-	pkgver = 9.0.82
+	pkgver = 9.0.83
 	pkgrel = 1
 	url = https://tomcat.apache.org/
 	install = tomcat9.install
@@ -8,7 +8,7 @@ pkgbase = tomcat9
 	license = APACHE
 	makedepends = ant
 	makedepends = git
-	makedepends = java-environment=8
+	makedepends = java-environment=17
 	depends = java-runtime>=8
 	depends = java-jsvc
 	depends = java-commons-daemon
@@ -21,7 +21,7 @@ pkgbase = tomcat9
 	backup = etc/tomcat9/server.xml
 	backup = etc/tomcat9/tomcat-users.xml
 	backup = etc/tomcat9/web.xml
-	source = git+https://github.com/apache/tomcat.git#tag=e3b341d78d8db0f74d8989412eb28cdc39b2c251
+	source = git+https://github.com/apache/tomcat.git#tag=be97b0e06e77226aea5eb2a7b448f1d53bda2aa1
 	source = tomcat9.service
 	source = tomcat9.sysusers
 	source = tomcat9.tmpfiles
