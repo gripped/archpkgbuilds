@@ -1,11 +1,13 @@
 pkgbase = oxyromon
 	pkgdesc = Rusty ROM OrgaNizer
-	pkgver = 0.16.0
+	pkgver = 0.17.0
 	pkgrel = 1
 	url = https://github.com/alucryd/oxyromon
 	arch = x86_64
 	license = GPL3
 	makedepends = cmake
+	makedepends = ctrtool
+	makedepends = dolphin-emu-tool
 	makedepends = git
 	makedepends = mame-tools
 	makedepends = maxcso
@@ -15,12 +17,13 @@ pkgbase = oxyromon
 	depends = gcc-libs
 	depends = glibc
 	optdepends = cdrtools: IRD support
-	optdepends = dolphin-emu: RVZ support
+	optdepends = ctrtool: CIA support
+	optdepends = dolphin-emu-tool: RVZ support
 	optdepends = mame-tools: CHD support
 	optdepends = maxcso: CSO support
 	optdepends = p7zip: 7Z and ZIP support
 	options = !lto
-	source = git+https://github.com/alucryd/oxyromon.git#tag=f60681c383846ab599dde9d6229a9d8b708e88a5
+	source = git+https://github.com/alucryd/oxyromon.git#tag=bb3bbae6cd326c25def0386f26ad1778c3a17665
 	validpgpkeys = 95220BE99CE6FF778AE0DC670F65C7D881506130
 	b2sums = SKIP
 
