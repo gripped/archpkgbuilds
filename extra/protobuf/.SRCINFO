@@ -1,6 +1,6 @@
 pkgbase = protobuf
 	pkgdesc = Protocol Buffers - Google's data interchange format
-	pkgver = 25.0
+	pkgver = 25.1
 	pkgrel = 1
 	url = https://developers.google.com/protocol-buffers/
 	arch = x86_64
@@ -17,11 +17,11 @@ pkgbase = protobuf
 	depends = glibc
 	depends = zlib
 	depends = abseil-cpp
-	source = https://github.com/protocolbuffers/protobuf/archive/v25.0/protobuf-25.0.tar.gz
+	source = https://github.com/protocolbuffers/protobuf/archive/v25.1/protobuf-25.1.tar.gz
 	source = https://github.com/protocolbuffers/protobuf/commit/2e62ef1e.patch
 	source = soversion.patch
 	source = protobuf-21.12-pep517.patch
-	sha512sums = 4dc0b483533cefaf92610524bf131aeff448d4e176a615643804f49cdfbd8efe7d8fdb60cd6e1ed70ffe6e7f1ad00657957f876458cdb093361049e2c83846ad
+	sha512sums = d2fad2188118ced2cd951bdb472d72cc9e9b2158c88eeca652c76332a884b5b5b4b58628f7777272fa693140753823584ea9c7924f1655b1d5a363f59bdf7a4c
 	sha512sums = f42d9bd702abe2c7fc4dcb07d050376287ac60b0b7e2fde0d7a9e9df24a620866bee5fd7de2e3b216095376de47e1fe7443cca74c9a9e85c1a0bc42e8973a280
 	sha512sums = f0813a415cff5639e4709400f15b0c5565294e7907ae164e620b76258734c643115d8e5170bf0e4aee264c347fb7e01ac4be60d19be2a91c0ce9c561dad8c8e9
 	sha512sums = a297e74ee4f807b3fad7da7d0de6dd9647963521be66cd2a2370343f5bd191cbb38759157ac0cdb161a5893a30a10520a5098e88a292c800859af33db5cf7a41
@@ -34,5 +34,5 @@ pkgname = protobuf
 
 pkgname = python-protobuf
 	pkgdesc = Python 3 bindings for Google Protocol Buffers
-	depends = protobuf=25.0
+	depends = protobuf=25.1
 	depends = python
