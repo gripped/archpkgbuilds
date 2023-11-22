@@ -1,0 +1,25 @@
+pkgbase = xdg-utils
+	pkgdesc = Command line tools that assist applications with a variety of desktop integration tasks
+	pkgver = 1.2.0r17+g21fb316
+	pkgrel = 1
+	url = https://www.freedesktop.org/wiki/Software/xdg-utils/
+	arch = any
+	license = MIT
+	makedepends = docbook-xsl
+	makedepends = lynx
+	makedepends = xmlto
+	makedepends = git
+	depends = sh
+	depends = file
+	depends = xorg-xset
+	depends = xorg-xprop
+	optdepends = kde-cli-tools: for KDE Plasma5 support in xdg-open
+	optdepends = exo: for Xfce support in xdg-open
+	optdepends = pcmanfm: for LXDE support in xdg-open
+	optdepends = perl-file-mimeinfo: for generic support in xdg-open
+	optdepends = perl-net-dbus: Perl extension to dbus used in xdg-screensaver
+	optdepends = perl-x11-protocol: Perl X11 protocol used in xdg-screensaver
+	source = git+https://gitlab.freedesktop.org/xdg/xdg-utils.git#commit=21fb316bea83e3374eafc7fbf1e25a0ccdda92cb
+	sha256sums = SKIP
+
+pkgname = xdg-utils
