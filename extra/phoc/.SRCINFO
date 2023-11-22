@@ -1,7 +1,7 @@
 pkgbase = phoc
 	pkgdesc = Display compositor designed for phones
 	pkgver = 0.33.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://gitlab.gnome.org/World/Phosh/phoc
 	arch = x86_64
 	arch = aarch64
@@ -19,7 +19,7 @@ pkgbase = phoc
 	makedepends = python-typogrify
 	makedepends = libgirepository
 	depends = gnome-desktop
-	depends = wlroots
+	depends = wlroots0.16
 	depends = gsettings-desktop-schemas
 	depends = pixman
 	depends = libinput
@@ -37,3 +37,16 @@ pkgbase = phoc
 	sha256sums = b071e21a30eb8649b2bd9f416eec97110f0f08090b6c230e928ef1c3339ac344
 
 pkgname = phoc
+	depends = gnome-desktop
+	depends = wlroots0.16
+	depends = gsettings-desktop-schemas
+	depends = pixman
+	depends = libinput
+	depends = libxcb
+	depends = libxkbcommon
+	depends = json-glib
+	depends = glib2
+	depends = dconf
+	depends = cairo
+	depends = wayland
+	depends = libwlroots.so=11
