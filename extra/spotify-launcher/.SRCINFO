@@ -1,0 +1,30 @@
+pkgbase = spotify-launcher
+	pkgdesc = Client for spotify's apt repository in Rust for Arch Linux
+	pkgver = 0.5.2
+	pkgrel = 1
+	url = https://github.com/kpcyrd/spotify-launcher
+	arch = x86_64
+	license = MIT
+	license = Apache
+	makedepends = cargo
+	depends = alsa-lib>=1.0.14
+	depends = at-spi2-atk
+	depends = desktop-file-utils
+	depends = gtk3
+	depends = libayatana-appindicator
+	depends = libcurl-gnutls
+	depends = libsm
+	depends = libxss
+	depends = nss
+	depends = openssl
+	depends = sequoia-sqv
+	depends = zenity
+	options = !lto
+	backup = etc/spotify-launcher.conf
+	source = https://github.com/kpcyrd/spotify-launcher/archive/v0.5.2/spotify-launcher-0.5.2.tar.gz
+	source = https://github.com/kpcyrd/spotify-launcher/releases/download/v0.5.2/spotify-launcher-0.5.2.tar.gz.asc
+	validpgpkeys = 64B13F7117D6E07D661BBCE0FE763A64F5E54FD6
+	b2sums = 3c92a44357e0349103b284f623dfe6eb645238ad15818aa20e0fc02089057cbdaf162bcf78b6b492231ba1c8e93d864e63078aa9d9872c725e7e5471d9c46232
+	b2sums = SKIP
+
+pkgname = spotify-launcher
