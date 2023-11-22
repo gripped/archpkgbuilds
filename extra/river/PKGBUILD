@@ -3,7 +3,9 @@
 
 pkgname=river
 pkgver=0.2.4
-pkgrel=1
+pkgrel=2
+# backport of zig 0.11.0 patches. Remove with next release
+_commit=50ccd4c5b3cd700bed09d26eb75552f08f9af262
 pkgdesc='A dynamic tiling wayland compositor'
 arch=('x86_64')
 url='https://github.com/riverwm/river'
@@ -13,45 +15,69 @@ depends=('libevdev'
          'mesa'
          'pixman'
          'wayland'
-         'wlroots'
+         'wlroots0.16'
          'xorg-xwayland')
-makedepends=('scdoc'
+makedepends=('git'
+             'scdoc'
              'wayland-protocols'
              'zig')
 optdepends=('polkit: access seat through systemd-logind')
-source=("https://github.com/riverwm/river/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz"{,.sig})
+# source=("https://github.com/riverwm/river/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz"{,.sig})
+source=("git+https://github.com/riverwm/river.git#commit=$_commit"
+        git+https://github.com/swaywm/zig-wlroots.git
+        git+https://github.com/ifreund/zig-pixman.git
+        git+https://github.com/ifreund/zig-xkbcommon.git
+        git+https://github.com/ifreund/zig-wayland.git)
 validpgpkeys=('5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11') # Isaac Freund <mail@isaacfreund.com>
-sha256sums=('26c1c41a65ce3804069afad6988410515cf478d2b76303ebc699766d3d4dc69f'
+sha256sums=('SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
             'SKIP')
 
+prepare() {
+  cd ${pkgname%-git}
+  git submodule init
+  git config submodule."deps/zig-wayland".url "${srcdir}/zig-wayland"
+  git config submodule."deps/zig-pixman".url "${srcdir}/zig-pixman"
+  git config submodule."deps/zig-xkbcommon".url "${srcdir}/zig-xkbcommon"
+  git config submodule."deps/zig-wlroots".url "${srcdir}/zig-wlroots"
+  git -c protocol.file.allow=always submodule update
+}
+
 build() {
-  cd "$pkgname-$pkgver"
-  
+  # cd "$pkgname-$pkgver"
+  cd "$pkgname"
+
+  export PKG_CONFIG_PATH='/usr/lib/wlroots0.16/pkgconfig'
   DESTDIR="build" zig build \
     --prefix /usr \
     --search-prefix /usr \
     -Dtarget=native-linux.5.15-gnu.2.37 \
     -Dcpu=baseline \
     -Dpie \
-    -Drelease-safe \
+    -Doptimize=ReleaseSafe \
     -Dxwayland
 }
 
 check() {
-  cd "$pkgname-$pkgver"
-  
+  # cd "$pkgname-$pkgver"
+  cd "$pkgname"
+
   zig build test \
     --prefix /usr \
     --search-prefix /usr \
     -Dtarget=native-linux.5.15-gnu.2.37 \
     -Dcpu=baseline \
     -Dpie \
-    -Drelease-safe \
+    -Doptimize=ReleaseSafe \
     -Dxwayland
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  depends+=(libwlroots.so=11)
+  # cd "$pkgname-$pkgver"
+  cd "$pkgname"
 
   cp -a build/* "$pkgdir"
 
