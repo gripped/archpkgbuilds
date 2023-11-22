@@ -1,7 +1,7 @@
 pkgbase = python-pywlroots
 	pkgdesc = Python binding to the wlroots library using cffi
 	pkgver = 0.16.6
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/flacjacket/pywlroots
 	arch = x86_64
 	license = NCSA
@@ -15,7 +15,7 @@ pkgbase = python-pywlroots
 	depends = python-cffi
 	depends = python-pywayland
 	depends = python-xkbcommon
-	depends = wlroots
+	depends = wlroots0.16
 	provides = pywlroots
 	conflicts = pywlroots
 	replaces = pywlroots
@@ -24,3 +24,10 @@ pkgbase = python-pywlroots
 	b2sums = 0752c0511b1a9530d67c868e337bb2aba556111693a2c8e494d23d1e0ef1fcd9c08e4caf03bcc6a1029af5e9bb8059d037a08d726f611f72f065d1c38ab30226
 
 pkgname = python-pywlroots
+	depends = glibc
+	depends = python
+	depends = python-cffi
+	depends = python-pywayland
+	depends = python-xkbcommon
+	depends = wlroots0.16
+	depends = libwlroots.so=11
