@@ -1,7 +1,7 @@
 pkgbase = qtile
 	pkgdesc = A full-featured, pure-Python tiling window manager
 	pkgver = 0.23.0
-	pkgrel = 1
+	pkgrel = 2
 	url = http://www.qtile.org
 	install = qtile.install
 	arch = x86_64
@@ -37,7 +37,7 @@ pkgbase = qtile
 	depends = python-gobject
 	depends = python-pywlroots
 	depends = python-xcffib
-	depends = wlroots
+	depends = wlroots0.16
 	optdepends = alsa-utils: for volume widget
 	optdepends = canto-daemon: for canto widget
 	optdepends = cmus: for cmus widget
@@ -65,3 +65,16 @@ pkgbase = qtile
 	b2sums = SKIP
 
 pkgname = qtile
+	depends = gdk-pixbuf2
+	depends = glibc
+	depends = libnotify
+	depends = librsvg
+	depends = pango
+	depends = python
+	depends = python-cairocffi
+	depends = python-cffi
+	depends = python-gobject
+	depends = python-pywlroots
+	depends = python-xcffib
+	depends = wlroots0.16
+	depends = libwlroots.so=11
