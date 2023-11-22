@@ -3,7 +3,7 @@
 # Contributor: Daniel Nagy <danielnagy at gmx de>
 
 pkgname=libde265
-pkgver=1.0.13
+pkgver=1.0.14
 pkgrel=1
 pkgdesc='Open h.265 video codec implementation'
 arch=(x86_64)
@@ -18,7 +18,7 @@ optdepends=('ffmpeg: for sherlock265'
             'qt5-base: for sherlock265'
             'sdl: dec265 YUV overlay output')
 source=(https://github.com/strukturag/libde265/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('b921bc90521f28914bbf0c638c436b79831857ca4f7af1f3dd4ce2228bf40cfd')
+sha256sums=('99f46ef77a438be639aa3c5d9632c0670541c5ed5d386524d4199da2d30df28f')
 
 build() {
   cd $pkgname-$pkgver
