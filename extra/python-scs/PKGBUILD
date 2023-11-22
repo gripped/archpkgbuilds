@@ -2,7 +2,7 @@
 
 _pyname=scs
 pkgname=python-$_pyname
-pkgver=3.2.4
+pkgver=3.2.4.post1
 pkgrel=1
 pkgdesc='Splitting Conic Solver'
 url='https://github.com/cvxgrp/scs/'
@@ -13,15 +13,8 @@ makedepends=(meson-python
              python-build
              python-installer)
 checkdepends=(python-pytest)
-source=(https://pypi.org/packages/source/${_pyname:0:1}/$_pyname/$_pyname-$pkgver.tar.gz
-        find-lapack.patch)
-sha256sums=('09ffaa670d8608901db94addd8581376498cd9818eb5ef27fed3560f0bf0661b'
-            '3df603a4abcad273db20d45458dba65f0e52c4f0c6fd51a3364b2f9c2d738536')
-
-prepare() {
-  cd $_pyname-$pkgver
-  patch -p1 -i ../find-lapack.patch # Fix linking to lapack
-}
+source=(https://pypi.org/packages/source/${_pyname:0:1}/$_pyname/$_pyname-$pkgver.tar.gz)
+sha256sums=('7015d7a56d1d5b53264fd277289ea169949309e26101677ff88cd0e5030d032f')
 
 build() {
   cd $_pyname-$pkgver
