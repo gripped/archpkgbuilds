@@ -6,8 +6,8 @@ pkgname=(
   wireplumber
   libwireplumber
 )
-_commit=d67b48e595cb4612fd7fd47f97df6b8883ef7f60  # tags/0.4.15
-pkgver=0.4.15
+_commit=0d249b8a13d7168fe54fa6eb1db1c4a5fcc8d3f8  # tags/0.4.16
+pkgver=0.4.16
 pkgrel=1
 pkgdesc="Session / policy manager implementation for PipeWire"
 url="https://pipewire.pages.freedesktop.org/wireplumber/"
