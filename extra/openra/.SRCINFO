@@ -1,13 +1,14 @@
 pkgbase = openra
 	pkgdesc = An open-source implementation of the Red Alert engine using .NET/Mono and OpenGL
 	pkgver = 20231010
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.openra.net
 	install = openra.install
 	arch = any
 	license = GPL3
 	makedepends = git
 	makedepends = unzip
+	makedepends = dotnet-sdk-6.0
 	depends = ttf-dejavu
 	depends = openal
 	depends = libgl
@@ -19,7 +20,7 @@ pkgbase = openra
 	depends = desktop-file-utils
 	depends = xdg-utils
 	depends = zenity
-	depends = dotnet-sdk-6.0
+	depends = dotnet-runtime-6.0
 	options = !debug
 	source = git+https://github.com/OpenRA/OpenRA.git#tag=release-20231010
 	sha512sums = SKIP
