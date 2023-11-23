@@ -2,8 +2,8 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-utils
-pkgver=6.2.0
-_commit=8115085dac49b005b623a74339eddc2bd9e096ce
+pkgver=6.2.1
+_commit=a5941e8f845534e3604dacf2dfa9a87d224eeef8
 pkgrel=1
 pkgdesc="Oslo Utility library"
 arch=('any')
