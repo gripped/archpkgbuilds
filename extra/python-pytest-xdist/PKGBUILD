@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-xdist
-pkgver=3.4.0
-_commit=a6b56112f9b686aed7a354e0d50ecc26ad2d9dfe
+pkgver=3.5.0
+_commit=95b309e980796a261045d770f69c016ca741473d
 pkgrel=1
 pkgdesc='py.test xdist plugin for distributed testing and loop-on-failing modes'
 arch=('any')
