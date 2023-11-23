@@ -1,0 +1,18 @@
+pkgbase = multipath-tools
+	pkgdesc = Multipath tools for Linux (including kpartx)
+	pkgver = 0.9.7
+	pkgrel = 1
+	url = https://github.com/opensvc/multipath-tools
+	arch = x86_64
+	license = GPL2
+	makedepends = git
+	makedepends = systemd
+	depends = libaio
+	depends = device-mapper
+	depends = json-c
+	depends = liburcu
+	depends = systemd-libs
+	source = multipath-tools::git+https://github.com/opensvc/multipath-tools#tag=6bb7330fca4a85c4f5abab0f9de5bd3519923f0a
+	sha256sums = SKIP
+
+pkgname = multipath-tools
