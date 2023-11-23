@@ -1,0 +1,26 @@
+pkgbase = soapyosmo
+	pkgdesc = Soapy SDR plugins for OsmoSDR devices
+	pkgver = 0.2.5
+	pkgrel = 18
+	url = https://github.com/pothosware/SoapyOsmo
+	arch = x86_64
+	license = GPL3
+	makedepends = cmake
+	makedepends = boost
+	makedepends = airspy
+	makedepends = hackrf
+	makedepends = libosmosdr
+	makedepends = rtl-sdr
+	depends = soapysdr
+	depends = gnuradio-osmosdr
+	depends = boost-libs
+	optdepends = airspy: AirSpy support
+	optdepends = hackrf: HackRF support
+	optdepends = libosmosdr: OsmoSDR support
+	optdepends = rtl-sdr: RTL-SDR support
+	source = soapyosmo-0.2.5.tar.gz::https://github.com/pothosware/SoapyOsmo/archive/soapy-osmo-0.2.5.tar.gz
+	source = boost-1.73.patch
+	sha512sums = a1aa5f3c84f5e9cf8cc0329445836162586c3fd301f126310e2a3131c170f1d213fcb214162a28c448a49f57fcf177b7a00d10967ba88a8434a6ac26fa2264e8
+	sha512sums = 98c9152445c919618dbc31e0056129e0734b60cbf2ee86903c6b7206883e8b6ba64dbe64e96fdebdb3f18abbb3b68aefa19ba3b177664d4fa61995be4c05ef64
+
+pkgname = soapyosmo
