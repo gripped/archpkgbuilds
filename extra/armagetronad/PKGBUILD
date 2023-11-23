@@ -5,11 +5,13 @@
 
 pkgname=armagetronad
 pkgver=0.2.9.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A Tron Clone in 3D'
 arch=('x86_64')
 url='http://armagetronad.net/'
 license=('GPL')
+# Disable build flags to fix FS#80060
+options=('!buildflags')
 depends=('sdl_image' 'libxml2' 'sdl_mixer' 'ftgl' 'hicolor-icon-theme')
 source=("https://launchpad.net/armagetronad/0.2.9/${pkgver}/+download/armagetronad-${pkgver}.tbz")
 sha256sums=('f617de700ecf1dd11f75e2932ee74796729112352d5cabaa2bc479add7dffd32')
