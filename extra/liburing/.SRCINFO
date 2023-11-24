@@ -1,0 +1,17 @@
+pkgbase = liburing
+	pkgdesc = Linux-native io_uring I/O access library
+	pkgver = 2.5
+	pkgrel = 1
+	url = https://git.kernel.dk/cgit/liburing
+	arch = x86_64
+	license = (GPL-2.0-only WITH Linux-syscall-note) OR MIT
+	license = LGPL-2.0-or-later
+	license = MIT
+	makedepends = git
+	provides = liburing.so
+	provides = liburing-ffi.so
+	source = git+https://git.kernel.dk/cgit/liburing#tag=5dd20d52f442feae7023af5772429910d3aa5307?signed
+	validpgpkeys = C0FC392DCADE26D975FA5E4AF7D358FB2971E0A6
+	sha512sums = SKIP
+
+pkgname = liburing
