@@ -2,9 +2,9 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-keystoneauth1
-pkgver=5.3.0
-_commit=e6f3999c6f2f846e3dda505343166ab8c8346c2a
-pkgrel=2
+pkgver=5.4.0
+_commit=44e477dfb5821cb535d880738a965901ecd6f734
+pkgrel=1
 pkgdesc="Authentication Library for OpenStack Identity"
 arch=('any')
 url="https://docs.openstack.org/developer/keystoneauth"
