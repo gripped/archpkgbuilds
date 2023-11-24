@@ -2,10 +2,8 @@
 # Contributor: Andrea Feletto <andrea@andreafeletto.com>
 
 pkgname=river
-pkgver=0.2.4
-pkgrel=2
-# backport of zig 0.11.0 patches. Remove with next release
-_commit=50ccd4c5b3cd700bed09d26eb75552f08f9af262
+pkgver=0.2.5
+pkgrel=1
 pkgdesc='A dynamic tiling wayland compositor'
 arch=('x86_64')
 url='https://github.com/riverwm/river'
@@ -17,37 +15,17 @@ depends=('libevdev'
          'wayland'
          'wlroots0.16'
          'xorg-xwayland')
-makedepends=('git'
-             'scdoc'
+makedepends=('scdoc'
              'wayland-protocols'
              'zig')
 optdepends=('polkit: access seat through systemd-logind')
-# source=("https://github.com/riverwm/river/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz"{,.sig})
-source=("git+https://github.com/riverwm/river.git#commit=$_commit"
-        git+https://github.com/swaywm/zig-wlroots.git
-        git+https://github.com/ifreund/zig-pixman.git
-        git+https://github.com/ifreund/zig-xkbcommon.git
-        git+https://github.com/ifreund/zig-wayland.git)
+source=("https://github.com/riverwm/river/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz"{,.sig})
 validpgpkeys=('5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11') # Isaac Freund <mail@isaacfreund.com>
-sha256sums=('SKIP'
-            'SKIP'
-            'SKIP'
-            'SKIP'
+sha256sums=('cb07423755aae7a7a874dfb54cfac85485a7ef960078d76d598b314c637f227e'
             'SKIP')
 
-prepare() {
-  cd ${pkgname%-git}
-  git submodule init
-  git config submodule."deps/zig-wayland".url "${srcdir}/zig-wayland"
-  git config submodule."deps/zig-pixman".url "${srcdir}/zig-pixman"
-  git config submodule."deps/zig-xkbcommon".url "${srcdir}/zig-xkbcommon"
-  git config submodule."deps/zig-wlroots".url "${srcdir}/zig-wlroots"
-  git -c protocol.file.allow=always submodule update
-}
-
 build() {
-  # cd "$pkgname-$pkgver"
-  cd "$pkgname"
+  cd "$pkgname-$pkgver"
 
   export PKG_CONFIG_PATH='/usr/lib/wlroots0.16/pkgconfig'
   DESTDIR="build" zig build \
@@ -61,8 +39,7 @@ build() {
 }
 
 check() {
-  # cd "$pkgname-$pkgver"
-  cd "$pkgname"
+  cd "$pkgname-$pkgver"
 
   zig build test \
     --prefix /usr \
@@ -76,8 +53,7 @@ check() {
 
 package() {
   depends+=(libwlroots.so=11)
-  # cd "$pkgname-$pkgver"
-  cd "$pkgname"
+  cd "$pkgname-$pkgver"
 
   cp -a build/* "$pkgdir"
 

@@ -1,7 +1,7 @@
 pkgbase = river
 	pkgdesc = A dynamic tiling wayland compositor
-	pkgver = 0.2.4
-	pkgrel = 2
+	pkgver = 0.2.5
+	pkgrel = 1
 	url = https://github.com/riverwm/river
 	arch = x86_64
 	license = GPL3
@@ -17,16 +17,10 @@ pkgbase = river
 	depends = wlroots0.16
 	depends = xorg-xwayland
 	optdepends = polkit: access seat through systemd-logind
-	source = git+https://github.com/riverwm/river.git#commit=50ccd4c5b3cd700bed09d26eb75552f08f9af262
-	source = git+https://github.com/swaywm/zig-wlroots.git
-	source = git+https://github.com/ifreund/zig-pixman.git
-	source = git+https://github.com/ifreund/zig-xkbcommon.git
-	source = git+https://github.com/ifreund/zig-wayland.git
+	source = https://github.com/riverwm/river/releases/download/v0.2.5/river-0.2.5.tar.gz
+	source = https://github.com/riverwm/river/releases/download/v0.2.5/river-0.2.5.tar.gz.sig
 	validpgpkeys = 5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11
-	sha256sums = SKIP
-	sha256sums = SKIP
-	sha256sums = SKIP
-	sha256sums = SKIP
+	sha256sums = cb07423755aae7a7a874dfb54cfac85485a7ef960078d76d598b314c637f227e
 	sha256sums = SKIP
 
 pkgname = river
