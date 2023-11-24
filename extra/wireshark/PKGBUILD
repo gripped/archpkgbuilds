@@ -8,7 +8,7 @@
 pkgbase=wireshark
 pkgname=('wireshark-cli' 'wireshark-qt')
 pkgver=4.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Network traffic and protocol analyzer/sniffer'
 url='https://www.wireshark.org/'
 arch=('x86_64')
@@ -55,6 +55,7 @@ package_wireshark-cli() {
 
   cd ${pkgbase}-${pkgver}
   DESTDIR="${pkgdir}" ninja -C build install
+  DESTDIR="${pkgdir}" cmake --install build --component Development
 
   # wireshark uid group is 150
   install -Dm 644 "${srcdir}"/wireshark.sysusers "${pkgdir}"/usr/lib/sysusers.d/wireshark.conf
