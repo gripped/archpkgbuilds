@@ -3,9 +3,9 @@
 
 pkgbase=nix
 pkgname=('nix' 'nix-docs')
-pkgver=2.18.1
-_commit='f5f4de6a550327b4b1a06123c2e450f1b92c73b6'
-pkgrel=5
+pkgver=2.19.1
+_commit='455aca36e4e99b418f22146614883c1ab0dc418b'
+pkgrel=1
 pkgdesc='A purely functional package manager'
 arch=('x86_64')
 url='https://nixos.org/nix'
@@ -69,7 +69,7 @@ prepare() {
 build() {
   cd "$pkgbase"
 
-  ./bootstrap.sh
+  autoreconf -vfi
 
   ./configure \
     --prefix=/usr \
