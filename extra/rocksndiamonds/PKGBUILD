@@ -2,7 +2,7 @@
 # Contributor: Jacek Poplawski <jacekpoplawski@gmail.com>
 
 pkgname=rocksndiamonds
-pkgver=4.3.4.0
+pkgver=4.3.7.1
 pkgrel=1
 pkgdesc="game similiar to Boulderdash with lots of levels"
 arch=(x86_64)
@@ -11,8 +11,8 @@ license=('GPL')
 depends=('sdl2' 'sdl2_image' 'sdl2_mixer' 'sdl2_net')
 source=(https://www.artsoft.org/RELEASES/linux/rocksndiamonds/rocksndiamonds-$pkgver-linux.tar.gz
 	rocksndiamonds.desktop)
-sha256sums=('81d815e1296c041ed94ae9777397f40fdf5d13ecb5b375202af96a3119904ad7'
-            '90008d356dd30034287ca763a05feb482d7e0c4508572abb08b5215fcb4fe922')
+sha256sums=('800cc3d76f5a372d9c1d54dc305a3c80c820274eb97f502ae8a4d7602422df37'
+            'f92b604abeeda66aa28d06ae2d8b0ea89aedfd7686d3f8c73d8c0b05ad039439')
 
 build() {
   cd "$srcdir"/rocksndiamonds-$pkgver
