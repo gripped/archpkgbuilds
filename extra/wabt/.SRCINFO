@@ -1,0 +1,26 @@
+pkgbase = wabt
+	pkgdesc = The WebAssembly Binary Toolkit is a suite of tools for WebAssembly
+	pkgver = 1.0.34
+	pkgrel = 1
+	url = https://github.com/WebAssembly/wabt
+	arch = x86_64
+	license = APACHE
+	makedepends = cmake
+	makedepends = git
+	makedepends = gcc
+	makedepends = clang
+	makedepends = python-ply
+	makedepends = gtest
+	depends = glibc
+	depends = gcc-libs
+	source = git+https://github.com/WebAssembly/wabt#commit=366a86a119727bdc957c2bf988ebd835c3ddb256
+	source = git+https://github.com/WebAssembly/testsuite
+	source = git+https://github.com/google/googletest
+	source = git+https://github.com/dabeaz/ply
+	validpgpkeys = 5DE3E0509C47EA3CF04A42D34AEE18F83AFDEB23
+	sha512sums = SKIP
+	sha512sums = SKIP
+	sha512sums = SKIP
+	sha512sums = SKIP
+
+pkgname = wabt
