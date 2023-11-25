@@ -2,13 +2,14 @@
 
 pkgname=kpimtextedit
 pkgver=23.08.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A textedit with PIM-specific features'
 arch=(x86_64)
 url='https://kontact.kde.org'
 license=(LGPL)
 depends=(kio5 syntax-highlighting5 ktextaddons)
 makedepends=(extra-cmake-modules qt5-tools doxygen)
+provides=(kpimtextedit5)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('3c16724fcd0b8f915f7a8a981132838eb930d1e1a9a85fdfcfc78ab3a16204fb'
             'SKIP')
