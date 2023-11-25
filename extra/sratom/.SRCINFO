@@ -1,0 +1,35 @@
+pkgbase = sratom
+	pkgdesc = An LV2 Atom RDF serialisation library
+	pkgver = 0.6.16
+	pkgrel = 1
+	url = https://drobilla.net/software/sratom.html
+	arch = x86_64
+	license = ISC
+	makedepends = doxygen
+	makedepends = lv2
+	makedepends = meson
+	makedepends = python-sphinx
+	makedepends = python-sphinx-lv2-theme
+	makedepends = python-sphinxygen
+	makedepends = serd
+	makedepends = sord
+	source = https://download.drobilla.net/sratom-0.6.16.tar.xz
+	source = https://download.drobilla.net/sratom-0.6.16.tar.xz.sig
+	validpgpkeys = 907D226E7E13FA337F014A083672782A9BF368F3
+	sha512sums = 8e01eec642bff63745e8d99a814780ff34e4b79cc99699a1bb7ddac60da8808231d3b4a615a1d87464cbcf4dc26b8ec39e71688a268d493df71dc75892bf6479
+	sha512sums = SKIP
+	b2sums = e78bc572d990ce6914f3276d1b110cb3ba01213f5a084d8548009bf9226107c820f9f86f4cf22ae8076dd9d44bdb5e8b4bc623f67759150fb267b6ccf673a1f7
+	b2sums = SKIP
+
+pkgname = sratom
+	depends = glibc
+	depends = serd
+	depends = libserd-0.so
+	depends = sord
+	depends = libsord-0.so
+	depends = lv2
+	optdepends = sratom-docs: for developer documentation
+	provides = libsratom-0.so
+
+pkgname = sratom-docs
+	pkgdesc = An LV2 Atom RDF serialisation library - documentation
