@@ -3,7 +3,7 @@
 pkgbase=avogadrolibs
 pkgname=(avogadrolibs avogadrolibs-qt5)
 pkgver=1.98.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Libraries that provide 3D rendering, visualization, analysis and data processing useful in computational chemistry, molecular modeling, bioinformatics, materials science, and related areas'
 arch=(x86_64)
 url='https://www.openchemistry.org/'
@@ -25,6 +25,7 @@ makedepends=(boost
              qt5-tools
              spglib
              tbb
+             verdict
              vtk)
 source=(https://github.com/OpenChemistry/avogadrolibs/archive/$pkgver/$pkgname-$pkgver.tar.gz)
 sha256sums=('cb1d2c83a7f2c89c46ad46fdecace0d6f4de76c0898708ad52cf1e5a0aad1fb6')
