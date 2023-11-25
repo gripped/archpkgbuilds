@@ -2,13 +2,14 @@
 
 pkgname=kontactinterface
 pkgver=23.08.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Kontact Plugin Interface Library'
 arch=(x86_64)
 url='https://kontact.kde.org'
 license=(LGPL)
 depends=(kparts5)
 makedepends=(extra-cmake-modules doxygen qt5-tools)
+provides=(kontactinterface5)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('f4211c7131c597eb38e6735095ad8337551aad4dd238e79c6450bce68e95177b'
             'SKIP')
