@@ -1,0 +1,28 @@
+pkgbase = prrte
+	pkgdesc = PMIx Reference RunTime Environment
+	pkgver = 3.0.2
+	pkgrel = 1
+	url = https://github.com/openpmix/prrte
+	arch = x86_64
+	license = BSD-3-Clause
+	makedepends = glibc
+	makedepends = hwloc
+	makedepends = libevent
+	makedepends = openpmix
+	makedepends = perl
+	conflicts = putty
+	source = prrte-3.0.2.tar.gz::https://github.com/openpmix/prrte/releases/download/v3.0.2/prrte-3.0.2.tar.gz
+	sha512sums = 0b46704afedf2c1fb05f1556c78f5dfd68d79ee81cb90d6eb37117761f67c62cad651747da568aaafedfa0b6ac0c8eaed7683cb442d533ce6274094b324c9e09
+	b2sums = 2df4041b84508cfa7573b823d8e82d7d033ec396e880069230711990bc2ac7d0f72f0078cbceab6567e228a801abdf1245993ec3a4b797a2dba04b20079c692a
+
+pkgname = prrte
+	depends = glibc
+	depends = hwloc
+	depends = libevent
+	depends = openpmix
+	depends = libpmix.so
+	optdepends = prrte-docs: for documentation
+	provides = libprrte.so
+
+pkgname = prrte-docs
+	pkgdesc = - documentation
