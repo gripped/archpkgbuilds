@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-file-manager
-pkgver=6.0.35
+pkgver=6.0.36
 pkgrel=1
 epoch=1
 pkgdesc='Deepin File Manager'
@@ -30,7 +30,7 @@ replaces=('deepin-desktop')
 # https://github.com/linuxdeepin/developer-center/issues/5725
 options=('!lto')
 source=("https://github.com/linuxdeepin/dde-file-manager/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('983de10ed14e109341e1092bda0dfa403039f380d5f4cc10a1ddfca7374860518846cfb08e8b60ea2e0b29e640796052b6ef8f52c645abc35051a66a4d55042f')
+sha512sums=('78ff438357b36831c11c532bfc94c5429befd3bea5fc6b83bba2422f15043c07f2748f97643fe1cded202592bae5e0d053fa3cf482fa8ffe58c6fa7cc2e3c503')
 
 build() {
   # cmake confused with glob files, see https://github.com/linuxdeepin/developer-center/issues/5158
