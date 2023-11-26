@@ -2,13 +2,14 @@
 
 pkgname=grantleetheme
 pkgver=23.08.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Library for Grantlee theming support'
 arch=(x86_64)
 url='https://kontact.kde.org'
 license=(LGPL)
 depends=(grantlee knewstuff5)
 makedepends=(extra-cmake-modules qt5-tools doxygen)
+provides=(grantleetheme5)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('59b47682907225e081c288be4a8f0887e93ede72091a72625853251b94ebfc88'
             'SKIP')
