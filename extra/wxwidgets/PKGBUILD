@@ -6,7 +6,7 @@ pkgname=(wxwidgets-common
          wxwidgets-gtk3
          wxwidgets-qt5)
 pkgver=3.2.4
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://wxwidgets.org'
 license=(custom:wxWindows)
@@ -19,12 +19,15 @@ makedepends=(cmake
              sdl2
              webkit2gtk)
 source=(https://github.com/wxWidgets/wxWidgets/releases/download/v$pkgver/wxWidgets-$pkgver.tar.bz2
-        https://github.com/wxWidgets/wxWidgets/commit/ed510012.patch)
+        https://github.com/wxWidgets/wxWidgets/commit/ed510012.patch
+        https://github.com/wxWidgets/wxWidgets/commit/8ea22b5e.patch)
 sha256sums=('0640e1ab716db5af2ecb7389dbef6138d7679261fbff730d23845ba838ca133e'
-            '0f714caa562269ba40ea55e1ef2f1c800d0669f01c3862f47db183eb2db91567')
+            '0f714caa562269ba40ea55e1ef2f1c800d0669f01c3862f47db183eb2db91567'
+            '4e79b54088e513010cb2442d95ef23d6ab1cafd6a434090e1ead5c7b67c81e15')
 
 prepare() {
   patch -d wxWidgets-$pkgver -p1 < ed510012.patch # Fix undefined symbols in Qt build
+  patch -d wxWidgets-$pkgver -p1 < 8ea22b5e.patch # Avoid crash with GTK3 if console program is using a GUI wxApp
 }
 
 build() {
