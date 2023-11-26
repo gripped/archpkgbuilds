@@ -27,7 +27,7 @@ index ecca1e97a6e4..a53bc4202cd0 100644
  
  if ENABLE_TESTS
 diff --git a/avahi-daemon/Makefile.am b/avahi-daemon/Makefile.am
-index 9645e6e7c2e2..7dd38d99d16e 100644
+index d352d5e52e5d..1f8b6d80ddb9 100644
 --- a/avahi-daemon/Makefile.am
 +++ b/avahi-daemon/Makefile.am
 @@ -27,6 +27,7 @@ pkgsysconfdir=$(sysconfdir)/avahi
@@ -37,8 +37,8 @@ index 9645e6e7c2e2..7dd38d99d16e 100644
 +pkgdocdir=$(datadir)/doc/avahi
  
  AM_CFLAGS+= \
- 	-DAVAHI_DAEMON_RUNTIME_DIR=\"$(avahi_runtime_dir)/avahi-daemon/\" \
-@@ -69,7 +70,7 @@ pkgsysconf_DATA = \
+ 	-DAVAHI_DAEMON_RUNTIME_DIR=\"$(runstatedir)/avahi-daemon/\" \
+@@ -68,7 +69,7 @@ pkgsysconf_DATA = \
  	avahi-daemon.conf \
  	hosts
  
@@ -47,12 +47,9 @@ index 9645e6e7c2e2..7dd38d99d16e 100644
  	ssh.service \
  	sftp-ssh.service
  
-@@ -169,7 +170,7 @@ xmllint:
+@@ -168,4 +169,4 @@ xmllint:
  	done
  
  install-data-local:
--	test -z "$(avahi_runtime_dir)" || $(MKDIR_P) "$(DESTDIR)$(avahi_runtime_dir)"
+-	test -z "$(runstatedir)" || $(MKDIR_P) "$(DESTDIR)$(runstatedir)"
 +	$(MKDIR_P) "$(DESTDIR)$(servicedir)"
- 
- update-systemd:
- 	curl http://cgit.freedesktop.org/systemd/plain/src/sd-daemon.c > sd-daemon.c
