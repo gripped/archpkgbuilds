@@ -2,29 +2,29 @@
 # Contributor: Esclapion <esclapion at gmail.com>
 
 pkgname=qastools
-pkgver=0.23.0
-pkgrel=2
+pkgver=1.0.0
+pkgrel=1
 pkgdesc="A collection of desktop applications for the Linux sound system ALSA."
 arch=(x86_64)
 url="https://gitlab.com/sebholt/qastools"
-license=(GPL3)
+license=(MIT)
 groups=(pro-audio)
 depends=(
   gcc-libs
   glibc
   hicolor-icon-theme
-  qt5-base
-  qt5-svg
+  qt6-base
+  qt6-svg
 )
 makedepends=(
   alsa-lib
   cmake
-  qt5-tools
+  qt6-tools
   systemd-libs
 )
 source=($url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('79042a41a0ad37097d297175b899af73052953b7ae14058a1878e3145769db839b8bd4350bd36646d8436a3e8b37b64da7b3004bee3c7c7780d46a942af1d3b9')
-b2sums=('c0ba54462e702411bee7a15a913617870488b1c9c2676e3c6f69d0648cff79cc1989e0f367953ba6f27b94c014c9b2fa7ef74ae4800d03b99bb8336ce4535d4a')
+sha512sums=('a00a3d9d6ba854e3ff90bb4405968a9328a02e3d720edb37b4f46c93b54ef50a68794ee17d6df55c1e8117df610efdf0a1f388ce5849e3f216db38cef736bdd0')
+b2sums=('0344b7314c7d59278b527c1afe99c78acc0a9ede5ab43c34bd5a5af24ad4dde58aea41c998ccf8e8509e96b291983040e63577e87b953b30ad7dcc2ea6a5021f')
 
 build() {
   local cmake_options=(
@@ -51,5 +51,6 @@ package() {
 
   DESTDIR="$pkgdir" cmake --install build
   install -vDm 644 $pkgname-v$pkgver/{CHANGELOG,README.md,TODO} -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 $pkgname-v$pkgver/COPYING -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
 
