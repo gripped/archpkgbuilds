@@ -4,13 +4,14 @@
 
 pkgname=deepin-system-monitor
 pkgver=6.0.9
-pkgrel=1
+pkgrel=2
 pkgdesc='A more user-friendly system monitor'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-system-monitor"
 license=('GPL3')
+# startdde: org.deepin.dde.Display1
 depends=('dtkcore' 'dtkgui' 'dtkwidget' 'dwayland' 'qt5-base' 'qt5-svg' 'gsettings-qt'
-         'icu' 'dconf' 'libxcb' 'xcb-util-wm' 'gcc-libs' 'libnl' 'libcap' 'libpcap')
+         'icu' 'dconf' 'libxcb' 'xcb-util-wm' 'gcc-libs' 'libnl' 'libcap' 'libpcap' 'startdde')
 makedepends=('cmake' 'deepin-gettext-tools' 'gtest' 'ninja' 'qt5-tools' 'deepin-dock')
 groups=('deepin')
 install=deepin-system-monitor.install
