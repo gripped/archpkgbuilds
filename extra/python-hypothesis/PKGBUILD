@@ -2,10 +2,10 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 _name=hypothesis
-_alt_name="${_name}-python"
+_alt_name=$_name-python
 pkgname=python-hypothesis
-pkgver=6.90.0
-_version="${_alt_name}-${pkgver}"
+pkgver=6.91.0
+_version=$_alt_name-$pkgver
 pkgrel=1
 pkgdesc="Advanced Quickcheck style testing library for Python"
 arch=(any)
@@ -55,9 +55,9 @@ optdepends=(
   'python-redis: for redis support'
   'python-rich: for CLI'
 )
-source=("$_name-$_version.tar.gz::$_url/archive/$_version.tar.gz")
-sha512sums=('02ca4f5b4c0c6cc2b949d46ac221a3c06a9d05fb89fc17c1a8e42813172b914822ba484970a20d1be1900e5396bf020ba1e274344aa8bf16253f18a6f11c6ac1')
-b2sums=('fb910f8f885355d6045f1f218dedf35e6713fbed8d9d247310ec7a8b7aa4549b30715a50ebb0daa5e48f863b6c582a8cbc8910f26ab0da0476bc423f942534fc')
+source=($_name-$_version.tar.gz::$_url/archive/$_version.tar.gz)
+sha512sums=('e6280e14e600305a0d9007c086fb55a2c5f441e40274d920d627d7cf12f07b0fe65d1e64c42ad712d662cf0f5aa41bfbb00b6ae3a716e88dacb7c72c3067601c')
+b2sums=('c2db54aa0cb95725c2ef38854ee04d756551746ea2b9eb5b79728dec274ffed08b9e8357616ce7057f4e988d3194017ea35849bfb88a35ce8d9574dd6710c582')
 
 build() {
   cd $_name-$_version/$_alt_name
