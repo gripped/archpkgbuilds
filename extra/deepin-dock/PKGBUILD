@@ -4,17 +4,19 @@
 
 pkgname=deepin-dock
 pkgver=6.0.23
-pkgrel=1
+pkgrel=2
 pkgdesc='The dock of Deepin Desktop Environment'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-dock"
 license=('LGPL3')
+# deepin-wloutput-daemon: org.deepin.dde.KWayland1
+# deepin-session-shell: org.deepin.dde.LockFront1
 depends=('deepin-menu' 'deepin-daemon' 'deepin-launcher' 'deepin-qt5integration'
          'deepin-network-core' 'deepin-control-center' 'dwayland' 'wayland' 'dtkcore' 'dtkgui' 'dtkwidget'
          'qt5-base' 'qt5-svg' 'qt5-x11extras' 'qt5-wayland' 'glib2' 'gsettings-qt' 'libdbusmenu-qt5'
          'libx11' 'libxext' 'libglvnd' 'libxtst' 'libxcursor' 'libxres' 'libxcb' 'libxkbcommon'
          'xcb-util-wm' 'xcb-util-image' 'gcc-libs' 'dconf' 'deepin-application-manager'
-         'deepin-appearance' 'deepin-widgets' 'deepin-wloutput-daemon')
+         'deepin-appearance' 'deepin-widgets' 'deepin-wloutput-daemon' 'deepin-session-shell')
 makedepends=('cmake' 'ninja' 'qt5-tools' 'extra-cmake-modules')
 conflicts=('dde-dock')
 replaces=('dde-dock')
