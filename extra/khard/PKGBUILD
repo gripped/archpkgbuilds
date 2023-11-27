@@ -2,13 +2,14 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=khard
-pkgver=0.19.0
+pkgver=0.19.1
 pkgrel=1
 pkgdesc='Console address book manager'
 arch=('any')
 url=https://github.com/lucc/khard
-license=('GPL3')
+license=(GPL-3.0-only)
 depends=(
+  'python'
   'python-atomicwrites'
   'python-configobj'
   'python-ruamel-yaml'
@@ -30,22 +31,24 @@ optdepends=(
   'diffutils: Using sdiff_khard_wrapper.sh'
   'vdirsyncer: Synchronization of address books with a DAV server'
 )
-source=("git+$url.git#tag=v$pkgver")
-b2sums=('SKIP')
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
+b2sums=('9a3783235b910a543402ba47f98f23a59febdee72985740e0afefa0f27833405f0a0415022848cef495e2718676208c1be093b92fea436f567c4d5cf55be4472')
 
 build() {
-  cd $pkgname
-  python -m build --wheel --skip-dependency-check --no-isolation
+  cd $pkgname-$pkgver
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --skip-dependency-check --no-isolation
   make -C doc man
 }
 
 check() {
-  cd $pkgname
+  cd $pkgname-$pkgver
   pytest -v
 }
 
 package() {
-  cd $pkgname
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
+  cd $pkgname-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   # additional wrapper script
   install -vD misc/sdiff/sdiff_${pkgname}_wrapper.sh \
@@ -66,4 +69,5 @@ package() {
     -t "${pkgdir}/usr/share/man/man1"
   install -vDm 644 doc/build/man/$pkgname.conf.5 \
     -t "${pkgdir}/usr/share/man/man5"
+  install -vDm 644 $pkgname/data/{config.spec,template.yaml} -t "$pkgdir/$site_packages/$pkgname/data/"
 }

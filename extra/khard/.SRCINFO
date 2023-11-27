@@ -1,10 +1,10 @@
 pkgbase = khard
 	pkgdesc = Console address book manager
-	pkgver = 0.19.0
+	pkgver = 0.19.1
 	pkgrel = 1
 	url = https://github.com/lucc/khard
 	arch = any
-	license = GPL3
+	license = GPL-3.0-only
 	checkdepends = python-pytest
 	makedepends = git
 	makedepends = python-build
@@ -14,6 +14,7 @@ pkgbase = khard
 	makedepends = python-sphinx-autoapi
 	makedepends = python-sphinx-autodoc-typehints
 	makedepends = python-wheel
+	depends = python
 	depends = python-atomicwrites
 	depends = python-configobj
 	depends = python-ruamel-yaml
@@ -21,7 +22,7 @@ pkgbase = khard
 	depends = python-vobject
 	optdepends = diffutils: Using sdiff_khard_wrapper.sh
 	optdepends = vdirsyncer: Synchronization of address books with a DAV server
-	source = git+https://github.com/lucc/khard.git#tag=v0.19.0
-	b2sums = SKIP
+	source = khard-0.19.1.tar.gz::https://github.com/lucc/khard/archive/refs/tags/v0.19.1.tar.gz
+	b2sums = 9a3783235b910a543402ba47f98f23a59febdee72985740e0afefa0f27833405f0a0415022848cef495e2718676208c1be093b92fea436f567c4d5cf55be4472
 
 pkgname = khard
