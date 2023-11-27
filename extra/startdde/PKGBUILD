@@ -3,24 +3,23 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=startdde
-pkgver=6.0.10
-pkgrel=4
+pkgver=6.0.11
+pkgrel=2
 pkgdesc="starter of deepin desktop environment"
 arch=('x86_64')
 url="https://github.com/linuxdeepin/startdde"
 license=('GPL3')
-depends=('deepin-daemon' 'deepin-session' 'deepin-polkit-agent' 'deepin-file-manager'
-         'deepin-session-shell' 'deepin-session-ui' 'libgnome-keyring' 'deepin-wloutput-daemon'
-         'deepin-kwin')
-makedepends=('cmake' 'coffeescript' 'go' 'git' 'jq')
+# deepin-wloutput-daemon: org.deepin.dde.KWayland1
+depends=('dconf' 'glib2' 'glibc' 'gtk3' 'libgnome-keyring' 'libgudev' 'libx11' 'libxi'
+         'deepin-wloutput-daemon')
+makedepends=('go' 'git')
 groups=('deepin')
 source=("https://github.com/linuxdeepin/startdde/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('903801976dd9790c15d16b16f5b12c0ab4d03fd61495913f34d34b483a1a9bec7504cf946225210b043005f232bc25f7a79457b56b8d141444a4e3268a202714')
+sha512sums=('c401dd594fcb8d6019cc1ced3f5e6ed1d4a477585937399adf33fa4e9885f85ffa66e176dd7dc767796df224564caa8ae59e7bc80113e580ea111888702bd89e')
 
 prepare() {
   cd startdde-$pkgver
   sed -i 's/sbin/bin/' Makefile
-  sed -i 's|/etc/os-version|/etc/uos-version|' misc/Xsession.d/00deepin-dde-env
 }
 
 build() {
@@ -37,12 +36,4 @@ build() {
 package() {
   cd startdde-$pkgver
   make DESTDIR="$pkgdir" install
-
-  # Fix env file permission
-  chmod +x "$pkgdir"/etc/X11/Xsession.d/*
-
-  # Don't rely on deepin-session's location
-  install -dm755 "$pkgdir"/etc/X11/xinit/xinitrc.d
-  mv "$pkgdir"/etc/X11/Xsession.d/* "$pkgdir"/etc/X11/xinit/xinitrc.d/
-  rmdir "$pkgdir"/etc/X11/Xsession.d
 }
