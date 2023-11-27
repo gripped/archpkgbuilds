@@ -1,6 +1,6 @@
 pkgbase = pipewire
 	pkgdesc = Low-latency audio/video router and processor
-	pkgver = 0.3.85
+	pkgver = 1.0.0
 	pkgrel = 1
 	epoch = 1
 	url = https://pipewire.org
@@ -44,16 +44,16 @@ pkgbase = pipewire
 	makedepends = systemd
 	makedepends = valgrind
 	makedepends = webrtc-audio-processing-1
-	source = git+https://gitlab.freedesktop.org/pipewire/pipewire.git#commit=7db1e7f643a454056327999b2d8e35d8097b5593
+	source = git+https://gitlab.freedesktop.org/pipewire/pipewire.git#commit=4debdcd40b055b3eaa83a8f4443aa990ea566bfe
 	b2sums = SKIP
 
 pkgname = pipewire
 	install = pipewire.install
 	license = MIT
-	license = LGPL
+	license = LGPL-2.1-or-later
 	depends = gcc-libs
 	depends = glibc
-	depends = libpipewire=1:0.3.85-1
+	depends = libpipewire=1:1.0.0-1
 	depends = libcamera-base.so
 	depends = libcamera.so
 	depends = libdbus-1.so
@@ -87,7 +87,7 @@ pkgname = libpipewire
 
 pkgname = alsa-card-profiles
 	pkgdesc = Low-latency audio/video router and processor - ALSA card profiles
-	license = LGPL
+	license = LGPL-2.1-or-later
 
 pkgname = pipewire-docs
 	pkgdesc = Low-latency audio/video router and processor - documentation
@@ -145,7 +145,8 @@ pkgname = pipewire-jack-client
 pkgname = pipewire-jack
 	pkgdesc = Low-latency audio/video router and processor - JACK replacement
 	license = MIT
-	license = GPL2
+	license = LGPL-2.1-or-later
+	license = GPL-2.0-only
 	depends = glibc
 	depends = libpipewire-0.3.so
 	depends = pipewire
