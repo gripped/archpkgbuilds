@@ -1,12 +1,12 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=reaper
-pkgver=7.05
+pkgver=7.06
 pkgrel=1
 pkgdesc="A complete digital audio production application for computers"
 arch=(x86_64)
 url="https://reaper.fm"
-license=(custom)
+license=(LicenseRef-EULA)
 groups=(pro-audio)
 depends=(
   aribb24
@@ -42,9 +42,9 @@ source=(
   https://reaper.fm/files/${pkgver::1}.x/reaper${pkgver//.}_linux_$CARCH.tar.xz
   redistribution.eml
 )
-sha512sums=('f577d4b7b10d46b87d641f01a99b7276115cd3b4416c7beb57ad96882c81ecf755c32ce8f8add5d448288bf338f12f972cd352fb9d87dfb8523c4fe1eee1f88f'
+sha512sums=('de3190cb9c8e84c3aafc8693c48cdf67d0ec9ff5c2a2e49d02cb83cea6d74d6ff4ac4346e03014daa66e79435d82e81854084a6d6e8c73a47ed3fb7c1d6f7b8a'
             'a2746fa0b847dbd587f24983569b01120f4706306242223c8857360219569d965df8c25c98f31d68140eb66d7458384653b5b042f7433a84957a990d8e587d92')
-b2sums=('b8aed13afa08d765997ffc07decff391ee12586b7781c2c4ff6206456e31dbec36ff45236fc42a0c683fb367196d1697c8af32d728274ded98eb6ab941093fe5'
+b2sums=('01bdd499e305c0f3125c874a1e273b954ec748c74b66fbbd8ef80d5953d18bdbe564e0c9010be52e3ef69cec2f557adc8c4a570a8c95f37387204cb4ee0dd065'
         'ddbf47cb04ad9e9fb937b09a0ea0c88d4416ceaabc4e420750ff9303447a50a323060f018bd9f52907a1a5e4ea3ebe685eb336d1b6f4bbbc89a12e2370be8728')
 
 package() {
