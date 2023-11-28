@@ -9,8 +9,9 @@ pkgname=(
   lib32-pipewire-jack
   lib32-pipewire-v4l2
 )
-_commit=7db1e7f643a454056327999b2d8e35d8097b5593  # tags/0.3.85
-pkgver=0.3.85
+_commit=4debdcd40b055b3eaa83a8f4443aa990ea566bfe  # tags/1.0.0
+pkgver=1.0.0
+_so_ver=0.3
 pkgrel=1
 epoch=1
 pkgdesc="Low-latency audio/video router and processor - 32-bit"
@@ -106,8 +107,6 @@ _pick() {
   done
 }
 
-_ver=${pkgver:0:3}
-
 package_lib32-pipewire() {
   depends=(
     lib32-gcc-libs
@@ -116,7 +115,7 @@ package_lib32-pipewire() {
     libasound.so
     libdbus-1.so
     libglib-2.0.so
-    libpipewire-$_ver.so
+    libpipewire-$_so_ver.so
     libsystemd.so
     pipewire
   )
@@ -130,13 +129,13 @@ package_lib32-pipewire() {
   (
     cd "$pkgdir"
 
-    _pick lib usr/lib32/libpipewire-$_ver.so*
-    _pick lib usr/lib32/pkgconfig/lib{pipewire-$_ver,spa-0.2}.pc
+    _pick lib usr/lib32/libpipewire-$_so_ver.so*
+    _pick lib usr/lib32/pkgconfig/lib{pipewire-$_so_ver,spa-0.2}.pc
 
     _pick jack usr/lib32/libjack*
     _pick jack usr/lib32/pkgconfig/jack.pc
 
-    _pick v4l2 usr/lib32/pipewire-$_ver/v4l2
+    _pick v4l2 usr/lib32/pipewire-$_so_ver/v4l2
 
     rm -r usr/{bin,include,lib,share}
   )
@@ -151,7 +150,7 @@ package_lib32-libpipewire() {
     lib32-glibc
     libpipewire
   )
-  provides=(libpipewire-$_ver.so)
+  provides=(libpipewire-$_so_ver.so)
 
   mv lib/* "$pkgdir"
 
@@ -160,11 +159,11 @@ package_lib32-libpipewire() {
 
 package_lib32-pipewire-jack() {
   pkgdesc+=" - JACK support"
-  license+=(GPL2)  # libjackserver
+  license+=(GPL-2.0-only)  # libjackserver
   depends=(
     lib32-glibc
     lib32-pipewire
-    libpipewire-$_ver.so
+    libpipewire-$_so_ver.so
     pipewire-jack
   )
   conflicts=(
@@ -185,7 +184,7 @@ package_lib32-pipewire-v4l2() {
   depends=(
     lib32-glibc
     lib32-pipewire
-    libpipewire-$_ver.so
+    libpipewire-$_so_ver.so
     pipewire-v4l2
   )
 
