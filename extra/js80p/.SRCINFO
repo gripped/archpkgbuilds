@@ -1,0 +1,22 @@
+pkgbase = js80p
+	pkgdesc = A MIDI driven, performance oriented, versatile synthesizer
+	pkgver = 2.4.4
+	pkgrel = 1
+	url = https://attilammagyar.github.io/js80p/
+	install = js80p.install
+	arch = x86_64
+	groups = pro-audio
+	license = GPL3
+	makedepends = git
+	makedepends = alsa-lib
+	makedepends = libx11
+	makedepends = zenity
+	makedepends = kdialog
+	depends = glibc
+	depends = gcc-libs
+	depends = libxcb
+	depends = cairo
+	source = js80p::git+https://github.com/attilammagyar/js80p#commit=a51b36239fa7d81aafc387d5d7db1238ab5a394a
+	b2sums = SKIP
+
+pkgname = js80p
