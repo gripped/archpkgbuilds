@@ -8,7 +8,7 @@ pkgname=(
   'woodpecker-agent'
   'woodpecker-cli'
 )
-pkgver=1.0.2
+pkgver=2.0.0
 pkgrel=1
 pkgdesc='A simple CI engine with great extensibility'
 arch=('x86_64')
@@ -17,7 +17,7 @@ license=('Apache')
 depends=('glibc')
 makedepends=('git' 'go' 'yarn')
 options=('!lto')
-_commit='d9e06696bf85f260a0550d58301ac396874b32e3'
+_commit='0fc428aa8eb8152aafd186d5232f27008c78add8'
 source=(
   "$pkgbase::git+https://github.com/woodpecker-ci/woodpecker#commit=$_commit"
   'server-systemd.service'
