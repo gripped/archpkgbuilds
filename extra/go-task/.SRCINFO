@@ -1,16 +1,18 @@
 pkgbase = go-task
 	pkgdesc = A task runner written in Go
 	pkgver = 3.31.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://taskfile.dev
+	install = go-task.install
 	arch = x86_64
 	license = MIT
 	makedepends = git
 	makedepends = go
 	depends = glibc
-	conflicts = task
 	options = !lto
 	source = go-task::git+https://github.com/go-task/task#commit=6177376e5045696bc12dcc083873b27f7c0da5f1
+	source = rename-completions.patch
 	b2sums = SKIP
+	b2sums = 1e1c959f39955dbe7d4bab3db5694551f43968446292ee499d47130d85be6ea20283f4162023cf34f6cc7c1e2382896613c38c540cc92141e5c3d85cbc07d09d
 
 pkgname = go-task
