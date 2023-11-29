@@ -1,7 +1,7 @@
 # Maintainer: AndyRTR <andyrtr@archlinux.org>
 
 pkgname=liblangtag
-pkgver=0.6.5
+pkgver=0.6.6
 pkgrel=1
 pkgdesc="interface library to access/deal with tags for identifying languages"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('libxml2' 'glib2' 'glibc')
 makedepends=('gobject-introspection')
 optdepends=('gobject-introspection-runtime: use with liblangtag-gobject')
 source=(https://bitbucket.org/tagoh/liblangtag/downloads/$pkgname-$pkgver.tar.bz2)
-sha256sums=('c40e12636482bfc34cf2b3d8ce916c8307a9352c4954497be8792b9e81fa1bf1')
+sha256sums=('99ff25400d48c19c65123451040a6e7c99fc9a7a9b342d698123c869a034bcde')
 
 build() {
   cd "$pkgname-$pkgver"
