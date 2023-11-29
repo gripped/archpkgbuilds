@@ -4,25 +4,25 @@
 
 pkgbase=font-awesome
 pkgname=(ttf-font-awesome otf-font-awesome)
-pkgver=6.4.2
+pkgver=6.5.0
 pkgrel=1
 pkgdesc="Iconic font designed for Bootstrap"
 url="https://fontawesome.com/"
 license=('custom:OFL')
 arch=('any')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/FortAwesome/Font-Awesome/archive/$pkgver.tar.gz")
-sha256sums=('5c50d7bb6e40a92408eca5428faf84cd3df237cd5314a63236427fc112058306')
+sha256sums=('3c92255c03e7543bc63860a31f6c63d524813e1d8b30f4b4ce9ed763af23b2ba')
 
 package_ttf-font-awesome() {
   cd "Font-Awesome-${pkgver}"
   install -Dm644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE.txt"
   install -d "$pkgdir/usr/share/fonts/TTF"
-  install -m644 ./webfonts/*.ttf "$pkgdir/usr/share/fonts/TTF"
+  install -m644 ./free/webfonts/*.ttf "$pkgdir/usr/share/fonts/TTF"
 }
 
 package_otf-font-awesome() {
   cd "Font-Awesome-${pkgver}"
   install -Dm644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE.txt"
   install -d "$pkgdir/usr/share/fonts/OTF"
-  install -m644 ./otfs/*.otf "$pkgdir/usr/share/fonts/OTF"
+  install -m644 ./free/otfs/*.otf "$pkgdir/usr/share/fonts/OTF"
 }
