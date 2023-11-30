@@ -1,0 +1,24 @@
+pkgbase = postgis
+	pkgdesc = A spatial database extender for PostgreSQL
+	pkgver = 3.4.0
+	pkgrel = 4
+	url = https://postgis.net/
+	changelog = postgis.changelog
+	arch = x86_64
+	license = GPL
+	makedepends = clang15
+	makedepends = llvm15
+	depends = postgresql
+	depends = gdal
+	depends = geos
+	depends = json-c
+	depends = libxml2
+	depends = proj
+	depends = protobuf-c
+	depends = pcre2
+	optdepends = perl: for contrib script postgis_restore.pl
+	source = https://download.osgeo.org/postgis/source/postgis-3.4.0.tar.gz
+	sha256sums = aee9b60a6c884d354164b3096c4657f324454186607f859d1ce05d899798af9d
+	b2sums = a7ae007edb12a796f58b24ec8f72264e154900335a2da8c9358dcf0455a4ff183bb77036f45a77aa3533913ab2a802a4995ce17913ef355c52e5c1d8132c04a6
+
+pkgname = postgis
