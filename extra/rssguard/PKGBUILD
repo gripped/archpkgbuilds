@@ -7,7 +7,7 @@
 pkgbase=rssguard
 pkgname=(rssguard{,-lite})
 pkgver=4.5.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple (yet powerful) Qt feed reader'
 arch=(x86_64)
 url='https://github.com/martinrotter/rssguard'
