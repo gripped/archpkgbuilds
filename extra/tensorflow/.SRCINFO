@@ -1,7 +1,7 @@
 pkgbase = tensorflow
 	pkgdesc = Library for computation using data flow graphs for scalable machine learning
 	pkgver = 2.15.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://www.tensorflow.org/
 	arch = x86_64
 	license = APACHE
@@ -115,6 +115,7 @@ pkgname = python-tensorflow
 	depends = python-pasta
 	depends = python-flatbuffers
 	depends = python-typing_extensions
+	depends = python-ml-dtypes
 
 pkgname = python-tensorflow-opt
 	pkgdesc = Library for computation using data flow graphs for scalable machine learning (with AVX CPU optimizations)
@@ -145,6 +146,7 @@ pkgname = python-tensorflow-opt
 	depends = python-pasta
 	depends = python-flatbuffers
 	depends = python-typing_extensions
+	depends = python-ml-dtypes
 	provides = python-tensorflow
 	conflicts = python-tensorflow
 
@@ -181,6 +183,7 @@ pkgname = python-tensorflow-cuda
 	depends = python-pasta
 	depends = python-flatbuffers
 	depends = python-typing_extensions
+	depends = python-ml-dtypes
 	provides = python-tensorflow
 	conflicts = python-tensorflow
 
@@ -217,6 +220,7 @@ pkgname = python-tensorflow-opt-cuda
 	depends = python-pasta
 	depends = python-flatbuffers
 	depends = python-typing_extensions
+	depends = python-ml-dtypes
 	provides = python-tensorflow
 	provides = python-tensorflow-cuda
 	conflicts = python-tensorflow

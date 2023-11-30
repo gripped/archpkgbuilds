@@ -7,7 +7,7 @@ pkgbase=tensorflow
 pkgname=(tensorflow tensorflow-opt tensorflow-cuda tensorflow-opt-cuda python-tensorflow python-tensorflow-opt python-tensorflow-cuda python-tensorflow-opt-cuda)
 pkgver=2.15.0
 _pkgver=2.15.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Library for computation using data flow graphs for scalable machine learning"
 url="https://www.tensorflow.org/"
 license=('APACHE')
@@ -29,7 +29,7 @@ sha512sums=('51976c7255ffbdb98fe67a28f6ae1c3b9a073e49fe6b44187a53d99654e4af753de
 _common_py_depends=(python-termcolor python-astor python-gast03 python-numpy python-protobuf
                     absl-py python-h5py python-keras python-keras-applications python-keras-preprocessing
                     python-tensorflow-estimator python-opt_einsum python-astunparse python-pasta
-                    python-flatbuffers python-typing_extensions)
+                    python-flatbuffers python-typing_extensions python-ml-dtypes)
 
 get_pyver () {
   python -c 'import sys; print(str(sys.version_info[0]) + "." + str(sys.version_info[1]))'
@@ -72,8 +72,6 @@ prepare() {
   cp -r tensorflow-${_pkgver} tensorflow-${_pkgver}-opt-cuda
 
   # These environment variables influence the behavior of the configure call below.
-  export PYTHON_BIN_PATH=/usr/bin/python
-  export USE_DEFAULT_PYTHON_LIB_PATH=1
   export TF_NEED_JEMALLOC=1
   export TF_NEED_KAFKA=1
   export TF_NEED_OPENCL_SYCL=0
@@ -115,6 +113,9 @@ prepare() {
   # add latest PTX for future compatibility
   # Valid values can be discovered from nvcc --help
   export TF_CUDA_COMPUTE_CAPABILITIES=sm_52,sm_53,sm_60,sm_61,sm_62,sm_70,sm_72,sm_75,sm_80,sm_86,sm_87,sm_89,sm_90,compute_90
+  export TF_PYTHON_VERSION=$(get_pyver)
+  export PYTHON_BIN_PATH=/usr/bin/python$(get_pyver)
+  export USE_DEFAULT_PYTHON_LIB_PATH=1
 
   export BAZEL_ARGS="--config=mkl -c opt"
 }
