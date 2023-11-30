@@ -3,7 +3,7 @@
 
 pkgname=go-tools
 epoch=4
-pkgver=0.14.0
+pkgver=0.16.0
 pkgrel=1
 pkgdesc='Developer tools for the Go programming language'
 arch=(x86_64)
@@ -11,7 +11,7 @@ url='https://golang.org/'
 license=(BSD)
 depends=(glibc)
 makedepends=(git go)
-_commit=3f4194ee29d7db9b59757dfff729ef55cf89661c	#refs/tags/v0.14.0
+_commit=a9ef4cfeacd705b0e43cc2935571a80b6547d70c	#refs/tags/v0.16.0
 source=(go-tools::git+https://go.googlesource.com/tools#commit=$_commit)
 sha256sums=('SKIP')
 
