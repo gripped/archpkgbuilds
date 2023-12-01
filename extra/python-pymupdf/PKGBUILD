@@ -2,8 +2,8 @@
 
 _name=PyMuPDF
 pkgname=python-pymupdf
-pkgver=1.23.6
-pkgrel=4
+pkgver=1.23.7
+pkgrel=1
 pkgdesc="Python bindings for MuPDF's rendering library"
 arch=(x86_64)
 url="https://github.com/pymupdf/PyMuPDF"
@@ -17,6 +17,7 @@ makedepends=(
   python-build
   python-distro
   python-installer
+  python-psutil
   python-setuptools
   python-wheel
   swig
@@ -35,9 +36,9 @@ source=(
   $_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
   $pkgname-1.23.5-tesseract_tessdata_dir.patch
 )
-sha512sums=('7cdd7105f91c7f01839ce4291521bff1534cd7eb99ec506b56fa7b39afaf83a90ef77a2988cd3d710a8c9e273fda6427c367644e2b58459a8ab57eaa362de1d7'
+sha512sums=('e3dda716c8a2d6931bfbdb419c0184f14c25ecd6b3eb7667b70faa31df7b38f9960ff5bd22194f3036a2b834d8ba859ff773080e1f083b648404a861115a6d74'
             '849ace7d68e9060f057c1229f2cbfc43f418e761032d821ab50072cef7d32a5e821c2f58bcc16ba78b61d5eb2fbc042d8908c2c7d78b436fe40147e8121a1426')
-b2sums=('dc78b7e85ec9d527d1fd40b8b3be5737fc1c5f9976b39a61ac104bbe210eb41d39ac66df03443383470d5c06f6afbaf9f3e39aebaf3f6b961f994763f3cc9842'
+b2sums=('adfaae58ba75873a6852d6eedd10acc9043d6207c05453bdf7875820e3c3a7b2cf0dc26422542c48da22863b561f151d3bdfa850c77e45168474c96ca03f45d3'
         '6f662ba8175c1960ba0d323cecef25fc283d1dd8f6a5af541bf13df52c2432f76841233389c35ea02182d8543231835cff30f03a2ae9eb231e1165cc83268b65')
 
 prepare() {
@@ -84,8 +85,6 @@ check() {
     -vv
     # disable broken test, that upstream is not interested in fixing or disabling: https://github.com/pymupdf/PyMuPDF/issues/2127
     --deselect tests/test_pixmap.py::test_color_count
-    # disable broken test: https://github.com/pymupdf/PyMuPDF/issues/2749#issuecomment-1833363165
-    --deselect tests/test_2548.py::test_2548
   )
   local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
