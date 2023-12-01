@@ -3,7 +3,7 @@
 _name=PyMuPDF
 pkgname=python-pymupdf
 pkgver=1.23.6
-pkgrel=3
+pkgrel=4
 pkgdesc="Python bindings for MuPDF's rendering library"
 arch=(x86_64)
 url="https://github.com/pymupdf/PyMuPDF"
@@ -84,6 +84,8 @@ check() {
     -vv
     # disable broken test, that upstream is not interested in fixing or disabling: https://github.com/pymupdf/PyMuPDF/issues/2127
     --deselect tests/test_pixmap.py::test_color_count
+    # disable broken test: https://github.com/pymupdf/PyMuPDF/issues/2749#issuecomment-1833363165
+    --deselect tests/test_2548.py::test_2548
   )
   local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
