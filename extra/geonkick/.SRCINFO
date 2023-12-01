@@ -1,7 +1,7 @@
 pkgbase = geonkick
 	pkgdesc = A free software percussion synthesizer
-	pkgver = 2.10.2
-	pkgrel = 2
+	pkgver = 3.0.0
+	pkgrel = 1
 	url = https://geonkick.org/
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -10,22 +10,27 @@ pkgbase = geonkick
 	makedepends = cmake
 	makedepends = gcc-libs
 	makedepends = glibc
+	makedepends = gtkmm3
 	makedepends = hicolor-icon-theme
 	makedepends = jack
 	makedepends = libsndfile
 	makedepends = libx11
+	makedepends = libxkbcommon
+	makedepends = libxkbcommon-x11
 	makedepends = lv2
-	makedepends = openssl
+	makedepends = pango
 	makedepends = rapidjson
 	makedepends = vst3sdk
-	options = !lto
-	source = https://gitlab.com/Geonkick-Synthesizer/geonkick/-/archive/v2.10.2/geonkick-v2.10.2.tar.gz
-	sha512sums = 0e66fa6fc3449346780dc20ff8f2cb272e8265c2a597ae1ecbfeec787a4970805b09f6b537214e89fb5a1b1ebe9be0505a05f4d30eb5c8f5b4995b603c6309e4
-	b2sums = 537a9dd7d3f68722ba40625c845367aeaa2715295c34584d02509c7c28449ce91afb045d0120afede70d268eaa01e2a66af17b4e0720d0d204e6c81fe21794c4
+	makedepends = xcb-util
+	makedepends = xcb-util-cursor
+	makedepends = xcb-util-keysyms
+	source = https://gitlab.com/Geonkick-Synthesizer/geonkick/-/archive/v3.0.0/geonkick-v3.0.0.tar.gz
+	sha512sums = de336b496c52455efa5bb1c477605ff13272212bcd15b403cad890906d04e30e1379280b377dc3663a1141a33af46636a5c1ec757bf9d9eabd2b826b8e31c400
+	b2sums = bc709e2e667dbd6278f7b62ff1a81fd98086c0ff1f09a63cf9a3dfdb22692cb6243e0b440e638a0a6ec529b70632bcc06cc567a9fa19784163bc015c3dbeac30
 
 pkgname = geonkick
-	depends = geonkick-lv2=2.10.2
-	depends = geonkick-standalone=2.10.2
+	depends = geonkick-lv2=3.0.0
+	depends = geonkick-standalone=3.0.0
 
 pkgname = geonkick-common
 	pkgdesc = A free software percussion synthesizer - common files
@@ -36,7 +41,7 @@ pkgname = geonkick-lv2
 	groups = pro-audio
 	depends = cairo
 	depends = gcc-libs
-	depends = geonkick-common=2.10.2
+	depends = geonkick-common=3.0.0
 	depends = glibc
 	depends = libsndfile
 	depends = libx11
@@ -48,10 +53,19 @@ pkgname = geonkick-standalone
 	groups = pro-audio
 	depends = cairo
 	depends = gcc-libs
-	depends = geonkick-common=2.10.2
+	depends = geonkick-common=3.0.0
 	depends = glibc
 	depends = hicolor-icon-theme
 	depends = jack
 	depends = libsndfile
 	depends = libx11
-	depends = openssl
+
+pkgname = geonkick-vst3
+	pkgdesc = A free software percussion synthesizer - VST3 plugin
+	groups = pro-audio
+	groups = vst3-plugins
+	depends = cairo
+	depends = gcc-libs
+	depends = geonkick-common=3.0.0
+	depends = glibc
+	depends = libsndfile
