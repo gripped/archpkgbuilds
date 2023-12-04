@@ -2,8 +2,8 @@
 
 _name=pynitrokey
 pkgname=python-pynitrokey
-_commit=c0eac953342e17b063aac6ce2ab939dfeccdfaa9  # v0.4.42
-pkgver=0.4.42
+_commit=5fed4f9b1d52688af2355e7764a145373e7bd16c  # v0.4.43
+pkgver=0.4.43
 pkgrel=1
 pkgdesc="A command line interface for the Nitrokey FIDO2 and Nitrokey Start"
 arch=(any)
