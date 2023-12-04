@@ -8,8 +8,8 @@ pkgname=(
   libedataserverui4
   evolution-data-server-docs
 )
-pkgver=3.50.1
-pkgrel=2
+pkgver=3.50.2
+pkgrel=1
 pkgdesc="Unified contacts, tasks and calendar backend"
 url="https://wiki.gnome.org/Apps/Evolution"
 arch=(x86_64)
@@ -39,7 +39,7 @@ makedepends=(
 )
 checkdepends=(db)
 license=(GPL)
-_commit=badac47c43a262b6ab49e665af2816423bb3fb33  # tags/3.50.1^0
+_commit=8141944c16eecc772aeb2ac41ab98a74de5f90cd  # tags/3.50.2^0
 source=("git+https://gitlab.gnome.org/GNOME/evolution-data-server.git#commit=$_commit")
 b2sums=('SKIP')
 
