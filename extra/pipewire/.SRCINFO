@@ -1,7 +1,7 @@
 pkgbase = pipewire
 	pkgdesc = Low-latency audio/video router and processor
 	pkgver = 1.0.0
-	pkgrel = 1
+	pkgrel = 2
 	epoch = 1
 	url = https://pipewire.org
 	arch = x86_64
@@ -53,7 +53,7 @@ pkgname = pipewire
 	license = LGPL-2.1-or-later
 	depends = gcc-libs
 	depends = glibc
-	depends = libpipewire=1:1.0.0-1
+	depends = libpipewire=1:1.0.0-2
 	depends = libcamera-base.so
 	depends = libcamera.so
 	depends = libdbus-1.so
@@ -177,6 +177,7 @@ pkgname = pipewire-pulse
 	depends = pipewire-audio
 	depends = pipewire-session-manager
 	depends = systemd-libs
+	provides = pulse-native-provider
 	provides = pulseaudio
 	provides = pulseaudio-bluetooth
 	conflicts = pulseaudio
@@ -230,3 +231,11 @@ pkgname = pipewire-x11-bell
 	depends = libxfixes
 	depends = pipewire
 	depends = pipewire-audio
+
+pkgname = pipewire-session-manager
+	pkgdesc = Session manager for PipeWire (default provider)
+	depends = wireplumber
+
+pkgname = pulse-native-provider
+	pkgdesc = PulseAudio sound server (default provider)
+	depends = pipewire-pulse
