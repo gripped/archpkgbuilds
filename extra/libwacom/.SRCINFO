@@ -1,7 +1,7 @@
 pkgbase = libwacom
 	pkgdesc = Library to identify Wacom tablets and their features
 	pkgver = 2.9.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/linuxwacom/libwacom/wiki
 	arch = x86_64
 	license = MIT
@@ -11,6 +11,7 @@ pkgbase = libwacom
 	makedepends = libxml2
 	makedepends = meson
 	depends = glib2
+	depends = libevdev
 	depends = libgudev
 	depends = glibc
 	optdepends = python-libevdev: for libwacom-show-stylus
