@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-pyfakefs
-pkgver=5.3.1
+pkgver=5.3.2
 pkgrel=1
 pkgdesc='pyfakefs implements a fake file system that mocks the Python file system modules'
 url=https://github.com/jmcgeheeiv/pyfakefs/
@@ -15,7 +15,7 @@ makedepends=(
 checkdepends=(
   python-tox
 )
-_tag=e7c8ede3b572f2521779ae8205eaec2be4cee5cd
+_tag=dc6517f6af6f799636c9ac9d95c18d39474d24ad
 source=(git+https://github.com/jmcgeheeiv/pyfakefs.git#tag=${_tag})
 sha256sums=('SKIP')
 
