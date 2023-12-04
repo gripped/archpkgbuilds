@@ -4,7 +4,7 @@
 pkgbase=libreoffice-still-i18n
 
 pkgver=7.5.8
-pkgrel=1
+pkgrel=2
 _rcver=${pkgver}.2
 #_oodlver=${pkgver}.0.beta1
 _oodlver=${pkgver}
@@ -12,6 +12,7 @@ _oodlver=${pkgver}
 arch=('any')
 url="https://www.documentfoundation.org"
 license=('LGPL')
+options=('!strip')
 
 #https://download.documentfoundation.org/mirrors/all.html
 
@@ -551,6 +552,9 @@ _package() {
   cp -R opt/libreoffice*/* "$pkgdir"/usr/lib/libreoffice
   chown root:root -R "$pkgdir"/usr/lib/libreoffice
 }
+
+pkgname=()
+source=()
 
 for _lang in "${_languages[@]}"; do
   declare -a "_langa=($_lang)"
