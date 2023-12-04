@@ -1,0 +1,26 @@
+pkgbase = intel-compute-runtime
+	pkgdesc = Intel(R) Graphics Compute Runtime for oneAPI Level Zero and OpenCL(TM) Driver
+	pkgver = 23.35.27191.9
+	pkgrel = 1
+	url = https://01.org/compute-runtime
+	arch = x86_64
+	license = MIT
+	makedepends = cmake
+	makedepends = igsc
+	makedepends = libva
+	makedepends = level-zero-headers
+	makedepends = opencl-headers
+	depends = gcc-libs
+	depends = intel-gmmlib
+	depends = intel-graphics-compiler
+	optdepends = libva: for cl_intel_va_api_media_sharing
+	optdepends = libdrm: for cl_intel_va_api_media_sharing
+	provides = opencl-driver
+	provides = level-zero-driver
+	options = !lto
+	source = https://github.com/intel/compute-runtime/archive/23.35.27191.9/intel-compute-runtime-23.35.27191.9.tar.gz
+	source = 010-intel-compute-runtime-disable-werror.patch
+	sha256sums = feb5f4bb0c6d89d19e8f1ee10ee67f79870b78073d55eab73dd23361ccc02327
+	sha256sums = b94c1fc6087e00a2f92d621cb8164a46535d124ca53c1f29bdaed98122a12b95
+
+pkgname = intel-compute-runtime
