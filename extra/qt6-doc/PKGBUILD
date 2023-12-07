@@ -6,7 +6,7 @@ pkgbase=qt6-doc
 pkgname=(qt6-doc qt6-examples)
 _qtver=6.6.1
 pkgver=${_qtver/-/}
-pkgrel=1
+pkgrel=2
 arch=('any')
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
@@ -15,14 +15,18 @@ makedepends=(alsa-lib
              cmake
              cups
              freetds
+             gperf
              gst-plugins-base-libs
              gtk3
              libpulse
+             libxkbfile
              llvm
              mariadb-libs
              ninja
+             nodejs
              postgresql
              python
+             python-html5lib
              qt6-declarative
              qt6-tools
              unixodbc
