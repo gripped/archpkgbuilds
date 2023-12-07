@@ -1,0 +1,25 @@
+pkgbase = libnl
+	pkgdesc = Library for applications dealing with netlink sockets
+	pkgver = 3.9.0
+	pkgrel = 1
+	url = https://github.com/thom311/libnl/
+	arch = x86_64
+	license = GPL
+	depends = glibc
+	depends = gcc-libs
+	provides = libnl-3.so
+	provides = libnl-cli-3.so
+	provides = libnl-genl-3.so
+	provides = libnl-idiag-3.so
+	provides = libnl-nf-3.so
+	provides = libnl-route-3.so
+	provides = libnl-xfrm-3.so
+	backup = etc/libnl/classid
+	backup = etc/libnl/pktloc
+	source = https://github.com/thom311/libnl/releases/download/libnl3_9_0/libnl-3.9.0.tar.gz
+	source = https://github.com/thom311/libnl/releases/download/libnl3_9_0/libnl-3.9.0.tar.gz.sig
+	validpgpkeys = 49EA7C670E0850E7419514F629C2366E4DFC5728
+	sha256sums = aed507004d728a5cf11eab48ca4bf9e6e1874444e33939b9d3dfed25018ee9bb
+	sha256sums = SKIP
+
+pkgname = libnl
