@@ -1,0 +1,44 @@
+pkgbase = ot-simian
+	pkgdesc = Drum synthesizer inspired by the Simmons SDS-V
+	pkgver = 1.1.0
+	pkgrel = 3
+	url = https://punklabs.com/ot-simian
+	arch = x86_64
+	groups = pro-audio
+	license = GPL3
+	makedepends = dub
+	makedepends = ldc
+	makedepends = libx11
+	makedepends = python
+	source = ot-simian-1.1.0.zip::https://punklabs.com/content/projects/ot-simian/downloads/OneTrick-SIMIAN-1.1.0-Source.zip
+	source = ot-simian-1.1.0-UserGuide.pdf::https://punklabs.com/content/projects/ot-simian/downloads/OneTrick%20SIMIAN%20User%20Guide.pdf
+	source = generate-manifest-ttl.py
+	sha512sums = c809306393b5dc512e633a8ade422187c59e7c31591ed55baae9f75da85cedb803895c7d23c2535899e5dcc841906729b94d103c298489e0c97016e736bf9a08
+	sha512sums = aadd82e02691a56ae65b27e558270c0baab20ef7e4b8df4366cb4dd532ae2cba3e996b4fe35e9a16d1dd46737115d400d84f07cc3a81b57a430ff881184e722c
+	sha512sums = d76b18bdbb2fa72bc78d52aa01dd731e7e30343eb5b3efce6bd31fdb5ff4accc54c69a0b9564b924737d25cd20730a45ef08947837bebef7e28994d86fdb1b04
+	b2sums = 473788c6d9ae2a7baca7bc903ba0c661c1313f4d3b1ecda413f8ec0e63cb6b091da26801084189706d0a770a88bb5a536c2121869e2f8e30c65537580211af31
+	b2sums = 772bd6b938d550829bc930cef124391b2cf38fb159f6ff29456630868f85690dd442d2913195283d301379646a59fd8cf64da5b7b74c035cbf4bbba837626c76
+	b2sums = fe22631ce37afa5c8e8759251dbf6dd2aded6eeadf01c7aa10cd4d5424cb9de6e54a702f4a0f11266bc053762ec25f54b71ae3adbdc02761373def89bc753ccb
+
+pkgname = ot-simian-docs
+	pkgdesc = Drum synthesizer inspired by the Simmons SDS-V - documentation
+
+pkgname = ot-simian-vst3
+	pkgdesc = Drum synthesizer inspired by the Simmons SDS-V - VST3 plugin
+	groups = pro-audio
+	groups = vst3-plugins
+	depends = glibc
+	depends = gcc-libs
+	depends = libx11
+	depends = vst3-host
+	optdepends = ot-simian-docs: documentation
+
+pkgname = ot-simian-lv2
+	pkgdesc = Drum synthesizer inspired by the Simmons SDS-V - LV2 plugin
+	groups = pro-audio
+	groups = lv2-plugins
+	depends = glibc
+	depends = gcc-libs
+	depends = libx11
+	depends = lv2-host
+	optdepends = ot-simian-docs: documentation
