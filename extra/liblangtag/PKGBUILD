@@ -1,17 +1,17 @@
 # Maintainer: AndyRTR <andyrtr@archlinux.org>
 
 pkgname=liblangtag
-pkgver=0.6.6
+pkgver=0.6.7
 pkgrel=1
 pkgdesc="interface library to access/deal with tags for identifying languages"
 arch=('x86_64')
 url="https://bitbucket.org/tagoh/liblangtag/wiki/Home"
-license=('LGPL3' 'MPL') # actually MPL2.0
+license=('LGPL3' 'MPL2')
 depends=('libxml2' 'glib2' 'glibc')
 makedepends=('gobject-introspection')
 optdepends=('gobject-introspection-runtime: use with liblangtag-gobject')
 source=(https://bitbucket.org/tagoh/liblangtag/downloads/$pkgname-$pkgver.tar.bz2)
-sha256sums=('99ff25400d48c19c65123451040a6e7c99fc9a7a9b342d698123c869a034bcde')
+sha256sums=('5ed6bcd4ae3f3c05c912e62f216cd1a44123846147f729a49fb5668da51e030e')
 
 build() {
   cd "$pkgname-$pkgver"
