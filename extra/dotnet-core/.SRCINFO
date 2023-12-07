@@ -1,6 +1,6 @@
 pkgbase = dotnet-core
-	pkgver = 7.0.13.sdk113
-	pkgrel = 1
+	pkgver = 8.0.0.sdk100
+	pkgrel = 3
 	url = https://www.microsoft.com/net/core
 	arch = x86_64
 	license = MIT
@@ -26,12 +26,8 @@ pkgbase = dotnet-core
 	optdepends = bash-completion: Bash completion support
 	options = !lto
 	options = staticlibs
-	source = dotnet-installer::git+https://github.com/dotnet/installer.git#tag=e24ee34c8ea5d0c17c95868396b2529194ecec2f
-	source = https://github.com/dotnet/runtime/commit/31e4f404c218eae7ba999c4df5346d30f971451c.patch
-	source = dotnet.sh
+	source = git+https://github.com/dotnet/dotnet.git#tag=40e7f014ff784457efffa58074549735e30772ae
 	b2sums = SKIP
-	b2sums = 36e3dcba3be4d6c3a77cdb92287acaaae681078730d9e94dce3025e926b9691c4439a8b790ca4ece643b8162bdcd7d93d2a3860610841f0b282e8e21c0873446
-	b2sums = 4a64e3ee550e296bdde894f9202c6f372934cc29154f47d302599b4c368825a96a7b786faa6109a24a1101ff130fd9e4d0ccba094ec91e7f2ca645725bf71b34
 
 pkgname = dotnet-host
 	pkgdesc = A generic driver for the .NET Core Command Line Interface
@@ -50,14 +46,14 @@ pkgname = dotnet-runtime
 	depends = zlib
 	depends = openssl
 	optdepends = lttng-ust2.12: CoreCLR tracing
-	provides = dotnet-runtime-7.0
-	conflicts = dotnet-runtime-7.0
+	provides = dotnet-runtime-8.0
+	conflicts = dotnet-runtime-8.0
 
 pkgname = aspnet-runtime
 	pkgdesc = The ASP.NET Core runtime
 	depends = dotnet-runtime
-	provides = aspnet-runtime-7.0
-	conflicts = aspnet-runtime-7.0
+	provides = aspnet-runtime-8.0
+	conflicts = aspnet-runtime-8.0
 
 pkgname = dotnet-sdk
 	pkgdesc = The .NET Core SDK
@@ -67,8 +63,8 @@ pkgname = dotnet-sdk
 	depends = gcc-libs
 	depends = netstandard-targeting-pack
 	optdepends = aspnet-targeting-pack: Build ASP.NET Core applications
-	provides = dotnet-sdk-7.0
-	conflicts = dotnet-sdk-7.0
+	provides = dotnet-sdk-8.0
+	conflicts = dotnet-sdk-8.0
 
 pkgname = netstandard-targeting-pack
 	pkgdesc = The .NET Standard targeting pack
@@ -78,14 +74,14 @@ pkgname = netstandard-targeting-pack
 pkgname = dotnet-targeting-pack
 	pkgdesc = The .NET Core targeting pack
 	depends = netstandard-targeting-pack
-	provides = dotnet-targeting-pack-7.0
-	conflicts = dotnet-targeting-pack-7.0
+	provides = dotnet-targeting-pack-8.0
+	conflicts = dotnet-targeting-pack-8.0
 
 pkgname = aspnet-targeting-pack
 	pkgdesc = The ASP.NET Core targeting pack
 	depends = dotnet-targeting-pack
-	provides = aspnet-targeting-pack-7.0
-	conflicts = aspnet-targeting-pack-7.0
+	provides = aspnet-targeting-pack-8.0
+	conflicts = aspnet-targeting-pack-8.0
 
 pkgname = dotnet-source-built-artifacts
 	pkgdesc = Internal package for building the .NET Core SDK
