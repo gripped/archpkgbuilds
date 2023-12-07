@@ -1,0 +1,70 @@
+pkgbase = dotnet-core-7.0
+	pkgver = 7.0.14.sdk114
+	pkgrel = 3
+	url = https://www.microsoft.com/net/core
+	arch = x86_64
+	license = MIT
+	makedepends = bash
+	makedepends = clang
+	makedepends = cmake
+	makedepends = dotnet-sdk-7.0
+	makedepends = dotnet-source-built-artifacts-7.0
+	makedepends = git
+	makedepends = icu
+	makedepends = inetutils
+	makedepends = krb5
+	makedepends = libgit2
+	makedepends = libunwind
+	makedepends = libxml2
+	makedepends = lldb
+	makedepends = llvm
+	makedepends = lttng-ust2.12
+	makedepends = nodejs
+	makedepends = openssl
+	makedepends = systemd
+	makedepends = zlib
+	optdepends = bash-completion: Bash completion support
+	options = !lto
+	options = staticlibs
+	source = dotnet-installer::git+https://github.com/dotnet/installer.git#tag=b2a71039cd0ad21507999d0d722e558e3ea61ca2
+	source = https://github.com/dotnet/runtime/commit/31e4f404c218eae7ba999c4df5346d30f971451c.patch
+	source = dotnet.sh
+	b2sums = SKIP
+	b2sums = 36e3dcba3be4d6c3a77cdb92287acaaae681078730d9e94dce3025e926b9691c4439a8b790ca4ece643b8162bdcd7d93d2a3860610841f0b282e8e21c0873446
+	b2sums = 4a64e3ee550e296bdde894f9202c6f372934cc29154f47d302599b4c368825a96a7b786faa6109a24a1101ff130fd9e4d0ccba094ec91e7f2ca645725bf71b34
+
+pkgname = dotnet-runtime-7.0
+	pkgdesc = The .NET Core runtime
+	depends = dotnet-host
+	depends = gcc-libs
+	depends = glibc
+	depends = icu
+	depends = krb5
+	depends = libunwind
+	depends = zlib
+	depends = openssl
+	optdepends = lttng-ust2.12: CoreCLR tracing
+
+pkgname = aspnet-runtime-7.0
+	pkgdesc = The ASP.NET Core runtime
+	depends = dotnet-runtime-7.0
+
+pkgname = dotnet-sdk-7.0
+	pkgdesc = The .NET Core SDK
+	depends = dotnet-runtime-7.0
+	depends = dotnet-targeting-pack-7.0
+	depends = glibc
+	depends = gcc-libs
+	depends = netstandard-targeting-pack
+	optdepends = aspnet-targeting-pack: Build ASP.NET Core applications
+
+pkgname = dotnet-targeting-pack-7.0
+	pkgdesc = The .NET Core targeting pack
+	depends = netstandard-targeting-pack
+
+pkgname = aspnet-targeting-pack-7.0
+	pkgdesc = The ASP.NET Core targeting pack
+	depends = dotnet-targeting-pack-7.0
+
+pkgname = dotnet-source-built-artifacts-7.0
+	pkgdesc = Internal package for building the .NET Core SDK
