@@ -3,7 +3,7 @@
 
 pkgname=osbuild
 pkgdesc='Build Pipelines for Operating System Artifacts'
-pkgver=100
+pkgver=101
 pkgrel=1
 url="https://www.osbuild.org"
 arch=(any)
@@ -13,7 +13,7 @@ makedepends=(make python-docutils python-setuptools)
 optdepends=('dnf: build rpm/dnf images'
             'pacman: build pacman images')
 source=($pkgname-$pkgver.tar.gz::https://github.com/osbuild/osbuild/archive/refs/tags/v${pkgver}.tar.gz)
-sha256sums=('033c5a74856356f4d2d9591f44f75e13a52d9b4412e4b67eec5f6e0a05896369')
+sha256sums=('bce7263c602c6071195f1706c52f7412c5786b7b674f17a034e243fe9852732c')
 
 prepare() {
   cd $pkgname-$pkgver
