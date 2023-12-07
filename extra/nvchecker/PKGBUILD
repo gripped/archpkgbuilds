@@ -5,7 +5,7 @@ pkgname=nvchecker
 pkgver=2.12
 # curl https://api.github.com/repos/lilydjwg/nvchecker/git/ref/tags/v$pkgver | jq -r .object.sha
 _tag=7df19d25b745481622f23668036020b664e6ee66
-pkgrel=2
+pkgrel=3
 pkgdesc="New version checker for software releases"
 arch=('any')
 url="https://github.com/lilydjwg/nvchecker"
@@ -30,12 +30,8 @@ optdepends=(
   'python-gobject: for nvchecker-notify'
   'libnotify: for nvchecker-notify'
 )
-source=("git+https://github.com/lilydjwg/nvchecker.git?signed#tag=$_tag"
-        # see https://github.com/lilydjwg/nvchecker/pull/233
-        "${pkgname}_fix_symlinks.patch::https://github.com/lilydjwg/nvchecker/pull/233/commits/1986f2953a0e1dda8abb42b9d8847308546f4ea6.patch"
-)
-sha512sums=('SKIP'
-            'd55d46774773aa8cd2d35ef3f1531d747affa03a9d9f176967e82348b609b22ed755b71b206b384464840015b29a2c1725e57e75fdfe9e73c9b66d4a19fb67ad')
+source=("git+https://github.com/lilydjwg/nvchecker.git?signed#tag=$_tag")
+sha512sums=('SKIP')
 validpgpkeys=(
   # No direct trust chain. Some related stuffs:
   # https://api.github.com/users/lilydjwg/gpg_keys
@@ -48,6 +44,21 @@ _backports=(
   'd9888cc49d3531a947e7b443a3bab47a7e09da14'
   # bump android-sdk-cmake and xml2 version
   'fe1342e9fb39774e63d2f650db8e04f50d3355a9'
+  # tests: update Android SDK version
+  '598bb941352d0d554ae44742fe2a2e5e3ab306a4'
+  # tests: fix tests with httpbin 0.10.0
+  '07cddd9bd66eb038cfa0ede2f5b3bab0efb07488'
+  # update tests: give up deepin as it times out frequently
+  '2683f47e0405e3b2f723b58f0aa9eef879c64af8'
+  # tests: update
+  '5dcb3bc36a2edea7c9fed643b1856c53238d4f6f'
+  # fix pacman test
+  '5a6fee28176403337d11053640aabcaea512cebd'
+
+  # see https://github.com/lilydjwg/nvchecker/pull/233 (merged)
+  '9221a476c520c80a56cd25f39823287c10d2aac0'
+  # see https://github.com/lilydjwg/nvchecker/pull/240 (merged)
+  '0ba8cd41deb150293b70c0965af7f6c8cf8eb571'
 )
 
 pkgver() {
@@ -57,8 +68,6 @@ pkgver() {
 
 prepare() {
   cd nvchecker
-
-  patch --verbose --strip=1 --input="../${pkgname}_fix_symlinks.patch"
 
   # this loop is stolen from core/systemd :)
   local _c
