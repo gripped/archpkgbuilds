@@ -1,0 +1,17 @@
+pkgbase = ipp-usb
+	pkgdesc = allows using the IPP protocol, normally designed for network printers, to be used with USB printers as well
+	pkgver = 0.9.24
+	pkgrel = 1
+	url = https://github.com/OpenPrinting/ipp-usb
+	arch = x86_64
+	license = custom: BSD
+	makedepends = go
+	depends = avahi
+	depends = libusb
+	backup = etc/ipp-usb/ipp-usb.conf
+	source = ipp-usb-0.9.24.tar.gz::https://github.com/OpenPrinting/ipp-usb/archive/0.9.24.tar.gz
+	source = systemd-service.patch
+	sha256sums = e20785f9720f7d19fae9cfccb5cc3c18617d99b03da4eb94ec9df6af37abe354
+	sha256sums = 8cec95d5de1fcc95187c6521971a0239a5503bbc08162e5d67cfef2439e07a76
+
+pkgname = ipp-usb
