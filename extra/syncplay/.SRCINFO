@@ -1,0 +1,25 @@
+pkgbase = syncplay
+	pkgdesc = Synchronize watching movies on mplayer2, vlc, mpv, and mpc-hc across many computers
+	pkgver = 1.7.1
+	pkgrel = 2
+	url = http://syncplay.pl
+	arch = any
+	license = Apache
+	depends = python
+	depends = python-twisted
+	optdepends = pyside2: GUI
+	optdepends = python-service-identity: TLS
+	optdepends = python-certifi: TLS
+	optdepends = python-pem: TLS
+	optdepends = mplayer2: media player
+	optdepends = mpv: media player
+	optdepends = vlc: media player
+	backup = etc/syncplay/server.conf
+	source = https://github.com/Syncplay/syncplay/archive/v1.7.1/syncplay-1.7.1.tar.gz
+	source = syncplay.service
+	source = syncplay.conf
+	sha256sums = f335787ff1d94cc990cdcec94f12f39a2068e5bba31db7dbac9ab42e1661d900
+	sha256sums = bbbf8f9dfc36631b49ba7d0fe3f980066b30a544954680a677e5e8629b7e0a8b
+	sha256sums = df3c7656024d60c59664c79f4890f7780a2c5b8b537ac61b017e16b3d4420808
+
+pkgname = syncplay
