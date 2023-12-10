@@ -1,0 +1,60 @@
+pkgbase = coq
+	pkgdesc = Formal proof management system
+	pkgver = 8.18.0
+	pkgrel = 1
+	url = https://coq.inria.fr/
+	arch = x86_64
+	groups = coq
+	license = GPL
+	makedepends = ocaml-num
+	makedepends = ocaml-zarith
+	makedepends = gtk3
+	makedepends = gtksourceview3
+	makedepends = dune
+	makedepends = git
+	makedepends = lablgtk3
+	makedepends = gendesk
+	makedepends = texlive-bin
+	makedepends = texlive-latexextra
+	makedepends = texlive-pictures
+	makedepends = texlive-fontsextra
+	makedepends = texlive-science
+	makedepends = fig2dev
+	makedepends = imagemagick
+	makedepends = hevea
+	makedepends = ghostscript
+	makedepends = python
+	makedepends = python-sphinx
+	makedepends = python-sphinx_rtd_theme
+	makedepends = python-pexpect
+	makedepends = python-beautifulsoup4
+	makedepends = python-sphinxcontrib-bibtex
+	makedepends = antlr4
+	depends = ocaml>=4.14.0
+	depends = ocaml-findlib
+	options = !emptydirs
+	options = !strip
+	options = staticlibs
+	source = coq-8.18.0.tar.gz::https://github.com/coq/coq/archive/V8.18.0.tar.gz
+	source = python-antlr4-4.9.3.tar.gz::https://github.com/antlr/antlr4/archive/4.9.3.tar.gz
+	sha256sums = 00a18c796a6e154a1f1bac7e1aef9e14107e0295fa4e0a18f10cdea6fc2e840b
+	sha256sums = efe4057d75ab48145d4683100fec7f77d7f87fa258707330cadd1f8e6f7eecae
+
+pkgname = coq
+	optdepends = coqide: graphical Coq IDE
+	optdepends = coq-doc: offline documentation
+	optdepends = coin-or-csdp: for psatz plugin
+	conflicts = coq-nox
+	replaces = coq-nox
+
+pkgname = coqide
+	pkgdesc = GTK-based graphical interface for the Coq proof assistant
+	depends = ocaml>=4.14.0
+	depends = ocaml-findlib
+	depends = coq
+	depends = gtk3
+	depends = gtksourceview3
+
+pkgname = coq-doc
+	pkgdesc = HTML and PDF documentation for the Coq proof assistant
+	depends = 
