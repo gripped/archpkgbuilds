@@ -2,7 +2,7 @@
 # Contributor: Esclapion <esclapion at gmail.com>
 
 pkgname=qastools
-pkgver=1.0.0
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="A collection of desktop applications for the Linux sound system ALSA."
 arch=(x86_64)
@@ -23,8 +23,8 @@ makedepends=(
   systemd-libs
 )
 source=($url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('a00a3d9d6ba854e3ff90bb4405968a9328a02e3d720edb37b4f46c93b54ef50a68794ee17d6df55c1e8117df610efdf0a1f388ce5849e3f216db38cef736bdd0')
-b2sums=('0344b7314c7d59278b527c1afe99c78acc0a9ede5ab43c34bd5a5af24ad4dde58aea41c998ccf8e8509e96b291983040e63577e87b953b30ad7dcc2ea6a5021f')
+sha512sums=('cc39c2cb802f85a7b73aec5a944100672b7d541cdac71f2000e6967b2e03ff55d1104c4f8685dc599bef72d0936d80b8a2f7ed362251a6f2be0001dbc6009ccf')
+b2sums=('0c46c36961dbbb02b3acab5e59b66c7cb8c4a7913ad1180085939bad70108e156f0f2bc27c7353b2ff35043d93cb60d80109e98b00ce6dab37464632c5b2619e')
 
 build() {
   local cmake_options=(
