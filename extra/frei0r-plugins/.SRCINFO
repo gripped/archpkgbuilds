@@ -1,0 +1,22 @@
+pkgbase = frei0r-plugins
+	pkgdesc = Collection of video effect plugins
+	pkgver = 2.3.2
+	pkgrel = 1
+	url = https://frei0r.dyne.org/
+	arch = x86_64
+	license = GPL
+	makedepends = cairo
+	makedepends = cmake
+	makedepends = gavl
+	makedepends = ninja
+	makedepends = opencv
+	depends = gcc-libs
+	depends = glibc
+	optdepends = cairo: cairoaffineblend, cairoblend, cairogradient and cairoimagegrid plugins
+	optdepends = gavl: rgbparade, scale0tilt and vectorscope plugins
+	optdepends = opencv: facebl0r and facedetect plugins
+	source = https://github.com/dyne/frei0r/archive/v2.3.2/frei0r-plugins-2.3.2.tar.gz
+	validpgpkeys = 6113D89CA825C5CEDD02C87273B35DA54ACB7D10
+	sha256sums = 304291e0ecb456a8b054fe04e14adc50ace54d0223b7b29165ff5343e820ef9d
+
+pkgname = frei0r-plugins
