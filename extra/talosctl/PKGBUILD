@@ -3,7 +3,7 @@
 
 pkgname=talosctl
 pkgver=1.5.5
-pkgrel=2
+pkgrel=3
 pkgdesc='CLI for Talos - A modern OS for Kubernetes'
 arch=('x86_64')
 url='https://github.com/siderolabs/talos'
@@ -25,13 +25,15 @@ prepare() {
   # download dependencies
   export GOPATH="${srcdir}"
   go mod download
+
+  # https://github.com/siderolabs/talos/blob/d8a435f0e4e093570325b737f89ff3b1205de48e/Dockerfile#L252
+  # upstream switched from using LDFLAGS to go:embed some time ago,
+  # this is how sha/pkgver/etc are added to the binary
+  git rev-parse HEAD > pkg/machinery/gendata/data/sha
 }
 
 build() {
   cd "$pkgname"
-
-  export _PKGS=$(grep '^PKGS ?=.*' Makefile | cut -d' ' -f3)
-  export _EXTRA=$(grep '^EXTRAS ?=.*' Makefile | cut -d' ' -f3)
 
   # set Go flags
   export CGO_CPPFLAGS="${CPPFLAGS}"
@@ -45,15 +47,7 @@ build() {
     -modcacherw \
     -ldflags "-compressdwarf=false \
     -linkmode external \
-    -extldflags ${LDFLAGS} \
-    -X github.com/talos-systems/talos/pkg/version.Name=Talos \
-    -X github.com/talos-systems/talos/pkg/version.SHA=$(git rev-parse HEAD) \
-    -X github.com/talos-systems/talos/pkg/version.Tag=v${pkgver} \
-    -X github.com/talos-systems/talos/pkg/version.PkgsVersion=${_PKGS:?_PKGS unset} \
-    -X github.com/talos-systems/talos/pkg/version.ExtrasVersion=${_EXTRA:?_EXTRA unset} \
-    -X github.com/talos-systems/talos/pkg/images.Username=talos-systems \
-    -X github.com/talos-systems/talos/pkg/images.Registry=ghcr.io \
-    -X ggithub.com/talos-systems/talos/cmd/talosctl/pkg/mgmt/helpers.ArtifactsPath=_out" \
+    -extldflags ${LDFLAGS}" \
     -o build/talosctl \
     ./cmd/talosctl
 
