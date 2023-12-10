@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=git-warp-time
-pkgver=0.5.2
+pkgver=0.7.0
 pkgrel=1
 pkgdesc='reset timestamps of Git repository files to the time of the last modifying commit'
 arch=(x86_64)
@@ -15,7 +15,7 @@ makedepends=(cargo
              jq)
 _archive="$pkgname-$pkgver"
 source=("$url/releases/download/v$pkgver/$_archive.tar.xz")
-sha256sums=('dfc18890eface874a845a54e862269e4cabd9886c7e7f04c04866ed22530db61')
+sha256sums=('c7de82bd847510215245dfe79c36ecefa48849b254a96311b5c780ed51c28163')
 
 prepare() {
 	cd "$_archive"
