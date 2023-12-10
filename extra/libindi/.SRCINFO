@@ -1,21 +1,29 @@
 pkgbase = libindi
 	pkgdesc = A distributed control protocol designed to operate astronomical instrumentation
-	pkgver = 2.0.4
-	pkgrel = 2
+	pkgver = 2.0.5
+	pkgrel = 1
 	url = https://www.indilib.org/index.php?title=Main_Page
 	arch = x86_64
 	license = GPL2
 	makedepends = cmake
 	makedepends = qt5-base
-	depends = libnova
+	depends = cblas
 	depends = cfitsio
-	depends = libjpeg
-	depends = gsl
-	depends = libtheora
+	depends = curl
 	depends = fftw
+	depends = gcc-libs
+	depends = glibc
+	depends = gsl
 	depends = libev
+	depends = libjpeg
+	depends = libnova
+	depends = libogg
+	depends = libtheora
+	depends = libusb
+	depends = libxisf
 	depends = rtl-sdr
-	source = https://github.com/indilib/indi/archive/v2.0.4/libindi-2.0.4.tar.gz
-	sha256sums = 56b839c2f863f8c1b6b0b802abf64f086269c128f3a02b00f3d35f1567fb9bb6
+	depends = zlib
+	source = https://github.com/indilib/indi/archive/v2.0.5/libindi-2.0.5.tar.gz
+	sha256sums = 50f95a3f90ff3f262095e8d8aa02eefce2f509c432f3cf1554dd5e8c675c5958
 
 pkgname = libindi
