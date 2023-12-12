@@ -3,7 +3,7 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=nomad
-pkgver=1.6.3
+pkgver=1.7.1
 pkgrel=1
 pkgdesc='A simple and flexible workload orchestrator'
 arch=('x86_64')
@@ -23,7 +23,7 @@ optdepends=(
 )
 backup=('etc/nomad.d/defaults.hcl')
 options=('!lto')
-_commit=e0497bff14378d68cad76a801cc0eba93ce05039 #refs/tags/v1.6.3
+_commit=608e719430038cdeb5fe108536d90cf88a8540e3 #refs/tags/v1.7.1
 source=(
   "$pkgname::git+https://github.com/hashicorp/nomad.git#commit=$_commit"
   'systemd.service'
