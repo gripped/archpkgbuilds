@@ -1,0 +1,22 @@
+pkgbase = python-path
+	pkgdesc = A module wrapper for os.path
+	pkgver = 16.9.0
+	pkgrel = 1
+	url = https://github.com/jaraco/path
+	arch = any
+	license = MIT
+	checkdepends = python-pytest-enabler
+	checkdepends = python-pytest-mypy
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools-scm
+	makedepends = python-wheel
+	depends = python
+	provides = python-path.py
+	conflicts = python-path.py
+	replaces = python-path.py
+	source = git+https://github.com/jaraco/path.git#commit=188538156d6cc77cfcb8e18a40dbca1def87dc54
+	sha512sums = SKIP
+
+pkgname = python-path
