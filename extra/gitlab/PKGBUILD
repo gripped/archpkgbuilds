@@ -9,7 +9,7 @@
 # Contributor: loqs <bugs-archlinux@entropy-collector.net>
 
 pkgname=gitlab
-pkgver=16.5.2
+pkgver=16.6.1
 pkgrel=1
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
@@ -24,14 +24,16 @@ depends=(git
          openssh
          openssl
          perl-image-exiftool
-         re2
+         re2 libre2.so
          redis
          ruby
          ruby-bundler)
-makedepends=(cmake
+makedepends=(clang
+             cmake
              go
              nodejs
              postgresql
+             rust
              yarn)
 optdepends=('postgresql: database backend'
             'python-docutils: reStructuredText markup language support'
@@ -109,11 +111,15 @@ build() {
 
 	echo "Fetching bundled gems..."
 	# Gems will be installed into vendor/bundle
+	# Remove -Werror=format-security from the CFLAGS used by the C extension of the google-protobuf gem
+	bundle config --local build.google-protobuf "-- --with-cflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CFLAGS"]' | sed -e 's/-Werror=format-security//')'"
 	bundle config --local build.gpgme --use-system-libraries # See https://bugs.archlinux.org/task/63654
+	bundle config --local build.re2 --enable-system-libraries # See https://gitlab.archlinux.org/archlinux/packaging/packages/gitlab/-/issues/5
 	bundle config --local force_ruby_platform true # some native gems are not available for newer ruby
 	bundle config --local deployment true
 	bundle config --local without 'development test aws kerberos'
-	BUNDLER_CHECKSUM_VERIFICATION_OPT_IN=0 bundle install --jobs=$(nproc) --no-cache
+	# Disable make jobserver due to a race in prometheus-client-mmap
+	MAKEFLAGS= BUNDLER_CHECKSUM_VERIFICATION_OPT_IN=1 bundle install --jobs=$(nproc) --no-cache
 
 	export CGO_CPPFLAGS="${CPPFLAGS}"
 	export CGO_CFLAGS="${CFLAGS}"
@@ -123,7 +129,6 @@ build() {
 	make -C workhorse
 
 	yarn install --production --pure-lockfile
-	bundle exec rake gettext:compile RAILS_ENV=production NODE_ENV=production USE_DB=false SKIP_STORAGE_VALIDATION=true NODE_OPTIONS="--max_old_space_size=3584"
 	bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production USE_DB=false SKIP_STORAGE_VALIDATION=true NODE_OPTIONS="--max_old_space_size=3584"
 }
 
