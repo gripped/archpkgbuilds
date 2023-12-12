@@ -1,6 +1,6 @@
 pkgbase = bluez
 	pkgver = 5.70
-	pkgrel = 1
+	pkgrel = 2
 	url = http://www.bluez.org/
 	arch = x86_64
 	license = GPL2
@@ -14,10 +14,12 @@ pkgbase = bluez
 	source = https://www.kernel.org/pub/linux/bluetooth/bluez-5.70.tar.xz
 	source = https://www.kernel.org/pub/linux/bluetooth/bluez-5.70.tar.sign
 	source = bluetooth.modprobe
+	source = CVE-2023-45866.patch::https://github.com/bluez/bluez/commit/25a471a83e02e1effb15d5a488b3f0085eaeb675.patch
 	validpgpkeys = E932D120BC2AEC444E558F0106CA9F5D1DCF2659
 	sha256sums = 37e372e916955e144cb882f888e4be40898f10ae3b7c213ddcdd55ee9c009278
 	sha256sums = SKIP
 	sha256sums = 46c021be659c9a1c4e55afd04df0c059af1f3d98a96338236412e449bf7477b4
+	sha256sums = 933de421722c7511b5de1efd07a888328d44fa7d99f753696c6d67f938eab24c
 
 pkgname = bluez
 	pkgdesc = Daemons for the bluetooth protocol stack
