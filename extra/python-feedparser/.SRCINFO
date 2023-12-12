@@ -1,0 +1,23 @@
+pkgbase = python-feedparser
+	pkgdesc = Parse RSS and Atom feeds in Python
+	pkgver = 6.0.11
+	pkgrel = 1
+	url = https://github.com/kurtmckee/feedparser
+	arch = any
+	license = custom
+	checkdepends = python-chardet
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	depends = libxml2
+	depends = python-sgmllib3k
+	optdepends = python-chardet: for character encoding auto-detection
+	optdepends = python-cchardet: for faster character encoding auto-detection
+	source = git+https://github.com/kurtmckee/feedparser.git#tag=6.0.11
+	source = feedparser-fix-tests-on-py310.patch::https://github.com/kurtmckee/feedparser/commit/c55bd8ad37db89bd219783bc514d600c9523ed38.patch
+	b2sums = SKIP
+	b2sums = b803c355e8ed8ee941e4478d3e05271eaf49686a45d32d1d62217811ea64e6315ff9d8e83456267e67ceb5f84c6a3000b61f5a7eccd3ead6fb8e2286864e651e
+
+pkgname = python-feedparser
