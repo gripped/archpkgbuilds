@@ -7,7 +7,7 @@ pkgname=(
   aom-docs
 )
 pkgver=3.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Alliance for Open Media video codec"
 url="https://aomedia.org/"
 arch=(x86_64)
@@ -39,15 +39,14 @@ prepare() {
 
 build() {
   local cmake_options=(
+    # Upstream would like Release, adding -O3 and removing assertions
+    # https://gitlab.archlinux.org/archlinux/packaging/packages/aom/-/issues/1
+    -D CMAKE_BUILD_TYPE=Release
+
     -D CMAKE_INSTALL_PREFIX=/usr
-    -D CMAKE_BUILD_TYPE=None
     -D BUILD_SHARED_LIBS=1
     -D ENABLE_TESTS=0
   )
-
-  # Upstream would like -O3
-  CFLAGS="${CFLAGS/-O2/-O3}"
-  CXXFLAGS="${CXXFLAGS/-O2/-O3}"
 
   cmake -S libaom-$pkgver -B build -G Ninja "${cmake_options[@]}"
   cmake --build build
