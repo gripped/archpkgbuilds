@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=gitoxide
-pkgver=0.31.1
+pkgver=0.32.0
 pkgrel=1
 pkgdesc="An idiomatic, lean, fast & safe pure Rust implementation of Git"
 url='https://github.com/Byron/gitoxide'
@@ -10,8 +10,8 @@ license=('MIT' 'Apache-2.0')
 makedepends=('cargo' 'cmake')
 options=(!lto)
 source=(https://github.com/Byron/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('639c366d3767f5391e055a985de0ac9142fd56f76a1920bacd920b25dabc3b64')
-b2sums=('ffbd082134a1f667523bb8d150ed67853e10f3282b7d4ff78b5562e819be21f411ac03a25b53cb85d22d978ffaf2001bf6c73812f113ab9d7541ac75fc2182c6')
+sha256sums=('5a17da0379254bd996fe1888de4104d551a41bdd8bd4b93034f9d0757382fa75')
+b2sums=('9c21b9bfa4e96c6504414e172bee3029251f454908626893650ff77636c3c66a7b7fb739791b59234c05bb233cdc586145ae5bbea6f472f1590afe99bcf46ac0')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
