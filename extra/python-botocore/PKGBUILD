@@ -5,8 +5,8 @@
 # Contributor: Chris Fordham
 
 pkgname=python-botocore
-# UPDATE_BLOCKED: newer python-botocore will likely break python-aiobotocore
-pkgver=1.31.64
+# https://raw.githubusercontent.com/boto/botocore/develop/CHANGELOG.rst
+pkgver=1.33.1
 pkgrel=1
 pkgdesc='A low-level interface to a growing number of Amazon Web Services'
 arch=('any')
@@ -21,7 +21,7 @@ optdepends=(
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz
         tests-keep-env.diff)
-sha256sums=('ff4fddeeb2a6fb8b9db9b3659e4ec4d9e1c89f6ae0f9525657a000df406c06e0'
+sha256sums=('05bc98f43cb8f073546e5d0b3062de5dd9ae78fb7e49f174cd0c932a29dfe8cf'
             '15c588d3f4cfcc0ef26fc4ff367eb6dc12dc2f303e299cbe397288089ee52a11')
 
 prepare() {
@@ -43,8 +43,14 @@ check() {
 
   export PYTHONPATH="$PWD"
 
+  export PYTEST_XDIST_AUTO_NUM_WORKERS=$(echo "$MAKEFLAGS" | grep -oP '\-j\s*\K[0-9]+')
+  pytest_args=()
+  if [ -n "$PYTEST_XDIST_AUTO_NUM_WORKERS" ]; then
+    pytest_args+=(-n auto)
+  fi
+
   # Many integration tests need real credentials
-  PYTHONDONTWRITEBYTECODE=1 pytest tests -n auto --ignore=tests/integration
+  pytest tests "${pytest_args[@]}" --ignore=tests/integration
 }
 
 package() {
