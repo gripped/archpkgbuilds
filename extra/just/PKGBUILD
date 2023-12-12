@@ -4,7 +4,7 @@
 
 pkgname=just
 pkgver=1.16.0
-pkgrel=1
+pkgrel=3
 pkgdesc="A handy way to save and run project-specific commands"
 arch=("x86_64")
 url="https://github.com/casey/just"
@@ -16,7 +16,7 @@ sha256sums=('80c07b7a92b24ac9661fa312f287f0900bbe19b9c3a2f4c2739a2f242a5558f9')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
@@ -31,8 +31,9 @@ check() {
 
 package() {
   cd "${pkgname}-${pkgver}"
-  install -Dm755 "target/release/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
-  install -Dm644 "LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm755 -t "${pkgdir}/usr/bin/" "target/release/${pkgname}"
+  install -Dm644 -t "${pkgdir}/usr/share/man/man1/" "man/${pkgname}.1"
+  install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}/" "LICENSE"
   install -Dm644 "completions/just.zsh" "${pkgdir}/usr/share/zsh/site-functions/_just"
   install -Dm644 "completions/just.bash" "${pkgdir}/usr/share/bash-completion/completions/just"
   install -Dm644 "completions/just.fish" "${pkgdir}/usr/share/fish/vendor_completions.d/just.fish"
