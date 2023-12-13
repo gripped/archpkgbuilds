@@ -4,14 +4,26 @@
 
 pkgname=ddgr
 pkgver=2.1
-pkgrel=4
+pkgrel=5
 pkgdesc="DuckDuckGo from the terminal"
 arch=('any')
 url="https://github.com/jarun/ddgr"
 license=('GPL3')
-depends=('python>=3.7.0')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('fb6601ad533f2925d2d6299ab9e6dd48da0b75e99ef9ed9068f37e516380b5e6')
+depends=('python')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
+        "fix-http-202-error.patch::https://github.com/jarun/ddgr/commit/15f91df06079847143f5915e53fe6e7c588da80d.patch")
+sha256sums=('fb6601ad533f2925d2d6299ab9e6dd48da0b75e99ef9ed9068f37e516380b5e6'
+            '9560db701b029845df4e7e3c0a9f2e4f5d00c2b3779076cf9f6e2823d051e1dc')
+
+
+prepare() {
+	cd "${pkgname}-${pkgver}"
+
+	# A recent change in DuckDuckGo side introduced an issue where ddgr returned no reults and the following error: [ERROR] HTTP Error 202: Accepted
+	# This upstream patch aims to fix it by using the latest Brave user agent
+	# See https://github.com/jarun/ddgr/issues/158
+  	patch -Np1 <${srcdir}/fix-http-202-error.patch
+}
 
 package() {
 	cd "${pkgname}-${pkgver}"
