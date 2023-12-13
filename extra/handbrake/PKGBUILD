@@ -4,15 +4,17 @@
 
 pkgname=('handbrake' 'handbrake-cli')
 pkgver=1.7.1
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 url="https://handbrake.fr/"
 license=('GPL')
 _commondeps=('libxml2' 'libass' 'libvorbis' 'opus' 'speex' 'libtheora' 'lame'
-             'x264' 'x265' 'jansson' 'libvpx' 'libva' 'numactl' 'bzip2' 'gcc-libs'
+             'x264' 'jansson' 'libvpx' 'libva' 'numactl' 'bzip2' 'gcc-libs'
              'zlib' 'xz' 'libjpeg-turbo')
 _guideps=('gst-plugins-base' 'gtk3' 'librsvg')
-makedepends=('python' 'nasm' 'wget' 'cmake' 'meson'
+# git included as a build dependency for bundled x265 to work
+# https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=275546#c0
+makedepends=('python' 'nasm' 'wget' 'cmake' 'meson' 'git'
              "${_commondeps[@]}" "${_guideps[@]}")
 options=('!lto') # https://bugs.archlinux.org/task/72600
 source=(https://github.com/HandBrake/HandBrake/releases/download/$pkgver/HandBrake-$pkgver-source.tar.bz2{,.sig}
