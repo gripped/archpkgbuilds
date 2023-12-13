@@ -1,0 +1,18 @@
+pkgbase = opensc
+	pkgdesc = Tools and libraries for smart cards
+	pkgver = 0.24.0
+	pkgrel = 1
+	url = https://github.com/OpenSC/OpenSC/wiki
+	arch = x86_64
+	license = LGPL
+	makedepends = docbook-xsl
+	depends = pcsclite
+	depends = glib2
+	depends = libltdl
+	options = !emptydirs
+	options = !lto
+	backup = etc/opensc.conf
+	source = https://github.com/OpenSC/OpenSC/releases/download/0.24.0/opensc-0.24.0.tar.gz
+	sha512sums = 0fd2ea858874ae0b85c8fe8c4b920988693a47ca95b26449a1e95f86e17b76000f236c1f75d63ee133306e01a965155da5e14c1b8a59053b85026ecb58fb97bb
+
+pkgname = opensc
