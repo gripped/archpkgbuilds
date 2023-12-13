@@ -3,7 +3,7 @@
 
 pkgname=thin-provisioning-tools
 pkgver=1.0.9
-pkgrel=1
+pkgrel=2
 pkgdesc='Suite of tools for manipulating the metadata of the dm-thin device-mapper target'
 arch=('x86_64')
 url='https://github.com/jthornber/thin-provisioning-tools'
@@ -11,7 +11,7 @@ license=('GPL3')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/jthornber/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('4ff542b438babf4e17378bc5c6d823ec35c00f72bde49fe229a803bba4634512')
+sha256sums=('830a6f86f96bfaadd779ca36b15a02b21fd1082ea0e72102b269d999d0b20429')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
