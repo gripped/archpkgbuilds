@@ -9,7 +9,7 @@
 
 pkgname=blender
 pkgver=4.0.2
-pkgrel=1
+pkgrel=4
 epoch=17
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('x86_64')
@@ -22,7 +22,7 @@ depends=('libpng' 'libtiff' 'openexr' 'python' 'desktop-file-utils' 'python-requ
          'jemalloc' 'libspnav' 'ptex' 'opensubdiv' 'openvdb' 'sdl2' 'embree' 'libharu'
          'draco' 'openpgl' 'level-zero-loader' 'libxkbcommon' 'libepoxy' 'usd' 'openshadinglanguage'
          'intel-oneapi-compiler-shared-runtime-libs' 'intel-oneapi-compiler-dpcpp-cpp-runtime-libs')
-makedepends=('cmake' 'boost' 'mesa' 'git' 'svn' 'llvm' 'cuda' 'ninja' 'wayland-protocols' 'libxkbcommon'
+makedepends=('cmake' 'boost' 'mesa' 'git' 'subversion' 'llvm' 'cuda' 'ninja' 'wayland-protocols' 'libxkbcommon'
              'libdecor' 'hip-runtime-amd' 'level-zero-headers' 'intel-oneapi-dpcpp-cpp'
              'intel-oneapi-compiler-shared-runtime' 'intel-compute-runtime')
 optdepends=('cuda: Cycles renderer CUDA support'
@@ -34,11 +34,13 @@ options=('!buildflags')
 source=("git+https://projects.blender.org/blender/blender.git#tag=v$pkgver"
         "git+https://projects.blender.org/blender/blender-addons.git#tag=v$pkgver"
         "git+https://projects.blender.org/blender/blender-addons-contrib#tag=v$pkgver"
+        "svn+https://svn.blender.org/svnroot/bf-blender/tags/blender-${pkgver%%.[^.]}-release/lib/assets"
         https://developer.download.nvidia.com/redist/optix/v7.7/OptiX-7.7-Include.zip
         https://projects.blender.org/blender/blender/commit/5486c70aae94196d715c07364292fc108ebf59a8.patch
         force-draco1.patch
         force-draco2.patch)
 sha512sums=('SKIP'
+            'SKIP'
             'SKIP'
             'SKIP'
             '55caea5beccdc0adebdba8a825f3cfee083015311de5602cfcf215139ccbf9fed62f10ee1dcdf7e31a3557aabbc1fa872eeed67bc46f59fb4e5abd18331c0aca'
@@ -49,6 +51,14 @@ sha512sums=('SKIP'
 prepare() {
   cd "$pkgname"
 
+  # Create expected path for assets
+  mkdir -p "$srcdir"/lib
+  # Copy assets to expected location
+  cp -r "$srcdir"/assets "$srcdir"/lib/assets
+  # Remove this directory to prevent it being packaged
+  rm -r "$srcdir"/lib/assets/.makepkg/
+
+  # Copy addons to expected location
   cp -r "$srcdir"/blender-addons scripts/addons
   cp -r "$srcdir"/blender-addons-contrib scripts/addons_contrib
 
