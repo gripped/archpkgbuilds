@@ -3,8 +3,8 @@
 
 _pkgbasename=util-linux
 pkgname=lib32-${_pkgbasename}
-_tag='d32d74bf433a419f2a8976530fb03669bde722cd' # git rev-parse v${_tag_name}
-_tag_name=2.39.2
+_tag='bc0e318941a0539be1205ea1ac1dbfa834b7d033' # git rev-parse v${_tag_name}
+_tag_name=2.39.3
 pkgver=${_tag_name/-/}
 pkgrel=1
 pkgdesc='Miscellaneous system utilities for Linux (32-bit)'

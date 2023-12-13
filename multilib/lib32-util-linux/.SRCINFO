@@ -1,0 +1,24 @@
+pkgbase = lib32-util-linux
+	pkgdesc = Miscellaneous system utilities for Linux (32-bit)
+	pkgver = 2.39.3
+	pkgrel = 1
+	url = https://github.com/util-linux/util-linux
+	arch = x86_64
+	license = GPL2
+	makedepends = git
+	makedepends = meson
+	makedepends = lib32-libxcrypt
+	makedepends = lib32-ncurses
+	depends = lib32-glibc
+	depends = util-linux-libs
+	provides = libuuid.so
+	provides = libblkid.so
+	provides = libfdisk.so
+	provides = libmount.so
+	provides = libsmartcols.so
+	options = !emptydirs
+	source = git+https://github.com/util-linux/util-linux#tag=bc0e318941a0539be1205ea1ac1dbfa834b7d033?signed
+	validpgpkeys = B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284
+	sha256sums = SKIP
+
+pkgname = lib32-util-linux
