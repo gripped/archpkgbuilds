@@ -1,8 +1,8 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: SaultDon <sault.don gmail>
 pkgname=pdal
-pkgver=2.6.1
-pkgrel=2
+pkgver=2.6.2
+pkgrel=1
 pkgdesc="A C++ library for translating and manipulating point cloud data"
 arch=('x86_64')
 url="http://www.pdal.io"
@@ -13,25 +13,18 @@ optdepends=('python-numpy: for the Python plugin'
             'sqlite: for the sqlite plugin'
             'postgresql-libs: for the postgresql plugin')
 provides=('pdal')
-source=("https://github.com/PDAL/PDAL/releases/download/${pkgver}/PDAL-${pkgver}-src.tar.bz2"
-        $pkgname-libxml2.patch::https://github.com/PDAL/PDAL/pull/4257.patch)
-sha512sums=('1fdf7c0051996cc39c6e08492b33faa226f153bcf7c57a568fbcb4dc6b72d6732e005ebeeb3c717c9f31df4079f3968634c09da0b416bf51f614c1c174444ccc'
-            'f883d1576b2b9ecb55ce5863b8afd6ed38984b86d9593df2efad41aee47c9d71d9edc855501464a58b4618ff5489d746a87a2b7c328f735bfa1be9c7c0cfa486')
-
-prepare() {
-  cd "PDAL-$pkgver-src/"
-  patch -Np1 -i "$srcdir"/$pkgname-libxml2.patch
-}
+source=("https://github.com/PDAL/PDAL/releases/download/${pkgver}/PDAL-${pkgver}-src.tar.bz2")
+sha512sums=('4a9c07deaca6fbe994808904a6b90e09beb418155c662369046b6ddea03c8aa57ca2e9b4c2057c8e409bb197b90adb36e334c9c2136034a021be84763fa93551')
 
 build() {
   cd "PDAL-$pkgver-src/"
 
   cmake \
-      -Bbuild \
-      -GNinja \
-      -DCMAKE_INSTALL_PREFIX=/usr \
-      -DBUILD_PLUGIN_PGPOINTCLOUD=ON \
-      -DWITH_COMPLETION=ON
+    -Bbuild \
+    -GNinja \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_PLUGIN_PGPOINTCLOUD=ON \
+    -DWITH_COMPLETION=ON
 
   ninja -C build
 }
