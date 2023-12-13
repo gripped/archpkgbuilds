@@ -5,7 +5,7 @@
 # Contributor: Matthew Bentley <matthew@mtbentley.us>
 
 pkgname=godot
-pkgver=4.2
+pkgver=4.2.1
 pkgrel=1
 pkgdesc='Advanced cross-platform 2D and 3D game engine'
 url='https://godotengine.org/'
@@ -18,8 +18,8 @@ depends=(embree3 freetype2 graphite harfbuzz harfbuzz-icu libglvnd libspeechd
 optdepends=('pipewire-alsa: for audio support'
             'pipewire-pulse: for audio support')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/godotengine/godot/archive/$pkgver-stable.tar.gz")
-sha256sums=('517e538ef7f3eebeb761c281fb71ac529424146f6b3b746d0861825ddcf18918')
-b2sums=('3415993ddc72dda85b2bd1d428941a963893d25826abafe938d99fb129b6b16052fdc22e78b2ca9172585445a33649d03d56e3a18eba69d816858543d9eb9c58')
+sha256sums=('716cfd489dbfc91b5e04cc0df8be415ba6eec74c5fb471840275d887cb53ff95')
+b2sums=('0d4556feca7bcbcca9efe195239652f3b53dd4c7a2884ed84ead40528e0eeb9ebff2a8f2fed9df503e01c77101b7939e2ed2d6c453c07f387cc6ff5a823ad705')
 
 prepare() {
   # Update the MIME info, ref FS#77810
