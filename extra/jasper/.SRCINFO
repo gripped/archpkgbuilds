@@ -1,0 +1,30 @@
+pkgbase = jasper
+	pkgdesc = Software-based implementation of the codec specified in the emerging JPEG-2000 Part-1 standard
+	pkgver = 4.1.1
+	pkgrel = 1
+	url = https://www.ece.uvic.ca/~frodo/jasper/
+	arch = x86_64
+	license = custom:JasPer2.0
+	makedepends = glibc
+	makedepends = libjpeg
+	makedepends = freeglut
+	makedepends = libxmu
+	makedepends = glu
+	makedepends = cmake
+	makedepends = doxygen
+	source = jasper-4.1.1.tar.gz::https://github.com/mdadams/jasper/archive/version-4.1.1.tar.gz
+	sha512sums = a15c196d7e448fb3c8b6512793d4b430e58ba6adf343b46392cac0880ae8c385cd75b43dd566c4a25baab983089cb95c00ae538dc0b84282cc98f2a9ce398d43
+	b2sums = 7f72c7f5633b7b0b119733ea7cdaa51684d3593ea19de21ae45f036ac79245b418b4f72a90f4b7d458b38ea480f008a8b67a74a0c4f440c9d86f76419e04e712
+
+pkgname = jasper
+	depends = glibc
+	depends = libjpeg
+	depends = libjpeg.so
+	depends = freeglut
+	depends = glu
+	optdepends = jasper-doc: documentation
+	provides = libjasper.so
+
+pkgname = jasper-doc
+	pkgdesc = Software-based implementation of the codec specified in the emerging JPEG-2000 Part-1 standard (documentation)
+	optdepends = jasper
