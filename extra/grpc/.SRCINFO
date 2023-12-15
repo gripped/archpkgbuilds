@@ -1,6 +1,6 @@
 pkgbase = grpc
 	pkgdesc = High performance, open source, general RPC framework that puts mobile and HTTP/2 first.
-	pkgver = 1.59.3
+	pkgver = 1.60.0
 	pkgrel = 1
 	url = https://grpc.io
 	arch = x86_64
@@ -20,9 +20,9 @@ pkgbase = grpc
 	makedepends = python-setuptools
 	makedepends = abseil-cpp
 	makedepends = ninja
-	source = https://github.com/grpc/grpc/archive/v1.59.3/grpc-1.59.3.tar.gz
+	source = https://github.com/grpc/grpc/archive/v1.60.0/grpc-1.60.0.tar.gz
 	source = https://github.com/google/googletest/archive/0e402173c97aea7a00749e825b194bfede4f2e45/googletest-0e402173c97aea7a00749e825b194bfede4f2e45.tar.gz
-	sha256sums = ea281bb3489520ad4fb96ae84b45ed194a1f0b944d3e74f925f5e019d31ecd0f
+	sha256sums = 437068b8b777d3b339da94d3498f1dc20642ac9bfa76db43abdd522186b1542b
 	sha256sums = c8de6c60e12ad014a28225c5247ee735861d85cf906df617f6a29954ca05f547
 
 pkgname = grpc
@@ -54,6 +54,7 @@ pkgname = python-grpcio
 
 pkgname = python-grpcio-tools
 	pkgdesc = Python protobuf generator for GRPC
+	depends = python-setuptools
 	depends = python-grpcio
 	depends = python-protobuf
 
