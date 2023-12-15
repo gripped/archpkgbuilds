@@ -4,7 +4,7 @@
 
 pkgname=dtk6widget
 pkgver=6.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Deepin base graphical widgets library'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtk6widget"
@@ -20,10 +20,8 @@ build() {
   cd dtk6widget-$pkgver
   # Disable plugins because they are not going to be installed
   cmake . -GNinja \
-      -DMKSPECS_INSTALL_DIR=lib/qt/mkspecs/modules/ \
       -DBUILD_DOCS=ON \
       -DBUILD_PLUGINS=OFF \
-      -DQCH_INSTALL_DESTINATION=share/doc/qt \
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DDTK_VERSION=$pkgver \
