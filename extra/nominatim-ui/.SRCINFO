@@ -1,0 +1,18 @@
+pkgbase = nominatim-ui
+	pkgdesc = Debug UI for Nominatim
+	pkgver = 3.4.0
+	pkgrel = 1
+	url = https://github.com/osm-search/nominatim-ui
+	install = nominatim-ui.install
+	arch = any
+	license = GPL2
+	checkdepends = chromium
+	makedepends = yarn
+	optdepends = nginx
+	backup = etc/webapps/nominatim-ui/config.theme.js
+	source = nominatim-ui-3.4.0.tar.gz::https://github.com/osm-search/nominatim-ui/archive/tags/v3.4.0.tar.gz
+	source = nginx.conf
+	sha256sums = adcd2c2d8670ade448d7652a9e1792a7a0a8ca64dce15883a3a9d7ce74321ee1
+	sha256sums = 045dda10d978acedba43b071271731b2b63a8ad2743cdd6eda7dab2fd98a52ae
+
+pkgname = nominatim-ui
