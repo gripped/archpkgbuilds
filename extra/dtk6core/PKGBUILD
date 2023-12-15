@@ -4,7 +4,7 @@
 
 pkgname=dtk6core
 pkgver=6.0.2
-pkgrel=1
+pkgrel=3
 pkgdesc='DTK core modules'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtk6core"
@@ -23,12 +23,9 @@ prepare() {
 build() {
   cd dtk6core-$pkgver
   cmake . -GNinja \
-      -DMKSPECS_INSTALL_DIR=lib/qt/mkspecs/modules/ \
-      -DFEATURES_INSTALL_DIR=lib/qt/mkspecs/features/ \
       -DBUILD_DOCS=ON \
       -DBUILD_TESTING=ON \
       -DBUILD_WITH_SYSTEMD=ON \
-      -DQCH_INSTALL_DESTINATION=share/doc/qt \
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DCMAKE_INSTALL_LIBEXECDIR=lib \
       -DCMAKE_INSTALL_PREFIX=/usr \
