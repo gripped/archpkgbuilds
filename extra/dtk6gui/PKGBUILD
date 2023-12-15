@@ -2,7 +2,7 @@
 
 pkgname=dtk6gui
 pkgver=6.0.2
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='Deepin Toolkit, gui module for DDE look and feel'
 arch=('x86_64')
@@ -17,10 +17,8 @@ sha512sums=('12605b7403bc59e9f5644d7b08ad38c015a373363aaf9ba8c943150beb57787f4cb
 build() {
   cd dtk6gui-$pkgver
   cmake . -GNinja \
-    -DMKSPECS_INSTALL_DIR=lib/qt/mkspecs/modules/ \
     -DBUILD_DOCS=ON \
     -DBUILD_TESTING=ON \
-    -DQCH_INSTALL_DESTINATION=share/doc/qt \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_INSTALL_PREFIX=/usr \
