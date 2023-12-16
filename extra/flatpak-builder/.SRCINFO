@@ -1,0 +1,35 @@
+pkgbase = flatpak-builder
+	pkgdesc = Tool to build flatpaks from source
+	pkgver = 1.4.0
+	pkgrel = 1
+	url = https://flatpak.org
+	arch = x86_64
+	license = LGPL-2.1-or-later
+	checkdepends = valgrind
+	makedepends = docbook-xsl
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = meson
+	makedepends = xmlto
+	depends = appstream
+	depends = binutils
+	depends = breezy
+	depends = cpio
+	depends = debugedit
+	depends = elfutils
+	depends = flatpak
+	depends = fuse3
+	depends = git
+	depends = patch
+	depends = rpmextract
+	depends = tar
+	depends = unzip
+	replaces = flatpak<0.9.10
+	source = git+https://github.com/flatpak/flatpak-builder#commit=7d621d6eec7fe523c68d46f3853cdc86561b5637
+	source = git+https://gitlab.gnome.org/GNOME/libglnx.git
+	source = fusermount3.diff
+	b2sums = SKIP
+	b2sums = SKIP
+	b2sums = 7d54ba89b3481722026ef556aabfc8b157069701ec89e900a5616899b937eacc077e620fb2a5f9d4faf5f7189414bc25e9a0fc57a0d8d2952bb24fb22dc445f3
+
+pkgname = flatpak-builder
