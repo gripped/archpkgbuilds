@@ -1,0 +1,27 @@
+pkgbase = opentimelineio
+	pkgdesc = Open Source API and interchange format for editorial timeline information
+	pkgver = 0.15
+	pkgrel = 4
+	url = http://opentimeline.io/
+	arch = x86_64
+	license = Apache
+	makedepends = cmake
+	makedepends = git
+	makedepends = imath
+	makedepends = pybind11
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	depends = gcc-libs
+	depends = glibc
+	depends = python
+	depends = python-aaf2
+	source = git+https://github.com/PixarAnimationStudios/OpenTimelineIO#tag=v0.15
+	source = opentimelineio-rapidjson::git+https://github.com/Tencent/rapidjson
+	source = unbundle.patch
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = 1239ca9258b9c828bff3024564d67968e6e2986ecb0d3b4d900320405cc0d197
+
+pkgname = opentimelineio
