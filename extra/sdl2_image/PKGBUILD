@@ -1,6 +1,6 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=sdl2_image
-pkgver=2.8.0
+pkgver=2.8.1
 pkgrel=1
 pkgdesc="A simple library to load images of various formats as SDL surfaces (Version 2)"
 arch=('x86_64')
@@ -9,7 +9,7 @@ license=('MIT')
 depends=('sdl2' 'libpng' 'libtiff' 'libjpeg' 'libwebp' 'libavif' 'libjxl')
 makedepends=('cmake')
 source=("https://github.com/libsdl-org/SDL_image/releases/download/release-${pkgver}/SDL2_image-${pkgver}.tar.gz"{,.sig})
-sha512sums=('b58eb45e5d80a4467ca58672dd74ccf99cc84b9546ad5a3b6fca8caa4cd81351e611eef8aa98e5592f21d326358afe120a9b89e747274d7efa5f5e2c39504ff6'
+sha512sums=('ea6d89f74bc748658a328499701a8ab0b5f85f6650ac192e6fc74a0397c7254bff8422d9e748ac514f7b702738431cd74bb5e9dca721e67de2bf312566f5f305'
             'SKIP')
 validpgpkeys=('1528635D8053A57F77D1E08630A59377A7763BE6')
 
