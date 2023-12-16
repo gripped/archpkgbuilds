@@ -6,7 +6,7 @@
 
 pkgname=unittestpp
 pkgver=2.0.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Lightweight unit testing framework for C++'
 url='https://github.com/unittest-cpp/unittest-cpp/'
 arch=('x86_64')
@@ -17,9 +17,9 @@ options=('staticlibs')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/unittest-cpp/unittest-cpp/archive/v${pkgver}.tar.gz
         fix-pc-version.patch)
 sha256sums=('74852198877dc2fdebdc4e5e9bd074018bf8ee03a13de139bfe41f4585b2f5b9'
-            '6bb25aadc05f56d97d5dcbd061ad72089f2909f8389343bde050f1ac42f724ab')
+            '511bc6ea34b49201c0ca17c2935fcf33b19c5598ef7b7246143469f9f54d6339')
 sha512sums=('39318f4ed31534c116679a3257bf1438a6c4b3bef1894dfd40aea934950c6c8197af6a7f61539b8e9ddc67327c9388d7e8a6f8a3e0e966ad26c07554e2429cab'
-            '0e11b4565308c2c174cbbe12ef3794cb0c877e2292b13acab4ebdb7045aba67571056941f69947e6ea2c6f01436f42fb90dcfe9493fd86573e0ec2359abc4741')
+            '89ed53b10864eca0dd35e53d5e098d9872d1a74e33bec1792ef6994768c687608f71995288d785693e76c279998e251cd3c3afd663980316e4c5c6ffd0bf4d2e')
 
 prepare() {
   mkdir -p unittest-cpp-${pkgver}/build
