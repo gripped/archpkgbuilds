@@ -5,9 +5,9 @@ _pkgname=aws-crt-python
 pkgname=python-awscrt
 # https://github.com/awslabs/aws-crt-python/releases
 # UPDATE_BLOCKED: aws-cli-v2 usually requires older awscrt https://github.com/aws/aws-cli/blob/v2/pyproject.toml
-pkgver=0.19.18
+pkgver=0.19.19
 # curl https://api.github.com/repos/awslabs/aws-crt-python/git/ref/tags/v$pkgver | jq -r .object.sha
-_tag=386ee9c23a95e672cd4806a6d9c5f20c7ce94f7b
+_tag=bc8163806b3b8e3c93b9f380e4852003e1467651
 pkgrel=1
 pkgdesc='A common runtime for AWS Python projects'
 arch=(x86_64)
