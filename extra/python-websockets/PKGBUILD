@@ -3,7 +3,7 @@
 # Contributor: user6553591 <Message on Reddit>
 
 pkgname=python-websockets
-pkgver=11.0
+pkgver=12.0
 pkgrel=1
 pkgdesc='Python implementation of the WebSocket Protocol (RFC 6455)'
 url='https://github.com/aaugustin/websockets'
@@ -15,8 +15,8 @@ makedepends=('python-setuptools' 'python-sphinx' 'python-sphinx-copybutton'
              'python-sphinxcontrib-spelling' 'python-sphinxcontrib-trio'
              'python-sphinxext-opengraph')
 source=(https://github.com/aaugustin/websockets/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('367347464d5d721ad65055743df92311e7d98d0391ff437ab8c3224f1c1e4193b5abbdbf1498cd040d9b30251e6bc051e9c1ec54122b87e4c937026e0f6f3b8e')
-b2sums=('b40b8e88375a1e5e0f6ae1c73169703d206800dcec15d858a0360374701b681ec17c457b014a29dc34962ca1f62261a8b8298e34092429864d790dd4a060e8d8')
+sha512sums=('f17943d444ce275b709cf89453b2d2cce09f5af26f0460e226c2e24cfbb425c825963352e130dcd4201587606355375b525d8e5a02eccbffbb3985a108a3ed5e')
+b2sums=('cab704e0ee44a7012ee58d515a5ea7380a97a3cbb8f55d105c00c8c2b9ed992b4c87435875474de32e5969fd92256bdec830db0571399a1d2e5fb719b23c2d83')
 
 build() {
   cd websockets-${pkgver}
