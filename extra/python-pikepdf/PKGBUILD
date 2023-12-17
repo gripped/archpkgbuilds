@@ -3,7 +3,7 @@
 # Contributor: Stephan Eisvogel <eisvogel at embinet dot de>
 
 pkgname=python-pikepdf
-pkgver=8.9.0
+pkgver=8.10.0
 pkgrel=1
 pkgdesc='Read and write PDFs with Python, powered by qpdf'
 arch=(x86_64)
@@ -28,7 +28,7 @@ checkdepends=(python-hypothesis
               python-psutil
               python-pytest-xdist)
 source=(https://github.com/pikepdf/pikepdf/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('43a13926485f27fd8bf73272dd6eee57123b82564b8f0674ac3ed8c25e2fdf43')
+sha256sums=('86cfabca0f17c36f985134ce78f892f5e0087061b10bb48c26518b22f8406737')
 
 build() {
   cd pikepdf-$pkgver
