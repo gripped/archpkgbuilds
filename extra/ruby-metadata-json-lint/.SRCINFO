@@ -1,0 +1,22 @@
+pkgbase = ruby-metadata-json-lint
+	pkgdesc = Tool to check the validity of Puppet metadata.json files
+	pkgver = 4.0.0
+	pkgrel = 2
+	url = https://github.com/voxpupuli/metadata-json-lint
+	arch = any
+	license = Apache
+	makedepends = ruby-rdoc
+	makedepends = ruby-rake
+	makedepends = ruby-rspec
+	makedepends = ruby-bundler
+	depends = ruby
+	depends = ruby-json-schema
+	depends = ruby-spdx-licenses
+	depends = ruby-semantic_puppet
+	options = !emptydirs
+	source = https://github.com/voxpupuli/metadata-json-lint/archive/4.0.0/metadata-json-lint-4.0.0.tar.gz
+	source = dont_call_mjl_via-bundler.patch
+	sha512sums = c65bba2d3add6bb209249818cae30a00a706fab79bb1e0e6ddaa60ff7fbb61f138e9602830540579a04da146099a12da9c09b3128f14bb68b7e1fccc44df31a2
+	sha512sums = ed730430b39554b74586fd47c85581afa289a700a677b5c9189fca06ccedb10b31bdef424f692949ed3fa54b292d7a51bb07d838f80d4bcd1cfe80e6d69e398c
+
+pkgname = ruby-metadata-json-lint
