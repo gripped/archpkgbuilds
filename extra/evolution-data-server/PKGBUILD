@@ -9,7 +9,7 @@ pkgname=(
   evolution-data-server-docs
 )
 pkgver=3.50.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Unified contacts, tasks and calendar backend"
 url="https://wiki.gnome.org/Apps/Evolution"
 arch=(x86_64)
@@ -54,15 +54,16 @@ prepare() {
 
 build() {
   local cmake_options=(
-    -DCMAKE_INSTALL_PREFIX=/usr
-    -DLIBEXEC_INSTALL_DIR=/usr/lib
-    -DSYSCONF_INSTALL_DIR=/etc
-    -DENABLE_GTK_DOC=ON
-    -DENABLE_INTROSPECTION=ON
-    -DENABLE_VALA_BINDINGS=ON
-    -DWITH_GWEATHER4=ON
-    -DWITH_LIBDB=OFF
-    -DWITH_PHONENUMBER=ON
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D LIBEXEC_INSTALL_DIR=/usr/lib
+    -D SYSCONF_INSTALL_DIR=/etc
+    -D ENABLE_GTK_DOC=ON
+    -D ENABLE_INTROSPECTION=ON
+    -D ENABLE_VALA_BINDINGS=ON
+    -D WITH_GWEATHER4=ON
+    -D WITH_LIBDB=OFF
+    -D WITH_PHONENUMBER=ON
   )
 
   cmake -S $pkgbase -B build -G Ninja "${cmake_options[@]}"
