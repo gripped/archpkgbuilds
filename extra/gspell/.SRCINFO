@@ -1,0 +1,32 @@
+pkgbase = gspell
+	pkgdesc = Spell-checking library for GTK applications
+	pkgver = 1.12.2
+	pkgrel = 2
+	url = https://gitlab.gnome.org/GNOME/gspell
+	arch = x86_64
+	license = LGPL
+	makedepends = autoconf-archive
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = gtk-doc
+	makedepends = vala
+	depends = enchant
+	depends = glib2
+	depends = gtk3
+	depends = icu
+	source = git+https://gitlab.gnome.org/GNOME/gspell.git#commit=cbb3ae2e21234eae84e1f827bf1f27fdd0e32299
+	b2sums = SKIP
+
+pkgname = gspell
+	depends = enchant
+	depends = glib2
+	depends = gtk3
+	depends = icu
+	depends = libenchant-2.so
+	depends = libgtk-3.so
+	depends = libglib-2.0.so
+	depends = libgobject-2.0.so
+	depends = libgio-2.0.so
+	depends = libicuuc.so
+	depends = libpango-1.0.so
+	provides = libgspell-1.so
