@@ -1,0 +1,28 @@
+pkgbase = msitools
+	pkgdesc = Set of programs to inspect and build Windows Installer (.MSI) files
+	pkgver = 0.103
+	pkgrel = 2
+	url = https://wiki.gnome.org/msitools
+	arch = x86_64
+	license = LGPL
+	license = GPL
+	makedepends = git
+	makedepends = intltool
+	makedepends = vala
+	makedepends = meson
+	makedepends = gobject-introspection
+	makedepends = bats
+	depends = libgsf
+	depends = gcab
+	depends = libxml2
+	provides = libmsi-1.0.so
+	source = msitools::git+https://gitlab.gnome.org/GNOME/msitools.git#commit=4f36db7ba241fc8503fa85039b6d34280b126764
+	source = skip-failing-test.patch
+	source = remove-git-dirty-suffix.patch
+	source = use-system-bats.patch
+	b2sums = SKIP
+	b2sums = 7c688138af873eed0bb1ddefe2910d9bdedb9174cc38464685c4c3c84f0c07b8aaa687093e694a4fafb952c1c010fbc7f0d62f69104d4557f13b9124f93d4209
+	b2sums = c30a2302e8cd202ecd084aa3d371d73021bc4fa5af4f3591f70362a1be41c738cf148a552f46f729bd8fade3d0b81a57eafbfa9d1c980e2ab5eed6f57f65a0ac
+	b2sums = 1b24539e489d0be894d0a9e59cb4d91bda3f4ece566d015cfbdb4fb32cfd2f91845caf1787312cb7ca010942d10f61e91b44957da1f50184205f58e5a954b342
+
+pkgname = msitools
