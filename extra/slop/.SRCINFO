@@ -1,0 +1,20 @@
+pkgbase = slop
+	pkgdesc = Utility to query the user for a selection and print the region to stdout
+	pkgver = 7.6
+	pkgrel = 4
+	url = https://github.com/naelstrof/slop
+	arch = x86_64
+	license = GPL3
+	makedepends = cmake
+	makedepends = glm
+	depends = libxext
+	depends = libx11
+	depends = mesa
+	depends = glew
+	depends = libxrender
+	source = slop-7.6.tar.gz::https://github.com/naelstrof/slop/archive/v7.6.tar.gz
+	source = bugfix-add-missed-header.patch
+	sha256sums = ec45f9a69d7a24df621f5c634d202451ddca987d550cf588c5c427b99106fb6b
+	sha256sums = 2e48f2cee54cfe2f08ad821d02b548ad9a4911e091418c859e8db78c39824cbd
+
+pkgname = slop
