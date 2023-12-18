@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-nibbles
-pkgver=4.0.0
+pkgver=4.0.1
 pkgrel=1
 pkgdesc="Guide a worm around a maze"
 url="https://wiki.gnome.org/Apps/Nibbles"
@@ -23,7 +23,7 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome-extra)
-_commit=71980629bb1afc79473b2fa7887472a577782c90  # tags/4.0.0^0
+_commit=65de41be7abf30c2f619e3fb74a3b1bcbfa0a7f0  # tags/4.0.1^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-nibbles.git#commit=$_commit")
 b2sums=('SKIP')
 
