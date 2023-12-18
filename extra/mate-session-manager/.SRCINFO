@@ -1,0 +1,24 @@
+pkgbase = mate-session-manager
+	pkgdesc = The MATE Session Handler
+	pkgver = 1.26.1
+	pkgrel = 1
+	url = https://mate-desktop.org
+	arch = x86_64
+	groups = mate
+	license = GPL
+	makedepends = xtrans
+	makedepends = systemd
+	makedepends = python
+	depends = dbus-glib
+	depends = gettext
+	depends = gtk3
+	depends = libsm
+	depends = mate-desktop
+	optdepends = gnome-keyring: keyring support
+	optdepends = xdg-user-dirs-gtk: manage user directories
+	conflicts = mate-session-manager-gtk3
+	replaces = mate-session-manager-gtk3
+	source = https://pub.mate-desktop.org/releases/1.26/mate-session-manager-1.26.1.tar.xz
+	sha256sums = 5b8c7d6441fd9c293c863882ab67a7493c53cdf64eab27c094575f423ebd4278
+
+pkgname = mate-session-manager
