@@ -2,10 +2,10 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=nvchecker
-pkgver=2.12
+pkgver=2.13
 # curl https://api.github.com/repos/lilydjwg/nvchecker/git/ref/tags/v$pkgver | jq -r .object.sha
-_tag=7df19d25b745481622f23668036020b664e6ee66
-pkgrel=3
+_tag=34c2f1c7ecd1c626b648e384e777cf1c0d7124f3
+pkgrel=1
 pkgdesc="New version checker for software releases"
 arch=('any')
 url="https://github.com/lilydjwg/nvchecker"
@@ -40,25 +40,8 @@ validpgpkeys=(
 )
 
 _backports=(
-  # Fix test_alpmfiles in Arch chroots
-  'd9888cc49d3531a947e7b443a3bab47a7e09da14'
-  # bump android-sdk-cmake and xml2 version
-  'fe1342e9fb39774e63d2f650db8e04f50d3355a9'
-  # tests: update Android SDK version
-  '598bb941352d0d554ae44742fe2a2e5e3ab306a4'
-  # tests: fix tests with httpbin 0.10.0
-  '07cddd9bd66eb038cfa0ede2f5b3bab0efb07488'
-  # update tests: give up deepin as it times out frequently
-  '2683f47e0405e3b2f723b58f0aa9eef879c64af8'
-  # tests: update
-  '5dcb3bc36a2edea7c9fed643b1856c53238d4f6f'
-  # fix pacman test
-  '5a6fee28176403337d11053640aabcaea512cebd'
-
-  # see https://github.com/lilydjwg/nvchecker/pull/233 (merged)
-  '9221a476c520c80a56cd25f39823287c10d2aac0'
-  # see https://github.com/lilydjwg/nvchecker/pull/240 (merged)
-  '0ba8cd41deb150293b70c0965af7f6c8cf8eb571'
+  # see https://github.com/lilydjwg/nvchecker/pull/246 (merged)
+  'fac30d46d9d090341da9494b1d541de280ed9f38'
 )
 
 pkgver() {
@@ -72,6 +55,10 @@ prepare() {
   # this loop is stolen from core/systemd :)
   local _c
   for _c in "${_backports[@]}"; do
+    if git merge-base --is-ancestor "${_c}" HEAD; then
+      echo $_c is already included!
+      continue
+    fi
     git log --oneline -1 "${_c}"
     git cherry-pick -n "${_c}"
   done
