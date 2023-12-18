@@ -8,7 +8,7 @@ pkgname=(
   lib32-harfbuzz-icu
 )
 pkgver=8.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenType text shaping engine - 32-bit"
 url="https://www.freedesktop.org/wiki/Software/HarfBuzz"
 arch=(x86_64)
