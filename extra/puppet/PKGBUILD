@@ -11,12 +11,12 @@
 
 pkgname=puppet
 pkgver=7.27.0
-pkgrel=1
+pkgrel=3
 pkgdesc='Server automation framework and application'
 arch=('any')
-url='https://puppet.com/products/open-source-projects'
+url='https://www.puppet.com/community/open-source'
 license=('Apache')
-depends=(ruby facter ruby-semantic_puppet ruby-augeas ruby-shadow ruby-concurrent ruby-multi_json ruby-puppet-resource_api ruby-deep_merge ruby-fast_gettext hiera ruby-locale ruby-scanf)
+depends=(ruby facter ruby-semantic_puppet ruby-augeas ruby-shadow ruby-concurrent ruby-multi_json ruby-puppet-resource_api ruby-deep_merge ruby-fast_gettext hiera ruby-locale ruby-scanf ruby-msgpack)
 makedepends=('git' 'rake' 'ruby-rdoc')
 checkdepends=('ruby-rspec' 'ruby-yard' 'ruby-rspec-its' 'ruby-webmock')
 backup=('etc/puppetlabs/puppet/auth.conf'
