@@ -3,12 +3,12 @@
 _pkgname=pipx
 pkgname=python-$_pkgname
 pkgver=1.3.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Install and Run Python Applications in Isolated Environments'
 arch=('any')
 url='https://github.com/pipxproject/pipx'
 license=('MIT' 'BSD')
-depends=('python' 'python-userpath' 'python-argcomplete' 'python-packaging')
+depends=('python' 'python-userpath' 'python-argcomplete' 'python-packaging' 'python-platformdirs')
 makedepends=('python-build' 'python-installer' 'python-hatchling' 'python-wheel' 'python-hatch-vcs')
 #checkdepends=('python-tox' 'python-pytest')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
