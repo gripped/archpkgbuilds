@@ -5,7 +5,7 @@
 pkgname=zettlr
 _pkgname=${pkgname^}
 pkgver=3.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A Markdown Editor for the 21st century'
 arch=(x86_64)
 url=https://www.zettlr.com
@@ -19,7 +19,7 @@ depends=(crimson-font
          ttf-liberation)
 makedepends=(gendesk
              git
-             nodejs-lts-hydrogen # grep NODE_VERSION .github/workflows/build.yml
+             nodejs-lts-iron # grep NODE_VERSION .github/workflows/build.yml
              node-gyp
              yarn
              jq)
