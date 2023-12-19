@@ -2,7 +2,7 @@
 # Contributor: Adria Arrufat <swiftscythe at gmail dot com>
 
 pkgname=ugrep
-pkgver=4.3.6
+pkgver=4.4.0
 pkgrel=1
 pkgdesc='ultra fast grep with interactive TUI, fuzzy search, boolean queries, hexdumps and more'
 arch=(x86_64)
@@ -22,12 +22,22 @@ optdepends=('python-pdftotext: to search pdf'
             'csvkit: to search spreadsheets'
             'openssl: to search certificates and key files')
 _archive="$pkgname-$pkgver"
-source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('39f3205a2b8b79eeb6d2eaf1727c68262010e06ba5a7c42d5164c7ed6b6822f2')
+source=("$url/archive/v$pkgver/$_archive.tar.gz"
+        "use-destdir.patch::https://patch-diff.githubusercontent.com/raw/Genivia/ugrep/pull/336.patch")
+sha256sums=('5b8a08743bbf5c8b9d4719211961b8fb427988ffcada6d8c57dfaed9b6d12f7e'
+            '107939c04aec34756f136191a2dcad6d48a12f34eadbfe1f8c70ed0ef5ea8635')
+
+prepare() {
+	cd "$_archive"
+	# https://github.com/Genivia/ugrep/issues/335
+	patch -p1 -i ../use-destdir.patch
+	autoreconf -fi
+}
 
 build() {
 	cd "$_archive"
 	./configure --prefix /usr
+	make
 }
 
 package() {
