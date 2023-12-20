@@ -2,7 +2,7 @@
 
 pkgname=cargo-public-api
 pkgver=0.33.1
-pkgrel=1
+pkgrel=2
 pkgdesc="List and diff the public API of Rust library crates"
 arch=('x86_64')
 url="https://github.com/Enselic/cargo-public-api"
@@ -42,6 +42,7 @@ package() {
   install -Dm 644 "completions/$pkgname" -t "$pkgdir/usr/share/bash-completion/completions/"
   install -Dm 644 "completions/$pkgname.fish" -t "$pkgdir/usr/share/fish/vendor_completions.d/"
   install -Dm 644 "completions/_$pkgname" -t "$pkgdir/usr/share/zsh/site-functions/"
+  depends+=('rustup')
 }
 
 # vim: ts=2 sw=2 et:
