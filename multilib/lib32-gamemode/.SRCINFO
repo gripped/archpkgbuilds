@@ -1,0 +1,19 @@
+pkgbase = lib32-gamemode
+	pkgdesc = A daemon/lib combo that allows games to request a set of optimisations be temporarily applied to the host OS
+	pkgver = 1.8.1
+	pkgrel = 1
+	url = https://github.com/FeralInteractive/gamemode
+	arch = x86_64
+	license = BSD
+	checkdepends = appstream
+	makedepends = git
+	makedepends = meson
+	depends = lib32-dbus
+	depends = lib32-glibc
+	depends = lib32-systemd
+	provides = libgamemode.so
+	provides = libgamemodeauto.so
+	source = git+https://github.com/FeralInteractive/gamemode.git#tag=5180d89e66830d87f69687b95fb86f622552b94b
+	b2sums = SKIP
+
+pkgname = lib32-gamemode
