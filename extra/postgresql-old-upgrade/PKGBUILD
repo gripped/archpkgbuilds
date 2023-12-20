@@ -4,7 +4,7 @@
 pkgname=postgresql-old-upgrade
 pkgver=15.5
 _majorver=${pkgver%.*}
-pkgrel=2
+pkgrel=3
 pkgdesc='PostgreSQL build for migrating between major versions with pg_upgrade'
 url='https://www.postgresql.org/'
 arch=('x86_64')
@@ -15,12 +15,21 @@ makedepends=('python' 'perl' 'tcl>=8.6.0' 'systemd' 'llvm15' 'clang15')
 optdepends=('python: for PL/Python 3 support'
             'perl: for PL/Perl support'
             'tcl: for PL/Tcl support')
-source=(https://ftp.postgresql.org/pub/source/v${pkgver}/postgresql-${pkgver}.tar.bz2)
-md5sums=('9a7d6515408ecb5823546d0a3d7b318c')
-sha256sums=('8f53aa95d78eb8e82536ea46b68187793b42bba3b4f65aa342f540b23c9b10a6')
-b2sums=('e3731b973242d4de8b4b78e00842df52e006f08510efc0ff02bf7b8b479e17aa9e1c8116644d9a82f23d4334f527f1a82a1c2eec7f7c199a2fdf500b46740264')
+source=(https://ftp.postgresql.org/pub/source/v${pkgver}/postgresql-${pkgver}.tar.bz2
+        openssl3.2.patch)
+md5sums=('9a7d6515408ecb5823546d0a3d7b318c'
+         'e8b8f43645996189e01e49c55eef8e78')
+sha256sums=('8f53aa95d78eb8e82536ea46b68187793b42bba3b4f65aa342f540b23c9b10a6'
+            '0eab3ea86e0e93b0105981d46d96a4f9a4a0128ae5066e6837097f830e307d70')
+b2sums=('e3731b973242d4de8b4b78e00842df52e006f08510efc0ff02bf7b8b479e17aa9e1c8116644d9a82f23d4334f527f1a82a1c2eec7f7c199a2fdf500b46740264'
+        '47e5ec9cbc71d1ef159d167d5f188e30d6c8043f3b6131fc023f356e1154b96fb3c883ec6efc445438d09834b986c77db9605fa024d82190d9a9fb7840941634')
 
 # Upstream provides md5 and sha256
+
+prepare() {
+  cd postgresql-${pkgver}
+  patch -p1 < ../openssl3.2.patch
+}
 
 build() {
   cd postgresql-${pkgver}
