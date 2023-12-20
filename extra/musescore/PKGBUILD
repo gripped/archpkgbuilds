@@ -4,8 +4,8 @@
 # Contributor: Dr.Egg <rwhite@archlinux.us>
 
 pkgname=musescore
-pkgver=4.1.1
-pkgrel=4
+pkgver=4.2.0
+pkgrel=1
 pkgdesc='Create, play and print beautiful sheet music'
 arch=(x86_64)
 url=https://musescore.org/
@@ -41,7 +41,7 @@ makedepends=(
 )
 optdepends=('lame: MP3 export')
 options=(!lto)
-_tag=e4d1ddf2073c5ad4596ee27aa3019db4da2b76e8
+_tag=eb8d33c7af7887f6529ea8362161233ebe262681
 source=(git+https://github.com/musescore/MuseScore.git#tag=${_tag})
 sha256sums=(SKIP)
 
@@ -49,8 +49,6 @@ prepare() {
   cd MuseScore
   # Fix display of scores with recent qt5-declarative
   git cherry-pick -n c747bdbcba81109e2749015a575827b2494af971
-  # Enable use of system freetype
-  git cherry-pick -n 9ab6b32b1c3b990cfa7bb172ee8112521dc2269c
 }
 
 pkgver() {
