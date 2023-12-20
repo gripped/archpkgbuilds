@@ -2,7 +2,7 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=putty
-pkgver=0.79
+pkgver=0.80
 pkgrel=1
 pkgdesc='A terminal integrated SSH/Telnet client'
 arch=('x86_64')
@@ -16,7 +16,7 @@ source=("https://the.earth.li/~sgtatham/putty/${pkgver}/${pkgname}-${pkgver}.tar
         'putty.desktop'
         'putty.png'
         'putty.xpm')
-sha256sums=('428cc8666fbb938ebf4ac9276341980dcd70de395b33164496cf7995ef0ef0d8'
+sha256sums=('2013c83a721b1753529e9090f7c3830e8fe4c80a070ccce764539badb3f67081'
             'SKIP'
             '4a8af81fe8ac702ad298606076088f237b83beed82cc089a32f314888b67cf2c'
             '621abf249dc6c6326faf259565546df84635b3afbe31893145a5056d8b114396'
