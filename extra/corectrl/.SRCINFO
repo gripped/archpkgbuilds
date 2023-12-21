@@ -1,7 +1,7 @@
 pkgbase = corectrl
 	pkgdesc = Core control application
 	pkgver = 1.3.8
-	pkgrel = 1
+	pkgrel = 2
 	url = https://gitlab.com/corectrl/corectrl
 	arch = x86_64
 	license = GPL3
@@ -31,8 +31,11 @@ pkgbase = corectrl
 	optdepends = mesa-utils: For glxinfo
 	optdepends = util-linux: For lscpu
 	source = https://gitlab.com/corectrl/corectrl/-/archive/v1.3.8/corectrl-v1.3.8.tar.bz2
+	source = 0001-Migrate-to-catch2-v3.patch
 	sha256sums = 397d2ba827ab197d30971059bc15aa8ad8d3bcb9e47230bc406808e482454249
+	sha256sums = 66442a5870b65422232e4bcaca4de8212b1f53803b2da98e5737310865786e66
 	b2sums = 65a768589ab5b60092888ae9d50d3350a02642508b3c05b15a2bc69874e20e9f133c58c29eb9cb61127c393029636dd3914b48ea10d01f51b469e27c00e0d1e6
+	b2sums = 56080519dbb141e71b8b91774be13573dfde8bbbf64dd7d630391e5adda566fd14596bbeaf62a29899b77212c06ec529a9183d82ef9c4e512e13e000915783d3
 
 pkgname = corectrl
 	depends = procps-ng
