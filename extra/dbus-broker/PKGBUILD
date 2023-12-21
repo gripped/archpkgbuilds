@@ -5,7 +5,7 @@ pkgbase=dbus-broker
 pkgname=(
   dbus-broker
 )
-pkgver=34
+pkgver=35
 pkgrel=1
 pkgdesc="Linux D-Bus Message Broker"
 url="https://github.com/bus1/dbus-broker/wiki"
@@ -25,14 +25,14 @@ makedepends=(
 source=(
   https://github.com/bus1/dbus-broker/releases/download/v$pkgver/$pkgbase-$pkgver.tar.xz{,.asc}
 )
-b2sums=('9c135db01d3b8d436c39dd4cb07303b8faf2cc2651b1b0c95444fc8c5b42a2ba84e963b7e0df4668ab0584c3ac3572da295a75b718df65b13b4a96a417a35176'
+b2sums=('2c270197d76ec157bf2fd8eb561b49cea2739d656fac8129c4ecdd0bbd5804f8e4e427414cb5f209eef4c22cf9559fc409170476d8df0e1d252c0b5aa2288e01'
         'SKIP')
 validpgpkeys=(
   BE5FBC8C9C1C9F60A4F0AEAE7A4F3A09EBDEFF26  # David Herrmann <dh.herrmann@gmail.com>
 )
 
 # https://github.com/bus1/dbus-broker/releases
-sha256sums=('4f5f55ba74f1f098014c97ec753ab75a2bbe92012a7afcac108783c83f39c307'
+sha256sums=('d50daa31ff33f48693194596ea2aeb1a925183b59cdc82a550774e5c43982252'
             'SKIP')
 
 prepare() {
