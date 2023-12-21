@@ -7,7 +7,7 @@ pkgname=(
   gtk3-demos
   gtk3-docs
 )
-pkgver=3.24.38
+pkgver=3.24.39
 pkgrel=1
 epoch=1
 pkgdesc="GObject-based multi-platform GUI toolkit"
@@ -59,7 +59,7 @@ makedepends=(
   sassc
   wayland-protocols
 )
-_commit=3e6fd55ee00d4209ce2f2af292829e4d6f674adc  # tags/3.24.38^0
+_commit=9ce32d5d7d2411032876232d86b66f9fd5f7e815  # tags/3.24.39^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/gtk.git#commit=$_commit"
   gtk-query-immodules-3.0.hook
