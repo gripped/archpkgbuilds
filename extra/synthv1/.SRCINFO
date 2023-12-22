@@ -1,0 +1,47 @@
+pkgbase = synthv1
+	pkgdesc = Old-school all-digital 4-oscillator subtractive polyphonic synthesizer with stereo fx
+	pkgver = 0.9.33
+	pkgrel = 1
+	url = https://synthv1.sourceforge.io/synthv1-index.html
+	arch = x86_64
+	license = GPL-2.0-or-later
+	makedepends = alsa-lib
+	makedepends = cmake
+	makedepends = jack
+	makedepends = liblo
+	makedepends = lv2
+	makedepends = qt6-base
+	makedepends = qt6-svg
+	makedepends = qt6-tools
+	source = https://download.sourceforge.net/synthv1/synthv1-0.9.33.tar.gz
+	sha512sums = fefbc2c2171f0218eb74e83b688d3d6611013c93ad43cf2603ca7fb2320ce143ae1db48aa0ac700371bcfe988a3d44986dc470c12388d4137ec0cea52b1754da
+	b2sums = 434cab848fc678d23e89cbb63a9bd60049755c374f9362cc52aaf2c831a9b7e486c5c6559d7ea6ea993a0d36f30b37367d898afe30efc49ca6b94e306127cddd
+
+pkgname = synthv1
+	depends = synthv1-lv2=0.9.33
+	depends = synthv1-standalone=0.9.33
+
+pkgname = synthv1-lv2
+	pkgdesc = Old-school all-digital 4-oscillator subtractive polyphonic synthesizer with stereo fx - LV2 plugin
+	groups = lv2-plugins
+	groups = pro-audio
+	depends = gcc-libs
+	depends = glibc
+	depends = lv2-host
+	depends = qt6-base
+	depends = qt6-svg
+	optdepends = qt6-wayland: for native wayland support
+
+pkgname = synthv1-standalone
+	pkgdesc = Old-school all-digital 4-oscillator subtractive polyphonic synthesizer with stereo fx - standalone
+	groups = pro-audio
+	depends = alsa-lib
+	depends = gcc-libs
+	depends = glibc
+	depends = hicolor-icon-theme
+	depends = jack
+	depends = liblo
+	depends = qt6-base
+	depends = qt6-svg
+	optdepends = new-session-manager: for session management using the standalone application
+	optdepends = qt6-wayland: for native wayland support
