@@ -3,29 +3,30 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=libmpdclient
-pkgver=2.21
+pkgver=2.22
 pkgrel=1
 pkgdesc="C library to implement a MPD client"
 arch=(x86_64)
 url="https://www.musicpd.org/libs/libmpdclient/"
-license=(BSD-3-Clause)
+license=(BSD-2-Clause BSD-3-Clause)
 depends=(glibc)
 makedepends=(meson)
 provides=(libmpdclient.so)
 source=(https://www.musicpd.org/download/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha512sums=('1cde435bf850f875f80839941d6504465485f45d9daf247b658c2cd44d64c8ac1119c08103c9ec68686a8ce6f1f46dd49f63426e396556fcfa887ba55ae11572'
+sha512sums=('6dcf2f822cbe3a3bea145fff7edb9185951f83e39ee9794a6e420af1f9680e04bbf67b62458560c13b626201024c0bb59e330dfa91bec0fcd527da8de5127022'
             'SKIP')
-b2sums=('33d2116063a1e869fb78ab8cdd80a24eb1b6c5168a4ef183696f39e06c859a9fdb2153a00087c993ef206c173a9181b31b7dc4a4dfe55b74342d1096c1156d6d'
+b2sums=('2ff692baaeb8160ce757e754ae08db57aca803628989e4dc3616f88eb02ebf1823d269d5a17afaa32bf32c7a384da0342db1ef083199f85ea7e0687cae0e8455'
         'SKIP')
 validpgpkeys=('0392335A78083894A4301C43236E8A58C6DB4512') # Max Kellermann <max@blarg.de>
 
 build() {
   arch-meson build $pkgname-$pkgver
-  ninja -C build
+  meson compile -C build
 }
 
 package() {
-  DESTDIR="$pkgdir" ninja -C build install
+  meson install -C build --destdir "$pkgdir"
   install -vdm 755 "$pkgdir/usr/share/licenses/$pkgname"
-  ln -sv /usr/share/doc/$pkgname/COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+  ln -sv /usr/share/doc/$pkgname/BSD-2-Clause.txt "$pkgdir/usr/share/licenses/$pkgname/"
+  ln -sv /usr/share/doc/$pkgname/BSD-3-Clause.txt "$pkgdir/usr/share/licenses/$pkgname/"
 }
