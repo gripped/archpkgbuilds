@@ -1,0 +1,52 @@
+pkgbase = drumkv1
+	pkgdesc = An old-school drum-kit sampler
+	pkgver = 0.9.33
+	pkgrel = 1
+	url = https://drumkv1.sourceforge.io/
+	arch = x86_64
+	license = GPL-2.0-or-later
+	makedepends = alsa-lib
+	makedepends = cmake
+	makedepends = jack
+	makedepends = liblo
+	makedepends = libsndfile
+	makedepends = lv2
+	makedepends = qt6-base
+	makedepends = qt6-svg
+	makedepends = qt6-tools
+	source = https://download.sourceforge.net/drumkv1/drumkv1-0.9.33.tar.gz
+	sha512sums = bd7e28172b4bc0770281b4fbada7d1df72c52dc63b97c073e8a21f01cefb9cfc3299ef00fd7c77cdf40eb0c6358586ca3191090568d55c196b9bec37ddb9f0ff
+	b2sums = 39c2b4329b50c69201cc067dbd51c90ef8156b1e6d9bbb77cd386311d67ee40dd2f12e4e93fc298ece09775137a003e2b8e5140ad4b2cb4c0139b5aadbbf600e
+
+pkgname = drumkv1
+	depends = drumkv1-lv2=0.9.33
+	depends = drumkv1-standalone=0.9.33
+
+pkgname = drumkv1-lv2
+	pkgdesc = An old-school drum-kit sampler - LV2 plugin
+	groups = lv2-plugins
+	groups = pro-audio
+	depends = gcc-libs
+	depends = glibc
+	depends = libsndfile
+	depends = libsndfile.so
+	depends = lv2-host
+	depends = qt6-base
+	depends = qt6-svg
+	optdepends = qt6-wayland: for native wayland support
+
+pkgname = drumkv1-standalone
+	pkgdesc = An old-school drum-kit sampler - standalone
+	groups = pro-audio
+	depends = alsa-lib
+	depends = gcc-libs
+	depends = glibc
+	depends = hicolor-icon-theme
+	depends = jack
+	depends = liblo
+	depends = libsndfile
+	depends = libsndfile.so
+	depends = qt6-base
+	depends = qt6-svg
+	optdepends = new-session-manager: for session management using the standalone application
+	optdepends = qt6-wayland: for native wayland support
