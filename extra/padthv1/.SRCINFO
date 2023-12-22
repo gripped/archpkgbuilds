@@ -1,0 +1,52 @@
+pkgbase = padthv1
+	pkgdesc = An old-school polyphonic additive synthesizer
+	pkgver = 0.9.33
+	pkgrel = 1
+	url = https://padthv1.sourceforge.io/
+	arch = x86_64
+	license = GPL-2.0-or-later
+	makedepends = alsa-lib
+	makedepends = cmake
+	makedepends = fftw
+	makedepends = jack
+	makedepends = liblo
+	makedepends = lv2
+	makedepends = qt6-base
+	makedepends = qt6-svg
+	makedepends = qt6-tools
+	source = https://download.sourceforge.net/padthv1/padthv1-0.9.33.tar.gz
+	sha512sums = 875c01a31acc51eee43c1c29a0ae5bc9c622b4b29bcc8000bd2df472e0036a4c5edbe59f10bbf1b6644800cde1a3f2a882683df9bb6179a7fc282348610749ef
+	b2sums = 5d22a5fdf66ef17d07685808dddb9e5121c339aab149654313258476b60bc88fdffc358ed3ee82b2d476fd042f03c45efefdbcc8028623dbfaadc04ea99abb92
+
+pkgname = padthv1
+	depends = padthv1-lv2=0.9.33
+	depends = padthv1-standalone=0.9.33
+
+pkgname = padthv1-lv2
+	pkgdesc = An old-school polyphonic additive synthesizer - LV2 plugin
+	groups = lv2-plugins
+	groups = pro-audio
+	depends = fftw
+	depends = libfftw3f.so
+	depends = gcc-libs
+	depends = glibc
+	depends = lv2-host
+	depends = qt6-base
+	depends = qt6-svg
+	optdepends = qt6-wayland: for native wayland support
+
+pkgname = padthv1-standalone
+	pkgdesc = An old-school polyphonic additive synthesizer - standalone
+	groups = pro-audio
+	depends = alsa-lib
+	depends = fftw
+	depends = libfftw3f.so
+	depends = gcc-libs
+	depends = glibc
+	depends = hicolor-icon-theme
+	depends = jack
+	depends = liblo
+	depends = qt6-base
+	depends = qt6-svg
+	optdepends = new-session-manager: for session management using the standalone application
+	optdepends = qt6-wayland: for native wayland support
