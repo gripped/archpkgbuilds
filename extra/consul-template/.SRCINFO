@@ -1,0 +1,22 @@
+pkgbase = consul-template
+	pkgdesc = Template rendering, notifier, and supervisor for HashiCorp Consul and Vault data
+	pkgver = 0.35.0
+	pkgrel = 1
+	url = https://github.com/hashicorp/consul-template
+	arch = x86_64
+	license = MPL
+	makedepends = go
+	makedepends = git
+	depends = glibc
+	optdepends = consul: interpolate values from a distributed key/value store
+	optdepends = vault: reference secure secrets in template files
+	options = !lto
+	backup = etc/consul-template/consul-template.hcl
+	source = git+https://github.com/hashicorp/consul-template#commit=2d2654ffe96210db43306922aaefbb730a8e07f9
+	source = consul-template.service
+	source = consul-template.hcl
+	sha512sums = SKIP
+	sha512sums = 8b187ff470fb10b47b815b2faaad836ac369071c8ce7e353ec0cbc98e3b1ac2ffc9c892244ac492be1285caa303c4b5fd0a22df3bdb2a037fca1b06c7b24084b
+	sha512sums = b2acfbb4bf389b1d95ca9a5f2dfe9be85444c20efdae63f0e6e34d2f33a16ca1d089e6510b6867f74c3b4390a097952ab235c55e4023245e61cc4318622d5674
+
+pkgname = consul-template
