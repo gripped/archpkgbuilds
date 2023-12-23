@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-asyncio
-pkgver=0.23.1
-_commit=a214c3e77149608d427ccab69140edb509c67697
+pkgver=0.23.2
+_commit=b614c77dec6df7414fba78d2fbe7989c6ee16828
 pkgrel=1
 pkgdesc="Pytest support for asyncio."
 arch=('any')
