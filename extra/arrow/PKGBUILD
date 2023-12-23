@@ -2,8 +2,8 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=arrow
-pkgver=14.0.1
-pkgrel=2
+pkgver=14.0.2
+pkgrel=1
 pkgdesc="Columnar in-memory analytics layer for big data."
 arch=(x86_64)
 url="https://arrow.apache.org"
@@ -16,12 +16,13 @@ makedepends=(boost clang cmake flatbuffers git gmock rapidjson xsimd)
 source=(https://archive.apache.org/dist/${pkgname}/${pkgname}-${pkgver}/apache-${pkgname}-${pkgver}.tar.gz{,.asc}
         git+https://github.com/apache/parquet-testing.git
         git+https://github.com/apache/arrow-testing.git)
-sha512sums=('31d19f0ca80349f63db74bae813256b47907f85725a9bf01ef6f32406e79828ebb4701faedb52696b6a5b3bb89ad4e136485fd5eb35d396dd42147c11d4d2713'
+sha512sums=('dd6cf6cbb817a48ef5275bb409367e5904526a3c16a17a37ea75101085ea19a71ba6bf936a6f099012e7c528811db1728ef2f14dcb16a1056a22088839280ce0'
             'SKIP'
             'SKIP'
             'SKIP')
 validpgpkeys=(265F80AB84FE03127E14F01125BCCA5220D84079  # Krisztian Szucs (apache) <szucs.krisztian@gmail.com>
-              08D3564B7C6A9CAFBFF6A66791D18FCF079F8007) # Kouhei Sutou <kou@cozmixng.org>
+              08D3564B7C6A9CAFBFF6A66791D18FCF079F8007  # Kouhei Sutou <kou@cozmixng.org>
+              AF6AADA4C9835B75973FF5DA275C532289DD0F4A) # Raúl Cumplido Domínguez (CODE SIGNING KEY) <raulcd@apache.org>
 
 build(){
   CC=clang \
