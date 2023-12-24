@@ -3,8 +3,8 @@
 # Contributor: Sebastien Piccand <sebcactus gmail com>
 
 pkgname=('handbrake' 'handbrake-cli')
-pkgver=1.7.1
-pkgrel=3
+pkgver=1.7.2
+pkgrel=1
 arch=('x86_64')
 url="https://handbrake.fr/"
 license=('GPL')
@@ -17,16 +17,13 @@ _guideps=('gst-plugins-base' 'gtk3' 'librsvg')
 makedepends=('python' 'nasm' 'wget' 'cmake' 'meson' 'git'
              "${_commondeps[@]}" "${_guideps[@]}")
 options=('!lto') # https://bugs.archlinux.org/task/72600
-source=(https://github.com/HandBrake/HandBrake/releases/download/$pkgver/HandBrake-$pkgver-source.tar.bz2{,.sig}
-        $pkgname-fix-vp9-encoding.patch::https://github.com/HandBrake/HandBrake/commit/a582ab0170f5.patch)
-sha256sums=('733e42c8f254f6c2f8f6b40f0d3572fd49167ebf30742beae605effa16939edc'
-            'SKIP'
-            '8437103ac3e15a067a1488f313d4114b984f89be9e1295e616da660a863a960c')
+source=(https://github.com/HandBrake/HandBrake/releases/download/$pkgver/HandBrake-$pkgver-source.tar.bz2{,.sig})
+sha256sums=('6a0fa23420483a2d74e58f0ad9944931d8f2e65bee63cf17333cbd9cb560ba93'
+            'SKIP')
 validpgpkeys+=('1629C061B3DDE7EB4AE34B81021DB8B44E4A8645') # HandBrake Team <developers@handbrake.fr>
 
 prepare() {
   cd HandBrake-$pkgver
-  patch -Np1 -i ../$pkgname-fix-vp9-encoding.patch
 }
 
 build() {
