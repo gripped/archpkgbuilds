@@ -1,0 +1,26 @@
+pkgbase = nim
+	pkgdesc = Imperative, multi-paradigm, compiled programming language
+	pkgver = 2.0.2
+	pkgrel = 1
+	url = https://nim-lang.org/
+	arch = x86_64
+	license = MIT
+	makedepends = git
+	depends = bash
+	depends = gcc
+	provides = nimble
+	conflicts = nimble
+	replaces = nimble
+	options = !emptydirs
+	backup = etc/nim/nim.cfg
+	backup = etc/nim/nimdoc.cfg
+	backup = etc/nim/nimdoc.tex.cfg
+	backup = etc/nim/rename.rules.cfg
+	source = https://github.com/nim-lang/Nim/archive/v2.0.2/nim-2.0.2.tar.gz
+	source = git+https://github.com/nim-lang/csources_v2.git#commit=86742fb02c6606ab01a532a0085784effb2e753e
+	sha256sums = 2ca2f559d05e29f130cb4f319ebb93a98e7c0e2187716b17b2cb4e747f5ff798
+	sha256sums = SKIP
+	b2sums = decfe198ca29324273468eee9b03113c4531e0bb9fedf6241088a5368aa83f0b8182420a62d20e995b1e0b534fc818cca1a725f83419a0bad70fe027e4db8367
+	b2sums = SKIP
+
+pkgname = nim
