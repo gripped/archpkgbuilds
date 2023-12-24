@@ -4,7 +4,7 @@
 _pkgname=renderdoc
 pkgname=lib32-$_pkgname
 pkgver=1.30
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenGL and Vulkan debugging tool (capture-only, 32-bit)"
 arch=(x86_64)
 url="https://github.com/baldurk/renderdoc"
@@ -16,10 +16,17 @@ conflicts=("lib32-renderdoc-minimal")
 replaces=("lib32-renderdoc-minimal")
 options=("!lto")
 source=("https://github.com/baldurk/$_pkgname/archive/v${pkgver}.tar.gz"
-        "https://github.com/baldurk/$_pkgname/releases/download/v${pkgver}/v${pkgver}.tar.gz.asc")
+        "https://github.com/baldurk/$_pkgname/releases/download/v${pkgver}/v${pkgver}.tar.gz.asc"
+        "lib32-vulkan-layer.patch")
 validpgpkeys=('1B039DB9A4718A2D699DE031AC612C3120C34695')
 b2sums=('2e9364a8eabca64384e066709c98be8df0ed3c970c173074f9d38eea21d4dc31a50b862818879ccb9f32be8b839643c2d01ddda70d9da8c338c2fc305549eaa9'
-        'SKIP')
+        'SKIP'
+        '1efc51a3e13c12fe4ecee75db8311c5aabd9946123f485f27581a8d584f016492cb82ccbe24a65c259bcafc45fc0a6373d832ecf1039fa29d2d35610133a21db')
+
+prepare() {
+    cd "$srcdir/${_pkgname}-${pkgver}"
+    patch -p1 < "$srcdir/lib32-vulkan-layer.patch"
+}
 
 build() {
     export CC="gcc -m32"
