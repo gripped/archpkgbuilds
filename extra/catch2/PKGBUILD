@@ -3,9 +3,9 @@
 # Contributor: Bart Verhagen <barrie.verhagen at gmail dot com>
 
 pkgname=catch2
-_gitcommit=6e79e682b726f524310d55dec8ddac4e9c52fb5f
-pkgver=3.4.0
-pkgrel=2
+_gitcommit=53d0d913a422d356b23dd927547febdf69ee9081
+pkgver=3.5.0
+pkgrel=1
 pkgdesc="Modern, C++-native, header-only, test framework for unit-tests, TDD and BDD"
 arch=('x86_64')
 url="https://github.com/catchorg/catch2"
