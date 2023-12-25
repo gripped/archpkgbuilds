@@ -1,0 +1,20 @@
+pkgbase = aspell
+	pkgdesc = A spell checker designed to eventually replace Ispell
+	pkgver = 0.60.8.1
+	pkgrel = 1
+	url = http://aspell.net/
+	arch = x86_64
+	license = LGPL
+	depends = gcc-libs
+	depends = ncurses
+	optdepends = perl: to import old dictionaries
+	provides = libaspell.so
+	provides = libpspell.so
+	source = https://github.com/GNUAspell/aspell/archive/rel-0.60.8.1.tar.gz
+	sha512sums = a0bd7e9ce828a58c484443c6fe028edfcf8f27e64c65b3d1ebca6a704bdd0541891427bed668a430de113bfe0518b76e6a06a274702530578312f84326d3ee35
+	b2sums = c82af8c6cd4ef4032a74f759cfdd90d06270dac332be020eeb4c0411aa89711ddcdc0cddf6425ccee3a42bcd95b8cbd7f5fa5c12dc2cc48feae7d4f075f7f062
+
+pkgname = aspell
+	depends = gcc-libs
+	depends = ncurses
+	depends = libncursesw.so
