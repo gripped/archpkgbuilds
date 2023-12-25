@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=perl-net-dns
-pkgver=1.41
+pkgver=1.42
 pkgrel=1
 pkgdesc="Perl Module: Interface to the DNS resolver"
 arch=('any')
@@ -14,7 +14,7 @@ optdepends=('perl-io-socket-inet6: IPv6 support'
             'perl-net-libidn2: non-ASCII domain support')
 options=('!emptydirs')
 source=("https://cpan.metacpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-$pkgver.tar.gz")
-sha512sums=('34d41eff48ccee96ee9d7131f1e7c3b98fae25bd870a5e7149d1b5d0e1a6bccb2c26a80a305ed3a4036dfef4b6052101d3d0928f502a960882512e355a7949aa')
+sha512sums=('c7017b784998d99fb8f404c52ac6c0902aa5d2679165d192c0b4a712b2033fd27073be1b3bfdb35346280e8f69eed019b8ff505e3fd8f7b87cd60c0fcd3aa400')
 
 build() {
   cd Net-DNS-$pkgver
