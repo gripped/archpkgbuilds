@@ -10,7 +10,7 @@
 
 pkgname=gitlab
 pkgver=16.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
 url='https://gitlab.com/gitlab-org/gitlab-foss'
@@ -104,6 +104,10 @@ prepare() {
 		sed -i "s|<APPDIR>|${_appdir}|g" "${srcdir}/${service_file}"
 		sed -i "s|<LOGDIR>|${_logdir}|g" "${srcdir}/${service_file}"
 	done
+
+	# Gemfile.lock contains BUNDLED WITH 2.4.21 and using a newer ruby-bundler later fails
+	# https://gitlab.archlinux.org/archlinux/packaging/packages/gitlab/-/issues/6
+	sed -i '/BUNDLED WITH/,+1d' Gemfile.lock
 }
 
 build() {
