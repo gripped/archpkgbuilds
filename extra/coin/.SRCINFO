@@ -1,0 +1,22 @@
+pkgbase = coin
+	pkgdesc = 3D graphics library compatible with Open Inventor
+	pkgver = 4.0.2
+	pkgrel = 2
+	url = https://github.com/coin3d/coin
+	arch = x86_64
+	license = GPL
+	makedepends = boost
+	makedepends = cmake
+	makedepends = doxygen
+	makedepends = ninja
+	makedepends = git
+	makedepends = glu
+	depends = libgl
+	optdepends = fontconfig: dynamic linking support
+	optdepends = freetype2: dynamic linking support
+	optdepends = openal: audio/dynamic linking support
+	optdepends = zlib: dynamic linking support
+	source = git+https://github.com/coin3d/coin#commit=ebd6e7df89de12200ca56cd62d5d8aeb14177d74
+	b2sums = SKIP
+
+pkgname = coin
