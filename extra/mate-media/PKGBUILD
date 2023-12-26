@@ -3,7 +3,7 @@
 # Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-media
-pkgver=1.26.1
+pkgver=1.26.2
 pkgrel=1
 url="https://mate-desktop.org"
 pkgdesc="MATE Media Tools"
@@ -14,7 +14,7 @@ source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}
 groups=('mate-extra')
 conflicts=('mate-media-gtk3')
 replaces=('mate-media-gtk3')
-sha256sums=('28b2a21a296d915c7c06d9d216f49a8541cd3cec895b3259bca068a85e26eb0b')
+sha256sums=('af46639574cc388513089ca10bb141ffc3e6d1ac33e730e4208db5759642850f')
 
 build() {
     cd "${pkgname}-${pkgver}"
