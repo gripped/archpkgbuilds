@@ -2,7 +2,7 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=imagemagick
-pkgver=7.1.1.23
+pkgver=7.1.1.24
 pkgrel=1
 _relname=ImageMagick-${pkgver%%.*}
 _tarname=ImageMagick-${pkgver%.*}-${pkgver##*.}
@@ -70,7 +70,7 @@ checkdepends=(gsfonts
 replaces=(imagemagick-doc)
 source=(https://imagemagick.org/archive/$_tarname.tar.xz{,.asc}
         arch-fonts.diff)
-sha256sums=('efd2e82910c7ce0a363760c73774b5f0645e3d9c56dcb05580514b726fa2f740'
+sha256sums=('4a21d50ef030d4b0206882c45a7faca50ee16474f5c2f8df14576c0098c331f7'
             'SKIP'
             'a85b744c61b1b563743ecb7c7adad999d7ed9a8af816650e3ab9321b2b102e73')
 validpgpkeys=(D8272EF51DA223E4D05B466989AB63D48277377A)  # Lexie Parsimoniae
