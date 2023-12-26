@@ -2,7 +2,7 @@
 
 _pyname=pycrdt_websocket
 pkgname=python-${_pyname/_/-}
-pkgver=0.12.5
+pkgver=0.12.6
 pkgrel=1
 pkgdesc='CRDTs based on Yrs'
 arch=(any)
@@ -20,7 +20,7 @@ checkdepends=(python-pytest
               python-websockets
               uvicorn)
 source=(https://pypi.python.org/packages/source/${_pyname:0:1}/$_pyname/$_pyname-$pkgver.tar.gz)
-sha256sums=('f7bec9378a07e99ae99f6f14018e70f95250017cf1190ef2c1736cce0cd56a2c')
+sha256sums=('5a7b6f0dec774011d6898db3782adf7ea601f788537dc7af71dc8f06101699fe')
 
 build() {
   cd $_pyname-$pkgver
