@@ -8,7 +8,7 @@ pkgname=(
   gtk3-docs
 )
 pkgver=3.24.39
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="GObject-based multi-platform GUI toolkit"
 url="https://www.gtk.org/"
@@ -74,6 +74,10 @@ pkgver() {
 
 prepare() {
   cd gtk
+
+  # Fix Hebrew
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/gtk3/-/issues/4
+  git cherry-pick -n 26336c401a39cbd8a7b8128fac7029077c6e1dd0
 }
 
 build() {
