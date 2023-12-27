@@ -2,9 +2,9 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=nvchecker
-pkgver=2.13
+pkgver=2.13.1
 # curl https://api.github.com/repos/lilydjwg/nvchecker/git/ref/tags/v$pkgver | jq -r .object.sha
-_tag=34c2f1c7ecd1c626b648e384e777cf1c0d7124f3
+_tag=7da0a64a765d5960aedc708ce02eccb67f595c3e
 pkgrel=1
 pkgdesc="New version checker for software releases"
 arch=('any')
@@ -40,8 +40,6 @@ validpgpkeys=(
 )
 
 _backports=(
-  # see https://github.com/lilydjwg/nvchecker/pull/246 (merged)
-  'fac30d46d9d090341da9494b1d541de280ed9f38'
 )
 
 pkgver() {
