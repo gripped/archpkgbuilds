@@ -2,7 +2,7 @@
 
 pkgname=python-trio-asyncio
 pkgver=0.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A re-implementation of the asyncio mainloop on top of Trio'
 arch=(any)
 url=https://github.com/python-trio/trio-asyncio
@@ -19,11 +19,14 @@ depends=(
 makedepends=(
   git
   python-setuptools
-  python-pytest-runner
 )
 _tag=b3b9ddef2ebc29e4cdbf869d792da91dbd46a2af
 source=(git+https://github.com/python-trio/trio-asyncio.git#tag=${_tag})
 sha256sums=(SKIP)
+
+prepare() {
+  sed '/pytest-runner/d' -i trio-asyncio/setup.py
+}
 
 pkgver() {
   cd trio-asyncio
