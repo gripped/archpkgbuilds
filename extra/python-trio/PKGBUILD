@@ -2,20 +2,20 @@
 
 pkgname=python-trio
 pkgver=0.23.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A friendly Python library for async concurrency and I/O'
 arch=(any)
 url=https://github.com/python-trio/trio
 license=(MIT)
 depends=(
   python
-  python-async_generator
   python-attrs
   python-exceptiongroup
   python-idna
   python-outcome
   python-sniffio
   python-sortedcontainers
+  python-typing_extensions
 )
 makedepends=(
   git
