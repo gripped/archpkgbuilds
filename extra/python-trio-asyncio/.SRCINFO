@@ -1,16 +1,21 @@
 pkgbase = python-trio-asyncio
 	pkgdesc = A re-implementation of the asyncio mainloop on top of Trio
 	pkgver = 0.13.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/python-trio/trio-asyncio
 	arch = any
 	license = APACHE
 	license = MIT
 	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python
-	depends = python-async_generator
+	depends = python-attrs
+	depends = python-exceptiongroup
 	depends = python-outcome
+	depends = python-sniffio
 	depends = python-trio
 	source = git+https://github.com/python-trio/trio-asyncio.git#tag=b3b9ddef2ebc29e4cdbf869d792da91dbd46a2af
 	sha256sums = SKIP
