@@ -1,6 +1,6 @@
 pkgbase = toot
 	pkgdesc = A Mastodon CLI client
-	pkgver = 0.39.0
+	pkgver = 0.40.0
 	pkgrel = 1
 	url = https://github.com/ihabunek/toot
 	arch = any
@@ -16,7 +16,9 @@ pkgbase = toot
 	depends = python-wcwidth
 	depends = python-urwid
 	depends = python-tomlkit
-	source = toot::git+https://github.com/ihabunek/toot#commit=509afd16a8479240f81d7566896ed9e97a1d109f
+	depends = python-click
+	depends = python-typing_extensions
+	source = toot::git+https://github.com/ihabunek/toot#commit=41b77cc9de77abfb333430295e701f6ab769c806
 	b2sums = SKIP
 
 pkgname = toot
