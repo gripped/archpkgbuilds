@@ -1,0 +1,20 @@
+pkgbase = dart-sass
+	pkgdesc = Sass makes CSS fun again
+	pkgver = 1.69.5
+	pkgrel = 1
+	url = http://sass-lang.com/
+	arch = x86_64
+	license = MIT
+	makedepends = git
+	makedepends = dart
+	makedepends = buf
+	depends = glibc
+	provides = sass
+	conflicts = ruby-sass
+	options = !strip
+	source = dart-sass::git+https://github.com/sass/dart-sass.git#commit=89dac15c030caf728f4760bfdea3f86c814338ed
+	source = github.com-sass-sass::git+https://github.com/sass/sass.git#commit=a7845054cca3e57c920fe5554d41d5fed0301b52
+	b2sums = SKIP
+	b2sums = SKIP
+
+pkgname = dart-sass
