@@ -1,0 +1,28 @@
+pkgbase = python-lark-parser
+	pkgdesc = A modern parsing library
+	pkgver = 1.1.8
+	pkgrel = 1
+	url = https://github.com/lark-parser/lark
+	arch = any
+	license = MIT
+	checkdepends = python-js2py
+	checkdepends = python-tzlocal
+	checkdepends = python-atomicwrites
+	checkdepends = python-regex
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	depends = python
+	depends = python-typing_extensions
+	optdepends = python-atomicwrites: for atomic_cache
+	optdepends = python-regex: for regex support
+	optdepends = python-js2py: for nearley support
+	provides = python-lark
+	source = python-lark-parser::git+https://github.com/lark-parser/lark#commit=a43373c8c16bea0e2e006eb614b21c1970e4f989
+	source = github.com-Hardmath123-nearley::git+https://github.com/Hardmath123/nearley
+	b2sums = SKIP
+	b2sums = SKIP
+
+pkgname = python-lark-parser
