@@ -312,6 +312,23 @@ index 5002e9e24bf..030fcc6a3cd 100644
  
    # Encrypted Settings configuration
    encrypted_settings:
+@@ -1194,13 +1194,13 @@ production: &base
+   repositories:
+     storages: # You must have at least a `default` storage path.
+       default:
+-        gitaly_address: unix:/home/git/gitlab/tmp/sockets/private/gitaly.socket # TCP connections are supported too (e.g. tcp://host:port). TLS connections are also supported using the system certificate pool (eg: tls://host:port).
++        gitaly_address: unix:/run/gitlab/gitlab-gitaly.socket # TCP connections are supported too (e.g. tcp://host:port). TLS connections are also supported using the system certificate pool (eg: tls://host:port).
+         # gitaly_token: 'special token' # Optional: override global gitaly.token for this storage.
+ 
+   ## Backup settings
+   backup:
+-    path: "tmp/backups"   # Relative paths are relative to Rails.root (default: tmp/backups/)
+-    # gitaly_backup_path: /home/git/gitaly/_build/bin/gitaly-backup # Path of the gitaly-backup binary (default: searches $PATH)
++    path: "/var/lib/gitlab/backups"   # Relative paths are relative to Rails.root (default: tmp/backups/)
++    # gitaly_backup_path: /usr/bin/gitaly-backup # Path of the gitaly-backup binary (default: searches $PATH)
+     # archive_permissions: 0640 # Permissions for the resulting backup.tar file (default: 0600)
+     # keep_time: 604800   # default: 0 (forever) (in seconds)
+     # pg_schema: public     # default: nil, it means that all schemas will be backed up
 @@ -1235,12 +1235,12 @@ production: &base
  
    ## GitLab Shell settings
