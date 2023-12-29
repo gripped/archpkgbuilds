@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=lib32-fontconfig
-pkgver=2.14.2
+pkgver=2.15.0
 pkgrel=1
 epoch=2
 pkgdesc="Library for configuring and customizing font access"
@@ -21,13 +21,16 @@ makedepends=(
   meson
 )
 install=fontconfig-32.install
-_commit=7861a719616b4b132b9cac089c6c64f47832edb1  # tags/2.14.2^0
+_commit=72b9a48f57de6204d99ce1c217b5609ee92ece9b  # tags/2.15.0^0
 source=(
   "git+https://gitlab.freedesktop.org/fontconfig/fontconfig.git#commit=$_commit"
   fontconfig-32.hook
 )
 b2sums=('SKIP'
         '1cba71810c9bde6ecb6fac124e458fb7260be3ea72ade82b836e0e8e1eaa7c7df31e6e92e405fa420325cec0ce14d0f19630e777308032b0c26ec96a3d668d93')
+validpgpkeys=(
+  F77A64C4B5B45FF8763A278F65755979B34E1294  # Akira TAGOH <akira@tagoh.org>
+)
 
 prepare() {
   cd fontconfig
@@ -40,13 +43,9 @@ pkgver() {
 
 build() {
   local meson_options=(
-    --libdir=/usr/lib32
+    --cross-file lib32
     -D doc=disabled
   )
-
-  export CC='gcc -m32'
-  export CXX='g++ -m32'
-  export PKG_CONFIG=i686-pc-linux-gnu-pkg-config
 
   arch-meson fontconfig build "${meson_options[@]}"
   meson compile -C build
