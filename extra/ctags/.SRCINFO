@@ -1,0 +1,22 @@
+pkgbase = ctags
+	pkgdesc = Generates an index file of language objects found in source files
+	pkgver = 6.1.0
+	pkgrel = 1
+	epoch = 1
+	url = https://ctags.io/
+	arch = x86_64
+	license = GPL
+	makedepends = git
+	makedepends = python-docutils
+	depends = glibc
+	depends = libxml2
+	depends = jansson
+	depends = libyaml
+	depends = libseccomp
+	depends = libseccomp.so
+	depends = pcre2
+	provides = universal-ctags
+	source = git+https://github.com/universal-ctags/ctags.git#commit=7ad90a853a5aee974c757217c87a3b468855c2b1
+	sha512sums = SKIP
+
+pkgname = ctags
