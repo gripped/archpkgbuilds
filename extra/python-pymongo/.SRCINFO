@@ -1,11 +1,14 @@
 pkgbase = python-pymongo
 	pkgdesc = Python module for using MongoDB
-	pkgver = 4.6.0
+	pkgver = 4.6.1
 	pkgrel = 1
 	url = https://pypi.python.org/pypi/pymongo/
 	arch = x86_64
 	license = Apache
 	makedepends = python-setuptools
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
 	depends = python
 	optdepends = python-pyopenssl: for [ocsp]
 	optdepends = python-requests: for [ocsp]
@@ -13,7 +16,7 @@ pkgbase = python-pymongo
 	optdepends = python-snappy: for [snappy]
 	optdepends = python-zstandard: for [zstd]
 	optdepends = python-dnspython: for [srv]
-	source = https://pypi.io/packages/source/p/pymongo/pymongo-4.6.0.tar.gz
-	sha512sums = c295affc8af8a678056a8b6995a046625be2b3b4bbe49896b3a3c3ea8a2dbc170a51ed9971ee2a23efea0c9d75912de572e42e868676e8f96a230fa0e54c597a
+	source = https://pypi.io/packages/source/p/pymongo/pymongo-4.6.1.tar.gz
+	sha512sums = 5bf535004f5dfb6b2541545ff204009d2a30a74e0ca80e02eedbce3019d3c60dcbc4f123c85febb73aeaa4b62e38bc3c84373e8a50f407cc396ef008e7b4d62b
 
 pkgname = python-pymongo
