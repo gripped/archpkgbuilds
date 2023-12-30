@@ -8,12 +8,12 @@
 pkgname='alacritty'
 pkgdesc="A cross-platform, GPU-accelerated terminal emulator"
 pkgver=0.13.0
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 url="https://github.com/alacritty/alacritty"
 license=('Apache')
 makedepends=('git' 'rust' 'cargo' 'cmake' 'ncurses' 'desktop-file-utils' 'gdb' 'libxcb' 'scdoc')
-depends=('freetype2' 'fontconfig' 'libxi' 'libxcursor' 'libxkbcommon' 'libxrandr')
+depends=('freetype2' 'fontconfig' 'libxi' 'libxcursor' 'libxkbcommon' 'libxkbcommon-x11' 'libxrandr')
 checkdepends=('ttf-dejavu') # for monospace fontconfig test
 optdepends=('ncurses: for alacritty terminfo database')
 source=("git+$url.git#tag=v$pkgver?signed")
