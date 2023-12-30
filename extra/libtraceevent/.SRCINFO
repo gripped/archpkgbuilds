@@ -1,0 +1,25 @@
+pkgbase = libtraceevent
+	pkgdesc = Linux kernel trace event library
+	pkgver = 1.8.1
+	pkgrel = 1
+	epoch = 1
+	url = https://git.kernel.org/pub/scm/libs/libtrace/libtraceevent.git/about/
+	arch = x86_64
+	license = GPL-2.0-only
+	license = LGPL-2.1-only
+	makedepends = asciidoc
+	makedepends = xmlto
+	source = libtraceevent-1.8.1.tar.gz::https://git.kernel.org/pub/scm/libs/libtrace/libtraceevent.git/snapshot/libtraceevent-1.8.1.tar.gz
+	source = libtraceevent-1.5.0-documentation.patch
+	sha512sums = dbe8b81d703e73f0dd4b164bc46a000a7981ae20ef7eadcbe648858db09a038db67d20ee814d6bd52b07f901c4a6f443ce4a43c1fd16c54b0d1df61d92a42241
+	sha512sums = 74b34a722d3fb9d672826e0b6b137f94a7fcd41bb372f8944bb6a0c652c0e725aaef8e95284fc091c2e9954bcf1656b5428d7e0f121682d40c25623178ee4a1e
+	b2sums = 5717bd423ebebb546afabb2154928c92611fb99bd725a3e96d3cf49b2a29ea3e135ca383939332b38219e285453962223694eec5b0967f4d99525c3c6e54acfc
+	b2sums = f66f4f20dfe562407a0d4bb53785d1515c4b5f4be64dd96e06ea6c9e03c299b2f0f613901c30893a976b3874d13e768791632a7cb89be92f3788330e4f5ab97d
+
+pkgname = libtraceevent
+	depends = glibc
+	optdepends = libtraceevent-docs: for documentation
+	provides = libtraceevent.so
+
+pkgname = libtraceevent-docs
+	pkgdesc = Linux kernel trace event library - documentation
