@@ -5,7 +5,7 @@
 # Contributor: Dieter Plaetinck <dieter@plaetinck.be>
 
 pkgname=vcsh
-pkgver=2.0.6
+pkgver=2.0.7
 pkgrel=1
 pkgdesc='Version Control System for $HOME that manages multiple Git repositories'
 arch=(any)
@@ -18,7 +18,7 @@ checkdepends=(perl
 optdepends=('myrepos: manage multiple vcsh repos through mr')
 _archive="$pkgname-$pkgver"
 source=("$url/releases/download/v$pkgver/$_archive.tar.xz")
-sha256sums=('f0a91353506b3b7f6f816a6ba13f90b1168137623a591de5a7839e85deb238cb')
+sha256sums=('471e720420d1a8537284fd0f7e8a36ba99fbb78621e61c5380d2a632d698ff4f')
 
 build() {
 	cd "$_archive"
