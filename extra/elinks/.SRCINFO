@@ -1,0 +1,33 @@
+pkgbase = elinks
+	pkgdesc = Advanced feature-rich text-mode web browser
+	pkgver = 0.17.0
+	pkgrel = 1
+	url = https://github.com/rkd77/elinks
+	arch = x86_64
+	license = GPL
+	makedepends = git
+	makedepends = meson
+	makedepends = dblatex
+	makedepends = xmlto
+	makedepends = libiconv
+	makedepends = gc
+	makedepends = cmake
+	depends = glibc
+	depends = brotli
+	depends = bzip2
+	depends = gpm
+	depends = openssl
+	depends = lua
+	depends = libdom
+	depends = libcss
+	depends = libidn2
+	depends = xz
+	depends = libwapcaplet
+	depends = expat
+	depends = zlib
+	depends = curl
+	depends = tre
+	source = elinks::git+https://github.com/rkd77/elinks#tag=v0.17.0
+	b2sums = SKIP
+
+pkgname = elinks
