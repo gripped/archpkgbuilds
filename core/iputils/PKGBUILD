@@ -6,10 +6,10 @@ pkgname=iputils
 # Commit date + git rev-parse --short origin/master
 _rev=84cdf26
 pkgver=20231222
-pkgrel=1
+pkgrel=2
 pkgdesc="Network monitoring tools, including ping"
 arch=('x86_64')
-license=('GPL-2.0-or-later' 'BSD-3-Clause' 'GPL-2.0-or-later')
+license=('BSD-3-Clause' 'GPL-2.0-or-later')
 url="https://github.com/iputils/iputils"
 depends=('libcap' 'libidn2')
 makedepends=('perl-sgmls' 'git' 'docbook-xsl' 'meson' 'systemd' 'iproute')
@@ -31,4 +31,5 @@ package() {
   cd build
 
   DESTDIR="$pkgdir" ninja install
+  install -vDm 644 "../$pkgname/Documentation/LICENSE.BSD3" -t "$pkgdir/usr/share/licenses/$pkgname"
 }
