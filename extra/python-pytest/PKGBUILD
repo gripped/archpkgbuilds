@@ -4,7 +4,7 @@
 
 pkgname=python-pytest
 _name=${pkgname#python-}
-pkgver=7.4.3
+pkgver=7.4.4
 pkgrel=1
 pkgdesc="Simple powerful testing with Python"
 arch=('any')
@@ -38,7 +38,7 @@ checkdepends=(
   'python-pytest-xdist'
   'python-twisted'
 )
-source=("git+https://github.com/$_name-dev/$_name.git#tag=v$pkgver")
+source=("git+https://github.com/$_name-dev/$_name.git#tag=$pkgver")
 b2sums=('SKIP')
 
 build() {
@@ -48,10 +48,8 @@ build() {
 
 check() {
   cd "$_name"
-  python -m venv --system-site-packages test-env
-  test-env/bin/python -m installer dist/*.whl
   # https://github.com/pytest-dev/pytest/issues/10042
-  test-env/bin/python -m pytest -o xfail_strict=False
+  PYTHONPATH="$PWD/src:$PYTHONPATH" pytest -o xfail_strict=False
 }
 
 package() {
