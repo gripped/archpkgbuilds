@@ -1,0 +1,26 @@
+pkgbase = vigra
+	pkgdesc = Computer vision library
+	pkgver = 1.11.2
+	pkgrel = 1
+	url = https://ukoethe.github.io/vigra
+	arch = x86_64
+	license = MIT
+	checkdepends = python-nose
+	makedepends = boost
+	makedepends = cmake
+	makedepends = python-numpy
+	depends = fftw
+	depends = gcc-libs
+	depends = hdf5
+	depends = libpng
+	depends = libtiff
+	depends = openexr
+	depends = sh
+	optdepends = python: for python bindings
+	optdepends = boost-libs: for python bindings
+	source = https://github.com/ukoethe/vigra/archive/Version-1-11-2/vigra-Version-1-11-2.tar.gz
+	source = vigra-openexr3.patch
+	sha256sums = 4841936f5c3c137611ec782e293d961df29d3b5b70ade8cb711374de0f4cb5d3
+	sha256sums = 2572717e39f916c7c463b8f49306b683c5923906be2721f7da181c58b3a2b34b
+
+pkgname = vigra
