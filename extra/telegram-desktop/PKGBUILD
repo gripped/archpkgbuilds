@@ -2,18 +2,18 @@
 # Contributor: hexchain <i@hexchain.org>
 pkgname=telegram-desktop
 pkgver=4.14.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Official Telegram Desktop client'
 arch=('x86_64')
 url="https://desktop.telegram.org/"
 license=('GPL3')
 depends=('hunspell' 'ffmpeg' 'hicolor-icon-theme' 'lz4' 'minizip' 'openal' 'ttf-opensans'
          'qt6-imageformats' 'qt6-svg' 'qt6-wayland' 'xxhash'
-         'rnnoise' 'pipewire' 'libxtst' 'libxrandr' 'libxcomposite' 'jemalloc' 'abseil-cpp' 'libdispatch'
+         'rnnoise' 'pipewire' 'libxtst' 'libxrandr' 'libxcomposite' 'abseil-cpp' 'libdispatch'
          'openssl' 'protobuf' 'glib2' 'libsigc++-3.0' 'glibmm-2.68')
 makedepends=('cmake' 'git' 'ninja' 'python' 'range-v3' 'tl-expected' 'microsoft-gsl' 'meson'
              'extra-cmake-modules' 'wayland-protocols' 'plasma-wayland-protocols' 'libtg_owt'
-             'gobject-introspection' 'boost' 'fmt' 'mm-common' 'perl-xml-parser' 'libsigc++-3.0')
+             'gobject-introspection' 'boost' 'fmt' 'mm-common' 'perl-xml-parser')
 optdepends=('webkit2gtk: embedded browser features'
             'xdg-desktop-portal: desktop integration')
 source=("https://github.com/telegramdesktop/tdesktop/releases/download/v${pkgver}/tdesktop-${pkgver}-full.tar.gz")
