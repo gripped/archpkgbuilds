@@ -7,8 +7,8 @@
 
 pkgbase=wireshark
 pkgname=('wireshark-cli' 'wireshark-qt')
-pkgver=4.2.0
-pkgrel=2
+pkgver=4.2.1
+pkgrel=1
 pkgdesc='Network traffic and protocol analyzer/sniffer'
 url='https://www.wireshark.org/'
 arch=('x86_64')
@@ -22,9 +22,9 @@ makedepends=('glibc' 'cmake' 'ninja' 'c-ares' 'libmaxminddb' 'qt6-tools' 'qt6-sv
 options=('!emptydirs')
 source=(https://www.wireshark.org/download/src/${pkgbase}-${pkgver}.tar.xz
         wireshark.sysusers)
-sha512sums=('6896da4a264c4163443c427869a1b9dc5e5b071f9e689ec8b93507a4f8e6780003c580ca60f42cad6ce68e9c26558794af29405e26970357d1b13a3db7cdbb62'
+sha512sums=('e08217b0997a53b614cca871edb68c659a2a64b59c1a3072ad3183e3297f039781c50fc44359532bf279f830101a32aeb7238c684272f5b4cb19632787c00d92'
             '3956c1226e64f0ce4df463f80b55b15eed06ecd9b8703b3e8309d4236a6e1ca84e43007336f3987bc862d8a5e7cfcaaf6653125d2a34999a0f1357c52e7c4990')
-b2sums=('0b1f2cb76ee6d5744076d8660056eb1c1ffcf028476c13e5324c0e133d02c916c5cfd66f82511a09ca67a42b46b06a9699b6ca6fce2342636d490699858e0d51'
+b2sums=('ae9672ae6148955dbb509ebbcaab9ad10090958ce0ad4824dabe7aae48a3742fd298a29c4505778218332e7c6783ddc235d8fa3915b2144ed7ee60c0db3aa03e'
         '3cebcc993f51eaf0e09673c77e0436598593ef5eff306d880415ccc8eecb32fee93c9a6986f1a7bb0835ab7f9732369d7c5a07e6c053d6293e73a1ea84c58a5c')
 
 build() {
