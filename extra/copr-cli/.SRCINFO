@@ -1,12 +1,15 @@
 pkgbase = copr-cli
 	pkgdesc = CLI tool to run copr
 	pkgver = 1.104
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/fedora-copr/copr
 	arch = any
 	license = GPL
 	checkdepends = python-pytest
 	checkdepends = python-responses
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
 	depends = python-copr
 	depends = python-humanize
 	depends = python-simplejson
