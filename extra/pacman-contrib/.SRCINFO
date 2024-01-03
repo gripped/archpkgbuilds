@@ -1,0 +1,22 @@
+pkgbase = pacman-contrib
+	pkgdesc = Contributed scripts and tools for pacman systems
+	pkgver = 1.10.0
+	pkgrel = 1
+	url = https://gitlab.archlinux.org/pacman/pacman-contrib
+	arch = x86_64
+	license = GPL
+	makedepends = asciidoc
+	makedepends = git
+	depends = fakeroot
+	depends = pacman
+	depends = perl
+	optdepends = diffutils: for pacdiff
+	optdepends = findutils: for pacdiff --find
+	optdepends = mlocate: for pacdiff --locate
+	optdepends = sudo: privilege elevation for several scripts
+	optdepends = vim: default merge program for pacdiff
+	source = git+https://gitlab.archlinux.org/pacman/pacman-contrib.git#tag=v1.10.0
+	validpgpkeys = 04DC3FB1445FECA813C27EFAEA4F7B321A906AD9
+	b2sums = SKIP
+
+pkgname = pacman-contrib
