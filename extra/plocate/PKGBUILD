@@ -2,7 +2,7 @@
 # Contributor: Hans-Nikolai Viessmann <hans AT viess DOT mn>
 
 pkgname=plocate
-pkgver=1.1.19
+pkgver=1.1.20
 pkgrel=1
 pkgdesc="Alternative to locate, faster and compatible with mlocate's database."
 arch=('x86_64')
@@ -17,7 +17,7 @@ source=("${url}/download/${pkgname}-${pkgver}.tar.gz"
         'plocate.sysusers'
         'plocate.tmpfiles'
         'updatedb.conf')
-sha256sums=('d95bc8ee8a9f79b9f69ce63df53fb85b202139f243bbb84c399555eda22e6165'
+sha256sums=('9b3d2842a08e69633c0ffa480c139603514ce59f1d021c263e9301324976959f'
             '1713a8fc8b81f4a390bf8597c4c0e917474379002dcc984aad2f44218d10c82a'
             'adda399ac42f0faa002caab5bf932777c0006ae7c4387add859c9f77321b4202'
             'd00796741e2194032d0185b40de70ff5c8a11fda416a70434eb0aa2020981f91')

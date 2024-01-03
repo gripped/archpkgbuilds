@@ -1,0 +1,25 @@
+pkgbase = plocate
+	pkgdesc = Alternative to locate, faster and compatible with mlocate's database.
+	pkgver = 1.1.20
+	pkgrel = 1
+	url = https://plocate.sesse.net
+	arch = x86_64
+	license = GPL2
+	makedepends = meson
+	depends = zstd
+	depends = liburing
+	depends = systemd
+	provides = mlocate
+	provides = locate
+	conflicts = mlocate
+	backup = etc/updatedb.conf
+	source = https://plocate.sesse.net/download/plocate-1.1.20.tar.gz
+	source = plocate.sysusers
+	source = plocate.tmpfiles
+	source = updatedb.conf
+	sha256sums = 9b3d2842a08e69633c0ffa480c139603514ce59f1d021c263e9301324976959f
+	sha256sums = 1713a8fc8b81f4a390bf8597c4c0e917474379002dcc984aad2f44218d10c82a
+	sha256sums = adda399ac42f0faa002caab5bf932777c0006ae7c4387add859c9f77321b4202
+	sha256sums = d00796741e2194032d0185b40de70ff5c8a11fda416a70434eb0aa2020981f91
+
+pkgname = plocate
