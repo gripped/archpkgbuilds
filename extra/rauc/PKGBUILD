@@ -1,12 +1,12 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=rauc
-pkgver=1.10.1
+pkgver=1.11
 pkgrel=1
 pkgdesc="Safe and secure software updates for embedded Linux"
 arch=(x86_64)
 url="https://rauc.io"
-license=(LGPL2.1)
+license=(LGPL-2.1-or-later)
 depends=(
   gcc-libs
   glibc
@@ -19,6 +19,7 @@ makedepends=(
   dbus
   glib2
   json-glib
+  meson
   python
   systemd
   util-linux
@@ -36,31 +37,31 @@ optdepends=(
   'uboot-tools: for u-boot support'
 )
 source=(https://github.com/rauc/rauc/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz{,.asc})
-sha512sums=('794a1a517c9a9eacf7466710054f88fc48bf57e34cb460f202f62ca976777054c0faf74dd045164ea29977aa8f5d9d268f5154621b51642898ffafc831c75bbb'
+sha512sums=('0842e79b77a057ac83c93098dd9edad9eb39637950a9b05e6f31d86ed867214a5d852914d2881ae9b146be1b10f8a940705f2dcc43071ef489d6ec052b55c5a0'
             'SKIP')
-b2sums=('3cdaa88886e0d4f97623939af06a0a90de1a166535ff1cdaf523938a1778bfdd24049387886732d1a13c0d94a43d66f73d9328cc005beb3a73f33b3afda49b22'
+b2sums=('61aa1c40addbc5e2e76020e0794656d14f107375d1cf20559f023e240d9a10de5c6119a3007677c943143c4ca13beedf6362e287a4947b4ad95269a58ef55ca0'
         'SKIP')
 validpgpkeys=("977843FD5C3EBF76BAD4008EA58CC53DBF05E090")  # Jan Lübbe <jlu@pengutronix.de>
 
-prepare() {
-  cd $pkgname-$pkgver
-  autoreconf -fiv
-}
-
 build() {
-  local configure_options=(
-    --prefix=/usr
-    --libexecdir=/usr/lib
-    --enable-gpt
-  )
+  arch-meson $pkgname-$pkgver build
+  meson compile -C build
 
-  cd $pkgname-$pkgver
-  ./configure "${configure_options[@]}"
-  make
 }
 
 check() {
-  make -k check -C $pkgname-$pkgver
+  local meson_tests=($(meson test -C build --list))
+  # disable broken tests: https://github.com/rauc/rauc/issues/1311
+  local disabled_tests=(bundle service)
+  for target in "${disabled_tests[@]}"; do
+    for i in "${!meson_tests[@]}"; do
+      if [[ ${meson_tests[i]} = $target ]]; then
+        unset 'meson_tests[i]'
+      fi
+    done
+  done
+
+  meson test -C build "${meson_tests[@]}"
 }
 
 package() {
@@ -71,7 +72,7 @@ package() {
     util-linux-libs libfdisk.so
   )
 
-  make DESTDIR="$pkgdir/" install -C $pkgname-$pkgver
+  meson install -C build --destdir "$pkgdir"
   install -vdm 755 "$pkgdir/etc/$pkgname/"
   install -vDm 644 $pkgname-$pkgver/contrib/{grub.conf,uboot.sh} -t "$pkgdir/usr/share/doc/$pkgname/"
 }
