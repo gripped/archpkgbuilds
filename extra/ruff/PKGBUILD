@@ -3,7 +3,7 @@
 
 pkgbase=ruff
 pkgname=($pkgbase python-$pkgbase)
-pkgver=0.1.9
+pkgver=0.1.11
 pkgrel=1
 pkgdesc='An extremely fast Python linter, written in Rust'
 arch=(x86_64)
@@ -20,16 +20,12 @@ makedepends=(
 )
 options=(!lto)
 _archive="$pkgbase-$pkgver"
-source=($url/archive/refs/tags/v$pkgver/$_archive.tar.gz
-        $url/commit/a3e06e5a.patch) # https://github.com/astral-sh/ruff/issues/9234
-sha512sums=('1dde9a28bd6dd95eb300d31250fe165e3057d3f4f0b25aa7118122ec4abd49ddf0844863e7073dd9b3eb55b03f1d2b7155b39b6c8e4a51ed5c3e23d2f4366659'
-            '26c845d05ed337f393a2f586711d51416c9385797db5a64f977e2762eda9c4136889499ed2141264e0e10435a2cfdaeccd4f14c2bf7867c69caeef4fd56c4e19')
-b2sums=('b6e70f1eeddae0e01c2eca0fa9c840a73b9a30080ced3e301cff7cf651daf8fd03a10de354e0e8b4cd2fa0bedaf62a65a45d91af1dbf25d0cc2c8ae643d07447'
-        'b168c5e04cd2509c1d68b48d151ca458c9683d07141701e652a20fd0ee4225915eec0bff39d21a78461623e86b85dbbdba1ec8c52f232d3662daa7144f51e8ca')
+source=($url/archive/refs/tags/v$pkgver/$_archive.tar.gz)
+sha512sums=('2c43c4d5b8c72dd33a1a8f1e49812c0760d34a0d68cceff778e24eebadb0ca070d7de5526aa3832a73ada7fb3c9cd8c75962470743a6697bb3dedb084507c157')
+b2sums=('d44d2adb19a184164142eafbe903c062e6e04de6948bafdb6ba7023a39981290aea5ef783b91a88dc86a4747a7876c8aaeba0ffdc7f88773cdfc6acc4d393b55')
 
 prepare() {
   cd "$_archive"
-  patch -p1 -i ../a3e06e5a.patch
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
