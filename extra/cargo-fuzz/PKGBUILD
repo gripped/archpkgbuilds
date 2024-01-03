@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=cargo-fuzz
-pkgver=0.11.2
+pkgver=0.11.3
 pkgrel=1
 pkgdesc="Command line helpers for fuzzing rust"
 url="https://github.com/rust-fuzz/cargo-fuzz"
@@ -9,8 +9,8 @@ depends=('cargo')
 arch=('x86_64')
 license=('MIT' 'APACHE')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/rust-fuzz/${pkgname}/archive/${pkgver}.tar.gz")
-sha256sums=('c5a0228271f9f65b1a55baf42ab42fd9a6266d7034069cd6ad3c2df194c34f1c')
-b2sums=('2c0c497f78a70fb793ab82e13f1ba67f40f578eacd17fa42e9204990a08336ed5c631cfdfd44fcbb60f1670972db48787e448d106636ffd2e6692a8b1e230bd5')
+sha256sums=('b96e5b098aafaf8e3598aadc83a02da700831d6b4c095618e05f1f248b627eb2')
+b2sums=('01426cb8f1e3c7bb02038e47abdc12c357af4441b05a5a3f13031d09cad5757789737b5f0b54b070e80e1a2201f60bbd7ed89f2e184a6b98a515e3a54468ab2b')
 
 build() {
   cd "${pkgname}-${pkgver}"
