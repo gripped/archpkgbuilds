@@ -2,7 +2,7 @@
 # Contributor: peeweep <peeweep at 0x0 dot ee>
 
 pkgname=neovide
-pkgver=0.12.0
+pkgver=0.12.1
 pkgrel=1
 pkgdesc='No Nonsense Neovim Client in Rust'
 arch=(x86_64)
@@ -23,12 +23,12 @@ optdepends=('vulkan-intel: vulkan support for intel'
             'libxkbcommon-x11: run on X11 (not needed for wayland)')
 _archive=("$pkgname-$pkgver")
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('8770dd6977605f9bafa990a60cf8f2ebeba7df16417dab2e8c5583d279ec86ef')
+sha256sums=('95df61d51635a981697a6c4b3e63a9feb29bb90bfc69940c02c73273a61cfd10')
 
 prepare() {
 	cd "$_archive"
 	sed -r -i -e '/^incremental/a opt-level = 3' Cargo.toml
-	cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
