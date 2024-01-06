@@ -3,8 +3,8 @@
 # Contributor: Bart Verhagen <barrie.verhagen at gmail dot com>
 
 pkgname=catch2
-_gitcommit=53d0d913a422d356b23dd927547febdf69ee9081
-pkgver=3.5.0
+_gitcommit=f981c9cbcac07a2690e5a86767eba490b5465463
+pkgver=3.5.1
 pkgrel=1
 pkgdesc="Modern, C++-native, header-only, test framework for unit-tests, TDD and BDD"
 arch=('x86_64')
@@ -12,6 +12,7 @@ url="https://github.com/catchorg/catch2"
 license=('Boost')
 #depends=('gcc-libs' 'glibc') # only needed when building shared library
 makedepends=('git' 'cmake' 'python') # python seems to be necessary for building tests (FS#60273)
+conflicts=('catch2-v2')
 source=(${pkgname}::"git+https://github.com/catchorg/Catch2#commit=${_gitcommit}?signed")
 sha512sums=('SKIP')
 validpgpkeys=(
