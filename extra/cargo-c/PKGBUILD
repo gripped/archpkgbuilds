@@ -2,18 +2,16 @@
 
 pkgname=cargo-c
 pkgver=0.9.29
-pkgrel=1
+pkgrel=2
 pkgdesc='A cargo subcommand to build and install C-ABI compatibile dynamic and static libraries'
 arch=('x86_64')
 url='https://github.com/lu-zero/cargo-c/'
 license=('MIT')
 depends=(
+  'cargo'
   'libcurl.so'
   'libssl.so'
   'libz.so'
-)
-makedepends=(
-  'cargo'
 )
 source=("https://github.com/lu-zero/cargo-c/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "${pkgname}-${pkgver}.Cargo.lock"::"https://github.com/lu-zero/cargo-c/releases/download/v${pkgver}/Cargo.lock")
