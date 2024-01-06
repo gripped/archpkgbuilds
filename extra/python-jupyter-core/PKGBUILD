@@ -3,7 +3,7 @@
 
 _pyname=jupyter_core
 pkgname=python-${_pyname/_/-}
-pkgver=5.6.0
+pkgver=5.7.0
 pkgrel=1
 pkgdesc='Jupyter core package. A base package on which Jupyter projects rely'
 arch=(any)
@@ -22,7 +22,7 @@ conflicts=(python-jupyter_core)
 provides=(python-jupyter_core)
 replaces=(python-jupyter_core)
 source=(https://files.pythonhosted.org/packages/source/j/jupyter_core/$_pyname-$pkgver.tar.gz)
-sha256sums=('2970f1554685c89ebfedd784e44eea62d17a935e817f7bb704329a6129e178ca')
+sha256sums=('cb8d3ed92144d2463a3c5664fdd686a3f0c1442ea45df8babb1c1a9e6333fe03')
 
 prepare() {
   cd $_pyname-$pkgver
