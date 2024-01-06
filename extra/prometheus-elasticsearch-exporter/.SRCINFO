@@ -1,0 +1,22 @@
+pkgbase = prometheus-elasticsearch-exporter
+	pkgdesc = Elasticsearch stats exporter for Prometheus
+	pkgver = 1.7.0
+	pkgrel = 1
+	url = https://github.com/prometheus-community/elasticsearch_exporter
+	arch = x86_64
+	license = Apache
+	makedepends = go
+	makedepends = git
+	depends = glibc
+	options = !lto
+	backup = etc/conf.d/prometheus-elasticsearch-exporter
+	source = prometheus-elasticsearch-exporter-1.7.0.tar.gz::https://github.com/prometheus-community/elasticsearch_exporter/archive/v1.7.0.tar.gz
+	source = prometheus-elasticsearch-exporter.conf
+	source = prometheus-elasticsearch-exporter.service
+	source = prometheus-elasticsearch-exporter.sysusers
+	sha256sums = 2ed9f32e78398b5533939bae5dc782128e8387079e4fb1ead24195be2b1ce1ce
+	sha256sums = 5e02085a3aee96ff0364921f3195abdb08c0be8dca2fc3731b2b327e772d4b45
+	sha256sums = c70972ae59e4110aadbefbc2fde271016348189a1157f928ceabd93b99ab77a6
+	sha256sums = ececb3f170234308c9e240f68544133be16b35c77720bb7d903684a794c14ae8
+
+pkgname = prometheus-elasticsearch-exporter
