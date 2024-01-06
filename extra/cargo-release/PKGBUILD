@@ -1,32 +1,42 @@
-# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Contributor: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=cargo-release
-pkgver=0.25.0
+pkgver=0.25.1
 pkgrel=1
 pkgdesc='Cargo subcommand "release": everything about releasing a rust crate'
 url='https://github.com/crate-ci/cargo-release'
-arch=('x86_64')
-license=('MIT' 'Apache-2.0')
-depends=('gcc-libs' 'libgit2.so' 'libssh2.so' 'libssl.so' 'zlib')
-makedepends=('cargo' 'pkg-config')
-options=('!lto')
-source=(https://github.com/crate-ci/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-b2sums=('5d3242ad9e2a25df084f0ee35fd464e2937078385356bb09e184c79c407fbe4bf0f26fd984db99ed05082708c68d1b5de4926481ac81d82bef8f85265718c634')
+arch=(x86_64)
+license=(
+  Apache-2.0
+  MIT
+)
+depends=(
+  cargo
+  gcc-libs
+  glibc
+  zlib
+)
+makedepends=(rust)
+options=(!lto)
+source=($url/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
+sha512sum=('5d3242ad9e2a25df084f0ee35fd464e2937078385356bb09e184c79c407fbe4bf0f26fd984db99ed05082708c68d1b5de4926481ac81d82bef8f85265718c634')
+b2sums=('bcbf7a957e59ad91598a40c4e5eabff8d9bd11ff92520e2aa6cab6c3ae06f76e2c8b09620da2371dfcf39d9214281c8af5517d3a88e3e1ef96f8c7423bda966a')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd $pkgname-$pkgver
   cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd $pkgname-$pkgver
   cargo build --frozen --release --no-default-features
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  install -Dm 755 target/release/${pkgname} "${pkgdir}/usr/bin/${pkgname}"
-  install -Dm 644 LICENSE-MIT -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  cd $pkgname-$pkgver
+  install -Dm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -Dm 644 LICENSE-MIT -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
 
 # vim: ts=2 sw=2 et:
