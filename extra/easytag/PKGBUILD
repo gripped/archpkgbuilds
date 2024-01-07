@@ -6,7 +6,7 @@
 
 pkgname=easytag
 pkgver=2.4.3
-pkgrel=6
+pkgrel=7
 pkgdesc="Simple application for viewing and editing tags in audio files"
 arch=('x86_64')
 url="https://wiki.gnome.org/Apps/EasyTAG"
@@ -50,10 +50,8 @@ check() {
 }
 
 package() {
-  depends+=('libFLAC.so' 'libatk-1.0.so' 'libid3tag.so' 'libgdk-3.so'
-  'libgio-2.0.so' 'libglib-2.0.so' 'libgobject-2.0.so' 'libgtk-3.so'
-  'libharfbuzz.so' 'libpango-1.0.so'
-  'libpangocairo-1.0.so')
+  depends+=('libFLAC.so' 'libid3tag.so' 'libgdk-3.so'
+  'libgio-2.0.so' 'libglib-2.0.so' 'libgobject-2.0.so' 'libgtk-3.so')
   cd "${pkgname}-${pkgver}"
   make DESTDIR="${pkgdir}" install
 }
