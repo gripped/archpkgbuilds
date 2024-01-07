@@ -3,15 +3,15 @@
 # Contributor: Aaron Schaefer <aaron@elasticdog.com>
 
 pkgname=optipng
-pkgver=0.7.7
-pkgrel=2
+pkgver=0.7.8
+pkgrel=1
 pkgdesc='Compresses PNG files to a smaller size, without losing any information.'
 arch=('x86_64')
 url='http://optipng.sourceforge.net/'
 license=('ZLIB')
 depends=('glibc' 'libpng' 'zlib')
 source=("https://downloads.sourceforge.net/sourceforge/$pkgname/$pkgname-$pkgver.tar.gz")
-sha256sums=('4f32f233cef870b3f95d3ad6428bfe4224ef34908f1b42b0badf858216654452')
+sha256sums=('25a3bd68481f21502ccaa0f4c13f84dcf6b20338e4c4e8c51f2cefbd8513398c')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
