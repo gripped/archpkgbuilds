@@ -6,7 +6,7 @@
 
 pkgname=ddclient
 pkgver=3.11.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Update dynamic DNS entries for accounts on many dynamic DNS services"
 url="https://github.com/ddclient/ddclient"
 arch=('any')
@@ -51,5 +51,6 @@ package() {
   # https://github.com/ddclient/ddclient/blob/e0611ab192d6b8d3d2b09d6868d063ca5591ad02/ddclient.in#L1576
   # ddclient.conf should be root:ddclient with 640 permissions
   chmod 640 "$pkgdir"/etc/ddclient/ddclient.conf
+  echo 'g ddclient - -' | install -Dm644 /dev/stdin "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
   echo 'z /etc/ddclient/ddclient.conf 0640 root ddclient - -' | install -Dm644 /dev/stdin "$pkgdir/usr/lib/tmpfiles.d/$pkgname.conf"
 }
