@@ -3,7 +3,7 @@
 # Contributor: Phillip A. (flying-sheep)
 
 pkgname=python-hatch
-pkgver=1.8.1
+pkgver=1.9.1
 pkgrel=1
 pkgdesc="A modern project, package, and virtual env manager"
 arch=('any')
@@ -42,8 +42,8 @@ checkdepends=(
 )
 _name=${pkgname/python-/}
 source=("$url/archive/refs/tags/$_name-v$pkgver.tar.gz")
-sha256sums=('45c17cb36f48c07f1ea28bb84efa267b2e729d24ab9ac248b0a2812145faf771')
-b2sums=('274508c7a4c44909f395d56c9e9f59477d45cec13c0e23aea2bcd95ad44e7c0d740b0af142cb42bb850e2e3a10f10a0528c406de2d2c9c9fb198df16132c03a5')
+sha256sums=('6769f71ae5c570122749e0028b3867cf285e0517b685a8f3d4ec7073c9af2e4e')
+b2sums=('5dbf365c61374ab50c9610c66ed6e3d2213cc1307a54500d39ffaa7b8a634060ab496d1fcd0947a1e018319804e484c8b35226fa0c2e2d626effca4b752075c0')
 
 build() {
   cd $_name-$_name-v$pkgver
