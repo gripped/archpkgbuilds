@@ -1,19 +1,25 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 # Contributor: Michal Krenek <mikos@sg1.cz>
+# Contributor: Alberto Salvia Novella (es20490446e.wordpress.com)
 
 pkgname=ttf-dejavu
 _commit=9b5d1b2ffeec20c7b46aa89c0223d783c02762cf # master
 pkgver=2.37+18+g9b5d1b2f
-pkgrel=4
+pkgrel=5
 pkgdesc='Font family based on the Bitstream Vera Fonts with a wider range of characters'
 arch=(any)
 url='https://dejavu-fonts.github.io'
-license=(custom)
-makedepends=(git fontforge perl-font-ttf)
-provides=(ttf-font)
-source=("git+https://github.com/dejavu-fonts/dejavu-fonts.git#commit=$_commit")
-sha256sums=('SKIP')
+license=(MIT)
+makedepends=(fontforge
+             git
+             perl-font-ttf)
+provides=(monospace
+          ttf-font)
+source=("git+https://github.com/dejavu-fonts/dejavu-fonts.git#commit=$_commit"
+        '0-monospace.conf')
+sha256sums=('SKIP'
+            '771309ff9364f08419ee0937ce32e7a57c61dfe5ab6bb499ece21aef19780e5b')
 
 pkgver() {
 	cd dejavu-fonts
@@ -28,9 +34,10 @@ build() {
 package() {
 	cd dejavu-fonts
 	install -Dm0644 -t "$pkgdir/usr/share/fonts/TTF" build/*.ttf
-	install -Dm0644 -t "$pkgdir/usr/share/fontconfig/conf.avail" fontconfig/*.conf
+	install -Dm0644 -t "$pkgdir/usr/share/fontconfig/conf.avail/" \
+		fontconfig/*.conf "$srcdir/0-monospace.conf"
 	mkdir -p "$pkgdir/usr/share/fontconfig/conf.default"
-	ln -srt "$pkgdir/usr/share/fontconfig/conf.default" \
-		"$pkgdir"/usr/share/fontconfig/conf.avail/*
+	ln -srt "$pkgdir/usr/share/fontconfig/conf.default/" \
+		"$pkgdir/usr/share/fontconfig/conf.avail/"*
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
