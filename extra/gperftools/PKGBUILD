@@ -7,7 +7,7 @@
 # Contributor: Jan Rüegg <rggjan@gmail.com>
 
 pkgname=gperftools
-pkgver=2.14
+pkgver=2.15
 pkgrel=1
 pkgdesc='Fast, multi-threaded malloc and nifty performance analysis tools'
 arch=('x86_64')
@@ -17,7 +17,7 @@ depends=('gcc-libs' 'glibc' 'libunwind')
 optdepends=('graphviz: pprof graph generation'
             'perl: pprof and pprof-symbolize commands')
 source=("https://github.com/gperftools/gperftools/releases/download/$pkgname-$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('6b561baf304b53d0a25311bd2e29bc993bed76b7c562380949e7cb5e3846b299')
+sha256sums=('c69fef855628c81ef56f12e3c58f2b7ce1f326c0a1fe783e5cae0b88cbbe9a80')
 
 build() {
   cd $pkgname-$pkgver
