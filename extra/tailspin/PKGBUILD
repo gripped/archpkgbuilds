@@ -2,8 +2,8 @@
 # Contributor: Justin ! <just1602@riseup.net>
 
 pkgname=tailspin
-pkgver=2.2.0
-pkgrel=4
+pkgver=2.3.0
+pkgrel=1
 pkgdesc='A log file highlighter'
 url="https://github.com/bensadeh/$pkgname"
 arch=(x86_64 aarch64 arm armv7h armv6h)
@@ -11,7 +11,7 @@ license=(MIT)
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('afa7ffa24d47d6266ea96b06ca9b30cc9898095dd4d077e8fe9618ace96c6b89')
+sha256sums=('f523a9ccf59e6d5ae4bb66a5b0a4d480832f604c09a3c2f4dd00b5efc8f1b03d')
 
 prepare() {
 	cd "$_archive"
