@@ -1,0 +1,21 @@
+pkgbase = mm-common
+	pkgdesc = Common build files of the C++ bindings
+	pkgver = 1.0.6
+	pkgrel = 1
+	url = https://www.gtkmm.org/
+	arch = any
+	license = GPL-2.0-or-later
+	makedepends = git
+	makedepends = libsigc++
+	makedepends = meson
+	depends = doxygen
+	depends = graphviz
+	depends = gtk-doc
+	depends = libsigc++-docs
+	depends = perl-xml-parser
+	source = git+https://gitlab.gnome.org/GNOME/mm-common.git#commit=7d50a613306499f525033498ea922e3887ed7e9a
+	source = https://gcc.gnu.org/onlinedocs/libstdc++/latest-doxygen/libstdc++.tag
+	b2sums = SKIP
+	b2sums = 2d7922774a6eac7b180092a8a23a0c8d8a675cf2e0d698106258c4a9d036fb0eb2cfde9c21df96e1d842a0cbccd01035c83328ff8b06a008253fb8760c9e28a3
+
+pkgname = mm-common
