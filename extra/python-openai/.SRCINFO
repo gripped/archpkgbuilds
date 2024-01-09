@@ -1,6 +1,6 @@
 pkgbase = python-openai
 	pkgdesc = Python client library for the OpenAI API
-	pkgver = 1.6.1
+	pkgver = 1.7.0
 	pkgrel = 1
 	url = https://github.com/openai/openai-python
 	arch = any
@@ -17,6 +17,7 @@ pkgbase = python-openai
 	depends = python-distro
 	depends = python-typing_extensions
 	depends = python-pydantic
+	depends = python-cached-property
 	optdepends = python-numpy: Needed for CLI fine-tuning data preparation tool
 	optdepends = python-pandas: Needed for CLI fine-tuning data preparation tool
 	optdepends = python-pandas-stubs: Needed for type hints for mypy
@@ -27,7 +28,7 @@ pkgbase = python-openai
 	optdepends = python-matplotlib: embeddings
 	optdepends = python-plotly: embeddings
 	optdepends = python-scipy: embeddings
-	source = openai-python-1.6.1.tar.gz::https://github.com/openai/openai-python/archive/refs/tags/v1.6.1.tar.gz
-	sha256sums = 4632a6beef2a13537ae0eb38fbe6a4fab087c560c7e999fb33bceaf0b8c9fd69
+	source = openai-python-1.7.0.tar.gz::https://github.com/openai/openai-python/archive/refs/tags/v1.7.0.tar.gz
+	sha256sums = 744172678306d346feb268609740efef482319b9b04f6f65af5151639ae7409e
 
 pkgname = python-openai
