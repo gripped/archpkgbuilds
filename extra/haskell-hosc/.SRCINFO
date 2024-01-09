@@ -1,12 +1,15 @@
 pkgbase = haskell-hosc
 	pkgdesc = Haskell Open Sound Control
 	pkgver = 0.20
-	pkgrel = 26
+	pkgrel = 27
 	url = https://github.com/rd--/hosc
 	arch = x86_64
-	license = GPL
+	license = GPL-3.0-only
 	makedepends = ghc
+	depends = bash
 	depends = ghc-libs
+	depends = glibc
+	depends = gmp
 	depends = haskell-blaze-builder
 	depends = haskell-data-binary-ieee754
 	depends = haskell-network
