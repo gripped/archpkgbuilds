@@ -1,0 +1,25 @@
+pkgbase = folks
+	pkgdesc = Library to aggregates people into metacontacts
+	pkgver = 0.15.7
+	pkgrel = 1
+	url = https://wiki.gnome.org/Projects/Folks
+	arch = x86_64
+	license = LGPL-2.1-or-later
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = gtk-doc
+	makedepends = libsysprof-capture
+	makedepends = meson
+	makedepends = python-dbusmock
+	makedepends = vala
+	depends = evolution-data-server
+	depends = libgee
+	depends = libxml2
+	provides = libfolks.so
+	provides = libfolks-dummy.so
+	provides = libfolks-eds.so
+	options = !lto
+	source = git+https://gitlab.gnome.org/GNOME/folks.git#commit=fd570fa84f2e5e549187490ee89a9b77e9371785
+	b2sums = SKIP
+
+pkgname = folks
