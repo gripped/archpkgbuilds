@@ -6,36 +6,31 @@ pkgname=(
   lib32-dbus
 )
 pkgver=1.14.10
-pkgrel=1
+pkgrel=2
 pkgdesc="Freedesktop.org message bus system - 32-bit"
 url="https://wiki.freedesktop.org/www/Software/dbus/"
 arch=(x86_64)
-license=(
-  GPL
-  custom
-)
+license=("AFL-2.1 OR GPL-2.0-or-later")
 depends=(
   dbus
   lib32-systemd
 )
 makedepends=(
-  autoconf-archive
-  git
   lib32-expat
   lib32-glib2
   systemd
 )
 source=(
-  "git+https://gitlab.freedesktop.org/dbus/dbus.git?signed#tag=dbus-$pkgver"
+  https://dbus.freedesktop.org/releases/dbus/dbus-$pkgver.tar.xz{,.asc}
 )
-b2sums=('SKIP')
+b2sums=('f605b0810dcde6a0753384927131e7f4675be737ad7506a51261717c2622e74b99ac33cc2c199b98e5aa6b9d7c68ef692b8ee9f684f6fdab8d06c6fa861a6f6b'
+        'SKIP')
 validpgpkeys=(
   DA98F25C0871C49A59EAFF2C4DE8FF2A63C7CC90  # Simon McVittie <simon.mcvittie@collabora.co.uk>
 )
 
 prepare() {
-  cd dbus
-  NOCONFIGURE=1 ./autogen.sh
+  cd dbus-$pkgver
 }
 
 build() {
@@ -66,13 +61,13 @@ build() {
   export CXX="g++ -m32 -mstackrealign"
   export PKG_CONFIG="i686-pc-linux-gnu-pkg-config"
 
-  cd dbus
+  cd dbus-$pkgver
   ./configure "${configure_options[@]}"
   make
 }
 
 check() {
-  make -C dbus -j1 check
+  make -C dbus-$pkgver -j1 check
 }
 
 package_lib32-dbus() {
@@ -86,12 +81,13 @@ package_lib32-dbus() {
   conflicts=(lib32-libdbus)
   replaces=(lib32-libdbus)
 
-  DESTDIR="$pkgdir" make -C dbus install
+  cd dbus-$pkgver
+  DESTDIR="$pkgdir" make install
 
   rm -r "$pkgdir"/{etc,var}
   rm -r "$pkgdir"/usr/{bin,include,lib,share}
 
-  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 dbus/COPYING
+  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 COPYING
 }
 
 # vim:set sw=2 sts=-1 et:
