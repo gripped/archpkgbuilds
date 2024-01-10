@@ -4,7 +4,7 @@
 
 _name=alabaster
 pkgname=python-sphinx-alabaster-theme
-pkgver=0.7.15
+pkgver=0.7.16
 pkgrel=1
 pkgdesc='Light, configurable Sphinx theme'
 arch=('any')
