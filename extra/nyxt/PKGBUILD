@@ -6,7 +6,7 @@
 # Contributor: Felix Golatofski <contact@xdfr.de>
 
 pkgname=nyxt
-pkgver=3.10.0
+pkgver=3.11.0
 pkgrel=1
 pkgdesc='A keyboard-driven web browser designed for power users'
 arch=('x86_64')
@@ -39,8 +39,8 @@ optdepends=(
 )
 options=('!strip' '!makeflags')
 source=("$pkgname-$pkgver.tar.xz::https://github.com/atlas-engineer/nyxt/releases/download/$pkgver/nyxt-$pkgver-source-with-submodules.tar.xz")
-sha512sums=('79285e75eb896983dc4931d7802bb808f5c6f04f04a2f1c002bd72586562f35387c04416308964ce0ef6d630b0aacf21590c6625caa8cf6bf1a3396bf2e95794')
-b2sums=('278fc2874194b26bf33359b5051c42844141ae2863dd06bfd4c732079de1cca15cb794304852725f2032b9d3820223b5e25cf6df63201cbba81a5917f4c70ac9')
+sha512sums=('86c85be84364d7422c518af1fd9b4b51c89610fe619e16b836800f6f8f3bf98d49cd594ed488239a205bdaaee5b713988c3f72eeac7887a9c6f0d3a17733cb5b')
+b2sums=('7d4a09b2cf07ad5c7d2ff0a644c142f5cedda447e021376466262c3a5472c6b9e88e6f06ca495fca554a541cc9394c9ce5214e7d4e172e63bcdc690956de4d7d')
 
 build() {
   make all
