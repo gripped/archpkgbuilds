@@ -5,7 +5,7 @@
 
 pkgname=netsurf
 pkgver=3.11
-pkgrel=2
+pkgrel=3
 pkgdesc='Lightweight and fast web browser'
 arch=(x86_64)
 url='https://www.netsurf-browser.org/'
@@ -14,7 +14,7 @@ depends=(curl gtk3 'libcss>=0.9.2' 'libdom>=0.4.2' 'libhubbub=0.3.8'
          libjpeg-turbo libjxl 'libnsbmp>=0.1.7' 'libnsgif>=1.0.0' 'libnsutils=0.1.1'
          'libsvgtiny>=0.1.8' 'libutf8proc>=2.9.0' 'libwapcaplet>=0.4.3' libwebp)
 # vim is needed only for xxd when building
-makedepends=(check inetutils 'nsgenbind>=0.9' perl-html-parser setconf vim)
+makedepends=(check inetutils 'nsgenbind>=0.9' perl-html-parser setconf tinyxxd)
 source=("netsurf-$pkgver.tar.bz2::https://git.netsurf-browser.org/netsurf.git/snapshot/netsurf-release/$pkgver.tar.bz2"
         netsurf.sh)
 b2sums=('9714735389aa752b5e11a13c3e6e4fc456589517e98fe55025725e05e38a52afea377d53703553ec9d94e492c58f7e1b5ed04c7a0c4fb5158c3053eeedfddcdc'
