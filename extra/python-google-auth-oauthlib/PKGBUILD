@@ -4,7 +4,7 @@
 pkgname=python-google-auth-oauthlib
 _pkgname='google-auth-oauthlib'
 pkgver=1.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="oauthlib integration for Google auth."
 url="http://google-auth-oauthlib.readthedocs.io/en/latest/"
 checkdepends=('python-click' 'python-pytest')
@@ -22,7 +22,10 @@ sha256sums=('292d2d3783349f2b0734a0a0207b1e1e322ac193c2c09d8f7c613fb7cc501ea8')
 # }
 
 package() {
-    cd "${srcdir}/${_pkgname}-${pkgver}"
+    cd "${_pkgname}-${pkgver}"
     python setup.py install --root="${pkgdir}" --optimize=1
-    install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+    install -Dm644 LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+
+    # Remove conflicting files
+    rm -r "${pkgdir}"/usr/lib/python3.11/site-packages/docs
 }
