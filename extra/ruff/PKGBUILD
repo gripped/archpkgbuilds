@@ -3,7 +3,7 @@
 
 pkgbase=ruff
 pkgname=($pkgbase python-$pkgbase)
-pkgver=0.1.11
+pkgver=0.1.12
 pkgrel=1
 pkgdesc='An extremely fast Python linter, written in Rust'
 arch=(x86_64)
@@ -21,8 +21,8 @@ makedepends=(
 options=(!lto)
 _archive="$pkgbase-$pkgver"
 source=($url/archive/refs/tags/v$pkgver/$_archive.tar.gz)
-sha512sums=('2c43c4d5b8c72dd33a1a8f1e49812c0760d34a0d68cceff778e24eebadb0ca070d7de5526aa3832a73ada7fb3c9cd8c75962470743a6697bb3dedb084507c157')
-b2sums=('d44d2adb19a184164142eafbe903c062e6e04de6948bafdb6ba7023a39981290aea5ef783b91a88dc86a4747a7876c8aaeba0ffdc7f88773cdfc6acc4d393b55')
+sha512sums=('7689fdb7a5e5b65d3a22c6d2d1c210d216ba652256f50d5407b769451a36e98b08cdf94d0103a88611898955d2333d3edba8d64656e79144777d79f3afe93663')
+b2sums=('2947d416b8a9c11b7a90c51ca3070bed0b34e4dba74f6a8340604962f9f33de83ccdcf9c615add4074296ab0edd6c5b34551d4d930b5ab2f398188069e96cc4b')
 
 prepare() {
   cd "$_archive"
