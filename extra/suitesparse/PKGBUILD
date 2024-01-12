@@ -2,7 +2,7 @@
 # Contributor: Ronald van Haren <ronald.archlinux.org>
 
 pkgname=suitesparse
-pkgver=7.4.0
+pkgver=7.5.0
 pkgrel=1
 pkgdesc='A collection of sparse matrix libraries'
 url='http://faculty.cse.tamu.edu/davis/suitesparse.html'
@@ -18,7 +18,7 @@ makedepends=(cmake
 replaces=('suitesparse64<7.1.0')
 license=(GPL)
 source=(https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('f9a5cc2316a967198463198f7bf10fb8c4332de6189b0e405419a7092bc921b7')
+sha256sums=('9090ead43f462737369f1b6f8f269decc7f98adbb3276db299a2d4f18d481328')
 
 build() {
   cd SuiteSparse-$pkgver
