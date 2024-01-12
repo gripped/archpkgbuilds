@@ -2,7 +2,7 @@
 # Contributor: Bruce Zhang <zttt183525594@gmail.com>
 
 pkgname=feeluown-bilibili
-pkgver=0.3
+pkgver=0.3.1
 pkgrel=1
 pkgdesc="Bilibili provider for FeelUOwn"
 arch=('any')
@@ -12,7 +12,7 @@ depends=('feeluown' 'python-cachetools' 'python-beautifulsoup4' 'python-pycrypto
 makedepends=('python-build' 'python-installer' 'python-poetry-core')
 groups=('feeluown-full')
 source=("https://github.com/feeluown/feeluown-bilibili/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('7f59d3ace36780221574da59ead955b7dbbfc703b7f3a30b91bb8db06d6bbf80038dac4cca99e473049c86f2c56bef06f47089c62f1c150c50478e2418d41c9f')
+sha512sums=('29de7144ee2b7117a0b0416b9366d477a8248b68688e4f883132a577b3ab0f972fba7e33b1932fccfe229fdc109872ee663bba035dd11fe7034b2b9596983fe5')
 
 build() {
   cd feeluown-bilibili-$pkgver
