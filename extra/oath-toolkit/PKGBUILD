@@ -3,7 +3,7 @@
 # Contributor: L42y <423300@gmail.com>
 
 pkgname=oath-toolkit
-pkgver=2.6.10
+pkgver=2.6.11
 pkgrel=1
 pkgdesc='OATH one-time password toolkit'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('glibc' 'pam' 'xmlsec')
 provides=('liboath.so' 'libpskc.so')
 validpgpkeys=('B1D2BD1375BECB784CF4F8C4D73CF638C53C06BE') # Simon Josefsson <simon@josefsson.org>
 source=("https://download.savannah.nongnu.org/releases/$pkgname/$pkgname-$pkgver.tar.gz"{,.sig})
-sha256sums=('86c27224f7d6d7dad47a4f6bee65f6b884bf5bbd15c5e98cf2cc69625dbf2391'
+sha256sums=('fc512a4a5b46f4c43ab0586c3189fece4d54f7e649397d6fa1e23428431e2cb4'
             'SKIP')
 
 build() {
