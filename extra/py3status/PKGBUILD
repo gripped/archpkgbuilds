@@ -6,7 +6,7 @@
 # Contributor: carstene1ns <arch carsten-teibes de> - http://git.io/ctPKG
 
 pkgname=py3status
-pkgver=3.54
+pkgver=3.55
 pkgrel=1
 pkgdesc="An extensible i3status replacement/wrapper written in python"
 url="https://py3status.readthedocs.io/en/latest/"
@@ -24,8 +24,10 @@ optdepends=('i3status: for i3status modules'
             'python-pytz: for the clock module'
             'python-tzlocal: for the clock module'
             'pacman-contrib: for the arch_updates module')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/ultrabug/py3status/archive/refs/tags/$pkgver.tar.gz")
-sha256sums=('7aa67b2ef952e029e4b99b9b6498f9b38eff96b3d147df857f14a4d960bea8fd')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/ultrabug/py3status/archive/refs/tags/$pkgver.tar.gz"
+        "$pkgname-refresh-arch_updates.hook")
+sha256sums=('a94f9363c5a322f6274074d9bbc44fb7ce1d843fe4ff02859eeb1c76dca2228a'
+            '0ba611aa6764756be6d1244616872da43970b637461f5c25b77e7331a036b7b4')
 
 build() {
     cd "$pkgname-$pkgver"
@@ -45,4 +47,5 @@ package() {
     install -m644 docs/dev-guide/* "$pkgdir/usr/share/doc/$pkgname/dev-guide"
     install -m644 docs/user-guide/* "$pkgdir/usr/share/doc/$pkgname/user-guide"
     install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm644 "../$pkgname-refresh-arch_updates.hook" "$pkgdir/usr/share/libalpm/hooks/$pkgname-refresh-arch_updates.hook"
 }
