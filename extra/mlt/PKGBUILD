@@ -8,7 +8,7 @@
 
 pkgname=mlt
 pkgver=7.22.0
-pkgrel=2
+pkgrel=3
 pkgdesc='An open source multimedia framework'
 arch=(x86_64)
 url='https://www.mltframework.org'
@@ -80,6 +80,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DMOD_OPENCV=ON \
     -DMOD_GLAXNIMATE=ON \
+    -DMOD_GLAXNIMATE_QT6=ON \
     -DMOD_QT6=ON \
     -DSWIG_PYTHON=ON
   cmake --build build
