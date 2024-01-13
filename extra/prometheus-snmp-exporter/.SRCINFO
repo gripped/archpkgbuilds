@@ -1,0 +1,24 @@
+pkgbase = prometheus-snmp-exporter
+	pkgdesc = Prometheus exporter for SNMP metrics
+	pkgver = 0.24.1
+	pkgrel = 2
+	url = https://github.com/prometheus/snmp_exporter
+	install = package.install
+	arch = x86_64
+	license = Apache
+	makedepends = git
+	makedepends = go
+	depends = glibc
+	depends = net-snmp
+	options = !lto
+	backup = etc/conf.d/prometheus-snmp-exporter
+	source = prometheus-snmp-exporter::git+https://github.com/prometheus/snmp_exporter#commit=f8826bcfadf9d93df9516c660fdc1d503f4e0b95
+	source = systemd.service
+	source = sysusers.conf
+	source = config.env
+	b2sums = SKIP
+	b2sums = ac862a1fecc719c04684836b0c0e0aaff93912ad09f676555fc3212dcb8fa93bd4569550247fb0aaca9e7083e6d4707ebd7f6332d28ab14ba0774625fc176737
+	b2sums = 08c063a6626e53100e971f10437a9dc17eeb962bedcd6c9e746ae0d336205c68991518103e0ca393d3711ca4d4394d65574e9c611bcc98e61b9224d3b5d5d6a7
+	b2sums = 88d48f0485a485a7840f9cc9aa6c5c3a0de2c28542bd77f16fa181772532287375e214f214bf925c30705a60ee48ebf15ac6ca707f58a7b3ed74984afb22aded
+
+pkgname = prometheus-snmp-exporter
