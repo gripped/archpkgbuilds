@@ -9,8 +9,8 @@
 # Contributor: loqs <bugs-archlinux@entropy-collector.net>
 
 pkgname=gitlab
-pkgver=16.7.0
-pkgrel=2
+pkgver=16.7.2
+pkgrel=1
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
 url='https://gitlab.com/gitlab-org/gitlab-foss'
@@ -33,6 +33,7 @@ makedepends=(clang
              go
              nodejs
              postgresql
+             ruby-rake
              rust
              yarn)
 optdepends=('postgresql: database backend'
@@ -57,7 +58,9 @@ source=("git+$url.git#tag=v$pkgver"
         "$pkgname-backup.timer"
         "$pkgname.target"
         "$pkgname.tmpfiles.d"
-        "$pkgname.logrotate")
+        "$pkgname.logrotate"
+        "${url%-foss}/-/merge_requests/140599.patch"
+        "${url%-foss}/-/merge_requests/141069.patch")
 provides=(gitlab-workhorse) # FS78036
 conflicts=(gitlab-workhorse)
 replaces=(gitlab-workhorse)
@@ -73,7 +76,9 @@ sha256sums=('SKIP'
             '869b3e682e9fb26551a19c0cd0b200a6fdb594396f325e237d58e1a8a8a96f73'
             '6c96a5d20c03bd626d9408cb1e41ab131d67610be586475af17c1e52e27ec697'
             '84614a2bfbd734f09c2c91531dd3c13e795186b50c0780a120c8e5bc2a892607'
-            '13e4588b62ebaa6b410c2192cafbd2b9f2c99b8fff7b02782c2968c8256f762a')
+            '13e4588b62ebaa6b410c2192cafbd2b9f2c99b8fff7b02782c2968c8256f762a'
+            'a00af96999374709640a66e7117f76f8ed920985978f3daf55d7b94b43922602'
+            'cd5dfcadf3221e99b58426d321107fd8b4299e10bb57c8c01c6d6979cd9b28f6')
 
 _appdir=/usr/share/webapps/gitlab # the app source code location
 _etcdir=/etc/webapps/gitlab
@@ -87,6 +92,11 @@ prepare() {
 	git rev-parse --short HEAD > REVISION
 
 	patch -p1 -i ../$pkgname-configs.patch
+
+	# Support Ruby Bundler v2.5.0, patches from ee repo since they haven't
+	# hit a tagged release yet so don't appear in the FOSS repo yet.
+	patch -p1 -i ../140599.patch
+	patch -p1 -i ../141069.patch
 
 	# '/home/git' path in the config files indicates a default path that need to be adjusted
 	! grep -FqR '/home/git' config
@@ -105,7 +115,7 @@ prepare() {
 		sed -i "s|<LOGDIR>|${_logdir}|g" "${srcdir}/${service_file}"
 	done
 
-	# Gemfile.lock contains BUNDLED WITH 2.4.21 and using a newer ruby-bundler later fails
+	# Gemfile.lock contains pinned BUNDLED WITH and we are sometimes using a newer ruby-bundler
 	# https://gitlab.archlinux.org/archlinux/packaging/packages/gitlab/-/issues/6
 	sed -i '/BUNDLED WITH/,+1d' Gemfile.lock
 }
@@ -133,7 +143,7 @@ build() {
 	make -C workhorse
 
 	yarn install --production --pure-lockfile
-	bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production USE_DB=false SKIP_STORAGE_VALIDATION=true NODE_OPTIONS="--max_old_space_size=3584"
+	rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production USE_DB=false SKIP_STORAGE_VALIDATION=true NODE_OPTIONS="--max_old_space_size=3584"
 }
 
 package() {
