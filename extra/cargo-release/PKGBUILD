@@ -2,7 +2,7 @@
 # Contributor: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=cargo-release
-pkgver=0.25.1
+pkgver=0.25.3
 pkgrel=1
 pkgdesc='Cargo subcommand "release": everything about releasing a rust crate'
 url='https://github.com/crate-ci/cargo-release'
@@ -20,12 +20,12 @@ depends=(
 makedepends=(rust)
 options=(!lto)
 source=($url/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sum=('5d3242ad9e2a25df084f0ee35fd464e2937078385356bb09e184c79c407fbe4bf0f26fd984db99ed05082708c68d1b5de4926481ac81d82bef8f85265718c634')
-b2sums=('bcbf7a957e59ad91598a40c4e5eabff8d9bd11ff92520e2aa6cab6c3ae06f76e2c8b09620da2371dfcf39d9214281c8af5517d3a88e3e1ef96f8c7423bda966a')
+sha512sums=('f18fa22d306be6c186026e56da5dd7482b29e1e3ff765875c3674af416c4dbd1f8ffbb72b746700aabdbce9d7dfda2601f2e0026bb7da4a0e1ccb57f0d760ccb')
+b2sums=('c76120c2b40037741f7d76c1d7f81fcbc0738abf96e6d3c8dd670edf36cecf1053f460306ca399242101b1d0d241eb6ef7dcd020ed377c1af74a79144e7de344')
 
 prepare() {
   cd $pkgname-$pkgver
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
