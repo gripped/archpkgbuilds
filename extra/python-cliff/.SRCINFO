@@ -1,6 +1,6 @@
 pkgbase = python-cliff
 	pkgdesc = Command Line Interface Formulation Framework
-	pkgver = 4.4.0
+	pkgver = 4.5.0
 	pkgrel = 1
 	url = https://docs.openstack.org/cliff/latest/
 	arch = any
@@ -9,15 +9,13 @@ pkgbase = python-cliff
 	checkdepends = python-sphinx
 	checkdepends = python-testscenarios
 	makedepends = git
-	depends = python-six
+	depends = python-autopage
 	depends = python-cmd2
 	depends = python-prettytable
-	depends = python-importlib-metadata
 	depends = python-stevedore
 	depends = python-yaml
-	depends = python-autopage
 	options = !emptydirs
-	source = git+https://github.com/openstack/cliff.git#commit=3ee0725a094b0f80fa72f6bfc8bc97fe20b8fde8
+	source = git+https://github.com/openstack/cliff.git#commit=156e1eb0b9b9ad5feaa4b3e772f2cbc6a7694cf5
 	sha512sums = SKIP
 
 pkgname = python-cliff
