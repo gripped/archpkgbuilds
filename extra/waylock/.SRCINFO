@@ -1,10 +1,11 @@
 pkgbase = waylock
 	pkgdesc = A simple screenlocker for wayland compositors
-	pkgver = 0.6.3
+	pkgver = 0.6.4
 	pkgrel = 1
 	url = https://github.com/ifreund/waylock
 	arch = x86_64
 	license = ISC
+	makedepends = git
 	makedepends = libxkbcommon
 	makedepends = pam
 	makedepends = scdoc
@@ -12,12 +13,18 @@ pkgbase = waylock
 	makedepends = wayland-protocols
 	makedepends = zig
 	depends = glibc
-	source = https://github.com/ifreund/waylock/releases/download/v0.6.3/waylock-0.6.3.tar.gz
-	source = https://github.com/ifreund/waylock/releases/download/v0.6.3/waylock-0.6.3.tar.gz.sig
+	source = https://github.com/ifreund/waylock/releases/download/v0.6.4/waylock-0.6.4.tar.gz
+	source = https://github.com/ifreund/waylock/releases/download/v0.6.4/waylock-0.6.4.tar.gz.sig
+	source = git+https://codeberg.org/ifreund/zig-wayland.git#commit=65475badb37fdfa06ac091554fdc81689a37a72a
+	source = git+https://codeberg.org/ifreund/zig-xkbcommon.git#commit=7b188de0ba794b52eb70340abf2469b858630816
 	validpgpkeys = 5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11
-	sha512sums = 783190a0bb225dc6e1483efd95ae9222f8bfd2a208d8a7fb408637068a5258b4333b083b5955af0b6f034e26b3a4678c822353211689d4194e2e503c4858fa0c
+	sha512sums = c663223cdfd99c4bc730ae06d75c4a8e75f068f07245d15fa7c463e468b2dcfaae2e8a46f83f380cc4b86059045337ed00b1eae223bc4ea67058831f6f6febd0
 	sha512sums = SKIP
-	b2sums = dba424a457c940df7931de8052e0e9dcbf88abefdaa0035831873bcbed1f721a5473d70d84a98adc8f5505c9133f7b806238b47bb98a37bba0b8b712591af3fb
+	sha512sums = SKIP
+	sha512sums = SKIP
+	b2sums = 13db129aa65294f4ec3b955b31581f9ba57bd9af115bc332e0eaaf2d1ea7d425a18c7daf754a097cdf178a104731179bb46f13a9d708e1db8b36515036440902
+	b2sums = SKIP
+	b2sums = SKIP
 	b2sums = SKIP
 
 pkgname = waylock
