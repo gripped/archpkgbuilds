@@ -3,15 +3,15 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-dock
-pkgver=6.0.25
-pkgrel=2
+pkgver=6.0.26
+pkgrel=1
 pkgdesc='The dock of Deepin Desktop Environment'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-dock"
 license=('LGPL3')
 # deepin-wloutput-daemon: org.deepin.dde.KWayland1
 # deepin-session-shell: org.deepin.dde.LockFront1
-depends=('deepin-menu' 'deepin-daemon' 'deepin-launcher' 'deepin-qt5integration'
+depends=('deepin-menu' 'deepin-daemon' 'deepin-launchpad' 'deepin-qt5integration'
          'deepin-network-core' 'deepin-control-center' 'dwayland' 'wayland' 'dtkcore' 'dtkgui' 'dtkwidget'
          'qt5-base' 'qt5-svg' 'qt5-x11extras' 'qt5-wayland' 'glib2' 'gsettings-qt' 'libdbusmenu-qt5'
          'libx11' 'libxext' 'libglvnd' 'libxtst' 'libxcursor' 'libxres' 'libxcb' 'libxkbcommon'
@@ -22,7 +22,7 @@ conflicts=('dde-dock')
 replaces=('dde-dock')
 groups=('deepin')
 source=("https://github.com/linuxdeepin/dde-dock/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('7b0b9a9a70d745e260a65b05aa1ce417129d733aaaf3ba9f27c27f4b8167a8da4f8393e7b96c8ebe4894e03bf26aab0f672432328949a17105f8eddcd9b78ca5')
+sha512sums=('5618412f465a26091205e2e7844c4608bb0d4e1cd5f201e2cdb7860fc24769eb57650fed479029baab1d90fd7c0fdde5f1cce86848f9973ffcd1b5e497bc948c')
 
 build() {
   cd dde-dock-$pkgver
