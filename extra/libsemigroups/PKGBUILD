@@ -2,7 +2,7 @@
 
 pkgname=libsemigroups
 pkgver=2.7.2
-pkgrel=1
+pkgrel=2
 pkgdesc='C++ library for semigroups and monoids'
 url='https://libsemigroups.github.io'
 arch=(x86_64)
@@ -11,13 +11,8 @@ depends=(fmt
          gcc-libs
          glibc)
 makedepends=(eigen)
-source=(https://github.com/libsemigroups/libsemigroups/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('b054b87b4ab90127805efc88a49d3c503ae3368143c7774b179e225258ecb4dc')
-
-prepare() {
-  cd $pkgname-$pkgver
-  ./autogen.sh
-}
+source=(https://github.com/libsemigroups/libsemigroups/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('c89e020ce7857e9eee058eee47e385fdc49dce7f6c22f4304854637c023e44cd')
 
 build() {
   cd $pkgname-$pkgver
