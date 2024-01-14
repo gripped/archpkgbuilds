@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-util-dfm
-pkgver=1.2.19
-pkgrel=2
+pkgver=1.2.20
+pkgrel=1
 pkgdesc='Qt-style Client and Server library wrapper for the Wayland libraries'
 arch=('x86_64')
 license=('LGPL')
@@ -11,7 +11,7 @@ depends=('libisoburn' 'libmediainfo' 'qt5-base' 'udisks2' 'glib2' 'gcc-libs' 'ut
          'libsecret')
 makedepends=('cmake' 'ninja')
 source=("https://github.com/linuxdeepin/util-dfm/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('76135167f526b401d1ba94e8d107307b82223a1137d65904ee6dab9fd7407b3ac5b85a734a7986468aadaeb5cf3df4d42840f7e98823250110f263edde10afbc')
+sha512sums=('2efe0b5837cf665888b4cdccd06c799bff79bd16115a230186066da2acd7b38e589f9ed5bf78590c62c56ddc3f120dd2a43269fefcaf3f67c8ca5048fc8c4d95')
 
 build() {
   cmake -G Ninja -B build -S util-dfm-$pkgver -DCMAKE_INSTALL_PREFIX=/usr
