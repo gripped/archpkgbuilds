@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-compressor
-pkgver=5.12.21
-pkgrel=2
+pkgver=5.12.22
+pkgrel=1
 pkgdesc='A fast and lightweight application for creating and extracting archives'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-compressor"
@@ -13,7 +13,7 @@ makedepends=('cmake' 'ninja' 'qt5-tools')
 groups=('deepin-extra')
 source=("https://github.com/linuxdeepin/deepin-compressor/archive/$pkgver/$pkgname-$pkgver.tar.gz"
         $pkgname-fix-build-on-dtk-5.6.20.patch::https://github.com/linuxdeepin/deepin-compressor/pull/151.patch)
-sha512sums=('cb3d02935032c1867b11c032316e721b43da47c7acda3e52975b8b8c987240fd13df5989b0dcc60a31bc5904866e4324494f0f012951d6d3d60f06f97e6c4dc3'
+sha512sums=('fdd38abd22cca74845b784fb04a968ae9b11cc8df2e384e7c129427fcf153523efca050dca8da95d1cec946e2e4682118d124927fe14b8f3f1cd2041f517cad2'
             'c58c39a6355bb2292b333c6e7eb5abf1d98ea657c920b9287b3207ef38e16c6414ed8c77b2722fca91acfff0629c574e41eef01100154efcb8b3d5db70bc11ed')
 
 prepare() {
