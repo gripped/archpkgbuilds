@@ -6,10 +6,10 @@ _upstream_name=license-list-data
 _upstream_version=3.22
 pkgname=licenses
 pkgver=20231215
-pkgrel=1
+pkgrel=2
 pkgdesc="A set of common license files"
 arch=(any)
-license=(custom:none)
+license=(LicenseRef-None)
 url="https://www.archlinux.org/"
 makedepends=(
   jq
@@ -167,7 +167,7 @@ package() {
     install -vDm 644 "$_upstream_name-$_upstream_version/text/$license.txt" -t "$pkgdir/usr/share/licenses/spdx/"
   done
   for license in "${standard_exceptions[@]}"; do
-    install -vDm 644 "$_upstream_name-$_upstream_version/text/$license.txt" -t "$pkgdir/usr/share/licenses/spdx/"
+    install -vDm 644 "$_upstream_name-$_upstream_version/text/$license.txt" -t "$pkgdir/usr/share/licenses/spdx/exceptions/"
   done
 
   install -vDm 644 known_spdx_license_identifiers.txt -t "$pkgdir/usr/share/licenses/"
