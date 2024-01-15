@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=dtk6core
-pkgver=6.0.3
+pkgver=6.0.4
 pkgrel=1
 pkgdesc='DTK core modules'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('deepin-desktop-base' 'dtkcommon' 'gcc-libs' 'glibc' 'icu' 'libsystemd'
          'uchardet' 'spdlog')
 makedepends=('cmake' 'ninja' 'qt6-tools' 'gtest' 'doxygen')
 source=("https://github.com/linuxdeepin/dtk6core/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('a8433ba37ee7510f34769dda6a98e17d21e155ddf5402ebad3d02405023041bd56852b60005e4cb31c07b9e4d7044bef9c3ad38811801bb53ddd4abcc3ae9357')
+sha512sums=('5a1a857e810c56806ff14d7f6f3a0dd7b438d202f401d861e7b2e9557172ebbf26c3d3875558f2983d6c69765f2c940490374d0321f8662a4af6b1fb19117f22')
 
 prepare() {
   cd dtk6core-$pkgver
