@@ -1,9 +1,9 @@
 pkgbase = bluez
 	pkgver = 5.72
-	pkgrel = 1
+	pkgrel = 2
 	url = http://www.bluez.org/
 	arch = x86_64
-	license = GPL2
+	license = GPL-2.0-only
 	makedepends = dbus
 	makedepends = libical
 	makedepends = systemd
@@ -12,6 +12,7 @@ pkgbase = bluez
 	makedepends = ell
 	makedepends = python-docutils
 	makedepends = python-pygments
+	makedepends = cups
 	source = https://www.kernel.org/pub/linux/bluetooth/bluez-5.72.tar.xz
 	source = https://www.kernel.org/pub/linux/bluetooth/bluez-5.72.tar.sign
 	source = bluetooth.modprobe
@@ -22,35 +23,27 @@ pkgbase = bluez
 
 pkgname = bluez
 	pkgdesc = Daemons for the bluetooth protocol stack
-	depends = libical
+	depends = systemd
 	depends = dbus
 	depends = glib2
 	depends = alsa-lib
-	depends = json-c
 	depends = glibc
-	conflicts = obexd-client
-	conflicts = obexd-server
 	backup = etc/bluetooth/main.conf
+	backup = etc/bluetooth/input.conf
+	backup = etc/bluetooth/network.conf
 
 pkgname = bluez-utils
 	pkgdesc = Development and debugging utilities for the bluetooth protocol stack
 	depends = dbus
-	depends = systemd
 	depends = systemd-libs
 	depends = glib2
 	depends = glibc
 	depends = readline
 	optdepends = ell: for btpclient
-	optdepends = json-c: for mesh-cfgclient
-	provides = bluez-hcidump
-	conflicts = bluez-hcidump
-	replaces = bluez-hcidump
-	replaces = bluez<=4.101
-	backup = etc/bluetooth/mesh-main.conf
 
 pkgname = bluez-libs
 	pkgdesc = Deprecated libraries for the bluetooth protocol stack
-	license = LGPL2.1
+	license = LGPL-2.1-only
 	depends = glibc
 	provides = libbluetooth.so
 
@@ -61,14 +54,38 @@ pkgname = bluez-cups
 	depends = glibc
 	depends = dbus
 
+pkgname = bluez-deprecated-tools
+	pkgdesc = Deprecated tools that are no longer maintained
+	depends = json-c
+	depends = systemd-libs
+	depends = glib2
+	depends = dbus
+	depends = readline
+	depends = glibc
+
 pkgname = bluez-hid2hci
 	pkgdesc = Put HID proxying bluetooth HCI's into HCI mode
-	depends = systemd
 	depends = systemd-libs
+	depends = glibc
+
+pkgname = bluez-mesh
+	pkgdesc = Services for bluetooth mesh
+	depends = systemd
+	depends = json-c
+	depends = readline
+	depends = glibc
+	backup = etc/bluetooth/mesh-main.conf
+
+pkgname = bluez-obex
+	pkgdesc = Object Exchange daemon for sharing content
+	depends = systemd
+	depends = glib2
+	depends = libical
+	depends = dbus
+	depends = readline
 	depends = glibc
 
 pkgname = bluez-plugins
 	pkgdesc = bluez plugins (PS3 Sixaxis controller)
-	depends = systemd
 	depends = systemd-libs
 	depends = glibc
