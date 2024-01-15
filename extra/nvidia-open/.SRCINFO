@@ -1,7 +1,7 @@
 pkgbase = nvidia-open
 	pkgdesc = NVIDIA open kernel modules
 	pkgver = 545.29.06
-	pkgrel = 9
+	pkgrel = 12
 	url = https://github.com/NVIDIA/open-gpu-kernel-modules
 	arch = x86_64
 	license = GPL
@@ -12,8 +12,10 @@ pkgbase = nvidia-open
 	options = !buildflags
 	source = nvidia-open-545.29.06.tar.gz::https://github.com/NVIDIA/open-gpu-kernel-modules/archive/refs/tags/545.29.06.tar.gz
 	source = nvidia-open-gcc-ibt-sls.patch
+	source = nvidia-open-tfm-ctx-aligned.patch
 	sha512sums = f8df8516d00ee3210b3a844493f74f0337cf50cd88884ff11ba6a1de58384674dc7ab7390f98765ecb805fa792e0b5eee71f7384ddb55a739e4292cad8774302
 	sha512sums = 263c4c5e75ef8cb8ca2641c022dfaf8bd9222fadf68ed15120b0ae7dd9cc901a04ce2e55625d513a0995759c9d82dfbdc4c33d4751159124915d7404b1400e34
+	sha512sums = e45e2e588298e15e6ab114b88181431189b79ca8454ac8ead666deaa48fd49f11953acb32ce365a429112827e889c30e4a0bc89027a0164f6c211088dd7cad5b
 
 pkgname = nvidia-open
 	depends = nvidia-utils=545.29.06
