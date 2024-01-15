@@ -2,30 +2,44 @@
 
 _pkgbasename=pixman
 pkgname=lib32-$_pkgbasename
-pkgver=0.42.2
+pkgver=0.43.0
 pkgrel=1
 pkgdesc="Pixman library (32-bit)"
 arch=('x86_64')
 url="https://xorg.freedesktop.org"
 license=('custom')
-depends=('lib32-glibc' $_pkgbasename)
-makedepends=('gcc-multilib')
+depends=('lib32-gcc-libs' 'lib32-glibc' $_pkgbasename)
+makedepends=('meson' 'gcc-multilib' 'lib32-libpng')
 source=(https://xorg.freedesktop.org/releases/individual/lib/${_pkgbasename}-${pkgver}.tar.xz)
-sha512sums=('3476e2676e66756b1af61b1e532cd80c985c191fb7956eb01702b419726cce99e79163b7f287f74f66414680e7396d13c3fee525cd663f12b6ac4877070ff4e8')
+sha512sums=('a90399b8c6aec218abb2f419fb5d6894acf9f4c7acb4fd3893b0b7c805ba47c82ee7efb363be59bb1a15b6997b2dddb7dba062a165503b035e1124fff1b271c9')
 
 build() {
+  local meson_options=(
+    --cross-file lib32
+    -D loongson-mmi=disabled
+    -D vmx=disabled
+    -D arm-simd=disabled
+    -D neon=disabled
+    -D a64-neon=disabled
+    -D iwmmxt=disabled
+    -D mips-dspr2=disabled
+    -D gtk=disabled
+  )
+
   export CC="gcc -m32"
   export CXX="g++ -m32"
   export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 
-  cd "${srcdir}/${_pkgbasename}-${pkgver}"
-  ./configure --prefix=/usr --libdir=/usr/lib32 --disable-static
-  make
+  arch-meson "$_pkgbasename"-"$pkgver" build "${meson_options[@]}"
+  ninja -C build
+}
+
+check() {
+  meson test -C build
 }
 
 package() {
-  cd "${srcdir}/${_pkgbasename}-${pkgver}"
-  make DESTDIR="${pkgdir}" install
+  DESTDIR="$pkgdir" meson install -C build
   rm -rf "${pkgdir}"/usr/include
   mkdir -p "$pkgdir/usr/share/licenses"
   ln -s $_pkgbasename "$pkgdir/usr/share/licenses/$pkgname"
