@@ -4,12 +4,12 @@ pkgbase=lib32-libpulse
 pkgname=(
   lib32-libpulse
 )
-pkgver=16.1
-pkgrel=6
+pkgver=17.0
+pkgrel=1
 pkgdesc="A featureful, general-purpose sound server (32-bit client libraries)"
 url="https://www.freedesktop.org/wiki/Software/PulseAudio/"
 arch=(x86_64)
-license=(LGPL)
+license=(LGPL-2.1-or-later)
 depends=(
   lib32-dbus
   lib32-libasyncns
@@ -33,9 +33,9 @@ optdepends=(
 provides=("lib32-pulseaudio=$pkgver")
 conflicts=(lib32-pulseaudio)
 replaces=(lib32-pulseaudio)
-_commit=e5ad31e873eed62bc580a86a61177047f9e8c491  # tags/v16.1^0
+_commit=1f020889c9aa44ea0f63d7222e8c2b62c3f45f68  # tags/v17.0^0
 source=("git+https://gitlab.freedesktop.org/pulseaudio/pulseaudio.git#commit=$_commit")
-sha256sums=('SKIP')
+b2sums=('SKIP')
 
 pkgver() {
   cd pulseaudio
@@ -56,6 +56,7 @@ build() {
     -D bashcompletiondir=no
     -D bluez5-gstreamer=disabled
     -D bluez5=disabled
+    -D consolekit=disabled
     -D daemon=false
     -D doxygen=false
     -D elogind=disabled
