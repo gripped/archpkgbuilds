@@ -4,7 +4,7 @@
 # Contributor: Javier Tiá <javier dot tia at gmail dot com>
 
 pkgname=visidata
-pkgver=3.0.1
+pkgver=3.0.2
 pkgrel=1
 pkgdesc='Terminal spreadsheet multitool for discovering and arranging data'
 arch=(any)
@@ -64,7 +64,7 @@ _archive="$pkgname-$pkgver"
 # pypi sources don’t have scripts to generate completions
 # source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$_archive.tar.gz")
 source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('8b5736c3dbd3812942c7bab6136916ba2e48ddaf27359726a4221df0ebad8806')
+sha256sums=('cc1506b96192de49419a77a3f9606999779ff77d37a7be0806506c32e16d57f7')
 
 build() {
 	cd "$_archive"
@@ -75,7 +75,8 @@ build() {
 check() {
 	cd "$_archive"
 	# Testing commands assumes reading an rc file not present in chroot build env
-	pytest -k 'not test_baseCommands'
+        # Testing keys assumes access to a terminal environment where they can be simulated
+	pytest -k 'not test_baseCommands' -k 'not test_keys'
 }
 
 package() {
