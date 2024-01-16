@@ -2,7 +2,7 @@
 # Contributor: Kaizhao Zhang <zhangkaizhao@gmail.com>
 
 pkgname=pyright
-pkgver=1.1.346
+pkgver=1.1.347
 pkgrel=1
 pkgdesc='Type checker for the Python language'
 arch=('any')
@@ -10,12 +10,18 @@ url=https://microsoft.github.io/pyright
 license=('MIT')
 depends=('nodejs')
 makedepends=('git' 'npm')
-source=("git+https://github.com/microsoft/pyright.git#tag=$pkgver")
-b2sums=('SKIP')
+source=(
+  "git+https://github.com/microsoft/pyright.git#tag=$pkgver"
+  'pyright-1.1.347-fail.patch::https://github.com/microsoft/pyright/commit/e1dccb5919b01dc7633769903b7ac5850cd08b97.patch'
+)
+b2sums=('SKIP'
+        'c2dbf438987c0d2e714ea2ae2c87f86f3cae8c855df973c64413e00e6a9771017daf558c26e0db771ddb5f7cf66494ab559dfe6a4b9c992ffc98ac8c37658ab7')
 
 prepare() {
   cd $pkgname
   npm ci
+
+  patch --forward --strip=1 --input=../pyright-1.1.347-fail.patch
 }
 
 build() {
