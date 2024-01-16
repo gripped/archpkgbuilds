@@ -1,0 +1,24 @@
+pkgbase = kodi-addon-visualization-shadertoy
+	pkgdesc = Shadertoy visualizer for Kodi
+	pkgver = 20.3.0
+	pkgrel = 8
+	epoch = 1
+	url = https://github.com/xbmc/visualization.shadertoy
+	arch = x86_64
+	groups = kodi-addons
+	groups = kodi-addons-visualization
+	license = GPL
+	makedepends = cmake
+	makedepends = p8-platform
+	makedepends = glm
+	makedepends = jsoncpp
+	makedepends = kodi-dev
+	options = !lto
+	source = kodi-addon-visualization-shadertoy-20.3.0.tar.gz::https://github.com/xbmc/visualization.shadertoy/archive/20.3.0-Nexus.tar.gz
+	sha512sums = e2521ec3298630c67cd4f3991a2b3120e48fd62e17b84ed1f0266c587583c0a3372abbbc85bf03448a713ddc6eb61668782babd01dec5267cb7a97ec887b6be0
+
+pkgname = kodi-addon-visualization-shadertoy
+	depends = kodi
+	depends = p8-platform
+	depends = glm
+	depends = jsoncpp
