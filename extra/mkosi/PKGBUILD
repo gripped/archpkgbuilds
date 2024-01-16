@@ -4,8 +4,8 @@
 # Contributor: Dave Reisner <dreisner@archlinux.org>
 
 pkgname=mkosi
-pkgver=19
-pkgrel=2
+pkgver=20.1
+pkgrel=1
 pkgdesc="Build Legacy-Free OS Images"
 arch=(any)
 url="https://github.com/systemd/mkosi"
@@ -14,6 +14,7 @@ depends=(
   bubblewrap
   python
   python-argcomplete
+  sh
   systemd
 )
 makedepends=(
@@ -54,8 +55,8 @@ optdepends=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz
 )
-sha512sums=('8eb4e4af823299fdd6e9a077ec27be029656974ba0414b08ef226b5ccf7cd0a92d8bef4e475cdf05b86c3a0027c43be0f895af56a87df22502d2904cb0246ef4')
-b2sums=('c97a0a2139c036b727d0cdd6686a7fa5393f62357d87b988f0a1a473367eb552de1ed6f82c1ca99c697ef72acb2fdf6aef7981bfa8dd5c6230b82ba84cbcfb7e')
+sha512sums=('5d5631bb062fc11593c450a9f5e4ece51a87daf37948b24410d6fdf8bf9e9366b7510c3512ba55ec72b280e8c92b2b36bf7d7f30e9357f7427cd9126fcec566f')
+b2sums=('55a508849ef5c1ef60681635e8e4d396587c11d735c23ba8f1b3367c30d8cf8a9cc479959ec2c43d1697fe9d34da281b574a6cf11c786e6c7926e60537aab5d2')
 
 build() {
   cd $pkgname-$pkgver
