@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=rauc
-pkgver=1.11
+pkgver=1.11.1
 pkgrel=1
 pkgdesc="Safe and secure software updates for embedded Linux"
 arch=(x86_64)
@@ -37,9 +37,9 @@ optdepends=(
   'uboot-tools: for u-boot support'
 )
 source=(https://github.com/rauc/rauc/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz{,.asc})
-sha512sums=('0842e79b77a057ac83c93098dd9edad9eb39637950a9b05e6f31d86ed867214a5d852914d2881ae9b146be1b10f8a940705f2dcc43071ef489d6ec052b55c5a0'
+sha512sums=('09f6e7218f884404b56d9d69a028e6098ab2c3d44033d107dcfeffa3ed26ccbd7fff0c27ba1b7c9a74c635b7483f2db1253da148a695bd7db75a2a674438e0f3'
             'SKIP')
-b2sums=('61aa1c40addbc5e2e76020e0794656d14f107375d1cf20559f023e240d9a10de5c6119a3007677c943143c4ca13beedf6362e287a4947b4ad95269a58ef55ca0'
+b2sums=('ba1aa015be1b28f50014ccd43154b296170faa680f97e27e14a98d6af58f0b0151cef33f4fb4f13bfd304a278edbcd7d9cc9134612ae7a14de04c3a169ab9e00'
         'SKIP')
 validpgpkeys=("977843FD5C3EBF76BAD4008EA58CC53DBF05E090")  # Jan Lübbe <jlu@pengutronix.de>
 
@@ -52,7 +52,7 @@ build() {
 check() {
   local meson_tests=($(meson test -C build --list))
   # disable broken tests: https://github.com/rauc/rauc/issues/1311
-  local disabled_tests=(bundle service)
+  local disabled_tests=(service)
   for target in "${disabled_tests[@]}"; do
     for i in "${!meson_tests[@]}"; do
       if [[ ${meson_tests[i]} = $target ]]; then
