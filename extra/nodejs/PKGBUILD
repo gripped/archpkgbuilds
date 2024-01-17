@@ -10,13 +10,13 @@
 pkgname=nodejs
 pkgver=21.6.0
 _commit=f38a9a59182027493852478b8a3abd5d7d5d1726
-pkgrel=1
+pkgrel=2
 pkgdesc='Evented I/O for V8 javascript'
 arch=('x86_64')
 url='https://nodejs.org/'
 license=('MIT')
 options=(!lto)
-depends=('brotli' 'openssl' 'zlib' 'icu' 'libuv' 'libnghttp2' 'c-ares') # 'http-parser' 'v8')
+depends=('icu' 'libuv' 'libnghttp2' 'libnghttp3' 'libngtcp2' 'openssl' 'zlib' 'brotli' 'c-ares') # 'http-parser' 'v8')
 makedepends=('git' 'python' 'procps-ng')
 optdepends=('npm: nodejs package manager')
 source=("git+https://github.com/nodejs/node.git#commit=$_commit")
@@ -31,16 +31,16 @@ build() {
 
   ./configure \
     --prefix=/usr \
-    --with-intl=system-icu \
     --without-npm \
-    --shared \
+    --with-intl=system-icu \
+    --shared-libuv \
+    --shared-nghttp2 \
+    --shared-nghttp3 \
+    --shared-ngtcp2 \
     --shared-openssl \
     --shared-zlib \
-    --shared-libuv \
-    --experimental-http-parser \
-    --shared-nghttp2 \
-    --shared-cares \
-    --shared-brotli
+    --shared-brotli \
+    --shared-cares
     # --shared-v8
     # --shared-http-parser
 
@@ -56,9 +56,6 @@ package() {
   cd node
   make DESTDIR="$pkgdir" install
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/nodejs/
-
-  cd "$pkgdir"/usr/lib
-  ln -s libnode.so.* libnode.so
 }
 
 # vim:set ts=2 sw=2 et:
