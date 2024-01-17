@@ -1,0 +1,37 @@
+pkgbase = kimageannotator
+	pkgdesc = Tool for annotating images
+	pkgver = 0.7.0
+	pkgrel = 2
+	url = https://github.com/ksnip/kImageAnnotator
+	arch = x86_64
+	license = LGPL-3.0-only
+	makedepends = cmake
+	makedepends = kcolorpicker-qt5
+	makedepends = kcolorpicker-qt6
+	makedepends = qt5-svg
+	makedepends = qt5-tools
+	makedepends = qt6-svg
+	makedepends = qt6-tools
+	depends = gcc-libs
+	depends = glibc
+	depends = libx11
+	source = https://github.com/ksnip/kImageAnnotator/archive/v0.7.0/kimageannotator-0.7.0.tar.gz
+	sha256sums = 66e6ff5de1f8f808834143130a0a06d203aa01fb8f02e65af73042e61342163a
+
+pkgname = kimageannotator-qt5
+	depends = gcc-libs
+	depends = glibc
+	depends = libx11
+	depends = kcolorpicker-qt5
+	depends = qt5-base
+	depends = qt5-svg
+	conflicts = kimageannotator
+	replaces = kimageannotator
+
+pkgname = kimageannotator-qt6
+	depends = gcc-libs
+	depends = glibc
+	depends = libx11
+	depends = kcolorpicker-qt6
+	depends = qt6-base
+	depends = qt6-svg
