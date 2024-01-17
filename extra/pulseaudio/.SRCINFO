@@ -1,7 +1,7 @@
 pkgbase = pulseaudio
 	pkgdesc = A featureful, general-purpose sound server
 	pkgver = 17.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://www.freedesktop.org/wiki/Software/PulseAudio/
 	arch = x86_64
 	license = LGPL-2.1-or-later
@@ -45,7 +45,7 @@ pkgname = pulseaudio
 	depends = fftw
 	depends = libcap
 	depends = libltdl
-	depends = libpulse=17.0-2
+	depends = libpulse=17.0-3
 	depends = libsm
 	depends = libsoxr
 	depends = libxtst
@@ -87,30 +87,30 @@ pkgname = libpulse
 pkgname = pulseaudio-zeroconf
 	pkgdesc = Zeroconf support for PulseAudio
 	depends = avahi
-	depends = pulseaudio=17.0-2
+	depends = pulseaudio=17.0-3
 
 pkgname = pulseaudio-lirc
 	pkgdesc = IR (lirc) support for PulseAudio
 	depends = lirc
-	depends = pulseaudio=17.0-2
+	depends = pulseaudio=17.0-3
 
 pkgname = pulseaudio-jack
 	pkgdesc = Jack support for PulseAudio
 	depends = jack
-	depends = pulseaudio=17.0-2
+	depends = pulseaudio=17.0-3
 
 pkgname = pulseaudio-bluetooth
 	pkgdesc = Bluetooth support for PulseAudio
 	depends = bluez
 	depends = bluez-libs
 	depends = gst-plugins-base-libs
-	depends = pulseaudio=17.0-2
+	depends = pulseaudio=17.0-3
 	depends = sbc
 	optdepends = gst-plugins-bad: AptX and LDAC support
 
 pkgname = pulseaudio-equalizer
 	pkgdesc = Graphical equalizer for PulseAudio
-	depends = pulseaudio=17.0-2
+	depends = pulseaudio=17.0-3
 	depends = python-dbus
 	depends = python-pyqt5
 
@@ -120,4 +120,4 @@ pkgname = pulseaudio-rtp
 	depends = gst-plugins-base-libs
 	depends = gst-plugins-good
 	depends = openssl
-	depends = pulseaudio=17.0-2
+	depends = pulseaudio=17.0-3

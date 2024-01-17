@@ -12,7 +12,7 @@ pkgname=(
   pulseaudio-rtp
 )
 pkgver=17.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A featureful, general-purpose sound server"
 url="https://www.freedesktop.org/wiki/Software/PulseAudio/"
 arch=(x86_64)
@@ -64,6 +64,11 @@ prepare() {
 
   # Freeze version before patching
   ./git-version-gen doesnt-exist >.tarball-version
+
+  # Fix crashes with some UCM devices
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/pulseaudio/-/issues/4
+  git cherry-pick -n f5cacd94abcc47003bd88ad7ca1450de649ffb15
+  git cherry-pick -n ed3d4f0837f670e5e5afb1afa5bcfc8ff05d3407
 }
 
 build() {
