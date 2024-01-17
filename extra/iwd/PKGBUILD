@@ -4,21 +4,29 @@
 
 pkgname=iwd
 pkgver=2.13
-pkgrel=1
+pkgrel=2
 pkgdesc='Internet Wireless Daemon'
 arch=('x86_64')
 url='https://git.kernel.org/cgit/network/wireless/iwd.git/'
-license=('LGPL')
+license=('LGPL-2.1-or-later')
 depends=('glibc' 'readline' 'libreadline.so' 'ell' 'gcc-libs')
 makedepends=('python-docutils' 'dbus' 'systemd')
 optdepends=('qrencode: for displaying QR code after DPP is started')
-source=("https://www.kernel.org/pub/linux/network/wireless/iwd-${pkgver}.tar"{.xz,.sign})
+source=("https://www.kernel.org/pub/linux/network/wireless/iwd-${pkgver}.tar"{.xz,.sign}
+        0001-use-network-group-for-unprivileged-access.diff)
 # https://mirrors.edge.kernel.org/pub/linux/network/wireless/sha256sums.asc
 sha256sums=('5c58d0cc7c2c81540a515a7487330468c61615d23031af47be15f694fbfbc8b3'
-            'SKIP')
+            'SKIP'
+            '80330d15f42a383b80ae160f75857500be492140a2014a0c7d5b4b6d6d98da7c')
 validpgpkeys=('E932D120BC2AEC444E558F0106CA9F5D1DCF2659')
-changelog=ChangeLog
-install=iwd.install
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # replace Debian "netdev" group with existing "network" group
+  # for unprivileged access to iwd - avoid also log spam
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/iwd/-/issues/2
+  patch -Np0 -i ../0001-use-network-group-for-unprivileged-access.diff
+}
 
 build() {
   cd ${pkgname}-${pkgver}
