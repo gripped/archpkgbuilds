@@ -3,13 +3,13 @@
 # Contributor: GordonGR <ntheo1979@gmail.com>
 
 pkgname=lib32-gtk3
-pkgver=3.24.39
+pkgver=3.24.40
 pkgrel=1
 epoch=1
 pkgdesc="GObject-based multi-platform GUI toolkit"
 url="https://www.gtk.org/"
 arch=(x86_64)
-license=(LGPL)
+license=(LGPL-2.0-only)
 depends=(
   gtk3
   lib32-at-spi2-atk
@@ -36,13 +36,13 @@ makedepends=(
   sassc
   wayland-protocols
 )
-_commit=9ce32d5d7d2411032876232d86b66f9fd5f7e815  # tags/3.24.39^0
+_commit=f926323d04db220ba2ba9a9026a5bf54e81fbb39  # tags/3.24.40^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/gtk.git#commit=$_commit"
   gtk-query-immodules-3.0-32.hook
 )
-sha256sums=('SKIP'
-            '04255db75cc626e122df4710b350fb656778d01968d56e598b496b71db335989')
+b2sums=('SKIP'
+        'c7136723735c4cbfe654851d0ccc1698142fa8f90b724ed9a970ebd6a74b4f59ea558e134e600736a1041417fc7fd9b3baa8bc561ed9598f2fbf45392dcc9159')
 
 pkgver() {
   cd gtk
