@@ -1,6 +1,6 @@
 pkgbase = prrte
 	pkgdesc = PMIx Reference RunTime Environment
-	pkgver = 3.0.2
+	pkgver = 3.0.3
 	pkgrel = 1
 	url = https://github.com/openpmix/prrte
 	arch = x86_64
@@ -11,9 +11,9 @@ pkgbase = prrte
 	makedepends = openpmix
 	makedepends = perl
 	conflicts = putty
-	source = prrte-3.0.2.tar.gz::https://github.com/openpmix/prrte/releases/download/v3.0.2/prrte-3.0.2.tar.gz
-	sha512sums = 0b46704afedf2c1fb05f1556c78f5dfd68d79ee81cb90d6eb37117761f67c62cad651747da568aaafedfa0b6ac0c8eaed7683cb442d533ce6274094b324c9e09
-	b2sums = 2df4041b84508cfa7573b823d8e82d7d033ec396e880069230711990bc2ac7d0f72f0078cbceab6567e228a801abdf1245993ec3a4b797a2dba04b20079c692a
+	source = prrte-3.0.3.tar.gz::https://github.com/openpmix/prrte/releases/download/v3.0.3/prrte-3.0.3.tar.gz
+	sha512sums = b2443fa225b279ab31a5714b3f89c50e1b12667bc58357f885eee1e4fb8a6d22e533dea5cc2a2b6618334e0ed13b5dbc4c3ea88446dd454480f4300e08293a4d
+	b2sums = 5c68f6ca10089cc13fc326c2e65c86254f8063a4b5d3844c26c77d9ed47f4a939d72dd668959f7351a95144bf8c6289b5223cc262c8847913430263bcb6b77ac
 
 pkgname = prrte
 	depends = glibc
@@ -23,6 +23,9 @@ pkgname = prrte
 	depends = libpmix.so
 	optdepends = prrte-docs: for documentation
 	provides = libprrte.so
+	backup = etc/prrte/prte-default-hostfile
+	backup = etc/prrte/prte-mca-params.conf
+	backup = etc/prrte/prte.conf
 
 pkgname = prrte-docs
-	pkgdesc = - documentation
+	pkgdesc = PMIx Reference RunTime Environment - documentation
