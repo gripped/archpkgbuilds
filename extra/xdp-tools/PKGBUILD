@@ -4,13 +4,13 @@
 pkgbase=xdp-tools
 pkgname=(xdp-tools libxdp)
 pkgver=1.4.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Utilities and example programs for use with XDP'
 url='https://github.com/xdp-project/xdp-tools'
 license=('GPL' 'LGPL' 'BSD2')
 arch=('x86_64')
-depends=('libelf' 'linux-api-headers')
-makedepends=('clang' 'llvm' 'gcc' 'make' 'm4' 'pkgconfig' 'libpcap' 'zlib' 'bpf' 'libbpf')
+depends=('libelf' 'linux-api-headers' 'libbpf')
+makedepends=('clang' 'llvm' 'gcc' 'make' 'm4' 'pkgconfig' 'libpcap' 'zlib' 'bpf')
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/xdp-project/xdp-tools/archive/refs/tags/v${pkgver}.tar.gz")
 sha512sums=('9d2ad42713aa53c10ccbde2c344bf2696524e317544f3693114b343ab74240187699c3802cfc6efa05b3e9f9bfec80fd2537799aa3ae050717bb1f6aab435996')
