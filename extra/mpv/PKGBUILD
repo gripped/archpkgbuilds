@@ -7,12 +7,10 @@ pkgname=mpv
 epoch=1
 _tag='807b9343ef911d138950411cdb83c16a151d2018' # git rev-parse v${pkgver}
 pkgver=0.37.0
-pkgrel=1
+pkgrel=2
 pkgdesc='a free, open source, and cross-platform media player'
 arch=('x86_64')
-# We link against libraries that are licensed GPLv3 explicitly, so our
-# package is GPLv3 only as well. (Is this still correct?)
-license=('GPL3')
+license=('GPL-2.0-or-later AND LGPL-2.1-or-later')
 url='https://mpv.io/'
 depends=('alsa-lib' 'libasound.so' 'desktop-file-utils' 'ffmpeg' 'libavcodec.so' 'libavdevice.so'
          'libavfilter.so' 'libavformat.so' 'libavutil.so' 'libswresample.so' 'libswscale.so'
@@ -21,7 +19,7 @@ depends=('alsa-lib' 'libasound.so' 'desktop-file-utils' 'ffmpeg' 'libavcodec.so'
          'libcdio-paranoia' 'libdrm' 'libdvdnav' 'libdvdread' 'libegl' 'libgl' 'libglvnd'
          'libjpeg' 'libjpeg.so' 'libplacebo' 'libplacebo.so' 'libpulse' 'libpulse.so' 'libsixel'
          'libva' 'libva.so' 'libva-drm.so' 'libva-wayland.so' 'libva-x11.so' 'libvdpau' 'libx11'
-         'libxext' 'libxinerama' 'libxkbcommon' 'libxkbcommon.so' 'libxpresent' 'libxrandr' 'libxss'
+         'libxext' 'libxkbcommon' 'libxkbcommon.so' 'libxpresent' 'libxrandr' 'libxss'
          'libxv' 'luajit' 'mesa' 'mujs' 'libpipewire' 'rubberband' 'librubberband.so' 'shaderc'
          'libshaderc_shared.so' 'openal' 'uchardet' 'vapoursynth' 'vulkan-icd-loader' 'wayland' 'zlib')
 makedepends=('git' 'meson' 'python-docutils' 'ladspa' 'wayland-protocols'
