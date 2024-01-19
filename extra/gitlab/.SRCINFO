@@ -1,6 +1,6 @@
 pkgbase = gitlab
 	pkgdesc = Project management and code hosting application
-	pkgver = 16.7.3
+	pkgver = 16.8.0
 	pkgrel = 1
 	url = https://gitlab.com/gitlab-org/gitlab-foss
 	install = gitlab.install
@@ -45,7 +45,7 @@ pkgbase = gitlab
 	backup = etc/webapps/gitlab/cable.yml
 	backup = etc/webapps/gitlab/smtp_settings.rb
 	backup = etc/logrotate.d/gitlab
-	source = git+https://gitlab.com/gitlab-org/gitlab-foss.git#tag=v16.7.3
+	source = git+https://gitlab.com/gitlab-org/gitlab-foss.git#tag=v16.8.0
 	source = gitlab-configs.patch
 	source = gitlab-environment
 	source = gitlab-puma.service
@@ -57,8 +57,6 @@ pkgbase = gitlab
 	source = gitlab.target
 	source = gitlab.tmpfiles.d
 	source = gitlab.logrotate
-	source = https://gitlab.com/gitlab-org/gitlab/-/merge_requests/140599.patch
-	source = https://gitlab.com/gitlab-org/gitlab/-/merge_requests/141069.patch
 	sha256sums = SKIP
 	sha256sums = e03957f659731f10d6e2a5804f1ba3096f525a4b3d8f3cb0b39ee3a97170766b
 	sha256sums = 8cc4d933743906b4213b8ea8d8c5a62535e27e4073f73581a5dad40078dde000
@@ -71,8 +69,6 @@ pkgbase = gitlab
 	sha256sums = 6c96a5d20c03bd626d9408cb1e41ab131d67610be586475af17c1e52e27ec697
 	sha256sums = 84614a2bfbd734f09c2c91531dd3c13e795186b50c0780a120c8e5bc2a892607
 	sha256sums = 13e4588b62ebaa6b410c2192cafbd2b9f2c99b8fff7b02782c2968c8256f762a
-	sha256sums = a00af96999374709640a66e7117f76f8ed920985978f3daf55d7b94b43922602
-	sha256sums = cd5dfcadf3221e99b58426d321107fd8b4299e10bb57c8c01c6d6979cd9b28f6
 
 pkgname = gitlab
 	depends = git
