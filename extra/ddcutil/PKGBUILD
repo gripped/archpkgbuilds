@@ -3,7 +3,7 @@
 
 pkgname=ddcutil
 pkgver=2.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Query and change Linux monitor settings using DDC/CI and USB.'
 url='http://ddcutil.com/'
 arch=('x86_64')
@@ -15,11 +15,14 @@ sha512sums=('d48f87427050caf8e38f6a4b0dd71c1639101762444a712d7a7d97302ebc0dc4fd7
 
 prepare() {
   cd $pkgname-$pkgver
+  sed -e 's|"x"|"x\$\"\""|' -i configure.ac # Fix version suffix so that -Werror is disabled
   NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
   cd $pkgname-$pkgver
+# Workaround https://github.com/rockowitz/ddcutil/issues/365
+  CFLAGS+=" -DNDEBUG" \
   ./configure --prefix=/usr
   make
 }
