@@ -6,8 +6,8 @@
 
 pkgbase="lib32-sqlite"
 pkgname=('lib32-sqlite')
-_srcver=3440200
-pkgver=3.44.2
+_srcver=3450000
+pkgver=3.45.0
 pkgrel=1
 pkgdesc="A C library that implements an SQL database engine (32-bit)"
 arch=('x86_64')
@@ -15,10 +15,10 @@ license=('custom:Public Domain')
 url="https://www.sqlite.org/"
 makedepends=('tcl' 'lib32-readline' 'sqlite')
 options=('!emptydirs')
-source=(https://www.sqlite.org/2023/sqlite-src-${_srcver}.zip
+source=(https://www.sqlite.org/2024/sqlite-src-${_srcver}.zip
         license.txt)
 # upstream now switched to sha3sums - currently not supported by makepkg
-sha256sums=('73187473feb74509357e8fa6cb9fd67153b2d010d00aeb2fddb6ceeb18abaf27'
+sha256sums=('14dc2db487e8563ce286a38949042cb1e87ca66d872d5ea43c76391004941fe2'
             '4e57d9ac979f1c9872e69799c2597eeef4c6ce7224f3ede0bf9dc8d217b1e65d')
 
 prepare() {
