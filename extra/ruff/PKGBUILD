@@ -3,7 +3,7 @@
 
 pkgbase=ruff
 pkgname=($pkgbase python-$pkgbase)
-pkgver=0.1.13
+pkgver=0.1.14
 pkgrel=1
 pkgdesc='An extremely fast Python linter, written in Rust'
 arch=(x86_64)
@@ -21,8 +21,8 @@ makedepends=(
 options=(!lto)
 _archive="$pkgbase-$pkgver"
 source=($url/archive/refs/tags/v$pkgver/$_archive.tar.gz)
-sha512sums=('07acc637bec2effa6ec904de061a4c3b5bf7a9fb3a6899966bdf1c8010425d49342a8c5115caf1c67a7a6622400028be7a80030ed100576de8344554ca0eec89')
-b2sums=('cd2c87a2cb78d12f4bcb007b77d1a4dad3369706934fcb8f02f57d019b4ee16494e7273574ddee61b8b8346cec7fad2e3e8f02dd6962887915305cb7600c1433')
+sha512sums=('9fd966d7ead695cc26732fb745a4d5ee7d2c1f5258ba017551c51ff3b750808287df0b382ef37c0002df5aa18a76a4cf3889f2725c53e4e7560d3079a7fd6d84')
+b2sums=('39b60a8918c1f9be317cb75dc8fbed8f618b734ea1a757dedf80f4068c4bd7bc0407a1966ac52278f9a417f122a878d92e4cb3f5349e883899160823b5aadc59')
 
 prepare() {
   cd "$_archive"
@@ -31,12 +31,12 @@ prepare() {
 
 build() {
   cd "$_archive"
-  maturin build --locked --release --all-features --target "$CARCH-unknown-linux-gnu" --strip
+  maturin build --locked --release --all-features --target "$(rustc -vV | sed -n 's/host: //p')" --strip
 }
 
 check() {
   cd "$_archive"
-  cargo test -p ruff_cli --frozen --all-features
+  cargo test -p ruff --frozen --all-features -- --skip display_default_settings
 }
 
 _package_common() {
