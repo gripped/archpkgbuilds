@@ -3,26 +3,26 @@
 
 pkgname=ddcutil
 pkgver=2.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Query and change Linux monitor settings using DDC/CI and USB.'
 url='http://ddcutil.com/'
 arch=('x86_64')
 license=('GPL2')
 depends=('glib2' 'i2c-tools' 'libusb' 'libdrm' 'jansson')
 makedepends=('systemd')
-source=(https://github.com/rockowitz/ddcutil/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('d48f87427050caf8e38f6a4b0dd71c1639101762444a712d7a7d97302ebc0dc4fd7c4a5cb188b251c6a6a369b298a43dbc7d91e0eca8cdb6f51c1ae6ae7f1f4b')
+source=(https://github.com/rockowitz/ddcutil/archive/v$pkgver/$pkgname-$pkgver.tar.gz
+        https://github.com/rockowitz/ddcutil/commit/7f157f62.patch)
+sha512sums=('d48f87427050caf8e38f6a4b0dd71c1639101762444a712d7a7d97302ebc0dc4fd7c4a5cb188b251c6a6a369b298a43dbc7d91e0eca8cdb6f51c1ae6ae7f1f4b'
+            '782e4205121a2e8ae84721f4ffdcc8c39e518531d11d79f2e4f0e08508614d488bccf0ce3985ec5231fe6ff625041dab56ed82c77ddca2c03645fd4c52486865')
 
 prepare() {
   cd $pkgname-$pkgver
-  sed -e 's|"x"|"x\$\"\""|' -i configure.ac # Fix version suffix so that -Werror is disabled
+  patch -p1 -i ../7f157f62.patch # Fix crashes in powerdevil
   NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
   cd $pkgname-$pkgver
-# Workaround https://github.com/rockowitz/ddcutil/issues/365
-  CFLAGS+=" -DNDEBUG" \
   ./configure --prefix=/usr
   make
 }
