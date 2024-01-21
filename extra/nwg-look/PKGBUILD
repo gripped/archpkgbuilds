@@ -1,0 +1,59 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+# Contributor: Piotr Miller <nwg.piotr@gmail.com>
+
+pkgname=nwg-look
+pkgver=0.2.5
+pkgrel=2
+pkgdesc="GTK3 settings editor adapted to work on wlroots-based compositors"
+url="https://github.com/nwg-piotr/nwg-look"
+arch=('x86_64')
+license=('MIT')
+depends=(
+  'gtk3'
+  'libatk-1.0.so'
+  'libcairo-gobject.so'
+  'libcairo.so'
+  'libfontconfig.so'
+  'libfreetype.so'
+  'libgdk-3.so'
+  'libgdk_pixbuf-2.0.so'
+  'libgio-2.0.so'
+  'libglib-2.0.so'
+  'libgmodule-2.0.so'
+  'libgobject-2.0.so'
+  'libgtk-3.so'
+  'libharfbuzz.so'
+  'libpango-1.0.so'
+  'libpangocairo-1.0.so'
+  'libz.so'
+  'xcur2png'
+)
+makedepends=(
+  'go'
+)
+source=(https://github.com/nwg-piotr/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('4ce9658c2751bf2b09634d8ef5f13eb30e3ea8a81e030adce857fe16ba7429e4')
+b2sums=('6e0ac8795dd3e630320837c2a22d3f8b40e2858c2c55c6e0a48f36530c557d42d7d011293f9ab700d8366e0fab574572da36072e37ffbca9db90459bd0e78159')
+
+build() {
+  cd ${pkgname}-${pkgver}
+  go build \
+    -trimpath \
+    -buildmode=pie \
+    -mod=readonly \
+    -modcacherw \
+    -ldflags "-linkmode external -extldflags \"${LDFLAGS}\"" \
+    .
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm 755 -t "${pkgdir}/usr/bin" nwg-look
+  install -Dm 644 -t "${pkgdir}/usr/share/${pkgname}" stuff/main.glade
+  install -Dm 644 -t "${pkgdir}/usr/share/${pkgname}/langs" langs/*
+  install -Dm 644 -t "${pkgdir}/usr/share/applications" stuff/nwg-look.desktop
+  install -Dm 644 -t "${pkgdir}/usr/share/pixmaps" stuff/nwg-look.svg
+  install -Dm 644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE
+}
+
+# vim: ts=2 sw=2 et:
