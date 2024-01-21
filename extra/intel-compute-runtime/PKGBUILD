@@ -3,7 +3,7 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-compute-runtime
-pkgver=23.39.27427.23
+pkgver=23.43.27642.18
 pkgrel=1
 pkgdesc="Intel(R) Graphics Compute Runtime for oneAPI Level Zero and OpenCL(TM) Driver"
 arch=(x86_64)
@@ -18,8 +18,8 @@ provides=(opencl-driver level-zero-driver)
 options=(!lto)
 source=(https://github.com/intel/compute-runtime/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         010-intel-compute-runtime-disable-werror.patch)
-sha256sums=('1ce59c37e7e1e893f7cbec3f4ee519fd05d9a66b9be78d43851021acc2d4b08f'
-            'b94c1fc6087e00a2f92d621cb8164a46535d124ca53c1f29bdaed98122a12b95')
+sha256sums=('fd644043c0f6130289c2f9dce7de3a9736e8dcd139818124afae7bdcaec61e5a'
+            '4ade293a9e649a924fea642541e1572090d721a76de859e4d2eb5bf73ec1d8b7')
 
 prepare() {
   patch -d compute-runtime-${pkgver} -Np1 -i "${srcdir}/010-intel-compute-runtime-disable-werror.patch"
