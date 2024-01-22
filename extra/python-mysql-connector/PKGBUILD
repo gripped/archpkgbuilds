@@ -5,7 +5,7 @@
 pkgname=python-mysql-connector
 _pkgname=mysql-connector-python
 pkgver=8.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A standardized database driver for Python platforms and development"
 arch=('any')
 url="https://dev.mysql.com/downloads/connector/python/"
@@ -21,10 +21,12 @@ validpgpkeys=('859BE8D7C586F538430B19C2467B942D3A79BD29'
 
 build() {
 	cd "${_pkgname}-${pkgver}-src"
-	python -m build --wheel --no-isolation
+	python -m build --wheel --no-isolation mysql-connector-python/
+	python -m build --wheel --no-isolation mysqlx-connector-python/
 }
 
 package() {
 	cd "${_pkgname}-${pkgver}-src"
-	python -m installer --destdir="$pkgdir" dist/*.whl
+	python -m installer --destdir="$pkgdir" mysql-connector-python/dist/*.whl
+	python -m installer --destdir="$pkgdir" mysqlx-connector-python/dist/*.whl
 }
