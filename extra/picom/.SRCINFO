@@ -1,0 +1,33 @@
+pkgbase = picom
+	pkgdesc = X compositor that may fix tearing issues
+	pkgver = 11
+	pkgrel = 1
+	url = https://github.com/yshui/picom
+	arch = x86_64
+	license = MPL-2.0 AND MIT
+	makedepends = asciidoc
+	makedepends = git
+	makedepends = mesa
+	makedepends = meson
+	makedepends = ninja
+	makedepends = setconf
+	makedepends = uthash
+	depends = hicolor-icon-theme
+	depends = libconfig
+	depends = libdbus
+	depends = libev
+	depends = libgl
+	depends = pcre2
+	depends = pixman
+	depends = xcb-util-image
+	depends = xcb-util-renderutil
+	optdepends = dbus:          for controlling picom via D-Bus
+	optdepends = python:        for running picom-convgen.py
+	optdepends = xorg-xprop:    for picom-trans
+	optdepends = xorg-xwininfo: for picom-trans
+	backup = etc/xdg/picom.conf
+	source = git+https://github.com/yshui/picom?signed#commit=197b4bd396590cb5df61eb54ec6a1dadf1115a5d
+	validpgpkeys = A22F5C0F4FCF9C7C89A167462C965E9E5D45D730
+	b2sums = SKIP
+
+pkgname = picom
