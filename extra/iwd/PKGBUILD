@@ -4,7 +4,7 @@
 
 pkgname=iwd
 pkgver=2.13
-pkgrel=2
+pkgrel=3
 pkgdesc='Internet Wireless Daemon'
 arch=('x86_64')
 url='https://git.kernel.org/cgit/network/wireless/iwd.git/'
@@ -19,6 +19,8 @@ sha256sums=('5c58d0cc7c2c81540a515a7487330468c61615d23031af47be15f694fbfbc8b3'
             'SKIP'
             '80330d15f42a383b80ae160f75857500be492140a2014a0c7d5b4b6d6d98da7c')
 validpgpkeys=('E932D120BC2AEC444E558F0106CA9F5D1DCF2659')
+# https://lore.kernel.org/iwd/20240122104541.74f1a697@workstation64.local/T/#u
+options=('!lto')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -26,6 +28,12 @@ prepare() {
   # for unprivileged access to iwd - avoid also log spam
   # https://gitlab.archlinux.org/archlinux/packaging/packages/iwd/-/issues/2
   patch -Np0 -i ../0001-use-network-group-for-unprivileged-access.diff
+
+  # https://lore.kernel.org/iwd/20240122105312.66fb4dbf@workstation64.local/T/#u
+  # disable one expected test failure - requires a kernel module we cannot load
+  # from inside the chroot
+  sed -i "s:unit/test-wsc::" Makefile.am
+  autoreconf -vfi
 }
 
 build() {
@@ -44,11 +52,7 @@ build() {
 
 check() {
   cd ${pkgname}-${pkgver}
-  # pass broken tests - should reported upstream
-  # One test fail because we need kernel capabilities that
-  # we don't have inside of systemd-nspawn
-  # this could only be fixed via changing our build environment
-  make -k check || /bin/true
+  make check
 }
 
 package() {
@@ -56,5 +60,3 @@ package() {
   make install DESTDIR="${pkgdir}"
   install -Dm 644 README -t "${pkgdir}/usr/share/doc/${pkgname}"
 }
-
-# vim: ts=2 sw=2 et:
