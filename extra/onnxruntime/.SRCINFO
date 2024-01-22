@@ -1,6 +1,6 @@
 pkgbase = onnxruntime
 	pkgver = 1.16.3
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/microsoft/onnxruntime
 	arch = x86_64
 	license = MIT
@@ -54,39 +54,17 @@ pkgbase = onnxruntime
 
 pkgname = onnxruntime
 	pkgdesc = Cross-platform, high performance scoring engine for ML models
+	optdepends = openmpi: Distributed memory parallelization
+	optdepends = cuda: nVidia GPU acceleration
+	optdepends = cudnn: nVidia GPU acceleration
+	optdepends = nccl: nVidia GPU acceleration
 
 pkgname = onnxruntime-opt
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (with AVX2 CPU optimizations)
-	provides = onnxruntime=1.16.3
-	conflicts = onnxruntime
-
-pkgname = onnxruntime-cuda
-	pkgdesc = Cross-platform, high performance scoring engine for ML models (with CUDA)
-	depends = cxxopts
-	depends = abseil-cpp
-	depends = boost
-	depends = openmpi
-	depends = nsync
-	depends = onednn
-	depends = intel-oneapi-mkl
-	depends = cuda
-	depends = cudnn
-	depends = nccl
-	provides = onnxruntime=1.16.3
-	conflicts = onnxruntime
-
-pkgname = onnxruntime-opt-cuda
-	pkgdesc = Cross-platform, high performance scoring engine for ML models (with CUDA and AVX2 CPU optimizations)
-	depends = cxxopts
-	depends = abseil-cpp
-	depends = boost
-	depends = openmpi
-	depends = nsync
-	depends = onednn
-	depends = intel-oneapi-mkl
-	depends = cuda
-	depends = cudnn
-	depends = nccl
+	optdepends = openmpi: Distributed memory parallelization
+	optdepends = cuda: nVidia GPU acceleration
+	optdepends = cudnn: nVidia GPU acceleration
+	optdepends = nccl: nVidia GPU acceleration
 	provides = onnxruntime=1.16.3
 	conflicts = onnxruntime
 
@@ -141,6 +119,10 @@ pkgname = python-onnxruntime
 	depends = python-flatbuffers
 	depends = python-protobuf
 	depends = python-packaging
+	optdepends = openmpi: Distributed memory parallelization
+	optdepends = cuda: nVidia GPU acceleration
+	optdepends = cudnn: nVidia GPU acceleration
+	optdepends = nccl: nVidia GPU acceleration
 
 pkgname = python-onnxruntime-opt
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (with AVX2 CPU optimizations)
@@ -163,54 +145,10 @@ pkgname = python-onnxruntime-opt
 	depends = python-flatbuffers
 	depends = python-protobuf
 	depends = python-packaging
-	provides = python-onnxruntime=1.16.3
-	conflicts = python-onnxruntime
-
-pkgname = python-onnxruntime-cuda
-	pkgdesc = Cross-platform, high performance scoring engine for ML models (with CUDA)
-	depends = cxxopts
-	depends = abseil-cpp
-	depends = boost
-	depends = openmpi
-	depends = nsync
-	depends = onednn
-	depends = intel-oneapi-mkl
-	depends = onnxruntime-cuda
-	depends = python-onnx
-	depends = python-numpy
-	depends = python-coloredlogs
-	depends = python-psutil
-	depends = python-py-cpuinfo
-	depends = python-sympy
-	depends = python-scipy
-	depends = python-pillow
-	depends = python-flatbuffers
-	depends = python-protobuf
-	depends = python-packaging
-	provides = python-onnxruntime=1.16.3
-	conflicts = python-onnxruntime
-
-pkgname = python-onnxruntime-opt-cuda
-	pkgdesc = Cross-platform, high performance scoring engine for ML models (with CUDA and AVX2 CPU optimizations)
-	depends = cxxopts
-	depends = abseil-cpp
-	depends = boost
-	depends = openmpi
-	depends = nsync
-	depends = onednn
-	depends = intel-oneapi-mkl
-	depends = onnxruntime-opt-cuda
-	depends = python-onnx
-	depends = python-numpy
-	depends = python-coloredlogs
-	depends = python-psutil
-	depends = python-py-cpuinfo
-	depends = python-sympy
-	depends = python-scipy
-	depends = python-pillow
-	depends = python-flatbuffers
-	depends = python-protobuf
-	depends = python-packaging
+	optdepends = openmpi: Distributed memory parallelization
+	optdepends = cuda: nVidia GPU acceleration
+	optdepends = cudnn: nVidia GPU acceleration
+	optdepends = nccl: nVidia GPU acceleration
 	provides = python-onnxruntime=1.16.3
 	conflicts = python-onnxruntime
 
