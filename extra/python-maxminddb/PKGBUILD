@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-maxminddb
-pkgver=2.5.0
-_commit=e672eb88d1a25012a322c183aea34714234b7f64
+pkgver=2.5.1
+_commit=f72d69bb258b4724bfbea41b68b38e9bc46d4c48
 pkgrel=1
 pkgdesc="Reader for the MaxMind DB format"
 url="https://github.com/maxmind/MaxMind-DB-Reader-python"
