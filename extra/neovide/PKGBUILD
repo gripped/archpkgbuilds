@@ -3,18 +3,19 @@
 
 pkgname=neovide
 pkgver=0.12.1
-pkgrel=1
+pkgrel=2
 pkgdesc='No Nonsense Neovim Client in Rust'
 arch=(x86_64)
 url="https://github.com/$pkgname/$pkgname"
 license=(MIT)
 depends=(gcc-libs
-         glibc
          fontconfig libfontconfig.so
          freetype2 libfreetype.so
+         glibc
          hicolor-icon-theme
-         libjpeg libjpeg.so
          libglvnd
+         libjpeg libjpeg.so
+         libxkbcommon
          neovim
          sndio)
 makedepends=(cargo
