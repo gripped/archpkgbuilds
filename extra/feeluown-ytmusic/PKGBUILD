@@ -1,0 +1,32 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Bruce Zhang <zttt183525594@gmail.com>
+
+_name=fuo-ytmusic
+pkgname=feeluown-ytmusic
+pkgver=0.3.3
+pkgrel=2
+pkgdesc="YouTube Music for FeelUOwn music player"
+arch=('any')
+url="https://github.com/feeluown/feeluown-ytmusic"
+license=('GPL-3.0-or-later')
+depends=('feeluown' 'python-pydantic' 'python-cachetools' 'python-pytube' 'python-ytmusicapi')
+makedepends=('python-setuptools')
+checkdepends=('python-pytest')
+optdepends=('feeluown-netease: Lyric source')
+source=("https://github.com/feeluown/feeluown-ytmusic/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('b61a9fab8e9ac8d77e025d09109a9ffbd0513c59f18d6ab3d90d01c44d8bc94b')
+
+build() {
+	cd $pkgname-$pkgver
+	python setup.py build
+}
+
+check() {
+	cd $pkgname-$pkgver
+	pytest
+}
+
+package() {
+	cd $pkgname-$pkgver
+	python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
+}
