@@ -6,7 +6,7 @@
 
 pkgname=picom
 pkgver=11
-pkgrel=2
+pkgrel=3
 pkgdesc='X compositor that may fix tearing issues'
 arch=(x86_64)
 url='https://github.com/yshui/picom'
@@ -30,11 +30,11 @@ prepare() {
   setconf picom.sample.conf 'inactive-opacity=0.95;'
   # Improve performance (recommended option)
   setconf -u picom.sample.conf 'glx-no-stencil=true;'
-  # Disable vsync which causes freezes on some GPU intensive tasks with picom v11 (such as video playback or resources intensive video games) while waiting for upstream input
-  # May only impact Nvidia GPU?
+  # Switch the default backend to glx temporarily
+  # The xrender backend causes freezes when used with the vsync option enabled on some GPU intensive tasks with picom v11 (such as video playback or resources intensive video games)
   # See https://github.com/yshui/picom/issues/1166
-  sed -i '/vsync\ =\ true;/d' picom.sample.conf
-  setconf -u picom.sample.conf 'vsync=false;'
+  sed -i '/backend\ =\ "xrender";/d' picom.sample.conf
+  setconf -u picom.sample.conf 'backend="glx";'
 }
 
 build() {
