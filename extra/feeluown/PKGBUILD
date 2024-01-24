@@ -2,7 +2,7 @@
 # Contributor: Bruce Zhang <zttt183525594@gmail.com>
 
 pkgname=feeluown
-pkgver=3.8.15
+pkgver=4.0
 pkgrel=1
 pkgdesc="FeelUOwn Music Player"
 arch=('any')
@@ -12,18 +12,22 @@ depends=('python-qasync' 'python-pyqt5' 'mpv' 'python-opengl' 'python-janus' 'py
          'python-tomlkit' 'python-packaging' 'python-pydantic' 'python-mutagen' 'qt5-svg'
          'xdg-user-dirs')
 makedepends=('python-setuptools')
-checkdepends=('python-pytest-benchmark' 'python-pytest-cov' 'python-pycryptodome')
+checkdepends=('python-pytest-benchmark' 'python-pytest-cov' 'python-pycryptodome' 'python-sanic'
+              'python-json-rpc' 'python-websockets')
 optdepends=('python-secretstorage: browser cookie extraction support'
             'python-pycryptodome: browser cookie extraction support'
             'dbus-python: mpris2 server support'
-            'feeluown-netease' 'feeluown-qqmusic' 'feeluown-kuwo' 'feeluown-bilibili')
+            'python-sanic: webserver support'
+            'python-json-rpc: webserver support'
+            'python-websockets: webserver support'
+            'feeluown-netease' 'feeluown-qqmusic' 'feeluown-ytmusic' 'feeluown-bilibili')
 conflicts=('feeluown-local')
 provides=('feeluown-local')
 replaces=('feeluown-local')
 groups=('feeluown-full')
 source=("https://pypi.io/packages/source/f/feeluown/feeluown-$pkgver.tar.gz"
         "feeluown.desktop")
-sha512sums=('820904c73e7a935fb019fd599fd44f365d6662934ba06a5a2b14dd8c2c39b30b77f04f49f3945c5838be4856abe11f35880553e4369f2ce918230931c3d6c2c0'
+sha512sums=('a8219234a2a8aed28a28dcb2821244231048c10016e118081b9509908e79359bb6a81a161ecd6ef20df685a0ce2b3861a349d60a29e66354d6f87c1f249a125d'
             '48882f7469c22e5db332663bc1aa8b398b0a10a0c929d4d7e3d7b8b91205d7d3070c5fa295cb9a14f8c352bff57978bfaad167343e0ddc51c92417eda07c8087')
 
 build() {
