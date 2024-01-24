@@ -4,14 +4,14 @@
 
 pkgname=python-sanic-routing
 pkgver=22.8.0
-pkgrel=1
-pkgdesc='Internal handler routing for Sanic beginning with v21.3.'
+pkgrel=2
+pkgdesc='Core routing component for Sanic'
 arch=("any")
 url='https://sanicframework.org/'
 license=(MIT)
 depends=(python)
 makedepends=(python-setuptools)
-checkdepends=()
+checkdepends=(python-pytest python-sanic python-pytest-asyncio)
 source=("https://github.com/sanic-org/sanic-routing/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
 sha256sums=('728cd7009803d81872f5dbf49b4f795d503c6056522f0d0aaf525607b7217849')
 
@@ -22,8 +22,7 @@ build() {
 
 check() {
     cd sanic-routing-$pkgver
-    # TODO: Bootstrapping, enable tests after sanic is packaged.
-    # pytest
+    pytest
 }
 
 package() {
