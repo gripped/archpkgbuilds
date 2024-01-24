@@ -7,11 +7,11 @@ pkgbase=lib32-glib2
 pkgname=(
   lib32-glib2
 )
-pkgver=2.78.3
+pkgver=2.78.4
 pkgrel=1
 pkgdesc="Low level core library - 32-bit"
 url="https://gitlab.gnome.org/GNOME/glib"
-license=(LGPL)
+license=(LGPL-2.1-or-later)
 arch=(x86_64)
 depends=(
   glib2
@@ -38,7 +38,7 @@ checkdepends=(
 options=(
   debug
 )
-_commit=03f7c1fbf3a3784cb4c3604f83ca3645e9225577  # tags/2.78.3^0
+_commit=00edb7f7453a43cff343f9e99d49f2e421e4345c  # tags/2.78.4^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/glib.git#commit=$_commit"
   "git+https://gitlab.gnome.org/GNOME/gvdb.git"
