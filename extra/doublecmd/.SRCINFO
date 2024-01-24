@@ -1,0 +1,47 @@
+pkgbase = doublecmd
+	pkgver = 1.1.9
+	pkgrel = 1
+	url = http://doublecmd.sourceforge.net/
+	arch = x86_64
+	license = GPL
+	makedepends = lazarus
+	makedepends = gtk2
+	makedepends = qt5pas
+	makedepends = qt6pas
+	optdepends = lua: scripting
+	optdepends = unzip: support extracting zip archives
+	optdepends = zip: suport packing zip archives
+	optdepends = p7zip: support for 7zip archives
+	optdepends = libunrar: support for rar archives
+	provides = doublecmd
+	source = https://downloads.sourceforge.net/project/doublecmd/Double%20Commander%20Source/doublecmd-1.1.9-src.tar.gz
+	sha512sums = 7ac0aa64fb9fe4c3096fc7906fe3559c212be76f218a51a47c7a090f607aed450b66dc93eaf33a4531dbc0a8804f5d6e4615805c397fd1c1db5bed8b4127904d
+
+pkgname = doublecmd-gtk2
+	pkgdesc = twin-panel (commander-style) file manager (GTK3)
+	depends = gtk2
+	depends = desktop-file-utils
+	depends = hicolor-icon-theme
+	depends = shared-mime-info
+	conflicts = doublecmd-qt5
+	conflicts = doublecmd-qt6
+
+pkgname = doublecmd-qt5
+	pkgdesc = twin-panel (commander-style) file manager (Qt5)
+	depends = qt5pas
+	depends = desktop-file-utils
+	depends = hicolor-icon-theme
+	depends = shared-mime-info
+	conflicts = doublecmd-gtk2
+	conflicts = doublecmd-qt6
+	replaces = doublecmd-qt
+	replaces = doublecmd-qt4
+
+pkgname = doublecmd-qt6
+	pkgdesc = twin-panel (commander-style) file manager (Qt6)
+	depends = qt6pas
+	depends = desktop-file-utils
+	depends = hicolor-icon-theme
+	depends = shared-mime-info
+	conflicts = doublecmd-gtk2
+	conflicts = doublecmd-qt5
