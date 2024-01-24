@@ -3,8 +3,8 @@
 # Contributor: GordonGR <ntheo1979@gmail.com>
 
 pkgname=lib32-gtk3
-pkgver=3.24.40
-pkgrel=2
+pkgver=3.24.41
+pkgrel=1
 epoch=1
 pkgdesc="GObject-based multi-platform GUI toolkit"
 url="https://www.gtk.org/"
@@ -36,15 +36,13 @@ makedepends=(
   sassc
   wayland-protocols
 )
-_commit=f926323d04db220ba2ba9a9026a5bf54e81fbb39  # tags/3.24.40^0
+_commit=77ebdd85091833a7869ece48c3114fa6d9966321  # tags/3.24.41^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/gtk.git#commit=$_commit"
   gtk-query-immodules-3.0-32.hook
-  6786.patch
 )
 b2sums=('SKIP'
-        'c7136723735c4cbfe654851d0ccc1698142fa8f90b724ed9a970ebd6a74b4f59ea558e134e600736a1041417fc7fd9b3baa8bc561ed9598f2fbf45392dcc9159'
-        '137f4c03dd88c02f6171ab40e0c040d9c08aa5c2ee76260742ded966962b64ef4988ccb46a8261178ca1c88e0a5c2815e319d9f8e3af5c6b0a7d22eb3243b322')
+        'c7136723735c4cbfe654851d0ccc1698142fa8f90b724ed9a970ebd6a74b4f59ea558e134e600736a1041417fc7fd9b3baa8bc561ed9598f2fbf45392dcc9159')
 
 pkgver() {
   cd gtk
@@ -53,10 +51,6 @@ pkgver() {
 
 prepare() {
   cd gtk
-
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/gtk3/-/issues/5
-  # https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6786
-  git apply -3 ../6786.patch
 }
 
 build() {
