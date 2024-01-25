@@ -1,7 +1,7 @@
 pkgbase = lib32-gstreamer
 	pkgdesc = Multimedia graph framework (32-bit)
-	pkgver = 1.22.8
-	pkgrel = 2
+	pkgver = 1.22.9
+	pkgrel = 1
 	url = https://gstreamer.freedesktop.org/
 	arch = x86_64
 	license = LGPL-2.1-or-later
@@ -58,7 +58,7 @@ pkgbase = lib32-gstreamer
 	makedepends = lib32-twolame
 	makedepends = lib32-v4l-utils
 	makedepends = lib32-wavpack
-	source = git+https://gitlab.freedesktop.org/gstreamer/gstreamer.git?signed#tag=1.22.8
+	source = git+https://gitlab.freedesktop.org/gstreamer/gstreamer.git?signed#tag=1.22.9
 	source = 0001-HACK-meson-Disable-broken-tests.patch
 	validpgpkeys = D637032E45B8C6585B9456565D2EEE6F6F349D7C
 	b2sums = SKIP
@@ -77,7 +77,7 @@ pkgname = lib32-gstreamer
 
 pkgname = lib32-gst-plugins-base-libs
 	pkgdesc = Multimedia graph framework (32-bit) - base
-	depends = lib32-gstreamer=1.22.8
+	depends = lib32-gstreamer=1.22.9
 	depends = lib32-libgl
 	depends = lib32-libgudev
 	depends = lib32-libxi
@@ -89,7 +89,7 @@ pkgname = lib32-gst-plugins-base-libs
 
 pkgname = lib32-gst-plugins-base
 	pkgdesc = Multimedia graph framework (32-bit) - base plugins
-	depends = lib32-gst-plugins-base-libs=1.22.8
+	depends = lib32-gst-plugins-base-libs=1.22.9
 	depends = lib32-alsa-lib
 	depends = lib32-cdparanoia
 	depends = lib32-libjpeg
@@ -102,7 +102,7 @@ pkgname = lib32-gst-plugins-base
 
 pkgname = lib32-gst-plugins-good
 	pkgdesc = Multimedia graph framework (32-bit) - good plugins
-	depends = lib32-gst-plugins-base-libs=1.22.8
+	depends = lib32-gst-plugins-base-libs=1.22.9
 	depends = lib32-aalib
 	depends = lib32-cairo
 	depends = lib32-flac
