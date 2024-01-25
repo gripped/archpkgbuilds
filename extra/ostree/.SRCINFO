@@ -1,6 +1,6 @@
 pkgbase = ostree
 	pkgdesc = Operating system and container binary deployment and upgrades
-	pkgver = 2023.8
+	pkgver = 2024.1
 	pkgrel = 1
 	url = https://ostreedev.github.io/ostree/
 	arch = x86_64
@@ -37,11 +37,13 @@ pkgbase = ostree
 	depends = util-linux
 	depends = zlib
 	provides = libostree-1.so
-	source = git+https://github.com/ostreedev/ostree#tag=6355d9525c4d37a8d5dd4f7b9a9b89c231f95c7d
+	source = git+https://github.com/ostreedev/ostree#commit=3b4f5e36ee6b83313d4a4afc8dacb5bb9367ee2b
+	source = git+https://github.com/containers/composefs.git
 	source = git+https://github.com/mendsley/bsdiff
 	source = git+https://gitlab.gnome.org/GNOME/libglnx.git
 	source = ostree-2023.1-use_fuse3.patch
 	validpgpkeys = 1CEC7A9DF7DA85ABEF843DC0A866D7CCAE087291
+	b2sums = SKIP
 	b2sums = SKIP
 	b2sums = SKIP
 	b2sums = SKIP
