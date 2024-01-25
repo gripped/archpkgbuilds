@@ -1,0 +1,47 @@
+pkgbase = gdb
+	pkgdesc = The GNU Debugger
+	pkgver = 14.1
+	pkgrel = 1
+	url = https://www.gnu.org/software/gdb/
+	arch = x86_64
+	license = GPL3
+	makedepends = glibc
+	makedepends = gcc-libs
+	makedepends = texinfo
+	makedepends = python
+	makedepends = guile
+	makedepends = ncurses
+	makedepends = expat
+	makedepends = xz
+	makedepends = mpfr
+	makedepends = source-highlight
+	makedepends = boost
+	makedepends = readline
+	source = https://ftp.gnu.org/gnu/gdb/gdb-14.1.tar.xz
+	source = https://ftp.gnu.org/gnu/gdb/gdb-14.1.tar.xz.sig
+	validpgpkeys = F40ADB902B24264AA42E50BF92EDB04BFF325CF3
+	sha1sums = d0b703c4140e0a66f6c80f2f9c4a2e8da7dcac25
+	sha1sums = SKIP
+	b2sums = 52a07b4745f95561f360a597d6ec1d212dafc8e9134dc415cd7bcfb02c26934a60807c8400b545a756c68392e16e104178cdc1464430c53611973881e921a942
+	b2sums = SKIP
+
+pkgname = gdb
+	depends = glibc
+	depends = ncurses
+	depends = libncursesw.so
+	depends = gcc-libs
+	depends = expat
+	depends = xz
+	depends = mpfr
+	depends = source-highlight
+	depends = gdb-common=14.1
+	depends = readline
+	depends = libreadline.so
+	depends = guile
+	depends = python
+	depends = libelf
+	backup = etc/gdb/gdbinit
+
+pkgname = gdb-common
+	depends = python
+	depends = guile
