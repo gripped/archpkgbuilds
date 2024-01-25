@@ -2,7 +2,7 @@
 # Contributor: Greg Erwin <first name last name 256 at gmail dot com>
 
 pkgname=libgpiod
-pkgver=2.0.1
+pkgver=2.1
 pkgrel=1
 pkgdesc="C library and tools for interacting with the linux GPIO character device"
 url="https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git"
@@ -12,7 +12,7 @@ depends=('python')
 makedepends=('autoconf-archive' 'doxygen' 'help2man' 'python-setuptools')
 conflicts=('libgpiod-git')
 source=("$url/snapshot/$pkgname-$pkgver.tar.gz")
-sha256sums=('b6eda55356160a8e73906e3d48e959ef81296787d764975b10f257e9660668e9')
+sha256sums=('fd6ed4b2c674fe6cc3b481880f6cde1eea79e296e95a139b85401eaaea6de3fc')
 
 prepare() {
   # Fix python module installation path, see https://gitlab.archlinux.org/archlinux/packaging/packages/libgpiod/-/issues/1
