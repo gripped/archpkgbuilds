@@ -5,9 +5,9 @@
 
 _pkgbasename=libpng
 pkgname=lib32-$_pkgbasename
-pkgver=1.6.40
+pkgver=1.6.41
 _libversion=16
-pkgrel=2
+pkgrel=1
 pkgdesc='A collection of routines used to create PNG format graphics files (32-bit)'
 arch=('x86_64')
 url='http://www.libpng.org/pub/png/libpng.html'
@@ -15,7 +15,7 @@ license=('custom')
 depends=('lib32-zlib' $_pkgbasename)
 provides=('libpng16.so')
 source=("https://downloads.sourceforge.net/sourceforge/${_pkgbasename}/${_pkgbasename}-${pkgver}.tar.xz")
-sha256sums=('535b479b2467ff231a3ec6d92a525906fb8ef27978be4f66dbe05d3f3a01b3a1')
+sha256sums=('d6a49a7a4abca7e44f72542030e53319c081fea508daccf4ecc7c6d9958d190f')
 
 build() {
   export CC="gcc -m32"
