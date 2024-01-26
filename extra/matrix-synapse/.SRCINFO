@@ -1,11 +1,11 @@
 pkgbase = matrix-synapse
 	pkgdesc = Matrix reference homeserver
-	pkgver = 1.98.0
-	pkgrel = 1
+	pkgver = 1.99.0
+	pkgrel = 2
 	url = https://github.com/element-hq/synapse
 	install = synapse.install
 	arch = x86_64
-	license = AGPL-3.0-only
+	license = AGPL-3.0-or-later
 	checkdepends = python-pip
 	checkdepends = python-authlib
 	checkdepends = python-pyjwt
@@ -62,7 +62,7 @@ pkgbase = matrix-synapse
 	optdepends = python-pyicu: Improve user search for international display names
 	optdepends = python-authlib: OpenID SSO support
 	backup = etc/synapse/log_config.yaml
-	source = matrix-synapse::git+https://github.com/element-hq/synapse.git#tag=15733b0931ceaa72cf4175c44fe58128fa273bac
+	source = matrix-synapse::git+https://github.com/element-hq/synapse.git#tag=3c831265063d963f6112c5297439d2698030c02c
 	source = generic_worker.yaml.example
 	source = synapse.service
 	source = synapse.target
