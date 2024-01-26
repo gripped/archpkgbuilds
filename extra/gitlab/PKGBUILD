@@ -9,8 +9,8 @@
 # Contributor: loqs <bugs-archlinux@entropy-collector.net>
 
 pkgname=gitlab
-pkgver=16.8.0
-pkgrel=3
+pkgver=16.8.1
+pkgrel=1
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
 url='https://gitlab.com/gitlab-org/gitlab-foss'
@@ -224,9 +224,4 @@ package() {
 
 	install -Dm644 "${srcdir}/gitlab.tmpfiles.d" "${pkgdir}/usr/lib/tmpfiles.d/gitlab.conf"
 	install -Dm644 "${srcdir}/gitlab.logrotate" "${pkgdir}/etc/logrotate.d/gitlab"
-
-	# Ruby path is screwed up for glfm-markdown. The whole module is vendored twice,
-	# and the main one works but the secondary one used by zeitwerk doesn't have the expected nesting.
-	pushd "$pkgdir/usr/share/webapps/gitlab/vendor/bundle/ruby/3.0.0/extensions/x86_64-linux/3.0.0/gitlab-glfm-markdown-0.0.10"
-	ln -fs . glfm_markdown
 }
