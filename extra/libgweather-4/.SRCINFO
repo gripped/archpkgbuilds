@@ -1,0 +1,29 @@
+pkgbase = libgweather-4
+	pkgdesc = Location and timezone database and weather-lookup library
+	pkgver = 4.4.0
+	pkgrel = 2
+	url = https://wiki.gnome.org/Projects/LibGWeather
+	arch = x86_64
+	license = LGPL
+	checkdepends = python-pylint
+	makedepends = gi-docgen
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = meson
+	makedepends = python-gobject
+	makedepends = vala
+	depends = dconf
+	depends = geocode-glib-2
+	depends = libsoup3
+	depends = libxml2
+	source = git+https://gitlab.gnome.org/GNOME/libgweather.git#commit=04da97b8f86b1d10540f7d907841bfb5fde6bd2d
+	source = disable-metar-test.diff
+	b2sums = SKIP
+	b2sums = 3d920f17e3f82bd33791b1e9662242f90a13e3cb3832fea5b900046b0ad90f97c5cf8174a6e5905b134585f280706ab67d3b65c108ed99c8285e3f05293b2b73
+
+pkgname = libgweather-4
+	provides = libgweather-4.so
+
+pkgname = libgweather-4-docs
+	pkgdesc = Location and timezone database and weather-lookup library (documentation)
+	depends = 
