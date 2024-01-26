@@ -2,7 +2,7 @@
 
 pkgname=age-plugin-tkey
 pkgver=0.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Tillitis TKey plugin for age'
 arch=(x86_64)
 url="https://github.com/quite/$pkgname"
@@ -10,7 +10,7 @@ license=(GPL2)
 depends=(glibc)
 makedepends=(go)
 optdepends=('age: for use with age'
-            'rust-rage: for use with rage')
+            'rage-encryption: for use with rage')
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
 sha256sums=('fa2529858591f87c235780104c2a8cc9c77772032aec18442e35d089617dbc79')
