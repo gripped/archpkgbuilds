@@ -3,13 +3,15 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=orc
-pkgver=0.4.35
+pkgver=0.4.36
 pkgrel=1
 pkgdesc="Optimized Inner Loop Runtime Compiler"
-url="https://gitlab.freedesktop.org/gstreamer/orc"
+url="https://gstreamer.freedesktop.org/modules/orc.html"
 arch=(x86_64)
 license=(BSD-3-Clause)
-depends=(glibc)
+depends=(
+  glibc
+)
 makedepends=(
   git
   gtk-doc
@@ -17,7 +19,7 @@ makedepends=(
   valgrind
 )
 provides=(liborc{,-test}-${pkgver%.*}.so)
-_commit=598631e6b0ebaa10dc55649454c71537bf3edcc7  # tags/0.4.35^0
+_commit=d025a28fb990f04998fa020fe99bcb4fb87dac79  # tags/0.4.36^0
 source=("git+https://gitlab.freedesktop.org/gstreamer/orc.git#commit=$_commit")
 b2sums=('SKIP')
 
