@@ -7,13 +7,18 @@
 
 pkgbase=incus
 pkgname=(incus incus-tools)
-pkgver=0.4
-pkgrel=2
+pkgver=0.5
+pkgrel=1
 pkgdesc="Powerful system container and virtual machine manager"
 arch=('x86_64')
 url="https://linuxcontainers.org/incus/"
 license=('Apache-2.0')
-depends=('lxc' 'lxcfs' 'squashfs-tools' 'dnsmasq' 'cowsql' 'libuv' 'ebtables' 'raft' 'sqlite' 'libcap' 'acl')
+depends=('lxc' 'lxcfs' 'squashfs-tools' 'dnsmasq' 'cowsql' 'libuv' 'ebtables' 'raft' 'sqlite' 'libcap' 'acl'
+
+          # VM Support
+          'qemu-base' 'qemu-chardev-spice' 'qemu-hw-usb-redirect'
+          'qemu-hw-display-virtio-vga' 'qemu-hw-display-virtio-gpu'
+)
 makedepends=('go' 'git' 'tcl' 'apparmor' 'libseccomp' 'systemd')
 optdepends=(
     'lvm2: lvm2 support'
@@ -21,10 +26,9 @@ optdepends=(
     'btrfs-progs: btrfs storage driver support'
     'minio: storage buckets support'
     'cdrtools: VM support'
-    'qemu: VM support'
-    'edk2-ovmf: VM support'
     'systemd-libs: unix device hotplug support'
     'apparmor: apparmor support'
+    'xdelta3: support delta downloads of images'
 )
 source=("https://github.com/lxc/incus/releases/download/v${pkgver}.0/${pkgname}-${pkgver}.tar.xz"{,.asc}
         "incus.socket"
@@ -34,7 +38,7 @@ source=("https://github.com/lxc/incus/releases/download/v${pkgver}.0/${pkgname}-
         "incus.sysusers")
 validpgpkeys=('602F567663E593BCBD14F338C638974D64792D67'  # Stéphane Graber <stgraber@stgraber.org>
              )
-sha256sums=('bee802ade967402b14401e1b5ecbd1336b007a4d816bd86644abbb43b9fc1845'
+sha256sums=('43c29ad1bac5c906db0e283c0b879402e24603fc81d1aef4a0e38e660f51a80a'
             'SKIP'
             '602a8035cc51b8e0c4ca265e31ebf96c7977db4239d384d8f60fed0d2d0317c4'
             '646b0a9b38954890bc8706b41dfb93c7fdc83cbee1a3632c7258d77a1fddd725'
@@ -59,7 +63,7 @@ build() {
   CGO_LDFLAGS="-static" go build -v -tags "agent" -o bin/ ./cmd/incus-agent/...
 
   go build -v -ldflags "${GO_LDFLAGS}" -tags "netgo" -o bin/ ./cmd/incus-migrate/...
-  for tool in fuidshift incus lxc-to-incus incusd incus-benchmark incus-user; do
+  for tool in fuidshift incus lxc-to-incus lxd-to-incus incusd incus-benchmark incus-user; do
     go build -v -ldflags "${GO_LDFLAGS}" -tags "libsqlite3" -o bin/ ./cmd/$tool
   done
 
@@ -67,10 +71,6 @@ build() {
   # mkdir manpages
   # ./bin/incus manpage --all ./manpages
   # ./bin/incusd manpage --all ./manpages
-
-  # Build lxd-to-incus as separate binary
-  cd cmd/lxd-to-incus
-  go build -v -ldflags "${GO_LDFLAGS}" -tags "libsqlite3" -o ../../bin/
 }
 
 package_incus() {
@@ -111,4 +111,3 @@ package_incus-tools() {
 }
 
 # vim:set ts=2 sw=2 et:
-
