@@ -1,0 +1,19 @@
+pkgbase = libwpe
+	pkgdesc = General-purpose library for WPE WebKit
+	pkgver = 1.14.2
+	pkgrel = 1
+	url = https://wpewebkit.org
+	arch = x86_64
+	license = BSD-2-Clause
+	makedepends = git
+	makedepends = mesa
+	makedepends = meson
+	depends = gcc-libs
+	depends = libegl
+	depends = libxkbcommon
+	provides = libwpe-1.0.so
+	source = git+https://github.com/WebPlatformForEmbedded/libwpe?signed#commit=86663687517568b8de00b630381466bf50a8f700
+	validpgpkeys = 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B
+	b2sums = SKIP
+
+pkgname = libwpe
