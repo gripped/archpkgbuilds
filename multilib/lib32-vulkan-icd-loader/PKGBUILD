@@ -1,7 +1,7 @@
 # Maintainer: Laurent Carlier <lordheavym@gmail.com>
 
 pkgname=lib32-vulkan-icd-loader
-pkgver=1.3.274
+pkgver=1.3.276
 pkgrel=1
 arch=(x86_64)
 pkgdesc="Vulkan Installable Client Driver (ICD) Loader (32-bit)"
@@ -12,7 +12,7 @@ depends=('lib32-glibc' 'lib32-gcc-libs')
 optdepends=('lib32-vulkan-driver: packaged vulkan driver')
 provides=('libvulkan.so')
 source=("vulkan-icd-loader-${pkgver}.tar.gz::https://github.com/KhronosGroup/Vulkan-Loader/archive/v${pkgver}.tar.gz")
-sha256sums=('8abdcc24fc320f811c24a6faab8bebc932c32d3024526d08e75e60cc36d0a811')
+sha256sums=('64ba124f38b151195e68326829eac5173e05734c518f8111e5bcf500ff898c49')
 
 build() {
   export ASFLAGS=--32
