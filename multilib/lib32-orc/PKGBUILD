@@ -1,12 +1,13 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=lib32-orc
-pkgver=0.4.34
+pkgver=0.4.36
 pkgrel=1
-pkgdesc='The Oild Runtime Compiler'
+pkgdesc="Optimized Inner Loop Runtime Compiler (32-bit)"
+url="https://gstreamer.freedesktop.org/modules/orc.html"
 arch=(x86_64)
-url=https://gstreamer.freedesktop.org/modules/orc.html
-license=(custom)
+license=(BSD-3-Clause)
 depends=(
   lib32-glibc
   orc
@@ -15,34 +16,37 @@ makedepends=(
   git
   gtk-doc
   meson
-  valgrind-multilib
+  valgrind
 )
-_tag=7d5bbada3f1c6cf34182abccf47a34d79b83fa97
-source=(git+https://gitlab.freedesktop.org/gstreamer/orc.git#tag=${_tag})
-sha256sums=(SKIP)
+provides=(liborc{,-test}-${pkgver%.*}.so)
+_commit=d025a28fb990f04998fa020fe99bcb4fb87dac79  # tags/0.4.36^0
+source=("git+https://gitlab.freedesktop.org/gstreamer/orc.git#commit=$_commit")
+b2sums=('SKIP')
 
 pkgver() {
   cd orc
+  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+}
 
-  git describe --tags
+prepare() {
+  cd orc
 }
 
 build() {
-  export CC='gcc -m32'
-  export CXX='g++ -m32'
-  export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+  arch-meson orc build --cross-file lib32
+  meson compile -C build
+}
 
-  arch-meson orc build \
-    --libdir=/usr/lib32
-  ninja -C build
+check() {
+  meson test -C build --print-errorlogs
 }
 
 package() {
-  DESTDIR="$pkgdir" ninja -C build install
-  rm -rf "${pkgdir}"/usr/{bin,include,share}
+  meson install -C build --destdir "$pkgdir"
 
-  install -dm 755 "${pkgdir}"/usr/share/licenses
-  ln -s orc "${pkgdir}"/usr/share/licenses/lib32-orc
+  rm -r "$pkgdir"/usr/{bin,include,share}
+
+  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 orc/COPYING
 }
 
-# vim: ts=2 sw=2 et:
+# vim:set sw=2 sts=-1 et:
