@@ -1,0 +1,31 @@
+pkgbase = lib32-colord
+	pkgdesc = System daemon for managing color devices
+	pkgver = 1.4.7
+	pkgrel = 1
+	url = https://www.freedesktop.org/software/colord
+	arch = x86_64
+	license = GPL2
+	makedepends = argyllcms
+	makedepends = bash-completion
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = intltool
+	makedepends = lib32-dbus
+	makedepends = lib32-dconf
+	makedepends = lib32-libgudev
+	makedepends = lib32-libgusb
+	makedepends = lib32-polkit
+	makedepends = lib32-sqlite
+	makedepends = meson
+	makedepends = sane
+	makedepends = vala
+	depends = libcolord
+	depends = lib32-glib2
+	depends = lib32-systemd
+	depends = lib32-lcms2
+	provides = libcolord.so
+	options = !emptydirs
+	source = git+https://github.com/hughsie/colord#tag=1.4.7
+	sha256sums = SKIP
+
+pkgname = lib32-colord
