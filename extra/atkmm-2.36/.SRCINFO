@@ -1,0 +1,28 @@
+pkgbase = atkmm-2.36
+	pkgdesc = C++ bindings for ATK
+	pkgver = 2.36.3
+	pkgrel = 1
+	url = https://www.gtkmm.org/
+	arch = x86_64
+	license = LGPL-2.1-or-later
+	makedepends = git
+	makedepends = glibmm-2.68-docs
+	makedepends = meson
+	makedepends = mm-common
+	depends = atk
+	depends = glibmm-2.68
+	options = !emptydirs
+	source = git+https://gitlab.gnome.org/GNOME/atkmm.git#commit=75f79502f700614a3c35d9c4eaa4c395ac6c7d66
+	b2sums = SKIP
+
+pkgname = atkmm-2.36
+	depends = atk
+	depends = glibmm-2.68
+	depends = libglibmm-2.68.so
+	depends = libsigc-3.0.so
+	provides = libatkmm-2.36.so
+
+pkgname = atkmm-2.36-docs
+	pkgdesc = C++ bindings for ATK (documentation)
+	depends = 
+	options = !strip
