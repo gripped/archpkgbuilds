@@ -1,7 +1,7 @@
 pkgbase = phoc
 	pkgdesc = Display compositor designed for phones
-	pkgver = 0.33.0
-	pkgrel = 2
+	pkgver = 0.35.0
+	pkgrel = 1
 	url = https://gitlab.gnome.org/World/Phosh/phoc
 	arch = x86_64
 	arch = aarch64
@@ -19,7 +19,7 @@ pkgbase = phoc
 	makedepends = python-typogrify
 	makedepends = libgirepository
 	depends = gnome-desktop
-	depends = wlroots0.16
+	depends = wlroots
 	depends = gsettings-desktop-schemas
 	depends = pixman
 	depends = libinput
@@ -31,14 +31,14 @@ pkgbase = phoc
 	depends = cairo
 	depends = wayland
 	optdepends = xorg-wayland: run X clients under phoc
-	source = https://gitlab.gnome.org/World/Phosh/phoc/-/archive/v0.33.0/phoc-v0.33.0.tar.gz
-	source = https://gitlab.gnome.org/guidog/gmobile/-/archive/f4d4e5740c3e4b2de40864ab8a9e7b7f957d6aec/gmobile-f4d4e5740c3e4b2de40864ab8a9e7b7f957d6aec.tar.gz
-	sha256sums = fe32ff8e1977ef5ae4fc15434ceb01e9291cda089548d77507af2cdcd4550063
-	sha256sums = b071e21a30eb8649b2bd9f416eec97110f0f08090b6c230e928ef1c3339ac344
+	source = https://gitlab.gnome.org/World/Phosh/phoc/-/archive/v0.35.0/phoc-v0.35.0.tar.gz
+	source = https://gitlab.gnome.org/guidog/gmobile/-/archive/a3c67a1184bfa73c593edefabe77cce57a5e38f6/gmobile-a3c67a1184bfa73c593edefabe77cce57a5e38f6.tar.gz
+	sha256sums = 39f8b74b88ce20049aad1fedce8ffb58078d5af3b937c2a206a1ac4be41f700a
+	sha256sums = 1aeac55a790525c2028a66562de877a8f99ce391636d8e0e3d059b0899c7a7ec
 
 pkgname = phoc
 	depends = gnome-desktop
-	depends = wlroots0.16
+	depends = wlroots
 	depends = gsettings-desktop-schemas
 	depends = pixman
 	depends = libinput
@@ -49,4 +49,4 @@ pkgname = phoc
 	depends = dconf
 	depends = cairo
 	depends = wayland
-	depends = libwlroots.so=11
+	depends = libwlroots.so=12
