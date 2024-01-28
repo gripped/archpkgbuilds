@@ -3,17 +3,20 @@
 
 _pyname=overrides
 pkgname=python-$_pyname
-pkgver=7.6.0
+pkgver=7.7.0
 pkgrel=1
 pkgdesc='A decorator to automatically detect mismatch when overriding a method'
 url='https://github.com/mkorpela/overrides'
 arch=(any)
 license=(Apache-2.0)
 depends=(python)
-makedepends=(python-build python-installer python-setuptools python-wheel)
+makedepends=(python-build
+             python-installer
+             python-setuptools
+             python-wheel)
 checkdepends=(python-pytest)
 source=(https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_pyname-$pkgver.tar.gz)
-sha256sums=('01e15bbbf15b766f0675c275baa1878bd1c7dc9bc7b9ee13e677cdba93dc1bd9')
+sha256sums=('55158fa3d93b98cc75299b1e67078ad9003ca27945c76162c1c0766d6f91820a')
 
 build() {
   cd $_pyname-$pkgver
