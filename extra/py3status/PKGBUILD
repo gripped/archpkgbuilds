@@ -6,12 +6,12 @@
 # Contributor: carstene1ns <arch carsten-teibes de> - http://git.io/ctPKG
 
 pkgname=py3status
-pkgver=3.55
+pkgver=3.56
 pkgrel=1
 pkgdesc="An extensible i3status replacement/wrapper written in python"
-url="https://py3status.readthedocs.io/en/latest/"
+url="https://ultrabug.github.io/py3status/"
 arch=('any')
-license=('BSD')
+license=('BSD-3-Clause')
 depends=('python' 'python-setuptools')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-hatch')
 checkdepends=('python-pytest')
@@ -26,8 +26,8 @@ optdepends=('i3status: for i3status modules'
             'pacman-contrib: for the arch_updates module')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ultrabug/py3status/archive/refs/tags/$pkgver.tar.gz"
         "$pkgname-refresh-arch_updates.hook")
-sha256sums=('a94f9363c5a322f6274074d9bbc44fb7ce1d843fe4ff02859eeb1c76dca2228a'
-            '0ba611aa6764756be6d1244616872da43970b637461f5c25b77e7331a036b7b4')
+sha256sums=('e5d6722d29a09bafc9d21f0dade99b45c2324b64440f47178818daee2c6f324c'
+            'af8725c17cd985a60e2801dd62ca32b26dbd547b279c2e1483793096043bc626')
 
 build() {
     cd "$pkgname-$pkgver"
