@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=clash-ghc
-pkgver=1.6.5
-pkgrel=3
+pkgver=1.6.6
+pkgrel=1
 pkgdesc="CAES Language for Synchronous Hardware"
 url="https://clash-lang.org/"
 license=("BSD")
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-clash-lib' 'haskell-clash-prelude' 'haskell-concurr
 makedepends=('ghc')
 conflicts=('clash')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('98c4b4f40dbda05d203fb38c757265c3a2c4ad6e1a5d16e130921ff79c1877cbfd6cd8e16dc399ae4b16e9283c96851fca0c4ffaec8ffc3c794371fb2f24b8d5')
+sha512sums=('fa11e475dcbd500d63167f36e914d3667eebdf3b3be6cd6a211417d61e06e02c782808c81668b69af15bae49bb4f562a54fa26abbb330a85fe3e05804a20e1fc')
 
 build() {
   cd $pkgname-$pkgver
