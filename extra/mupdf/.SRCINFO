@@ -1,10 +1,11 @@
 pkgbase = mupdf
 	pkgdesc = Lightweight PDF and XPS viewer
-	pkgver = 1.23.7
-	pkgrel = 1
+	pkgver = 1.23.9
+	pkgrel = 4
 	url = https://mupdf.com/
 	arch = x86_64
 	license = AGPL-3.0-or-later
+	makedepends = clang
 	makedepends = curl
 	makedepends = desktop-file-utils
 	makedepends = freeglut
@@ -20,15 +21,23 @@ pkgbase = mupdf
 	makedepends = mesa-libgl
 	makedepends = openjpeg2
 	makedepends = openssl
+	makedepends = python
+	makedepends = swig
 	makedepends = tesseract
 	makedepends = zlib
 	options = staticlibs
-	source = https://mupdf.com/downloads/archive/mupdf-1.23.7-source.tar.gz
+	source = https://mupdf.com/downloads/archive/mupdf-1.23.9-source.tar.gz
 	source = mupdf.desktop
 	source = mupdf.xpm
-	sha256sums = 35a54933f400e89667a089a425f1c65cd69d462394fed9c0679e7c52efbaa568
+	source = mupdf-1.23.9-no_venv.patch
+	source = mupdf-1.23.9-cpp_ldflags.patch
+	source = mupdf-1.23.9-install_targets.patch
+	sha256sums = d4a5d66801d85f97d76da978b155f66a5659d1131070c0400f076883f604e297
 	sha256sums = ccff66979249bd4ab4ba8918660f194eb90eb0ae231b16e36a6cecdcf471883f
 	sha256sums = a435f44425f5432c074dee745d8fbaeb879038ec1f1ec64f037c74662f09aca8
+	sha256sums = fed5ccebf5c8d3a4f4b777ce058f647cde673826b465c777994fc436dc1dca5a
+	sha256sums = 152222c0bc066404d9e38be7abbba20748b0a4bbc9cb30403d19e3b176ab257f
+	sha256sums = 87fd0544112ca8e8396dd3eb989907c110bad35de02ea425677b99a5d2532666
 
 pkgname = libmupdf
 	pkgdesc = Library for Lightweight PDF and XPS viewer
@@ -43,6 +52,8 @@ pkgname = libmupdf
 	depends = openjpeg2
 	depends = tesseract
 	depends = zlib
+	provides = libmupdf.so
+	provides = libmupdfcpp.so
 
 pkgname = mupdf
 	pkgdesc = Lightweight PDF and XPS viewer
@@ -60,7 +71,7 @@ pkgname = mupdf-gl
 	depends = libgl
 	depends = libmupdf
 	depends = openssl
-	provides = mupdf=1.23.7
+	provides = mupdf=1.23.9
 	conflicts = mupdf
 
 pkgname = mupdf-tools
@@ -68,3 +79,10 @@ pkgname = mupdf-tools
 	depends = glibc
 	depends = libmupdf
 	depends = openssl
+
+pkgname = python-mupdf
+	pkgdesc = Library for Lightweight PDF and XPS viewer - Python bindings
+	depends = gcc-libs
+	depends = glibc
+	depends = libmupdf
+	depends = python
