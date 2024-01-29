@@ -6,7 +6,7 @@
 
 pkgname=easytag
 pkgver=2.4.3
-pkgrel=7
+pkgrel=8
 pkgdesc="Simple application for viewing and editing tags in audio files"
 arch=('x86_64')
 url="https://wiki.gnome.org/Apps/EasyTAG"
@@ -17,13 +17,17 @@ depends=('cairo' 'gcc-libs' 'gdk-pixbuf2' 'glibc' 'id3lib' 'taglib' 'wavpack'
 'zlib')
 makedepends=('appstream-glib' 'atk' 'flac' 'glib2' 'gtk3' 'harfbuzz' 'intltool'
 'itstool' 'libid3tag' 'pango' 'python' 'yelp-tools')
-source=("https://gitlab.gnome.org/GNOME/${pkgname}/-/archive/${pkgname}-${pkgver}/${pkgname}-${pkgname}-${pkgver}.tar.gz")
-sha512sums=('a14ce7432592e8430039f8960a9de70f49adf0a60bc4232e8d894b9cab09d72b8205dd1660a51718b655130a4cee69841106461df7d0b05b4b36b611398789e3')
-b2sums=('dbb47f4f653da12e7b677a4757d60ad136d6281e075bdb74a57cab3d3848cb414dab67e3b0f463cabf8dcdeecf7dc193cfe9a52a8d9023b8b29025a9f2168d87')
+source=("https://gitlab.gnome.org/GNOME/${pkgname}/-/archive/${pkgname}-${pkgver}/${pkgname}-${pkgname}-${pkgver}.tar.gz"
+         taglib-2.patch)
+sha512sums=('a14ce7432592e8430039f8960a9de70f49adf0a60bc4232e8d894b9cab09d72b8205dd1660a51718b655130a4cee69841106461df7d0b05b4b36b611398789e3'
+            '7a63fb4aaea13cf891ebfd8bf9209bf82f4ac0029f4bca67026ed529eba30037fea3649d6145610f95933301d1b25c81b80098627d5301a50614b247b906f3ab')
+b2sums=('dbb47f4f653da12e7b677a4757d60ad136d6281e075bdb74a57cab3d3848cb414dab67e3b0f463cabf8dcdeecf7dc193cfe9a52a8d9023b8b29025a9f2168d87'
+        '1d13e4b14140ba4f9e1de8dc467cf67b6ff0990e7c28949ae0379c88aa4b63c5b0fbfa4ec512b004345ffd47d95d64042063cbe041398fbcd74dc7fd732607d1')
 
 prepare() {
   mv -v "${pkgname}-${pkgname}-${pkgver}" "${pkgname}-${pkgver}"
   cd "${pkgname}-${pkgver}"
+  patch -p1 -i ../taglib-2.patch
   ./autogen.sh
 }
 
