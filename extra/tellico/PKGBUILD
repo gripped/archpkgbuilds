@@ -5,7 +5,7 @@
 
 pkgname=tellico
 pkgver=3.5.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A collection manager for KDE"
 arch=('x86_64')
 url="https://tellico-project.org/"
