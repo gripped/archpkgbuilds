@@ -1,7 +1,7 @@
 pkgbase = picom
 	pkgdesc = X compositor that may fix tearing issues
-	pkgver = 11
-	pkgrel = 4
+	pkgver = 11.1
+	pkgrel = 1
 	url = https://github.com/yshui/picom
 	arch = x86_64
 	license = MPL-2.0 AND MIT
@@ -26,10 +26,8 @@ pkgbase = picom
 	optdepends = xorg-xprop:    for picom-trans
 	optdepends = xorg-xwininfo: for picom-trans
 	backup = etc/xdg/picom.conf
-	source = git+https://github.com/yshui/picom?signed#commit=197b4bd396590cb5df61eb54ec6a1dadf1115a5d
-	source = xrender-rollback-pixmap-region.patch
+	source = git+https://github.com/yshui/picom#commit=fc1d1d40e5ffe73cb35a6b09b3cd713a14d242f6
 	validpgpkeys = A22F5C0F4FCF9C7C89A167462C965E9E5D45D730
 	b2sums = SKIP
-	b2sums = c35ac19b1931697ba5f2fac36afba74712af3534c9e534e48fd11a8bd26b70e2a8a49075e2aec6043618ad806ad5dc79556c053b810e6b0da6bf43f762b3258e
 
 pkgname = picom
