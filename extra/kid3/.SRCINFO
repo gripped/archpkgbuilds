@@ -1,7 +1,7 @@
 pkgbase = kid3
 	pkgdesc = An MP3, Ogg/Vorbis and FLAC tag editor
 	pkgver = 3.9.4
-	pkgrel = 2
+	pkgrel = 3
 	url = https://kid3.kde.org/
 	changelog = kid3.changelog
 	arch = x86_64
@@ -23,9 +23,15 @@ pkgbase = kid3
 	depends = kio5
 	source = https://prdownloads.sourceforge.net/kid3/kid3-3.9.4.tar.gz
 	source = https://prdownloads.sourceforge.net/kid3/kid3-3.9.4.tar.gz.sig
+	source = https://invent.kde.org/multimedia/kid3/-/commit/3ed2e5f7.patch
+	source = https://invent.kde.org/multimedia/kid3/-/commit/98524900.patch
+	source = taglib-2.patch
 	validpgpkeys = 7D09794C2812F62194B081C14CAD34426E354DD2
 	sha256sums = 6d67d941604c3d96e42b2bafbe7ec4a60004620b729ccbe2550af211eb59dd7b
 	sha256sums = SKIP
+	sha256sums = 7f59595a638056a780db5ce3b4266760e7f478e7b11c4c5b703772fddc8bdb5c
+	sha256sums = 6edd2ab211d92c2e4ab6c5c757686bd730f2f54cb26b23e4c513d18cbc341900
+	sha256sums = 11bd60246fe7c8066c5b33b3884b2008f19afbc8b7c0df3a5631e39258642e0c
 
 pkgname = kid3-common
 	pkgdesc = An MP3, Ogg/Vorbis and FLAC tag editor, CLI version and common files
