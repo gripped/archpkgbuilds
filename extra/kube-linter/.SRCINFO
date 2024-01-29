@@ -1,16 +1,14 @@
 pkgbase = kube-linter
 	pkgdesc = Static analysis tool that checks Kubernetes YAML files and Helm charts
-	pkgver = 0.6.6
+	pkgver = 0.6.7
 	pkgrel = 1
 	url = https://github.com/stackrox/kube-linter
 	arch = x86_64
-	license = Apache
+	license = Apache-2.0
 	makedepends = go
-	source = https://github.com/stackrox/kube-linter/archive/v0.6.6/kube-linter-0.6.6.tar.gz
-	source = https://github.com/stackrox/kube-linter/commit/8ad0795fa1d52b26209355e81b97898c2f762ab9.patch
-	sha256sums = 02f49d8f615e8549a8bc690d9aac93fb4fde3deb4d0ad803c654ff19d70736c8
-	sha256sums = ff1dc9c809248bada349e208af6ebce2a1a5186f37b4289b1a137f46fc38e680
-	b2sums = 145ce6a2119282c58e6b4fed925602956c4ad17af6f881444c056dfa9384750cec7873d3a5af81b551e71cee9b1299dd08ce626a854a9225caf26391a0a79c2d
-	b2sums = 28bfcabcb0a52d1ca49453075d567d1311edc10932a29dedf61db35eb5ee28168a9df69cca218460745fcf9931dd45917e9de7ce6c02f787bd182ea9a17c02d2
+	depends = glibc
+	source = https://github.com/stackrox/kube-linter/archive/v0.6.7/kube-linter-0.6.7.tar.gz
+	sha256sums = 4eddda7b150883fb23164f3359eb26403ef66aa5848ee7748db5fb60fadf9062
+	b2sums = 1aca498dd0b07d46da92596c6e614e9dcddf9678c6095e1f5ef4663ae0878a0315faf65b251b1e689016c056936b70b3624fd109d12326a3d61c9cad560a0b35
 
 pkgname = kube-linter
