@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-phonenumbers
-pkgver=8.13.28
-_commit=c74a72d3156d85b8f50c205008e155fb44d71c78
+pkgver=8.13.29
+_commit=364dae870a85ba2e4b5ea1c0b2a11ed5ce2cfabf
 pkgrel=1
 pkgdesc="Python version of Google's common library for parsing, formatting, storing and validating international phone numbers"
 arch=('any')
