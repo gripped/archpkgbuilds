@@ -1,13 +1,15 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=legba
-pkgver=0.7.1
+pkgver=0.8.0
 pkgrel=1
 pkgdesc="A multiprotocol credentials bruteforcer / password sprayer and enumerator"
 url='https://github.com/evilsocket/legba'
 arch=('x86_64')
-license=('GPL-3.0-or-later')
+license=('GPL-3.0-only')
 depends=(
+  'gcc-libs'
+  'glibc'
   'libssl.so'
   'smbclient'
 )
@@ -17,12 +19,12 @@ makedepends=(
 )
 options=('!lto')
 source=(https://github.com/evilsocket/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('8d8e99d9ef147fbc5122cda8bec743edcf319d4f4accab1f883832044ebd3e9b')
-b2sums=('0c9f516116cc6a583f72a6fbde0cc6cd7993ff09b8164977d99e5cd7d0384914cf8f5bcf67c5ac8490f97998fe6ae8c1111e1e30ef26e6eee4f4743539a0f74c')
+sha256sums=('5146eaa405b7d584d881ee6be252789228395e0e505e1ec61630c966105fa6cd')
+b2sums=('ddf7ef92616148c609f6e7aa9aeca5df0ca2f2898bbd22343086d22be09c862081dc56261fbb634bc5dc8f46fc5f195ba107861e5bdc08144bf613e46755b2ab')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
