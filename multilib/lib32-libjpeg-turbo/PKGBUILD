@@ -5,15 +5,15 @@
 
 _name=libjpeg-turbo
 pkgname=lib32-$_name
-pkgver=3.0.1
-pkgrel=1
+pkgver=3.0.2
+pkgrel=2
 pkgdesc="JPEG image codec with accelerated baseline compression and decompression"
 url="https://libjpeg-turbo.org/"
+_url="https://github.com/libjpeg-turbo/libjpeg-turbo/"
 arch=(x86_64)
 license=(
   BSD-3-Clause
   IJG
-  Zlib
 )
 depends=(
   lib32-glibc
@@ -30,11 +30,11 @@ provides=(
   libturbojpeg.so
 )
 source=(
-  https://sourceforge.net/projects/$_name/files/$pkgver/$_name-$pkgver.tar.gz{,.sig}
+  $_url/releases/download/$pkgver/$_name-$pkgver.tar.gz{,.sig}
 )
-sha512sums=('26a2c821a023579e82a7c2a00582747f5f24089aa0820ba304f1ff71c6894b7a6bd0468acc5ff90e2655e0a1c23a5a35a779df51f5cfa3e9eba527c709fab55b'
+sha512sums=('f5eadda0712feb810a8c3bb2621fda24a4c30574998ce30f423b3ffa25225c7a87cb14b696232bc0270485f422a2853a5c32eafb65bc5eeab1b41d8aeb32ad29'
             'SKIP')
-b2sums=('9d2c784edd6493c4d9e2379fc4a8f0844e440d7afe774b231f611034d481dcf1be35979fb7d731a5a8f99000780f1343b7934a59df22c1dcaef295b6294ea494'
+b2sums=('b6eff81657707852ee9ea81099179c6e20914f513fd32b12b1bfbf5233f850f54a1062a98150044aa34476f0c54e42a67c88633a59834a764d3f8bb394f374f0'
         'SKIP')
 validpgpkeys=('0338C8D8D9FDA62CF9C421BD7EC2DBB6F4DBF434') # The libjpeg-turbo Project (Signing key for official binaries) <information@libjpeg-turbo.org>
 
@@ -70,5 +70,5 @@ package() {
   # remove everything that is provided by libjpeg-turbo
   rm -r "$pkgdir"/usr/{include,share,bin}
 
-  install -vDm 644 $_name-$pkgver/LICENSE.md -t "$pkgdir/usr/share/licenses/$pkgname"
+  install -vDm 644 $_name-$pkgver/{LICENSE.md,README.ijg} -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
