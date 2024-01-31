@@ -4,7 +4,7 @@
 
 pkgname=fakeroot
 pkgver=1.33
-pkgrel=1
+pkgrel=2
 pkgdesc='Tool for simulating superuser privileges'
 arch=('x86_64')
 license=('GPL')
@@ -39,8 +39,8 @@ package() {
   cd $pkgname-$pkgver
   make DESTDIR="$pkgdir" install
 
-  install -dm0755 "$pkgdir/etc/ld.so.conf.d/"
-  echo '/usr/lib/libfakeroot' > "$pkgdir/etc/ld.so.conf.d/fakeroot.conf"
+  install -dm0755 "$pkgdir/usr/lib/ld.so.conf.d/"
+  echo '/usr/lib/libfakeroot' > "$pkgdir/usr/lib/ld.so.conf.d/fakeroot.conf"
 
   # install README for sysv/tcp usage
   install -Dm0644 README "$pkgdir/usr/share/doc/$pkgname/README"
