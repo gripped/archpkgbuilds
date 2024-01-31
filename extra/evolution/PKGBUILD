@@ -1,6 +1,5 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
-# Contributor: Fabian Bornschein <fabiscafe-cat-mailbox-dog-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgbase=evolution
@@ -10,11 +9,11 @@ pkgname=(
   evolution-spamassassin
 )
 pkgver=3.50.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Manage your email, contacts and schedule"
 url="https://wiki.gnome.org/Apps/Evolution"
 arch=(x86_64)
-license=(GPL)
+license=(LGPL-2.1-or-later)
 depends=(
   cmark
   enchant
@@ -96,6 +95,7 @@ package_evolution() {
     'highlight: text highlight plugin'
   )
   groups=(gnome-extra)
+  license+=(LicenseRef-OpenLDAP-Public-License)
 
   DESTDIR="$pkgdir" cmake --install build
 
@@ -104,6 +104,9 @@ package_evolution() {
     _pick $x usr/lib/evolution/modules/module-$x.so
     _pick $x usr/share/metainfo/org.gnome.Evolution-$x.metainfo.xml
   done
+
+  install -D -m644 "${srcdir}/evolution/COPYING.OPENLDAP" \
+    "${pkgdir}/usr/share/licenses/evolution/COPYING.OPENLDAP"
 }
 
 
