@@ -4,12 +4,13 @@
 pkgname=libnghttp2
 _tag='6c83ba437df9834305ccf68083775d7742974ecb' # git rev-parse v${pkgver}
 pkgver=1.59.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Framing layer of HTTP/2 is implemented as a reusable C library'
 arch=('x86_64')
 url='https://nghttp2.org/'
 license=('MIT')
 depends=('glibc')
+provides=('libnghttp2.so')
 makedepends=('git')
 conflicts=('nghttp2<1.20.0-2')
 validpgpkeys=('F4F3B91474D1EB29889BD0EF7E8403D5D673C366') # Tatsuhiro Tsujikawa <tatsuhiro.t@gmail.com>
