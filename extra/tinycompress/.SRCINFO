@@ -1,0 +1,17 @@
+pkgbase = tinycompress
+	pkgdesc = ALSA compressed device interface
+	pkgver = 1.2.11
+	pkgrel = 1
+	url = https://github.com/alsa-project/tinycompress
+	arch = x86_64
+	license = BSD-3-Clause OR LGPL-2.1-only
+	makedepends = ffmpeg
+	makedepends = git
+	depends = glibc
+	optdepends = ffmpeg: fcplay utility
+	provides = libtinycompress.so
+	options = debug
+	source = git+https://github.com/alsa-project/tinycompress#commit=e98e500873c9c4fdd752d1c85b6116da426a8a70
+	b2sums = SKIP
+
+pkgname = tinycompress
