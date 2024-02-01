@@ -1,6 +1,6 @@
 pkgbase = sqlite
 	pkgdesc = A C library that implements an SQL database engine
-	pkgver = 3.45.0
+	pkgver = 3.45.1
 	pkgrel = 1
 	url = https://www.sqlite.org/
 	arch = x86_64
@@ -9,12 +9,12 @@ pkgbase = sqlite
 	makedepends = readline
 	makedepends = zlib
 	options = !emptydirs
-	source = https://www.sqlite.org/2024/sqlite-src-3450000.zip
-	source = https://www.sqlite.org/2024/sqlite-doc-3450000.zip
+	source = https://www.sqlite.org/2024/sqlite-src-3450100.zip
+	source = https://www.sqlite.org/2024/sqlite-doc-3450100.zip
 	source = sqlite-lemon-system-template.patch
 	source = license.txt
-	sha256sums = 14dc2db487e8563ce286a38949042cb1e87ca66d872d5ea43c76391004941fe2
-	sha256sums = c2fb268ef41cfb1270b54511c19ae3164fc18d0a893c1b143dd2655e00c00104
+	sha256sums = 7f7b14a68edbcd4a57df3a8c4dbd56d2d3546a6e7cdd50de40ceb03af33d34ba
+	sha256sums = bbe376fdd36884a00f4dd93bcd6e80470d66408d4957cb23ba22931fa579206a
 	sha256sums = 55746d93b0df4b349c4aa4f09535746dac3530f9fd6de241c9f38e2c92e8ee97
 	sha256sums = 4e57d9ac979f1c9872e69799c2597eeef4c6ce7224f3ede0bf9dc8d217b1e65d
 
@@ -23,7 +23,7 @@ pkgname = sqlite
 	depends = readline
 	depends = zlib
 	depends = glibc
-	provides = sqlite3=3.45.0
+	provides = sqlite3=3.45.1
 	provides = libsqlite3.so
 	replaces = sqlite3
 
@@ -31,7 +31,7 @@ pkgname = sqlite-tcl
 	pkgdesc = sqlite Tcl Extension Architecture (TEA)
 	depends = sqlite
 	depends = glibc
-	provides = sqlite3-tcl=3.45.0
+	provides = sqlite3-tcl=3.45.1
 	replaces = sqlite3-tcl
 
 pkgname = sqlite-analyzer
@@ -46,5 +46,5 @@ pkgname = lemon
 
 pkgname = sqlite-doc
 	pkgdesc = most of the static HTML files that comprise this website, including all of the SQL Syntax and the C/C++ interface specs and other miscellaneous documentation
-	provides = sqlite3-doc=3.45.0
+	provides = sqlite3-doc=3.45.1
 	replaces = sqlite3-doc
