@@ -2,12 +2,12 @@
 # Contributor: genofire
 
 pkgname=ovenmediaengine
-pkgver=0.16.3
+pkgver=0.16.4
 pkgrel=1
 pkgdesc='Open-source streaming video service with sub-second latency'
 arch=('x86_64')
 url='https://ovenmediaengine.com'
-license=('AGPL3')
+license=('AGPL-3.0-only')
 # See https://github.com/AirenSoft/OvenMediaEngine/blob/master/misc/prerequisites.sh#L490
 depends=(
 	'openssl>=3'
@@ -39,7 +39,7 @@ source=(
 	"${pkgname}-${pkgver}.tar.gz::https://github.com/AirenSoft/OvenMediaEngine/archive/refs/tags/v${pkgver}.tar.gz"
 	"ovenmediaengine.service"
 )
-sha512sums=('a076b5fdeefba4cf80abb8cb9d1244be11655a1d293003b28ae3933db371169642f4ba75aa9a43df3fa3de1502e14a834d4dcc49c805dec7f1567f3653332d42'
+sha512sums=('8e0e61f84635732290768c0cad7185cd7f5bf4bbf64aa17d9f5feb7baf93429c37ec8af3034883f5cea92af7560b8abf0af432d7c64bffa7f26c6818a1f8c398'
             'c5c4615d4c50a55c6fea177a1bc73b13d1365224c4e102067e45ce956741cb95366ec3b16cdec8932083c923910794e9164b0f9a25a6b0e2f186557fac3e42f1')
 
 backup=(
