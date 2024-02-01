@@ -2,12 +2,12 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=ansible
-pkgver=9.1.0
-pkgrel=2
+pkgver=9.2.0
+pkgrel=1
 pkgdesc='Official assortment of Ansible collections'
 arch=('any')
 url='https://pypi.org/project/ansible/'
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('python' 'ansible-core')
 provides=('python-ansible_collections')
 optdepends=('python-argcomplete: shell completions'
@@ -26,15 +26,15 @@ optdepends=('python-argcomplete: shell completions'
             'acme-tiny: openssl_certificate module')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 source=("https://pypi.python.org/packages/source/a/ansible/ansible-${pkgver}.tar.gz")
-sha512sums=('ec6d86b3d05e66053001720b6b7d7bd1dba8bd50917c913e1f08a63b0c94f76a5d69732c78e793d038622a0b8c652860290a89cee1dfb22491a81763923ef843')
+sha512sums=('6d867774b987863287c8d321d82bfc8688be2950eed2d6a429d26701809ce1a9e66e09fc78dbfdd1e5786828a517ab7b08cda1a131ac8eb9f73bd39c246fa4fe')
 
 build() {
-  cd ansible-${pkgver}
+  cd "ansible-${pkgver}"
   python -m build --wheel --no-isolation
 }
 
 package() {
-  cd ansible-${pkgver}
-  python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 COPYING "${pkgdir}"/usr/share/doc/${pkgname}/COPYING
+  cd "ansible-${pkgver}"
+  python -m installer --destdir="${pkgdir}" dist/*.whl
+  install -Dm 644 COPYING "${pkgdir}/usr/share/doc/${pkgname}/COPYING"
 }
