@@ -2,7 +2,7 @@
 
 _name=nose2
 pkgname=python-nose2
-pkgver=0.14.0
+pkgver=0.14.1
 pkgrel=1
 pkgdesc="The next generation of nicer testing for python"
 arch=(any)
@@ -30,8 +30,13 @@ optdepends=(
   'python-sphinx_rtd_theme: for doc'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('ed6b245bc57b63b011883f42dbda8b2797504afa02a102c43f4e7d3c6cbfcf7e8babca23f9341c7681b75dae12c2d269ea65a583c18d4d15b999df081fc0247b')
-b2sums=('c72f939f597eead3a5d8be995fc4ae1988a0c76f5599dc9e040780520055aa1002d2d93f35527e56f90609d2f4ef560161bbf695bb3751cac71007dfbd06c522')
+sha512sums=('7cd4e4a67dfd87ce85927aa65137ca7df926e8a4b83162131cb081cbec357e951693826d43f92beb92af0e1d690c8f0a3f8cf6b0b58f174ae2516383892b5207')
+b2sums=('36a79f2a9afc288fd1025e8e1875dd15f145708ea4715c2db11f7a769c87c3209ad367d55b1634b1ff032bd65606ca74ed1d4424a4fba74dd44a377820ff8208')
+
+prepare() {
+  sed -n '1,27p' $_name-$pkgver/LICENSE > BSD-2-Clause.txt
+  sed -n '34,65p' $_name-$pkgver/LICENSE > BSD-3-Clause.txt
+}
 
 build() {
   cd $_name-$pkgver
@@ -52,6 +57,6 @@ check() {
 package() {
   cd $_name-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 ../BSD-{2,3}-Clause.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
   install -vDm 644 {AUTHORS,README.rst} -t "$pkgdir/usr/share/doc/$pkgname/"
 }
