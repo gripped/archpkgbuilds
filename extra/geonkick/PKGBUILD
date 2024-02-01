@@ -2,7 +2,7 @@
 
 pkgbase=geonkick
 pkgname=(geonkick geonkick-{common,lv2,standalone,vst3})
-pkgver=3.3.1
+pkgver=3.3.2
 pkgrel=1
 pkgdesc="A free software percussion synthesizer"
 arch=(x86_64)
@@ -31,8 +31,8 @@ makedepends=(
 )
 checkdepends=(lv2lint)
 source=($_url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('26196c8c8c854d685c7d1d595793822fc7049bba310610b7615dbd58cad18d5cf6074b0ac8fc5f6e725dee0563e2f1bb2db5526d9832b4b8d873712ca42ff1e1')
-b2sums=('e1ffd6345a37d2d908a746f5d8d9a742d4c2ae71370b31240fc1b1ab1c018dc8be13c819811cb6108714ab5d57bae417cc9ff8a9d014c959eb35977e5f34fcdf')
+sha512sums=('9144bf449ccc6e5f37af35ba4a7b32d8faaa7b0ed963b08ed0f2bf617cd632bf5c376b5908071d3b351e7fd5b853c4a72547d9407f87cc3f67082b17b1527d20')
+b2sums=('e33060ce4cbf026500772896fad9c0e7c33f8b491c2afe56d3b006612008beac397f2ee881f5db4b82a17fb552d97b694f77b1919ff91cd4fe549ccfce7c443e')
 
 _pick() {
   local p="$1" f d; shift
