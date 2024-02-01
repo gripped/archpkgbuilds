@@ -22,10 +22,10 @@ pkgname=(
   pipewire-session-manager
   pulse-native-provider
 )
-_commit=79b98884af80329f59596906231da5597bcdb7b6  # tags/1.0.1
-pkgver=1.0.1
+_commit=9ba18c15ae774c83a38783dc72fd8c3fa60c726f  # tags/1.0.2
+pkgver=1.0.2
 _so_ver=0.3
-pkgrel=2
+pkgrel=1
 epoch=1
 pkgdesc="Low-latency audio/video router and processor"
 url="https://pipewire.org"
