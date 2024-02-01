@@ -4,7 +4,7 @@
 
 pkgname=intel-ucode
 pkgver=20231114
-pkgrel=1
+pkgrel=2
 pkgdesc='Microcode update files for Intel CPUs'
 arch=('any')
 url='https://github.com/intel/Intel-Linux-Processor-Microcode-Data-Files'
@@ -24,6 +24,8 @@ build() {
 
 package() {
   cd Intel-Linux-Processor-Microcode-Data-Files-microcode-${pkgver/./}
+
+  install -vDm 644 $pkgname/* -t "$pkgdir/usr/lib/firmware/$pkgname/"
 
   install -D -m0644 intel-ucode.img "${pkgdir}"/boot/intel-ucode.img
   install -D -m0644 license "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
