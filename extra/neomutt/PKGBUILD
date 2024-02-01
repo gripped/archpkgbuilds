@@ -1,11 +1,11 @@
-# Maintainer: Maxim Baz <$pkgname at maximbaz dot com>
 # Maintainer: Frederik Schwan <freswa at archlinux dot org>
+# Contributor: Maxim Baz <archlinux at maximbaz dot com>
 # Contributor: Alad Wenter <alad@archlinux.org>
 # Contributor: Jelle van der Waa <jelle@vdwaa.nl>
 # Contributor: Chris Salzberg <chris@dejimata.com>
 # Contributor: Leonidas Spyropoulos <artafinde@gmail.com>
 pkgname=neomutt
-pkgver=20231221
+pkgver=20240201
 pkgrel=1
 pkgdesc='A version of mutt with added features'
 url='https://neomutt.org/'
@@ -22,7 +22,7 @@ _github='https://github.com/neomutt/neomutt'
 source=("$pkgname-$pkgver.tar.gz::$_github/archive/$pkgver.tar.gz"
         "$pkgname-$pkgver.tar.gz.sig::$_github/releases/download/$pkgver/$pkgver.tar.gz.sig"
         "default-ca-certificates.patch")
-sha256sums=('b2add3823db78d8c0a86507ef3b244a3487d7e7a70c0d9e4e4b136acda9004d2'
+sha256sums=('5229c4fdd6fd6ef870b94032bb1073f7f881ce97cf5754b1a4f4579a97b918da'
             'SKIP'
             '571716b8979e9b43328416c3c56eff228b6c58355d7c080b8987ea89c6360776')
 validpgpkeys=('86C2397270DD7A561263CA4E5FAF0A6EE7371805') # Richard Russon (flatcap) <rich@flatcap.org>
