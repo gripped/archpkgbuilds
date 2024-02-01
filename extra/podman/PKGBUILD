@@ -4,8 +4,8 @@
 
 pkgbase=podman
 pkgname=(podman podman-docker)
-pkgver=4.9.0
-_commit=f7c7b0a7e437b6d4849a9fb48e0e779c3100e337  #refs/tags/v4.9.0^{}
+pkgver=4.9.1
+_commit=f78dcb12351174dfc474068a5c9eaaba83d1b550  #refs/tags/v4.9.1
 pkgrel=1
 pkgdesc='Tool and library for running OCI-based containers in pods'
 arch=(x86_64)
@@ -26,7 +26,7 @@ makedepends=(
 # https://github.com/containers/podman/issues/13297
 options=(!lto)
 source=(
-  git+$url#commit=$_commit?signed
+  git+$url#tag=$_commit?signed
   $pkgname-4.6.0-defaultinitpath.patch
 )
 # See the release-keys repository
