@@ -7,18 +7,24 @@
 
 pkgbase=lib32-curl
 pkgname=(lib32-curl lib32-libcurl-compat lib32-libcurl-gnutls)
-_tag='55b5fafb094ebe07ca8a5d4f79813c8b40670795' # git rev-parse v${_tag_name}
-_tag_name='8_5_0'
+_tag='8cd1397d3c5c9b1526c8d74530266a7a9a22294b' # git rev-parse v${_tag_name}
+_tag_name='8_6_0'
 pkgver="${_tag_name//_/.}"
 pkgrel=1
 pkgdesc='command line tool and library for transferring data with URLs (32-bit)'
 arch=('x86_64')
 url='https://curl.se/'
 license=('MIT')
-depends=('curl' 'lib32-brotli' 'lib32-libidn2' 'lib32-libssh2' 'lib32-krb5'
-         'lib32-libpsl' 'lib32-zlib' 'lib32-zstd')
+depends=('curl'
+         'lib32-brotli' 'libbrotlidec.so'
+         'lib32-krb5' 'libgssapi_krb5.so'
+         'lib32-libidn2' 'libidn2.so'
+         'lib32-libnghttp2' 'libnghttp2.so'
+         'lib32-libpsl' 'libpsl.so'
+         'lib32-libssh2' 'libssh2.so'
+         'lib32-zlib' 'libz.so'
+         'lib32-zstd' 'libzstd.so')
 makedepends=('git' 'patchelf' 'lib32-gnutls' 'lib32-openssl')
-provides=('libcurl.so')
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
 source=("git+https://github.com/bagder/curl.git#tag=${_tag}?signed")
 sha512sums=('SKIP')
@@ -97,6 +103,7 @@ build() {
     --disable-versioned-symbols
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make -C lib
+  patchelf --set-soname 'libcurl-compat.so.4' ./lib/.libs/libcurl.so
 
   # build lib32-libcurl-gnutls
   cd "${srcdir}"/build-curl-gnutls
@@ -112,7 +119,8 @@ build() {
 }
 
 package_lib32-curl() {
-  depends+=('lib32-openssl')
+  depends+=('lib32-openssl' 'libcrypto.so' 'libssl.so')
+  provides=('libcurl.so')
 
   cd "${srcdir}"/build-curl
 
@@ -126,7 +134,7 @@ package_lib32-curl() {
 
 package_lib32-libcurl-compat() {
   pkgdesc='command line tool and library for transferring data with URLs (32-bit, no versioned symbols)'
-  depends+=('lib32-openssl')
+  depends=('lib32-curl')
   provides=('libcurl-compat.so')
 
   cd "${srcdir}"/build-curl-compat
@@ -137,6 +145,7 @@ package_lib32-libcurl-compat() {
   rm "${pkgdir}"/usr/lib32/libcurl.{a,so}*
   for version in 3 4.0.0 4.1.0 4.2.0 4.3.0 4.4.0 4.5.0 4.6.0 4.7.0; do
     ln -s libcurl-compat.so.4.8.0 "${pkgdir}"/usr/lib32/libcurl.so.${version}
+    ln -s libcurl-compat.so.4.8.0 "${pkgdir}"/usr/lib32/libcurl-compat.so.${version}
   done
 
   # license
@@ -146,7 +155,7 @@ package_lib32-libcurl-compat() {
 
 package_lib32-libcurl-gnutls() {
   pkgdesc='command line tool and library for transferring data with URLs (32-bit, no versioned symbols, linked against gnutls)'
-  depends+=('lib32-gnutls')
+  depends=('lib32-curl' 'lib32-gnutls')
   provides=('libcurl-gnutls.so')
 
   cd "${srcdir}"/build-curl-gnutls
