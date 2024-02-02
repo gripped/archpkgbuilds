@@ -2,8 +2,8 @@
 # Contributor: Artem Senichev <artemsen@gmail.com>
 
 pkgname=swayimg
-pkgver=2.0
-pkgrel=2
+pkgver=2.1
+pkgrel=1
 pkgdesc='A lightweight image viewer for Wayland display servers'
 arch=('x86_64')
 license=('MIT')
@@ -37,7 +37,7 @@ depends=(
 )
 url='https://github.com/artemsen/swayimg'
 source=("$pkgname-$pkgver.tar.gz::https://github.com/artemsen/swayimg/archive/v$pkgver.tar.gz")
-sha256sums=('afcf69d9c69d826e010065dd08732fc5b0c0402c26f98d977f27b77ebd2bdee1')
+sha256sums=('d82fb8e75cdabf470677797444ec19b00c83e0e06d80be774727194404624e7e')
 
 build() {
     arch-meson build ${pkgname}-${pkgver} \
