@@ -2,7 +2,7 @@
 
 _name=PyMuPDF
 pkgname=python-pymupdf
-pkgver=1.23.19
+pkgver=1.23.21
 pkgrel=1
 pkgdesc="Python bindings for MuPDF's rendering library"
 arch=(x86_64)
@@ -39,8 +39,8 @@ optdepends=(
 source=(
   $_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
 )
-sha512sums=('1656f0d7206bc10fe68954d7541cbcb025c3d2e98ffd67156b4b73093e8b3a8c9b0b434499d55e14130690b06bfe805e121a167a4c8cc6c7af7695c0c986628b')
-b2sums=('0f6c2707f2ef342af4b13e83d4698ceb8a261a35939f17459dcf53d1d2fd16aa809e3ed7212d186ef973ac93b1c2f791a94df0143e6c043892b5305da7350398')
+sha512sums=('eaae1adc10bc1ad31d4137b390fdb0b8d94d6d420feeb63ab544a740178031e04c71bc0d63f2d4b3bc2b016a2f57286961d28a2b7c0d0f74fd343b7cadd276a9')
+b2sums=('aa940aa5bc475408e827ac6361cb038ac8f74fd096a583c4c42fac792d848766b78ad0fc63bdd40a3694d9cb2cd476df599413e29fc6f61559fdfd435b3f97b6')
 
 prepare() {
   # remove bundled mupdf sources
