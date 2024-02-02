@@ -3,7 +3,7 @@
 
 _pyname=nh3
 pkgname=python-$_pyname
-pkgver=0.2.14
+pkgver=0.2.15
 pkgrel=1
 pkgdesc='Ammonia HTML sanitizer Python binding'
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(python-build
              python-installer
              python-maturin)
 source=(https://github.com/messense/nh3/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('fdce9fa1cbcd6bfa73a0040ad6a40d2a5f753d95a4ff345d49b5044cfd74ca5e')
+sha256sums=('48d5bd02a4e598d07b4e43f43652356c8670d37ec9742cc5fd0988492439a8d7')
 
 build() {
   cd $_pyname-$pkgver 
