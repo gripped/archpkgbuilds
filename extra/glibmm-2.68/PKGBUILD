@@ -7,12 +7,12 @@ pkgname=(
   glibmm-2.68
   glibmm-2.68-docs
 )
-pkgver=2.78.0
+pkgver=2.78.1
 pkgrel=1
 pkgdesc="C++ bindings for GLib"
 url="https://www.gtkmm.org/"
 arch=(x86_64)
-license=(LGPL)
+license=(LGPL-2.1-or-later)
 depends=(
   glib2
   libsigc++-3.0
@@ -26,7 +26,7 @@ makedepends=(
 )
 checkdepends=(glib-networking)
 options=(!emptydirs)
-_commit=9c376086c1921dcdd99445aef5e7334c652cc77d  # tags/2.78.0^0
+_commit=6b8a1a603bb0078716d36a70e1be82407e8e38cb  # tags/2.78.1^0
 source=("git+https://gitlab.gnome.org/GNOME/glibmm.git#commit=$_commit")
 b2sums=('SKIP')
 
