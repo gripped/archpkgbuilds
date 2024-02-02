@@ -1,0 +1,43 @@
+# Maintainer: Christian Hesse <eworm@archlinux.org>
+
+pkgname=lib32-libnghttp3
+pkgver=1.1.0
+pkgrel=2
+pkgdesc="HTTP/3 library written in C (32-bit)"
+url='https://github.com/ngtcp2/nghttp3'
+arch=('x86_64')
+license=('MIT')
+depends=('lib32-glibc' 'libnghttp3')
+provides=('libnghttp3.so')
+validpgpkeys=('F4F3B91474D1EB29889BD0EF7E8403D5D673C366') # Tatsuhiro Tsujikawa <tatsuhiro.t@gmail.com>
+source=("https://github.com/ngtcp2/nghttp3/releases/download/v${pkgver}/nghttp3-${pkgver}.tar.xz"{,.asc})
+sha256sums=('f7ffcf21fb889e7d6a8422a3620deb52a8516364805ec3bd7ef296628ca595cb'
+            'SKIP')
+
+prepare() {
+  cd nghttp3-${pkgver}
+  autoreconf -i
+}
+
+build() {
+  cd nghttp3-${pkgver}
+  export CC='gcc -m32'
+  export CXX='g++ -m32'
+  export PKG_CONFIG_PATH='/usr/lib32/pkgconfig'
+  ./configure \
+    --prefix=/usr \
+    --libdir=/usr/lib32
+  make
+}
+
+check() {
+  cd nghttp3-${pkgver}
+  make check
+}
+
+package() {
+  cd nghttp3-${pkgver}/lib
+  make DESTDIR="${pkgdir}" install
+  rm -r "${pkgdir}"/usr/include
+  install -Dm644 ../COPYING -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
