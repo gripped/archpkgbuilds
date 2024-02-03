@@ -3,7 +3,7 @@
 
 pkgname=swayimg
 pkgver=2.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A lightweight image viewer for Wayland display servers'
 arch=('x86_64')
 license=('MIT')
@@ -64,5 +64,4 @@ package(){
     cd "$pkgname-$pkgver"
     install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
     install -Dm644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
-    install -Dm644 extra/swayimgrc -t "$pkgdir/usr/share/doc/$pkgname/"
 }
