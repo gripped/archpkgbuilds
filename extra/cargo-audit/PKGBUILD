@@ -2,7 +2,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=cargo-audit
-pkgver=0.18.3
+pkgver=0.19.0
 pkgrel=1
 pkgdesc="Audit Cargo.lock for crates with security vulnerabilities"
 url="https://github.com/RustSec/cargo-audit"
@@ -11,8 +11,8 @@ arch=('x86_64')
 license=('MIT' 'APACHE')
 options=(!lto)
 source=("https://github.com/RustSec/rustsec/archive/${pkgname}/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('db58c773e4a6d308ec71ce7119435c9139d271bf60bcf0e42b6ba9bb1aa6879f')
-b2sums=('a3fd2dd5d2382fb5dc4733af86a3a9535154e4f8f846f8c8f013f270bd4ac3932f8070ecf67ada43d4b746c29be444858cb09dcd1e01af70f757032d34d40c05')
+sha256sums=('0fbf088247ab2aa0da9d42dcf8be4bd10d05296e6599a2ae91a94d25aba6d37b')
+b2sums=('696d2ec6d246f1849806e4c8f4e50ebff214b5f06790492e0f32141b79df1ab029163e4961de71562e4731379396d23d42911ff93f6658241711ce2f8017ea86')
 
 prepare() {
   cd rustsec-${pkgname}-v${pkgver}/${pkgname}
