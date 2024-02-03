@@ -3,7 +3,7 @@
 # Contributor: killruana <killruana@gmail.com>
 
 pkgname=yosys
-pkgver=0.34
+pkgver=0.37
 pkgrel=1
 pkgdesc='A framework for RTL synthesis'
 arch=('x86_64')
@@ -19,7 +19,7 @@ optdepends=('graphviz: Schematics display support'
             'z3: alternative solver for yosys-smtbmc')
 options=('!lto') # getting SIGSEGV when running the tests with LTO
 source=("https://github.com/cliffordwolf/yosys/archive/$pkgname-$pkgver.tar.gz")
-sha512sums=('abed6ba5dcc423b2d35026ab9a296d73671b9f0331415dc674770fca60b4244e7efb31d7c271485a41c9638522c8dc685096ebf832bff9fcb7af046261c19c07')
+sha512sums=('f06ad25fa78aa7ef0e582c78bf85caf93b96155414d328edac0c93d085020c95a2350e814dcea5ef514a89d24844b5581f268256571f1eaf5621e540c9c3caf7')
 
 _make() {
     local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
