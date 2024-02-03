@@ -1,8 +1,8 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=python-engineio
-pkgver=4.8.0
-pkgrel=2
+pkgver=4.8.2
+pkgrel=1
 pkgdesc='Python implementation of the Engine.IO realtime server'
 url='https://github.com/miguelgrinberg/python-engineio'
 arch=('any')
@@ -19,8 +19,8 @@ makedepends=('python-setuptools' 'python-sphinx' 'python-six' 'python-eventlet' 
 checkdepends=('python-pytest')
 options=('!makeflags')
 source=(https://github.com/miguelgrinberg/python-engineio/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('351d982bf729a9747215d5845d9b547ecc5dd031cb3c32cd98d75b42374455e625ba0a8f7edf0db63354f7d905eedeb749145a851f8744571f0f2ab9d1142b47')
-b2sums=('508c7303ee1020db27f7d8a26148b1748b9685f1d8fadb6abbe110e9b4acb85d6510c6bbc074ae0582efeab7c5b8e294eeed7115d34784bddd55f0b4bd20318f')
+sha512sums=('ad61794f4ebabdaca86e049f378818506f6d2dc0bc52a4a7687185c2ef11788652d55e397a7e45f666f8c4233e46be5b16b7fda38440e96d0a66116e9327c172')
+b2sums=('a985466a661c1ad1995999c1792758bc6a412097911f64cbb8a38af362b19f5a2abd7aa0fb1e6806310f766db0fc4486ae2793ad4fc8804fe580540daff73a3a')
 
 build() {
   cd ${pkgname}-${pkgver}
