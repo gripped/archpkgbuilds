@@ -1,0 +1,22 @@
+pkgbase = cups-browsed
+	pkgdesc = a helper daemon to browse the network for remote CUPS queues and IPP network printers
+	pkgver = 2.0.0
+	pkgrel = 2
+	url = https://wiki.linuxfoundation.org/openprinting/cups-filters
+	arch = x86_64
+	license = Apache-2.0 WITH LLVM-exception
+	makedepends = python
+	depends = libcups
+	depends = libcupsfilters
+	depends = libppd
+	depends = avahi
+	depends = glib2
+	depends = glibc
+	depends = libldap
+	backup = etc/cups/cups-browsed.conf
+	source = https://github.com/OpenPrinting/cups-browsed/releases/download/2.0.0/cups-browsed-2.0.0.tar.xz
+	source = 0001-Better-handle-damage-of-queues-created-by-cups-browsed.patch
+	sha256sums = 3a63793213f302787357f520a09e4aaae47aad67cd030d9b29de20e51649b38b
+	sha256sums = 9a66f9a3d806726a90bc180d7a3d8999c8c806e117c750a45c18b9d4795ce008
+
+pkgname = cups-browsed
