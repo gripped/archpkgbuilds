@@ -2,8 +2,8 @@
 # Reference: PKGBUILD(5)
 
 pkgname=inter-font
-pkgver=3.19
-pkgrel=3
+pkgver=4.0
+pkgrel=1
 pkgdesc='A typeface specially designed for user interfaces'
 url=https://github.com/rsms/inter/
 license=(custom:OFL)
@@ -11,7 +11,7 @@ license=(custom:OFL)
 arch=(any)
 source=("https://github.com/rsms/inter/releases/download/v$pkgver/Inter-$pkgver.zip")
 # Warning: checksums provided by packager, not upstream
-sha256sums=(150ab6230d1762a57bebf35dfc04d606ff91598a31d785f7f100356ecdcc0032)
+sha256sums=('ff970a5d4561a04f102a7cb781adbd6ac4e9b6c460914c7a101f15acb7f7d1a4')
 noextract=("Inter-$pkgver.zip")
 
 # Upstream dumps a *bunch* of stuff into the top level of the archive
@@ -24,6 +24,6 @@ prepare() {
 package() {
 	cd "inter-$pkgver"
 	install -d "$pkgdir/usr/share/fonts/inter"
-	install -m644 -t "$pkgdir/usr/share/fonts/inter" 'Inter Hinted for Windows'/Desktop/*.ttf
+	install -m644 -t "$pkgdir/usr/share/fonts/inter" extras/ttf/*.ttf
 	install -Dm644 LICENSE.txt "$pkgdir/usr/share/licenses/inter-font/LICENSE.txt"
 }
