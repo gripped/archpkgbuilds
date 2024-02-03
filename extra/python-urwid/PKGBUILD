@@ -5,8 +5,8 @@
 
 _name=urwid
 pkgname=python-urwid
-pkgver=2.4.1
-_commit=fd6e4462c21824641c7598b042820f1a98aae459
+pkgver=2.5.1
+_commit=58ce51af2551c0d7db5386f3283ea186cf11cfc0
 pkgrel=1
 pkgdesc='Curses-based user interface library'
 url='https://urwid.org/'
