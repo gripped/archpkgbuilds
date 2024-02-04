@@ -4,12 +4,13 @@
 
 pkgname=gitlab-runner
 pkgver=16.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc="The official GitLab CI runner written in Go"
 arch=('x86_64')
 url='https://gitlab.com/gitlab-org/gitlab-runner'
 license=('GPL3')
 depends=('ca-certificates' 'curl' 'git' 'glibc' 'tar')
+optdepends=('inetutils: hostname command')
 makedepends=('git' 'go' 'git' 'mercurial' 'gox')
 install=gitlab-runner.install
 replaces=('gitlab-ci-multi-runner')
