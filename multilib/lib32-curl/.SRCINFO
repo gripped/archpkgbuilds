@@ -1,7 +1,7 @@
 pkgbase = lib32-curl
 	pkgdesc = command line tool and library for transferring data with URLs (32-bit)
 	pkgver = 8.6.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://curl.se/
 	arch = x86_64
 	license = MIT
@@ -18,6 +18,8 @@ pkgbase = lib32-curl
 	depends = libidn2.so
 	depends = lib32-libnghttp2
 	depends = libnghttp2.so
+	depends = lib32-libnghttp3
+	depends = libnghttp3.so
 	depends = lib32-libpsl
 	depends = libpsl.so
 	depends = lib32-libssh2
@@ -26,7 +28,7 @@ pkgbase = lib32-curl
 	depends = libz.so
 	depends = lib32-zstd
 	depends = libzstd.so
-	source = git+https://github.com/bagder/curl.git#tag=8cd1397d3c5c9b1526c8d74530266a7a9a22294b?signed
+	source = git+https://github.com/curl/curl.git#tag=8cd1397d3c5c9b1526c8d74530266a7a9a22294b?signed
 	validpgpkeys = 27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2
 	sha512sums = SKIP
 
@@ -40,6 +42,8 @@ pkgname = lib32-curl
 	depends = libidn2.so
 	depends = lib32-libnghttp2
 	depends = libnghttp2.so
+	depends = lib32-libnghttp3
+	depends = libnghttp3.so
 	depends = lib32-libpsl
 	depends = libpsl.so
 	depends = lib32-libssh2

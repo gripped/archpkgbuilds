@@ -10,7 +10,7 @@ pkgname=(lib32-curl lib32-libcurl-compat lib32-libcurl-gnutls)
 _tag='8cd1397d3c5c9b1526c8d74530266a7a9a22294b' # git rev-parse v${_tag_name}
 _tag_name='8_6_0'
 pkgver="${_tag_name//_/.}"
-pkgrel=1
+pkgrel=2
 pkgdesc='command line tool and library for transferring data with URLs (32-bit)'
 arch=('x86_64')
 url='https://curl.se/'
@@ -20,13 +20,14 @@ depends=('curl'
          'lib32-krb5' 'libgssapi_krb5.so'
          'lib32-libidn2' 'libidn2.so'
          'lib32-libnghttp2' 'libnghttp2.so'
+         'lib32-libnghttp3' 'libnghttp3.so'
          'lib32-libpsl' 'libpsl.so'
          'lib32-libssh2' 'libssh2.so'
          'lib32-zlib' 'libz.so'
          'lib32-zstd' 'libzstd.so')
 makedepends=('git' 'patchelf' 'lib32-gnutls' 'lib32-openssl')
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
-source=("git+https://github.com/bagder/curl.git#tag=${_tag}?signed")
+source=("git+https://github.com/curl/curl.git#tag=${_tag}?signed")
 sha512sums=('SKIP')
 
 _backports=(
@@ -89,6 +90,7 @@ build() {
   "${srcdir}/curl"/configure \
     "${_configure_options[@]}" \
     --with-openssl \
+    --with-openssl-quic \
     --enable-versioned-symbols
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make -C lib
@@ -100,6 +102,7 @@ build() {
   "${srcdir}/curl"/configure \
     "${_configure_options[@]}" \
     --with-openssl \
+    --with-openssl-quic \
     --disable-versioned-symbols
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make -C lib
