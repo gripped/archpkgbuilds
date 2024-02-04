@@ -1,0 +1,32 @@
+pkgbase = python-basemap
+	pkgver = 1.4.0
+	pkgrel = 1
+	url = https://matplotlib.org/basemap/
+	arch = x86_64
+	license = MIT
+	makedepends = cython0
+	makedepends = python-setuptools
+	makedepends = python-matplotlib
+	makedepends = geos
+	makedepends = shapelib
+	makedepends = python-numpy
+	makedepends = python-pyproj
+	source = python-basemap-1.4.0.tar.gz::https://github.com/matplotlib/basemap/archive/v1.4.0.tar.gz
+	source = LICENSE
+	sha256sums = a5cec3035825608802d672e6ccf7d85fd26db6994ca7c9cf5824121d5c923a4f
+	sha256sums = 0deac85afb0740df7626b6d8d7aa4b8814bbe9a412fb1a0e5962895d17e63add
+
+pkgname = python-basemap
+	pkgdesc = Toolkit for plotting data on map projections
+	depends = python-basemap-common
+	depends = python-matplotlib
+	depends = geos
+	depends = shapelib
+	depends = python-numpy
+	depends = python-pyproj
+	optdepends = python-owslib: needed for the BaseMap.wmsimage function
+	optdepends = python-pillow: needed for Basemap warpimage, bluemarble, shadedrelief and etop methods
+
+pkgname = python-basemap-common
+	pkgdesc = Data files for python-basemap
+	license = GPL2
