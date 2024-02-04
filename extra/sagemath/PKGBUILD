@@ -7,7 +7,7 @@
 
 pkgname=sagemath
 pkgver=10.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Open Source Mathematics Software, free alternative to Magma, Maple, Mathematica, and Matlab'
 arch=(x86_64)
 url='http://www.sagemath.org'
@@ -95,6 +95,7 @@ optdepends=('benzene: for generating fusenes and benzenoids'
             'cython: to compile cython code'
             'dot2tex: for displaying some diagrams'
             'ffmpeg: to export animations to video'
+            'fricas: FriCAS interface'
             'imagemagick: to show animations'
             'jmol: alternative 3D plot engine'
             'jupyter-jsmol: alternative 3D plot engine in the Jupyter notebook'
@@ -158,7 +159,7 @@ prepare(){
 }
 
 build() {
-  export SAGE_NUM_THREADS=10
+  export SAGE_NUM_THREADS=$(($(nproc)/2))
   export PYTHONPATH="$PWD"/sage-$pkgver/pkgs/sage-setup
 
   for _pkg in ${_pkgs[@]}; do
