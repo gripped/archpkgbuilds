@@ -3,12 +3,12 @@
 pkgname=memray
 pkgver=1.11.1
 _tag_commit=bb973ffca702c0b7151bed5604286ae0193a1cc1 # git show-ref -d v${_tag_name}
-pkgrel=1
+pkgrel=2
 pkgdesc="A memory profiler for Python"
 arch=('x86_64')
 url="https://github.com/bloomberg/memray"
 license=('Apache')
-depends=('python' 'libunwind' 'python-rich' 'python-jinja' 'lz4' 'ipython')
+depends=('python' 'libunwind' 'python-rich' 'python-jinja' 'lz4' 'ipython' 'python-textual')
 makedepends=('git' 'python-setuptools-scm' 'python-build' 'python-installer' 'python-wheel' 'cython' 'npm' 'python-pkgconfig')
 checkdepends=('python-pytest')
 source=("git+$url.git#tag=${_tag_commit}?signed")
