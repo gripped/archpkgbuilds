@@ -2,7 +2,7 @@
 
 _name=pydantic-extra-types
 pkgname=python-pydantic-extra-types
-pkgver=2.4.1
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="Extra pydantic types"
 arch=(any)
@@ -20,19 +20,21 @@ makedepends=(
 )
 checkdepends=(
   python-dirty-equals
+  python-pendulum
   python-phonenumbers
   python-pycountry
   python-pytest
   python-ulid
 )
 optdepends=(
+  'python-pendulum: for datetime support'
   'python-phonenumbers: for phone number support'
   'python-pycountry: for country code support'
   'python-ulid: for ULID support'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('4ce77cc6b1ff6b76c95472e70440ce4f7d91fba45471c184c26d1d675ee024b561abd8ea2220a2f5e21d1fe0d47d64fd5088f74e8668af012ea1bb5727499851')
-b2sums=('2a6142e5015c2284a651d706747b3fa487a0c789965583047b9bc4370d1ea119f883e043d8a948cd636517c7c1c495463ab33a5831d726c924854e5d75937ee7')
+sha512sums=('873efb8173944dd3826f19f168268c4df313eeae991725c6df6404d5649478df2d405042e4e696f1e5278a124c3eec8f0809396353ad295e2f86284c30863746')
+b2sums=('38881a5b9e31b26fc171c18798983c5aa086335d3052c4d9fa95acb7a582db95511b85b567265165a1c4af02810e408e5477513520058ab018d55d0c8a9105af')
 
 build() {
   cd $_name-$pkgver
