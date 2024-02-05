@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 pkgname=rocprofiler
-pkgver=5.7.1
+pkgver=6.0.0
 pkgrel=1
 pkgdesc="ROC profiler library. Profiling with perf-counters and derived metrics."
 arch=('x86_64')
@@ -13,22 +13,12 @@ makedepends=('cmake' 'rocm-llvm' 'hsa-rocr' 'rocm-dbgapi' 'gtest' 'rocm-smi-lib'
 _git='https://github.com/ROCm-Developer-Tools/rocprofiler'
 _roctracer='https://github.com/ROCm-Developer-Tools/roctracer'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz"
-        "$pkgname-roctracer-$pkgver.tar.gz::$_roctracer/archive/refs/tags/rocm-$pkgver.tar.gz"
-        "$pkgname-stdint.patch"
-        "$pkgname-disable-tests.patch")
-sha256sums=('2fb7158592d89312ba419a272d907d8849373c0a676a83dd03c32b9942dfd27a'
-            'ec0453adac7e62b142eb0df1e1e2506863aac4c3f2ce9d117c3184c08c0c6b48'
-            '4265fa55b298846404be4e047eafc938e45043e0dd38b2b1d19ba810c5a4562d'
-            '104871e46ba8ebb41b3fbc5c879ace6163cfdb9195c5c0240ea5860290dfd630')
+        "$pkgname-roctracer-$pkgver.tar.gz::$_roctracer/archive/refs/tags/rocm-$pkgver.tar.gz")
+sha256sums=('6aca327a6ba302b5957002e55ac640dd185d51a354da3859e957448a5fc36b14'
+            '941166a0363c5689bfec118d54e986c43fb1ec8cbf18d95721d9a824bd52c0f8')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 _dirtracer="$(basename "$_roctracer")-$(basename "${source[1]}" ".tar.gz")"
-
-prepare() {
-    cd "$_dirname"
-    patch -Np1 -i "$srcdir/$pkgname-stdint.patch"
-    patch -Np1 -i "$srcdir/$pkgname-disable-tests.patch"
-}
 
 build() {
   HIP_CLANG_PATH=/opt/rocm/llvm/bin \
@@ -37,7 +27,8 @@ build() {
     -B build \
     -S "$_dirname" \
     -DCMAKE_INSTALL_PREFIX=/opt/rocm \
-    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DROCPROFILER_BUILD_TESTS=OFF \
     -DGPU_TARGETS="gfx803 gfx900 gfx906 gfx908 gfx90a gfx940 gfx941 gfx942 gfx1030 gfx1100 gfx1101 gfx1102" \
     -DPROF_API_HEADER_PATH="$srcdir/$_dirtracer/inc/ext"
   cmake --build build
