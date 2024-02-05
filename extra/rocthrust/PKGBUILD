@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 pkgname=rocthrust
-pkgver=5.7.1
+pkgver=6.0.0
 pkgrel=1
 pkgdesc='Port of the Thrust parallel algorithm library atop HIP/ROCm'
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('hip' 'rocprim')
 makedepends=('rocm-cmake')
 _git='https://github.com/ROCmSoftwarePlatform/rocThrust'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('b7cb9ea6c42b2c6b610c34d2c438443e0f99245bd391aff18591949bf1cd53ee')
+sha256sums=('a3fdafe4b6124118e07f23a3b0270d91740da324f61aaa3e8c034da08d9312b1')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 build() {
