@@ -1,16 +1,18 @@
 pkgbase = rocm-llvm
 	pkgdesc = Radeon Open Compute - LLVM toolchain (llvm, clang, lld)
-	pkgver = 5.7.1
-	pkgrel = 1
+	pkgver = 6.0.0
+	pkgrel = 2
 	url = https://rocm.docs.amd.com/en/latest/reference/rocmcc/rocmcc.html
 	arch = x86_64
-	license = custom:Apache 2.0 with LLVM Exception
+	license = Apache-2.0 WITH LLVM-exception
 	makedepends = cmake
 	makedepends = python
 	makedepends = ninja
 	options = staticlibs
 	options = !lto
-	source = rocm-llvm-5.7.1.tar.gz::https://github.com/RadeonOpenCompute/llvm-project/archive/rocm-5.7.1.tar.gz
-	sha256sums = 6b54c422e45ad19c9bf5ab090ec21753e7f7d854ca78132c30eb146657b168eb
+	source = rocm-llvm-6.0.0.tar.gz::https://github.com/ROCm/llvm-project/archive/rocm-6.0.0.tar.gz
+	source = rocm-llvm-fix-segfault.patch
+	sha256sums = c673708d413d60ca8606ee75c77e9871b6953c59029c987b92f2f6e85f683626
+	sha256sums = 4d3f198c5422e9987f442c20963223c39b1548ffa00b6c9db81af5070278ce03
 
 pkgname = rocm-llvm
