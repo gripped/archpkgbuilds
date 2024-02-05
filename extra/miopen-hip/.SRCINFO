@@ -1,6 +1,6 @@
 pkgbase = miopen-hip
 	pkgdesc = AMD's Machine Intelligence Library (HIP backend)
-	pkgver = 5.7.1
+	pkgver = 6.0.0
 	pkgrel = 1
 	url = https://rocmsoftwareplatform.github.io/MIOpen/doc/html/
 	arch = x86_64
@@ -19,13 +19,14 @@ pkgbase = miopen-hip
 	depends = rocm-clang-ocl
 	depends = hip
 	depends = composable-kernel
+	depends = roctracer
 	depends = sqlite
 	provides = miopen
 	conflicts = miopen
 	options = !lto
-	source = miopen-hip-5.7.1.tar.gz::https://github.com/ROCmSoftwarePlatform/MIOpen/archive/rocm-5.7.1.tar.gz
-	source = miopen-hip-rocmlir-5.7.1.tar.gz::https://github.com/ROCmSoftwarePlatform/rocMLIR/archive/rocm-5.7.1.tar.gz
-	sha256sums = 912a658fe21ce6f1982b0f2ff251c3f7bb618f2e7e9876d983bcb54e3cd7129e
-	sha256sums = 87b1d28db1ccc921aed31f06fb0df4e85881f8e5fb5ea8d3f9bb9d9df476637e
+	source = miopen-hip-6.0.0.tar.gz::https://github.com/ROCmSoftwarePlatform/MIOpen/archive/rocm-6.0.0.tar.gz
+	source = miopen-hip-rocmlir-6.0.0.tar.gz::https://github.com/ROCmSoftwarePlatform/rocMLIR/archive/rocm-6.0.0.tar.gz
+	sha256sums = a0718a48353be30ff98118ade511f0c1b454e394d8f934aefe7dd6946562b2e9
+	sha256sums = 128915abdceaf5cef26a717d154f2b2f9466f6904f4490f158038878cedbf618
 
 pkgname = miopen-hip

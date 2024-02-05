@@ -3,24 +3,23 @@
 # Contributor: JP-Ellis <josh@jpellis.me>
 
 pkgname=miopen-hip
-pkgver=5.7.1
+pkgver=6.0.0
 pkgrel=1
 pkgdesc="AMD's Machine Intelligence Library (HIP backend)"
 arch=('x86_64')
 url='https://rocmsoftwareplatform.github.io/MIOpen/doc/html/'
 license=('MIT')
-depends=('rocblas' 'rocm-clang-ocl' 'hip' 'composable-kernel' 'sqlite')
+depends=('rocblas' 'rocm-clang-ocl' 'hip' 'composable-kernel' 'roctracer' 'sqlite')
 makedepends=('cmake' 'ninja' 'rocm-cmake' 'boost' 'lbzip2'
              'nlohmann-json' 'eigen' 'half' 'functional-plus' 'frugally-deep')
 provides=('miopen')
 conflicts=('miopen')
 _git='https://github.com/ROCmSoftwarePlatform/MIOpen'
 _mlir='https://github.com/ROCmSoftwarePlatform/rocMLIR'
-_mlirver=5.7.1
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
-        "$pkgname-rocmlir-$pkgver.tar.gz::$_mlir/archive/rocm-$_mlirver.tar.gz")
-sha256sums=('912a658fe21ce6f1982b0f2ff251c3f7bb618f2e7e9876d983bcb54e3cd7129e'
-            '87b1d28db1ccc921aed31f06fb0df4e85881f8e5fb5ea8d3f9bb9d9df476637e')
+        "$pkgname-rocmlir-$pkgver.tar.gz::$_mlir/archive/rocm-$pkgver.tar.gz")
+sha256sums=('a0718a48353be30ff98118ade511f0c1b454e394d8f934aefe7dd6946562b2e9'
+            '128915abdceaf5cef26a717d154f2b2f9466f6904f4490f158038878cedbf618')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
 _mlirname="$(basename "$_mlir")-$(basename "${source[1]}" .tar.gz)"
@@ -47,7 +46,6 @@ build() {
     -S "$_mlirname" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DMLIR_MIOPEN_SQLITE_ENABLED=ON \
     -DROCM_TEST_CHIPSET=gfx900 \
     -DBUILD_FAT_LIBROCKCOMPILER=ON
   cmake --build build-mlir
