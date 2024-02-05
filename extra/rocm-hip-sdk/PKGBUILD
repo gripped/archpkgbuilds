@@ -8,8 +8,8 @@ pkgname=(rocm-hip-sdk
          rocm-language-runtime
          rocm-ml-sdk
          rocm-ml-libraries)
-pkgver=5.7.1
-pkgrel=2
+pkgver=6.0.0
+pkgrel=1
 arch=('x86_64')
 license=('custom:None')
 url='https://rocm.docs.amd.com/'
@@ -25,6 +25,7 @@ package_rocm-hip-sdk() {
              'hipfft'
              'hipsparse'
              'hipsolver'
+             'hiprand'
              'miopen-hip'
              'rccl'
              'rocalution'
@@ -45,6 +46,7 @@ package_rocm-hip-libraries() {
              'hipfft'
              'hipsparse'
              'hipsolver'
+             'hiprand'
              'rccl'
              'rocalution'
              'rocblas'
