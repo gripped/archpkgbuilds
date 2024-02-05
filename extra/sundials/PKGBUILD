@@ -3,7 +3,7 @@
 
 pkgname=sundials
 pkgver=6.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Suite of nonlinear differential/algebraic equation solvers'
 arch=(x86_64)
 url='https://computing.llnl.gov/projects/sundials'
@@ -25,6 +25,7 @@ build() {
     -DENABLE_OPENMP=ON \
     -DENABLE_KLU=ON \
     -DKLU_LIBRARY_DIR=/usr/lib \
+    -DKLU_INCLUDE_DIR=/usr/include/suitesparse \
     -DEXAMPLES_INSTALL_PATH=/usr/share/sundials/examples
   cmake --build build
 }
