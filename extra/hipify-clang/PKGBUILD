@@ -1,6 +1,6 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 pkgname=hipify-clang
-pkgver=5.7.1
+pkgver=6.0.0
 pkgrel=1
 pkgdesc='Convert CUDA to Portable C++ Code'
 arch=('x86_64')
@@ -11,7 +11,7 @@ makedepends=('cmake')
 _git='https://github.com/ROCm-Developer-Tools/HIPIFY'
 source=("${pkgname}-${pkgver}.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
         "hipify-fix-install-cmake.patch")
-sha256sums=('43121e62233dab010ab686d6805bc2d3163f0dc5e89cc503d50c4bcd59eeb394'
+sha256sums=('91bed2b72a6684a04e078e50b12b36b93f64ff96523283f4e5d9a33c11e6b967'
             '64d422e402b2f93cc83df2b762cf9f06f2b9b358de2643abff78298f875acd0a')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
@@ -28,6 +28,7 @@ build() {
                     -Wno-dev
                     -DCMAKE_BUILD_TYPE=None
                     -DCMAKE_INSTALL_PREFIX=/opt/rocm
+                    -DCMAKE_PREFIX_PATH=/opt/rocm/lib/llvm/lib/cmake
                    )
   cmake "${cmake_args[@]}"
   cmake --build build
