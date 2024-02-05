@@ -5,18 +5,25 @@
 # Contributor: TimothÃ©e Ravier <tim@siosm.fr>
 
 pkgbase=qxmpp
-pkgname=(qxmpp-qt5 qxmpp-qt6)
-pkgver=1.5.5
+pkgname=(qxmpp-qt5
+         qxmpp-qt6)
+pkgver=1.5.6
 pkgrel=1
 pkgdesc='Cross-platform C++ XMPP client and server library'
 arch=(x86_64)
 url='https://github.com/qxmpp-project/qxmpp'
-license=(LGPL2.1)
-depends=(gstreamer)
-makedepends=(cmake qca-qt5 qca-qt6 libomemo-c)
+license=(LGPL-2.1-or-later)
+depends=(gcc-libs
+         glib2
+         glibc
+         gstreamer)
+makedepends=(cmake
+             libomemo-c
+             qca-qt5
+             qca-qt6)
 optdepends=('libomemo-c: OMEMO support')
 source=(https://github.com/qxmpp-project/qxmpp/archive/v$pkgver/$pkgbase-$pkgver.tar.gz)
-sha256sums=('b25fba89432c4fd72489d1844f683bfbf4e5aa4cfcfda7a982d6019f8e4529f8')
+sha256sums=('5af37cfbe878284e12babf4cd5f07109198e7e3dd3f1f78dc3eef351b6614a48')
 
 build() {
   cmake -B build5 -S $pkgbase-$pkgver \
@@ -39,11 +46,13 @@ build() {
 }
 
 package_qxmpp-qt5() {
-  depends+=(qca-qt5)
+  depends+=(qt5-base
+            qca-qt5)
   DESTDIR="$pkgdir" cmake --install build5
 }
 
 package_qxmpp-qt6() {
-  depends+=(qca-qt6)
+  depends+=(qt6-base
+            qca-qt6)
   DESTDIR="$pkgdir" cmake --install build6
 }
