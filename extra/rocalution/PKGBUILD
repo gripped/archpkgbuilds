@@ -1,8 +1,8 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 pkgname=rocalution
-pkgver=5.7.1
-pkgrel=1
+pkgver=6.0.0
+pkgrel=2
 pkgdesc='Next generation library for iterative sparse solvers for ROCm platform'
 arch=('x86_64')
 url='https://rocalution.readthedocs.io/en/master'
@@ -12,17 +12,10 @@ makedepends=('rocm-cmake' 'openmp' 'openmpi')
 optdepends=('openmp: Multithreaded CPU applications'
             'openmpi: Distributed CPU and multi GPU applications')
 _git='https://github.com/ROCmSoftwarePlatform/rocALUTION'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
-        "rocalution-disable-hip-property.patch")
-sha256sums=('b95afa1285759843c5fea1ad6e1c1edf283922e0d448db03a3e1f42b6942bc24'
-            '7335ce3fb8a8663cd2d393632fecab261239de3cbd00e7e7bbda2e1d217c7ec2')
+source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
+sha256sums=('cabf37691b8db00c82bda49c7dcfaefd9b9067b7d097afa43b7a5f86c45bff99')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
-
-prepare() {
-  cd "$_dirname"
-  patch -Np1 -i "$srcdir/rocalution-disable-hip-property.patch"
-}
 
 build() {
   # Compile source code for supported GPU archs in parallel
