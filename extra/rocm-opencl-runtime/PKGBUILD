@@ -3,7 +3,7 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=rocm-opencl-runtime
-pkgver=5.7.1
+pkgver=6.0.0
 pkgrel=1
 pkgdesc='OpenCL implementation for AMD'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('hsakmt-roct' 'hsa-rocr' 'comgr' 'mesa' 'opencl-icd-loader' 'opencl-hea
 makedepends=('rocm-cmake')
 provides=('opencl-driver')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('c78490335233a11b4d8a5426ace7417c555f5e2325de10422df06c0f0f00f7eb')
+sha256sums=('798b55b5b5fb90dd19db54f136d8d8e1da9ae1e408d5b12b896101d635f97e50')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
 
 build() {
