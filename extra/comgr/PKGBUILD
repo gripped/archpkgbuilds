@@ -3,15 +3,15 @@
 
 pkgname=comgr
 pkgdesc='Compiler support library for ROCm LLVM'
-pkgver=5.7.1
+pkgver=6.0.0
 pkgrel=1
 arch=('x86_64')
 url='https://github.com/RadeonOpenCompute/ROCm-CompilerSupport'
-license=('custom:NCSAOSL')
+license=('NCSA')
 depends=('rocm-device-libs')
 makedepends=('rocm-cmake' 'rocm-llvm')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('3b9433b4a0527167c3e9dfc37a3c54e0550744b8d4a8e1be298c8d4bcedfee7c')
+sha256sums=('04353d27a512642a5e5339532a39d0aabe44e0964985de37b150a2550385800a')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
 
 build() {
