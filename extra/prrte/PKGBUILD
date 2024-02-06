@@ -4,7 +4,7 @@
 pkgbase=prrte
 pkgname=(prrte{,-docs})
 pkgver=3.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc="PMIx Reference RunTime Environment"
 arch=(x86_64)
 url="https://github.com/openpmix/prrte"
@@ -16,7 +16,6 @@ makedepends=(
   openpmix
   perl
 )
-conflicts=(putty)  # putty also provides a pterm: https://gitlab.archlinux.org/archlinux/packaging/packages/prrte/-/issues/1
 source=($pkgname-$pkgver.tar.gz::$url/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
 sha512sums=('b2443fa225b279ab31a5714b3f89c50e1b12667bc58357f885eee1e4fb8a6d22e533dea5cc2a2b6618334e0ed13b5dbc4c3ea88446dd454480f4300e08293a4d')
 b2sums=('5c68f6ca10089cc13fc326c2e65c86254f8063a4b5d3844c26c77d9ed47f4a939d72dd668959f7351a95144bf8c6289b5223cc262c8847913430263bcb6b77ac')
@@ -76,6 +75,10 @@ package_prrte() {
     _pick $pkgbase-docs usr/share/{doc,prte/rst}
   )
   install -vDm 644 $pkgname-$pkgver/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+
+  # avoid a conflict with putty which also provides pterm: https://gitlab.archlinux.org/archlinux/packaging/packages/prrte/-/issues/1
+  mv "$pkgdir"/usr/bin/{,prrte-}pterm
+  mv "$pkgdir"/usr/share/man/man1/{,prrte-}pterm.1
 }
 
 package_prrte-docs() {
