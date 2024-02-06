@@ -1,7 +1,7 @@
 pkgbase = xfce4-terminal
 	pkgdesc = A modern terminal emulator primarily for the Xfce desktop environment
 	pkgver = 1.1.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://docs.xfce.org/apps/terminal/start
 	arch = x86_64
 	groups = xfce4
@@ -12,6 +12,8 @@ pkgbase = xfce4-terminal
 	depends = gtk-layer-shell
 	depends = hicolor-icon-theme
 	source = https://archive.xfce.org/src/apps/xfce4-terminal/1.1/xfce4-terminal-1.1.2.tar.bz2
+	source = xfce4-terminal-wrong-assert.patch::https://gitlab.xfce.org/apps/xfce4-terminal/-/commit/177fda86451c.patch
 	sha256sums = 79a85ee216502c7248e04d560adf8fef86b9d0e047f81e9ea4fe26fbda34d810
+	sha256sums = 81d213427d307a4f428ea7dbfd217dec15b80d187002845b0e1c1873431e14b7
 
 pkgname = xfce4-terminal
