@@ -5,7 +5,7 @@
 _upstream_name=license-list-data
 _upstream_version=3.22
 pkgname=licenses
-pkgver=20240201
+pkgver=20240206
 pkgrel=1
 pkgdesc="A set of common license files"
 arch=(any)
@@ -142,6 +142,7 @@ package() {
     GPL-3.0-linking-exception
     GPL-3.0-linking-source-exception
     LGPL-3.0-linking-exception
+    LLGPL
     Linux-syscall-note
     MPL-2.0-no-copyleft-exception
   )
