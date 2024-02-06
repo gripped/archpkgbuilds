@@ -1,7 +1,7 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=cilium-cli
-pkgver=0.15.20
+pkgver=0.15.22
 pkgrel=1
 pkgdesc="install, manage & troubleshoot Kubernetes clusters running Cilium"
 arch=("x86_64")
@@ -10,7 +10,7 @@ license=("APACHE")
 depends=("glibc")
 makedepends=("go")
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('75853e3fd1ed0d060cebb1f13becae61d848dcf6f6122c6aeaf561cee62fc382')
+sha256sums=('e6bd80d865cbe0bb17ef08bb26e2b3bf223350edbb35f3e5d30b543baf22a6b9')
 
 build() {
 	cd "$pkgname-$pkgver"
