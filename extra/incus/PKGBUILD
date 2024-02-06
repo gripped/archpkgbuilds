@@ -7,7 +7,7 @@
 
 pkgbase=incus
 pkgname=(incus incus-tools)
-pkgver=0.5
+pkgver=0.5.1
 pkgrel=1
 pkgdesc="Powerful system container and virtual machine manager"
 arch=('x86_64')
@@ -30,7 +30,7 @@ optdepends=(
     'apparmor: apparmor support'
     'xdelta3: support delta downloads of images'
 )
-source=("https://github.com/lxc/incus/releases/download/v${pkgver}.0/${pkgname}-${pkgver}.tar.xz"{,.asc}
+source=("https://github.com/lxc/incus/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz"{,.asc}
         "incus.socket"
         "incus.service"
         "incus-user.socket"
@@ -38,7 +38,7 @@ source=("https://github.com/lxc/incus/releases/download/v${pkgver}.0/${pkgname}-
         "incus.sysusers")
 validpgpkeys=('602F567663E593BCBD14F338C638974D64792D67'  # Stéphane Graber <stgraber@stgraber.org>
              )
-sha256sums=('43c29ad1bac5c906db0e283c0b879402e24603fc81d1aef4a0e38e660f51a80a'
+sha256sums=('99621ccf3f9edc10203ec29290f6686fcfd5e71be8fa9155dec051d3ff00d9f1'
             'SKIP'
             '602a8035cc51b8e0c4ca265e31ebf96c7977db4239d384d8f60fed0d2d0317c4'
             '646b0a9b38954890bc8706b41dfb93c7fdc83cbee1a3632c7258d77a1fddd725'
