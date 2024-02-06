@@ -1,9 +1,11 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Maintainer: Leonidas Spyropoulos <artafinde@archlinux.org>
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgbase=ruff
 pkgname=($pkgbase python-$pkgbase)
-pkgver=0.2.0
+pkgver=0.2.1
 pkgrel=1
 pkgdesc='An extremely fast Python linter, written in Rust'
 arch=(x86_64)
@@ -21,8 +23,8 @@ makedepends=(
 options=(!lto)
 _archive="$pkgbase-$pkgver"
 source=($url/archive/refs/tags/v$pkgver/$_archive.tar.gz)
-sha512sums=('a8ca0d4ce91ee313b2bf2f93002fb7073205668a281be74e85c87f3cdae571ccbb56e4a755100bc6090b29f1f5ab35b7314e29821bc9531c50cde05f58368edc')
-b2sums=('bbeea3372ce3d7279276a2a3e7b2a0c1c3ea99dd5263adbeb3977304972c1578add9d7d408c18ba31a2a063f64da89c9901d4f711b2ba1c03794f0ea53f97f03')
+sha512sums=('882db6c23bc22db7f5755ab1f03a8c39ae20b0af0100fdffbf760c3f241ba3f42c8f75fd7bec3e633997584d566c4d7248c564abfff02df2c93a21284ba20bc9')
+b2sums=('d682b0b5d706047eabdeb16dbad8b3de00f9b63e38b57994037e7ad72fce0155c8dcd1a7a38015525419c868a7de72e687cdb752b542d1429471bc477cec00f7')
 
 prepare() {
   cd "$_archive"
@@ -47,7 +49,7 @@ _package_common() {
 package_ruff() {
   cd "$_archive"
   _package_common
-  local _target="target/$CARCH-unknown-linux-gnu/release/ruff"
+  local _target="target/$(rustc -vV | sed -n 's/host: //p')/release/ruff"
   install -Dm0755 -t "$pkgdir/usr/bin/" "$_target"
   $_target --generate-shell-completion bash | install -Dm0644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/$pkgbase.bash"
   $_target --generate-shell-completion fish | install -Dm0644 /dev/stdin "$pkgdir/usr/share/fish/vendor_completions.d/$pkgbase.fish"
