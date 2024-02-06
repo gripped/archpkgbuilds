@@ -1,6 +1,6 @@
 pkgbase = dmd
 	pkgdesc = D programming language compiler and standard library
-	pkgver = 2.106.1
+	pkgver = 2.107.0
 	pkgrel = 1
 	epoch = 1
 	url = https://www.dlang.org
@@ -9,18 +9,18 @@ pkgbase = dmd
 	groups = dlang-dmd
 	makedepends = git
 	makedepends = ldc
-	noextract = dmd.2.106.1.linux.tar.xz
-	source = git+https://github.com/dlang/dmd.git#tag=v2.106.1
-	source = git+https://github.com/dlang/phobos.git#tag=v2.106.1
-	source = http://downloads.dlang.org/releases/2.x/2.106.1/dmd.2.106.1.linux.tar.xz
-	source = http://downloads.dlang.org/releases/2.x/2.106.1/dmd.2.106.1.linux.tar.xz.sig
+	noextract = dmd.2.107.0.linux.tar.xz
+	source = git+https://github.com/dlang/dmd.git#tag=v2.107.0
+	source = git+https://github.com/dlang/phobos.git#tag=v2.107.0
+	source = http://downloads.dlang.org/releases/2.x/2.107.0/dmd.2.107.0.linux.tar.xz
+	source = http://downloads.dlang.org/releases/2.x/2.107.0/dmd.2.107.0.linux.tar.xz.sig
 	source = dmd.conf
 	source = dmd-doc.desktop
 	validpgpkeys = F8A26D5D7572ECA06EC7973182C52E37A8BC8393
 	validpgpkeys = 30AE2FC45DE4153268ED91754CF5FA5326CC62EB
 	sha256sums = SKIP
 	sha256sums = SKIP
-	sha256sums = 706c11fc80aa5c25a6b26093bebc51914050e58335791badf5181a6dd8764287
+	sha256sums = 81a53663ed2e8272264b6a13a3535b81ed178e395121523db05480a4e69bfc43
 	sha256sums = SKIP
 	sha256sums = 3d639e89528fed1da90006f4dfb2b0fdc41308da5a96d953381ff4ccf257c035
 	sha256sums = 4b7b8722b3fa11082f0f332397b1b66c85b30ce773c43c3fedcba5768a1484b1
@@ -33,7 +33,7 @@ pkgname = dmd
 	optdepends = dtools: collection of useful utilities for development in D
 	optdepends = gcc-multilib: to cross-compile 32-bit applications
 	optdepends = dmd-docs: documentation and sample code for D
-	provides = d-compiler=2.106.1
+	provides = d-compiler=2.107.0
 	backup = etc/dmd.conf
 
 pkgname = dmd-docs
@@ -45,9 +45,9 @@ pkgname = libphobos
 	pkgdesc = The Phobos standard library for D programming language
 	license = Boost
 	depends = gcc-libs
-	provides = d-runtime=2.106.1
-	provides = d-stdlib=2.106.1
-	provides = libphobos-devel=2.106.1
+	provides = d-runtime=2.107.0
+	provides = d-stdlib=2.107.0
+	provides = libphobos-devel=2.107.0
 	conflicts = libphobos-devel
 	replaces = libphobos-devel
 	options = staticlibs
