@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 
 pkgname=hipfft
-pkgver=5.7.1
+pkgver=6.0.0
 pkgrel=1
 pkgdesc='rocFFT marshalling library.'
 arch=('x86_64')
@@ -10,10 +10,18 @@ license=('MIT')
 depends=('hip' 'rocfft')
 makedepends=('rocm-cmake' 'git')
 _git='https://github.com/ROCmSoftwarePlatform/hipFFT'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('33452576649df479f084076c47d0b30f6f1da34864094bce767dd9bf609f04aa')
+_rocfft='https://github.com/ROCmSoftwarePlatform/rocFFT'
+source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
+        "$pkgname-rocfft-$pkgver.tar.gz::$_rocfft/archive/rocm-$pkgver.tar.gz")
+sha256sums=('44f328b7862c066459089dfe62833cb7d626c6ceb71c57d8c7d6bba45dad491e'
+            'fb8ba56572702e77e4383d922cd1fee4ad3fa5f63a5ebdb3d9c354439a446992')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
+
+prepare() {
+  rm -r "$srcdir/$_dirname"/clients/rocFFT
+  ln -s "$srcdir"/rocFFT-rocm-$pkgver "$srcdir/$_dirname"/clients/rocFFT
+}
 
 build() {
   # -fcf-protection is not supported by HIP, see
