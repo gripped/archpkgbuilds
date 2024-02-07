@@ -4,7 +4,7 @@
 # Contributor: Moritz Maxeiner <moritz@ucworks.org>
 
 pkgname=dub
-pkgver=1.35.1
+pkgver=1.36.0
 pkgrel=1
 pkgdesc="Developer package manager for D programming language"
 arch=('x86_64')
@@ -14,7 +14,7 @@ groups=('dlang')
 makedepends=('ldc')
 depends=('curl')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/dlang/dub/archive/v$pkgver.tar.gz")
-sha512sums=('a371a7ec7003a4a4fb642a3567fce0685c99f4940a02de94d026bdc6fe4e84512b16e4bb57673da4d3b8e25177cc3df329da41862086cecc7b98aec1ebf9e4e7')
+sha512sums=('7a0e5c5432bbe6d67be8f98e8bc7ef0350e9eb358b13f795b9c18ef9a781dc3092074d88b7a846cf69e1ba648641c6acd8b766ec4bf119ce9b380d886f87b4c3')
 
 build() {
 	cd "$pkgname-$pkgver"
