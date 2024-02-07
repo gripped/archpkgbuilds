@@ -4,12 +4,12 @@
 # Contributor: Timothée Ravier <tim@siosm.fr
 
 pkgname=vaultwarden
-pkgver=1.30.2
+pkgver=1.30.3
 pkgrel=1
 pkgdesc='Unofficial Bitwarden compatible server written in Rust'
 arch=('x86_64')
 url='https://github.com/dani-garcia/vaultwarden'
-license=('GPL3')
+license=('AGPL-3.0-only')
 depends=(
   'glibc'
   'gcc-libs'
@@ -25,7 +25,7 @@ replaces=('bitwarden_rs')
 backup=('etc/vaultwarden.env')
 options=('!lto')
 install=$pkgname.install
-_commit='ad1d65bdf8a15d3bc1eac076ab4ab394777204ee'
+_commit='4438da39f9c9aa9d83d1dddbf06616ad287f70eb'
 source=(
   "$pkgname::git+$url#commit=$_commit"
   'systemd.service'
@@ -78,7 +78,7 @@ package() {
   cd "$pkgname"
 
   # configuration
-  install -Dm644 .env.template "$pkgdir"/etc/$pkgname.env
+  install -Dm640 .env.template "$pkgdir"/etc/$pkgname.env
 
   # binary
   install -vDm755 -t "$pkgdir/usr/bin" "target/release/$pkgname"
