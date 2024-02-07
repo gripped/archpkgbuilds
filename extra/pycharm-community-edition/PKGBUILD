@@ -5,8 +5,8 @@
 # Contributor: David Keogh <davekeogh@archlinux.us>
 
 pkgname=pycharm-community-edition
-pkgver=2023.3.2
-_build=233.13135.95
+pkgver=2023.3.3
+_build=233.13763.11
 _jrever=17
 _jdkver=17
 pkgrel=1
@@ -61,6 +61,9 @@ prepare() {
   # sed 's|intellij.pycharm.community.build|"$(cd "$(dirname "$0")"; pwd)/../" intellij.pycharm.community.build|' -i python/installers.cmd
   #sed 's|intellij.pycharm.community.build|"$(cd "$(dirname "$0")"; pwd)/../" intellij.pycharm.community.build|' -i python/plugin.cmd
   #patch -Np1 < "${srcdir}/enable-no-jdr.patch"
+  # https://youtrack.jetbrains.com/issue/IDEA-343872/Community-build-performanceTesting-plugin-raises-exceptions
+  git cherry-pick -n -m1 "c2d297177eb31f7fbbc13fdbfb9c8fce48e51014"
+
 }
 
 build() {
