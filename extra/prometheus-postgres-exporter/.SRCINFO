@@ -1,0 +1,25 @@
+pkgbase = prometheus-postgres-exporter
+	pkgdesc = Prometheus exporter for PostgreSQL
+	pkgver = 0.15.0
+	pkgrel = 2
+	url = https://github.com/prometheus-community/postgres_exporter
+	arch = x86_64
+	license = Apache-2.0
+	makedepends = git
+	makedepends = go
+	depends = glibc
+	replaces = prometheus-postgresql-exporter
+	options = !lto
+	backup = etc/conf.d/prometheus-postgres-exporter
+	source = https://github.com/prometheus-community/postgres_exporter/archive/v0.15.0/postgres_exporter-0.15.0.tar.gz
+	source = prometheus-postgres-exporter.conf
+	source = prometheus-postgres-exporter.service
+	source = prometheus-postgres-exporter.sysusers
+	source = prometheus-postgres-exporter.tmpfiles
+	sha512sums = 332700809454dba11e1e6b9cbc46be9683925a6c692e110efa1204ce1ad1457a8d2237ee8af20f1ee6d5c663266fc1629da6f4f5ff9151faf294a26af8be7682
+	sha512sums = d314ede0009fe920f1454a3ec640ec37b2963888f84e609f2fff2ecd2160fdb1b1321e3a02a0a039b31811003edb948073d2c0bb668c93522df041eb8708c85b
+	sha512sums = 3a3621e5ff39615f7b9ff9f0dd21e8a5e0a60952174e035efec8109f5f080aaf520eb507d71e956d858809c9666831760adb95918e84bf5213ca7b062e829775
+	sha512sums = f5826c7784edd1d11c58dba0e3bf8ceb80ab9142c2996cc2cf4f0749aab4384ae3b263364f190ed82adb37af02fd446721143739677342242fcde477e34d297c
+	sha512sums = 4d0a7dfcd8ba945dbe9613b04b063b641043fd0d463e1d27e9ada2f2dee1ffec621de1fc6be405478b3c7e75214a8f10f08dae5c42f21c04332c1d511e8b8159
+
+pkgname = prometheus-postgres-exporter
