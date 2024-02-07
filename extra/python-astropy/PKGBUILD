@@ -4,12 +4,12 @@
 _pkg=astropy
 pkgname=python-${_pkg}
 pkgver=6.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Common core package for Astronomy"
 arch=(x86_64)
 url="https://www.astropy.org/"
 license=(BSD)
-depends=(python cfitsio expat wcslib python-numpy python-pyerfa python-yaml python-packaging)
+depends=(python cfitsio expat wcslib python-numpy python-pyerfa python-yaml python-packaging python-astropy-iers-data)
 makedepends=(python-build python-installer python-wheel python-setuptools-scm python-extension-helpers cython)
 optdepends=('python-matplotlib: plotting functionality astropy.visualization'
             'python-scipy: variety of features in several modules'
