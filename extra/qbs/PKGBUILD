@@ -4,19 +4,19 @@
 # Contributor: Jake Petroules <jake.petroules@qt.io>
 
 pkgname=qbs
-pkgver=2.2.1
+pkgver=2.2.2
 pkgrel=1
 pkgdesc='Cross platform build tool'
 arch=(x86_64)
 url='https://wiki.qt.io/Qbs'
-license=(LGPL)
+license=(LGPL-2.1-only)
 depends=(gcc-libs
          glibc
          qt6-base
          qt6-5compat)
 makedepends=(cmake)
 source=(https://download.qt.io/official_releases/qbs/$pkgver/qbs-src-$pkgver.tar.gz)
-sha256sums=('84dad32ff12fda91d4a57c637c86200cdedc7fa56e04daf1c544908ffdb6a2a6')
+sha256sums=('93e0938fbef2f60f175ae4070fbec5066744f61424ef80f9e65b54f1be8615b4')
 
 build() {
   cmake -B build -S $pkgname-src-$pkgver \
