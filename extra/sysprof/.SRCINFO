@@ -1,10 +1,10 @@
 pkgbase = sysprof
 	pkgdesc = Kernel based performance profiler
-	pkgver = 45.1
-	pkgrel = 2
+	pkgver = 45.2
+	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Sysprof
 	arch = x86_64
-	license = GPL
+	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = meson
 	makedepends = yelp-tools
@@ -20,7 +20,7 @@ pkgbase = sysprof
 	depends = libunwind
 	depends = pango
 	depends = polkit
-	source = git+https://gitlab.gnome.org/GNOME/sysprof.git#commit=d62c94d62a29be82c187e45e2e17181a4e0c4211
+	source = git+https://gitlab.gnome.org/GNOME/sysprof.git#commit=02a56f13bc67e058cf76258fd025fdd65342efbc
 	b2sums = SKIP
 
 pkgname = sysprof
@@ -41,5 +41,5 @@ pkgname = sysprof
 
 pkgname = libsysprof-capture
 	pkgdesc = Kernel based performance profiler - capture library
-	license = BSD
+	license = BSD-2-Clause-Patent
 	depends = 
