@@ -4,11 +4,11 @@
 
 pkgbase=sysdig
 pkgname=(sysdig sysdig-dkms)
-pkgver=0.35.0
+pkgver=0.35.1
 pkgrel=1
 
 # from src/sysdig-*/cmake/modules/falcosecurity-libs.cmake
-_falcover=0.14.1
+_falcover=0.14.2
 
 pkgdesc="Open source system-level exploration and troubleshooting tool"
 arch=('x86_64')
@@ -21,8 +21,8 @@ source=("https://github.com/draios/sysdig/archive/$pkgver/$pkgbase-$pkgver.tar.g
         "falcosecurity-libs-$_falcover.tar.gz::https://github.com/falcosecurity/libs/archive/$_falcover.tar.gz"
         "bashcomp-location.patch"
         "falcosecurity-libs-nodownload.patch")
-sha256sums=('1b40ddc0ce3ceaf18c22a29c862085e7ea836759f7ea9639508539ccbb7d2da6'
-            'defdea24bf3b176c63f10900d3716fe4373151965cc09d3fe67a31a3a9af0b13'
+sha256sums=('9fbadcde35e7084d542edccafe6426b481a489698484d81587432b06024b2ca0'
+            'b4ae7bbf3ad031deee4a808145f9fd64b71c537406cc5a92f512823b2e52cdd5'
             '3b659326176c314eee9115adac39a249dc4b9530511b344ea6a2b23236bb8386'
             '3392204c265ef46c2a1378fc2acbb74b2b440585de4c9127a007f97ce10f0cfa')
 
