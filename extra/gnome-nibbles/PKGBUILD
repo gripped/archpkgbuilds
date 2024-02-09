@@ -2,12 +2,12 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-nibbles
-pkgver=4.0.1
+pkgver=4.0.2
 pkgrel=1
 pkgdesc="Guide a worm around a maze"
 url="https://wiki.gnome.org/Apps/Nibbles"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-3.0-or-later)
 depends=(
   gsound
   libgee
@@ -23,7 +23,7 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome-extra)
-_commit=65de41be7abf30c2f619e3fb74a3b1bcbfa0a7f0  # tags/4.0.1^0
+_commit=9ea8a9d6ee7850e23536673090e72da8ffe9128a  # tags/4.0.2^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-nibbles.git#commit=$_commit")
 b2sums=('SKIP')
 
