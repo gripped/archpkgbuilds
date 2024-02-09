@@ -4,23 +4,22 @@
 # Contributor: Ranieri Althoff <ranisalt+aur at gmail dot com>
 _pkgname=MangoHud
 pkgname=lib32-mangohud
-_pkgver=0.7.0
-_tarpkgver="${_pkgver%-*}"
-pkgver=${_pkgver//-/.}
-pkgrel=2
+_pkgver=0.7.1-1
+pkgver="${_pkgver%-*}"
+pkgrel=1
 pkgdesc="32-bit libraries for MangoHud and MangoApp"
 arch=('x86_64')
 url="https://github.com/flightlessmango/MangoHud"
 license=('MIT')
-makedepends=('git' 'glfw-x11' 'glslang' 'lib32-cmocka' 'lib32-libglvnd' 'libxnvctrl' 'meson' 'nlohmann-json' 'python-mako')
-depends=('lib32-dbus' 'lib32-gcc-libs' 'lib32-libx11' 'lib32-vulkan-icd-loader')
+makedepends=('git' 'glfw-x11' 'glslang' 'lib32-cmocka' 'lib32-libglvnd' 'libxnvctrl' 'meson' 'nlohmann-json' 'python-mako' 'vulkan-headers')
+depends=('lib32-dbus' 'lib32-gcc-libs' 'lib32-glew' 'lib32-libx11' 'lib32-vulkan-icd-loader')
 conflicts=('lib32-mangoapp')
 replaces=('lib32-mangoapp')
-source=("$pkgname-$pkgver.tar.xz::https://github.com/flightlessmango/MangoHud/releases/download/v$_pkgver/$_pkgname-v$_pkgver-Source.tar.xz")
-b2sums=('469784266ec4b8805bc5e01aa0db8c7d9b1ef1779c087b3e4817e54ae65a8440418be4ef0730859cfa04807f712734cdc2a15fbe7085c7a22f76218429b5cd70')
+source=("$pkgname-$pkgver.tar.xz::https://github.com/flightlessmango/MangoHud/releases/download/v$pkgver/$_pkgname-v$_pkgver-Source.tar.xz")
+b2sums=('d7f7103d180c6e48f2ef36969dae5e04c46ba4cc9dcbcfae27c24029ae97753b4b5af8554df29f70510e24285a7c11583482697bc8f9ef82fb7550308f5e54d0')
 
 prepare() {
-    cd "$_pkgname-v$_tarpkgver"
+    cd "$_pkgname-v$pkgver"
 
     # Use system cmocka instead of subproject
     sed -i "s/  cmocka = subproject('cmocka')//g" meson.build
@@ -33,7 +32,7 @@ build() {
     export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
     export LLVM_CONFIG="/usr/bin/llvm-config32"
 
-    arch-meson "$_pkgname-v$_tarpkgver" build \
+    arch-meson "$_pkgname-v$pkgver" build \
         -Dmangoapp_layer=true \
         -Dinclude_doc=false \
         --libdir lib32
@@ -47,5 +46,5 @@ package() {
     # mangoplot is provided by mangohud, no option to disable in the build
     rm -rf "$pkgdir/usr/bin"
 
-    install -Dm 0644 "$srcdir/$_pkgname-v$_tarpkgver/LICENSE" -t "$pkgdir/usr/share/licenses/$pkgname/"
+    install -Dm 0644 "$srcdir/$_pkgname-v$pkgver/LICENSE" -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
