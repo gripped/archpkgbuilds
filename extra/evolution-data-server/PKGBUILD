@@ -1,4 +1,4 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
@@ -8,11 +8,12 @@ pkgname=(
   libedataserverui4
   evolution-data-server-docs
 )
-pkgver=3.50.3
+pkgver=3.50.4
 pkgrel=1
 pkgdesc="Unified contacts, tasks and calendar backend"
 url="https://wiki.gnome.org/Apps/Evolution"
 arch=(x86_64)
+license=("LGPL-2.0-only AND LGPL-2.1-or-later")
 depends=(
   gtk3
   krb5
@@ -38,8 +39,7 @@ makedepends=(
   webkitgtk-6.0
 )
 checkdepends=(db)
-license=(GPL)
-_commit=18a7c4b1295438ec8852f3dc72135baedbf1778e  # tags/3.50.3^0
+_commit=175c44679ee95830adcbd095d2e77995fef3b114  # tags/3.50.4^0
 source=("git+https://gitlab.gnome.org/GNOME/evolution-data-server.git#commit=$_commit")
 b2sums=('SKIP')
 
