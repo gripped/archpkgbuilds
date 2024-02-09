@@ -1,13 +1,15 @@
-# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Maintainer: Christian Hesse <mail@eworm.de>
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: Maxime Gauduin <alucryd@archlinux.org>
 # Contributor: TingPing <tingping@tingping.se>
 
 pkgname=hexchat
-pkgver=2.16.1
-pkgrel=5
+pkgver=2.16.2
+pkgrel=1
 pkgdesc='A popular and easy to use graphical IRC (chat) client'
 arch=('x86_64')
 url='https://hexchat.github.io/'
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('dbus-glib' 'desktop-file-utils' 'gdk-pixbuf2' 'glib2' 'gtk2'
          'libcanberra' 'openssl' 'pango' 'pciutils')
 makedepends=('git' 'intltool' 'iso-codes' 'lua' 'meson' 'perl' 'python-cffi')
