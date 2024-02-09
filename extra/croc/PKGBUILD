@@ -3,7 +3,7 @@
 # Contributor: Mikuro Kagamine <mikurok@forgecrushing.com>
 
 pkgname=croc
-pkgver=9.6.8
+pkgver=9.6.9
 pkgrel=1
 pkgdesc='Easily and securely send things from one computer to another.'
 arch=(x86_64)
@@ -13,7 +13,7 @@ depends=(glibc)
 makedepends=(go)
 _archive="$pkgname-v$pkgver"
 source=("$_archive.tar.gz::$url/releases/download/v$pkgver/${pkgname}_v${pkgver}_src.tar.gz")
-sha256sums=('3a4057c0daaa3f85a53f0c48432de316c5c8b9c4324817d483bc9c1640d51370')
+sha256sums=('b05fa5d464e6fb8dea1621d4c1a683e0c06768b9831370f45c7d0b023a863754')
 
 build() {
     cd "$_archive"
