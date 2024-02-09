@@ -2,8 +2,8 @@
 # Contributor: Adam Fontenot <adam.m.fontenot@gmail.com>
 
 pkgname=breezy
-pkgver=3.3.4
-pkgrel=2
+pkgver=3.3.5
+pkgrel=1
 pkgdesc='A decentralized revision control system with support for Bazaar and Git file formats'
 arch=(x86_64)
 url=https://www.breezy-vcs.org/
@@ -39,7 +39,7 @@ optdepends=(
 provides=(bzr)
 conflicts=(bzr)
 replaces=(bzr)
-_tag=d206a54af4040025561cc9159fa5559c14a7ef46
+_tag=abe1c92f161581e2c8386bcee0e35457250eca0b
 source=(git+https://github.com/breezy-team/breezy.git#tag=${_tag})
 sha256sums=(SKIP)
 
