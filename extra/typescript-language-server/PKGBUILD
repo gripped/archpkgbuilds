@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=typescript-language-server
-pkgver=4.3.2
+pkgver=4.3.3
 pkgrel=1
 pkgdesc='Language Server Protocol (LSP) implementation for TypeScript using tsserver'
 url=https://github.com/typescript-language-server/typescript-language-server
@@ -15,8 +15,6 @@ b2sums=('SKIP')
 
 prepare() {
   cd $pkgname
-  # chore: sync lockfile
-  git cherry-pick --no-commit 291afb35d89ffdd5b6f4b37f0d517a314cb29255
   yarn --frozen-lockfile
 
   cd test-data/yarn-pnp
