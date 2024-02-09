@@ -2,7 +2,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=uvicorn
-pkgver=0.26.0
+pkgver=0.27.0.post1
 pkgrel=1
 pkgdesc='The lightning-fast ASGI server'
 arch=(any)
@@ -23,7 +23,7 @@ makedepends=(
   python-hatchling
   python-installer
 )
-_tag=99fafb3c3b15e32dbaa504993161cb0c6898227f
+_tag=f39933c8501dd6bc2e8e0f5be45819d3ba2caad0
 source=(git+https://github.com/encode/uvicorn#tag=${_tag})
 b2sums=(SKIP)
 
