@@ -6,12 +6,12 @@ pkgname=(
   libproxy
   libproxy-docs
 )
-pkgver=0.5.3
-pkgrel=2
+pkgver=0.5.4
+pkgrel=1
 pkgdesc="Automatic proxy configuration management library"
 url="https://libproxy.github.io/libproxy/"
 arch=(x86_64)
-license=(LGPL)
+license=(LGPL-2.1-or-later)
 depends=(
   curl
   duktape
@@ -25,7 +25,7 @@ makedepends=(
   meson
   vala
 )
-_commit=29d51a611f28af0bdbd51a5779cc8df264c8dcff  # tags/0.5.3
+_commit=dff9a603d823dcc740ec966cd27960daa6b891b1  # tags/0.5.4
 source=(
   "git+https://github.com/libproxy/libproxy#commit=$_commit"
 )
