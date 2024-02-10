@@ -1,0 +1,28 @@
+pkgbase = plantuml-server
+	pkgdesc = PlantUML Online Server
+	pkgver = 1.2024.1
+	pkgrel = 1
+	url = https://plantuml.com/
+	arch = any
+	license = GPL-3.0-only
+	makedepends = maven
+	makedepends = java-environment>=11
+	depends = java-runtime>=11
+	depends = bash
+	optdepends = plantuml-ascii-math: AsciiMath or JLaTeXMath notation
+	optdepends = ditaa: ditaa notation
+	optdepends = graphviz: Graphviz/DOT notation
+	backup = etc/conf.d/plantuml-server
+	source = plantuml-server-1.2024.1.tar.gz::https://github.com/plantuml/plantuml-server/archive/refs/tags/v1.2024.1.tar.gz
+	source = plantuml-server.run
+	source = plantuml-server.conf
+	source = plantuml-server.service
+	sha256sums = f6e24f388f7d4121f551fe4b49c50400a647c9fe2248218e4873311a6624fbf7
+	sha256sums = 510711e73aa9bd2d42b4f1f2144fed90dfac011187bd540a9c4d01ee5588e052
+	sha256sums = 96f26a243bf6d9945b4784d3ab73d861f6c4dc613157e51d1bcbcc55db0a2763
+	sha256sums = 73b75e53fff8d4de5192d7a76cef0b4382420790c561763a8a2eec38520f748d
+
+pkgname = plantuml-server
+	depends = java-runtime>=11
+	depends = bash
+	depends = java-runtime
