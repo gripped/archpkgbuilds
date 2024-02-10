@@ -4,7 +4,7 @@
 
 pkgname=python-openai
 _name=openai-python
-pkgver=1.11.1
+pkgver=1.12.0
 pkgrel=1
 pkgdesc="Python client library for the OpenAI API"
 arch=('any')
@@ -24,7 +24,7 @@ optdepends=('python-numpy: Needed for CLI fine-tuning data preparation tool'
             'python-plotly: embeddings'
             'python-scipy: embeddings')
 source=("${_name}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('9e61d8286f231e6505e68720a11da0ddcc18b1cb1cf463fc3ff1a652e6febf02')
+sha256sums=('0489d66f1bb37abd4472342446e47086e81561e4047eb50254cf3275b6995ffd')
 
 build() {
   cd "${_name}-${pkgver}"
