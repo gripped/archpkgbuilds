@@ -1,34 +1,25 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-launchpad
-pkgver=0.3.0
+pkgver=0.4.0
 pkgrel=1
 pkgdesc='The "launcher" or "start menu" component for DDE - next generation'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-launchpad"
 license=('GPL3')
 # dtkdeclarative: qml: org.deepin.dtk
-# kitemmodels: qml: org.kde.kitemmodels
-depends=('qt5-base' 'qt5-declarative' 'qt5-quickcontrols2' 'qt5-svg' 'dtkcore' 'dtkgui'
-         'glib2' 'appstream-qt5' 'dtkdeclarative' 'kitemmodels5' 'glibc' 'gcc-libs')
-makedepends=('cmake' 'ninja' 'gtest' 'qt5-tools')
+depends=('qt6-base' 'qt6-declarative' 'qt6-quickcontrols2' 'qt6-svg' 'dtk6core' 'dtk6gui'
+         'glib2' 'appstream-qt' 'dtk6declarative' 'glibc' 'gcc-libs')
+makedepends=('cmake' 'ninja' 'gtest' 'qt6-tools' 'clang')
 provides=('deepin-launcher')
 conflicts=('deepin-launcher')
 replaces=('deepin-launcher')
-source=("https://github.com/linuxdeepin/dde-launchpad/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-         appstream-1.0.patch)
-sha512sums=('16e8d06e60d8edae32666886ac54750162d858ccdae2f9efd137b0af0e1c32134e09a111b177535327598351b827ff1961b975f07bf2479fc74bd393f5c13e47'
-            '84ce82aa281133786f98531010641ec703b95ade428ab14b4c8549c6b26d44af995d49ecc03f86ae68424ade5f92dffefac319af360585553acf6bf23e4d12fb')
-
-prepare() {
-  cd dde-launchpad-$pkgver
-# Support appstream 1.0
-  patch -p1 -i ../appstream-1.0.patch
-}
+source=("https://github.com/linuxdeepin/dde-launchpad/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('cef72d9afbfb63670d908f5f378bcf4d8919290d7dab3adef1f2c3ee3665b9a1e1ac91a69cdf66886e431c7ed7281062fee908b16937d101c0d4584ee5aa7f4a')
 
 build() {
   cd dde-launchpad-$pkgver
-  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr
+  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DPREFER_QT_5=OFF
   ninja
 }
 
