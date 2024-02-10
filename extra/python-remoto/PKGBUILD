@@ -4,20 +4,22 @@
 pkgname=python-remoto
 _pkgbase="${pkgname//python-/}"
 pkgver=1.2.1
-pkgrel=3
+pkgrel=4
 pkgdesc="A very simplistic remote-command-executor using connections to hosts"
 arch=('any')
 url="https://github.com/alfredodeza/${_pkgbase}"
 license=('MIT')
 depends=('python' 'python-execnet')
 makedepends=('git' 'python' 'python-execnet' 'python-setuptools')
-checkdepends=('python-pytest' 'python-mock')
-source=("https://files.pythonhosted.org/packages/source/${_pkgbase:0:1}/${_pkgbase}/${_pkgbase}-${pkgver}.tar.gz")
-sha256sums=('3bad101711b28bb6d339b8e04f835b3645d81735c1f3d496bad8004cd667ade8')
+checkdepends=('python-pytest')
+source=("https://files.pythonhosted.org/packages/source/${_pkgbase:0:1}/${_pkgbase}/${_pkgbase}-${pkgver}.tar.gz"
+	"use-unittest-mock.patch")
+sha256sums=('3bad101711b28bb6d339b8e04f835b3645d81735c1f3d496bad8004cd667ade8'
+            '78758612762a0a2d4d768adc607b3c7fd87b12e350417e77e8d95d0c3d8fd9cc')
 
 prepare() {
   cd "${srcdir}/${_pkgbase}-${pkgver}"
-  :
+  patch -Np1 -i ${srcdir}/use-unittest-mock.patch
 }
 
 build() {
