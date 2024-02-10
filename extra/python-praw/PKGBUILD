@@ -2,14 +2,14 @@
 
 pkgname=python-praw
 pkgver=7.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Python Reddit API Wrapper that allows for simple access to Reddit's API"
 arch=('any')
 license=('GPL')
 url="https://praw.readthedocs.org"
 depends=('python-prawcore' 'python-update-checker' 'python-websocket-client')
 makedepends=('python-setuptools' 'python-pytest-runner')
-checkdepends=('python-mock' 'python-betamax-serializers' 'python-betamax-matchers')
+checkdepends=('python-betamax-serializers' 'python-betamax-matchers')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/praw-dev/praw/archive/v$pkgver.tar.gz")
 sha512sums=('543b342e2ea372f5b5f13c151c9222b69f56c94067a778bccc75c42a58aa88745888c33ca504521832fea76819a96c76a18b96ea17cf53b26152e9c3caf44c57')
 
