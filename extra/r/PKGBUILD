@@ -5,7 +5,7 @@
 
 pkgname=r
 pkgver=4.3.2
-pkgrel=3
+pkgrel=4
 pkgdesc='Language and environment for statistical computing and graphics'
 arch=(x86_64)
 license=(GPL)
@@ -30,7 +30,9 @@ depends=(bash
          pango
          pcre2
          readline
+         tk
          unzip
+         which
          xz
          zip
          zlib)
@@ -41,9 +43,7 @@ makedepends=(gcc-fortran
              tk)
 optdepends=('blas-openblas: faster linear algebra'
             'gcc-fortran: needed to compile some CRAN packages'
-            'tcl: tcl/tk interface'
-            'texlive-latex: latex sty files'
-            'tk: tcl/tk interface')
+            'texlive-latex: latex sty files')
 backup=(etc/R/Makeconf
         etc/R/Renviron
         etc/R/ldpaths
