@@ -6,12 +6,12 @@
 
 pkgname=ffmpeg
 pkgver=6.1.1
-pkgrel=3
+pkgrel=5
 epoch=2
 pkgdesc='Complete solution to record, convert and stream audio and video'
 arch=(x86_64)
-url=https://ffmpeg.org/
-license=(GPL3)
+url=https://ffmpeg.org
+license=(GPL-3.0-only)
 depends=(
   alsa-lib
   aom
@@ -77,6 +77,7 @@ depends=(
   srt
   svt-av1
   v4l-utils
+  vapoursynth
   vmaf
   vulkan-icd-loader
   xz
@@ -214,6 +215,7 @@ build() {
     --enable-opencl \
     --enable-opengl \
     --enable-shared \
+    --enable-vapoursynth \
     --enable-version3 \
     --enable-vulkan
   make
