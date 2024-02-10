@@ -1,21 +1,25 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgbase=libshumate
 pkgname=(
   libshumate
   libshumate-docs
 )
-pkgver=1.1.2
+pkgver=1.1.3
 pkgrel=1
 pkgdesc="Map widget for GTK 4"
 url="https://wiki.gnome.org/Projects/libshumate"
-license=(LGPL)
+license=(LGPL-2.1-or-later)
 arch=(x86_64)
 depends=(
   cairo
+  gdk-pixbuf2
   glib2
+  graphene
   gtk4
   libsoup3
+  libsysprof-capture
   sqlite
 )
 makedepends=(
@@ -26,13 +30,13 @@ makedepends=(
   vala
 )
 checkdepends=(xorg-server-xvfb)
-_commit=eeb257ab8cfca9133ec2e7da739d3ce815be7067  # tags/1.1.2^0
+_commit=3ed066797b6a786ffa357f4571b9a8f83b5c8c66  # tags/1.1.3^0
 source=("git+https://gitlab.gnome.org/GNOME/libshumate.git#commit=$_commit")
 b2sums=('SKIP')
 
 pkgver() {
   cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {
