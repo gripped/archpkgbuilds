@@ -7,7 +7,7 @@ pkgname=('usd' 'usd-extras')
 _pkgname='OpenUSD'
 pkgbase=usd
 pkgver=23.11
-pkgrel=8
+pkgrel=9
 arch=(x86_64)
 url='https://openusd.org'
 pkgdesc='3D VFX pipeline interchange file format'
@@ -84,6 +84,8 @@ prepare() {
   sed -i 's|${PXR_CMAKE_DIR}/cmake|${PXR_CMAKE_DIR}|g' \
         pxr/pxrConfig.cmake.in
   sed -i 's|${PXR_CMAKE_DIR}/include|/usr/include|g' \
+        pxr/pxrConfig.cmake.in
+  sed -i 's|EXACT COMPONENTS|COMPONENTS|g' \
         pxr/pxrConfig.cmake.in
 
   dos2unix NOTICE.txt
