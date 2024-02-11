@@ -4,11 +4,11 @@ pkgname=(cuda cuda-tools)
 pkgbase=cuda
 pkgver=12.3.1
 _driverver=545.23.08
-pkgrel=2
+pkgrel=3
 pkgdesc="NVIDIA's GPU programming toolkit"
 arch=('x86_64')
 url="https://developer.nvidia.com/cuda-zone"
-license=('custom:NVIDIA')
+license=(LicenseRef-NVIDIA-CUDA)
 depends=('opencl-nvidia' 'nvidia-utils' 'python' 'gcc12')
 options=(!strip staticlibs)
 install=cuda.install
@@ -140,7 +140,8 @@ package_cuda() {
   replaces=('cuda-toolkit' 'cuda-sdk' 'cuda-static')
   provides=('cuda-toolkit' 'cuda-sdk' 'libcudart.so' 'libcublas.so' 'libcusolver.so' 'libcusparse.so')
   optdepends=('gdb: for cuda-gdb'
-              'glu: required for some profiling tools in CUPTI')
+              'glu: required for some profiling tools in CUPTI'
+              'rdma-core: for GPUDirect Storage (libcufile_rdma.so)')
 
   local _prepdir="${srcdir}/prep"
 
