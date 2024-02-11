@@ -3,14 +3,13 @@
 # Contributor: Mathieu Wespthal <mathieu.westphal+aur@gmail.com>
 pkgname=f3d
 pkgver=2.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A fast and minimalist 3D viewer'
 arch=('x86_64')
 url="https://github.com/${pkgname}-app/${pkgname}"
 license=('BSD')
 depends=('vtk' 'glew' 'pugixml' 'netcdf' 'ospray' 'assimp' 'opencascade' 'alembic'
-         'fmt' 'nlohmann-json' 'draco' 'libxcursor' 'verdict' 'boost' 'openexr' 'usd'
-         'openshadinglanguage')
+         'fmt' 'nlohmann-json' 'draco' 'libxcursor' 'verdict' 'boost' 'openexr' 'usd')
 makedepends=('cmake' 'help2man' 'openmp' 'pybind11' 'ninja' 'eigen' 'utf8cpp' 'python'
              'jdk-openjdk' 'fast_float')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/$pkgname-app/$pkgname/archive/refs/tags/v$pkgver.tar.gz")
