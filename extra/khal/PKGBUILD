@@ -8,7 +8,7 @@
 
 pkgname=khal
 pkgver=0.11.2
-pkgrel=2
+pkgrel=3
 pkgdesc='CLI calendar application built around CalDAV'
 arch=('any')
 url="https://lostpackets.de/khal/"
@@ -45,9 +45,18 @@ optdepends=(
   'python-setproctitle: to set process name'
   'vdirsyncer: to synchronize CalDAV calendars'
 )
-source=($pkgname-$pkgver.tar.gz::https://github.com/pimutils/$pkgname/archive/refs/tags/v$pkgver.tar.gz)
-sha256sums=('db28d21f0aee14982b1394f73c0f12b54cfd09f44d577c1f5b37c038ff568463')
-b2sums=('06de876159fe6b8c70062e5ca09983f862f1fee44e33f01af86861f061a46dcbdba93bcfd88d1f8f9b3d1a38d111f8989f585fa461a917f186804c333a8ff7cb')
+source=($pkgname-$pkgver.tar.gz::https://github.com/pimutils/$pkgname/archive/refs/tags/v$pkgver.tar.gz
+        212987cb.patch)
+sha256sums=('db28d21f0aee14982b1394f73c0f12b54cfd09f44d577c1f5b37c038ff568463'
+            '16c9004dd6d2947075a350ddd99511b3c040f816a3cd06b3d673e4768e3b2ef8')
+b2sums=('06de876159fe6b8c70062e5ca09983f862f1fee44e33f01af86861f061a46dcbdba93bcfd88d1f8f9b3d1a38d111f8989f585fa461a917f186804c333a8ff7cb'
+        '716fe38558f87419cac4396bf64d22ffbe52ceedb11b4d69253984df2a75651d3bde6cf4bd55901105a5aeec8c714100881ac7dadb7ff6fa0dd4272de5966197')
+
+prepare() {
+  cd $pkgname-$pkgver
+# Make ikhal worh with urwid>=2.4.2
+  patch -p1 < ../212987cb.patch
+}
 
 build() {
   cd $pkgname-$pkgver
