@@ -3,8 +3,8 @@
 
 pkgbase=prrte
 pkgname=(prrte{,-docs})
-pkgver=3.0.3
-pkgrel=2
+pkgver=3.0.4
+pkgrel=1
 pkgdesc="PMIx Reference RunTime Environment"
 arch=(x86_64)
 url="https://github.com/openpmix/prrte"
@@ -17,8 +17,8 @@ makedepends=(
   perl
 )
 source=($pkgname-$pkgver.tar.gz::$url/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('b2443fa225b279ab31a5714b3f89c50e1b12667bc58357f885eee1e4fb8a6d22e533dea5cc2a2b6618334e0ed13b5dbc4c3ea88446dd454480f4300e08293a4d')
-b2sums=('5c68f6ca10089cc13fc326c2e65c86254f8063a4b5d3844c26c77d9ed47f4a939d72dd668959f7351a95144bf8c6289b5223cc262c8847913430263bcb6b77ac')
+sha512sums=('94b87c213d8789791217011ec27596ccf27f787aa49608793cefe8c907391b4d7fc5191acd11e9895524867bd456b0b6ae2627b811fe472cc5bcec2d003062b9')
+b2sums=('54f81aada7f54b811aed5be5eae6154732a73557b232f2d9092b8bc4e4da9491c4e09bbd4ef624132070999a141c4a8d220d5035644e05e05be8a29769700b26')
 
 _pick() {
   local p="$1" f d; shift
@@ -40,6 +40,11 @@ build() {
     --prefix=/usr
     --sysconfdir=/etc/$pkgname
   )
+
+  # set environment variables for reproducible build
+  # see https://docs.prrte.org/en/latest/release-notes.html
+  export HOSTNAME=buildhost
+  export USER=builduser
 
   cd $pkgname-$pkgver
   ./configure "${configure_options[@]}"
