@@ -1,0 +1,31 @@
+pkgbase = gcr-4
+	pkgdesc = A library for bits of crypto UI and parsing
+	pkgver = 4.2.0
+	pkgrel = 1
+	url = https://gitlab.gnome.org/GNOME/gcr
+	arch = x86_64
+	license = LGPL-2.1-or-later
+	makedepends = gi-docgen
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = gtk4
+	makedepends = meson
+	makedepends = vala
+	depends = glib2
+	depends = libgcrypt
+	depends = libsecret
+	depends = openssh
+	depends = p11-kit
+	depends = systemd
+	source = git+https://gitlab.gnome.org/GNOME/gcr.git#commit=0c1317470eeb426d30e50b0b2b13b90006f5ec2d
+	b2sums = SKIP
+
+pkgname = gcr-4
+	install = gcr-4.install
+	optdepends = gtk4: gcr-viewer-gtk4
+	provides = libgck-2.so
+	provides = libgcr-4.so
+
+pkgname = gcr-4-docs
+	pkgdesc = A library for bits of crypto UI and parsing (documentation)
+	depends = 
