@@ -4,8 +4,8 @@
 # Contributor: Qi Xiao <xiaqqaix at gmail dot com>
 
 pkgname=elvish
-pkgver=0.19.2
-_commit='fbc4e5036924ea4a6356a67a0d0c6ca7456b524a'
+pkgver=0.20.0
+_commit='3bd3ff3162ca269d55a77686019f15e338126d8f'
 pkgrel=1
 pkgdesc="A friendly and expressive Unix shell"
 arch=('x86_64')
@@ -38,18 +38,18 @@ build() {
   cd "$pkgname"
 
   # set Go flags
-  export CGO_CPPFLAGS="${CPPFLAGS}"
-  export CGO_CFLAGS="${CFLAGS}"
-  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
 
   go build -v \
     -trimpath \
     -buildmode=pie \
     -mod=readonly \
     -modcacherw \
-    -ldflags "-linkmode external -extldflags ${LDFLAGS} \
-    -X github.com/elves/elvish/pkg/buildinfo.Reproducible=true \
-    -X github.com/elves/elvish/pkg/buildinfo.Version=$pkgver" \
+    -ldflags "-linkmode external -extldflags \"$LDFLAGS\" \
+      -X github.com/elves/elvish/pkg/buildinfo.Reproducible=true \
+      -X github.com/elves/elvish/pkg/buildinfo.Version=$pkgver" \
     -o build \
     ./cmd/...
 }
