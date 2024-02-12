@@ -1,15 +1,15 @@
 pkgbase = perl
 	pkgdesc = A highly capable, feature-rich programming language
-	pkgver = 5.38.1
+	pkgver = 5.38.2
 	pkgrel = 1
 	url = https://www.perl.org
 	arch = x86_64
 	license = GPL
 	license = PerlArtistic
 	checkdepends = procps-ng
+	makedepends = patchutils
 	depends = gdbm>=1.17
 	depends = db5.3
-	depends = db
 	depends = glibc
 	depends = libxcrypt
 	depends = libcrypt.so
@@ -77,7 +77,7 @@ pkgbase = perl
 	provides = perl-math-complex=1.62
 	provides = perl-memoize=1.16
 	provides = perl-mime-base64=3.16_01
-	provides = perl-module-corelist=5.20231125
+	provides = perl-module-corelist=5.20231129
 	provides = perl-module-load-conditional=0.74
 	provides = perl-module-load=0.36
 	provides = perl-module-loaded=0.08
@@ -129,17 +129,21 @@ pkgbase = perl
 	options = makeflags
 	options = !purge
 	options = emptydirs
-	source = https://www.cpan.org/src/5.0/perl-5.38.1.tar.xz
+	source = https://www.cpan.org/src/5.0/perl-5.38.2.tar.xz
+	source = https://github.com/pjacklam/p5-Math-BigInt/commit/c8e5f82f10959085f7ce3ec74b3caaaf72497693.patch
+	source = https://github.com/pjacklam/p5-Math-BigInt/commit/441f53eb116a003c78acad32f133b16f2f4c0814.patch
+	source = https://github.com/pjacklam/p5-Math-BigInt/commit/5020d66cc0ece2a5fbf5cb182ab7ab62c8adade5.patch
 	source = config.over
-	source = db_config.in
 	source = perlbin.sh
 	source = perlbin.csh
 	source = perlbin.fish
 	source = detect-old-perl-modules.sh
 	source = detect-old-perl-modules.hook
-	sha512sums = 720b2c2707f219509e652bc3d80f9ce82bec85f882dee9ff88b6bc5183064d66333651830daeb92a6e96bbe5d9d48581ab8496ce9427f8db6103fc438e2c05db
+	sha512sums = 0ca51e447c7a18639627c281a1c7ae6662c773745ea3c86bede46336d5514ecc97ded2c61166e1ac15635581489dc596368907aa3a775b34db225b76d7402d10
+	sha512sums = 0327bb66f2cff72e0a81723b09204088afb558530f8b1a69dd50cb8f50fff138f14c5d02d7e7ffa69aafcffce3e8e3d34c44dc693b194ec8d8a7d3aded081865
+	sha512sums = a01b581b5af7899cafdc860d685741e782d97c7b56b3fc4bfb526ee0b3711f92f0ba4027fe2863190e6f10fa91a441b0185ad0a82174b254baacfbb9969bc9a6
+	sha512sums = 470ae0f4624e6493ecb66aadbd282f1560e315dbe282264717c768d182cace4c23690b330c318821063155a6f2b1aa19c4fe7126ebf32e9e6953078990b81e9e
 	sha512sums = 1c924b5bf7413d097f62638a574d7decf36d98598b84cdb5fb31ff633b6f953371e14b004a2558a1a0b74b6b60b90b481af0f68555a49208fe6b226381fed79f
-	sha512sums = 444e03c9a6040c1b4f19872d849e93322ffad40262339edb0b7961d2de47a161f01074f2d5418a057fd62e900ff1fbf5ea8ba4e3384aaa86fda84c80d0550a2b
 	sha512sums = 6ed5bc6dbdc47bc7f4c0fedbe18deaf35ab02a2e6700988beb545954bb1d0fe20ff1a4de39d6d9fc882ef1741f7bf6d85ba165d0cd8dc0d9939b789c894f48a1
 	sha512sums = 53eb0cddfd637014f3d3a101665db8dcafe5ac5bf3d319a259974334eb89c1c405097518ae96b6d18e520194633c7be57c9b2cd9ae6398443eb08f1a2008d112
 	sha512sums = 881e2efe05ba818cd7300f126800b56bb0685cb5c9c5fb7e67ef6aaf5abd17d2391a979d5d16d109c5111f4b35504ba83d19b0e6eda4431e8421fcbea19d2f1a
