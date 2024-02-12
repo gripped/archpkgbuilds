@@ -8,7 +8,7 @@ pkgname=(
   openpmix-docs
 )
 # NOTE: keep in sync with openmpi major versions
-pkgver=4.2.8
+pkgver=4.2.9
 pkgrel=1
 pkgdesc="Extended version of the PMI standard"
 arch=(x86_64)
@@ -24,8 +24,8 @@ makedepends=(
   zlib
 )
 source=($url/releases/download/v$pkgver/$_name-$pkgver.tar.gz)
-sha512sums=('fbc06025e3ccc26f7108593b0240fedd7cc7c1d526508a2d974e6e22a4ff4f2a17ba87c202f9d371fa9ee3fb9fedb7231938a8434c50aa925af6d5fd71d3506d')
-b2sums=('9bfe461f09d96e38e886d669035cde82ff7c9cc19483857cc6ee90b625d71e0177a5caf488df19923828ab314f4fa6353f6a7bd8d073813bd975f5b90c8c388c')
+sha512sums=('adc40e6055e2e4b2543585d31861e8c390a763965aae9fe38b598d9c80a9fa4a6320f915a32e337e5f94c21857a90deb827d3361bd7c5a735bfd1dfb588c6820')
+b2sums=('f56bbdb625d3be8dc759500226676ad1ef112e44d574fa202e4dceb8aa12a6189b4e7922fa5d8b04938dc1b9a1d77180687a58dd25a59d1ca55900cbdc4d41a2')
 
 _pick() {
   local p="$1" f d; shift
@@ -47,6 +47,11 @@ build() {
     --prefix=/usr
     --sysconfdir=/etc/$pkgname
   )
+
+  # set environment variables for reproducible build
+  # see https://docs.openpmix.org/en/latest/release-notes/general.html
+  export HOSTNAME=buildhost
+  export USER=builduser
 
   cd $_name-$pkgver
   ./configure "${configure_options[@]}"
@@ -85,5 +90,6 @@ package_openpmix() {
 package_openpmix-docs() {
   pkgdesc+=" - documentation"
 
-  mv -v $pkgname/* "$pkgdir/"
+  mv -v $pkgname/* "$pkgdir"
+  install -vDm 644 $_name-$pkgver/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
