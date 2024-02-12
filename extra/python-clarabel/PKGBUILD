@@ -2,8 +2,8 @@
 
 _pyname=clarabel
 pkgname=python-$_pyname
-pkgver=0.6.0
-pkgrel=2
+pkgver=0.6.0.post1
+pkgrel=1
 pkgdesc='Interior-point solver for convex conic optimisation problems'
 arch=(x86_64)
 url='https://github.com/oxfordcontrol/Clarabel.rs'
@@ -14,21 +14,22 @@ makedepends=(python-build
              python-installer
              python-maturin
              rust)
-source=(https://pypi.python.org/packages/source/${_pyname:0:1}/$_pyname/$_pyname-$pkgver.tar.gz)
-sha256sums=('ef909a393e72981ca10b1d866d9cc7fb6295ece20ae035def764338894961184')
+source=(https://github.com/oxfordcontrol/Clarabel.rs/archive/v$pkgver/$_pyname-$pkgver.tar.gz)
+sha256sums=('a10d3636a9424b25221a0cf12f8f65427e95c5b305d8855970f97b2fd3c9561b')
 
 prepare() {
-  cd $_pyname-$pkgver
+  cd Clarabel.rs-$pkgver
+  cargo generate-lockfile # https://github.com/oxfordcontrol/Clarabel.rs/pull/64
   cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 build() {
-  cd $_pyname-$pkgver
+  cd Clarabel.rs-$pkgver
   python -m build --wheel --no-isolation
 }
 
 package() {
-  cd $_pyname-$pkgver
+  cd Clarabel.rs-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -Dm644 LICENSE.md -t "$pkgdir"/usr/share/licenses/$pkgname
