@@ -8,7 +8,7 @@ pkgname=(
   openmpi
   openmpi-docs
 )
-pkgver=5.0.1
+pkgver=5.0.2
 pkgrel=2
 pkgdesc='High performance message passing library (MPI)'
 arch=(x86_64)
@@ -19,10 +19,12 @@ makedepends=(
   gcc-fortran
   gcc-libs
   glibc
+  hip-runtime-amd
   hwloc
   libevent
+  libfabric
   libnl
-  openpmix libpmix.so
+  openpmix
   openssh
   prrte
   valgrind
@@ -30,8 +32,8 @@ makedepends=(
 )
 source=(
   https://www.open-mpi.org/software/ompi/v${pkgver%.*}/downloads/$pkgbase-$pkgver.tar.bz2)
-sha256sums=('e357043e65fd1b956a47d0dae6156a90cf0e378df759364936c1781f1a25ef80')
-b2sums=('4a5b1d6c1cb2c81186f1d1347aee2e78b8634e0db08053a99a10d54df31d2afa5982d64b49a351aea99fc9db64f8ab81adeab9ae427442892774f99de3602230')
+sha256sums=('ee46ad8eeee2c3ff70772160bff877cbf38c330a0bc3b3ddc811648b3396698f')
+b2sums=('ea7a584ab945c8b2fcdd8a3c2510205582606442efaad2058b321ad4c787b2f66f79e86aa4b8b094eba9508fa208f40a4a843b9938d93899eee1948d0299b7b8')
 
 _pick() {
   local p="$1" f d; shift
@@ -64,8 +66,7 @@ build() {
     # this tricks the configure script to look for /usr/lib/pkgconfig/cuda.pc
     # instead of /opt/cuda/lib/pkgconfig/cuda.pc
     --with-cuda-libdir=/usr/lib
-    # all components that link to CUDA libraries should be run-time loadable
-    --enable-mca-dso=accelerator_cuda,rcache_gpusm,rcache_rgpusm
+    --with-rocm=/opt/rocm
     --with-hwloc=external
     --with-libevent=external
     --with-pmix=external
@@ -96,14 +97,16 @@ package_openmpi() {
     glibc
     hwloc
     libevent
+    libfabric
     libnl
     openpmix libpmix.so
     openssh
-    prrte
+    prrte libprrte.so
     zlib
   )
   optdepends=(
     'cuda: cuda support'
+    'hip-runtime-amd: ROCm support'
     'gcc-fortran: fortran support'
   )
   provides=(
@@ -125,7 +128,7 @@ package_openmpi() {
 package_openmpi-docs() {
   pkgdesc+=" - documentation"
 
-  mv -v $pkgname/* "$pkgdir/"
+  mv -v $pkgname/* "$pkgdir"
   install -vDm 644 $pkgbase-$pkgver/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
 
