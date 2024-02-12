@@ -1,0 +1,21 @@
+pkgbase = sane-airscan
+	pkgdesc = SANE - SANE backend for AirScan (eSCL) and WSD document scanners
+	pkgver = 0.99.28
+	pkgrel = 1
+	url = https://github.com/alexpevzner/sane-airscan
+	arch = x86_64
+	license = GPL-2.0-or-later WITH SANE-exception AND MIT
+	depends = sane
+	depends = avahi
+	depends = gnutls
+	depends = libxml2
+	depends = libjpeg-turbo
+	depends = libpng
+	depends = libtiff
+	depends = glibc
+	optdepends = ipp-usb: allows to send HTTP requests via a USB connection on devices without Ethernet or WiFi connections
+	backup = etc/sane.d/airscan.conf
+	source = sane-airscan-0.99.28.tar.gz::https://github.com/alexpevzner/sane-airscan/archive/0.99.28.tar.gz
+	sha256sums = dbc5ec153e3e2b526d3d82904d2b1e313be703bc90159ad90b48260919f58d14
+
+pkgname = sane-airscan
