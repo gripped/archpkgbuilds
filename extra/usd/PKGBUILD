@@ -7,7 +7,7 @@ pkgname=('usd' 'usd-extras')
 _pkgname='OpenUSD'
 pkgbase=usd
 pkgver=23.11
-pkgrel=10
+pkgrel=11
 arch=(x86_64)
 url='https://openusd.org'
 pkgdesc='3D VFX pipeline interchange file format'
@@ -157,6 +157,11 @@ package_usd() {
   pkgdesc='3D VFX pipeline interchange file format'
 
   DESTDIR=${pkgdir} ninja -C build install
+
+  # Do a switcheroo with usdview as we need to wrap it in a script.
+  mv ${pkgdir}/usr/bin/usdview ${pkgdir}/usr/bin/usdview_bin
+  echo 'LD_PRELOAD=/usr/lib/libjemalloc.so exec usdview_bin "$@"' > ${pkgdir}/usr/bin/usdview
+  chmod +x ${pkgdir}/usr/bin/usdview
 
   rm -vrf ${pkgdir}/usr/share/usd
 
