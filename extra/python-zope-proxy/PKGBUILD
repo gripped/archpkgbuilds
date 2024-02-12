@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-zope-proxy
-pkgver=5.1
-_commit=06caac7e25b161f474e99568d9a0d4478322cd9f
+pkgver=5.2
+_commit=8307de41648dd661708a2e4ad77be310822a1d82
 pkgrel=1
 pkgdesc="Generic Transparent Proxies"
 arch=('x86_64')
