@@ -1,14 +1,15 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 # Contributor: Arthur Zamarin <arthurzam@gmail.com>
 # Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=blueman
 pkgver=2.3.5
-pkgrel=2
+pkgrel=3
 pkgdesc="GTK+ Bluetooth Manager"
 arch=('x86_64')
 url="https://github.com/blueman-project/blueman"
-license=('GPL')
+license=('GPL-3.0-or-later')
 depends=('bluez' 'bluez-libs' 'gtk3' 'libnm' 'python-cairo' 'python-gobject')
 makedepends=('cython' 'intltool' 'iproute2')
 optdepends=('dnsmasq: Network Access Point (NAP) support'
@@ -39,5 +40,4 @@ build() {
 package() {
   cd $pkgname-$pkgver
   make DESTDIR="$pkgdir" install
-  install -d -o root -g 102 -m 750 "$pkgdir/usr/share/polkit-1/rules.d"
 }
