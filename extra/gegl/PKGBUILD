@@ -1,23 +1,24 @@
-# Maintainer: Daniel Isenmann <daniel@archlinux.org>
+# Maintainer: Christian Hesse <mail@eworm.de>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
+# Contributor: Daniel Isenmann <daniel@archlinux.org>
 
 pkgname=gegl
-_tag='c7cd8520066a05c9502dfc93a39e97a9546dc824'
-pkgver=0.4.46
-pkgrel=2
+_tag='3002c6976bee47e5718c227b2fa3dc1bffea780e'
+pkgver=0.4.48
+pkgrel=1
 pkgdesc='Graph based image processing framework'
 arch=('x86_64')
 url='https://www.gegl.org/'
-license=('GPL3' 'LGPL3')
+license=('GPL-3.0-or-later OR LGPL-3.0-or-later')
 depends=('babl' 'cairo' 'gcc-libs' 'gdk-pixbuf2' 'glib2' 'glibc' 'jasper' 'json-glib' 'lcms2'
          'lensfun' 'libjpeg-turbo' 'libpng' 'libraw' 'librsvg' 'libspiro' 'libtiff' 'libwebp'
          'luajit' 'openexr' 'pango' 'poppler-glib' 'suitesparse')
 makedepends=('ffmpeg' 'git' 'gobject-introspection' 'libgexiv2' 'meson' 'python-gobject' 'sdl2'
-             'vala')
+             'vala' 'gi-docgen')
 optdepends=('ffmpeg: FFmpeg Frame Loader and FFmpeg Frame Saver plugins'
             'graphviz: for gegl-introspect'
             'sdl2: SDL2 Display plugin')
-# TODO(gromit): switch this back to the gnome gitlab on next build
-source=("git+https://github.com/GNOME/gegl.git#tag=$_tag")
+source=("git+https://gitlab.gnome.org/GNOME/gegl.git#tag=$_tag")
 sha256sums=('SKIP')
 
 pkgver() {
