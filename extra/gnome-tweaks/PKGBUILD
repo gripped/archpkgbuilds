@@ -2,12 +2,12 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-tweaks
-pkgver=45.0
+pkgver=45.1
 pkgrel=1
 pkgdesc="Graphical interface for advanced GNOME 3 settings (Tweak Tool)"
 url="https://wiki.gnome.org/Apps/Tweaks"
 arch=(any)
-license=(GPL)
+license=(GPL-3.0-or-later)
 depends=(
   gnome-settings-daemon
   libhandy
@@ -18,7 +18,7 @@ makedepends=(
   meson
 )
 groups=(gnome-extra)
-_commit=c86eaca0e9eeb6052006761a73176302e099f96f  # tags/45.0^0
+_commit=8684efe9f167f8196392444771622f4723767248  # tags/45.1^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-tweaks.git#commit=$_commit")
 b2sums=('SKIP')
 
