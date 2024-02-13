@@ -2,7 +2,7 @@
 # Contributor: Daniel Milde <daniel at milde dot cz>
 
 pkgname=gdu
-pkgver=5.25.0
+pkgver=5.26.0
 pkgrel=1
 license=('MIT')
 pkgdesc="Fast disk usage analyzer"
@@ -33,6 +33,7 @@ build() {
     -buildmode=pie \
     -mod=readonly \
     -modcacherw \
+    -pgo=default.pgo \
     -ldflags "-compressdwarf=false -linkmode external -extldflags \"${LDFLAGS}\" ${_BUILDINFO}" \
     -o dist/gdu \
     github.com/dundee/gdu/v5/cmd/gdu
