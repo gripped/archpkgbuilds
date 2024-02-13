@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-zope-testrunner
-pkgver=6.3
+pkgver=6.3.1
 pkgrel=1
 pkgdesc="Zope testrunner script"
 arch=('any')
@@ -10,7 +10,7 @@ license=('ZPL')
 depends=('python-setuptools' 'python-zope-interface' 'python-zope-exceptions')
 checkdepends=('python-zope-testing')
 source=("https://github.com/zopefoundation/zope.testrunner/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('f115e576c2fe01489dec72b46f76e32dc6f63f813b4e2ccea7b29976761c79efe36c0455ad0f18422366096df9cd6a0bbb04068e63505e1be7a62f0f10a8a0f5')
+sha512sums=('7b1e40e47694c4a15fc3659a02912b91dde010ba2f461d6eb908b2c976db89be363c0fd3aa0200879366fa1491874ec74f6500a709f890d06ff7426fd20e53fa')
 
 build() {
   cd zope.testrunner-$pkgver
