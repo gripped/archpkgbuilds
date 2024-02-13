@@ -3,12 +3,12 @@
 _name=asyncpg
 pkgname=python-$_name
 pkgver=0.29.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A fast PostgreSQL Database Client Library for Python/asyncio'
 arch=('x86_64')
 url='https://github.com/MagicStack/asyncpg'
 license=('Apache')
-depends=('python')
+depends=('python' 'python-async-timeout')
 makedepends=('cython0' 'python-build' 'python-installer' 'python-setuptools'
 'python-wheel')
 checkdepends=('python-pytest' 'python-uvloop' 'postgresql')
