@@ -2,7 +2,7 @@
 
 _pyname=jupyter_collaboration
 pkgname=${_pyname/_/-}
-pkgver=2.0.1
+pkgver=2.0.2
 pkgrel=1
 pkgdesc='A Jupyter Server Extension Providing Support for Y Documents'
 arch=(any)
@@ -26,7 +26,7 @@ checkdepends=(python-pytest-asyncio
               python-pytest-timeout
               python-websockets)
 source=(https://pypi.io/packages/source/${_pyname:0:1}/$_pyname/$_pyname-$pkgver.tar.gz)
-sha256sums=('51ce7b93185a8ff0d08b9717fa48d5e0f1917056f15a6cdcf81db8f3ed550182')
+sha256sums=('129585b155828bfe883ae33fce03c87abddaacc0c68cf3f1866fed642e1a8e2e')
 
 build() {
   cd $_pyname-$pkgver
