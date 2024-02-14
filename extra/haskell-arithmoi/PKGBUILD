@@ -3,7 +3,7 @@
 _hkgname=arithmoi
 pkgname=haskell-arithmoi
 pkgver=0.13.0.0
-pkgrel=36
+pkgrel=37
 pkgdesc="Efficient basic number-theoretic functions."
 url="https://github.com/Bodigrim/arithmoi"
 license=("MIT")
@@ -20,6 +20,7 @@ sha512sums=('3f1cb3f45a3c838cb74cac7ce9bb827e50dc863598a0dacc77383a5b9499e98362f
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u chimera $_hkgname.cabal
 }
 
 build() {
