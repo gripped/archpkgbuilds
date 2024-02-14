@@ -3,8 +3,7 @@
 
 pkgname=emby-server
 pkgver=4.8.1.0
-_skiasharp_ver=2.80.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Bring together your videos, music, photos, and live television'
 arch=(x86_64)
 url=https://emby.media
@@ -15,6 +14,7 @@ depends=(
   emby-ffmpeg
   ffmpeg
   libvips
+  skia-sharp
   sqlite
 )
 optdepends=(
@@ -28,7 +28,6 @@ optdepends=(
 )
 source=(
   https://github.com/MediaBrowser/Emby.Releases/releases/download/${pkgver}/embyserver-netcore_${pkgver}.zip
-  https://mediabrowser.github.io/embytools/libskiasharp-${_skiasharp_ver}-x64.tar.xz
   emby-server
   emby-server.conf
   emby-server.service
@@ -38,7 +37,6 @@ source=(
 noextract=(license.docx)
 backup=(etc/conf.d/emby-server)
 b2sums=('f91af0ccb00ccb43a490d5413e9584bea776d2b6763dc8d76f7005e43735c51433956aa77cbbc54531145fb1fa95251527148222982b0cacc051306b53ac3755'
-        '08ea6a632c7366fb4086d3f42c602e85603bc416ec7e0ea1e7d41814441889fc4858db0128a4e433965ca2d7427f43028864d936b40244b3896fa78102ac38c6'
         '48c11601d00121e725951fd48ba34137804d4a67aa12528a29ca4d43d301d19311182421e96bef7b7ddbc4929dc9d5b577b1659cb0b716b1c1f6938283465c46'
         'fc9994ce508257e8144e39f078c0ec6d79ae9ab2be7e27f194bf1f3039d6d0a1bead9915bcea97ef91f147df53bf17c3ceeed2cb72ce3d8996597f23efc5dd50'
         '11cc26f44f81823bcd50ee16344aff94eb0a64d740a2e489d832bc8d48d11f3065bf683da243409bab8e3d8a201083596a27983cc11a90688128442e0116430c'
@@ -53,7 +51,6 @@ package() {
   install -dm 755 "${pkgdir}"/usr/lib
   cp -dr --no-preserve='ownership' system "${pkgdir}"/usr/lib/emby-server
   install -Dm 755 emby-server -t "${pkgdir}"/usr/bin/
-  install -Dm 755 lib/libSkiaSharp.so* -t "${pkgdir}"/usr/lib/emby-server/
   install -Dm 644 emby-server.service -t "${pkgdir}"/usr/lib/systemd/system/
   install -Dm 644 emby-server.conf "${pkgdir}"/etc/conf.d/emby-server
   install -Dm 644 license.docx -t "${pkgdir}"/usr/share/licenses/emby-server/
