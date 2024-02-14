@@ -2,8 +2,8 @@
 
 _hkgname=persistent-mysql
 pkgname=haskell-persistent-mysql
-pkgver=2.13.0.4
-pkgrel=95
+pkgver=2.13.1.0
+pkgrel=1
 pkgdesc="Backend for the persistent library using MySQL database server."
 url="http://www.yesodweb.com/book/persistent"
 license=("MIT")
@@ -17,7 +17,7 @@ makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-fast-logger' 'h
 #checkdepends=('percona-server' 'percona-server-clients')
 checkdepends=('mariadb')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('607b924762434c14c2e84a474665ab18ca3d2a7147bdc35c9c3e270ce9b9335c6f4fb01ac2c9ecc7b55f504228a8d592fc805eb0f83a34efc020645828effdfc')
+sha512sums=('a631606bbb6fc13ad689154362a583d12ff2f4dfa03e60a5b7c5abc3c7ef65f7b95170c4a430e61b185ff9243ce9465c22a67394f6dd013ea0f54b2b205eb625')
 
 build() {
   cd $_hkgname-$pkgver
