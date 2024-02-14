@@ -2,13 +2,14 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=pcmanfm-qt
-pkgver=1.4.0
+pkgver=1.4.1
 pkgrel=1
 pkgdesc="The LXQt file manager, Qt port of PCManFM"
 arch=("x86_64")
 groups=("lxqt")
 url="https://github.com/lxqt/$pkgname"
-license=("GPL2")
+# https://github.com/lxqt/pcmanfm-qt/blob/1.4.1/README.md?plain=1#L12
+license=("GPL-2.0-or-later")
 depends=("desktop-file-utils" "libfm-qt" "libfm-qt.so")
 makedepends=("lxqt-build-tools")
 optdepends=(
@@ -21,7 +22,7 @@ source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz.asc"
 )
-sha256sums=('b1c6abb3bd8dca6bd2290fab424fef73527d5a1bb60a67dfd20966545dfee443'
+sha256sums=('0de6c9125e7d4250fc52e65bf102720b88edb91d88bc89c352d45b5cb0202986'
             'SKIP')
 validpgpkeys=(
 	"169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>
