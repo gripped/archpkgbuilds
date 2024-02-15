@@ -2,8 +2,8 @@
 
 _pyname=openapi-core
 pkgname=python-$_pyname
-pkgver=0.18.2
-pkgrel=2
+pkgver=0.19.0
+pkgrel=1
 pkgdesc='Client-side and server-side support for the OpenAPI Specification v3'
 arch=(any)
 url='https://github.com/p1c2u/openapi-core'
@@ -22,8 +22,10 @@ makedepends=(python-build
              python-installer
              python-poetry-core)
 optdepends=(python-aiohttp
+            python-aioitertools
             python-django
             python-falcon
+            python-fastapi
             python-flask
             python-multidict
             python-requests
@@ -32,9 +34,11 @@ checkdepends=(python-pytest
               python-pytest-aiohttp
               python-pytest-asyncio  # a dependency of python-pytest-aiohttp
               python-aiohttp
+              python-aioitertools
               python-django
               python-django-rest-framework
               python-falcon
+              python-fastapi
               python-flask
               python-httpx
               python-multidict
@@ -42,7 +46,7 @@ checkdepends=(python-pytest
               python-responses
               python-starlette)
 source=(https://github.com/python-openapi/openapi-core/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('406e231f28c734e76b8f184799e1db04f662848d803f9df4b89e9c0ef07dfbb9')
+sha256sums=('dccc47e62af93fc7dfd1e831be9785c3c62fef572ba6c050d51144bac72f671f')
 
 prepare() {
   cd $_pyname-$pkgver
