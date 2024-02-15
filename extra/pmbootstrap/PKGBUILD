@@ -4,7 +4,7 @@
 # Contributor: Nuno Araujo <nuno.araujo@russo79.com>
 
 pkgname=pmbootstrap
-pkgver=2.2.0
+pkgver=2.2.1
 pkgrel=1
 pkgdesc='Sophisticated chroot/build/flash tool to develop and install postmarketOS'
 url='https://gitlab.com/postmarketOS/pmbootstrap'
@@ -21,8 +21,8 @@ makedepends=(
   'python-wheel'
 )
 source=("https://gitlab.com/postmarketOS/pmbootstrap/-/archive/$pkgver/pmbootstrap-$pkgver.tar.gz")
-sha256sums=('58235c85f3c82f3d39e40be0f40c825525e455f4f416e3f07703768a788b6205')
-b2sums=('6b886f23a03c602720a0e5cf8ff45e2ae030dff489aecf41f2ec4232bfe48de140d606b12fff78c3c7d533fffc08f85dfa6beee0761bfe8d96732413cc0dfcf3')
+sha256sums=('195a3cb430c9ede354bc575ddb765f10b205067f8c478f153c84f6f793785c09')
+b2sums=('578fdc26125f5b33fffb2926c32aec1dbaf78f87574ed051967a567214965ad9578091e48a0cbf91f0f6e10b5ff2b3fde0c70c854d6d2f208c2a41e482b04445')
 
 build() {
   cd "${pkgname}-${pkgver}"
