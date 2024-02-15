@@ -3,13 +3,12 @@
 
 pkgname=tmux
 pkgver=3.4
-pkgrel=2
+pkgrel=3
 pkgdesc='Terminal multiplexer'
 url='https://github.com/tmux/tmux/wiki'
 arch=('x86_64')
 license=('BSD')
 depends=('libevent' 'libevent_core-2.1.so'
-         'libsixel'
          'libutempter'
          'ncurses' 'libncursesw.so'
          'systemd-libs' 'libsystemd.so')
@@ -22,7 +21,6 @@ build() {
 
 	./configure \
 		--prefix=/usr \
-		--enable-sixel \
 		--enable-systemd \
 		--enable-utempter
 	make
