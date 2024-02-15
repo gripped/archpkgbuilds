@@ -1,6 +1,6 @@
 pkgbase = consul
 	pkgdesc = A tool for service discovery, monitoring and configuration.
-	pkgver = 1.17.2
+	pkgver = 1.17.3
 	pkgrel = 1
 	url = https://www.consul.io
 	install = consul.install
@@ -10,9 +10,14 @@ pkgbase = consul
 	makedepends = go
 	makedepends = gox
 	makedepends = go-tools
+	makedepends = procps-ng
+	makedepends = zip
+	makedepends = yarn
+	makedepends = nodejs-lts-hydrogen
+	makedepends = npm
 	depends = glibc
 	backup = etc/default/consul
-	source = git+https://github.com/hashicorp/consul#commit=7736539db5305d267b2fd4faa6e86590ca20e556
+	source = git+https://github.com/hashicorp/consul#commit=009041f807ba1d6263052fda7406bc0d9e3125af
 	source = consul.service
 	source = consul.default
 	source = consul.sysusers
