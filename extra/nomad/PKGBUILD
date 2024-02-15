@@ -3,7 +3,7 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=nomad
-pkgver=1.7.3
+pkgver=1.7.5
 pkgrel=1
 pkgdesc='A simple and flexible workload orchestrator'
 arch=('x86_64')
@@ -23,7 +23,7 @@ optdepends=(
 )
 backup=('etc/nomad.d/defaults.hcl')
 options=('!lto')
-_commit=60ee328f97d19d2d2d9761251b895b06d82eb1a1 #refs/tags/v1.7.3
+_commit=5f5d4646198d09b8f4f6cb90fb5d50b53fa328b8 #refs/tags/v1.7.5
 source=(
   "$pkgname::git+https://github.com/hashicorp/nomad.git#commit=$_commit"
   'systemd.service'
@@ -72,7 +72,7 @@ build() {
     -modcacherw \
     -ldflags "-compressdwarf=false \
     -linkmode external \
-    -extldflags ${LDFLAGS} \
+    -extldflags '${LDFLAGS}' \
     -X main.GitCommit=${pkgver}" \
     -tags "$GO_TAGS" \
     -o build \
