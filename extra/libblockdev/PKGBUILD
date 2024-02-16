@@ -2,7 +2,7 @@
 
 pkgname=libblockdev
 pkgver=3.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A library for manipulating block devices"
 arch=('x86_64')
 url="https://github.com/storaged-project/libblockdev"
