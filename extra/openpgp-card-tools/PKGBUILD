@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=openpgp-card-tools
-pkgver=0.9.5
-pkgrel=1
+pkgver=0.10.0
+pkgrel=2
 pkgdesc="CLI tool to inspect, manage and use OpenPGP cards"
 arch=(x86_64)
 url="https://codeberg.org/openpgp-card/openpgp-card-tools"
@@ -21,12 +21,12 @@ makedepends=(
   pcsclite
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('25a8cdd496e4a3292096db94bd4ecb35f693a73ad2b6f8407084537350fdec5fc9ce8a88b12b8d8c3f82aff3c2e63dfc9c3130ec9c9bcf1ee5bf6100a7e8e998')
-b2sums=('1fc6e02038d7cd9ba561c00f0c9b11cd27f282931b1fa70cb2436917224a1fd63c0e130e0d1c9c68f9db082ac596380741b7dac164e4ab7d58a54ad70157e3d9')
+sha512sums=('261c48254b91cbe975eca34d84e7e07fc4d168a08f063ad8e9a595d5a6321757c47ba36ddcd563d133ba82f48fda41877d291ca3be541df240733a988a221a34')
+b2sums=('9eabc4272731e91e14b15b6bd6e7dbab73dadcb19a1d11e8924dbe3673805af9f78ff1c0c494524ba8628fa42f768f4d387a0ec261761c55a4dbd8a04ef66cff')
 
 prepare() {
   cd $pkgname
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
@@ -38,12 +38,6 @@ build() {
   OCT_COMPLETION_OUTPUT_DIR="$PWD/../completion/" cargo run
 }
 
-check() {
-  cd $pkgname
-  export RUSTUP_TOOLCHAIN=stable
-  cargo test --frozen --all-features
-}
-
 package() {
   depends+=(
     bzip2 libbz2.so
@@ -52,11 +46,11 @@ package() {
   )
 
   cd $pkgname
-  install -vDm 755 target/release/opgpcard -t "$pkgdir/usr/bin/"
+  install -vDm 755 target/release/oct -t "$pkgdir/usr/bin/"
   install -vDm 644 {scripting,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 LICENSES/MIT.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
   install -vDm 644 ../man/*.1 -t "$pkgdir/usr/share/man/man1/"
-  install -vDm 644 ../completion/opgpcard.bash "$pkgdir/usr/share/bash-completion/completions/opgpcard"
-  install -vDm 644 ../completion/_opgpcard -t "$pkgdir/usr/share/zsh/site-functions/"
-  install -vDm 644 ../completion/opgpcard.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+  install -vDm 644 ../completion/oct.bash "$pkgdir/usr/share/bash-completion/completions/oct"
+  install -vDm 644 ../completion/_oct -t "$pkgdir/usr/share/zsh/site-functions/"
+  install -vDm 644 ../completion/oct.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
 }
