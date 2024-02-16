@@ -1,0 +1,27 @@
+pkgbase = python-pytest-container
+	pkgdesc = Pytest fixtures for writing container based tests
+	pkgver = 0.3.0
+	pkgrel = 1
+	url = https://dcermak.github.io/pytest_container/
+	arch = any
+	license = LGPL
+	checkdepends = podman
+	checkdepends = buildah
+	checkdepends = python-typeguard
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	makedepends = python-poetry-core
+	makedepends = git
+	depends = python
+	depends = python-pytest
+	depends = python-pytest-testinfra
+	depends = python-filelock
+	depends = python-deprecation
+	optdepends = podman: podman support
+	optdepends = buildah: podman support
+	optdepends = docker: docker support
+	source = python-pytest-container-0.3.0.tar.gz::https://github.com/dcermak/pytest_container/archive/refs/tags/0.3.0.tar.gz
+	sha256sums = 44ff1e541a7834a5acc103685d71ddb5e540cbdfbdab1d59e94b209e17fe79a0
+
+pkgname = python-pytest-container
