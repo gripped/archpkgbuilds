@@ -1,0 +1,20 @@
+pkgbase = python-pt
+	pkgdesc = gdb script to examine the address space of a QEMU-based virtual machine
+	pkgver = r20231230.107.3efc26e
+	pkgrel = 1
+	url = https://github.com/martinradev/gdb-pt-dump
+	arch = any
+	license = MIT
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-poetry-core
+	makedepends = python-wheel
+	depends = gdb
+	depends = python
+	provides = gdb-pt-dump
+	source = git+https://github.com/martinradev/gdb-pt-dump#commit=3efc26ef739ae78730ea60851c84d9c08ca8a63d
+	sha512sums = SKIP
+	b2sums = SKIP
+
+pkgname = python-pt
