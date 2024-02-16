@@ -1,0 +1,23 @@
+pkgbase = power-profiles-daemon
+	pkgdesc = Makes power profiles handling available over D-Bus
+	pkgver = 0.20
+	pkgrel = 1
+	url = https://gitlab.freedesktop.org/upower/power-profiles-daemon
+	arch = x86_64
+	license = GPL-3.0-only
+	checkdepends = python-dbusmock
+	checkdepends = python-isort
+	checkdepends = python-mccabe
+	checkdepends = umockdev
+	makedepends = meson
+	depends = gcc-libs
+	depends = glib2
+	depends = glibc
+	depends = libgudev
+	depends = polkit
+	depends = upower
+	optdepends = python-gobject: for powerprofilesctl
+	source = https://gitlab.freedesktop.org/upower/power-profiles-daemon/-/archive/0.20/power-profiles-daemon-0.20.tar.gz
+	sha256sums = b6d3ad1cdcdc0324d5ccaa86dd0ed465544c1e86360fdbd2b6b2b0723afb6dad
+
+pkgname = power-profiles-daemon
