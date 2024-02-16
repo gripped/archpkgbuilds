@@ -4,8 +4,8 @@
 
 pkgbase=podman
 pkgname=(podman podman-docker)
-pkgver=4.9.2
-_commit=c2de7bb3766451ce2681c9756bc23e41e31a5f38	#refs/tags/v4.9.2
+pkgver=4.9.3
+_commit=bd1b4a96544e6199f369feef8cb19c2e8f803b1f	#refs/tags/v4.9.3
 pkgrel=1
 pkgdesc='Tool and library for running OCI-based containers in pods'
 arch=(x86_64)
