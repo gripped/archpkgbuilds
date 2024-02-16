@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=vultr-cli
-pkgver=2.22.0
+pkgver=3.0.0
 pkgrel=1
 pkgdesc='Official command line tool for Vultr services'
 url='https://github.com/vultr/vultr-cli'
@@ -10,8 +10,8 @@ license=('Apache-2.0')
 depends=('glibc')
 makedepends=('go')
 source=(https://github.com/vultr/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('e6562f28bf7475fa92db3b90a9a350537c588c71f0e76348abf2d87bd9e70151')
-b2sums=('995c1094128bacacec99165bf01c326a071f7f003d1fd55130d4919a2c543ee73e82cbfdcfff3d382cf0ee792bd226effd7ba73df23740fffaddb2b21da098b2')
+sha256sums=('adb287850dc07abcbdcb69aee21ebf38bd19b7f30f039e7858adbc95e871ef3d')
+b2sums=('ab2f6fe12e201ca5de0003ef4d461bde2b94e91d52f1bda0ea6774a3349ae4656347ba5692fe5d140c27c70560234faeedd8f067eacb3b2c5345f624ed6e7c06')
 
 build() {
   cd ${pkgname}-${pkgver}
@@ -37,8 +37,6 @@ package() {
              "${pkgdir}/usr/share/zsh/site-functions" \
              "${pkgdir}/usr/share/fish/vendor_completions.d"
 
-  # workaround, see https://github.com/vultr/vultr-cli/issues/92#issuecomment-877722219
-  export VULTR_API_KEY=x
   ./vultr-cli completion bash > "${pkgdir}/usr/share/bash-completion/completions/vultr-cli"
   ./vultr-cli completion zsh > "${pkgdir}/usr/share/zsh/site-functions/_vultr-cli"
   ./vultr-cli completion fish > "${pkgdir}/usr/share/fish/vendor_completions.d/vultr-cli.fish"
