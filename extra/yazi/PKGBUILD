@@ -5,7 +5,7 @@
 
 pkgname=yazi
 pkgver=0.2.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Blazing fast terminal file manager written in Rust, based on async I/O"
 url="https://github.com/sxyazi/yazi"
 arch=("x86_64")
@@ -33,7 +33,7 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
-  YAZI_GEN_COMPLETIONS=true cargo build --release --frozen
+  VERGEN_GIT_SHA="Arch Linux" YAZI_GEN_COMPLETIONS=true cargo build --release --frozen
 }
 
 check() {
