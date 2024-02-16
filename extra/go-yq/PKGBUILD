@@ -3,7 +3,7 @@
 # Contributor: Mario Finelli <mario at finel dot li>
 
 pkgname=go-yq
-pkgver=4.40.7
+pkgver=4.41.1
 pkgrel=1
 pkgdesc='Portable command-line YAML processor'
 arch=('x86_64')
