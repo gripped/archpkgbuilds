@@ -8,7 +8,7 @@ pkgver=2024.1.2
 _upstreamver=${_pkgver%[[:lower:]]}
 #_patchver=$_upstreamver
 _patchver=2024.1.2 # almost always out of sync now
-pkgrel=3
+pkgrel=4
 pkgdesc='Bitwarden web vault with the patches to make it work with Vaultwarden'
 arch=('any')
 url='https://github.com/dani-garcia/bw_web_builds'
@@ -44,6 +44,11 @@ prepare() {
 build() {
   cd bitwarden-clients/apps/web
 
+  # https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
+  # Workaround for "JavaScript heap out of memory" on 32-bit systems
+  if [[ $(getconf LONG_BIT) -eq 32 ]]; then
+    export NODE_OPTIONS="--max-old-space-size=1536"
+  fi
   npm run dist:oss:selfhost
 }
 
