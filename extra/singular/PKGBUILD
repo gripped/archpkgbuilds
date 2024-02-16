@@ -2,8 +2,8 @@
 # Contributor: Rémy Oudompheng <oudomphe@clipper.ens.fr>
 
 pkgname=singular
-_majver=4-3-2
-_patchver=p10
+_majver=4.3.2
+_patchver=p15
 _pkgver=${_majver}${_patchver}
 pkgver=${_majver//-/.}${_patchver/p/.p}
 pkgrel=1
@@ -17,15 +17,27 @@ depends=(bash
          gcc-libs
          glibc
          gmp
+         normaliz
          ntl
          readline)
+makedepends=(latex2html
+             sharutils
+             texlive-basic
+             texlive-bin
+             texlive-latex)
 provides=(singular-factory)
-source=(ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/SOURCES/$_majver/singular-${_pkgver//-/.}.tar.gz)
-sha256sums=('28c2c9fcfee954e00dfa56eb1a7d418d5b1de67c4398d25a0f2b8f73e71552a8')
+# source=(ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/SOURCES/$_majver/singular-${_pkgver//-/.}.tar.gz)
+source=(https://github.com/Singular/Singular/archive/$_pkgver/$pkgname-$_pkgver.tar.gz)
+sha256sums=('ac48213f688b0c517f3e81343e2ef3f6e64960ca279182877067aa4a27cbbcb9')
 options=(!zipman)
 
+prepare() {
+  cd Singular-$_pkgver
+  ./autogen.sh
+}
+
 build() {
-  cd singular-${_majver//-/.}
+  cd Singular-$_pkgver
 
   # this uses malloc_usable_size, which is incompatible with fortification level 3
   export CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
@@ -39,14 +51,16 @@ build() {
     --enable-Order-module \
     --enable-python-module \
     --enable-gfanlib-module \
-    --enable-polymake-module
+    --enable-polymake-module \
+    --enable-doc-build
 # https://bugzilla.gnome.org/show_bug.cgi?id=655517
   sed -e 's/ -shared / -Wl,-O1,--as-needed\0/g' -i libtool -i */libtool
   make
+  make -C doc doc.tbz2
 }
 
 check() {
-  cd singular-${_majver//-/.}
+  cd Singular-$_pkgver
 
   # this uses malloc_usable_size, which is incompatible with fortification level 3
   export CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
@@ -56,6 +70,6 @@ check() {
 }
   
 package() {
-  cd singular-${_majver//-/.}
+  cd Singular-$_pkgver
   make DESTDIR="$pkgdir" install
 }
