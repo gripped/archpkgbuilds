@@ -1,6 +1,6 @@
 pkgbase = picom
-	pkgdesc = X compositor that may fix tearing issues
-	pkgver = 11.1
+	pkgdesc = A lightweight compositor for X11
+	pkgver = 11.2
 	pkgrel = 1
 	url = https://github.com/yshui/picom
 	arch = x86_64
@@ -21,12 +21,13 @@ pkgbase = picom
 	depends = pixman
 	depends = xcb-util-image
 	depends = xcb-util-renderutil
+	depends = libepoxy
 	optdepends = dbus:          for controlling picom via D-Bus
 	optdepends = python:        for running picom-convgen.py
 	optdepends = xorg-xprop:    for picom-trans
 	optdepends = xorg-xwininfo: for picom-trans
 	backup = etc/xdg/picom.conf
-	source = git+https://github.com/yshui/picom#commit=fc1d1d40e5ffe73cb35a6b09b3cd713a14d242f6
+	source = git+https://github.com/yshui/picom?signed#commit=89c2c8530319f72394522336e483b31275d1ef7c
 	validpgpkeys = A22F5C0F4FCF9C7C89A167462C965E9E5D45D730
 	b2sums = SKIP
 
