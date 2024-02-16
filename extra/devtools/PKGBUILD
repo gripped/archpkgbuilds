@@ -4,8 +4,8 @@
 
 pkgname=devtools
 epoch=1
-pkgver=1.1.0
-pkgrel=3
+pkgver=1.1.1
+pkgrel=1
 pkgdesc='Tools for Arch Linux package maintainers'
 arch=('any')
 license=('GPL-3.0-or-later')
@@ -44,31 +44,15 @@ optdepends=(
   'pacman-contrib: support for the --update-checksums option'
 )
 replaces=(devtools-git-poc)
-source=(
-  https://gitlab.archlinux.org/archlinux/devtools/-/releases/v${pkgver}/downloads/devtools-${pkgver}.tar.gz{,.sig}
-  devtools-1_1_0-fix-offload-build.patch::https://gitlab.archlinux.org/archlinux/devtools/-/commit/0469d3c902d7b27dd56400e1fb229f47b011c4dc.patch
-  devtools-1_1_0-fix-release-option-forwarding.patch::https://gitlab.archlinux.org/archlinux/devtools/-/commit/1cf402eae9d4b98f839ce9d116f807531cda7862.patch
-)
+source=(https://gitlab.archlinux.org/archlinux/devtools/-/releases/v${pkgver}/downloads/devtools-${pkgver}.tar.gz{,.sig})
 validpgpkeys=(
   'E240B57E2C4630BA768E2F26FC1B547C8D8172C8' # Levente Polyak <anthraxx@archlinux.org>
   'F00B96D15228013FFC9C9D0393B11DAA4C197E3D' # Christian Heusel (gromit packager key) <gromit@archlinux.org>
 )
-sha256sums=('1d11a2859250c388ae39ff7b9d0e5bdfe1e92a4b79d33ce1cca84da6c1c03aaa'
-            'SKIP'
-            '31f450e6bc271b630989c32d5fea78673c0d7ecab1d0b17bbe895e9b7dc5319e'
-            '44f4ad75ce7c13a4098665282651d2eb9be5bfb92967dba86a5b8314c624b7e9')
-b2sums=('1bc7674bddd936371a5f809955ea5fb7a7c97dfc4fa396c7331330b475b5a7303305479f4528f9ec74dd3140fb3c124f4384254ed7c33c91d742a11293735faa'
-        'SKIP'
-        '8f80fb6199cddfe851c5860fcc0b800cab566af68a3c7668c59fdbefddfe167751e97f1db9ccfca3c951f2adf0ccd16ea151c5158981ad1f59e7c2d6e174a6f1'
-        '4786f8235a36103797ce27f31beb6bc15893a4d0872d3b0053b5d48706d588e0b3fc01397bcdc3ff4686fc9de544145356179c406f820723a74aae91aef00822')
-
-prepare() {
-  cd ${pkgname}-${pkgver}
-  # https://gitlab.archlinux.org/archlinux/devtools/-/issues/208
-  patch --forward --strip=1 --input="${srcdir}/devtools-1_1_0-fix-offload-build.patch"
-  # https://gitlab.archlinux.org/archlinux/devtools/-/issues/209
-  patch --forward --strip=1 --input="${srcdir}/devtools-1_1_0-fix-release-option-forwarding.patch"
-}
+sha256sums=('b2a12bb8b4b568110b055ccec903c9a0b0b979ab44f0cba574c026d243d5ce36'
+            'SKIP')
+b2sums=('be9601a4fcbb576b9a8637abdaec70f8ec730cf5752793c2f8fdce20e489b74555f624d0a0b5f8bb58c0914413a29d51698c8474430010502ab80d6c18c4332e'
+        'SKIP')
 
 build() {
   cd ${pkgname}-${pkgver}
