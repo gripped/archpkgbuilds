@@ -3,7 +3,7 @@
 # Contributor: Stefan Husmann <stefan-husmann@t-online.de>
 
 pkgname=gotosocial
-pkgver=0.13.1
+pkgver=0.13.3
 pkgrel=1
 pkgdesc='ActivityPub social network server written in Golang'
 arch=('x86_64')
@@ -37,7 +37,7 @@ backup=(
   'etc/gotosocial/template/tag.tmpl'
   'etc/gotosocial/template/thread.tmpl'
 )
-_commit='ccecf5a7e4000f40522a790fcdaf2bf72d43d552'
+_commit='fb3e3ca10dc44cba841019bee1a8812e746133e9'
 source=(
   "$pkgname::git+https://github.com/superseriousbusiness/gotosocial#commit=$_commit"
   'sysusers.conf'
@@ -92,7 +92,7 @@ build() {
     -modcacherw \
     -ldflags "-compressdwarf=false \
     -linkmode external \
-    -extldflags ${LDFLAGS} \
+    -extldflags \"${LDFLAGS}\" \
     -X main.Version=$pkgver" \
     -o build \
     ./cmd/...
