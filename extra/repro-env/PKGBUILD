@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=repro-env
-pkgver=0.3.2
+pkgver=0.3.3
 pkgrel=1
 pkgdesc="Dependency lockfiles for reproducible build environments"
 url='https://github.com/kpcyrd/repro-env'
@@ -13,9 +13,9 @@ options=(!lto)
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
 validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
-sha256sums=('d1e6b7e335d8fe6dd673f0311a6b3cb399ee5b1c667662fb542fae548637fff4'
+sha256sums=('43e7b4bd711152610a068c7399e993a9fc6d706130044cf1745d90aaacdbb960'
             'SKIP')
-b2sums=('3bfc865c6555f809767218706f8f578d22a3891333a1ddf00351e950010f868f74e6d75914cc9f11e9bbcfe33d37e083ceeabb4f0a4255ca7e9eb1d65cd63e21'
+b2sums=('2e7371fb54b75b1718bdc8452bafbf795ab1b7712d55a566d82f4de9ef1e6ab4790bc3006b54ef37eaf911ea5b79f24b2635091f2717937f56970a63462480d0'
         'SKIP')
 
 prepare() {
