@@ -6,7 +6,7 @@
 # Contributor: Christopher Reimer <vdr4arch at creimer dot net>
 
 pkgname=poco
-pkgver=1.12.5p1
+pkgver=1.12.5p2
 _pkgver=${pkgver/_/}
 pkgrel=1
 pkgdesc="C++ class libraries for network-centric, portable applications, complete edition with debug libraries"
@@ -17,7 +17,7 @@ depends=('mariadb-libs' 'openssl' 'unixodbc')
 makedepends=('cmake' 'ninja')
 source=("https://pocoproject.org/releases/poco-${_pkgver}/poco-${_pkgver}-all.tar.bz2"
 		"0001-mariadb-replace-mysql.diff")
-sha256sums=('9b4c55688aee9c9def95f659254d2f22606aba174941ed1b9cb7b7264a8f8f8e'
+sha256sums=('a12601ab2b8abfd3eb5759e7bf350cfd2a3f9e16cb7fe749867dd30cc4282b32'
             '83628e398cd641d3b2a2645318c5c4a8130366673822936907446d792d3ef737')
 
 prepare() {
