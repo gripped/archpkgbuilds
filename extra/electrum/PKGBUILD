@@ -4,8 +4,8 @@
 # Contributor: Andy Weidenbaum <archbaum@gmail.com>
 
 pkgname=electrum
-pkgver=4.4.6
-pkgrel=2
+pkgver=4.5.2
+pkgrel=1
 pkgdesc="Lightweight Bitcoin wallet"
 arch=('any')
 makedepends=('python-setuptools')
@@ -13,7 +13,7 @@ depends=('python-pyaes' 'python-ecdsa' 'python-pbkdf2' 'python-requests' 'python
          'python-protobuf' 'python-dnspython' 'python-jsonrpclib-pelix' 'python-pysocks'
          'python-pyqt5' 'python-pycryptodomex' 'python-websocket-client' 'python-certifi'
          'python-aiorpcx' 'python-aiohttp' 'python-aiohttp-socks'
-         'libsecp256k1' 'python-bitstring')
+         'libsecp256k1' 'python-bitstring' 'python-jsonpatch')
 optdepends=('python-btchip: BTChip hardware wallet support'
             'python-hidapi: Digital Bitbox hardware wallet support'
             'python-matplotlib: plot transaction history in graphical mode'
@@ -27,7 +27,7 @@ url="https://electrum.org"
 license=('MIT')
 source=("https://download.electrum.org/${pkgver}/${pkgname^}-${pkgver}.tar.gz"
         "${pkgname^}-${pkgver}.tar.gz.asc::https://download.electrum.org/${pkgver}/${pkgname^}-${pkgver}.tar.gz.ThomasV.asc")
-sha512sums=('4261799098048b543a5dafef31455fb6d50f285d778b477c97d73b62b3ef86908c74d12904eab3f2dfd0016b5f7fdf344c2f2c77fac61263664379f137395524'
+sha512sums=('078edb3dc9aea730269e017849517bf5f5bc83e2429ba29753197ae6bfb0434b3cc672db7228d0fe7ec5897379f33991c7e2f55c261cd5b77effcc9c180f31c1'
             'SKIP')
 validpgpkeys=('6694D8DE7BE8EE5631BED9502BD5824B7F9470E6')
 
