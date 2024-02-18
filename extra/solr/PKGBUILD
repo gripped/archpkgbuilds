@@ -2,13 +2,13 @@
 
 pkgname=solr
 pkgver=9.5.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Open source enterprise search platform built on Apache Lucene"
 arch=(any)
 url="https://lucene.apache.org/solr/"
 license=(Apache)
 depends=(bash 'java-runtime=11')
-makedepends=(gradle git groovy 'java-environment=11')
+makedepends=(gradle git groovy 'java-environment=11' npm)
 backup=(
   etc/$pkgname/server/jetty-http.xml
   etc/$pkgname/server/jetty-https.xml
@@ -75,6 +75,7 @@ prepare() {
   patch -Np1 -i "$srcdir"/support-reproducible-builds.patch
   patch -Np1 -i "$srcdir"/skip-failing-test.patch
   # patch -Np1 -i "$srcdir"/allow-using-system-gradle.patch
+  sed -i 's/download = true/download = false/' gradle/node.gradle
 }
 
 build() {
