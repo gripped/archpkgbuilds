@@ -4,9 +4,9 @@
 
 _name=Solaar
 pkgname=solaar
-pkgver=1.1.10
-_commit=eafaf333bf5e1d517a8099ead2a1228596477fb1  # refs/tags/1.1.10
-pkgrel=2
+pkgver=1.1.11
+_commit=2e4f3883693256d770cdf87ae1a4d194da2445ee  # refs/tags/1.1.11
+pkgrel=1
 pkgdesc="Linux device manager for a wide range of Logitech devices"
 url="https://pwr-solaar.github.io/Solaar/"
 _url="https://github.com/pwr-Solaar/Solaar"
@@ -46,7 +46,6 @@ pkgver() {
 
 prepare() {
   cd $_name
-  git cherry-pick -n 15f4733032b77ee164f22d5a76081af35da1fe06  # https://gitlab.archlinux.org/archlinux/packaging/packages/solaar/-/issues/1
   tools/po-compile.sh
 }
 
