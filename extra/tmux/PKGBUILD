@@ -3,7 +3,7 @@
 
 pkgname=tmux
 pkgver=3.4
-pkgrel=3
+pkgrel=4
 pkgdesc='Terminal multiplexer'
 url='https://github.com/tmux/tmux/wiki'
 arch=('x86_64')
@@ -21,6 +21,7 @@ build() {
 
 	./configure \
 		--prefix=/usr \
+		--enable-sixel \
 		--enable-systemd \
 		--enable-utempter
 	make
