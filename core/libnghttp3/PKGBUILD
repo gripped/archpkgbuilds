@@ -2,8 +2,8 @@
 # Maintainer: Christian Hesse <eworm@archlinux.org>
 
 pkgname=libnghttp3
-pkgver=1.1.0
-pkgrel=2
+pkgver=1.2.0
+pkgrel=1
 pkgdesc="HTTP/3 library written in C"
 url='https://github.com/ngtcp2/nghttp3'
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT')
 provides=('libnghttp3.so')
 validpgpkeys=('F4F3B91474D1EB29889BD0EF7E8403D5D673C366') # Tatsuhiro Tsujikawa <tatsuhiro.t@gmail.com>
 source=("https://github.com/ngtcp2/nghttp3/releases/download/v${pkgver}/nghttp3-${pkgver}.tar.xz"{,.asc})
-sha256sums=('f7ffcf21fb889e7d6a8422a3620deb52a8516364805ec3bd7ef296628ca595cb'
+sha256sums=('d2e216bae7bd7362f850922e4237a5caa204853b3594b22adccab4c1e1c1d1aa'
             'SKIP')
 
 prepare() {
