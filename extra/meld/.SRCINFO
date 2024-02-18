@@ -1,0 +1,20 @@
+pkgbase = meld
+	pkgdesc = Compare files, directories and working copies
+	pkgver = 3.22.1
+	pkgrel = 1
+	url = https://meldmerge.org/
+	arch = any
+	license = GPL-2.0-or-later
+	checkdepends = appstream-glib
+	makedepends = git
+	makedepends = meson
+	makedepends = yelp-tools
+	depends = dconf
+	depends = gsettings-desktop-schemas
+	depends = gtksourceview4
+	depends = python-cairo
+	depends = python-gobject
+	source = git+https://gitlab.gnome.org/GNOME/meld.git#commit=1138db7d42e5db1e426fbe09d2588103febfc5df
+	b2sums = SKIP
+
+pkgname = meld
