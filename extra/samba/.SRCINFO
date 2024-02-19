@@ -1,5 +1,5 @@
 pkgbase = samba
-	pkgver = 4.19.4
+	pkgver = 4.19.5
 	pkgrel = 1
 	url = https://www.samba.org
 	arch = x86_64
@@ -36,13 +36,13 @@ pkgbase = samba
 	optdepends = python-dnspython: samba_dnsupdate and samba_upgradedns in AD setup
 	optdepends = python-markdown: for samba-tool domain schemeupgrade
 	optdepends = glusterfs: for vfs_glusterfs support
-	source = https://us1.samba.org/samba/ftp/stable/samba-4.19.4.tar.gz
-	source = https://us1.samba.org/samba/ftp/stable/samba-4.19.4.tar.asc
+	source = https://us1.samba.org/samba/ftp/stable/samba-4.19.5.tar.gz
+	source = https://us1.samba.org/samba/ftp/stable/samba-4.19.5.tar.asc
 	source = samba.logrotate
 	source = samba.pam
 	source = samba.conf
 	validpgpkeys = 81F5E2832BD2545A1897B713AA99442FB680B620
-	sha512sums = 9a66f685cb1b5b89c59c75ccb67292b3f792b40b30ca76dfc483e805f5bb680bac027117a28a117f42713452fca41c439bed1724ba7d436fe0b0cb30a34f5b45
+	sha512sums = 5b0934f2e44a28ffc4aa07e5495b339cf3a7548c49e29d1bae87de6c3a6f57c2a9130592dce782895079f559ed3bc8b5e4514c9c0fd8d5638aef68f0d0a3391f
 	sha512sums = SKIP
 	sha512sums = 2ba0691ded467e4d6e40821f6de58c00f8962209efe2e60284c0c87756ab471c22c3d63b77d506e48c90ed0d852a2a24e41be1d499cf74a73cb99da0b503c858
 	sha512sums = 1e6183ab0eb812b3ef687ac2c26ce78f7cb30540f606d20023669ac00ba04075487fb72e4dc89cc05dab0269ff6aca98fc1167cc75669c225b88b592482fbf67
@@ -88,7 +88,7 @@ pkgname = samba
 	depends = libbsd
 	depends = python
 	depends = tdb
-	depends = smbclient>=4.19.4
+	depends = smbclient>=4.19.5
 	depends = gpgme
 	depends = libldb.so
 	depends = libtdb.so
