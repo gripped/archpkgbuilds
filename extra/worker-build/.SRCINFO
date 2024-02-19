@@ -1,0 +1,19 @@
+pkgbase = worker-build
+	pkgdesc = Custom build command for a Cloudflare Workers project
+	pkgver = 0.0.10
+	pkgrel = 1
+	url = https://github.com/cloudflare/workers-rs/tree/main/worker-build
+	arch = x86_64
+	license = Apache-2.0
+	makedepends = cargo
+	depends = esbuild
+	depends = gcc-libs
+	depends = glibc
+	depends = wasm-bindgen
+	depends = wasm-pack
+	options = !lto
+	source = worker-build-0.0.10.tar.gz::https://crates.io/api/v1/crates/worker-build/0.0.10/download
+	sha256sums = 69b938f9d69fefe774a5abc8f03ceb53360b95a8975cefd27e96b2529f6e342a
+	b2sums = 127d4c6c1e52b45af1d277a3aa14abe6de9973a7981638844f27d7f7bf14d9875b7da0c554595ce256eccb22127185ca00097e1615af88c7d56a4e919dc9391c
+
+pkgname = worker-build
