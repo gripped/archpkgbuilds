@@ -6,8 +6,8 @@
 pkgname=elvish
 pkgver=0.20.1
 _commit='663e5e6614ecb360ea21577aa30a19cb6b3be530'
-pkgrel=1
-pkgdesc="A friendly and expressive Unix shell"
+pkgrel=2
+pkgdesc='Versatile interactive shell & powerful scripting language in one'
 arch=('x86_64')
 url="https://elv.sh"
 license=('BSD')
@@ -17,6 +17,8 @@ install="$pkgname.install"
 options=('!lto')
 source=("$pkgname::git+https://github.com/elves/elvish.git#commit=$_commit")
 b2sums=('SKIP')
+
+_variant="archlinux$pkgrel"
 
 pkgver() {
   cd "$pkgname"
@@ -42,20 +44,22 @@ build() {
   export CGO_CFLAGS="$CFLAGS"
   export CGO_CXXFLAGS="$CXXFLAGS"
 
+  # See https://github.com/elves/elvish/blob/master/PACKAGING.md for the
+  # src.elv.sh/pkg/buildinfo.BuildVariant variable
   go build -v \
     -trimpath \
     -buildmode=pie \
     -mod=readonly \
     -modcacherw \
     -ldflags "-linkmode external -extldflags \"$LDFLAGS\" \
-      -X github.com/elves/elvish/pkg/buildinfo.Reproducible=true \
-      -X github.com/elves/elvish/pkg/buildinfo.Version=$pkgver" \
+      -X src.elv.sh/pkg/buildinfo.BuildVariant=$_variant" \
     -o build \
     ./cmd/...
 }
 
 check() {
   cd "$pkgname"
+  build/elvish --version | grep -Fqx "$pkgver+$_variant"
   go test -v -race ./...
 }
 
