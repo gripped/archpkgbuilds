@@ -1,15 +1,15 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Mark Wagie <mark dot wagie at tutanota dot com>
 pkgname=cameractrls
-pkgver=0.5.13
-pkgrel=3
+pkgver=0.5.15
+pkgrel=2
 pkgdesc="Camera controls for Linux"
 arch=('any')
 url="https://github.com/soyersoyer/cameractrls"
 license=('MIT')
 depends=('gtk4' 'libjpeg-turbo' 'python' 'python-gobject' 'sdl2' 'systemd')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('b14a923dd2a40d4b517cac9bab9099ff2c4f8a52fd821d50b86d09d6a556b89d')
+sha256sums=('76bc517e7f61c77ce72ea6359f3e045a81e4ec4a2f2f071714aaadeee92ec2fd')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -21,7 +21,7 @@ prepare() {
 package() {
   cd "$pkgname-$pkgver"
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  install -Dm755 cameractrls.py cameraview.py cameractrlsgtk4.py -t \
+  install -Dm755 camera{ctrls,ctrlsgtk4,ptzgame,ptzmidi,ptzspnav,view}.py -t \
     "${pkgdir}${site_packages}/CameraCtrls/"
   install -Dm644 "pkg/hu.irl.cameractrls.svg" -t "${pkgdir}${site_packages}/CameraCtrls/images/"
   install -Dm644 "pkg/hu.irl.cameractrls.metainfo.xml" -t "$pkgdir/usr/share/metainfo/"
