@@ -3,17 +3,31 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gedit
-pkgver=46.1
+pkgver=46.2
 pkgrel=1
 pkgdesc="GNOME Text Editor"
-url="https://wiki.gnome.org/Apps/Gedit"
+url="https://gedit-technology.github.io/apps/gedit/"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-2.0-or-later)
 depends=(
+  bash
+  cairo
+  dconf
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  gobject-introspection-runtime
   gsettings-desktop-schemas
   gspell
+  gtk3
+  hicolor-icon-theme
   libgedit-amtk
+  libgedit-gtksourceview
+  libgirepository
   libpeas
+  pango
+  python
   python-gobject
   tepl
 )
@@ -30,7 +44,7 @@ makedepends=(
 optdepends=('gedit-plugins: Additional features')
 conflicts=('gedit-code-assistance<=3.16.0+4+gd19b879-1')
 groups=(gnome-extra)
-_commit=5a08fe0aef0164ab2c21140ca406d47bd9805c25  # tags/46.1^0
+_commit=da63f4c642c8ffabb0773f1ef2c2a0edadfdc3e9  # tags/46.2^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/gedit.git#commit=$_commit"
   "git+https://gitlab.gnome.org/GNOME/libgd.git"
