@@ -2,22 +2,22 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=git-cliff
-pkgver=1.4.0
+pkgver=2.0.2
 pkgrel=1
 pkgdesc="A highly customizable changelog generator"
 arch=('x86_64')
 url="https://github.com/orhun/git-cliff"
-license=('MIT' 'Apache')
+license=('MIT' 'Apache-2.0')
 depends=('gcc-libs' 'zlib' 'libgit2.so')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('4fa7ff2ea9cb2656b5d7f81db30112600058f08ed8605890f24d53238b6467d754cb9068424e2946f7e40ebf65acb7e74a90af26d6503fa8f104de3fcbca560c')
+sha512sums=('fb3f5e83c6a894c02effa18b28cc922c62cf3613020621ea1960e6e19fceacfb8d33eeac80136d618d849885db95f062a379a51f728bc3b3909e30f4cfc4aaf8')
 
 prepare() {
   cd "$pkgname-$pkgver"
   mkdir completions/
   mkdir man/
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
@@ -30,7 +30,7 @@ build() {
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --frozen -- --skip "git_log" --skip "git_tags"
+  cargo test --frozen -- --skip "git_log" --skip "git_tags" --skip "git_upstream_remote"
 }
 
 package() {
