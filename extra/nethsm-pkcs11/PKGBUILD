@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=nethsm-pkcs11
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 pkgdesc="PKCS#11 driver for NetHSM"
 arch=(x86_64)
@@ -10,11 +10,19 @@ license=(Apache-2.0)
 depends=(glibc)
 makedepends=(rust)
 options=(!lto)  # NOTE: as ring is used we can not use LTO
-source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('ee471f73fc4eeae65989e4a6af18bead4b875f1779464c3af59bfb5f7a2a40381ecf80c3236839114d6783f00b5a055d83321d9577cddd88a5660d799c1654e4')
-b2sums=('6ae341a64654ad6eaaad0423de39e1deb95075ee1058156d0d996f220987fca2484237ee06dfbe9494a1cadc07732b90ef88e8c03ba4a9c1cea247af86dc9c15')
+source=(
+  $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
+  $pkgname-1.3.0-disable_network_tests.patch
+)
+sha512sums=('07b16f83b0f0965554ad9b134bc88f39a44832345b06053f501d6adf90cc4ffd47f28f94c08f4548a35c840e8545980fc37003fb08859c61ae5c392b65ca12e3'
+            'b8100588d107b68a50a507b23d078d41ed50250e3c86d9b88b87cdd17a5950a7590ac35c749383745ac573033050cdc303fc9092909c6a9b5ab6d9d42a835598')
+b2sums=('2f076203fa423cba51cf100d68907e7b2b1edbdfe8772b9f92925749c2cc80a7d15a5c3a8354828591098598db1343b611fb3d66ddb4675775a0db6b6073d99c'
+        '0d5dbca97d2179610a5bc4d18f04e4f4460ef2062bf200f9dc58353384b97c9070da373f3309bfe669058c306a5169fabd928eb6baf30ba613d4499721132ef7')
 
 prepare() {
+  # disable tests requiring network: https://github.com/Nitrokey/nethsm-pkcs11/pull/191
+  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-1.3.0-disable_network_tests.patch
+
   cd $pkgname-$pkgver
   export RUSTUP_TOOLCHAIN=stable
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
