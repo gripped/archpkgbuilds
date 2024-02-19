@@ -1,0 +1,22 @@
+pkgbase = podman-compose
+	pkgdesc = A script to run docker-compose.yml using podman
+	pkgver = 1.0.6
+	pkgrel = 4
+	url = https://github.com/containers/podman-compose
+	arch = any
+	license = GPL2
+	checkdepends = python-pytest
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	depends = podman
+	depends = python
+	depends = python-dotenv
+	depends = python-yaml
+	optdepends = aardvark-dns: resolve hostnames of linked containers
+	source = podman-compose-1.0.6.tar.gz::https://github.com/containers/podman-compose/archive/v1.0.6.tar.gz
+	sha512sums = eb6972c51fd02c7a7dec364d18417c4f093f12ab90ba7061be189de7130c8eb0becb5a1653ebf7db0611470b52257a4a1eaae52891f434ca73fbc6dd30da5f56
+	b2sums = 4a200d7abb77535d631704e96f600c360cd03a70274c5ed763a6f21a309f9be1225749e4f34b1df00973e9c1de191ec3d43bf35588d912faac25de52e4dd85be
+
+pkgname = podman-compose
