@@ -5,8 +5,8 @@
 
 _name=urwid
 pkgname=python-urwid
-pkgver=2.5.1
-_commit=58ce51af2551c0d7db5386f3283ea186cf11cfc0
+pkgver=2.6.1
+_commit=91cd0dde100c55c96dba5c06dd8a19b220947942
 pkgrel=1
 pkgdesc='Curses-based user interface library'
 url='https://urwid.org/'
@@ -16,6 +16,7 @@ depends=(
   'glibc'
   'python'
   'python-typing-extensions'
+  'python-wcwidth'
 )
 makedepends=(
   'git'
