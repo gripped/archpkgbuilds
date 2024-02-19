@@ -2,7 +2,7 @@
 
 pkgname=espup
 pkgver=0.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Tool for installing and maintaining ESP Rust ecosystem"
 url='https://github.com/esp-rs/espup'
 arch=('x86_64')
@@ -15,6 +15,7 @@ depends=(
   'ldproxy'
   'libbz2.so'
   'liblzma.so'
+  'libssl.so'
   'pkg-config'
   'python'
   'python-pip'
@@ -28,17 +29,17 @@ b2sums=('a19829f996967bbd5df29c2dba3e57373a1bd3f957bca3e0d1cb2bd4adf89c06c4b214c
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
   cd ${pkgname}-${pkgver}
-  cargo build --frozen --release
+  OPENSSL_NO_VENDOR=1 cargo build --frozen --release
 }
 
 check() {
   cd ${pkgname}-${pkgver}
-  cargo test --frozen
+  OPENSSL_NO_VENDOR=1 cargo test --frozen
   target/release/${pkgname} --help
 }
 
