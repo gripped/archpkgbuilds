@@ -3,7 +3,7 @@
 # Contributor: Josip Ponjavic <josipponjavic at gmail dot com>
 
 pkgname=i3status-rust
-pkgver=0.32.3
+pkgver=0.33.0
 pkgrel=1
 pkgdesc='Resourcefriendly and feature-rich replacement for i3status, written in pure Rust'
 arch=('x86_64')
@@ -21,7 +21,7 @@ optdepends=('alsa-utils: for the volume block'
             'ttf-font-awesome: for the awesome icons'
             'upower: for the battery block')
 source=(${pkgname}-${pkgver}.tar.gz::"https://github.com/greshake/i3status-rust/archive/refs/tags/v${pkgver}.tar.gz")
-b2sums=('94b79a356151284eec41262606c9824f928de0e4a167a468fa23bbc917dbd83097e298d0b17022a6739de0950d3ea9242af8d3fe61268744e9158ec0560be5f8')
+b2sums=('f8df762b42a76b5f63a7ea84b2446c55ae0ee3e1b40658baf788426433af24ad26cedc1fc676323d74b850ae19d4d7264be1bd2d227e92a5bb53319e84615527')
 
 prepare() {
   cd ${pkgname}-${pkgver}
