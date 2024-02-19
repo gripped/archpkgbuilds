@@ -5,12 +5,13 @@
 # Contributor: Stefan Husmann <stefan-husmann@t-online.de>
 
 pkgname=mixxx
-pkgver=2.3.6
-pkgrel=4
+pkgver=2.4.0
+pkgrel=1
 pkgdesc="Free, open source software for digital DJing"
 arch=(x86_64)
 url="https://www.mixxx.org"
-license=(GPL-2.0)
+_url="https://github.com/mixxxdj/mixxx"
+license=(GPL-2.0-or-later)
 groups=(pro-audio)
 # TODO: package libshout-idjc
 depends=(
@@ -19,6 +20,7 @@ depends=(
   hicolor-icon-theme
   hidapi
   lame
+  libebur128
   libkeyfinder
   libmad
   libmodplug
@@ -27,6 +29,7 @@ depends=(
   opus
   opusfile
   qt5-base
+  qt5-declarative
   qt5-script
   qt5-svg
   qt5-x11extras
@@ -34,11 +37,12 @@ depends=(
   soundtouch
   speex
   sqlite
-  taglib
+  taglib1
   upower
   wavpack
 )
 makedepends=(
+  benchmark
   chromaprint
   cmake
   faad2
@@ -47,6 +51,7 @@ makedepends=(
   glib2
   glu
   gperftools
+  gtest
   libid3tag
   libogg
   libsndfile
@@ -54,6 +59,7 @@ makedepends=(
   libvorbis
   lilv
   lv2
+  microsoft-gsl
   qt5-tools
   portaudio
   portmidi
@@ -62,16 +68,9 @@ makedepends=(
   vamp-plugin-sdk
 )
 checkdepends=(xorg-server-xvfb)
-source=(https://github.com/${pkgname}dj/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz
-        taglib-2.patch)
-sha512sums=('a92c2c92dc7619ac135d940f23ffdc101c528eca6322517805afb9eb48a84c6339cefb88b96bdac6ffb23967c2f93f621daf3e98bfecbf7f3fe7626ddcec4398'
-            'ded7ebd30ee24da0e956a14201499a7e85e77ff898f500eeb999e843a02d4e693aa857a607dcf22112b2e2e808e54a64fc3d5199a3a0efa29010dfdac323a2b7')
-b2sums=('35bedb5f41a56577bc59411ca979e3e780c1da2420bc0a7ad98d998c89f8c272202ba42e8b8089904ca8e1a1b6ac5155d08d556538245ce3242b4ea5a670e6d2'
-        '3963647ae9514b713be9e083ce648fea4a2966c0368d61613124f6937ad3f603c0fb3e3bf471332eec60c61420b5388f092aaaaf164dbc73ded832ebff037b0a')
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < taglib-2.patch
-}
+source=($_url/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+sha512sums=('cde73d5824b3c700b3b2baf853a8cc4f338431363a05e0052197d06c3a97d09fc27b1748d9ffc8448c9a8715dc969d9af797b6021a2c5ddbc8d3418fa0eaf486')
+b2sums=('0fbf0df61f888f33880b9e952d5afd94464d8199e18a8cda16d9156da1a674835850fe8c865e678f3416d7314aed62a388880e13f2688781515fda89a4d378ea')
 
 build() {
   local cmake_options=(
@@ -82,6 +81,7 @@ build() {
     -W no-dev
   )
 
+  export PKG_CONFIG_PATH=/usr/lib/taglib1/pkgconfig
   cmake "${cmake_options[@]}"
   cmake --build build --verbose
 }
@@ -96,6 +96,7 @@ package() {
     flac libFLAC.so
     ffmpeg libavcodec.so libavformat.so libavutil.so
     glib2 libgobject-2.0.so
+    libglvnd libOpenGL.so
     libid3tag libid3tag.so
     libogg libogg.so
     libsndfile libsndfile.so
@@ -106,6 +107,7 @@ package() {
     portmidi libportmidi.so
     protobuf libprotobuf-lite.so
     rubberband librubberband.so
+    zlib libz.so
   )
 
   DESTDIR="$pkgdir" cmake --install build
