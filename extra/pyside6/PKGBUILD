@@ -5,7 +5,7 @@ pkgbase=pyside6
 pkgname=(pyside6
          pyside6-tools
          shiboken6)
-_qtver=6.6.1
+_qtver=6.6.2
 _clangver=16.0.6
 pkgver=${_qtver/-/}
 pkgrel=1
@@ -44,7 +44,7 @@ makedepends=(clang
 _pkgfn=pyside-setup-everywhere-src-$_qtver
 source=(https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-$pkgver-src/${_pkgfn}.tar.xz
         fix-build.patch)
-sha256sums=('341f42483fbe58c88fa5b353eefa83ffcc4ec440bf6e87c1c7ffd278ed54d1ca'
+sha256sums=('14620b694d7af4c978443016292d3d2108ba5dc105f4170e3b71eadcaf04c9f0'
             '77b83cb164ea87d826259864f6a81fb33199510e1948d6daaf5c8d5ab55735a7')
 
 prepare() {
