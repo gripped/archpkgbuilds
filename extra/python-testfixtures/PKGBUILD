@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-testfixtures
-pkgver=7.2.2
-_commit=3f40677d9c1ad5f69d925deeeea8e55fa62c52ed
+pkgver=8.0.0
+_commit=f8d7eb3a9a7ac1c04fbc7644498d0f6757d91a41
 pkgrel=1
 pkgdesc="A collection of helpers and mock objects that are useful when writing unit tests or doc tests"
 arch=('any')
