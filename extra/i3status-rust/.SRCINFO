@@ -1,12 +1,14 @@
 pkgbase = i3status-rust
 	pkgdesc = Resourcefriendly and feature-rich replacement for i3status, written in pure Rust
 	pkgver = 0.33.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/greshake/i3status-rust
 	arch = x86_64
-	license = GPL3
+	license = GPL-3.0-only
+	makedepends = clang
 	makedepends = rust
 	makedepends = pandoc
+	depends = libpipewire
 	depends = libpulse
 	depends = lm_sensors
 	optdepends = alsa-utils: for the volume block
