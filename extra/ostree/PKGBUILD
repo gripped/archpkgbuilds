@@ -5,7 +5,7 @@
 pkgname=ostree
 _commit=d43386f15dd1a64fb153b1763a64bfc258cf7fc0  # tags/v2024.3^{}
 pkgver=2024.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Operating system and container binary deployment and upgrades"
 url="https://ostreedev.github.io/ostree/"
 arch=(x86_64)
@@ -19,6 +19,7 @@ depends=(
   libsodium
   sh
   util-linux
+  which  # remove after https://github.com/ostreedev/ostree/pull/3154 is merged and released
   zlib
 )
 makedepends=(
