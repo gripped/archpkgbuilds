@@ -3,19 +3,19 @@
 
 _pyname=flask-wtf
 pkgname=python-flask-wtf
-pkgver=1.1.1
-pkgrel=2
+pkgver=1.2.1
+pkgrel=1
 pkgdesc='Simple integration of Flask and WTForms'
 url='https://flask-wtf.readthedocs.io/'
 arch=('any')
 license=('BSD')
 depends=('python-flask' 'python-wtforms' 'python-werkzeug' 'python-flask-babel')
-makedepends=('python-setuptools' 'python-sphinx' 'python-pallets-sphinx-themes'
-             'python-sphinxcontrib-log-cabinet' 'python-sphinx-issues')
+makedepends=('python-build' 'python-installer' 'python-sphinx' 'python-pallets-sphinx-themes'
+             'python-sphinxcontrib-log-cabinet' 'python-sphinx-issues' 'python-hatchling')
 checkdepends=('python-tox')
 options=('!makeflags')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/wtforms/flask-wtf/archive/v${pkgver}.tar.gz)
-sha512sums=('4e893ac29051d7c0793f47b8d046b2402902d832a4164408221369d65c170c5c6a16b0d2c7d78e166e82e7fc665118df8c3f1ee51503afaabc053ba236c1f178')
+sha512sums=('07590fa757d92a9f0bf0afae9b726344ab79227a187ddbe62805e3b5b50f7bcad521772c884d342bf687d530a100fa4cb41c4989ebbd670955dbb950bf675501')
 
 prepare() {
   cd ${_pyname}-${pkgver}
@@ -25,6 +25,7 @@ prepare() {
 build() {
   cd ${_pyname}-${pkgver}
   make -C docs man text SPHINXBUILD=sphinx-build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -35,7 +36,7 @@ check() {
 
 package() {
   cd ${_pyname}-${pkgver}
-  python setup.py install --root="${pkgdir}" -O1
+  python -m installer --destdir="${pkgdir}" dist/*.whl
   install -Dm 644 LICENSE.rst -t "${pkgdir}/usr/share/licenses/${pkgname}"
   install -Dm 644 README.rst  -t "${pkgdir}/usr/share/doc/${pkgname}"
   cp -r docs/_build/text "${pkgdir}/usr/share/doc/${pkgname}/text"
