@@ -3,8 +3,8 @@
 
 pkgname=python-sphinx-reredirects
 _pkgname=${pkgname#python-}
-pkgver=0.1.1
-pkgrel=2
+pkgver=0.1.2
+pkgrel=1
 pkgdesc='Handles redirects for moved pages in Sphinx documentation projects'
 arch=(any)
 url="https://gitlab.com/documatt/$_pkgname"
@@ -17,7 +17,7 @@ makedepends=(python-{build,installer}
 checkdepends=(python-pytest)
 _archive="$_pkgname-v$pkgver"
 source=("$url/-/archive/v$pkgver/$_archive.tar.bz2")
-sha256sums=('5f494fad2fbb3c37b787815a4c6f8c9b1dbab7a1d91c55025033c16d4d226a06')
+sha256sums=('b6a3febe4dee4ffc477e6924efe0ffceea5ab88aba3e1f926ef29b04b00469e4')
 
 build() {
     cd "$_archive"
