@@ -1,6 +1,6 @@
 pkgbase = rpm-tools
 	pkgdesc = RPM Package Manager - RPM.org fork, used in major RPM distros
-	pkgver = 4.18.2
+	pkgver = 4.19.1.1
 	pkgrel = 1
 	url = http://www.rpm.org/
 	install = rpm-tools.install
@@ -8,6 +8,8 @@ pkgbase = rpm-tools
 	license = GPL2
 	makedepends = python
 	makedepends = pkg-config
+	makedepends = cmake
+	makedepends = podman
 	depends = lua
 	depends = file
 	depends = nss
@@ -15,16 +17,17 @@ pkgbase = rpm-tools
 	depends = elfutils
 	depends = libarchive
 	depends = libcap
-	provides = rpm=4.18.2
+	depends = rpm-sequoia
+	provides = rpm=4.19.1.1
 	provides = rpmextract=1.0-4
 	provides = rpm-org
 	conflicts = rpm
 	conflicts = rpmextract
 	options = !libtool
-	source = http://ftp.rpm.org/releases/rpm-4.18.x/rpm-4.18.2.tar.bz2
+	source = http://ftp.rpm.org/releases/rpm-4.19.x/rpm-4.19.1.1.tar.bz2
 	source = rpmextract.sh
 	source = rpmlib-filesystem-check.patch
-	sha256sums = ba7eee1bc2c6f83be73c0a40d159c625cbaed976b3ac044233404fb25ae1b979
+	sha256sums = 874091b80efe66f9de8e3242ae2337162e2d7131e3aa4ac99ac22155e9c521e5
 	sha256sums = 3e5bf450d4628366ba35469ec0530a99cd09ab2616a3d261a3f68270f481f777
 	sha256sums = bd0e6dbd458f990268c60324190c6825b234647ecdde08296d2b453dc4bce27a
 
