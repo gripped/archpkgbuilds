@@ -3,7 +3,7 @@
 
 pkgname=arrow
 pkgver=15.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Columnar in-memory analytics layer for big data."
 arch=(x86_64)
 url="https://arrow.apache.org"
@@ -16,18 +16,22 @@ makedepends=(boost clang cmake flatbuffers git gmock rapidjson xsimd)
 source=(https://archive.apache.org/dist/${pkgname}/${pkgname}-${pkgver}/apache-${pkgname}-${pkgver}.tar.gz{,.asc}
         git+https://github.com/apache/parquet-testing.git
         git+https://github.com/apache/arrow-testing.git
-        lz4-cmake.patch)
+        lz4-cmake.patch
+        glog-0.7.patch)
 sha512sums=('d5dccaa0907b0e6f2a460e32ae75091942dcb70b51db4aefe2767ee8d99882694607b723a9c06898dda3938d8eb498258d7f9aad11054665b6ea9c2fbaeafa74'
             'SKIP'
             'SKIP'
             'SKIP'
-            '35af7cafbc83f02ab7fb219accda890ca1c233b0393bd2e91c07f3673a5a34e41752c5db071ab61fcc9e7154fafaca1394dd481de7e03e06856864c4197c52d6')
+            '35af7cafbc83f02ab7fb219accda890ca1c233b0393bd2e91c07f3673a5a34e41752c5db071ab61fcc9e7154fafaca1394dd481de7e03e06856864c4197c52d6'
+            'b73379dd2ecbd420dcec70b080aa3c780bf3e92ae284d64528885809f6fd1c10261460bc04deb04fff8cc55eb3ee069f25603a47c74f6581aea6c331248508ce')
 validpgpkeys=(265F80AB84FE03127E14F01125BCCA5220D84079  # Krisztian Szucs (apache) <szucs.krisztian@gmail.com>
               08D3564B7C6A9CAFBFF6A66791D18FCF079F8007  # Kouhei Sutou <kou@cozmixng.org>
               AF6AADA4C9835B75973FF5DA275C532289DD0F4A) # Raúl Cumplido Domínguez (CODE SIGNING KEY) <raulcd@apache.org>
 
 prepare() {
   patch -d apache-${pkgname}-${pkgver} -p1 < lz4-cmake.patch # Fix build when lz4 is built with cmake
+  rm apache-${pkgname}-${pkgver}/cpp/cmake_modules/FindGLOG.cmake # Use upstream glog cmake module, fixes build with 0.7
+  patch -d apache-${pkgname}-${pkgver} -p1 < glog-0.7.patch # Fix build with glog 0.7
 }
 
 build(){

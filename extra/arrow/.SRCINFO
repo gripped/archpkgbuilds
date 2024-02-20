@@ -1,7 +1,7 @@
 pkgbase = arrow
 	pkgdesc = Columnar in-memory analytics layer for big data.
 	pkgver = 15.0.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://arrow.apache.org
 	arch = x86_64
 	license = Apache
@@ -35,6 +35,7 @@ pkgbase = arrow
 	source = git+https://github.com/apache/parquet-testing.git
 	source = git+https://github.com/apache/arrow-testing.git
 	source = lz4-cmake.patch
+	source = glog-0.7.patch
 	validpgpkeys = 265F80AB84FE03127E14F01125BCCA5220D84079
 	validpgpkeys = 08D3564B7C6A9CAFBFF6A66791D18FCF079F8007
 	validpgpkeys = AF6AADA4C9835B75973FF5DA275C532289DD0F4A
@@ -43,5 +44,6 @@ pkgbase = arrow
 	sha512sums = SKIP
 	sha512sums = SKIP
 	sha512sums = 35af7cafbc83f02ab7fb219accda890ca1c233b0393bd2e91c07f3673a5a34e41752c5db071ab61fcc9e7154fafaca1394dd481de7e03e06856864c4197c52d6
+	sha512sums = b73379dd2ecbd420dcec70b080aa3c780bf3e92ae284d64528885809f6fd1c10261460bc04deb04fff8cc55eb3ee069f25603a47c74f6581aea6c331248508ce
 
 pkgname = arrow
