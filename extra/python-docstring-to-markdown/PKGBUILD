@@ -3,7 +3,7 @@
 
 pkgname=python-docstring-to-markdown
 _name=${pkgname#python-}
-pkgver=0.13
+pkgver=0.14
 pkgrel=1
 pkgdesc='On the fly conversion of Python docstrings to markdown'
 arch=('any')
