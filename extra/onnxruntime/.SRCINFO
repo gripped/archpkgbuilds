@@ -1,6 +1,6 @@
 pkgbase = onnxruntime
 	pkgver = 1.16.3
-	pkgrel = 5
+	pkgrel = 6
 	url = https://github.com/microsoft/onnxruntime
 	arch = x86_64
 	license = MIT
@@ -11,6 +11,7 @@ pkgbase = onnxruntime
 	makedepends = nlohmann-json
 	makedepends = chrono-date
 	makedepends = eigen
+	makedepends = cxxopts
 	makedepends = python-setuptools
 	makedepends = python-installer
 	makedepends = python-wheel
@@ -33,7 +34,6 @@ pkgbase = onnxruntime
 	makedepends = python-flatbuffers
 	makedepends = python-protobuf
 	makedepends = python-packaging
-	depends = cxxopts
 	depends = abseil-cpp
 	depends = boost
 	depends = openmpi
@@ -70,7 +70,6 @@ pkgname = onnxruntime-opt
 
 pkgname = onnxruntime-rocm
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (with ROCm)
-	depends = cxxopts
 	depends = abseil-cpp
 	depends = boost
 	depends = openmpi
@@ -85,7 +84,6 @@ pkgname = onnxruntime-rocm
 
 pkgname = onnxruntime-opt-rocm
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (with ROCm and AVX2 CPU optimizations)
-	depends = cxxopts
 	depends = abseil-cpp
 	depends = boost
 	depends = openmpi
@@ -100,7 +98,6 @@ pkgname = onnxruntime-opt-rocm
 
 pkgname = python-onnxruntime
 	pkgdesc = Cross-platform, high performance scoring engine for ML models
-	depends = cxxopts
 	depends = abseil-cpp
 	depends = boost
 	depends = openmpi
@@ -126,7 +123,6 @@ pkgname = python-onnxruntime
 
 pkgname = python-onnxruntime-opt
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (with AVX2 CPU optimizations)
-	depends = cxxopts
 	depends = abseil-cpp
 	depends = boost
 	depends = openmpi
@@ -154,7 +150,6 @@ pkgname = python-onnxruntime-opt
 
 pkgname = python-onnxruntime-rocm
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (with ROCm)
-	depends = cxxopts
 	depends = abseil-cpp
 	depends = boost
 	depends = openmpi
@@ -178,7 +173,6 @@ pkgname = python-onnxruntime-rocm
 
 pkgname = python-onnxruntime-opt-rocm
 	pkgdesc = Cross-platform, high performance scoring engine for ML models (with ROCm and AVX2 CPU optimizations)
-	depends = cxxopts
 	depends = abseil-cpp
 	depends = boost
 	depends = openmpi
