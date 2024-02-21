@@ -5,15 +5,15 @@ pkgname=(
   yabridge
   yabridgectl
 )
-_commit=b0217763119a71d79641f557710508d543ee7f29  # refs/tags/5.0.5
+_commit=f86618e0073a69d20683206ea246baf2221e97cc  # refs/tags/5.1.0
 _vst3sdk_commit=3ff02a8fb91f8e14f61c4e26130841b51d601575  # refs/tags/v3.7.7_build_19-patched
-_bundled=0  # whether to use bundled vst3sdk (1) or not (0)
-pkgver=5.0.5
+_bundled=1  # whether to use bundled vst3sdk (1) or not (0)
+pkgver=5.1.0
 pkgrel=1
 pkgdesc="A modern and transparent way to use Windows VST2 and VST3 plugins on Linux"
 arch=(x86_64)
 url="https://github.com/robbert-vdh/yabridge"
-license=(GPL3)
+license=(GPL-3.0-or-later)
 makedepends=(
   asio
   bitsery
@@ -50,15 +50,16 @@ b2sums=('SKIP'
         'SKIP'
         'SKIP')
 
-prepare() {
-  (
-    cd $pkgbase
-    # fix issues with bitsery/ gcc 13: https://github.com/robbert-vdh/yabridge/issues/249
-    git cherry-pick -n a6cca8bcd0ce194fa9362c37031620cbc8f8432c
-  )
+pkgver() {
+  cd $pkgbase
+  git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g;'
+}
 
+prepare() {
   # remove version pinning
   sed -e "s/'==/'>=/" -i $pkgbase/meson.build
+  # remove version pinning for clap
+  sed -e "s/, '<1.2'//" -i $pkgbase/meson.build
   # remove all wraps as they are ignored anyways
   rm -rv $pkgbase/subprojects/*
   # add a subproject dir for vst3sdk
@@ -90,12 +91,12 @@ build() {
   # NOTE: we need to add -mwindows to cpp_link_args as we are otherwise overriding it
   local meson_options=(
     --cross-file=$pkgname/cross-wine.conf
-    -Dbitbridge=true
-    -Dsystem-asio=true
-    -Db_lto=false
-    -Db_pie=false
-    -Dbuild.cpp_link_args="$LDFLAGS"
-    -Dcpp_link_args="$LDFLAGS -mwindows"
+    -D bitbridge=true
+    -D system-asio=true
+    -D b_lto=false
+    -D b_pie=false
+    -D build.cpp_link_args="$LDFLAGS"
+    -D cpp_link_args="$LDFLAGS -mwindows"
   )
 
   arch-meson $pkgbase build "${meson_options[@]}"

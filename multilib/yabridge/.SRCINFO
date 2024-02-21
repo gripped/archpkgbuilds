@@ -1,0 +1,55 @@
+pkgbase = yabridge
+	pkgdesc = A modern and transparent way to use Windows VST2 and VST3 plugins on Linux
+	pkgver = 5.1.0
+	pkgrel = 1
+	url = https://github.com/robbert-vdh/yabridge
+	arch = x86_64
+	license = GPL-3.0-or-later
+	makedepends = asio
+	makedepends = bitsery
+	makedepends = clap
+	makedepends = cmake
+	makedepends = function2
+	makedepends = ghc-filesystem
+	makedepends = git
+	makedepends = lib32-libxcb
+	makedepends = libxcb
+	makedepends = meson
+	makedepends = rust
+	makedepends = tomlplusplus
+	makedepends = vst3sdk
+	makedepends = wine
+	options = !lto
+	source = git+https://github.com/robbert-vdh/yabridge#tag=f86618e0073a69d20683206ea246baf2221e97cc
+	source = yabridge-vst3sdk::git+https://github.com/robbert-vdh/vst3sdk.git#commit=3ff02a8fb91f8e14f61c4e26130841b51d601575
+	source = yabridge-vst3_base::git+https://github.com/steinbergmedia/vst3_base.git
+	source = yabridge-vst3_pluginterfaces::git+https://github.com/steinbergmedia/vst3_pluginterfaces.git
+	source = yabridge-vst3_public_sdk::git+https://github.com/steinbergmedia/vst3_public_sdk.git
+	sha512sums = SKIP
+	sha512sums = SKIP
+	sha512sums = SKIP
+	sha512sums = SKIP
+	sha512sums = SKIP
+	b2sums = SKIP
+	b2sums = SKIP
+	b2sums = SKIP
+	b2sums = SKIP
+	b2sums = SKIP
+
+pkgname = yabridge
+	groups = pro-audio
+	depends = gcc-libs
+	depends = glibc
+	depends = lib32-gcc-libs
+	depends = lib32-glibc
+	depends = lib32-libxcb
+	depends = libxcb
+	depends = sh
+	depends = wine
+	optdepends = libnotify: for notification integration
+	optdepends = yabridgectl: for optional setup and management utility
+
+pkgname = yabridgectl
+	pkgdesc = Optional utility to help set up and manage yabridge
+	depends = gcc-libs
+	depends = glibc
