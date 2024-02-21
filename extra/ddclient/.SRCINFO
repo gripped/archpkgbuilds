@@ -1,7 +1,7 @@
 pkgbase = ddclient
 	pkgdesc = Update dynamic DNS entries for accounts on many dynamic DNS services
 	pkgver = 3.11.2
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/ddclient/ddclient
 	arch = any
 	license = GPL2
@@ -12,8 +12,10 @@ pkgbase = ddclient
 	optdepends = smtp-forwarder: email support requires sendmail binary
 	backup = etc/ddclient/ddclient.conf
 	source = git+https://github.com/ddclient/ddclient.git?signed#tag=v3.11.2
+	source = permission.patch
 	validpgpkeys = 53B26AEDC08246715E15504B236B6291555E8401
 	validpgpkeys = D852004BCC1AEC6F2449631D394799890605C42A
-	sha512sums = SKIP
+	b2sums = SKIP
+	b2sums = 2379e14eba18c77de9043373e850974a41a9ddfff3f81820b00fec7ff311812a110949371d17c26c232442e07d84421f872a8a30b9437bcae11e29036132a5c3
 
 pkgname = ddclient

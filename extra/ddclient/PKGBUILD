@@ -6,7 +6,7 @@
 
 pkgname=ddclient
 pkgver=3.11.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Update dynamic DNS entries for accounts on many dynamic DNS services"
 url="https://github.com/ddclient/ddclient"
 arch=('any')
@@ -15,14 +15,23 @@ backup=('etc/ddclient/ddclient.conf')
 depends=('curl' 'perl-digest-sha1' 'net-tools')
 makedepends=('git')
 optdepends=('smtp-forwarder: email support requires sendmail binary')
-source=("git+https://github.com/ddclient/ddclient.git?signed#tag=v${pkgver}")
-sha512sums=('SKIP')
+source=(
+  "git+https://github.com/ddclient/ddclient.git?signed#tag=v${pkgver}"
+  permission.patch
+)
+b2sums=('SKIP'
+        '2379e14eba18c77de9043373e850974a41a9ddfff3f81820b00fec7ff311812a110949371d17c26c232442e07d84421f872a8a30b9437bcae11e29036132a5c3')
 validpgpkeys=('53B26AEDC08246715E15504B236B6291555E8401' # Sandro Jäckel
               'D852004BCC1AEC6F2449631D394799890605C42A' # Lenard Heß
 )
 
+prepare() {
+  cd "${srcdir}/${pkgname}"
+  patch -Np1 -i "${srcdir}/permission.patch"
+}
+
 build() {
-  cd ${pkgname}
+  cd "${srcdir}/${pkgname}"
   ./autogen
   ./configure \
     --prefix=/usr \
@@ -32,12 +41,12 @@ build() {
 }
 
 check() {
-  cd ${pkgname}
+  cd "${srcdir}/${pkgname}"
   make VERBOSE=1 check
 }
 
 package() {
-  cd ${pkgname}
+  cd "${srcdir}/${pkgname}"
   make DESTDIR="${pkgdir}" install
 
   install -Dm644 sample-etc_systemd.service "$pkgdir"/usr/lib/systemd/system/ddclient.service
