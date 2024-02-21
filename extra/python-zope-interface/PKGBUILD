@@ -3,7 +3,7 @@
 # Contributor: Douglas Soares de Andrade <douglas@archlinux.org>
 
 pkgname=python-zope-interface
-pkgver=6.1
+pkgver=6.2
 pkgrel=1
 license=('ZPL')
 arch=('x86_64')
@@ -12,7 +12,7 @@ pkgdesc='Zope Interfaces for Python 3.x'
 depends=('python-setuptools')
 checkdepends=('python-zope-event' 'python-zope-testing')
 source=("https://pypi.io/packages/source/z/zope.interface/zope.interface-$pkgver.tar.gz")
-sha512sums=('04305eaf98fb40269d417c6894a6e154340669b66033c50e130d58bf6166cabc0a8979e1ba80dda47cb2bc508dde01ea2175628f89cbfd44cc2f59ac3cdce2c0')
+sha512sums=('42c169ba88e0e4fe7895f0956250ddb5f3e9aef3e73a801ef71b0e94f906e9f597008de16955a7a8a5ca59551b800e6f000c70ffb3f486a7cbb7bf9caa00059d')
 
 prepare() {
   cd zope.interface-$pkgver
