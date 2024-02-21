@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=sequoia-chameleon-gnupg
-pkgver=0.5.0
-_commit=fd3bbb14aca26de942a8cdd19dd75631d681244c  # refs/tags/0.5.0^{}
+pkgver=0.5.1
+_commit=962cac674d63a694beb05530faad9a108511d684  # refs/tags/0.5.1^{}
 pkgrel=1
 pkgdesc="A re-implementation and drop-in replacement of gpg and gpgv"
 arch=(x86_64)
@@ -31,6 +31,10 @@ validpgpkeys=(
   D2F2C5D45BE9FDE6A4EE0AAF31855247603831FD  # Justus Winter (Code Signing Key) <justus@sequoia-pgp.org>
 )
 
+pkgver() {
+  cd $pkgname
+  git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/v//g'
+}
 
 prepare() {
   cd $pkgname
