@@ -3,7 +3,7 @@
 
 pkgname=lib32-libffi
 _name=libffi
-pkgver=3.4.5
+pkgver=3.4.6
 pkgrel=1
 pkgdesc="Portable foreign function interface library (32-bit)"
 arch=(x86_64)
@@ -13,8 +13,8 @@ depends=(lib32-glibc $_name=$pkgver)
 checkdepends=(dejagnu)
 provides=(libffi.so)
 source=(https://github.com/libffi/libffi/releases/download/v$pkgver/$_name-$pkgver.tar.gz)
-sha256sums=('96fff4e589e3b239d888d9aa44b3ff30693c2ba1617f953925a70ddebcc102b2')
-b2sums=('6da78473741ef3861c548e0f99b98f0b05381a02eb3016875881c8fcc3a7e518c2589a541180b2defcf9f2efda23b07a6196e1efeaedfaa4f2dfff25a1e9905b')
+sha256sums=('b0dea9df23c863a7a50e825440f3ebffabd65df1497108e5d437747843895a4e')
+b2sums=('af8402a09bdbd59b4e9400d2d71bd5ce98f6f1d981d35d1ab40d77a831b13b32c5bd34ca54ff75999e39f0d8a9c066381fae7a8d6c5216d955e064f929f08b88')
 
 build() {
   local prepare_options=(
