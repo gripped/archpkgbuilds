@@ -1,0 +1,43 @@
+pkgbase = sfizz
+	pkgdesc = SFZ parser and synth
+	pkgver = 1.2.3
+	pkgrel = 1
+	url = https://github.com/sfztools/sfizz
+	arch = x86_64
+	license = BSD-2-Clause
+	checkdepends = catch2-v2
+	makedepends = abseil-cpp
+	makedepends = cmake
+	makedepends = cxxopts
+	makedepends = gcc-libs
+	makedepends = ghc-filesystem
+	makedepends = glibc
+	makedepends = jack
+	makedepends = pugixml
+	makedepends = simde
+	source = https://github.com/sfztools/sfizz/releases/download/1.2.3/sfizz-1.2.3.tar.gz
+	sha512sums = 753df985b0863baf3335cc386075a1f8053800a521725ad57102394883274aa617f1a554da8471444789c985891c604946f2e0627e3a5e2349586532ea0af3cc
+	b2sums = bd41e583ecb0d77831ea20213692c428d958207914252bf8b9cca2d384d12eb80662803c91575e27c543098950df009b01869db65b02b9dd95c20011eb5d0793
+
+pkgname = sfizz
+	depends = sfizz-lib
+	depends = sfizz-standalone
+	depends = sfizz-ui
+
+pkgname = sfizz-lib
+	pkgdesc = SFZ parser and synth - C++ library
+	depends = abseil-cpp
+	depends = gcc-libs
+	depends = glibc
+	depends = pugixml
+	provides = libsfizz.so
+
+pkgname = sfizz-standalone
+	pkgdesc = SFZ parser and synth - JACK standalone client
+	groups = pro-audio
+	depends = abseil-cpp
+	depends = gcc-libs
+	depends = glibc
+	depends = jack
+	depends = libjack.so
+	depends = pugixml
