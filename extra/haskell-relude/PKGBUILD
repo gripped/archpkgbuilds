@@ -3,7 +3,7 @@
 
 _hkgname=relude
 pkgname=haskell-relude
-pkgver=1.1.0.0
+pkgver=1.2.0.0
 pkgrel=1
 pkgdesc="Safe, performant, user-friendly and lightweight Haskell Standard Library."
 url="https://github.com/kowainik/relude"
@@ -12,12 +12,12 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-unordered-containers')
 makedepends=('ghc' 'uusi' 'haskell-doctest' 'haskell-glob' 'haskell-hedgehog')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('b51df08a93ef1331dd56389e158e67ac7b68c62cc1561c2890d3572c764ab609')
+sha256sums=('cbe177b3df1abf848704a1095f046af8006cb0e185151c00a19c8faa6f2c1273')
 
 prepare(){
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u hashable -u hedgehog $_hkgname.cabal
+  uusi -u hashable $_hkgname.cabal
 }
 
 build() {
