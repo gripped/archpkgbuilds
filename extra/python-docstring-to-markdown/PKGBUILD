@@ -3,12 +3,12 @@
 
 pkgname=python-docstring-to-markdown
 _name=${pkgname#python-}
-pkgver=0.14
+pkgver=0.15
 pkgrel=1
 pkgdesc='On the fly conversion of Python docstrings to markdown'
 arch=('any')
 url=https://github.com/python-lsp/docstring-to-markdown
-license=('LGPL2.1')
+license=('LGPL-2.1-or-later')
 depends=('python')
 makedepends=(
   'git'
