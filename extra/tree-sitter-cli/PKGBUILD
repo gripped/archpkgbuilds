@@ -1,7 +1,8 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=tree-sitter-cli
-pkgver=0.20.9
+_name=${pkgname%-cli}
+pkgver=0.21.0
 pkgrel=1
 pkgdesc='CLI tool for developing, testing, and using Tree-sitter parsers'
 arch=('x86_64')
@@ -15,18 +16,18 @@ source=("git+$url.git#tag=v$pkgver")
 b2sums=('SKIP')
 
 prepare() {
-  cd ${pkgname%-cli}/cli
+  cd "$_name"/cli
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
-  cd ${pkgname%-cli}/cli
+  cd "$_name"/cli
   cargo build --release --locked --offline --all-features
 }
 
 package() {
-  cd ${pkgname%-cli}
-  install -Dm 755 target/release/${pkgname%-cli} -t "$pkgdir"/usr/bin
-  install -Dm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+  cd "$_name"
+  install -Dt "$pkgdir"/usr/bin target/release/"$_name"
+  install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
 }
 
