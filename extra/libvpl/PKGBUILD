@@ -1,7 +1,7 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=libvpl
-pkgver=2.10.1
+pkgver=2.10.2
 pkgrel=1
 pkgdesc='Intel Video Processing Library'
 arch=('x86_64')
@@ -15,7 +15,7 @@ provides=('onevpl' 'libvpl.so')
 conflicts=('onevpl')
 replaces=('onevpl')
 source=("https://github.com/intel/libvpl/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('524299a7b920ac0de1f6913ca90515858ea3a8ea2daaea60f8e0be62f22c8041')
+sha256sums=('ad956ea7ecf14614325f59dfb44cc5ba08e2fcac373342d61c7db152ac651253')
 
 build() {
     export CFLAGS+=' -DNDEBUG'
