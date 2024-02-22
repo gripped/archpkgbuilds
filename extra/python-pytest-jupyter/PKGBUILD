@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=python-pytest-jupyter
-pkgver=0.8.0
+pkgver=0.9.0
 pkgrel=1
 pkgdesc='A pytest plugin for testing Jupyter core libraries and extensions'
 arch=(any)
@@ -22,7 +22,7 @@ makedepends=(python-build
              python-installer)
 checkdepends=(python-pytest-timeout)
 source=(https://github.com/jupyter-server/pytest-jupyter/releases/download/v$pkgver/pytest_jupyter-$pkgver.tar.gz)
-sha256sums=('842817c300802c8608676bbb1460ba0081f2688cf5cb55b87d7bad5dcb0e9729')
+sha256sums=('88bdf4296a166959c1598f976e4b5faab3e11785f06cf97b248f305e60a5beda')
 
 build() {
   cd pytest_jupyter-$pkgver
