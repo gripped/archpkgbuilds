@@ -2,7 +2,7 @@
 
 pkgname=librustls
 pkgver=0.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Use rustls from languages other than Rust"
 arch=('x86_64')
 license=('Apache-2.0' 'MIT')
@@ -20,7 +20,7 @@ sha256sums=('7eaffd02528155f561742bd712f5454e68fb771b3eb55d63bf0520429ab717f1'
 
 prepare() {
   cd rustls-ffi-${pkgver}
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
   patch -Np1 -i ../shared-linking.patch
 }
 
