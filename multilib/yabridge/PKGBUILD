@@ -6,10 +6,11 @@ pkgname=(
   yabridgectl
 )
 _commit=f86618e0073a69d20683206ea246baf2221e97cc  # refs/tags/5.1.0
+# NOTE: currently only compatible with vst3sdk 3.7.7: https://github.com/robbert-vdh/yabridge/issues/312
 _vst3sdk_commit=3ff02a8fb91f8e14f61c4e26130841b51d601575  # refs/tags/v3.7.7_build_19-patched
-_bundled=1  # whether to use bundled vst3sdk (1) or not (0)
+_bundled_vst3sdk=1  # whether to use bundled vst3sdk (1) or not (0)
 pkgver=5.1.0
-pkgrel=1
+pkgrel=3
 pkgdesc="A modern and transparent way to use Windows VST2 and VST3 plugins on Linux"
 arch=(x86_64)
 url="https://github.com/robbert-vdh/yabridge"
@@ -65,7 +66,7 @@ prepare() {
   # add a subproject dir for vst3sdk
   mkdir -vp $pkgbase/subprojects/vst3
 
-  if (( _bundled > 0 )); then
+  if (( _bundled_vst3sdk > 0 )); then
     # use upstream's specific version of vst3sdk to get around compilation errors
     (
       cd $pkgbase-vst3sdk
@@ -125,7 +126,7 @@ package_yabridge() {
 
   # project has no install target
   install -vDm 755 build/$pkgname-host{,-32}.exe{,.so} -t "$pkgdir/usr/bin"
-  install -vDm 755 build/lib$pkgname-{,chainloader-}{vst2,vst3}.so -t "$pkgdir/usr/lib/"
+  install -vDm 755 build/lib$pkgname-{,chainloader-}{clap,vst2,vst3}.so -t "$pkgdir/usr/lib/"
 }
 
 package_yabridgectl() {
