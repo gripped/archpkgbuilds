@@ -4,7 +4,7 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=gitui
-pkgver=0.25.0
+pkgver=0.25.1
 pkgrel=1
 pkgdesc='Blazing fast terminal-ui for git written in Rust'
 url='https://github.com/extrawurst/gitui'
@@ -14,12 +14,12 @@ license=('MIT')
 depends=('gcc-libs' 'libgit2.so' 'libxcb' 'openssl' 'zlib')
 makedepends=('cargo' 'python') # xcb crate needs python
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('711fc5e72fe02e6bc37dc71ec33c2fdf43771e680140a2cc718b2ae5a9fc3174')
-b2sums=('1a841db3f5c819e14852d579d83e29f6f3c1a38cd23bf813f298fc62c28d61f688d3d9f719642972d0288c9dbc61ab3205fc7845861eb62bd8bc78ce4530e391')
+sha256sums=('78d31ba66de1521477aef1642c798a385106ff4858f59e79775ba08a694d0ae4')
+b2sums=('9acd976784484f5249ee6195852d98d4495ee382803269c8bdd647044b974d9070b91437e06c482222949a81e2f3392038e10e0bbbb215840d8fa22877d85b34')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
