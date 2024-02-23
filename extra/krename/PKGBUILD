@@ -3,7 +3,7 @@
 
 pkgname=krename
 pkgver=5.0.2
-pkgrel=7
+pkgrel=9
 pkgdesc='A very powerful batch file renamer'
 arch=(x86_64)
 url='https://www.krename.net'
@@ -30,16 +30,21 @@ depends=(exiv2
 makedepends=(extra-cmake-modules)
 source=(https://download.kde.org/stable/$pkgname/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
         podofo-0.10.patch
-        https://invent.kde.org/utilities/krename/-/commit/e7dd767a.patch)
+        https://invent.kde.org/utilities/krename/-/commit/e7dd767a.patch
+        https://invent.kde.org/utilities/krename/-/raw/17aacf97/src/servicemenus/krename_all_nonrec.desktop
+        https://invent.kde.org/utilities/krename/-/raw/17aacf97/src/servicemenus/krename_dir_rec.desktop)
 sha256sums=('b23c60a7ddd9f6db4dd7f55ac55fcca8a558fa68aaf8fa5cb89e1eaf692f23ed'
             'SKIP'
             '84be211755fd522f839935d2d434337de4b56f962f96e71eef9895b9f93b1566'
-            'f0c29ceffc5695b5a7276c31ef9f7604e70483fddabe3fe8e171282cc21c70e3')
+            'f0c29ceffc5695b5a7276c31ef9f7604e70483fddabe3fe8e171282cc21c70e3'
+            '480f86a13dca22985b5aa664703f69a304c2112cae21c0af976a25a676ab4af4'
+            'e5d89b7141cc8baa3fbd4173a6986aed8cc936339ce0c3bcfed42ae6d274e60e')
 validpgpkeys=(D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heirecka@exherbo.org>
 
 prepare() {
   patch -d $pkgname-$pkgver -p1 < podofo-0.10.patch # Fix build with podofo 1.0
   patch -d $pkgname-$pkgver -p1 < e7dd767a.patch # Fix build with exiv2 0.28
+  cp -L *.desktop $pkgname-$pkgver/src/servicemenus # Backport all service menu fixes
 }
 
 build() {
@@ -50,4 +55,8 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
+
+# Move service menus to KF6 location
+  install -d "$pkgdir"/usr/share/kio
+  mv "$pkgdir"/usr/share/{kservices5/ServiceMenus,kio/servicemenus}
 }
