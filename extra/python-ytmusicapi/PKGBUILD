@@ -4,7 +4,7 @@
 
 _pyname=ytmusicapi
 pkgname=python-$_pyname
-pkgver=1.5.2
+pkgver=1.5.3
 pkgrel=1
 pkgdesc='Unofficial API for YouTube Music'
 arch=(any)
@@ -18,7 +18,7 @@ makedepends=(python-build
              python-sphinx
              python-wheel)
 source=(https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_pyname-$pkgver.tar.gz)
-sha256sums=('5c0049d2cf6b1c52ac0afe4076f4c22505606f02da20abbccfa0bef61b476cbd')
+sha256sums=('80a944e5cd32759c94791769514d18366fd543b6d2b14d3501836307ff3cebf4')
 
 build() {
   cd $_pyname-$pkgver
