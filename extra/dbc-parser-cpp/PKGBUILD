@@ -2,7 +2,7 @@
 
 pkgname=dbc-parser-cpp
 pkgver=0.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A DBC file parsing library written in C++'
 arch=(x86_64)
 license=(MIT)
@@ -16,8 +16,8 @@ sha256sums=('6cdebf6ac2ff63390e789fd02d391024a2e55f48a5325b60f6e5f37ba5a9cee4')
 build() {
   cmake -B build -S ${pkgname//-/_}-$pkgver \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_INCLUDEDIR=/usr/include \
-    -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+    -DCMAKE_INSTALL_INCLUDEDIR=include \
+    -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects" \
     -DDBC_ENABLE_TESTS=OFF
   cmake --build build
