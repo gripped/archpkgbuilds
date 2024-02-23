@@ -8,7 +8,7 @@ pkgname=(
 )
 _name=sfizz
 pkgver=1.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc="SFZ based sampler, providing LV2 / PD / VST3 plugins using the sfizz library"
 arch=(x86_64)
 url="https://github.com/sfztools/sfizz-ui"
@@ -77,7 +77,7 @@ build() {
     -D SFIZZ_JACK=OFF
     -D SFIZZ_RENDER=OFF
     # project is not yet compatible with newer vst3sdk: https://github.com/sfztools/sfizz-ui/issues/126
-    # -D SFIZZ_USE_SYSTEM_VST3SDK=ON
+    -D SFIZZ_USE_SYSTEM_VST3SDK=OFF
     -S $_name-$pkgver
     -W no-dev
   )
