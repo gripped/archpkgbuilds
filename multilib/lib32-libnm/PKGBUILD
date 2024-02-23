@@ -8,12 +8,12 @@
 # Contributor: Ryszard Knop <dragoon@dragonic.eu>
 
 pkgname=lib32-libnm
-pkgver=1.44.2
+pkgver=1.46.0
 pkgrel=1
 pkgdesc="NetworkManager client library (32-bit)"
 url="https://networkmanager.dev/"
 arch=(x86_64)
-license=(LGPL)
+license=(LGPL-2.1-or-later)
 depends=(
   lib32-gcc-libs
   lib32-glib2
@@ -33,8 +33,10 @@ makedepends=(
   meson
 )
 provides=(libnm.so)
-_commit=8bee6ef894a27ffc8a464df3b32b03e811e1a15d  # tags/1.44.2^0
-source=("git+https://gitlab.freedesktop.org/NetworkManager/NetworkManager.git#commit=$_commit")
+_commit=e39f48a30a2ef7b445276a859bbd5255e4c5071d  # tags/1.46.0^0
+source=(
+  "git+https://gitlab.freedesktop.org/NetworkManager/NetworkManager.git#commit=$_commit"
+)
 b2sums=('SKIP')
 
 pkgver() {
@@ -49,6 +51,9 @@ prepare() {
 build() {
   local meson_options=(
     --cross-file lib32
+
+    # build checks this option; injecting just via *FLAGS is broken
+    -D b_lto=true
 
     # system paths
     -D dbus_conf_dir=/usr/share/dbus-1/system.d
@@ -98,6 +103,10 @@ build() {
 
   arch-meson NetworkManager build "${meson_options[@]}"
   meson compile -C build
+}
+
+check() {
+  NMTST_FORCE_REAL_ROOT=1 meson test -C build --print-errorlogs
 }
 
 package() {
