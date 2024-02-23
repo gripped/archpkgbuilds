@@ -4,7 +4,7 @@
 
 pkgname=('libluv' 'lua-luv' 'lua51-luv' 'lua52-luv' 'lua53-luv')
 pkgbase=libluv
-pkgver=1.47.0_0
+pkgver=1.48.0_0
 pkgrel=1
 pkgdesc='Bare libuv bindings for lua'
 arch=('x86_64')
@@ -12,8 +12,8 @@ url='https://github.com/luvit/luv'
 license=('APACHE')
 depends=('libuv')
 makedepends=('cmake' 'libuv' 'ninja' 'luajit' 'lua>=5.4.0' 'lua<5.5.0' 'lua51' 'lua52' 'lua53')
-source=("https://github.com/luvit/luv/releases/download/${pkgver//_/-}/luv-${pkgver//_/-}.tar.gz")
-sha256sums=('2b5c460fad3b86ea7cfbfaa8bb284506e8f8a354bdd735bde5d664a7b2b1f8bd')
+source=("https://github.com/luvit/luv/releases/download/v${pkgver//_/-}/luv-v${pkgver//_/-}.tar.gz")
+sha256sums=('b9c34eb0f67feb0336b9a0fa8bb8cd3fb3082dfbab4561df3c03d8b04a58530b')
 
 build() {
   # build per-lua versions
@@ -31,7 +31,7 @@ build() {
       -DWITH_SHARED_LIBUV=ON \
       -DLUA_BUILD_TYPE=System \
       -DCMAKE_INSTALL_PREFIX=/usr \
-      "luv-${pkgver//_/-}"
+      "luv-v${pkgver//_/-}"
     ninja -C "build-lua${ver//./}"
   done
 
@@ -43,7 +43,7 @@ build() {
     -DBUILD_MODULE=OFF \
     -DBUILD_SHARED_LIBS=ON \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    "luv-${pkgver//_/-}"
+    "luv-v${pkgver//_/-}"
   ninja -C "build"
 }
 
