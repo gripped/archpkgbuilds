@@ -1,13 +1,14 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=lxqt-archiver
-pkgver=0.9.0
-pkgrel=2
+pkgver=0.9.1
+pkgrel=1
 pkgdesc="A simple & lightweight desktop-agnostic Qt file archiver"
 arch=("x86_64")
 groups=("lxqt")
 url="https://github.com/lxqt/$pkgname"
-license=("GPL2")
+# Seems all files contain "any later"
+license=("GPL-2.0-or-later")
 depends=('libfm-qt' 'qt5-x11extras' 'glib2' 'json-glib' 'libfm-qt.so')
 makedepends=('cmake' 'qt5-tools' 'lxqt-build-tools')
 optdepends=(
@@ -15,7 +16,7 @@ optdepends=(
   'p7zip: 7Z support'
 )
 source=("https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc})
-sha256sums=('be2d49669220700d71b5f4a62d340eab36e29b4a8327c1f551ae95eede793158'
+sha256sums=('32aa42add94f84dc4bbdc288ff5f13770951a7e96071ffa70034e939f9d7ce39'
             'SKIP')
 validpgpkeys=(
   "19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # Pedram Pourang <tsujan2000@gmail.com>
