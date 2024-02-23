@@ -2,19 +2,20 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3 orbiton-nano)
-pkgver=2.65.8
+pkgver=2.65.10
 pkgrel=1
 pkgdesc='Fast and configuration-free text editor and IDE limited by VT100'
 arch=(x86_64)
 url='https://orbiton.zip'
-license=(BSD)
+license=(BSD-3-Clause)
 makedepends=(git go vte3)
 options=(!lto)
-source=("git+https://github.com/xyproto/orbiton#commit=112db7ebec345da7b4a373026df984bdde703f0f") # tag: v2.65.8
+source=("git+https://github.com/xyproto/orbiton#commit=cad0b333dcb1bae1187ce8291f186130e9aadcfd") # tag: v2.65.10
 b2sums=('SKIP')
 
 build() {
-  export CXXFLAGS="$CXXFLAGS -Wl,--as-needed,--strip-all,--sort-common,-z,relro,-z,now"
+  export CXXFLAGS="$CXXFLAGS -Wl,--as-needed,--strip-all,-z,relro,-z,now"
+  export LDFLAGS='-Wl,-O2,--as-needed,-z,relro,-z,now'
   make -C $pkgbase o gui
 }
 
