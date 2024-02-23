@@ -1,30 +1,35 @@
 pkgbase = linux-rt-lts
 	pkgdesc = Linux RT LTS
-	pkgver = 6.1.69.21.realtime1
-	pkgrel = 3
-	url = https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt-lts/-/commits/v6.1.69.21.realtime1
+	pkgver = 6.6.15.22.realtime1
+	pkgrel = 1
+	url = https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt-lts/-/commits/v6.6.15.22.realtime1
 	arch = x86_64
 	makedepends = bc
+	makedepends = cpio
+	makedepends = gettext
 	makedepends = git
 	makedepends = graphviz
 	makedepends = imagemagick
-	makedepends = kmod
 	makedepends = libelf
 	makedepends = pahole
+	makedepends = perl
 	makedepends = python-sphinx
+	makedepends = tar
 	makedepends = texlive-latexextra
-	makedepends = xmlto
+	makedepends = xz
 	options = !strip
-	source = git+https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt-lts.git/#tag=v6.1.69.21.realtime1?signed
+	source = git+https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt-lts.git/#tag=v6.6.15.22.realtime1?signed
 	source = config
+	source = 0005-fix-doc-build.patch
 	validpgpkeys = 647F28654894E3BD457199BE38DBBDC86092693E
 	validpgpkeys = 5ED9A48FC54C0A22D1D0804CEBC26CDB5A56DE73
-	validpgpkeys = C7E7849466FE2358343588377258734B41C31549
 	validpgpkeys = 991F6E3F0765CF6295888586139B09DA5BF0D338
 	sha512sums = SKIP
-	sha512sums = 148b295e1eff486737d8eca7f2200b17a646595bb63af9c5bcc212471fc20cff579649e4d6b0c5d637e96eaa879275199977cd3e81281cad27a66c67e127d74b
+	sha512sums = 742af73514e930805fcae2746fde587b9878ea04ec8a3b8c7d7f0b98848b6d37473ffe34140ca09dffc4d8ef25db2b9a9a9534f6a84c6880c582451cb07ec235
+	sha512sums = 7a34f36e7cb19a4af93883cd2a06092227d0d49bc3b93b4b5537657c32d89e1fb048b091e21f341797a9704ceff2818d9752495b9bf7ed6efcb62ae47a99c48e
 	b2sums = SKIP
-	b2sums = 1a1adfb82e2d8a7fa9153ef4277a3d660e7f44af213e8b4039c4675991a115c05dc563575157c470341d4d990a02b74fefba322fbce22ad060d369be69e67fe9
+	b2sums = abafd37aa925846fcf8a0e1b5c2d0a40e0d5a77f7180337c879be35b846358001bd7ad9b1e7feb49a66d89a224f047a6b357918b475ee25143885e0fc5ac5e3c
+	b2sums = 55a20d84c052c9de3e36514a36689238f970f7956e679a425efbff6ef668fbc56ea096ff2b000f3629ea8ec32cdbcbafc44acd27e4a9dffaa885237811ddc558
 
 pkgname = linux-rt-lts
 	pkgdesc = The Linux RT LTS kernel and modules

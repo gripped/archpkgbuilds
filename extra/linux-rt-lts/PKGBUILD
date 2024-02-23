@@ -2,36 +2,41 @@
 # Contributor:  Joakim Hernberg <jbh@alchemy.lu>
 
 pkgbase=linux-rt-lts
-pkgver=6.1.69.21.realtime1
-pkgrel=3
+pkgver=6.6.15.22.realtime1
+pkgrel=1
 pkgdesc='Linux RT LTS'
 arch=(x86_64)
 url="https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt-lts/-/commits/v$pkgver"
 makedepends=(
   bc
+  cpio
+  gettext
   git
   graphviz
   imagemagick
-  kmod
   libelf
   pahole
+  perl
   python-sphinx
+  tar
   texlive-latexextra
-  xmlto
+  xz
 )
 options=(!strip)
 source=(
   git+https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt-lts.git/#tag=v$pkgver?signed
   config
+  0005-fix-doc-build.patch
 )
 sha512sums=('SKIP'
-            '148b295e1eff486737d8eca7f2200b17a646595bb63af9c5bcc212471fc20cff579649e4d6b0c5d637e96eaa879275199977cd3e81281cad27a66c67e127d74b')
+            '742af73514e930805fcae2746fde587b9878ea04ec8a3b8c7d7f0b98848b6d37473ffe34140ca09dffc4d8ef25db2b9a9a9534f6a84c6880c582451cb07ec235'
+            '7a34f36e7cb19a4af93883cd2a06092227d0d49bc3b93b4b5537657c32d89e1fb048b091e21f341797a9704ceff2818d9752495b9bf7ed6efcb62ae47a99c48e')
 b2sums=('SKIP'
-        '1a1adfb82e2d8a7fa9153ef4277a3d660e7f44af213e8b4039c4675991a115c05dc563575157c470341d4d990a02b74fefba322fbce22ad060d369be69e67fe9')
+        'abafd37aa925846fcf8a0e1b5c2d0a40e0d5a77f7180337c879be35b846358001bd7ad9b1e7feb49a66d89a224f047a6b357918b475ee25143885e0fc5ac5e3c'
+        '55a20d84c052c9de3e36514a36689238f970f7956e679a425efbff6ef668fbc56ea096ff2b000f3629ea8ec32cdbcbafc44acd27e4a9dffaa885237811ddc558')
 validpgpkeys=(
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman <gregkh@linuxfoundation.org>
   '5ED9A48FC54C0A22D1D0804CEBC26CDB5A56DE73'  # Steven Rostedt (Der Hacker) <rostedt@goodmis.org>
-  'C7E7849466FE2358343588377258734B41C31549'  # David Runge <dvzrv@archlinux.org>
   '991F6E3F0765CF6295888586139B09DA5BF0D338'  # David Runge <dvzrv@archlinux.org>
 )
 
@@ -39,19 +44,28 @@ export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
+_make() {
+  test -s version
+  make KERNELRELEASE="$(<version)" "$@"
+}
+
 prepare() {
   cd $pkgbase
 
   echo "Setting version..."
-  scripts/setlocalversion --save-scmversion
   echo "-$pkgrel" > localversion.10-pkgrel
   echo "${pkgbase#linux}" > localversion.20-pkgname
+  make defconfig
+  # workaround for scripts/setlocalversion trying to be too clever (and appending commit checksums where it shouldn't)
+  local kernelrelease=$(make -s kernelrelease)
+  echo "${kernelrelease/-g*/}" > version
+  make mrproper
 
   local src
   for src in "${source[@]}"; do
     src="${src%%::*}"
     src="${src##*/}"
-    # picking up the RT patch
+    # allow to pick up the RT patch
     src="${src//patch.xz/patch}"
     [[ $src = *.patch ]] || continue
     echo "Applying patch $src..."
@@ -60,16 +74,17 @@ prepare() {
 
   echo "Setting config..."
   cp ../config .config
-  make olddefconfig
+  _make olddefconfig
   # make nconfig
+  diff -u ../config .config || :
 
-  make -s kernelrelease > version
   echo "Prepared $pkgbase version $(<version)"
 }
 
 build() {
   cd $pkgbase
-  make htmldocs all
+  _make all
+  _make htmldocs
 }
 
 _package() {
@@ -134,23 +149,22 @@ _package() {
   )
 
   cd $pkgbase
-  local kernver="$(<version)"
-  local modulesdir="$pkgdir/usr/lib/modules/$kernver"
+  local modulesdir="$pkgdir/usr/lib/modules/$(<version)"
 
   echo "Installing boot image..."
   # systemd expects to find the kernel here to allow hibernation
   # https://github.com/systemd/systemd/commit/edda44605f06a41fb86b7ab8128dcf99161d2344
-  install -Dm644 "$(make -s image_name)" "$modulesdir/vmlinuz"
+  install -Dm644 "$(_make -s image_name)" "$modulesdir/vmlinuz"
 
   # Used by mkinitcpio to name the kernel
   echo "$pkgbase" | install -Dm644 /dev/stdin "$modulesdir/pkgbase"
 
   echo "Installing modules..."
-  make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 \
+  ZSTD_CLEVEL=19 _make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 \
     DEPMOD=/doesnt/exist modules_install  # Suppress depmod
 
-  # remove build and source links
-  rm "$modulesdir"/{source,build}
+  # remove build link
+  rm "$modulesdir"/build
 
   # licenses
   install -vDm 644 LICENSES/deprecated/{GPL-1.0,ISC,Linux-OpenIB,X11,Zlib} -t "$pkgdir/usr/share/licenses/$pkgname/"
@@ -159,6 +173,7 @@ _package() {
 }
 
 _package-headers() {
+  pkgdesc="Headers and scripts for building modules for the $pkgdesc kernel"
   license=(
     BSD-3-Clause
     'BSD-3-Clause OR GPL-2.0-only'
@@ -211,7 +226,6 @@ _package-headers() {
     MIT
     Zlib
   )
-  pkgdesc="Headers and scripts for building modules for the $pkgdesc kernel"
   depends=(pahole)
 
   cd $pkgbase
@@ -298,6 +312,7 @@ _package-headers() {
 }
 
 _package-docs() {
+  pkgdesc="Documentation for the $pkgdesc kernel"
   license=(
     BSD-3-Clause
 
@@ -320,7 +335,6 @@ _package-docs() {
 
     MIT
   )
-  pkgdesc="Documentation for the $pkgdesc kernel"
 
   cd $pkgbase
   local builddir="$pkgdir/usr/lib/modules/$(<version)/build"
@@ -342,7 +356,11 @@ _package-docs() {
   install -vDm 644 LICENSES/preferred/{BSD*,MIT} -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
 
-pkgname=("$pkgbase" "$pkgbase-headers" "$pkgbase-docs")
+pkgname=(
+  "$pkgbase"
+  "$pkgbase-headers"
+  "$pkgbase-docs"
+)
 for _p in "${pkgname[@]}"; do
   eval "package_$_p() {
     $(declare -f "_package${_p#$pkgbase}")
