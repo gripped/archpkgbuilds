@@ -1,0 +1,35 @@
+diff --git a/src/sage/libs/singular/decl.pxd b/src/sage/libs/singular/decl.pxd
+index e36216d6395..ca8020ecec7 100644
+--- a/src/sage/libs/singular/decl.pxd
++++ b/src/sage/libs/singular/decl.pxd
+@@ -243,7 +243,7 @@ cdef extern from "singular/Singular/libsingular.h":
+         ringorder_s
+         ringorder_lp
+         ringorder_dp
+-        ringorder_rp
++        ringorder_ip
+         ringorder_Dp
+         ringorder_wp
+         ringorder_Wp
+diff --git a/src/sage/libs/singular/ring.pyx b/src/sage/libs/singular/ring.pyx
+index 494fd2c0caf..7b05d63e7c7 100644
+--- a/src/sage/libs/singular/ring.pyx
++++ b/src/sage/libs/singular/ring.pyx
+@@ -24,7 +24,7 @@ from sage.libs.gmp.mpz cimport mpz_init_set_ui
+ from sage.libs.singular.decl cimport ring, currRing
+ from sage.libs.singular.decl cimport rChangeCurrRing, rComplete, rDelete, idInit
+ from sage.libs.singular.decl cimport omAlloc0, omStrDup, omAlloc
+-from sage.libs.singular.decl cimport ringorder_dp, ringorder_Dp, ringorder_lp, ringorder_rp, ringorder_ds, ringorder_Ds, ringorder_ls, ringorder_M, ringorder_c, ringorder_C, ringorder_wp, ringorder_Wp, ringorder_ws, ringorder_Ws, ringorder_a, rRingOrder_t
++from sage.libs.singular.decl cimport ringorder_dp, ringorder_Dp, ringorder_lp, ringorder_ip, ringorder_ds, ringorder_Ds, ringorder_ls, ringorder_M, ringorder_c, ringorder_C, ringorder_wp, ringorder_Wp, ringorder_ws, ringorder_Ws, ringorder_a, rRingOrder_t
+ from sage.libs.singular.decl cimport prCopyR
+ from sage.libs.singular.decl cimport n_unknown, n_algExt, n_transExt, n_Z, n_Zn,  n_Znm, n_Z2m
+ from sage.libs.singular.decl cimport n_coeffType
+@@ -60,7 +60,7 @@ order_dict = {
+     "dp": ringorder_dp,
+     "Dp": ringorder_Dp,
+     "lp": ringorder_lp,
+-    "rp": ringorder_rp,
++    "ip": ringorder_ip,
+     "ds": ringorder_ds,
+     "Ds": ringorder_Ds,
+     "ls": ringorder_ls,
