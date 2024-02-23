@@ -1,10 +1,11 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor: xs5871 <xs5871@qn-4.net>
 # Contributor: Gaetan Bisson <bisson@archlinux.org>
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=unison
 pkgver=2.53.4
-pkgrel=1
+pkgrel=2
 pkgdesc='File-synchronization tool'
 url="https://github.com/bcpierce00/$pkgname/"
 arch=(x86_64)
@@ -35,9 +36,9 @@ build() {
 
 package() {
 	cd "$_archive"
-	install -Dm0755 -t "$pkgdir/usr/bin/" "src/$pkgname"{,-gui}
+	install -Dm0755 -t "$pkgdir/usr/bin/" "src/$pkgname"{,-fsmonitor,-gui}
 	install -Dm0644 -t "$pkgdir/usr/share/applications/" "../$pkgname.desktop"
-	install -Dm0644 -t "$pkgdir/usr/share/man/man1/" "man/$pkgname.1"
+	install -Dm0644 -t "$pkgdir/usr/share/man/man1/" man/*.1
 	install -Dm0644 icons/U.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/$pkgname.svg"
 	for i in 16 24 32 48 256; do
 		install -Dm0644 "icons/U.${i}x${i}x16m.png" "$pkgdir/usr/share/icons/hicolor/${i}x${i}/apps/$pkgname.png"
