@@ -5,7 +5,7 @@
 _pypiname=wheel
 pkgname=python-wheel
 pkgver=0.42.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A built-package format for Python"
 arch=(any)
 url="https://pypi.python.org/pypi/wheel"
@@ -13,9 +13,9 @@ license=('MIT')
 depends=('python-packaging')
 optdepends=('python-keyring: for wheel.signatures'
             'python-xdg: for wheel.signatures')
-makedepends=('python-setuptools' 'python-build' 'python-flit-core' 'python-installer')
+makedepends=('python-build' 'python-flit-core' 'python-installer')
 checkdepends=('python-jsonschema' 'python-pytest' 'python-keyring' 'python-keyrings-alt'
-              'python-xdg' 'python-pytest-cov')
+              'python-xdg' 'python-pytest-cov' 'python-setuptools')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/pypa/wheel/archive/$pkgver.tar.gz")
 sha512sums=('022aebdf077d32673cbbd9a41b96001324c026e2ccfc4eb42648a2a29c25da031f8b14c38ae6143b6d3720d57f269df6087c2025009f6d1296579513de214bd1')
 
