@@ -3,9 +3,9 @@
 # Contributor: Mirco Tischler <mt-ml at gmx dot de>
 
 pkgname=ostree
-_commit=d43386f15dd1a64fb153b1763a64bfc258cf7fc0  # tags/v2024.3^{}
-pkgver=2024.3
-pkgrel=2
+_commit=2d2e0bddf3d4b662ef7f9a3eddb7814b57716cee  # tags/v2024.4^{}
+pkgver=2024.4
+pkgrel=1
 pkgdesc="Operating system and container binary deployment and upgrades"
 url="https://ostreedev.github.io/ostree/"
 arch=(x86_64)
