@@ -2,7 +2,7 @@
 
 pkgname=python-cfn-lint
 # https://github.com/aws-cloudformation/cfn-lint/blob/main/CHANGELOG.md
-pkgver=0.85.1
+pkgver=0.85.2
 pkgrel=1
 pkgdesc='CloudFormation Linter'
 arch=(any)
@@ -21,7 +21,7 @@ optdepends=(
 )
 source=("https://github.com/aws-cloudformation/cfn-lint/archive/v$pkgver/cfn-lint-$pkgver.tar.gz"
         'skip-tests-that-require-git.diff')
-sha256sums=('ef7c28322f63a44f6fe579f3968226812510fca520bdb3f9759c1a89c0af0397'
+sha256sums=('aa6ff709cbcbd409e7de327b5b50b6484afacd0a2129d615fa01087bd255c7d7'
             '2c00f29edd290e5c0de741ebce53d7a4caa7509a91befc806296c897b0f0e879')
 
 prepare() {
