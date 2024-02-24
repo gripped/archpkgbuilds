@@ -1,12 +1,15 @@
 pkgbase = cargo-flamegraph
 	pkgdesc = Easy flamegraphs for Rust projects and everything else
 	pkgver = 0.6.5
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/flamegraph-rs/flamegraph
 	arch = x86_64
 	license = MIT
 	license = Apache-2.0
 	depends = cargo
+	depends = gcc-libs
+	depends = glibc
+	depends = perf
 	source = https://github.com/flamegraph-rs/flamegraph/archive/v0.6.5/cargo-flamegraph-0.6.5.tar.gz
 	sha256sums = d4c26f2fbf3c3ec869a8d992a40a6f16a89ded018078771f1d14f8cef4a76e7a
 	b2sums = 5dd7edbd109f484cc8e927c4b98fef11f26e0ed586d4cdfe3aa34ebaa762775fa3ba247c983fac03cc9a560a4acb5e10210eb0343b83a2e5f5e75d8003bfe161

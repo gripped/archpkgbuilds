@@ -2,15 +2,15 @@
 
 pkgname=cargo-flamegraph
 pkgver=0.6.5
-pkgrel=2
+pkgrel=3
 pkgdesc='Easy flamegraphs for Rust projects and everything else'
 url="https://github.com/flamegraph-rs/flamegraph"
 depends=(
+  'cargo'
   'gcc-libs'
   'glibc'
   'perf'
 )
-depends=('cargo')
 arch=('x86_64')
 license=('MIT' 'Apache-2.0')
 source=(https://github.com/flamegraph-rs/flamegraph/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
