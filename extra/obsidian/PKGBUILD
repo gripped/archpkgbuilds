@@ -4,12 +4,12 @@
 
 pkgname=obsidian
 pkgver=1.5.8
-pkgrel=1
+pkgrel=2
 pkgdesc="A powerful knowledge base that works on top of a local folder of plain text Markdown files"
 arch=('x86_64')
 url="https://obsidian.md/"
 license=('custom:Commercial')
-depends=('zlib' 'hicolor-icon-theme' 'fuse' 'electron25')
+depends=('zlib' 'hicolor-icon-theme' 'fuse' 'electron28')
 makedepends=('asar')
 install=obsidian.install
 options=(!strip)
@@ -17,7 +17,7 @@ source=("obsidian.sh"
         "obsidian.desktop"
         "https://github.com/obsidianmd/obsidian-releases/releases/download/v${pkgver}/obsidian-${pkgver}.tar.gz"
 )
-sha256sums=('ac031c4ff765538acf60bee1504f6c5dada2de0792d1df1e7b32f63a72320919'
+sha256sums=('b73e17b74983de0cf0df17e0a11ecd100af8a66c8afa8ca6f5ae816f458721df'
             'be67713e873a5935d910efc6f6005c104b35c7b3a002dfcb5643fd185d1b0056'
             'a1cda203613769cfee50dbfaba7cdf69ce66787a90ce6cc3565fccf633694bf3')
 
