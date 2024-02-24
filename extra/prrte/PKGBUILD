@@ -4,7 +4,7 @@
 pkgbase=prrte
 pkgname=(prrte{,-docs})
 pkgver=3.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="PMIx Reference RunTime Environment"
 arch=(x86_64)
 url="https://github.com/openpmix/prrte"
@@ -16,9 +16,17 @@ makedepends=(
   openpmix
   perl
 )
-source=($pkgname-$pkgver.tar.gz::$url/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('94b87c213d8789791217011ec27596ccf27f787aa49608793cefe8c907391b4d7fc5191acd11e9895524867bd456b0b6ae2627b811fe472cc5bcec2d003062b9')
-b2sums=('54f81aada7f54b811aed5be5eae6154732a73557b232f2d9092b8bc4e4da9491c4e09bbd4ef624132070999a141c4a8d220d5035644e05e05be8a29769700b26')
+source=(
+  $pkgname-$pkgver.tar.gz::$url/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz
+  prte-mca-params.conf
+  prrte-ssh
+)
+sha512sums=('94b87c213d8789791217011ec27596ccf27f787aa49608793cefe8c907391b4d7fc5191acd11e9895524867bd456b0b6ae2627b811fe472cc5bcec2d003062b9'
+            '7a1c9d8785bf9bd51a72e526bcdceb8e7bea382528ac67989c56b0b5643d2b86cef04414136d5f959630da1eb67ae5dddb87e074aa28e974f01edadb492e9e7a'
+            'ababfc5afa98c1f050b2f3f40a923e3fd83b2048c96689efa9f2f032670253136dcae800117875bf46fb5625e2dacee45b036eb7df807cceb98b059b6fab913a')
+b2sums=('54f81aada7f54b811aed5be5eae6154732a73557b232f2d9092b8bc4e4da9491c4e09bbd4ef624132070999a141c4a8d220d5035644e05e05be8a29769700b26'
+        'ebdad2a0c220c6ecd10df0804f5bd2afa9aa50652fdb38d45ebf8f1402cbbb6521ac358371d2055011e907e3ed4b0269e5f92880bb4f1758ef2ecc184110ccb7'
+        'cdac9def9d40d3df5e13449cfb8f0c977eaf5da5884135221c29b7add01c0b9bc151558f038ae972344cea242130ee6baa32f2b769f004c5517edf4200869337')
 
 _pick() {
   local p="$1" f d; shift
@@ -33,6 +41,8 @@ _pick() {
 prepare() {
   cd $pkgname-$pkgver
   ./autogen.pl
+  # append our options to the system config file
+  cat ../prte-mca-params.conf >> src/etc/prte-mca-params.conf
 }
 
 build() {
@@ -61,10 +71,11 @@ package_prrte() {
   depends=(
     glibc
     hwloc
-    libevent
+    libevent libevent_{core,pthreads}-2.1.so
     openpmix libpmix.so
   )
   optdepends=(
+    'openssh: for execution on remote hosts via pml_ssh_agent'
     'prrte-docs: for documentation'
   )
   provides=(libprrte.so)
@@ -84,6 +95,9 @@ package_prrte() {
   # avoid a conflict with putty which also provides pterm: https://gitlab.archlinux.org/archlinux/packaging/packages/prrte/-/issues/1
   mv "$pkgdir"/usr/bin/{,prrte-}pterm
   mv "$pkgdir"/usr/share/man/man1/{,prrte-}pterm.1
+
+  # install our dummy ssh wrapper
+  install -vDm 755 prrte-ssh -t "$pkgdir/usr/bin/"
 }
 
 package_prrte-docs() {
