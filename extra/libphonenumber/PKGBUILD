@@ -1,13 +1,13 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=libphonenumber
-pkgver=8.13.27
+pkgver=8.13.31
 pkgrel=1
 epoch=1
 pkgdesc="Google's common library for parsing, formatting, and validating international phone numbers"
 url="https://github.com/googlei18n/libphonenumber"
 arch=(x86_64)
-license=(Apache)
+license=('Apache-2.0 AND BSD-3-Clause')
 depends=(
   abseil-cpp
   icu
@@ -19,7 +19,7 @@ makedepends=(
   gtest
   jre-openjdk-headless
 )
-_commit=7b3c8c91645ef44cf6fc938b9c6328561a137771  # tags/v8.13.27^0
+_commit=e47049b1f77b829b07de41c07353ca599581ee4c  # tags/v8.13.31^0
 source=(
   "git+$url#commit=$_commit"
   protobuf-targets.diff
@@ -38,10 +38,6 @@ prepare() {
   # Use official protobuf cmake target instead of
   # custom one, fixes build with protobuf 23
   git apply -3 ../protobuf-targets.diff
-
-  # Fix build with abseil-cpp 2023
-  sed -e 's|CMAKE_CXX_STANDARD 11|CMAKE_CXX_STANDARD 17|' \
-      -i tools/cpp/CMakeLists.txt
 }
 
 build() {
@@ -52,10 +48,6 @@ build() {
     -DUSE_BOOST=OFF
     -DUSE_STDMUTEX=ON
   )
-
-  # Greatly reduce size of libgeocoding's relocation tables
-  # https://gitlab.archlinux.org/archlinux/rfcs/-/blob/master/rfcs/0023-pack-relative-relocs.rst
-  LDFLAGS+=" -Wl,-z,pack-relative-relocs"
 
   cmake -S $pkgname/cpp -B build "${cmake_options[@]}"
   cmake --build build
@@ -76,6 +68,8 @@ package() {
   )
 
   DESTDIR="$pkgdir" cmake --install build
+
+  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 $pkgname/LICENSE.Chromium
 }
 
 # vim:set sw=2 sts=-1 et:
