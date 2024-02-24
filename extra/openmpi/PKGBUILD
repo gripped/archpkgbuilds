@@ -9,7 +9,7 @@ pkgname=(
   openmpi-docs
 )
 pkgver=5.0.2
-pkgrel=4
+pkgrel=5
 pkgdesc='High performance message passing library (MPI)'
 arch=(x86_64)
 url='https://www.open-mpi.org'
@@ -25,7 +25,6 @@ makedepends=(
   libfabric
   libnl
   openpmix
-  openssh
   openucc
   openucx
   prrte
@@ -80,7 +79,7 @@ build() {
     --enable-mca-dso=accelerator_cuda,accelerator_rocm,btl_smcuda,rcache_gpusm,rcache_rgpusm,coll_ucc,scoll_ucc
     # mpirun should not warn on MCA component load failures by default - usually caused by missing optdepends, which is ok
     # https://docs.open-mpi.org/en/main/installing-open-mpi/configure-cli-options/installation.html
-    --with-show-load-errors='^accelerator,rcache,coll'
+    --with-show-load-errors='^accelerator,rcache,coll/ucc'
   )
   cd $pkgbase-$pkgver
 
@@ -109,7 +108,6 @@ package_openmpi() {
     libfabric
     libnl
     openpmix libpmix.so
-    openssh
     openucx
     prrte libprrte.so
     zlib
@@ -118,6 +116,7 @@ package_openmpi() {
     'cuda: cuda support'
     'hip-runtime-amd: ROCm support'
     'gcc-fortran: fortran support'
+    'openssh: for execution on remote hosts via pml_ssh_agent'
     'openucc: for UCC accelerated collectives'
   )
   provides=(
@@ -128,6 +127,7 @@ package_openmpi() {
     libopen-pal.so
     liboshmem.so
   )
+  backup=(etc/$pkgname/$pkgname-mca-params.conf)
 
   make DESTDIR="$pkgdir" install -C $pkgbase-$pkgver
   (
