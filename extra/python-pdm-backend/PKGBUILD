@@ -5,11 +5,12 @@ _devendored=1
 _name=pdm-backend
 pkgname=python-pdm-backend
 pkgver=2.1.8
-pkgrel=1
+pkgrel=2
 pkgdesc="The build backend used by PDM that supports latest packaging standards"
 arch=(any)
 url="https://github.com/pdm-project/pdm-backend"
 license=(MIT)
+groups=(python-build-backend)
 depends=(
   python
 )
@@ -24,7 +25,6 @@ fi
 makedepends=(
   python-build
   python-installer
-  python-wheel
 )
 checkdepends=(
   git
