@@ -4,7 +4,7 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=whois
-pkgver=5.5.20
+pkgver=5.5.21
 pkgrel=1
 pkgdesc="Intelligent WHOIS client"
 arch=('x86_64')
