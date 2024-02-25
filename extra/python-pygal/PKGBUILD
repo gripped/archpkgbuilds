@@ -3,19 +3,19 @@
 
 pkgname=python-pygal
 epoch=1
-pkgver=3.0.1
+pkgver=3.0.4
 pkgrel=1
 pkgdesc='A Python SVG graph plotting library'
 arch=('any')
 url='https://www.pygal.org/en/stable/'
 license=('LGPL3')
-depends=('python-setuptools')
+depends=('python-setuptools' 'python-importlib-metadata')
 optdepends=('python-lxml: for XML output through lxml instead of xml.etree'
             'python-cairosvg: for PNG output')
 makedepends=('python-pytest-runner')
 checkdepends=('python-pytest' 'python-lxml' 'python-pyquery' 'python-cairosvg' 'python-flask')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Kozea/pygal/archive/$pkgver.tar.gz")
-sha256sums=('a608888a09cdabe127bc63ce5006d8a8e9de099a1a7d2a1a4c2e865a29508249')
+sha256sums=('b36633ad1ec3566b56b953ef43b0452412cf54c2366efb3586f2b01912d7cdb0')
 
 
 build() {
