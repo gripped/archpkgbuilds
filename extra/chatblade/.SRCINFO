@@ -1,12 +1,14 @@
 pkgbase = chatblade
 	pkgdesc = A CLI Swiss Army Knife for ChatGPT
 	pkgver = 0.3.4
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/npiv/chatblade
 	arch = any
-	license = GPL3
+	license = GPL-3.0-only
+	makedepends = python-build
+	makedepends = python-wheel
+	makedepends = python-installer
 	depends = python
-	depends = python-setuptools
 	depends = python-aiohttp
 	depends = python-aiosignal
 	depends = python-async-timeout
@@ -28,6 +30,7 @@ pkgbase = chatblade
 	depends = python-tqdm
 	depends = python-urllib3
 	depends = python-yarl
+	depends = python-setuptools
 	source = chatblade-0.3.4.tar.gz::https://github.com/npiv/chatblade/archive/refs/tags/v0.3.4.tar.gz
 	sha256sums = def19b3fe23a21e80f17a4ab346a2cccdc6014edeec8074a9598ea960f5ef3f2
 
