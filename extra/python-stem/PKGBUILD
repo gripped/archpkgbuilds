@@ -3,27 +3,33 @@
 
 pkgname=python-stem
 _pypiname=${pkgname#*-}
-pkgver=1.8.2
+pkgver=1.8.3
 pkgrel=1
 pkgdesc='Python controller library for Tor'
 url='https://stem.torproject.org/'
 arch=('any')
-license=('LGPL3')
-depends=('python' 'python-cryptography' 'python-pynacl' 'procps-ng')
+license=('LGPL-3.0-only')
+depends=(
+  'procps-ng'
+  'python'
+  'python-cryptography'
+  'python-pynacl'
+)
 checkdepends=('tor')
+makedepends=(
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
 optdepends=('tor: tor-server to talk to')
 replaces=('stem')
 provides=('stem')
-source=(https://github.com/torproject/stem/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
-        ${pkgname}-${pkgver}.tar.gz.asc::https://github.com/torproject/stem/releases/download/${pkgver}/${pkgver}.tar.gz.asc)
-sha256sums=('46e1f2ac564b0dd8f0d88c108d7f45e5c16a436bd8b86d16fed95c327b247759'
-            'SKIP')
-validpgpkeys=('2DA81D01455C3A0032198850F305447AF806D46B') # <juga@riseup.net>
+source=(https://github.com/torproject/stem/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('789e591d30b5682ef65dd463ca80bfeb4a8bf69348b77c4733a701449bc837f4')
 
 prepare() {
   cd ${_pypiname}-${pkgver}
-  # https://github.com/torproject/stem/issues/56
-  sed -i '/MOCK_VERSION/d' run_tests.py
   # remove flaky integration tests
   sed -i test/settings.cfg \
     -e '/|test.integ.client.connection.TestConnection/d' \
@@ -35,7 +41,7 @@ prepare() {
 
 build() {
   cd ${_pypiname}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -45,7 +51,7 @@ check() {
 
 package() {
   cd ${_pypiname}-${pkgver}
-  python setup.py install --optimize=1 --root="${pkgdir}" --skip-build
+  python -m installer --destdir="${pkgdir}" dist/*.whl
 }
 
 # vim: ts=2 sw=2 et:
