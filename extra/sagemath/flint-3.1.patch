@@ -1,0 +1,107 @@
+diff --git a/src/sage/doctest/control.py b/src/sage/doctest/control.py
+index 2973e9f6c64..58d4d53dbb9 100644
+--- a/src/sage/doctest/control.py
++++ b/src/sage/doctest/control.py
+@@ -58,14 +58,6 @@ from .parsing import parse_optional_tags, parse_file_optional_tags, unparse_opti
+ 
+ auto_optional_tags = set()
+ 
+-try:
+-    from sage.libs.arb.arb_version import version as arb_vers
+-    arb_tag = 'arb2' + arb_vers().split('.')[1]
+-    auto_optional_tags.add(arb_tag)
+-except ImportError:
+-    pass
+-
+-
+ class DocTestDefaults(SageObject):
+     """
+     This class is used for doctesting the Sage doctest module.
+diff --git a/src/sage/symbolic/ginac/useries-flint.h b/src/sage/symbolic/ginac/useries-flint.h
+index 7ecd4d50107..08847273e2e 100644
+--- a/src/sage/symbolic/ginac/useries-flint.h
++++ b/src/sage/symbolic/ginac/useries-flint.h
+@@ -27,9 +27,6 @@
+ #include "flint/fmpq_poly.h"
+ #include "flint/fmpq.h"
+ 
+-extern "C" void fmpq_get_mpz_frac(mpz_t a, mpz_t b, fmpq_t c);
+-extern "C" void fmpq_init_set_mpz_frac_readonly(fmpq_t z, const mpz_t p, const mpz_t q);
+-
+ #include <stdexcept>
+ 
+ 
+diff --git a/src/sage/symbolic/ginac/useries.cpp b/src/sage/symbolic/ginac/useries.cpp
+index b9a8b867648..7649e36b49a 100644
+--- a/src/sage/symbolic/ginac/useries.cpp
++++ b/src/sage/symbolic/ginac/useries.cpp
+@@ -550,14 +550,16 @@ void power::useries(flint_series_t& fp, int order) const
+                         mpz_t cnum, cden;
+                         mpz_init(cnum);
+                         mpz_init(cden);
+-                        fmpq_get_mpz_frac(cnum, cden, c);
++                        fmpz_get_mpz(cnum, fmpq_numref(c));
++                        fmpz_get_mpz(cden, fmpq_denref(c));
+                         if (not mpz_perfect_square_p(cnum)
+                             or not mpz_perfect_square_p(cden))
+                                 throw flint_error();
+                         mpz_sqrt(cnum, cnum);
+                         mpz_sqrt(cden, cden);
+                         fmpq_t cc;
+-                        fmpq_init_set_mpz_frac_readonly(cc, cnum, cden);
++                        fmpz_init_set_readonly(fmpq_numref(cc), cnum);
++                        fmpz_init_set_readonly(fmpq_denref(cc), cden);
+                         mpz_clear(cnum);
+                         mpz_clear(cden);
+ 
+diff --git a/src/sage/libs/arb/arb.pxd b/src/sage/libs/arb/arb.pxd
+index c82b94de30f..fad70a33e91 100644
+--- a/src/sage/libs/arb/arb.pxd
++++ b/src/sage/libs/arb/arb.pxd
+@@ -29,7 +29,6 @@ cdef extern from "arb_wrap.h":
+     void arb_set_fmpq(arb_t y, const fmpq_t x, long prec)
+     int arb_set_str(arb_t res, const char * inp, long prec)
+     char * arb_get_str(const arb_t x, long n, unsigned long flags)
+-    char * arb_version
+ 
+     void arb_zero(arb_t x)
+     void arb_one(arb_t f)
+diff --git a/src/sage/libs/flint/flint_wrap.h b/src/sage/libs/flint/flint_wrap.h
+index 266535c3835..7fdf59db516 100644
+--- a/src/sage/libs/flint/flint_wrap.h
++++ b/src/sage/libs/flint/flint_wrap.h
+@@ -54,9 +54,6 @@
+ #include <flint/qsieve.h>
+ #include <flint/ulong_extras.h>
+ 
+-#undef ulong
+-#undef slong
+-#undef mp_bitcnt_t
+ 
+ #pragma pop_macro("ulong")
+ 
+diff --git a/src/sage/libs/arb/arb_version.pyx b/src/sage/libs/arb/arb_version.pyx
+deleted file mode 100644
+index 55736c392e9..00000000000
+--- a/src/sage/libs/arb/arb_version.pyx
++++ /dev/null
+@@ -1,19 +0,0 @@
+-# -*- coding: utf-8
+-from sage.libs.arb.arb cimport arb_version
+-from sage.cpython.string cimport char_to_str
+-
+-def version():
+-    """
+-    Get arb version
+-
+-    TESTS::
+-
+-        sage: from sage.libs.arb.arb_version import version
+-        sage: version().split('.')[0]
+-        '2'
+-    """
+-    try:
+-        py_string = char_to_str(arb_version)
+-    finally:
+-        pass
+-    return py_string
