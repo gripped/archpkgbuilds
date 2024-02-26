@@ -6,7 +6,7 @@ _majver=4.3.2
 _patchver=p15
 _pkgver=${_majver}${_patchver}
 pkgver=${_majver//-/.}${_patchver/p/.p}
-pkgrel=1
+pkgrel=2
 pkgdesc='Computer Algebra System for polynomial computations'
 arch=(x86_64)
 url='https://www.singular.uni-kl.de/'
@@ -27,12 +27,15 @@ makedepends=(latex2html
              texlive-latex)
 provides=(singular-factory)
 # source=(ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/SOURCES/$_majver/singular-${_pkgver//-/.}.tar.gz)
-source=(https://github.com/Singular/Singular/archive/$_pkgver/$pkgname-$_pkgver.tar.gz)
-sha256sums=('ac48213f688b0c517f3e81343e2ef3f6e64960ca279182877067aa4a27cbbcb9')
+source=(https://github.com/Singular/Singular/archive/$_pkgver/$pkgname-$_pkgver.tar.gz
+        flint-3.1.patch)
+sha256sums=('ac48213f688b0c517f3e81343e2ef3f6e64960ca279182877067aa4a27cbbcb9'
+            '2e5a2a8f97f786fb25fe3917881fb9687ee0dcbf2c1dd78f48e8bee02fe690ce')
 options=(!zipman)
 
 prepare() {
   cd Singular-$_pkgver
+  patch -p1 -i ../flint-3.1.patch # Fix build with flint 3.1
   ./autogen.sh
 }
 
