@@ -4,7 +4,7 @@
 
 pkgname=zellij
 pkgver=0.39.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A terminal multiplexer"
 arch=('x86_64')
 url="https://zellij.dev"
@@ -41,6 +41,7 @@ package() {
   install -Dm644 target/zellij.zsh "${pkgdir}/usr/share/zsh/site-functions/_zellij"
   install -Dm644 assets/zellij.1 "${pkgdir}/usr/share/man/man1/zellij.1"
   install -Dm644 assets/zellij.desktop "${pkgdir}/usr/share/applications/zellij.desktop"
+  install -Dm644 assets/logo.png "${pkgdir}/usr/share/pixmaps/zellij.png"
 }
 
 # vim: ts=2 sw=2 et:
