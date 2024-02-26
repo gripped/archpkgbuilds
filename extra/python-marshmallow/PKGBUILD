@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-marshmallow
-pkgver=3.20.0
+pkgver=3.20.2
 pkgrel=1
 pkgdesc="A lightweight library for converting complex datatypes to and from native Python datatypes."
 url="https://github.com/marshmallow-code/marshmallow"
@@ -9,9 +9,9 @@ license=('MIT')
 arch=('any')
 depends=('python-packaging')
 makedepends=('python-setuptools')
-checkdepends=('python-pytest-runner' 'python-simplejson' 'python-pytz' 'python-dateutil')
+checkdepends=('python-pytest' 'python-simplejson' 'python-pytz' 'python-dateutil')
 source=("https://pypi.io/packages/source/m/marshmallow/marshmallow-$pkgver.tar.gz")
-sha512sums=('fb11588e6a33cb4e0722666983e291b1611df2ddc353632661fb8e4a34895e29a89da912d53945bcd9dd387167063f7a9bfa9ca339a116d9857ee51547891b36')
+sha512sums=('fb2511929408fa6d6cec8f08019d303026a4f777154e16b8fd9037fd338bb8a90d2fd3f41afb3bc565196a612005c4a113d930527b164a7fa2c0e57cf547c339')
 
 build() {
   cd "$srcdir"/marshmallow-$pkgver
@@ -20,7 +20,7 @@ build() {
 
 check() {
   cd "$srcdir"/marshmallow-$pkgver
-  python setup.py pytest
+  PYTHONPATH=src pytest
 }
 
 package() {
