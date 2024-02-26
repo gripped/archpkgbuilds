@@ -3,7 +3,7 @@
 
 pkgname=remmina
 epoch=1
-pkgver=1.4.34
+pkgver=1.4.35
 pkgrel=1
 pkgdesc="remote desktop client written in GTK+"
 url="https://www.remmina.org/"
@@ -12,7 +12,7 @@ license=('GPL-2.0-or-later')
 depends=('avahi' 'libgcrypt' 'libssh' 'vte3' 'libsodium' 'libayatana-appindicator' 'libsoup3')
 makedepends=('cmake' 'freerdp' 'libvncserver' 'spice-gtk' 'spice-protocol'
              'harfbuzz' 'xorgproto' 'gobject-introspection' 'kwallet5'
-             'webkit2gtk-4.1' 'gtk-vnc' 'ninja')
+             'webkit2gtk-4.1' 'gtk-vnc' 'ninja' 'curl' 'openssl')
 optdepends=('freerdp: RDP plugin'
             'libsecret: Secret plugin'
             'libvncserver: VNC plugin'
@@ -25,7 +25,7 @@ optdepends=('freerdp: RDP plugin'
 replaces=('remmina-plugins')
 provides=('remmina-plugins')
 source=("$pkgname-$pkgver.tar.bz2::https://gitlab.com/Remmina/Remmina/-/archive/v${pkgver/rc/-rc}/Remmina-v${pkgver/rc/-rc}.tar.bz2")
-sha512sums=('1b9811f55e7a491f9f49d0384b84ae6ab84ee143421d4478b02f3ba8b311ab30babc8fbc47ff2fffc8adb6749d6af6d200f4aff511098e4f047313e5e05d8f66')
+sha512sums=('36dc419b4473c71f6b3e53338f4a3cf7a1fe60534ea0dce375b4c9fd00cd9d8a618c4376be4d031bdee1eed8b4aade4538a6cc414629ef6dde41cdcd513a6d36')
 
 build() {
   cmake -S Remmina-v${pkgver/rc/-rc} -B build -G Ninja \
