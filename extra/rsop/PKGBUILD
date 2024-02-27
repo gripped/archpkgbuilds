@@ -1,0 +1,52 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=rsop
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Stateless OpenPGP (SOP) based on rpgp"
+arch=(x86_64)
+url="https://codeberg.org/heiko/rsop"
+license=(
+  'Apache-2.0 OR MIT'
+  CC0-1.0
+)
+groups=(stateless-openpgp)
+depends=(
+  gcc-libs
+  glibc
+)
+makedepends=(rust)
+source=(
+  $pkgname-$pkgver.tar.gz::$url/archive/$pkgname/v$pkgver.tar.gz
+  Cargo.lock
+)
+sha512sums=('c2189413c3bf0879c02f208ddcc91a1ceb3df42c6396b33d28683b2d1672524c33d05062b6120d51780242a965ce468e25d6a030f827321fbed6b55bc04c990d'
+            '80acf90269c91cdeef2050f294bbfe5c4070ea4d4ef456e29288c6a21e7b1fdacd865f5d36ef3284a3bb056d31d3c9a150f1e561b0ee41f10330d0102a8feb74')
+b2sums=('4212279b6eb95ba15783beec921a5193bc47e4359b4186031f50051ce58a08201501c413b227e3eef77e22b760a5eae2f6e606517bb126b46f5f8269e5f6fe87'
+        '296d24ce9aadbdded975ef5663a4b9973955af6729b6eafb91fafe70b974fc27ea3141211cb694adf893b53be7c2df26fb260864e188463c42c246a7de64c261')
+
+prepare() {
+  cd $pkgname
+  ln -s ../Cargo.lock .
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $pkgname
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release --all-features
+}
+
+check() {
+  cd $pkgname
+  export RUSTUP_TOOLCHAIN=stable
+  cargo test --frozen --all-features
+}
+
+package() {
+  cd $pkgname
+  install -vDm 0755 "target/release/$pkgname" -t "$pkgdir/usr/bin/"
+  install -vDm 0644 LICENSES/MIT.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
