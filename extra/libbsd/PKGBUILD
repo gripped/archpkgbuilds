@@ -4,7 +4,7 @@
 # Contributor: Gerardo Exequiel Pozzi <vmlinuz386@yahoo.com.ar>
 
 pkgname=libbsd
-pkgver=0.11.8
+pkgver=0.12.0
 pkgrel=1
 pkgdesc='Provides useful functions commonly found on BSD systems like strlcpy()'
 arch=('x86_64')
