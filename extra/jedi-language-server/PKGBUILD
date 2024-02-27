@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=jedi-language-server
-pkgver=0.41.2
+pkgver=0.41.3
 pkgrel=1
 pkgdesc='Language server for Jedi'
 arch=('any')
