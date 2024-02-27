@@ -2,7 +2,7 @@
 
 _pyname=pytest-mypy-testing
 pkgname=python-$_pyname
-pkgver=0.1.1
+pkgver=0.1.2
 pkgrel=1
 pkgdesc='Plugin to test mypy output with pytest'
 arch=(any)
@@ -17,7 +17,7 @@ makedepends=(python-build
              python-installer)
 checkdepends=(python-pytest)
 source=(https://github.com/davidfritzsche/pytest-mypy-testing/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('f3f9ba2f674f31155b11a128a8c9f9f662ec8d7230e9755adc4b063c9951ceab')
+sha256sums=('368606c83271423fde44bba52e559f5cc2374fd2364bf63baf6898d84ca41d39')
 
 build() {
   cd $_pyname-$pkgver
