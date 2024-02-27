@@ -2,8 +2,7 @@
 
 _name=importlib_resources
 pkgname=python-importlib_resources
-_commit=e9c946cd1216e0a042d7967253283a95c8e90183  # refs/tags/v6.1.1
-pkgver=6.1.1
+pkgver=6.1.2
 pkgrel=1
 pkgdesc="Design and implementation for a planned importlib.resources"
 arch=(any)
@@ -14,7 +13,6 @@ depends=(
   python-zipp
 )
 makedepends=(
-  git
   python-build
   python-installer
   python-setuptools-scm
@@ -27,37 +25,26 @@ checkdepends=(
   python-tests
 )
 provides=(python-importlib-resources)
-source=("git+$url#tag=$_commit")
-sha512sums=('SKIP')
-b2sums=('SKIP')
-
-pkgver() {
-  cd $_name
-  git describe --tags | sed 's/^v//'
-}
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
+sha512sums=('6622708adc8aa8ebbea742ea8498e2e6290bef966c00025a814f7daa53525aa013b2b2c5234a064d757a771fa73082cf8d1ceaf9f8eb3c0e2afad4e0be17ab70')
+b2sums=('10da0c46163f55411514d647734881bf5ba0d9237e751f1fd15c276f248c407455d0d5190f37c34149b2f24ea06014060a0a97f7a604c92af2295a70f9173985')
 
 build() {
-  cd $_name
-  python -m build --wheel --no-isolation
+  cd $_name-$pkgver
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --no-isolation
 }
 
 check() {
-  local pytest_options=(
-    -vv
-  )
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  cd $_name-$pkgver
+  export PYTHONPATH="$PWD:$PYTHONPATH"
+  pytest -vv
 
-  cd $_name
-  # install to temporary location, as importlib is used
-  python -m installer --destdir=test_dir dist/*.whl
-  export PYTHONPATH="$PWD/test_dir/$site_packages:$PYTHONPATH"
-  pytest "${pytest_options[@]}" "$PWD/test_dir/$site_packages/$_name/"
 }
 
 package() {
   local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
-  cd $_name
+  cd $_name-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 README.rst -t "$pkgdir/usr/share/doc/$pkgname/"
   # remove tests
