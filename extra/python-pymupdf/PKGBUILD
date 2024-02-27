@@ -4,7 +4,7 @@
 _name=PyMuPDF
 pkgname=python-pymupdf
 pkgver=1.23.25
-pkgrel=1
+pkgrel=2
 pkgdesc="Python bindings for MuPDF's rendering library"
 arch=(x86_64)
 url="https://github.com/pymupdf/PyMuPDF"
@@ -91,6 +91,8 @@ check() {
     # disable test that shells out to pip: https://github.com/pymupdf/PyMuPDF/issues/2950
     --deselect tests/test_font.py::test_fontarchive
     --deselect tests/test_general.py::test_subset_fonts
+    # disable test broken with mupdf 1.23.11: https://github.com/pymupdf/PyMuPDF/issues/3205
+    --deselect tests/test_imagebbox.py::test_image_bbox
     # we do not care about flake8
     --deselect tests/test_flake8.py::test_flake8
   )
