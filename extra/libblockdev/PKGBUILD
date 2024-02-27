@@ -6,8 +6,8 @@ pkgname=(
   libblockdev-{btrfs,crypto,dm,fs,loop,lvm,lvm-dbus,mdraid,mpath,nvdimm,nvme,part,swap,tools,utils}
   python-libblockdev
 )
-pkgver=3.0.4
-pkgrel=3
+pkgver=3.1.0
+pkgrel=1
 pkgdesc="A library for manipulating block devices"
 arch=('x86_64')
 url="https://github.com/storaged-project/libblockdev"
@@ -43,8 +43,8 @@ makedepends=(
 source=(
   "$url/releases/download/$pkgver-1/$pkgname-$pkgver.tar.gz"
 )
-sha512sums=('82b574c1f8e301d6e9ff07f8c3d2a351a5bc966b5d65a3b578c214e03e48b54270b54176d646ac15e8119c79536d08b36415de478ffd34c8b3fe536300fc5172')
-b2sums=('e31ecb04310c2c66cbe432c1e003b3c3241f318f78916d5c61c0efca37fa677e5f857eab9b7c3bfc7c5a589350cdef12402940d28af68ab9fc95e5da6852ddf1')
+sha512sums=('1e5f8155ceaf1b1f02607d0e2075bfe3b1a2c8d6845de5c90201e6b7aefde3bab7af8e9abf137763e6e9ca42fefe5218697ea63731b3b4952eb004b01cf3719a')
+b2sums=('a0177592023c7ffb4eecaf840cf73a86fb411e1ed349ef493eaa88943dcda562aff32e077ff377e91758aa7e26df7e818666e98d068b2d892a8d67931079ca71')
 
 _pick() {
   local p="$1" f d; shift
