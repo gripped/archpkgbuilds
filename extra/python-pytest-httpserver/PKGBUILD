@@ -1,9 +1,9 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
-_name=pytest_httpserver
+_name=pytest-httpserver
 pkgname=python-pytest-httpserver
-pkgver=1.0.9
+pkgver=1.0.10
 pkgrel=1
 pkgdesc="Http server for pytest to test http clients"
 arch=(any)
@@ -25,9 +25,9 @@ checkdepends=(
   python-pytest
   python-requests
 )
-source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha256sums=('9429f26c7ad7b1677dc2fa3bc9e928601f0e9b4ba0388edf961162be1242a662')
-b2sums=('1eeecb67624d7ced713f0901c912a559e9e30c1875933cc799c3e6eca1e39941f8c556e053cc8d4a155e9c29f68d659560b0d6f51e57b97ed850b6d4ae9357ad')
+source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
+sha256sums=('dc9e22b54184a9683a57eb18527dae4411fed3c5b421c52521043c192d058c9b')
+b2sums=('061d3cf3745ee2951a8f5642d2c3761d80be885f908745d6b9243e8d59049c48cf9ee7196f7e043e17e41d09cbfaaedddf2bcdfb27eb4eceb83d446ed5dd570b')
 
 build() {
   cd $_name-$pkgver
