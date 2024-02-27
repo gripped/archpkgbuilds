@@ -1,0 +1,24 @@
+pkgbase = avr-binutils
+	pkgdesc = A set of programs to assemble and manipulate binary and object files for the AVR architecture
+	pkgver = 2.42
+	pkgrel = 1
+	url = https://www.gnu.org/software/binutils/
+	arch = x86_64
+	license = GPL
+	depends = glibc
+	depends = zlib
+	depends = libelf
+	options = !distcc
+	options = !ccache
+	source = https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.bz2
+	source = https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.bz2.sig
+	source = avr-size.patch
+	validpgpkeys = 3A24BC1E8FB409FA9F14371813FCEF89DD9E3C4F
+	sha1sums = ead6f01f47cf1a6c39bfaf83ab84ac99bc6d70c8
+	sha1sums = SKIP
+	sha1sums = bb820f761fbbe7379ddf8e75235866c44591c899
+	sha256sums = aa54850ebda5064c72cd4ec2d9b056c294252991486350d9a97ab2a6dfdfaf12
+	sha256sums = SKIP
+	sha256sums = 7aed303887a8541feba008943d0331dc95dd90a309575f81b7a195650e4cba1e
+
+pkgname = avr-binutils
