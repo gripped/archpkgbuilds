@@ -1,0 +1,19 @@
+pkgbase = isomd5sum
+	pkgver = 1.2.4
+	pkgrel = 1
+	url = https://github.com/rhinstaller/isomd5sum
+	arch = x86_64
+	license = GPL-2.0-or-later
+	makedepends = popt
+	makedepends = python
+	options = !emptydirs
+	source = isomd5sum-1.2.4.tar.gz::https://github.com/rhinstaller/isomd5sum/archive/1.2.4.tar.gz
+	sha512sums = 9afd4cb0935e2c81f82a7076af370e7588feeb9dc876ddcbe0433519ef348bb9ed3cb0c4080918f82695d06bf7fb5b9a53ecdaa94540cadd03082e87cfb9dc2c
+
+pkgname = isomd5sum
+	pkgdesc = Utilities for working with md5sum implanted in ISO images
+	depends = popt
+
+pkgname = python-isomd5sum
+	pkgdesc = Python3 bindings for isomd5sum
+	depends = python
