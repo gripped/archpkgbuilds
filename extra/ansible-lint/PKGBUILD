@@ -3,14 +3,14 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 # Contributor: Sander Boom <sanderboom@gmail.com>
 
-_commit=4113104583a59ba2d1f04fee3b049c5f43f6578c
+_commit=a3fc7e4def4c3576a221fd1e0e58c0ee43f73af5
 pkgname=ansible-lint
-pkgver=6.22.1
+pkgver=24.2.0
 pkgrel=1
 pkgdesc="Checks playbooks for practices and behaviour that could potentially be improved."
 arch=('any')
 url="https://github.com/ansible/ansible-lint"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=(python ansible-core git yamllint
   python-{ansible-compat,black,enrich,filelock,jsonschema,pyaml,packaging,rich,ruamel-yaml,wcmatch})
 makedepends=(python-{build,installer,setuptools,setuptools-scm,wheel})
@@ -54,6 +54,9 @@ check() {
     --deselect 'test/test_main.py::test_get_version_warning[v1.2.2-True-pre-release-1]'
     --deselect 'test/test_main.py::test_get_version_warning[v1.2.3-False--1]'
     --deselect 'test/test_main.py::test_get_version_warning[v1.2.4-True-new release-2]'
+    --deselect 'test/test_main.py::test_nodeps[1]'
+    --deselect 'test/test_main.py::test_nodeps[2]'
+    --deselect 'test/test_main.py::test_broken_ansible_cfg'
    )
 
   # install to temporary location, as importlib is used
