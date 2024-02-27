@@ -4,7 +4,7 @@
 _name=identify
 pkgname=python-identify
 pkgver=2.5.35
-pkgrel=1
+pkgrel=2
 pkgdesc="File identification library for Python"
 arch=(any)
 url="https://github.com/pre-commit/identify"
@@ -21,7 +21,6 @@ checkdepends=(
   python-ukkonen
 )
 optdepends=(
-  'python-editdistance-s: for returning license identifiers'
   'python-ukkonen: for returning license identifiers'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
