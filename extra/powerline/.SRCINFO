@@ -1,0 +1,50 @@
+pkgbase = powerline
+	pkgdesc = Statusline plugin for vim, and provides statuslines and prompts for several other applications, including zsh, bash, tmux, IPython, Awesome, i3 and Qtile
+	pkgver = 2.8.3
+	pkgrel = 3
+	url = https://github.com/powerline/powerline
+	arch = x86_64
+	license = MIT
+	checkdepends = python-wheel
+	checkdepends = python-pexpect
+	checkdepends = python-tox
+	makedepends = python-setuptools
+	makedepends = python-sphinx
+	makedepends = git
+	source = powerline-2.8.3.tar.gz::https://github.com/powerline/powerline/archive/2.8.3.tar.gz
+	source = fail-on-binary-error.patch
+	source = https://github.com/powerline/powerline/commit/50d73bfb.patch
+	source = https://github.com/powerline/powerline/commit/c04a8dd5.patch
+	sha512sums = fe0301d8a64827825ed5a1c9c91066299c198bc03d949e01241fa750d892a7f86029ab777ac991dfebf05d7a163a3fdd7cd44e2dea862562bc219c3566891455
+	sha512sums = d8f77a55d6056353e05556b283840e65bc0411890b5906deaf7f041843a17b08b6975ec399810e10d333384d840e66c1125f6851559e4806a850502c685a6621
+	sha512sums = 506cce7894a5634f8365cf55c09fec3031ee58f7620730213a9032195482b3adae278402198920e6918851a8f34e451b19b3176d7cd29c31bf195214886f9fcd
+	sha512sums = 0045b7609e1e8ae57e15049415274bb75d13686cac894afe81795a7fe185d9ccdb91c2cc0f367144037a5915fa57554f5365239b2455bd864cef449c75ee2355
+
+pkgname = powerline
+	depends = python-powerline
+	conflicts = python-powerline<=2.3-1
+	replaces = python-powerline<=2.3-1
+
+pkgname = python-powerline
+	pkgdesc = python library for powerline
+	depends = python>=3.2
+	depends = powerline-common
+	optdepends = python-psutil: improved system information
+	optdepends = python-pygit2: improved git support
+	optdepends = powerline-vim: vim plugin
+	optdepends = powerline-fonts: patched fonts for powerline
+	optdepends = which: fish bindings
+
+pkgname = powerline-common
+	pkgdesc = common files for python-powerline
+
+pkgname = powerline-vim
+	pkgdesc = vim plugin for powerline
+	depends = powerline
+	depends = powerline-common
+	depends = vim-runtime
+
+pkgname = powerline-fonts
+	pkgdesc = patched fonts for powerline
+	depends = powerline-common
+	provides = otf-powerline-symbols
