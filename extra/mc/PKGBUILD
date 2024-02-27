@@ -6,16 +6,18 @@
 
 pkgname=mc
 pkgver=4.8.31
-pkgrel=1
+pkgrel=2
 pkgdesc='A file manager that emulates Norton Commander'
 arch=('x86_64')
 url='https://midnight-commander.org/'
-license=('GPL')
+license=('GPL-3.0-or-later')
 depends=(
   'e2fsprogs'
   'glib2'
+  'glibc'
   'gpm'
   'libssh2'
+  'sh'
   'slang'
   'which'
 )
@@ -37,8 +39,6 @@ optdepends=(
   'p7zip: support for 7zip archives'
   'perl: needed by several extfs scripts'
   'python: to access uc1541 or s3 storage'
-  'python-boto: s3+ extfs'
-  'python-pytz: s3+ extfs'
   'unace: uace extfs'
   'unarj: uarj extfs'
   'unrar: urar extfs'
@@ -95,4 +95,7 @@ package() {
   # FS#50889: Replace mc.keymap symlink with target file to fix backup mechanism.
   rm "$pkgdir/etc/mc/mc.keymap"
   cp "$pkgdir"/etc/mc/mc{.default,}.keymap
+  # remove s3 support until it no longer depends on deprecated python-boto:
+  # https://midnight-commander.org/ticket/3904
+  rm -v "$pkgdir/usr/lib/mc/extfs.d/s3+"
 }
