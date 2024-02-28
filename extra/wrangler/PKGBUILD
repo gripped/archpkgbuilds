@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=wrangler
-pkgver=3.29.0
+pkgver=3.30.0
 pkgrel=1
 _esbuild_ver='0.17.19'
 pkgdesc="The CLI for Cloudflare Workers"
@@ -23,10 +23,10 @@ noextract=("${pkgname}-${pkgver}.tgz")
 source=(https://registry.npmjs.org/${pkgname}/-/${pkgname}-${pkgver}.tgz
         https://github.com/cloudflare/workers-sdk/raw/wrangler@${pkgver}/LICENSE-MIT
         "esbuild-${_esbuild_ver}.tar.gz::https://github.com/evanw/esbuild/archive/v${_esbuild_ver}.tar.gz")
-sha256sums=('fd0430c2e40104c132b812e0a2f78c1ed9d0f9c06abdbcfd47ede8a23e4a4d1f'
+sha256sums=('4bd4658e313c6caa443f856cb4aa66119a4d178b04680051adf201faeb070289'
             '9bb3b077cc8628334bab25961223dd8207252c8a56aa054195be38f1c042aaf4'
             '481201f00848594f5850ac32ddf9d4d21047e5a4c306485fb7461dd4d14d6fa2')
-b2sums=('8310a17b56db3e36fa624d248260e5b619e6445f162a7f53fee1a02cd9dd0f70fcba991a6a63d22dfada25b748cbe341c1497ec586da67ec94aaf8d8a1ccbfe7'
+b2sums=('68dc0525df710f1dacc94c7aa3ccad04e4e317f0e766c7689b16f69933d0f15e6ffc4103e5ffb3ddaa5c32cad0da7d83d6cc67067725ea178776d76a8f47aa4d'
         'b7ab53a734a99d75008151c4606ddbfb851d6569047acdbeef3ec9be07bea3d4c59c1d570889d41613f61eb1849c4fb8de84f44dda093af7d091543310eee2dd'
         '4c26fdd7dd52706f98c6e9d60e6b3993168b2ffefd35b326e03be806d5083adcb50d9cb931f925f551e90aef5392647c99807b73af4075d6d5e2336c565c33ea')
 
