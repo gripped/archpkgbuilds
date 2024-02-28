@@ -4,8 +4,8 @@
 _name=pydantic
 pkgname=python-$_name
 # WARNING: upstream pins pydantic-core down to the patch-level and using other versions breaks tests! only update in lock-step with python-pydantic-core!
-pkgver=2.6.2
-pkgrel=2
+pkgver=2.6.3
+pkgrel=1
 pkgdesc='Data parsing and validation using Python type hints'
 arch=(any)
 url="https://github.com/pydantic/pydantic"
@@ -14,7 +14,7 @@ depends=(
   python
   python-annotated-types
   python-pydantic-core
-  python-typing-extensions
+  python-typing_extensions
 )
 makedepends=(
   cython
@@ -46,8 +46,8 @@ optdepends=(
   'python-hypothesis: for hypothesis plugin when using legacy v1'
 )
 source=($url/archive/v$pkgver/$_name-v$pkgver.tar.gz)
-sha512sums=('59eb65f5a9df604747369ef268283b28093b4a8b09abe0bec72dae90112798a150a5dbed340234ebe1bd8f9dd24deebafa1cc9ae5feffdc95d9836eff093fbe2')
-b2sums=('090a72ecc57354953a6458883f476d08bb38825f1f9c91854e31735a253e2ac8e80a29d35c6bc0592f1890582daaf1cbecfb7b2daafd06275bceed6d62a2c333')
+sha512sums=('767cbe8b63905ff72cc826941fdfde7d98a6aa9868eed40a2fdea3df5608dd64d274ad44f47e323b167f01cc9250c72db8c339caf9ffe48fa8e12c2531d51c0f')
+b2sums=('5eb1be9acb4f688f5aa2789a1f6248bbd6692f5004530eba6a84b8e587e83260f7cfd9b50e398e34d0edb12c6814f205b01ba29c1bb04208a9e25c65d3893113')
 
 build() {
   cd $_name-$pkgver
