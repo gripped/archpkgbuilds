@@ -7,7 +7,7 @@
 
 pkgname=avr-binutils
 pkgver=2.42
-pkgrel=1
+pkgrel=2
 pkgdesc="A set of programs to assemble and manipulate binary and object files for the AVR architecture"
 arch=('x86_64')
 url="https://www.gnu.org/software/binutils/"
@@ -78,6 +78,7 @@ package() {
     done
 
     rm "$pkgdir"/usr/lib/bfd-plugins/libdep.so
+    rm "$pkgdir"/usr/lib/ldscripts/stamp
 
     for info in as bfd binutils gprof ld ctf-spec sframe-spec ldint; do
         mv "${pkgdir}"/usr/share/info/${info}.info "${pkgdir}"/usr/share/info/avr-${info}.info
