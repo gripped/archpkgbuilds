@@ -1,22 +1,22 @@
 pkgbase = python-pydrive2
 	pkgdesc = Google Drive API Python wrapper library (maintained fork of PyDrive)
-	pkgver = 1.17.0
+	pkgver = 1.19.0
 	pkgrel = 1
 	url = https://github.com/iterative/PyDrive2
 	arch = any
-	license = Apache
-	makedepends = git
+	license = Apache-2.0
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = python-wheel
 	makedepends = python-setuptools
 	makedepends = python-setuptools-scm
+	makedepends = python-wheel
 	depends = python
 	depends = python-google-api-python-client
+	depends = python-httplib2
 	depends = python-oauth2client
-	depends = python-pyaml
 	depends = python-pyopenssl
-	source = python-pydrive2::git+https://github.com/iterative/PyDrive2#commit=c473d631d9c47559d66943ecedfaec46af1aa78a
-	b2sums = SKIP
+	depends = python-pyyaml
+	source = PyDrive2-1.19.0.tar.gz::https://github.com/iterative/PyDrive2/archive/refs/tags/1.19.0.tar.gz
+	b2sums = 0c32baaa3a1ed8805c3a082c4a8a31d50084d8b4a3b76e35f055f65e34535dbcee6e1dbd14eb4fb56ca76616dd59805d0bf3a31073a8707f15ee517e344aff1b
 
 pkgname = python-pydrive2
