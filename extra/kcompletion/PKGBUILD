@@ -3,19 +3,28 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kcompletion
-pkgver=5.110.0
+pkgver=6.0.0
 pkgrel=1
 pkgdesc='Text completion helpers and widgets'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
-license=(LGPL)
-depends=(kwidgetsaddons kconfig)
-makedepends=(extra-cmake-modules qt5-tools qt5-doc clang doxygen)
-groups=(kf5)
+license=(LGPL-2.0-only LGPL-3.0-only)
+depends=(gcc-libs
+         glibc
+         kcodecs
+         kconfig
+         kwidgetsaddons
+         qt6-base)
+makedepends=(doxygen
+             extra-cmake-modules
+             qt6-doc
+             qt6-tools)
+groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('4f04f1a41f4e49a15b06a60304d75f7945b506b12d65f03b27073c37d3353429'
+sha256sums=('f6434014e7979b6545906d1ff7a2920cfab65641369921e69f00a818b8eee559'
             'SKIP')
-validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB) # David Faure <faure@kde.org>
+validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
+              E0A3EB202F8E57528E13E72FD7574483BB57B18D) # Jonathan Esk-Riddell <jr@jriddell.org>
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
