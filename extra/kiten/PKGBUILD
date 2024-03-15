@@ -3,17 +3,32 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kiten
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='Japanese Reference/Study Tool'
 url='https://apps.kde.org/kiten/'
 arch=(x86_64)
-license=(GPL LGPL FDL)
-groups=(kde-applications kde-education)
-depends=(kio5 hicolor-icon-theme)
-makedepends=(extra-cmake-modules kdoctools5)
+license=(GPL-2.0-or-later LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         karchive
+         kcolorscheme
+         kcompletion
+         kconfig
+         kconfigwidgets
+         kcoreaddons
+         kcrash
+         ki18n
+         kio
+         kwidgetsaddons
+         kxmlgui
+         qt6-base)
+makedepends=(extra-cmake-modules
+             kdoctools)
+groups=(kde-applications
+        kde-education)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('1ee8516beb7c9bf3accf5ee32a08e47609d897476a5f9967e4d179533531623a'
+sha256sums=('7add9a0a212275529473c59ce4e47f86c987bbc21363dc96ed5c23be09596181'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
