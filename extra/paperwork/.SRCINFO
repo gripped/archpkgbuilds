@@ -1,7 +1,7 @@
 pkgbase = paperwork
 	pkgdesc = Personal document manager for GNOME to manage scanned documents and PDFs
 	pkgver = 2.2.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://openpaper.work/
 	arch = any
 	license = GPL3
@@ -16,12 +16,9 @@ pkgbase = paperwork
 	depends = libnotify
 	depends = poppler-glib
 	depends = python-cairo
-	depends = python-dateutil
 	depends = python-distro
 	depends = python-fabulous
-	depends = python-getkey
 	depends = python-gobject
-	depends = python-levenshtein
 	depends = python-pillowfight
 	depends = python-pycountry
 	depends = python-pydbus
@@ -31,8 +28,11 @@ pkgbase = paperwork
 	depends = python-pyxdg
 	depends = python-psutil
 	depends = python-scikit-learn
+	depends = python-rich
 	noextract = paperwork-3f51346f-data.tar.gz
 	source = git+https://gitlab.gnome.org/World/OpenPaperwork/paperwork.git#commit=3f51346f3f04dd16f4e7adde78e4e4adc19fab68
+	source = paperwork-3f51346f-data.tar.gz::https://download.openpaper.work/data/paperwork/master_3f51346f/data.tar.gz
 	sha256sums = SKIP
+	sha256sums = 1799f14300d9183e5422918cd10ee3e4e10ad04c87d537351503a24a8faba8c3
 
 pkgname = paperwork
