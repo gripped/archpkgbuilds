@@ -1,16 +1,30 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=akonadi-mime
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='Libraries and daemons to implement basic email handling'
 arch=(x86_64)
 url='https://kontact.kde.org'
-license=(LGPL)
-depends=(libakonadi kmime)
-makedepends=(extra-cmake-modules kdoctools5 qt5-tools doxygen)
+license=(LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kconfig
+         kcoreaddons
+         ki18n
+         kio
+         kmime
+         kwidgetsaddons
+         kxmlgui
+         libakonadi
+         qt6-base)
+makedepends=(doxygen
+             extra-cmake-modules
+             kdoctools5
+             qt6-doc
+             qt6-tools)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('fd40e599ea73fe8107d195673ae721461edfedf1bf56b2bef13fab940de5c833'
+sha256sums=('cbcecace227b4c8c2e3f31b7e16e0017e208dcd94e9f58f80ef93e2b88d6932b'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
