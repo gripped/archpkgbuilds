@@ -1,11 +1,12 @@
 pkgbase = gnome-disk-utility
 	pkgdesc = Disk Management Utility for GNOME
-	pkgver = 45.1
+	pkgver = 46.0
 	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/gnome-disk-utility
 	arch = x86_64
 	groups = gnome
-	license = GPL
+	license = GPL-2.0-or-later
+	makedepends = appstream
 	makedepends = docbook-xsl
 	makedepends = git
 	makedepends = meson
@@ -19,7 +20,7 @@ pkgbase = gnome-disk-utility
 	depends = parted
 	depends = systemd
 	depends = udisks2
-	source = git+https://gitlab.gnome.org/GNOME/gnome-disk-utility.git#commit=5208914fa4f6deebfd502353b51eef3aee65d3ba
+	source = git+https://gitlab.gnome.org/GNOME/gnome-disk-utility.git#commit=d5618e1a91fd3795e3470b95326a16d9f81a246c
 	b2sums = SKIP
 
 pkgname = gnome-disk-utility
