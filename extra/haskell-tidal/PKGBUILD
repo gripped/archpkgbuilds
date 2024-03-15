@@ -3,7 +3,7 @@
 _name=tidal
 pkgname=haskell-tidal
 pkgver=1.9.4
-pkgrel=24
+pkgrel=27
 pkgdesc="A domain specific language for live coding pattern."
 arch=(x86_64)
 url="https://tidalcycles.org/"
@@ -42,9 +42,9 @@ build() {
     --enable-executable-dynamic
     --enable-shared
     --enable-tests
-    --ghc-option=-fllvm
+   
     --prefix=/usr
-    --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
+    --libsubdir=\$compiler/site-local/\$pkgid
   )
 
   cd $_name-$pkgver
