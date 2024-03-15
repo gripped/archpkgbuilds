@@ -3,17 +3,30 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=bovo
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='A Gomoku like game for two players'
 url='https://apps.kde.org/bovo/'
 arch=(x86_64)
-license=(GPL LGPL FDL)
-groups=(kde-applications kde-games)
-depends=(libkdegames hicolor-icon-theme)
-makedepends=(extra-cmake-modules kdoctools5)
+license=(GPL-2.0-or-later LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kconfig
+         kcoreaddons
+         kcrash
+         kdbusaddons
+         ki18n
+         kwidgetsaddons
+         kxmlgui
+         libkdegames
+         qt6-base
+         qt6-svg)
+makedepends=(extra-cmake-modules
+             kdoctools)
+groups=(kde-applications
+        kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('db79b3cc909f1348b2fdf57705085ff9684c35f377c0cb962854e284a51f1e4b'
+sha256sums=('660fe8288fb7a876bdcc7b16b119427588534bd6b1e9a8693ab700e6d591bbe1'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
