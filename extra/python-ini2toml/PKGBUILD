@@ -3,14 +3,14 @@
 pkgname=python-ini2toml
 pkgver=0.13
 _commit=ed8c5f15930e503e4598e89d5f1b053315330543
-pkgrel=1
+pkgrel=2
 pkgdesc="Automatically conversion of .ini/.cfg files to TOML equivalents"
 url="https://github.com/abravalheri/ini2toml"
 license=('MPL')
 arch=('any')
 # The default installation is broken. Adding [full] flavor dependencies here.
 depends=('python-packaging' 'python-setuptools' 'python-configupdater' 'python-tomlkit')
-makedepends=('git' 'python-setuptools-scm')
+makedepends=('git' 'python-setuptools-scm' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest-randomly' 'python-tomli-w' 'python-validate-pyproject')
 source=("git+https://github.com/abravalheri/ini2toml.git#commit=$_commit")
 sha512sums=('SKIP')
@@ -22,18 +22,18 @@ prepare() {
 
 build() {
   cd ini2toml
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
   cd ini2toml
-  python setup.py install --root="$PWD/tmp_install" --optimize=1
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  python -m venv --system-site-packages local-env
+  local-env/bin/python -m installer dist/*.whl
   # TODO
-  PYTHONPATH="$PWD/tmp_install$site_packages:$PYTHONPATH" pytest --deselect tests/test_cli.py::test_auto_formatting
+  local-env/bin/python -m pytest --deselect tests/test_cli.py::test_auto_formatting
 }
 
 package() {
   cd ini2toml
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
