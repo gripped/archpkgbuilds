@@ -3,19 +3,31 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kdoctools
-pkgver=5.110.0
+pkgver=6.0.0
 pkgrel=1
 pkgdesc='Documentation generation from docbook'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
-license=(LGPL)
-depends=(karchive docbook-xsl)
-makedepends=(extra-cmake-modules perl-uri ki18n doxygen qt5-tools qt5-doc)
-groups=(kf5)
+license=(LGPL-2.0-only LGPL-3.0-only)
+depends=(docbook-xsl
+         gcc-libs
+         glibc
+         karchive
+         libxml2
+         libxslt
+         qt6-base)
+makedepends=(doxygen
+             extra-cmake-modules
+             ki18n
+             perl-uri
+             qt6-doc
+             qt6-tools)
+groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('923c7e2edbe948275317014ac3c57897ebc657f556a1d0c353f363c3ee7d05bc'
+sha256sums=('57999a4cf00f0d61cf2a17e2857c723944d1e48fb7beaeb03e4a518da122c8b0'
             'SKIP')
-validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB) # David Faure <faure@kde.org>
+validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
+              E0A3EB202F8E57528E13E72FD7574483BB57B18D) # Jonathan Esk-Riddell <jr@jriddell.org>
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
