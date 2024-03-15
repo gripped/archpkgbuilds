@@ -2,8 +2,8 @@
 
 _name=django-mailman3
 pkgname=python-django-mailman3
-pkgver=1.3.11
-_commit=598ac26ffb226639c364611bbe7a640ff4b1f4e3  # refs/tags/1.3.11
+pkgver=1.3.12
+_commit=3367324a9a786d488d5cf5b3f0157d3d93a7f8c2  # refs/tags/1.3.12
 pkgrel=1
 pkgdesc="Libraries and templates to Django-based interfaces interacting with Mailman"
 arch=(any)
@@ -16,13 +16,12 @@ depends=(
   python-django-gravatar
   python-mailmanclient
   python-openid
-  python-pytz
 )
 makedepends=(
   git
   python-build
   python-installer
-  python-setuptools
+  python-pdm-backend
   python-wheel
 )
 checkdepends=(python-pytest)
