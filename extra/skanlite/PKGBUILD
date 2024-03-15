@@ -4,17 +4,30 @@
 # Contributor: Pierre Schmitz <pierre@archlinux.de>
 
 pkgname=skanlite
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='Image Scanning Application'
 arch=(x86_64)
 url='https://apps.kde.org/skanlite/'
-license=(GPL)
-groups=(kde-applications kde-graphics)
-depends=(libksane kio5)
-makedepends=(extra-cmake-modules kdoctools5)
+license=(GPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kconfig5
+         kconfigwidgets5
+         kcoreaddons5
+         ki18n5
+         kio5
+         kjobwidgets5
+         kxmlgui5
+         kwidgetsaddons5
+         libksane
+         qt5-base)
+makedepends=(extra-cmake-modules
+             kdoctools5)
+groups=(kde-applications
+        kde-graphics)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('667aca4dc89798f5a76c62c8f781d21102381b61d433942802cadf931f080dba'
+sha256sums=('c15ee8defcfb05da1fd1deea2c9aaa3cc6fb32489794f571ec09dd8b4d938aa6'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
