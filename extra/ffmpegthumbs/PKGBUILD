@@ -2,17 +2,24 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ffmpegthumbs
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='FFmpeg-based thumbnail creator for video files'
 url='https://apps.kde.org/ffmpegthumbs/'
 arch=(x86_64)
-license=(GPL LGPL FDL)
-groups=(kde-applications kde-multimedia)
-depends=(kio5 ffmpeg)
+license=(GPL-2.0-or-later LGPL-2.0-or-later)
+depends=(ffmpeg
+         gcc-libs
+         glibc
+         kconfig
+         kcoreaddons
+         kio
+         qt6-base)
 makedepends=(extra-cmake-modules)
+groups=(kde-applications
+        kde-multimedia)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('dad83ce22fccf141bb19fd6192c73dc0cab6365c86251e68f393962f0a5be5df'
+sha256sums=('383dc6d5a7464b443c166cb42a8507b5960069356da28a91907d76a8178d79f1'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
@@ -20,7 +27,8 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
