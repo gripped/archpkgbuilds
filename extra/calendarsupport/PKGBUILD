@@ -1,16 +1,38 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=calendarsupport
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='Calendar support library'
 arch=(x86_64)
 url='https://kontact.kde.org'
-license=(LGPL)
-depends=(kholidays5 akonadi-calendar akonadi-notes)
-makedepends=(extra-cmake-modules qt5-tools doxygen)
+license=(LGPL-2.0-or-later)
+depends=(akonadi-calendar
+         akonadi-notes
+         gcc-libs
+         glibc
+         kcalendarcore
+         kcalutils
+         kcodecs
+         kconfig
+         kcoreaddons
+         kguiaddons
+         kholidays
+         ki18n
+         kidentitymanagement
+         kio
+         kmime
+         kservice
+         ktextaddons
+         kwidgetsaddons
+         libakonadi
+         qt6-base)
+makedepends=(doxygen
+             extra-cmake-modules
+             qt6-doc
+             qt6-tools)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('65fa5ca77e19515dad579cf96e7cf16025d64a6a9a39c63772691a6bc16f3ef3'
+sha256sums=('e465bf8903524399c679e9e5da0ad454e2c5e5a4279a05162b38f8525ade5005'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
