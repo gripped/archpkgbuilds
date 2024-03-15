@@ -2,7 +2,7 @@
 # Contributor: Jay Schmidek <jschmidek at gmail dot com>
 # Contributor: Paul-Louis Ageneau <paul-louis at ageneau dot org>
 pkgname=libdatachannel
-pkgver=0.20.1
+pkgver=0.20.2
 pkgrel=1
 pkgdesc="C/C++ WebRTC network library featuring Data Channels, Media Transport, and WebSockets"
 arch=('x86_64')
