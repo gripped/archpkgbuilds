@@ -3,12 +3,12 @@
 # Contributor: Jonathon Fernyhough <jonathon_at_manjaro_dot_org>
 # Contributor: Jon Gjengset <jon@tsp.io>
 pkgname=rustup
-pkgver=1.26.0
-pkgrel=5
+pkgver=1.27.0
+pkgrel=1
 pkgdesc="The Rust toolchain installer"
 arch=('x86_64')
 url="https://github.com/rust-lang/rustup.rs"
-license=('MIT' 'Apache')
+license=('MIT' 'Apache-2.0')
 depends=('curl' 'xz' 'zstd')
 makedepends=('cargo')
 optdepends=('lldb: rust-lldb script'
@@ -21,7 +21,7 @@ install='post.install'
 options=("!lto")
 source=("rustup-${pkgver}.tar.gz::https://github.com/rust-lang/rustup.rs/archive/${pkgver}.tar.gz"
         "rustup-profile.sh")
-sha512sums=('bc7cb580640248a601dbafb87c3a9e908b6c687377b4e0f88280576af15527f5837d9463f7831c14b0c274cd3170449e634cd851e0d03ea4ff1d0461d4a941be'
+sha512sums=('0b9349364e0f9d60ba0d486064295413012d38ec97597207b3c82e07ebcf6b5ade403a46fb3910fe4d63607150ce5b0e367ac322f894599bd6b02dae3872e8f0'
             '18d5b4ab9a032cb43fd0b59fb553a878068981534e549935c5ff4a12dc2f74849ce36367eb59e670d674a19a7d4bc0056d0694d7f87ede187416c2ffcbb20355')
 _binlinks=('cargo' 'rustc' 'rustdoc' 'rust-gdb' 'rust-lldb' 'rustfmt' 'cargo-fmt' 'cargo-clippy' 'clippy-driver' 'cargo-miri')
 
