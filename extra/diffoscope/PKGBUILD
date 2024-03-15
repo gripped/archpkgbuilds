@@ -1,12 +1,12 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=diffoscope
-pkgver=258
+pkgver=260
 pkgrel=1
 pkgdesc='Tool for in-depth comparison of files, archives, and directories'
 url='https://diffoscope.org/'
 arch=('x86_64')
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('python-magic' 'python-libarchive-c' 'python-distro' 'python-defusedxml'
          'python-tlsh')
 optdepends=(
@@ -61,16 +61,16 @@ optdepends=(
   'zstd: zst compression'
   'p7zip: 7z compression'
 )
-makedepends=('help2man' 'python-docutils' 'git' 'python-setuptools')
+makedepends=('help2man' 'python-docutils' 'git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=(
   'python-pytest' 'python-jsbeautifier' 'python-h5py' 'acl' 'binutils' 'bzip2' 'cdrtools' 'cpio' 'diffutils' 'e2fsprogs' 'enjarify'
   'hdf5' 'imagemagick' 'java-environment=11' 'fontforge' 'gettext' 'ghc' 'gnupg' 'mono' 'pgpdump' 'poppler' 'sqlite' 'squashfs-tools'
   'libxmlb' 'lz4' 'unzip' 'gzip' 'tar' 'tcpdump' 'vim' 'xz' 'llvm' 'colord' 'fpc' 'openssh' 'openssl' 'odt2txt' 'docx2txt' 'r' 'dtc'
   'giflib' 'gnumeric' 'python-progressbar' 'binwalk' 'python-argcomplete' 'zstd' 'uboot-tools')
 source=(https://diffoscope.org/archive/diffoscope-${pkgver}.tar.bz2{,.asc})
-sha512sums=('962920b3493f1f0c99ff109f94f723be60cb2941320118b344aefef21eacccb41f42c429bf7a08a67ce17e6624bac8d509548f14948a357b9ea568a16d0e4213'
+sha512sums=('e33758c9ac28f1b390ce06b0effacc922577faa6f12d5fe89152e9b0223271be7003a03540827d92081be7922705ce09c63bd517e509e4a73beb3415743eef87'
             'SKIP')
-b2sums=('115db345f5ff4b79045a6297511c9487d7544b80f41161d7b7d6fc6711bce2869603ca6d044c7fbc00b987415cfbc8b359ecbf7a2bdf2061ff2d79e37b903fba'
+b2sums=('72fa7e60f734c82079417404f2850809835d770dbdf1472958daaf0a0b8a0f2e60162ddb0ff56ae711c04984d0680da526238e9e8f34014858b38e83dcc9c8dd'
         'SKIP')
 validpgpkeys=("C2FE4BD271C139B86C533E461E953E27D4311E58"
               "66AE2B4AFCCF3F52DA184D184B043FCDB9444540")
@@ -79,7 +79,7 @@ validpgpkeys=("C2FE4BD271C139B86C533E461E953E27D4311E58"
 
 build() {
   cd ${pkgname}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
   make -C doc
 }
 
@@ -95,7 +95,7 @@ check() {
 
 package() {
   cd ${pkgname}-${pkgver}
-  python setup.py install --skip-build -O1 --root="${pkgdir}"
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm 644 README.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -Dm 644 doc/diffoscope.1 -t "${pkgdir}/usr/share/man/man1"
 }
