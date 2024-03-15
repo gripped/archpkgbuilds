@@ -3,8 +3,8 @@
 # Contributor: Oliver Sherouse <oliver DOT sherouse AT gmail DOT com>
 
 pkgname=python-statsmodels
-pkgver=0.14.0
-pkgrel=3
+pkgver=0.14.1
+pkgrel=1
 pkgdesc="Statistical computations and models for use with SciPy"
 arch=(x86_64)
 url="https://www.statsmodels.org/"
