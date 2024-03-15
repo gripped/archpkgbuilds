@@ -1,0 +1,27 @@
+pkgbase = appstream-glib
+	pkgdesc = Objects and methods for reading and writing AppStream metadata
+	pkgver = 0.8.2
+	pkgrel = 4
+	url = https://people.freedesktop.org/~hughsient/appstream-glib/
+	arch = x86_64
+	license = LGPL-2.1-or-later
+	makedepends = git
+	makedepends = gobject-introspection
+	makedepends = gperf
+	makedepends = gtk-doc
+	makedepends = meson
+	depends = curl
+	depends = gtk3
+	depends = libstemmer
+	depends = libyaml
+	depends = pacman
+	provides = appdata-tools
+	provides = libappstream-glib.so
+	conflicts = appdata-tools
+	replaces = appdata-tools
+	source = git+https://github.com/hughsie/appstream-glib#commit=02c8ad3b66075d9b2c9094dff816cd44839a4b45
+	source = as-yaml-support-application-yaml-mimetype.patch
+	b2sums = SKIP
+	b2sums = 63c82bb52fbe1aeab2aeb33147d99690a81a0528f9438c934a5fe7295581145b385e55b7d67c98a43e21cdb529883eaed750e2b4d842c56e21d8faf583f57580
+
+pkgname = appstream-glib
