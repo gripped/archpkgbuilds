@@ -1,0 +1,27 @@
+pkgbase = gramps
+	pkgdesc = Genealogy program, which helps you track your family tree
+	pkgver = 5.2.0
+	pkgrel = 1
+	epoch = 2
+	url = https://gramps-project.org/
+	arch = any
+	license = GPL
+	makedepends = intltool
+	makedepends = python-setuptools
+	depends = gtk3
+	depends = python-bsddb
+	depends = python-cairo
+	depends = python-gobject
+	depends = xdg-utils
+	optdepends = osm-gps-map: show maps in the geography view
+	optdepends = graphviz: enable creation of graphs (required for tree reports)
+	optdepends = python-pyicu: improves localised sorting
+	optdepends = gtkspell3: enable spell checking in the notes
+	optdepends = rcs: manage multiple revisions of your family trees
+	optdepends = python-pillow: crop and convert images to JPG
+	optdepends = libgexiv2: manage Exif metadata embedded in your media
+	optdepends = geocode-glib: associate a geographical position to a place name
+	source = gramps-5.2.0.tar.gz::https://github.com/gramps-project/gramps/archive/v5.2.0.tar.gz
+	sha256sums = e368bbb9f5647eeb6dde8f5941b502d26f6969fba1e2fc5367d1cd4d9a725e91
+
+pkgname = gramps
