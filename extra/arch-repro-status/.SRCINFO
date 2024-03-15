@@ -1,13 +1,16 @@
 pkgbase = arch-repro-status
 	pkgdesc = Check the reproducibility status of your Arch Linux packages
 	pkgver = 1.3.11
-	pkgrel = 1
+	pkgrel = 3
 	url = https://gitlab.archlinux.org/archlinux/arch-repro-status
 	arch = x86_64
 	groups = archlinux-tools
 	license = MIT
 	makedepends = cargo
-	depends = pacman
+	depends = gcc-libs
+	depends = glibc
+	depends = libalpm.so
+	depends = libssl.so
 	source = arch-repro-status-1.3.11.tar.gz::https://gitlab.archlinux.org/archlinux/arch-repro-status/-/archive/v1.3.11/arch-repro-status-v1.3.11.tar.gz
 	sha512sums = 16fa85c6bd1990363f7129d7c7b2229fa682e0032cef176f22f5cdc1dd03fd6089470984a7fc50fb526ca53cfaa877696f5712155a61d6d24191cb16afdd30d0
 

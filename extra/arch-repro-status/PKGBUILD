@@ -2,12 +2,17 @@
 
 pkgname=arch-repro-status
 pkgver=1.3.11
-pkgrel=1
+pkgrel=3
 pkgdesc="Check the reproducibility status of your Arch Linux packages"
 arch=('x86_64')
 url="https://gitlab.archlinux.org/archlinux/arch-repro-status"
 license=('MIT')
-depends=('pacman')
+depends=(
+  'gcc-libs'
+  'glibc'
+  'libalpm.so'
+  'libssl.so'
+)
 makedepends=('cargo')
 groups=('archlinux-tools')
 source=("$pkgname-$pkgver.tar.gz::$url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz")
@@ -16,7 +21,7 @@ sha512sums=('16fa85c6bd1990363f7129d7c7b2229fa682e0032cef176f22f5cdc1dd03fd60894
 prepare() {
   cd "$pkgname-v$pkgver"
   mkdir completions/
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
