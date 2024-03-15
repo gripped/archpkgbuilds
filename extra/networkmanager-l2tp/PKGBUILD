@@ -5,7 +5,7 @@
 # Contributor: Moritz Lipp <mlq@pwmt.org>
 
 pkgname=networkmanager-l2tp
-pkgver=1.20.10
+pkgver=1.20.12
 _pppver=2.5.0
 pkgrel=1
 pkgdesc='L2TP support for NetworkManager'
@@ -21,7 +21,7 @@ optdepends=(
   'libnma-gtk4: GUI support (GTK 4)'
   'strongswan: IPSec support')
 source=("$pkgname-$pkgver.tar.gz"::"$url/archive/$pkgver.tar.gz")
-b2sums=('d2958b9aa803ffb498ed9481ef1726587f881570a247c0f9d06738a2188adf3130e3a91fa3facb67994bd6add196caeb6344a94ef04b4785c5389ed511343258')
+b2sums=('8dea49a5d1ef6ebdb74a8606d53c0891ae9ddda077ee26b6a2d5028d7fbfd3c7969ba37ab9fe7218e863802471f0b5797b9f31519b98857f8110424afe6d5584')
 
 prepare() {
   ln -sf NetworkManager-l2tp-$pkgver $pkgname-$pkgver
