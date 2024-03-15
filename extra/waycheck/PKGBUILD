@@ -1,18 +1,18 @@
 # Maintainer: Campbell Jones <arch at serebit dot com>
 
 pkgname=waycheck
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc="Simple GUI that displays the protocols implemented by a Wayland compositor"
 arch=("x86_64")
 url="https://gitlab.freedesktop.org/serebit/$pkgname"
 license=("Apache-2.0")
-depends=("hicolor-icon-theme" "qt6-wayland>=6.5" "wayland")
+depends=("hicolor-icon-theme" "qt6-base>=6.5" "qt6-wayland>=6.5" "wayland")
 makedepends=("meson")
 checkdepends=("appstream")
-source=("https://gitlab.freedesktop.org/serebit/$pkgname/uploads/1d05e95b1f6f2019604a090335066812/${pkgname}-v${pkgver}.tar.xz"
-        "https://gitlab.freedesktop.org/serebit/$pkgname/uploads/d4a8363a039234a3489ff5304782cabc/${pkgname}-v${pkgver}.tar.xz.asc")
-b2sums=('365b4f637089e74e73cb062a0fb55d6f14022d19edbf563ead9f7bf0b6a300d04253b529c09ac4b6cef6a7d6a0b8499a6ea9c1a9574e6758ffb02a9f181d35a1'
+source=("https://gitlab.freedesktop.org/serebit/$pkgname/uploads/7e1e011ed491f43b81d4327575c9cbfd/${pkgname}-v${pkgver}.tar.xz"
+        "https://gitlab.freedesktop.org/serebit/$pkgname/uploads/bae2fa1d8d21486780960884357a6554/${pkgname}-v${pkgver}.tar.xz.asc")
+b2sums=('48733348d215ced1a49b78c1174840eb04a91c91fed053fc471b90546dfe9888e48f8b1a890ed29572f5aa50a2cf4c4b9a86fe22b0427c09297581fe4e69da78'
         'SKIP')
 validpgpkeys=("8A59B135826B2DA453B9707408AD7343E6BD4B56")
 
