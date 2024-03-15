@@ -6,20 +6,33 @@
 # Contributor: Philipp 'TamCore' B. <philipp [at] tamcore [dot] eu>
 
 pkgname=ghostwriter
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='Aesthetic, distraction-free Markdown editor'
 arch=(x86_64)
 url='https://ghostwriter.kde.org/'
-license=(GPL3)
-groups=(kde-applications kde-office)
-depends=(hunspell qt5-webengine kxmlgui5 sonnet5)
-makedepends=(extra-cmake-modules kdoctools5 qt5-tools)
+license=(GPL-2.0-or-later3)
+depends=(gcc-libs
+         glibc
+         hunspell
+         kconfigwidgets5
+         kcoreaddons5
+         kwidgetsaddons5
+         kxmlgui5
+         qt5-base
+         qt5-webchannel
+         qt5-webengine
+         sonnet5)
+makedepends=(extra-cmake-modules
+             kdoctools5
+             qt5-tools)
 optdepends=('cmark: processing and rendering CommonMark'
             'mathjax: formula rendering in live preview'
             'pandoc: Pandoc supported Markdown flavors and export to various formats')
+groups=(kde-applications
+        kde-office)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('a0b75649441f3ee2ef6746b30231d85be1dd125836f8aadcc3e31e619cb4d0d9'
+sha256sums=('128a25d96a220cbac6729c37bc8fd3ee66f4dc214445b6282c86dd20f9c08549'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
