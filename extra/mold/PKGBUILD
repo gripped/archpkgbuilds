@@ -2,9 +2,9 @@
 # Contributor: Adrian Perez de Castro <aperez@igalia.com>
 
 pkgname=mold
-pkgver=2.4.0
+pkgver=2.4.1
 pkgrel=1
-_commit='3d9b4d5c05250fa7c507b0c74038915929f990f1'
+_commit='fb3c166f80b92ca34ebd1b3f467edbcad7cae649'
 pkgdesc='A Modern Linker'
 arch=('x86_64')
 url='https://github.com/rui314/mold'
