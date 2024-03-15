@@ -2,19 +2,26 @@
 # Mainrainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=modemmanager-qt
-pkgver=5.110.0
+pkgver=6.0.0
 pkgrel=1
 pkgdesc='Qt wrapper for ModemManager DBus API'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
-license=(LGPL)
-depends=(modemmanager qt5-base)
-makedepends=(extra-cmake-modules doxygen qt5-tools qt5-doc)
-groups=(kf5)
+license=(LGPL-2.0-only LGPL-3.0-only)
+depends=(gcc-libs
+         glibc
+         modemmanager
+         qt6-base)
+makedepends=(doxygen
+             extra-cmake-modules
+             qt6-doc
+             qt6-tools)
+groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('3b9c2a548b3032a180088b59f93955f415ea19b1ec7f0639ce01e1d4b31a0423'
+sha256sums=('efd6ea3eae52b21279bdee38e80f667c35d98b977a442f4bd6b8a0a471f90ff3'
             'SKIP')
-validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB) # David Faure <faure@kde.org>
+validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
+              E0A3EB202F8E57528E13E72FD7574483BB57B18D) # Jonathan Esk-Riddell <jr@jriddell.org>
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
