@@ -1,4 +1,5 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgbase=gnome-online-accounts
@@ -6,19 +7,27 @@ pkgname=(
   gnome-online-accounts
   libgoa
 )
-pkgver=3.48.0
-pkgrel=2
+pkgver=3.48.1
+pkgrel=1
 pkgdesc="Single sign-on framework for GNOME"
 url="https://wiki.gnome.org/Projects/GnomeOnlineAccounts"
 arch=(x86_64)
-license=(LGPL)
+license=(LGPL-2.0-or-later)
 depends=(
+  dbus
+  dconf
+  gcc-libs
   gcr
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
   json-glib
   krb5
-  libnotify
   librest
   libsecret
+  libsoup3
+  libxml2
   webkit2gtk-4.1
 )
 makedepends=(
@@ -28,7 +37,7 @@ makedepends=(
   meson
   vala
 )
-_commit=ebab108d4d8505b56cc313acad341520ed18df8f  # tags/3.48.0^0
+_commit=de9ea7db9884e90ef6d6b45912187f63f63691c0  # tags/3.48.1^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-online-accounts.git#commit=$_commit")
 b2sums=('SKIP')
 
@@ -90,7 +99,10 @@ package_gnome-online-accounts() {
 
 package_libgoa() {
   pkgdesc+=" - client library"
-  depends=(libg{lib,object,io}-2.0.so)
+  depends=(
+    glibc
+    libg{lib,object,io}-2.0.so
+  )
   provides=(libgoa-1.0.so)
 
   mv goa/* "$pkgdir"
