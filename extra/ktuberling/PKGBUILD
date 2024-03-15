@@ -3,17 +3,34 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=ktuberling
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='A simple constructor game suitable for children and adults alike'
 url='https://apps.kde.org/ktuberling/'
 arch=(x86_64)
-license=(GPL LGPL FDL)
-groups=(kde-applications kde-games)
-depends=(hicolor-icon-theme libkdegames)
-makedepends=(extra-cmake-modules kdoctools5)
+license=(GPL-2.0-or-later LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kcompletion
+         kconfig
+         kconfigwidgets
+         kcoreaddons
+         kcrash
+         kdbusaddons
+         ki18n
+         kio
+         kwidgetsaddons
+         kxmlgui
+         libkdegames
+         qt6-base
+         qt6-multimedia
+         qt6-svg)
+makedepends=(extra-cmake-modules
+             kdoctools)
+groups=(kde-applications
+        kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('9593c5c66cb84ce64b4cb6efc7e94b44e09aea3e04f19373660dbcb5e5c4c388'
+sha256sums=('ef7383c641fa431608f4edb037008eedc1dd35087016acd4cc1c6b16e19f5faa'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
