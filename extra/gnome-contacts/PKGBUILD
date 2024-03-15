@@ -3,12 +3,12 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-contacts
-pkgver=45.0
+pkgver=45.1
 pkgrel=1
 pkgdesc="Contacts Manager for GNOME"
 url="https://wiki.gnome.org/Apps/Contacts"
 arch=(x86_64)
-license=(GPL2)
+license=(GPL-2.0-or-later)
 depends=(
   cairo
   dconf
@@ -35,7 +35,7 @@ makedepends=(
   vala
 )
 groups=(gnome)
-_commit=f100e20eb51fac292b763aca06f7d963a2d1b9f3  # tags/45.0^0
+_commit=aa0456c32a6ec8e766ea090e7f3fb85e0035f506  # tags/45.1^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-contacts.git#commit=$_commit")
 b2sums=('SKIP')
 
