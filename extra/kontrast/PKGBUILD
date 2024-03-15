@@ -1,17 +1,29 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kontrast
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='Tool to check contrast for colors that allows verifying that your colors are correctly accessible'
 arch=(x86_64)
 url='https://apps.kde.org/kontrast/'
-license=(GPL)
-depends=(kirigami2 ki18n5 kcoreaddons5 qt5-svg futuresql-qt5)
-makedepends=(extra-cmake-modules kdoctools5 qcoro-qt5)
-groups=(kde-applications kde-accessibility)
+license=(GPL-2.0-or-later)
+depends=(futuresql-qt6
+         gcc-libs
+         glibc
+         kcoreaddons
+         ki18n
+         kirigami
+         kirigami-addons
+         qt6-base
+         qt6-declarative)
+makedepends=(extra-cmake-modules
+             kdoctools
+             python
+             qcoro-qt6)
+groups=(kde-applications
+        kde-accessibility)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('7e131a0e89773e88afdb17740998731b3d44d31485e736dcc7e29b11460ffdab'
+sha256sums=('91950712e08d39247837e32a53bdc11603fd484d74a26dd6344410e682c6111c'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
