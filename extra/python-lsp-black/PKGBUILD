@@ -1,17 +1,17 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=python-lsp-black
-pkgver=1.3.0
+pkgver=2.0.0
 pkgrel=1
 pkgdesc="python-lsp-server plugin that adds support to black autoformatter, forked from pyls-black"
 arch=(any)
 url="https://github.com/python-lsp/python-lsp-black"
 license=(MIT)
-depends=(python-black python-lsp-server python-toml)
+depends=(python-black python-lsp-server)
 makedepends=(python-setuptools)
 checkdepends=(python-pytest)
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('e17cc0fb7327b1b2377f197480690e0b9f908c688058f07262647c69a00c0d95')
+sha256sums=('6387584c38e5758431f5d61c269860892f57b7442c0cf9bd712ad64231b9bb1c')
 
 build() {
   cd ${pkgname}-${pkgver}
