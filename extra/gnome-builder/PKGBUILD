@@ -1,17 +1,21 @@
 # Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
-pkgname=gnome-builder
+pkgbase=gnome-builder
+pkgname=(
+  gnome-builder
+  gnome-builder-clang
+  gnome-builder-flatpak
+)
 pkgver=45.0
-pkgrel=3
+pkgrel=5
 pkgdesc="An IDE for writing GNOME-based software"
 url="https://wiki.gnome.org/Apps/Builder"
 arch=(x86_64)
-license=(GPL3)
+license=(GPL-3.0-or-later)
 depends=(
   autoconf-archive
   cairo
-  clang
   cmark
   ctags
   d-spy
@@ -20,8 +24,6 @@ depends=(
   devhelp
   editorconfig-core-c
   enchant
-  flatpak
-  flatpak-builder
   gdk-pixbuf2
   gjs
   glib2
@@ -55,6 +57,8 @@ depends=(
 )
 makedepends=(
   appstream-glib
+  clang
+  flatpak
   git
   gobject-introspection
   llvm
@@ -69,12 +73,12 @@ source=("git+https://gitlab.gnome.org/GNOME/gnome-builder.git#commit=$_commit")
 b2sums=('SKIP')
 
 pkgver() {
-  cd $pkgname
+  cd $pkgbase
   git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {
-  cd $pkgname
+  cd $pkgbase
   git cherry-pick -n 7aaaecefc2ea8a37eaeae8b4d726d119d4eb8fa3 # Fix build
 }
 
@@ -83,7 +87,7 @@ build() {
     -D help=true
   )
 
-  arch-meson $pkgname build "${meson_options[@]}"
+  arch-meson $pkgbase build "${meson_options[@]}"
   meson compile -C build
 }
 
@@ -100,15 +104,51 @@ check() (
   dbus-run-session meson test -C build --print-errorlogs
 )
 
-package() {
+package_gnome-builder() {
   depends+=(libgit2.so)
   optdepends=(
     'bash-language-server: Shell code assistance'
+    'gnome-builder-clang: Clang integration'
+    'gnome-builder-flatpak: Flatpak integration'
     'python-lsp-server: Python code assistance'
   )
   groups=(gnome-extra)
 
   meson install -C build --destdir "$pkgdir"
+
+  # Move the external plugins to sub-packages
+  mkdir -p {clang,flatpak}/usr/lib
+  mv {"$pkgdir",clang}/usr/lib/gnome-builder-clang
+  mv {"$pkgdir",flatpak}/usr/lib/gnome-builder-flatpak
+}
+
+package_gnome-builder-clang() {
+  pkgdesc+=" (clang module)"
+  depends=(
+    clang
+    gcc-libs
+    glib2
+    gtk4
+    gtksourceview5
+    jsonrpc-glib
+    libdex
+    libpeas-2
+  )
+  groups=(gnome-extra)
+
+  mv clang/* "$pkgdir"
+}
+
+package_gnome-builder-flatpak() {
+  pkgdesc+=" (flatpak module)"
+  depends=(
+    flatpak
+    gcc-libs
+    glib2
+  )
+  groups=(gnome-extra)
+
+  mv flatpak/* "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
