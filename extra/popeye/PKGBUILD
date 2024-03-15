@@ -1,8 +1,8 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 
 pkgname=popeye
-pkgver=0.20.3
-pkgrel=1
+pkgver=0.21.0
+pkgrel=2
 pkgdesc="Kubernetes cluster resource sanitizer"
 arch=('x86_64')
 url="https://github.com/derailed/popeye"
@@ -11,7 +11,7 @@ depends=('glibc')
 makedepends=('go')
 optdepends=('bash-completion')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/derailed/popeye/archive/v${pkgver}.tar.gz")
-sha512sums=('711c34d17a31d0a05fcf5cdc41269e998e4c106c20dbe1e3f351fc8b5cf6acf8ce3962df2d08e7b693bb0e78a5175357cdad3aa9241246cc321d6c170ba9df16')
+sha512sums=('72299c306ad19fb6510973c450b469421d92790b7759acc8d3dcedad97bce32cb6530065990f35eefe3775b23fab8f2bac857fd71c62592803bfe65a2d395d88')
 
 build(){
   cd "${pkgname}-${pkgver}"
@@ -23,7 +23,7 @@ build(){
   export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
 
   go build -v -x \
-    -ldflags "-linkmode external -w -X github.com/derailed/popeye/cmd.version=${pkgver} -X github.com/derailed/popeye/cmd.date=$(date +%FT%T%Z)"\
+    -ldflags "-linkmode external -w -X github.com/derailed/popeye/cmd.version=${pkgver} -X github.com/derailed/popeye/cmd.date=$(date -ud "@${SOURCE_DATE_EPOCH}" +%FT%T%Z)"\
     .
 }
 
