@@ -2,11 +2,11 @@
 # Contributor: Rémy Oudompheng <oudomphe@clipper.ens.fr>
 
 pkgname=singular
-_majver=4.3.2
-_patchver=p15
+_majver=4-3-2
+_patchver=p16
 _pkgver=${_majver}${_patchver}
 pkgver=${_majver//-/.}${_patchver/p/.p}
-pkgrel=2
+pkgrel=1
 pkgdesc='Computer Algebra System for polynomial computations'
 arch=(x86_64)
 url='https://www.singular.uni-kl.de/'
@@ -26,21 +26,13 @@ makedepends=(latex2html
              texlive-bin
              texlive-latex)
 provides=(singular-factory)
-# source=(ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/SOURCES/$_majver/singular-${_pkgver//-/.}.tar.gz)
-source=(https://github.com/Singular/Singular/archive/$_pkgver/$pkgname-$_pkgver.tar.gz
-        flint-3.1.patch)
-sha256sums=('ac48213f688b0c517f3e81343e2ef3f6e64960ca279182877067aa4a27cbbcb9'
-            '2e5a2a8f97f786fb25fe3917881fb9687ee0dcbf2c1dd78f48e8bee02fe690ce')
+source=(ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/SOURCES/$_majver/singular-${_pkgver//-/.}.tar.gz)
+#source=(https://github.com/Singular/Singular/archive/$_pkgver/$pkgname-$_pkgver.tar.gz)
+sha256sums=('675733ba13a6ec67c564e753139f7c0c4b0d3e29bdb995de5341b616f1472a16')
 options=(!zipman)
 
-prepare() {
-  cd Singular-$_pkgver
-  patch -p1 -i ../flint-3.1.patch # Fix build with flint 3.1
-  ./autogen.sh
-}
-
 build() {
-  cd Singular-$_pkgver
+  cd singular-${_majver//-/.}
 
   # this uses malloc_usable_size, which is incompatible with fortification level 3
   export CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
@@ -54,16 +46,16 @@ build() {
     --enable-Order-module \
     --enable-python-module \
     --enable-gfanlib-module \
-    --enable-polymake-module \
-    --enable-doc-build
+    --enable-polymake-module
+#   --enable-doc-build
 # https://bugzilla.gnome.org/show_bug.cgi?id=655517
   sed -e 's/ -shared / -Wl,-O1,--as-needed\0/g' -i libtool -i */libtool
   make
-  make -C doc doc.tbz2
+# make -C doc doc.tbz2
 }
 
 check() {
-  cd Singular-$_pkgver
+  cd singular-${_majver//-/.}
 
   # this uses malloc_usable_size, which is incompatible with fortification level 3
   export CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
@@ -73,6 +65,6 @@ check() {
 }
   
 package() {
-  cd Singular-$_pkgver
+  cd singular-${_majver//-/.}
   make DESTDIR="$pkgdir" install
 }
