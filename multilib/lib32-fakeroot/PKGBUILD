@@ -5,7 +5,7 @@
 
 _pkgbasename=fakeroot
 pkgname=lib32-${_pkgbasename}
-pkgver=1.33
+pkgver=1.34
 pkgrel=1
 pkgdesc='Tool for simulating superuser privileges (32-bit)'
 arch=('x86_64')
@@ -15,7 +15,7 @@ install=fakeroot.install
 depends=('lib32-glibc' "$_pkgbasename")
 makedepends=('po4a')
 source=("https://deb.debian.org/debian/pool/main/f/${_pkgbasename}/${_pkgbasename}_${pkgver}.orig.tar.gz")
-sha512sums=('f87b85531fc5af4ff24a6e27a5b7a25f7d220672fb0b0b925554b0138f3cff7ff7920ce96ed77313a7fb55656a313dc07b58c2935be262091405e509fdcbec03')
+sha512sums=('d3b4b9ca8718ba945029e151415a24412ca5a40dbefe6fbfaed3565879b5ad80b4b6de9748695a8848c3086e3ba1cde270efc8dfb4cc345cf8aa11f3234153f1')
 
 build() {
   export CC="gcc -m32"
