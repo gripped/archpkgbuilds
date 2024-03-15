@@ -1,16 +1,25 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=ktnef
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='API for handling TNEF data'
 arch=(x86_64)
 url='https://kontact.kde.org'
-license=(LGPL)
-depends=(kcalutils kcontacts5)
-makedepends=(extra-cmake-modules qt5-tools doxygen)
+license=(LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kcalendarcore
+         kcalutils
+         kcontacts
+         ki18n
+         qt6-base)
+makedepends=(doxygen
+             extra-cmake-modules
+             qt6-doc
+             qt6-tools)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('379fc87cc555d9d55c2edfa4cf8d33a95ad2bb1066e96b966668a6af4669b428'
+sha256sums=('b7e1a71bcd41dda3b7923aef39e15b8998858d680c3d77a001fec702713efb10'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
