@@ -6,14 +6,11 @@ pkgname=(
   lib32-cairo
 )
 pkgver=1.18.0
-pkgrel=1
+pkgrel=2
 pkgdesc="2D graphics library with support for multiple output devices (32-bit)"
 url="https://cairographics.org/"
 arch=(x86_64)
-license=(
-  LGPL
-  MPL
-)
+license=('LGPL-2.1-only OR MPL-1.1')
 depends=(
   cairo
   lib32-fontconfig
