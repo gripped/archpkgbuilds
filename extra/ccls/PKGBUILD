@@ -3,12 +3,12 @@
 
 pkgname=ccls
 pkgver=0.20230717
-pkgrel=1
+pkgrel=2
 pkgdesc='C/C++/ObjC language server supporting cross references, hierarchies, completion and semantic highlighting'
 arch=('x86_64')
 url='https://github.com/MaskRay/ccls'
-license=('Apache')
-depends=('clang' 'llvm-libs')
+license=('Apache-2.0')
+depends=('clang' 'gcc-libs' 'glibc' 'llvm-libs')
 makedepends=('cmake' 'ninja' 'llvm' 'rapidjson')
 conflicts=('ccls-git')
 source=("https://github.com/MaskRay/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz")
