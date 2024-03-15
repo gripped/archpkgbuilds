@@ -3,7 +3,7 @@
 
 _pkgbasename=libdrm
 pkgname=lib32-$_pkgbasename
-pkgver=2.4.119
+pkgver=2.4.120
 pkgrel=1
 pkgdesc="Userspace interface to kernel DRM services (32-bit)"
 url="https://dri.freedesktop.org/"
@@ -13,12 +13,13 @@ depends=('lib32-libpciaccess' 'lib32-glibc' $_pkgbasename)
 makedepends=('meson')
 checkdepends=('lib32-cairo')
 source=(https://dri.freedesktop.org/${_pkgbasename}/${_pkgbasename}-${pkgver}.tar.xz{,.sig})
-sha512sums=('c8dd7665e85c01a67fcce1c1c614bc05a3ec311f31cae7de5fb1cd27d0f11f1801be63de3fa3e33b2f505544fd4b1bc292965c5e8de46a3beaaedb10334945ca'
+sha512sums=('6dc16e5134a669eeb59debb1dc2d15b857483ab7476dc2b94bd05a32d8953f046f5656f6cf9e1a63e97e7156fb65ebb58b6a29fe45cb6326058baaf820626e70'
             'SKIP')
 #validpgpkeys=('10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE') # David Airlie <airlied@redhat.com>
 #validpgpkeys=('2617F6F8DEBB0A7A15C405C983FD600E340FB5FF') # Samuel Pitoiset <samuel.pitoiset@gmail.com>
 #validpgpkeys=('34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48') # emersion <contact@emersion.fr>
-validpgpkeys=('F3A52DB8ECE9EB9E33BC48C6917A3EE97A0FCD1A') # "Marek Olšák <maraeo@gmail.com>"
+#validpgpkeys=('F3A52DB8ECE9EB9E33BC48C6917A3EE97A0FCD1A') # "Marek Olšák <maraeo@gmail.com>"
+validpgpkeys=('34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48') # Simon Ser <contact@emersion.fr>
 
 prepare() {
   cd $_pkgbasename-$pkgver
