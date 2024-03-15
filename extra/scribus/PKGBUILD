@@ -8,7 +8,7 @@
 
 pkgname=scribus
 pkgver=1.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Desktop publishing software"
 arch=(x86_64)
 url="https://www.scribus.net/"
@@ -46,12 +46,19 @@ optdepends=('gdal: enable gdal plugin'
             'tk: scripts based on tkinter')
 options=(!lto)
 _archive="$pkgname-$pkgver"
-source=("https://downloads.sourceforge.net/${pkgname}/$_archive.tar.xz"{,.asc})
+source=("https://downloads.sourceforge.net/${pkgname}/$_archive.tar.xz"{,.asc}
+        scribus-1.6.1-poppler-24.03.patch)
 sha256sums=('e09dd78e6db61d01b9321108fededbccd6ec0ab352dd5bafdb8b041f0ef79e99'
-            'SKIP')
+            'SKIP'
+            '0bccf63f435bc039e28e8c2f765767ea70d6246a438f08c1b23e0976067be1a7')
 validpgpkeys=(5086B8D68E70FDDF4C40045AEF7B95E7F60166DA  # Peter Linnell <plinnell@scribus.net>
               757F5E9B13DD648887AD50092D47C099E782504E  # The Scribus Team (www.scribus.net) <the_scribus_team@scribus.net>
               6558BE84D27273A438A151198BEA48118AEBEE64) # Craig Bradney <cbradney@zipworld.com.au>
+
+prepare() {
+    cd "$_archive"
+    patch -Np1 -i ../scribus-1.6.1-poppler-24.03.patch
+}
 
 build() {
 	cmake -B build -S "$_archive" \
