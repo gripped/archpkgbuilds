@@ -3,7 +3,7 @@
 _hkgname=hsyslog
 pkgname=haskell-hsyslog
 pkgver=5.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="FFI interface to syslog(3) from POSIX.1-2001"
 url="https://github.com/peti/hsyslog"
 license=("BSD")
@@ -23,7 +23,7 @@ build() {
     --ghc-option='-pie' \
     -f-install-examples
 
-  runhaskell Setup build
+  runhaskell Setup build $MAKEFLAGS
   runhaskell Setup register --gen-script
   runhaskell Setup unregister --gen-script
   sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
@@ -32,7 +32,7 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  runhaskell Setup test
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
