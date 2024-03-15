@@ -3,8 +3,8 @@
 # Contributor: Vlad Frolov <frolvlad@gmail.com>
 
 pkgname=cargo-hack
-pkgver=0.6.20
-_commit=fa9f3ee5d441d2792a24ed50123ab753f4b28af6
+pkgver=0.6.22
+_commit=b53dae78e9a32088c4e87ff1ead85ec8a0339f54
 pkgrel=1
 pkgdesc="A cargo subcommand to provide various options useful for testing and CI"
 arch=('x86_64')
@@ -15,7 +15,7 @@ makedepends=('cargo' 'git')
 source=("$pkgname::git+$url.git#commit=$_commit"
         "Cargo.lock")
 sha512sums=('SKIP'
-            'c58c3c410de7efb630a3be82a4be7fe1f38b576d1697a46dd694774e0608a5bc45710c093e7d6babb701aad87a199893075306d37338ab329f12c8f95db042e2')
+            '683316d930be98e09334c1ff8e23c05f4cbfffb46eac816909f0897e3ccdc3db666c42becdd14c3896fc4a3899e226d10c35ce45aaf5afbecd25a75ec8344fc5')
 
 prepare() {
   cd "$pkgname"
