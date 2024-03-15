@@ -2,7 +2,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=arti
-pkgver=1.1.13
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="An implementation of Tor in Rust"
 arch=('x86_64')
@@ -19,18 +19,18 @@ makedepends=('cargo')
 backup=('etc/arti.d/arti.toml')
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/-/archive/$pkgname-v$pkgver/$pkgname-$pkgname-v$pkgver.tar.gz")
-sha256sums=('d1c8ce40aa8582c121008c014d196c00a22da4887c5f72d222af1832a0ecd081')
-b2sums=('a830206f69d72363692996c899fa44af64d4d01bc9b58b3b763f635888cc9d758b6ab61947416e8cdbb4d24def5d507d310fd123b86e4ae0b19d055067b69a27')
+sha256sums=('5303da0d272e7be3bcddd482fc61a57f66afb9ced0e653af9d56454808e6a348')
+b2sums=('103b0935447500ae6c957679046edbb1353dd70aab1fea88a63b3fcaa533ab82b5bdfb3e20f12e28c191c8ad5eb7041f41c5ddda9515f1fe456abdd5d8395e7f')
 
 prepare() {
   mv "$pkgname-$pkgname-v$pkgver" "$pkgname-$pkgver"
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --frozen
+  cargo build --release --frozen --features full
 }
 
 check() {
