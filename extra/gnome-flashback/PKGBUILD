@@ -2,7 +2,7 @@
 
 pkgname=gnome-flashback
 pkgver=3.50.0
-pkgrel=3
+pkgrel=4
 pkgdesc='GNOME Flashback session'
 arch=('x86_64')
 url='https://wiki.gnome.org/Projects/GnomeFlashback'
@@ -24,6 +24,7 @@ source=("https://download.gnome.org/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgv
         '0001-autostart-add-launcher-for-Geoclue-Demo-agent.patch'
         '0001-menus-Add-new-Science-category.patch'
         '0001-theme-Add-drop-shadow-for-desktop-icon-labels.patch'
+        '0001-notifications-Allow-configuration-of-notification-lo.patch'
         'gnome-flashback.pam')
 sha256sums=('d04c434822022c9fa7e60874e5c8cd2060c8f3c0703c19f2b4032be254272afe'
             'f02afd29538555ab408085c60d8a7139f34fa639add7cd4c3c08a236dc027dc8'
@@ -33,6 +34,7 @@ sha256sums=('d04c434822022c9fa7e60874e5c8cd2060c8f3c0703c19f2b4032be254272afe'
             '4cfe7f5b5bb103b3ee9bcc043a3543e8d9bdcc7b5578487ea7deb2f8a544c9ff'
             '76a574b57fd59a9bccedecac0d8c4bdfa5aaa6232bf9562991810443b828100a'
             '8d2b272739ac485abba624179b7f5caa3bee81150251be750096ecb397d4b33a'
+            '4469e7a17874eabb6192c806b8344e1f1c2a9d7abf472069be6b177a2e268d1f'
             '7148b3b1773fa312d6cd14798338cc70cffb6df7504ff1787687edd0363138d2')
 
 prepare() {
@@ -58,6 +60,9 @@ prepare() {
 
   # https://gitlab.gnome.org/GNOME/gnome-flashback/-/merge_requests/57
   patch -Np1 -i ../0001-theme-Add-drop-shadow-for-desktop-icon-labels.patch
+
+  # https://gitlab.gnome.org/GNOME/gnome-flashback/-/merge_requests/59
+  patch -Np1 -i ../0001-notifications-Allow-configuration-of-notification-lo.patch
 
   # Regenerate resources file
   rm gnome-flashback/gf-resources.{c,h}
