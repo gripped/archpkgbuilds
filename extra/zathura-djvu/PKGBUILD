@@ -6,18 +6,14 @@
 
 pkgname=zathura-djvu
 pkgver=0.2.9
-pkgrel=4
-
+pkgrel=5
 pkgdesc="DjVu support for Zathura"
 url="https://pwmt.org/projects/zathura-djvu/"
 arch=('x86_64')
-license=('custom')
-
+license=('Zlib')
 depends=('djvulibre' 'zathura' 'desktop-file-utils')
 makedepends=('meson' 'ninja')
-
 source=(zathura-djvu-$pkgver.tar.gz::https://github.com/pwmt/zathura-djvu/archive/$pkgver.tar.gz)
-
 sha256sums=('84fae6da42e7cdc2e49ed4cd4f0315ac09716e95358b9c7487803a2cff47dbca')
 
 build(){
