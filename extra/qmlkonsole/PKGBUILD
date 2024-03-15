@@ -1,16 +1,27 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=qmlkonsole
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='Terminal app for Plasma Mobile'
 url='https://apps.kde.org/qmlkonsole/'
 arch=(x86_64)
-license=(GPL LGPL)
-depends=(kirigami-addons5 qmltermwidget qt5-svg ki18n5 kconfig5 kcoreaddons5 kwindowsystem5)
+license=(GPL-2.0-or-later LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kconfig
+         kcoreaddons
+         ki18n
+         kirigami
+         kirigami-addons
+         kpty
+         kwindowsystem
+         qt6-5compat
+         qt6-base
+         qt6-declarative)
 makedepends=(extra-cmake-modules)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('d4b934275170c8d716ba8cca0aef48c7e940dbf86eb3aae6721f1715d0395c3a'
+sha256sums=('77309eed9bf4b7a1bf3fc26b02253f0b9db5dae596c4334b168884422aaa8a06'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
