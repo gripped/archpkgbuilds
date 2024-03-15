@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-ruff
-pkgver=0.2.1
-_commit=2098829cfb8f95c2885c6dec3e229ed3092e2c1e
+pkgver=0.3
+_commit=37b8e736063f61ca4b5118ac499ee63fb3943b17
 pkgrel=1
 pkgdesc="Pytest plugin to check ruff requirements"
 url="https://github.com/businho/pytest-ruff"
@@ -15,11 +15,6 @@ checkdepends=('python-pytest-mock')
 source=("git+https://github.com/businho/pytest-ruff.git#commit=$_commit")
 sha512sums=('SKIP')
 
-prepare() {
-  cd pytest-ruff
-  sed 's/--cov --cov-report term --cov-report xml//' -i pyproject.toml
-}
-
 build() {
   cd pytest-ruff
   python -m build -nw
@@ -28,7 +23,8 @@ build() {
 check() {
   cd pytest-ruff
   python -m installer -d tmp_install dist/*.whl
-  PYTHONPATH="$PWD/tmp_install/usr/lib/python3.11/site-packages" \
+  local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
+  PYTHONPATH="$PWD/tmp_install/usr/lib/python${python_version}/site-packages" \
     pytest
 }
 
