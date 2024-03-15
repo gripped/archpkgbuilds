@@ -4,7 +4,7 @@
 _hkgname=yesod-auth
 pkgname=haskell-yesod-auth
 pkgver=1.6.11.2
-pkgrel=41
+pkgrel=49
 pkgdesc="Authentication for Yesod."
 url="http://www.yesodweb.com/"
 license=("MIT")
@@ -27,7 +27,7 @@ build() {
     
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fnetwork-uri
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
