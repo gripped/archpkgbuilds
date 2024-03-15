@@ -3,17 +3,34 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=ksirk
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='A computerized version of a well known strategy game'
 url='https://apps.kde.org/ksirk/'
 arch=(x86_64)
-license=(GPL LGPL FDL)
-groups=(kde-applications kde-games)
-depends=(libkdegames qca-qt5 phonon-qt5 hicolor-icon-theme)
-makedepends=(extra-cmake-modules kdoctools5)
+license=(GPL-2.0-or-later LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kcompletion
+         kconfig
+         kconfigwidgets
+         kcoreaddons
+         kcrash
+         ki18n
+         knewstuff
+         kwidgetsaddons
+         kxmlgui
+         libkdegames
+         qt6-5compat
+         qt6-base
+         qt6-multimedia
+         qt6-svg)
+makedepends=(extra-cmake-modules
+             kdoctools)
+groups=(kde-applications
+        kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('6a34035c59f7710e291990b90d4c6e9612bb5c6fd46468cdc24ba969f6b7ef65'
+sha256sums=('34106915427c4c6944cb0b14f1587335de50ebdd043d67534c85fb4ae5a72328'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
