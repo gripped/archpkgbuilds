@@ -2,18 +2,48 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=akregator
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='A Feed Reader by KDE'
 arch=(x86_64)
 url='https://apps.kde.org/akregator/'
-license=(GPL2)
-depends=(kontactinterface messagelib knotifyconfig5 kuserfeedback5)
-makedepends=(extra-cmake-modules kdoctools5)
+license=(GPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         grantleetheme
+         kcmutils
+         kcodecs
+         kcolorscheme
+         kcompletion
+         kconfig
+         kconfigwidgets
+         kcoreaddons
+         kcrash
+         ki18n
+         kio
+         knotifications
+         knotifyconfig
+         kontactinterface
+         kparts
+         kstatusnotifieritem
+         ktextaddons
+         ktextwidgets
+         kuserfeedback
+         kwidgetsaddons
+         kxmlgui
+         libkdepim
+         messagelib
+         pimcommon
+         qt6-base
+         qt6-webengine
+         syndication)
+makedepends=(extra-cmake-modules
+             kdoctools)
 optdepends=('kdepim-addons: additional plugins')
-groups=(kde-applications kde-pim)
+groups=(kde-applications
+        kde-pim)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('52371f872a56d4fb98b54f80ee5659c59ba6ab6ca8ffa5e8fbd54c49f868028b'
+sha256sums=('b501ee4cabdd8a6d7ea2304b761a9f6187a5cebc327f90c0e101db43d67b4e05'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
