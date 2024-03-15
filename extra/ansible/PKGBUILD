@@ -2,7 +2,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=ansible
-pkgver=9.2.0
+pkgver=9.3.0
 pkgrel=1
 pkgdesc='Official assortment of Ansible collections'
 arch=('any')
@@ -26,7 +26,7 @@ optdepends=('python-argcomplete: shell completions'
             'acme-tiny: openssl_certificate module')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 source=("https://pypi.python.org/packages/source/a/ansible/ansible-${pkgver}.tar.gz")
-sha512sums=('6d867774b987863287c8d321d82bfc8688be2950eed2d6a429d26701809ce1a9e66e09fc78dbfdd1e5786828a517ab7b08cda1a131ac8eb9f73bd39c246fa4fe')
+sha512sums=('71eff05455aee0a013b69790145a73325ac7037fc509545a7cdca358aa54c1731f7dc6fb0169f602d668e9da9e41a0879ff48ba1243d372e02dae9382ac46c5c')
 
 build() {
   cd "ansible-${pkgver}"
