@@ -4,14 +4,14 @@
 pkgbase=kid3
 pkgname=('kid3-common' 'kid3-qt' 'kid3')
 pkgver=3.9.5
-pkgrel=1
+pkgrel=2
 pkgdesc="An MP3, Ogg/Vorbis and FLAC tag editor"
 arch=('x86_64')
 url="https://kid3.kde.org/"
 license=('GPL')
-depends=('chromaprint' 'flac' 'id3lib' 'kxmlgui5' 'libmp4v2'
-         'qt5-declarative' 'qt5-multimedia' 'taglib' 'kio5')
-makedepends=('cmake' 'docbook-xsl' 'extra-cmake-modules' 'kdoctools5' 'python' 'qt5-tools')
+depends=('chromaprint' 'flac' 'id3lib' 'kxmlgui' 'libmp4v2'
+         'qt6-declarative' 'qt6-multimedia' 'taglib' 'kio')
+makedepends=('cmake' 'docbook-xsl' 'extra-cmake-modules' 'kdoctools' 'python' 'qt6-tools' 'clang')
 changelog=$pkgbase.changelog
 source=(https://prdownloads.sourceforge.net/$pkgbase/$pkgbase-$pkgver.tar.gz{,.sig})
 validpgpkeys=('7D09794C2812F62194B081C14CAD34426E354DD2') # Urs Fleisch
@@ -32,26 +32,26 @@ build() {
 
 package_kid3-common() {
   pkgdesc="An MP3, Ogg/Vorbis and FLAC tag editor, CLI version and common files"
-  depends=('chromaprint' 'flac' 'id3lib' 'libmp4v2' 'libvorbis' 'qt5-base' 'taglib')
-  optdepends=('qt5-declarative: GUI support library'
-              'qt5-multimedia: GUI support library')
+  depends=('chromaprint' 'flac' 'id3lib' 'libmp4v2' 'libvorbis' 'qt6-base' 'taglib')
+  optdepends=('qt6-declarative: GUI support library'
+              'qt6-multimedia: GUI support library')
 
   make -C build DESTDIR="${pkgdir}" install
 
   rm -r "$pkgdir"/usr/bin/kid3{,-qt} \
-        "$pkgdir"/usr/share/{applications,icons,kxmlgui5,metainfo}
+        "$pkgdir"/usr/share/{applications,icons,kxmlgui6,metainfo}
 }
 
 package_kid3-qt() {
   pkgdesc="An MP3, Ogg/Vorbis and FLAC tag editor, Qt version"
-  depends=("kid3-common=$pkgver" 'qt5-declarative' 'qt5-multimedia')
+  depends=("kid3-common=$pkgver" 'qt6-declarative' 'qt6-multimedia')
 
   make -C build/src/app/qt DESTDIR="${pkgdir}" install
 }
 
 package_kid3() {
   pkgdesc="An MP3, Ogg/Vorbis and FLAC tag editor, KDE version"
-  depends=("kid3-common=$pkgver" 'kxmlgui5' 'qt5-declarative' 'qt5-multimedia' 'kio5')
+  depends=("kid3-common=$pkgver" 'kxmlgui' 'qt6-declarative' 'qt6-multimedia' 'kio')
 
   make -C build/src/app DESTDIR="${pkgdir}" install
 
