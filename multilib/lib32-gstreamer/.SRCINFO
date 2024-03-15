@@ -1,7 +1,7 @@
 pkgbase = lib32-gstreamer
 	pkgdesc = Multimedia graph framework (32-bit)
-	pkgver = 1.22.10
-	pkgrel = 1
+	pkgver = 1.24.0
+	pkgrel = 2
 	url = https://gstreamer.freedesktop.org/
 	arch = x86_64
 	license = LGPL-2.1-or-later
@@ -12,6 +12,7 @@ pkgbase = lib32-gstreamer
 	makedepends = lib32-libcap
 	makedepends = lib32-libelf
 	makedepends = lib32-libunwind
+	makedepends = lib32-rust
 	makedepends = lib32-alsa-lib
 	makedepends = lib32-cdparanoia
 	makedepends = lib32-libdrm
@@ -52,17 +53,18 @@ pkgbase = lib32-gstreamer
 	makedepends = lib32-wavpack
 	makedepends = lib32-libvpx
 	makedepends = lib32-libxdamage
+	makedepends = lib32-libxtst
 	makedepends = lib32-mpg123
 	makedepends = lib32-speex
 	makedepends = lib32-taglib
 	makedepends = lib32-twolame
 	makedepends = lib32-v4l-utils
 	makedepends = lib32-wavpack
-	source = git+https://gitlab.freedesktop.org/gstreamer/gstreamer.git?signed#tag=1.22.10
+	source = git+https://gitlab.freedesktop.org/gstreamer/gstreamer.git?signed#tag=1.24.0
 	source = 0001-HACK-meson-Disable-broken-tests.patch
 	validpgpkeys = D637032E45B8C6585B9456565D2EEE6F6F349D7C
 	b2sums = SKIP
-	b2sums = b1a3e4473c03a5f4f394d7e00d98efae1e026a740fda8a0d8cdc8a55a833666002a9c4d3c15504d201323643736f34208d2e948d1f9425a38faa6d1b0d9286cb
+	b2sums = afe47af956fe50ab2d77dba5d1e84649f63443a816ad7a0d0c0a37f2f46e1da3473472bd1183843b37dd3c0c61ee496b3d246df5de35e5df960a09bcac7eb48f
 
 pkgname = lib32-gstreamer
 	pkgdesc = Multimedia graph framework (32-bit) - core
@@ -77,7 +79,8 @@ pkgname = lib32-gstreamer
 
 pkgname = lib32-gst-plugins-base-libs
 	pkgdesc = Multimedia graph framework (32-bit) - base
-	depends = lib32-gstreamer=1.22.10
+	depends = lib32-gstreamer=1.24.0
+	depends = lib32-libdrm
 	depends = lib32-libgl
 	depends = lib32-libgudev
 	depends = lib32-libxi
@@ -89,7 +92,7 @@ pkgname = lib32-gst-plugins-base-libs
 
 pkgname = lib32-gst-plugins-base
 	pkgdesc = Multimedia graph framework (32-bit) - base plugins
-	depends = lib32-gst-plugins-base-libs=1.22.10
+	depends = lib32-gst-plugins-base-libs=1.24.0
 	depends = lib32-alsa-lib
 	depends = lib32-cdparanoia
 	depends = lib32-libjpeg
@@ -102,7 +105,7 @@ pkgname = lib32-gst-plugins-base
 
 pkgname = lib32-gst-plugins-good
 	pkgdesc = Multimedia graph framework (32-bit) - good plugins
-	depends = lib32-gst-plugins-base-libs=1.22.10
+	depends = lib32-gst-plugins-base-libs=1.24.0
 	depends = lib32-aalib
 	depends = lib32-cairo
 	depends = lib32-flac
@@ -118,6 +121,7 @@ pkgname = lib32-gst-plugins-good
 	depends = lib32-libsoup3
 	depends = lib32-libvpx
 	depends = lib32-libxdamage
+	depends = lib32-libxtst
 	depends = lib32-mpg123
 	depends = lib32-nettle
 	depends = lib32-speex
@@ -125,5 +129,5 @@ pkgname = lib32-gst-plugins-good
 	depends = lib32-twolame
 	depends = lib32-v4l-utils
 	depends = lib32-wavpack
-	depends = libjack.so
 	depends = gst-plugins-good
+	optdepends = lib32-jack: JACK backend

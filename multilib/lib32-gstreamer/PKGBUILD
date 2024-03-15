@@ -8,8 +8,8 @@ pkgname=(
   lib32-gst-plugins-base
   lib32-gst-plugins-good
 )
-pkgver=1.22.10
-pkgrel=1
+pkgver=1.24.0
+pkgrel=2
 pkgdesc="Multimedia graph framework (32-bit)"
 url="https://gstreamer.freedesktop.org/"
 arch=(x86_64)
@@ -19,7 +19,7 @@ makedepends=(
   git meson
 
   # gstreamer
-  lib32-gtk3 lib32-libcap lib32-libelf lib32-libunwind
+  lib32-gtk3 lib32-libcap lib32-libelf lib32-libunwind lib32-rust
 
   # gst-plugins-base
   lib32-alsa-lib lib32-cdparanoia lib32-libdrm lib32-libglvnd lib32-libgudev
@@ -32,8 +32,8 @@ makedepends=(
   lib32-libavc1394 lib32-libcaca lib32-libdv lib32-libiec61883 lib32-libpulse
   lib32-libraw1394 lib32-libshout lib32-libsoup3 lib32-libvpx lib32-mpg123
   lib32-nettle lib32-taglib lib32-twolame lib32-v4l-utils lib32-wavpack
-  lib32-libvpx lib32-libxdamage lib32-mpg123 lib32-speex lib32-taglib
-  lib32-twolame lib32-v4l-utils lib32-wavpack
+  lib32-libvpx lib32-libxdamage lib32-libxtst lib32-mpg123 lib32-speex
+  lib32-taglib lib32-twolame lib32-v4l-utils lib32-wavpack
 )
 checkdepends=(xorg-server-xvfb)
 source=(
@@ -41,7 +41,7 @@ source=(
   0001-HACK-meson-Disable-broken-tests.patch
 )
 b2sums=('SKIP'
-        'b1a3e4473c03a5f4f394d7e00d98efae1e026a740fda8a0d8cdc8a55a833666002a9c4d3c15504d201323643736f34208d2e948d1f9425a38faa6d1b0d9286cb')
+        'afe47af956fe50ab2d77dba5d1e84649f63443a816ad7a0d0c0a37f2f46e1da3473472bd1183843b37dd3c0c61ee496b3d246df5de35e5df960a09bcac7eb48f')
 validpgpkeys=(
   D637032E45B8C6585B9456565D2EEE6F6F349D7C # Tim Müller <tim@gstreamer-foundation.org>
 )
@@ -70,11 +70,12 @@ build() {
     -D introspection=disabled
     -D libav=disabled
     -D libnice=disabled
-    -D omx=disabled
     -D orc-source=system
+    -D package-name="Arch Linux Lib32 GStreamer ${epoch:+$epoch:}$pkgver-$pkgrel"
     -D package-origin="https://www.archlinux.org/"
     -D python=disabled
     -D qt5=disabled
+    -D qt6=disabled
     -D rs=disabled
     -D rtsp_server=disabled
     -D sharp=disabled
@@ -93,8 +94,9 @@ build() {
     -D gst-plugins-base:gl-graphene=disabled
     -D gst-plugins-base:libvisual=disabled
     -D gst-plugins-base:tremor=disabled
+    -D gst-plugins-good:amrnb=disabled
+    -D gst-plugins-good:amrwbdec=disabled
     -D gst-plugins-good:lame=disabled
-    -D gst-plugins-good:qt6=disabled
     -D gst-plugins-good:rpicamsrc=disabled
   )
 
@@ -109,7 +111,7 @@ check() (
 
   # Flaky due to timeouts
   xvfb-run -s '-nolisten local' \
-    meson test -C build --print-errorlogs || :
+    meson test -C build --print-errorlogs -t 3 || :
 )
 
 _install() {
@@ -155,8 +157,8 @@ package_lib32-gst-plugins-base-libs() {
   pkgdesc+=" - base"
   depends=(
     "lib32-gstreamer=$pkgver"
-    lib32-libgl lib32-libgudev lib32-libxi lib32-libxv lib32-mesa lib32-orc
-    lib32-wayland
+    lib32-libdrm lib32-libgl lib32-libgudev lib32-libxi lib32-libxv lib32-mesa
+    lib32-orc lib32-wayland
     gst-plugins-base-libs
   )
 
@@ -173,7 +175,9 @@ package_lib32-gst-plugins-base-libs() {
     usr/lib32/gstreamer-1.0/libgstaudiorate.so
     usr/lib32/gstreamer-1.0/libgstaudioresample.so
     usr/lib32/gstreamer-1.0/libgstaudiotestsrc.so
+    usr/lib32/gstreamer-1.0/libgstbasedebug.so
     usr/lib32/gstreamer-1.0/libgstcompositor.so
+    usr/lib32/gstreamer-1.0/libgstdsd.so
     usr/lib32/gstreamer-1.0/libgstencoding.so
     usr/lib32/gstreamer-1.0/libgstgio.so
     usr/lib32/gstreamer-1.0/libgstoverlaycomposition.so
@@ -222,11 +226,11 @@ package_lib32-gst-plugins-good() {
     lib32-aalib lib32-cairo lib32-flac lib32-gdk-pixbuf2 lib32-libavc1394
     lib32-libcaca lib32-libdv lib32-libgudev lib32-libiec61883 lib32-libpulse
     lib32-libraw1394 lib32-libshout lib32-libsoup3 lib32-libvpx lib32-libxdamage
-    lib32-mpg123 lib32-nettle lib32-speex lib32-taglib lib32-twolame
-    lib32-v4l-utils lib32-wavpack
-    libjack.so
+    lib32-libxtst lib32-mpg123 lib32-nettle lib32-speex lib32-taglib
+    lib32-twolame lib32-v4l-utils lib32-wavpack
     gst-plugins-good
   )
+  optdepends=('lib32-jack: JACK backend')
 
   cd root; local files=(
     usr/lib32/gstreamer-1.0/libgst1394.so
