@@ -1,12 +1,15 @@
 pkgbase = python-pyaml
 	pkgdesc = PyYAML-based module to produce pretty and readable YAML-serialized data
 	pkgver = 23.9.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://pypi.python.org/pypi/pyaml
 	arch = any
-	license = BSD
+	license = WTFPL
 	checkdepends = python-unidecode
 	makedepends = python-setuptools
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
 	depends = python-yaml
 	optdepends = python-unidecode: Needed if same-id objects or recursion is used within serialized data
 	source = https://pypi.io/packages/source/p/pyaml/pyaml-23.9.0.tar.gz
