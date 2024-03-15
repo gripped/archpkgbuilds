@@ -3,7 +3,7 @@
 # Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
 
 pkgname=('lib32-llvm' 'lib32-llvm-libs')
-pkgver=16.0.6
+pkgver=17.0.6
 pkgrel=2
 arch=('x86_64')
 url="https://llvm.org/"
@@ -15,11 +15,11 @@ _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkg
 source=($_source_base/llvm-$pkgver.src.tar.xz{,.sig}
         $_source_base/cmake-$pkgver.src.tar.xz{,.sig}
         $_source_base/third-party-$pkgver.src.tar.xz{,.sig})
-sha256sums=('e91db44d1b3bb1c33fcea9a7d1f2423b883eaa9163d3d56ca2aa6d2f0711bc29'
+sha256sums=('b638167da139126ca11917b6880207cc6e8f9d1cbb1a48d87d017f697ef78188'
             'SKIP'
-            '39d342a4161095d2f28fb1253e4585978ac50521117da666e2b1f6f28b62f514'
+            '807f069c54dc20cb47b21c1f6acafdd9c649f3ae015609040d6182cab01140f4'
             'SKIP'
-            '15f5b9aeeba938530af977d5f9205612737a091a7f0f6c8075df8723b7713f70'
+            '3054d0a9c9375dab1a4539cc2cc45ab340341c5d71475f9599ba7752e222947b'
             'SKIP')
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstellar@redhat.com>
               'D574BD5D1D0E98895E3BF90044F2485E45D59042') # Tobias Hieta <tobias@hieta.se>
@@ -39,6 +39,9 @@ _get_distribution_components() {
       # libraries needed for clang-tblgen
       LLVMDemangle|LLVMSupport|LLVMTableGen)
         ;;
+      # testing libraries
+      LLVMTestingAnnotations|LLVMTestingSupport)
+      	;;
       # exclude static libraries
       LLVM*)
         continue
@@ -83,6 +86,7 @@ build() {
     -DLLVM_ENABLE_SPHINX=OFF
     -DLLVM_HOST_TRIPLE=$CHOST
     -DLLVM_INCLUDE_BENCHMARKS=OFF
+    -DLLVM_INSTALL_GTEST=ON
     -DLLVM_LIBDIR_SUFFIX=32
     -DLLVM_LINK_LLVM_DYLIB=ON
     -DLLVM_TARGET_ARCH:STRING=i686
