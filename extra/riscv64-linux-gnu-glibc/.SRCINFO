@@ -1,0 +1,25 @@
+pkgbase = riscv64-linux-gnu-glibc
+	pkgdesc = GNU C Library RISCV target
+	pkgver = 2.39
+	pkgrel = 2
+	url = https://www.gnu.org/software/libc/
+	arch = any
+	groups = risc-v
+	license = GPL
+	license = LGPL
+	makedepends = python
+	depends = riscv64-linux-gnu-gcc
+	depends = riscv64-linux-gnu-linux-api-headers
+	options = !buildflags
+	options = !strip
+	options = staticlibs
+	source = https://ftp.gnu.org/gnu/libc/glibc-2.39.tar.xz
+	source = https://ftp.gnu.org/gnu/libc/glibc-2.39.tar.xz.sig
+	validpgpkeys = 7273542B39962DF7B299931416792B4EA25340F8
+	validpgpkeys = BC7C7372637EC10C57D7AA6579C43DFBF1CF2187
+	sha256sums = f77bd47cf8170c57365ae7bf86696c118adb3b120d3259c64c502d3dc1e2d926
+	sha256sums = SKIP
+	b2sums = 9d98459a2d58401e07c081e0d841935b23998da75a7eb5a7ebd23a1f9ebab99dee623fe166397c1b6c926960c570f62dbca5cb3b5ce84a918adff6b7a15e16bb
+	b2sums = SKIP
+
+pkgname = riscv64-linux-gnu-glibc
