@@ -3,17 +3,17 @@
 # Contributor: M A <morealaz at gmail dot com>
 
 pkgname=persepolis
-pkgver=3.2.0
-pkgrel=8
+pkgver=4.0.0
+pkgrel=1
 pkgdesc='Qt front-end for aria2 download manager'
 arch=('any')
 url='https://persepolisdm.github.io/'
 license=('GPL3')
-depends=('aria2' 'ffmpeg' 'libnotify' 'libpulse' 'python-psutil' 'python-pyqt5' 'python-requests'
-         'python-setproctitle' 'qt5-svg' 'sound-theme-freedesktop' 'youtube-dl')
+depends=('aria2' 'ffmpeg' 'libnotify' 'libpulse' 'python-psutil' 'pyside6' 'python-requests'
+         'python-setproctitle' 'qt6-svg' 'sound-theme-freedesktop' 'yt-dlp')
 makedepends=('python-setuptools')
 source=("https://github.com/persepolisdm/persepolis/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('d27cf2a4e02b0fbe79b1903ca0ab32a6007493d51a8201443a8febb566750acd')
+sha256sums=('5d066cf3491511d81730e24319d414830791cd5e717e72219f81157cae623e9e')
 
 prepare() {
   cd $pkgname-$pkgver
