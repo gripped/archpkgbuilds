@@ -2,7 +2,7 @@
 
 pkgname=check-jsonschema
 pkgver=0.28.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A JSON Schema CLI and pre-commit hook built on jsonschema"
 arch=(any)
 url="https://github.com/python-jsonschema/check-jsonschema"
@@ -12,9 +12,11 @@ depends=(
   python-click
   python-importlib-resources
   python-jsonschema
-  python-referencing
+  python-referencing  # implicitly pulled in via python-jsonschema
+  python-regress
   python-requests
   python-ruamel-yaml
+  python-typing_extensions  # implicitly pulled in via python-jsonschema
 )
 makedepends=(
   python-build
@@ -24,13 +26,14 @@ makedepends=(
 )
 checkdepends=(
   python-json5
+  python-orjson
   python-pytest
   python-pytest-xdist
-  python-regress
   python-responses
 )
 optdepends=(
   'python-json5: for JSON5 support'
+  'python-orjson: for using orjson as JSON parser'
 )
 source=($url/archive/$pkgver/$pkgname-$pkgver.tar.gz)
 sha512sums=('cb3ed8039558c42349b51b88c03b38d7b73c20cdcae927b71731a0d0f60ddde916034ccdc901a159f7b92d9363e904e8eadc3d0db2e3b306e202414ad335ab43')
