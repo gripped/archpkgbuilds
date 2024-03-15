@@ -2,7 +2,7 @@
 
 _name=django-filter
 pkgname=python-django-filter
-pkgver=23.5
+pkgver=24.1
 pkgrel=1
 pkgdesc="A generic system for filtering Django QuerySets based on user selections"
 arch=(any)
@@ -28,8 +28,8 @@ optdepends=(
   'python-django-rest-framework: for filter integration using DRF'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('5534a4e8538b4ed0b5dbc168a7ba4eb51b0431d22874d1d4613b421ec830f45caed8faa71ecb144ba26704ff842742e8517d1599277b84480c4bf4282c19308c')
-b2sums=('8956441dc4425925ff8a121833fc59552709274a64d880aa5cadbae8063a67891969a712f79c9a5aa03fcd404ed288294e818e9f2e968c4d88761a847e35a3e9')
+sha512sums=('84751d67c03f9cb8e42b37efe16fe457eaa3dee8c2b385a95600e5e2efbd377405e7d827c740c9b7c182fe4e50cfc84244921ee3d83d62bebe4b0efae99a8a70')
+b2sums=('86711bc2f0e2dbad59d445d2dd4456c409d18e5ca9403a2179a5f8f2721b206ebdf7de67965d7efb7bbda88b9ac41e94b51a205406f53345b57b602deba7ec98')
 
 build() {
   cd $_name-$pkgver
