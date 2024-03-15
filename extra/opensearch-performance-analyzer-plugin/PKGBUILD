@@ -1,22 +1,22 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-performance-analyzer-plugin
-pkgver=2.11.1.0
+pkgver=2.12.0.0
 pkgrel=1
-_opensearchver=2.11.1
+_opensearchver=2.12.0
 _jdkver=11
 _rcaver="$(echo -n "${_opensearchver}" | sed 's/\.[0-9]\+$//')"
 pkgdesc="OpenSearch Performance Analyzer Plugin"
 arch=('x86_64')
 url="https://opensearch.org/docs/latest/monitoring-plugins/pa"
-license=('Apache')
+license=('Apache-2.0')
 depends=("opensearch=${_opensearchver}")
 makedepends=("java-environment=${_jdkver}" 'unzip' 'git')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/performance-analyzer/archive/${pkgver}.tar.gz"
   "git+https://github.com/opensearch-project/performance-analyzer-rca.git#branch=${_rcaver}"
 )
-sha256sums=('014fed97bbbb94619f43f0fa6fd8182ae159da42b91ea89e22fd4eb8bad18e9b'
+sha256sums=('e98451efe94dd536c65c47ba736cb0ce6985547d6e345b39290ec14c6e3dfe88'
             'SKIP')
 
 build() {
