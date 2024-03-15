@@ -3,11 +3,11 @@
 pkgbase=libblockdev
 pkgname=(
   libblockdev
-  libblockdev-{btrfs,crypto,dm,fs,loop,lvm,lvm-dbus,mdraid,mpath,nvdimm,nvme,part,swap,tools,utils}
+  libblockdev-{btrfs,crypto,dm,fs,loop,lvm,mdraid,mpath,nvdimm,nvme,part,swap}
   python-libblockdev
 )
 pkgver=3.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A library for manipulating block devices"
 arch=('x86_64')
 url="https://github.com/storaged-project/libblockdev"
@@ -76,9 +76,10 @@ check() {
 
 package_libblockdev() {
   depends=(
-    glib2 libglib-2.0.so libgobject-2.0.so
+    glib2 libglib-2.0.so libgio-2.0.so libgobject-2.0.so
     glibc
-    libblockdev-utils libbd_utils.so
+    kmod libkmod.so
+    systemd-libs libudev.so
   )
   optdepends=(
     'libblockdev-btrfs: for BTRFS support'
@@ -87,17 +88,20 @@ package_libblockdev() {
     'libblockdev-fs: for filesystem support'
     'libblockdev-loop: for loop device support'
     'libblockdev-lvm: for LVM support'
-    'libblockdev-lvm-dbus: for LVM D-Bus API support'
     'libblockdev-mdraid: for MDRAID support'
     'libblockdev-mpath: for multipath support'
     'libblockdev-nvdimm: for NVDIMM support'
     'libblockdev-nvme: for NVME support'
     'libblockdev-part: for partitioning support'
     'libblockdev-swap: for swap support'
-    'libblockdev-tools: for additional tools'
     'python-libblockdev: for Python support'
   )
-  provides=(libblockdev.so)
+  provides=(
+    libbd_utils.so
+    libblockdev.so
+  )
+  conflicts=(libblockdev-utils)
+  replaces=(libblockdev-utils)
 
   make DESTDIR="$pkgdir" install -C $pkgname-$pkgver
 
@@ -112,6 +116,7 @@ package_libblockdev() {
   _pick $pkgbase-dm usr/include/blockdev/dm.h
   _pick $pkgbase-dm usr/lib/libbd_dm.*
 
+  _pick $pkgbase-fs usr/bin/vfat-resize  # the libbd_fs.so library calls this executable
   _pick $pkgbase-fs usr/include/blockdev/fs.h
   _pick $pkgbase-fs usr/include/blockdev/fs/*.h
   _pick $pkgbase-fs usr/lib/libbd_fs.*
@@ -119,11 +124,11 @@ package_libblockdev() {
   _pick $pkgbase-loop usr/include/blockdev/loop.h
   _pick $pkgbase-loop usr/lib/libbd_loop.*
 
+  _pick $pkgbase-lvm etc/libblockdev/3/conf.d/10-lvm-dbus.cfg
+  _pick $pkgbase-lvm usr/bin/lvm-cache-stats
   _pick $pkgbase-lvm usr/include/blockdev/lvm.h
   _pick $pkgbase-lvm usr/lib/libbd_lvm.*
-
-  _pick $pkgbase-lvm-dbus etc/libblockdev/3/conf.d/10-lvm-dbus.cfg
-  _pick $pkgbase-lvm-dbus usr/lib/libbd_lvm-dbus.*
+  _pick $pkgbase-lvm usr/lib/libbd_lvm-dbus.*
 
   _pick $pkgbase-mdraid usr/include/blockdev/mdraid.h
   _pick $pkgbase-mdraid usr/lib/libbd_mdraid.*
@@ -143,12 +148,6 @@ package_libblockdev() {
   _pick $pkgbase-swap usr/include/blockdev/swap.h
   _pick $pkgbase-swap usr/lib/libbd_swap.*
 
-  _pick $pkgbase-tools usr/bin
-
-  _pick $pkgbase-utils usr/include/blockdev/{dbus,dev_utils,exec,extra_arg,logging,module,sizes,utils}.h
-  _pick $pkgbase-utils usr/lib/libbd_utils.*
-  _pick $pkgbase-utils usr/lib/pkgconfig/blockdev-utils.pc
-
   _pick python-$pkgbase usr/lib/python*
 }
 
@@ -158,7 +157,7 @@ package_libblockdev-btrfs() {
     btrfs-progs
     glib2 libglib-2.0.so
     glibc
-    libblockdev-utils libbd_utils.so
+    "libblockdev=$pkgver" libbd_utils.so
     libbytesize
   )
   provides=(libbd_btrfs.so)
@@ -174,7 +173,7 @@ package_libblockdev-crypto() {
     glib2 libglib-2.0.so
     glibc
     keyutils libkeyutils.so
-    libblockdev-utils libbd_utils.so
+    "libblockdev=$pkgver" libbd_utils.so
     nss
     util-linux-libs libblkid.so
     volume_key
@@ -190,7 +189,7 @@ package_libblockdev-dm() {
     device-mapper libdevmapper.so
     glib2 libglib-2.0.so
     glibc
-    libblockdev-utils libbd_utils.so
+    "libblockdev=$pkgver" libbd_utils.so
   )
   provides=(libbd_dm.so)
 
@@ -204,7 +203,9 @@ package_libblockdev-fs() {
     gcc-libs
     glib2 libglib-2.0.so
     glibc
-    libblockdev-utils libbd_utils.so
+    "libblockdev=$pkgver" libbd_utils.so
+    libbytesize
+    parted
     util-linux-libs libblkid.so libmount.so libuuid.so
   )
   optdepends=(
@@ -218,6 +219,8 @@ package_libblockdev-fs() {
     'xfsprogs: for XFS filesystem support'
   )
   provides=(libbd_fs.so)
+  conflicts=(libblockdev-tools)
+  replaces=(libblockdev-tools)
 
   mv -v $pkgname/* "$pkgdir"
 }
@@ -228,7 +231,7 @@ package_libblockdev-loop() {
     gcc-libs
     glib2 libglib-2.0.so
     glibc
-    libblockdev-utils libbd_utils.so
+    "libblockdev=$pkgver" libbd_utils.so
   )
   provides=(libbd_loop.so)
 
@@ -242,23 +245,21 @@ package_libblockdev-lvm() {
     gcc-libs
     glib2 libglib-2.0.so
     glibc
-    libblockdev-utils libbd_utils.so
+    "libblockdev=$pkgver" libbd_utils.so libblockdev.so
+    libbytesize
   )
-  provides=(libbd_lvm.so)
-
-  mv -v $pkgname/* "$pkgdir"
-}
-
-package_libblockdev-lvm-dbus() {
-  pkgdesc+=" - LVM D-Bus API support"
-  depends=(
-    device-mapper libdevmapper.so
-    gcc-libs
-    glib2 libglib-2.0.so
-    glibc
-    libblockdev-utils libbd_utils.so
+  provides=(
+    libbd_lvm.so
+    libbd_lvm-dbus.so
   )
-  provides=(libbd_lvm-dbus.so)
+  conflicts=(
+    libblockdev-lvm-dbus
+    libblockdev-tools
+  )
+  replaces=(
+    libblockdev-lvm-dbus
+    libblockdev-tools
+  )
 
   mv -v $pkgname/* "$pkgdir"
 }
@@ -269,8 +270,9 @@ package_libblockdev-mdraid() {
     gcc-libs
     glib2 libglib-2.0.so
     glibc
-    libblockdev-utils libbd_utils.so
+    "libblockdev=$pkgver" libbd_utils.so
     libbytesize
+    mdadm  # the libbd_mdraid.so library calls the mdadm executable
   )
   provides=(libbd_mdraid.so)
 
@@ -283,7 +285,7 @@ package_libblockdev-mpath() {
     device-mapper libdevmapper.so
     glib2 libglib-2.0.so
     glibc
-    libblockdev-utils libbd_utils.so
+    "libblockdev=$pkgver" libbd_utils.so
   )
   provides=(libbd_mpath.so)
 
@@ -295,7 +297,7 @@ package_libblockdev-nvdimm() {
   depends=(
     glib2 libglib-2.0.so
     glibc
-    libblockdev-utils libbd_utils.so
+    "libblockdev=$pkgver" libbd_utils.so
     ndctl
     util-linux-libs libuuid.so
   )
@@ -309,7 +311,7 @@ package_libblockdev-nvme() {
   depends=(
     glib2 libglib-2.0.so
     glibc
-    libblockdev-utils libbd_utils.so
+    "libblockdev=$pkgver" libbd_utils.so
     libnvme
   )
   provides=(libbd_nvme.so)
@@ -322,7 +324,7 @@ package_libblockdev-part() {
   depends=(
     glib2 libglib-2.0.so
     glibc
-    libblockdev-utils libbd_utils.so
+    "libblockdev=$pkgver" libbd_utils.so
     util-linux-libs libfdisk.so
   )
   provides=(libbd_part.so)
@@ -333,39 +335,13 @@ package_libblockdev-part() {
 package_libblockdev-swap() {
   pkgdesc+=" - swap device support"
   depends=(
+    gcc-libs
     glib2 libglib-2.0.so
     glibc
-    libblockdev-utils libbd_utils.so
+    "libblockdev=$pkgver" libbd_utils.so
     util-linux-libs libblkid.so
   )
   provides=(libbd_swap.so)
-
-  mv -v $pkgname/* "$pkgdir"
-}
-
-package_libblockdev-tools() {
-  pkgdesc+=" - tools"
-  depends=(
-    glib2 libglib-2.0.so
-    glibc
-    libblockdev libblockdev.so
-    libbytesize
-    glib2 libglib-2.0.so
-    parted
-  )
-
-  mv -v $pkgname/* "$pkgdir"
-}
-
-package_libblockdev-utils() {
-  pkgdesc+=" - utility functions"
-  depends=(
-    glib2 libglib-2.0.so libgio-2.0.so libgobject-2.0.so
-    glibc
-    kmod libkmod.so
-    systemd-libs libudev.so
-  )
-  provides=(libbd_utils.so)
 
   mv -v $pkgname/* "$pkgdir"
 }
