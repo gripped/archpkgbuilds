@@ -1,12 +1,14 @@
-# Maintainer: Jonas Witschel <diabonas@archlinux.org>
+# Maintainer:
 pkgname=python-tpm2-pytss
+_name=${pkgname#python-}
+# NOTE: no trust path: https://github.com/tpm2-software/tpm2-pytss/issues/566
 pkgver=2.1.0
 _commit=d4cccb9e1164281455a3c05f4aab2e663133726b  # refs/tags/2.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Python bindings for tpm2-tss'
 arch=(x86_64)
 url='https://github.com/tpm2-software/tpm2-pytss'
-license=(BSD)
+license=(BSD-2-Clause)
 depends=(
   glibc
   python
@@ -15,7 +17,6 @@ depends=(
   python-cryptography
   python-packaging
   python-yaml
-  tpm2-tss libtss2-esys.so libtss2-fapi.so libtss2-mu.so libtss2-rc.so libtss2-tctildr.so
 )
 makedepends=(
   git
@@ -25,6 +26,7 @@ makedepends=(
   python-setuptools
   python-setuptools-scm
   python-wheel
+  tpm2-tss
 )
 checkdepends=(
   python-pytest
@@ -40,16 +42,16 @@ sha512sums=('SKIP'
 validpgpkeys=('5B482B8E3E19DA7C978E1D016DE2E9078E1F50C1') # William Roberts (Bill Roberts) <william.c.roberts@intel.com>
 
 pkgver() {
-  cd "${pkgname#python-}"
+  cd $_name
   git describe | sed 's/\([^-]*-\)g/r\1/;s/-/./g'
 }
 
 prepare() {
-  patch -Np1 -d "${pkgname#python-}" -i ../$pkgname-2.1.0-cryptography_renames.patch
+  patch -Np1 -d $_name -i ../$pkgname-2.1.0-cryptography_renames.patch
 }
 
 build() {
-  cd "${pkgname#python-}"
+  cd $_name
   python -m build --wheel --no-isolation
 }
 
@@ -58,13 +60,17 @@ check() {
     -vv
   )
 
-  cd "${pkgname#python-}"
+  cd $_name
   local _python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
   PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$_python_version" pytest "${pytest_options[@]}"
 }
 
 package() {
-  cd "${pkgname#python-}"
+  depends+=(
+    tpm2-tss libtss2-esys.so libtss2-fapi.so libtss2-mu.so libtss2-rc.so libtss2-tctildr.so
+  )
+
+  cd $_name
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
 }
