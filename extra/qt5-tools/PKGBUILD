@@ -4,7 +4,7 @@
 pkgname=qt5-tools
 _basever=5.15.12
 pkgver=5.15.12+kde+r4
-pkgrel=1
+pkgrel=2
 _commit=bd0ceb7de5d0c918ae596150e95b069dca8b9150
 arch=('x86_64')
 url='https://www.qt.io'
