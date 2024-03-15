@@ -1,10 +1,10 @@
 pkgbase = kicad
 	pkgdesc = Electronic schematic and printed circuit board (PCB) design tools
-	pkgver = 7.0.10
+	pkgver = 8.0.0
 	pkgrel = 1
 	url = http://kicad.org/
 	arch = x86_64
-	license = GPL
+	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
@@ -20,9 +20,10 @@ pkgbase = kicad
 	depends = python-wxpython
 	depends = wxwidgets-gtk3
 	depends = unixodbc
+	depends = libgit2
 	optdepends = kicad-library: for footprints, symbols and templates
 	optdepends = kicad-library-3d: for 3D models of components
-	source = kicad::git+https://gitlab.com/kicad/code/kicad.git#commit=567c5bc8db09d04b9fab77f94d88e6493a903636
+	source = kicad::git+https://gitlab.com/kicad/code/kicad.git#commit=ef34436d7d4bb488a9559d7fae32dc956d37c669
 	source = fix-archive-permissions.patch
 	source = fix-version-string.patch
 	sha512sums = SKIP
