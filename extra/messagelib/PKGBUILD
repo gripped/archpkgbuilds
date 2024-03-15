@@ -1,16 +1,63 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=messagelib
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='KDE PIM messaging library'
 arch=(x86_64)
 url='https://kontact.kde.org'
-license=(LGPL)
-depends=(kmime kmailtransport libgravatar kidentitymanagement kmbox qca-qt5 libkleo)
-makedepends=(extra-cmake-modules qt5-tools doxygen)
+license=(LGPL-2.0-or-later)
+depends=(akonadi-contacts
+         akonadi-mime
+         akonadi-search
+         gcc-libs
+         glibc
+         gpgme
+         grantleetheme
+         karchive
+         kcalendarcore
+         kcodecs
+         kcolorscheme
+         kcompletion
+         kconfig
+         kconfigwidgets
+         kcontacts
+         kcoreaddons
+         kguiaddons
+         ki18n
+         kiconthemes
+         kitemviews
+         kmailtransport
+         kmime
+         kidentitymanagement
+         kio
+         kitemmodels
+         kjobwidgets
+         kmbox
+         kpimtextedit
+         kservice
+         ktextaddons
+         ktexttemplate
+         ktextwidgets
+         kwidgetsaddons
+         kxmlgui
+         libakonadi
+         libgravatar
+         libkdepim
+         libkleo
+         pimcommon
+         qca-qt6
+         qgpgme-qt6
+         qt6-base
+         qt6-webengine
+         sonnet
+         syntax-highlighting)
+makedepends=(doxygen
+             extra-cmake-modules
+             qt6-doc
+             qt6-tools)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('da37af29e9a1a8d5947cbdc7ccfbdd749d3ef5257e4cc778eb8f0069fe50ddf8'
+sha256sums=('ff48df019bc3f9a6553219695a947e8303d1b56d7aa185b51f3f2497342e8f3d'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
