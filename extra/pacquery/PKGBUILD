@@ -1,7 +1,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=pacquery
-pkgver=0.0.2
+pkgver=0.0.1
 pkgrel=1
 pkgdesc="A CLI tool to get JSON output of pacman packages from the system's syncdb"
 url='https://github.com/jelly/pacquery'
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('glibc' 'libalpm.so')
 makedepends=('cargo' 'git')
 groups=('archlinux-tools')
-source=(git+https://github.com/jelly/pacquery.git#tag=v$pkgver?signed)
+source=(git+https://github.com/jelly/pacquery.git#tag=$pkgver?signed)
 sha512sums=('SKIP')
 validpgpkeys=("E499C79F53C96A54E572FEE1C06086337C50773E")
 
