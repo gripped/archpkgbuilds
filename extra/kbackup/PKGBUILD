@@ -2,17 +2,36 @@
 # Contributor: BluePeril <blueperil (at) blueperil _dot_ de>
 
 pkgname=kbackup
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='A program that lets you back up any directories or files'
 arch=(x86_64)
 url='https://apps.kde.org/kbackup/'
-license=(GPL)
-groups=(kde-applications kde-utilities)
-depends=(kio5 libarchive hicolor-icon-theme)
-makedepends=(extra-cmake-modules kdoctools5)
+license=(GPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         karchive
+         kcompletion
+         kconfig
+         kconfigwidgets
+         kcoreaddons
+         kguiaddons
+         ki18n
+         kiconthemes
+         kio
+         kservice
+         kstatusnotifieritem
+         kwidgetsaddons
+         kxmlgui
+         libarchive
+         qt6-5compat
+         qt6-base)
+makedepends=(extra-cmake-modules
+             kdoctools)
+groups=(kde-applications
+        kde-utilities)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('a16c4d5a67ea6c4cb7c7580f0b3551a34879f5e9db94700ec406a72aecc6be5f'
+sha256sums=('eb30cef79442ec3d43a7d9ab018b5175eb9ecfc3c32a69bae4fa4d765c5e92bd'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
