@@ -1,0 +1,24 @@
+pkgbase = dunst
+	pkgdesc = Customizable and lightweight notification-daemon
+	pkgver = 1.10.0
+	pkgrel = 1
+	url = https://dunst-project.org/
+	arch = x86_64
+	license = BSD
+	makedepends = libnotify
+	depends = libxinerama
+	depends = dbus
+	depends = systemd
+	depends = wayland
+	depends = libxss
+	depends = pango
+	depends = gdk-pixbuf2
+	depends = libxrandr
+	depends = glib2
+	optdepends = libnotify: dunstify
+	provides = notification-daemon
+	backup = etc/dunst/dunstrc
+	source = dunst-1.10.0.tar.gz::https://github.com/dunst-project/dunst/archive/v1.10.0.tar.gz
+	sha256sums = d1fbeba329b3801b931ad804f1fadd96a36be5edf2e49c8e30f081443079759f
+
+pkgname = dunst
