@@ -9,7 +9,7 @@
 pkgbase=mupdf
 pkgname=(libmupdf mupdf mupdf-gl mupdf-tools python-mupdf)
 pkgver=1.23.11
-pkgrel=1
+pkgrel=2
 pkgdesc='Lightweight PDF and XPS viewer'
 arch=('x86_64')
 url='https://mupdf.com/'
@@ -108,10 +108,6 @@ package_libmupdf() {
     'openjpeg2'
     'tesseract'
     'zlib'
-  )
-  provides=(
-    'libmupdf.so'
-    'libmupdfcpp.so'
   )
 
   cd $pkgbase-${pkgver/_/}-source
