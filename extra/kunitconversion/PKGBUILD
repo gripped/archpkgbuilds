@@ -3,19 +3,26 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kunitconversion
-pkgver=5.110.0
+pkgver=6.0.0
 pkgrel=1
 pkgdesc='Support for unit conversion'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
-license=(LGPL)
-depends=(ki18n)
-makedepends=(extra-cmake-modules doxygen qt5-tools qt5-doc)
-groups=(kf5)
+license=(LGPL-2.0-only LGPL-3.0-only)
+depends=(gcc-libs
+         glibc
+         ki18n
+         qt6-base)
+makedepends=(doxygen
+             extra-cmake-modules
+             qt6-doc
+             qt6-tools)
+groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('aafd3fbbf77a3ae1a9600c1b8199531c15ccf1c07e80fa317a429e12fe037c20'
+sha256sums=('c88494ac8971c25dc6bc9a1119ea44c0f8eda44e9d2883ade9aca651e9968d5e'
             'SKIP')
-validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB) # David Faure <faure@kde.org>
+validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
+              E0A3EB202F8E57528E13E72FD7574483BB57B18D) # Jonathan Esk-Riddell <jr@jriddell.org>
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
