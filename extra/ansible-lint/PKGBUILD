@@ -3,9 +3,9 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 # Contributor: Sander Boom <sanderboom@gmail.com>
 
-_commit=a3fc7e4def4c3576a221fd1e0e58c0ee43f73af5
+_commit=ce2ebd7df4486adde693d7a70f0a9cd1814bce35
 pkgname=ansible-lint
-pkgver=24.2.0
+pkgver=24.2.1
 pkgrel=1
 pkgdesc="Checks playbooks for practices and behaviour that could potentially be improved."
 arch=('any')
@@ -18,7 +18,7 @@ checkdepends=(mypy python-jmespath python-pylint python-pytest python-pytest-moc
 optdepends=('ansible: check official ansible collections')
 source=(git+https://github.com/ansible/ansible-lint.git#commit=$_commit
         disable_version_check.patch)
-b2sums=('SKIP'
+b2sums=('2d0014fbe8b8cb6b5e88eb7649cad0fa3777137490130b4e80d2adc5d5bf7fe8228019f4225400a4daa3c2ab8cdcf3bc4923ff4c1fd7760a5a1e433ddd2643c2'
         '98294f267ca693c0bc3921f8e076d674a219a891502cd31a0af789bc0b1447b53834b9c85853a134f6bc1ac384f31cb174cba2d55fbcc1636cae9bd3c0bd8f84')
 
 prepare() {
