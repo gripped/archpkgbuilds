@@ -1,17 +1,24 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kio-admin
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='Manage files as administrator using the admin:// KIO protocol'
 url='https://invent.kde.org/system/kio-admin'
 arch=(x86_64)
-license=(GPL LGPL FDL)
-groups=(kde-applications kde-system)
-depends=(kio5)
+license=(GPL-2.0-or-later LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kcoreaddons
+         ki18n
+         kio
+         polkit-qt6
+         qt6-base)
 makedepends=(extra-cmake-modules)
+groups=(kde-applications
+        kde-system)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('886046c89294a366ecf21aceca2a8586b8ace618755de5b9c3e0727c37b27a2e'
+sha256sums=('cffadb6b9290934d0d901a608550728bf5fada8e050d8e5fa941c375a087990f'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
@@ -20,7 +27,8 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
 build() {
   cmake -B build -S $pkgname-$pkgver \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
   cmake --build build
 }
 
