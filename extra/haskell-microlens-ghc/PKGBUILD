@@ -1,10 +1,11 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 _hkgname=microlens-ghc
 pkgname=haskell-microlens-ghc
 pkgver=0.4.14.2
-pkgrel=1
+pkgrel=2
 pkgdesc="microlens + array, bytestring, containers, transformers"
 url="http://github.com/stevenfontanella/microlens"
 license=("BSD")
@@ -19,7 +20,7 @@ build() {
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
