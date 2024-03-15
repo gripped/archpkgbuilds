@@ -4,7 +4,7 @@
 _hkgname=haskell-gi
 pkgname=haskell-gi
 pkgver=0.26.4
-pkgrel=58
+pkgrel=64
 pkgdesc="Generate Haskell bindings for GObject Introspection capable libraries"
 url="https://github.com/haskell-gi/haskell-gi"
 license=("LGPL2")
@@ -21,7 +21,7 @@ build() {
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
