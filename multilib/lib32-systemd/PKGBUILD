@@ -2,14 +2,21 @@
 
 pkgname=lib32-systemd
 _pkgbasename=systemd
-_tag='8cf1da1e9172ba04d90a483a63118873343ea656' # git rev-parse v${_tag_name}
-_tag_name=255.3
-pkgver="${_tag_name/-/}"
+_tag='4003dd6754e3446691402d3cc389fbfd4faccc90' # git rev-parse v${_tag_name}
+_tag_name=255.4
+# Upstream versioning is incompatible with pacman's version comparisons so we
+# replace tildes with the empty string to make sure pacman's version comparing
+# does the right thing for rc versions:
+# ➜ vercmp 255~rc1 255
+# 1
+# ➜ vercmp 255rc1 255
+# -1
+pkgver="${_tag_name/~/}"
 pkgrel=1
 pkgdesc='system and service manager (32-bit)'
 arch=('x86_64')
 url='https://www.github.com/systemd/systemd'
-license=('GPL2' 'LGPL2.1')
+license=('LGPL-2.1-or-later')
 depends=('lib32-gcc-libs' 'lib32-libcap' 'lib32-libgcrypt' 'lib32-libxcrypt'
          'lib32-xz' 'lib32-zstd' 'systemd-libs')
 makedepends=('git' 'gperf' 'intltool' 'lib32-acl' 'lib32-bzip2'
@@ -18,7 +25,6 @@ makedepends=('git' 'gperf' 'intltool' 'lib32-acl' 'lib32-bzip2'
              'libxslt' 'meson' 'python-jinja')
 checkdepends=('systemd')
 provides=('libsystemd.so' 'libudev.so')
-options=('strip')
 validpgpkeys=('63CDA1E5D3FC22B998D20DD6327F26951A015CC4'  # Lennart Poettering <lennart@poettering.net>
               'A9EA9081724FFAE0484C35A1A81CEA22BC8C7E2E'  # Luca Boccassi <luca.boccassi@gmail.com>
               '9A774DB5DB996C154EBBFBFDA0099A18E29326E1'  # Yu Watanabe <watanabe.yu+github@gmail.com>
@@ -77,9 +83,9 @@ build() {
     --libexecdir	/usr/lib32
     --libdir		/usr/lib32
 
-    # internal version comparison is incompatible with pacman:
-    #   249~rc1 < 249 < 249.1 < 249rc
-    -Dversion-tag="${_tag_name/-/\~}-${pkgrel}-arch"
+    -Dversion-tag="${_tag_name}-${pkgrel}-arch"
+    # We use the version without tildes as the shared library tag because
+    # pacman looks at the shared library version.
     -Dshared-lib-tag="${pkgver}-${pkgrel}"
     -Dmode=release
 
@@ -167,17 +173,13 @@ build() {
     -Dsysvrcnd-path=
   )
 
-  # this uses malloc_usable_size, which is incompatible with fortification level 3
-  export CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
-  export CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
-
   arch-meson "$_pkgbasename-stable" build "${_meson_options[@]}"
 
   meson compile -C build
 }
 
 check() {
-  meson test -C build
+  meson test -C build --print-errorlogs
 }
 
 package() {
