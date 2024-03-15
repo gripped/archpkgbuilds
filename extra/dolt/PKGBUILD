@@ -3,7 +3,7 @@
 # Contributor: istimaldar_sntlk <istimaldar@gmail.com>
 
 pkgname=dolt
-pkgver=1.34.3
+pkgver=1.35.3
 pkgrel=1
 pkgdesc='Git for data! A version controlled relational database'
 arch=(x86_64)
@@ -14,7 +14,7 @@ depends=(glibc)
 makedepends=(go)
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('dd71c2decee224e5b06dd0ea30239eae9106e4086c611077dd21bb07300b161a')
+sha256sums=('2a8e4795aa4932cbfd390b1c5d7d64adbc9d812b347b310fde1bfb266cdbd292')
 
 prepare() {
 	cd "$_archive"/go
