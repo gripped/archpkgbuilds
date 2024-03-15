@@ -1,21 +1,16 @@
 # Maintainer: Johannes Löthberg <johannes@kyriasis.com>
 # Maintainer: Robin Candau <antiz@archlinux.org>
 # Contributor: Lex Black <autumn-wind at web dot de>
-
 pkgname=zathura-cb
 pkgver=0.1.10
-pkgrel=4
-
+pkgrel=5
 pkgdesc="Adds comic book support to zathura"
 url="https://pwmt.org/projects/zathura-cb/"
 arch=('x86_64')
-license=('custom:zlib')
-
+license=('Zlib')
 depends=('zathura' 'libarchive' 'desktop-file-utils')
 makedepends=('meson' 'ninja')
-
 source=(zathura-cb-$pkgver.tar.gz::https://pwmt.org/projects/zathura-cb/download/zathura-cb-$pkgver.tar.xz)
-
 sha256sums=('89b0ca17a80cba1ea9fd1b3b72f3a7173f0aad3a06a8c364d865c4999c18bbc8')
 
 build() {
