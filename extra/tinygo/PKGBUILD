@@ -1,7 +1,7 @@
 # Maintainer: Anatol Pomozov <anatol.pomozov@gmail.com>
 
 pkgname=tinygo
-pkgver=0.31.0
+pkgver=0.31.2
 pkgrel=1
 pkgdesc='Go compiler for small places. Microcontrollers, WebAssembly, and command-line tools. Based on LLVM.'
 arch=(x86_64)
@@ -27,8 +27,7 @@ source=(git+https://github.com/tinygo-org/tinygo#tag=v$pkgver
         git+https://github.com/aykevl/macos-minimal-sdk.git
         git+https://github.com/tinygo-org/renesas-svd.git
         git+https://github.com/tinygo-org/net.git
-	git+https://github.com/espressif/llvm-project#branch=xtensa_release_17.0.1
-	llvm_build_j1.patch)
+	git+https://github.com/espressif/llvm-project#branch=xtensa_release_17.0.1)
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
@@ -43,8 +42,7 @@ sha256sums=('SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
-            'SKIP'
-            '8f77285b8aac29e6f9a5dffa78da3d1603a72a792036b08e87b2aad1fc97394c')
+            'SKIP')
 
 prepare() {
   cd tinygo
@@ -70,8 +68,6 @@ prepare() {
   git -c protocol.file.allow=always submodule update
 
   ln -sf ../llvm-project
-
-#  patch -p1 < ../llvm_build_j1.patch
 }
 
 build() {
