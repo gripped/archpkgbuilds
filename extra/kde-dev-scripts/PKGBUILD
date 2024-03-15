@@ -3,17 +3,21 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kde-dev-scripts
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='Scripts and setting files useful during development of KDE software'
 url='https://www.kde.org/'
 arch=(any)
-license=(GPL LGPL FDL)
-groups=(kde-applications kdesdk)
-depends=(perl)
-makedepends=(extra-cmake-modules kdoctools5)
+license=(GPL-2.0-or-later LGPL-2.0-or-later)
+depends=(perl
+         python
+         sh)
+makedepends=(extra-cmake-modules
+             kdoctools5)
+groups=(kde-applications
+        kdesdk)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('0cb182454bd4627cb2eed796fea35bdb645f08744077c1098350f0fe347ac1f2'
+sha256sums=('00e9a3a146397eb30c4363a3d5fb1055cd310dde6845f06b580a60566679b69d'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
