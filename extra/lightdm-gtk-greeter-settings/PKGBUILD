@@ -3,8 +3,8 @@
 # Contributor: andrew.p <pan.pav.7c5@gmail.com>
 
 pkgname=lightdm-gtk-greeter-settings
-pkgver=1.2.2
-pkgrel=8
+pkgver=1.2.3
+pkgrel=1
 pkgdesc='Settings editor for the LightDM GTK+ Greeter'
 arch=(any)
 url=https://github.com/xubuntu/lightdm-gtk-greeter-settings
@@ -18,9 +18,14 @@ makedepends=(
   git
   python-distutils-extra
 )
-_tag=6280b2e0386f589730233cdc4532b6110f743473
+_tag=7e429dfd544b499514fea284f0ae60c2fd7748ed
 source=(git+https://github.com/Xubuntu/lightdm-gtk-greeter-settings.git#tag=${_tag})
 b2sums=(SKIP)
+
+pkgver() {
+  cd lightdm-gtk-greeter-settings
+  git describe --tags | sed 's/^lightdm-gtk-greeter-settings-//'
+}
 
 build() {
   cd lightdm-gtk-greeter-settings
