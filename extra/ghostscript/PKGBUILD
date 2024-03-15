@@ -2,12 +2,12 @@
 
 pkgbase=ghostscript
 pkgname=(ghostscript ghostxps ghostpcl)
-pkgver=10.02.1
+pkgver=10.03.0
 pkgrel=1
 pkgdesc="An interpreter for the PostScript language"
 url="https://www.ghostscript.com/"
 arch=('x86_64')
-license=('AGPL3' 'custom')
+license=('AGPL-3.0-or-later')
 depends=('libxt' 'libcups' 'fontconfig' 'zlib' 'libpng' 'libjpeg' 'jbig2dec'
          'libtiff' 'lcms2' 'libpaper' 'ijs' 'openjpeg2' 'libidn' 'poppler-data'
          'cairo' 'glibc' 'libx11' 'gdk-pixbuf2' 'glib2')
@@ -17,7 +17,7 @@ source=(https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/
         #https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/ghostpdl-${pkgver/.0//}/ghostpdl-${pkgver}.tar.xz
         2010_add_build_timestamp_setting.patch)
 # https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10021/SHA512SUMS
-sha512sums=('0179a2394c244fba6e6df2cb53877e3968becc2ea497e018b88203289feb549726e372e716e7cd74a1f648b4662eac27a9ead21fd57b9f63428170be72f9e810'
+sha512sums=('6c46ca6fada94b165fe9af6bc6d8e0533a3313e1e551c300cf40c2d31167ba2ba8069d802833fa234e4d7f71cb54216377c59f2dac3b7cdd1a23735cc4e45b63'
             'cd7794ee4f28b11177021b950196385200b610127ed6cb94a45e3202b690b721a0dfcc0276ff39448d4dab64c1b31a76e6c323696a8315aad9edc22077f18a3d')
 
 ### update jbig2dec first! ###
