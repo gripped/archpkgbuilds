@@ -1,0 +1,14 @@
+[crimson-font]
+# source = "github"
+# github = "skosch/Crimson"
+# use_max_tag = true
+
+# This is a crude hack because regex doesn't support padding the way FontForge
+# builds handle the OpenType version spec, but we have a fighting chance that
+# this will at least turn up as a new version even if the suggested new version
+# string is incorrectly padded.
+source = "regex"
+url = "https://raw.githubusercontent.com/skosch/Crimson/master/Source%20Files/Crimson-Roman.sfd"
+regex = "Version: (\\d+\\.\\d+)"
+from_pattern = "(\\d+\\.\\d+)"
+to_pattern = "\\g<1>00"
