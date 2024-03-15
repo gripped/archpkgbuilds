@@ -1,0 +1,19 @@
+pkgbase = crash
+	pkgdesc = Linux kernel crashdump analysis tool
+	pkgver = 8.0.4
+	pkgrel = 1
+	url = https://crash-utility.github.io/
+	arch = x86_64
+	license = GPL
+	makedepends = wget
+	depends = xz
+	depends = ncurses
+	depends = zlib
+	depends = libelf
+	depends = guile
+	depends = mpfr
+	optdepends = binutils: offline vmcore loading functionality
+	source = crash-8.0.4.tar.gz::https://github.com/crash-utility/crash/archive/refs/tags/8.0.4.tar.gz
+	sha256sums = 94df600c183301013787cd47112044e358fb37bb8e2b5544f40377dda98ee78f
+
+pkgname = crash
