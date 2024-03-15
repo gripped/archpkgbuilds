@@ -3,17 +3,32 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kwordquiz
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='Flash Card Trainer'
 url='https://apps.kde.org/kwordquiz/'
 arch=(x86_64)
-license=(GPL LGPL FDL)
-groups=(kde-applications kde-education)
-depends=(knotifyconfig5 libkeduvocdocument knewstuff5 kirigami-addons5)
-makedepends=(extra-cmake-modules kdoctools5)
+license=(GPL-2.0-or-later LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kconfig
+         kcoreaddons
+         kcrash
+         kdbusaddons
+         ki18n
+         kirigami
+         kirigami-addons
+         knewstuff
+         libkeduvocdocument
+         qt6-base
+         qt6-declarative
+         qt6-multimedia)
+makedepends=(extra-cmake-modules
+             kdoctools)
+groups=(kde-applications
+        kde-education)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('5e4a243269a0492336b10aafd372d777cec078d501cfa213ca673360e167b0f0'
+sha256sums=('a6cdcf0823a7701c6e1930d7d51a717a4ca5794781054d38cf278c66e0e02fa4'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
