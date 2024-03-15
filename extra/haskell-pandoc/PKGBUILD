@@ -5,7 +5,7 @@
 _hkgname=pandoc
 pkgname=haskell-pandoc
 pkgver=3.1.8
-pkgrel=1
+pkgrel=9
 pkgdesc='Conversion between markup formats'
 url='https://pandoc.org'
 license=('GPL')
@@ -50,7 +50,7 @@ build() {
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir="/usr/share/doc/$pkgname" --datasubdir=$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-embed_data_files
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
