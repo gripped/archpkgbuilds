@@ -3,7 +3,7 @@
 
 pkgname=darcs
 pkgver=2.16.5
-pkgrel=241
+pkgrel=248
 pkgdesc="A distributed, interactive, smart revision control system"
 url="http://darcs.net"
 license=("GPL")
@@ -30,7 +30,7 @@ prepare() {
     sed -e 's/^ghc /ghc -dynamic /' \
         -e 's/ ghc / ghc -dynamic /' \
         -i tests/*.sh tests/lib
-    uusi -u attoparsec -u constraints -u cryptonite -u fgl -u hashable -u leancheck -u memory -u regex-tdfa -u unix-compat -u vector $pkgname.cabal
+    uusi -u attoparsec -u base -u bytestring -u constraints -u cryptonite -u fgl -u hashable -u leancheck -u memory -u regex-tdfa -u time -u unix-compat -u vector $pkgname.cabal
 }
 
 build() {
@@ -38,7 +38,7 @@ build() {
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
         -fcurl -fpkgconfig -f-static -fterminfo -fthreaded -fexecutable \
         -f-rts -foptimize -f-warn-as-error -f-libiconv
     LD_LIBRARY_PATH="$srcdir"/$pkgname-$pkgver/dist/build runhaskell Setup build $MAKEFLAGS
