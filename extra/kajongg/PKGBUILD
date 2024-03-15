@@ -3,18 +3,25 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kajongg
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='The ancient Chinese board game for 4 players'
 url='https://apps.kde.org/kajongg/'
 arch=(any)
-license=(GPL LGPL FDL)
-groups=(kde-applications kde-games)
-depends=(python-twisted python-qtpy qt5-python-bindings libkmahjongg hicolor-icon-theme)
-makedepends=(extra-cmake-modules kdoctools5)
+license=(GPL-2.0-or-later LGPL-2.0-or-later)
+depends=(libkmahjongg
+         python
+         python-qtpy
+         python-twisted
+         python-zope-interface
+         qt6-python-bindings)
+makedepends=(extra-cmake-modules
+             kdoctools)
 optdepends=('vorbis-tools: for playing sounds')
+groups=(kde-applications
+        kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('17380a4b2cd36a430016ab980d1927929c05cbce3c4f23ab06c88f4629125116'
+sha256sums=('67e8d73230cf640eda1cfddb8b6cfbc8e6e38a24626ebe72ca5c9963135d430b'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
