@@ -2,7 +2,7 @@
 
 _pkg=geopandas
 pkgname=python-${_pkg}
-pkgver=0.14.1
+pkgver=0.14.3
 pkgrel=1
 pkgdesc="Python tools for geographic data"
 arch=(any)
@@ -51,7 +51,7 @@ checkdepends=(
 # No tests data in Pypi
 #source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
 source=(https://github.com/geopandas/geopandas/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('7269fdee9c585c5dd96bd96a2235d0520a9e34189a014ee54e9dc4e926da3c03')
+sha256sums=('e4c3bac0f9db6c28c65d1c96bcd75a7906b6c45b6da184ca4d635fb39268794b')
 
 build() {
   cd ${_pkg}-${pkgver}
