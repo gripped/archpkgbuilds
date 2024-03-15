@@ -1,12 +1,16 @@
 pkgbase = python-phonenumbers
 	pkgdesc = Python version of Google's common library for parsing, formatting, storing and validating international phone numbers
 	pkgver = 8.13.31
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/daviddrysdale/python-phonenumbers
 	arch = any
-	license = Apache
+	license = Apache-2.0
+	checkdepends = python-protobuf
 	makedepends = git
 	makedepends = python-setuptools
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
 	depends = python
 	source = git+https://github.com/daviddrysdale/python-phonenumbers.git#commit=95d5229972a294f0f6c7dd022cbd14bc65101026
 	sha512sums = SKIP
