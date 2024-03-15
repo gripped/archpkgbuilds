@@ -1,6 +1,6 @@
 pkgbase = awxkit
 	pkgdesc = The official command line interface for Ansible AWX
-	pkgver = 23.8.0
+	pkgver = 24.0.0
 	pkgrel = 1
 	url = https://github.com/ansible/awx
 	arch = any
@@ -19,10 +19,11 @@ pkgbase = awxkit
 	depends = python-pyyaml
 	depends = python-requests
 	depends = python-setuptools
+	depends = python-websocket-client
 	optdepends = jq: for formatting
 	optdepends = python-cryptography: for cryptography support
 	options = !emptydirs
-	source = awx::git+https://github.com/ansible/awx#tag=b0565e993769d2b24540c23e7776a2c19a89a0a8
+	source = awx::git+https://github.com/ansible/awx#tag=dd9160135d991b052db2e6461c1e8cd699cee857
 	sha512sums = SKIP
 
 pkgname = awxkit
