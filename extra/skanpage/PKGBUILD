@@ -1,17 +1,32 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=skanpage
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='Utility to scan images and multi-page documents'
 arch=(x86_64)
 url='https://apps.kde.org/skanpage/'
-license=(GPL)
-depends=(ksanecore kirigami2 purpose5 tesseract kquickimageeditor5)
+license=(GPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kconfig
+         kcoreaddons
+         kcrash
+         ki18n
+         kirigami
+         kquickimageeditor
+         ksanecore
+         kxmlgui
+         leptonica
+         purpose
+         qt6-base
+         qt6-declarative
+         tesseract)
 makedepends=(extra-cmake-modules)
-groups=(kde-applications kde-utilities)
+groups=(kde-applications
+        kde-utilities)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('38e2300e1466c43bb531989c29d11221ebcaa2e3e8bb062a814c1f03270b72bb'
+sha256sums=('89f692860060eab0e53e26c340fb8bb2efdd4999babf1ec9572fa6a144fd6f2f'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
