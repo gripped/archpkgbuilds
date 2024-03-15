@@ -1,63 +1,38 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
-pkgbase=kuserfeedback
-pkgname=(kuserfeedback5 kuserfeedback6)
-pkgver=1.3.0
+pkgname=kuserfeedback
+pkgver=6.0.0
 pkgrel=2
 pkgdesc='Framework for collecting user feedback for applications via telemetry and surveys'
 arch=(x86_64)
-url='https://kde.org/products/frameworks/'
-license=(GPL)
+url='https://community.kde.org/Frameworks'
+license=(LGPL-2.0-only LGPL-3.0-only)
 depends=(gcc-libs
-         glibc)
+         glibc
+         qt6-base)
 makedepends=(clang
              extra-cmake-modules
-             qt5-base
-             qt5-charts
-             qt5-declarative
-             qt5-svg
-             qt5-tools
-             qt6-base
              qt6-charts
              qt6-declarative
              qt6-svg
              qt6-tools)
-source=(https://download.kde.org/stable/$pkgbase/$pkgbase-$pkgver.tar.xz{,.sig})
-sha256sums=('252308b822dd4690ea85ab1688c9b0da5512978ac6b435f77a5979fc1d2ffd13'
+optdepends=('qt6-charts: Feedback console'
+            'qt6-declarative: QML bindings'
+            'qt6-svg: Feedback console')
+conflicts=(kuserfeedback5)
+replaces=(kuserfeedback5)
+source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('02f1af108e253c842526d31c997a1777b8f7a6e5b8698b5b1267ce1ec128af2b'
             'SKIP')
-validpgpkeys=(E0A3EB202F8E57528E13E72FD7574483BB57B18D) # Jonathan Esk-Riddell <jr@jriddell.org>
+validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
+              E0A3EB202F8E57528E13E72FD7574483BB57B18D) # Jonathan Esk-Riddell <jr@jriddell.org>
 
 build() {
-  cmake -B build5 -S $pkgbase-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DQT_MAJOR_VERSION=5
-  cmake --build build5
-
-  cmake -B build6 -S $pkgbase-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DQT_MAJOR_VERSION=6 \
-    -DENABLE_CONSOLE=OFF \
-    -DENABLE_CLI=OFF \
-    -DENABLE_DOCS=OFF
-  cmake --build build6
+  cmake -B build -S $pkgname-$pkgver \
+    -DBUILD_TESTING=OFF
+  cmake --build build
 }
 
-package_kuserfeedback5() {
-  depends+=(qt5-base)
-  optdepends=('qt5-charts: User Feedback console'
-              'qt5-declarative: QML bindings'
-              'qt5-svg: User Feedback console')
-  conflicts=(kuserfeedback)
-  provides=(kuserfeedback)
-  replaces=(kuserfeedback)
-
-  DESTDIR="$pkgdir" cmake --install build5
-}
-
-package_kuserfeedback6() {
-  depends+=(qt6-base)
-  optdepends=('qt6-declarative: QML bindings')
-
-  DESTDIR="$pkgdir" cmake --install build6
-  rm -r "$pkgdir"/usr/share/locale # Conflicts with qt5 version
+package() {
+  DESTDIR="$pkgdir" cmake --install build
 }
