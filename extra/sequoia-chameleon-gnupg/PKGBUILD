@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=sequoia-chameleon-gnupg
-pkgver=0.5.1
-_commit=962cac674d63a694beb05530faad9a108511d684  # refs/tags/0.5.1^{}
+pkgver=0.6.0
+_commit=82a07a59cb0335f4e70bbc3f22177ae587aac83b  # refs/tags/0.6.0^{}
 pkgrel=1
 pkgdesc="A re-implementation and drop-in replacement of gpg and gpgv"
 arch=(x86_64)
@@ -21,7 +21,10 @@ makedepends=(
   openssl
   sqlite
 )
-checkdepends=(gnupg)
+checkdepends=(
+  gnupg
+  libfaketime
+)
 source=(
   "git+$url#commit=$_commit?signed"
 )
@@ -52,8 +55,8 @@ check() {
   cd $pkgname
   export RUSTUP_TOOLCHAIN=stable
   RUST_BACKTRACE=1
-
-  cargo test --frozen --no-default-features --features=crypto-openssl
+  # skip broken test: https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg/-/issues/58
+  cargo test --frozen --no-default-features --features=crypto-openssl -- --skip password_store_git
 }
 
 package() {
