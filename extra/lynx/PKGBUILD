@@ -3,27 +3,20 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=lynx
-pkgver=2.8.9
-_relver=${pkgver}rel.1
-pkgrel=7
+pkgver=2.9.0
+_relver=$pkgver
+pkgrel=1
 pkgdesc="A text browser for the World Wide Web"
 url="https://lynx.invisible-island.net/"
 arch=('x86_64')
 license=('GPL-2.0-only')
-depends=('glibc' 'openssl' 'libidn' 'ncurses')
+depends=('glibc' 'openssl' 'libidn2' 'ncurses' 'brotli' 'zlib' 'bzip2')
 backup=('etc/lynx.cfg')
 options=('!lto')
-source=("https://invisible-mirror.net/archives/lynx/tarballs/${pkgname}${_relver}.tar.bz2"{,.asc}
-        'CVE-2021-38165.diff')
-sha256sums=('387f193d7792f9cfada14c60b0e5c0bff18f227d9257a39483e14fa1aaf79595'
-            'SKIP'
-            '693f025a6886b555cc8d7b655de8e62bd8af870a74909e6a4b6cec6e3736dd0d')
-validpgpkeys=('C52048C0C0748FEE227D47A2702353E0F7E48EDB')
-
-prepare() {
-  cd "${srcdir}/${pkgname}${_relver}"
-  patch --forward --strip=1 --input="${srcdir}/CVE-2021-38165.diff"
-}
+source=("https://invisible-mirror.net/archives/lynx/tarballs/${pkgname}${_relver}.tar.bz2"{,.asc})
+sha256sums=('5bcae5e2e6043ca7b220963a97763c49c13218d849ffda6be7739bfd5a2d36ff'
+            'SKIP')
+validpgpkeys=('19882D92DDA4C400C22C0D56CC2AF4472167BE03') # Thomas Dickey <dickey@invisible-island.net>
 
 build() {
   cd "${srcdir}/${pkgname}${_relver}"
