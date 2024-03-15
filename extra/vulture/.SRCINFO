@@ -1,19 +1,16 @@
 pkgbase = vulture
 	pkgdesc = Finds dead code in Python projects
 	pkgver = 2.11
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/jendrikseipp/vulture
 	arch = any
 	license = MIT
-	checkdepends = python-tox>=4.5.1.1
 	checkdepends = python-pytest
+	checkdepends = python-pint
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = python-poetry-core
 	makedepends = python-wheel
-	depends = python-coverage
 	depends = python-setuptools
-	depends = python-pint
 	depends = python-toml
 	source = vulture-2.11.tar.gz::https://github.com/jendrikseipp/vulture/archive/v2.11.tar.gz
 	sha256sums = 5f510b05e12a8e0d75cdfde40aa2bb905d7fe24991928ac75ad0f833128a42d7
