@@ -3,8 +3,8 @@
 
 _name=PyMuPDF
 pkgname=python-pymupdf
-pkgver=1.23.25
-pkgrel=2
+pkgver=1.23.26
+pkgrel=1
 pkgdesc="Python bindings for MuPDF's rendering library"
 arch=(x86_64)
 url="https://github.com/pymupdf/PyMuPDF"
@@ -40,8 +40,8 @@ optdepends=(
 source=(
   $_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
 )
-sha512sums=('3e312b959151b990e207c181bc66400d97c8cc8d40de6ba11a340f0aba88924ff8199b35e381658d8014387432d1b2483fd72aaea1a93c9c748b21413d1adec8')
-b2sums=('72634279d42ef5d628c172bf4811fb5d9fa9b8863b7c0d1ad65eb5779849782f7edd6241148b9e2723e0120a59fbc6627e79b35a2a469c5f6900d436bfd65d0d')
+sha512sums=('b7fa1ca78853692c7df59334670f31bd4506a4d3c153578e6a983569dbe46472aee88541d5454c3d8ff9ca8ed404275dc643bed618d6ebb253bb63a96ea152d2')
+b2sums=('4bfd4c01644903b52d2b65d2c297c89c1b08abc17021750fc7284c15ae8523d20a8d58f2344a16ccd7236768dc96a310af14dac9a88c63cf4afcf1023a0963d1')
 
 prepare() {
   # remove bundled mupdf sources
@@ -91,8 +91,6 @@ check() {
     # disable test that shells out to pip: https://github.com/pymupdf/PyMuPDF/issues/2950
     --deselect tests/test_font.py::test_fontarchive
     --deselect tests/test_general.py::test_subset_fonts
-    # disable test broken with mupdf 1.23.11: https://github.com/pymupdf/PyMuPDF/issues/3205
-    --deselect tests/test_imagebbox.py::test_image_bbox
     # we do not care about flake8
     --deselect tests/test_flake8.py::test_flake8
   )
@@ -101,6 +99,7 @@ check() {
   cd $_name-$pkgver
   python -m installer --destdir=test_dir dist/*.whl
   export PYTHONPATH="$PWD/test_dir/$_site_packages:$PYTHONPATH"
+  export PATH="$PWD/test_dir/usr/bin:$PATH"
   pytest "${pytest_options[@]}" tests/
 }
 
