@@ -2,25 +2,61 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=k3b
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 epoch=1
 pkgdesc='Feature-rich and easy to handle CD burning application'
 arch=(x86_64)
 url='https://apps.kde.org/k3b/'
-license=(GPL)
-depends=(libkcddb5 kcmutils5 knotifyconfig5 libmad kfilemetadata5 knewstuff5
-         libmpcdec libdvdread libburn libsamplerate qt5-webengine)
-makedepends=(extra-cmake-modules kdoctools5)
-optdepends=('cdrtools: for CD burning with cdrecord'
-            'dvd+rw-tools: for DVD burning support'
-            'vcdimager: for VCD burning support'
-            'emovix: for bootable multimedia CD/DVD support'
+license=(GPL-2.0-or-later)
+depends=(ffmpeg
+         flac
+         gcc-libs
+         glibc
+         karchive5
+         kauth5
+         kbookmarks5
+         kcmutils5
+         kcompletion5
+         kconfig5
+         kconfigwidgets5
+         kcoreaddons5
+         kfilemetadata5
+         ki18n5
+         kiconthemes5
+         kio5
+         kjobwidgets5
+         knewstuff5
+         knotifications5
+         knotifyconfig5
+         kwidgetsaddons5
+         kxmlgui5
+         lame
+         libburn # cdrskin
+         libdvdread
+         libkcddb5
+         libmad
+         libmpcdec
+         libogg
+         libsamplerate
+         libsndfile
+         libvorbis
+         qt5-base
+         qt5-webengine
+         solid5
+         taglib)
+makedepends=(extra-cmake-modules
+             kdoctools5)
+optdepends=('cdparanoia: for CD ripping support' 
             'cdrdao: for disk-at-once (DAO) mode support'
-            'cdparanoia: for CD ripping support')
-groups=(kde-applications kde-multimedia)
+            'cdrtools: for CD burning with cdrecord'
+            'dvd+rw-tools: for DVD burning support'
+            'emovix: for bootable multimedia CD/DVD support'
+            'vcdimager: for VCD burning support')
+groups=(kde-applications
+        kde-multimedia)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('c789518b45c8505710fd2b66706c4826f251c5487d9b381df76cc96ffb59309a'
+sha256sums=('2f24a5c7ce29b3abbcf14aaee924762356dcf0f5eac0051f83a92def9bf7b51c'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
