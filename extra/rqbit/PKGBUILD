@@ -1,0 +1,88 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgbase=rqbit
+pkgname=(
+  rqbit
+  rqbit-desktop
+)
+pkgver=5.5.0
+pkgrel=1
+pkgdesc="A bittorrent client in Rust"
+url='https://github.com/ikatson/rqbit'
+arch=('x86_64')
+license=('Apache-2.0')
+makedepends=(
+  'cairo'       'libcairo.so'
+  'cargo'
+  'cargo-tauri'
+  'gdk-pixbuf2' 'libgdk_pixbuf-2.0.so'
+  'glib2'       'libglib-2.0.so'
+  'gtk3'        'libgtk-3.so'
+  'libsoup'     'libsoup-2.4.so'
+  'npm'
+  'openssl'     'libssl.so'
+  'pango'       'libpango-1.0.so'
+  'typescript'
+  'webkit2gtk'  'libwebkit2gtk-4.0.so'
+)
+source=(https://github.com/ikatson/${pkgbase}/archive/v${pkgver}/${pkgbase}-${pkgver}.tar.gz)
+sha256sums=('c2ad0f96707831ab3b67dfaea9119e7011501414335e5a0d40fa6f48bf3023a5')
+b2sums=('fcc0b8194744ed823813bc17d26ed1d6e5a8ddcdfbc727481c85762c490c9584f6725c309db1ae3528a1a99c5db3ba8e7b3b112d06651aaf41fcb8dad6e8ad8f')
+
+prepare() {
+  cd "${pkgbase}-${pkgver}"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  pushd desktop
+  npm install
+  popd
+
+  pushd crates/librqbit/webui
+  npm install
+}
+
+build() {
+  cd ${pkgbase}-${pkgver}
+  cargo build -p rqbit --frozen --release
+  cd desktop
+  cargo tauri build -b deb --ci
+}
+
+check() {
+  cd ${pkgbase}-${pkgver}
+  cargo test --frozen
+}
+
+package_rqbit() {
+  depends=(
+    'gcc-libs'
+    'glibc'
+    'libssl.so'
+  )
+
+  cd ${pkgbase}-${pkgver}
+  install -Dm 755 -t "${pkgdir}/usr/bin" \
+    target/release/rqbit
+}
+
+package_rqbit-desktop() {
+  pkgdesc="A bittorrent client in Rust (desktop app)"
+  depends=(
+    'gcc-libs'
+    'glibc'
+    'hicolor-icon-theme'
+    'libcairo.so'
+    'libgdk_pixbuf-2.0.so'
+    'libglib-2.0.so'
+    'libgtk-3.so'
+    'libpango-1.0.so'
+    'libsoup-2.4.so'
+    'libssl.so'
+    'libwebkit2gtk-4.0.so'
+    'rqbit'
+  )
+
+  mv "${pkgbase}-${pkgver}"/desktop/src-tauri/target/release/bundle/deb/rqbit-desktop_*/data/usr "${pkgdir}"
+}
+
+# vim: ts=2 sw=2 et:
