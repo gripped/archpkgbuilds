@@ -1,16 +1,33 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=libkleo
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='KDE PIM cryptographic library'
 arch=(x86_64)
 url='https://kontact.kde.org'
-license=(LGPL)
-depends=(qgpgme-qt5 kitemmodels5 kpimtextedit)
-makedepends=(extra-cmake-modules qt5-tools boost doxygen)
+license=(LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         gpgme
+         kcolorscheme
+         kcodecs
+         kcompletion
+         kconfig
+         kcoreaddons
+         ki18n
+         kitemmodels
+         ktextaddons
+         kwidgetsaddons
+         qgpgme-qt6
+         qt6-base)
+makedepends=(boost
+             doxygen
+             extra-cmake-modules
+             qt6-doc
+             qt6-tools)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('4330d3e4b70cf5f8d7b341b665a63b47f02e12270946ce6991971315298c4625'
+sha256sums=('ade428daca544798314a3a5b577efe8417c6d2182f74e427f3d7c79c3ca1b96c'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
