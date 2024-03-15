@@ -2,8 +2,8 @@
 
 pkgname=chatblade
 pkgdesc="A CLI Swiss Army Knife for ChatGPT"
-pkgver=0.3.4
-pkgrel=4
+pkgver=0.4.0
+pkgrel=1
 arch=("any")
 url="https://github.com/npiv/chatblade"
 license=("GPL-3.0-only")
@@ -39,7 +39,7 @@ makedepends=(
 	"python-installer"
 )
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('def19b3fe23a21e80f17a4ab346a2cccdc6014edeec8074a9598ea960f5ef3f2')
+sha256sums=('faeff1332f718d7213fd35ed43bac056cf520f9aff7374a20dd6c39b213a1fc4')
 
 prepare() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
