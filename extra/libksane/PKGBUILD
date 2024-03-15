@@ -2,35 +2,73 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
-pkgname=libksane
+pkgbase=libksane
+pkgname=(libksane
+         libksane5)
 pkgver=24.02.0
-pkgrel=1
+pkgrel=2
 pkgdesc='An image scanning library'
 url='https://www.kde.org/'
 arch=(x86_64)
 license=(GPL-2.0-or-later LGPL-2.0-or-later)
 depends=(gcc-libs
-         glibc
-         ki18n5
-         ksanecore5
-         ktextwidgets5
-         kwallet5
-         kwidgetsaddons5
-         qt5-base)
-makedepends=(extra-cmake-modules)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+         glibc)
+makedepends=(extra-cmake-modules
+             ki18n5
+             ksanecore5
+             ktextwidgets5
+             kwallet5  
+             kwidgetsaddons5
+             qt5-base
+             ki18n
+             ksanecore
+             ktextwidgets
+             kwallet
+             kwidgetsaddons
+             qt6-base)
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
+        use-kwallet.patch)
 sha256sums=('8e8f59a5ac280ff7512c7712b4675f778fca3b80296fbbbdf8d8cf650b171ab5'
-            'SKIP')
+            'SKIP'
+            'f89a3cecbdb4682871654bcf264415a7ddbb10b14bbc69fbfe0e76015aecbca5')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
 
-build() {
-  cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF
-  cmake --build build
+prepare() {
+  patch -d $pkgbase-$pkgver -p1 < use-kwallet.patch # Use KWallet when building with Qt6
 }
 
-package() {
+build() {
+  cmake -B build -S $pkgname-$pkgver \
+    -DBUILD_TESTING=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build 
+
+  cmake -B build5 -S $pkgname-$pkgver \
+    -DBUILD_TESTING=OFF
+  cmake --build build5
+}
+
+package_libksane() {
+  depends+=(ki18n
+            ksanecore
+            ktextwidgets
+            kwallet
+            kwidgetsaddons
+            qt6-base)
   DESTDIR="$pkgdir" cmake --install build
+}
+
+package_libksane5() {
+  depends+=(ki18n5
+            ksanecore5
+            ktextwidgets5
+            kwallet5
+            kwidgetsaddons5
+            libksane
+            qt5-base)
+  conflicts=('libksane<24.02.0-2')
+  DESTDIR="$pkgdir" cmake --install build5
+  rm -r "$pkgdir"/usr/share # provided by libksane
 }
