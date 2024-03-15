@@ -3,22 +3,27 @@
 _hkgname=first-class-families
 pkgname=haskell-first-class-families
 pkgver=0.8.0.1
-pkgrel=4
+pkgrel=8
 pkgdesc="First class type families"
 url="https://github.com/Lysxia/first-class-families"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
 sha512sums=('d1c24baee2cb9379ae8c13d20e6c1f86bf78b8e51bcc212d977cadae96912f19e2de0aa4d938ed8695461a01d712c1b23bd24f48af7a6d3628f78adf2a696a1f')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u base $_hkgname.cabal
+}
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
