@@ -1,6 +1,7 @@
 pkgbase = glfw
-	pkgver = 3.3.10
-	pkgrel = 1
+	pkgdesc = A free, open source, portable framework for graphical application development
+	pkgver = 3.4
+	pkgrel = 2
 	url = https://www.glfw.org/
 	arch = x86_64
 	license = custom:ZLIB
@@ -14,29 +15,15 @@ pkgbase = glfw
 	makedepends = libxi
 	makedepends = libxrandr
 	makedepends = libxcursor
-	makedepends = libxkbcommon
 	makedepends = libxinerama
-	source = glfw-x11-3.3.10.tar.gz::https://github.com/glfw/glfw/archive/3.3.10.tar.gz
-	sha512sums = f9e756f5bd76f6838754608869c86524f79e98dffaf467730a400a8db440c56b9127a6d158099f48fb8a0f6c62f76b2ff4960bd0ec4f34a325ee12aab06c38e4
-
-pkgname = glfw-x11
-	pkgdesc = A free, open source, portable framework for graphical application development (x11)
-	depends = libxi
-	depends = libxrandr
-	depends = libxinerama
-	depends = libxcursor
 	depends = libgl
-	provides = glfw=3.3.10
-	conflicts = glfw
-	replaces = glfw
-
-pkgname = glfw-wayland
-	pkgdesc = A free, open source, portable framework for graphical application development (wayland)
-	depends = wayland
 	depends = libxkbcommon
-	depends = libgl
-	provides = glfw=3.3.10
-	conflicts = glfw
+	provides = glfw-x11
+	provides = glfw-wayland
+	replaces = glfw-x11
+	replaces = glfw-wayland
+	replaces = glfw-doc
+	source = glfw-3.4.tar.gz::https://github.com/glfw/glfw/archive/3.4.tar.gz
+	sha512sums = 39ad7a4521267fbebc35d2ff0c389a56236ead5fa4bdff33db113bd302f70f5f2869ff4e6db1979512e1542813292dff5a482e94dfce231750f0746c301ae9ed
 
-pkgname = glfw-doc
-	pkgdesc = Set of HTML documentation for GLFW
+pkgname = glfw
