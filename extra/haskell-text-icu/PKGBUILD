@@ -4,7 +4,7 @@
 _hkgname=text-icu
 pkgname=haskell-text-icu
 pkgver=0.8.0.4
-pkgrel=13
+pkgrel=16
 pkgdesc="Bindings to the ICU library"
 url="https://github.com/haskell/text-icu"
 license=("BSD")
@@ -20,7 +20,7 @@ build() {
     
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
