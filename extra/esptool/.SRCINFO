@@ -1,0 +1,24 @@
+pkgbase = esptool
+	pkgdesc = A cute Python utility to communicate with the ROM bootloader in Espressif ESP8266
+	pkgver = 4.7.0
+	pkgrel = 2
+	url = https://github.com/espressif/esptool
+	arch = any
+	license = GPL-2.0-only
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	depends = python
+	depends = python-pyserial
+	depends = python-ecdsa
+	depends = python-bitstring
+	depends = python-reedsolo
+	depends = python-cryptography
+	depends = python-pyyaml
+	depends = python-intelhex
+	optdepends = python-python-pkcs11: Support for HSM devices
+	source = esptool-4.7.0.tar.gz::https://github.com/espressif/esptool/archive/v4.7.0.tar.gz
+	sha512sums = dda2af5d9b2f8a4ec5706eaf58021e95094c152380c732074809c370a5d1bfaeb424cb27f69a3b980dec83ae9c4c9ee1eddfeb0a7990c3b1f1494160a2d369cc
+
+pkgname = esptool
