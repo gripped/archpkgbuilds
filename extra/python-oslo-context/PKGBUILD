@@ -2,8 +2,8 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-context
-pkgver=5.3.0
-_commit=8d25cad885f943ce27e42acf8a87b1405b5e1a4d
+pkgver=5.4.0
+_commit=92252485bd2046fc086332f231691f78ac7cd274
 pkgrel=1
 pkgdesc="OpenStack Context library"
 arch=('any')
