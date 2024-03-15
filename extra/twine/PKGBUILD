@@ -2,9 +2,9 @@
 # Contributor: Chris Warrick <aur@chriswarrick.com>
 
 pkgname=twine
-pkgver=4.0.2
-_commit=75c3d8623c0847d8ce5a59c1d14a9fcc71e2a4a2
-pkgrel=4
+pkgver=5.0.0
+_commit=94f810c54c8bc9d418a9ed64890ca9fa4ec7b59f
+pkgrel=1
 pkgdesc='Collection of utilities for interacting with PyPI'
 arch=('any')
 url='https://github.com/pypa/twine/'
