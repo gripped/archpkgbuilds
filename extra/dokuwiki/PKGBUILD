@@ -6,7 +6,7 @@ pkgname=dokuwiki
 # for example: 20230404_a
 # PKGBUILD modifies it into proper values
 pkgver=20240206_a
-pkgrel=1
+pkgrel=2
 _pkgver=${pkgver:0:4}-${pkgver:4:2}-${pkgver:6}
 _pkgver=${_pkgver/_/}
 _pkgver=${_pkgver/rc/}
@@ -15,7 +15,7 @@ pkgdesc='Simple to use and highly versatile Open Source wiki software'
 arch=('any')
 url='https://www.dokuwiki.org/'
 license=('GPL')
-depends=('php')
+depends=('php-interpreter')
 backup=('etc/webapps/dokuwiki/.htaccess'
         'etc/httpd/conf/extra/dokuwiki.conf')
 options=('!strip')
@@ -71,6 +71,12 @@ package() {
   # php.ini
 #  install -dm0755 "$pkgdir"/etc/php/conf.d/
 #  echo 'open_basedir = ${open_basedir}:/etc/webapps/dokuwiki/:/var/lib/dokuwiki/' >"$pkgdir"/etc/php/conf.d/dokuwiki.ini
+
+  # php-fpm services
+  for f in php-fpm php-fpm-legacy; do
+    install -dm0755 "$pkgdir"/etc/systemd/system/$f.service.d/
+    echo -e "[Service]\nReadWritePaths=/etc/webapps/dokuwiki/" >"$pkgdir"/etc/systemd/system/$f.service.d/dokuwiki.conf
+  done
 }
 
 # vim:set ts=2 sw=2 et:
