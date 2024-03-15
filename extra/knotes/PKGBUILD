@@ -2,17 +2,56 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=knotes
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='Popup notes'
 arch=(x86_64)
 url='https://apps.kde.org/knotes/'
-license=(GPL2)
-depends=(kdepim-runtime kdnssd5 kontactinterface)
-makedepends=(extra-cmake-modules kdoctools5)
-groups=(kde-applications kde-pim)
+license=(GPL-2.0-or-later)
+depends=(akonadi-notes
+         akonadi-search
+         gcc-libs
+         glibc
+         grantleetheme
+         kcalendarcore
+         kcalutils
+         kcmutils
+         kcolorscheme
+         kcompletion
+         kconfig
+         kconfigwidgets
+         kcontacts
+         kcoreaddons
+         kcrash
+         kdepim-runtime
+         kdnssd
+         kglobalaccel
+         ki18n
+         kiconthemes
+         kio
+         kitemmodels
+         kitemviews
+         kmime
+         knewstuff
+         knotifications
+         knotifyconfig
+         kontactinterface
+         kparts
+         kstatusnotifieritem
+         ktextaddons
+         ktextwidgets
+         kwidgetsaddons
+         kwindowsystem
+         kxmlgui
+         libakonadi
+         pimcommon
+         qt6-base)
+makedepends=(extra-cmake-modules
+             kdoctools)
+groups=(kde-applications
+        kde-pim)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('a63fba06f0a2897d95e40c7085658e3333a2c1e399369dcf715b36f1417002ae'
+sha256sums=('4042e7a21d5a73d66f9a17720b1041083c7d1ba23e45f46589dfbd798323fedd'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
