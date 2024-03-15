@@ -6,7 +6,7 @@
 
 pkgname=znc
 pkgver=1.9.0
-pkgrel=1
+pkgrel=3
 pkgdesc='An IRC bouncer with modules & scripts support'
 url='https://wiki.znc.in/'
 license=('Apache-2.0')
@@ -15,6 +15,7 @@ depends=(
     'libsasl'
     'icu'
     'boost-libs'
+    'argon2'
 )
 makedepends=(
     'tcl'
@@ -49,10 +50,11 @@ build() {
   cmake ../$pkgname-$pkgver \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
-    -DWANT_PYTHON=ON \
-    -DWANT_PERL=ON \
-    -DWANT_TCL=ON \
-    -DWANT_SYSTEMD=ON \
+    -DWANT_PYTHON=YES \
+    -DWANT_PERL=YES \
+    -DWANT_TCL=YES \
+    -DWANT_SYSTEMD=YES \
+    -DWANT_ARGON=YES \
     -DSYSTEMD_DIR=/usr/lib/systemd/system
   make
 }
