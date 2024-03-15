@@ -4,7 +4,7 @@
 # Contributor: Gerardo Exequiel Pozzi <vmlinuz386@yahoo.com.ar>
 
 pkgname=libbsd
-pkgver=0.12.0
+pkgver=0.12.1
 pkgrel=1
 pkgdesc='Provides useful functions commonly found on BSD systems like strlcpy()'
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('glibc' 'libmd')
 makedepends=('git')
 options=('staticlibs')
 source=("git+https://gitlab.freedesktop.org/libbsd/libbsd.git?signed#tag=${pkgver}")
-sha512sums=('SKIP')
+sha512sums=('8baaa6bb959bcea5fb8ae05fe20f48d4791f00c076c38749a320ea62e0e7f1fe08704677676b0075d8530f57d9530b30bb7eea3058b71e37c765a372b6ba2a02')
 validpgpkeys=('4F3E74F436050C10F5696574B972BF3EA4AE57A3') # Guillem Jover
 
 build() {
