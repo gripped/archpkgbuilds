@@ -1,11 +1,11 @@
 pkgbase = epiphany
 	pkgdesc = A GNOME web browser based on the WebKit rendering engine
-	pkgver = 45.2
+	pkgver = 45.3
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Web
 	arch = x86_64
 	groups = gnome
-	license = GPL
+	license = GPL-3.0-or-later
 	checkdepends = aspell
 	checkdepends = glibc-locales
 	checkdepends = hspell
@@ -20,15 +20,31 @@ pkgbase = epiphany
 	makedepends = meson
 	makedepends = startup-notification
 	makedepends = yelp-tools
+	depends = cairo
+	depends = dconf
+	depends = gcc-libs
 	depends = gcr-4
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
+	depends = gmp
+	depends = graphene
 	depends = gstreamer
 	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = json-glib
 	depends = libadwaita
 	depends = libarchive
+	depends = libportal
 	depends = libportal-gtk4
+	depends = libsecret
 	depends = libsoup3
+	depends = libxml2
+	depends = nettle
+	depends = pango
+	depends = sqlite
 	depends = webkitgtk-6.0
-	source = git+https://gitlab.gnome.org/GNOME/epiphany.git#commit=858715833358f35fc654af28defa8875cad9bee9
+	source = git+https://gitlab.gnome.org/GNOME/epiphany.git#commit=4aa79c7f1da1515b9329e73323548dfb5d15afa8
 	b2sums = SKIP
 
 pkgname = epiphany

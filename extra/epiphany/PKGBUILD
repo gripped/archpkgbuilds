@@ -1,22 +1,38 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=epiphany
-pkgver=45.2
+pkgver=45.3
 pkgrel=1
 pkgdesc="A GNOME web browser based on the WebKit rendering engine"
 url="https://wiki.gnome.org/Apps/Web"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-3.0-or-later)
 depends=(
+  cairo
+  dconf
+  gcc-libs
   gcr-4
+  gdk-pixbuf2
+  glib2
+  glibc
+  gmp
+  graphene
   gstreamer
   gtk4
+  hicolor-icon-theme
+  json-glib
   libadwaita
   libarchive
+  libportal
   libportal-gtk4
+  libsecret
   libsoup3
+  libxml2
+  nettle
+  pango
+  sqlite
   webkitgtk-6.0
 )
 makedepends=(
@@ -38,13 +54,13 @@ checkdepends=(
   xorg-server-xvfb
 )
 groups=(gnome)
-_commit=858715833358f35fc654af28defa8875cad9bee9  # tags/45.2^0
+_commit=4aa79c7f1da1515b9329e73323548dfb5d15afa8  # tags/45.3^0
 source=("git+https://gitlab.gnome.org/GNOME/epiphany.git#commit=$_commit")
 b2sums=('SKIP')
 
 pkgver() {
   cd epiphany
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {
