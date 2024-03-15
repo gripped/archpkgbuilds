@@ -3,19 +3,25 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=attica
-pkgver=5.110.0
+pkgver=6.0.0
 pkgrel=1
 arch=(x86_64)
 pkgdesc='Qt library that implements the Open Collaboration Services API'
 url='https://community.kde.org/Frameworks'
-license=(LGPL)
-depends=(qt5-base)
-makedepends=(extra-cmake-modules doxygen qt5-tools qt5-doc)
-groups=(kf5)
+license=(LGPL-2.0-only LGPL-3.0-only)
+depends=(gcc-libs
+         glibc
+         qt6-base)
+makedepends=(doxygen
+             extra-cmake-modules
+             qt6-doc
+             qt6-tools)
+groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('a6f5abb1834afa0bcc12e3315489377a492b18a26fbac0d91c695f3b32f0e7d2'
+sha256sums=('ef21d8e57aeae4757b6b40dfe0d0e9c38302a979164b4e4d493b631b7c023d23'
             'SKIP')
-validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB) # David Faure <faure@kde.org>
+validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
+              E0A3EB202F8E57528E13E72FD7574483BB57B18D) # Jonathan Esk-Riddell <jr@jriddell.org>
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
