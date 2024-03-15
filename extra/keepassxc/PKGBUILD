@@ -3,12 +3,12 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=keepassxc
-pkgver=2.7.6
-pkgrel=3
+pkgver=2.7.7
+pkgrel=1
 pkgdesc="Cross-platform community-driven port of Keepass password manager"
 arch=(x86_64)
 url="https://keepassxc.org/"
-license=(GPL)
+license=('GPL-2.0-only OR GPL-3.0-only OR LGPL-2.1-only')
 depends=(argon2 botan curl hicolor-icon-theme libxtst
          minizip pcsclite qrencode qt5-svg qt5-x11extras libusb)
 makedepends=(asciidoctor cmake qt5-tools)
@@ -16,21 +16,14 @@ optdepends=('xclip: keepassxc-cli clipboard support under X server'
             'wl-clipboard: keepassxc-cli clipboard support under Wayland')
 checkdepends=(xclip xorg-server-xvfb)
 provides=(org.freedesktop.secrets)
-source=(https://github.com/keepassxreboot/keepassxc/releases/download/$pkgver/keepassxc-$pkgver-src.tar.xz{,.sig}
-        https://github.com/keepassxreboot/keepassxc/commit/cc0530ba.patch)
-sha256sums=('a58074509fa8e90f152c6247f73e75e126303081f55eedb4ea0cbb6fa980d670'
-            'SKIP'
-            '7884a0425a5bf7e67d389d6b2545b06ee28b6d77e9164df13a8e78b5719d11ce')
+source=(https://github.com/keepassxreboot/keepassxc/releases/download/$pkgver/keepassxc-$pkgver-src.tar.xz{,.sig})
+sha256sums=('58fc45ae98e4b3ffb052103014f5b97a41fefd17102c7f56073934dd3a82ee67'
+            'SKIP')
 # List of signing keys can be found at https://keepassxc.org/verifying-signatures/
 validpgpkeys=(BF5A669F2272CF4324C1FDA8CFB4C2166397D0D2
               71D4673D73C7F83C17DAE6A2D8538E98A26FD9C4
               AF0AEA44ABAC8F1047733EA7AFF235EEFB5A2517
               C1E4CBA3AD78D3AFD894F9E0B7A66F03B59076A8)
-
-prepare() {
-# Fix build with botan 3.3
-  patch -d $pkgname-$pkgver -p1 < cc0530ba.patch
-}
 
 build() {
   cmake -S keepassxc-$pkgver -B build \
