@@ -3,14 +3,15 @@
 
 pkgname=lxqt-config
 pkgver=1.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="LXQt system configuration."
 arch=("x86_64")
 groups=("lxqt")
 url="https://github.com/lxqt/$pkgname"
+# Upstream licenses are messy and need clarifications... https://github.com/lxqt/lxqt-config/issues/966
 license=("LGPL2.1")
 depends=("glibc" "gcc-libs"
-         "qt5-base" "qt5-svg" "qt5-x11extras" "libkscreen"
+         "qt5-base" "qt5-svg" "qt5-x11extras" "libkscreen5"
          "libQt5Xdg.so" "liblxqt" "lxqt-themes" "lxqt-menu-data"
          "libx11" "libxcb" "libxcursor" "libxfixes" "libxi" "xf86-input-libinput"
          "libudev.so" "zlib")
