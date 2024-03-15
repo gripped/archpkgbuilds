@@ -3,18 +3,18 @@
 
 pkgname=zig
 pkgver=0.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc='a general-purpose programming language and toolchain for maintaining robust, optimal, and reusable software'
 arch=('x86_64')
 url='https://ziglang.org/'
 license=('MIT')
 options=('!lto')
-depends=('clang' 'lld' 'llvm-libs')
-makedepends=('cmake' 'llvm')
+depends=('clang16' 'lld16' 'llvm16-libs')
+makedepends=('cmake' 'llvm16')
 checkdepends=('lib32-glibc')
 source=("https://ziglang.org/download/$pkgver/zig-$pkgver.tar.xz"
         "skip-localhost-test.patch")
-sha256sums=('ead029cfe474d9bf0413332d0e9d3bdfb5990cadce238f44f35ba32d92169295'
+sha256sums=('72014e700e50c0d3528cef3adf80b76b26ab27730133e8202716a187a799e951'
             'eeb5f0f72035c52bf558ffc77a171a3ddf93eac7d663ef0c82826007763717a8')
 
 prepare() {
@@ -28,6 +28,7 @@ build() {
 
     local cmake_vars=(
         CMAKE_INSTALL_PREFIX=/usr
+        CMAKE_PREFIX_PATH=/usr/lib/llvm16
 
         # The zig CMakeLists uses build type Debug if not set
         # override it back to None so makepkg env vars are respected
