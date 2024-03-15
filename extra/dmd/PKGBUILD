@@ -11,8 +11,8 @@ pkgname=('dmd' 'dmd-docs' 'libphobos')
 pkgdesc='D programming language compiler and standard library'
 groups=('dlang' 'dlang-dmd')
 pkgbase=dmd
-pkgver=2.107.0
-_docsvers=2.107.0
+pkgver=2.107.1
+_docsvers=2.107.1
 pkgrel=1
 epoch=1
 arch=('x86_64')
@@ -26,7 +26,7 @@ source=("git+https://github.com/dlang/dmd.git#tag=v$pkgver"
         'dmd-doc.desktop')
 sha256sums=('SKIP'
             'SKIP'
-            '81a53663ed2e8272264b6a13a3535b81ed178e395121523db05480a4e69bfc43'
+            '3577ee366462fb8c72e5e2682f59bc0f607f734e001a5c7e91bcda019725121e'
             'SKIP'
             '3d639e89528fed1da90006f4dfb2b0fdc41308da5a96d953381ff4ccf257c035'
             '4b7b8722b3fa11082f0f332397b1b66c85b30ce773c43c3fedcba5768a1484b1')
@@ -46,7 +46,7 @@ prepare() {
 }
 
 build() {
-    export DFLAGS="-link-defaultlib-shared=false $(echo -ne $LDFLAGS | cut -d\" -f2 | tail -c+4 | sed -e "s/,/ -L=/g" -e "s/-flto=auto/--flto=full/")"
+    export DFLAGS="-link-defaultlib-shared=false $(echo -ne $LDFLAGS | cut -d\" -f2 | tail -c+4 | sed -e "s/-Wl,/-L=/g" -e "s/,/ -L=/g" -e "s/-flto=auto/--flto=full/")"
     export HOST_DMD=ldmd2
 
     cd "$srcdir"/dmd
@@ -78,7 +78,7 @@ package_dmd() {
         'dmd-docs: documentation and sample code for D'
     )
     provides=("d-compiler=$pkgver")
-    license=('Boost')
+    license=('BSL-1.0')
 
     cd "$srcdir"/dmd
 
@@ -101,7 +101,7 @@ package_dmd() {
 package_dmd-docs() {
     pkgdesc="Documentation and sample code for D programming language"
     depends=('dmd')
-    license=('Boost')
+    license=('BSL-1.0')
 
     cd "$srcdir"/dmd
 
@@ -124,7 +124,7 @@ package_libphobos() {
     conflicts=('libphobos-devel')
     provides=("d-runtime=$pkgver" "d-stdlib=$pkgver" "libphobos-devel=$pkgver")
     replaces=('libphobos-devel')
-    license=('Boost')
+    license=('BSL-1.0')
 
     mkdir -p "$pkgdir"/usr/lib
     cp -P $(find "$srcdir"/dmd/generated/linux/release/*/ \( -iname "*.a" -a \! -iname "*.so.a" \) -o \( -iname "*.so*" -a \! -iname "*.o" -a \! -iname "*.a" \) ) "$pkgdir"/usr/lib
