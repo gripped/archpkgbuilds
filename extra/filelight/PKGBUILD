@@ -3,17 +3,32 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=filelight
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='View disk usage information'
 url='https://apps.kde.org/filelight/'
 arch=(x86_64)
-license=(GPL LGPL FDL)
-depends=(kio5 qqc2-desktop-style5 kquickcharts5 kdeclarative5 hicolor-icon-theme)
-makedepends=(extra-cmake-modules kdoctools5)
-groups=(kde-applications kde-utilities)
+license=(GPL-2.0-or-later LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kconfig
+         kcoreaddons
+         ki18n
+         kio
+         kirigami
+         kirigami-addons
+         kquickcharts
+         kwidgetsaddons
+         kxmlgui
+         qqc2-desktop-style
+         qt6-base
+         qt6-declarative)
+makedepends=(extra-cmake-modules
+             kdoctools)
+groups=(kde-applications
+        kde-utilities)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('b7fc4daefc0985dc4b0deeb3c25e09a1b85ff896560340e79cca5093d3f07522'
+sha256sums=('07f907ebfc5edb3918a3e039a6c11ec5cfc69d0f16859da2c813c998a4c20796'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
