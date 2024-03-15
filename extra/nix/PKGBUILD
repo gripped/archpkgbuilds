@@ -1,11 +1,17 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
+# NOTE:
+# Since 2.20.0 the gc feature (--enable-gc) requires a patched bwd-gc or newer
+# version, since this is a build time dependency we don't have yet we can't
+# enable that fetaure. Can be re-enabled when we can supply bwd.
+# c.f. https://github.com/NixOS/nix/pull/9512/files
+
 pkgbase=nix
 pkgname=('nix' 'nix-docs')
-pkgver=2.19.1
-_commit='455aca36e4e99b418f22146614883c1ab0dc418b'
-pkgrel=2
+pkgver=2.21.0
+_commit='80832adcf1ce58565e35e6b5512b7295c34d3d78'
+pkgrel=1
 pkgdesc='A purely functional package manager'
 arch=('x86_64')
 url='https://nixos.org/nix'
@@ -25,6 +31,7 @@ makedepends=(
   'gtest'
   'jq'
   'libcpuid'
+  'libgit2'
   'libseccomp'
   'libsodium'
   'lowdown'
@@ -33,7 +40,7 @@ makedepends=(
   'nix-busybox'
   'nlohmann-json'
   'openssl'
-  'rapidcheck'
+  'rapidcheck' 'librapidcheck.so'
   'sqlite'
 )
 source=(
@@ -78,7 +85,7 @@ build() {
     --localstatedir=/nix/var \
     --with-sandbox-shell=/usr/lib/nix/busybox \
     --enable-static=rapidcheck \
-    --enable-gc \
+    --disable-gc \
     --enable-lto
 
   make
@@ -92,20 +99,21 @@ check() {
 
 package_nix() {
   depends=(
-    'glibc'
-    'gcc-libs'
-    'aws-sdk-cpp'
     'aws-crt-cpp'
+    'aws-sdk-cpp'
     'boost-libs' 'libboost_context.so'
     'brotli' 'libbrotlienc.so' 'libbrotlidec.so'
     'curl' 'libcurl.so'
     'editline' 'libeditline.so'
     'gc'
+    'gcc-libs'
+    'glibc'
     'libarchive' 'libarchive.so'
     'libcpuid' 'libcpuid.so'
-    'lowdown' 'liblowdown.so'
+    'libgit2' 'libgit2.so'
     'libseccomp' 'libseccomp.so'
     'libsodium' 'libsodium.so'
+    'lowdown' 'liblowdown.so'
     'nix-busybox'
     'openssl' 'libcrypto.so'
     'sqlite' 'libsqlite3.so'
