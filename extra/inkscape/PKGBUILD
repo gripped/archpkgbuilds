@@ -5,7 +5,7 @@
 pkgname=inkscape
 pkgver=1.3.2
 _tag='091e20ef0f204eb40ecde54436e1ef934a03d894' # git rev-parse INKSCAPE_${pkgver/./_}
-pkgrel=3
+pkgrel=4
 pkgdesc='Professional vector graphics editor'
 url='https://inkscape.org/'
 license=('GPL' 'LGPL')
@@ -99,7 +99,8 @@ source=("git+https://gitlab.com/inkscape/inkscape.git#tag=${_tag}"
         'inkscape-extras-extensions-gcodetools::git+https://gitlab.com/inkscape/extras/extensions-gcodetools.git'
         'inkscape-extras-extension-manager::git+https://gitlab.com/inkscape/extras/extension-manager.git'
         'inkscape-extras-inkscape-import-clipart::git+https://gitlab.com/inkscape/extras/inkscape-import-clipart.git'
-        'inkscape-extras-extension-xaml::git+https://gitlab.com/inkscape/extras/extension-xaml.git')
+        'inkscape-extras-extension-xaml::git+https://gitlab.com/inkscape/extras/extension-xaml.git'
+        inkscape-1.3.2-poppler-24.03.patch)
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
@@ -107,7 +108,8 @@ sha256sums=('SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
-            'SKIP')
+            'SKIP'
+            '499bc0bd0d8600b597220f463034d5e132e69c7833108d6b766445e70e9c82ed')
 
 _backports=(
   # include missing header file
@@ -133,6 +135,8 @@ prepare() {
   git log --oneline -1 "${_c}"
   git cherry-pick -n "${_c}"
   done
+
+  patch -Np1 -i ../inkscape-1.3.2-poppler-24.03.patch
 }
 
 build() {
