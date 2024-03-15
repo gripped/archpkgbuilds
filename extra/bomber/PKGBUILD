@@ -3,17 +3,30 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=bomber
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='A single player arcade game'
 url='https://apps.kde.org/bomber/'
 arch=(x86_64)
-license=(GPL LGPL FDL)
-groups=(kde-applications kde-games)
-depends=(libkdegames hicolor-icon-theme)
-makedepends=(extra-cmake-modules kdoctools5)
+license=(GPL-2.0-or-later LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kconfig
+         kconfigwidgets
+         kcoreaddons
+         kcrash
+         kdbusaddons
+         ki18n
+         kwidgetsaddons
+         kxmlgui
+         libkdegames
+         qt6-base)
+makedepends=(extra-cmake-modules
+             kdoctools)
+groups=(kde-applications
+        kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('769eb15c4a0f1ae2b6cd89c9d76d260873d3594f365c52b3b106003ffc48b38a'
+sha256sums=('cd5b278c6a1bb371aa1fc9832f633e6e1dee098ee5cca9991a6d05f1da1ec94d'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
