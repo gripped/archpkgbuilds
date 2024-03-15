@@ -5,14 +5,14 @@
 
 pkgname=python-pygit2
 pkgver=1.14.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Python bindings for libgit2'
 arch=('x86_64')
 url="https://github.com/libgit2/pygit2"
 license=('GPL2')
 depends=('libgit2.so' 'python-cffi' 'python-six' 'python-cached-property')
 makedepends=('cython' 'python-build' 'python-cffi' 'python-installer' 'python-setuptools' 'git' 'python-six' 'python-wheel')
-checkdepends=('python-pytest-runner')
+checkdepends=('python-pytest')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
 sha256sums=('2e60ee9ae0ccbf8f61d5ff29e59c8ac69a07b9be4ae44c5545f2cc35fe070b41')
 
