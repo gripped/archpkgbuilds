@@ -6,7 +6,7 @@
 
 pkgname=recoll
 pkgver=1.37.4
-pkgrel=1
+pkgrel=3
 pkgdesc="Full text search tool based on Xapian backend"
 arch=('x86_64')
 url="https://www.lesbonscomptes.com/recoll/"
@@ -18,7 +18,7 @@ makedepends=('python' 'python-setuptools' 'qt6-tools'
 optdepends=('libxslt: for XML based formats (fb2,etc)'
 	    'unzip: for the OpenOffice.org documents'
 	    'poppler: for pdf'
-	    'pstotext: for postscipt'
+	    # 'pstotext: for postscipt' # Dropped to AUR as upstream has disappeared
 	    'antiword: for msword'
 	    'catdoc: for ms excel and powerpoint'
 	    'unrtf: for RTF'
@@ -29,9 +29,9 @@ optdepends=('libxslt: for XML based formats (fb2,etc)'
 	    'perl-image-exiftool: EXIF data from image files'
 	    'python-lxml: indexing spreadsheets'
 	    'python-pychm: CHM filter'
-	    'kcoreaddons5: KDE plugins'
-	    'kio5: KDE plugins'
-	    'krunner5: KDE plugins'
+#	    'kcoreaddons5: KDE plugins'
+#	    'kio5: KDE plugins'
+#	    'krunner5: KDE plugins'
 	    'aspell-en: English stemming support')
 source=("https://www.lesbonscomptes.com/$pkgname/$pkgname-${pkgver/_/}.tar.gz")
 sha512sums=('9e5af5d00191658f23e6a5916718014827f12f4553d9429fe385c0bd1c72f2f49ae97e7d7b8121cb174b299ffe482aa547e4a3aabf2da92e9773bf9eb0f57814')
