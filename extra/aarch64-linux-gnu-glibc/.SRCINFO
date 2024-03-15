@@ -1,0 +1,22 @@
+pkgbase = aarch64-linux-gnu-glibc
+	pkgdesc = GNU C Library ARM64 target
+	pkgver = 2.39
+	pkgrel = 1
+	url = https://www.gnu.org/software/libc/
+	arch = any
+	license = GPL
+	license = LGPL
+	makedepends = python
+	depends = aarch64-linux-gnu-gcc
+	depends = aarch64-linux-gnu-linux-api-headers
+	options = !buildflags
+	options = !strip
+	options = staticlibs
+	source = https://ftp.gnu.org/gnu/libc/glibc-2.39.tar.xz
+	source = https://ftp.gnu.org/gnu/libc/glibc-2.39.tar.xz.sig
+	validpgpkeys = 7273542B39962DF7B299931416792B4EA25340F8
+	validpgpkeys = BC7C7372637EC10C57D7AA6579C43DFBF1CF2187
+	sha256sums = f77bd47cf8170c57365ae7bf86696c118adb3b120d3259c64c502d3dc1e2d926
+	sha256sums = SKIP
+
+pkgname = aarch64-linux-gnu-glibc
