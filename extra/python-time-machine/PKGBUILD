@@ -1,7 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=python-time-machine
-pkgver=2.13.0
+pkgver=2.14.0
 pkgrel=1
 pkgdesc='Travel through time in your tests'
 arch=('x86_64')
@@ -20,7 +21,7 @@ makedepends=(
 )
 checkdepends=('python-pytest' 'python-pytest-randomly')
 optdepends=('python-pytest: for pytest plugin')
-_commit='b31371c4e47aa5c7bc22cd26dd273822e6791607'
+_commit='8d4c9c078f00f761a676012ad984e01622c7e9ed'
 source=("$pkgname::git+$url#commit=$_commit")
 b2sums=('SKIP')
 
