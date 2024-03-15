@@ -1,37 +1,70 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
+_name=google-auth-library-python
 pkgname=python-google-auth
-pkgver=2.28.0
+pkgver=2.28.1
 pkgrel=1
 pkgdesc="Google Authentication Library"
 url="https://github.com/GoogleCloudPlatform/google-auth-library-python"
-license=('Apache')
+license=('Apache-2.0')
 arch=('any')
-depends=('python-cachetools' 'python-pyasn1-modules' 'python-rsa' 'python-urllib3'
-         'python-certifi')
-makedepends=('python-setuptools')
-checkdepends=('python-pytest' 'python-mock' 'python-requests' 'python-flask'
-              'python-oauth2client' 'python-pytest-localserver' 'python-cryptography'
-              'python-freezegun' 'python-responses' 'python-pyopenssl' 'python-pyu2f')
-source=("https://github.com/GoogleCloudPlatform/google-auth-library-python/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('528f7e2460dca371988abc9f9fe1a6316b4362d00421f15670348c67ba6d8ae2cd23d7f833d15504eb08683f5ef3dd95b0d42f5d5234b8972e9ec770173374fa')
+depends=(
+  'python'
+  'python-cachetools'
+  'python-certifi'  # somehow implicitly required in google/auth/transport/urllib3.py
+  'python-oauth2client'  # somehow implicitly required in google/auth/_oauth2client.py
+  'python-packaging'  # somehow implicitly required in google/auth/transport/urllib3.py
+  'python-pyasn1-modules'
+  'python-rsa'
+)
+makedepends=(
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+checkdepends=(
+  'python-cryptography'
+  'python-flask'
+  'python-freezegun'
+  'python-oauth2client'
+  'python-requests'
+  'python-pyopenssl'
+  'python-pyu2f'
+  'python-pytest'
+  'python-pytest-localserver'
+  'python-responses'
+)
+optdepends=(
+  'python-aiohttp: for async HTTP support'
+  'python-cryptography: for TLS support'
+  'python-pyopenssl: for TLS support'
+  'python-pyu2f: for reauthentication support'
+  'python-requests: for async HTTP support'
+)
+source=(
+  "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+  $pkgname-2.28.0-remove_mock.patch
+)
+sha512sums=('bf97aeef67bb93f44f73ae6c684b9b4e5544b56e7371254cece89053178569e335d3175109e72bf7bc603f4f3efe5bf5c6fc110a9bfb4d913b2b7eca392f2070'
+            'a6f33be9b95107e9f7aae6ac3cf70c3da6711baa1a1f5b34b4b0b421e5d5191f68acdbbece6d413a4011ba16caa10a2988ed478441f39abf539dc0598ebd9324')
 
 prepare() {
-  cd google-auth-library-python-$pkgver
-  sed -i 's/from requests.packages.urllib3.util.ssl_ import/from urllib3.util.ssl_ import/' google/auth/transport/requests.py
+  # backport patch to remove python-mock: https://github.com/googleapis/google-auth-library-python/pull/1361
+  patch -Np1 -d $_name-$pkgver -i ../$pkgname-2.28.0-remove_mock.patch
 }
 
 build() {
-  cd google-auth-library-python-$pkgver
-  python setup.py build
+  cd $_name-$pkgver
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd google-auth-library-python-$pkgver
+  cd $_name-$pkgver
   python -m pytest tests
 }
 
 package() {
-  cd google-auth-library-python-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
