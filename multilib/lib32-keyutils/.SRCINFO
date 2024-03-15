@@ -1,0 +1,18 @@
+pkgbase = lib32-keyutils
+	pkgdesc = Linux Key Management Utilities (32-bit)
+	pkgver = 1.6.3
+	pkgrel = 2
+	url = https://www.kernel.org/
+	arch = x86_64
+	license = GPL2
+	license = LGPL2.1
+	makedepends = git
+	makedepends = gcc-multilib
+	depends = lib32-glibc
+	depends = lib32-krb5
+	depends = keyutils
+	source = git+https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git#tag=5678a1aae8834b5c16b5ed7dc72ef8836a29e122?signed
+	validpgpkeys = A86E54B0D5E1B4E0AB7C640FFBB7576BA7CB0B6B
+	sha512sums = SKIP
+
+pkgname = lib32-keyutils
