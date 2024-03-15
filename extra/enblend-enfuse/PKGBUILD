@@ -1,20 +1,21 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Daniel Isenmann <daniel@archlinux.org>
 # Contributor: Dominik Ryba <domryba@post.pl>
 
+
 pkgname=enblend-enfuse
-pkgver=4.2.r1526+hc6b17c386f40
-pkgrel=1
+pkgver=4.2.r1546+hb66125418f7d
+_commit=b66125418f7d
+pkgrel=2
 pkgdesc="Intelligent blend tool for overlapping picture"
 arch=(x86_64)
 url="http://enblend.sourceforge.net"
 license=(GPL)
 depends=(lcms2 vigra gsl exiv2)
 makedepends=(mercurial libjpeg libpng libtiff openexr zlib help2man boost)
-# The latest revision moves to C++17 instead of boost but requires exiv2 2.28 which is currently unreleased
-#source=(enblend-enfuse::hg+http://hg.code.sf.net/p/enblend/code#revision=b236375ad1a8
-source=(enblend-enfuse::hg+http://hg.code.sf.net/p/enblend/code#revision=c6b17c386f40)
-sha256sums=(SKIP)
+source=("$pkgname::hg+http://hg.code.sf.net/p/enblend/code#revision=$_commit")
+sha256sums=('SKIP')
 
 pkgver() {
   cd ${pkgname}
