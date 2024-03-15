@@ -8,7 +8,7 @@
 
 pkgbase=notmuch
 pkgname=('notmuch' 'notmuch-vim' 'notmuch-mutt' 'notmuch-runtime')
-pkgver=0.38.2
+pkgver=0.38.3
 pkgrel=1
 arch=('x86_64')
 url="https://notmuchmail.org/"
@@ -16,7 +16,7 @@ license=('GPL3')
 makedepends=('python' 'python-setuptools' 'python-sphinx' 'python-cffi' 'doxygen' 'emacs' 'gnupg' 'ruby' 'pkgconfig' 'xapian-core' 'gmime3' 'talloc' 'sfsexp')
 options=(!distcc !makeflags)
 source=("https://notmuchmail.org/releases/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha512sums=('fcf5cd927d2acff1a3632c8a4790d4115320cd3ca0d7f61955789a060e363d196c6be64e0e98c883e9918f6b5032a72150977d5f80f9c890f9bd3ab8ed5d8154'
+sha512sums=('247f8b365a75b29df719403bc2c9645eb669a7ee6eb4c1e0047dcf55fea4d66c8dcb4899162b952643aa6148ec6e1538ebe3e7e8408376153165e394084aed19'
             'SKIP')
 validpgpkeys=('7A18807F100A4570C59684207E4E65C8720B706B') # David Bremner <bremner@debian.org>
 
