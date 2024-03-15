@@ -1,17 +1,31 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=grantleetheme
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='Library for Grantlee theming support'
 arch=(x86_64)
 url='https://kontact.kde.org'
-license=(LGPL)
-depends=(grantlee knewstuff5)
-makedepends=(extra-cmake-modules qt5-tools doxygen)
-provides=(grantleetheme5)
+license=(LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kcolorscheme
+         kconfig
+         kcoreaddons
+         kguiaddons
+         ki18n
+         kiconthemes
+         knewstuff
+         ktexttemplate
+         kwidgetsaddons
+         kxmlgui
+         qt6-base)
+makedepends=(doxygen
+             extra-cmake-modules
+             qt6-doc
+             qt6-tools)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('686381b3a0fb0d28e415f9fc9a66633d3c17e75fc2696bf486491bdb3ff242f5'
+sha256sums=('fb7fab1ced8fe9153ed4ac6e8a135ba1335f3b63430f7e5bb60288473f9ebc68'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
