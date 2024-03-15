@@ -1,6 +1,6 @@
 pkgbase = coq
 	pkgdesc = Formal proof management system
-	pkgver = 8.18.0
+	pkgver = 8.19.1
 	pkgrel = 2
 	url = https://coq.inria.fr/
 	arch = x86_64
@@ -19,6 +19,7 @@ pkgbase = coq
 	makedepends = texlive-pictures
 	makedepends = texlive-fontsextra
 	makedepends = texlive-mathscience
+	makedepends = texlive-binextra
 	makedepends = fig2dev
 	makedepends = imagemagick
 	makedepends = hevea
@@ -30,14 +31,14 @@ pkgbase = coq
 	makedepends = python-beautifulsoup4
 	makedepends = python-sphinxcontrib-bibtex
 	makedepends = antlr4
-	depends = ocaml>=4.14.0
+	depends = ocaml
 	depends = ocaml-findlib
 	options = !emptydirs
 	options = !strip
 	options = staticlibs
-	source = coq-8.18.0.tar.gz::https://github.com/coq/coq/archive/V8.18.0.tar.gz
+	source = coq-8.19.1.tar.gz::https://github.com/coq/coq/archive/V8.19.1.tar.gz
 	source = python-antlr4-4.9.3.tar.gz::https://github.com/antlr/antlr4/archive/4.9.3.tar.gz
-	sha256sums = 00a18c796a6e154a1f1bac7e1aef9e14107e0295fa4e0a18f10cdea6fc2e840b
+	sha256sums = 1e535ed924234f18394efce94b12d9247a67e8af29241eb79615804160f21674
 	sha256sums = efe4057d75ab48145d4683100fec7f77d7f87fa258707330cadd1f8e6f7eecae
 
 pkgname = coq
@@ -49,7 +50,7 @@ pkgname = coq
 
 pkgname = coqide
 	pkgdesc = GTK-based graphical interface for the Coq proof assistant
-	depends = ocaml>=4.14.0
+	depends = ocaml
 	depends = ocaml-findlib
 	depends = coq
 	depends = gtk3
