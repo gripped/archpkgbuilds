@@ -5,7 +5,7 @@
  
  version.h : force
 -	echo '#define ZSSH_VERSION "' `cat VERSION` ', built' `date` '"' > version.h
-+	echo '#define ZSSH_VERSION "' `cat VERSION` ', built' `date -ud @$$SOURCE_DATE_EPOCH` '"' > version.h
++	echo '#define ZSSH_VERSION "' `cat VERSION` ', built for Arch Linux "' > version.h
  
  fun.h : $(SRC)
  	protos -o fun.h $(SRC)
