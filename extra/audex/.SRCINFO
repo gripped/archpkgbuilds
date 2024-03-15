@@ -1,21 +1,22 @@
 pkgbase = audex
 	pkgdesc = A CDDA extraction tool with a ftp upload function for KDE
-	pkgver = 0.96.2
+	pkgver = 0.98
 	pkgrel = 1
-	url = https://userbase.kde.org/Audex
+	url = https://apps.kde.org/audex/
 	arch = x86_64
 	license = GPL
 	makedepends = extra-cmake-modules
 	makedepends = git
-	makedepends = qt5-script
-	depends = libkcddb5
+	depends = libkcddb
 	depends = hicolor-icon-theme
-	depends = kcmutils5
+	depends = kcmutils
+	depends = ktextwidgets
+	depends = cdparanoia
 	optdepends = vorbis-tools: OGG encoder
 	optdepends = faac: MP4/M4A/AAC encoder
 	optdepends = flac: FLAC encoder
 	optdepends = lame: MP3 encoder
-	source = git+https://invent.kde.org/multimedia/audex#tag=v0.96.2
+	source = git+https://invent.kde.org/multimedia/audex#tag=v0.98
 	sha256sums = SKIP
 
 pkgname = audex
