@@ -4,7 +4,7 @@
 # Contributor: Alexandre Bique <bique.alexandre@gmail.com>
 
 pkgname=re2
-_re2ver=2024-02-01
+_re2ver=2024-03-01
 pkgrel=1
 epoch=1
 pkgver=${_re2ver//-}
@@ -16,7 +16,7 @@ depends=('gcc-libs' 'abseil-cpp')
 checkdepends=('gtest')
 provides=('libre2.so')
 source=(re2-$pkgver.tar.gz::https://github.com/google/re2/archive/$_re2ver.tar.gz)
-sha256sums=('cd191a311b84fcf37310e5cd876845b4bf5aee76fdd755008eef3b6478ce07bb')
+sha256sums=('7b2b3aa8241eac25f674e5b5b2e23d4ac4f0a8891418a2661869f736f03f57f4')
 
 build() {
   cd $pkgname-$_re2ver
