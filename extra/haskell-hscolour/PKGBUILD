@@ -4,7 +4,7 @@
 _hkgname=hscolour
 pkgname=haskell-hscolour
 pkgver=1.25
-pkgrel=1
+pkgrel=2
 pkgdesc="Colourise Haskell code."
 url="http://code.haskell.org/~malcolm/hscolour/"
 license=("LGPL")
@@ -19,7 +19,7 @@ build() {
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
