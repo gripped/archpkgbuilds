@@ -1,16 +1,15 @@
 pkgbase = libsodium
-	pkgdesc = P(ortable|ackageable) NaCl-based crypto library
+	pkgdesc = A modern, portable, easy to use crypto library
 	pkgver = 1.0.19
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/jedisct1/libsodium
 	arch = x86_64
 	license = custom:ISC
-	makedepends = minisign
+	makedepends = git
 	depends = glibc
 	provides = libsodium.so
-	source = https://download.libsodium.org/libsodium/releases/libsodium-1.0.19.tar.gz
-	source = https://download.libsodium.org/libsodium/releases/libsodium-1.0.19.tar.gz.minisig
-	sha512sums = 8e9b6d796f6330e00921ce37f1b43545966094250938626ae227deef5fd1279f2fc18b5cd55e23484732a27df4d919cf0d2f07b9c2f1aa0c0ef689e668b0d439
-	sha512sums = 8b5993bd7e541a5913ea1659c1009c4edefd9b5907e0a7c9090fa604c23d77006ad9d9a897d66243162742d63ce9bc1f2c81091d50a584f1495dd3bd87d4451e
+	source = git+https://github.com/jedisct1/libsodium.git?signed#tag=1.0.19-RELEASE
+	validpgpkeys = 54A2B8892CC3D6A597B92B6C210627AABA709FE1
+	sha512sums = SKIP
 
 pkgname = libsodium
