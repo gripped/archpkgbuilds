@@ -2,13 +2,13 @@
 # Contributor: Nicola Squartini <tensor5@gmail.com>
 
 pkgname=caprine
-pkgver=2.59.3
-pkgrel=1
+pkgver=2.60.0
+pkgrel=2
 pkgdesc='Elegant Facebook Messenger desktop app'
 arch=('any')
 url='https://github.com/sindresorhus/caprine'
 license=('MIT')
-depends=('electron26')
+depends=('electron27')
 makedepends=('git' 'npm')
 options=(!emptydirs)
 source=("git+https://github.com/sindresorhus/caprine.git#tag=v${pkgver}"
@@ -16,7 +16,7 @@ source=("git+https://github.com/sindresorhus/caprine.git#tag=v${pkgver}"
         'caprine.js')
 sha256sums=('SKIP'
             'ddb693c06b0d4adf41c799fd4d97c2d9c106669034f69f7af53a63cc45911a97'
-            '6dc96de81df06438ce63e1d9448f2c63d5b3e251c2927c3465d268ac2e6773fb')
+            'effb2c3d24b57433bc5d404b3fa40ac7f403f4b60252d983f2ec6de2098cba32')
 
 build() {
     cd ${pkgname}
