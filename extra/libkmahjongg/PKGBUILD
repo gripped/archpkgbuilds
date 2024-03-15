@@ -3,16 +3,24 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=libkmahjongg
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='Common code, backgrounds and tile sets for games using Mahjongg tiles'
 url='https://www.kde.org/'
 arch=(x86_64)
-license=(GPL LGPL FDL)
-depends=(kconfigwidgets5 kcompletion5 qt5-svg)
+license=(GPL-2.0-or-later LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kconfig
+         kconfigwidgets
+         kcoreaddons
+         ki18n
+         kwidgetsaddons
+         qt6-base
+         qt6-svg)
 makedepends=(extra-cmake-modules)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('7a88b40b6cc5c23451da3b736d4e4be3d67f0a745421f9daa1a29adc973dc365'
+sha256sums=('a6577601ed7baf2f1c42130ae2e6d19b99ea926d14f82a0461a46b374c1967c5'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
