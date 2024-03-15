@@ -3,7 +3,7 @@
 
 _pyname=jupyterlab_server
 pkgname=python-${_pyname/_/-}
-pkgver=2.25.3
+pkgver=2.25.4
 pkgrel=1
 pkgdesc='Launch an application built using JupyterLab'
 arch=(any)
@@ -40,7 +40,7 @@ provides=(python-jupyterlab_server)
 replaces=(jupyterlab_server
           python-jupyterlab_server)
 source=(https://github.com/jupyterlab/jupyterlab_server/releases/download/v$pkgver/$_pyname-$pkgver.tar.gz)
-sha256sums=('846f125a8a19656611df5b03e5912c8393cea6900859baa64fa515eb64a8dc40')
+sha256sums=('2098198e1e82e0db982440f9b5136175d73bea2cd42a6480aa6fd502cb23c4f9')
 
 build() {
   cd $_pyname-$pkgver
