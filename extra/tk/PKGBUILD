@@ -1,8 +1,8 @@
 # Maintainer: Eric Bélanger <eric@archlinux.org>
 
 pkgname=tk
-pkgver=8.6.13
-pkgrel=2
+pkgver=8.6.14
+pkgrel=1
 pkgdesc="A windowing toolkit for use with tcl"
 arch=('x86_64')
 url="http://tcl.sourceforge.net/"
@@ -10,7 +10,7 @@ license=('custom')
 depends=('tcl' 'libxss' 'libxft')
 options=('staticlibs')
 source=(https://downloads.sourceforge.net/sourceforge/tcl/tk${pkgver}-src.tar.gz)
-sha256sums=('2e65fa069a23365440a3c56c556b8673b5e32a283800d8d9b257e3f584ce0675')
+sha256sums=('8ffdb720f47a6ca6107eac2dd877e30b0ef7fac14f3a84ebbd0b3612cee41a94')
 
 build() {
   cd tk$pkgver/unix
