@@ -1,0 +1,32 @@
+pkgbase = reapack
+	pkgdesc = Package manager for the Reaper DAW
+	pkgver = 1.2.4.5
+	pkgrel = 1
+	url = https://reapack.com
+	arch = x86_64
+	license = GPL-3.0-or-later
+	license = LGPL-3.0-or-later
+	makedepends = git
+	makedepends = cmake
+	makedepends = boost
+	makedepends = ruby
+	makedepends = php
+	makedepends = catch2
+	depends = glibc
+	depends = gcc-libs
+	depends = openssl
+	depends = zlib
+	depends = reaper
+	depends = libxml2
+	depends = curl
+	depends = sqlite
+	source = reapack::git+https://github.com/cfillion/reapack#commit=9282e03643afead4171e4cac70a51ba32fb7dece
+	source = github.com-justinfrankel-wdl::git+https://github.com/justinfrankel/WDL
+	source = github.com-justinfrankel-reaper-sdk::git+https://github.com/justinfrankel/reaper-sdk
+	source = reapack-1.2.4.5-system_wide.patch
+	b2sums = SKIP
+	b2sums = SKIP
+	b2sums = SKIP
+	b2sums = 0f24c87d822322db6807a262fdb808b72937838fcb998b8d69cd938a9b33a22dfcdd95cf620ef862134f30e87681c40d99323a7762c92aef4e29f83f665e036d
+
+pkgname = reapack
