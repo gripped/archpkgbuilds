@@ -3,7 +3,7 @@
 # Contributor: Jeffrey Tolar <tolar.jeffrey at gmail dot com>
 
 pkgname=verilator
-pkgver=5.020
+pkgver=5.022
 pkgrel=1
 pkgdesc='The fastest free Verilog HDL simulator'
 url='https://www.veripool.org/projects/verilator/wiki/Intro'
@@ -14,7 +14,7 @@ optdepends=('systemc')
 # lsb-release is used by configure script to enable usage of c++17
 makedepends=('help2man' 'python' 'systemc' 'lsb-release')
 source=("https://github.com/verilator/verilator/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('63f4ca6f7aad9c03b50c4040480ed0abdbcfed5f2fc9ce0994dc02a5078daa003d592314a778ab847ac100486038f75ab151d55eaa02d60f979af177ca1dd34e')
+sha512sums=('5b919ed5d4cf863434f10f39bbb3a5155d63f79765f5f1d5ae543023b0e350e0996507d250fbfb2e5129bbdf9a51cc5fd0b7154962747c89435648897525bc84')
 
 prepare() {
   cd verilator-$pkgver
