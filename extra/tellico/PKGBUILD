@@ -5,12 +5,12 @@
 
 pkgname=tellico
 pkgver=3.5.3
-pkgrel=3
+pkgrel=4
 pkgdesc="A collection manager for KDE"
 arch=('x86_64')
 url="https://tellico-project.org/"
 license=('GPL')
-depends=('exempi' 'hicolor-icon-theme' 'kio5' 'libksane' 'libkcddb5'
+depends=('exempi' 'hicolor-icon-theme' 'kio5' 'libksane5' 'libkcddb5'
          'libcdio' 'kfilemetadata5' 'knewstuff5' 'kxmlgui5' 'kitemmodels5'
          'perl-text-bibtex' 'python' 'solid5' 'yaz' 'taglib' 'poppler-qt5' 'qt5-base' 'qt5-charts' 'qt5-webengine')
 makedepends=('cmake' 'extra-cmake-modules' 'kdoctools5')
