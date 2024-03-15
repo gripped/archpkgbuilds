@@ -2,8 +2,8 @@
 # Contributor: Elmar Klausmeier <Elmar.Klausmeier@gmail.com>
 
 pkgname=sundials
-pkgver=6.7.0
-pkgrel=2
+pkgver=7.0.0
+pkgrel=1
 pkgdesc='Suite of nonlinear differential/algebraic equation solvers'
 arch=(x86_64)
 url='https://computing.llnl.gov/projects/sundials'
@@ -14,7 +14,7 @@ makedepends=(cmake
              gcc-fortran
              python)
 source=(https://github.com/LLNL/sundials/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('d434d00a68d0f18dc2c8f4c306e4becf62ac6d37a259253ec9ea616152babba4')
+sha256sums=('63d1f76207161612f36f5017d8333e00e5297b0cd8cbc4628f5dd54102c763a6')
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
