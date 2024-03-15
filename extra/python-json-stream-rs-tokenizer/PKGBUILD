@@ -2,7 +2,7 @@
 
 _pyname=json-stream-rs-tokenizer
 pkgname=python-${_pyname}
-pkgver=0.4.25
+pkgver=0.4.26
 pkgrel=1
 pkgdesc='Faster tokenizer for the json-stream Python library'
 arch=(x86_64)
@@ -20,8 +20,8 @@ makedepends=(
   python-wheel
 )
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/${_pyname}/${_pyname}-${pkgver}.tar.gz")
-sha256sums=('6382f2f71a2ef17cef1cc85165d770a3e09360fe211576824a14089f7cb0e422')
-b2sums=('6d0c1f63b25626b54e9a531cf885672f3c59f7fa23ba0a6c44f9e719c961eb8d176a5a0604e6e4141034e9ffbbdde7a142f27261cfe8786173c7ea6ddc4eb1eb')
+sha256sums=('19333ccda9121b1224598d67178665f77e142862800cb1edd7797a62936f7a1c')
+b2sums=('fc81a8764fc525a141aa4b52e239afa7cea8862da74228f48314e8712aad9f70d8632fba0ae1afd3772eed241ad5468799d918ae88e55fa98cdf547295d3ba26')
 
 build() {
   cd "${_pyname}-${pkgver}"
