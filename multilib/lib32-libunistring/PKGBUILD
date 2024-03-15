@@ -6,7 +6,7 @@
 # Contributor: Patrick McCarty <pnorcks at gmail dot com>
 
 pkgname=lib32-libunistring
-pkgver=1.1
+pkgver=1.2
 pkgrel=1
 pkgdesc='Library for manipulating Unicode strings and C strings (32-bit)'
 url='https://www.gnu.org/software/libunistring/'
@@ -16,7 +16,7 @@ depends=('libunistring' 'lib32-glibc')
 source=(https://ftp.gnu.org/gnu/libunistring/libunistring-${pkgver}.tar.xz{,.sig})
 validpgpkeys=('462225C3B46F34879FC8496CD605848ED7E69871'  # Daiki Ueno <ueno@unixuser.org>
               '9001B85AF9E1B83DF1BDA942F5BE8B267C6A406D') # Bruno Haible (Open Source Development) <bruno@clisp.org>
-sha512sums=('01a4267bbd301ea5c389b17ee918ae5b7d645da8b2c6c6f0f004ff2dead9f8e50cda2c6047358890a5fceadc8820ffc5154879193b9bb8970f3fb1fea1f411d6'
+sha512sums=('5fbb5a0a864db73a6d18cdea7b31237da907fff0ef288f3a8db6ebdba8ef61ad8855e5fc780c2bbf632218d8fa59dd119734e5937ca64dc77f53f30f13b80b17'
             'SKIP')
 
 build() {
