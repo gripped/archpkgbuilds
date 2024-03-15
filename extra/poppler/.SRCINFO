@@ -1,9 +1,12 @@
 pkgbase = poppler
-	pkgver = 24.01.0
+	pkgver = 24.03.0
 	pkgrel = 1
 	url = https://poppler.freedesktop.org/
 	arch = x86_64
-	license = GPL
+	license = GPL-2.0-only
+	license = GPL-3.0-or-later
+	license = MIT
+	license = HPND-sell-variant
 	makedepends = libjpeg
 	makedepends = gcc-libs
 	makedepends = cairo
@@ -26,11 +29,11 @@ pkgbase = poppler
 	makedepends = python
 	makedepends = boost
 	options = !emptydirs
-	source = https://poppler.freedesktop.org/poppler-24.01.0.tar.xz
-	source = https://poppler.freedesktop.org/poppler-24.01.0.tar.xz.sig
+	source = https://poppler.freedesktop.org/poppler-24.03.0.tar.xz
+	source = https://poppler.freedesktop.org/poppler-24.03.0.tar.xz.sig
 	source = test::git+https://anongit.freedesktop.org/git/poppler/test/#commit=400f3ff05b2b1c0ae17797a0bd50e75e35c1f1b1
 	validpgpkeys = CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7
-	sha256sums = c7def693a7a492830f49d497a80cc6b9c85cb57b15e9be2d2d615153b79cae08
+	sha256sums = bafbf0db5713dec25b5d16eb2cd87e4a62351cdc40f050c3937cd8dd6882d446
 	sha256sums = SKIP
 	sha256sums = SKIP
 
@@ -54,12 +57,12 @@ pkgname = poppler
 	optdepends = poppler-data: highly recommended encoding data to display PDF documents with certain encodings and characters
 	provides = libpoppler.so
 	provides = libpoppler-cpp.so
-	conflicts = poppler-qt3<24.01.0
-	conflicts = poppler-qt4<24.01.0
+	conflicts = poppler-qt3<24.03.0
+	conflicts = poppler-qt4<24.03.0
 
 pkgname = poppler-glib
 	pkgdesc = Poppler glib bindings
-	depends = poppler=24.01.0
+	depends = poppler=24.03.0
 	depends = glib2
 	depends = gcc-libs
 	depends = freetype2
@@ -69,7 +72,7 @@ pkgname = poppler-glib
 
 pkgname = poppler-qt5
 	pkgdesc = Poppler Qt5 bindings
-	depends = poppler=24.01.0
+	depends = poppler=24.03.0
 	depends = qt5-base
 	depends = lcms2
 	depends = freetype2
@@ -79,7 +82,7 @@ pkgname = poppler-qt5
 
 pkgname = poppler-qt6
 	pkgdesc = Poppler Qt6 bindings
-	depends = poppler=24.01.0
+	depends = poppler=24.03.0
 	depends = qt6-base
 	depends = lcms2
 	depends = freetype2
