@@ -12,7 +12,7 @@
 # spriv-tools system package and only then building glslang against that.
 pkgname=glslang
 pkgver=14.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='OpenGL and OpenGL ES shader front end and validator'
 arch=('x86_64')
 url='https://github.com/KhronosGroup/glslang'
@@ -20,8 +20,15 @@ license=('BSD-3-Clause')
 depends=('gcc-libs' 'spirv-tools')
 makedepends=('cmake' 'ninja' 'spirv-headers' 'python')
 options=('staticlibs')
-source=(${pkgname}-${pkgver}.tar.gz::https://github.com/KhronosGroup/glslang/archive/${pkgver}.tar.gz)
-sha256sums=('80bbb916a23e94ea9cbfb1acb5d1a44a7e0c9613bcf5b5947c03f2273bdc92b0')
+source=(${pkgname}-${pkgver}.tar.gz::https://github.com/KhronosGroup/glslang/archive/${pkgver}.tar.gz
+        glslang-add-missing-spirv-tools-opt-dependency.patch::https://github.com/KhronosGroup/glslang/pull/3487.patch)
+sha256sums=('80bbb916a23e94ea9cbfb1acb5d1a44a7e0c9613bcf5b5947c03f2273bdc92b0'
+            '582eff1c09948783abfd6da55406129b97ce216040c9b29d9480635fdaf1e3e9')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  patch -Np1 -i ../glslang-add-missing-spirv-tools-opt-dependency.patch
+}
 
 build() {
   cd ${pkgname}-${pkgver}
