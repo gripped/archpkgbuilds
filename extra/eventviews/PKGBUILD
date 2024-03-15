@@ -1,16 +1,41 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=eventviews
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='Library for creating events'
 arch=(x86_64)
 url='https://kontact.kde.org'
-license=(LGPL)
-depends=(calendarsupport kdiagram5 libkdepim)
-makedepends=(extra-cmake-modules qt5-tools doxygen)
+license=(LGPL-2.0-or-later)
+depends=(akonadi-calendar
+         calendarsupport
+         gcc-libs
+         glibc
+         kcalendarcore
+         kcalutils
+         kcodecs
+         kcolorscheme
+         kcompletion
+         kconfig
+         kconfigwidgets
+         kcontacts
+         kcoreaddons
+         kdiagram
+         kguiaddons
+         kholidays
+         ki18n
+         kiconthemes
+         kitemmodels
+         kwidgetsaddons
+         libakonadi
+         libkdepim
+         qt6-base)
+makedepends=(doxygen
+             extra-cmake-modules
+             qt6-doc
+             qt6-tools)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('29a9359940e6ba775c9e1dccfd9eb7de68b799ef4182f4eaf7ba3baffaaf1c1b'
+sha256sums=('04148c43865da51dbec7565f2797b136fda35b698002727086ed4ed878e55abb'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
