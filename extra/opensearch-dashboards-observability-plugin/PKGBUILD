@@ -2,13 +2,13 @@
 
 pkgname='opensearch-dashboards-observability-plugin'
 _pluginname='observability-dashboards-plugin'
-pkgver=2.11.1.0
-_dashboardsver=2.11.1
+pkgver=2.12.0.0
+_dashboardsver=2.12.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Observability Plugin'
 url='https://opensearch.org/docs/latest/observability/index/'
 arch=('x86_64')
-license=('Apache')
+license=('Apache-2.0')
 depends=("opensearch-dashboards=${_dashboardsver}" 'gnuplot')
 makedepends=('yarn' 'npm' 'python' 'git')
 options=('!strip' 'emptydirs')
@@ -32,7 +32,7 @@ build() {
   yarn build --skip-archive
 }
 
-# This breaks in release 2.11.1 - check on next one
+# This breaks in release 2.12.0 - check on next one
 # check() {
 #   cd "OpenSearch-Dashboards/plugins/${_pluginname}"
 #   yarn test
