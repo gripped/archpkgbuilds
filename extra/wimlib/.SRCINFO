@@ -1,0 +1,20 @@
+pkgbase = wimlib
+	pkgdesc = A library and program to extract, create, and modify WIM files
+	pkgver = 1.14.4
+	pkgrel = 1
+	url = https://wimlib.net
+	arch = x86_64
+	license = custom
+	checkdepends = attr
+	makedepends = git
+	depends = fuse3
+	depends = ntfs-3g
+	optdepends = cdrkit: for making ISO image of Windows PE
+	optdepends = mtools: for making disk image of Windows PE
+	optdepends = syslinux: for making disk image of Windows PE
+	optdepends = cabextract: for extracting Windows PE from the WAIK
+	provides = libwim.so
+	source = wimlib::git+https://github.com/ebiggers/wimlib#commit=cd2a5e5d2e95c36e81d09077d06ad136f7d24950
+	b2sums = SKIP
+
+pkgname = wimlib
