@@ -2,12 +2,12 @@
 
 _pipname=jupyter_events
 pkgname=python-jupyter-events
-pkgver=0.9.0
+pkgver=0.9.1
 pkgrel=1
 pkgdesc='Configurable event system for Jupyter applications and extensions'
 arch=(any)
 url='https://jupyter.org/'
-license=(BSD)
+license=(BSD-3-Clause)
 depends=(python
          python-click
          python-json-logger
@@ -24,7 +24,7 @@ checkdepends=(python-pytest-asyncio
               python-rfc3339-validator
               python-rfc3986-validator)
 source=(https://github.com/jupyter/jupyter_events/releases/download/v$pkgver/$_pipname-$pkgver.tar.gz)
-sha256sums=('81ad2e4bc710881ec274d31c6c50669d71bbaa5dd9d01e600b56faa85700d399')
+sha256sums=('a52e86f59eb317ee71ff2d7500c94b963b8a24f0b7a1517e2e653e24258e15c7')
 
 build() {
   cd $_pipname-$pkgver
