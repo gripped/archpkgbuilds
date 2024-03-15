@@ -2,7 +2,7 @@
 # Contributor: Chad Kunde <Kunde21@gmail.com>
 
 pkgname=gopls
-pkgver=0.14.2
+pkgver=0.15.2
 pkgrel=1
 pkgdesc='Language server for Go programming language'
 arch=('x86_64' 'aarch64' 'armv7h' 'armv7l')
@@ -12,7 +12,7 @@ depends=('go')
 makedepends=('git')
 options=('!lto')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/golang/tools/archive/gopls/v${pkgver}.tar.gz")
-sha256sums=('5a4939e08adf4de0720042868b43405de0cf221ae9a0b266694d4f222b3edfbb')
+sha256sums=('cf5b8246b36967eb8fbbed518ea941110cc6bbcc7f42a44bc5a4fe0d7ee61652')
 
 build() {
   cd "tools-${pkgname}-v${pkgver}/${pkgname}"
@@ -29,7 +29,7 @@ build() {
     -modcacherw \
     -ldflags "-compressdwarf=false \
     -linkmode external \
-    -extldflags ${LDFLAGS}" \
+    -extldflags \"${LDFLAGS}\"" \
     -o "${pkgname}"
 }
 
