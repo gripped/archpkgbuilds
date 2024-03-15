@@ -5,7 +5,7 @@
 _hkgname=hakyll
 pkgname=haskell-hakyll
 pkgver=4.16.0.0
-pkgrel=128
+pkgrel=137
 pkgdesc="A static website compiler library"
 url="https://jaspervdj.be/hakyll"
 license=("BSD")
@@ -35,7 +35,7 @@ build() {
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
-        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid --ghc-option=-fllvm \
+        --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fcheckexternal -fwatchserver -fpreviewserver -fusepandoc
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
