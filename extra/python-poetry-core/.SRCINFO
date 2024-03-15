@@ -1,7 +1,7 @@
 pkgbase = python-poetry-core
 	pkgdesc = Poetry PEP 517 Build Backend & Core Utilities
 	pkgver = 1.9.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/python-poetry/poetry-core
 	arch = any
 	groups = python-build-backend
@@ -18,8 +18,9 @@ pkgbase = python-poetry-core
 	depends = python-fastjsonschema
 	depends = python-lark-parser
 	depends = python-packaging
-	conflicts = python-poetry<1.1.0
 	source = https://github.com/python-poetry/poetry-core/archive/1.9.0/poetry-core-1.9.0.tar.gz
+	source = python-poetry-core-1.9.0-devendor.patch
 	sha256sums = 642f63ec06ba4e581b720def3a162bc23d11588fef9e9c5c57ab8a1e4f36e721
+	sha256sums = a2e826597d7f4763ba3b5ed4935d3cf8870a7173d76fb66b6a853cf1e4180b5a
 
 pkgname = python-poetry-core
