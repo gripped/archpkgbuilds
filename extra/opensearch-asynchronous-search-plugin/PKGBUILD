@@ -1,20 +1,20 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-asynchronous-search-plugin
-pkgver=2.11.1.0
+pkgver=2.12.0.0
 pkgrel=1
-_opensearchver=2.11.1
+_opensearchver=2.12.0
 _jdkver=11
 pkgdesc="OpenSearch Asynchronous Search Plugin"
 arch=('x86_64')
 url="https://opensearch.org/docs/latest/search-plugins/async"
-license=('Apache')
+license=('Apache-2.0')
 depends=("opensearch=${_opensearchver}")
 makedepends=("java-environment=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/asynchronous-search/archive/${pkgver}.tar.gz"
 )
-sha256sums=('7ffa3fdacd60f85d6a8b0cda8dde5837810d1b7268833bb57a113833692579da')
+sha256sums=('1f50b6dd76e89912926be3fc6c29b054db0f34234d662a6920cda256511a0721')
 
 build() {
   cd "asynchronous-search-${pkgver}"
