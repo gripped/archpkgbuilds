@@ -3,7 +3,7 @@
 
 pkgname=kile
 pkgver=2.9.93
-pkgrel=5
+pkgrel=7
 pkgdesc='A user friendly TeX/LaTeX frontend for KDE'
 arch=(x86_64)
 license=(GPL2)
@@ -18,7 +18,6 @@ depends=(gcc-libs
          kcrash5
          kdbusaddons5
          kguiaddons5
-         khtml
          ki18n5
          kiconthemes5
          kinit
@@ -31,17 +30,24 @@ depends=(gcc-libs
          kwidgetsaddons5
          kwindowsystem5
          kxmlgui5
-         okular
+         okularpart5
          perl
          poppler-qt5
          qt5-base
          qt5-script
          texlive-basic)
 makedepends=(extra-cmake-modules
-             kdoctools5)
-optdepends=('konsole: embedded terminal' 'imagemagick: for some file type conversions')
-source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2)
-sha256sums=('04499212ffcb24fb3a6829149a7cae4c6ad5d795985f080800d6df72f88c5df0')
+             kdoctools5
+             okular)
+optdepends=('konsolepart5: embedded terminal' 'imagemagick: for some file type conversions')
+source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2
+        https://invent.kde.org/office/kile/-/commit/7c050b5e.patch)
+sha256sums=('04499212ffcb24fb3a6829149a7cae4c6ad5d795985f080800d6df72f88c5df0'
+            'e0e6f18535b7823609c2b8e9d06b1b223f72744d75e1fb53670db2a68b5fbd76')
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < 7c050b5e.patch # Drop KHTML dependency
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver
