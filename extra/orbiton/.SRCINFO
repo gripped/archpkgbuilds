@@ -1,6 +1,6 @@
 pkgbase = orbiton
 	pkgdesc = Fast and configuration-free text editor and IDE limited by VT100
-	pkgver = 2.65.10
+	pkgver = 2.65.11
 	pkgrel = 1
 	url = https://orbiton.zip
 	arch = x86_64
@@ -9,14 +9,13 @@ pkgbase = orbiton
 	makedepends = go
 	makedepends = vte3
 	options = !lto
-	source = git+https://github.com/xyproto/orbiton#commit=cad0b333dcb1bae1187ce8291f186130e9aadcfd
+	source = git+https://github.com/xyproto/orbiton#commit=df34d2866a5f835b944d64384354450e3404d151
 	b2sums = SKIP
 
 pkgname = orbiton
 	optdepends = asciidoctor: for writing man pages
 	optdepends = agda: for compiling Agda
 	optdepends = astyle: for formatting C#
-	optdepends = autopep8: for formatting Python
 	optdepends = clang: for formatting C++ code with clang-format
 	optdepends = clojure: for compiling Clojure
 	optdepends = crystal: for compiling Crystal
@@ -39,6 +38,7 @@ pkgname = orbiton
 	optdepends = perl-tidy: for formatting Perl
 	optdepends = pandoc: for exporting Markdown to PDF
 	optdepends = prettier: for formatting JavaScript, TypeScript and CSS
+	optdepends = python-black: for formatting Python
 	optdepends = rustup: for compiling and formatting Rust
 	optdepends = scdoc: for writing man pages
 	optdepends = shfmt: for formattig Shell scripts
