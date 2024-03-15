@@ -3,17 +3,31 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kmahjongg
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='A tile matching game for one or two players'
 url='https://apps.kde.org/kmahjongg/'
 arch=(x86_64)
-license=(GPL LGPL FDL)
-groups=(kde-applications kde-games)
-depends=(libkmahjongg libkdegames hicolor-icon-theme)
-makedepends=(extra-cmake-modules kdoctools5)
+license=(GPL-2.0-or-later LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kconfig
+         kconfigwidgets
+         kcoreaddons
+         kcrash
+         kdbusaddons
+         ki18n
+         kwidgetsaddons
+         kxmlgui
+         libkdegames
+         libkmahjongg
+         qt6-base)
+makedepends=(extra-cmake-modules
+             kdoctools)
+groups=(kde-applications
+        kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('8743ffa02b82d8a62d405dfc1ec6f05f16df8f0a9ca4c7e961f7f6723e1aa845'
+sha256sums=('68d5a63e4e347a6ebc5484235e103a084002ab162635c05f09c871df3cdd061e'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
