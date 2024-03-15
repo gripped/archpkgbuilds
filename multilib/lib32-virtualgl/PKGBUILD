@@ -2,7 +2,7 @@
 # Contributor: FigoDaPaura <ffigoDaPaura>
 
 pkgname=lib32-virtualgl
-pkgver=3.1
+pkgver=3.1.1
 pkgrel=1
 pkgdesc="32-bit serverside components for 64-bit VirtualGL servers"
 arch=('x86_64')
@@ -10,10 +10,10 @@ url="https://virtualgl.org"
 license=('LGPL')
 depends=('virtualgl' 'lib32-libxv' 'lib32-glu' 'lib32-libjpeg-turbo' 'lib32-opencl-driver' 'lib32-ocl-icd')
 makedepends=('lib32-libxv' 'lib32-glu' 'virtualgl' 'cmake' 'gcc-multilib' 'lib32-mesa' 'lib32-mesa-libgl' 'lib32-libxtst' 'opencl-headers' 'ninja')
-source=("https://downloads.sourceforge.net/project/virtualgl/${pkgver}/VirtualGL-${pkgver}.tar.gz"{,.sig})
-sha512sums=('cd1109b4dee426918e61348b22b3bfb0c45102bbb0bcde9b78c36b607a396bbff7d7c72cf3bf9626128da0f1776c42bbb59be863239e60e0f7307d2a73de463b'
+source=("https://github.com/VirtualGL/virtualgl/releases/download/${pkgver}/VirtualGL-${pkgver}.tar.gz"{,.sig})
+sha512sums=('40007910dce4ba1aa6bb00fc1e57af8e9d6a77a5a6c795d8f13c9883abc44787871a0bede8621de2fb042585f471281ba9e8bbd16d81c4049ddca8539f535e7e'
             'SKIP')
-b2sums=('556e2a05811b89ddfecc371d75888f09c7a59bb2c7e3f265eae4631627cf3e586114735b2616cd6292fbcea089e81326736013a7b1d47ad1746365e72e313627'
+b2sums=('d82a3b8afddc165d4a99b281593662c7584b2d0060e1332bbb1dd621dc1098d4eb1e9c7b3d9a989fa08e89dfafe0001bff905c90aaefb0e0b7532e233a21e0e4'
         'SKIP')
 validpgpkeys=('AE1A7BA4EFFF9A9987E1474C4BACCAB36E7FE9A1') # The VirtualGL Project (Signing key for official binaries) <information@VirtualGL.org>
 
