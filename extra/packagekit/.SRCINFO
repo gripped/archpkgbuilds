@@ -1,7 +1,7 @@
 pkgbase = packagekit
 	pkgdesc = A system designed to make installation and updates of packages easier
 	pkgver = 1.2.8
-	pkgrel = 4
+	pkgrel = 7
 	url = https://www.freedesktop.org/software/PackageKit/
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -14,9 +14,11 @@ pkgbase = packagekit
 	makedepends = meson
 	options = !emptydirs
 	source = https://www.freedesktop.org/software/PackageKit/releases/PackageKit-1.2.8.tar.xz
+	source = 0001-alpm-add-compatibility-with-libalpm-14.patch
 	validpgpkeys = 163EB50119225DB3DF8F49EA17ACBA8DFA970E17
 	validpgpkeys = EC60AABDF42AAE8FB062640480858FA38F62AF74
 	sha256sums = d834250a0f121483027db2cfd93e8b2cba8dc48ff854395bfd88aa9511898be4
+	sha256sums = 2a75223614fceffe12e2c5cbc8534a927be583f798cd7a5fbd41348b464ecbf7
 
 pkgname = packagekit
 	depends = libpackagekit-glib
