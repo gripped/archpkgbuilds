@@ -9,8 +9,8 @@
 
 pkgname=ansible-core
 _pkgname=ansible
-pkgver=2.16.3
-pkgrel=1
+pkgver=2.16.4
+pkgrel=2
 pkgdesc='Radically simple IT automation platform'
 arch=('any')
 url='https://www.ansible.com'
@@ -24,14 +24,13 @@ depends=(
   'python-resolvelib'
   # not directly required, but either convenient or indirectly required
   'python-paramiko'
-  'python-typing-extensions'
+  'python-typing_extensions'
 )
 makedepends=(
   'python-build'
   'python-docutils'
   'python-installer'
   'python-setuptools'
-  'python-straight.plugin'
   'python-wheel'
 )
 checkdepends=(
@@ -64,8 +63,8 @@ optdepends=(
 provides=('python-ansible' 'ansible-base')
 replaces=('ansible-base')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ansible/ansible/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('2bc88dbd2d30e50cb999bf8c744070accc042a2c4f1317558ee3edae45592002a0595ba57c3d89d1cc92e512d462734a241e3e392475326d44b8c2ee3c4aa0b0')
-b2sums=('3760df3bcee55b4969add6a22b69e744691145d2d9cd2f9cd554189956f6bc6994f730a042bb1a89b86dace8b56c70957435e0a9f31dcb3a6a2410e837d5a3e0')
+sha512sums=('c235e2fb814ed4a414bbd718eba64eaeb4992f58942f662f8733544773aaabcf11b5dc76fcc6bbe533088b6a974460e156e7c18738bf0d45c12210a057eba48b')
+b2sums=('a482be185f59c9ad8ab070cf4e5556912e6d9f53fea284cb13e576a455633a27b8bf972089ac9af6e6ea980b37d988f4cfcb89226e009128879abbbf7961a3f5')
 
 build() {
   cd "${_pkgname}-${pkgver}"
