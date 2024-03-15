@@ -1,7 +1,7 @@
 pkgbase = stack
 	pkgdesc = The Haskell Tool Stack
-	pkgver = 2.7.5
-	pkgrel = 421
+	pkgver = 2.9.1
+	pkgrel = 9
 	url = https://github.com/commercialhaskell/stack
 	install = stack.install
 	arch = x86_64
@@ -54,7 +54,6 @@ pkgbase = stack
 	depends = haskell-network-uri
 	depends = haskell-open-browser
 	depends = haskell-optparse-applicative
-	depends = haskell-optparse-generic
 	depends = haskell-optparse-simple
 	depends = haskell-pantry
 	depends = haskell-path
@@ -63,6 +62,7 @@ pkgbase = stack
 	depends = haskell-persistent-sqlite
 	depends = haskell-primitive
 	depends = haskell-project-template
+	depends = haskell-random
 	depends = haskell-retry
 	depends = haskell-rio
 	depends = haskell-rio-prettyprint
@@ -84,9 +84,9 @@ pkgbase = stack
 	depends = haskell-zlib
 	conflicts = haskell-stack
 	replaces = haskell-stack
-	source = git+https://github.com/commercialhaskell/stack.git#tag=v2.7.5
-	source = stack-ghc9-aeson2.patch
+	source = git+https://github.com/commercialhaskell/stack.git#tag=v2.9.1
+	source = stack-persistent-2.14.patch
 	sha512sums = SKIP
-	sha512sums = 28237f79cda6b062085274648a1663580bb162a665f0c45aa6c77f5965f256daa5a92138c5699f4276152cc77336fdb3e3f89c523f10050d276ae49cc19422d5
+	sha512sums = c0a3830988f878fa4c51667842dd2852523a5bc3c736353c9e7dbbf3b5be676e287393eb439f0a115a23a79fc1daa68a0c284a3a0ee133be07dbefe10a9cbb32
 
 pkgname = stack
