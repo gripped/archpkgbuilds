@@ -6,9 +6,9 @@ pkgname=(pyside6
          pyside6-tools
          shiboken6)
 _qtver=6.6.2
-_clangver=16.0.6
+_clangver=17.0.6
 pkgver=${_qtver/-/}
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(LGPL)
