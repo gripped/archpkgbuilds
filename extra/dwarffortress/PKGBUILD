@@ -4,15 +4,15 @@
 # Contributor: djnm <nmihalich [at} gmail dott com>
 
 pkgname=dwarffortress
-pkgver=50.11
+pkgver=50.12
 _pkgver=50_11
 pkgrel=1
 pkgdesc="A single-player fantasy game in which you build a dwarven outpost or play an adventurer in a randomly generated world"
 arch=('x86_64')
 url="https://www.bay12games.com/dwarves/"
 license=('custom:dwarffortress')
-depends=('libice' 'gtk3' 'glu' 'sdl' 'sdl_image' 'sdl_ttf' 'libsndfile'
-         'libsm'  'openal' 'glew' 'gcc-libs' 'glib2')
+depends=('libice' 'gtk3' 'glu' 'sdl2' 'sdl2_image' 'sdl2_mixer' 'sdl2_ttf'
+         'libsndfile' 'libsm'  'openal' 'glew' 'gcc-libs' 'glib2')
 makedepends=('git' 'cmake')
 optdepends=('nvidia-utils: If you have nvidia graphics'
             'alsa-lib: for alsa sound'
