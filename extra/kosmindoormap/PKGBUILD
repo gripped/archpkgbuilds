@@ -1,16 +1,29 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kosmindoormap
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='OSM multi-floor indoor map renderer'
 arch=(x86_64)
 url='https://www.kde.org'
-license=(LGPL)
-depends=(kpublictransport kopeninghours protobuf)
-makedepends=(extra-cmake-modules)
+license=(LGPL-2.0-or-later)
+depends=(abseil-cpp
+         gcc-libs
+         glibc
+         kcoreaddons
+         ki18n
+         kirigami
+         kopeninghours
+         kpublictransport
+         kservice
+         protobuf
+         qt6-base
+         zlib)
+makedepends=(extra-cmake-modules
+             python)
+optdepends=('qt6-declarative: QML bindings')
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('647bd4e37536502543494c8db8fcaa2f0a485c396920ee69e5238f367a48ab03'
+sha256sums=('f8877e5d0e2f881b35e897b3d58e56b9ef23aecf1ea8be0cb2f4b01cb5d73634'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
