@@ -5,14 +5,12 @@
 # Contributor: ML <neldoreth>
 
 pkgname=zathura
-pkgver=0.5.4
-pkgrel=2
-
+pkgver=0.5.5
+pkgrel=1
 pkgdesc="Minimalistic document viewer"
 url="https://pwmt.org/projects/zathura/"
 arch=('x86_64')
-license=('custom')
-
+license=('Zlib')
 makedepends=('python-sphinx' 'texlive-bin' 'meson' 'ninja' 'appstream-glib' 'check')
 checkdepends=('xorg-server-xvfb')
 depends=('girara' 'sqlite' 'desktop-file-utils' 'file' 'libsynctex' 'file' 'libseccomp')
@@ -21,22 +19,11 @@ optdepends=('zathura-djvu: DjVu support'
             'zathura-pdf-mupdf: PDF support using MuPDF'
             'zathura-ps: PostScript support'
             'zathura-cb: Comic book support')
-
-source=(zathura-$pkgver.tar.gz::https://pwmt.org/projects/zathura/download/zathura-$pkgver.tar.xz
-        fix-xvfb-run-tests.patch)
-
-sha256sums=('a3037f7aa94d4096bfd97069f62ffcdca9f06431e8663548c1cd6b945c556f32'
-            '15bf4be1a6c1dc539e2f034fa30d509d19b016ec130aaa4cbe506bf61bc343fe')
-
-prepare() {
-  # Arch's using the Fedora `xvfb` fork that deprecated the `-a` option in favor of the `-d` one.
-  # This patch makes the switch in upstream sources to prevent xvfb-run tests to fail when trying to kill the process during check().
-  # Upstream is implementing an auto-detect feature for that in the next release, so the right option will be used automatically.
-  # This patch can thus be dropped at next release.
-  # See https://git.pwmt.org/pwmt/zathura/-/issues/390#note_2321 & https://git.pwmt.org/pwmt/zathura/-/issues/390#note_2323
-  cd zathura-$pkgver
-  patch -Np1 <${srcdir}/fix-xvfb-run-tests.patch
-}
+# Temporarily switch sources while waiting for upstream to fix sources uploading on the pwmt.org website
+# See https://git.pwmt.org/pwmt/zathura/-/issues/407#note_2414
+source=(zathura-$pkgver.tar.gz::https://deb.debian.org/debian/pool/main/z/zathura/zathura_$pkgver.orig.tar.xz)
+#source=(zathura-$pkgver.tar.gz::https://pwmt.org/projects/zathura/download/zathura-$pkgver.tar.xz)
+sha256sums=('eb5d7af54bb0fc88f5f03f6be3fc3a18bfddd28d93ed9e6136bbdb8ff3baf88f')
 
 build() {
   cd zathura-$pkgver
