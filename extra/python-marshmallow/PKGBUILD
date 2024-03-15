@@ -2,29 +2,29 @@
 
 pkgname=python-marshmallow
 pkgver=3.20.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A lightweight library for converting complex datatypes to and from native Python datatypes."
 url="https://github.com/marshmallow-code/marshmallow"
 license=('MIT')
 arch=('any')
 depends=('python-packaging')
-makedepends=('python-setuptools')
+makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest' 'python-simplejson' 'python-pytz' 'python-dateutil')
-source=("https://pypi.io/packages/source/m/marshmallow/marshmallow-$pkgver.tar.gz")
-sha512sums=('fb2511929408fa6d6cec8f08019d303026a4f777154e16b8fd9037fd338bb8a90d2fd3f41afb3bc565196a612005c4a113d930527b164a7fa2c0e57cf547c339')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
+sha512sums=('8305693405a976c53333b0c6ef074a12af4736f9620ca37c7c2ec6318fac2b19086426344ce8c2f515e95becdba8b2bb1c20aca5a9dffb4145cb27fee00dc080')
 
 build() {
-  cd "$srcdir"/marshmallow-$pkgver
-  python setup.py build
+  cd marshmallow-$pkgver
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$srcdir"/marshmallow-$pkgver
+  cd marshmallow-$pkgver
   PYTHONPATH=src pytest
 }
 
 package() {
   cd marshmallow-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
