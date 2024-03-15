@@ -2,7 +2,7 @@
 
 pkgname=ocaml-integers
 pkgver=0.7.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Library for binding to C libraries using pure OCaml'
 arch=('x86_64')
 url=https://github.com/ocamllabs/ocaml-integers
