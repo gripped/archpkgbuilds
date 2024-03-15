@@ -1,17 +1,18 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-bdd
-pkgver=7.0.1
+pkgver=7.1.1
 pkgrel=1
 pkgdesc='BDD library for the pytest runner'
 arch=('any')
 license=('MIT')
 url='https://github.com/pytest-dev/pytest-bdd'
-depends=('python-mako' 'python-parse' 'python-parse-type' 'python-pytest' 'python-typing-extensions')
+depends=('python-mako' 'python-packaging' 'python-parse' 'python-parse-type' 'python-pytest'
+         'python-typing_extensions')
 makedepends=('python-build' 'python-installer' 'python-poetry-core')
 checkdepends=('python-setuptools')
 source=("https://github.com/pytest-dev/pytest-bdd/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('60d9713485a4719c6589e6641b45045e79c063278359c14ccbd016a6b0a8c8eebbf93e61d59e037988247c0116023910aa5e6776896b64dc96dcc23d0dbf6e3b')
+sha512sums=('854e923318ea6d480d11a88231be941b49ac3c16a1f00fb043c962206fb511d1a65ccd92996e820ff4aad4d5c02346aa0c6d5fd482dfe03fa8b065aedec11dd3')
 
 prepare() {
   cd pytest-bdd-$pkgver
