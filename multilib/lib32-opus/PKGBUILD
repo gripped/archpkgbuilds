@@ -5,44 +5,40 @@ pkgbase=lib32-opus
 pkgname=(
   lib32-opus
 )
-pkgver=1.4
+pkgver=1.5.1
 pkgrel=1
 pkgdesc="Totally open, royalty-free, highly versatile audio codec (32-bit)"
 url="https://www.opus-codec.org/"
 arch=(x86_64)
-license=(BSD)
+license=(BSD-3-Clause)
 depends=(
   lib32-glibc
   opus
 )
 makedepends=(
-  git
   meson
 )
-_commit=82ac57d9f1aaf575800cf17373348e45b7ce6c0d  # tags/v1.4^0
-source=("git+https://github.com/xiph/opus#commit=$_commit")
-b2sums=('SKIP')
+source=("https://downloads.xiph.org/releases/opus/opus-$pkgver.tar.gz")
+b2sums=('5ba1d6f28594f366b545507bafb22751e15a0e78e152e7cdef456dccb0bc9fc512faa18c90fb4ea5455a9535de89df987dea8a0fabce9a25c285d0c410d4b482')
 
-pkgver() {
-  cd opus
-  git describe --tags | sed 's/^v//;s/[^-]*-g/r&/;s/-/+/g'
-}
+# https://downloads.xiph.org/releases/opus/SHA256SUMS.txt
+sha256sums=('b84610959b8d417b611aa12a22565e0a3732097c6389d19098d844543e340f85')
 
 prepare() {
+  ln -s opus-$pkgver opus
   cd opus
 }
 
 build() {
   local meson_options=(
-    --libdir=/usr/lib32
+    --cross-file lib32
     -D asm=disabled
     -D custom-modes=true
     -D docs=disabled
+    -D enable-deep-plc=true
+    -D enable-dred=true
+    -D enable-osce=true
   )
-
-  export CC='gcc -m32'
-  export CXX='g++ -m32'
-  export PKG_CONFIG=i686-pc-linux-gnu-pkg-config
 
   arch-meson opus build "${meson_options[@]}"
   meson compile -C build
