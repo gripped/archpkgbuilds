@@ -1,17 +1,27 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=krecorder
-pkgver=23.08.5
+pkgver=24.02.0
 pkgrel=1
 pkgdesc='Audio recorder for Plasma Mobile and other platforms'
 url='https://apps.kde.org/krecorder/'
 arch=(x86_64)
-license=(GPL LGPL FDL)
-groups=(kde-applications kde-utilities)
-depends=(kirigami-addons5 qt5-multimedia qt5-svg ki18n5 kwindowsystem5 kconfig5 kcoreaddons5)
+license=(GPL-2.0-or-later LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kcoreaddons
+         ki18n
+         kirigami
+         kirigami-addons
+         qt6-base
+         qt6-declarative
+         qt6-multimedia
+         qt6-svg)
 makedepends=(extra-cmake-modules)
+groups=(kde-applications
+        kde-utilities)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('c8eebd51ecfd8ede258d089037ef48e65aa1aaefee6be2290dcc26758de72805'
+sha256sums=('01e9626b917828e7ddac9b020891cb0fa039d7d464a622fcb983dfe3bf02755d'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
