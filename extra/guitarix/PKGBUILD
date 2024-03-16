@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org
 
 pkgname=guitarix
-pkgver=0.45.0
+pkgver=0.46.0
 pkgrel=1
 pkgdesc="A simple mono guitar amplifier and FX for JACK using Faust"
 arch=(x86_64)
@@ -45,6 +45,7 @@ makedepends=(
   liblo
   liblrdf
   libsndfile
+  libx11
   lilv
   lv2
   pango
@@ -62,9 +63,17 @@ conflicts=(guitarix2)
 replaces=(guitarix2)
 source=(
   $pkgname-$pkgver.tar.xz::https://github.com/brummer10/guitarix/releases/download/V$pkgver/${pkgname}2-$pkgver.tar.xz
+  $pkgname-0.46.0-waf_libx11.patch::https://github.com/brummer10/guitarix/commit/af86767f3196eeb153fd62e76c61ddf7881b8959.patch
 )
-sha512sums=('be894076f5b016cb8feb243294e8277f893f7e7054c91353f1a82e9b41ef1bc8c97714c4b6cf9765ee6ab1cff91d02f3a0abe525985922dcde788011a88b9cf4')
-b2sums=('dfe65b3cdab6cf30c808b65d4d9280617d5b9b9d0227bb6b60b68ac52e64fb34903fdfb3084ebf790630b60a54cfd1f0b170b209b8dfb5c0f23f1d8084e3c342')
+sha512sums=('cdb8eccdd230bade493cf0b7fd2a6e748fcaf3c3fd6b5ed5fbd6134d08be9518c93400625d63e386b436fcef3e1738cae543256b09941445436d7f2bf41649a0'
+            '6b0632a7eccce88ee001d31b0019e432366f6aeb90d3683441e65fd1f04f92301bc5117450b35cf7cd3c66b350802f8ff334a42cc7b314481d20410aad5d363e')
+b2sums=('b650d53f4e73539419bbe194e07ee770494f80b547d407f5a269c035b91fbf3e0fe078a9e82da21f773d69395523f70fc179be7942f08e2b8689b220414c9925'
+        'd96d726be2d986a91285c0087e147f6cba646caf6dd765ca52a769910c132d862c01eed5744250be2bdfa7e0856463108410fdb69556a27760074c18bfae86f9')
+
+prepare() {
+  # fix issue with older waf: https://github.com/brummer10/guitarix/issues/151
+  patch -Np2 -d $pkgname-$pkgver -i ../$pkgname-0.46.0-waf_libx11.patch
+}
 
 build() {
   local waf_options=(
@@ -77,6 +86,8 @@ build() {
   )
 
   export LINKFLAGS="$LDFLAGS"
+
+  cd $pkgname-$pkgver
   waf configure "${waf_options[@]}"
   waf build -vv
 }
@@ -100,6 +111,7 @@ package() {
     zita-resampler libzita-resampler.so
   )
 
+  cd $pkgname-$pkgver
   waf install --destdir="$pkgdir"
   # docs
   install -vDm 644 {changelog,README} -t "$pkgdir/usr/share/doc/$pkgname/"
