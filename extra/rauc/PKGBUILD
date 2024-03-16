@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=rauc
-pkgver=1.11.2
+pkgver=1.11.3
 pkgrel=1
 pkgdesc="Safe and secure software updates for embedded Linux"
 arch=(x86_64)
@@ -36,11 +36,16 @@ optdepends=(
   'squashfs-tools: for creating and inspecting bundles'
   'uboot-tools: for u-boot support'
 )
-source=(https://github.com/rauc/rauc/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz{,.asc})
-sha512sums=('a2dbb79c07119a1e2bf74d9871336450a3853f5930623c1aafa993716e4c7dae7c10599c5f6313dc2adc4efb5be355a26dec39609b0ce60435a9f31aaa3db542'
-            'SKIP')
-b2sums=('30e02170aaab82b141a85bbc92aaf562984d6469ee48663c01dd91f8ea383663e327001e26e648543ff67c7d9a8dda865a9f086f80120e2e8c25a8d5dec71348'
-        'SKIP')
+source=(
+  https://github.com/rauc/rauc/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz{,.asc}
+  $pkgname.tmpfiles
+)
+sha512sums=('3ba3050045bfc14ba93f5f13e1257e2fa486039e9fcd76fafa2604daf5955e67cadabf2d178e6ecd025e9b683a41677694fff15c0f1b9c48ffa08bb012bc8887'
+            'SKIP'
+            '35173525a8529c4d5a227186db353107193bf8cdd3e8ab0cd94c418b34187be50fe379bcabf623bfddbf1916e8e7e965800a269e823f7ee9c26f44ac1f689c94')
+b2sums=('da488d23d28b66e20cf69d2d9465612ca8a22faaf4a77676303d1363807e90b3f77294a63a3f1b71e7bf90801ddcba231e416d93bfd9be8a23505fefeab0e253'
+        'SKIP'
+        'e970b292f89cf4663b4ea318965444dc9bb47ef5f937143f180a372c5906f534e7c2f234dfa824b70434011069ea7758e4d6c8afd73dd5c4d92337da7e281eca')
 validpgpkeys=("977843FD5C3EBF76BAD4008EA58CC53DBF05E090")  # Jan Lübbe <jlu@pengutronix.de>
 
 build() {
@@ -75,4 +80,5 @@ package() {
   meson install -C build --destdir "$pkgdir"
   install -vdm 755 "$pkgdir/etc/$pkgname/"
   install -vDm 644 $pkgname-$pkgver/contrib/{grub.conf,uboot.sh} -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 $pkgname.tmpfiles "$pkgdir/usr/lib/tmpfiles.d/$pkgname.conf"
 }
