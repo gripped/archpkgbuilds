@@ -2,7 +2,7 @@
 
 pkgname=crane
 _pkgname=go-containerregistry
-pkgver=0.19.0
+pkgver=0.19.1
 pkgrel=1
 pkgdesc="Interacting with remote container images and registries."
 arch=('x86_64')
@@ -11,8 +11,8 @@ license=('Apache-2.0')
 depends=('glibc')
 makedepends=('go')
 source=(https://github.com/google/${_pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('c07dca10f60339d03e3a690daae8512741e9a2bc23c0bcb3104b9892b43179ae')
-b2sums=('1fd92a45b0669f695d6c8f99f53a2cf3e63f3407e73cac348246e491140f81b19dc017ad7795222275d9b9084627a51b334bdf9310774a1241af19f6fd61fa8d')
+sha256sums=('2a03430b0c9a8cf3fdfde2608aed99f851e5c57dfed8246bcc637d03a7ab0048')
+b2sums=('69bcda1da73504fe7635114c80d65a131ec65b8e0e2ab5a5f4944e116285c34a828bb1a46be4f57d6cbbbcd0f815cba405bb574267cd2452203acdcaf2b054a9')
 
 build() {
   cd ${_pkgname}-${pkgver}
