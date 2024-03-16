@@ -2,7 +2,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=folks
-pkgver=0.15.7
+pkgver=0.15.8
 pkgrel=1
 pkgdesc="Library to aggregates people into metacontacts"
 url="https://wiki.gnome.org/Projects/Folks"
@@ -26,10 +26,12 @@ provides=(
   libfolks.so
   libfolks-{dummy,eds}.so
 )
-options=(!lto)
-_commit=fd570fa84f2e5e549187490ee89a9b77e9371785  # tags/0.15.7^0
+options=(
+  !lto # LTO copies some GType constructors
+)
+_commit=554fca9ae1e37d0a5723f1d4ca8701b75c691a68  # tags/0.15.8^0
 source=("git+https://gitlab.gnome.org/GNOME/folks.git#commit=$_commit")
-b2sums=('SKIP')
+b2sums=('6285dba30fc4a78d4df533345946528fe601eafccf6899edd4d317efef0e3caca53a830ac3e8fd528882a99817fd90fdcdd37d2f0b286d22f1cf4a8f9674ae84')
 
 pkgver() {
   cd folks
@@ -38,14 +40,10 @@ pkgver() {
 
 prepare() {
   cd folks
-
-  # Fix tests: python-dbusmock 0.30.1+ dropped the class_ parameter again
-  git revert -n b6b7d41aad9e36e0d0e6ec9822ed2e310923c8fd
 }
 
 build() {
   local meson_options=(
-    -D b_lto=false  # LTO copies some GType constructors
     -D docs=true
     -D profiling=true
     -D telepathy_backend=false
