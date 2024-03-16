@@ -4,7 +4,7 @@
 pkgbase=kid3
 pkgname=('kid3-common' 'kid3-qt' 'kid3')
 pkgver=3.9.5
-pkgrel=2
+pkgrel=3
 pkgdesc="An MP3, Ogg/Vorbis and FLAC tag editor"
 arch=('x86_64')
 url="https://kid3.kde.org/"
@@ -13,10 +13,16 @@ depends=('chromaprint' 'flac' 'id3lib' 'kxmlgui' 'libmp4v2'
          'qt6-declarative' 'qt6-multimedia' 'taglib' 'kio')
 makedepends=('cmake' 'docbook-xsl' 'extra-cmake-modules' 'kdoctools' 'python' 'qt6-tools' 'clang')
 changelog=$pkgbase.changelog
-source=(https://prdownloads.sourceforge.net/$pkgbase/$pkgbase-$pkgver.tar.gz{,.sig})
+source=(https://prdownloads.sourceforge.net/$pkgbase/$pkgbase-$pkgver.tar.gz{,.sig}
+        https://invent.kde.org/multimedia/kid3/-/commit/b3c65a8c.patch)
 validpgpkeys=('7D09794C2812F62194B081C14CAD34426E354DD2') # Urs Fleisch
 sha256sums=('d68f6e1d7b794b991b57bf976edb8e22d3457911db654ad1fb9b124cc62057f9'
-            'SKIP')
+            'SKIP'
+            'd5502567094c6331b5192775e58920ce0d92235f9de3c72d3736af7abd082523')
+
+prepare() {
+  patch -d $pkgbase-$pkgver -p1 < b3c65a8c.patch # Fix rc install dir
+}
 
 build() {
   export CXXFLAGS+=' -DNDEBUG' # FS#69904
@@ -39,7 +45,7 @@ package_kid3-common() {
   make -C build DESTDIR="${pkgdir}" install
 
   rm -r "$pkgdir"/usr/bin/kid3{,-qt} \
-        "$pkgdir"/usr/share/{applications,icons,kxmlgui6,metainfo}
+        "$pkgdir"/usr/share/{applications,icons,kxmlgui5,metainfo}
 }
 
 package_kid3-qt() {
