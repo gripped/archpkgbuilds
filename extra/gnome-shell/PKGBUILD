@@ -1,10 +1,10 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 # Contributor: Flamelab <panosfilip@gmail.com
 
 pkgname=gnome-shell
-pkgver=45.4
+pkgver=45.5
 pkgrel=1
 epoch=1
 pkgdesc="Next generation desktop shell"
@@ -13,22 +13,45 @@ arch=(x86_64)
 license=(GPL-3.0-or-later)
 depends=(
   accountsservice
+  at-spi2-core
+  bash
+  cairo
+  dconf
+  gcc-libs
   gcr-4
+  gdk-pixbuf2
   gjs
+  glib2
+  glibc
   gnome-autoar
+  gnome-desktop-4
   gnome-session
   gnome-settings-daemon
+  graphene
   gsettings-desktop-schemas
   gtk4
+  hicolor-icon-theme
+  json-glib
   libadwaita
   libcanberra-pulse
   libgdm
+  libgirepository
+  libglvnd
   libgweather-4
   libibus
+  libical
+  libnm
   libnma-gtk4
+  libpipewire
+  libpulse
   libsecret
   libsoup3
+  libx11
+  libxfixes
   mutter
+  pango
+  polkit
+  systemd-libs
   unzip
   upower
 )
@@ -57,10 +80,11 @@ optdepends=(
   'gst-plugins-good: Screen recording'
   'power-profiles-daemon: Power profile switching'
   'python-gobject: gnome-shell-test-tool performance tester'
+  'python-simplejson: gnome-shell-test-tool performance tester'
   'switcheroo-control: Multi-GPU support'
 )
 groups=(gnome)
-_commit=58522920b5ae96d2b95dad0371ce13eb4bd955ce  # tags/45.4^0
+_commit=97fa46130bc35733ea88f6591705081a343e7d18  # tags/45.5^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-shell.git#commit=$_commit"
   "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git"
@@ -70,7 +94,7 @@ b2sums=('SKIP'
 
 pkgver() {
   cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {
@@ -93,19 +117,15 @@ build() {
   meson compile -C build
 }
 
-_check() (
+check() (
   export XDG_RUNTIME_DIR="$PWD/rdir"
   mkdir -p -m 700 "$XDG_RUNTIME_DIR"
 
   export NO_AT_BRIDGE=1 GTK_A11Y=none
 
-  meson test -C build --print-errorlogs -t 3
-)
-
-check() {
   dbus-run-session xvfb-run -s '-nolisten local +iglx -noreset' \
-    bash -c "$(declare -f _check); _check"
-}
+    meson test -C build --print-errorlogs -t 3
+)
 
 package() {
   depends+=(libmutter-13.so)
