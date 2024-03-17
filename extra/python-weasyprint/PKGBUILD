@@ -4,8 +4,7 @@
 
 pkgname=python-weasyprint
 pkgver=61.2
-_commit=cfd2e308aa67ea15ef93ca0c843888b6f6ee205f
-pkgrel=1
+pkgrel=2
 pkgdesc='Utility to render HTML and CSS to PDF'
 arch=('any')
 url='https://weasyprint.org/'
@@ -36,14 +35,8 @@ checkdepends=(
   'ghostscript'
   'ttf-dejavu'
 )
-source=("$pkgname::git+https://github.com/Kozea/WeasyPrint.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+https://github.com/Kozea/WeasyPrint.git#tag=v$pkgver")
+sha256sums=('80d52ac97afb02393c5ab363eed543f9e2f8c1f77cc446dd6bc544bd2cbdbe3c')
 
 prepare() {
   cd "$pkgname"
