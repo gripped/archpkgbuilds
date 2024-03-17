@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=tmuxp
-pkgver=1.40.0
+pkgver=1.43.0
 pkgrel=1
 pkgdesc="Tmux session manager built on libtmux"
 arch=(any)
@@ -35,8 +35,8 @@ optdepends=(
   # TODO: package ptpython for additional alternative CLI
 )
 source=($pkgname-$pkgver.tar.gz::$_url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('6e8564ed2b57122772f1c7b73425b49b6d521141b8e4a3ff6b65d3fb57e6952dfdbb90941242d6d5d8fff70bf7a4533e60ec3dc0abae39637366f035aa237984')
-b2sums=('ab2e6c08ea328e622713e355ff30e9781f2487b9a762ebd7c36195cd8522eee9eab70d66736a1f687e6336f317fdd556d8ee45e9921bd9b1b501189b540e92bb')
+sha512sums=('2dec0c941e919258fd884374fe89cf8e558483a50d53a4c6e3148f7639057aa365a959c062ea6929301dcd893b8a6794c002102f030d77fb904eeaa31ec30edd')
+b2sums=('ebaa230723288a37334ee55c9b615610d66aacc5b01d6bf70576de38e9aa1ecc29a7d26299b55880e9ede403855304de080ddec6a16798a269d6bb8d4629498c')
 
 build() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
