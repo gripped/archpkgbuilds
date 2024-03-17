@@ -2,35 +2,38 @@
 # Maintainer: Maxim Baz <archlinux at maximbaz dot com>
 
 pkgname=waybar
-pkgver=0.9.24
-pkgrel=3
+pkgver=0.10.0
+pkgrel=1
 pkgdesc='Highly customizable Wayland bar for Sway and Wlroots based compositors'
 arch=('x86_64')
 url="https://github.com/Alexays/Waybar/"
 license=('MIT')
 depends=(
-    'gtkmm3'
-    'libjsoncpp.so'
-    'libsigc++'
     'fmt'
-    'jack' 'libjack.so'
-    'wayland'
-    'libdate-tz.so'
-    'libspdlog.so'
     'gtk-layer-shell'
-    'libupower-glib.so'
-    'upower'
-    'libevdev'
-    'libinput'
-    'libpulse'
-    'libnl'
-    'libappindicator-gtk3'
+    'gtkmm3'
+    'jack' 'libjack.so'
+    'libatkmm-1.6.so'
+    'libcairomm-1.0.so'
     'libdbusmenu-gtk3'
+    'libevdev'
+    'libgtk-3.so'
+    'libinput'
+    'libjsoncpp.so'
     'libmpdclient'
+    'libnl'
+    'libpipewire-0.3.so'
+    'libpulse'
+    'libsigc++'
     'libsndio.so'
-    'libxkbcommon'
+    'libspdlog.so'
+    'libudev.so'
+    'libupower-glib.so'
     'libwireplumber'
+    'libxkbcommon'
     'playerctl'
+    'upower'
+    'wayland'
 )
 makedepends=(
     'cmake'
@@ -40,14 +43,14 @@ makedepends=(
     'wayland-protocols'
 )
 backup=(
-    etc/xdg/waybar/config
+    etc/xdg/waybar/config.jsonc
     etc/xdg/waybar/style.css
 )
 optdepends=(
     'otf-font-awesome: Icons in the default configuration'
 )
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Alexays/Waybar/archive/$pkgver.tar.gz")
-b2sums=('15774a78f2f7bb85d497e7f80a968b775bb42d285d0950e8e384962c6b947ea895eea2b30c0aba7ca671595ce59acd65e66cf8b67f2478ecad7564de50e4bfe6')
+b2sums=('f27a61662444cb0d91ecb5c860271939ba81813af4d005a3297f9996fab5edd54df2e4a126aa33edf9049e2d91d301a03f6352e25eb9c86ffb003b0b238e9015')
 
 build() {
     cd "Waybar-$pkgver"
