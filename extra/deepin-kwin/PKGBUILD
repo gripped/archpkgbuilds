@@ -3,15 +3,15 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-kwin
-pkgver=5.25.15
-pkgrel=3
+pkgver=5.25.16
+pkgrel=1
 pkgdesc='DDE window manager forked from KWin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-kwin"
 license=('GPL3')
 depends=(qt5-declarative qt5-x11extras kconfig5 kconfigwidgets5 kcoreaddons5 kdbusaddons5 kdeclarative5
          kglobalaccel5 ki18n5 kidletime5 knotifications5 kcrash5 kpackage5 plasma-framework5 libepoxy
-         kwidgetsaddons5 kwindowsystem5 kcompletion5 kcmutils5 knewstuff5 krunner5 kservice5 ktextwidgets5 kxmlgui5
+         kwidgetsaddons5 kwindowsystem5 kcompletion5 kcmutils5 knewstuff5 kservice5 ktextwidgets5 kxmlgui5
          breeze dwayland xcb-util-cursor xorg-xwayland libpipewire libkscreen5 kdecoration5 kscreenlocker5 qt5-wayland
          lcms2 libqaccessibilityclient-qt5 qt5-quickcontrols python fontconfig freetype2 libcap
          systemd-libs kauth5 bash kactivities5 libxkbcommon libxss libxi libinput xcb-util-wm wayland
@@ -19,7 +19,7 @@ depends=(qt5-declarative qt5-x11extras kconfig5 kconfigwidgets5 kcoreaddons5 kdb
 makedepends=(extra-cmake-modules kdoctools5 ninja qt5-tools wayland-protocols
              deepin-wayland-protocols)
 source=("https://github.com/linuxdeepin/deepin-kwin/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('50908fa75e393eac426ddc7b8e7a505c0038217904f4ac221d666f5e7772ae5477fec1b0187f41153a830285acc616888ab6f3f004f0c922dfa11be522f8dd3b')
+sha512sums=('049217cd1fadc2e621983d9be4d7a4e81e154a983da1e71196ceadf29abe694389f029d7891409e995696923fea5b8f2f0f3ceb990ede7d70a5e7c82c8078877')
 
 prepare() {
   cd deepin-kwin-$pkgver
@@ -31,7 +31,8 @@ build() {
   cd deepin-kwin-$pkgver
   cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=lib \
     -DKScreenLocker_ROOT=/usr/lib/cmake/plasma5 \
-    -DKDecoration2_ROOT=/usr/lib/cmake/plasma5
+    -DKDecoration2_ROOT=/usr/lib/cmake/plasma5 \
+    -DKWIN_BUILD_RUNNERS=OFF
   ninja
 }
 
