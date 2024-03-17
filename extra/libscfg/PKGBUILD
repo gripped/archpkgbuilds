@@ -2,7 +2,7 @@
 
 pkgname=libscfg
 pkgver=0.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A C library for scfg"
 arch=(x86_64)
 url="https://git.sr.ht/~emersion/libscfg"
@@ -28,5 +28,5 @@ package() {
     DESTDIR="$pkgdir" ninja -C build install
     cd "$pkgname-$pkgver"
     install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
-    install -Dm644 README.md "$pkgdir/usr/share/docs/$pkgname"
+    install -Dm644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
 }
