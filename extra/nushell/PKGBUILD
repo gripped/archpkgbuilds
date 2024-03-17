@@ -6,8 +6,7 @@
 
 pkgname=nushell
 pkgver=0.91.0
-_commit=3016d7a64ccb2c2eac9f735f6144fc896ea724a5
-pkgrel=1
+pkgrel=2
 pkgdesc='A new type of shell'
 arch=('x86_64')
 url='https://www.nushell.sh'
@@ -21,14 +20,8 @@ depends=(
 )
 makedepends=('cargo' 'git')
 install=nushell.install
-source=("git+https://github.com/nushell/nushell.git#commit=$_commit")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("git+https://github.com/nushell/nushell.git#tag=$pkgver")
+sha256sums=('94f04621bd230b2c816ff98c6a81f784dcc67dcd966f7653b2908ad5044e182e')
 
 prepare() {
   cd "$pkgname"
