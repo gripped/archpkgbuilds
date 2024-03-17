@@ -6,7 +6,7 @@
 
 pkgname=mc
 pkgver=4.8.31
-pkgrel=2
+pkgrel=3
 pkgdesc='A file manager that emulates Norton Commander'
 arch=('x86_64')
 url='https://midnight-commander.org/'
@@ -55,17 +55,8 @@ backup=(
   'etc/mc/sfs.ini'
 )
 options=('!emptydirs')
-_commit='953c10134767853a39e95caf9b04c7431f65d0e5'
-source=(
-  "git+https://github.com/MidnightCommander/mc#commit=$_commit"
-)
-sha256sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("git+https://github.com/MidnightCommander/mc#tag=$pkgver")
+sha256sums=('70a9fa0da9da13b82e6a612f132626bba4d685078a74884d8d0f2b6abdf317e1')
 
 prepare() {
   cd "$pkgname"
