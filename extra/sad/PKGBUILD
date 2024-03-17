@@ -6,7 +6,7 @@
 
 pkgname=sad
 pkgver=0.4.23
-pkgrel=2
+pkgrel=3
 pkgdesc='Space Age seD'
 arch=('x86_64')
 url='https://github.com/ms-jpq/sad'
@@ -27,7 +27,7 @@ optdepends=(
 )
 options=('!lto')
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha256sums=('SKIP')
+sha256sums=('5b355df4469e54d5a7e8d1ac54aa7284269175e07c8788e7e0f232fe8e81da46')
 
 prepare() {
   cd "$pkgname"
