@@ -1,14 +1,15 @@
 pkgbase = dust
 	pkgdesc = A more intuitive version of du in rust
 	pkgver = 0.9.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/bootandy/dust
 	arch = x86_64
-	license = Apache
+	license = Apache-2.0
+	makedepends = cargo
 	makedepends = git
-	makedepends = rust
 	depends = gcc-libs
-	source = dust::git+https://github.com/bootandy/dust#commit=fead40b6283255173345e3742c22e74f3dd30673
-	b2sums = SKIP
+	depends = glibc
+	source = dust::git+https://github.com/bootandy/dust#tag=v0.9.0
+	sha256sums = a7abd4d9f10beb72dbb6b45ca7fe7be1d3bc7cf276d9cf71c0eb4d7e96e63538
 
 pkgname = dust

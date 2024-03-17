@@ -4,32 +4,20 @@
 
 pkgname=dust
 pkgver=0.9.0
-_commit='fead40b6283255173345e3742c22e74f3dd30673'
-pkgrel=1
+pkgrel=2
 pkgdesc='A more intuitive version of du in rust'
 arch=('x86_64')
 url='https://github.com/bootandy/dust'
-license=('Apache')
-depends=('gcc-libs')
-makedepends=('git' 'rust')
-source=("$pkgname::git+$url#commit=$_commit")
-b2sums=('SKIP')
+license=('Apache-2.0')
+depends=('gcc-libs' 'glibc')
+makedepends=('cargo' 'git')
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha256sums=('a7abd4d9f10beb72dbb6b45ca7fe7be1d3bc7cf276d9cf71c0eb4d7e96e63538')
 
 prepare() {
   cd "$pkgname"
 
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-}
-
-_pkgver() {
-  curl -fs https://api.github.com/repos/bootandy/$pkgname/git/ref/tags/v$pkgver |
-    jq -r .object.sha
-}
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
 }
 
 build() {
