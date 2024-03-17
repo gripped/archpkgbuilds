@@ -5,8 +5,7 @@
 
 pkgname=elvish
 pkgver=0.20.1
-_commit='663e5e6614ecb360ea21577aa30a19cb6b3be530'
-pkgrel=2
+pkgrel=3
 pkgdesc='Versatile interactive shell & powerful scripting language in one'
 arch=('x86_64')
 url="https://elv.sh"
@@ -15,16 +14,10 @@ depends=('glibc')
 makedepends=('git' 'go')
 install="$pkgname.install"
 options=('!lto')
-source=("$pkgname::git+https://github.com/elves/elvish.git#commit=$_commit")
-b2sums=('SKIP')
+source=("$pkgname::git+https://github.com/elves/elvish.git#tag=v$pkgver")
+sha256sums=('SKIP')
 
 _variant="archlinux$pkgrel"
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
 
 prepare() {
   cd "$pkgname"
