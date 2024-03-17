@@ -4,8 +4,8 @@
 pkgbase=kvantum
 pkgname=(kvantum
          kvantum-qt5)
-pkgver=1.0.10
-pkgrel=3
+pkgver=1.1.0
+pkgrel=1
 pkgdesc='SVG-based theme engine for Qt6 (including config tool and extra themes)'
 arch=(x86_64)
 url='https://github.com/tsujan/Kvantum'
@@ -18,33 +18,28 @@ makedepends=(cmake
              qt5-svg
              qt5-tools
              qt5-x11extras
+             kwindowsystem
              qt6-svg
              qt6-tools)
 source=(https://github.com/tsujan/Kvantum/releases/download/V$pkgver/Kvantum-$pkgver.tar.xz{,.asc})
-sha256sums=('4a070a1a6fac3d1861010aa44d34e665e4697bc64c4c5015a6448203c31f1f1f'
+sha256sums=('bfc5d97630c87e5b21ccab86efbc3511105c61829a75798923ec2274b7d5cd32'
             'SKIP')
 validpgpkeys=(19DFDF3A579BD509DBB572D8BE793007AD22DF7E) # Pedram Pourang <tsujan2000@gmail.com>
 
-prepare() {
-  # Fix Qt6 build with Qt5 installed
-  sed -e 's|Qt6 Qt5|Qt6|' -i Kvantum-$pkgver/Kvantum/*/CMakeLists.txt
-  # Build manager with Qt6
-  sed -e 's|if(ENABLE_QT5)|if(TRUE)|' -i Kvantum-$pkgver/Kvantum/CMakeLists.txt
-}
-
 build() {
   cmake -B build5 -S Kvantum-$pkgver/Kvantum \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DENABLE_QT5=ON
   make -C build5
 
   cmake -B build6 -S Kvantum-$pkgver/Kvantum \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DENABLE_QT5=OFF
+    -DCMAKE_INSTALL_PREFIX=/usr
   make -C build6
 }
 
 package_kvantum() {
-  depends+=(qt6-base
+  depends+=(kwindowsystem
+            qt6-base
             qt6-svg)
   optdepends=('kvantum-qt5: Qt5 style')
 
