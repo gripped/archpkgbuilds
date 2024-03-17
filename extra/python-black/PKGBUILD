@@ -3,7 +3,7 @@
 # Contributor: James Zhu <jameszhu@berkeley.edu>
 
 pkgname=python-black
-pkgver=24.2.0
+pkgver=24.3.0
 pkgrel=1
 pkgdesc='Uncompromising Python code formatter'
 arch=('any')
@@ -20,7 +20,7 @@ optdepends=('ipython: for Jupyter notebook support'
             'python-aiohttp: for the blackd HTTP server'
             'python-colorama: for colored diffs')
 source=("https://files.pythonhosted.org/packages/source/b/black/black-$pkgver.tar.gz")
-b2sums=('4533768f508408dbdcca72db4600ddf244cddadd985e960cd7292809ebc0e2ed7f89aeab1f9af84e17a58d232f19b146980b79804f9cf3036bf757464737022a')
+b2sums=('9a853a0943ba081ecb7a4c22913b060607ac47fb90b70a9645358d681f3eab55707ad6fe9ad9928ba0d39a8adf5dfde0168598a8abcc24b823b407287cefaf82')
 
 build() {
   cd "black-$pkgver"
