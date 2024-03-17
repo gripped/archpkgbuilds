@@ -1,7 +1,7 @@
 pkgbase = gnome-control-center
 	pkgdesc = GNOME's main interface to configure various aspects of the desktop
 	pkgver = 45.3
-	pkgrel = 1
+	pkgrel = 2
 	url = https://gitlab.gnome.org/GNOME/gnome-control-center
 	arch = x86_64
 	groups = gnome
@@ -21,9 +21,11 @@ pkgbase = gnome-control-center
 	depends = cups-pk-helper
 	depends = dconf
 	depends = fontconfig
+	depends = gcc-libs
 	depends = gcr
 	depends = gdk-pixbuf2
 	depends = glib2
+	depends = glibc
 	depends = gnome-bluetooth-3.0
 	depends = gnome-color-manager
 	depends = gnome-desktop-4
@@ -74,9 +76,11 @@ pkgbase = gnome-control-center
 	optdepends = system-config-printer: printer settings
 	source = git+https://gitlab.gnome.org/GNOME/gnome-control-center.git#commit=4e107fa21250416812d64da8cf32946babb7728d
 	source = git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git
-	source = pixmaps-dir.diff
+	source = 0001-info-overview-Install-bare-logos-into-pixmaps-not-ic.patch
+	source = 0002-subprojects-Update-gvc-to-latest-commit.patch
 	b2sums = SKIP
 	b2sums = SKIP
-	b2sums = a133d524de9e8a2a27b61dd68b95238fa916c30d60e092f7ed3a371edb1e4ca233f46941d004dbfa2b8c13f464dab2e2729bb023ddd0e8c4d7e147b11e8e82ef
+	b2sums = ae1401e0811658e10ff2317065aace8d4172530a322a4f71639737c6bc07621fdb9dae23ccabbee8a57cb00cadf93ea9c2cef2948aee432e2202dff070a95e4b
+	b2sums = 587186a917094d98abb79adc031b463fb33d5f06f441b1895804510e13f83e8bfed2d9cebd6b013e2674f83c829cef4be97bda7dbd8d9ff5bf56d72235a0df6c
 
 pkgname = gnome-control-center

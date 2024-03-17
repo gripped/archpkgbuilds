@@ -1,10 +1,10 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-control-center
 pkgver=45.3
-pkgrel=1
+pkgrel=2
 pkgdesc="GNOME's main interface to configure various aspects of the desktop"
 url="https://gitlab.gnome.org/GNOME/gnome-control-center"
 license=(GPL-2.0-or-later)
@@ -17,9 +17,11 @@ depends=(
   cups-pk-helper
   dconf
   fontconfig
+  gcc-libs
   gcr
   gdk-pixbuf2
   glib2
+  glibc
   gnome-bluetooth-3.0
   gnome-color-manager
   gnome-desktop-4
@@ -93,22 +95,28 @@ _commit=4e107fa21250416812d64da8cf32946babb7728d  # tags/45.3^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-control-center.git#commit=$_commit"
   "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git"
-  pixmaps-dir.diff
+  0001-info-overview-Install-bare-logos-into-pixmaps-not-ic.patch
+  0002-subprojects-Update-gvc-to-latest-commit.patch
 )
 b2sums=('SKIP'
         'SKIP'
-        'a133d524de9e8a2a27b61dd68b95238fa916c30d60e092f7ed3a371edb1e4ca233f46941d004dbfa2b8c13f464dab2e2729bb023ddd0e8c4d7e147b11e8e82ef')
+        'ae1401e0811658e10ff2317065aace8d4172530a322a4f71639737c6bc07621fdb9dae23ccabbee8a57cb00cadf93ea9c2cef2948aee432e2202dff070a95e4b'
+        '587186a917094d98abb79adc031b463fb33d5f06f441b1895804510e13f83e8bfed2d9cebd6b013e2674f83c829cef4be97bda7dbd8d9ff5bf56d72235a0df6c')
 
 pkgver() {
   cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {
   cd $pkgname
 
   # Install bare logos into pixmaps, not icons
-  git apply -3 ../pixmaps-dir.diff
+  git apply -3 ../0001-info-overview-Install-bare-logos-into-pixmaps-not-ic.patch
+
+  # Update libgnome-volume-control
+  # Related to https://gitlab.archlinux.org/archlinux/packaging/packages/gnome-shell/-/issues/3
+  git apply -3 ../0002-subprojects-Update-gvc-to-latest-commit.patch
 
   git submodule init subprojects/gvc
   git submodule set-url subprojects/gvc "$srcdir/libgnome-volume-control"
