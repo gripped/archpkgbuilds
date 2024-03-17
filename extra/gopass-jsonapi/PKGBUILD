@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=gopass-jsonapi
-pkgver=1.15.11
+pkgver=1.15.12
 pkgrel=1
 pkgdesc="jsonapi for gopass used for bridging to browsers"
 arch=('x86_64')
@@ -12,12 +12,14 @@ depends=('glibc')
 makedepends=('go')
 options=('!lto')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/gopasspw/gopass-jsonapi/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('7231edc6bf6a529761a193fda40fdf254ffdaab6853d9a265d4d7ff3fcdc08fb418f9c4f1a05f32180eccde5add1a5276fa01133fc90a61c57c4c9793a9abc3a')
+sha512sums=('2985c1c67f73e8c693ffb08d8e29de58eb1e252da18007da4dfb607c94ffb2cfe79ea6c9caa7c9aebf26835851ef5baacf3fa2a69fbd3b34d05a82df123b52c4')
 
 prepare(){
   cd ${pkgname}-${pkgver}
   sed -i 's|-gcflags="-trimpath=$(GOPATH)" -asmflags="-trimpath=$(GOPATH)"||' Makefile
   sed -i 's/install-completion//g' Makefile
+  # TODO(gromit): remove on next release, see https://github.com/gopasspw/gopass/commit/db55255efd4404492d9453b8cb5983b9794759da
+  go mod tidy
 }
 
 build(){
@@ -26,7 +28,7 @@ build(){
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+  export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
   make
 }
 
