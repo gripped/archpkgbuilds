@@ -7,7 +7,7 @@ pkgbase=lib32-librsvg
 pkgname=(
   lib32-librsvg
 )
-pkgver=2.57.2
+pkgver=2.57.3
 pkgrel=1
 epoch=2
 pkgdesc="SVG rendering library (32-bit)"
@@ -31,11 +31,11 @@ makedepends=(
   rust
 )
 checkdepends=(ttf-dejavu)
-_commit=a61c1719e429b80d3524d60e3828da272b389daf  # tags/2.57.2^0
+_commit=b6fac21431c932e856d6493502643d20b42e4ad1  # tags/2.57.3^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/librsvg.git#commit=$_commit"
 )
-b2sums=('SKIP')
+b2sums=('170423dff1e4c0968e23ffc25332b05b1078bc316ff4939f07a07f5e25b509564b8f2a0b0950aa8d9970e36b702fea346168c72d7ccd8e2c5d58b9dfc3ba4127')
 
 pkgver() {
   cd librsvg
