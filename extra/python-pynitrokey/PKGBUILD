@@ -1,10 +1,10 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 _name=pynitrokey
 pkgname=python-pynitrokey
-_commit=2fe68f7c2a2e1cebd23f168d2748e16a640e6142  # v0.4.45
 pkgver=0.4.45
-pkgrel=1
+pkgrel=2
 pkgdesc="A command line interface for the Nitrokey FIDO2 and Nitrokey Start"
 arch=(any)
 url="https://github.com/Nitrokey/pynitrokey"
@@ -32,7 +32,7 @@ depends=(
   python-spsdk
   python-tlv8
   python-tqdm
-  python-typing-extensions
+  python-typing_extensions
 )
 makedepends=(
   git
@@ -46,18 +46,10 @@ optdepends=(
   'python-libusb1: for pro and storage subcommands'
   'python-pyscard: for pcsclite integration'
 )
-source=("git+$url#tag=$_commit?signed")
-sha512sums=('SKIP')
-b2sums=('SKIP')
-validpgpkeys=(
-  868184069239FF65DE0BCD7DD9BAE35991DE5B22  # Szczepan Zalega (Nitrokey) <szczepan@nitrokey.com>
-  719EA31C3F1814DA787C8FD434F47D2F044B8F17  # Robin Krahl <robin@nitrokey.com>
-)
-
-pkgver() {
-  cd $_name
-  git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/v//g'
-}
+source=("git+$url.git?signed#tag=v$pkgver")
+sha256sums=('b05edf236bb3adf5c3cf2cc74814f11c14b35579118dc7fa7bc9a2af7f67c5e7')
+validpgpkeys=(868184069239FF65DE0BCD7DD9BAE35991DE5B22  # Szczepan Zalega (Nitrokey) <szczepan@nitrokey.com>
+              719EA31C3F1814DA787C8FD434F47D2F044B8F17) # Robin Krahl <robin@nitrokey.com>
 
 build() {
   cd $_name

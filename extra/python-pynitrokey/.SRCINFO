@@ -1,7 +1,7 @@
 pkgbase = python-pynitrokey
 	pkgdesc = A command line interface for the Nitrokey FIDO2 and Nitrokey Start
 	pkgver = 0.4.45
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/Nitrokey/pynitrokey
 	arch = any
 	license = Apache-2.0 OR MIT
@@ -33,13 +33,12 @@ pkgbase = python-pynitrokey
 	depends = python-spsdk
 	depends = python-tlv8
 	depends = python-tqdm
-	depends = python-typing-extensions
+	depends = python-typing_extensions
 	optdepends = python-libusb1: for pro and storage subcommands
 	optdepends = python-pyscard: for pcsclite integration
-	source = git+https://github.com/Nitrokey/pynitrokey#tag=2fe68f7c2a2e1cebd23f168d2748e16a640e6142?signed
+	source = git+https://github.com/Nitrokey/pynitrokey.git?signed#tag=v0.4.45
 	validpgpkeys = 868184069239FF65DE0BCD7DD9BAE35991DE5B22
 	validpgpkeys = 719EA31C3F1814DA787C8FD434F47D2F044B8F17
-	sha512sums = SKIP
-	b2sums = SKIP
+	sha256sums = b05edf236bb3adf5c3cf2cc74814f11c14b35579118dc7fa7bc9a2af7f67c5e7
 
 pkgname = python-pynitrokey
