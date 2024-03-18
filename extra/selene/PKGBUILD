@@ -3,22 +3,22 @@
 
 pkgname=selene
 pkgver=0.26.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Blazing-fast modern Lua linter written in Rust'
 arch=('x86_64')
 url=https://github.com/Kampfkarren/selene
-license=('MPL2')
-depends=('gcc-libs' 'openssl')
-makedepends=('git' 'rust')
+license=('MPL-2.0')
+depends=('gcc-libs' 'glibc' 'openssl')
+makedepends=('cargo' 'git')
 conflicts=("$pkgname-linter")
 replaces=("$pkgname-linter")
 options=('!lto')
 source=("git+$url.git#tag=$pkgver")
-b2sums=('SKIP')
+sha256sums=('8be41da0ee68dfc3d4a464b7ecb248984a39b72b0c05b11ffa62e6a1421f7e69')
 
 prepare() {
   cd $pkgname
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
