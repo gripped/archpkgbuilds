@@ -5,11 +5,11 @@
 
 pkgname=gitlab-runner
 pkgver=16.9.1
-pkgrel=2
+pkgrel=3
 pkgdesc="The official GitLab CI runner written in Go"
 arch=('x86_64')
 url='https://gitlab.com/gitlab-org/gitlab-runner'
-license=('GPL3')
+license=('MIT')
 depends=('ca-certificates' 'curl' 'git' 'glibc' 'tar')
 optdepends=('inetutils: hostname command')
 makedepends=('git' 'go' 'git' 'mercurial' 'gox')
@@ -26,7 +26,7 @@ noextract=("prebuilt-alpine-arm-${pkgver}.tar.xz"
            "prebuilt-ubuntu-s390x-${pkgver}.tar.xz"
            "prebuilt-ubuntu-x86_64-pwsh-${pkgver}.tar.xz"
            "prebuilt-ubuntu-x86_64-${pkgver}.tar.xz")
-source=("git+https://gitlab.com/gitlab-org/gitlab-runner.git#tag=v${pkgver}"
+source=("git+$url.git#tag=v${pkgver}"
         "prebuilt-alpine-arm-${pkgver}.tar.xz::https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-alpine-arm.tar.xz"
         "prebuilt-alpine-arm64-${pkgver}.tar.xz::https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-alpine-arm64.tar.xz"
         "prebuilt-alpine-s390x-${pkgver}.tar.xz::https://gitlab-runner-downloads.s3.amazonaws.com/v${pkgver}/helper-images/prebuilt-alpine-s390x.tar.xz"
@@ -41,7 +41,7 @@ source=("git+https://gitlab.com/gitlab-org/gitlab-runner.git#tag=v${pkgver}"
         "gitlab-runner.sysusers"
         "gitlab-runner.tmpfiles"
         "config.toml")
-sha512sums=('SKIP'
+sha512sums=('ced4ff6e0291d2b1e1a5941e99415a8096fa8188efcd59727d58a2da7c0c47754d48fa76fe5ec5e43abbfa0067c481e95fa68cef04df033a6d536f8fbd3c90ca'
             '0c2fa663c3b3746a47ea7f54fd8f3f3ea0a21a0aa24b14a023b34db842a85c4eb24a3bf694d9a42d626928e081e48d38752c96f2bd19f1b90138cb9ffaf2019d'
             '309bfa7c151139d0bf4d9e1aaa1b076e3dacad8e03b4ab59353d95a3c8df1d8c67484beac6c0506c17cfd3ec41e8c34d803e65d6bda5ec182781b45a83e13926'
             'f762693783f9eb92012b4f3ac4926a5fb9b779f61398c0aefb5e34047d53ff7653dbeae67f556068fdffc548ea7bbb516f26b83ad787aa2d455966fb68e9b2cc'
@@ -94,4 +94,6 @@ package() {
   for image in prebuilt-{alpine,ubuntu}-{arm,arm64,s390x,x86_64-pwsh,x86_64}-${pkgver}.tar.xz; do
     install -Dm644 "${srcdir}/${image}" "${pkgdir}/usr/lib/gitlab-runner/helper-images/${image}"
   done
+
+  install -Dm644 -t "${pkgdir}/usr/share/licenses/$pkgname/" LICENSE
 }
