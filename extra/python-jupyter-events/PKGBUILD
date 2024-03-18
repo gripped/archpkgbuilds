@@ -2,7 +2,7 @@
 
 _pipname=jupyter_events
 pkgname=python-jupyter-events
-pkgver=0.9.1
+pkgver=0.10.0
 pkgrel=1
 pkgdesc='Configurable event system for Jupyter applications and extensions'
 arch=(any)
@@ -24,7 +24,7 @@ checkdepends=(python-pytest-asyncio
               python-rfc3339-validator
               python-rfc3986-validator)
 source=(https://github.com/jupyter/jupyter_events/releases/download/v$pkgver/$_pipname-$pkgver.tar.gz)
-sha256sums=('a52e86f59eb317ee71ff2d7500c94b963b8a24f0b7a1517e2e653e24258e15c7')
+sha256sums=('670b8229d3cc882ec782144ed22e0d29e1c2d639263f92ca8383e66682845e22')
 
 build() {
   cd $_pipname-$pkgver
