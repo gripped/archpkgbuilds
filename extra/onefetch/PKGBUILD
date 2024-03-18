@@ -5,12 +5,12 @@
 
 pkgname=onefetch
 pkgver=2.20.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Git repository summary on your terminal"
 url="https://github.com/o2sh/onefetch"
 license=('MIT')
 arch=('x86_64')
-depends=('gcc-libs' 'glibc' 'libgit2' 'libgit2.so')
+depends=('gcc-libs')
 makedepends=('cargo' 'cmake' 'git')
 source=("git+$url.git#tag=$pkgver")
 sha256sums=('a0dd5d2d0f7b9e985817f8830d3ebc6c590e90786a5e982b09e9660f55a51cc6')
