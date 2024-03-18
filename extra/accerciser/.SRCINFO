@@ -1,21 +1,32 @@
 pkgbase = accerciser
 	pkgdesc = Interactive Python accessibility explorer for the GNOME desktop
-	pkgver = 3.42.0
+	pkgver = 3.42.0+r100+g6e6256e
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Accerciser
 	arch = any
 	groups = gnome-extra
-	license = BSD
-	makedepends = appstream-glib
+	license = BSD-3-Clause
+	makedepends = appstream
 	makedepends = git
+	makedepends = meson
 	makedepends = yelp-tools
+	depends = at-spi2-core
+	depends = dconf
+	depends = gdk-pixbuf2
+	depends = gobject-introspection-runtime
 	depends = gtk3
+	depends = hicolor-icon-theme
 	depends = ipython
+	depends = librsvg
 	depends = libwnck3
+	depends = pango
 	depends = python
 	depends = python-atspi
 	depends = python-cairo
-	source = git+https://gitlab.gnome.org/GNOME/accerciser.git#commit=e36f30841dd85faff6ff5156f6c15fecbbf020ca
-	b2sums = SKIP
+	depends = python-gobject
+	depends = python-setuptools
+	depends = python-traitlets
+	source = git+https://gitlab.gnome.org/GNOME/accerciser.git#commit=6e6256ede8886a56789f315290a1a0d1c9f62b78
+	b2sums = 9358444abd0fed8a382cc7d8b297a102fcd80c12f984231f89f06b4a6c6a5007bd4b058470e5e843da3cf8f5bc061ce897841eeaa8d1513148da594d0b6839be
 
 pkgname = accerciser
