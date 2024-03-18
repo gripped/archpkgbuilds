@@ -3,13 +3,13 @@
 
 pkgname=rpcbind
 pkgver=1.2.6
-pkgrel=3
+pkgrel=4
 pkgdesc="portmap replacement which supports RPC over various protocols"
 arch=(x86_64)
 url="http://rpcbind.sourceforge.net"
-license=('custom')
+license=('BSD-3-Clause')
 backup=('etc/conf.d/rpcbind')
-depends=('bash' 'glibc' 'libtirpc' 'systemd-libs')
+depends=('glibc' 'libtirpc' 'systemd-libs')
 makedepends=('systemd')
 replaces=('portmap')
 # see also http://git.linux-nfs.org/?p=steved/rpcbind.git;a=summary
