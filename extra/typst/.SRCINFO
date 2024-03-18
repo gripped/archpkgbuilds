@@ -1,16 +1,19 @@
 pkgbase = typst
 	pkgdesc = A markup-based typesetting system for the sciences
-	pkgver = 0.10.0
-	pkgrel = 1
+	pkgver = 0.11.0
+	pkgrel = 2
 	epoch = 1
 	url = https://typst.app
 	arch = x86_64
-	license = Apache
+	license = Apache-2.0
 	makedepends = cargo
 	makedepends = git
 	depends = gcc-libs
 	depends = glibc
-	source = https://github.com/typst/typst/archive/v0.10.0/typst-0.10.0.tar.gz
-	sha256sums = f1b7baba3c6f6f37dee6d05c9ab53d2ba5cd879a57b6e726dedf9bc51811e132
+	depends = openssl
+	depends = libssl.so
+	depends = libcrypto.so
+	source = https://github.com/typst/typst/archive/v0.11.0/typst-0.11.0.tar.gz
+	sha256sums = fd8debe21d5d22d4cd6c823494537f1356c9954cc2fe6c5db8c76c1b126112dd
 
 pkgname = typst
