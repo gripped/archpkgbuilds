@@ -13,7 +13,7 @@
 
 pkgname=nawk
 pkgver=20240311
-pkgrel=1
+pkgrel=2
 pkgdesc='The one, true implementation of AWK'
 url="https://github.com/onetrueawk/awk"
 license=(custom)
@@ -21,11 +21,14 @@ arch=(x86_64)
 options=(!makeflags)
 depends=(glibc)
 makedepends=(git)
-source=("git+https://github.com/onetrueawk/awk.git#commit=${_commit:-$pkgver}"
+source=("git+$url.git#commit=${_commit:-$pkgver}"
         'manpage-naming.patch')
-sha256sums=('SKIP'
+sha256sums=('0f64fbf6c9ff18548bab1e9e3dba0033ae7081541a281e133089614ad617f8cc'
             'fa1bade363896033a50fbdadc8fa2f490f85a044d11afcd537f317067c70d3b5')
 
+# This pkgver function is not necessary for tagged releases but if _commit is
+# used to package something that did not get tagged this helps make sure the
+# package version matches the internal version string.
 pkgver() {
   grep "version " awk/main.c |
     sed -e 's/[^"]*"\([^"]*\)".*/\1/' -e 's/^\w*\ *//'
