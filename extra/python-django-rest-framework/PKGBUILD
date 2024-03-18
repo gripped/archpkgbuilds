@@ -1,16 +1,29 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
-_name=djangorestframework
 pkgname=python-django-rest-framework
-pkgver=3.14.0
-pkgrel=2
+_name="${pkgname#python-}"
+pkgver=3.15.0
+pkgrel=1
 pkgdesc="A powerful and flexible toolkit for building Web APIs."
 arch=(any)
 url="https://www.django-rest-framework.org/"
-license=(BSD)
-depends=(python-django python-pytz)
-makedepends=(python-build python-installer python-setuptools python-wheel)
-checkdepends=(python-pytest python-pytest-django)
+_url="https://github.com/encode/django-rest-framework"
+license=(BSD-3-Clause)
+depends=(
+  python
+  python-django
+  python-pytz
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-pytest
+  python-pytest-django
+)
 optdepends=(
   'python-django-filter: for dynamic queryset filters'
   'python-django-guardian: for a per-object permission model'
@@ -19,9 +32,9 @@ optdepends=(
   'python-pygments: for syntax highlighting'
   'python-yaml: for YAML support'
 )
-source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('063dde9eaaf6adede1b1ce75ec9f61581639e7f0795052019bcf9b9cc02318bd2f5fd825e6893aa2f7353c601e6792f8a52c26351bbb1e930aa841faca61f385')
-b2sums=('90298354a606250688609973b6fc70b3f5c842f263d39eb3989747a43a8d492362a478dd44d920bafdd94caacdce6f2b642519a388153f8835dcc2f13abd21c1')
+source=($_name-$pkgver.tar.gz::$_url/archive/refs/tags/$pkgver.tar.gz)
+sha512sums=('1b283fea0a94d64ea29bef59f18b5cb309627b7b927d80cdaad11d1fa9c4df2e2059d619ca5a73f382fa21bf847a266926542c1a1f5764bd6404d7c11861efab')
+b2sums=('c6884185b8a11ca044956ec15bf3d31c3c46d8a911128f37ab305d89540a223e4b04ac4c13fc107333e9774ee048505f6cd0c66989f9f3cc9511239354572d25')
 
 build() {
   cd $_name-$pkgver
