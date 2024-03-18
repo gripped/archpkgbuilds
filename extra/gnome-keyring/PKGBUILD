@@ -3,7 +3,7 @@
 
 pkgname=gnome-keyring
 pkgver=46.1
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Stores passwords and encryption keys"
 url="https://wiki.gnome.org/Projects/GnomeKeyring"
@@ -13,10 +13,14 @@ license=(
   LGPL-2.1-or-later
 )
 depends=(
+  dconf
   gcr
   gcr-4
-  openssh
+  glib2
+  glibc
+  libgcrypt
   pam
+  systemd-libs
 )
 makedepends=(
   docbook-xsl
