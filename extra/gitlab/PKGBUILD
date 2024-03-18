@@ -10,7 +10,7 @@
 
 pkgname=gitlab
 pkgver=16.9.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
 url='https://gitlab.com/gitlab-org/gitlab-foss'
@@ -224,4 +224,6 @@ package() {
 
 	install -Dm644 "${srcdir}/gitlab.tmpfiles.d" "${pkgdir}/usr/lib/tmpfiles.d/gitlab.conf"
 	install -Dm644 "${srcdir}/gitlab.logrotate" "${pkgdir}/etc/logrotate.d/gitlab"
+
+	find "$pkgdir$_appdir" -name man -type d -print0 | xargs -0 -I {} rm -rf {}
 }
