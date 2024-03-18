@@ -5,8 +5,7 @@
 pkgname=starship
 pkgdesc='The cross-shell prompt for astronauts'
 pkgver=1.17.1
-_tag=1082afce0a27c5459d25998ea137067eb44dadab
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url=https://starship.rs/
 _url="https://github.com/$pkgname/$pkgname"
@@ -22,23 +21,14 @@ makedepends=(
 )
 checkdepends=(python)
 optdepends=('ttf-font-nerd: Nerd Font Symbols preset')
-source=("git+$_url.git#tag=$_tag")
-b2sums=('SKIP')
+source=("git+$_url.git#tag=v$pkgver")
+sha256sums=('04e2d1bea10983adb74bb32d55c5f434b4909e789b1216b8b1bfe89b468e2c57')
 
 prepare() {
   cargo fetch \
     --locked \
-    --target $CARCH-unknown-linux-gnu \
+    --target "$(rustc -vV | sed -n 's/host: //p')" \
     --manifest-path starship/Cargo.toml
-}
-
-pkgver() {
-  cd starship
-  git describe --tags | sed 's/^v//'
-}
-
-_pkgver() {
-  curl -fs https://api.github.com/repos/$pkgname/$pkgname/git/ref/tags/v$pkgver | jq -r .object.sha
 }
 
 build() {
