@@ -1,0 +1,24 @@
+pkgbase = yubikey-personalization
+	pkgdesc = Yubico YubiKey Personalization library and tool
+	pkgver = 1.20.0
+	pkgrel = 4
+	url = https://github.com/Yubico/yubikey-personalization
+	arch = x86_64
+	license = BSD
+	makedepends = systemd
+	depends = libusb
+	depends = json-c
+	depends = yubico-c-client
+	provides = ykpers
+	conflicts = ykpers
+	source = https://developers.yubico.com/yubikey-personalization/Releases/ykpers-1.20.0.tar.gz
+	source = https://developers.yubico.com/yubikey-personalization/Releases/ykpers-1.20.0.tar.gz.sig
+	source = 0001-fix-boolean-value-with-json-c-0.14.patch
+	source = 0002-make-header-declarations-extern.patch
+	validpgpkeys = 0A3B0262BCA1705307D5FF06BCA00FD4B2168C0A
+	sha256sums = 0ec84d0ea862f45a7d85a1a3afe5e60b8da42df211bb7d27a50f486e31a79b93
+	sha256sums = SKIP
+	sha256sums = f9b434e9570ce7d0192182aab979f767238b704f12645546e567db841bb7b5e2
+	sha256sums = 7c9ff4dd0131c5efc5917f20fff7b1e9dbd58e22f754c7ac6d010c85df1e498d
+
+pkgname = yubikey-personalization
