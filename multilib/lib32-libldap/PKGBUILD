@@ -3,7 +3,7 @@
 
 _pkgbasename=libldap
 pkgname=lib32-$_pkgbasename
-pkgver=2.6.6
+pkgver=2.6.7
 pkgrel=1
 pkgdesc="Lightweight Directory Access Protocol (LDAP) client libraries (32-bit)"
 arch=('x86_64')
@@ -12,7 +12,7 @@ url="https://www.openldap.org/"
 depends=('lib32-openssl' 'lib32-libxcrypt' $_pkgbasename)
 makedepends=(gcc-multilib)
 source=(https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-${pkgver}.tgz{,.asc})
-sha256sums=('082e998cf542984d43634442dbe11da860759e510907152ea579bdc42fe39ea0'
+sha256sums=('cd775f625c944ed78a3da18a03b03b08eea73c8aabc97b41bb336e9a10954930'
             'SKIP')
 validpgpkeys=('3CE269B5398BC8B785645E987F67D5FD1CE1CBCE') # OpenLDAP Project <project@openldap.org> https://www.openldap.org/software/download/OpenLDAP/gpg-pubkey.txt
 
