@@ -1,18 +1,20 @@
 pkgbase = hipfft
 	pkgdesc = rocFFT marshalling library.
-	pkgver = 6.0.0
+	pkgver = 6.0.2
 	pkgrel = 1
-	url = https://hipfft.readthedocs.io/en/latest/
+	url = https://rocm.docs.amd.com/projects/hipFFT/en/latest/index.html
 	arch = x86_64
 	license = MIT
+	makedepends = cmake
 	makedepends = rocm-cmake
 	makedepends = git
+	depends = rocm-core
+	depends = glibc
+	depends = gcc-libs
 	depends = hip
 	depends = rocfft
 	options = !lto
-	source = hipfft-6.0.0.tar.gz::https://github.com/ROCmSoftwarePlatform/hipFFT/archive/rocm-6.0.0.tar.gz
-	source = hipfft-rocfft-6.0.0.tar.gz::https://github.com/ROCmSoftwarePlatform/rocFFT/archive/rocm-6.0.0.tar.gz
-	sha256sums = 44f328b7862c066459089dfe62833cb7d626c6ceb71c57d8c7d6bba45dad491e
-	sha256sums = fb8ba56572702e77e4383d922cd1fee4ad3fa5f63a5ebdb3d9c354439a446992
+	source = hipfft-6.0.2.tar.gz::https://github.com/ROCm/hipFFT/archive/rocm-6.0.2.tar.gz
+	sha256sums = c0a4bac5fa9a757a19a4995fa9571328b6ee0a71e93c66a880069794d65d284a
 
 pkgname = hipfft
