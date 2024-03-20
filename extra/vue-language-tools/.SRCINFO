@@ -1,0 +1,21 @@
+pkgbase = vue-language-tools
+	pkgdesc = Language server for Vue
+	pkgver = 2.0.7
+	pkgrel = 1
+	url = https://github.com/vuejs/language-tools/tree/master/packages/language-server
+	arch = any
+	license = MIT
+	makedepends = git
+	makedepends = jq
+	makedepends = npm
+	makedepends = pnpm
+	source = vue-language-tools::git+https://github.com/vuejs/language-tools.git#tag=v2.0.7
+	b2sums = c9c295294fb9408de95af6e062f63aa3c6207758bc9901d1814a188ceebb6dd4a2794d953f870dc0eefad20d5cc6ab98fc4b31223bbc3ff214bfcf380c8547a7
+
+pkgname = vue-language-server
+	depends = nodejs
+	optdepends = typescript: for use in typescript.tsdk
+
+pkgname = vue-typescript-plugin
+	depends = nodejs
+	depends = typescript

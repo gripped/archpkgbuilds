@@ -1,0 +1,69 @@
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Contributor: Yufan You <ouuansteve at gmail>
+
+pkgbase=vue-language-tools
+pkgname=('vue-language-server' 'vue-typescript-plugin')
+pkgver=2.0.7
+pkgrel=1
+pkgdesc='Language server for Vue'
+arch=('any')
+url=https://github.com/vuejs/language-tools/tree/master/packages/language-server
+license=('MIT')
+makedepends=('git' 'jq' 'npm' 'pnpm')
+source=("$pkgbase::git+https://github.com/vuejs/language-tools.git#tag=v$pkgver")
+b2sums=('c9c295294fb9408de95af6e062f63aa3c6207758bc9901d1814a188ceebb6dd4a2794d953f870dc0eefad20d5cc6ab98fc4b31223bbc3ff214bfcf380c8547a7')
+
+prepare() {
+  cd $pkgbase
+  pnpm install --frozen-lockfile
+}
+
+build() {
+  cd $pkgbase
+  pnpm build
+}
+
+check() {
+  cd $pkgbase
+  pnpm test
+}
+
+package_vue-language-server() {
+  depends=('nodejs')
+  optdepends=('typescript: for use in typescript.tsdk')
+
+  local mod_dir=/usr/lib/node_modules/@vue/language-server
+  install -d "$pkgdir"/{/usr/bin,$mod_dir}
+  ln -s $mod_dir/bin/"${pkgname[0]}".js "$pkgdir"/usr/bin/"${pkgname[0]}"
+
+  cd $pkgbase/packages/language-server
+  # Prune unnecessary packages
+  rm -r node_modules
+  npm install --production
+
+  shopt -s globstar
+  export GLOBIGNORE='node_modules/*'
+  readarray -t mod_files < <(jq -r '.files[]' package.json)
+  # shellcheck disable=SC2068
+  cp --parents -r ${mod_files[@]} node_modules package.json "$pkgdir"/$mod_dir
+  install -Dm644 -t "$pkgdir"/usr/share/licenses/"${pkgname[0]}" LICENSE
+}
+
+package_vue-typescript-plugin() {
+  depends=('nodejs' 'typescript')
+
+  local mod_dir=/usr/lib/node_modules/@vue/typescript-plugin
+  install -d "$pkgdir"/$mod_dir
+
+  cd $pkgbase/packages/typescript-plugin
+  # Prune unnecessary packages
+  rm -r node_modules
+  npm install --production
+
+  shopt -s globstar
+  export GLOBIGNORE='node_modules/*'
+  readarray -t mod_files < <(jq -r '.files[]' package.json)
+  # shellcheck disable=SC2068
+  cp --parents -r ${mod_files[@]} node_modules package.json "$pkgdir"/$mod_dir
+  install -Dm644 -t "$pkgdir"/usr/share/licenses/"${pkgname[1]}" LICENSE
+}
