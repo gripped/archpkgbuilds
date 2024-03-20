@@ -3,7 +3,7 @@
 # Contributor: Pieter Goetschalckx <3.14.e.ter <at> gmail <dot> com>
 
 pkgname=apprise
-pkgver=1.7.3
+pkgver=1.7.4
 pkgrel=1
 pkgdesc='Push Notifications that work with just about every platform'
 arch=('any')
@@ -33,7 +33,7 @@ optdepends=(
 provides=("python-$pkgname")
 conflicts=("python-$pkgname")
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('SKIP')
+b2sums=('1f15af5c0db158c72008dc8155143a05fd09294f2c070ef06320779a8ea76d4a3e54a9cfcbab2ecc87aab78f0e2bd4876112104e5a7bf5a974b4ec90c4840d78')
 
 build(){
   cd $pkgname
