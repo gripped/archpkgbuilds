@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-timeout
-pkgver=2.3.0
+pkgver=2.3.1
 pkgrel=1
 pkgdesc='py.test plugin to abort hanging tests'
 arch=('any')
@@ -11,7 +11,7 @@ depends=('python-pytest')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pexpect' 'python-pytest-cov')
 source=("https://github.com/pytest-dev/pytest-timeout/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('be2f706bac5375f48c9fd92d420cccb118b0ea2aa9bbc6eb7bffef4af624d682de99b52dd106c1cbb8b5ecffcbf25ff4ab3c8e121e92d7f429e8784ed79b5aa0')
+sha512sums=('4209e6ae34145f1c7920ad2d7a98e55014e93145dd062ac5aab4d5ee6ab675dbceaaf8feb4a558f8648362dab75a3e76d41fffcada9685f7147ed549b2a82a9b')
 
 build() {
   cd pytest-timeout-$pkgver
