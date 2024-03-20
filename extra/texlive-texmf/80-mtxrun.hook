@@ -10,6 +10,6 @@ Target = usr/share/texmf-dist/*
 Target = var/lib/texmf/*
 
 [Action]
-Description = Updating TeXLive filename database...
+Description = Updating ConTeXt database...
 When = PostTransaction
-Exec = /usr/bin/mktexlsr
+Exec = /usr/share/libalpm/scripts/mtxrun
