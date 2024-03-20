@@ -1,15 +1,18 @@
 pkgbase = rocm-smi-lib
 	pkgdesc = ROCm System Management Interface Library
-	pkgver = 6.0.0
+	pkgver = 6.0.2
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/rocm_smi_lib/en/latest
 	arch = x86_64
 	license = NCSA
 	makedepends = cmake
+	depends = rocm-core
+	depends = glibc
+	depends = gcc-libs
 	depends = hsa-rocr
 	depends = python
 	options = !lto
-	source = rocm-smi-lib-6.0.0.tar.gz::https://github.com/RadeonOpenCompute/rocm_smi_lib/archive/rocm-6.0.0.tar.gz
-	sha256sums = 0053b42402fd007e5ca9b3186c70f2c6f1b3026558f328722adadc2838c51309
+	source = rocm-smi-lib-6.0.2.tar.gz::https://github.com/ROCm/rocm_smi_lib/archive/rocm-6.0.2.tar.gz
+	sha256sums = 61e755d710ff38425df3d262d1ad4c510d52d3c64e3fe15140c2575eba316949
 
 pkgname = rocm-smi-lib
