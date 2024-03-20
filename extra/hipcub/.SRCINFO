@@ -1,14 +1,16 @@
 pkgbase = hipcub
 	pkgdesc = Header-only library on top of rocPRIM or CUB
-	pkgver = 6.0.0
+	pkgver = 6.0.2
 	pkgrel = 1
 	url = https://hipcub.readthedocs.io/en/latest/
 	arch = x86_64
 	license = NCSA
+	makedepends = cmake
 	makedepends = rocm-cmake
+	depends = rocm-core
 	depends = rocprim
 	depends = hip
-	source = hipcub-6.0.0.tar.gz::https://github.com/ROCmSoftwarePlatform/hipCUB/archive/rocm-6.0.0.tar.gz
-	sha256sums = 8d9f6e1e3f8433a2ceae1b0efd6727c21383980077e264725d00d5fee165bd30
+	source = hipcub-6.0.2.tar.gz::https://github.com/ROCm/hipCUB/archive/rocm-6.0.2.tar.gz
+	sha256sums = 3f912a23dc34510cf18d9097f6eda37e01d01724975c8149c92a64c92415968c
 
 pkgname = hipcub
