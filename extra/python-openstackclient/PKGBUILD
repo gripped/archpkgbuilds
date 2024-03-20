@@ -2,8 +2,8 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-openstackclient
-pkgver=6.5.0
-_commit=c29e05764b3b0d8d40f3357ad5295938d3f7273a
+pkgver=6.6.0
+_commit=2f9a523765ca99c9ef9a6968e430bab102f3208d
 pkgrel=1
 pkgdesc="OpenStack Command-line Client"
 arch=('any')
@@ -16,7 +16,7 @@ makedepends=('git')
 checkdepends=('python-oslotest' 'python-requests' 'python-requests-mock' 'python-stestr'
               'python-testtools' 'python-wrapt' 'python-ddt')
 source=("git+https://github.com/openstack/python-openstackclient.git#commit=$_commit")
-sha512sums=('SKIP')
+sha512sums=('a7526db65b692fd33059698319e6d90ab214d39576be3154a880ca05c77dd63b99932025aa172bb2c0f7510430b4c42160c0a444459e9b70fb7eba26ed957e6b')
 
 build() {
   cd python-openstackclient
