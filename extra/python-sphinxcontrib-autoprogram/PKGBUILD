@@ -1,9 +1,9 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-sphinxcontrib-autoprogram
-pkgver=0.1.8
-_commit=b6df97b08e1c28684911f7704422da074d4c4e27
-pkgrel=3
+pkgver=0.1.9
+_commit=a7cad48b6eddf6a461e3fae91f231dc3e3f2a88f
+pkgrel=1
 pkgdesc="Documenting CLI programs"
 url="https://github.com/sphinx-contrib/autoprogram"
 license=('BSD-2-Clause')
@@ -11,15 +11,7 @@ arch=('any')
 depends=('python-sphinx')
 makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 source=("git+https://github.com/sphinx-contrib/autoprogram.git#commit=$_commit")
-sha512sums=('SKIP')
-
-prepare() {
-  cd autoprogram
-  # remove dependency on 'six' transitional library
-  git cherry-pick -n 63e934c2a807f5a6babca50bfb487654a194392e
-  # Remove imp dependency
-  git cherry-pick -n 79cfb42f5dc3a57ff9cac249f98fe3577cea4d8c
-}
+sha512sums=('a769ec5e910072d72b607cc976721a2969eac2315ef1b8997b2f6f9dcaf6550ef19b48024fa8ffbc42eb5c2426d21a78e28e64d0fd1466106c7ce3510437aff5')
 
 build() {
   cd autoprogram
