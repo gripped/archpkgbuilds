@@ -3,17 +3,19 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=rocm-opencl-runtime
-pkgver=6.0.0
+pkgver=6.0.2
 pkgrel=1
 pkgdesc='OpenCL implementation for AMD'
 arch=('x86_64')
-url='https://github.com/ROCm-Developer-Tools/clr'
+url='https://github.com/ROCm/clr'
 license=('MIT')
-depends=('hsakmt-roct' 'hsa-rocr' 'comgr' 'mesa' 'opencl-icd-loader' 'opencl-headers')
+depends=('rocm-core' 'hsakmt-roct' 'hsa-rocr' 'comgr' 'mesa'
+         'glibc' 'gcc-libs' 'numactl'
+         'opencl-icd-loader' 'opencl-headers')
 makedepends=('rocm-cmake')
 provides=('opencl-driver')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('798b55b5b5fb90dd19db54f136d8d8e1da9ae1e408d5b12b896101d635f97e50')
+sha256sums=('cb8ac610c8d4041b74fb3129c084f1e7b817ce1a5a9943feca1fa7531dc7bdcc')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
 
 build() {
@@ -34,9 +36,6 @@ package() {
 
     # typo in upstream name
     install -Dm644 "$_dirname/LICENCE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-
-    echo '/opt/rocm/lib' > "$pkgname.conf"
-    install -Dm644 "$pkgname.conf" "$pkgdir/etc/ld.so.conf.d/$pkgname.conf"
 
     echo '/opt/rocm/lib/libamdocl64.so' > 'amdocl64.icd'
     install -Dm644 'amdocl64.icd' "$pkgdir/etc/OpenCL/vendors/amdocl64.icd"
