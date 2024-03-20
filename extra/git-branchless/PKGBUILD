@@ -2,7 +2,7 @@
 
 pkgname=git-branchless
 pkgver=0.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc='High-velocity monorepo-scale workflow for Git'
 url="https://github.com/arxanas/$pkgname"
 arch=(x86_64)
@@ -17,7 +17,7 @@ sha256sums=('f9e13d9a3de960b32fb684a59492defd812bb0785df48facc964478f675f0355')
 
 prepare() {
 	cd "$_archive"
-	cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
@@ -37,5 +37,5 @@ package () {
 	cd "$_archive"
 	local _target="target/release/$pkgname"
 	install -Dm0755 -t "$pkgdir/usr/bin/" "$_target"
-	$_target install-man-pages "$pkgdir/usr/share/man/man1/"
+	$_target install-man-pages "$pkgdir/usr/share/man/"
 }
