@@ -1,6 +1,6 @@
 pkgbase = hipblaslt
 	pkgdesc = General matrix-matrix operations beyond a traditional BLAS library
-	pkgver = 6.0.0
+	pkgver = 6.0.2
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/hipBLASLt/en/latest/index.html
 	arch = x86_64
@@ -13,11 +13,15 @@ pkgbase = hipblaslt
 	makedepends = python-msgpack
 	makedepends = python-joblib
 	makedepends = python-pyaml
+	depends = rocm-core
+	depends = glibc
+	depends = gcc-libs
 	depends = hip
 	depends = hipblas
-	source = hipblaslt-6.0.0.tar.gz::https://github.com/ROCmSoftwarePlatform/hipBLASLt/archive/rocm-6.0.0.tar.gz
+	depends = rocblas
+	source = hipblaslt-6.0.2.tar.gz::https://github.com/ROCm/hipBLASLt/archive/rocm-6.0.2.tar.gz
 	source = hipblaslt-find-msgpack5.patch
-	sha256sums = 6451b6fdf7f24787628190bbe8f2208c929546b68b692d8355d2f18bea7ca7db
+	sha256sums = e281a1a7760fab8c3e0baafe17950cf43c422184e3226e3c14eb06e50c69d421
 	sha256sums = 7943de413882065de7d840a4a0f48e8133c4977a04a3e9587ea7936cc8a0939d
 
 pkgname = hipblaslt
