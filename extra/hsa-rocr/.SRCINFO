@@ -1,18 +1,22 @@
 pkgbase = hsa-rocr
 	pkgdesc = HSA Runtime API and runtime for ROCm
 	pkgver = 6.0.0
-	pkgrel = 2
-	url = https://rocmdocs.amd.com/en/latest/Installation_Guide/ROCR-Runtime.html
+	pkgrel = 3
+	url = https://github.com/ROCm/ROCR-Runtime
 	arch = x86_64
 	license = NCSA
 	makedepends = cmake
 	makedepends = rocm-llvm
 	makedepends = xxd
+	depends = rocm-core
+	depends = glibc
+	depends = gcc-libs
 	depends = libelf
+	depends = libdrm
 	depends = hsakmt-roct
 	depends = rocm-device-libs
 	options = !lto
-	source = hsa-rocr-6.0.0.tar.gz::https://github.com/RadeonOpenCompute/ROCR-Runtime/archive/rocm-6.0.0.tar.gz
+	source = hsa-rocr-6.0.0.tar.gz::https://github.com/ROCm/ROCR-Runtime/archive/rocm-6.0.0.tar.gz
 	sha256sums = 99e8fa1af52d0bf382f28468e1a345af1ff3452c35914a6a7b5eeaf69fc568db
 
 pkgname = hsa-rocr
