@@ -4,17 +4,17 @@
 # Contributor: Ranieri Althoff <ranisalt+aur at gmail.com>
 
 pkgname=rocm-cmake
-pkgver=6.0.0
+pkgver=6.0.2
 pkgrel=1
 pkgdesc='CMake modules for common build tasks needed for the ROCm software stack'
-arch=('x86_64')
-url='https://github.com/RadeonOpenCompute/rocm-cmake'
+arch=('any')
+url='https://github.com/ROCm/rocm-cmake'
 license=('MIT')
-depends=('cmake')
+depends=('rocm-core' 'cmake')
 checkdepends=('git' 'rocm-llvm')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz"
         "${pkgname}-old-policy-cmp0079.patch")
-sha256sums=('82bd97ba23d1883ef38bb667e92f7367fedc50d6c11c82f54cced4ab04b0412d'
+sha256sums=('7bd3ff971b1a898b8cf06b0ed9fac45891e2523ae651c3194ba36050ab45f869'
             '7c8d8351a8e85a0d122421d02ad967c75d4dd8442192662c1a1a68bacdfad67d')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
 
@@ -32,12 +32,14 @@ prepare() {
 }
 
 build() {
-  cmake \
-    -Wno-dev \
-    -B build \
-    -S "$_dirname" \
-    -DCMAKE_BUILD_TYPE=None \
-    -DCMAKE_INSTALL_PREFIX=/opt/rocm
+  local cmake_args=(
+    -Wno-dev
+    -S "$_dirname"
+    -B build
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/opt/rocm
+  )
+  cmake "${cmake_args[@]}"
   cmake --build build
 }
 
