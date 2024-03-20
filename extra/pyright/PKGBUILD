@@ -2,7 +2,7 @@
 # Contributor: Kaizhao Zhang <zhangkaizhao@gmail.com>
 
 pkgname=pyright
-pkgver=1.1.354
+pkgver=1.1.355
 pkgrel=1
 pkgdesc='Type checker for the Python language'
 arch=('any')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('nodejs')
 makedepends=('git' 'npm')
 source=("git+https://github.com/microsoft/pyright.git#tag=$pkgver")
-b2sums=('SKIP')
+b2sums=('a528f9f46f62b48d8be2e311fd72f084dbf987e8984952f6beb032d904fd6a276e93f997b1284bc4ca9e9be563ac0661c25e5be7ea5bda5fe4d599964521a501')
 
 prepare() {
   cd $pkgname
@@ -39,5 +39,5 @@ package() {
   install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE.txt
 
   cd packages/$pkgname
-  cp -r dist {,langserver.}index.js "$pkgdir"/$mod_dir
+  cp -r dist {,langserver.}index.js package.json "$pkgdir"/$mod_dir
 }
