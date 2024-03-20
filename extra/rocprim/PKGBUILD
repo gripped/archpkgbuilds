@@ -1,32 +1,32 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 pkgname=rocprim
-pkgver=6.0.0
+pkgver=6.0.2
 pkgrel=1
 pkgdesc='Header-only library providing HIP parallel primitives'
-arch=('x86_64')
-url='https://codedocs.xyz/ROCmSoftwarePlatform/rocPRIM'
-_git='https://github.com/ROCmSoftwarePlatform/rocPRIM'
+arch=('any')
+url='https://rocm.docs.amd.com/projects/rocPRIM/en/latest/index.html'
+_git='https://github.com/ROCm/rocPRIM'
 license=('MIT')
-depends=('hip')
-makedepends=('rocm-cmake')
+depends=('rocm-core' 'hip')
+makedepends=('cmake' 'rocm-cmake')
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('51f26c9f891a64c8db8df51d75d86d404d682092fd9d243e966ac6b2a6de381a')
+sha256sums=('d3998720d3206965335902f8f67ca497b320a33b810cd19b2a2264505cb38779')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 build() {
   # -fcf-protection is not supported by HIP, see
-  # https://rocm.docs.amd.com/en/latest/reference/rocmcc/rocmcc.html#support-status-of-other-clang-options
-
-  CXXFLAGS="${CXXFLAGS} -fcf-protection=none" \
-  cmake \
-    -Wno-dev \
-    -S "$_dirname" \
-    -B build \
-    -DCMAKE_BUILD_TYPE=None \
-    -DCMAKE_CXX_COMPILER=/opt/rocm/bin/hipcc \
-    -DCMAKE_INSTALL_PREFIX=/opt/rocm \
-    -Damd_comgr_DIR=/opt/rocm/lib/cmake/amd_comgr
+  # https://rocm.docs.amd.com/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
+  local cmake_args=(
+    -Wno-dev
+    -S "$_dirname"
+    -B build
+    -D CMAKE_CXX_COMPILER=/opt/rocm/bin/hipcc
+    -D CMAKE_CXX_FLAGS="${CXXFLAGS} -fcf-protection=none"
+    -D CMAKE_INSTALL_PREFIX=/opt/rocm
+    -D CMAKE_BUILD_TYPE=None
+  )
+  cmake "${cmake_args[@]}"
   cmake --build build
 }
 
