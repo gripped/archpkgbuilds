@@ -3,8 +3,8 @@
 # Contributor: Ivan Shapovalov <intelfx@intelfx.name>
 
 pkgname=matrix-synapse
-_tag=6d713917c18fe9116821bec651f81461922232e4
-pkgver=1.101.0
+_tag=90205fd640955c602d11ef47cb7b47a3c3436020
+pkgver=1.102.0
 pkgrel=1
 pkgdesc="Matrix reference homeserver"
 url="https://github.com/element-hq/synapse"
@@ -65,8 +65,8 @@ prepare() {
 	cd $pkgname
 	# allow any poetry-core to be used
 	sed 's/poetry-core>=1.1.0,<=1.8.1/poetry-core>=1.0.0/' -i pyproject.toml
-	sed 's/setuptools_rust>=1.3,<=1.6.0/setuptools_rust>=1.3.0/' -i pyproject.toml
-}
+	sed 's/setuptools_rust>=1.3,<=1.8.1/setuptools_rust>=1.3.0/' -i pyproject.toml
+}       
 
 build() {
 	cd $pkgname
