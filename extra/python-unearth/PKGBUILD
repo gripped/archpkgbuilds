@@ -2,7 +2,7 @@
 
 _name=unearth
 pkgname=python-unearth
-pkgver=0.14.0
+pkgver=0.15.0
 pkgrel=1
 pkgdesc="A utility to fetch and download python packages"
 arch=(any)
@@ -11,8 +11,7 @@ license=(MIT)
 depends=(
   python
   python-packaging
-  python-requests
-  python-urllib3
+  python-httpx
 )
 makedepends=(
   python-build
@@ -23,6 +22,7 @@ makedepends=(
 checkdepends=(
   python-flask
   python-pytest
+  python-pytest-mock
   python-pytest-httpserver
   python-requests-wsgi-adapter
   python-trustme
@@ -31,8 +31,8 @@ optdepends=('python-keyring: use keyring for authentication')
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
 )
-sha512sums=('a6a12020f056522e0a2f8c8547e56ab2fcd11b32dfc083f26a13f843aa871a801066294ae17d4202997a0fb1ab5a64cc83831eac174aa44b16b4d4973cc7566a')
-b2sums=('94145173756012a0f08744a706ab474d49fe09125b3e7b6ebf82e627194ceb9d0ea416b1a7ef6df72596d45bdd19bb5ee6b4659e6dbadb1df56c2e4e678c0e8d')
+sha512sums=('b5a63c3892b23b93c27d84c1c06bb846e6a23200f7a2327aeceba14a9ef6537fa6dbbbbe1f29037bdd7b24bc5832f8b22bc4797232321390fd6b5f363e85bde4')
+b2sums=('8d4473fa52efb4e26c08cc69b0b827866145559326891417d2d3842297843837586a3e09eecf85ea4f8820194ad7266dfc6868ebde7eb8603d4905594760695d')
 
 build() {
   cd $_name-$pkgver
