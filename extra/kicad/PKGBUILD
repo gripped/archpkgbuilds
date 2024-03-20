@@ -7,7 +7,7 @@
 # Contributor: Alexander Lutsai <s.lyra@ya.ru>
 
 pkgname=kicad
-pkgver=8.0.0
+pkgver=8.0.1
 pkgrel=1
 pkgdesc='Electronic schematic and printed circuit board (PCB) design tools'
 arch=('x86_64')
@@ -39,11 +39,11 @@ optdepends=(
 )
 _commit='ef34436d7d4bb488a9559d7fae32dc956d37c669'
 source=(
-  "$pkgname::git+https://gitlab.com/kicad/code/kicad.git#commit=$_commit"
+  "$pkgname::git+https://gitlab.com/kicad/code/kicad.git#tag=$pkgver"
   'fix-archive-permissions.patch'
   'fix-version-string.patch'
 )
-sha512sums=('SKIP'
+sha512sums=('9d27746668df021ee37e3e7dff3aa37103f2b6f6dc9225c91fe2809cc856be2adc1594cccc8cc36a7053d693d2bdffa26f5f402e2674d66354252cae5b6c4b7b'
             'e36912e4144c6debe33f1711ca7a2da020389a6e376282c70f534ce9e685d0b35b58d88b810327d8baeb3466e87eda246ebf181c18e134e80bc73b91dae4bf02'
             '17100967610c85ce2e8a860dcf703a87dc0c20f52d3f056cdb5d16323160e8594698bd51e095aea63c00a75ce8b121be681e93cec1bab72a8d1d4eb8065a91f5')
 
