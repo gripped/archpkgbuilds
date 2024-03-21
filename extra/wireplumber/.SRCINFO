@@ -1,38 +1,59 @@
 pkgbase = wireplumber
 	pkgdesc = Session / policy manager implementation for PipeWire
-	pkgver = 0.4.17
+	pkgver = 0.5.0
 	pkgrel = 1
 	url = https://pipewire.pages.freedesktop.org/wireplumber/
 	arch = x86_64
 	license = MIT
 	checkdepends = pipewire-audio
 	makedepends = doxygen
+	makedepends = gcc-libs
 	makedepends = git
 	makedepends = glib2
+	makedepends = glibc
 	makedepends = gobject-introspection
 	makedepends = graphviz
+	makedepends = libpipewire
 	makedepends = lua
 	makedepends = meson
 	makedepends = pipewire
+	makedepends = python-breathe
 	makedepends = python-lxml
+	makedepends = python-sphinx
+	makedepends = python-sphinx_rtd_theme
 	makedepends = systemd
-	source = git+https://gitlab.freedesktop.org/pipewire/wireplumber.git#commit=d3eb77b292655cef333a8f4cab4e861415bc37c2
-	b2sums = SKIP
+	makedepends = systemd-libs
+	source = git+https://gitlab.freedesktop.org/pipewire/wireplumber.git#commit=59d190a2bd400f3b093f99b16fc0fb06f6cb2cfe
+	b2sums = 9e3f574cef389749ec5c9364846f7172f8e562ea6cdb6c3919ce4ae9bfba68436a52097c3a4fd064770c6b6e8d78b502a86e762e133bdea30f1a9b99ed53a21d
 
 pkgname = wireplumber
 	install = wireplumber.install
-	depends = libwireplumber=0.4.17-1
+	depends = libwireplumber=0.5.0-1
+	depends = gcc-libs
+	depends = glibc
+	depends = libglib-2.0.so
+	depends = libgobject-2.0.so
+	depends = libgio-2.0.so
+	depends = libpipewire
+	depends = libpipewire-0.3.so
 	depends = libsystemd.so
 	depends = lua
 	depends = pipewire
+	depends = systemd-libs
+	optdepends = wireplumber-docs: Documentation
 	provides = pipewire-session-manager
 	conflicts = pipewire-media-session
 
 pkgname = libwireplumber
 	pkgdesc = Session / policy manager implementation for PipeWire - client library
+	depends = gcc-libs
+	depends = glibc
 	depends = libglib-2.0.so
 	depends = libgmodule-2.0.so
 	depends = libgobject-2.0.so
 	depends = libgio-2.0.so
 	depends = libpipewire-0.3.so
-	provides = libwireplumber-0.4.so
+	provides = libwireplumber-0.5.so
+
+pkgname = wireplumber-docs
+	pkgdesc = Session / policy manager implementation for PipeWire - documentation
