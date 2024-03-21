@@ -2,9 +2,8 @@
 # Contributor: Adrian Perez de Castro <aperez@igalia.com>
 
 pkgname=mold
-pkgver=2.4.1
+pkgver=2.30.0
 pkgrel=1
-_commit='fb3c166f80b92ca34ebd1b3f467edbcad7cae649'
 pkgdesc='A Modern Linker'
 arch=('x86_64')
 url='https://github.com/rui314/mold'
@@ -13,8 +12,8 @@ license=('MIT')
 depends=('glibc' 'gcc-libs' 'mimalloc' 'zlib' 'tbb' 'zstd')
 makedepends=('git' 'python' 'cmake' 'mold')
 checkdepends=('clang' 'libdwarf')
-source=("$pkgname::git+$url.git#commit=$_commit")
-b2sums=('SKIP')
+source=("$pkgname::git+$url.git#tag=v$pkgver")
+b2sums=('715b6b7d210773e480edcb6e4ce3eb652bde65ae514870431c2f78c325bf7454e2108b557228d2c3d3b6d339ec31280aef2a6a15efa7c517f357a5408cc4b8bd')
 
 pkgver() {
   cd "$pkgname"
