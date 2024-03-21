@@ -4,16 +4,16 @@
 
 _name=TypeScript
 pkgname=typescript
-pkgver=5.4.2
+pkgver=5.4.3
 pkgrel=1
 pkgdesc='JavaScript with syntax for types'
 arch=('any')
 url=http://www.typescriptlang.org
-license=('Apache')
+license=('Apache-2.0')
 depends=('nodejs')
 makedepends=('git' 'npm' 'rsync')
 source=("git+https://github.com/microsoft/$_name.git#tag=v$pkgver")
-b2sums=('SKIP')
+b2sums=('91c73cbadce2c602dc3fe78c60d6eef17b157af4aa9ee8cb535b78bfc1ae71a346d202133541872b0436a756b537550c5f0d883e036178776e09f9445e82a817')
 
 prepare() {
   cd $_name
@@ -36,7 +36,8 @@ package() {
   ln -s $mod_dir/bin/{tsc,tsserver} "$pkgdir"/usr/bin
 
   cd $_name
-  rsync -r --exclude=.gitattributes README.md SECURITY.md bin lib package.json \
-    "$pkgdir"/$mod_dir
-  install -Dt "$pkgdir"/usr/share/licenses/$pkgname ThirdPartyNoticeText.txt
+  rsync -r --exclude=.gitattributes bin lib package.json "$pkgdir"/$mod_dir
+  install -Dm644 -t "$pkgdir"/usr/share/doc/$pkgname README.md SECURITY.md
+  install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname \
+    ThirdPartyNoticeText.txt
 }
