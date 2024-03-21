@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=kalarm
-pkgver=24.02.0
+pkgver=24.02.1
 pkgrel=1
 pkgdesc='Personal alarm scheduler'
 arch=(x86_64)
@@ -42,7 +42,7 @@ depends=(akonadi-contacts
          kwindowsystem
          kxmlgui
          libakonadi
-         phonon-qt6
+         libcanberra
          qt6-5compat
          qt6-base)
 makedepends=(extra-cmake-modules
@@ -50,7 +50,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-pim)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('01b4bf10734c947e28861df8963cad9653d8b16c855d1be3937cbebf9f2959e6'
+sha256sums=('3e294bd273af911adb790c14ee9e7f9978a6b139a54d769bebf0d36dad9557d9'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
