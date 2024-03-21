@@ -3,7 +3,7 @@
 
 pkgname=waybar
 pkgver=0.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Highly customizable Wayland bar for Sway and Wlroots based compositors'
 arch=('x86_64')
 url="https://github.com/Alexays/Waybar/"
@@ -49,8 +49,19 @@ backup=(
 optdepends=(
     'otf-font-awesome: Icons in the default configuration'
 )
-source=("$pkgname-$pkgver.tar.gz::https://github.com/Alexays/Waybar/archive/$pkgver.tar.gz")
-b2sums=('f27a61662444cb0d91ecb5c860271939ba81813af4d005a3297f9996fab5edd54df2e4a126aa33edf9049e2d91d301a03f6352e25eb9c86ffb003b0b238e9015')
+source=(
+    "$pkgname-$pkgver.tar.gz::https://github.com/Alexays/Waybar/archive/$pkgver.tar.gz"
+    0001-Update-Wireplumber-API-to-0.5.patch
+)
+b2sums=('f27a61662444cb0d91ecb5c860271939ba81813af4d005a3297f9996fab5edd54df2e4a126aa33edf9049e2d91d301a03f6352e25eb9c86ffb003b0b238e9015'
+        '83e5d2cd97643b63a53b1ac1042321cc7540cfb34666e5a1bb0f3ab483d970c806bc04a5c2d062130a3fed8de3ea2f85621f0b4c4a7ca6813c6022092266d633')
+
+prepare() {
+    cd "Waybar-$pkgver"
+
+    # https://github.com/Alexays/Waybar/pull/2919, adjusted
+    patch -Np1 -i ../0001-Update-Wireplumber-API-to-0.5.patch
+}
 
 build() {
     cd "Waybar-$pkgver"
