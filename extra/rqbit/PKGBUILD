@@ -6,7 +6,7 @@ pkgname=(
   rqbit-desktop
 )
 pkgver=5.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A bittorrent client in Rust"
 url='https://github.com/ikatson/rqbit'
 arch=('x86_64')
@@ -68,9 +68,9 @@ package_rqbit() {
   install -d "${pkgdir}/usr/share/bash-completion/completions" \
              "${pkgdir}/usr/share/zsh/site-functions" \
              "${pkgdir}/usr/share/fish/vendor_completions.d"
-  "${pkgdir}/usr/bin/${pkgname}" completions bash > "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
-  "${pkgdir}/usr/bin/${pkgname}" completions zsh > "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
-  "${pkgdir}/usr/bin/${pkgname}" completions fish > "${pkgdir}/usr/share/fish/vendor_completions.d/${pkgname}.fish"
+  RUST_LOG=off "${pkgdir}/usr/bin/${pkgname}" completions bash > "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
+  RUST_LOG=off "${pkgdir}/usr/bin/${pkgname}" completions zsh > "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
+  RUST_LOG=off "${pkgdir}/usr/bin/${pkgname}" completions fish > "${pkgdir}/usr/share/fish/vendor_completions.d/${pkgname}.fish"
 }
 
 package_rqbit-desktop() {
