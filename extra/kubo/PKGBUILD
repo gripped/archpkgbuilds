@@ -6,7 +6,7 @@
 
 pkgname=kubo
 pkgver=0.27.0
-pkgrel=1
+pkgrel=2
 pkgdesc='IPFS implementation in Go'
 url='https://github.com/ipfs/kubo'
 arch=(x86_64)
@@ -17,6 +17,8 @@ optdepends=('fuse2: for mounting/advanced use')
 provides=('go-ipfs')
 replaces=('go-ipfs')
 conflicts=('go-ipfs')
+# we can not use LTO as otherwise we get no reproducible package with full RELRO
+options=(!lto)
 source=(https://github.com/ipfs/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         ipfs.service
         ipfs@.service)
@@ -27,6 +29,11 @@ b2sums=('168f15b74c0143b9bc799c1bb485e90acac26b033f8d274b9e33ce0c19accddfcad134a
         'b0c0e8ede6c872104fd55e4edc127ba3e2c3dacbbe74178337effe6ae149a12246b0dc662c10c420ddadf1bdb889f2d747601f807bd2bc5e90101e1ffce595a4'
         '88f7b58b11519da87ba2e50a493ae62e57ab1c1cbbca7d5d8a3f6705738a7a09636ec614e3f905be20f3442214f9f12eedfc5050a92ec763031e27595f42c0d6')
 
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  go mod download
+}
+
 build() {
   cd "${pkgname}-${pkgver}"
 
@@ -34,7 +41,9 @@ build() {
   export CGO_CFLAGS="$CFLAGS"
   export CGO_CPPFLAGS="$CPPFLAGS"
   export CGO_CXXFLAGS="$CXXFLAGS"
-  export GOFLAGS="-buildmode=pie -trimpath -modcacherw"
+  export CGO_REQUIRED="1"
+  export GOFLAGS="-buildmode=pie -mod=readonly -modcacherw -ldflags '-compressdwarf=false -linkmode=external'"
+
   make build
   cmd/ipfs/ipfs commands completion bash > "$srcdir/ipfs-completion.bash"
   cmd/ipfs/ipfs commands completion fish > "$srcdir/ipfs-completion.fish"

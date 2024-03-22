@@ -1,7 +1,7 @@
 pkgbase = kubo
 	pkgdesc = IPFS implementation in Go
 	pkgver = 0.27.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/ipfs/kubo
 	arch = x86_64
 	license = MIT
@@ -12,6 +12,7 @@ pkgbase = kubo
 	provides = go-ipfs
 	conflicts = go-ipfs
 	replaces = go-ipfs
+	options = !lto
 	source = https://github.com/ipfs/kubo/archive/v0.27.0/kubo-0.27.0.tar.gz
 	source = ipfs.service
 	source = ipfs@.service
