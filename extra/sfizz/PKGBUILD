@@ -7,7 +7,7 @@ pkgname=(
   sfizz-{lib,standalone}
 )
 pkgver=1.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc="SFZ parser and synth"
 arch=(x86_64)
 url="https://github.com/sfztools/sfizz"
@@ -28,9 +28,12 @@ checkdepends=(
 )
 source=(
   $url/releases/download/$pkgver/$pkgname-$pkgver.tar.gz
+  sfizz-1_2_3-absl_20240116_1-fix-build.patch
 )
-sha512sums=('753df985b0863baf3335cc386075a1f8053800a521725ad57102394883274aa617f1a554da8471444789c985891c604946f2e0627e3a5e2349586532ea0af3cc')
-b2sums=('bd41e583ecb0d77831ea20213692c428d958207914252bf8b9cca2d384d12eb80662803c91575e27c543098950df009b01869db65b02b9dd95c20011eb5d0793')
+sha512sums=('753df985b0863baf3335cc386075a1f8053800a521725ad57102394883274aa617f1a554da8471444789c985891c604946f2e0627e3a5e2349586532ea0af3cc'
+            '9dbc285d1d54410ca058eec5257eb1b68fe5b0e4e22c3994483d76b9d664ba66efb8feaf21f36e15834a18e62f0d5d4025f65d1e7a4396046925a794416e8707')
+b2sums=('bd41e583ecb0d77831ea20213692c428d958207914252bf8b9cca2d384d12eb80662803c91575e27c543098950df009b01869db65b02b9dd95c20011eb5d0793'
+        '8a149bf204c12aec74d71e40aa804076a864436be2f10a0350d0b47f572c096562c0656987012256642c324aa253c1ceeca38e87b4416e6c766a8987b4658ca1')
 
 _pick() {
   local p="$1" f d; shift
@@ -45,6 +48,7 @@ _pick() {
 prepare() {
   # symlink tests data to top-level location so that tests can get to them (we build out of tree)
   ln -sv $pkgbase-$pkgver/tests .
+  patch --directory="$pkgbase-$pkgver" --forward --strip=1 --input="${srcdir}/sfizz-1_2_3-absl_20240116_1-fix-build.patch"
 }
 
 build() {
