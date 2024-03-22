@@ -2,30 +2,33 @@
 
 pkgname=gnome-shell-extension-appindicator
 pkgver=57
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='AppIndicator/KStatusNotifierItem support for GNOME Shell'
 url='https://github.com/ubuntu/gnome-shell-extension-appindicator'
 arch=('any')
 license=('GPL-2.0-or-later')
-depends=('gnome-shell>=3.34')
+depends=('gnome-shell')
 makedepends=('meson' 'jq')
-optdepends=(
-  'libappindicator-gtk2: support GTK+2 applications'
-  'libappindicator-gtk3: support GTK+3 applications'
-)
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ubuntu/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('788fa3ff2f8525efbd794bffd0fcec3d77c9c1cbfcff0fadeb93b4925751ca41')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ubuntu/${pkgname}/archive/v${pkgver}.tar.gz"
+        'gnome46.patch')
+sha256sums=('788fa3ff2f8525efbd794bffd0fcec3d77c9c1cbfcff0fadeb93b4925751ca41'
+            'af2aac20c026a8f37f81181c7ed26337e69f18774991a362b4ed2a8fbd22efcd')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  # GNOME 46 support
+  # https://github.com/ubuntu/gnome-shell-extension-appindicator/pull/498
+  patch -Np1 -i ../gnome46.patch
+}
 
 build() {
-  cd "${pkgname}-${pkgver}"
-  meson --prefix=/usr build/
-  ninja -C build/
+  arch-meson "${pkgname}-${pkgver}" build -Dlocal_install=disabled
+  meson compile -C build
 }
 
 package() {
-  cd "${pkgname}-${pkgver}"
-  DESTDIR="${pkgdir}" ninja -C build/ install
+  meson install -C build --destdir="${pkgdir}"
   # this file is generated at pkg install time
   rm "${pkgdir}/usr/share/glib-2.0/schemas/gschemas.compiled"
 }
