@@ -4,7 +4,7 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=gitui
-pkgver=0.25.1
+pkgver=0.25.2
 pkgrel=1
 pkgdesc='Blazing fast terminal-ui for git written in Rust'
 url='https://github.com/extrawurst/gitui'
@@ -14,8 +14,8 @@ license=('MIT')
 depends=('gcc-libs' 'libgit2.so' 'libxcb' 'openssl' 'zlib')
 makedepends=('cargo' 'python') # xcb crate needs python
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('78d31ba66de1521477aef1642c798a385106ff4858f59e79775ba08a694d0ae4')
-b2sums=('9acd976784484f5249ee6195852d98d4495ee382803269c8bdd647044b974d9070b91437e06c482222949a81e2f3392038e10e0bbbb215840d8fa22877d85b34')
+sha256sums=('5a67d526e22533952a747cb34eb2430a1340dd3139f60a785f579bba4a6aa5ed')
+b2sums=('4df6a0b250fb12556f4f77d2bd1e7b8c53f4db92653e0af13a17c58aeb05f241d7a383ce5c65eb53aed9565c2ce48c8158c6967774213b36bf705fe748ee3afe')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
