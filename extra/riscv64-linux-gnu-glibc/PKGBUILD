@@ -5,7 +5,7 @@
 _target=riscv64-linux-gnu
 pkgname=$_target-glibc
 pkgver=2.39
-pkgrel=2
+pkgrel=3
 pkgdesc='GNU C Library RISCV target'
 arch=(any)
 url='https://www.gnu.org/software/libc/'
@@ -53,7 +53,7 @@ build() {
       --libdir=/usr/lib \
       --libexecdir=/usr/lib \
       --with-headers=/usr/$_target/include \
-      --with-bugurl=https://bugs.archlinux.org/ \
+      --with-bugurl=https://gitlab.archlinux.org/archlinux/packaging/packages/${pkgname}/-/issues \
       --enable-kernel=2.6.32 \
       --enable-add-ons \
       --enable-bind-now \
