@@ -8,8 +8,8 @@
 
 pkgbase=mupdf
 pkgname=(libmupdf mupdf mupdf-gl mupdf-tools python-mupdf)
-pkgver=1.23.11
-pkgrel=2
+pkgver=1.24.0
+pkgrel=1
 pkgdesc='Lightweight PDF and XPS viewer'
 arch=('x86_64')
 url='https://mupdf.com/'
@@ -43,22 +43,18 @@ source=(
   "https://mupdf.com/downloads/archive/$pkgbase-${pkgver/_/}-source.tar.gz"
   $pkgbase.desktop
   $pkgbase.xpm
-  $pkgbase-1.23.9-no_venv.patch
   $pkgbase-1.23.9-cpp_ldflags.patch
   $pkgbase-1.23.9-install_targets.patch
 )
-sha256sums=('478f2a167feae2a291c8b8bc5205f2ce2f09f09b574a6eb0525bfad95a3cfe66'
+sha256sums=('52f63003a6f4d89f234e9edfb4b4c83d216b83aaeb323cfda6047cb754599ae0'
             'ccff66979249bd4ab4ba8918660f194eb90eb0ae231b16e36a6cecdcf471883f'
             'a435f44425f5432c074dee745d8fbaeb879038ec1f1ec64f037c74662f09aca8'
-            'fed5ccebf5c8d3a4f4b777ce058f647cde673826b465c777994fc436dc1dca5a'
             '152222c0bc066404d9e38be7abbba20748b0a4bbc9cb30403d19e3b176ab257f'
-            '87fd0544112ca8e8396dd3eb989907c110bad35de02ea425677b99a5d2532666')
+            'ceb2b16a12bf193d514969f995dfca4c2d12d489c2690928db2db4afe09f6c8c')
 
 prepare() {
   cd $pkgbase-${pkgver/_/}-source
 
-  # do not use a venv for building language bindings
-  patch -Np1 -i ../$pkgbase-1.23.9-no_venv.patch
   # use our LDFLAGS when building the C++ bindings to have full RELRO
   patch -Np1 -i ../$pkgbase-1.23.9-cpp_ldflags.patch
   # alter install-shared-* targets to not call one another (which fails on installing headers twice) and install libmupdfcpp.so with soname postfix
@@ -91,7 +87,7 @@ prepare() {
 build() {
   cd $pkgbase-${pkgver/_/}-source
   # Enforce -j1 to avoid concurrency issue during build
-  make -j1 shared=yes build=release libs apps c++ python
+  make -j1 VENV_FLAG= shared=yes build=release libs apps c++ python
 }
 
 package_libmupdf() {
@@ -111,7 +107,7 @@ package_libmupdf() {
   )
 
   cd $pkgbase-${pkgver/_/}-source
-  make prefix=/usr DESTDIR="$pkgdir" install-shared-c install-shared-c++
+  make prefix=/usr DESTDIR="$pkgdir" SO_INSTALL_MODE=755 install-shared-c install-shared-c++
 }
 
 package_python-mupdf() {
@@ -124,7 +120,7 @@ package_python-mupdf() {
   )
 
   cd $pkgbase-${pkgver/_/}-source
-  make prefix=/usr DESTDIR="$pkgdir" install-shared-python
+  make prefix=/usr DESTDIR="$pkgdir" SO_INSTALL_MODE=755 install-shared-python
 }
 
 package_mupdf() {

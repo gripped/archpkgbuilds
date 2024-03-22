@@ -1,7 +1,7 @@
 pkgbase = mupdf
 	pkgdesc = Lightweight PDF and XPS viewer
-	pkgver = 1.23.11
-	pkgrel = 2
+	pkgver = 1.24.0
+	pkgrel = 1
 	url = https://mupdf.com/
 	arch = x86_64
 	license = AGPL-3.0-or-later
@@ -26,18 +26,16 @@ pkgbase = mupdf
 	makedepends = tesseract
 	makedepends = zlib
 	options = staticlibs
-	source = https://mupdf.com/downloads/archive/mupdf-1.23.11-source.tar.gz
+	source = https://mupdf.com/downloads/archive/mupdf-1.24.0-source.tar.gz
 	source = mupdf.desktop
 	source = mupdf.xpm
-	source = mupdf-1.23.9-no_venv.patch
 	source = mupdf-1.23.9-cpp_ldflags.patch
 	source = mupdf-1.23.9-install_targets.patch
-	sha256sums = 478f2a167feae2a291c8b8bc5205f2ce2f09f09b574a6eb0525bfad95a3cfe66
+	sha256sums = 52f63003a6f4d89f234e9edfb4b4c83d216b83aaeb323cfda6047cb754599ae0
 	sha256sums = ccff66979249bd4ab4ba8918660f194eb90eb0ae231b16e36a6cecdcf471883f
 	sha256sums = a435f44425f5432c074dee745d8fbaeb879038ec1f1ec64f037c74662f09aca8
-	sha256sums = fed5ccebf5c8d3a4f4b777ce058f647cde673826b465c777994fc436dc1dca5a
 	sha256sums = 152222c0bc066404d9e38be7abbba20748b0a4bbc9cb30403d19e3b176ab257f
-	sha256sums = 87fd0544112ca8e8396dd3eb989907c110bad35de02ea425677b99a5d2532666
+	sha256sums = ceb2b16a12bf193d514969f995dfca4c2d12d489c2690928db2db4afe09f6c8c
 
 pkgname = libmupdf
 	pkgdesc = Library for Lightweight PDF and XPS viewer
@@ -69,7 +67,7 @@ pkgname = mupdf-gl
 	depends = libgl
 	depends = libmupdf
 	depends = openssl
-	provides = mupdf=1.23.11
+	provides = mupdf=1.24.0
 	conflicts = mupdf
 
 pkgname = mupdf-tools
