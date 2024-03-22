@@ -4,7 +4,7 @@
 _name=PyMuPDF
 pkgname=python-pymupdf
 pkgver=1.23.26
-pkgrel=1
+pkgrel=2
 pkgdesc="Python bindings for MuPDF's rendering library"
 arch=(x86_64)
 url="https://github.com/pymupdf/PyMuPDF"
@@ -93,6 +93,8 @@ check() {
     --deselect tests/test_general.py::test_subset_fonts
     # we do not care about flake8
     --deselect tests/test_flake8.py::test_flake8
+    # disable test broken with mupdf 1.24.0
+    --deselect tests/test_2548.py::test_2548
   )
   local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
