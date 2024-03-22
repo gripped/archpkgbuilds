@@ -1,7 +1,7 @@
 pkgbase = python-pymupdf
 	pkgdesc = Python bindings for MuPDF's rendering library
-	pkgver = 1.23.26
-	pkgrel = 2
+	pkgver = 1.24.0
+	pkgrel = 1
 	url = https://github.com/pymupdf/PyMuPDF
 	arch = x86_64
 	license = AGPL-3.0-or-later
@@ -24,8 +24,11 @@ pkgbase = python-pymupdf
 	depends = python-mupdf
 	optdepends = python-fonttools: for building font subsets using fontTools
 	optdepends = python-pillow: for image file saving using pillow
-	source = PyMuPDF-1.23.26.tar.gz::https://github.com/pymupdf/PyMuPDF/archive/refs/tags/1.23.26.tar.gz
-	sha512sums = b7fa1ca78853692c7df59334670f31bd4506a4d3c153578e6a983569dbe46472aee88541d5454c3d8ff9ca8ed404275dc643bed618d6ebb253bb63a96ea152d2
-	b2sums = 4bfd4c01644903b52d2b65d2c297c89c1b08abc17021750fc7284c15ae8523d20a8d58f2344a16ccd7236768dc96a310af14dac9a88c63cf4afcf1023a0963d1
+	source = PyMuPDF-1.24.0.tar.gz::https://github.com/pymupdf/PyMuPDF/archive/refs/tags/1.24.0.tar.gz
+	source = remove-clang-and-swig-dependencies.patch
+	sha512sums = 2980701e47d01e20a582abdf9a18f9c67bf887834a0e3e7217f963bfe9e35e62836b9bea5591e5194159f907b95d09cebe63ea8d7bbe0177bae637d247f52e03
+	sha512sums = fb2da9db1ba9b34ecfe6556d912659c36f9603eefeaa9836d2b692f42952955a6de10d8629a8f2bafd813aaf678782aca12033031b6ccc52c1bc1a4ee5fb897c
+	b2sums = c313c7ffc8a127b5ac5e642b77b86ef07c594808d2c3ada8e66e8d4ddd5aa5d1268edc9d8ab11cd211b7ad86ecae6e0c860ff4d49b5d6b4fad33179a6dd1fc01
+	b2sums = 8c4f93146385bd2e74b8245b4b8d8ece390ef97ad369602adcfcc56c8f9858f4c754886e290f0f6bfea1727fca6897715f3e8eeb961609fdad6fadf57493e354
 
 pkgname = python-pymupdf
