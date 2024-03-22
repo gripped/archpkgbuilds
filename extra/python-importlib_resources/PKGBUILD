@@ -2,7 +2,7 @@
 
 _name=importlib_resources
 pkgname=python-importlib_resources
-pkgver=6.3.2
+pkgver=6.4.0
 pkgrel=1
 pkgdesc="Design and implementation for a planned importlib.resources"
 arch=(any)
@@ -21,14 +21,15 @@ makedepends=(
 )
 checkdepends=(
   python-jaraco.collections
+  python-jaraco.test
   python-pytest
   python-pytest-enabler
   python-tests
 )
 provides=(python-importlib-resources)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('cd2daf2dd4b9672238f07e9ba470edfc93376defc2761866f2dd844b7cc2fb8c16c554ff419a48f986da5c536c0776f448beb7c02f5ad68ccbb470755b5bcaf9')
-b2sums=('5ade99b423c108968fa39bf54ca75b5b838c2b635ca0874e74460f9c035d798b4a2fb8afc239a9f7053243e01719f2f9979408826dd05bf8dce516bcbec941d2')
+sha512sums=('21b59cf15be4371abdf0d66f3e8a758c0ba2d6a933392de665ba600d51c021e697432bfcdf3cfd5893383c4ba71c2ee0c65e667f9b824dcd1b8642fbf442d6f5')
+b2sums=('4f9351ffa8b5b76aaf19b9f43e8df057239c54770c0ef35990c091a32b06c3c9535b2e189bb8f46e9de50935ffa8a32805512cad966e1a4cdd37ee09a5d68f6e')
 
 build() {
   cd $_name-$pkgver
