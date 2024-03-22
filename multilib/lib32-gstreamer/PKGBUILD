@@ -8,8 +8,8 @@ pkgname=(
   lib32-gst-plugins-base
   lib32-gst-plugins-good
 )
-pkgver=1.24.0
-pkgrel=2
+pkgver=1.24.1
+pkgrel=1
 pkgdesc="Multimedia graph framework (32-bit)"
 url="https://gstreamer.freedesktop.org/"
 arch=(x86_64)
@@ -40,8 +40,8 @@ source=(
   "git+https://gitlab.freedesktop.org/gstreamer/gstreamer.git?signed#tag=$pkgver"
   0001-HACK-meson-Disable-broken-tests.patch
 )
-b2sums=('SKIP'
-        'afe47af956fe50ab2d77dba5d1e84649f63443a816ad7a0d0c0a37f2f46e1da3473472bd1183843b37dd3c0c61ee496b3d246df5de35e5df960a09bcac7eb48f')
+b2sums=('a91e46cf3757a825a060f75fcfd974ec65fcb0d24c96039ce79b481b1ea93e82a6e226f45fd0fae6421ccd2eb356871db670c93b32b3df2cba8b105d4e00cf19'
+        'c32a423b7675881f795d3858b12d90bc87da42ddc03773d113f692cc0c0dfbd502c28b89bd90fbaec5a352cbd96baa3605fac1542a32dd71d20102987bb37a2c')
 validpgpkeys=(
   D637032E45B8C6585B9456565D2EEE6F6F349D7C # Tim Müller <tim@gstreamer-foundation.org>
 )
@@ -111,7 +111,7 @@ check() (
 
   # Flaky due to timeouts
   xvfb-run -s '-nolisten local' \
-    meson test -C build --print-errorlogs -t 3 || :
+    meson test -C build --print-errorlogs -t 5 || :
 )
 
 _install() {
