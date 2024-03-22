@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=wrangler
-pkgver=3.36.0
+pkgver=3.37.0
 pkgrel=1
 _esbuild_ver='0.17.19'
 pkgdesc="The CLI for Cloudflare Workers"
@@ -22,11 +22,13 @@ makedepends=(
   'turbo'
   'typescript'
 )
+# we can not use LTO as otherwise we get no reproducible package with full RELRO
+options=(!lto)
 source=(https://github.com/cloudflare/workers-sdk/archive/refs/tags/wrangler@${pkgver}.tar.gz
         "esbuild-${_esbuild_ver}.tar.gz::https://github.com/evanw/esbuild/archive/v${_esbuild_ver}.tar.gz")
-sha256sums=('886aaf68858c94b567410c3736ddd2210669d277143e5bc84beef5d8dfb0513c'
+sha256sums=('029f2f0237e77ca831f2122a45556d447fe50df00270eea9ca3d34a13e1208b4'
             '481201f00848594f5850ac32ddf9d4d21047e5a4c306485fb7461dd4d14d6fa2')
-b2sums=('75fa99d603bbeb8358ec3c29a28dc50e6be60249925023a30c7948bbdf3506f3b23e8553582f5ba41d5c29ccb5d1561c4caf7ba47a650c06a4df2b6520c12dbe'
+b2sums=('61c09e637904bff1f5d9b35b3e70d0c4a10482857ef58882c2582fc7240e20c98a2809b9107c98d248f21593309a6b503866da3e13ed585e3bd9a8e6d89ccd97'
         '4c26fdd7dd52706f98c6e9d60e6b3993168b2ffefd35b326e03be806d5083adcb50d9cb931f925f551e90aef5392647c99807b73af4075d6d5e2336c565c33ea')
 
 prepare() {
@@ -51,14 +53,13 @@ build() {
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
+  export CGO_REQUIRED="1"
 
   go build \
-    -trimpath \
     -buildmode=pie \
     -mod=readonly \
     -modcacherw \
-    -ldflags "-linkmode external -extldflags \"${LDFLAGS}\"" \
+    -ldflags '-compressdwarf=false -linkmode=external' \
     ./cmd/esbuild
 }
 
