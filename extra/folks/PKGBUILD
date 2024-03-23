@@ -2,7 +2,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=folks
-pkgver=0.15.8
+pkgver=0.15.9
 pkgrel=1
 pkgdesc="Library to aggregates people into metacontacts"
 url="https://wiki.gnome.org/Projects/Folks"
@@ -29,9 +29,9 @@ provides=(
 options=(
   !lto # LTO copies some GType constructors
 )
-_commit=554fca9ae1e37d0a5723f1d4ca8701b75c691a68  # tags/0.15.8^0
+_commit=f57424e8411bb0b005483593ed11025a838ab19f  # tags/0.15.9^0
 source=("git+https://gitlab.gnome.org/GNOME/folks.git#commit=$_commit")
-b2sums=('6285dba30fc4a78d4df533345946528fe601eafccf6899edd4d317efef0e3caca53a830ac3e8fd528882a99817fd90fdcdd37d2f0b286d22f1cf4a8f9674ae84')
+b2sums=('f86c2302139f244f6d8ff3b7207104dc7e81aed6f51fd450f2fdcd6bbcef7866cc8d0d4764c21c06bacc8946714589955e598c79b0d4d50fbc11c0628a7d5410')
 
 pkgver() {
   cd folks
