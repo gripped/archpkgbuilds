@@ -3,12 +3,12 @@
 # Contributor: Stefano Facchini <stefano.facchini@gmail.com>
 
 pkgname=gnome-boxes
-pkgver=45.0
+pkgver=46.0
 pkgrel=1
 pkgdesc='Simple GNOME application to access virtual systems'
 arch=('x86_64')
 url='https://wiki.gnome.org/Apps/Boxes'
-license=('LGPL')
+license=('LGPL-2.0-or-later')
 depends=(
   'cairo'
   'cdrtools'
@@ -22,6 +22,8 @@ depends=(
   'libgudev'
   'libhandy'
   'libosinfo'
+  'libportal'
+  'libportal-gtk3'
   'libsecret'
   'libsoup3'
   'libusb'
@@ -44,7 +46,7 @@ makedepends=(
 )
 groups=('gnome-extra')
 source=("https://download.gnome.org/sources/$pkgname/${pkgver%%.*}/$pkgname-$pkgver.tar.xz")
-sha256sums=('cc63080eefa147a8472ab1a5ff087b97a27ab723a4ee005ed41e8c9dd7798e41')
+sha256sums=('67eeb5e989294958b25c397cfc5615ff65f44315c700010f0b9e336e6f3407cb')
 
 build() {
   arch-meson $pkgname-$pkgver build
