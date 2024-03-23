@@ -7,12 +7,12 @@ pkgname=(
   evince
   evince-lib-docs
 )
-pkgver=45.0
+pkgver=46.0
 pkgrel=1
 pkgdesc="Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)"
 url="https://wiki.gnome.org/Apps/Evince"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-2.0-or-later)
 depends=(
   dconf
   djvulibre
@@ -41,9 +41,9 @@ makedepends=(
   texlive-bin
   yelp-tools
 )
-_commit=80b393cac6468561664810d5e4a0f1897507062b  # tags/45.0^0
+_commit=87a7a199c785e9b53279b2ba20134a341786ce3f  # tags/46.0^0
 source=("git+https://gitlab.gnome.org/GNOME/evince.git#commit=$_commit")
-b2sums=('SKIP')
+b2sums=('dbfd6774f19b426152fc2330de8101cf3362adbadeb1ac80c55249bb660a75fb2d2d39e78fd047f7c48f6d9ce1b532d0ddb6da3eedd96d685e450b1e401de3e5')
 
 pkgver() {
   cd evince
