@@ -1,6 +1,6 @@
 pkgbase = buildah
 	pkgdesc = A tool which facilitates building OCI images
-	pkgver = 1.35.0
+	pkgver = 1.35.1
 	pkgrel = 1
 	url = https://github.com/containers/buildah
 	arch = x86_64
@@ -20,9 +20,10 @@ pkgbase = buildah
 	depends = crun
 	depends = skopeo
 	depends = slirp4netns
+	optdepends = passt: for rootless network support
 	options = !lto
 	options = !debug
-	source = git+https://github.com/containers/buildah.git#commit=16b2a400e9af7f75865f3b0d04591a4d88db8192
-	sha512sums = SKIP
+	source = git+https://github.com/containers/buildah.git#tag=v1.35.1
+	sha512sums = d224e5d33cc193e3e23954a85ea494b846b7b6d856689c4f844a4c967adc51af4b9bde508b470b349c955b35536c872f084caf0e464c255c89e271b8f01c64bc
 
 pkgname = buildah
