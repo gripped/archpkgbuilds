@@ -1,17 +1,18 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-calculator
-pkgver=45.0.2
+pkgver=46.0
 pkgrel=1
 pkgdesc="GNOME Scientific calculator"
 url="https://wiki.gnome.org/Apps/Calculator"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-3.0-or-later)
 depends=(
   dconf
   glib2
+  glibc
   gtk4
   gtksourceview5
   hicolor-icon-theme
@@ -34,13 +35,13 @@ provides=(
   libgci-1.so
 )
 groups=(gnome)
-_commit=cc7666cdc1d8bea216ed09d756da4e8f65af5368  # tags/45.0.2^0
+_commit=9ca2245ca3f58007d79da785ebf44d54ce0d1ff6  # tags/46.0^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-calculator.git#commit=$_commit")
 b2sums=('SKIP')
 
 pkgver() {
   cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 build() {
