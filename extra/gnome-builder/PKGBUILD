@@ -1,4 +1,4 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgbase=gnome-builder
@@ -7,8 +7,8 @@ pkgname=(
   gnome-builder-clang
   gnome-builder-flatpak
 )
-pkgver=45.0
-pkgrel=5
+pkgver=46.0
+pkgrel=1
 pkgdesc="An IDE for writing GNOME-based software"
 url="https://wiki.gnome.org/Apps/Builder"
 arch=(x86_64)
@@ -24,9 +24,11 @@ depends=(
   devhelp
   editorconfig-core-c
   enchant
+  gcc-libs
   gdk-pixbuf2
   gjs
   glib2
+  glibc
   gobject-introspection-runtime
   gtk4
   gtksourceview5
@@ -68,18 +70,17 @@ makedepends=(
   yelp-tools
 )
 checkdepends=(weston)
-_commit=82b055c8cc4dbcf171f8236e2a7d15cd19225fe1  # tags/45.0^0
+_commit=6e7b8bb8cfa9d0fb7fc1fbd6f1bb54912443cabf  # tags/46.0^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-builder.git#commit=$_commit")
 b2sums=('SKIP')
 
 pkgver() {
   cd $pkgbase
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {
   cd $pkgbase
-  git cherry-pick -n 7aaaecefc2ea8a37eaeae8b4d726d119d4eb8fa3 # Fix build
 }
 
 build() {
@@ -128,6 +129,7 @@ package_gnome-builder-clang() {
     clang
     gcc-libs
     glib2
+    glibc
     gtk4
     gtksourceview5
     jsonrpc-glib
@@ -145,6 +147,7 @@ package_gnome-builder-flatpak() {
     flatpak
     gcc-libs
     glib2
+    glibc
   )
   groups=(gnome-extra)
 
