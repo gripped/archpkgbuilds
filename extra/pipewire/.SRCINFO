@@ -1,7 +1,7 @@
 pkgbase = pipewire
 	pkgdesc = Low-latency audio/video router and processor
 	pkgver = 1.0.4
-	pkgrel = 1
+	pkgrel = 2
 	epoch = 1
 	url = https://pipewire.org
 	arch = x86_64
@@ -36,6 +36,7 @@ pkgbase = pipewire
 	makedepends = ncurses
 	makedepends = opus
 	makedepends = python-docutils
+	makedepends = python-packaging
 	makedepends = readline
 	makedepends = roc-toolkit
 	makedepends = rtkit
@@ -45,7 +46,7 @@ pkgbase = pipewire
 	makedepends = valgrind
 	makedepends = webrtc-audio-processing-1
 	source = git+https://gitlab.freedesktop.org/pipewire/pipewire.git#commit=f2874ad1c2f7f0b9a1da05cc4f402b3ea3761ee6
-	b2sums = SKIP
+	b2sums = a1a9905ec4b09fe7d24bdf08164d96a1b2ee285576b53b941b6c245bf4c63991295398cb14e22555e4ba2bdff8d16523ef27fa05f81a336df3991f2ac9d911e1
 
 pkgname = pipewire
 	install = pipewire.install
@@ -53,7 +54,7 @@ pkgname = pipewire
 	license = LGPL-2.1-or-later
 	depends = gcc-libs
 	depends = glibc
-	depends = libpipewire=1:1.0.4-1
+	depends = libpipewire=1:1.0.4-2
 	depends = libcamera-base.so
 	depends = libcamera.so
 	depends = libdbus-1.so
