@@ -7,7 +7,7 @@ pkgname=(
   libadwaita-demos
   libadwaita-docs
 )
-pkgver=1.4.4
+pkgver=1.5.0
 pkgrel=1
 epoch=1
 pkgdesc="Building blocks for modern adaptive GNOME applications"
@@ -18,6 +18,7 @@ depends=(
   appstream
   fribidi
   glib2
+  glibc
   graphene
   gtk4
   pango
@@ -31,13 +32,13 @@ makedepends=(
   vala
 )
 checkdepends=(weston)
-_commit=f5a021d0ab0eb98455529dd8c055c45897c891df  # tags/1.4.4^0
+_commit=6eed5e87efdcb6c599caaad64cbf1b68603ee6e7  # tags/1.5.0^0
 source=("git+https://gitlab.gnome.org/GNOME/libadwaita.git#commit=$_commit")
 b2sums=('SKIP')
 
 pkgver() {
   cd $pkgname
-  git describe --tags | sed -r 's/_/./;s/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {
@@ -95,6 +96,7 @@ package_libadwaita-demos() {
   pkgdesc+=" (demo applications)"
   depends=(
     glib2
+    glibc
     gtk4
     hicolor-icon-theme
     libadwaita

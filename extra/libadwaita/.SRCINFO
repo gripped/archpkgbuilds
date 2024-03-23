@@ -1,6 +1,6 @@
 pkgbase = libadwaita
 	pkgdesc = Building blocks for modern adaptive GNOME applications
-	pkgver = 1.4.4
+	pkgver = 1.5.0
 	pkgrel = 1
 	epoch = 1
 	url = https://gnome.pages.gitlab.gnome.org/libadwaita/
@@ -16,16 +16,18 @@ pkgbase = libadwaita
 	depends = appstream
 	depends = fribidi
 	depends = glib2
+	depends = glibc
 	depends = graphene
 	depends = gtk4
 	depends = pango
-	source = git+https://gitlab.gnome.org/GNOME/libadwaita.git#commit=f5a021d0ab0eb98455529dd8c055c45897c891df
+	source = git+https://gitlab.gnome.org/GNOME/libadwaita.git#commit=6eed5e87efdcb6c599caaad64cbf1b68603ee6e7
 	b2sums = SKIP
 
 pkgname = libadwaita
 	depends = appstream
 	depends = fribidi
 	depends = glib2
+	depends = glibc
 	depends = graphene
 	depends = gtk4
 	depends = pango
@@ -35,6 +37,7 @@ pkgname = libadwaita
 pkgname = libadwaita-demos
 	pkgdesc = Building blocks for modern adaptive GNOME applications (demo applications)
 	depends = glib2
+	depends = glibc
 	depends = gtk4
 	depends = hicolor-icon-theme
 	depends = libadwaita
