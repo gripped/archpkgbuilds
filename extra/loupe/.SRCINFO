@@ -1,17 +1,20 @@
 pkgbase = loupe
 	pkgdesc = A simple image viewer for GNOME
-	pkgver = 45.3
+	pkgver = 46.0
 	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/loupe
 	arch = x86_64
 	groups = gnome
-	license = GPL
+	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = itstool
 	makedepends = meson
 	makedepends = rust
 	depends = cairo
+	depends = dconf
+	depends = gcc-libs
 	depends = glib2
+	depends = glibc
 	depends = glycin
 	depends = graphene
 	depends = gtk4
@@ -19,7 +22,8 @@ pkgbase = loupe
 	depends = lcms2
 	depends = libadwaita
 	depends = libgweather-4
-	source = git+https://gitlab.gnome.org/GNOME/loupe.git#commit=5cc82d315635b7c2fe92410cfef258890f541a84
-	sha256sums = SKIP
+	depends = libseccomp
+	source = git+https://gitlab.gnome.org/GNOME/loupe.git#commit=b3238e28bd451120cdb516ec8dd76197218e3cdb
+	b2sums = SKIP
 
 pkgname = loupe

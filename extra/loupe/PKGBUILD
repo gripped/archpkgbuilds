@@ -1,16 +1,19 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=loupe
-pkgver=45.3
+pkgver=46.0
 pkgrel=1
 pkgdesc="A simple image viewer for GNOME"
 arch=(x86_64)
 url="https://gitlab.gnome.org/GNOME/loupe"
-license=('GPL')
+license=('GPL-3.0-or-later')
 groups=('gnome')
 depends=(
   cairo
+  dconf
+  gcc-libs
   glib2
+  glibc
   glycin
   graphene
   gtk4
@@ -18,6 +21,7 @@ depends=(
   lcms2
   libadwaita
   libgweather-4
+  libseccomp
 )
 makedepends=(
   git
@@ -25,9 +29,9 @@ makedepends=(
   meson
   rust
 )
-_commit=5cc82d315635b7c2fe92410cfef258890f541a84  # tags/45.3^0
+_commit=b3238e28bd451120cdb516ec8dd76197218e3cdb  # tags/46.0^0
 source=("git+https://gitlab.gnome.org/GNOME/loupe.git#commit=$_commit")
-sha256sums=('SKIP')
+b2sums=('SKIP')
 
 # Use LTO
 export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
@@ -37,7 +41,7 @@ export CARGO_PROFILE_RELEASE_DEBUG=2
 
 pkgver() {
   cd $pkgname
-  git describe --tags | sed -r 's/_/./;s/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {
