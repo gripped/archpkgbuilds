@@ -7,7 +7,7 @@ pkgname=(
   glibmm-2.68
   glibmm-2.68-docs
 )
-pkgver=2.78.1
+pkgver=2.80.0
 pkgrel=1
 pkgdesc="C++ bindings for GLib"
 url="https://www.gtkmm.org/"
@@ -25,10 +25,9 @@ makedepends=(
   perl-xml-parser
 )
 checkdepends=(glib-networking)
-options=(!emptydirs)
-_commit=6b8a1a603bb0078716d36a70e1be82407e8e38cb  # tags/2.78.1^0
+_commit=55b6b756d9cdf444d86655dc2db8d183b6fc94a2  # tags/2.80.0^0
 source=("git+https://gitlab.gnome.org/GNOME/glibmm.git#commit=$_commit")
-b2sums=('SKIP')
+b2sums=('d20971b13d4477f0b4dbf0fb4569e3b49e354c6e8c75be0ac3d3f158d02219a49b32c983df1c50c54047f986a80947841131d0b7c20ee9c6bc11361c6bdcb7f2')
 
 pkgver() {
   cd glibmm
@@ -55,6 +54,7 @@ check() {
 package_glibmm-2.68() {
   depends+=(libsigc-3.0.so)
   provides=(libglibmm-2.68.so)
+  options=(!emptydirs)
 
   meson install -C build --destdir "$pkgdir"
 
