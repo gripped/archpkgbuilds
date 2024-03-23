@@ -1,6 +1,6 @@
 pkgbase = snapshot
 	pkgdesc = Take pictures and videos
-	pkgver = 45.2
+	pkgver = 46.0
 	pkgrel = 1
 	url = https://apps.gnome.org/Snapshot
 	arch = x86_64
@@ -10,6 +10,9 @@ pkgbase = snapshot
 	makedepends = meson
 	makedepends = rust
 	depends = dconf
+	depends = gcc-libs
+	depends = glib2
+	depends = glibc
 	depends = graphene
 	depends = gst-plugin-pipewire
 	depends = gst-plugins-bad-libs
@@ -20,7 +23,7 @@ pkgbase = snapshot
 	depends = gtk4
 	depends = hicolor-icon-theme
 	depends = libadwaita
-	source = git+https://gitlab.gnome.org/GNOME/snapshot.git#commit=e960f32b23fd8b7edc1daeec41f4c80be938719f
-	sha256sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/snapshot.git#commit=ed57948c34bd540772c71ebdac2d892fd0c3b162
+	b2sums = SKIP
 
 pkgname = snapshot

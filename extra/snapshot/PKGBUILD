@@ -1,7 +1,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=snapshot
-pkgver=45.2
+pkgver=46.0
 pkgrel=1
 pkgdesc="Take pictures and videos"
 arch=(x86_64)
@@ -10,6 +10,9 @@ license=(GPL-3.0-or-later)
 groups=(gnome)
 depends=(
   dconf
+  gcc-libs
+  glib2
+  glibc
   graphene
   gst-plugin-pipewire
   gst-plugins-bad-libs
@@ -26,9 +29,9 @@ makedepends=(
   meson
   rust
 )
-_commit=e960f32b23fd8b7edc1daeec41f4c80be938719f # tags/45.2^0
+_commit=ed57948c34bd540772c71ebdac2d892fd0c3b162  # tags/46.0^0
 source=("git+https://gitlab.gnome.org/GNOME/snapshot.git#commit=$_commit")
-sha256sums=('SKIP')
+b2sums=('SKIP')
 
 prepare() {
   cd ${pkgname}
@@ -36,7 +39,7 @@ prepare() {
 
 pkgver() {
   cd ${pkgname}
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 build() {
