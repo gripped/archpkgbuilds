@@ -1,6 +1,6 @@
 pkgbase = gnome-bluetooth-3.0
 	pkgdesc = GNOME Bluetooth Subsystem
-	pkgver = 42.8
+	pkgver = 46.0
 	pkgrel = 1
 	url = https://wiki.gnome.org/Projects/GnomeBluetooth
 	arch = x86_64
@@ -11,6 +11,8 @@ pkgbase = gnome-bluetooth-3.0
 	makedepends = gobject-introspection
 	makedepends = gtk-doc
 	makedepends = meson
+	makedepends = python
+	makedepends = python-packaging
 	depends = bluez
 	depends = gsound
 	depends = gtk4
@@ -20,7 +22,7 @@ pkgbase = gnome-bluetooth-3.0
 	depends = upower
 	provides = libgnome-bluetooth-3.0.so
 	provides = libgnome-bluetooth-ui-3.0.so
-	source = git+https://gitlab.gnome.org/GNOME/gnome-bluetooth.git#commit=3e8e011699ef652e2618fa5c155105512b91c3ff
+	source = git+https://gitlab.gnome.org/GNOME/gnome-bluetooth.git#commit=eb400a17173e0c5e32f8bcc47a5001409628dcc6
 	b2sums = SKIP
 
 pkgname = gnome-bluetooth-3.0
