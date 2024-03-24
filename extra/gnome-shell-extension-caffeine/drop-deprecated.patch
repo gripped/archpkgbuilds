@@ -1,0 +1,96 @@
+From 134e02c8f36d16a8f2e115722ce0a8fbbd9b1a08 Mon Sep 17 00:00:00 2001
+From: Stuart Hayhurst <stuart.a.hayhurst@gmail.com>
+Date: Tue, 13 Feb 2024 14:34:09 +0000
+Subject: [PATCH 1/2] Remove GNOME 3.28-era compatibility code
+
+---
+ caffeine@patapon.info/extension.js | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
+
+diff --git a/caffeine@patapon.info/extension.js b/caffeine@patapon.info/extension.js
+index 96210b0..051bf40 100644
+--- a/caffeine@patapon.info/extension.js
++++ b/caffeine@patapon.info/extension.js
+@@ -271,14 +271,8 @@ class Caffeine extends QuickSettings.SystemIndicator {
+         this._appAddWindowSignalId = 0;
+         this._appRemoveWindowSignalId = 0;
+ 
+-        // ("screen" in global) is false on 3.28, although global.screen exists
+-        if (typeof global.screen !== 'undefined') {
+-            this._screen = global.screen;
+-            this._display = this._screen.get_display();
+-        } else {
+-            this._screen = global.display;
+-            this._display = this._screen;
+-        }
++        this._screen = global.display;
++        this._display = this._screen;
+ 
+         // Add indicator label for the timer
+         this._timerLabel = new St.Label({
+
+From 6cc5f8556ee7f589a7afb0152839ca8708bec8fa Mon Sep 17 00:00:00 2001
+From: Stuart Hayhurst <stuart.a.hayhurst@gmail.com>
+Date: Tue, 13 Feb 2024 15:45:52 +0000
+Subject: [PATCH 2/2] Drop unused and duplicate attributes
+
+---
+ caffeine@patapon.info/extension.js | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
+
+diff --git a/caffeine@patapon.info/extension.js b/caffeine@patapon.info/extension.js
+index 051bf40..43834f0 100644
+--- a/caffeine@patapon.info/extension.js
++++ b/caffeine@patapon.info/extension.js
+@@ -271,9 +271,6 @@ class Caffeine extends QuickSettings.SystemIndicator {
+         this._appAddWindowSignalId = 0;
+         this._appRemoveWindowSignalId = 0;
+ 
+-        this._screen = global.display;
+-        this._display = this._screen;
+-
+         // Add indicator label for the timer
+         this._timerLabel = new St.Label({
+             y_expand: true,
+@@ -323,7 +320,7 @@ class Caffeine extends QuickSettings.SystemIndicator {
+ 
+         // Enable caffeine when fullscreen app is running
+         if (this._settings.get_boolean(FULLSCREEN_KEY)) {
+-            this._inFullscreenId = this._screen.connect('in-fullscreen-changed', this.toggleFullscreen.bind(this));
++            this._inFullscreenId = global.display.connect('in-fullscreen-changed', this.toggleFullscreen.bind(this));
+             this.toggleFullscreen();
+         }
+ 
+@@ -384,10 +381,10 @@ class Caffeine extends QuickSettings.SystemIndicator {
+     }
+ 
+     get inFullscreen() {
+-        let nbMonitors = this._screen.get_n_monitors();
++        let nbMonitors = global.display.get_n_monitors();
+         let inFullscreen = false;
+         for (let i = 0; i < nbMonitors; i++) {
+-            if (this._screen.get_monitor_in_fullscreen(i)) {
++            if (global.display.get_monitor_in_fullscreen(i)) {
+                 inFullscreen = true;
+                 break;
+             }
+@@ -1019,7 +1016,7 @@ class Caffeine extends QuickSettings.SystemIndicator {
+ 
+         // Disconnect from signals
+         if (this._settings.get_boolean(FULLSCREEN_KEY)) {
+-            this._screen.disconnect(this._inFullscreenId);
++            global.display.disconnect(this._inFullscreenId);
+         }
+         if (this._inhibitorAddedId) {
+             this._sessionManager.disconnectSignal(this._inhibitorAddedId);
+@@ -1029,10 +1026,6 @@ class Caffeine extends QuickSettings.SystemIndicator {
+             this._sessionManager.disconnectSignal(this._inhibitorRemovedId);
+             this._inhibitorRemovedId = 0;
+         }
+-        if (this._windowCreatedId) {
+-            this._display.disconnect(this._windowCreatedId);
+-            this._windowCreatedId = 0;
+-        }
+         if (this._windowDestroyedId) {
+             global.window_manager.disconnect(this._windowDestroyedId);
+             this._windowDestroyedId = 0;

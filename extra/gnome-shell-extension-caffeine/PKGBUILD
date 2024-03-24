@@ -4,14 +4,26 @@
 pkgname=gnome-shell-extension-caffeine
 _uuid=caffeine@patapon.info
 pkgver=50
-pkgrel=1
+pkgrel=2
 pkgdesc='Extension for GNOME Shell to disable screensaver and auto suspend'
 arch=('any')
 url='https://github.com/eonpatapon/gnome-shell-extension-caffeine'
-license=('GPL2')
+license=('GPL-3.0-or-later')
 depends=('gnome-shell')
-source=("https://github.com/eonpatapon/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('ff4a3e938165e032e04a28d4430a85eec3f5c4c9ae0000dc24a2cc4e16da980a')
+source=("https://github.com/eonpatapon/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+        'drop-deprecated.patch'
+        'gnome46.patch')
+sha256sums=('ff4a3e938165e032e04a28d4430a85eec3f5c4c9ae0000dc24a2cc4e16da980a'
+            'f8b99f8d7dba06040d994effba59a215c394c564deabd09f3b0a803364bc8931'
+            '050effbdaecf0c070f1a3843679dab2603a9fe8a690fad165dbc049901cc5d8a')
+
+prepare() {
+  cd $pkgname-$pkgver
+  # GNOME 46 compatibility
+  # https://github.com/eonpatapon/gnome-shell-extension-caffeine/pull/317
+  patch -Np1 -i ../drop-deprecated.patch
+  patch -Np1 -i ../gnome46.patch
+}
 
 build() {
   cd $pkgname-$pkgver

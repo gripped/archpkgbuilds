@@ -1,0 +1,510 @@
+From b6d8f4383f065b947fb24b7427f8aed12bf9c6b5 Mon Sep 17 00:00:00 2001
+From: Stuart Hayhurst <stuart.a.hayhurst@gmail.com>
+Date: Wed, 14 Feb 2024 01:26:11 +0000
+Subject: [PATCH 1/6] Move from connect() to connectObject() where applicable
+
+---
+ caffeine@patapon.info/extension.js | 167 ++++++++++++-----------------
+ 1 file changed, 69 insertions(+), 98 deletions(-)
+
+diff --git a/caffeine@patapon.info/extension.js b/caffeine@patapon.info/extension.js
+index 43834f0..8b93ff7 100644
+--- a/caffeine@patapon.info/extension.js
++++ b/caffeine@patapon.info/extension.js
+@@ -163,15 +163,14 @@ class CaffeineToggle extends QuickSettings.QuickMenuToggle {
+         this._settings.bind(`${TOGGLE_STATE_KEY}`,
+             this, 'checked',
+             Gio.SettingsBindFlags.DEFAULT);
+-        this._settings.connect(`changed::${TOGGLE_STATE_KEY}`, () => {
+-            this._iconName();
+-        });
+-        this._settings.connect(`changed::${TIMER_KEY}`, () => {
+-            this._sync();
+-        });
+-        this._settings.connect(`changed::${DURATION_TIMER_INDEX}`, () => {
+-            this._syncTimers(true);
+-        });
++        this._settings.connectObject(
++            `changed::${TOGGLE_STATE_KEY}`,
++            () => this._iconName(),
++            `changed::${TIMER_KEY}`,
++            () => this._sync(),
++            `changed::${DURATION_TIMER_INDEX}`,
++            () => this._syncTimers(true),
++            this);
+         this.connect('destroy', () => {
+             this._iconActivated = null;
+             this._iconDeactivated = null;
+@@ -194,11 +193,11 @@ class CaffeineToggle extends QuickSettings.QuickMenuToggle {
+             if (!label) {
+                 continue;
+             }
++
+             const icon = Gio.icon_new_for_string(`${this._path}/icons/${timer[5]}.svg`);
+             const item = new PopupMenu.PopupImageMenuItem(label, icon);
+-            item.connect('activate', () => {
+-                this._checkTimer(timer[durationIndex]);
+-            });
++
++            item.connectObject('activate', () => this._checkTimer(timer[durationIndex]), this);
+             this._timerItems.set(timer[durationIndex], item);
+             this._itemsSection.addMenuItem(item);
+         }
+@@ -265,11 +264,11 @@ class Caffeine extends QuickSettings.SystemIndicator {
+         this._activeWorkspace = null;
+ 
+         // Init Apps Signals Id
+-        this._appStateChangedSignalId = 0;
+-        this._appDisplayChangedSignalId = 0;
+-        this._appWorkspaceChangedSignalId = 0;
+-        this._appAddWindowSignalId = 0;
+-        this._appRemoveWindowSignalId = 0;
++        this._appStateChangedSignalId = null;
++        this._appDisplayChangedSignalId = null;
++        this._appWorkspaceChangedSignalId = null;
++        this._appAddWindowSignalId = null;
++        this._appRemoveWindowSignalId = null;
+ 
+         // Add indicator label for the timer
+         this._timerLabel = new St.Label({
+@@ -301,6 +300,10 @@ class Caffeine extends QuickSettings.SystemIndicator {
+         this._inhibitionAddedFifo = [];
+         this._inhibitionRemovedFifo = [];
+ 
++        // Init inhibitor signals
++        this._inhibitorAddedId = null;
++        this._inhibitorRemovedId = null;
++
+         // Init Timers
+         this._timeOut = null;
+         this._timePrint = null;
+@@ -320,7 +323,8 @@ class Caffeine extends QuickSettings.SystemIndicator {
+ 
+         // Enable caffeine when fullscreen app is running
+         if (this._settings.get_boolean(FULLSCREEN_KEY)) {
+-            this._inFullscreenId = global.display.connect('in-fullscreen-changed', this.toggleFullscreen.bind(this));
++            global.display.connectObject('in-fullscreen-changed',
++                () => this.toggleFullscreen(), this);
+             this.toggleFullscreen();
+         }
+ 
+@@ -339,33 +343,37 @@ class Caffeine extends QuickSettings.SystemIndicator {
+         }
+ 
+         // Bind signals
+-        this._inhibitorAddedId = this._sessionManager.connectSignal(
+-            'InhibitorAdded', this._inhibitorAdded.bind(this));
+-        this._inhibitorRemovedId = this._sessionManager.connectSignal(
+-            'InhibitorRemoved', this._inhibitorRemoved.bind(this));
+-        this.inhibitId = this._settings.connect(`changed::${INHIBIT_APPS_KEY}`,
+-            this._updateAppConfigs.bind(this));
+-        this.stateId = this._settings.connect(`changed::${TOGGLE_STATE_KEY}`,
+-            this._updateMainState.bind(this));
+-        this.timerId = this._settings.connect(`changed::${TIMER_KEY}`,
+-            this._startTimer.bind(this));
+-        this.showTimerId = this._settings.connect(`changed::${SHOW_TIMER_KEY}`,
+-            this._showIndicatorLabel.bind(this));
+-        this.indicatorId = this._settings.connect(`changed::${INDICATOR_POSITION}`,
+-            this._updateIndicatorPosition.bind(this));
+-        this.showIndicatorId = this._settings.connect(`changed::${SHOW_INDICATOR_KEY}`, () => {
+-            this._manageShowIndicator();
+-            this._showIndicatorLabel();
+-        });
+-        this.triggerId = this._settings.connect(`changed::${TRIGGER_APPS_MODE}`, () => {
+-            this._resetAppSignalId();
+-            this._updateAppEventMode();
+-        });
++        this._inhibitorAddedId = this._sessionManager.connectSignal('InhibitorAdded',
++            this._inhibitorAdded.bind(this));
++        this._inhibitorRemovedId = this._sessionManager.connectSignal('InhibitorRemoved',
++            this._inhibitorRemoved.bind(this));
++        this._settings.connectObject(
++            `changed::${INHIBIT_APPS_KEY}`,
++            () => this._updateAppConfigs(),
++            `changed::${TOGGLE_STATE_KEY}`,
++            () => this._updateMainState(),
++            `changed::${TIMER_KEY}`,
++            () => this._startTimer(),
++            `changed::${SHOW_TIMER_KEY}`,
++            () => this._showIndicatorLabel(),
++            `changed::${INDICATOR_POSITION}`,
++            () => this._updateIndicatorPosition(),
++            `changed::${SHOW_INDICATOR_KEY}`,
++            () => {
++                this._manageShowIndicator();
++                this._showIndicatorLabel();
++            },
++            `changed::${TRIGGER_APPS_MODE}`,
++            () => {
++                this._resetAppSignalId();
++                this._updateAppEventMode();
++            },
++            this);
+ 
+         // Change user state on icon scroll event
+         this._indicator.reactive = true;
+-        this._indicator.connect('scroll-event',
+-            (actor, event) => this._handleScrollEvent(event));
++        this._indicator.connectObject('scroll-event',
++            (actor, event) => this._handleScrollEvent(event), this);
+ 
+         // Init position and index of indicator icon
+         this.indicatorPosition = this._settings.get_int(INDICATOR_POSITION);
+@@ -816,25 +824,25 @@ class Caffeine extends QuickSettings.SystemIndicator {
+     }
+ 
+     _resetAppSignalId() {
+-        if (this._appStateChangedSignalId > 0) {
++        if (this._appStateChangedSignalId) {
+             this._appSystem.disconnect(this._appStateChangedSignalId);
+-            this._appStateChangedSignalId = 0;
++            this._appStateChangedSignalId = null;
+         }
+-        if (this._appDisplayChangedSignalId > 0) {
++        if (this._appDisplayChangedSignalId) {
+             global.display.disconnect(this._appDisplayChangedSignalId);
+-            this._appDisplayChangedSignalId = 0;
++            this._appDisplayChangedSignalId = null;
+         }
+-        if (this._appWorkspaceChangedSignalId > 0) {
++        if (this._appWorkspaceChangedSignalId) {
+             global.workspace_manager.disconnect(this._appWorkspaceChangedSignalId);
+-            this._appWorkspaceChangedSignalId = 0;
++            this._appWorkspaceChangedSignalId = null;
+         }
+-        if (this._appAddWindowSignalId > 0) {
++        if (this._appAddWindowSignalId) {
+             this._activeWorkspace.disconnect(this._appAddWindowSignalId);
+-            this._appAddWindowSignalId = 0;
++            this._appAddWindowSignalId = null;
+         }
+-        if (this._appRemoveWindowSignalId > 0) {
++        if (this._appRemoveWindowSignalId) {
+             this._activeWorkspace.disconnect(this._appRemoveWindowSignalId);
+-            this._appRemoveWindowSignalId = 0;
++            this._appRemoveWindowSignalId = null;
+         }
+     }
+ 
+@@ -847,7 +855,7 @@ class Caffeine extends QuickSettings.SystemIndicator {
+             switch (appsTriggeredMode) {
+             // TRIGGER APPS MODE: ON RUNNING
+             case AppsTrigger.ON_RUNNING:
+-                if (this._appStateChangedSignalId === 0) {
++                if (!this._appStateChangedSignalId) {
+                     this._appStateChangedSignalId =
+                         this._appSystem.connect('app-state-changed',
+                             this._appStateChanged.bind(this));
+@@ -862,7 +870,7 @@ class Caffeine extends QuickSettings.SystemIndicator {
+                 break;
+             // TRIGGER APPS MODE: ON FOCUS
+             case AppsTrigger.ON_FOCUS:
+-                if (this._appDisplayChangedSignalId === 0) {
++                if (!this._appDisplayChangedSignalId) {
+                     this._appDisplayChangedSignalId =
+                         global.display.connect('notify::focus-window',
+                             this._appWindowFocusChanged.bind(this));
+@@ -872,7 +880,7 @@ class Caffeine extends QuickSettings.SystemIndicator {
+                 break;
+             // TRIGGER APPS MODE: ON ACTIVE WORKSPACE
+             case AppsTrigger.ON_ACTIVE_WORKSPACE:
+-                if (this._appWorkspaceChangedSignalId === 0) {
++                if (!this._appWorkspaceChangedSignalId) {
+                     this._appWorkspaceChangedSignalId =
+                         global.workspace_manager.connect('workspace-switched',
+                             this._appWorkspaceChanged.bind(this));
+@@ -903,13 +911,13 @@ class Caffeine extends QuickSettings.SystemIndicator {
+ 
+     _appWorkspaceChanged() {
+         // Reset signal for Add/remove windows on workspace
+-        if (this._appAddWindowSignalId > 0) {
++        if (this._appAddWindowSignalId) {
+             this._activeWorkspace.disconnect(this._appAddWindowSignalId);
+-            this._appAddWindowSignalId = 0;
++            this._appAddWindowSignalId = null;
+         }
+-        if (this._appRemoveWindowSignalId > 0) {
++        if (this._appRemoveWindowSignalId) {
+             this._activeWorkspace.disconnect(this._appRemoveWindowSignalId);
+-            this._appRemoveWindowSignalId = 0;
++            this._appRemoveWindowSignalId = null;
+         }
+ 
+         // Get active workspace
+@@ -1015,20 +1023,13 @@ class Caffeine extends QuickSettings.SystemIndicator {
+         this.quickSettingsItems.forEach((item) => item.destroy());
+ 
+         // Disconnect from signals
+-        if (this._settings.get_boolean(FULLSCREEN_KEY)) {
+-            global.display.disconnect(this._inFullscreenId);
+-        }
+         if (this._inhibitorAddedId) {
+             this._sessionManager.disconnectSignal(this._inhibitorAddedId);
+-            this._inhibitorAddedId = 0;
++            this._inhibitorAddedId = null;
+         }
+         if (this._inhibitorRemovedId) {
+             this._sessionManager.disconnectSignal(this._inhibitorRemovedId);
+-            this._inhibitorRemovedId = 0;
+-        }
+-        if (this._windowDestroyedId) {
+-            global.window_manager.disconnect(this._windowDestroyedId);
+-            this._windowDestroyedId = 0;
++            this._inhibitorRemovedId = null;
+         }
+         if (this._timeOut) {
+             GLib.Source.remove(this._timeOut);
+@@ -1056,36 +1057,6 @@ class Caffeine extends QuickSettings.SystemIndicator {
+         }
+         this._resetAppSignalId();
+ 
+-        // Disconnect settings signals
+-        if (this.inhibitId) {
+-            this._settings.disconnect(this.inhibitId);
+-            this.inhibitId = undefined;
+-        }
+-        if (this.stateId) {
+-            this._settings.disconnect(this.stateId);
+-            this.stateId = undefined;
+-        }
+-        if (this.timerId) {
+-            this._settings.disconnect(this.timerId);
+-            this.timerId = undefined;
+-        }
+-        if (this.showTimerId) {
+-            this._settings.disconnect(this.showTimerId);
+-            this.showTimerId = undefined;
+-        }
+-        if (this.indicatorId) {
+-            this._settings.disconnect(this.indicatorId);
+-            this.indicatorId = undefined;
+-        }
+-        if (this.showIndicatorId) {
+-            this._settings.disconnect(this.showIndicatorId);
+-            this.showIndicatorId = undefined;
+-        }
+-        if (this.triggerId) {
+-            this._settings.disconnect(this.triggerId);
+-            this.triggerId = undefined;
+-        }
+-
+         this._appConfigs.length = 0;
+         this._settings = null;
+         super.destroy();
+
+From 8116ddff1549d645e92d7a1529b4be120964c68b Mon Sep 17 00:00:00 2001
+From: Stuart Hayhurst <stuart.a.hayhurst@gmail.com>
+Date: Sun, 18 Feb 2024 03:14:28 +0000
+Subject: [PATCH 2/6] Use remove_child to remove the indicator on GNOME 46+
+
+---
+ caffeine@patapon.info/extension.js | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/caffeine@patapon.info/extension.js b/caffeine@patapon.info/extension.js
+index 8b93ff7..a5ae412 100644
+--- a/caffeine@patapon.info/extension.js
++++ b/caffeine@patapon.info/extension.js
+@@ -29,10 +29,12 @@ import GLib from 'gi://GLib';
+ 
+ import { Extension, gettext as _ } from 'resource:///org/gnome/shell/extensions/extension.js';
+ 
++import * as Config from 'resource:///org/gnome/shell/misc/config.js';
+ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
+ import * as QuickSettings from 'resource:///org/gnome/shell/ui/quickSettings.js';
+ const QuickSettingsMenu = Main.panel.statusArea.quickSettings;
++const ShellVersion = parseFloat(Config.PACKAGE_VERSION);
+ 
+ const INHIBIT_APPS_KEY = 'inhibit-apps';
+ const SHOW_INDICATOR_KEY = 'show-indicator';
+@@ -382,7 +384,11 @@ class Caffeine extends QuickSettings.SystemIndicator {
+ 
+         // Add indicator and toggle
+         QuickSettingsMenu.addExternalIndicator(this);
+-        QuickSettingsMenu._indicators.remove_actor(this);
++        if (ShellVersion >= 46) {
++          QuickSettingsMenu._indicators.remove_child(this);
++        } else {
++          QuickSettingsMenu._indicators.remove_actor(this);
++        }
+         QuickSettingsMenu._indicators.insert_child_at_index(this, this.indicatorIndex);
+ 
+         this._updateLastIndicatorPosition();
+@@ -525,7 +531,11 @@ class Caffeine extends QuickSettings.SystemIndicator {
+             this.lastIndicatorPosition = newPosition;
+ 
+             // Update indicator index
+-            QuickSettingsMenu._indicators.remove_actor(this);
++            if (ShellVersion >= 46) {
++              QuickSettingsMenu._indicators.remove_child(this);
++            } else {
++              QuickSettingsMenu._indicators.remove_actor(this);
++            }
+             QuickSettingsMenu._indicators.insert_child_at_index(this, this.indicatorIndex);
+             this._settings.set_int(INDICATOR_INDEX, this.indicatorIndex);
+         }
+
+From d8d21833ad5d69d52b74f833a14a585773faa29e Mon Sep 17 00:00:00 2001
+From: Stuart Hayhurst <stuart.a.hayhurst@gmail.com>
+Date: Sun, 18 Feb 2024 03:14:57 +0000
+Subject: [PATCH 3/6] Add support for GNOME 46 to metadata
+
+---
+ caffeine@patapon.info/metadata.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/caffeine@patapon.info/metadata.json b/caffeine@patapon.info/metadata.json
+index 6324988..5028d0b 100644
+--- a/caffeine@patapon.info/metadata.json
++++ b/caffeine@patapon.info/metadata.json
+@@ -1,7 +1,7 @@
+ {
+   "version": 52,
+   "shell-version": [
+-    "45"
++    "45", "46"
+   ],
+   "uuid": "caffeine@patapon.info",
+   "name": "Caffeine",
+
+From f0440a40bade3351e3544dde5da306555bb72e0f Mon Sep 17 00:00:00 2001
+From: Stuart Hayhurst <stuart.a.hayhurst@gmail.com>
+Date: Sun, 18 Feb 2024 03:25:52 +0000
+Subject: [PATCH 5/6] Fix indent of GNOME 46 conditionals
+
+---
+ caffeine@patapon.info/extension.js | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/caffeine@patapon.info/extension.js b/caffeine@patapon.info/extension.js
+index a5ae412..50cbaf0 100644
+--- a/caffeine@patapon.info/extension.js
++++ b/caffeine@patapon.info/extension.js
+@@ -385,9 +385,9 @@ class Caffeine extends QuickSettings.SystemIndicator {
+         // Add indicator and toggle
+         QuickSettingsMenu.addExternalIndicator(this);
+         if (ShellVersion >= 46) {
+-          QuickSettingsMenu._indicators.remove_child(this);
++            QuickSettingsMenu._indicators.remove_child(this);
+         } else {
+-          QuickSettingsMenu._indicators.remove_actor(this);
++            QuickSettingsMenu._indicators.remove_actor(this);
+         }
+         QuickSettingsMenu._indicators.insert_child_at_index(this, this.indicatorIndex);
+ 
+@@ -532,9 +532,9 @@ class Caffeine extends QuickSettings.SystemIndicator {
+ 
+             // Update indicator index
+             if (ShellVersion >= 46) {
+-              QuickSettingsMenu._indicators.remove_child(this);
++                QuickSettingsMenu._indicators.remove_child(this);
+             } else {
+-              QuickSettingsMenu._indicators.remove_actor(this);
++                QuickSettingsMenu._indicators.remove_actor(this);
+             }
+             QuickSettingsMenu._indicators.insert_child_at_index(this, this.indicatorIndex);
+             this._settings.set_int(INDICATOR_INDEX, this.indicatorIndex);
+
+From 83720bf48492a06f4b5facddebd29d5c78bb758c Mon Sep 17 00:00:00 2001
+From: Stuart Hayhurst <stuart.a.hayhurst@gmail.com>
+Date: Sun, 18 Feb 2024 19:51:36 +0000
+Subject: [PATCH 6/6] Update the max indicator position with a callback
+
+---
+ caffeine@patapon.info/extension.js | 46 ++++++++++++++++++------------
+ 1 file changed, 28 insertions(+), 18 deletions(-)
+
+diff --git a/caffeine@patapon.info/extension.js b/caffeine@patapon.info/extension.js
+index 50cbaf0..7907d9e 100644
+--- a/caffeine@patapon.info/extension.js
++++ b/caffeine@patapon.info/extension.js
+@@ -372,6 +372,18 @@ class Caffeine extends QuickSettings.SystemIndicator {
+             },
+             this);
+ 
++        if (ShellVersion >= 46) {
++            QuickSettingsMenu._indicators.connectObject(
++                'child-added', () => this._updateMaxPosition(),
++                'child-removed', () => this._updateMaxPosition(),
++                this);
++        } else {
++            QuickSettingsMenu._indicators.connectObject(
++                'actor-added', () => this._updateMaxPosition(),
++                'actor-removed', () => this._updateMaxPosition(),
++                this);
++        }
++
+         // Change user state on icon scroll event
+         this._indicator.reactive = true;
+         this._indicator.connectObject('scroll-event',
+@@ -390,8 +402,6 @@ class Caffeine extends QuickSettings.SystemIndicator {
+             QuickSettingsMenu._indicators.remove_actor(this);
+         }
+         QuickSettingsMenu._indicators.insert_child_at_index(this, this.indicatorIndex);
+-
+-        this._updateLastIndicatorPosition();
+     }
+ 
+     get inFullscreen() {
+@@ -452,6 +462,7 @@ class Caffeine extends QuickSettings.SystemIndicator {
+                 this._startTimer();
+             }
+         }
++        this._updateMaxPosition();
+     }
+ 
+     addInhibit(appId) {
+@@ -481,21 +492,6 @@ class Caffeine extends QuickSettings.SystemIndicator {
+         }
+     }
+ 
+-    _updateLastIndicatorPosition() {
+-        let pos = -1;
+-        let nbItems = QuickSettingsMenu._indicators.get_n_children();
+-        let targetIndicator = null;
+-
+-        // Count only the visible item in indicator bar
+-        for (let i = 0; i < nbItems; i++) {
+-            targetIndicator = QuickSettingsMenu._indicators.get_child_at_index(i);
+-            if (targetIndicator.is_visible()) {
+-                pos += 1;
+-            }
+-        }
+-        this._settings.set_int(INDICATOR_POS_MAX, pos);
+-    }
+-
+     _incrementIndicatorPosIndex() {
+         if (this.lastIndicatorPosition < this.indicatorPosition) {
+             this.indicatorIndex += 1;
+@@ -504,8 +500,21 @@ class Caffeine extends QuickSettings.SystemIndicator {
+         }
+     }
+ 
++    _updateMaxPosition() {
++        let pos = -1;
++        let indicators = QuickSettingsMenu._indicators.get_children();
++
++        // Count visible items in the status area
++        indicators.forEach((indicator) => {
++            if (indicator.is_visible()) {
++                pos += 1;
++            }
++        });
++
++        this._settings.set_int(INDICATOR_POS_MAX, pos);
++    }
++
+     _updateIndicatorPosition() {
+-        this._updateLastIndicatorPosition();
+         const newPosition = this._settings.get_int(INDICATOR_POSITION);
+ 
+         if (this.indicatorPosition !== newPosition) {
+@@ -539,6 +548,7 @@ class Caffeine extends QuickSettings.SystemIndicator {
+             QuickSettingsMenu._indicators.insert_child_at_index(this, this.indicatorIndex);
+             this._settings.set_int(INDICATOR_INDEX, this.indicatorIndex);
+         }
++        this._updateMaxPosition();
+     }
+ 
+     _showIndicatorLabel() {
