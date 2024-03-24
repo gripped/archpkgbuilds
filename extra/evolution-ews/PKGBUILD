@@ -1,14 +1,14 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=evolution-ews
-pkgver=3.50.3
+pkgver=3.52.0
 pkgrel=1
 pkgdesc="MS Exchange integration through Exchange Web Services"
 url="https://wiki.gnome.org/Apps/Evolution/EWS"
 arch=(x86_64)
-license=(LGPL2.1)
+license=(LGPL-2.1-or-later)
 depends=(
   evolution
   libmspack
@@ -21,7 +21,7 @@ makedepends=(
   python
   systemd
 )
-_commit=e09eab8811020c76d3e8380a28b87ed5607b149d  # tags/3.50.3^0
+_commit=d8c2a005d9b730e28a8c61b0197347d55bed6050  # tags/3.52.0^0
 source=("git+https://gitlab.gnome.org/GNOME/evolution-ews.git#commit=$_commit")
 b2sums=('SKIP')
 
