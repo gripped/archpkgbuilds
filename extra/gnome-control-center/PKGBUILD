@@ -3,8 +3,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-control-center
-pkgver=45.3
-pkgrel=2
+pkgver=46.0
+pkgrel=1
 pkgdesc="GNOME's main interface to configure various aspects of the desktop"
 url="https://gitlab.gnome.org/GNOME/gnome-control-center"
 license=(GPL-2.0-or-later)
@@ -18,7 +18,7 @@ depends=(
   dconf
   fontconfig
   gcc-libs
-  gcr
+  gcr-4
   gdk-pixbuf2
   glib2
   glibc
@@ -28,11 +28,12 @@ depends=(
   gnome-online-accounts
   gnome-settings-daemon
   gnutls
+  graphene
   gsettings-desktop-schemas
   gsound
-  gtk3
   gtk4
   hicolor-icon-theme
+  json-glib
   krb5
   libadwaita
   libcolord
@@ -49,6 +50,7 @@ depends=(
   libpulse
   libpwquality
   libsecret
+  libsoup3
   libwacom
   libx11
   libxi
@@ -91,17 +93,13 @@ optdepends=(
   'system-config-printer: printer settings'
 )
 groups=(gnome)
-_commit=4e107fa21250416812d64da8cf32946babb7728d  # tags/45.3^0
+_commit=9ac8f223cb8d25bb4b1307f2ebd99249447859c6  # tags/46.0^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-control-center.git#commit=$_commit"
   "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git"
-  0001-info-overview-Install-bare-logos-into-pixmaps-not-ic.patch
-  0002-subprojects-Update-gvc-to-latest-commit.patch
 )
-b2sums=('SKIP'
-        'SKIP'
-        'ae1401e0811658e10ff2317065aace8d4172530a322a4f71639737c6bc07621fdb9dae23ccabbee8a57cb00cadf93ea9c2cef2948aee432e2202dff070a95e4b'
-        '587186a917094d98abb79adc031b463fb33d5f06f441b1895804510e13f83e8bfed2d9cebd6b013e2674f83c829cef4be97bda7dbd8d9ff5bf56d72235a0df6c')
+b2sums=('7464110d373ae752fe74ea3dcf8f0df6e17668bc4b5c2d9b67bc707531c017de46d30b40f3151949c2fe8ba109388f3b9b565149d7a1dcdae2ca929a904d8e16'
+        'SKIP')
 
 pkgver() {
   cd $pkgname
@@ -110,13 +108,6 @@ pkgver() {
 
 prepare() {
   cd $pkgname
-
-  # Install bare logos into pixmaps, not icons
-  git apply -3 ../0001-info-overview-Install-bare-logos-into-pixmaps-not-ic.patch
-
-  # Update libgnome-volume-control
-  # Related to https://gitlab.archlinux.org/archlinux/packaging/packages/gnome-shell/-/issues/3
-  git apply -3 ../0002-subprojects-Update-gvc-to-latest-commit.patch
 
   git submodule init subprojects/gvc
   git submodule set-url subprojects/gvc "$srcdir/libgnome-volume-control"
