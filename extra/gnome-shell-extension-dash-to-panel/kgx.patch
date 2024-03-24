@@ -1,0 +1,26 @@
+From 209401b642cad56fc5da3fdd12e1b010c85d0560 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 24 Mar 2024 10:34:59 +0100
+Subject: [PATCH] Replace gnome-terminal command with kgx
+
+The default terminal emulator of GNOME has been changed from gnome-terminal to console in version 42.0:
+https://gitlab.gnome.org/GNOME/gnome-build-meta/-/commit/307478d65112c7b63946b6eb61c441f139f40942
+---
+ appIcons.js | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/appIcons.js b/appIcons.js
+index 00352fd3..81085e2d 100644
+--- a/appIcons.js
++++ b/appIcons.js
+@@ -1784,8 +1784,8 @@ export const MyShowAppsIconMenu = class extends PopupMenu.PopupMenu {
+         }
+ 
+         this._appendItem({
+-            title: _('Terminal'),
+-            cmd: ['gnome-terminal']
++            title: _('Console'),
++            cmd: ['kgx']
+         });
+ 
+         this._appendItem({
