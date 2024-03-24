@@ -6,7 +6,7 @@ _name=FreeRDP
 pkgname=freerdp
 pkgver=3.4.0
 _libver=${pkgver/.*/}
-pkgrel=3
+pkgrel=5
 epoch=2
 pkgdesc="Free implementation of the Remote Desktop Protocol (RDP)"
 arch=(x86_64)
@@ -50,7 +50,7 @@ makedepends=(
   openssl
   pam
   pkcs11-helper
-  webkit2gtk
+  webkit2gtk-4.1
   xmlto
   xorgproto
   zlib
@@ -70,6 +70,13 @@ source=(
 )
 sha512sums=('aa96ad2bf30dbe09849ecfb64ec6e60ba4fd3bc2d144c7d576b1e59476ef45d9d744da37806b1c00e3a0413390b35c6d3d4401b89c07c5663122280eca39e501')
 b2sums=('d260fb47406d36b728ab24e323d06624d53c01bbdc877b3b97f3c1c159e87baaffa418279ba1cc6e4ba82f0f890deba357ddb325a54316a23f0dbfdff4609eff')
+
+prepare() {
+  cd $_name-$pkgver
+
+  # Use the newer WebKit
+  sed -i 's/webkit2gtk-4\.0/webkit2gtk-4.1/g' client/SDL/aad/CMakeLists.txt
+}
 
 build() {
   local cmake_options=(
@@ -126,7 +133,7 @@ package() {
     libusb libusb-1.0.so
     openssl libcrypto.so libssl.so
     pam libpam.so
-    webkit2gtk libjavascriptcoregtk-4.0.so libwebkit2gtk-4.0.so
+    webkit2gtk-4.1 libjavascriptcoregtk-4.1.so libwebkit2gtk-4.1.so
     zlib libz.so
   )
 
