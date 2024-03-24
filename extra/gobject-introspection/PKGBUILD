@@ -1,4 +1,5 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgbase=gobject-introspection
@@ -7,27 +8,28 @@ pkgname=(
   gobject-introspection-runtime
   libgirepository
 )
-pkgver=1.78.1
+pkgver=1.80.0
 pkgrel=1
 pkgdesc="Introspection system for GObject-based libraries"
 url="https://wiki.gnome.org/Projects/GObjectIntrospection"
 arch=(x86_64)
 license=(
-  GPL
-  LGPL
+  GPL-2.0-or-later
+  LGPL-2.0-or-later
 )
-_glibver=2.78.0
+_glibver=2.80.0
 makedepends=(
   cairo
   git
   "glib2=$_glibver"
   gtk-doc
+  libffi
   meson
   python-mako
   python-markdown
   python-sphinx
 )
-_commit=a0e8c17fcf58c6ea79f2887fa7d9f2b180f152b1  # tags/1.78.1^0
+_commit=2f3fe819bbb5b3bce1462fe02405c2f9ffdce0d3  # tags/1.80.0^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/gobject-introspection.git#commit=$_commit"
   "git+https://gitlab.gnome.org/GNOME/glib.git?signed#tag=$_glibver"
