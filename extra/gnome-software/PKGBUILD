@@ -1,16 +1,15 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
-# Contributor: Fabian Bornschein <fabiscafe-cat-mailbox-dog-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 # Contributor: Yosef Or Boczko <yoseforb@gnome.org>
 
 pkgname=gnome-software
-pkgver=45.3
+pkgver=46.0
 pkgrel=1
 pkgdesc="GNOME Software Tools"
 url="https://wiki.gnome.org/Apps/Software/"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-2.0-or-later)
 depends=(
   appstream
   gsettings-desktop-schemas
@@ -31,6 +30,7 @@ makedepends=(
   libglib-testing
   malcontent
   meson
+  python-packaging
 )
 optdepends=(
   'flatpak: Flatpak support plugin'
@@ -38,7 +38,7 @@ optdepends=(
   'malcontent: Parental control plugin'
 )
 groups=(gnome)
-_commit=f027ac3fc839c0c0fe68006cea1acc757461c128  # tags/45.3^0
+_commit=9dec134914268d135a6f5251ddd624fef2de3c10  # tags/46.0^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-software.git#commit=$_commit"
   "git+https://gitlab.gnome.org/mwleeds/gnome-pwa-list.git"
@@ -48,15 +48,11 @@ b2sums=('SKIP'
 
 pkgver() {
   cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {
   cd $pkgname
-
-  # support appstream 1.0
-  git cherry-pick -n 0655f358ed0e8455e12d9634f60bc4dbaee434e3 \
-                     e431ab003f3fabf616b6eb7dc93f8967bc9473e5
 
   git submodule init
   git submodule set-url subprojects/gnome-pwa-list "$srcdir/gnome-pwa-list"

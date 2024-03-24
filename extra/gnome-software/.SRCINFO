@@ -1,11 +1,11 @@
 pkgbase = gnome-software
 	pkgdesc = GNOME Software Tools
-	pkgver = 45.3
+	pkgver = 46.0
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Software/
 	arch = x86_64
 	groups = gnome
-	license = GPL
+	license = GPL-2.0-or-later
 	makedepends = docbook-xsl
 	makedepends = flatpak
 	makedepends = fwupd
@@ -15,6 +15,7 @@ pkgbase = gnome-software
 	makedepends = libglib-testing
 	makedepends = malcontent
 	makedepends = meson
+	makedepends = python-packaging
 	depends = appstream
 	depends = gsettings-desktop-schemas
 	depends = gtk4
@@ -26,7 +27,7 @@ pkgbase = gnome-software
 	optdepends = flatpak: Flatpak support plugin
 	optdepends = fwupd: fwupd support plugin
 	optdepends = malcontent: Parental control plugin
-	source = git+https://gitlab.gnome.org/GNOME/gnome-software.git#commit=f027ac3fc839c0c0fe68006cea1acc757461c128
+	source = git+https://gitlab.gnome.org/GNOME/gnome-software.git#commit=9dec134914268d135a6f5251ddd624fef2de3c10
 	source = git+https://gitlab.gnome.org/mwleeds/gnome-pwa-list.git
 	b2sums = SKIP
 	b2sums = SKIP
