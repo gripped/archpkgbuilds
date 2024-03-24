@@ -3,7 +3,7 @@
 
 pkgname=fwupd-efi
 pkgver=1.5
-pkgrel=1
+pkgrel=2
 pkgdesc='EFI Application used by uefi-capsule plugin in fwupd'
 arch=('x86_64')
 url='https://github.com/fwupd/fwupd-efi'
