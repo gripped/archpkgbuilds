@@ -1,8 +1,8 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-text-editor
-pkgver=45.3
+pkgver=46.0
 pkgrel=1
 pkgdesc="A simple text editor for the GNOME desktop"
 url="https://gitlab.gnome.org/GNOME/gnome-text-editor"
@@ -13,7 +13,9 @@ depends=(
   dconf
   editorconfig-core-c
   enchant
+  gcc-libs
   glib2
+  glibc
   gtk4
   gtksourceview5
   hicolor-icon-theme
@@ -28,13 +30,13 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome)
-_commit=d6e4afaba00d85a362faa1ba660d45c521890b95  # tags/45.3^0
+_commit=5890bf13b3a4dd810b96b086301e856aba523215  # tags/46.0^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-text-editor.git#commit=$_commit")
 b2sums=('SKIP')
 
 pkgver() {
   cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {

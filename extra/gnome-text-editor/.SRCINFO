@@ -1,6 +1,6 @@
 pkgbase = gnome-text-editor
 	pkgdesc = A simple text editor for the GNOME desktop
-	pkgver = 45.3
+	pkgver = 46.0
 	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/gnome-text-editor
 	arch = x86_64
@@ -14,14 +14,16 @@ pkgbase = gnome-text-editor
 	depends = dconf
 	depends = editorconfig-core-c
 	depends = enchant
+	depends = gcc-libs
 	depends = glib2
+	depends = glibc
 	depends = gtk4
 	depends = gtksourceview5
 	depends = hicolor-icon-theme
 	depends = icu
 	depends = libadwaita
 	depends = pango
-	source = git+https://gitlab.gnome.org/GNOME/gnome-text-editor.git#commit=d6e4afaba00d85a362faa1ba660d45c521890b95
+	source = git+https://gitlab.gnome.org/GNOME/gnome-text-editor.git#commit=5890bf13b3a4dd810b96b086301e856aba523215
 	b2sums = SKIP
 
 pkgname = gnome-text-editor
