@@ -1,20 +1,24 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=xdg-desktop-portal-gnome
-pkgver=45.1
+pkgver=46.0
 pkgrel=1
 pkgdesc="A backend implementation for xdg-desktop-portal for the GNOME desktop environment"
 url="https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome"
 arch=(x86_64)
-license=(LGPL)
+license=(LGPL-2.1-or-later)
 depends=(
   cairo
+  dconf
   fontconfig
+  gcc-libs
   gdk-pixbuf2
   glib2
+  glibc
   gnome-desktop-4
   gnome-keyring
+  graphene
   gtk4
   libadwaita
   libx11
@@ -31,13 +35,13 @@ provides=(xdg-desktop-portal-impl)
 conflicts=('xdg-desktop-portal-gtk<1.10.0-2')
 replaces=('xdg-desktop-portal-gtk<1.10.0-2')
 groups=(gnome)
-_commit=bb205db8f8fc00f9a117c77d4c48f0a3bda2eddb  # tags/45.1^0
+_commit=81c74e0a29537e1bb29a40554e9bf9c41a272148  # tags/46.0^0
 source=("git+https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome.git#commit=$_commit")
-b2sums=('SKIP')
+b2sums=('ba32e804e1593e6d0a01d0a4ca36f9fb8abeff2c32da2ede4cd1f32c0956384d01acd56d00099a98ab989e2a2f1e0df7c7107fd5a7e56dc8b133230f631882c0')
 
 pkgver() {
   cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {
