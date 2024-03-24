@@ -1,23 +1,27 @@
 pkgbase = gnome-characters
 	pkgdesc = A character map application
-	pkgver = 45.0
+	pkgver = 46.0
 	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/gnome-characters
 	arch = x86_64
 	groups = gnome
-	license = GPL2
+	license = BSD-3-Clause AND GPL-2.0-or-later
 	checkdepends = weston
-	makedepends = appstream-glib
+	makedepends = appstream
 	makedepends = git
 	makedepends = gobject-introspection
 	makedepends = gperf
 	makedepends = meson
+	depends = dconf
 	depends = emoji-font
 	depends = gjs
+	depends = glib2
+	depends = glibc
 	depends = gnome-desktop-4
 	depends = gtk4
+	depends = hicolor-icon-theme
 	depends = libadwaita
-	source = git+https://gitlab.gnome.org/GNOME/gnome-characters.git#commit=6f25c0380b4125055de035acf63e8fe7d6c774e1
-	b2sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/gnome-characters.git#commit=06247c108c0c00d0da33a3675082b1e4a5395d26
+	b2sums = 60ddc29cf067797ac8d6db93aa33229a21ea12513c63c07a2039183bedc4ce16b1789d32a5952dc6ed7465efab13420324a5ff102fedce9f276e2160e999f6cb
 
 pkgname = gnome-characters
