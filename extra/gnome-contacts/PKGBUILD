@@ -1,9 +1,9 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-contacts
-pkgver=45.1
+pkgver=46.0
 pkgrel=1
 pkgdesc="Contacts Manager for GNOME"
 url="https://wiki.gnome.org/Apps/Contacts"
@@ -14,8 +14,10 @@ depends=(
   dconf
   evolution-data-server
   folks
+  gcc-libs
   gdk-pixbuf2
   glib2
+  glibc
   gnome-online-accounts
   gtk4
   hicolor-icon-theme
@@ -35,13 +37,13 @@ makedepends=(
   vala
 )
 groups=(gnome)
-_commit=aa0456c32a6ec8e766ea090e7f3fb85e0035f506  # tags/45.1^0
+_commit=466925e6e797c62dc0ce2c01e1bca3f85c187edf  # tags/46.0^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-contacts.git#commit=$_commit")
-b2sums=('SKIP')
+b2sums=('ad5c99db8d1cd07e2dda809972eb05425b245bca8ce6dabb44bf18d4eba2bcd331861be328e9d27d556cd86de1ebd34c7f766bb8279ae348fa4e172e02622e15')
 
 pkgver() {
   cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {

@@ -1,6 +1,6 @@
 pkgbase = gnome-contacts
 	pkgdesc = Contacts Manager for GNOME
-	pkgver = 45.1
+	pkgver = 46.0
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Contacts
 	arch = x86_64
@@ -15,8 +15,10 @@ pkgbase = gnome-contacts
 	depends = dconf
 	depends = evolution-data-server
 	depends = folks
+	depends = gcc-libs
 	depends = gdk-pixbuf2
 	depends = glib2
+	depends = glibc
 	depends = gnome-online-accounts
 	depends = gtk4
 	depends = hicolor-icon-theme
@@ -27,7 +29,7 @@ pkgbase = gnome-contacts
 	depends = libportal-gtk4
 	depends = pango
 	depends = qrencode
-	source = git+https://gitlab.gnome.org/GNOME/gnome-contacts.git#commit=aa0456c32a6ec8e766ea090e7f3fb85e0035f506
-	b2sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/gnome-contacts.git#commit=466925e6e797c62dc0ce2c01e1bca3f85c187edf
+	b2sums = ad5c99db8d1cd07e2dda809972eb05425b245bca8ce6dabb44bf18d4eba2bcd331861be328e9d27d556cd86de1ebd34c7f766bb8279ae348fa4e172e02622e15
 
 pkgname = gnome-contacts
