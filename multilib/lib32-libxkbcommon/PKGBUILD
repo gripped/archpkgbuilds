@@ -8,14 +8,15 @@ pkgname=(
   lib32-libxkbcommon
   lib32-libxkbcommon-x11
 )
-pkgver=1.6.0
+pkgver=1.7.0
 pkgrel=1
 pkgdesc='Keymap handling library for toolkits and window systems (32-bit)'
 url='https://xkbcommon.org/'
 arch=(x86_64)
-license=(custom)
+license=(MIT)
 makedepends=(
   git
+  lib32-glibc
   lib32-libxcb
   lib32-libxml2
   lib32-wayland
@@ -28,12 +29,9 @@ checkdepends=(
   libgl
   xorg-server-xvfb
 )
-options=(
-  debug
-)
-_commit=d2a08f761c796733e42fac4099f5c38d443e88e1  # tags/xkbcommon-1.6.0^0
+_commit=7a31e3585edf78be281559377e26d15f8c4bc655  # tags/xkbcommon-1.7.0^0
 source=("git+https://github.com/xkbcommon/libxkbcommon#commit=$_commit")
-sha256sums=('SKIP')
+b2sums=('70da3ad61589c68a06c6456034f17afad3962045552641ab9e099cee821eb935d84b11de9ac52af8f79111ef222466f39cfc9a6f5ae9cac610c474a9305cd50a')
 
 pkgver() {
   cd libxkbcommon
@@ -48,7 +46,6 @@ build() {
   local meson_options=(
     --cross-file lib32
     -D enable-bash-completion=false
-    -D enable-docs=false
     -D enable-tools=false
   )
 
@@ -72,6 +69,7 @@ _pick() {
 
 package_lib32-libxkbcommon() {
   depends=(
+    lib32-glibc
     lib32-libxml2
     xkeyboard-config
     libxkbcommon
@@ -93,6 +91,7 @@ package_lib32-libxkbcommon() {
 package_lib32-libxkbcommon-x11() {
   pkgdesc='Keyboard handling library using XKB data for X11 XCB clients (32-bit)'
   depends=(
+    lib32-glibc
     lib32-libxcb
     lib32-libxkbcommon
     libxkbcommon.so
