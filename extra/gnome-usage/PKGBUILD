@@ -2,7 +2,7 @@
 # Contributor: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=gnome-usage
-pkgver=45.1
+pkgver=46.0
 pkgrel=1
 pkgdesc="View information about use of system resources"
 url="https://wiki.gnome.org/Apps/Usage"
@@ -28,9 +28,9 @@ optdepends=(
   'accountsservice: show user tags for processes'
   'gamemode: show processes requesting game mode'
 )
-_commit=bda1849a90d5b897a6cbb6d72ee51cec894dd47b  # tags/45.1+1^0
+_commit=9ee8603fb8d6a532d0abdff1aba16a00d38d2aba  # tags/46.0^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-usage.git#commit=$_commit")
-b2sums=('c1637bd19a0e7021bd4dd08ae07b110b27053ef9820f09ca9ebc0ace902ee1487781cccedbc96d14919f1a1e9652b95d9f0d3a9c86141cedaaf4bc000d4e763d')
+b2sums=('999752b4b4fa091431ce00ed38ebb398dfa09e377dc96259d890a7ca5548d988fa3b159b97001232239e451ce6143057d5f58df69c2361b979034fcc9e66090b')
 
 pkgver() {
   cd $pkgname
