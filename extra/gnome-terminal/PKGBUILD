@@ -1,17 +1,33 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-terminal
-pkgver=3.50.1
+pkgver=3.52.0
 pkgrel=1
 pkgdesc="The GNOME Terminal Emulator"
 url="https://wiki.gnome.org/Apps/Terminal"
 arch=(x86_64)
-license=(GPL)
+license=(
+  # Program
+  GPL-3.0-or-later
+
+  # Documentation
+  CC-BY-SA-3.0
+  GPL-3.0-only
+
+  # Appstream-data
+  GFDL-1.3-only
+)
 depends=(
+  dconf
+  glib2
   gsettings-desktop-schemas
+  gtk3
+  hicolor-icon-theme
   libhandy
+  libx11
+  pango
   vte3
 )
 makedepends=(
@@ -20,12 +36,16 @@ makedepends=(
   gnome-shell
   libnautilus-extension
   meson
+  python-packaging
   yelp-tools
 )
+optdepends=(
+  "libnautilus-extension: Nautilus integration"
+)
 groups=(gnome-extra)
-_commit=5ac3b8e4bd6fa02651b3c23cedb0a7e1cd769655  # tags/3.50.1^0
+_commit=09c8b31168460c325ac00820759d6eefdf3957ab  # tags/3.52.0^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-terminal.git#commit=$_commit")
-b2sums=('SKIP')
+b2sums=('fec04135671cb8c0a522c07baf69e92ff9b5f514581321a1bf605c30c09a15c672b5e5d8cf7db9f1d1497334a3c01ca1b9c0a13e72254547d581b501cdd8e30b')
 
 pkgver() {
   cd $pkgname
