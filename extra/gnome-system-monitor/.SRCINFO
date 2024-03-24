@@ -1,31 +1,35 @@
 pkgbase = gnome-system-monitor
 	pkgdesc = View current processes and monitor system state
-	pkgver = 45.0.2
+	pkgver = 46.0
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/SystemMonitor
 	arch = x86_64
 	groups = gnome
-	license = GPL
+	license = GPL-2.0-or-later
 	makedepends = appstream-glib
 	makedepends = git
 	makedepends = meson
 	makedepends = yelp-tools
 	depends = cairo
 	depends = dconf
+	depends = gcc-libs
 	depends = gdk-pixbuf2
 	depends = glib2
-	depends = glibmm
-	depends = gtk3
-	depends = gtkmm3
+	depends = glibc
+	depends = glibmm-2.68
+	depends = graphene
+	depends = gtk4
+	depends = gtkmm-4.0
 	depends = hicolor-icon-theme
+	depends = libadwaita
 	depends = libgtop
-	depends = libhandy
 	depends = librsvg
-	depends = libsigc++
+	depends = libsigc++-3.0
 	depends = pango
 	depends = polkit
 	depends = systemd
-	source = git+https://gitlab.gnome.org/GNOME/gnome-system-monitor.git#commit=e74545dbdebd8e591c1679181c5ff3d53c53386e
+	depends = systemd-libs
+	source = git+https://gitlab.gnome.org/GNOME/gnome-system-monitor.git#commit=697f09dab0c8e9af4b2b7fb06cfe3a3429275b56
 	b2sums = SKIP
 
 pkgname = gnome-system-monitor
