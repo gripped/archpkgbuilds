@@ -1,22 +1,29 @@
 pkgbase = file-roller
 	pkgdesc = Create and modify archives
-	pkgver = 43.1
+	pkgver = 44beta
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/FileRoller
 	arch = x86_64
 	groups = gnome-extra
-	license = GPL
+	license = GPL-2.0-or-later
 	makedepends = appstream-glib
 	makedepends = git
-	makedepends = libnautilus-extension
 	makedepends = meson
 	makedepends = yelp-tools
 	depends = dconf
 	depends = file
+	depends = gcc-libs
+	depends = glib2
+	depends = glibc
+	depends = gtk4
+	depends = hicolor-icon-theme
 	depends = json-glib
+	depends = libadwaita
 	depends = libarchive
-	depends = libhandy
-	depends = libportal-gtk3
+	depends = libnautilus-extension
+	depends = libportal
+	depends = libportal-gtk4
+	depends = pango
 	depends = unzip
 	depends = zip
 	optdepends = lrzip: lrzip archive support
@@ -24,7 +31,7 @@ pkgbase = file-roller
 	optdepends = squashfs-tools: squashfs image support
 	optdepends = unace: ACE archive support
 	optdepends = unrar: better RAR archive support
-	source = git+https://gitlab.gnome.org/GNOME/file-roller.git#commit=356387f67f412e8370de56be314ff8fe8f029408
+	source = git+https://gitlab.gnome.org/GNOME/file-roller.git#commit=9c2e28e83e351d87d93d62ac1c4850b658ad4746
 	b2sums = SKIP
 
 pkgname = file-roller
