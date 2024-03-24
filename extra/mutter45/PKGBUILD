@@ -1,0 +1,118 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Contributor: Fabian Bornschein <fabiscafe@archlinux.org>
+# Contributor: Ionut Biru <ibiru@archlinux.org>
+# Contributor: Michael Kanis <mkanis_at_gmx_dot_de>
+
+pkgname=mutter45
+pkgver=45.5
+pkgrel=1
+pkgdesc="Window manager and compositor for Elementary"
+url="https://gitlab.gnome.org/GNOME/mutter"
+arch=(x86_64)
+license=(GPL-2.0-or-later)
+depends=(
+  at-spi2-core
+  cairo
+  colord
+  dconf
+  fontconfig
+  fribidi
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  gnome-desktop-4
+  gnome-settings-daemon
+  graphene
+  gsettings-desktop-schemas
+  gtk4
+  harfbuzz
+  iio-sensor-proxy
+  lcms2
+  libcanberra
+  libcolord
+  libdisplay-info
+  libdrm
+  libei
+  libglvnd
+  libgudev
+  libice
+  libinput
+  libpipewire
+  libsm
+  libsysprof-capture
+  libwacom
+  libx11
+  libxau
+  libxcb
+  libxcomposite
+  libxcursor
+  libxdamage
+  libxext
+  libxfixes
+  libxi
+  libxinerama
+  libxkbcommon
+  libxkbcommon-x11
+  libxkbfile
+  libxrandr
+  libxtst
+  mesa
+  pango
+  pipewire
+  pixman
+  python
+  startup-notification
+  systemd-libs
+  wayland
+  xorg-xwayland
+)
+makedepends=(
+  egl-wayland
+  git
+  gobject-introspection
+  gtk3
+  meson
+  sysprof
+  wayland-protocols
+  xorg-server
+  xorg-server-xvfb
+)
+provides=(libmutter-13.so)
+conflicts=(mutter)
+_commit=4e8ccf5f9c177595aac11895ed50a4e35d5087e4  # tags/45.5^0
+source=(
+  "git+https://gitlab.gnome.org/GNOME/mutter.git#commit=$_commit"
+)
+b2sums=('44ae8d04493e317d9b1f92a4bd28745598adfce40cedd19eebb9c19a446baf54f4a2b382a4db272002c0134967d68c3fb45fe7bfd20704e753dde446b11916ef')
+
+pkgver() {
+  cd mutter
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
+}
+
+prepare() {
+  cd mutter
+}
+
+build() {
+  local meson_options=(
+    -D egl_device=true
+    -D installed_tests=false
+    -D libdisplay_info=true
+    -D wayland_eglstream=true
+  )
+
+  CFLAGS="${CFLAGS/-O2/-O3} -fno-semantic-interposition"
+  LDFLAGS+=" -Wl,-Bsymbolic-functions"
+
+  arch-meson mutter build "${meson_options[@]}"
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+}
+
+# vim:set sw=2 sts=-1 et:
