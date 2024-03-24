@@ -1,0 +1,28 @@
+pkgbase = gnome-notes
+	pkgdesc = Write out notes, every detail matters
+	pkgver = 40.1
+	pkgrel = 5
+	url = https://wiki.gnome.org/Apps/Notes
+	arch = x86_64
+	groups = gnome-extra
+	license = GPL-3.0-or-later
+	makedepends = git
+	makedepends = meson
+	makedepends = yelp-tools
+	depends = curl
+	depends = evolution-data-server
+	depends = glib2
+	depends = gnome-online-accounts
+	depends = gtk3
+	depends = json-glib
+	depends = libhandy
+	depends = libxml2
+	depends = tracker3
+	depends = webkit2gtk-4.1
+	provides = bijiben=40.1
+	conflicts = bijiben
+	replaces = bijiben
+	source = git+https://gitlab.gnome.org/GNOME/gnome-notes.git#commit=b5189e213b50cac50f5602945836dc4d85b17959
+	b2sums = SKIP
+
+pkgname = gnome-notes
