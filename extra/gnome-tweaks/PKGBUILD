@@ -1,16 +1,24 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-tweaks
-pkgver=45.1
+pkgver=46.0
 pkgrel=1
 pkgdesc="Graphical interface for advanced GNOME 3 settings (Tweak Tool)"
 url="https://wiki.gnome.org/Apps/Tweaks"
 arch=(any)
 license=(GPL-3.0-or-later)
 depends=(
-  gnome-settings-daemon
-  libhandy
+  dconf
+  glib2
+  gsettings-desktop-schemas
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libgudev
+  pango
+  python
   python-gobject
 )
 makedepends=(
@@ -18,13 +26,13 @@ makedepends=(
   meson
 )
 groups=(gnome-extra)
-_commit=8684efe9f167f8196392444771622f4723767248  # tags/45.1^0
+_commit=66d39f99c0b1b4f0ed54694922bf229c71039861  # tags/46.0^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-tweaks.git#commit=$_commit")
-b2sums=('SKIP')
+b2sums=('f6de88d985864a2eedc3e7dce9030379c952826ef4d4295b665d47d36d67d001bf3574b68c71596d9edd93204cf13359a559663340b694800f8409c3159e0465')
 
 pkgver() {
   cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {
