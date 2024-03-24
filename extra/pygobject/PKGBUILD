@@ -1,4 +1,5 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgbase=pygobject
@@ -6,12 +7,12 @@ pkgname=(
   python-gobject
   python-gobject-docs
 )
-pkgver=3.46.0
-pkgrel=1
+pkgver=3.48.1
+pkgrel=2
 pkgdesc="Python bindings for GLib/GObject/GIO/GTK"
 url="https://wiki.gnome.org/Projects/PyGObject"
 arch=(x86_64)
-license=(LGPL)
+license=(LGPL-2.1-or-later)
 depends=(
   gobject-introspection-runtime
   python
@@ -22,7 +23,7 @@ makedepends=(
   meson
   python-cairo
   python-sphinx
-  python-sphinx_rtd_theme
+  python-sphinx-furo
 )
 checkdepends=(
   gtk3
@@ -30,11 +31,13 @@ checkdepends=(
   xorg-server-xvfb
 )
 optdepends=('cairo: Cairo bindings')
-_commit=b5b3fb1fcdbf539dd0cc04120ee4a8e81bce403c  # tags/3.46.0^0
+_commit=67b807613a93544fb7ff8f456b0de004950f7da4  # tags/3.48.1^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/pygobject.git#commit=$_commit"
+  304.patch
 )
-b2sums=('SKIP')
+b2sums=('7f0fe23cc7b882ba61de7d87379bffe32f3282a37a4fe32388f6bdb920bd42c80067dea8db25708b3e127264d9af64416cb24bf9a6b917ad15e0040870782065'
+        '84b96baf978b5117a3557c56a45efc842deb415d23eeec52c98e9b7c6af3aeff3f48889c6824dc81e8efa1ca1fc016161d7f278f062f35db3058c2db05b8a540')
 
 pkgver() {
   cd pygobject
@@ -43,6 +46,10 @@ pkgver() {
 
 prepare() {
   cd pygobject
+
+  # https://gitlab.gnome.org/GNOME/pygobject/-/issues/624
+  # https://gitlab.gnome.org/GNOME/pygobject/-/merge_requests/304
+  git apply -3 ../304.patch
 }
 
 build() {
