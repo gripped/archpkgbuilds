@@ -1,28 +1,39 @@
 pkgbase = gnome-session
 	pkgdesc = The GNOME Session Handler
-	pkgver = 45.0
+	pkgver = 46.0
 	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/gnome-session
 	arch = x86_64
 	groups = gnome
-	license = GPL
+	license = GPL-2.0-or-later
 	makedepends = docbook-xsl
 	makedepends = git
 	makedepends = gtk-doc
 	makedepends = mesa
 	makedepends = meson
 	makedepends = python
+	makedepends = python-packaging
 	makedepends = xmlto
 	makedepends = xtrans
+	depends = bash
 	depends = dconf
+	depends = gcc-libs
+	depends = glib2
+	depends = glibc
 	depends = gnome-desktop
 	depends = gsettings-desktop-schemas
+	depends = gtk3
 	depends = json-glib
+	depends = libepoxy
 	depends = libgl
+	depends = libice
 	depends = libsm
+	depends = libx11
+	depends = libxcomposite
 	depends = libxtst
 	depends = systemd
-	source = git+https://gitlab.gnome.org/GNOME/gnome-session.git#commit=998ed1d8ee2ff5396583c284230648625b4103e5
-	b2sums = SKIP
+	depends = systemd-libs
+	source = git+https://gitlab.gnome.org/GNOME/gnome-session.git#commit=2437153bfd7cbebe62c73926bb85f88076313963
+	b2sums = 509cd974134e0ff8f90cd039794eae3751d204e7f6056dd97d18ac141521026c016ee5407b8086b7a1036340e3bbf04acd629be67c125e7cd0df6dfe3ee5fb28
 
 pkgname = gnome-session
