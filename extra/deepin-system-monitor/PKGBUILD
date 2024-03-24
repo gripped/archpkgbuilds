@@ -3,8 +3,8 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-system-monitor
-pkgver=6.0.13
-pkgrel=2
+pkgver=6.0.14
+pkgrel=1
 pkgdesc='A more user-friendly system monitor'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-system-monitor"
@@ -16,7 +16,7 @@ makedepends=('cmake' 'deepin-gettext-tools' 'gtest' 'ninja' 'qt5-tools' 'deepin-
 groups=('deepin')
 install=deepin-system-monitor.install
 source=("https://github.com/linuxdeepin/deepin-system-monitor/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('7bfc7861c72c2e6a544f57bb09a7cc99c22f5ad244800159bc9dc0d6ca4a53a5304bd0ae91aa5ee28d61c9345b5f3206fbe552d75527a54b97f1133a61cdc86d')
+sha512sums=('e73baaddc708145f4df544ab37db9cda73286acb9193d2e26cdda59a71d26c8e7cc555293a1f7201655e7e977efe3be4d594ecafa1d831ec239de93642807718')
 
 build() {
   cd deepin-system-monitor-$pkgver
