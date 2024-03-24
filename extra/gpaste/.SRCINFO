@@ -1,22 +1,32 @@
 pkgbase = gpaste
 	pkgdesc = Clipboard management system
-	pkgver = 45
+	pkgver = 45.1
 	pkgrel = 1
 	url = https://www.imagination-land.org/tags/GPaste.html
 	arch = x86_64
-	license = BSD
+	license = BSD-2-Clause
 	makedepends = git
+	makedepends = gjs
 	makedepends = gnome-control-center
-	makedepends = gnome-shell
 	makedepends = gobject-introspection
 	makedepends = meson
+	makedepends = pango
+	makedepends = systemd
 	makedepends = vala
+	depends = cairo
+	depends = dconf
+	depends = gcc-libs
 	depends = gcr-4
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
 	depends = gtk3
 	depends = gtk4
 	depends = libadwaita
+	depends = libx11
+	depends = libxi
 	optdepends = wgetpaste: Upload clipboard contents
-	source = git+https://github.com/keruspe/gpaste#commit=37f3712287e4d2dcfc61eb38949384d061b76514
-	b2sums = SKIP
+	source = git+https://github.com/keruspe/gpaste#commit=a493116a124997d072f591745e00ebcc4e092ce1
+	b2sums = e29065afdf50d95c282978647753b0a8e03b9460258df126524014b9dbe49b3251b9ac0d18b93321c872a1d590370ecc5d6603c48673817823f93cd8c57c1551
 
 pkgname = gpaste
