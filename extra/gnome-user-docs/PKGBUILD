@@ -3,21 +3,21 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-user-docs
-pkgver=45.1
+pkgver=46.0
 pkgrel=1
 pkgdesc="User documentation for GNOME"
 url="https://gitlab.gnome.org/GNOME/gnome-user-docs"
 arch=(any)
-license=(FDL)
+license=(CC-BY-3.0)
 depends=(yelp)
 makedepends=(
   git
   yelp-tools
 )
 groups=(gnome)
-_commit=9450e73bea22e7e467161087798edfc6f1e0a61e  # tags/45.1^0
+_commit=a82f6962b09daef551da1c33585819c19d1ff72c  # tags/46.0^0
 source=("git+https://gitlab.gnome.org/GNOME/gnome-user-docs.git#commit=$_commit")
-b2sums=('SKIP')
+b2sums=('094bd68e3a6d1f89cb512582f1072291c72bf1342a5b3b606820df1ef4fa96f3416149f8b77f009abd608b82bfcc89c8132f0b1277d10a46bd73baf6ba8e90f4')
 
 pkgver() {
   cd $pkgname
