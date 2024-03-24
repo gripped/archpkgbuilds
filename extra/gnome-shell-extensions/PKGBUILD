@@ -1,21 +1,24 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=gnome-shell-extensions
-pkgver=45.2
+pkgver=46.0
 pkgrel=1
 pkgdesc="Extensions for GNOME shell, including classic mode"
 url="https://wiki.gnome.org/Projects/GnomeShell/Extensions"
 arch=(any)
-license=(GPL)
-depends=(gnome-shell)
+license=(GPL-2.0-or-later)
+depends=(
+  dconf
+  gnome-shell
+)
 makedepends=(
   git
   meson
 )
 optdepends=('gnome-menus: applications menu extension')
 groups=(gnome)
-_commit=b02e43d84cf7a1956d2d8cc77079a64cddef4d40  # tags/45.2^0
+_commit=e65c561e6f49952346c96fd3d5d222671f6b3b89  # tags/46.0^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-shell-extensions.git#commit=$_commit"
 )
@@ -23,7 +26,7 @@ b2sums=('SKIP')
 
 pkgver() {
   cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {

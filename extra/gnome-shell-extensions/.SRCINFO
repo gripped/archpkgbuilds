@@ -1,16 +1,17 @@
 pkgbase = gnome-shell-extensions
 	pkgdesc = Extensions for GNOME shell, including classic mode
-	pkgver = 45.2
+	pkgver = 46.0
 	pkgrel = 1
 	url = https://wiki.gnome.org/Projects/GnomeShell/Extensions
 	arch = any
 	groups = gnome
-	license = GPL
+	license = GPL-2.0-or-later
 	makedepends = git
 	makedepends = meson
+	depends = dconf
 	depends = gnome-shell
 	optdepends = gnome-menus: applications menu extension
-	source = git+https://gitlab.gnome.org/GNOME/gnome-shell-extensions.git#commit=b02e43d84cf7a1956d2d8cc77079a64cddef4d40
+	source = git+https://gitlab.gnome.org/GNOME/gnome-shell-extensions.git#commit=e65c561e6f49952346c96fd3d5d222671f6b3b89
 	b2sums = SKIP
 
 pkgname = gnome-shell-extensions
