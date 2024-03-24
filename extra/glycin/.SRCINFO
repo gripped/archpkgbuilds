@@ -1,26 +1,36 @@
 pkgbase = glycin
 	pkgdesc = Sandboxed and extendable image decoding
-	pkgver = 0.1.2
-	pkgrel = 2
+	pkgver = 1.0.0
+	pkgrel = 1
 	url = https://gitlab.gnome.org/sophie-h/glycin
 	arch = x86_64
 	license = LGPL-2.1-or-later
 	license = MPL-2.0
+	checkdepends = dav1d
+	checkdepends = ffmpeg
+	checkdepends = rav1e
+	checkdepends = svt-av1
+	makedepends = clang
 	makedepends = git
 	makedepends = libheif
 	makedepends = meson
 	makedepends = rust
 	depends = bubblewrap
 	depends = cairo
+	depends = gcc-libs
 	depends = gdk-pixbuf2
 	depends = glib2
+	depends = glibc
 	depends = gtk4
 	depends = libjxl
 	depends = librsvg
+	depends = libseccomp
 	depends = libxml2
 	depends = pango
 	optdepends = libheif: heif/heic file support
-	source = git+https://gitlab.gnome.org/sophie-h/glycin.git#commit=84885234beca8185ca739bfcca229fb52b339800
-	sha256sums = SKIP
+	source = git+https://gitlab.gnome.org/sophie-h/glycin.git#commit=869edadffec98d8c36a3db766120ad4ebed20a37
+	source = git+https://gitlab.gnome.org/sophie-h/test-images.git
+	b2sums = f08887fba63e3f8f8c7da4209f2099e1b82094361ab1b39c41f9373701862686a149e839ef5af4c594aacefe84c8cdc15a22feb56985cad7a45fc50e35735d09
+	b2sums = SKIP
 
 pkgname = glycin

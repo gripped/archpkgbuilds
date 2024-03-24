@@ -1,8 +1,8 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=glycin
-pkgver=0.1.2
-pkgrel=2
+pkgver=1.0.0
+pkgrel=1
 pkgdesc="Sandboxed and extendable image decoding"
 arch=(x86_64)
 url="https://gitlab.gnome.org/sophie-h/glycin"
@@ -13,15 +13,19 @@ license=(
 depends=(
   bubblewrap
   cairo
+  gcc-libs
   gdk-pixbuf2
   glib2
+  glibc
   gtk4
   libjxl
   librsvg
+  libseccomp
   libxml2
   pango
 )
 makedepends=(
+  clang
   git
   libheif
   meson
@@ -30,18 +34,44 @@ makedepends=(
 optdepends=(
   'libheif: heif/heic file support'
 )
-_commit=84885234beca8185ca739bfcca229fb52b339800 # tags/0.1.2^0
-source=("git+https://gitlab.gnome.org/sophie-h/glycin.git#commit=$_commit")
-sha256sums=('SKIP')
+checkdepends=(
+  dav1d
+  ffmpeg
+  rav1e
+  svt-av1
+)
+_commit=869edadffec98d8c36a3db766120ad4ebed20a37  # tags/1.0.0^0
+source=(
+  "git+https://gitlab.gnome.org/sophie-h/glycin.git#commit=$_commit"
+  "git+https://gitlab.gnome.org/sophie-h/test-images.git"
+)
+b2sums=('f08887fba63e3f8f8c7da4209f2099e1b82094361ab1b39c41f9373701862686a149e839ef5af4c594aacefe84c8cdc15a22feb56985cad7a45fc50e35735d09'
+        'SKIP')
 
 pkgver() {
   cd $pkgname
-  git describe --tags | sed -r 's/_/./;s/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
+}
+
+prepare() {
+  cd $pkgname
+
+  git submodule init
+  git submodule set-url tests/test-images "$srcdir/test-images"
+  git -c protocol.file.allow=always submodule update
 }
 
 build() {
-  arch-meson $pkgname build
+  local meson_options=(
+    -D test_skip_install=false
+  )
+
+  arch-meson $pkgname build "${meson_options[@]}"
   meson compile -C build
+}
+
+check() {
+  RUST_BACKTRACE=1 meson test -v -C build --print-errorlogs
 }
 
 package() {
