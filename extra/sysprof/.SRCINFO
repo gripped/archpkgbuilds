@@ -1,6 +1,6 @@
 pkgbase = sysprof
 	pkgdesc = Kernel based performance profiler
-	pkgver = 45.2
+	pkgver = 46.0
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Sysprof
 	arch = x86_64
@@ -9,7 +9,9 @@ pkgbase = sysprof
 	makedepends = meson
 	makedepends = yelp-tools
 	depends = cairo
+	depends = gcc-libs
 	depends = glib2
+	depends = glibc
 	depends = graphene
 	depends = gtk4
 	depends = hicolor-icon-theme
@@ -20,13 +22,16 @@ pkgbase = sysprof
 	depends = libunwind
 	depends = pango
 	depends = polkit
-	source = git+https://gitlab.gnome.org/GNOME/sysprof.git#commit=02a56f13bc67e058cf76258fd025fdd65342efbc
+	depends = systemd-libs
+	source = git+https://gitlab.gnome.org/GNOME/sysprof.git#commit=594a3037c0e7cc1bf97f162a392aa4f8989c9dce
 	b2sums = SKIP
 
 pkgname = sysprof
 	groups = gnome-extra
 	depends = cairo
+	depends = gcc-libs
 	depends = glib2
+	depends = glibc
 	depends = graphene
 	depends = gtk4
 	depends = hicolor-icon-theme
@@ -37,6 +42,7 @@ pkgname = sysprof
 	depends = libunwind
 	depends = pango
 	depends = polkit
+	depends = systemd-libs
 	depends = libsysprof-capture
 
 pkgname = libsysprof-capture

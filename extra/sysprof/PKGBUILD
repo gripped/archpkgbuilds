@@ -1,4 +1,4 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 # Contributor: Geoffroy Carrier <geoffroy.carrier@aur.archlinux.org>
@@ -11,7 +11,7 @@ pkgname=(
   sysprof
   libsysprof-capture
 )
-pkgver=45.2
+pkgver=46.0
 pkgrel=1
 pkgdesc="Kernel based performance profiler"
 url="https://wiki.gnome.org/Apps/Sysprof"
@@ -19,7 +19,9 @@ license=(GPL-3.0-or-later)
 arch=(x86_64)
 depends=(
   cairo
+  gcc-libs
   glib2
+  glibc
   graphene
   gtk4
   hicolor-icon-theme
@@ -30,13 +32,14 @@ depends=(
   libunwind
   pango
   polkit
+  systemd-libs
 )
 makedepends=(
   git
   meson
   yelp-tools
 )
-_commit=02a56f13bc67e058cf76258fd025fdd65342efbc  # tags/45.2^0
+_commit=594a3037c0e7cc1bf97f162a392aa4f8989c9dce  # tags/46.0^0
 source=(
   "git+https://gitlab.gnome.org/GNOME/sysprof.git#commit=$_commit"
 )
@@ -44,7 +47,7 @@ b2sums=('SKIP')
 
 pkgver() {
   cd sysprof
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
+  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 prepare() {
