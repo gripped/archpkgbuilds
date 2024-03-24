@@ -4,7 +4,7 @@
 # Contributor: Sven Pfleiderer <pfleidi@roothausen.de>
 
 pkgname=newsboat
-pkgver=2.34
+pkgver=2.35
 pkgrel=1
 pkgdesc="RSS/Atom feed reader for text terminals"
 arch=('x86_64')
@@ -12,23 +12,25 @@ url="https://newsboat.org/"
 license=('MIT')
 depends=('curl' 'hicolor-icon-theme' 'json-c' 'libxml2' 'sqlite' 'stfl')
 makedepends=('asciidoctor' 'rust' 'swig')
-optdepends=('buku: for bookmark-buku.sh'
-            'kitty: for kitty-img-pager.sh'
-            'perl: for pinboard.pl'
-            'python: for exportOPMLWithTags.py'
-            'ruby: for feedgrabber.rb, heise.rb, and slashdot.rb')
+optdepends=(
+  'buku: for bookmark-buku.sh'
+  'kitty: for kitty-img-pager.sh'
+  'perl: for pinboard.pl'
+  'python: for exportOPMLWithTags.py'
+  'ruby: for feedgrabber.rb, heise.rb, and slashdot.rb'
+)
 replaces=('newsbeuter')
 options=('!makeflags' '!lto')
 changelog=$pkgname.changelog
 source=("https://newsboat.org/releases/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc})
-sha256sums=('73d7b539b0c906f6843a1542e1904a02ae430e79d6be4d6f9e2e2034eac2434e'
+sha256sums=('f4f003f6ca38e44c0fef01fb6bc8c5ba6b53589c7c87db7b0cc2284e018db6c4'
             'SKIP')
 validpgpkeys=('B8B1756A0DDBF0760CE67CCF4ED6CD61932B9EBE') # Newsboat project <newsboat@googlegroups.com>
 
 prepare() {
   cd $pkgname-$pkgver
 
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
