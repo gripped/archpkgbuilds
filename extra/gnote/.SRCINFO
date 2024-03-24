@@ -1,20 +1,31 @@
 pkgbase = gnote
 	pkgdesc = A note taking application
-	pkgver = 45.1
+	pkgver = 46.0
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Gnote
 	arch = x86_64
-	license = GPL3
+	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = meson
 	makedepends = yelp-tools
+	depends = cairomm-1.16
+	depends = dconf
+	depends = gcc-libs
+	depends = glib2
+	depends = glibc
 	depends = glibmm-2.68
+	depends = gtk4
 	depends = gtkmm-4.0
+	depends = hicolor-icon-theme
+	depends = libadwaita
 	depends = libsecret
+	depends = libsigc++-3.0
 	depends = libxml2
 	depends = libxslt
+	depends = pango
+	depends = pangomm-2.48
 	depends = util-linux-libs
-	source = git+https://gitlab.gnome.org/GNOME/gnote.git#commit=580326d58b5e3476077af1563c31e88489fc5a53
-	b2sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/gnote.git#commit=cd83266e36c841a961d6b6182b0708fc3876576d
+	b2sums = 67b564df2ab3a33074f22367b4f334f354ec168bf44a683c3307eef071cea1ef74971b8e432f3b8ed3f0b977b14a072884b3500fb5a488c76b05e7d2a0ec06fc
 
 pkgname = gnote
