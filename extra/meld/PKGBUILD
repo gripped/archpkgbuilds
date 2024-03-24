@@ -4,7 +4,7 @@
 # Contributor: Douglas Soares de Andrade <douglas@archlinux.org>
 
 pkgname=meld
-pkgver=3.22.1
+pkgver=3.22.2
 pkgrel=1
 pkgdesc="Compare files, directories and working copies"
 url="https://meldmerge.org/"
@@ -23,9 +23,9 @@ makedepends=(
   yelp-tools
 )
 checkdepends=(appstream-glib)
-_commit=1138db7d42e5db1e426fbe09d2588103febfc5df  # tags/3.22.1^0
+_commit=33dfa6a89f3d185b229ae74c3a46b7c57b036ae1  # tags/3.22.2^0
 source=("git+https://gitlab.gnome.org/GNOME/meld.git#commit=$_commit")
-b2sums=('SKIP')
+b2sums=('05edce3ee1b4bf14c494290f46a39fafc6683337ef71187bf4d1b6d4ce5e8fa8657e88f865ad159dfebc26aa6ea060f451869f989684cd411e19fa2153e1d5c8')
 
 pkgver() {
   cd meld
