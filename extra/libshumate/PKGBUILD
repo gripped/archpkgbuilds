@@ -6,7 +6,7 @@ pkgname=(
   libshumate
   libshumate-docs
 )
-pkgver=1.1.3
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="Map widget for GTK 4"
 url="https://wiki.gnome.org/Projects/libshumate"
@@ -14,23 +14,29 @@ license=(LGPL-2.1-or-later)
 arch=(x86_64)
 depends=(
   cairo
+  gcc-libs
   gdk-pixbuf2
   glib2
+  glibc
   graphene
   gtk4
+  json-glib
   libsoup3
   libsysprof-capture
+  pango
+  protobuf-c
   sqlite
 )
 makedepends=(
   gi-docgen
   git
   gobject-introspection
+  gperf
   meson
   vala
 )
 checkdepends=(xorg-server-xvfb)
-_commit=3ed066797b6a786ffa357f4571b9a8f83b5c8c66  # tags/1.1.3^0
+_commit=14434008eb5da2b382e93704e099c2d6f171ebd7  # tags/1.2.0^0
 source=("git+https://gitlab.gnome.org/GNOME/libshumate.git#commit=$_commit")
 b2sums=('SKIP')
 
@@ -45,6 +51,7 @@ prepare() {
 
 build() {
   local meson_options=(
+    --buildtype debugoptimized  # Required for tests
     -D demos=true
   )
 
