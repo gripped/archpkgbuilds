@@ -4,12 +4,14 @@
 _pkgname=lupa
 pkgname=python-lupa
 pkgver=2.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Python wrapper around Lua and LuaJIT'
 arch=(x86_64)
 url="https://github.com/scoder/$_pkgname"
 license=(MIT)
-depends=(python)
+depends=(gcc-libs # libgcc_s.so
+         glibc # libc.so
+         python)
 makedepends=(cython
              python-{build,installer,wheel}
              python-setuptools)
@@ -20,13 +22,15 @@ sha256sums=('760030712d5273396f5e963dd8731aefb5ac65d92eff8bf8fd4124c1630fe950')
 build() {
 	cd "$_archive"
 	python -m build -wn
+	# https://gitlab.archlinux.org/archlinux/packaging/packages/python-lupa/-/issues/1
+	local _pyver=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
+	cp -r lupa/tests "build/lib.linux-$CARCH-cpython-$_pyver/lupa"
 }
 
 check() {
-	cd "$_archive"
 	local _pyver=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
-	cd "$PWD/build/lib.linux-$CARCH-cpython-$_pyver"
-	python -m unittest discover
+	export PYTHONPATH="$PWD/$_archive/build/lib.linux-$CARCH-cpython-$_pyver"
+	python -m unittest discover "$_archive/$_pkgname/tests"
 }
 
 package() {
