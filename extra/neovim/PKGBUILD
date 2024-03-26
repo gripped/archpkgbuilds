@@ -5,7 +5,7 @@
 
 pkgname=neovim
 pkgver=0.9.5
-pkgrel=2
+pkgrel=3
 pkgdesc='Fork of Vim aiming to improve user experience, plugins, and GUIs'
 arch=('x86_64')
 url='https://neovim.io'
@@ -18,6 +18,13 @@ depends=(
   'luajit'
   'msgpack-c'
   'tree-sitter'
+  'tree-sitter-bash'
+  'tree-sitter-c'
+  'tree-sitter-lua'
+  'tree-sitter-markdown'
+  'tree-sitter-python'
+  #'tree-sitter-query'
+  'tree-sitter-vimdoc'
   'unibilium'
 )
 makedepends=('cmake' 'git' 'ninja' 'lua51-mpack' 'lua51-lpeg' 'unzip')
@@ -63,6 +70,10 @@ package() {
 
   cd ${pkgname}-${pkgver}
   DESTDIR="$pkgdir" cmake --install build
+
+  # Tree-sitter grammars are packaged separately and installed into
+  # /usr/lib/tree_sitter.
+  ln -s /usr/lib/tree_sitter "$pkgdir"/usr/share/nvim/runtime/parser
 
   install -Dm644 LICENSE.txt -t "${pkgdir}/usr/share/licenses/${pkgname}/"
   install -Dm644 runtime/nvim.desktop -t "${pkgdir}/usr/share/applications/"
