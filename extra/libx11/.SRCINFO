@@ -1,0 +1,19 @@
+pkgbase = libx11
+	pkgdesc = X11 client-side library
+	pkgver = 1.8.8
+	pkgrel = 1
+	url = https://gitlab.freedesktop.org/xorg/lib/libx11
+	arch = x86_64
+	license = MIT AND X11
+	makedepends = xorg-util-macros
+	makedepends = xtrans
+	depends = libxcb
+	depends = glibc
+	depends = xorgproto
+	source = https://xorg.freedesktop.org//releases/individual/lib/libX11-1.8.8.tar.xz
+	source = https://xorg.freedesktop.org//releases/individual/lib/libX11-1.8.8.tar.xz.sig
+	validpgpkeys = 4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E
+	sha512sums = 4e7ce8f2d88b9475f960ea1d5730ece8953509e0c057cf2d0a2f5fa6a36e6577b0dcd7f16ac91b8fdd804aabec6d7e8f3067a3a8667bd2e41d72dd68ab70ef82
+	sha512sums = SKIP
+
+pkgname = libx11
