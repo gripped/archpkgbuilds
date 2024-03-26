@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=alsa-scarlett-gui
-pkgver=0.3.3
+pkgver=0.4.0
 pkgrel=1
 pkgdesc='GUI for the ALSA controls presented by the Focusrite Scarlett Gen 2/3 mixer driver'
 arch=('x86_64')
@@ -38,7 +38,7 @@ package() {
     install
 
   # documentation
-  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md ./docs/*.md
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname/img" img/*
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname/demo" demo/*
 }
