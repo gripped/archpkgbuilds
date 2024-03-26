@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-lazy-fixtures
-pkgver=1.0.5
+pkgver=1.0.7
 pkgrel=1
 pkgdesc="Use fixtures in @pytest.mark.parametrize"
 arch=(any)
@@ -10,7 +10,7 @@ license=(MIT)
 depends=(python python-pytest)
 makedepends=(python-build python-installer python-poetry-core)
 source=(https://github.com/dev-petrov/pytest-lazy-fixtures/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('c99e8969a67d2e2a2cefc7f36151dcb5b52e0c4080e538775ead9ff349eebc2c')
+sha256sums=('a5f918446cde27ff569300b2d0f53fcb30d139537a0b069f7ee20a79229da0bd')
 
 build() {
   cd pytest-lazy-fixtures-$pkgver
@@ -19,7 +19,7 @@ build() {
 
 check() {
   cd pytest-lazy-fixtures-$pkgver
-  PYTHONPATH="$PWD" pytest
+  PYTHONPATH="$PWD" pytest -p pytest_lazy_fixtures.plugin
 }
 
 package() {
