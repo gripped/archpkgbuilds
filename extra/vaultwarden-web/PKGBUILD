@@ -3,28 +3,27 @@
 # Contributor: Markus Richter <mqus at disroot dot org>
 
 pkgname=vaultwarden-web
-_pkgver=2024.1.2
-pkgver=2024.1.2
+_pkgver=2024.3.0
+pkgver=2024.3.0
 _upstreamver=${_pkgver%[[:lower:]]}
-#_patchver=$_upstreamver
-_patchver=2024.1.2 # almost always out of sync now
-pkgrel=4
+_patchver=$_upstreamver
+pkgrel=1
 pkgdesc='Bitwarden web vault with the patches to make it work with Vaultwarden'
 arch=('any')
 url='https://github.com/dani-garcia/bw_web_builds'
 license=('GPL3')
 depends=('vaultwarden')
 makedepends=('git' 'nodejs' 'npm')
-provides=('bitwarden_rs-vault' 'bitwarden_rs-web')
-replaces=('bitwarden_rs-vault' 'bitwarden_rs-web')
 install=$pkgname.install
 source=(
   "bitwarden-clients::git+https://github.com/bitwarden/clients.git#tag=web-v$_upstreamver"
-  "bw_web_builds::git+https://github.com/dani-garcia/bw_web_builds#tag=v$_pkgver"
+  "git+https://github.com/dani-garcia/bw_web_builds#tag=v$_pkgver"
 )
-b2sums=('SKIP'
-        'SKIP')
+b2sums=('3bde79ee0dd9509f76796ceb832724681bc097dc3325183fe96ab092f22cd20f1f97e0ea79c3aef31db0ddcc4031b7633548458e2e0c5791be7e7b315017f0b6'
+        'fff3d2f5f013e9aec6a025455042540a2ed9079d6e818bb38d944b4aac0a27023ce056b1d54cb24aacb6bef970e49e0e2bea38f8782d9d0f5218bcd1e8086da7')
 
+# Appease vercmp by prepending trailing letter with a period
+# shellcheck disable=SC2001
 pkgver() {
   echo $_pkgver | sed 's/[[:lower:]]$/.&/'
 }
@@ -32,10 +31,10 @@ pkgver() {
 prepare() {
   cd bitwarden-clients
 
-  # copy vaultwarden images
+  # copy Vaultwarden images
   cp -vr "$srcdir/bw_web_builds/resources/src/images/"{logo-{dark,white}@2x,icon-white}.png apps/web/src/images
 
-  # apply vaultwarden patch
+  # apply Vaultwarden patch
   patch --forward --strip=1 --input="$srcdir/bw_web_builds/patches/v$_patchver.patch"
 
   npm ci
