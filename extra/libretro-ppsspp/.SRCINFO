@@ -1,6 +1,6 @@
 pkgbase = libretro-ppsspp
 	pkgdesc = Sony PlayStation Portable core
-	pkgver = 39481
+	pkgver = 39784
 	pkgrel = 1
 	url = https://github.com/hrydgard/ppsspp
 	arch = x86_64
@@ -23,7 +23,7 @@ pkgbase = libretro-ppsspp
 	depends = snappy
 	depends = zlib
 	depends = zstd
-	source = libretro-ppsspp::git+https://github.com/hrydgard/ppsspp.git#commit=10d16ea48885fc0c65a070a2b3779af21b03167b
+	source = libretro-ppsspp::git+https://github.com/hrydgard/ppsspp.git#commit=83bd9fd665a217c7f79c15e1b30311fb2f2f50ba
 	source = git+https://github.com/Kingcom/armips.git
 	source = git+https://github.com/google/cpu_features.git
 	source = git+https://github.com/hrydgard/ppsspp-ffmpeg.git
@@ -32,10 +32,12 @@ pkgbase = libretro-ppsspp
 	source = git+https://github.com/hrydgard/ppsspp-lang.git
 	source = git+https://github.com/rtissera/libchdr.git
 	source = ppsspp-miniupnp::git+https://github.com/hrydgard/miniupnp.git
+	source = git+https://github.com/KhronosGroup/OpenXR-SDK.git
 	source = git+https://github.com/Tencent/rapidjson.git
-	source = git+https://github.com/RetroAchievements/rcheevos.git
+	source = ppsspp-rcheevos::git+https://github.com/hrydgard/rcheevos.git
 	source = git+https://github.com/KhronosGroup/SPIRV-Cross.git
 	source = libretro-ppsspp-assets-path.patch
+	b2sums = SKIP
 	b2sums = SKIP
 	b2sums = SKIP
 	b2sums = SKIP
