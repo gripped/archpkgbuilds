@@ -1,6 +1,6 @@
 pkgbase = gnome-control-center
 	pkgdesc = GNOME's main interface to configure various aspects of the desktop
-	pkgver = 46.0
+	pkgver = 46.0.1
 	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/gnome-control-center
 	arch = x86_64
@@ -14,6 +14,7 @@ pkgbase = gnome-control-center
 	makedepends = meson
 	makedepends = modemmanager
 	makedepends = python
+	makedepends = python-packaging
 	depends = accountsservice
 	depends = bolt
 	depends = cairo
@@ -76,9 +77,9 @@ pkgbase = gnome-control-center
 	optdepends = power-profiles-daemon: power profiles
 	optdepends = rygel: media sharing
 	optdepends = system-config-printer: printer settings
-	source = git+https://gitlab.gnome.org/GNOME/gnome-control-center.git#commit=9ac8f223cb8d25bb4b1307f2ebd99249447859c6
+	source = git+https://gitlab.gnome.org/GNOME/gnome-control-center.git#commit=005f40dcfa464f113a1c95f97673bc5505fc15ad
 	source = git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git
-	b2sums = 7464110d373ae752fe74ea3dcf8f0df6e17668bc4b5c2d9b67bc707531c017de46d30b40f3151949c2fe8ba109388f3b9b565149d7a1dcdae2ca929a904d8e16
+	b2sums = b7c73de8d57df1dd4f08fb52067b5c50d4aadb0f5034527774c088c8237f6d77dad9b4a2e80a4121fc6863acf565a3baf99b446d6e73c16fcab0c839f9d945f6
 	b2sums = SKIP
 
 pkgname = gnome-control-center
