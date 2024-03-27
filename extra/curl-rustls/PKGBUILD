@@ -6,7 +6,7 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=curl-rustls
-pkgver=8.6.0
+pkgver=8.7.1
 pkgrel=1
 pkgdesc='command line tool and library for transferring data with URLs (with rustls)'
 arch=('x86_64')
@@ -25,16 +25,16 @@ depends=('ca-certificates'
          'zstd' 'libzstd.so')
 makedepends=('git' 'patchelf')
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
-source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed")
-sha512sums=('82f32401391b92ae71ea1ebef9058c0f99d9a42f6e8d3c5465b0e16040d022f04fff0b096b015371e57cf08515557cb84f70de32fa8e65b003025470b4f7ba8b')
+source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed"
+        https://gitlab.archlinux.org/archlinux/packaging/packages/curl/-/raw/e7f7ceae4ddaa664026f8f5bd5ee7aaa650a51d3/0001-bump-version-to-match-last-tag.patch)
+sha512sums=('38b55dc916a64a1fd40a8af3e9a694ae918f8efb714430834491ebbe0ceeee4b58ba804afa15da966cbcf9cd7100ce373aed7b2101dff56f742996072caaf09a'
+            '51df4903eff9f1a15b1317ea4a8ee2b8537f347984f2524f42213b09344cd6109c621a4b81b37d2fcf2027387bb81cf0a744a48e96b86c4e268c43261ff86845')
 
 _backports=(
-    'e3a4273c419b744316f0a7c97736408d5aa08a27'
-    'ae7ad31be209b8c0168c213a4dbc4f869f177823'
 )
 
 _reverts=(
-    '9a90c9dd64d2f03601833a70786d485851bd1b53'
+  '647e86a3efe1eea7a2a456c009cfe1eb55fe48eb'
 )
 
 prepare() {
@@ -53,6 +53,8 @@ prepare() {
     git log --oneline -1 "${_c}"
     git revert -n "${_c}"
   done
+
+  patch -Np1 < ../0001-bump-version-to-match-last-tag.patch
 
   # no '-DEV' in version, release date from tagged commit...
   sed -i \
@@ -78,7 +80,7 @@ build() {
     --with-ca-bundle='/etc/ssl/certs/ca-certificates.crt'
   )
 
-  mkdir build-curl{,-compat,-gnutls}
+  mkdir build-curl
 
   # build curl
   cd "${srcdir}"/build-curl
