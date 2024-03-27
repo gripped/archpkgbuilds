@@ -3,7 +3,7 @@
 pkgname=openpgp-card-ssh-agent
 _name="${pkgname#openpgp-card-}"
 pkgver=0.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple ssh-agent backed by OpenPGP card authentication keys"
 arch=(x86_64)
 url="https://codeberg.org/openpgp-card/ssh-agent/"
@@ -11,7 +11,7 @@ license=('Apache-2.0 OR MIT')
 depends=(
   gcc-libs
   glibc
-  gnome-keyring
+  org.freedesktop.secrets
 )
 makedepends=(
   pcsclite
