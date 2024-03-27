@@ -4,7 +4,7 @@
 
 pkgname=dust
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A more intuitive version of du in rust'
 arch=('x86_64')
 url='https://github.com/bootandy/dust'
@@ -43,6 +43,15 @@ package() {
 
   # documentation
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+
+  # shell completions
+  install -vDm644 "completions/$pkgname.bash" "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+  install -vDm644 -t "$pkgdir/usr/share/elvish/lib/" "completions/$pkgname.elv"
+  install -vDm644 -t "$pkgdir/usr/share/fish/vendor_completions.d/" "completions/$pkgname.fish"
+  install -vDm644 -t "$pkgdir/usr/share/zsh/site-functions/" "completions/_$pkgname"
+
+  # manpage
+  install -vDm644 -t "$pkgdir/usr/share/man/man1/" man-page/$pkgname.1
 }
 
 # vim:set ts=2 sw=2 et:
