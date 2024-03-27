@@ -6,10 +6,8 @@
 
 pkgbase=curl
 pkgname=(curl libcurl-compat libcurl-gnutls)
-_tag='8cd1397d3c5c9b1526c8d74530266a7a9a22294b' # git rev-parse v${_tag_name}
-_tag_name='8_6_0'
-pkgver="${_tag_name//_/.}"
-pkgrel=3
+pkgver=8.6.0
+pkgrel=4
 pkgdesc='command line tool and library for transferring data with URLs'
 arch=('x86_64')
 url='https://curl.se/'
@@ -26,8 +24,8 @@ depends=('ca-certificates'
          'zstd' 'libzstd.so')
 makedepends=('git' 'patchelf')
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
-source=("git+https://github.com/curl/curl.git#tag=${_tag}?signed")
-sha512sums=('SKIP')
+source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed")
+sha512sums=('82f32401391b92ae71ea1ebef9058c0f99d9a42f6e8d3c5465b0e16040d022f04fff0b096b015371e57cf08515557cb84f70de32fa8e65b003025470b4f7ba8b')
 
 _backports=(
 )
@@ -56,7 +54,7 @@ prepare() {
   # no '-DEV' in version, release date from tagged commit...
   sed -i \
     -e "/\WLIBCURL_VERSION\W/c #define LIBCURL_VERSION \"${pkgver}\"" \
-    -e "/\WLIBCURL_TIMESTAMP\W/c #define LIBCURL_TIMESTAMP \"$(git log -1 --format=%cs "${_tag}")\"" \
+    -e "/\WLIBCURL_TIMESTAMP\W/c #define LIBCURL_TIMESTAMP \"$(git log -1 --format=%cs "curl-${pkgver//./_}")\"" \
     include/curl/curlver.h
 
   autoreconf -fi
@@ -113,6 +111,13 @@ build() {
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make -C lib
   patchelf --set-soname 'libcurl-gnutls.so.4' ./lib/.libs/libcurl.so
+}
+
+check() {
+  # test curl
+  cd "${srcdir}"/build-curl
+
+  make test
 }
 
 package_curl() {
