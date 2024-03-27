@@ -4,7 +4,7 @@
 # Contributor: Andy Weidenbaum <archbaum@gmail.com>
 
 pkgname=electrum
-pkgver=4.5.2
+pkgver=4.5.3
 pkgrel=1
 pkgdesc="Lightweight Bitcoin wallet"
 arch=('any')
@@ -27,7 +27,7 @@ url="https://electrum.org"
 license=('MIT')
 source=("https://download.electrum.org/${pkgver}/${pkgname^}-${pkgver}.tar.gz"
         "${pkgname^}-${pkgver}.tar.gz.asc::https://download.electrum.org/${pkgver}/${pkgname^}-${pkgver}.tar.gz.ThomasV.asc")
-sha512sums=('078edb3dc9aea730269e017849517bf5f5bc83e2429ba29753197ae6bfb0434b3cc672db7228d0fe7ec5897379f33991c7e2f55c261cd5b77effcc9c180f31c1'
+sha512sums=('6a005b3351c9cedcef69343fa85c3a9f3ed61c99d8e75c9e483aefd90fe2c53dc6b55d8b592796c7d2cc32b4db7425339af08a9851cc17685869b4a8f51f591e'
             'SKIP')
 validpgpkeys=('6694D8DE7BE8EE5631BED9502BD5824B7F9470E6')
 
