@@ -6,8 +6,8 @@
 
 pkgbase=curl
 pkgname=(curl libcurl-compat libcurl-gnutls)
-pkgver=8.6.0
-pkgrel=4
+pkgver=8.7.1
+pkgrel=3
 pkgdesc='command line tool and library for transferring data with URLs'
 arch=('x86_64')
 url='https://curl.se/'
@@ -23,15 +23,19 @@ depends=('ca-certificates'
          'zlib' 'libz.so'
          'zstd' 'libzstd.so')
 makedepends=('git' 'patchelf')
+checkdepends=('valgrind')
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
-source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed")
-sha512sums=('82f32401391b92ae71ea1ebef9058c0f99d9a42f6e8d3c5465b0e16040d022f04fff0b096b015371e57cf08515557cb84f70de32fa8e65b003025470b4f7ba8b')
+source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed"
+        '0001-bump-version-to-match-last-tag.patch')
+sha512sums=('38b55dc916a64a1fd40a8af3e9a694ae918f8efb714430834491ebbe0ceeee4b58ba804afa15da966cbcf9cd7100ce373aed7b2101dff56f742996072caaf09a'
+            '51df4903eff9f1a15b1317ea4a8ee2b8537f347984f2524f42213b09344cd6109c621a4b81b37d2fcf2027387bb81cf0a744a48e96b86c4e268c43261ff86845')
 
 _backports=(
+  # content_encoding: brotli and others, pass through 0-length writes
+  'b30d694a027eb771c02a3db0dee0ca03ccab7377'
 )
 
 _reverts=(
-    '9a90c9dd64d2f03601833a70786d485851bd1b53'
 )
 
 prepare() {
@@ -50,6 +54,8 @@ prepare() {
     git log --oneline -1 "${_c}"
     git revert -n "${_c}"
   done
+
+  patch -Np1 < ../0001-bump-version-to-match-last-tag.patch
 
   # no '-DEV' in version, release date from tagged commit...
   sed -i \
@@ -82,9 +88,11 @@ build() {
 
   "${srcdir}/${pkgbase}"/configure \
     "${_configure_options[@]}" \
+    --enable-versioned-symbols \
+    --with-fish-functions-dir=/usr/share/fish/vendor_completions.d/ \
     --with-openssl \
     --with-openssl-quic \
-    --enable-versioned-symbols
+    --with-zsh-functions-dir=/usr/share/zsh/site-functions/
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 
@@ -93,9 +101,9 @@ build() {
 
   "${srcdir}/${pkgbase}"/configure \
     "${_configure_options[@]}" \
+    --disable-versioned-symbols \
     --with-openssl \
-    --with-openssl-quic \
-    --disable-versioned-symbols
+    --with-openssl-quic
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make -C lib
   patchelf --set-soname 'libcurl-compat.so.4' ./lib/.libs/libcurl.so
@@ -106,18 +114,23 @@ build() {
   "${srcdir}/${pkgbase}"/configure \
     "${_configure_options[@]}" \
     --disable-versioned-symbols \
-    --without-openssl \
-    --with-gnutls
+    --with-gnutls \
+    --without-openssl
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make -C lib
   patchelf --set-soname 'libcurl-gnutls.so.4' ./lib/.libs/libcurl.so
 }
 
 check() {
-  # test curl
-  cd "${srcdir}"/build-curl
-
-  make test
+  cd build-curl
+  # -v: verbose
+  # -a: keep going on failure (so we see everything which breaks, not just the first failing test)
+  # -k: keep test files after completion
+  # -am: automake style TAP output
+  # -p: print logs if test fails
+  # -j: parallelization
+  # disable test 433, since it requires the glibc debug info
+  make TFLAGS="-v -a -k -p -j$(nproc) !433" test-nonflaky
 }
 
 package_curl() {
