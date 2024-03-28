@@ -3,7 +3,7 @@
 
 _pkgbasename=util-linux
 pkgname=lib32-${_pkgbasename}
-_tag='2.40-rc2'
+_tag='2.40'
 pkgver="${_tag/-/}"
 pkgrel=1
 pkgdesc='Miscellaneous system utilities for Linux (32-bit)'
@@ -16,7 +16,7 @@ license=('GPL2')
 options=('!emptydirs')
 validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
 source=("git+https://github.com/util-linux/util-linux#tag=v${_tag}?signed")
-sha256sums=('f15b74b9927426ea71b0ecf2ffaf4d3c71220ae791c700a42497985dbd3f8b01')
+sha256sums=('153ae22d30a04e8c3ef1edbac63081f21b2d7622467dd7bf324f7f45e45b343d')
 
 _backports=(
 )
