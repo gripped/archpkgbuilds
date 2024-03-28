@@ -5,13 +5,13 @@
 
 pkgname=pdfgrep
 pkgver=2.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A tool to search text in PDF files'
 arch=(x86_64)
 url='https://pdfgrep.org'
 # url='https://gitlab.com/pdfgrep/pdfgrep'
 license=(GPL-2.0-or-later)
-depends=(pcre
+depends=(pcre2
          poppler)
 _archive="$pkgname-$pkgver"
 source=("$url/download/$_archive.tar.gz")
