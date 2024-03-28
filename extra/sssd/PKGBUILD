@@ -3,7 +3,7 @@
 
 pkgname=sssd
 pkgver=2.9.4
-pkgrel=1
+pkgrel=2
 pkgdesc="System Security Services Daemon"
 arch=('x86_64')
 url="https://github.com/SSSD/sssd"
@@ -44,10 +44,12 @@ checkdepends=(
 options=('!lto')
 backup=('etc/logrotate.d/sssd')
 source=("https://github.com/SSSD/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.gz"{,.asc}
-        "https://patch-diff.githubusercontent.com/raw/SSSD/sssd/pull/7151/sssd-openssl3-no-ext.patch")
+        "https://patch-diff.githubusercontent.com/raw/SSSD/sssd/pull/7151/sssd-openssl3-no-ext.patch"
+        "https://github.com/SSSD/sssd/commit/1bf51929a48b84d62ac54f2a42f17e7fbffe1612.patch")
 sha512sums=('9546cf074628f32137b16ca0c763988785271124244b645d1e786762e8578f10d983793a29bffcc004b064452fe8d465476a3041688d2f3c11c2751fb5bec3e2'
             'SKIP'
-            '4b2024d01d5f4a718f3aa954909941baa74c00769c087296934bdc7502ca1b18e26697d0406aa4e8708ec7e460d88a9457ce8471496b45522b50e727fc2891f2')
+            '4b2024d01d5f4a718f3aa954909941baa74c00769c087296934bdc7502ca1b18e26697d0406aa4e8708ec7e460d88a9457ce8471496b45522b50e727fc2891f2'
+            'bbd546fb580f496b4a766029ac67b42fed485c3bcca867a1ec5533e169cd2d04a4badc701d5b33c3b2216939c5d050081758658f71a797bf7c90b1682c39cbaa')
 validpgpkeys=('C13CD07FFB2DB1408E457A3CD3D21B2910CF6759')
 
 prepare() {
