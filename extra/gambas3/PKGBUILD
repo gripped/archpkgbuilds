@@ -27,8 +27,8 @@ pkgname=('gambas3-gb-args'
          'gambas3-gb-xml-html' 'gambas3-gb-xml-rpc' 'gambas3-gb-xml-xslt' 'gambas3-gb-xml'
          'gambas3-gb-web-feed' 'gambas3-gb-web-form' 'gambas3-gb-web-gui' 'gambas3-gb-web'
          'gambas3-runtime' 'gambas3-dev-tools' 'gambas3-ide' 'gambas3-script')
-pkgver=3.19.0
-pkgrel=2
+pkgver=3.19.1
+pkgrel=1
 pkgdesc="A free development environment based on a Basic interpreter."
 arch=('x86_64')
 url="http://gambas.sourceforge.net/"
@@ -43,7 +43,7 @@ makedepends=('intltool' 'postgresql' 'libffi' 'bzip2' 'glib2' 'v4l-utils'
          'gmime3' 'libxcrypt')
 options=('!emptydirs' 'libtool')
 source=("https://gitlab.com/gambas/gambas/-/archive/${pkgver}/gambas-${pkgver}.tar.bz2")
-sha512sums=('e157db54204b242d80ecf682e8f38ecabc36decef862746e47f8a92cd659eb56ea4ed7e2ca553b8384fc11e73e0862be4183bbb54b55baf1fb86e2b1d2232577')
+sha512sums=('78bfce5352aaef830c6b0290c95b41531066368dd424d1b2df8aec0fd42c5d7b2d7cc9444b222d29649e632eecb0f5e4fa7035f4870a6f57a235e9ea4fd83c41')
 
 prepare() {
   cd ${srcdir}/gambas-${pkgver}
