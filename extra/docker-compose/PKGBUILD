@@ -7,7 +7,7 @@
 
 pkgname=docker-compose
 pkgver=2.26.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast, isolated development environments using Docker"
 arch=('x86_64')
 url="https://www.docker.com/"
@@ -24,8 +24,9 @@ build() {
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
   export GOPATH="${srcdir}"
-  export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -ldflags=-X=github.com/docker/compose/v2/internal.Version=${pkgver} -mod=readonly -modcacherw -ldflags=-compressdwarf=false"
-  go build -trimpath -tags "e2e,kube" -o compose ./cmd
+  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+  GO_LDFLAGS="-linkmode=external -compressdwarf=false -X=github.com/docker/compose/v2/internal.Version=${pkgver}"
+  go build -ldflags "${GO_LDFLAGS}" -trimpath -tags "e2e,kube" -o compose ./cmd
 }
 
 check(){
