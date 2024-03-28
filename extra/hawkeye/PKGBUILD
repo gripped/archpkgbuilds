@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hawkeye
-pkgver=5.3.0
+pkgver=5.3.1
 pkgrel=1
 pkgdesc="Simple license header checker and formatter"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('Apache-2.0')
 depends=('gcc-libs')
 makedepends=('cargo-nightly')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('2a137c839a3570cdf18c8c7e596ffc1a6b94b08ae6a6f01e8b0636d763ba90ee')
+sha256sums=('261c24fb8b41abccb66f94a34345869d3b4fc0aa096a92d397b6443c26c41bed')
 
 prepare() {
   cd "$pkgname-$pkgver"
