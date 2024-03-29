@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-session-shell
-pkgver=6.0.16
+pkgver=6.0.17
 pkgrel=1
 pkgdesc='Deepin desktop-environment - session-shell module'
 arch=('x86_64')
@@ -22,7 +22,7 @@ conflicts=('deepin-session-ui<5')
 provides=('lightdm-deepin-greeter')
 groups=('deepin')
 source=("https://github.com/linuxdeepin/dde-session-shell/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('5deee4cd371d480296814880bb5637518c17bc3d8bdd1e1e2e321a7de9799e78d50a502253de2fceb2f4972a49d3cc2b42e473623985fbb5247e7ddb5d09160a')
+sha512sums=('b3c8de8fd6c2caf4938933105b4e5f0fb7d9261c4b1e6271a37a2a80a18ce989458dbcf367534c25007afe3668f289a884664c59fc7a7e0c80fe41257d230932')
 
 prepare() {
   cd dde-session-shell-$pkgver
