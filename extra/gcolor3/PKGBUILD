@@ -3,7 +3,7 @@
 pkgbase=gcolor3
 pkgname=('gcolor3' 'gcolor3-xorg')
 pkgver=2.4.0
-pkgrel=6
+pkgrel=7
 pkgdesc='Simple color chooser written in GTK'
 arch=('x86_64')
 url='https://www.hjdskes.nl/projects/gcolor3/'
@@ -39,7 +39,7 @@ build() {
 
   # Xorg version
   arch-meson $pkgbase-xorg build-xorg -D werror=false
-  meson compile -C build
+  meson compile -C build-xorg
 }
 
 check() {
