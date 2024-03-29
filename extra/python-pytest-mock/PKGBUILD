@@ -1,41 +1,32 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-mock
-pkgver=3.12.0
-_commit=69adc6f76c1a7baf4e7a728da9eec38741d5783e
+pkgver=3.13.0
 pkgrel=1
 pkgdesc="Thin-wrapper around the mock package for easier use with py.test"
 arch=('any')
 license=('LGPL3')
 url="https://github.com/pytest-dev/pytest-mock/"
 depends=('python-pytest')
-makedepends=('git' 'python-setuptools-scm')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel'
+             'python-setuptools-scm')
 checkdepends=('python-pytest-asyncio')
-source=("git+https://github.com/pytest-dev/pytest-mock.git#commit=$_commit")
-sha512sums=('SKIP')
+source=("git+https://github.com/pytest-dev/pytest-mock.git#tag=v$pkgver")
+sha512sums=('72845078a72a8446094fad84b7da69b3ff2ebc6ba1c39210943e4deeb7dc05e0ef9680875a2b991c08fe1d892ab011c9a67f585d1446bdb7fd23dc3ddde09323')
 
 build() {
   cd pytest-mock
-  python setup.py build
+  python -m build -nw
 }
 
 check() {
   cd pytest-mock
-  python setup.py egg_info
-  export PYTHONPATH="src:${PYTHONPATH}"
-  # disable all tests that require the plugin to be installed
-  pytest -v --assert=plain \
-    -k "not test_used_with_session_scope \
-        and not test_used_with_package_scope \
-        and not test_used_with_module_scope \
-        and not test_used_with_class_scope \
-        and not test_monkeypatch_ini \
-        and not test_monkeypatch_native \
-        and not test_standalone_mock \
-        and not test_plain_stopall"
+  python -m venv tmpenv --system-site-packages
+  tmpenv/bin/python -m installer dist/*.whl
+  tmpenv/bin/python -m pytest
 }
 
 package() {
   cd pytest-mock
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer -d "$pkgdir" dist/*.whl
 }
