@@ -7,7 +7,7 @@ pkgname=(
   lib32-harfbuzz-cairo
   lib32-harfbuzz-icu
 )
-pkgver=8.3.1
+pkgver=8.4.0
 pkgrel=1
 pkgdesc="OpenType text shaping engine - 32-bit"
 url="https://www.freedesktop.org/wiki/Software/HarfBuzz"
@@ -27,9 +27,9 @@ checkdepends=(
   python-fonttools
   python-setuptools
 )
-_commit=2b3631a866b3077d9d675caa4ec9010b342b5a7c  # tags/8.3.1^0
+_commit=63973005bc07aba599b47fdd4cf788647b601ccd  # tags/8.4.0^0
 source=("git+https://github.com/harfbuzz/harfbuzz#commit=$_commit")
-b2sums=('a79c8cb843e80cf187d9313b55cd4163996c4989e357b16e3e61749609d8a0bc4366f8f5fdfdbc678658fbb9923d90894bd4d4766924ba5481af3033c4cd2e16')
+b2sums=('19f25dbf2ba6d90fdbb4ecb1039c8d0d72c55cff3dc3b30d6b75b626c15bf28a2118495837d80b7f622f0929dd7d4a07b5526963e1204bb9c90bc9f976c26977')
 
 pkgver() {
   cd harfbuzz
