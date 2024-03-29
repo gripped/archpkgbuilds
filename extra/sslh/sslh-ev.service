@@ -1,10 +1,10 @@
 [Unit]
-Description=SSL/SSH multiplexer (fork mode)
-Conflicts=sslh-select.service sslh-ev.service sslh.service sslh.socket
+Description=SSL/SSH multiplexer (ev mode)
+Conflicts=sslh-fork.service sslh-select.service sslh.service sslh.socket
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/sslh-fork --config /etc/sslh.cfg --foreground
+ExecStart=/usr/bin/sslh-ev --config /etc/sslh.cfg --foreground
 KillMode=process
 ProtectSystem=strict
 ProtectHome=true
