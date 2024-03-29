@@ -1,0 +1,35 @@
+From 9a49363b1e2d3927cfb290013b24b51a426e352e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 28 Mar 2024 08:31:47 +0100
+Subject: [PATCH] Add more details about swap usage
+
+In addition to the used swap, display total and free swap as well as the percentage of used swap.
+---
+ sensors.js | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/sensors.js b/sensors.js
+index 2ba8c2e..d3854d5 100644
+--- a/sensors.js
++++ b/sensors.js
+@@ -140,6 +140,8 @@ export const Sensors = GObject.registerClass({
+ 
+             let used = total - avail
+             let utilized = used / total;
++            let swapUsed = swapTotal - swapFree
++            let swapUtilized = swapUsed / swapTotal;
+ 
+             this._returnValue(callback, 'Usage', utilized, 'memory', 'percent');
+             this._returnValue(callback, 'memory', utilized, 'memory-group', 'percent');
+@@ -148,7 +150,10 @@ export const Sensors = GObject.registerClass({
+             this._returnValue(callback, 'Allocated', used, 'memory', 'memory');
+             this._returnValue(callback, 'Cached', cached, 'memory', 'memory');
+             this._returnValue(callback, 'Free', memFree, 'memory', 'memory');
+-            this._returnValue(callback, 'Swap', swapTotal - swapFree, 'memory', 'memory');
++            this._returnValue(callback, 'Swap Total', swapTotal, 'memory', 'memory');
++            this._returnValue(callback, 'Swap Free', swapFree, 'memory', 'memory');
++            this._returnValue(callback, 'Swap Used', swapUsed, 'memory', 'memory');
++            this._returnValue(callback, 'Swap Usage', swapUtilized, 'memory', 'percent');
+         }).catch(err => { });
+     }
+ 
