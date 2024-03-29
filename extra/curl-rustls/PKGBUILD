@@ -7,7 +7,7 @@
 
 pkgname=curl-rustls
 pkgver=8.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc='command line tool and library for transferring data with URLs (with rustls)'
 arch=('x86_64')
 url='https://curl.se/'
@@ -31,6 +31,8 @@ sha512sums=('38b55dc916a64a1fd40a8af3e9a694ae918f8efb714430834491ebbe0ceeee4b58b
             '51df4903eff9f1a15b1317ea4a8ee2b8537f347984f2524f42213b09344cd6109c621a4b81b37d2fcf2027387bb81cf0a744a48e96b86c4e268c43261ff86845')
 
 _backports=(
+  # content_encoding: brotli and others, pass through 0-length writes
+  'b30d694a027eb771c02a3db0dee0ca03ccab7377'
 )
 
 _reverts=(
