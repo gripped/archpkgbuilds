@@ -5,8 +5,8 @@
 # Contributor: Chris Salzberg <chris@dejimata.com>
 # Contributor: Leonidas Spyropoulos <artafinde@gmail.com>
 pkgname=neomutt
-pkgver=20240323
-pkgrel=2
+pkgver=20240329
+pkgrel=1
 pkgdesc='A version of mutt with added features'
 url='https://neomutt.org/'
 license=('GPL-2.0-only')
@@ -46,18 +46,15 @@ source=(
     "$pkgname-$pkgver.tar.gz::$_github/archive/$pkgver.tar.gz"
     "$pkgname-$pkgver.tar.gz.sig::$_github/releases/download/$pkgver/$pkgver.tar.gz.sig"
     "default-ca-certificates.patch"
-    "https://github.com/neomutt/neomutt/commit/865dfe0add1c5dc396d3149cef2f471333be6d9f.patch"
 )
-sha256sums=('b6f397cf90fc18c925a7bcabcb75393c7cd2751ccd50efe93a4f401932513c45'
-            '571716b8979e9b43328416c3c56eff228b6c58355d7c080b8987ea89c6360776'
-            '395c3aab7695d9cdcaf808f099c50933bc0bcdd5fe62bcf6c04e348aaf0d60ed')
+sha256sums=('241e354b4b5af846f00926f30c0a04e959997556d4cb409c4ff297f398cfc104'
+            'SKIP'
+            '571716b8979e9b43328416c3c56eff228b6c58355d7c080b8987ea89c6360776')
 validpgpkeys=('86C2397270DD7A561263CA4E5FAF0A6EE7371805') # Richard Russon (flatcap) <rich@flatcap.org>
 
 prepare() {
     cd "$pkgname-$pkgver"
     patch -Np1 -i ../default-ca-certificates.patch
-    # fix data loss on open file
-    patch -Np1 -i ../865dfe0add1c5dc396d3149cef2f471333be6d9f.patch
 }
 
 build() {

@@ -1,7 +1,7 @@
 pkgbase = neomutt
 	pkgdesc = A version of mutt with added features
-	pkgver = 20240323
-	pkgrel = 2
+	pkgver = 20240329
+	pkgrel = 1
 	url = https://neomutt.org/
 	arch = x86_64
 	license = GPL-2.0-only
@@ -29,12 +29,12 @@ pkgbase = neomutt
 	optdepends = ca-certificates: default CA certificates
 	optdepends = perl: smime_keys
 	optdepends = python: keybase.py
-	source = neomutt-20240323.tar.gz::https://github.com/neomutt/neomutt/archive/20240323.tar.gz
+	source = neomutt-20240329.tar.gz::https://github.com/neomutt/neomutt/archive/20240329.tar.gz
+	source = neomutt-20240329.tar.gz.sig::https://github.com/neomutt/neomutt/releases/download/20240329/20240329.tar.gz.sig
 	source = default-ca-certificates.patch
-	source = https://github.com/neomutt/neomutt/commit/865dfe0add1c5dc396d3149cef2f471333be6d9f.patch
 	validpgpkeys = 86C2397270DD7A561263CA4E5FAF0A6EE7371805
-	sha256sums = b6f397cf90fc18c925a7bcabcb75393c7cd2751ccd50efe93a4f401932513c45
+	sha256sums = 241e354b4b5af846f00926f30c0a04e959997556d4cb409c4ff297f398cfc104
+	sha256sums = SKIP
 	sha256sums = 571716b8979e9b43328416c3c56eff228b6c58355d7c080b8987ea89c6360776
-	sha256sums = 395c3aab7695d9cdcaf808f099c50933bc0bcdd5fe62bcf6c04e348aaf0d60ed
 
 pkgname = neomutt
