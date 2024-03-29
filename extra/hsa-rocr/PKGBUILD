@@ -6,8 +6,8 @@
 # Contributor: Ranieri Althoff <ranisalt+aur at gmail.com>
 
 pkgname=hsa-rocr
-pkgver=6.0.0
-pkgrel=3
+pkgver=6.0.2
+pkgrel=1
 pkgdesc='HSA Runtime API and runtime for ROCm'
 arch=('x86_64')
 url='https://github.com/ROCm/ROCR-Runtime'
@@ -16,7 +16,7 @@ depends=('rocm-core' 'glibc' 'gcc-libs' 'libelf' 'libdrm'
          'hsakmt-roct' 'rocm-device-libs')
 makedepends=('cmake' 'rocm-llvm' 'xxd')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('99e8fa1af52d0bf382f28468e1a345af1ff3452c35914a6a7b5eeaf69fc568db')
+sha256sums=('e7ff4d7ac35a2dd8aad1cb40b96511a77a9c23fe4d1607902328e53728e05c28')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
 options=(!lto)
 
