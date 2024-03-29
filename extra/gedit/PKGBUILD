@@ -4,7 +4,7 @@
 
 pkgname=gedit
 pkgver=46.2
-pkgrel=1
+pkgrel=2
 pkgdesc="GNOME Text Editor"
 url="https://gedit-technology.github.io/apps/gedit/"
 arch=(x86_64)
@@ -59,6 +59,9 @@ pkgver() {
 
 prepare() {
   cd gedit
+
+  # quickhighlight plugin: adapt code for GtkSourceStyle API break
+  git cherry-pick -n 6fa2371e5d9f5e9ef5403e78271cdfd9c4055e9a
 
   git submodule init
   git submodule set-url subprojects/libgd "$srcdir/libgd"
