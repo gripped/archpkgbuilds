@@ -5,7 +5,7 @@
 pkgname=gnome-shell-extension-dash-to-panel
 _pkgname=dash-to-panel
 pkgver=61
-pkgrel=1
+pkgrel=2
 pkgdesc='Extension for GNOME Shell to combine the dash and main panel'
 arch=('any')
 url='https://github.com/home-sweet-gnome/dash-to-panel'
@@ -14,11 +14,11 @@ depends=('gnome-shell')
 source=("https://github.com/home-sweet-gnome/$_pkgname/archive/v$pkgver/$_pkgname-$pkgver.tar.gz"
         'gnome-shell-extension-dash-to-panel-system-install-paths.patch'
         'gnome-shell-extension-dash-to-panel-fix-crash-on-close.patch'
-        'kgx.patch')
+        'gnome-shell-extension-dash-to-panel-terminal-command.patch')
 sha256sums=('33cc4dad5d13f90d3683f0812d39c29528131763fee526dfbcd9db43c9d7fe22'
             'b9c247fc8ab7f1ee18ce2c98f8312f86da0340622d4c5daadd3a4579f4213fc5'
             'd772d9aa2995602e5b11fa9624586d7a1c485fde9b21f046f2cf52e5fb099735'
-            'fcfde79f91c3c672dcec88868413f71626774e409b511510004dc8b9d89d66c3')
+            'b3127999d68a56363d0aa39b380fec7f6a4ba4af6b345b67464a36cc12cee703')
 
 prepare() {
   cd $_pkgname-$pkgver
@@ -28,8 +28,8 @@ prepare() {
   # https://github.com/home-sweet-gnome/dash-to-panel/pull/1969
   patch -Np1 -i ../gnome-shell-extension-dash-to-panel-fix-crash-on-close.patch
 
-  # https://github.com/home-sweet-gnome/dash-to-panel/pull/2059
-  patch -Np1 -i ../kgx.patch
+  # https://github.com/home-sweet-gnome/dash-to-panel/pull/2062
+  patch -Np1 -i ../gnome-shell-extension-dash-to-panel-terminal-command.patch
 }
 
 build() {
