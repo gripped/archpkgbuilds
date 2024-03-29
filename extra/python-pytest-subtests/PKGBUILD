@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-subtests
-pkgver=0.12.0
-_commit=850fc2bcae51ca66b8d980907356efa098f1645f
+pkgver=0.12.1
+_commit=f55c65c4cbcbf2b6df3a4285c37854405a37747f
 pkgrel=1
 pkgdesc='unittest subTest() support and subtests fixture'
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python-attrs' 'python-pytest')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm'
              'python-wheel')
 source=("git+https://github.com/pytest-dev/pytest-subtests.git#commit=$_commit")
-sha512sums=('9bb6fca52640755f18231ad8bb8fec98e899289eb4fbceeeb7e83922151b41422c0ae8c8551f2761da01aaba1a338c2c4eb97d0bcfa8a1066e0b5f986d918469')
+sha512sums=('e548235c630516f419b0476084f735caee29b5639d0f24b6553e5c3bf7f088b946db5e1573de5a802b60dc7c616f838edc6915c0976529cf3d9d725ad342e2de')
 
 build() {
   cd pytest-subtests
