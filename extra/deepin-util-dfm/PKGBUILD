@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-util-dfm
-pkgver=1.2.22
+pkgver=1.2.23
 pkgrel=1
 pkgdesc='Utilities of deepin file manager'
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('libisoburn' 'libmediainfo' 'qt5-base' 'udisks2' 'glib2' 'gcc-libs' 'ut
          'libsecret')
 makedepends=('cmake' 'ninja')
 source=("https://github.com/linuxdeepin/util-dfm/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('c52b3b425766e749b5376ec35e4e46b261b2827b815156a5163660773be52d791b0c513ede216a79476642d78e4c036df2403e97bc10bee4b36cec6027254ad0')
+sha512sums=('557b18d77b5181ffce35414e798a685f9923b96de9b58795c4b206c9344361a56f6e68015c50d9ba65d0dda63b842376fa9f3385c7fb0115b453da3f868b0e5c')
 
 build() {
   cmake -G Ninja -B build -S util-dfm-$pkgver -DCMAKE_INSTALL_PREFIX=/usr
