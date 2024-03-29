@@ -4,7 +4,7 @@
 
 pkgname=starship
 pkgdesc='The cross-shell prompt for astronauts'
-pkgver=1.18.1
+pkgver=1.18.2
 pkgrel=1
 arch=(x86_64)
 url=https://starship.rs/
@@ -22,7 +22,7 @@ makedepends=(
 checkdepends=(python)
 optdepends=('ttf-font-nerd: Nerd Font Symbols preset')
 source=("git+$_url.git#tag=v$pkgver")
-sha256sums=('8a466fb1114eacb6329e9594295fc0d895d00a459e63d1419a865d814b1842b7')
+sha256sums=('a4a5de7156acf11679d750f7d7e371bee61c21bffd7e7d7cf8fc915baf650db6')
 
 prepare() {
   cargo fetch \
