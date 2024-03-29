@@ -2,8 +2,8 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-log
-pkgver=5.4.0
-_commit=b5b8c30b0d925aa3d31b58932c94586631827b62
+pkgver=5.5.0
+_commit=a892465f1947b952c7d0db468b09a9dc7e8f40bc
 pkgrel=1
 pkgdesc="Oslo Logging Library"
 arch=('any')
@@ -15,7 +15,7 @@ depends=('python-pbr' 'python-oslo-config' 'python-oslo-context' 'python-oslo-i1
 makedepends=('git' 'python-setuptools')
 checkdepends=('python-stestr' 'python-testtools' 'python-oslotest' 'python-eventlet')
 source=("git+https://github.com/openstack/oslo.log.git#commit=$_commit")
-sha512sums=('SKIP')
+sha512sums=('130e80846055d918ddb6d91af879a31aef804613218e708aa073f474f109d7382fbd5e6bbe1a0540a3bb7f0910b978c51c58e70a207da3939d8fa27eddf5c7c3')
 
 build() {
   cd oslo.log
