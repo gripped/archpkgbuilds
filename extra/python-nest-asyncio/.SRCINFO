@@ -1,15 +1,20 @@
 pkgbase = python-nest-asyncio
 	pkgdesc = Patch asyncio to allow nested event loops
 	pkgver = 1.6.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/erdewit/nest_asyncio
 	arch = any
-	license = BSD
+	license = BSD-2-Clause
+	makedepends = git
+	makedepends = python-setuptools-scm
 	makedepends = python-setuptools
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
 	depends = python
 	provides = python-nest_asyncio
 	replaces = python-nest_asyncio
-	source = https://github.com/erdewit/nest_asyncio/archive/v1.6.0/python-nest-asyncio-1.6.0.tar.gz
-	sha512sums = b594bb2b245624032585af34540025bdc6b8224a6d59bd8ffcc5d5673d47c49736ac96cd20b5ca5ce311f8e9274df68560a4b2904273d4036f1560eeb74cfdf7
+	source = git+https://github.com/erdewit/nest_asyncio.git#tag=v1.6.0
+	sha512sums = b85ca536a8a1fb47af09a30b0084034860bd483249e22e0d452966383bd5108138096a94ea03bd529a07b719b8f4f15bcb05892e2dfc399f47f1fcce74940b12
 
 pkgname = python-nest-asyncio
