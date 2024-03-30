@@ -2,7 +2,7 @@
 
 _pyname=matroid-database
 pkgname=python-$_pyname
-pkgver=0.2
+pkgver=0.3
 pkgrel=1
 pkgdesc='Python interface to matroid database'
 arch=(any)
@@ -14,7 +14,7 @@ makedepends=(python-build
              python-setuptools
              python-wheel)
 source=(https://pypi.org/packages/source/${_pyname:0:1}/$_pyname/$_pyname-$pkgver.tar.gz)
-sha256sums=('662d836b5d2152641b84758dc7669a66db51840d674533cb46496f2023c3c54c')
+sha256sums=('446057ae38700432efc3a2fca2b9ee21f6a3987f4c3589804cae39000c051b66')
 
 build() {
   cd $_pyname-$pkgver
