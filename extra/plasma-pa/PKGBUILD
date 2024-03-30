@@ -1,9 +1,9 @@
 # Maintainer:Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma-pa
-pkgver=6.0.2
+pkgver=6.0.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=3
+pkgrel=1
 pkgdesc='Plasma applet for audio volume management using PulseAudio'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -32,7 +32,7 @@ makedepends=(extra-cmake-modules
              kdoctools)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('998da8f7831e16004315bcb488d05d1d539713406e235155bdbfbb80d301e5ad'
+sha256sums=('b1e198a01551e87275b3f9b718b94df3edf391dccf2ba71ea9af07bc52ddee5b'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
