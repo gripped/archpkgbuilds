@@ -6,7 +6,7 @@
 # Contributor: Mikko Seppälä <t-r-a-y@mbnet.fi>
 
 pkgname=lib32-gnutls
-pkgver=3.8.3
+pkgver=3.8.4
 pkgrel=1
 pkgdesc="A library which provides a secure layer over a reliable transport layer (32-bit)"
 arch=('x86_64')
@@ -18,9 +18,11 @@ depends=('lib32-nettle' 'libnettle.so' 'libhogweed.so'
 makedepends=()
 provides=('libgnutls.so' 'libgnutlsxx.so')
 source=(https://www.gnupg.org/ftp/gcrypt/gnutls/v${pkgver%.*}/gnutls-${pkgver}.tar.xz{,.sig})
-sha256sums=('f74fc5954b27d4ec6dfbb11dea987888b5b124289a3703afcada0ee520f4173e'
+sha256sums=('2bea4e154794f3f00180fa2a5c51fe8b005ac7a31cd58bd44cdfa7f36ebc3a9b'
             'SKIP')
-validpgpkeys=('462225C3B46F34879FC8496CD605848ED7E69871') # "Daiki Ueno <ueno@unixuser.org>"
+validpgpkeys=('462225C3B46F34879FC8496CD605848ED7E69871'  # "Daiki Ueno <ueno@unixuser.org>"
+              '5D46CB0F763405A7053556F47A75A648B3F9220C') # "Zoltan Fridrich <zfridric@redhat.com>"
+
 
 build() {
   export CC="gcc -m32"
