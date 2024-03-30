@@ -2,7 +2,7 @@
 
 _pyname=jupyter_collaboration
 pkgname=${_pyname/_/-}
-pkgver=2.0.5
+pkgver=2.0.11
 pkgrel=1
 pkgdesc='A Jupyter Server Extension Providing Support for Y Documents'
 arch=(any)
@@ -21,12 +21,13 @@ makedepends=(python-build
              python-hatch-nodejs-version
              python-hatchling
              python-installer)
-checkdepends=(python-pytest-asyncio
+checkdepends=(python-jupyter-server-terminals
+              python-pytest-asyncio
               python-pytest-jupyter
               python-pytest-timeout
               python-websockets)
 source=(https://pypi.io/packages/source/${_pyname:0:1}/$_pyname/$_pyname-$pkgver.tar.gz)
-sha256sums=('6906191a2c9aec4ddb9705645b1eb0d876f6334bffcfd74e314ef61065b86828')
+sha256sums=('2bb1cde72cda758e526fa49f9ff2bf402ceed7801c0c4187abe4d21e42e18136')
 
 build() {
   cd $_pyname-$pkgver
@@ -35,7 +36,7 @@ build() {
 
 check() {
   cd $_pyname-$pkgver
-  pytest -v
+  pytest -v -k 'not test_room_sequential_opening' # https://github.com/jupyterlab/jupyter-collaboration/issues/252
 }
 
 package() {
