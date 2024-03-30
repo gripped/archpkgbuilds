@@ -1,0 +1,23 @@
+pkgbase = python-gevent
+	pkgdesc = Python network library that uses greenlet and libev for easy and scalable concurrency
+	pkgver = 24.2.1
+	pkgrel = 1
+	url = http://www.gevent.org/
+	arch = x86_64
+	license = MIT
+	checkdepends = lsof
+	checkdepends = python-perf
+	checkdepends = python-objgraph
+	checkdepends = python-dnspython
+	checkdepends = python-requests
+	makedepends = cython
+	depends = c-ares
+	depends = libev
+	depends = python-greenlet
+	depends = python-setuptools
+	depends = python-zope-event
+	depends = python-zope-interface
+	source = python-gevent-24.2.1.tar.gz::https://github.com/gevent/gevent/archive/24.2.1.tar.gz
+	sha512sums = bfcaf437ba4d6565bd5904dc0d45df035fe9b4bd572f8bf509d1ec9994ae812317bdea9e948b57f47435752bffebb7cc925dbf060db5d56c5c05b29cbd061639
+
+pkgname = python-gevent
