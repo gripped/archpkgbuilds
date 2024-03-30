@@ -6,7 +6,7 @@
 pkgbase=mame
 pkgname=(mame
          mame-tools)
-pkgver=0.263
+pkgver=0.264
 pkgrel=1
 pkgdesc='Port of the popular Multiple Arcade Machine Emulator using SDL with OpenGL support'
 url='https://mamedev.org/'
@@ -39,7 +39,7 @@ source=(https://github.com/mamedev/mame/archive/mame${pkgver/./}.tar.gz
         mame.desktop
         mame.sh
         mame.svg)
-sha256sums=('2f380a7a9344711c667aef6014d522dd876db4c04f15dbab8d14bd3b2a0d4c8c'
+sha256sums=('3d9f69ed3ef7c1628d5714c8ae2695ea77b1a652a93347b2703f7c862299376e'
             '0e5e93f84673c2d17a1bf7a6b256cfa54ef89a086a828df19bc054c12776d821'
             'ee1c59bafc5e5441e99fa4c58108a3e18048e60672f34de865c8a5a976094dba'
             '17c442c933d764175e4ce1de50a80c0c2ddd5d733caf09c3cd5e6ba697ac43f4')
@@ -67,7 +67,8 @@ build() {
     OPTIMIZE=2 \
     TOOLS=1 \
     QT_HOME=/usr/lib/qt6 \
-    ARCHOPTS=-flifetime-dse=1
+    ARCHOPTS=-flifetime-dse=1 \
+    USE_WAYLAND=1
 }
 
 package_mame() {
