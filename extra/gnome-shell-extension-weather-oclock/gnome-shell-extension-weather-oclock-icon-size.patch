@@ -1,0 +1,23 @@
+From a348af3c64ab40150e7e0c5d8b5aa82bddb745cd Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 24 Mar 2024 16:33:35 +0100
+Subject: [PATCH] Don't hardcode the icon size
+
+When fractional scaling is used, the weather icon remains small, and does not follow the size of other status icons. Add the 'system-status-icon' class instead of hard-coding the size to make it the same as other status icons.
+---
+ weatheroclock@CleoMenezesJr.github.io/extension.js | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/weatheroclock@CleoMenezesJr.github.io/extension.js b/weatheroclock@CleoMenezesJr.github.io/extension.js
+index 510c045..833a289 100644
+--- a/weatheroclock@CleoMenezesJr.github.io/extension.js
++++ b/weatheroclock@CleoMenezesJr.github.io/extension.js
+@@ -97,7 +97,7 @@ const PanelWeather = GObject.registerClass(
+       this._signals = [];
+ 
+       this._icon = new St.Icon({
+-        icon_size: 16,
++        style_class: 'system-status-icon',
+       });
+ 
+       this.add_child(this._icon);

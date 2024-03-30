@@ -1,0 +1,31 @@
+From b56a5bbd2b61a824f46c7791ff07a30bf686b77e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 24 Mar 2024 16:46:38 +0100
+Subject: [PATCH] Update weather info only if loaded
+
+On each update, the 'changed' signal is emitted twice, once when it starts to load, and once again when it's loaded. This causes a noticeable flicker, because the weather info is not available when 'weather.loading' is true.
+---
+ weatheroclock@CleoMenezesJr.github.io/extension.js | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/weatheroclock@CleoMenezesJr.github.io/extension.js b/weatheroclock@CleoMenezesJr.github.io/extension.js
+index 510c045..cd3e62f 100644
+--- a/weatheroclock@CleoMenezesJr.github.io/extension.js
++++ b/weatheroclock@CleoMenezesJr.github.io/extension.js
+@@ -147,10 +147,12 @@ const PanelWeather = GObject.registerClass(
+     }
+ 
+     _onWeatherInfoUpdate(weather) {
+-      this._icon.icon_name = weather.info.get_symbolic_icon_name();
+-      // "--" is not a valid temp...
+-      this._label.text = weather.info.get_temp_summary().replace("--", "");
+-      this.visible = this._icon.icon_name && this._label.text;
++      if (!weather.loading) {
++        this._icon.icon_name = weather.info.get_symbolic_icon_name();
++        // "--" is not a valid temp...
++        this._label.text = weather.info.get_temp_summary().replace("--", "");
++        this.visible = this._icon.icon_name && this._label.text;
++      }
+     }
+ 
+     _onNetworkIconNotifyEvents(networkIcon) {
