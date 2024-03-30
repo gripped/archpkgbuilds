@@ -1,9 +1,9 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=qqc2-breeze-style
-pkgver=6.0.2
+pkgver=6.0.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=3
+pkgrel=1
 pkgdesc='Applications useful for Plasma development'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -21,7 +21,7 @@ depends=(gcc-libs
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('904e6398aee2ad31291c027ab096a197c942eb4a73eef7f4de4282cbca6b325d'
+sha256sums=('401844f87e1be48e15f167af641ab311a20376c48a9b3ee21c76ee25e8a3dbd9'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
