@@ -6,7 +6,7 @@
 
 pkgname=jenkins
 pkgver=2.451
-pkgrel=1
+pkgrel=2
 _java=17
 pkgdesc='Extendable continuous integration server (latest)'
 arch=('any')
