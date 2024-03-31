@@ -1,0 +1,29 @@
+pkgbase = atril
+	pkgdesc = MATE document viewer
+	pkgver = 1.28.0
+	pkgrel = 1
+	url = https://mate-desktop.org
+	arch = x86_64
+	groups = mate-extra
+	license = GPL
+	makedepends = caja
+	makedepends = gobject-introspection
+	makedepends = itstool
+	makedepends = texlive-bin
+	depends = djvulibre
+	depends = libspectre
+	depends = libgxps
+	depends = mathjax2
+	depends = gettext
+	depends = poppler-glib
+	depends = cairo>=1.14.0
+	depends = webkit2gtk>=2.6.0
+	depends = libsynctex
+	optdepends = caja: Document Properties extension
+	optdepends = texlive-bin: DVI support
+	conflicts = atril-gtk3
+	replaces = atril-gtk3
+	source = https://pub.mate-desktop.org/releases/1.28/atril-1.28.0.tar.xz
+	sha256sums = ced4725f6e9b71c4ea63676bfc3cc3be09d29dba08aa7a7ab97964e0b4355162
+
+pkgname = atril
