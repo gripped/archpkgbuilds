@@ -2,7 +2,7 @@
 
 _pkgname=pipx
 pkgname=python-$_pkgname
-pkgver=1.4.3
+pkgver=1.5.0
 pkgrel=1
 pkgdesc='Install and Run Python Applications in Isolated Environments'
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python' 'python-userpath' 'python-argcomplete' 'python-packaging' 'pyt
 makedepends=('python-build' 'python-installer' 'python-hatchling' 'python-wheel' 'python-hatch-vcs')
 #checkdepends=('python-tox' 'python-pytest')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('423310d4a2523fdb0eca69fd5ee861f8cad144f458aaf63008ca018fea0dc3b6a4274f7cae1ffdde45013dd85eee05a4a379589a93f4c369376e122a5dc4f23e')
+sha512sums=('7d8d64f2b042f050153dee27a759de2734a567a445470411c2838292e9365cfa18199cb096c0015651210e656173006be0cba20a16cc4b3ebc211a6a2caef2c7')
 
 build() {
   cd $_pkgname-$pkgver
