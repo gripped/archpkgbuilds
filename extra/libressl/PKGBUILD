@@ -7,7 +7,7 @@
 
 pkgname=libressl
 pkgver=3.9.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Free version of the TLS/crypto stack forked from OpenSSL"
 arch=(x86_64)
 url="https://www.libressl.org/"
