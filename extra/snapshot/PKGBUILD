@@ -1,7 +1,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=snapshot
-pkgver=46.0
+pkgver=46.1
 pkgrel=1
 pkgdesc="Take pictures and videos"
 arch=(x86_64)
@@ -29,9 +29,9 @@ makedepends=(
   meson
   rust
 )
-_commit=ed57948c34bd540772c71ebdac2d892fd0c3b162  # tags/46.0^0
+_commit=9b8b37b057c0dc15887d7ef4ddb299faf17f331c  # tags/46.1^0
 source=("git+https://gitlab.gnome.org/GNOME/snapshot.git#commit=$_commit")
-b2sums=('SKIP')
+b2sums=('0e23942ea9c5fb4af290255f925c520255c2dc6799fb8a9f0fd5add1e2a27af7f74f172a50f18cc1cf771b0856dd59b4b2abf89ef6004064393d18b744d495d5')
 
 prepare() {
   cd ${pkgname}
