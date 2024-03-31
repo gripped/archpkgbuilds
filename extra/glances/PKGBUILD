@@ -6,12 +6,12 @@
 
 pkgname=glances
 pkgver=3.4.0.5
-pkgrel=1
+pkgrel=2
 pkgdesc='CLI curses-based monitoring tool'
 arch=('any')
 url='https://nicolargo.github.io/glances/'
 license=('LGPL-3.0-or-later')
-makedepends=('python-setuptools')
+makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 depends=('python' 'python-psutil' 'python-future' 'python-defusedxml' 'python-ujson')
 optdepends=('hddtemp: HDD temperature monitoring support'
             'python-bottle: web server support'
@@ -28,9 +28,14 @@ sha512sums=('aca140fedc2acc97ae4901722e0406acb8bea6eac5295d95499860a522e74d29ecb
 b2sums=('510f379946eec914998cba32ffd66c6037bd85246cdae059d336b4a3330ba6e521aa3fef2099d88f08dbf3ed7e7c8537235850ad8f6882840fb811bcd8a82147'
         'ecc44f8c06b1e8624cec92e41422a65d11e024b9fc23bae09b4e52fbedeb172a5034e5b612bbff7ba93d45189fb25eda0d54bc47b22b7f3f0acba984391e4017')
 
+build() {
+  cd "glances-${pkgver}"
+  python -m build --wheel --no-isolation
+}
+
 package() {
   cd "glances-${pkgver}"
-  python setup.py install --prefix=/usr --root="${pkgdir}" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 "${srcdir}"/glances.service \
     "${pkgdir}"/usr/lib/systemd/system/glances.service
 }
