@@ -7,20 +7,20 @@
 
 pkgname=python-keyring
 _name=keyring
-pkgver=24.3.0
+pkgver=25.0.0
 pkgrel=1
 pkgdesc='Store and access your passwords safely'
 arch=('any')
 url='https://github.com/jaraco/keyring'
 license=('PSF' 'MIT')
-depends=('python-jaraco.classes' 'python-secretstorage' 'python-importlib-metadata')
+depends=('python-jaraco.classes' 'python-secretstorage' 'python-importlib-metadata' 'python-jaraco.functools' 'python-jaraco.context')
 makedepends=('python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
 checkdepends=('python-pytest-flake8' 'python-pytest-runner' 'python-pytest-black' 'python-pytest-cov' 'python-pytest-mypy')
 optdepends=('python-keyrings-alt: Alternative backends'
             'python-dbus: kwallet backend')
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('22467924420cc8646ebb10e2aa851e734c0a2ba9a7298987eba0849dbcba0abd295705f3b80fb6975c24e07ec029c0e406213275fa209fe2ca3e5b0c114e1612')
-b2sums=('6f68a6057f25c4e9841e04f2977da0401f09e15c6aeb04d12440de054049af9ece867befdd9fd26acab27cf0a00f3eeba9b7989c74eae88f96411f53cf86e594')
+sha512sums=('9b7f25aea1166f80b1b6ded7d691295690dac679e9f931437ae83fc2bf465c541bb1ed74b99a0de749a04df60576e9fe068f2f86b39a3c5bcef953b616678951')
+b2sums=('b1b955215bf197f52e64c46572f29c2059f75f5eadce249fe1776f10f7f1c6d20428a811a8c36fe4bb85142f61f6281c71e2b97b1f8657fdc35a5075b840d39f')
 
 build() {
   cd $_name-$pkgver
