@@ -1,12 +1,13 @@
 pkgbase = archiso
 	pkgdesc = Tools for creating Arch Linux live and install iso images
-	pkgver = 75
+	pkgver = 76
 	pkgrel = 1
 	url = https://gitlab.archlinux.org/archlinux/archiso
 	arch = any
 	license = GPL-3.0-or-later
 	checkdepends = shellcheck
 	makedepends = git
+	makedepends = python-docutils
 	depends = arch-install-scripts
 	depends = bash
 	depends = dosfstools
@@ -21,9 +22,10 @@ pkgbase = archiso
 	optdepends = gnupg: for PGP signature verification of rootfs over PXE
 	optdepends = openssl: for CMS signature verification of PXE artifacts and rootfs over PXE
 	optdepends = qemu-desktop: for run_archiso
-	source = git+https://gitlab.archlinux.org/archlinux/archiso.git#tag=e72637798c2d6ce69d9444c568e230d44eacf6f5?signed
+	source = git+https://gitlab.archlinux.org/archlinux/archiso.git#tag=v76?signed
 	validpgpkeys = 991F6E3F0765CF6295888586139B09DA5BF0D338
 	validpgpkeys = BB8E6F1B81CF0BB301D74D1CBF425A01E68B38EF
-	sha256sums = SKIP
+	sha512sums = 4886ed2d96c69801544cec87979c82b214ee01694bea909a650ff9180e59ad89038207971141815a8e328529315925369cc2950e04277c35ab745c2f592c6e64
+	b2sums = ac1fee33693561d0527e763d18823644b7ae2d5226a78b6ab9cecac9461a68b9d50dcf2ecfecc76ed820d14155adbe69a38860876c4f5a7b1f2bfd07563881c2
 
 pkgname = archiso
