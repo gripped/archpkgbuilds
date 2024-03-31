@@ -1,8 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-enabler
-pkgver=3.1.0
-_commit=628b25c6f34d29eeb6fd9f55bb2b399db07e03d4
+pkgver=3.1.1
 pkgrel=1
 pkgdesc='Enable installed pytest plugins'
 arch=('any')
@@ -11,9 +10,9 @@ url='https://github.com/jaraco/pytest-enabler'
 depends=('python-jaraco.context' 'python-jaraco.functools' 'python-pytest' 'python-toml' 'python-importlib-resources')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
 checkdepends=('python-pytest-mypy' 'python-pytest-ruff' 'python-pytest-cov')
-source=("git+https://github.com/jaraco/pytest-enabler.git#commit=$_commit"
+source=("git+https://github.com/jaraco/pytest-enabler.git#tag=v$pkgver"
         "https://files.pythonhosted.org/packages/source/t/types-toml/types-toml-0.10.1.tar.gz")
-sha512sums=('159ebef4e713f9e8a045be17fb8c726b132f59671e3dc0dad38240b865ac8771490c051d293df234286e1493e000cd4a8b332de88d19a357c884c9f335bda653'
+sha512sums=('3e820dbc71cc8f76bd295939067a53ca23894a81cc484b007cb63471cb33ab4887a35fbc391bd55fa05d6f4fc5be12989604eeda231a5b9a094b326628460470'
             '001757f956dd3af0688a6544b90ba415b26ab3128e0fbb238f4dfaf0bab6b5795d5598bcc9422d854ea235acbc9e78b245c17f9ebc9ad9251ae3c0722b382812')
 
 prepare() {
