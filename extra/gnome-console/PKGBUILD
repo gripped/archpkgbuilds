@@ -4,7 +4,7 @@
 
 pkgname=gnome-console
 pkgver=46.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple user-friendly terminal emulator for the GNOME desktop"
 url="https://gitlab.gnome.org/GNOME/console"
 arch=(x86_64)
@@ -25,6 +25,7 @@ makedepends=(
   appstream
   git
   meson
+  python-packaging
 )
 groups=(gnome)
 _commit=a3fc3ef59162272a536cc0f0b2af05a394e22b47  # tags/46.0^0
