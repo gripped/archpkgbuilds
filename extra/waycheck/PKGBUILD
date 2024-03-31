@@ -1,7 +1,7 @@
 # Maintainer: Campbell Jones <arch at serebit dot com>
 
 pkgname=waycheck
-pkgver=1.1.1
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="Simple GUI that displays the protocols implemented by a Wayland compositor"
 arch=("x86_64")
@@ -10,14 +10,14 @@ license=("Apache-2.0")
 depends=("hicolor-icon-theme" "qt6-base>=6.5" "qt6-wayland>=6.5" "wayland")
 makedepends=("meson")
 checkdepends=("appstream")
-source=("https://gitlab.freedesktop.org/serebit/$pkgname/uploads/7e1e011ed491f43b81d4327575c9cbfd/${pkgname}-v${pkgver}.tar.xz"
-        "https://gitlab.freedesktop.org/serebit/$pkgname/uploads/bae2fa1d8d21486780960884357a6554/${pkgname}-v${pkgver}.tar.xz.asc")
-b2sums=('48733348d215ced1a49b78c1174840eb04a91c91fed053fc471b90546dfe9888e48f8b1a890ed29572f5aa50a2cf4c4b9a86fe22b0427c09297581fe4e69da78'
+source=("$url/-/archive/v$pkgver/${pkgname}-v${pkgver}.tar.gz"
+        "$url/uploads/5cbdaa2bfb2e0d45fdd0a55f629cd179/${pkgname}-v${pkgver}.tar.gz.asc")
+b2sums=('c4060b7eabdb98c607b6c8c9a591ea9a7876aced7f3baa25e2f4b63d0e3faa21d13628aa890596e3ca5522c65fd09eca77f010a91cae9b9a0e16cf27d813fd7e'
         'SKIP')
 validpgpkeys=("8A59B135826B2DA453B9707408AD7343E6BD4B56")
 
 build() {
-	arch-meson "$pkgname-$pkgver" build
+	arch-meson "$pkgname-v$pkgver" build
 	meson compile -C build
 }
 
