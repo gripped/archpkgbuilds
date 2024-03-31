@@ -5,9 +5,8 @@
 
 pkgname=mpv
 epoch=1
-_tag='807b9343ef911d138950411cdb83c16a151d2018' # git rev-parse v${pkgver}
 pkgver=0.37.0
-pkgrel=2
+pkgrel=3
 pkgdesc='a free, open source, and cross-platform media player'
 arch=('x86_64')
 license=('GPL-2.0-or-later AND LGPL-2.1-or-later')
@@ -29,15 +28,15 @@ optdepends=('yt-dlp: for video-sharing websites playback'
 provides=('libmpv.so')
 options=('!emptydirs')
 validpgpkeys=('145077D82501AA20152CACCE8D769208D5E31419') # sfan5 <sfan5@live.de>
-source=("git+https://github.com/mpv-player/mpv.git#tag=${_tag}?signed")
-sha256sums=('SKIP')
+source=("git+https://github.com/mpv-player/mpv.git#tag=v${pkgver}?signed")
+sha256sums=('a60f1ffa5bbf1c17bfa380a126573ff31f1d149496fe3d32c793e0a6845fb63e')
 
 build() {
   local _meson_options=(
     --auto-features auto
 
     -Dlibmpv=true
-
+    -Dgl-x11=enabled
     -Dcaca=disabled
     -Dcdda=enabled
     -Ddvbin=enabled
