@@ -3,7 +3,7 @@
 
 _pkg=qtawesome
 pkgname=python-${_pkg}
-pkgver=1.3.0
+pkgver=1.3.1
 pkgrel=1
 pkgdesc="Iconic fonts in PyQt and PySide applications"
 arch=(any)
@@ -13,7 +13,7 @@ depends=(python-qtpy)
 makedepends=(python-setuptools)
 checkdepends=(python-pytest python-pytest-qt pyside2 xorg-server-xvfb)
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('60f36b26eee0e5b91b06b04c0b0fe42399cb183364033d82fb2a3f6337c395fe')
+sha256sums=('c96adad198e98e8fca500b5a839d28c647a1f91c3a3af3b80417bdd4ce748de6')
 
 build() {
   cd ${_pkg}-${pkgver}
