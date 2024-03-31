@@ -1,7 +1,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=glycin
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 pkgdesc="Sandboxed and extendable image decoding"
 arch=(x86_64)
@@ -40,13 +40,14 @@ checkdepends=(
   rav1e
   svt-av1
 )
-_commit=869edadffec98d8c36a3db766120ad4ebed20a37  # tags/1.0.0^0
+_commit=a2d84ae939962f129ea3cfd9a32d6f78329a42bb  # tags/1.0.1^0
+_commit_ti=c09cebc2af3378bdd6210cc9232a1ec8ee661f6a
 source=(
   "git+https://gitlab.gnome.org/sophie-h/glycin.git#commit=$_commit"
-  "git+https://gitlab.gnome.org/sophie-h/test-images.git"
+  "git+https://gitlab.gnome.org/sophie-h/test-images.git#commit=$_commit_ti"
 )
-b2sums=('f08887fba63e3f8f8c7da4209f2099e1b82094361ab1b39c41f9373701862686a149e839ef5af4c594aacefe84c8cdc15a22feb56985cad7a45fc50e35735d09'
-        'SKIP')
+b2sums=('238aec6a21c6c0d041f9fa3d71792b578f62df312eeddaa52c4b9d3784da3763dbd6d3cd25d2f73898348b11751a31195b7c85af3192f503d0805f9b2145641e'
+        'c932243f1179d7f74ff7b14e6fe031194df1d02d3e375de8c5172f3b95d6a4d4cfd5d42edf13515b829b1b84f945e789689ce56e60aef5c4ef16d630d0717415')
 
 pkgver() {
   cd $pkgname
