@@ -1,0 +1,21 @@
+pkgbase = python-yara
+	pkgdesc = Tool aimed at helping malware researchers to identify and classify malware samples
+	pkgver = 4.5.0
+	pkgrel = 1
+	url = https://github.com/VirusTotal/yara-python
+	arch = x86_64
+	license = Apache
+	checkdepends = python-pytest
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	makedepends = python-setuptools
+	depends = python
+	depends = yara
+	depends = libyara.so
+	depends = glibc
+	source = python-yara::git+https://github.com/VirusTotal/yara-python#commit=3d5674a30808b26b44fc896dd059e94e704e4d63
+	sha512sums = SKIP
+
+pkgname = python-yara
