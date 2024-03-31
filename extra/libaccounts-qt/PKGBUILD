@@ -4,11 +4,11 @@
 
 pkgname=libaccounts-qt
 pkgdesc='Qt-based client library for accessing the online accounts database'
-pkgver=1.16
-pkgrel=5
+pkgver=1.17
+pkgrel=1
 arch=(x86_64)
 url='https://gitlab.com/accounts-sso/libaccounts-qt'
-license=(LGPL)
+license=(LGPL-2.1-or-later)
 depends=(gcc-libs
          glib2
          glibc
@@ -16,24 +16,22 @@ depends=(gcc-libs
          qt6-base)
 makedepends=(doxygen
              git)
-# source=(https://gitlab.com/accounts-sso/libaccounts-qt/-/archive/VERSION_$pkgver/libaccounts-qt-VERSION_$pkgver.tar.gz)
-_commit=18557f7def9af8f4a9e0e93e9f575ae11e5066aa
-source=(git+https://gitlab.com/nicolasfella/libaccounts-qt#commit=$_commit)
-sha256sums=('SKIP')
+source=(https://gitlab.com/accounts-sso/libaccounts-qt/-/archive/VERSION_$pkgver/libaccounts-qt-VERSION_$pkgver.tar.gz)
+sha256sums=('6ed3e976133962c1c88f6c66928ba0d0a17a570843577d31e783dc891659e5d8')
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-VERSION_$pkgver
   sed -i 's|SUBDIRS  += Accounts tests|SUBDIRS += Accounts|' accounts-qt.pro
 }
 
 build() {
-  cd $pkgname
+  cd $pkgname-VERSION_$pkgver
   qmake6 PREFIX=/usr LIBDIR=/usr/lib
   make
 }
 
 package() {
-  cd $pkgname
+  cd $pkgname-VERSION_$pkgver
   make INSTALL_ROOT="$pkgdir" install
 
 # Remove docs
