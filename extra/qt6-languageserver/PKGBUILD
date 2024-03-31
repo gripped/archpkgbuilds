@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-languageserver
-_qtver=6.6.2
+_qtver=6.6.3
 pkgver=${_qtver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}-everywhere-src-$_qtver
 source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz)
-sha256sums=('c31f4c45e0abffe7b444b224d1e49948f1c76210172e1f17104cf14a48fceaad')
+sha256sums=('1021b4b9024bd23bef86292f4b6c15cc7db620b6c47be8cb6e539bfae7f6cf8c')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
