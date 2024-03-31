@@ -1,17 +1,18 @@
 pkgbase = limine
 	pkgdesc = An advanced, portable, multiprotocol bootloader
-	pkgver = 7.2.1
+	pkgver = 7.3.0
 	pkgrel = 1
 	url = https://limine-bootloader.org/
 	arch = x86_64
 	license = BSD-2-Clause
+	makedepends = git
 	makedepends = nasm
 	makedepends = mtools
 	makedepends = llvm
 	makedepends = lld
 	makedepends = clang
 	depends = glibc
-	source = https://github.com/limine-bootloader/limine/releases/download/v7.2.1/limine-7.2.1.tar.xz
-	sha256sums = bf72fe4deacd40a1730196021a1ea2d8a11eb2388ab71fb7ff57cebdd5c65915
+	source = git+https://github.com/limine-bootloader/limine.git#tag=v7.3.0
+	sha256sums = 2872ca981b4174bf97dbdf460a35ebaf7c7180960f441bfe8b20cc37a2465f19
 
 pkgname = limine
