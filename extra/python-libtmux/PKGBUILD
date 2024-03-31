@@ -2,7 +2,7 @@
 
 _name=libtmux
 pkgname=python-libtmux
-pkgver=0.35.0
+pkgver=0.36.0
 _pkgver=${pkgver/.post0/post0}
 pkgrel=1
 pkgdesc="Python api for tmux"
@@ -29,8 +29,8 @@ checkdepends=(
 )
 optdepends=('python-pytest: for pytest plugin')
 source=($_name-$_pkgver.tar.gz::$_url/archive/refs/tags/v$_pkgver.tar.gz)
-sha512sums=('a847a5cd14f0daefaa7582610bcc5ab707aed16b73e4ff53f630bd27794dbdabf1c1d42635d30a3e3823413be79e9c2fcf3710096080b0eac3c49adecb816d59')
-b2sums=('b940e3833a54f949a73e19e1c8cdb97f91300425b4eff9f5b4ed0b60bfb117d0c670f3e450937bb453e0a7c2b7c623691d1ad8c42611bc486d65992680cbed9a')
+sha512sums=('2fa16a55d4b46461d1266179cfa6cf8d710fdbe435369ff195a683a96243b2b7cd2fbeb47b88e3a660c23d3ca57e1c2722bc12492c52ee0961a1c5cc99ceb093')
+b2sums=('247f98ae47093090187f2d52792f850f7476427b368f46970ef3fe9bd6449c03ac23101c8c7af711167bbd92e9e2cff3754474375dabd48157154ed89975a71a')
 
 prepare() {
   cd $_name-$_pkgver
