@@ -8,7 +8,7 @@ pkgname=(
   libgoa
 )
 pkgver=3.50.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Single sign-on framework for GNOME"
 url="https://wiki.gnome.org/Projects/GnomeOnlineAccounts"
 arch=(x86_64)
@@ -34,6 +34,7 @@ makedepends=(
   git
   gobject-introspection
   meson
+  python-packaging
   vala
 )
 _commit=05a2dc771e6645cb60ff3a9352af91e9572ce976  # tags/3.50.0^0
