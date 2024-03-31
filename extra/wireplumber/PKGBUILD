@@ -7,9 +7,8 @@ pkgname=(
   libwireplumber
   wireplumber-docs
 )
-_commit=59d190a2bd400f3b093f99b16fc0fb06f6cb2cfe  # tags/0.5.0
-pkgver=0.5.0
-pkgrel=2
+pkgver=0.5.1
+pkgrel=1
 pkgdesc="Session / policy manager implementation for PipeWire"
 url="https://pipewire.pages.freedesktop.org/wireplumber/"
 arch=(x86_64)
@@ -34,8 +33,8 @@ makedepends=(
   systemd-libs
 )
 checkdepends=(pipewire-audio)
-source=("git+https://gitlab.freedesktop.org/pipewire/$pkgbase.git#commit=$_commit")
-b2sums=('9e3f574cef389749ec5c9364846f7172f8e562ea6cdb6c3919ce4ae9bfba68436a52097c3a4fd064770c6b6e8d78b502a86e762e133bdea30f1a9b99ed53a21d')
+source=("git+https://gitlab.freedesktop.org/pipewire/$pkgbase.git#tag=$pkgver")
+b2sums=('df10e5be79c85c8b2979ddac32f78633dceaeb1764dc64040cd3d6206570bed9141d9edfd5dc401f59e0d585eae5a88739db85b6199df7a735805dd94d97f3d6')
 
 pkgver() {
   cd $pkgbase
@@ -45,9 +44,6 @@ pkgver() {
 prepare() {
   cd $pkgbase
 
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/wireplumber/-/issues/2
-  # http://gitlab.freedesktop.org/pipewire/wireplumber/-/merge_requests/620
-  git cherry-pick -n 428462ddf3f812a1da63d0b499e105c6391abbf4
 }
 
 build() {
