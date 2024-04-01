@@ -2,7 +2,7 @@
 
 pkgname=reaper
 pkgver=7.12
-pkgrel=1
+pkgrel=2
 pkgdesc="A complete digital audio production application for computers"
 arch=(x86_64)
 url="https://reaper.fm"
@@ -39,7 +39,7 @@ provides=(
 )
 options=(!debug)
 source=(
-  https://reaper.fm/files/${pkgver::1}.x/reaper${pkgver//.}_linux_$CARCH.tar.xz
+  https://reaper.fm/files/${pkgver::1}.x/reaper${pkgver//.}_linux_x86_64.tar.xz
   redistribution.eml
 )
 sha512sums=('08a76e75b204711629da5909ed1554e52b39ba335e90bd12053db9a45dc12dd9e5ff01087a02d4267f92708c3f43d24f65fc2ef4ee5e41c087d37f83ad8800d8'
