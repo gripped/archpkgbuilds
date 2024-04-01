@@ -7,7 +7,7 @@
 
 pkgname=bats
 pkgver=1.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Bash Automated Testing System'
 url='https://github.com/bats-core/bats-core'
 arch=(any)
