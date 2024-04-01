@@ -2,7 +2,7 @@
 
 _name=findpython
 pkgname=python-findpython
-pkgver=0.4.1
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="A utility to find python versions on your system"
 arch=(any)
@@ -20,8 +20,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('a501b9a2f765da440cfe9dd1db18b4818fb8414ca8cbd098bc68122c7b97a98800f72ef6bec5e2a23d04aa7888f1a6b0a758b40a0f81d24308ae65e181da2cf2')
-b2sums=('1bc589b1ed21f4c938bf7c827b6513d3ed120a27f52e7e6a92ab6f88dec230b6a458845a786bde8a6e2d0f2894c8c64168e3ec5956f28f5669fde9189518fe2e')
+sha512sums=('e6651fe040042ca1f7b75fd8fed899be91fa5d3e51b898ff6e9cb59a0d0155a9cdc2af26321681d51326b7f7900c1048bc813aad7ad201269b8bb5a2775427c2')
+b2sums=('0f7c4044b076ee66d98233a1f630d9b5d1828968ce054833282f28381a54bc8fd1e9971d47c46a23387c112e594deb724327e7b45f37683ecaea5a3c9b645c18')
 
 build() {
   cd $_name-$pkgver
