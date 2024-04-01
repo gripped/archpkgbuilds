@@ -5,12 +5,16 @@
 pkgname=python-vobject
 _name=${pkgname#python-}
 pkgver=0.9.7
-pkgrel=1
+pkgrel=2
 pkgdesc='Module for parsing and generating vCard and vCalendar files'
 arch=('any')
 url=http://py-vobject.github.io
 license=('Apache-2.0')
-depends=('python-dateutil' 'python-six')
+depends=(
+  'python'
+  'python-dateutil'
+  'python-six'
+)
 makedepends=(
   'git'
   'python-build'
