@@ -1,7 +1,7 @@
 pkgbase = libx11
 	pkgdesc = X11 client-side library
 	pkgver = 1.8.8
-	pkgrel = 2
+	pkgrel = 3
 	url = https://gitlab.freedesktop.org/xorg/lib/libx11
 	arch = x86_64
 	license = MIT AND X11
@@ -12,8 +12,10 @@ pkgbase = libx11
 	depends = xorgproto
 	source = https://xorg.freedesktop.org//releases/individual/lib/libX11-1.8.8.tar.xz
 	source = https://xorg.freedesktop.org//releases/individual/lib/libX11-1.8.8.tar.xz.sig
+	source = MR236.patch
 	validpgpkeys = 4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E
 	sha512sums = 4e7ce8f2d88b9475f960ea1d5730ece8953509e0c057cf2d0a2f5fa6a36e6577b0dcd7f16ac91b8fdd804aabec6d7e8f3067a3a8667bd2e41d72dd68ab70ef82
 	sha512sums = SKIP
+	sha512sums = e07b0a7e77c6472019caa9b8c00a065f80f6fcfad292ce939994a420b8fbb3ab226511df566f85a6f944a2b8e0ea0398aa4372ae675d6ef7d6fe7448bf52248c
 
 pkgname = libx11

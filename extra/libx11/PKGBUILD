@@ -2,7 +2,7 @@
 
 pkgname=libx11
 pkgver=1.8.8
-pkgrel=2
+pkgrel=3
 pkgdesc="X11 client-side library"
 arch=(x86_64)
 url="https://gitlab.freedesktop.org/xorg/lib/libx11"
@@ -11,14 +11,23 @@ url="https://gitlab.freedesktop.org/xorg/lib/libx11"
 depends=('libxcb' 'glibc' 'xorgproto')
 makedepends=('xorg-util-macros' 'xtrans')
 license=('MIT AND X11')
-source=(https://xorg.freedesktop.org//releases/individual/lib/libX11-${pkgver}.tar.xz{,.sig})
+source=(https://xorg.freedesktop.org//releases/individual/lib/libX11-${pkgver}.tar.xz{,.sig}
+        MR236.patch)
 sha512sums=('4e7ce8f2d88b9475f960ea1d5730ece8953509e0c057cf2d0a2f5fa6a36e6577b0dcd7f16ac91b8fdd804aabec6d7e8f3067a3a8667bd2e41d72dd68ab70ef82'
-            'SKIP')
+            'SKIP'
+            'e07b0a7e77c6472019caa9b8c00a065f80f6fcfad292ce939994a420b8fbb3ab226511df566f85a6f944a2b8e0ea0398aa4372ae675d6ef7d6fe7448bf52248c')
 validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alanc@freedesktop.org>
 #validpgpkeys=('C41C985FDCF1E5364576638B687393EE37D128F8') # Matthieu Herrb <matthieu.herrb@laas.fr>
 #validpgpkeys=('3BB639E56F861FA2E86505690FDD682D974CA72A') # Matt Turner <mattst88@gmail.com>
 #validpgpkeys=('995ED5C8A6138EB0961F18474C09DD83CAAA50B2') # Adam Jackson <ajax@nwnk.net>
 #validpgpkeys=('C383B778255613DFDB409D91DB221A6900000011') # "Keith Packard <keithp@keithp.com>"
+
+prepare() {
+  cd libX11-${pkgver}
+  # revert incompatible change - #1
+  # https://gitlab.freedesktop.org/xorg/lib/libx11/-/issues/205
+  patch -R -p1 -i ../MR236.patch
+}
 
 build() {
   cd libX11-${pkgver}
