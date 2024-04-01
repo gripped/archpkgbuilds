@@ -2,16 +2,17 @@
 
 _name=inflect
 pkgname=python-inflect
-pkgver=7.0.0
-pkgrel=3
+pkgver=7.2.0
+pkgrel=1
 pkgdesc="Correctly generate plurals, singular nouns, ordinals, indefinite articles"
 arch=(any)
 url="https://github.com/jaraco/inflect"
 license=(MIT)
 depends=(
   python
-  python-pydantic
-  python-typing-extensions
+  python-more-itertools
+  python-typeguard
+  python-typing_extensions
 )
 makedepends=(
   python-build
@@ -25,8 +26,8 @@ checkdepends=(
   python-pytest-enabler
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('1ab7ee71c8d20a81050f3fb45f6c56e1ff3c2dd92e7203cfb196ce53f45a08aaaca1a5eca9a1999266a0b5b86109b924cb014e34cee2ca894c4cffa87df90163')
-b2sums=('d9388d7029982958538078315aee5cd011712f273ada5bb01b03a8d84122b189358c844cd78c01cb227e481c4d61dded4c5bf8517bc2751e62ef439ff70052b2')
+sha512sums=('f3aafcc3b23d24e9f89d575402675164672c3155964091363325844b4eb4d32b91f66f4344ce6694beccf5e3805f2a0192c2473653d0876a4947975efaeef8c0')
+b2sums=('81c1a54264b4c87def207bea24a8fd2f867b7445cf12156a0c3bc41582c29bddf75ad9fd21ea4fe2d44434aa170e6b224ef1b97425a65c4077568131fa2c9414')
 
 build() {
   cd $_name-$pkgver
@@ -34,8 +35,17 @@ build() {
 }
 
 check() {
+  local pytest_options=(
+    -vv
+    # disable broken tests: https://github.com/jaraco/inflect/issues/208
+    --deselect tests/test_inflections.py::test_many
+    --deselect tests/test_pwd.py::Test::test_pl
+    --deselect tests/test_pwd.py::Test::test__pl_special_verb
+    --deselect tests/test_pwd.py::Test::test_a_alt
+  )
+
   cd $_name-$pkgver
-  pytest -vv tests
+  pytest "${pytest_options[@]}" tests
 }
 
 package() {
