@@ -4,14 +4,14 @@
 
 pkgname=python-openai
 _name=openai-python
-pkgver=1.14.3
+pkgver=1.15.0
 pkgrel=1
 pkgdesc="Python client library for the OpenAI API"
 arch=('any')
 url="https://github.com/openai/openai-python"
 license=('MIT')
 depends=('python-anyio' 'python-httpx' 'python-tqdm' 'python-h2' 'python-distro' 'python-typing_extensions' 'python-pydantic' 'python-cached-property')
-makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel' 'python-hatchling')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel' 'python-hatchling' 'python-hatch-fancy-pypi-readme')
 #checkdepends=('python-pytest' 'python-pytest-asyncio')
 optdepends=('python-numpy: Needed for CLI fine-tuning data preparation tool'
             'python-pandas: Needed for CLI fine-tuning data preparation tool'
@@ -24,7 +24,7 @@ optdepends=('python-numpy: Needed for CLI fine-tuning data preparation tool'
             'python-plotly: embeddings'
             'python-scipy: embeddings')
 source=("${_name}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('f9acead581edd4ae9a79e1425ff9ba36b35da13237abebca7cc6581c164ce4c9')
+sha256sums=('da2167ef90e1de89a79d1641f2f802cc35d61dd831ffc8f3bd36260acd17a1b1')
 
 build() {
   cd "${_name}-${pkgver}"
