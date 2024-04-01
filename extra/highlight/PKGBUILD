@@ -3,7 +3,7 @@
 pkgbase=highlight
 pkgname=(highlight highlight-gui)
 pkgver=4.11
-pkgrel=1
+pkgrel=2
 url="http://www.andre-simon.de/doku/highlight/highlight.html"
 license=('GPL')
 arch=('x86_64')
