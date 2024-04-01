@@ -3,7 +3,7 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=arch-wiki-lite
-pkgver=20240316
+pkgver=20240401
 pkgrel=1
 pkgdesc='Arch Wiki without HTML. 1/9 as big, easily searched & viewable on console'
 arch=('any')
@@ -22,7 +22,7 @@ optdepends=(
 )
 _commit='a9673ee216ba152377543339e1b26e024975d804'
 source=("$pkgname::git+$url.git#commit=$_commit")
-b2sums=('SKIP')
+b2sums=('61b5d76b1bb173b9abe3b88478bedd9112a5df8f14245c1a9286eb442bcd2ccb5a09d4c2b5f6544b8aa5dd17d84cde5b3416f84d6578657c789fc4b2e3c45285')
 
 build() {
   cd "$pkgname"
