@@ -3,7 +3,7 @@
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=arch-wiki-docs
-pkgver=20240316
+pkgver=20240401
 pkgrel=1
 pkgdesc='Pages from Arch Wiki optimized for offline browsing'
 arch=('any')
@@ -17,10 +17,10 @@ makedepends=(
   'python-cssselect'
   'python-requests'
 )
-options=('!strip')
-_commit='929424410caecd0265e35126f625d9d1a7a63625'
+options=('!strip' '!debug')
+_commit='62059ba9c5ea8589a9277c46fcf069c710f18558'
 source=("$pkgname::git+https://github.com/lahwaacz/arch-wiki-docs#commit=$_commit")
-b2sums=('SKIP')
+b2sums=('dead6eca758071a06c73c34ad81cd28555245d27d5d2fa21c543559bdece739cca3af5962eecc8c59a9d3d0e9b4444b34a135b915097d594c502f3f7c837f26e')
 
 pkgver() {
   date "+%Y%m%d"
