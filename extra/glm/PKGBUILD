@@ -2,21 +2,19 @@
 # Contributor: Peter Hatina <phatina AT gmail.com>
 pkgname=glm
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="C++ mathematics library for 3D software based on the OpenGL Shading Language (GLSL) specification"
-arch=('any')
+arch=('x86_64')
 license=('MIT')
 url="http://glm.g-truc.net"
-makedepends=('cmake')
+makedepends=('cmake' 'ninja')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/g-truc/glm/archive/refs/tags/${pkgver}.tar.gz")
 sha512sums=('62e22002a6369a54e1f0ee2885a65f2780af7d2a446573e5387b81518f5dc7e8076053837cb99ae850a0166ce8b0f077bed009e8986d9884d01c456ce467553f')
 
 build() {
-  cd ${pkgname}-${pkgver}
-
   export CXXFLAGS+=" -ffat-lto-objects"
-  cmake \
-    -Bbuild \
+
+  cmake -S ${pkgname}-${pkgver} -B build -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -W no-dev
@@ -24,12 +22,13 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-
   DESTDIR="$pkgdir" cmake --install build
 
-  mkdir -p "$pkgdir"/usr/share/doc
-  cp -r doc "$pkgdir"/usr/share/doc/glm
+  mkdir "$pkgdir"/usr/lib/cmake
+  mv "$pkgdir"/usr/share/glm "$pkgdir"/usr/lib/cmake/glm
 
-  install -vDm 644 copying.txt -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  mkdir -p "$pkgdir"/usr/share/doc
+  cp -r ${pkgname}-${pkgver}/doc "$pkgdir"/usr/share/doc/glm
+
+  install -vDm 644 ${pkgname}-${pkgver}/copying.txt -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
