@@ -3,10 +3,10 @@
 
 pkgname=xf86-video-vesa
 pkgver=2.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="X.org vesa video driver"
 arch=(x86_64)
-license=('custom')
+license=('MIT')
 url="https://xorg.freedesktop.org/"
 depends=('glibc')
 makedepends=('xorg-server-devel' 'X-ABI-VIDEODRV_VERSION=25.2')
@@ -27,7 +27,7 @@ build() {
   # See https://bugs.archlinux.org/task/55102 / https://bugs.archlinux.org/task/54845
   export CFLAGS=${CFLAGS/-fno-plt}
   export CXXFLAGS=${CXXFLAGS/-fno-plt}
-  export LDFLAGS=${LDFLAGS/,-z,now}
+  export LDFLAGS=${LDFLAGS/-Wl,-z,now}
 
   ./configure --prefix=/usr
   make
