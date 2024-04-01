@@ -4,7 +4,7 @@
 
 pkgname=icewm
 pkgver=3.4.7
-pkgrel=1
+pkgrel=2
 pkgdesc='Window Manager designed for speed, usability, and consistency'
 arch=(x86_64)
 url='https://ice-wm.org/'
