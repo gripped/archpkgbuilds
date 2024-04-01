@@ -6,7 +6,7 @@
 # Contributor: Leonidas Spyropoulos <artafinde@gmail.com>
 pkgname=neomutt
 pkgver=20240329
-pkgrel=1
+pkgrel=2
 pkgdesc='A version of mutt with added features'
 url='https://neomutt.org/'
 license=('GPL-2.0-only')
