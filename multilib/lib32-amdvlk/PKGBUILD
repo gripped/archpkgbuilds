@@ -3,7 +3,7 @@
 
 pkgname=lib32-amdvlk
 pkgver=2024.Q1.3
-pkgrel=1
+pkgrel=2
 pkgdesc="AMD's standalone Vulkan driver"
 arch=(x86_64)
 url="https://github.com/GPUOpen-Drivers"
