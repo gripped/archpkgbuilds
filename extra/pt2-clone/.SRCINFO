@@ -1,0 +1,18 @@
+pkgbase = pt2-clone
+	pkgdesc = A highly accurate clone of the classic ProTracker 2.3D software for Amiga
+	pkgver = 1.67
+	pkgrel = 1
+	url = https://16-bits.org/pt2.php
+	install = pt2-clone.install
+	arch = x86_64
+	license = BSD
+	makedepends = git
+	makedepends = cmake
+	depends = glibc
+	depends = alsa-lib
+	depends = sdl2
+	depends = hicolor-icon-theme
+	source = pt2-clone::git+https://github.com/8bitbubsy/pt2-clone#commit=1997f3eccd03f6467a3ba3d0d8870e6a1589cc8a
+	b2sums = SKIP
+
+pkgname = pt2-clone
