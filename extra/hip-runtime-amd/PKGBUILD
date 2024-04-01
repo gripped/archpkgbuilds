@@ -2,7 +2,7 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 pkgname=hip-runtime-amd
 pkgver=6.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Heterogeneous Interface for Portability ROCm"
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/HIP/en/latest/'
@@ -30,6 +30,12 @@ _dirclr="$(basename "$_clr")-$(basename "${source[1]}" ".tar.gz")"
 _dirhipcc="$(basename "$_hipcc")-$(basename "${source[2]}" ".tar.gz")"
 
 build() {
+  # Enabled assertions can cause crashes if applications are run with increased
+  # verbosity, see for instance this issue with blender,
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/blender/-/issues/13
+  # The relevant upstream issue is
+  # https://github.com/ROCm/HIP/issues/2426
+  CXXFLAGS=${CXXFLAGS/-Wp,-D_GLIBCXX_ASSERTIONS/}
   local hipcc_args=(
     -Wno-dev
     -S "$srcdir/$_dirhipcc"
