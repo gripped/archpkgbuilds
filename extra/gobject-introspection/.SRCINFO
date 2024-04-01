@@ -1,41 +1,51 @@
 pkgbase = gobject-introspection
 	pkgdesc = Introspection system for GObject-based libraries
-	pkgver = 1.80.0
+	pkgver = 1.80.1
 	pkgrel = 1
 	url = https://wiki.gnome.org/Projects/GObjectIntrospection
 	arch = x86_64
 	license = GPL-2.0-or-later
 	license = LGPL-2.0-or-later
+	makedepends = glib2=2.80.0
 	makedepends = cairo
 	makedepends = git
-	makedepends = glib2=2.80.0
+	makedepends = glibc
 	makedepends = gtk-doc
 	makedepends = libffi
+	makedepends = libffi
 	makedepends = meson
+	makedepends = python
 	makedepends = python-mako
 	makedepends = python-markdown
 	makedepends = python-sphinx
-	source = git+https://gitlab.gnome.org/GNOME/gobject-introspection.git#commit=2f3fe819bbb5b3bce1462fe02405c2f9ffdce0d3
+	source = git+https://gitlab.gnome.org/GNOME/gobject-introspection.git#tag=1.80.1
 	source = git+https://gitlab.gnome.org/GNOME/glib.git?signed#tag=2.80.0
 	validpgpkeys = 923B7025EE03C1C59F42684CF0942E894B2EAFA0
 	validpgpkeys = D4C501DA48EB797A081750939449C2F50996635F
-	b2sums = SKIP
-	b2sums = SKIP
+	b2sums = 1615fb991f5eba1a384ce684d89acaeb08417b65d77b33019e6e2b94ee0c7038186f0c09011268092194339cc870f3f6ef25ca8f32dc454f9a298fce36400d86
+	b2sums = cc3a6a7a14fef1aabc08d3bdfe98f66e3ecf3591ac054d83aa9404c8c9cd72e690a4c26c16934700d067bb2cb3d58730387482032cd9ffa04b041869426165ba
 
 pkgname = gobject-introspection
-	depends = gobject-introspection-runtime=1.80.0-1
+	depends = gobject-introspection-runtime=1.80.1-1
+	depends = libgirepository=1.80.1-1
+	depends = glib2
+	depends = glibc
+	depends = libffi
+	depends = python
 	depends = python-mako
 	depends = python-markdown
 
 pkgname = gobject-introspection-runtime
 	pkgdesc = Introspection system for GObject-based libraries - runtime
-	depends = libgirepository=1.80.0-1
+	depends = libgirepository=1.80.1-1
 
 pkgname = libgirepository
 	pkgdesc = Introspection system for GObject-based libraries - runtime library
+	depends = glib2
+	depends = glibc
+	depends = libffi
 	depends = libffi.so
 	depends = libglib-2.0.so
 	depends = libgobject-2.0.so
 	depends = libgmodule-2.0.so
-	depends = libgio-2.0.so
 	provides = libgirepository-1.0.so
