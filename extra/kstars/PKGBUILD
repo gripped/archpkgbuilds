@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kstars
-pkgver=3.6.9
+pkgver=3.7.0
 pkgrel=1
 epoch=1
 pkgdesc='Desktop Planetarium'
@@ -45,14 +45,10 @@ makedepends=(eigen
              extra-cmake-modules
              kdoctools5)
 optdepends=('xplanet: XPlanet support')
-source=(https://download.kde.org/stable/$pkgname/$pkgname-${pkgver/3/2}.tar.xz{,.sig})
-sha256sums=('db2994a52709d28ed58cb5fd525a4f466f1d9eacffa22341ec2b5fbc8020cff0'
+source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('caf3759342ea522e4e75bdf8364f143f9aa821b15472f522c844a9a0c2a6baa8'
             'SKIP')
 validpgpkeys=(259D9FCEE9175351965633696D9CE2AEE028C4F3) # Jasem Mutlaq <mutlaqja@ikarustech.com>
-
-prepare() {
-  mv $pkgname-${pkgver/3/2} $pkgname-$pkgver
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
