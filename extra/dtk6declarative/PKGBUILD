@@ -2,8 +2,8 @@
 # Contributor: zccrs <zhangjide@deepin.org>
 
 pkgname=dtk6declarative
-pkgver=6.0.8
-pkgrel=2
+pkgver=6.0.9
+pkgrel=1
 pkgdesc='Deepin Toolkit, declarative module for DDE look and feel'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtk6declarative"
@@ -12,12 +12,12 @@ license=('LGPL3')
 # qt6-shadertools: used in QML (optdep of qt6-5compat for Qt5Compat.GraphicalEffects)
 depends=('dtk6core' 'dtk6gui' 'qt6-declarative' 'qt6-quickcontrols2' 'qt6-base' 'qt6-5compat'
          'qt6-shadertools' 'libgl' 'gcc-libs')
-makedepends=('cmake' 'ninja' 'qt6-tools' 'qt6-shadertools' 'doxygen' 'gtest' 'gmock')
-source=("https://github.com/linuxdeepin/dtk6declarative/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('d955c6b98f9d80b432ff9eafa4aa1aae91bff6408617bf818c8b58b88eef9b87975a168214b2a0696aad38d25a11c4393b0aed04397133e70df3b8f95f84ea53')
+makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'qt6-shadertools' 'doxygen' 'gtest' 'gmock')
+source=("git+https://github.com/linuxdeepin/dtk6declarative.git#tag=$pkgver")
+sha512sums=('02c7922c5ebf7a903a403d16c885697101767eb5bddfb06b757c64c41c31d27e7c5fca700e04fa7a8871bf4209f019c28ac016ef67d59212a9230b038006bcda')
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   cmake . -GNinja \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -27,11 +27,11 @@ build() {
 }
 
 check() {
-  cd $pkgname-$pkgver
-  # ninja test
+  cd $pkgname
+  ninja test || echo "Tests failed"
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   DESTDIR="$pkgdir" ninja install
 }
