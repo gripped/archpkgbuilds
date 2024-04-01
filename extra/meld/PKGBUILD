@@ -5,7 +5,7 @@
 
 pkgname=meld
 pkgver=3.22.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Compare files, directories and working copies"
 url="https://meldmerge.org/"
 license=(GPL-2.0-or-later)
@@ -23,14 +23,8 @@ makedepends=(
   yelp-tools
 )
 checkdepends=(appstream-glib)
-_commit=33dfa6a89f3d185b229ae74c3a46b7c57b036ae1  # tags/3.22.2^0
-source=("git+https://gitlab.gnome.org/GNOME/meld.git#commit=$_commit")
+source=("git+https://gitlab.gnome.org/GNOME/meld.git#tag=$pkgver")
 b2sums=('05edce3ee1b4bf14c494290f46a39fafc6683337ef71187bf4d1b6d4ce5e8fa8657e88f865ad159dfebc26aa6ea060f451869f989684cd411e19fa2153e1d5c8')
-
-pkgver() {
-  cd meld
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
 
 prepare() {
   cd meld
