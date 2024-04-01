@@ -3,7 +3,7 @@
 # Contributor: Florian Hülsmann <fh@cbix.de>
 
 pkgname=liblc3
-pkgver=1.0.4
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="Low Complexity Communication Codec library and tools"
 url="https://github.com/google/liblc3"
@@ -15,9 +15,9 @@ makedepends=(
   meson
 )
 provides=(liblc3.so)
-_commit=1a5938ebaca4f13fe79ce074f5dee079783aa29f  # tags/v1.0.4
+_commit=0d45f4ecf6d5d0e9c0dd392d84f371c4e01aed60  # tags/v1.1.0
 source=("git+$url#commit=$_commit")
-b2sums=('SKIP')
+b2sums=('66b10340d2e422f2e7bcef8b0be56ebc135b02995bc1a003fb9eae7409471d6b7d5596dfbd5e770458b20f2f6bf6cedeeb6f69c12977572cb1e7480cc923a0e7')
 
 pkgver() {
   cd liblc3
