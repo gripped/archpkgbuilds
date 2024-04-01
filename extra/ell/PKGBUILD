@@ -3,7 +3,7 @@
 
 pkgname=ell
 pkgver=0.64
-pkgrel=1
+pkgrel=2
 pkgdesc="Embedded Linux library"
 arch=(x86_64)
 url="https://01.org/ell"
