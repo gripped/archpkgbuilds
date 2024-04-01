@@ -2,7 +2,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=python-typeguard
-pkgver=4.2.0
+pkgver=4.2.1
 pkgrel=1
 pkgdesc="Run-time type checker for Python"
 url="https://github.com/agronholm/typeguard"
@@ -12,7 +12,7 @@ depends=('python-typing_extensions')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
 checkdepends=('mypy' 'python-pytest')
 source=("git+https://github.com/agronholm/typeguard.git#tag=$pkgver")
-b2sums=('4f8f57e2ad4e397f5316ec53c21d764b316ce964dfd0872a8be0f27c4edc7c764e23d066a7fa59859c51b3619d0d777be5571d46a56fc897dc6f86075fbceffc')
+b2sums=('0cfc6b11e2106502f9d45ca49cf06c22e822d152949b4b1b7efec24f9c65d8aa3b8b7d91565c4a5f6fa41582543570053a182e98aef466ac27e8f81c9c989d20')
 
 prepare() {
   cd typeguard
