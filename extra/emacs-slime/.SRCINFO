@@ -1,0 +1,30 @@
+pkgbase = emacs-slime
+	pkgdesc = Superior Lisp Interaction Mode for Emacs
+	pkgver = 2.29.1
+	pkgrel = 1
+	url = https://slime.common-lisp.dev
+	arch = any
+	license = MIT
+	license = GPL
+	license = LGPL
+	license = custom:LLGPL
+	license = custom:Public
+	makedepends = git
+	makedepends = emacs
+	makedepends = texlive-bin
+	source = emacs-slime::git+https://github.com/slime/slime#commit=d85dd9899f7524513c8ad1bd47b0dd248b1915cb
+	source = fix-swank-loader-path.patch
+	source = fix-texinfo-path.patch
+	b2sums = SKIP
+	b2sums = db30f1d35bab8be64a2206af4b338b85be226d7af7eef240384d700dc76119b57cda7ba3fb0e78ffa767d394371ed8726be48965f2ad5854f9a041a7dc8c48c4
+	b2sums = 067c07d49afa83748804481153e771edef68ce72437431ca994494f9e8e8d3265cfdab0a6a7a670aa62e279d5c1a2b4aecca0b37d5d8b3ecf0b06b488125a367
+
+pkgname = emacs-slime
+	install = slime.install
+	depends = emacs
+	depends = cl-swank
+
+pkgname = cl-swank
+	pkgdesc = Superior Lisp Interaction Mode for Emacs (Lisp-side server)
+	depends = common-lisp
+	depends = cl-asdf
