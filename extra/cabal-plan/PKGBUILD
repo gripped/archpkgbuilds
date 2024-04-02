@@ -2,24 +2,19 @@
 
 _hkgname=cabal-plan
 pkgname=cabal-plan
-pkgver=0.7.2.1
-pkgrel=8
+pkgver=0.7.2.2
+pkgrel=1
 pkgdesc="Library and utility for processing cabal's plan.json file"
 url="https://github.com/hvr/cabal-plan"
 license=("GPL")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-async' 'haskell-base-compat'
-         'haskell-base16-bytestring' 'haskell-cabal-install-parsers' 'haskell-optics-core'
-         'haskell-optparse-applicative' 'haskell-semialign' 'haskell-singleton-bool' 'haskell-tar'
-         'haskell-these' 'haskell-topograph' 'haskell-vector' 'haskell-zlib')
-makedepends=('ghc' 'uusi')
+         'haskell-base16-bytestring' 'haskell-optics-core' 'haskell-optparse-applicative'
+         'haskell-semialign' 'haskell-singleton-bool' 'haskell-tar' 'haskell-these'
+         'haskell-topograph' 'haskell-vector' 'haskell-zlib')
+makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('1991bba87240c5ae9640512c7f2db6931cc780ccd599a3b7b72107f7a75a8558')
-
-prepare() {
-  cd $_hkgname-$pkgver
-  uusi -u aeson -u base -u bytestring -u Cabal -u optparse-applicative -u vector $_hkgname.cabal
-}
+sha256sums=('6178ff286d4cf4dd203aa85f96712869cfafc6a22bdcee58d29698eefd83a251')
 
 build() {
   cd $_hkgname-$pkgver
@@ -29,13 +24,18 @@ build() {
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie' \
-    -fexe -flicense-report
+    -fexe -f-license-report
 
   runhaskell Setup build $MAKEFLAGS
   runhaskell Setup register --gen-script
   runhaskell Setup unregister --gen-script
   sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
   sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+  cd $_hkgname-$pkgver
+  runhaskell Setup test
 }
 
 package() {
