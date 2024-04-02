@@ -9,7 +9,7 @@ pkgname=(
   libxkbcommon-doc
 )
 pkgver=1.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Keymap handling library for toolkits and window systems'
 url='https://xkbcommon.org/'
 arch=(x86_64)
@@ -31,14 +31,8 @@ checkdepends=(
   libgl
   xorg-server-xvfb
 )
-_commit=7a31e3585edf78be281559377e26d15f8c4bc655  # tags/xkbcommon-1.7.0^0
-source=("git+https://github.com/xkbcommon/libxkbcommon#commit=$_commit")
+source=("git+https://github.com/xkbcommon/libxkbcommon#tag=xkbcommon-$pkgver")
 b2sums=('70da3ad61589c68a06c6456034f17afad3962045552641ab9e099cee821eb935d84b11de9ac52af8f79111ef222466f39cfc9a6f5ae9cac610c474a9305cd50a')
-
-pkgver() {
-  cd libxkbcommon
-  git describe --tags | sed 's/^xkbcommon-//;s/[^-]*-g/r&/;s/-/+/g'
-}
 
 prepare() {
   cd libxkbcommon
