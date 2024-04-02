@@ -2,23 +2,23 @@
 # Contributor: Tavian Barnes <tavianator@tavianator.com>
 
 pkgname=bfs
-pkgver=3.0.4
+pkgver=3.1.3
 pkgrel=1
 pkgdesc='A breadth-first version of find'
 arch=('x86_64')
 url='https://tavianator.com/projects/bfs.html'
 license=('BSD')
-depends=('glibc' 'acl' 'libcap' 'oniguruma')
+depends=(
+  'glibc'
+  'acl'
+  'libcap'
+  'liburing'
+  'oniguruma'
+)
 makedepends=('git')
-_commit='c25fa4fb5e58e20ce97c3747c05d26307a70baaa'
-source=("$pkgname::git+https://github.com/tavianator/bfs#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+https://github.com/tavianator/bfs#tag=$pkgver")
+sha512sums=('10b664dbe84bec3c9e7ae9408d6a40c919fd7af1b27ce57bec088fc9bef4a4461982cfca9b4a59deedca53e689d21304a47cc96e40b446ae55b6b1aaad430e51')
+b2sums=('dfc96d7c3f6092beda5a40dc3dcead3b0552852b5904b5230348eb171eb4a0a40e7524baa2103bbc6e1576b513d61544849be09d7952400a05fe788a21ac3001')
 
 build() {
   cd "$pkgname"
