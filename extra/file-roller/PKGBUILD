@@ -4,7 +4,7 @@
 
 pkgname=file-roller
 pkgver=44
-pkgrel=1
+pkgrel=2
 pkgdesc="Create and modify archives"
 url="https://wiki.gnome.org/Apps/FileRoller"
 arch=(x86_64)
@@ -41,14 +41,8 @@ optdepends=(
   'unrar: better RAR archive support'
 )
 groups=(gnome-extra)
-_commit=f1c7714cf4c8989b9f3fa4c611887c29cf6df343  # tags/44^0
-source=("git+https://gitlab.gnome.org/GNOME/file-roller.git#commit=$_commit")
+source=("git+https://gitlab.gnome.org/GNOME/file-roller.git#tag=$pkgver")
 b2sums=('91f6cf5e6360a2dd02f39b0343a1887f2e4e201076dd0bc51162b203b5aa7a648b9731557b1090f512353a47c889f3d5aeb55260c7f90970c9139f29aabc54f6')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
 
 prepare() {
   cd $pkgname
