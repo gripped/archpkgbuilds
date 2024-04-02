@@ -2,7 +2,7 @@
 
 pkgname=python-evdev
 pkgver=1.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Python bindings for the Linux input subsystem"
 url="https://python-evdev.readthedocs.io/en/latest/"
 arch=(x86_64)
@@ -18,14 +18,8 @@ makedepends=(
   python-setuptools
   python-wheel
 )
-_commit=05e4b61961168d9f2f1d9399ff761bf0fd794908  # tags/v1.7.0^0
-source=("git+https://github.com/gvalkov/python-evdev#commit=$_commit")
+source=("git+https://github.com/gvalkov/python-evdev#tag=v$pkgver")
 b2sums=('02715150f40417fbb23633831a7963642d34cfe70da293410a372928319939e33f7738463e0e0c9f16169deffd9eb8d7a6ded548103c28fcdf3bff538d826179')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/^v//;s/[^-]*-g/r&/;s/-/+/g'
-}
 
 prepare() {
   cd $pkgname
