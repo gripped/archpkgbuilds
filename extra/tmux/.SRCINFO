@@ -1,10 +1,11 @@
 pkgbase = tmux
 	pkgdesc = Terminal multiplexer
 	pkgver = 3.4
-	pkgrel = 4
+	pkgrel = 5
 	url = https://github.com/tmux/tmux/wiki
 	arch = x86_64
 	license = BSD
+	makedepends = git
 	makedepends = systemd
 	depends = libevent
 	depends = libevent_core-2.1.so
@@ -13,7 +14,7 @@ pkgbase = tmux
 	depends = libncursesw.so
 	depends = systemd-libs
 	depends = libsystemd.so
-	source = https://github.com/tmux/tmux/releases/download/3.4/tmux-3.4.tar.gz
-	sha256sums = 551ab8dea0bf505c0ad6b7bb35ef567cdde0ccb84357df142c254f35a23e19aa
+	source = git+https://github.com/tmux/tmux.git#tag=3.4
+	sha256sums = 71387cf05585836da88d9b481f98e89be5bc8f09a203600187b22aa0e00c52b0
 
 pkgname = tmux

@@ -3,7 +3,7 @@
 
 pkgname=tmux
 pkgver=3.4
-pkgrel=4
+pkgrel=5
 pkgdesc='Terminal multiplexer'
 url='https://github.com/tmux/tmux/wiki'
 arch=('x86_64')
@@ -12,12 +12,18 @@ depends=('libevent' 'libevent_core-2.1.so'
          'libutempter'
          'ncurses' 'libncursesw.so'
          'systemd-libs' 'libsystemd.so')
-makedepends=('systemd')
-source=("https://github.com/tmux/tmux/releases/download/${pkgver/_/}/tmux-${pkgver/_/}.tar.gz")
-sha256sums=('551ab8dea0bf505c0ad6b7bb35ef567cdde0ccb84357df142c254f35a23e19aa')
+makedepends=('git' 'systemd')
+source=("git+https://github.com/tmux/tmux.git#tag=${pkgver}")
+sha256sums=('71387cf05585836da88d9b481f98e89be5bc8f09a203600187b22aa0e00c52b0')
+
+prepare() {
+	cd "$pkgname"
+
+	sh autogen.sh
+}
 
 build() {
-	cd "$pkgname-${pkgver/_/}"
+	cd "$pkgname"
 
 	./configure \
 		--prefix=/usr \
@@ -28,7 +34,7 @@ build() {
 }
 
 package() {
-	cd "$pkgname-${pkgver/_/}"
+	cd "$pkgname"
 
 	make install DESTDIR="$pkgdir"
 	install -D -m0644 COPYING "$pkgdir/usr/share/licenses/tmux/LICENSE"
