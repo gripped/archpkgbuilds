@@ -4,7 +4,7 @@
 
 pkgname=gnome-control-center
 pkgver=46.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="GNOME's main interface to configure various aspects of the desktop"
 url="https://gitlab.gnome.org/GNOME/gnome-control-center"
 license=(GPL-2.0-or-later)
@@ -94,18 +94,15 @@ optdepends=(
   'system-config-printer: printer settings'
 )
 groups=(gnome)
-_commit=005f40dcfa464f113a1c95f97673bc5505fc15ad  # tags/46.0.1^0
 source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-control-center.git#commit=$_commit"
+  "git+https://gitlab.gnome.org/GNOME/gnome-control-center.git?signed#tag=$pkgver"
   "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git"
 )
 b2sums=('b7c73de8d57df1dd4f08fb52067b5c50d4aadb0f5034527774c088c8237f6d77dad9b4a2e80a4121fc6863acf565a3baf99b446d6e73c16fcab0c839f9d945f6'
         'SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
+validpgpkeys=(
+  9B60FE7947F0A3C58136817F2C2A218742E016BE # Felipe Borges (GNOME) <felipeborges@gnome.org>
+)
 
 prepare() {
   cd $pkgname
