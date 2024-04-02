@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kirigami-addons
-pkgver=1.0.1
+pkgver=1.1.0
 pkgrel=1
 pkgdesc='Add-ons for the Kirigami framework'
 url='https://invent.kde.org/libraries/kirigami-addons'
@@ -10,6 +10,7 @@ license=(GPL-2.0-or-later
          LGPL-2.1-or-later)
 depends=(gcc-libs
          glibc
+         kcoreaddons
          kirigami
          kitemmodels
          ksvg
@@ -18,7 +19,7 @@ depends=(gcc-libs
          qt6-multimedia)
 makedepends=(extra-cmake-modules)
 source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('9d013847efb0048c6a2799ee0ed281b14eee15314ac20d7fba853197e45f29b7'
+sha256sums=('8ef352499139616b3142a6d7a92ab23749c568403ece8d854f064a941d085536'
             'SKIP')
 validpgpkeys=(0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D  # Bhushan Shah (mykolab address) <bshah@mykolab.com>
               39FFA93CAE9C6AFC212AD00202325448204E452A) # Carl Schwan <carl@carlschwan.eu>
