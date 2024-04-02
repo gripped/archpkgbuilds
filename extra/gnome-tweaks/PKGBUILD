@@ -4,7 +4,7 @@
 
 pkgname=gnome-tweaks
 pkgver=46.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Graphical interface for advanced GNOME 3 settings (Tweak Tool)"
 url="https://wiki.gnome.org/Apps/Tweaks"
 arch=(any)
@@ -26,17 +26,21 @@ makedepends=(
   meson
 )
 groups=(gnome-extra)
-_commit=66d39f99c0b1b4f0ed54694922bf229c71039861  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-tweaks.git#commit=$_commit")
+source=(
+  # Key that signed 46.0 was revoked
+  "git+https://gitlab.gnome.org/GNOME/gnome-tweaks.git#tag=$pkgver"
+)
 b2sums=('f6de88d985864a2eedc3e7dce9030379c952826ef4d4295b665d47d36d67d001bf3574b68c71596d9edd93204cf13359a559663340b694800f8409c3159e0465')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
+validpgpkeys=(
+  A3C5EBBF43FBA5F829F1A2548D66762250C07E85 # Evan Welsh <ewlsh@gnome.org>
+)
 
 prepare() {
   cd $pkgname
+
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/gnome-tweaks/-/issues/1
+  # https://gitlab.gnome.org/GNOME/gnome-tweaks/-/merge_requests/145
+  git cherry-pick -n abfb4692483a9b2a9207f13f136d57fac4ac0e87
 }
 
 build() {
