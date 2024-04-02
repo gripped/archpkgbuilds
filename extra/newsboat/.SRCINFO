@@ -1,12 +1,12 @@
 pkgbase = newsboat
 	pkgdesc = RSS/Atom feed reader for text terminals
 	pkgver = 2.35
-	pkgrel = 2
+	pkgrel = 3
 	url = https://newsboat.org/
-	changelog = newsboat.changelog
 	arch = x86_64
 	license = MIT
 	makedepends = asciidoctor
+	makedepends = git
 	makedepends = rust
 	makedepends = swig
 	depends = curl
@@ -23,10 +23,7 @@ pkgbase = newsboat
 	replaces = newsbeuter
 	options = !makeflags
 	options = !lto
-	source = https://newsboat.org/releases/2.35/newsboat-2.35.tar.xz
-	source = https://newsboat.org/releases/2.35/newsboat-2.35.tar.xz.asc
-	validpgpkeys = B8B1756A0DDBF0760CE67CCF4ED6CD61932B9EBE
-	sha256sums = f4f003f6ca38e44c0fef01fb6bc8c5ba6b53589c7c87db7b0cc2284e018db6c4
-	sha256sums = SKIP
+	source = git+https://github.com/newsboat/newsboat.git#tag=r2.35
+	sha256sums = 329d0fe161f90f9ce049d8b2878b0ba65405b08c279f72021de74a63558be6e8
 
 pkgname = newsboat
