@@ -1,15 +1,16 @@
 pkgbase = atril
 	pkgdesc = MATE document viewer
 	pkgver = 1.28.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://mate-desktop.org
 	arch = x86_64
 	groups = mate-extra
-	license = GPL
+	license = GPL-2.0-or-later
 	makedepends = caja
 	makedepends = gobject-introspection
 	makedepends = itstool
 	makedepends = texlive-bin
+	makedepends = python-packaging
 	depends = djvulibre
 	depends = libspectre
 	depends = libgxps
@@ -19,6 +20,7 @@ pkgbase = atril
 	depends = cairo>=1.14.0
 	depends = webkit2gtk>=2.6.0
 	depends = libsynctex
+	depends = mate-desktop
 	optdepends = caja: Document Properties extension
 	optdepends = texlive-bin: DVI support
 	conflicts = atril-gtk3
