@@ -3,7 +3,7 @@
 # Contributor: Sebastian Zwierzchowski <seba@angrysoft.ovh>
 
 pkgname=zigbee2mqtt
-pkgver=1.36.0
+pkgver=1.36.1
 pkgrel=1
 pkgdesc='A Zigbee to MQTT bridge'
 arch=('x86_64')
@@ -14,14 +14,14 @@ makedepends=('git' 'typescript' 'npm')
 backup=('etc/zigbee2mqtt/configuration.yaml')
 optdepends=('mosquitto: MQTT broker')
 options=(!emptydirs)
-_commit='86ed71cb1f2ccb2903ea4737975b0f7251337f90'
+_commit='ffc2ff1d0ea8173776d9bb7491f8435b6050892b'
 source=(
   "${pkgname}::git+https://github.com/Koenkk/zigbee2mqtt#commit=${_commit}"
   'zigbee2mqtt.service'
   'zigbee2mqtt.sysusers'
   'zigbee2mqtt.tmpfiles'
 )
-sha256sums=('SKIP'
+sha256sums=('927f043ec64681990b5249ec9fb5d0f248c932f770bf8ac40aaf40c765fcb8f5'
             '04d58763942cc598ac858f003b174316b695c2a542b2788e50751c3077adf106'
             '3a86716e9036e97d885e9b5f37c7f87d9c2872435e4acf9fc4c9157264cf387b'
             'b8cb53b06176abb09e74e68daee702263f3d471b249c51b1b32d693fc7354fd8')
