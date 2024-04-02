@@ -1,9 +1,10 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 
 _name=fastapi
 pkgname=python-$_name
-pkgver=0.110.0
+pkgver=0.110.1
 pkgrel=1
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=(any)
@@ -67,8 +68,8 @@ optdepends=(
   'uvicorn: for Uvicorn as ASGI server'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('41b86829ee562e922efabdb0f175015d1312ce935b5723f084ce4ee8b1626a6c00a8a51b4a19f352e0584db259f967160558fd79833e84e040a1c8c174d6d9ef')
-b2sums=('02dfc9c44585a6b4a8da077fe782c6694a0710dc58bfb63240d5c50ddc5177afaee650bbaa07cfaabba068ea25d253c43121f469db776a2c2b1dae56d79e55aa')
+sha512sums=('8bd09a2f6826a0afde0bc9b9d9e495407f4af6a9fb42ac582d584d1aff818ec1f398bd68db734b4c1318177c801c48ca814adcf3bee9841fe178fe18ec3c1eb8')
+b2sums=('eec674731030e3611f200104c6ca40d27d93b394b2c5a0b51a2149002d0be5ce4e66a5fba98e585a53181547eb359e3fd3b60111aa4744f667b0a718e5c7796b')
 
 prepare() {
   cd $_name-$pkgver
