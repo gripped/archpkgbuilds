@@ -8,7 +8,7 @@
 pkgbase=lib32-curl
 pkgname=(lib32-curl lib32-libcurl-compat lib32-libcurl-gnutls)
 pkgver=8.7.1
-pkgrel=3
+pkgrel=4
 pkgdesc='command line tool and library for transferring data with URLs (32-bit)'
 arch=('x86_64')
 url='https://curl.se/'
@@ -33,6 +33,9 @@ sha512sums=('38b55dc916a64a1fd40a8af3e9a694ae918f8efb714430834491ebbe0ceeee4b58b
 _backports=(
   # content_encoding: brotli and others, pass through 0-length writes
   'b30d694a027eb771c02a3db0dee0ca03ccab7377'
+
+  # http: with chunked POST forced, disable length check on read callback
+  '721941aadf4adf4f6aeb3f4c0ab489bb89610c36'
 )
 
 _reverts=(
