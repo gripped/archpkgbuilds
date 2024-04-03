@@ -3,7 +3,7 @@
 
 pkgname=tcl
 pkgver=8.6.14
-pkgrel=2
+pkgrel=3
 pkgdesc='Powerful, easy-to-learn dynamic programming language'
 arch=(x86_64)
 url='http://tcl.sourceforge.net/'
@@ -27,12 +27,19 @@ build() {
 		--mandir=/usr/share/man \
 		--enable-threads \
 		--enable-64bit
-  make
+	# Since the test targets are known-broken with a race condition in
+	# prerequisites, forcing one job at a time just out of defensiveness.
+	make -j1
 }
 
 check() {
 	cd "$_archive/unix"
-	make test
+	# Upstream test suite uses a custom test runner with two different
+	# invocations. The Makefile specifies dependencies for one of those
+	# runs, but not both—relying instead on them having been built by the
+	# other invocation. Running parallel jobs can run those in a different
+	# order which makes for non-deterministic test failures.
+	make -j1 test
 }
 
 package() {
