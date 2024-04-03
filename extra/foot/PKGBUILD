@@ -4,8 +4,8 @@
 pkgbase=foot
 pkgdesc='Fast, lightweight, and minimalistic Wayland terminal emulator'
 pkgname=($pkgbase $pkgbase-terminfo)
-pkgver=1.16.2
-pkgrel=2
+pkgver=1.17.0
+pkgrel=1
 url="https://codeberg.org/dnkl/$pkgbase"
 arch=(x86_64)
 license=(MIT)
@@ -27,7 +27,7 @@ makedepends=(fcft
 optdepends=('libutempter: utmp logging')
 backup=(etc/xdg/foot/foot.ini)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('0e02af376e5f4a96eeb90470b7ad2e79a1d660db2a7d1aa772be43c7db00e475')
+sha256sums=('ab5603edad89d26e8ae543e92c72210a1fbbe7abdf15a0729664b41baed6a3b8')
 
 build() {
 	cd "$pkgbase"
@@ -47,7 +47,7 @@ check() {
 }
 
 package_foot() {
-	optdepends=('foot-terminfo: exta non-standard features over terminfo included in ncurses'
+	optdepends=('foot-terminfo: extra non-standard features over terminfo included in ncurses'
 	            'libnotify: desktop notifications'
 	            'xdg-utils: URI launching')
 	depends=(fcft
