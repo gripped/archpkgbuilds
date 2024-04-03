@@ -1,0 +1,56 @@
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
+# Contributor: Luna Jernberg <lunajernberg@gnome.org>
+
+pkgname=tuba
+pkgver=0.7.1
+pkgrel=1
+pkgdesc='Browse the Fediverse'
+arch=(x86_64)
+url='https://tuba.geopjr.dev/'
+license=('GPL-3.0-only')
+depends=(
+  dconf
+  gdk-pixbuf2
+  glib2
+  glibc
+  graphene
+  gtk4
+  gtksourceview5
+  hicolor-icon-theme
+  icu
+  json-glib
+  libadwaita
+  libgee
+  libsecret
+  libsoup3
+  libspelling
+  libxml2
+  pango
+  webp-pixbuf-loader
+)
+makedepends=(
+  git
+  meson
+  vala
+)
+
+source=("git+https://github.com/GeopJr/Tuba.git#tag=v$pkgver")
+b2sums=('c8c802457341ee2c131769cf09b16006558fbfc5e50e3c6324659cbe0220b4cba6c08334bbccac9c72486d18b6cec361998fe249f1b2d8b7136a70f219cf8877')
+
+prepare() {
+  cd Tuba
+}
+
+build() {
+  arch-meson Tuba build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+  ln -s "/usr/bin/dev.geopjr.Tuba" "$pkgdir/usr/bin/tuba" 
+}
