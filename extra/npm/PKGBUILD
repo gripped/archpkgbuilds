@@ -2,7 +2,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=npm
-pkgver=10.5.0
+pkgver=10.5.1
 pkgrel=1
 pkgdesc='A package manager for JavaScript'
 arch=('any')
@@ -12,7 +12,7 @@ depends=('nodejs' 'node-gyp' 'nodejs-nopt' 'semver')
 makedepends=('git')
 optdepends=("git: for dependencies using Git URL's")
 source=("npm-cli::git+https://github.com/npm/cli.git#tag=v$pkgver")
-b2sums=('SKIP')
+b2sums=('a8cab2b0068b1bca284ffab06a678df05bf1941795d4663b64c2ad32d4f96e7185b2b6e882cee893a3cb6e7821f3bfb8456d59b81231cbe70da870ce17eecdc9')
 
 build() {
   cd npm-cli
