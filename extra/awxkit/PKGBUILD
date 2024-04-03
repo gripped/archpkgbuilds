@@ -2,8 +2,8 @@
 
 pkgname=awxkit
 _pkgname=awx
-_commit=dd9160135d991b052db2e6461c1e8cd699cee857
-pkgver=24.0.0
+_commit=b44bb98c7e6f4236543c9156fe51cd955269189f
+pkgver=24.1.0
 pkgrel=1
 pkgdesc="The official command line interface for Ansible AWX"
 arch=('any')
@@ -22,16 +22,15 @@ checkdepends=(
   'jq'
   'python-pytest'
   'python-cryptography'
-  # 'python-websocket-client'  # TODO: needs to be packaged
+  'python-websocket-client'
 )
 optdepends=(
   'jq: for formatting'
-  # 'python-websocket-client: for websockets support'  # TODO: needs to be packaged
   'python-cryptography: for cryptography support'
 )
 options=(!emptydirs)
 source=("${_pkgname}::git+https://github.com/ansible/${_pkgname}#tag=$_commit")
-sha512sums=('SKIP')
+sha512sums=('f52b1a491461a083fdc018265154d6c3bcceda77639ef4fc3e920502d57b434a023118d1756a128fa9ba1e87daf94fb52951207d1433547c72ccc4a30702dfc5')
 
 build() {
     cd "${_pkgname}/${pkgname}"
@@ -44,7 +43,7 @@ check() {
       --deselect test/cli/test_options.py::TestOptions::test_actions_with_primary_key
     )
     cd "${_pkgname}/${pkgname}"
-    pytest -vv "${deselected[@]}"
+    PYTHONPATH="$PYTHONPATH:." pytest -vv "${deselected[@]}"
 }
 
 package() {
