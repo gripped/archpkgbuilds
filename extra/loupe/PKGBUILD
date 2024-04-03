@@ -1,7 +1,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=loupe
-pkgver=46.0
+pkgver=46.1
 pkgrel=1
 pkgdesc="A simple image viewer for GNOME"
 arch=(x86_64)
@@ -29,20 +29,17 @@ makedepends=(
   meson
   rust
 )
-_commit=b3238e28bd451120cdb516ec8dd76197218e3cdb  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/loupe.git#commit=$_commit")
-b2sums=('SKIP')
+source=("git+$url.git?signed#tag=${pkgver/[a-z]/.&}")
+b2sums=('99de72ebf5c0b98feb2ec2c83cb331bc5b7ecb440d7a7a3e8ac63f1d19de84c7e3c25b35a23da6222541771ea12eb78284d874b33bba1ef6107ff7b206782539')
+validpgpkeys=(
+  4587A0EE1EE5478AAB82C0A93BA28A5559F08EBD # Sophie Herold <sophieherold@gnome.org>
+)
 
 # Use LTO
 export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
 
 prepare() {
   cd $pkgname
