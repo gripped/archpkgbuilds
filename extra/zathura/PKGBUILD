@@ -6,7 +6,7 @@
 
 pkgname=zathura
 pkgver=0.5.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Minimalistic document viewer"
 url="https://pwmt.org/projects/zathura/"
 arch=('x86_64')
@@ -19,29 +19,22 @@ optdepends=('zathura-djvu: DjVu support'
             'zathura-pdf-mupdf: PDF support using MuPDF'
             'zathura-ps: PostScript support'
             'zathura-cb: Comic book support')
-# Temporarily switch sources while waiting for upstream to fix sources uploading on the pwmt.org website
-# See https://git.pwmt.org/pwmt/zathura/-/issues/407#note_2414
-source=(zathura-$pkgver.tar.gz::https://deb.debian.org/debian/pool/main/z/zathura/zathura_$pkgver.orig.tar.xz)
-#source=(zathura-$pkgver.tar.gz::https://pwmt.org/projects/zathura/download/zathura-$pkgver.tar.xz)
-sha256sums=('eb5d7af54bb0fc88f5f03f6be3fc3a18bfddd28d93ed9e6136bbdb8ff3baf88f')
+source=("${pkgname}-${pkgver}.tar.gz::https://git.pwmt.org/pwmt/${pkgname}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('b26e5987c54361d15710c48c2ad54dd49d986c0629871d86fdfe91aae26662501ae8f620ebec5cad9078b25ee7bf46d3aa53764c16afee18c450b1142c429558')
 
 build() {
-  cd zathura-$pkgver
-  arch-meson build
-
-  cd build
-  ninja
+        cd "${pkgname}-${pkgver}"
+        arch-meson build
+        ninja -C build
 }
 
 check() {
-  cd zathura-$pkgver/build
-
-  ninja test
+        cd "${pkgname}-${pkgver}"
+        ninja -C build test
 }
 
 package() {
-  cd zathura-$pkgver/build
-  DESTDIR="$pkgdir" ninja install
-
-  install -D -m664 ../LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+        cd "${pkgname}-${pkgver}"
+        DESTDIR="${pkgdir}" ninja -C build install
+        install -Dm 664 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
