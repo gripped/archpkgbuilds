@@ -3,7 +3,7 @@
 
 pkgname=tree-sitter-query
 pkgver=0.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc='TS query grammar for tree-sitter'
 arch=('x86_64')
 url=https://github.com/tree-sitter-grammars/tree-sitter-query
