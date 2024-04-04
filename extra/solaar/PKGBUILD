@@ -5,8 +5,7 @@
 _name=Solaar
 pkgname=solaar
 pkgver=1.1.11
-_commit=2e4f3883693256d770cdf87ae1a4d194da2445ee  # refs/tags/1.1.11
-pkgrel=1
+pkgrel=4
 pkgdesc="Linux device manager for a wide range of Logitech devices"
 url="https://pwr-solaar.github.io/Solaar/"
 _url="https://github.com/pwr-Solaar/Solaar"
@@ -21,7 +20,6 @@ depends=(
   python-dbus
   python-evdev
   python-gobject
-  python-hid-parser
   python-psutil
   python-pyudev
   python-xlib
@@ -35,14 +33,11 @@ makedepends=(
   python-wheel
 )
 optdepends=('libayatana-appindicator: Display tray icon')
-source=("git+$_url.git#tag=$_commit?signed")
-sha512sums=('SKIP')
+source=(
+  "git+$_url.git#tag=$pkgver?signed"
+)
+sha512sums=('c0a4ed099fe61da12854578d4c8576dfabbab5413b07ce9f290dc198aa4ad4af71cca3b58458cbdcf8b9b5c07bad55301315d1a1f439f9bde37a963d021850f5')
 validpgpkeys=('2FF2ACA9D97FF7B42CF8494A1E32E75672D6A196') # Peter F. Patel-Schneider (key generated for github) <pfpschneider@gmail.com>
-
-pkgver() {
-  cd $_name
-  git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
-}
 
 prepare() {
   cd $_name
