@@ -1,15 +1,15 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Mark Wagie <mark dot wagie at tutanota dot com>
 pkgname=cameractrls
-pkgver=0.6.0
-pkgrel=2
+pkgver=0.6.1
+pkgrel=1
 pkgdesc="Camera controls for Linux"
 arch=('any')
 url="https://github.com/soyersoyer/cameractrls"
-license=('MIT')
+license=('GPL3')
 depends=('gtk4' 'libjpeg-turbo' 'python' 'python-gobject' 'sdl2' 'systemd')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('5ab91dbfe53bc39aab2dd99c14c7d36b31432a56b6b8428d8df6df38021c58d2')
+sha256sums=('8a24618246b3409da5eb698a71fa83f858a38b4eec454561ec6f36ad586b6da7')
 
 prepare() {
   cd "$pkgname-$pkgver"
