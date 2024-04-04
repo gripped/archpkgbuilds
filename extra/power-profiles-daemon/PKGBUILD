@@ -2,7 +2,7 @@
 # Contributor: tinywrkb <tinywrkb@gmail.com>
 
 pkgname=power-profiles-daemon
-pkgver=0.20
+pkgver=0.21
 pkgrel=1
 pkgdesc='Makes power profiles handling available over D-Bus'
 url='https://gitlab.freedesktop.org/upower/power-profiles-daemon'
@@ -21,7 +21,7 @@ checkdepends=(python-dbusmock
               python-mccabe
               umockdev)
 source=(https://gitlab.freedesktop.org/upower/power-profiles-daemon/-/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('b6d3ad1cdcdc0324d5ccaa86dd0ed465544c1e86360fdbd2b6b2b0723afb6dad')
+sha256sums=('c15a368a59f2cae1474bdfccdd9357f06b0abc9eb7638a87f68c091aaf570349')
 
 build() {
   meson $pkgname-$pkgver build \
