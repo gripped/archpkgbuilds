@@ -5,28 +5,21 @@
 
 pkgname=unison
 pkgver=2.53.4
-pkgrel=2
+pkgrel=3
 pkgdesc='File-synchronization tool'
 url="https://github.com/bcpierce00/$pkgname/"
 arch=(x86_64)
-license=(GPL2)
+license=(GPL-3.0-Only)
 optdepends=('gtk3: graphical interface')
 makedepends=(emacs
              lablgtk3
              ocaml)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz"
-        "$pkgname-large.patch"
         "$pkgname.desktop")
 sha512sums=('91077955aabbd919e6d6df04a704878238d745ac3693e0e41b8a37a922db4ebfceb204378ab1283303ef5ad9d80445bc8caeafad36f67b8df8c30d8b4e0c6947'
-            'e2f7a5e6e832ee9c694f36e399178652456d2047b22cba86603982cd6f6caf54e520fc87a8bde1940b2da46102cf3aa89f3e062c965efc77cd840b47e01b4d2f'
             '3e6e7b793deb60dab64c6e585e3b2ceee01ced0f8b73d1373ac1cd8aaaadb5c7415f2295b8a044a57fc15356dfe76bab002e1e633495e5f8e436871c83c48990')
 options=('!makeflags')
-
-prepare() {
-	cd "$_archive"
-	patch -p0 -i "../$pkgname-large.patch"
-}
 
 build() {
 	cd "$_archive"
