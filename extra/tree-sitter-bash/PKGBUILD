@@ -3,7 +3,7 @@
 
 pkgname=tree-sitter-bash
 pkgver=0.21.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Bash grammar for tree-sitter'
 arch=('x86_64')
 url=https://github.com/tree-sitter/tree-sitter-bash
