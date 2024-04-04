@@ -1,6 +1,6 @@
 pkgbase = mupdf
 	pkgdesc = Lightweight PDF and XPS viewer
-	pkgver = 1.24.0
+	pkgver = 1.24.1
 	pkgrel = 1
 	url = https://mupdf.com/
 	arch = x86_64
@@ -10,6 +10,7 @@ pkgbase = mupdf
 	makedepends = desktop-file-utils
 	makedepends = freeglut
 	makedepends = freetype2
+	makedepends = git
 	makedepends = glu
 	makedepends = gumbo-parser
 	makedepends = harfbuzz
@@ -26,12 +27,18 @@ pkgbase = mupdf
 	makedepends = tesseract
 	makedepends = zlib
 	options = staticlibs
-	source = https://mupdf.com/downloads/archive/mupdf-1.24.0-source.tar.gz
+	source = git+https://github.com/ArtifexSoftware/mupdf.git#tag=1.24.1
+	source = git+https://github.com/ArtifexSoftware/mujs.git
+	source = git+https://github.com/ArtifexSoftware/thirdparty-lcms2.git
+	source = git+https://github.com/ArtifexSoftware/extract.git
 	source = mupdf.desktop
 	source = mupdf.xpm
 	source = mupdf-1.23.9-cpp_ldflags.patch
 	source = mupdf-1.23.9-install_targets.patch
-	sha256sums = 52f63003a6f4d89f234e9edfb4b4c83d216b83aaeb323cfda6047cb754599ae0
+	sha256sums = bba6c0b3f808a5233807f3777eb98f03d7740aa2125c1dd6c412180f4cd8a0b2
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
 	sha256sums = ccff66979249bd4ab4ba8918660f194eb90eb0ae231b16e36a6cecdcf471883f
 	sha256sums = a435f44425f5432c074dee745d8fbaeb879038ec1f1ec64f037c74662f09aca8
 	sha256sums = 152222c0bc066404d9e38be7abbba20748b0a4bbc9cb30403d19e3b176ab257f
@@ -67,7 +74,7 @@ pkgname = mupdf-gl
 	depends = libgl
 	depends = libmupdf
 	depends = openssl
-	provides = mupdf=1.24.0
+	provides = mupdf=1.24.1
 	conflicts = mupdf
 
 pkgname = mupdf-tools
