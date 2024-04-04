@@ -6,7 +6,7 @@
 
 pkgname=gunicorn
 pkgver=21.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='WSGI HTTP Server for UNIX'
 arch=('any')
 url='https://gunicorn.org/'
