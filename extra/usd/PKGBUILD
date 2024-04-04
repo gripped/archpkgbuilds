@@ -8,7 +8,7 @@ pkgname=('usd' 'usd-extras')
 _pkgname='OpenUSD'
 pkgbase=usd
 pkgver=24.03
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://openusd.org'
 pkgdesc='3D VFX pipeline interchange file format'
@@ -33,13 +33,11 @@ depends=(alembic # libAlembic.so
          openshadinglanguage # liboslquery.so
          opensubdiv # libosdCPU.so libosdGPU.so
          openvdb # libopenvdb.so
-         pyside2
          pyside6
          python # libpython3.11.so
          python-jinja
          python-numpy
-         python-opengl
-         qt5-base)
+         python-opengl)
 makedepends=(cmake help2man git)
 source=("git+https://github.com/PixarAnimationStudios/$_pkgname.git#tag=v$pkgver"
         https://openusd.org/images/USDLogoUnsized.svg
@@ -111,8 +109,8 @@ build() {
     -DCMAKE_SKIP_INSTALL_RPATH=ON
     -DCMAKE_SKIP_RPATH=ON
 
-    -DPYSIDEUICBINARY=/usr/bin/uic #QT5
-#   -DPYSIDEUICBINARY=/usr/lib/qt6/uic #QT6
+#   -DPYSIDEUICBINARY=/usr/bin/uic #QT5
+    -DPYSIDEUICBINARY=/usr/lib/qt6/uic #QT6
     -DPYSIDE_AVAILABLE=ON
     -DPYTHON_EXECUTABLE=/usr/bin/python
 
