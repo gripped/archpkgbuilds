@@ -5,14 +5,13 @@
 
 pkgname=unison
 pkgver=2.53.4
-pkgrel=3
+pkgrel=4
 pkgdesc='File-synchronization tool'
 url="https://github.com/bcpierce00/$pkgname/"
 arch=(x86_64)
 license=(GPL-3.0-Only)
 optdepends=('gtk3: graphical interface')
-makedepends=(emacs
-             lablgtk3
+makedepends=(lablgtk3
              ocaml)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz"
@@ -23,8 +22,7 @@ options=('!makeflags')
 
 build() {
 	cd "$_archive"
-	export CFLAGS=
-	make all DEBUGGING=false THREADS=true
+	make all
 }
 
 package() {
