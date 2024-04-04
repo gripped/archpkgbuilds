@@ -3,7 +3,7 @@
 
 pkgname=tree-sitter-markdown
 pkgver=0.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Markdown grammar for tree-sitter'
 arch=('x86_64')
 url=https://github.com/tree-sitter-grammars/tree-sitter-markdown
