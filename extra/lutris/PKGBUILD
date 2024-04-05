@@ -5,11 +5,11 @@
 
 pkgname=lutris
 pkgver=0.5.16
-pkgrel=1
+pkgrel=2
 pkgdesc='Open Gaming Platform'
 arch=(any)
 url=https://lutris.net
-license=(GPL3)
+license=(GPL-3.0-only)
 depends=(
   cabextract
   curl
@@ -69,13 +69,16 @@ optdepends=(
   'wine: Windows support'
   'xorg-xgamma: Restore gamma on game exit'
 )
-_tag=85871982bc0b2852b4875374271547536fa1f6b1
-source=(git+https://github.com/lutris/lutris.git#tag=${_tag})
-b2sums=('SKIP')
+source=("git+https://github.com/lutris/lutris.git#tag=v${pkgver}"
+        fix_refresh_steam_library.patch::https://github.com/lutris/lutris/commit/d6faf75fb370a004b80539466a7cd0beedcf5e5c.patch)
+sha256sums=('eb675cd7c1f172ad93b8230fa270c800a0402b17bfcad1a6565d4dd95c91d4fd'
+            'f6564979af07a343aebb475b304fad54f3fd512ba367667d334b1288bbf5dc91')
 
-pkgver() {
+prepare() {
   cd lutris
-  git describe --tags | sed 's/^v//'
+  # Temporary patch to fix an issue when trying to refresh Steam library
+  # See https://github.com/lutris/lutris/issues/5248
+  patch -Np1 < "${srcdir}/fix_refresh_steam_library.patch"
 }
 
 build() {

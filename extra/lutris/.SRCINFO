@@ -1,10 +1,10 @@
 pkgbase = lutris
 	pkgdesc = Open Gaming Platform
 	pkgver = 0.5.16
-	pkgrel = 1
+	pkgrel = 2
 	url = https://lutris.net
 	arch = any
-	license = GPL3
+	license = GPL-3.0-only
 	checkdepends = python-nose-cover3
 	checkdepends = xorg-server-xvfb
 	checkdepends = xterm
@@ -56,7 +56,9 @@ pkgbase = lutris
 	optdepends = vulkan-tools: Vulkan support
 	optdepends = wine: Windows support
 	optdepends = xorg-xgamma: Restore gamma on game exit
-	source = git+https://github.com/lutris/lutris.git#tag=85871982bc0b2852b4875374271547536fa1f6b1
-	b2sums = SKIP
+	source = git+https://github.com/lutris/lutris.git#tag=v0.5.16
+	source = fix_refresh_steam_library.patch::https://github.com/lutris/lutris/commit/d6faf75fb370a004b80539466a7cd0beedcf5e5c.patch
+	sha256sums = eb675cd7c1f172ad93b8230fa270c800a0402b17bfcad1a6565d4dd95c91d4fd
+	sha256sums = f6564979af07a343aebb475b304fad54f3fd512ba367667d334b1288bbf5dc91
 
 pkgname = lutris
