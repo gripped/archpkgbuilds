@@ -1,8 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=monero
-pkgver=0.18.3.2
-_commit=ef3e18b51beb937c7f786ecef0d0a0e3f6295082
+pkgver=0.18.3.3
 pkgrel=1
 pkgdesc="Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD-3-Clause')
@@ -30,7 +29,7 @@ makedepends=(
   'python'
 )
 source=(
-  "${pkgname}"::"git+https://github.com/monero-project/monero?signed#commit=${_commit}"
+  "${pkgname}::git+https://github.com/monero-project/monero?signed#tag=v${pkgver}"
   "git+https://github.com/miniupnp/miniupnp.git"
   "git+https://github.com/Tencent/rapidjson.git"
   "git+https://github.com/trezor/trezor-common.git"
@@ -40,7 +39,7 @@ source=(
   "monero.sysusers"
   "monero.tmpfiles"
 )
-sha512sums=('SKIP'
+sha512sums=('4708c835831bdd4b3ce22178bb9561de0dfee221bb254a4c2ff039f94c1c24344bb17f025ba794046adb791486d590117f7e0a9a6a411b75838578e9c14f2b6c'
             'SKIP'
             'SKIP'
             'SKIP'
