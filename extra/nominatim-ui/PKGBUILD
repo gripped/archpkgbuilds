@@ -1,7 +1,7 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=nominatim-ui
-pkgver=3.5.1
+pkgver=3.5.2
 pkgrel=1
 pkgdesc="Debug UI for Nominatim"
 arch=('any')
@@ -15,7 +15,7 @@ install=nominatim-ui.install
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/tags/v${pkgver}.tar.gz"
         'nginx.conf'
 )
-sha256sums=('0e4b775dc86be89304f9ead99e1f4df9f3ff1812d9c8c7b77050aeeecf948e1d'
+sha256sums=('64671773713735e1311ace63315d90eee14949c99fe277074dc7d71f42ff3b5f'
             '045dda10d978acedba43b071271731b2b63a8ad2743cdd6eda7dab2fd98a52ae')
 
 prepare() {
@@ -26,7 +26,7 @@ prepare() {
 
 build() {
   cd "${pkgname}-tags-v${pkgver}"
-  
+
   yarn build
 }
 
@@ -40,12 +40,12 @@ package() {
   cd "${pkgname}-tags-v${pkgver}"
 
   install -D -d -m755 "${pkgdir}/usr/share/webapps/nominatim-ui" "${pkgdir}/etc/webapps/nominatim-ui"
-  
+
   mv dist/theme/config.theme.js.example "${pkgdir}/etc/webapps/nominatim-ui/config.theme.js"
   cp -r dist/* "${pkgdir}/usr/share/webapps/nominatim-ui"
 
   ln -s /etc/webapps/nominatim-ui/config.theme.js "${pkgdir}/usr/share/webapps/nominatim-ui/theme/config.theme.js"
-  
+
   install -Dm644 "LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 
   install -Dm644 ../nginx.conf -t "$pkgdir/usr/share/doc/$pkgname/"
