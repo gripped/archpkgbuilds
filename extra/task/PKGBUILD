@@ -8,7 +8,7 @@
 
 pkgname=task
 pkgver=3.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Taskwarrior, a command-line todo list manager"
 arch=('x86_64')
 url="https://taskwarrior.org/"
