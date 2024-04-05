@@ -3,7 +3,7 @@
 # Contributor: Jakob Gahde <j5lx@fmail.co.uk>
 
 pkgname=dune
-pkgver=3.14.2
+pkgver=3.15.0
 pkgrel=1
 pkgdesc="A composable build system for OCaml (formerly jbuilder)"
 arch=(x86_64)
@@ -13,7 +13,7 @@ depends=('glibc')
 makedepends=('ocaml' 'ocaml-compiler-libs' 'ocaml-csexp' 'ocaml-pp' 'ocaml-findlib')
 optdepends=('ocaml: Dune standard library')
 source=("${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-b2sums=('cb8442f499df0314c078266734073599d253d18c7d168f93354b2d46523384ff200adfd53148334fd40828599549e69a0e8ba99ad3b57366310b9e2af112e093')
+b2sums=('6e3b1beff10eb45540783be4d16408c640e6efc17116a549488e737a0ef1abeac48966e7e9e05145b4d0b12c696f8a02b0aa9e2677a3ba390349a3e9fa4b352b')
 
 
 _dune_release_pkgs=('dune' 'dune-action-plugin' 'dune-build-info' 'dune-configurator' 'dune-glob' 'dune-private-libs'
