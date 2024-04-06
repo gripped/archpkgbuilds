@@ -1,7 +1,7 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=libxmlb
-pkgver=0.3.16
+pkgver=0.3.17
 pkgrel=1
 pkgdesc="Library to help create and query binary XML blobs"
 arch=(x86_64)
@@ -11,7 +11,7 @@ depends=(glib2 libstemmer xz zstd)
 makedepends=(meson gobject-introspection gtk-doc)
 checkdepends=(shared-mime-info)
 source=("https://github.com/hughsie/libxmlb/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha256sums=('8007d39eefaa047d23e323523ae3c4da5fca77543b0fc4e188f7a3cd28872ff4'
+sha256sums=('bdaf38779646e436cba73caf2bdc1ea07226e6ce418a01800595cd4702cc3caa'
             'SKIP')
 validpgpkeys=(163EB50119225DB3DF8F49EA17ACBA8DFA970E17) # Richard Hughes <richard@hughsie.com>
 
