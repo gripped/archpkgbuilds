@@ -3,8 +3,8 @@
 # Contributor: Sébastien Luttringer <seblu@aur.archlinux.org>
 
 pkgname=python-sqlalchemy
-pkgver=1.4.44
-pkgrel=2
+pkgver=1.4.52
+pkgrel=1
 arch=('x86_64')
 url="https://www.sqlalchemy.org/"
 license=('MIT')
@@ -13,23 +13,23 @@ depends=('python' 'python-greenlet')
 optdepends=('python-psycopg2: connect to PostgreSQL database')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest-runner' 'python-pytest-xdist')
-source=("https://pypi.io/packages/source/S/SQLAlchemy/SQLAlchemy-$pkgver.tar.gz"{,.asc})
-validpgpkeys=('83AF7ACE251C13E6BB7DEFBD330239C1C4DAFEE1')
-sha512sums=('ba4e022f7af77cdf099b59a7af088852d7d4e0b4c6d632a63d244f501ff0b76837e601de63619f219fe50e6d526cd13415c4e623a6127afb0a2f24b87a4c3ece'
-            'SKIP')
+source=("https://pypi.io/packages/source/S/SQLAlchemy/SQLAlchemy-$pkgver.tar.gz")
+#validpgpkeys=('83AF7ACE251C13E6BB7DEFBD330239C1C4DAFEE1')
+sha512sums=('afda6a3503c9d2baba8c1dd9e7216d5ac1561f52f5f11009c41a1a98ac998643c980c60cf8ba4d84c4af8808be26ead9fd2e7a2c8bf15b2fdb521b4e5de7748e')
 
 prepare() {
+  cd SQLAlchemy-$pkgver
   sed -i '/warnings.filterwarnings("error", category=DeprecationWarning)/a \    warnings.filterwarnings("ignore", category=DeprecationWarning, message="Creating a LegacyVersion has been deprecated and will be removed in the next major release")' \
-      SQLAlchemy-$pkgver/lib/sqlalchemy/testing/warnings.py
+      lib/sqlalchemy/testing/warnings.py
 }
 
 build() {
-  cd "$srcdir"/SQLAlchemy-$pkgver
+  cd SQLAlchemy-$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$srcdir"/SQLAlchemy-$pkgver
+  cd SQLAlchemy-$pkgver
   PYTHONPATH=build/lib pytest
 }
 
