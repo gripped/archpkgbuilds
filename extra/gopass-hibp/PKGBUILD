@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=gopass-hibp
-pkgver=1.15.12
+pkgver=1.15.13
 pkgrel=1
 pkgdesc="haveibeenpwnd.com integration for gopass"
 arch=('x86_64')
@@ -11,15 +11,13 @@ license=('MIT')
 depends=('glibc')
 makedepends=('go')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/gopasspw/gopass-hibp/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('d7508e0bd79efec3192f390587b21ff6b097b3ba01b9461b65112d44bddc7d481bb7ed94acdee57f0a12511997f5811f13442f08a862930e6ee3f14c437e5e0a')
+sha512sums=('eb2eff7ffd16c166ee9ebfaa52273893b4f349fddba900ea966d0b39bf5f6f22b37cb76de8e0a327002138f1013d227bb066afcb9ff785b9afded97ebba17030')
 options=('!lto')
 
 prepare(){
   cd ${pkgname}-${pkgver}
   sed -i 's|-gcflags="-trimpath=$(GOPATH)" -asmflags="-trimpath=$(GOPATH)"||' Makefile
   sed -i 's/install-completion//g' Makefile
-  # TODO(gromit): remove on next release, see https://github.com/gopasspw/gopass/commit/db55255efd4404492d9453b8cb5983b9794759da
-  go mod tidy
 }
 
 build(){
