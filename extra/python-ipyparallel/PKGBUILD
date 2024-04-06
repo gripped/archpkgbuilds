@@ -5,7 +5,7 @@
 
 _pyname=ipyparallel
 pkgname=python-$_pyname
-pkgver=8.7.0
+pkgver=8.8.0
 pkgrel=1
 pkgdesc='Interactive Parallel Computing in Python'
 url='https://pypi.org/project/ipyparallel/'
@@ -31,7 +31,7 @@ makedepends=(python-build
 checkdepends=(python-pytest-asyncio
               python-pytest-tornado)
 optdepends=('openmpi: to use the MPI Launchers in ipcluster command')
-sha256sums=('403c0971ae56c2b6a39ffe8f35f31c7fd170ce127924629459cdd7f7a0b4e7c3')
+sha256sums=('2404d59f86a3aaa3bd27bf6b57df777bff5c1363c1c6e60403759d16ed42dc7b')
 
 build() {
   cd $_pyname-$pkgver
