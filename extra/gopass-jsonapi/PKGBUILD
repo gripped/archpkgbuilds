@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=gopass-jsonapi
-pkgver=1.15.12
+pkgver=1.15.13
 pkgrel=1
 pkgdesc="jsonapi for gopass used for bridging to browsers"
 arch=('x86_64')
@@ -12,14 +12,12 @@ depends=('glibc')
 makedepends=('go')
 options=('!lto')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/gopasspw/gopass-jsonapi/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('2985c1c67f73e8c693ffb08d8e29de58eb1e252da18007da4dfb607c94ffb2cfe79ea6c9caa7c9aebf26835851ef5baacf3fa2a69fbd3b34d05a82df123b52c4')
+sha512sums=('e4b92558d17b27f4f4aada045ccfae4237e2021310ce1c64f3c29406c17f9f73ff61891ede96baebd741b4af15c0584ba8fe9fcb9693e288d17947e606d837b3')
 
 prepare(){
   cd ${pkgname}-${pkgver}
   sed -i 's|-gcflags="-trimpath=$(GOPATH)" -asmflags="-trimpath=$(GOPATH)"||' Makefile
   sed -i 's/install-completion//g' Makefile
-  # TODO(gromit): remove on next release, see https://github.com/gopasspw/gopass/commit/db55255efd4404492d9453b8cb5983b9794759da
-  go mod tidy
 }
 
 build(){
