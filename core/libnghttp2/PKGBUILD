@@ -2,8 +2,7 @@
 # Contributor: Zhuoyun Wei <wzyboy@wzyboy.org>
 
 pkgname=libnghttp2
-_tag='69148c95ea5980b52c669135e45bf8204421aa9c' # git rev-parse v${pkgver}
-pkgver=1.60.0
+pkgver=1.61.0
 pkgrel=1
 pkgdesc='Framing layer of HTTP/2 is implemented as a reusable C library'
 arch=('x86_64')
@@ -14,11 +13,11 @@ provides=('libnghttp2.so')
 makedepends=('git')
 conflicts=('nghttp2<1.20.0-2')
 validpgpkeys=('F4F3B91474D1EB29889BD0EF7E8403D5D673C366') # Tatsuhiro Tsujikawa <tatsuhiro.t@gmail.com>
-source=("git+https://github.com/nghttp2/nghttp2.git#tag=${_tag}?signed"
+source=("git+https://github.com/nghttp2/nghttp2.git#tag=v${pkgver}?signed"
         'git+https://github.com/ngtcp2/munit.git'
         'git+https://github.com/mruby/mruby.git'
         'git+https://github.com/tatsuhiro-t/neverbleed.git')
-sha512sums=('SKIP'
+sha512sums=('a347249408552b1928ca42955a094be9c69a56fe9eb4a21ec8ac62c8c99ce8fa13a3fb2b1ba6363c75ac73a169ac62cbd954cfad607e872e821a6348817027e4'
             'SKIP'
             'SKIP'
             'SKIP')
