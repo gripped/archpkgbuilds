@@ -1,6 +1,6 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 pkgname=pciutils
-pkgver=3.11.1
+pkgver=3.12.0
 pkgrel=1
 pkgdesc="PCI bus configuration space access library and tools"
 arch=(x86_64)
@@ -17,7 +17,7 @@ source=(#ftp://ftp.kernel.org/pub/software/utils/${pkgname}/${pkgname}-${pkgver}
 validpgpkeys=(
               'C466A56CADA981F4297D20C31F3D0761D9B65F0B' # Martin Mares <mj@ucw.cz>
              )
-sha256sums=('1904864ce5b0272d0a2e42e72ceac9e8810d1898480567f36b70642f8205fbfd'
+sha256sums=('827a641d2016a15f0b959804daa5a05f055d0f91d58a70d32ac41ce7ef94164e'
             'SKIP')
 
 build() {
