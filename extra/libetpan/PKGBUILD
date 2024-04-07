@@ -2,7 +2,7 @@
 
 pkgname=libetpan
 pkgver=1.9.4
-pkgrel=4
+pkgrel=5
 pkgdesc="A portable middleware for email access"
 arch=('x86_64')
 url="https://www.etpan.org/libetpan.html"
@@ -44,7 +44,8 @@ build() {
     --disable-static \
     --disable-db \
     --with-openssl=no \
-    --with-gnutls=yes
+    --with-gnutls=yes \
+    --with-poll
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
