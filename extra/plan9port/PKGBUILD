@@ -4,12 +4,11 @@
 # Contributor: Chris Brannon <cmbrannon79@gmail.com>
 
 pkgname=plan9port
-_commit=984c2824e3569479bace65bdaf9e78a2eb36dd58 # master
-pkgver=20230913
+_commit=ace7bcb75bf2f4e27abbd413b45d04ab4314fbb1 # master
+pkgver=20240406
 pkgrel=1
 pkgdesc='Ports of applications from Plan 9'
 arch=(x86_64)
-url='https://swtch.com/plan9port/'
 url='https://9fans.github.io/plan9port/'
 license=(custom)
 depends=(fontconfig fuse2 libxt xorg-server)
@@ -71,8 +70,7 @@ package() {
   rm -rf .hg/
   rm -f .hgignore .hgtags
   find . -name '.cvsignore' -delete
-  rm -f config install.log install.sum install.txt configure Makefile INSTALL \
-    LICENSE
+  rm -f INSTALL LICENSE Makefile config configure install.log install.sum install.txt
 
   # Package text files
   for i in CHANGES CONTRIBUTING.md CONTRIBUTORS README.md; do
@@ -98,6 +96,6 @@ package() {
   install -Dm755 acme.sh "$pkgdir/usr/bin/acme"
   install -Dm644 acme.png "$pkgdir/usr/share/pixmaps/acme.png"
 
-  # Remove git repository
-  rm -rf "$pkgdir/usr/lib/plan9/.git"
+  # Remove git repository and CI workflow configuration
+  rm -rf "$pkgdir/usr/lib/plan9/.git"{,hub}
 }
