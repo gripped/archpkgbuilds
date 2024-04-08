@@ -1,10 +1,10 @@
 pkgbase = shutter
 	pkgdesc = The feature-rich screenshot tool
 	pkgver = 0.99.5
-	pkgrel = 1
+	pkgrel = 2
 	url = https://shutter-project.org/
 	arch = any
-	license = GPL
+	license = GPL-3.0-only
 	depends = xdg-utils
 	depends = imagemagick
 	depends = procps
@@ -42,6 +42,7 @@ pkgbase = shutter
 	optdepends = perl-net-oauth: Imgur upload support
 	optdepends = bc: 3D Rotate and 3D Reflection plugins support
 	optdepends = libappindicator-gtk3: display the tray icon in some environments (like GNOME or Plasma Wayland)
+	optdepends = webp-pixbuf-loader: WebP support
 	source = shutter-0.99.5.tar.gz::https://github.com/shutter-project/shutter/archive/v0.99.5.tar.gz
 	sha512sums = 524e135191a324f7da890922c98646c7cd83a714a3b1dc14f2ba9910f8a90f5c6c527a5c857888c2be93120a7b242e435664c8af45792d36b66d7642fda50371
 
