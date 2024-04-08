@@ -4,17 +4,19 @@
 
 pkgname=libfprint
 pkgver=1.94.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for fingerprint readers"
 url="https://fprint.freedesktop.org/"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
+  gcc-libs
+  glib2
+  glibc
   libgudev
   libgusb
   nss
   pixman
-  systemd
 )
 makedepends=(
   git
@@ -23,6 +25,7 @@ makedepends=(
   meson
   python-cairo
   python-gobject
+  systemd
 )
 checkdepends=(
   cairo
@@ -30,14 +33,11 @@ checkdepends=(
 )
 provides=(libfprint-2.so)
 groups=(fprint)
-_commit=bebe8565cd7e2c89c0b0c5e6ee7353b80d6a51e1  # tags/v1.94.7^0
-source=("git+https://gitlab.freedesktop.org/libfprint/libfprint.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/^v//;s/^V_//;s/_/./g;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.freedesktop.org/libfprint/libfprint.git?signed#tag=v$pkgver")
+b2sums=('9859f976227452dc3ea9f8fbde9022809214a4eed0c994d8cb5330d0d7d7fbf19baf066518a72c8345ae01b0f34b7e32b135a4494a48db17bc6186b571f41fe6')
+validpgpkeys=(
+  D4C501DA48EB797A081750939449C2F50996635F # Marco Trevisan (Treviño) <mail@3v1n0.net>
+)
 
 prepare() {
   cd $pkgname
