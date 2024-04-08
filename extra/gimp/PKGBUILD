@@ -1,9 +1,11 @@
-# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Christian Hesse <mail@eworm.de>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
+# Contributor: Levente Polyak <anthraxx[at]archlinux[dot]org>
 # Contributor: Daniel Isenmann <daniel@archlinux.org>
 
 pkgname=gimp
 pkgver=2.10.36
-pkgrel=5
+pkgrel=6
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
 arch=('x86_64')
@@ -28,9 +30,11 @@ conflicts=('gimp-plugin-wavelet-decompose')
 replaces=('gimp-plugin-wavelet-decompose')
 install=gimp.install
 source=(https://download.gimp.org/pub/gimp/v${pkgver%.*}/${pkgname}-${pkgver}.tar.bz2
+        gimp-2_10_36_fix-crash-on-exit.patch::https://gitlab.gnome.org/GNOME/gimp/-/merge_requests/1444.patch
         0001-no-check-update.patch
         linux.gpl)
 sha256sums=('3d3bc3c69a4bdb3aea9ba2d5385ed98ea03953f3857aafd1d6976011ed7cdbb2'
+            'd153c8968fb88bd935a7cb4d1b1c7b235abb79e123fcc12f6096da63330ef13a'
             'ac3e8b44cf391f4ab3050652f2cc1f146f451fb25178d5a596d905f5bad13fcf'
             '1003bbf5fc292d0d63be44562f46506f7b2ca5729770da9d38d3bb2e8a2f36b3')
 
@@ -38,6 +42,9 @@ prepare() {
   cd ${pkgname}-${pkgver}
 
   patch -Np1 < ../0001-no-check-update.patch
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/gimp/-/issues/2
+  patch -Np1 < ../gimp-2_10_36_fix-crash-on-exit.patch
+
   autoreconf -vi
 }
 
@@ -53,8 +60,8 @@ build() {
     --enable-gtk-doc \
     --disable-check-update \
     --disable-python \
-    --with-bug-report-url='https://bugs.archlinux.org/?string=gimp' \
-    --with-openexr 
+    --with-bug-report-url='https://gitlab.archlinux.org/archlinux/packaging/packages/gimp/-/issues' \
+    --with-openexr
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
