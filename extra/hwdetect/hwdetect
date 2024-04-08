@@ -146,12 +146,12 @@ _mods() {
     if [[ "${_EXCLUDE}" ]]; then
         #shellcheck disable=SC2086
         modprobe -i -a --dirname="${_ROOT_DIRECTORY}" --set-version="${_KERNEL_VERSION}" --show-depends ${_ALIASES} 2>${_NO_LOG} |\
-        grep -v ^builtin | sed "s|^insmod /lib/modules/${_KERNEL_VERSION}/kernel||g" |\
+        grep -v ^builtin | sed "s|^insmod ${_ROOT_DIRECTORY}/lib/modules/${_KERNEL_VERSION}/kernel||g" |\
         sort -u | grep -E -v "${_EXCLUDE}" | grep "${_INCLUDE}" | sed -ne "s#^/.*/\(.*\)\.ko.*#\1#p"
     else
         #shellcheck disable=SC2086
         modprobe -i -a --dirname="${_ROOT_DIRECTORY}" --set-version="${_KERNEL_VERSION}" --show-depends ${_ALIASES} 2>${_NO_LOG} |\
-        grep -v ^builtin | sed "s|^insmod /lib/modules/${_KERNEL_VERSION}/kernel||g" |\
+        grep -v ^builtin | sed "s|^insmod ${_ROOT_DIRECTORY}/lib/modules/${_KERNEL_VERSION}/kernel||g" |\
         sort -u | grep "${_INCLUDE}" | sed -ne "s#^/.*/\(.*\)\.ko.*#\1#p"
     fi
 }
@@ -176,9 +176,9 @@ while [ -n "$*"  ]; do
             _show_list "AGP      " $(_mods agp/)
             _show_list "ACPI     " $(_mods acpi/)
             _show_list "BLOCK    " $(_mods ata/pata pata_acpi) $(_mods ata/ata_piix) \
-                                  $(_mods virtio/virtio_pci) $(_mods scsi/) $(_mods message/fusion/) $(_mods drivers/block/ nbd pktcdvd sx8 floppy) \
-                                  $(_mods ata/ pata ata_generic) $(_mods drivers/block/sx8) \
-                                  $(_mods usb/ usb/input) $(_mods firewire/) $(_mods ieee1394/) $(_mods nvme.ko)
+                                   $(_mods virtio/virtio_pci) $(_mods scsi/) $(_mods message/fusion/) $(_mods drivers/block/ nbd pktcdvd sx8 floppy) \
+                                   $(_mods ata/ pata ata_generic) $(_mods drivers/block/sx8) \
+                                   $(_mods usb/ usb/input) $(_mods firewire/) $(_mods ieee1394/) $(_mods nvme.ko)
             _show_list "BLUETOOTH" $(_mods bluetooth/)
             _show_list "CDROM    " $(_mods cdrom/)
             _show_list "CPUFREQ  " $(_mods cpufreq/)
