@@ -1,0 +1,22 @@
+pkgbase = tgt
+	pkgdesc = iSCSI Target STGT for Arch Linux
+	pkgver = 1.0.91
+	pkgrel = 1
+	url = https://github.com/fujita/tgt
+	arch = x86_64
+	license = GPL-2.0-only
+	makedepends = docbook-xsl
+	makedepends = git
+	makedepends = libxslt
+	makedepends = linux-api-headers
+	depends = bash
+	depends = perl
+	depends = perl-config-general
+	depends = rdma-core
+	depends = systemd-libs
+	optdepends = sg3_utils
+	backup = etc/tgt/targets.conf
+	source = git+https://github.com/fujita/tgt.git#tag=v1.0.91
+	b2sums = 0bb7b58073ee1e1783346099bb14d6c83384ec516ec87608b1c080814c29a472dec6764d0a35ba22eae29f388a5dfbe7aa6a58d295ff738b36f480dadd12b832
+
+pkgname = tgt
