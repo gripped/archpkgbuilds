@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hyprcursor
-pkgver=0.1.5
+pkgver=0.1.6
 pkgrel=1
 pkgdesc='The hyprland cursor format, library and utilities'
 arch=(x86_64 aarch64)
@@ -12,12 +12,13 @@ depends=(cairo # libcairo.so
          glibc # libc.so libm.so
          hyprlang libhyprlang.so
          librsvg librsvg-2.so
-         libzip libzip.so)
+         libzip libzip.so
+         tomlplusplus libtomlplusplus.so)
 makedepends=(cmake)
 provides=("lib$pkgname.so")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('3958b0d7b80bcabca1c46841016c7354afc3cbcbf86b785b7b6289524cb5ec5c')
+sha256sums=('e07b711fab98d483c1e82d2ba14377c641632dd9bea7a94ba21cc0e7a1227335')
 
 build() {
 	cd "$_archive"
