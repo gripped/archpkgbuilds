@@ -4,15 +4,12 @@
 # and gives array output for mkinitcpio.conf config file.
 # by Tobias Powalowski <tpowa@archlinux.org>
 
-_SHOW_MODULES=""
-_SHOW_HOOKS=""
 _ARCH="$(uname -m)"
-_ADVANCED=""
 _NO_LOG="/dev/null"
 #shellcheck disable=SC2048,SC2086
-echo $* | grep -q 'hooks' && _SHOW_HOOKS=1
-#shellcheck disable=SC2048,SC2086
 echo $* | grep -Eq 'filesystem|hostcontroller|kms' && _SHOW_MODULES=1
+# get module modalias from /sys
+_ALIASES="$(find /sys/ -noleaf -name modalias  -exec cat {} + 2>${_NO_LOG})"
 
 usage () {
 cat << EOF
@@ -73,7 +70,7 @@ MODULES array options:
     --nvidia-kms           add nvidia kernel mode setting
 
 HOOKS array options:
-    --rootdevice=          detect advanced features of rootdevice
+    --rootdevice=          show HOOKS array for rootdevice
     --hooks-dir=           use directory for HOOKS check
 EOF
     exit 1
@@ -87,10 +84,10 @@ EOF
 _parameter() {
     while [ -n "${1}" ]; do
         case ${1} in
-            --root_directory=*) _ROOT_DIRECTORY="$(echo "${1}" | awk -F= '{print $2;}')" ;;
-            --kernel_version=*) _KERNEL_VERSION="$(echo "${1}" | awk -F= '{print $2;}')" ;;
-            --rootdevice=*) _ROOTDEVICE="$(echo "${1}" | awk -F= '{print $2;}')" ;;
-            --hooks-dir=*) _HOOKS_DIR="$(echo "${1}" | awk -F= '{print $2;}')" ;;
+            --root_directory=*) _ROOT_DIRECTORY="$(echo "${1}" | cut -d '=' -f 2)" ;;
+            --kernel_version=*) _KERNEL_VERSION="$(echo "${1}" | cut -d '=' -f 2)" ;;
+            --rootdevice=*) _ROOTDEVICE="$(echo "${1}" | cut -d '=' -f 2)" ;;
+            --hooks-dir=*) _HOOKS_DIR="$(echo "${1}" | cut -d '=' -f 2)" ;;
         esac
         shift
     done
@@ -113,28 +110,6 @@ _show_array() {
     for i in $*; do echo -n "${i}"\ ; done
     echo ""
 }
-
-_kver() {
-    # get kernel version from installed kernel
-    [[ "${_ARCH}" == "x86_64" || "${_ARCH}" == "riscv64" ]] && _VMLINUZ=${_ROOT_DIRECTORY}/boot/vmlinuz-linux
-    [[ "${_ARCH}" == "aarch64" ]] && _VMLINUZ=${_ROOT_DIRECTORY}/boot/Image
-    if [[ -f "${_VMLINUZ}" && "${_ARCH}" == "x86_64" ]]; then
-        offset="$(od -An -j0x20E -dN2 "${_VMLINUZ}")"
-        read -r _KERNEL_VERSION _ < <(dd if="${_VMLINUZ}" bs=1 count=127 skip=$((offset + 0x200)) 2>${_NO_LOG})
-    fi
-    if [[ -f "${_VMLINUZ}" ]]  &&  [[ "${_ARCH}" == "riscv64" || "${_ARCH}" == "aarch64" ]]; then
-        reader="cat"
-        # try if the image is gzip compressed
-        bytes="$(od -An -t x2 -N2 "${_VMLINUZ}" | tr -dc '[:alnum:]')"
-        [[ $bytes == '8b1f' ]] && reader="zcat"
-        read -r _ _ _KERNEL_VERSION _ < <($reader "${_VMLINUZ}" | grep -m1 -aoE 'Linux version .(\.[-[:alnum:]]+)+')
-    fi
-    # fallback if no detectable kernel is installed
-    [[ -z "${_KERNEL_VERSION}" ]] && _KERNEL_VERSION="$(uname -r)"
-}
-
-# get modalias
-_ALIASES="$(find /sys/ -noleaf -name modalias  -exec cat {} +)"
 
 _mods() {
     _INCLUDE=${1} ; shift
@@ -160,12 +135,22 @@ _mods() {
 _parameter $*
 
 if [[ -z "${_KERNEL_VERSION}" ]]; then
-    _kver
-fi
-
-# root device check
-if [[ -n "${_ROOTDEVICE}" ]]; then
-    _ADVANCED="$(lsblk -rpsno TYPE "${_ROOTDEVICE}" | grep -vwe "disk" -we "part" | tac | sed -e 's#crypt#encrypt#g' -e 's#raid.*[0-9]#mdadm_udev#g' -e 's#lvm#lvm2#g')"
+    # get kernel version from installed kernel
+    [[ "${_ARCH}" == "x86_64" || "${_ARCH}" == "riscv64" ]] && _VMLINUZ=${_ROOT_DIRECTORY}/boot/vmlinuz-linux
+    [[ "${_ARCH}" == "aarch64" ]] && _VMLINUZ=${_ROOT_DIRECTORY}/boot/Image
+    if [[ -f "${_VMLINUZ}" && "${_ARCH}" == "x86_64" ]]; then
+        offset="$(od -An -j0x20E -dN2 "${_VMLINUZ}")"
+        read -r _KERNEL_VERSION _ < <(dd if="${_VMLINUZ}" bs=1 count=127 skip=$((offset + 0x200)) 2>${_NO_LOG})
+    fi
+    if [[ -f "${_VMLINUZ}" ]]  &&  [[ "${_ARCH}" == "riscv64" || "${_ARCH}" == "aarch64" ]]; then
+        reader="cat"
+        # try if the image is gzip compressed
+        bytes="$(od -An -t x2 -N2 "${_VMLINUZ}" | tr -dc '[:alnum:]')"
+        [[ $bytes == '8b1f' ]] && reader="zcat"
+        read -r _ _ _KERNEL_VERSION _ < <($reader "${_VMLINUZ}" | grep -m1 -aoE 'Linux version .(\.[-[:alnum:]]+)+')
+    fi
+    # fallback if no detectable kernel is installed
+    [[ -z "${_KERNEL_VERSION}" ]] && _KERNEL_VERSION="$(uname -r)"
 fi
 
 # starting different actions
@@ -276,21 +261,34 @@ while [ -n "$*"  ]; do
                         _MODULES_INITRAMFS="${_KMS} ${_MODULES_INITRAMFS}" ;;
         --nvidia-kms)   _KMS="nouveau"
                         _MODULES_INITRAMFS="${_KMS} ${_MODULES_INITRAMFS}" ;;
-        --hooks)        if [[ -z "${_HOOKS_DIR}" ]]; then
-                            _HOOKS_DIR="${_ROOT_DIRECTORY}/usr/lib/initcpio/install"
-                        fi
-                        _START_HOOKS="base udev autodetect microcode modconf kms keyboard keymap consolefont block filesystems fsck ${_ADVANCED}"
-                        # remove the ones that don't exist on the system
-                        for i in ${_START_HOOKS}; do
-                            if ! [[ -e "${_HOOKS_DIR}/$i" ]]; then
-                                #shellcheck disable=SC2001
-                                _START_HOOKS=$(echo "${_START_HOOKS}" | sed -e "s/${i}\ //g")
-                            fi
-                        done ;;
     esac
     shift
 done
-
+# modules for mkinitcpio.conf
 [[ -n "${_SHOW_MODULES}" ]] && _show_array "MODULES" "${_MODULES_INITRAMFS}" | sed -e 's/\  //g' -e 's/\ \ /\ /g' -e 's/ $/)/g'
-[[ -n "${_SHOW_HOOKS}" ]] && _show_array "HOOKS" "${_START_HOOKS}" | sed -e 's/\ \ /\ /g' -e 's/\ $/)/g'
+
+# hooks for mkinitcpio.conf
+if [[ -n "${_ROOTDEVICE}" ]]; then
+    if [[ ! -b "${_ROOTDEVICE}" ]]; then
+        echo "ERROR: ${_ROOTDEVICE} not a valid block device."
+        exit 1
+    fi
+    _ROOTCHECK="$(lsblk -rpsno TYPE "${_ROOTDEVICE}" | grep -vwe "disk" -we "part" | tac | sed -e 's#crypt#encrypt#g' -e 's#raid.*[0-9]#mdadm_udev#g' -e 's#lvm#lvm2#g')"
+    if [[ -z "${_HOOKS_DIR}" ]]; then
+        _HOOKS_DIR="${_ROOT_DIRECTORY}/usr/lib/initcpio/install"
+    fi
+    if [[ ! -d "${_HOOKS_DIR}" ]]; then
+        echo "ERROR: ${_HOOKS_DIR} not a valid HOOKS directory."
+        exit 1
+    fi
+    _START_HOOKS="base udev autodetect microcode modconf kms keyboard keymap consolefont block filesystems fsck ${_ROOTCHECK}"
+    # remove the ones that don't exist on the system
+    for i in ${_START_HOOKS}; do
+        if ! [[ -e "${_HOOKS_DIR}/$i" ]]; then
+            #shellcheck disable=SC2001
+            _START_HOOKS=$(echo "${_START_HOOKS}" | sed -e "s/${i}\ //g")
+        fi
+    done
+    _show_array "HOOKS" "${_START_HOOKS}" | sed -e 's/\ \ /\ /g' -e 's/\ $/)/g'
+fi
 # vim: set ft=sh ts=4 sw=4 et:
