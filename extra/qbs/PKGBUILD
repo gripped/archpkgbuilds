@@ -4,7 +4,7 @@
 # Contributor: Jake Petroules <jake.petroules@qt.io>
 
 pkgname=qbs
-pkgver=2.2.2
+pkgver=2.3.0
 pkgrel=1
 pkgdesc='Cross platform build tool'
 arch=(x86_64)
@@ -16,9 +16,13 @@ depends=(gcc-libs
          qt6-5compat)
 makedepends=(cmake)
 source=(https://download.qt.io/official_releases/qbs/$pkgver/qbs-src-$pkgver.tar.gz)
-sha256sums=('93e0938fbef2f60f175ae4070fbec5066744f61424ef80f9e65b54f1be8615b4')
+sha256sums=('e7fa44fb36d705ab40f34c24e71bb32beef1210eab2d50bf6f2318a195780826')
 
 build() {
+  # this uses malloc_usable_size, which is incompatible with fortification level 3
+  export CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
+  export CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
+
   cmake -B build -S $pkgname-src-$pkgver \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DWITH_TESTS=OFF \
@@ -27,5 +31,9 @@ build() {
 }
 
 package() {
+  # this uses malloc_usable_size, which is incompatible with fortification level 3
+  export CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
+  export CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
+
   DESTDIR="$pkgdir" cmake --install build
 }
