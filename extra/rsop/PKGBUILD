@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=rsop
-pkgver=0.2.1
-pkgrel=2
+pkgver=0.3.0
+pkgrel=1
 pkgdesc="Stateless OpenPGP (SOP) based on rpgp"
 arch=(x86_64)
 url="https://codeberg.org/heiko/rsop"
@@ -15,12 +15,15 @@ depends=(
   gcc-libs
   glibc
 )
-makedepends=(rust)
+makedepends=(
+  pcsclite
+  rust
+)
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/$pkgname/v$pkgver.tar.gz
 )
-sha512sums=('55a2daef85ba550a06a9c0f9c5317aec907708c67a99b3d0f00f5dec2d1c7db1ea1b8c42e7a7988a1bc9ffa668550abc91502f071378fc88fb142c46ff640486')
-b2sums=('726372d844764c22f3a7be9a975cded2454e0e7203e2da0a98a77aa9402517a00c0a4df2aabdb30dc6b3d44d14660e981bf379a5bab326cfc89d5566fa7cff62')
+sha512sums=('3a958d8cecc6d1ddedfab918d4b69ee9f963dce2309c597381fbf6f38478230ae6e0c82a419355486ffc179e880aedb4f55d14f2389d8374ed5ce5ddbc5eb210')
+b2sums=('7442c1720ababa5ee10dae0e8dee7f84c71d0df9652dcc75f2d7ada1dfbb7514bcbb50673ac0bf93c7f0091dc52b4c40a039e6395c84ce0b7fbd0dfbde9deb60')
 
 prepare() {
   cd $pkgname
@@ -42,6 +45,10 @@ check() {
 }
 
 package() {
+  depends+=(
+    pcsclite libpcsclite.so
+  )
+
   cd $pkgname
   install -vDm 0755 "target/release/$pkgname" -t "$pkgdir/usr/bin/"
   install -vDm 0644 LICENSES/MIT.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
