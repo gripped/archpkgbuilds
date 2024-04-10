@@ -2,8 +2,8 @@
 # Maintainer: Dan McGee <dan@archlinux.org>
 
 pkgname=libarchive
-pkgver=3.7.2
-pkgrel=2
+pkgver=3.7.3
+pkgrel=1
 pkgdesc='Multi-format archive and compression library'
 arch=('x86_64')
 url='https://libarchive.org/'
@@ -13,16 +13,9 @@ depends=('acl' 'libacl.so' 'bzip2' 'expat' 'lz4' 'openssl' 'libcrypto.so' 'xz'
 provides=('libarchive.so')
 validpgpkeys=('A5A45B12AD92D964B89EEE2DEC560C81CEC2276E'  # Martin Matuska <mm@FreeBSD.org>
               'DB2C7CF1B4C265FAEF56E3FC5848A18B8F14184B') # Martin Matuska <martin@matuska.org>
-source=("https://github.com/${pkgname}/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz"{,.asc}
-        libarchive-tar-make-error-reporting-more-robust.patch::https://github.com/libarchive/libarchive/commit/6110e9c82d8ba830c3440f36b990483ceaaea52c.patch)
-sha256sums=('04357661e6717b6941682cde02ad741ae4819c67a260593dfb2431861b251acb'
-            'SKIP'
-            'b677eae8f6fd1a9c3c2184dfd26a0d2862e0182dd295a376af10d18431299a41')
-
-prepare() {
-  cd "${pkgname}-${pkgver}"
-  patch -Np1 < ../libarchive-tar-make-error-reporting-more-robust.patch
-}
+source=("https://github.com/${pkgname}/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz"{,.asc})
+sha256sums=('63e7a7174638fc7d6b79b4c8b0ad954e0f4f45abe7239c1ecb200232aa9a43d2'
+            'SKIP')
 
 build() {
   cd "${pkgname}-${pkgver}"
