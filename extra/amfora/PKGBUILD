@@ -3,7 +3,7 @@
 
 pkgname=amfora
 pkgver=1.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Terminal browser for the Gemini protocol'
 arch=(x86_64)
 url='https://github.com/makeworld-the-better-one/amfora'
@@ -14,8 +14,8 @@ b2sums=('7fc7424d5d436e7415dfa4825ff883dcbd0e6d695c822cd11e503dd0b39413ee70035cb
 
 prepare() {
   cd $pkgname
-  convert logo.png -colorspace sRGB \( +clone -crop 50%x100%+0+0 \) -delete 0 -fuzz 10% -transparent white -background none -resize 48x48 \
-    -gravity center -extent 48x48 -strip amfora.png
+  convert logo.png -colorspace sRGB \( +clone -crop 50%x100%+0+0 \) -delete 0 -fuzz 10% -transparent white \
+    -background none -resize 48x48 -gravity center -extent 48x48 -strip amfora.png
   echo Icon=amfora >> amfora.desktop
 }
 
