@@ -3,7 +3,7 @@
 
 pkgname=imagemagick
 pkgver=7.1.1.30
-pkgrel=1
+pkgrel=2
 _relname=ImageMagick-${pkgver%%.*}
 _tarname=ImageMagick-${pkgver%.*}-${pkgver##*.}
 pkgdesc='An image viewing/manipulation program'
@@ -116,7 +116,7 @@ build() {
     --with-openexr \
     --with-openjp2 \
     --with-perl \
-    --with-perl-options='INSTALLDIRS=vendor INSTALLVENDORMAN3DIR=/usr/share/man/man3' \
+    --with-perl-options='INSTALLDIRS=vendor INSTALL_BASE=' \
     --with-rsvg \
     --with-webp \
     --with-wmf \
