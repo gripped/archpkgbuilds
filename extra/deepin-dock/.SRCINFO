@@ -1,11 +1,12 @@
 pkgbase = deepin-dock
 	pkgdesc = The dock of Deepin Desktop Environment
-	pkgver = 6.0.34
+	pkgver = 6.0.35
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-dock
 	arch = x86_64
 	groups = deepin
 	license = LGPL3
+	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
 	makedepends = qt5-tools
@@ -47,7 +48,7 @@ pkgbase = deepin-dock
 	depends = deepin-session-shell
 	conflicts = dde-dock
 	replaces = dde-dock
-	source = https://github.com/linuxdeepin/dde-dock/archive/6.0.34/deepin-dock-6.0.34.tar.gz
-	sha512sums = e3cd8db0b258eeed7bc9b8dd7f99be166ea1988aefbdea63c01f15c305131ae9e610440fab8a6b1c36cdca8493487412609f321ac9f8a9ee8c3eaf6081a3bf69
+	source = git+https://github.com/linuxdeepin/dde-dock.git#tag=6.0.35
+	sha512sums = 00a3cf45c8d286f380ffc49fededbade7d4e5f0c8e17db2a5eb8073ecae7bfeb4da97aa6fbd0c6f93bc21ec2d907b7b273f72804055c39dd54f4f336433a366f
 
 pkgname = deepin-dock
