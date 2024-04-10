@@ -3,7 +3,7 @@
 _pyname=openapi-core
 pkgname=python-$_pyname
 pkgver=0.19.0
-pkgrel=1
+pkgrel=3
 pkgdesc='Client-side and server-side support for the OpenAPI Specification v3'
 arch=(any)
 url='https://github.com/p1c2u/openapi-core'
@@ -12,7 +12,7 @@ depends=(python
          python-asgiref
          python-isodate
          python-jsonschema
-         python-jsonschema-spec
+         python-jsonschema-path
          python-more-itertools
          python-openapi-schema-validator
          python-openapi-spec-validator
@@ -30,7 +30,7 @@ optdepends=(python-aiohttp
             python-multidict
             python-requests
             python-starlette)
-checkdepends=(python-pytest
+checkdepends=(python-pytest7
               python-pytest-aiohttp
               python-pytest-asyncio  # a dependency of python-pytest-aiohttp
               python-aiohttp
