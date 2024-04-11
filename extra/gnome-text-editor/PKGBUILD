@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-text-editor
-pkgver=46.0
+pkgver=46.1
 pkgrel=1
 pkgdesc="A simple text editor for the GNOME desktop"
 url="https://gitlab.gnome.org/GNOME/gnome-text-editor"
@@ -30,14 +30,8 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome)
-_commit=5890bf13b3a4dd810b96b086301e856aba523215  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-text-editor.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+$url.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('bc3546bbf636df14290d272451eea66376e8d028da6ea0c0fb64b2b6fab7cd2ca035ca5642fc44b0a54650c58633eee0c1e78362124be03fb85bb2f9b8c6f0e3')
 
 prepare() {
   cd $pkgname
