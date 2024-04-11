@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=rstcheck
-pkgver=6.2.0
+pkgver=6.2.1
 pkgrel=1
 pkgdesc='Checks syntax of reStructuredText and code blocks nested within it'
 arch=('any')
@@ -21,13 +21,7 @@ optdepends=(
   'python-tomli: for pyproject.toml support'
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('SKIP')
-
-prepare() {
-  cd $pkgname
-  # Remove include list https://github.com/pypa/wheel/issues/92
-  sed -i '/^include =/d' pyproject.toml
-}
+b2sums=('e6bac154fa9366ae4820186ee9be51b1632624eaef23ae03781983551fc3f24928b9549ba30e79554715f439d357a1baddd8dad62968c18b3258a7775fad9491')
 
 build() {
   cd $pkgname
