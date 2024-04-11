@@ -1,6 +1,6 @@
 pkgbase = qt6-virtualkeyboard
 	pkgdesc = Virtual keyboard framework
-	pkgver = 6.6.3
+	pkgver = 6.7.0
 	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
@@ -10,6 +10,7 @@ pkgbase = qt6-virtualkeyboard
 	license = FDL
 	license = custom
 	makedepends = cmake
+	makedepends = git
 	makedepends = ninja
 	depends = gcc-libs
 	depends = glibc
@@ -17,7 +18,7 @@ pkgbase = qt6-virtualkeyboard
 	depends = qt6-base
 	depends = qt6-declarative
 	depends = qt6-svg
-	source = https://download.qt.io/official_releases/qt/6.6/6.6.3/submodules/qtvirtualkeyboard-everywhere-src-6.6.3.tar.xz
-	sha256sums = 989f82a1fbf49af3264a18191430726588fa3664f0eab13a7234c7054c3fa134
+	source = git+https://code.qt.io/qt/qtvirtualkeyboard#tag=v6.7.0
+	sha256sums = 932b0e1b36a5a1a3e4ec3e6e62bb17d81b339d6da7cfdd02c75b6ff4c5585f1a
 
 pkgname = qt6-virtualkeyboard
