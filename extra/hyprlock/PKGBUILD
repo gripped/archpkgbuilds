@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hyprlock
-pkgver=0.2.0
-pkgrel=2
+pkgver=0.3.0
+pkgrel=1
 pkgdesc='hyprland’s GPU-accelerated screen locking utility'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -21,9 +21,18 @@ depends=(cairo # libcairo.so
          wayland libwayland-client.so libwayland-egl.so
          wayland-protocols)
 makedepends=(cmake)
+backup=("etc/pam.d/$pkgname")
 _archive="$pkgname-$pkgver"
-source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('3d56220ac03016163e196bc2c08e5b16e83583fa9446ad52e32ddbb56c293994')
+source=("$url/archive/v$pkgver/$_archive.tar.gz"
+        "$url/commit/d9a62294.patch")
+sha256sums=('5e84ac3223ea340bb3d39c22db4edefbb8364da8c3b6b3d0da1dfa45d8cc945f'
+            'c50bfa1b1d69d95a6fe0ae9ab9c023ee220f8b9b535a54f1271782e33b198941')
+
+prepare() {
+	cd "$_archive"
+	# https://github.com/hyprwm/hyprlock/issues/220
+	patch -p1 -i ../d9a62294.patch
+}
 
 build() {
 	cd "$_archive"

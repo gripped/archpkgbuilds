@@ -1,7 +1,7 @@
 pkgbase = hyprlock
 	pkgdesc = hyprland’s GPU-accelerated screen locking utility
-	pkgver = 0.2.0
-	pkgrel = 2
+	pkgver = 0.3.0
+	pkgrel = 1
 	url = https://github.com/hyprwm/hyprlock
 	arch = x86_64
 	arch = aarch64
@@ -31,7 +31,10 @@ pkgbase = hyprlock
 	depends = libwayland-client.so
 	depends = libwayland-egl.so
 	depends = wayland-protocols
-	source = https://github.com/hyprwm/hyprlock/archive/v0.2.0/hyprlock-0.2.0.tar.gz
-	sha256sums = 3d56220ac03016163e196bc2c08e5b16e83583fa9446ad52e32ddbb56c293994
+	backup = etc/pam.d/hyprlock
+	source = https://github.com/hyprwm/hyprlock/archive/v0.3.0/hyprlock-0.3.0.tar.gz
+	source = https://github.com/hyprwm/hyprlock/commit/d9a62294.patch
+	sha256sums = 5e84ac3223ea340bb3d39c22db4edefbb8364da8c3b6b3d0da1dfa45d8cc945f
+	sha256sums = c50bfa1b1d69d95a6fe0ae9ab9c023ee220f8b9b535a54f1271782e33b198941
 
 pkgname = hyprlock
