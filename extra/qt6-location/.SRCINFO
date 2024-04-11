@@ -1,6 +1,6 @@
 pkgbase = qt6-location
 	pkgdesc = Helps you create viable mapping solutions using the data available from some of the popular location services
-	pkgver = 6.6.3
+	pkgver = 6.7.0
 	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
@@ -10,13 +10,14 @@ pkgbase = qt6-location
 	license = FDL
 	license = custom
 	makedepends = cmake
+	makedepends = git
 	makedepends = ninja
 	depends = gcc-libs
 	depends = glibc
 	depends = qt6-base
 	depends = qt6-declarative
 	depends = qt6-positioning
-	source = https://download.qt.io/official_releases/qt/6.6/6.6.3/submodules/qtlocation-everywhere-src-6.6.3.tar.xz
-	sha256sums = d7b42920f30a6a3fc4edffae541332fceaa6f5f7a4776c6809e0fd80fff801d1
+	source = git+https://code.qt.io/qt/qtlocation#tag=v6.7.0
+	sha256sums = 81563200bfabd06fbc0ff9ced904f43c45cddd962778f55c34c2afb00688c79d
 
 pkgname = qt6-location
