@@ -1,6 +1,6 @@
 pkgbase = qt6-webview
 	pkgdesc = Provides a way to display web content in a QML application
-	pkgver = 6.6.3
+	pkgver = 6.7.0
 	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
@@ -10,13 +10,14 @@ pkgbase = qt6-webview
 	license = FDL
 	license = custom
 	makedepends = cmake
+	makedepends = git
 	makedepends = ninja
 	depends = gcc-libs
 	depends = glibc
 	depends = qt6-base
 	depends = qt6-declarative
 	depends = qt6-webengine
-	source = https://download.qt.io/official_releases/qt/6.6/6.6.3/submodules/qtwebview-everywhere-src-6.6.3.tar.xz
-	sha256sums = 206463df560746b9ddfee3d5aae4a50831b5660510f862998e7b319ee2ef4c02
+	source = git+https://code.qt.io/qt/qtwebview#tag=v6.7.0
+	sha256sums = 932d0c484b6ac8f696fafef29d16103a1bd18926ea150e3040b92bbb532385cf
 
 pkgname = qt6-webview
