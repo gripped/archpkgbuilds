@@ -1,6 +1,6 @@
 pkgbase = qt6-quick3dphysics
 	pkgdesc = Physics engine integration for Qt Quick 3D
-	pkgver = 6.6.3
+	pkgver = 6.7.0
 	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
@@ -10,6 +10,7 @@ pkgbase = qt6-quick3dphysics
 	license = FDL
 	license = custom
 	makedepends = cmake
+	makedepends = git
 	makedepends = ninja
 	makedepends = qt6-shadertools
 	depends = gcc-libs
@@ -17,7 +18,7 @@ pkgbase = qt6-quick3dphysics
 	depends = qt6-base
 	depends = qt6-declarative
 	depends = qt6-quick3d
-	source = https://download.qt.io/official_releases/qt/6.6/6.6.3/submodules/qtquick3dphysics-everywhere-src-6.6.3.tar.xz
-	sha256sums = 67e19b482ea1ac8ba14afda8f804e90e0a68ff68e7da58b454deffda3051f546
+	source = git+https://code.qt.io/qt/qtquick3dphysics#tag=v6.7.0
+	sha256sums = fbf049b91b4cef14dd54bff90cf5efccf40c773390874bb98324397426467e8d
 
 pkgname = qt6-quick3dphysics
