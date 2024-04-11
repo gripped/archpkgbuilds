@@ -1,6 +1,6 @@
 pkgbase = qt6-quick3d
 	pkgdesc = Qt module and API for defining 3D content in Qt Quick
-	pkgver = 6.6.3
+	pkgver = 6.7.0
 	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
@@ -8,6 +8,7 @@ pkgbase = qt6-quick3d
 	license = GPL3
 	makedepends = assimp
 	makedepends = cmake
+	makedepends = git
 	makedepends = ninja
 	depends = gcc-libs
 	depends = glibc
@@ -17,7 +18,7 @@ pkgbase = qt6-quick3d
 	depends = qt6-shadertools
 	depends = zlib
 	optdepends = assimp: assimp import plugin
-	source = https://download.qt.io/official_releases/qt/6.6/6.6.3/submodules/qtquick3d-everywhere-src-6.6.3.tar.xz
-	sha256sums = 997626f0b7fbaa168a7d227414bfe4068289aa8e767ffcc60bf754d83c2b9ae2
+	source = git+https://code.qt.io/qt/qtquick3d#tag=v6.7.0
+	sha256sums = 5e927593db83f13ea67ca4ebe76ad7725e5d3717344cc4ec376be729e64643cb
 
 pkgname = qt6-quick3d
