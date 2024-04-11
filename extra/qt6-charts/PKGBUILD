@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-charts
-_qtver=6.6.3
+_qtver=6.7.0
 pkgver=${_qtver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -14,11 +14,12 @@ depends=(gcc-libs
          qt6-base
          qt6-declarative)
 makedepends=(cmake
+             git
              ninja)
 groups=(qt6)
-_pkgfn=${pkgname/6-/}-everywhere-src-$_qtver
-source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz)
-sha256sums=('50968886148fd2564ba52c702cfbf260e35956327a6bcd8001ae658eaa157fe5')
+_pkgfn=${pkgname/6-/}
+source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
+sha256sums=('bedebe178e1ddfbde8bf0ec29983df7ac0f737b488e6b4822c6a0b1402f29e32')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
