@@ -1,6 +1,6 @@
 pkgbase = qt6-serialbus
 	pkgdesc = Qt module for general purpose serial bus access
-	pkgver = 6.6.3
+	pkgver = 6.7.0
 	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
@@ -10,12 +10,13 @@ pkgbase = qt6-serialbus
 	license = FDL
 	license = custom
 	makedepends = cmake
+	makedepends = git
 	makedepends = ninja
 	depends = gcc-libs
 	depends = glibc
 	depends = qt6-base
 	depends = qt6-serialport
-	source = https://download.qt.io/official_releases/qt/6.6/6.6.3/submodules/qtserialbus-everywhere-src-6.6.3.tar.xz
-	sha256sums = 143e5afcb81a2e2a92d5c0f16679295349d0b8e1ee398230a391ca5be00ad0fb
+	source = git+https://code.qt.io/qt/qtserialbus#tag=v6.7.0
+	sha256sums = 3efabceee8b0e2bf661751f663810e13367b8b701d414be5d425a3b50c244ba6
 
 pkgname = qt6-serialbus
