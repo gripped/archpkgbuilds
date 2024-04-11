@@ -5,7 +5,7 @@ pkgbase=qt6-multimedia
 pkgname=(qt6-multimedia
          qt6-multimedia-ffmpeg
          qt6-multimedia-gstreamer)
-_qtver=6.6.3
+_qtver=6.7.0
 pkgver=${_qtver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -18,6 +18,7 @@ depends=(gcc-libs
          qt6-base)
 makedepends=(cmake
              ffmpeg
+             git
              gst-plugins-base
              libxrandr
              ninja
@@ -25,9 +26,9 @@ makedepends=(cmake
              qt6-quick3d
              qt6-shadertools)
 groups=(qt6)
-_pkgfn=${pkgname/6-/}-everywhere-src-$_qtver
-source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz)
-sha256sums=('be00f830d2b14c9a12f3b6812ba3a23fdaaceb2dd9c1c6394c329c8bf6e53ab2')
+_pkgfn=${pkgname/6-/}
+source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
+sha256sums=('6d3a4986591597cf73345bcf6890a5c80263c4cc44745aab0f560c300ec5da32')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
