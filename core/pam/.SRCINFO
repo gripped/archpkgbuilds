@@ -1,7 +1,7 @@
 pkgbase = pam
 	pkgdesc = PAM (Pluggable Authentication Modules) library
 	pkgver = 1.6.1
-	pkgrel = 1
+	pkgrel = 2
 	url = http://linux-pam.org
 	arch = x86_64
 	license = GPL-2.0-only
@@ -16,6 +16,7 @@ pkgbase = pam
 	depends = libaudit.so
 	depends = libxcrypt
 	depends = libcrypt.so
+	depends = libnsl
 	provides = libpam.so
 	provides = libpamc.so
 	provides = libpam_misc.so

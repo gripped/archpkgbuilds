@@ -4,12 +4,12 @@
 
 pkgname=pam
 pkgver=1.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="PAM (Pluggable Authentication Modules) library"
 arch=('x86_64')
 license=('GPL-2.0-only')
 url="http://linux-pam.org"
-depends=('glibc' 'libtirpc' 'pambase' 'audit' 'libaudit.so' 'libxcrypt' 'libcrypt.so')
+depends=('glibc' 'libtirpc' 'pambase' 'audit' 'libaudit.so' 'libxcrypt' 'libcrypt.so' 'libnsl')
 makedepends=('flex' 'w3m' 'docbook-xml>=4.4' 'docbook-xsl')
 provides=('libpam.so' 'libpamc.so' 'libpam_misc.so')
 backup=(etc/security/{access.conf,faillock.conf,group.conf,limits.conf,namespace.conf,namespace.init,pwhistory.conf,pam_env.conf,time.conf} etc/environment)
