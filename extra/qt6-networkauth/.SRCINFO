@@ -1,6 +1,6 @@
 pkgbase = qt6-networkauth
 	pkgdesc = Network authentication module
-	pkgver = 6.6.3
+	pkgver = 6.7.0
 	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
@@ -10,11 +10,12 @@ pkgbase = qt6-networkauth
 	license = FDL
 	license = custom
 	makedepends = cmake
+	makedepends = git
 	makedepends = ninja
 	depends = gcc-libs
 	depends = glibc
 	depends = qt6-base
-	source = https://download.qt.io/official_releases/qt/6.6/6.6.3/submodules/qtnetworkauth-everywhere-src-6.6.3.tar.xz
-	sha256sums = 5db9a30b42d7ff22ce1a0048474c36b3b84e1e55f3af991ba3cc8e0dc9bb7594
+	source = git+https://code.qt.io/qt/qtnetworkauth#tag=v6.7.0
+	sha256sums = 61a81a19200420a5bd37739f8db94fc4f6ece4c702a3fdad0be55d731229ae66
 
 pkgname = qt6-networkauth
