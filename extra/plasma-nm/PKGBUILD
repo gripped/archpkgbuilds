@@ -5,7 +5,7 @@
 pkgname=plasma-nm
 pkgver=6.0.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='Plasma applet written in QML for managing network connections'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
