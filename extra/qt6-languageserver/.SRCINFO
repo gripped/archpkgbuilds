@@ -1,6 +1,6 @@
 pkgbase = qt6-languageserver
 	pkgdesc = An implementation of the Language Server Protocol
-	pkgver = 6.6.3
+	pkgver = 6.7.0
 	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
@@ -10,11 +10,12 @@ pkgbase = qt6-languageserver
 	license = FDL
 	license = custom
 	makedepends = cmake
+	makedepends = git
 	makedepends = ninja
 	depends = gcc-libs
 	depends = glibc
 	depends = qt6-base
-	source = https://download.qt.io/official_releases/qt/6.6/6.6.3/submodules/qtlanguageserver-everywhere-src-6.6.3.tar.xz
-	sha256sums = 1021b4b9024bd23bef86292f4b6c15cc7db620b6c47be8cb6e539bfae7f6cf8c
+	source = git+https://code.qt.io/qt/qtlanguageserver#tag=v6.7.0
+	sha256sums = 7fe25677863235e28e4bb0792bef06391d9436e9ec962018b32bd028867a8af1
 
 pkgname = qt6-languageserver
