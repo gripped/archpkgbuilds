@@ -1,6 +1,6 @@
 pkgbase = qt6-httpserver
 	pkgdesc = Qt HTTP Server
-	pkgver = 6.6.3
+	pkgver = 6.7.0
 	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
@@ -10,12 +10,13 @@ pkgbase = qt6-httpserver
 	license = FDL
 	license = custom
 	makedepends = cmake
+	makedepends = git
 	makedepends = ninja
 	depends = gcc-libs
 	depends = glibc
 	depends = qt6-base
 	depends = qt6-websockets
-	source = https://download.qt.io/official_releases/qt/6.6/6.6.3/submodules/qthttpserver-everywhere-src-6.6.3.tar.xz
-	sha256sums = 41ac78d745d00eef1c3866dda5119d3649a64fa08d44d72d89b83aeecde87835
+	source = git+https://code.qt.io/qt/qthttpserver#tag=v6.7.0
+	sha256sums = 07ddd304885ad53a6f6f447010e9bab38414f759b9d87239fafeff267e4572c4
 
 pkgname = qt6-httpserver
