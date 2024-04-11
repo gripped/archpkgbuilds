@@ -4,7 +4,7 @@
 pkgname=('dark-reader' 'firefox-dark-reader' 'thunderbird-dark-reader')
 pkgbase=dark-reader
 _name=${pkgbase/-}
-pkgver=4.9.82
+pkgver=4.9.83
 pkgrel=1
 pkgdesc='Inverts brightness of web pages and aims to reduce eyestrain while browsing the web'
 arch=('any')
@@ -12,7 +12,7 @@ url=https://darkreader.org/
 license=('MIT')
 makedepends=('git' 'npm')
 source=("git+https://github.com/$_name/$_name.git#tag=v$pkgver")
-b2sums=('783ca2aa3dc41fbc52a44e47f275cbcd3fd7f898184b4e56fde38e27d5fd0d28664a8a6a6b989fd8a01f7ad532f55befd1b8f6a6f57654bb71bf33092317ab14')
+b2sums=('4b107cc38d08a8584e0c84606910f73f9d223c2c2b21817376d0192ba6805a7d5401d8d4224cf2b7c8ce6ed928aebb03777028291b658cb8dba938812a4dba4b')
 
 prepare() {
   cd "$_name"
