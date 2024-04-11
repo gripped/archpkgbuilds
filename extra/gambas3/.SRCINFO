@@ -1,7 +1,7 @@
 pkgbase = gambas3
 	pkgdesc = A free development environment based on a Basic interpreter.
-	pkgver = 3.19.1
-	pkgrel = 1
+	pkgver = 3.18.4
+	pkgrel = 4
 	url = http://gambas.sourceforge.net/
 	arch = x86_64
 	groups = gambas3
@@ -27,6 +27,8 @@ pkgbase = gambas3
 	makedepends = librsvg
 	makedepends = curl
 	makedepends = poppler-glib
+	makedepends = sdl_mixer
+	makedepends = sdl_ttf
 	makedepends = sdl2
 	makedepends = sdl2_mixer
 	makedepends = sdl2_image
@@ -50,8 +52,8 @@ pkgbase = gambas3
 	makedepends = libxcrypt
 	options = !emptydirs
 	options = libtool
-	source = https://gitlab.com/gambas/gambas/-/archive/3.19.1/gambas-3.19.1.tar.bz2
-	sha512sums = 78bfce5352aaef830c6b0290c95b41531066368dd424d1b2df8aec0fd42c5d7b2d7cc9444b222d29649e632eecb0f5e4fa7035f4870a6f57a235e9ea4fd83c41
+	source = https://gitlab.com/gambas/gambas/-/archive/3.18.4/gambas-3.18.4.tar.bz2
+	sha512sums = 6faed6b0a9afbed4afe08abdd0d09fff53ce9b6f3f799c57705670937bdab0fbd8e47a94bf573d8d6246019c96c3ad66533d16ddf5062e45b9f1e05337af8c27
 
 pkgname = gambas3-gb-args
 	pkgdesc = Command-line options analyzer component
@@ -144,7 +146,7 @@ pkgname = gambas3-gb-desktop
 	depends = gambas3-gb-image
 
 pkgname = gambas3-gb-eval-highlight
-	pkgdesc = Expression evaluator highlight component (deprecated)
+	pkgdesc = Expression evaluator highlight component
 	depends = gambas3-runtime
 
 pkgname = gambas3-gb-form-dialog
@@ -167,8 +169,7 @@ pkgname = gambas3-gb-form-stock
 
 pkgname = gambas3-gb-form-editor
 	pkgdesc = Editor component
-	depends = gambas3-gb-form
-	depends = gambas3-gb-highlight
+	depends = gambas3-gb-eval-highlight
 
 pkgname = gambas3-gb-form-htmlview
 	pkgdesc = Htmlview component
@@ -204,11 +205,6 @@ pkgname = gambas3-gb-gtk3
 pkgname = gambas3-gb-hash
 	pkgdesc = Hashing functions
 	depends = gambas3-runtime
-
-pkgname = gambas3-gb-highlight
-	pkgdesc = A syntax highlighter based on definition files
-	depends = gambas3-gb-image
-	depends = gambas3-gb-pcre
 
 pkgname = gambas3-gb-httpd
 	pkgdesc = Embedded HTTP server for the interpreter
@@ -366,7 +362,7 @@ pkgname = gambas3-gb-report
 	pkgdesc = Report component
 	depends = gambas3-gb-form
 	depends = gambas3-gb-image-io
-	provides = gambas3-gb-report2=3.19.1
+	provides = gambas3-gb-report2=3.18.4
 
 pkgname = gambas3-gb-scanner
 	pkgdesc = Scanimage frontend component
@@ -386,6 +382,18 @@ pkgname = gambas3-gb-sdl2
 	depends = sdl2_image
 	depends = glew
 
+pkgname = gambas3-gb-sdl-sound
+	pkgdesc = SDL sound component
+	depends = gambas3-runtime
+	depends = sdl_mixer
+
+pkgname = gambas3-gb-sdl
+	pkgdesc = SDL component
+	depends = gambas3-gb-image-io
+	depends = sdl_ttf
+	depends = libxcursor
+	depends = glew
+
 pkgname = gambas3-gb-settings
 	pkgdesc = Setting component
 	depends = gambas3-runtime
@@ -397,7 +405,7 @@ pkgname = gambas3-gb-signal
 pkgname = gambas3-gb-term
 	pkgdesc = Terminal management component
 	depends = gambas3-runtime
-	provides = gambas3-gb-term-form=3.19.1
+	provides = gambas3-gb-term-form=3.18.4
 
 pkgname = gambas3-gb-util-web
 	pkgdesc = Miscellaneous web utility functions component
@@ -476,7 +484,7 @@ pkgname = gambas3-ide
 	depends = gambas3-gb-db-form
 	depends = gambas3-gb-desktop
 	depends = gambas3-gb-desktop-x11
-	depends = gambas3-gb-highlight
+	depends = gambas3-gb-eval-highlight
 	depends = gambas3-gb-form-dialog
 	depends = gambas3-gb-form-editor
 	depends = gambas3-gb-form-stock
