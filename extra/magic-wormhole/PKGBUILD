@@ -4,7 +4,7 @@
 
 pkgname=magic-wormhole
 pkgver=0.14.0
-pkgrel=2
+pkgrel=4
 pkgdesc="Securely transfer data between computers"
 arch=(any)
 url="https://github.com/magic-wormhole/magic-wormhole"
@@ -15,7 +15,7 @@ depends=(python-autobahn
          python-hkdf
          python-humanize
          python-idna
-         python-noiseprotocol
+         python-iterable-io
          python-pynacl
          python-pyopenssl
          python-service-identity
@@ -25,9 +25,11 @@ depends=(python-autobahn
          python-zipstream-ng)
 makedepends=(python-{build,installer,wheel}
              python-setuptools)
-checkdepends=(python-iterable-io
-              python-magic-wormhole-mailbox-server
-              python-magic-wormhole-transit-relay)
+checkdepends=(python-magic-wormhole-mailbox-server
+              python-magic-wormhole-transit-relay
+              python-noiseprotocol
+              python-pytest
+              python-pytest-mock)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz")
 sha512sums=('6b236455811cb2800cbf708f2aca7960d0eeb8f1705d8d4b18760686dfc5395ea4307328514d37329d527e7635a36c0732a7cf763f91d71f77e816f2d98e82fb')
@@ -39,8 +41,9 @@ build() {
 
 check() {
 	cd "$_archive"
-	export PYTHONPATH="$PWD/src"
-	python -m wormhole.test.run_trial wormhole
+	export PYTHONPATH=src
+	# some tests use unittest.mock wrong and new stricter Python errors
+	pytest --deselect src/wormhole/test/test_tor_manager.py
 }
 
 package() {
