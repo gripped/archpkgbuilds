@@ -7,7 +7,7 @@ pkgname=(
   gnome-builder-clang
   gnome-builder-flatpak
 )
-pkgver=46.0
+pkgver=46.1
 pkgrel=1
 pkgdesc="An IDE for writing GNOME-based software"
 url="https://wiki.gnome.org/Apps/Builder"
@@ -70,14 +70,8 @@ makedepends=(
   yelp-tools
 )
 checkdepends=(weston)
-_commit=6e7b8bb8cfa9d0fb7fc1fbd6f1bb54912443cabf  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-builder.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgbase
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-builder.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('daf402ee078c5be66ea1c589767767af63b11cc5173835a03cf8d090500cb0117472895f4b6bfb0e3344407f996ad64f4b6fe50b54e65c80da2b0bd180ad7db1')
 
 prepare() {
   cd $pkgbase
