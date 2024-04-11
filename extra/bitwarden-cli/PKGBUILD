@@ -2,7 +2,7 @@
 # Contributor: libertylocked <libertylocked@disroot.org>
 
 pkgname=bitwarden-cli
-pkgver=2024.2.1
+pkgver=2024.3.1
 pkgrel=1
 pkgdesc="The command line vault"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('nodejs-lts-hydrogen')
 makedepends=('git' 'npm' 'modclean')
 options=(!emptydirs)
 source=(bitwarden::git+https://github.com/bitwarden/clients.git#tag=cli-v${pkgver})
-sha512sums=('SKIP')
+sha512sums=('1533ce7bc7510d67a0a4dec8aaf28cf7f04006a06990c13e26e7e9c49bce47482c02480a2d1000feccf452bb61aec9d1e9de40df7b2b2cf253020360fe43bdc3')
 
 prepare() {
 	cd bitwarden
