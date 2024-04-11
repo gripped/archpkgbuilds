@@ -1,6 +1,6 @@
 pkgbase = qt6-quickeffectmaker
 	pkgdesc = Qt Quick Effect Maker (QQEM) for creating and editing custom shader effects
-	pkgver = 6.6.3
+	pkgver = 6.7.0
 	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
@@ -10,10 +10,11 @@ pkgbase = qt6-quickeffectmaker
 	license = FDL
 	license = custom
 	makedepends = cmake
+	makedepends = git
 	makedepends = ninja
-	depends = qt6-shadertools
 	depends = qt6-quick3d
-	source = https://download.qt.io/official_releases/qt/6.6/6.6.3/submodules/qtquickeffectmaker-everywhere-src-6.6.3.tar.xz
-	sha256sums = bc242a13c9ab2ef4cbe6b739e63d7b8d116058f9056f451179e4c89918282357
+	depends = qt6-shadertools
+	source = git+https://code.qt.io/qt/qtquickeffectmaker#tag=v6.7.0
+	sha256sums = fc45315aaa7b2217a1abc7d99baa57d0e594a3f18b48614dffa2c2616649da0b
 
 pkgname = qt6-quickeffectmaker
