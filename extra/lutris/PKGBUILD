@@ -4,8 +4,8 @@
 # Contributor: Frederik “Freso” S. Olesen <freso.dk@gmail.com>
 
 pkgname=lutris
-pkgver=0.5.16
-pkgrel=2
+pkgver=0.5.17
+pkgrel=1
 pkgdesc='Open Gaming Platform'
 arch=(any)
 url=https://lutris.net
@@ -69,17 +69,8 @@ optdepends=(
   'wine: Windows support'
   'xorg-xgamma: Restore gamma on game exit'
 )
-source=("git+https://github.com/lutris/lutris.git#tag=v${pkgver}"
-        fix_refresh_steam_library.patch::https://github.com/lutris/lutris/commit/d6faf75fb370a004b80539466a7cd0beedcf5e5c.patch)
-sha256sums=('eb675cd7c1f172ad93b8230fa270c800a0402b17bfcad1a6565d4dd95c91d4fd'
-            'f6564979af07a343aebb475b304fad54f3fd512ba367667d334b1288bbf5dc91')
-
-prepare() {
-  cd lutris
-  # Temporary patch to fix an issue when trying to refresh Steam library
-  # See https://github.com/lutris/lutris/issues/5248
-  patch -Np1 < "${srcdir}/fix_refresh_steam_library.patch"
-}
+source=("git+https://github.com/lutris/lutris.git#tag=v${pkgver}")
+sha256sums=('fd80281d0bc0e0b3f077184313bb774d93309c32b93d8591da9fb05ec757d2ce')
 
 build() {
   arch-meson lutris build
