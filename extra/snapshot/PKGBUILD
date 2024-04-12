@@ -1,7 +1,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=snapshot
-pkgver=46.1
+pkgver=46.2
 pkgrel=1
 pkgdesc="Take pictures and videos"
 arch=(x86_64)
@@ -29,17 +29,14 @@ makedepends=(
   meson
   rust
 )
-_commit=9b8b37b057c0dc15887d7ef4ddb299faf17f331c  # tags/46.1^0
-source=("git+https://gitlab.gnome.org/GNOME/snapshot.git#commit=$_commit")
-b2sums=('0e23942ea9c5fb4af290255f925c520255c2dc6799fb8a9f0fd5add1e2a27af7f74f172a50f18cc1cf771b0856dd59b4b2abf89ef6004064393d18b744d495d5')
+source=("git+https://gitlab.gnome.org/GNOME/snapshot.git?signed#tag=${pkgver/[a-z]/.&}")
+b2sums=('d863cacf400b452842a78e874c49f1f866591169e379b74044372fa7c853901f772ec1c41d4b1c7a036081f5412e93aae5dc11e83f132634dd4997da27264a55')
+validpgpkeys=(
+  3475CBA8D3483594C889B470D64A8D747F6FE706 # Maximiliano Sandoval <msandova@gnome.org>
+)
 
 prepare() {
   cd ${pkgname}
-}
-
-pkgver() {
-  cd ${pkgname}
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
 }
 
 build() {
