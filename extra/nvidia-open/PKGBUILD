@@ -2,14 +2,13 @@
 pkgbase=nvidia-open
 pkgname=(nvidia-open nvidia-open-dkms)
 pkgver=550.67
-pkgrel=5
+pkgrel=6
 pkgdesc="NVIDIA open kernel modules"
 arch=('x86_64')
 url="https://github.com/NVIDIA/open-gpu-kernel-modules"
 depends=("nvidia-utils=${pkgver}" 'libglvnd')
 makedepends=('linux-headers')
 license=('GPL')
-options=('!lto' '!buildflags')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/NVIDIA/open-gpu-kernel-modules/archive/refs/tags/${pkgver}.tar.gz"
         nvidia-open-gcc-ibt-sls.patch)
 sha512sums=('e522bf1509061f9e0d8d9b82ac04a5d3fb7db2e299dee6c69ee909ecc8ea1aebb23e025e7485dc29b649bdf873b434c636e2abedb46c618e9d0efdd8013ef992'
@@ -53,7 +52,7 @@ DEST_MODULE_LOCATION[4]="/kernel/drivers/video"' kernel-open/dkms.conf
 
 build() {
   cd open-gpu-kernel-modules-${pkgver}
-  make SYSSRC="/usr/src/linux"
+  CFLAGS= CXXFLAGS= LDFLAGS= make SYSSRC="/usr/src/linux"
 }
 
 package_nvidia-open() {
