@@ -3,9 +3,8 @@
 # Contributor: Daniel Isenmann <daniel@archlinux.org>
 
 pkgname=gegl
-_tag='3002c6976bee47e5718c227b2fa3dc1bffea780e'
 pkgver=0.4.48
-pkgrel=1
+pkgrel=2
 pkgdesc='Graph based image processing framework'
 arch=('x86_64')
 url='https://www.gegl.org/'
@@ -18,8 +17,8 @@ makedepends=('ffmpeg' 'git' 'gobject-introspection' 'libgexiv2' 'meson' 'python-
 optdepends=('ffmpeg: FFmpeg Frame Loader and FFmpeg Frame Saver plugins'
             'graphviz: for gegl-introspect'
             'sdl2: SDL2 Display plugin')
-source=("git+https://gitlab.gnome.org/GNOME/gegl.git#tag=$_tag")
-sha256sums=('SKIP')
+source=("git+https://gitlab.gnome.org/GNOME/gegl.git#tag=GEGL_${pkgver//./_}")
+sha256sums=('bed1b1f0348519a175422800564c65c372b125b4230a0207342911bf07f34ded')
 
 pkgver() {
   cd "${pkgname}"
@@ -44,4 +43,9 @@ check() {
 package() {
   cd build
   DESTDIR="${pkgdir}" ninja install
+
+  # strip the default tile size to make the package reproducible
+  # https://gitlab.gnome.org/GNOME/gegl/-/issues/368#note_2074468
+  sed -i "/tile-cache-size/ s/default-value=\".*\"/default-value=\"\"/" "${pkgdir}/usr/share/gir-1.0/Gegl-${pkgver%.*}.gir"
+  sed -i "/Default value/ s;<td>[[:digit:]]*</td>;<td></td>;" "${pkgdir}/usr/share/doc/gegl-${pkgver%.*}/property.Config.tile-cache-size.html"
 }
