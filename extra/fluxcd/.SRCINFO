@@ -1,17 +1,18 @@
 pkgbase = fluxcd
 	pkgdesc = Open and extensible continuous delivery solution for Kubernetes
-	pkgver = 2.2.2
+	pkgver = 2.2.3
 	pkgrel = 1
 	url = https://fluxcd.io
 	arch = x86_64
-	license = Apache
+	license = Apache-2.0
 	makedepends = git
 	makedepends = go
 	makedepends = kustomize
 	depends = glibc
 	replaces = fluxctl
 	options = !lto
-	source = fluxcd::git+https://github.com/fluxcd/flux2#commit=5c5c15ea212b8f029a110f9975851d25c8272695
-	b2sums = SKIP
+	source = fluxcd::git+https://github.com/fluxcd/flux2#tag=v2.2.3
+	sha512sums = 5d4479c2cda4c09a4de5f33f18d11fe0eea937e29e5c0647a1435bdaeacb54fbb65e943f13da7f5e655be11fd2e1642a0bb9146aa5b573a33cce652289e40965
+	b2sums = f174aa472ce213684ebcada34d39ca180417a29e0d604c9e108f3871031fe21eeb2f7c8cbe462558d096207f67ceb4df7114f1710c7fed4e2eff7fd74c8a26ff
 
 pkgname = fluxcd
