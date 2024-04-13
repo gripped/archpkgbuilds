@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=virt-firmware
-pkgver=24.2
+pkgver=24.4
 pkgrel=1
 pkgdesc="Collection of tools for edk2 firmware images"
 arch=(any)
@@ -19,10 +19,13 @@ makedepends=(
   python-installer
   python-wheel
 )
-checkdepends=(python-pytest)
+checkdepends=(
+  python-pytest
+  systemd  # tests require systemd-detect-virt(?!)
+)
 source=($url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('6d712091f49d7c4c7782f3091ade101420cfff757369537a15a6f13198872ef9ea68e83ee3c17965faeffd1244e7a89e3729d57059fcb9cd83ca4c97790c47a5')
-b2sums=('463268a1dc958d5c3280060c10d0d7ae899ec073c8b20c7ae08143f30b5bab71344e15bcb32e7f8231591924efe1d110ade79ff800ec9043b9941fbabee2b837')
+sha512sums=('a36506187a166b4f71bdcabb506333ccd1132b2a09123048aca6361bf106d885d2bad6f036e19ee4ffa132de161a2962eff2de64d3e30a3da902a569b481e5ff')
+b2sums=('973abaafc9480c707b866e495b768363ffc7fb87e3267510f0aef744b017667c733b350d0b872a3ae58e2d9690f89aca9ac3f6d18a34b33cd59e247df4334443')
 
 build() {
   cd $pkgname-v$pkgver
