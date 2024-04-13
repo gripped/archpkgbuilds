@@ -1,13 +1,13 @@
 pkgbase = sequoia-chameleon-gnupg
 	pkgdesc = A re-implementation and drop-in replacement of gpg and gpgv
-	pkgver = 0.7.1
+	pkgver = 0.8.0
 	pkgrel = 1
 	url = https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg
 	arch = x86_64
 	groups = sequoia
 	license = GPL-3.0-or-later
 	checkdepends = gnupg
-	checkdepends = libfaketime
+	checkdepends = sequoia-sq
 	makedepends = bzip2
 	makedepends = cargo
 	makedepends = clang
@@ -16,10 +16,10 @@ pkgbase = sequoia-chameleon-gnupg
 	makedepends = sqlite
 	depends = gcc-libs
 	depends = glibc
-	source = git+https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg#tag=v0.7.1?signed
+	source = git+https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg?signed#tag=v0.8.0
 	validpgpkeys = CBCD8F030588653EEDD7E2659B7DD433F254904A
-	sha512sums = ab69c4bd684bfb91fad943a7cacad579d82af709e82d92bd09a3dfcaa01564090af474aa5dd16782a5067921bb3b1a2e5c94d65377de81ec440cecb17270779e
-	b2sums = 31f20db7d9a42325d3435f1b245690d368b0e9b2fa327621e47db85be6243b474674e562554930d21cb36684b6b4819f7f149d08d80ed9fe543536ef7f05fc4b
+	sha512sums = c37341a961df47cbb9e76fd6c683371e0249e7dd23c0c8d1bee308c35873d4ef9e427b1bc8c71c6d30bad9cfed042869c15b6c1019f2b7e6ee919e6db3eff032
+	b2sums = 656923346dd111c38dd0b30a65e7240cd263f7f0457fd1a029fdfabca0e4c6cc001b10907cdb6ae5ae3459a09496590a4983db0f02ce75b44bb91008d0bf8ae5
 
 pkgname = sequoia-chameleon-gnupg
 	depends = gcc-libs
