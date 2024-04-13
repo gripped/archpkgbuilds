@@ -1,0 +1,22 @@
+pkgbase = git-filter-repo
+	pkgdesc = Quickly rewrite git repository history (filter-branch replacement)
+	pkgver = 2.38.0
+	pkgrel = 2
+	url = https://github.com/newren/git-filter-repo
+	arch = any
+	license = MIT
+	checkdepends = rsync
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	makedepends = python-setuptools-scm
+	depends = git
+	depends = python
+	source = https://github.com/newren/git-filter-repo/releases/download/v2.38.0/git-filter-repo-2.38.0.tar.xz
+	source = https://src.fedoraproject.org/rpms/git-filter-repo/raw/rawhide/f/git-filter-repo-support-git-2_43.diff
+	source = https://src.fedoraproject.org/rpms/git-filter-repo/raw/rawhide/f/git-filter-repo-fix-t9390-t41.diff
+	sha256sums = db954f4cae9e47c6be3bd3161bc80540d44f5379cb9cf9df498f4e019f0a41a9
+	sha256sums = 6d7be296681dc32c88d3e8aade1380e48cb62941d0261fe507109e78fb53ea4b
+	sha256sums = 82399400e7c5c7b2dcad9aa685786a8d73de6bdea1f52189cc26b2f9ce896a92
+
+pkgname = git-filter-repo
