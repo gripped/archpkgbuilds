@@ -3,7 +3,7 @@
 _pkg=geopandas
 pkgname=python-${_pkg}
 pkgver=0.14.3
-pkgrel=1
+pkgrel=3
 pkgdesc="Python tools for geographic data"
 arch=(any)
 url="https://geopandas.org"
@@ -18,7 +18,6 @@ depends=(
     python-shapely
 )
 optdepends=(
-    'python-pygeos: alternative backend'
     'python-pyogrio: vectorized IO for GDAL/OGR'
     'python-rtree: spatial access methods'
     'python-psycopg2: PostGIS access'
@@ -31,7 +30,6 @@ makedepends=(python-setuptools)
 checkdepends=(
     python-pytest
     python-fsspec
-    python-pygeos
     python-pyogrio
     python-rtree
     python-matplotlib
