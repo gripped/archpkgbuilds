@@ -71,6 +71,7 @@ MODULES array options:
 
 HOOKS array options:
     --rootdevice=          show HOOKS array for rootdevice
+    --systemd              use systemd hooks on early userspace
     --hooks-dir=           use directory for HOOKS check
 EOF
     exit 1
@@ -261,6 +262,7 @@ while [ -n "$*"  ]; do
                         _MODULES_INITRAMFS="${_KMS} ${_MODULES_INITRAMFS}" ;;
         --nvidia-kms)   _KMS="nouveau"
                         _MODULES_INITRAMFS="${_KMS} ${_MODULES_INITRAMFS}" ;;
+        --systemd)      _SYSTEMD="1"
     esac
     shift
 done
@@ -273,7 +275,12 @@ if [[ -n "${_ROOTDEVICE}" ]]; then
         echo "ERROR: ${_ROOTDEVICE} not a valid block device."
         exit 1
     fi
-    _ROOTCHECK="$(lsblk -rpsno TYPE "${_ROOTDEVICE}" | grep -vwe "disk" -we "part" | tac | sed -e 's#crypt#encrypt#g' -e 's#raid.*[0-9]#mdadm_udev#g' -e 's#lvm#lvm2#g')"
+    if [[ "${_SYSTEMD}" == 1 ]]; then
+        _ENCRYPT=sd-encrypt
+    else
+        _ENCRYPT=encrypt
+    fi
+    _ROOTCHECK="$(lsblk -rpsno TYPE "${_ROOTDEVICE}" | grep -vwe "disk" -we "part" | tac | sed -e "s#crypt#${_ENCRYPT}#g" -e 's#raid.*[0-9]#mdadm_udev#g' -e 's#lvm#lvm2#g')"
     if [[ -z "${_HOOKS_DIR}" ]]; then
         _HOOKS_DIR="${_ROOT_DIRECTORY}/usr/lib/initcpio/install"
     fi
@@ -281,7 +288,11 @@ if [[ -n "${_ROOTDEVICE}" ]]; then
         echo "ERROR: ${_HOOKS_DIR} not a valid HOOKS directory."
         exit 1
     fi
-    _START_HOOKS="base udev autodetect microcode modconf kms keyboard keymap consolefont block filesystems fsck ${_ROOTCHECK}"
+    if [[ "${_SYSTEMD}" == 1 ]]; then
+        _START_HOOKS="systemd autodetect microcode modconf kms keyboard sd-vconsole block filesystems fsck ${_ROOTCHECK}"
+    else
+        _START_HOOKS="base udev autodetect microcode modconf kms keyboard keymap consolefont block filesystems fsck ${_ROOTCHECK}"
+    fi
     # remove the ones that don't exist on the system
     for i in ${_START_HOOKS}; do
         if ! [[ -e "${_HOOKS_DIR}/$i" ]]; then
