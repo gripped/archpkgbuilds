@@ -275,7 +275,7 @@ if [[ -n "${_ROOTDEVICE}" ]]; then
         echo "ERROR: ${_ROOTDEVICE} not a valid block device."
         exit 1
     fi
-    if [[ "${_SYSTEMD}" == 1 ]]; then
+    if [[ -n "${_SYSTEMD}" ]]; then
         _ENCRYPT=sd-encrypt
     else
         _ENCRYPT=encrypt
@@ -288,7 +288,7 @@ if [[ -n "${_ROOTDEVICE}" ]]; then
         echo "ERROR: ${_HOOKS_DIR} not a valid HOOKS directory."
         exit 1
     fi
-    if [[ "${_SYSTEMD}" == 1 ]]; then
+    if [[ -n "${_SYSTEMD}" ]]; then
         _START_HOOKS="systemd autodetect microcode modconf kms keyboard sd-vconsole block filesystems fsck ${_ROOTCHECK}"
     else
         _START_HOOKS="base udev autodetect microcode modconf kms keyboard keymap consolefont block filesystems fsck ${_ROOTCHECK}"
