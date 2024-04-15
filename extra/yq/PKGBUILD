@@ -4,7 +4,7 @@
 # Contributor: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=yq
-pkgver=3.2.3
+pkgver=3.3.0
 pkgrel=1
 pkgdesc="Command-line YAML, XML, TOML processor - jq wrapper for YAML/XML/TOML documents"
 arch=('any')
@@ -18,8 +18,8 @@ depends=('jq'
 makedepends=('python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
 conflicts=('go-yq')
 source=("https://files.pythonhosted.org/packages/source/y/$pkgname/$pkgname-$pkgver.tar.gz")
-sha256sums=('29c8fe1d36b4f64163f4d01314c6ae217539870f610216dee6025dfb5eafafb1')
-b2sums=('b0c4548efa08aecc98b77b5988e5dbf652951ecfab3ab01bfbf9610151cee3c3a0b9c3139434cba3bfc08a2176a617a2c9d19c0fcf47bb8a6d3cc3886fa5de6d')
+sha256sums=('d2ab562f11b1e0e5b9654b9b06d43f8a205269cc7bda2ce077325f5a123651dc')
+b2sums=('5fc6e7315a7be87d2552209e7df30534101ace4d7311cfd32f4ddf9e4dde64b5af0499695f0ed960c416218cd0c3a1fd1feebfd4ffa5e4e21d3acb63462d7aef')
 
 build() {
   cd $pkgname-$pkgver
