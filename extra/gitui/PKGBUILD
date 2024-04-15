@@ -4,37 +4,36 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=gitui
-pkgver=0.25.2
+pkgver=0.26.1
 pkgrel=1
 pkgdesc='Blazing fast terminal-ui for git written in Rust'
 url='https://github.com/extrawurst/gitui'
 arch=('x86_64')
 license=('MIT')
 # work around two libssl.so providers being in the repos by only depending on package for now
-depends=('gcc-libs' 'libgit2.so' 'libxcb' 'openssl' 'zlib')
-makedepends=('cargo' 'python') # xcb crate needs python
-source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('5a67d526e22533952a747cb34eb2430a1340dd3139f60a785f579bba4a6aa5ed')
-b2sums=('4df6a0b250fb12556f4f77d2bd1e7b8c53f4db92653e0af13a17c58aeb05f241d7a383ce5c65eb53aed9565c2ce48c8158c6967774213b36bf705fe748ee3afe')
+depends=('gcc-libs' 'libgit2' 'libgit2.so' 'libxcb' 'openssl' 'zlib')
+makedepends=('cargo' 'git' 'python') # xcb crate needs python
+source=("git+$url.git?tag=$pkgver")
+sha256sums=('SKIP')
 
 prepare() {
-  cd "${pkgname}-${pkgver}"
+  cd "$pkgname"
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
-  cd "${pkgname}-${pkgver}"
-  CFLAGS+=" -ffat-lto-objects"
+  cd "$pkgname"
+  CFLAGS+=' -ffat-lto-objects'
   cargo build --frozen --release
 }
 
 check() {
-  cd "${pkgname}-${pkgver}"
+  cd "$pkgname"
   cargo test --frozen
 }
 
 package() {
-  cd "${pkgname}-${pkgver}"
+  cd "$pkgname"
   install -Dm 755 target/release/gitui -t "${pkgdir}/usr/bin/"
   install -Dm 644 {KEY_CONFIG,README,THEMES}.md -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -Dm 644 LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
