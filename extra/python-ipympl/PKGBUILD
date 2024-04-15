@@ -5,25 +5,31 @@
 
 _pyname=ipympl
 pkgname=python-$_pyname
-pkgver=0.9.3
-pkgrel=4
+pkgver=0.9.4
+pkgrel=1
 pkgdesc='Matplotlib Jupyter Extension'
 url='https://pypi.org/project/ipympl/'
-depends=(python-ipython-genutils
+depends=(ipython
+         python
+         python-ipython-genutils
          python-ipywidgets
-         python-matplotlib)
+         python-matplotlib
+         python-numpy
+         python-pillow
+         python-traitlets)
 makedepends=(jupyterlab
+             nodejs
              python-build
-             python-installer
-             python-jupyter-packaging
-             python-setuptools)
+             python-hatch-jupyter-builder
+             python-hatchling
+             python-installer)
 checkdepends=(python-numpy
               python-nbval
               python-pytest)
-license=(BSD)
+license=(BSD-3-Clause)
 arch=(any)
 source=(https://pypi.io/packages/source/${_pyname:0:1}/$_pyname/$_pyname-$pkgver.tar.gz)
-sha256sums=('49bab75c05673a6881d1aaec5d8ac81d4624f73d292d154c5fb7096f10236a2b')
+sha256sums=('cfb53c5b4fcbcee6d18f095eecfc6c6c474303d5b744e72cc66e7a2804708907')
 
 prepare() {
   sed -e 's|>=.*\"|\"|g' -e 's|~=.*\"|\"|g' -i $_pyname-$pkgver/pyproject.toml
@@ -32,7 +38,7 @@ prepare() {
 
 build() {
   cd $_pyname-$pkgver
-  python -m build --wheel --no-isolation
+  python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 # pypi tarball missing tests
