@@ -2,7 +2,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 
 pkgname=openimagedenoise
-pkgver=2.2.1
+pkgver=2.2.2
 pkgrel=1
 pkgdesc='Intel(R) Open Image Denoise library'
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('Apache')
 depends=('intel-tbb')
 makedepends=('cmake' 'ninja' 'ispc' 'python')
 source=("https://github.com/OpenImageDenoise/oidn/releases/download/v${pkgver}/oidn-${pkgver}.src.tar.gz")
-sha512sums=('0aa21f0862d8f165b2a1305e97cabbe5f86ecfe003a8464f7cf1c6b7d2644a9fc8a26d9b067e51497f26c928716ba92dbf42c0c156e72c630a706eaf463a5c31')
+sha512sums=('eca18e9e22a40bc1381e75985e5f5e79f48cc6d168a2a703e54540967646487d347db290459e9a612d8ab4924e8d3c83d84664fd5318cca4f17745da1e47cf50')
 
 build() {
   cd oidn-$pkgver
