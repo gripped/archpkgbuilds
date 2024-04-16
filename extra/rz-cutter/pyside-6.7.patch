@@ -7,7 +7,7 @@ index 6f6a5aa5..ea96814f 100644
  
      PythonToCppFunc pythonToCpp = Shiboken::Conversions::isPythonToCppPointerConvertible(
 -            reinterpret_cast<SbkObjectType *>(SbkCutterBindingsTypes[SBK_CUTTERPLUGIN_IDX]),
-+            reinterpret_cast<SbkObjectType *>(reinterpret_cast<PyTypeObject **>(SbkCutterBindingsTypeStructs)[SBK_CUTTERPLUGIN_IDX]),
++            reinterpret_cast<PyTypeObject **>(SbkCutterBindingsTypeStructs)[SBK_CUTTERPLUGIN_IDX],
              pluginObject);
      if (!pythonToCpp) {
          qWarning() << "Plugin's create_cutter_plugin() function did not return an instance of "
