@@ -3,7 +3,7 @@
 
 pkgname=tmux
 pkgver=3.4
-pkgrel=5
+pkgrel=6
 pkgdesc='Terminal multiplexer'
 url='https://github.com/tmux/tmux/wiki'
 arch=('x86_64')
@@ -19,6 +19,8 @@ sha256sums=('71387cf05585836da88d9b481f98e89be5bc8f09a203600187b22aa0e00c52b0')
 prepare() {
 	cd "$pkgname"
 
+	# https://github.com/tmux/tmux/issues/3864
+	git revert -n 43e5e80343185e69a1b864fc48095ede0b898180
 	sh autogen.sh
 }
 
