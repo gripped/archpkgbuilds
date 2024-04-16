@@ -2,7 +2,7 @@
 
 _name=pdm
 pkgname=python-pdm
-pkgver=2.13.3
+pkgver=2.14.0
 pkgrel=1
 pkgdesc="A modern Python package manager with PEP 582 support"
 arch=(any)
@@ -29,6 +29,7 @@ depends=(
   python-resolvelib
   python-rich
   python-shellingham
+  python-socksio  # required via python-httpx feature
   python-tomlkit
   python-truststore
   python-unearth
@@ -53,8 +54,8 @@ optdepends=(
   'python-setuptools: for parsing setup.py files'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('11c575ae8b98aded0b6172f5657717cc1a535aa1f8dd20facd2f79b38f55643630331db2753ca47554b50401066d290007f9161a486a1486f08eaa18283579d6')
-b2sums=('461bae94c5672b208cf3d1bd3f5e3177af52db4b70b409542bd83b35c295b75542915bfab0036c1c0fd415fc26421a3d240df4b25a187f8526f37484b83a2634')
+sha512sums=('3e9e653cf6cca42a6f3e90e5f1b5f4fd7a9dfe91b4760f69eeb3414729b06191d76e9f9eda8605cf596c12a8c047d3dbc3082fa8432503f51b1c9f41be0c022d')
+b2sums=('5985c3ac68c394fc8b57951c51056346df3eace0abca891889b147646c71cf2ecacaaa957da01c61a00ce1d8653e91cfefe86de1ff2fb54863e8cd68f8061eeb')
 
 build() {
   cd $_name-$pkgver
