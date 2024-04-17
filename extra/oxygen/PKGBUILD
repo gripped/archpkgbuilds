@@ -6,7 +6,7 @@ pkgbase=oxygen
 pkgname=(oxygen
          oxygen5)
 pkgdesc='KDE Oxygen style'
-pkgver=6.0.3
+pkgver=6.0.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 arch=(x86_64)
@@ -39,7 +39,7 @@ makedepends=(extra-cmake-modules
 optdepends=('oxygen5: Oxygen widget style for Qt5 applications')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('737d5dba2d8a6229d7c3d654b5900aa3c0a2a3a8e36cb5c87d8ed7a738233c84'
+sha256sums=('9150e00989a72cff35bb46c5ac9af25cabcee4cc18299c8be707bee84c5e546f'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
