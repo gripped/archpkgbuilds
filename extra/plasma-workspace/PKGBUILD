@@ -4,7 +4,7 @@
 # Contributor: Alexey D. <lq07829icatm at rambler.ru>
 
 pkgname=plasma-workspace
-pkgver=6.0.3
+pkgver=6.0.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE Plasma Workspace'
@@ -131,7 +131,7 @@ conflicts=(plasma-wayland-session)
 replaces=(plasma-wayland-session)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('e43ea8003a8753279df4580ebed17eea352e9694b54dba4507406025a41f69c3'
+sha256sums=('7f2c2871c966e66d5de2d63bcb1a554fe00b4da6bde93f69700bd1b1f60dc567'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
