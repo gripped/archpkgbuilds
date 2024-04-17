@@ -1,5 +1,6 @@
-# Maintainer: Daurnimator <daurnimator@archlinux.org>
 # Maintainer: Lukas Fleischer <lfleischer@archlinux.org>
+# Maintainer: Daurnimator <daurnimator@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 # Contributor: Chris Brannon <chris@the-brannons.com>
 # Contributor: Paulo Matias <matiasΘarchlinux-br·org>
@@ -7,9 +8,9 @@
 
 pkgname=luajit
 # LuaJIT has a "rolling release" where you should follow git HEAD
-_commit=ff204d0350575cf710f6f4af982db146cb454e1a
+_commit=d06beb0480c5d1eb53b3343e78063950275aa281
 # The patch version is the timestamp of the above git commit, obtain via `git show -s --format=%ct`
-_ct=1702233742
+_ct=1710088188
 pkgver="2.1.${_ct}"
 pkgrel=1
 pkgdesc='Just-in-time compiler and drop-in replacement for Lua 5.1'
@@ -18,9 +19,9 @@ url='https://luajit.org/'
 license=('MIT')
 depends=('gcc-libs')
 source=("LuaJIT-${_commit}.tar.gz::https://github.com/LuaJIT/LuaJIT/archive/${_commit}.tar.gz")
-md5sums=('97486356d223510a6e3c31a20bcd32ed')
-sha256sums=('3ec37f78ab3b1afd4c3af0fde743c332da3da32eadc8500489c1cc2e4f0ec7eb')
-b2sums=('6ba03fa107baadf0ac980d515debd638b1a166014ee46c6fa95865a12678a831fbae04d14ccb737723a69874af2b0637bbaa516973830ca4c7e5311aa3f91b76')
+md5sums=('9869aaa8061f43d8f9dedb67d4379e66')
+sha256sums=('6abd146a1dfa240a965748f63221633446affa2a715e3eb03879136e3efb95f4')
+b2sums=('28da36e4a845b12e4f3bd05d0e4b1cdc6fe33a2b6ffd161bb313201b969ac47d0cec95a4a8211eb6fd84a650edb7d2005b410cb1f8fdabefbf421e4b856e8040')
 
 build() {
   cd "LuaJIT-${_commit}"
