@@ -3,9 +3,9 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kde-gtk-config
-pkgver=6.0.3
+pkgver=6.0.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=2
+pkgrel=1
 pkgdesc='Syncs KDE settings to GTK applications'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -30,7 +30,7 @@ makedepends=(extra-cmake-modules
 optdepends=('gtk3: GTK3 apps support')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('36d4cf4fe4acdec5d917c8ff3ff15748e6fcb356dcd3a4488c9e087e79b564c2'
+sha256sums=('fd5491c2b0e887dc204e1661ac7f364f2c0965085ce4f50fa22857e0ed285dbd'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
