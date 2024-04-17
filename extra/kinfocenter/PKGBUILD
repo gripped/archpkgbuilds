@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kinfocenter
-pkgver=6.0.3
+pkgver=6.0.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='A utility that provides information about a computer system'
@@ -42,7 +42,7 @@ makedepends=(extra-cmake-modules
 optdepends=('fwupd: firmware security module')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('ee9c2ddaee2c8bf453c38e82c3327dc83ad390042dd106c19ddf4b6251a8adfb'
+sha256sums=('5af1ab7fd5c54f95221537bd4ee913dfa067ddff3a1cb4b5d486de539a48268e'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
