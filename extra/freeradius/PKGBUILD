@@ -4,7 +4,7 @@
 
 pkgname=freeradius
 pkgver=3.2.3
-pkgrel=6
+pkgrel=8
 pkgdesc='The premier open source RADIUS server'
 arch=('x86_64')
 url='https://freeradius.org/'
@@ -25,7 +25,7 @@ optdepends=('curl: for REST'
             'yubico-c-client: for yubicloud')
 options=('!makeflags')
 validpgpkeys=('BF2384EC6938B9744B03E2A620E37C25995B4F85') # FreeRADIUS - Package Signing [...] <packages@freeradius.org>
-source=("ftp://ftp.freeradius.org/pub/radius/freeradius-server-$pkgver.tar.bz2"{,.sig}
+source=("https://github.com/FreeRADIUS/freeradius-server/releases/download/release_${pkgver//./_}/freeradius-server-${pkgver}.tar.bz2"{,.sig}
         '0001-python-3-10.patch'
         '0002-Use-accessor-function-for-PyFrameObject-members.patch'
         'freeradius-sysusers.conf'
