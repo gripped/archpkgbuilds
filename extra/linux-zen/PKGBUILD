@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgbase=linux-zen
-pkgver=6.8.5.zen1
+pkgver=6.8.6.zen1
 pkgrel=1
 pkgdesc='Linux ZEN'
 url='https://github.com/zen-kernel/zen-kernel'
@@ -43,17 +43,17 @@ validpgpkeys=(
   83BC8889351B5DEBBB68416EB8AC08600F108CDF  # Jan Alexander Steffens (heftig)
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('138923e5d73748b4bdbe9b5a0b8f36dfac9fcc16753a9222928dc6c963effa89'
+sha256sums=('9e723232d603ab45ebf043c34714c48f277ab195c29abcb8472f2a4c3a5a1995'
             'SKIP'
-            '7dbbd0257aab09bd4952af708cf4ad4d4d71f96d6dcd962b5224001205536c64'
+            '3612713b3f585a658de102f3d230623a7d2d2bd3243127abd798f019d7cacf63'
             'SKIP'
-            '53fe69d65cc1fdf94c2835cc54157f46649c77dd54a7b27975190cad3cab733e'
+            'b88e22d69e2d138b8924b8b9a9b7996dac23a72886d6884e58b8629cf40fd163'
             '9cb73cacbb3633f207d0c30e738cae9965adcd0b0eb5ecd60563fed1394c0f38')
-b2sums=('795c67356a7992cc73a85a733471d0379156f7ba68eedd68d4aa099eb07b4eea4626239ae15cdcc409819c833beb1ec2dc4032b203363db52ab1cb8bc31ac4ea'
+b2sums=('fea25d171e8e4e0394211b5589d76fd85537094dc80c135e80fc8bd32acf0d6f4f34524c35df960e8c7ee488c8288d158fc233d6cc7a76182996a658741da71b'
         'SKIP'
-        '2397843e166360a3abfac7f94727f1aacd469fb082fca576f0083598b30c55a938bba001e4c4c62b45e9692c7f4a8ace2d11233873c294d0de2403b5e7acd232'
+        '861d7e240ae7b9192abb2c2e40868086b3c1c4e0e32962b7c561029d517989f0b0949c1fdbd1b79afcb8c6106fa188c8875adfa8a3a0818cc9d99d8a4252c604'
         'SKIP'
-        'fffb18bba077c85ceb1908cd9c417c18204bc3b0fb9bb4c1a93086988ce6c6da71de70f344653b594c23eadf241b932d666c7f94b38a6b21a5d9e57cea63e7ee'
+        '831328009efe6b434c61f428b6cec47833987cd55b51eb6ab022c0b2347f331369577368d1ae4b11fd748bc1f46d8dc337fde6876e7b66fa8fb0f3ceee58c235'
         '0bb42a22c110f06a45e59a9adc194184a51ff97e5584d6ffabca0aa37e1e65ccaf44f43dc744eaa3861d6f6b00e299d4662bcf0c0d94478af9352b4c4f6b0ffd')
 
 export KBUILD_BUILD_HOST=archlinux
