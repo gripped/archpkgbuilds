@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgbase=linux-zen
-pkgver=6.8.6.zen1
+pkgver=6.8.7.zen1
 pkgrel=1
 pkgdesc='Linux ZEN'
 url='https://github.com/zen-kernel/zen-kernel'
@@ -35,7 +35,6 @@ source=(
   https://cdn.kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/${_srcname}.tar.{xz,sign}
   $url/releases/download/$_srctag/linux-$_srctag.patch.zst{,.sig}
   config  # the main kernel config file
-  docutils.patch  # fix the docs build
 )
 validpgpkeys=(
   ABAF11C65A2970B130ABE3C479BE3E4300411886  # Linus Torvalds
@@ -43,18 +42,16 @@ validpgpkeys=(
   83BC8889351B5DEBBB68416EB8AC08600F108CDF  # Jan Alexander Steffens (heftig)
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('9e723232d603ab45ebf043c34714c48f277ab195c29abcb8472f2a4c3a5a1995'
+sha256sums=('291d1a1faf4e87b3b0ea9729080db887aafd1ff2fac1430ceca921e46bc22fae'
             'SKIP'
-            '3612713b3f585a658de102f3d230623a7d2d2bd3243127abd798f019d7cacf63'
+            '5601608f7d7f8970d60579a51c7a057ca7b16700c37e18c1afc1fb58ce8d7d5d'
             'SKIP'
-            'b88e22d69e2d138b8924b8b9a9b7996dac23a72886d6884e58b8629cf40fd163'
-            '9cb73cacbb3633f207d0c30e738cae9965adcd0b0eb5ecd60563fed1394c0f38')
-b2sums=('fea25d171e8e4e0394211b5589d76fd85537094dc80c135e80fc8bd32acf0d6f4f34524c35df960e8c7ee488c8288d158fc233d6cc7a76182996a658741da71b'
+            'f2337f36a46152f5788543e6896ac6e9fb93f52f23fa0789c1711483db894f58')
+b2sums=('e8626a99c6c5769a8126d5ee1c7962c3df3c7a8c689193ffa864c4a4b8e72daeeaf22c3e3bb6ba5490eca3ef64c32a4a12980360a196444a53abadd791cd1855'
         'SKIP'
-        '861d7e240ae7b9192abb2c2e40868086b3c1c4e0e32962b7c561029d517989f0b0949c1fdbd1b79afcb8c6106fa188c8875adfa8a3a0818cc9d99d8a4252c604'
+        '795d9644bdafb2c3c7359c03729a1f62c8af127e9c4eda2dc45f867fc4a6917a2393ba1795c7149234ee191c39eaeeb734ac3887482fc095eebe7f2a5fb4b41f'
         'SKIP'
-        '831328009efe6b434c61f428b6cec47833987cd55b51eb6ab022c0b2347f331369577368d1ae4b11fd748bc1f46d8dc337fde6876e7b66fa8fb0f3ceee58c235'
-        '0bb42a22c110f06a45e59a9adc194184a51ff97e5584d6ffabca0aa37e1e65ccaf44f43dc744eaa3861d6f6b00e299d4662bcf0c0d94478af9352b4c4f6b0ffd')
+        'e28eec6e230b891c4d77b9180c2daddfaf3ce3ef18cc88d0d684c325819b8a0c088066cb2b6d524fb81bbf4e09adae1fdd39ff6a19e8c6385f59aa1cfbbb4639')
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
