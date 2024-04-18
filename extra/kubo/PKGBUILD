@@ -5,14 +5,17 @@
 # Contributor: Ian Naval <ianonavy@gmail.com>
 
 pkgname=kubo
-pkgver=0.27.0
-pkgrel=2
+pkgver=0.28.0
+pkgrel=1
 pkgdesc='IPFS implementation in Go'
 url='https://github.com/ipfs/kubo'
 arch=(x86_64)
 license=(MIT)
 depends=(glibc)
-makedepends=(go git)
+makedepends=(
+  git
+  go
+)
 optdepends=('fuse2: for mounting/advanced use')
 provides=('go-ipfs')
 replaces=('go-ipfs')
@@ -22,10 +25,10 @@ options=(!lto)
 source=(https://github.com/ipfs/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         ipfs.service
         ipfs@.service)
-sha256sums=('d5bba110154d73700733cacbf9abf2639ed9b8ba11556befc664ec10f3d8d78f'
+sha256sums=('6609b38a6610497d4f281c483a78dd704dc9b1ba9d1090f6fb853616cd32eb4c'
             'b9cee7b118c5dbb16c182340bb37150c5f864501e1d649995ff0229c577026b3'
             '69cb69f638b97b5578d635147e4d78b29ad707ed17cb7968cd4588fe266c92ab')
-b2sums=('168f15b74c0143b9bc799c1bb485e90acac26b033f8d274b9e33ce0c19accddfcad134a7eecdd09baeb1c9f3610d0543a254b2b7914cebeb10604e75c3e8d565'
+b2sums=('a30c14341a58fcf16a40657f4be1cc9beecb7a3d5936ecd7b4cc3175790aa62e74bfa1438fb154c2e130397bf410b08ecdf9689d9394a764feb40a2a39d075e7'
         'b0c0e8ede6c872104fd55e4edc127ba3e2c3dacbbe74178337effe6ae149a12246b0dc662c10c420ddadf1bdb889f2d747601f807bd2bc5e90101e1ffce595a4'
         '88f7b58b11519da87ba2e50a493ae62e57ab1c1cbbca7d5d8a3f6705738a7a09636ec614e3f905be20f3442214f9f12eedfc5050a92ec763031e27595f42c0d6')
 
@@ -47,6 +50,7 @@ build() {
   make build
   cmd/ipfs/ipfs commands completion bash > "$srcdir/ipfs-completion.bash"
   cmd/ipfs/ipfs commands completion fish > "$srcdir/ipfs-completion.fish"
+  cmd/ipfs/ipfs commands completion zsh > "$srcdir/ipfs-completion.zsh"
 }
 
 package() {
@@ -58,6 +62,7 @@ package() {
 
   install -Dm 644 "$srcdir"/ipfs-completion.bash "$pkgdir/usr/share/bash-completion/completions/ipfs"
   install -Dm 644 "$srcdir"/ipfs-completion.fish "$pkgdir/usr/share/fish/vendor_completions.d/ipfs.fish"
+  install -Dm 644 "$srcdir"/ipfs-completion.zsh "$pkgdir/usr/share/zsh/site-functions/_ipfs"
 
   install -Dm 644 -t "$pkgdir/usr/share/licenses/$pkgname/MIT" LICENSE-MIT
   install -Dm 644 -t "$pkgdir/usr/share/licenses/$pkgname/APACHE" LICENSE-APACHE
