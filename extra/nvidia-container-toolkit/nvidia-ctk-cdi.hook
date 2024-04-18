@@ -1,0 +1,12 @@
+[Trigger]
+Type = Package
+Operation = Install
+Operation = Upgrade
+Target = nvidia-utils
+Target = nvidia-container-toolkit
+
+[Action]
+Description = Regenerate NVIDIA CDI (Container Device Interface)
+Exec = /usr/bin/nvidia-ctk --quiet cdi generate --output=/etc/cdi/nvidia.yaml
+When = PostTransaction
+Depends = nvidia-utils

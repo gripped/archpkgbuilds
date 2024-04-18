@@ -4,8 +4,8 @@
 # Contributor: Julie Shapiro <jshapiro at nvidia dot com>
 
 pkgname=nvidia-container-toolkit
-pkgver=1.14.6
-pkgrel=4
+pkgver=1.15.0
+pkgrel=1
 pkgdesc="NVIDIA container runtime toolkit"
 arch=(x86_64)
 url="https://github.com/NVIDIA/nvidia-container-toolkit"
@@ -15,8 +15,10 @@ makedepends=(go)
 backup=('etc/nvidia-container-runtime/config.toml')
 # we cannot use LTO as otherwise we do not get reproducible package with full RELRO
 options=('!lto')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-b2sums=('6d0dc186a49b2d1cb09fda3f3c4e3361e22f8891cba96cfaa14f2b70f887040b5b637125f7581159aa4a3e0f4c0542f0899e1d0708806767091a9cc34828deac')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
+        nvidia-ctk-cdi.hook)
+b2sums=('6f8764a71490d2836af690d4ef4ee4831d9613add430f720cb08c7e347d1675411471bbeda2155e567b5ae3f99220bfc4524081ab364c451d30e12b12be6196e'
+        '38484d2c593696c6c103f794e37c4ac62eba69913413d22a43bf56f9469b5c9aed4232640ef36628cdd263b8ee0969d653ec154228ba7c085007f14837cb6aa8')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -49,6 +51,9 @@ package() {
   # install binaries
   install -vDm 755 build/nvidia-{ctk,container-runtime{,.cdi,.legacy,-hook}} -t "$pkgdir/usr/bin/"
   ln -s nvidia-container-runtime-hook "$pkgdir/usr/bin/nvidia-container-toolkit"
+
+  # install pacman hook
+  install -vDm 644 ../nvidia-ctk-cdi.hook -t "$pkgdir/usr/share/libalpm/hooks/"
 
   # install the license
   install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
