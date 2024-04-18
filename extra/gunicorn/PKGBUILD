@@ -5,13 +5,13 @@
 # Contributor: Vsevolod Balashov <vsevolod at balashov dot name>
 
 pkgname=gunicorn
-pkgver=21.2.0
-pkgrel=2
+pkgver=22.0.0
+pkgrel=1
 pkgdesc='WSGI HTTP Server for UNIX'
 arch=('any')
 url='https://gunicorn.org/'
 license=('MIT')
-depends=('python')
+depends=('python-packaging')
 makedepends=(
   'git'
   'python-build'
@@ -21,11 +21,9 @@ makedepends=(
 )
 checkdepends=(
   'python-aiohttp'
-  'python-coverage'
   'python-eventlet'
   'python-gevent'
   'python-pytest'
-  'python-pytest-cov'
 )
 optdepends=(
   'python-eventlet: for asynchronous request handling with eventlet'
@@ -34,7 +32,7 @@ optdepends=(
   'python-tornado: for asynchronous request handling with tornado'
 )
 source=("git+https://github.com/benoitc/$pkgname.git#tag=$pkgver")
-b2sums=('6d16b867e202b5291529e757675c88236bb2cb213489fe9610cc057235f00fcc3c065e36857e152fe79e736d6cb903f8f18911a0eca597cf7b0e65350b4b5bcd')
+b2sums=('ceba81b2dc5914f6f0aba0c8971ed36af1e0db078df3bcbb1381e3928a34152e2c251b145476522764582b556e176c1cbb3762e1a0ea2a2d8219f63f0e4a8180')
 
 build() {
   cd $pkgname
@@ -43,7 +41,7 @@ build() {
 
 check() {
   cd $pkgname
-  python -m pytest
+  python -m pytest --override-ini="addopts="
 }
 
 package() {
