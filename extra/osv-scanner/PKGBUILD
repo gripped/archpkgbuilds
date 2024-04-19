@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=osv-scanner
-pkgver=1.7.0
+pkgver=1.7.2
 pkgrel=1
 pkgdesc="Vulnerability scanner written in Go which uses the data provided by https://osv.dev"
 url='https://github.com/google/osv-scanner'
@@ -10,17 +10,22 @@ license=('Apache-2.0')
 depends=('glibc')
 makedepends=('go')
 source=(https://github.com/google/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('2e36bb23c87665e0081b1d3d538fe342cd27d041d864158d099f3c1a9de6de31')
-b2sums=('3b0b9d6dbf1f41e1c8b91e1a990a2a87cf2d4e96adfffc98306bc56bb0462458cc7e2fa2b616660b51e507fbeff0092597415483035a28248b469a342e8ea355')
+sha256sums=('b6ff65f82e833e2d8102e3308e620ef30af5f93b3a215f899098be9a3e21ad03')
+b2sums=('19c77ae203e4ffa07cfd4f9d305733f5415780d05608b14865b6805248d7a690c228be72fbef9000c72566007f61a7d55a632c7b3e202ef1e67d4e17564e8996')
 
 build() {
   cd ${pkgname}-${pkgver}
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export CGO_LDFLAGS="${LDFLAGS}"
+  export CGO_REQUIRED="1"
+
   go build \
-    -trimpath \
     -buildmode=pie \
     -mod=readonly \
     -modcacherw \
-    -ldflags "-linkmode external -extldflags \"${LDFLAGS}\"" \
+    -ldflags '-compressdwarf=false -linkmode=external' \
     ./cmd/osv-scanner
 }
 
