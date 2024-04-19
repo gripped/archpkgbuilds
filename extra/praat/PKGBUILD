@@ -8,7 +8,7 @@
 
 pkgname=praat
 pkgver=6.4.08
-pkgrel=1
+pkgrel=2
 pkgdesc='A speech analysis tool used for doing phonetics by computer'
 arch=(x86_64 i686 aarch64)
 url=https://www.praat.org
@@ -20,6 +20,7 @@ depends=(alsa-lib
          ttf-charis-sil
          ttf-doulos-sil)
 optdepends=('ttf-sil-fonts')
+replaces=("$pkgname-bin") # recently deleted AUR bin variant
 _url="https://github.com/$pkgname/$pkgname"
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz"
