@@ -1,30 +1,20 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=gnome-shell-extension-appindicator
-pkgver=57
-pkgrel=3
+pkgver=58
+pkgrel=1
 epoch=1
 pkgdesc='AppIndicator/KStatusNotifierItem support for GNOME Shell'
 url='https://github.com/ubuntu/gnome-shell-extension-appindicator'
 arch=('any')
 license=('GPL-2.0-or-later')
 depends=('gnome-shell')
-makedepends=('meson' 'jq')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ubuntu/${pkgname}/archive/v${pkgver}.tar.gz"
-        'gnome46.patch'
-        'gnome46_2.patch')
-sha256sums=('788fa3ff2f8525efbd794bffd0fcec3d77c9c1cbfcff0fadeb93b4925751ca41'
-            'af2aac20c026a8f37f81181c7ed26337e69f18774991a362b4ed2a8fbd22efcd'
-            '8579a21ba702e53609af33097520c6772c4cc9a304c868e892d4d40195a5a33c')
-
-prepare() {
-  cd "${pkgname}-${pkgver}"
-  # GNOME 46 support
-  # https://github.com/ubuntu/gnome-shell-extension-appindicator/pull/498
-  patch -Np1 -i ../gnome46.patch
-  # https://github.com/ubuntu/gnome-shell-extension-appindicator/pull/503
-  patch -Np1 -i ../gnome46_2.patch
-}
+makedepends=(
+  'jq'
+  'meson'
+)
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ubuntu/${pkgname}/archive/v${pkgver}.tar.gz")
+sha256sums=('7a6fda28ddd214fbb832486b85c73447ff0c5fc7a36c6d1510c4ff6801cff9d8')
 
 build() {
   arch-meson "${pkgname}-${pkgver}" build -Dlocal_install=disabled
