@@ -3,8 +3,8 @@
 # Contributor: Michael Lass <bevan@bi-co.net>
 
 pkgname=trurl
-pkgver=0.11
-pkgrel=2
+pkgver=0.12
+pkgrel=1
 pkgdesc="Command line tool for URL parsing and manipulation"
 arch=(x86_64)
 url="https://github.com/curl/trurl"
@@ -12,7 +12,7 @@ license=(custom)
 depends=(curl glibc)
 checkdepends=(python valgrind)
 source=("https://github.com/curl/$pkgname/archive/refs/tags/$pkgname-$pkgver.tar.gz")
-sha256sums=('c82773e6d841a5ab8d1306daaf062ba8b953b1d58023089550c23d478a885863')
+sha256sums=('67a1620ebb0392a9cdd8e46bc44a14e0a5d8c1a9112859fbbb525ec919d2fa9b')
 
 build() {
 	cd "$pkgname-$pkgname-$pkgver"
