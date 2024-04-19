@@ -8,24 +8,39 @@ pkgname=(
   libedataserverui4
   evolution-data-server-docs
 )
-pkgver=3.52.0
-pkgrel=2
+pkgver=3.52.1
+pkgrel=1
 pkgdesc="Unified contacts, tasks and calendar backend"
 url="https://wiki.gnome.org/Apps/Evolution"
 arch=(x86_64)
 license=("LGPL-2.0-only AND LGPL-2.1-or-later")
 depends=(
+  cairo
+  dconf
+  gcc-libs
+  glib2
+  glibc
   gtk3
+  hicolor-icon-theme
+  icu
+  json-glib
   krb5
   libcanberra
   libgoa
   libgweather-4
   libical
+  libldap
   libphonenumber
   libsecret
+  libsoup3
+  libxml2
+  nspr
   nss
+  pango
+  perl
   sqlite
   webkit2gtk-4.1
+  zlib
 )
 makedepends=(
   boost
@@ -42,14 +57,8 @@ makedepends=(
   webkitgtk-6.0
 )
 checkdepends=(db)
-_commit=739d0f7c158c768f3401c8a8b4cf41da94ef219b  # tags/3.52.0^0
-source=("git+https://gitlab.gnome.org/GNOME/evolution-data-server.git#commit=$_commit")
-b2sums=('3a26bda58a1da44d763ac8a71cd5d0393c6e0ee989a183aecc478c5c660196a12d0915085a269cd9d105a8857c333bd557f7ebcca5fd9aa1379eda90acca3590')
-
-pkgver() {
-  cd $pkgbase
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/evolution-data-server.git#tag=$pkgver")
+b2sums=('ef468f7d05252b12c4002b2087f993d3ba6cf25886deb3d7b34fd84a9b322a87034926402cf31b0ffeeb1ebd71957c4fef827743e8ddd541aa62a843827cd456')
 
 prepare() {
   cd $pkgbase
@@ -119,8 +128,15 @@ package_libedataserverui4() {
   pkgdesc+=" - GTK 4 UI library"
   depends=(
     "evolution-data-server=$pkgver-$pkgrel"
+    glib2
+    glibc
     libgtk-4.so
+    libical
+    libsoup3
     libwebkitgtk-6.0.so
+    nspr
+    nss
+    pango
   )
   provides=(libedataserverui4-1.0.so)
 
