@@ -1,11 +1,10 @@
 pkgbase = libosinfo
 	pkgdesc = GObject based library API for managing information about operating systems, hypervisors and the (virtual) hardware devices they can support
 	pkgver = 1.11.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://libosinfo.org/
 	arch = x86_64
-	license = GPL
-	license = LGPL
+	license = GPL-2.0-or-later AND LGPL-2.1-or-later
 	makedepends = gobject-introspection
 	makedepends = meson
 	makedepends = vala
@@ -19,10 +18,12 @@ pkgbase = libosinfo
 	depends = osinfo-db
 	source = https://releases.pagure.org/libosinfo/libosinfo-1.11.0.tar.xz
 	source = https://releases.pagure.org/libosinfo/libosinfo-1.11.0.tar.xz.asc
+	source = libosinfo-Make-xmlError-struct-constant.patch
 	validpgpkeys = DAF3A6FDB26B62912D0E8E3FBE86EBB415104FDF
 	validpgpkeys = 09B9C8FF223EF113AFA06A39EE926C2BDACC177B
 	validpgpkeys = 206D3B352F566F3B0E6572E997D9123DE37A484F
 	sha256sums = 1bf96eec9e1460f3d1a713163cca1ff0d480a3490b50899292f14548b3a96b60
 	sha256sums = SKIP
+	sha256sums = 1b4a5d69750a660d63b4408ffc9e6cc247e4ae6a4d52c033c6bdc3c918a41a65
 
 pkgname = libosinfo
