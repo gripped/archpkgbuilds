@@ -1,10 +1,10 @@
 pkgbase = osinfo-db-tools
 	pkgdesc = Tools for managing the osinfo database
 	pkgver = 1.11.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://libosinfo.org/
 	arch = x86_64
-	license = GPL
+	license = GPL-2.0-or-later
 	checkdepends = python-pytest
 	checkdepends = python-requests
 	makedepends = meson
@@ -17,10 +17,12 @@ pkgbase = osinfo-db-tools
 	depends = libxml2
 	source = https://releases.pagure.org/libosinfo/osinfo-db-tools-1.11.0.tar.xz
 	source = https://releases.pagure.org/libosinfo/osinfo-db-tools-1.11.0.tar.xz.asc
+	source = osinfo-db-tools-libxml2-2.12.patch
 	validpgpkeys = DAF3A6FDB26B62912D0E8E3FBE86EBB415104FDF
 	validpgpkeys = 09B9C8FF223EF113AFA06A39EE926C2BDACC177B
 	validpgpkeys = 206D3B352F566F3B0E6572E997D9123DE37A484F
 	sha256sums = 8ba6d31bb5ef07056e38879e070671afbcfec0eb41a87f9950450bbb831b0a1d
 	sha256sums = SKIP
+	sha256sums = 5088a4d8e141d1ced604e93498f65b1d1aeb0c1f29db9098dad89231ceeb2b5d
 
 pkgname = osinfo-db-tools
