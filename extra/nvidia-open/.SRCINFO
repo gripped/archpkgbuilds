@@ -1,27 +1,27 @@
 pkgbase = nvidia-open
 	pkgdesc = NVIDIA open kernel modules
-	pkgver = 550.67
-	pkgrel = 8
+	pkgver = 550.76
+	pkgrel = 1
 	url = https://github.com/NVIDIA/open-gpu-kernel-modules
 	arch = x86_64
 	license = GPL
 	makedepends = linux-headers
-	depends = nvidia-utils=550.67
+	depends = nvidia-utils=550.76
 	depends = libglvnd
-	source = nvidia-open-550.67.tar.gz::https://github.com/NVIDIA/open-gpu-kernel-modules/archive/refs/tags/550.67.tar.gz
+	source = nvidia-open-550.76.tar.gz::https://github.com/NVIDIA/open-gpu-kernel-modules/archive/refs/tags/550.76.tar.gz
 	source = nvidia-open-gcc-ibt-sls.patch
-	sha512sums = e522bf1509061f9e0d8d9b82ac04a5d3fb7db2e299dee6c69ee909ecc8ea1aebb23e025e7485dc29b649bdf873b434c636e2abedb46c618e9d0efdd8013ef992
+	sha512sums = 5126d3b8e3f0635b5b044db4faf0d483e70bb43418bbd21325bb175aaca948e19bd81038fbef9118a95387da65ff0ff3d1592fc54c0d6815a2448b32024468ac
 	sha512sums = 263c4c5e75ef8cb8ca2641c022dfaf8bd9222fadf68ed15120b0ae7dd9cc901a04ce2e55625d513a0995759c9d82dfbdc4c33d4751159124915d7404b1400e34
 
 pkgname = nvidia-open
-	depends = nvidia-utils=550.67
+	depends = nvidia-utils=550.76
 	depends = libglvnd
 	depends = linux
 	provides = NVIDIA-MODULE
 	conflicts = NVIDIA-MODULE
 
 pkgname = nvidia-open-dkms
-	depends = nvidia-utils=550.67
+	depends = nvidia-utils=550.76
 	depends = libglvnd
 	depends = dkms
 	provides = nvidia-open
