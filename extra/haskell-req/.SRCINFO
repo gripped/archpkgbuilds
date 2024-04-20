@@ -1,12 +1,12 @@
 pkgbase = haskell-req
 	pkgdesc = HTTP client library
-	pkgver = 3.13.0
-	pkgrel = 117
+	pkgver = 3.13.1
+	pkgrel = 1
 	url = https://github.com/mrkkrp/req
 	arch = x86_64
 	license = BSD
+	makedepends = git
 	makedepends = ghc
-	makedepends = uusi
 	makedepends = haskell-quickcheck
 	makedepends = haskell-hspec
 	makedepends = haskell-hspec-core
@@ -25,7 +25,7 @@ pkgbase = haskell-req
 	depends = haskell-retry
 	depends = haskell-transformers-base
 	depends = haskell-unliftio-core
-	source = https://hackage.haskell.org/packages/archive/req/3.13.0/req-3.13.0.tar.gz
-	sha512sums = 01600cee2ffb2db91a46ede812b29a94e2671dc92765b40ffcd5caa53dbaf27d97abd6f6ca18a0cd9cec0be41ea65daccecbd03e96e2a4c08dde8ee96b12adae
+	source = git+https://github.com/mrkkrp/req#tag=3.13.1
+	sha512sums = f08c2026afde72503e1e0de090e1e8c9cab940f12036cc8599b17dae0be72862c99aa0da38607378d4de3a144d02537b62c6e5aa835609f8a0f41a01cbbf5c3e
 
 pkgname = haskell-req
