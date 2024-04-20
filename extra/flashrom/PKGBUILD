@@ -6,7 +6,7 @@
 
 pkgname=flashrom
 pkgver=1.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Utility for reading, writing, erasing and verifying flash ROM chips"
 arch=(x86_64)
 url="https://www.flashrom.org/"
@@ -34,5 +34,6 @@ package() {
   meson install -C build --destdir "${pkgdir}"
 
   cd ${pkgname}
-  install -Dm644 util/flashrom_udev.rules "${pkgdir}"/usr/lib/udev/rules.d/flashrom.rules
+  sed -i 's#GROUP="plugdev"#TAG+="uaccess"#g' util/flashrom_udev.rules
+  install -Dm644 util/flashrom_udev.rules "${pkgdir}"/usr/lib/udev/rules.d/70-flashrom.rules
 }
