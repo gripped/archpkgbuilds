@@ -3,26 +3,20 @@
 # Contributor: Florian Hülsmann <fh@cbix.de>
 
 pkgname=liblc3
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc="Low Complexity Communication Codec library and tools"
 url="https://github.com/google/liblc3"
 arch=(x86_64)
-license=(Apache)
+license=(Apache-2.0)
 depends=(glibc)
 makedepends=(
   git
   meson
 )
 provides=(liblc3.so)
-_commit=0d45f4ecf6d5d0e9c0dd392d84f371c4e01aed60  # tags/v1.1.0
-source=("git+$url#commit=$_commit")
-b2sums=('66b10340d2e422f2e7bcef8b0be56ebc135b02995bc1a003fb9eae7409471d6b7d5596dfbd5e770458b20f2f6bf6cedeeb6f69c12977572cb1e7480cc923a0e7')
-
-pkgver() {
-  cd liblc3
-  git describe --tags | sed 's/^v//;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+$url#tag=v$pkgver")
+b2sums=('e6492333659b7560104a09917704222e427667dd88d7c87f3ac5b70e67292deede8fa03db870033363e0e4518e3ac2c3fb2a934aa4e5dfcca2140e4301d84944')
 
 prepare() {
   cd liblc3
