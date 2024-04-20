@@ -2,17 +2,17 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=eslint
-pkgver=8.57.0
+pkgver=9.1.0
 pkgrel=1
 pkgdesc='An AST-based pattern checker for JavaScript'
 arch=('any')
 url='https://eslint.org'
 license=('MIT')
 depends=('acorn' 'nodejs')
-makedepends=('git' 'npm' 'rsync')
+makedepends=('git' 'jq' 'npm')
 options=('!emptydirs')
 source=("git+https://github.com/$pkgname/$pkgname.git#tag=v$pkgver")
-b2sums=('SKIP')
+b2sums=('c881beb93087834fcf8d03658aabc296ff5c3145db376c26b55ce23a34dc1f8744d2b726ecddad47f809126ae24187ba5436a240e4203324a85198cc092d0f50')
 
 prepare() {
   cd $pkgname
@@ -26,17 +26,17 @@ check() {
 
 package() {
   local mod_dir=/usr/lib/node_modules/$pkgname
-  install -d "$pkgdir"/usr/bin
+  install -d "$pkgdir"/{usr/{bin,share/{doc,licenses}/$pkgname},$mod_dir}
   ln -s $mod_dir/bin/$pkgname.js "$pkgdir"/usr/bin/$pkgname
+  ln -s $mod_dir/README.md "$pkgdir"/usr/share/doc/$pkgname
+  ln -s $mod_dir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname
 
   cd $pkgname
   npm prune --production
 
-  install -Dt "$pkgdir"/$mod_dir/bin bin/$pkgname.js
-  rsync -r --exclude=.cache --exclude=.package-lock.json conf lib messages \
-    node_modules package.json "$pkgdir"/$mod_dir
-  install -Dm644 -t "$pkgdir"/usr/share/doc/$pkgname README.md
-  install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
+  readarray -t mod_files < <(jq -r '.files[]' package.json)
+  cp -r "${mod_files[@]}" node_modules package.json "$pkgdir"/$mod_dir
+  chmod +x "$pkgdir"/$mod_dir/bin/$pkgname.js
 
   # Experimental dedup
   rm -r "$pkgdir"/$mod_dir/node_modules/acorn
