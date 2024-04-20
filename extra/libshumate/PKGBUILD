@@ -6,7 +6,7 @@ pkgname=(
   libshumate
   libshumate-docs
 )
-pkgver=1.2.0
+pkgver=1.2.1
 pkgrel=1
 pkgdesc="Map widget for GTK 4"
 url="https://wiki.gnome.org/Projects/libshumate"
@@ -36,14 +36,13 @@ makedepends=(
   vala
 )
 checkdepends=(xorg-server-xvfb)
-_commit=14434008eb5da2b382e93704e099c2d6f171ebd7  # tags/1.2.0^0
-source=("git+https://gitlab.gnome.org/GNOME/libshumate.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=(
+  "git+https://gitlab.gnome.org/GNOME/libshumate.git?signed#tag=${pkgver/[a-z]/.&}"
+)
+b2sums=('684c159eeedda0e0a935f56848cb8096611e89e48cd51e11f7811962322d9469e62afdf97a6d2a6ca2d8f9847ebef302d51e59542544aabe96bd384eb3529853')
+validpgpkeys=(
+  7448F128A4B18AB2EF87F092FA6624580A420D5D # Marcus Lundblad <ml@update.uu.se>
+)
 
 prepare() {
   cd $pkgname
