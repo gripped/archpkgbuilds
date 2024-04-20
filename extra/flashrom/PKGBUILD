@@ -6,18 +6,18 @@
 
 pkgname=flashrom
 pkgver=1.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Utility for reading, writing, erasing and verifying flash ROM chips"
 arch=(x86_64)
 url="https://www.flashrom.org/"
 license=(GPL-2.0-or-later)
 depends=(
-  cmocka
   libftdi
   libusb
   pciutils
 )
 makedepends=(
+  cmocka
   git
   meson
 )
