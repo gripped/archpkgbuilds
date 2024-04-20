@@ -1,0 +1,25 @@
+pkgbase = lib32-gdk-pixbuf2
+	pkgdesc = An image loading library (32-bit)
+	pkgver = 2.42.11
+	pkgrel = 1
+	url = https://wiki.gnome.org/Projects/GdkPixbuf
+	arch = x86_64
+	license = LGPL-2.0-or-later
+	makedepends = git
+	makedepends = meson
+	depends = gdk-pixbuf2
+	depends = lib32-glib2
+	depends = lib32-glibc
+	depends = lib32-libjpeg
+	depends = lib32-libpng
+	depends = lib32-libtiff
+	depends = shared-mime-info
+	optdepends = lib32-librsvg: Load .svg, .svgz, and .svg.gz
+	source = git+https://gitlab.gnome.org/GNOME/gdk-pixbuf.git#tag=2.42.11
+	source = gdk-pixbuf-query-loaders-32.hook
+	b2sums = 23af2f9f3cd542e6d6d14203a8037400df1e22e89884bddfc1439195e5c788ceec532a7bdda2c1685bb2355ea1303484872b836fdb6827cd448b57c36e6786a6
+	b2sums = 0b432bdeb31acdd66c8a861551cabf4f83efd3c441614dbb64b7ac11fdbb97c76412b5706bb18ff1ed890de0a4c51bf02bb531eb4693e6d68021b5372cb5897a
+
+pkgname = lib32-gdk-pixbuf2
+	install = lib32-gdk-pixbuf2.install
+	provides = libgdk_pixbuf-2.0.so
