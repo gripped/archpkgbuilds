@@ -1,26 +1,33 @@
 pkgbase = polari
 	pkgdesc = An IRC Client for GNOME
-	pkgver = 45.0
+	pkgver = 46.0
 	pkgrel = 1
-	url = https://wiki.gnome.org/Apps/Polari
+	url = https://apps.gnome.org/Polari/
 	arch = x86_64
 	groups = gnome-extra
-	license = GPL
-	makedepends = appstream-glib
+	license = GPL-2.0-or-later
+	makedepends = appstream
 	makedepends = git
 	makedepends = gobject-introspection
 	makedepends = meson
 	makedepends = yelp-tools
+	depends = dconf
+	depends = gcc-libs
 	depends = gjs
+	depends = glib2
+	depends = glibc
 	depends = gnome-keyring
 	depends = gtk4
+	depends = hicolor-icon-theme
 	depends = libadwaita
+	depends = libgirepository
 	depends = libsoup3
 	depends = telepathy-glib
 	depends = telepathy-idle
 	depends = telepathy-logger
 	depends = telepathy-mission-control
-	source = git+https://gitlab.gnome.org/GNOME/polari.git#commit=9ea71de3d20fdc96e76bb55362418b9118e7cf07
-	b2sums = SKIP
+	depends = tracker3
+	source = git+https://gitlab.gnome.org/GNOME/polari.git#tag=46.0
+	b2sums = 4e8ebd9ab847cd67b0427e69e41fa1a102f00799309767efdb3b1e109a2737155224bf1558808f610639200e817dd64cef6d657cfcefbca183c8e779d36dad16
 
 pkgname = polari
