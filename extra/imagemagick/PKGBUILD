@@ -2,8 +2,8 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=imagemagick
-pkgver=7.1.1.30
-pkgrel=2
+pkgver=7.1.1.31
+pkgrel=1
 _relname=ImageMagick-${pkgver%%.*}
 _tarname=ImageMagick-${pkgver%.*}-${pkgver##*.}
 pkgdesc='An image viewing/manipulation program'
@@ -69,12 +69,10 @@ checkdepends=(gsfonts
               ttf-dejavu)
 replaces=(imagemagick-doc)
 source=(https://imagemagick.org/archive/$_tarname.tar.xz{,.asc}
-        arch-fonts.diff
-        fix-wmf-detection.patch)
-sha256sums=('ec192780d09da7d7b1e7a374a19f97d69cceb4e5e83057515cd595eda233a891'
+        arch-fonts.diff)
+sha256sums=('7e5c8db53dd90a0cfc5cc7ca6d34728ed86054b4bc86e9787902285fec1107a8'
             'SKIP'
-            'a85b744c61b1b563743ecb7c7adad999d7ed9a8af816650e3ab9321b2b102e73'
-            '9d96075030f303d5bab107921e172166b8ffad53cb55913decb4e35fc956213c')
+            'a85b744c61b1b563743ecb7c7adad999d7ed9a8af816650e3ab9321b2b102e73')
 validpgpkeys=(D8272EF51DA223E4D05B466989AB63D48277377A)  # Lexie Parsimoniae
 
 shopt -s extglob
@@ -86,11 +84,6 @@ prepare() {
 
   # Fix up typemaps to match our packages, where possible
   patch -p1 -i ../arch-fonts.diff
-
-  # Fix WMF detection, https://github.com/ImageMagick/ImageMagick/issues/7230
-  patch -p1 -i ../fix-wmf-detection.patch
-
-  autoreconf -vif
 }
 
 build() {
