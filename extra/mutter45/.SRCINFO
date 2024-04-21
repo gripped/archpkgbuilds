@@ -1,6 +1,6 @@
 pkgbase = mutter45
 	pkgdesc = Window manager and compositor for Elementary
-	pkgver = 45.5
+	pkgver = 45.6
 	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/mutter
 	arch = x86_64
@@ -10,6 +10,7 @@ pkgbase = mutter45
 	makedepends = gobject-introspection
 	makedepends = gtk3
 	makedepends = meson
+	makedepends = python-packaging
 	makedepends = sysprof
 	makedepends = wayland-protocols
 	makedepends = xorg-server
@@ -71,7 +72,7 @@ pkgbase = mutter45
 	depends = xorg-xwayland
 	provides = libmutter-13.so
 	conflicts = mutter
-	source = git+https://gitlab.gnome.org/GNOME/mutter.git#commit=4e8ccf5f9c177595aac11895ed50a4e35d5087e4
-	b2sums = 44ae8d04493e317d9b1f92a4bd28745598adfce40cedd19eebb9c19a446baf54f4a2b382a4db272002c0134967d68c3fb45fe7bfd20704e753dde446b11916ef
+	source = git+https://gitlab.gnome.org/GNOME/mutter.git#tag=45.6
+	b2sums = a009b5fdcb2c0ca1fa0ccef7e7a72be64ff6216585dd0d379b1733ef05e54451529de05ca117fa7c66615e5fad2b0456bb7d7c9e8d6b53075085b84aee4d6c5e
 
 pkgname = mutter45
