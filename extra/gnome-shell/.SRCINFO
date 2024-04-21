@@ -1,6 +1,6 @@
 pkgbase = gnome-shell
 	pkgdesc = Next generation desktop shell
-	pkgver = 46.0
+	pkgver = 46.1
 	pkgrel = 1
 	epoch = 1
 	url = https://wiki.gnome.org/Projects/GnomeShell
@@ -60,9 +60,10 @@ pkgbase = gnome-shell
 	depends = systemd-libs
 	depends = unzip
 	depends = upower
-	source = git+https://gitlab.gnome.org/GNOME/gnome-shell.git#commit=0463511457612ca87f7426b3b01356d1d85bee9b
+	depends = webkitgtk-6.0
+	source = git+https://gitlab.gnome.org/GNOME/gnome-shell.git#tag=46.1
 	source = git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git
-	b2sums = 8684414294c781bd02f89eb76ae04a51a701c51e00966f227989c0a41d161f34e4bfb7e9609f0a902a565aa4ea22f9d9c740d043b668bc132ed6d7471b8d7119
+	b2sums = 7aa8e21a0135a1c5536d19877747a86b1cfa1024b6c378db2364033d2a6b3a3e30875a08176423cc41c7c3a87bb76b5b67df5177aa6d209a726f0f3a3c15dd6a
 	b2sums = SKIP
 
 pkgname = gnome-shell
@@ -109,6 +110,7 @@ pkgname = gnome-shell
 	depends = systemd-libs
 	depends = unzip
 	depends = upower
+	depends = webkitgtk-6.0
 	depends = libmutter-14.so
 	optdepends = evolution-data-server: Evolution calendar integration
 	optdepends = gnome-bluetooth-3.0: Bluetooth support
