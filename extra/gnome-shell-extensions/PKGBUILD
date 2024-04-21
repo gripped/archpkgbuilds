@@ -2,7 +2,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=gnome-shell-extensions
-pkgver=46.0
+pkgver=46.1
 pkgrel=1
 pkgdesc="Extensions for GNOME shell, including classic mode"
 url="https://wiki.gnome.org/Projects/GnomeShell/Extensions"
@@ -16,18 +16,16 @@ makedepends=(
   git
   meson
 )
-optdepends=('gnome-menus: applications menu extension')
-groups=(gnome)
-_commit=e65c561e6f49952346c96fd3d5d222671f6b3b89  # tags/46.0^0
-source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-shell-extensions.git#commit=$_commit"
+optdepends=(
+  'gnome-menus: Apps Menu extension'
+  'libgtop: System Monitor extension'
 )
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
+groups=(gnome)
+source=(
+  # GSE tags use SSH signatures which makepkg doesn't understand
+  "git+https://gitlab.gnome.org/GNOME/gnome-shell-extensions.git#tag=${pkgver/[a-z]/.&}"
+)
+b2sums=('77530896b7a640498ef99e5067bc8b8bcbd4f9788d0c43055c9d01bf30e224be1595fc8e9ebb7addfa1de76b83a7dc1368508c6b4c9e8cd9aa0f46e8aba0c9d4')
 
 prepare() {
   cd $pkgname

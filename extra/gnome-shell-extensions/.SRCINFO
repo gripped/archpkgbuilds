@@ -1,6 +1,6 @@
 pkgbase = gnome-shell-extensions
 	pkgdesc = Extensions for GNOME shell, including classic mode
-	pkgver = 46.0
+	pkgver = 46.1
 	pkgrel = 1
 	url = https://wiki.gnome.org/Projects/GnomeShell/Extensions
 	arch = any
@@ -10,8 +10,9 @@ pkgbase = gnome-shell-extensions
 	makedepends = meson
 	depends = dconf
 	depends = gnome-shell
-	optdepends = gnome-menus: applications menu extension
-	source = git+https://gitlab.gnome.org/GNOME/gnome-shell-extensions.git#commit=e65c561e6f49952346c96fd3d5d222671f6b3b89
-	b2sums = SKIP
+	optdepends = gnome-menus: Apps Menu extension
+	optdepends = libgtop: System Monitor extension
+	source = git+https://gitlab.gnome.org/GNOME/gnome-shell-extensions.git#tag=46.1
+	b2sums = 77530896b7a640498ef99e5067bc8b8bcbd4f9788d0c43055c9d01bf30e224be1595fc8e9ebb7addfa1de76b83a7dc1368508c6b4c9e8cd9aa0f46e8aba0c9d4
 
 pkgname = gnome-shell-extensions
