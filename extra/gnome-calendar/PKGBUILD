@@ -3,8 +3,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-calendar
-pkgver=46.0
-pkgrel=2
+pkgver=46.1
+pkgrel=1
 pkgdesc="Simple and beautiful calendar application designed to perfectly fit the GNOME desktop"
 url="https://wiki.gnome.org/Apps/Calendar"
 arch=(x86_64)
@@ -35,14 +35,8 @@ makedepends=(
 )
 optdepends=('gnome-control-center: Manage online accounts')
 groups=(gnome)
-_commit=64f2fb7b4d1be594e67fd4f030a34e6cfe148026  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-calendar.git#commit=$_commit")
-b2sums=('d3151cc8523c516ce8e60e3a4b0e669950cd24dd1b3e8212dd5b5930c33567b07862aa1f79c26f81f68e8c6d31aedfafd1ab4d10896c8372c01aa0f3710b9bbb')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-calendar.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('ba82a9bce6d7feaf54094e75343d4a558ad93e04eb03aea12f0b8ba2406e9f66800bf528af350620f8e70f63626ee082e673bc388692a0a5d3e552294558ba3e')
 
 prepare() {
   cd $pkgname
