@@ -1,10 +1,10 @@
 pkgbase = python-jupyterlab-server
 	pkgdesc = Launch an application built using JupyterLab
-	pkgver = 2.26.0
+	pkgver = 2.27.0
 	pkgrel = 1
 	url = https://jupyter.org/
 	arch = any
-	license = custom
+	license = BSD-3-Clause
 	checkdepends = python-jupyter-server-terminals
 	checkdepends = python-openapi-core
 	checkdepends = python-parse
@@ -15,6 +15,7 @@ pkgbase = python-jupyterlab-server
 	checkdepends = python-pytest-tornasync
 	checkdepends = python-requests-mock
 	checkdepends = python-strict-rfc3339
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-hatchling
 	makedepends = python-installer
@@ -35,7 +36,7 @@ pkgbase = python-jupyterlab-server
 	conflicts = python-jupyterlab_server
 	replaces = jupyterlab_server
 	replaces = python-jupyterlab_server
-	source = https://github.com/jupyterlab/jupyterlab_server/releases/download/v2.26.0/jupyterlab_server-2.26.0.tar.gz
-	sha256sums = 9b3ba91cf2837f7f124fca36d63f3ca80ace2bed4898a63dd47e6598c1ab006f
+	source = git+https://github.com/jupyterlab/jupyterlab_server#tag=v2.27.0
+	sha256sums = 6dcfecd1a79ff823ccd4fcac7551e0662f3419f1719ae8af60dba155fdb3a7a1
 
 pkgname = python-jupyterlab-server
