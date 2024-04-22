@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-terminal
-pkgver=3.52.0
+pkgver=3.52.1
 pkgrel=1
 pkgdesc="The GNOME Terminal Emulator"
 url="https://wiki.gnome.org/Apps/Terminal"
@@ -43,14 +43,8 @@ optdepends=(
   "libnautilus-extension: Nautilus integration"
 )
 groups=(gnome-extra)
-_commit=09c8b31168460c325ac00820759d6eefdf3957ab  # tags/3.52.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-terminal.git#commit=$_commit")
-b2sums=('fec04135671cb8c0a522c07baf69e92ff9b5f514581321a1bf605c30c09a15c672b5e5d8cf7db9f1d1497334a3c01ca1b9c0a13e72254547d581b501cdd8e30b')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-terminal.git#tag=$pkgver")
+b2sums=('4dc5c4e0d7ec113ff22dead846b7d3c81618bd8cbdec9f7ed99e813f9b5c22f3add78fd7088b11d799eb2ea0f976438e368e32ef06f66d214619a992bf2f738f')
 
 prepare() {
   cd $pkgname
