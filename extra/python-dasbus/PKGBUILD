@@ -6,12 +6,12 @@
 pkgname=python-dasbus
 _pkgname=dasbus
 pkgver=1.7
-pkgrel=3
+pkgrel=2
 pkgdesc="DBus library in Python 3"
 arch=('any')
 url="https://github.com/rhinstaller/dasbus"
 license=('LGPL-2.1-only')
-depends=('python' 'python-gobject' 'dbus' 'glib2')
+depends=('python' 'python-gobject' 'dbus')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 checkdepends=('python-pytest')
 source=("${_pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
