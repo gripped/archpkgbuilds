@@ -4,7 +4,7 @@
 
 pkgname=magic-wormhole
 pkgver=0.14.0
-pkgrel=4
+pkgrel=6
 pkgdesc="Securely transfer data between computers"
 arch=(any)
 url="https://github.com/magic-wormhole/magic-wormhole"
@@ -42,8 +42,11 @@ build() {
 check() {
 	cd "$_archive"
 	export PYTHONPATH=src
-	# some tests use unittest.mock wrong and new stricter Python errors
-	pytest --deselect src/wormhole/test/test_tor_manager.py
+	local deselected=(
+		# uses unittest.mock wrong and triggers new Python's errors
+		src/wormhole/test/test_tor_manager.py
+	)
+	pytest ${deselected[@]/#/--deselect }
 }
 
 package() {
@@ -51,4 +54,8 @@ package() {
 	python -m installer -d "$pkgdir" dist/*.whl
 	install -vDm 644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 	install -vDm 644 -t "$pkgdir/usr/share/man/man1/" docs/wormhole.1
+	mkdir -p "$pkgdir/usr/share/"{bash_completion/completions,fish/vendor_completions.d,zsh/site-functions}/
+	mv "$pkgdir/usr/"{wormhole_complete.bash,share/bash_completion/completions/wormhole}
+	mv "$pkgdir/usr/"{wormhole_complete.fish,share/fish/vendor_completions.d/wormhole.fish}
+	mv "$pkgdir/usr/"{wormhole_complete.zsh,share/zsh/site-functions/_wormhole}
 }
