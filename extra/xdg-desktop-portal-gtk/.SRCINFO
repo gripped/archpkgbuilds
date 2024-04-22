@@ -1,19 +1,25 @@
 pkgbase = xdg-desktop-portal-gtk
 	pkgdesc = A backend implementation for xdg-desktop-portal using GTK
 	pkgver = 1.15.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/flatpak/xdg-desktop-portal-gtk
 	arch = x86_64
-	license = LGPL
+	license = LGPL-2.0-or-later
 	makedepends = git
 	makedepends = meson
 	makedepends = python
+	makedepends = python-packaging
+	depends = fontconfig
+	depends = gcc-libs
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
 	depends = gsettings-desktop-schemas
 	depends = gtk3
 	depends = xdg-desktop-portal
 	optdepends = evince: Print preview
 	provides = xdg-desktop-portal-impl
-	source = git+https://github.com/flatpak/xdg-desktop-portal-gtk#commit=54003825481c2b48fd0c42355b484469dea12020
-	b2sums = SKIP
+	source = git+https://github.com/flatpak/xdg-desktop-portal-gtk#tag=1.15.1
+	b2sums = 417e43bb375c15bb351dd5434fdbc1665a22cc409d839408d99d29b7a2747f54c8440d9dc3087ac0246ff3e332d5a86f10025c48ec45f12894d26a0074111ec9
 
 pkgname = xdg-desktop-portal-gtk
