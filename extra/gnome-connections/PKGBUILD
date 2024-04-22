@@ -3,7 +3,7 @@
 
 pkgname=gnome-connections
 pkgver=46.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Remote desktop client for the GNOME desktop environment'
 arch=('x86_64')
 url='https://apps.gnome.org/Connections/'
@@ -11,7 +11,7 @@ license=('GPL-3.0-or-later')
 depends=(
     'cairo'
     'dconf'
-    'freerdp2'
+    'freerdp'
     'fuse3'
     'gdk-pixbuf2'
     'glib2'
@@ -32,16 +32,13 @@ makedepends=(
     'vala'
 )
 groups=('gnome')
-_commit=3563cf21f086adaa68b5ed19fb7a25ec01e353ab  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/connections.git#commit=$_commit"
+source=("git+https://gitlab.gnome.org/GNOME/connections.git?signed#tag=${pkgver/[a-z]/.&}"
         "git+https://gitlab.gnome.org/GNOME/gtk-frdp.git")
 b2sums=('28df54eb0065c9dc7960b4d27795ffc767564408cb5c688c4910be61bf65a060250dd6d6fa2d0574c2f40d986bc24b8edcf214c5860c8b7476e508fb67316f40'
         'SKIP')
-
-pkgver() {
-  cd connections
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
+validpgpkeys=(
+  F55CDAB508C3ACBCB1C8B930C910F152653B1688 # Marek Kasik <mkasik@redhat.com>
+)
 
 prepare() {
   cd connections

@@ -1,7 +1,7 @@
 pkgbase = gnome-connections
 	pkgdesc = Remote desktop client for the GNOME desktop environment
 	pkgver = 46.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://apps.gnome.org/Connections/
 	arch = x86_64
 	groups = gnome
@@ -14,7 +14,7 @@ pkgbase = gnome-connections
 	makedepends = vala
 	depends = cairo
 	depends = dconf
-	depends = freerdp2
+	depends = freerdp
 	depends = fuse3
 	depends = gdk-pixbuf2
 	depends = glib2
@@ -25,8 +25,9 @@ pkgbase = gnome-connections
 	depends = libhandy
 	depends = libsecret
 	depends = libxml2
-	source = git+https://gitlab.gnome.org/GNOME/connections.git#commit=3563cf21f086adaa68b5ed19fb7a25ec01e353ab
+	source = git+https://gitlab.gnome.org/GNOME/connections.git?signed#tag=46.0
 	source = git+https://gitlab.gnome.org/GNOME/gtk-frdp.git
+	validpgpkeys = F55CDAB508C3ACBCB1C8B930C910F152653B1688
 	b2sums = 28df54eb0065c9dc7960b4d27795ffc767564408cb5c688c4910be61bf65a060250dd6d6fa2d0574c2f40d986bc24b8edcf214c5860c8b7476e508fb67316f40
 	b2sums = SKIP
 
