@@ -1,6 +1,6 @@
 pkgbase = xdg-desktop-portal-gnome
 	pkgdesc = A backend implementation for xdg-desktop-portal for the GNOME desktop environment
-	pkgver = 46.0
+	pkgver = 46.1
 	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome
 	arch = x86_64
@@ -8,6 +8,7 @@ pkgbase = xdg-desktop-portal-gnome
 	license = LGPL-2.1-or-later
 	makedepends = git
 	makedepends = meson
+	makedepends = python-packaging
 	depends = cairo
 	depends = dconf
 	depends = fontconfig
@@ -28,7 +29,7 @@ pkgbase = xdg-desktop-portal-gnome
 	provides = xdg-desktop-portal-impl
 	conflicts = xdg-desktop-portal-gtk<1.10.0-2
 	replaces = xdg-desktop-portal-gtk<1.10.0-2
-	source = git+https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome.git#commit=81c74e0a29537e1bb29a40554e9bf9c41a272148
-	b2sums = ba32e804e1593e6d0a01d0a4ca36f9fb8abeff2c32da2ede4cd1f32c0956384d01acd56d00099a98ab989e2a2f1e0df7c7107fd5a7e56dc8b133230f631882c0
+	source = git+https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome.git#tag=46.1
+	b2sums = 40b16d6a21565c899ac977db01d1611ec7e82aadfecd906764a08b30c34c5e7bb426741b8eb90c24014ab06ef693926a4396c287dc48cda2722f4ee3969161b7
 
 pkgname = xdg-desktop-portal-gnome
