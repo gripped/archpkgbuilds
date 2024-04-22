@@ -1,7 +1,7 @@
 pkgbase = wireplumber
 	pkgdesc = Session / policy manager implementation for PipeWire
-	pkgver = 0.5.1
-	pkgrel = 2
+	pkgver = 0.5.2
+	pkgrel = 1
 	url = https://pipewire.pages.freedesktop.org/wireplumber/
 	arch = x86_64
 	license = MIT
@@ -23,14 +23,14 @@ pkgbase = wireplumber
 	makedepends = python-sphinx_rtd_theme
 	makedepends = systemd
 	makedepends = systemd-libs
-	source = git+https://gitlab.freedesktop.org/pipewire/wireplumber.git#tag=0.5.1
+	source = git+https://gitlab.freedesktop.org/pipewire/wireplumber.git#tag=0.5.2
 	source = sphinx-no-parallel.patch
-	b2sums = df10e5be79c85c8b2979ddac32f78633dceaeb1764dc64040cd3d6206570bed9141d9edfd5dc401f59e0d585eae5a88739db85b6199df7a735805dd94d97f3d6
+	b2sums = 27cd96b6f8d7f3be588074db2e99e1ec253d5fe8f9098b7080699d9bef6beb258bd9a4b12a00ebe637078613c3363496d71f2ef344c91284b8ef5f71e4d24736
 	b2sums = 771ea16e3c5c5ebcce0b451a2e9aa5d4e4098191a6a23c42350116d37fc756631cff71a5d3fb1226ed944e9953736d8a220187627cfe36ec453315c20b1032c8
 
 pkgname = wireplumber
 	install = wireplumber.install
-	depends = libwireplumber=0.5.1-2
+	depends = libwireplumber=0.5.2-1
 	depends = gcc-libs
 	depends = glibc
 	depends = libglib-2.0.so
