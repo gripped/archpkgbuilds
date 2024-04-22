@@ -1,14 +1,14 @@
 pkgbase = gnome-initial-setup
 	pkgdesc = Helps you to set up your OS when you boot for the first time
 	pkgver = 46.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://gitlab.gnome.org/GNOME/gnome-initial-setup
 	arch = x86_64
 	license = GPL-2.0-or-later
-	makedepends = meson
 	makedepends = git
+	makedepends = meson
+	makedepends = python-packaging
 	depends = accountsservice
-	depends = cairo
 	depends = fontconfig
 	depends = gcc-libs
 	depends = gdk-pixbuf2
@@ -23,7 +23,6 @@ pkgbase = gnome-initial-setup
 	depends = gsettings-desktop-schemas
 	depends = gtk4
 	depends = harfbuzz
-	depends = json-glib
 	depends = krb5
 	depends = libadwaita
 	depends = libgdm
@@ -33,14 +32,14 @@ pkgbase = gnome-initial-setup
 	depends = libnm
 	depends = libnma-gtk4
 	depends = libpwquality
-	depends = librest
 	depends = libsecret
 	depends = malcontent
 	depends = pango
 	depends = polkit
 	depends = tecla
 	depends = webkitgtk-6.0
-	source = git+https://gitlab.gnome.org/GNOME/gnome-initial-setup.git#commit=69fe40b46ef9ff1a80850994b90481dacb288a97
-	b2sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/gnome-initial-setup.git?signed#tag=46.0
+	validpgpkeys = 1E68E58CF255888301645B563422DC0D7AD482A7
+	b2sums = f86fdd00cdea909c6e6e246b02f1f675e4018f748c8f4e73b4e3b5a34b88cdde9777f75599775cb2f930e2afe5b185a529cd0a74343548622122419a87a77a10
 
 pkgname = gnome-initial-setup

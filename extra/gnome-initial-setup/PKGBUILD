@@ -3,14 +3,13 @@
 
 pkgname=gnome-initial-setup
 pkgver=46.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Helps you to set up your OS when you boot for the first time'
 arch=('x86_64')
 url='https://gitlab.gnome.org/GNOME/gnome-initial-setup'
 license=('GPL-2.0-or-later')
 depends=(
     'accountsservice'
-    'cairo'
     'fontconfig'
     'gcc-libs'
     'gdk-pixbuf2'
@@ -25,7 +24,6 @@ depends=(
     'gsettings-desktop-schemas'
     'gtk4'
     'harfbuzz'
-    'json-glib'
     'krb5'
     'libadwaita'
     'libgdm'
@@ -35,7 +33,6 @@ depends=(
     'libnm'
     'libnma-gtk4'
     'libpwquality'
-    'librest'
     'libsecret'
     'malcontent'
     'pango'
@@ -44,23 +41,22 @@ depends=(
     'webkitgtk-6.0'
 )
 makedepends=(
-    'meson'
     'git'
+    'meson'
+    'python-packaging'
 )
-_commit=69fe40b46ef9ff1a80850994b90481dacb288a97  # tags/46.0^0
 source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-initial-setup.git#commit=$_commit"
+  "git+https://gitlab.gnome.org/GNOME/gnome-initial-setup.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
+b2sums=('f86fdd00cdea909c6e6e246b02f1f675e4018f748c8f4e73b4e3b5a34b88cdde9777f75599775cb2f930e2afe5b185a529cd0a74343548622122419a87a77a10')
+validpgpkeys=(
+  1E68E58CF255888301645B563422DC0D7AD482A7 # Will Thompson <will@willthompson.co.uk>
+)
 
 prepare() {
   cd $pkgname
 }
+
 build() {
   arch-meson $pkgname build
   meson compile -C build
