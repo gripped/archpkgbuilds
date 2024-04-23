@@ -1,21 +1,32 @@
 pkgbase = gtranslator
 	pkgdesc = An enhanced gettext po file editor for the GNOME desktop environment
-	pkgver = 46.0
+	pkgver = 46.1
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Gtranslator
 	arch = x86_64
 	license = GPL-3.0-or-later
+	makedepends = git
 	makedepends = gobject-introspection
 	makedepends = meson
 	makedepends = yelp-tools
+	depends = cairo
+	depends = dconf
+	depends = gcc-libs
 	depends = gettext
+	depends = glib2
+	depends = glibc
+	depends = gtk4
 	depends = gtksourceview5
 	depends = hicolor-icon-theme
 	depends = iso-codes
+	depends = json-glib
 	depends = libadwaita
 	depends = libgda6
+	depends = libsoup3
 	depends = libspelling
-	source = https://download.gnome.org/sources/gtranslator/46/gtranslator-46.0.tar.xz
-	sha256sums = 0a30bf0fd82d88f9a206659e8b5f59eaa93fb80f67530bbf9461c5bf6a1c0beb
+	depends = libxml2
+	depends = pango
+	source = git+https://gitlab.gnome.org/GNOME/gtranslator.git#tag=46.1
+	b2sums = a3201356fd007e9d48e7a26dc7ee159efe9d9c8294ccfbac8596a3fb996989595374fa5fd92beed6307f272f5b8e560b1a3daaa5fb2ef702807293218d7a9945
 
 pkgname = gtranslator
