@@ -1,0 +1,18 @@
+pkgbase = zerotier-one
+	pkgdesc = Creates virtual Ethernet networks of almost unlimited size.
+	pkgver = 1.14.0
+	pkgrel = 1
+	url = https://www.zerotier.com/
+	arch = x86_64
+	license = custom:BSL
+	makedepends = rust
+	depends = gcc-libs
+	depends = libnatpmp
+	depends = miniupnpc
+	options = !lto
+	source = zerotier-one-1.14.0.tar.gz::https://github.com/zerotier/ZeroTierOne/archive/refs/tags/1.14.0.tar.gz
+	source = sysusers.conf
+	sha512sums = f795d515ab82188cee3d11002db5366ddab9c89abca5111d114aa51f21dfb34b0800aff1f4f6c8ef84e43341dcc91d93dc64580a99df28eb2547b6d05d11331e
+	sha512sums = 1fdcc2e2a888ac7a93985bb6c16ac818aa6b7a56ccdeedf3cbbd22158251f6119f841e41e79b5522f9d1c6b8a315525d178cc42197c5eef2c70498b7954541f0
+
+pkgname = zerotier-one
