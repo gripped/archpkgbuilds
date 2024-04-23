@@ -1,43 +1,48 @@
-# Maintainer: David Runge <dave@sleepmap.de>
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
 pkgname=zita-at1
-pkgver=0.6.2
-pkgrel=3
+pkgver=0.8.1
+pkgrel=1
 pkgdesc="An 'autotuner' Jack application."
-arch=('x86_64')
+arch=(x86_64)
 url="https://kokkinizita.linuxaudio.org/linuxaudio/zita-at1-doc/quickguide.html"
-license=('GPL2')
-groups=('pro-audio')
-depends=('cairo' 'clxclient' 'clthreads' 'fftw' 'jack' 'zita-resampler')
-makedepends=('gendesk')
-source=("https://kokkinizita.linuxaudio.org/linuxaudio/downloads/${pkgname}-${pkgver}.tar.bz2")
-sha512sums=('51845c9e04c456840408731b9d9144583ba1d70f52028432c2e240c261b4d1460330a96b5622d6ee33276f037a947c32fdb0bc70cb73c06d3621e406bee2e0f8')
+license=(GPL-3.0-or-later)
+groups=(pro-audio)
+depends=(
+  cairo
+  clxclient
+  clthreads
+  fftw
+  gcc-libs
+  glibc
+  jack
+  libx11
+  libpng
+  zita-resampler
+)
+makedepends=(gendesk)
+source=(https://kokkinizita.linuxaudio.org/linuxaudio/downloads/$pkgname-$pkgver.tar.bz2)
+sha512sums=('8f335389c046771cbfd6fe320448dba0cf071dbcf555498d78c568dd99bc1ef583172e14a2e057314a499c5c75aa62bdbe52ea57be38f915d0d3d1543749566b')
+b2sums=('5bf8ca6cf3502227f9edbdb228ac2151c6a131892a638abcd7ce7dd1b20a9f2c8320fd95fcd7da3e4e2e902dba0e295e24ee5b27eb84e1e964e9ae391c7c3e15')
 
 prepare() {
-  cd "${pkgname}-${pkgver}"
   # strip march=native
-  sed -e '/native/d' \
-      -i source/Makefile
-  # XDG desktop file
+  sed '/native/d' -i $pkgname-$pkgver/source/Makefile
+
   gendesk -n \
-          --pkgname ${pkgname} \
-          --pkgdesc "${pkgdesc}" \
+          --pkgname $pkgname \
+          --pkgdesc "$pkgdesc" \
           --name zita-at1 \
           --categories "AudioVideo;Audio"
 }
 
 build() {
-  cd "${pkgname}-${pkgver}/source"
-  make PREFIX=/usr
+  make PREFIX=/usr -C $pkgname-$pkgver/source
 }
 
 package() {
-  cd "${pkgname}-${pkgver}/source"
-  make PREFIX=/usr DESTDIR="$pkgdir/" install
-  # XDG desktop integration
-  install -vDm 644 "../${pkgname}.desktop" \
-    -t "${pkgdir}/usr/share/applications/"
-  install -t "${pkgdir}/usr/share/doc/${pkgname}" \
-    -vDm 644 ../AUTHORS \
-    -vDm 644 ../doc/*
+  make PREFIX=/usr DESTDIR="$pkgdir/" install -C $pkgname-$pkgver/source
+  install -vDm 644 $pkgname.desktop -t "$pkgdir/usr/share/applications/"
+  install -vDm 644 $pkgname-$pkgver/{AUTHORS,doc/*} -t "$pkgdir/usr/share/doc/$pkgname/"
 }
 # vim:set ts=2 sw=2 et:
