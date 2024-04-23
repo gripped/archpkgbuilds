@@ -4,7 +4,7 @@
 
 pkgname=gnome-calendar
 pkgver=46.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Simple and beautiful calendar application designed to perfectly fit the GNOME desktop"
 url="https://wiki.gnome.org/Apps/Calendar"
 arch=(x86_64)
@@ -33,7 +33,10 @@ makedepends=(
   meson
   python-packaging
 )
-optdepends=('gnome-control-center: Manage online accounts')
+optdepends=(
+  'gnome-control-center: Manage online accounts'
+  'xdg-desktop-portal-impl: Various user settings (e.g. 24-hour clock)'
+)
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-calendar.git#tag=${pkgver/[a-z]/.&}")
 b2sums=('ba82a9bce6d7feaf54094e75343d4a558ad93e04eb03aea12f0b8ba2406e9f66800bf528af350620f8e70f63626ee082e673bc388692a0a5d3e552294558ba3e')
