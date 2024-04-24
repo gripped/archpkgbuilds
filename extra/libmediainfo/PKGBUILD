@@ -4,12 +4,12 @@
 # Contributor:  hydro <hydro@freenet.de>
 
 pkgname=libmediainfo
-pkgver=24.03
+pkgver=24.04
 pkgrel=1
 pkgdesc='Shared library for MediaInfo'
 arch=('x86_64')
 url='https://mediaarea.net'
-license=('BSD')
+license=('BSD-2-Clause')
 depends=(
   'glibc'
   'gcc-libs'
@@ -22,8 +22,8 @@ depends=(
   'zlib'
 )
 source=("$pkgname-$pkgver.tar.xz::https://mediaarea.net/download/source/libmediainfo/$pkgver/libmediainfo_$pkgver.tar.xz")
-sha512sums=('d1a8b68f5c487a02e82f8363a0364f6d627b79d0ef03f86032d8e6e7f9d0ea77f16325b5148220282edcdded928c634c3c014912adb7901ebf95b87e7c93d26a')
-b2sums=('226417ae7b23910bc3fe81a476abebd429d855964582d2f0e25c64a1994fa41df59d036f0ecf7b20bcab71ba3c1da3983acaba215411d2458d00e677f81ffff5')
+sha512sums=('33b9f187571486f0d28eae932f7db0294f89bf2dfb3a9d4a5928502398b0b50bd3d9ce27dba5b5472d63839e844adfbb031ecff2f36e583975f2d2884af768b6')
+b2sums=('7203614f9b76c85c01a5d7f9c12fe27fc587e7b6c349e1010da19c4fed7fbbee81cae92dd52ac0e40423f2eb7eacfee310d692db1d6ddf6811ccc3b06ae47560')
 
 build() {
   cd MediaInfoLib/Project/GNU/Library
