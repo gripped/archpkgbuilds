@@ -8,12 +8,12 @@
 
 pkgname=mattermost-desktop
 pkgver=5.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Mattermost Desktop application'
 arch=(x86_64)
 url="https://github.com/${pkgname/-//}"
 license=(Apache-2.0)
-_electron=electron27
+_electron=electron28
 depends=($_electron
          libxcrypt-compat)
 makedepends=(git
