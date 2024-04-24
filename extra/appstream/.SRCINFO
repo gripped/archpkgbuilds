@@ -1,11 +1,12 @@
 pkgbase = appstream
 	pkgdesc = Provides a standard for creating app stores across distributions
-	pkgver = 1.0.2
+	pkgver = 1.0.3
 	pkgrel = 1
 	url = https://distributions.freedesktop.org/wiki/AppStream
 	arch = x86_64
 	license = LGPL-2.1-or-later
 	makedepends = gi-docgen
+	makedepends = git
 	makedepends = gobject-introspection
 	makedepends = gperf
 	makedepends = itstool
@@ -30,12 +31,10 @@ pkgbase = appstream
 	depends = pango
 	depends = systemd-libs
 	depends = zstd
-	source = https://www.freedesktop.org/software/appstream/releases/AppStream-1.0.2.tar.xz
-	source = https://www.freedesktop.org/software/appstream/releases/AppStream-1.0.2.tar.xz.asc
+	source = git+https://github.com/ximion/appstream#tag=v1.0.3?signed
 	source = update-appstream-cache.hook
 	validpgpkeys = D33A3F0CA16B0ACC51A60738494C8A5FBF4DECEB
-	sha256sums = 1a5148ca97dcbf5eb6e9c380278bb0d20938569292ea8652df1b3cac8bd2736b
-	sha256sums = SKIP
+	sha256sums = 2cab23b2cb57c5598aea4d99e657e20fbb806d8225aa4a201bf662e9fb1e4a63
 	sha256sums = edc632e4a76ebe5efc76a56fe5f797e5c981cca6f2f0111c7ce0170d1330c788
 
 pkgname = appstream
