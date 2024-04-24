@@ -16,13 +16,14 @@ pkgname=nextcloud-client
 pkgdesc='Nextcloud desktop client'
 epoch=2
 pkgver=3.13.0
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://nextcloud.com/'
 _url=https://github.com/nextcloud/desktop
 license=(GPL-2.0-or-later)
 depends=(hicolor-icon-theme
          karchive5
+         kguiaddons5
          libcloudproviders
          openssl
          qt5-graphicaleffects
@@ -37,7 +38,7 @@ depends=(hicolor-icon-theme
 replaces=(nextcloud-client-cloudproviders)
 conflicts=(nextcloud-client-cloudproviders)
 provides=(nextcloud-client-cloudproviders)
-optdepends=('kio5: integration with Dolphin'
+optdepends=('kio: integration with Dolphin'
             'nemo-python: integration with Nemo'
             'python-nautilus: integration with Nautilus'
             'python-caja: integration with Caja'
@@ -47,7 +48,7 @@ makedepends=(cmocka
              doxygen
              extra-cmake-modules
              git
-             kio5
+             kio
              librsvg
              python-sphinx
              qt5-tools)
