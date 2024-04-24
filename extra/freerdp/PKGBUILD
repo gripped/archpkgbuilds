@@ -4,7 +4,7 @@
 
 _name=FreeRDP
 pkgname=freerdp
-pkgver=3.5.0
+pkgver=3.5.1
 _libver=${pkgver/.*/}
 pkgrel=1
 epoch=2
@@ -44,9 +44,12 @@ makedepends=(
   gtk3
   icu
   krb5
+  libjpeg-turbo
   libp11
+  libpng
   libpulse
   libusb
+  libwebp
   openssl
   pam
   pkcs11-helper
@@ -69,9 +72,9 @@ source=(
   https://github.com/$pkgname/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz
   0001-Use-webkit2gtk-4.1.patch
 )
-sha512sums=('9f9f5898cdd9fe19035aa7a3a016b33513d0e9d9c2325ed62713a287253de468f339b397ba3bdfa729163800858aa25e22e41d46faf94742ed16e586b67efd05'
+sha512sums=('28082ca5a714362c684f2c551b0ac5823c1708d8e929db93f0ab3911601d3b0d724bbdc06eed517542fb4bd957bb61fcdd00e34c0bda017f0019d52d59cb6b07'
             '0bfdf8825f586a548eaef309f64fb50ea9e2598592f778aa835bbec1a0600d715b8fb28f5950aaeb5ef981a33d5f9f3f39f4fd1800bdf9e5630d9925a9fbab04')
-b2sums=('b48fc8e452c2251c75995af524dddaad742c9e962d0fe046b6f9479c66a14956604bd9e5a6e6cd1853f14ddcfa8ee9a411554f3f5e18979158a992d3f6e464d9'
+b2sums=('7f243593c2da1fb8cef483cd423c3e4d1127cac16ab857eaf7d5c222deaeca6657f32010fd40e90f1b47bd925e493848a3ab6b6b1e9db01a5355d0177c42953a'
         'bbee3975cdcd0ce421ecd8825d1b6dbdbd1565b612a51e7d9423e79226579587031b5ebe7e5251c88015e9047cd35818bad338a7048acfddac137ffe23197b71')
 
 prepare() {
@@ -111,6 +114,9 @@ build() {
     -D WITH_WAYLAND=ON
     -D WITH_WINPR_TOOLS=ON
     -D WITH_X11=ON
+    -D WINPR_UTILS_IMAGE_PNG=ON
+    -D WINPR_UTILS_IMAGE_JPEG=ON
+    -D WINPR_UTILS_IMAGE_WEBP=ON
     -S $_name-$pkgver
     -W no-dev
   )
@@ -133,7 +139,10 @@ package() {
     icu libicuuc.so
     krb5 libk5crypto.so libkrb5.so
     libpulse libpulse.so
+    libpng libpng16.so
+    libjpeg-turbo libjpeg.so
     libusb libusb-1.0.so
+    libwebp libwebp.so
     openssl libcrypto.so libssl.so
     pam libpam.so
     webkit2gtk-4.1 libjavascriptcoregtk-4.1.so libwebkit2gtk-4.1.so
