@@ -1,22 +1,26 @@
 pkgbase = python-pycrdt-websocket
 	pkgdesc = CRDTs based on Yrs
-	pkgver = 0.12.7
+	pkgver = 0.13.0
 	pkgrel = 1
 	url = https://github.com/jupyter-server/pycrdt-websocket
 	arch = any
 	license = MIT
+	checkdepends = hypercorn
+	checkdepends = python-httpx-ws
 	checkdepends = python-pytest
 	checkdepends = python-pytest-asyncio
+	checkdepends = python-trio
 	checkdepends = python-websockets
 	checkdepends = uvicorn
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-hatchling
 	makedepends = python-installer
 	depends = python
-	depends = python-aiosqlite
 	depends = python-anyio
 	depends = python-pycrdt
-	source = https://pypi.python.org/packages/source/p/pycrdt_websocket/pycrdt_websocket-0.12.7.tar.gz
-	sha256sums = 5ce1d3ad8ba5d3407400f3dcf5d96c9b9d9836fb421928ac5698dd094ed18cfa
+	depends = python-sqlite-anyio
+	source = git+https://github.com/jupyter-server/pycrdt-websocket#tag=v0.13.0
+	sha256sums = 3fbad7dcadf4f63efc8aa4a5c62bf5da294894140b770cf38a6186f1713ff061
 
 pkgname = python-pycrdt-websocket
