@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=js115
-pkgver=115.9.0
+pkgver=115.10.0
 pkgrel=1
 pkgdesc="JavaScript interpreter and libraries - Version 115"
 url="https://spidermonkey.dev/"
@@ -9,6 +9,7 @@ arch=(x86_64)
 license=(MPL-2.0)
 depends=(
   gcc-libs
+  glibc
   readline
   sh
   zlib
@@ -36,9 +37,9 @@ validpgpkeys=(
   # https://blog.mozilla.org/security/2023/05/11/updated-gpg-key-for-signing-firefox-releases/
   14F26682D0916CDD81E37B6D61B7B526D98F0353
 )
-sha256sums=('db3b3371c5e6636de73798635531df137b17c5b78bdee03810930b29e8212803'
+sha256sums=('0afd3c733d95f7047f258d1a9768d06d856217fe736d85bfb370db9dd926eef2'
             'SKIP')
-b2sums=('2b70c0396763ef6662450c1001b847adfc7c8cbf6e4e2ffd3120473aebcc4ff9e25091e2d8e3f9462c2094de9211d658776746a0d8ce9ed73efa824b4e25b508'
+b2sums=('342d5cf4d61b3efe3dde6a6e53f064739d4107690f1d101915ba8cf2214f518aa8c7490903e20179f0874a3bd62871723e877e8f789d9816f3e0d9227d751eb6'
         'SKIP')
 
 # Make sure the duplication between bin and lib is found
@@ -86,10 +87,6 @@ build() {
   # malloc_usable_size is used in various parts of the codebase
   CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
   CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
-
-  # Greatly reduce size of relocation tables
-  # https://gitlab.archlinux.org/archlinux/rfcs/-/blob/master/rfcs/0023-pack-relative-relocs.rst
-  LDFLAGS+=" -Wl,-z,pack-relative-relocs"
 
   # Do 3-tier PGO
   echo "Building instrumented JS..."
