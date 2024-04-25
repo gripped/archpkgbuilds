@@ -1,11 +1,12 @@
 pkgbase = dtkcore
 	pkgdesc = DTK core modules
-	pkgver = 5.6.26
+	pkgver = 5.6.27
 	pkgrel = 1
 	epoch = 1
 	url = https://github.com/linuxdeepin/dtkcore
 	arch = x86_64
 	license = LGPL3
+	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
 	makedepends = qt5-tools
@@ -22,7 +23,7 @@ pkgbase = dtkcore
 	depends = qt5-base
 	depends = uchardet
 	depends = spdlog
-	source = https://github.com/linuxdeepin/dtkcore/archive/5.6.26/dtkcore-5.6.26.tar.gz
-	sha512sums = 224e7fa167450a07be655fec47f86976ac2cf1d8ceb4375dd8c43fc0c93554a3cf40dc95db386998faa5a64ef6d26bcd0571ca022cd951d260684703cd970b53
+	source = git+https://github.com/linuxdeepin/dtkcore.git#tag=5.6.27
+	sha512sums = 1587caecc775f27cfb6dcab5275da5582a5ef3d6c3b1ff9f0f99aa6d0e9dc032bccc580e582265cabd33302ad181b2aa8a3478abd86f5865dfaf25ed484c9b9d
 
 pkgname = dtkcore
