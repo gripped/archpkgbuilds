@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=openpgp-card-tools
-pkgver=0.10.0
-pkgrel=2
+pkgver=0.10.1
+pkgrel=1
 pkgdesc="CLI tool to inspect, manage and use OpenPGP cards"
 arch=(x86_64)
 url="https://codeberg.org/openpgp-card/openpgp-card-tools"
@@ -21,8 +21,8 @@ makedepends=(
   pcsclite
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('261c48254b91cbe975eca34d84e7e07fc4d168a08f063ad8e9a595d5a6321757c47ba36ddcd563d133ba82f48fda41877d291ca3be541df240733a988a221a34')
-b2sums=('9eabc4272731e91e14b15b6bd6e7dbab73dadcb19a1d11e8924dbe3673805af9f78ff1c0c494524ba8628fa42f768f4d387a0ec261761c55a4dbd8a04ef66cff')
+sha512sums=('9ad5da40bcaedb591cdb36329243fee235c2bec4e75f7b16eca395dd4522993d093d2346d8aa503d3ae0ffa803a10b31ce8166a453be0a7b173d8982c00d3794')
+b2sums=('c8128535b2d691462b9e78c304514e09b14b2771c6bfd2945c73364a14b377ac415a3098a8845fe861fdf13f7c8ffce9234f14f304585519da7cc653132ffc91')
 
 prepare() {
   cd $pkgname
