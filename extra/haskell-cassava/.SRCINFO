@@ -1,10 +1,11 @@
 pkgbase = haskell-cassava
 	pkgdesc = A CSV parsing and encoding library
-	pkgver = 0.5.3.0
-	pkgrel = 96
+	pkgver = 0.5.3.1
+	pkgrel = 1
 	url = https://github.com/haskell-hvr/cassava
 	arch = x86_64
 	license = BSD
+	makedepends = git
 	makedepends = ghc
 	makedepends = haskell-hunit
 	makedepends = haskell-quickcheck
@@ -20,7 +21,7 @@ pkgbase = haskell-cassava
 	depends = haskell-text-short
 	depends = haskell-unordered-containers
 	depends = haskell-vector
-	source = https://hackage.haskell.org/packages/archive/cassava/0.5.3.0/cassava-0.5.3.0.tar.gz
-	sha512sums = 6afae52a2facc013d746a83afa975a2493174e2c5bda0c0ad8cab76c13c46dd86e8d3142e0676c881a35c3c8bf5618a5c1e4b70c3ab153443b949cb84b70bcb4
+	source = git+https://github.com/haskell-hvr/cassava.git#tag=v0.5.3.1
+	sha512sums = 35a6c2bea0c87595ee9e4608cfc48920d18b7446ae524cd7522fa475b859fb723f43b909ac13f765a7b4a1ec186337670efff5aaba12fafd8bd03842fdb86c96
 
 pkgname = haskell-cassava
