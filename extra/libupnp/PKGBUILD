@@ -6,7 +6,7 @@
 _name=pupnp
 pkgname=libupnp
 pkgver=1.14.19
-pkgrel=1
+pkgrel=2
 pkgdesc='Portable Open Source UPnP Development Kit'
 arch=(x86_64)
 url="https://pupnp.sourceforge.io/"
@@ -20,6 +20,13 @@ provides=(
 source=(https://github.com/$_name/$_name/archive/release-$pkgver/$_name-release-$pkgver.tar.gz)
 sha512sums=('76ae3bf8b69fd649ede0b92e03b36a6cbc7a9df9fa7828386c97761df12f2ae6346dec9ab45f78e17eb793d4d225707ecb3a7628d7678287979115cd4ba65c49')
 b2sums=('119281a2e220b3b9398566b649d76fc047741a251097059920e84ef9376db03ee953ebf10934423a56613ad85aa9f77b777e33d92095b1468dfffb12e37e86bd')
+
+prepare() {
+  # upstream derives project/pkgconfig version from autotools macros and this is broken:
+  # https://github.com/pupnp/pupnp/issues/442
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/libupnp/-/issues/1
+  sed "s/\${PUPNP_VERSION_STRING}/$pkgver/g" -i $_name-release-$pkgver/CMakeLists.txt
+}
 
 build() {
   local cmake_options=(
