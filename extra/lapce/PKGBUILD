@@ -2,7 +2,7 @@
 # Contributor: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=lapce
-pkgver=0.3.1
+pkgver=0.4.0
 pkgrel=1
 pkgdesc='Lightning-fast and Powerful Code Editor'
 arch=(x86_64)
@@ -22,11 +22,11 @@ makedepends=(cargo
 options=('!lto')
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('82407a0b0ae8a5660ff2192ca336c9b0e361424f0fd509e0a0a73ad55071f13d')
+sha256sums=('62f732198a9a1533220f17bfdf535076d3a408951efcc75092a732c82b0cc72c')
 
 prepare() {
 	cd "$_archive"
-	cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
