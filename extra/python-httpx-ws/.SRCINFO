@@ -1,0 +1,27 @@
+pkgbase = python-httpx-ws
+	pkgdesc = WebSocket support for HTTPX
+	pkgver = 0.6.0
+	pkgrel = 2
+	url = https://frankie567.github.io/httpx-ws/
+	arch = any
+	license = MIT
+	checkdepends = python-pytest
+	checkdepends = python-pytest-cov
+	checkdepends = python-starlette
+	checkdepends = python-trio
+	checkdepends = uvicorn
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-hatchling
+	makedepends = python-installer
+	depends = python
+	depends = python-anyio
+	depends = python-httpcore
+	depends = python-httpx
+	depends = python-wsproto
+	source = git+https://github.com/frankie567/httpx-ws#tag=v0.6.0
+	source = no-regex-commit.patch
+	sha256sums = 40092f1d7beb6dd6362ebba91a17d84ac0a1227687303863c8a56021665f271e
+	sha256sums = 015fb328b794b85aa45cefe3fc50e9e82f0263994e678d70055d96e6365fcfd4
+
+pkgname = python-httpx-ws
