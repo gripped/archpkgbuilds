@@ -1,10 +1,11 @@
 pkgbase = pyqt-builder
 	pkgdesc = The PEP 517 compliant PyQt build system
-	pkgver = 1.16.1
+	pkgver = 1.16.2
 	pkgrel = 1
 	url = https://pypi.org/project/PyQt-builder/
 	arch = any
 	license = BSD-2-Clause
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools-scm
@@ -12,7 +13,7 @@ pkgbase = pyqt-builder
 	depends = python
 	depends = python-packaging
 	depends = sip
-	source = https://github.com/Python-PyQt/PyQt-builder/archive/1.16.1/pyqt-builder-1.16.1.tar.gz
-	sha256sums = 9032e622f88c1b65ad75e7a768106cbb0bf2ed71795eb089be418f48b3605cfa
+	source = git+https://github.com/Python-PyQt/PyQt-builder#tag=1.16.2
+	sha256sums = fcf4a53feb248aa0c8d93092bae9dadcd892860a3cbcc110b09ee926e305f908
 
 pkgname = pyqt-builder
