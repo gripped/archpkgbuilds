@@ -1,14 +1,15 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=libavif
 pkgver=1.0.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Library for encoding and decoding .avif files"
 arch=(x86_64)
 url="https://github.com/AOMediaCodec/libavif"
 license=(LicenseRef-libavif)
-depends=(glibc aom dav1d librav1e.so svt-av1 libpng libjpeg libyuv)
-makedepends=(cmake nasm pkgconf gdk-pixbuf2)
+depends=(glibc aom dav1d librav1e.so svt-av1 libpng libjpeg libyuv libwebp)
+makedepends=(cmake nasm gdk-pixbuf2)
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
 sha256sums=('dc56708c83a4b934a8af2b78f67f866ba2fb568605c7cf94312acf51ee57d146')
 
