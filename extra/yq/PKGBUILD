@@ -4,7 +4,7 @@
 # Contributor: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=yq
-pkgver=3.4.1
+pkgver=3.4.2
 pkgrel=1
 pkgdesc="Command-line YAML, XML, TOML processor - jq wrapper for YAML/XML/TOML documents"
 arch=('any')
@@ -18,8 +18,16 @@ depends=('jq'
 makedepends=('python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
 conflicts=('go-yq')
 source=("https://files.pythonhosted.org/packages/source/y/$pkgname/$pkgname-$pkgver.tar.gz")
-sha256sums=('b558dab6f15c03e24a1c448789500b20d6f307ee9ca4c9361387f3658163000d')
-b2sums=('628fbb62de0c2f138133444c2f371819f920ac3d7c89787b96cb2de59eaa49f1324227d53f6d33e29dd9a9a804283339b34d87851c6f32a16a1cc94a7451a726')
+sha256sums=('f916408e834e96f390ef82a36bfcbf24a555ae5a2fcdaef94a2ed5d260d161ef')
+b2sums=('253701053d32279e78f703626432c5e068a58ad8d14286739c07452f1e0eeb8599eb1f2f0ea9479b60ed32d7bf94bd1c046b79ebee920df84371757195268bfb')
+
+prepare() {
+  cd $pkgname-$pkgver
+  # Unblock current setuptools: https://github.com/kislyuk/yq/issues/190
+  sed -i -e '/setuptools_scm/s/\(_scm\).*"/\1"/' setup.py
+  # Fix version: https://github.com/pypa/setuptools_scm/issues/1037
+  echo "version = '$pkgver'" > "$pkgname/version.py"
+}
 
 build() {
   cd $pkgname-$pkgver
