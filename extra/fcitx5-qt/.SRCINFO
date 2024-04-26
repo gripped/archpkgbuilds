@@ -1,11 +1,12 @@
 pkgbase = fcitx5-qt
 	pkgdesc = Fcitx5 Qt Library (Qt5 & Qt6 integrations)
-	pkgver = 5.1.5
-	pkgrel = 4
+	pkgver = 5.1.6
+	pkgrel = 1
 	url = https://github.com/fcitx/fcitx5-qt
 	arch = x86_64
 	groups = fcitx5-im
 	license = GPL
+	makedepends = git
 	makedepends = extra-cmake-modules
 	makedepends = qt5-base
 	makedepends = ninja
@@ -17,10 +18,8 @@ pkgbase = fcitx5-qt
 	depends = qt6-base
 	depends = qt6-wayland
 	depends = wayland
-	source = https://download.fcitx-im.org/fcitx5/fcitx5-qt/fcitx5-qt-5.1.5.tar.xz
-	source = https://download.fcitx-im.org/fcitx5/fcitx5-qt/fcitx5-qt-5.1.5.tar.xz.sig
+	source = git+https://github.com/fcitx/fcitx5-qt.git#tag=5.1.6?signed
 	validpgpkeys = 2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9
-	sha512sums = 736677a268d345a962e8c44af81870d2cfc62db72c7a089e2c11151f7f682659ec83307a3397d1feb2dda7e9419847d5e365f7a20ca9b7d6216b690cb9c515c7
-	sha512sums = SKIP
+	sha512sums = e881009b56d23d575f809d8d64a436558147efed062b8aac9ff0736f86285ff31e2be7564f66cbff0199adad7b7662ab1c20c5bbca3e9627b110eb8d746a120b
 
 pkgname = fcitx5-qt

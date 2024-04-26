@@ -2,23 +2,21 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-qt
-pkgver=5.1.5
-pkgrel=4
+pkgver=5.1.6
+pkgrel=1
 pkgdesc="Fcitx5 Qt Library (Qt5 & Qt6 integrations)"
 arch=('x86_64')
 url="https://github.com/fcitx/fcitx5-qt"
 license=('GPL')
 groups=('fcitx5-im')
 depends=('glibc' 'gcc-libs' 'libxcb' 'libxkbcommon' 'fcitx5' 'qt6-base' 'qt6-wayland' 'wayland')
-makedepends=('extra-cmake-modules' 'qt5-base' 'ninja')
-source=("https://download.fcitx-im.org/fcitx5/$pkgname/$pkgname-$pkgver.tar.xz"{,.sig})
-sha512sums=('736677a268d345a962e8c44af81870d2cfc62db72c7a089e2c11151f7f682659ec83307a3397d1feb2dda7e9419847d5e365f7a20ca9b7d6216b690cb9c515c7'
-            'SKIP')
+makedepends=('git' 'extra-cmake-modules' 'qt5-base' 'ninja')
+source=("git+https://github.com/fcitx/fcitx5-qt.git#tag=$pkgver?signed")
+sha512sums=('e881009b56d23d575f809d8d64a436558147efed062b8aac9ff0736f86285ff31e2be7564f66cbff0199adad7b7662ab1c20c5bbca3e9627b110eb8d746a120b')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
-build(){
-  cd $pkgname-$pkgver
-
+build() {
+  cd $pkgname
   cmake . -GNinja \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib \
@@ -26,7 +24,12 @@ build(){
   ninja
 }
 
+check() {
+  cd $pkgname
+  ninja test
+}
+
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   DESTDIR="$pkgdir" ninja install
 }
