@@ -3,8 +3,8 @@
 pkgbase=fcitx5-pinyin-zhwiki
 pkgname=(fcitx5-pinyin-zhwiki rime-pinyin-zhwiki)
 _converterver=0.2.4
-_zhwikiver=20240201
-_webslangver=20240210
+_zhwikiver=20240420
+_webslangver=20240426
 pkgver=$_converterver.$_webslangver
 pkgrel=1
 epoch=1
@@ -12,20 +12,20 @@ pkgdesc="Fcitx 5 Pinyin Dictionary from zh.wikipedia.org"
 arch=('any')
 url="https://github.com/felixonmars/fcitx5-pinyin-zhwiki"
 license=('CCPL:by-sa' 'custom:GFDL')
-makedepends=('libime' 'opencc' 'pypinyin')
-source=(https://github.com/felixonmars/fcitx5-pinyin-zhwiki/archive/$_converterver/$pkgbase-$_converterver.tar.gz
+makedepends=('git' 'libime' 'opencc' 'pypinyin')
+source=(git+https://github.com/felixonmars/fcitx5-pinyin-zhwiki.git#tag=$_converterver
         https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/$_converterver/web-slang-$_webslangver.source
         https://dumps.wikimedia.org/zhwiki/$_zhwikiver/zhwiki-$_zhwikiver-all-titles-in-ns0.gz
         https://www.gnu.org/licenses/fdl-1.3.txt)
-sha512sums=('f03215f0c6e137238a8c9f0ba557bf933ca2d4faf8c2a3aaa84f5e58485c8e0ace57f24d0cd855aa7a1d7e3001b4b36427c9a47ad04b92d11847bb5dbd24a709'
-            'b78a2b5e511456bf21f22e3786e9cbbd5f2258c23b46e1e427b248b3c99b9fc8dc10e6cd643a3bb1145647330a2cf0c2427d7c20840bc77e3525158b058dc956'
-            '428b46421dd2c235779fab95e6e1a63235ec133dcd8260447054eb9c5ae08bddd969b4f39daf36ce72c6f7983841a760aa234fcbfe3ceea4efaa3fc8c6bfa189'
+sha512sums=('cb7d3e0d764b8002af3a52b8ba6a9f4b7c76dbc7d479aa7469d2a36d69ce2a2dbc9628e2792b97676d40c99736f91edb0a23a5bbaf7916b948ab2870d41dbfb8'
+            '041e81c09ccf24ee0d7b9f2e0b07ec7d5b9b809b2a4ac009efd2302b7bd79884d6488c87a33744880046b1f2a5a6b91b31ac7d4d1e630649c5c87a2e7a5ac2df'
+            'a6e56139919bcd2d6bbf8a97018b29abb95cc913a1a2b2a6744f536df15d6dbea8d67783fc4afd0f2b879edb15303b98f15a7723130cba205f199a9871fd76fe'
             '22d46818d3998ad841f537af4de7c50440dd918099fb6c5d4ab324cd71dc03066bfe1b67210a5efde77abd1d97b88da3c3dbfc39a24ae7248ee2d64e7f0fe6bb')
 
 _make="make -L VERSION=$_zhwikiver WEB_SLANG_VERSION=$_webslangver"
 
 prepare() {
-  cd $pkgbase-$_converterver
+  cd $pkgbase
   # Workaround pacman decompression
   touch zhwiki-$_zhwikiver-all-titles-in-ns0.gz
   ln -s ../zhwiki-$_zhwikiver-all-titles-in-ns0
@@ -33,18 +33,18 @@ prepare() {
 }
 
 build() {
-  cd $pkgbase-$_converterver
+  cd $pkgbase
   $_make zhwiki.dict zhwiki.dict.yaml
 }
 
 package_fcitx5-pinyin-zhwiki() {
-  cd $pkgbase-$_converterver
+  cd $pkgbase
   $_make DESTDIR="$pkgdir" install
   install -Dm644 ../fdl-1.3.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
 package_rime-pinyin-zhwiki() {
-  cd $pkgbase-$_converterver
+  cd $pkgbase
   $_make DESTDIR="$pkgdir" install_rime_dict
   install -Dm644 ../fdl-1.3.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
