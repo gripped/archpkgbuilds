@@ -3,7 +3,7 @@
 
 pkgname=python-txtorcon
 pkgver=23.11.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A Twisted-based Python asynchronous controller library for Tor'
 arch=('any')
 url='https://txtorcon.readthedocs.org/'
