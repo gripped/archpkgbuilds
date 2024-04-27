@@ -8,7 +8,7 @@
 
 pkgname=gedit-plugins
 pkgver=46.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Collection of plugins for the gedit Text Editor"
 url="https://wiki.gnome.org/Apps/Gedit/ShippedPlugins"
 arch=(x86_64)
@@ -44,6 +44,7 @@ pkgver() {
 
 prepare() {
   cd $pkgname
+  git cherry-pick -n 4e5744ccbec430b82f8b16c469d8b1bd5c7edf78 # Fix build
 }
 
 build() {
