@@ -2,7 +2,7 @@
 
 pkgname=thefuck
 pkgver=3.32
-pkgrel=7
+pkgrel=8
 pkgdesc="Magnificent app which corrects your previous console command"
 arch=('any')
 url="https://github.com/nvbn/thefuck"
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('python' 'python-colorama' 'python-decorator' 'python-psutil' 'python-pyte'
 'python-six')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-checkdepends=('python-pytest-mock' 'python-pexpect' 'go')
+checkdepends=('python-pytest-mock' 'python-pexpect' 'go' 'python-pytest7')
 source=(
   "https://github.com/nvbn/thefuck/archive/$pkgver/$pkgname-$pkgver.tar.gz"
   $pkgname-3.32-remove_mock.patch
