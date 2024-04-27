@@ -3,29 +3,29 @@
 
 pkgname=python-gammu
 pkgver=3.2.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Python bindings for Gammu library"
 arch=('x86_64')
 url="https://wammu.eu/python-gammu/"
 license=('GPL')
 depends=('python' 'gammu')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('libdbi-drivers')
-source=($pkgname-$pkgver.tar.gz::https://github.com/gammu/$pkgname/archive/refs/tags/$pkgver.tar.gz)
+source=("$pkgname-$pkgver.tar.gz::https://github.com/gammu/$pkgname/archive/refs/tags/$pkgver.tar.gz")
 sha512sums=('9d76b402c50018cc52476376952edebb6b0934aa374ea2a2177f5497d0949fcc77644aa2a35c7402b3f2179962d903409b7b1949c5e85a0e5130058d34f89664')
 
 build() {
-  cd "${srcdir}"/python-gammu-$pkgver
-  python setup.py build
+  cd $pkgname-$pkgver
+  python -m build --wheel --skip-dependency-check --no-isolation
 }
 
 check() {
   # tests can be flaky on slower hardware due to timing
-  cd "${srcdir}"/python-gammu-$pkgver
-  python setup.py test 
+  cd $pkgname-$pkgver
+  python setup.py test
 }
 
 package() {
-  cd "${srcdir}"/python-gammu-$pkgver
-  python setup.py install --root="${pkgdir}" --optimize=1
+  cd $pkgname-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
