@@ -7,7 +7,7 @@ pkgdesc="A python library used to interact with Git repositories"
 pkgname=python-gitpython
 _commit=1f37b482edbe4a7189e5898309a4094f3f4cf404  # refs/tags/3.1.42^{}
 pkgver=3.1.42
-pkgrel=1
+pkgrel=3
 url="https://github.com/gitpython-developers/gitpython"
 license=(BSD-3-Clause)
 arch=(any)
@@ -15,7 +15,7 @@ depends=(
   git
   python
   python-gitdb
-  python-typing-extensions
+  python-typing_extensions
 )
 makedepends=(
   python-build
@@ -25,10 +25,8 @@ makedepends=(
 )
 checkdepends=(
   python-ddt
-  python-nose
   python-pytest
   python-pytest-mock
-  python-virtualenv
 )
 source=("git+$url#commit=$_commit?signed")
 sha512sums=('SKIP')
