@@ -2,7 +2,7 @@
 
 pkgname=python-jose
 pkgver=3.3.0
-pkgrel=5
+pkgrel=6
 pkgdesc="A JOSE implementation in Python"
 arch=('any')
 license=('MIT')
