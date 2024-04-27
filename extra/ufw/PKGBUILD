@@ -7,12 +7,12 @@
 
 pkgname=ufw
 pkgver=0.36.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Uncomplicated and easy to use CLI tool for managing a netfilter firewall"
 arch=('any')
 url="https://launchpad.net/ufw"
 license=('GPL3')
-makedepends=('git')
+makedepends=('git' 'python-setuptools')
 depends=('iptables' 'python')
 backup=('etc/ufw/before.rules'
         'etc/ufw/before6.rules'
