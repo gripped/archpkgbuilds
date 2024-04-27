@@ -4,7 +4,7 @@
 
 pkgname=python-pillow
 pkgver=10.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Python Imaging Library (PIL) fork'
 arch=('x86_64')
 url='https://python-pillow.org'
