@@ -4,8 +4,8 @@
 # Contributor: Asa Marco <marcoasa90[at]gmail[.]com>
 
 pkgname=kupfer
-pkgver=325
-pkgrel=2
+pkgver=326
+pkgrel=1
 pkgdesc="Launcher application written in python. Similar to Gnome-Do / Launchy"
 arch=('any')
 url="https://kupferlauncher.github.io/"
@@ -17,7 +17,7 @@ optdepends=('gvfs: Trash plugin'
             'xautomation: Send Keys plugin')
 source=(https://github.com/kupferlauncher/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
 #validpgpkeys=('2578ABA1F9023159DFF211B7368712C4D7A44445') # Ulrik Sverdrup
-sha256sums=('7dce329c8f183de3c494578532de480795e648da0705d52b1aef1939e6719c74')
+sha256sums=('c7be7fceae78de3e7d87d49172bbbf9e741ffc6840eb25db718da9805ecd401b')
 
 build() {
   cd $pkgname-$pkgver
