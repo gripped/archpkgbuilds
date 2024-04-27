@@ -1,7 +1,7 @@
 pkgbase = python-schema
 	pkgdesc = Python module to validate and convert data structures.
 	pkgver = 0.7.5
-	pkgrel = 5
+	pkgrel = 6
 	url = https://github.com/keleshev/schema
 	arch = any
 	license = MIT
@@ -11,10 +11,11 @@ pkgbase = python-schema
 	makedepends = python-setuptools
 	makedepends = python-wheel
 	depends = python
-	depends = python-contextlib2
 	source = schema-0.7.5.tar.gz::https://github.com/keleshev/schema/archive/refs/tags/v0.7.5.tar.gz
 	source = python-schema-0.7.5-mock.patch
+	source = drop-contextlib2.patch
 	sha256sums = 9af94571c6c2df01be002a8dcd5efda33a64b08ce2c7fba9646d2a8fe762c8e3
 	sha256sums = fa8c47083e9531f6865dfbe61e7f33eddd09b1e40d42cc55b99e3e69a4ce256d
+	sha256sums = 8d90f933d7372d268b329ee8d6ca8ec843fef5826f752e57acb5f9238b5f76e3
 
 pkgname = python-schema
