@@ -6,12 +6,12 @@ pkgname=(pcp pcp-gui pcp-pmda-activemq pcp-pmda-bcc pcp-pmda-bind2 pcp-pmda-bpft
          pcp-pmda-mysql pcp-pmda-nginx pcp-pmda-nutcracker pcp-pmda-openmetrics
          pcp-pmda-podman pcp-pmda-postgresql pcp-pmda-snmp)
 pkgver=6.2.0
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 url="https://pcp.io"
 license=(GPL-2.0-or-later LGPL-2.1-or-later CC-BY-3.0)
 makedepends=('avahi' 'procps-ng' 'which' 'libuv'
-             'rsync' 'llvm' 'debugedit'
+             'rsync' 'llvm' 'debugedit' 'python-setuptools'
              'qt5-svg' # gui
              'python-openpyxl' # pcp2xlsx
              'python-jsonpointer' 'python-six' # json
@@ -32,15 +32,18 @@ makedepends=('avahi' 'procps-ng' 'which' 'libuv'
 source=("https://github.com/performancecopilot/pcp/archive/$pkgver/$pkgname-$pkgver.tar.gz"
         "sysuser.conf"
         "tmpfile.conf"
-        "check-lto.patch")
+        "check-lto.patch"
+        "setuptools.patch")
 sha256sums=('9e5d502837d8afe4768c55878dd3aceec44e6b0fa80699eea7022fb9b5c7a032'
             '3e21ef7925296f73c91fe85c8dba341ce00366163845dd8993e2813b0ad5e4a4'
             '0166ffea180527de5a48a8e8f145cc80860b93e8f44bc5f96836c3d1cb4b01a2'
-            '228bb9c24ad8001b1806526d3cb65758dd184af7735038a93ab4465909d9fda9')
+            '228bb9c24ad8001b1806526d3cb65758dd184af7735038a93ab4465909d9fda9'
+            'b76db42b08c1cc5e2a61cc0b3371aee2508667ac544eeba40dfcc2b895f9587d')
 
 prepare() {
   cd "$pkgbase-$pkgver"
   patch -p1 -i "$srcdir/check-lto.patch"
+  patch -p1 -i "$srcdir/setuptools.patch"
 }
 
 build() {
