@@ -3,7 +3,7 @@
 pkgname=chatblade
 pkgdesc="A CLI Swiss Army Knife for ChatGPT"
 pkgver=0.4.0
-pkgrel=1
+pkgrel=2
 arch=("any")
 url="https://github.com/npiv/chatblade"
 license=("GPL-3.0-only")
