@@ -10,7 +10,7 @@
 pkgbase='protobuf'
 pkgname=('protobuf' 'python-protobuf')
 pkgver=25.3
-pkgrel=3
+pkgrel=4
 pkgdesc="Protocol Buffers - Google's data interchange format"
 arch=('x86_64')
 url='https://developers.google.com/protocol-buffers/'
