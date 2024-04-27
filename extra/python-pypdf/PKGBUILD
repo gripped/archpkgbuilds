@@ -7,7 +7,7 @@
 _pyname=pypdf
 pkgname=python-$_pyname
 pkgver=4.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Python library for manipulating pages of PDF files'
 arch=(any)
 url="https://github.com/py-pdf/$_pyname"
