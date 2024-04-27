@@ -2,7 +2,7 @@
 
 pkgname=python-graphql-core
 pkgver=3.2.3
-pkgrel=3
+pkgrel=4
 pkgdesc='GraphQL base implementation for Python'
 url=https://github.com/graphql-python/graphql-core
 arch=(any)
