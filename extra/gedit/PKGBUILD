@@ -4,7 +4,7 @@
 
 pkgname=gedit
 pkgver=46.2
-pkgrel=3
+pkgrel=4
 pkgdesc="GNOME Text Editor"
 url="https://gedit-technology.github.io/apps/gedit/"
 arch=(x86_64)
