@@ -2,12 +2,12 @@
 
 pkgname=python-jose
 pkgver=3.3.0
-pkgrel=6
+pkgrel=7
 pkgdesc="A JOSE implementation in Python"
 arch=('any')
 license=('MIT')
 url="https://github.com/mpdavis/python-jose"
-depends=('python-rsa' 'python-six' 'python-ecdsa' 'python-future')
+depends=('python-rsa' 'python-ecdsa' 'python-future')
 optdepends=('python-cryptography: one option for better performance'
             'python-pycryptodome: one option for better performance')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
