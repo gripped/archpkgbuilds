@@ -4,7 +4,7 @@
 pkgbase=ibus
 pkgname=(ibus libibus)
 pkgver=1.5.29
-pkgrel=4
+pkgrel=5
 pkgdesc="Intelligent input bus for Linux/Unix"
 arch=('x86_64')
 url="https://github.com/ibus/ibus/wiki"
