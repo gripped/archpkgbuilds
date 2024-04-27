@@ -1,0 +1,27 @@
+pkgbase = ropper
+	pkgdesc = Show information about binary files and find gadgets to build rop chains for different architectures
+	pkgver = 1.13.8
+	pkgrel = 4
+	url = https://github.com/sashs/Ropper
+	arch = any
+	license = GPL2
+	checkdepends = python-pytest
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	makedepends = python-setuptools
+	depends = python
+	depends = python-capstone
+	depends = python-filebytes
+	depends = python-z3-solver
+	depends = python-pyvex
+	depends = python-archinfo
+	optdepends = python-keystone: assemble command support
+	provides = python-ropper
+	conflicts = python-ropper
+	replaces = python-ropper
+	source = https://github.com/sashs/Ropper/archive/v1.13.8/ropper-1.13.8.tar.gz
+	sha512sums = eae2279e1c6bc91af76e8e5d37b7d57c5d2e518d027e293dbd52c6c27dcd8826e73673c55fe581cdefda272b657c8eff2b5eb4fdc4996fec1548709b8371b5d4
+	b2sums = 8601bcd2287763aa208b227c437362b9799ec1775104b659213e69a77f118bce567e95a0b83a4f0556439a82ee853ebc9aabaa4098b2a700572d1b661213eb25
+
+pkgname = ropper
