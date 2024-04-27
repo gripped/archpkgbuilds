@@ -4,7 +4,7 @@
 _pyname=traitlets
 pkgname=python-$_pyname
 pkgver=5.14.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A configuration system for Python applications'
 arch=(any)
 url='https://traitlets.readthedocs.io/en/stable'
