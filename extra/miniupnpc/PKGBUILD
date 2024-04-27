@@ -5,13 +5,13 @@
 pkgbase=miniupnpc
 pkgname=(miniupnpc python-miniupnpc)
 pkgver=2.2.7
-pkgrel=1
+pkgrel=2
 pkgdesc='Small UPnP client library/tool to access Internet Gateway Devices'
 url='https://miniupnp.tuxfamily.org/'
 arch=('x86_64')
 license=('BSD')
 makedepends=('sh' 'glibc' 'lsb-release' 'python' 'python-setuptools')
-source=(https://miniupnp.tuxfamily.org/files/${pkgname}-${pkgver}.tar.gz{,.sig})
+source=(http://miniupnp.free.fr/files/miniupnpc-${pkgver}.tar.gz{,.sig})
 sha512sums=('d24e653c2f7bfed4485342c5ec8d18b4dd4c3430975b5fae392d3534f38bb3fb59e6638e76d57847f49045e22f3afd6cac128d7d9d10ef05bd6ad24ef38303b6'
             'SKIP')
 b2sums=('5681c1747c8e330442a0ad46d673e1739283bfc23571cb2225abf82326caa7da979911b3182cab2e3eea49140b90619f4e00bb5b1e2f0cd6067c28017cf87016'
