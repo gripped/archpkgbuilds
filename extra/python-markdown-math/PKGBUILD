@@ -3,33 +3,37 @@
 
 pkgname=python-markdown-math
 pkgver=0.8
-pkgrel=6
+pkgrel=7
 pkgdesc="Math extension for Python-Markdown"
 arch=('any')
 url="https://github.com/mitya57/python-markdown-math"
-license=('BSD')
+license=('BSD-3-Clause')
 depends=('python-markdown')
-makedepends=('python-setuptools')
-source=("https://files.pythonhosted.org/packages/source/${pkgname:0:1}/${pkgname}/${pkgname}-${pkgver}.tar.gz"{,.asc})
-sha256sums=('8564212af679fc18d53f38681f16080fcd3d186073f23825c7ce86fadd3e3635'
-            'SKIP')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+source=("git+${url}#tag=${pkgver}?signed")
+sha256sums=('0672e8cda873c5818b775af564ced59e9093e3a8880f55498a1b711e9c21bd2a')
 validpgpkeys=('F24299FF1BBC9018B906A4CB6026936D2F1C8AE0') # Dmitry Shachnev <mitya57@debian.org>
 
 
 build() {
-    cd "python-markdown-math-${pkgver}"
+    cd "${pkgname}"
 
-    python setup.py build
+    python -m build --wheel --skip-dependency-check --no-isolation
 }
 
 check() {
-    cd "python-markdown-math-${pkgver}"
+    cd "${pkgname}"
 
-    python setup.py test
+    python -m unittest -v test.py
 }
 
 package() {
-    cd "python-markdown-math-${pkgver}"
-    python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
-    install -Dm644 LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+    cd "${pkgname}"
+    python -m installer --destdir="${pkgdir}" dist/*.whl
+
+    # Symlink license file
+    local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+    install -d "${pkgdir}/usr/share/licenses/${pkgname}"
+    ln -s "${site_packages}/${pkgname//-/_}-${pkgver}.dist-info/LICENSE" \
+      "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
