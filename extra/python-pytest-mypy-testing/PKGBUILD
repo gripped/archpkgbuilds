@@ -3,7 +3,7 @@
 _pyname=pytest-mypy-testing
 pkgname=python-$_pyname
 pkgver=0.1.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Plugin to test mypy output with pytest'
 arch=(any)
 license=(Apache
