@@ -4,7 +4,7 @@ _name=pydantic-core
 pkgname=python-pydantic-core
 # WARNING: this package is pinned down to the patch-level version in python-pydantic and should only be updated in lock-step with it
 pkgver=2.18.2
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Core validation logic for pydantic written in rust "
 arch=(x86_64)
