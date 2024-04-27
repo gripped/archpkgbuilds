@@ -4,7 +4,7 @@
 pkgname=python-oslo-log
 pkgver=5.5.1
 _commit=a6c4f8a9c62ae264f819716177f3da899eaf1a54
-pkgrel=1
+pkgrel=2
 pkgdesc="Oslo Logging Library"
 arch=('any')
 url="https://pypi.python.org/pypi/oslo.log/$pkgver"
