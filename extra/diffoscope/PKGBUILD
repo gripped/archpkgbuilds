@@ -1,8 +1,8 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=diffoscope
-pkgver=261
-pkgrel=1
+pkgver=265
+pkgrel=2
 pkgdesc='Tool for in-depth comparison of files, archives, and directories'
 url='https://diffoscope.org/'
 arch=('x86_64')
@@ -68,9 +68,9 @@ checkdepends=(
   'libxmlb' 'lz4' 'unzip' 'gzip' 'tar' 'tcpdump' 'vim' 'xz' 'llvm' 'colord' 'fpc' 'openssh' 'openssl' 'odt2txt' 'docx2txt' 'r' 'dtc'
   'giflib' 'gnumeric' 'python-progressbar' 'binwalk' 'python-argcomplete' 'zstd' 'uboot-tools')
 source=(https://diffoscope.org/archive/diffoscope-${pkgver}.tar.bz2{,.asc})
-sha512sums=('f66f5ecb39b21b74a9d2c23a38793bc728978656503c31c07e64bfa261b08c066b2474203584edd6861e24a8e353e6fce7bbc8ca0e65363dfabf54151a245f9a'
+sha512sums=('6c8dd45971966dc965242ffec3061f6c29d0b7bd2367e92aab5a03f4caba99b1f8dde514884d89c6442bdc86afec4deb11c914ffc4fa84e34bace672ff4aefa0'
             'SKIP')
-b2sums=('72983b5b3948316ccbb30aa3df8b265dd2f1e5479509577753c838425f5aa6feee205dfe5b290d843c1a2de6f34638d33f45bf4baa8d2cc052d1c5af71b119fc'
+b2sums=('754124472a37d5dc5208b1dce13cda726dc7868db5c1880db3d6228afffa580b73a4420a625e84d8791fe60ddd4451128d647e7ddc3a5f25ae63271947e2780a'
         'SKIP')
 validpgpkeys=("C2FE4BD271C139B86C533E461E953E27D4311E58"
               "66AE2B4AFCCF3F52DA184D184B043FCDB9444540")
@@ -88,9 +88,10 @@ check() {
   # lcms2 causes cd-iccdump to segfault
   rm tests/comparators/test_icc.py
   PYTHONPATH=".:${PYTHONPATH}" PYTHONDONTWRITEBYTECODE=1 py.test \
-    -k 'not test_ppu and not test_superblock '
+    -k 'not test_ppu and not test_superblock and not test_listing'
     # unsquashfs output differs from fixture.
     # ppu bug https://salsa.debian.org/reproducible-builds/diffoscope/issues/9
+    # skip test_listing due to a bug in binwalk comparison with test_listing
 }
 
 package() {
