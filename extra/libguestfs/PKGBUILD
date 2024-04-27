@@ -7,7 +7,7 @@
 
 pkgname=libguestfs
 pkgver=1.52.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Access and modify virtual machine disk images"
 arch=(x86_64)
 url="https://libguestfs.org/"
@@ -160,6 +160,7 @@ build() {
 }
 
 check() {
+  export SKIP_TEST_DISCARD_PL=1  # https://github.com/libguestfs/libguestfs/issues/140
   LIBGUESTFS_DEBUG=1 LIBGUESTFS_TRACE=1 make -k check -C $pkgname-$pkgver
 }
 
