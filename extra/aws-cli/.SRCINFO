@@ -1,10 +1,13 @@
 pkgbase = aws-cli
 	pkgdesc = Universal Command Line Interface for Amazon Web Services
 	pkgver = 1.32.34
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/aws/aws-cli
 	arch = any
 	license = Apache
+	checkdepends = python-pytest
+	checkdepends = python-pytest-xdist
+	checkdepends = python-awscrt
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools

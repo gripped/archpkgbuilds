@@ -5,7 +5,7 @@
 
 pkgname=aws-cli
 pkgver=1.32.34
-pkgrel=1
+pkgrel=3
 pkgdesc='Universal Command Line Interface for Amazon Web Services'
 arch=('any')
 url="https://github.com/aws/aws-cli"
@@ -15,6 +15,7 @@ depends=('python' 'python-botocore' 'python-dateutil' 'python-jmespath'
          'python-colorama' 'python-docutils' 'python-pyasn1' 'python-rsa'
          'python-s3transfer' 'python-yaml')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+checkdepends=('python-pytest' 'python-pytest-xdist' 'python-awscrt')
 source=($pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
 md5sums=('97b5ca21d77b6fad0b691d8027b2d78b')
 sha256sums=('ce32592ecd3dad7ea3643e13f209f24af555c4cab8cb4cc46c3fa33c05c72d1f')
@@ -23,6 +24,25 @@ build() {
   cd $pkgname-$pkgver
 
   python -m build --wheel --no-isolation
+}
+
+check() {
+  cd $pkgname-$pkgver
+
+  # Install to a temporary location, as some tests need the 'aws' command
+  python -m installer --destdir="$PWD/tmp_install" dist/*.whl
+
+  export PYTHONPATH="$PWD"
+  export PATH="$PATH:$PWD/tmp_install/usr/bin"
+
+  export PYTEST_XDIST_AUTO_NUM_WORKERS=$(echo "$MAKEFLAGS" | grep -oP '\-j\s*\K[0-9]+')
+  pytest_args=()
+  if [ -n "$PYTEST_XDIST_AUTO_NUM_WORKERS" ]; then
+    pytest_args+=(-n auto)
+  fi
+
+  # Many integration tests need real credentials
+  pytest tests "${pytest_args[@]}" --ignore=tests/integration
 }
 
 package() {
