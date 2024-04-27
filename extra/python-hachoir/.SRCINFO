@@ -1,0 +1,22 @@
+pkgbase = python-hachoir
+	pkgdesc = A Python library to view and edit a binary stream field by field
+	pkgver = 3.2.0
+	pkgrel = 4
+	url = https://hachoir.readthedocs.io/
+	arch = any
+	license = GPL
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	makedepends = python-setuptools
+	makedepends = python-urwid
+	makedepends = python-wxpython
+	depends = python
+	depends = python-darkdetect
+	optdepends = python-urwid: required for hachoir-urwid
+	optdepends = python-wxpython: required for hachoir-wx
+	source = python-hachoir::git+https://github.com/vstinner/hachoir.git#commit=90c624d976eb64064f370ee5a3c040535182ef49
+	b2sums = SKIP
+
+pkgname = python-hachoir
