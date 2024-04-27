@@ -4,8 +4,8 @@
 # Contributor: TDY <tdy@gmx.com>
 
 pkgname=spyder
-pkgver=5.5.3
-pkgrel=1
+pkgver=5.5.4
+pkgrel=2
 pkgdesc="The Scientific Python Development Environment"
 arch=(any)
 url="https://www.spyder-ide.org/"
@@ -90,7 +90,7 @@ checkdepends=(
     xorg-server-xvfb
 )
 source=(https://github.com/spyder-ide/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('001b6208ce937efb9d7aa7225659efaad921b55a6ec0d464496a93f5bd31980724ab98706f4f3e24130ea6b8943a7ad203efe47f32fc0597c15c603b492ccc3d')
+sha512sums=('4f68d1edc2901b4cffb67943c782ccd89e923722579ec4144064de2ec1b6bbf89f831feb3eb58a7adf7c403efc7d2529c38017b423bb32709170915792f4deb2')
 
 prepare() {
   cd ${pkgname}-${pkgver}
