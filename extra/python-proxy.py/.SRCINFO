@@ -1,0 +1,25 @@
+pkgbase = python-proxy.py
+	pkgdesc = Lightweight HTTP, HTTPS, HTTP2 and WebSockets proxy server
+	pkgver = 2.4.4rc5
+	pkgrel = 1
+	url = https://github.com/abhinavsingh/proxy.py
+	arch = any
+	license = BSD-3-Clause
+	checkdepends = python-httpx
+	checkdepends = python-pytest
+	checkdepends = python-pytest-asyncio
+	checkdepends = python-pytest-mock
+	checkdepends = python-requests
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools-scm
+	makedepends = python-wheel
+	depends = python
+	depends = python-setuptools
+	optdepends = python-httpx: Cloudflare DNS resolver plugin support
+	optdepends = python-paramiko: proxy over SSH tunnel support
+	source = python-proxy.py-2.4.4rc5.tar.gz::https://github.com/abhinavsingh/proxy.py/archive/refs/tags/v2.4.4rc5.tar.gz
+	sha512sums = c59a44cef9fefd7ade6c0643f6dea1850664c39c0a435b0fce53f36e1758a75a68d238137e59872dcd8886cb444a2b81eb8d9f86f6975f4029206f2c7b2554f6
+	b2sums = 39719f2554e2a70bfa0c0a788456b0cbdf521a03d752450f9ed458a5efc18059d1879762b98876828a6f3e1006acf9876a9a95a1497063c2551486afb32913e4
+
+pkgname = python-proxy.py
