@@ -4,7 +4,7 @@
 pkgname=python-sphinx-autodoc-typehints
 _pyname=${pkgname/python-/}
 pkgver=2.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Type hints support for the Sphinx autodoc extension'
 arch=('any')
 url='https://github.com/tox-dev/sphinx-autodoc-typehints'
