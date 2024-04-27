@@ -4,8 +4,8 @@
 # Contributor: Cory Farmer <rbgkofi@ameritech.net>
 
 pkgname=gramps
-pkgver=5.2.1
-pkgrel=2
+pkgver=5.2.2
+pkgrel=1
 epoch=2
 pkgdesc="Genealogy program, which helps you track your family tree"
 arch=('any')
@@ -22,7 +22,7 @@ optdepends=('osm-gps-map: show maps in the geography view'
             'libgexiv2: manage Exif metadata embedded in your media'
             'geocode-glib: associate a geographical position to a place name')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/gramps-project/$pkgname/archive/v$pkgver.tar.gz")
-sha256sums=('7ed027a93b1c5d371c2c7abd678dd1cc6795edf3bdabc87cdda1d97252acc220')
+sha256sums=('340cfe136f428cd185d510ca8f932401633e0014eba0261159c4b21efe92a126')
 
 build() {
   cd $pkgname-$pkgver
