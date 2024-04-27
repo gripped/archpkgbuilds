@@ -5,7 +5,7 @@
 
 pkgname=ansible-lint
 pkgver=24.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Checks playbooks for practices and behaviour that could potentially be improved."
 arch=('any')
 url="https://github.com/ansible/ansible-lint"
@@ -17,7 +17,7 @@ checkdepends=(mypy python-jmespath python-pylint python-pytest python-pytest-moc
 optdepends=('ansible: check official ansible collections')
 source=(git+https://github.com/ansible/ansible-lint.git#tag=v$pkgver
         disable_version_check.patch)
-b2sums=('b2f6505626ae0c45d313062680e57bb8ae63874d95f052d2e97cb4ff388e1719a4c9bc9cb4319012e5d93957ba13a795150d7a1052eca2bbb898fb45c893e8f1'
+b2sums=('6a5cb672255b84269daf656a19e82c2a8de0d4340b59a4d67f908165f93c65c70183a0ab93cda1f6e9381e4866c61f05e8c6f8a922f27ae1532b787b633024e2'
         '98294f267ca693c0bc3921f8e076d674a219a891502cd31a0af789bc0b1447b53834b9c85853a134f6bc1ac384f31cb174cba2d55fbcc1636cae9bd3c0bd8f84')
 
 prepare() {
@@ -28,8 +28,6 @@ prepare() {
 
 build() {
   cd ${pkgname}
-  # use pkg version
-  export SETUPTOOLS_SCM_PRETEND_VERSION=${pkgver}
   python -m build --wheel --skip-dependency-check --no-isolation
 }
 
