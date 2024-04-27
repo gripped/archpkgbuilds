@@ -3,8 +3,8 @@
 # Contributor: M A <morealaz at gmail dot com>
 
 pkgname=persepolis
-pkgver=4.0.1
-pkgrel=2
+pkgver=4.1.0
+pkgrel=1
 pkgdesc='Qt front-end for aria2 download manager'
 arch=('any')
 url='https://persepolisdm.github.io/'
@@ -13,7 +13,7 @@ depends=('aria2' 'ffmpeg' 'libnotify' 'libpulse' 'python-psutil' 'pyside6' 'pyth
          'python-setproctitle' 'qt6-svg' 'sound-theme-freedesktop' 'yt-dlp')
 makedepends=('meson')
 source=("https://github.com/persepolisdm/persepolis/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('194e5a97a9781710a6cce0a0a704b9c0a9802c294cee87b66b561f2dd358c334')
+sha256sums=('cede037545c9d2ae06c380a50fd460e4dd67f94ca77bc45697bf24fe4e769449')
 
 build() {
   arch-meson build $pkgname-$pkgver
