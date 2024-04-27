@@ -1,0 +1,23 @@
+pkgbase = telepathy-salut
+	pkgdesc = A link-local XMPP connection manager for Telepathy
+	pkgver = 0.8.1
+	pkgrel = 8
+	url = https://telepathy.freedesktop.org
+	install = telepathy-salut.install
+	arch = x86_64
+	groups = telepathy
+	license = LGPL
+	makedepends = libxslt
+	makedepends = python
+	makedepends = xmldiff
+	depends = telepathy-glib
+	depends = avahi
+	depends = libsoup
+	depends = util-linux
+	options = !lto
+	source = https://telepathy.freedesktop.org/releases/telepathy-salut/telepathy-salut-0.8.1.tar.gz
+	source = telepathy-salut-0.8.1-python3.patch
+	sha256sums = 70b9108ac8b511b7688e1b580de4ddb8981603c3cbde01f287ef8f9cb708618e
+	sha256sums = 04fb03cf1f085473712dbe3aa64285266dea88b1c423149e0540d7490dbb042b
+
+pkgname = telepathy-salut
