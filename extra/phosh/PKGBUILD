@@ -3,7 +3,7 @@
 # Contributor: Philip Goto <philip.goto@gmail.com>
 
 pkgname=phosh
-pkgver=0.37.1
+pkgver=0.38.0
 pkgrel=1
 pkgdesc='A pure Wayland shell prototype for GNOME on mobile devices'
 arch=(x86_64 aarch64)
@@ -16,10 +16,12 @@ depends=(gtk3 libhandy gnome-desktop gnome-session upower libpulse gcr
 makedepends=(meson git wayland-protocols python-docutils python-packaging  feedbackd)
 checkdepends=(xorg-server-xvfb xorg-xauth)
 optdepends=('iio-sensor-proxy: accelerometer and other sensors'
-            'feedbackd: haptic/visual/audio feedback')
+            'feedbackd: haptic/visual/audio feedback'
+            'xdg-desktop-portal-gtk: for screenshot support'
+            'xdg-desktop-portal-wlr: for screencasts support')
 source=("git+${url}.git#tag=v${pkgver}" "pam_phosh")
 validpgpkeys=("0DB3932762F78E592F6522AFBB5A2C77584122D3")
-sha256sums=('3832bb468576df1d1bb2dd45a4427c836ac478e96bcd4d42117587709e03d27c'
+sha256sums=('3bc45d56ed437824c5fd229b66e68b7b342fe5566f72cc5d0b4b4abe2486bf0f'
             'b7793f80c533e84ad8adfe8bb46c69f107575e724aa9b53b41f370baa37e4fd5')
 
 prepare() {

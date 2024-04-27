@@ -1,6 +1,6 @@
 pkgbase = phosh
 	pkgdesc = A pure Wayland shell prototype for GNOME on mobile devices
-	pkgver = 0.37.1
+	pkgver = 0.38.0
 	pkgrel = 1
 	url = https://gitlab.gnome.org/World/Phosh/phosh
 	arch = x86_64
@@ -37,10 +37,12 @@ pkgbase = phosh
 	depends = squeekboard
 	optdepends = iio-sensor-proxy: accelerometer and other sensors
 	optdepends = feedbackd: haptic/visual/audio feedback
-	source = git+https://gitlab.gnome.org/World/Phosh/phosh.git#tag=v0.37.1
+	optdepends = xdg-desktop-portal-gtk: for screenshot support
+	optdepends = xdg-desktop-portal-wlr: for screencasts support
+	source = git+https://gitlab.gnome.org/World/Phosh/phosh.git#tag=v0.38.0
 	source = pam_phosh
 	validpgpkeys = 0DB3932762F78E592F6522AFBB5A2C77584122D3
-	sha256sums = 3832bb468576df1d1bb2dd45a4427c836ac478e96bcd4d42117587709e03d27c
+	sha256sums = 3bc45d56ed437824c5fd229b66e68b7b342fe5566f72cc5d0b4b4abe2486bf0f
 	sha256sums = b7793f80c533e84ad8adfe8bb46c69f107575e724aa9b53b41f370baa37e4fd5
 
 pkgname = phosh
