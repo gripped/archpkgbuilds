@@ -4,7 +4,7 @@
 _pyname=fastparquet
 pkgname=python-$_pyname
 pkgver=2024.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A python implementation of the parquet format'
 url='https://github.com/dask/fastparquet'
 depends=(python python-cramjam python-pandas python-fsspec)
