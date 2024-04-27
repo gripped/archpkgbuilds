@@ -4,30 +4,23 @@
 # Contributor: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=yq
-pkgver=3.4.2
-pkgrel=2
+pkgver=3.4.3
+pkgrel=1
 pkgdesc="Command-line YAML, XML, TOML processor - jq wrapper for YAML/XML/TOML documents"
 arch=('any')
 url="https://github.com/kislyuk/yq"
-license=('Apache')
-depends=('jq'
-         'python-argcomplete'
-         'python-tomlkit'
-         'python-xmltodict'
-         'python-yaml')
-makedepends=('python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
-conflicts=('go-yq')
+license=(Apache-2.0)
+depends=(jq
+         python-argcomplete
+         python-tomlkit
+         python-xmltodict
+         python-yaml)
+makedepends=(python-{build,installer,wheel}
+             python-setuptools-scm)
+conflicts=(go-yq)
 source=("https://files.pythonhosted.org/packages/source/y/$pkgname/$pkgname-$pkgver.tar.gz")
-sha256sums=('f916408e834e96f390ef82a36bfcbf24a555ae5a2fcdaef94a2ed5d260d161ef')
-b2sums=('253701053d32279e78f703626432c5e068a58ad8d14286739c07452f1e0eeb8599eb1f2f0ea9479b60ed32d7bf94bd1c046b79ebee920df84371757195268bfb')
-
-prepare() {
-  cd $pkgname-$pkgver
-  # Unblock current setuptools: https://github.com/kislyuk/yq/issues/190
-  sed -i -e '/setuptools_scm/s/\(_scm\).*"/\1"/' setup.py
-  # Fix version: https://github.com/pypa/setuptools_scm/issues/1037
-  echo "version = '$pkgver'" > "$pkgname/version.py"
-}
+sha256sums=('ba586a1a6f30cf705b2f92206712df2281cd320280210e7b7b80adcb8f256e3b')
+b2sums=('a1b3d813d9761ac8a8429db3fe8efac64ade69e0d2fa9b137a1ca8c9e367a0f16b636482b6d9381e2de43392007f37388b6ab37def04739723488f271fd56d16')
 
 build() {
   cd $pkgname-$pkgver
