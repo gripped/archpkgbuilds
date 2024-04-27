@@ -1,0 +1,27 @@
+pkgbase = qreator
+	pkgdesc = Graphical utility for creating QR codes
+	pkgver = 20.02.1
+	pkgrel = 5
+	url = https://gitlab.com/qreator-dev/qreator
+	arch = any
+	license = GPL3
+	makedepends = python-distutils-extra
+	makedepends = git
+	depends = geoclue
+	depends = libchamplain
+	depends = libnm
+	depends = python-pillow
+	depends = python-cairo
+	depends = python-gobject
+	depends = python-qrencode
+	depends = python-requests
+	depends = python-vobject
+	depends = python-pyxdg
+	source = git+https://gitlab.com/qreator-dev/qreator.git#commit=56c4926413ef5202bfbfbfedecdb3ed4b9ae91a7
+	source = python3.9.patch
+	source = qreator.appdata.xml
+	sha256sums = SKIP
+	sha256sums = 0e12e98e58c497d3b7dc44da1b15eeb0a7a2dc1e75483b7ec1870c59b85ccf34
+	sha256sums = 55c0de408952322217f6f39c52ea9940c1e5f0a14f0fa14687644ad2c4740549
+
+pkgname = qreator
