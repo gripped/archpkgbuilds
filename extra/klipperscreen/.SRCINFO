@@ -1,18 +1,23 @@
 pkgbase = klipperscreen
 	pkgdesc = GUI for Klipper
 	pkgver = 0.3.9
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/KlipperScreen/KlipperScreen
 	arch = any
-	license = AGPL3
+	license = AGPL-3.0-only
 	makedepends = git
+	depends = bash
 	depends = cairo
 	depends = dbus-glib
+	depends = glib2
 	depends = gnu-free-fonts
+	depends = gdk-pixbuf2
 	depends = gtk3
 	depends = librsvg
 	depends = mpv
 	depends = openjpeg2
+	depends = pango
+	depends = python
 	depends = python-cairo
 	depends = python-gobject
 	depends = python-jinja
@@ -26,7 +31,7 @@ pkgbase = klipperscreen
 	depends = xorg-server
 	source = git+https://github.com/jordanruthe/KlipperScreen.git#tag=ce884154d63c5d4c9a0a803b123d211449733a01
 	source = klipperscreen.service
-	b2sums = SKIP
+	b2sums = f64bfc410c9e87b1db5964201871b01e7c98b0f3ea416af9828b76d5080855173339e2eca0284f60945f0cd12a032e7d2c0fa7d8cf2cf5e9b935550f9f24e5ad
 	b2sums = 1657a79da1e37a0494e021b19e3b95cd1979a3d8465de7f38b95bda77a3a59a382706bbcb61c60e9d1bb3c84590e74fcb58f36b2e835e0ef4df50d07beab01be
 
 pkgname = klipperscreen
