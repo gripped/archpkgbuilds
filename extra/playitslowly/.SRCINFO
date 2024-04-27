@@ -1,0 +1,26 @@
+pkgbase = playitslowly
+	pkgdesc = Play back audio files at a different speed or pitch
+	pkgver = 1.5.1
+	pkgrel = 12
+	url = https://29a.ch/playitslowly
+	arch = any
+	license = GPL3
+	makedepends = python-setuptools
+	depends = gst-plugins-bad
+	depends = gst-plugins-base
+	depends = gst-plugins-good
+	depends = gst-python
+	depends = gtk3
+	depends = python-gobject
+	optdepends = gst-plugins-ugly: Extra media codecs
+	optdepends = gst-libav: Extra media codecs
+	source = http://29a.ch/playitslowly/playitslowly-1.5.1.tar.gz
+	source = python310.patch
+	source = gtk-version.patch
+	source = playitslowly.appdata.xml
+	sha256sums = 7dfe3da5417971183a13002d1e4ba4f30770baaf1ae3f9ef0ac66a6727f476aa
+	sha256sums = 007fa2535e058894adaa31422be6b64106cb9d61b1e726fd53363ab516ce77f2
+	sha256sums = 397b430ad7bc16c606e466d53000c5c4ac57ee0b5390ddd8276bf46dbc17dd26
+	sha256sums = ebe2890f7e42dfb7988d4304a4faee6d5657556f12bcebcd3279e9de86ec1ae4
+
+pkgname = playitslowly
