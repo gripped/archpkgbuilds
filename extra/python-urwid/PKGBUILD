@@ -6,7 +6,7 @@
 _name=urwid
 pkgname=python-urwid
 pkgver=2.6.10
-pkgrel=1
+pkgrel=2
 pkgdesc='Curses-based user interface library'
 url='https://urwid.org/'
 arch=('x86_64')
