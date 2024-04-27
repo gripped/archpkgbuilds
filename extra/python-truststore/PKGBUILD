@@ -3,7 +3,7 @@
 _name=truststore
 pkgname=python-truststore
 pkgver=0.8.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Verify certificates using OS trust stores"
 arch=(any)
 url="https://github.com/sethmlarson/truststore"
@@ -49,7 +49,7 @@ check() {
     # -m 'not internet'
   )
   cd $_name-$pkgver
-  pytest -vv
+  PYTHONPATH=src pytest -vv
 }
 
 package() {
