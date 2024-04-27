@@ -9,7 +9,7 @@ pkgname=(
   python-capng
 )
 pkgver=0.8.5
-pkgrel=1
+pkgrel=2
 pkgdesc='A library for Linux that makes using posix capabilities easy'
 arch=(x86_64)
 url='https://people.redhat.com/sgrubb/libcap-ng/'
