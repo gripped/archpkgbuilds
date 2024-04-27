@@ -6,7 +6,7 @@
 
 pkgname=gunicorn
 pkgver=22.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='WSGI HTTP Server for UNIX'
 arch=('any')
 url='https://gunicorn.org/'
@@ -41,6 +41,7 @@ build() {
 
 check() {
   cd $pkgname
+  # Override addopts as they invoke coverage testing
   python -m pytest --override-ini="addopts="
 }
 
