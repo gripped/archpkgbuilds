@@ -1,9 +1,10 @@
-# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Lukas Fleischer <lfleischer@archlinux.org>
+# Contributor: Felix Yan <felixonmars@archlinux.org>
 
 _name=google-auth-library-python
 pkgname=python-google-auth
 pkgver=2.29.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Google Authentication Library"
 url="https://github.com/GoogleCloudPlatform/google-auth-library-python"
 license=('Apache-2.0')
