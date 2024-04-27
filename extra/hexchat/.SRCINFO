@@ -1,7 +1,7 @@
 pkgbase = hexchat
 	pkgdesc = A popular and easy to use graphical IRC (chat) client
 	pkgver = 2.16.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://hexchat.github.io/
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -12,6 +12,7 @@ pkgbase = hexchat
 	makedepends = meson
 	makedepends = perl
 	makedepends = python-cffi
+	makedepends = python-setuptools
 	depends = dbus-glib
 	depends = desktop-file-utils
 	depends = gdk-pixbuf2
@@ -27,6 +28,6 @@ pkgbase = hexchat
 	optdepends = perl: Perl plugin
 	optdepends = python-cffi: Python plugin
 	source = git+https://github.com/hexchat/hexchat.git#tag=v2.16.2
-	sha256sums = SKIP
+	sha256sums = 5d9e457ba10ac756b96561db098bbb2bc7e63de4e1552be570f1b5175eddf313
 
 pkgname = hexchat
