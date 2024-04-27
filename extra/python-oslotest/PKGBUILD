@@ -2,7 +2,7 @@
 
 pkgname=python-oslotest
 pkgver=5.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Oslo test framework"
 arch=('any')
 url="https://github.com/openstack/oslotest"
