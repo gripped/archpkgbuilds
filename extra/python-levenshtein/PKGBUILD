@@ -7,7 +7,7 @@
 pkgname=python-levenshtein
 _name=Levenshtein
 pkgver=0.25.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Python extension for computing string edit distances and similarities'
 arch=('x86_64')
 url='https://github.com/rapidfuzz/Levenshtein'
