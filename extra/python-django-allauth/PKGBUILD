@@ -2,8 +2,8 @@
 
 _name=django-allauth
 pkgname=python-django-allauth
-pkgver=0.62.0
-pkgrel=2
+pkgver=0.62.1
+pkgrel=1
 pkgdesc="Authentication, registration, account management and 3rd party account authentication"
 arch=(any)
 url="https://github.com/pennersr/django-allauth"
@@ -36,8 +36,8 @@ optdepends=(
   'python-saml: for SAML support'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('ee020f4e223a89eb5804b98e7cc4882e7325abe707be466d83ff6adbd6156e0300d911fd1020ca6af57ceb4d4b870bea126de5137b4f4cf332aac2db40347b26')
-b2sums=('4737539ce8d996c3b1b4edc9bfb9a11c5361be3fabd48a379d49bd481a715e69a4851a6051767e1d4879604928a8c314dce67b167dd572822ad41f49ce4b0dd0')
+sha512sums=('b9723a67babb070a159bf9ff5fef91ba91ab970ea6ca0b1e5f2a4cf75ba57460d7d7d3d376cae4e521c9980013a034aba8f745aa2a1cec7603a236712ef3dff8')
+b2sums=('1818279892c1e220f9039248ba70e6d312f950bcae8689fd2418ae0d5e3e98e110b0bdf7e0f868c47277f6b6ac5d6e41bb95d5f5baf82d72656f1b4769cc44f0')
 
 build() {
   cd $_name-$pkgver
@@ -54,7 +54,4 @@ package() {
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 README.rst -t "$pkgdir/usr/share/doc/$pkgname"
   install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
-  # remove tests dir: https://github.com/pennersr/django-allauth/issues/3752
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  rm -frv "$pkgdir/$site_packages/tests"
 }
