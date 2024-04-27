@@ -5,7 +5,7 @@
 _name=fastapi
 pkgname=python-$_name
 pkgver=0.110.2
-pkgrel=1
+pkgrel=2
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=(any)
 url="https://github.com/tiangolo/fastapi"
