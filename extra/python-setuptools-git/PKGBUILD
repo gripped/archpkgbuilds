@@ -2,7 +2,7 @@
 
 pkgname=python-setuptools-git
 pkgver=1.2
-pkgrel=10
+pkgrel=11
 pkgdesc='Setuptools revision control system plugin for Git'
 arch=('any')
 license=('BSD')
