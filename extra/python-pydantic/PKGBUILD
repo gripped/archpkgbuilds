@@ -5,7 +5,7 @@ _name=pydantic
 pkgname=python-$_name
 # WARNING: upstream pins pydantic-core down to the patch-level and using other versions breaks tests! only update in lock-step with python-pydantic-core!
 pkgver=2.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Data parsing and validation using Python type hints'
 arch=(any)
 url="https://github.com/pydantic/pydantic"
