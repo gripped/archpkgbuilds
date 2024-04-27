@@ -3,7 +3,7 @@
 
 pkgname=bolt
 pkgver=0.9.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Thunderbolt 3 device manager"
 arch=('x86_64')
 url="https://gitlab.freedesktop.org/bolt/bolt"
