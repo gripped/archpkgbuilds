@@ -1,11 +1,10 @@
 pkgbase = urh
 	pkgdesc = Universal Radio Hacker: investigate wireless protocols like a boss
 	pkgver = 2.9.6
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/jopohl/urh
 	arch = x86_64
 	license = GPL3
-	checkdepends = python-pytest-runner
 	checkdepends = python-pytest-xdist
 	checkdepends = xorg-server-xvfb
 	makedepends = cython0
@@ -34,6 +33,8 @@ pkgbase = urh
 	optdepends = gnuradio-osmosdr: OsmoSDR backend, via GNURadio
 	optdepends = python-pyaudio: Soundcard backend
 	source = urh-2.9.6.tar.gz::https://github.com/jopohl/urh/archive/v2.9.6.tar.gz
+	source = fieldtypes.xml-not-found.patch
 	sha512sums = c5a153bf6df2421b496c58957b5ea0d591efd8caa12e08638560c125014d935abf279328a8b91fd09ab21444a58eea6ab7e59c3524b5c586c294b11123bff250
+	sha512sums = 816dc20bda3ec96ec4ca43a46257499d05505f64c80d60b47a7bc5a1e88f1eaf1c3130b3a113d2ed432d3c22fd1536fa3d500b97919afcd518049ca095acd000
 
 pkgname = urh

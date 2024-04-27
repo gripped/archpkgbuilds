@@ -3,14 +3,14 @@
 
 pkgname=urh
 pkgver=2.9.6
-pkgrel=1
+pkgrel=3
 pkgdesc='Universal Radio Hacker: investigate wireless protocols like a boss'
 arch=('x86_64')
 url='https://github.com/jopohl/urh'
 license=('GPL3')
 depends=('python' 'python-pyqt5' 'python-numpy' 'python-psutil')
 makedepends=('cython0' 'gcc' 'python-setuptools' 'airspy' 'hackrf' 'libuhd' 'limesuite' 'rtl-sdr' 'bladerf' 'libiio')
-checkdepends=('python-pytest-runner' 'python-pytest-xdist' 'xorg-server-xvfb')
+checkdepends=('python-pytest-xdist' 'xorg-server-xvfb')
 optdepends=('airspy: Airspy backend'
             'cython: compiling native modules inside URH'
             'hackrf: HackRF backend'
@@ -22,8 +22,15 @@ optdepends=('airspy: Airspy backend'
             'python-pylibiio: IIO backend (PlutoSDR)'
             'gnuradio-osmosdr: OsmoSDR backend, via GNURadio'
             'python-pyaudio: Soundcard backend')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/jopohl/urh/archive/v$pkgver.tar.gz")
-sha512sums=('c5a153bf6df2421b496c58957b5ea0d591efd8caa12e08638560c125014d935abf279328a8b91fd09ab21444a58eea6ab7e59c3524b5c586c294b11123bff250')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/jopohl/urh/archive/v$pkgver.tar.gz"
+	"fieldtypes.xml-not-found.patch")
+sha512sums=('c5a153bf6df2421b496c58957b5ea0d591efd8caa12e08638560c125014d935abf279328a8b91fd09ab21444a58eea6ab7e59c3524b5c586c294b11123bff250'
+            '816dc20bda3ec96ec4ca43a46257499d05505f64c80d60b47a7bc5a1e88f1eaf1c3130b3a113d2ed432d3c22fd1536fa3d500b97919afcd518049ca095acd000')
+
+prepare() {
+  cd $pkgname-$pkgver
+  patch -Np1 -i ${srcdir}/fieldtypes.xml-not-found.patch
+}
 
 build() {
   cd $pkgname-$pkgver
