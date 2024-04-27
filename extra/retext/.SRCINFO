@@ -1,16 +1,20 @@
 pkgbase = retext
 	pkgdesc = A simple editor for Markdown and ReStructuredText markup languages
-	pkgver = 8.0.1
-	pkgrel = 1
+	pkgver = 8.0.2
+	pkgrel = 2
 	url = https://github.com/retext-project/retext
 	arch = any
-	license = GPL3
+	license = GPL-2.0-or-later
 	checkdepends = xorg-server-xvfb
 	checkdepends = python-chardet
 	checkdepends = python-docutils
 	makedepends = imagemagick
 	makedepends = qt6-tools
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
+	makedepends = git
 	depends = python-pyqt6
 	depends = python-markups>=2.0.0
 	depends = shared-mime-info
@@ -23,10 +27,10 @@ pkgbase = retext
 	depends = python-chardet
 	optdepends = python-pyqt6-webengine: for WebEngine preview
 	optdepends = python-pyenchant: for spell checking support
-	source = https://files.pythonhosted.org/packages/source/R/ReText/ReText-8.0.1.tar.gz
+	source = git+https://github.com/retext-project/retext#tag=8.0.2?signed
 	source = x-retext-rst.xml
 	validpgpkeys = F24299FF1BBC9018B906A4CB6026936D2F1C8AE0
-	sha256sums = 8c3a2247d381b40b14cb4a63a184a62e35f16d31699aedfbe9c294a043ec0d96
+	sha256sums = 815c8a0dbf83db30fcc5f5bd8de0e07637e23903c515efe015339c0d39298a62
 	sha256sums = 6fef80cccb14813d9cc74810c397a6cd7831d1ca243536759a47c6e8b6cc977a
 
 pkgname = retext
