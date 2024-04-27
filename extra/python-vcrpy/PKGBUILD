@@ -3,7 +3,7 @@
 pkgname=python-vcrpy
 _name="${pkgname#python-}"
 pkgver=6.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Automatically mock your HTTP interactions to simplify and speed up testing'
 arch=('any')
 license=('MIT')
