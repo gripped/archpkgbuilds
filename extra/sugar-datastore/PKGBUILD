@@ -2,7 +2,7 @@
 
 pkgname=sugar-datastore
 pkgver=0.120
-pkgrel=1
+pkgrel=2
 pkgdesc="Sugar datastore service"
 arch=('x86_64')
 url="https://sugarlabs.org/"
@@ -16,6 +16,7 @@ sha256sums=('57373da5b6bd877f5198c5e4e3b7921856e9d4ff47e7e163806ed1787a3c4b62'
 prepare() {
   cd $pkgname-$pkgver
   patch -Np1 -i ../python310.patch
+  autoreconf -vif
 }
 
 build() {
