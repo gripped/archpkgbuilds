@@ -6,24 +6,28 @@
 _pkg=ruamel.yaml
 pkgname=python-${_pkg/./-}
 pkgver=0.18.6
-pkgrel=1
+pkgrel=2
 pkgdesc="YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order"
 arch=('any')
 url="https://sourceforge.net/projects/ruamel-yaml/"
 license=('MIT')
 depends=('python-ruamel.yaml.clib')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=(https://files.pythonhosted.org/packages/source/r/${_pkg}/${_pkg}-${pkgver}.tar.gz)
 sha512sums=('47d0d19e85a9b498ebcd844f950ea8210d995b6b991d543be975b545162069b69773030df62300a11313ebc378795a23c39a983acd0b5ab4344d74e7aa7ded0a')
 
 build() {
   cd ${_pkg}-${pkgver}
-  python setup.py build
+  python -m build --wheel --skip-dependency-check --no-isolation
 }
 
 package() {
   cd ${_pkg}-${pkgver}
-  # https://bitbucket.org/ruamel/yaml/issues/114/setuppy-requirement-for-pip-prevents
-  RUAMEL_NO_PIP_INSTALL_CHECK=1 python setup.py install --skip-build --root="${pkgdir}" --optimize=1
-  install -Dm644 LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+  python -m installer --destdir="${pkgdir}" dist/*.whl
+
+  # Symlink license file
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  install -d "${pkgdir}"/usr/share/licenses/"${pkgname}"
+  ln -s "${site_packages}"/${_pkg}-${pkgver}.dist-info/LICENSE \
+    "${pkgdir}"/usr/share/licenses/"${pkgname}"/LICENSE
 }
