@@ -2,12 +2,12 @@
 
 pkgname=python-pytest-enabler
 pkgver=3.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Enable installed pytest plugins'
 arch=('any')
 license=('MIT')
 url='https://github.com/jaraco/pytest-enabler'
-depends=('python-jaraco.context' 'python-jaraco.functools' 'python-pytest' 'python-toml' 'python-importlib-resources')
+depends=('python-jaraco.context' 'python-jaraco.functools' 'python-pytest' 'python-toml')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
 checkdepends=('python-pytest-mypy' 'python-pytest-ruff' 'python-pytest-cov')
 source=("git+https://github.com/jaraco/pytest-enabler.git#tag=v$pkgver"
