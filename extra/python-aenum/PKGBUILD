@@ -4,15 +4,18 @@
 
 pkgname=python-aenum
 pkgver=3.1.15
-pkgrel=1
+pkgrel=2
 pkgdesc='Advanced Enumerations for Python'
 arch=(any)
 url=https://github.com/ethanfurman/aenum
-license=(BSD)
+license=(BSD-3-Clause)
 depends=(python)
 makedepends=(
   git
+  python-build
+  python-installer
   python-setuptools
+  python-wheel
 )
 _tag=2d72c2f8378469d8d7bc3972effed14c152d860d
 source=(git+https://github.com/ethanfurman/aenum.git#tag=${_tag})
@@ -29,12 +32,12 @@ pkgver() {
 
 build() {
   cd aenum
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd aenum
-  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -dm 755 "${pkgdir}"/usr/share/{doc,licenses/python-aenum}
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   mv "${pkgdir}"${site_packages}/aenum/doc "${pkgdir}"/usr/share/doc/python-aenum
