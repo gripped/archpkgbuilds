@@ -1,0 +1,26 @@
+pkgbase = liquidctl
+	pkgdesc = Cross-platform CLI and Python drivers for AIO liquid coolers and other devices
+	pkgver = 1.13.0
+	pkgrel = 2
+	url = https://github.com/liquidctl/liquidctl
+	arch = any
+	license = GPL3
+	checkdepends = python-pytest
+	makedepends = git
+	makedepends = python-setuptools-scm
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	depends = python
+	depends = python-docopt
+	depends = python-pyusb
+	depends = python-hidapi
+	depends = python-colorlog
+	depends = i2c-tools
+	depends = python-pillow
+	depends = python-crcmod
+	source = git+https://github.com/liquidctl/liquidctl.git?signed#tag=v1.13.0
+	validpgpkeys = 23F335ED4E829797734B22F65841AF7406AF7AD0
+	sha512sums = SKIP
+
+pkgname = liquidctl
