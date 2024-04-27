@@ -2,7 +2,7 @@
 
 pkgname=rofimoji
 pkgver=6.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Emoji, unicode and general character picker for rofi and rofi-likes'
 arch=('any')
 url=https://github.com/fdw/rofimoji
@@ -14,17 +14,19 @@ optdepends=(
   'nerd-fonts: for the nerd_font character file'
   'otf-font-awesome: for the fontawesome6 character file'
   'ttf-font-awesome: for the fontawesome6 character file'
+
   'rofi: for the X.Org selector'
   'xclip: for one of the X.Org clipboarders'
   'xsel: for one of the X.Org clipboarders'
   'xdotool: for the X.Org typer'
-  'wofi: for a Wayland selector'
-  'fuzzel: for a Wayland selector'
+
+  'fuzzel: for one of the Wayland selectors'
+  'wofi: for one of the Wayland selectors'
   'wl-clipboard: for the Wayland clipboarder'
   'wtype: for the Wayland typer'
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('SKIP')
+b2sums=('4866d3628bc9a9e1443639601692c1ad875052430032eb08ee81cc771236c4db54adc011475d066813b799fffdabce94227fba07e8f2248e02340ffaf0822ec4')
 
 prepare() {
   cd $pkgname
