@@ -4,14 +4,13 @@
 
 pkgname=python-ptrace
 pkgver=0.9.9
-pkgrel=2
+pkgrel=3
 pkgdesc='Python binding of ptrace library to trace processes and syscalls'
 url='https://github.com/vstinner/python-ptrace'
 arch=('any')
 license=('GPL-2.0-only')
 depends=(
   'python'
-  'python-six'
 )
 makedepends=(
   'python-build'
