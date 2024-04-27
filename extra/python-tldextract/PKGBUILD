@@ -2,11 +2,11 @@
 
 pkgname=python-tldextract
 pkgver=5.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Accurately separate the TLD from the registered domain and subdomains of a URL, using the Public Suffix List"
 arch=('any')
 url="https://github.com/john-kurkowski/tldextract"
-license=('BSD')
+license=('BSD-3-Clause')
 depends=('python-idna' 'python-requests' 'python-requests-file' 'python-filelock')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm'
              'python-wheel')
