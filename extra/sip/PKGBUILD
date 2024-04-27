@@ -2,10 +2,10 @@
 
 pkgname=sip
 pkgver=6.8.3
-pkgrel=1
+pkgrel=2
 arch=(any)
 pkgdesc='A tool that makes it easy to create Python bindings for C and C++ libraries'
-url='https://www.riverbankcomputing.com/software/sip/intro'
+url='https://www.riverbankcomputing.com/'
 license=('custom:"sip"')
 depends=(python
          python-packaging
