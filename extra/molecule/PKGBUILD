@@ -3,7 +3,7 @@
 
 pkgname=molecule
 pkgver=24.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Aids in the development and testing of Ansible roles"
 arch=(any)
 url="https://github.com/ansible-community/molecule"
