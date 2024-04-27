@@ -1,8 +1,8 @@
 pkgbase = pygobject
 	pkgdesc = Python bindings for GLib/GObject/GIO/GTK
-	pkgver = 3.48.1
-	pkgrel = 2
-	url = https://wiki.gnome.org/Projects/PyGObject
+	pkgver = 3.48.2
+	pkgrel = 1
+	url = https://pygobject.gnome.org/
 	arch = x86_64
 	license = LGPL-2.1-or-later
 	checkdepends = gtk3
@@ -12,18 +12,18 @@ pkgbase = pygobject
 	makedepends = gobject-introspection
 	makedepends = meson
 	makedepends = python-cairo
+	makedepends = python-setuptools
 	makedepends = python-sphinx
 	makedepends = python-sphinx-furo
 	depends = gobject-introspection-runtime
 	depends = python
 	optdepends = cairo: Cairo bindings
-	source = git+https://gitlab.gnome.org/GNOME/pygobject.git#commit=67b807613a93544fb7ff8f456b0de004950f7da4
-	source = 304.patch
-	b2sums = 7f0fe23cc7b882ba61de7d87379bffe32f3282a37a4fe32388f6bdb920bd42c80067dea8db25708b3e127264d9af64416cb24bf9a6b917ad15e0040870782065
-	b2sums = 84b96baf978b5117a3557c56a45efc842deb415d23eeec52c98e9b7c6af3aeff3f48889c6824dc81e8efa1ca1fc016161d7f278f062f35db3058c2db05b8a540
+	source = git+https://gitlab.gnome.org/GNOME/pygobject.git?signed#tag=3.48.2
+	validpgpkeys = 0EBF782C5D53F7E5FB02A66746BD761F7A49B0EC
+	b2sums = 6cd9fd5022fec4c93d844079e3cc0c124f8aed52d390a6b46c536a097b79be8452590a31ba5ce03fb77e3dc0dc2c744fd9efa1135d878c81935c8cd58f4df8b3
 
 pkgname = python-gobject
-	provides = pygobject-devel=3.48.1
+	provides = pygobject-devel=3.48.2
 	conflicts = pygobject-devel
 	replaces = pygobject-devel<=3.36.1-1
 
