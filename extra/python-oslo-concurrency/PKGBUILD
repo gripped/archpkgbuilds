@@ -4,7 +4,7 @@
 pkgname=python-oslo-concurrency
 pkgver=6.0.0
 _commit=53709baa928baad9845bf9f7a20f36284bebe091
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenStack library for all concurrency-related code"
 arch=('any')
 url="https://pypi.python.org/pypi/oslo.concurrency/$pkgver"
