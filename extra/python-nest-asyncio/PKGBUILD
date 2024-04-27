@@ -2,7 +2,7 @@
 
 pkgname=python-nest-asyncio
 pkgver=1.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Patch asyncio to allow nested event loops"
 url="https://github.com/erdewit/nest_asyncio"
 license=('BSD-2-Clause')
