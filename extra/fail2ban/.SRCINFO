@@ -1,0 +1,28 @@
+pkgbase = fail2ban
+	pkgdesc = Bans IPs after too many failed authentication attempts
+	pkgver = 1.1.0
+	pkgrel = 1
+	url = https://www.fail2ban.org/
+	arch = any
+	license = GPL
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	depends = python-pyinotify
+	depends = python-systemd
+	depends = sqlite
+	depends = whois
+	optdepends = firewalld: for a firewall backend
+	optdepends = ipset: for a firewall backend
+	optdepends = iptables: for a firewall backend
+	optdepends = nftables: for a firewall backend
+	backup = etc/fail2ban/fail2ban.conf
+	backup = etc/fail2ban/jail.conf
+	backup = etc/logrotate.d/fail2ban
+	source = git+https://github.com/fail2ban/fail2ban.git#tag=1.1.0?signed
+	validpgpkeys = E6C3F631FBDA716B070C6ED94141C485A81A88CB
+	b2sums = c2859a151abd906ceadc8549a4d337b01b037793e7d9285d44f08405695bdcb1b7dc88998cb7eed0321cacdce1d3fca29e55c63f5f60dadbb15f217f6cbe92d3
+
+pkgname = fail2ban
