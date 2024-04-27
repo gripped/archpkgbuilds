@@ -8,7 +8,7 @@
 pkgname=lxc
 epoch=1
 pkgver=6.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Linux Containers"
 arch=('x86_64')
 url="https://linuxcontainers.org"
