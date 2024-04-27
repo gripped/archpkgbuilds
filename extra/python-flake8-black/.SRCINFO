@@ -1,0 +1,24 @@
+pkgbase = python-flake8-black
+	pkgdesc = Flake8 plugin to call black as a code style validator
+	pkgver = 0.3.6
+	pkgrel = 3
+	url = https://github.com/peterjc/flake8-black
+	arch = any
+	license = MIT
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	makedepends = python-setuptools
+	depends = python
+	depends = flake8
+	depends = python-black
+	depends = python-tomli
+	source = python-flake8-black::git+https://github.com/peterjc/flake8-black#commit=868b41554a6b57d74e916d33c37469e0d0b4b9cc
+	source = pyproject-no-pip.patch
+	sha512sums = d68393ccca42afb7295ed1bcab4d478f9e9f934210ef666990ead0534d8f0ae3e9248828021b0ab1f36277a0c6588220650ac45fc3af28182a36d9fa0b9c6b56
+	sha512sums = 0dc458646781a621b571ac6a2ef892da242fa353b0be3e63a189ff0da8d0d10495521ff559072e50ada62e3565e43103cf605766b4cdf9f1b97a039a1ebd03fd
+	b2sums = 4f0964a91c1477439bea4a30da69cc1f7bd8a20544cc6bc9a9adc31add0120ea083ece7ba2601f3dfea158b55c86df5a97ddda371afccadfd93bf1e0c21bd81c
+	b2sums = abc8840cf1cbf6b2386c38e690dcb479671cf2df64c584787f7ebb06c31dc3cec1d1d407e3bf3173460f31f8a61023bd1609e20fcac9317f67a3c18c610b2b19
+
+pkgname = python-flake8-black
