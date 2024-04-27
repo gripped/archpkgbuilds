@@ -4,7 +4,7 @@
 
 pkgname=python-versioningit
 pkgver=3.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Versioning It with your Version In Git'
 arch=('any')
 url='https://github.com/jwodder/versioningit'
@@ -24,6 +24,7 @@ checkdepends=(
   'git'
   'mercurial'
   'python-hatchling'
+  'python-pydantic'
   'python-pytest'
   'python-pytest-mock'
 )
