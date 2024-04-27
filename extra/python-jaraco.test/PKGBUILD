@@ -2,14 +2,14 @@
 
 pkgname=python-jaraco.test
 pkgver=5.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Testing support by jaraco"
 url="https://github.com/jaraco/jaraco.test"
 license=('MIT')
 arch=('any')
 depends=('python' 'python-jaraco.collections' 'python-jaraco.context' 'python-jaraco.functools')
 makedepends=('git' 'python-setuptools-scm' 'python-wheel' 'python-build' 'python-installer')
-checkdepends=('python-pytest' 'python-pytest-enabler' 'python-pytest-mypy' 'python-pytest-ruff')
+checkdepends=('python-pytest')
 source=("git+https://github.com/jaraco/jaraco.test.git#tag=v$pkgver")
 sha512sums=('37c97e885710e98a746ca300989d0b74da096e22abc9ba1122a31c0f14d5e6ae129cb65feb66c8d58561416371df7d5e62e1bb38dc406abac65b0ff6f91ff390')
 
