@@ -5,8 +5,8 @@
 
 pkgbase=python-basemap
 pkgname=('python-basemap' 'python-basemap-common')
-pkgver=1.4.0
-pkgrel=1
+pkgver=1.4.1
+pkgrel=2
 arch=('x86_64')
 url="https://matplotlib.org/basemap/"
 license=('MIT')
@@ -14,7 +14,7 @@ makedepends=('cython0' 'python-setuptools' 'python-matplotlib' 'geos' 'shapelib'
              'python-numpy' 'python-pyproj')
 source=($pkgname-$pkgver.tar.gz::https://github.com/matplotlib/basemap/archive/v${pkgver}.tar.gz
         LICENSE)
-sha256sums=('a5cec3035825608802d672e6ccf7d85fd26db6994ca7c9cf5824121d5c923a4f'
+sha256sums=('730b1e2ff5eb31c73680bd8ebabc6b11adfc587cfa6832c528a8a82822e5a490'
             '0deac85afb0740df7626b6d8d7aa4b8814bbe9a412fb1a0e5962895d17e63add')
 
 prepare() {
