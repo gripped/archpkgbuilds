@@ -2,7 +2,7 @@
 
 pkgname=sugar-toolkit-gtk3
 pkgver=0.120
-pkgrel=1
+pkgrel=2
 pkgdesc="Sugar GTK library"
 arch=('x86_64')
 url="https://sugarlabs.org/"
@@ -14,12 +14,17 @@ optdepends=('webkit2gtk: run sugar-activity-web')
 source=(https://download.sugarlabs.org/sources/sucrose/glucose/$pkgname/$pkgname-$pkgver.tar.xz)
 sha256sums=('15476d1cc0bac2367ede4c855625cee88741c4d774908a7e633c264bb68b6928')
 
+prepare() {
+  cd $pkgname-$pkgver
+  autoreconf -vif
+}
+
 build() {
   cd $pkgname-$pkgver
   # Disable hardened build until fixed upstream
   # https://bugs.sugarlabs.org/ticket/4886
   export CFLAGS=${CFLAGS/ -fno-plt}
-  export LDFLAGS=${LDFLAGS/,-z,now}
+  export LDFLAGS=${LDFLAGS/-Wl,-z,now}
 
   ./configure --prefix=/usr
   sed -i 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
