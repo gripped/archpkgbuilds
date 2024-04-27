@@ -3,41 +3,44 @@
 # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux
 pkgname=azure-cli
 pkgver=2.59.0
-pkgrel=1
-pkgdesc="Command-line tools for Azure."
+pkgrel=3
+pkgdesc="Command-line tools for Microsoft Azure"
 arch=('any')
 url="https://github.com/Azure/azure-cli"
 license=('MIT')
 depends=("python")
-source=("install.py"
-        "install.response"
+makedepends=("git")
+options=("!debug")
+source=("git+https://github.com/Azure/azure-cli.git#tag=azure-cli-${pkgver}"
+        "$pkgname-28796.patch::https://patch-diff.githubusercontent.com/raw/Azure/azure-cli/pull/28796.patch"
         "az")
-sha256sums=('10fbef43805ed5536aa08c166c5e7ee31e39d990c559387b316a33d96a8f32da'
-            '7c05e9915a52fb72fa8d1c498b173c42457d669351313eaddccf43f86ed0e0ec'
+sha256sums=('beae74a95eefd9cb3b20e5289b3e840667407cc92f7701b089c74694957331d5'
+            '006c1a0d32beac69cf81dd45a7af73c58a5e60dd59094c2e3309d82c0a523d2f'
             '990f70efec828c1e1f3f57748fc6e40f9705f2223dc96683e8e29d118daac116')
-options=(!strip)
-
-pkgver() {
-  # Make sure we have a writable $HOME/.azure directory to run az
-  HOME=$srcdir "$srcdir/bin/az" --version 2> /dev/null | head -1 | tr -c -d 0-9.
-}
+options=('!strip')
 
 prepare() {
-  rm -rf "$srcdir/azure-cli"
+  cd azure-cli
+  patch -Np1 -i "$srcdir"/$pkgname-28796.patch
 
-  # /usr/bin/python to ensure we use system python, rather than anaconda or something else.
-  grep -v -E '^===>|^$' install.response | /usr/bin/python "$srcdir/install.py"
-
-  find "$srcdir/azure-cli/bin" -type f -print0 | xargs -0 sed -i -e "s|$srcdir|/opt|g"
+  # Python 3.12
+  git cherry-pick -n e440e03b448b7a2c647a306d135ab7da87750106
+  git cherry-pick -n 6c253662715b2e781bd7d2698e5469fe7289ef2c
 }
 
 package() {
+  cd azure-cli
+
   mkdir "$pkgdir/opt"
-  cp -r azure-cli "$pkgdir/opt"
 
-  mkdir -p "$pkgdir/usr/bin"
-  install -Dm755 az "$pkgdir/usr/bin"
+  # We're going to just slap all of this junk into /opt because it needs so much stuff
+  # with very specific versions that it's just not worth the hassle to try to fight it.
+  # Sometimes you just have to be like water, my friend.
+  python -m venv "$pkgdir/opt/azure-cli"
+  source "$pkgdir/opt/azure-cli/bin/activate"
 
-  install -Dm644 "$pkgdir/opt/azure-cli/az.completion" \
-    "$pkgdir/usr/share/bash-completion/completions/az"
+  scripts/install_full.sh
+
+  install -Dm755 "$srcdir/az" "$pkgdir/usr/bin/az"
+  install -Dm644 az.completion "$pkgdir/usr/share/bash-completion/completions/az"
 }
