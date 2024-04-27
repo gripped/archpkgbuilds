@@ -1,0 +1,25 @@
+pkgbase = python-service-identity
+	pkgdesc = Service identity verification for pyOpenSSL
+	pkgver = 23.1.0
+	pkgrel = 2
+	url = https://pypi.python.org/pypi/service_identity
+	arch = any
+	license = MIT
+	checkdepends = python-pytest
+	checkdepends = python-idna
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-hatchling
+	makedepends = python-hatch-fancy-pypi-readme
+	makedepends = python-hatch-vcs
+	depends = python-attrs
+	depends = python-pyasn1-modules
+	depends = python-pyasn1
+	depends = python-cryptography
+	optdepends = python-idna: for Internationalized Domain Names support
+	replaces = python-service_identity
+	source = git+https://github.com/pyca/service-identity.git#commit=be2f98443fe0ce1d8dcc7f373ea53561bd929837
+	sha512sums = SKIP
+
+pkgname = python-service-identity
