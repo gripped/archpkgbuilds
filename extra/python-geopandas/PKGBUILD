@@ -3,11 +3,11 @@
 _pkg=geopandas
 pkgname=python-${_pkg}
 pkgver=0.14.3
-pkgrel=3
+pkgrel=5
 pkgdesc="Python tools for geographic data"
 arch=(any)
 url="https://geopandas.org"
-license=(BSD)
+license=(BSD-3-Clause)
 depends=(
     gdal
     python-fiona
@@ -26,7 +26,12 @@ optdepends=(
     'python-matplotlib: plotting'
 #    'python-mapclassify: plotting'
 )
-makedepends=(python-setuptools)
+makedepends=(
+    python-build
+    python-installer
+    python-setuptools
+    python-wheel
+)
 checkdepends=(
     python-pytest
     python-fsspec
@@ -53,7 +58,7 @@ sha256sums=('e4c3bac0f9db6c28c65d1c96bcd75a7906b6c45b6da184ca4d635fb39268794b')
 
 build() {
   cd ${_pkg}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -64,6 +69,6 @@ check() {
 
 package() {
   cd ${_pkg}-${pkgver}
-  python setup.py install --prefix=/usr --root="${pkgdir}" --skip-build --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE.txt -t "${pkgdir}"/usr/share/licenses/${pkgname}
 }
