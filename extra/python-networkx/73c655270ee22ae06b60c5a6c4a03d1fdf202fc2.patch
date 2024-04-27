@@ -1,0 +1,47 @@
+From 73c655270ee22ae06b60c5a6c4a03d1fdf202fc2 Mon Sep 17 00:00:00 2001
+From: Ross Barnowski <rossbar@berkeley.edu>
+Date: Thu, 4 Jan 2024 09:02:56 -0800
+Subject: [PATCH] Update test suite for Pytest v8 (#7203)
+
+* Rm deprecated_call filter from strongly connected raises test.
+
+* Replace deprecated pytest.warns(None) with catch_warnings.
+---
+ .../algorithms/components/tests/test_strongly_connected.py     | 3 +--
+ networkx/drawing/tests/test_agraph.py                          | 3 ++-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/networkx/algorithms/components/tests/test_strongly_connected.py b/networkx/algorithms/components/tests/test_strongly_connected.py
+index 6d4ea855229..21d9e671898 100644
+--- a/networkx/algorithms/components/tests/test_strongly_connected.py
++++ b/networkx/algorithms/components/tests/test_strongly_connected.py
+@@ -183,8 +183,7 @@ def test_connected_raise(self):
+         with pytest.raises(NetworkXNotImplemented):
+             next(nx.kosaraju_strongly_connected_components(G))
+         with pytest.raises(NetworkXNotImplemented):
+-            with pytest.deprecated_call():
+-                next(nx.strongly_connected_components_recursive(G))
++            next(nx.strongly_connected_components_recursive(G))
+         pytest.raises(NetworkXNotImplemented, nx.is_strongly_connected, G)
+         pytest.raises(NetworkXNotImplemented, nx.condensation, G)
+ 
+diff --git a/networkx/drawing/tests/test_agraph.py b/networkx/drawing/tests/test_agraph.py
+index 1ade719bc2b..fd99daaf757 100644
+--- a/networkx/drawing/tests/test_agraph.py
++++ b/networkx/drawing/tests/test_agraph.py
+@@ -1,6 +1,7 @@
+ """Unit tests for PyGraphviz interface."""
+ import os
+ import tempfile
++import warnings
+ 
+ import pytest
+ 
+@@ -249,6 +250,6 @@ def test_no_warnings_raised(self):
+         G.add_node(0, pos=(0, 0))
+         G.add_node(1, pos=(1, 1))
+         A = nx.nx_agraph.to_agraph(G)
+-        with pytest.warns(None) as record:
++        with warnings.catch_warnings(record=True) as record:
+             A.layout()
+         assert len(record) == 0
