@@ -1,6 +1,6 @@
 pkgbase = python-flexmock
 	pkgdesc = Mock/Stub/Spy library for Python
-	pkgver = 0.12.0
+	pkgver = 0.12.1
 	pkgrel = 1
 	url = https://flexmock.readthedocs.io
 	arch = any
@@ -9,11 +9,12 @@ pkgbase = python-flexmock
 	checkdepends = python-teamcity-messages
 	checkdepends = python-testtools
 	checkdepends = python-twisted
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-poetry-core
 	depends = python
-	source = https://github.com/flexmock/flexmock/archive/0.12.0/python-flexmock-0.12.0.tar.gz
-	sha512sums = a157c5ccb88a1e00bac9124145f882e59633f406971df0940579a12b9e161a787790a0ce27664997faa6ddc7c8926122359bd5b31fae0d31c729e5ed140e745e
+	source = git+https://github.com/flexmock/flexmock.git#tag=0.12.1
+	sha512sums = 841726bc48c5cf7e1007715252e41c84902a6d3f91271306ca0e6b519976c9066bc8bbe7e2f9e44e39209fc4057c42e80f4422a2f0b96e72dcca4063886d320d
 
 pkgname = python-flexmock
