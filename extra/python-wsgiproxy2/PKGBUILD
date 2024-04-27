@@ -2,12 +2,12 @@
 
 pkgname=python-wsgiproxy2
 pkgver=0.5.1
-pkgrel=6
+pkgrel=7
 pkgdesc="A WSGI Proxy with various http client backends"
 arch=('any')
 license=('MIT')
 url="https://github.com/gawel/WSGIProxy2/"
-depends=('python-webob' 'python-six')
+depends=('python-webob')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest' 'python-requests' 'python-webtest' 'python-waitress')
 source=("https://github.com/gawel/WSGIProxy2/archive/$pkgver/$pkgname-$pkgver.tar.gz")
