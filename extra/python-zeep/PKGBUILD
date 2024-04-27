@@ -2,7 +2,7 @@
 
 pkgname=python-zeep
 pkgver=4.2.1
-pkgrel=3
+pkgrel=4
 pkgdesc="A fast and modern Python SOAP client"
 arch=('any')
 license=('MIT')
