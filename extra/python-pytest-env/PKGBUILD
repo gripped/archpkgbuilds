@@ -4,7 +4,7 @@
 pkgname=python-pytest-env
 # https://github.com/pytest-dev/pytest-env/releases
 pkgver=1.1.3
-pkgrel=1
+pkgrel=2
 pkgdesc='pytest plugin to set environment variables in pytest.ini or pyproject.toml file'
 arch=(any)
 url='https://github.com/pytest-dev/pytest-env'
