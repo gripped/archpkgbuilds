@@ -5,7 +5,7 @@
 
 pkgname=ranger
 pkgver=1.9.3
-pkgrel=10
+pkgrel=11
 pkgdesc='Simple, vim-like file manager'
 arch=('any')
 url='https://ranger.github.io'
@@ -56,7 +56,7 @@ check() {
   local _pyver=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
   export PYTHONPATH="$PWD/lib.linux-$CARCH-cpython-$_pyver"
   export TERM=linux
-  python -m unittest discover
+  pytest
 }
 
 package() {
