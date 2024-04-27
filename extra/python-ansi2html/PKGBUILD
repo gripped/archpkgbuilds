@@ -3,7 +3,7 @@
 pkgname=python-ansi2html
 _libname=${pkgname/python-/}
 pkgver=1.9.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Convert text with ANSI color codes to HTML"
 arch=('any')
 url="https://github.com/pycontribs/ansi2html"
