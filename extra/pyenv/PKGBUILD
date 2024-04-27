@@ -2,7 +2,7 @@
 
 pkgname=pyenv
 pkgver=2.4.0
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Easily switch between multiple versions of Python"
 arch=(any)
