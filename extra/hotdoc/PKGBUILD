@@ -2,33 +2,77 @@
 
 pkgname=hotdoc
 pkgver=0.16
-pkgrel=1
-pkgdesc="the tastiest API documentation system"
-arch=('x86_64')
-url="https://github.com/${pkgname}/${pkgname}"
-license=('LGPL')
-_py_deps=('appdirs' 'dbus-deviation' 'faust-cchardet' 'lxml' 'networkx'
-          'pkgconfig' 'schema' 'toposort' 'wheezy-template' 'yaml' 'feedgen')
-depends=("${_py_deps[@]/#/python-}" 'json-glib')
-makedepends=('python-setuptools' 'python-build' 'python-installer'
-             'python-wheel' 'cmake')
-optdepends=('clang: for the C extension'
-            'llvm: for the C extension')
-source=("https://files.pythonhosted.org/packages/source/${pkgname:0:1}/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('af1856d54f9dd23e0538a7dc4423b69d29dd7f54a4fe6e34844606ab51a3eab3')
-b2sums=('c6c068c88bb14a2a326242a3505dce8f601b36407bb71bc26c5d57035203661b5929fbffca6996dd3e45707503dc33819bae929c6b01f13ddc57e61d75a6bfdf')
+pkgrel=3
+pkgdesc="The Tastiest Documentation Tool"
+url="https://github.com/hotdoc/hotdoc"
+arch=(x86_64)
+license=(LGPL-2.1-or-later)
+depends=(
+  bash
+  glib2
+  glibc
+  json-glib
+  libxml2
+  python
+  python-appdirs
+  python-dbus-deviation
+  python-faust-cchardet
+  python-feedgen
+  python-lxml
+  python-networkx
+  python-pkgconfig
+  python-schema
+  python-setuptools
+  python-toposort
+  python-wheezy-template
+  python-yaml
+)
+makedepends=(
+  cmake
+  git
+  npm
+  python-build
+  python-installer
+  python-wheel
+)
+optdepends=(
+  'clang: for the C extension'
+  'llvm: for the C extension'
+)
+source=(
+  "git+https://github.com/hotdoc/hotdoc#tag=$pkgver"
+  "mathieu-cmark::git+https://github.com/MathieuDuponchelle/cmark"
+  "prismjs::git+https://github.com/PrismJS/prism"
+  "git+https://github.com/hotdoc/hotdoc_bootstrap_theme"
+)
+b2sums=('4395067a40bb5e2d93d9037a51576c6a68ce69eeffb15871297d9d8eb6f938e1a3383e3ff7466118bc8cde401dcdca861e943784325a19d7be8619301f3ace19'
+        'SKIP'
+        'SKIP'
+        'SKIP')
+
+prepare() {
+  cd hotdoc
+
+  git submodule init
+  git submodule set-url cmark "$srcdir/mathieu-cmark"
+  git submodule set-url hotdoc/extensions/syntax_highlighting/prism "$srcdir/prismjs"
+  git submodule set-url hotdoc/hotdoc_bootstrap_theme "$srcdir/hotdoc_bootstrap_theme"
+  git -c protocol.file.allow=always -c protocol.allow=never submodule update
+}
 
 build() {
-    cd "${pkgname}-${pkgver}"
-    python -m build --wheel --no-isolation
+  cd hotdoc
+  python -m build --wheel --no-isolation
 }
 
 check() {
-    cd "${pkgname}-${pkgver}/build/lib.linux-${CARCH}-cpython-"*
-    python -m unittest
+  cd hotdoc/build/lib.linux-$CARCH-cpython-*
+  python -m unittest
 }
 
 package() {
-    cd "${pkgname}-${pkgver}"
-    python -m installer --destdir="${pkgdir}" dist/*.whl
+  cd hotdoc
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
+
+# vim:set sw=2 sts=-1 et:
