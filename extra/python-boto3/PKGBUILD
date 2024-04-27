@@ -4,7 +4,7 @@
 
 pkgname=python-boto3
 pkgver=1.34.34
-pkgrel=1
+pkgrel=2
 pkgdesc='The AWS SDK for Python'
 arch=('any')
 license=('Apache')
