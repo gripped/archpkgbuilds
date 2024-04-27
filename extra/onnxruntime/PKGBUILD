@@ -8,7 +8,7 @@ pkgname=("${pkgbase}" "${pkgbase}-opt"  "${pkgbase}-rocm" "${pkgbase}-opt-rocm"
          "python-${pkgbase}-rocm" "python-${pkgbase}-opt-rocm")
 pkgver=1.16.3
 _pkgdesc='Cross-platform, high performance scoring engine for ML models'
-pkgrel=7
+pkgrel=8
 arch=('x86_64')
 url='https://github.com/microsoft/onnxruntime'
 license=('MIT')
