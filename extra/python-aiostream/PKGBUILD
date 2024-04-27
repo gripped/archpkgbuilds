@@ -4,7 +4,7 @@
 pkgname=python-aiostream
 _name=${pkgname#python-}
 pkgver=0.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Generator-based operators for asynchronous iteration'
 arch=('any')
 url=https://github.com/vxgmichel/aiostream
@@ -19,7 +19,7 @@ makedepends=(
 )
 checkdepends=('python-pytest' 'python-pytest-asyncio')
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('SKIP')
+b2sums=('42d1eaefde15c5fd7a0426921fd8e49a7c8192ec8b1c7fe826655f249b28206945356590bd18bfcb46c21ad2018fc33c65968c2afa67439023ad90ee140da486')
 
 build() {
   cd "$_name"
@@ -28,7 +28,8 @@ build() {
 
 check() {
   cd "$_name"
-  PYTHONPATH="$PWD/$_name:$PYTHONPATH" pytest tests --strict-markers -c /dev/null
+  # Override addopts as they invoke coverage testing
+  PYTHONPATH="$PWD/$_name:$PYTHONPATH" pytest --override-ini="addopts=" tests --strict-markers
 }
 
 package() {
