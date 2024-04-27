@@ -5,11 +5,11 @@
 pkgname=python-mysql-connector
 _pkgname=mysql-connector-python
 pkgver=8.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A standardized database driver for Python platforms and development"
 arch=('any')
 url="https://dev.mysql.com/downloads/connector/python/"
-license=('GPL')
+license=('GPL-2.0-only')
 depends=('python' 'python-dnspython' 'python-typing_extensions')
 makedepends=(python-build python-installer python-wheel python-setuptools)
 source=("https://cdn.mysql.com//Downloads/Connector-Python/${_pkgname}-${pkgver}-src.tar.gz"
