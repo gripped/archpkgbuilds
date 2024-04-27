@@ -3,7 +3,7 @@
 pkgname=python-aiodns
 _name=${pkgname#python-}
 pkgver=3.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple DNS resolver for asyncio'
 arch=('any')
 url=https://github.com/saghul/aiodns
