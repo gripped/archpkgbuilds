@@ -4,7 +4,7 @@
 
 pkgname=rofi-rbw
 pkgver=1.3.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Rofi frontend for Bitwarden'
 arch=('any')
 url=https://github.com/fdw/rofi-rbw
@@ -28,7 +28,7 @@ optdepends=(
   'ydotool: for a generic typer'
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('SKIP')
+b2sums=('09488568435e4283aa56f8a32b8d3346c82104ead51492479420040438ddd573f9ed82c999fa227eb5490e0ae404bec5896eac48886b00999fe6bacd1e67143c')
 
 build() {
   cd $pkgname
