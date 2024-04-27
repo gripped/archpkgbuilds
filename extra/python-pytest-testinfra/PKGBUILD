@@ -7,7 +7,7 @@
 _name=pytest-testinfra
 pkgname=python-pytest-testinfra
 pkgver=10.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Testinfra test your infrastructures'
 arch=(any)
 url="https://github.com/pytest-dev/pytest-testinfra"
@@ -23,7 +23,8 @@ makedepends=(
   python-sphinx
   python-wheel
 )
-checkdepends=(ansible
+checkdepends=(
+  ansible
   python-paramiko
   python-pytest-cov
   python-pytest-xdist
@@ -54,7 +55,6 @@ build() {
 check() {
   local pytest_options=(
     -vv
-    --deselect test/test_backends.py::test_backend_importables  # we are currently missing python-looseversion in the repos
   )
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
