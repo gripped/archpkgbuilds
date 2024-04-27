@@ -1,13 +1,14 @@
 pkgbase = python-ipywidgets
 	pkgdesc = IPython HTML widgets for Jupyter
 	pkgver = 8.1.2
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/ipython/ipywidgets
 	arch = any
 	license = BSD-3-Clause
 	checkdepends = python-ipykernel
 	checkdepends = python-pytest
 	checkdepends = python-pytz
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -15,9 +16,13 @@ pkgbase = python-ipywidgets
 	depends = ipython
 	depends = python
 	depends = python-comm
+	depends = python-ipykernel
 	depends = python-jsonschema
+	depends = python-traitlets
 	optdepends = jupyterlab-widgets: widgets for Jupyter lab
-	source = https://pypi.io/packages/source/i/ipywidgets/ipywidgets-8.1.2.tar.gz
-	sha256sums = d0b9b41e49bae926a866e613a39b0f0097745d2b9f1f3dd406641b4a57ec42c9
+	source = git+https://github.com/jupyter-widgets/ipywidgets#tag=8.1.2
+	source = https://github.com/jupyter-widgets/ipywidgets/commit/bbc6c064.patch
+	sha256sums = 146cac83855ac40dd7264a654ebd8efbe81fff089405865f5456fd21afe5e1e6
+	sha256sums = df055ab534084dbcb88cfbf21a87e30bd63f0b22201fdbd531fd8c4177af45e2
 
 pkgname = python-ipywidgets
