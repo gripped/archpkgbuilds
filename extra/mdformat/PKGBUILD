@@ -3,7 +3,7 @@
 
 pkgname=mdformat
 pkgver=0.7.17
-pkgrel=1
+pkgrel=2
 pkgdesc='CommonMark compliant Markdown formatter'
 arch=('any')
 url=https://github.com/executablebooks/mdformat
@@ -18,7 +18,7 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("git+$url.git#tag=$pkgver")
-b2sums=('SKIP')
+b2sums=('93b7a634a1ef23042a338f3f7f9806c3882f7eed79715e7c22e2ee1a5068f3917cf216013b649a2d55ea83061dd1439385de45da2eeb42152777b0f3c94170e5')
 
 build() {
   cd $pkgname
