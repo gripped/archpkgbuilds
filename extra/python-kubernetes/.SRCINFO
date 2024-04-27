@@ -1,7 +1,7 @@
 pkgbase = python-kubernetes
 	pkgdesc = Python client for the kubernetes API
 	pkgver = 28.1.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/kubernetes-client/python
 	arch = any
 	license = Apache
@@ -23,6 +23,8 @@ pkgbase = python-kubernetes
 	depends = python-requests-oauthlib
 	depends = python-adal
 	source = kubernetes-28.1.0.tar.gz::https://github.com/kubernetes-client/python/archive/v28.1.0.tar.gz
+	source = removed-unittest-alias.patch
 	sha256sums = eb03b3b3c586f90323a9aa8ec04bf6691b57abc56af7156030b7bf612c80af17
+	sha256sums = 8fac6ead5125dd8c6644d5bc1696c9581b1a5aeb467254487acf9b8e1146ecd6
 
 pkgname = python-kubernetes
