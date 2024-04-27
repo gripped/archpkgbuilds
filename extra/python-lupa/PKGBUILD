@@ -4,7 +4,7 @@
 _pkgname=lupa
 pkgname=python-lupa
 pkgver=2.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Python wrapper around Lua and LuaJIT'
 arch=(x86_64)
 url="https://github.com/scoder/$_pkgname"
