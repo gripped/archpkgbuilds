@@ -8,7 +8,7 @@
 
 pkgname=cloud-init
 pkgver=24.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Cloud instance initialization"
 arch=(any)
 url="https://cloud-init.io"
