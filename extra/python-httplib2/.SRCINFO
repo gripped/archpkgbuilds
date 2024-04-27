@@ -1,0 +1,30 @@
+pkgbase = python-httplib2
+	pkgdesc = Comprehensive HTTP client library, supporting many features
+	pkgver = 0.22.0
+	pkgrel = 5
+	url = https://github.com/httplib2/httplib2
+	arch = any
+	license = MIT
+	checkdepends = flake8
+	checkdepends = python-pytest-cov
+	checkdepends = python-pytest-forked
+	checkdepends = python-pytest-timeout
+	checkdepends = python-pytest-xdist
+	checkdepends = python-pytest-randomly
+	checkdepends = python-future
+	checkdepends = python-cryptography
+	checkdepends = python-six
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	makedepends = python-setuptools
+	depends = ca-certificates
+	depends = python
+	depends = python-pyparsing
+	source = python-httplib2::git+https://github.com/httplib2/httplib2#commit=09eee8a81f552cbaa74f603f2dd9bcc3311ff6d7
+	source = use-system-certificates.patch
+	sha512sums = SKIP
+	sha512sums = 9699f17938703d1975417d244240d2df0062d309a1af91b33b438158e60d28ea3a38f439a774286a4090977f021d0ed3adc8c5c8c450bcbd4417649c735646f6
+
+pkgname = python-httplib2
