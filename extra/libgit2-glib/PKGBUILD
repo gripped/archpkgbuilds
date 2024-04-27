@@ -9,7 +9,7 @@ pkgname=(
 )
 _commit=f9843757630160f1222ef084a47931c7d0b90fe3  # tags/v1.2.0^0
 pkgver=1.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="GLib wrapper for libgit2"
 url="https://gitlab.gnome.org/GNOME/libgit2-glib"
 license=(LGPL2.1)

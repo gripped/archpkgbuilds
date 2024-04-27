@@ -1,0 +1,32 @@
+pkgbase = libgit2-glib
+	pkgdesc = GLib wrapper for libgit2
+	pkgver = 1.2.0
+	pkgrel = 2
+	url = https://gitlab.gnome.org/GNOME/libgit2-glib
+	arch = x86_64
+	license = LGPL2.1
+	makedepends = gi-docgen
+	makedepends = git
+	makedepends = glib2
+	makedepends = gobject-introspection
+	makedepends = libgit2
+	makedepends = meson
+	makedepends = python-gobject
+	makedepends = vala
+	source = git+https://gitlab.gnome.org/GNOME/libgit2-glib.git#commit=f9843757630160f1222ef084a47931c7d0b90fe3
+	b2sums = SKIP
+
+pkgname = libgit2-glib
+	depends = glib2
+	depends = libgio-2.0.so
+	depends = libglib-2.0.so
+	depends = libgobject-2.0.so
+	depends = glibc
+	depends = libgit2
+	depends = libgit2.so
+	optdepends = libgit2-glib-docs: for developer documentation
+	optdepends = python-gobject: for Python integration
+	provides = libgit2-glib-1.0.so
+
+pkgname = libgit2-glib-docs
+	pkgdesc = GLib wrapper for libgit2 - documentation
