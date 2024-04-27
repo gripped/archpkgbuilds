@@ -3,7 +3,7 @@
 pkgname=python-pt
 _gitcommit=3efc26ef739ae78730ea60851c84d9c08ca8a63d
 pkgver=r20231230.107.3efc26e
-pkgrel=1
+pkgrel=2
 pkgdesc='gdb script to examine the address space of a QEMU-based virtual machine'
 url='https://github.com/martinradev/gdb-pt-dump'
 arch=('any')
