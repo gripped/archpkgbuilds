@@ -6,7 +6,7 @@
 _pyname=ipympl
 pkgname=python-$_pyname
 pkgver=0.9.4
-pkgrel=1
+pkgrel=3
 pkgdesc='Matplotlib Jupyter Extension'
 url='https://pypi.org/project/ipympl/'
 depends=(ipython
@@ -17,7 +17,8 @@ depends=(ipython
          python-numpy
          python-pillow
          python-traitlets)
-makedepends=(jupyterlab
+makedepends=(git
+             jupyterlab
              nodejs
              python-build
              python-hatch-jupyter-builder
@@ -28,28 +29,27 @@ checkdepends=(python-numpy
               python-pytest)
 license=(BSD-3-Clause)
 arch=(any)
-source=(https://pypi.io/packages/source/${_pyname:0:1}/$_pyname/$_pyname-$pkgver.tar.gz)
-sha256sums=('cfb53c5b4fcbcee6d18f095eecfc6c6c474303d5b744e72cc66e7a2804708907')
+source=(git+https://github.com/matplotlib/ipympl#tag=$pkgver)
+sha256sums=('61661074ffe5e1c4c62e87f98605db58af69d4fe8d6af7839e54b23283164056')
 
 prepare() {
-  sed -e 's|>=.*\"|\"|g' -e 's|~=.*\"|\"|g' -i $_pyname-$pkgver/pyproject.toml
-  sed -e '/index.js/d' -e '/plugin.js/d' -i $_pyname-$pkgver/setup.py
+  sed -e 's|>=.*\"|\"|g' -e 's|~=.*\"|\"|g' -i $_pyname/pyproject.toml
+#  sed -e '/index.js/d' -e '/plugin.js/d' -i $_pyname/setup.py
 }
 
 build() {
-  cd $_pyname-$pkgver
+  cd $_pyname
   python -m build --wheel --no-isolation --skip-dependency-check
 }
 
-# pypi tarball missing tests
-#check() {
-#  cd $_pyname-$pkgver
-#  PYTHONPATH="$PWD" \
-#  pytest -v
-#}
+check() {
+  cd $_pyname
+  PYTHONPATH="$PWD" \
+  pytest -v
+}
 
 package() {
-  cd $_pyname-$pkgver
+  cd $_pyname
   python -m installer --destdir="$pkgdir" dist/*.whl
   mv "$pkgdir"/{usr/,}etc
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
