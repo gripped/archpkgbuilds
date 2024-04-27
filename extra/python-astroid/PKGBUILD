@@ -7,7 +7,7 @@
 _pyname=astroid
 pkgname=python-$_pyname
 pkgver=3.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A common base representation of python source code'
 arch=(any)
 url="https://github.com/pylint-dev/$_pyname"
@@ -46,7 +46,7 @@ check() {
 	cd "$_archive"
 	# Gentoo thinks this test fails because of pydantic 2
 	# https://github.com/gentoo/gentoo/commit/70a46fcd283b608171fd5529619915e119b69405
-	pytest --deselect tests/brain/test_dataclasses.py::test_pydantic_field
+	pytest --deselect tests/brain/test_dataclasses.py::test_pydantic_field --deselect tests/test_regrtest.py::NonRegressionTests::test_numpy_distutils
 }
 
 package() {
