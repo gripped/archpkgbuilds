@@ -1,12 +1,15 @@
 pkgbase = python-wrapt
 	pkgdesc = A Python module for decorators, wrappers and monkey patching
 	pkgver = 1.16.0
-	pkgrel = 1
+	pkgrel = 3
 	url = https://pypi.python.org/pypi/wrapt
 	arch = x86_64
-	license = BSD
+	license = BSD-2-Clause
 	checkdepends = python-pytest
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python
 	source = https://github.com/GrahamDumpleton/wrapt/archive/refs/tags/1.16.0.tar.gz
 	sha512sums = 65bdda3b6580748ceb720e8fc1a6b05832a355d541aa650bc87052f3aa8793d03d29a080b79eceb16392e297aed8f11a283e36f5f40a0db614b409b1dc2b6c9c
