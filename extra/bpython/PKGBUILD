@@ -5,7 +5,7 @@
 
 pkgname=bpython
 pkgver=0.24
-pkgrel=3
+pkgrel=4
 pkgdesc='Fancy ncurses interface to the Python interpreter'
 arch=('any')
 url='https://bpython-interpreter.org/'
