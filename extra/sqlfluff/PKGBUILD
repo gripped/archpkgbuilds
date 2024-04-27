@@ -2,7 +2,7 @@
 # Contributor: Morteza NourelahiAlamdari <m@0t1.me>
 
 pkgname=sqlfluff
-pkgver=2.3.5
+pkgver=3.0.4
 pkgrel=1
 pkgdesc='A dialect-flexible and configurable SQL linter'
 arch=('any')
@@ -34,7 +34,7 @@ makedepends=(
 )
 checkdepends=('python-hypothesis')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/sqlfluff/sqlfluff/archive/refs/tags/$pkgver.tar.gz")
-b2sums=('ad373e73c9bfc84e50c8cc058bba80ba06754a916f963b4c1737ee621363eb50f0375f4b5cf55b8826a4c4fa4404ca4cf7f2137e714bc0d7f6fa7172434a0777')
+b2sums=('38763f5cf11cf3373cc78e92cfb5161f4f26776b96ee06b699633b0c732a8e37c88e0c0143029671d32801bd12bd31368dbf34072d824fa173f476cd5e1395c2')
 
 build() {
   cd "$pkgname-$pkgver"
