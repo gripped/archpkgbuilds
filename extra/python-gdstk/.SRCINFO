@@ -1,13 +1,16 @@
 pkgbase = python-gdstk
 	pkgdesc = Python module for creating GDSII stream files, usually CAD layouts
 	pkgver = 0.9.42
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/heitzmann/gdstk
 	arch = x86_64
-	license = custom:BSL
-	checkdepends = python-pytest-runner
+	license = BSL-1.0
+	checkdepends = python-pytest
 	makedepends = git
 	makedepends = python-setuptools
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
 	makedepends = cmake
 	depends = python-numpy
 	source = git+https://github.com/heitzmann/gdstk.git#commit=41f72281ca4ec9f1727cde702b88cc780ccdb27a
