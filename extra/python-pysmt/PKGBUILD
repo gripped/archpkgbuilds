@@ -3,7 +3,7 @@
 _pyname=pysmt
 pkgname=python-${_pyname}
 pkgver=0.9.5
-pkgrel=3
+pkgrel=4
 pkgdesc='Solver-agnostic library for SMT Formulae manipulation and solving'
 url='https://github.com/pysmt/pysmt'
 license=('Apache-2.0')
