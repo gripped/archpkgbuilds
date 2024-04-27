@@ -1,0 +1,34 @@
+pkgbase = dbus-python
+	pkgdesc = Python bindings for D-Bus
+	pkgver = 1.3.2
+	pkgrel = 3
+	url = https://www.freedesktop.org/wiki/Software/dbus/
+	arch = x86_64
+	license = MIT
+	makedepends = meson
+	makedepends = python-sphinx
+	makedepends = python-sphinxcontrib-jquery
+	makedepends = python-sphinx_rtd_theme
+	depends = dbus
+	depends = glib2
+	depends = glibc
+	depends = python
+	optdepends = python-gobject: D-Bus services via PyGI
+	source = https://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.3.2.tar.gz
+	source = https://dbus.freedesktop.org/releases/dbus-python/dbus-python-1.3.2.tar.gz.asc
+	validpgpkeys = DA98F25C0871C49A59EAFF2C4DE8FF2A63C7CC90
+	sha256sums = ad67819308618b5069537be237f8e68ca1c7fcc95ee4a121fe6845b1418248f8
+	sha256sums = SKIP
+
+pkgname = dbus-python
+	provides = python-dbus=1.3.2
+	provides = python-dbus-common=1.3.2
+	conflicts = python-dbus
+	conflicts = python-dbus-common
+	replaces = python-dbus
+	replaces = python-dbus-common
+
+pkgname = dbus-python-docs
+	pkgdesc = Developer documentation for dbus-python
+	depends = 
+	optdepends = 
