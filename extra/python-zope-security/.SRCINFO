@@ -1,16 +1,18 @@
 pkgbase = python-zope-security
 	pkgdesc = Zope Security Framework
 	pkgver = 6.2
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/zopefoundation/zope.security
 	arch = x86_64
-	license = ZPL
+	license = ZPL-2.1
 	checkdepends = python-btrees
-	checkdepends = python-nose
 	checkdepends = python-zope-configuration
 	checkdepends = python-zope-testing
 	checkdepends = python-zope-testrunner
 	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
 	depends = python-setuptools
 	depends = python-zope-component
 	depends = python-zope-i18nmessageid
@@ -18,7 +20,7 @@ pkgbase = python-zope-security
 	depends = python-zope-location
 	depends = python-zope-proxy
 	depends = python-zope-schema
-	source = git+https://github.com/zopefoundation/zope.security.git#commit=dfdce15e432208fd8f01cc2072818a2847663bc6
-	sha512sums = SKIP
+	source = git+https://github.com/zopefoundation/zope.security.git#tag=6.2
+	sha512sums = fa2aaeb9738018ca694d9bbfb0276a0eae90a7095908b13322d0a84706ef52fc98eec7208a66b322bb29f12013b40673138857f8f8df0ccd3e3370a8abde969b
 
 pkgname = python-zope-security
