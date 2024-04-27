@@ -2,12 +2,12 @@
 
 pkgname=python-speg
 pkgver=0.3
-pkgrel=11
+pkgrel=12
 pkgdesc="A PEG-based parser interpreter with memoization"
 arch=('any')
 url="https://github.com/avakar/pyspeg"
 license=('MIT')
-depends=('python' 'python-six')
+depends=('python')
 makedepends=('python-setuptools')
 source=(https://pypi.io/packages/source/s/speg/speg-$pkgver.zip
         LICENSE)
