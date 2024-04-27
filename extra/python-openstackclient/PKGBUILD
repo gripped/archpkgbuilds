@@ -4,7 +4,7 @@
 pkgname=python-openstackclient
 pkgver=6.6.0
 _commit=2f9a523765ca99c9ef9a6968e430bab102f3208d
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenStack Command-line Client"
 arch=('any')
 url="https://docs.openstack.org/python-openstackclient/latest/"
@@ -25,7 +25,8 @@ build() {
 
 check() {
   cd python-openstackclient
-  stestr run
+  # https://bugs.launchpad.net/python-openstackclient/+bug/2061220
+  stestr run --exclude-regex 'TestModuleList.test_module_list*'
 }
 
 package() {
