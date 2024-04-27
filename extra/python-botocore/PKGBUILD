@@ -7,7 +7,7 @@
 pkgname=python-botocore
 # https://raw.githubusercontent.com/boto/botocore/develop/CHANGELOG.rst
 pkgver=1.34.34
-pkgrel=1
+pkgrel=2
 pkgdesc='A low-level interface to a growing number of Amazon Web Services'
 arch=('any')
 url="https://github.com/boto/botocore"
