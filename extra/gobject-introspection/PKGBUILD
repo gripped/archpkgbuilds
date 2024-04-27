@@ -9,7 +9,7 @@ pkgname=(
   libgirepository
 )
 pkgver=1.80.1
-pkgrel=1
+pkgrel=3
 pkgdesc="Introspection system for GObject-based libraries"
 url="https://wiki.gnome.org/Projects/GObjectIntrospection"
 arch=(x86_64)
@@ -30,6 +30,7 @@ makedepends=(
   python
   python-mako
   python-markdown
+  python-setuptools
   python-sphinx
 )
 source=(
@@ -81,6 +82,7 @@ package_gobject-introspection() {
     python
     python-mako
     python-markdown
+    python-setuptools
   )
 
   meson install -C build --destdir "$pkgdir"
