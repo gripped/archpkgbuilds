@@ -7,13 +7,12 @@ BUILDENV+=(!check)
 _pyname=fakeredis
 pkgname=python-fakeredis
 pkgver=2.22.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Fake implementation of redis API (redis-py) for testing purposes'
 arch=(any)
 url="https://github.com/dsoftwareinc/${_pyname}-py"
 license=(BSD MIT)
 depends=(python-redis
-         python-six
          python-sortedcontainers)
 makedepends=(python-{build,installer,wheel}
              python-packaging
