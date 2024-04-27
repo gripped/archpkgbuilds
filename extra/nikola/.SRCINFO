@@ -1,7 +1,7 @@
 pkgbase = nikola
 	pkgdesc = A static site and blog generator
 	pkgver = 8.3.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://getnikola.com/
 	arch = any
 	license = MIT
@@ -9,6 +9,7 @@ pkgbase = nikola
 	checkdepends = python-feedparser
 	checkdepends = python-freezegun
 	checkdepends = python-pytest
+	makedepends = git
 	makedepends = jupyter-notebook
 	makedepends = python-aiohttp
 	makedepends = python-build
@@ -63,12 +64,9 @@ pkgbase = nikola
 	optdepends = python-toml: for TOML support
 	optdepends = python-typogrify: for typographical enhancements
 	optdepends = python-watchdog: for nikola auto
-	source = https://github.com/getnikola/nikola/releases/download/v8.3.0/nikola-8.3.0.tar.gz
-	source = https://github.com/getnikola/nikola/releases/download/v8.3.0/nikola-8.3.0.tar.gz.asc
+	source = git+https://github.com/getnikola/nikola.git?signed#tag=v8.3.0
 	validpgpkeys = DF32C99CFF84282CF9D4CF7171023DBD5EAAEA16
-	sha512sums = 9b25eb90fa560b45e8cd0b03f24523859548353f2a4d2ac91b23b05bfb614d20456bb71f1aaa5702b6d6ab7980696aeb2f5ccc3c00ebc648cfcad49619481247
-	sha512sums = SKIP
-	b2sums = 67ab76c670fd00d992e6359bcaa11c59dfc904c78c935d1739e6ed7118e38c8f1c4590782a75e85c722f4fcb2c23efc032cb5d58d0c1587069b80920f3bd20fa
-	b2sums = SKIP
+	sha512sums = edbeed2ceebaee992dce74f5d6e49c00602ced4ab4cdc9eb8e24ebbfebaf6f7db834a8b3ecf482b70d82c2d0d7fa09e2307f46a2e83510e0ff2ce75f1c20f4e6
+	b2sums = bba3e86f1a4e3564a359c279f8d040be31f1a37db1376149132fec99b408829967e9933718582dcb86672bcd5d9100039d31f31fe2254eebf2718a3cd29743f4
 
 pkgname = nikola
