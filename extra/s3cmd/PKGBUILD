@@ -8,7 +8,7 @@
 
 pkgname=s3cmd
 pkgver=2.4.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A command line client for Amazon S3"
 arch=('any')
 url='http://s3tools.org/s3cmd'
