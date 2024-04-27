@@ -4,7 +4,7 @@
 
 pkgname=pluma
 pkgver=1.28.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A powerful text editor for MATE"
 url="https://mate-desktop.org"
 arch=('x86_64')
