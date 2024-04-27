@@ -1,0 +1,24 @@
+pkgbase = python-sphinx-prompt
+	pkgdesc = Sphinx directive to add unselectable prompt
+	pkgver = 1.8.0
+	pkgrel = 2
+	url = https://github.com/sbrunner/sphinx-prompt
+	arch = any
+	license = BSD
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	makedepends = python-poetry-core
+	depends = python
+	depends = python-sphinx
+	depends = python-pygments
+	depends = python-docutils
+	source = python-sphinx-prompt::git+https://github.com/sbrunner/sphinx-prompt#commit=adebec5cb63deea6e1a210d38e675304ee664ec2
+	source = pyproject.toml-template.patch
+	source = remove-unnecessary-dependencies.patch
+	b2sums = SKIP
+	b2sums = a5c11ccae6970584c0a533f0527a118ee68f9eee1db9acf3b0c7af6b1f82b8cf6071a04a279026396886d8c8645286a7abc7787aa4afa00136a1b9922463ecf7
+	b2sums = 1552cd699b1f273f6bd0b6bf59ad23341285e645b28fee805f122b9babb7d6facb0b501825ae6f54be472b3325b7c07fa637d183c0f08ff8e15672056794e28b
+
+pkgname = python-sphinx-prompt
