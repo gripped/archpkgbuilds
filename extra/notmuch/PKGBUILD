@@ -9,11 +9,11 @@
 pkgbase=notmuch
 pkgname=('notmuch' 'notmuch-vim' 'notmuch-mutt' 'notmuch-runtime')
 pkgver=0.38.3
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="https://notmuchmail.org/"
 license=('GPL3')
-makedepends=('python' 'python-setuptools' 'python-sphinx' 'python-cffi' 'doxygen' 'emacs' 'gnupg' 'ruby' 'pkgconfig' 'xapian-core' 'gmime3' 'talloc' 'sfsexp')
+makedepends=('python' 'python-build' 'python-cffi' 'python-installer' 'python-setuptools' 'python-sphinx' 'python-wheel' 'doxygen' 'emacs' 'gnupg' 'ruby' 'pkgconfig' 'xapian-core' 'gmime3' 'talloc' 'sfsexp')
 options=(!distcc !makeflags)
 source=("https://notmuchmail.org/releases/${pkgname}-${pkgver}.tar.xz"{,.asc})
 sha512sums=('247f8b365a75b29df719403bc2c9645eb669a7ee6eb4c1e0047dcf55fea4d66c8dcb4899162b952643aa6148ec6e1538ebe3e7e8408376153165e394084aed19'
@@ -31,10 +31,10 @@ build() {
     make ruby-bindings
 
     cd "$srcdir/$pkgbase-$pkgver/bindings/python"
-    python setup.py build
+    python -m build --wheel --skip-dependency-check --no-isolation
 
     cd "$srcdir/$pkgbase-$pkgver/bindings/python-cffi"
-    python setup.py build
+    python -m build --wheel --skip-dependency-check --no-isolation
 }
 
 package_notmuch-runtime(){
@@ -86,10 +86,10 @@ package_notmuch(){
 
     # Install python bindings
     cd "$srcdir/$pkgbase-$pkgver/bindings/python"
-    python setup.py install --root="$pkgdir" --optimize=1
+    python -m installer --destdir="$pkgdir" dist/*.whl
 
     cd "$srcdir/$pkgbase-$pkgver/bindings/python-cffi"
-    python setup.py install --root="$pkgdir" --optimize=1
+    python -m installer --destdir="$pkgdir" dist/*.whl
 
     # Remove mimeinfo.cache (fixes FS#53629).
     rm "$pkgdir/usr/share/applications/mimeinfo.cache"
