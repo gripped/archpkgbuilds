@@ -3,7 +3,7 @@
 _name=pydantic-settings
 pkgname=python-pydantic-settings
 pkgver=2.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Settings management using pydantic"
 arch=(any)
 url="https://github.com/pydantic/pydantic-settings"
@@ -12,7 +12,7 @@ depends=(
   python
   python-dotenv
   python-pydantic
-  python-typing-extensions
+  python-typing_extensions
 )
 makedepends=(
   python-build
