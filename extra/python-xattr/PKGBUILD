@@ -2,7 +2,7 @@
 
 pkgname=python-xattr
 pkgver=0.10.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Python wrapper for extended filesystem attributes'
 arch=('x86_64')
 license=('MIT')
