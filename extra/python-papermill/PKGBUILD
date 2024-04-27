@@ -4,7 +4,7 @@
 _pkgname=papermill
 pkgname="python-${_pkgname}"
 pkgver=2.5.0
-pkgrel=1
+pkgrel=3
 pkgdesc="Parametrize and run Jupyter and nteract Notebooks"
 arch=('any')
 url="https://github.com/nteract/papermill"
@@ -33,8 +33,15 @@ depends=(
   python-tenacity
 )
 optdepends=('python-boto3: AWS functionality')
-source=("${_pkgname}-${pkgver}.tar.gz::$url/archive/refs/tags/${pkgver}.tar.gz")
-b2sums=('d0f67d1a701bd41c6a22a7f5c98bb270041b9eb0ceddb68e95705eadb64a69e972903b49ac2b4a5f1759f018694ca57a0187d24e6728b0cf00fd9b91173652bb')
+source=("${_pkgname}-${pkgver}.tar.gz::$url/archive/refs/tags/${pkgver}.tar.gz"
+         https://github.com/nteract/papermill/commit/6e8cc427.patch)
+b2sums=('d0f67d1a701bd41c6a22a7f5c98bb270041b9eb0ceddb68e95705eadb64a69e972903b49ac2b4a5f1759f018694ca57a0187d24e6728b0cf00fd9b91173652bb'
+        '6d87f73a878c519e3534a4071dc0dd6d5ccf8f0a3b6e80059cd3b4298b14bc340c8d955b5386ce08c413f07b570b921e6a7e068737ad3e488a02ee5e3c55173f')
+
+prepare() {
+  cd $_pkgname-$pkgver
+  patch -p1 -i ../6e8cc427.patch # Fix tests with pytest 8
+}
 
 build() {
   cd "${_pkgname}-${pkgver}"
