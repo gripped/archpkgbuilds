@@ -5,7 +5,7 @@
 _pyname=terminado
 pkgname=python-$_pyname
 pkgver=0.18.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Terminals served to term.js using Tornado websockets'
 url='https://github.com/takluyver/terminado'
 arch=(any)
