@@ -1,7 +1,7 @@
 pkgbase = linux-rt-lts
 	pkgdesc = Linux RT LTS
 	pkgver = 6.6.23.28.realtime1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt-lts/-/commits/v6.6.23.28.realtime1
 	arch = x86_64
 	makedepends = bc
@@ -20,13 +20,16 @@ pkgbase = linux-rt-lts
 	options = !strip
 	source = git+https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt-lts.git/#tag=v6.6.23.28.realtime1?signed
 	source = config
+	source = 0006-docutils.patch
 	validpgpkeys = 647F28654894E3BD457199BE38DBBDC86092693E
 	validpgpkeys = 5ED9A48FC54C0A22D1D0804CEBC26CDB5A56DE73
 	validpgpkeys = 991F6E3F0765CF6295888586139B09DA5BF0D338
 	sha512sums = 2ec68f30bcd6987d570003baf19c8533fd021600ea4276cf1cea3c54ae47989c1a6b613c8397a7e77c1dd4185c986ba1d71db0bef452bfab7ffd638df86c2a90
 	sha512sums = 0160b70dafdb307260b31965af78ef3ffb0d2819a158b440843cd7b92f64c73b724752aded5914238939c4137765bdf11809553c54498edf5dc4915809f06a42
+	sha512sums = a5a2cdefc964803354f1acf5a61a7847e7f566bcf4471650504254fecc8d343bc65f06f7f8ee662b0b26fe2e24854e187e5c73c375d9e6522022a1a08369960b
 	b2sums = ceffbacbf079b2233be766568033fef3e913cb65589539e84e6cf0d60fc5b3b67002f92b75031ef2bd432ee02b671279ed3cc3e21c3eea9d28f207df5ea1f4e4
 	b2sums = c5fb9b7e38a37c20f9a3020d413b1fb5e2e4f7210e7dd590751ed32782504901546a7ee113a05d077853012c4fc07d71c661a93a5636bd89c3faa66c05a359a2
+	b2sums = 0bb42a22c110f06a45e59a9adc194184a51ff97e5584d6ffabca0aa37e1e65ccaf44f43dc744eaa3861d6f6b00e299d4662bcf0c0d94478af9352b4c4f6b0ffd
 
 pkgname = linux-rt-lts
 	pkgdesc = The Linux RT LTS kernel and modules
