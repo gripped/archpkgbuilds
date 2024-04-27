@@ -1,0 +1,41 @@
+pkgbase = python-tensorboard_plugin_wit
+	pkgdesc = The What-If Tool (WIT): An easy-to-use interface for expanding understanding of a black-box classification or regression ML model.
+	pkgver = 1.8.1
+	pkgrel = 8
+	url = https://pair-code.github.io/what-if-tool
+	arch = any
+	license = Apache
+	makedepends = git
+	makedepends = npm
+	makedepends = python-virtualenv
+	makedepends = python-setuptools-scm
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	makedepends = python-google-api-python-client
+	makedepends = python-ipywidgets
+	depends = python-werkzeug
+	depends = tensorboard
+	source = tensorboard_plugin_wit-1.8.1::git+https://github.com/PAIR-code/what-if-tool#tag=v1.8.1
+	source = https://github.com/bazelbuild/bazel/releases/download/3.6.0/bazel-3.6.0-linux-x86_64
+	source = https://github.com/bazelbuild/bazel/releases/download/3.6.0/bazel-3.6.0-linux-x86_64.sig
+	source = add_zlib.patch
+	validpgpkeys = 71A1D0EFCFEB6281FD0437C93D5919B448457EE0
+	b2sums = SKIP
+	b2sums = cfe73c0b3f5e54fa65b034cb8fd4e54976126e9af09dba6ea3fa3f5e32be4909908bd0ec95f162f30cdde67855bc4d8d5a8ffebd959e01238b586f9b0fd763ae
+	b2sums = SKIP
+	b2sums = ffc30dd67139e2e915f6a227ac5e27b3770019a5c83b0d729442a141eb48e389493285f2389e1cf161807d80ac107a79afd91eb148af8d6188dced5233f5709d
+
+pkgname = python-tensorboard_plugin_wit
+	optdepends = python-tensorflow-serving-api: TensorFlow Classification, Regression, or Predict APIs
+	provides = tensorboard_plugin_wit
+
+pkgname = python-witwidget
+	pkgdesc = What-If Tool Notebook Widget.
+	depends = python-google-api-python-client
+	depends = python-ipywidgets
+	depends = python-tensorboard_plugin_wit
+	optdepends = python-tensorflow-serving-api: browse model thorugh TensorFlow Serving API
+	optdepends = python-tensorflow-estimator: browse model as a TensorFlow Estimator feature spec
+	provides = witwidget
+	provides = witwidget-gpu
