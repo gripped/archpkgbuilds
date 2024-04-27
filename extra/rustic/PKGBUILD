@@ -3,15 +3,16 @@
 
 pkgname=rustic
 pkgver=0.7.0
-pkgrel=2
-pkgdesc='Fast, encrypted, deduplicated backups powered by Rust'
+pkgrel=3
+pkgdesc='Fast, encrypted, deduplicated backups powered by Rust (reads and writes restic repos)'
 arch=(x86_64)
 url="https://github.com/rustic-rs/$pkgname"
 license=(Apache-2.0 MIT)
 depends=(gcc-libs # libgcc_s.so
          glibc) # libc.so libm.so
 makedepends=(cargo)
-replaces=(rustic-rs)
+replaces=(rustic-rs
+          rustic-bin)
 options=(!lto)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
