@@ -4,7 +4,7 @@
 
 pkgname=gnome-tweaks
 pkgver=46.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Graphical interface for advanced GNOME 3 settings (Tweak Tool)"
 url="https://wiki.gnome.org/Apps/Tweaks"
 arch=(any)
@@ -12,11 +12,13 @@ license=(GPL-3.0-or-later)
 depends=(
   dconf
   glib2
+  gnome-desktop-4
   gsettings-desktop-schemas
   gtk4
   hicolor-icon-theme
   libadwaita
   libgudev
+  libnotify
   pango
   python
   python-gobject
