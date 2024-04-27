@@ -5,7 +5,7 @@
 pkgname=python-s3transfer
 # https://github.com/boto/s3transfer/blob/develop/CHANGELOG.rst
 pkgver=0.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Amazon S3 Transfer Manager for Python'
 arch=('any')
 url="https://github.com/boto/s3transfer"
