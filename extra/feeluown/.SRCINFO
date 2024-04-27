@@ -1,13 +1,12 @@
 pkgbase = feeluown
 	pkgdesc = FeelUOwn Music Player
 	pkgver = 4.1.2
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/feeluown/FeelUOwn
 	arch = any
 	groups = feeluown-full
 	license = GPL3
-	checkdepends = python-pytest-benchmark
-	checkdepends = python-pytest-cov
+	checkdepends = python-pytest
 	checkdepends = python-pycryptodome
 	makedepends = python-setuptools
 	depends = python-qasync
@@ -37,7 +36,11 @@ pkgbase = feeluown
 	replaces = feeluown-local
 	source = https://pypi.io/packages/source/f/feeluown/feeluown-4.1.2.tar.gz
 	source = feeluown.desktop
+	source = pytest-skip-benchmark-cov-plugin.patch
+	source = ordereddict-repr-change.patch
 	sha512sums = b0091c3ee44c08c09d69c464eed57febc084ef140397a1962666f1522d6a00b3eac3208192964e2455fb96bcc172afbf9e9e4e44decdd97a6d80d65b9abc38b8
 	sha512sums = 48882f7469c22e5db332663bc1aa8b398b0a10a0c929d4d7e3d7b8b91205d7d3070c5fa295cb9a14f8c352bff57978bfaad167343e0ddc51c92417eda07c8087
+	sha512sums = 031d4076970a91e135f1eb38abd4e749a38a4f47cb2a9ec6ed3c9b6b6c6cd3769f1914379aefc2dcd9debaad2ccac73d45bf5084b5d5cc64d1d6b77e79bca0be
+	sha512sums = caf0ec4c621dd7c9d5eff3ad472dbcb6176c7b49984556df28450aa0e601c8142b8b251a5ad79a43790674c9323e11f745e557990d6e26c56439a18c9f06f3b3
 
 pkgname = feeluown
