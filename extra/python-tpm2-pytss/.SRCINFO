@@ -1,7 +1,7 @@
 pkgbase = python-tpm2-pytss
 	pkgdesc = Python bindings for tpm2-tss
-	pkgver = 2.1.0
-	pkgrel = 3
+	pkgver = 2.1.0.r40.70a4ccc
+	pkgrel = 1
 	url = https://github.com/tpm2-software/tpm2-pytss
 	arch = x86_64
 	license = BSD-2-Clause
@@ -23,11 +23,9 @@ pkgbase = python-tpm2-pytss
 	depends = python-cryptography
 	depends = python-packaging
 	depends = python-yaml
-	source = git+https://github.com/tpm2-software/tpm2-pytss.git#tag=d4cccb9e1164281455a3c05f4aab2e663133726b?signed
-	source = python-tpm2-pytss-2.1.0-cryptography_renames.patch::https://github.com/tpm2-software/tpm2-pytss/commit/e4006e6066c015d9ed55befa9b98247fbdcafd7d.patch
+	source = git+https://github.com/tpm2-software/tpm2-pytss.git#tag=70a4ccc850bd9dba05043a90f08f818a1860826c
 	validpgpkeys = 5B482B8E3E19DA7C978E1D016DE2E9078E1F50C1
 	sha512sums = SKIP
-	sha512sums = 5168d36ccd4b0f7ba51ccc03111820650866d1aa3bc5fefaec601f94af979d887d77111eaa5869e27d918d77c6e414065e97d7656153a2873bb92c5405b8ac65
 
 pkgname = python-tpm2-pytss
 	depends = glibc

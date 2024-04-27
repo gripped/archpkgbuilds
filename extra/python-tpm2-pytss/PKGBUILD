@@ -2,9 +2,9 @@
 pkgname=python-tpm2-pytss
 _name=${pkgname#python-}
 # NOTE: no trust path: https://github.com/tpm2-software/tpm2-pytss/issues/566
-pkgver=2.1.0
-_commit=d4cccb9e1164281455a3c05f4aab2e663133726b  # refs/tags/2.1.0
-pkgrel=3
+pkgver=2.1.0.r40.70a4ccc
+_commit=70a4ccc850bd9dba05043a90f08f818a1860826c # refs/tags/2.1.1
+pkgrel=1
 pkgdesc='Python bindings for tpm2-tss'
 arch=(x86_64)
 url='https://github.com/tpm2-software/tpm2-pytss'
@@ -34,20 +34,14 @@ checkdepends=(
   tpm2-tools
 )
 source=(
-  "git+$url.git#tag=$_commit?signed"
-  $pkgname-2.1.0-cryptography_renames.patch::https://github.com/tpm2-software/tpm2-pytss/commit/e4006e6066c015d9ed55befa9b98247fbdcafd7d.patch
+  "git+$url.git#tag=$_commit"
 )
-sha512sums=('SKIP'
-            '5168d36ccd4b0f7ba51ccc03111820650866d1aa3bc5fefaec601f94af979d887d77111eaa5869e27d918d77c6e414065e97d7656153a2873bb92c5405b8ac65')
+sha512sums=('SKIP')
 validpgpkeys=('5B482B8E3E19DA7C978E1D016DE2E9078E1F50C1') # William Roberts (Bill Roberts) <william.c.roberts@intel.com>
 
 pkgver() {
   cd $_name
   git describe | sed 's/\([^-]*-\)g/r\1/;s/-/./g'
-}
-
-prepare() {
-  patch -Np1 -d $_name -i ../$pkgname-2.1.0-cryptography_renames.patch
 }
 
 build() {
