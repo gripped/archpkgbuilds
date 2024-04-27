@@ -3,7 +3,7 @@
 _pyname=pycrdt-websocket
 pkgname=python-$_pyname
 pkgver=0.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc='CRDTs based on Yrs'
 arch=(any)
 url='https://github.com/jupyter-server/pycrdt-websocket'
