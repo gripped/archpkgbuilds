@@ -6,7 +6,7 @@ pkgname=(
   ostra-cg
 )
 pkgver=1.26
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Pahole and other DWARF utils"
 url="https://git.kernel.org/pub/scm/devel/pahole/pahole.git"
@@ -15,6 +15,7 @@ license=(GPL-2.0-only)
 makedepends=(
   bash
   cmake
+  glibc
   libelf
   ninja
   python
@@ -67,6 +68,7 @@ _pick() {
 package_pahole() {
   depends=(
     bash
+    glibc
     libelf
     zlib
   )
