@@ -1,12 +1,13 @@
 pkgbase = python-ansible-compat
 	pkgdesc = Functions that help interacting with various versions of Ansible
 	pkgver = 4.1.12
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/ansible-community/ansible-compat
 	arch = any
 	license = MIT
 	checkdepends = python-pytest
 	checkdepends = python-pytest-mock
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -18,8 +19,8 @@ pkgbase = python-ansible-compat
 	depends = python-packaging
 	depends = python-pyyaml
 	depends = python-subprocess-tee
-	source = ansible-compat-4.1.12.tar.gz::https://github.com/ansible-community/ansible-compat/archive/refs/tags/v4.1.12.tar.gz
-	sha256sums = 235db266d08b40377431657842688e892d85916cb194cbab41f519e90083d0ee
-	b2sums = 37cf7aa4b742b0d09ddfe262bc2fad3daf0e6e55975a745e4e7778aaa7c4094134bcf062256d82c8716ac53e550d866cdbc111900230f3b704f4a99306407586
+	source = git+https://github.com/ansible-community/ansible-compat.git#tag=v4.1.12
+	sha256sums = 575481c5c0b072764cf7ca35aa0b6083af5d5cc776708300deae80996e6ef51c
+	b2sums = 8a765d1f6813be97475adcc63379682c2490b0a5b8d18789fd3c4bfb5f4b8c7e29a9915cf15998815bbdc053e676d2b133af2900619aa4b364950c5ad4d404b9
 
 pkgname = python-ansible-compat
