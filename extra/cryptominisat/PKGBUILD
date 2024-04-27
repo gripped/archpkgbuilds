@@ -3,7 +3,7 @@
 
 pkgname=cryptominisat
 pkgver=5.11.21
-pkgrel=1
+pkgrel=2
 pkgdesc='A modern, multi-threaded, feature-rich, simplifying SAT solver'
 arch=(x86_64)
 url='https://github.com/msoos/cryptominisat/'
@@ -20,11 +20,14 @@ makedepends=(cmake
              python-wheel
              vim)
 optdepends=('python: python module')
-source=(https://github.com/msoos/cryptominisat/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('288fd53d801909af797c72023361a75af3229d1806dbc87a0fcda18f5e03763b')
+source=(https://github.com/msoos/cryptominisat/archive/$pkgver/$pkgname-$pkgver.tar.gz
+        https://github.com/msoos/cryptominisat/commit/9e13b568.patch)
+sha256sums=('288fd53d801909af797c72023361a75af3229d1806dbc87a0fcda18f5e03763b'
+            'cdf47cc22de3d94d4eb24cffc2c06859ab2a42a341c3379bb6407815f89836c5')
 
 prepare() {
   sed -e 's|, \"toml\", \"pathlib\"||' -i $pkgname-$pkgver/pyproject.toml
+  patch -d $pkgname-$pkgver -p1 < 9e13b568.patch # Fix tests with Python 3.12
 }
 
 build() {
