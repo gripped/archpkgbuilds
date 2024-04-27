@@ -4,14 +4,20 @@
 
 pkgname=lightdm-gtk-greeter-settings
 pkgver=1.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Settings editor for the LightDM GTK+ Greeter'
 arch=(any)
 url=https://github.com/xubuntu/lightdm-gtk-greeter-settings
 license=(GPL3)
 depends=(
+  bash
+  gdk-pixbuf2
+  glib2
   gtk-update-icon-cache
+  gtk3
   lightdm-gtk-greeter
+  pango
+  python
   python-gobject
 )
 makedepends=(

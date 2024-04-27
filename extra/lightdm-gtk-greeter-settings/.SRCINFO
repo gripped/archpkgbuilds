@@ -1,14 +1,20 @@
 pkgbase = lightdm-gtk-greeter-settings
 	pkgdesc = Settings editor for the LightDM GTK+ Greeter
 	pkgver = 1.2.3
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/xubuntu/lightdm-gtk-greeter-settings
 	arch = any
 	license = GPL3
 	makedepends = git
 	makedepends = python-distutils-extra
+	depends = bash
+	depends = gdk-pixbuf2
+	depends = glib2
 	depends = gtk-update-icon-cache
+	depends = gtk3
 	depends = lightdm-gtk-greeter
+	depends = pango
+	depends = python
 	depends = python-gobject
 	source = git+https://github.com/Xubuntu/lightdm-gtk-greeter-settings.git#tag=7e429dfd544b499514fea284f0ae60c2fd7748ed
 	b2sums = SKIP
