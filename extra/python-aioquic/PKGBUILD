@@ -3,7 +3,7 @@
 pkgname=python-aioquic
 _name=aioquic
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='QUIC and HTTP/3 implementation in Python'
 url='https://github.com/aiortc/aioquic'
 arch=('x86_64')
