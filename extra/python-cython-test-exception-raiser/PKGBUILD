@@ -2,7 +2,7 @@
 
 pkgname=python-cython-test-exception-raiser
 pkgver=1.0.2
-pkgrel=5
+pkgrel=6
 pkgdesc="A trivial extension that just raises an exception"
 url="https://github.com/twisted/cython-test-exception-raiser"
 license=('MIT')
