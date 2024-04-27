@@ -3,7 +3,7 @@
 pkgname=python-pytest-django
 pkgver=4.8.0
 _commit=49b98d184e89ea68da0ee14e1ddb3fd4dbb72ddd
-pkgrel=1
+pkgrel=2
 pkgdesc="A Django plugin for py.test"
 arch=('any')
 license=('BSD')
