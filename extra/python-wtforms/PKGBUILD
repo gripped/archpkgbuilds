@@ -6,13 +6,13 @@
 _pyname=wtforms
 pkgname=python-wtforms
 pkgver=3.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Flexible forms validation and rendering library for python web development'
 url='https://wtforms.readthedocs.io/'
 arch=('any')
 license=('BSD')
 depends=('python' 'python-markupsafe')
-makedepends=('python-build' 'python-installer' 'python-babel' 'python-hatchling')
+makedepends=('python-build' 'python-installer' 'python-babel' 'python-hatchling' 'python-setuptools')
 checkdepends=('python-pytest' 'python-email-validator')
 optdepends=('python-email-validator: Email validation')
 source=(https://github.com/wtforms/wtforms/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
