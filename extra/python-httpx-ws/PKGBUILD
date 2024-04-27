@@ -3,7 +3,7 @@
 _pyname=httpx-ws
 pkgname=python-$_pyname
 pkgver=0.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc='WebSocket support for HTTPX'
 arch=(any)
 url='https://frankie567.github.io/httpx-ws/'
