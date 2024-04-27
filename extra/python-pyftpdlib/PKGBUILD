@@ -4,7 +4,7 @@
 
 pkgname=python-pyftpdlib
 pkgver=1.5.9
-pkgrel=1
+pkgrel=2
 pkgdesc='Very fast asynchronous FTP server library'
 arch=('any')
 url='https://github.com/giampaolo/pyftpdlib/'
@@ -12,7 +12,8 @@ license=('MIT')
 depends=('python')
 optdepends=('python-pyopenssl: FTPS support'
             'python-psutil: to keep track of FTP server memory usage')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools'
+             'python-wheel')
 checkdepends=('python-pytest' 'python-pyopenssl' 'python-psutil')
 source=("https://pypi.io/packages/source/p/pyftpdlib/pyftpdlib-$pkgver.tar.gz"
         "regenerate-SSL-certificates-which-was-too-old-and-broke.patch")
@@ -26,7 +27,7 @@ prepare() {
 
 build() {
   cd pyftpdlib-$pkgver
-  python setup.py build
+  python -m build --wheel --skip-dependency-check --no-isolation
 }
 
 check() {
@@ -36,6 +37,11 @@ check() {
 
 package() {
   cd pyftpdlib-$pkgver
-  python setup.py install --root="$pkgdir" -O1
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # Symlink license file
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  install -d "$pkgdir"/usr/share/licenses/$pkgname
+  ln -s "$site_packages"/pyftpdlib-$pkgver.dist-info/LICENSE \
+    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
