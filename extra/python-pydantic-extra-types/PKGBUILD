@@ -3,7 +3,7 @@
 _name=pydantic-extra-types
 pkgname=python-pydantic-extra-types
 pkgver=2.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Extra pydantic types"
 arch=(any)
 url="https://github.com/pydantic/pydantic-extra-types"
