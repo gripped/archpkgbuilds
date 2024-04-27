@@ -1,10 +1,11 @@
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Angel Velasquez <angvp@archlinux.org>  
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgbase=python-cairo
 pkgname=(python-cairo python-cairo-docs)
 pkgver=1.26.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Python bindings for the cairo graphics library"
 url="https://pycairo.readthedocs.io/en/latest/"
 arch=(x86_64)
