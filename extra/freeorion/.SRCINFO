@@ -1,0 +1,26 @@
+pkgbase = freeorion
+	pkgdesc = A turn-based space empire and galactic conquest game
+	pkgver = 0.5.0.1
+	pkgrel = 1
+	url = https://www.freeorion.org
+	arch = x86_64
+	license = GPL2
+	makedepends = git
+	makedepends = cmake
+	makedepends = boost
+	depends = boost-libs
+	depends = python
+	depends = sdl2
+	depends = libvorbis
+	depends = glew
+	depends = openal
+	depends = hicolor-icon-theme
+	depends = freetype2
+	source = freeorion::git+https://github.com/freeorion/freeorion.git#commit=59084dbca53bbed0716071a592523978c669b28c
+	source = fix-version-string.patch
+	sha512sums = SKIP
+	sha512sums = ab939c24e73f2a2907875d732dbd481914658e2ebf80d682a39cb5904c78591e1ce9b95dff50d1799c177017f525a90cfb2f0b7c77824954ee3b4197ca2381c4
+	b2sums = SKIP
+	b2sums = c87e0eefd36041a72340a7d31eb91c02e595fa875e032854d80cd6db079f8fcd208a655dfb2bc92376d654f862eafa1e9367045e81fee469398ac41356d4fedf
+
+pkgname = freeorion
