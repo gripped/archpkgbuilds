@@ -2,7 +2,7 @@
 
 pkgname=libnvme
 pkgver=1.8
-pkgrel=1
+pkgrel=2
 pkgdesc="C Library for NVM Express on Linux"
 arch=('x86_64')
 url="https://github.com/linux-nvme/libnvme"
