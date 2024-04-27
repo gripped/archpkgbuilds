@@ -4,7 +4,7 @@
 _pyname=nh3
 pkgname=python-$_pyname
 pkgver=0.2.17
-pkgrel=1
+pkgrel=2
 pkgdesc='Ammonia HTML sanitizer Python binding'
 arch=(x86_64)
 url='https://github.com/messense/nh3'
