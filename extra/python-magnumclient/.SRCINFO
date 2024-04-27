@@ -1,10 +1,10 @@
 pkgbase = python-magnumclient
 	pkgdesc = Client library for Magnum API
 	pkgver = 4.4.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://docs.openstack.org/python-magnumclient/latest/
 	arch = any
-	license = Apache
+	license = Apache-2.0
 	checkdepends = python-openstackclient
 	checkdepends = python-oslotest
 	checkdepends = python-osprofiler
@@ -12,6 +12,11 @@ pkgbase = python-magnumclient
 	checkdepends = python-testscenarios
 	checkdepends = python-testtools
 	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	depends = python
 	depends = python-pbr
 	depends = python-keystoneauth1
 	depends = python-stevedore
@@ -25,7 +30,8 @@ pkgbase = python-magnumclient
 	depends = python-prettytable
 	depends = python-cryptography
 	depends = python-decorator
-	source = git+https://github.com/openstack/python-magnumclient.git#commit=5e478d4b22fb96da270ba8c3436b345f0e3fa292
-	sha512sums = SKIP
+	source = git+https://github.com/openstack/python-magnumclient.git#tag=4.4.0
+	sha512sums = 54b8ff2a92a5a1605e85832ae27513b5ad010f2a053f95922b2437cec3d087e1fa12c7b87b1053e964fefb650cbd1ee7a6b2cc76d73d22914c6ccc53bec74140
+	b2sums = c9e7b194b20f1517ed3099eb53b1bfbe5cf7c870b0d6057287a806175c55792dd5e69c1fec7987d228920f9a8b9c0384f8affc13e5684d8c4502850550f74c99
 
 pkgname = python-magnumclient
