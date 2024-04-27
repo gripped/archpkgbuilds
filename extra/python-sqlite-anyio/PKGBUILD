@@ -3,7 +3,7 @@
 _pyname=sqlite-anyio
 pkgname=python-$_pyname
 pkgver=0.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Asynchronous client for SQLite using AnyIO'
 arch=(any)
 url='https://github.com/davidbrochart/sqlite-anyio'
