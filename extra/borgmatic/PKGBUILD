@@ -8,7 +8,7 @@
 
 pkgname=borgmatic
 pkgver=1.8.10
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple, configuration-driven backup software for servers and workstations'
 arch=('any')
 url=https://torsion.org/borgmatic
@@ -50,8 +50,9 @@ build() {
 
 check() {
   cd $pkgname
-  PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest -c /dev/null \
-    --ignore=tests/end-to-end
+  # Override addopts as they invoke coverage testing
+  PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest \
+    --override-ini="addopts=" --ignore=tests/end-to-end
 }
 
 package() {
