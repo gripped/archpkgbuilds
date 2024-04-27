@@ -4,7 +4,7 @@
 pkgname=python-argcomplete
 _pyname=argcomplete
 pkgver=3.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Easy, extensible command line tab completion of arguments for your Python script'
 url='https://github.com/kislyuk/argcomplete'
 arch=('any')
@@ -19,6 +19,12 @@ validpgpkeys=('29BCBADB4ECAAAC2382699388AFAFCD242818A52') # Andrey Kislyuk <kisl
 pkgver() {
   cd ${_pyname}
   git describe --tags --match 'v*' | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+prepare() {
+  cd ${_pyname}
+  # fix test issues with Python 3.12: https://github.com/kislyuk/argcomplete/issues/440
+  git cherry-pick -n 59f4f9d37d7da3001829db67d22a4581798a0639
 }
 
 build() {
