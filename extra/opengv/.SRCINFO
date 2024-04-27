@@ -1,0 +1,22 @@
+pkgbase = opengv
+	pkgdesc = An efficient C++ library for calibrated camera pose computation using geometric computer vision algorithms
+	pkgver = 1.0.git1
+	pkgrel = 5
+	url = https://laurentkneip.github.io/opengv/
+	arch = x86_64
+	license = BSD
+	makedepends = cmake
+	makedepends = git
+	makedepends = ninja
+	makedepends = python-setuptools
+	depends = eigen
+	depends = python-numpy
+	depends = pybind11
+	source = git+https://github.com/laurentkneip/opengv.git#commit=91f4b19
+	source = https://salsa.debian.org/science-team/opengv/-/raw/master/debian/patches/no-march-options.patch
+	source = https://salsa.debian.org/science-team/opengv/-/raw/master/debian/patches/use-system-pybind11.patch
+	sha256sums = SKIP
+	sha256sums = e483d0c1a4a76920ac3260999978154b12422c42e9991e69afc9230643d5c24a
+	sha256sums = 20832cd52808bd7ef2f6bee8a5c85f69fc0fe6c82169e2b2297781f4bdcdd3ae
+
+pkgname = opengv
