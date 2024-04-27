@@ -2,7 +2,7 @@
 
 pkgname=python-sentinels
 pkgver=1.0.0
-pkgrel=10
+pkgrel=11
 pkgdesc="Various objects to denote special meanings in python"
 url="https://github.com/vmalloc/sentinels"
 license=('BSD-3-Clause')
