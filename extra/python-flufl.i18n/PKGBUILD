@@ -3,7 +3,7 @@
 _name=flufl.i18n
 pkgname=python-flufl.i18n
 pkgver=5.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A high level API for internationalization"
 arch=(any)
 url="https://gitlab.com/warsaw/flufl.i18n"
@@ -39,7 +39,7 @@ check() {
   # install to temporary location, as importlib is used
   python -m installer --destdir=test_dir dist/*.whl
   export PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH"
-  pytest -vv -c /dev/null
+  pytest -vv -o addopts=''
 }
 
 package() {
