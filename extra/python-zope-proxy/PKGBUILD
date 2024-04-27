@@ -3,30 +3,31 @@
 pkgname=python-zope-proxy
 pkgver=5.2
 _commit=8307de41648dd661708a2e4ad77be310822a1d82
-pkgrel=1
+pkgrel=2
 pkgdesc="Generic Transparent Proxies"
 arch=('x86_64')
 url="https://github.com/zopefoundation/zope.proxy"
-license=('ZPL')
+license=('ZPL-2.1')
 depends=('python-setuptools' 'python-zope-interface')
-makedepends=('git')
+makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-zope-security' 'python-zope-testrunner')
 source=("git+https://github.com/zopefoundation/zope.proxy.git#commit=$_commit")
 sha512sums=('SKIP')
 
 build() {
   cd zope.proxy
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
   cd zope.proxy
-  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-311:$PYTHONPATH" python -m zope.testrunner --test-path=src
+  local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
+  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$python_version" python -m zope.testrunner --test-path=src
 }
 
 package() {
   cd zope.proxy
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
 # vim:set ts=2 sw=2 et:
