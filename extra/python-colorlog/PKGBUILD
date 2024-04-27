@@ -2,7 +2,7 @@
 
 pkgname=python-colorlog
 pkgver=6.8.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A colored formatter for the python logging module'
 arch=('any')
 url='https://github.com/borntyping/python-colorlog'
