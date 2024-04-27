@@ -1,14 +1,16 @@
 pkgbase = python-magic-wormhole-transit-relay
 	pkgdesc = transit Relay server for Magic-Wormhole
 	pkgver = 0.2.1
-	pkgrel = 9
+	pkgrel = 10
 	url = https://github.com/magic-wormhole/magic-wormhole-transit-relay
 	arch = any
 	license = MIT
+	checkdepends = python-pytest
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
 	makedepends = python-setuptools
+	makedepends = python-versioneer
 	depends = python-twisted
 	depends = python-autobahn
 	source = python-magic-wormhole-transit-relay-0.2.1.tar.gz::https://github.com/magic-wormhole/magic-wormhole-transit-relay/archive/refs/tags/0.2.1.tar.gz
