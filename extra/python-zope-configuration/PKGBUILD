@@ -2,7 +2,7 @@
 
 pkgname=python-zope-configuration
 pkgver=5.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Zope Configuration Markup Language (ZCML)"
 arch=('any')
 url="https://github.com/zopefoundation/zope.configuration"
