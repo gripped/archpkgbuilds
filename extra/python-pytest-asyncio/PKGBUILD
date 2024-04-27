@@ -2,7 +2,7 @@
 
 pkgname=python-pytest-asyncio
 pkgver=0.23.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Pytest support for asyncio."
 arch=('any')
 url="https://github.com/pytest-dev/pytest-asyncio"
