@@ -4,7 +4,7 @@
 pkgname=python-osc-lib
 pkgver=3.0.1
 _commit=73ecaa7425214cf61e5f35b69178619a1579f73c
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenStackClient Library"
 arch=('any')
 url="https://docs.openstack.org/osc-lib/latest/"
