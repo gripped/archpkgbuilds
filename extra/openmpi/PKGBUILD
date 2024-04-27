@@ -9,7 +9,7 @@ pkgname=(
   openmpi-docs
 )
 pkgver=5.0.2
-pkgrel=8
+pkgrel=9
 pkgdesc='High performance message passing library (MPI)'
 arch=(x86_64)
 url='https://www.open-mpi.org'
