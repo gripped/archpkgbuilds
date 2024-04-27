@@ -1,12 +1,13 @@
 pkgbase = reuse
 	pkgdesc = Helper tool for providing and confirming copyright and licensing information
-	pkgver = 3.0.1
+	pkgver = 3.0.2
 	pkgrel = 1
 	url = https://reuse.software/
 	arch = any
-	license = GPL3
-	license = Apache
-	license = custom:CC0-1.0
+	license = Apache-2.0
+	license = CC-BY-SA-4.0
+	license = CC0-1.0
+	license = GPL-3.0-or-later
 	checkdepends = python-pytest
 	makedepends = git
 	makedepends = python-build
@@ -21,7 +22,8 @@ pkgbase = reuse
 	depends = python-binaryornot
 	optdepends = git: git repository support
 	optdepends = mercurial: mercurial repository support
-	source = reuse::git+https://github.com/fsfe/reuse-tool#commit=b450f17b130ca64bffc66f1f905549e433cb5126
-	b2sums = SKIP
+	source = reuse::git+https://github.com/fsfe/reuse-tool#tag=v3.0.2
+	sha512sums = a53bfcd5a2a223b904f0e7033895e19af5c6bbd97ac3bef0f65616b273db7a6123d2090629fdc9759f7214dafcf38ba424435e5f6f13f61b9fc57a3f5451b34d
+	b2sums = 1a80984e026fe8f7e64357ef3a1d8cbf9ecc9766c0a2d1f158d9605bc07fa8ec759f477d893baa7eac42a3eb1fe1862bf36e4376424ec53b166f0934760db83d
 
 pkgname = reuse
