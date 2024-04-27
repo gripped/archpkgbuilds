@@ -5,15 +5,21 @@
 
 pkgname=meld
 pkgver=3.22.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Compare files, directories and working copies"
 url="https://meldmerge.org/"
 license=(GPL-2.0-or-later)
 arch=(any)
 depends=(
   dconf
+  gdk-pixbuf2
+  glib2
   gsettings-desktop-schemas
+  gtk3
   gtksourceview4
+  hicolor-icon-theme
+  pango
+  python
   python-cairo
   python-gobject
 )
