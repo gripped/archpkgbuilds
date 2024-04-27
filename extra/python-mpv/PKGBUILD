@@ -4,7 +4,7 @@
 
 pkgname=python-mpv
 pkgver=1.0.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Python interface to the awesome mpv media player'
 arch=('any')
 url=https://github.com/jaseg/python-mpv
@@ -20,7 +20,7 @@ makedepends=(
 checkdepends=('python-pytest' 'python-pyvirtualdisplay' 'xorg-server-xvfb')
 optdepends=('python-pillow: for raw screenshot support')
 source=("git+$url.git#tag=v$pkgver?signed")
-b2sums=('SKIP')
+b2sums=('111b7dfcbdbd25df8f6e51aa9dd12fd8fa0a97db4cd8b67fd1ed8aeb97962693f738901562dc61d2eff108ef506d93e3e5bf27c594b6a5114348b15cc1898e49')
 validpgpkeys=('E36F75307F0A0EC2D145FF5CED7A208EEEC76F2D') # python-mpv Release Signing Key <python-mpv@jaseg.de>
 
 build() {
