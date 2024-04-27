@@ -3,7 +3,7 @@
 _name=django-filter
 pkgname=python-django-filter
 pkgver=24.2
-pkgrel=1
+pkgrel=3
 pkgdesc="A generic system for filtering Django QuerySets based on user selections"
 arch=(any)
 url="https://github.com/carltongibson/django-filter"
