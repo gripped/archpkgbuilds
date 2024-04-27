@@ -3,7 +3,7 @@
 pkgname=python-pytest-subtests
 pkgver=0.12.1
 _commit=f55c65c4cbcbf2b6df3a4285c37854405a37747f
-pkgrel=1
+pkgrel=2
 pkgdesc='unittest subTest() support and subtests fixture'
 arch=('any')
 license=('MIT')
