@@ -4,8 +4,8 @@
 pkgbase=python-pyopencl
 _name="${pkgbase#python-}"
 pkgname=('python-pyopencl' 'pyopencl-headers')
-pkgver=2023.1
-pkgrel=3
+pkgver=2024.1
+pkgrel=1
 epoch=1
 pkgdesc="A complete, object-oriented language binding of OpenCL to Python"
 arch=('x86_64')
@@ -47,7 +47,7 @@ source=(
     git+https://github.com/inducer/compyte
 )
 validpgpkeys=("900A958D9A0ACA58B1468F2471AA298BCA171145") # Andreas Ratchke
-sha256sums=('SKIP'
+sha256sums=('2d007025102f29c04ee83b4cdb1675178e1d27fd29a1ca87d8adcf162ea41c39'
             'SKIP')
 
 prepare() {
@@ -63,7 +63,7 @@ prepare() {
     sed -n '82,101p' LICENSE > ../MIT.RANLUXCL.txt
 
     # we do not not ship placeholder build dependencies
-    sed -i 's/\"oldest-supported-numpy\", //' pyproject.toml
+    sed -i '/oldest-supported-numpy/d' pyproject.toml
 }
 
 build() {
