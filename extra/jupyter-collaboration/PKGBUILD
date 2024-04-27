@@ -3,7 +3,7 @@
 _pyname=jupyter_collaboration
 pkgname=${_pyname/_/-}
 pkgver=2.0.11
-pkgrel=1
+pkgrel=2
 pkgdesc='A Jupyter Server Extension Providing Support for Y Documents'
 arch=(any)
 url='https://jupyterlab-realtime-collaboration.readthedocs.io/en/latest/'
@@ -22,6 +22,7 @@ makedepends=(python-build
              python-hatchling
              python-installer)
 checkdepends=(python-jupyter-server-terminals
+              python-pytest
               python-pytest-asyncio
               python-pytest-jupyter
               python-pytest-timeout
