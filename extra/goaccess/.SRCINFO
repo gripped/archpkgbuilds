@@ -1,16 +1,17 @@
 pkgbase = goaccess
 	pkgdesc = An open source real-time web log analyzer and interactive viewer
-	pkgver = 1.9.1
+	pkgver = 1.9.2
 	pkgrel = 1
 	url = https://goaccess.io
 	arch = x86_64
 	license = GPL
+	makedepends = git
 	depends = ncurses
 	depends = libmaxminddb
 	depends = openssl
 	optdepends = geoip2-database: for geoip support
 	backup = etc/goaccess/goaccess.conf
-	source = https://tar.goaccess.io/goaccess-1.9.1.tar.gz
-	sha512sums = df3f2fac52fe6882e55abc1693e03df12b6fe7231d22129044f60408e992ad42895ac26a097951e1cbd73af33d5d9a9e8abe56882dfcab7f49f0dd33a972779c
+	source = git+https://github.com/allinurl/goaccess.git#tag=v1.9.2
+	sha512sums = 9e0454f7d8d7a4a68ee8f0534c976e1b182eb6b28cc458c6dd36b6f75757a597c7030c180eec73447303caa7c3f3dfd82d4adc2576cfb68b496392cc6901e74f
 
 pkgname = goaccess
