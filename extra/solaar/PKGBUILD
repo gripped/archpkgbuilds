@@ -4,14 +4,15 @@
 
 _name=Solaar
 pkgname=solaar
-pkgver=1.1.11
-pkgrel=5
+pkgver=1.1.12
+pkgrel=1
 pkgdesc="Linux device manager for a wide range of Logitech devices"
 url="https://pwr-solaar.github.io/Solaar/"
 _url="https://github.com/pwr-Solaar/Solaar"
 license=(GPL-2.0-or-later)
 arch=(any)
 depends=(
+  glib2
   gobject-introspection-runtime
   gtk3
   hicolor-icon-theme
@@ -34,9 +35,9 @@ makedepends=(
 )
 optdepends=('libayatana-appindicator: Display tray icon')
 source=(
-  "git+$_url.git#tag=$pkgver?signed"
+  "git+$_url.git?signed#tag=$pkgver"
 )
-sha512sums=('c0a4ed099fe61da12854578d4c8576dfabbab5413b07ce9f290dc198aa4ad4af71cca3b58458cbdcf8b9b5c07bad55301315d1a1f439f9bde37a963d021850f5')
+sha512sums=('a2ffdf3ef2a6bdab39601ec7b1db70f4a83c8b1cb60f04ea87ecc4572991354aec5faed37d7f4ca9ca71827dd7c3c4db30ab3927749648a352a7bd214c437253')
 validpgpkeys=('2FF2ACA9D97FF7B42CF8494A1E32E75672D6A196') # Peter F. Patel-Schneider (key generated for github) <pfpschneider@gmail.com>
 
 prepare() {
@@ -57,6 +58,6 @@ package() {
   rm -rf "$pkgdir/etc"
   install -vDm 644 rules.d/42-logitech-unify-permissions.rules -t "$pkgdir/usr/lib/udev/rules.d/"
   # docs
-  install -vDm 644 {ChangeLog.md,README.md} -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 {CHANGELOG,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
 }
 # vim:set ts=2 sw=2 et:
