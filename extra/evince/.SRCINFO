@@ -1,6 +1,6 @@
 pkgbase = evince
 	pkgdesc = Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)
-	pkgver = 46.0
+	pkgver = 46.1
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Evince
 	arch = x86_64
@@ -12,25 +12,36 @@ pkgbase = evince
 	makedepends = meson
 	makedepends = texlive-bin
 	makedepends = yelp-tools
+	depends = at-spi2-core
+	depends = cairo
 	depends = dconf
 	depends = djvulibre
+	depends = gcc-libs
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
 	depends = gnome-desktop
 	depends = gsettings-desktop-schemas
 	depends = gsfonts
 	depends = gspell
 	depends = gst-plugins-base-libs
+	depends = gstreamer
 	depends = gtk3
 	depends = gvfs
+	depends = hicolor-icon-theme
 	depends = libarchive
 	depends = libgxps
 	depends = libhandy
 	depends = libsecret
 	depends = libspectre
 	depends = libsynctex
+	depends = libtiff
 	depends = libxml2
+	depends = pango
 	depends = poppler-glib
-	source = git+https://gitlab.gnome.org/GNOME/evince.git#commit=87a7a199c785e9b53279b2ba20134a341786ce3f
-	b2sums = dbfd6774f19b426152fc2330de8101cf3362adbadeb1ac80c55249bb660a75fb2d2d39e78fd047f7c48f6d9ce1b532d0ddb6da3eedd96d685e450b1e401de3e5
+	source = git+https://gitlab.gnome.org/GNOME/evince.git?signed#tag=46.1
+	validpgpkeys = 6F3E1831D69760DC3FCE7873D6197451C129658C
+	b2sums = d49287501ccb64fd5fc88e1f19621e5cfc299d8587dd5b5bfbd91a2975f8832fadde798e0c68959f86231958b37d06bccf48bd46dbce26709666ce28cd8dea15
 
 pkgname = evince
 	groups = gnome

@@ -7,29 +7,39 @@ pkgname=(
   evince
   evince-lib-docs
 )
-pkgver=46.0
+pkgver=46.1
 pkgrel=1
 pkgdesc="Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)"
 url="https://wiki.gnome.org/Apps/Evince"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
+  at-spi2-core
+  cairo
   dconf
   djvulibre
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
   gnome-desktop
   gsettings-desktop-schemas
   gsfonts
   gspell
   gst-plugins-base-libs
+  gstreamer
   gtk3
   gvfs
+  hicolor-icon-theme
   libarchive
   libgxps
   libhandy
   libsecret
   libspectre
   libsynctex
+  libtiff
   libxml2
+  pango
   poppler-glib
 )
 makedepends=(
@@ -41,14 +51,11 @@ makedepends=(
   texlive-bin
   yelp-tools
 )
-_commit=87a7a199c785e9b53279b2ba20134a341786ce3f  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/evince.git#commit=$_commit")
-b2sums=('dbfd6774f19b426152fc2330de8101cf3362adbadeb1ac80c55249bb660a75fb2d2d39e78fd047f7c48f6d9ce1b532d0ddb6da3eedd96d685e450b1e401de3e5')
-
-pkgver() {
-  cd evince
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/evince.git?signed#tag=${pkgver/[a-z]/.&}")
+b2sums=('d49287501ccb64fd5fc88e1f19621e5cfc299d8587dd5b5bfbd91a2975f8832fadde798e0c68959f86231958b37d06bccf48bd46dbce26709666ce28cd8dea15')
+validpgpkeys=(
+  6F3E1831D69760DC3FCE7873D6197451C129658C # Germán Poo-Caamaño <gpoo@gnome.org>
+)
 
 prepare() {
   cd evince
