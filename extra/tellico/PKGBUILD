@@ -4,8 +4,8 @@
 # Contributor: Douglas Soares de Andrade <dsa@aur.archlinux.org>
 
 pkgname=tellico
-pkgver=3.5.3
-pkgrel=4
+pkgver=3.5.4
+pkgrel=1
 pkgdesc="A collection manager for KDE"
 arch=('x86_64')
 url="https://tellico-project.org/"
@@ -16,7 +16,7 @@ depends=('exempi' 'hicolor-icon-theme' 'kio5' 'libksane5' 'libkcddb5'
 makedepends=('cmake' 'extra-cmake-modules' 'kdoctools5')
 changelog=$pkgname.changelog
 source=(https://tellico-project.org/files/$pkgname-$pkgver.tar.xz)
-sha256sums=('e72a4d9d6541d77651010970d6069854fcb0b33f11977e5182316ec85f5bf671')
+sha256sums=('2b16c353de2186d9ffb2aa1572b5381a98207718951210b175ced0148ec9ec92')
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
