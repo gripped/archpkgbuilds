@@ -5,11 +5,11 @@
 # Contributor: Robert Emil Berge <filoktetes@linuxophic.org>
 
 pkgname=recoll
-pkgver=1.37.4
-pkgrel=4
+pkgver=1.37.5
+pkgrel=1
 pkgdesc="Full text search tool based on Xapian backend"
 arch=('x86_64')
-url="https://www.lesbonscomptes.com/recoll/"
+url="https://www.recoll.org"
 license=('GPL')
 depends=('xapian-core>=1.0.15-1' 'qt6-base' 'openssl' 'hicolor-icon-theme' 'qt6-webengine'
 	 'chmlib' 'aspell')
@@ -33,8 +33,8 @@ optdepends=('libxslt: for XML based formats (fb2,etc)'
 #	    'kio5: KDE plugins'
 #	    'krunner5: KDE plugins'
 	    'aspell-en: English stemming support')
-source=("https://www.lesbonscomptes.com/$pkgname/$pkgname-${pkgver/_/}.tar.gz")
-sha512sums=('9e5af5d00191658f23e6a5916718014827f12f4553d9429fe385c0bd1c72f2f49ae97e7d7b8121cb174b299ffe482aa547e4a3aabf2da92e9773bf9eb0f57814')
+source=("https://www.recoll.org/$pkgname-${pkgver/_/}.tar.gz")
+sha512sums=('594a81de809a2f2f08986ef1220ea2d7df8292923f55cf41c5813eb50be9ca63aa9f77c38bd27466486e72b030f2df28a093bca32dae1682d514acbb11a76382')
 
 prepare() {
   cd "$srcdir/$pkgname-${pkgver/_/}"
