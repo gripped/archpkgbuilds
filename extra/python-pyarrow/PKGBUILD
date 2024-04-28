@@ -5,8 +5,8 @@
 _pkg=arrow
 _pkgname=pyarrow
 pkgname=python-${_pkgname}
-pkgver=15.0.2
-pkgrel=2
+pkgver=16.0.0
+pkgrel=1
 pkgdesc="Columnar in-memory analytics layer for big data — Python module."
 arch=(x86_64)
 url="https://arrow.apache.org"
@@ -21,7 +21,7 @@ source=(
   https://archive.apache.org/dist/${_pkg}/${_pkg}-${pkgver}/apache-${_pkg}-${pkgver}.tar.gz{,.asc}
   git+https://github.com/apache/arrow-testing.git
 )
-sha512sums=('6c83e3be1e5840c30387f088315b74aca8e7c2d060793af70a156effb496a71e3e6af0693188c0f46f8a4a061a263a47095912ef04a5dc8141abd59075b14c78'
+sha512sums=('773f4f3eef603032c8ba0cfdc023bfd2a24bb5e41c82da354a22d7854ab153294ede1f4782cc32b27451cf1b58303f105bac61ceeb3568faea747b93e21d79e4'
             'SKIP'
             'SKIP')
 validpgpkeys=(265F80AB84FE03127E14F01125BCCA5220D84079  # Krisztian Szucs (apache) <szucs.krisztian@gmail.com>
