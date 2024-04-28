@@ -2,7 +2,7 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=arrow
-pkgver=15.0.2
+pkgver=16.0.0
 pkgrel=1
 pkgdesc="Columnar in-memory analytics layer for big data."
 arch=(x86_64)
@@ -16,22 +16,18 @@ makedepends=(boost clang cmake flatbuffers git gmock rapidjson xsimd)
 source=(https://archive.apache.org/dist/${pkgname}/${pkgname}-${pkgver}/apache-${pkgname}-${pkgver}.tar.gz{,.asc}
         git+https://github.com/apache/parquet-testing.git
         git+https://github.com/apache/arrow-testing.git
-        lz4-cmake.patch
-        glog-0.7.patch)
-sha512sums=('6c83e3be1e5840c30387f088315b74aca8e7c2d060793af70a156effb496a71e3e6af0693188c0f46f8a4a061a263a47095912ef04a5dc8141abd59075b14c78'
+        lz4-cmake.patch)
+sha512sums=('773f4f3eef603032c8ba0cfdc023bfd2a24bb5e41c82da354a22d7854ab153294ede1f4782cc32b27451cf1b58303f105bac61ceeb3568faea747b93e21d79e4'
             'SKIP'
             'SKIP'
             'SKIP'
-            '35af7cafbc83f02ab7fb219accda890ca1c233b0393bd2e91c07f3673a5a34e41752c5db071ab61fcc9e7154fafaca1394dd481de7e03e06856864c4197c52d6'
-            'b73379dd2ecbd420dcec70b080aa3c780bf3e92ae284d64528885809f6fd1c10261460bc04deb04fff8cc55eb3ee069f25603a47c74f6581aea6c331248508ce')
+            '35af7cafbc83f02ab7fb219accda890ca1c233b0393bd2e91c07f3673a5a34e41752c5db071ab61fcc9e7154fafaca1394dd481de7e03e06856864c4197c52d6')
 validpgpkeys=(265F80AB84FE03127E14F01125BCCA5220D84079  # Krisztian Szucs (apache) <szucs.krisztian@gmail.com>
               08D3564B7C6A9CAFBFF6A66791D18FCF079F8007  # Kouhei Sutou <kou@cozmixng.org>
               AF6AADA4C9835B75973FF5DA275C532289DD0F4A) # Raúl Cumplido Domínguez (CODE SIGNING KEY) <raulcd@apache.org>
 
 prepare() {
   patch -d apache-${pkgname}-${pkgver} -p1 < lz4-cmake.patch # Fix build when lz4 is built with cmake
-  rm apache-${pkgname}-${pkgver}/cpp/cmake_modules/FindGLOG.cmake # Use upstream glog cmake module, fixes build with 0.7
-  patch -d apache-${pkgname}-${pkgver} -p1 < glog-0.7.patch # Fix build with glog 0.7
 }
 
 build(){
