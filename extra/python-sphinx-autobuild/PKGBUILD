@@ -2,8 +2,8 @@
 
 _pkgname=sphinx-autobuild
 pkgname=python-$_pkgname
-pkgver=2024.02.04 
-pkgrel=2
+pkgver=2024.04.13
+pkgrel=1
 pkgdesc='Rebuild Sphinx documentation on changes, with live-reload in the browser'
 arch=('any')
 url='https://github.com/executablebooks/sphinx-autobuild'
@@ -12,7 +12,7 @@ depends=('python' 'python-sphinx' 'python-livereload')
 makedepends=('python-build' 'python-installer' 'python-flit-core')
 checkdepends=('python-pytest')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('4f778f82b1c6635856f97ff742cf9595a4251734164f479943bd6282b94d61dc47fb6d48ab9a106c574213452f0edeac1ec87bf52cdf035c114b74fa604b48a2')
+sha512sums=('3d444e7e90cd5dfba7fbc252793627c7fef16281888363fb0b881ebdfdb1e0e6fcd6e326d4a396851725180c82e5d9ffb83ab592d21243bb2fd0fdd2015e8e33')
 
 build() {
   cd $_pkgname-$pkgver
