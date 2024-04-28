@@ -3,7 +3,7 @@
 # Contributor: Vlad M. <vlad@archlinux.net>
 
 pkgname=watchexec
-pkgver=2.0.0
+pkgver=2.1.0
 pkgrel=1
 pkgdesc="Executes commands in response to file modifications"
 url='https://github.com/watchexec/watchexec'
@@ -13,7 +13,7 @@ arch=('x86_64')
 license=('Apache')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/watchexec/watchexec/archive/refs/tags/v${pkgver}.tar.gz")
 options=('!lto')
-sha256sums=('a613143f9cc8a1ec2a917ae2dd0c03156bf79e6a2dc1ee1ae76419ed47bc8d29')
+sha256sums=('acac35485b57ebf494b1025550eb88dc534841e4081dbba47ecb0168e7f214ab')
 
 prepare() {
   cd "watchexec-$pkgver"
