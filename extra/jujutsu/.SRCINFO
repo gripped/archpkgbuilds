@@ -1,7 +1,7 @@
 pkgbase = jujutsu
 	pkgdesc = Git-compatible VCS that is both simple and powerful
 	pkgver = 0.16.0
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/martinvonz/jj
 	arch = x86_64
 	license = Apache-2.0
@@ -12,6 +12,7 @@ pkgbase = jujutsu
 	depends = libgit2
 	depends = libgit2.so
 	depends = zstd
+	replaces = jujutsu-bin
 	source = https://github.com/martinvonz/jj/archive/refs/tags/v0.16.0/jj-0.16.0.tar.gz
 	sha256sums = e6094982c8e5902c33b0505bbb0e4e4c35c249f2a36108655002dc7d06de7d4a
 
