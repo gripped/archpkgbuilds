@@ -8,7 +8,7 @@
 pkgname=lxc
 epoch=1
 pkgver=6.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Linux Containers"
 arch=('x86_64')
 url="https://linuxcontainers.org"
@@ -41,7 +41,7 @@ prepare() {
 
 build() {
   cd "$pkgname-${pkgver/_/-}"
-  arch-meson build
+  arch-meson build -Dtools=false -Dtools-multicall=true
   meson compile -C build -v
 }
 
