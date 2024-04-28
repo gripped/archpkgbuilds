@@ -8,7 +8,7 @@
 pkgname=lxc
 epoch=1
 pkgver=6.0.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Linux Containers"
 arch=('x86_64')
 url="https://linuxcontainers.org"
@@ -41,7 +41,10 @@ prepare() {
 
 build() {
   cd "$pkgname-${pkgver/_/-}"
-  arch-meson build -Dtools=false -Dtools-multicall=true
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/lxc/-/issues/1
+  # lxd conflicts with tools-multicall
+#  arch-meson build -Dtools=false -Dtools-multicall=true
+  arch-meson build -Dtools=true -Dtools-multicall=false
   meson compile -C build -v
 }
 
