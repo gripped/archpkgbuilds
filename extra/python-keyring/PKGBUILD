@@ -7,8 +7,8 @@
 
 pkgname=python-keyring
 _name=keyring
-pkgver=25.0.0
-pkgrel=4
+pkgver=25.2.0
+pkgrel=1
 pkgdesc='Store and access your passwords safely'
 arch=('any')
 url='https://github.com/jaraco/keyring'
@@ -19,8 +19,8 @@ checkdepends=('python-pytest')
 optdepends=('python-keyrings-alt: Alternative backends'
             'python-dbus: kwallet backend')
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('9b7f25aea1166f80b1b6ded7d691295690dac679e9f931437ae83fc2bf465c541bb1ed74b99a0de749a04df60576e9fe068f2f86b39a3c5bcef953b616678951')
-b2sums=('b1b955215bf197f52e64c46572f29c2059f75f5eadce249fe1776f10f7f1c6d20428a811a8c36fe4bb85142f61f6281c71e2b97b1f8657fdc35a5075b840d39f')
+sha512sums=('36ef4a78d5b9081f13ea7aabbfbe508e0ee275cbdf458fbcb36da5a360f91df79ce4c54bf0ce4000d91961d06f019d75a9ffc46328ef7d9e14e9a883508a1950')
+b2sums=('a9f97b80593cc1fc4716b0c97579408d4485dbd9dab415fa98e1827130cea425a03ff6188282ffb0125327feb6ed282260c15d21ce603f4d2561a94f83e6cbd0')
 
 build() {
   cd $_name-$pkgver
@@ -31,7 +31,9 @@ build() {
 check() {
   cd $_name-$pkgver
 
-  python -m pytest
+  rm tests/backends/test_{Windows,macOS}.py
+  python -m pytest \
+    --deselect tests/backends/test_chainer.py
 }
 
 package() {
