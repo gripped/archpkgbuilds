@@ -1,10 +1,11 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 
 _name=starlette
 pkgname=python-$_name
 pkgver=0.37.2
-pkgrel=3
+pkgrel=4
 pkgdesc='The little ASGI framework that shines'
 arch=(any)
 url="https://github.com/encode/starlette"
@@ -37,7 +38,6 @@ checkdepends=(
   python-sqlalchemy
 )
 optdepends=(
-  'python-exceptiongroup: for collapsing exceptions'
   'python-itsdangerous: for session middleware support'
   'python-jinja: for jinja templates'
   'python-python-multipart: for form parsing'
