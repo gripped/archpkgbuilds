@@ -3,8 +3,8 @@
 # Contributor:
 
 pkgname=python-versioningit
-pkgver=3.1.0
-pkgrel=2
+pkgver=3.1.1
+pkgrel=1
 pkgdesc='Versioning It with your Version In Git'
 arch=('any')
 url='https://github.com/jwodder/versioningit'
@@ -29,7 +29,7 @@ checkdepends=(
   'python-pytest-mock'
 )
 source=("${pkgname#*n-}-${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${pkgname#*n-}-${pkgver}.tar.gz")
-sha256sums=('7aac713c31a53eb367a6bbc2e8b3de8cc2b86d10d45c5101afd651446cb10fd7')
+sha256sums=('b0ba586e5af08b87dbe3354082910a1d0502c36202d496e1ae60ef3b41ee29c1')
 
 build() {
   cd ${pkgname#*n-}-${pkgver}
