@@ -1,19 +1,20 @@
 pkgbase = python-async-lru
 	pkgdesc = Simple LRU cache for asyncio
 	pkgver = 2.0.4
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/aio-libs/async-lru
 	arch = any
 	license = MIT
-	checkdepends = python-pytest-cov
 	checkdepends = python-pytest-asyncio
+	checkdepends = python-pytest-cov
 	checkdepends = python-pytest-timeout
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
-	depends = python-typing_extensions
-	source = https://pypi.python.org/packages/source/a/async-lru/async-lru-2.0.4.tar.gz
-	sha256sums = b8a59a5df60805ff63220b2a0c5b5393da5521b113cd5465a44eb037d81a5627
+	depends = python
+	source = git+https://github.com/aio-libs/async-lru#tag=v2.0.4
+	sha256sums = b20e888a322c68460746a316cb36948dd73bc8bef98e7cc9776f63f2ec3d5170
 
 pkgname = python-async-lru
