@@ -5,7 +5,7 @@ pkgname=(
   rqbit
   rqbit-desktop
 )
-pkgver=5.6.1
+pkgver=5.6.2
 pkgrel=1
 pkgdesc="A bittorrent client in Rust"
 url='https://github.com/ikatson/rqbit'
@@ -26,8 +26,8 @@ makedepends=(
   'webkit2gtk'  'libwebkit2gtk-4.0.so'
 )
 source=(https://github.com/ikatson/${pkgbase}/archive/v${pkgver}/${pkgbase}-${pkgver}.tar.gz)
-sha256sums=('611f65a3c0a79e2781f1f9ed770c0a9e47872cb29d5380d47cd4687af4c3f316')
-b2sums=('b3e3b11d989c5fa60195c10ca08d78d0760b894504d1082e55d4df856cb91ce8d67789f90bd79d0d2627654496fd6913a8a96eeaf1ea60c59cbc01c3f2e3bcc2')
+sha256sums=('b6610a63c0f9e4bd6e54ea8e3a219686be4b001a07e704fa6fb79a8a0c032ba9')
+b2sums=('a49b2ab00f6cc53115e7e5f867d9af4385c7e3c9866ac405817c90f0fbdb068a73bff5296acf842d1d9e456732db0ceb05325e004d74695149eae3657b7948fe')
 
 prepare() {
   cd "${pkgbase}-${pkgver}"
