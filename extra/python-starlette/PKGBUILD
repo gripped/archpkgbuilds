@@ -5,7 +5,7 @@
 _name=starlette
 pkgname=python-$_name
 pkgver=0.37.2
-pkgrel=4
+pkgrel=5
 pkgdesc='The little ASGI framework that shines'
 arch=(any)
 url="https://github.com/encode/starlette"
@@ -13,7 +13,6 @@ license=(BSD-3-Clause)
 depends=(
   python
   python-anyio
-  python-typing_extensions
 )
 makedepends=(
   python-build
