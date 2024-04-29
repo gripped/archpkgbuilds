@@ -10,7 +10,7 @@
 pkgname=ansible-core
 _pkgname=ansible
 pkgver=2.16.6
-pkgrel=2
+pkgrel=3
 pkgdesc='Radically simple IT automation platform'
 arch=('any')
 url='https://www.ansible.com'
@@ -40,7 +40,6 @@ checkdepends=(
   'python-botocore'
   'python-passlib'
   'python-pexpect'
-  'python-py'  # missing as dependency of python-pytest-forked
   'python-pytest'
   'python-pytest-mock'
   'python-pytest-xdist'
