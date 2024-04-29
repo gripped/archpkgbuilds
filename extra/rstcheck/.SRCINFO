@@ -1,12 +1,12 @@
 pkgbase = rstcheck
 	pkgdesc = Checks syntax of reStructuredText and code blocks nested within it
 	pkgver = 6.2.1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/rstcheck/rstcheck
 	arch = any
 	license = MIT
-	checkdepends = python-pytest
 	checkdepends = python-sphinx
+	checkdepends = python-pytest
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
@@ -14,7 +14,6 @@ pkgbase = rstcheck
 	makedepends = python-wheel
 	depends = python-rstcheck-core
 	depends = python-typer
-	depends = python-typing_extensions
 	optdepends = python-sphinx: for Sphinx support
 	optdepends = python-tomli: for pyproject.toml support
 	source = git+https://github.com/rstcheck/rstcheck.git#tag=v6.2.1
