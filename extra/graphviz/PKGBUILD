@@ -4,8 +4,8 @@
 # Contributor: John Proctor <jproctor@prium.net>
 
 pkgname=graphviz
-pkgver=10.0.1
-pkgrel=2
+pkgver=11.0.0
+pkgrel=1
 pkgdesc='Graph visualization software'
 url='https://www.graphviz.org/'
 license=('EPL')
@@ -23,7 +23,7 @@ optdepends=('mono: sharp bindings'
             'xterm: vimdot')
 source=("https://gitlab.com/graphviz/graphviz/-/archive/$pkgver/$pkgname-$pkgver.tar.gz"
         'ghostscript918.patch')
-sha256sums=('28f452ef1cb12288c8758a62f8c3fcfefdb91b251f7aae61d0d703f851bde931'
+sha256sums=('d374f7d98a1ae985510a82dddd887e8058aa37e5f95b4ce0aa58416d2b22714b'
             '0083d126e27f2223ec4226fc1d71c9c84106968a0fdf65de838aee1e4882bfdb')
 install=install
 
