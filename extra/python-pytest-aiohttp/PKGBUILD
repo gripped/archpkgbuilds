@@ -3,12 +3,12 @@
 pkgname=python-pytest-aiohttp
 _name="${pkgname#python-}"
 pkgver=1.0.5
-pkgrel=2
+pkgrel=3
 pkgdesc='pytest plugin for aiohttp support'
 url='https://github.com/aio-libs/pytest-aiohttp'
 arch=('any')
 license=('Apache-2.0')
-depends=('python' 'python-pytest' 'python-aiohttp' 'python-py')
+depends=('python' 'python-pytest' 'python-aiohttp')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm' 'python-wheel')
 source=(${pkgname}-${pkgver}.tar.gz::$url/archive/v${pkgver}.tar.gz)
 sha256sums=('c185f35de7ade7faec96e8a83d31ef1da61b93cdf6d0f405be500f60a315253b')
