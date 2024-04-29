@@ -1,7 +1,7 @@
 pkgbase = jupyter-nbconvert
 	pkgdesc = Jupyter Notebook Conversion
-	pkgver = 7.16.3
-	pkgrel = 2
+	pkgver = 7.16.4
+	pkgrel = 1
 	url = https://pypi.python.org/pypi/nbconvert
 	arch = any
 	license = BSD-3-Clause
@@ -9,6 +9,7 @@ pkgbase = jupyter-nbconvert
 	checkdepends = python-ipywidgets
 	checkdepends = python-pyppeteer
 	checkdepends = python-pytest
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-hatchling
 	makedepends = python-installer
@@ -34,7 +35,7 @@ pkgbase = jupyter-nbconvert
 	depends = python-traitlets
 	optdepends = pandoc: non-html conversion output
 	optdepends = python-pyppeteer: for webPDF conversion support
-	source = https://github.com/jupyter/nbconvert/archive/v7.16.3/jupyter-nbconvert-7.16.3.tar.gz
-	sha256sums = 533b03021e775b80b3f3f8ffa0e3ac76336c7847a948641d6174e544be097e7a
+	source = git+https://github.com/jupyter/nbconvert#tag=v7.16.4
+	sha256sums = fee1c568bf62ab23616d7e8f0388a8a56500725484e2fd1cb38b99db1d8091a9
 
 pkgname = jupyter-nbconvert
