@@ -2,24 +2,27 @@
 # Contributor: Marc Tiehuis <marctiehuis@gmail.com>
 
 pkgname=zig
-pkgver=0.11.0
-pkgrel=2
+pkgver=0.12.0
+pkgrel=1
 pkgdesc='a general-purpose programming language and toolchain for maintaining robust, optimal, and reusable software'
 arch=('x86_64')
 url='https://ziglang.org/'
 license=('MIT')
 options=('!lto')
-depends=('clang16' 'lld16' 'llvm16-libs')
-makedepends=('cmake' 'llvm16')
+depends=('clang' 'lld' 'llvm-libs')
+makedepends=('cmake' 'llvm')
 checkdepends=('lib32-glibc')
 source=("https://ziglang.org/download/$pkgver/zig-$pkgver.tar.xz"
+        "zig-19800.patch::https://github.com/ziglang/zig/pull/19800.patch"
         "skip-localhost-test.patch")
-sha256sums=('72014e700e50c0d3528cef3adf80b76b26ab27730133e8202716a187a799e951'
+sha256sums=('a6744ef84b6716f976dad923075b2f54dc4f785f200ae6c8ea07997bd9d9bd9a'
+            'aba93c54fc7e6048f97060d9bd3158ff5557bf3fb898707242b09883fe20211e'
             'eeb5f0f72035c52bf558ffc77a171a3ddf93eac7d663ef0c82826007763717a8')
 
 prepare() {
     cd "$pkgname-$pkgver"
 
+    patch -p1 -i ../zig-19800.patch
     patch -p1 -i ../skip-localhost-test.patch
 }
 
@@ -28,14 +31,16 @@ build() {
 
     local cmake_vars=(
         CMAKE_INSTALL_PREFIX=/usr
-        CMAKE_PREFIX_PATH=/usr/lib/llvm16
 
         # The zig CMakeLists uses build type Debug if not set
         # override it back to None so makepkg env vars are respected
         CMAKE_BUILD_TYPE=None
 
+        ZIG_PIE=ON
         ZIG_SHARED_LLVM=ON
+        ZIG_USE_LLVM_CONFIG=ON
 
+        ZIG_TARGET_TRIPLE=native-linux.6.1-gnu.2.38
         ZIG_TARGET_MCPU=baseline
     )
     cmake -B build "${cmake_vars[@]/#/-D}" .
