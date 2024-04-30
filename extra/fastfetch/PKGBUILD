@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
 pkgname=fastfetch
-pkgver=2.10.2
+pkgver=2.11.0
 pkgrel=1
 pkgdesc="Like Neofetch, but much faster because written in C"
 arch=('x86_64')
@@ -50,7 +50,7 @@ optdepends=(
   'libdrm: Displays detection'
 )
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('2e52c6152b750fc13248dcb5d55259474ced25e4b09fdc965ea310565c1cdf78')
+sha256sums=('bf7e42db6a219a73bace5ff977414bd79a7ce1b7085872e0c8012ee9a56b2822')
 
 build() {
 	cmake -B build -S "${pkgname}-${pkgver}" \
