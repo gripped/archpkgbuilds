@@ -4,7 +4,7 @@
 
 pkgname=python-rdflib
 pkgver=7.0.0
-pkgrel=3
+pkgrel=4
 pkgdesc="A Python library for working with RDF, a simple yet powerful language for representing information"
 arch=('any')
 url="https://github.com/RDFLib/rdflib"
@@ -13,7 +13,7 @@ depends=('python-isodate' 'python-pyparsing' 'python-setuptools')
 makedepends=('python-build' 'python-installer' 'python-poetry-core')
 optdepends=('python-html5lib: for html support')
 checkdepends=('python-pytest-cov' 'python-html5lib' 'python-networkx'
-              'python-doctest-ignore-unicode' 'python-pip')
+              'python-pip')
 source=(https://github.com/RDFLib/rdflib/archive/$pkgver/$pkgname-$pkgver.tar.gz)
 sha512sums=('176192bd2ce8a400e661ced2e21e3dd35783fa1c6c8390f6dee4ac61ca63da5d3a50df3d287f47783631da12452ca3ec92ad06050417029396fe8b3ab0182041')
 
