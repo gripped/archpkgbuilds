@@ -1,7 +1,7 @@
 pkgbase = intel-compute-runtime
 	pkgdesc = Intel(R) Graphics Compute Runtime for oneAPI Level Zero and OpenCL(TM) Driver
-	pkgver = 23.48.27912.11
-	pkgrel = 2
+	pkgver = 24.13.29138.7
+	pkgrel = 1
 	url = https://01.org/compute-runtime
 	arch = x86_64
 	license = MIT
@@ -18,11 +18,11 @@ pkgbase = intel-compute-runtime
 	provides = opencl-driver
 	provides = level-zero-driver
 	options = !lto
-	source = https://github.com/intel/compute-runtime/archive/23.48.27912.11/intel-compute-runtime-23.48.27912.11.tar.gz
+	source = https://github.com/intel/compute-runtime/archive/24.13.29138.7/intel-compute-runtime-24.13.29138.7.tar.gz
+	source = https://github.com/KhronosGroup/OpenCL-Headers/archive/v/opencl-headers-2023.12.14.tar.gz
 	source = 010-intel-compute-runtime-disable-werror.patch
-	source = 020-intel-compute-runtime-fix-gpu-detection-with-linux6.8.patch
-	sha256sums = 32d9f3b963a832f042a5019fd1f25c041a04badf971ea8f5b162d15155b8eefd
+	sha256sums = 96b2331ee98e800e6b6666f9ab0803a9d16430f8781f3cac1b3f2b81235dfd95
+	sha256sums = 407d5e109a70ec1b6cd3380ce357c21e3d3651a91caae6d0d8e1719c69a1791d
 	sha256sums = 0a03571882300426c14fa03161ea3ca211831bc3c9676995ac74293fd953af16
-	sha256sums = d36b9dccb175b4466cf30d75948a8457791122fe78e265d01797a18691789ab2
 
 pkgname = intel-compute-runtime
