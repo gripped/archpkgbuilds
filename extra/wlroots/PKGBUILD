@@ -3,7 +3,7 @@
 # Contributor: Omar Pakker
 
 pkgname=wlroots
-pkgver=0.17.2
+pkgver=0.17.3
 pkgrel=1
 license=('MIT')
 pkgdesc='Modular Wayland compositor library'
@@ -49,7 +49,7 @@ source=(
     "https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/$pkgver/downloads/wlroots-$pkgver.tar.gz.sig"
     "Revert-layer-shell-error-on-0-dimension-without-anch.patch"
 )
-sha256sums=('f4007d3f71e190b9000ab4a30afd87833b034ab2602030a00af4465ffd4e997c'
+sha256sums=('04d31521bd2b737541b9680098e55ebaaf956e68d692f80479f4ee1236606d98'
             'SKIP'
             '1c05f0500a96a3721317d01619aa42d8ad696905a378249e8405968c4e16a065')
 validpgpkeys=(
