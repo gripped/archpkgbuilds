@@ -3,7 +3,7 @@
 _name=mailmanclient
 pkgname=python-mailmanclient
 pkgver=3.3.5
-pkgrel=4
+pkgrel=5
 pkgdesc="Official Python bindings for the GNU Mailman 3 REST API"
 arch=(any)
 url="https://gitlab.com/mailman/mailmanclient"
@@ -11,7 +11,6 @@ license=(LGPL-3.0-or-later)
 depends=(
   python
   python-requests
-  python-typing_extensions
 )
 makedepends=(
   git
