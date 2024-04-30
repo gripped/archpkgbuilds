@@ -1,21 +1,21 @@
 pkgbase = python-graphql-core
 	pkgdesc = GraphQL base implementation for Python
 	pkgver = 3.2.3
-	pkgrel = 4
+	pkgrel = 5
 	url = https://github.com/graphql-python/graphql-core
 	arch = any
 	license = MIT
+	checkdepends = python-pytest
+	checkdepends = python-pytest-asyncio
+	checkdepends = python-pytest-benchmark
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-poetry-core
 	makedepends = python-setuptools
 	makedepends = python-wheel
-	depends = python-six
-	depends = python-promise
-	depends = python-rx
-	depends = python-typing_extensions
-	source = git+https://github.com/graphql-python/graphql-core.git#tag=430ee891a52d239adadf133d873fdca2a3fe009b
-	sha256sums = SKIP
+	depends = python
+	source = git+https://github.com/graphql-python/graphql-core.git#tag=v3.2.3
+	sha256sums = ddd4812fb7d3bdcf5904e0381d995d82e2afc2770cb78103eebdddae4cd53b43
 
 pkgname = python-graphql-core
