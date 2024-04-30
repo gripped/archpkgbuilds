@@ -1,6 +1,6 @@
 pkgbase = nebula
 	pkgdesc = A scalable overlay networking tool with a focus on performance, simplicity and security
-	pkgver = 1.7.2
+	pkgver = 1.8.2
 	pkgrel = 1
 	url = https://github.com/slackhq/nebula
 	arch = x86_64
@@ -8,8 +8,14 @@ pkgbase = nebula
 	makedepends = go
 	depends = glibc
 	options = !lto
-	source = nebula-1.7.2.tar.gz::https://github.com/slackhq/nebula/archive/v1.7.2.tar.gz
-	sha512sums = b9b871eabdf0ffb05cb350fd665e4cc7c39c9c519837eb4aa88aba4d8d43d62e098da6eb4d2e679100eaa1755f1bb0a3d416a2ea5271ad1e841be1d3434fb341
-	b2sums = 18f996e56aa4de44c8f45d5ad051a07f2927f8115c76ecce9be9dfe0a59f3b5175a93de8442f384162cf406298833d9a364f2ca5f9a51797961505368fe5d3d5
+	source = nebula-1.8.2.tar.gz::https://github.com/slackhq/nebula/archive/v1.8.2.tar.gz
+	source = nebula.service
+	source = fix-tests-with-go-1.22.patch
+	sha512sums = 48c89b33982cf4ed4b674890ef3f925b54f3a1221f4869a92d940674672f6c32f1e58a12d3b19190568fb5b7b848a46345c16d53a7ac55f8e2cf4a0fd474b3c3
+	sha512sums = 5237b50a98c9af95c97fed5d17cd313353b65e1ca981558e415fe95ce4296247fb3051bf6a59e2d2dd89aee3aef3bf3dbaa815becb5c2033523fbf163551b07f
+	sha512sums = cebc9175939df08d22750c1d6a1aa44434142a18dfe897124577d0abb89e93867355e62070c6fd561a6aa0654b76e4c43b52af07628a67a27a3ac791f538160c
+	b2sums = 516058ec4f057a4ff68eec62e05f525a0f4b5afd63a0e3c5281c8c72a8bc143045c329d392d356e3446e9cc9483e6f8426b90b1991e0b82f916fdec78a85bfb2
+	b2sums = 3fb0d210bf96d843c044078d2b7fc3c68f26754aa7b7cdfccf721b62e227de8e6c2ec7c8dbe20b3133c882d01c58c7423f87aa2ef61e9a2d6bbe846779085314
+	b2sums = c1a6d346f9cb68fc6165285f368b5673cb377d7446311a7a830efb7f1fdf6d5502bc42b440588e54513e2203853afd51cbf221d539e3de0eae3da7acb2747b69
 
 pkgname = nebula
