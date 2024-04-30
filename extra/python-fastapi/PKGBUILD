@@ -4,8 +4,8 @@
 
 _name=fastapi
 pkgname=python-$_name
-pkgver=0.110.2
-pkgrel=2
+pkgver=0.110.3
+pkgrel=1
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=(any)
 url="https://github.com/tiangolo/fastapi"
@@ -24,7 +24,7 @@ depends=(
 makedepends=(
   python-build
   python-installer
-  python-hatchling
+  python-pdm
   python-wheel
 )
 checkdepends=(
@@ -68,8 +68,8 @@ optdepends=(
   'uvicorn: for Uvicorn as ASGI server'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('dc183c2986d33dc0d71f7e695969403eac7dccd1fc5ec3350318369423c3cca96e180aaa48774862cd1f0ff487cd64bef0d1a44a10b8b309accc483c9e7256c4')
-b2sums=('1d7015e4a5cceb8650ee6e4598b191ad0fad94debd6b75c5a1ed53d7ae0d31ef89195cf9e22d127cdcdf923c29ca3eb63f468dd201e63793c2e3460101e65e08')
+sha512sums=('1b00c54f349e299fd0eec279c6edfaadf1581fdeee3d96749e814e7da305926b9fb179d003d619afe1aaa36b461c843a10b6acea9f7830512d7474ead6ac0e01')
+b2sums=('d6724ad6fcf54fbcd703fc10736a8d9561c1d7c45a41daa4e78d3688f996e8e2a8bae575b37794c29fa9efdbccd0543e8ee4fb57c20161865d31591ffbdc7c5a')
 
 prepare() {
   cd $_name-$pkgver
