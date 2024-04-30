@@ -4,8 +4,8 @@
 # Contributor: Sander Boom <sanderboom@gmail.com>
 
 pkgname=ansible-lint
-pkgver=24.2.2
-pkgrel=2
+pkgver=24.2.3
+pkgrel=1
 pkgdesc="Checks playbooks for practices and behaviour that could potentially be improved."
 arch=('any')
 url="https://github.com/ansible/ansible-lint"
@@ -17,7 +17,7 @@ checkdepends=(mypy python-jmespath python-pylint python-pytest python-pytest-moc
 optdepends=('ansible: check official ansible collections')
 source=(git+https://github.com/ansible/ansible-lint.git#tag=v$pkgver
         disable_version_check.patch)
-b2sums=('6a5cb672255b84269daf656a19e82c2a8de0d4340b59a4d67f908165f93c65c70183a0ab93cda1f6e9381e4866c61f05e8c6f8a922f27ae1532b787b633024e2'
+b2sums=('76603d5154699a7fc545e455e7f0eb60ccaba8c1686bdfc9b8ed1b36438c6716b98a8154f06abe1183054db9c3b2dd7297acd443ef2e908815474de5d0f0fc60'
         '98294f267ca693c0bc3921f8e076d674a219a891502cd31a0af789bc0b1447b53834b9c85853a134f6bc1ac384f31cb174cba2d55fbcc1636cae9bd3c0bd8f84')
 
 prepare() {
