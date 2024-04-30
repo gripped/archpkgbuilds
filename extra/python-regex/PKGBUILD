@@ -6,8 +6,8 @@
 
 _pkgbase=regex
 pkgname=python-regex
-pkgver=2024.4.16
-pkgrel=2
+pkgver=2024.4.28
+pkgrel=1
 pkgdesc="Alternative python regular expression module."
 arch=('x86_64')
 url="https://github.com/mrabarnett/mrab-regex"
@@ -16,8 +16,8 @@ depends=('python')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 options=(!emptydirs)
 source=("https://files.pythonhosted.org/packages/source/r/${_pkgbase}/${_pkgbase}-${pkgver}.tar.gz")
-sha256sums=('fa454d26f2e87ad661c4f0c5a5fe4cf6aab1e307d1b94f16ffdfcb089ba685c0')
-b2sums=('75df2f861116ebf37845abdb0883774ac53d7d61e4cdf18128c74b4c1d5a55b86bfd447616cdb8fc14239c0a5aeaa2c7e59cb0b2b365b57185d785a3728e6dce')
+sha256sums=('83ab366777ea45d58f72593adf35d36ca911ea8bd838483c1823b883a121b0e4')
+b2sums=('6fa882219feb783c7340015769655e05257ddd17a6e34f830a60f319afca5face64de72511b0bef0820ace4f379ff5ad557bbdfef414cc0371136a79949a7e13')
 
 build() {
   cd "regex-${pkgver}"
