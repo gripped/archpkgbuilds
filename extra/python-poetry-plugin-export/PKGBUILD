@@ -1,18 +1,19 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 _pkgname=poetry-plugin-export
 pkgname=python-poetry-plugin-export
-pkgver=1.5.0
-pkgrel=3
+pkgver=1.6.0
+pkgrel=1
 pkgdesc="Poetry plugin to export the dependencies to various formats "
 url="https://github.com/python-poetry/poetry-plugin-export"
 license=('MIT')
 arch=('any')
 depends=('python-poetry')
-makedepends=('python-build' 'python-installer')
+makedepends=('python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest-mock' 'python-pytest-xdist')
 source=("https://github.com/python-poetry/poetry-plugin-export/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('4ab4986b0a534bf6e2ff7c5a154065e8a2ae987ce8fd1211a69a41f8026ee86a239559474cb11784d2340f25c2809a288983b54cb9f38ca9dc48551554cc9fa3')
+sha512sums=('9ea155a2f80b63c0ed7261615041048f0afdacbb21a6c0618cf4174cc76b2c10ac3102eb7325fda760d6cfac0e95b9194b2f16c33395c88dffcea9ddfaf0ac65')
 
 build() {
   cd poetry-plugin-export-$pkgver
