@@ -5,9 +5,8 @@
 _name=gitpython
 pkgdesc="A python library used to interact with Git repositories"
 pkgname=python-gitpython
-_commit=1f37b482edbe4a7189e5898309a4094f3f4cf404  # refs/tags/3.1.42^{}
 pkgver=3.1.42
-pkgrel=3
+pkgrel=4
 url="https://github.com/gitpython-developers/gitpython"
 license=(BSD-3-Clause)
 arch=(any)
@@ -15,7 +14,6 @@ depends=(
   git
   python
   python-gitdb
-  python-typing_extensions
 )
 makedepends=(
   python-build
@@ -28,9 +26,9 @@ checkdepends=(
   python-pytest
   python-pytest-mock
 )
-source=("git+$url#commit=$_commit?signed")
-sha512sums=('SKIP')
-b2sums=('SKIP')
+source=("git+$url.git?signed#tag=$pkgver")
+sha512sums=('dc54bb0d60eb1e0467fef52d9cc9927c7406b006c597ac750a473cd9d45cbeefdc545d3309158ca6fa394beaa4512aba1e7984b09dfe98c5d36271ac9bf717c9')
+b2sums=('b05dd57f6f131c1ae55003d3512924a70d6f63727ffa22082cc1923455eb9700cefb069be6e34c97380b0a28d1e939de53c0e4f5ec18c110787875336c5d492a')
 validpgpkeys=('27C50E7F590947D7273A741E85194C08421980C9') # Sebastian Thiel (In Rust I trust!) <byronimo@gmail.com>
 
 pkgver() {
