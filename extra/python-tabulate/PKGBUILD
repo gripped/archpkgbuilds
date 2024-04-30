@@ -4,14 +4,14 @@
 _name=tabulate
 pkgname=python-tabulate
 pkgver=0.9.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Pretty-print tabular data in Python, a library and a command-line utility."
 arch=(any)
 url="https://github.com/astanin/python-tabulate"
 license=(MIT)
 depends=(python)
 makedepends=(python-build python-installer python-setuptools-scm python-toml python-wheel)
-checkdepends=(python-nose python-numpy python-pandas python-pytest python-wcwidth)
+checkdepends=(python-numpy python-pandas python-pytest python-wcwidth)
 optdepends=(
   'python-numpy: NumPy array support'
   'python-pandas: pandas.DataFrame support'
