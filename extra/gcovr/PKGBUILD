@@ -2,12 +2,12 @@
 
 pkgname=gcovr
 pkgver=7.2
-pkgrel=1
+pkgrel=2
 pkgdesc='provides a utility for managing the use of the GNU gcov utility'
 arch=(any)
 url="https://gcovr.com/"
 license=(BSD-3-Clause)
-depends=('python' 'python-jinja' 'python-lxml' 'gcc')
+depends=('python' 'python-jinja' 'python-lxml' 'gcc' 'python-colorlog')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
 source=("https://github.com/gcovr/gcovr/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
