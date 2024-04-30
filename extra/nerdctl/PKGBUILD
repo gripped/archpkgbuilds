@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=nerdctl
-pkgver=1.7.5
+pkgver=1.7.6
 pkgrel=1
 pkgdesc='Docker-compatible CLI for containerd'
 arch=('x86_64')
@@ -21,9 +21,9 @@ source=(
   "$pkgname::git+$url.git#tag=v$pkgver"
   'skip-failing-test.patch'
 )
-sha512sums=('dfcd658a7c48b0e7235e880d3a60793b36babd37628f119c239bdf62b27a38fae26e27753a8a137f5fe5f5db6a64a22a8a7105408a21f975e09c4eae0d9e813a'
+sha512sums=('63004e2c4aef298e6547f2ebdbbbdcd928e8bf5708a959fed141fdebd8970b7345bb43aac3bbb0c8869e9d1dfd8c08f781723ea2080fff5a1af571502b00e0b1'
             'c168de6147edcebf31df4b2e22dc830cad62b81780d10105aada8e17347523747d413c4398bec3840f079a37177b6f9c3ca87c8f0119f4f651f7e4c6462eb8b3')
-b2sums=('96a0f16532d52e14e4e43f0cc6c32c244a5d3a99771555f2f23fa724fb01d4fbd4f6aa2a44285049a1c5466a0ced7c84c2c8fec19a7e4e271a9976752d07b6fe'
+b2sums=('4f1b7a56ef1197f2b09943cb77a2b6fa32f1386ebe1ce51f943b987758cce531d1468a61724ceed6c6c2608f9425ce1f7c9cf96e4baaab00276442153049e6fc'
         'c4dd2803d0fb6ef0067ee2ec3fb34f606618e157264e03f9b607629900b11a774f484c8cb320054f90911400bb436ca65f024bf5d63f39766e5b7f19fd8814e5')
 
 prepare() {
