@@ -9,7 +9,7 @@ pkgname=(
   postfix-{cdb,ldap,lmdb,mongodb,mysql,pcre,pgsql,sqlite}
 )
 pkgver=3.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast, easy to administer, secure mail server"
 arch=(x86_64)
 url="https://www.postfix.org/"
