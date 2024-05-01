@@ -4,7 +4,7 @@
 pkgbase=prrte
 pkgname=(prrte{,-docs})
 pkgver=3.0.5
-pkgrel=2
+pkgrel=3
 pkgdesc="PMIx Reference RunTime Environment"
 arch=(x86_64)
 url="https://github.com/openpmix/prrte"
