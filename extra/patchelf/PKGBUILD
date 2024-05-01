@@ -5,7 +5,7 @@
 
 pkgname=patchelf
 pkgver=0.18.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Small utility to modify the dynamic linker and RPATH of ELF executables'
 url='https://nixos.org/patchelf.html'
 arch=('x86_64')
