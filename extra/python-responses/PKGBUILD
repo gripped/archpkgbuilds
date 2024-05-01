@@ -2,14 +2,14 @@
 
 pkgname=python-responses
 pkgver=0.25.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A utility library for mocking out the `requests` Python library.'
 arch=('any')
 license=('Apache')
 url='https://github.com/getsentry/responses'
 depends=('python-requests' 'python-urllib3' 'python-yaml')
 makedepends=('python-setuptools')
-checkdepends=('python-pytest' 'python-pytest-asyncio' 'python-pytest-httpserver' 'python-tomli'
+checkdepends=('python-pytest' 'python-pytest-asyncio' 'python-pytest-httpserver'
               'python-tomli-w')
 source=("https://github.com/getsentry/responses/archive/$pkgver/$pkgname-$pkgver.tar.gz"
         "pytest-asyncio-failures.patch")
