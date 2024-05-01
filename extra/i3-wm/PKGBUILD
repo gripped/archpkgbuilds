@@ -6,7 +6,7 @@
 
 pkgname=i3-wm
 pkgver=4.23
-pkgrel=3
+pkgrel=4
 pkgdesc='Improved dynamic tiling window manager'
 arch=('x86_64')
 url="https://i3wm.org"
