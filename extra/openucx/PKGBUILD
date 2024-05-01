@@ -2,8 +2,8 @@
 
 _name=ucx
 pkgname=openucx
-pkgver=1.15.0
-pkgrel=4
+pkgver=1.16.0
+pkgrel=1
 pkgdesc="Communication framework for data-centric and high-performance applications"
 arch=(x86_64)
 url="http://www.openucx.org"
@@ -32,7 +32,7 @@ provides=(
   libuct.so
 )
 source=("$pkgname-$pkgver.tar.gz::https://github.com/openucx/$_name/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('e3082101dd61b2482390e7917b390f0fe9ecf399a839d97ee025ee559e6cb12d')
+sha256sums=('bf1c1ce6583ea1ab805feceb000157dc1fb825a60ddac0fbd9a329a010f9ad72')
 
 build() {
   local configure_options=(
@@ -70,5 +70,5 @@ package() {
   make DESTDIR="$pkgdir" install -C $_name-$pkgver
 
   # install the license
-  install -Dm644 $_name-$pkgver/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -vDm 644 $_name-$pkgver/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
