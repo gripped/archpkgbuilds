@@ -4,7 +4,7 @@
 
 pkgname=slock
 pkgver=1.5
-pkgrel=2
+pkgrel=3
 pkgdesc="A simple screen locker for X"
 arch=('x86_64')
 url="https://tools.suckless.org/slock"
