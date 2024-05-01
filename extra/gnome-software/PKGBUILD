@@ -4,7 +4,7 @@
 # Contributor: Yosef Or Boczko <yoseforb@gnome.org>
 
 pkgname=gnome-software
-pkgver=46.0
+pkgver=46.1
 pkgrel=1
 pkgdesc="GNOME Software Tools"
 url="https://wiki.gnome.org/Apps/Software/"
@@ -12,12 +12,21 @@ arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
   appstream
+  dconf
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
   gsettings-desktop-schemas
   gtk4
+  hicolor-icon-theme
+  json-glib
   libadwaita
+  libgudev
   libsoup3
   libsysprof-capture
   libxmlb
+  pango
   polkit
 )
 makedepends=(
@@ -38,25 +47,22 @@ optdepends=(
   'malcontent: Parental control plugin'
 )
 groups=(gnome)
-_commit=9dec134914268d135a6f5251ddd624fef2de3c10  # tags/46.0^0
 source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-software.git#commit=$_commit"
+  "git+https://gitlab.gnome.org/GNOME/gnome-software.git?signed#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/mwleeds/gnome-pwa-list.git"
 )
-b2sums=('SKIP'
+b2sums=('0f7b401da058f279a7b004c5bcb76d3f3118b2f50629a46f008dc7193436645cf9045d91d58aa147e59d4f7ce164f18cfed53cb91b2efb0a8245c735805d9c32'
         'SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
+validpgpkeys=(
+  2AA441054BD2F1715EC11610FB183E7EF3C36A0D # Milan Crha <mcrha@redhat.com>
+)
 
 prepare() {
   cd $pkgname
 
   git submodule init
   git submodule set-url subprojects/gnome-pwa-list "$srcdir/gnome-pwa-list"
-  git -c protocol.file.allow=always submodule update
+  git -c protocol.file.allow=always -c protocol.allow=never submodule update
 }
 
 build() {

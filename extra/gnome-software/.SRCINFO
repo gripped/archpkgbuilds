@@ -1,6 +1,6 @@
 pkgbase = gnome-software
 	pkgdesc = GNOME Software Tools
-	pkgver = 46.0
+	pkgver = 46.1
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Software/
 	arch = x86_64
@@ -17,19 +17,29 @@ pkgbase = gnome-software
 	makedepends = meson
 	makedepends = python-packaging
 	depends = appstream
+	depends = dconf
+	depends = gcc-libs
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
 	depends = gsettings-desktop-schemas
 	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = json-glib
 	depends = libadwaita
+	depends = libgudev
 	depends = libsoup3
 	depends = libsysprof-capture
 	depends = libxmlb
+	depends = pango
 	depends = polkit
 	optdepends = flatpak: Flatpak support plugin
 	optdepends = fwupd: fwupd support plugin
 	optdepends = malcontent: Parental control plugin
-	source = git+https://gitlab.gnome.org/GNOME/gnome-software.git#commit=9dec134914268d135a6f5251ddd624fef2de3c10
+	source = git+https://gitlab.gnome.org/GNOME/gnome-software.git?signed#tag=46.1
 	source = git+https://gitlab.gnome.org/mwleeds/gnome-pwa-list.git
-	b2sums = SKIP
+	validpgpkeys = 2AA441054BD2F1715EC11610FB183E7EF3C36A0D
+	b2sums = 0f7b401da058f279a7b004c5bcb76d3f3118b2f50629a46f008dc7193436645cf9045d91d58aa147e59d4f7ce164f18cfed53cb91b2efb0a8245c735805d9c32
 	b2sums = SKIP
 
 pkgname = gnome-software
