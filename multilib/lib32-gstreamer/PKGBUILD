@@ -8,7 +8,7 @@ pkgname=(
   lib32-gst-plugins-base
   lib32-gst-plugins-good
 )
-pkgver=1.24.2
+pkgver=1.24.3
 pkgrel=1
 pkgdesc="Multimedia graph framework (32-bit)"
 url="https://gstreamer.freedesktop.org/"
@@ -40,8 +40,8 @@ source=(
   "git+https://gitlab.freedesktop.org/gstreamer/gstreamer.git?signed#tag=$pkgver"
   0001-HACK-meson-Disable-broken-tests.patch
 )
-b2sums=('b701d3804d955d217ffefb393488eecdca96e3e1275d7c6997e9bd8ec9155a2aea60faa459e40490b77a16c9031c4f89dd95e5bbb7d7ec4f4e105e090673c0ba'
-        '50a95a1a312de00f307ba642486da6e33739ec4feac8c6650ea3a0fafeb8f528287098f2dc5f256a08cf1361fcc07c951700094c450c7f67837add05c0cdab4b')
+b2sums=('ba36061add5b081291b2f6a18b14e2c6cf1f2796b503bc7053e4c059f3d10620ece05b52590151f7e35f2e8919a0f2cfa3372ba24ff0a15beeb4d670c7df3ccd'
+        'e7c59c828883a3bb3aa47684d83b57cd4d463e1f8cffc0383f779fa60ecbe37bfa30c8a0f40e6b2a01f6e0edfbefc5b7041340837e0018741e5963671945a1f2')
 validpgpkeys=(
   D637032E45B8C6585B9456565D2EEE6F6F349D7C # Tim Müller <tim@gstreamer-foundation.org>
 )
@@ -82,11 +82,6 @@ build() {
     -D ugly=disabled
     -D vaapi=disabled
 
-    # Package names
-    -D gstreamer:package-name="Arch Linux lib32-gstreamer $pkgver-$pkgrel"
-    -D gst-plugins-base:package-name="Arch Linux lib32-gst-plugins-base $pkgver-$pkgrel"
-    -D gst-plugins-good:package-name="Arch Linux lib32-gst-plugins-good $pkgver-$pkgrel"
-
     # Subproject options
     -D gstreamer:bash-completion=disabled
     -D gstreamer:dbghelp=disabled
@@ -108,6 +103,8 @@ build() {
 check() (
   export XDG_RUNTIME_DIR="$PWD/runtime-dir"
   mkdir -p -m 700 "$XDG_RUNTIME_DIR"
+
+  export NO_AT_BRIDGE=1 GTK_A11Y=none
 
   # Flaky due to timeouts
   xvfb-run -s '-nolisten local' \
