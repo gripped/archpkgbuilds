@@ -1,0 +1,17 @@
+pkgbase = lib32-fribidi
+	pkgdesc = A Free Implementation of the Unicode Bidirectional Algorithm (32-bit)
+	pkgver = 1.0.14
+	pkgrel = 1
+	url = https://github.com/fribidi/fribidi
+	arch = x86_64
+	license = LGPL-2.1-or-later
+	makedepends = git
+	makedepends = meson
+	depends = fribidi
+	depends = lib32-glibc
+	provides = libfribidi.so
+	source = git+https://github.com/fribidi/fribidi?signed#tag=v1.0.14
+	validpgpkeys = 0AD041B27CA166DDA1FE3BAEA7B3409C0CA4ED14
+	b2sums = 1bb9f57eae1652a7efb33bd39a2e93845f764efab5ac5b5de9d2dc2074aa514d40b26db4b5abd458013fb25d2b106f85c3ed2e71b378d2e9b16edf87908a403c
+
+pkgname = lib32-fribidi

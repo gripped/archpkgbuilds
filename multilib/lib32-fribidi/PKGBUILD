@@ -3,37 +3,40 @@
 # Contributor: Nezmer <Nezmer@gmail.com>
 
 pkgname=lib32-fribidi
-pkgver=1.0.13
-pkgrel=2
+pkgver=1.0.14
+pkgrel=1
 pkgdesc="A Free Implementation of the Unicode Bidirectional Algorithm (32-bit)"
 url="https://github.com/fribidi/fribidi"
 arch=(x86_64)
-license=(LGPL)
+license=(LGPL-2.1-or-later)
 depends=(
   fribidi
   lib32-glibc
 )
 makedepends=(
+  git
   meson
 )
 provides=(libfribidi.so)
-source=("$url/releases/download/v$pkgver/fribidi-$pkgver.tar.xz")
-b2sums=('8cc31220304ddbdeb0047b30ed9084921920b32ad3f1bdcf29ecbb2fafbd430c391bc99bb7f205546ff8482aea1ef7ed369da71deb3474aa623fc2aeace1b62a')
+source=(
+  "git+$url?signed#tag=v$pkgver"
+)
+b2sums=('1bb9f57eae1652a7efb33bd39a2e93845f764efab5ac5b5de9d2dc2074aa514d40b26db4b5abd458013fb25d2b106f85c3ed2e71b378d2e9b16edf87908a403c')
+validpgpkeys=(
+  0AD041B27CA166DDA1FE3BAEA7B3409C0CA4ED14 # Dov Grobgeld <dov.grobgeld@gmail.com>
+)
 
 prepare() {
-  cd fribidi-$pkgver
+  cd fribidi
 }
 
 build() {
   local meson_options=(
-    --libdir=/usr/lib32
+    --cross-file lib32
+    -D docs=false
   )
 
-  export CC="gcc -m32"
-  export CXX="g++ -m32"
-  export PKG_CONFIG="i686-pc-linux-gnu-pkg-config"
-
-  arch-meson fribidi-$pkgver build "${meson_options[@]}"
+  arch-meson fribidi build "${meson_options[@]}"
   meson compile -C build
 }
 
@@ -43,7 +46,7 @@ check() {
 
 package() {
   meson install -C build --destdir "$pkgdir"
-  rm -r "$pkgdir"/usr/{bin,include,share}
+  rm -r "$pkgdir"/usr/{bin,include}
 }
 
 # vim:set sw=2 sts=-1 et:
