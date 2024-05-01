@@ -3,7 +3,7 @@
 
 pkgname=beets
 pkgver=1.6.0
-pkgrel=8
+pkgrel=9
 pkgdesc='Flexible music library manager and tagger'
 arch=(any)
 url=https://beets.io/
@@ -35,8 +35,7 @@ checkdepends=(
   python-discogs-client
   python-flask
   python-mpd2
-  python-nose
-  python-nose-exclude
+  python-pytest
   python-pylast
   python-requests-oauthlib
   python-responses
@@ -102,19 +101,12 @@ build() {
 check() {
   cd beets
   rm test/test_player.py
-  python -m nose \
-    --exclude-test=test.test_embedart.EmbedartCliTest.test_accept_similar_art \
-    --exclude-test=test.test_plugins.ListenersTest.test_events_called \
-    --exclude-test=test.test_thumbnails.ThumbnailsTest.test_invokations \
-    --exclude-test=test.test_thumbnails.ThumbnailsTest.test_make_cover_thumbnail \
-    --exclude-test=test.test_thumbnails.ThumbnailsTest.test_process_album \
-    --exclude-test=test.test_ui.CompletionTest \
-    --exclude-test=test.test_ui.ShowChangeTest.test_item_data_change \
-    --exclude-test=test.test_ui.ShowChangeTest.test_item_data_change_title_missing \
-    --exclude-test=test.test_ui.ShowChangeTest.test_item_data_change_title_missing_with_unicode_filename \
-    --exclude-test=test.test_ui.ShowChangeTest.test_item_data_change_with_unicode \
-    --exclude-test=test.test_web.WebPluginTest.test_get_single_item_by_path \
-    --exclude-test=test.test_zero.ZeroPluginTest
+  python -m pytest \
+    --deselect test/test_plugins.py::ListenersTest::test_events_called \
+    --deselect test/test_thumbnails.py::ThumbnailsTest::test_invokations \
+    --deselect test/test_thumbnails.py::ThumbnailsTest::test_make_cover_thumbnail \
+    --deselect test/test_thumbnails.py::ThumbnailsTest::test_process_album \
+    --deselect test/test_ui.py::CompletionTest::test_completion
 }
 
 package() {
