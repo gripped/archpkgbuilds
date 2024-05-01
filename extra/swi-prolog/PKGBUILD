@@ -5,12 +5,12 @@
 # Contributor: Juergen Hoetzel <juergen@archlinux.org>
 
 pkgname=swi-prolog
-pkgver=9.2.3 # using the stable version
-pkgrel=2
+pkgver=9.2.4 # using the stable version
+pkgrel=1
 pkgdesc='Prolog environment'
 arch=(x86_64)
 url='https://www.swi-prolog.org'
-license=(GPL LGPL)
+license=(BSD-2-Clause)
 depends=(db5.3 gperftools libarchive libxcrypt libyaml qt5-base util-linux-libs)
 makedepends=(cmake jdk-openjdk junit libjpeg libxft libxinerama libxpm ninja python-protobuf unixodbc)
 optdepends=('java-runtime: for using Prolog from Java'
@@ -23,7 +23,7 @@ optdepends=('java-runtime: for using Prolog from Java'
             'unixodbc: for using the odbc4pl library')
 source=("$pkgname-$pkgver.tar.gz::$url/download/stable/src/swipl-$pkgver.tar.gz"
         bdb_5.3.patch)
-b2sums=('123c7af2638893b77d130fde4d18ceb72b5ae953e82ea145016738f9bce173eb24764a8b24c6b91897bf39840cf886ac65055411fb96e61b5254def6f6a4ca24'
+b2sums=('c0b3c3db196e3f71f5475c2fab6f69bfc3d6edba5d1b861d8007acd31d878a6b7884b47196f6a9a8a50d749890370334883c9e2467934b4644d4d07f5c1cc1fc'
         '37e14768ec59f9aee4363c5ffd63be8c50c04eecf269e52e8aadd5cadbc99f6286aa676b1145b1391490ab49072039d896eed588e934ba769d09c6bdb2d2222d')
 
 prepare() {
