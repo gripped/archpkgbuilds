@@ -8,16 +8,16 @@ pkgname=("${pkgbase}" "${pkgbase}-opt"  "${pkgbase}-rocm" "${pkgbase}-opt-rocm"
          "python-${pkgbase}-rocm" "python-${pkgbase}-opt-rocm")
 pkgver=1.16.3
 _pkgdesc='Cross-platform, high performance scoring engine for ML models'
-pkgrel=8
+pkgrel=9
 arch=('x86_64')
 url='https://github.com/microsoft/onnxruntime'
 license=('MIT')
-depends=('abseil-cpp' 'boost' 'openmpi' 'nsync' 'onednn' 'intel-oneapi-mkl')
+depends=('abseil-cpp' 'boost' 'nsync' 'onednn' 'intel-oneapi-mkl')
 # https://github.com/microsoft/onnxruntime/blob/main/onnxruntime/python/tools/transformers/requirements.txt
 _pydepends=('python-onnx' 'python-numpy' 'python-coloredlogs' 'python-psutil'
             'python-py-cpuinfo' 'python-sympy' 'python-scipy' 'python-pillow'
             'python-flatbuffers' 'python-protobuf' 'python-packaging')
-makedepends=('git' 'cmake' 'ninja' 'pybind11' 'nlohmann-json' 'chrono-date' 'eigen' 'cxxopts'
+makedepends=('git' 'cmake' 'ninja' 'pybind11' 'nlohmann-json' 'chrono-date' 'eigen' 'cxxopts' 'openmpi'
              'python-setuptools' 'python-installer' 'python-wheel' 'python-build'
              'cuda' 'cudnn' 'nccl' 'rocm-hip-sdk' 'hipify-clang' 'rocm-smi-lib' 'roctracer')
 makedepends+=("${_pydepends[@]}")
