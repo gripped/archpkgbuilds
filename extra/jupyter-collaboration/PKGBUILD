@@ -1,9 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
-_pyname=jupyter_collaboration
-pkgname=${_pyname/_/-}
-pkgver=2.0.11
-pkgrel=2
+pkgname=jupyter-collaboration
+pkgver=2.1.0
+pkgrel=1
 pkgdesc='A Jupyter Server Extension Providing Support for Y Documents'
 arch=(any)
 url='https://jupyterlab-realtime-collaboration.readthedocs.io/en/latest/'
@@ -16,7 +15,10 @@ depends=(jupyter-server
          python-pycrdt-websocket
          python-tornado
          python-traitlets)
-makedepends=(python-build
+makedepends=(git
+             jupyterlab
+             nodejs
+             python-build
              python-hatch-jupyter-builder
              python-hatch-nodejs-version
              python-hatchling
@@ -27,21 +29,21 @@ checkdepends=(python-jupyter-server-terminals
               python-pytest-jupyter
               python-pytest-timeout
               python-websockets)
-source=(https://pypi.io/packages/source/${_pyname:0:1}/$_pyname/$_pyname-$pkgver.tar.gz)
-sha256sums=('2bb1cde72cda758e526fa49f9ff2bf402ceed7801c0c4187abe4d21e42e18136')
+source=(git+https://github.com/jupyterlab/jupyter-collaboration#tag=v$pkgver)
+sha256sums=('ad6bb56e7c7e767c32f9209bccf0ccbd818529bbb62acf44191b3499005f982d')
 
 build() {
-  cd $_pyname-$pkgver
+  cd $pkgname
   python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
-  cd $_pyname-$pkgver
-  pytest -v -k 'not test_room_sequential_opening' # https://github.com/jupyterlab/jupyter-collaboration/issues/252
+  cd $pkgname
+  pytest -v # -k 'not test_room_sequential_opening' # https://github.com/jupyterlab/jupyter-collaboration/issues/252
 }
 
 package() {
-  cd $_pyname-$pkgver
+  cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
   mv "$pkgdir"{/usr,}/etc
 
