@@ -5,7 +5,7 @@
 
 pkgname=lutris
 pkgver=0.5.17
-pkgrel=3
+pkgrel=4
 pkgdesc='Open Gaming Platform'
 arch=(any)
 url=https://lutris.net
@@ -79,7 +79,7 @@ build() {
 
 check() {
   cd lutris
-  xvfb-run nosetests --cover-erase --with-xunit --xunit-file=nosetests.xml --with-coverage --cover-package=lutris --cover-xml-file=coverage.xml
+  xvfb-run nosetests
 }
 
 package() {
