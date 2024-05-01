@@ -5,7 +5,7 @@
 _name=fastapi
 pkgname=python-$_name
 pkgver=0.110.3
-pkgrel=1
+pkgrel=2
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=(any)
 url="https://github.com/tiangolo/fastapi"
@@ -24,7 +24,7 @@ depends=(
 makedepends=(
   python-build
   python-installer
-  python-pdm
+  python-pdm-backend
   python-wheel
 )
 checkdepends=(
@@ -86,6 +86,13 @@ check() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   local pytest_options=(
     -vv
+    # These tests are failing with "DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=ASGITransport(app=...)'"
+    # It should have been addressed by upstream by then, but for some reason it is still failing
+    # Will try to reselect them at next release
+    --deselect tests/test_tutorial/test_async_tests/test_main.py::test_root[asyncio]
+    --deselect tests/test_tutorial/test_async_tests/test_main.py::test_async_testing[asyncio]
+    --deselect tests/test_tutorial/test_async_tests/test_main.py::test_root[trio]
+    --deselect tests/test_tutorial/test_async_tests/test_main.py::test_async_testing[trio]
   )
 
   cd $_name-$pkgver
