@@ -6,8 +6,8 @@
 
 pkgname=python-docutils
 _name=${pkgname#python-}
-pkgver=0.21.1
-pkgrel=4
+pkgver=0.21.2
+pkgrel=1
 epoch=1
 pkgdesc='Set of tools for processing plaintext docs into formats such as HTML, XML, or LaTeX'
 arch=('any')
@@ -26,7 +26,7 @@ optdepends=(
   'python-pygments: for syntax highlighting of code directives and roles'
 )
 source=("https://downloads.sourceforge.net/$_name/$_name-$pkgver.tar.gz")
-b2sums=('a89792a69a7faa0eda7b2470e5e3a3d3cf8250a3577553a8f8f8d3d86d2693394e97dca6c75c1b4815748d2ce126ccd3f71dead5763ec8b70aee7be183165473')
+b2sums=('727c2f97fc5835a0ffa62e38ea85af366cd89ad1eaec0b8af8b1f3b12e6cddfddb65161ba34f9109952d37ba2cf8985f3c3b6905ebb2ac1c9a984cce3fb4d170')
 
 prepare() {
   cd "$_name"-$pkgver
@@ -43,8 +43,7 @@ check() {
   cd "$_name"-$pkgver
   # we need utf locale to valid utf8 tests
   export LANG=en_US.UTF-8
-  # Temporarily ignore missing test files
-  PYTHONPATH="$PWD/build/python/" python test/alltests.py || true
+  PYTHONPATH="$PWD/build/python/" python test/alltests.py
 }
 
 package() {
