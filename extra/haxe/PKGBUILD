@@ -6,7 +6,7 @@
 # Contributor: Michael Fellinger <mf@rubyists.com>
 
 pkgname=haxe
-pkgver=4.3.3
+pkgver=4.3.4
 pkgrel=1
 pkgdesc='Cross-platform toolkit and programming language'
 arch=(x86_64)
@@ -17,9 +17,9 @@ makedepends=(camlp5 git neko ocaml opam zlib perl-string-shellquote perl-ipc-sys
 optdepends=(java-environment mono php python)
 options=(!strip)
 source=(mbedtls2.patch
-        "$pkgname-$pkgver::git+https://github.com/HaxeFoundation/haxe#commit=de2888959192e92ad5849b2b66c2782ba775adcc") # tag: 4.3.3
+        "$pkgname-$pkgver::git+https://github.com/HaxeFoundation/haxe#commit=dc1a43dc52f98b9c480f68264885c6155e570f3e") # tag: 4.3.4
 b2sums=('77f5f9c6815934b5cf2aee75ba62ed0e2a4b46f23a5bb689dffa23469b4aa13ca6d0e94623c747af63450b2ea3dc57f54507a924f1d6cec1cab3368d74def211'
-        'SKIP')
+        '65680cb33615ac81eed1e81b2f4ef5a75332fa0b084535f4b9bc5039adb19311a11620ce204cc2430ae80a461c0a0f1034269fe4757c9e8cfe92fdda38a0fd1e')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -31,7 +31,7 @@ prepare() {
   eval $(opam env)
 
   # Install required OCaml packages
-  opam install -y extlib luv ocamlfind ptmap sedlex sha xml-light
+  opam install -y extlib luv=0.5.12 ocamlfind ptmap sedlex sha xml-light
 
   # Create the script that will be placed in /etc/profile.d
   echo 'export HAXE_STD_PATH=/usr/share/haxe/std' > haxe.sh
@@ -41,10 +41,12 @@ prepare() {
 }
 
 build() {
+  cd $pkgname-$pkgver
+
   # Prepare opam and ocamlfind before building
   eval $(opam env --switch=ocaml-system)
 
-  cd $pkgname-$pkgver
+  export OCAMLPARAM="_,w=-a"
   make haxe
 
   # "make tools" did not work. These are the replacement commands:
