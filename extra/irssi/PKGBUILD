@@ -5,7 +5,7 @@
 
 pkgname=irssi
 pkgver=1.4.5
-pkgrel=2
+pkgrel=3
 pkgdesc='Modular text mode IRC client with Perl scripting'
 url='https://irssi.org/'
 arch=('x86_64')
