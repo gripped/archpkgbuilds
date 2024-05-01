@@ -4,7 +4,7 @@
 
 pkgname=xterm
 pkgver=390
-pkgrel=1
+pkgrel=2
 pkgdesc="X Terminal Emulator"
 arch=('x86_64')
 url="https://invisible-island.net/xterm/"
