@@ -6,7 +6,7 @@
 
 pkgname=scrot
 pkgver=1.10
-pkgrel=2
+pkgrel=3
 pkgdesc='Simple command-line screenshot utility for X'
 url='https://github.com/resurrecting-open-source-projects/scrot'
 arch=('x86_64')
