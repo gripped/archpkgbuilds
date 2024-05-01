@@ -3,8 +3,8 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-tweaks
-pkgver=46.0
-pkgrel=3
+pkgver=46.1
+pkgrel=1
 pkgdesc="Graphical interface for advanced GNOME 3 settings (Tweak Tool)"
 url="https://wiki.gnome.org/Apps/Tweaks"
 arch=(any)
@@ -29,20 +29,15 @@ makedepends=(
 )
 groups=(gnome-extra)
 source=(
-  # Key that signed 46.0 was revoked
-  "git+https://gitlab.gnome.org/GNOME/gnome-tweaks.git#tag=$pkgver"
+  "git+https://gitlab.gnome.org/GNOME/gnome-tweaks.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('f6de88d985864a2eedc3e7dce9030379c952826ef4d4295b665d47d36d67d001bf3574b68c71596d9edd93204cf13359a559663340b694800f8409c3159e0465')
+b2sums=('09e3b9a9fd95dddd46c3aa8149cd0d36642eaf251aa5c2aa70007bf8096d89a67c0d6be0f2e1a2cff8d96ef74ac068fd24df2bbcb7490c9f3d6ca6b55553ceb9')
 validpgpkeys=(
-  A3C5EBBF43FBA5F829F1A2548D66762250C07E85 # Evan Welsh <ewlsh@gnome.org>
+  A3C5EBBF43FBA5F829F1A2548D66762250C07E85 # Evan Welsh <contact@evanwelsh.com>
 )
 
 prepare() {
   cd $pkgname
-
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/gnome-tweaks/-/issues/1
-  # https://gitlab.gnome.org/GNOME/gnome-tweaks/-/merge_requests/145
-  git cherry-pick -n abfb4692483a9b2a9207f13f136d57fac4ac0e87
 }
 
 build() {
