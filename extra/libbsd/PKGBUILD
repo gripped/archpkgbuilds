@@ -5,7 +5,7 @@
 
 pkgname=libbsd
 pkgver=0.12.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Provides useful functions commonly found on BSD systems like strlcpy()'
 arch=('x86_64')
 url="https://libbsd.freedesktop.org"
