@@ -2,7 +2,7 @@
 
 pkgname=rstcheck
 pkgver=6.2.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Checks syntax of reStructuredText and code blocks nested within it'
 arch=('any')
 url=https://github.com/rstcheck/rstcheck
@@ -16,10 +16,7 @@ makedepends=(
   'python-wheel'
 )
 checkdepends=('python-sphinx' 'python-pytest')
-optdepends=(
-  'python-sphinx: for Sphinx support'
-  'python-tomli: for pyproject.toml support'
-)
+optdepends=('python-sphinx: for Sphinx support')
 source=("git+$url.git#tag=v$pkgver")
 b2sums=('e6bac154fa9366ae4820186ee9be51b1632624eaef23ae03781983551fc3f24928b9549ba30e79554715f439d357a1baddd8dad62968c18b3258a7775fad9491')
 
