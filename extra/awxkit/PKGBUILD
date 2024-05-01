@@ -2,9 +2,9 @@
 
 pkgname=awxkit
 _pkgname=awx
-_commit=86204cf23bd5645cece25f0cf3791f3c0367e52f
-pkgver=24.2.0
-pkgrel=2
+_commit=918d5b3565e5997bdbd57117b92852ba13bb55d6
+pkgver=24.3.1
+pkgrel=1
 pkgdesc="The official command line interface for Ansible AWX"
 arch=('any')
 url="https://github.com/ansible/awx"
@@ -30,7 +30,7 @@ optdepends=(
 )
 options=(!emptydirs)
 source=("${_pkgname}::git+https://github.com/ansible/${_pkgname}#tag=$_commit")
-sha512sums=('fee278a777feb066e5961b7603b52a9166baeb6643df7193086f0f9fb0961648074bfd125ffed28ac0d6e304bab05fbd3e0bbf0237e450c4951bd620de7d6757')
+sha512sums=('aa3dd6d787de43da29866636e82e6923722a94f4104521c820596e8899a8ed03a250c3e02e9706ee4b8140f50f24bd4eb87764685d56f140cc37557f79288a5b')
 
 build() {
     cd "${_pkgname}/${pkgname}"
