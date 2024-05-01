@@ -6,7 +6,7 @@ pkgname=(
   libproxy
   libproxy-docs
 )
-pkgver=0.5.5
+pkgver=0.5.6
 pkgrel=1
 pkgdesc="Automatic proxy configuration management library"
 url="https://libproxy.github.io/libproxy/"
@@ -15,7 +15,9 @@ license=(LGPL-2.1-or-later)
 depends=(
   curl
   duktape
+  gcc-libs
   glib2
+  glibc
 )
 makedepends=(
   gi-docgen
@@ -28,7 +30,7 @@ makedepends=(
 source=(
   "git+https://github.com/libproxy/libproxy#tag=$pkgver"
 )
-b2sums=('8d5cb6295541ef386e328a77ac9dd827c85da4d57ba50c910996c690d1fd9d97ef0d4df37183fdfa3e9bd7bcac7c5e54afc1cd83c157c0b7d01cc4cc298535b8')
+b2sums=('8831331926000acc0750e6a4c0b8fbba6fe49d0a3c453900831a228da09638373ea909c880a76b54b19a815f39788d230e5998ff3926ccb3b158b9c9f445ed3f')
 
 prepare() {
   cd libproxy
