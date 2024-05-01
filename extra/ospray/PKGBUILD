@@ -2,7 +2,7 @@
 
 pkgname=ospray
 pkgver=3.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Ray Tracing Based Rendering Engine for High-Fidelity Visualization"
 arch=(x86_64)
 url="https://www.ospray.org/"
