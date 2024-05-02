@@ -5,7 +5,7 @@
 pkgbase=doublecmd
 pkgname=('doublecmd-gtk2' 'doublecmd-qt5' 'doublecmd-qt6')
 pkgver=1.1.13
-pkgrel=3
+pkgrel=4
 url="http://doublecmd.sourceforge.net/"
 arch=('x86_64')
 license=('GPL')
