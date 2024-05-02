@@ -8,7 +8,7 @@
 
 pkgname=fpc
 pkgver=3.2.2
-pkgrel=10
+pkgrel=11
 pkgdesc="Free Pascal Compiler, Turbo Pascal 7.0 and Delphi compatible."
 arch=('x86_64')
 url="http://www.freepascal.org/"
@@ -26,8 +26,8 @@ sha512sums=('75889bb54adc70a6e2cbd291476b9b12d61c8f943a05b7d16d2024de3215c935465
 
 prepare() {
   cd "${srcdir}"/fpcbuild-${pkgver}
-  patch -Np1 -i ../honor_SOURCE_DATE_EPOCH_in_date.patch
-  patch -Np1 -i ../prevent_date_in_fpcdocs.patch
+  patch -Np1 -i "${srcdir}"/honor_SOURCE_DATE_EPOCH_in_date.patch
+  patch -Np1 -i "${srcdir}"/prevent_date_in_fpcdocs.patch
 }
 
 build() {
