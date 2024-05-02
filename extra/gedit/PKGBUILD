@@ -3,8 +3,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gedit
-pkgver=46.2
-pkgrel=4
+pkgver=47.0
+pkgrel=1
 pkgdesc="GNOME Text Editor"
 url="https://gedit-technology.github.io/apps/gedit/"
 arch=(x86_64)
@@ -23,13 +23,14 @@ depends=(
   gtk3
   hicolor-icon-theme
   libgedit-amtk
+  libgedit-gfls
   libgedit-gtksourceview
+  libgedit-tepl
   libgirepository
   libpeas
   pango
   python
   python-gobject
-  tepl
 )
 makedepends=(
   appstream-glib
@@ -44,24 +45,15 @@ makedepends=(
 optdepends=('gedit-plugins: Additional features')
 conflicts=('gedit-code-assistance<=3.16.0+4+gd19b879-1')
 groups=(gnome-extra)
-_commit=da63f4c642c8ffabb0773f1ef2c2a0edadfdc3e9  # tags/46.2^0
 source=(
-  "git+https://gitlab.gnome.org/GNOME/gedit.git#commit=$_commit"
+  "git+https://gitlab.gnome.org/GNOME/gedit.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/GNOME/libgd.git"
 )
-b2sums=('SKIP'
+b2sums=('8a38d15cac226063dcd0e80b78a3f861ec94f16eb5a68ec7c81894656c6e859c036b4528ecc021cdf13b7bcea5c4aa1c79d25231aceea55f1a1e9cedf9dab387'
         'SKIP')
-
-pkgver() {
-  cd gedit
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
 
 prepare() {
   cd gedit
-
-  # quickhighlight plugin: adapt code for GtkSourceStyle API break
-  git cherry-pick -n 6fa2371e5d9f5e9ef5403e78271cdfd9c4055e9a
 
   git submodule init
   git submodule set-url subprojects/libgd "$srcdir/libgd"

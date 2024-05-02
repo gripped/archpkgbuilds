@@ -1,7 +1,7 @@
 pkgbase = gedit
 	pkgdesc = GNOME Text Editor
-	pkgver = 46.2
-	pkgrel = 4
+	pkgver = 47.0
+	pkgrel = 1
 	url = https://gedit-technology.github.io/apps/gedit/
 	arch = x86_64
 	groups = gnome-extra
@@ -27,18 +27,19 @@ pkgbase = gedit
 	depends = gtk3
 	depends = hicolor-icon-theme
 	depends = libgedit-amtk
+	depends = libgedit-gfls
 	depends = libgedit-gtksourceview
+	depends = libgedit-tepl
 	depends = libgirepository
 	depends = libpeas
 	depends = pango
 	depends = python
 	depends = python-gobject
-	depends = tepl
 	optdepends = gedit-plugins: Additional features
 	conflicts = gedit-code-assistance<=3.16.0+4+gd19b879-1
-	source = git+https://gitlab.gnome.org/GNOME/gedit.git#commit=da63f4c642c8ffabb0773f1ef2c2a0edadfdc3e9
+	source = git+https://gitlab.gnome.org/GNOME/gedit.git#tag=47.0
 	source = git+https://gitlab.gnome.org/GNOME/libgd.git
-	b2sums = SKIP
+	b2sums = 8a38d15cac226063dcd0e80b78a3f861ec94f16eb5a68ec7c81894656c6e859c036b4528ecc021cdf13b7bcea5c4aa1c79d25231aceea55f1a1e9cedf9dab387
 	b2sums = SKIP
 
 pkgname = gedit
