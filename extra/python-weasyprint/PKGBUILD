@@ -3,73 +3,58 @@
 # Contributor: Florijan Hamzic <florijanh at gmail dot com>
 
 pkgname=python-weasyprint
-pkgver=61.2
-pkgrel=3
+pkgver=62.0
+pkgrel=1
 pkgdesc='Utility to render HTML and CSS to PDF'
-arch=('any')
+arch=(any)
 url='https://weasyprint.org/'
-license=('BSD')
-depends=(
-  'pango'
-  'python'
-  'python-brotli'
-  'python-cffi'
-  'python-cssselect2'
-  'python-fonttools'
-  'python-html5lib'
-  'python-pillow'
-  'python-pydyf'
-  'python-pyphen'
-  'python-tinycss2'
-  'python-zopfli'
-  'ttf-font'
-)
-makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-flit-core'
-)
-checkdepends=(
-  'python-pytest'
-  'ghostscript'
-  'ttf-dejavu'
-)
-source=("$pkgname::git+https://github.com/Kozea/WeasyPrint.git#tag=v$pkgver")
-sha256sums=('80d52ac97afb02393c5ab363eed543f9e2f8c1f77cc446dd6bc544bd2cbdbe3c')
+_url='https://github.com/Kozea/WeasyPrint'
+license=(BSD-3-Clause)
+_pydeps=(brotli
+         cffi
+         cssselect2
+         fonttools
+         html5lib
+         pillow
+         pydyf
+         pyphen
+         'tinycss2>=1.3' # so this doesn't leave testing out of order
+         zopfli)
+depends=(pango
+         python
+         "${_pydeps[@]/#/python-}"
+         ttf-font)
+makedepends=(git
+             python-{build,installer,wheel}
+             python-flit-core)
+checkdepends=(python-pytest
+              ghostscript
+              ttf-dejavu)
+source=("$pkgname::git+$_url.git#tag=v$pkgver")
+sha256sums=('b7d6d73c2bba49cd5f2f2dcc364047a74a0bb70d42c3656cafa355028ec06f04')
 
 prepare() {
-  cd "$pkgname"
-
-  # thou shalt not lint coding style in integration tests
-  sed -i '/^addopts/d' pyproject.toml
+	cd "$pkgname"
+	# thou shalt not lint coding style in integration tests
+	sed -i '/^addopts/d' pyproject.toml
 }
 
 build(){
-  cd "$pkgname"
-
-  python \
-    -m build \
-    --wheel \
-    --no-isolation
+	cd "$pkgname"
+	python -m build -wn
 }
 
 check() {
-  cd "$pkgname"
-
-  # skip failing tests
-  python -m pytest \
-    --deselect tests/draw/test_gradient.py::test_linear_gradients_5 \
-    --deselect tests/draw/test_gradient.py::test_linear_gradients_12
+	cd "$pkgname"
+	local deselected=(
+		tests/draw/test_gradient.py::test_linear_gradients_5
+		tests/draw/test_gradient.py::test_linear_gradients_12
+	)
+	pytest ${deselected[@]/#/--deselect }
 }
 
 package() {
-  cd "$pkgname"
-
-  python \
-    -m installer \
-    --destdir="$pkgdir" \
-    dist/*.whl
-
-  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+	cd "$pkgname"
+	python -m installer -d "$pkgdir" dist/*.whl
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }
