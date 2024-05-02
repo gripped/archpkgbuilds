@@ -1,0 +1,32 @@
+pkgbase = vis
+	pkgdesc = modern, legacy free, simple yet efficient vim-like editor
+	pkgver = 0.9
+	pkgrel = 1
+	url = https://github.com/martanne/vis#vis-a-vim-like-text-editor
+	arch = x86_64
+	license = custom:ISC
+	checkdepends = vim
+	checkdepends = lua-lpeg
+	makedepends = git
+	depends = acl
+	depends = libacl.so
+	depends = bash
+	depends = ncurses
+	depends = libncursesw.so
+	depends = libtermkey
+	depends = libtermkey.so
+	depends = lua
+	depends = tre
+	depends = file
+	optdepends = wl-clipboard: wayland clipboard support
+	optdepends = xclip: X11 clipboard support
+	optdepends = xsel: X11 clipboard support
+	optdepends = lua-lpeg: syntax highlighting
+	backup = etc/vis/visrc.lua
+	source = git+https://github.com/martanne/vis.git#tag=v0.9
+	source = git+https://github.com/martanne/vis-test.git
+	validpgpkeys = 54A47F12462D26A7D078A932C83A52CD1962562C
+	sha256sums = ef6ca7af3d62a4617aca253a9b22f953fa50cde964debe831a982ed010f26de7
+	sha256sums = SKIP
+
+pkgname = vis
