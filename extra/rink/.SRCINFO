@@ -1,16 +1,20 @@
 pkgbase = rink
 	pkgdesc = Unit conversion tool and library written in rust
-	pkgver = 0.7.0
+	pkgver = 0.8.0
 	pkgrel = 1
 	url = https://rinkcalc.app
 	arch = x86_64
-	license = GPL3
-	license = MPL2
+	license = GPL-3.0-or-later
+	license = MPL-2.0
+	makedepends = asciidoctor
 	makedepends = git
+	makedepends = make
 	makedepends = rust
+	depends = curl
 	depends = gcc-libs
 	depends = openssl
-	source = git+https://github.com/tiffany352/rink-rs.git#tag=v0.7.0
-	b2sums = SKIP
+	source = git+https://github.com/tiffany352/rink-rs.git#tag=v0.8.0?signed
+	validpgpkeys = BC69595DA4AC1B321854939833F53ED0A9B562C1
+	b2sums = 41064be6ebd800f1d9a6603716ea64192550cddac622c30f89c06b4991c7c80b06d038d4d1bba75ae97c794a95a88586349e0f9910c06ab004d47cef52d1a78c
 
 pkgname = rink
