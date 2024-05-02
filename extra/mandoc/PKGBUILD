@@ -6,7 +6,7 @@
 
 pkgname=mandoc
 pkgver=1.14.6
-pkgrel=4
+pkgrel=5
 pkgdesc='A suite of tools compiling mdoc from the OpenBSD project'
 arch=(x86_64)
 url='https://mdocml.bsd.lv'
