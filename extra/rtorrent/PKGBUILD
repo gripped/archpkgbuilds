@@ -6,7 +6,7 @@
 
 pkgname=rtorrent
 pkgver=0.9.8
-pkgrel=5
+pkgrel=6
 pkgdesc='Ncurses BitTorrent client based on libTorrent'
 url='https://rakshasa.github.io/rtorrent/'
 license=('GPL')
@@ -18,6 +18,8 @@ sha256sums=('36c91dce07420840d429a649596776cc6fa669c476e2dee732c7c59736293027')
 
 prepare() {
 	cd ${pkgname}
+	# https://gitlab.archlinux.org/archlinux/packaging/packages/rtorrent/-/issues/1
+	git cherry-pick -n 92bec88d0904bfb31c808085c2fd0f22d0ec8db7
 	./autogen.sh
 }
 
