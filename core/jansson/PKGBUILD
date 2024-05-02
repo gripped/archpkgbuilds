@@ -3,7 +3,7 @@
 
 pkgname=jansson
 pkgver=2.14
-pkgrel=3
+pkgrel=4
 pkgdesc='C library for encoding, decoding and manipulating JSON data'
 arch=('x86_64')
 url='https://www.digip.org/jansson/'
