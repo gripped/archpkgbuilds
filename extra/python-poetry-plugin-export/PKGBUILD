@@ -3,7 +3,7 @@
 
 _pkgname=poetry-plugin-export
 pkgname=python-poetry-plugin-export
-pkgver=1.6.0
+pkgver=1.7.1
 pkgrel=1
 pkgdesc="Poetry plugin to export the dependencies to various formats "
 url="https://github.com/python-poetry/poetry-plugin-export"
@@ -13,7 +13,7 @@ depends=('python-poetry')
 makedepends=('python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest-mock' 'python-pytest-xdist')
 source=("https://github.com/python-poetry/poetry-plugin-export/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('9ea155a2f80b63c0ed7261615041048f0afdacbb21a6c0618cf4174cc76b2c10ac3102eb7325fda760d6cfac0e95b9194b2f16c33395c88dffcea9ddfaf0ac65')
+sha512sums=('e816fadbe2e42c667e818d36373ff9cdb7b52fac3b0ea04a91c71a474780dea4fef7e283c4a7655ed63277c857e08a2485359289a5cc34ea2392db375f01c4f2')
 
 build() {
   cd poetry-plugin-export-$pkgver
