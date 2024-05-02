@@ -1,12 +1,13 @@
 pkgbase = sysprof
 	pkgdesc = Kernel based performance profiler
 	pkgver = 46.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://wiki.gnome.org/Apps/Sysprof
 	arch = x86_64
 	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = meson
+	makedepends = python-packaging
 	makedepends = yelp-tools
 	depends = cairo
 	depends = gcc-libs
@@ -23,8 +24,8 @@ pkgbase = sysprof
 	depends = pango
 	depends = polkit
 	depends = systemd-libs
-	source = git+https://gitlab.gnome.org/GNOME/sysprof.git#commit=594a3037c0e7cc1bf97f162a392aa4f8989c9dce
-	b2sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/sysprof.git#tag=46.0
+	b2sums = d32a2a9f129a121c814b46377b6d0fee306e3d0f87dac73e7fd4ce9de85888e5e980f309faa17ce366006f0a0390475dc83739b92d4e460c2da7293ab97dcd03
 
 pkgname = sysprof
 	groups = gnome-extra
