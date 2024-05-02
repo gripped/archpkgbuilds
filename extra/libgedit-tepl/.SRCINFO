@@ -1,0 +1,30 @@
+pkgbase = libgedit-tepl
+	pkgdesc = Library that eases the development of GtkSourceView-based text editors and IDEs
+	pkgver = 6.10.0
+	pkgrel = 2
+	url = https://github.com/gedit-technology/libgedit-tepl
+	arch = x86_64
+	license = LGPL-3.0-or-later
+	checkdepends = xorg-server-xvfb
+	makedepends = git
+	makedepends = gtk-doc
+	makedepends = gobject-introspection
+	makedepends = meson
+	depends = cairo
+	depends = glib2
+	depends = glibc
+	depends = gsettings-desktop-schemas
+	depends = gtk3
+	depends = icu
+	depends = libgedit-amtk
+	depends = libgedit-gfls
+	depends = libgedit-gtksourceview
+	depends = libhandy
+	depends = pango
+	provides = libgedit-tepl-6.so
+	conflicts = tepl
+	replaces = tepl
+	source = git+https://github.com/gedit-technology/libgedit-tepl#tag=6.10.0
+	b2sums = 54a0e1e4927a90e295e7c681f1d3c3da0ed6da0ca1d864887cf59c6bf6f23baacf555f34cbece81a57efc114d64248c1a2a7d48820dd1e114376bfa5aebc6a1b
+
+pkgname = libgedit-tepl
