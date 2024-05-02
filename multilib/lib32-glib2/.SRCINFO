@@ -1,7 +1,7 @@
 pkgbase = lib32-glib2
 	pkgdesc = Low level core library - 32-bit
 	pkgver = 2.80.0
-	pkgrel = 1
+	pkgrel = 4
 	url = https://gitlab.gnome.org/GNOME/glib
 	arch = x86_64
 	license = LGPL-2.1-or-later
@@ -13,6 +13,7 @@ pkgbase = lib32-glib2
 	makedepends = lib32-libelf
 	makedepends = meson
 	makedepends = python
+	makedepends = python-packaging
 	makedepends = shared-mime-info
 	makedepends = util-linux
 	depends = glib2
@@ -20,10 +21,10 @@ pkgbase = lib32-glib2
 	depends = lib32-pcre2
 	depends = lib32-util-linux
 	depends = lib32-zlib
-	options = debug
-	source = git+https://gitlab.gnome.org/GNOME/glib.git#commit=763cc3b238398614c20069fd67642730e3a6519b
+	source = git+https://gitlab.gnome.org/GNOME/glib.git?signed#tag=2.80.0
 	source = git+https://gitlab.gnome.org/GNOME/gvdb.git
 	source = gio-querymodules-32.hook
+	validpgpkeys = 923B7025EE03C1C59F42684CF0942E894B2EAFA0
 	b2sums = cc3a6a7a14fef1aabc08d3bdfe98f66e3ecf3591ac054d83aa9404c8c9cd72e690a4c26c16934700d067bb2cb3d58730387482032cd9ffa04b041869426165ba
 	b2sums = SKIP
 	b2sums = 678ea2d010fd64b6c55106510096363c54c357d65615c666e9cc3a0e280c0878257a45e646dd88f6bdd0623f7268c4afd2d4f98f82a5489bbfc028c5864252f1

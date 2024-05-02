@@ -8,7 +8,7 @@ pkgname=(
   lib32-glib2
 )
 pkgver=2.80.0
-pkgrel=1
+pkgrel=4
 pkgdesc="Low level core library - 32-bit"
 url="https://gitlab.gnome.org/GNOME/glib"
 license=(LGPL-2.1-or-later)
@@ -27,6 +27,7 @@ makedepends=(
   lib32-libelf
   meson
   python
+  python-packaging
   shared-mime-info
   util-linux
 )
@@ -34,23 +35,17 @@ checkdepends=(
   desktop-file-utils
   lib32-glib2
 )
-options=(
-  debug
-)
-_commit=763cc3b238398614c20069fd67642730e3a6519b  # tags/2.80.0^0
 source=(
-  "git+https://gitlab.gnome.org/GNOME/glib.git#commit=$_commit"
+  "git+https://gitlab.gnome.org/GNOME/glib.git?signed#tag=$pkgver"
   "git+https://gitlab.gnome.org/GNOME/gvdb.git"
   gio-querymodules-32.hook
 )
 b2sums=('cc3a6a7a14fef1aabc08d3bdfe98f66e3ecf3591ac054d83aa9404c8c9cd72e690a4c26c16934700d067bb2cb3d58730387482032cd9ffa04b041869426165ba'
         'SKIP'
         '678ea2d010fd64b6c55106510096363c54c357d65615c666e9cc3a0e280c0878257a45e646dd88f6bdd0623f7268c4afd2d4f98f82a5489bbfc028c5864252f1')
-
-pkgver() {
-  cd glib
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+validpgpkeys=(
+  923B7025EE03C1C59F42684CF0942E894B2EAFA0 # Philip Withnall <pwithnall@gnome.org>
+)
 
 prepare() {
   cd glib
