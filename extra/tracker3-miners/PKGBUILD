@@ -2,7 +2,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=tracker3-miners
-pkgver=3.7.2
+pkgver=3.7.3
 pkgrel=1
 pkgdesc="Filesystem indexer and metadata extractor"
 url="https://tracker.gnome.org/"
@@ -51,7 +51,7 @@ groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/tracker-miners.git#tag=$pkgver"
 )
-b2sums=('3ec95f9f30fb265c4f1aac359e26c7d1fced4d8b8b26ffa72efdb4cdce220572fb4861ea0eeea8baf905d463df02e65f8533841f71dcf44f37ffd77bb098cbb8')
+b2sums=('bd6bee52a297b443890835abfb73744848e39d41511cd21d21491d26c5fd624c33ad96965eccaddb71572a12b7f61e44c4dd8147e2c31eee527b119e3d077b10')
 
 prepare() {
   cd tracker-miners
