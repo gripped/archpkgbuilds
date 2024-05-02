@@ -2,53 +2,53 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=gnome-initial-setup
-pkgver=46.0
-pkgrel=2
+pkgver=46.1
+pkgrel=1
 pkgdesc='Helps you to set up your OS when you boot for the first time'
-arch=('x86_64')
 url='https://gitlab.gnome.org/GNOME/gnome-initial-setup'
+arch=('x86_64')
 license=('GPL-2.0-or-later')
 depends=(
-    'accountsservice'
-    'fontconfig'
-    'gcc-libs'
-    'gdk-pixbuf2'
-    'gdm'
-    'geoclue'
-    'geocode-glib-2'
-    'glib2'
-    'glibc'
-    'gnome-desktop-4'
-    'gnome-control-center'
-    'gnome-keyring'
-    'gsettings-desktop-schemas'
-    'gtk4'
-    'harfbuzz'
-    'krb5'
-    'libadwaita'
-    'libgdm'
-    'libgweather-4'
-    'libibus'
-    'libmalcontent'
-    'libnm'
-    'libnma-gtk4'
-    'libpwquality'
-    'libsecret'
-    'malcontent'
-    'pango'
-    'polkit'
-    'tecla'
-    'webkitgtk-6.0'
+  'accountsservice'
+  'fontconfig'
+  'gcc-libs'
+  'gdk-pixbuf2'
+  'gdm'
+  'geoclue'
+  'geocode-glib-2'
+  'glib2'
+  'glibc'
+  'gnome-control-center'
+  'gnome-desktop-4'
+  'gnome-keyring'
+  'gsettings-desktop-schemas'
+  'gtk4'
+  'harfbuzz'
+  'krb5'
+  'libadwaita'
+  'libgdm'
+  'libgweather-4'
+  'libibus'
+  'libmalcontent'
+  'libnm'
+  'libnma-gtk4'
+  'libpwquality'
+  'libsecret'
+  'malcontent'
+  'pango'
+  'polkit'
+  'tecla'
+  'webkitgtk-6.0'
 )
 makedepends=(
-    'git'
-    'meson'
-    'python-packaging'
+  'git'
+  'meson'
+  'python-packaging'
 )
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-initial-setup.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('f86fdd00cdea909c6e6e246b02f1f675e4018f748c8f4e73b4e3b5a34b88cdde9777f75599775cb2f930e2afe5b185a529cd0a74343548622122419a87a77a10')
+b2sums=('16fd66267ac18dcd83eb51785eb7e37d0b7c3e685d7860fe87db5c2e772ccd74491f97943f47fe1bfcaa5dbf1ff15d999c46b5cb5ebeb95a73cc8b09112faa7f')
 validpgpkeys=(
   1E68E58CF255888301645B563422DC0D7AD482A7 # Will Thompson <will@willthompson.co.uk>
 )
