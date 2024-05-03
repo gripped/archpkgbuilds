@@ -2,14 +2,14 @@
 
 pkgname=git-warp-time
 pkgver=0.7.6
-pkgrel=2
+pkgrel=4
 pkgdesc='reset timestamps of Git repository files to the time of the last modifying commit'
 arch=(x86_64)
 url="https://github.com/alerque/$pkgname"
 license=(GPL-3.0-only)
-depends=(gcc-libs
-         glibc
-         libgit2 libgit2.so)
+depends=(gcc-libs # libgcc_s.so 
+         glibc # libc.so libm.so
+         libgit2)
 makedepends=(cargo
              git
              jq)
@@ -40,6 +40,7 @@ check() {
 }
 
 package() {
+	depends+=(libgit2.so)
 	cd "$_archive"
 	make DESTDIR="$pkgdir" install
 }
