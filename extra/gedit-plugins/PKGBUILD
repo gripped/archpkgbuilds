@@ -7,16 +7,26 @@
 # Contributor: zhuqin <zhuqin83@gmail.com>
 
 pkgname=gedit-plugins
-pkgver=46.0
+pkgver=47.0
 pkgrel=2
 pkgdesc="Collection of plugins for the gedit Text Editor"
 url="https://wiki.gnome.org/Apps/Gedit/ShippedPlugins"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-2.0-or-later)
 depends=(
+  dconf
   gedit
+  glib2
+  glibc
+  gtk3
+  libgedit-gtksourceview
+  libgedit-tepl
+  libpeas
+  pango
+  python
   python-cairo
   python-dbus
+  python-gobject
 )
 makedepends=(
   appstream-glib
@@ -33,18 +43,12 @@ optdepends=(
   'libgit2-glib: for git plugin'
   'vte3: for embedded terminal'
 )
-_commit=e4f3ca3eaac33f802db23c3ad4227481fdd18015  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gedit-plugins.git#commit=$_commit")
-b2sums=('SKIP')
+source=("git+https://gitlab.gnome.org/GNOME/gedit-plugins.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('7394eb59977d471b8b2ac44f09c02d8f76976fe60351305c707d866aa89037d5e1ea9d11951d8f34bbf4533673eead58bffabef43820bf20a800b6f33c2d23ca')
 
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
 
 prepare() {
   cd $pkgname
-  git cherry-pick -n 4e5744ccbec430b82f8b16c469d8b1bd5c7edf78 # Fix build
 }
 
 build() {
