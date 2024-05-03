@@ -8,7 +8,7 @@ pkgname=(
   gnome-builder-flatpak
 )
 pkgver=46.1
-pkgrel=2
+pkgrel=3
 pkgdesc="An IDE for writing GNOME-based software"
 url="https://wiki.gnome.org/Apps/Builder"
 arch=(x86_64)
