@@ -1,10 +1,10 @@
 pkgbase = libgit2-glib
 	pkgdesc = GLib wrapper for libgit2
 	pkgver = 1.2.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://gitlab.gnome.org/GNOME/libgit2-glib
 	arch = x86_64
-	license = LGPL2.1
+	license = LGPL-2.1-or-later
 	makedepends = gi-docgen
 	makedepends = git
 	makedepends = glib2
@@ -13,8 +13,10 @@ pkgbase = libgit2-glib
 	makedepends = meson
 	makedepends = python-gobject
 	makedepends = vala
-	source = git+https://gitlab.gnome.org/GNOME/libgit2-glib.git#commit=f9843757630160f1222ef084a47931c7d0b90fe3
-	b2sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/libgit2-glib.git#tag=v1.2.0
+	source = libgit2-glib-1.2.0-libgit2_1.8.patch
+	b2sums = d31e3edff3b663b0ba754868b719afd231067dd55aef05d4deec995dfab7eb7ba45c16ef2094dfa0f0c605731732b78e78bfa283a70fb18ab7d24a6f12fb00a8
+	b2sums = 412dc5ae24a29789d1f8433c2dd3a1eaebb2087311be2019a2170c32d913ee9310e62e292fdd51d1a9eb5c4f9b1dc19deefb4734ca40940523e17cb76eecb834
 
 pkgname = libgit2-glib
 	depends = glib2
