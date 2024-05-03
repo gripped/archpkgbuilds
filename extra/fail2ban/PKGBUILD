@@ -7,7 +7,7 @@
 
 pkgname=fail2ban
 pkgver=1.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Bans IPs after too many failed authentication attempts'
 arch=('any')
 url='https://www.fail2ban.org/'
@@ -73,6 +73,11 @@ package() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   cp -rl ./"$site_packages"/{etc,usr} .
   rm -r ./"$site_packages"/{etc,usr}
+
+  # PEP 517 workflow doesn't seem to create these empty directories
+  # (avoid "mkdir -p" so these commands fail when the directories are back)
+  mkdir "$pkgdir"/etc/fail2ban/{fail2ban,jail}.d
+  mkdir "$pkgdir"/var{,/lib{,/fail2ban}}
 
   # fix sendmail location
   sed -i 's/sbin/bin/g' etc/fail2ban/action.d/sendmail*.conf
