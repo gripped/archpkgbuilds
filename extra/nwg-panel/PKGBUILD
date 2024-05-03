@@ -2,7 +2,7 @@
 # Contributor: Piotr Miller <nwg.piotr@gmail.com>
 
 pkgname=nwg-panel
-pkgver=0.9.30
+pkgver=0.9.31
 pkgrel=1
 pkgdesc="GTK3-based panel for sway and Hyprland Wayland compositors"
 url="https://github.com/nwg-piotr/nwg-panel"
@@ -16,7 +16,7 @@ optdepends=('wlr-randr: for non-sway Wayland WMs support'
             'upower: for multiple batteries support'
 	    'nwg-icon-picker: for a graphical icon chooser')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v"$pkgver".tar.gz")
-sha256sums=('e0fdf9992df85e4fe08ebd2f8deb1717e97e06cc78939a137184e2db1eea93f3')
+sha256sums=('709a301cd38339ab453a157fc3a3b63132bb988f90670a59a30841da0c2aa69a')
 
 build() {
         cd "${pkgname}-${pkgver}"
