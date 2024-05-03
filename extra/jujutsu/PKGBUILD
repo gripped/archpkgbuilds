@@ -6,7 +6,7 @@
 pkgname=jujutsu
 _pkgname=jj
 pkgver=0.17.0
-pkgrel=2
+pkgrel=4
 pkgdesc='Git-compatible VCS that is both simple and powerful'
 arch=(x86_64)
 url="https://github.com/martinvonz/$_pkgname"
@@ -14,7 +14,7 @@ license=(Apache-2.0)
 depends=(gcc-libs # libgcc_s.so
          glibc # libc.so libm.so
          openssl
-         libgit2 libgit2.so
+         libgit2
          zstd)
 replaces=("$pkgname-bin")
 makedepends=(cargo)
@@ -38,6 +38,8 @@ build() {
 }
 
 check() {
+	depends+=(libgit2.so
+	          libz.so)
 	cd "$_archive"
 	cargo test --frozen --all-features --package jj-cli -- \
 		--skip test_diff_command
