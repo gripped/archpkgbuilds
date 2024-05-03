@@ -1,18 +1,20 @@
 pkgbase = bat
 	pkgdesc = Cat clone with syntax highlighting and git integration
 	pkgver = 0.24.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/sharkdp/bat
 	arch = x86_64
-	license = APACHE
-	license = MIT
+	license = Apache-2.0 OR MIT
 	makedepends = clang
 	makedepends = cmake
 	makedepends = git
 	makedepends = rust
+	depends = gcc-libs
+	depends = glibc
 	depends = libgit2
 	depends = oniguruma
-	source = git+https://github.com/sharkdp/bat#commit=fc9546854f5a7b38823f4990453c6cde386bfd3b
-	b2sums = SKIP
+	depends = zlib
+	source = git+https://github.com/sharkdp/bat#tag=v0.24.0
+	b2sums = ef560226cb89deb70bf563fa9ac8106c1832cb7c25b7577f25dfeb9d6cfd0e8f001bb7b3042e050f32cf05c226dd818aab7c25ea203d310a8b2f53d198f1c6f6
 
 pkgname = bat
