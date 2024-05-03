@@ -6,7 +6,7 @@
 pkgname=ncurses
 pkgver=6.4_20230520
 _commit=c74a1c4202f4524076da8be8554dacec391c84b2  # refs/tags/v6_4_20230520
-pkgrel=2
+pkgrel=3
 pkgdesc='System V Release 4.0 curses emulation library'
 arch=(x86_64)
 url='https://invisible-island.net/ncurses/ncurses.html'
