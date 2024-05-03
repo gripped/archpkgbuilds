@@ -1,11 +1,12 @@
 pkgbase = shotcut
 	pkgdesc = Cross-platform Qt based Video Editor
-	pkgver = 24.02
+	pkgver = 24.04
 	pkgrel = 1
 	url = https://www.shotcut.org
 	arch = x86_64
 	license = GPL3
 	makedepends = qt6-tools
+	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
 	makedepends = clang
@@ -24,7 +25,7 @@ pkgbase = shotcut
 	depends = ladspa
 	depends = qt6-charts
 	optdepends = swh-plugins: Several audio filters
-	source = shotcut-24.02.tar.gz::https://github.com/mltframework/shotcut/archive/v24.02.29.tar.gz
-	sha512sums = d8cf6219459d722734af7ba917853e7a9dace8a226b30c6dc4ac8f2bfbeae3595c5000e0661d8951e0ad82394cd8c97fa91a89c3e71833c1bf333ba77635c10d
+	source = git+https://github.com/mltframework/shotcut.git#tag=v24.04.28
+	sha512sums = 8f3eb70c07be77cfd515174bb9df8e8edc8a2ae0bb8ef5efe55836bfb5b31c5a1b12fa99eec308439396e56919d8c942bf53bdb983fd2a69a7a50ff3cb9636e0
 
 pkgname = shotcut
