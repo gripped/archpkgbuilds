@@ -3,8 +3,7 @@
 
 pkgbase=vst3sdk
 pkgname=(vst3sdk vst3sdk-docs)
-pkgver=3.7.10_build_14
-_commit=e9895dc9ef20bedd93a0fde5ad664bc8b56d4338  # refs/tags/v3.7.10_build_14
+pkgver=3.7.11_build_10
 pkgrel=1
 pkgdesc="VST 3 Plug-In SDK"
 arch=(any)
@@ -14,7 +13,7 @@ makedepends=(git rsync)
 # upstream does not provide proper tarballs:
 # https://github.com/steinbergmedia/vst3sdk/issues/65
 source=(
-  git+https://github.com/steinbergmedia/$pkgname#commit=$_commit
+  "git+https://github.com/steinbergmedia/$pkgname#tag=v${pkgver}"
   git+https://github.com/steinbergmedia/vst3_base
   git+https://github.com/steinbergmedia/vst3_cmake
   git+https://github.com/steinbergmedia/vst3_doc
@@ -25,7 +24,7 @@ source=(
   vst3sdk-3.7.9_build_61-cmake-build-type-none.patch
   $pkgname.pc
 )
-sha512sums=('SKIP'
+sha512sums=('f7336fd605798810201df0556302f675d518045749986c24f7b6ee2c1294a4641685a8814f9697f3b2728cda21f4713e35b2b8f13cb5bbea2caf3f1080298dba'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -35,7 +34,7 @@ sha512sums=('SKIP'
             'SKIP'
             'cef7f0a3d977bd51890de7d0bcf11703d80ffb0997e8a5f9b5854134479ab2b6971658797bfa7cdd8cc2a52d928ec4dc4b542500de04b0d0f825179597b28e1f'
             '501dff8299ccf9aeba61a64331c3ac74ece89eee956bffff0e303653b566acfca5cba4957c8bafb883efe6cc78c34da64ec9870daf9f2c37e2734110b9cad1dd')
-b2sums=('SKIP'
+b2sums=('a6441a6d0dbb33dbd4d59c6d9b536e9190fa4f39f51cf5a70ad0539716d1c30684febe1bdd1f8974ad02eb1d18f25e9b2c08a831b878857dc204f94801933f84'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -45,11 +44,6 @@ b2sums=('SKIP'
         'SKIP'
         'a7cf564f31c471440310c3e3a11eac143ad1df100c8bb7bde9096b83711846878b4842742b050cc293b337b6284d28959ef3446d2be5337a74faac7bfcf74206'
         'e39e1353fdc22f7d93b6f89f8242fafddd56422a03df1cb26e81a3874456c49029a3726b43223fe21231eff6fe240e1216f3dca36a0e5297c9c0d43ab390bcd9')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/v//g'
-}
 
 prepare() {
   # upstream does not provide a pkg-config integration:
