@@ -5,19 +5,27 @@
 
 pkgname=python-pygit2
 pkgver=1.14.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Python bindings for libgit2'
 arch=('x86_64')
 url="https://github.com/libgit2/pygit2"
-license=('GPL2')
-depends=('libgit2.so' 'python-cffi' 'python-six' 'python-cached-property')
-makedepends=('cython' 'python-build' 'python-cffi' 'python-installer' 'python-setuptools' 'git' 'python-six' 'python-wheel')
+license=('LicenseRef-GPL-2.0-only-with-linking-exception')
+depends=('glibc' 'libgit2' 'python' 'python-cffi')
+makedepends=('cython' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
-source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('2e60ee9ae0ccbf8f61d5ff29e59c8ac69a07b9be4ae44c5545f2cc35fe070b41')
+source=(
+	"$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+	$pkgname-1.14.1-libgit2_1.8.patch
+)
+sha256sums=('2e60ee9ae0ccbf8f61d5ff29e59c8ac69a07b9be4ae44c5545f2cc35fe070b41'
+            '20c8283d63e4da10495e81d5a595f8553e053ba6aad0c3a73e56771b029fcd49')
 
 prepare() {
 	cd "pygit2-$pkgver"
+	# add support for libgit2 1.8
+	# backport of https://github.com/libgit2/pygit2/commit/1a9947a21a7cc71d07c86a87eeb49a24e40ce95e
+	# and https://github.com/libgit2/pygit2/commit/6d539d76b53bb8ebddb97aaae0f783959e1f0810
+	patch -Np1 -i ../$pkgname-1.14.1-libgit2_1.8.patch
 	# Disable tests that do stuff online
 	sed -e '/has_network/s/True/False/' -i test/utils.py
 }
@@ -34,6 +42,11 @@ check() {
 }
 
 package() {
+	depends+=(
+		'libgit2.so'
+	)
+
 	cd "pygit2-$pkgver"
 	LANG=en_US.UTF8 python -m installer -d "${pkgdir}" dist/*.whl
+	install -vDm 644 COPYING -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
