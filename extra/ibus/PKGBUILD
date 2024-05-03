@@ -3,8 +3,8 @@
 
 pkgbase=ibus
 pkgname=(ibus libibus)
-pkgver=1.5.29
-pkgrel=5
+pkgver=1.5.30
+pkgrel=1
 pkgdesc="Intelligent input bus for Linux/Unix"
 arch=('x86_64')
 url="https://github.com/ibus/ibus/wiki"
@@ -44,11 +44,11 @@ makedepends=(
     'vala'
 )
 options=('!emptydirs')
-source=("https://github.com/$pkgname/$pkgname/releases/download/$pkgver/${pkgname}-${pkgver}-rc2.tar.gz")
-b2sums=('c185c0cf8af79a80ee04f414e13c4b58bd2f18891851d2f018713848b3bc0fe0516c8c0cf8f64204040f10b6b4a5304c8be6305449d7290b5d08412246d3af40')
+source=("https://github.com/$pkgname/$pkgname/releases/download/$pkgver/${pkgname}-${pkgver}.tar.gz")
+b2sums=('47dbcfec309bda14273463bff875e283148c7aba872d8e9f7673dd18e703f7b2a0eab5d538bd29a36525ab667b57488f4dc046bc955c1cd34edaec5b538e2bdd')
 
 build() {
-    cd ${pkgname}-${pkgver}-rc2
+    cd ${pkgname}-${pkgver}
     ./configure \
         --prefix=/usr \
         --libexecdir=/usr/lib/ibus \
@@ -70,7 +70,7 @@ build() {
 package_ibus() {
     depends+=("libibus=$pkgver")
 
-    cd ibus-${pkgver}-rc2
+    cd ibus-${pkgver}
     make DESTDIR="$pkgdir" install
     make -C src DESTDIR="$pkgdir" uninstall
     make -C bindings DESTDIR="$pkgdir" uninstall
@@ -82,7 +82,7 @@ package_libibus() {
     depends=(libg{lib,object,io}-2.0.so python-gobject)
     provides=('libibus-1.0.so')
 
-    cd ibus-${pkgver}-rc2
+    cd ibus-${pkgver}
     make -C src DESTDIR="$pkgdir" install
     make -C bindings DESTDIR="$pkgdir" install
     make DESTDIR="$pkgdir" install-pkgconfigDATA
