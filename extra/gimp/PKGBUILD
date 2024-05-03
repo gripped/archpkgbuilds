@@ -4,12 +4,12 @@
 # Contributor: Daniel Isenmann <daniel@archlinux.org>
 
 pkgname=gimp
-pkgver=2.10.36
-pkgrel=6
+pkgver=2.10.38
+pkgrel=1
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
 arch=('x86_64')
-license=('GPL' 'LGPL')
+license=('GPL-3.0-or-later')
 depends=(
   # Core deps
   'babl' 'cairo' 'fontconfig' 'freetype2' 'gcc-libs' 'gdk-pixbuf2' 'gegl' 'glib2' 'glibc' 'gtk2'
@@ -26,15 +26,11 @@ optdepends=('alsa-lib: for MIDI event controller module'
             'ghostscript: for PostScript support'
             'gutenprint: for sophisticated printing only as gimp has built-in cups print support'
             'gvfs: for HTTP/S support (and many other schemes)')
-conflicts=('gimp-plugin-wavelet-decompose')
-replaces=('gimp-plugin-wavelet-decompose')
 install=gimp.install
 source=(https://download.gimp.org/pub/gimp/v${pkgver%.*}/${pkgname}-${pkgver}.tar.bz2
-        gimp-2_10_36_fix-crash-on-exit.patch::https://gitlab.gnome.org/GNOME/gimp/-/merge_requests/1444.patch
         0001-no-check-update.patch
         linux.gpl)
-sha256sums=('3d3bc3c69a4bdb3aea9ba2d5385ed98ea03953f3857aafd1d6976011ed7cdbb2'
-            'd153c8968fb88bd935a7cb4d1b1c7b235abb79e123fcc12f6096da63330ef13a'
+sha256sums=('50a845eec11c8831fe8661707950f5b8446e35f30edfb9acf98f85c1133f856e'
             'ac3e8b44cf391f4ab3050652f2cc1f146f451fb25178d5a596d905f5bad13fcf'
             '1003bbf5fc292d0d63be44562f46506f7b2ca5729770da9d38d3bb2e8a2f36b3')
 
@@ -42,8 +38,6 @@ prepare() {
   cd ${pkgname}-${pkgver}
 
   patch -Np1 < ../0001-no-check-update.patch
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/gimp/-/issues/2
-  patch -Np1 < ../gimp-2_10_36_fix-crash-on-exit.patch
 
   autoreconf -vi
 }
@@ -62,6 +56,7 @@ build() {
     --disable-python \
     --with-bug-report-url='https://gitlab.archlinux.org/archlinux/packaging/packages/gimp/-/issues' \
     --with-openexr
+
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
