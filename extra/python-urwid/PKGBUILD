@@ -6,7 +6,7 @@
 _name=urwid
 pkgname=python-urwid
 pkgver=2.6.10
-pkgrel=2
+pkgrel=3
 pkgdesc='Curses-based user interface library'
 url='https://urwid.org/'
 arch=('x86_64')
@@ -36,7 +36,6 @@ checkdepends=(
 optdepends=(
   'python-gobject: for gobject integration'
   'python-pyserial: for LCD and serial integration'
-  'python-exceptiongroup: for trio integration'
   'python-pyzmq: for zmq integration'
   'python-tornado: for tornado integration'
   'python-trio: for trio integration'
