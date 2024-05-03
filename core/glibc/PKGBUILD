@@ -10,7 +10,7 @@ pkgbase=glibc
 pkgname=(glibc lib32-glibc glibc-locales)
 pkgver=2.39
 _commit=31da30f23cddd36db29d5b6a1c7619361b271fb4
-pkgrel=3
+pkgrel=4
 arch=(x86_64)
 url='https://www.gnu.org/software/libc'
 license=(GPL-2.0-or-later LGPL-2.1-or-later)
@@ -84,6 +84,10 @@ build() {
     cd lib32-glibc-build
     export CC="gcc -m32 -mstackrealign"
     export CXX="g++ -m32 -mstackrealign"
+
+    # remove frame pointer flags due to crashes of nvidia driver on steam starts
+    # See https://gitlab.archlinux.org/archlinux/packaging/packages/glibc/-/issues/10
+    CFLAGS=${CFLAGS/-fno-omit-frame-pointer -mno-omit-leaf-frame-pointer/}
 
     echo "slibdir=/usr/lib32" >> configparms
     echo "rtlddir=/usr/lib32" >> configparms
