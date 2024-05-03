@@ -1,28 +1,37 @@
 pkgbase = harfbuzz
 	pkgdesc = OpenType text shaping engine
 	pkgver = 8.4.0
-	pkgrel = 1
-	url = https://www.freedesktop.org/wiki/Software/HarfBuzz
+	pkgrel = 2
+	url = https://harfbuzz.github.io/
 	arch = x86_64
 	license = MIT
 	checkdepends = python-fonttools
 	checkdepends = python-setuptools
 	makedepends = cairo
 	makedepends = chafa
-	makedepends = freetype2
 	makedepends = git
-	makedepends = glib2
 	makedepends = gobject-introspection
-	makedepends = graphite
 	makedepends = gtk-doc
 	makedepends = icu
 	makedepends = meson
 	makedepends = python
 	makedepends = ragel
-	source = git+https://github.com/harfbuzz/harfbuzz#commit=63973005bc07aba599b47fdd4cf788647b601ccd
+	depends = freetype2
+	depends = glib2
+	depends = glibc
+	depends = graphite
+	source = git+https://github.com/harfbuzz/harfbuzz?signed#tag=8.4.0
+	validpgpkeys = 053D20F17CCCA9651B2C6FCB9AB24930C0B997A2
+	validpgpkeys = 9F377DDB6D3153A48EB3EB1E63CC496475267693
+	validpgpkeys = 2277650A4E8BDFE4B7F6BE419FEE04E5D3531115
+	validpgpkeys = EACF64F53455E2771BA661A4803B21859F015E4E
 	b2sums = 19f25dbf2ba6d90fdbb4ecb1039c8d0d72c55cff3dc3b30d6b75b626c15bf28a2118495837d80b7f622f0929dd7d4a07b5526963e1204bb9c90bc9f976c26977
 
 pkgname = harfbuzz
+	depends = freetype2
+	depends = glib2
+	depends = glibc
+	depends = graphite
 	depends = libfreetype.so
 	depends = libgraphite2.so
 	depends = libglib-2.0.so
@@ -34,18 +43,32 @@ pkgname = harfbuzz
 
 pkgname = harfbuzz-cairo
 	pkgdesc = OpenType text shaping engine - Cairo integration
+	depends = cairo
+	depends = freetype2
+	depends = glib2
+	depends = glibc
+	depends = graphite
+	depends = harfbuzz
 	depends = libcairo.so
 	depends = libharfbuzz.so
 	provides = libharfbuzz-cairo.so
 
 pkgname = harfbuzz-icu
 	pkgdesc = OpenType text shaping engine - ICU integration
+	depends = glibc
+	depends = harfbuzz
+	depends = icu
 	depends = libharfbuzz.so
 	depends = libicuuc.so
 	provides = libharfbuzz-icu.so
 
 pkgname = harfbuzz-utils
 	pkgdesc = OpenType text shaping engine - Utilities
+	depends = cairo
+	depends = chafa
+	depends = freetype2
+	depends = glib2
+	depends = glibc
 	depends = harfbuzz
 	depends = harfbuzz-cairo
 	depends = libcairo.so

@@ -1,4 +1,5 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgbase=harfbuzz
@@ -10,19 +11,22 @@ pkgname=(
   harfbuzz-docs
 )
 pkgver=8.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenType text shaping engine"
-url="https://www.freedesktop.org/wiki/Software/HarfBuzz"
+url="https://harfbuzz.github.io/"
 arch=(x86_64)
 license=(MIT)
+depends=(
+  freetype2
+  glib2
+  glibc
+  graphite
+)
 makedepends=(
   cairo
   chafa
-  freetype2
   git
-  glib2
   gobject-introspection
-  graphite
   gtk-doc
   icu
   meson
@@ -33,14 +37,14 @@ checkdepends=(
   python-fonttools
   python-setuptools
 )
-_commit=63973005bc07aba599b47fdd4cf788647b601ccd  # tags/8.4.0^0
-source=("git+https://github.com/harfbuzz/harfbuzz#commit=$_commit")
+source=("git+https://github.com/harfbuzz/harfbuzz?signed#tag=$pkgver")
 b2sums=('19f25dbf2ba6d90fdbb4ecb1039c8d0d72c55cff3dc3b30d6b75b626c15bf28a2118495837d80b7f622f0929dd7d4a07b5526963e1204bb9c90bc9f976c26977')
-
-pkgver() {
-  cd harfbuzz
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+validpgpkeys=(
+  053D20F17CCCA9651B2C6FCB9AB24930C0B997A2 # Khaled Hosny <khaled@aliftype.com> (@khaledhosny)
+  9F377DDB6D3153A48EB3EB1E63CC496475267693 # Caleb Maclennan <caleb@alerque.com> (@alerque)
+  2277650A4E8BDFE4B7F6BE419FEE04E5D3531115 # Ebrahim Byagowi <ebrahim@gnu.org> (@ebraminio)
+  EACF64F53455E2771BA661A4803B21859F015E4E # Behdad Esfahbod <behdad@behdad.org> (@behdad)
+)
 
 prepare() {
   cd harfbuzz
@@ -76,7 +80,7 @@ _pick() {
 }
 
 package_harfbuzz() {
-  depends=(
+  depends+=(
     libfreetype.so
     libgraphite2.so
     libg{lib,object}-2.0.so
@@ -107,6 +111,12 @@ package_harfbuzz() {
 package_harfbuzz-cairo() {
   pkgdesc+=" - Cairo integration"
   depends=(
+    cairo
+    freetype2
+    glib2
+    glibc
+    graphite
+    harfbuzz
     libcairo.so
     libharfbuzz.so
   )
@@ -120,6 +130,9 @@ package_harfbuzz-cairo() {
 package_harfbuzz-icu() {
   pkgdesc+=" - ICU integration"
   depends=(
+    glibc
+    harfbuzz
+    icu
     libharfbuzz.so
     libicuuc.so
   )
@@ -133,6 +146,11 @@ package_harfbuzz-icu() {
 package_harfbuzz-utils() {
   pkgdesc+=" - Utilities"
   depends=(
+    cairo
+    chafa
+    freetype2
+    glib2
+    glibc
     harfbuzz
     harfbuzz-cairo
     libcairo.so
