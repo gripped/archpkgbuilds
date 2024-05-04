@@ -4,8 +4,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=xmobar
-pkgver=0.47.3
-pkgrel=16
+pkgver=0.48
+pkgrel=1
 pkgdesc='Minimalistic Text Based Status Bar'
 url='https://codeberg.org/xmobar/xmobar'
 license=('BSD')
@@ -22,6 +22,7 @@ depends=(
   haskell-colour
   haskell-dbus
   haskell-extensible-exceptions
+  haskell-extra
   haskell-hinotify
   haskell-http
   haskell-http-client-tls
@@ -50,22 +51,15 @@ makedepends=(
   haskell-hspec
   haskell-temporary
 )
-source=(${pkgname}-${pkgver}.tar.gz::https://codeberg.org/xmobar/xmobar/archive/${pkgver}.tar.gz
-        dynamic-compilation.patch)
-sha512sums=('3c60e4fbfa0ec6e4adfe9b786ab91a2da5a918fb76e63fd5910e2e31bb8080e46345c5eaf39bbfa0e9065864b91e7ad133579ca005170d921e25ec21b183b4e6'
-            '15db3e27d1ff957e26e706e4c67cec6e43d89f5a39cd6d81ddb5ae8426e32d938494fbba39fa322461d992a95d2e522c10b186a1ca2c5c3e996f944b6e6ef7c4')
-
-prepare() {
-  cd xmobar
-  patch -p1 -i "${srcdir}/dynamic-compilation.patch"
-}
+source=(${pkgname}-${pkgver}.tar.gz::https://codeberg.org/xmobar/xmobar/archive/${pkgver}.tar.gz)
+sha512sums=('61c4d42ba8efb96fd1e592b9959cbb716e640d9d00d5d920295bea1addf4d1ed215df79bb6dc8a13237d01fbe6759c6fa5a92887eecd90bc1292a1f63a9d7d9c')
 
 build() {
   cd xmobar
 
   _flags=(with_xft with_inotify with_mpd with_alsa with_nl80211
           with_datezone with_mpris with_dbus with_xpm with_threaded
-          with_rtsopts with_weather)
+          with_rtsopts with_weather with_shared)
 
   runhaskell setup configure -O \
     --enable-shared \
