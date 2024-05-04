@@ -2,9 +2,7 @@
 # Contributor: Laurent Carlier <lordheavym@gmail.com>
 
 pkgname=lib32-spirv-tools
-pkgver=2023.6
-# There was no release tag, just the release candidate
-_tag="${pkgver}.rc1"
+pkgver=2024.1
 pkgrel=1
 pkgdesc="API and commands for processing SPIR-V modules (32-bit)"
 arch=('x86_64')
@@ -12,11 +10,11 @@ url="https://www.khronos.org/vulkan/"
 license=('Apache-2.0')
 depends=('lib32-gcc-libs' 'spirv-tools')
 makedepends=('cmake' 'python' 'ninja' 'spirv-headers')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KhronosGroup/SPIRV-Tools/archive/refs/tags/v${_tag}.tar.gz")
-sha256sums=('750e4bfcaccd636fb04dd912b668a8a6d29940f8f83b7d9a266170b1023a1a89')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KhronosGroup/SPIRV-Tools/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('137780e2a8b5c722888f9ec0fb553e6e92f38a0a5c7fcdad9b715152448b9d82')
 
 build() {
-  cd "SPIRV-Tools-${_tag}"
+  cd "SPIRV-Tools-${pkgver}"
 
   export CC='gcc -m32'
   export CXX='g++ -m32'
@@ -36,12 +34,12 @@ build() {
 }
 
 check() {
-  cd "SPIRV-Tools-${_tag}"
+  cd "SPIRV-Tools-${pkgver}"
   ninja -C build test
 }
 
 package() {
-  cd "SPIRV-Tools-${_tag}"
+  cd "SPIRV-Tools-${pkgver}"
 
   DESTDIR="${pkgdir}" cmake --install build
   rm -r "${pkgdir}"/usr/{bin,include}
