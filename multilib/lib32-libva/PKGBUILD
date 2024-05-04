@@ -5,7 +5,7 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski at archlinux dot org>
 
 pkgname=lib32-libva
-pkgver=2.20.0
+pkgver=2.21.0
 pkgrel=1
 pkgdesc='Video Acceleration (VA) API for Linux (32-bit)'
 arch=(x86_64)
@@ -37,9 +37,9 @@ provides=(
   libva-x11.so
   libva.so
 )
-_tag=907b2b5405ca1091b4360bf35060e143bd704b62
+_tag=0b01aed44ef1a6ad660261284ff266fa812829ef
 source=(git+https://github.com/intel/libva.git#tag=${_tag})
-b2sums=('SKIP')
+b2sums=('91fab05ed62d1ada424612cef2bed65e45020bed00ed3bcedc6754e9abfbdbac265f4e06b68be45b14176caf5871ec38e3c24f997bde3ff2ebc74284f9f63cd9')
 
 pkgver() {
   cd libva
