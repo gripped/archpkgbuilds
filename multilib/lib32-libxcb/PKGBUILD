@@ -3,7 +3,7 @@
 
 _pkgbasename=libxcb
 pkgname=lib32-$_pkgbasename
-pkgver=1.16.1
+pkgver=1.17.0
 pkgrel=1
 pkgdesc="X11 client-side library (32-bit)"
 arch=(x86_64)
@@ -13,7 +13,7 @@ makedepends=('pkgconfig' 'libxslt' 'python' 'xorg-util-macros' 'gcc-multilib'
              'autoconf' 'xorgproto')
 license=('custom')
 source=(https://xorg.freedesktop.org/archive/individual/lib/$_pkgbasename-$pkgver.tar.xz{,.sig})
-sha512sums=('e3afdae1c0e2a5ae2add7b2c4fdd3283cb86023ef6448f5b8b29a4bb72c274e34eaf0fc7523762bcd3f5116910fe7374490e8f26c25744301563ced80acc3e7f'
+sha512sums=('945b1f28e8b407a4d0ebf88c99ef3cbef763fd75e6eaa8e971946e44ce8dbe9b478c56ae85aaaadab7fdb25987e88570d9d4fb9ad2febd6d6bf21d644a0e10d0'
             'SKIP')
 validpgpkeys=('A66D805F7C9329B4C5D82767CCC4F07FAC641EFF') # "Daniel Stone <daniels@collabora.com>"
 validpgpkeys+=('3BB639E56F861FA2E86505690FDD682D974CA72A') # "Matt Turner <mattst88@gmail.com>"
