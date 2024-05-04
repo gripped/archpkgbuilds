@@ -2,7 +2,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=lib32-libpsl
-pkgver=0.21.2
+pkgver=0.21.5
 pkgrel=1
 pkgdesc='Public Suffix List library (32-bit)'
 url='https://github.com/rockdaboot/libpsl'
@@ -12,7 +12,7 @@ depends=('libpsl' 'lib32-glibc' 'lib32-libidn2' 'lib32-libunistring')
 makedepends=('git' 'libxslt' 'meson' 'ninja' 'python' 'publicsuffix-list')
 provides=('libpsl.so')
 source=(https://github.com/rockdaboot/libpsl/releases/download/${pkgver}/libpsl-${pkgver}.tar.gz)
-sha512sums=('f1df72220bf4391d4701007100b0df66c833a2cbcb7481c9d13f0b9e0cad3b66d2d15d4b976e5bad60d2ad1540355112fa1acb07aa925c241d2d7cd20681c71d')
+sha512sums=('c14d575cecc0f1693894dd79565b6b9220084ddfa43b908a1cefe16d147cdd5ec47796eb0c2135e2f829a951abaf39d8a371ab5c1352f57b36e610e25adf91f5')
 
 prepare() {
   cd libpsl-$pkgver
