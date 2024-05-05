@@ -1,15 +1,18 @@
 pkgbase = python-mockito
 	pkgdesc = Spying framework
-	pkgver = 1.4.0
-	pkgrel = 3
+	pkgver = 1.5.0
+	pkgrel = 1
 	url = https://github.com/kaste/mockito-python
 	arch = any
 	license = MIT
+	checkdepends = python-pytest
 	checkdepends = python-numpy
-	makedepends = python-pytest
-	makedepends = python-setuptools
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-hatchling
 	depends = python
-	source = python-mockito-1.4.0.tar.gz::https://github.com/kaste/mockito-python/archive/1.4.0.tar.gz
-	sha512sums = 053feb0353d987622d7ccbeceb47da208080ef68c77ba3885560c06abb859307bc065bffb00280f70d4941b364db39f9a1e9c389b4206c09f1aae85ebef3c940
+	source = git+https://github.com/kaste/mockito-python.git#tag=1.5.0
+	sha512sums = 596ffeae502ad4fb3709103c9d3cde9ce72674f2ae6d04c4f13781eaf1a9ae2a1262c1770b611aefebc41d739b341454a61a35130a8dbd8e6fe79bb39c3a4de8
 
 pkgname = python-mockito
