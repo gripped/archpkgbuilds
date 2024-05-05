@@ -1,8 +1,8 @@
 pkgbase = directx-shader-compiler
 	pkgdesc = A compiler for HLSL to DXIL (DirectX Intermediate Language).
 	pkgver = 1.7.2308
-	pkgrel = 1
-	url = https://github.com/microsoft/directx-shader-compiler
+	pkgrel = 2
+	url = https://github.com/microsoft/DirectXShaderCompiler
 	arch = x86_64
 	license = custom
 	makedepends = git
@@ -11,7 +11,19 @@ pkgbase = directx-shader-compiler
 	makedepends = python
 	depends = ncurses
 	options = !lto
-	source = directx-shader-compiler-1.7.2308::git+https://github.com/microsoft/DirectXShaderCompiler.git#tag=v1.7.2308
+	source = directx-shader-compiler::git+https://github.com/microsoft/DirectXShaderCompiler.git#tag=v1.7.2308
+	source = directx-shader-compiler-DirectX-Headers::git+https://github.com/microsoft/DirectX-Headers.git
+	source = directx-shader-compiler-SPIRV-Headers::git+https://github.com/KhronosGroup/SPIRV-Headers
+	source = directx-shader-compiler-SPIRV-Tools::git+https://github.com/KhronosGroup/SPIRV-Tools
+	source = directx-shader-compiler-effcee::git+https://github.com/google/effcee
+	source = directx-shader-compiler-googletest::git+https://github.com/google/googletest
+	source = directx-shader-compiler-re2::git+https://github.com/google/re2
+	sha256sums = 3540da8f542da705a245629944896acb2a9ea768a3559cb39fb01dbd026f7427
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
 	sha256sums = SKIP
 
 pkgname = directx-shader-compiler
