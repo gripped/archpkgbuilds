@@ -1,7 +1,7 @@
 # Maintainer: Sébastien Luttringer <seblu@seblu.net>
 
 pkgname=wayland-protocols
-pkgver=1.35
+pkgver=1.36
 pkgrel=1
 pkgdesc='Specifications of extended Wayland protocols'
 arch=('any')
@@ -11,7 +11,7 @@ makedepends=('wayland' 'meson')
 validpgpkeys=('8307C0A224BABDA1BABD0EB9A6EEEC9E0136164A'  # Jonas Ådahl
               'A66D805F7C9329B4C5D82767CCC4F07FAC641EFF') # Daniel Stone
 source=("https://gitlab.freedesktop.org/wayland/$pkgname/-/releases/$pkgver/downloads/$pkgname-$pkgver.tar.xz"{,.sig})
-sha256sums=('37a2716a28133dc819341c568a29d21e8cb72130e5c126a1fcfc9f42c23d95ab'
+sha256sums=('71fd4de05e79f9a1ca559fac30c1f8365fa10346422f9fe795f74d77b9ef7e92'
             'SKIP')
 
 prepare() {
