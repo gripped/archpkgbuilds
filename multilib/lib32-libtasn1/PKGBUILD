@@ -5,10 +5,10 @@
 _pkgbase=libtasn1
 pkgname=lib32-${_pkgbase}
 pkgver=4.19.0
-pkgrel=1
+pkgrel=2
 pkgdesc="The ASN.1 library used in GNUTLS (32 bit)"
 arch=('x86_64')
-license=('GPL3' 'LGPL')
+license=('GPL-3.0-or-later AND LGPL-2.1-or-later')
 url="https://www.gnu.org/software/libtasn1/"
 depends=('lib32-glibc' ${_pkgbase})
 makedepends=('gcc-multilib')
@@ -28,7 +28,7 @@ build() {
   ./configure --prefix=/usr \
       --libdir=/usr/lib32 \
       --with-packager=Archlinux \
-      --with-packager-bug-reports="http://bugs.archlinux.org/" \
+      --with-packager-bug-reports="https://gitlab.archlinux.org/archlinux/packaging/packages/$pkgname/-/issues" \
       --with-packager-version=${pkgver}-${pkgrel}
   make
 }
