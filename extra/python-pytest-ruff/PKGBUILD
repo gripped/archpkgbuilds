@@ -1,9 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-ruff
-pkgver=0.3.1
-_commit=9efc242a519f8c7648bc732a170079864b592521
-pkgrel=2
+pkgver=0.3.2
+pkgrel=1
 pkgdesc="Pytest plugin to check ruff requirements"
 url="https://github.com/businho/pytest-ruff"
 license=('MIT')
@@ -12,8 +11,8 @@ depends=('python' 'python-pytest' 'python-ruff')
 makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core'
              'python-poetry-dynamic-versioning')
 checkdepends=('python-pytest-mock')
-source=("git+https://github.com/businho/pytest-ruff.git#commit=$_commit")
-sha512sums=('cbf271f2b5cf711e3323abc7d0c4a5c9e8f814b0bde951ec4624f8d6687692122fd22bbae65457b45a60ecf721de1d1ca1210264d53d3f7e28531feb8d2d093c')
+source=("git+https://github.com/businho/pytest-ruff.git#tag=v$pkgver")
+sha512sums=('07cc4bdf18a8d1ad5b3a7e218adab64586e097a1f73de8baa0662fab45cfe60d0fb3ec7c055e2d9666f6714577208529ccd0a541b3c391c6f84f8be8d5c7de9d')
 
 build() {
   cd pytest-ruff
