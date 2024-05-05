@@ -4,8 +4,8 @@
 # Contributor: Gabriel Martinez < reitaka at gmail dot com >
 
 pkgname=libplist
-pkgver=2.4.0
-pkgrel=2
+pkgver=2.5.0
+pkgrel=1
 pkgdesc='Library to handle Apple Property List files'
 arch=('x86_64')
 url='https://libimobiledevice.org/'
@@ -14,7 +14,7 @@ depends=('gcc-libs' 'glibc')
 makedepends=('cython' 'python' 'python-setuptools')
 optdepends=('python: Python bindings')
 source=("https://github.com/libimobiledevice/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.bz2")
-sha256sums=('3f5868ae15b117320c1ff5e71be53d29469d4696c4085f89db1975705781a7cd')
+sha256sums=('72742f20a73e0a6367fbcadaf48cf903bfa45a3642a11f2224ed850d1f1e5683')
 
 build() {
   cd $pkgname-$pkgver
