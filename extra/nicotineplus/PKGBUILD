@@ -5,8 +5,8 @@
 # Contributor: Andrew Wright <andreww@photism.org>
 
 pkgname=nicotine+
-pkgver=3.3.2
-pkgrel=2
+pkgver=3.3.3
+pkgrel=1
 pkgdesc='Soulseek music-sharing client, written in python'
 arch=(any)
 url='https://github.com/Nicotine-Plus/nicotine-plus'
@@ -17,21 +17,22 @@ depends=(gdk-pixbuf2
          pango
          python
          python-gobject)
-makedepends=(python-build
+makedepends=(git
+             python-build
              python-installer
              python-setuptools
              python-wheel)
-source=(https://github.com/Nicotine-Plus/nicotine-plus/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('1399e8edad1212ca17fdf4a44ab9975c195a57b269c16194e4f06a27d9d3d31a')
+source=(git+https://github.com/Nicotine-Plus/nicotine-plus#tag=$pkgver)
+sha256sums=('6a5621fad398c9a7ddb58ba8b573f2783feea8dda0e43d52b2f1adb880eeae1f')
 
 build() {
-  cd nicotine-plus-$pkgver
+  cd nicotine-plus
   
   python -m build --wheel --no-isolation
 }
 
 package() {
-  cd nicotine-plus-$pkgver
+  cd nicotine-plus
 
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
