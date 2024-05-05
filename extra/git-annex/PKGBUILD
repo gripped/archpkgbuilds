@@ -3,8 +3,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=git-annex
-pkgver=10.20240227
-pkgrel=17
+pkgver=10.20240430
+pkgrel=1
 pkgdesc="Manage files with git, without checking their contents into git"
 url="https://git-annex.branchable.com/"
 license=("AGPL-3.0-only")
@@ -25,13 +25,14 @@ depends=('git' 'lsof' 'rsync' 'ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal'
          'haskell-regex-tdfa' 'haskell-resourcet' 'haskell-safesemaphore' 'haskell-sandi'
          'haskell-securemem' 'haskell-shakespeare' 'haskell-socks' 'haskell-split'
          'haskell-stm-chans' 'haskell-tagsoup' 'haskell-tasty' 'haskell-tasty-hunit'
-         'haskell-tasty-quickcheck' 'haskell-tasty-rerun' 'haskell-torrent' 'haskell-unix-compat'
-         'haskell-unliftio-core' 'haskell-unordered-containers' 'haskell-utf8-string' 'haskell-uuid'
-         'haskell-vector' 'haskell-wai' 'haskell-wai-extra' 'haskell-warp' 'haskell-warp-tls'
-         'haskell-yesod' 'haskell-yesod-core' 'haskell-yesod-form' 'haskell-yesod-static')
+         'haskell-tasty-quickcheck' 'haskell-tasty-rerun' 'haskell-torrent'
+         'haskell-unbounded-delays' 'haskell-unix-compat' 'haskell-unliftio-core'
+         'haskell-unordered-containers' 'haskell-utf8-string' 'haskell-uuid' 'haskell-vector'
+         'haskell-wai' 'haskell-wai-extra' 'haskell-warp' 'haskell-warp-tls' 'haskell-yesod'
+         'haskell-yesod-core' 'haskell-yesod-form' 'haskell-yesod-static')
 makedepends=('chrpath' 'ghc' 'uusi')
 source=("git+https://git.joeyh.name/git/git-annex.git#tag=$pkgver")
-sha256sums=('2a5c9de5ed622e9a66bd63cb22c41b164f6dce81f056847d4c1febe344a53402')
+sha256sums=('28b3eb40854cc55261f8be950129dc966654671fd31fa23cf60c728d79b67c49')
 
 prepare() {
   cd git-annex
