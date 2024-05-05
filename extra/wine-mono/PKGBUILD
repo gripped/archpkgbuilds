@@ -3,18 +3,26 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 # Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 
+# NOTE:
+# The package version must match the one expected by wine.
+# Otherwise, wine will complain about a missing mono and will
+# ask to download it. Do not update the package to the latest
+# version without checking the version required by wine. This
+# can be checked here (change wine version accordingly):
+# https://gitlab.winehq.org/wine/wine/-/blob/wine-9.8/dlls/appwiz.cpl/addons.c#L59
+
 pkgname=wine-mono
-pkgver=9.0.0
+pkgver=9.1.0
 pkgrel=1
 pkgdesc="Wine's built-in replacement for Microsoft's .NET Framework"
 arch=('any')
 url="https://wiki.winehq.org/Mono"
-license=('GPL' 'LGPL2.1' 'MPL')
+license=('GPL-2.0-or-later' 'LGPL-2.1-only' 'MPL-1.1')
 depends=('wine')
-source=("https://dl.winehq.org/wine/$pkgname/$pkgver/$pkgname-$pkgver-x86.tar.xz")
-sha512sums=('0117619a2b3f6e92ee513aeea79db977055098e6f629063fbd5d1a1b7d47e9d14451369b1d0a6a30e468ed051e60bba59aec75b90ea34fa9b4956d3ebdb32c06')
+source=("https://dl.winehq.org/wine/${pkgname}/${pkgver}/${pkgname}-${pkgver}-x86.tar.xz")
+sha512sums=('cede2b910e95fc43e658e6d4d8086ec5324407a32fff4852341178e1e56df240356c02f270e3be174f3ab82aa076e50d70be4da8e8c5f77e877fce8fe3217374')
 
 package() {
-  install -d -m755 "$pkgdir"/usr/share/wine/mono/
-  cp -r -a --no-preserve='ownership' $pkgname-$pkgver "$pkgdir"/usr/share/wine/mono/
+  install -d -m755 "${pkgdir}/usr/share/wine/mono"
+  cp -r -a --no-preserve='ownership' "${pkgname}-${pkgver}" "${pkgdir}/usr/share/wine/mono"
 }
