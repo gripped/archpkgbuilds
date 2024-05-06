@@ -5,7 +5,7 @@
 
 pkgname=eclipse-ecj
 pkgver=4.31
-pkgrel=1
+pkgrel=2
 _date=202402290520
 pkgdesc='Eclipse java bytecode compiler'
 arch=(any)
