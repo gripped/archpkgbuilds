@@ -4,7 +4,7 @@
 # Contributor: Asa Marco <marcoasa90[at]gmail[.]com>
 
 pkgname=kupfer
-pkgver=326
+pkgver=327
 pkgrel=1
 pkgdesc="Launcher application written in python. Similar to Gnome-Do / Launchy"
 arch=('any')
@@ -12,22 +12,23 @@ url="https://kupferlauncher.github.io/"
 license=('GPL3')
 depends=('libkeybinder3' 'libwnck3' 'python-cairo' 'python-dbus' 'python-gobject'
          'python-setproctitle' 'python-xdg')
-makedepends=('intltool' 'itstool' 'python-docutils')
+makedepends=('intltool' 'itstool' 'python-docutils' 'waf')
 optdepends=('gvfs: Trash plugin'
             'xautomation: Send Keys plugin')
 source=(https://github.com/kupferlauncher/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
 #validpgpkeys=('2578ABA1F9023159DFF211B7368712C4D7A44445') # Ulrik Sverdrup
-sha256sums=('c7be7fceae78de3e7d87d49172bbbf9e741ffc6840eb25db718da9805ecd401b')
+sha256sums=('a2b1d263df902a3f9ec931a1a0fba1919cfa8946cd24c98459f54843ff5295ad')
 
 build() {
   cd $pkgname-$pkgver
-  ./waf configure --prefix=/usr \
+  rm -r waf waflib
+  waf configure --prefix=/usr \
                   --no-update-mime \
                   --no-update-icon-cache
-  ./waf
+  waf
 }
 
 package() {
   cd $pkgname-$pkgver
-  ./waf install --destdir="$pkgdir"
+  waf install --destdir="$pkgdir"
 }
