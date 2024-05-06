@@ -1,0 +1,58 @@
+# Maintainer: Frederik Schwan <freswa at archlinux dot org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: Johann Woelper <woelper@gmail.com>
+
+pkgname=oculante
+pkgver=0.8.19
+pkgrel=3
+pkgdesc="A minimalistic image viewer with analysis and editing tools"
+arch=('x86_64')
+url="https://github.com/woelper/oculante"
+license=('MIT')
+depends=(
+  'aom'    
+  'cairo'
+  'expat'
+  'freetype2'
+  'gtk3'
+  'libheif'
+  'libwebp' 
+)
+makedepends=(
+  'cmake'
+  'git'
+  'nasm'
+  'rust'
+)
+options=(!lto)
+source=("git+https://github.com/woelper/oculante.git#tag=${pkgver}")
+b2sums=('35fe09963418d532cb067c6f88f018b4381b2a92b8d9c8b19e7428a32d760037756ead6ff7f7651539761c06ff7bec6ed3a2d56de3fcc4cd9b872f087f4234a8')
+
+
+prepare() {
+  cd $pkgname
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $pkgname
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --release --locked --features 'heif'
+}
+
+check() {
+  cd $pkgname
+  export RUSTUP_TOOLCHAIN=stable
+  cargo test --frozen -- --skip=tests::net --skip=bench
+}
+
+package() {
+  cd $pkgname
+  install -Dm755 target/release/oculante "${pkgdir}/usr/bin/${pkgname}"
+  install -Dm644 res/oculante.png "${pkgdir}/usr/share/icons/hicolor/128x128/apps/${pkgname}.png"
+  install -Dm644 res/oculante.desktop "${pkgdir}/usr/share/applications/${pkgname}.desktop"
+  install -Dm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+}
