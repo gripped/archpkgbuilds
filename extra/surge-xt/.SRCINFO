@@ -1,6 +1,6 @@
 pkgbase = surge-xt
 	pkgdesc = Subtractive hybrid synthesizer
-	pkgver = 1.3.0
+	pkgver = 1.3.1
 	pkgrel = 1
 	url = https://surge-synthesizer.github.io
 	arch = x86_64
@@ -35,7 +35,7 @@ pkgbase = surge-xt
 	makedepends = ripgrep
 	makedepends = juce
 	options = !lto
-	source = surge-xt::git+https://github.com/surge-synthesizer/surge#commit=20a8e16ab5cf2e92d718c16d42965622a9eb7db4
+	source = surge-xt::git+https://github.com/surge-synthesizer/surge#tag=release_xt_1.3.1
 	source = improve-reproducibility.patch
 	source = devendor-libs.patch
 	source = github.com-surge-synthesizer-tuning-library::git+https://github.com/surge-synthesizer/tuning-library
@@ -56,7 +56,7 @@ pkgbase = surge-xt
 	source = github.com-LuaJIT-LuaJIT::git+https://github.com/LuaJIT/LuaJIT
 	source = github.com-taocpp-PEGTL::git+https://github.com/taocpp/PEGTL
 	source = github.com-gulrak-filesystem::git+https://github.com/gulrak/filesystem
-	b2sums = SKIP
+	b2sums = c5fd9b934869e5eb62a5f2799334f3877a3bb4337c342535c952e35a8b49a51601751b944c27f9d89061725ee10499b6f7d1d7927eb791fdc27a503fead287ac
 	b2sums = 6e71b56ffde699319def99e03637d9c3fb6197a6e0637b9f44b52a9207a8e06c8d482c05cdd711ec2c5901f403381dda70e786bca6b56cce14dc449325f24761
 	b2sums = c7c41fbfbdb84480911d0d006d3a76b95d2c3334acc49e83a26ae658de0eccaa5c42e933d588ea6385e75b9ff3f7a43366730d14e28fbdf54086c515c914d389
 	b2sums = SKIP
@@ -79,17 +79,17 @@ pkgbase = surge-xt
 	b2sums = SKIP
 
 pkgname = surge-xt
-	depends = surge-xt-common=1.3.0
-	depends = surge-xt-standalone=1.3.0
-	depends = surge-xt-vst3=1.3.0
-	depends = surge-xt-clap=1.3.0
+	depends = surge-xt-common=1.3.1
+	depends = surge-xt-standalone=1.3.1
+	depends = surge-xt-vst3=1.3.1
+	depends = surge-xt-clap=1.3.1
 
 pkgname = surge-xt-common
 	pkgdesc = Common files for Surge XT
 
 pkgname = surge-xt-standalone
 	pkgdesc = Subtractive hybrid synthesizer - standalone
-	depends = surge-xt-common=1.3.0
+	depends = surge-xt-common=1.3.1
 	depends = hicolor-icon-theme
 	depends = glibc
 	depends = gcc-libs
@@ -114,7 +114,7 @@ pkgname = surge-xt-vst3
 	pkgdesc = Subtractive hybrid synthesizer - VST3 plugin
 	groups = pro-audio
 	groups = vst3-plugins
-	depends = surge-xt-common=1.3.0
+	depends = surge-xt-common=1.3.1
 	depends = glibc
 	depends = gcc-libs
 	depends = cairo
@@ -137,7 +137,7 @@ pkgname = surge-xt-clap
 	pkgdesc = Subtractive hybrid synthesizer - CLAP plugin
 	groups = pro-audio
 	groups = clap-plugins
-	depends = surge-xt-common=1.3.0
+	depends = surge-xt-common=1.3.1
 	depends = glibc
 	depends = gcc-libs
 	depends = cairo
