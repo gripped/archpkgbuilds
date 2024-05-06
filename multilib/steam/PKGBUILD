@@ -5,7 +5,7 @@
 
 pkgname=steam
 pkgver=1.0.0.79
-pkgrel=1
+pkgrel=2
 pkgdesc="Valve's digital software delivery system"
 url='https://steampowered.com/'
 arch=('x86_64')
