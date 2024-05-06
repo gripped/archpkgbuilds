@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-calculator
-pkgver=46.0
+pkgver=46.1
 pkgrel=1
 pkgdesc="GNOME Scientific calculator"
 url="https://wiki.gnome.org/Apps/Calculator"
@@ -35,14 +35,8 @@ provides=(
   libgci-1.so
 )
 groups=(gnome)
-_commit=9ca2245ca3f58007d79da785ebf44d54ce0d1ff6  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-calculator.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-calculator.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('3507d35c82c9734cd9e114c01504354aa23af32d7348fe9aec1200fc9b3eea52f3e5ac2cb0a5ba3dd063663c5481aeb68b1765a5de4fdb371e3461d9b0f27a39')
 
 build() {
   arch-meson $pkgname build
