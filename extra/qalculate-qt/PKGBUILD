@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=qalculate-qt
-pkgver=5.0.0
-pkgrel=2
+pkgver=5.1.0
+pkgrel=1
 pkgdesc='Qt frontend for libqalculate'
 arch=(x86_64)
 url='https://qalculate.github.io/'
@@ -12,18 +12,19 @@ depends=(gcc-libs
          libqalculate
          qt6-base
          qt6-svg)
-makedepends=(qt6-tools)
-source=(https://github.com/Qalculate/qalculate-qt/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('4143033faba2851de992dc7da96a81362b11a447256b0df7cbc0fbfabbd34408')
+makedepends=(git
+             qt6-tools)
+source=(git+https://github.com/Qalculate/qalculate-qt#tag=v$pkgver)
+sha256sums=('ab57944ed2eeb8b1be4a35d27bac3980275f4d9ffadce520fa3105ca240b1eb6')
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   qmake6 \
     PREFIX=/usr
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make INSTALL_ROOT="$pkgdir" install
 }
