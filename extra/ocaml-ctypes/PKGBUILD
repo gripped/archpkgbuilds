@@ -3,14 +3,14 @@
 
 pkgname=ocaml-ctypes
 pkgver=0.22.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for binding to C libraries using pure OCaml"
 arch=('x86_64')
 url="https://github.com/ocamllabs/ocaml-ctypes"
 license=('MIT')
 depends=('ocaml' 'libffi' 'ocaml-integers' 'ocaml-bigarray-compat')
 makedepends=('ocaml-findlib' 'ocaml-compiler-libs' 'dune')
-options=('!strip' '!makeflags')
+options=('!strip' '!makeflags' '!debug')
 source=($pkgname-$pkgver.tar.gz::https://github.com/ocamllabs/ocaml-ctypes/archive/$pkgver.tar.gz)
 sha512sums=('98925bddfba81fd91383c5ee87a47f8f3424958e0affc299585b83029ce3cc52ac4c059f94d548cb15f37379ba3a8742a04b94f76787177b26c233b7037faa09')
 
