@@ -2,7 +2,7 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=lxqt-qtplugin
-pkgver=1.4.1
+pkgver=2.0.0
 pkgrel=1
 pkgdesc="LXQt platform integration for Qt"
 arch=("x86_64")
@@ -10,12 +10,12 @@ groups=("lxqt")
 url="https://github.com/lxqt/$pkgname"
 # https://github.com/lxqt/lxqt-qtplugin/blob/1.4.1/AUTHORS#L8
 license=("LGPL-2.1-or-later")
-depends=("libdbusmenu-qt5" "libqtxdg" "qt5-x11extras" "libfm-qt" "libQt5XdgIconLoader.so")
+depends=("libdbusmenu-lxqt" "libqtxdg" "libfm-qt" "libQt6XdgIconLoader.so")
 makedepends=("git" "lxqt-build-tools")
 source=(
 	"git+https://github.com/lxqt/$pkgname?signed#tag=$pkgver"
 )
-sha256sums=('022d1eacc98ac0b089dacef65f265c27bd7a6caed404112b2d3a34a1e2c75e35')
+sha256sums=('db313a48a2db7bc66999258241bd678e28ff2890e1d21d0a8e0ccb6ce2fa807a')
 validpgpkeys=(
 	"19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # Pedram Pourang <tsujan2000@gmail.com>
 )
