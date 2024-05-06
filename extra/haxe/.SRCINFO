@@ -1,7 +1,7 @@
 pkgbase = haxe
 	pkgdesc = Cross-platform toolkit and programming language
 	pkgver = 4.3.4
-	pkgrel = 2
+	pkgrel = 3
 	url = https://haxe.org/
 	arch = x86_64
 	license = GPL
@@ -21,12 +21,15 @@ pkgbase = haxe
 	optdepends = mono
 	optdepends = php
 	optdepends = python
-	options = !strip
 	source = mbedtls2.patch
-	source = haxelib_src::git+https://github.com/HaxeFoundation/haxelib#commit=98637027327d8cf385d302acaaf104bd6107d2bf
+	source = make-haxelib.patch
+	source = haxelib_src::git+https://github.com/HaxeFoundation/haxelib#commit=f17fffa97554b1bdba37750e3418051f017a5bc2
+	source = hx3compat::git+https://github.com/HaxeFoundation/hx3compat#commit=f1f18201e5c0479cb5adf5f6028788b37f37b730
 	source = haxe-4.3.4::git+https://github.com/HaxeFoundation/haxe#commit=dc1a43dc52f98b9c480f68264885c6155e570f3e
 	b2sums = 77f5f9c6815934b5cf2aee75ba62ed0e2a4b46f23a5bb689dffa23469b4aa13ca6d0e94623c747af63450b2ea3dc57f54507a924f1d6cec1cab3368d74def211
-	b2sums = 3723db38971ba219cfc2b691e56ffe338f6960da6cae77427fc06da8ca62f97f6fb620a72ef462b2d013413501fcfd3861094851a1202e24be219e728ef6746b
+	b2sums = 5c1c2a2ffee878fbe88ff4b93df8c23471bfbc46bcd7e6df8e42f952812b050228ab2aa777cec6598b531a724f2a518dde71f5611c9eec28e83d21d382b9457e
+	b2sums = a3a6afac931c942c2c823801d1b0e4344657a7316e1014cc2abe43416980607f54b29b2d0989eedbf57d2d4e507a69bee604a20305dd2ef18ba96ecf4e73d38d
+	b2sums = b938572cefb9a4398e0076b4450fd681d9d15be978fe3865d16aa26984ef6265965f18a97f93f8b1f6e589b75814ad1c19b60c5c8817b0deb07a41239fc19341
 	b2sums = 65680cb33615ac81eed1e81b2f4ef5a75332fa0b084535f4b9bc5039adb19311a11620ce204cc2430ae80a461c0a0f1034269fe4757c9e8cfe92fdda38a0fd1e
 
 pkgname = haxe
