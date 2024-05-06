@@ -4,7 +4,7 @@
 
 pkgname=zerotier-one
 pkgver=1.14.0
-pkgrel=1
+pkgrel=3
 pkgdesc='Creates virtual Ethernet networks of almost unlimited size.'
 arch=('x86_64')
 url='https://www.zerotier.com/'
@@ -14,7 +14,7 @@ makedepends=('rust')
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/zerotier/ZeroTierOne/archive/refs/tags/$pkgver.tar.gz"
         'sysusers.conf')
-sha512sums=('f795d515ab82188cee3d11002db5366ddab9c89abca5111d114aa51f21dfb34b0800aff1f4f6c8ef84e43341dcc91d93dc64580a99df28eb2547b6d05d11331e'
+sha512sums=('ba268dd9773a07c0b0e2346a6316b69b3ba4c346bb3d36b20f0a491591f711d5ac40383c03b72c39b523c087348956deadde51406dd996c1418e12d996a25f7d'
             '1fdcc2e2a888ac7a93985bb6c16ac818aa6b7a56ccdeedf3cbbd22158251f6119f841e41e79b5522f9d1c6b8a315525d178cc42197c5eef2c70498b7954541f0')
 
 prepare() {
