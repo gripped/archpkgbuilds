@@ -3,7 +3,7 @@
 
 pkgname=libdovi
 pkgver=3.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Library to read and write Dolby Vision metadata'
 arch=(x86_64)
 url=https://github.com/quietvoid/dovi_tool/tree/main/dolby_vision
