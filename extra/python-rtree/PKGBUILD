@@ -2,10 +2,10 @@
 
 pkgname=python-rtree
 pkgver=1.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Rtree: spatial index for Python GIS"
-url="https://toblerity.github.com/rtree/"
-license=('LGPL')
+url="https://rtree.readthedocs.io/en/latest/"
+license=('MIT')
 arch=('any')
 depends=('python' 'spatialindex')
 makedepends=('python-setuptools' 'python-wheel')
@@ -26,4 +26,6 @@ check() {
 package() {
   cd rtree-$pkgver
   python setup.py install --root="$pkgdir" --optimize=1
+
+  install -Dm 0644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
