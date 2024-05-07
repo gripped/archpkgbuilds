@@ -4,19 +4,19 @@
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=unison
-pkgver=2.53.4
-pkgrel=4
+pkgver=2.53.5
+pkgrel=1
 pkgdesc='File-synchronization tool'
 url="https://github.com/bcpierce00/$pkgname/"
 arch=(x86_64)
-license=(GPL-3.0-Only)
+license=(GPL-3.0-only)
 optdepends=('gtk3: graphical interface')
 makedepends=(lablgtk3
              ocaml)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz"
         "$pkgname.desktop")
-sha512sums=('91077955aabbd919e6d6df04a704878238d745ac3693e0e41b8a37a922db4ebfceb204378ab1283303ef5ad9d80445bc8caeafad36f67b8df8c30d8b4e0c6947'
+sha512sums=('eabeed7b428f1985610b47ce8bc7faac515fd24937727612aa45435da3e38d40b6cd6d227eb3b65dc370d46458cecfca9d0e9e1712b2b7fa41b76675f8115c4c'
             '3e6e7b793deb60dab64c6e585e3b2ceee01ced0f8b73d1373ac1cd8aaaadb5c7415f2295b8a044a57fc15356dfe76bab002e1e633495e5f8e436871c83c48990')
 options=('!makeflags')
 
