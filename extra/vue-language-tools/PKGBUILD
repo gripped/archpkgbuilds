@@ -3,7 +3,7 @@
 
 pkgbase=vue-language-tools
 pkgname=('vue-language-server' 'vue-typescript-plugin')
-pkgver=2.0.10
+pkgver=2.0.16
 pkgrel=1
 pkgdesc='Language server for Vue'
 arch=('any')
@@ -11,7 +11,7 @@ url=https://github.com/vuejs/language-tools/tree/master/packages/language-server
 license=('MIT')
 makedepends=('git' 'jq' 'npm' 'pnpm')
 source=("$pkgbase::git+https://github.com/vuejs/language-tools.git#tag=v$pkgver")
-b2sums=('97bac8843d4a6613d97f74a57ee5f3d4ce001fdfae5cb022282d220522afff367afef4f76b38330f902165cccccd8e02939d79d03ce3582b1b133503e8cb0e40')
+b2sums=('6847db5c68820df53518cbecafc8679da4505115a8380e78a2c0cebdd4b2f177731312b410c97ca4f720b745ebf48e688ff71ed08e2ca8e3a1db1755b3a0ea2a')
 
 prepare() {
   cd $pkgbase
