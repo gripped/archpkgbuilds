@@ -3,20 +3,22 @@
 
 _pkgbasename=util-linux
 pkgname=lib32-${_pkgbasename}
-_tag='2.40'
+_tag='2.40.1'
 pkgver="${_tag/-/}"
-pkgrel=2
+pkgrel=1
 pkgdesc='Miscellaneous system utilities for Linux (32-bit)'
 url='https://github.com/util-linux/util-linux'
 arch=('x86_64')
 makedepends=('git' 'meson' 'lib32-libxcrypt' 'lib32-ncurses')
-depends=('lib32-glibc' 'util-linux-libs')
+depends=("util-linux-libs=${pkgver}" 'lib32-glibc')
 provides=('libuuid.so' 'libblkid.so' 'libfdisk.so' 'libmount.so' 'libsmartcols.so')
 license=('GPL2')
 options=('!emptydirs')
 validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
-source=("git+https://github.com/util-linux/util-linux#tag=v${_tag}?signed")
-sha256sums=('153ae22d30a04e8c3ef1edbac63081f21b2d7622467dd7bf324f7f45e45b343d')
+source=("git+https://github.com/util-linux/util-linux#tag=v${_tag}?signed"
+        '0001-fix-build.patch')
+sha256sums=('c08ac20cf4fb061a0aa0d318a245b269acdfd14f7abf1f272476358878e6862a'
+            '07b42d50b8450ecd1ef7e939d579d20526388036926e33a2927818e24a8e180c')
 
 _backports=(
 )
@@ -38,6 +40,11 @@ prepare() {
     git log --oneline "${_l}" "${_c}"
     git revert --mainline 1 --no-commit "${_c}"
   done
+
+  # Currently multilib build is broken in stable/v2.40 (and probably master as well)...
+  # This code is required, so add it back.
+  # https://github.com/util-linux/util-linux/issues/3014
+  patch -Np1 < ../0001-fix-build.patch
 
   # do not mark dirty
   sed -i '/dirty=/c dirty=' tools/git-version-gen
