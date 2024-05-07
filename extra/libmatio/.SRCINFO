@@ -1,14 +1,15 @@
 pkgbase = libmatio
 	pkgdesc = C library with a fortran 90/95 module interface for reading/writing MATLAB MAT-files
 	pkgver = 1.5.27
-	pkgrel = 1
+	pkgrel = 2
 	url = https://sourceforge.net/projects/matio
 	arch = x86_64
 	license = BSD-2-Clause
+	makedepends = git
 	depends = glibc
 	depends = hdf5
 	depends = zlib
-	source = https://github.com/tbeu/matio/releases/download/v1.5.27/matio-1.5.27.tar.gz
-	sha256sums = 0a6aa00b18c4512b63a8d27906b079c8c6ed41d4b2844f7a4ae598e18d22d3b3
+	source = git+https://github.com/tbeu/matio#tag=v1.5.27
+	sha256sums = 86adb65dc3f40040a5a72eda4c2dc5243c8a0e1fa76ab2a709e0ec0cc6f26678
 
 pkgname = libmatio
