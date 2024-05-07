@@ -9,7 +9,7 @@
 pkgbase=qtcreator
 pkgname=(qtcreator
          qtcreator-devel)
-pkgver=13.0.0
+pkgver=13.0.1
 _clangver=17.0.6
 pkgrel=1
 pkgdesc='Lightweight, cross-platform integrated development environment'
@@ -33,6 +33,7 @@ depends=(clang=$_clangver
          zstd)
 # syntax-highlighting
 makedepends=(cmake
+             git
              llvm
              python)
 optdepends=('qt6-doc: integrated Qt documentation'
@@ -46,12 +47,12 @@ optdepends=('qt6-doc: integrated Qt documentation'
             'valgrind: analyze support'
             'perf: performer analyzer'
             'mlocate: locator filter')
-source=(https://download.qt.io/official_releases/qtcreator/${pkgver%.*}/$pkgver/qt-creator-opensource-src-$pkgver.tar.xz)
-sha256sums=('ec14f05f270714455a2f0d40b8aab02ed9241d4fa4f03ea539bfec5819e9e036')
+source=(git+https://code.qt.io/qt-creator/qt-creator#tag=v$pkgver)
+sha256sums=('f92ab6f286e92d3c811532e30a7a7e40ba6fb89129631b2496be7f80d6d6ee7f')
 options=(docs)
 
 build() {
-  cmake -B build -S qt-creator-opensource-src-$pkgver \
+  cmake -B build -S qt-creator \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
     -DWITH_DOCS=ON \
@@ -68,7 +69,7 @@ package_qtcreator() {
 # Install docs
   cp -r build/share/doc "$pkgdir"/usr/share
 
-  install -Dm644 qt-creator-opensource-src-$pkgver/LICENSE.GPL3-EXCEPT "$pkgdir"/usr/share/licenses/qtcreator/LICENSE.GPL3-EXCEPT
+  install -Dm644 qt-creator/LICENSE.GPL3-EXCEPT "$pkgdir"/usr/share/licenses/qtcreator/LICENSE.GPL3-EXCEPT
 }
 
 package_qtcreator-devel() {

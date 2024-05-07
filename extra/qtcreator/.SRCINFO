@@ -1,11 +1,12 @@
 pkgbase = qtcreator
 	pkgdesc = Lightweight, cross-platform integrated development environment
-	pkgver = 13.0.0
+	pkgver = 13.0.1
 	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
 	license = GPL-3.0-only
 	makedepends = cmake
+	makedepends = git
 	makedepends = llvm
 	makedepends = python
 	depends = clang=17.0.6
@@ -35,8 +36,8 @@ pkgbase = qtcreator
 	optdepends = perf: performer analyzer
 	optdepends = mlocate: locator filter
 	options = docs
-	source = https://download.qt.io/official_releases/qtcreator/13.0/13.0.0/qt-creator-opensource-src-13.0.0.tar.xz
-	sha256sums = ec14f05f270714455a2f0d40b8aab02ed9241d4fa4f03ea539bfec5819e9e036
+	source = git+https://code.qt.io/qt-creator/qt-creator#tag=v13.0.1
+	sha256sums = f92ab6f286e92d3c811532e30a7a7e40ba6fb89129631b2496be7f80d6d6ee7f
 
 pkgname = qtcreator
 
