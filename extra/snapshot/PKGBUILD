@@ -1,7 +1,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=snapshot
-pkgver=46.2
+pkgver=46.3
 pkgrel=1
 pkgdesc="Take pictures and videos"
 arch=(x86_64)
@@ -30,17 +30,17 @@ makedepends=(
   rust
 )
 source=("git+https://gitlab.gnome.org/GNOME/snapshot.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('d863cacf400b452842a78e874c49f1f866591169e379b74044372fa7c853901f772ec1c41d4b1c7a036081f5412e93aae5dc11e83f132634dd4997da27264a55')
+b2sums=('1738824ddccb3c5e0dcb7be2a46f05e308d0366e7cb41e7a01c2417a0fdd2e5b38664810d4e0ce24e3aa3b1a45177695fc522d591dbd7763287b629bae7bd92a')
 validpgpkeys=(
   3475CBA8D3483594C889B470D64A8D747F6FE706 # Maximiliano Sandoval <msandova@gnome.org>
 )
 
 prepare() {
-  cd ${pkgname}
+  cd snapshot
 }
 
 build() {
-  arch-meson ${pkgname} build
+  arch-meson snapshot build
   meson compile -C build
 }
 
