@@ -5,7 +5,7 @@
 
 pkgname=pcsclite
 pkgver=2.2.0
-pkgrel=1
+pkgrel=4
 pkgdesc="PC/SC Architecture smartcard middleware library"
 arch=('x86_64')
 url='https://pcsclite.apdu.fr/'
@@ -22,9 +22,8 @@ depends=(
   'libpolkit-gobject-1.so'
 )
 makedepends=(
-  'autoconf-archive'
   'git'
-  # 'meson'
+  'meson'
   'polkit'
   'systemd'
 )
@@ -32,54 +31,47 @@ optdepends=(
   'python: API call trace logging with the pcsc-spy'
   'ccid: USB Chip/Smart Card Interface Devices driver'
 )
-provides=('libpcsclite.so' 'libpcsclite_real.so' 'libpcscspy.so')
+provides=(
+  'libpcsclite.so'
+  'libpcsclite_real.so'
+  'libpcscspy.so'
+)
 validpgpkeys=('F5E11B9FFE911146F41D953D78A1B4DFE8F9C57E') # Ludovic Rousseau <rousseau@debian.org>
-source=("git+https://github.com/LudovicRousseau/PCSC.git#tag=${pkgver}?signed")
-sha256sums=('6888231cfb24d8283f0617fa01824eacda005d38c4324bd5327a39e63ac335d2')
+source=(
+  "git+https://github.com/LudovicRousseau/PCSC.git#tag=${pkgver}?signed"
+  meson-fixes.patch::https://github.com/LudovicRousseau/PCSC/commit/960e367edc01518b90684ffff99010ee07ae1bd4.patch
+  meson-fixes-2.patch::https://github.com/LudovicRousseau/PCSC/pull/181.patch
+)
+sha256sums=('6888231cfb24d8283f0617fa01824eacda005d38c4324bd5327a39e63ac335d2'
+            '771c4d014d8e873f512820b79804e321514c333b1ec1731d41fa3647b79b9ff8'
+            '390571449d7121c1135935ce97942d073fec2d32c073bf60148c69df10dd4849')
 
 prepare() {
   cd PCSC
-
-  ./bootstrap
+  patch -Np1 < ../meson-fixes.patch
+  patch -Np1 < ../meson-fixes-2.patch
 }
 
 build() {
-  # local meson_options=(
-    # -D libudev=true
-    # -D polkit=true
-    # -D serial=true
-    # -D systemdunit=system
-  # )
-  # arch-meson PCSC build "${meson_options[@]}"
-  # meson compile -C build
-
-  cd PCSC
-
-  ./configure \
-    --prefix=/usr \
-    --sbindir=/usr/bin \
-    --sysconfdir=/etc \
-    --disable-static \
-    --enable-filter \
-    --enable-ipcdir=/run/pcscd \
-    --enable-libudev \
-    --enable-usbdropdir=/usr/lib/pcsc/drivers \
-    --enable-polkit \
-    --with-systemdsystemunitdir=/usr/lib/systemd/system
-  
-  make
+  local meson_options=(
+    -D libsystemd=true
+    -D libudev=true
+    -D polkit=true
+    -D serial=true
+    -D systemdunit=system
+  )
+  arch-meson PCSC build "${meson_options[@]}"
+  meson compile -C build
 
   # namcap requires separate files for each "uncommon" license (ex: BSD* ones), so splitting the upstream COPYING file
-  awk '/David Corcoran/{flag=1} /GNU GPL v3/ {flag=0} flag' COPYING > LICENSE.BSD-3-Clause
-  awk '/GNU GPL v3/    {flag=1} /auth.c/     {flag=0} flag' COPYING > LICENSE.GPL-3.0-or-later
-  awk '/auth.c/        {flag=1} /simclist.c/ {flag=0} flag' COPYING > LICENSE.BSD-2-Clause
-  awk '/simclist.c/    {flag=1} flag'                       COPYING > LICENSE.0BSD
+  awk '/David Corcoran/{flag=1} /GNU GPL v3/ {flag=0} flag' PCSC/COPYING > LICENSE.BSD-3-Clause
+  awk '/GNU GPL v3/    {flag=1} /auth.c/     {flag=0} flag' PCSC/COPYING > LICENSE.GPL-3.0-or-later
+  awk '/auth.c/        {flag=1} /simclist.c/ {flag=0} flag' PCSC/COPYING > LICENSE.BSD-2-Clause
+  awk '/simclist.c/    {flag=1} flag'                       PCSC/COPYING > LICENSE.0BSD
 }
 
 package() {
-  cd PCSC
-  # meson install -C build --destdir "${pkgdir}"
-  make DESTDIR="$pkgdir" install
+  meson install -C build --destdir "${pkgdir}"
 
   install -D -m0644 LICENSE.* -t "$pkgdir/usr/share/licenses/$pkgname"
   install -d "$pkgdir/usr/lib/pcsc/drivers"
