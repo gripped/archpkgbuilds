@@ -1,7 +1,7 @@
 pkgbase = avogadrolibs
 	pkgdesc = Libraries that provide 3D rendering, visualization, analysis and data processing useful in computational chemistry, molecular modeling, bioinformatics, materials science, and related areas
 	pkgver = 1.99.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://www.openchemistry.org/
 	arch = x86_64
 	license = custom
@@ -10,6 +10,7 @@ pkgbase = avogadrolibs
 	makedepends = eigen
 	makedepends = fast_float
 	makedepends = fmt
+	makedepends = git
 	makedepends = hdf5
 	makedepends = genxrdpattern
 	makedepends = glew
@@ -26,10 +27,8 @@ pkgbase = avogadrolibs
 	makedepends = utf8cpp
 	makedepends = verdict
 	makedepends = vtk
-	source = https://github.com/OpenChemistry/avogadrolibs/archive/1.99.0/avogadrolibs-1.99.0.tar.gz
-	source = https://github.com/antonio-rojas/avogadrolibs/commit/6e2e84db.patch
-	sha256sums = 34808e3c602b0f60f3c160ff0220832aee777db86e962e3f958c6327fb434063
-	sha256sums = 285d7b8aef7cd489a2829840519051dbdbe232c06a540268860a3a6dbc8d5ca9
+	source = git+https://github.com/OpenChemistry/avogadrolibs#tag=1.99.0
+	sha256sums = ad26ef7d887924a867c5aba68ecc3803b2684652d65a442516903c9343a332ff
 
 pkgname = avogadrolibs
 	depends = avogadro-crystals
