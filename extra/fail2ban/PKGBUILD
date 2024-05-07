@@ -7,16 +7,17 @@
 
 pkgname=fail2ban
 pkgver=1.1.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Bans IPs after too many failed authentication attempts'
 arch=('any')
 url='https://www.fail2ban.org/'
-license=('GPL')
-depends=('python-pyinotify' 'python-setuptools' 'python-systemd' 'sqlite' 'whois')
+license=('GPL-2.0-or-later')
+depends=('python-pyinotify' 'python-systemd' 'sqlite' 'whois')
 makedepends=(
   'git'
   'python-build'
   'python-installer'
+  'python-setuptools'
   'python-wheel'
 )
 optdepends=(
@@ -36,6 +37,9 @@ validpgpkeys=('E6C3F631FBDA716B070C6ED94141C485A81A88CB') # Sergey G. Brester (s
 
 prepare() {
   cd $pkgname
+  # disutils removal
+  git cherry-pick -n -m 1 ac62658c10f492911f8a0037a0bcf97c8521cd78
+
   sed -i 's|self.install_dir|"/usr/bin"|' setup.py
   sed -i 's/^before = paths-debian.conf/before = paths-arch.conf/' config/jail.conf
 }
@@ -68,7 +72,6 @@ package() {
   install -Dm644 -t "$pkgdir"/usr/share/man/man1 man/*.1
   install -Dm644 -t "$pkgdir"/usr/share/man/man5 man/*.5
 
-
   cd "$pkgdir"
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   cp -rl ./"$site_packages"/{etc,usr} .
@@ -76,8 +79,8 @@ package() {
 
   # PEP 517 workflow doesn't seem to create these empty directories
   # (avoid "mkdir -p" so these commands fail when the directories are back)
-  mkdir "$pkgdir"/etc/fail2ban/{fail2ban,jail}.d
-  mkdir "$pkgdir"/var{,/lib{,/fail2ban}}
+  mkdir etc/fail2ban/{fail2ban,jail}.d
+  mkdir var{,/lib{,/fail2ban}}
 
   # fix sendmail location
   sed -i 's/sbin/bin/g' etc/fail2ban/action.d/sendmail*.conf
