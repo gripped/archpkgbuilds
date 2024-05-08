@@ -1,7 +1,7 @@
 pkgbase = nvidia-container-toolkit
-	pkgdesc = NVIDIA container runtime toolkit
+	pkgdesc = NVIDIA container toolkit
 	pkgver = 1.15.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/NVIDIA/nvidia-container-toolkit
 	arch = x86_64
 	license = Apache-2.0
@@ -11,8 +11,10 @@ pkgbase = nvidia-container-toolkit
 	options = !lto
 	backup = etc/nvidia-container-runtime/config.toml
 	source = nvidia-container-toolkit-1.15.0.tar.gz::https://github.com/NVIDIA/nvidia-container-toolkit/archive/v1.15.0.tar.gz
+	source = nvidia-ctk-cdi
 	source = nvidia-ctk-cdi.hook
 	b2sums = 6f8764a71490d2836af690d4ef4ee4831d9613add430f720cb08c7e347d1675411471bbeda2155e567b5ae3f99220bfc4524081ab364c451d30e12b12be6196e
-	b2sums = 38484d2c593696c6c103f794e37c4ac62eba69913413d22a43bf56f9469b5c9aed4232640ef36628cdd263b8ee0969d653ec154228ba7c085007f14837cb6aa8
+	b2sums = 196ba959e25b7bc9a6087b192a09196c6c46e4a2a0a6dbf1de158c06dc852b822235fb6193f10311c89d06bc722035fd807cab3afa560bf49e6181a9e14b6bd6
+	b2sums = 35bf8bacda43f571858d40a99f6606400f4087265267f337432c72aab856aadc0b1544a83517419c19c5b57dcabaa721f3b28de21ae0b34a8dd82ea0cdb9e847
 
 pkgname = nvidia-container-toolkit
