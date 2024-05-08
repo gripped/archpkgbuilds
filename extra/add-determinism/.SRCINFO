@@ -1,0 +1,22 @@
+pkgbase = add-determinism
+	pkgdesc = Build postprocessor to reset metadata fields for build reproducibility
+	pkgver = 0.2.0
+	pkgrel = 1
+	url = https://github.com/keszybz/add-determinism
+	arch = x86_64
+	license = GPL-3.0-only
+	makedepends = cargo
+	depends = bzip2
+	depends = libbz2.so
+	depends = gcc-libs
+	depends = glibc
+	depends = python
+	options = !lto
+	source = add-determinism-0.2.0.tar.gz::https://github.com/keszybz/add-determinism/archive/refs/tags/v0.2.0.tar.gz
+	source = Cargo.lock
+	sha256sums = b7a638a5048ad9f00ea7bc090062a46e4c24801edb3994d0905807a432213b9b
+	sha256sums = cfc31c4975f3aa61cc36d823262b05eb48d6b2d70b909918b1a94c589e80afc3
+	b2sums = 279ee5ac128eacb260051e1b278c14f63411f04911906fa5d0ac955e971a05af14b0ece359280231fe7c3f7b5d1e2a68aad87fea5e1f6e095ad85b9422e010d1
+	b2sums = 723c0aa44b767db9392badde0839c037af4fa30ae8befd12d932abefd826aa49eec771e9c8ef60163efb7aa5c701fc214a6698dd9f206fdc28d6dce0cb4fda40
+
+pkgname = add-determinism
