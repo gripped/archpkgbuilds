@@ -1,8 +1,8 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=dnf
-pkgver=4.19.0
-pkgrel=2
+pkgver=4.20.0
+pkgrel=1
 pkgdesc="Package manager forked from Yum, using libsolv as a dependency resolver"
 arch=('any')
 url="https://github.com/rpm-software-management/$pkgname"
@@ -20,7 +20,7 @@ backup=("etc/$pkgname/automatic.conf"
         "etc/logrotate.d/$pkgname")
 options=('!emptydirs')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz" "arch-release-ver.patch")
-sha256sums=('127b9cf46248836391bc74b716ce1c7c03e9d590a955ce6442f527f7b5c190a4'
+sha256sums=('ff58bae0ad3473ac5bf510e58fc1dd9df555589f5e998b7049299cc88bf23394'
             '503544681d192a8e844012c58a69321eab19682fec9ecc9cb5ca93cedfe8a47e')
 
 prepare() {
