@@ -4,7 +4,7 @@
 
 pkgname=sbt
 epoch=1
-pkgver=1.9.9
+pkgver=1.10.0
 pkgrel=1
 pkgdesc='The interactive build tool'
 arch=('any')
@@ -18,8 +18,8 @@ install=sbt.install
 options=(!debug)
 source=(git+https://github.com/sbt/sbt.git#tag=v${pkgver})
 validpgpkeys=('2EE0EA64E40A89B84B2DF73499E82A75642AC823') # sbt build tool
-sha256sums=('SKIP')
-b2sums=('SKIP')
+sha256sums=('7713595e5e8a16f2aa2cc4125e76b84e180038e0fae13e4f6159c2150f2ff701')
+b2sums=('bc54a452a81894bf2174c2e19f1a972264996d075910ad58632259ab0007a2c08ca93c614d306a3f0ed4d9e05b4759215c2dd22894fe22968bb4fc7d4710d630')
 backup=(etc/${pkgname}/sbtopts)
 
 build() {
