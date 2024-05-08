@@ -1,7 +1,7 @@
 pkgbase = pcsclite
 	pkgdesc = PC/SC Architecture smartcard middleware library
-	pkgver = 2.2.0
-	pkgrel = 4
+	pkgver = 2.2.1
+	pkgrel = 1
 	url = https://pcsclite.apdu.fr/
 	arch = x86_64
 	license = BSD-3-Clause
@@ -20,12 +20,8 @@ pkgbase = pcsclite
 	provides = libpcsclite.so
 	provides = libpcsclite_real.so
 	provides = libpcscspy.so
-	source = git+https://github.com/LudovicRousseau/PCSC.git#tag=2.2.0?signed
-	source = meson-fixes.patch::https://github.com/LudovicRousseau/PCSC/commit/960e367edc01518b90684ffff99010ee07ae1bd4.patch
-	source = meson-fixes-2.patch::https://github.com/LudovicRousseau/PCSC/pull/181.patch
+	source = git+https://github.com/LudovicRousseau/PCSC.git#tag=2.2.1?signed
 	validpgpkeys = F5E11B9FFE911146F41D953D78A1B4DFE8F9C57E
-	sha256sums = 6888231cfb24d8283f0617fa01824eacda005d38c4324bd5327a39e63ac335d2
-	sha256sums = 771c4d014d8e873f512820b79804e321514c333b1ec1731d41fa3647b79b9ff8
-	sha256sums = 390571449d7121c1135935ce97942d073fec2d32c073bf60148c69df10dd4849
+	sha256sums = 6ab731088ecbb9b69620393db12312b505e11b4d3d8aad33104b5e0628a5a34a
 
 pkgname = pcsclite
