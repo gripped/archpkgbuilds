@@ -3,10 +3,10 @@
 
 _pyname=igraph
 pkgname=python-$_pyname
-pkgver=0.11.4
-pkgrel=2
+pkgver=0.11.5
+pkgrel=1
 url='https://igraph.org/python/'
-license=(GPL)
+license=(GPL-2.0-or-later)
 arch=(x86_64)
 pkgdesc='Python bindings for the igraph library'
 depends=(glibc
@@ -14,25 +14,26 @@ depends=(glibc
          python
          python-numpy
          python-texttable)
-makedepends=(python-build
+makedepends=(git
+             python-build
              python-installer
              python-setuptools
              python-wheel)
-source=(https://github.com/igraph/python-igraph/releases/download/$pkgver/$_pyname-$pkgver.tar.gz)
-sha256sums=('2437ae0157af6824e2e65a23f7a1fa4fbf0f3664333c72aeca4fc01b83e18483')
+source=(git+https://github.com/igraph/python-igraph#tag=$pkgver)
+sha256sums=('7a123df3ba069265f4f97fffcf8bc3961518979e92753cea2d3159d0f3a791f2')
 
 build() {
-  cd igraph-$pkgver
+  cd $pkgname
   IGRAPH_USE_PKG_CONFIG=1 \
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd igraph-$pkgver
+  cd $pkgname
   PYTHONPATH="$PWD"/`ls -d build/lib.*` python -m unittest
 }
 
 package() {
-  cd igraph-$pkgver
+  cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl 
 }
