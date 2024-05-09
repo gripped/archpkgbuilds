@@ -5,7 +5,7 @@
 # Contributor: Stefan Husmann <stefan-husmann@t-online.de>
 
 pkgname=mixxx
-pkgver=2.4.0
+pkgver=2.4.1
 pkgrel=1
 pkgdesc="Free, open source software for digital DJing"
 arch=(x86_64)
@@ -65,12 +65,10 @@ makedepends=(
   portmidi
   protobuf
   rubberband
-  vamp-plugin-sdk
 )
-checkdepends=(xorg-server-xvfb)
 source=($_url/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('cde73d5824b3c700b3b2baf853a8cc4f338431363a05e0052197d06c3a97d09fc27b1748d9ffc8448c9a8715dc969d9af797b6021a2c5ddbc8d3418fa0eaf486')
-b2sums=('0fbf0df61f888f33880b9e952d5afd94464d8199e18a8cda16d9156da1a674835850fe8c865e678f3416d7314aed62a388880e13f2688781515fda89a4d378ea')
+sha512sums=('f62e0ce3bd016d411eda544a621e33b791517931c268391089cfe3101cd1e123eeb0b80bc8c138e7c67bb41cf378c6973f5c9284d5c720c693fd632f62372569')
+b2sums=('9780abc82baf4bc369df421da676dc12783d303f09b0c53cc13982c5355f0ca520c127e8b5337c51bbcdd9a9ee35a6657121931efdcc228a936c5b3ef1104eeb')
 
 build() {
   local cmake_options=(
@@ -87,7 +85,7 @@ build() {
 }
 
 check() {
-  xvfb-run ctest --test-dir build --output-on-failure
+  ctest --test-dir build --output-on-failure
 }
 
 package() {
