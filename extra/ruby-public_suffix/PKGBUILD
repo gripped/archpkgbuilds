@@ -6,7 +6,7 @@
 _gemname='public_suffix'
 pkgname="ruby-${_gemname}"
 pkgver=5.0.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Domain name parser based on the Public Suffix List'
 arch=('any')
 url='https://simonecarletti.com/code/publicsuffix-ruby'
@@ -21,8 +21,8 @@ sha512sums=('4b785474b7fb726dbfe66b6c1c801eb9a75d5e555c69e678cf8253112facd9dc98f
 prepare() {
   cd "${srcdir}/publicsuffix-ruby-${pkgver}"
 
-  sed --in-place 's|git ls-files|find|' "${_gemname}.gemspec"
-  sed --in-place '/test_files/d' "${_gemname}.gemspec"
+  sed --in-place "s,git ls-files -z,find . | sed -e 's|^./||'," "${_gemname}.gemspec"
+  sed --in-place 's/x0/n/' "${_gemname}.gemspec"
   sed --in-place '/rubocop/Id' Rakefile
   sed --in-place '/reporters/Id' test/test_helper.rb
 }
