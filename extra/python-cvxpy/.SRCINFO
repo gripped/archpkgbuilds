@@ -1,14 +1,15 @@
 pkgbase = python-cvxpy
 	pkgdesc = A Python-embedded modeling language for convex optimization problems
-	pkgver = 1.4.3
-	pkgrel = 2
+	pkgver = 1.5.0
+	pkgrel = 1
 	url = https://www.cvxpy.org/
 	arch = x86_64
-	license = Apache
+	license = Apache-2.0
 	checkdepends = python-ecos
 	checkdepends = python-osqp
 	checkdepends = python-pytest
 	checkdepends = python-scs
+	makedepends = git
 	makedepends = pybind11
 	makedepends = python-build
 	makedepends = python-installer
@@ -26,7 +27,7 @@ pkgbase = python-cvxpy
 	optdepends = python-cvxopt: GLPK solver
 	optdepends = python-cylp: CBC solver
 	optdepends = python-pyscipopt: SCIP solver
-	source = https://github.com/cvxpy/cvxpy/archive/v1.4.3/python-cvxpy-1.4.3.tar.gz
-	sha256sums = 17a019d579922ee51c6ee11a99c1c27fd75fd59ec9452bf027e35a739659f6ce
+	source = git+https://github.com/cvxpy/cvxpy#tag=v1.5.0
+	sha256sums = d310fd3fac686b2b9dc81179f73ce767a5d91c175fc97621b600f915375aff3d
 
 pkgname = python-cvxpy
