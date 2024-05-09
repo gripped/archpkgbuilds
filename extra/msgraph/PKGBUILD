@@ -6,7 +6,7 @@ pkgname=(
   msgraph-docs
 )
 pkgver=0.2.1
-pkgrel=2
+pkgrel=3
 pkgdesc="A shared library for accessing MS Graph API"
 url="https://gitlab.gnome.org/GNOME/msgraph"
 arch=(x86_64)
@@ -25,8 +25,6 @@ makedepends=(
   git
   gobject-introspection
   meson
-)
-checkdepends=(
   uhttpmock
 )
 source=("git+https://gitlab.gnome.org/GNOME/msgraph.git#tag=$pkgver")
