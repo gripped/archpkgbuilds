@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=jupyter-collaboration
-pkgver=2.1.0
+pkgver=2.1.1
 pkgrel=1
 pkgdesc='A Jupyter Server Extension Providing Support for Y Documents'
 arch=(any)
@@ -30,7 +30,7 @@ checkdepends=(python-jupyter-server-terminals
               python-pytest-timeout
               python-websockets)
 source=(git+https://github.com/jupyterlab/jupyter-collaboration#tag=v$pkgver)
-sha256sums=('ad6bb56e7c7e767c32f9209bccf0ccbd818529bbb62acf44191b3499005f982d')
+sha256sums=('2e3f21307363e06fd4a0957779c83115c202d081f994155aaf7ca4d1b79b3a64')
 
 build() {
   cd $pkgname
