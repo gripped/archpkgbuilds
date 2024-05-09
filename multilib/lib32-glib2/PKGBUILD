@@ -7,14 +7,16 @@ pkgbase=lib32-glib2
 pkgname=(
   lib32-glib2
 )
-pkgver=2.80.0
-pkgrel=4
+pkgver=2.80.2
+pkgrel=1
 pkgdesc="Low level core library - 32-bit"
 url="https://gitlab.gnome.org/GNOME/glib"
 license=(LGPL-2.1-or-later)
 arch=(x86_64)
 depends=(
   glib2
+  lib32-gcc-libs
+  lib32-glibc
   lib32-libffi
   lib32-pcre2
   lib32-util-linux
@@ -40,7 +42,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gvdb.git"
   gio-querymodules-32.hook
 )
-b2sums=('cc3a6a7a14fef1aabc08d3bdfe98f66e3ecf3591ac054d83aa9404c8c9cd72e690a4c26c16934700d067bb2cb3d58730387482032cd9ffa04b041869426165ba'
+b2sums=('5cee8c7aee08f20b759bb614475a3881f60586d5f388e9c45c670765e03b77916c3d1e27b6e0286f23d779014ba17993400ed4708bcb456a479e43a2e80f6756'
         'SKIP'
         '678ea2d010fd64b6c55106510096363c54c357d65615c666e9cc3a0e280c0878257a45e646dd88f6bdd0623f7268c4afd2d4f98f82a5489bbfc028c5864252f1')
 validpgpkeys=(
@@ -52,7 +54,7 @@ prepare() {
 
   git submodule init
   git submodule set-url subprojects/gvdb "$srcdir/gvdb"
-  git -c protocol.file.allow=always submodule update
+  git -c protocol.file.allow=always -c protocol.allow=never submodule update
 }
 
 build() {
