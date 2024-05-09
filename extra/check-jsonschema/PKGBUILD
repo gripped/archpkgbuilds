@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=check-jsonschema
-pkgver=0.28.2
-pkgrel=2
+pkgver=0.28.3
+pkgrel=1
 pkgdesc="A JSON Schema CLI and pre-commit hook built on jsonschema"
 arch=(any)
 url="https://github.com/python-jsonschema/check-jsonschema"
@@ -16,7 +16,6 @@ depends=(
   python-regress
   python-requests
   python-ruamel-yaml
-  python-typing_extensions  # implicitly pulled in via python-jsonschema
 )
 makedepends=(
   python-build
@@ -36,8 +35,8 @@ optdepends=(
   'python-orjson: for using orjson as JSON parser'
 )
 source=($url/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('dcfcddf26e7d54803bc7d3192b56681ded58286daf9d9d71f29a1f70e909ad3de5b9a2c63479a647359729eaec7173b7cd7c20030d778f2192d21ba66c75250f')
-b2sums=('33f22d622af89a76c07f7fe77caad23d4c3f5649cfe09a0af479a7d5a942baf29f216369b906a7c519c2c56e7d15404666ca0e53eab643032a1584e752ee5b1e')
+sha512sums=('c4eeb06fe11153fd235d2b9e829993c418c102b7c06746ae061590dd5e9abf2a6218ca0f218da4195e8ac2198419e748c0b7630c27d36701eedaaa9d12fe20fc')
+b2sums=('d49c2d72d84f0cc0f82b5b8c900afa8fb36e8ca31fec658e492032e7b8c039e77f4f34f85f4cb9b6391f1bbdc619223a97967085f8691176ff7b1064ab27139a')
 
 check() {
   # we don't support pinning
