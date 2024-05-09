@@ -8,7 +8,7 @@
 
 pkgname=scribus
 pkgver=1.6.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Desktop publishing software"
 arch=(x86_64)
 url="https://www.scribus.net/"
@@ -58,6 +58,7 @@ validpgpkeys=(5086B8D68E70FDDF4C40045AEF7B95E7F60166DA  # Peter Linnell <plinnel
 prepare() {
     cd "$_archive"
     patch -Np1 -i ../scribus-1.6.1-poppler-24.03.patch
+    sed -e 's|WANT_CPP17|WANT_CPP20|g' -e 's|CMAKE_CXX_STANDARD 17|CMAKE_CXX_STANDARD 20|g' -i CMakeLists.txt
 }
 
 build() {
@@ -65,7 +66,7 @@ build() {
 		-D CMAKE_INSTALL_PREFIX=/usr \
 		-D CMAKE_BUILD_TYPE=None \
 		-D CMAKE_SKIP_RPATH=On \
-		-D WANT_CPP17=On \
+		-D WANT_CPP20=On \
 		-D WANT_HUNSPELL=On \
 		-D WITH_PODOFO=On \
 		-D WANT_GRAPHICSMAGICK=On
