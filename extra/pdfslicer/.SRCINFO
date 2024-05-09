@@ -1,0 +1,28 @@
+pkgbase = pdfslicer
+	pkgdesc = Simple application to extract, merge, rotate and reorder pages of PDF documents
+	pkgver = 1.8.8
+	pkgrel = 3
+	url = https://junrrein.github.io/pdfslicer/
+	arch = x86_64
+	license = GPL3
+	makedepends = cmake
+	makedepends = git
+	makedepends = intltool
+	makedepends = ninja
+	depends = gtkmm3
+	depends = poppler
+	depends = qpdf
+	source = git+https://github.com/junrrein/pdfslicer.git#commit=c843e4b5bff170d920aaf36debd454d11ac6e03b
+	source = git+https://github.com/ericniebler/range-v3.git
+	source = git+https://github.com/Microsoft/GSL.git
+	source = git+https://github.com/fmtlib/fmt.git
+	source = qpdf-11.diff
+	source = catch2_fix.diff
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
+
+pkgname = pdfslicer
