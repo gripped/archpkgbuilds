@@ -2,7 +2,7 @@
 
 _name=truststore
 pkgname=python-truststore
-pkgver=0.9.0
+pkgver=0.9.1
 pkgrel=1
 pkgdesc="Verify certificates using OS trust stores"
 arch=(any)
@@ -31,8 +31,8 @@ checkdepends=(
 )
 optdepends=('python-urllib3: when injecting into SSLContext via urllib3')
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('b0af8bb3688c387c521b722c84ce7b5660238d7919eca76dd60f3dfe3bd6484c6e005125975b326eae2824a96120693536f8047980feae4c3aaed443870705ea')
-b2sums=('f3d26a863e2810f620bc565eb819f8c113d9746f30869d2d7c1310f317b846f97525d7437fcf511ffaa28b622112604426f4e02655cbe5af1096b0c19dd39ece')
+sha512sums=('38567198a3b0d4e9c0b3df72674f3e1fef0614ef0afa80bd7276f98c2e7ef2dc00cca92184b80a1dfe535c5d2508ebdb775e389576c2f07536838f67de1958ca')
+b2sums=('e5bf3905367f75cdfd9314f1c544f004e62c2ddcde97f83bfe5ddc2d7606d44df5fc352811c8c42423be2da46e5f7b9642a2aeebe61436669c4cd9265ddbec96')
 
 build() {
   cd $_name-$pkgver
