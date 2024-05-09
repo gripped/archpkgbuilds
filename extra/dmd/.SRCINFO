@@ -1,6 +1,6 @@
 pkgbase = dmd
 	pkgdesc = D programming language compiler and standard library
-	pkgver = 2.108.0
+	pkgver = 2.108.1
 	pkgrel = 1
 	epoch = 1
 	url = https://www.dlang.org
@@ -9,18 +9,18 @@ pkgbase = dmd
 	groups = dlang-dmd
 	makedepends = git
 	makedepends = ldc
-	noextract = dmd.2.108.0.linux.tar.xz
-	source = git+https://github.com/dlang/dmd.git#tag=v2.108.0
-	source = git+https://github.com/dlang/phobos.git#tag=v2.108.0
-	source = http://downloads.dlang.org/releases/2.x/2.108.0/dmd.2.108.0.linux.tar.xz
-	source = http://downloads.dlang.org/releases/2.x/2.108.0/dmd.2.108.0.linux.tar.xz.sig
+	noextract = dmd.2.108.1.linux.tar.xz
+	source = git+https://github.com/dlang/dmd.git#tag=v2.108.1
+	source = git+https://github.com/dlang/phobos.git#tag=v2.108.1
+	source = http://downloads.dlang.org/releases/2.x/2.108.1/dmd.2.108.1.linux.tar.xz
+	source = http://downloads.dlang.org/releases/2.x/2.108.1/dmd.2.108.1.linux.tar.xz.sig
 	source = dmd.conf
 	source = dmd-doc.desktop
 	validpgpkeys = F8A26D5D7572ECA06EC7973182C52E37A8BC8393
 	validpgpkeys = 30AE2FC45DE4153268ED91754CF5FA5326CC62EB
-	sha256sums = 8383466504537d017a15156c233959ce9a9b1b97feb98869aefcc2370c8af293
-	sha256sums = 6e648b5af9fcba2ce04336964d662967b954c0893be5c45e0a51d63e79147b34
-	sha256sums = 6ae2248e7256526d739531ac7f6c0b0feb6521784bed483ce05612c0a5705624
+	sha256sums = 295b9640258389b77a8131b9cd35fd01b78340e81c322f14916b95f8b464464c
+	sha256sums = c945dd0ac81285af394317ed01f621fa64b49e61cbbe93f800b53eaeed988268
+	sha256sums = 5d8ebe115454ddbc0f195ecea307ded211ed12e2313e443783dc2ca62c511b99
 	sha256sums = SKIP
 	sha256sums = 3d639e89528fed1da90006f4dfb2b0fdc41308da5a96d953381ff4ccf257c035
 	sha256sums = 4b7b8722b3fa11082f0f332397b1b66c85b30ce773c43c3fedcba5768a1484b1
@@ -33,7 +33,7 @@ pkgname = dmd
 	optdepends = dtools: collection of useful utilities for development in D
 	optdepends = gcc-multilib: to cross-compile 32-bit applications
 	optdepends = dmd-docs: documentation and sample code for D
-	provides = d-compiler=2.108.0
+	provides = d-compiler=2.108.1
 	backup = etc/dmd.conf
 
 pkgname = dmd-docs
@@ -45,9 +45,9 @@ pkgname = libphobos
 	pkgdesc = The Phobos standard library for D programming language
 	license = BSL-1.0
 	depends = gcc-libs
-	provides = d-runtime=2.108.0
-	provides = d-stdlib=2.108.0
-	provides = libphobos-devel=2.108.0
+	provides = d-runtime=2.108.1
+	provides = d-stdlib=2.108.1
+	provides = libphobos-devel=2.108.1
 	conflicts = libphobos-devel
 	replaces = libphobos-devel
 	options = staticlibs
