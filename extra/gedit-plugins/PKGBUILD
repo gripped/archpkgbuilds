@@ -7,8 +7,8 @@
 # Contributor: zhuqin <zhuqin83@gmail.com>
 
 pkgname=gedit-plugins
-pkgver=47.0
-pkgrel=3
+pkgver=47.1
+pkgrel=1
 pkgdesc="Collection of plugins for the gedit Text Editor"
 url="https://gitlab.gnome.org/GNOME/gedit-plugins"
 arch=(x86_64)
@@ -44,7 +44,7 @@ optdepends=(
   'vte3: for embedded terminal'
 )
 source=("git+https://gitlab.gnome.org/GNOME/gedit-plugins.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('7394eb59977d471b8b2ac44f09c02d8f76976fe60351305c707d866aa89037d5e1ea9d11951d8f34bbf4533673eead58bffabef43820bf20a800b6f33c2d23ca')
+b2sums=('31282ba70549c0cc1d5530e761b05e2d95ea87caadcd206018925b643a203d39dffa86648bf0e75b32df0a85c28f9094c77dd008fd0b615025eb0cd528c084a1')
 
 
 prepare() {
@@ -63,8 +63,9 @@ check() {
 package() {
   meson install -C build --destdir "$pkgdir"
 
-  python -m compileall -d /usr "$pkgdir/usr"
-  python -O -m compileall -d /usr "$pkgdir/usr"
+  # Plugins not handled by meson's python.bytecompile
+  python -m compileall -d "/usr/lib/gedit" "$pkgdir/usr/lib/gedit"
+  python -O -m compileall -d "/usr/lib/gedit" "$pkgdir/usr/lib/gedit"
 }
 
 # vim:set sw=2 sts=-1 et:
