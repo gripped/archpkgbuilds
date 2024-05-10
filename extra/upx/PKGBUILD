@@ -6,28 +6,28 @@
 # Contributor: Wang Haoyu
 
 pkgname=upx
-pkgver=4.2.3
+pkgver=4.2.4
 pkgrel=1
 pkgdesc='Extendable, high-performance executable packer for several executable formats'
 arch=(x86_64)
 url='https://github.com/upx/upx'
 license=(custom GPL2)
 makedepends=(cmake git perl)
-# https://github.com/upx/upx/tree/v4.2.3/vendor
-# b='v4.2.3'; for x in doctest lzma-sdk ucl valgrind zlib; do echo "git+\$url-vendor-$x#commit=$(git ls-remote https://github.com/upx/upx-vendor-$x $b-upx-vendor | cut -b-40)"; done
+# https://github.com/upx/upx/tree/v4.2.4/vendor
+# b='v4.2.4'; for x in doctest lzma-sdk ucl valgrind zlib; do echo "git+\$url-vendor-$x#commit=$(git ls-remote https://github.com/upx/upx-vendor-$x $b-upx-vendor | cut -b-40)"; done
 source=(
-  git+$url-vendor-doctest#commit=6f57b91261fef5d19fd1abd7b917eec847cc7389
-  git+$url-vendor-lzma-sdk#commit=f0b8d236c1bdf66532a198c983469da5c05593cf
-  git+$url-vendor-ucl#commit=2c68ae51994892b9080328617a84296ee55f0c80
-  git+$url-vendor-valgrind#commit=7d98b64a47e96dad7a618822a99425d7800cc233
-  git+$url-vendor-zlib#commit=d1e32cf59c1fc95fe7ccecedbbd2098594a39dee
-  "git+$url#commit=5bef96806860382395d9681f3b0c69e0f7e853cf") # tag: v4.2.3
-b2sums=('6f28181ddf95abdd286f0c92001a44931a230dc349bc34f8c72173de2e8f7366104db75df3fe1b88e8656d5dff29be71e5563bcf730a61b916241dd725952c39'
-        '8524395a34a5ffda4d2e7656db33a433e44843a20d5ab38f8080976cae922243eea81849c5feda44a3a5d805740257716cf0e08494da6777fc6c83b981e24deb'
+  "git+$url-vendor-doctest#commit=6a55e3403db0b1e7830ade943884916f32013660"
+  "git+$url-vendor-lzma-sdk#commit=c5e918f7bfbea264baaf737546d87d3123c96898"
+  "git+$url-vendor-ucl#commit=2c68ae51994892b9080328617a84296ee55f0c80"
+  "git+$url-vendor-valgrind#commit=c36826ec65eb9381716af1d02518d1f1f913ffd3"
+  "git+$url-vendor-zlib#commit=8dc83b7c51d5014de10e0196eac9b4dd8096fc1c"
+  "git+$url#commit=3757579ffc6fa8710b4b7a1055529fea9dcaf149") # tag: v4.2.4
+b2sums=('3cc69f814f0b01184f3a61de67311de81757be1731a8ba76c840f65084513f985612e2c374adb41b56459c57d93c6bf44b646fe8ce5cf255ddc7b892a8e6630a'
+        '3898ed1f3d4784e6defb465d3927b4106fdc50b429812801a434c81ed9a1266df6c679c7deee1cc1707b65dd2b1c57a4e3fe40ab3096c51e524af4a1c2d7d6ab'
         '1b278981d40e2afef3dcb4aa8ba60c48072190a6d8ec909c8ec322007f1049fa17da945b1a2ec0dfcd762f8c1bb8c3a68355c675f969f9137ba8121f1faee15c'
-        '1b6c67dd46a3ab5448a19185b1a225c69752b93239241208eda92905bc896fbff0c1426f0e7b777a38f1d0bd8327c435ae695cd85f920f442595feaef1a16128'
-        '9ef23434fd724757f4eeb9f29eaa4f92caec2148b3362ca7995c768e1016d708a63e339b12e5eb43eaa51e62d13f4ddeefe46535a61268df820decfb88843930'
-        'd79fd1e89117612f33ee2f1ac7c537d3e0d6320a3a98a4acc73fa65f45ec11f8305a414d360636c0368451cb746dbb0ac923177943481b23e912267109b4d308')
+        'd58ea351ed6a17ef5b72e02c7d66a5f12deffcef98ed4e64aa1ee0d12e4dc73baada3679cd8297413557a76742ef031e6f00b468184434d962c55391495898d1'
+        'b50bbc526d59d7dbed761707c760e8e98546372951875b15dd90dc15604c5775946208c33ef355c23df0e18e575085d8189e83cc076523ae7cfbe92f72be299d'
+        'f7a64c8d52b315e8538209bf04fc4ce4f992041e55980e9ee0aadf4212ebecbcecd5136c28a44fa5d64e6e74b325ade9a2c6c32263cabe4285fd2b4c7754b5c2')
 
 prepare() {
   cd $pkgname
