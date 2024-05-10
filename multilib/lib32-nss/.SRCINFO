@@ -1,6 +1,6 @@
 pkgbase = lib32-nss
 	pkgdesc = Network Security Services (32-bit)
-	pkgver = 3.99
+	pkgver = 3.100
 	pkgrel = 1
 	url = https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS
 	arch = x86_64
@@ -11,12 +11,13 @@ pkgbase = lib32-nss
 	makedepends = python
 	depends = lib32-nspr>=4.35
 	depends = lib32-p11-kit>=0.23.19
+	depends = lib32-glibc
 	depends = lib32-sqlite
 	depends = lib32-zlib
 	depends = nss
-	source = hg+https://hg.mozilla.org/projects/nss#revision=3594a1841f437338d44afa970a527714d86f36c7
+	source = hg+https://hg.mozilla.org/projects/nss#tag=NSS_3_100_RTM
 	source = 0001-Hack-mpi_x64.s-to-work-with-fno-plt.patch
-	b2sums = SKIP
+	b2sums = 3b116ccfdd49b961055c54f3acb0bbfbc7964241c6ab52c2f911a195726101097d27e65051d7f39b91541dc76bbef43820c068219d3e6d0849fa7e860e217ebb
 	b2sums = 5a1f419e0cb6f61413bba9af4264bb1d8cc5b9a7d679b0b8fcceb030f6eeb50291509cd7317e2129d848048ad023818284f10942ce6d8c1bbcaaebc106a9726e
 
 pkgname = lib32-nss

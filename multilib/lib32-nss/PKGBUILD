@@ -7,7 +7,7 @@ pkgbase=lib32-nss
 pkgname=(
   lib32-nss
 )
-pkgver=3.99
+pkgver=3.100
 pkgrel=1
 pkgdesc="Network Security Services (32-bit)"
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
@@ -16,6 +16,7 @@ license=(MPL-2.0)
 depends=(
   'lib32-nspr>=4.35'
   'lib32-p11-kit>=0.23.19'
+  lib32-glibc
   lib32-sqlite
   lib32-zlib
 
@@ -27,18 +28,12 @@ makedepends=(
   perl
   python
 )
-_revision=3594a1841f437338d44afa970a527714d86f36c7  # NSS_3_99_RTM
 source=(
-  "hg+https://hg.mozilla.org/projects/nss#revision=$_revision"
+  "hg+https://hg.mozilla.org/projects/nss#tag=NSS_${pkgver//./_}_RTM"
   0001-Hack-mpi_x64.s-to-work-with-fno-plt.patch
 )
-b2sums=('SKIP'
+b2sums=('3b116ccfdd49b961055c54f3acb0bbfbc7964241c6ab52c2f911a195726101097d27e65051d7f39b91541dc76bbef43820c068219d3e6d0849fa7e860e217ebb'
         '5a1f419e0cb6f61413bba9af4264bb1d8cc5b9a7d679b0b8fcceb030f6eeb50291509cd7317e2129d848048ad023818284f10942ce6d8c1bbcaaebc106a9726e')
-
-pkgver() {
-  cd nss
-  hg id -t -r. | sed 's/^NSS_//;s/_RTM$//;s/_/./g'
-}
 
 prepare() {
   cd nss
