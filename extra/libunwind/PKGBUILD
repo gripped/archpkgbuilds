@@ -6,11 +6,11 @@
 
 pkgname=libunwind
 pkgver=1.8.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Determine and manipulate the call-chain of a program"
 url="https://www.nongnu.org/libunwind/"
 arch=(x86_64)
-license=(GPL)
+license=(MIT)
 depends=(
   glibc
   xz
@@ -55,6 +55,7 @@ check() {
 package() {
   cd libunwind-$pkgver
   make DESTDIR="$pkgdir" install
+  install -Dm 644 COPYING -t "$pkgdir"/usr/share/licenses/$pkgname
   rm -r "$pkgdir"/usr/libexec
 }
 
