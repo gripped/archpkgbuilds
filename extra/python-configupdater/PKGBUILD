@@ -1,9 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-configupdater
-pkgver=3.1.1
-_commit=0539c207ac57ea4fa6a64618e41b987c5865ffd9
-pkgrel=5
+pkgver=3.2
+pkgrel=1
 pkgdesc="Parser like ConfigParser but for updating configuration files"
 url="https://github.com/pyscaffold/configupdater"
 license=('MIT')
@@ -11,8 +10,8 @@ arch=('any')
 depends=('python')
 makedepends=('git' 'python-setuptools-scm' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
-source=("git+https://github.com/pyscaffold/configupdater.git#commit=$_commit")
-sha512sums=('SKIP')
+source=("git+https://github.com/pyscaffold/configupdater.git#tag=v$pkgver")
+sha512sums=('1cdcce14b8d5445b3c10dde49f3887868db0cf85a1841a4735be36385508c5042418f5b4237e978c6a2136578836b4882c8a62966d6005de6e650f9a85cad5f0')
 
 prepare() {
   sed -i '/--cov configupdater/d' configupdater/setup.cfg
