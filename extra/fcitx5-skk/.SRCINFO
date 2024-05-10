@@ -1,19 +1,18 @@
 pkgbase = fcitx5-skk
 	pkgdesc = libskk wrapper for Fcitx5
-	pkgver = 5.1.2
+	pkgver = 5.1.3
 	pkgrel = 1
 	url = https://github.com/fcitx/fcitx5-skk
 	arch = x86_64
 	license = GPL
+	makedepends = git
 	makedepends = extra-cmake-modules
 	makedepends = ninja
 	depends = fcitx5-qt
 	depends = libskk
 	depends = skk-jisyo
-	source = https://download.fcitx-im.org/fcitx5/fcitx5-skk/fcitx5-skk-5.1.2.tar.xz
-	source = https://download.fcitx-im.org/fcitx5/fcitx5-skk/fcitx5-skk-5.1.2.tar.xz.sig
+	source = git+https://github.com/fcitx/fcitx5-skk.git#tag=5.1.3?signed
 	validpgpkeys = 2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9
-	sha512sums = 8e2fa3aacb98b0ac5c4fac4b4e4f0dbdfb7a889fe9130336fcf75bc3ad4bcd3301d15685f2df5f7507bab1fa308daa1d160af9880fff41c4d34d77db20e54b2d
-	sha512sums = SKIP
+	sha512sums = b26013f91d61ce2bf66d07dbdbebc4ee377c217ee97d81faabb517e24c85898a1a897e0e84af5458caa4adfd6ca0ef68c1d908d4cc5143d9f12cd2797d04a605
 
 pkgname = fcitx5-skk
