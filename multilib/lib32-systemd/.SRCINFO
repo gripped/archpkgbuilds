@@ -1,11 +1,11 @@
 pkgbase = lib32-systemd
 	pkgdesc = system and service manager (32-bit)
-	pkgver = 255.5
+	pkgver = 255.6
 	pkgrel = 1
 	url = https://www.github.com/systemd/systemd
 	arch = x86_64
 	license = LGPL-2.1-or-later
-	checkdepends = systemd=255.5
+	checkdepends = systemd
 	makedepends = git
 	makedepends = gperf
 	makedepends = intltool
@@ -22,7 +22,7 @@ pkgbase = lib32-systemd
 	makedepends = libxslt
 	makedepends = meson
 	makedepends = python-jinja
-	depends = systemd-libs=255.5
+	depends = systemd-libs
 	depends = lib32-gcc-libs
 	depends = lib32-libcap
 	depends = lib32-libgcrypt
@@ -31,13 +31,13 @@ pkgbase = lib32-systemd
 	depends = lib32-zstd
 	provides = libsystemd.so
 	provides = libudev.so
-	source = git+https://github.com/systemd/systemd-stable#tag=v255.5?signed
+	source = git+https://github.com/systemd/systemd-stable#tag=v255.6?signed
 	source = git+https://github.com/systemd/systemd#tag=v255?signed
 	validpgpkeys = 63CDA1E5D3FC22B998D20DD6327F26951A015CC4
 	validpgpkeys = A9EA9081724FFAE0484C35A1A81CEA22BC8C7E2E
 	validpgpkeys = 9A774DB5DB996C154EBBFBFDA0099A18E29326E1
 	validpgpkeys = 5C251B5FC54EB2F80F407AAAC54CA336CFEB557E
-	sha512sums = ab0d47a29d60cb88f0934a9204c71cd78e2f5f568b9da532fdd4f8da55a352fce51cbcbaf17dc1a6f5b3c43ed7579876c724abcc2af5d8c4d3979f2ede60982f
+	sha512sums = c1de1eb0d0ef6d8da81a105cdfcb86634bed6f46ab1038de9ab786fd85f59524e7eb30fe1d02dbf2c3b3a29dc66d04a102b2274a09ad3d2c18953c380099aa0e
 	sha512sums = d430427987309483c99062adb02741d25239ba5fbb97053ef817c0c5a0a935328af9c8b651de2b119b0e851dcf6623f01343859735ff81d7013ab0133e67c7ea
 
 pkgname = lib32-systemd
