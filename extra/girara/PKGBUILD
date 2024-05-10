@@ -5,8 +5,8 @@
 # Contributor: mlq <mlq@pwmt.org>
 
 pkgname=girara
-pkgver=0.4.3
-pkgrel=3
+pkgver=0.4.4
+pkgrel=1
 pkgdesc="User interface library focused on simplicity and minimalism"
 url="https://pwmt.org/projects/girara"
 arch=('x86_64')
@@ -17,8 +17,8 @@ conflicts=('girara-gtk3' 'girara-common')
 depends=('gtk3' 'glib2' 'json-glib' 'pango' 'glibc')
 makedepends=('meson' 'ninja' 'doxygen' 'check')
 checkdepends=('xorg-server-xvfb')
-source=("${pkgname}-${pkgver}.tar.gz::https://git.pwmt.org/pwmt/${pkgname}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('0dcde66101f5779c879f5847e8cb9d5777c6fa803733b6fe9c05e17385b608cc02f2e119d456aa4810f623290057e9344bbcc6a64b4b36b4733b60b7e8d885b6')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pwmt/${pkgname}/archive/refs/tags/${pkgver}.tar.gz")
+sha512sums=('4c106c2156ff397caad2c173cbfb5f2dc8f4574a59c70e7d04e941fd5273948c7e2cc4662b91a489dc689e6537b72bdb1771849cf7775d6afa167f2616a3d4c7')
 
 build() {
         cd "${pkgname}-${pkgver}"
