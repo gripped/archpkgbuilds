@@ -4,14 +4,14 @@
 
 pkgname=zathura-cb
 pkgver=0.1.10
-pkgrel=6
+pkgrel=7
 pkgdesc="Adds comic book support to zathura"
 url="https://pwmt.org/projects/zathura-cb/"
 arch=('x86_64')
 license=('Zlib')
 depends=('zathura' 'libarchive' 'desktop-file-utils')
 makedepends=('meson' 'ninja')
-source=("${pkgname}-${pkgver}.tar.gz::https://git.pwmt.org/pwmt/${pkgname}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pwmt/${pkgname}/archive/refs/tags/${pkgver}.tar.gz")
 sha512sums=('5f0de7b6991ca35996b9fc1d32527618b3d0df813d7803ceb7bfcd24762262ab780b01cc8f8aac5ffeb7ca42fac2ba65fd90f74000c9b1bc686d4c4af6ad2a69')
 
 build() {
