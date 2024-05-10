@@ -6,14 +6,14 @@
 
 pkgname=zathura-pdf-poppler
 pkgver=0.3.2
-pkgrel=4
+pkgrel=5
 pkgdesc="Adds pdf support to zathura by using the poppler engine"
 url="https://pwmt.org/projects/zathura-pdf-poppler/"
 arch=('x86_64')
 license=('Zlib')
 depends=('poppler-glib' 'zathura' 'desktop-file-utils')
 makedepends=('meson' 'ninja')
-source=("${pkgname}-${pkgver}.tar.gz::https://git.pwmt.org/pwmt/${pkgname}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pwmt/${pkgname}/archive/refs/tags/${pkgver}.tar.gz")
 sha512sums=('5e6d748f9dfcc9e318ee7947d3a4d9acbbb30d6b45810a7c2fd2d0572d98872f5d594add8683b6579791fb82846a3d7854e84239ac5167c0541e700518a31043')
 
 build() {
