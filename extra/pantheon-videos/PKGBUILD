@@ -3,16 +3,13 @@
 
 pkgname=pantheon-videos
 pkgver=3.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='The Pantheon Video Player'
 arch=(x86_64)
 url='https://github.com/elementary/videos'
 license=(GPL3)
 groups=(pantheon)
 depends=(
-  clutter
-  clutter-gst
-  clutter-gtk
   gdk-pixbuf2
   glib2
   gst-plugins-base-libs
@@ -21,7 +18,6 @@ depends=(
   libgee
   libgranite.so
   libhandy-1.so
-  libx11
 )
 makedepends=(
   git
