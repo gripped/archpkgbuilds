@@ -7,14 +7,14 @@
 
 pkgname=cinnamon
 pkgver=6.0.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Linux desktop which provides advanced innovative features and a traditional user experience"
 arch=(x86_64)
 url="https://github.com/linuxmint/cinnamon"
 license=(GPL2)
 depends=(accountsservice caribou cinnamon-control-center cinnamon-menus cinnamon-screensaver
          cinnamon-session cinnamon-settings-daemon cjs gnome-backgrounds gsound
-         gstreamer libcroco libgnomekbd libkeybinder3 librsvg muffin
+         gstreamer libgnomekbd libkeybinder3 librsvg muffin
          network-manager-applet nemo polkit-gnome python-cairo python-dbus
          python-gobject python-pam python-pexpect python-pillow python-pyinotify
          python-pytz python-tinycss2 python-xapp python-requests timezonemap xapps xdg-desktop-portal-xapp)
@@ -24,7 +24,6 @@ optdepends=('blueman: Bluetooth support'
             'metacity: fallback mode'
             'system-config-printer: printer settings'
             'wget: cover download support in audio applet'
-            'gnome-themes-extra: GTK2 themes'
             'gnome-terminal: X terminal emulator'
             'touchegg: touch gestures'
             'switcheroo-control: GPU offloading')
