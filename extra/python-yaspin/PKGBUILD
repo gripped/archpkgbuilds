@@ -1,31 +1,30 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-yaspin
-pkgver=2.5.0
-pkgrel=2
+pkgver=3.0.0
+pkgrel=1
 pkgdesc="Yet Another Terminal Spinner"
 url="https://github.com/pavdmyt/yaspin"
 license=('MIT')
 arch=('any')
 depends=('python-termcolor')
-makedepends=('python-build' 'python-installer' 'python-poetry-core')
+makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core')
 checkdepends=('python-pytest')
-source=("https://github.com/pavdmyt/yaspin/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('90c270810312eea1de88119939439f7bb24a215711838e5a4a67a7353e9450283aaa82ea2bc0facfff187c221e6fbc5275a9510cf889eda5e7d426f5bb7fa690')
+source=("git+https://github.com/pavdmyt/yaspin.git#tag=v$pkgver")
+sha512sums=('82cf304a451c5af9d11f6d054ada605eb3f7877e2199bc50d442e4ff42798b571b4ed49d7ae0846f0c582479ca4556a2d8be7e0511fd1c685e325a54e27e6730')
 
 build() {
-  cd yaspin-$pkgver
+  cd yaspin
   python -m build --no-isolation --wheel
 }
 
 check() {
-  cd yaspin-$pkgver
-  # 2048 tests fail since Python 3.11
-  python -m pytest || true
+  cd yaspin
+  FORCE_COLOR=1 python -m pytest
 }
 
 package() {
-  cd yaspin-$pkgver
+  cd yaspin
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
