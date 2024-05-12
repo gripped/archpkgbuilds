@@ -1,0 +1,245 @@
+From 897b63a1c90e9d7c939e65a65615fbe1ffee1591 Mon Sep 17 00:00:00 2001
+From: "F. Duncanh" <fduncanh@gmail.com>
+Date: Thu, 9 May 2024 19:44:55 -0400
+Subject: [PATCH] append _u8 to plist_new_data, get_data_val, set_data_val,
+ get_data_ptr
+
+add back compatibility wrappers with previous names.
+---
+ cython/plist.pyx      | 16 ++++++++++------
+ include/plist/plist.h | 21 +++++++++++++++------
+ src/Data.cpp          |  8 ++++----
+ src/Node.cpp          |  2 +-
+ src/plist.c           | 32 ++++++++++++++++++++++++++++----
+ 5 files changed, 58 insertions(+), 21 deletions(-)
+
+diff --git a/cython/plist.pyx b/cython/plist.pyx
+index a16e7bec..ebf835bb 100644
+--- a/cython/plist.pyx
++++ b/cython/plist.pyx
+@@ -48,9 +48,13 @@ cdef extern from *:
+     void plist_get_string_val(plist_t node, char **val)
+     void plist_set_string_val(plist_t node, char *val)
+ 
+-    plist_t plist_new_data(uint8_t *val, uint64_t length)
+-    void plist_get_data_val(plist_t node, uint8_t **val, uint64_t * length)
+-    void plist_set_data_val(plist_t node, uint8_t *val, uint64_t length)
++    plist_t plist_new_data_u8(uint8_t *val, uint64_t length)
++    void plist_get_data_val_u8(plist_t node, uint8_t **val, uint64_t * length)
++    void plist_set_data_val_u8(plist_t node, uint8_t *val, uint64_t length)
++
++    plist_t plist_new_data(char *val, uint64_t length)
++    void plist_get_data_val(plist_t node, char **val, uint64_t * length)
++    void plist_set_data_val(plist_t node, char *val, uint64_t length)
+ 
+     plist_t plist_new_null();
+ 
+@@ -554,9 +558,9 @@ cdef Date Date_factory(plist_t c_node, bint managed=True):
+ cdef class Data(Node):
+     def __cinit__(self, object value=None, *args, **kwargs):
+         if value is None:
+-            self._c_node = plist_new_data(NULL, 0)
++            self._c_node = plist_new_data_u8(NULL, 0)
+         else:
+-            self._c_node = plist_new_data(value, len(value))
++            self._c_node = plist_new_data_u8(value, len(value))
+ 
+     def __repr__(self):
+         d = self.get_value()
+@@ -581,7 +585,7 @@ cdef class Data(Node):
+         cdef:
+             uint8_t* val = NULL
+             uint64_t length = 0
+-        plist_get_data_val(self._c_node, &val, &length)
++        plist_get_data_val_u8(self._c_node, &val, &length)
+ 
+         try:
+             return bytes(val[:length])
+diff --git a/include/plist/plist.h b/include/plist/plist.h
+index 7d5b4cb9..c2df36da 100644
+--- a/include/plist/plist.h
++++ b/include/plist/plist.h
+@@ -258,8 +258,11 @@ extern "C"
+      * @return the created item
+      * @sa #plist_type
+      */
+-    PLIST_API plist_t plist_new_data(const uint8_t *val, uint64_t length);
+ 
++    PLIST_API plist_t plist_new_data_u8(const uint8_t *val, uint64_t length);
++    /* deprecated version, do not use in new code */
++    PLIST_API plist_t plist_new_data (const char *val, uint64_t length);
++  
+     /**
+      * Create a new plist_t type #PLIST_DATE
+      *
+@@ -755,7 +758,10 @@ extern "C"
+      * @param length the length of the buffer
+      * @note Use plist_mem_free() to free the allocated memory.
+      */
+-    PLIST_API void plist_get_data_val(plist_t node, uint8_t **val, uint64_t * length);
++
++    PLIST_API void plist_get_data_val_u8(plist_t node, uint8_t **val, uint64_t * length);
++    /* deprecated version, do not use in new code */
++    PLIST_API void plist_get_data_val(plist_t node, char **val, uint64_t * length);
+ 
+     /**
+      * Get a pointer to the data buffer of a #PLIST_DATA node.
+@@ -768,8 +774,10 @@ extern "C"
+      *
+      * @return Pointer to the buffer
+      */
+-    PLIST_API const uint8_t* plist_get_data_ptr(plist_t node, uint64_t* length);
+-
++     PLIST_API const uint8_t* plist_get_data_ptr_u8(plist_t node, uint64_t* length);
++     /* deprecated version, do not use in new code */
++     PLIST_API const char* plist_get_data_ptr(plist_t node, uint64_t* length);
++  
+     /**
+      * Get the value of a #PLIST_DATE node.
+      * This function does nothing if node is not of type #PLIST_DATE
+@@ -860,8 +868,9 @@ extern "C"
+      *		be freed by the node.
+      * @param length the length of the buffer
+      */
+-    PLIST_API void plist_set_data_val(plist_t node, const uint8_t *val, uint64_t length);
+-
++    PLIST_API void plist_set_data_val_u8(plist_t node, const uint8_t *val, uint64_t length);
++    /* deprecated version, do not use in new code */
++    PLIST_API void plist_set_data_val(plist_t node, const char *val, uint64_t length);
+     /**
+      * Set the value of a node.
+      * Forces type of node to #PLIST_DATE
+diff --git a/src/Data.cpp b/src/Data.cpp
+index c4709f72..88cc94a2 100644
+--- a/src/Data.cpp
++++ b/src/Data.cpp
+@@ -35,7 +35,7 @@ Data::Data(plist_t node, Node* parent) : Node(node, parent)
+ Data::Data(const PList::Data& d) : Node(PLIST_DATA)
+ {
+     std::vector<uint8_t> b = d.GetValue();
+-    plist_set_data_val(_node, &b[0], b.size());
++    plist_set_data_val_u8(_node, &b[0], b.size());
+ }
+ 
+ Data& Data::operator=(const PList::Data& b)
+@@ -47,7 +47,7 @@ Data& Data::operator=(const PList::Data& b)
+ 
+ Data::Data(const std::vector<uint8_t>& buff) : Node(PLIST_DATA)
+ {
+-    plist_set_data_val(_node, &buff[0], buff.size());
++    plist_set_data_val_u8(_node, &buff[0], buff.size());
+ }
+ 
+ Data::~Data()
+@@ -61,14 +61,14 @@ Node* Data::Clone() const
+ 
+ void Data::SetValue(const std::vector<uint8_t>& buff)
+ {
+-    plist_set_data_val(_node, &buff[0], buff.size());
++    plist_set_data_val_u8(_node, &buff[0], buff.size());
+ }
+ 
+ std::vector<uint8_t> Data::GetValue() const
+ {
+     uint8_t* buff = NULL;
+     uint64_t length = 0;
+-    plist_get_data_val(_node, &buff, &length);
++    plist_get_data_val_u8(_node, &buff, &length);
+     std::vector<uint8_t> ret(buff, buff + length);
+     delete buff;
+     return ret;
+diff --git a/src/Node.cpp b/src/Node.cpp
+index 0bd428a7..4185f399 100644
+--- a/src/Node.cpp
++++ b/src/Node.cpp
+@@ -70,7 +70,7 @@ Node::Node(plist_type type, Node* parent) : _parent(parent)
+ 	_node = plist_new_uid(0);
+ 	break;
+     case PLIST_DATA:
+-        _node = plist_new_data(NULL,0);
++        _node = plist_new_data_u8(NULL,0);
+         break;
+     case PLIST_DATE:
+         _node = plist_new_date(0,0);
+diff --git a/src/plist.c b/src/plist.c
+index d1b0b5ac..427a73f7 100644
+--- a/src/plist.c
++++ b/src/plist.c
+@@ -544,7 +544,7 @@ plist_t plist_new_real(double val)
+     return plist_new_node(data);
+ }
+ 
+-plist_t plist_new_data(const uint8_t *val, uint64_t length)
++plist_t plist_new_data_u8(const uint8_t *val, uint64_t length)
+ {
+     plist_data_t data = plist_new_plist_data();
+     data->type = PLIST_DATA;
+@@ -554,6 +554,12 @@ plist_t plist_new_data(const uint8_t *val, uint64_t length)
+     return plist_new_node(data);
+ }
+ 
++/* deprecated version, included for compatibility */
++plist_t plist_new_data(const char *val, uint64_t length)
++{
++    return plist_new_data_u8((const uint8_t *) val, length);
++}
++
+ plist_t plist_new_date(int32_t sec, int32_t usec)
+ {
+     plist_data_t data = plist_new_plist_data();
+@@ -1385,7 +1391,7 @@ void plist_get_real_val(plist_t node, double *val)
+     assert(length == sizeof(double));
+ }
+ 
+-void plist_get_data_val(plist_t node, uint8_t **val, uint64_t * length)
++void plist_get_data_val_u8(plist_t node, uint8_t **val, uint64_t * length)
+ {
+     if (!node || !val || !length)
+         return;
+@@ -1395,7 +1401,13 @@ void plist_get_data_val(plist_t node, uint8_t **val, uint64_t * length)
+     plist_get_type_and_value(node, &type, (void *) val, length);
+ }
+ 
+-const uint8_t* plist_get_data_ptr(plist_t node, uint64_t* length)
++/* deprecated version, included for compatibility */
++void plist_get_data_val(plist_t node, char **val, uint64_t * length)
++{
++    plist_get_data_val_u8(node, (uint8_t **) val, length);
++}
++
++const uint8_t* plist_get_data_ptr_u8(plist_t node, uint64_t* length)
+ {
+     if (!node || !length)
+         return NULL;
+@@ -1407,6 +1419,12 @@ const uint8_t* plist_get_data_ptr(plist_t node, uint64_t* length)
+     return data->buff;
+ }
+ 
++/* deprecated version, included for compatibility */
++const char* plist_get_data_ptr(plist_t node, uint64_t* length)
++{
++    return (const char *) plist_get_data_ptr_u8(node, length);
++}
++
+ void plist_get_date_val(plist_t node, int32_t * sec, int32_t * usec)
+ {
+     if (!node)
+@@ -1575,11 +1593,17 @@ void plist_set_real_val(plist_t node, double val)
+     plist_set_element_val(node, PLIST_REAL, &val, sizeof(double));
+ }
+ 
+-void plist_set_data_val(plist_t node, const uint8_t *val, uint64_t length)
++void plist_set_data_val_u8(plist_t node, const uint8_t *val, uint64_t length)
+ {
+     plist_set_element_val(node, PLIST_DATA, val, length);
+ }
+ 
++/* deprecated version, included for compatibility */
++void plist_set_data_val(plist_t node, const char *val, uint64_t length)
++{
++    plist_set_data_val_u8(node, (const uint8_t *) val, length);
++}
++
+ void plist_set_date_val(plist_t node, int32_t sec, int32_t usec)
+ {
+     double val = (double)sec + (double)usec / 1000000;

@@ -5,30 +5,42 @@
 
 pkgname=libplist
 pkgver=2.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Library to handle Apple Property List files'
 arch=('x86_64')
 url='https://libimobiledevice.org/'
 license=('LGPL-2.1-or-later')
 depends=('gcc-libs' 'glibc')
-makedepends=('cython' 'python' 'python-setuptools')
+makedepends=('cython' 'git' 'python' 'python-setuptools')
 optdepends=('python: Python bindings')
-source=("https://github.com/libimobiledevice/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.bz2")
-sha256sums=('72742f20a73e0a6367fbcadaf48cf903bfa45a3642a11f2224ed850d1f1e5683')
+source=("git+https://github.com/libimobiledevice/libplist.git#tag=$pkgver"
+        'libplist-fix-api-break.patch')
+b2sums=('6e0219ede2b230d2242975d7efa6a5461d11d6b086e5378600d83ce885d6cb99b75b7e498fcbafd47b33c75d8e985414a6d27c509ea97ddaa780d118858d1929'
+        'c5243f38bc27680962bc12d30ec3c015bf22194c8696134b7f8ec5550fea9ea6c7eaf54333a59556809ceea119e76d07321c9b2a83377d02b8ef76d652d2c2cc')
+
+prepare() {
+  cd $pkgname
+
+  # restore compatibility with older API after breakage by libplist-2.5.0
+  # https://github.com/libimobiledevice/libplist/pull/261
+  patch -Np1 -i ../libplist-fix-api-break.patch
+
+  NOCONFIGURE=1 ./autogen.sh
+}
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   ./configure --prefix=/usr
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
 
 check() {    
-  cd $pkgname-$pkgver
+  cd $pkgname
   make check  
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
