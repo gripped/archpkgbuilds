@@ -1,20 +1,20 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-qt6integration
-pkgver=6.0.4
-pkgrel=4
+pkgver=6.0.8
+pkgrel=1
 pkgdesc='Qt 6 platform theme integration plugins for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/qt6integration"
 license=('GPL3')
 depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'glibc' 'gcc-libs')
-makedepends=('cmake' 'ninja' 'qt6-tools' 'xcb-util-renderutil' 'gtest')
+makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'xcb-util-renderutil' 'gtest')
 groups=('deepin')
-source=("https://github.com/linuxdeepin/qt6integration/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('619aaf8f82c5dda155e04df5dd17525be7d42656e8e5f19a7980d3ea63b8a9ef6b9255dd679ade9f1681f8b4eb500b31f8b82e83a96313c50f3b10f061d675ba')
+source=("git+https://github.com/linuxdeepin/qt6integration.git#tag=$pkgver")
+sha512sums=('6843814ef4402ccae11da31d54863f330ecbf39471537b94e1a927d130b7cc68a511c88b9254d9a10bad26c9d1bdb30bead5cf10157f039f7a4e63633cdb953b')
 
 build() {
-  cd qt6integration-$pkgver
+  cd qt6integration
   cmake . -GNinja \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -23,6 +23,6 @@ build() {
 }
 
 package() {
-  cd qt6integration-$pkgver
+  cd qt6integration
   DESTDIR="$pkgdir" ninja install
 }
