@@ -1,19 +1,20 @@
 pkgbase = shadowsocks-rust
 	pkgdesc = A Rust port of shadowsocks
-	pkgver = 1.18.3
+	pkgver = 1.18.4
 	pkgrel = 1
 	url = https://github.com/shadowsocks/shadowsocks-rust
 	arch = x86_64
 	license = MIT
+	makedepends = git
 	makedepends = cargo
 	depends = glibc
 	depends = gcc-libs
 	depends = openssl
 	options = !lto
-	source = shadowsocks-rust-1.18.3.tar.gz::https://github.com/shadowsocks/shadowsocks-rust/archive/v1.18.3.tar.gz
+	source = git+https://github.com/shadowsocks/shadowsocks-rust.git#tag=v1.18.4
 	source = shadowsocks-rust@.service
 	source = shadowsocks-rust-server@.service
-	sha512sums = 725853073949703f16dfad8e4266ae477fa0209f61b11cb49d1cc0f3b3848602051a6852cd20f7734cda069080b9187f1ba7973b702336343c146250263c16d6
+	sha512sums = ebf585866868d15a44a4bfab802192c433b4f648941fe0c0b6f624cf97695cfeaebbf8111edb5191ade19d1b89e2dca579aed4b87ae4d067a8186c8b87fa6d7e
 	sha512sums = 90ee8735104795b5c50bc855ad11ee9c741fa1695409d72de7c69b89b0aa80c9596459edbb3a2c1d49e9414e3d06bc55328126c0062f1e28cac141ea202e455d
 	sha512sums = ef5a348dfbbfd0bad733da217824dd55851aff3490c63685e9f1bc2b393998fea1bdad864c16a98b8af07264851bb0a11326959529a669008c5e62e94b26b209
 
