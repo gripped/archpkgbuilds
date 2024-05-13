@@ -1,11 +1,15 @@
 pkgbase = singular
 	pkgdesc = Computer Algebra System for polynomial computations
-	pkgver = 4.3.2.p16
+	pkgver = 4.4.0
 	pkgrel = 1
 	url = https://www.singular.uni-kl.de/
 	arch = x86_64
 	license = GPL
+	makedepends = 4ti2
+	makedepends = git
 	makedepends = latex2html
+	makedepends = lrcalc
+	makedepends = normaliz
 	makedepends = sharutils
 	makedepends = texlive-basic
 	makedepends = texlive-bin
@@ -16,12 +20,11 @@ pkgbase = singular
 	depends = gcc-libs
 	depends = glibc
 	depends = gmp
-	depends = normaliz
 	depends = ntl
 	depends = readline
 	provides = singular-factory
 	options = !zipman
-	source = ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/SOURCES/4-3-2/singular-4.3.2p16.tar.gz
-	sha256sums = 675733ba13a6ec67c564e753139f7c0c4b0d3e29bdb995de5341b616f1472a16
+	source = git+https://github.com/Singular/Singular#tag=Release-4-4-0
+	sha256sums = 3d111eaa19abf091d9d44ab378accb3f2b9584d49ec903be35625aecfa17c70b
 
 pkgname = singular
