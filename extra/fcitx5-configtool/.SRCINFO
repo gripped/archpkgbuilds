@@ -1,11 +1,12 @@
 pkgbase = fcitx5-configtool
 	pkgdesc = Configuration Tool for Fcitx5
-	pkgver = 5.1.4
+	pkgver = 5.1.5
 	pkgrel = 1
 	url = https://github.com/fcitx/fcitx5-configtool
 	arch = x86_64
 	groups = fcitx5-im
 	license = GPL
+	makedepends = git
 	makedepends = extra-cmake-modules
 	makedepends = kcmutils
 	makedepends = kdeclarative
@@ -28,10 +29,8 @@ pkgbase = fcitx5-configtool
 	provides = kcm-fcitx5
 	conflicts = kcm-fcitx5
 	replaces = kcm-fcitx5
-	source = https://download.fcitx-im.org/fcitx5/fcitx5-configtool/fcitx5-configtool-5.1.4.tar.xz
-	source = https://download.fcitx-im.org/fcitx5/fcitx5-configtool/fcitx5-configtool-5.1.4.tar.xz.sig
+	source = git+https://github.com/fcitx/fcitx5-configtool.git#tag=5.1.5?signed
 	validpgpkeys = 2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9
-	sha512sums = 95ac4a8b8c261ae990d30d34ffa02f14f00916197f8f9f81ca4dd8a33c609124b1cfb25ce3ff8ccb653409879606f7f97dc0fd01e8e1d7f2ddba8bdfc51ac6eb
-	sha512sums = SKIP
+	sha512sums = e89970484c2588b181e456b6a81ff23156c39d82364ab32aa9069fcb5d3b2df233b117b0742d09ccd6342dc4681908123f2d64b611e5720143a75501e5ee9cb4
 
 pkgname = fcitx5-configtool

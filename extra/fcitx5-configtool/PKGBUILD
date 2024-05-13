@@ -2,7 +2,7 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-configtool
-pkgver=5.1.4
+pkgver=5.1.5
 pkgrel=1
 pkgdesc="Configuration Tool for Fcitx5"
 arch=('x86_64')
@@ -18,17 +18,17 @@ optdepends=('kcmutils: for KCM support'
             'kirigami: for KCM support'
             'ksvg: for KCM support'
             'libplasma: for fcitx5-plasma-theme-generator')
-makedepends=('extra-cmake-modules' 'kcmutils' 'kdeclarative' 'kirigami' 'ksvg' 'libplasma' 'ninja' 'python')
-source=("https://download.fcitx-im.org/fcitx5/$pkgname/$pkgname-$pkgver.tar.xz"{,.sig})
-sha512sums=('95ac4a8b8c261ae990d30d34ffa02f14f00916197f8f9f81ca4dd8a33c609124b1cfb25ce3ff8ccb653409879606f7f97dc0fd01e8e1d7f2ddba8bdfc51ac6eb'
-            'SKIP')
+makedepends=('git' 'extra-cmake-modules' 'kcmutils' 'kdeclarative' 'kirigami' 'ksvg' 'libplasma'
+             'ninja' 'python')
+source=("git+https://github.com/fcitx/fcitx5-configtool.git#tag=$pkgver?signed")
+sha512sums=('e89970484c2588b181e456b6a81ff23156c39d82364ab32aa9069fcb5d3b2df233b117b0742d09ccd6342dc4681908123f2d64b611e5720143a75501e5ee9cb4')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
 prepare() {
   mkdir -p build
 }
 
-build(){
+build() {
   cd build
 
   cmake \
@@ -37,7 +37,7 @@ build(){
     -DCMAKE_INSTALL_LIBDIR=/usr/lib \
     -DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
     -DUSE_QT6=ON \
-    ../$pkgname-$pkgver
+    ../$pkgname
   ninja
 }
 
