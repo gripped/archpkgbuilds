@@ -4,7 +4,7 @@
 _name=PyMuPDF
 pkgname=python-pymupdf
 pkgver=1.24.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Python bindings for MuPDF's rendering library"
 arch=(x86_64)
 url="https://github.com/pymupdf/PyMuPDF"
@@ -101,8 +101,6 @@ check() {
     --deselect tests/test_pylint.py::test_pylint
     # some textbox stuff again: https://github.com/pymupdf/PyMuPDF/issues/3398
     --deselect tests/test_textbox.py::test_textbox3
-    # broken test as of v1.24.3: https://github.com/pymupdf/PyMuPDF/issues/3460
-    --deselect tests/test_balance_count.py::test_q_count
   )
   local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
