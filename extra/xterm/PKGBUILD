@@ -3,15 +3,16 @@
 # Contributor: Alexander Baldeck <alexander@archlinux.org>
 
 pkgname=xterm
-pkgver=390
-pkgrel=2
+pkgver=391
+pkgrel=1
 pkgdesc="X Terminal Emulator"
 arch=('x86_64')
 url="https://invisible-island.net/xterm/"
 license=('custom')
 depends=('libxft' 'libxaw' 'ncurses' 'luit' 'xbitmaps' 'libutempter' 'libxkbfile')
+optdepends=('xorg-mkfontscale: font scaling')
 source=(https://invisible-mirror.net/archives/${pkgname}/${pkgname}-${pkgver}.tgz{,.asc})
-sha256sums=('75117c3cc5174a09c425ef106e69404d72f5ef05e03a5da00aaf15792d6f9c0f'
+sha256sums=('6091371e94de867ce186cc1bc306947b0482d71631847fdeab7982acb20ae6b8'
             'SKIP')
 #validpgpkeys=('C52048C0C0748FEE227D47A2702353E0F7E48EDB') # "Thomas Dickey <dickey@invisible-island.net>"
 validpgpkeys=('19882D92DDA4C400C22C0D56CC2AF4472167BE03') # "Thomas E. Dickey (self-signed w/o SHA1) <dickey@invisible-island.net>"
