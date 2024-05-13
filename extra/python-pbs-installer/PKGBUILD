@@ -2,8 +2,8 @@
 
 pkgname=python-pbs-installer
 _name="${pkgname#python-}"
-pkgver=2024.4.1
-pkgrel=2
+pkgver=2024.4.24
+pkgrel=1
 pkgdesc="Installer for Python Build Standalone"
 arch=(any)
 url="https://github.com/frostming/pbs-installer"
@@ -21,8 +21,8 @@ optdepends=(
   'python-zstandard: for zstd installation support'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('407ffc7a7f5430d8f889f32b53614cc2c5e3fb05937905d6b43c7ca9151f3d5cb794bcd60633e4945dc62555cc6575d75e0b7b7a1e5dc0c9f99c2318fada3a10')
-b2sums=('5455b00dd08881e78fbbc9b565e9224ee7d04f17855da9869fcb420fcbf8ee3743e6f21113d406bcfb66e786788735bd1ef2d3bfa30a14a5a74fb2c36e8f3d0a')
+sha512sums=('7bd440e1522a1c826dcfac801763ad256d79f60315a30828082ea65169e5f4cc8527866491a5c4d84d847150ed6f90167b550104031f417e0103640e2c291aeb')
+b2sums=('f56483899dc7795d0334b4698e08f71799ede456fdb7f78accc9278f32437a6b785055ec0b61854c6ec05663bc3b4bd41be8d45138a5793dcab35aa80da32de8')
 
 build() {
   cd $_name-$pkgver
