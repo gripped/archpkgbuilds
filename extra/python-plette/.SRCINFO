@@ -1,18 +1,19 @@
 pkgbase = python-plette
 	pkgdesc = Structured Pipfile and Pipfile.lock models
-	pkgver = 1.0.0
-	pkgrel = 2
+	pkgver = 2.0.0
+	pkgrel = 1
 	url = https://github.com/sarugaku/plette
 	arch = any
 	license = ISC
 	checkdepends = python-pytest
 	checkdepends = python-cerberus
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
 	depends = python-tomlkit
-	source = python-plette-1.0.0.tar.gz::https://github.com/sarugaku/plette/archive/v1.0.0.tar.gz
-	sha512sums = 72a3f270f76dbf32cb418628f1b24046111a46633603b07fd44fd4ed50d946653afaec070bce8e67a1ecff3ec8607f2476d3b25760c76726218873898bef97ed
+	source = git+https://github.com/sarugaku/plette.git#tag=v2.0.0
+	sha512sums = 928c93f9d3838734e2983859c6cb00d2935ffa60cc28cc9a1e5bdfa77b70adfd69965465939ed85e4ab8c9f3805004d01409818d1fa6e1cf596a0b2217bc9d1e
 
 pkgname = python-plette
