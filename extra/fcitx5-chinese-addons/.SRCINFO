@@ -1,10 +1,11 @@
 pkgbase = fcitx5-chinese-addons
 	pkgdesc = Addons related to Chinese, including IME previous bundled inside fcitx4
-	pkgver = 5.1.4
+	pkgver = 5.1.5
 	pkgrel = 1
 	url = https://github.com/fcitx/fcitx5-chinese-addons
 	arch = x86_64
 	license = GPL
+	makedepends = git
 	makedepends = boost
 	makedepends = extra-cmake-modules
 	makedepends = fcitx5-lua
@@ -17,10 +18,14 @@ pkgbase = fcitx5-chinese-addons
 	depends = qt6-webengine
 	optdepends = fcitx5-lua: Lua and imeapi support from pinyin
 	conflicts = fcitx
-	source = https://download.fcitx-im.org/fcitx5/fcitx5-chinese-addons/fcitx5-chinese-addons-5.1.4_dict.tar.xz
-	source = https://download.fcitx-im.org/fcitx5/fcitx5-chinese-addons/fcitx5-chinese-addons-5.1.4_dict.tar.xz.sig
+	noextract = py_stroke-20121124.tar.gz
+	noextract = py_table-20121124.tar.gz
+	source = git+https://github.com/fcitx/fcitx5-chinese-addons.git#tag=5.1.5?signed
+	source = https://download.fcitx-im.org/data/py_stroke-20121124.tar.gz
+	source = https://download.fcitx-im.org/data/py_table-20121124.tar.gz
 	validpgpkeys = 2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9
-	sha512sums = 99f3cc101532879c126e2699d338528a25531b782a5c1f1e93cd363437567c1ba7b0173aca56f887089d4379e86aecf7977139b5b5c44d54e0bd9a416b01e976
-	sha512sums = SKIP
+	sha512sums = 1edf9068b4054d05739ea0b74db663e7713a055541473cf4e68e4357c512c965f1e8bb6d3258c2f6b18f546080a9e391d1ad5de44373ae092f489580115a105d
+	sha512sums = d80ff9a3549e07c7a6935e686785f9a076c58f1a782a832ae28ee65e2a213d67f089f450ce09bed87ec2a141c32b9c1fcb83c221ddcab436858fa9009f161fb3
+	sha512sums = 0fa72ce6820a316e9729bc0d7a08af5ca3468134de9ff1bf0c559a398846a7bcf7313a3609d943e6bab637d930cf45ad9acfe25a8d3df078a774b071a7296486
 
 pkgname = fcitx5-chinese-addons
