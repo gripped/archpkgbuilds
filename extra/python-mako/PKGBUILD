@@ -1,34 +1,60 @@
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-mako
+_pkgname=${pkgname#python-}
 pkgver=1.3.3
-pkgrel=2
-pkgdesc="A super-fast templating language that borrows the best ideas from the existing templating languages"
-arch=('any')
-url="https://www.makotemplates.org/"
-license=('MIT')
-depends=('python-markupsafe')
-makedepends=('python-setuptools')
-# python-lingua isn't packaged
-checkdepends=('python-pytest' 'python-babel' 'python-beaker' 'python-dogpile.cache'
-              'python-pygments')
-source=("https://pypi.io/packages/source/M/Mako/Mako-$pkgver.tar.gz")
-sha512sums=('fa8bf3997f7a3edc18057f53e8450d72d5c86019229fef91eaa141f0b65a081ca9425c14245227b35aedcccc7dbe52e90bc7dfee34598b490e93cd01fc4a8321')
-validpgpkeys=('83AF7ACE251C13E6BB7DEFBD330239C1C4DAFEE1'   # Michael Bayer
-              '2CA9B722133AF20453401FD1A33AC2044BFDF51E')  # Mako Maintainer
+_pkgver=rel_${pkgver//./_}
+pkgrel=3
+pkgdesc="A template library written in Python"
+arch=(any)
+url="https://github.com/sqlalchemy/mako"
+license=(MIT)
+depends=(
+  python
+  python-markupsafe
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  # python-lingua isn't packaged
+  python-babel
+  python-beaker
+  python-dogpile.cache
+  python-pygments
+  python-pytest
+)
+optdepends=(
+  'python-babel: for i18n features'
+  'python-beaker: for caching support'
+  'python-dogpile.cache: for caching support'
+  'python-pygments: for syntax highlighting'
+  'python-pytest: for testing utilities'
+)
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$_pkgver.tar.gz")
+sha512sums=('d8ffb04d935f47b6559e29cb22337b99c63bb6f5daeedc728d8046b772320f0baed8608bb9d36e1bc69243017a4e9e0c3d4317c98477b416a7beaabb8483983e')
+
+_archive="$_pkgname-$_pkgver"
 
 build() {
-  cd Mako-$pkgver
-  python setup.py build
+  cd "$_archive"
+
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd Mako-$pkgver
-  python -m pytest
+  cd "$_archive"
+
+  pytest
 }
 
 package() {
-  cd Mako-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  cd "$_archive"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
