@@ -1,7 +1,7 @@
 # Maintainer: Christian Hesse <eworm@archlinux.org>
 
 pkgname=lib32-libnghttp3
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 pkgdesc="HTTP/3 library written in C (32-bit)"
 url='https://github.com/ngtcp2/nghttp3'
@@ -11,7 +11,7 @@ depends=('lib32-glibc' 'libnghttp3')
 provides=('libnghttp3.so')
 validpgpkeys=('F4F3B91474D1EB29889BD0EF7E8403D5D673C366') # Tatsuhiro Tsujikawa <tatsuhiro.t@gmail.com>
 source=("https://github.com/ngtcp2/nghttp3/releases/download/v${pkgver}/nghttp3-${pkgver}.tar.xz"{,.asc})
-sha256sums=('d2e216bae7bd7362f850922e4237a5caa204853b3594b22adccab4c1e1c1d1aa'
+sha256sums=('450525981d302f23832b18edd1a62cf58019392ca6402408d0eb1a7f3fd92ecf'
             'SKIP')
 
 prepare() {
