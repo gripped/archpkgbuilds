@@ -1,10 +1,18 @@
 pkgbase = python-trio
 	pkgdesc = A friendly Python library for async concurrency and I/O
 	pkgver = 0.25.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/python-trio/trio
 	arch = any
 	license = MIT
+	checkdepends = python-astor
+	checkdepends = python-black
+	checkdepends = python-isort
+	checkdepends = python-jedi
+	checkdepends = python-pylint
+	checkdepends = python-pytest
+	checkdepends = python-ruff
+	checkdepends = python-trustme
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-setuptools
@@ -12,14 +20,13 @@ pkgbase = python-trio
 	makedepends = python-wheel
 	depends = python
 	depends = python-attrs
-	depends = python-exceptiongroup
 	depends = python-idna
 	depends = python-outcome
 	depends = python-sniffio
 	depends = python-sortedcontainers
 	depends = python-typing_extensions
 	provides = python-multio-provider
-	source = git+https://github.com/python-trio/trio.git#tag=0b8d3e2435ca9cb00a1aab72bf98da334dec2b1c
-	b2sums = SKIP
+	source = git+https://github.com/python-trio/trio.git#tag=v0.25.0
+	b2sums = 9bbb93dee455fd2a48d2199ff2b3faf964a71fb33116fecbd82a2edca05e747ac619a737f303242873884cb543c5a891f13eac1b4da5cbc9467c8ef4919fd047
 
 pkgname = python-trio

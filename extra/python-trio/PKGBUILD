@@ -1,8 +1,9 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-trio
+_name=${pkgname#python-}
 pkgver=0.25.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A friendly Python library for async concurrency and I/O'
 arch=(any)
 url=https://github.com/python-trio/trio
@@ -10,7 +11,6 @@ license=(MIT)
 depends=(
   python
   python-attrs
-  python-exceptiongroup
   python-idna
   python-outcome
   python-sniffio
@@ -24,19 +24,28 @@ makedepends=(
   python-installer
   python-wheel
 )
+checkdepends=(
+  python-astor
+  python-black
+  python-isort
+  python-jedi
+  python-pylint
+  python-pytest
+  python-ruff
+  python-trustme
+)
 provides=(python-multio-provider)
-_tag=0b8d3e2435ca9cb00a1aab72bf98da334dec2b1c
-source=(git+https://github.com/python-trio/trio.git#tag=${_tag})
-b2sums=(SKIP)
-
-pkgver() {
-  cd trio
-  git describe --tags | sed 's/^v//'
-}
+source=(git+$url.git#tag=v$pkgver)
+b2sums=('9bbb93dee455fd2a48d2199ff2b3faf964a71fb33116fecbd82a2edca05e747ac619a737f303242873884cb543c5a891f13eac1b4da5cbc9467c8ef4919fd047')
 
 build() {
   cd trio
   python -m build --wheel --no-isolation
+}
+
+check() {
+  cd $_name
+  PYTHONPATH=$PWD/src pytest -vv
 }
 
 package() {
