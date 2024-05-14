@@ -6,14 +6,15 @@
 
 pkgbase=rssguard
 pkgname=(rssguard{,-lite})
-pkgver=4.6.6
+pkgver=4.7.0
 pkgrel=1
 pkgdesc='Simple (yet powerful) Qt feed reader'
 arch=(x86_64)
 url='https://github.com/martinrotter/rssguard'
-license=(GPL3)
+license=(GPL-3.0-only)
 depends=(gcc-libs
          glibc
+         libglvnd
          mpv
          qt6-5compat
          qt6-base
@@ -21,23 +22,21 @@ depends=(gcc-libs
          qt6-multimedia
          sqlite)
 makedepends=(cmake
-             mpv
-             qt6-5compat
-             qt6-multimedia
+             git
              qt6-tools
              qt6-webengine)
 optdepends=('clang: Support for beautification of message filter scripts'
             'mariadb-libs: Support for MariaDB-based data storage')
-source=(https://github.com/martinrotter/$pkgbase/archive/$pkgver/$pkgbase-$pkgver.tar.gz)
-sha256sums=('c3d9fddafe76ab26c8a2a371b6cca73150b38520d1c8fc191ea53c71c20a99b0')
+source=(git+https://github.com/martinrotter/rssguard#tag=$pkgver)
+sha256sums=('c57646ceb4bf10b05af4101eadb78b8ca7170eb92e23a49a7a9c41db3cd3fd3b')
 
 build() {
-  cmake -B build -S $pkgname-$pkgver \
+  cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_WITH_QT6=ON
   cmake --build build
 
-  cmake -B build-lite -S $pkgname-$pkgver \
+  cmake -B build-lite -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_WITH_QT6=ON \
     -DNO_LITE=OFF
