@@ -1,0 +1,24 @@
+pkgbase = sdcc
+	pkgdesc = Retargettable ANSI C compiler
+	pkgver = 4.4.0
+	pkgrel = 1
+	url = https://sdcc.sourceforge.net/
+	arch = x86_64
+	license = GPL
+	makedepends = gputils
+	makedepends = boost
+	makedepends = patchutils
+	depends = gcc-libs
+	depends = bash
+	optdepends = python
+	options = !strip
+	options = staticlibs
+	options = !debug
+	source = sdcc-4.4.0.tar.bz2::https://sourceforge.net/projects/sdcc/files/sdcc/4.4.0/sdcc-src-4.4.0.tar.bz2
+	source = build-all-mcs51-models.patch
+	sha512sums = 807738f852ab8df64dafa3deda1d9c5154d56fa090f126abe9368e0cb17f37589b7dac50d1e135609f0a14318f0d5d8abd444ed8303c854f2bd34cc783db4b30
+	sha512sums = 265982849af52f5d84069ef9dd43f6d768eb46b2ff07e1652c3036d69e59fd366481a4447b6c376d2c74123cf6cf5f08afe957fa18a8038a4b0602f4593238f9
+	b2sums = 891b2d29f98fedf5fd7ce5a0892c143d8cbeee1351746a633ba507dd71224ac34620530bbc278feff5d70cae20c6b53b3ea3b5efc4876efe974bbec223d8db72
+	b2sums = 28bca84a8e1c2eda552efb0129941fdf1b17cdc2e888c26bf896295d392fd31f729136e76794913770b052f5171091bddbb944cde7407fd65e0df370654faf29
+
+pkgname = sdcc
