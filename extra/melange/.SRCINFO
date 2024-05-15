@@ -1,6 +1,6 @@
 pkgbase = melange
 	pkgdesc = Build APKs from source code
-	pkgver = 0.6.11
+	pkgver = 0.7.0
 	pkgrel = 1
 	url = https://github.com/chainguard-dev/melange
 	arch = x86_64
@@ -10,8 +10,9 @@ pkgbase = melange
 	depends = apk-tools
 	depends = bubblewrap
 	depends = glibc
-	source = melange-0.6.11.tar.gz::https://github.com/chainguard-dev/melange/archive/v0.6.11.tar.gz
-	sha256sums = df809b028d4495f51e23c1954811d79cc21d19aa87ba6a01b14af85fcb8d0ce4
-	b2sums = 997e3592f43944cccd08a6ed4ab77d46cec12bd4fb86268f1eaf7e38bc25d583ac7e99677b0885e9527ba367bcbbdb6bdca01ad6447d3834ff2d835efab955f6
+	options = !lto
+	source = melange-0.7.0.tar.gz::https://github.com/chainguard-dev/melange/archive/v0.7.0.tar.gz
+	sha256sums = b70ee0cfabef9f12ba7ba54f54b6720c6cb4d86c29246a479db362a38de7fc93
+	b2sums = ca865fa094228881d50fbbf432dfe418809f450c9dbfd878e0fa6af4b19590e340e96d4bd079bea8b0293ff80b9db6f8b4bb3336456f8d82c1e1d7936e0d6ba2
 
 pkgname = melange
