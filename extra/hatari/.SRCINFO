@@ -1,0 +1,24 @@
+pkgbase = hatari
+	pkgdesc = An Atari ST and STE emulator
+	pkgver = 2.5.0
+	pkgrel = 1
+	url = http://hatari.sourceforge.net/
+	arch = x86_64
+	license = GPL
+	makedepends = cmake
+	makedepends = systemd
+	depends = glibc
+	depends = hicolor-icon-theme
+	depends = sdl2
+	depends = libpng
+	depends = libx11
+	depends = portmidi
+	depends = readline
+	depends = systemd-libs
+	depends = zlib
+	optdepends = python: for atari-convert-dir
+	optdepends = sh: for atari-hd-image, zip2st, hatari-prg-args
+	source = https://download.tuxfamily.org/hatari/2.5.0/hatari-2.5.0.tar.bz2
+	sha256sums = d76c22fc3de69fb1bb4af3e8ba500b7e40f5a2a45d07783f24cb7101e53c3457
+
+pkgname = hatari
