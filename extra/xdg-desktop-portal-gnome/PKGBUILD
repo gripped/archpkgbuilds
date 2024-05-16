@@ -3,7 +3,7 @@
 
 pkgname=xdg-desktop-portal-gnome
 pkgver=46.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A backend implementation for xdg-desktop-portal for the GNOME desktop environment"
 url="https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome"
 arch=(x86_64)
@@ -17,7 +17,6 @@ depends=(
   glib2
   glibc
   gnome-desktop-4
-  gnome-keyring
   graphene
   gtk4
   libadwaita
