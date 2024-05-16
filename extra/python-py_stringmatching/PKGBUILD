@@ -3,17 +3,23 @@
 _pkg=py-stringmatching
 pkgname=python-${_pkg/-/_}
 pkgver=0.4.5
-pkgrel=2
+pkgrel=3
 pkgdesc="Comprehensive and scalable set of string tokenizers and similarity measures"
 arch=(x86_64)
 url="https://github.com/anhaidgroup/py_stringmatching"
 license=(BSD)
 depends=(python-numpy)
 makedepends=(python-setuptools cython)
-checkdepends=(python-nose)
-source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
+source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz
+	fix-test-utils-import.patch)
 #source=(https://github.com/anhaidgroup/py_stringmatching/archive/v${pkgver}/${_pkg}-${pkgver}.tar.gz)
-sha256sums=('d97ba1b562ad98effc946687c5dab074c17a515114ab0dcf502202d5cec9f2b5')
+sha256sums=('d97ba1b562ad98effc946687c5dab074c17a515114ab0dcf502202d5cec9f2b5'
+            '195cd5a2e2f63c6b041440a84a818c3932f0594c02c55bff0e530805fa795e18')
+
+prepare() {
+  cd ${_pkg}-${pkgver}
+  patch -Np1 -i ${srcdir}/fix-test-utils-import.patch
+}
 
 build() {
   cd ${_pkg}-${pkgver}
@@ -21,12 +27,13 @@ build() {
   python setup.py build
 }
 
-# `No module named 'py_stringmatching.similarity_measure.cython.cython_affine'` even with PYTHONPATH
-#check() {
-#  cd ${_pkg}-${pkgver}
-#  local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
-#  PYTHONPATH="${PWD}"/build/lib.linux-${CARCH}-${python_version} nosetests
-#}
+check() {
+   cd ${_pkg}-${pkgver}
+   local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
+   export PYTHONPATH="${PWD}"/build/lib.linux-${CARCH}-cpython-${python_version}
+   cd py_stringmatching/tests
+   python -m unittest discover -vs .
+}
 
 package() {
   cd ${_pkg}-${pkgver}
