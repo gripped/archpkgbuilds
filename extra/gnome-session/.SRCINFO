@@ -1,7 +1,7 @@
 pkgbase = gnome-session
 	pkgdesc = The GNOME Session Handler
 	pkgver = 46.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://gitlab.gnome.org/GNOME/gnome-session
 	arch = x86_64
 	groups = gnome
@@ -21,6 +21,7 @@ pkgbase = gnome-session
 	depends = glib2
 	depends = glibc
 	depends = gnome-desktop
+	depends = gnome-keyring
 	depends = gsettings-desktop-schemas
 	depends = gtk3
 	depends = json-glib
@@ -33,6 +34,7 @@ pkgbase = gnome-session
 	depends = libxtst
 	depends = systemd
 	depends = systemd-libs
+	depends = xdg-desktop-portal-gnome
 	source = git+https://gitlab.gnome.org/GNOME/gnome-session.git#commit=2437153bfd7cbebe62c73926bb85f88076313963
 	b2sums = 509cd974134e0ff8f90cd039794eae3751d204e7f6056dd97d18ac141521026c016ee5407b8086b7a1036340e3bbf04acd629be67c125e7cd0df6dfe3ee5fb28
 
