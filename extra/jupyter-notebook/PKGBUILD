@@ -3,8 +3,8 @@
 
 pkgname=jupyter-notebook
 _pipname=notebook
-pkgver=7.1.3
-pkgrel=2
+pkgver=7.2.0
+pkgrel=1
 pkgdesc='The language-agnostic HTML notebook application for Project Jupyter'
 arch=(any)
 url='https://github.com/jupyter/notebook'
@@ -18,30 +18,32 @@ depends=(jupyter-notebook-shim
          python-jupyterlab-server
          python-tornado
          python-traitlets)
-makedepends=(python-build
+makedepends=(git
+             nodejs
+             python-build
              python-hatch-jupyter-builder
              python-installer)
 checkdepends=(python-pytest-jupyter
               python-pytest-timeout
               python-requests)
 replaces=(jupyter-retrolab)
-source=(https://pypi.io/packages/source/${_pipname:0:1}/$_pipname/$_pipname-$pkgver.tar.gz)
-sha256sums=('41fcebff44cf7bb9377180808bcbae066629b55d8c7722f1ebbe75ca44f9cfc1')
+source=(git+https://github.com/jupyter/notebook#tag=v$pkgver)
+sha256sums=('cbd0276f9a9c8b18caca2d826bc92e739713f1066505f0911bfec5c7d0061a59')
 
 build() {
-  cd notebook-$pkgver
+  cd notebook
   python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
-  cd notebook-$pkgver
+  cd notebook
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m pytest -v -W ignore::DeprecationWarning
 }
 
 package() {
-  cd notebook-$pkgver
+  cd notebook
   python -m installer --destdir="$pkgdir" dist/*.whl
   mv "$pkgdir"/{usr/,}etc
 
