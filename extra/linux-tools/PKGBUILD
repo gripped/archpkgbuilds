@@ -4,7 +4,6 @@ pkgbase=linux-tools
 pkgname=(
   'bootconfig'
   'bpf'
-  'cgroup_event_listener'
   'cpupower'
   'hyperv'
   'linux-tools-meta'
@@ -14,9 +13,9 @@ pkgname=(
   'usbip'
   'x86_energy_perf_policy'
 )
-pkgver=6.7
-pkgrel=3
-license=('GPL2')
+pkgver=6.9
+pkgrel=1
+license=('GPL-2.0-only')
 arch=('x86_64')
 url='https://www.kernel.org'
 options=('!strip' '!lto')
@@ -41,7 +40,7 @@ makedepends+=('libcap')
 makedepends+=('llvm' 'clang')
 groups=("$pkgbase")
 source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git#tag=v${pkgver//_/-}?signed"
-        #"https://cdn.kernel.org/pub/linux/kernel/v6.x/patch-$pkgver.7.xz"
+#        "https://cdn.kernel.org/pub/linux/kernel/v6.x/patch-$pkgver.2.xz"
         'cpupower.default'
         'cpupower.systemd'
         'cpupower.service'
@@ -54,7 +53,7 @@ validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-sha256sums=('SKIP'
+sha256sums=('0ac1ad026d8eba3a745239e50259b8c4b78892b3c30d742cb1ed5b6988512519'
             '4fa509949d6863d001075fa3e8671eff2599c046d20c98bb4a70778595cd1c3f'
             'b692f4859ed3fd9831a058a450a84d8c409bf7e3e45aac1c2896a14bb83f3d7a'
             '42d2ec9f1d9cc255ee7945a27301478364ef482f5a6ddfc960189f03725ccec2'
@@ -122,11 +121,6 @@ build() {
   make
   popd
 
-  echo ':: cgroup_event_listener'
-  pushd linux/tools/cgroup
-  make
-  popd
-
   echo ':: turbostat'
   pushd linux/tools/power/x86/turbostat
   make
@@ -158,7 +152,6 @@ package_linux-tools-meta() {
   depends=(
     'bootconfig'
     'bpf'
-    'cgroup_event_listener'
     'cpupower'
     'hyperv'
     'perf'
@@ -253,14 +246,6 @@ package_tmon() {
 
   cd linux/tools/thermal/tmon
   make install INSTALL_ROOT="$pkgdir"
-}
-
-package_cgroup_event_listener() {
-  pkgdesc='Simple listener of cgroup events'
-  depends=('glibc')
-
-  cd linux/tools/cgroup
-  install -Dm755 cgroup_event_listener "$pkgdir/usr/bin/cgroup_event_listener"
 }
 
 package_turbostat() {
