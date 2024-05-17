@@ -5,12 +5,12 @@
 pkgname=python-openai
 _name=openai-python
 pkgver=1.30.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Python client library for the OpenAI API"
 arch=('any')
 url="https://github.com/openai/openai-python"
 license=('MIT')
-depends=('python-anyio' 'python-httpx' 'python-tqdm' 'python-h2' 'python-distro' 'python-typing_extensions' 'python-pydantic' 'python-cached-property')
+depends=('python-anyio' 'python-httpx' 'python-tqdm' 'python-h2' 'python-distro' 'python-typing_extensions' 'python-pydantic')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel' 'python-hatchling' 'python-hatch-fancy-pypi-readme')
 #checkdepends=('python-pytest' 'python-pytest-asyncio')
 optdepends=('python-numpy: Needed for CLI fine-tuning data preparation tool'
