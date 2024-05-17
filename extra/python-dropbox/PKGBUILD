@@ -4,8 +4,8 @@
 
 _name=dropbox-sdk-python
 pkgname=python-dropbox
-pkgver=11.36.2
-pkgrel=2
+pkgver=12.0.0
+pkgrel=1
 pkgdesc="Python SDK for Dropbox Core APIs"
 url="https://github.com/dropbox/dropbox-sdk-python"
 arch=(any)
@@ -30,8 +30,8 @@ checkdepends=(
   python-pytest-mock
 )
 source=($url/archive/v$pkgver/$_name-v$pkgver.tar.gz)
-sha512sums=('ec27685b4e5344e706bffb68b110ef2d7b307a5865bed3e042d6835f3666d2eefca646627a07bae1a3142e5f0346865fe285b037b00f3da081eb5797f9a768f5')
-b2sums=('afd0592bd1e18416f91d1fd673f2b7b7f605eaab80c02a9d8535fefa7fb23c8bc6a08c191492e1ced5d4b2d17fa72e8e5b6a58ba797f170c0efb75e755a451c9')
+sha512sums=('5cf28c0e338a3399e4448c64fde823bfc872a6a6a93dc25241c96f55c21abe194b9e882d32d098f4c329941f36d0dec79786e521f2686c7d4c0eeb64bd745f21')
+b2sums=('dc75c8c0be5d8c44820cddf8e39b8e86180fc8ddc482ef4656ad5525e268f6f13fa1529138290205acd0a946b6d8d90a3df48aff9fb14f410d5c2c409ee399c3')
 
 prepare() {
   cd $_name-$pkgver
