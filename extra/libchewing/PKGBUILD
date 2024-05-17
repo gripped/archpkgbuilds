@@ -4,7 +4,8 @@
 # Contributor: damir <damir@archlinux.org>
 
 pkgname=libchewing
-pkgver=0.7.0
+_pkgver=0.8.1
+pkgver=${_pkgver/-rc./rc}
 pkgrel=1
 pkgdesc='Intelligent Chinese phonetic input method'
 url='https://chewing.im/'
@@ -12,25 +13,26 @@ arch=('x86_64')
 # See discussions at https://github.com/chewing/libchewing/issues/433
 license=('LGPL-2.1-or-later')
 depends=('sqlite')
-makedepends=('cmake' 'minisign')
+makedepends=('cmake' 'minisign' 'rust' 'corrosion')
 optdepends=(
   'chewing-editor: view and modify libchewing user phrases database'
 )
-source=("https://github.com/chewing/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.zst"{,.minisig})
-sha256sums=('87289bc759d04bfebad92d395d4f63e54f584f3e805731588edaa0c9a8bb6cce'
-            '16ed098e7a63da7631d27d2df3a72e095bed057aebe5a98335c766b5bf7b82db')
+source=("https://github.com/chewing/${pkgname}/releases/download/v${_pkgver}/${pkgname}-${_pkgver}.tar.zst"{,.minisig})
+sha256sums=('038b7e1eef85f90b46c87fca7ca432796aaa14522291fa48c408c6f6f92ef83a'
+            'f04b88bf841d67a5c3fc67510eb0033c339ce05c912e382a20f5f09cd324577d')
 # The key is mentioned on https://github.com/chewing/libchewing
 _validminisignkey='RWRzJFnXiLZleAyCIv1talBjyRewelcy9gzYQq9pd3SKSFBPoy57sf5s'
 
 # XXX: move to verify() when devtools supports it
 # https://gitlab.archlinux.org/archlinux/devtools/-/issues/224
 prepare() {
-  minisign -Vm $pkgname-$pkgver.tar.zst -P $_validminisignkey
+  minisign -Vm $pkgname-$_pkgver.tar.zst -P $_validminisignkey
 }
 
 build() {
+  cd $pkgname-$_pkgver
   # Specify the existence of ncurses.h manually as FindCurses.cmake cannot identify it
-  cmake -B build -S $pkgname-$pkgver \
+  cmake -B build \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_INFO=ON \
@@ -40,9 +42,9 @@ build() {
 
 check() {
   # parallel testing is broken (https://github.com/chewing/libchewing/issues/293)
-  make -C build -j1 check
+  make -C $pkgname-$_pkgver/build -j1 check
 }
 
 package() {
-  make -C build DESTDIR="${pkgdir}" install
+  make -C $pkgname-$_pkgver/build DESTDIR="${pkgdir}" install
 }
