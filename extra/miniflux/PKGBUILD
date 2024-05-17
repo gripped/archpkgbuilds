@@ -4,7 +4,7 @@
 # Contributor: somini <dev at somini dot xyz>
 
 pkgname=miniflux
-pkgver=2.1.2
+pkgver=2.1.3
 pkgrel=1
 pkgdesc='Minimalist and opinionated feed reader'
 arch=('x86_64')
@@ -17,21 +17,14 @@ optdepends=(
 makedepends=('git' 'go')
 backup=('etc/miniflux.conf')
 options=('!lto')
-_commit='0336774e8c70409e10e3ffcf1cebe152d252a57c'
 source=(
-  "$pkgname::git+https://github.com/miniflux/v2.git#commit=$_commit"
+  "$pkgname::git+https://github.com/miniflux/v2.git#tag=$pkgver"
   'sysusers.conf'
 )
-sha512sums=('SKIP'
+sha512sums=('1101789d9581d504acfcb09bda5940182953bb597b713924dc9a145bc5c9e8c3f7d0b85b083e8accc4f86af997e79bf17f39462102286cb9a686d17efcbf21c5'
             'eb026d1eb085f0638161a6a75af5e870c7ba4755012bf7f895de5c1bdd9fbdcb44a8aacbb71c482ca101c214f12f65906ddbcbb7044fad051490f44276aba8e5')
-b2sums=('SKIP'
+b2sums=('c890c13194a84cf4636388aad34d72ea949a0447b593e52911b33adf54b1b7118dee0c2c2d4bc05289485f09ac5684dc25da3e56c3cacf6a51c37a667a919c44'
         '71a1cba0e015c6b33897e3492dd014efbfac240d3c6f007f86ff7bade830ce0f2809d4d0ad1d8ca1189627e2961dddc7ff6682cd445587f5145bee0eab8a7bf6')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
 
 prepare() {
   cd "$pkgname"
