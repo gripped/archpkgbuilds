@@ -1,17 +1,18 @@
 pkgbase = qxlsx
 	pkgdesc = Excel file reader/writer library using Qt
-	pkgver = 1.4.7
+	pkgver = 1.4.8
 	pkgrel = 1
 	url = https://github.com/QtExcel/QXlsx
 	arch = x86_64
 	license = MIT
 	makedepends = cmake
+	makedepends = git
 	makedepends = qt5-base
 	makedepends = qt6-base
 	depends = gcc-libs
 	depends = glibc
-	source = https://github.com/QtExcel/QXlsx/archive/v1.4.7/qxlsx-1.4.7.tar.gz
-	sha256sums = 6f2de3e3bcfd09b7be0f9ad06c363cfe29a7a4c14280b36a91d8968f54be796a
+	source = git+https://github.com/QtExcel/QXlsx#tag=v1.4.8
+	sha256sums = d6efb73ac6c3fbb25a00924beea5be63be673c5ebd210032c9b7336865f56001
 
 pkgname = qxlsx-qt5
 	depends = gcc-libs
