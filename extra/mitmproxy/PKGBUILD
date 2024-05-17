@@ -5,8 +5,8 @@
 # Contributor: Dobroslaw Kijowski
 
 pkgname=mitmproxy
-pkgver=10.2.4
-pkgrel=3
+pkgver=10.3.0
+pkgrel=1
 pkgdesc='SSL-capable man-in-the-middle HTTP proxy'
 arch=('any')
 url='https://mitmproxy.org'
@@ -15,7 +15,6 @@ depends=(
   'python'
   'python-aioquic'
   'python-asgiref'
-  'python-blinker'
   'python-brotli'
   'python-certifi'
   'python-cryptography'
@@ -29,9 +28,7 @@ depends=(
   'python-msgpack'
   'python-passlib'
   'python-protobuf'
-  'python-psutil'
   'python-publicsuffix2'
-  'python-pylsqpack'
   'python-pyopenssl'
   'python-pyparsing'
   'python-pyperclip'
@@ -40,7 +37,6 @@ depends=(
   'python-sortedcontainers'
   'python-tornado'
   'python-urwid'
-  'python-werkzeug'
   'python-wsproto'
   'python-zstandard'
 )
@@ -61,8 +57,8 @@ provides=('pathod')
 conflicts=('pathod')
 replaces=('pathod')
 source=("https://github.com/mitmproxy/mitmproxy/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('0792149add6660ae858b7d1151a63250a8f170933850aaa77f08a8d8a397b873')
-b2sums=('d038db3efa0c3caab7613c98fbbdb39f20112715495d67fa5633621f3ec1049171f55c455956870f9b19e5619c539829da78ca10f99f36b5980aa57104e4da05')
+sha256sums=('e94362a2a715e2a7def41e4a7a18b61a2ba0233f395776ac81b774b7fee0264d')
+b2sums=('8be9dcf299bc46a36ce1f9bc28b65304e3347bec55d8420b52fc2f281b7d267ca550b6e325debaaf824b72974a60e8e31877912c9bec91468ad6340ba4a56e94')
 
 build() {
   cd $pkgname-$pkgver
