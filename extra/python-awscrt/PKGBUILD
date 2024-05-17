@@ -4,11 +4,8 @@
 _pkgname=aws-crt-python
 pkgname=python-awscrt
 # https://github.com/awslabs/aws-crt-python/releases
-# UPDATE_BLOCKED: aws-cli-v2 usually requires older awscrt https://github.com/aws/aws-cli/blob/v2/pyproject.toml
-pkgver=0.19.19
-# curl https://api.github.com/repos/awslabs/aws-crt-python/git/ref/tags/v$pkgver | jq -r .object.sha
-_tag=bc8163806b3b8e3c93b9f380e4852003e1467651
-pkgrel=2
+pkgver=0.20.9
+pkgrel=1
 pkgdesc='A common runtime for AWS Python projects'
 arch=(x86_64)
 url='https://github.com/awslabs/aws-crt-python'
@@ -16,7 +13,7 @@ license=(Apache)
 depends=(glibc gcc-libs python)
 makedepends=(git cmake python-build python-installer python-setuptools python-wheel)
 checkdepends=(python-websockets)
-source=("git+https://github.com/awslabs/aws-crt-python.git#tag=$_tag"
+source=("git+https://github.com/awslabs/aws-crt-python.git#tag=v$pkgver"
         "git+https://github.com/awslabs/aws-c-auth"
         "git+https://github.com/awslabs/aws-c-cal"
         "git+https://github.com/awslabs/aws-c-common"
@@ -30,7 +27,7 @@ source=("git+https://github.com/awslabs/aws-crt-python.git#tag=$_tag"
         "git+https://github.com/awslabs/aws-checksums"
         "git+https://github.com/awslabs/aws-lc"
         "git+https://github.com/awslabs/s2n")
-sha256sums=('SKIP'
+sha256sums=('ad82398260ebacb003d748bab550bc0d8c6e29140d21f757be83c6bd6fb8b31d'
             'SKIP'
             'SKIP'
             'SKIP'
