@@ -8,7 +8,7 @@ pkgname=(
   lib32-glib2
 )
 pkgver=2.80.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Low level core library - 32-bit"
 url="https://gitlab.gnome.org/GNOME/glib"
 license=(LGPL-2.1-or-later)
@@ -51,6 +51,11 @@ validpgpkeys=(
 
 prepare() {
   cd glib
+
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/glib2/-/issues/6
+  # https://gitlab.gnome.org/GNOME/glib/-/merge_requests/4073
+  git cherry-pick -n df2c5d925ac4b8f1708bafa5ac1d35acada05d55 \
+                     7a7137838e79e5a98e6f4eab6898e2a0dc6392cd
 
   git submodule init
   git submodule set-url subprojects/gvdb "$srcdir/gvdb"
