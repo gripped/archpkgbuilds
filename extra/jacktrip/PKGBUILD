@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=jacktrip
-pkgver=2.2.5
+pkgver=2.3.0
 pkgrel=1
 epoch=1
 pkgdesc="Multi-machine audio network performance over the Internet"
@@ -38,8 +38,8 @@ makedepends=(
   rtaudio
 )
 source=($url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('7acd9ad66606ab88989bdc148512ab1acb8392200e74655670b62d72da7db09a9e8f9d3b3502e5fddee9707ad459322606a25a9268f5d325338d018a614ff228')
-b2sums=('823d323d91de873265c988a2a93f6235b430dca7486199386074daf50bcdff9824cf6ad6014c068dfbd8edf3f982c6719a83dc9a59773928729b729fbb8e026d')
+sha512sums=('47e231b638c98254cfd86d56f0886b30e29c09d47326056433f9484d7098421fda3705098eb5a4306c5284cf420d174a4c9421b49fecd89c33f50d0e67097e9b')
+b2sums=('aa8fc7a49178b5c106bce4539d8f57b143241b7b311d1393679763fb221caa0667a39ae523742748ca14cbf688b1cd82da75c6ff58ff0acf0167bfd110c8d406')
 
 build() {
   local meson_options=(
