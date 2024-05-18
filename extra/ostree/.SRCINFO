@@ -1,6 +1,6 @@
 pkgbase = ostree
 	pkgdesc = Operating system and container binary deployment and upgrades
-	pkgver = 2024.5
+	pkgver = 2024.6
 	pkgrel = 1
 	url = https://ostreedev.github.io/ostree/
 	arch = x86_64
@@ -28,6 +28,7 @@ pkgbase = ostree
 	makedepends = systemd
 	makedepends = xz
 	depends = bash
+	depends = composefs
 	depends = fuse3
 	depends = gcc-libs
 	depends = glibc
@@ -38,20 +39,19 @@ pkgbase = ostree
 	depends = which
 	depends = zlib
 	provides = libostree-1.so
-	source = git+https://github.com/ostreedev/ostree#tag=v2024.5
-	source = git+https://github.com/containers/composefs.git
+	source = git+https://github.com/ostreedev/ostree#tag=v2024.6
 	source = git+https://github.com/mendsley/bsdiff
 	source = git+https://gitlab.gnome.org/GNOME/libglnx.git
 	source = ostree-2023.1-use_fuse3.patch
 	validpgpkeys = 1CEC7A9DF7DA85ABEF843DC0A866D7CCAE087291
-	b2sums = 25dd16ad1356ec22807242a210f60482d28893250f9c23f861887406e5ba947fc2f41dfba2082dce7cbb3ea675f3b799a58dfda141c5ae8b537bd1393d942f47
-	b2sums = SKIP
+	b2sums = 0d26fc4686e2aef9789aeb34717ea78e21c734929d641e3928c7cf401b5b975e8ef2b6c2549c8243a7bca4cc20c8b326ba9ce49a14b972ed25f25539b5c0d31b
 	b2sums = SKIP
 	b2sums = SKIP
 	b2sums = cfff162120f70995e18ec56454711501391b97456e2a0f34643c9d2a9c2b50b4d76afc2e2fc50ea28e8a773c618215d6cb855b96663f69dc5cc93bc5766f3f28
 
 pkgname = ostree
 	depends = bash
+	depends = composefs
 	depends = fuse3
 	depends = gcc-libs
 	depends = glibc
