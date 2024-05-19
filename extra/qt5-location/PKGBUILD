@@ -3,9 +3,9 @@
 
 pkgname=qt5-location
 _basever=5.15.13
-pkgver=5.15.13+kde+r6
+pkgver=5.15.13+kde+r7
 pkgrel=1
-_commit=c576985da4e6a4a0b85d5229263777e7197494e0
+_commit=a97ab17b6283806be855617d5cf7cfa286d506e8
 arch=('x86_64')
 url='https://www.qt.io'
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
@@ -14,20 +14,20 @@ depends=('qt5-declarative')
 makedepends=('git')
 groups=('qt5')
 _pkgfqn=${pkgname/5-/}
-source=(git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit
+source=(kde-$_pkgfqn::git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit
         git+https://invent.kde.org/qt/qt/qtlocation-mapboxgl.git)
-sha256sums=('SKIP'
+sha256sums=('b99e40071f8630897857d9b4007f2028bda804a6ef5a086f05d67f97e6dc1536'
             'SKIP')
 
 pkgver() {
-  cd $_pkgfqn
+  cd kde-$_pkgfqn
   echo "$_basever+kde+r"`git rev-list --count v$_basever-lts-lgpl..$_commit` | sed -e 's|+kde+r0||'
 }
 
 prepare() {
   mkdir -p build
 
-  cd ${_pkgfqn}
+  cd kde-$_pkgfqn
   git submodule init
   git submodule set-url src/3rdparty/mapbox-gl-native "$srcdir"/qtlocation-mapboxgl
   git -c protocol.file.allow=always submodule update
@@ -36,7 +36,7 @@ prepare() {
 build() {
   cd build
 
-  qmake ../${_pkgfqn}
+  qmake ../kde-$_pkgfqn
   make
 }
 
