@@ -8,7 +8,7 @@
 pkgbase=thunderbird
 pkgname=(thunderbird)
 pkgver=115.11.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Standalone mail and news reader from mozilla.org'
 url='https://www.thunderbird.net/'
 arch=(x86_64)
