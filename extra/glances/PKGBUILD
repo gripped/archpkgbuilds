@@ -5,16 +5,18 @@
 # Contributor: Francois Boulogne <fboulogne at april dot org>
 
 pkgname=glances
-pkgver=3.4.0.5
-pkgrel=3
+pkgver=4.0.5
+pkgrel=1
 pkgdesc='CLI curses-based monitoring tool'
 arch=('any')
 url='https://nicolargo.github.io/glances/'
 license=('LGPL-3.0-or-later')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
-depends=('python' 'python-psutil' 'python-future' 'python-defusedxml' 'python-ujson')
+depends=('python' 'python-psutil' 'python-future' 'python-defusedxml' 'python-ujson' 'python-pydantic' 'python-packaging')
 optdepends=('hddtemp: HDD temperature monitoring support'
-            'python-bottle: web server support'
+            'uvicorn: for WebUI / RestFull API'
+            'python-jinja: for WebUI / RestFull API'
+            'python-fastapi: for WebUI / RestFull API'
             'python-docker: for the Docker monitoring support'
             'python-matplotlib: for graphical/chart support'
             'python-netifaces: for the IP plugin'
@@ -23,9 +25,9 @@ optdepends=('hddtemp: HDD temperature monitoring support'
             'python-prometheus_client: for the Prometheus export module')
 source=("${pkgname}-${pkgver}-${pkgrel}.tar.gz::https://github.com/nicolargo/glances/archive/v${pkgver}.tar.gz"
         'glances.service')
-sha512sums=('aca140fedc2acc97ae4901722e0406acb8bea6eac5295d95499860a522e74d29ecbc4cfb28fecfd4a2879f4ee44175bd4efd2429b9d7e302b4a182caabd6a5f8'
+sha512sums=('ce7c89c60d2db261818860791a8ebdad3ab4cd950eb097ee9ecdeb44df7bbb8c3b1b8cb81989d50e1fd89a4c752065e0a687d0b171a7867dc92775eb2671997f'
             '49f0d185a37a5c5837e5beb463770c943ede40b2f1b8405e338129e897e97d9fc58373a8586fabc506266e6343cfea3c91b9787ac6832cc97a1ab63d6ad058d4')
-b2sums=('510f379946eec914998cba32ffd66c6037bd85246cdae059d336b4a3330ba6e521aa3fef2099d88f08dbf3ed7e7c8537235850ad8f6882840fb811bcd8a82147'
+b2sums=('27eb171fe432222836d64ffea79932f53aa57d266925c5850781e31128869cb5d431fa9535b041c9bd658c104073b52f81e29b8152ff657e28cf86d56723809e'
         'ecc44f8c06b1e8624cec92e41422a65d11e024b9fc23bae09b4e52fbedeb172a5034e5b612bbff7ba93d45189fb25eda0d54bc47b22b7f3f0acba984391e4017')
 
 build() {
