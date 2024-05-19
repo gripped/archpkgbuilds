@@ -7,7 +7,7 @@ pkgbase=tensorflow
 pkgname=(tensorflow tensorflow-opt tensorflow-cuda tensorflow-opt-cuda python-tensorflow python-tensorflow-opt python-tensorflow-cuda python-tensorflow-opt-cuda)
 pkgver=2.16.1
 _pkgver=2.16.1
-pkgrel=2
+pkgrel=4
 pkgdesc="Library for computation using data flow graphs for scalable machine learning"
 url="https://www.tensorflow.org/"
 license=('APACHE')
@@ -92,7 +92,7 @@ prepare() {
   export TF_SYSTEM_LIBS="boringssl,curl,cython,gif,icu,libjpeg_turbo,nasm,png,zlib"
   export TF_SET_ANDROID_WORKSPACE=0
   export TF_DOWNLOAD_CLANG=0
-  # export TF_NCCL_VERSION=$(pkg-config nccl --modversion | grep -Po '\d+\.\d+')
+  export TF_NCCL_VERSION=$(pkg-config nccl --modversion | grep -Po '\d+\.\d+')
   export NCCL_INSTALL_PATH=/usr
   # Does tensorflow really need the compiler overridden in 5 places? Yes.
   # https://github.com/tensorflow/tensorflow/issues/60577
@@ -115,40 +115,10 @@ prepare() {
   export PYTHON_BIN_PATH=/usr/bin/python$(get_pyver)
   export USE_DEFAULT_PYTHON_LIB_PATH=1
 
-  export BAZEL_ARGS="-c opt"
+  export BAZEL_ARGS="-c opt --verbose_failures --config=verbose_logs"
 }
 
 build() {
-  echo "Building without cuda and without non-x86-64 optimizations"
-  cd "${srcdir}"/tensorflow-${_pkgver}
-  export CC_OPT_FLAGS="-march=x86-64"
-  export TF_NEED_CUDA=0
-
-  ./configure
-  bazel \
-    build ${BAZEL_ARGS[@]} \
-      //tensorflow:libtensorflow.so \
-      //tensorflow:libtensorflow_cc.so \
-      //tensorflow:install_headers \
-      //tensorflow/tools/pip_package:build_pip_package
-  bazel-bin/tensorflow/tools/pip_package/build_pip_package "${srcdir}"/tmp
-
-
-  echo "Building without cuda and with non-x86-64 optimizations"
-  cd "${srcdir}"/tensorflow-${_pkgver}-opt
-  export CC_OPT_FLAGS="-march=haswell -O3"
-  export TF_NEED_CUDA=0
-  ./configure
-  bazel \
-    build --config=avx_linux \
-      ${BAZEL_ARGS[@]} \
-      //tensorflow:libtensorflow.so \
-      //tensorflow:libtensorflow_cc.so \
-      //tensorflow:install_headers \
-      //tensorflow/tools/pip_package:build_pip_package
-  bazel-bin/tensorflow/tools/pip_package/build_pip_package "${srcdir}"/tmpopt
-
-
   echo "Building with cuda and without non-x86-64 optimizations"
   cd "${srcdir}"/tensorflow-${_pkgver}-cuda
   export CC_OPT_FLAGS="-march=x86-64"
@@ -177,6 +147,35 @@ build() {
       //tensorflow:install_headers \
       //tensorflow/tools/pip_package:build_pip_package
   bazel-bin/tensorflow/tools/pip_package/build_pip_package --gpu "${srcdir}"/tmpoptcuda
+
+
+  echo "Building without cuda and without non-x86-64 optimizations"
+  cd "${srcdir}"/tensorflow-${_pkgver}
+  export CC_OPT_FLAGS="-march=x86-64"
+  export TF_NEED_CUDA=0
+  ./configure
+  bazel \
+    build ${BAZEL_ARGS[@]} \
+      //tensorflow:libtensorflow.so \
+      //tensorflow:libtensorflow_cc.so \
+      //tensorflow:install_headers \
+      //tensorflow/tools/pip_package:build_pip_package
+  bazel-bin/tensorflow/tools/pip_package/build_pip_package "${srcdir}"/tmp
+
+
+  echo "Building without cuda and with non-x86-64 optimizations"
+  cd "${srcdir}"/tensorflow-${_pkgver}-opt
+  export CC_OPT_FLAGS="-march=haswell -O3"
+  export TF_NEED_CUDA=0
+  ./configure
+  bazel \
+    build --config=avx_linux \
+      ${BAZEL_ARGS[@]} \
+      //tensorflow:libtensorflow.so \
+      //tensorflow:libtensorflow_cc.so \
+      //tensorflow:install_headers \
+      //tensorflow/tools/pip_package:build_pip_package
+  bazel-bin/tensorflow/tools/pip_package/build_pip_package "${srcdir}"/tmpopt
 }
 
 _package() {
