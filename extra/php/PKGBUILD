@@ -19,7 +19,7 @@ pkgname=('php'
          'php-tidy'
          'php-xsl')
 pkgver=8.3.7
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 license=('PHP-3.01')
 url='https://www.php.net/'
