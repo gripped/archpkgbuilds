@@ -1,12 +1,9 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
-# Upstream tests are pretty borked, especially the PyPi sources. Skip for now.
-BUILDENV+=(!check)
-
 _pyname=fakeredis
 pkgname=python-fakeredis
-pkgver=2.23.1
+pkgver=2.23.2
 pkgrel=1
 pkgdesc='Fake implementation of redis API (redis-py) for testing purposes'
 arch=(any)
@@ -28,7 +25,7 @@ optdepends=('python-packaging: for aioredis support'
 # source=("$url/archive/v$pkgver/$_archive.tar.gz")
 _archive="$_pyname-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
-sha256sums=('b45f419e4564ebaaf4a0a8a28d890f5b5797abe14f439969e290f3d57e862c3e')
+sha256sums=('d649c409abe46c63690b6c35d3c460e4ce64c69a52cea3f02daff2649378f878')
 
 build(){
 	cd "$_archive"
@@ -37,7 +34,9 @@ build(){
 
 check() {
 	cd "$_archive"
-	PYTHONPATH="$PWD" pytest
+	export PYTHONPATH="$PWD"
+	# Upstream tests are pretty borked, especially the PyPi sources. Skip for now.
+	# pytest
 }
 
 package() {
