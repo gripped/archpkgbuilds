@@ -10,7 +10,7 @@
 
 pkgname=gitlab
 pkgver=16.11.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
 url='https://gitlab.com/gitlab-org/gitlab-foss'
@@ -32,6 +32,7 @@ makedepends=(cargo
              clang
              cmake
              go
+             node-gyp
              nodejs
              postgresql
              ruby-rake
@@ -119,6 +120,10 @@ build() {
 	# Gems will be installed into vendor/bundle
 	# Remove -Werror=format-security from the CFLAGS used by the C extension of the google-protobuf gem
 	bundle config --local build.google-protobuf "-- --with-cflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CFLAGS"]' | sed -e 's/-Werror=format-security//')'"
+	# Avoid build errors due to -Werror=incompatible-pointer-types enabled by default in GCC 14
+	bundle config --local build.grpc "-- --with-cflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CFLAGS"]') -Wno-incompatible-pointer-types'"
+	# ICU 75 requires C++17
+	bundle config --local build.static_holmes "-- --with-cxxflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CXXFLAGS"]') -std=c++17'"
 	bundle config --local build.gpgme --use-system-libraries # See https://bugs.archlinux.org/task/63654
 	bundle config --local build.re2 --enable-system-libraries # See https://gitlab.archlinux.org/archlinux/packaging/packages/gitlab/-/issues/5
 	bundle config --local force_ruby_platform true # some native gems are not available for newer ruby
