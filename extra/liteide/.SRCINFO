@@ -1,20 +1,18 @@
 pkgbase = liteide
 	pkgdesc = IDE for editing and building projects written in Go
 	pkgver = 38.3
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/visualfc/liteide
 	arch = x86_64
-	license = LGPL
+	license = LGPL-2.1-only
 	makedepends = go
 	makedepends = git
 	makedepends = imagemagick
 	makedepends = mercurial
-	makedepends = setconf
 	depends = go-tools
 	depends = qt5-base
-	optdepends = go: go compiler
-	optdepends = gcc-go: go compiler
-	options = !strip
+	optdepends = go: Go compiler
+	optdepends = gcc-go: Go compiler
 	options = !emptydirs
 	source = liteide-x38.3::git+https://github.com/visualfc/liteide#commit=35a0dcd957d8bdcc189089a9c027bc54b8aa8cde
 	b2sums = 7fef233153c2195c80079c2dcbff66bceef13c9acf44e6af9d5ae9ebe68ae91b4d00979bf92bac6a6e0b181e74494247d0dcee6bdca69d414ad8ab8eda5306c1
