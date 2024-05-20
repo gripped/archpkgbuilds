@@ -6,7 +6,7 @@ pkgname=(
   libtraceevent-docs
 )
 pkgver=1.8.2
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Linux kernel trace event library"
 arch=(x86_64)
@@ -43,7 +43,7 @@ prepare() {
 }
 
 build() {
-  make -C $pkgname-$pkgver
+  make -C $pkgname-$pkgver EXTRA_CFLAGS="$CFLAGS" -j1
   make -C $pkgname-$pkgver/Documentation
 }
 
