@@ -1,12 +1,14 @@
 pkgbase = geary
 	pkgdesc = A lightweight email client for the GNOME desktop
-	pkgver = 44.1
-	pkgrel = 3
+	pkgver = 46.0
+	pkgrel = 1
 	epoch = 1
 	url = https://wiki.gnome.org/Apps/Geary
 	arch = x86_64
 	groups = gnome-extra
-	license = GPL3
+	license = CC-BY-3.0
+	license = CC-BY-SA-3.0
+	license = LGPL-2.1-or-later
 	makedepends = appstream-glib
 	makedepends = cmake
 	makedepends = git
@@ -33,6 +35,7 @@ pkgbase = geary
 	depends = iso-codes
 	depends = json-glib
 	depends = libgee
+	depends = libgoa
 	depends = libhandy
 	depends = libpeas
 	depends = libsecret
@@ -45,8 +48,9 @@ pkgbase = geary
 	depends = pango
 	depends = sqlite
 	depends = webkit2gtk-4.1
-	source = git+https://gitlab.gnome.org/GNOME/geary.git#commit=37c378a563d5b1c269d57c34671edc940d1cd180
+	source = git+https://gitlab.gnome.org/GNOME/geary.git#tag=46.0
 	validpgpkeys = 3A2EF7F138557A145F2866E99FAB18747A8FC649
-	b2sums = SKIP
+	validpgpkeys = 71BFA565F77720034F44E0B00CF8493F76A7AE36
+	b2sums = ffec538e394146773e094d3cdabacaa6d54911b759c284e6433abeeb3921e5b8f587532286e146ef087db26876a3b59bc1f6e88d614b53ccadeda10827acad3b
 
 pkgname = geary
