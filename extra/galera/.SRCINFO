@@ -1,23 +1,25 @@
 pkgbase = galera
 	pkgdesc = write set replication (WSREP) provider for MariaDB cluster
-	pkgver = 26.4.16
+	pkgver = 26.4.18
 	pkgrel = 1
 	url = https://galeracluster.com/
 	arch = x86_64
 	license = GPL2
 	license = custom:OpenSSL Linking Exception
+	makedepends = git
 	makedepends = boost
 	makedepends = check
 	makedepends = cmake
-	depends = mariadb
+	depends = boost-libs
+	depends = mariadb-server
 	depends = openssl
 	optdepends = rsync: State Snapshot Transfers with rsync
 	optdepends = socat: State Snapshot Transfers with mariabackup
 	options = !libtool
-	source = https://rsync.osuosl.org/pub/mariadb/mariadb-11.1.3/galera-26.4.16/src/galera-26.4.16.tar.gz
-	source = https://rsync.osuosl.org/pub/mariadb/mariadb-11.1.3/galera-26.4.16/src/galera-26.4.16.tar.gz.asc
+	source = git+https://github.com/codership/galera.git#tag=release_26.4.18
+	source = git+https://github.com/codership/wsrep-API.git
 	validpgpkeys = 177F4010FE56CA3336300305F1656F24C74CD1D8
-	sha256sums = 63c1529743821d0c30fa05e226273fd9be7cc94b7e2dfcf276c3da75c25913a9
+	sha256sums = c5a78067dfef51a9c8cc5045c7e662030650bed1d10c0c090bf73580f05b4158
 	sha256sums = SKIP
 
 pkgname = galera
