@@ -4,8 +4,8 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=gitui
-pkgver=0.26.1
-pkgrel=5
+pkgver=0.26.2
+pkgrel=1
 pkgdesc='Blazing fast terminal-ui for git written in Rust'
 url='https://github.com/extrawurst/gitui'
 arch=('x86_64')
@@ -18,6 +18,8 @@ sha256sums=('SKIP')
 
 prepare() {
   cd "$pkgname"
+  # https://github.com/extrawurst/gitui/issues/2234
+  git cherry-pick -n b925155b7fcf95062e0bbae2295384e1f188ab1a
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
