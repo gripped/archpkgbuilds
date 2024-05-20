@@ -6,7 +6,7 @@ pkgname=(
   python-maturin
 )
 pkgver=1.5.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Build and publish crates with pyo3, rust-cpython and cffi bindings"
 url="https://github.com/PyO3/maturin"
 arch=(x86_64)
@@ -46,7 +46,7 @@ prepare() {
 
 build() {
   cd $pkgbase-$pkgver
-  python -m build --wheel --no-isolation
+  MATURIN_SETUP_ARGS="--all-features" python -m build --wheel --no-isolation
 }
 
 package_maturin() {
@@ -54,6 +54,7 @@ package_maturin() {
     bzip2
     gcc-libs
     glibc
+    openssl
     rust
   )
 
