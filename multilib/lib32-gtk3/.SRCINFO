@@ -1,6 +1,6 @@
 pkgbase = lib32-gtk3
 	pkgdesc = GObject-based multi-platform GUI toolkit
-	pkgver = 3.24.41
+	pkgver = 3.24.42
 	pkgrel = 1
 	epoch = 1
 	url = https://www.gtk.org/
@@ -8,6 +8,7 @@ pkgbase = lib32-gtk3
 	license = LGPL-2.0-only
 	makedepends = git
 	makedepends = meson
+	makedepends = python-packaging
 	makedepends = sassc
 	makedepends = wayland-protocols
 	depends = gtk3
@@ -28,9 +29,9 @@ pkgbase = lib32-gtk3
 	depends = lib32-mesa
 	depends = lib32-pango
 	depends = lib32-wayland
-	source = git+https://gitlab.gnome.org/GNOME/gtk.git#commit=77ebdd85091833a7869ece48c3114fa6d9966321
+	source = git+https://gitlab.gnome.org/GNOME/gtk.git#tag=3.24.42
 	source = gtk-query-immodules-3.0-32.hook
-	b2sums = SKIP
+	b2sums = 3f79244cfeac535186b84e6c9ad3dad7dbb5737e4ebd8762985fce95930a9bbb07fcc331fb915b7f6ab8496afd7995a5aa501377af01710ff2649e5adabcb249
 	b2sums = c7136723735c4cbfe654851d0ccc1698142fa8f90b724ed9a970ebd6a74b4f59ea558e134e600736a1041417fc7fd9b3baa8bc561ed9598f2fbf45392dcc9159
 
 pkgname = lib32-gtk3
