@@ -3,7 +3,7 @@
 
 pkgname=nextcloud-app-mail
 _name=mail
-pkgver=3.5.8
+pkgver=3.6.1
 pkgrel=1
 pkgdesc="An email app for NextCloud"
 arch=(any)
@@ -17,8 +17,8 @@ optdepends=('kitinerary: for kitinerary-extractor')
 groups=(nextcloud-apps)
 options=(!strip)
 source=(https://github.com/nextcloud-releases/mail/releases/download/v$pkgver/$_name-v$pkgver.tar.gz)
-sha512sums=('a64a73c442818efe389bf1d67b974bf1e59e599315bc20d8ac5781fabf2530c47f9fcf84f23820fee17784dc3667c8417ce5ddf051b19d018dc355815eb16920')
-b2sums=('881f3cc09f3f54a6b9473c2bb220e7e8aad09a20e6ddfb3390055545c5c7e99f09a08ba306dd095d5b2e54124327be6ff28a45988410545efa569e3538b88521')
+sha512sums=('8afdd7e54a481f2559db88140371e14a0ccac9553085b98fe294d91b457c2e2b56674c35688d79f0733f584aae65839fc34687b0a44a4864dd1f55716ddfad92')
+b2sums=('c700101ccf2b920f3cb0a1f88c9165a2350ef18fb50e94f4521fc9f0d01f74b155978350105cd899c8f693be7e37b94f5f2b18026ed9a625ab2da5e3ab3b07eb')
 
 # BEGIN boilerplate nextcloud app version clamping, see also other packages in group
 # 1. Call respective function helpers in check() and package() *after* cd'ing to the source directory
@@ -64,7 +64,7 @@ package() {
   install -vdm 755 "$pkgdir/usr/share/webapps/nextcloud/apps/"
   cp -av $_name "$pkgdir/usr/share/webapps/nextcloud/apps/"
   # replace vendored version of kitinerary-extractor: https://github.com/nextcloud/mail/issues/8867
-  ln -fsv /usr/lib/kf5/kitinerary-extractor "$pkgdir/usr/share/webapps/nextcloud/apps/mail/vendor/christophwurst/kitinerary-bin/bin/kitinerary-extractor"
+  ln -fsv /usr/lib/kf5/kitinerary-extractor "$pkgdir/usr/share/webapps/nextcloud/apps/mail/vendor/nextcloud/kitinerary-bin/bin/kitinerary-extractor"
   cd $_name
   _nextcloud_app_package
 }
