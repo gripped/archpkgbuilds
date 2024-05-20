@@ -3,7 +3,7 @@
 pkgname=python-hishel
 _name="${pkgname#python-}"
 pkgver=0.0.26
-pkgrel=2
+pkgrel=3
 pkgdesc="An elegant HTTP Cache implementation for HTTPX and HTTP Core"
 arch=(any)
 url="https://github.com/karpetrosyan/hishel"
@@ -24,8 +24,8 @@ makedepends=(
 checkdepends=(
   python-anyio
   python-anysqlite
-  python-moto
   python-pytest
+  python-pyyaml
   python-redis
   python-trio
 )
