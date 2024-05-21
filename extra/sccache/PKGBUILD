@@ -3,7 +3,7 @@
 # Contributor: Jean Lucas <jean@4ray.co>
 
 pkgname=sccache
-pkgver=0.7.7
+pkgver=0.8.0
 pkgrel=1
 pkgdesc='Shared compilation cache'
 arch=(x86_64)
@@ -24,9 +24,9 @@ optdepends=(
   'memcached: Memcached support'
   'redis: Redis support'
 )
-_tag=e976c42c2141969915bdd39dd3177db6f27405a8
+_tag=a8c5368b6d689d39667b9b8c79c5346c9cdf731b
 source=(git+https://github.com/mozilla/sccache.git#tag=${_tag})
-b2sums=(SKIP)
+b2sums=('b6db84d3be7793e4b914c67668c79547403224a44a321ca09c395d59f9785e584d6fe733e0acad588c0e2f83d6276e82d31e0c093d2bc0a0ad07d5f27707f6db')
 
 pkgver() {
   cd sccache
