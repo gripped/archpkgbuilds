@@ -1,9 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-trio
-_name=${pkgname#python-}
-pkgver=0.25.0
-pkgrel=3
+pkgver=0.25.1
+pkgrel=1
 pkgdesc='A friendly Python library for async concurrency and I/O'
 arch=(any)
 url=https://github.com/python-trio/trio
@@ -35,8 +34,14 @@ checkdepends=(
   python-trustme
 )
 provides=(python-multio-provider)
-source=(git+$url.git#tag=v$pkgver)
-b2sums=('9bbb93dee455fd2a48d2199ff2b3faf964a71fb33116fecbd82a2edca05e747ac619a737f303242873884cb543c5a891f13eac1b4da5cbc9467c8ef4919fd047')
+_tag=a4646040129eff570c3d7e28cc55770563a4d4bd
+source=(git+https://github.com/python-trio/trio.git#tag=${_tag})
+b2sums=('bef35ab29aa5a3e131d771c9943259bd407dd9c4c8555a7b78d73670a440b3967fafc4e02ffdb511a780c09000a4ac2af7593ae822ab67842e08a8e29e324c53')
+
+pkgver() {
+  cd trio
+  git describe --tags | sed 's/^v//'
+}
 
 build() {
   cd trio
@@ -44,7 +49,7 @@ build() {
 }
 
 check() {
-  cd $_name
+  cd trio
   PYTHONPATH=$PWD/src pytest -vv
 }
 
