@@ -4,8 +4,8 @@
 
 pkgbase=doxygen
 pkgname=(doxygen doxygen-docs)
-pkgver=1.10.0
-pkgrel=3
+pkgver=1.11.0
+pkgrel=1
 pkgdesc='Documentation system for C++, C, Java, IDL and PHP'
 url='http://www.doxygen.nl'
 arch=(x86_64)
@@ -30,8 +30,8 @@ makedepends=(
   texlive-plaingeneric
 )
 source=(${pkgbase}-${pkgver}.tar.gz::https://github.com/doxygen/doxygen/archive/Release_${pkgver//./_}.tar.gz)
-sha512sums=('d8731796d5513ff5939c234f32f7f31aabc45f5557947741a330b3d33b368fb5ad770ef1d3d7384a402d98229eafeb1f955ef76e9932310b83c1d35a2eef500f')
-b2sums=('e9eaf70e106aa022bb0edc99082e6bccd5c6879c41be40ce69d2d5e4eb7d1c5ff078fd8f9132206bf546fa78aab7f8bef4584fd1f2d6e1e84b01d2e65933375e')
+sha512sums=('68ab2c8cf570216a7e917f686ec79361179cdc9868966fcc2722ebab49032e2bc9ac60192f101793f978ad2d7236d83c461ab4d2477f7704cf32a003b87311fb')
+b2sums=('e98254aeec8ea7cedf6ec537e3d82cb898f55d435b95e58108c433f920432789fb7feba290b9a365f90ee56eec9120376b18ff26e31b1e4219b8f89f351daa8f')
 
 _pick() {
   local p="$1" f d; shift
@@ -74,6 +74,7 @@ package_doxygen() {
     fmt libfmt.so
     gcc-libs
     glibc
+    spdlog libspdlog.so
     sqlite libsqlite3.so
   )
   optdepends=(
