@@ -3,7 +3,7 @@
 
 pkgname=('llvm' 'llvm-libs')
 pkgver=17.0.6
-pkgrel=4
+pkgrel=5
 arch=('x86_64')
 url="https://llvm.org/"
 license=('custom:Apache 2.0 with LLVM Exception')
@@ -59,6 +59,9 @@ prepare() {
   rename -v -- "-$pkgver.src" '' {cmake,third-party}-$pkgver.src
   cd llvm-$pkgver.src
   mkdir build
+
+  # Remove CMake find module for zstd; breaks if out of sync with upstream zstd
+  rm cmake/modules/Findzstd.cmake
 }
 
 build() {
