@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-remote-desktop
-pkgver=46.1
+pkgver=46.2
 pkgrel=1
 pkgdesc="GNOME Remote Desktop server"
 url="https://wiki.gnome.org/Projects/Mutter/RemoteDesktop"
@@ -49,9 +49,10 @@ checkdepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-remote-desktop.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('7204bc6b9c04308f406284345b734bddbd0a170cbe3ed16fc9034b4aa76750ae63f2b853a8b7e92f37c77309a551c1f416122aa184584b4d46b7bc222804326c')
+b2sums=('eb0b13a0b4a37229048999fb33f7ec0b54189ee51b99708dcb35cc4dda2645b6dd8fa536347d6ef38acb64533fc6219130c204887dae6c42bf3312adba053142')
 validpgpkeys=(
   8307C0A224BABDA1BABD0EB9A6EEEC9E0136164A # Jonas Ådahl <jadahl@gmail.com>
+  E60DADB5546D3F01AF35B87289F540EAB24513E2 # Ray Strode <rstrode@redhat.com>
 )
 
 prepare() {
