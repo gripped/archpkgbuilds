@@ -3,7 +3,7 @@
 
 pkgname=tmux
 pkgver=3.4
-pkgrel=7
+pkgrel=8
 pkgdesc='Terminal multiplexer'
 url='https://github.com/tmux/tmux/wiki'
 arch=('x86_64')
