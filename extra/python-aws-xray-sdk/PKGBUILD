@@ -4,8 +4,8 @@
 pkgname=python-aws-xray-sdk
 _pkgname=aws-xray-sdk-python
 # https://github.com/aws/aws-xray-sdk-python/blob/master/CHANGELOG.rst
-pkgver=2.13.0
-pkgrel=2
+pkgver=2.13.1
+pkgrel=1
 pkgdesc='AWS X-Ray SDK for Python'
 arch=(any)
 url='https://github.com/aws/aws-xray-sdk-python'
@@ -32,7 +32,7 @@ checkdepends=(
   ${_optdepends_tested[@]}
 )
 source=("git+https://github.com/aws/aws-xray-sdk-python.git#tag=$pkgver")
-sha256sums=('b48b5e5c997c9050d52388928320ca4813dca3ced38494305daa86f15426dbba')
+sha256sums=('fe05c16221ff6c2929996aa8ff1a9a744c7cdaf5acb6a22b4a9721697c119ecc')
 
 _backports=(
 )
