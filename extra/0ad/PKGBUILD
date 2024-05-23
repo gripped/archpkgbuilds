@@ -4,7 +4,7 @@
 pkgname=0ad
 pkgver=a26
 _pkgver=0.0.26-alpha
-pkgrel=13
+pkgrel=14
 pkgdesc="Cross-platform, 3D and historically-based real-time strategy game"
 arch=('x86_64')
 url="http://play0ad.com/"
@@ -12,16 +12,20 @@ license=('GPL-2.0-or-later' 'CCPL')
 depends=('0ad-data' 'binutils' 'boost-libs' 'curl' 'enet' 'libogg' 'libpng' 'libvorbis'
          'libxml2' 'openal' 'sdl2' 'wxwidgets-gtk3' 'zlib' 'libgl' 'glu' 'fmt'
          'gloox' 'miniupnpc' 'libminiupnpc.so' 'icu' 'nspr' 'libsodium' 'which')
-makedepends=('boost' 'cmake' 'mesa' 'zip' 'libsm' 'rust' 'python' 'python-virtualenv' 'git')
+makedepends=('boost' 'cmake' 'mesa' 'zip' 'libsm' 'rust' 'git')
 options=('!lto') # breaks spidermonkey linking (https://bugs.gentoo.org/746947)
 source=("https://releases.wildfiregames.com/$pkgname-$_pkgver-unix-build.tar.xz"
+        https://www.python.org/ftp/python/3.11.9/Python-3.11.9.tar.xz{,.asc}
         mozjs_virtualenv.patch
         fix_python_3.11_ftbfs.patch
         https://github.com/0ad/0ad/commit/839edc3a.patch
         https://github.com/0ad/0ad/commit/093e1eb2.patch
         https://github.com/0ad/0ad/commit/d2426312.patch
         fix_gcc_14_ftbfs.patch)
+validpgpkeys=('A035C8C19219BA821ECEA86B64E628F8D684696D')  # Pablo Galindo Salgado <pablogsal@gmail.com>
 sha512sums=('aaf647d5d8454c244015d2a198beeaaebc571a5bc96446f3acff8dbd05f9843029c500bf4162651a5e1fcdb42bd5fb5b4f5c512c78372479fbd8565dd093f272'
+            '2b0a1d936b4ef8376f9655797aece8ffdff75031ad7bfa840f330cac2aed189aecc80c163edc12ea772851d7a011f3fc1960470a73d9d4290cf3ab8ad6ed7e6a'
+            'SKIP'
             '3a0f935ab05e1c0d6a926ba02a5ed72afbb94b6910acaad77661b927680f192a06c7614287fad2ff8a54e3e1ee814614c9abfc9497a27e86b9e58ae1f6eebbfb'
             '748a75420541947e2a215b3a8789a0e137179e4981d0977e1c4b20cd7b86af2d96b9976e04d60ace8d5ee465d542cadc42ee9bceedaaa97d2b320f533e3e3892'
             '1dfc8a0c6ac29040f72d9bbf6b631a74cbdec444b9078a015345139228666354d9b5059f85b640ce3afc0f590bcbe8afd5e158509a0c95751e1cd69fece46876'
@@ -42,6 +46,16 @@ prepare() {
 }
 
 build() {
+  # Build Python 3.11 to build bundled spidermonkey
+  # https://trac.wildfiregames.com/ticket/6895
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/0ad/-/issues/1
+  cd Python-3.11.9
+  ./configure
+  make
+  make DESTDIR="$srcdir/pythoninstall" install
+  cd ..
+  PATH="$PWD/pythoninstall/usr/local/bin:$PATH"
+
   cd "$pkgname-$_pkgver/build/workspaces"
 
   # this uses malloc_usable_size, which is incompatible with fortification level 3
