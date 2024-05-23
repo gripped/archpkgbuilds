@@ -8,18 +8,18 @@
 # Contributor: Pavlo <pavlofreemen(at)gmail(dot)com>
 
 pkgname=font-manager
-pkgver=0.8.8
-pkgrel=2
+pkgver=0.8.9
+pkgrel=1
 pkgdesc='A simple font management application for GTK+ Desktop Environments'
 url=https://fontmanager.github.io
 arch=(x86_64 i686)
-license=(GPL)
+license=(GPL-3.0-only)
 depends=(gtk3
          json-glib
          libsoup
          libxml2
          sqlite
-         webkit2gtk)
+         webkit2gtk-4.1)
 optdepends=(file-roller
             libnautilus-extension)
 makedepends=(gobject-introspection
@@ -31,20 +31,8 @@ makedepends=(gobject-introspection
              yelp-tools)
 _archive="$pkgname-$pkgver"
 _url="https://github.com/FontManager/font-manager"
-source=("$_url/releases/download/$pkgver/$_archive.tar.xz"
-        'font-manager-nautilus4.patch'
-        'font-manager-vala-0.56.17.patch')
-sha256sums=('b6b6e7c62ce7a407f4151beb890b4dabfb1b2e446ff51f087f1b4fab986f8e79'
-            '2ec90f8118ecc6fa57b3bbc27b81f0af553596d948816cbc8cd0655ee84a013e'
-            'bb98de7ed088e4ad1aca8dd92225db8bba6d7106da92343467a026cc3a64c34d')
-
-prepare() {
-	# Fix build failures with newer Nautilus versions
-	patch -d "$_archive" -Np1 -i ../font-manager-nautilus4.patch
-
-	# Allow build to proceed with Vala versions >= 0.56.17 -
-	patch -d "$_archive" -Np1 -i ../font-manager-vala-0.56.17.patch
-}
+source=("$_url/releases/download/$pkgver/$_archive.tar.xz")
+sha256sums=('4e17df355d2390aa8ac6833599c886bc64ad412193e020be081a077cc723a0df')
 
 build() {
 	arch-meson "$_archive" build \
