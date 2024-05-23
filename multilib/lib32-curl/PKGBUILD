@@ -7,8 +7,8 @@
 
 pkgbase=lib32-curl
 pkgname=(lib32-curl lib32-libcurl-compat lib32-libcurl-gnutls)
-pkgver=8.7.1
-pkgrel=4
+pkgver=8.8.0
+pkgrel=1
 pkgdesc='command line tool and library for transferring data with URLs (32-bit)'
 arch=('x86_64')
 url='https://curl.se/'
@@ -25,17 +25,10 @@ depends=('curl'
          'lib32-zstd' 'libzstd.so')
 makedepends=('git' 'patchelf' 'lib32-gnutls' 'lib32-openssl')
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
-source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed"
-        '0001-bump-version-to-match-last-tag.patch')
-sha512sums=('38b55dc916a64a1fd40a8af3e9a694ae918f8efb714430834491ebbe0ceeee4b58ba804afa15da966cbcf9cd7100ce373aed7b2101dff56f742996072caaf09a'
-            '51df4903eff9f1a15b1317ea4a8ee2b8537f347984f2524f42213b09344cd6109c621a4b81b37d2fcf2027387bb81cf0a744a48e96b86c4e268c43261ff86845')
+source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed")
+sha512sums=('743cac6059697b8aec637cb0ca94bc0606a9bbcf274f77847a1ceb9bbadc0259a9fbf30133323af2543d8df65ec6cd3e396cd999aca8fe73dde794a9c3dcbf6c')
 
 _backports=(
-  # content_encoding: brotli and others, pass through 0-length writes
-  'b30d694a027eb771c02a3db0dee0ca03ccab7377'
-
-  # http: with chunked POST forced, disable length check on read callback
-  '721941aadf4adf4f6aeb3f4c0ab489bb89610c36'
 )
 
 _reverts=(
@@ -57,8 +50,6 @@ prepare() {
     git log --oneline -1 "${_c}"
     git revert -n "${_c}"
   done
-
-  patch -Np1 < ../0001-bump-version-to-match-last-tag.patch
 
   # no '-DEV' in version, release date from tagged commit...
   sed -i \
