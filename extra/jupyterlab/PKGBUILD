@@ -2,7 +2,7 @@
 
 pkgname=jupyterlab
 _pipname=jupyterlab
-pkgver=4.2.0
+pkgver=4.2.1
 pkgrel=1
 pkgdesc='JupyterLab computational environment'
 arch=(any)
@@ -32,10 +32,12 @@ checkdepends=(npm
               python-pytest-jupyter
               python-pytest-tornasync)
 source=(git+https://github.com/jupyterlab/jupyterlab#tag=v$pkgver)
-sha256sums=('275fcf3831f8302ea3d7f343847747b4fa7abef96df0d34a518941d739c4dc6b')
+sha256sums=('c867030c090caa36a2e48bff0c82dd5e35ffa96991509b62ca00b7b464a15820')
 
 build() {
   cd $pkgname
+# https://github.com/nodejs/node/issues/48444
+  export UV_USE_IO_URING=0
   python -m build --wheel --no-isolation
 }
 
