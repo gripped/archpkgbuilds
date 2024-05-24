@@ -1,0 +1,36 @@
+pkgbase = intel-oneapi-compiler-shared-runtime
+	pkgver = 2024.1.0
+	pkgrel = 1
+	url = https://software.intel.com/content/www/us/en/develop/tools/oneapi.html
+	arch = x86_64
+	license = LicenseRef-Intel-EULA-Developer-Tools
+	depends = level-zero-loader
+	noextract = intel-oneapi-compiler-shared-runtime-2024.1-2024.1.0-963_amd64.deb
+	noextract = intel-oneapi-compiler-shared-common-2024.1-2024.1.0-963_all.deb
+	source = https://apt.repos.intel.com/oneapi/pool/main/intel-oneapi-compiler-shared-runtime-2024.1-2024.1.0-963_amd64.deb
+	source = https://apt.repos.intel.com/oneapi/pool/main/intel-oneapi-compiler-shared-common-2024.1-2024.1.0-963_all.deb
+	b2sums = 3e6a840d8f95f41f9e0177ea029167f27340c028f150991efdde381af4128f97a16b19fb4f97186f44298af2678295e7dc694bb873bd0b5d6d5948e2ad8c57c7
+	b2sums = 1580a0ded7e661f1d1dc3a21284178c506ffeb2f1505fa1d3b5758d3e71fc79ee75be95bd493c193bddc0dae30284c07f99051e3f22c296b1a2dc236d9b41b07
+
+pkgname = intel-oneapi-compiler-shared-runtime
+	pkgdesc = Intel oneAPI compiler runtime libraries
+	depends = intel-oneapi-openmp
+	depends = intel-oneapi-common
+	depends = intel-oneapi-compiler-shared-runtime-libs
+	depends = libxml2
+	depends = glibc
+	depends = gcc-libs
+	depends = level-zero-loader
+	depends = zlib
+	provides = intel-oneapi-compiler-shared-common
+	provides = opencl-driver
+	conflicts = intel-oneapi-basekit
+
+pkgname = intel-oneapi-compiler-shared-runtime-libs
+	pkgdesc = Intel oneAPI compiler runtime libraries: Minimal compiler libraries
+	depends = intel-oneapi-common
+	depends = intel-oneapi-openmp
+	depends = glibc
+	depends = gcc-libs
+	depends = zlib
+	conflicts = intel-oneapi-basekit
