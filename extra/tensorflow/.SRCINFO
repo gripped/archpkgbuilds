@@ -1,7 +1,7 @@
 pkgbase = tensorflow
 	pkgdesc = Library for computation using data flow graphs for scalable machine learning
 	pkgver = 2.16.1
-	pkgrel = 5
+	pkgrel = 6
 	url = https://www.tensorflow.org/
 	arch = x86_64
 	license = APACHE
@@ -36,8 +36,10 @@ pkgbase = tensorflow
 	depends = intel-oneapi-compiler-shared-runtime-libs
 	optdepends = tensorboard: Tensorflow visualization toolkit
 	source = tensorflow-2.16.1.tar.gz::https://github.com/tensorflow/tensorflow/archive/v2.16.1.tar.gz
+	source = tensorflow-2.16.1-python-distutils-removal.patch
 	source = https://github.com/bazelbuild/bazel/releases/download/6.1.0/bazel_nojdk-6.1.0-linux-x86_64
 	sha512sums = 6f02261b3e72b476a3adb8e47efe2bee76b8564315b853e3b16f443193204d363b5fb22ac5c388cebd6a1f326f0daf00586e0ccbf6a305d761a9266534fde13f
+	sha512sums = e4c44d2f5314b83d8ed404e5ec14960ef8b7df0c1a2a3e826f913a02c901f9fd0326f9014a602121e0fdb2f928d1459f8b8180455491a1f937ce84e12f6a7d3e
 	sha512sums = b71aed83ae1c3f610df77f7c148703fd3e7aa5901794a2b31c6044c71b3f030831d59f7f3641992105117a422655160fc9b509326b31586c6bca378cbff08762
 
 pkgname = tensorflow
