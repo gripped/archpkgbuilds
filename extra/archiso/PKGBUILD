@@ -3,7 +3,7 @@
 # Contributor: Gerardo Exequiel Pozzi <djgera@archlinux.org>
 
 pkgname=archiso
-pkgver=77
+pkgver=78
 pkgrel=1
 pkgdesc="Tools for creating Arch Linux live and install iso images"
 arch=(any)
@@ -32,9 +32,9 @@ optdepends=(
   'openssl: for CMS signature verification of PXE artifacts and rootfs over PXE'
   'qemu-desktop: for run_archiso'
 )
-source=(git+https://gitlab.archlinux.org/archlinux/archiso.git#tag=v$pkgver?signed)
-sha512sums=('15a974cf48c0ed05f8788307cdd39b7aa29734c0de2886cfd74ec267a41612b7a9c8751d73b7afa36e3446a71e11b129cbb5d4a59540798464f7c6543d177e1f')
-b2sums=('f552bf00756012af1e2e21246d5d97f42f02595895c995c83bb1c556d51d126f4a86d67d49f872a62be87d2ff0a60907e9ff4a91dd5f1f8d489b7b1a9a503617')
+source=(git+$url.git?signed#tag=v$pkgver)
+sha512sums=('8956c16ae6b5047c976d110ba3ef2dae8664ac2b86c344f69004e27214cc33b3cc435bb8f72ea058f70935f419108a6cc1af6af4990ea517d9bcc5c1bc01e80f')
+b2sums=('b6d48751b6593b20195971bd8c530984a958fc8c9966f7b4e9bbbd383487b610d698f70853c1fba55548eb49e2d5b2de44609e27dfc6c4ff7239fecc5ca6425f')
 validpgpkeys=(
   '991F6E3F0765CF6295888586139B09DA5BF0D338' # David Runge <dvzrv@archlinux.org>
   'BB8E6F1B81CF0BB301D74D1CBF425A01E68B38EF' # nl6720 <nl6720@archlinux.org>
