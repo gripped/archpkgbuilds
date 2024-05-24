@@ -6,14 +6,14 @@
 pkgname=python-openpyxl
 # https://openpyxl.readthedocs.io/en/stable/changes.html
 pkgver=3.1.2
-pkgrel=4
+pkgrel=5
 pkgdesc="A Python library to read/write Excel 2010 xlsx/xlsm files"
 arch=('any')
 url="https://openpyxl.readthedocs.org/"
 license=('MIT')
 depends=('python' 'python-et-xmlfile')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools' 'python-defusedxml')
-checkdepends=('python-pytest' 'python-py' 'python-lxml' 'python-pandas' 'python-pillow')
+checkdepends=('python-pytest' 'python-lxml' 'python-pandas' 'python-pillow')
 optdepends=('python-pillow: needed to include images'
             'python-lxml: alternative XML backend'
             'python-defusedxml: guard against various XML vulnerabilities'
