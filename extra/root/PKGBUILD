@@ -8,7 +8,7 @@
 pkgbase=root
 pkgname=('root' 'root-cuda')
 pkgver=6.30.06
-pkgrel=1
+pkgrel=2
 pkgdesc='C++ data analysis framework and interpreter from CERN'
 arch=('x86_64')
 url='https://root.cern'
@@ -21,7 +21,7 @@ makedepends=(
     'cfitsio'
     'cmake'
     'cuda'
-    'cudnn'
+    #'cudnn'
     'gcc-fortran'
     'git'
     'go'
@@ -131,6 +131,9 @@ prepare() {
     CUSTOM_CMAKE_FLAGS+=" -DINSTALL_PREFIX=/usr"
     # GSL option was removed
     CUSTOM_CMAKE_FLAGS+=" -Dgsl_shared=OFF"
+    # root is not compatible with cudnn 9, disabled for now
+    # see https://github.com/root-project/root/issues/15413
+    CUSTOM_CMAKE_FLAGS+=" -Dcudnn=OFF"
     export CUSTOM_CMAKE_FLAGS
 
     # update system flags
@@ -279,7 +282,10 @@ package_root-cuda() {
     pkgdesc='C++ data analysis framework and interpreter from CERN with GPU (CUDA) features enabled'
     provides=('root')
     conflicts=('root')
-    depends+=('cuda' 'cudnn')
+    depends+=(
+        'cuda'
+        #'cudnn'
+    )
     optdepends+=('gcc-fortran: Enable the Fortran components of ROOT')
     _package build-cuda
 }
