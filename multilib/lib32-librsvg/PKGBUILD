@@ -7,7 +7,7 @@ pkgbase=lib32-librsvg
 pkgname=(
   lib32-librsvg
 )
-pkgver=2.58.0
+pkgver=2.58.1
 pkgrel=1
 epoch=2
 pkgdesc="SVG rendering library (32-bit)"
@@ -17,8 +17,10 @@ license=(LGPL-2.1-or-later)
 depends=(
   lib32-cairo
   lib32-freetype2
+  lib32-gcc-libs
   lib32-gdk-pixbuf2
   lib32-glib2
+  lib32-glibc
   lib32-harfbuzz
   lib32-libxml2
   lib32-pango
@@ -31,16 +33,11 @@ makedepends=(
   rust
 )
 checkdepends=(ttf-dejavu)
-_commit=eb713262e3458b77cfe00d286d7fa0b7968dbb8f  # tags/2.58.0^0
-source=(
-  "git+https://gitlab.gnome.org/GNOME/librsvg.git#commit=$_commit"
+source=("git+https://gitlab.gnome.org/GNOME/librsvg.git?signed#tag=$pkgver")
+b2sums=('146472a97dc2bf7b4b0150b2984b45e91ea5e188d162a37c3e3123f750e788c7b618f44e37ca1e96c6e2de354633e4918ba52531b725dc02e5d3325727c73853')
+validpgpkeys=(
+  263F590F7E0FE1CB3EA274B0167637EB6FB8DCCE # Federico Mena Quintero <federico@gnome.org>
 )
-b2sums=('45877da3e6797516a90d3df00f9df18aed8b91c1d6725ff3ff51fb48470f8e182f2bb8a9c8d0636588d7e2fed2563920c54013c93814b1a3e7892e515c4ba988')
-
-pkgver() {
-  cd librsvg
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
 
 prepare() {
   cd librsvg
