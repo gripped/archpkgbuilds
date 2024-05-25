@@ -6,7 +6,7 @@
 
 pkgname=neovim
 pkgver=0.10.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Fork of Vim aiming to improve user experience, plugins, and GUIs'
 arch=('x86_64')
 url='https://neovim.io'
@@ -66,28 +66,29 @@ check() {
 }
 
 package() {
-  install -Dm644 -t "$pkgdir/usr/share/libalpm/hooks/" nvimdoc.hook
-  install -Dt "$pkgdir/usr/share/libalpm/scripts/" nvimdoc
+  install -Dm644 -t "${pkgdir}"/usr/share/libalpm/hooks/ nvimdoc.hook
+  install -Dt "${pkgdir}"/usr/share/libalpm/scripts/ nvimdoc
 
   cd ${pkgname}-${pkgver}
-  DESTDIR="$pkgdir" cmake --install build
+  DESTDIR="${pkgdir}" cmake --install build
+
+  install -Dm644 LICENSE.txt -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install -Dm644 runtime/nvim.desktop -t "${pkgdir}"/usr/share/applications/
+  install -Dm644 runtime/nvim.appdata.xml -t "${pkgdir}"/usr/share/metainfo/
+  install -Dm644 runtime/nvim.png -t "${pkgdir}"/usr/share/pixmaps/
 
   # Tree-sitter grammars are packaged separately and installed into
   # /usr/lib/tree_sitter.
-  ln -s /usr/lib/tree_sitter "$pkgdir"/usr/share/nvim/runtime/parser
+  ln -s /usr/lib/tree_sitter "${pkgdir}"/usr/share/nvim/runtime/parser
 
-  install -Dm644 LICENSE.txt -t "${pkgdir}/usr/share/licenses/${pkgname}/"
-  install -Dm644 runtime/nvim.desktop -t "${pkgdir}/usr/share/applications/"
-  install -Dm644 runtime/nvim.appdata.xml -t "${pkgdir}/usr/share/metainfo/"
-  install -Dm644 runtime/nvim.png -t "${pkgdir}/usr/share/pixmaps/"
-
-  # Make Arch Vim packages work
+  # Include system-wide Vim directory in runtimepath
   mkdir -p "${pkgdir}"/etc/xdg/nvim
-  echo "\" This line makes pacman-installed global Arch Linux vim packages work." > "${pkgdir}"/etc/xdg/nvim/sysinit.vim
-  echo "source /usr/share/nvim/archlinux.vim" >> "${pkgdir}"/etc/xdg/nvim/sysinit.vim
+  echo 'source /usr/share/nvim/archlinux.lua' > "${pkgdir}"/etc/xdg/nvim/sysinit.vim
 
   mkdir -p "${pkgdir}"/usr/share/vim
-  echo "set runtimepath+=/usr/share/vim/vimfiles" > "${pkgdir}"/usr/share/nvim/archlinux.vim
+  cat > "${pkgdir}"/usr/share/nvim/archlinux.lua << EOF
+-- Modify runtimepath to also search the system-wide Vim directory
+-- (eg. for Vim runtime files from Arch Linux packages)
+vim.opt.runtimepath:append({ '/usr/share/vim/vimfiles', '/usr/share/vim/vimfiles/after' })
+EOF
 }
-
-# vim:set sw=2 sts=2 et:
