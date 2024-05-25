@@ -1,17 +1,17 @@
 pkgbase = minikube
 	pkgdesc = A tool that makes it easy to run Kubernetes locally
-	pkgver = 1.32.0
+	pkgver = 1.33.1
 	pkgrel = 1
 	url = https://github.com/kubernetes/minikube
 	arch = x86_64
-	license = Apache
+	license = Apache-2.0
 	makedepends = git
 	makedepends = go
 	depends = glibc
 	optdepends = kubectl: to manage the cluster
 	optdepends = virtualbox: to use --vm-driver=virtualbox
 	options = !lto
-	source = git+https://github.com/kubernetes/minikube.git#commit=8220a6eb95f0a4d75f7f2d7b14cef975f050512d
-	sha512sums = SKIP
+	source = git+https://github.com/kubernetes/minikube.git#commit=5883c09216182566a63dff4c326a6fc9ed2982ff
+	sha512sums = 58ed440852ab1bf8e1e687499bcd66b6b95027bb702f0361e24794de17d089da483258d175c434976b232f2da63ef97f56a4634c4968775fa8b0c525b5b4c92a
 
 pkgname = minikube
