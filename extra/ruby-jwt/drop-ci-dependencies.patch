@@ -1,24 +1,27 @@
 diff --git a/ruby-jwt.gemspec b/ruby-jwt.gemspec
-index d375c0f..b515aea 100644
+index 67ff391..8150914 100644
 --- a/ruby-jwt.gemspec
 +++ b/ruby-jwt.gemspec
-@@ -22,18 +22,8 @@ Gem::Specification.new do |spec|
+@@ -22,21 +22,10 @@ Gem::Specification.new do |spec|
      'rubygems_mfa_required' => 'true'
    }
-
+ 
 -  spec.files = `git ls-files -z`.split("\x0").reject do |f|
 -    f.match(%r{^(spec|gemfiles|coverage|bin)/}) || # Irrelevant folders
 -      f.match(/^\.+/) || # Files and folders starting with .
 -      f.match(/^(Appraisals|Gemfile|Rakefile)$/) # Irrelevant files
 -  end
 +  spec.files = `find . -print0`.split("\x0").reject { |f| f.match(%r{^(spec|gemfiles|coverage|bin)/}) }
-
+ 
    spec.executables = []
    spec.require_paths = %w[lib]
+ 
+   spec.add_dependency 'base64'
 -
 -  spec.add_development_dependency 'appraisal'
 -  spec.add_development_dependency 'bundler'
 -  spec.add_development_dependency 'rake'
 -  spec.add_development_dependency 'rspec'
+-  spec.add_development_dependency 'rubocop'
 -  spec.add_development_dependency 'simplecov'
  end

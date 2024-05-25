@@ -2,7 +2,7 @@
 
 _gemname='jwt'
 pkgname="ruby-${_gemname}"
-pkgver=2.7.1
+pkgver=2.8.1
 pkgrel=1
 pkgdesc='A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard'
 arch=('any')
@@ -13,8 +13,8 @@ makedepends=('ruby-rdoc' 'ruby-rake' 'ruby-rspec' 'ruby-bundler')
 checkdepends=('ruby-rubocop' 'ruby-simplecov')
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${_gemname}-v${pkgver}.tar.gz" 'drop-ci-dependencies.patch')
-sha512sums=('efcdd81bc472a18764e0033f1040e9e2506952cbfb691acfc1ad90a5b34ebac864911e0cfeb28b82ac2ce1da7e3578a6677c0b113d1e45a81a3f4c4f8fed1047'
-            '44895498a327428011d850d9e5a3aa6a36d85b3a505217f0586d58786d7b9408db5cce8a9c91ea50e08b278de4db85adb0edb2205f0bd70f02d664756d86a30d')
+sha512sums=('df4ad49f223bba0ace69a37d229868c2deabed5c09fd84e5e4ce4021242cef9e30c07a592b5bf54af6bdcfec552487d808620cf020d242757fc4310d201469c2'
+            'd161e49fd6d8c94e871039b6fa63dae35f828b1a04fb66fa4013f17f990307647b0f48b796f5c4d442d56d76bb91947d460036b7b981614a9c45924bc8f9ea45')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
