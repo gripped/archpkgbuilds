@@ -3,12 +3,12 @@
 # Contributor: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=prometheus-unbound-exporter
-pkgver=0.4.4
+pkgver=0.4.6
 pkgrel=1
 pkgdesc='Prometheus exporter for Unbound'
 arch=('x86_64')
 url='https://github.com/letsencrypt/unbound_exporter'
-license=('Apache')
+license=('Apache-2.0')
 groups=()
 depends=('glibc')
 makedepends=('git' 'go')
@@ -16,7 +16,7 @@ optdepends=('unbound: for local instance')
 options=('!lto')
 source=("${url}/archive/v${pkgver}/unbound_exporter-v${pkgver}.tar.gz" 'prometheus-unbound-exporter.service')
 
-sha256sums=('78d3a7be3f581eb4c4cfc59c65a15026a3ba8a722e326f33d1bc862c32f8a83e'
+sha256sums=('6ab5933f67a87025fb744dec4a3ae328a4c9fada623222aa28df8b85105e5311'
             'ab4bfb97e16db7dd389a29e6b7d32b05748af7bf78c2a3ae18f75f0c5645a5aa')
 
 prepare() {
@@ -36,13 +36,15 @@ build() {
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
+  export CGO_LDFLAGS="${LDFLAGS}"
+  export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
 
   go build -v\
     -trimpath \
     -buildmode=pie \
     -mod=readonly \
     -modcacherw \
-    -ldflags "-linkmode external -extldflags ${LDFLAGS}" \
+    -ldflags "-linkmode external -extldflags \"${LDFLAGS}\"" \
     -o "build/${pkgname}" \
     .
 }
