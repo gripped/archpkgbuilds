@@ -6,14 +6,13 @@
 
 pkgname=python-pylast
 pkgver=5.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A Python interface to Last.fm and Libre.fm'
 arch=(any)
 url='https://github.com/pylast/pylast'
 license=(Apache)
 depends=(
   python-httpx
-  python-importlib-metadata
 )
 makedepends=(
   git
