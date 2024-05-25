@@ -4,10 +4,10 @@
 # Contributor: Yosef Or Boczko <yoseforb@gnome.org>
 
 pkgname=gnome-software
-pkgver=46.1
+pkgver=46.2
 pkgrel=1
 pkgdesc="GNOME Software Tools"
-url="https://wiki.gnome.org/Apps/Software/"
+url="https://apps.gnome.org/Software"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
@@ -51,7 +51,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-software.git?signed#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/mwleeds/gnome-pwa-list.git"
 )
-b2sums=('0f7b401da058f279a7b004c5bcb76d3f3118b2f50629a46f008dc7193436645cf9045d91d58aa147e59d4f7ce164f18cfed53cb91b2efb0a8245c735805d9c32'
+b2sums=('ea19a0dc0884f8820320c3159740330d907365f70e130f3a963f414bd51f1fd994b2318b39bc64390d2e6a9fcfa22a1481b829d9bfb559030b405c71357adcb4'
         'SKIP')
 validpgpkeys=(
   2AA441054BD2F1715EC11610FB183E7EF3C36A0D # Milan Crha <mcrha@redhat.com>
