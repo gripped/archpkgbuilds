@@ -2,8 +2,8 @@
 # Contributor: Bruce Zhang <zttt183525594@gmail.com>
 
 pkgname=feeluown
-pkgver=4.1.3
-pkgrel=2
+pkgver=4.1.4
+pkgrel=1
 pkgdesc="FeelUOwn Music Player"
 arch=('any')
 url="https://github.com/feeluown/FeelUOwn"
@@ -26,18 +26,15 @@ provides=('feeluown-local')
 replaces=('feeluown-local')
 groups=('feeluown-full')
 source=("git+https://github.com/feeluown/FeelUOwn.git#tag=v$pkgver"
-        "feeluown-python3.12.patch::https://github.com/feeluown/FeelUOwn/pull/831.patch"
         "feeluown.desktop"
 	"pytest-skip-benchmark-cov-plugin.patch")
-sha512sums=('0cca3eed179fe58e3550f5f5f4b3c8dcdac2ba78c16f20df3f6241bcc2a90b9b5ba1ef6c6eea9deffd1d9150f024737f5cd13b5ca70b6944d53b9f148a339b88'
-            'e45104003d85dcbe54b7b964451501a7a006315464ba0bdcd94e955b8282bd1f1b39e5f417915d1bd57cadf4acf03654f6511085de68f4488515d140c00788a3'
+sha512sums=('eec8022fa18663620533cdda5567eea4f8132d92a6602b923ae8413791a763372ea25d80174400abf23d82a85b77bec52bbbde75bae3eda92a0c08ad4989b299'
             '48882f7469c22e5db332663bc1aa8b398b0a10a0c929d4d7e3d7b8b91205d7d3070c5fa295cb9a14f8c352bff57978bfaad167343e0ddc51c92417eda07c8087'
             '97e1d3133c921b1071ad1f6966b5175755cde22660bc76d2f107ddea9d3cde6b105636ed39838d4e81bef168b40ade130c09e8f9752bf1ac77d67cff2a42bae1')
 
 prepare() {
   cd FeelUOwn
   patch -Np1 -i ../pytest-skip-benchmark-cov-plugin.patch
-  patch -Np1 -i ../feeluown-python3.12.patch
   # TODO: figure out how to use virtual audio output
   sed -i 's/cannot_play_audio = is_travis_env/cannot_play_audio = os.environ.get("CANNOT_PLAY_AUDIO") == "1"/' tests/helpers.py
 }
