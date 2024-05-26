@@ -4,7 +4,7 @@
 pkgbase=e2fsprogs
 pkgname=('e2fsprogs' 'fuse2fs')
 pkgver=1.47.1
-pkgrel=2
+pkgrel=4
 pkgdesc='Ext2/3/4 filesystem utilities'
 arch=('x86_64')
 license=('GPL' 'LGPL' 'MIT')
@@ -29,10 +29,11 @@ build() {
   cd "${srcdir}/${pkgbase}-${pkgver}"
 
   ./configure \
-      --prefix=/usr \
+      --prefix='/usr' \
       --with-root-prefix='' \
-      --libdir=/usr/lib \
-      --sbindir=/usr/bin \
+      --libdir='/usr/lib' \
+      --libexecdir='/usr/lib' \
+      --sbindir='/usr/bin' \
       --enable-elf-shlibs \
       --disable-fsck \
       --disable-uuidd \
