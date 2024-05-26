@@ -1,20 +1,17 @@
 pkgbase = gnome-shell
 	pkgdesc = Next generation desktop shell
-	pkgver = 46.1
-	pkgrel = 2
+	pkgver = 46.2
+	pkgrel = 1
 	epoch = 1
-	url = https://wiki.gnome.org/Projects/GnomeShell
+	url = https://gitlab.gnome.org/GNOME/gnome-shell
 	arch = x86_64
 	license = GPL-3.0-or-later
-	checkdepends = appstream-glib
-	checkdepends = python-dbusmock
-	checkdepends = xorg-server-xvfb
 	makedepends = asciidoc
 	makedepends = bash-completion
 	makedepends = evolution-data-server
 	makedepends = gi-docgen
 	makedepends = git
-	makedepends = gnome-control-center
+	makedepends = gnome-keybindings
 	makedepends = gobject-introspection
 	makedepends = meson
 	makedepends = sassc
@@ -61,9 +58,9 @@ pkgbase = gnome-shell
 	depends = unzip
 	depends = upower
 	depends = webkitgtk-6.0
-	source = git+https://gitlab.gnome.org/GNOME/gnome-shell.git#tag=46.1
+	source = git+https://gitlab.gnome.org/GNOME/gnome-shell.git#tag=46.2
 	source = git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git
-	b2sums = 7aa8e21a0135a1c5536d19877747a86b1cfa1024b6c378db2364033d2a6b3a3e30875a08176423cc41c7c3a87bb76b5b67df5177aa6d209a726f0f3a3c15dd6a
+	b2sums = dbc32a609c1ee2f59ce777f2af4a541b376d5e53bded7d4b6ddfa0a913db503fc429fa0f9b8c8068b9e00382383e669ea6cbf553caa2348666cdc33bee8ad4ad
 	b2sums = SKIP
 
 pkgname = gnome-shell
