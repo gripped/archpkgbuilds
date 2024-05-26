@@ -2,9 +2,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-webengine
-_qtver=6.7.0
-pkgver=${_qtver/-/}
-pkgrel=2
+pkgver=6.7.1
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
@@ -72,7 +71,7 @@ _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver
         git+https://code.qt.io/qt/qtwebengine-chromium
         qtwebengine-6.7.0-ninja1.12.patch)
-sha256sums=('dbb5c0191c2907a405ec31c9a13b4b7010c53445ab2c76485310af9a56ffeace'
+sha256sums=('25cba11801528f31b1e043aa29395c695189ec145b993c633ca8e557b13f34f6'
             'SKIP'
             'c037cccc1d43bcd9d67045354ca48b405acec217149cb4b2bd3cfb7b5561cc33')
 
