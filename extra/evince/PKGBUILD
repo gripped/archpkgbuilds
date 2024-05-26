@@ -7,10 +7,10 @@ pkgname=(
   evince
   evince-lib-docs
 )
-pkgver=46.1
+pkgver=46.3
 pkgrel=1
 pkgdesc="Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)"
-url="https://wiki.gnome.org/Apps/Evince"
+url="https://apps.gnome.org/Evince"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
@@ -52,7 +52,7 @@ makedepends=(
   yelp-tools
 )
 source=("git+https://gitlab.gnome.org/GNOME/evince.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('d49287501ccb64fd5fc88e1f19621e5cfc299d8587dd5b5bfbd91a2975f8832fadde798e0c68959f86231958b37d06bccf48bd46dbce26709666ce28cd8dea15')
+b2sums=('f0a6c569a6175c433c0ae0cf77fe5f0b819959a9199d35b5442d6f8e6c663ad83663bd277f368581f5d2400c124896b2c13924c697e5c2b06faaef0469f99bdb')
 validpgpkeys=(
   6F3E1831D69760DC3FCE7873D6197451C129658C # Germán Poo-Caamaño <gpoo@gnome.org>
 )
