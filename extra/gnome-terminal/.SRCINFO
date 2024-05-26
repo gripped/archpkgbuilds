@@ -1,6 +1,6 @@
 pkgbase = gnome-terminal
 	pkgdesc = The GNOME Terminal Emulator
-	pkgver = 3.52.1
+	pkgver = 3.52.2
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Terminal
 	arch = x86_64
@@ -17,16 +17,19 @@ pkgbase = gnome-terminal
 	makedepends = python-packaging
 	makedepends = yelp-tools
 	depends = dconf
+	depends = gcc-libs
 	depends = glib2
+	depends = glibc
 	depends = gsettings-desktop-schemas
 	depends = gtk3
 	depends = hicolor-icon-theme
 	depends = libhandy
 	depends = libx11
 	depends = pango
+	depends = util-linux-libs
 	depends = vte3
 	optdepends = libnautilus-extension: Nautilus integration
-	source = git+https://gitlab.gnome.org/GNOME/gnome-terminal.git#tag=3.52.1
-	b2sums = 4dc5c4e0d7ec113ff22dead846b7d3c81618bd8cbdec9f7ed99e813f9b5c22f3add78fd7088b11d799eb2ea0f976438e368e32ef06f66d214619a992bf2f738f
+	source = git+https://gitlab.gnome.org/GNOME/gnome-terminal.git#tag=3.52.2
+	b2sums = 45f4818abffdf1b6a53389f75652453e156341ae50b1416109ba381dc5cfc86d37a153615cf31640dac73a132633597d3005b5de95fbb61b0d19a7398879c79b
 
 pkgname = gnome-terminal
