@@ -1,15 +1,16 @@
 pkgbase = apko
 	pkgdesc = Declarative APK-based container building tool with support for sigstore signatures
-	pkgver = 0.14.0
+	pkgver = 0.14.3
 	pkgrel = 1
 	url = https://github.com/chainguard-dev/apko
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = go
-	depends = apk-tools
 	depends = alpine-keyring
-	source = https://github.com/chainguard-dev/apko/archive/v0.14.0/apko-0.14.0.tar.gz
-	sha256sums = fd3f0afd8864cdce87c30aa6f3ce85503ea5e2924da3be2219bf723bcc03877a
-	b2sums = c9c69ad762a441e74a0499c8ee712c3d4d41cb78f21b187762f61e50aa14f5fe1be9e4cce26d00abc03faf58ad5db420196803008e8604437bdbb14d38cd4f25
+	depends = apk-tools
+	depends = glibc
+	source = https://github.com/chainguard-dev/apko/archive/v0.14.3/apko-0.14.3.tar.gz
+	sha256sums = 85cf7b8ea3246070b2cd7b752e66ccbe31ebfcfcc85baa3d7dfd576036266434
+	b2sums = 263baaf982cb394c4a6d37815d1d67d5b08beaf89609c6ebbaf8d0d54b3a33ff7a0656ec8458ed345a7e87dbda8a345ad5c32dc07a5e23e2aba33e014fc5c504
 
 pkgname = apko
