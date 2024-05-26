@@ -5,10 +5,10 @@ pkgbase=pyside6
 pkgname=(pyside6
          pyside6-tools
          shiboken6)
-_qtver=6.7.0
+_qtver=6.7.1
 _clangver=17.0.6
 pkgver=${_qtver/-/}
-pkgrel=5
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(LGPL)
@@ -43,17 +43,21 @@ makedepends=(clang
              qt6-webengine
              qt6-websockets)
 source=(git+https://code.qt.io/pyside/pyside-setup#tag=v$pkgver
-        fix-build.patch)
-sha256sums=('63e85c9d7d66182d05d841eff56d9062a11f26970c34afb6dc6630ca27d60306'
-            '77b83cb164ea87d826259864f6a81fb33199510e1948d6daaf5c8d5ab55735a7')
+        fix-build.patch
+        missing-include.patch)
+sha256sums=('cd2e6bca68d14af05185f1413645b7069528d30acb58ff9d9deccf83bd1b8bdc'
+            '77b83cb164ea87d826259864f6a81fb33199510e1948d6daaf5c8d5ab55735a7'
+            'd1a3fd4930c93ccfc02c051dd6f072f19658f223b28951a8d2a19a0b46018009')
 
 prepare() {
   cd pyside-setup
   git cherry-pick -n 556bc8d158b06546343ae2f51b05f555d47442c0 # Fix star imports (PYSIDE-2675)
   patch -p1 < ../fix-build.patch
+  patch -p1 < ../missing-include.patch
 }
 
 build() {
+  CLANG_INSTALL_DIR="/usr" \
   cmake -B build -S pyside-setup -G Ninja \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=None \

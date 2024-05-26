@@ -1,6 +1,6 @@
 pkgbase = pyside6
-	pkgver = 6.7.0
-	pkgrel = 5
+	pkgver = 6.7.1
+	pkgrel = 1
 	url = https://www.qt.io
 	arch = x86_64
 	license = LGPL
@@ -34,10 +34,12 @@ pkgbase = pyside6
 	makedepends = qt6-webchannel
 	makedepends = qt6-webengine
 	makedepends = qt6-websockets
-	source = git+https://code.qt.io/pyside/pyside-setup#tag=v6.7.0
+	source = git+https://code.qt.io/pyside/pyside-setup#tag=v6.7.1
 	source = fix-build.patch
-	sha256sums = 63e85c9d7d66182d05d841eff56d9062a11f26970c34afb6dc6630ca27d60306
+	source = missing-include.patch
+	sha256sums = cd2e6bca68d14af05185f1413645b7069528d30acb58ff9d9deccf83bd1b8bdc
 	sha256sums = 77b83cb164ea87d826259864f6a81fb33199510e1948d6daaf5c8d5ab55735a7
+	sha256sums = d1a3fd4930c93ccfc02c051dd6f072f19658f223b28951a8d2a19a0b46018009
 
 pkgname = pyside6
 	pkgdesc = Enables the use of Qt6 APIs in Python applications
