@@ -9,7 +9,7 @@
 
 pkgname=chrony
 pkgver=4.5
-pkgrel=2
+pkgrel=3
 pkgdesc='Lightweight NTP client and server'
 url=https://chrony-project.org/
 arch=('x86_64')
@@ -41,6 +41,7 @@ prepare() {
     -e 's|server baz.example.net|server 3.arch.pool.ntp.org|g' \
     examples/chrony.conf.example*
   sed 's|/usr/sbin|/usr/bin|g' -i examples/*.service
+  echo $pkgver > version.txt
 }
 
 build() {
