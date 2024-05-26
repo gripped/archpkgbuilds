@@ -3,7 +3,7 @@
 # Contributor: Mike Williamson <mike at korora dot ca>
 
 pkgname=eksctl
-pkgver=0.177.0
+pkgver=0.179.0
 pkgrel=1
 pkgdesc='Command line tool for creating clusters on Amazon EKS'
 url='https://github.com/weaveworks/eksctl'
@@ -12,8 +12,8 @@ license=('Apache-2.0')
 depends=('kubectl' 'glibc')
 makedepends=('go')
 source=("${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('a63ebc2251067e30f1b505f851267a6c0c5283304ee2e891b075362eba49f106')
-b2sums=('d6cab41ef3176feda6b2504084de855b80068ea6f6f4cd3b17d42c55175edd2886962d18483c7e8137af57add520acb4bed3c3fa3e609c451e5a2d3a2314151f')
+sha256sums=('f3953a3522d9be06f01fb1ca3629a65b0b2d5084e021e28dfb52a22a9de3dda3')
+b2sums=('4ba04e988db87e83fe0483975e6bdef86f5920e72d0b29785239df777f51d3dc741b8831d0ea1626a0655cc529fdb8c56ef8acc7d05ab0c1696f38da50304a9f')
 
 build() {
   cd ${pkgname}-${pkgver}
