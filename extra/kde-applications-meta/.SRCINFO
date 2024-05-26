@@ -1,6 +1,6 @@
 pkgbase = kde-applications-meta
-	pkgver = 24.02
-	pkgrel = 2
+	pkgver = 24.05
+	pkgrel = 1
 	url = https://www.archlinux.org/
 	arch = any
 	license = None
@@ -22,6 +22,7 @@ pkgname = kde-applications-meta
 
 pkgname = kde-accessibility-meta
 	pkgdesc = Meta package for KDE accessibility applications
+	depends = accessibility-inspector
 	depends = kmag
 	depends = kmousetool
 	depends = kmouth
@@ -95,6 +96,7 @@ pkgname = kde-games-meta
 	depends = lskat
 	depends = palapeli
 	depends = picmi
+	depends = skladnik
 	replaces = kdegames-meta
 
 pkgname = kde-graphics-meta
@@ -118,6 +120,7 @@ pkgname = kde-graphics-meta
 
 pkgname = kde-multimedia-meta
 	pkgdesc = Meta package for KDE multimedia applications
+	depends = audex
 	depends = audiocd-kio
 	depends = audiotube
 	depends = dragon
@@ -210,8 +213,10 @@ pkgname = kde-utilities-meta
 	pkgdesc = Meta package for KDE utilities applications
 	depends = ark
 	depends = filelight
+	depends = francis
 	depends = isoimagewriter
 	depends = kalk
+	depends = kalm
 	depends = kate
 	depends = kbackup
 	depends = kcalc
