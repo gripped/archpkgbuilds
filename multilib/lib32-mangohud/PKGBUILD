@@ -4,19 +4,19 @@
 # Contributor: Ranieri Althoff <ranisalt+aur at gmail dot com>
 _pkgname=MangoHud
 pkgname=lib32-mangohud
-_pkgver=0.7.1-1
+_pkgver=0.7.2
 pkgver="${_pkgver%-*}"
 pkgrel=1
 pkgdesc="32-bit libraries for MangoHud and MangoApp"
 arch=('x86_64')
 url="https://github.com/flightlessmango/MangoHud"
 license=('MIT')
-makedepends=('git' 'glfw-x11' 'glslang' 'lib32-cmocka' 'lib32-libglvnd' 'libxnvctrl' 'meson' 'nlohmann-json' 'python-mako' 'vulkan-headers')
-depends=('lib32-dbus' 'lib32-gcc-libs' 'lib32-glew' 'lib32-libx11' 'lib32-vulkan-icd-loader')
+makedepends=('git' 'glfw-x11' 'glslang' 'lib32-cmocka' 'lib32-libglvnd' 'libxnvctrl' 'lib32-libxrandr' 'meson' 'nlohmann-json' 'python-mako' 'vulkan-headers')
+depends=('lib32-dbus' 'lib32-gcc-libs' 'lib32-glew' 'lib32-libx11' 'lib32-libxkbcommon' 'lib32-vulkan-icd-loader' 'lib32-wayland')
 conflicts=('lib32-mangoapp')
 replaces=('lib32-mangoapp')
 source=("$pkgname-$pkgver.tar.xz::https://github.com/flightlessmango/MangoHud/releases/download/v$pkgver/$_pkgname-v$_pkgver-Source.tar.xz")
-b2sums=('d7f7103d180c6e48f2ef36969dae5e04c46ba4cc9dcbcfae27c24029ae97753b4b5af8554df29f70510e24285a7c11583482697bc8f9ef82fb7550308f5e54d0')
+b2sums=('774bdc33a7d58fadf1323da16c81f22eea39c1f101a6753be3cbf888e18b45fc1060e39c3f5191f5a3e71aa8ad11cde3f0c86eed50d7164afa518c282701996d')
 
 prepare() {
     cd "$_pkgname-v$pkgver"
