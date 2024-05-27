@@ -10,7 +10,7 @@
 
 pkgver=27.3.11
 _gcc_patches=118-2
-pkgrel=4
+pkgrel=5
 _major_ver=${pkgver%%.*}
 pkgname="electron${_major_ver}"
 pkgdesc='Build cross platform desktop apps with web technologies'
@@ -34,6 +34,7 @@ makedepends=(clang
              http-parser
              java-runtime-headless
              libnotify
+             libva
              lld
              llvm
              ninja
@@ -396,7 +397,7 @@ sha256sums=('efe39ada071f6f7d42bd10aae57ae1b7a136ed5c85e9c329c25b3409588b0c5c'
 declare -gA _system_libs=(
   # [brotli]=brotli
   [dav1d]="dav1d libdav1d.so"
-  [ffmpeg]="ffmpeg libavcodec.so libavcodec.so libavformat.so libavutil.so"
+  #[ffmpeg]="ffmpeg libavcodec.so libavcodec.so libavformat.so libavutil.so"
   [flac]="flac libFLAC.so"
   [fontconfig]="fontconfig libfontconfig.so"
   [freetype]="freetype2 libfreetype.so"
