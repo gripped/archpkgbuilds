@@ -5,7 +5,7 @@
 
 pkgname=ncurses
 pkgver=6.5
-pkgrel=2
+pkgrel=3
 pkgdesc='System V Release 4.0 curses emulation library'
 arch=(x86_64)
 url='https://invisible-island.net/ncurses/ncurses.html'
@@ -28,6 +28,7 @@ provides=(
 )
 replaces=(
   alacritty-terminfo
+  rio-terminfo
   wezterm-terminfo
 )
 source=(
