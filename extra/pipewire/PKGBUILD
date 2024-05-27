@@ -24,7 +24,7 @@ pkgname=(
 )
 pkgver=1.0.7
 _so_ver=0.3
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Low-latency audio/video router and processor"
 url="https://pipewire.org"
