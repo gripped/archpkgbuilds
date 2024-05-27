@@ -4,7 +4,7 @@
 
 pkgname=oculante
 pkgver=0.8.22
-pkgrel=1
+pkgrel=2
 pkgdesc="A minimalistic image viewer with analysis and editing tools"
 arch=('x86_64')
 url="https://github.com/woelper/oculante"
@@ -17,6 +17,7 @@ depends=(
   'gtk3'
   'libheif'
   'libwebp' 
+  'libjpeg-turbo'
 )
 makedepends=(
   'cmake'
@@ -39,12 +40,14 @@ build() {
   cd $pkgname
   export RUSTUP_TOOLCHAIN=stable
   export CARGO_TARGET_DIR=target
+  export TURBOJPEG_SOURCE=pkg-config
   cargo build --release --locked --features 'heif'
 }
 
 check() {
   cd $pkgname
   export RUSTUP_TOOLCHAIN=stable
+  export TURBOJPEG_SOURCE=pkg-config
   cargo test --frozen -- --skip=tests::net --skip=bench
 }
 
