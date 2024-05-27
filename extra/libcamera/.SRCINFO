@@ -1,6 +1,6 @@
 pkgbase = libcamera
 	pkgdesc = A complex camera support library for Linux, Android, and ChromeOS
-	pkgver = 0.2.0
+	pkgver = 0.3.0
 	pkgrel = 1
 	url = https://libcamera.org/
 	arch = x86_64
@@ -15,6 +15,7 @@ pkgbase = libcamera
 	makedepends = libtiff
 	makedepends = libyaml
 	makedepends = meson
+	makedepends = pybind11
 	makedepends = python-jinja
 	makedepends = python-ply
 	makedepends = python-sphinx
@@ -24,9 +25,9 @@ pkgbase = libcamera
 	makedepends = sdl2
 	makedepends = systemd
 	makedepends = texlive-core
-	source = git+https://git.libcamera.org/libcamera/libcamera.git#tag=a3690f601bf9a90e1a936d9f361aebd789e3b073
-	sha512sums = SKIP
-	b2sums = SKIP
+	source = git+https://git.libcamera.org/libcamera/libcamera.git#tag=v0.3.0
+	sha512sums = 4b9502074c1d1aaa8d02ebf237623d7bd706fe7d208052c671322d49e5c6519c0324946dbe6422114424c39bbcbfd4e4546e12c4fb649df76d62a7e9bea731bf
+	b2sums = 39374df08f5d863ae1685de8204f290aedfac82bb6715b26868d2168e6d328e605675b34a6a841de2a7ef5ef49ca331b1cf2c24485971fdadb94e5b0d1a47be1
 
 pkgname = libcamera
 	license = Apache-2.0
@@ -112,3 +113,12 @@ pkgname = gst-plugin-libcamera
 	depends = libcamera
 	depends = libcamera.so
 	depends = libcamera-base.so
+
+pkgname = python-libcamera
+	pkgdesc = A complex camera support library for Linux, Android, and ChromeOS - Python integration
+	license = CC0-1.0
+	license = LGPL-2.1-or-later
+	depends = gcc-libs
+	depends = glibc
+	depends = libcamera
+	depends = python
