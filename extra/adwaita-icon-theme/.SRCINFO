@@ -1,24 +1,21 @@
 pkgbase = adwaita-icon-theme
 	pkgdesc = GNOME standard icons
-	pkgver = 46.0
+	pkgver = 46.2
 	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/adwaita-icon-theme
 	arch = any
-	license = CC-BY-SA-3.0
-	license = LGPL-3.0-only
+	license = CC-BY-SA-3.0 OR LGPL-3.0-only
 	makedepends = git
-	makedepends = gtk3
+	makedepends = gtk-update-icon-cache
 	makedepends = meson
+	depends = adwaita-icon-theme-legacy
 	depends = hicolor-icon-theme
-	depends = gtk-update-icon-cache
-	depends = librsvg
-	source = git+https://gitlab.gnome.org/GNOME/adwaita-icon-theme.git#commit=7d2510820199ff7f233511a00895043f3843dbcd
-	b2sums = 83aa51edbe09cf021c33411687ddaae421b96f3356960947d29491f52147a94d9a8b3976a9a020e8de0eda536cc40b32d1912a17adbf2949d6abb234299673d3
+	source = git+https://gitlab.gnome.org/GNOME/adwaita-icon-theme.git#tag=46.2
+	b2sums = 566e62a532aa3ce27ca940d327f6e07896dda385a65904a972a29cd3bd2a3fdb39f046d24130abe7f923165f414f660cf6ea84ff233ca45da2f91e5953a113a6
 
 pkgname = adwaita-icon-theme
+	depends = adwaita-icon-theme-legacy
 	depends = hicolor-icon-theme
-	depends = gtk-update-icon-cache
-	depends = librsvg
 	depends = adwaita-cursors
 
 pkgname = adwaita-cursors
