@@ -4,14 +4,14 @@
 _name=jq.py
 pkgname=python-jq
 pkgver=1.7.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Python bindings for jq'
 arch=('x86_64')
 url=https://github.com/mwilliamson/jq.py
 license=('BSD-2-Clause')
 depends=('jq' 'python')
 makedepends=(
-  'cython0'
+  'cython'
   'git'
   'python-build'
   'python-installer'
