@@ -1,0 +1,36 @@
+pkgbase = python-playwright
+	pkgdesc = A Python library to automate Chromium, Firefox and WebKit browsers with a single API
+	pkgver = 1.44.0
+	pkgrel = 1
+	url = https://github.com/microsoft/playwright-python
+	arch = x86_64
+	license = Apache-2.0
+	checkdepends = python-autobahn
+	checkdepends = python-flaky
+	checkdepends = python-objgraph
+	checkdepends = python-pixelmatch
+	checkdepends = python-pyopenssl
+	checkdepends = python-pytest
+	checkdepends = chromium
+	checkdepends = python-pytest-playwright
+	checkdepends = python-requests
+	makedepends = git
+	makedepends = python-auditwheel
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools-scm
+	makedepends = python-wheel
+	depends = gcc-libs
+	depends = glibc
+	depends = nodejs
+	depends = python
+	depends = python-greenlet
+	depends = python-pyee
+	depends = sh
+	noextract = playwright-1.44.0-linux.zip
+	source = git+https://github.com/microsoft/playwright-python#tag=v1.44.0
+	source = https://playwright.azureedge.net/builds/driver/playwright-1.44.0-linux.zip
+	sha256sums = 5ed27f0ea753b5b80ae764fd240b9f9d0bccf35ed6f622889ab87e2baaceffc8
+	sha256sums = 4f126f5abdd1dfc6ea472b85df8e0a0253a7963edaafd2eb9675cf41198b76e4
+
+pkgname = python-playwright

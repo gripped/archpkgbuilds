@@ -1,0 +1,62 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+# Contributor: Aloxaf <aloxafx@gmail.com>
+# Contributor: Alex Hirzel <alex@hirzel.us>
+
+_name=playwright-python
+pkgname=python-playwright
+pkgver=1.44.0
+pkgrel=1
+pkgdesc='A Python library to automate Chromium, Firefox and WebKit browsers with a single API'
+arch=(x86_64)
+url='https://github.com/microsoft/playwright-python'
+license=(Apache-2.0)
+depends=(gcc-libs
+         glibc
+         nodejs
+         python
+         python-greenlet
+         python-pyee
+         sh)
+makedepends=(git
+             python-auditwheel
+             python-build
+             python-installer
+             python-setuptools-scm
+             python-wheel)
+checkdepends=(python-autobahn
+              python-flaky
+              python-objgraph
+              python-pixelmatch
+              python-pyopenssl
+              python-pytest chromium
+              python-pytest-playwright
+              python-requests)
+source=(git+https://github.com/microsoft/$_name#tag=v$pkgver
+        https://playwright.azureedge.net/builds/driver/playwright-$pkgver-linux.zip)
+noextract=(playwright-$pkgver-linux.zip)
+sha256sums=('5ed27f0ea753b5b80ae764fd240b9f9d0bccf35ed6f622889ab87e2baaceffc8'
+            '4f126f5abdd1dfc6ea472b85df8e0a0253a7963edaafd2eb9675cf41198b76e4')
+
+prepare() {
+  cd $_name
+  sed -e 's|==.*\"|"|' -i pyproject.toml -i setup.py # Drop dependency version constraints
+  sed -e "s|driver_version = \".*\"|driver_version = \"$pkgver\"|" -i setup.py
+  install -Dm644 "$srcdir"/playwright-$pkgver-linux.zip -t driver
+}
+
+build() {
+  cd $_name
+  python -m build --wheel --no-isolation
+}
+
+# Testing is utterly broken
+#check() {
+#  cd $_name
+#  PYTHONPATH=$PWD \
+#  pytest -v
+#}
+
+package() {
+  cd $_name
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
