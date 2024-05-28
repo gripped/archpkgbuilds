@@ -2,7 +2,7 @@
 
 pkgname=git-evtag
 pkgver=2022.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Extended verification for git tags"
 url='https://github.com/cgwalters/git-evtag'
 arch=('x86_64')
@@ -21,12 +21,12 @@ options=(!lto)
 source=(https://github.com/cgwalters/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         Cargo.lock)
 sha256sums=('ce8b37638f1fb92f347200b419da074be8515be9b55791116e9cab22d9cd5a67'
-            '279517323f7b7ee50d8ac54e8f5a61eccafd6f2c8eaf4f0388646c0e9d3cb669')
+            'b1eb9f10c961399e9574576a61f23de9bdb8aa18af9b0a5f94fe5f396b5367ac')
 
 prepare() {
   cd "${pkgname}-${pkgver}/rust"
   cp ../../Cargo.lock .
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 updlockfiles() {
