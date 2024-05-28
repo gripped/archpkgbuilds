@@ -2,8 +2,8 @@
 # Contributor: pandada8 <pandada8@gmail.com>
 
 pkgname=v2ray
-pkgver=5.14.1
-_commit=1f1ff246ddebb530d8fadeb49ffd32b8617e64ec
+pkgver=5.15.3
+_commit=2a22a8579d485498b2f423af5073fcbcb784c351
 pkgrel=1
 pkgdesc="A platform for building proxies to bypass network restrictions"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('glibc' 'v2ray-domain-list-community' 'v2ray-geoip')
 makedepends=('go' 'git')
 backup=(etc/v2ray/config.json)
 source=("git+https://github.com/v2fly/v2ray-core.git#commit=$_commit")
-sha512sums=('SKIP')
+sha512sums=('900b8fbd2949817d275a702147370c3ce3661b80d05771b83f47628491691571d4859a6adff3f5d870945ec5185ef04b8420758eb0a1d836ef760332b4b5aff1')
 
 prepare() {
   cd v2ray-core
