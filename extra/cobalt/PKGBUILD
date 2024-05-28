@@ -3,26 +3,43 @@
 # Contributor: Stas Rudakou <stas at garage22 dot net>
 
 pkgname=cobalt
-pkgver=0.19.2
+pkgver=0.19.3
 pkgrel=1
 pkgdesc='Static site generator written in Rust'
 url='https://cobalt-org.github.io/'
-arch=('x86_64')
-license=('MIT')
-depends=('openssl' 'libsass' 'glibc' 'gcc-libs')
-makedepends=('rust' 'cargo')
+arch=(x86_64)
+license=(MIT)
+depends=(
+  gcc-libs
+  glibc
+  libsass
+  openssl
+)
+makedepends=(
+  rust
+  cargo
+)
 source=(https://github.com/cobalt-org/cobalt.rs/archive/v${pkgver}/${pkgname}.rs-v${pkgver}.tar.gz)
-sha512sums=('c5a1667bf22130fcaf7d5f6e0efb122065c322652dbe1c5a8fd8235522652f6bedac6a68bf910a5f93284749d2bc1e5f378ac48518abad29faf12d22f70e490a')
-b2sums=('6ba716fb1db352ec3caed1043878673301cece412bc4aabcf0a7b2686f12e6cc1fdcac43c7df89ab85cc8fa9564ea5305323adbbac9c139c4643cf9b282645f6')
+sha512sums=('151018933caa7686e589937c0c00db4df39b192437d7789bc5e2a7e8883ae686c55bf1aaf7686de4902725cce67fd6bc409bdb15069bf37e02a1a545e6dff280')
+b2sums=('b7b39dd9e05f8cf6849ccb277ab45227ed9e735d405b09d703646eb5ca9c17965e89150e628ae6c44abaf7809f14ca87c4164f9e700356da4540f2cf1878d760')
+
+prepare() {
+  cd ${pkgname}.rs-${pkgver}
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
 
 build() {
   cd ${pkgname}.rs-${pkgver}
-  cargo build --release --locked
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release
 }
 
 check() {
   cd ${pkgname}.rs-${pkgver}
-  cargo test --release --locked
+  export RUSTUP_TOOLCHAIN=stable
+  cargo test --frozen
 }
 
 package() {
