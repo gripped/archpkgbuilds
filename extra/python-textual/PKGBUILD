@@ -1,10 +1,11 @@
 # Maintainer: Leonidas Spyropoulos <artafinde@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 # Contributor: Jose Riha <jose 1711 gmail com>
 # Contributor: Carlos Aznarán <caznaranl@uni.pe>
 
 _base=textual
 pkgname=python-${_base}
-pkgver=0.62.0
+pkgver=0.63.4
 pkgrel=1
 pkgdesc="Modern Text User Interface framework"
 arch=(any)
@@ -17,7 +18,7 @@ optdepends=('python-tree-sitter: for syntax highlighting support'
             'python-tree-sitter-languages: for custom languages support'
             'python-textual-dev: tools for developers')
 source=(${_base}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz)
-sha512sums=('e03a00abf647500e0233ea24378691b16296c5827a476b9f5530f0fcc83e9c36cf94ec7839a8eb58c2bb1a570ec8bc8b4b6c478e9249055b2d40b47429300111')
+sha512sums=('c85f4b0a1723635b8f829c24066048acea9e03bcdb0a03fcb1bd67e605442d3eafcdb2b429295f0044f0cb4ca96d16a0ad9509a030647cede48045fdab283211')
 
 build() {
   cd ${_base}-${pkgver}
