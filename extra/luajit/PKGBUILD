@@ -8,9 +8,9 @@
 
 pkgname=luajit
 # LuaJIT has a "rolling release" where you should follow git HEAD
-_commit=5790d253972c9d78a0c2aece527eda5b134bbbf7
+_commit=93e87998b24021b94de8d1c8db244444c46fb6e9
 # The patch version is the timestamp of the above git commit, obtain via `git show -s --format=%ct`
-_ct=1713773202
+_ct=1716656478
 pkgver="2.1.${_ct}"
 pkgrel=1
 pkgdesc='Just-in-time compiler and drop-in replacement for Lua 5.1'
@@ -19,9 +19,8 @@ url='https://luajit.org/'
 license=('MIT')
 depends=('gcc-libs')
 source=("LuaJIT-${_commit}.tar.gz::https://github.com/LuaJIT/LuaJIT/archive/${_commit}.tar.gz")
-md5sums=('54b57aa99e3ec1c96dc51711a31c1be1')
-sha256sums=('a299cd389c4568cff4c900e9e86fb56b1f422bf38497a695f6a96e37607a6645')
-b2sums=('9b10b382146a0b83358c847d4233fa4ccf23e431a6cedaf59d5c09e628a3c575e3c5bbdfd2081cdcc736db4ea369defdc018b3121b91048f8e8d490fa7534717')
+sha256sums=('026eb4531cddff20acc72ec97378ccfc30326173c491d6c01834b48b42a80518')
+b2sums=('42807910aa81e705ff39c382e98e479d46d31453fd6fc1857220c7d4cb66d0801e2ffd813ea3c55ab2bcde8e64275d0fec2044514d7b0ef5287714ec8061bf7a')
 
 build() {
   cd "LuaJIT-${_commit}"
