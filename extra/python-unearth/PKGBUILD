@@ -2,8 +2,8 @@
 
 _name=unearth
 pkgname=python-unearth
-pkgver=0.15.2
-pkgrel=2
+pkgver=0.15.3
+pkgrel=1
 pkgdesc="A utility to fetch and download python packages"
 arch=(any)
 url="https://github.com/frostming/unearth"
@@ -34,8 +34,8 @@ optdepends=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
 )
-sha512sums=('46d0ecb7831a4d19e0efe182b3c9af3074a960ebb1f388106649b58c3f9fc8d65a64ee86f31d72dae0f37a7a2b667c00dce4a3fcae7e186c88e3b57b2ca7a7bc')
-b2sums=('9921dba5e0e29a7881843c34b11044b9b964178b80738758c230fe37c0fbd15a2d28a0d1195edc7584917e4b119adbf5300df7ed23e7636f5659751e154ecb2f')
+sha512sums=('c7f6d42372475b6250b21cf799e873ad2ef0f0731841cc6a0bece4ac79944ed2539cdf52c19c23694f4f410421741e440b9b523ce314277d0cac60b8f35ac233')
+b2sums=('d254e95060bfa78c32f7e4efffae512884079c5c2f21717ece6353137fbb4a98ee6e3213ee01a75c13e1fbb9af6a6b67f6622aac1bdf86e2c3b51348bbac264b')
 
 build() {
   cd $_name-$pkgver
