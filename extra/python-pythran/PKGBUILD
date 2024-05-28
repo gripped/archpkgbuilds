@@ -3,7 +3,7 @@
 # Contributor: xantares
 
 pkgname=python-pythran
-pkgver=0.16.0
+pkgver=0.16.1
 pkgrel=1
 pkgdesc='Ahead of Time compiler for numeric kernels'
 arch=(any)
@@ -20,11 +20,10 @@ depends=(boost
 makedepends=(git
              python-build
              python-installer
-             python-setuptools
              python-wheel)
 #checkdepends=(python-pytest)
 source=(git+https://github.com/serge-sans-paille/pythran#tag=$pkgver)
-sha256sums=('e25c03b8ff56874942d566e0b725fddff1fbc3394978ff61af6b6dfa8f9f30e0')
+sha256sums=('6ac551e78dd1469ebb46d67357a0dbaeb73df8381736a9d8d9e7bac91a62e730')
 
 build() {
   cd pythran
