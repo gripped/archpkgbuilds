@@ -1,13 +1,20 @@
 pkgbase = jupyter-nbconvert
 	pkgdesc = Jupyter Notebook Conversion
 	pkgver = 7.16.4
-	pkgrel = 2
+	pkgrel = 3
 	url = https://pypi.python.org/pypi/nbconvert
 	arch = any
 	license = BSD-3-Clause
+	checkdepends = inkscape
+	checkdepends = pandoc
 	checkdepends = python-flaky
 	checkdepends = python-ipywidgets
+	checkdepends = python-playwright
 	checkdepends = python-pytest
+	checkdepends = texlive-fontsrecommended
+	checkdepends = texlive-latexextra
+	checkdepends = texlive-plaingeneric
+	checkdepends = texlive-xetex
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-hatchling
@@ -33,6 +40,7 @@ pkgbase = jupyter-nbconvert
 	depends = python-tornado
 	depends = python-traitlets
 	optdepends = pandoc: non-html conversion output
+	optdepends = python-playwright: for webPDF conversion support
 	source = git+https://github.com/jupyter/nbconvert#tag=v7.16.4
 	sha256sums = fee1c568bf62ab23616d7e8f0388a8a56500725484e2fd1cb38b99db1d8091a9
 
