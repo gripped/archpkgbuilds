@@ -1,0 +1,52 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+_name=mail-server
+pkgname=stalwart-mail-old-upgrade
+pkgver=0.7.3
+pkgrel=1
+pkgdesc="Stalwart Mail Server version for exporting data when data migration is required"
+arch=(x86_64)
+url="https://stalw.art/"
+_url="https://github.com/stalwartlabs/mail-server"
+license=(AGPL-3.0-or-later)
+depends=(
+  gcc-libs
+  glibc
+)
+makedepends=(
+  cargo
+  clang
+)
+options=(!lto)
+source=(
+  $pkgname-$pkgver.tar.gz::$_url/archive/refs/tags/v$pkgver.tar.gz
+)
+sha512sums=('72283f85039bb8ece15fbff285cddf5cc18573c6342d7d5d319a6647f54cd33d8c7d98f5b12d5edd0e967ca2c117e112be06078cc52d17bffc7549d68999fc26')
+b2sums=('e3a276ff9b1153bdc8a3dcf8c2a0157527224695a2961063f0c0a371ce28a6934e1ca7183e61cbfd6e332fb57040a95cf58f5cff8a118715a864275f70115c9c')
+
+prepare() {
+  cd $_name-$pkgver
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $_name-$pkgver
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release -p mail-server
+}
+
+check() {
+  cd $_name-$pkgver
+  export RUSTUP_TOOLCHAIN=stable
+  cargo test --frozen -p mail-server
+}
+
+package() {
+  pkgdesc="Stalwart Mail Server"
+
+  cd $_name-$pkgver
+  install -vDm 755 target/release/stalwart-mail "$pkgdir/usr/bin/stalwart-mail-old"
+  install -vDm 644 {CHANGELOG,README,UPGRADING}.md -t "$pkgdir/usr/share/doc/$pkgname/"
+}
