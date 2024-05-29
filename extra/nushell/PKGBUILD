@@ -5,7 +5,7 @@
 # Contributor: Bumsik Kim <k.bumsik@gmail.com>
 
 pkgname=nushell
-pkgver=0.92.2
+pkgver=0.94.0
 pkgrel=1
 pkgdesc='A new type of shell'
 arch=('x86_64')
@@ -21,13 +21,10 @@ depends=(
 makedepends=('cargo' 'git')
 install=nushell.install
 source=("git+https://github.com/nushell/nushell.git#tag=$pkgver")
-sha256sums=('60e8a6338f7603dc880649fbf7ec8f6835b7943371d0d2c210e89b4fc1374dff')
+sha256sums=('9358949a27ff0e6083b5dfd32ae8e18d02fd211361f2d05d2179a8693882f73e')
 
 prepare() {
   cd "$pkgname"
-
-  # Back off from bogus MSRV, the bug everybody is scared of "just in case" is Windows only
-  sed -i -e '/^rust-version/s/1.77.2/1.77.1/' Cargo.toml 
 
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
@@ -35,15 +32,19 @@ prepare() {
 build() {
   cd "$pkgname"
 
-  CFLAGS+=" -ffat-lto-objects"
+  CFLAGS+=' -ffat-lto-objects'
 
-  cargo build --release --frozen --workspace --features=extra,dataframe
+  cargo build --release --frozen --workspace
 }
 
 check() {
   cd "$pkgname"
-
-  cargo test --frozen --workspace --features=extra,dataframe
+  # Skip tests that pretend they know what the local terminal is going to be
+  local skipped=(
+    plugins::stream::echo_interactivity_on_slow_pipelines
+    plugins::stress_internals::test_exit_before_hello_stdio
+  )
+  cargo test --frozen --workspace -- ${skipped[@]/#/--skip }
 }
 
 package() {
