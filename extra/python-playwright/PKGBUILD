@@ -5,14 +5,12 @@
 _name=playwright-python
 pkgname=python-playwright
 pkgver=1.44.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A Python library to automate Chromium, Firefox and WebKit browsers with a single API'
-arch=(x86_64)
+arch=(any)
 url='https://github.com/microsoft/playwright-python'
 license=(Apache-2.0)
-depends=(gcc-libs
-         glibc
-         nodejs
+depends=(nodejs
          python
          python-greenlet
          python-pyee
@@ -59,4 +57,8 @@ build() {
 package() {
   cd $_name
   python -m installer --destdir="$pkgdir" dist/*.whl
+
+# Replace bundled node with system one
+  rm "$pkgdir"/usr/lib/python*/site-packages/playwright/driver/node
+  ln -s /usr/bin/node -t "$pkgdir"/usr/lib/python*/site-packages/playwright/driver/
 }
