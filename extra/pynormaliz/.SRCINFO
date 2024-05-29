@@ -1,11 +1,12 @@
 pkgbase = pynormaliz
 	pkgdesc = A Python interface to Normaliz
-	pkgver = 2.19
-	pkgrel = 2
+	pkgver = 2.20
+	pkgrel = 1
 	url = https://github.com/Normaliz/PyNormaliz
 	arch = x86_64
 	license = GPL-2.0-or-later
 	makedepends = boost
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -14,7 +15,7 @@ pkgbase = pynormaliz
 	depends = glibc
 	depends = normaliz
 	depends = python
-	source = https://github.com/Normaliz/PyNormaliz/archive/v2.19/python-pynormaliz-2.19.tar.gz
-	sha256sums = 99b25a5089bac5a56a85905f5a1b6a2ee9c6b96c4bb11b1db06a0a0f39642206
+	source = git+https://github.com/Normaliz/PyNormaliz#tag=v2.20
+	sha256sums = 72a60d9233ac3d3354a3bc04f4bf52554b8c9304bc817ed22e8ef79c562a0492
 
 pkgname = python-pynormaliz
