@@ -4,7 +4,7 @@
 # Contributor: Roman Kyrylych <Roman.Kyrylych@gmail.com>
 
 pkgname=zziplib
-pkgver=0.13.74
+pkgver=0.13.75
 pkgrel=1
 pkgdesc="A lightweight library that offers the ability to easily extract data from files archived in a single zip file"
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('zlib')
 makedepends=('python' 'xmlto' 'zip' 'cmake' 'ninja')
 checkdepends=('unzip')
 source=($pkgname-$pkgver.tar.gz::"https://github.com/gdraheim/zziplib/archive/v$pkgver.tar.gz")
-sha512sums=('7dd27247cbc475e2c6beb3a96c620f9938ade0dff6f4e088f9c28432fc4cc01df9d6771ec3d5e07baabe27033f4764d60e31c4c54588559de64e894d0557c94f')
+sha512sums=('9efae6d80cb8a1f605d9e5bb75b30aac65c94cba4871911835f7c611fe1000d57a6161a78112aaede230c1702ed3f83803bf8a5603ce9e0e9cef4ae976e96125')
 
 build() {
   cd ${pkgname}-${pkgver}
