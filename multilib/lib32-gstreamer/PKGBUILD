@@ -8,7 +8,7 @@ pkgname=(
   lib32-gst-plugins-base
   lib32-gst-plugins-good
 )
-pkgver=1.24.3
+pkgver=1.24.4
 pkgrel=1
 pkgdesc="Multimedia graph framework (32-bit)"
 url="https://gstreamer.freedesktop.org/"
@@ -40,8 +40,8 @@ source=(
   "git+https://gitlab.freedesktop.org/gstreamer/gstreamer.git?signed#tag=$pkgver"
   0001-HACK-meson-Disable-broken-tests.patch
 )
-b2sums=('ba36061add5b081291b2f6a18b14e2c6cf1f2796b503bc7053e4c059f3d10620ece05b52590151f7e35f2e8919a0f2cfa3372ba24ff0a15beeb4d670c7df3ccd'
-        'e7c59c828883a3bb3aa47684d83b57cd4d463e1f8cffc0383f779fa60ecbe37bfa30c8a0f40e6b2a01f6e0edfbefc5b7041340837e0018741e5963671945a1f2')
+b2sums=('37d5e65358a9b7491c6076a814595c1da1b6d5478fc6b777e53e2966ad0eaf57802477315cbc8c4518abcdc7c908687e4397bcbd535ebff655cb96793a68d8fb'
+        '11e4af4a3697ddfa1c671d2d965b3765e4dce7ea544b634e1062c8257d1e4777908ede233c0b021460f5e54931c48fe3666dde92c1a350cab194b414566a2239')
 validpgpkeys=(
   D637032E45B8C6585B9456565D2EEE6F6F349D7C # Tim Müller <tim@gstreamer-foundation.org>
 )
@@ -96,7 +96,7 @@ build() {
   )
 
   arch-meson gstreamer build "${meson_options[@]}"
-  meson configure build  # Print config
+  meson configure build --no-pager # Print config
   meson compile -C build
 }
 
