@@ -2,35 +2,26 @@
 
 pkgname=cbindgen
 pkgver=0.26.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A tool for generating C bindings to Rust code"
 url="https://github.com/eqrion/cbindgen"
 arch=(x86_64)
-license=(MPL2)
-depends=(gcc-libs)
+license=(MPL-2.0)
+depends=(
+  gcc-libs
+  glibc
+)
 makedepends=(
   cargo
   git
 )
 checkdepends=(
   cmake
-  cython0
+  cython
   python
 )
-_commit=703b53c06f9fe2dbc0193d67626558cfa84a0f62  # tags/0.26.0
-source=("git+$url#commit=$_commit")
-b2sums=('SKIP')
-
-# Use LTO
-export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
-
-# Use debug
-export CARGO_PROFILE_RELEASE_DEBUG=2
-
-pkgver() {
-  cd cbindgen
-  git describe --tags | sed 's/^v//;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+$url#tag=v$pkgver")
+b2sums=('36ca6db054b7aae73696b7dec2690be047e1dfb1d1fcea14ccbed5de6fd6f4761265c129c7cbea304e3a3b64234545c8e16ea4b9fec3f291a1a47de71824795e')
 
 prepare() {
   cd cbindgen
@@ -39,13 +30,20 @@ prepare() {
 
 build() {
   cd cbindgen
+
+  # Use debug
+  export CARGO_PROFILE_RELEASE_DEBUG=2
+
+  # Use LTO
+  export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
   cargo build --release --frozen --all-targets
 }
 
 check() {
   cd cbindgen
   # Tests need nightly features
-  RUSTC_BOOTSTRAP=1 cargo test --release --frozen
+  RUSTC_BOOTSTRAP=1 cargo test --frozen
 }
 
 package() {
