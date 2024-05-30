@@ -1,12 +1,13 @@
-# Maintainer: Maxim Baz <archlinux at maximbaz dot com>
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: Maxim Baz <archlinux at maximbaz dot com>
 
 pkgname=yubikey-touch-detector
 pkgver=1.11.0
-pkgrel=1
-pkgdesc='A tool that can detect when your YubiKey is waiting for a touch'
+pkgrel=2
+pkgdesc="A tool that can detect when your YubiKey is waiting for a touch"
+url="https://github.com/maximbaz/yubikey-touch-detector"
 arch=('x86_64')
-url='https://github.com/maximbaz/yubikey-touch-detector'
-license=('MIT')
+license=('ISC')
 depends=('glibc')
 makedepends=('go' 'git')
 optdepends=('gnupg: for GPG'
@@ -18,13 +19,11 @@ b2sums=('ca29715283d0c20fad4de757028ad5f5127fc5bb0eae4efebf703a80c1484ffb6ac922a
 validpgpkeys=('56C3E775E72B0C8B1C0C1BD0B5DB77409B11B601')
 
 build() {
-    cd "${pkgname}-${pkgver}"
-    make build
+	cd "${pkgname}-${pkgver}"
+	make build
 }
 
 package() {
-    cd "${pkgname}-${pkgver}"
-    make DESTDIR="${pkgdir}" install
+	cd "${pkgname}-${pkgver}"
+	make DESTDIR="${pkgdir}" install
 }
-
-# vim:set ts=4 sw=4 et:
