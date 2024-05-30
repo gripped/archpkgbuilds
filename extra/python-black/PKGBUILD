@@ -4,7 +4,7 @@
 
 pkgname=python-black
 pkgver=24.4.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Uncompromising Python code formatter'
 arch=('any')
 url=https://github.com/psf/black
