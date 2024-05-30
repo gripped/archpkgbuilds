@@ -2,7 +2,7 @@
 # Contributor: Jesse Luehrs <archlinux@tozt.net>
 
 pkgname=rbw
-pkgver=1.10.0
+pkgver=1.10.2
 pkgrel=1
 pkgdesc='Unofficial Bitwarden CLI'
 arch=('x86_64')
@@ -12,8 +12,8 @@ depends=('glibc' 'gcc-libs' 'pinentry')
 makedepends=('rust')
 options=('!lto')
 source=("$url/snapshot/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('83e45f32323445fbcb4196120179771d31cf71065f3a1ab921d0dcf194d33a3bd57a149869a467c7120024c4745f837488662f52e0311c2fb43782b2d6c7d92b')
-b2sums=('dcf0dd82e3fa71a8655aeeeda8827eb78f2a9f6dfd590f5ab0a7154c219caf35af494ecbcd8c525c8b8dcec94c37287f4f87a070684b6e9b94e9ee8fe47210df')
+sha512sums=('c0bcd4fa7afb04d2b6d848063f47f9a0c59795a772993352823e073d4a491f355ca84e0d01743a933e663c83824c60a39b5801530b359c1dae0208e05b4b8ba5')
+b2sums=('931e48b80d34550e99b32e7deaaddc37aeac2d8ca2b29bcca3d25014e7a13da3319beeaf8200cab8d033efd540f96662c62d779ced87669bd671a9ee65245a98')
 
 prepare() {
   cd "$pkgname-$pkgver"
