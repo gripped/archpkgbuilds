@@ -2,13 +2,20 @@
 
 pkgname=diffoscope
 pkgver=268
-pkgrel=1
+pkgrel=2
 pkgdesc='Tool for in-depth comparison of files, archives, and directories'
 url='https://diffoscope.org/'
 arch=('x86_64')
 license=('GPL-3.0-or-later')
-depends=('python-magic' 'python-libarchive-c' 'python-distro' 'python-defusedxml'
-         'python-tlsh')
+depends=(
+  'coreutils'
+  'diffutils'
+  'python-defusedxml'
+  'python-distro'
+  'python-libarchive-c'
+  'python-magic'
+  'python-tlsh'
+)
 optdepends=(
   'acl: access control list utilities support'
   'binutils: binary utilities support'
@@ -17,7 +24,6 @@ optdepends=(
   'cdrtools: ISO utilities support'
   'colord: ICC profiles support'
   'cpio: cpio archive support'
-  'diffutils: diff utilities support'
   'docx2txt: docx comparing support'
   'dtc: device tree comparing support'
   'e2fsprogs: Ext2/3/4 filesystem utilities support'
@@ -61,9 +67,17 @@ optdepends=(
   'zstd: zst compression'
   'p7zip: 7z compression'
 )
-makedepends=('help2man' 'python-docutils' 'git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
+makedepends=(
+  'git'
+  'help2man'
+  'python-build'
+  'python-docutils'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
 checkdepends=(
-  'python-pytest' 'python-jsbeautifier' 'python-h5py' 'acl' 'binutils' 'bzip2' 'cdrtools' 'cpio' 'diffutils' 'e2fsprogs' 'enjarify'
+  'python-pytest' 'python-jsbeautifier' 'python-h5py' 'acl' 'binutils' 'bzip2' 'cdrtools' 'cpio' 'e2fsprogs' 'enjarify'
   'hdf5' 'imagemagick' 'java-environment=11' 'fontforge' 'gettext' 'ghc' 'gnupg' 'mono' 'pgpdump' 'poppler' 'sqlite' 'squashfs-tools'
   'libxmlb' 'lz4' 'unzip' 'gzip' 'tar' 'tcpdump' 'vim' 'xz' 'llvm' 'colord' 'fpc' 'openssh' 'openssl' 'odt2txt' 'docx2txt' 'r' 'dtc'
   'giflib' 'gnumeric' 'python-progressbar' 'binwalk' 'python-argcomplete' 'zstd' 'uboot-tools')
