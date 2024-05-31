@@ -1,0 +1,15 @@
+pkgbase = kcpuid
+	pkgdesc = Kernel tool for various cpu debug outputs
+	pkgver = 6.10rc1
+	pkgrel = 1
+	url = https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/arch/x86/kcpuid
+	arch = x86_64
+	license = GPL-2.0-only
+	makedepends = git
+	depends = glibc
+	source = linux-mainline::git+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git#tag=v6.10-rc1
+	source = fix-Makefile.patch
+	sha256sums = 16ff7a4ac413f1ea117079ca20d5e7dd0675763c32c392c15c2bf056622897b7
+	sha256sums = c5b255f640cdaa949306f99eb2caaa39d00820de516f51e3218e156c3dd1d18d
+
+pkgname = kcpuid
