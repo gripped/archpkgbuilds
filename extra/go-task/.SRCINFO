@@ -1,7 +1,7 @@
 pkgbase = go-task
 	pkgdesc = A task runner written in Go
-	pkgver = 3.31.0
-	pkgrel = 3
+	pkgver = 3.37.2
+	pkgrel = 1
 	url = https://taskfile.dev
 	install = go-task.install
 	arch = x86_64
@@ -10,9 +10,11 @@ pkgbase = go-task
 	makedepends = go
 	depends = glibc
 	options = !lto
-	source = go-task::git+https://github.com/go-task/task#commit=6177376e5045696bc12dcc083873b27f7c0da5f1
+	source = go-task::git+https://github.com/go-task/task#tag=v3.37.2
 	source = rename-completions.patch
-	b2sums = SKIP
-	b2sums = 1e1c959f39955dbe7d4bab3db5694551f43968446292ee499d47130d85be6ea20283f4162023cf34f6cc7c1e2382896613c38c540cc92141e5c3d85cbc07d09d
+	sha512sums = feb0c2a4e588a3f91d98833b9f4780f34121fbdf352114fd9077ba655eb2a91bd4ee95daa5a3a2cbca0ac1d4e5dc394ef4e03159fd38d25d3f7ac83c2edf47dd
+	sha512sums = d2958f196ddd641c8efff06d303b646e14bbfd79dcbb57288b08d8f0c85a75b11d9835f895a061186eafabd873d68d0b9e80471220d6843b85d9cbdc99511e2c
+	b2sums = 70916d31160fa419df2302d76e956992fe0b8fadc3c3a46c511ba202933f50fcd1b43ae59b963ccd0ab76d96fb5290212483f2465e2f539a226d6cfc3c2f0ba6
+	b2sums = 75a539c6cbec03eb71fda9ba2a26d16ab32656c0703f53df41b4ac8572710df72c76a82a788355152600a9cddcca11382268bd8c991e07ff8b0decfc09b16025
 
 pkgname = go-task
