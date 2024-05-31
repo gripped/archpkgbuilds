@@ -1,7 +1,7 @@
 # Maintainer: Frederik Schwan <freswa at archlinux dot org>
 
 pkgname=tbtools
-pkgver=0.3.2
+pkgver=0.4.0
 pkgrel=1
 pkgdesc='Collection of tools for Linux Thunderbolt/USB4 development, debugging and validation'
 arch=('x86_64')
@@ -17,7 +17,7 @@ makedepends=(
   'rust'
 )
 source=("git+https://github.com/intel/tbtools.git#tag=v$pkgver")
-b2sums=('775847bba2099c7b913e303a62ef049856d02f65630e62352dc620586a3ed997388656775c29d83599170495b2920db4ea83155f98834d5a6b224c000ec60422')
+b2sums=('f3b11c3494b16d545a554e14689b1e4d15f41b14c5e0179afa14051914e51f02d5c796694dca6e71fe5fb0ae73d3556c9d5a1b36c5f96bdf13094f9658f7d9d8')
 
 prepare() {
   cd ${pkgname}
