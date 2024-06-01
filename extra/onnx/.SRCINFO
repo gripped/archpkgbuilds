@@ -1,0 +1,36 @@
+pkgbase = onnx
+	pkgdesc = Open standard for machine learning interoperability
+	pkgver = 1.16.1
+	pkgrel = 1
+	epoch = 1
+	url = https://onnx.ai
+	arch = x86_64
+	license = MIT
+	makedepends = cmake
+	makedepends = git
+	makedepends = protobuf
+	makedepends = pybind11
+	makedepends = python
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-numpy
+	makedepends = python-protobuf
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	source = onnx::git+https://github.com/onnx/onnx.git#tag=v1.16.1
+	sha512sums = 941d40b545483217148f076a1cb5435bf0bd6fcc1dfa2d4d3b7c8036f83dd28aaddf93ea92c8cd113a1bf78d5f67c382980db2229793031fb05da7619b93961f
+
+pkgname = onnx
+	depends = gcc-libs
+	depends = glibc
+	depends = abseil-cpp
+	depends = protobuf
+
+pkgname = python-onnx
+	depends = onnx
+	depends = python
+	depends = glibc
+	depends = gcc-libs
+	depends = protobuf
+	depends = python-protobuf
+	depends = python-numpy
