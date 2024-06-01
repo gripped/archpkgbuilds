@@ -1,0 +1,37 @@
+From 27f032811fb421893fa416cf3560adfae4f86471 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=BCrgen=20H=C3=B6tzel?= <juergen@hoetzel.info>
+Date: Sat, 1 Jun 2024 18:12:44 +0200
+Subject: [PATCH] Rust bindings: Handle null pointer when creating slice
+
+Starting with Rust 1.78 null assertions in the standard library are
+now checked when compiling in test/debug mode.
+---
+ rust/src/event.rs | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/rust/src/event.rs b/rust/src/event.rs
+index 752e73610..72afd3cf6 100644
+--- a/rust/src/event.rs
++++ b/rust/src/event.rs
+@@ -105,8 +105,16 @@ impl<'a> base::Handle<'a> {
+                 None => panic!("Failed to parse bitmask: {}", event),
+             };
+             let eh = EventHandle { eh: event_handle };
+-            let buf = unsafe { slice::from_raw_parts(buf as *const u8, buf_len) };
+-            let array = unsafe { slice::from_raw_parts(array, array_len) };
++            let buf = if !buf.is_null() {
++                unsafe { slice::from_raw_parts(buf as *const u8, buf_len) }
++            } else {
++                &[]
++            };
++            let array = if !array.is_null() {
++                unsafe { slice::from_raw_parts(array, array_len) }
++            } else {
++                &[]
++            };
+ 
+             let callback: &Box<dyn Fn(guestfs::Event, EventHandle, &[u8], &[u64])> =
+                 Box::leak(unsafe { Box::from_raw(opaque as *mut _) });
+-- 
+2.45.1
+
