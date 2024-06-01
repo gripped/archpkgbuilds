@@ -1,6 +1,6 @@
 pkgbase = gitoxide
 	pkgdesc = An idiomatic, lean, fast & safe pure Rust implementation of Git
-	pkgver = 0.35.0
+	pkgver = 0.36.0
 	pkgrel = 1
 	url = https://github.com/Byron/gitoxide
 	arch = x86_64
@@ -8,9 +8,11 @@ pkgbase = gitoxide
 	license = Apache-2.0
 	makedepends = cargo
 	makedepends = cmake
+	depends = gcc-libs
+	depends = glibc
 	options = !lto
-	source = https://github.com/Byron/gitoxide/archive/v0.35.0/gitoxide-0.35.0.tar.gz
-	sha256sums = 4f074b30830ff37da8ae9de11b0441addea9f1552f0fcac1fa6fb56435d5bbea
-	b2sums = c6ab4fe7926b0cbc8cdb111abf276d142351b4c4fcd5d7350f163e8038ff38e4e8a282339efad63240a7f8513c25f28cfc6a4a709172b38c846f066dda4b418d
+	source = https://github.com/Byron/gitoxide/archive/v0.36.0/gitoxide-0.36.0.tar.gz
+	sha256sums = 36142c7388c68732a953fcfd9dcd609241b1d9a5d2fdb2e796e987b6b6872fa7
+	b2sums = 7b9eb6171c337a9822188c9702809a9288e7fd847120f6857072ea314e95f75bdd0e8ee9572aa083cd8a06d167a91dc839c23175843c860637fdec97ddf4ea1a
 
 pkgname = gitoxide

@@ -1,17 +1,24 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=gitoxide
-pkgver=0.35.0
+pkgver=0.36.0
 pkgrel=1
 pkgdesc="An idiomatic, lean, fast & safe pure Rust implementation of Git"
 url='https://github.com/Byron/gitoxide'
 arch=('x86_64')
 license=('MIT' 'Apache-2.0')
-makedepends=('cargo' 'cmake')
+depends=(
+  'gcc-libs'
+  'glibc'
+)
+makedepends=(
+  'cargo'
+  'cmake'
+)
 options=(!lto)
 source=(https://github.com/Byron/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('4f074b30830ff37da8ae9de11b0441addea9f1552f0fcac1fa6fb56435d5bbea')
-b2sums=('c6ab4fe7926b0cbc8cdb111abf276d142351b4c4fcd5d7350f163e8038ff38e4e8a282339efad63240a7f8513c25f28cfc6a4a709172b38c846f066dda4b418d')
+sha256sums=('36142c7388c68732a953fcfd9dcd609241b1d9a5d2fdb2e796e987b6b6872fa7')
+b2sums=('7b9eb6171c337a9822188c9702809a9288e7fd847120f6857072ea314e95f75bdd0e8ee9572aa083cd8a06d167a91dc839c23175843c860637fdec97ddf4ea1a')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
@@ -28,6 +35,7 @@ package() {
   install -Dm 755 -t "${pkgdir}/usr/bin" \
     target/release/gix \
     target/release/ein
+  install -Dm644 LICENSE-* -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
 
 # vim: ts=2 sw=2 et:
