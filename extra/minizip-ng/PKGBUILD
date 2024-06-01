@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=minizip-ng
-pkgver=4.0.5
+pkgver=4.0.6
 pkgrel=1
 pkgdesc='Fork of the popular zip manipulation library found in the zlib distribution'
 arch=(x86_64)
@@ -13,12 +13,13 @@ depends=(bzip2
          xz
          zlib
          zstd)
-makedepends=(cmake)
-source=(https://github.com/zlib-ng/minizip-ng/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('9bb636474b8a4269280d32aca7de4501f5c24cc642c9b4225b4ed7b327f4ee73')
+makedepends=(cmake
+             git)
+source=(git+https://github.com/zlib-ng/minizip-ng#tag=$pkgver)
+sha256sums=('88b59a3cd5322c7b8c164f2841764a6eadc8283679feacdb88bf7d2223b3c723')
 
 build() {
-  cmake -B build -S $pkgname-$pkgver \
+  cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DMZ_LIB_SUFFIX="-ng" \
     -DBUILD_SHARED_LIBS=ON
@@ -27,5 +28,5 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-  install -Dm644 $pkgname-$pkgver/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+  install -Dm644 $pkgname/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
 }
