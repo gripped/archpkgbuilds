@@ -1,4 +1,4 @@
-# Maintainer: 
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 # Contributor: Lukas Fleischer <lfleischer@archlinux.org>
@@ -7,17 +7,35 @@
 
 pkgname=exim
 pkgver=4.97.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Message Transfer Agent'
-arch=('x86_64')
+arch=(x86_64)
 url='https://www.exim.org/'
-license=('GPL')
-backup=('etc/mail/aliases' 'etc/mail/exim.conf' 'etc/logrotate.d/exim')
-depends=('gdbm' 'libldap' 'libidn' 'libidn2' 'libnsl' 'libspf2' 'libxcrypt' 'openssl' 'pam' 'pcre2' 'sqlite')
-makedepends=('perl-file-fcntllock')
-provides=('smtp-server' 'smtp-forwarder')
-conflicts=('smtp-server' 'smtp-forwarder')
-source=("https://ftp.exim.org/pub/exim/exim4/exim-$pkgver.tar.bz2"{,.asc}
+license=(GPL-2.0-only)
+backup=('etc/mail/aliases'
+        'etc/mail/exim.conf'
+        'etc/logrotate.d/exim')
+depends=(bash
+         gdbm
+         glibc
+         libidn
+         libidn2
+         libldap
+         libnsl
+         libspf2
+         libxcrypt
+         openssl
+         pam
+         pcre2
+         perl
+         sqlite)
+makedepends=(perl-file-fcntllock)
+provides=(smtp-server
+          smtp-forwarder)
+conflicts=(smtp-server
+           smtp-forwarder)
+_archive="$pkgname-$pkgver"
+source=("https://ftp.exim.org/pub/exim/exim4/$_archive.tar.bz2"{,.asc}
         aliases
         exim.logrotate
         exim.Makefile
@@ -32,7 +50,7 @@ sha512sums=('cc11f289ff8f013fc75322b78934cc9691edc1a14ccf5dcad916336ee223a3644d8
             'SKIP'
             '6494d9aae71a630935f3946a136855aadede54fd10b7b3cd7df47972d320ae142410076871e839f6caca8e02ec136604464b0b9c593721db243d8edf75c2f17f'
             'd8e3b466e0bba8175cfe762058dec49018495a260aa5efd139f4ef435284c305958cbd7fc514e81042146368b749ae38f0bf276fc0b4b91918ef33126900aa81'
-            '6e93e8154e9a19c79b72072cfa79e37ed742998fca823bfe87169a038c93e9ab0c11124633ca8c85d5b9ed6195ffb03ccc564f5cda3f1063f5ff62eda8157751'
+            '7fd7d364473bec032ddd685c80e38dd8fcb4130ba960cc2a8b5747c35c2a0757229e95a9c86cb601b7d60344989bb187d3a35f2d2fdc718bb8587af971146c1c'
             'dc28698f15e8eaa4614ae81fc8cb76d92fed1110ce02f7a6ee8feace418dbb194711eb2d4dd444cf818628c11721e21d80b7b974879ab6ddd78cc717cce17c2f'
             'b3c3b18652df435cb87d647cfd4f19e182fbf12b0b56f9c91f72b27ae5a819fb3d8c4c25445c5a3c184f70a0c181925fabda891f2057b8a917070d6c40529b8d'
             '11c8133ee15b3e5193c9b1c59aed66c81b6e045dd23310bede9fcde6c88905db5ef08afdb798b53b75a7465915ea1247e980edf95db07a7f9b7bb58ce95fbb5a'
@@ -46,52 +64,55 @@ validpgpkeys=('C693A034E1ED6EE954CAE2DA13DAD99C7E41519C'  # Phil Pennock <pdp@ex
               'A986F3A6BD6377D8730958DEBCE58C8CE41F32DF') # Jeremy Harris <jgh@wizmail.org>
 
 build() {
-  cd $pkgname-$pkgver
-
-  cp ../$pkgname.Makefile Local/Makefile
-  make
+	cd "$_archive"
+	cp ../$pkgname.Makefile Local/Makefile
+	make
 }
 
 package() {
-  cd $pkgname-$pkgver
-
-  install -Dm0644 ../exim.logrotate "$pkgdir"/etc/logrotate.d/exim
-  install -Dm0644 doc/exim.8 "$pkgdir"/usr/share/man/man8/exim.8
-
-  install -Dm0644 ../exim.sysusers "$pkgdir"/usr/lib/sysusers.d/exim.conf
-  install -Dm0644 ../exim.tmpfiles "$pkgdir"/usr/lib/tmpfiles.d/exim.conf
-
-  cd build-Linux-*
-  for i in exicyclog exim_checkaccess exim_dumpdb exim_lock exim_tidydb \
-    exipick exiqsumm exigrep exim_dbmbuild exim exim_fixdb eximstats exinext \
-    exiqgrep exiwhat; do
-    install -Dm0755 "$i" "$pkgdir"/usr/bin/$i
-  done
-  chmod u+s "$pkgdir"/usr/bin/exim
-
-  cd ../src
-  sed -e "s|/etc/aliases|/etc/mail/aliases|g" \
-    -e "s|SYSTEM_ALIASES_FILE|/etc/mail/aliases|g" \
-    configure.default | install -Dm0644 /dev/stdin "$pkgdir"/etc/mail/exim.conf
-
-  install -Dm0644 "$srcdir"/aliases "$pkgdir"/etc/mail/aliases
-
-  cd "$pkgdir"/usr/bin
-  for i in mailq newaliases rmail rsmtp runq sendmail; do
-    ln -s exim "$i"
-  done
-
-  # fhs compliancy
-  ln -s ../bin/exim ../lib/sendmail
-
-  install -Dm0644 "$srcdir"/exim-submission@.service \
-    "$pkgdir"/usr/lib/systemd/system/exim-submission@.service
-  install -Dm0644 "$srcdir"/exim.service \
-    "$pkgdir"/usr/lib/systemd/system/exim.service
-  install -Dm0644 "$srcdir"/exim@.service \
-    "$pkgdir"/usr/lib/systemd/system/exim@.service
-  install -Dm0644 "$srcdir"/exim.socket \
-    "$pkgdir"/usr/lib/systemd/system/exim.socket
-  install -Dm0644 "$srcdir"/exim-submission.socket \
-    "$pkgdir"/usr/lib/systemd/system/exim-submission.socket
+	install -Dm0644 -t "$pkgdir/usr/lib/systemd/system/" \
+		exim.service exim@.service exim-submission@.service
+	install -Dm0644 -t "$pkgdir/usr/lib/systemd/system/" \
+		exim.socket exim-submission.socket
+	install -Dm0644 exim.logrotate "$pkgdir/etc/logrotate.d/exim"
+	install -Dm0644 exim.sysusers "$pkgdir/usr/lib/sysusers.d/exim.conf"
+	install -Dm0644 exim.tmpfiles "$pkgdir/usr/lib/tmpfiles.d/exim.conf"
+	install -Dm0644 -t "$pkgdir/etc/mail/" aliases
+	cd "$_archive"
+	install -Dm0644 -t "$pkgdir/usr/share/man/man8/" doc/exim.8
+	# See scripts/exim_install#L199
+	local bins=(
+		exicyclog
+		exigrep
+		exim
+		exim_checkaccess
+		exim_dbmbuild
+		exim_dumpdb
+		exim_fixdb
+		exim_id_update
+		exim_lock
+		exim_msgdate
+		exim_tidydb
+		eximstats
+		exinext
+		exipick
+		exiqgrep
+		exiqsumm
+		exiwhat
+	)
+	pushd "build-Linux-$CARCH"
+	install -Dm0755 -t "$pkgdir/usr/bin/" ${bins[@]}
+	chmod u+s "$pkgdir/usr/bin/exim"
+	popd
+	sed \
+			-e "s#/etc/aliases#/etc/mail/aliases#g" \
+			-e "s#SYSTEM_ALIASES_FILE#/etc/mail/aliases#g" \
+		src/configure.default |
+		install -Dm0644 /dev/stdin "$pkgdir/etc/mail/exim.conf"
+	pushd "$pkgdir/usr/bin"
+	for i in mailq newaliases rmail rsmtp runq sendmail; do
+		ln -sf exim "$i"
+	done
+	# fhs compliancy
+	ln -sf ../bin/exim ../lib/sendmail
 }

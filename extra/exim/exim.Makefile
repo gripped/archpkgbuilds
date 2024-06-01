@@ -1,6 +1,8 @@
 ##################################################
 #          The Exim mail transport agent         #
 ##################################################
+# Copyright (c) The Exim Maintainers 2022 - 2023
+# SPDX-License-Identifier: GPL-2.0-or-later
 
 # This is the template for Exim's main build-time configuration file. It
 # contains settings that are independent of any operating system. These are
@@ -50,9 +52,6 @@
 # they are correctly installed, via their compatibility interfaces. However,
 # Exim can also be configured to use the native calls for Berkeley DB (obsolete
 # versions 1.85, 2.x, 3.x, or the current 4.x version) and also for gdbm.
-
-USE_GDBM=yes
-DBMLIB=-lgdbm
 
 # For some operating systems, a default DBM library (other than ndbm) is
 # selected by a setting in the OS-specific Makefile. Most modern OS now have
@@ -402,7 +401,7 @@ SUPPORT_MAILDIR=yes
 # For Redis you need to have hiredis installed on your system
 # (https://github.com/redis/hiredis).
 # Depending on where it is installed you may have to edit the CFLAGS
-# (often += -I/usr/local/include) and LDFLAGS (-lhiredis) lines.
+# (often += -I/usr/local/include) and LOOKUP_LIBS (-lhiredis) lines.
 
 # If your system has pkg-config then the _INCLUDE/_LIBS setting can be
 # handled for you automatically by also defining the _PC variable to reference
@@ -476,11 +475,11 @@ PCRE2_CONFIG=yes
 
 
 #------------------------------------------------------------------------------
-# Comment out the following line to remove DANE support
-# Note: Enabling this unconditionally overrides DISABLE_DNSSEC
-# forces you to have SUPPORT_TLS enabled (the default).  For DANE under
-# GnuTLS we need an additional library.  See TLS_LIBS or USE_GNUTLS_PC
-# below.
+# Comment out the following line to remove DANE support.
+# Note: DANE support requires DNSSEC support (the default) and
+# SUPPORT_TLS (the default).  For DANE under GnuTLS we need an additional
+# library.  See TLS_LIBS or USE_GNUTLS_PC below.
+
 SUPPORT_DANE=yes
 
 #------------------------------------------------------------------------------
@@ -572,7 +571,7 @@ DISABLE_MAL_MKS=yes
 # By default, Exim has support for checking the AD bit in a DNS response, to
 # determine if DNSSEC validation was successful.  If your system libraries
 # do not support that bit, then set DISABLE_DNSSEC to "yes"
-# Note: Enabling SUPPORT_DANE unconditionally overrides this setting.
+# Note: DNSSEC is required for DANE support.
 
 # DISABLE_DNSSEC=yes
 
@@ -600,20 +599,23 @@ DISABLE_MAL_MKS=yes
 
 # Uncomment the following line to add support for talking to dccifd.  This
 # defaults the socket path to /usr/local/dcc/var/dccifd.
-# Doing so will also explicitly turn on the WITH_CONTENT_SCAN option.
+# This support also requires WITH_CONTENT_SCAN enabled.
 
 # EXPERIMENTAL_DCC=yes
 
 # Uncomment the following line to add DMARC checking capability, implemented
 # using libopendmarc libraries. You must have SPF and DKIM support enabled also.
-# Library version libopendmarc-1.4.1-1.fc33.x86_64  (on Fedora 33) is known broken;
-# 1.3.2-3 works.  I seems that the OpenDMARC project broke their API.
 # SUPPORT_DMARC=yes
 # CFLAGS += -I/usr/local/include
 # LDFLAGS += -lopendmarc
 # Uncomment the following if you need to change the default. You can
 # override it at runtime (main config option dmarc_tld_file)
 # DMARC_TLD_FILE=/etc/exim/opendmarc.tlds
+#
+# Library version libopendmarc-1.4.1-1.fc33.x86_64  (on Fedora 33) is known broken;
+# 1.3.2-3 works.  It seems that the OpenDMARC project broke their API.
+# Use this option if you need to build with an old library (1.3.x)
+# DMARC_API=100300
 
 # Uncomment the following line to add ARC (Authenticated Received Chain)
 # support.  You must have SPF and DKIM support enabled also.
@@ -633,6 +635,9 @@ DISABLE_MAL_MKS=yes
 
 # Uncomment the following line to add queuefile transport support
 # EXPERIMENTAL_QUEUEFILE=yes
+#
+# Uncomment the following line to add XCLIENT support
+# EXPERIMENTAL_XCLIENT=yes
 
 ###############################################################################
 #                 THESE ARE THINGS YOU MIGHT WANT TO SPECIFY                  #
@@ -644,6 +649,29 @@ DISABLE_MAL_MKS=yes
 # paranoia are appropriate in different environments. Sysadmins also vary in
 # their views on appropriate levels of defence in these areas. If you do not
 # understand these issues, go with the defaults, which are used by many sites.
+
+
+#------------------------------------------------------------------------------
+# Which DBM library to use.  If you do not specify a specific here, you get
+# the platform default.  Uncomment the pair of lines as preferred.
+# Note: when changing an installation from one DB type to another all the
+# hints-DB files, in spool/db, should be removed.
+
+# gdbm in native mode
+USE_GDBM=yes
+DBMLIB=-lgdbm
+
+# gdbm in Berkeley-DB compatibility mode
+# USE_NDBM = yes
+# DBMLIB = -lgdbm -lgdbm_compat
+
+# tdb
+# USE_TDB = yes
+# DBMLIB = -ltdb
+
+# Berkeley DB
+# USE_DB = yes
+# DBMLIB = -ldb
 
 
 #------------------------------------------------------------------------------
