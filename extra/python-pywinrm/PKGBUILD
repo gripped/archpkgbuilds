@@ -4,12 +4,12 @@
 
 pkgname=python-pywinrm
 pkgver=0.4.3
-pkgrel=3
+pkgrel=4
 pkgdesc="Python library for Windows Remote Management"
 arch=(any)
 url="https://pypi.python.org/pypi/pywinrm"
 license=('MIT')
-depends=('python' 'python-requests' 'python-xmltodict' 'python-requests-ntlm')
+depends=('python-six' 'python-requests' 'python-xmltodict' 'python-requests-ntlm')
 optdepends=('python-requests-kerberos: for kerberos authentication'
             'python-requests-credssp: for CredSSP authenication')
 makedepends=('python-setuptools')
