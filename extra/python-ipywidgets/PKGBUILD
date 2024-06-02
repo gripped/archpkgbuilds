@@ -4,7 +4,7 @@
 pkgname=python-ipywidgets
 _pipname=ipywidgets
 pkgver=8.1.3
-pkgrel=1
+pkgrel=2
 pkgdesc='IPython HTML widgets for Jupyter'
 arch=(any)
 url='https://github.com/ipython/ipywidgets'
@@ -48,6 +48,4 @@ package() {
   cd ipywidgets/python/ipywidgets
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
-# Remove tests
-  rm -r "$pkgdir"/usr/lib/python*/site-packages/ipywidgets/widgets/tests/
 }
