@@ -4,13 +4,12 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=gitui
-pkgver=0.26.2
+pkgver=0.26.3
 pkgrel=1
 pkgdesc='Blazing fast terminal-ui for git written in Rust'
 url='https://github.com/extrawurst/gitui'
 arch=('x86_64')
 license=('MIT')
-# work around two libssl.so providers being in the repos by only depending on package for now
 depends=('gcc-libs' 'glibc' 'libgit2' 'libxcb' 'openssl' 'zlib')
 makedepends=('cargo' 'git' 'python') # xcb crate needs python
 source=("git+$url.git?tag=$pkgver")
@@ -18,8 +17,6 @@ sha256sums=('SKIP')
 
 prepare() {
   cd "$pkgname"
-  # https://github.com/extrawurst/gitui/issues/2234
-  git cherry-pick -n b925155b7fcf95062e0bbae2295384e1f188ab1a
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
