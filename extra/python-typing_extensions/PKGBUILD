@@ -4,7 +4,7 @@
 
 pkgname=python-typing_extensions
 _name=${pkgname#python-}
-pkgver=4.12.0
+pkgver=4.12.1
 pkgrel=1
 pkgdesc='Backported and Experimental Type Hints for Python 3.8+'
 arch=(any)
@@ -14,7 +14,7 @@ depends=(python)
 makedepends=(git python-build python-flit-core python-installer)
 checkdepends=(python-tests)
 source=("git+${url}.git#tag=${pkgver}")
-b2sums=('13be98b2492a73dc54f147024efe7de91a0f10d0957b0506090b2e57b42854c7c63fa377b038e790938d019d16a55aa2008782e9130b2c975a04d5c53eb3f720')
+b2sums=('3c29c808ae0535e4af411c411bfc24d5958b91931b81ddd726b1ce7b35cb24820c8c3031f261a3a08a80c4aac38921b67cf9a9dc7a920be151d0b5740892ef2d')
 
 build() {
   cd "${_name}"
