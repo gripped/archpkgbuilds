@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=openpgp-card-tools
-pkgver=0.10.1
+pkgver=0.11.0
 pkgrel=1
 pkgdesc="CLI tool to inspect, manage and use OpenPGP cards"
 arch=(x86_64)
@@ -11,18 +11,14 @@ depends=(
   ccid
   gcc-libs
   glibc
-  gmp
 )
 makedepends=(
-  bzip2
   cargo
-  clang
-  nettle
   pcsclite
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('9ad5da40bcaedb591cdb36329243fee235c2bec4e75f7b16eca395dd4522993d093d2346d8aa503d3ae0ffa803a10b31ce8166a453be0a7b173d8982c00d3794')
-b2sums=('c8128535b2d691462b9e78c304514e09b14b2771c6bfd2945c73364a14b377ac415a3098a8845fe861fdf13f7c8ffce9234f14f304585519da7cc653132ffc91')
+sha512sums=('e775ca855a94a0a1a09b25819f8cc01dab41db7114a09893c31876c17eff5006842021b453bd39a106f5c6993936245afa8f0810585cc0c4299a12218537cddb')
+b2sums=('10cc4c4af3ba9fac9cfb462c0ebc66f4530489985ca13bfeb1b95696f3466c05fcd572cd4cfdc7a5d6d08ebb5e679b34f32d9a7dd7a85b84b713c260e69a348b')
 
 prepare() {
   cd $pkgname
@@ -40,8 +36,6 @@ build() {
 
 package() {
   depends+=(
-    bzip2 libbz2.so
-    nettle libhogweed.so libnettle.so
     pcsclite libpcsclite.so
   )
 
