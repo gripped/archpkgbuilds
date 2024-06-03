@@ -2,8 +2,8 @@
 
 pkgname=python-hishel
 _name="${pkgname#python-}"
-pkgver=0.0.26
-pkgrel=3
+pkgver=0.0.27
+pkgrel=1
 pkgdesc="An elegant HTTP Cache implementation for HTTPX and HTTP Core"
 arch=(any)
 url="https://github.com/karpetrosyan/hishel"
@@ -36,8 +36,8 @@ optdepends=(
   'python-anysqlite: for SQLite support'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('1d5d55e2ad2743ac15b258c1246a21975c4e8bf5786e331d55acc6e5cb82c0393b23b7c00a5ea9f6f8070e5e3cf6d5f6d9755315403748259d99e6ce20ccd27f')
-b2sums=('e8273020c3b69edc0a080940d8462d33c4eb6b6bbb6f0325975ef29e15d0f16c57a31406f24ae56ad651722ccf6ff704afcedb917417355f67b7536d80dc0c3f')
+sha512sums=('c348bc7ef236a9379f4c45f3cfa3eb74ea1c11be3b3dc533e7864c788d029137720de7612210873971d8ccd6768379ee26a4782c6c7fdf87ce4e4028489b6012')
+b2sums=('57c42988bb64ef0a36bfe15527fae4a06cf1945609458266c29c0ba9423002c8c7c3beb0b1276dd4aa7d8b3a4f4575f5c8d570d7d66b97ea757988f3e673b651')
 
 build() {
   cd $_name-$pkgver
