@@ -4,7 +4,7 @@
 
 pkgname=kwave
 pkgver=24.05.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A sound editor'
 arch=(x86_64)
 url='https://apps.kde.org/kwave/'
@@ -52,6 +52,9 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
 
 build() {
+# https://gitlab.archlinux.org/archlinux/packaging/packages/kwave/-/issues/1
+  CFLAGS=${CFLAGS/-fno-omit-frame-pointer/}
+  CXXFLAGS=${CXXFLAGS/-fno-omit-frame-pointer/}
   cmake -B build -S $pkgname-$pkgver \
     -DBUILD_TESTING=OFF
   cmake --build build
