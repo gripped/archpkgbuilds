@@ -3,8 +3,8 @@
 
 pkgname=python-fastparquet
 _pkgname=${pkgname#python-}
-pkgver=2024.2.0
-pkgrel=3
+pkgver=2024.5.0
+pkgrel=1
 pkgdesc="A Python implementation of the Parquet columnar file format"
 arch=(x86_64)
 url="https://github.com/dask/fastparquet"
@@ -29,7 +29,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('b747ec949616dfd76b7d3f2fa793a3f4ab6271040aca89d656ee41db056cddc0')
+sha256sums=('7fb745a78e4a5772e3cc5f3c8aba487374cda1d3007e7878805a8c2a0d40652e')
 
 _archive="$_pkgname-$pkgver"
 
