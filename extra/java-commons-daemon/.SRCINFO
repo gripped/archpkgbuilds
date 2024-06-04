@@ -1,0 +1,23 @@
+pkgbase = java-commons-daemon
+	pkgver = 1.4.0
+	pkgrel = 1
+	url = https://commons.apache.org/proper/commons-daemon/
+	arch = x86_64
+	license = APACHE
+	makedepends = docbook2x
+	makedepends = docbook-utils
+	makedepends = docbook-xsl
+	makedepends = git
+	makedepends = java-environment
+	makedepends = maven
+	source = git+https://github.com/apache/commons-daemon.git#tag=6b911598b815a4a7b8ab2b8a8a2157593effc6bc
+	b2sums = 8d0118e821df1dcaf5e8ea5fb1cec40406f7d783872b1c4f7e49fc73ae18cff3532a81cb0af692a8a035131a012a1a7b073d4cd33538f05605f0d96ff8dd285c
+
+pkgname = java-commons-daemon
+	pkgdesc = Alternative invocation mechanism for unix-daemon-like java code
+	depends = java-runtime
+
+pkgname = java-jsvc
+	pkgdesc = Apache application for making Java applications run on UNIX more easily
+	depends = java-commons-daemon
+	depends = libcap
