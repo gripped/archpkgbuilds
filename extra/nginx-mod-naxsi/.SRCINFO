@@ -1,12 +1,12 @@
 pkgbase = nginx-mod-naxsi
 	pkgdesc = Nginx Anti XSS & SQL Injection
-	pkgver = 1.4
-	pkgrel = 2
+	pkgver = 1.6
+	pkgrel = 1
 	url = https://github.com/wargio/naxsi/
 	arch = x86_64
-	license = GPL3
+	license = GPL-3.0-or-later
+	makedepends = nginx
 	makedepends = nginx-src
-	depends = nginx
 	backup = etc/nginx/naxsi/blocking/10000000_scanner.rules
 	backup = etc/nginx/naxsi/blocking/20000000_web_security.rules
 	backup = etc/nginx/naxsi/blocking/30000000_wordpress.rules
@@ -25,10 +25,11 @@ pkgbase = nginx-mod-naxsi
 	backup = etc/nginx/naxsi/whitelists/wordpress-minimal.rules
 	backup = etc/nginx/naxsi/whitelists/wordpress.rules
 	backup = etc/nginx/naxsi/whitelists/zerobin.rules
-	source = https://github.com/wargio/naxsi/archive/1.4/naxsi-1.4.tar.gz
+	source = https://github.com/wargio/naxsi/archive/1.6/naxsi-1.6.tar.gz
 	source = https://github.com/libinjection/libinjection/archive/refs/tags/v3.10.0/libinjection-3.10.0.tar.gz
 	validpgpkeys = B0F4253373F8F6F510D42178520A9993A1C052F8
-	sha256sums = 2ca068fecbd5e12bac13651d51162675060f3a9c29e1bc8bd29aab417f7d2038
+	sha256sums = e5920fdd09cae155b89eb21a94a21c029ebfdb056c284130221525be54044aae
 	sha256sums = 9dd7ae68a21a3c50f705c383b1b714c77fd4093b0a561a5400f0cb0ad79b1ae7
 
 pkgname = nginx-mod-naxsi
+	depends = nginx=
