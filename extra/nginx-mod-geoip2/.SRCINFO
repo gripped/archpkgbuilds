@@ -1,15 +1,17 @@
 pkgbase = nginx-mod-geoip2
 	pkgdesc = Nginx GeoIP2 module
 	pkgver = 3.4
-	pkgrel = 4
+	pkgrel = 5
 	url = https://github.com/leev/ngx_http_geoip2_module
 	arch = x86_64
-	license = BSD
+	license = BSD-2-Clause
+	makedepends = nginx
 	makedepends = nginx-src
-	depends = nginx
 	depends = libmaxminddb
 	source = https://github.com/leev/ngx_http_geoip2_module/archive/3.4/ngx_http_geoip2_module-3.4.tar.gz
 	validpgpkeys = B0F4253373F8F6F510D42178520A9993A1C052F8
 	sha256sums = ad72fc23348d715a330994984531fab9b3606e160483236737f9a4a6957d9452
 
 pkgname = nginx-mod-geoip2
+	depends = libmaxminddb
+	depends = nginx=
