@@ -2,16 +2,15 @@
 
 pkgname=nginx-mod-memc
 pkgver=0.20
-pkgrel=2
+pkgrel=3
 
 _modname="${pkgname#nginx-mod-}"
 
 pkgdesc='Extended version of the standard memcached module for nginx'
 arch=('x86_64')
-depends=('nginx')
-makedepends=('nginx-src')
+makedepends=('nginx' 'nginx-src')
 url="https://github.com/openresty/memc-nginx-module"
-license=('BSD')
+license=('BSD-2-Clause')
 
 source=(
 	https://github.com/openresty/$_modname-nginx-module/archive/v$pkgver/$_modname-$pkgver.tar.gz
@@ -30,6 +29,10 @@ build() {
 }
 
 package() {
+	local _nginx_version=$(nginx -v 2>&1)
+	_nginx_version=${_nginx_version/* nginx\/}
+	depends+=("nginx=${_nginx_version}")
+
 	cd "$srcdir"/nginx/objs
 	for mod in *.so; do
 		install -Dm755 $mod "$pkgdir"/usr/lib/nginx/modules/$mod
