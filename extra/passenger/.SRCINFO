@@ -1,7 +1,7 @@
 pkgbase = passenger
 	pkgdesc = Fast and robust web server and application server for Ruby, Python and Node.js
 	pkgver = 6.0.22
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.phusionpassenger.com
 	arch = x86_64
 	license = MIT
@@ -9,6 +9,7 @@ pkgbase = passenger
 	makedepends = ruby-rack
 	makedepends = curl
 	makedepends = apache
+	makedepends = nginx
 	makedepends = nginx-src
 	options = !emptydirs
 	options = staticlibs
@@ -35,4 +36,4 @@ pkgname = mod_passenger
 pkgname = nginx-mod-passenger
 	pkgdesc = Passenger nginx module
 	depends = passenger
-	depends = nginx
+	depends = nginx=

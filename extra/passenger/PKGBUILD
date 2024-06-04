@@ -3,13 +3,13 @@
 pkgbase=passenger
 pkgname=(passenger mod_passenger nginx-mod-passenger)
 pkgver=6.0.22
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast and robust web server and application server for Ruby, Python and Node.js"
 arch=('x86_64')
 url="https://www.phusionpassenger.com"
 _watch="https://github.com/phusion/passenger/releases"
 license=('MIT')
-makedepends=('ruby-rake' 'ruby-rack' 'curl' 'apache' 'nginx-src')
+makedepends=('ruby-rake' 'ruby-rack' 'curl' 'apache' 'nginx' 'nginx-src')
 options=('!emptydirs' 'staticlibs')
 validpgpkeys=('D5F0851426939232F437AB722AC745A50A212A8C'
               '16378A33A6EF16762922526E561F9B9CAC40B2F7'  # auto-software-signing@phusion.nl
@@ -63,7 +63,10 @@ package_mod_passenger() {
 
 package_nginx-mod-passenger() {
   pkgdesc="Passenger nginx module"
-  depends=('passenger' "nginx")
+  depends=('passenger')
+  local _nginx_version=$(nginx -v 2>&1)
+  _nginx_version=${_nginx_version/* nginx\/}
+  depends+=("nginx=${_nginx_version}")
 
   install -Dm644 "$srcdir"/$pkgbase-$pkgver/LICENSE \
                  "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
