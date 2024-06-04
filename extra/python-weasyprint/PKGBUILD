@@ -3,7 +3,7 @@
 # Contributor: Florijan Hamzic <florijanh at gmail dot com>
 
 pkgname=python-weasyprint
-pkgver=62.1
+pkgver=62.2
 pkgrel=1
 pkgdesc='Utility to render HTML and CSS to PDF'
 arch=(any)
@@ -31,7 +31,7 @@ checkdepends=(python-pytest
               ghostscript
               ttf-dejavu)
 source=("$pkgname::git+$_url.git#tag=v$pkgver")
-sha256sums=('c9d2b80b48826dfd9ddd6c3aca0c57b5077843ff3685cc177728f54453e66e90')
+sha256sums=('40fe96ed7a1c3bfe8bf1abd51db8954e3790899ae3e5c1f230fef8a4d17dc13f')
 
 prepare() {
 	cd "$pkgname"
