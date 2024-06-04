@@ -1,14 +1,26 @@
 pkgbase = nginx-mod-njs
 	pkgdesc = nginScript module for nginx
 	pkgver = 0.8.4
-	pkgrel = 2
+	pkgrel = 3
 	url = https://nginx.org/en/docs/njs_about.html
 	arch = x86_64
-	license = CUSTOM
+	license = BSD-2-Clause
+	makedepends = nginx
 	makedepends = nginx-src
-	depends = nginx
+	depends = glibc
 	depends = libxslt
-	source = njs-0.8.4.tar.gz::https://hg.nginx.org/njs/archive/0.8.4.tar.gz
-	sha256sums = 8191bff8491af9169a92e30e383ef8614717b0c6d40913d83b95051031e92321
+	depends = openssl
+	depends = zlib
+	depends = pcre2
+	depends = libxml2
+	source = https://github.com/nginx/njs/archive/refs/tags/0.8.4/nginx-mod-njs-0.8.4.tar.gz
+	sha256sums = fe197e254204c15e9f1df0acf375add57be3416901ec8d7b87319dccb490f90d
 
 pkgname = nginx-mod-njs
+	depends = glibc
+	depends = libxslt
+	depends = openssl
+	depends = zlib
+	depends = pcre2
+	depends = libxml2
+	depends = nginx=
