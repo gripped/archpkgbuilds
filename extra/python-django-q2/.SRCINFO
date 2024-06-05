@@ -1,7 +1,7 @@
 pkgbase = python-django-q2
 	pkgdesc = A multiprocessing distributed task queue for Django
 	pkgver = 1.6.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/django-q2/django-q2
 	arch = any
 	license = MIT
@@ -16,6 +16,8 @@ pkgbase = python-django-q2
 	optdepends = python-boto3: Amazon Simple Queue Service message queue support
 	optdepends = python-psutil: resource usage limit support
 	optdepends = python-pymongo: MongoDB as a message broker support
+	conflicts = python-django-q
+	replaces = python-django-q
 	source = python-django-q2-1.6.2.tar.gz::https://github.com/django-q2/django-q2/archive/refs/tags/v1.6.2.tar.gz
 	sha256sums = 826f72f1b5b5b317cbef51a22c1ab45cfddc138f3b710bd19f4fce84401e4ea7
 

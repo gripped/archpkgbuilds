@@ -1,13 +1,15 @@
 
 pkgname=python-django-q2
 pkgver=1.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A multiprocessing distributed task queue for Django'
 arch=(any)
 url=https://github.com/django-q2/django-q2
 license=(MIT)
 depends=(python-django python-django-picklefield)
 makedepends=(python-build python-installer python-poetry-core)
+conflicts=(python-django-q)
+replaces=(python-django-q)
 # checkdepends=(python-pytest python-pytest-django)
 optdepends=(
   'python-blessed: Display the statistics in the terminal'
