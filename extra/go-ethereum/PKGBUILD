@@ -1,8 +1,8 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=go-ethereum
-pkgver=1.14.3
-_commit=ab48ba42f4f34873d65fd1737fabac5c680baff6
+pkgver=1.14.4
+_commit=5550d8399f744aca0f50fc20bcd57bf2abeb13e9
 pkgrel=1
 pkgdesc='Official Go implementation of the Ethereum protocol'
 arch=('x86_64')
@@ -15,7 +15,7 @@ conflicts=('geth')
 replaces=('geth')
 source=("git+https://github.com/ethereum/go-ethereum.git#commit=${_commit}"
         'geth-user.service')
-sha256sums=('753f3838bc9a1458eb7cb7120e286eaf79ca7637bf2fe382be885297daa91d6d'
+sha256sums=('ad4eac3e77c466b3d23cd8b109c7e01e07fea24e485899942dde5b03375b7dc5'
             '806ab43221f0c203e663a78afced694786a5adb033f06fab07d07904384d7645')
 
 build() {
