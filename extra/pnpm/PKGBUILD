@@ -3,22 +3,23 @@
 # Contributor: Tomasz Jakub Rup <tomasz.rup@gmail.com>
 
 pkgname=pnpm
-pkgver=9.1.4
+pkgver=9.2.0
 pkgrel=1
 pkgdesc='Fast, disk space efficient package manager'
-arch=('any')
+arch=(any)
 url=https://pnpm.io
-license=('MIT')
-depends=('node-gyp')
-makedepends=('git' 'pnpm')
+license=(MIT)
+depends=(node-gyp)
+makedepends=(
+  git
+  pnpm
+)
 source=("git+https://github.com/$pkgname/$pkgname.git#tag=v$pkgver?signed")
-b2sums=('aa4a9891e6c13e2883b1a7d471c2f5818bd5519d0beb4efee0f91d1600383961fa208b714277c5f60b4128b0c37f5bfad7341311a03be2db6af2bd0b01aceabc')
-validpgpkeys=('7B74D1299568B586BA9962B5649E4D4AF74E7DEC') # Zoltan Kochan <z@kochan.io>
+b2sums=('f54472e2bb2655fdcc7c14caa362c65a279592a02d0de01d3369fa82babe7a696a4d162176d3ba553b3bbd9164ec61945507e25489dc08901830ee5b183eee7b')
+validpgpkeys=(7B74D1299568B586BA9962B5649E4D4AF74E7DEC) # Zoltan Kochan <z@kochan.io>
 
 prepare() {
   cd $pkgname/$pkgname
-  # https://github.com/typicode/husky/issues/1444
-  export UV_USE_IO_URING=0
   pnpm install --frozen-lockfile
 }
 
