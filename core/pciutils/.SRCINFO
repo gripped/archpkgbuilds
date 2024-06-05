@@ -1,10 +1,10 @@
 pkgbase = pciutils
 	pkgdesc = PCI bus configuration space access library and tools
-	pkgver = 3.12.0
+	pkgver = 3.13.0
 	pkgrel = 1
 	url = https://mj.ucw.cz/sw/pciutils/
 	arch = x86_64
-	license = GPL2
+	license = GPL-2.0-only
 	makedepends = git
 	depends = glibc
 	depends = hwdata
@@ -12,10 +12,8 @@ pkgbase = pciutils
 	optdepends = which: for update-pciids
 	optdepends = grep: for update-pciids
 	optdepends = curl: for update-pciids
-	source = https://mj.ucw.cz/download/linux/pci/pciutils-3.12.0.tar.gz
-	source = https://mj.ucw.cz/download/linux/pci/pciutils-3.12.0.tar.gz.sign
+	source = git+https://git.kernel.org/pub/scm/utils/pciutils/pciutils.git#tag=v3.13.0?signed
 	validpgpkeys = C466A56CADA981F4297D20C31F3D0761D9B65F0B
-	sha256sums = 827a641d2016a15f0b959804daa5a05f055d0f91d58a70d32ac41ce7ef94164e
-	sha256sums = SKIP
+	sha256sums = a198253ac31ee593aeaa4e84c4393f7ad9b1e513ebc6f85c42802dc4c744691d
 
 pkgname = pciutils
