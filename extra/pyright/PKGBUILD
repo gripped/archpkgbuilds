@@ -2,16 +2,19 @@
 # Contributor: Kaizhao Zhang <zhangkaizhao@gmail.com>
 
 pkgname=pyright
-pkgver=1.1.365
+pkgver=1.1.366
 pkgrel=1
 pkgdesc='Type checker for the Python language'
-arch=('any')
+arch=(any)
 url=https://microsoft.github.io/pyright
-license=('MIT')
-depends=('nodejs')
-makedepends=('git' 'npm')
+license=(MIT)
+depends=(nodejs)
+makedepends=(
+  git
+  npm
+)
 source=("git+https://github.com/microsoft/pyright.git#tag=$pkgver")
-b2sums=('b69a7b21517f6cae017fe5e5727d3644cf48285e9ec7fb13f03a5b1644b404a32836b589bcb2aa2a03b913e7fbfe5809cc0aefa00e5415d919f969a320fa3323')
+b2sums=('6332aeb62332c55ea43a064e2a19e473090178210bd27644216440e41c34b8f930c233e07a7eb1e14e1b71e74ee3ab162903f5ab164d373dc43dad0b553c54a0')
 
 prepare() {
   cd $pkgname
