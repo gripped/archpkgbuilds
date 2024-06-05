@@ -1,12 +1,13 @@
 pkgbase = feeluown-netease
 	pkgdesc = feeluown netease plugin
-	pkgver = 1.0.1
-	pkgrel = 2
+	pkgver = 1.0.2
+	pkgrel = 1
 	url = https://github.com/feeluown/feeluown-netease
 	arch = any
 	groups = feeluown-full
 	license = GPL3
 	checkdepends = python-pytest
+	makedepends = git
 	makedepends = python-setuptools
 	depends = feeluown
 	depends = python-beautifulsoup4
@@ -14,7 +15,7 @@ pkgbase = feeluown-netease
 	depends = python-marshmallow
 	depends = python-requests
 	depends = python-mutagen
-	source = https://github.com/feeluown/feeluown-netease/archive/v1.0.1/feeluown-netease-1.0.1.tar.gz
-	sha512sums = 379ef9f792595a3e6c4135781e17a8bdd77c13d64a7e981ecdc1388967ce97817893f0d470c4309ac066d066752154b2f5fa81045b809f7e8dcb4891adb48662
+	source = git+https://github.com/feeluown/feeluown-netease.git#tag=v1.0.2
+	sha512sums = 4cba0d7428c91ff13e3fe51277dc1e97df8c1b964d8fa7f126e954553c71b9077a1e8a1109d6081915be3a33a2c6fc2904834d72a123adbc726a41c58f8a18f0
 
 pkgname = feeluown-netease
