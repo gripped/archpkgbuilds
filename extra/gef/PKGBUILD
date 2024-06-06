@@ -1,7 +1,7 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=gef
-pkgver=2024.01
+pkgver=2024.06
 pkgrel=1
 pkgdesc='Multi-Architecture GDB Enhanced Features for Exploiters & Reverse-Engineers'
 url='https://github.com/hugsy/gef'
@@ -18,8 +18,8 @@ optdepends=(
   'ropgadget: ROP gadget support'
 )
 source=(https://github.com/hugsy/gef/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz.tar.gz)
-sha512sums=('d8dbc308f864e434ea79eaf44e329e11f2cea9836a5dcdc019bd621bbec6792f70e58edd9fd8b3c434dc61a17fbac08394e281530423081beb1cc1192aece79c')
-b2sums=('f5409e592c50dbbe65761e7727f28aa7a96b130449f187e392cc0170707b7cfb2d1bf9e75581dce7dce8ff6d004ffc624d34a46b7ba35ab434a5671662860bdb')
+sha512sums=('5eaa3fc1a39146d241f58bf3f5f3e912ad00b098b414c27a2d3a6e5b5f74e415b2d141cd9e7ccf3fd4aaa1b711ab62cc32d666cbc51dedf8a14b315df182d861')
+b2sums=('e01b07f12c147103c544713ca4139e75ab961a29b139278e0c3765a0f595bec5e27dcc1e783dbb8657e18c029c1a2b28a073d2784912c836d5d508d2fb62f6ff')
 
 build() {
   cd ${pkgname}-${pkgver}
