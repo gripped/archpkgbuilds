@@ -1,7 +1,7 @@
 pkgbase = julia
 	pkgdesc = High-level, high-performance, dynamic programming language
 	pkgver = 1.10.4
-	pkgrel = 1
+	pkgrel = 2
 	epoch = 2
 	url = https://julialang.org/
 	arch = x86_64
@@ -37,6 +37,7 @@ pkgbase = julia
 	source = julia-libcholmod-cuda.patch
 	source = julia-suitesparse-7.patch
 	source = julia-hardcoded-libs.patch
+	source = https://github.com/JuliaLang/julia/commit/1cddd37d.patch
 	validpgpkeys = 3673DF529D9049477F76B37566E3C7DC03D6E495
 	sha256sums = f32e5277f5d82a63824882cdebfac158199bb84814c3c019a3fecc3601586191
 	sha256sums = SKIP
@@ -47,5 +48,6 @@ pkgbase = julia
 	sha256sums = f69afd7db3fabe4b747afa2404e1202c1dcfe0f8c5fe5238e424eea737fa2a23
 	sha256sums = 0fd1a0c1fcbe7f583139ed3a4a87f77963f06876d69058fa3ffbedfaec609ee7
 	sha256sums = 02f0ae518dfd50c2b3abf95fa760de85298baf79d80c2f6f48ac182e58a736d7
+	sha256sums = fb0156e313fb58ea1ffca2d77f0ed677b6ab8895015203be7429981a877e1702
 
 pkgname = julia
