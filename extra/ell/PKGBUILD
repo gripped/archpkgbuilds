@@ -2,7 +2,7 @@
 # Contributor: Jameson Pugh <imntreal@gmail.com>
 
 pkgname=ell
-pkgver=0.65
+pkgver=0.66
 pkgrel=1
 pkgdesc="Embedded Linux library"
 arch=(x86_64)
@@ -13,9 +13,19 @@ depends=('gcc-libs' 'glibc')
 checkdepends=('dbus' 'procps-ng')
 # https://mirrors.edge.kernel.org/pub/linux/libs/ell/sha256sums.asc
 source=(https://mirrors.edge.kernel.org/pub/linux/libs/$pkgname/$pkgname-$pkgver.tar.{xz,sign})
-sha256sums=('9ee7ac57b188d391cead705d3596a6d3240341786475149db297782a52269aa5'
+sha256sums=('7a78b757080ed6518c1c4fa26ad6a7a3d6e4e385386a20b6fb52379e7d1ffa36'
             'SKIP')
 validpgpkeys=('E932D120BC2AEC444E558F0106CA9F5D1DCF2659') # "Marcel Holtmann <marcel@holtmann.org>"
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  # don't run tests that fail in chroot build whith
+  # "Failed to start message bus: Failed to bind socket "0.0.0.0" port 140"
+  # unit/test-dbus-message-fds
+  # unit/test-dbus-properties
+  sed -i "217d;220d" Makefile.am
+  autoreconf -vfi
+}
 
 build() {
   cd "$pkgname-$pkgver"
