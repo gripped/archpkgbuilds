@@ -2,7 +2,7 @@
 
 _name=unearth
 pkgname=python-unearth
-pkgver=0.15.3
+pkgver=0.15.4
 pkgrel=1
 pkgdesc="A utility to fetch and download python packages"
 arch=(any)
@@ -34,8 +34,8 @@ optdepends=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
 )
-sha512sums=('c7f6d42372475b6250b21cf799e873ad2ef0f0731841cc6a0bece4ac79944ed2539cdf52c19c23694f4f410421741e440b9b523ce314277d0cac60b8f35ac233')
-b2sums=('d254e95060bfa78c32f7e4efffae512884079c5c2f21717ece6353137fbb4a98ee6e3213ee01a75c13e1fbb9af6a6b67f6622aac1bdf86e2c3b51348bbac264b')
+sha512sums=('ba14ac593f5d46ee176e599343daf65e550c30d683709771980e6e2173c6f9d1549962733b495a210880f84a7bc5ae76fdc26414f859def7d28f1241dfe857d0')
+b2sums=('e684cd60e0dbeefa8d73d09966559f42b8c0249cf28f0e439ce9ad9847802c887e489a5cd10905a7e3655134c92fcac69466052d99f8c97b33865517e41c849f')
 
 build() {
   cd $_name-$pkgver
