@@ -4,40 +4,47 @@
 # Contributor: Mohammad AlSaleh <CE.Mohammad.AlSaleh at gmail dot com>
 
 pkgname=lua-language-server
-pkgver=3.9.1
+pkgver=3.9.2
 pkgrel=1
 pkgdesc='Lua Language Server coded by Lua'
-arch=('x86_64')
+arch=(x86_64)
 url=https://luals.github.io
-license=('MIT')
-depends=('bash' 'gcc-libs')
-makedepends=('git' 'ninja' 'rsync')
+license=(MIT)
+depends=(
+  bash
+  gcc-libs
+)
+makedepends=(
+  git
+  ninja
+  rsync
+)
 source=(
   "git+https://github.com/LuaLS/lua-language-server.git#tag=$pkgver"
-  'git+https://github.com/actboy168/luamake.git'
-  'git+https://github.com/actboy168/bee.lua.git'
-  'git+https://github.com/sqmedeiros/lpeglabel.git'
-  'git+https://github.com/love2d-community/love-api.git'
-  'git+https://github.com/bjornbytes/lovr-docs.git'
-  'git+https://github.com/CppCXY/EmmyLuaCodeStyle.git'
-  'git+https://github.com/actboy168/json.lua.git'
-  'git+https://github.com/LuaCATS/OpenResty.git'
-  'git+https://github.com/LuaCATS/bee.git'
-  'git+https://github.com/LuaCATS/busted.git'
-  'git+https://github.com/LuaCATS/Cocos4.0.git'
-  'git+https://github.com/LuaCATS/Defold.git'
-  'git+https://github.com/LuaCATS/Jass.git'
-  'git+https://github.com/LuaCATS/luafilesystem.git'
-  'git+https://github.com/LuaCATS/love2d.git'
-  'git+https://github.com/LuaCATS/lovr.git'
-  'git+https://github.com/LuaCATS/luaecs.git'
-  'git+https://github.com/LuaCATS/luassert.git'
-  'git+https://github.com/LuaCATS/skynet.git'
-  'git+https://github.com/LuaCATS/ffi-reflect.git'
-  'git+https://github.com/LuaCATS/luv.git'
-  'wrapper'
+  git+https://github.com/actboy168/luamake.git
+  git+https://github.com/actboy168/bee.lua.git
+  git+https://github.com/sqmedeiros/lpeglabel.git
+  git+https://github.com/love2d-community/love-api.git
+  git+https://github.com/bjornbytes/lovr-docs.git
+  git+https://github.com/CppCXY/EmmyLuaCodeStyle.git
+  git+https://github.com/actboy168/json.lua.git
+  git+https://github.com/LuaCATS/OpenResty.git
+  git+https://github.com/LuaCATS/bee.git
+  git+https://github.com/LuaCATS/busted.git
+  git+https://github.com/LuaCATS/Cocos4.0.git
+  git+https://github.com/LuaCATS/Defold.git
+  git+https://github.com/LuaCATS/Jass.git
+  git+https://github.com/LuaCATS/luafilesystem.git
+  git+https://github.com/LuaCATS/love2d.git
+  git+https://github.com/LuaCATS/lovr.git
+  git+https://github.com/LuaCATS/luaecs.git
+  git+https://github.com/LuaCATS/luassert.git
+  git+https://github.com/LuaCATS/skynet.git
+  git+https://github.com/LuaCATS/ffi-reflect.git
+  git+https://github.com/LuaCATS/luv.git
+  wrapper
 )
-b2sums=('001651cfd97e212921a7d58bed88a1c1bc8b3df7b6ad6b76e7aef1e0bd84cadb15483d3f2cd3eceea7ee58d6b3332b6cc88609a8437aeeafc26bd5e787213874'
+b2sums=('4c84c5bebe7dc82f200d7586725192394a6528870fb0b8fafd4dd695ddd323fe9adbd9230f2a525b56f654fd84adcfe82cf69a1953a6ff3f8b0681c0530582a2'
         'SKIP'
         'SKIP'
         'SKIP'
