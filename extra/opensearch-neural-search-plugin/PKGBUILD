@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-neural-search-plugin
-pkgver=2.13.0.0
+pkgver=2.14.0.0
 pkgrel=1
-_opensearchver=2.13.0
+_opensearchver=2.14.0
 _jdkver=11
 pkgdesc="OpenSearch Neural Search Plugin"
 arch=('x86_64')
@@ -15,7 +15,7 @@ makedepends=("java-environment=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/neural-search/archive/${pkgver}.tar.gz"
 )
-sha256sums=('c809e85cade424ca61d31f85646e93817842b509079fd7251c96fd17a5733abd')
+sha256sums=('b931d597d8fde8c27b9121d04bd8a7b9e93368345d8fc693034430d4d99a0873')
 
 build() {
   cd "neural-search-${pkgver}"
