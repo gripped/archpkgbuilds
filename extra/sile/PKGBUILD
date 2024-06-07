@@ -3,8 +3,8 @@
 
 pkgname=sile
 pkgdesc='a modern typesetting engine inspired by LaTeX, fully customizable in Lua'
-pkgver=0.14.17
-pkgrel=3
+pkgver=0.15.0
+pkgrel=1
 arch=(x86_64)
 url=https://www.sile-typesetter.org
 _url="https://github.com/sile-typesetter/$pkgname"
@@ -13,7 +13,6 @@ _luadeps=(cassowary
           cldr
           cliargs
           compat53 # Not needed for Lua 5.3+, LuaJIT is 5.1(ish)
-          cosmo
           expat
           filesystem
           fluent
@@ -31,8 +30,7 @@ _luadeps=(cassowary
 depends=("${_luadeps[@]/#/lua51-}"
          fontconfig libfontconfig.so
          freetype2 libfreetype.so
-         ttf-gentium-plus
-         git
+         gentium-plus-font
          glibc
          harfbuzz libharfbuzz.so libharfbuzz-subset.so
          icu libicudata.so libicui18n.so libicuio.so libicuuc.so
@@ -43,18 +41,37 @@ optdepends=('libertinus-font: default math font'
             'luarocks: manage addon packages'
             'noto-fonts-cjk: default font for tate enabled classes'
             'ttf-hack: default mono font')
+makedepends=(cargo
+             git
+             jq)
 checkdepends=(poppler)
 provides=(libtexpdf.so)
 replaces=("$pkgname-luajit")
-_archive="$pkgname-$pkgver"
-source=("$_url/releases/download/v$pkgver/$_archive.tar.xz")
-sha256sums=('7f89bedecedabb5168250ad9dd80c09ed289c8e88c3d0d756d2d1d92ee065e04')
+_archive="$pkgname-$pkgver-git"
+# source=("$_url/releases/download/v$pkgver/$_archive.tar.zst"{,.asc})
+source=("$_archive::git+$_url.git#tag=v$pkgver"
+        "git+${_url%/$pkgname}/libtexpdf.git")
+sha256sums=('ca9178dd52b33297a0b395e5e245cc3edb7f9af8e9aad1f3dcb84dfe932d6c2e'
+            'SKIP')
+# validpgpkeys=('9F377DDB6D3153A48EB3EB1E63CC496475267693') # Caleb Maclennan <caleb@alerque.com> (@alerque)
+
+export CARGO_FEATURE_FLAGS==--offline
+
+prepare () {
+	cd "$_archive"
+	git submodule init
+	git config submodule.libtexpdf.url "$srcdir/libtexpdf"
+	git -c protocol.file.allow=always submodule update
+	./bootstrap.sh
+	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
 
 build () {
 	cd "$_archive"
 	./configure \
 		--prefix /usr \
-		--with-luajit \
+		--disable-embeded-resources \
+		--with-system-lua-sources \
 		--with-system-luarocks
 	make all
 }
