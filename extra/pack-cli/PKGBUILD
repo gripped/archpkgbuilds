@@ -4,7 +4,7 @@
 
 _base=pack
 pkgname=pack-cli
-pkgver=0.34.1
+pkgver=0.34.2
 pkgrel=1
 pkgdesc="CLI for building apps using Cloud Native Buildpacks"
 depends=('glibc')
@@ -13,7 +13,7 @@ arch=('x86_64')
 url="https://buildpacks.io/"
 license=('Apache-2.0')
 source=("git+https://github.com/buildpacks/${_base}.git#tag=v${pkgver}")
-sha512sums=('572658cd45635eee8a9e7f7ca52514d6092b78f732797f2d68def5fc3639d2289ebc27b8e91ff735525f508a0de9c899168fc39bc8a344908251df51f1f9b459')
+sha512sums=('96462eb32d3828594aecfbfb877155f593a0e8a866a7dbd8b63ca1cc03f28ebf3dd9569d18345fe8dd9c53e4437adadb7ea2bbebccc8ec0a07eda5764df89c8b')
 
 prepare() {
   cd ${_base}
