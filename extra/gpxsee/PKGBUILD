@@ -5,7 +5,7 @@
 
 pkgname=gpxsee
 _pkgname=GPXSee
-pkgver=13.20
+pkgver=13.21
 pkgrel=1
 pkgdesc='GPS log file viewer and analyzer'
 arch=(x86_64)
@@ -16,7 +16,7 @@ depends=('qt6-imageformats' 'qt6-positioning' 'qt6-svg'
 makedepends=('qt6-tools')
 optdepends=('qtpbfimageplugin-qt6: Mapbox vector tiles (MVT) files support')
 source=(https://downloads.sourceforge.net/$pkgname/$_pkgname-$pkgver.tar.gz)
-sha256sums=('f390d0d1ea360730915a2c8526b196b56a8ec68c2f6009f50e686428cb8ebb8e')
+sha256sums=('aff8d0ab876523cc157ded956362b60390a70d88436783f0cb006f41dbc9e091')
 
 build() {
   cd $_pkgname-$pkgver
