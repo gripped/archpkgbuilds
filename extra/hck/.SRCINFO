@@ -1,0 +1,19 @@
+pkgbase = hck
+	pkgdesc = A drop in replacement for cut that can use a regex delimiter instead of a fixed string
+	pkgver = 0.10.0
+	pkgrel = 1
+	url = https://github.com/sstadick/hck
+	arch = x86_64
+	license = Unlicense
+	license = MIT
+	makedepends = git
+	makedepends = rust
+	makedepends = cmake
+	depends = glibc
+	depends = gcc-libs
+	options = !lto
+	source = hck::git+https://github.com/sstadick/hck.git#tag=v0.10.0
+	sha512sums = ad2853a885a39afc1b1b924983194343d7dc837576cbe8a65f346f08b502e3e67a86a759847e86f5f26f0bd354ba708027645194f9a5a4b51199c2d87cc99656
+	b2sums = 4955ac25a2f67550f454037529e56888e8209e17cddc923fc86e05c4886ad206c81619fa8c4eaa9095f85f6dce65760a96c505ea618b79d5702726874c959422
+
+pkgname = hck
