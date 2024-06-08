@@ -2,13 +2,14 @@
 
 pkgname=bash-completion
 pkgver=2.14.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Programmable completion for the bash shell'
 arch=(any)
 url='https://github.com/scop/bash-completion'
 license=(GPL-2.0-only)
 depends=(bash)
 options=(!emptydirs !makeflags)
+backup=('etc/bash_completion.d/000_bash_completion_compat.bash')
 source=($url/releases/download/$pkgver/$pkgname-$pkgver.tar.xz)
 validpgpkeys=(A558062B6D5DA1347CD468D52B0AE2C1B09B07CB)
 sha256sums=('5c7494f968280832d6adb5aa19f745a56f1a79df311e59338c5efa6f7285e168')
