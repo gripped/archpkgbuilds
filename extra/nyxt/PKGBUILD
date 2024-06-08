@@ -6,7 +6,7 @@
 # Contributor: Felix Golatofski <contact@xdfr.de>
 
 pkgname=nyxt
-pkgver=3.11.6
+pkgver=3.11.7
 pkgrel=1
 pkgdesc='A keyboard-driven web browser designed for power users'
 arch=('x86_64')
@@ -38,9 +38,20 @@ optdepends=(
   'gst-plugins-ugly: for HTML5 audio/video'
 )
 options=('!strip' '!makeflags')
-source=("$pkgname-$pkgver.tar.xz::https://github.com/atlas-engineer/nyxt/releases/download/$pkgver/nyxt-$pkgver-source-with-submodules.tar.xz")
-sha512sums=('29aece8bf7c5d0ac47ab33e3f3387da7e62d669be1f2b7d08b27897982dcf07470c9d0cc59c58eee3bb174429d0f08226e51735162b87b37a2cf69148ec45f26')
-b2sums=('ec540c4d751cb3d85df3c39fac6b48cb4355975c43f14391565fc72ec3aba9281001919251cb3d62800ac58501f33193ce96eedc720a6b41b2a5d4257c323202')
+source=(
+  "$pkgname-$pkgver.tar.xz::https://github.com/atlas-engineer/nyxt/releases/download/$pkgver/nyxt-$pkgver-source-with-submodules.tar.xz"
+  'fix-ftbfs-sb-ext.patch'
+)
+sha512sums=('853cb4ec7fe0e04a9f4672170965d6e71c9c81d77382b08f3abe8bb68ce6d44b6ba2a8c3ed6d7d47b2a0a6a92cc3c312189ea7a0635f1a7a3c1ebcea8f710a40'
+            'f4b3113ea63f6f678bf8915f07e8fb9df9600c6b509f35d278d2a392781e8683c62265987ff5caa59b6800bb985f175a307db541d3a59a84366a3620b91d4ecd')
+b2sums=('6e7dbe65601525fafa493cc86689062a3157812f8d7991bee42926291efeaddb699596d6eaa7207c633ec2e6beb3cd32884ba1ab0990aafeace8080b5cb242c1'
+        '1f0642fa26e0e9bc1393130a3b9cc9894e8b2e4514b923a83838f8a0f0a3f84157272f680c7f4221f865b4c831b486d8ea72a0d04fb82ebd7360aaddeec58b78')
+
+prepare() {
+  # FTBFS due to sbcl 2.45
+  # https://github.com/atlas-engineer/nyxt/issues/3408
+  patch -p1 -i "$srcdir/fix-ftbfs-sb-ext.patch"
+}
 
 build() {
   make all
