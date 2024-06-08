@@ -2,25 +2,19 @@
 
 pkgname=ruby-set
 _pkgname="${pkgname#ruby-}"
-pkgver=1.0.3
-pkgrel=2
+pkgver=1.1.0
+pkgrel=1
 pkgdesc='This library provides the Set class'
 arch=('any')
 url='https://github.com/ruby/set'
-license=('BSD')
+license=('BSD-2-Clause')
 depends=('ruby')
 makedepends=('git')
 checkdepends=('ruby-rake' 'ruby-minitest' 'ruby-test-unit')
 options=('!emptydirs')
-_commit='e2419f2d30559e12f823b482726f8b1a47a8bc30'
-source=("$pkgname::git+$url#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('cbe5455a6fcb07c08661456ccda6a83ed06691ed6dfa53029e50e3e73b2fee3edef2d7beee6904d7795d18189cfef0426dbd9d9be569d7ae3875c1a9e1462a19')
+b2sums=('d638371acbfc34fe5cc902b0951bb45e00e654e7b803970a3531c2d7d40402c85482f769be91118e9268b14e57bc9cbe9e5be5946341b8497ddaa06b8bd9d31c')
 
 prepare() {
   cd "$pkgname"
