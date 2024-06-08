@@ -6,13 +6,13 @@
 
 pkgname=glances
 pkgver=4.0.8
-pkgrel=1
+pkgrel=2
 pkgdesc='CLI curses-based monitoring tool'
 arch=('any')
 url='https://nicolargo.github.io/glances/'
 license=('LGPL-3.0-or-later')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
-depends=('python' 'python-psutil' 'python-future' 'python-defusedxml' 'python-ujson' 'python-pydantic' 'python-packaging')
+depends=('python' 'python-psutil' 'python-future' 'python-defusedxml' 'python-orjson' 'python-pydantic' 'python-packaging')
 optdepends=('hddtemp: HDD temperature monitoring support'
             'uvicorn: for WebUI / RestFull API'
             'python-jinja: for WebUI / RestFull API'
