@@ -4,7 +4,7 @@
 
 pkgname=keepassxc
 pkgver=2.7.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Cross-platform community-driven port of Keepass password manager"
 arch=(x86_64)
 url="https://keepassxc.org/"
@@ -36,8 +36,7 @@ build() {
 }
 
 check() {
-  # Enforcing -j1 otherwise tests hang indefinitely (even after succeeding)
-  xvfb-run --auto-servernum cmake --build build --target test -j1
+  xvfb-run --auto-servernum cmake --build build --target test
 }
 
 package() {
