@@ -4,7 +4,7 @@
 _name=PyMuPDF
 pkgname=python-pymupdf
 pkgver=1.24.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Python bindings for MuPDF's rendering library"
 arch=(x86_64)
 url="https://github.com/pymupdf/PyMuPDF"
