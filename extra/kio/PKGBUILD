@@ -3,8 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kio
-pkgver=6.2.0
-pkgrel=2
+pkgver=6.3.0
+pkgrel=1
 pkgdesc='Resource and network access abstraction'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -48,19 +48,13 @@ optdepends=('kded: proxy management and cookie storage'
             'kio-fuse: to mount remote filesystems via FUSE'
             'switcheroo-control: hybrid GPU support')
 groups=(kf6)
-source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/frameworks/kio/-/commit/98d7a21a.patch)
-sha256sums=('331d6ff6b9cbb0e6521a5d0746b152be2588fd631a73d0e249b78cd2cda69ccf'
-            'SKIP'
-            '7271712864f66514b2700cc08bcc05da59e7aae5fa1676ec05d189f78a46976a')
+source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('39e1afb324069605609c60c1d4638da886debf6159179521167b5159d79a0448'
+            'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
               90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1 # Nicolas Fella <nicolas.fella@kde.org>
               )
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < 98d7a21a.patch # Fix creation date display in dolphin
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
