@@ -2,9 +2,9 @@
 # Contributor: Rémy Oudompheng <oudomphe@clipper.ens.fr>
 
 pkgname=singular
-_majver=4-4-0
-#_patchver=p16
-_pkgver=Release-${_majver}${_patchver}
+_majver=4.4.0
+_patchver=p2
+_pkgver=${_majver}${_patchver}
 pkgver=${_majver//-/.}${_patchver/p/.p}
 pkgrel=1
 pkgdesc='Computer Algebra System for polynomial computations'
@@ -31,7 +31,7 @@ makedepends=(4ti2
 provides=(singular-factory)
 #source=(https://www.singular.uni-kl.de/ftp/pub/Math/Singular/SOURCES/$_majver/singular-${_pkgver//-/.}.tar.gz)
 source=(git+https://github.com/Singular/Singular#tag=$_pkgver)
-sha256sums=('3d111eaa19abf091d9d44ab378accb3f2b9584d49ec903be35625aecfa17c70b')
+sha256sums=('5391150ed828c4299bd290b216fc4d667856e1c50393584162dd496aed16e983')
 options=(!zipman)
 
 prepare() {
