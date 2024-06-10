@@ -4,8 +4,8 @@
 
 pkgbase=greetd
 pkgname=($pkgbase $pkgbase-agreety)
-pkgver=0.10.1
-pkgrel=2
+pkgver=0.10.3
+pkgrel=1
 pkgdesc='Generic greeter daemon'
 arch=(x86_64)
 url="https://git.sr.ht/~kennylevinsen/$pkgbase"
@@ -24,7 +24,7 @@ _archive="$pkgbase-$pkgver"
 source=("$_archive.tar.gz::$url/archive/$pkgver.tar.gz"
         "$pkgbase.sysusers"
         "$pkgbase.pam")
-sha256sums=('03098623b248c9c9b8d8bdbb1605117871df0ea2b9299574516f983a6a49db6d'
+sha256sums=('ee5cb70e0add4ca9c9fe57e47581ab0002d44c07743fb5492469f3b570db640b'
             '896b7c9b5ec9c9c5795842db9b0f0d792b9d0ceda35891c5c169a9150795b8d1'
             '993a3096c2b113e6800f2abbd5d4233ebf1a97eef423990d3187d665d3490b92')
 
