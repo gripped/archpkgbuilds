@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kguiaddons
-pkgver=6.2.0
+pkgver=6.3.0
 pkgrel=1
 pkgdesc='Addons to QtGui'
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('ba5a5e42d5b9b94486419263836074429fd3facfc364fd4e3a29a54bc6de5ddb'
+sha256sums=('e1519b1fc01ec3731c2926b69aee7a32c13e0f92178834fef484ac37d5dc3201'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
