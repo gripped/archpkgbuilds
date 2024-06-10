@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kplotting
-pkgver=6.2.0
+pkgver=6.3.0
 pkgrel=1
 pkgdesc='Lightweight plotting framework'
 arch=(x86_64)
@@ -18,7 +18,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('cddc7e95e3376be1621a347f6e9ffa88ad787b485aa26c7e026336c05277c16d'
+sha256sums=('f8e7fa347d0e6bab924f3347716eb5cc468b96b296b52974d392df030dba9521'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
