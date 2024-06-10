@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=syndication
-pkgver=6.2.0
+pkgver=6.3.0
 pkgrel=1
 pkgdesc='RSS/Atom parser library'
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('50ec3843a08ec7b185352c94b89bc2d2720ceaf17eb961a4c3da55f93d05af3c'
+sha256sums=('cdf057c09be35e39809040072a67b8526ee612b6d8761f96f613b350d979c8d4'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
