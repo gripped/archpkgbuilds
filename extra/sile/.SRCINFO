@@ -1,13 +1,12 @@
 pkgbase = sile
 	pkgdesc = a modern typesetting engine inspired by LaTeX, fully customizable in Lua
-	pkgver = 0.15.0
+	pkgver = 0.15.2
 	pkgrel = 1
 	url = https://www.sile-typesetter.org
 	arch = x86_64
 	license = MIT
 	checkdepends = poppler
 	makedepends = cargo
-	makedepends = git
 	makedepends = jq
 	depends = lua51-cassowary
 	depends = lua51-cldr
@@ -52,9 +51,10 @@ pkgbase = sile
 	optdepends = ttf-hack: default mono font
 	provides = libtexpdf.so
 	replaces = sile-luajit
-	source = sile-0.15.0-git::git+https://github.com/sile-typesetter/sile.git#tag=v0.15.0
-	source = git+https://github.com/sile-typesetter/libtexpdf.git
-	sha256sums = ca9178dd52b33297a0b395e5e245cc3edb7f9af8e9aad1f3dcb84dfe932d6c2e
+	source = https://github.com/sile-typesetter/sile/releases/download/v0.15.2/sile-0.15.2.tar.zst
+	source = https://github.com/sile-typesetter/sile/releases/download/v0.15.2/sile-0.15.2.tar.zst.asc
+	validpgpkeys = 9F377DDB6D3153A48EB3EB1E63CC496475267693
+	sha256sums = 1323e97370b7069e384619d8612bc835fa3d017011ef89072a32ae62381b3b8e
 	sha256sums = SKIP
 
 pkgname = sile

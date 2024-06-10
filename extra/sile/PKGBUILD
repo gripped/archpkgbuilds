@@ -3,7 +3,7 @@
 
 pkgname=sile
 pkgdesc='a modern typesetting engine inspired by LaTeX, fully customizable in Lua'
-pkgver=0.15.0
+pkgver=0.15.2
 pkgrel=1
 arch=(x86_64)
 url=https://www.sile-typesetter.org
@@ -42,27 +42,20 @@ optdepends=('libertinus-font: default math font'
             'noto-fonts-cjk: default font for tate enabled classes'
             'ttf-hack: default mono font')
 makedepends=(cargo
-             git
              jq)
 checkdepends=(poppler)
 provides=(libtexpdf.so)
 replaces=("$pkgname-luajit")
-_archive="$pkgname-$pkgver-git"
-# source=("$_url/releases/download/v$pkgver/$_archive.tar.zst"{,.asc})
-source=("$_archive::git+$_url.git#tag=v$pkgver"
-        "git+${_url%/$pkgname}/libtexpdf.git")
-sha256sums=('ca9178dd52b33297a0b395e5e245cc3edb7f9af8e9aad1f3dcb84dfe932d6c2e'
+_archive="$pkgname-$pkgver"
+source=("$_url/releases/download/v$pkgver/$_archive.tar.zst"{,.asc})
+sha256sums=('1323e97370b7069e384619d8612bc835fa3d017011ef89072a32ae62381b3b8e'
             'SKIP')
-# validpgpkeys=('9F377DDB6D3153A48EB3EB1E63CC496475267693') # Caleb Maclennan <caleb@alerque.com> (@alerque)
+validpgpkeys=('9F377DDB6D3153A48EB3EB1E63CC496475267693') # Caleb Maclennan <caleb@alerque.com> (@alerque)
 
 export CARGO_FEATURE_FLAGS==--offline
 
 prepare () {
 	cd "$_archive"
-	git submodule init
-	git config submodule.libtexpdf.url "$srcdir/libtexpdf"
-	git -c protocol.file.allow=always submodule update
-	./bootstrap.sh
 	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
