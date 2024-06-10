@@ -4,7 +4,7 @@
 # Contributor: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
 
 pkgname=kpackage
-pkgver=6.2.0
+pkgver=6.3.0
 pkgrel=1
 pkgdesc='Framework that lets applications manage user installable packages of non-binary assets'
 arch=(x86_64)
@@ -23,7 +23,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('78c8466d7201f2aa6809d98588242aef6314be4a47155617c529c6a0549f395d'
+sha256sums=('811d6809e091c1eaaa07cafeacc86eb23fa55ed038f8f1a93d259e5734510b4d'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
