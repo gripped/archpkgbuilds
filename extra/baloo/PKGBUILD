@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=baloo
-pkgver=6.2.0
+pkgver=6.3.0
 pkgrel=1
 pkgdesc='A framework for searching and managing metadata'
 arch=(x86_64)
@@ -32,7 +32,7 @@ conflicts=(baloo5)
 replaces=(baloo5)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('1ea413b9dbada7d0646a1f8dc3f0688928c266e6388528cfd05d4c079a7e22a8'
+sha256sums=('87af96e58d9303479e628b7c801665631b6e5698e1ba9526f415cf6f3755a064'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
