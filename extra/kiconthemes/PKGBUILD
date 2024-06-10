@@ -3,13 +3,14 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kiconthemes
-pkgver=6.2.0
+pkgver=6.3.0
 pkgrel=1
 pkgdesc='Support for icon themes'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL-2.0-only LGPL-3.0-only)
-depends=(gcc-libs
+depends=(breeze-icons
+         gcc-libs
          glibc
          karchive
          kcolorscheme
@@ -23,11 +24,10 @@ makedepends=(doxygen
              extra-cmake-modules
              qt6-doc
              qt6-tools)
-optdepends=('breeze-icons: fallback icon theme'
-            'qt6-declarative: QML bindings')
+optdepends=('qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('c0ffe65f53f59b75bf0432c4f57f7d36b6840c87f80e9ea5b88ceb71a28b5645'
+sha256sums=('945394afc9f8207924bf07f9a6de3bee7fcd523bce87e0004d62767ab37cc303'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
