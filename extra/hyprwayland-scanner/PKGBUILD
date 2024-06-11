@@ -2,7 +2,7 @@
 # Contributor: alba4k <blaskoazzolaaaron@gmail.com>
 
 pkgname="hyprwayland-scanner"
-pkgver=0.3.8
+pkgver=0.3.10
 pkgrel=1
 pkgdesc="A Hyprland implementation of wayland-scanner, in and for C++"
 arch=(x86_64)
@@ -13,7 +13,7 @@ makedepends=('git' 'cmake' 'gcc')
 _archive="${pkgname}-$pkgver"
 source=("$_archive.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
 provides=(hyprwayland-scaner)
-sha256sums=('8f596074fbb990ae6c3a427872b32219aeb17cbeb296b8f30482ef7f46249173')
+sha256sums=('94e40cf712a00daf9fbab6b2210ef8640ee7dbf233e82b4d8dcd8b0e01d15252')
 
 build() {
 	cd "$_archive"
