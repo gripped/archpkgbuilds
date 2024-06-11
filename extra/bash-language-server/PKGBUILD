@@ -3,14 +3,18 @@
 # Contributor: Maxim Baz <archlinux at maximbaz dot com>
 
 pkgname=bash-language-server
-pkgver=5.3.4
+pkgver=5.4.0
 pkgrel=1
 pkgdesc='Bash language server implementation based on Tree Sitter and its grammar for Bash'
-arch=('any')
+arch=(any)
 url=https://github.com/bash-lsp/bash-language-server
-license=('MIT')
-depends=('nodejs')
-makedepends=('git' 'npm' 'pnpm')
+license=(MIT)
+depends=(nodejs)
+makedepends=(
+  git
+  npm
+  pnpm
+)
 optdepends=(
   'bash-completion: for CLI args completion'
   'man-db: for documentation via manual pages'
@@ -19,7 +23,7 @@ optdepends=(
 )
 options=('!emptydirs')
 source=("git+$url.git#tag=server-$pkgver")
-b2sums=('91cd1a04c3ad25c8aaa1b3dd58c7be80d264386e0ec921806516d99d2b4b6acc635fca4ccc90f0187b25cdffca3ab3d21a3caace054a2f0972c090c8ed929a14')
+b2sums=('1f9d1bfb2f57087ef9cebd8cfebf6dfda7b3617adb1980b7d1b262a049a4265c3645dd95321cdd5112823b8cad30fe42ccdd02ebb78a5528a2ae2192d8b7b8dc')
 
 build() {
   cd $pkgname
