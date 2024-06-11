@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-b2sdk
-pkgver=1.26.0
-pkgrel=2
+pkgver=2.3.0
+pkgrel=1
 pkgdesc='Python module to access B2 cloud storage'
 arch=('any')
 url='https://github.com/Backblaze/b2-sdk-python'
@@ -11,7 +11,6 @@ depends=(
   'python'
   'python-logfury'
   'python-requests'
-  'python-tqdm'
   'python-urllib3'
   'python-setuptools'
   'python-importlib-metadata'
@@ -20,7 +19,7 @@ makedepends=(
   'git'
   'python-build'
   'python-installer'
-  'python-setuptools-scm'
+  'python-pdm-backend'
   'python-wheel'
 )
 checkdepends=(
@@ -28,35 +27,28 @@ checkdepends=(
   'python-pytest-mock'
   'python-pytest-lazy-fixture'
   'python-pyfakefs'
+  'python-tqdm'
 )
-_commit='9ca9d0aff203b1f72d0bfd680be35af295eb7da0'
-source=(
-  "$pkgname::git+$url#commit=$_commit"
-  'remove-version-constraint.patch'
+optdepends=(
+  'python-tqdm: for TqdmProgressListener class'
 )
-b2sums=('SKIP'
-        '9829d2efe2a93986c21dcce1ddcf74923a2a78c50e8ea1814714aa73eca3adb904664890326f4b3c8ad0a71a0548194bdd586a6afbe69689732b589ee8c72ae9')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
-
-prepare() {
-  cd "$pkgname"
-
-  patch -p1 -i "$srcdir/remove-version-constraint.patch"
-}
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('10ec14826084e49042c6b79d7e0601de2feaba7d67746500c3f077d67f782ffcdc74a4c40af879d1dc596ce500b743bfcb3c4547e05a2f050ebfa857952f782a')
+b2sums=('2dccca55b00964f015035cc4aa9fad3ed6bd039f410fe6e44fe8749d51f62a051ec0e6afbb96b1837e83bf67f800f93b23738c584481e6a9af3fca325ea5fd46')
 
 build() {
   cd "$pkgname"
 
-  SETUPTOOLS_SCM_PRETEND_VERSION="$pkgver" python -m build --wheel --no-isolation
+  python -m build --wheel --no-isolation
 }
 
 check() {
   cd "$pkgname"
+
+  # temporary install so pytest can pick up the compiled extension
+  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$(pwd)/tmp/$site_packages"
 
   pytest -v \
     --ignore=test/integration \
