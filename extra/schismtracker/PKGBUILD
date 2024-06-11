@@ -3,12 +3,12 @@
 # Contributor: Brandon Mulcahy <brandon@jangler.info>
 
 pkgname=schismtracker
-pkgver=20240129
+pkgver=20240609
 pkgrel=1
 pkgdesc='An old-school sample-based music composition tool'
 arch=('x86_64')
 url='https://schismtracker.org'
-license=('GPL2')
+license=('GPL-2.0-only')
 depends=(
   'libx11'
   'libxv'
@@ -16,15 +16,9 @@ depends=(
   'hicolor-icon-theme'
 )
 makedepends=('git' 'python')
-_commit='e9fe68a26c4c4a32662f1ba7aaab8024f932d570'
-source=("$pkgname::git+https://github.com/schismtracker/schismtracker#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags
-}
+source=("$pkgname::git+https://github.com/schismtracker/schismtracker#tag=$pkgver")
+sha512sums=('6d53f257dff6120ca4fb021dbd3f4379cba69e3ef139b2247456d049dce4074b00b13e8b0ad4a0f0755203501b81d8bf95f6fe41ce8b1f13f153e3011a2cd2a1')
+b2sums=('81477f589eef7457ac2cb73845e25e334bef1bb6ff095f89497d36dfb1755b0cde2bba74ea85389c02c64ca80346e88b97d727a68a01722f37559d020344409f')
 
 prepare() {
   cd "$pkgname"
