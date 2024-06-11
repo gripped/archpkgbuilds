@@ -13,7 +13,7 @@ _langs=(afr amh ara asm aze aze_cyrl bel ben bod bos bre bul cat ceb ces
     tel tgk tgl tha tir ton tur uig ukr urd uzb uzb_cyrl vie yid yor)
 
 pkgname=tesseract
-pkgver=5.4.0
+pkgver=5.4.1
 pkgrel=1
 pkgdesc='An OCR program'
 arch=(x86_64)
@@ -28,7 +28,7 @@ for _lang in "${_langs[@]}"; do
 done
 provides=(libtesseract.so)
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('30ceffd9b86780f01cbf4eaf9b7fc59abddfcbaf5bbd52f9a633c6528cb183fd')
+sha256sums=('c4bc2a81c12a472f445b7c2fb4705a08bd643ef467f51ec84f0e148bd368051b')
 
 build() {
   cd "$srcdir"/$pkgname-${pkgver}
