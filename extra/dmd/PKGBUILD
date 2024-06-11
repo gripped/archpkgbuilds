@@ -11,8 +11,8 @@ pkgname=('dmd' 'dmd-docs' 'libphobos')
 pkgdesc='D programming language compiler and standard library'
 groups=('dlang' 'dlang-dmd')
 pkgbase=dmd
-pkgver=2.108.1
-_docsvers=2.108.1
+pkgver=2.109.0
+_docsvers=2.109.0
 pkgrel=1
 epoch=1
 arch=('x86_64')
@@ -24,9 +24,9 @@ source=("git+https://github.com/dlang/dmd.git#tag=v$pkgver"
         "http://downloads.dlang.org/releases/2.x/$_docsvers/dmd.$_docsvers.linux.tar.xz.sig"
         'dmd.conf'
         'dmd-doc.desktop')
-sha256sums=('295b9640258389b77a8131b9cd35fd01b78340e81c322f14916b95f8b464464c'
-            'c945dd0ac81285af394317ed01f621fa64b49e61cbbe93f800b53eaeed988268'
-            '5d8ebe115454ddbc0f195ecea307ded211ed12e2313e443783dc2ca62c511b99'
+sha256sums=('359bd3859d5f0468b1266acbf0b5150111ebab61f4264228d0cf8934abc68ad0'
+            'd79cc6f2f58b859c61be497157fdbafe28875fb71b45dd299cbef19f3078868c'
+            '968cb7b23744447eb1a9654780c1edbe8248a696b132d3cd49abc2c6a1aad090'
             'SKIP'
             '3d639e89528fed1da90006f4dfb2b0fdc41308da5a96d953381ff4ccf257c035'
             '4b7b8722b3fa11082f0f332397b1b66c85b30ce773c43c3fedcba5768a1484b1')
