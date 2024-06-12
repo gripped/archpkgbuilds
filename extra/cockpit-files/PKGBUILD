@@ -1,0 +1,17 @@
+# Maintainer: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
+
+pkgname=cockpit-files
+pkgver=1
+pkgrel=1
+pkgdesc='A Featureful File Browser for Cockpit'
+arch=('x86_64')
+url='https://github.com/cockpit-project/cockpit-files'
+license=(LGPL-2.1-or-later)
+depends=(cockpit)
+source=("https://github.com/cockpit-project/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz")
+sha256sums=('9f675589e8086de0be46994c9b3a35e887b84cd863a8f00e5965251ce0c2fe9d')
+
+package() {
+  cd $pkgname
+  make PREFIX=/usr DESTDIR="$pkgdir" install
+}
