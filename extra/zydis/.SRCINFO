@@ -1,0 +1,20 @@
+pkgbase = zydis
+	pkgdesc = Fast and lightweight x86/x86-64 disassembler and code generation library
+	pkgver = 4.1.0
+	pkgrel = 1
+	url = https://zydis.re
+	arch = x86_64
+	license = MIT
+	checkdepends = python
+	makedepends = git
+	makedepends = cmake
+	makedepends = ruby-ronn-ng
+	makedepends = doxygen
+	depends = gcc-libs
+	depends = zycore-c
+	provides = libZydis.so
+	source = git+https://github.com/zyantific/zydis.git#tag=v4.1.0
+	sha512sums = 49fa2280b2673067630631d436cfecc841fe683640c21db9e8942d59bb6661385df26ad0d2e53fdc3f8a8a97c51bc652cdc413eb83aa9bb30a387b3e46c15e1e
+	b2sums = 6c1f646f95951177ab27297398a5bed7e4ada1b1159177bb508ad12871728a63a6bf1e8a5b94df8b17a45cd6e6b7d7154fb84f5c9f7a750dab7081539d943365
+
+pkgname = zydis
