@@ -7,7 +7,7 @@ pkgbase=lib32-pango
 pkgname=(
   lib32-pango
 )
-pkgver=1.52.2
+pkgver=1.54.0
 pkgrel=1
 epoch=1
 pkgdesc="A library for layout and rendering of text (32-bit)"
@@ -16,10 +16,17 @@ arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
   lib32-cairo
+  lib32-fontconfig
+  lib32-freetype2
   lib32-fribidi
+  lib32-gcc-libs
+  lib32-glib2
+  lib32-glibc
   lib32-harfbuzz
   lib32-libthai
+  lib32-libx11
   lib32-libxft
+  lib32-libxrender
   pango
 )
 makedepends=(
@@ -27,12 +34,7 @@ makedepends=(
   meson
 )
 source=("git+https://gitlab.gnome.org/GNOME/pango.git#tag=$pkgver")
-b2sums=('ba5b6814bad4f9834557bedc4341a0985fed5fa0150b423bbbc4e1765b1e2834a5d21b3da6e195f5a0a413fc44859fdd52e4112b220747653030085ee969b055')
-
-pkgver() {
-  cd pango
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+b2sums=('365a31b09d9e11eda15f79339fde4cd635cd4f24c7b80f883020c95ee27f7d4074495e74531c727ea1b4d4f89e32641003758e388c54a5473be00527526645e5')
 
 prepare() {
   cd pango
