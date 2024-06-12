@@ -1,7 +1,7 @@
 pkgbase = python-openapi-core
 	pkgdesc = Client-side and server-side support for the OpenAPI Specification v3
-	pkgver = 0.19.1
-	pkgrel = 1
+	pkgver = 0.19.2
+	pkgrel = 2
 	url = https://github.com/p1c2u/openapi-core
 	arch = any
 	license = BSD
@@ -20,6 +20,7 @@ pkgbase = python-openapi-core
 	checkdepends = python-requests
 	checkdepends = python-responses
 	checkdepends = python-starlette
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-poetry-core
@@ -42,7 +43,7 @@ pkgbase = python-openapi-core
 	optdepends = python-multidict
 	optdepends = python-requests
 	optdepends = python-starlette
-	source = https://github.com/python-openapi/openapi-core/archive/0.19.1/python-openapi-core-0.19.1.tar.gz
-	sha256sums = b6928c597f229426c019e3cd8ae6cfaac11d364152fc11bb108da3af608bbf6c
+	source = git+https://github.com/python-openapi/openapi-core#tag=0.19.2
+	sha256sums = 93c10d714e240f677745a7b546aff6971f51b732504c7e0ca136aa56b18a0cfe
 
 pkgname = python-openapi-core
