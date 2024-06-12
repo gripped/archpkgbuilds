@@ -1,6 +1,6 @@
 pkgbase = pango
 	pkgdesc = A library for layout and rendering of text
-	pkgver = 1.52.2
+	pkgver = 1.54.0
 	pkgrel = 1
 	epoch = 1
 	url = https://www.pango.org/
@@ -12,12 +12,19 @@ pkgbase = pango
 	makedepends = help2man
 	makedepends = meson
 	depends = cairo
+	depends = fontconfig
+	depends = freetype2
 	depends = fribidi
+	depends = glib2
+	depends = glibc
 	depends = harfbuzz
+	depends = libsysprof-capture
 	depends = libthai
+	depends = libx11
 	depends = libxft
-	source = git+https://gitlab.gnome.org/GNOME/pango.git#tag=1.52.2
-	b2sums = ba5b6814bad4f9834557bedc4341a0985fed5fa0150b423bbbc4e1765b1e2834a5d21b3da6e195f5a0a413fc44859fdd52e4112b220747653030085ee969b055
+	depends = libxrender
+	source = git+https://gitlab.gnome.org/GNOME/pango.git#tag=1.54.0
+	b2sums = 365a31b09d9e11eda15f79339fde4cd635cd4f24c7b80f883020c95ee27f7d4074495e74531c727ea1b4d4f89e32641003758e388c54a5473be00527526645e5
 
 pkgname = pango
 	provides = libpango-1.0.so
