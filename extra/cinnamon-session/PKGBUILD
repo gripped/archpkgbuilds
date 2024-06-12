@@ -3,7 +3,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 
 pkgname=cinnamon-session
-pkgver=6.0.4
+pkgver=6.2.0
 pkgrel=1
 pkgdesc="The Cinnamon Session Handler"
 arch=('x86_64')
@@ -11,10 +11,10 @@ url="https://github.com/linuxmint/${pkgname}"
 license=('GPL' 'LGPL')
 depends=('cinnamon-desktop' 'libsm' 'libcanberra' 'xapps')
 optdepends=('cinnamon-translations: i18n')
-makedepends=('meson' 'samurai' 'xtrans')
+makedepends=('meson' 'samurai' 'xtrans' 'python-packaging')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('453ea7729679700597b415fe483a79651d203248d3becc8ae3e2cddc524612b7')
-b2sums=('fa608de433a4d47db102b1f11c716da8afeabd5772b7e957449297629e39bc215124acd2f0f94afe91763590ab92b06a3bce8dd1a6bad3997b9496b4114a36fa')
+sha256sums=('fd12d27652658f95644cf7a93adcbd6a985f3a6bc47c68660eed563b8ab34693')
+b2sums=('a856724a1a189aae5b9b6cd2bb4997bf8c4b9e39e084ce90c17463eece9e8615444e5e103d597e029cd0c0df15546474fd2ca787ddd7aadc6aa51856d67c1412')
 
 build() {
     mkdir -p ${pkgname}-${pkgver}/build
