@@ -2,21 +2,40 @@
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=firefox-developer-edition
-pkgver=127.0b9
+pkgver=128.0b2
 pkgrel=1
-pkgdesc="Developer Edition of the popular Firefox web browser"
+pkgdesc="Fast, Private & Safe Web Browser (Developer Edition)"
 url="https://www.mozilla.org/firefox/developer"
 arch=(x86_64)
 license=(MPL-2.0)
 depends=(
+  alsa-lib
+  at-spi2-core
+  bash
+  cairo
   dbus
   ffmpeg
+  fontconfig
+  freetype2
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
   gtk3
+  hicolor-icon-theme
   libpulse
+  libx11
+  libxcb
+  libxcomposite
+  libxdamage
+  libxext
+  libxfixes
+  libxrandr
   libxss
   libxt
   mime-types
   nss
+  pango
   ttf-font
 )
 makedepends=(
@@ -46,7 +65,6 @@ optdepends=(
   'hunspell-en_US: Spell checking, American English'
   'libnotify: Notification integration'
   'networkmanager: Location detection via available WiFi networks'
-  'pulseaudio: Audio support'
   'speech-dispatcher: Text-to-Speech'
   'xdg-desktop-portal: Screensharing with Wayland'
 )
@@ -58,24 +76,27 @@ options=(
 source=(
   https://archive.mozilla.org/pub/firefox/releases/$pkgver/source/firefox-$pkgver.source.tar.xz{,.asc}
   $pkgname.desktop
-  identity-icons-brand.svg
+  firefox-developer-edition-symbolic.svg
   firefox-install-dir.patch
+  org.mozilla.$pkgname.metainfo.xml
 )
 validpgpkeys=(
   # Mozilla Software Releases <release@mozilla.com>
   # https://blog.mozilla.org/security/2023/05/11/updated-gpg-key-for-signing-firefox-releases/
   14F26682D0916CDD81E37B6D61B7B526D98F0353
 )
-sha256sums=('7351a81c71fe581197ee24add752c3fb6c0b755d11c09fe1dc697d4996b3dfaa'
+sha256sums=('2cdf6d06e7ecf5a98d0dc98ae20fa666ec7fd08889864f8b22d8bd646ccb5bc2'
             'SKIP'
             '6522f3eeefbd3550e3bb7dafb4c5c0cef7be0eec11ef3da79e0562b96edc04e3'
             'a9b8b4a0a1f4a7b4af77d5fc70c2686d624038909263c795ecc81e0aec7711e9'
-            '294e6ec79b0a64b5cb2372dbe7a5f9191dd1f68d7aece244e208581a98db8fb3')
-b2sums=('239180768cf96595052146bfa1bed9365f99887f6a86cb1bff996736386897f142359138fe7e199f974f59943e827efd79cf3e0666dd2236d32cb6db87822057'
+            '294e6ec79b0a64b5cb2372dbe7a5f9191dd1f68d7aece244e208581a98db8fb3'
+            'c0425c936641ad58542a03445099d1042f5ad63f955125412dddbe4e3beeca8b')
+b2sums=('90475f451462d05054b38567e4e89b0831686482e0c27ea2a5289fdd73f9cd32a440dbd7cfa0dee31ff9cec892c4ca340e45ee7093a2a4566493b0776a2fc21a'
         'SKIP'
         'd2d14042a03ffcc5ed9212fca9cc167e8bfb2ba3f0d61a89441e033484cb914424d0f2544e0f1bc58992fee9cae03a73679352ee0fac9777fa5633ddc8d76e7d'
         '63a8dd9d8910f9efb353bed452d8b4b2a2da435857ccee083fc0c557f8c4c1339ca593b463db320f70387a1b63f1a79e709e9d12c69520993e26d85a3d742e34'
-        'eb61793257458b20bc7ab5598240bc1901666d7fb7e971941af99ac706d387859642d8fba3130fa31789546b9123c7500edbe6373701ce9fc7d65aef3974c90c')
+        'eb61793257458b20bc7ab5598240bc1901666d7fb7e971941af99ac706d387859642d8fba3130fa31789546b9123c7500edbe6373701ce9fc7d65aef3974c90c'
+        'aedd049d480172cad73c665a94c664e2c66fc81736adf80136e69c2492091ffddca36c50ba6d04d7a222e17d961f8e752f7ede6a6ff09b671a979ea2748e5b88')
 
 # Google API keys (see http://www.chromium.org/developers/how-tos/api-keys)
 # Note: These are for Arch Linux use ONLY. For your own distribution, please
@@ -154,6 +175,10 @@ build() {
   CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
   CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
 
+  # Breaks compilation since https://bugzilla.mozilla.org/show_bug.cgi?id=1896066
+  CFLAGS="${CFLAGS/-fexceptions/}"
+  CXXFLAGS="${CXXFLAGS/-fexceptions/}"
+
   # LTO needs more open files
   ulimit -n 4096
 
@@ -162,7 +187,7 @@ build() {
   cat >.mozconfig ../mozconfig - <<END
 ac_add_options --enable-profile-generate=cross
 END
-  ./mach build
+  ./mach build --priority normal
 
   echo "Profiling instrumented browser..."
   ./mach package
@@ -178,7 +203,7 @@ END
   test -s jarlog
 
   echo "Removing instrumented browser..."
-  ./mach clobber
+  ./mach clobber objdir
 
   echo "Building optimized browser..."
   cat >.mozconfig ../mozconfig - <<END
@@ -187,7 +212,7 @@ ac_add_options --enable-profile-use=cross
 ac_add_options --with-pgo-profile-path=${PWD@Q}/merged.profdata
 ac_add_options --with-pgo-jarlog=${PWD@Q}/jarlog
 END
-  ./mach build
+  ./mach build --priority normal
 }
 
 package() {
@@ -236,11 +261,11 @@ END
     "$pkgdir/usr/share/icons/hicolor/384x384/apps/$pkgname.png"
   install -Dvm644 browser/branding/$theme/content/about-logo.svg \
     "$pkgdir/usr/share/icons/hicolor/scalable/apps/$pkgname.svg"
-  install -Dvm644 ../identity-icons-brand.svg \
-    "$pkgdir/usr/share/icons/hicolor/symbolic/apps/$pkgname-symbolic.svg"
 
-  install -Dvm644 ../$pkgname.desktop \
-    "$pkgdir/usr/share/applications/${pkgname//-/}.desktop"
+
+  install -Dvm644 ../$pkgname-symbolic.svg -t "$pkgdir/usr/share/icons/hicolor/symbolic/apps"
+  install -Dvm644 ../$pkgname.desktop -t "$pkgdir/usr/share/applications"
+  install -Dvm644 ../org.mozilla.$pkgname.metainfo.xml -t "$pkgdir/usr/share/metainfo"
 
   # Install a wrapper to avoid confusion about binary path
   install -Dvm755 /dev/stdin "$pkgdir/usr/bin/$pkgname" <<END
@@ -261,9 +286,9 @@ END
   local sprovider="$pkgdir/usr/share/gnome-shell/search-providers/$pkgname.search-provider.ini"
   install -Dvm644 /dev/stdin "$sprovider" <<END
 [Shell Search Provider]
-DesktopId=${pkgname//-/}.desktop
-BusName=org.mozilla.${pkgname//-/}.SearchProvider
-ObjectPath=/org/mozilla/${pkgname//-/}/SearchProvider
+DesktopId=$pkgname.desktop
+BusName=org.mozilla.${pkgname//-/_}.SearchProvider
+ObjectPath=/org/mozilla/${pkgname//-/_}/SearchProvider
 Version=2
 END
 }
