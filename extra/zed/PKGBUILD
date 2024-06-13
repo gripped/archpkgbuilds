@@ -2,7 +2,7 @@
 # Contributor: Marcell Pardavi <marcell.pardavi@gmail.com>
 
 pkgname=zed
-pkgver=0.138.6
+pkgver=0.139.3
 pkgrel=1
 pkgdesc='A high-performance, multiplayer code editor from the creators of Atom and Tree-sitter'
 arch=(x86_64)
@@ -28,25 +28,28 @@ depends=(alsa-lib libasound.so
          zlib libz.so)
 replaces=(zed-editor)
 makedepends=(cargo
-             gendesk
              vulkan-headers
              vulkan-validation-layers)
 optdepends=('clang: improved C/C++ language support'
             'eslint: improved Javascript language support'
             'rust-analyzer: improved Rust language support')
 _archive="$pkgname-$pkgver"
-source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('d235109bbc986103cfe72655c3ac4bce9fa2dbac97184f4df4f23390728a9d99')
+source=("$_url/archive/v$pkgver/$_archive.tar.gz"
+        use-lib-not-libexec.patch)
+sha256sums=('cd15f80c95ec4c33cbe821ff70e64c3922d1187fa13ac894a8049b615cad2e4f'
+            '180f8f84cd4320a758225ccb016cd6fc46146f1e7ba6d2c3b75decee8b89989d')
+
+_binname=zeditor
 
 prepare() {
 	cd "$_archive"
 	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-	gendesk -q -f -n \
-		--name 'Zed' \
-		--exec 'Zed' \
-		--pkgname "$pkgname" \
-		--pkgdesc "$pkgdesc" \
-		--categories 'Development'
+	export DO_STARTUP_NOTIFY="true"
+	export APP_ICON="zed"
+	export APP_NAME="Zed"
+	envsubst < "crates/zed/resources/zed.desktop.in" > zed.desktop
+	sed -i -e "s/Exec=zed/Exec=$_binname/g" zed.desktop
+	patch -p0 -i ../use-lib-not-libexec.patch
 }
 
 _srcenv() {
@@ -58,7 +61,8 @@ _srcenv() {
 
 build() {
 	_srcenv
-	cargo build --release --frozen --all-features
+	export ZED_UPDATE_EXPLANATION='Updates are handled by pacman'
+	cargo build --release --frozen --package zed --package cli
 }
 
 # Tests assume access to vulkan video drivers, Wayland window creation,
@@ -71,7 +75,8 @@ check() {
 
 package() {
 	cd "$_archive"
-	install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/Zed"
+	install -Dm0755 target/release/cli "$pkgdir/usr/bin/$_binname"
+	install -Dm0755 target/release/zed "$pkgdir/usr/lib/$pkgname/zed-editor"
 	install -Dm0644 -t "$pkgdir/usr/share/applications/" "$pkgname.desktop"
 	install -Dm0644 crates/zed/resources/app-icon.png "$pkgdir/usr/share/icons/$pkgname.png"
 }
