@@ -1,14 +1,14 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=audiotube
-pkgver=24.05.0
+pkgver=24.05.1
 pkgrel=1
 pkgdesc='Client for YouTube Music'
 url='https://apps.kde.org/audiotube/'
 arch=(x86_64)
 license=(GPL-2.0-or-later
          LGPL-2.0-or-later)
-depends=(futuresql-qt6
+depends=(futuresql
          gcc-libs
          glibc
          kcoreaddons
@@ -33,7 +33,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-multimedia)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('cf19461db226b6e6f6d29e4e4acc2023f6381982a3b73db8877d53c204e5a3b7'
+sha256sums=('6ea7b8a5bf52ce99b1b3da983ab92cfa7222d2d1cc9f1dd343ce0d03c7eccf6a'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
@@ -41,8 +41,7 @@ validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aac
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DQT_MAJOR_VERSION=6
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
