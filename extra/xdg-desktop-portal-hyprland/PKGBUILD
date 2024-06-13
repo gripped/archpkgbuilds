@@ -1,9 +1,9 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=xdg-desktop-portal-hyprland
-pkgver=1.3.1
+pkgver=1.3.2
 _protocolver=4d29e48433270a2af06b8bc711ca1fe5109746cd
-pkgrel=6
+pkgrel=1
 pkgdesc='xdg-desktop-portal backend for hyprland'
 url="https://github.com/hyprwm/$pkgname"
 arch=(x86_64)
@@ -29,7 +29,7 @@ _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz"
         "https://github.com/hyprwm/hyprland-protocols/archive/$_protocolver.tar.gz"
         hyprland-portals.conf) # TODO move this to hyprland where it belongs
-sha256sums=('60b390f326b84cc52657b735e3d7ba8f03aa3363672100dba47580984491611f'
+sha256sums=('8f77a11c4d3df1b6d963f408ea1159d093e3b14ea0cb8c64094fca9821af2e26'
             '5f6be4d870e94314f05ec7ff9c9c1f028748230ff80a7f89aeaf66c08e5c70e0'
             '20bc215211f16a361086d59fa051df7337d95f91c695a29d8c5d23d40407fad5')
 
