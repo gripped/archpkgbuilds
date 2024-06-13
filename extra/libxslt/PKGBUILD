@@ -7,13 +7,15 @@ pkgname=(
   libxslt
   libxslt-docs
 )
-pkgver=1.1.39
-pkgrel=2
+pkgver=1.1.40
+pkgrel=1
 pkgdesc="XML stylesheet transformation library"
 url="https://gitlab.gnome.org/GNOME/libxslt/-/wikis/home"
 arch=(x86_64)
-license=(custom:MIT)
+license=(MIT)
 depends=(
+  bash
+  glibc
   libgcrypt
   libxml2
   xz
@@ -25,16 +27,10 @@ makedepends=(
 checkdepends=(
   docbook-xml
 )
-_commit=743ab691bed98ed11ac99bbd9d903d59fb814ab8  # tags/v1.1.39^0
 source=(
-  "git+https://gitlab.gnome.org/GNOME/libxslt.git#commit=$_commit"
+  "git+https://gitlab.gnome.org/GNOME/libxslt.git#tag=v$pkgver"
 )
-b2sums=('SKIP')
-
-pkgver() {
-  cd libxslt
-  git describe --tags | sed 's/-rc/rc/;s/^v//;s/[^-]*-g/r&/;s/-/+/g'
-}
+b2sums=('12737793c1b71c2336f4010dcd2b7c340c1b392962bc1cbf0211dd6bd19559d33db0a654177bad96530628fff286bb08c2fbb4ce8056543f008e118419b8b4ab')
 
 prepare() {
   cd libxslt
