@@ -2,17 +2,17 @@
 # Contributor: libertylocked <libertylocked@disroot.org>
 
 pkgname=bitwarden-cli
-pkgver=2024.4.1
+pkgver=2024.6.0
 pkgrel=1
 pkgdesc="The command line vault"
 arch=('x86_64')
 url="https://github.com/bitwarden/clients"
 license=('GPL3')
-depends=('nodejs-lts-hydrogen')
+depends=('nodejs-lts-iron')
 makedepends=('git' 'python' 'python-setuptools' 'npm' 'modclean')
 options=(!emptydirs)
 source=(bitwarden::git+https://github.com/bitwarden/clients.git#tag=cli-v${pkgver})
-sha512sums=('c1e8cd958bdc3818ebfcb6601181dafd74dfbb715fc4cc31ad50f563bb38bc24e7503f2a10c117ba28ea64b90f9d2d42e56bbc1b3f9fbcc016ea2ea78f120930')
+sha512sums=('5d714db2621fbcaa16512c9b4035f746482e3c854673e12d1e71ef6279248a3ab278859c4e216fed7f65b98ae0603642e13757a285ae4f4c55694197d3973aed')
 
 prepare() {
 	cd bitwarden
@@ -26,7 +26,7 @@ prepare() {
 build() {
 	cd bitwarden/apps/cli
 	export npm_config_cache="$srcdir/npm_cache"
-	npm run dist:lin
+	npm run build:bit
 	npm run clean
 	node ./build/bw.js completion --shell zsh > _bw
 }
