@@ -1,7 +1,7 @@
 pkgbase = mtxclient
 	pkgdesc = Client API library for the Matrix protocol
-	pkgver = 0.9.2
-	pkgrel = 6
+	pkgver = 0.10.0
+	pkgrel = 1
 	url = https://nheko.im/nheko-reborn/mtxclient
 	arch = x86_64
 	license = MIT
@@ -20,12 +20,12 @@ pkgbase = mtxclient
 	depends = gcc-libs
 	depends = glibc
 	provides = libmatrix_client.so
-	source = git+https://nheko.im/nheko-reborn/mtxclient.git?signed#tag=v0.9.2
-	source = 0.6.0_remove_network_tests.patch
+	source = git+https://nheko.im/nheko-reborn/mtxclient.git?signed#tag=v0.10.0
+	source = mtxclient_remove_network_tests.patch
 	validpgpkeys = D58B462425A6A37125C6FEDB9206AE1B231E05BB
-	sha256sums = SKIP
+	sha256sums = 611407853a7bd3f432b626cfd39e7a4e009b6efe8560e55de0eabfa65cee9bc5
 	sha256sums = 2edba127593d172b5e535a4f0058d26a47a67f8b4c2d0cef9d6eac07e17eba3e
-	b2sums = SKIP
+	b2sums = f29052ae71580356ee9812758560b558bd17cead1f5e46c52da982586b0a3b9333fe1ad70ede07cd723dab6224360ff841e70947da725bb1661176d26a3aaae1
 	b2sums = af9e62223b59cfae2b711420944612a40d8ff7e87d188c3ccdb3a628310458df498cba70786bcb5cb35bce7e82940249ade31003e7418dcaa6c58cde33e6b25f
 
 pkgname = mtxclient
