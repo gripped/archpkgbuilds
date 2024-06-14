@@ -5,7 +5,7 @@ pkgname=python-aws-xray-sdk
 _pkgname=aws-xray-sdk-python
 # https://github.com/aws/aws-xray-sdk-python/blob/master/CHANGELOG.rst
 pkgver=2.14.0
-pkgrel=1
+pkgrel=2
 pkgdesc='AWS X-Ray SDK for Python'
 arch=(any)
 url='https://github.com/aws/aws-xray-sdk-python'
@@ -16,8 +16,8 @@ depends=(python python-botocore python-wrapt)
 _optdepends_tested=(python-aiobotocore python-bottle
                     python-flask python-mysql-connector
                     python-psycopg2 python-pymongo
-                    python-pynamodb python-sqlalchemy)
-_optdepends_untested=(python-aiohttp python-django python-httpx python-pymysql python-requests)
+                    python-sqlalchemy)
+_optdepends_untested=(python-aiohttp python-django python-httpx python-pymysql python-pynamodb python-requests)
 optdepends=(${_optdepends_tested[@]} ${_optdepends_untested[@]})
 makedepends=(git python-build python-installer python-setuptools python-wheel)
 checkdepends=(
@@ -95,6 +95,8 @@ check() {
     --ignore tests/ext/sqlalchemy_core
     # Needs python-django-fake-model, which gets no new commits since 2017, and no upstream support for Django >= 2
     --ignore tests/ext/django
+    # tests fail with Pynamodb 6.x https://github.com/aws/aws-xray-sdk-python/issues/436
+    --ignore tests/ext/pynamodb
   )
 
   # Split core and ext tests following upstream due to some conflicts
