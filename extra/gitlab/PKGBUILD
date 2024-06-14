@@ -9,7 +9,7 @@
 # Contributor: loqs <bugs-archlinux@entropy-collector.net>
 
 pkgname=gitlab
-pkgver=17.0.1
+pkgver=17.0.2
 pkgrel=1
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
@@ -27,6 +27,8 @@ depends=(git
          re2 libre2.so
          redis
          ruby
+         ruby-erb
+         ruby-rdoc
          ruby-bundler)
 makedepends=(cargo
              clang
@@ -48,7 +50,7 @@ backup=("etc/webapps/$pkgname/database.yml"
         "etc/webapps/$pkgname/cable.yml"
         "etc/webapps/$pkgname/smtp_settings.rb"
         "etc/logrotate.d/$pkgname")
-options=(!buildflags !debug)
+options=(!buildflags !debug !lto)
 source=("git+$url.git#tag=v$pkgver"
         "$pkgname-configs.patch"
         "$pkgname-environment"
@@ -65,7 +67,7 @@ provides=(gitlab-workhorse) # FS78036
 conflicts=(gitlab-workhorse)
 replaces=(gitlab-workhorse)
 install=gitlab.install
-sha256sums=('9cac66e156406cf0d480ec6d573b96f1f0000acb4a409007de1028ea4a68571d'
+sha256sums=('51cf342a0873b9922bbb51d1ac74e63f2d1e9f199161b33ed23e985be170ffcd'
             'e03957f659731f10d6e2a5804f1ba3096f525a4b3d8f3cb0b39ee3a97170766b'
             '8cc4d933743906b4213b8ea8d8c5a62535e27e4073f73581a5dad40078dde000'
             'f99499116f5d7cf59ccb7bfabd2d1ba68fbf83040571c607f7b0b50e6f50cbcf'
@@ -122,7 +124,8 @@ build() {
 	echo "Fetching bundled gems..."
 	# Gems will be installed into vendor/bundle
 	# Remove -Werror=format-security from the CFLAGS used by the C extension of the google-protobuf gem
-	bundle config --local build.google-protobuf "-- --with-cflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CFLAGS"]' | sed -e 's/-Werror=format-security//')'"
+	# Disable LTO which breaks the C extension of the google-protobuf gem https://github.com/protocolbuffers/protobuf/issues/11935
+	bundle config --local build.google-protobuf "-- --with-cflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CFLAGS"]' | sed -e 's/-Werror=format-security//' -e 's/-flto=auto/-fno-lto/')' --with-ldflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["LDFLAGS"]' | sed -e 's/-flto=auto/-fno-lto/')'"
 	# Avoid build errors due to -Werror=incompatible-pointer-types enabled by default in GCC 14
 	bundle config --local build.grpc "-- --with-cflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CFLAGS"]') -Wno-incompatible-pointer-types'"
 	# ICU 75 requires C++17
@@ -146,7 +149,7 @@ build() {
 	make -C workhorse
 
 	yarn install --production --pure-lockfile
-	rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production USE_DB=false SKIP_STORAGE_VALIDATION=true NODE_OPTIONS="--max_old_space_size=3584"
+	rake -r erb -r rdoc gitlab:assets:compile RAILS_ENV=production NODE_ENV=production USE_DB=false SKIP_STORAGE_VALIDATION=true NODE_OPTIONS="--max_old_space_size=3584"
 }
 
 package() {
