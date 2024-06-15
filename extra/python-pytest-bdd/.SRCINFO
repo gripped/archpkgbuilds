@@ -1,11 +1,12 @@
 pkgbase = python-pytest-bdd
 	pkgdesc = BDD library for the pytest runner
-	pkgver = 7.1.2
-	pkgrel = 2
+	pkgver = 7.2.0
+	pkgrel = 1
 	url = https://github.com/pytest-dev/pytest-bdd
 	arch = any
 	license = MIT
 	checkdepends = python-setuptools
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-poetry-core
@@ -15,7 +16,7 @@ pkgbase = python-pytest-bdd
 	depends = python-parse-type
 	depends = python-pytest
 	depends = python-typing_extensions
-	source = https://github.com/pytest-dev/pytest-bdd/archive/7.1.2/python-pytest-bdd-7.1.2.tar.gz
-	sha512sums = 7630b119649502e36d7ae2b6027c11b667513eab451511104076617e50de1456ee4b2ff128254ac0db630556258704e21e2a5e73ce9afc20ed403d0186c0a226
+	source = git+https://github.com/pytest-dev/pytest-bdd.git#tag=7.2.0
+	sha512sums = a6ed66fafc20967ae8609c95a56e98cacb6c30fcefc8b385952513f4e2f77cdc8a2ef87dc23b657fb8a8a7454ed3dee4cf0657a71e531f7f12184f6a55ccf4dc
 
 pkgname = python-pytest-bdd
