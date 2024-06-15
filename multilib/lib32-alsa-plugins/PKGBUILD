@@ -3,21 +3,24 @@
 
 _name=alsa-plugins
 pkgname=lib32-alsa-plugins
-pkgver=1.2.7.1
-pkgrel=2
+pkgver=1.2.12
+pkgrel=1
 pkgdesc="Additional ALSA plugins (32-bit)"
 arch=(x86_64)
 url="https://www.alsa-project.org"
-license=(LGPL2.1)
+license=(
+  GPL-2.0-or-later
+  LGPL-2.1-or-later
+)
 depends=(
   "alsa-plugins=1:$pkgver"
-  lib32-alsa-lib
   lib32-glibc
 )
 makedepends=(
-  lib32-libavtp
+  lib32-alsa-lib
   lib32-dbus
   lib32-jack
+  lib32-libavtp
   lib32-libpulse
   lib32-libsamplerate
   lib32-speexdsp
@@ -31,9 +34,9 @@ optdepends=(
   'lib32-speexdsp: for pcm_speex and rate_speexrate plugins'
 )
 source=(https://www.alsa-project.org/files/pub/plugins/$_name-$pkgver.tar.bz2{,.sig})
-sha512sums=('437c05a7e0175594768fd6a9a6d1a158bb4a01a7de6a42c2bd468d9381e01b64d385ddfac7d87baf84fe13cb4e65dc24da643940f416d4b191c528728822d964'
+sha512sums=('b2064eb32662662f422f6e7c71f503d82c68d7a7059c8197bdd61ee08735b3ee104c6a5f9e3451e81124634514b91fc89d05d33041d9c2bb0f55b3c2ac3271b1'
             'SKIP')
-b2sums=('6f7aa503eda879cd273f36a16eec702b4da9267a60835cb5acbbfe355a83b7ffa3e93eb6483c9946c1d0bcd845a8f574470e7b84c66f793d0d0c6c9883ad52ee'
+b2sums=('ee9514d7cd73881840b17d86d52d3557936ce666ae5027b423903f2dedc74b112a8592d66dd2514744057e4bcebaf5c689f39fcc9027e05106cc0a0090470f34'
         'SKIP')
 validpgpkeys=('F04DF50737AC1A884C4B3D718380596DA6E59C91') # ALSA Release Team (Package Signing Key v1) <release@alsa-project.org>
 
