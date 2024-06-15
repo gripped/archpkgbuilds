@@ -1,7 +1,7 @@
 pkgbase = python-responses
 	pkgdesc = A utility library for mocking out the `requests` Python library.
-	pkgver = 0.25.0
-	pkgrel = 3
+	pkgver = 0.25.1
+	pkgrel = 1
 	url = https://github.com/getsentry/responses
 	arch = any
 	license = Apache
@@ -9,13 +9,12 @@ pkgbase = python-responses
 	checkdepends = python-pytest-asyncio
 	checkdepends = python-pytest-httpserver
 	checkdepends = python-tomli-w
+	makedepends = git
 	makedepends = python-setuptools
 	depends = python-requests
 	depends = python-urllib3
 	depends = python-yaml
-	source = https://github.com/getsentry/responses/archive/0.25.0/python-responses-0.25.0.tar.gz
-	source = pytest-asyncio-failures.patch
-	sha512sums = a947641f8693a5687feeec8ded5b8d7791c18910f96d6c967e1d4576d1ded7d56933971690a3f3f6b3394b3d5abc6f3f78462545fcd572e7dd674d06340c7566
-	sha512sums = 23c800262ab92bf3a92ffcb3431ba082c4953480452760267b06d91d5a1aebc93b4b6d93149543e3f07f1da678186fdf7a057b80800fc75573618a1c30e4c685
+	source = git+https://github.com/getsentry/responses.git#tag=0.25.1
+	sha512sums = 6f06953f2c3c17393bd2dbb080e243e4b8ebb694ab3e79c4537e4fc730760d7ca351dc4096b4945f8cfc313e107a6b8b161a643e4c3593f5f070f548644ce2d3
 
 pkgname = python-responses
