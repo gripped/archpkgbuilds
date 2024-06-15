@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=js115
-pkgver=115.11.0
+pkgver=115.12.0
 pkgrel=1
 pkgdesc="JavaScript interpreter and libraries - Version 115"
 url="https://spidermonkey.dev/"
@@ -27,7 +27,9 @@ checkdepends=(
   git
   mercurial
 )
-options=(!lto)
+options=(
+  !lto
+)
 _relver=${pkgver}esr
 source=(
   https://archive.mozilla.org/pub/firefox/releases/$_relver/source/firefox-$_relver.source.tar.xz{,.asc}
@@ -37,9 +39,9 @@ validpgpkeys=(
   # https://blog.mozilla.org/security/2023/05/11/updated-gpg-key-for-signing-firefox-releases/
   14F26682D0916CDD81E37B6D61B7B526D98F0353
 )
-sha256sums=('16be46f16a356a2b8bd3541805a24c8a2acf6f077cf8a65859689685c26025e0'
+sha256sums=('b59e1625a0bb2f0565a737394f2bf8a7ce3171314b0d871bde533a101847a8ef'
             'SKIP')
-b2sums=('ced11d0665215dbf0aed710015a1e27863ecb8ccbba71ff6f6c57e1789e54c3c7c1940507db86ff2d8eea4d323a9ca7fbc40eaa6eaa7b0ec922ff69ffad64886'
+b2sums=('6d2cc80daca9977f73ea0c0fe7e7cac999f2d7a99c324332d69d9438a6d954fe72ffb35e4df4c2a86abcdc94231c4847bb3e64dd612240f8a6d86e63abdb1be2'
         'SKIP')
 
 # Make sure the duplication between bin and lib is found
@@ -97,7 +99,7 @@ build() {
   cat >.mozconfig ../mozconfig - <<END
 ac_add_options --enable-profile-generate=cross
 END
-  ./mach build
+  ./mach build --priority normal
 
   echo "Profiling instrumented JS..."
   (
@@ -120,7 +122,7 @@ END
   test -s merged.profdata
 
   echo "Removing instrumented JS..."
-  ./mach clobber
+  ./mach clobber objdir
 
   echo "Building optimized JS..."
   cat >.mozconfig ../mozconfig - <<END
@@ -128,7 +130,7 @@ ac_add_options --enable-lto=cross,full
 ac_add_options --enable-profile-use=cross
 ac_add_options --with-pgo-profile-path=${PWD@Q}/merged.profdata
 END
-  ./mach build
+  ./mach build --priority normal
 }
 
 check() {
