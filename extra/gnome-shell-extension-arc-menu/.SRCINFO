@@ -1,13 +1,16 @@
 pkgbase = gnome-shell-extension-arc-menu
 	pkgdesc = Application menu extension for GNOME Shell
 	pkgver = 56
-	pkgrel = 1
+	pkgrel = 2
 	url = https://gitlab.com/arcmenu/ArcMenu
 	arch = any
 	license = GPL-2.0-or-later
+	makedepends = git
 	depends = gnome-menus
 	depends = gnome-shell
-	source = https://gitlab.com/arcmenu/ArcMenu/-/archive/v56/ArcMenu-v56.tar.gz
-	sha256sums = dd7bfbec3b811e3a6340532b74d1a3a95db89cb76267ae4a7c8953ed0e3b4b9a
+	source = git+https://gitlab.com/arcmenu/ArcMenu.git#tag=v56
+	source = 0001-Settings-set-default-size-instead-of-size-request.patch
+	b2sums = 9e892b259764943f171087df50efb6720228ee73f7886e45b15a76da36392b65d88bc5ec4e622341bd281547b6ab0696c12081f8711eef43b29ea260c1750436
+	b2sums = 4296d33fc86360d2a22a5af54a328b8eb783a73efb248a632d294c41c8bc77bf50dec9bf01062d061f00cd25d8719b9aedc89ceede0154892493cbb81101580b
 
 pkgname = gnome-shell-extension-arc-menu

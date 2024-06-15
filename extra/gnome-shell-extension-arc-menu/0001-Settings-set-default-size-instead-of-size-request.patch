@@ -1,0 +1,29 @@
+From 5a941ab9559f6e3d641391624b2e2b3bd66f3d36 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 13 Jun 2024 13:32:07 +0200
+Subject: [PATCH] Settings: set default size instead of size request
+
+Setting a size request causes that the settings window cannot be resized
+below that value, which causes that the window does not fit into smaller
+screens. Use set_default_size() instead to allow to shrink the window if
+needed.
+---
+ prefs.js | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/prefs.js b/prefs.js
+index 45daebf..9fc4f3d 100644
+--- a/prefs.js
++++ b/prefs.js
+@@ -20,7 +20,7 @@ export default class ArcMenuPrefs extends ExtensionPreferences {
+             iconTheme.add_search_path(iconPath);
+ 
+         window.set_search_enabled(true);
+-        window.set_size_request(settings.get_int('settings-width'), settings.get_int('settings-height'));
++        window.set_default_size(settings.get_int('settings-width'), settings.get_int('settings-height'));
+         window.set_title(_('ArcMenu Settings'));
+ 
+         let pageChangedId = settings.connect('changed::prefs-visible-page', () => {
+-- 
+2.45.1
+
