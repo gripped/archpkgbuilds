@@ -4,7 +4,7 @@
 pkgname=sile
 pkgdesc='a modern typesetting engine inspired by LaTeX, fully customizable in Lua'
 pkgver=0.15.3
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url=https://www.sile-typesetter.org
 _url="https://github.com/sile-typesetter/$pkgname"
@@ -12,7 +12,6 @@ license=(MIT)
 _luadeps=(cassowary
           cldr
           cliargs
-          compat53 # Not needed for Lua 5.3+, LuaJIT is 5.1(ish)
           expat
           filesystem
           fluent
@@ -42,6 +41,7 @@ optdepends=('libertinus-font: default math font'
             'noto-fonts-cjk: default font for tate enabled classes'
             'ttf-hack: default mono font')
 makedepends=(cargo
+             lua51-compat53 # Not needed at runtime for for Lua 5.3+ or LuaJIT, but checked for in build
              jq)
 checkdepends=(poppler)
 provides=(libtexpdf.so)
