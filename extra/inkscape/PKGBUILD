@@ -4,12 +4,12 @@
 
 pkgname=inkscape
 pkgver=1.3.2
-pkgrel=6
+pkgrel=7
 pkgdesc='Professional vector graphics editor'
 url='https://inkscape.org/'
 license=('GPL' 'LGPL')
 arch=('x86_64')
-makedepends=('cmake' 'boost' 'git')
+makedepends=('cmake' 'boost' 'git' 'glib2-devel')
 
 depends=(
   'atkmm'
