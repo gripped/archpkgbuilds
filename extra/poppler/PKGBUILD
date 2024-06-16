@@ -3,7 +3,7 @@
 
 pkgbase=poppler
 pkgname=('poppler' 'poppler-glib' 'poppler-qt5' 'poppler-qt6')
-pkgver=24.06.0
+pkgver=24.06.1
 pkgrel=1
 arch=(x86_64)
 license=('GPL-2.0-only'
@@ -15,13 +15,13 @@ license=('GPL-2.0-only'
 makedepends=('libjpeg' 'gcc-libs' 'cairo' 'fontconfig' 'openjpeg2' 
              'gtk3' 'pkgconfig' 'lcms2' 'gobject-introspection' 'icu'
              'qt5-base' 'qt6-base' 'git' 'nss' 'gpgme' 'gtk-doc' 'curl' 'poppler-data'
-             'cmake' 'python' 'boost')
+             'cmake' 'python' 'boost' 'glib2-devel')
 options=('!emptydirs')
 url="https://poppler.freedesktop.org/"
 # https://gitlab.freedesktop.org/poppler/poppler
 source=(https://poppler.freedesktop.org/${pkgbase}-${pkgver}.tar.xz{,.sig}
         test::git+https://anongit.freedesktop.org/git/poppler/test/#commit=ff3133cdb6cb496ee1d2c3231bfa35006a5e8410)
-sha256sums=('0cdabd495cada11f6ee9e75c793f80daf46367b66c25a63ee8c26d0f9ec40c76'
+sha256sums=('1e629e8732286c745fbc0b15a3ee591443fb37a2210856e7f3ec38a0fb93ab13'
             'SKIP'
             'SKIP')
 validpgpkeys=('CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7') # Albert Astals Cid <aacid@kde.org>
