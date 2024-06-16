@@ -4,7 +4,7 @@
 # Contributor: Gilbert Kennen <gilbert firewatcher org>
 
 pkgname=elixir
-pkgver=1.16.3
+pkgver=1.17.0
 pkgrel=1
 pkgdesc="a functional meta-programming aware language built on top of the Erlang VM"
 url="https://elixir-lang.org"
@@ -13,7 +13,7 @@ arch=('any')
 depends=('erlang-nox')
 checkdepends=('git')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/elixir-lang/elixir/archive/v${pkgver}.tar.gz")
-sha256sums=('a163128e618e5205ea749f8effafa5b540008fd0bed863e75e2e09663a00ec45')
+sha256sums=('558f89cd39458bed1f945d87ad320e5d8f337fa9e627a8479aaefa0494a06ea7')
 
 build() {
 	cd "${pkgname}-${pkgver}"
