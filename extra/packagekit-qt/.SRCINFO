@@ -1,0 +1,32 @@
+pkgbase = packagekit-qt
+	pkgver = 1.1.2
+	pkgrel = 1
+	url = http://www.packagekit.org/
+	arch = x86_64
+	license = LGPL-2.1-only
+	makedepends = cmake
+	makedepends = git
+	makedepends = qt5-base
+	makedepends = qt6-base
+	depends = gcc-libs
+	depends = glibc
+	depends = packagekit
+	source = git+https://github.com/PackageKit/PackageKit-Qt#tag=v1.1.2?signed
+	validpgpkeys = 163EB50119225DB3DF8F49EA17ACBA8DFA970E17
+	validpgpkeys = D33A3F0CA16B0ACC51A60738494C8A5FBF4DECEB
+	validpgpkeys = 70C26659D184ABC01FFAF45228DDEDC6E4480AD0
+	sha256sums = b3f004d03d3ccc9798e6f4fb19c8f3ebe1d47862df197aa3a497a1b3632a94fa
+
+pkgname = packagekit-qt5
+	pkgdesc = Qt5 bindings for PackageKit
+	depends = gcc-libs
+	depends = glibc
+	depends = packagekit
+	depends = qt5-base
+
+pkgname = packagekit-qt6
+	pkgdesc = Qt6 bindings for PackageKit
+	depends = gcc-libs
+	depends = glibc
+	depends = packagekit
+	depends = qt6-base
