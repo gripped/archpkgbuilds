@@ -3,7 +3,7 @@
 # Contributor: Lukas Jirkovsky <l.jirkovsky@gmail.com>
 
 pkgname=embree
-pkgver=4.3.1
+pkgver=4.3.2
 pkgrel=1
 pkgdesc="Collection of high-performance ray tracing kernels"
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('Apache')
 depends=('gcc-libs' 'glibc' 'intel-tbb')
 makedepends=('cmake' 'ispc' 'freeglut' 'libxmu' 'ninja')
 source=(https://github.com/embree/embree/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('824edcbb7a8cd393c5bdb7a16738487b21ecc4e1d004ac9f761e934f97bb02a4')
+sha256sums=('dc7bb6bac095b2e7bc64321435acd07c6137d6d60e4b79ec07bb0b215ddf81cb')
 
 build() {
     # Embree detects actual ISA at runtime but we have to set a high maximum
