@@ -10,8 +10,8 @@
 # Contributor: Niels Abspoel <aboe76 (at) Gmail (dot) com>
 
 pkgname=puppet
-pkgver=7.30.0
-pkgrel=0
+pkgver=7.31.0
+pkgrel=2
 pkgdesc='Server automation framework and application'
 arch=('any')
 url='https://www.puppet.com/community/open-source'
@@ -43,7 +43,7 @@ source=("https://github.com/puppetlabs/puppet/archive/${pkgver}/puppet-${pkgver}
         "zfs_core::git+https://github.com/puppetlabs/puppetlabs-zfs_core#commit=${_zfs_commit}"
         "zone_core::git+https://github.com/puppetlabs/puppetlabs-zone_core#commit=${_zone_commit}"
         )
-sha512sums=('44dc5c790dafcbbf29a1f07845215f601247307b6134217ef90abd4e14a7ee917b6f554f1db7b327c3a68e04449f5d87d37ae72497d00c24560bc41219b2eb93'
+sha512sums=('2b67f69fbc0b80ae7ccadc2e361ce54326610aba14433bb178be69e697b8d2ba5b201878c4fce490dff3a1218988e765e338fa71265bfb436fe9c0eb266d6e62'
             '6ebc4603db2e702623070f1703d3e82a25c689b8c149c3328660ab43d74bfa49c5853aa14d267b48c9f91d12bd4a96579bcf3184f8881a57748763484892bf90'
             '584093f64216becfeeb45514c9308c7df6819b39b93489790656f6e206c52abb7ed7077a9630c3f0aa2a6b9a6e57502f84cb1a862c03df325f2d97772773c4ce'
             '2bcb93ea1d9d6312205aa1975b1e233414d7bd9c713fb2e59a04f2f3ca436b89dde5b3070b3899fc0a3b5259866c6f3039c06517041d56d73dba08926e7afbec'
@@ -80,7 +80,7 @@ package() {
 
   # install the gemspec file
   # this allows other gems to load puppet as a library (for example puppet-strings)
-  install -Dm644 .gemspec "${pkgdir}/${_gemdir}/specifications/puppet-${pkgver}.gemspec"
+  install -Dm644 puppet.gemspec "${pkgdir}/${_gemdir}/specifications/puppet-${pkgver}.gemspec"
 
   # generate manpages | this breaks right now..
   #rake gen_manpages
