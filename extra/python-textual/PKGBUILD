@@ -5,7 +5,7 @@
 
 _base=textual
 pkgname=python-${_base}
-pkgver=0.68.0
+pkgver=0.69.0
 pkgrel=1
 pkgdesc="Modern Text User Interface framework"
 arch=(any)
@@ -17,17 +17,8 @@ checkdepends=(python-pytest-asyncio python-time-machine)
 optdepends=('python-tree-sitter: for syntax highlighting support'
             'python-tree-sitter-languages: for custom languages support'
             'python-textual-dev: tools for developers')
-source=(${_base}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz
-        test_deadlock.patch::https://github.com/Textualize/textual/commit/e9ad400559c14645e56b7a98a467295c6817686b.patch)
-sha512sums=('7253c793d8f1ce6b344408abb1529acbe6ecb8c452e23fd99dee1ba9776c58a9ec8e2122b1408b68cce3fa7c27ad63c88c4f13092dc887bfc5ce292560b1d4c3'
-            'c399d408ce76b9e8860242ab09e86b5d46741eba5df9ee73b3068bf9cfaa4c44393882793127c27bf405d7219dda286f574ce4f1cc91fa5c2bf5ad8c471516fc')
-
-prepare() {
-  cd ${_base}-${pkgver}
-  # Temporary patch to fix the test_deadlock check which fails because it expects `textual` to be installed in the test environment.
-  # See https://github.com/Textualize/textual/issues/4649
-  patch -Np1 < "${srcdir}/test_deadlock.patch"
-}
+source=(${_base}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz)
+sha512sums=('3e1d421cd376a843ea2d9fc103f972aad0e5ead31be717b77af0b6700b3131db7da4e2deb19b3a38f771f0ff13e3bd0e937bf232042dd6f6de0cff1ed7233436')
 
 build() {
   cd ${_base}-${pkgver}
