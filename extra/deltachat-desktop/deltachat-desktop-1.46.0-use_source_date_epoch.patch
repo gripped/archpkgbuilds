@@ -1,0 +1,70 @@
+From 581f41de0154b08954b45892017bcd5d5af22fc1 Mon Sep 17 00:00:00 2001
+From: Simon Laux <Simon-Laux@users.noreply.github.com>
+Date: Mon, 17 Jun 2024 14:48:35 +0200
+Subject: [PATCH] use `SOURCE_DATE_EPOCH` environment var for build timestamp
+ instead of `Date.now()` if set. (#3947)
+
+* use `SOURCE_DATE_EPOCH` environment var for build timestamp instead of `Date.now()` if set.
+
+This should help in making builds reproducible.
+
+* convert SOURCE_DATE_EPOCH to unix milliseconds
+---
+ CHANGELOG.md                     |  3 +++
+ bin/build-shared-version-info.js | 14 +++++++-------
+ 2 files changed, 10 insertions(+), 7 deletions(-)
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index c13d22089..d7ee61020 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -5,6 +5,9 @@
+ ### Fixed
+ - skip `requestSingleInstanceLock` on mac appstore builds (mas), because it made it unable to start the app on older macOS devices. #3946
+ 
++### Changed
++- use `SOURCE_DATE_EPOCH` environment var for build timestamp instead of `Date.now()` if set.
++
+ <a id="1_46_0"></a>
+ 
+ ## [v1.46.0] - 2024-06-10
+diff --git a/bin/build-shared-version-info.js b/bin/build-shared-version-info.js
+index 8005433bd..2fddb2698 100755
+--- a/bin/build-shared-version-info.js
++++ b/bin/build-shared-version-info.js
+@@ -4,11 +4,10 @@ import { writeFileSync } from 'fs'
+ import { readFile } from 'fs/promises'
+ import { join } from 'path'
+ 
+-import { dirname } from 'path';
+-import { fileURLToPath } from 'url';
+-
+-const __dirname = dirname(fileURLToPath(import.meta.url));
++import { dirname } from 'path'
++import { fileURLToPath } from 'url'
+ 
++const __dirname = dirname(fileURLToPath(import.meta.url))
+ 
+ function gatherProcessStdout(cmd, args) {
+   const { status, stdout, stderr } = spawnSync(cmd, args)
+@@ -41,8 +40,7 @@ async function getGitRef() {
+     process.exit(1)
+   }
+ 
+-  const git_ref =
+-    git_describe + (git_branch === 'main' ? '' : '-' + git_branch)
++  const git_ref = git_describe + (git_branch === 'main' ? '' : '-' + git_branch)
+   return git_ref
+ }
+ 
+@@ -51,7 +49,9 @@ async function gatherBuildInfo() {
+   const packageObject = JSON.parse(await readFile(packageJSON, 'utf8'))
+   return {
+     VERSION: packageObject.version,
+-    BUILD_TIMESTAMP: Date.now(),
++    BUILD_TIMESTAMP: process.env.SOURCE_DATE_EPOCH
++      ? Number(process.env.SOURCE_DATE_EPOCH) * 1000
++      : Date.now(),
+     GIT_REF: await getGitRef(),
+   }
+ }
