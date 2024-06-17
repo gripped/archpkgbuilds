@@ -4,12 +4,12 @@
 
 pkgname=keepassxc
 pkgver=2.7.8
-pkgrel=2
+pkgrel=3
 pkgdesc="Cross-platform community-driven port of Keepass password manager"
 arch=(x86_64)
 url="https://keepassxc.org/"
 license=('GPL-2.0-only OR GPL-3.0-only OR LGPL-2.1-only')
-depends=(argon2 botan curl hicolor-icon-theme libxtst
+depends=(argon2 botan hicolor-icon-theme libxtst
          minizip pcsclite qrencode qt5-svg qt5-x11extras libusb)
 makedepends=(asciidoctor cmake qt5-tools)
 optdepends=('xclip: keepassxc-cli clipboard support under X server'
