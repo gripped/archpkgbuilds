@@ -2,9 +2,9 @@
 
 pkgname=python-joserfc
 # https://github.com/authlib/joserfc/releases
-pkgver=0.11.1
+pkgver=0.12.0
 # curl https://api.github.com/repos/authlib/joserfc/git/ref/tags/$pkgver | jq -r .object.sha
-_commit=19e9fa2870e2f6c8fe654d6c60f9959178a3f6f0
+_commit=e357cb2b20e0f42d3c2acb9ae73a2cd33f457923
 pkgrel=1
 pkgdesc='Implementations of JOSE RFCs in Python'
 arch=(any)
@@ -19,7 +19,7 @@ optdepends=(
   'python-pycryptodome: for draft RFCs'
 )
 source=("git+$url?signed#commit=$_commit")
-sha256sums=('40a7021a4157e6ab5f22d5679770bd2be25af2ab181af08661d15fff346f2977')
+sha256sums=('b6e1c78662410589ed05fa211963613a5187289a5f9b191ddd3b75ea136f4883')
 validpgpkeys=(
   # A key in https://github.com/lepture.gpg
   '72F8E895A70CEBDF4F2ADFE07E55E3E0118B2B4C'
