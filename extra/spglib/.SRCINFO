@@ -1,19 +1,20 @@
 pkgbase = spglib
 	pkgdesc = C library for finding and handling crystal symmetries
 	pkgver = 2.4.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://spglib.readthedocs.io/en/latest/
 	arch = x86_64
 	license = BSD-3-Clause
 	makedepends = cmake
 	makedepends = gcc-fortran
+	makedepends = git
 	makedepends = gtest
 	makedepends = python
 	makedepends = python-numpy
 	depends = glibc
 	optdepends = gcc-libs: Fortran interface
 	optdepends = python-numpy: Python interface
-	source = https://github.com/spglib/spglib/archive/v2.4.0/spglib-2.4.0.tar.gz
-	sha256sums = 65ce1def8eade7e1aab47ad99860d5d38d5acf1d66ac15ac3bb74ece2e6f2e4c
+	source = git+https://github.com/spglib/spglib#tag=v2.4.0
+	sha256sums = 1e7692c77c9206bfa75f17a79717a24abb9eda95f31e6b94a56f80c483b47983
 
 pkgname = spglib
