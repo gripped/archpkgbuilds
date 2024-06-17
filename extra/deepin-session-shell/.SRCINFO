@@ -1,11 +1,12 @@
 pkgbase = deepin-session-shell
 	pkgdesc = Deepin desktop-environment - session-shell module
-	pkgver = 6.0.18
+	pkgver = 6.0.19
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-session-shell
 	arch = x86_64
 	groups = deepin
 	license = GPL3
+	makedepends = git
 	makedepends = cmake
 	makedepends = gmock
 	makedepends = gtest
@@ -42,7 +43,7 @@ pkgbase = deepin-session-shell
 	depends = deepin-session
 	provides = lightdm-deepin-greeter
 	conflicts = deepin-session-ui<5
-	source = https://github.com/linuxdeepin/dde-session-shell/archive/6.0.18/deepin-session-shell-6.0.18.tar.gz
-	sha512sums = 7794585ce9f0df403e7ddb5ef48fb4044db8943f29726e77fdc156141fb097b6d7d67b746b156d939bcbf97edf20f74b024b17dfe0e347abaa3ae41cc4ae10ce
+	source = git+https://github.com/linuxdeepin/dde-session-shell.git#tag=6.0.19
+	sha512sums = 43abc63b533e3c3a3d54bf80c7ad0a1deeada1156f36413eef23be14cf72f72bf91a6d1c6a90e89b9bd63c882af097f2b01eb1b45292af0c340d3d3f4082453b
 
 pkgname = deepin-session-shell
