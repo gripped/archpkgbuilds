@@ -9,8 +9,7 @@
 # Contributor: The one with the braid <info@braid.business>
 
 pkgname=dart
-pkgver=3.4.0
-_commit=3ce1c7c03b61eccf54312981cc4a5f1b4782809d # https://github.com/dart-lang/sdk/commits/stable/
+pkgver=3.4.4
 pkgrel=1
 pkgdesc='The dart programming language SDK'
 arch=('x86_64')
@@ -27,11 +26,11 @@ makedepends=(
   'python-six'
 )
 source=(
-  "git+https://github.com/dart-lang/sdk.git#commit=$_commit"
+  "git+https://github.com/dart-lang/sdk.git#tag=$pkgver"
   "git+https://chromium.googlesource.com/chromium/tools/depot_tools.git"
   "DEPS.patch"
 )
-sha256sums=('727ae11757960ddbe1b3e43c0247c1f422eb1ddb464f50d6561d1f2e1508670b'
+sha256sums=('aba863b230001773aa8cbbedb2824de154f778377c4048dbcc12460fdcd969f5'
             'SKIP'
             'db6576a70c6719e26795b9824546058b79fefa64158c1002d36546d826084403')
 
