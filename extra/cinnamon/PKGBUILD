@@ -6,8 +6,8 @@
 # Contributor: CReimer
 
 pkgname=cinnamon
-pkgver=6.0.4
-pkgrel=3
+pkgver=6.2.0
+pkgrel=1
 pkgdesc="Linux desktop which provides advanced innovative features and a traditional user experience"
 arch=(x86_64)
 url="https://github.com/linuxmint/cinnamon"
@@ -27,15 +27,15 @@ optdepends=('blueman: Bluetooth support'
             'gnome-terminal: X terminal emulator'
             'touchegg: touch gestures'
             'switcheroo-control: GPU offloading')
-makedepends=(meson samurai gobject-introspection intltool)
+makedepends=(meson samurai gobject-introspection intltool glib2-devel)
 options=('!emptydirs')
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         set_wheel.diff
         default-theme.patch)
-sha512sums=('357dd44f40b195a4a3ca3e88c5c9e55f1c06d36b4cec812a001c54ffb784b0d67bb9f41c1ae74fec590184b3480c9cd21ae54f7ee01e31f80eab0297b0d18a9c'
+sha512sums=('c29150ce9a66fca4bb711f2d86bf44e0b0eff83b68cdb35ad5ce43d3e1922434517ea98c411a958cf928d43e9d20bff8d2c55f1ffe920cedae85d7ee52adfa78'
             'fd7e117054996ed1c3dfd0f968c2bf98ca4fcee9a100221f8839a232147745ec0140e1f68eeffba58a3c44f66f26e05d433648a7a28858ec669524f7266ba04c'
             'ee7dedd59ea370cf81d75def49060f9a29b22e7b025ca7d5db87a0102d50f138c79aa562b0d36a748c4b1c59a37f600ba1f60ff6caf303cf5b6fc4d110d051b4')
-b2sums=('de67c2e465d04dd4ed269172b4b58cfe0391446466e32e15410b5a847248566c075823d0a2fb87d7a693033b3e4e1fc21a18c7b9f45dca89ce8968a0be71eaba'
+b2sums=('cf8df3c0faddfd10e43c040c53ef37013a305dd53fd1da8ed5f56ddbd60ef7f214eb5fae94e8108111695c8a727ad715e2c2965c23c27c6e49cdb54d9e531ebf'
         '3becf1f40068fc629109e6e7d464c3c484296afacc9ab6328b2ccbb3c9735bcbfa9550f9f73b430ede178ae668e37c660ce322b5b4d1873526de3d3d41185160'
         '86c3a29acd132ca321f08fd81dd5a45707accdc035b2aeec95bf358b29072ff1eedb77b2566cf48d7253d1d791599f0f44938c4600761d711cb18b59019f1c62')
 
