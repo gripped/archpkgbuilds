@@ -4,7 +4,7 @@
 
 pkgname=discord
 _pkgname=Discord
-pkgver=0.0.56
+pkgver=0.0.57
 pkgrel=1
 pkgdesc="All-in-one voice and text chat for gamers"
 arch=('x86_64')
@@ -18,9 +18,9 @@ optdepends=('libpulse: Pulseaudio support'
 source=("https://dl.discordapp.net/apps/linux/$pkgver/$pkgname-$pkgver.tar.gz"
         "LICENSE-$pkgver.html::https://discordapp.com/terms"
         "OSS-LICENSES-$pkgver.html::https://discordapp.com/licenses")
-sha512sums=('799d6cf5fcdeff83aaad20662668b17ff0cf88edab1bf404ad366340d0783269fef8800382a111f8505b353031c80cd17ab804a56f51f3c8bb2e2a2c5e6b86ec'
-            '0aee9898537861e45800e7c44a7fcf5ecf4fba4132cf0ac7882b369eb5bb9a854c7b66d9b2f4b7a4c80a138e932e4818808c1ec1df93e4cc5e7a34c5011b03e9'
-            'a67adaddb7365aa73e992939cca2f124d4fb31449a7a64f92d7367899e09fb2a93822ddcca8373c444146ca580c45135471b3205045ed585395663e4afb2e2d9')
+sha512sums=('5db4a92ca32fd697f7319f81fd4dc29ac6df0296e8a2c55acae25df7225e546880760f3e0b72a09734a01251444aa37320a3db671cf052592daaef78856e7fee'
+            'f244bec015d20b8aa676f67783cedd9bb1c980266fde62b375049ac743733ee991578a2099e348ea25ed7d9d0d36b100bd3c231242b0b6cac32a6a3aea4dd3b9'
+            'b0babf3e6ffda836e2ca789f530c0e9694bf2faf3709d7cf7a33851b399b4b8beadca0ca643c08266070cf4b28172134cda3b3511ea4a2db69ac9fba903b105b')
 
 prepare() {
   cd $_pkgname
