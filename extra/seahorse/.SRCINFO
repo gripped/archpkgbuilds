@@ -1,0 +1,32 @@
+pkgbase = seahorse
+	pkgdesc = GNOME application for managing PGP keys.
+	pkgver = 43.0
+	pkgrel = 3
+	epoch = 1
+	url = https://wiki.gnome.org/Apps/Seahorse
+	arch = x86_64
+	groups = gnome-extra
+	license = GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-SA-3.0
+	makedepends = git
+	makedepends = glib2-devel
+	makedepends = gobject-introspection
+	makedepends = meson
+	makedepends = vala
+	makedepends = yelp-tools
+	depends = gcr
+	depends = gpgme
+	depends = gtk3
+	depends = libhandy
+	depends = libldap
+	depends = libpwquality
+	depends = libsecret
+	depends = libsoup3
+	depends = org.freedesktop.secrets
+	provides = x11-ssh-askpass
+	source = git+https://gitlab.gnome.org/GNOME/seahorse.git?signed#tag=43.0
+	source = seahorse-ssh-return-type.patch
+	validpgpkeys = A7C626E13F9AD776776BD9CA1D8A57CF2E8D36A3
+	b2sums = 256c04738c29e91a297fc32d75eb494343ed9d1008b8fecbd7ea9066b590ec63eb3436dbc8ddc785a70d7ea501a8d91ddddc5ed900345b7d197ce735ab00d5ae
+	b2sums = 44cbd5dd20347c42c9bb77dee25af18c1f69d433aa812d603807d96674a335510e88f9813424269b6c3814d8ec6ce45856365716d77e4fb64fdc02acf13ce841
+
+pkgname = seahorse
