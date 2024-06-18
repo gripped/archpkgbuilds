@@ -1,7 +1,7 @@
 pkgbase = jellyfin-ffmpeg
 	pkgdesc = Jellyfin fork of ffmpeg
-	pkgver = 6.0.1p5
-	pkgrel = 1
+	pkgver = 6.0.1p7
+	pkgrel = 2
 	epoch = 1
 	url = https://github.com/jellyfin/jellyfin-ffmpeg
 	arch = x86_64
@@ -63,7 +63,11 @@ pkgbase = jellyfin-ffmpeg
 	optdepends = vulkan-radeon: for AMD RADV Vulkan support
 	optdepends = vulkan-intel: for Intel ANV Vulkan support
 	options = !lto
-	source = jellyfin-ffmpeg::git+https://github.com/jellyfin/jellyfin-ffmpeg#commit=ce0dc55c79b40519329ceabc0b8bc929c06e62de
-	b2sums = SKIP
+	source = jellyfin-ffmpeg::git+https://github.com/jellyfin/jellyfin-ffmpeg#commit=df454b6f2809ad53f80f2c88543fb3922b5dd503
+	source = https://github.com/FFmpeg/FFmpeg/commit/06c2a2c4.patch
+	source = https://github.com/FFmpeg/FFmpeg/commit/43b417d5.patch
+	b2sums = ed07080a4ed1217828a75d548b55bff2899a9029ef2ecb173fb5d712546a094cc18cafa926ba12c5fa6d97fe6616782f4fede8d12340717c01a9ad9917393f1b
+	b2sums = 044b1c13336a3cec263c17aa6438cd7b8e19ce328e9c8127d3c6d9dcb8dcfacefde713e47b35217c06826f87d00954b5e0a722fb4ab744c625e3d210d418bd77
+	b2sums = c8dfbed01442b1173c94ee7f7c7bda59802e86359be7dfcf52e25a05f245deac1ed8f3ca8e43650bef033cbd44c3ac15d32c191d913227da497187fcbbefa954
 
 pkgname = jellyfin-ffmpeg
