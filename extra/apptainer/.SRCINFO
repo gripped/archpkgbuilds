@@ -1,11 +1,11 @@
 pkgbase = apptainer
 	pkgdesc = Application containers for secure high performance computing
-	pkgver = 1.3.0
+	pkgver = 1.3.2
 	pkgrel = 1
 	url = https://apptainer.org/
 	arch = x86_64
-	license = BSD
-	license = custom:LBNL
+	license = BSD-3-Clause
+	license = BSD-3-Clause-LBNL
 	makedepends = git
 	makedepends = go
 	makedepends = cryptsetup
@@ -35,11 +35,14 @@ pkgbase = apptainer
 	backup = etc/apptainer/remote.yaml
 	backup = etc/apptainer/rocmliblist.conf
 	backup = etc/apptainer/seccomp-profiles/default.json
-	source = apptainer::git+https://github.com/apptainer/apptainer.git#commit=dae436e9b93f8458c9296f487bab832fa9d18b4e
+	source = apptainer::git+https://github.com/apptainer/apptainer.git#tag=v1.3.2
 	source = tmpfiles.conf
-	sha512sums = SKIP
+	source = ftbfs-redefined-fortify_source.patch
+	sha512sums = bea0a427d115da0346e2ad76f9b30f248c309d58c09badbbd0cf88cfdf040a66f922f5d6668c23b4fcfee01d8b6889add522542cc955c5d50da48f3102364a1c
 	sha512sums = 5f10f162e7e48d2ca821529906a4ef692fc32cec8f61d8f03ea60361e1a204eacbeca8b6214bea0accd019c765d9c4c15300ca01c83ab3cbbdc44e82c7e4908d
-	b2sums = SKIP
+	sha512sums = 320bb41a26ce350886543f161ec47317390c49e6aae726a0e8bb0e2d38c8620f32d1be22d79f9ee1d34b4ccc1ed5629ddf10411e08f16e440ca0f34d76726e99
+	b2sums = 32ba776076e631f70ea570e7fc91bda152cc042730d849990082fb5104a250616033c08465a4682159ebddb8e4954bcddaa21096c1fd7bed56155b05a954830d
 	b2sums = dc9bfeb268d297b8785348c83f89a68ff760de278c8f101831a930ca0b42d2052d0498d7dd8c66f48b9fef2eb3c901de082939e85b22d0a99f7db4e22744bced
+	b2sums = d8a93e88823a386327ba9269de8280abb534bd86b32ebeb2aab67c9c2831dff90241ae06035152223c8b50af9579befcfaddddbd2bd21dcc7fc05ea383e61d47
 
 pkgname = apptainer
