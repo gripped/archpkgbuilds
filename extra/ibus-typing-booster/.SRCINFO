@@ -1,6 +1,6 @@
 pkgbase = ibus-typing-booster
 	pkgdesc = Predictive input method for the IBus platform
-	pkgver = 2.25.8
+	pkgver = 2.25.9
 	pkgrel = 1
 	url = https://mike-fabian.github.io/ibus-typing-booster/
 	arch = any
@@ -8,14 +8,29 @@ pkgbase = ibus-typing-booster
 	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = python-pygame
+	depends = bash
+	depends = dconf
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = gtk3
+	depends = hicolor-icon-theme
 	depends = ibus
+	depends = libibus
+	depends = m17n-db
 	depends = m17n-lib
+	depends = pango
+	depends = python
+	depends = python-atspi
 	depends = python-dbus
+	depends = python-distro
 	depends = python-gobject
+	depends = python-nltk
+	depends = python-pycountry
 	depends = python-pyenchant
+	depends = python-regex
 	depends = sqlite
 	optdepends = python-pygame: Audible feedback (sounds)
-	source = git+https://github.com/mike-fabian/ibus-typing-booster#tag=2.25.8
-	b2sums = 5128eef84e750c3c10f20c2e32ec0462c8986bf6fad90b54ae4113a15da0967c2a9eb1c7e91e0fb43b18c02f27b15703ccf14bbef2233d8c825bf8e863cfcfda
+	source = git+https://github.com/mike-fabian/ibus-typing-booster#tag=2.25.9
+	b2sums = 47bbda5a448665bbf9eec494a3e52007635c63ca3a91dbc21f2ec37473ecb659e80ad0b08ebd7cc5ef6f6fe3df46ecde39f26e9fdd22173de53ceac0adcafc6b
 
 pkgname = ibus-typing-booster
