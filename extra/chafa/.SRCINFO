@@ -1,20 +1,20 @@
 pkgbase = chafa
 	pkgdesc = Image-to-text converter supporting a wide range of symbols and palettes, transparency, animations, etc.
-	pkgver = 1.14.0
-	pkgrel = 3
+	pkgver = 1.14.1
+	pkgrel = 1
 	url = https://hpjansson.org/chafa/
 	arch = x86_64
 	license = LGPL-3.0-or-later
+	makedepends = git
 	makedepends = gtk-doc
 	depends = libavif
+	depends = libjxl
 	depends = librsvg
 	depends = libwebp
 	depends = libxslt
 	provides = libchafa.so
-	source = https://github.com/hpjansson/chafa/releases/download/1.14.0/chafa-1.14.0.tar.xz
-	source = https://github.com/hpjansson/chafa/releases/download/1.14.0/chafa-1.14.0.tar.xz.asc
+	source = git+https://github.com/hpjansson/chafa.git#tag=1.14.1?signed
 	validpgpkeys = C01EDE5BB0D91E26D003662EC76BB9FEEAD12EA7
-	sha512sums = f205bf5b8e31b05a227484a2445eb1a06b0b3abe2f27483b899340d89a22c0cd188e9b56a4217e09ac313af6e71fa75b5a480b66e85464422fd46049ec480522
-	sha512sums = SKIP
+	sha512sums = 0bbe89d08c771f6182909fc4451dd6183cb2e562272293bc7c324a7b7b016026fe787bb7ffaf6a7fe300d61a4ea4a75962f640e6dcf2f57abd541c0c5d2eb075
 
 pkgname = chafa
