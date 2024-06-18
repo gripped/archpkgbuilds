@@ -3,7 +3,7 @@
 # Contributor: Josip Ponjavic <josipponjavic at gmail dot com>
 
 pkgname=streamlink
-pkgver=6.7.4
+pkgver=6.8.1
 pkgrel=1
 pkgdesc='CLI program that launches streams from various streaming services in a custom video player (livestreamer fork)'
 arch=('any')
@@ -15,9 +15,9 @@ makedepends=("python-"{build,installer,setuptools,wheel})
 optdepends=('ffmpeg: Required to play streams that are made up of separate audio and video streams, eg. YouTube 1080p+')
 source=("https://github.com/${pkgname}/${pkgname}/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz"{,.asc})
 validpgpkeys=('CDAC41B9122470FAF357A9D344448A298D5C3618') # Streamlink signing key <streamlink@protonmail.com>
-sha256sums=('9337537ab119fe77524a5d665aaecebbfb06e2cb8df28d1260d92876425751ce'
+sha256sums=('4c437efac282b4df026519f2069e278911656fe2cf48d732302bbd466f86399d'
             'SKIP')
-sha512sums=('266c66626624814d708a228d4e2e62c443c3973fb139632a88086619c755fa80d97fad077a2a7383f9beb3e2f4464274beb0bb446b85f6f63d6704a88a9c2e29'
+sha512sums=('51cb03ca2414ec64f95704833568bb48aaae458e77f6ef3f4d858b564908cff4944c07a0b4d3bb648a0fe2bbb6a43a7964333878e31aef0b2a6ff3b9048b8e1d'
             'SKIP')
 
 build() {
