@@ -1,6 +1,6 @@
 pkgbase = lua-dkjson
 	pkgdesc = David Kolf’s Pure Lua JSON module with UTF-8 support and no external dependencies
-	pkgver = 2.7
+	pkgver = 2.8
 	pkgrel = 1
 	url = http://dkolf.de/src/dkjson-lua.fsl/home
 	arch = any
@@ -10,17 +10,21 @@ pkgbase = lua-dkjson
 	makedepends = lua52
 	makedepends = lua53
 	makedepends = lua
-	source = http://dkolf.de/dkjson-lua/dkjson-2.7.tar.gz
-	source = https://luarocks.org/manifests/dhkolf/dkjson-2.7-1.rockspec
+	source = http://dkolf.de/dkjson-lua/dkjson-2.8.tar.gz
+	source = https://luarocks.org/manifests/dhkolf/dkjson-2.8-1.rockspec
 	source = LICENSE
-	sha256sums = 7a32a6cec0327d66578be1772303b79e1e9e87442bfce412738599f259eb20aa
-	sha256sums = ad5303145ff263b7d3958e08723e0b5adef6aa628c0b079d6e0a2282ac7ff94d
+	sha256sums = 24e8cd3beb91c1c861eb7bb3fbc9bd418bbff9ad4aa5d0471816258236a31532
+	sha256sums = 6ab6ac25e5fbc90d9183bd11c9ea6218dbcb762c90cfc5a7e075eb7531080418
 	sha256sums = 695b49734d1244ff236ec8785aa908883deb0f65b2356e36e8739ea06002b03c
 
 pkgname = lua-dkjson
+	optdepends = lua-lpeg: speed up decoding
 
 pkgname = lua53-dkjson
+	optdepends = lua53-lpeg: speed up decoding
 
 pkgname = lua52-dkjson
+	optdepends = lua52-lpeg: speed up decoding
 
 pkgname = lua51-dkjson
+	optdepends = lua51-lpeg: speed up decoding
