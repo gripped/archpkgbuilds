@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plymouth-kcm
-pkgver=6.0.5
+pkgver=6.1.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KCM to manage the Plymouth (Boot) theme'
@@ -25,7 +25,7 @@ depends=(gcc-libs
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('bde5b2d0e3018efda8078e32aea374753b4e2517714c99149e5f98d046f126ef'
+sha256sums=('7d2de1452225dd4526c74619300593c58dacf0f63b380a44d91c8eeaf2c1bcab'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
