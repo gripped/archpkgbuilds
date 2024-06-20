@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=ksvg
-pkgver=6.3.0
-pkgrel=2
+pkgver=6.3.1
+pkgrel=1
 pkgdesc='Components for handling SVGs'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -25,20 +25,13 @@ makedepends=(doxygen
 optdepends=('kirigami: QML bindings'
             'qt6-declarative: QML bindings')
 groups=(kf6)
-source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/frameworks/ksvg/-/commit/74f9f9cbd226407f8cde08c5cd5a711444e2775d.patch)
-sha256sums=('0054ed0c094c605a712bc9f8c8cc61c7e0d3eefe1ee50a93912bbd60a6cb07d7'
-            'SKIP'
-            '421f2192344debe4e25cdef75401727e0195bab886d996df4a5ef341f4bcd8b0')
+source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('d85cd66490086998e461bb2caf07e685d65a889681021e3df804f3fa21d3c796'
+            'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
               90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1 # Nicolas Fella <nicolas.fella@kde.org>
               )
-
-prepare() {
-  # https://bugs.kde.org/488295
-  patch -d $pkgname-$pkgver -p1 -i ../74f9f9cbd226407f8cde08c5cd5a711444e2775d.patch
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
