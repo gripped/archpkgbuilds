@@ -6,7 +6,7 @@
 
 pkgname=kdenlive
 pkgver=24.05.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A non-linear video editor for Linux using the MLT video framework'
 arch=(x86_64)
 url='https://apps.kde.org/kdenlive/'
@@ -63,12 +63,18 @@ optdepends=('bigsh0t: VR360 effects'
             'recordmydesktop: for screen capture')
 groups=(kde-applications
         kde-multimedia)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
+        https://invent.kde.org/multimedia/kdenlive/-/commit/8be0e826.patch)
 sha256sums=('1092592de71675afb08ee67ac9a71d3115b3ee3548da52759971c5b0026103da'
-            'SKIP')
+            'SKIP'
+            '20e09de2d1d34e1bb2aa8060434f5432f1cd76e03e866ed4d507833e1840cd71')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < 8be0e826.patch # Fix freeze on playback
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
