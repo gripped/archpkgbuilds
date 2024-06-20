@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=systemsettings
-pkgver=6.0.5
+pkgver=6.1.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE system manager for hardware, software, and workspaces'
@@ -22,7 +22,6 @@ depends=(gcc-libs
          kcrash
          kdbusaddons
          ki18n
-         kiconthemes
          kio
          kirigami
          kitemmodels
@@ -39,7 +38,7 @@ makedepends=(extra-cmake-modules
              kdoctools)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('b722ba21fabd8cd27e2371a83e33a9a4e1403257d454b3f01c6fa46c2874cf93'
+sha256sums=('bd94b1342064794a142cb285ed102a6db6959bf2682d4e661d560d734a68ca5c'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
