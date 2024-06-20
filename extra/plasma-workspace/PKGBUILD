@@ -4,9 +4,9 @@
 # Contributor: Alexey D. <lq07829icatm at rambler.ru>
 
 pkgname=plasma-workspace
-pkgver=6.0.5.1
+pkgver=6.1.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=2
+pkgrel=1
 pkgdesc='KDE Plasma Workspace'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -75,6 +75,7 @@ depends=(accountsservice
          libice
          libkexiv2
          libksysguard
+         libplasma
          libqalculate
          libsm
          libx11
@@ -88,10 +89,9 @@ depends=(accountsservice
          milou
          ocean-sound-theme
          phonon-qt6
-         plasma-integration
-         libplasma
          plasma5support
          prison
+         qcoro-qt6
          qt6-5compat
          qt6-base
          qt6-declarative
@@ -130,19 +130,13 @@ optdepends=('appmenu-gtk-module: global menu support for GTK2 and some GTK3 appl
 conflicts=(plasma-wayland-session)
 replaces=(plasma-wayland-session)
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/plasma/plasma-workspace/-/commit/0857d18d.patch)
-sha256sums=('8907f9fded5fc6e5d95355f8346328de18d7c8850dabd9109d75458d5aeed813'
-            'SKIP'
-            'ae4406bbb6c3068f499f521fb1a4df15362d08ccefc92c5519ba5c5735407ad2')
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('f4f542e6f201f46080ee6fb966d9f895811a8dcd7d4f18a4c6c48ce0c35a127c'
+            'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < 0857d18d.patch # Fix session restore on X
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
@@ -153,5 +147,7 @@ build() {
 }
 
 package() {
+  depends+=(plasma-integration) # Declare runtime dependency here to avoid dependency cycles at build time
+
   DESTDIR="$pkgdir" cmake --install build
 }
