@@ -3,11 +3,11 @@
 
 pkgname=python-sphinx-autoapi
 _name=${pkgname#python-}
-pkgver=3.1.1
+pkgver=3.1.2
 pkgrel=1
-pkgdesc="A new approach to API documentation in Sphinx."
+pkgdesc="A new approach to API documentation in Sphinx"
 arch=(any)
-url="https://github.com/readthedocs/sphinx-autoapi"
+url=https://github.com/readthedocs/sphinx-autoapi
 license=(MIT)
 depends=(
   python-astroid
@@ -27,7 +27,7 @@ checkdepends=(
   python-pytest
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('76534abf959cf1f88ea2540cbf8d5fb1b18315800f0cf00a06f439364ec053262a943a5ad89ccb5db7e6230734a7f243a4899aa991d32562a50ab02290424065')
+b2sums=('145e61dd8b9017c35adfb6ff573d42c2aebc859dfbc0b4816f60aa1d55afc49fc00e4fb41e8ce791b9edb6a193f4f7cd41a1f478e7b51c0e942f00ca2e8622d1')
 
 build() {
   cd "$_name"
