@@ -6,7 +6,7 @@
 pkgbase=alsa-plugins
 pkgname=(alsa-plugins pulseaudio-alsa)
 pkgver=1.2.12
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Additional ALSA plugins"
 arch=(x86_64)
