@@ -7,8 +7,8 @@
 
 pkgname=darktable
 epoch=2
-pkgver=4.6.1
-pkgrel=3
+pkgver=4.8.0
+pkgrel=1
 pkgdesc="Utility to organize and develop raw images"
 arch=(x86_64)
 url="https://darktable.org"
@@ -24,7 +24,7 @@ optdepends=('dcraw: base curve script'
             'gnuplot: noise profile script')
 makedepends=(cmake intltool desktop-file-utils llvm clang portmidi python-jsonschema libwebp)
 source=("https://github.com/darktable-org/darktable/releases/download/release-${pkgver}/darktable-${pkgver}.tar.xz"{,.asc})
-sha256sums=('16edc0a070293e2d3cda4ea10e49bda9bde932e23f9e62e2fa2e7ac74acf7afd'
+sha256sums=('419849e9015270e4075f2341c6b5532d3d1cccccfa8f19592cb2ea3ad17f9255'
             'SKIP')
 validpgpkeys=(C4CBC150699956E2A3268EF5BB5CC8295B1779C9  # darktable releases <release@darktable.org>
               F10F9686652B0E949FCD94C318DCA123F949BD3B) # Pascal Obry <pascal@obry.net>
