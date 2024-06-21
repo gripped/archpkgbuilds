@@ -1,0 +1,19 @@
+pkgbase = ffms2
+	pkgdesc = A libav/ffmpeg based source library and Avisynth plugin for easy frame accurate access
+	pkgver = 5.0RC4
+	pkgrel = 1
+	url = https://github.com/FFMS/ffms2
+	arch = x86_64
+	license = GPL
+	makedepends = avisynthplus
+	makedepends = git
+	depends = ffmpeg
+	optdepends = avisynthplus: AviSynth plugin
+	optdepends = vapoursynth: VapourSynth plugin
+	provides = avisynth-plugin-ffms2
+	provides = libffms2.so
+	provides = vapoursynth-plugin-ffms2
+	source = git+https://github.com/FFMS/ffms2.git#tag=a3c6e25a103157ba2170fc4eafc2e444cc789b5b
+	sha256sums = SKIP
+
+pkgname = ffms2
