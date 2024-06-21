@@ -1,0 +1,18 @@
+pkgbase = unpaper
+	pkgdesc = post-processing tool for scanned sheets of paper
+	pkgver = 7.0.0
+	pkgrel = 3
+	url = https://github.com/unpaper/unpaper
+	arch = x86_64
+	license = GPL
+	makedepends = libxslt
+	makedepends = docbook-xsl
+	makedepends = meson
+	makedepends = python-sphinx
+	depends = ffmpeg
+	source = unpaper-7.0.0.tar.gz::https://github.com/unpaper/unpaper/releases/download/unpaper-7.0.0/unpaper-7.0.0.tar.xz
+	source = ffmpeg5.patch
+	sha256sums = 2575fbbf26c22719d1cb882b59602c9900c7f747118ac130883f63419be46a80
+	sha256sums = f0d2d96ce399acb41ab8392855f857fcd0e3b1e5d869bb5753a90633c4dfb977
+
+pkgname = unpaper
