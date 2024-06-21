@@ -1,17 +1,19 @@
 pkgbase = sip
 	pkgdesc = A tool that makes it easy to create Python bindings for C and C++ libraries
-	pkgver = 6.8.3
-	pkgrel = 3
+	pkgver = 6.8.4
+	pkgrel = 1
 	url = https://www.riverbankcomputing.com/
 	arch = any
 	license = custom:"sip"
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
+	makedepends = python-setuptools-scm
 	makedepends = python-wheel
 	depends = python
 	depends = python-packaging
 	depends = python-setuptools
-	source = https://pypi.python.org/packages/source/s/sip/sip-6.8.3.tar.gz
-	sha256sums = 888547b018bb24c36aded519e93d3e513d4c6aa0ba55b7cc1affbd45cf10762c
+	source = git+https://github.com/Python-SIP/sip#tag=6.8.4
+	sha256sums = 7c3a54124bc47641544c78cf604e2a177a7b626c7814fd34777823bd3f8dd31b
 
 pkgname = sip
