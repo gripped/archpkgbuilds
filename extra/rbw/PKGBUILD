@@ -1,27 +1,35 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 # Contributor: Jesse Luehrs <archlinux@tozt.net>
 
 pkgname=rbw
-pkgver=1.10.2
+pkgver=1.11.0
 pkgrel=1
 pkgdesc='Unofficial Bitwarden CLI'
 arch=('x86_64')
 url='https://git.tozt.net/rbw'
 license=('MIT')
-depends=('glibc' 'gcc-libs' 'pinentry')
-makedepends=('rust')
+depends=(
+  'gcc-libs'
+  'glibc'
+  'pinentry'
+)
+makedepends=(
+  'git'
+  'rust'
+)
 options=('!lto')
-source=("$url/snapshot/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('c0bcd4fa7afb04d2b6d848063f47f9a0c59795a772993352823e073d4a491f355ca84e0d01743a933e663c83824c60a39b5801530b359c1dae0208e05b4b8ba5')
-b2sums=('931e48b80d34550e99b32e7deaaddc37aeac2d8ca2b29bcca3d25014e7a13da3319beeaf8200cab8d033efd540f96662c62d779ced87669bd671a9ee65245a98')
+source=("git+https://github.com/doy/rbw.git#tag=$pkgver")
+sha512sums=('c3b3f42a9717d1154aacb8485af48c68c46cb8be4476ef9d299f328d132fcc1bdc702e39b9b69e4d074d4f1560a1614ec461d1f8273277ad2e5da32625bc50e8')
+b2sums=('34e8cefb6c29b748046ba3aed65231ea2a7b7bf709df07f33989ad9189fb51652414d30eefe1909659872ac8f2252541a05f1df53d1ddddb4fa2b57347dd0ad0')
 
 prepare() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   cargo build --frozen --release --all-features
 
   # generate shell auto-completions
@@ -32,12 +40,12 @@ build() {
 }
 
 check() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   cargo test --frozen --all-features
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
 
   # binaries
   install -vDm755 -t "$pkgdir/usr/bin" target/release/rbw{,-agent}
