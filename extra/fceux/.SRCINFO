@@ -1,0 +1,24 @@
+pkgbase = fceux
+	pkgdesc = Fast and ultra-compatible NES/Famicom emulator
+	pkgver = 2.6.6
+	pkgrel = 2
+	url = https://github.com/TASEmulators/fceux
+	arch = x86_64
+	license = GPL
+	makedepends = cmake
+	makedepends = git
+	makedepends = glu
+	makedepends = mesa-libgl
+	makedepends = ninja
+	makedepends = setconf
+	makedepends = scons
+	depends = gd
+	depends = lua
+	depends = minizip
+	depends = qt5-base
+	depends = sdl2
+	optdepends = ffmpeg: for recording
+	source = git+https://github.com/TASEmulators/fceux#commit=34eb7601c415b81901fd02afbd5cfdc84b5047ac
+	b2sums = SKIP
+
+pkgname = fceux
