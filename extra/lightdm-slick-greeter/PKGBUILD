@@ -3,7 +3,7 @@
 # Contributor: Sam Burgos <santiago.burgos1089@gmail.com>
 
 pkgname=lightdm-slick-greeter
-pkgver=2.0.4
+pkgver=2.0.5
 pkgrel=1
 pkgdesc='A slick-looking LightDM greeter'
 arch=('x86_64')
@@ -14,8 +14,8 @@ depends=('cairo' 'freetype2' 'gtk3' 'libcanberra' 'libxext' 'lightdm' 'pixman'
 optdepends=('numlockx: enable numerical keypad on supported keyboard')
 makedepends=('intltool' 'vala' 'gnome-common')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/${pkgver}.tar.gz")
-sha512sums=('e3362b03abe58f76c43644f4638352ab1e934137a4efa1fe6dd7c7c7e40935fbc10c33c1daa432f2bccf0af0b2c141d53581171e01c2cc71a2eaab8aa1ac74d2')
-b2sums=('275fdef11fe55656a05c2e5abfb17fcc19ef7fc992a004ba5eb339ccd6bba7e7a3d4f49d066150f5a2ad339cdde9352663429d07f557964a7f1d438d36addec8')
+sha512sums=('394f226e0bd78b317979dcfb76546af3dc4337104887d88d1688a88e7d3d18f23b915cf861f9254d404f075e12c3aeda87ac2a49a4d6255b9b50cb0d15ac6c7a')
+b2sums=('6be08aeea22f8acab3fee364b3bd4c1edd5ec109bd13826a16950d9962f91f08f384415f978d187ff92a7ba76fd7c11bae91d7e2ef578c2fb70e6f3334a7490b')
 
 prepare() {
 	cd slick-greeter-${pkgver}
