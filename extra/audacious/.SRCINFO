@@ -1,0 +1,27 @@
+pkgbase = audacious
+	pkgdesc = Lightweight, advanced audio player focused on audio quality
+	pkgver = 4.4
+	pkgrel = 1
+	url = https://audacious-media-player.org/
+	arch = x86_64
+	license = BSD
+	makedepends = meson
+	makedepends = glib2-devel
+	depends = qt6-base
+	depends = qt6-svg
+	depends = qt6-imageformats
+	depends = glib2
+	depends = hicolor-icon-theme
+	depends = desktop-file-utils
+	optdepends = unzip: zipped skins support
+	source = https://distfiles.audacious-media-player.org/audacious-4.4.tar.bz2
+	sha256sums = aadc5d26ea2954236a00153e424094d9e6eb55c5c324c08fd0491b7c2ae2f830
+
+pkgname = audacious
+	depends = qt6-base
+	depends = qt6-svg
+	depends = qt6-imageformats
+	depends = glib2
+	depends = hicolor-icon-theme
+	depends = desktop-file-utils
+	depends = audacious-plugins
