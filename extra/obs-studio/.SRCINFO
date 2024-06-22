@@ -1,7 +1,7 @@
 pkgbase = obs-studio
 	pkgdesc = Free, open source software for live streaming and recording
 	pkgver = 30.1.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://obsproject.com
 	arch = x86_64
 	license = GPL2
@@ -36,8 +36,10 @@ pkgbase = obs-studio
 	source = obs-studio-30.1.2.tar.gz::https://github.com/obsproject/obs-studio/archive/30.1.2.tar.gz
 	source = fix_python_binary_loading.patch
 	source = ignore_unused_submodules.patch
+	source = 0001-obs-ffmpeg-Fix-incompatible-pointer-types-with-FFmpe.patch
 	sha256sums = 490bae1c392b3b344b0270afd8cb887da4bc50bd92c0c426e96713c1ccb9701a
 	sha256sums = bdfbd062f080bc925588aec1989bb1df34bf779cc2fc08ac27236679cf612abd
 	sha256sums = 60b0ee1f78df632e1a8c13cb0a7a5772b2a4b092c4a2a78f23464a7d239557c3
+	sha256sums = f4356ddabd4b54662f685ec88432e2830cdeb1904665d14c64d2daa3ea7d254e
 
 pkgname = obs-studio
