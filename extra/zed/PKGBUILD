@@ -2,7 +2,7 @@
 # Contributor: Marcell Pardavi <marcell.pardavi@gmail.com>
 
 pkgname=zed
-pkgver=0.139.3
+pkgver=0.140.5
 pkgrel=1
 pkgdesc='A high-performance, multiplayer code editor from the creators of Atom and Tree-sitter'
 arch=(x86_64)
@@ -26,17 +26,18 @@ depends=(alsa-lib libasound.so
          vulkan-tools
          wayland
          zlib libz.so)
-replaces=(zed-editor)
 makedepends=(cargo
+             clang
              vulkan-headers
              vulkan-validation-layers)
 optdepends=('clang: improved C/C++ language support'
             'eslint: improved Javascript language support'
             'rust-analyzer: improved Rust language support')
+replaces=(zed-editor)
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz"
         use-lib-not-libexec.patch)
-sha256sums=('cd15f80c95ec4c33cbe821ff70e64c3922d1187fa13ac894a8049b615cad2e4f'
+sha256sums=('a634d8a29738446d76b299ea9a662beade7b7933f43deccb432e9f52cfa2b68b'
             '180f8f84cd4320a758225ccb016cd6fc46146f1e7ba6d2c3b75decee8b89989d')
 
 _binname=zeditor
