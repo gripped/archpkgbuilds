@@ -3,7 +3,7 @@
 
 pkgname=qt6-grpc
 pkgver=6.7.1
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
@@ -11,11 +11,11 @@ pkgdesc='Provides the modules QtGrpc and QtProtobuf'
 depends=(abseil-cpp
          gcc-libs
          glibc
-         grpc
          protobuf
          qt6-base)
 makedepends=(cmake
              git
+             grpc
              ninja)
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
