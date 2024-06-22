@@ -1,0 +1,20 @@
+pkgbase = ffmpegthumbnailer
+	pkgdesc = Lightweight video thumbnailer that can be used by file managers
+	pkgver = 2.2.2
+	pkgrel = 6
+	url = https://github.com/dirkvdb/ffmpegthumbnailer
+	arch = x86_64
+	license = GPL2
+	makedepends = cmake
+	depends = ffmpeg
+	depends = libjpeg
+	depends = libpng
+	optdepends = gvfs: support for gio uris
+	source = https://github.com/dirkvdb/ffmpegthumbnailer/archive/2.2.2/ffmpegthumbnailer-2.2.2.tar.gz
+	source = ffmpegthumbnailer-ffmpeg5.patch::https://patch-diff.githubusercontent.com/raw/dirkvdb/ffmpegthumbnailer/pull/198.patch
+	source = https://github.com/dirkvdb/ffmpegthumbnailer/commit/efb5b618.patch
+	sha256sums = 8c4c42ab68144a9e2349710d42c0248407a87e7dc0ba4366891905322b331f92
+	sha256sums = 300d3208fca6de6f7a90fbabbb8e58b9cf0cc4a4c9b1d2df0cd53ece1736646a
+	sha256sums = c266d1c7cab2fa26dfee2410ea6864ab81a57e8784eda6574cd8237750b9e0e1
+
+pkgname = ffmpegthumbnailer
