@@ -1,12 +1,13 @@
 pkgbase = protobuf
 	pkgdesc = Protocol Buffers - Google's data interchange format
-	pkgver = 25.3
-	pkgrel = 4
+	pkgver = 27.1
+	pkgrel = 2
 	url = https://developers.google.com/protocol-buffers/
 	arch = x86_64
 	license = BSD
 	checkdepends = python-pytest
 	checkdepends = python-numpy
+	makedepends = bazel
 	makedepends = cmake
 	makedepends = gtest
 	makedepends = python-build
@@ -17,14 +18,12 @@ pkgbase = protobuf
 	depends = glibc
 	depends = zlib
 	depends = abseil-cpp
-	source = https://github.com/protocolbuffers/protobuf/archive/v25.3/protobuf-25.3.tar.gz
+	source = https://github.com/protocolbuffers/protobuf/archive/v27.1/protobuf-27.1.tar.gz
 	source = https://github.com/protocolbuffers/protobuf/commit/2e62ef1e.patch
 	source = soversion.patch
-	source = protobuf-21.12-pep517.patch
-	sha512sums = 1f73e237c919082e5423ae9e2ea8813dccf672c059051d1531fe89ffaa45872d3cf3052b8c3af26f674296ec17d7dc861c67b8f0834ed80261ce4a6a14ed7115
-	sha512sums = f42d9bd702abe2c7fc4dcb07d050376287ac60b0b7e2fde0d7a9e9df24a620866bee5fd7de2e3b216095376de47e1fe7443cca74c9a9e85c1a0bc42e8973a280
+	sha512sums = a34f4830fa3ddfd6e96e98c72bead23fba8966abdd687ca1f86181af1658bc4f541c75f7ba78ab66e139b180a8398735f598a1a38bdc0668154647ce00222e77
+	sha512sums = 18bc71031bbcbc3810a9985fa670465040f06a6c104ab8079b56bdfc499bb6cec40805a0cefd455031142490a576dc60aa8000523877ac0353b93558e9beabbd
 	sha512sums = f0813a415cff5639e4709400f15b0c5565294e7907ae164e620b76258734c643115d8e5170bf0e4aee264c347fb7e01ac4be60d19be2a91c0ce9c561dad8c8e9
-	sha512sums = a297e74ee4f807b3fad7da7d0de6dd9647963521be66cd2a2370343f5bd191cbb38759157ac0cdb161a5893a30a10520a5098e88a292c800859af33db5cf7a41
 
 pkgname = protobuf
 	provides = libprotoc.so
@@ -34,5 +33,5 @@ pkgname = protobuf
 
 pkgname = python-protobuf
 	pkgdesc = Python 3 bindings for Google Protocol Buffers
-	depends = protobuf=25.3
+	depends = protobuf=27.1
 	depends = python
