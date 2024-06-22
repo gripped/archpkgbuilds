@@ -8,7 +8,7 @@ _mpi=openmpi
 pkgname=${_pkg}
 #-${_mpi}
 pkgver=5.12.1
-pkgrel=5
+pkgrel=6
 pkgdesc="Parallel Visualization application using VTK (${_mpi} version)"
 arch=(x86_64)
 url="https://www.paraview.org"
@@ -60,6 +60,7 @@ prepare() {
 build() {
   export CFLAGS+=" -ffat-lto-objects"
   export CXXFLAGS+=" -ffat-lto-objects"
+# Docs fail to build with libxml2 2.13
   cmake -B build -S ParaView-v${pkgver/R/-R} -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/opt/paraview \
@@ -67,6 +68,7 @@ build() {
     -DCMAKE_CXX_STANDARD=17 \
     -DVTK_IGNORE_CMAKE_CXX11_CHECKS=ON \
     -DCMAKE_SKIP_INSTALL_RPATH=OFF \
+    .DPARAVIEW_ENABLE_EMBEDDED_DOCUMENTATION=OFF \
     -DPARAVIEW_ENABLE_ADIOS2=ON \
     -DPARAVIEW_ENABLE_FFMPEG=ON \
     -DPARAVIEW_ENABLE_FIDES=ON \
