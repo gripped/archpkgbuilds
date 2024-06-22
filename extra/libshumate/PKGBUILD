@@ -7,7 +7,7 @@ pkgname=(
   libshumate-docs
 )
 pkgver=1.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Map widget for GTK 4"
 url="https://wiki.gnome.org/Projects/libshumate"
 license=(LGPL-2.1-or-later)
@@ -30,6 +30,7 @@ depends=(
 makedepends=(
   gi-docgen
   git
+  glib2-devel
   gobject-introspection
   gperf
   meson
