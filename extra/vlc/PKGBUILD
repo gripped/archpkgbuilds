@@ -8,7 +8,7 @@ _vlcver=3.0.20
 # optional fixup version including hyphen
 _vlcfixupver=
 pkgver=${_vlcver}${_vlcfixupver//-/.r}
-pkgrel=9
+pkgrel=10
 pkgdesc='Multi-platform MPEG, VCD/DVD, and DivX player'
 url='https://www.videolan.org/vlc/'
 arch=('x86_64')
@@ -230,7 +230,7 @@ prepare() {
 build() {
   cd ${pkgname}-${_vlcver}
 
-  export CFLAGS+=" -I/usr/include/samba-4.0 -ffat-lto-objects"
+  export CFLAGS+=" -I/usr/include/samba-4.0 -ffat-lto-objects -Wno-incompatible-pointer-types"
   export CPPFLAGS+=" -I/usr/include/samba-4.0"
   export CXXFLAGS+=" -std=c++17"
   export PKG_CONFIG_PATH="/usr/lib/ffmpeg4.4/pkgconfig"
