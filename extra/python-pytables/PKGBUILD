@@ -4,7 +4,7 @@
 
 pkgname=python-pytables
 pkgver=3.9.2
-pkgrel=3
+pkgrel=4
 pkgdesc="A package for managing hierarchical datasets and designed to efficiently and easily cope with extremely large amounts of data"
 arch=(x86_64)
 url="https://www.pytables.org"
