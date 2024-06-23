@@ -3,7 +3,7 @@
 # Contributor: Sebastien Piccand <sebcactus gmail com>
 
 pkgname=('handbrake' 'handbrake-cli')
-pkgver=1.8.0
+pkgver=1.8.1
 pkgrel=1
 arch=('x86_64')
 url="https://handbrake.fr/"
@@ -18,7 +18,7 @@ makedepends=('python' 'nasm' 'wget' 'cmake' 'meson' 'git'
              "${_commondeps[@]}" "${_guideps[@]}")
 options=('!lto') # https://bugs.archlinux.org/task/72600
 source=(https://github.com/HandBrake/HandBrake/releases/download/$pkgver/HandBrake-$pkgver-source.tar.bz2{,.sig})
-sha256sums=('8b1df7d6aa7aa3c2e12978f3473e301c4b60b4fedc749b75aa6f310b80310cef'
+sha256sums=('f411d54b1760b61b2361343ffa8f9d857f228cd477f885659e0322b619adee90'
             'SKIP')
 validpgpkeys+=('1629C061B3DDE7EB4AE34B81021DB8B44E4A8645') # HandBrake Team <developers@handbrake.fr>
 
