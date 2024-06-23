@@ -1,0 +1,42 @@
+# Maintainer: Tim Meusel <tim@bastelfreak.de>
+
+_gemname='faraday-multipart'
+pkgname="ruby-${_gemname}"
+pkgver=1.0.4
+pkgrel=1
+pkgdesc='Perform multipart-post requests using Faraday'
+arch=('any')
+url="https://github.com/lostisland/${_gemname}"
+license=('MIT')
+depends=('ruby' 'ruby-multipart-post')
+checkdepends=('ruby-faraday' 'ruby-webmock' 'ruby-multipart-parser' 'ruby-rack-test' 'ruby-rspec')
+options=('!emptydirs')
+source=("${url}/archive/v${pkgver}/${_gemname}-v${pkgver}.tar.gz")
+sha512sums=('a155cc1cd572157c33df75f342bc9c1d8971ee3c92a3b184098b19b3bee56f1ee79e68983ccbc6df4f8e97f8ab877dca9d28b3ed22fea1d49197c07a81d8092a')
+
+prepare() {
+  cd "${srcdir}/${_gemname}-${pkgver}"
+
+}
+
+build() {
+  cd "${srcdir}/${_gemname}-${pkgver}"
+  gem build "${_gemname}.gemspec"
+}
+
+check() {
+  cd "${srcdir}/${_gemname}-${pkgver}"
+  rspec
+}
+
+package() {
+cd "${srcdir}/${_gemname}-${pkgver}"
+  local _gemdir="$(gem env gemdir)"
+  gem install --verbose --ignore-dependencies --no-user-install --install-dir "${pkgdir}/${_gemdir}" --bindir "${pkgdir}/usr/bin" "${_gemname}-${pkgver}.gem"
+
+  install -Dm 644 LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+
+  install -Dm 644 README.md CHANGELOG.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+
+  rm -rf "${pkgdir}/${_gemdir}/cache"
+}
