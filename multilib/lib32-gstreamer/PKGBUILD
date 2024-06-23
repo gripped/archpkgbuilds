@@ -8,40 +8,80 @@ pkgname=(
   lib32-gst-plugins-base
   lib32-gst-plugins-good
 )
-pkgver=1.24.4
+pkgver=1.24.5
 pkgrel=1
 pkgdesc="Multimedia graph framework (32-bit)"
 url="https://gstreamer.freedesktop.org/"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 makedepends=(
-  # superproject
-  git meson
-
-  # gstreamer
-  lib32-gtk3 lib32-libcap lib32-libelf lib32-libunwind lib32-rust
-
-  # gst-plugins-base
-  lib32-alsa-lib lib32-cdparanoia lib32-libdrm lib32-libglvnd lib32-libgudev
-  lib32-libjpeg lib32-libpng lib32-libtheora lib32-libx11 lib32-libxi
-  lib32-libxv lib32-opus lib32-orc lib32-pango lib32-sdl2 lib32-wayland
-  lib32-zlib wayland-protocols
-
-  # gst-plugins-good
-  lib32-aalib lib32-cairo lib32-flac lib32-gdk-pixbuf2 lib32-jack2
-  lib32-libavc1394 lib32-libcaca lib32-libdv lib32-libiec61883 lib32-libpulse
-  lib32-libraw1394 lib32-libshout lib32-libsoup3 lib32-libvpx lib32-mpg123
-  lib32-nettle lib32-taglib lib32-twolame lib32-v4l-utils lib32-wavpack
-  lib32-libvpx lib32-libxdamage lib32-libxtst lib32-mpg123 lib32-speex
-  lib32-taglib lib32-twolame lib32-v4l-utils lib32-wavpack
+  git
+  glib2-devel
+  lib32-aalib
+  lib32-alsa-lib
+  lib32-bzip2
+  lib32-cairo
+  lib32-cdparanoia
+  lib32-flac
+  lib32-gcc-libs
+  lib32-gdk-pixbuf2
+  lib32-glib2
+  lib32-glibc
+  lib32-gtk3
+  lib32-jack2
+  lib32-libavc1394
+  lib32-libcaca
+  lib32-libcap
+  lib32-libdrm
+  lib32-libdv
+  lib32-libelf
+  lib32-libglvnd
+  lib32-libgudev
+  lib32-libiec61883
+  lib32-libjpeg
+  lib32-libogg
+  lib32-libpng
+  lib32-libpulse
+  lib32-libraw1394
+  lib32-libshout
+  lib32-libsoup3
+  lib32-libtheora
+  lib32-libunwind
+  lib32-libvpx
+  lib32-libx11
+  lib32-libxcb
+  lib32-libxdamage
+  lib32-libxext
+  lib32-libxfixes
+  lib32-libxi
+  lib32-libxml2
+  lib32-libxtst
+  lib32-libxv
+  lib32-mesa
+  lib32-mpg123
+  lib32-nettle
+  lib32-opus
+  lib32-orc
+  lib32-pango
+  lib32-rust
+  lib32-sdl2
+  lib32-speex
+  lib32-taglib
+  lib32-twolame
+  lib32-v4l-utils
+  lib32-wavpack
+  lib32-wayland
+  lib32-zlib
+  meson
+  wayland-protocols
 )
 checkdepends=(xorg-server-xvfb)
 source=(
   "git+https://gitlab.freedesktop.org/gstreamer/gstreamer.git?signed#tag=$pkgver"
   0001-HACK-meson-Disable-broken-tests.patch
 )
-b2sums=('37d5e65358a9b7491c6076a814595c1da1b6d5478fc6b777e53e2966ad0eaf57802477315cbc8c4518abcdc7c908687e4397bcbd535ebff655cb96793a68d8fb'
-        '11e4af4a3697ddfa1c671d2d965b3765e4dce7ea544b634e1062c8257d1e4777908ede233c0b021460f5e54931c48fe3666dde92c1a350cab194b414566a2239')
+b2sums=('6a01a775675d1ba9d9cfd8a0f910581cc542cea2b4a72fd769699bcb2d4cbdf83cb6a80e6886804400a2263e53afee81245517440525b9685284113d308bbe90'
+        '0e186a56db45250e9e5dbf42a64f87ff01c8f65346ff44763db469c569c690f20efec20c9b5c1030ff0373587a0d1f682e1d6181cf9d5a2e7dbb7512e3745d4d')
 validpgpkeys=(
   D637032E45B8C6585B9456565D2EEE6F6F349D7C # Tim Müller <tim@gstreamer-foundation.org>
 )
@@ -57,8 +97,6 @@ build() {
   local meson_options=(
     --cross-file lib32
     --libexecdir lib32
-
-    # Superproject options
     -D bad=disabled
     -D devtools=disabled
     -D doc=disabled
@@ -67,6 +105,16 @@ build() {
     -D gobject-cast-checks=disabled
     -D gpl=enabled
     -D gst-examples=disabled
+    -D gst-plugins-base:gl-graphene=disabled
+    -D gst-plugins-base:libvisual=disabled
+    -D gst-plugins-base:tremor=disabled
+    -D gst-plugins-good:amrnb=disabled
+    -D gst-plugins-good:amrwbdec=disabled
+    -D gst-plugins-good:lame=disabled
+    -D gst-plugins-good:rpicamsrc=disabled
+    -D gstreamer:bash-completion=disabled
+    -D gstreamer:dbghelp=disabled
+    -D gstreamer:ptp-helper-permissions=capabilities
     -D introspection=disabled
     -D libav=disabled
     -D libnice=disabled
@@ -81,22 +129,12 @@ build() {
     -D sharp=disabled
     -D ugly=disabled
     -D vaapi=disabled
-
-    # Subproject options
-    -D gstreamer:bash-completion=disabled
-    -D gstreamer:dbghelp=disabled
-    -D gstreamer:ptp-helper-permissions=capabilities
-    -D gst-plugins-base:gl-graphene=disabled
-    -D gst-plugins-base:libvisual=disabled
-    -D gst-plugins-base:tremor=disabled
-    -D gst-plugins-good:amrnb=disabled
-    -D gst-plugins-good:amrwbdec=disabled
-    -D gst-plugins-good:lame=disabled
-    -D gst-plugins-good:rpicamsrc=disabled
   )
 
+  # https://gitlab.freedesktop.org/gstreamer/gstreamer/-/issues/3197
+  export GI_SCANNER_DISABLE_CACHE=1
+
   arch-meson gstreamer build "${meson_options[@]}"
-  meson configure build --no-pager # Print config
   meson compile -C build
 }
 
@@ -107,7 +145,7 @@ check() (
   export NO_AT_BRIDGE=1 GTK_A11Y=none
 
   # Flaky due to timeouts
-  xvfb-run -s '-nolisten local' \
+  xvfb-run -s "-nolisten local" \
     meson test -C build --print-errorlogs -t 5 || :
 )
 
@@ -123,8 +161,13 @@ _install() {
 package_lib32-gstreamer() {
   pkgdesc+=" - core"
   depends=(
-    lib32-glib2 lib32-libcap lib32-libelf lib32-libunwind lib32-libxml2
     gstreamer
+    lib32-gcc-libs
+    lib32-glib2
+    lib32-glibc
+    lib32-libcap
+    lib32-libelf
+    lib32-libunwind
   )
   optdepends=()
   install=lib32-gstreamer.install
@@ -153,10 +196,23 @@ package_lib32-gstreamer() {
 package_lib32-gst-plugins-base-libs() {
   pkgdesc+=" - base"
   depends=(
-    "lib32-gstreamer=$pkgver"
-    lib32-libdrm lib32-libgl lib32-libgudev lib32-libxi lib32-libxv lib32-mesa
-    lib32-orc lib32-wayland
+    "lib32-gstreamer=$pkgver-$pkgrel"
     gst-plugins-base-libs
+    lib32-gcc-libs
+    lib32-glib2
+    lib32-glibc
+    lib32-libdrm
+    lib32-libglvnd
+    lib32-libgudev
+    lib32-libx11
+    lib32-libxcb
+    lib32-libxext
+    lib32-libxi
+    lib32-libxv
+    lib32-mesa
+    lib32-orc
+    lib32-wayland
+    lib32-zlib
   )
 
   cd root; local files=(
@@ -198,10 +254,22 @@ package_lib32-gst-plugins-base-libs() {
 package_lib32-gst-plugins-base() {
   pkgdesc+=" - base plugins"
   depends=(
-    "lib32-gst-plugins-base-libs=$pkgver"
-    lib32-alsa-lib lib32-cdparanoia lib32-libjpeg lib32-libpng lib32-libtheora
-    lib32-libvorbis lib32-opus lib32-pango
+    "lib32-gst-plugins-base-libs=$pkgver-$pkgrel"
+    "lib32-gstreamer=$pkgver-$pkgrel"
     gst-plugins-base
+    lib32-alsa-lib
+    lib32-cairo
+    lib32-cdparanoia
+    lib32-glib2
+    lib32-glibc
+    lib32-libjpeg
+    lib32-libogg
+    lib32-libpng
+    lib32-libtheora
+    lib32-libvorbis
+    lib32-libx11
+    lib32-opus
+    lib32-pango
   )
 
   cd root; local files=(
@@ -219,15 +287,46 @@ package_lib32-gst-plugins-base() {
 package_lib32-gst-plugins-good() {
   pkgdesc+=" - good plugins"
   depends=(
-    "lib32-gst-plugins-base-libs=$pkgver"
-    lib32-aalib lib32-cairo lib32-flac lib32-gdk-pixbuf2 lib32-libavc1394
-    lib32-libcaca lib32-libdv lib32-libgudev lib32-libiec61883 lib32-libpulse
-    lib32-libraw1394 lib32-libshout lib32-libsoup3 lib32-libvpx lib32-libxdamage
-    lib32-libxtst lib32-mpg123 lib32-nettle lib32-speex lib32-taglib
-    lib32-twolame lib32-v4l-utils lib32-wavpack
+    "lib32-gst-plugins-base-libs=$pkgver-$pkgrel"
+    "lib32-gstreamer=$pkgver-$pkgrel"
     gst-plugins-good
+    lib32-aalib
+    lib32-bzip2
+    lib32-cairo
+    lib32-flac
+    lib32-gcc-libs
+    lib32-gdk-pixbuf2
+    lib32-glib2
+    lib32-glibc
+    lib32-libavc1394
+    lib32-libcaca
+    lib32-libdv
+    lib32-libgudev
+    lib32-libiec61883
+    lib32-libjpeg
+    lib32-libpng
+    lib32-libpulse
+    lib32-libraw1394
+    lib32-libshout
+    lib32-libsoup3
+    lib32-libvpx
+    lib32-libx11
+    lib32-libxdamage
+    lib32-libxext
+    lib32-libxfixes
+    lib32-libxml2
+    lib32-libxtst
+    lib32-mpg123
+    lib32-nettle
+    lib32-orc
+    lib32-speex
+    lib32-taglib
+    lib32-twolame
+    lib32-v4l-utils
+    lib32-wavpack
+    lib32-zlib
   )
-  optdepends=('lib32-jack: JACK backend')
+  optdepends=("lib32-jack: JACK backend")
 
   cd root; local files=(
     usr/lib32/gstreamer-1.0/libgst1394.so
@@ -264,7 +363,6 @@ package_lib32-gst-plugins-good() {
     usr/lib32/gstreamer-1.0/libgstisomp4.so
     usr/lib32/gstreamer-1.0/libgstjack.so
     usr/lib32/gstreamer-1.0/libgstjpeg.so
-    #usr/lib32/gstreamer-1.0/libgstlame.so
     usr/lib32/gstreamer-1.0/libgstlevel.so
     usr/lib32/gstreamer-1.0/libgstmatroska.so
     usr/lib32/gstreamer-1.0/libgstmonoscope.so
@@ -304,3 +402,5 @@ package_lib32-gst-plugins-good() {
     usr/lib32/gstreamer-1.0/libgsty4menc.so
   ); _install
 }
+
+# vim:set sw=2 sts=-1 et:
