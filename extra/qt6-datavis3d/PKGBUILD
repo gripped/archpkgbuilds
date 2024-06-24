@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-datavis3d
-pkgver=6.7.1
+pkgver=6.7.2
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -19,7 +19,7 @@ optdepends=('qt6-declarative: QML bindings')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
-sha256sums=('fa0a9ff6c05c0faa7eb50a0f98f611fb2bc322a00bd3b537f1666c8e92878cfe')
+sha256sums=('f4072e91cd74983a7b9235e341c5e23ce1affbf20b4268f4bb1650c29c8aa7f4')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
