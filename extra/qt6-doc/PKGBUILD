@@ -4,7 +4,7 @@
 
 pkgbase=qt6-doc
 pkgname=(qt6-doc qt6-examples)
-pkgver=6.7.1
+pkgver=6.7.2
 pkgrel=1
 arch=('any')
 url='https://www.qt.io'
@@ -33,7 +33,7 @@ makedepends=(alsa-lib
 groups=(qt6)
 _pkgfn=qt-everywhere-src-$pkgver
 source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/${pkgver/-/}/single/$_pkgfn.tar.xz)
-sha256sums=('38dbf2768776e875ed5cdea8cccf1a240512a29769768084430914c4a33bedc4')
+sha256sums=('0aaea247db870193c260e8453ae692ca12abc1bd841faa1a6e6c99459968ca8a')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
