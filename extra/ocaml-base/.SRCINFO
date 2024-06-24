@@ -1,7 +1,7 @@
 pkgbase = ocaml-base
 	pkgdesc = Full standard library replacement for OCaml
-	pkgver = 0.16.3
-	pkgrel = 5
+	pkgver = 0.17.0
+	pkgrel = 1
 	url = https://github.com/janestreet/base
 	arch = x86_64
 	license = MIT
@@ -10,9 +10,10 @@ pkgbase = ocaml-base
 	makedepends = ocaml-compiler-libs
 	depends = ocaml>=4.14.0
 	depends = ocaml-sexplib0>=0.16.0
+	depends = ocaml-intrinsics-kernel
 	options = !strip
 	options = !debug
-	source = git+https://github.com/janestreet/base.git#commit=2859444a65e51799795e80ad774a01f84b5d4518
-	sha256sums = SKIP
+	source = git+https://github.com/janestreet/base.git#tag=v0.17.0
+	sha256sums = 87982479451825cced40cd02d11a5490fea769772c68d8080afdd9647564b1f4
 
 pkgname = ocaml-base
