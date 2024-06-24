@@ -3,7 +3,7 @@
 
 pkgname=python-uvloop
 pkgver=0.19.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Ultra fast asyncio event loop'
 arch=(x86_64)
 url=https://github.com/MagicStack/uvloop
@@ -17,7 +17,7 @@ depends=(
   libuv
 )
 makedepends=(
-  cython0
+  cython
   git
   python-build
   python-installer
@@ -30,6 +30,7 @@ b2sums=(SKIP)
 
 prepare() {
   sed 's/self.use_system_libuv = False/self.use_system_libuv = True/' -i uvloop/setup.py
+  sed -e 's|>=0.29.36,<0.30.0|>=0.29.36|g' -i uvloop/pyproject.toml -i uvloop/setup.py
 }
 
 pkgver() {
