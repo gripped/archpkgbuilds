@@ -7,7 +7,7 @@
 pkgbase=brltty
 pkgname=(brltty brltty-udev-generic)
 pkgver=6.6
-pkgrel=9
+pkgrel=10
 pkgdesc="Braille display driver for Linux/Unix"
 arch=(x86_64)
 url="https://brltty.app"
@@ -18,7 +18,7 @@ makedepends=(
   at-spi2-core
   atk
   bluez-libs
-  cython0
+  cython
   dbus
   dracut
   espeak-ng
