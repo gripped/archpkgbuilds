@@ -2,8 +2,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-grpc
-pkgver=6.7.1
-pkgrel=2
+pkgver=6.7.2
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
@@ -20,7 +20,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
-sha256sums=('be621d9d6758b906c8fdba38efd6b57dc4a1acf433470f61a0026e403d53c29e')
+sha256sums=('f471c73e6321faab12d52f5baf0009c6706a49b9774cb39a8d0ae4a32f3f802e')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
