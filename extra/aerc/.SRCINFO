@@ -1,19 +1,22 @@
 pkgbase = aerc
 	pkgdesc = Email Client for your Terminal
 	pkgver = 0.17.0
-	pkgrel = 1
+	pkgrel = 3
 	url = https://git.sr.ht/~rjarry/aerc
 	arch = x86_64
 	license = MIT
+	makedepends = git
 	makedepends = go
 	makedepends = scdoc
-	depends = notmuch-runtime
 	depends = gawk
-	optdepends = w3m: for showing HTML messages
+	depends = glibc
+	depends = notmuch-runtime
 	optdepends = dante: for showing HTML messages
-	provides = aerc
-	conflicts = aerc
-	source = aerc-0.17.0.tar.gz::https://git.sr.ht/~rjarry/aerc/archive/0.17.0.tar.gz
-	sha512sums = 6648123c37da36f932825e7caec268765bf285124a4473055b86ac48cfa937a250b03d2404764c2c93a978bb56dc9279550e5bf66aa0ff09f90525c5ead7c062
+	optdepends = python: for carddav-query script
+	optdepends = w3m: for showing HTML messages
+	options = !lto
+	source = git+https://git.sr.ht/~rjarry/aerc?signed#tag=0.17.0
+	validpgpkeys = DC0718E322E2C7605EBDC83146957EC08FD0FE90
+	sha512sums = 720e9979d362f13127272e96b53739c105da2d6630cf05c155f369390da4bfdb0e330f3b55bebf7fe5331b02602344fd09dad799888b62b5ac7d370cc4a95473
 
 pkgname = aerc
