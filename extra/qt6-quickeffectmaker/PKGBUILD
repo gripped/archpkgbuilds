@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-quickeffectmaker
-pkgver=6.7.1
+pkgver=6.7.2
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -20,7 +20,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
-sha256sums=('eb4e31db772087f56e150328c7745cd4f4387b5c368361723e332538defc25c5')
+sha256sums=('30e42b2b0c45496f36dc77309e6e09a8c36e8f2b98eeaee4d509f826f90a5057')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
