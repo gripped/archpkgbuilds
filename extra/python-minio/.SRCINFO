@@ -1,23 +1,24 @@
 pkgbase = python-minio
 	pkgdesc = MinIO Python Library for Amazon S3 Compatible Cloud Storage
-	pkgver = 7.2.0
-	pkgrel = 2
+	pkgver = 7.2.7
+	pkgrel = 1
 	url = https://github.com/minio/minio-py
 	arch = any
-	license = Apache
+	license = Apache-2.0
 	checkdepends = minio
 	checkdepends = python-pytest
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = python-wheel
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python
-	depends = python-certifi
-	depends = python-urllib3
 	depends = python-argon2_cffi
+	depends = python-certifi
 	depends = python-pycryptodome
-	source = python-minio::git+https://github.com/minio/minio-py.git#commit=c37956b494a535429ff881171db0b4f6db1dc547
-	b2sums = SKIP
+	depends = python-typing_extensions
+	depends = python-urllib3
+	source = python-minio::git+https://github.com/minio/minio-py.git#tag=7.2.7
+	b2sums = 9b912dc38d3f7933012b4f43d03b9cdd4583b798b675165ea72db7aa16355c4d9afdc2c0b83419a4e665210a8b44f7fc48b61b4788d938dbca0fcb4273af480e
 
 pkgname = python-minio
