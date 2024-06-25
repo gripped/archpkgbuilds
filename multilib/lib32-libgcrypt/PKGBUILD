@@ -2,7 +2,7 @@
 
 _pkgbasename=libgcrypt
 pkgname=lib32-$_pkgbasename
-pkgver=1.10.3
+pkgver=1.11.0
 pkgrel=1
 pkgdesc="General purpose cryptographic library based on the code from GnuPG (32-bit)"
 arch=(x86_64)
@@ -11,9 +11,9 @@ license=('LGPL')
 depends=('lib32-libgpg-error' $_pkgbasename)
 makedepends=(gcc-multilib libtool-multilib)
 source=(https://gnupg.org/ftp/gcrypt/${_pkgbasename}/${_pkgbasename}-${pkgver}.tar.bz2{,.sig})
-sha1sums=('359e1d01ad2eb9cd2db964ea96ef3712d0c2c649'
+sha1sums=('dd2c68e0685bb99249efeeb06046fae15b5214ba'
           'SKIP')
-sha256sums=('8b0870897ac5ac67ded568dcfadf45969cfa8a6beb0fd60af2a9eadc2a3272aa'
+sha256sums=('09120c9867ce7f2081d6aaa1775386b98c2f2f246135761aae47d81f58685b9c'
             'SKIP')
 validpgpkeys=(
   '6DAA6E64A76D2840571B4902528897B826403ADA' # Werner Koch (dist signing 2020)
