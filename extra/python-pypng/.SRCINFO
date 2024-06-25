@@ -1,13 +1,18 @@
 pkgbase = python-pypng
 	pkgdesc = Pure Python library for PNG image encoding/decoding
 	pkgver = 0.20231004.0
-	pkgrel = 2
-	url = https://github.com/drj11/pypng
+	pkgrel = 3
+	url = https://gitlab.com/drj11/pypng
 	arch = any
 	license = MIT
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python
-	source = https://gitlab.com/drj11/pypng/-/archive/pypng-0.20231004.0/pypng-pypng-0.20231004.0.tar.gz
-	sha512sums = d1881ed5e6e64be5efba46ca509afc62c374fac7f384c679609658753f524f647b187b25aff602b9e4a2682a3d34945653f201f91372f7bb2755288ad35d89ee
+	source = python-pypng::git+https://gitlab.com/drj11/pypng#tag=pypng-0.20231004.0
+	sha512sums = a0209e8e2e6b83eca583518d5ff1083290633ce17adab84616e6f513c98731a3127ecf72dcaa3303297d6c67922ce6425e66e32c9fef3a5d03bc59e9b044a72f
+	b2sums = e1f5419fbc47f008c42f5ab1c2088c895f129de5e28a9aa8e7de909b04f79a820be5c9efa96ff7dd612e4f1bb5e61ac50044918d03b05b3a3eb1b5daeb013ea4
 
 pkgname = python-pypng
