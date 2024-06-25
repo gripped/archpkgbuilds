@@ -1,10 +1,11 @@
 pkgbase = python-authlib
-	pkgdesc = The ultimate Python library in building OAuth and OpenID Connect servers
-	pkgver = 1.2.1
-	pkgrel = 2
+	pkgdesc = The ultimate Python library in building OAuth and OpenID Connect servers & clients
+	pkgver = 1.3.1
+	pkgrel = 1
 	url = https://github.com/lepture/authlib
 	arch = any
-	license = BSD
+	license = BSD-3-Clause
+	checkdepends = python-pytest
 	checkdepends = python-pytest-asyncio
 	checkdepends = python-pytest-django
 	checkdepends = python-requests
@@ -13,13 +14,15 @@ pkgbase = python-authlib
 	checkdepends = python-httpx
 	checkdepends = python-starlette
 	checkdepends = python-cachelib
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
+	depends = python
 	depends = python-cryptography
-	source = https://github.com/lepture/authlib/archive/v1.2.1/python-authlib-1.2.1.tar.gz
-	validpgpkeys = 72F8E895A70CEBDF4F2ADFE07E55E3E0118B2B4C
-	sha256sums = 8081a26b4e8ae30d6e24d9ada0eac0e615cc87292ec52f56013efee51d8c6b6f
+	source = python-authlib::git+https://github.com/lepture/authlib#tag=v1.3.1
+	sha512sums = 5dd333dc5452b9de54adb301f6d164f32a5931d67fed56911615688e897e3566c903016e60f191eca3c067c461aed4e351247b176d5d1c28e1823b7cc6cd0e04
+	b2sums = 56bcadfe4f0094b34f5fb044e0cac64b606364dfa49d4951abeaaa8ce3a0e1fc1408f96adbedd034e26bd159ad8af891292548ffba1fd75c01e12b6a706f807e
 
 pkgname = python-authlib
