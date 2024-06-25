@@ -1,15 +1,25 @@
-# Maintainer: Andrzej Giniewicz <gginiu@gmail.com>
 # Maintainer: Bruno Pagani <archange@archlinux.org>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Andrzej Giniewicz <gginiu@gmail.com>
 
 pkgname=python-blosc
 pkgver=1.11.1
-pkgrel=4
+pkgrel=5
 pkgdesc='Python wrapper for the extremely fast Blosc compression library'
 arch=('x86_64')
 url='https://www.blosc.org/python-blosc/python-blosc.html'
 license=('BSD-3-Clause')
 depends=('python' 'blosc')
-makedepends=('python-scikit-build' 'ninja')
+makedepends=(
+  'cmake'
+  'ninja'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+  'python-scikit-build'
+  'python-py-cpuinfo'
+)
 checkdepends=('python-numpy' 'python-psutil')
 optdepends=('python-numpy: for tests and benchmarks')
 source=("https://github.com/Blosc/python-blosc/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
@@ -19,26 +29,31 @@ b2sums=('cb348253a24258d2649ebc0604acbf936b8ccc2b28c42c69da2fee72ddf87eb17a24657
 build() {
   cd "${pkgname}-${pkgver}"
 
-  export INCLUDE_SNAPPY=1 # Disabled by default for compatibility with non-C++ systems
-  python setup.py build \
-    --build-type none \
+  # AVX2 disabled because Arch does not have x86_64_v3 yet.
+  # Snappy is also disabled by default for compatability with non-C++ systems.
+  export CMAKE_ARGS="\
+    -DCMAKE_C_FLAGS_INIT=-DNDEBUG \
+    -DCMAKE_BUILD_TYPE=None \
     -DUSE_SYSTEM_BLOSC=ON \
-    -DCMAKE_C_FLAGS_INIT=-DNDEBUG
+    -DDEACTIVATE_SNAPPY=OFF \
+    -DDEACTIVATE_AVX2=ON"
+
+  # skip unnecessary dependencies (ninja, cmake, etc)
+  python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
-  local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
-  local python_version_truncated=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
+  cd "${pkgname}-${pkgver}"
 
-  cd "${pkgname}-${pkgver}/_skbuild/linux-${CARCH}-${python_version}/setuptools/lib.linux-${CARCH}-cpython-${python_version_truncated}"
-
-  PYTHONPATH="${PWD}:$PYTHONPATH" python -m blosc.test
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m blosc.test
 }
 
 package() {
   cd "${pkgname}-${pkgver}"
 
-  python setup.py --skip-cmake install --skip-build --root="${pkgdir}" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
   # license
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
