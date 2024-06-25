@@ -1,7 +1,7 @@
 # Maintainer: Leonidas Spyropoulos <artafinde@archlinux.org>
 
 pkgname=memray
-pkgver=1.13.0
+pkgver=1.13.1
 _tag_commit=ac8ecc2e2ef0798b4e238ac11d5cef6bc19c70f5 # git show-ref -d v${_tag_name}
 pkgrel=1
 pkgdesc="A memory profiler for Python"
