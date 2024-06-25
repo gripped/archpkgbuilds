@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-b2sdk
-pkgver=2.3.0
+pkgver=2.4.1
 pkgrel=1
 pkgdesc='Python module to access B2 cloud storage'
 arch=('any')
@@ -12,7 +12,6 @@ depends=(
   'python-logfury'
   'python-requests'
   'python-urllib3'
-  'python-setuptools'
   'python-importlib-metadata'
 )
 makedepends=(
@@ -28,13 +27,15 @@ checkdepends=(
   'python-pytest-lazy-fixture'
   'python-pyfakefs'
   'python-tqdm'
+  'python-pydantic'
 )
 optdepends=(
   'python-tqdm: for TqdmProgressListener class'
+  'python-pydantic: for improved type hints'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('10ec14826084e49042c6b79d7e0601de2feaba7d67746500c3f077d67f782ffcdc74a4c40af879d1dc596ce500b743bfcb3c4547e05a2f050ebfa857952f782a')
-b2sums=('2dccca55b00964f015035cc4aa9fad3ed6bd039f410fe6e44fe8749d51f62a051ec0e6afbb96b1837e83bf67f800f93b23738c584481e6a9af3fca325ea5fd46')
+sha512sums=('d91f873561f694bf961ce0bd4cbeb58fa778a448dc0823ad217828b5b7e41d233657960ccc91a779e4994cedee93b36c0efdab26900405b75166c46e1dd1af61')
+b2sums=('9723ee5b8330e7aa9baa1d40f52a7ae9872a6288e4abd9792809eba83e4c17946d303df6fd627924b9624869bc352f59b573f6c7d2718869f418f2a0b7a55c12')
 
 build() {
   cd "$pkgname"
@@ -60,9 +61,6 @@ package() {
 
   python -m installer --destdir="$pkgdir" dist/*.whl
 
-  # symlink license file
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  install -d "$pkgdir/usr/share/licenses/$pkgname"
-  ln -s "$site_packages/${pkgname#python-}-$pkgver.dist-info/LICENSE" \
-    "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
