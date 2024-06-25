@@ -3,8 +3,8 @@
 # Contributor: Dmitrij D. Czarkoff <czarkoff at gmail dot com>
 
 pkgname=baresip
-pkgver=3.12.1
-pkgrel=2
+pkgver=3.13.0
+pkgrel=1
 pkgdesc="portable and modular SIP User-Agent with audio and video support"
 arch=('x86_64')
 url="https://github.com/baresip/baresip"
@@ -30,6 +30,7 @@ optdepends=('libfdk-aac: AAC audio codec'
             'libpulse: Pulseaudio audio driver'
             'libx11: (x11, x11grab modules)'
             'mpg123: (rst module)'
+            'mosquitto: (mqtt module)'
             'opus: (opus module)'
             'portaudio: Portaudio audio driver'
             'sdl2: (sdl2 module)'
@@ -39,7 +40,7 @@ optdepends=('libfdk-aac: AAC audio codec'
             'v4l-utils: (v4l2 module)')
 makedepends=(${optdepends[@]/%:*/} python cmake python-packaging)
 source=("${pkgname}-${pkgver}.tar.gz"::"https://github.com/baresip/baresip/archive/v${pkgver}.tar.gz")
-sha256sums=('228e3a1e2ce20a49cb8995ea78b711eae4d01f4647834f6ec765be841d788cc3')
+sha256sums=('f474de87747dd71e69c32de68ec5528436a2edb23898510b41f88f1da8daf074')
 
 build() {
   cd ${pkgname}-${pkgver}
