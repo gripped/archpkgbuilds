@@ -2,16 +2,19 @@
 # Contributor: Agorgianitis Loukas <agorglouk@gmail.com>
 
 pkgname=tailwindcss-language-server
-pkgver=0.0.16
+pkgver=0.0.17
 pkgrel=1
 pkgdesc='Tailwind CSS Language Server'
-arch=('any')
+arch=(any)
 url=https://github.com/tailwindlabs/tailwindcss-intellisense/tree/master/packages/tailwindcss-language-server
-license=('MIT')
-depends=('nodejs')
-makedepends=('git' 'npm')
+license=(MIT)
+depends=(nodejs)
+makedepends=(
+  git
+  npm
+)
 source=("git+https://github.com/tailwindlabs/tailwindcss-intellisense.git#tag=@tailwindcss/language-server@v$pkgver")
-b2sums=('SKIP')
+b2sums=('af35e388949b3ee8857a4c2d941e503311ee50350f7a39241c701bbc979ad40e7af80e604cc70cd0dc6f47fb9ad1fd6d95091c2f6b651f4eae064a310201e032')
 
 prepare() {
   cd tailwindcss-intellisense
@@ -26,5 +29,8 @@ build() {
 package() {
   cd tailwindcss-intellisense/packages/$pkgname
   install -Dt "$pkgdir"/usr/bin bin/$pkgname
-  install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
+  install -Dm644 -t "$pkgdir"/usr/lib/node_modules/@tailwindcss/language-server \
+    package.json
+  install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE \
+    ThirdPartyNotices.txt
 }
