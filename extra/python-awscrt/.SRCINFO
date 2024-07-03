@@ -1,10 +1,10 @@
 pkgbase = python-awscrt
 	pkgdesc = A common runtime for AWS Python projects
-	pkgver = 0.20.9
-	pkgrel = 1
+	pkgver = 0.20.11
+	pkgrel = 2
 	url = https://github.com/awslabs/aws-crt-python
 	arch = x86_64
-	license = Apache
+	license = Apache-2.0
 	checkdepends = python-websockets
 	makedepends = git
 	makedepends = cmake
@@ -15,7 +15,8 @@ pkgbase = python-awscrt
 	depends = glibc
 	depends = gcc-libs
 	depends = python
-	source = git+https://github.com/awslabs/aws-crt-python.git#tag=v0.20.9
+	depends = openssl
+	source = git+https://github.com/awslabs/aws-crt-python.git#tag=v0.20.11
 	source = git+https://github.com/awslabs/aws-c-auth
 	source = git+https://github.com/awslabs/aws-c-cal
 	source = git+https://github.com/awslabs/aws-c-common
@@ -27,10 +28,8 @@ pkgbase = python-awscrt
 	source = git+https://github.com/awslabs/aws-c-s3
 	source = git+https://github.com/awslabs/aws-c-sdkutils
 	source = git+https://github.com/awslabs/aws-checksums
-	source = git+https://github.com/awslabs/aws-lc
 	source = git+https://github.com/awslabs/s2n
-	sha256sums = ad82398260ebacb003d748bab550bc0d8c6e29140d21f757be83c6bd6fb8b31d
-	sha256sums = SKIP
+	sha256sums = 88f2df87c0bb107803c39f44c4a1964fcc36515fea645fdb454ce3b72605eba9
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
@@ -45,3 +44,8 @@ pkgbase = python-awscrt
 	sha256sums = SKIP
 
 pkgname = python-awscrt
+	depends = glibc
+	depends = gcc-libs
+	depends = python
+	depends = openssl
+	depends = libcrypto.so

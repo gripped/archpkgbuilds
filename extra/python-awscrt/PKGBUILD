@@ -4,13 +4,14 @@
 _pkgname=aws-crt-python
 pkgname=python-awscrt
 # https://github.com/awslabs/aws-crt-python/releases
-pkgver=0.20.9
-pkgrel=1
+pkgver=0.20.11
+pkgrel=2
 pkgdesc='A common runtime for AWS Python projects'
 arch=(x86_64)
 url='https://github.com/awslabs/aws-crt-python'
-license=(Apache)
-depends=(glibc gcc-libs python)
+# https://github.com/awslabs/aws-crt-python/blob/v0.20.11/setup.py#L2
+license=('Apache-2.0')
+depends=(glibc gcc-libs python openssl)
 makedepends=(git cmake python-build python-installer python-setuptools python-wheel)
 checkdepends=(python-websockets)
 source=("git+https://github.com/awslabs/aws-crt-python.git#tag=v$pkgver"
@@ -25,10 +26,8 @@ source=("git+https://github.com/awslabs/aws-crt-python.git#tag=v$pkgver"
         "git+https://github.com/awslabs/aws-c-s3"
         "git+https://github.com/awslabs/aws-c-sdkutils"
         "git+https://github.com/awslabs/aws-checksums"
-        "git+https://github.com/awslabs/aws-lc"
         "git+https://github.com/awslabs/s2n")
-sha256sums=('ad82398260ebacb003d748bab550bc0d8c6e29140d21f757be83c6bd6fb8b31d'
-            'SKIP'
+sha256sums=('88f2df87c0bb107803c39f44c4a1964fcc36515fea645fdb454ce3b72605eba9'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -56,7 +55,7 @@ prepare() {
     git config submodule.aws-common-runtime/$crt.url "$srcdir"/$crt
     git -c protocol.file.allow=always submodule update crt/$crt
   done
-  for crt in aws-c-sdkutils aws-lc; do
+  for crt in aws-c-sdkutils; do
     git config submodule.crt/$crt.url "$srcdir"/$crt
     git -c protocol.file.allow=always submodule update crt/$crt
   done
@@ -70,6 +69,9 @@ build() {
   # Don't move this line to prepare(), as pkgver() runs after prepare()
   sed -i -r "s/__version__ = '[^']+'/__version__ = '$pkgver'/" awscrt/__init__.py
 
+  # Use system libcrypto.so instead of bundled aws-lc
+  export AWS_CRT_BUILD_USE_SYSTEM_LIBCRYPTO=1
+
   python -m build --wheel --no-isolation
 }
 
@@ -82,6 +84,8 @@ check() {
 }
 
 package() {
+  depends+=(libcrypto.so)
+
   cd $_pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
