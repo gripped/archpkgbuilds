@@ -1,6 +1,6 @@
 pkgbase = python-blosc2
 	pkgdesc = Wrapper for the blosc2 compressor
-	pkgver = 2.5.1
+	pkgver = 2.7.0
 	pkgrel = 2
 	url = https://github.com/Blosc/python-blosc2
 	arch = x86_64
@@ -8,22 +8,24 @@ pkgbase = python-blosc2
 	checkdepends = python-psutil
 	checkdepends = python-pytest
 	checkdepends = python-pytorch
+	makedepends = git
 	makedepends = cmake
 	makedepends = cython
 	makedepends = ninja
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = python-setuptools
 	makedepends = python-scikit-build
+	makedepends = python-setuptools
 	depends = blosc2
 	depends = glibc
 	depends = python
 	depends = python-msgpack
 	depends = python-ndindex
+	depends = python-numexpr
 	depends = python-numpy
 	depends = python-py-cpuinfo
-	source = https://github.com/Blosc/python-blosc2/archive/v2.5.1/python-blosc2-2.5.1.tar.gz
-	sha256sums = f5f83d70e1b30b421370f57ba05bf8a32560c5fb274ddc882e228a2270458707
-	b2sums = 90865cc7293cfa1a43a6f71efc0fc1943bd354f908537fad900b11a16165a6a49e21be197dd98e137960f34f0d6942610873d136309f7d07970b2f81388111d3
+	source = python-blosc2::git+https://github.com/Blosc/python-blosc2#tag=v2.7.0
+	sha512sums = 29b05656c121320dc11dd03855d430efc75ab1ea495d68134c57be403941ce0f1fc7ac13755136e4131c48c4fe093a2883a5fc717a2c2092a9ef48ce2da10aba
+	b2sums = 439c4548fe938f869d66b5dbd6c7609f88d3cf31124d0ca43175877e24dc540165975153a57f6d6d5b9de9cb3a092c0116154ce1792480922e77cc1582ce1c05
 
 pkgname = python-blosc2
