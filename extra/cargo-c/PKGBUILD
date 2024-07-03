@@ -1,7 +1,7 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=cargo-c
-pkgver=0.10.0
+pkgver=0.10.1
 pkgrel=1
 pkgdesc='A cargo subcommand to build and install C-ABI compatibile dynamic and static libraries'
 arch=('x86_64')
@@ -15,8 +15,8 @@ depends=(
 )
 source=("https://github.com/lu-zero/cargo-c/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "${pkgname}-${pkgver}.Cargo.lock"::"https://github.com/lu-zero/cargo-c/releases/download/v${pkgver}/Cargo.lock")
-sha256sums=('85230801f57c1f2b85d99fae3fc43f93080ecc0e3763a6af178fc5e6c218004b'
-            'ba3fee6cbeba8c4ea8d0ca56bc72bc616eb7f2a9e705017c8e612f16f472cc30')
+sha256sums=('0f08ef800bd2c46968356d9445ee780085fcbb500a2e8ac3447f2e4a9981e939'
+            '9e9a363ba6e00e6b0cfb6164af76311c2650a59bc4550e1aebcbecb134161766')
 
 prepare() {
     ln -sf "../${pkgname}-${pkgver}.Cargo.lock" "${pkgname}-${pkgver}/Cargo.lock"
