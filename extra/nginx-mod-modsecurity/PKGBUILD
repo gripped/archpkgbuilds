@@ -3,7 +3,7 @@
 pkgname=nginx-mod-modsecurity
 epoch=1
 pkgver=1.0.3
-pkgrel=6
+pkgrel=7
 
 pkgdesc='ModSecurity v3 Nginx Connector (module for nginx)'
 arch=('x86_64')
@@ -33,7 +33,10 @@ prepare() {
 
 build() {
 	cd build
-	/usr/src/nginx/configure --with-compat --add-dynamic-module=../modsecurity-nginx-v$pkgver
+	/usr/src/nginx/configure \
+		--with-ld-opt="$LDFLAGS" \
+		--with-compat \
+		--add-dynamic-module=../modsecurity-nginx-v$pkgver
 	make modules
 }
 
