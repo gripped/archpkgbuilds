@@ -1,24 +1,21 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=libndp
-pkgver=1.8
-pkgrel=2
+pkgver=1.9
+pkgrel=1
 pkgdesc="Library for Neighbor Discovery Protocol"
 url="http://libndp.org/"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
-depends=(glibc)
+depends=(
+  glibc
+)
 makedepends=(git)
 source=("git+https://github.com/jpirko/libndp#tag=v$pkgver")
-b2sums=('e2b6d04137c769fa870fa85be159f3a9d3b7c3302d7999962279a643ecc85639e9513c6c8d6a531b23b4bfb929aa16382eab062ee4e5a3f46425ed3ea7747b2e')
+b2sums=('150f2bc4d0e67c44a694f6c6d0fb7f6927f7af2a8467b39fd77a41c0f5abb9df28d99432e444cff7328d0c8cd514516216d777cc416cfed3bb4cfa62007d6173')
 
 prepare() {
-  cd $pkgname
-
-  # Fix CVE-2024-5564
-  # https://github.com/jpirko/libndp/issues/26
-  git cherry-pick -n 05e4ba7b0d126eea4c04387dcf40596059ee24af
-
+  cd libndp
   ./autogen.sh
 }
 
@@ -31,18 +28,18 @@ build() {
     --disable-static
   )
 
-  cd $pkgname
+  cd libndp
   ./configure "${configure_options[@]}"
   make
 }
 
 check() {
-  cd $pkgname
+  cd libndp
   make check
 }
 
 package() {
-  cd $pkgname
+  cd libndp
   make DESTDIR="$pkgdir" install
 }
 
