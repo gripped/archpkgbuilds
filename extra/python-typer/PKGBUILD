@@ -4,7 +4,7 @@
 _pkgname=typer
 pkgname=python-typer
 pkgver=0.12.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Build great CLIs. Easy to code. Based on Python type hints"
 arch=('any')
 url="https://typer.tiangolo.com/"
@@ -27,5 +27,10 @@ build() {
 package() {
   cd "typer-$pkgver"
   python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # Change the binary name away from typer to python-typer
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/python-typer/-/issues/1
+  mv "$pkgdir"/usr/bin/typer "$pkgdir"/usr/bin/python-typer
+
   install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
