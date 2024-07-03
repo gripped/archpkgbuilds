@@ -2,7 +2,7 @@
 
 pkgname=nginx-mod-cache_purge
 pkgver=2.5.3
-pkgrel=4
+pkgrel=5
 
 _modname="${pkgname#nginx-mod-}"
 
@@ -31,7 +31,10 @@ prepare() {
 
 build() {
 	cd build
-	/usr/src/nginx/configure --with-compat --add-dynamic-module=../ngx_cache_purge-$pkgver
+	/usr/src/nginx/configure \
+		--with-ld-opt="$LDFLAGS" \
+		--with-compat \
+		--add-dynamic-module=../ngx_cache_purge-$pkgver
 	make modules
 }
 
