@@ -3,7 +3,7 @@
 # Contributor: Nico Suarez <nicodoggie@gmail.com>
 
 pkgname=galera
-pkgver=26.4.18
+pkgver=26.4.19
 pkgrel=1
 pkgdesc='write set replication (WSREP) provider for MariaDB cluster'
 arch=('x86_64')
@@ -17,7 +17,7 @@ options=('!libtool')
 validpgpkeys=('177F4010FE56CA3336300305F1656F24C74CD1D8') # MariaDB Signing Key <signing-key@mariadb.org>
 source=("git+https://github.com/codership/galera.git#tag=release_${pkgver}"
         'git+https://github.com/codership/wsrep-API.git')
-sha256sums=('c5a78067dfef51a9c8cc5045c7e662030650bed1d10c0c090bf73580f05b4158'
+sha256sums=('356c6b4baaa8c51290e8fce95bf5a050bc37cd21fcc180ff1e4b048c0eddaec9'
             'SKIP')
 
 prepare() {
