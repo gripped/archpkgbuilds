@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=libkscreen
-pkgver=6.1.0
+pkgver=6.1.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE screen management software'
@@ -23,7 +23,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('c193d43bcc25b6287709f182e4e615f50b4a95e12bbadca2b714320624afab74'
+sha256sums=('9612fd83ce828f816fd55ce79da772bf62e96b8e6457deeb5dc336925cfc20d4'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
