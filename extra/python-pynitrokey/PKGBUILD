@@ -4,7 +4,7 @@
 _name=pynitrokey
 pkgname=python-pynitrokey
 pkgver=0.4.47
-pkgrel=3
+pkgrel=4
 pkgdesc="A command line interface for the Nitrokey FIDO2 and Nitrokey Start"
 arch=(any)
 url="https://github.com/Nitrokey/pynitrokey"
@@ -46,15 +46,25 @@ optdepends=(
   'python-libusb1: for pro and storage subcommands'
   'python-pyscard: for pcsclite integration'
 )
-source=("git+$url.git?signed#tag=v$pkgver")
-sha512sums=('573b61d5b9fa7a398f3318c6203536fc7c6a12707b8541affdb7f782ce9b6838662d32584f229b2300d830626b96700a1e1fbac68076da76c3bdaabef58c4be6')
-b2sums=('7ee09317dae350267c37a868be3aa616976a2b33e656680d4eb363e25d209c4788557c31f31e9aa8c7bba7908af580f88dabefabcaa234ceb3822329ffca94e4')
+source=(
+  "$_name::git+$url.git?signed#tag=v$pkgver"
+  https://raw.githubusercontent.com/NordicSemiconductor/pc-nrfutil/16cb5a3d352bcc7a3ddbbf541426e3cca0f34671/nordicsemi/dfu/dfu-cc.proto
+)
+sha512sums=('573b61d5b9fa7a398f3318c6203536fc7c6a12707b8541affdb7f782ce9b6838662d32584f229b2300d830626b96700a1e1fbac68076da76c3bdaabef58c4be6'
+            '5da1202115f2fb76f8f2d592a2a510d9815e52dcb529e245afb5bbed22571e11b3a8c6743fc3e3824fcfea5bb408373e2ed4e65e4ca43f8159c0e01e05080193')
+b2sums=('7ee09317dae350267c37a868be3aa616976a2b33e656680d4eb363e25d209c4788557c31f31e9aa8c7bba7908af580f88dabefabcaa234ceb3822329ffca94e4'
+        'a999aeee79d06fe9201fdb115cbd03cb59ac84724893bc334bff8a071cd9ae13990793b889b6281df0d6e4dd229e77e5f24b73d51a69363f30d6bedf8d3cfd59')
 validpgpkeys=(
   868184069239FF65DE0BCD7DD9BAE35991DE5B22  # Szczepan Zalega <szczepan@nitrokey.com> (@szszszsz)
   CC74B7120BFAA36FF42868724C1449F1C9804176  # Markus Meissner <meissner@nitrokey.com> (@daringer)
   719EA31C3F1814DA787C8FD434F47D2F044B8F17  # Robin Krahl <robin@nitrokey.com> (@robin-nitrokey)
   93CCB0DB717DAE30622F671436DA48A4C827B354  # Sosthène Guédon <sosthene@nitrokey.com> (@sosthene-nitrokey)
 )
+
+prepare() {
+  # Regenerate protobuf code for protobuf 27+
+  protoc dfu-cc.proto --python_out $_name/pynitrokey/trussed/bootloader/nrf52_upload/dfu/
+}
 
 build() {
   cd $_name
