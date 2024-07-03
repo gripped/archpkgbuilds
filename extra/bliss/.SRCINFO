@@ -1,0 +1,18 @@
+pkgbase = bliss
+	pkgdesc = A library for computing automorphism groups and canonical forms of graphs
+	pkgver = 0.77
+	pkgrel = 3
+	url = https://users.aalto.fi/~tjunttil/bliss/
+	arch = x86_64
+	license = GPL-3.0-only
+	makedepends = cmake
+	depends = gcc-libs
+	depends = glibc
+	source = https://users.aalto.fi/~tjunttil/bliss/downloads/bliss-0.77.zip
+	source = digraph_heuristic.patch
+	source = make-install.patch
+	sha256sums = acc8b98034f30fad24c897f365abd866c13d9f1bb207e398d0caf136875972a4
+	sha256sums = 584dbb948c5ad39c32373a3736d457ef5ecf0c23b552d9e925fa0ace61652461
+	sha256sums = 1cbbcf33c779c832787ad2b6770643b2a3f9ddbe2077217820fe5ac5ca902f16
+
+pkgname = bliss
