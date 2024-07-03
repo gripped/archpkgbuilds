@@ -2,8 +2,8 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
 pkgname=fastfetch
-pkgver=2.16.0
-pkgrel=1
+pkgver=2.17.1
+pkgrel=2
 pkgdesc="Like Neofetch, but much faster because written in C"
 arch=('x86_64')
 url="https://github.com/fastfetch-cli/fastfetch"
@@ -50,11 +50,11 @@ optdepends=(
   'libdrm: Displays detection'
 )
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('8c5d137e0439d70189fc267176840feaba5f3e06177d57c4be9a866595651803')
+sha256sums=('a38969ebb757070db5dace8a42f874d8898a7232da64c73fc86c60a2c9da9be0')
 
 build() {
 	cmake -B build -S "${pkgname}-${pkgver}" \
-		-DCMAKE_BUILD_TYPE='None' \
+		-DCMAKE_BUILD_TYPE='RelWithDebInfo' \
 		-DCMAKE_INSTALL_PREFIX='/usr' \
 		-DBUILD_TESTS='ON' \
 		-DENABLE_SQLITE3='OFF' \
