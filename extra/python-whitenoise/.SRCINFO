@@ -1,7 +1,7 @@
 pkgbase = python-whitenoise
 	pkgdesc = Radically simplified static file serving for WSGI applications
-	pkgver = 6.6.0
-	pkgrel = 2
+	pkgver = 6.7.0
+	pkgrel = 1
 	url = https://github.com/evansd/whitenoise
 	arch = any
 	license = MIT
@@ -9,12 +9,13 @@ pkgbase = python-whitenoise
 	checkdepends = python-django
 	checkdepends = python-pytest
 	checkdepends = python-requests
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
 	depends = python
-	source = https://github.com/evansd/whitenoise/archive/6.6.0/python-whitenoise-6.6.0.tar.gz
-	sha512sums = 523070b760d17ff3b1ae263ea36d6b875acb2d9d05d562b1e24a24be84ebb026b7ebf558c6b6322a028a321c75dc3dfe7b3d84e8b3710754f05553820bc12f51
+	source = git+https://github.com/evansd/whitenoise.git#tag=6.7.0
+	sha512sums = 546252754ea615cc9711c195e955b83e0d03aa0442f89cc6182e88a4b2d454660ba9221b7573b7ab140ca9fbe08c7bbcda9484956e069316816351363d3d570a
 
 pkgname = python-whitenoise
