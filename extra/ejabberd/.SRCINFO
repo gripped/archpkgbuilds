@@ -1,6 +1,6 @@
 pkgbase = ejabberd
 	pkgdesc = Jabber server written in Erlang
-	pkgver = 23.10
+	pkgver = 24.06
 	pkgrel = 1
 	url = https://www.ejabberd.im/
 	arch = x86_64
@@ -9,60 +9,57 @@ pkgbase = ejabberd
 	makedepends = rebar
 	makedepends = hevea
 	makedepends = texlive-bin
-	makedepends = texlive-core
+	makedepends = texlive-basic
 	makedepends = texlive-latexextra
+	makedepends = elixir
 	depends = expat
 	depends = openssl
 	depends = zlib
 	depends = erlang-nox
 	depends = pam
 	depends = iproute2
-	depends = erlang-unixodbc
 	depends = libyaml
 	depends = sqlite
 	depends = gd
+	depends = elixir
 	optdepends = gsfonts: for captcha
 	optdepends = imagemagick: for captcha
 	options = emptydirs
 	backup = etc/ejabberd/ejabberd.yml
 	backup = etc/ejabberd/ejabberdctl.cfg
 	backup = etc/logrotate.d/ejabberd
-	source = ejabberd-23.10.tar.gz::https://github.com/processone/ejabberd/archive/23.10.tar.gz
-	source = base64url::git+https://github.com/dvv/base64url#commit=bf1360685da704c8453aba2268c4698c959d2ba4
-	source = cache_tab::git+https://github.com/processone/cache_tab#commit=6da609074b855b904ab72e201c60f1a1e2c00b3f
-	source = eimp::git+https://github.com/processone/eimp#commit=ec616de3762ce8498856b4fdadf8ba36045c6773
-	source = ejabberd_po::git+https://github.com/processone/ejabberd-po#commit=26d6463386588d39f07027dabff3cb8dd938bf6b
-	source = elixir::git+https://github.com/elixir-lang/elixir#commit=867da6f876c48279823a41a33030c95ef37379b2
-	source = epam::git+https://github.com/processone/epam#commit=4986fbb15abb7f37798924025eab4bcf98a39d50
-	source = eredis::git+https://github.com/wooga/eredis#commit=9ad91f149310a7d002cb966f62b7e2c3330abb04
-	source = esip::git+https://github.com/processone/esip#commit=4e5852355a0a76a5854f853308bab3ddff02adfa
-	source = ezlib::git+https://github.com/processone/ezlib#commit=af37eb27aa0614db8b89110a4b56806b7f3544c4
-	source = fast_tls::git+https://github.com/processone/fast_tls#commit=5aa1e02d1e91155a7b0027abde1af94147c54b82
-	source = fast_xml::git+https://github.com/processone/fast_xml#commit=26d3247e7b7ff94a3bdcd30bad1193e2d86f511b
-	source = fast_yaml::git+https://github.com/processone/fast_yaml#commit=24c5e30c0d73b9ef56e575327b8c334366a345f0
-	source = idna::git+https://github.com/benoitc/erlang-idna#commit=6cff72747821110169ecfac871b0c69e5064afff
-	source = jiffy::git+https://github.com/davisp/jiffy#commit=9ea1b35b6e60ba21dfd4adbd18e7916a831fd7d4
-	source = jose::git+https://github.com/potatosalad/erlang-jose#commit=e0110a1afacde3011c8bb2a6f1c4ab9ea94bd4f4
-	source = luerl::git+https://github.com/rvirding/luerl#commit=836d08ad3287d73d9c91cb11a590de15a1761027
-	source = mqtree::git+https://github.com/processone/mqtree#commit=b87975f2c46ea44f3ed0dd484ae248aeea0c5d1e
-	source = p1_acme::git+https://github.com/processone/p1_acme#commit=c1067aa3aace515553610ab78cb4ce5123fee207
-	source = p1_mysql::git+https://github.com/processone/p1_mysql#commit=e0acf6a379ee96a4a79ab728dbb77e197b3966c1
-	source = p1_oauth2::git+https://github.com/processone/p1_oauth2#commit=e1fbe216c9e0c1f85b44bf9750af608fcc2848d2
-	source = p1_pgsql::git+https://github.com/processone/p1_pgsql#commit=33f41252e75f6ad59650ddb3c374994474969fc1
-	source = p1_utils::git+https://github.com/processone/p1_utils#commit=ba816751674ab7df46978345ec4c0c84c0b44b0d
-	source = pkix::git+https://github.com/processone/pkix#commit=9655992dc39e91fc8f5e237eea95d74ec9c01891
-	source = rebar_elixir_plugin::git+https://github.com/processone/rebar_elixir_plugin#commit=10614dfef5d10b7071f7181858149259e50159f6
-	source = sqlite3::git+https://github.com/processone/erlang-sqlite3#commit=0fc8ec99fa12b0acaa42b157b6a85ebf8d007387
-	source = stringprep::git+https://github.com/processone/stringprep#commit=11fe965934be988f5c6c9ded9affa870f3e5057a
-	source = stun::git+https://github.com/processone/stun#commit=30068f0ef77a8e115c1157aa56ee4a9624bf0ef9
-	source = unicode_util_compat::git+https://github.com/benoitc/unicode_util_compat.git#commit=38d7bc105f51159e8ea3279c40121db9db1e652f
-	source = xmpp::git+https://github.com/processone/xmpp#commit=00a461ee5875c0132c71bd40aa6307fd93b8e678
-	source = yconf::git+https://github.com/processone/yconf#commit=af756beb3dac1e1f2e1242edd899f0a26557afa6
+	source = ejabberd-24.06.tar.gz::https://github.com/processone/ejabberd/archive/24.06.tar.gz
+	source = erlang-idna::git+https://github.com/benoitc/erlang-idna
+	source = jiffy::git+https://github.com/davisp/jiffy
+	source = base64url::git+https://github.com/dvv/base64url
+	source = lager::git+https://github.com/erlang-lager/lager
+	source = erlang-jose::git+https://github.com/potatosalad/erlang-jose
+	source = cache_tab::git+https://github.com/processone/cache_tab
+	source = eimp::git+https://github.com/processone/eimp
+	source = ejabberd-po::git+https://github.com/processone/ejabberd-po
+	source = epam::git+https://github.com/processone/epam
+	source = erlang-sqlite3::git+https://github.com/processone/erlang-sqlite3
+	source = esip::git+https://github.com/processone/esip
+	source = ezlib::git+https://github.com/processone/ezlib
+	source = fast_tls::git+https://github.com/processone/fast_tls
+	source = fast_xml::git+https://github.com/processone/fast_xml
+	source = fast_yaml::git+https://github.com/processone/fast_yaml
+	source = mqtree::git+https://github.com/processone/mqtree
+	source = p1_acme::git+https://github.com/processone/p1_acme
+	source = p1_mysql::git+https://github.com/processone/p1_mysql
+	source = p1_oauth2::git+https://github.com/processone/p1_oauth2
+	source = p1_pgsql::git+https://github.com/processone/p1_pgsql
+	source = p1_utils::git+https://github.com/processone/p1_utils
+	source = pkix::git+https://github.com/processone/pkix
+	source = stringprep::git+https://github.com/processone/stringprep
+	source = stun::git+https://github.com/processone/stun
+	source = xmpp::git+https://github.com/processone/xmpp
+	source = yconf::git+https://github.com/processone/yconf
+	source = luerl::git+https://github.com/rvirding/luerl
+	source = eredis::git+https://github.com/wooga/eredis
 	source = ejabberd.logrotate
 	source = sysuser.conf
-	sha256sums = 0d6e7f0d82d91cda89e2575d99a83507413da2ffde39b2151804947a2a0fa258
-	sha256sums = SKIP
-	sha256sums = SKIP
+	sha256sums = 34ef56370d39bdc9a3c58d7775a65a2c1d4e8c52e6aa80e77a8435d414dda81e
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
