@@ -2,7 +2,7 @@
 
 pkgname=nginx-mod-geoip2
 pkgver=3.4
-pkgrel=5
+pkgrel=6
 
 _modname="ngx_http_geoip2_module"
 
@@ -28,7 +28,10 @@ prepare() {
 
 build() {
 	cd build
-	/usr/src/nginx/configure --with-compat --add-dynamic-module=../$_modname-$pkgver
+	/usr/src/nginx/configure \
+		--with-ld-opt="$LDFLAGS" \
+		--with-compat \
+		--add-dynamic-module=../$_modname-$pkgver
 	make modules
 }
 
