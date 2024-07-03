@@ -3,7 +3,7 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-compute-runtime
-pkgver=24.17.29377.6
+pkgver=24.22.29735.20
 pkgrel=1
 pkgdesc="Intel(R) Graphics Compute Runtime for oneAPI Level Zero and OpenCL(TM) Driver"
 arch=(x86_64)
@@ -18,8 +18,8 @@ provides=(opencl-driver level-zero-driver)
 options=(!lto)
 source=(https://github.com/intel/compute-runtime/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         010-intel-compute-runtime-disable-werror.patch)
-sha256sums=('3b694bf881c28dc867e52b368c8272e7aba357835bf88576ebb91c2ba9c0f256'
-            '899809db77723b05787f10e3bb53aad99e981cc53aa275cec94e09ed7e16e04b')
+sha256sums=('010c9c8dd7d4ad42531c868760d1d36f1dd8bafdb21747cd94dc3e50c1bb6472'
+            '78f0613c8fd4d19450a33ceb9d68f98c56b17f29506976c51493a04eae899077')
 
 prepare() {
   patch -d compute-runtime-${pkgver} -Np1 -i "${srcdir}/010-intel-compute-runtime-disable-werror.patch"
@@ -57,7 +57,6 @@ build() {
 
 package() {
   DESTDIR="${pkgdir}" cmake --install build
-  install -Dm755 build/bin/libocloc.so -t "${pkgdir}"/usr/lib/intel-opencl
   install -Dm644 compute-runtime-${pkgver}/LICENSE.md -t "${pkgdir}"/usr/share/licenses/${pkgname}
   
   ln -s $(find "${pkgdir}"/usr/lib -regex '.*libze_intel_gpu.so.[0-9]*' -exec basename {} \;) "${pkgdir}"/usr/lib/libze_intel_gpu.so
