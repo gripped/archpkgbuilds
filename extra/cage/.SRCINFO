@@ -1,7 +1,7 @@
 pkgbase = cage
 	pkgdesc = A kiosk compositor for Wayland
-	pkgver = 0.1.5
-	pkgrel = 2
+	pkgver = 0.1.5+r36+ge7d8780
+	pkgrel = 1
 	url = https://www.hjdskes.nl/projects/cage/
 	install = cage.install
 	arch = x86_64
@@ -9,16 +9,16 @@ pkgbase = cage
 	makedepends = git
 	makedepends = libxkbcommon
 	makedepends = meson
-	makedepends = pixman
 	makedepends = scdoc
 	makedepends = wayland-protocols
 	makedepends = xorg-server-xwayland
 	depends = glibc
 	depends = wayland
-	depends = wlroots0.16
+	depends = wlroots
 	optdepends = polkit: System privilege control. Required if not using seatd service
 	optdepends = xorg-server-xwayland: X11 support
-	source = cage::git+https://github.com/Hjdskes/cage.git#tag=v0.1.5?signed
+	provides = wayland-compositor
+	source = git+https://github.com/cage-kiosk/cage.git#commit=e7d8780f46277af87881e0be91cb2092541bb1d5
 	validpgpkeys = 13B6A35E9FD677D02CD68DBE37C445296EBC43B1
 	validpgpkeys = 34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48
 	sha512sums = SKIP
@@ -26,7 +26,6 @@ pkgbase = cage
 pkgname = cage
 	depends = glibc
 	depends = wayland
-	depends = wlroots0.16
-	depends = libwlroots.so=11
+	depends = wlroots
+	depends = libwlroots.so
 	depends = libxkbcommon.so
-	depends = libpixman-1.so
