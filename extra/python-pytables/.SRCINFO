@@ -1,10 +1,11 @@
 pkgbase = python-pytables
 	pkgdesc = A package for managing hierarchical datasets and designed to efficiently and easily cope with extremely large amounts of data
 	pkgver = 3.9.2
-	pkgrel = 4
+	pkgrel = 5
 	url = https://www.pytables.org
 	arch = x86_64
 	license = BSD-3-Clause
+	checkdepends = python-pytest
 	makedepends = python-setuptools
 	makedepends = python-wheel
 	makedepends = python-build
@@ -17,6 +18,8 @@ pkgbase = python-pytables
 	depends = python-numexpr
 	depends = python-blosc2
 	source = https://github.com/PyTables/PyTables/archive/v3.9.2/python-pytables-3.9.2.tar.gz
+	source = numpy-2.0.patch
 	sha256sums = 4d7f2fc77fc63c95aaed2f8b8bf6cfbbdc7d52607b2112a80bf330c53b6c9838
+	sha256sums = 9ad8238b779d46fa4d6b0b77b1cc65d1efaa8cb830a2840c24cedaec824e946f
 
 pkgname = python-pytables
