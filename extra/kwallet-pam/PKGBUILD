@@ -1,9 +1,9 @@
 # Maintainer:Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kwallet-pam
-pkgver=6.1.0
+pkgver=6.1.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='KWallet PAM integration'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -16,13 +16,19 @@ depends=(glibc
          socat)
 makedepends=(extra-cmake-modules)
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('b21ed862e9751dfea938e557185ac8eaa24ae260ef795fb99ad74d3c4cb96a1a'
-            'SKIP')
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
+        kwallet-pam-libgcrypt-1.11.patch::https://invent.kde.org/plasma/kwallet-pam/-/merge_requests/17.patch)
+sha256sums=('2c7f218f47c371c85439ddb771e8d18d4757cecd87da747d3b9a2e764d6d0c7a'
+            'SKIP'
+            '9c5eae53a4a02b04913dd9f74fa15f57f5ceefcd0f6c9b75eb5727ec157e9580')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < kwallet-pam-libgcrypt-1.11.patch
+}
 
 build() {
   cmake -B build  -S $pkgname-$pkgver \
