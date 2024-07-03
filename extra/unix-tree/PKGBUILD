@@ -3,7 +3,7 @@
 
 pkgname=tree
 pkgver=2.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A directory listing program displaying a depth indented list of files"
 arch=('x86_64')
 url="https://gitlab.com/OldManProgrammer/unix-tree"
