@@ -6,7 +6,7 @@
 
 pkgname=gsettings-desktop-schemas
 pkgver=46.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Shared GSettings schemas for the desktop"
 url="https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas"
 arch=(any)
@@ -19,17 +19,12 @@ depends=(
 )
 makedepends=(
   git
+  glib2-devel
   gobject-introspection
   meson
 )
-_commit=38196cc6692c3622d974466c7964a0263b4ff3b4  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas.git#commit=$_commit")
+source=("git+https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas.git#tag=${pkgver/[a-z]/.&}")
 b2sums=('af6475bdb556c9a82eb29e7d1f704c73ebc0b34e8fd23e68ec120d1667eeba8ece93228e7c9612a287782a8efb657ee735a87d6c9896661b9dcb56cfafb04c5e')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
 
 prepare() {
   cd $pkgname
