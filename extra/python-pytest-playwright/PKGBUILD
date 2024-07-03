@@ -2,8 +2,8 @@
 
 _name=playwright-pytest
 pkgname=python-pytest-playwright
-pkgver=0.5.0
-pkgrel=2
+pkgver=0.5.1
+pkgrel=1
 pkgdesc='Pytest plugin to write end-to-end browser tests with Playwright'
 arch=(any)
 url='https://github.com/microsoft/playwright-pytest'
@@ -17,7 +17,7 @@ makedepends=(git
              python-setuptools-scm
              python-wheel)
 source=(git+https://github.com/microsoft/$_name#tag=v$pkgver)
-sha256sums=('dbda7f4c0b14330e42956719c938e26fd0f3b29b46661597b71eb91cc14eda78')
+sha256sums=('8d1ca732a03851c0537f7ea8fbbc1b76f3b34b70b8a25739b87ab8f35863ea7a')
 
 build() {
   cd $_name
