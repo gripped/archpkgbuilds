@@ -1,8 +1,8 @@
 # Maintainer: Andreas Radke <andyrtr@archlinux.org>
 
 pkgbase=linux-lts
-pkgver=6.6.35
-pkgrel=2
+pkgver=6.6.36
+pkgrel=1
 pkgdesc='LTS Linux'
 url='https://www.kernel.org'
 arch=(x86_64)
@@ -32,26 +32,24 @@ source=(
   0002-skip-simpledrm-if-nvidia-drm.modeset=1-is.patch
   0003-Default-to-maximum-amount-of-ASLR-bits.patch
   config  # the main kernel config file
-  0004_amd_nb.diff)
+)
 validpgpkeys=(
   ABAF11C65A2970B130ABE3C479BE3E4300411886  # Linus Torvalds
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256sums=('fce3ee728712ed063aa8c14a8756c8ff8c7a46ba3827f61d2b04a73c7cf5dd9e'
+sha256sums=('b9676828b737e8fb8eaa5198303d35d35e8df019550be153c8a42c99afe0cdd5'
             'SKIP'
             '21195509fded29d0256abfce947b5a8ce336d0d3e192f3f8ea90bde9dd95a889'
             '2f23be91455e529d16aa2bbf5f2c7fe3d10812749828fc752240c21b2b845849'
             '6400a06e6eb3a24b650bc3b1bba9626622f132697987f718e7ed6a5b8c0317bc'
-            '066e4739ad38e7c7b6ec84de38902b14a0db40cd8f82d41105c35bd1ca5b73d1'
-            '7a68f793a8acfdf6caaf8ada0273eaac0f04f5990ccfadd2293f82c7c6de91a1')
-b2sums=('93fff6421875329ab7d7ad2f0a0d3d1377c1eb42df295638c967eced3551b08986445b5e47b9d3bd1b24f93d3feeed43b1aba77f6912dc13449d956be3616571'
+            'c76831f33cba2a7737d6ec4e28793e649e86b63869f0f526d4cd2b546515ddf6')
+b2sums=('5a669a5d9280b9d813e71c35160d6ed07e8ce55792886612669316f3937ccfc66b8aac5ab911e4c7ade0baf14400e797816e75a2e28b4d5f879b6be6d2c94f49'
         'SKIP'
         '02a10396c92ab93124139fc3e37b1d4d8654227556d0d11486390da35dfc401ff5784ad86d0d2aa7eacac12bc451aa2ff138749748c7e24deadd040d5404734c'
         '5dc21a7a6f0b840e6a671dcf09a865e42f0e2c000d5e45d3f3202c02946a8ab2207858d0b2ef1004648b8c2963efb428298b263c8494be806dfc9b6af66d5413'
         'ba6ebe349b3757411364a9ba2deaa30a8d71a247d518c159385977c2b4782771bda4edfc96bd954808617c9ba984d832471b63c11f5bd6003369bfe4051df31f'
-        'e1fdeff92265d33fd1cdfdbab6e9cb8744253b7f3301f76fc4d1c4f7e3eb8d8ea2b616e7eeb50ae93ec131cdcfb217790bbea4e7dc24ad68766e7078ebae6785'
-        '116090d2e3c96a2ac9bc7874c5db3db6b11c4deb7daa054557bced9f1cc16cdedd9a0ef5d37492da6ec640c63dca554be633fac01819d16038fb9587ad563cdd')
+        '8b32a4b1478eaf8e83b285678561365c26eda4b6f6324aec8e3df964cab43641fb60b517869b2dfedc9aff9ca02e3cb6e575d5753f995068e14300d2c0212ab8')
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -73,9 +71,6 @@ prepare() {
     echo "Applying patch $src..."
     patch -Np1 < "../$src"
   done
-
-  # revert to fix broken suspend/resume 
-  patch -Rp1 -i ../0004_amd_nb.diff
 
   echo "Setting config..."
   cp ../config .config
