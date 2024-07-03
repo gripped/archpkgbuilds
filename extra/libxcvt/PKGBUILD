@@ -2,11 +2,11 @@
 
 pkgname=libxcvt
 pkgver=0.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc="library providing a standalone version of the X server implementation of the VESA CVT standard timing modelines generator"
 arch=('x86_64')
 url="https://gitlab.freedesktop.org/xorg/lib/libxcvt"
-license=('custom')
+license=('MIT' 'HPND-sell-variant')
 depends=('glibc')
 makedepends=('meson')
 source=(https://xorg.freedesktop.org/releases/individual/lib/${pkgname}-${pkgver}.tar.xz{,.sig})
