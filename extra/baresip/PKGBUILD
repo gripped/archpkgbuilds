@@ -4,7 +4,7 @@
 
 pkgname=baresip
 pkgver=3.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc="portable and modular SIP User-Agent with audio and video support"
 arch=('x86_64')
 url="https://github.com/baresip/baresip"
@@ -38,7 +38,7 @@ optdepends=('libfdk-aac: AAC audio codec'
             'speexdsp: (speex_aec, speex_pp modules)'
             'sndio: sndio audio driver'
             'v4l-utils: (v4l2 module)')
-makedepends=(${optdepends[@]/%:*/} python cmake python-packaging)
+makedepends=(${optdepends[@]/%:*/} python cmake glib2-devel)
 source=("${pkgname}-${pkgver}.tar.gz"::"https://github.com/baresip/baresip/archive/v${pkgver}.tar.gz")
 sha256sums=('f474de87747dd71e69c32de68ec5528436a2edb23898510b41f88f1da8daf074')
 
