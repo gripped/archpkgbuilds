@@ -1,22 +1,16 @@
 pkgbase = gnome-remote-desktop
 	pkgdesc = GNOME Remote Desktop server
-	pkgver = 46.2
+	pkgver = 46.3
 	pkgrel = 1
-	url = https://wiki.gnome.org/Projects/Mutter/RemoteDesktop
+	url = https://gitlab.gnome.org/GNOME/gnome-remote-desktop
 	arch = x86_64
 	groups = gnome
 	license = GPL-2.0-or-later
-	checkdepends = dbus-broker
-	checkdepends = libegl
-	checkdepends = mutter
-	checkdepends = python-dbus
-	checkdepends = python-gobject
-	checkdepends = wireplumber
 	makedepends = asciidoc
 	makedepends = ffnvcodec-headers
 	makedepends = git
+	makedepends = glib2-devel
 	makedepends = meson
-	makedepends = python-packaging
 	depends = cairo
 	depends = dconf
 	depends = freerdp
@@ -39,9 +33,9 @@ pkgbase = gnome-remote-desktop
 	depends = systemd
 	depends = systemd-libs
 	depends = tpm2-tss
-	source = git+https://gitlab.gnome.org/GNOME/gnome-remote-desktop.git?signed#tag=46.2
+	source = git+https://gitlab.gnome.org/GNOME/gnome-remote-desktop.git?signed#tag=46.3
 	validpgpkeys = 8307C0A224BABDA1BABD0EB9A6EEEC9E0136164A
 	validpgpkeys = E60DADB5546D3F01AF35B87289F540EAB24513E2
-	b2sums = eb0b13a0b4a37229048999fb33f7ec0b54189ee51b99708dcb35cc4dda2645b6dd8fa536347d6ef38acb64533fc6219130c204887dae6c42bf3312adba053142
+	b2sums = 32ed6598a4ac13d65be606cb788952e3b810b58044ca983a429f2518f86152d726a89e6c6746f9868bfabe0ff78051e1dc3609f438b5e0be1cb426844a48e092
 
 pkgname = gnome-remote-desktop
