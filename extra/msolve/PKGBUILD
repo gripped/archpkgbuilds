@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=msolve
-pkgver=0.6.5
-pkgrel=2
+pkgver=0.6.6
+pkgrel=1
 pkgdesc='Library for polynomial system solving through algebraic methods'
 url='https://msolve.lip6.fr/'
 arch=(x86_64)
@@ -11,25 +11,25 @@ depends=(flint
          gcc-libs
          glibc
          gmp)
-makedepends=()
-source=(https://github.com/algebraic-solving/msolve/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('30e3712eab4077438e2b3228d5958adb7e8488e523244a02320f80bd8c412c89')
+makedepends=(git)
+source=(git+https://github.com/algebraic-solving/msolve#tag=v$pkgver)
+sha256sums=('daabf06c39b0098aa2fe4f1806ae496c74324d8c10d509e4d5300ddf68e59e32')
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   sed -e '/AX_EXT/d' -i configure.ac # Disable CPU autodetection
   ./autogen.sh
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   ./configure \
     --prefix=/usr
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool # Fix overlinking
-  make VERBOSE=1
+  make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }

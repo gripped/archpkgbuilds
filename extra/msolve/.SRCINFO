@@ -1,15 +1,16 @@
 pkgbase = msolve
 	pkgdesc = Library for polynomial system solving through algebraic methods
-	pkgver = 0.6.5
-	pkgrel = 2
+	pkgver = 0.6.6
+	pkgrel = 1
 	url = https://msolve.lip6.fr/
 	arch = x86_64
 	license = GPL-2.0-or-later
+	makedepends = git
 	depends = flint
 	depends = gcc-libs
 	depends = glibc
 	depends = gmp
-	source = https://github.com/algebraic-solving/msolve/archive/v0.6.5/msolve-0.6.5.tar.gz
-	sha256sums = 30e3712eab4077438e2b3228d5958adb7e8488e523244a02320f80bd8c412c89
+	source = git+https://github.com/algebraic-solving/msolve#tag=v0.6.6
+	sha256sums = daabf06c39b0098aa2fe4f1806ae496c74324d8c10d509e4d5300ddf68e59e32
 
 pkgname = msolve
