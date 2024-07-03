@@ -1,6 +1,6 @@
 pkgbase = harfbuzz
 	pkgdesc = OpenType text shaping engine
-	pkgver = 8.5.0
+	pkgver = 9.0.0
 	pkgrel = 1
 	url = https://harfbuzz.github.io/
 	arch = x86_64
@@ -10,6 +10,7 @@ pkgbase = harfbuzz
 	makedepends = cairo
 	makedepends = chafa
 	makedepends = git
+	makedepends = glib2-devel
 	makedepends = gobject-introspection
 	makedepends = gtk-doc
 	makedepends = icu
@@ -20,12 +21,12 @@ pkgbase = harfbuzz
 	depends = glib2
 	depends = glibc
 	depends = graphite
-	source = git+https://github.com/harfbuzz/harfbuzz?signed#tag=8.5.0
+	source = git+https://github.com/harfbuzz/harfbuzz?signed#tag=9.0.0
 	validpgpkeys = 053D20F17CCCA9651B2C6FCB9AB24930C0B997A2
 	validpgpkeys = 9F377DDB6D3153A48EB3EB1E63CC496475267693
 	validpgpkeys = 2277650A4E8BDFE4B7F6BE419FEE04E5D3531115
 	validpgpkeys = EACF64F53455E2771BA661A4803B21859F015E4E
-	b2sums = e3bbc453cecfb7b18a4e452a183a9daab9bd5120809435263477329e173510c13104628ac0041b6790f9a7210bb0f841eca79ab36027f0bc4756a5bbd2e16529
+	b2sums = 4d26fcedac1192bae3c7ddbf58cfc79220eea9ed26310922eebb3f95a2bd5f61814eca1d39f1747841bfddb82ce8f0fcee7585e72f645c75d20b675cb8584912
 
 pkgname = harfbuzz
 	depends = freetype2
