@@ -7,7 +7,7 @@ pkgname=(
   gnome-control-center
   gnome-keybindings
 )
-pkgver=46.2
+pkgver=46.3
 pkgrel=1
 pkgdesc="GNOME's main interface to configure various aspects of the desktop"
 url="https://gitlab.gnome.org/GNOME/gnome-control-center"
@@ -71,10 +71,10 @@ depends=(
 makedepends=(
   docbook-xsl
   git
+  glib2-devel
   meson
   modemmanager
   python
-  python-packaging
 )
 checkdepends=(
   python-dbusmock
@@ -85,7 +85,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-control-center.git?signed#tag=$pkgver"
   "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git"
 )
-b2sums=('28366d2ed77825b80e5956791a5ac375ed6d1b9dcddac5683f00645294279cfcab46648fe0efb7c3062bff1d82471fd323c3e3101ece1c7d74ed11551178167e'
+b2sums=('1ab5373e96f0bd9ad11ca3644049d851f88fa5213eca875132e8af9ca4ba122b01ece2ac08b6fca3e6390207c1f60ba9df24789bb1088ae24e64829c6b595ffc'
         'SKIP')
 validpgpkeys=(
   9B60FE7947F0A3C58136817F2C2A218742E016BE # Felipe Borges (GNOME) <felipeborges@gnome.org>
