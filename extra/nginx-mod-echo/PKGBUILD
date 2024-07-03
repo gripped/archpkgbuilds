@@ -2,7 +2,7 @@
 
 pkgname=nginx-mod-echo
 pkgver=0.63
-pkgrel=1
+pkgrel=2
 
 _modname="${pkgname#nginx-mod-}"
 
@@ -27,7 +27,10 @@ prepare() {
 
 build() {
 	cd build
-	/usr/src/nginx/configure --with-compat --add-dynamic-module=../$_modname-nginx-module-$pkgver
+	/usr/src/nginx/configure \
+		--with-ld-opt="$LDFLAGS" \
+		--with-compat \
+		--add-dynamic-module=../$_modname-nginx-module-$pkgver
 	make modules
 }
 
