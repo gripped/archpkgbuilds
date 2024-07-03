@@ -3,7 +3,7 @@
 # Contributor: Jesse Luehrs <archlinux@tozt.net>
 
 pkgname=rbw
-pkgver=1.11.0
+pkgver=1.11.1
 pkgrel=1
 pkgdesc='Unofficial Bitwarden CLI'
 arch=('x86_64')
@@ -20,8 +20,8 @@ makedepends=(
 )
 options=('!lto')
 source=("git+https://github.com/doy/rbw.git#tag=$pkgver")
-sha512sums=('c3b3f42a9717d1154aacb8485af48c68c46cb8be4476ef9d299f328d132fcc1bdc702e39b9b69e4d074d4f1560a1614ec461d1f8273277ad2e5da32625bc50e8')
-b2sums=('34e8cefb6c29b748046ba3aed65231ea2a7b7bf709df07f33989ad9189fb51652414d30eefe1909659872ac8f2252541a05f1df53d1ddddb4fa2b57347dd0ad0')
+sha512sums=('45e7d0d17ff4002eabb07623da47f9d78118066269f2e9c6dad68e67c8409f6eb9097f315b8da7a1fcf5bec5040b6ac09c489962ac9c6128027285fe066578b6')
+b2sums=('1c726b9ffb7466127acd16d4efeea18732989995646212dbafa1bfbe6c81ab02bf1ffc8c8a3fdd3d535627fbb265d3b5a47d749ece4c38c4b7a97827da76cf81')
 
 prepare() {
   cd "$pkgname"
