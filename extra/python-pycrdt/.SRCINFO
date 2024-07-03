@@ -1,13 +1,15 @@
 pkgbase = python-pycrdt
 	pkgdesc = CRDTs based on Yrs
-	pkgver = 0.8.27
+	pkgver = 0.8.31
 	pkgrel = 1
 	url = https://github.com/jupyter-server/pycrdt
 	arch = x86_64
 	license = MIT
+	checkdepends = python-anyio
 	checkdepends = python-objsize
 	checkdepends = python-pydantic
 	checkdepends = python-pytest
+	checkdepends = python-trio
 	checkdepends = python-y-py
 	makedepends = git
 	makedepends = python-build
@@ -16,7 +18,7 @@ pkgbase = python-pycrdt
 	depends = gcc-libs
 	depends = glibc
 	depends = python
-	source = git+https://github.com/jupyter-server/pycrdt#tag=v0.8.27
-	sha256sums = fc5e0d2bb5bd9d5d8f1b7778fd1827c169d2544cb6754d82bf54e63ced9fcd54
+	source = git+https://github.com/jupyter-server/pycrdt#tag=v0.8.31
+	sha256sums = 2c7667070c116e03e03e099cf009e7f2043d67f2ab88083127635f142ebab035
 
 pkgname = python-pycrdt

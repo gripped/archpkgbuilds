@@ -2,7 +2,7 @@
 
 _pyname=pycrdt
 pkgname=python-$_pyname
-pkgver=0.8.27
+pkgver=0.8.31
 pkgrel=1
 pkgdesc='CRDTs based on Yrs'
 arch=(x86_64)
@@ -15,12 +15,14 @@ makedepends=(git
              python-build
              python-installer
              python-maturin)
-checkdepends=(python-objsize
+checkdepends=(python-anyio
+              python-objsize
               python-pydantic
               python-pytest
+              python-trio
               python-y-py)
 source=(git+https://github.com/jupyter-server/pycrdt#tag=v$pkgver)
-sha256sums=('fc5e0d2bb5bd9d5d8f1b7778fd1827c169d2544cb6754d82bf54e63ced9fcd54')
+sha256sums=('2c7667070c116e03e03e099cf009e7f2043d67f2ab88083127635f142ebab035')
 
 build() {
   cd $_pyname
