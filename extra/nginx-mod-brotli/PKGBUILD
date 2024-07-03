@@ -3,7 +3,7 @@
 pkgname=nginx-mod-brotli
 epoch=1
 pkgver=1.0.0rc
-pkgrel=9
+pkgrel=10
 
 _modname="ngx_${pkgname#nginx-mod-}"
 
@@ -32,7 +32,10 @@ prepare() {
 
 build() {
 	cd build
-	/usr/src/nginx/configure --with-compat --add-dynamic-module=../$_modname-$pkgver
+	/usr/src/nginx/configure \
+		--with-ld-opt="$LDFLAGS" \
+		--with-compat \
+		--add-dynamic-module=../$_modname-$pkgver
 	make modules
 }
 
