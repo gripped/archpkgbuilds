@@ -3,7 +3,7 @@
 pkgname=nginx-mod-naxsi
 pkgver=1.6
 _injectionver=3.10.0
-pkgrel=1
+pkgrel=2
 _modname=naxsi
 pkgdesc='Nginx Anti XSS & SQL Injection'
 arch=('x86_64')
@@ -50,6 +50,7 @@ prepare() {
 build() {
 	cd "$srcdir"/build
 	/usr/src/nginx/configure \
+		--with-ld-opt="$LDFLAGS" \
 		--with-compat \
 		--add-dynamic-module=../$_modname-$pkgver/naxsi_src
 	make modules
