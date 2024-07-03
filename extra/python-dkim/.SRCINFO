@@ -1,22 +1,22 @@
 pkgbase = python-dkim
 	pkgdesc = Python library that implements DKIM and ARC email signing and verification
-	pkgver = 1.1.6
+	pkgver = 1.1.7
 	pkgrel = 1
 	url = https://launchpad.net/dkimpy
 	arch = any
 	license = ZLIB
 	checkdepends = python-authres
 	checkdepends = python-pynacl
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
 	depends = python-dnspython
-	optdepends = python-aiodns
-	optdepends = python-authres
-	optdepends = python-pynacl
-	source = https://files.pythonhosted.org/packages/source/d/dkimpy/dkimpy-1.1.6.tar.gz
-	sha256sums = 0ce72d961f443e8f9f05694b354542dee534e08e2b8c5b60c62d5daca7c1da0f
-	b2sums = 89e6752b97611eba5ecf0f487d10b3210f7b898131e465639aa0a8f2120c3a2901ad844db275748148574cbfcd1a5eeaf3319c09172b51d7a79342a0ee16f285
+	optdepends = python-aiodns: for asycnio
+	optdepends = python-authres: for ARC
+	optdepends = python-pynacl: for use of ed25519 capability
+	source = git+https://git.launchpad.net/dkimpy#tag=1.1.7
+	b2sums = ffcd7e439adcca4c7a8d73455264b83b3077c6010b6c76762647f36ca2c340ec7a13c83b1b953a86481a39ab0f1d574a143cca4030229a23eea1fe68a64dfcf5
 
 pkgname = python-dkim
