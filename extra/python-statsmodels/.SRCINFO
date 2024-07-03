@@ -1,16 +1,19 @@
 pkgbase = python-statsmodels
 	pkgdesc = Statistical computations and models for use with SciPy
-	pkgver = 0.14.1
-	pkgrel = 2
+	pkgver = 0.14.2
+	pkgrel = 1
 	url = https://www.statsmodels.org/
 	arch = x86_64
-	license = BSD
+	license = BSD-3-Clause
 	checkdepends = python-pytest
 	checkdepends = python-pytest-xdist
 	checkdepends = python-joblib
 	checkdepends = python-matplotlib
 	makedepends = python-setuptools-scm
-	makedepends = cython0
+	makedepends = python-wheel
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = cython
 	makedepends = git
 	depends = python-numpy
 	depends = python-scipy
@@ -20,7 +23,7 @@ pkgbase = python-statsmodels
 	optdepends = python-cvxopt: regularized fitting of some models
 	optdepends = python-joblib: accelerate distributed estimation for certain models
 	optdepends = python-matplotlib: plotting functions
-	source = git+https://github.com/statsmodels/statsmodels#tag=v0.14.1
+	source = git+https://github.com/statsmodels/statsmodels#tag=v0.14.2
 	sha256sums = SKIP
 
 pkgname = python-statsmodels
