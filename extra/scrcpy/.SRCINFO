@@ -1,7 +1,7 @@
 pkgbase = scrcpy
 	pkgdesc = Display and control your Android device
-	pkgver = 2.4
-	pkgrel = 3
+	pkgver = 2.5
+	pkgrel = 1
 	url = https://github.com/Genymobile/scrcpy
 	arch = x86_64
 	license = Apache-2.0
@@ -10,9 +10,11 @@ pkgbase = scrcpy
 	depends = android-tools
 	depends = ffmpeg
 	depends = sdl2
-	source = git+https://github.com/Genymobile/scrcpy#tag=v2.4
-	source = scrcpy-server-2.4.apk::https://github.com/Genymobile/scrcpy/releases/download/v2.4/scrcpy-server-v2.4
-	b2sums = 2e25a17d90f51fa1c9cc51f9695109e4ef83f996017c63ac396db1c01803923daa201ae370fbf5a4ce0e086c4d1ed7dcc1e355c65416347d7953fa4e37da9038
-	b2sums = c34d75bb34dcdaf27111366575f46d8e1d54c3d9a0eca8cb569367204a3e51e4d5b05f8a4d2de9868fe48ca4e3d323c583a99da86132e533dbede78314ca447a
+	depends = glibc
+	depends = libusb
+	source = git+https://github.com/Genymobile/scrcpy#tag=v2.5
+	source = scrcpy-server-2.5.apk::https://github.com/Genymobile/scrcpy/releases/download/v2.5/scrcpy-server-v2.5
+	b2sums = 5152299aacf3bb9085c096ac1a2ca9fe91756823e0939fd5d43eb76d1238679e4c4517ea0635e475ab0512002b6561281759048985edc3e59d4f5802b04422b8
+	b2sums = a4c8aaab320e07d0c7086238a2f1e842df40ba8a85b7ed3f519f2e6f8511f6d513c80e6693a1db6c69f2c15e71e7d08db3d37ebefa47633efdaae2e706809e1c
 
 pkgname = scrcpy
