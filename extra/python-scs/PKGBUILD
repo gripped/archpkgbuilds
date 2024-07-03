@@ -2,7 +2,7 @@
 
 _pyname=scs
 pkgname=python-$_pyname
-pkgver=3.2.4.post3
+pkgver=3.2.5
 pkgrel=1
 pkgdesc='Splitting Conic Solver'
 url='https://github.com/cvxgrp/scs/'
@@ -18,7 +18,7 @@ makedepends=(meson-python
              python-installer)
 checkdepends=(python-pytest)
 source=(https://pypi.org/packages/source/${_pyname:0:1}/$_pyname/$_pyname-$pkgver.tar.gz)
-sha256sums=('a6ee9cb167c3d3bc57e023ee70df15ecb1fccc3eec286a02198f35198d56b612')
+sha256sums=('dde777756b0aa9813f88224193883a494149b3f8c3c5b3dd6082c6e8b6bbe262')
 
 build() {
   cd $_pyname-$pkgver
