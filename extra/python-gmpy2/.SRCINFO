@@ -1,19 +1,24 @@
 pkgbase = python-gmpy2
 	pkgdesc = Provides C-coded Python modules for fast multiple-precision arithmetic
-	pkgver = 2.1.5
-	pkgrel = 3
+	pkgver = 2.2.0
+	pkgrel = 1
 	url = https://github.com/aleaxit/gmpy
 	arch = x86_64
-	license = LGPL2.1
+	license = LGPL-2.1-only
+	checkdepends = python-hypothesis
+	checkdepends = python-pytest
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
+	depends = glibc
+	depends = gmp
 	depends = libmpc
+	depends = mpfr
 	depends = python
-	source = https://github.com/aleaxit/gmpy/archive/refs/tags/gmpy2-2.1.5.tar.gz
-	source = python-3.12.patch
-	sha256sums = 67ef729ff8e7f501e3f23324058386bac3fe0dea9b460317b27bde579c7cfbd5
-	sha256sums = 6b0994285919e373d2e91b3e0662c7775f03a194a116b5170fdc41837dd3551e
+	depends = python-packaging
+	source = git+https://github.com/aleaxit/gmpy#tag=gmpy2_2_2_0
+	sha256sums = 51b1d6d444335d8fb86e5d2125014c6dad8d0bc2d3016d242a71e8427b1e47d8
 
 pkgname = python-gmpy2
