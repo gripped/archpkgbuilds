@@ -1,15 +1,25 @@
 pkgbase = libsidplayfp
-	pkgdesc = Library to play Commodore 64 music, derived from libsidplay2
-	pkgver = 2.6.0
+	pkgdesc = Library to play Commodore 64 music
+	pkgver = 2.8.0
 	pkgrel = 1
 	url = https://github.com/libsidplayfp/libsidplayfp
 	arch = x86_64
-	license = GPL
+	license = GPL-2.0-only
+	makedepends = git
 	makedepends = vice
 	makedepends = xa
+	depends = glibc
+	depends = gcc-libs
 	depends = libgcrypt
 	optdepends = vice: better SID support
-	source = https://downloads.sourceforge.net/project/sidplay-residfp/libsidplayfp/2.6/libsidplayfp-2.6.0.tar.gz
-	sha256sums = cc6bb9418ad3f64772c54c011552b113f8ef82f9820d74d4c2fed5976d4905e9
+	source = libsidplayfp::git+https://github.com/libsidplayfp/libsidplayfp#tag=v2.8.0
+	source = github.com-libsidplayfp-exsid-driver::git+https://github.com/libsidplayfp/exsid-driver
+	source = github.com-libsidplayfp-resid::git+https://github.com/libsidplayfp/resid
+	sha512sums = 87a0c2ff4d8bd8e803f00bc3aa08ee99487bb0c131fba9db0954d87d44c05c5d5375f4ac4a6d8d9856c31ef9b54ffa22c1c25b1bf303916b7da054e6511fb369
+	sha512sums = SKIP
+	sha512sums = SKIP
+	b2sums = 4a1eb5393eb73e6e4aca2d548c2638f732ddc666c81c516ad5c7940ae1f22e15fd3ad214c524509641ec386cdcd960d4804c5ca718053531889a5c527f856960
+	b2sums = SKIP
+	b2sums = SKIP
 
 pkgname = libsidplayfp
