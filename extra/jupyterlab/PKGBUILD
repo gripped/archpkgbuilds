@@ -2,7 +2,7 @@
 
 pkgname=jupyterlab
 _pipname=jupyterlab
-pkgver=4.2.2
+pkgver=4.2.3
 pkgrel=1
 pkgdesc='JupyterLab computational environment'
 arch=(any)
@@ -25,6 +25,7 @@ makedepends=(git
              python-hatch-jupyter-builder
              python-installer)
 optdepends=('jupyter-collaboration: collaborative mode'
+            'jupyterlab-lsp: LSP extension'
             'jupyterlab-widgets: ipywidgets support'
             'npm: to install extensions')
 checkdepends=(npm
@@ -32,7 +33,7 @@ checkdepends=(npm
               python-pytest-jupyter
               python-pytest-tornasync)
 source=(git+https://github.com/jupyterlab/jupyterlab#tag=v$pkgver)
-sha256sums=('6e8ce9f79e81feb7949a6367d4f308f34480aa1ec61d033514efeaf76260b6ac')
+sha256sums=('6f748b3a32f4e793e3ccebe1f42f2e709e1388d51b685ce32d2857a003d40d12')
 
 build() {
   cd $pkgname
