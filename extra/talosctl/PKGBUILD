@@ -2,7 +2,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=talosctl
-pkgver=1.7.4
+pkgver=1.7.5
 pkgrel=1
 pkgdesc='CLI for Talos - A modern OS for Kubernetes'
 arch=('x86_64')
@@ -12,8 +12,8 @@ depends=('glibc')
 makedepends=('git' 'go')
 options=('!lto')
 source=("$pkgname::git+https://github.com/siderolabs/talos.git#tag=v${pkgver}?signed")
-sha512sums=('387ddae48a0ce6d6ef7c4a3aa43760a033128924c42ceb1e37078e846817bc9d1f6a79b402788d9b5c6f090434637eee937370151b456050aa5d97695a8861b9')
-b2sums=('6570bbe003429f04839f20ccdd7bfef1231b6a2c54e6c063d713559c352f7ec0cc468de1d695bcd1a72d0354ef0be586d99a4fd4057c1d5691637cf42e6856cd')
+sha512sums=('09da406988b0e56ae9c3d1da0c557e92e3eaec018067f3b193a66a10b21922d8c61397fea502dfe6db3c996c203c89cdda2b6bbc46b34cb0b44061fcc6fa1255')
+b2sums=('a0ebe3c828a7bd5fcb8410b30b1ea5298267f2de30bddebc3ce3a27712fac256ed07348e06e207b17a90a7aec226e46d071a32c4a86da6ce97ceea92a92db2f3')
 validpgpkeys=('DB997306E3102F11C4E8F5527B26396447AB6DFD'  # "Andrey Smirnov <andrey.smirnov@talos-systems.com>"
               'CC51116A94490FA6FB3C18EB2401FCAE863A06CA'  # frezbo (Noel Georgi) <git@frezbo.dev>
               '15D5721F5F5BAF121495363EFE042E3D4085A811') # Andrey Smirnov <andrey.smirnov@siderolabs.com>
