@@ -4,7 +4,7 @@
 # Contributor: Alper KANAT <alperkanat@raptiye.org>
 
 pkgname=aws-cli
-pkgver=1.32.106
+pkgver=1.33.13
 pkgrel=1
 pkgdesc='Universal Command Line Interface for Amazon Web Services'
 arch=('any')
@@ -17,8 +17,8 @@ depends=('python' 'python-botocore' 'python-dateutil' 'python-jmespath'
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest' 'python-pytest-xdist' 'python-awscrt')
 source=($pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-md5sums=('44da9a3e4c47c7e9b2e877b05028530a')
-sha256sums=('a75b88fa7fb8e713b8fcfbfe765a28c9737e7dcaeb763e9f4575ae3c95cd6cf9')
+md5sums=('2dd5de6d2639181a5c5a00909409dc89')
+sha256sums=('a142ecad786a2b1d6a1c10a54b055af5cfdf454e1788eab115566f33921866a2')
 
 build() {
   cd $pkgname-$pkgver
