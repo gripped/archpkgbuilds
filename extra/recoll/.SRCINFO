@@ -1,7 +1,7 @@
 pkgbase = recoll
 	pkgdesc = Full text search tool based on Xapian backend
-	pkgver = 1.37.5
-	pkgrel = 1
+	pkgver = 1.39.1
+	pkgrel = 2
 	url = https://www.recoll.org
 	arch = x86_64
 	license = GPL
@@ -10,6 +10,11 @@ pkgbase = recoll
 	makedepends = qt6-tools
 	makedepends = cmake
 	makedepends = extra-cmake-modules
+	makedepends = meson
+	makedepends = kcoreaddons
+	makedepends = kio
+	makedepends = krunner
+	makedepends = knotifications
 	depends = xapian-core>=1.0.15-1
 	depends = qt6-base
 	depends = openssl
@@ -28,8 +33,11 @@ pkgbase = recoll
 	optdepends = perl-image-exiftool: EXIF data from image files
 	optdepends = python-lxml: indexing spreadsheets
 	optdepends = python-pychm: CHM filter
+	optdepends = kcoreaddons: KDE plugins
+	optdepends = kio: KDE plugins
+	optdepends = krunner: KDE plugins
 	optdepends = aspell-en: English stemming support
-	source = https://www.recoll.org/recoll-1.37.5.tar.gz
-	sha512sums = 594a81de809a2f2f08986ef1220ea2d7df8292923f55cf41c5813eb50be9ca63aa9f77c38bd27466486e72b030f2df28a093bca32dae1682d514acbb11a76382
+	source = https://www.recoll.org/recoll-1.39.1.tar.gz
+	sha512sums = 65f09f9728b4888f2eb8bd27a3aa6b6505e8e0f0a29e44da028b6d5c0e0c711d28de091e89c144ade3d14a6ffeaf3e0d39bcac31f6255dbec6e1bc6fbd6d1a6c
 
 pkgname = recoll

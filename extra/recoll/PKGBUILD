@@ -5,8 +5,8 @@
 # Contributor: Robert Emil Berge <filoktetes@linuxophic.org>
 
 pkgname=recoll
-pkgver=1.37.5
-pkgrel=1
+pkgver=1.39.1
+pkgrel=2
 pkgdesc="Full text search tool based on Xapian backend"
 arch=('x86_64')
 url="https://www.recoll.org"
@@ -14,7 +14,8 @@ license=('GPL')
 depends=('xapian-core>=1.0.15-1' 'qt6-base' 'openssl' 'hicolor-icon-theme' 'qt6-webengine'
 	 'chmlib' 'aspell')
 makedepends=('python' 'python-setuptools' 'qt6-tools'
-	     'cmake' 'extra-cmake-modules')
+	     'cmake' 'extra-cmake-modules' 'meson'
+	     'kcoreaddons' 'kio' 'krunner' 'knotifications')
 optdepends=('libxslt: for XML based formats (fb2,etc)'
 	    'unzip: for the OpenOffice.org documents'
 	    'poppler: for pdf'
@@ -29,48 +30,55 @@ optdepends=('libxslt: for XML based formats (fb2,etc)'
 	    'perl-image-exiftool: EXIF data from image files'
 	    'python-lxml: indexing spreadsheets'
 	    'python-pychm: CHM filter'
-#	    'kcoreaddons5: KDE plugins'
-#	    'kio5: KDE plugins'
-#	    'krunner5: KDE plugins'
+	    'kcoreaddons: KDE plugins'
+	    'kio: KDE plugins'
+	    'krunner: KDE plugins'
 	    'aspell-en: English stemming support')
 source=("https://www.recoll.org/$pkgname-${pkgver/_/}.tar.gz")
-sha512sums=('594a81de809a2f2f08986ef1220ea2d7df8292923f55cf41c5813eb50be9ca63aa9f77c38bd27466486e72b030f2df28a093bca32dae1682d514acbb11a76382')
+sha512sums=('65f09f9728b4888f2eb8bd27a3aa6b6505e8e0f0a29e44da028b6d5c0e0c711d28de091e89c144ade3d14a6ffeaf3e0d39bcac31f6255dbec6e1bc6fbd6d1a6c')
 
 prepare() {
   cd "$srcdir/$pkgname-${pkgver/_/}"
   sed -i '1,1i#include <QAbstractItemView>' qtgui/ssearch_w.cpp
+  sed -i '/int res3 = SWIG_TMPOBJ/d' python/pychm/recollchm/swig_chm.c
 }
 
 build() {
   cd "$srcdir/$pkgname-${pkgver/_/}"
-  QMAKE=qmake6 ./configure \
+
+  export PATH="/usr/lib/qt6/bin:$PATH"
+
+  meson setup \
     --prefix=/usr \
-    --mandir=/usr/share/man \
-    --enable-recollq \
-    --disable-webkit \
-    --enable-webengine \
-    --enable-publiclib
+    -Drecollq=true \
+    -Dwebkit=false \
+    -Dwebengine=true \
+    build
+  ninja -C build
+
+  export RECOLL_LIB_DIR=$(pwd)/build
+
+  pushd kde/kioslave/kio_recoll
+  cp CMakeLists-KF6.txt CMakeLists.txt
+  mkdir -p build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DRECOLL_PUBLIC_LIB=ON -DQT_MAJOR_VERSION=6 ..
   make
+  popd
 
-#  KDE Applets not ported to KF6 yet
-#  pushd kde/kioslave/kio_recoll
-#  mkdir -p build
-#  cd build
-#  cmake -DCMAKE_INSTALL_PREFIX=/usr -DRECOLL_PUBLIC_LIB=ON -DQT_MAJOR_VERSION=6 ..
-#  make
-#  popd
+  pushd kde/krunner
+  cp CMakeLists-KF6.txt CMakeLists.txt
+  mkdir -p build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DRECOLL_PUBLIC_LIB=ON -DQT_MAJOR_VERSION=6 ..
+  make
+  popd
 
-#  pushd kde/krunner
-#  mkdir -p build
-#  cd build
-#  cmake -DCMAKE_INSTALL_PREFIX=/usr -DRECOLL_PUBLIC_LIB=ON -DQT_MAJOR_VERSION=6 ..
-#  make
-#  popd
 }
 
 package() {
   cd "$srcdir/$pkgname-${pkgver/_/}"
-  make DESTDIR="$pkgdir" install
-#  make -C "kde/kioslave/kio_recoll/build" DESTDIR="$pkgdir" install
-#  make -C "kde/krunner/build" DESTDIR="$pkgdir" install
+  DESTDIR="$pkgdir" ninja -C build install
+  make -C "kde/kioslave/kio_recoll/build" DESTDIR="$pkgdir" install
+  make -C "kde/krunner/build" DESTDIR="$pkgdir" install
 }
