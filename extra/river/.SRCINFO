@@ -1,7 +1,7 @@
 pkgbase = river
 	pkgdesc = A dynamic tiling wayland compositor
-	pkgver = 0.3.0
-	pkgrel = 2
+	pkgver = 0.3.2
+	pkgrel = 1
 	url = https://codeberg.org/river/river
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -9,32 +9,30 @@ pkgbase = river
 	makedepends = scdoc
 	makedepends = wayland-protocols
 	makedepends = zig
+	depends = glibc
 	depends = libevdev
+	depends = libinput
 	depends = libxkbcommon
 	depends = mesa
 	depends = pixman
+	depends = sh
 	depends = wayland
 	depends = wlroots
 	depends = xorg-xwayland
 	optdepends = polkit: access seat through systemd-logind
-	source = git+https://codeberg.org/river/river.git#tag=v0.3.0?signed
-	source = git+https://github.com/ifreund/zig-pixman.git
-	source = git+https://github.com/ifreund/zig-wayland.git
-	source = git+https://codeberg.org/ifreund/zig-wlroots.git
-	source = git+https://github.com/ifreund/zig-xkbcommon.git
+	source = git+https://codeberg.org/river/river.git#tag=v0.3.2?signed
 	validpgpkeys = 5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11
-	sha256sums = c6c33e6dce92e729635b244f0e63a24a004e7339f4ae885db2bd937d022ef93a
-	sha256sums = SKIP
-	sha256sums = SKIP
-	sha256sums = SKIP
-	sha256sums = SKIP
+	sha256sums = 52e86e4c9c51e712511c76964d3fbe6c18fb6fd0fadb89827b5e91f834fe9dee
 
 pkgname = river
+	depends = glibc
 	depends = libevdev
+	depends = libinput
 	depends = libxkbcommon
 	depends = mesa
 	depends = pixman
+	depends = sh
 	depends = wayland
 	depends = wlroots
 	depends = xorg-xwayland
-	depends = libwlroots.so=12
+	depends = libwlroots.so

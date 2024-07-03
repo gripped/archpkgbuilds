@@ -2,16 +2,19 @@
 # Contributor: Andrea Feletto <andrea@andreafeletto.com>
 
 pkgname=river
-pkgver=0.3.0
-pkgrel=2
+pkgver=0.3.2
+pkgrel=1
 pkgdesc='A dynamic tiling wayland compositor'
 arch=('x86_64')
 url='https://codeberg.org/river/river'
 license=('GPL-3.0-or-later')
-depends=('libevdev'
+depends=('glibc'
+         'libevdev'
+         'libinput'
          'libxkbcommon'
          'mesa'
          'pixman'
+         'sh'
          'wayland'
          'wlroots'
          'xorg-xwayland')
@@ -20,38 +23,27 @@ makedepends=('git'
              'wayland-protocols'
              'zig')
 optdepends=('polkit: access seat through systemd-logind')
-source=(
-  git+https://codeberg.org/river/river.git#tag=v${pkgver}?signed
-  git+https://github.com/ifreund/zig-pixman.git
-  git+https://github.com/ifreund/zig-wayland.git
-  git+https://codeberg.org/ifreund/zig-wlroots.git
-  git+https://github.com/ifreund/zig-xkbcommon.git
-)
+source=(  git+https://codeberg.org/river/river.git#tag=v${pkgver}?signed)
 validpgpkeys=('5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11') # Isaac Freund <mail@isaacfreund.com>
-sha256sums=('c6c33e6dce92e729635b244f0e63a24a004e7339f4ae885db2bd937d022ef93a'
-            'SKIP'
-            'SKIP'
-            'SKIP'
-            'SKIP')
+sha256sums=('52e86e4c9c51e712511c76964d3fbe6c18fb6fd0fadb89827b5e91f834fe9dee')
 
 prepare() {
-  cd $pkgname
-  git submodule init
-  git config submodule."deps/zig-pixman".url "${srcdir}/zig-pixman"
-  git config submodule."deps/zig-wayland".url "${srcdir}/zig-wayland"
-  git config submodule."deps/zig-wlroots".url "${srcdir}/zig-wlroots"
-  git config submodule."deps/zig-xkbcommon".url "${srcdir}/zig-xkbcommon"
-  git -c protocol.file.allow=always submodule update
+    # PACKAGING.md -> build.zig.zon
+    zig fetch --global-cache-dir ./zig-global-cache https://codeberg.org/ifreund/zig-pixman/archive/v0.1.0.tar.gz
+    zig fetch --global-cache-dir ./zig-global-cache https://codeberg.org/ifreund/zig-wayland/archive/v0.1.0.tar.gz
+    zig fetch --global-cache-dir ./zig-global-cache https://codeberg.org/ifreund/zig-wlroots/archive/v0.17.0.tar.gz
+    zig fetch --global-cache-dir ./zig-global-cache https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.1.0.tar.gz
 }
 
 build() {
   cd $pkgname
-
-  export PKG_CONFIG_PATH='/usr/lib/wlroots0.16/pkgconfig'
   DESTDIR="build" zig build \
+    --summary all \
     --prefix /usr \
     --search-prefix /usr \
-    -Dtarget=native-linux.5.15-gnu.2.37 \
+    --global-cache-dir ../zig-global-cache \
+    --system ../zig-global-cache/p \
+    -Dtarget=native-linux.6.1-gnu.2.38 \
     -Dcpu=baseline \
     -Dpie \
     -Doptimize=ReleaseSafe \
@@ -60,11 +52,13 @@ build() {
 
 check() {
   cd $pkgname
-
   zig build test \
+    --summary all \
     --prefix /usr \
     --search-prefix /usr \
-    -Dtarget=native-linux.5.15-gnu.2.37 \
+    --global-cache-dir ../zig-global-cache \
+    --system ../zig-global-cache/p \
+    -Dtarget=native-linux.6.1-gnu.2.38 \
     -Dcpu=baseline \
     -Dpie \
     -Doptimize=ReleaseSafe \
@@ -72,7 +66,7 @@ check() {
 }
 
 package() {
-  depends+=(libwlroots.so=12)
+  depends+=(libwlroots.so)
   cd $pkgname
 
   cp -a build/* "$pkgdir"
