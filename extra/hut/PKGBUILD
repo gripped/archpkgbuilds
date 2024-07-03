@@ -2,7 +2,7 @@
 # Contributor: Thorben Günther <echo YWRtaW5AeGVucm94Lm5ldAo= | base64 -d>
 
 pkgname=hut
-pkgver=0.5.0
+pkgver=0.6.0
 pkgrel=1
 pkgdesc='A CLI tool for Sourcehut'
 arch=('x86_64')
@@ -12,8 +12,8 @@ depends=('glibc')
 makedepends=('git' 'go' 'scdoc')
 options=('!lto' '!debug')
 source=("git+https://git.sr.ht/~xenrox/hut#tag=v$pkgver")
-sha512sums=('8466a0fdcfdd458baaaa3e5382b6556d7b98f5d252c4b49f1312a58a4bf933bcfc29915dd15c1c5b9f3445fb29131d83199f12415c1d779f3293db8efe3e1481')
-b2sums=('e4dd6e2e535e4bb8749eaa2fc08fb83f32fb5e5b47ac1c06d2c26c019a31341af68349c439e53038896d6d3322a481eaddec3656a2a528cd4907afd2e7b77825')
+sha512sums=('db551e105d5585a058e79d396b0c368efc4695ef586837e8d781a56a0a283837c32434e7434975ca68523b666ea795c5defc4e0e70c1f54f3146c7c6f710e507')
+b2sums=('225bc13b0e4f89ad4182223f8b84bb110f04608108b82aae9baf73fbd44a52480001023209bc0956327af7c1b7625c94708587c59f15d76732139e8aadf5f393')
 
 prepare() {
   cd "$pkgname"
