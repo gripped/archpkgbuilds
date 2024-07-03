@@ -1,19 +1,21 @@
 pkgbase = python-platformdirs
 	pkgdesc = A library to determine platform-specific system directories
-	pkgver = 4.2.0
-	pkgrel = 3
+	pkgver = 4.2.2
+	pkgrel = 1
 	url = https://github.com/platformdirs/platformdirs
 	arch = any
 	license = MIT
 	checkdepends = python-pytest
 	checkdepends = python-pytest-mock
 	checkdepends = python-appdirs
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-hatchling
 	makedepends = python-hatch-vcs
 	depends = python
-	source = platformdirs-4.2.0.tar.gz::https://github.com/platformdirs/platformdirs/archive/refs/tags/4.2.0.tar.gz
-	b2sums = efd79a88b7d1ea3c94be21ce01443d6429596c8e621e9589f6980877aef8d8e5c2e916b4421e9993df1f4d0184c136afcac96800af9f4283c8876d7c00a6e8d3
+	source = python-platformdirs::git+https://github.com/platformdirs/platformdirs#tag=4.2.2
+	sha512sums = 522b24897f31d43353429a101e29723b3ab22f0b7d801fc77ea125868cf1edfa695122350a432ce442c372361892a4f9d57dd6f31562fc14ebca30c4d4d03e4b
+	b2sums = 55a18ec0b5d679c3c7b6cdb2856048b9af051e8ac4a1d839806321dff165d09a1a610fa8d3e3bb152ae69f39e5a0480723c4eaf6f269056c1bd88ac198e0af94
 
 pkgname = python-platformdirs
