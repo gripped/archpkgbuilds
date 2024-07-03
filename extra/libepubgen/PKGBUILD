@@ -2,12 +2,12 @@
 
 pkgname=libepubgen
 pkgver=0.1.1
-pkgrel=4
+pkgrel=5
 pkgdesc="an EPUB generator for librevenge"
 arch=('x86_64')
 url="https://sourceforge.net/projects/libepubgen/"
-license=('MPL2')
-depends=('librevenge')
+license=('MPL-2.0')
+depends=('librevenge' 'gcc-libs' 'glibc')
 makedepends=('boost' 'cppunit' 'doxygen' 'libxml2')
 source=("https://sourceforge.net/projects/$pkgname/files/$pkgname-$pkgver/$pkgname-$pkgver.tar.xz")
 sha1sums=('48e81c60e173552fce77ce3b414e68b7d52a5301')
