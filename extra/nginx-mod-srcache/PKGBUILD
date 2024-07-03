@@ -2,7 +2,7 @@
 
 pkgname=nginx-mod-srcache
 pkgver=0.33
-pkgrel=4
+pkgrel=5
 
 _modname="${pkgname#nginx-mod-}"
 
@@ -18,11 +18,19 @@ source=(
 validpgpkeys=(B0F4253373F8F6F510D42178520A9993A1C052F8) # Maxim Dounin <mdounin@mdounin.ru>
 sha256sums=('1ffd3e244a52bc2ad31661b038fa20fab3145dea506d97f53c2ac80b55eb38d3')
 
-build() {
-	cp -r /usr/src/nginx .
+prepare() {
+	mkdir -p build
+	cd build
+	ln -sf /usr/src/nginx/auto
+	ln -sf /usr/src/nginx/src
+}
 
-	cd "$srcdir"/nginx
-	./configure --with-compat --add-dynamic-module=../$_modname-nginx-module-$pkgver
+build() {
+	cd build
+	/usr/src/nginx/configure \
+		--with-ld-opt="$LDFLAGS" \
+		--with-compat \
+		--add-dynamic-module=../$_modname-nginx-module-$pkgver
 	make modules
 }
 
@@ -31,7 +39,7 @@ package() {
 	_nginx_version=${_nginx_version/* nginx\/}
 	depends+=("nginx=${_nginx_version}")
 
-	cd "$srcdir"/nginx/objs
+	cd build/objs
 	for mod in *.so; do
 		install -Dm755 $mod "$pkgdir"/usr/lib/nginx/modules/$mod
 	done
