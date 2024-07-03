@@ -1,23 +1,21 @@
 pkgbase = qterminal
 	pkgdesc = A lightweight Qt-based terminal emulator
-	pkgver = 2.0.0
+	pkgver = 2.0.1
 	pkgrel = 1
 	url = https://github.com/lxqt/qterminal
 	arch = x86_64
 	groups = lxqt
 	license = GPL-2.0-or-later
 	license = BSD-3-Clause
+	makedepends = git
 	makedepends = cmake
 	makedepends = lxqt-build-tools
 	depends = hicolor-icon-theme
 	depends = qtermwidget
 	depends = libcanberra
-	source = https://github.com/lxqt/qterminal/releases/download/2.0.0/qterminal-2.0.0.tar.xz
-	source = https://github.com/lxqt/qterminal/releases/download/2.0.0/qterminal-2.0.0.tar.xz.asc
-	validpgpkeys = 169704C6FB490C6892C7F23C37E0AF1FDA48F373
-	validpgpkeys = 7C733BA5F585AAD669E4D23A42C9C8D3AF5EA5E3
+	depends = layer-shell-qt
+	source = git+https://github.com/lxqt/qterminal.git?signed#tag=2.0.1
 	validpgpkeys = 19DFDF3A579BD509DBB572D8BE793007AD22DF7E
-	sha256sums = 28f00a5c8c31d9108a54b7dcbf87d46f14e460492d2c56e3ecf5b5c3bba4059f
-	sha256sums = SKIP
+	sha256sums = f8523a955dcc9df8c51457fcc545e255c70f45fce55ba85036de0003aa857255
 
 pkgname = qterminal
