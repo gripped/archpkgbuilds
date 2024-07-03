@@ -9,8 +9,7 @@ pkgname=(
   lib32-pipewire-jack
   lib32-pipewire-v4l2
 )
-pkgver=1.0.7
-_so_ver=0.3
+pkgver=1.2.0
 pkgrel=1
 epoch=1
 pkgdesc="Low-latency audio/video router and processor - 32-bit"
@@ -29,7 +28,7 @@ makedepends=(
 source=(
   "git+https://gitlab.freedesktop.org/pipewire/pipewire.git#tag=$pkgver"
 )
-b2sums=('0f48332de9555b7eaca49f7ba1dfa6c86c9797ef161e1b3bec4c04dbf791e867e9e84e93fa6bc57426e79cdc4ee32c244a934064f4e5028d4310b5ec13a16b5d')
+b2sums=('a8601fcb9fcd1408ccde0de8baca110dbd494800003274ee65b39dd47db6b9a6a88ea0936941c83232440633b3a8ff4aa9c7f239b66a39989cf5bb6099f9805a')
 
 prepare() {
   cd pipewire
@@ -70,6 +69,7 @@ build() {
     -D sdl2=disabled
     -D selinux=disabled
     -D session-managers=[]
+    -D snap=disabled
     -D sndfile=disabled
     -D systemd-user-service=disabled
     -D tests=disabled
@@ -97,15 +97,18 @@ _pick() {
   done
 }
 
+_pwname=pipewire-0.3
+_spaname=spa-0.2
+
 package_lib32-pipewire() {
   depends=(
+    "lib32-libpipewire=$epoch:$pkgver-$pkgrel"
+    lib$_pwname.so
     lib32-gcc-libs
     lib32-glibc
-    "lib32-libpipewire=$epoch:$pkgver-$pkgrel"
     libasound.so
     libdbus-1.so
     libglib-2.0.so
-    libpipewire-$_so_ver.so
     libsystemd.so
     pipewire
   )
@@ -119,13 +122,13 @@ package_lib32-pipewire() {
   (
     cd "$pkgdir"
 
-    _pick lib usr/lib32/libpipewire-$_so_ver.so*
-    _pick lib usr/lib32/pkgconfig/lib{pipewire-$_so_ver,spa-0.2}.pc
+    _pick lib usr/lib32/lib$_pwname.so*
+    _pick lib usr/lib32/pkgconfig/lib{$_pwname,$_spaname}.pc
 
     _pick jack usr/lib32/libjack*
     _pick jack usr/lib32/pkgconfig/jack.pc
 
-    _pick v4l2 usr/lib32/pipewire-$_so_ver/v4l2
+    _pick v4l2 usr/lib32/$_pwname/v4l2
 
     rm -r usr/{bin,include,lib,share}
   )
@@ -140,7 +143,7 @@ package_lib32-libpipewire() {
     lib32-glibc
     libpipewire
   )
-  provides=(libpipewire-$_so_ver.so)
+  provides=(lib$_pwname.so)
 
   mv lib/* "$pkgdir"
 
@@ -149,11 +152,15 @@ package_lib32-libpipewire() {
 
 package_lib32-pipewire-jack() {
   pkgdesc+=" - JACK support"
-  license+=(GPL-2.0-only)  # libjackserver
+  license+=(
+    # libjackserver
+    GPL-2.0-only
+    LGPL-2.1-or-later
+  )
   depends=(
+    lib$_pwname.so
     lib32-glibc
     lib32-pipewire
-    libpipewire-$_so_ver.so
     pipewire-jack
   )
   conflicts=(
@@ -161,7 +168,10 @@ package_lib32-pipewire-jack() {
     lib32-jack2
   )
   provides=(
-    lib32-jack libjack.so libjackserver.so libjacknet.so
+    lib32-jack
+    libjack.so
+    libjacknet.so
+    libjackserver.so
   )
 
   mv jack/* "$pkgdir"
@@ -172,9 +182,9 @@ package_lib32-pipewire-jack() {
 package_lib32-pipewire-v4l2() {
   pkgdesc+=" - V4L2 interceptor"
   depends=(
+    lib$_pwname.so
     lib32-glibc
     lib32-pipewire
-    libpipewire-$_so_ver.so
     pipewire-v4l2
   )
 
