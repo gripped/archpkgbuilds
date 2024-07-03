@@ -1,0 +1,28 @@
+pkgbase = efifs
+	pkgdesc = Standalone EFI file system drivers
+	pkgver = 1.10
+	pkgrel = 1
+	url = https://efi.akeo.ie/
+	arch = any
+	license = GPL-3.0-or-later
+	makedepends = git
+	makedepends = mingw-w64-gcc
+	makedepends = arm-none-eabi-gcc
+	makedepends = arm-none-eabi-newlib
+	makedepends = aarch64-linux-gnu-gcc
+	makedepends = riscv64-linux-gnu-gcc
+	source = git+https://github.com/pbatard/EfiFs.git#commit=408787353c3ad06226f54940437101323efec11b?signed
+	source = git+https://git.savannah.gnu.org/git/grub.git
+	source = git+https://github.com/ncroxon/gnu-efi.git
+	source = 010-efifs-grub-fix-conflicting-parameter-types.patch
+	source = 020-efifs-grub-fix-incompatible-pointer-types.patch
+	source = 030-efifs-gnu-efi-remove-werror.patch
+	validpgpkeys = E7CDF2A016DDDD53F0B7943838E0CF5E69EDD671
+	sha256sums = f6b3b5055e10554b226383c2f23a1736b4d61fce249dd96e1ef230c4987d3f04
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = f87972064fbde9215ee2c9c9f7085dfc738f79cecd8b5b735cd4ce2916b543f8
+	sha256sums = 5f207623fd37dfc6be89e600e5d54c118d93537c94fb8ec19f9ae5e1473cca6b
+	sha256sums = a9c3fc0aae024e3e2966536e575336858da85232db7888c495bf9444786215bd
+
+pkgname = efifs
