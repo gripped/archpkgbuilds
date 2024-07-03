@@ -3,7 +3,7 @@
 
 pkgname=gnome-text-editor
 pkgver=46.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple text editor for the GNOME desktop"
 url="https://gitlab.gnome.org/GNOME/gnome-text-editor"
 arch=(x86_64)
@@ -26,6 +26,7 @@ depends=(
 makedepends=(
   appstream-glib
   git
+  glib2-devel
   meson
   yelp-tools
 )
