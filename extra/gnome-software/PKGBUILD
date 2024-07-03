@@ -4,7 +4,7 @@
 # Contributor: Yosef Or Boczko <yoseforb@gnome.org>
 
 pkgname=gnome-software
-pkgver=46.2
+pkgver=46.3
 pkgrel=1
 pkgdesc="GNOME Software Tools"
 url="https://apps.gnome.org/Software"
@@ -34,12 +34,12 @@ makedepends=(
   flatpak
   fwupd
   git
+  glib2-devel
   gobject-introspection
   gtk-doc
   libglib-testing
   malcontent
   meson
-  python-packaging
 )
 optdepends=(
   'flatpak: Flatpak support plugin'
@@ -51,7 +51,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-software.git?signed#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/mwleeds/gnome-pwa-list.git"
 )
-b2sums=('ea19a0dc0884f8820320c3159740330d907365f70e130f3a963f414bd51f1fd994b2318b39bc64390d2e6a9fcfa22a1481b829d9bfb559030b405c71357adcb4'
+b2sums=('ee97a5d8adaa9d58cc7b45dc61c7b5971b1b1ccab317ea8990f32781d60289c5182036d687511b5d71451f3e3c943f8d4bf70f9d4ebd4218632252986354248c'
         'SKIP')
 validpgpkeys=(
   2AA441054BD2F1715EC11610FB183E7EF3C36A0D # Milan Crha <mcrha@redhat.com>
