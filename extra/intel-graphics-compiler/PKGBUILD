@@ -3,11 +3,11 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=1.0.16695.4
+pkgver=1.0.16900.23
 _llvmmaj=14
 _llvmver="${_llvmmaj}.0.5"
 _vciver=0.18.0
-_spirv_tools_tag=v2023.6.rc1
+_spirv_tools_ver=2023.6.rc1
 _spirv_headers_commit=1c6bb2743599e6eb6f37b2969acc0aef812e32e3
 _spirv_llvm_commit=f6fb55cd7b539ee6a70e3909c963f968cc40c1cd
 _opencl_clang_commit=cf95b338d14685e4f3402ab1828bef31d48f1fd6
@@ -26,11 +26,11 @@ options=('!emptydirs' '!lto')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/intel/intel-graphics-compiler/archive/refs/tags/igc-${pkgver}.tar.gz"
         "git+https://github.com/intel/vc-intrinsics.git#tag=v${_vciver}"
         "git+https://github.com/KhronosGroup/SPIRV-LLVM-Translator.git#commit=${_spirv_llvm_commit}"
-        "git+https://github.com/KhronosGroup/SPIRV-Tools.git#tag=${_spirv_tools_tag}"
+        "git+https://github.com/KhronosGroup/SPIRV-Tools.git#tag=v${_spirv_tools_ver}"
         "git+https://github.com/KhronosGroup/SPIRV-Headers.git#commit=${_spirv_headers_commit}"
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}")
-sha256sums=('8f00c317a4b58c75f9d7f3d77cd4024586b837ebf2da870e5232b8aa804a4e6b'
+sha256sums=('bf5ec8aedd2e19a2e6502b18f886a88c87cf95f3d33299eda471044d0d67d3b2'
             '82062143cf2d7538a04b9e53be6312be8e54da6bc0c65c7b1c4465d7aeb54f7f'
             'c9b3229d4107919aec70aea28b5a35c6949e068c1de9804909040d3fd5451c3a'
             'ad11e234110902f42c9e54d2f4bb014b64e280ac9428f4c03a04b8b4571112b8'
