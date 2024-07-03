@@ -2,7 +2,7 @@
 
 pkgname=nginx-mod-headers-more
 pkgver=0.37
-pkgrel=3
+pkgrel=4
 
 _modname="${pkgname#nginx-mod-}"
 
@@ -27,6 +27,7 @@ prepare() {
 build() {
   cd build
   /usr/src/nginx/configure \
+    --with-ld-opt="$LDFLAGS" \
     --with-compat \
     --add-dynamic-module=../$_modname-nginx-module-$pkgver
   make modules
