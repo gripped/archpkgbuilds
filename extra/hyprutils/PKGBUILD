@@ -1,8 +1,9 @@
 # Maintainer: Lukas Fleischer <lfleischer@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: alba4k <blaskoazzolaaaron@gmail.com>
 
 pkgname="hyprutils"
-pkgver=0.1.4
+pkgver=0.1.5
 pkgrel=1
 pkgdesc="Hyprland utilities library used across the ecosystem"
 arch=(x86_64)
@@ -11,7 +12,7 @@ license=('BSD-3-Clause')
 depends=(pixman)
 makedepends=('git' 'cmake' 'gcc' 'make')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('9fcf201321f44b7ef82f76fdd8708791f2a9471f13ddea30153ca08caf1cc6bc')
+sha256sums=('60cce1b4160a4e5383fa0ff665c6bf49b54cfb387dc8a52229abfc367000b0be')
 
 build() {
 	cd "${pkgname}-${pkgver}"
