@@ -1,0 +1,20 @@
+pkgbase = sofia-sip
+	pkgdesc = An open-source SIP User-Agent library
+	pkgver = 1.13.17
+	pkgrel = 2
+	url = http://sofia-sip.sourceforge.net
+	arch = x86_64
+	license = LGPL-2.1-only
+	makedepends = git
+	makedepends = glib2-devel
+	depends = gawk
+	depends = glib2
+	depends = glibc
+	depends = openssl
+	depends = zlib
+	source = git+https://github.com/freeswitch/sofia-sip.git#tag=v1.13.17
+	source = 0001-fix_incompatible_pointer_type_in_sip_basic_c.patch
+	b2sums = 752fb40bb311ef5a22d814fe15362976681b061e6de3ed904f7770875ac8068fc0dc404e3be0e2860a9376c9f93b7595458dadda2ea454a4d05e64f71757cada
+	b2sums = 6f370d2f65a50a68a8bfde2d24d21de9b12099bf4643a8801ce74aef6cf650dc12a7a8d7821619c7f4f023c0544de346270ad5d96962407cc9c17d70119c8d67
+
+pkgname = sofia-sip
