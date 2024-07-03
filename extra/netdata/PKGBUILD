@@ -2,7 +2,7 @@
 # Contributor: SanskritFritz (gmail)
 
 pkgname=netdata
-pkgver=1.45.6
+pkgver=1.46.1
 pkgrel=2
 pkgdesc="Real-time performance monitoring, in the greatest possible detail, over the web"
 url="https://github.com/netdata/netdata"
@@ -12,31 +12,25 @@ backup=('etc/netdata/netdata.conf')
 depends=('libmnl' 'libnetfilter_acct' 'zlib' 'judy' 'libuv' 'json-c' 'libcap' 'lz4'
          'openssl' 'which' 'snappy' 'protobuf' 'libwebsockets' 'mongo-c-driver'
          'libyaml' 'cups' 'freeipmi')
-makedepends=('cups' 'go' 'cmake' 'ninja')
+makedepends=('cups' 'go' 'cmake' 'ninja' 'git')
 optdepends=('iproute2: for monitoring Linux QoS'
             'python: for most of the external plugins'
             'apcupsd: for monitoring APC UPS'
             'iw: for monitoring Linux as access point')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/netdata/netdata/releases/download/v$pkgver/netdata-v$pkgver.tar.gz"
-        fix-protobuf-build-issue.patch
         netdata.sysusers
         netdata.tmpfiles)
-sha512sums=('24f3013b25e11e32f4e2c6634992eb7ee02080d59d3dd702370165e51e054e2a3e9380d94a3bbbf108b65d4c05f6c487131e1a5cdd5ad03a6c7416ee08393a4d'
-            '5078f48121418a9abc4ce5bbe52b895fc2eaae2123345fe2cf715e2e7b80006f7c5b51d3ed3805ec7078018f7cd84731e092c14c9173bda6f770ccf1a0a7a109'
+sha512sums=('04d9f955129538cdd34175b6586fc548b80da1aa6d7cc7d8ecfb222e36ad184d51ad45c71b173ede7f8c1d948b9dafa3136b71cb47dfd8a73a0412445e6aae51'
             'a910809a823ba58ca7bdaa72e8d68427b48f452c1fbb2343fa182ecb0a091a7640e73af24b8ba2fdd90e00aed8ef53b7fccd25cb8f04ca9b9fa6c8e52223ca66'
             '9dcf6058d7e2b072ca6797c3e8fcb2cccc1f6670a9e58769922e078c95a9431370dc429cc34d8e642dbab10942221f1f730d570df7c40d651872931c070be832')
 
 prepare() {
   cd $pkgname-v$pkgver
-  patch -Np1 -i "$srcdir"/fix-protobuf-build-issue.patch
 
   sed -i "s/CMAKE_CXX_STANDARD 14/CMAKE_CXX_STANDARD 17/" CMakeLists.txt
   sed -i "s|usr/sbin|usr/bin|g" CMakeLists.txt
   sed -i "s|usr/libexec|usr/lib|g" CMakeLists.txt
-
-  # libbpf sources for eBPF.plugin
-  CFLAGS="${CFLAGS} -fPIC" "packaging/bundle-libbpf.sh" "." "other"
-  CFLAGS="${CFLAGS} -fPIC" "packaging/bundle-ebpf-co-re.sh" "."
+  sed -i "s|usr/libexec|usr/lib|g" CMakeLists.txt packaging/cmake/Modules/NetdataEBPFLegacy.cmake
 }
 
 build() {
@@ -55,8 +49,6 @@ package() {
   DESTDIR="$pkgdir" cmake --install build
 
   cd "$pkgname-v$pkgver"
-
-  "packaging/bundle-ebpf.sh" "." "${pkgdir}/usr/lib/netdata/plugins.d"
 
   install -Dm644 "system/netdata.conf" "${pkgdir}/etc/netdata/netdata.conf"
   install -Dm644 "${pkgdir}/usr/lib/netdata/system/systemd/netdata.service" \
