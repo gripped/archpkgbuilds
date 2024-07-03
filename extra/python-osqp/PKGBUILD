@@ -2,7 +2,7 @@
 
 _pyname=osqp
 pkgname=python-$_pyname
-pkgver=0.6.7
+pkgver=0.6.7.post0
 pkgrel=1
 pkgdesc='Python wrapper for OSQP: the Operator Splitting QP Solver'
 url='https://osqp.org/'
@@ -24,8 +24,8 @@ checkdepends=(intel-oneapi-mkl
               python-pytest)
 source=(git+https://github.com/osqp/osqp-python#tag=v$pkgver
         git+https://github.com/osqp/osqp
-        git+https://github.com/osqp/qdldl)
-sha256sums=('d0606c314c7ffaa0d294660037c43c800bf91f92285f421782e8d2a367e963e0'
+        osqp-qdldl::git+https://github.com/osqp/qdldl)
+sha256sums=('8ad12be9faee54479a85e9241043ed9918f1b2ceab0583366563514c23a3505e'
             'SKIP'
             'SKIP')
 
@@ -37,7 +37,7 @@ prepare() {
 
   cd osqp_sources
   git submodule init
-  git submodule set-url lin_sys/direct/qdldl/qdldl_sources "$srcdir"/qdldl
+  git submodule set-url lin_sys/direct/qdldl/qdldl_sources "$srcdir"/osqp-qdldl
   git -c protocol.file.allow=always submodule update
 }
 
