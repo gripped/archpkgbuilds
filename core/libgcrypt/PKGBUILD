@@ -6,11 +6,20 @@
 
 pkgname=libgcrypt
 pkgver=1.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc="General purpose cryptographic library based on the code from GnuPG"
 arch=(x86_64)
 url="https://www.gnupg.org"
-license=('BSD-3-Clause AND (BSD-3-Clause OR GPL-2.0-only) AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later AND MIT-Modern-Variant')
+license=(
+    'BSD-3-Clause'
+    'BSD-3-Clause OR GPL-2.0-only'
+    'GPL-2.0-or-later'
+    'LGPL-2.0-or-later'
+    'LGPL-2.1-or-later'
+    'X11'
+    'LicenseRef-scancode-public-domain'
+    'LicenseRef-OCB1'
+)
 depends=('libgpg-error' 'glibc')
 options=('!emptydirs')
 # https://www.gnupg.org/download/integrity_check.html
@@ -50,5 +59,5 @@ package() {
   cd "${pkgname}"-${pkgver}
   make DESTDIR="${pkgdir}" install
   install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
-  install -m644 COPYING.LIB "${pkgdir}/usr/share/licenses/${pkgname}/"
+  install -m644 {COPYING.LIB,LICENSES} "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
