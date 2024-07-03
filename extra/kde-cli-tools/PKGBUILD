@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kde-cli-tools
-pkgver=6.1.0
+pkgver=6.1.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Tools based on KDE Frameworks 5 to better interact with the system'
@@ -31,7 +31,7 @@ makedepends=(extra-cmake-modules
              kdoctools)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('bc4e2262b8b3e18dec010ec1bea4f6ddcd5f36a1275f84d12b6f6e863b365dbe'
+sha256sums=('a32a3957d5a4c24501c6fe71735d592be8f9ee87252d8c2730322cf3075ffcc1'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
