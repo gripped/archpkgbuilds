@@ -1,14 +1,15 @@
 pkgbase = cockpit-machines
 	pkgdesc = Cockpit UI for virtual machines
-	pkgver = 314
+	pkgver = 315
 	pkgrel = 1
 	url = https://github.com/cockpit-project/cockpit-machines
-	arch = x86_64
+	arch = any
 	license = LGPL-2.1-or-later
 	depends = cockpit
 	depends = libvirt-dbus
 	optdepends = virt-install: create new virtual machines
-	source = https://github.com/cockpit-project/cockpit-machines/releases/download/314/cockpit-machines-314.tar.xz
-	sha256sums = bb9e7ad766325c6bb1bc83c4850de235a42900688e82bb9e57d5367c87e2eed6
+	optdepends = virt-viewer: open graphical display of virtual machines
+	source = https://github.com/cockpit-project/cockpit-machines/releases/download/315/cockpit-machines-315.tar.xz
+	sha256sums = b86aa9b824083c96f8a92710714c98ba64058357164caba0860f2119e4bad709
 
 pkgname = cockpit-machines
