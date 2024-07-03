@@ -1,8 +1,8 @@
 # Maintainer: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
 pkgname=nginx-mod-njs
-pkgver=0.8.4
-pkgrel=3
+pkgver=0.8.5
+pkgrel=1
 
 _modname="${pkgname#nginx-mod-}"
 
@@ -14,7 +14,7 @@ url="https://nginx.org/en/docs/njs_about.html"
 license=('BSD-2-Clause')
 
 source=(https://github.com/nginx/njs/archive/refs/tags/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('fe197e254204c15e9f1df0acf375add57be3416901ec8d7b87319dccb490f90d')
+sha256sums=('b5e38e1424d84e48c6ca1592a336bf1d110b8f27ff1d5ef492c6d312ea003491')
 
 prepare() {
   mkdir -p build
@@ -33,6 +33,7 @@ build() {
 
   cd "$srcdir/build"
   /usr/src/nginx/configure \
+    --with-ld-opt="$LDFLAGS" \
     --with-compat \
     --with-stream \
     --with-http_ssl_module \
