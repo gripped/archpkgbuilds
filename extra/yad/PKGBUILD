@@ -5,7 +5,7 @@
 # Contributor: Ernia <monghitri@aruba.it>
 
 pkgname=yad
-pkgver=14.0
+pkgver=14.1
 pkgrel=1
 pkgdesc='A fork of zenity - display graphical dialogs from shell scripts or command line'
 url='https://github.com/v1cont/yad'
@@ -14,7 +14,7 @@ license=('GPL3')
 depends=('gtk3' 'webkit2gtk-4.1' 'gtksourceview3' 'gspell')
 makedepends=('autoconf' 'automake' 'intltool')
 source=("https://github.com/v1cont/yad/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('2829681f0a9ebd07b7f651c6266d5bf6199235ef027c4936a76988e0471f8e1d')
+sha256sums=('dde047a915cd8d3892c32b6ba031876f5cda673e01882c99613f043867c88133')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
