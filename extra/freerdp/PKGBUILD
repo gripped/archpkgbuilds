@@ -4,7 +4,7 @@
 
 _name=FreeRDP
 pkgname=freerdp
-pkgver=3.6.0
+pkgver=3.6.2
 _libver=${pkgver/.*/}
 pkgrel=1
 epoch=2
@@ -71,8 +71,8 @@ provides=(
 source=(
   https://github.com/$pkgname/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz
 )
-sha512sums=('307beda8fe59257ce0931e95b17405cb7dce27b0a7fc8beee5bac81411ac898deb4a0ed182a36f3a8f6cc2ee7a13552ff845f76913181e778e9f359e70a9b427')
-b2sums=('0ba1def1644339f48bbbcb0eaf33f4b3061a3b89d12a23807b9d4f65acff7cda2c3fcfebccc8568cb66c49d0e1c1cc7988cfcb078953b206130ad0aa24f0c80c')
+sha512sums=('183bd0400b625ad6ced66f59644679b1e68e3662d3a2d6fd79af7b29f2576b9ddd6b63778aef4c2ff522ffc877b2b3a3489bc6b0a1b2618648503a6b3a698d4d')
+b2sums=('85810c05a797119c84c9483f02e46f8cd8f1d720d13deef4c4b55809b65e2e4bac2e3d70f768470b81326d22db5bbb7762d20fda34c5ce923b16a3f435edc36c')
 
 prepare() {
   cd $_name-$pkgver
