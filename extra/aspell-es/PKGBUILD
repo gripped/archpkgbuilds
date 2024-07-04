@@ -4,7 +4,7 @@
 
 pkgname=aspell-es
 pkgver=1.11
-pkgrel=9
+pkgrel=10
 pkgdesc="Spanish dictionary for aspell"
 arch=('x86_64')
 url="http://aspell.net/"
