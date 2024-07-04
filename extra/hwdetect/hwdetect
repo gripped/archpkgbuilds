@@ -42,6 +42,7 @@ Module listing options:
     --show-media           show MEDIA modules
     --show-mei             show MEI modules
     --show-mfd             show MFD modules
+    --show-mmc             show MMC modules
     --show-mtd             show MTD modules
     --show-net             show NETWORK modules
     --show-nvme            show NVME modules
@@ -177,6 +178,7 @@ while [ -n "$*"  ]; do
             _show_list 'MEDIA    ' $(_mods 'media/')
             _show_list 'MEI      ' $(_mods 'mei/')
             _show_list 'MFD      ' $(_mods 'mfd/')
+            _show_list 'MMC      ' $(_mods 'mmc/')
             _show_list 'MTD      ' $(_mods 'mtd/')
             _show_list 'NET      ' $(_mods 'net/' 'irda/')
             _show_list 'NVME     ' $(_mods 'nvme/' 'nvme.ko')
@@ -193,7 +195,7 @@ while [ -n "$*"  ]; do
             _show_list 'VIDEO    ' $(_mods 'video/')
             _show_list 'VIRT     ' $(_mods 'virt/')
             _show_list 'WATCHDOG ' $(_mods 'watchdog/')
-            _show_list 'OTHER    ' $(_mods '.ko' 'agp/|acpi/|scsi/|message/fusion|block/sx8|block/cciss|block/cpqarray|block/DAC960|block/virtio|virtio/virtio_pci|ata/|usb/|ieee1394|bluetooth/|cdrom/|cpufreq/|crypto/|dca/|dma/|edac/|events/|net/|hwmon/|i2c/|input/|ipmi/|irda/|kvm/|mac_hid|media/|mei/|mfd/|mtd/|nvme/|parport/|pinctrl/|platform/|powercap/|sound/|spi/|thermal/|tpm/|drm/|firewire/|hid/|serial/|staging/|video/|virt/|watchdog/') ;;
+            _show_list 'OTHER    ' $(_mods '.ko' 'agp/|acpi/|scsi/|message/fusion|block/sx8|block/cciss|block/cpqarray|block/DAC960|block/virtio|virtio/virtio_pci|ata/|usb/|ieee1394|bluetooth/|cdrom/|cpufreq/|crypto/|dca/|dma/|edac/|events/|net/|hwmon/|i2c/|input/|ipmi/|irda/|kvm/|mac_hid|media/|mei/|mfd/|mmc/|mtd/|nvme/|parport/|pinctrl/|platform/|powercap/|sound/|spi/|thermal/|tpm/|drm/|firewire/|hid/|serial/|staging/|video/|virt/|watchdog/') ;;
         --show-agp)        _show_list 'AGP      ' $(_mods agp/) ;;
         --show-acpi)       _show_list 'ACPI     ' $(_mods acpi/) ;;
         --show-block)      _show_list 'BLOCK    ' $(_mods 'ata/pata' 'pata_acpi') $(_mods 'ata/ata_piix') \
@@ -219,6 +221,7 @@ while [ -n "$*"  ]; do
         --show-media)     _show_list 'MEDIA    ' $(_mods 'media/') ;;
         --show-mei)       _show_list 'MEI      ' $(_mods 'mei/') ;;
         --show-mfd)       _show_list 'MFD      ' $(_mods 'mfd/') ;;
+        --show-mmc)       _show_list 'MMC      ' $(_mods 'mmc/') ;;
         --show-mtd)       _show_list 'MTD      ' $(_mods 'mtd/') ;;
         --show-net)       _show_list 'NET      ' $(_mods 'net/' 'irda/') ;;
         --show-nvme)      _show_list 'NVME     ' $(_mods 'nvme/' 'nvme.ko') ;;
@@ -234,7 +237,7 @@ while [ -n "$*"  ]; do
         --show-video)     _show_list 'VIDEO    ' $(_mods 'video/') ;;
         --show-virt)      _show_list 'VIRT     ' $(_mods 'virt/') ;;
         --show-watchdog)  _show_list 'WATCHDOG ' $(_mods 'watchdog/') ;;
-        --show-other)     _show_list 'OTHER    ' $(_mods '.ko' 'agp/|acpi/|scsi/|message/fusion|block/sx8|block/cciss|block/cpqarray|block/DAC960|block/virtio|virtio/virtio_pci|ata/|usb/|ieee1394|bluetooth/|cdrom/|cpufreq/|crypto/|dca/|dma/|edac/|events/|net/|hwmon/|i2c/|input/|ipmi/|irda/|kvm/|mac_hid|media/|mei/|mfd/|mtd/|nvme/|parport/|platform/|powercap/|sound/|thermal/|tpm/|drm/|firewire/|hid/|serial/|staging/|video/|virt/|watchdog/') ;;
+        --show-other)     _show_list 'OTHER    ' $(_mods '.ko' 'agp/|acpi/|scsi/|message/fusion|block/sx8|block/cciss|block/cpqarray|block/DAC960|block/virtio|virtio/virtio_pci|ata/|usb/|ieee1394|bluetooth/|cdrom/|cpufreq/|crypto/|dca/|dma/|edac/|events/|net/|hwmon/|i2c/|input/|ipmi/|irda/|kvm/|mac_hid|media/|mei/|mfd/|mmc/|mtd/|nvme/|parport/|platform/|powercap/|sound/|thermal/|tpm/|drm/|firewire/|hid/|serial/|staging/|video/|virt/|watchdog/') ;;
         --filesystem)   _FILESYSTEM="ext2 ext3 ext4 f2fs nilfs2 bcachefs btrfs xfs jfs vfat"
                         for i in ${_FILESYSTEM}; do
                             lsblk -o FSTYPE | rg -q "${i}" && _FS="${_FS} ${i}"
