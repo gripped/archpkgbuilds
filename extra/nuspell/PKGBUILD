@@ -2,7 +2,7 @@
 # Conributor: Mélanie Chauvel (ariasuni) <perso at hack-libre dot org>
 
 pkgname=nuspell
-pkgver=5.1.5
+pkgver=5.1.6
 pkgrel=1
 pkgdesc='Fast and safe spellchecking C++ library'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('icu' 'glibc' 'gcc-libs')
 makedepends=('cmake' 'pandoc')
 checkdepends=('catch2' 'expat')
 source=(${pkgname}-${pkgver}.tar.gz::"https://github.com/nuspell/nuspell/archive/v${pkgver}.tar.gz")
-sha512sums=('91a18e1cf8dd7565e4981182f32515a0fbde593436197a8e2f6937a2aca6eed151b482e2dcb27b2cd3da48178fbce53c4047e46f79ec245bd9000931b0266084')
+sha512sums=('ab6d9394a55d9a2a347ccae47aeef6a96af70f421ad6ea8f7ac7fde2052790f37fb1c7ec3112daac7600d193430a560cb1915ab6557c9353717f65cb32f13ab8')
 
 # 1st rebuild enchant
 # 2nd rebuild epiphany against nuspell/enchant that checkdepens on both
