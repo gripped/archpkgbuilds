@@ -5,7 +5,7 @@
 
 pkgname=lua52
 pkgver=5.2.4
-pkgrel=6
+pkgrel=7
 pkgdesc='Powerful lightweight programming language designed for extending applications'
 arch=('x86_64')
 url='https://www.lua.org/'
