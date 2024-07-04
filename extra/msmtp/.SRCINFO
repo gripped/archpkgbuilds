@@ -1,19 +1,18 @@
 pkgbase = msmtp
 	pkgdesc = A mini smtp client
 	pkgver = 1.8.26
-	pkgrel = 1
+	pkgrel = 2
 	url = https://marlam.de/msmtp/
 	arch = x86_64
 	license = GPL3
+	makedepends = git
 	makedepends = libsecret
 	makedepends = gsasl
 	makedepends = texlive-plaingeneric
 	optdepends = netcat: for included msmtpq script
-	source = https://marlam.de/msmtp/releases/msmtp-1.8.26.tar.xz
-	source = https://marlam.de/msmtp/releases/msmtp-1.8.26.tar.xz.sig
+	source = git+https://git.marlam.de/git/msmtp.git?signed#tag=msmtp-1.8.26
 	validpgpkeys = 2F61B4828BBA779AECB3F32703A2A4AB1E32FD34
-	sha512sums = 36fa4a571079b0e1141e645f2a565f3c7699e1899f6ece66e3539bed595473488bdf147ed6ff1bff103c6240e484b2c357122292d5eae65ac4c0f74215eb556c
-	sha512sums = SKIP
+	sha512sums = 80669bce965c4394392369772229629968d426d2c3cc66241fd891ef8c24de0a8b4f35950a2961a791ffc2e4208a38eb4da6a745e99609996e9799f59c46703a
 
 pkgname = msmtp
 	pkgdesc = A mini smtp client
