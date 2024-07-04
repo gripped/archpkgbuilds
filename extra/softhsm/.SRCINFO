@@ -1,0 +1,26 @@
+pkgbase = softhsm
+	pkgdesc = Software PKCS#11 store
+	pkgver = 2.6.1
+	pkgrel = 5
+	url = https://www.opendnssec.org/softhsm/
+	arch = x86_64
+	license = BSD-2-Clause
+	checkdepends = cppunit
+	depends = botan
+	depends = sqlite3
+	depends = openssl
+	depends = p11-kit
+	options = !libtool
+	options = !lto
+	backup = etc/softhsm2.conf
+	source = https://dist.opendnssec.org/source/softhsm-2.6.1.tar.gz
+	source = https://dist.opendnssec.org/source/softhsm-2.6.1.tar.gz.sig
+	source = softhsm-openssl3-tests.patch
+	source = softhsm-2.6.1-rh1831086-exit.patch
+	validpgpkeys = 4D0388CE86BB398B387B663041F623BE4FCB0B94
+	sha256sums = 61249473054bcd1811519ef9a989a880a7bdcc36d317c9c25457fc614df475f2
+	sha256sums = SKIP
+	sha256sums = d97f51e8d41e8bf0ef2ee3959be746d0349e8e1c0130ddaf3d905c23f8e43230
+	sha256sums = 163338a73ab1bcc475e07b96f054d3c8f67ac9d2637b8f74ddaa97aa6b4171e1
+
+pkgname = softhsm
