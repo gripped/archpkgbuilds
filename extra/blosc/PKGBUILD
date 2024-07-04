@@ -3,7 +3,7 @@
 
 pkgname=blosc
 pkgver=1.21.5
-pkgrel=1
+pkgrel=2
 pkgdesc='A blocking, shuffling and loss-less compression library'
 arch=('x86_64')
 url='https://www.blosc.org'
