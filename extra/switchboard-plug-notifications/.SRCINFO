@@ -1,20 +1,22 @@
 pkgbase = switchboard-plug-notifications
 	pkgdesc = Switchboard Notifications Plug
-	pkgver = 2.2.0
-	pkgrel = 3
+	pkgver = 2.2.0.r150.12533fb
+	pkgrel = 1
 	url = https://github.com/elementary/switchboard-plug-notifications
 	arch = x86_64
 	groups = pantheon
-	license = GPL3
+	license = GPL-2.0-only
 	makedepends = git
 	makedepends = meson
 	makedepends = vala
 	depends = glib2
-	depends = gtk3
+	depends = glibc
+	depends = gtk4
+	depends = libadwaita-1.so
 	depends = libgee
-	depends = libgranite.so
-	depends = libswitchboard-2.0.so
-	source = git+https://github.com/elementary/switchboard-plug-notifications.git#tag=88a65980cfb86b99a12609b5a6987a617d8df767
-	sha256sums = 339ee3d7f391093d96b02a23787b43d62a09556ee5d792e2e6440409a4522d02
+	depends = libgranite-7.so
+	depends = libswitchboard-3.so
+	source = git+https://github.com/elementary/switchboard-plug-notifications.git#commit=12533fb6a3e6e65d3d1085dfcbd5f1a9f6f18531
+	b2sums = 5a4e52809f6c3c0660d88532805aba116a0dbd0d9fddf83e1b9b1e7bd9c8b712ed1871db7872ebdc14471829d1c1945caf0b6d56b018eba65dbd00458085da67
 
 pkgname = switchboard-plug-notifications
