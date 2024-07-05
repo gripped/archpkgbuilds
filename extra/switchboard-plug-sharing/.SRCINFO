@@ -1,22 +1,22 @@
 pkgbase = switchboard-plug-sharing
 	pkgdesc = Switchboard Sharing Plug
-	pkgver = 2.1.6
-	pkgrel = 2
+	pkgver = 2.1.6.r359.2d6b2f1
+	pkgrel = 1
 	url = https://github.com/elementary/switchboard-plug-sharing
 	arch = x86_64
 	groups = pantheon
-	license = GPL3
+	license = GPL-3.0-only
 	makedepends = git
 	makedepends = meson
-	makedepends = switchboard
 	makedepends = vala
 	depends = glib2
+	depends = glibc
 	depends = gnome-user-share
-	depends = gtk3
+	depends = gtk4
 	depends = libgee
-	depends = libgranite.so
-	depends = libswitchboard-2.0.so
-	source = git+https://github.com/elementary/switchboard-plug-sharing.git#tag=5d2b063e86d4ea46ba6d5681fe9d398cd6c6a96f
-	sha256sums = 9012d357202dd601f62cf495624138d704ba6fb02de711d14ed84cea7cf792e5
+	depends = libgranite-7.so
+	depends = libswitchboard-3.so
+	source = git+https://github.com/elementary/switchboard-plug-sharing.git#commit=2d6b2f1d6e7e6e58bf64693730129c9ca3bc77f2
+	b2sums = c45e27f81909db9b8ea9ec1a93f8c08696817389b299f903a75293bb8fecbc3be0721f94a454ed76e13db906240bef4c520faacdf796ba57cc35d66c1a1aa6c7
 
 pkgname = switchboard-plug-sharing
