@@ -3,7 +3,7 @@
 
 pkgname=gnome-builder
 pkgver=46.2
-pkgrel=1
+pkgrel=2
 pkgdesc="An IDE for writing GNOME-based software"
 url="https://wiki.gnome.org/Apps/Builder"
 arch=(x86_64)
@@ -57,6 +57,7 @@ depends=(
 makedepends=(
   appstream-glib
   git
+  glib2-devel
   gobject-introspection
   llvm
   mm-common
