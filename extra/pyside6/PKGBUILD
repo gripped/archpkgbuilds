@@ -6,9 +6,8 @@ pkgname=(pyside6
          pyside6-tools
          shiboken6)
 _qtver=6.7.2
-_clangver=17.0.6
 pkgver=${_qtver/-/}
-pkgrel=1
+pkgrel=3
 arch=(x86_64)
 url='https://www.qt.io'
 license=(LGPL)
@@ -68,7 +67,7 @@ build() {
 
 package_shiboken6() {
   pkgdesc='Generates bindings for C++ libraries using CPython source code'
-  depends=(clang=$_clangver
+  depends=(clang
            gcc-libs
            glibc
            libxml2
