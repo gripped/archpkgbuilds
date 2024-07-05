@@ -5,11 +5,11 @@
 
 pkgname=pocl
 pkgver=6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Portable OpenCL is an open-source implementation of OpenCL which can be easily adapted for new targets"
 arch=('x86_64')
 url="http://portablecl.org/"
-license=('GPL')
+license=('MIT')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/$pkgname/$pkgname/archive/v$pkgver.tar.gz")
 depends=('clang' 'hwloc' 'opencl-icd-loader')
 makedepends=('llvm' 'cmake' 'opencl-headers' 'ocl-icd' 'ninja' 'python')
@@ -35,4 +35,5 @@ check() {
 package() {
   cd "$pkgname-$pkgver"
   DESTDIR="$pkgdir"/ ninja -C build install
+  install -v -Dm 644 -t "$pkgdir"/usr/share/licenses/"$pkgname" LICENSE
 }
