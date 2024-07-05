@@ -1,26 +1,24 @@
 pkgbase = switchboard-plug-desktop
 	pkgdesc = Switchboard Desktop Plug
-	pkgver = 6.5.0
+	pkgver = 6.5.0.r127.7552ae62
 	pkgrel = 1
 	url = https://github.com/elementary/switchboard-plug-pantheon-shell
 	arch = x86_64
-	groups = pantheon-unstable
-	license = GPL3
+	groups = pantheon
+	license = GPL-3.0-only
 	makedepends = git
 	makedepends = meson
+	makedepends = ninja
 	makedepends = vala
 	depends = gdk-pixbuf2
 	depends = glib2
-	depends = gnome-desktop
-	depends = gtk3
+	depends = glibc
+	depends = gtk4
 	depends = libgee
 	depends = libgexiv2
-	depends = libgranite.so
-	depends = libhandy
-	depends = libswitchboard-2.0.so
-	depends = plank
-	depends = tumbler
-	source = switchboard-plug-desktop::git+https://github.com/elementary/switchboard-plug-pantheon-shell.git#tag=02af815776180be0c3a90bd81a612805f002b4b6
-	sha256sums = SKIP
+	depends = libgranite-7.so
+	depends = libswitchboard-3.so
+	source = switchboard-plug-desktop::git+https://github.com/elementary/switchboard-plug-pantheon-shell.git#commit=7552ae6279e509abdf4f2c6e42772601ba3d7b99
+	b2sums = SKIP
 
 pkgname = switchboard-plug-desktop
