@@ -1,25 +1,26 @@
 pkgbase = switchboard-plug-parental-controls
 	pkgdesc = Switchboard Parental Controls Plug
-	pkgver = 6.0.1
-	pkgrel = 2
+	pkgver = 6.0.1.r100.4910078
+	pkgrel = 1
 	url = https://github.com/elementary/switchboard-plug-parental-controls
 	arch = x86_64
 	groups = pantheon
-	license = GPL3
+	license = GPL-3.0-only
 	makedepends = git
 	makedepends = meson
 	makedepends = vala
 	depends = accountsservice
 	depends = flatpak
-	depends = gdk-pixbuf2
 	depends = glib2
-	depends = gtk3
+	depends = glibc
+	depends = gtk4
+	depends = hicolor-icon-theme
 	depends = libgee
-	depends = libgranite.so
+	depends = libgranite-7.so
 	depends = libmalcontent-0.so
-	depends = libswitchboard-2.0.so
+	depends = libswitchboard-3.so
 	depends = polkit
-	source = git+https://github.com/elementary/switchboard-plug-parental-controls.git#tag=6e0d8595c4455c8491f273adbf694e6cc8f62a9a
-	sha256sums = 4e66af2f0a53e41bd2638b592a66805bfc3b7ca1987e5b02d73012fc4460b806
+	source = git+https://github.com/elementary/switchboard-plug-parental-controls.git#commit=49100787dcfd354f6a249c9f8307182d3e659226
+	b2sums = d807d00e544ad5a23832225afc86d9c0613a59bde64692209f64254ec08534b864c241759d4f4685d15b108d6e1075e9b09698593f8a50885e6f2f7bb775bea6
 
 pkgname = switchboard-plug-parental-controls
