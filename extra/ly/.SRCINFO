@@ -1,27 +1,21 @@
 pkgbase = ly
 	pkgdesc = TUI display manager
-	pkgver = 0.6.0
+	pkgver = 1.0.0
 	pkgrel = 1
 	url = https://github.com/fairyglade/ly
 	arch = x86_64
-	license = custom:WTFPL
+	license = WTFPL
 	makedepends = git
 	makedepends = libxcb
+	makedepends = zig
 	depends = pam
+	depends = glibc
 	optdepends = xorg-xauth: for X server sessions
 	optdepends = libxcb: for X server sessions
 	backup = etc/ly/config.ini
 	backup = etc/ly/wsetup.sh
 	backup = etc/ly/xsetup.sh
-	source = git+https://github.com/fairyglade/ly.git#tag=1c2be475ad09af18e632609c779d508e7fb866f9
-	source = git+https://github.com/nullgemm/argoat.git
-	source = git+https://github.com/nullgemm/configator.git
-	source = git+https://github.com/nullgemm/dragonfail.git
-	source = git+https://github.com/nullgemm/termbox_next.git
-	b2sums = SKIP
-	b2sums = SKIP
-	b2sums = SKIP
-	b2sums = SKIP
-	b2sums = SKIP
+	source = git+https://github.com/fairyglade/ly.git#tag=v1.0.0
+	b2sums = b44536c57e3464ffbb45d12cee54bad00b5eb31873fdd79c81222640ecab5df34b9a587232e5db760561f3f2d33af872456d3a3b92ef2a414b8dbf4fc6a70725
 
 pkgname = ly
