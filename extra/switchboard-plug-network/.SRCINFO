@@ -1,24 +1,28 @@
 pkgbase = switchboard-plug-network
 	pkgdesc = Switchboard Network Plug
-	pkgver = 2.5.0
+	pkgver = 2.5.0.r158.63d08c3e
 	pkgrel = 1
 	url = https://github.com/elementary/switchboard-plug-network
 	arch = x86_64
 	groups = pantheon
-	license = GPL3
+	license = GPL-3.0-only
+	makedepends = cmake
 	makedepends = git
 	makedepends = meson
 	makedepends = vala
 	depends = glib2
-	depends = gtk3
+	depends = glibc
+	depends = gobject-introspection
+	depends = gtk4
+	depends = libadwaita-1.so
 	depends = libgee
-	depends = libgranite.so
+	depends = libgranite-7.so
 	depends = libnm
-	depends = libnma
-	depends = libswitchboard-2.0.so
+	depends = libnma-gtk4
+	depends = libswitchboard-3.so
 	depends = networkmanager
 	depends = polkit
-	source = git+https://github.com/elementary/switchboard-plug-network.git#tag=c89da3bedd0dac09aa3e8d784bc198b042440cc8
-	sha256sums = SKIP
+	source = git+https://github.com/elementary/switchboard-plug-network.git#commit=63d08c3e84f30c09150a1328b3103fef63496749
+	b2sums = SKIP
 
 pkgname = switchboard-plug-network
