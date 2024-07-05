@@ -1,6 +1,6 @@
 pkgbase = molecule
 	pkgdesc = Aids in the development and testing of Ansible roles
-	pkgver = 24.6.0
+	pkgver = 24.6.1
 	pkgrel = 1
 	url = https://github.com/ansible-community/molecule
 	arch = any
@@ -21,6 +21,7 @@ pkgbase = molecule
 	makedepends = python-setuptools
 	makedepends = python-setuptools-scm
 	makedepends = python-wheel
+	makedepends = git
 	depends = python
 	depends = python-ansible-compat
 	depends = python-click
@@ -40,8 +41,8 @@ pkgbase = molecule
 	optdepends = molecule-vagrant: for the vagrant driver
 	optdepends = python-pywinrm: for Windows support
 	optdepends = python-pytest-testinfra: for the testinfra verifier
-	source = molecule-24.6.0.tar.gz::https://github.com/ansible-community/molecule/archive/refs/tags/v24.6.0.tar.gz
-	sha512sums = 34156f3e2fa3e7d59c4dd894ecf7d74ac02052bc8d683d2e3a54578784f2db73e2eedd3424fd454d2d38754e849955dcfa145694ce14b8dbb8edeb59c179deef
-	b2sums = 9c1b88aaaa5fba3c55ec0db6afa18bbb9c11cc663a8a19ba927f2c0cb0f910399119c0cff236a8745d31b382071859117bfb93832a44f57e90866a872696f611
+	source = git+https://github.com/ansible-community/molecule.git#tag=v24.6.1
+	sha512sums = 9878f8ba22a3f8723a4c49dd45cb0f9e35f83df4a047cdc0447a2316ec85c97e59d2fc62888528a4a20b2d24014a89eb18b033d98b726697f020302b30518688
+	b2sums = 342ecd72fd6d3c322572055cdd37f5588a57bf92e0785f2bed4eecc73cea59f8e3992eada414ee3745d01db28d9c8ef221c44bdf0713cbac648adc8181f3b888
 
 pkgname = molecule
