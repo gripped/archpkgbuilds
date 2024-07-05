@@ -1,22 +1,25 @@
 pkgbase = switchboard
 	pkgdesc = The Pantheon Control Center
-	pkgver = 6.0.2
-	pkgrel = 2
+	pkgver = 8.0.0
+	pkgrel = 1
 	url = https://github.com/elementary/switchboard
 	arch = x86_64
 	groups = pantheon
-	license = GPL3
+	license = LGPL-2.1-only
+	makedepends = cmake
 	makedepends = git
-	makedepends = meson
 	makedepends = intltool
+	makedepends = meson
+	makedepends = sassc
 	makedepends = vala
-	depends = gdk-pixbuf2
+	depends = dconf
 	depends = glib2
-	depends = gtk3
+	depends = glibc
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita-1.so
 	depends = libgee
-	depends = libgranite.so
-	depends = libhandy-1.so
-	depends = wayland
+	depends = libgranite-7.so
 	optdepends = switchboard-plug-about: About plug
 	optdepends = switchboard-plug-applications: Applications plug
 	optdepends = switchboard-plug-datetime: Date & Time plug
@@ -29,8 +32,8 @@ pkgbase = switchboard
 	optdepends = switchboard-plug-notifications: Notifications plug
 	optdepends = switchboard-plug-power: Power plug
 	optdepends = switchboard-plug-security-privacy: Security & Privacy plug
-	provides = libswitchboard-2.0.so
-	source = git+https://github.com/elementary/switchboard.git#tag=a38cb4fe0dafb35b57ad58aa45c81aa33b7bb34b
-	b2sums = SKIP
+	provides = libswitchboard-3.so
+	source = git+https://github.com/elementary/switchboard.git#tag=540830bf5a1e4881d10a5d15aae123aaa9e9f7de
+	b2sums = 24bc2dc7822a98c777a7079cda357d9c912be61c13bfd97f41e5b8a09f76de99e3c722fc3fc29a164b15a173563753092643e00c04676f0ece1657b31eee182b
 
 pkgname = switchboard
