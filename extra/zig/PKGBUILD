@@ -2,7 +2,7 @@
 # Contributor: Marc Tiehuis <marctiehuis@gmail.com>
 
 pkgname=zig
-pkgver=0.12.1
+pkgver=0.13.0
 pkgrel=1
 pkgdesc='a general-purpose programming language and toolchain for maintaining robust, optimal, and reusable software'
 arch=('x86_64')
@@ -13,12 +13,17 @@ depends=('clang' 'lld' 'llvm-libs')
 makedepends=('cmake' 'llvm')
 checkdepends=('lib32-glibc')
 source=("https://ziglang.org/download/$pkgver/zig-$pkgver.tar.xz"
+        "fix-pie-support-detection.patch"
         "skip-localhost-test.patch")
-sha256sums=('cca0bf5686fe1a15405bd535661811fac7663f81664d2204ea4590ce49a6e9ba'
+sha256sums=('06c73596beeccb71cc073805bdb9c0e05764128f16478fa53bf17dfabc1d4318'
+            '3d10f6b14ee87dbca65a00b6c9470cdeb6f05d6844cc55fde402bcc2a439aba5'
             'eeb5f0f72035c52bf558ffc77a171a3ddf93eac7d663ef0c82826007763717a8')
 
 prepare() {
     cd "$pkgname-$pkgver"
+
+    # https://github.com/ziglang/zig/pull/20072
+    patch -Np1 -i ../fix-pie-support-detection.patch
 
     patch -p1 -i ../skip-localhost-test.patch
 }
