@@ -2,15 +2,18 @@
 
 _pkgbasename=libgpg-error
 pkgname=lib32-$_pkgbasename
-pkgver=1.49
+pkgver=1.50
 pkgrel=1
 pkgdesc="Support library for libgcrypt (32-bit)"
 arch=(x86_64)
 url="https://www.gnupg.org"
-license=('LGPL')
+license=(LGPL-2.1-or-later
+         'BSD-3-Clause OR LGPL-2.1-or-later'
+         FSFULLR
+         GPL-2.0-or-later)
 depends=('lib32-glibc' $_pkgbasename)
 source=(https://www.gnupg.org/ftp/gcrypt/libgpg-error/${_pkgbasename}-${pkgver}.tar.bz2{,.sig})
-sha512sums=('bb4dd3faa8e2ec945e61fb2006697b48a51da7ee510b6650a6ab09c8734a987bc33c9835bc710ca9a9395c088271939091be418efc6ca5130b426c2fbc4959a3'
+sha256sums=('69405349e0a633e444a28c5b35ce8f14484684518a508dc48a089992fe93e20a'
             'SKIP')
 validpgpkeys=('D8692123C4065DEA5E0F3AB5249B39D24F25E3B6'  # Werner Koch
               'AC8E115BF73E2D8D47FA9908E98E9B2D19C6C8BD'  # NIIBE Yutaka (GnuPG Release Key) <gniibe@fsij.org>
