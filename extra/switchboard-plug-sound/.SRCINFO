@@ -1,22 +1,25 @@
 pkgbase = switchboard-plug-sound
 	pkgdesc = Switchboard Sound Plug
-	pkgver = 2.3.3
+	pkgver = 2.3.3.r91.8cabffc
 	pkgrel = 1
 	url = https://github.com/elementary/switchboard-plug-sound
 	arch = x86_64
 	groups = pantheon
-	license = GPL3
+	license = LGPL-2.1-only
 	makedepends = git
 	makedepends = meson
 	makedepends = vala
+	depends = dconf
 	depends = glib2
-	depends = gtk3
+	depends = glibc
+	depends = gtk4
 	depends = libcanberra
+	depends = libadwaita-1.so
 	depends = libgee
-	depends = libgranite.so
+	depends = libgranite-7.so
 	depends = libpulse
-	depends = libswitchboard-2.0.so
-	source = git+https://github.com/elementary/switchboard-plug-sound.git#tag=ca46c17062ec33f02544e9e1df140879d1ba9260
-	sha256sums = SKIP
+	depends = libswitchboard-3.so
+	source = git+https://github.com/elementary/switchboard-plug-sound.git#commit=8cabffc0e19a19bb72f42c531199076c02f84a46
+	b2sums = SKIP
 
 pkgname = switchboard-plug-sound
