@@ -1,20 +1,22 @@
 pkgbase = switchboard-plug-mouse-touchpad
 	pkgdesc = Switchboard Mouse & Touchpad Plug
-	pkgver = 7.0.0
-	pkgrel = 2
+	pkgver = 7.0.0.r230.bed5553d
+	pkgrel = 1
 	url = https://github.com/elementary/switchboard-plug-mouse-touchpad
 	arch = x86_64
 	groups = pantheon
-	license = GPL3
+	license = GPL-3.0-only
 	makedepends = git
 	makedepends = meson
 	makedepends = vala
 	depends = glib2
-	depends = gtk3
+	depends = glibc
+	depends = gtk4
 	depends = libgee
-	depends = libgranite.so
-	depends = libswitchboard-2.0.so
-	source = git+https://github.com/elementary/switchboard-plug-mouse-touchpad.git#tag=d9fc03e30b4b563f95b1adae84b88f65e7c35b6e
-	b2sums = 99461ae55535859b281c72a3065db572c8c8fb651c93b1c3a44814a38f977be7c451dc82e3503a0ccc52183c499fab4bea36d754075b17354f4d03b6f7224848
+	depends = libgranite-7.so
+	depends = libswitchboard-3.so
+	depends = libxml2
+	source = git+https://github.com/elementary/switchboard-plug-mouse-touchpad.git#commit=bed5553d8844932b402be51c22a6f9eb3fb17368
+	b2sums = f2ff2b6bfa611ebe02e760f573896b7f4dd3134da2eedbfdd7d511740517d058fb03b1e824307f924bdf01cfc8a7b55ebe9fc466cbb395e9aa141929b33a5c78
 
 pkgname = switchboard-plug-mouse-touchpad
