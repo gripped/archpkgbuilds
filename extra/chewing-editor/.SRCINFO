@@ -1,0 +1,26 @@
+pkgbase = chewing-editor
+	pkgdesc = Cross platform chewing user phrase editor
+	pkgver = 0.1.1
+	pkgrel = 11
+	url = https://chewing.im/
+	arch = x86_64
+	license = GPL-2.0-or-later
+	checkdepends = valgrind
+	makedepends = cmake
+	makedepends = qt5-tools
+	makedepends = help2man
+	makedepends = gtest
+	makedepends = gmock
+	depends = glibc
+	depends = libchewing
+	depends = qt5-base
+	source = https://github.com/chewing/chewing-editor/archive/0.1.1/chewing-editor-0.1.1.tar.gz
+	source = system-gtest.patch
+	source = chewing-editor-reproducibility.patch::https://github.com/chewing/chewing-editor/commit/7db328e7372f870dc741436ba2da8ceb5199f2f9.patch
+	source = no-rebuild-manpage.diff
+	sha256sums = ad59ba32bb258d7a1ee6c105a4be54357d2de18cc324277a1429f53fbb23709b
+	sha256sums = a3c147d40ba5146d5eb3c0adf3347e3941cdcb5bf11e9630c2007f0e06b32620
+	sha256sums = 36a2aa702f58e90f306f3de07dee2cac74f013dff4762e277fd0048d9476c430
+	sha256sums = 864a7f5a0b50a96edb21cbc76448010b375d65bb35e2f012640d41839fb13df3
+
+pkgname = chewing-editor
