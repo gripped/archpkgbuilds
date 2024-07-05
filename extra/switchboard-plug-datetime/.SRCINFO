@@ -1,21 +1,22 @@
 pkgbase = switchboard-plug-datetime
 	pkgdesc = Switchboard Date & Time Plug
-	pkgver = 2.2.0
-	pkgrel = 4
+	pkgver = 2.2.0.r194.3d22837
+	pkgrel = 1
 	url = https://github.com/elementary/switchboard-plug-datetime
 	arch = x86_64
 	groups = pantheon
-	license = GPL3
+	license = GPL-3.0-only
 	makedepends = git
 	makedepends = meson
 	makedepends = vala
-	depends = gdk-pixbuf2
 	depends = glib2
-	depends = gtk3
+	depends = glibc
+	depends = gtk4
+	depends = libadwaita-1.so
 	depends = libgee
-	depends = libgranite.so
-	depends = libswitchboard-2.0.so
-	source = git+https://github.com/elementary/switchboard-plug-datetime.git#tag=a7ec8cee73be667987879102d31edd319c5f8633
-	sha256sums = ef3e5cf92b411da5c8cfda2b3f41f7dbf56e565c0dda57abd38f07cf36b46872
+	depends = libgranite-7.so
+	depends = libswitchboard-3.so
+	source = git+https://github.com/elementary/switchboard-plug-datetime.git#commit=3d22837762f05d25412498650364cfab3425af59
+	b2sums = 8cb3e8a607ef1653e75a939b425cb44bab831fbd163992180176881322a7122a0c6a04d35fc294d069ce4c122321ea3add0521e2df745cf022a7748312960aca
 
 pkgname = switchboard-plug-datetime
