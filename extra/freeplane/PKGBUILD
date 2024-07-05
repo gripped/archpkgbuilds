@@ -3,13 +3,13 @@
 
 pkgname=freeplane
 pkgver=1.11.14
-pkgrel=1
+pkgrel=2
 pkgdesc="A Java mindmapping tool"
 arch=('any')
 url="http://freeplane.sourceforge.net"
-license=('GPL2')
+license=('GPL-2.0-only')
 _jrever=11
-_jdkver=17
+_jdkver=21
 makedepends=('gradle' "java-environment-openjdk=${_jdkver}" 'gnu-free-fonts' 'fontconfig' 'unzip')
 depends=("java-runtime>=${_jrever}" "java-runtime<=${_jdkver}")
 source=("https://downloads.sourceforge.net/sourceforge/${pkgname}/${pkgname}_src-${pkgver}.tar.gz"
@@ -25,14 +25,24 @@ build() {
   /usr/bin/gradle \
     -Dorg.gradle.java.home="/usr/lib/jvm/java-${_jdkver}-openjdk" \
     -Dorg.gradle.daemon=false \
-    build binZip
+    binZip
+}
 
-  install -dm755 "$srcdir/$pkgname-${pkgver}/dist"
-  unzip -d "$srcdir/$pkgname-${pkgver}/dist" \
-    "${srcdir}/${pkgname}-${pkgver}/DIST/${pkgname}_bin-${pkgver}.zip"
+check() {
+  cd "$pkgname-${pkgver}"
+  export JAVA_HOME="/usr/lib/jvm/java-${_jdkver}-openjdk"
+  export PATH="/usr/lib/jvm/java-${_jdkver}-openjdk/bin:$PATH"
+  /usr/bin/gradle \
+    -Dorg.gradle.java.home="/usr/lib/jvm/java-${_jdkver}-openjdk" \
+    -Dorg.gradle.daemon=false \
+    check
 }
 
 package() {
+  install -dm755 "$srcdir/$pkgname-${pkgver}/dist"
+  unzip -d "$srcdir/$pkgname-${pkgver}/dist" \
+    "${srcdir}/${pkgname}-${pkgver}/DIST/${pkgname}_bin-${pkgver}.zip"
+
   install -dm755 "${pkgdir}/usr/share/freeplane/"
   cd "$srcdir/${pkgname}-${pkgver}/dist/${pkgname}-${pkgver}"
   cp -dr --no-preserve='ownership' core doc plugins resources scripts framework.jar freeplane.l4j.ini \
