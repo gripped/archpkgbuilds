@@ -1,23 +1,27 @@
 pkgbase = switchboard-plug-security-privacy
 	pkgdesc = Switchboard Security & Privacy Plug
-	pkgver = 7.1.0
+	pkgver = 7.1.0.r100.66928c1e
 	pkgrel = 1
 	url = https://github.com/elementary/switchboard-plug-security-privacy
 	arch = x86_64
-	license = GPL3
+	groups = pantheon
+	license = GPL-3.0-only
 	makedepends = git
 	makedepends = meson
 	makedepends = vala
+	depends = bash
+	depends = dconf
 	depends = glib2
-	depends = gtk3
+	depends = glibc
+	depends = gtk4
 	depends = libgee
-	depends = libgranite.so
-	depends = libswitchboard-2.0.so
+	depends = libgranite-7.so
+	depends = libswitchboard-3.so
 	depends = light-locker
 	depends = polkit
 	depends = ufw
 	depends = zeitgeist
-	source = git+https://github.com/elementary/switchboard-plug-security-privacy.git#tag=0798f720e52a49236f3c578dcea88ba3401934f5
+	source = git+https://github.com/elementary/switchboard-plug-security-privacy.git#commit=66928c1e8913a5eb5c96972ea7f1a80ce3bc893e
 	b2sums = SKIP
 
 pkgname = switchboard-plug-security-privacy
