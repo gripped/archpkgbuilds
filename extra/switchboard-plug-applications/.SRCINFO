@@ -1,21 +1,24 @@
 pkgbase = switchboard-plug-applications
 	pkgdesc = Switchboard Applications Plug
-	pkgver = 7.0.1
+	pkgver = 7.0.1.r247.92346d65
 	pkgrel = 1
 	url = https://github.com/elementary/switchboard-plug-applications
 	arch = x86_64
 	groups = pantheon
-	license = GPL3
+	license = GPL-3.0-only
 	makedepends = git
 	makedepends = meson
 	makedepends = vala
 	depends = flatpak
 	depends = glib2
-	depends = gtk3
+	depends = glibc
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita-1.so
 	depends = libgee
-	depends = libgranite.so
-	depends = libswitchboard-2.0.so
-	source = git+https://github.com/elementary/switchboard-plug-applications.git#tag=5504a1786d10446a4079b3f5074b2c4c1aca58f0
-	sha256sums = SKIP
+	depends = libgranite-7.so
+	depends = libswitchboard-3.so
+	source = git+https://github.com/elementary/switchboard-plug-applications.git#commit=92346d650e861dd6a4260aa90c684adc7fe00373
+	b2sums = SKIP
 
 pkgname = switchboard-plug-applications
