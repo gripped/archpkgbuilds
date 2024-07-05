@@ -1,28 +1,30 @@
 pkgbase = switchboard-plug-user-accounts
 	pkgdesc = Switchboard User Accounts Plug
-	pkgver = 2.4.3
-	pkgrel = 4
+	pkgver = 2.4.3.r163.87a5341
+	pkgrel = 1
 	url = https://github.com/elementary/switchboard-plug-useraccounts
 	arch = x86_64
 	groups = pantheon
-	license = GPL3
+	license = LGPL-3.0-only
 	makedepends = git
 	makedepends = gobject-introspection
 	makedepends = meson
 	makedepends = vala
 	depends = accountsservice
 	depends = cairo
+	depends = gcc-libs
 	depends = gdk-pixbuf2
 	depends = glib2
-	depends = gnome-desktop
-	depends = gtk3
+	depends = glibc
+	depends = gnome-desktop-4
+	depends = gtk4
+	depends = libadwaita-1.so
 	depends = libgee
-	depends = libgranite.so
-	depends = libhandy-1.so
+	depends = libgranite-7.so
 	depends = libpwquality
-	depends = libswitchboard-2.0.so
+	depends = libswitchboard-3.so
 	depends = polkit
-	source = switchboard-plug-user-accounts::git+https://github.com/elementary/switchboard-plug-useraccounts.git#tag=a4203ee2b33dc93e4797c7cf49c3bed60ebb8169
-	sha256sums = 156a6205ee9b696ee71c6731757964140c2f0382e4de59bb7bbafc2cf643bfe7
+	source = switchboard-plug-user-accounts::git+https://github.com/elementary/switchboard-plug-useraccounts.git#commit=87a53416484879b44e632562501b416674089f87
+	b2sums = 3314431daab2ebfeaa4ae781d7b0429851a2566afbd59de642636198ad4a1e55fa243ff9d0dba2839e40e41da5495d47808c668aa24cf8becd430e2b975f136b
 
 pkgname = switchboard-plug-user-accounts
