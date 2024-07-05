@@ -6,7 +6,7 @@
 
 pkgname=gcin
 pkgver=2.9.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Input method server supporting various input methods'
 url='https://hyperrate.com/dir.php?eid=67'
 license=('LGPL')
@@ -47,6 +47,8 @@ prepare() {
 
 build() {
     cd "${srcdir}/${pkgname}-${pkgver}"
+    # Workarounds for GCC 14, see https://hyperrate.com/thread.php?tid=35294
+    CFLAGS="$CFLAGS -Wno-error=implicit-function-declaration -Wno-error=incompatible-pointer-types" \
     ./configure --prefix=/usr --use_i18n=Y
     make -j1
 }

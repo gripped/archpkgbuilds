@@ -1,0 +1,32 @@
+pkgbase = gcin
+	pkgdesc = Input method server supporting various input methods
+	pkgver = 2.9.0
+	pkgrel = 6
+	url = https://hyperrate.com/dir.php?eid=67
+	arch = x86_64
+	license = LGPL
+	makedepends = qt5-base
+	makedepends = gtk2
+	makedepends = anthy
+	makedepends = curl
+	depends = glibc
+	depends = glib2
+	depends = gdk-pixbuf2
+	depends = cairo
+	depends = pango
+	depends = gtk3
+	depends = libx11
+	depends = libxtst
+	depends = libappindicator-gtk3
+	optdepends = qt5-base: support for qt5 input method
+	optdepends = gcc-libs: support for qt5 input method
+	optdepends = gtk2: support for gtk2 input method
+	optdepends = anthy: support for anthy input method
+	optdepends = curl: for downloading and uploading vocabulary databases via ts-edit
+	optdepends = bash: for various scripts
+	source = https://hyperrate.com/gcin-source/gcin-2.9.0.tar.xz
+	source = fix-gtk-immodules-path.patch
+	sha512sums = f8ce9407e2cfce2b3ba6e6ba6ccca8eb9dacf5c0124438df525e1a9fb692a7aea3cb685965708091b0fdedf3b00efa77fb6cdfbd33cdb50e1938e9f3fcf7a5d6
+	sha512sums = 54e90b04de45acf9f8821c92234b9708281907cbdf24ebb29f9820945615669d82a8443e49fd49d6c08be4a7b9f2857c8e763f170ef879c8fab1f232bb67e85d
+
+pkgname = gcin
