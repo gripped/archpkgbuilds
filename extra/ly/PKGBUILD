@@ -4,7 +4,7 @@
 
 pkgname=ly
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="TUI display manager"
 arch=(x86_64)
 url="https://github.com/fairyglade/ly"
@@ -24,12 +24,12 @@ prepare() {
 
 build() {
     cd "$pkgname"
-    zig build
+    zig build -Ddest_directory="$pkgdir" -Dname="ly-dm" -Dcpu=baseline
 }
 
 package() {
     cd "$pkgname"
-    zig build -Ddest_directory="$pkgdir" -Dname="ly-dm" installsystemd
+    zig build -Ddest_directory="$pkgdir" -Dname="ly-dm" -Dcpu=baseline installsystemd
     # https://github.com/fairyglade/ly/issues/628
     chmod 644 "$pkgdir/etc/pam.d/ly" "$pkgdir/usr/lib/systemd/system/ly.service"
     sed -i "s;/usr/bin/ly;/usr/bin/ly-dm;g" "$pkgdir/usr/lib/systemd/system/ly.service"
