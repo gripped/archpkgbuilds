@@ -3,8 +3,8 @@
 # Contributor: Andrzej Giniewicz <gginiu@gmail.com>
 
 pkgname=python-blosc
-pkgver=1.11.1
-pkgrel=5
+pkgver=1.11.2
+pkgrel=1
 pkgdesc='Python wrapper for the extremely fast Blosc compression library'
 arch=('x86_64')
 url='https://www.blosc.org/python-blosc/python-blosc.html'
@@ -23,8 +23,8 @@ makedepends=(
 checkdepends=('python-numpy' 'python-psutil')
 optdepends=('python-numpy: for tests and benchmarks')
 source=("https://github.com/Blosc/python-blosc/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('21f8a697a3a902860a6ed72233984cf00c464ec0ddde9842a0c24b1e8e5ec4dd57b872096445a873d162d7529cba5c3666ba2a3ee3f9b1b18107d9636011281c')
-b2sums=('cb348253a24258d2649ebc0604acbf936b8ccc2b28c42c69da2fee72ddf87eb17a24657bc5d3c0530193a60f482555ce4cc5d168a18d9c2d79a13410d40670bc')
+sha512sums=('56a53828669ac9d1452b247b8aad6bdfcb71ecffe9b8c7723e4405825704506946f150f54633b7e0886160255e5619c698b97847963c909e14c97808c04f39ab')
+b2sums=('79176961221a2dcdf389165b3ed0e629201605f806aca3e1ada1dd9b35c1acf13ea7fa6692a762f5e31270df327751642256a1c5bafb14fbed48ef69c6b9745c')
 
 build() {
   cd "${pkgname}-${pkgver}"
