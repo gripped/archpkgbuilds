@@ -6,7 +6,7 @@
 pkgname=mpv
 epoch=1
 pkgver=0.38.0
-pkgrel=5
+pkgrel=6
 pkgdesc='a free, open source, and cross-platform media player'
 arch=('x86_64')
 license=('GPL-2.0-or-later AND LGPL-2.1-or-later')
