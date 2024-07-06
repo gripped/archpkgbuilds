@@ -1,7 +1,7 @@
 pkgbase = tensorboard
 	pkgdesc = TensorFlow's Visualization Toolkit
 	pkgver = 2.16.2
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/tensorflow/tensorboard
 	arch = x86_64
 	license = APACHE
@@ -28,8 +28,10 @@ pkgbase = tensorboard
 	optdepends = python-tensorflow: advanced features for TensorBoard
 	options = !lto
 	source = tensorboard-2.16.2.tar.gz::https://github.com/tensorflow/tensorboard/archive/2.16.2.tar.gz
-	source = https://github.com/bazelbuild/bazel/releases/download/5.4.0/bazel_nojdk-5.4.0-linux-x86_64
+	source = https://github.com/bazelbuild/bazel/releases/download/6.5.0/bazel_nojdk-6.5.0-linux-x86_64
+	source = numpy2.diff
 	sha512sums = 0dc57928d55ebd46386d0f0852b3b4e9078222bd4378655abb16f6bc0e5ed2969600071d5d2ae9a3f2aa6bb327fe567869a01a69fdda35c261dc44a1eadd18ce
-	sha512sums = e2adb747cd1fe3c90686831703618af3f8bc8197a96d9e1e90e66db38dbc4e7a94d88dac755b25e288002983a87fcffbfb0d7c2e356d979d4635301c3daf9281
+	sha512sums = d3789f0ecd354468f2e24d98501041430ae99c173320fa9c3eb02f225c08ed298fd1ad259e4ad9bb70b6ae89d84cd87460aaa720de3486d40b30777a8fe45453
+	sha512sums = 91d3ac11bca482686e31ed77c1bf52559a475b4862d808ceed199c4af210539adb0708730206e093f34aea61e3887bb85ff0bf3e193124c553b654e823078e3f
 
 pkgname = tensorboard
