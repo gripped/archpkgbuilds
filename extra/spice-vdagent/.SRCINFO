@@ -1,0 +1,25 @@
+pkgbase = spice-vdagent
+	pkgdesc = Spice agent for Linux guests
+	pkgver = 0.22.1
+	pkgrel = 4
+	url = https://www.spice-space.org/
+	arch = x86_64
+	license = GPL
+	checkdepends = procps-ng
+	makedepends = spice-protocol
+	makedepends = git
+	depends = alsa-lib
+	depends = dbus
+	depends = glib2
+	depends = gtk3
+	depends = libdrm
+	depends = libpciaccess
+	depends = libxfixes
+	depends = libxinerama
+	depends = libxrandr
+	depends = systemd
+	backup = etc/conf.d/spice-vdagentd
+	source = https://www.spice-space.org/download/releases/spice-vdagent-0.22.1.tar.bz2
+	sha256sums = 93b0d15aca4762cc7d379b179a7101149dbaed62b72112fffb2b3e90b11687a0
+
+pkgname = spice-vdagent
