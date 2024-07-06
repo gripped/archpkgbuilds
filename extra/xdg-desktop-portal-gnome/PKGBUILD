@@ -3,7 +3,7 @@
 
 pkgname=xdg-desktop-portal-gnome
 pkgver=46.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A backend implementation for xdg-desktop-portal for the GNOME desktop environment"
 url="https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome"
 arch=(x86_64)
@@ -27,8 +27,8 @@ depends=(
 )
 makedepends=(
   git
+  glib2-devel
   meson
-  python-packaging
 )
 optdepends=('evince: Print previews')
 provides=(xdg-desktop-portal-impl)
