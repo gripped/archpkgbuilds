@@ -3,7 +3,7 @@
 # Contributor: J0k3r <moebius282@gmail.com>
 
 pkgname=lib32-sdl2
-pkgver=2.30.4
+pkgver=2.30.5
 pkgrel=1
 pkgdesc='A library for portable low-level access to a video framebuffer, audio output, mouse, and keyboard'
 arch=(x86_64)
@@ -41,7 +41,7 @@ optdepends=(
   'lib32-pipewire: PipeWire audio driver'
 )
 source=("https://github.com/libsdl-org/SDL/releases/download/release-${pkgver}/SDL2-${pkgver}.tar.gz"{,.sig})
-sha512sums=('dace0bfcfb9c7452786bee7082c8293199430ed0735e1efd983d73b604ab6bab8b9d2bc84530fa66c2cfa4e5c3ae6b506b2b6cb9a068c25f0f5b3352240d859b'
+sha512sums=('a5892d96e4bd97702aacaddebef16c0d731582539ef3eb4cf95494b81fcda2305e93ac0735074d6269833efd106b4ae194b964ef5696476d071e071ba22aadc4'
             'SKIP')
 validpgpkeys=('1528635D8053A57F77D1E08630A59377A7763BE6') # Sam Lantinga
 
