@@ -1,7 +1,7 @@
 pkgbase = phosh
 	pkgdesc = A pure Wayland shell prototype for GNOME on mobile devices
-	pkgver = 0.39.0
-	pkgrel = 2
+	pkgver = 0.40.0
+	pkgrel = 1
 	url = https://gitlab.gnome.org/World/Phosh/phosh
 	arch = x86_64
 	arch = aarch64
@@ -15,6 +15,7 @@ pkgbase = phosh
 	makedepends = python-packaging
 	makedepends = feedbackd
 	makedepends = libgmobile
+	makedepends = glib2-devel
 	depends = gtk3
 	depends = libhandy
 	depends = gnome-desktop
@@ -41,10 +42,10 @@ pkgbase = phosh
 	optdepends = feedbackd: haptic/visual/audio feedback
 	optdepends = xdg-desktop-portal-gtk: for screenshot support
 	optdepends = xdg-desktop-portal-wlr: for screencasts support
-	source = git+https://gitlab.gnome.org/World/Phosh/phosh.git#tag=v0.39.0
+	source = git+https://gitlab.gnome.org/World/Phosh/phosh.git#tag=v0.40.0
 	source = pam_phosh
 	validpgpkeys = 0DB3932762F78E592F6522AFBB5A2C77584122D3
-	sha256sums = 31e1d7554f1e0ce9c72cca67f018dd16c60816e7764e7ed24e19b00cde04825e
+	sha256sums = ab6decce05b92411c95a49fbce88f94b64e4b431a8d5da9fd416cceb162c6162
 	sha256sums = b7793f80c533e84ad8adfe8bb46c69f107575e724aa9b53b41f370baa37e4fd5
 
 pkgname = phosh
