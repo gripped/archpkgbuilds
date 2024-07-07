@@ -7,7 +7,7 @@
 # Contributor: stef204 <https://aur.archlinux.org/account/stef204>
 
 pkgname=borgmatic
-pkgver=1.8.12
+pkgver=1.8.13
 pkgrel=1
 pkgdesc='Simple, configuration-driven backup software for servers and workstations'
 arch=(any)
@@ -39,7 +39,7 @@ optdepends=(
   'python-llfuse: for mount action'
 )
 source=("git+https://projects.torsion.org/borgmatic-collective/borgmatic.git#tag=$pkgver")
-b2sums=('6eeab251c8e1743f5aaf72518f8e704824f99bbdf7b35ccfe98d98834ebb52fd90b43472fcd064f5a2070d9a798c4b98679e72264625233540af0c096bbd4e8f')
+b2sums=('c528f3d10dec476e00d95483e72ad00c8522bed5a9c51ed0eba46cf518217cd6c8d5f44c7211da1292a0b42804ec672366a0642423e38730663e5bdc3f832a14')
 
 prepare() {
   cd $pkgname
