@@ -1,11 +1,14 @@
 pkgbase = gnome-applets
 	pkgdesc = Small applications for the GNOME Panel
 	pkgver = 3.52.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://wiki.gnome.org/Projects/GnomeApplets
 	arch = x86_64
 	license = GPL-2.0-or-later
-	makedepends = itstool
+	makedepends = autoconf-archive
+	makedepends = git
+	makedepends = glib2-devel
+	makedepends = yelp-tools
 	depends = at-spi2-core
 	depends = cairo
 	depends = cpupower
@@ -28,9 +31,10 @@ pkgbase = gnome-applets
 	depends = tracker3
 	depends = upower
 	optdepends = tracker3-miners: Search bar
-	source = https://download.gnome.org/sources/gnome-applets/3.52/gnome-applets-3.52.0.tar.xz
+	source = git+https://gitlab.gnome.org/GNOME/gnome-applets.git?signed#tag=3.52.0
 	source = gnome-applets-98.patch
-	sha256sums = 6f3d3b428656ff6d5b1d3ee5ccb7ece3d2b18b54bf0457acf43b711e55e2d62c
-	sha256sums = a0ea3eeeda6c09e156c7713b45998de7674bcd4c720d1bb98c9ce97703bcf4db
+	validpgpkeys = 7B44FD78E49334EC10B3B288A3D013EC303E1894
+	b2sums = 407d35d76d56f32ef1cd86404c66077f776f93f5f9cfbaaa7f679f2247cc2f26c17f58b9cbc4ba61177894ecbc795559cd3d23a4d76258e84047c4b127e5949e
+	b2sums = d33772454e20dbfcb884e9ccbb4ad8705366c6a0313f94fef3791c90daa4d5daf50b39333b2af89992c37d34fdca99cb42384d479dd07438095ec2f67a214fe1
 
 pkgname = gnome-applets
