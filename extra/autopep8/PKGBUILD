@@ -4,7 +4,7 @@
 # Contributor: Sergey Mastykov <smastykov[at]gmail[dot]com>
 
 pkgname=autopep8
-pkgver=2.3.0
+pkgver=2.3.1
 pkgrel=1
 epoch=1
 pkgdesc='A tool that automatically formats Python code to conform to the PEP 8 style guide'
@@ -23,10 +23,9 @@ makedepends=(
   'python-setuptools'
 )
 checkdepends=('python-pytest')
-_commit='8f12c0ab83c3dcc9eaf5078393dd2c53e1d253d2'
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('98565898bbb0f06f860a5a25e52cc6541d2975a95fec8e4687650b939b42dd83c96a02ab1eaca4224fc98272eb4089f62eafed80994f6760f03f5f748b231063')
-b2sums=('ca9d308c6abfc76dba3ad00bec0452a771fd0fe5669308a90c1866312ec820ad3ad42adeb139b985676cb4109a2681c4487817c922ee24c794b678d4e17481cd')
+sha512sums=('e609dfcaeb38b2510caecf9ab8fe618dc0998518ee6cc74840ee82e503823bc79e0ae549a9f2f81af36524f52fde22bd02f4d6bf7c7f70e4a0873a26fb3de0e1')
+b2sums=('d4f7e2b5ec0ccdc64830c67208ff1c7d13f68218fa14508574acd164c2b0ebcb3e88ebe23388e31cfe884986188e6f99797227ef91fabc4ffcb53bbb14cccb6d')
 
 build() {
   cd "$pkgname"
@@ -45,11 +44,8 @@ package() {
 
   python -m installer --destdir="$pkgdir" dist/*.whl
 
-  # symlink license file
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  install -d "$pkgdir/usr/share/licenses/$pkgname"
-  ln -s "$site_packages/$pkgname-$pkgver.dist-info/LICENSE" \
-    "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
 
 # vim:set ts=2 sw=2 et:
