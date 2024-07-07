@@ -1,5 +1,5 @@
 # Maintainer: Dan Printzell <wild@archlinux.org>
-# Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+# Contributor: Filipe Laíns (FFY00) <lains@archlinux.org>
 # Contributor: Mihails Strasunse <public@dicebot.lv>
 # Contributor: Sven-Hendrik Haase <sh@lutzhaase.com>
 # Contributor: Chris Brannon <cmbrannon79@gmail.com>
@@ -11,8 +11,8 @@ pkgname=('dmd' 'dmd-docs' 'libphobos')
 pkgdesc='D programming language compiler and standard library'
 groups=('dlang' 'dlang-dmd')
 pkgbase=dmd
-pkgver=2.109.0
-_docsvers=2.109.0
+pkgver=2.109.1
+_docsvers=2.109.1
 pkgrel=1
 epoch=1
 arch=('x86_64')
@@ -24,9 +24,9 @@ source=("git+https://github.com/dlang/dmd.git#tag=v$pkgver"
         "http://downloads.dlang.org/releases/2.x/$_docsvers/dmd.$_docsvers.linux.tar.xz.sig"
         'dmd.conf'
         'dmd-doc.desktop')
-sha256sums=('359bd3859d5f0468b1266acbf0b5150111ebab61f4264228d0cf8934abc68ad0'
-            'd79cc6f2f58b859c61be497157fdbafe28875fb71b45dd299cbef19f3078868c'
-            '968cb7b23744447eb1a9654780c1edbe8248a696b132d3cd49abc2c6a1aad090'
+sha256sums=('9c2c13c2bd74d72b7dea3c73bc3619faf009401a3ff55e92e343596f8b047483'
+            '4b31ba6aaad5fcace94783d2dabfff876ca5c0a540c53e62bbfdb7581efcdaaa'
+            'db52ed3cdc211a341370a07b56ee187955dfc8c1b0766f540cce3f030506fb9b'
             'SKIP'
             '3d639e89528fed1da90006f4dfb2b0fdc41308da5a96d953381ff4ccf257c035'
             '4b7b8722b3fa11082f0f332397b1b66c85b30ce773c43c3fedcba5768a1484b1')
