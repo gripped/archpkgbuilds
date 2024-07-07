@@ -1,0 +1,184 @@
+From e18c3f14d8c36756e48b8766a2c90e1c38ac7cb3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 7 Jul 2024 09:00:30 +0200
+Subject: [PATCH] Place launched applications into a systemd scope
+
+This improves separation from the gnome-panel service scope.
+---
+ configure.ac                             |  3 +++
+ modules/action-button/Makefile.am        |  1 +
+ modules/action-button/panel-run-dialog.c |  7 +++++++
+ modules/launcher/Makefile.am             |  1 +
+ modules/launcher/gp-launcher-applet.c    | 19 +++++++++++++++++++
+ modules/menu/Makefile.am                 |  1 +
+ modules/menu/gp-menu-utils.c             | 19 +++++++++++++++++++
+ 7 files changed, 51 insertions(+)
+
+diff --git a/configure.ac b/configure.ac
+index 0b31cdbf0..41c358df8 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -166,6 +166,7 @@ PKG_CHECK_MODULES([LIBGNOME_PANEL], [
+ 
+ PKG_CHECK_MODULES([ACTION_BUTTON], [
+   gio-unix-2.0 >= $GLIB_REQUIRED
++  gnome-desktop-3.0 >= $LIBGNOME_DESKTOP_REQUIRED
+   gtk+-3.0 >= $GTK_REQUIRED
+   libgnome-menu-3.0 >= $LIBGNOME_MENU_REQUIRED
+   libsystemd >= $LIBSYSTEMD_REQUIRED
+@@ -178,6 +179,7 @@ AC_SUBST(FISH_LIBS)
+ 
+ PKG_CHECK_MODULES([LAUNCHER], [
+   gio-unix-2.0 >= $GLIB_REQUIRED
++  gnome-desktop-3.0 >= $LIBGNOME_DESKTOP_REQUIRED
+   gtk+-3.0 >= $GTK_REQUIRED
+   libgnome-menu-3.0 >= $LIBGNOME_MENU_REQUIRED
+   libsystemd >= $LIBSYSTEMD_REQUIRED
+@@ -186,6 +188,7 @@ PKG_CHECK_MODULES([LAUNCHER], [
+ PKG_CHECK_MODULES([MENU], [
+   gdm
+   gio-unix-2.0 >= $GLIB_REQUIRED
++  gnome-desktop-3.0 >= $LIBGNOME_DESKTOP_REQUIRED
+   gtk+-3.0 >= $GTK_REQUIRED
+   libgnome-menu-3.0 >= $LIBGNOME_MENU_REQUIRED
+   libsystemd >= $LIBSYSTEMD_REQUIRED
+diff --git a/modules/action-button/Makefile.am b/modules/action-button/Makefile.am
+index 599f229a8..182f14a38 100644
+--- a/modules/action-button/Makefile.am
++++ b/modules/action-button/Makefile.am
+@@ -6,6 +6,7 @@ action_button_lib_LTLIBRARIES = org.gnome.gnome-panel.action-button.la
+ org_gnome_gnome_panel_action_button_la_CPPFLAGS = \
+ 	-DLOCALEDIR=\""$(localedir)"\" \
+ 	-DGMENU_I_KNOW_THIS_IS_UNSTABLE \
++	-DGNOME_DESKTOP_USE_UNSTABLE_API \
+ 	-DG_LOG_DOMAIN=\""action-button"\" \
+ 	-DG_LOG_USE_STRUCTURED=1 \
+ 	-I$(top_srcdir) \
+diff --git a/modules/action-button/panel-run-dialog.c b/modules/action-button/panel-run-dialog.c
+index 0eef5a99c..265cb4506 100644
+--- a/modules/action-button/panel-run-dialog.c
++++ b/modules/action-button/panel-run-dialog.c
+@@ -41,6 +41,7 @@
+ #include <gdk/gdkkeysyms.h>
+ #include <gdk/gdkx.h>
+ #include <gmenu-tree.h>
++#include <libgnome-desktop/gnome-systemd.h>
+ 
+ #include <libpanel-util/panel-error.h>
+ #include <libpanel-util/panel-glib.h>
+@@ -502,6 +503,12 @@ panel_run_dialog_launch_command (PanelRunDialog *dialog,
+ 		g_error_free (error);
+ 	} else {
+ 		g_child_watch_add (pid, dummy_child_watch, NULL);
++
++		gnome_start_systemd_scope (locale_command,
++					   pid,
++					   NULL,
++					   NULL,
++					   NULL, NULL, NULL);
+ 	}
+ 
+ 	g_strfreev (argv);
+diff --git a/modules/launcher/Makefile.am b/modules/launcher/Makefile.am
+index d336374c5..a120d230f 100644
+--- a/modules/launcher/Makefile.am
++++ b/modules/launcher/Makefile.am
+@@ -6,6 +6,7 @@ launcher_lib_LTLIBRARIES = org.gnome.gnome-panel.launcher.la
+ org_gnome_gnome_panel_launcher_la_CPPFLAGS = \
+ 	-DLOCALEDIR=\""$(localedir)"\" \
+ 	-DGMENU_I_KNOW_THIS_IS_UNSTABLE \
++	-DGNOME_DESKTOP_USE_UNSTABLE_API \
+ 	-DGRESOURCE_PREFIX=\""/org/gnome/gnome-panel/modules/launcher"\" \
+ 	-DG_LOG_DOMAIN=\""launcher"\" \
+ 	-DG_LOG_USE_STRUCTURED=1 \
+diff --git a/modules/launcher/gp-launcher-applet.c b/modules/launcher/gp-launcher-applet.c
+index 4d66239ed..f978fa5a2 100644
+--- a/modules/launcher/gp-launcher-applet.c
++++ b/modules/launcher/gp-launcher-applet.c
+@@ -32,6 +32,7 @@
+ 
+ #include <glib/gi18n-lib.h>
+ #include <gmenu-tree.h>
++#include <libgnome-desktop/gnome-systemd.h>
+ #include <systemd/sd-journal.h>
+ 
+ #include "gp-launcher-button.h"
+@@ -793,7 +794,25 @@ pid_cb (GDesktopAppInfo *info,
+         GPid             pid,
+         gpointer         user_data)
+ {
++  const gchar *app_name;
++
+   g_child_watch_add (pid, close_pid, NULL);
++
++  /* If pid == 0 the application was launched through D-Bus
++   * activation, therefore it's already in its own unit */
++  if (pid == 0)
++    return;
++
++  app_name = g_app_info_get_id (G_APP_INFO (info));
++  if (app_name == NULL)
++    app_name = g_app_info_get_executable (G_APP_INFO (info));
++
++  /* Start async request; we don't care about the result */
++  gnome_start_systemd_scope (app_name,
++                             pid,
++                             NULL,
++                             NULL,
++                             NULL, NULL, NULL);
+ }
+ 
+ static void
+diff --git a/modules/menu/Makefile.am b/modules/menu/Makefile.am
+index 644284e8c..394ce96fb 100644
+--- a/modules/menu/Makefile.am
++++ b/modules/menu/Makefile.am
+@@ -6,6 +6,7 @@ menu_lib_LTLIBRARIES = org.gnome.gnome-panel.menu.la
+ org_gnome_gnome_panel_menu_la_CPPFLAGS = \
+ 	-DLOCALEDIR=\""$(localedir)"\" \
+ 	-DGMENU_I_KNOW_THIS_IS_UNSTABLE \
++	-DGNOME_DESKTOP_USE_UNSTABLE_API \
+ 	-DG_LOG_DOMAIN=\""menu"\" \
+ 	-DG_LOG_USE_STRUCTURED=1 \
+ 	-I$(top_srcdir) \
+diff --git a/modules/menu/gp-menu-utils.c b/modules/menu/gp-menu-utils.c
+index 273db690b..5da89a2d9 100644
+--- a/modules/menu/gp-menu-utils.c
++++ b/modules/menu/gp-menu-utils.c
+@@ -19,6 +19,7 @@
+ 
+ #include <glib/gi18n-lib.h>
+ #include <gtk/gtk.h>
++#include <libgnome-desktop/gnome-systemd.h>
+ #include <systemd/sd-journal.h>
+ 
+ #include "gp-menu-utils.h"
+@@ -297,7 +298,25 @@ pid_cb (GDesktopAppInfo *info,
+         GPid             pid,
+         gpointer         user_data)
+ {
++  const gchar *app_name;
++
+   g_child_watch_add (pid, close_pid, NULL);
++
++  /* If pid == 0 the application was launched through D-Bus
++   * activation, therefore it's already in its own unit */
++  if (pid == 0)
++    return;
++
++  app_name = g_app_info_get_id (G_APP_INFO (info));
++  if (app_name == NULL)
++    app_name = g_app_info_get_executable (G_APP_INFO (info));
++
++  /* Start async request; we don't care about the result */
++  gnome_start_systemd_scope (app_name,
++                             pid,
++                             NULL,
++                             NULL,
++                             NULL, NULL, NULL);
+ }
+ 
+ static gboolean
+-- 
+GitLab
+
