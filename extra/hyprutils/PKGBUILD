@@ -2,15 +2,16 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: alba4k <blaskoazzolaaaron@gmail.com>
 
-pkgname="hyprutils"
+pkgname=hyprutils
 pkgver=0.1.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Hyprland utilities library used across the ecosystem"
 arch=(x86_64)
 url="https://github.com/hyprwm/hyprutils"
-license=('BSD-3-Clause')
+license=(BSD-3-Clause)
 depends=(pixman)
-makedepends=('git' 'cmake' 'gcc' 'make')
+makedepends=(git cmake)
+provides=(libhyprutils.so)
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
 sha256sums=('60cce1b4160a4e5383fa0ff665c6bf49b54cfb387dc8a52229abfc367000b0be')
 
