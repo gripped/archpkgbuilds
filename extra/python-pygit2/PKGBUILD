@@ -4,7 +4,7 @@
 # Contributor: Daniel Micay <danielmicay@gmail.com>
 
 pkgname=python-pygit2
-pkgver=1.15.0
+pkgver=1.15.1
 pkgrel=1
 pkgdesc='Python bindings for libgit2'
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('glibc' 'libgit2' 'python' 'python-cffi')
 makedepends=('cython' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('76963d43d0b653c8764ed543ad0d2c2038c2c83ead9630257db015de5deebc6f')
+sha256sums=('2466f78c0a04f6bee7c35488db0f9411db93f8216731b25a32500318cc183980')
 
 prepare() {
 	cd "pygit2-$pkgver"
