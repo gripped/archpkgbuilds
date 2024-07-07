@@ -1,10 +1,10 @@
 # Maintainer: Dan Printzell <wild@archlinux.org>
-# Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+# Contributor: Filipe Laíns (FFY00) <lains@archlinux.org>
 # Contributor: Mihails Strasuns <public@dicebot.lv>
 # Contributor: Moritz Maxeiner <moritz@ucworks.org>
 
 pkgname=dub
-pkgver=1.38.0
+pkgver=1.38.1
 pkgrel=1
 pkgdesc="Developer package manager for D programming language"
 arch=('x86_64')
@@ -14,7 +14,7 @@ groups=('dlang')
 makedepends=('ldc')
 depends=('curl')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/dlang/dub/archive/v$pkgver.tar.gz")
-sha512sums=('58f249bf0fbf07314e410749650f43eff743e152958a98c200a6fd019d15dd7c68da5f0d2f52f187d38b7441917b016bf8e072e663c857a224952c963233ff21')
+sha512sums=('d08afc9c5266fa5df78cefd3439f4477a80a6441446e202ee5d07bfac35db7521b836eca7f0944dfa98b53da948759ee1c91f6b6903c6e04b6d155c7ed805e80')
 
 build() {
 	cd "$pkgname-$pkgver"
