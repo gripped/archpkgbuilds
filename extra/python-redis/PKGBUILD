@@ -5,7 +5,7 @@
 # Contributor: Pierre Gueth <pierre.gueth@gmail.com>
 
 pkgname=python-redis
-pkgver=5.0.6
+pkgver=5.0.7
 pkgrel=1
 pkgdesc='The Python interface to the Redis key-value store'
 arch=('any')
@@ -38,7 +38,7 @@ checkdepends=(
   'redis'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-b2sums=('9e658d3a199cc4c4c3790be34bcf793cd42752974aa5ecbc62fad6474bd9bae394256626595e8bd412ebc12881580af928effb1328edafc2b8755187de160419')
+b2sums=('666f2bf21ea10b368da57b4e6740a00eeaa8646ad89b332214f0638b22130aa62a06f50aefdb6fa0de0318fd32b4cb891ea9b574802e150e55d474517edfc369')
 
 build() {
   cd "$pkgname"
