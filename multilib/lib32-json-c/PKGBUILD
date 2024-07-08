@@ -4,7 +4,8 @@
 
 pkgname=lib32-json-c
 pkgver=0.17
-pkgrel=1
+_tagdate=20230812
+pkgrel=2
 pkgdesc="A JSON implementation in C (32-bit)"
 url="https://github.com/json-c/json-c/wiki"
 license=(MIT)
@@ -19,20 +20,8 @@ makedepends=(
   ninja
 )
 provides=(libjson-c.so)
-_commit=b4c371fa0cbc4dcbaccc359ce9e957a22988fb34  # tags/json-c-0.17-20230812^0
-source=("git+https://github.com/json-c/json-c#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd json-c
-  local tag="$(git describe --tags --abbrev=0)"
-  local ver="$(git describe --tags)"
-  echo "${tag%-*}${ver#$tag}" | sed 's/^json-c-//;s/[^-]*-g/r&/;s/-/+/g'
-}
-
-prepare() {
-  cd json-c
-}
+source=("git+https://github.com/json-c/json-c#tag=json-c-$pkgver-$_tagdate")
+b2sums=('9e0b0f41703460a4a61bf4e2b005bbc436f0f563a1a82ce8acb399d5efa18744ec86e8610866568fc6f77e3eec097fd688cbb9cb6bfbf7179b8178d8ee2de3ff')
 
 build() {
   local cmake_options=(
@@ -44,17 +33,15 @@ build() {
     -DENABLE_RDRAND=OFF
   )
 
-  export CC="gcc -m32"
-  export CXX="g++ -m32"
-  export PKG_CONFIG_PATH="i686-pc-linux-gnu-pkg-config"
+  export CC="gcc -m32" CXX="g++ -m32"
+  export PKG_CONFIG=i686-pc-linux-gnu-pkg-config
 
   cmake -S json-c -B build -G Ninja "${cmake_options[@]}"
   cmake --build build
 }
 
 check() {
-  cd build
-  ctest --output-on-failure --stop-on-failure -j$(nproc)
+  ctest --test-dir build --output-on-failure --stop-on-failure -j$(nproc)
 }
 
 package() {
