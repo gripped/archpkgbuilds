@@ -1,18 +1,25 @@
 pkgbase = python-pyqtgraph
 	pkgdesc = Scientific Graphics and GUI Library for Python
 	pkgver = 0.13.6
-	pkgrel = 1
+	pkgrel = 2
 	url = http://www.pyqtgraph.org
 	arch = any
 	license = MIT
+	checkdepends = python-pyqt5
+	checkdepends = python-pyqt6
+	checkdepends = python-pytest
+	checkdepends = python-opengl
+	checkdepends = qt5-svg
+	checkdepends = qt6-svg
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
 	depends = python
-	depends = qt5-python-bindings
 	depends = python-numpy
 	optdepends = python-opengl: 3d graphics
+	optdepends = qt5-python-bindings: Qt5 backend
+	optdepends = qt6-python-bindings: Qt6 backend
 	source = pyqtgraph-0.13.6.tar.gz::https://github.com/pyqtgraph/pyqtgraph/archive/pyqtgraph-0.13.6.tar.gz
 	sha512sums = e77a054494a01ce848685547811ad398e0c77f747c26f9f4be798465f874bfeb23f6c2e507ad1175bb747e3c9c2f0d22747eefda476c4e8c72fa892fa0bb4730
 
