@@ -3,8 +3,8 @@
 # Contributor: Markus Richter <mqus at disroot dot org>
 
 pkgname=vaultwarden-web
-_pkgver=2024.5.1
-pkgver=2024.5.1
+_pkgver=2024.5.1b
+pkgver=2024.5.1.b
 _upstreamver=${_pkgver%[[:lower:]]}
 _patchver=2024.5.0
 pkgrel=1
@@ -24,7 +24,7 @@ source=(
   "git+https://github.com/dani-garcia/bw_web_builds#tag=v$_pkgver"
 )
 b2sums=('4f76462beca9d6dac7102a7e67cd2a362d0b1269bc0ee68025b3a22ad2ef1010dfdc5f8642118014e0b286e53d02cefaa405bf8aaa3e84ea150ff5b4127c5adb'
-        '2239b6996edc15037d72c68b359f4270621a1d5244fdd7ef86574de8f037da5890703f56f63f6341f7ea2ee4be74045b8378d8aa7d7d71525977292778159e1c')
+        'e4d33e76e1309b30b78c2c01979c4a8d63caf1e59decf4993a9189628540c8b2998e23e08e1311dafca9b4f3ae102db83c127f8ac81894bd882ab86a9a5388e9')
 
 # Appease vercmp by prepending trailing letter with a period
 # shellcheck disable=SC2001
