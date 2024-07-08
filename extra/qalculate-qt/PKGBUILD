@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=qalculate-qt
-pkgver=5.2.0
+pkgver=5.2.0.1
 pkgrel=1
 pkgdesc='Qt frontend for libqalculate'
 arch=(x86_64)
@@ -15,7 +15,7 @@ depends=(gcc-libs
 makedepends=(git
              qt6-tools)
 source=(git+https://github.com/Qalculate/qalculate-qt#tag=v$pkgver)
-sha256sums=('da86f219e3b811b142093a92c5389d5f0bfcbac27bf34274c17d31a0f4cf13fa')
+sha256sums=('2f0881fba891e4aa9afd59c63ea52c0b26944332b392feab6bb94404b03d08ac')
 
 build() {
   cd $pkgname
