@@ -6,14 +6,13 @@ _name=FreeRDP
 pkgname=freerdp
 pkgver=3.6.2
 _libver=${pkgver/.*/}
-pkgrel=1
+pkgrel=2
 epoch=2
 pkgdesc="Free implementation of the Remote Desktop Protocol (RDP)"
 arch=(x86_64)
 url="https://www.freerdp.com/"
 license=(Apache-2.0)
 depends=(
-  cjson
   fuse3
   gcc-libs
   glibc
@@ -43,6 +42,7 @@ makedepends=(
   glib2
   gtk3
   icu
+  json-c
   krb5
   libjpeg-turbo
   libp11
@@ -135,10 +135,11 @@ package() {
     glib2 libglib-2.0.so libgobject-2.0.so
     gtk3 libgtk-3.so
     icu libicuuc.so
+    json-c libjson-c.so
     krb5 libk5crypto.so libkrb5.so
-    libpulse libpulse.so
-    libpng libpng16.so
     libjpeg-turbo libjpeg.so
+    libpng libpng16.so
+    libpulse libpulse.so
     libusb libusb-1.0.so
     libwebp libwebp.so
     openssl libcrypto.so libssl.so
