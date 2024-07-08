@@ -4,8 +4,8 @@
 # Contributor: jtagcat <arch-3ff61201@jtag.cat>
 
 pkgname=istio
-pkgver=1.22.1
-pkgrel=2
+pkgver=1.22.2
+pkgrel=1
 pkgdesc='Istio configuration command line utility for service operators to debug and diagnose their Istio mesh'
 arch=('x86_64')
 url='https://github.com/istio/istio'
@@ -14,13 +14,13 @@ depends=('glibc')
 makedepends=('go')
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('ee5401adc72f3db95acbd5e4b923cac03ad88d91f2b30cc1a21a3e165be6d4ebd99135e5e9a6e0737c8c44d4279da6392d7a0cee902cb2947ab1f2e7c52d4900')
-b2sums=('78bf54ed45a0bc8d88e8a5d75d81dc92b1f1e595e4fe535f3b69b6e608478f16dd32bcdb4099f2258649ab837272e7b85bf9021b655f4362e252d08b31f587f8')
+sha512sums=('07c1994fe96d90b199543c69fdb70d49f77b136516ae5277b2971a71bcf08929f48ae60662db8783f15bac21654ca795182363a30e5ab4adcef277b4238eb8a6')
+b2sums=('f0d20af60e3d4c85a60a9a5baa8328bcefde0fbe42a779fbfa66f10c5d98b5551d2614e58f0b5cefc97c48e3c3a04f7bbcb05e2c63bbaa911478d1d4dd477bb4')
 
 prepare() {
   cd $pkgname-$pkgver
 
-  go mod download -x
+  GOFLAGS="-mod=readonly" go mod vendor -v
 }
 
 build() {
@@ -31,11 +31,15 @@ build() {
   export CGO_CXXFLAGS="$CXXFLAGS"
   # shellcheck disable=SC2153
   export CGO_LDFLAGS="$LDFLAGS"
-  export GOFLAGS="-buildmode=pie -mod=readonly -modcacherw"
+  export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw"
   export GOPATH="$srcdir"
 
   mkdir -p build
-  local ldflags="-compressdwarf=false -linkmode=external -X istio.io/istio/pkg/version.buildVersion=$pkgver"
+  local ldflags=" \
+    -compressdwarf=false  \
+    -linkmode=external  \
+    -X istio.io/istio/pkg/version.buildVersion=$pkgver \
+  "
   go build -v -buildvcs=false -o build -ldflags="$ldflags" \
     ./istioctl/cmd/istioctl
 }
