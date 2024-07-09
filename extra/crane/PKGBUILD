@@ -2,7 +2,7 @@
 
 pkgname=crane
 _pkgname=go-containerregistry
-pkgver=0.19.2
+pkgver=0.20.0
 pkgrel=1
 pkgdesc="Interacting with remote container images and registries."
 arch=('x86_64')
@@ -13,8 +13,8 @@ makedepends=('go')
 # we can not use LTO as otherwise we get no reproducible package with full RELRO
 options=(!lto)
 source=(https://github.com/google/${_pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('110f41283fb91ba6d34f6eaaa33b373a2ca026a88222293bfb711c5464059dca')
-b2sums=('51ade4fbeef6c3c57da49494d6b1c714a1617cd71d9b33ea4869b64abf3b6b2dfd8bbc3185025dd080edd432c6c00526accda431928c8ac2020a99d347af05a1')
+sha256sums=('56264dcd9078e9be0ec469d30dbd937b1b706fd7c34df91ce82bacd95986ff6b')
+b2sums=('1580f0e161fd9bc8db4a311bc0f0005401eb0cdc8c26ddbc13a681c4ec5e7280ab90d19a5121ebe67a52e18853784012a76e5abdb24912be6399e41cc681d8b4')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
