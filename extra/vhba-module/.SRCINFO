@@ -1,18 +1,15 @@
 pkgbase = vhba-module
 	pkgdesc = Kernel module that emulates SCSI devices
 	pkgver = 20240202
-	pkgrel = 30
+	pkgrel = 31
 	url = https://cdemu.sourceforge.io/
 	arch = x86_64
 	license = GPL-2.0-or-later
+	makedepends = git
 	makedepends = linux-headers
-	source = https://downloads.sourceforge.net/cdemu/vhba-module-20240202.tar.xz
+	source = cdemu-code::git+https://git.code.sf.net/p/cdemu/code#tag=vhba-module-20240202
 	source = dkms.conf
-	md5sums = ba66d25b257daba715d4870addbd131c
-	md5sums = 7da9314812d9ea665df0db33052c7452
-	sha1sums = 84f281612d18978959216a8b9eae6e5a94dcb6cf
-	sha1sums = c3b46eeceef6124483020ae52ccb801c534996b2
-	b2sums = 7974f60b73c634528afdd44e94c6da34bdc481d874f19845efc0464435a7e560494dd703b0fb1df34c96fce5f1afb300a1e6e2b3b9730e91c956816905eb2f44
+	b2sums = 2c97148e88aac9281ffcaee579b0cd9f00117086e69f9035e44e4288f5ba28a6a3b1246c922647742dbed7666fd8158431d600387247132808097bdb33f74981
 	b2sums = f1f3d97fc450de4a0257fa4c864eb7245f6c9657472eec67949b1335681ba86a40273b7fb11d023e406f792709252d80e635791674bdf79153f53161b4c5d871
 
 pkgname = vhba-module
