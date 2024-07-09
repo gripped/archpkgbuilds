@@ -5,7 +5,7 @@
 
 pkgname=faust
 pkgver=2.74.6
-pkgrel=2
+pkgrel=3
 pkgdesc="A functional programming language for realtime audio signal processing."
 arch=(x86_64)
 url="https://faust.grame.fr/"
@@ -55,7 +55,10 @@ provides=(
   libOSCFaust.so
   libHTTPDFaust.so
 )
-options=(staticlibs)
+options=(
+  !lto  # https://github.com/grame-cncm/faust/issues/1033
+  staticlibs
+)
 source=(
   https://github.com/grame-cncm/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.gz
 )

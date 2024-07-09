@@ -1,7 +1,7 @@
 pkgbase = faust
 	pkgdesc = A functional programming language for realtime audio signal processing.
 	pkgver = 2.74.6
-	pkgrel = 2
+	pkgrel = 3
 	url = https://faust.grame.fr/
 	arch = x86_64
 	groups = pro-audio
@@ -40,6 +40,7 @@ pkgbase = faust
 	provides = libfaust.so
 	provides = libOSCFaust.so
 	provides = libHTTPDFaust.so
+	options = !lto
 	options = staticlibs
 	source = https://github.com/grame-cncm/faust/releases/download/2.74.6/faust-2.74.6.tar.gz
 	sha512sums = 8a6e7676391196cf80ad325920a6500c624495577dac91e593090f1520715677800e996a4a1ed6063360a8ee77e9762d49b413a727f150ba173edb04b2492eb4
