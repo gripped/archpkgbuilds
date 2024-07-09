@@ -4,7 +4,7 @@
 
 pkgname=qt6-wayland
 pkgver=6.7.2
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
@@ -23,6 +23,11 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
 sha256sums=('b6153c2d65c3be61905802f3598ec96bad012799737681c5cc5f83c907612435')
+
+prepare() {
+  cd $_pkgfn
+  git cherry-pick -n 92bcb8f6b7a852c7a5d662fc34de561692a7a454
+}
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
