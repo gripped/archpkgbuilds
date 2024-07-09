@@ -1,6 +1,6 @@
 pkgbase = vaultwarden
 	pkgdesc = Unofficial Bitwarden compatible server written in Rust
-	pkgver = 1.30.5
+	pkgver = 1.31.0
 	pkgrel = 1
 	url = https://github.com/dani-garcia/vaultwarden
 	install = vaultwarden.install
@@ -8,8 +8,8 @@ pkgbase = vaultwarden
 	license = AGPL-3.0-only
 	makedepends = git
 	makedepends = rust
-	depends = glibc
 	depends = gcc-libs
+	depends = glibc
 	depends = mariadb-libs
 	depends = openssl
 	depends = postgresql-libs
@@ -17,11 +17,11 @@ pkgbase = vaultwarden
 	optdepends = vaultwarden-web: for the web app
 	options = !lto
 	backup = etc/vaultwarden.env
-	source = vaultwarden::git+https://github.com/dani-garcia/vaultwarden#commit=d0c22b9fc90ae52aedbbccdafe9915bd0bdb0d84
+	source = git+https://github.com/dani-garcia/vaultwarden.git#tag=1.31.0
 	source = systemd.service
 	source = sysusers.conf
 	source = tmpfiles.conf
-	b2sums = SKIP
+	b2sums = 6916fca0d68393e1a11a3adf68eabfe0b907b0a9ce30985b3130491e9769409e2afa93d1dc240c3df83d4f200ff806da729482531d750e6e9d04edd7542ad170
 	b2sums = ff8e896f820b88f079d3d4f4c2eb394362569c921f53693e25d3badaf9fdca841e4d7665862e09d22421f544802f3a64014696fd92d7f0b923faf41f8d99e472
 	b2sums = 6580cf4031f262638abf11e529e8dfc489197afd6cd616c6a7810741e03c004706a5f9358f825aac6644c0ab6b251627ff988ed68f8264120b3575a655972390
 	b2sums = 9cdcd6c997c884eb3c1ad0c9b8cd91e68ec6762a27f9b80a7eb6c0cb1ffa4e500a654da6f17e9f985cc67add154efe737761f74e4e5f72892fc0e9d457314973
