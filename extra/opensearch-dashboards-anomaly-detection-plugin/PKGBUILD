@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-anomaly-detection-plugin'
 _pluginname='anomaly-detection-dashboards-plugin'
-pkgver=2.14.0.0
-_dashboardsver=2.14.0
+pkgver=2.15.0.0
+_dashboardsver=2.15.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Anomaly Detection Plugin'
 url='https://opensearch.org/docs/latest/monitoring-plugins/ad/index/'
@@ -16,8 +16,8 @@ source=(
   "git+https://github.com/opensearch-project/${_pluginname}.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
 )
-sha256sums=('e3eec8af9218a5aed076213777379598b3910ab75217bde4371ef0959dc12108'
-            'e3d995e418239f5fcf4eb1bfa14d30a17c7b42fbed275abf887646e6d1ca1cf9')
+sha256sums=('c8746974da83b002833a2e0d85912c1f68aea59792542f2a3cd951fd8b558d61'
+            '8528ed81c9b2282472089e611a648b22f7f240e2244bddd1124cc03612cb45d8')
 
 prepare() {
   nodeVersion="$(node -v)"
@@ -34,7 +34,7 @@ build() {
   yarn plugin-helpers build --skip-archive # `yarn build` will always create the ZIP
 }
 
-# This breaks in release 2.14.0 - check on next one
+# This breaks in release 2.15.0 - check on next one
 # check() {
 #   cd "OpenSearch-Dashboards/plugins/${_pluginname}"
 #   yarn test:jest
