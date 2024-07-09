@@ -121,6 +121,17 @@ _mods() {
     fi
 }
 
+_kver() {
+    if [[ -f "${_VMLINUZ}" ]]; then
+        # x86_64 default image
+        rg -Noazm 1 'ABCDEF\x00+(.*) \(.*@' -r '$1' "${1}" ||
+        # aarch64, works for compressed and uncompressed image
+        rg -Noazm 1 'Linux version ([0-9].*) \(.*@' -r '$1' "${1}" ||
+        # riscv64, rg cannot detect compression without suffix
+        zcat "${1}" | rg -Noazm 1 'Linux version ([0-9].*) \(.*@' -r '$1'
+    fi
+}
+
 #shellcheck disable=SC2048,SC2086
 _parameter $*
 
@@ -128,17 +139,7 @@ if [[ -z "${_KERNEL_VERSION}" ]]; then
     # get kernel version from installed kernel
     [[ "${_ARCH}" == "x86_64" || "${_ARCH}" == "riscv64" ]] && _VMLINUZ=${_ROOT_DIRECTORY}/boot/vmlinuz-linux
     [[ "${_ARCH}" == "aarch64" ]] && _VMLINUZ=${_ROOT_DIRECTORY}/boot/Image
-    if [[ -f "${_VMLINUZ}" && "${_ARCH}" == "x86_64" ]]; then
-        offset="$(od -An -j0x20E -dN2 "${_VMLINUZ}")"
-        read -r _KERNEL_VERSION _ < <(dd if="${_VMLINUZ}" bs=1 count=127 skip=$((offset + 0x200)) 2>${_NO_LOG})
-    fi
-    if [[ -f "${_VMLINUZ}" ]]  &&  [[ "${_ARCH}" == "riscv64" || "${_ARCH}" == "aarch64" ]]; then
-        reader="cat"
-        # try if the image is gzip compressed
-        bytes="$(od -An -t x2 -N2 "${_VMLINUZ}" | tr -dc '[:alnum:]')"
-        [[ $bytes == '8b1f' ]] && reader="zcat"
-        read -r _ _ _KERNEL_VERSION _ < <($reader "${_VMLINUZ}" | rg -m1 -ao 'Linux version .(\.[-[:alnum:]]+)+')
-    fi
+    _KERNEL_VERSION=$(_kver ${_VMLINUZ})
     # fallback if no detectable kernel is installed
     [[ -z "${_KERNEL_VERSION}" ]] && _KERNEL_VERSION="$(uname -r)"
 fi
