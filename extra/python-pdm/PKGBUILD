@@ -2,7 +2,7 @@
 
 _name=pdm
 pkgname=python-pdm
-pkgver=2.15.4
+pkgver=2.16.1
 pkgrel=1
 pkgdesc="A modern Python package manager with PEP 582 support"
 arch=(any)
@@ -11,7 +11,6 @@ license=(MIT)
 depends=(
   python
   python-blinker
-  python-certifi
   python-dep-logic
   python-dotenv
   python-filelock
@@ -23,7 +22,6 @@ depends=(
   python-msgpack
   python-packaging
   python-pbs-installer
-  python-pdm-backend
   python-platformdirs
   python-pyproject-hooks
   python-resolvelib
@@ -38,6 +36,7 @@ depends=(
 )
 makedepends=(
   python-build
+  python-pdm-backend
   python-wheel
 )
 checkdepends=(
@@ -54,8 +53,8 @@ optdepends=(
   'python-setuptools: for parsing setup.py files'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('9a7bc399560a620b2b41bacf391c4e46b6f9341a0a72955478198a22d55649d97e7093f7b21d9757aec250d28028cfe30116be385e1b2ecab7d2bc85672b0b52')
-b2sums=('9b6e41cc4344f8293e8ccbb79272d7e0c9863c1f7ea543bfb386399802bc7ac12fe564b977284d83a8bce0bbb4bb945ab25ed99e3920fd0a12177b46625bd7eb')
+sha512sums=('4bfa52e286a987673f383aa6ff4f304c8d32dd94e0c87ba750c81e5add70228fee1540cd4f0196a52d40b12925bb9163b3a7a297998863517f4eac8c3ead5c9f')
+b2sums=('0f11938a9837667b269862df4bd7767faa7c845743673d2d2309adc1987690752002843709f89237ab0a02b49f2cb620937f1d3d697b19b6dd55056ef7b837f2')
 
 build() {
   cd $_name-$pkgver
