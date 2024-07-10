@@ -2,7 +2,7 @@
 
 _name=pydantic-settings
 pkgname=python-pydantic-settings
-pkgver=2.3.3
+pkgver=2.3.4
 pkgrel=1
 pkgdesc="Settings management using pydantic"
 arch=(any)
@@ -28,8 +28,8 @@ optdepends=(
   'python-pyyaml: for YAML support'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('5714791b7916ce224f5f16bfd63ef6bf13ae0591632aa04412ee9842189130ea4bfb5df18a03d36e61348ed36a9ca6df4e439d542427fc19dc7340cdbaab7370')
-b2sums=('06915090220eee4df3b7ab2d274cda6f7d23a7425256820ee71156af921cc7b56efa9cf2ba3f73b166968cbb7a992b906314b7aa84a9f33add1f6860eeeeb34a')
+sha512sums=('a243bc631bd2906df61de631396915be52e41b0ba61f817ca3388aad8c10a3e265f9b6db5a43c77973477d0c4ee439cd1b73158190dd8641ea8865ffd0e6399b')
+b2sums=('fb28563a7cf3aad75a8ff31b051e3a0a4012886a06ef185a1bdacefb3e8e8f35da05553256e8a75f2c89dfa9d5545e9a668b4020494f2bdb47a13223efe1da4b')
 
 build() {
   cd $_name-$pkgver
@@ -39,6 +39,7 @@ build() {
 check() {
   local pytest_options=(
     -vv
+    --ignore tests/test_docs.py  # we are not interested in linting and formatting
   )
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
