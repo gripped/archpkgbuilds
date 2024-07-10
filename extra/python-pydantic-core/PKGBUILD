@@ -3,7 +3,7 @@
 _name=pydantic-core
 pkgname=python-pydantic-core
 # WARNING: this package is pinned down to the patch-level version in python-pydantic and should only be updated in lock-step with it
-pkgver=2.18.4
+pkgver=2.20.1
 pkgrel=1
 epoch=1
 pkgdesc="Core validation logic for pydantic written in rust "
@@ -32,8 +32,8 @@ checkdepends=(
 )
 options=(!lto)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('96e94f9fbe3ee43ac97a363da8182343d34c8e96db6e9d1651149755cf378d79c43c8b9b8331a56f86a6b3a2048b5e05159cf903a5f29fe5931eaea76e2555ad')
-b2sums=('9af42cda6fb4b1d7fbdf0cf9778de6f5e21b0c40c27fcd577b6bcdfae14dd569cdd3b372c9ea56ce4713d0f3dd66378a6e82b4e201f87c93ce5f45c05d4a2e82')
+sha512sums=('1dbd23494dd21a7cdfddafc02eefa6f7e59ac944bc13f6d0378e0e8b8c75c78774e916d9853229e85c3e36b81f1c05fcf396e013fc442212b9e71a426cba4c4a')
+b2sums=('aa1df69c24b7c41e962fb2d9ddb473ae6283c8868ef12ac075938bd8ec2a12d1f9b4d3895b377fe95ad8e4319df81a2efe3e14857d51760237dbff53e31105a0')
 
 prepare() {
   # we don't support version pinning
@@ -48,6 +48,7 @@ build() {
 check() {
   local pytest_options=(
     -vv
+    --ignore tests/test_docstrings.py  # we are not interested in linting/ formatting with ruff
   )
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
