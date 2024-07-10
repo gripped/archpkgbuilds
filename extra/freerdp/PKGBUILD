@@ -4,9 +4,9 @@
 
 _name=FreeRDP
 pkgname=freerdp
-pkgver=3.6.2
+pkgver=3.6.3
 _libver=${pkgver/.*/}
-pkgrel=2
+pkgrel=1
 epoch=2
 pkgdesc="Free implementation of the Remote Desktop Protocol (RDP)"
 arch=(x86_64)
@@ -71,8 +71,8 @@ provides=(
 source=(
   https://github.com/$pkgname/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz
 )
-sha512sums=('183bd0400b625ad6ced66f59644679b1e68e3662d3a2d6fd79af7b29f2576b9ddd6b63778aef4c2ff522ffc877b2b3a3489bc6b0a1b2618648503a6b3a698d4d')
-b2sums=('85810c05a797119c84c9483f02e46f8cd8f1d720d13deef4c4b55809b65e2e4bac2e3d70f768470b81326d22db5bbb7762d20fda34c5ce923b16a3f435edc36c')
+sha512sums=('635cf4a02a2c79e3f0c76a1e5d0b8b233ad42aef92c81c4d15313cb80660ce5872d45203591a6348f2b982f3f6381310200aeb435c0c393524d37d7a3079fbc2')
+b2sums=('3b9f6d0ebf16d5adcd8dd1dfc343aad35aae4b11ad73eff1142250b3088ab698d98ccaaa7f2cdd82c6ce7ffcf9b54f4fe9a296b2410942d76ded0c63503e6599')
 
 prepare() {
   cd $_name-$pkgver
