@@ -122,13 +122,13 @@ _mods() {
 }
 
 _kver() {
-    if [[ -f "${_VMLINUZ}" ]]; then
+    if [[ -f "${1}" ]]; then
         # x86_64 default image
         rg -Noazm 1 'ABCDEF\x00+(.*) \(.*@' -r '$1' "${1}" ||
         # aarch64, works for compressed and uncompressed image
-        rg -Noazm 1 'Linux version ([0-9].*) \(.*@' -r '$1' "${1}" ||
+        rg -Noazm 1 'Linux version (.*) \(.*@' -r '$1' "${1}" ||
         # riscv64, rg cannot detect compression without suffix
-        zcat "${1}" | rg -Noazm 1 'Linux version ([0-9].*) \(.*@' -r '$1'
+        zcat "${1}" | rg -Noazm 1 'Linux version (.*) \(.*@' -r '$1'
     fi
 }
 
@@ -139,7 +139,7 @@ if [[ -z "${_KERNEL_VERSION}" ]]; then
     # get kernel version from installed kernel
     [[ "${_ARCH}" == "x86_64" || "${_ARCH}" == "riscv64" ]] && _VMLINUZ=${_ROOT_DIRECTORY}/boot/vmlinuz-linux
     [[ "${_ARCH}" == "aarch64" ]] && _VMLINUZ=${_ROOT_DIRECTORY}/boot/Image
-    _KERNEL_VERSION=$(_kver ${_VMLINUZ})
+    _KERNEL_VERSION=$(_kver "${_VMLINUZ}")
     # fallback if no detectable kernel is installed
     [[ -z "${_KERNEL_VERSION}" ]] && _KERNEL_VERSION="$(uname -r)"
 fi
