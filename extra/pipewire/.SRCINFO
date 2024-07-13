@@ -1,7 +1,7 @@
 pkgbase = pipewire
 	pkgdesc = Low-latency audio/video router and processor
-	pkgver = 1.2.0
-	pkgrel = 2
+	pkgver = 1.2.1
+	pkgrel = 1
 	epoch = 1
 	url = https://pipewire.org
 	arch = x86_64
@@ -45,14 +45,14 @@ pkgbase = pipewire
 	makedepends = systemd
 	makedepends = valgrind
 	makedepends = webrtc-audio-processing-1
-	source = git+https://gitlab.freedesktop.org/pipewire/pipewire.git#tag=1.2.0
-	b2sums = a8601fcb9fcd1408ccde0de8baca110dbd494800003274ee65b39dd47db6b9a6a88ea0936941c83232440633b3a8ff4aa9c7f239b66a39989cf5bb6099f9805a
+	source = git+https://gitlab.freedesktop.org/pipewire/pipewire.git#tag=1.2.1
+	b2sums = c956faaa5caeb95ea9c802744c0584f25b251f3f7d5460f938aafe75def298df136824a9aff5ce7ecaad6241db51e88a19f39a89aa9e30e2256bd8cee21dbcbb
 
 pkgname = pipewire
 	install = pipewire.install
 	license = MIT
 	license = LGPL-2.1-or-later
-	depends = libpipewire=1:1.2.0-2
+	depends = libpipewire=1:1.2.1-1
 	depends = gcc-libs
 	depends = glibc
 	depends = libpipewire-0.3.so
@@ -239,8 +239,10 @@ pkgname = pipewire-x11-bell
 
 pkgname = pipewire-session-manager
 	pkgdesc = Session manager for PipeWire (default provider)
+	license = CC0-1.0
 	depends = wireplumber
 
 pkgname = pulse-native-provider
 	pkgdesc = PulseAudio sound server (default provider)
+	license = CC0-1.0
 	depends = pipewire-pulse
