@@ -3,11 +3,11 @@
 
 pkgname=gnome-games
 pkgver=40.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Simple game launcher for GNOME'
 arch=('x86_64')
 url='https://wiki.gnome.org/Apps/Games'
-license=('GPL3')
+license=('GPL-3.0-or-later')
 groups=('gnome-extra')
 depends=('cairo' 'dconf' 'gdk-pixbuf2' 'glib2' 'glibc' 'grilo' 'gtk3' 'hicolor-icon-theme'
          'libarchive' 'libhandy' 'libmanette' 'librsvg' 'libsoup3' 'libxml2' 'retro-gtk' 'sqlite'
