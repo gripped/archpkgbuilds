@@ -1,0 +1,17 @@
+pkgbase = libretro-blastem
+	pkgdesc = Sega Mega Drive core
+	pkgver = 2052
+	pkgrel = 3
+	url = https://github.com/libretro/blastem
+	arch = x86_64
+	groups = libretro
+	license = GPL3
+	makedepends = git
+	depends = glibc
+	depends = libretro-core-info
+	source = libretro-blastem::git+https://github.com/libretro/blastem.git#commit=0786858437ed71996f43b7af0fbe627eb88152fc
+	source = libretro-blastem-flags.patch
+	b2sums = SKIP
+	b2sums = 35431a1ad2960c8fdfb266f049291557dc2c4956495f06a87daac7e6e6063d8606eb4abf64cc4e49467178c2e26fc9b5ba29fa43a3351f2f6de8e54c50846740
+
+pkgname = libretro-blastem
