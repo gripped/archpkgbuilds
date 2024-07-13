@@ -1,0 +1,28 @@
+pkgbase = drone-runner-docker
+	pkgdesc = Drone pipeline runner that executes builds inside Docker containers
+	pkgver = 1.8.3
+	pkgrel = 2
+	url = https://github.com/drone-runners/drone-runner-docker
+	arch = x86_64
+	license = custom:Polyform-Small-Business-1.0.0
+	license = custom:Polyform-Free-Trial-1.0.0
+	makedepends = git
+	makedepends = go
+	depends = glibc
+	depends = docker
+	optdepends = drone: for a local Drone instance
+	options = !lto
+	source = drone-runner-docker::git+https://github.com/drone-runners/drone-runner-docker.git#commit=ecfb097ea73c200a6817946120660252e9afdcac
+	source = systemd.service
+	source = sysusers.conf
+	source = tmpfiles.conf
+	sha512sums = SKIP
+	sha512sums = eb92c3ad379153953adb07d064d1f33ba52015df2fb045412c57d38c5000f74ce1a0f8ea6042ffd1a5dcf3adbc5535b19067488cc5fd351d78c014effbbd17e8
+	sha512sums = fd328a189b7144e1cc519cf24863de2c4552c4df29ebb30cad3d100163577bd3083cdadb8eef7fa6970149f5a470490fd26a47ddf2a8d502cd38e977599159a1
+	sha512sums = e0d22286f58388e0393c0368bd5ea56099718ba772805913056c5251597d3887e013ba5fc9243d856d61d3b531dfd18087dd7aafe43c5857074ad6caceeee255
+	b2sums = SKIP
+	b2sums = a76e0c190fcecbd99be68e9ead11c6cda27cf30045c9585356032982d1ecf053f2e8ed5b2a640403bd6a214eccfa50ec425bf34a284966a315a6754272133e99
+	b2sums = 327ef1f6158fc970d37b41d40e3b2f2c937f701ac4d7dda846b48ddf517d3f0e39ce360ae13aef8539587e71f861593941da3be32df032f6d65deb7927c8da9b
+	b2sums = 02b6ca4f1bdbaf968c81a2aab25efdb76d53590baadfa4c239239bc2b39bf09f8266775fc8addcf3a51fa48bd0a1ecfdb34c674b7355fbe5476cd53ae1780504
+
+pkgname = drone-runner-docker
