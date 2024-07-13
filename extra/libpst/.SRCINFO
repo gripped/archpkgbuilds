@@ -1,0 +1,24 @@
+pkgbase = libpst
+	pkgdesc = Outlook .pst file converter
+	pkgver = 0.6.76
+	pkgrel = 10
+	url = https://www.five-ten-sg.com/libpst/
+	arch = x86_64
+	license = GPL
+	makedepends = autoconf-archive
+	makedepends = docbook-xsl
+	makedepends = doxygen
+	makedepends = git
+	makedepends = graphviz
+	makedepends = xmlto
+	depends = gcc-libs
+	depends = libgsf
+	source = git+https://github.com/pst-format/libpst#commit=d963f2adf9fb7e65cdccbf7d35ceb06c63100f80
+	sha256sums = SKIP
+
+pkgname = libpst
+	provides = libpst.so
+
+pkgname = libpst-docs
+	pkgdesc = Outlook .pst file converter (documentation)
+	depends = 
