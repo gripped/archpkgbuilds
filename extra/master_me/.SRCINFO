@@ -1,0 +1,89 @@
+pkgbase = master_me
+	pkgdesc = Automatic mastering plugin for live streaming, podcasts and internet radio
+	pkgver = 1.2.0
+	pkgrel = 2
+	url = https://github.com/trummerschlunk/master_me
+	arch = x86_64
+	license = GPL3
+	makedepends = faustpp
+	makedepends = gcc-libs
+	makedepends = gendesk
+	makedepends = glibc
+	makedepends = libglvnd
+	makedepends = libx11
+	makedepends = libxext
+	makedepends = libxrandr
+	source = https://github.com/trummerschlunk/master_me/releases/download/1.2.0/master_me-1.2.0.tar.xz
+	sha512sums = a47b156f176003ffb0eaa96b72bc9da749892507901a895cbb5aa27d3bdc1e0abc1a3ff9c0d008353e80c859c09c0668678a67b3727b8f5821490bf48ded2948
+	b2sums = 356f7c9c6a6c10cb8ac3ea77ccb0c51376c01424955bd059466ea2655d12f8709d96a65b4dc15b9ffeebc9ab9a02940da19502b3c9ef6ecd33fa038378cd5704
+
+pkgname = master_me
+	depends = master_me-clap=1.2.0
+	depends = master_me-ladspa=1.2.0
+	depends = master_me-lv2=1.2.0
+	depends = master_me-standalone=1.2.0
+	depends = master_me-vst=1.2.0
+	depends = master_me-vst3=1.2.0
+
+pkgname = master_me-clap
+	pkgdesc = Automatic mastering plugin for live streaming, podcasts and internet radio - CLAP plugin
+	groups = clap-plugins
+	depends = gcc-libs
+	depends = glibc
+	depends = libglvnd
+	depends = libx11
+	depends = libxext
+	depends = libxrandr
+	depends = clap-host
+
+pkgname = master_me-ladspa
+	pkgdesc = Automatic mastering plugin for live streaming, podcasts and internet radio - LADSPA plugin
+	groups = ladspa-plugins
+	depends = gcc-libs
+	depends = glibc
+	depends = ladspa-host
+
+pkgname = master_me-lv2
+	pkgdesc = Automatic mastering plugin for live streaming, podcasts and internet radio - LV2 plugin
+	groups = lv2-plugins
+	depends = gcc-libs
+	depends = glibc
+	depends = libglvnd
+	depends = libx11
+	depends = libxext
+	depends = libxrandr
+	depends = lv2-host
+
+pkgname = master_me-standalone
+	pkgdesc = Automatic mastering plugin for live streaming, podcasts and internet radio - standalone
+	depends = gcc-libs
+	depends = glibc
+	depends = hicolor-icon-theme
+	depends = libglvnd
+	depends = libx11
+	depends = libxext
+	depends = libxrandr
+	conflicts = master_me-jack
+	replaces = master_me-jack
+
+pkgname = master_me-vst
+	pkgdesc = Automatic mastering plugin for live streaming, podcasts and internet radio - VST plugin
+	groups = vst-plugins
+	depends = gcc-libs
+	depends = glibc
+	depends = libglvnd
+	depends = libx11
+	depends = libxext
+	depends = libxrandr
+	depends = vst-host
+
+pkgname = master_me-vst3
+	pkgdesc = Automatic mastering plugin for live streaming, podcasts and internet radio - VST3 plugin
+	groups = vst3-plugins
+	depends = gcc-libs
+	depends = glibc
+	depends = libglvnd
+	depends = libx11
+	depends = libxext
+	depends = libxrandr
+	depends = vst3-host
