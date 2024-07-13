@@ -2,16 +2,19 @@
 
 _name=BLAKE3
 pkgname=b3sum
-pkgver=1.5.1
+pkgver=1.5.2
 pkgrel=1
 pkgdesc='Command line implementation of the BLAKE3 hash function'
-arch=('x86_64')
+arch=(x86_64)
 url=https://github.com/BLAKE3-team/BLAKE3
-license=('Apache')
-depends=('gcc-libs')
-makedepends=('git' 'rust')
+license=('CC0-1.0 OR Apache-2.0 OR Apache-2.0 WITH LLVM-exception')
+depends=(gcc-libs)
+makedepends=(
+  git
+  rust
+)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('SKIP')
+b2sums=('6cde398687349f5e9806dbe2a841d654459d6d4e8bea8a8bb36679cfcb6bd81f288c1842f6803449f5d4d74800f571ef525052009ec2add217c30951ef292059')
 
 prepare() {
   cd $_name/$pkgname
