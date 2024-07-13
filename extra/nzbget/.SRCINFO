@@ -1,0 +1,18 @@
+pkgbase = nzbget
+	pkgdesc = Download from Usenet using .nzb files
+	pkgver = 21.1
+	pkgrel = 3
+	url = https://nzbget.net/
+	changelog = nzbget.changelog
+	arch = x86_64
+	license = GPL
+	depends = libxml2
+	optdepends = python: to run included scripts
+	optdepends = unrar: unpacking archives
+	optdepends = p7zip: unpacking archives
+	source = https://github.com/nzbget/nzbget/releases/download/v21.1/nzbget-21.1-src.tar.gz
+	source = nzbget_21.1_openssl3_update.patch
+	sha256sums = 4e8fc1beb80dc2af2d6a36a33a33f44dedddd4486002c644f4c4793043072025
+	sha256sums = 98a3c9c4206e3797b30d4fea71b3350586bfe0d96ffc5d9ac3de0a86662b06dc
+
+pkgname = nzbget
