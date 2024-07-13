@@ -1,0 +1,26 @@
+pkgbase = moosefs
+	pkgdesc = High performing and fault tolerant distributed file system
+	pkgver = 3.0.117
+	pkgrel = 2
+	url = https://moosefs.com/
+	arch = x86_64
+	license = GPL2
+	makedepends = git
+	depends = fuse3
+	depends = libpcap
+	depends = python
+	depends = xfsprogs
+	conflicts = mfs-chunkserver
+	conflicts = mfs-client
+	conflicts = mfs-master
+	replaces = mfs-chunkserver
+	replaces = mfs-client
+	replaces = mfs-master
+	source = git+https://github.com/moosefs/moosefs#commit=79bca600d6ddfecfcb29af2fc6632b4e3d00f1a5
+	source = moosefs.tmpfiles
+	source = moosefs.sysusers
+	b2sums = SKIP
+	b2sums = 60c51df91a09e6680e10ffd0b3284a594ba585226f4acad7d389d6b39e98243d980155cb2ab83acf1a1b4ccf167bc682b7672121587e69280832127d472ede38
+	b2sums = 1d725b36f8c5d7ca458cc64166ebf8d1c477c32c51c652e8f521b37eeed942ca2f3ca098de2c1a65d524257308fc8758071bd129624c2d82022f38bda3823a5e
+
+pkgname = moosefs
