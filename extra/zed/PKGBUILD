@@ -2,7 +2,7 @@
 # Contributor: Marcell Pardavi <marcell.pardavi@gmail.com>
 
 pkgname=zed
-pkgver=0.142.6
+pkgver=0.143.7
 pkgrel=1
 pkgdesc='A high-performance, multiplayer code editor from the creators of Atom and Tree-sitter'
 arch=(x86_64)
@@ -35,10 +35,8 @@ optdepends=('clang: improved C/C++ language support'
             'rust-analyzer: improved Rust language support')
 replaces=(zed-editor)
 _archive="$pkgname-$pkgver"
-source=("$_url/archive/v$pkgver/$_archive.tar.gz"
-        use-lib-not-libexec.patch)
-sha256sums=('639b326a215bcb10510deb5c28f0e730581a0e086e2b57d62e7f581b102955d7'
-            '180f8f84cd4320a758225ccb016cd6fc46146f1e7ba6d2c3b75decee8b89989d')
+source=("$_url/archive/v$pkgver/$_archive.tar.gz")
+sha256sums=('6c7d98927448359fe02afea23edeb76980c7ed3eb435ee5c2a9e85925745fc82')
 
 _binname=zeditor
 _appid=dev.zed.Zed
@@ -52,7 +50,6 @@ prepare() {
 	export APP_CLI="$_binname"
 	export APP_ID="$_appid"
 	envsubst < "crates/zed/resources/zed.desktop.in" > $_appid.desktop
-	patch -p0 -i ../use-lib-not-libexec.patch
 }
 
 _srcenv() {
