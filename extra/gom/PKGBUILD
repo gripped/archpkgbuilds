@@ -3,7 +3,7 @@
 
 pkgbase=gom
 pkgname=(gom gom-docs)
-pkgver=0.5.1
+pkgver=0.5.2
 pkgrel=1
 pkgdesc='GObject to SQLite object mapper library'
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('LGPL-2.1-or-later')
 depends=('glib2' 'glibc' 'sqlite')
 makedepends=('gdk-pixbuf2' 'gi-docgen' 'git' 'gobject-introspection' 'meson' 'python-gobject')
 source=("git+https://gitlab.gnome.org/GNOME/$pkgname.git#tag=$pkgver")
-b2sums=('5cf75e36680d2865b37c042177f1ef4e3cd35c79a4f9fa3c79150d3a218415e2f4fc8ba592e16e4bd776cb40174ffaba04425defee2caea6477108cf04f28fe7')
+b2sums=('b6ce604f70c775ef80705447ae060d9c373158dfdf5ed33e823fd0a95b1fcebc4f59c497f95ec8a2e654c2bf0f6f89397578a1068c957862af8566573ab448b5')
 
 build() {
   arch-meson $pkgname build -D enable-gtk-doc=true
@@ -25,6 +25,9 @@ check() {
 
 package_gom() {
   meson install -C build --destdir "$pkgdir"
+
+  python -m compileall -d /usr/lib "$pkgdir/usr/lib"
+  python -O -m compileall -d /usr/lib "$pkgdir/usr/lib"
 
   mkdir -p doc/usr/share
   mv {"$pkgdir",doc}/usr/share/doc
