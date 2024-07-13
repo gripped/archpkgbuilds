@@ -1,7 +1,7 @@
 pkgbase = tensorflow
 	pkgdesc = Library for computation using data flow graphs for scalable machine learning
-	pkgver = 2.16.1
-	pkgrel = 9
+	pkgver = 2.17.0
+	pkgrel = 2
 	url = https://www.tensorflow.org/
 	arch = x86_64
 	license = APACHE
@@ -35,12 +35,14 @@ pkgbase = tensorflow
 	depends = intel-oneapi-openmp
 	depends = intel-oneapi-compiler-shared-runtime-libs
 	optdepends = tensorboard: Tensorflow visualization toolkit
-	source = tensorflow-2.16.1.tar.gz::https://github.com/tensorflow/tensorflow/archive/v2.16.1.tar.gz
+	source = tensorflow-2.17.0.tar.gz::https://github.com/tensorflow/tensorflow/archive/v2.17.0.tar.gz
 	source = tensorflow-2.16.1-python-distutils-removal.patch
-	source = https://github.com/bazelbuild/bazel/releases/download/6.1.0/bazel_nojdk-6.1.0-linux-x86_64
-	sha512sums = 6f02261b3e72b476a3adb8e47efe2bee76b8564315b853e3b16f443193204d363b5fb22ac5c388cebd6a1f326f0daf00586e0ccbf6a305d761a9266534fde13f
+	source = tensorflow-numpy2.patch
+	source = https://github.com/bazelbuild/bazel/releases/download/6.5.0/bazel_nojdk-6.5.0-linux-x86_64
+	sha512sums = 45061f075971cf2bc219a34b1cda2ee9851ba586e94046838e6e1fd26adcfb399d90e71e89a0f709d5282ff3be7cc3a82b81d62dce53db5010640ea41487a469
 	sha512sums = e4c44d2f5314b83d8ed404e5ec14960ef8b7df0c1a2a3e826f913a02c901f9fd0326f9014a602121e0fdb2f928d1459f8b8180455491a1f937ce84e12f6a7d3e
-	sha512sums = b71aed83ae1c3f610df77f7c148703fd3e7aa5901794a2b31c6044c71b3f030831d59f7f3641992105117a422655160fc9b509326b31586c6bca378cbff08762
+	sha512sums = c4da1e72c90534a5a1f7625b819dc2529fa5b91c8423550ca4384ec243bddd026b977d5f81660114f054ce8f64cd90057f6482f89df4af443f35da1871202c1d
+	sha512sums = d3789f0ecd354468f2e24d98501041430ae99c173320fa9c3eb02f225c08ed298fd1ad259e4ad9bb70b6ae89d84cd87460aaa720de3486d40b30777a8fe45453
 
 pkgname = tensorflow
 
