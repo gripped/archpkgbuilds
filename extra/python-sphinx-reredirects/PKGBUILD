@@ -3,7 +3,7 @@
 
 pkgname=python-sphinx-reredirects
 _pkgname=${pkgname#python-}
-pkgver=0.1.4
+pkgver=0.1.5
 pkgrel=1
 pkgdesc='Handles redirects for moved pages in Sphinx documentation projects'
 arch=(any)
@@ -18,7 +18,7 @@ checkdepends=(python-defusedxml
               python-pytest)
 _archive="$_pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('f6e1187e95fe058b863119a22172eb803b2cd490de2e126e35e3b6438e021c58')
+sha256sums=('6ea785d7b2a8b0c375646d7f7ee6f67fa2908ba0c94d4f2a0b456f2cd66b86ef')
 
 build() {
 	cd "$_archive"
