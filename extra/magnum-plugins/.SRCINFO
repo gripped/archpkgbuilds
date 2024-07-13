@@ -1,0 +1,26 @@
+pkgbase = magnum-plugins
+	pkgdesc = Plugins for the Magnum C++11/C++14 graphics engine
+	pkgver = 2020.06
+	pkgrel = 4
+	url = https://magnum.graphics
+	arch = x86_64
+	license = MIT
+	makedepends = cmake
+	makedepends = git
+	makedepends = glfw
+	makedepends = ninja
+	depends = assimp
+	depends = devil
+	depends = faad2
+	depends = freetype2
+	depends = libjpeg
+	depends = libpng
+	depends = magnum
+	source = git+https://github.com/mosra/magnum-plugins#commit=b0f2818b781eb0fb6a8a76095a6529fc85d442f3
+	source = basis_universal.tar.gz::https://github.com/BinomialLLC/basis_universal/archive/2f43afcc97d0a5dafdb73b4e24e123cf9687a418.tar.gz
+	source = meshoptimizer.tar.gz::https://github.com/zeux/meshoptimizer/archive/v0.14.tar.gz
+	sha256sums = SKIP
+	sha256sums = f983ab5bfc5c32474914a87d9ca572c7fb970bf96f7bc68385c08772f633639f
+	sha256sums = 5a6e429ecf72325131b439a46297a690f0cab833c7563efdadab26c0a6cf8490
+
+pkgname = magnum-plugins
