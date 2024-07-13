@@ -1,0 +1,28 @@
+pkgbase = dopewars
+	pkgdesc = Turn based strategy game based on "Drug Wars" from 1984
+	pkgver = 1.6.2
+	pkgrel = 3
+	url = https://dopewars.sourceforge.io/
+	arch = x86_64
+	license = GPL
+	makedepends = git
+	makedepends = alsa-lib
+	makedepends = audiofile
+	makedepends = gendesk
+	makedepends = gtk3
+	makedepends = sdl2
+	makedepends = sdl2_mixer
+	optdepends = sdl2: for the graphical interface
+	optdepends = gtk3: for the graphical interface
+	optdepends = alsa-lib: for audio
+	optdepends = audiofile: for audio
+	optdepends = sdl2_mixer: for audio
+	backup = srv/dopewars/dopewars.sco
+	source = git+https://github.com/benmwebb/dopewars#commit=86c3e8a841454440966693d571899fe4f738a4ae
+	source = dopewars.service
+	source = dopewars.socket
+	b2sums = SKIP
+	b2sums = 094e4c569fb399ee8701855583db0acde19d13a1cec4c90e3ac21feee946c4f302563880d6be67433a57b30f9dc540b6d26d06121ecc88799c5c37d934a45ccd
+	b2sums = 438f7a315eb0af93051c2498b3d81823ce74a121c90a04e16f8d0c8f15d6aa4ddc569203100a38732a3c83a3b8a08c8880b7b9e4a2d23cdcac070e5567767d73
+
+pkgname = dopewars
