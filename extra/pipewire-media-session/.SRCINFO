@@ -1,0 +1,25 @@
+pkgbase = pipewire-media-session
+	pkgdesc = Legacy session manager for PipeWire (deprecated)
+	pkgver = 0.4.2
+	pkgrel = 3
+	epoch = 1
+	url = https://gitlab.freedesktop.org/pipewire/media-session
+	install = pipewire-media-session.install
+	arch = x86_64
+	license = MIT
+	makedepends = alsa-lib
+	makedepends = dbus
+	makedepends = git
+	makedepends = meson
+	makedepends = systemd
+	depends = pipewire>=0.3.39
+	provides = pipewire-session-manager
+	conflicts = wireplumber
+	source = pipewire-media-session::git+https://gitlab.freedesktop.org/pipewire/media-session.git#commit=80dae7e24bec02b2befe09a72fbac6e2b38ccb5c
+	b2sums = 74d8e5c14d0121100795c4dfdcdf3e1f6f2ae280211a1c41445fdd450d33b974f0097df070b74018a2de8b59e418857101a36ef1093a9a3abb2d21ae238fee6c
+
+pkgname = pipewire-media-session
+	depends = pipewire>=0.3.39
+	depends = libdbus-1.so
+	depends = libpipewire-0.3.so
+	depends = libsystemd.so
