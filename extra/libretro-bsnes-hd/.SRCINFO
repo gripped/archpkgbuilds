@@ -1,0 +1,17 @@
+pkgbase = libretro-bsnes-hd
+	pkgdesc = Super Nintendo Entertainment System core
+	pkgver = 53
+	pkgrel = 2
+	url = https://github.com/DerKoun/bsnes-hd
+	arch = x86_64
+	groups = libretro
+	license = GPL3
+	makedepends = git
+	depends = gcc-libs
+	depends = libretro-core-info
+	source = libretro-bsnes-hd::git+https://github.com/DerKoun/bsnes-hd.git#commit=f46b6d6368ea93943a30b5d4e79e8ed51c2da5e8
+	source = libretro-bsnes-hd-flags.patch
+	sha256sums = SKIP
+	sha256sums = 8108ce3da95d9a7fd9fae00d2db042f1053e60d19fe87813b7ddf0aa5313cdd8
+
+pkgname = libretro-bsnes-hd
