@@ -6,7 +6,7 @@ pkgname=(
   ostra-cg
 )
 pkgver=1.27
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Pahole and other DWARF utils"
 url="https://git.kernel.org/pub/scm/devel/pahole/pahole.git"
@@ -15,6 +15,7 @@ license=(GPL-2.0-only)
 makedepends=(
   bash
   cmake
+  git
   glibc
   libelf
   ninja
@@ -23,21 +24,25 @@ makedepends=(
   zlib
 )
 source=(
-  https://fedorapeople.org/~acme/dwarves/dwarves-$pkgver.tar.{xz,sign}
+  "git+https://github.com/acmel/dwarves?signed#tag=v$pkgver"
   0001-CMakeLists.txt-Install-ostra.py-into-Python3_SITELIB.patch
 )
-b2sums=('0a0f8ec8bf26240e17dc3319e76e16299514d662a79b25c4c962f723127f55d185d557adba7230d23b2e2b38fc62044aaa3474a458dc3df2000260637f995121'
-        'SKIP'
+b2sums=('a2c7641d85ccc4489e4d55f6f59cb0338674a877a7265eacf9ffcb0f05e33b2cd322aaa3af32b75583d0f7847a98b0d6c16e4a001c2a566b2845a52e01247259'
         '02962095407cdbf191428884b83c3392e39d4acdad0c6a952655daec8b871bab8962c3716c9479192118eef81afe412203ac46600a2d702733254c6d7219f7d2')
 validpgpkeys=(
   2DBF5BAA46FB4DED338A335BD65016F35352AA40  # Arnaldo Carvalho de Melo <acme@kernel.org>
 )
 
 prepare() {
-  cd dwarves-$pkgver
+  cd dwarves
+
+  # Fix kernel build with Clang
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/pahole/-/issues/1
+  git cherry-pick -n 6a2b27c0f512619b0e7a769a18a0fb05bb3789a5 \
+                     94a01bde592c555b3eb526aeb4c2ad695c5660d8
 
   # https://bugs.archlinux.org/task/70013
-  patch -Np1 -i ../0001-CMakeLists.txt-Install-ostra.py-into-Python3_SITELIB.patch
+  git apply -3 ../0001-CMakeLists.txt-Install-ostra.py-into-Python3_SITELIB.patch
 }
 
 build() {
@@ -47,7 +52,7 @@ build() {
     -D __LIB=lib
   )
 
-  cmake -S dwarves-$pkgver -B build -G Ninja "${cmake_options[@]}"
+  cmake -S dwarves -B build -G Ninja "${cmake_options[@]}"
   cmake --build build
 }
 
