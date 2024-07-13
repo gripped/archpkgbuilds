@@ -4,7 +4,7 @@
 
 pkgname=perl-berkeleydb
 pkgver=0.65
-pkgrel=5
+pkgrel=6
 pkgdesc="Interface to Berkeley DB"
 arch=('x86_64')
 url="https://search.cpan.org/dist/BerkeleyDB/"
