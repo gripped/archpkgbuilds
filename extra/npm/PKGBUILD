@@ -1,18 +1,23 @@
-# Maintainer: Felix Yan <felixonmars@archlinux.org>
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=npm
-pkgver=10.8.1
+pkgver=10.8.2
 pkgrel=1
-pkgdesc='A package manager for JavaScript'
-arch=('any')
-url='https://www.npmjs.com/'
-license=('Artistic-2.0')
-depends=('nodejs' 'node-gyp' 'nodejs-nopt' 'semver')
-makedepends=('git')
+pkgdesc='JavaScript package manager'
+arch=(any)
+url=https://www.npmjs.com
+license=(Artistic-2.0)
+depends=(
+  node-gyp
+  nodejs
+  nodejs-nopt
+  semver
+)
+makedepends=(git)
 optdepends=("git: for dependencies using Git URL's")
 source=("npm-cli::git+https://github.com/npm/cli.git#tag=v$pkgver")
-b2sums=('958912d5113687297ee99b971bc533584a9a9eea4a1f24b902274975a632400bde4735ef12042be39188c5e7d641d039afe804d499a5c386cf077e00ca682fe3')
+b2sums=('e1650bfb9f95c411aca6bd26002500bdee3f8f736326c9d4a10298f752ca232ba48a8088069eca99dd0120cf65db1ad53799b2470aef158dfdc360aad86699cb')
 
 build() {
   cd npm-cli
