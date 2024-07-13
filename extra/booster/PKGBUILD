@@ -2,7 +2,7 @@
 
 pkgname=booster
 pkgver=0.11
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast and secure initramfs generator'
 arch=(x86_64)
 url='https://github.com/anatol/booster'

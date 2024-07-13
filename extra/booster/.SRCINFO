@@ -1,0 +1,19 @@
+pkgbase = booster
+	pkgdesc = Fast and secure initramfs generator
+	pkgver = 0.11
+	pkgrel = 2
+	url = https://github.com/anatol/booster
+	arch = x86_64
+	license = MIT
+	makedepends = go
+	makedepends = ruby-ronn-ng
+	depends = bash
+	optdepends = busybox: to enable emergency shell at the boot time
+	optdepends = yubikey-personalization: for clevis Yubikey challenge-response support
+	optdepends = libfido2: for systemd-enroll with FIDO2
+	provides = initramfs
+	backup = etc/booster.yaml
+	source = booster-0.11.zip::https://github.com/anatol/booster/archive/0.11.zip
+	sha512sums = 66443568c504d563d5a774dd25d47d72ec745cad2b77fea3cbf881b51ed1ecfa093b2f2eeafca10b14ab80ff8125ec865646d1691b419a39b60858e2d4efa5d5
+
+pkgname = booster
