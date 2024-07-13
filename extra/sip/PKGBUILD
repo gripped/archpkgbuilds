@@ -1,12 +1,12 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=sip
-pkgver=6.8.5
+pkgver=6.8.6
 pkgrel=1
 arch=(any)
 pkgdesc='A tool that makes it easy to create Python bindings for C and C++ libraries'
 url='https://www.riverbankcomputing.com/'
-license=('custom:"sip"')
+license=(BSD-2-Clause)
 depends=(python
          python-packaging
          python-setuptools)
@@ -16,7 +16,7 @@ makedepends=(git
              python-setuptools-scm
              python-wheel)
 source=(git+https://github.com/Python-SIP/sip#tag=$pkgver)
-sha256sums=('78db2e263c1113ac047b7f0a434430bf48a8e892d40e6d68817d2dc9ae93b9d3')
+sha256sums=('2489fc17c34b30451564c296fa5460b90beca6c831e25dd3ed43f96a4832b48f')
 
 build() {
   cd $pkgname
@@ -26,4 +26,5 @@ build() {
 package() {
   cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
 }
