@@ -1,6 +1,6 @@
 pkgbase = podman
 	pkgdesc = Tool and library for running OCI-based containers in pods
-	pkgver = 5.1.1
+	pkgver = 5.1.2
 	pkgrel = 1
 	url = https://github.com/containers/podman
 	arch = x86_64
@@ -14,21 +14,20 @@ pkgbase = podman
 	makedepends = go-md2man
 	makedepends = gpgme
 	makedepends = libseccomp
+	makedepends = man-db
 	makedepends = systemd
 	options = !lto
-	source = git+https://github.com/containers/podman?signed#tag=v5.1.1
-	source = podman-4.6.0-defaultinitpath.patch
+	source = git+https://github.com/containers/podman?signed#tag=v5.1.2
 	validpgpkeys = B7DBDCA456F7335E91F1C25CD3624C551D0515C4
 	validpgpkeys = 7CE1E6F8C90CB53E7E4D8F2D502E08DB0BBF8EEE
 	validpgpkeys = 9E33DD8704CC03E2DEB84D9A1C1EDD7CC7C3A0DD
-	sha256sums = 9b5df94be8a54a69158e2cfcf63f7d5ba5bd1b6529172889e57394a23ffa746c
-	sha256sums = eeacf654707b9b8d6a6c08453b5625d9cf31010d666f82f4851aa34433b97700
+	sha256sums = f72ba1bbd8999c925a3c9d0c14cd797cfb455ec07eac8ff93739e072d8e59ddd
 
 pkgname = podman
 	depends = catatonit
 	depends = conmon
 	depends = containers-common
-	depends = crun
+	depends = oci-runtime
 	depends = gcc-libs
 	depends = glibc
 	depends = iptables
