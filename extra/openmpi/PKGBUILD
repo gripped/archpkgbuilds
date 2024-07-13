@@ -9,13 +9,14 @@ pkgname=(
   openmpi-docs
 )
 pkgver=5.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc='High performance message passing library (MPI)'
 arch=(x86_64)
 url='https://www.open-mpi.org'
 license=('BSD-3-Clause AND LicenseRef-MPICH')
 makedepends=(
   cuda
+  nvidia-utils  # for libcuda.so
   gcc-fortran
   gcc-libs
   glibc
