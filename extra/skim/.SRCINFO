@@ -1,0 +1,19 @@
+pkgbase = skim
+	pkgdesc = Fuzzy Finder in Rust!
+	pkgver = 0.10.4
+	pkgrel = 3
+	url = https://github.com/lotabout/skim
+	arch = x86_64
+	license = MIT
+	makedepends = git
+	makedepends = rust
+	depends = ncurses
+	optdepends = bash: for resp. completions and key bindings, and for sk-tmux script
+	optdepends = fish: for resp. key bindings
+	optdepends = tmux: for sk-tmux script
+	optdepends = vim-plugin-runtime: for N/Vim plugin
+	optdepends = zsh: for resp. completions and key bindings
+	source = skim::git+https://github.com/lotabout/skim#commit=db9f194c12486343ae23b37781123ff0dbfaaf16
+	b2sums = SKIP
+
+pkgname = skim
