@@ -2,8 +2,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=libavif
-pkgver=1.0.4
-pkgrel=4
+pkgver=1.1.0
+pkgrel=1
 pkgdesc="Library for encoding and decoding .avif files"
 arch=(x86_64)
 url="https://github.com/AOMediaCodec/libavif"
@@ -11,13 +11,14 @@ license=(LicenseRef-libavif)
 depends=(glibc aom dav1d librav1e.so svt-av1 libpng libjpeg libyuv libwebp)
 makedepends=(cmake
              gdk-pixbuf2
+             git
              nasm
              pandoc-cli)
-source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('dc56708c83a4b934a8af2b78f67f866ba2fb568605c7cf94312acf51ee57d146')
+source=(git+https://github.com/AOMediaCodec/libavif#tag=v$pkgver)
+sha256sums=('e80ea1d88d8036f3531aabf8390c45120bf8b7c393a4190fb2c63fea9cb52f06')
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DAVIF_BUILD_APPS=ON \
     -DAVIF_BUILD_MAN_PAGES=ON \
@@ -25,11 +26,12 @@ build() {
     -DAVIF_CODEC_DAV1D=ON \
     -DAVIF_CODEC_RAV1E=ON \
     -DAVIF_CODEC_SVT=ON \
+    -DAVIF_LIBSHARPYUV=SYSTEM \
     -DAVIF_BUILD_GDK_PIXBUF=ON
   make -C build
 }
 
 package() {
-  make -C build DESTDIR="${pkgdir}" install
-  install -Dm644 ${pkgname}-${pkgver}/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+  make -C build DESTDIR="$pkgdir" install
+  install -Dm644 $pkgname/LICENSE -t "${pkgdir}"/usr/share/licenses/$pkgname
 }
