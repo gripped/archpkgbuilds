@@ -1,0 +1,18 @@
+pkgbase = procyon-decompiler
+	pkgdesc = A Java decompiler, inspired by ILSpy and Mono.Cecil
+	pkgver = 0.6.0
+	pkgrel = 4
+	url = https://github.com/mstrobel/procyon
+	arch = any
+	license = Apache
+	makedepends = git
+	makedepends = jdk8-openjdk
+	depends = java-runtime
+	source = procyon-decompiler::git+https://github.com/mstrobel/procyon#commit=05ff703eafbbbc6afa0484946f5a3f2c83d773bb
+	source = wrapper.sh
+	source = gradle-repro.patch
+	b2sums = SKIP
+	b2sums = 5dc6e2054663ebb967729ea916b566f1f84bca1e2f17146b7833b12c21cb66853769dd27d589869ccf38ce6633a66d856515486e7cba9ae5d8aa6e3ab305b397
+	b2sums = 51fe976ff80bb20f4363b3a5ee0f4ee1336dad63f1b3c38a9a337bf203a67694867527cda5f77027cad71643fa2f6af9d4786bbf87e5c76aa13d770a757de0dd
+
+pkgname = procyon-decompiler
