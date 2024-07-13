@@ -5,7 +5,7 @@
 pkgname=sway
 pkgver=1.9
 epoch=1
-pkgrel=4
+pkgrel=5
 pkgdesc='Tiling Wayland compositor and replacement for the i3 window manager'
 arch=(x86_64)
 url='https://swaywm.org/'
@@ -19,12 +19,12 @@ depends=(
   'libpixman-1.so'
   'libudev.so'
   'libwayland-server.so'
-  'libwlroots.so'
   'libxcb'
   'libxkbcommon.so'
   'pango'
   'pcre2'
   'ttf-font'
+  'wlroots0.17'
   'xcb-util-wm'
 )
 makedepends=(meson ninja scdoc setconf wayland-protocols)
@@ -68,6 +68,7 @@ prepare() {
 }
 
 build() {
+  export PKG_CONFIG_PATH='/usr/lib/wlroots0.17/pkgconfig'
   mkdir -p build
   arch-meson build "$pkgname-$pkgver" -D sd-bus-provider=libsystemd -D werror=false -D b_ndebug=true
   ninja -C build
