@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=js115
-pkgver=115.12.0
+pkgver=115.13.0
 pkgrel=1
 pkgdesc="JavaScript interpreter and libraries - Version 115"
 url="https://spidermonkey.dev/"
@@ -15,7 +15,6 @@ depends=(
   zlib
 )
 makedepends=(
-  autoconf2.13
   clang
   lld
   llvm
@@ -39,9 +38,9 @@ validpgpkeys=(
   # https://blog.mozilla.org/security/2023/05/11/updated-gpg-key-for-signing-firefox-releases/
   14F26682D0916CDD81E37B6D61B7B526D98F0353
 )
-sha256sums=('b59e1625a0bb2f0565a737394f2bf8a7ce3171314b0d871bde533a101847a8ef'
+sha256sums=('3fa20d1897100684d2560a193a48d4a413f31e61f2ed134713d607c5f30d5d5c'
             'SKIP')
-b2sums=('6d2cc80daca9977f73ea0c0fe7e7cac999f2d7a99c324332d69d9438a6d954fe72ffb35e4df4c2a86abcdc94231c4847bb3e64dd612240f8a6d86e63abdb1be2'
+b2sums=('e2b00965a92cd11da6c81daa8b6c652dfccc9f0f7d066bc17ae5fa3ac3aaaa021c4489a9f653127f5516e3d77cd7174de328343e22c4edab438e3fcb9a859178'
         'SKIP')
 
 # Make sure the duplication between bin and lib is found
@@ -97,7 +96,7 @@ build() {
   # Do 3-tier PGO
   echo "Building instrumented JS..."
   cat >.mozconfig ../mozconfig - <<END
-ac_add_options --enable-profile-generate=cross
+ac_add_options --enable-profile-generate
 END
   ./mach build --priority normal
 
@@ -126,8 +125,8 @@ END
 
   echo "Building optimized JS..."
   cat >.mozconfig ../mozconfig - <<END
-ac_add_options --enable-lto=cross,full
-ac_add_options --enable-profile-use=cross
+ac_add_options --enable-lto=full
+ac_add_options --enable-profile-use
 ac_add_options --with-pgo-profile-path=${PWD@Q}/merged.profdata
 END
   ./mach build --priority normal
