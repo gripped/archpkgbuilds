@@ -4,7 +4,7 @@
 
 pkgname=nvidia
 pkgver=555.58.02
-pkgrel=2
+pkgrel=3
 pkgdesc="NVIDIA drivers for linux"
 arch=('x86_64')
 url="https://www.nvidia.com/"
