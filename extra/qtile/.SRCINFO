@@ -1,7 +1,7 @@
 pkgbase = qtile
 	pkgdesc = A full-featured, pure-Python tiling window manager
 	pkgver = 0.26.0
-	pkgrel = 1
+	pkgrel = 2
 	url = http://www.qtile.org
 	install = qtile.install
 	arch = x86_64
@@ -29,7 +29,7 @@ pkgbase = qtile
 	makedepends = python-pywlroots
 	makedepends = python-setuptools-scm
 	makedepends = python-wheel
-	makedepends = wlroots
+	makedepends = wlroots0.17
 	depends = gdk-pixbuf2
 	depends = glibc
 	depends = libnotify
@@ -81,4 +81,4 @@ pkgname = qtile
 	depends = python-gobject
 	depends = python-xcffib
 	depends = wlroots
-	depends = libwlroots.so
+	depends = libwlroots.so=12
