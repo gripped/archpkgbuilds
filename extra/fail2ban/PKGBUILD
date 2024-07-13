@@ -7,7 +7,7 @@
 
 pkgname=fail2ban
 pkgver=1.1.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Bans IPs after too many failed authentication attempts'
 arch=('any')
 url='https://www.fail2ban.org/'
@@ -46,8 +46,11 @@ validpgpkeys=('E6C3F631FBDA716B070C6ED94141C485A81A88CB') # Sergey G. Brester (s
 
 prepare() {
   cd $pkgname
-  # disutils removal
+  # distutils removal
   git cherry-pick -n -m 1 ac62658c10f492911f8a0037a0bcf97c8521cd78
+
+  # openssh 9.8 compatibility
+  git cherry-pick -n 2fed408c05ac5206b490368d94599869bd6a056d
 
   # restore directories no longer installed after switch to PEP 517
   patch --forward --strip=1 --input=../extend-tmpfiles.patch
