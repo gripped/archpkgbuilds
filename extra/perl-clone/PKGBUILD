@@ -4,7 +4,7 @@
 
 pkgname=perl-clone
 pkgver=0.46
-pkgrel=2
+pkgrel=3
 pkgdesc='Recursive copy of nested objects.'
 arch=('x86_64')
 url='https://github.com/garu/Clone'
