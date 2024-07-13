@@ -3,7 +3,7 @@
 
 pkgname=zed
 pkgver=0.143.7
-pkgrel=1
+pkgrel=2
 pkgdesc='A high-performance, multiplayer code editor from the creators of Atom and Tree-sitter'
 arch=(x86_64)
 url=https://zed.dev
@@ -32,6 +32,7 @@ makedepends=(cargo
              vulkan-validation-layers)
 optdepends=('clang: improved C/C++ language support'
             'eslint: improved Javascript language support'
+            'pyright: improved Python language support'
             'rust-analyzer: improved Rust language support')
 replaces=(zed-editor)
 _archive="$pkgname-$pkgver"
