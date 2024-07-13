@@ -2,7 +2,7 @@
 
 pkgname=figlet
 pkgver=2.2.5
-pkgrel=5
+pkgrel=6
 pkgdesc="A program for making large letters out of ordinary text"
 arch=('x86_64')
 url="http://www.figlet.org/"
