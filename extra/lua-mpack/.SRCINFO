@@ -1,0 +1,34 @@
+pkgbase = lua-mpack
+	pkgdesc = libmpack lua binding
+	pkgver = 1.0.10
+	pkgrel = 2
+	url = https://github.com/libmpack/libmpack-lua
+	arch = x86_64
+	license = MIT
+	makedepends = lua51
+	makedepends = lua52
+	makedepends = lua53
+	makedepends = lua
+	depends = libmpack
+	source = libmpack-lua-1.0.10.tar.gz::https://github.com/libmpack/libmpack-lua/archive/1.0.10.tar.gz
+	sha256sums = b58a25a0b48e1ec584beee6c80e0e31182dad7a45005ce58e88e6cfff3a3f3e4
+
+pkgname = lua51-mpack
+	pkgdesc = Simple implementation of msgpack in C Lua 5.1
+	depends = libmpack
+	depends = lua51
+
+pkgname = lua52-mpack
+	pkgdesc = Simple implementation of msgpack in C Lua 5.2
+	depends = libmpack
+	depends = lua52
+
+pkgname = lua53-mpack
+	pkgdesc = Simple implementation of msgpack in C Lua 5.3
+	depends = libmpack
+	depends = lua53
+
+pkgname = lua-mpack
+	pkgdesc = Simple implementation of msgpack in C Lua 5.4
+	depends = libmpack
+	depends = lua
