@@ -6,7 +6,7 @@
 
 pkgname=vault
 pkgdesc='A tool for managing secrets'
-pkgver=1.17.1
+pkgver=1.17.2
 pkgrel=1
 url="https://vaultproject.io/"
 license=('BUSL-1.1')
@@ -15,12 +15,12 @@ depends=('glibc')
 makedepends=('go' 'git' 'yarn' 'bower' 'nodejs-lts-iron' 'npm' 'zip' 'gox' 'go-tools')
 install=vault.install
 backup=('etc/vault.hcl' 'etc/default/vault')
-_vault_commit='b8ab595639e7473eb153571521bbaf522cdafb27'
+_vault_commit='2af5655e364f697a15b1dc2db2c3f85f6ef949f2'
 source=("git+https://github.com/hashicorp/vault#commit=${_vault_commit}"
   'vault.sysusers'
   'vault.tmpfiles'
   'vault.hcl')
-sha512sums=('de81a44290c539ddd13b97bf52a5850e4e9736b5743d4346c6675dba934a337199345a47ed2727a67b8606c59823dd3d102edf73fd6f2e1c3002c8b506c82782'
+sha512sums=('e2a27ed9a1db6b53e309e15870d1abfb968e6832007a860a41af647adfd6df92bfe24ad801c3a73bd8b18a3b48b7a7ae63db7961e2b8059d31393d3421c639ed'
             '92616ccf83fa5ca9f8b0d022cf8ceb1f3549e12b66bf21d9f77f3eb26bd75ec1dc36c155948ec987c642067b85fbfc30a9217d6c503d952a402aa5ef63e50928'
             'db327aae6f821ee1ea608abdb3fc82aeeae72ce873d78ada44461644add32afd6c0197019427734498bc28ae187b6f741a02196e40a620caab597e5eef32ca7a'
             '75d654ec4eadfe983f57951d470fff8b9eb953b42c08e7b6b3a1baaa0721fd7a9d5be37480b0e4f4fd8518f375348bdd8394848f0fb27cb1d425279acb67f693')
