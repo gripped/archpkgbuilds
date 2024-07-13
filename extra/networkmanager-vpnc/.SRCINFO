@@ -1,0 +1,21 @@
+pkgbase = networkmanager-vpnc
+	pkgdesc = NetworkManager VPN plugin for VPNC
+	pkgver = 1.2.8
+	pkgrel = 4
+	url = https://wiki.gnome.org/Projects/NetworkManager
+	arch = x86_64
+	license = GPL
+	makedepends = git
+	makedepends = intltool
+	makedepends = libnma
+	makedepends = libnma-gtk4
+	makedepends = python
+	depends = libnm
+	depends = libsecret
+	depends = vpnc
+	optdepends = libnma-gtk4: GUI support (GTK 4)
+	optdepends = libnma: GUI support (GTK 3)
+	source = git+https://gitlab.gnome.org/GNOME/NetworkManager-vpnc.git#commit=75f664ff13ff1de9bf305894ccd94b30867bd06a
+	b2sums = SKIP
+
+pkgname = networkmanager-vpnc
