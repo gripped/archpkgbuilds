@@ -1,0 +1,26 @@
+pkgbase = dconf
+	pkgdesc = Configuration database system
+	pkgver = 0.40.0
+	pkgrel = 3
+	url = https://wiki.gnome.org/Projects/dconf
+	install = dconf.install
+	arch = x86_64
+	license = LGPL
+	makedepends = vala
+	makedepends = dbus
+	makedepends = git
+	makedepends = glib2-devel
+	makedepends = gtk-doc
+	makedepends = python
+	makedepends = meson
+	makedepends = bash-completion
+	depends = glib2
+	provides = libdconf.so
+	source = git+https://gitlab.gnome.org/GNOME/dconf.git#commit=4c0a26052efafae923eba42d14c5cb88da745de2
+	source = dconf-update
+	source = dconf-update.hook
+	sha256sums = SKIP
+	sha256sums = 330142605370f82f4229e8a94b245f911407eb629b50f1497f415c70164a90ec
+	sha256sums = 8d02176ff001a13d15a7ac087edd2502725494668933fa2c6e6f9cb21ae24e6b
+
+pkgname = dconf
