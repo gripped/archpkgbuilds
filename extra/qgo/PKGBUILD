@@ -4,7 +4,7 @@
 
 pkgname=qgo
 pkgver=2.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Go client and full featured SGF editor'
 arch=(x86_64)
 url='https://github.com/johndaniels/qgo'
@@ -13,7 +13,7 @@ depends=(libsm qt5-multimedia)
 makedepends=(git qt5-tools)
 options=(!emptydirs)
 source=("git+$url#commit=4b39e8270d366026be984b8bdac23348f1572e39") # tag: 2.1.1
-b2sums=('SKIP')
+b2sums=('1e597bfe366593a2e8a5653b1564974b6d63dbe58f5f38762e7ab401f167adae08122c96d887d70febb32656740a6ac8257a0bf8d293118ee58a3a9bf64d3114')
 
 build() {
   cd $pkgname/src
