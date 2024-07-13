@@ -1,0 +1,18 @@
+pkgbase = libpinyin
+	pkgdesc = Library to deal with pinyin
+	pkgver = 2.8.1
+	pkgrel = 2
+	url = https://github.com/libpinyin/libpinyin
+	arch = x86_64
+	license = GPL
+	makedepends = git
+	makedepends = gnome-common
+	depends = kyotocabinet
+	depends = glib2
+	noextract = libpinyin-model19.text.tar.gz
+	source = git+https://github.com/libpinyin/libpinyin.git#commit=de5bd732f9a6993938ce8fdcea9ecf7a00319c47
+	source = libpinyin-model19.text.tar.gz::https://downloads.sourceforge.net/libpinyin/model19.text.tar.gz
+	sha512sums = SKIP
+	sha512sums = 93c70423ba14faa3402bce775f82769dd4ee3a49083beddc540825f88facbd847328e9d01d99473adb7cf26de0f853e2b2e14fe849b1c49531134d1ca4ed2ef2
+
+pkgname = libpinyin
