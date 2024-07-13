@@ -1,0 +1,18 @@
+pkgbase = jless
+	pkgdesc = A command-line pager for JSON data
+	pkgver = 0.9.0
+	pkgrel = 2
+	url = https://github.com/PaulJuliusMartinez/jless
+	arch = x86_64
+	license = MIT
+	makedepends = git
+	makedepends = rust
+	makedepends = python
+	depends = gcc-libs
+	depends = libxcb
+	depends = libxkbcommon
+	options = !lto
+	source = jless::git+https://github.com/PaulJuliusMartinez/jless.git#commit=21dd6100edb47145bb9570931bec29697bcd0d9b
+	b2sums = SKIP
+
+pkgname = jless
