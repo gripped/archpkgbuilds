@@ -1,0 +1,46 @@
+pkgbase = amavisd-new
+	pkgdesc = High-performance interface between mailer (MTA) and content checkers
+	pkgver = 2.12.2
+	pkgrel = 2
+	url = https://gitlab.com/amavis/amavis
+	arch = any
+	license = GPL
+	depends = perl>=5.8.2
+	depends = perl-archive-zip>=1.14
+	depends = perl-convert-tnef
+	depends = perl-convert-uulib>=1.4-5
+	depends = perl-mime-tools
+	depends = perl-mailtools>=1.58
+	depends = perl-net-libidn
+	depends = perl-net-server>=0.88
+	depends = perl-io-socket-inet6
+	depends = perl-io-stringy
+	depends = perl-unix-syslog>=1.1-4
+	depends = perl-mail-dkim>=0.31
+	depends = perl-berkeleydb>=0.42
+	depends = perl-json
+	depends = perl-http-message
+	depends = perl-libwww
+	depends = perl-lwp-protocol-https
+	depends = perl-net-ssleay
+	depends = bzip2
+	depends = gzip
+	optdepends = arj: Decoder for: .arj .exe
+	optdepends = lrzip: Decoder for: .lrz
+	optdepends = lz4: Decoder for: .lz4
+	optdepends = lzo: Decoder for: .lzo
+	optdepends = p7zip: Decoder for: .7z
+	optdepends = unrar: Decoder for: .rar
+	optdepends = rpmextract: Decoder for: .rpm
+	backup = etc/amavisd/amavisd.conf
+	backup = etc/amavisd/amavisd-custom.conf
+	source = https://gitlab.com/amavis/amavis/-/archive/v2.12.2/amavis-v2.12.2.tar.bz2
+	source = amavisd.service
+	source = amavisd.sysusers
+	source = amavisd.tmpfiles
+	sha512sums = 8a6ab4441a9ef2ee757c839f656bc16f00dd9213f6cc0bb976d7f2b76793adf023d33a42099f07b0dae13281171db9ba0405028882a86e2230126e8d6a29a4ff
+	sha512sums = 5028913479808c02a74682987ed5289d094c1ae2e37874b8c45a6abcc825f2e9d9a46acf9ee010897a5a41e5f9256507cc4d7b9e535c46b03cc06b560dddd908
+	sha512sums = 8933d8457989c949845c0dabd2bed58680adbf87c920f05a59fd136acdd6da84b4d5b48c4c71dfbc0b047be005a70f665138d6397c1b09e0c746903c1d19fc11
+	sha512sums = bedbd1b270ccbfbbc9ef5682cc9491d6e7895b8b6cb7634a84175c0f469373f325fd694296a9a7aa8c1f09b6571162066e3fc98c555a4d971216fc6721842c9d
+
+pkgname = amavisd-new
