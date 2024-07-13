@@ -1,12 +1,13 @@
 # Maintainer: Tim Meusel <tim@bastelfreak.de>
+# Contributor: Justin Kromlinger <hashworks@archlinux.org>
 # Contributor: arakmar
 pkgname=r10k
 pkgver=3.16.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Provides a general purpose toolset for deploying Puppet environments and modules.'
 arch=('any')
 url="https://github.com/puppetlabs/${pkgname}"
-license=('Apache')
+license=('Apache-2.0')
 depends=('ruby' 'ruby-colored2' 'ruby-cri' 'ruby-gettext-setup' 'ruby-log4r' 'ruby-multi_json' 'ruby-semantic_puppet' 'ruby-puppet_forge' 'ruby-rugged' 'ruby-fast_gettext' 'ruby-gettext' 'ruby-faraday' 'ruby-faraday-net_http' 'ruby-jwt')
 makedepends=('ruby-minitar' 'ruby-yard')
 checkdepends=('ruby-rspec')
@@ -23,6 +24,8 @@ prepare() {
   sed --in-place 's|git ls-files|find|g' "${pkgname}.gemspec"
   # drop dev/CI dependencies; they only create package dependecy circles
   sed --in-place '/add_development_dependency/d' "${pkgname}.gemspec"
+  # We provide a newer jwt
+  sed --in-place "s|s.add_dependency 'jwt', '>= 2.2.3', '< 2.8.0'|s.add_dependency 'jwt', '>= 2.2.3', '< 3'|" "${pkgname}.gemspec"
   # lockfiles should be removed
   rm -fv Gemfile.lock
   # do not rely on Gemfiles (unless the project *really* needs it)
