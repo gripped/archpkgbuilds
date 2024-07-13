@@ -3,54 +3,60 @@
 # Contributor: GordonGR <ntheo1979@gmail.com>
 
 pkgname=lib32-gtk3
-pkgver=3.24.42
+pkgver=3.24.43
 pkgrel=1
 epoch=1
 pkgdesc="GObject-based multi-platform GUI toolkit"
 url="https://www.gtk.org/"
 arch=(x86_64)
-license=(LGPL-2.0-only)
+license=(LGPL-2.1-or-later)
 depends=(
   gtk3
-  lib32-at-spi2-atk
+  lib32-at-spi2-core
+  lib32-cairo
   lib32-colord
-  lib32-dbus
+  lib32-fontconfig
+  lib32-fribidi
   lib32-gdk-pixbuf2
-  lib32-libcanberra
+  lib32-glib2
+  lib32-glibc
+  lib32-harfbuzz
   lib32-libcups
   lib32-libepoxy
+  lib32-libgl
   lib32-librsvg
+  lib32-libx11
   lib32-libxcomposite
   lib32-libxcursor
   lib32-libxdamage
+  lib32-libxext
+  lib32-libxfixes
+  lib32-libxi
   lib32-libxinerama
   lib32-libxkbcommon
   lib32-libxrandr
-  lib32-mesa
   lib32-pango
   lib32-wayland
 )
 makedepends=(
   git
+  glib2-devel
   meson
-  python-packaging
   sassc
   wayland-protocols
 )
 source=(
   "git+https://gitlab.gnome.org/GNOME/gtk.git#tag=$pkgver"
   gtk-query-immodules-3.0-32.hook
+  0001-Allow-disabling-legacy-Tracker-search.patch
 )
-b2sums=('3f79244cfeac535186b84e6c9ad3dad7dbb5737e4ebd8762985fce95930a9bbb07fcc331fb915b7f6ab8496afd7995a5aa501377af01710ff2649e5adabcb249'
-        'c7136723735c4cbfe654851d0ccc1698142fa8f90b724ed9a970ebd6a74b4f59ea558e134e600736a1041417fc7fd9b3baa8bc561ed9598f2fbf45392dcc9159')
-
-pkgver() {
-  cd gtk
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+b2sums=('fdda77eebdc0b8e378f0258cb241eda4412b868d59ea1fd90815f459e925e6433f94c22a088d695b72fab99ecca827b370942bea47043debef4fab78e0e03dca'
+        'c7136723735c4cbfe654851d0ccc1698142fa8f90b724ed9a970ebd6a74b4f59ea558e134e600736a1041417fc7fd9b3baa8bc561ed9598f2fbf45392dcc9159'
+        '7da1746e7702e4bf397f59dd1019e2c8fa8951b2bcc6bf64ec05f322de6dcec6fe5552848d6b389818f625988a3fb2211501d7f72ae97d2c49fbad1e5fe9cd6a')
 
 prepare() {
   cd gtk
+  git apply -3 ../0001-Allow-disabling-legacy-Tracker-search.patch
 }
 
 build() {
@@ -62,6 +68,7 @@ build() {
     -D gtk_doc=false
     -D introspection=false
     -D man=false
+    -D tracker=false
     -D tracker3=false
   )
 
