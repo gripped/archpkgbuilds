@@ -1,0 +1,17 @@
+pkgbase = s2n-tls
+	pkgdesc = A C99 implementation of the TLS/SSL protocols that is designed to be simple, small, fast, and with security as a priority
+	pkgver = 1.3.47
+	pkgrel = 2
+	url = https://github.com/aws/s2n-tls
+	arch = x86_64
+	license = Apache
+	makedepends = cmake
+	depends = openssl
+	depends = gcc-libs
+	provides = s2n
+	conflicts = s2n
+	replaces = s2n
+	source = s2n-tls-1.3.47.zip::https://github.com/aws/s2n-tls/archive/v1.3.47.zip
+	sha256sums = 36ca0621cbd1b457e303ea5b574934a23a489848cffbd987d93902ab6826fab5
+
+pkgname = s2n-tls
