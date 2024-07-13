@@ -3,7 +3,7 @@
 
 pkgname=gulp
 pkgver=4.0.2
-pkgrel=3
+pkgrel=4
 pkgdesc="The streaming build system"
 arch=('any')
 url="https://gulpjs.com/"
