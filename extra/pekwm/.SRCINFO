@@ -1,0 +1,36 @@
+pkgbase = pekwm
+	pkgdesc = Tabbed X11 window manager
+	pkgver = 0.3.0
+	pkgrel = 2
+	url = https://github.com/pekdon/pekwm
+	arch = x86_64
+	license = GPL
+	makedepends = cmake
+	makedepends = gendesk
+	makedepends = git
+	makedepends = ninja
+	depends = libjpeg
+	depends = libpng
+	depends = libxft
+	depends = libxinerama
+	depends = libxpm
+	depends = libxrandr
+	optdepends = lxappearance: feature-rich GTK+ theme switcher
+	optdepends = nitrogen: background browser and setter
+	optdepends = tint2: basic, good-looking task manager
+	backup = etc/pekwm/autoproperties
+	backup = etc/pekwm/autoproperties_typerules
+	backup = etc/pekwm/config
+	backup = etc/pekwm/config_system
+	backup = etc/pekwm/keys
+	backup = etc/pekwm/menu
+	backup = etc/pekwm/mouse
+	backup = etc/pekwm/mouse_click
+	backup = etc/pekwm/mouse_sloppy
+	backup = etc/pekwm/mouse_system
+	backup = etc/pekwm/start
+	backup = etc/pekwm/vars
+	source = git+https://github.com/pekdon/pekwm#commit=8416ca1d0d136397b53966e84bd47381f439d3c6
+	b2sums = SKIP
+
+pkgname = pekwm
