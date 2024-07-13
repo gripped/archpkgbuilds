@@ -1,6 +1,6 @@
 pkgbase = tinygo
 	pkgdesc = Go compiler for small places. Microcontrollers, WebAssembly, and command-line tools. Based on LLVM.
-	pkgver = 0.31.2
+	pkgver = 0.32.0
 	pkgrel = 1
 	url = https://github.com/tinygo-org/tinygo
 	arch = x86_64
@@ -10,13 +10,12 @@ pkgbase = tinygo
 	makedepends = cmake
 	makedepends = ninja
 	makedepends = python
-	options = !strip
 	options = !lto
-	source = git+https://github.com/tinygo-org/tinygo#tag=v0.31.2
+	source = git+https://github.com/tinygo-org/tinygo#tag=v0.32.0
 	source = git+https://github.com/NordicSemiconductor/nrfx.git
 	source = git+https://github.com/ARM-software/CMSIS.git
 	source = git+https://github.com/avr-rust/avr-mcu.git
-	source = git+https://github.com/cmsis-svd/cmsis-svd-data
+	source = git+https://github.com/cmsis-svd/cmsis-svd-data#branch=main
 	source = git+https://github.com/WebAssembly/wasi-libc
 	source = git+https://github.com/keith-packard/picolibc.git
 	source = git+https://github.com/tinygo-org/stm32-svd
@@ -25,8 +24,10 @@ pkgbase = tinygo
 	source = git+https://github.com/mingw-w64/mingw-w64.git
 	source = git+https://github.com/aykevl/macos-minimal-sdk.git
 	source = git+https://github.com/tinygo-org/renesas-svd.git
-	source = git+https://github.com/tinygo-org/net.git
-	source = git+https://github.com/espressif/llvm-project#branch=xtensa_release_17.0.1
+	source = git+https://github.com/tinygo-org/net.git#branch=dev
+	source = git+https://github.com/tinygo-org/llvm-project#branch=tinygo_xtensa_release_18.1.2
+	source = disable_werror_binaryen.patch
+	sha256sums = 7501e324cc21b1fe5b5bf4dfac3837d84a2543fc7775e40e047a864c0b5c04b0
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
@@ -41,6 +42,6 @@ pkgbase = tinygo
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
-	sha256sums = SKIP
+	sha256sums = a40313ae7b1cb10fcf103ac4cb85010ef5f433bcd254e0e5eb3548ac4acbb7cf
 
 pkgname = tinygo
