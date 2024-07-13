@@ -1,0 +1,20 @@
+pkgbase = libretro-sameboy
+	pkgdesc = Nintendo Game Boy/Game Boy Color core
+	pkgver = 1720
+	pkgrel = 3
+	url = https://github.com/libretro/SameBoy
+	arch = x86_64
+	groups = libretro
+	license = MIT
+	makedepends = clang
+	makedepends = git
+	makedepends = libglvnd
+	makedepends = rgbds
+	makedepends = sdl2
+	depends = glibc
+	depends = libretro-core-info
+	depends = libgl
+	source = libretro-sameboy::git+https://github.com/libretro/SameBoy.git#commit=68f67b3db7747ba7aac84c5c253bc71d5a906525
+	sha256sums = SKIP
+
+pkgname = libretro-sameboy
