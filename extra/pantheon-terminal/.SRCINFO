@@ -1,0 +1,24 @@
+pkgbase = pantheon-terminal
+	pkgdesc = The Pantheon Terminal Emulator
+	pkgver = 6.1.2
+	pkgrel = 2
+	url = https://github.com/elementary/terminal
+	arch = x86_64
+	groups = pantheon
+	license = GPL3
+	makedepends = appstream
+	makedepends = git
+	makedepends = intltool
+	makedepends = meson
+	makedepends = vala
+	makedepends = xorg-server-xvfb
+	depends = glib2
+	depends = gtk3
+	depends = libgranite.so
+	depends = libhandy-1.so
+	depends = pango
+	depends = vte3
+	source = pantheon-terminal::git+https://github.com/elementary/terminal.git#tag=852542b1b5c63a7c3effa2a161c4b23b8d3ae145
+	b2sums = SKIP
+
+pkgname = pantheon-terminal
