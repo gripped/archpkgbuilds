@@ -3,11 +3,11 @@
 
 _name=ansible-compat
 pkgname=python-ansible-compat
-pkgver=24.6.1
+pkgver=24.7.0
 pkgrel=1
 pkgdesc="Functions that help interacting with various versions of Ansible"
 arch=(any)
-url="https://github.com/ansible-community/ansible-compat"
+url="https://github.com/ansible/ansible-compat"
 license=(MIT)
 depends=(
   ansible-core
@@ -30,8 +30,8 @@ checkdepends=(
   python-pytest-mock
 )
 source=(git+$url.git#tag=v$pkgver)
-sha256sums=('a8615404a5e512390c5a4dd2d83e7ac29d7e73277286c1fbeeb302c296e74ad1')
-b2sums=('efae69374d1064e1b48ac1e678d2b263e97c334e828edb0c968abb265596b51de57c7bd0096fe04ffef8a4c19408d852a97cc293346653e740cb27c03ad3c4ca')
+sha256sums=('8d233cf5956be958e865270f6c251240f1b1822424435551610e6da5b7263203')
+b2sums=('dbe6449a29036f5d58da538c482370b3c2075e74c934f56014f83f5cc79c6d1e5bb4d643fa01d8388130cefd4cb04567d774fb5d1d016626554119818f8a2faa')
 
 build() {
   cd $_name
