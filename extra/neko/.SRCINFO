@@ -1,0 +1,27 @@
+pkgbase = neko
+	pkgdesc = High-level dynamically typed programming language
+	pkgver = 2.3.0
+	pkgrel = 9
+	url = https://nekovm.org/
+	arch = x86_64
+	license = LGPL
+	makedepends = apache
+	makedepends = apr
+	makedepends = cmake
+	makedepends = git
+	makedepends = ninja
+	depends = gc
+	depends = gtk3
+	depends = mariadb-libs
+	depends = mbedtls2
+	depends = sqlite
+	optdepends = apache: for extending Apache with mod_neko
+	options = !strip
+	source = 2023-04-10.patch
+	source = neko-mbedtls2.patch
+	source = git+https://github.com/HaxeFoundation/neko#commit=ff67a696a718cba0a6bc0ec583e355272b4a5923
+	b2sums = 83a08288938a294dbcd2e6c91e7912989332807375173a5f6c11ec818e3e8bad59e0f4826a6743a6a3802b4faa0c85837424a20a314c7cb9a596367283aaf564
+	b2sums = ea9c86b2f6ac8e943f0c70406a73a055468e71de8740adc2116e0cfd9e68d08ac0d071ce94119a52954fed08319176308395ae20715ce7bd0d38fb538c95f765
+	b2sums = SKIP
+
+pkgname = neko
