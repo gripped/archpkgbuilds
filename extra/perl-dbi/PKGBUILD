@@ -2,7 +2,7 @@
 
 pkgname=perl-dbi
 pkgver=1.643
-pkgrel=6
+pkgrel=7
 pkgdesc="Database independent interface for Perl"
 arch=('x86_64')
 url="http://search.cpan.org/dist/DBI/"
