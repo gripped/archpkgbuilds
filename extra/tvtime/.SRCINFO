@@ -1,0 +1,28 @@
+pkgbase = tvtime
+	pkgdesc = High quality television application for use with video capture cards
+	pkgver = 1.0.11
+	pkgrel = 5
+	url = https://linuxtv.org/
+	arch = x86_64
+	license = GPL
+	makedepends = imagemagick
+	depends = alsa-lib
+	depends = freetype2
+	depends = hicolor-icon-theme
+	depends = libxinerama
+	depends = libxml2
+	depends = libxss
+	depends = libxv
+	depends = libxxf86vm
+	source = https://linuxtv.org/downloads/tvtime/tvtime-1.0.11.tar.gz
+	source = tvtime-icon-100x100.png::https://git.linuxtv.org/tvtime.git/plain/docs/tvtime-icon-100x100.png?id=v1.0.11
+	source = freetype.patch
+	source = 0001-Fix-warning-implicit-declaration-of-function-minor-m.patch
+	source = 0001-Fix-AppStream-metadata-validation.patch
+	sha256sums = 403bf2106578b1f3d6ce70bc08654f7a90753f19e27b4cc170bc636307cdc78c
+	sha256sums = b6342cebcf981f3e2119c36e74403d2b4f6f73910fc4b84925a1df038ddc37f1
+	sha256sums = a29e800114d35c5b2bec24b637fb6ac861f1f2246ecf1437fe4aaab6df6eb040
+	sha256sums = 11dfd5b00554a304bde8b7a31ec15c6a3bf320b83d607e17c4e327dc7b36ad12
+	sha256sums = 40f7c01dadcc8521ac3ce9cbc269829868383396f4c511a47538bccf9b5952f4
+
+pkgname = tvtime
