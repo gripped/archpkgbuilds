@@ -1,7 +1,7 @@
 pkgbase = gnome-settings-daemon
 	pkgdesc = GNOME Settings Daemon
 	pkgver = 46.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://gitlab.gnome.org/GNOME/gnome-settings-daemon
 	arch = x86_64
 	groups = gnome
@@ -11,10 +11,10 @@ pkgbase = gnome-settings-daemon
 	checkdepends = python-gobject
 	makedepends = docbook-xsl
 	makedepends = git
+	makedepends = glib2-devel
 	makedepends = libxslt
 	makedepends = meson
 	makedepends = python
-	makedepends = python-packaging
 	makedepends = usbguard
 	depends = alsa-lib
 	depends = bash
@@ -54,9 +54,10 @@ pkgbase = gnome-settings-daemon
 	depends = systemd-libs
 	depends = upower
 	depends = wayland
+	depends = xorg-xrdb
 	optdepends = usbguard: USB protection support
 	backup = etc/xdg/Xwayland-session.d/00-xrdb
-	source = git+https://gitlab.gnome.org/GNOME/gnome-settings-daemon.git#commit=8ff4196096efba8b2441ee31a63c8bd8cea4b1d8
+	source = git+https://gitlab.gnome.org/GNOME/gnome-settings-daemon.git#tag=46.0
 	source = git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git
 	source = 0001-subprojects-Update-gvc-to-latest-commit.patch
 	b2sums = d3e0c207fa2df397a9f2d0c39c68d8fbc719f1962915130e10641bf2ca765e86b05b5d512789c65d1641aad5f9986cb0bb0c21c12f36d288201cdb89c7790e73
