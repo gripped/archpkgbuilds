@@ -1,7 +1,7 @@
 pkgbase = 389-ds-base
 	pkgdesc = 389 Directory Server (base)
 	pkgver = 3.1.0
-	pkgrel = 1
+	pkgrel = 2
 	url = http://port389.org/
 	arch = x86_64
 	license = GPL
@@ -29,6 +29,7 @@ pkgbase = 389-ds-base
 	depends = python-ldap
 	depends = python-packaging
 	depends = lmdb
+	optdepends = cockpit: LDAP administration through the Cockpit web UI
 	provides = libsvrcore.so
 	replaces = python-lib389
 	backup = etc/dirsrv/config/certmap.conf

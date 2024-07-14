@@ -6,7 +6,7 @@
 pkgname=389-ds-base
 pkgver=3.1.0
 pkgdesc="389 Directory Server (base)"
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url="http://port389.org/"
 license=('GPL')
@@ -20,6 +20,7 @@ depends=('cracklib' 'libevent' 'nspr' 'nss' 'net-snmp' 'pam' 'openldap' 'icu' 'd
          'python-argcomplete' 'python-dateutil' 'python-ldap' 'python-packaging' 'lmdb')
 makedepends=('cargo' 'rsync' 'doxygen' 'cmocka' 'python-setuptools' 'python-argparse-manpage'
              'npm' 'nodejs' 'systemd')
+optdepends=('cockpit: LDAP administration through the Cockpit web UI')
 source=(https://github.com/389ds/389-ds-base/archive/389-ds-base-${pkgver}.tar.gz
         389-ds-base.sysusers
         389-ds-base.tmpfiles)
