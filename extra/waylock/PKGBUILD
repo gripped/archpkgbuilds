@@ -2,7 +2,7 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 
 pkgname=waylock
-pkgver=1.1.0
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="A simple screenlocker for wayland compositors"
 arch=(x86_64)
@@ -23,8 +23,8 @@ makedepends=(
 source=(
   "git+$url?signed#tag=v$pkgver"
 )
-sha512sums=('c9f925af5a0a95e091260628c0c854fe191083be05e4ab46419d06b00f7d36668fdc58c2e3c6ce3be3ba5a9d9ef024a4423daa1f67a042bc2e82760ca6fb5ebb')
-b2sums=('5a2dfd9a3ebfe17fbb0b7204821d2892a9f83e288f73b6ecc30ec18872497ff7821e1be6d5e191ee8e6e40f6fd80e9d742d659bdbcb9ea60a5cf8f645b7d7cf6')
+sha512sums=('7dc8a68c8e35787e3de7f993999b087a4f40f8fb0f02a1ee483bee2c0898aa70082e4687b07ff13bfaa7ca4d74d3bac2c9f0dc168343f9c58bdfcede787e6dd4')
+b2sums=('72aff74ba56e9a19816b7cde45b6689e609c9e22228a206ced4a5feb93126ff93dfc55ab5cdad8731ffae7574d0d1e320f3085a4e267fbdf3d1f08893a4f008a')
 validpgpkeys=('5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11') # Isaac Freund <mail@isaacfreund.com>
 
 pkgver() {
@@ -33,8 +33,9 @@ pkgver() {
 }
 
 prepare() {
-  zig fetch --global-cache-dir zig-cache https://codeberg.org/ifreund/zig-wayland/archive/v0.1.0.tar.gz
-  zig fetch --global-cache-dir zig-cache https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.1.0.tar.gz
+  # https://codeberg.org/ifreund/waylock/src/branch/master/build.zig.zon
+  zig fetch --global-cache-dir zig-cache https://codeberg.org/ifreund/zig-wayland/archive/v0.2.0.tar.gz
+  zig fetch --global-cache-dir zig-cache https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.2.0.tar.gz
 }
 
 build() {
