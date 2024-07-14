@@ -2,7 +2,7 @@
 
 pkgname=gnu-efi
 pkgver=3.0.18
-pkgrel=1
+pkgrel=2
 pkgdesc="Develop EFI applications using the GNU toolchain and the EFI development environment"
 arch=(x86_64)
 url="https://sourceforge.net/projects/gnu-efi/"
@@ -29,7 +29,7 @@ build() {
   # upstream provides LDFLAGS directly to ld: https://sourceforge.net/p/gnu-efi/bugs/33/
   LDFLAGS="${LDFLAGS//-Wl/}"
   LDFLAGS="${LDFLAGS//,/ }"
-  make
+  make PREFIX=/usr
 }
 
 package() {
