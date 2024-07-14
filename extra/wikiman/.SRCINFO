@@ -1,0 +1,24 @@
+pkgbase = wikiman
+	pkgdesc = Offline search engine for manual pages, Arch Wiki, Gentoo Wiki and other documentation
+	pkgver = 2.13.2
+	pkgrel = 2
+	url = https://github.com/filiparag/wikiman
+	arch = any
+	license = MIT
+	makedepends = make
+	depends = man
+	depends = fzf
+	depends = ripgrep
+	depends = awk
+	depends = w3m
+	depends = findutils
+	depends = coreutils
+	depends = sed
+	depends = grep
+	depends = parallel
+	optdepends = arch-wiki-docs: enable Arch Wiki
+	backup = etc/wikiman.conf
+	source = wikiman-2.13.2.tar.gz::https://github.com/filiparag/wikiman/archive/2.13.2.tar.gz
+	sha256sums = f9d76ff056e152b70259c35377cfd85a1d506b096955037b2303e548ba5106b7
+
+pkgname = wikiman
