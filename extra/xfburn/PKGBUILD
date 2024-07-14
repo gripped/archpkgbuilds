@@ -3,8 +3,8 @@
 # Contributor: Alois Nespor alois.nespor@gmail.com
 
 pkgname=xfburn
-pkgver=0.7.0
-pkgrel=2
+pkgver=0.7.1
+pkgrel=1
 pkgdesc="A simple CD/DVD burning tool based on libburnia libraries"
 arch=('x86_64')
 url="https://docs.xfce.org/apps/xfburn/start"
@@ -12,9 +12,8 @@ license=('GPL')
 groups=('xfce4-goodies')
 depends=('libburn' 'libisofs' 'gtk3' 'libxfce4ui' 'exo' 'gst-plugins-base-libs'
          'libgudev' 'desktop-file-utils')
-makedepends=('intltool')
 source=(https://archive.xfce.org/src/apps/xfburn/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
-sha256sums=('ba960ea79a044b93e513f7c32bca1a599472d687ed0e0184bde8c84aeebb1f45')
+sha256sums=('7ca161b2c9c558e5161f02f69d0418a37eba15eab4d3a8651f6c97d3a9d5dc16')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
