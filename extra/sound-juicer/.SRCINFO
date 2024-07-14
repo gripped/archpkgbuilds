@@ -1,0 +1,25 @@
+pkgbase = sound-juicer
+	pkgdesc = A lean and friendly audio CD extractor for GNOME
+	pkgver = 3.40.0
+	pkgrel = 3
+	url = https://wiki.gnome.org/Apps/SoundJuicer
+	arch = x86_64
+	license = GPL
+	makedepends = appstream-glib
+	makedepends = git
+	makedepends = itstool
+	makedepends = meson
+	depends = brasero
+	depends = gst-plugins-base
+	depends = gst-plugins-good
+	depends = gtk3
+	depends = iso-codes
+	depends = libcanberra
+	depends = libdiscid
+	depends = libmusicbrainz5
+	optdepends = gst-plugins-ugly: MP3 encoding support
+	optdepends = gst-plugins-bad: Opus encoding support
+	source = git+https://gitlab.gnome.org/GNOME/sound-juicer.git#commit=799286c80b998b473309f39d296d918c187d66d7
+	b2sums = SKIP
+
+pkgname = sound-juicer
