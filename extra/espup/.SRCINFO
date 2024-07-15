@@ -1,7 +1,7 @@
 pkgbase = espup
 	pkgdesc = Tool for installing and maintaining ESP Rust ecosystem
 	pkgver = 0.12.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/esp-rs/espup
 	arch = x86_64
 	license = MIT
@@ -21,7 +21,10 @@ pkgbase = espup
 	depends = udev
 	options = !lto
 	source = https://github.com/esp-rs/espup/archive/v0.12.1/espup-0.12.1.tar.gz
+	source = espup-fix-extended-llvm-16.patch::https://github.com/esp-rs/espup/commit/8ba8dcbe7b8fd6760ec4ec21aac1662e20205b98.patch
 	sha256sums = 90c9dfd9c108d581459c35de2ec2175e8e089daa6a470f7a18a966819a8d6e57
+	sha256sums = 86fd0ff1557b55f1b990938b148eabefb990637030ad0e3aff52e73de341d082
 	b2sums = 83f9882a7c88953f475f43affe9689a711d2b05c4e122eb50a2e42ec2e33f5acf16e74ce79f98c1caf17dc77223fec2f8e43eba07638cbeefff88950b4c3ce24
+	b2sums = 9ef877e2248d991305b41179ea93c8c332b276c4e1f29758c9c80ebc014702d9ab2f4d6f22f2ec56bbfe6b1d94ef3174f4df3620a78c7837f730b1e758a6d460
 
 pkgname = espup
