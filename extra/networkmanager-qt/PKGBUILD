@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=networkmanager-qt
-pkgver=6.3.0
+pkgver=6.4.0
 pkgrel=1
 pkgdesc='Qt wrapper for NetworkManager API'
 arch=(x86_64)
@@ -21,7 +21,7 @@ makedepends=(doxygen
 optdepends=('qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('0ca96a3bf78f033a36be59c75d3d6382b4ef13e753419eed13ef2e33821e39e0'
+sha256sums=('3d2c905dd9c7445c44023ecf0646dd1b6fcdc83968f56dfa762296b0d15e9498'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
