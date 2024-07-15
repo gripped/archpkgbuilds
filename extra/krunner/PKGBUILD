@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=krunner
-pkgver=6.3.0
+pkgver=6.4.0
 pkgrel=1
 pkgdesc='Framework for providing different actions given a string query'
 arch=(x86_64)
@@ -23,7 +23,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('6ca6fe49c9bc0d9da3395db993bfb28d5010bcbd78b0984625819d1d3631e425'
+sha256sums=('aac498f1d313bfc1a8388ff47617e68c50413da15a744a38a05c473378316fbc'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
