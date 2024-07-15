@@ -5,8 +5,8 @@
 # Contributor: Adam Hani Schakaki (krzd) <krzd@krzd.net>
 
 pkgname=gsettings-desktop-schemas
-pkgver=46.0
-pkgrel=2
+pkgver=46.1
+pkgrel=1
 pkgdesc="Shared GSettings schemas for the desktop"
 url="https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas"
 arch=(any)
@@ -23,8 +23,8 @@ makedepends=(
   gobject-introspection
   meson
 )
-source=("git+https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('af6475bdb556c9a82eb29e7d1f704c73ebc0b34e8fd23e68ec120d1667eeba8ece93228e7c9612a287782a8efb657ee735a87d6c9896661b9dcb56cfafb04c5e')
+source=("git+$url.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('285fcf7651ac8066964a3ce5c050b91c88a893760133dfe578da2489a221ce80e2caea804ff3aaeec801655a0be7e7ebb079805c15523a45c468c5797c14216a')
 
 prepare() {
   cd $pkgname
