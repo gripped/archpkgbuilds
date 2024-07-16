@@ -4,7 +4,7 @@
 pkgname=nvidia-cg-toolkit
 pkgver=3.1
 _date="April2012"
-pkgrel=7
+pkgrel=8
 pkgdesc="NVIDIA Cg libraries"
 arch=('x86_64')
 url="https://developer.nvidia.com/cg-toolkit"
@@ -15,9 +15,8 @@ md5sums_x86_64=('88ba727cdbe0261fac465c4d84f44762')
 
 package() {
   install -Dm755 "${srcdir}"/usr/bin/cgc "${pkgdir}"/usr/bin/cgc
-  install -dm755 "${pkgdir}"/usr/include/Cg
-  install -m644 "${srcdir}"/usr/include/Cg/* "${pkgdir}"/usr/include/Cg
-  install -dm755 "${pkgdir}"/usr/lib
+  install -Dm644 -t "${pkgdir}"/usr/include/Cg "${srcdir}"/usr/include/Cg/*
+  install -Dm644 -t "${pkgdir}"/usr/lib "${srcdir}"/usr/lib64/*
   install -Dm644 "${srcdir}"/usr/local/Cg/docs/license.txt "${pkgdir}"/usr/share/licenses/nvidia-cg-toolkit/license.txt
   cp -r "${srcdir}"/usr/local/Cg "${pkgdir}"/usr/share/
   find "${pkgdir}"/usr/share/ -type d -exec chmod -R 755 '{}' ';'
