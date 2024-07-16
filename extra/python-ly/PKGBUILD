@@ -3,8 +3,8 @@
 # Contributor: David Runge <dvzrv@archlinux.org>
 
 pkgname=python-ly
-pkgver=0.9.7
-pkgrel=6
+pkgver=0.9.8
+pkgrel=1
 pkgdesc='Parse, manipulate or create documents in LilyPond format'
 arch=(any)
 url="https://github.com/frescobaldi/$pkgname"
@@ -13,9 +13,13 @@ depends=(python)
 makedepends=(python-{build,installer,wheel}
              python-setuptools
              python-sphinx)
+checkdepends=(python-lxml
+              python-pytest)
 _archive="$pkgname-$pkgver"
-source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$_archive.tar.gz")
-sha256sums=('d4d2b68eb0ef8073200154247cc9bd91ed7fb2671ac966ef3d2853281c15d7a8')
+source=("$url/archive/v$pkgver/$_archive.tar.gz")
+# PyPi releases are behind, see https://github.com/frescobaldi/python-ly/issues/163
+# source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$_archive.tar.gz")
+sha256sums=('bdd64fb947e8804cd7d1eedbd57552a0f1cd3411a7a063ad5ec39db78e8303ad')
 
 build() {
 	cd "$_archive"
@@ -24,10 +28,16 @@ build() {
 	make man text
 }
 
+check() {
+	cd "$_archive"
+	# Upstream tests are borked, see https://github.com/frescobaldi/python-ly/issues/153
+	# PYTHONPATH=. pytest
+}
+
 package() {
 	cd "$_archive"
 	python -m installer -d "$pkgdir" dist/*.whl
-	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" ChangeLog README.rst
+	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" CHANGELOG.md README.rst
 	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" doc/build/text/*
 	install -Dm0644 -t "$pkgdir/usr/share/man/man1/" doc/build/man/*
 }
