@@ -1,6 +1,6 @@
 pkgbase = lvm2
-	pkgver = 2.03.24
-	pkgrel = 1
+	pkgver = 2.03.25
+	pkgrel = 2
 	url = https://sourceware.org/lvm2/
 	arch = x86_64
 	license = GPL2
@@ -9,19 +9,19 @@ pkgbase = lvm2
 	makedepends = systemd
 	makedepends = libaio
 	makedepends = thin-provisioning-tools
-	source = git+https://sourceware.org/git/lvm2.git#tag=v2_03_24?signed
+	source = git+https://sourceware.org/git/lvm2.git#tag=v2_03_25?signed
 	source = 0001-udev-initcpio.patch
 	source = 11-dm-initramfs.rules
 	validpgpkeys = 88437EF5C077BD113D3B7224228191C1567E2C17
 	validpgpkeys = D501A478440AE2FD130A1BE8B9112431E509039F
-	sha256sums = 74e2aa5ddcec64835ca8dac2cb8b7b35e193de5ce7030440726f853abc3877c7
+	sha256sums = 0870ee6d5929274c18be6bfde1e6c24a499ed6a9659114a15c6062dfec924ae8
 	sha256sums = 2b3a16ec05e2bc6678e9ebd5ffa8319ebfde29aa260ce004f79f9b8df57d73c9
 	sha256sums = e10f24b57582d6e2da71f7c80732a62e0ee2e3b867fe84591ccdb53e80fa92e0
 
 pkgname = lvm2
 	pkgdesc = Logical Volume Manager 2 utilities
 	depends = bash
-	depends = device-mapper>=2.03.24
+	depends = device-mapper>=2.03.25
 	depends = systemd-libs
 	depends = libudev.so
 	depends = util-linux-libs
