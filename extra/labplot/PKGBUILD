@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=labplot
-pkgver=2.11.0
+pkgver=2.11.1
 pkgrel=1
 arch=(x86_64)
 pkgdesc='KDE Application for interactive graphing and analysis of scientific data'
@@ -50,7 +50,7 @@ makedepends=(dbc-parser-cpp
              extra-cmake-modules
              kdoctools5)
 source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz)
-sha256sums=('9b84c69fe33551fbc12642fe897f250e2b00836244ca05926b2d9141280f3e6f')
+sha256sums=('53aa6ac8df39324d99463e60d88de25346b3928da5bb0f210b0563489046679d')
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
