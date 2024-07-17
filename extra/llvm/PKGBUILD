@@ -3,24 +3,26 @@
 
 pkgname=('llvm' 'llvm-libs')
 pkgver=18.1.8
-pkgrel=3
+pkgrel=4
 arch=('x86_64')
 url="https://llvm.org/"
 license=('Apache-2.0 WITH LLVM-exception')
-makedepends=('cmake' 'ninja' 'zlib' 'zstd' 'libffi' 'libedit' 'ncurses'
+makedepends=('cmake' 'ninja' 'zlib' 'zstd' 'curl' 'libffi' 'libedit' 'ncurses'
              'libxml2' 'python-setuptools' 'python-psutil' 'python-sphinx'
              'python-myst-parser')
 options=('staticlibs' '!lto') # tools/llvm-shlib/typeids.test fails with LTO
 _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkgver
 source=($_source_base/llvm-$pkgver.src.tar.xz{,.sig}
         $_source_base/cmake-$pkgver.src.tar.xz{,.sig}
-        $_source_base/third-party-$pkgver.src.tar.xz{,.sig})
+        $_source_base/third-party-$pkgver.src.tar.xz{,.sig}
+        $pkgname-SelectionDAG.patch::https://github.com/llvm/llvm-project/commit/46505b3cbfc5.patch)
 sha256sums=('f68cf90f369bc7d0158ba70d860b0cb34dbc163d6ff0ebc6cfa5e515b9b2e28d'
             'SKIP'
             '59badef592dd34893cd319d42b323aaa990b452d05c7180ff20f23ab1b41e837'
             'SKIP'
             'b76b810f3d3dc5d08e83c4236cb6e395aa9bd5e3ea861e8c319b216d093db074'
-            'SKIP')
+            'SKIP'
+            '62cc0a323ebe6a61a1302605d42a28ce812dbeae186e23515b333211e3de008a')
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A') # Tom Stellard <tstellar@redhat.com>
 
 # Utilizing LLVM_DISTRIBUTION_COMPONENTS to avoid
@@ -62,6 +64,9 @@ prepare() {
   cd llvm-$pkgver.src
   mkdir build
 
+  # https://github.com/llvm/llvm-project/issues/82431
+  sed '/^diff.*inline-asm-memop.ll/,$d' ../$pkgname-SelectionDAG.patch | patch -Np2
+
   # Remove CMake find module for zstd; breaks if out of sync with upstream zstd
   rm cmake/modules/Findzstd.cmake
 }
@@ -84,6 +89,7 @@ build() {
     -DLLVM_BUILD_LLVM_DYLIB=ON
     -DLLVM_BUILD_TESTS=ON
     -DLLVM_ENABLE_BINDINGS=OFF
+    -DLLVM_ENABLE_CURL=ON
     -DLLVM_ENABLE_FFI=ON
     -DLLVM_ENABLE_RTTI=ON
     -DLLVM_ENABLE_SPHINX=ON
@@ -112,7 +118,7 @@ check() {
 
 package_llvm() {
   pkgdesc="Compiler infrastructure"
-  depends=('llvm-libs' 'perl')
+  depends=('llvm-libs' 'curl' 'perl')
 
   cd llvm-$pkgver.src/build
 
