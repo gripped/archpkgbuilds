@@ -3,7 +3,7 @@
 # Contributor: Knut Ahlers <knut at ahlers dot me>
 
 pkgname=dust
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc='A more intuitive version of du in rust'
 arch=('x86_64')
@@ -12,25 +12,20 @@ license=('Apache-2.0')
 depends=('gcc-libs' 'glibc')
 makedepends=('cargo' 'git')
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha256sums=('e330374b1f572e21cf0feaba1f2370360e39b1f17f4f4898366f1d84f8c774a0')
+sha256sums=('66b82996e4906d423b81e6dbe954e989de9dd89760cbf184cf786d3a567fe37a')
 
 prepare() {
   cd "$pkgname"
-
-  # Upstream lockfile out of sync, https://github.com/bootandy/dust/issues/418
-  sed -i -e '306s/1.0.0/1.1.0/' Cargo.lock
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
   cd "$pkgname"
-
   cargo build --frozen --release --all-features
 }
 
 check() {
   cd "$pkgname"
-
   cargo test --frozen --all-features
 }
 
