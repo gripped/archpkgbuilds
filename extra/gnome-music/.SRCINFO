@@ -1,9 +1,9 @@
 pkgbase = gnome-music
 	pkgdesc = Music player and management application
-	pkgver = 46.0
-	pkgrel = 2
+	pkgver = 46.1
+	pkgrel = 1
 	epoch = 1
-	url = https://wiki.gnome.org/Apps/Music
+	url = https://apps.gnome.org/Music/
 	arch = any
 	groups = gnome
 	license = GPL-2.0-or-later
@@ -12,20 +12,31 @@ pkgbase = gnome-music
 	makedepends = gobject-introspection
 	makedepends = meson
 	makedepends = yelp-tools
+	depends = dconf
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = graphene
 	depends = grilo
 	depends = grilo-plugins
 	depends = gst-plugins-base
+	depends = gst-plugins-base-libs
 	depends = gst-plugins-good
+	depends = gstreamer
 	depends = gtk4
+	depends = hicolor-icon-theme
 	depends = libadwaita
+	depends = libgirepository
 	depends = libmediaart
+	depends = libsoup3
+	depends = python
 	depends = python-cairo
 	depends = python-gobject
+	depends = tracker3
 	depends = tracker3-miners
 	optdepends = gst-libav: Extra media codecs
 	optdepends = gst-plugins-bad: Extra media codecs
 	optdepends = gst-plugins-ugly: Extra media codecs
-	source = git+https://gitlab.gnome.org/GNOME/gnome-music.git#commit=1748d79846bfde7b9234f14da99c98eaf21e1e69
-	b2sums = d94428118d36a79408af0eed873131e738b2a7923c0106c6e7a1c7e9703bd0f5af0fc2f105c1df91c4c8f3ea8c17ec0046286d8af29ff20a4d9f59763cdbf9bf
+	source = git+https://gitlab.gnome.org/GNOME/gnome-music.git#tag=46.1
+	b2sums = 1cb6110e135dd1a07f7ae1cacbeb212c1139108d2d7d8a63d51affc0df5ab0167b070ab417190f24a81fc535df47f1fc2525c63d99df7de648d24cfd6847a0b2
 
 pkgname = gnome-music
