@@ -5,7 +5,7 @@
 
 _base=textual
 pkgname=python-${_base}
-pkgver=0.72.0
+pkgver=0.73.0
 pkgrel=1
 pkgdesc="Modern Text User Interface framework"
 arch=(any)
@@ -18,7 +18,7 @@ optdepends=('python-tree-sitter: for syntax highlighting support'
             'python-tree-sitter-languages: for custom languages support'
             'python-textual-dev: tools for developers')
 source=(${_base}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz)
-sha512sums=('10d6bdbce6defe457457494328a5dcc75c7ee92e9b1a3bcb930c78421907034314f579ed7487c0e83746921b64bb6a97cbc4eca076bb43a0e8960e38b92a108c')
+sha512sums=('992dd5852eecf48be76d509c3b3a0ec44d96b49d297d84bac6093c5caf9c88778308e399906eb4436c1970b052b220058fe6426ad2ef7ea8503c01376c3d9d7b')
 
 build() {
   cd ${_base}-${pkgver}
