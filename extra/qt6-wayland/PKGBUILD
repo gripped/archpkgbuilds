@@ -4,7 +4,7 @@
 
 pkgname=qt6-wayland
 pkgver=6.7.2
-pkgrel=2
+pkgrel=4
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
@@ -26,7 +26,11 @@ sha256sums=('b6153c2d65c3be61905802f3598ec96bad012799737681c5cc5f83c907612435')
 
 prepare() {
   cd $_pkgfn
+
   git cherry-pick -n 92bcb8f6b7a852c7a5d662fc34de561692a7a454
+  git cherry-pick -n c2f61bc47baacf2e6a44c6c3c4e4cbf0abfa4095
+  git cherry-pick -n 406995207eae8d644b6e5262aa716a48c7e471a8
+  git cherry-pick -n 632127d7f1d86cba4dd17361f24f9fd70a0ae44c
 }
 
 build() {
