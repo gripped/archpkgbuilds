@@ -4,8 +4,8 @@
 # Contributor: Mathieu Wespthal <mathieu.westphal+aur@gmail.com>
 
 pkgname=f3d
-pkgver=2.4.0
-pkgrel=5
+pkgver=2.5.0
+pkgrel=2
 pkgdesc='A fast and minimalist 3D viewer'
 arch=('x86_64')
 url="https://github.com/${pkgname}-app/${pkgname}"
@@ -38,7 +38,7 @@ makedepends=('cmake'
              'python'
              'utf8cpp')
 source=("https://github.com/$pkgname-app/$pkgname/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('3286ad1b324b995fd95818679b4ced80ebc3cc3b4bd4c8e6964695c05c934c8f')
+sha256sums=('d7f6dd7d9e4465c1f44d168c3a38aad24569a25907673180c8791a783e73f02f')
 
 build() {
   cd "$pkgname-$pkgver"
