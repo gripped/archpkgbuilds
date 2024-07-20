@@ -4,13 +4,13 @@ pkgbase=systray-x
 _pkgbase=SysTray-X
 pkgname=('systray-x-common' 'systray-x-kde')
 pkgver=0.9.9
-pkgrel=1
+pkgrel=2
 pkgdesc="A system tray extension for Thunderbird 68+ (for X)"
 arch=('x86_64')
 url="https://github.com/Ximi1970/systray-x"
 license=('MPL-2.0')
-depends=('qt5-base' 'qt5-x11extras' 'thunderbird')
-makedepends=('git' 'zip' 'unzip' 'libx11' 'knotifications5')
+depends=('qt6-base' 'qt6-wayland' 'thunderbird')
+makedepends=('git' 'zip' 'unzip' 'libx11' 'kstatusnotifieritem')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
 	"Makefile.patch")
 sha256sums=('348916629f86053560c06630b4beb71b167c9d018733b44a54f7c27b559c55d2'
@@ -55,7 +55,7 @@ conflicts=("${pkgbase}")
 
 package_systray-x-kde() {
 pkgdesc="A system tray extension for Thunderbird 68+ (for X) - KDE version"
-depends=('knotifications5')
+depends=('kstatusnotifieritem')
 provides=("${pkgbase}")
 conflicts=("${pkgbase}")
 
