@@ -1,0 +1,16 @@
+From 386823fc8a005f18a4ccddde4c08286e38fbbe32 Mon Sep 17 00:00:00 2001
+From: seth <getchoo@tuta.io>
+Date: Thu, 18 Jul 2024 17:24:26 -0400
+Subject: [PATCH 5/6] turbo: 1.13.2 -> 2.0.7
+
+diff --git a/crates/turborepo-lib/src/lib.rs b/crates/turborepo-lib/src/lib.rs
+--- a/crates/turborepo-lib/src/lib.rs
++++ b/crates/turborepo-lib/src/lib.rs
+@@ -2,6 +2,7 @@
+ #![feature(box_patterns)]
+ #![feature(error_generic_member_access)]
+ #![feature(hash_extract_if)]
++#![feature(lazy_cell)]
+ #![feature(option_get_or_insert_default)]
+ #![feature(once_cell_try)]
+ #![feature(panic_info_message)]

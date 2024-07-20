@@ -1,6 +1,6 @@
 pkgbase = turbo
 	pkgdesc = Incremental bundler and build system optimized for JavaScript and TypeScript
-	pkgver = 1.13.3
+	pkgver = 2.0.8
 	pkgrel = 1
 	url = https://turbo.build/
 	arch = x86_64
@@ -13,8 +13,11 @@ pkgbase = turbo
 	depends = zlib
 	depends = libz.so
 	options = !lto
-	source = https://github.com/vercel/turbo/archive/v1.13.3/turbo-1.13.3.tar.gz
-	sha256sums = 4891512c1baedb0bf439516952fc4d828c49ff302853ebe43dd919e15758e4c3
-	b2sums = 7fc9e0114fca3644000a8157a4435573281c6ad99628f27395f5327b409bfdbd834b718a4afd19a501ab49a613cc877bb7ad05570578f3ad5fcb71c0fbcc4a0f
+	source = https://github.com/vercel/turbo/archive/v2.0.8/turbo-2.0.8.tar.gz
+	source = enable-lazy_cell.patch
+	sha256sums = d20a558e1feec5d776b0a47edbdb9838fcb4b32084f735e61f419e8a096345b9
+	sha256sums = a4ab6cbb148edd5b095df33e8ecf05997c8b5f885ff97492f8e2ef0c2ff2f3c8
+	b2sums = 159ee86662587c90c52932f974d97ac858b3215f0020e646793d5e7a92ee1e1b4a546dd4529abbc341a05544e91fd83a922d889d62fb8834c181a6f6bd04bfab
+	b2sums = 72f51c7d9fa3fff4cd39c97b3886bd3adb4e100ceb1a0cdf7e1583d9ff467bf32e2cae57d057e498aa65a06bea13678985d77ce279e618054ea8040b660ad153
 
 pkgname = turbo
