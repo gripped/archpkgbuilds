@@ -2,17 +2,26 @@
 
 pkgname=python-sphinxcontrib-htmlhelp
 _name=${pkgname#python-}
-pkgver=2.0.5
-pkgrel=3
+pkgver=2.0.6
+pkgrel=1
 pkgdesc='Sphinx extension which renders HTML help files'
-arch=('any')
+arch=(any)
 url=https://github.com/sphinx-doc/sphinxcontrib-htmlhelp
-license=('BSD-2-Clause')
-depends=('python')
-makedepends=('git' 'python-build' 'python-flit-core' 'python-installer')
-checkdepends=('python-html5lib' 'python-pytest' 'python-sphinx')
+license=(BSD-2-Clause)
+depends=(python)
+makedepends=(
+  git
+  python-build
+  python-flit-core
+  python-installer
+)
+checkdepends=(
+  python-html5lib
+  python-pytest
+  python-sphinx
+)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('2cb5ab4317888f764c71674e61cb8ba17e1f97f64994d6d5957ead23a26a4064d2dfe41bba72acf249fa8bdbdb34640f3b1b6d11ad81cb0e593f3101d78c1f21')
+b2sums=('cf8c3f71b100b0a058c21bd7016c12daea0f64ca284cb0a8666ef8c905821dcaf5cad6bb0fa0d8d972cb5d8e8fd78c5c20fafa0198714287c611e179ba0b1cf7')
 
 build() {
   cd "$_name"
