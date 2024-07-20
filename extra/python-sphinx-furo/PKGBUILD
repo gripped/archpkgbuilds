@@ -3,26 +3,30 @@
 
 _pkgname=furo
 pkgname=python-sphinx-$_pkgname
-pkgver=2024.05.06
+pkgver=2024.07.18
 pkgrel=1
 pkgdesc='Clean customizable documentation theme for Sphinx'
-arch=('any')
+arch=(any)
 url=https://github.com/pradyunsg/furo
-license=('MIT')
-depends=('python-beautifulsoup4' 'python-pygments' 'python-sphinx-basic-ng')
+license=(MIT)
+depends=(
+  python-beautifulsoup4
+  python-pygments
+  python-sphinx-basic-ng
+)
 makedepends=(
-  'expac'
-  'git'
-  'nodejs-lts-iron'
-  'npm'
-  'python-build'
-  'python-flit-core'
-  'python-installer'
-  'python-sphinx-theme-builder'
+  expac
+  git
+  nodejs-lts-iron
+  npm
+  python-build
+  python-flit-core
+  python-installer
+  python-sphinx-theme-builder
 )
 source=("git+$url.git#tag=$pkgver?signed")
-b2sums=('faef7ab89011e23f3a3151f3c45bb0404e362af80785a9a985c7db1db953f104a78cb3b2fadb1e543ab7cc71c5f081c07cac9ee83b5f9074f7a8277b6d6767a8')
-validpgpkeys=('E2FEFA4CA4BDD28171DB00F3FF99710C4332258E') # Pradyun Gedam (GitHub July 2020 Key) <pradyunsg@users.noreply.github.com>
+b2sums=('6c86421e8e2a0c8534d71a68c70c37d41f46930f62e29cb5240afce9db5fb6d63ebf02485084b7dbfad489166877681b5d51e4e663babcfd2f940bb08ec93245')
+validpgpkeys=(E2FEFA4CA4BDD28171DB00F3FF99710C4332258E) # Pradyun Gedam (GitHub July 2020 Key) <pradyunsg@users.noreply.github.com>
 
 prepare() {
   cd $_pkgname
