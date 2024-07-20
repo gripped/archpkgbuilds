@@ -1,0 +1,22 @@
+pkgbase = zsnes
+	pkgdesc = Super Nintendo emulator
+	pkgver = 2.0.12
+	pkgrel = 2
+	url = https://github.com/xyproto/zsnes
+	arch = x86_64
+	license = GPL-2.0-only
+	makedepends = git
+	makedepends = mesa
+	makedepends = nasm
+	makedepends = setconf
+	depends = lib32-libpng
+	depends = lib32-opengl-driver
+	depends = lib32-sdl
+	depends = lib32-sdl12-compat
+	optdepends = lib32-alsa-lib: sound support for ALSA
+	optdepends = lib32-pipewire: sound support for Pipewire
+	optdepends = lib32-libpulse: sound support for Pulse Audio
+	source = git+https://github.com/xyproto/zsnes#commit=fb8713efa2807dc56b0e3e88bbb09a62ca22bcfb
+	b2sums = 1ff139d259e914d03bb224fc1d91d2c6c9decbb6d0fbf09e7d014b243352570ef402d87b1a590697f1af49281a41b31946d2a56506124bf20aa5d1d561fe3314
+
+pkgname = zsnes
