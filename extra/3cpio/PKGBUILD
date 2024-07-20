@@ -2,7 +2,7 @@
 
 pkgname=3cpio
 pkgver=0.2.0
-pkgrel=2
+pkgrel=4
 pkgdesc='Manage Linux kernel initramfs cpio files written in Rust'
 arch=('x86_64')
 url='https://github.com/bdrung/3cpio'
@@ -15,8 +15,21 @@ optdepends=('bzip2: Support for bzip2 compressed initramfs image'
             'xz: Support for lzma or xz compressed initramfs image'
             'zstd: Support for zstd compressed initramfs image'
 )
-source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-b2sums=('454a4e5a9b689088a590515479ba21e4d72c0edd41b2ddd207ec0bc99ca6dde06664168e2a4f59f3609c68c10a7f0e4585820c4aeb7f5dcb1c174f38189c3387')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz"
+         fix-xattrs.patch::$url/pull/6/commits/7d8098a0eb60c2751a5994246cb9a0b53968bc22.patch
+         add-integration-test.patch::$url/commit/e6364f443420e64779e0c32a14088ac2ba2f1aae.patch
+         symlink-preserve.patch::$url/commit/b0129c635f1276971aacca56c0dd10caf9931015.patch)
+b2sums=('454a4e5a9b689088a590515479ba21e4d72c0edd41b2ddd207ec0bc99ca6dde06664168e2a4f59f3609c68c10a7f0e4585820c4aeb7f5dcb1c174f38189c3387'
+        '42cdf809a3afde98e47964d56a12f550dce3e045845fd4d5ab971356994a07a22be6a9e8de72987aa1d86cc651dd67e8107e23a30ff749e3c80b9cf689b6ee56'
+        '5a4e2c68236968a77fc92ef3e09b38b55c0fa9073b4ab26d5958b1e661a9d16b3ed444e88189811e2b1c59818670b1e6b0d019ce3e4d297fd6fd87f8b657f286'
+        '5b82ca56f816d560ab2b86edc79fcc4f1e23f57ae42a7e1f41a05f03de81ab7b5aae9d1f99bf81cb1db14cefa8571f2b7f638cc42f8dbebaeaab1d57ba9e490e')
+
+prepare() {
+  cd $pkgname-$pkgver
+  patch -Np1 -i ../fix-xattrs.patch
+  patch -Np1 -i ../add-integration-test.patch
+  patch -Np1 -i ../symlink-preserve.patch
+}
 
 build() {
   cd $pkgname-$pkgver
