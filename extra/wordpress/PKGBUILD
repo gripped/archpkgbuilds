@@ -5,7 +5,7 @@
 # Contributor: Christopher Rogers <slaxemulator@gmail.com>
 
 pkgname=wordpress
-pkgver=6.5.5
+pkgver=6.6
 pkgrel=1
 pkgdesc='Blog tool and publishing platform'
 arch=(any)
@@ -18,8 +18,8 @@ optdepends=('apache: Web server'
 options=(!debug emptydirs)
 install=$pkgname.install
 source=("https://wordpress.org/$pkgname-$pkgver.tar.gz")
-sha256sums=('6c84664ea9b3211a3529d8407096b51b185571312211a2c53f394d15bcdf2dc4')
-b2sums=('e3edceb605c22b15de39459ec3e83e416324b8194974a069a026bd18e70eda5072ef47dab2c8a1a8a4e7fd81d783843d55f72f1ac9079aa8088ce72104fc6f8e')
+sha256sums=('a5f838479dd146f9173a70363515b3dc34a2e752ccf6dc544dea0b343ef25909')
+b2sums=('15ee3787067b62b28fc558b8fe5bdd95aee5693f6f0e67584051fd5dd2fdf88b461c7ef9911efe273d11070bab6e68caf37c563e2e744568f92217c06c0f53d2')
 
 package() {
   install -d "$pkgdir/usr/share/webapps"
