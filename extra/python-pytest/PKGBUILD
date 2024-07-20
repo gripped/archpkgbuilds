@@ -1,48 +1,48 @@
-# Maintainer: Felix Yan <felixonmars@archlinux.org>
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Contributor: Felix Yan <felixonmars@archlinux.org>
 # Contributor: Felix Kaiser <felix.kaiser@fxkr.net>
 
 pkgname=python-pytest
 _name=${pkgname#python-}
-pkgver=8.2.2
+pkgver=8.3.1
 pkgrel=1
 epoch=1
 pkgdesc="Simple powerful testing with Python"
-arch=('any')
-url="https://pytest.org/"
-license=('MIT')
+arch=(any)
+url=https://docs.pytest.org
+license=(MIT)
 depends=(
-  'python-iniconfig'
-  'python-packaging'
-  'python-pluggy'
+  python-iniconfig
+  python-packaging
+  python-pluggy
 )
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-setuptools-scm'
-  'python-wheel'
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-setuptools-scm
+  python-wheel
 )
 checkdepends=(
-  'python-argcomplete'
-  'python-attrs'
-  'python-hypothesis'
-  'python-pygments'
-  'python-requests'
-  'python-xmlschema'
+  python-argcomplete
+  python-attrs
+  python-hypothesis
+  python-pygments
+  python-requests
+  python-xmlschema
   # Unlisted, but actually used. Check again after a while:
-  'lsof'
-  'python-decorator'
-  'python-docutils'
-  'python-jinja'
-  'python-numpy'
-  'python-pexpect'
-  'python-pytest-xdist'
-  'python-twisted'
+  lsof
+  python-decorator
+  python-docutils
+  python-jinja
+  python-numpy
+  python-pexpect
+  python-pytest-xdist
+  python-twisted
 )
 source=("git+https://github.com/$_name-dev/$_name.git#tag=$pkgver")
-b2sums=('e56362156e3e752872c63cf8df01744b09e35a38f65a58fa44f88b824dc51186274187834ad9667a79b3b3601761fdee4e1a82e0cfd7862f35fe82802e6f57d7')
+b2sums=('2c43a9f409e70232d25a0448ce454f39669c49eb399572bb7c532babeaeb5e55c219e4c16e45120fdfd71f6257dddce7699449a39ee996dab3544d9a4d2b6050')
 
 build() {
   cd "$_name"
