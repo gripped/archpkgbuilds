@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=git-warp-time
-pkgver=0.7.7
+pkgver=0.8.0
 pkgrel=1
 pkgdesc='reset timestamps of Git repository files to the time of the last modifying commit'
 arch=(x86_64)
@@ -13,9 +13,10 @@ depends=(gcc-libs # libgcc_s.so
 makedepends=(cargo
              git
              jq)
+options=(!lto)
 _archive="$pkgname-$pkgver"
 source=("$url/releases/download/v$pkgver/$_archive.tar.zst"{,.asc})
-sha256sums=('f83747671235113d0140a27e622ba1cb42590bec9de868851903a66148ed961b'
+sha256sums=('27e5ab9209d0e010b04b4b75ee07977e573d92c5f7753ca4d32af2497a94c5df'
             'SKIP')
 validpgpkeys=('9F377DDB6D3153A48EB3EB1E63CC496475267693') # Caleb Maclennan <caleb@alerque.com> (@alerque)
 
@@ -27,7 +28,8 @@ prepare() {
 build() {
 	cd "$_archive"
 	export CARGO_FEATURE_FLAGS==--offline
-	CFLAGS+=' -ffat-lto-objects'
+	export LIBGIT2_NO_VENDOR=1
+	export LIBGIT2_SYS_USE_PKG_CONFIG=1
 	./configure --prefix /usr --enable-shared
 	make
 }

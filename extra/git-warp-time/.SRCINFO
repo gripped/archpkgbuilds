@@ -1,6 +1,6 @@
 pkgbase = git-warp-time
 	pkgdesc = reset timestamps of Git repository files to the time of the last modifying commit
-	pkgver = 0.7.7
+	pkgver = 0.8.0
 	pkgrel = 1
 	url = https://github.com/alerque/git-warp-time
 	arch = x86_64
@@ -11,10 +11,11 @@ pkgbase = git-warp-time
 	depends = gcc-libs
 	depends = glibc
 	depends = libgit2
-	source = https://github.com/alerque/git-warp-time/releases/download/v0.7.7/git-warp-time-0.7.7.tar.zst
-	source = https://github.com/alerque/git-warp-time/releases/download/v0.7.7/git-warp-time-0.7.7.tar.zst.asc
+	options = !lto
+	source = https://github.com/alerque/git-warp-time/releases/download/v0.8.0/git-warp-time-0.8.0.tar.zst
+	source = https://github.com/alerque/git-warp-time/releases/download/v0.8.0/git-warp-time-0.8.0.tar.zst.asc
 	validpgpkeys = 9F377DDB6D3153A48EB3EB1E63CC496475267693
-	sha256sums = f83747671235113d0140a27e622ba1cb42590bec9de868851903a66148ed961b
+	sha256sums = 27e5ab9209d0e010b04b4b75ee07977e573d92c5f7753ca4d32af2497a94c5df
 	sha256sums = SKIP
 
 pkgname = git-warp-time
