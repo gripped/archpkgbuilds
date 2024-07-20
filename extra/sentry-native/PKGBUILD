@@ -3,7 +3,7 @@
 
 pkgname=sentry-native
 pkgver=0.7.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Sentry SDK for C, C++ and native applications"
 arch=(x86_64)
 url="https://github.com/getsentry/sentry-native"
@@ -57,7 +57,7 @@ prepare() {
   git submodule init
   git config submodule.third_party/mini_chromium/mini_chromium.url "$srcdir/mini_chromium"
   git config submodule.third_party/zlib/zlib.url "$srcdir/zlib"
-  git config submoduel.third_party/lss/lss.url "$srcdir/linux-syscall-support"
+  git config submodule.third_party/lss/lss.url "$srcdir/linux-syscall-support"
   git -c protocol.file.allow=always submodule update
 }
 
@@ -76,10 +76,6 @@ check() {
 
   # Deselect failing tests - unsure why they fail.
   pytest \
-    --deselect 'tests/test_unit.py::test_unit[build_id_parser]' \
-    --deselect 'tests/test_unit.py::test_unit[fuzz_json]' \
-    --deselect 'tests/test_unit.py::test_unit_transport[build_id_parser]' \
-    --deselect 'tests/test_unit.py::test_unit_transport[fuzz_json]' \
     --ignore external/crashpad/snapshot/win \
     --ignore external/crashpad/test/win
 }
