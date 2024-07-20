@@ -8,8 +8,8 @@ pkgname=(
   audacity
   audacity-docs
 )
-pkgver=3.5.1
-pkgrel=3
+pkgver=3.6.0
+pkgrel=1
 epoch=1
 pkgdesc="A program that lets you manipulate digital audio waveforms"
 arch=(x86_64)
@@ -62,24 +62,19 @@ makedepends=(
 source=(
   https://github.com/audacity/audacity/archive/refs/tags/$_name-$pkgver.tar.gz
   https://github.com/$pkgbase/$pkgbase/releases/download/$_name-$pkgver/$pkgbase-manual-$pkgver.tar.gz
-  audacity-3_5_1-fix-scroll.patch::https://github.com/audacity/audacity/commit/0a2326e404446ef89317d9a0cbb3a64ad24963c9.patch
   audacity_3_4_2_enable_tests_without_conan.patch
 )
-sha512sums=('053a4b81b0f61e6a3070e8517e9faac47b1597afb81c6a0d993006905dca0cd605e6a40833e85386b24d4957194d6903f025a984b624446957207c7cfde8211e'
-            '39f14c23d9ea259ba3a1db2a5fd9c98b41148db86f7803cb132be33bdcc171fc8e45cf49f66d98c65ca2a173154fc1c116bfeeb5fc1ba31690dc96c30ea2b601'
-            '857ef88ff183ed4bf7dbdf55692fcc69262a9d12c7f47872ec979815d0b2f9c9ce6dad432acde95c0a583f1435f54a86f592b0b0d9963a648a45ccb89d913efa'
+sha512sums=('05d3fd88009408bce19711aeb43c7783360cc9e0f32c4e5acaf3ccd0046f4024757390d6ebce68d1d214794b78f434aec7537e467152a977386cfbde46514731'
+            'a17fa0c0ec4b359f003738864ce9545e056bd1fc4c50260644adf74f2b5ef5843ffe86be02adcc6767bd3e14210d70fbae86199b20eae34b891408d7d610a5f0'
             'ab92475e599fd4345d33a7ae6cd47231ab614b92ca9a71e732a073b31ec18ad92f3d1384183b0821e75b4ba1bb4987c5369c1398604d6c4ea01a20f94fb7b976')
-b2sums=('fddc01938e137a639eb0b27889f279706cfd0e257f720084a3e2f818cd2e678dda65a28937cc44846ab15b0095ed30bddf5b75be3f254533870303ee830c7683'
-        '7f1cf4c3e7bb30e307c3029984813f96d00dbab8afb32491777dc8fa3ec2de6b9c59273e98db3c9b232ec5363277589ae890fc2c78555f463f1ba24031558baa'
-        '61e92b075c623238272400f8f2483aed020cf10a366a0bc916d4420fbaa577874cd70ac40006dff460f1a2c0b1c0ef527057bbfa8fb3c22970c3d3dbc33fe8a0'
+b2sums=('550f4af44a82043a4fa0f0f839df7e7f1bc42764e7b9ddf484484e2fa209f7a77c2ce46f8c9a6dad1a259bcb27fd32f0c1b2ce46299e5460b3740d20b84c6607'
+        'd215d10d03786020e845457e34ebe18ec1c0b5c16cea72ffe4282ec5fd1f35f95b29b7b044c17bf78915992c46f059d175af3879da07ddcf350c9208012dfc0f'
         '0c176336ca8df12f443e6935e8293afa3408e0e7b6a290417007bbbc0500c8eb8716ae3265665a80d85d689f9b369e5edf7986e8507288af77e8eea4ebedd624')
 
 prepare() {
     cd "$pkgname-$_name-$pkgver"
     # https://github.com/audacity/audacity/discussions/5841#discussioncomment-8138725
     patch --forward --strip=1 --input="${srcdir}/audacity_3_4_2_enable_tests_without_conan.patch"
-    # https://gitlab.archlinux.org/archlinux/packaging/packages/audacity/-/issues/3
-    patch --forward --strip=1 --input="${srcdir}/audacity-3_5_1-fix-scroll.patch"
 }
 
 build() {
