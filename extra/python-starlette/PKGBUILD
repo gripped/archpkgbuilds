@@ -4,8 +4,8 @@
 
 _name=starlette
 pkgname=python-$_name
-pkgver=0.37.2
-pkgrel=5
+pkgver=0.38.0
+pkgrel=1
 pkgdesc='The little ASGI framework that shines'
 arch=(any)
 url="https://github.com/encode/starlette"
@@ -44,8 +44,14 @@ optdepends=(
   'python-httpx: for test client'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('27240c706553e610da05cfc92f818c61e97a891ea7c960fef925a122100a61931cbca973a0995aa1e79d192cda2250139f471929a3f4a7b0f4600d00b6287744')
-b2sums=('489fe0d3148f8f006d32d3e52e82cc2c07d9b1a8e3a3cadabe2aa2eb9dd7e00b35e2093dc1de0cb4a6a4606395ed4d19b26778686216a7f8b55a15e61701c9da')
+sha512sums=('89b79f8e3daf1567bc69a2f1f6710a0e981a6633cd462eaa1e014e514f4dbdc98fcb592a3750a1055f08bad28908fc763267e7902479553513e96e2db566b63f')
+b2sums=('edcaa8d360f8316fc91f8e32efe778c74bad491c044e2cf5577878a27b840303b34a8f0aa0cc518165a54f28049fb9ed27af4f7e260dc6fc4fbf1f61897237e6')
+
+prepare() {
+  cd $_name-$pkgver
+  # Ignore new warnings from python-anyio 4.4.0 making check() fails
+  sed -i '/"error"/d' pyproject.toml
+}
 
 build() {
   cd $_name-$pkgver
