@@ -1,22 +1,26 @@
 pkgbase = python-pint
 	pkgdesc = A unit library for Python
-	pkgver = 0.23
-	pkgrel = 2
+	pkgver = 0.24.1
+	pkgrel = 1
 	url = https://pint.readthedocs.org
 	arch = any
 	license = BSD-3-Clause
+	checkdepends = python-numpy
+	checkdepends = python-pytest
 	checkdepends = python-pytest-benchmark
 	checkdepends = python-pytest-subtests
-	checkdepends = python-numpy
 	checkdepends = python-uncertainties
-	checkdepends = python-pytest7
-	makedepends = python-setuptools-scm
-	makedepends = python-setuptools
-	makedepends = python-wheel
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-setuptools-scm
+	makedepends = python-wheel
 	depends = python
-	source = https://pypi.io/packages/source/P/Pint/Pint-0.23.tar.gz
-	sha512sums = 80abfedab0c2b959c84958ad731a8e03469991b7a3970d99e344b513237b96c764098cdfe9e11f94c4208667fd965bd1cc043d820450d45cbb6a914ee1742ac6
+	depends = python-appdirs
+	depends = python-flexcache
+	depends = python-flexparser
+	source = git+https://github.com/hgrecco/pint.git#tag=0.24.1
+	sha512sums = d203de50de7a3115bc51ad0fb8540313ac87b15493cf956a13c90c991e8c310e38ac808e9eea9a07f15d3cd34537b069ca112966e4f348e864107b65ddf8bed8
 
 pkgname = python-pint
