@@ -2,17 +2,26 @@
 
 pkgname=python-sphinxcontrib-qthelp
 _name=${pkgname#python-}
-pkgver=1.0.7
-pkgrel=3
+pkgver=1.0.8
+pkgrel=1
 pkgdesc='Sphinx extension which outputs QtHelp document'
-arch=('any')
+arch=(any)
 url=https://github.com/sphinx-doc/sphinxcontrib-qthelp
-license=('BSD-2-Clause')
-depends=('python')
-makedepends=('git' 'python-build' 'python-flit-core' 'python-installer')
-checkdepends=('python-pytest' 'python-sphinx')
+license=(BSD-2-Clause)
+depends=(python)
+makedepends=(
+  git
+  python-build
+  python-flit-core
+  python-installer
+)
+checkdepends=(
+  python-defusedxml
+  python-pytest
+  python-sphinx
+)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('0bb18d9323c175bfdf7ec34d62e5638c7c9bb0c42ccb4cda78bd03eb898d188ca150e16ba5cc09e82bf2731a797e73c065c90bc5cde70a119ba26fd23a272a26')
+b2sums=('d461e81d0530b23e772b84d5935effdc04e0b90191e82e7b9be5942557aeddff364cbc55ef993c66ff07420ef32f76b925cf14db67a91eececb85bc7b4a5c4c5')
 
 build() {
   cd "$_name"
