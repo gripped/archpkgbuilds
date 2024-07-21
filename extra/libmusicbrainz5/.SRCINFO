@@ -1,0 +1,20 @@
+pkgbase = libmusicbrainz5
+	pkgdesc = Library That Provides Access to the MusicBrainz Server
+	pkgver = 5.1.0
+	pkgrel = 6
+	url = https://musicbrainz.org/doc/libmusicbrainz
+	arch = x86_64
+	license = LGPL-2.1-only
+	makedepends = cmake
+	makedepends = ninja
+	depends = neon
+	depends = libxml2
+	provides = libmusicbrainz5.so
+	source = https://github.com/metabrainz/libmusicbrainz/releases/download/release-5.1.0/libmusicbrainz-5.1.0.tar.gz
+	source = 16.patch
+	source = 19.patch
+	sha256sums = 6749259e89bbb273f3f5ad7acdffb7c47a2cf8fcaeab4c4695484cef5f4c6b46
+	sha256sums = 5ad7e45b191cceca3bb71c92adb6c767ae8079bf2814354341fae829d4328ae9
+	sha256sums = c8defc41681b1ba7c93af93f73207bf1666c78e98d22a1a5f16c9e20b947f787
+
+pkgname = libmusicbrainz5
