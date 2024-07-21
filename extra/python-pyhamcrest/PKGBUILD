@@ -1,18 +1,18 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=python-pyhamcrest
-pkgver=2.0.4
-_commit=89658b01ae5e6e6be4ebd7d77c80eed1de46bd5c
-pkgrel=4
+pkgver=2.1.0
+pkgrel=1
 pkgdesc="Hamcrest framework for matcher objects"
 arch=('any')
-license=('BSD')
+license=('BSD-2-Clause')
 url="https://github.com/hamcrest/PyHamcrest"
 depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-hatch-vcs')
 checkdepends=('python-pytest')
-source=("git+https://github.com/hamcrest/PyHamcrest.git#commit=$_commit")
-sha512sums=('d1b48b4e20c8bc434e6673bba2955b77bbed76d24392f7cb553bcb3a71f37673088cac3bc8af23fae53fc22ccca31b885b6f7e2626fff6a458669ee87b0eb250')
+source=("git+https://github.com/hamcrest/PyHamcrest.git#tag=V$pkgver")
+sha512sums=('17b8d27cf3134ac854d6f757711fa317d63c6d8f365baaeaa5b16086eddc86207edcb185a61b9143a966209707cffc7aa6ef0cbe57fd7bc228428d1a19e7d57b')
 
 build() {
   cd PyHamcrest
@@ -27,5 +27,10 @@ check() {
 package() {
   cd PyHamcrest
   python -m installer -d "$pkgdir" dist/*.whl
-  install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
+
+  # Symlink license file
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  install -d "$pkgdir"/usr/share/licenses/$pkgname
+  ln -s "$site_packages"/${pkgname#python-}-$pkgver.dist-info/licenses/LICENSE.txt \
+    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
