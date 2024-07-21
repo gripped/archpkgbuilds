@@ -1,6 +1,6 @@
 pkgbase = lib32-orc
 	pkgdesc = Optimized Inner Loop Runtime Compiler (32-bit)
-	pkgver = 0.4.38
+	pkgver = 0.4.39
 	pkgrel = 1
 	url = https://gstreamer.freedesktop.org/modules/orc.html
 	arch = x86_64
@@ -9,11 +9,13 @@ pkgbase = lib32-orc
 	makedepends = gtk-doc
 	makedepends = meson
 	makedepends = valgrind
+	depends = lib32-gcc-libs
 	depends = lib32-glibc
 	depends = orc
 	provides = liborc-0.4.so
 	provides = liborc-test-0.4.so
-	source = git+https://gitlab.freedesktop.org/gstreamer/orc.git#commit=f071d3a14f28c7c5acff5ff0b5a67ecd3f785ef3
-	b2sums = SKIP
+	source = git+https://gitlab.freedesktop.org/gstreamer/orc.git?signed#tag=0.4.39
+	validpgpkeys = D637032E45B8C6585B9456565D2EEE6F6F349D7C
+	b2sums = cd93b7a29c0240d299752338f7e87569cfb4f5b7e9dfca40005d1e4c6509236ac2a499050db01d94004b7061faed5b78dd8b4f3d358ffe90fbf65964d38e5c4d
 
 pkgname = lib32-orc
