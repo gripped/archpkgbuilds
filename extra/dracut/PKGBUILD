@@ -1,7 +1,7 @@
 # Maintainer: Giancarlo Razzolini <grazzolini@archlinux.org>
 pkgname=dracut
 pkgver=103
-pkgrel=1
+pkgrel=2
 pkgdesc="An event driven initramfs infrastructure"
 arch=('x86_64')
 url="https://github.com/dracut-ng/dracut-ng"
@@ -25,6 +25,7 @@ makedepends=(
   'asciidoc'
   'bash-completion'
   'git'
+  'rust'
 )
 optdepends=(
   'binutils: --uefi option support'
@@ -84,7 +85,8 @@ build() {
     --prefix=${prefix} \
     --libdir=${prefix}/lib \
     --systemdsystemunitdir=${prefix}/lib/systemd/system \
-    --bashcompletiondir=$(pkg-config --variable=completionsdir bash-completion)
+    --bashcompletiondir=$(pkg-config --variable=completionsdir bash-completion) \
+    --enable-dracut-cpio
   make
 }
 
