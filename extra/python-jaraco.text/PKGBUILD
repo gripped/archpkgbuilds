@@ -3,7 +3,7 @@
 
 pkgname=python-jaraco.text
 # https://github.com/jaraco/jaraco.text/blob/main/NEWS.rst
-pkgver=3.12.1
+pkgver=3.14.0
 pkgrel=1
 pkgdesc='Module for text manipulation'
 arch=('any')
@@ -15,7 +15,7 @@ checkdepends=('python-pytest')
 conflicts=('python-jaraco')
 replaces=('python-jaraco')
 source=("git+https://github.com/jaraco/jaraco.text.git?signed#tag=v$pkgver")
-sha512sums=('eee45a764e118b212715e48a10f0cd30408b9a71a77c304f08c9c33cc8110b4198cad5ff29bcc935291817601ae6bbad412fc9878dfb0d2609dc8843dd066982')
+sha512sums=('6ea46cedd7ae8fb80280e3c95c58a7bdab77176ade823fce63dd656e0e3f7ef70be5f35caad747b11c34e3111b15b964516d49549f077a8a740b848265ce4ba1')
 validpgpkeys=(
   'CE380CF3044959B8F377DA03708E6CB181B4C47E' # https://github.com/jaraco.gpg
 )
