@@ -1,13 +1,14 @@
 pkgbase = urlwatch
 	pkgdesc = Tool for monitoring webpages for updates
 	pkgver = 2.28
-	pkgrel = 3
+	pkgrel = 4
 	url = https://thp.io/2008/urlwatch/
 	arch = any
 	license = BSD-3-Clause
 	checkdepends = python-docutils
 	checkdepends = python-pytesseract
 	checkdepends = python-pytest
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -26,12 +27,10 @@ pkgbase = urlwatch
 	optdepends = python-jq: for the jq filter
 	optdepends = python-jsbeautifier: for the beautify filter
 	optdepends = python-pdftotext: for the pdf2text filter
+	optdepends = python-playwright: for the browser job
 	optdepends = python-pytesseract: for the ocr filter
-	source = https://files.pythonhosted.org/packages/source/u/urlwatch/urlwatch-2.28.tar.gz
-	source = fix_css_filter.patch
-	sha256sums = 911df3abbd8923e46ec167a9657a812436caf93f7f9917cb7c95ebd73d28cce5
-	sha256sums = 3624310c7f576f7ca5935ac1088b57c3b7551d414cc147d3c850a819ac835b70
-	b2sums = 73fcff8c153db472c944d0c9406e0e98bf64299d5532486a08cb024339544f17d716a22d6f0807ba55c79af9dc7fef41fa8dc5a7fe79c831f3e9958e3ea8958e
-	b2sums = 7dd9137a882879cd0262e7a7b257d57094fe405977a4e4e90ad4050bc596c3d548780ad9c99a3cedd66430533a86470968eba25ca28702e12baba950df850008
+	source = git+https://github.com/thp/urlwatch.git#tag=2.28
+	sha256sums = f2868ba625c560b801e519d6310c1624f11382d14cd040ef1aa4234e20d5b9b8
+	b2sums = 7703127d0c4e96c31aaaf415ca16e12cac797508651fd28fa7c6eb18c2ca7e1b98a04da362c136eb520ba13a12a1bbaaa732c471e57eccdc799ad54edc1a0d87
 
 pkgname = urlwatch
