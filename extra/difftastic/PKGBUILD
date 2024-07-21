@@ -4,7 +4,7 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=difftastic
-pkgver=0.58.0
+pkgver=0.59.0
 pkgrel=1
 pkgdesc='An experimental diff tool that compares files based on their syntax'
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('glibc' 'gcc-libs' 'shared-mime-info')
 makedepends=('cargo' 'git' 'mdbook')
 source=("git+https://github.com/Wilfred/difftastic.git#tag=$pkgver"
         'remove-makedepends-jq.patch')
-sha256sums=('24c1648032d4f82f9ffed41905eacaea2bddf2bad2abf6600ae8ecbb8672be63'
+sha256sums=('7227938da97779afbab2b80a7565421a62ae9831c50b3403edc60e69177c5c05'
             'f72984fbbdce964f71cf7f69ed02fcdde5a0701b7cbd498bd88375476c4b918c')
 
 prepare() {
