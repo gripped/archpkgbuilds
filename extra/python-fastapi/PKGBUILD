@@ -4,7 +4,7 @@
 
 _name=fastapi
 pkgname=python-$_name
-pkgver=0.111.0
+pkgver=0.111.1
 pkgrel=1
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=(any)
@@ -52,7 +52,7 @@ checkdepends=(
   # dev depends
   python-bcrypt
   python-cryptography
-  python-jose
+  python-pyjwt
   python-passlib
 )
 optdepends=(
@@ -68,13 +68,14 @@ optdepends=(
   'uvicorn: for Uvicorn as ASGI server'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('3b613e4b2e7253fa08c09f961e69d384d2f44d07dc7f045b669c3e78f21a161715f3e9a0cb813a1c6e793f4a322160ec3eeb4eef90ba59db64bde9baaa539c13')
-b2sums=('39bd63a5db723e5a79c45e0f4e969c3dc0ba65b43540a2e12be0cb30bd629fa6c293da6645fe29599527f3773544df9f93c18a08d51d6003fb7f501139d3c26d')
+sha512sums=('5a20171199e9664a9c649f580ac49ebffa436936254598a41023b67ca5b05444d40fa3f464d0a9541ae3ef6164ac94ac20e4379bbfee8d750454daa86bd9c7c4')
+b2sums=('0cfc49c24b9492266b961d42a8cead0682744b8ebb94e31ad25373a717c758e2941f67804ec514a9cfd2c5e2b9ed402c2e6545a870c0b6f2d57d4e0fad664c2d')
 
 prepare() {
   cd $_name-$pkgver
   # do not pin starlette dependency
   sed -i 's|starlette.*"|starlette"|' pyproject.toml
+  sed -i '/"error"/d' pyproject.toml
 }
 
 build() {
