@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=git-warp-time
-pkgver=0.8.0
+pkgver=0.8.3
 pkgrel=1
 pkgdesc='reset timestamps of Git repository files to the time of the last modifying commit'
 arch=(x86_64)
@@ -16,7 +16,7 @@ makedepends=(cargo
 options=(!lto)
 _archive="$pkgname-$pkgver"
 source=("$url/releases/download/v$pkgver/$_archive.tar.zst"{,.asc})
-sha256sums=('27e5ab9209d0e010b04b4b75ee07977e573d92c5f7753ca4d32af2497a94c5df'
+sha256sums=('2db38b2fa0513b8f49dcb37004fc1ed9d482e005e0ea438d1fda368afcb21437'
             'SKIP')
 validpgpkeys=('9F377DDB6D3153A48EB3EB1E63CC496475267693') # Caleb Maclennan <caleb@alerque.com> (@alerque)
 
@@ -30,7 +30,7 @@ build() {
 	export CARGO_FEATURE_FLAGS==--offline
 	export LIBGIT2_NO_VENDOR=1
 	export LIBGIT2_SYS_USE_PKG_CONFIG=1
-	./configure --prefix /usr --enable-shared
+	./configure --prefix /usr
 	make
 }
 
