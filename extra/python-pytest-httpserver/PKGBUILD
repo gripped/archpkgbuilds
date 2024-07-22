@@ -3,8 +3,8 @@
 
 _name=pytest-httpserver
 pkgname=python-pytest-httpserver
-pkgver=1.0.10
-pkgrel=2
+pkgver=1.0.12
+pkgrel=1
 pkgdesc="Http server for pytest to test http clients"
 arch=(any)
 url="https://github.com/csernazs/pytest-httpserver"
@@ -26,8 +26,8 @@ checkdepends=(
   python-requests
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha256sums=('dc9e22b54184a9683a57eb18527dae4411fed3c5b421c52521043c192d058c9b')
-b2sums=('061d3cf3745ee2951a8f5642d2c3761d80be885f908745d6b9243e8d59049c48cf9ee7196f7e043e17e41d09cbfaaedddf2bcdfb27eb4eceb83d446ed5dd570b')
+sha256sums=('a265290e659458bd187952fd8f3ce66520ca08146a0ce062bc390d18bc5e3174')
+b2sums=('1cb1ead1988cca6804ca2e13129af4a9b87cb0df0ac77a373163fd96a9f4d4ccd2f372483a38f6327fef4aac4d00667a45b3af5e92d7ea122e1690c30fc21b2e')
 
 build() {
   cd $_name-$pkgver
