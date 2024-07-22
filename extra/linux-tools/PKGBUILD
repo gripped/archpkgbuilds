@@ -13,8 +13,8 @@ pkgname=(
   'usbip'
   'x86_energy_perf_policy'
 )
-pkgver=6.9
-pkgrel=2
+pkgver=6.10
+pkgrel=1
 license=('GPL-2.0-only')
 arch=('x86_64')
 url='https://www.kernel.org'
@@ -45,7 +45,6 @@ source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git#
         'cpupower.systemd'
         'cpupower.service'
         'usbipd.service'
-        'hv_fcopy_daemon.service'
         'hv_kvp_daemon.service'
         'hv_vss_daemon.service'
 )
@@ -53,12 +52,11 @@ validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
 )
-sha256sums=('0ac1ad026d8eba3a745239e50259b8c4b78892b3c30d742cb1ed5b6988512519'
+sha256sums=('e7ef67dfdf83e23ca49bb679dd32782c6d06088696bfa3b3a626705f51635d29'
             '4fa509949d6863d001075fa3e8671eff2599c046d20c98bb4a70778595cd1c3f'
             'b692f4859ed3fd9831a058a450a84d8c409bf7e3e45aac1c2896a14bb83f3d7a'
             '42d2ec9f1d9cc255ee7945a27301478364ef482f5a6ddfc960189f03725ccec2'
             '2e187734d8aec58a3046d79883510d779aa93fb3ab20bd3132c1a607ebe5498f'
-            '16855c197d2334f820cb190312a5a7fffe9165189db01344a957e582e39e17d8'
             'b1315cb77a35454e1af9172f821a52e2a0cb18561be05a340d21cf337b01ae61'
             '2d5e2f8d40b6f19bf2e1dead57ca105d72098fb0b418c09ff2e0cb91089710af')
 
@@ -128,7 +126,7 @@ build() {
 
   echo ':: hv'
   pushd linux/tools/hv
-  CFLAGS+=' -DKVP_SCRIPTS_PATH=\"/usr/lib/hyperv/kvp_scripts/\"' make
+  CFLAGS+=' -DKVP_SCRIPTS_PATH=\"/usr/lib/hypervkvpd/\"' make
   popd
 
   echo ':: bpf'
@@ -261,11 +259,10 @@ package_hyperv() {
   depends=('glibc')
 
   cd linux/tools/hv
-  for _p in hv_fcopy_daemon hv_kvp_daemon hv_vss_daemon; do
-    install -Dm755 "$_p" "$pkgdir/usr/bin/$_p"
+  make install DESTDIR="$pkgdir" sbindir=/usr/bin libexecdir=/usr/lib
+  for _p in hv_kvp_daemon hv_vss_daemon; do
     install -Dm644 "$srcdir/$_p.service" "$pkgdir/usr/lib/systemd/system/$_p.service"
   done
-  install -dm755 "$pkgdir/usr/lib/hyperv/kvp_scripts"
 }
 
 package_bpf() {
