@@ -1,9 +1,9 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=egl-wayland
-pkgver=1.1.14
+pkgver=1.1.13
 pkgrel=1
-epoch=2
+epoch=3
 pkgdesc="EGLStream-based Wayland external platform"
 url="https://github.com/NVIDIA/egl-wayland"
 arch=(x86_64)
@@ -25,7 +25,7 @@ source=(
   "git+$url#tag=$pkgver"
   10_nvidia_wayland.json
 )
-b2sums=('0f2a1a7dbdc6428122c15421187cfbbc938355a4c0b74a370af0c76e0dd638841aa055c6c93df72b02826e41f4ddd3cf5a2cbd7b779d12740650d5b31adf6c20'
+b2sums=('4e5d9711836e04b42854a8c47f2b9fde02df25b95d50e878c9b7171f51c7484d39db26b50c8f205e8a57a2a245978632d53e5260a7438bcea98f1f689076b639'
         'b10206c742e8966d1192b9b0604137e6b296d2be74a437841c63844c0716343578b11565a34fb4c534d5908c0b5775305581b68039a6ff9ed7421c9d385a2b7a')
 
 prepare() {
