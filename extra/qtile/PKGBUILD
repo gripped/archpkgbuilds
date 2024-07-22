@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=qtile
-pkgver=0.26.0
-pkgrel=3
+pkgver=0.27.0
+pkgrel=1
 pkgdesc="A full-featured, pure-Python tiling window manager"
 arch=(x86_64)
 url="http://www.qtile.org"
@@ -74,8 +74,8 @@ optdepends=(
 )
 install=$pkgname.install
 source=("git+$_url?signed#tag=v$pkgver")
-sha512sums=('a57ad598203c1fbfe56130ceefb06d9223c99f4fc240fc05d2e3cf56b5f188fb6da27290d0b546f6c42ffcd541c14d398d80266d09f2f95a30e807c31066cbbc')
-b2sums=('721f7ce98fd526541939ededadba0666d9f7b7683c2f62f71039de5d83a9e79aedbca3a3531adcacb8ce5ff2e28d81b08169bbf71ba7e9ba9b7a2455a1a107a5')
+sha512sums=('ecf425956b26a510e7c5bc8df47a71896ff8a8dd56214f702a3a02fdb522f7b816db09db2c6c1e58dd3f2f1b89ceeb17161972015c3dcd1fa36358ae28d59adb')
+b2sums=('0a4324827151a5a6255a4d367673f98f463d6ebe8baf04d80697685acdc6d28e578bda5c65f6a630c201bbd0cd6234c1f903951979028c3d87364f77a5f96ded')
 validpgpkeys=(
   '3CCAB226289DE0160C61BDB418D18F1BC464DCA3' # Tycho Andersen <tycho@tycho.pizza>
   '35D92E7CC7357A81173EA1C974F9FDD20984FBEC' # Matt Colligan <mcol@posteo.net>
@@ -125,7 +125,7 @@ check() {
 
 package() {
   depends+=(
-    wlroots0.17 libwlroots.so=12
+    wlroots0.17 libwlroots.so
   )
   cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
