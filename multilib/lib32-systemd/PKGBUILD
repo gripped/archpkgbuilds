@@ -2,7 +2,7 @@
 
 pkgname=lib32-systemd
 _pkgbasename=systemd
-_tag='256.2'
+_tag='256.3'
 # Upstream versioning is incompatible with pacman's version comparisons, one
 # way or another. So we replace dashes and tildes with the empty string to
 # make sure pacman's version comparing does the right thing for rc versions:
@@ -25,7 +25,7 @@ validpgpkeys=('63CDA1E5D3FC22B998D20DD6327F26951A015CC4'  # Lennart Poettering <
               '9A774DB5DB996C154EBBFBFDA0099A18E29326E1'  # Yu Watanabe <watanabe.yu+github@gmail.com>
               '5C251B5FC54EB2F80F407AAAC54CA336CFEB557E') # Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
 source=("git+https://github.com/systemd/systemd#tag=v${_tag}?signed")
-sha512sums=('7440e619af100458ccd54ab1aafdaa339f473c226b6f7d9ceca35716ad30e9ed112ae8e2230116b2104e88171d92309ad78780f4f02d5f9f59c0e7fce15606c9')
+sha512sums=('1fa1b927cad466c2c04dfa317904e5b337e562cd32438110374db5c06235e75ae23705c7ec01fea95b451888969a8898630f21bc3cb0b5396cc375af92ff3263')
 
 _backports=(
 )
