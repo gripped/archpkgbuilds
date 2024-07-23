@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=turbo
-pkgver=2.0.8
+pkgver=2.0.9
 pkgrel=1
 pkgdesc="Incremental bundler and build system optimized for JavaScript and TypeScript"
 url='https://turbo.build/'
@@ -20,9 +20,9 @@ makedepends=(
 options=(!lto)
 source=(https://github.com/vercel/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         enable-lazy_cell.patch)
-sha256sums=('d20a558e1feec5d776b0a47edbdb9838fcb4b32084f735e61f419e8a096345b9'
+sha256sums=('752a5c04da35dc9d6af8bcd81402d0965b2b8c690d9ed3f96bf525b6a9f0b94e'
             'a4ab6cbb148edd5b095df33e8ecf05997c8b5f885ff97492f8e2ef0c2ff2f3c8')
-b2sums=('159ee86662587c90c52932f974d97ac858b3215f0020e646793d5e7a92ee1e1b4a546dd4529abbc341a05544e91fd83a922d889d62fb8834c181a6f6bd04bfab'
+b2sums=('bce2e9a2a815d58c1068917c424f402352241b3a033bd611af455e753bc4034c65b50436bdbda31bc69e3cc6629c59d8edbe514986eb29919d2e6e28bfce2f8c'
         '72f51c7d9fa3fff4cd39c97b3886bd3adb4e100ceb1a0cdf7e1583d9ff467bf32e2cae57d057e498aa65a06bea13678985d77ce279e618054ea8040b660ad153')
 
 prepare() {
