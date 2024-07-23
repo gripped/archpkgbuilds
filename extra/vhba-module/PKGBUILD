@@ -9,7 +9,7 @@ pkgname=(
   vhba-module-dkms
 )
 pkgver=20240202
-pkgrel=33
+pkgrel=35
 pkgdesc="Kernel module that emulates SCSI devices"
 url="https://cdemu.sourceforge.io/"
 arch=(x86_64)
@@ -41,8 +41,8 @@ package_vhba-module() {
   local extradir="/usr/lib/modules/$(</usr/src/linux/version)/extramodules"
   install -Dt "$pkgdir$extradir" -m644 cdemu-code/$pkgbase/*.ko
 
-  find "$pkgdir" -name '*.ko' -exec strip --strip-debug {} +
-  find "$pkgdir" -name '*.ko' -exec xz {} +
+  # compress kernel modules
+  find "${pkgdir}" -name '*.ko' -exec zstd --rm -19 {} +
 }
 
 package_vhba-module-dkms() {
