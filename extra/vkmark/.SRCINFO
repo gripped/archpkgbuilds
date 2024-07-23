@@ -1,0 +1,24 @@
+pkgbase = vkmark
+	pkgdesc = Vulkan benchmark
+	pkgver = 20230412
+	pkgrel = 1
+	url = https://github.com/vkmark/vkmark
+	arch = x86_64
+	license = LGPL
+	makedepends = git
+	makedepends = vulkan-headers
+	makedepends = meson
+	makedepends = ninja
+	makedepends = wayland-protocols
+	makedepends = glm
+	makedepends = xcb-util-wm
+	makedepends = xorgproto
+	makedepends = wayland
+	depends = vulkan-icd-loader
+	depends = assimp
+	optdepends = xcb-util-wm: for X11 support
+	optdepends = wayland: for Wayland support
+	source = git+https://github.com/vkmark/vkmark.git#commit=ab6e6f3
+	sha256sums = e3a97e56b54398c7204951b30877e24a65c7a8de4eecbb21de9b1d975b10a0ee
+
+pkgname = vkmark
