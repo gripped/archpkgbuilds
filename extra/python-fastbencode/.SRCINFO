@@ -1,17 +1,18 @@
 pkgbase = python-fastbencode
 	pkgdesc = Implementation of bencode with optional fast C extensions
-	pkgver = 0.2
-	pkgrel = 3
+	pkgver = 0.3.1
+	pkgrel = 1
 	url = https://github.com/breezy-team/fastbencode
 	arch = x86_64
-	license = GPL2
+	license = GPL-2.0-or-later
+	makedepends = cython
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = cython
 	makedepends = python-setuptools
 	makedepends = python-wheel
+	depends = glibc
 	depends = python
-	source = https://pypi.io/packages/source/f/fastbencode/fastbencode-0.2.tar.gz
-	sha256sums = 578eb9c4700d6705d71fbc8d7d57bca2cd987eca2cec1d9e77b9e0702db1e56f
+	source = python-fastbencode-0.3.1.tar.gz::https://github.com/breezy-team/fastbencode/archive/v0.3.1.tar.gz
+	sha256sums = 103c93fe84db0c7088de4e2944c70e619d674e8fe55161130aeb1492eec679f9
 
 pkgname = python-fastbencode
