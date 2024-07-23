@@ -3,7 +3,7 @@
 
 _srcname=SPIRV-LLVM-Translator
 pkgname=${_srcname,,}
-pkgver=18.1.1.r1+g3e602b45
+pkgver=18.1.2
 pkgrel=1
 pkgdesc="Tool and a library for bi-directional translation between SPIR-V and LLVM IR"
 arch=(x86_64)
@@ -18,8 +18,7 @@ source=(git+${url}.git#commit=$_commit)
 sha256sums=('53fe1e4e55f319d22baab551ce2ced9329579c4d3cd80fe64b2dea28638778f2')
 
 pkgver() {
-  cd ${_srcname}
-  git describe --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./;s/-/+/'
+  git -C ${_srcname} describe --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./;s/-/+/'
 }
 
 build() {
@@ -43,6 +42,5 @@ check() {
 
 package() {
   DESTDIR="${pkgdir}" cmake --install build
-  install -Dm755 build/tools/llvm-spirv/llvm-spirv -t "${pkgdir}"/usr/bin
   install -Dm644 ${_srcname}/LICENSE.TXT -t "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
