@@ -1,7 +1,7 @@
 pkgbase = dbus-broker
 	pkgdesc = Linux D-Bus Message Broker
 	pkgver = 36
-	pkgrel = 2
+	pkgrel = 4
 	url = https://github.com/bus1/dbus-broker/wiki
 	arch = x86_64
 	license = Apache-2.0
@@ -39,3 +39,8 @@ pkgname = dbus-broker-units
 	depends = dbus-broker
 	provides = dbus-units
 	conflicts = dbus-daemon-units
+
+pkgname = dbus-units
+	pkgdesc = D-Bus service units (default provider)
+	license = CC0-1.0
+	depends = dbus-broker-units
