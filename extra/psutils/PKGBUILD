@@ -5,7 +5,7 @@
  
 pkgname=psutils
 _pyname=pspdfutils
-pkgver=3.3.2
+pkgver=3.3.3
 pkgrel=2
 pkgdesc='A set of postscript utilities'
 arch=(any)
@@ -19,16 +19,23 @@ makedepends=(python-{build,installer,wheel}
              python-argparse-manpage
              python-setuptools)
 checkdepends=(ghostscript
+             'python-pypdf<4.3'
               python-pytest-datafiles
               python-wand)
 # provides=("python-$_pyname=$pkgver")
 _archive="$_pyname-$pkgver"
 source=("$url/releases/download/v$pkgver/$_archive.tar.gz")
-sha256sums=('a20a2a1359811bd0ad72e15349351a26774ddf8e355c2cde4250a70cf77fdf0c')
+sha256sums=('5403ea98d5131b01c541f22cac04af744a45a4658912e9f7db793fe95b5e6e9c')
 
 prepare() {
 	cd "$_archive"
-    sed -i -e '/pytest-datafiles/d' -e '/Wand/d' pyproject.toml
+	# unpin too-aggressively dependency pinning by just removing them,
+	# we're providing them anyway
+	sed -i \
+		-e '/pytest-datafiles/d' \
+		-e '/Wand/d' \
+		-e '/pypdf/d' \
+		pyproject.toml
 }
 
 build() {
