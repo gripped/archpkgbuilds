@@ -4,7 +4,7 @@
 
 pkgname=iproute2
 pkgver=6.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc='IP Routing Utilities'
 arch=('x86_64')
 license=('GPL2')
@@ -14,12 +14,11 @@ depends=('glibc'
          'libcap' 'libcap.so'
          'libelf'
          'libbpf' 'libbpf.so')
-makedepends=('db5.3')
+makedepends=('db5.3' 'linux-atm' 'iptables')
 optdepends=('db5.3: userspace arp daemon'
             'linux-atm: ATM support'
             'python: for routel')
 provides=('iproute')
-makedepends=('linux-atm' 'iptables')
 options=('staticlibs')
 validpgpkeys=('9F6FC345B05BE7E766B83C8F80A77F6095CDE47E') # Stephen Hemminger
 source=("https://www.kernel.org/pub/linux/utils/net/${pkgname}/${pkgname}-${pkgver}.tar."{xz,sign}
@@ -57,8 +56,4 @@ package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
   make DESTDIR="${pkgdir}" SBINDIR="/usr/bin" install
-
-  # libnetlink isn't installed, install it FS#19385
-  install -Dm0644 include/libnetlink.h "${pkgdir}/usr/include/libnetlink.h"
-  install -Dm0644 lib/libnetlink.a "${pkgdir}/usr/lib/libnetlink.a"
 }
