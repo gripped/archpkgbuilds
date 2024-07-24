@@ -1,0 +1,36 @@
+pkgbase = gnome-recipes
+	pkgdesc = Recipe management application for GNOME
+	pkgver = 2.0.4
+	pkgrel = 7
+	url = https://wiki.gnome.org/Apps/Recipes
+	arch = x86_64
+	groups = gnome-extra
+	license = GPL-3.0-or-later
+	makedepends = git
+	makedepends = glib2-devel
+	makedepends = itstool
+	makedepends = meson
+	depends = cairo
+	depends = dconf
+	depends = gcc-libs
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
+	depends = gnome-autoar
+	depends = gspell
+	depends = gtk3
+	depends = hicolor-icon-theme
+	depends = json-glib
+	depends = libcanberra
+	depends = libgoa
+	depends = libsoup
+	depends = pango
+	depends = rest
+	source = git+https://gitlab.gnome.org/GNOME/recipes.git#tag=2.0.4
+	source = git+https://gitlab.gnome.org/GNOME/libgd.git
+	source = gnome-recipes-window-icon.patch
+	b2sums = 73f026063407e0d9b679a52bd8611efe6e859ce413e47f0856c446d5ca392bf57ade01fc09d8f499b4bc64a58beea2ab603bd8e55c29d91f9fefddfa686d66ab
+	b2sums = SKIP
+	b2sums = a27657cbd825ba594c1376fa04a84328820217c007d57a2cda8a88f2de793f7a4fc45b5559583a4868f85940f09b42ebed7d67e6d4e2fb1e9143c88747881ce0
+
+pkgname = gnome-recipes

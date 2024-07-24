@@ -2,20 +2,67 @@
 
 pkgname=gnome-recipes
 pkgver=2.0.4
-pkgrel=5
+pkgrel=7
 pkgdesc='Recipe management application for GNOME'
-arch=('x86_64')
+arch=(x86_64)
 url='https://wiki.gnome.org/Apps/Recipes'
-license=('GPL3')
-groups=('gnome-extra')
-depends=('cairo' 'dconf' 'gcc-libs' 'gdk-pixbuf2' 'glib2' 'glibc' 'gnome-autoar' 'gspell' 'gtk3'
-         'hicolor-icon-theme' 'json-glib' 'libcanberra' 'libgoa' 'libsoup' 'pango' 'rest')
-makedepends=('itstool' 'meson')
-source=("https://download.gnome.org/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz")
-sha256sums=('b30e96985f66fe138a17189c77af44d34d0b4c859b304ebdb52033bc2cd3ffed')
+license=(GPL-3.0-or-later)
+groups=(gnome-extra)
+depends=(
+  cairo
+  dconf
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  gnome-autoar
+  gspell
+  gtk3
+  hicolor-icon-theme
+  json-glib
+  libcanberra
+  libgoa
+  libsoup
+  pango
+  rest
+)
+makedepends=(
+  git
+  glib2-devel
+  itstool
+  meson
+)
+source=(
+  "git+https://gitlab.gnome.org/GNOME/recipes.git#tag=$pkgver"
+  git+https://gitlab.gnome.org/GNOME/libgd.git
+  gnome-recipes-window-icon.patch
+)
+b2sums=(
+  73f026063407e0d9b679a52bd8611efe6e859ce413e47f0856c446d5ca392bf57ade01fc09d8f499b4bc64a58beea2ab603bd8e55c29d91f9fefddfa686d66ab
+  SKIP
+  a27657cbd825ba594c1376fa04a84328820217c007d57a2cda8a88f2de793f7a4fc45b5559583a4868f85940f09b42ebed7d67e6d4e2fb1e9143c88747881ce0
+)
+
+prepare() {
+  cd recipes
+
+  git submodule init
+  git submodule set-url subprojects/libgd "$srcdir/libgd"
+  git -c protocol.file.allow=always submodule update
+
+  # Fix build
+  git cherry-pick -n c0304675f63a33737b24fdf37e06c6b154a91a31
+
+  # Fix translations
+  git cherry-pick -n f80133c7ab317952205edd123e4d847269c8512f
+  git cherry-pick -n 85e2bd97f0f2eb723570bdac26daaebb831e52d4
+
+  # https://gitlab.gnome.org/GNOME/recipes/-/merge_requests/45
+  git apply -3 ../gnome-recipes-window-icon.patch
+}
 
 build() {
-  arch-meson $pkgname-$pkgver build
+  arch-meson recipes build
   meson compile -C build
 }
 
