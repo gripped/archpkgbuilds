@@ -1,10 +1,11 @@
 pkgbase = python-kikit
 	pkgdesc = Automation tools for KiCAD
-	pkgver = 1.5.1
-	pkgrel = 2
+	pkgver = 1.6.0
+	pkgrel = 1
 	url = https://github.com/yaqwsx/KiKit
 	arch = any
 	license = MIT
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -19,7 +20,8 @@ pkgbase = python-kikit
 	depends = python-solidpython
 	depends = python-pcbnewtransition
 	depends = python-commentjson
-	source = python-kikit-1.5.1.tar.gz::https://github.com/yaqwsx/KiKit/archive/v1.5.1.tar.gz
-	sha512sums = 1090211f1840ebb6f2f0533b3f588405b5eb007cca6d391183e0450361f55631912891c2e25768431dc4ae0e79025313752d72e00fd049ee9e48b10cf470fcac
+	source = python-kikit::git+https://github.com/yaqwsx/KiKit#tag=v1.6.0
+	sha512sums = 4ac8b8948eb31c0711e93ab7caeee684d2bfc3e258396ac73147b914b7a48a79b008c37354d5ac76284d8f4c1abb17cea3d90497b54a65281e11955c2b65b256
+	b2sums = 63a7774d546cc66547ee72273a1131a27381d0252b4a4c720ed976ac24b1188b3f14d4cc26bb1a52b12bc24e5e8980ea1b6394e9a4776ed6c5c9a06cd0aab1cd
 
 pkgname = python-kikit
