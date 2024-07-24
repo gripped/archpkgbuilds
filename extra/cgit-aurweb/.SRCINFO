@@ -1,0 +1,28 @@
+pkgbase = cgit-aurweb
+	pkgdesc = A web interface for git written in plain C (aurweb branch)
+	pkgver = 1.2.3
+	pkgrel = 4
+	url = https://git.zx2c4.com/cgit/
+	install = cgit.install
+	arch = x86_64
+	license = GPL2
+	makedepends = git
+	makedepends = zlib
+	makedepends = curl
+	makedepends = asciidoc
+	depends = openssl
+	depends = luajit
+	optdepends = groff: about page using man page syntax
+	optdepends = python-pygments: syntax highlighting support
+	optdepends = python-docutils: about page formatted with reStructuredText
+	optdepends = python-markdown: about page formatted with markdown
+	optdepends = gzip: gzip compressed snapshots
+	optdepends = bzip2: bzip2 compressed snapshots
+	optdepends = lzip: lzip compressed snapshots
+	optdepends = xz: xz compressed snapshots
+	optdepends = zstd: zstd compressed snapshots
+	optdepends = mime-types: serve file with correct content-type header
+	source = cgit-aurweb::git+https://gitlab.archlinux.org/archlinux/cgit.git#commit=cc08c9ff936a890206bc2f7560acb44147af9bb8
+	sha256sums = SKIP
+
+pkgname = cgit-aurweb
