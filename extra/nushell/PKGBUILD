@@ -5,7 +5,7 @@
 # Contributor: Bumsik Kim <k.bumsik@gmail.com>
 
 pkgname=nushell
-pkgver=0.95.0
+pkgver=0.96.0
 pkgrel=1
 pkgdesc='A new type of shell'
 arch=('x86_64')
@@ -21,7 +21,7 @@ depends=(
 makedepends=('cargo' 'git')
 install=nushell.install
 source=("git+https://github.com/nushell/nushell.git#tag=$pkgver")
-sha256sums=('694aa45e1b09070b50b708cdac1316e41b40a2f2ae8faa8a387a727725d9d102')
+sha256sums=('9a65d6e6afcf3bc60044f92b51ffa6242a3f9bd0c69c452f34d8a28b5b8c2fbb')
 
 prepare() {
   cd "$pkgname"
