@@ -2,7 +2,7 @@
 # Contributor: Marcell Pardavi <marcell.pardavi@gmail.com>
 
 pkgname=zed
-pkgver=0.144.4
+pkgver=0.145.1
 pkgrel=1
 pkgdesc='A high-performance, multiplayer code editor from the creators of Atom and Tree-sitter'
 arch=(x86_64)
@@ -37,7 +37,7 @@ optdepends=('clang: improved C/C++ language support'
 replaces=(zed-editor)
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('bc35202cc4148b66d0a2406b886d0242ae08d73d52d1e39e875f9387b745926c')
+sha256sums=('f6c063fdb0701820ac94be7e6b3753ddd0ed26758cc57543a262c7adb366dbdc')
 
 _binname=zeditor
 _appid=dev.zed.Zed
@@ -67,7 +67,7 @@ build() {
 }
 
 # Tests assume access to vulkan video drivers, Wayland window creation,
-# detecting system keymaps, etc. Until their is something sensical for
+# detecting system keymaps, etc. Until there is something sensical for
 # a package to test in the suite, just skip it by default.
 check() {
 	_srcenv
