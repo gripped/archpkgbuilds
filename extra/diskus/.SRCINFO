@@ -1,14 +1,14 @@
 pkgbase = diskus
 	pkgdesc = Minimal, fast alternative to 'du -sh'
 	pkgver = 0.7.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/sharkdp/diskus
 	arch = x86_64
-	license = Apache
-	license = MIT
+	license = Apache-2.0 OR MIT
+	makedepends = git
 	makedepends = rust
 	depends = gcc-libs
-	source = diskus-0.7.0.tar.gz::https://static.crates.io/crates/diskus/diskus-0.7.0.crate
-	b2sums = 870a68e2fef66377ef6fdd3b5e5344c006ff029bd18a82413e2fc9e748766b17dcde451b48cb7122b6226e3a57dc85f87105066391c881b4310332d7a1f6c179
+	source = git+https://github.com/sharkdp/diskus.git#tag=v0.7.0
+	b2sums = 706a2a58b58c2051142a984de31cfce46b25d4bf3c2152a5644d65a3130506eff3d6f471a1765b60b6c64f0db89240c249f6a323992dd281c0301ae22eaca743
 
 pkgname = diskus
