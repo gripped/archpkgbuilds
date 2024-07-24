@@ -4,7 +4,7 @@
 
 pkgbase=cotp
 pkgname=(cotp cotp-converters)
-pkgver=1.7.2
+pkgver=1.7.3
 pkgrel=1
 pkgdesc='Trustworthy, encrypted, command-line TOTP/HOTP authenticator app with import functionality'
 arch=(x86_64)
@@ -16,7 +16,7 @@ optdepends=('cotp-converters: additional scripts import from other OTP apps')
 replaces=("$pkgname-bin")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('0293483ef7a6671901fbe8fb228a334ae4fa9c9c579c9fae7a112f6efd04ae53')
+sha256sums=('d054e9681066be8b7859af47bba4bfd51744f81732974b115997f2677fded045')
 
 prepare(){
 	cd "$_archive"
