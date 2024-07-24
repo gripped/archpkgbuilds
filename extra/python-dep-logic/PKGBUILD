@@ -2,7 +2,7 @@
 
 _name=dep-logic
 pkgname=python-dep-logic
-pkgver=0.4.1
+pkgver=0.4.4
 pkgrel=1
 pkgdesc="Python dependency specifications supporting logical operations"
 arch=(any)
@@ -22,8 +22,8 @@ checkdepends=(
   python-pytest
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('119cbdadfffb4cfcdac7819f446916ea6204ee5761834913b952cc36ea692ac07c330aa89d9ccf8309b493b37dc79b99c753e1b7408655c66eb7f646d0cd71e3')
-b2sums=('21756d71ffe47d06ee49b4b858713181fee3b0136fc1b7dfcf67eed8222d91cb485da01cc2a5b6052466901934dc43d4cd4b4013485b140a7dbdd86ea0ec4e61')
+sha512sums=('4bd60e6c52f76cb5d238666fc79fcb10f01c7c8ac042e48a24565a7ffbb09762dec1729ae85e8f838a97124fb60397a27e1d1583b1b4603f2f2b06ed2c3eeeff')
+b2sums=('1b93d2fdc3f2398a5065a3e078ee8fea234273f0517c8858c210920bd100760d9938fe36e9615fb432b85265f0c62383a9a38ef3057d205c581e115d0a1c76cb')
 
 build() {
   cd $_name-$pkgver
