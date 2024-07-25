@@ -9,8 +9,8 @@
 pkgbase=qtcreator
 pkgname=(qtcreator
          qtcreator-devel)
-pkgver=13.0.2
-pkgrel=5
+pkgver=14.0.0
+pkgrel=1
 pkgdesc='Lightweight, cross-platform integrated development environment'
 arch=(x86_64)
 url='https://www.qt.io'
@@ -22,8 +22,11 @@ depends=(clang
          glibc
          libelf
          litehtml
+         llvm-libs
+         python
          qt6-5compat
          qt6-base
+         qt6-charts
          qt6-declarative
          qt6-quick3d
          qt6-quicktimeline
@@ -31,13 +34,13 @@ depends=(clang
          qt6-serialport
          qt6-svg
          qt6-webengine
+         sh
          yaml-cpp
          zstd)
 # syntax-highlighting
 makedepends=(cmake
              git
-             llvm
-             python)
+             llvm)
 optdepends=('qt6-doc: integrated Qt documentation'
             'qt6-examples: welcome page examples'
             'gdb: debugger'
@@ -53,7 +56,7 @@ source=(git+https://code.qt.io/qt-creator/qt-creator#tag=v$pkgver
         git+https://code.qt.io/qt-creator/perfparser
         git+https://code.qt.io/playground/qlitehtml
         git+https://github.com/litehtml/litehtml)
-sha256sums=('fb7a29e77651101817b1197733196b2fa049799a9caa3d237c9abf65a7bab31e'
+sha256sums=('1ac4c6d82a1c9f48abd290a39f647b93d32295ba5c8fc56bc109dffabea375d8'
             'SKIP'
             'SKIP'
             'SKIP')
