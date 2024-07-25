@@ -1,7 +1,7 @@
 pkgbase = gitlab
 	pkgdesc = Project management and code hosting application
 	pkgver = 17.1.3
-	pkgrel = 1
+	pkgrel = 3
 	url = https://gitlab.com/gitlab-org/gitlab-foss
 	install = gitlab.install
 	arch = x86_64
@@ -52,6 +52,7 @@ pkgbase = gitlab
 	backup = etc/logrotate.d/gitlab
 	source = git+https://gitlab.com/gitlab-org/gitlab-foss.git#tag=v17.1.3
 	source = gitlab-configs.patch
+	source = https://gitlab.com/gitlab-org/gitlab/-/commit/6256fc51dcd67b0fa2ec21ae2b74a21175f185a4.patch
 	source = gitlab-environment
 	source = gitlab-puma.service
 	source = gitlab-sidekiq.service
@@ -64,6 +65,7 @@ pkgbase = gitlab
 	source = gitlab.logrotate
 	sha256sums = b457b937ef296a5846eec150d9ae6fa37124fb3b53a6db59695af28e6b3333cc
 	sha256sums = dfbafb383942f0e6088f49c49a40c59994e1af57c6197e9443f9839e145154e3
+	sha256sums = 36f747b2d51484f2c28c78d0800fc0fcb84bf5d4ad3cd72ec2c05187b1583380
 	sha256sums = 8cc4d933743906b4213b8ea8d8c5a62535e27e4073f73581a5dad40078dde000
 	sha256sums = f99499116f5d7cf59ccb7bfabd2d1ba68fbf83040571c607f7b0b50e6f50cbcf
 	sha256sums = 2e5d83b3ff8166094ca35dfc58d9e591bc3127a66d9515d344753a622a22aa8a
