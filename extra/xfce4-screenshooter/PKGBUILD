@@ -1,19 +1,18 @@
-# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
 # Contributor: Tobias Kieslich <tobias (at) archlinux.org>
 
 pkgname=xfce4-screenshooter
-pkgver=1.10.6
+pkgver=1.11.0
 pkgrel=1
 pkgdesc="An application to take screenshots"
 arch=('x86_64')
 url="https://docs.xfce.org/apps/xfce4-screenshooter/start"
 license=('GPL2')
 groups=('xfce4-goodies')
-depends=('xfce4-panel' 'libsoup3' 'curl' 'jq' 'zenity' 'xclip'
-         'hicolor-icon-theme')
-makedepends=('python')
+depends=('xfce4-panel' 'curl' 'jq' 'zenity' 'xclip' 'hicolor-icon-theme')
+makedepends=('glib2-devel')
 source=(https://archive.xfce.org/src/apps/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
-sha256sums=('992066cfecfb44a68681340bfd55d524d40410aac3da6ef25c6c6cb2150a5965')
+sha256sums=('8b55bc2c63951a9b5d8304348f2622b90bf13bb84d505703c37c4f7391b7f5a2')
 
 prepare() {
   cd $pkgname-$pkgver
