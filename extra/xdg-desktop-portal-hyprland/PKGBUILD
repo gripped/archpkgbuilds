@@ -3,7 +3,7 @@
 pkgname=xdg-desktop-portal-hyprland
 pkgver=1.3.3
 _protocolver=4d29e48433270a2af06b8bc711ca1fe5109746cd
-pkgrel=1
+pkgrel=2
 pkgdesc='xdg-desktop-portal backend for hyprland'
 url="https://github.com/hyprwm/$pkgname"
 arch=(x86_64)
@@ -18,7 +18,6 @@ depends=(gcc-libs
          qt6-wayland
          sdbus-cpp libsdbus-c++.so
          util-linux-libs libuuid.so
-         wlroots0.17
          xdg-desktop-portal)
 makedepends=(cmake
              wayland
@@ -40,7 +39,6 @@ prepare() {
 }
 
 build() {
-    export PKG_CONFIG_PATH='/usr/lib/wlroots0.17/pkgconfig'
 	cd "$_archive"
 	cmake -B build \
 		-D CMAKE_INSTALL_PREFIX=/usr \
