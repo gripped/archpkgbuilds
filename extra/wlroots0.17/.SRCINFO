@@ -1,7 +1,7 @@
 pkgbase = wlroots0.17
 	pkgdesc = Modular Wayland compositor library
 	pkgver = 0.17.4
-	pkgrel = 1
+	pkgrel = 3
 	url = https://gitlab.freedesktop.org/wlroots/wlroots
 	arch = x86_64
 	license = MIT
@@ -29,6 +29,7 @@ pkgbase = wlroots0.17
 	depends = xcb-util-wm
 	optdepends = xorg-xwayland: Xwayland support
 	provides = libwlroots.so
+	conflicts = wlroots<0.18
 	source = https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/0.17.4/downloads/wlroots-0.17.4.tar.gz
 	source = https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/0.17.4/downloads/wlroots-0.17.4.tar.gz.sig
 	source = Revert-layer-shell-error-on-0-dimension-without-anch.patch

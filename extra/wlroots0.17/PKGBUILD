@@ -5,7 +5,7 @@
 
 pkgname=wlroots0.17
 pkgver=0.17.4
-pkgrel=1
+pkgrel=3
 license=('MIT')
 pkgdesc='Modular Wayland compositor library'
 url='https://gitlab.freedesktop.org/wlroots/wlroots'
@@ -41,6 +41,9 @@ optdepends=(
 )
 provides=(
     'libwlroots.so'
+)
+conflicts=(
+    "wlroots<0.18"
 )
 source=(
     "https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/$pkgver/downloads/wlroots-$pkgver.tar.gz"
