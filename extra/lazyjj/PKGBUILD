@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=lazyjj
-pkgver=0.2.0
+pkgver=0.2.1
 pkgrel=1
 pkgdesc="TUI for Jujutsu/jj"
 arch=('x86_64')
@@ -11,12 +11,12 @@ depends=('gcc-libs')
 makedepends=('cargo-nightly')
 checkdepends=('jujutsu')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('098b4d31e4b6ff96a6ab2caf55a953bd7dbbf7eea9c394ffa6367db7febdb72e9639250ab6ddb9058299712dce07264862dc3857735cb3564fb2751149d712ba')
+sha512sums=('666b800e8e5123bfad772f814bf480434b8c127501162d1fef076a94b2cbfaf1f532c57b0abaaad6dbac19d4892d87424cd50ca08744b253ca40f4eaa8d1fb04')
 
 prepare() {
   cd "$pkgname-$pkgver"
   export RUSTUP_TOOLCHAIN=nightly
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')" # --locked
 }
 
 build() {
