@@ -3,7 +3,7 @@
 
 pkgname=qt6-webengine
 pkgver=6.7.2
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
@@ -71,13 +71,11 @@ _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver
         git+https://code.qt.io/qt/qtwebengine-chromium
         qtwebengine-6.7.0-ninja1.12.patch
-        qtwebengine-ffmpeg-7.patch
-        no-h264.patch)
+        qtwebengine-ffmpeg-7.patch)
 sha256sums=('e4ea371bbe91763e0499b7d12166b43162f29e57ba81705870a0f8c4ba784408'
             'SKIP'
             'c037cccc1d43bcd9d67045354ca48b405acec217149cb4b2bd3cfb7b5561cc33'
-            'd31143fcb04acdb4d0a183eb0e1f37be66aad19454ebbbd326a8fa68ce6f0d35'
-            '5e41df98141a5a3c6ab1ef1f1a45ea4a27631cfa3fe8b0cdd524624424d74541')
+            'f108c916ab87a247571255c56f9d04fc9bccdc3fe8972bf5a60d29636c6f5c3e')
 
 prepare() {
   cd $_pkgfn
@@ -87,9 +85,8 @@ prepare() {
 
 # Fix build with ninja 1.12 - Gentoo patch
   patch -p1 -i ../qtwebengine-6.7.0-ninja1.12.patch
-# Fix build with ffmpeg 7 - OpenSUSE and Chromium patches
+# Fix build with ffmpeg 7 - Chromium patches
   patch -d src/3rdparty/chromium -p1 -i "$srcdir"/qtwebengine-ffmpeg-7.patch
-  patch -p1 -i ../no-h264.patch
 }
 
 build() {
