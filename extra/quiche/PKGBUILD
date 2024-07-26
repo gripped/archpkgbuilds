@@ -3,7 +3,7 @@
 # Previous Maintainer: Kasei Wang <kasei@kasei.im>
 
 pkgname=quiche
-pkgver=0.21.0
+pkgver=0.22.0
 pkgrel=1
 pkgdesc='An implementation of the QUIC transport protocol and HTTP/2 as specified by the IETF'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('gcc-libs')
 makedepends=('cmake' 'rustup' 'git' 'clang')
 options=(!'lto')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/cloudflare/$pkgname/archive/$pkgver.tar.gz")
-sha256sums=('ca0f953c34e1549930cfd44deac5e8a6d9e6c3c3df01e5a2d9bcf6d07246b6a4')
+sha256sums=('0af8744b07038ee4af8cdb94dd4c11f1a730001944a0ef2f3f03e63715b15268')
 validpgpkeys=('8657ABB260F056B1E5190839D9C4D26D0E604491')
 
 prepare() {
@@ -27,6 +27,8 @@ build() {
   cd "$srcdir/$pkgname-$pkgver/quiche"
   export RUSTUP_TOOLCHAIN=stable
   export CARGO_TARGET_DIR=target
+  # fix "ELF file ('usr/lib/libquiche.so') lacks GNU_PROPERTY_X86_FEATURE_1_SHSTK" warning
+  export RUSTFLAGS='-C link-args=-Wl,-z,shstk'
   cargo build --frozen --release --no-default-features --features ffi,pkg-config-meta,qlog,boringssl-boring-crate
 }
 
