@@ -8,7 +8,7 @@
 
 pkgbase=mupdf
 pkgname=(libmupdf mupdf mupdf-gl mupdf-tools python-mupdf)
-pkgver=1.24.7
+pkgver=1.24.8
 pkgrel=1
 pkgdesc='Lightweight PDF and XPS viewer'
 arch=('x86_64')
@@ -51,14 +51,14 @@ source=(
   $pkgbase-1.23.9-cpp_ldflags.patch
   $pkgbase-1.23.9-install_targets.patch
 )
-sha256sums=('ce2593d42a467e58f7f0d7bf8525c323889d1adaed4742a72b38b8f5de1e593a'
+sha256sums=('477449e6b6c99632990a2e72721b101c9ec57d0dae6fc47f2b1d78d2b5d69619'
             'SKIP'
             'SKIP'
             'SKIP'
             'ccff66979249bd4ab4ba8918660f194eb90eb0ae231b16e36a6cecdcf471883f'
             'a435f44425f5432c074dee745d8fbaeb879038ec1f1ec64f037c74662f09aca8'
             'bb797ac84edc9856fa828f87e9be684714b7ab2c8bca3372a81fbfa0da018ac4'
-            '152222c0bc066404d9e38be7abbba20748b0a4bbc9cb30403d19e3b176ab257f'
+            '782745085168ebb7f06bf6330ff49897dbeae7d20a9e242fe98bf434f7eb82f0'
             'ceb2b16a12bf193d514969f995dfca4c2d12d489c2690928db2db4afe09f6c8c')
 
 prepare() {
