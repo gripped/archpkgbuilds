@@ -9,8 +9,8 @@ pkgname=(
   bemenu-wayland
   bemenu-x11
 )
-pkgver=0.6.22
-pkgrel=4
+pkgver=0.6.23
+pkgrel=1
 pkgdesc="Dynamic menu library and client program inspired by dmenu"
 url="https://github.com/Cloudef/bemenu"
 arch=(x86_64)
@@ -31,12 +31,17 @@ source=(
   "$url/releases/download/$pkgver/$pkgbase-$pkgver.tar.gz"
   "$url/releases/download/$pkgver/$pkgbase-$pkgver.tar.gz.asc"
 )
-sha256sums=('2bd579c37986797bb1bcc8f475cae4cd4c7d59eec479fdb1ae680493fdd34abb'
+sha256sums=('7cd336fb827b50a12c398a5daf6d2e6a07e291217116e725e7f1e021d9e0cdd9'
             'SKIP')
 validpgpkeys=(16B6B7CACAF339DECE9F154729317348D687B86B) # Bemenu Upstream
 
+prepare() {
+  cd bemenu-$pkgver
+  sed -i 's/-D_FORTIFY_SOURCE=2//' GNUmakefile
+}
+
 build() {
-  cd "bemenu-$pkgver"
+  cd bemenu-$pkgver
   make PREFIX=/usr
 }
 
@@ -47,7 +52,7 @@ package_bemenu() {
   )
   provides=(libbemenu.so)
 
-  cd "bemenu-$pkgver"
+  cd bemenu-$pkgver
   make DESTDIR="$pkgdir" PREFIX=/usr install-base install-docs
 }
 
@@ -60,7 +65,7 @@ package_bemenu-ncurses() {
     ncurses
   )
 
-  cd "bemenu-$pkgver"
+  cd bemenu-$pkgver
   make DESTDIR="$pkgdir" PREFIX=/usr install-curses
 }
 
@@ -78,7 +83,7 @@ package_bemenu-wayland() {
   )
   install=bemenu-wayland.install
 
-  cd "bemenu-$pkgver"
+  cd bemenu-$pkgver
   make DESTDIR="$pkgdir" PREFIX=/usr install-wayland
 }
 
@@ -95,6 +100,6 @@ package_bemenu-x11() {
     pango
   )
 
-  cd "bemenu-$pkgver"
+  cd bemenu-$pkgver
   make DESTDIR="$pkgdir" PREFIX=/usr install-x11
 }
