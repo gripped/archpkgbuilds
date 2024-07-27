@@ -1,17 +1,19 @@
 pkgbase = sops
-	pkgdesc = Editor of encrypted files that supports YAML, JSON and BINARY formats
-	pkgver = 3.8.1
+	pkgdesc = Editor of encrypted files that supports YAML, JSON, ENV, INI and BINARY formats
+	pkgver = 3.9.0
 	pkgrel = 1
-	url = https://github.com/mozilla/sops
+	url = https://github.com/getsops/sops
 	arch = x86_64
 	license = MPL2
+	makedepends = git
 	makedepends = go
 	depends = glibc
 	options = !lto
-	source = sops-3.8.1.tar.gz::https://github.com/mozilla/sops/archive/v3.8.1.tar.gz
+	source = git+https://github.com/getsops/sops.git?signed#tag=v3.9.0
 	source = bash_autocomplete
 	source = zsh_autocomplete
-	sha256sums = 5ca70fb4f96797d09012c705a5bb935835896de7bcd063b98d498912b0e645a0
+	validpgpkeys = 1CBD23A64DD703A808AF66E71E60B8598833B166
+	sha256sums = 8197151cdf500cb03218ffb45c04e4f45fc59801d41036205a9af9aab862d429
 	sha256sums = 761c67ffd48431e60ea5dc48e5656b4480eca7534d4b715eb65bd75680f5e975
 	sha256sums = d98d34aeaa7b0f98220bcb21fc9f2bb58efaed45478a7229eb58e5795b57b5a7
 
