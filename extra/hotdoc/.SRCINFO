@@ -1,7 +1,7 @@
 pkgbase = hotdoc
 	pkgdesc = The Tastiest Documentation Tool
-	pkgver = 0.16
-	pkgrel = 3
+	pkgver = 0.17
+	pkgrel = 1
 	url = https://github.com/hotdoc/hotdoc
 	arch = x86_64
 	license = LGPL-2.1-or-later
@@ -31,13 +31,15 @@ pkgbase = hotdoc
 	depends = python-yaml
 	optdepends = clang: for the C extension
 	optdepends = llvm: for the C extension
-	source = git+https://github.com/hotdoc/hotdoc#tag=0.16
+	source = git+https://github.com/hotdoc/hotdoc#tag=0.17
 	source = mathieu-cmark::git+https://github.com/MathieuDuponchelle/cmark
 	source = prismjs::git+https://github.com/PrismJS/prism
 	source = git+https://github.com/hotdoc/hotdoc_bootstrap_theme
-	b2sums = 4395067a40bb5e2d93d9037a51576c6a68ce69eeffb15871297d9d8eb6f938e1a3383e3ff7466118bc8cde401dcdca861e943784325a19d7be8619301f3ace19
+	source = 0001-Simplify-deps-for-Python-3.11.patch
+	b2sums = 3be5a4b0401914e1b4362d5edb4adcccb7bc2edc158ac273ca4b8e433ededf6a1b22814a6b219f3dc5f692f0b5cdbfbe908eadfff37d58f3f3c0b38d75ef5e83
 	b2sums = SKIP
 	b2sums = SKIP
 	b2sums = SKIP
+	b2sums = cc1ebc2f1d4842d6bd39f9d755a4abf909bc3db12b863bc40a8cffea5eab71eb88034884a1d7c18e1be9d9714c3a15698753393c5497bbc19449db069ae535d7
 
 pkgname = hotdoc
