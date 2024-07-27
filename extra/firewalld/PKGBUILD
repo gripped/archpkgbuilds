@@ -4,7 +4,7 @@
 # Contributor: speed145a <jonathan@tagchapter.com>
 
 pkgname=firewalld
-pkgver=2.2.0
+pkgver=2.2.1
 pkgrel=1
 pkgdesc="Firewall daemon with D-Bus interface"
 arch=('any')
@@ -23,7 +23,7 @@ backup=('etc/conf.d/firewalld'
         'etc/firewalld/firewalld.conf')
 source=("git+https://github.com/firewalld/firewalld.git#tag=v${pkgver}"
         'firewalld-sysconfigdir.patch')
-sha256sums=('81fb1223c3358b555f31cd01033875dea9685599f196d54dc8a9f17ed681c4ae'
+sha256sums=('2f5c233ba48222fa8f4041d430e5d6ff783727306775ceb3a0ac401fdb90e02b'
             '3b2e00f67680c2e620804eb28620d7370b4096851bcb5f6fec22460a21941ad9')
 
 prepare() {
