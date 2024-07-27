@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=tabiew
-pkgver=0.6.0
+pkgver=0.6.1
 pkgrel=1
 pkgdesc="A lightweight TUI to view and query CSV files"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('gcc-libs' 'glibc')
 makedepends=('cargo')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('6d5e8ca8e409f3cb59d6468d69d99e90bc9af1ca1bc6d077b21111b93aafe1b4b3d1b97faa28b9d4320fa0ca29e4690d73301f111b51d8ea3a69fbf01531f692')
+sha512sums=('f42b161b70e0571c1991b9ba04e1be2ec96589d3edc12c4a94a23046f157c677cb8cb93891bae5b15bceffd3ba51a99b5a3730741226358e2354399c042ef050')
 
 prepare() {
   cd "$pkgname-$pkgver"
