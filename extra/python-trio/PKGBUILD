@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-trio
-pkgver=0.25.1
+pkgver=0.26.0
 pkgrel=1
 pkgdesc='A friendly Python library for async concurrency and I/O'
 arch=(any)
@@ -34,9 +34,9 @@ checkdepends=(
   python-trustme
 )
 provides=(python-multio-provider)
-_tag=a4646040129eff570c3d7e28cc55770563a4d4bd
+_tag=e2e05210fea0f7db1c0225a3c46a77c58d98e025
 source=(git+https://github.com/python-trio/trio.git#tag=${_tag})
-b2sums=('bef35ab29aa5a3e131d771c9943259bd407dd9c4c8555a7b78d73670a440b3967fafc4e02ffdb511a780c09000a4ac2af7593ae822ab67842e08a8e29e324c53')
+b2sums=('5cdc0fb5eca0d05c05a32fe218079d3815d864750e6beda34728533460a69e6b152e7ad7fdd1edecbcf66b70e527589c6317ac843410c7eaece366ce7bc3a5c9')
 
 pkgver() {
   cd trio
