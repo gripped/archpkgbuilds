@@ -2,7 +2,7 @@
 # Maintainer: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 
 pkgname=skopeo
-pkgver=1.15.2
+pkgver=1.16.0
 pkgrel=1
 pkgdesc='A command line utility for various operations on container images and image repositories.'
 arch=(x86_64)
@@ -11,7 +11,7 @@ license=(Apache-2.0)
 depends=(gpgme device-mapper containers-common)
 makedepends=(go go-md2man btrfs-progs git systemd)
 source=(git+$url#tag=v$pkgver)
-sha256sums=('fc54a0a3e2f3029f277e73e100362f3cbbb7a24fe1aa207bca2da3ed7713d4be')
+sha256sums=('c266f1db9d4189d8fd47c8aa94eb07696f163817220d763714da350dfd50966a')
 
 prepare(){
   cd ${pkgname}
