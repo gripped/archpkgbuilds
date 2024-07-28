@@ -4,7 +4,7 @@
 # Contributor: Angel 'angvp' Velasquez <angvp[at]archlinux.com.ve>
 
 pkgname=python-numpy
-pkgver=2.0.0
+pkgver=2.0.1
 pkgrel=1
 pkgdesc="Scientific tools for Python"
 arch=('x86_64')
@@ -15,7 +15,7 @@ optdepends=('blas-openblas: faster linear algebra')
 makedepends=('python-build' 'python-installer' 'meson-python' 'cmake' 'gcc-fortran' 'cython')
 checkdepends=('python-pytest' 'python-hypothesis')
 source=("https://github.com/numpy/numpy/releases/download/v$pkgver/numpy-$pkgver.tar.gz")
-sha512sums=('cd5612ce2db4be87afa8479c508c256c9ff7f1b15a6b010eb06ba962759cc26552b512ec82711680bab1ebedeb06dfc8d7bff9cec63c94efacaadd719448b287')
+sha512sums=('4f638c17b44317b0000000b729726a5a4e9519af11d254b0e2daf32c6ff0cfdd56723a9cbee67c9145088f429f1f0cce79240f968211c2fb5ac08378e86dccfe')
 
 build() {
   cd numpy-$pkgver
@@ -39,5 +39,9 @@ package() {
   cd numpy-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 
-  install -D -m644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/python-numpy/
+  # Symlink license file
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  install -d "$pkgdir"/usr/share/licenses/$pkgname
+  ln -s "$site_packages"/numpy-$pkgver.dist-info/LICENSE.txt \
+    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
