@@ -1,29 +1,31 @@
 pkgbase = pantheon-music
 	pkgdesc = The Pantheon Music Player
-	pkgver = 7.1.0
+	pkgver = 8.0.0
 	pkgrel = 1
 	url = https://github.com/elementary/music
 	arch = x86_64
 	groups = pantheon
-	license = GPL3
+	license = GPL-3.0-only
 	makedepends = git
 	makedepends = gobject-introspection
 	makedepends = intltool
 	makedepends = meson
 	makedepends = vala
-	depends = cairo
+	depends = dconf
 	depends = gdk-pixbuf2
 	depends = glib2
+	depends = glibc
 	depends = gst-plugins-base-libs
 	depends = gstreamer
-	depends = libgee
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita-1.so
 	depends = libgranite-7.so
-	depends = pango
 	optdepends = gst-plugins-base: "Base" plugin libraries
 	optdepends = gst-plugins-good: "Good" plugin libraries
 	optdepends = gst-plugins-bad: "Bad" plugin libraries
 	optdepends = gst-plugins-ugly: "Ugly" plugin libraries
-	source = pantheon-music::git+https://github.com/elementary/music.git#tag=cced37652074c163139e667067dea71eaf543260
-	b2sums = SKIP
+	source = pantheon-music::git+https://github.com/elementary/music.git#tag=5712a4c4771fce300d31ca0ce5bc7edc87c14396
+	b2sums = 3474c3daa83da6e6ef6c4e66258f718630552f40ba0b42384ea252f986bb696bbea7bc85aea1ac8eff686d326eac4df5acdd0c86d26a5f0011505861caf2ed69
 
 pkgname = pantheon-music
