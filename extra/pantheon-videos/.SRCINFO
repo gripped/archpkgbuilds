@@ -1,28 +1,32 @@
 pkgbase = pantheon-videos
 	pkgdesc = The Pantheon Video Player
-	pkgver = 3.0.0
-	pkgrel = 2
+	pkgver = 8.0.0
+	pkgrel = 1
 	url = https://github.com/elementary/videos
 	arch = x86_64
 	groups = pantheon
-	license = GPL3
+	license = GPL-3.0-only
+	makedepends = cmake
 	makedepends = git
 	makedepends = intltool
 	makedepends = meson
 	makedepends = vala
+	depends = dconf
 	depends = gdk-pixbuf2
 	depends = glib2
+	depends = glibc
 	depends = gst-plugins-base-libs
 	depends = gstreamer
-	depends = gtk3
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita-1.so
 	depends = libgee
-	depends = libgranite.so
-	depends = libhandy-1.so
+	depends = libgranite-7.so
 	optdepends = gst-plugins-base: "Base" plugin libraries
 	optdepends = gst-plugins-good: "Good" plugin libraries
 	optdepends = gst-plugins-bad: "Bad" plugin libraries
 	optdepends = gst-plugins-ugly: "Ugly" plugin libraries
-	source = pantheon-videos::git+https://github.com/elementary/videos.git#tag=388be03742a6de2689758168187d936a36377263
-	sha256sums = SKIP
+	source = pantheon-videos::git+https://github.com/elementary/videos.git#tag=627bf9be24f2bef9cf7648065746b27dc9fa9769
+	sha256sums = a2a68138084346aa1c1fd0ee6aa66acc046007d80114410a284d645de52217be
 
 pkgname = pantheon-videos
