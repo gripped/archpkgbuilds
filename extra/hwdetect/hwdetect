@@ -84,10 +84,10 @@ EOF
 _parameter() {
     while [ -n "${1}" ]; do
         case ${1} in
-            --root_directory=*) _ROOT_DIRECTORY="$(echo "${1}" | cut -d '=' -f 2)" ;;
-            --kernel_version=*) _KERNEL_VERSION="$(echo "${1}" | cut -d '=' -f 2)" ;;
-            --rootdevice=*) _ROOTDEVICE="$(echo "${1}" | cut -d '=' -f 2)" ;;
-            --hooks-dir=*) _HOOKS_DIR="$(echo "${1}" | cut -d '=' -f 2)" ;;
+            --root_directory=*) _ROOT_DIRECTORY="$(echo "${1}" | rg -o '=(.*)' -r '$1')" ;;
+            --kernel_version=*) _KERNEL_VERSION="$(echo "${1}" | rg -o '=(.*)' -r '$1')" ;;
+            --rootdevice=*) _ROOTDEVICE="$(echo "${1}" | rg -o '=(.*)' -r '$1')" ;;
+            --hooks-dir=*) _HOOKS_DIR="$(echo "${1}" | rg -o '=(.*)' -r '$1')" ;;
         esac
         shift
     done
