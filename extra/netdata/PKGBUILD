@@ -2,7 +2,7 @@
 # Contributor: SanskritFritz (gmail)
 
 pkgname=netdata
-pkgver=1.46.2
+pkgver=1.46.3
 pkgrel=1
 pkgdesc="Real-time performance monitoring, in the greatest possible detail, over the web"
 url="https://github.com/netdata/netdata"
@@ -21,14 +21,19 @@ optdepends=('iproute2: for monitoring Linux QoS'
             'nvme-cli: for go.d/nvme module'
             'iw: for monitoring Linux as access point')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/netdata/netdata/releases/download/v$pkgver/netdata-v$pkgver.tar.gz"
+        '0001-Fix-libbpf-build-workaround-for-netdata-libbpf-4.patch'
         netdata.sysusers
         netdata.tmpfiles)
-sha512sums=('d38951df52638ed8a620e7b271e1ad9fb30b7de1a38b0080c36cdccdb6c64928ff63e6c631d0e762b887d16a94e603a8414eabc0b288cb82e839fadfd38accb3'
+sha512sums=('8a53f47d2570b7d9f28b049b43bbe53a5ff031211375457b9494e3650c37bf870fcc7dee8a4bd443b50e63403a2faeecd84211c1f68eed48fbd2a52f0a7f9442'
+            '87a97db04edc986d0b687e325c0bd9fbc4bc364f3186cb6ef2b8258a77efe56e20585944260280b20c1280d924f015ee0dc21363562f7f60afb468d049b7e315'
             'a910809a823ba58ca7bdaa72e8d68427b48f452c1fbb2343fa182ecb0a091a7640e73af24b8ba2fdd90e00aed8ef53b7fccd25cb8f04ca9b9fa6c8e52223ca66'
             '9dcf6058d7e2b072ca6797c3e8fcb2cccc1f6670a9e58769922e078c95a9431370dc429cc34d8e642dbab10942221f1f730d570df7c40d651872931c070be832')
 
 prepare() {
   cd $pkgname-v$pkgver
+
+  # fix libbpf build
+  patch -Np1 -i "$srcdir/0001-Fix-libbpf-build-workaround-for-netdata-libbpf-4.patch"
 
   sed -i "s/CMAKE_CXX_STANDARD 14/CMAKE_CXX_STANDARD 17/" CMakeLists.txt
   sed -i "s|usr/sbin|usr/bin|g" CMakeLists.txt
