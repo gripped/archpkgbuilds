@@ -2,7 +2,7 @@
 
 pkgname=python-pytest-home
 _name=${pkgname#python-}
-pkgver=0.5.1
+pkgver=0.6.0
 pkgrel=1
 pkgdesc='Home directory fixtures'
 arch=(any)
@@ -17,8 +17,9 @@ makedepends=(
   python-setuptools-scm
   python-wheel
 )
-source=("git+$url.git#tag=v$pkgver")
-b2sums=('0c40dfb032944ec07ad9317a9889796818a61216223822ad7c4e2fb2106a2430f47957a18de5f6024c78920ad46a03f6f05a184c58946d8b3f789c66b8163bf2')
+source=("git+$url.git#tag=v$pkgver?signed")
+b2sums=('6a39bf84b409a1b871522b7ac4cb49d37458b9b6f95befe51845b16e7fd37b28ba910fbdb1797287b7831acae3ef2012b05b1e955c40408a4a8fdc50a66be0af')
+validpgpkeys=('CE380CF3044959B8F377DA03708E6CB181B4C47E') # Jason R. Coombs <jaraco@jaraco.com>
 
 build() {
   cd "$_name"
