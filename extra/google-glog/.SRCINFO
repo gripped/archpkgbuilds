@@ -1,13 +1,16 @@
 pkgbase = google-glog
 	pkgdesc = Logging library for C++
-	pkgver = 0.7.0
+	pkgver = 0.7.1
 	pkgrel = 1
 	url = https://github.com/google/glog
 	arch = x86_64
-	license = custom:BSD3
+	license = BSD-3-Clause
 	makedepends = cmake
+	depends = gcc-libs
 	depends = gflags
-	source = glog-0.7.0.tar.gz::https://github.com/google/glog/archive/v0.7.0.tar.gz
-	sha512sums = 7222bb432c2b645238018233b2d18f254156617ef2921d18d17364866a7a3a05533fff1d63fd5033e1e5d3746a11806d007e7a36efaff667a0d3006dee45c278
+	depends = glibc
+	provides = libglog.so
+	source = google-glog-0.7.1.tar.gz::https://github.com/google/glog/archive/v0.7.1.tar.gz
+	sha256sums = 00e4a87e87b7e7612f519a41e491f16623b12423620006f59f5688bfd8d13b08
 
 pkgname = google-glog
