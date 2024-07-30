@@ -4,16 +4,19 @@
 
 pkgname=gnome-shell-extension-arc-menu
 _pkgname=ArcMenu
-pkgver=57
+pkgver=58
 pkgrel=1
 pkgdesc='Application menu extension for GNOME Shell'
-arch=('any')
+arch=(any)
 url='https://gitlab.com/arcmenu/ArcMenu'
-license=('GPL-2.0-or-later')
-depends=('gnome-menus' 'gnome-shell')
-makedepends=('git')
+license=(GPL-2.0-or-later)
+depends=(
+  gnome-menus
+  gnome-shell
+)
+makedepends=(git)
 source=("git+https://gitlab.com/arcmenu/$_pkgname.git#tag=v$pkgver")
-b2sums=('36d552dc110f76a3d334d3cf0b4ff6cea5ad99a431916b156f3d5a8eb98d7491a8c4994a735297623a05ac3b4f3a92b1d199e06ddda7ba43b3c195d7c5c780de')
+b2sums=('0beb15a268ce331569b45fd0fd67b1879c22a82ef233ae57a18843177a29ab2c425c50245711fa022e345f2135a32031bc5516c311cc35e8838b99591dbe6da5')
 
 build() {
   cd $_pkgname
