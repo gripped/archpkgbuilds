@@ -2,7 +2,7 @@
 
 pkgname=python-sphinxcontrib-htmlhelp
 _name=${pkgname#python-}
-pkgver=2.0.6
+pkgver=2.1.0
 pkgrel=1
 pkgdesc='Sphinx extension which renders HTML help files'
 arch=(any)
@@ -21,7 +21,7 @@ checkdepends=(
   python-sphinx
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('cf8c3f71b100b0a058c21bd7016c12daea0f64ca284cb0a8666ef8c905821dcaf5cad6bb0fa0d8d972cb5d8e8fd78c5c20fafa0198714287c611e179ba0b1cf7')
+b2sums=('219ea3c0fa4884e17af74fad70cf5a6c303a93684101fbd3216c1d07801887ed087add45c93223330eb27da5cf3a9ec659fee72b6e83bb2ce0789cc9c6cc33ed')
 
 build() {
   cd "$_name"
