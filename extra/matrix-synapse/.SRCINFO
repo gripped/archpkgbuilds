@@ -1,6 +1,6 @@
 pkgbase = matrix-synapse
 	pkgdesc = Matrix reference homeserver
-	pkgver = 1.109.0
+	pkgver = 1.111.0
 	pkgrel = 1
 	url = https://github.com/element-hq/synapse
 	install = synapse.install
@@ -55,6 +55,7 @@ pkgbase = matrix-synapse
 	depends = python-matrix-common
 	depends = python-bleach
 	depends = python-typing_extensions
+	depends = python-python-multipart
 	depends = systemd
 	optdepends = perl: sync_room_to_group.pl
 	optdepends = python-psycopg2: PostgreSQL support
@@ -66,7 +67,7 @@ pkgbase = matrix-synapse
 	optdepends = python-pyicu: Improve user search for international display names
 	optdepends = python-authlib: OpenID SSO support
 	backup = etc/synapse/log_config.yaml
-	source = matrix-synapse::git+https://github.com/element-hq/synapse.git#tag=v1.109.0
+	source = matrix-synapse::git+https://github.com/element-hq/synapse.git#tag=v1.111.0
 	source = generic_worker.yaml.example
 	source = synapse.service
 	source = synapse.target
@@ -83,13 +84,13 @@ pkgbase = matrix-synapse
 	validpgpkeys = D79D3CA0B61429A8A760525A903ECE108A39DEDD
 	validpgpkeys = F124520CEEE062448FE1C8442D2EFA2F32FBE047
 	validpgpkeys = 177B595E4DFCB510C556750833FC58F6A7113048
-	sha256sums = c6a62ab3e67094bb3aff5898af7ec6a98808208b4b0a2ac9f48b08735641c291
+	sha256sums = 28474b2f96dbcc7a6f09f45bb1c4241559c59da66c313e2589503f171e5935fc
 	sha256sums = f67334856609997eac26939d77cfc520e78e98d3755543ab730d83a0f362a35e
 	sha256sums = 74af0bc2f57e5ced1a44f2438922d420cbb7defedae784cac02ef125f276a2ed
 	sha256sums = 408527271e1250beb20531f140b91201ed464e42f7eb3f47f02967a2ac23a661
 	sha256sums = c9657c201ad89985c8c915bfa0ea7517a412071736b4d9545d8f6474fddc44e2
 	sha256sums = aadfdd78fe73e6eb325ee4299b8db8b97bfa2f4e7df953aa8477f442598a7ec5
 	sha256sums = 65588c8c64dfb84cab831cd8d028a295d753cf7322dd63053e8488466047b45f
-	sha256sums = d8e6b2a43a8a7d8f09c643f32e789a7ffeeb2d20bb07ee88ddc6923e1ab3b0e6
+	sha256sums = 086a7e95235afac128df9d2ea981e3c50d08e08c9132087063bb354bc9063d93
 
 pkgname = matrix-synapse
