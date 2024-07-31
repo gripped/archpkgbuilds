@@ -2,7 +2,7 @@
 
 pkgname=gnome-recipes
 pkgver=2.0.4
-pkgrel=7
+pkgrel=8
 pkgdesc='Recipe management application for GNOME'
 arch=(x86_64)
 url='https://wiki.gnome.org/Apps/Recipes'
@@ -19,12 +19,9 @@ depends=(
   gspell
   gtk3
   hicolor-icon-theme
-  json-glib
   libcanberra
-  libgoa
-  libsoup
+  libsoup3
   pango
-  rest
 )
 makedepends=(
   git
@@ -36,11 +33,19 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/recipes.git#tag=$pkgver"
   git+https://gitlab.gnome.org/GNOME/libgd.git
   gnome-recipes-window-icon.patch
+  gnome-recipes-libsoup3.patch
+  gnome-recipes-file-exporter.patch
+  gnome-recipes-exporter.patch
+  gnome-recipes-optional-todoist.patch
 )
 b2sums=(
   73f026063407e0d9b679a52bd8611efe6e859ce413e47f0856c446d5ca392bf57ade01fc09d8f499b4bc64a58beea2ab603bd8e55c29d91f9fefddfa686d66ab
   SKIP
   a27657cbd825ba594c1376fa04a84328820217c007d57a2cda8a88f2de793f7a4fc45b5559583a4868f85940f09b42ebed7d67e6d4e2fb1e9143c88747881ce0
+  8bfdd3f01ef03a4e5d43e11f00667581b2a4dd98622cf178905631a627f10ac071dcf4ba3f095b964863d9d11ba2cad2872320ba3437de13532188b29d4545a9
+  22b9b7105754f702844f35a4d4ed95cb0e362de5713133b89860cd8cfd2e2a9c59c5d16bf020d842b054de9d14c58247ac3afadc732c531152c2aea99f14146b
+  7c4891ac74c9544c6e52d51c767316f05f3f4365e95b5294e9f1514b35b74ce32858720176a31d10a15ca1aaa39dfdbfcd4afbb04fde19e9477e87f74d1c0455
+  e3d3640e2ce0ecd67c2ee8452dd77cd125675a80b2c5ae14d9c4b6dcc41725ef7978287792af228cfdc0e22fc0b13ba4fb4f246c81be5747042b8b354172cf19
 )
 
 prepare() {
@@ -59,6 +64,18 @@ prepare() {
 
   # https://gitlab.gnome.org/GNOME/recipes/-/merge_requests/45
   git apply -3 ../gnome-recipes-window-icon.patch
+
+  # https://gitlab.gnome.org/GNOME/recipes/-/merge_requests/47
+  git apply -3 ../gnome-recipes-libsoup3.patch
+
+  # https://gitlab.gnome.org/GNOME/recipes/-/merge_requests/48
+  git apply -3 ../gnome-recipes-file-exporter.patch
+
+  # https://gitlab.gnome.org/GNOME/recipes/-/merge_requests/50
+  git apply -3 ../gnome-recipes-exporter.patch
+
+  # https://gitlab.gnome.org/GNOME/recipes/-/merge_requests/51
+  patch -Np1 -i ../gnome-recipes-optional-todoist.patch
 }
 
 build() {
@@ -67,7 +84,7 @@ build() {
 }
 
 check() {
-  meson test -C build
+  meson test -C build --print-errorlogs
 }
 
 package() {
