@@ -1,19 +1,18 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From d4dde14903874923e8a7df37f39d615210d71374 Mon Sep 17 00:00:00 2001
 From: Matt Johnson <matt.johnson@epicgames.com>
 Date: Thu, 23 Feb 2023 13:46:05 -0700
-Subject: [PATCH 1/5] build_usd.py: add a line item for Embree to the build
+Subject: [PATCH 1/7] build_usd.py: add a line item for Embree to the build
  summary
 
-(cherry picked from commit c42863b9401b72926744f387d954ad665fe69b26)
 ---
  build_scripts/build_usd.py | 2 ++
  1 file changed, 2 insertions(+)
 
 diff --git a/build_scripts/build_usd.py b/build_scripts/build_usd.py
-index 8a2698570..a28bd7613 100644
+index f31eecd19f..aa1feab9a0 100644
 --- a/build_scripts/build_usd.py
 +++ b/build_scripts/build_usd.py
-@@ -2500,6 +2500,7 @@ summaryMsg += """\
+@@ -2578,6 +2578,7 @@ def _JoinVersion(v):
        OpenVDB support:          {enableOpenVDB}
        OpenImageIO support:      {buildOIIO} 
        OpenColorIO support:      {buildOCIO} 
@@ -21,7 +20,7 @@ index 8a2698570..a28bd7613 100644
        PRMan support:            {buildPrman}
      UsdImaging                  {buildUsdImaging}
        usdview:                  {buildUsdview}
-@@ -2564,6 +2565,7 @@ summaryMsg = summaryMsg.format(
+@@ -2641,6 +2642,7 @@ def FormatBuildArguments(buildArgs):
      enableOpenVDB=("On" if context.enableOpenVDB else "Off"),
      buildOIIO=("On" if context.buildOIIO else "Off"),
      buildOCIO=("On" if context.buildOCIO else "Off"),
@@ -29,28 +28,23 @@ index 8a2698570..a28bd7613 100644
      buildPrman=("On" if context.buildPrman else "Off"),
      buildUsdImaging=("On" if context.buildUsdImaging else "Off"),
      buildUsdview=("On" if context.buildUsdview else "Off"),
--- 
-2.43.2
 
-
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From a3c400afbef706bf9a9d69d6170dfcc6ff16a4f8 Mon Sep 17 00:00:00 2001
 From: Matt Johnson <matt.johnson@epicgames.com>
 Date: Thu, 23 Feb 2023 14:17:02 -0700
-Subject: [PATCH 2/5] build_usd.py: wrap the TBB_ROOT parameter value in double
+Subject: [PATCH 2/7] build_usd.py: wrap the TBB_ROOT parameter value in double
  quotes when building Embree
 
 This ensures that slash characters are properly escaped on Windows.
-
-(cherry picked from commit 2e3104c85ed2bf4622fd0497f401a0478a8ab1cf)
 ---
  build_scripts/build_usd.py | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/build_scripts/build_usd.py b/build_scripts/build_usd.py
-index a28bd7613..8bc358840 100644
+index aa1feab9a0..89169b1e36 100644
 --- a/build_scripts/build_usd.py
 +++ b/build_scripts/build_usd.py
-@@ -1523,7 +1523,7 @@ else:
+@@ -1556,7 +1556,7 @@ def InstallMaterialX(context, force, buildArgs):
  def InstallEmbree(context, force, buildArgs):
      with CurrentWorkingDirectory(DownloadURL(EMBREE_URL, context, force)):
          extraArgs = [
@@ -59,26 +53,22 @@ index a28bd7613..8bc358840 100644
              '-DEMBREE_TUTORIALS=OFF',
              '-DEMBREE_ISPC_SUPPORT=OFF'
          ]
--- 
-2.43.2
 
-
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From 04edbf688cf1a7fed2d5664a7fcc9cc9b07657d3 Mon Sep 17 00:00:00 2001
 From: Matt Johnson <matt.johnson@epicgames.com>
 Date: Thu, 23 Feb 2023 12:20:39 -0700
-Subject: [PATCH 3/5] FindEmbree.cmake: add support for finding Embree versions
+Subject: [PATCH 3/7] FindEmbree.cmake: add support for finding Embree versions
  3 or 4
 
-(cherry picked from commit 91e2bf94c7778168c8ecd05b74b9d3a03efa2397)
 ---
  cmake/modules/FindEmbree.cmake | 41 +++++++++++++++++++++-------------
  1 file changed, 26 insertions(+), 15 deletions(-)
 
 diff --git a/cmake/modules/FindEmbree.cmake b/cmake/modules/FindEmbree.cmake
-index e12639d6d..3f38e089a 100644
+index cd52f6b7f5..4c4ff1cdb2 100644
 --- a/cmake/modules/FindEmbree.cmake
 +++ b/cmake/modules/FindEmbree.cmake
-@@ -36,12 +36,30 @@
+@@ -19,12 +19,30 @@
  #
  #=============================================================================
  
@@ -112,7 +102,7 @@ index e12639d6d..3f38e089a 100644
  endif()
  
  find_library(EMBREE_LIBRARY
-@@ -55,21 +73,14 @@ find_library(EMBREE_LIBRARY
+@@ -38,21 +56,14 @@ find_library(EMBREE_LIBRARY
          "Embree library path"
  )
  
@@ -139,22 +129,17 @@ index e12639d6d..3f38e089a 100644
      string(REGEX MATCHALL "[0-9]+" PATCH ${TMP})
  
      set (EMBREE_VERSION ${MAJOR}.${MINOR}.${PATCH})
--- 
-2.43.2
 
-
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From c4234c2a84c8459e3a900fdccb068fa5f6466de1 Mon Sep 17 00:00:00 2001
 From: Matt Johnson <matt.johnson@epicgames.com>
 Date: Thu, 16 Feb 2023 16:37:11 -0700
-Subject: [PATCH 4/5] hdEmbree: add support for building against Embree
+Subject: [PATCH 4/7] hdEmbree: add support for building against Embree
  versions 3 or 4
 
 This supports upgrading Embree to a major version 4 release, so it includes
 handling for the change in file paths between "embree3" and "embree4" and also
 accounts for a small change in API in version 4 where RTCIntersectContext was
 removed.
-
-(cherry picked from commit 683fc0b7f64df1423cb622d354e175baf913f813)
 ---
  pxr/imaging/plugin/hdEmbree/CMakeLists.txt           | 6 ++++++
  pxr/imaging/plugin/hdEmbree/context.h                | 6 +++++-
@@ -169,7 +154,7 @@ removed.
  10 files changed, 63 insertions(+), 10 deletions(-)
 
 diff --git a/pxr/imaging/plugin/hdEmbree/CMakeLists.txt b/pxr/imaging/plugin/hdEmbree/CMakeLists.txt
-index 43aa0826e..f19fc904f 100644
+index 43aa0826e5..f19fc904f7 100644
 --- a/pxr/imaging/plugin/hdEmbree/CMakeLists.txt
 +++ b/pxr/imaging/plugin/hdEmbree/CMakeLists.txt
 @@ -11,6 +11,12 @@ if (NOT ${PXR_BUILD_GPU_SUPPORT})
@@ -186,10 +171,10 @@ index 43aa0826e..f19fc904f 100644
     LIBRARIES
          plug
 diff --git a/pxr/imaging/plugin/hdEmbree/context.h b/pxr/imaging/plugin/hdEmbree/context.h
-index 7af4ab0d2..133f6170a 100644
+index 4165adb1e6..8795bc82a8 100644
 --- a/pxr/imaging/plugin/hdEmbree/context.h
 +++ b/pxr/imaging/plugin/hdEmbree/context.h
-@@ -31,7 +31,11 @@
+@@ -14,7 +14,11 @@
  #include "pxr/base/gf/matrix4f.h"
  #include "pxr/base/vt/array.h"
  
@@ -203,10 +188,10 @@ index 7af4ab0d2..133f6170a 100644
  PXR_NAMESPACE_OPEN_SCOPE
  
 diff --git a/pxr/imaging/plugin/hdEmbree/mesh.h b/pxr/imaging/plugin/hdEmbree/mesh.h
-index 457445436..a5f5868b4 100644
+index 29b0d55029..2e26644006 100644
 --- a/pxr/imaging/plugin/hdEmbree/mesh.h
 +++ b/pxr/imaging/plugin/hdEmbree/mesh.h
-@@ -32,8 +32,13 @@
+@@ -15,8 +15,13 @@
  
  #include "pxr/imaging/plugin/hdEmbree/meshSamplers.h"
  
@@ -223,10 +208,10 @@ index 457445436..a5f5868b4 100644
  PXR_NAMESPACE_OPEN_SCOPE
  
 diff --git a/pxr/imaging/plugin/hdEmbree/meshSamplers.h b/pxr/imaging/plugin/hdEmbree/meshSamplers.h
-index bef6f6595..699297030 100644
+index c32c35fffa..ab93094fa5 100644
 --- a/pxr/imaging/plugin/hdEmbree/meshSamplers.h
 +++ b/pxr/imaging/plugin/hdEmbree/meshSamplers.h
-@@ -29,8 +29,13 @@
+@@ -12,8 +12,13 @@
  #include "pxr/imaging/hd/meshUtil.h"
  #include "pxr/base/vt/types.h"
  
@@ -243,13 +228,13 @@ index bef6f6595..699297030 100644
  #include <bitset>
  
 diff --git a/pxr/imaging/plugin/hdEmbree/pch.h b/pxr/imaging/plugin/hdEmbree/pch.h
-index 733d83b21..5f7eb03b0 100644
+index 200633939c..3ce54d7a3e 100644
 --- a/pxr/imaging/plugin/hdEmbree/pch.h
 +++ b/pxr/imaging/plugin/hdEmbree/pch.h
-@@ -151,9 +151,15 @@
- #include <boost/unordered_map.hpp>
- #include <boost/utility/enable_if.hpp>
- #include <boost/weak_ptr.hpp>
+@@ -83,9 +83,15 @@
+ #undef toupper
+ #endif
+ #endif // PXR_PYTHON_SUPPORT_ENABLED
 +#if defined(EMBREE_MAJOR_VERSION) && EMBREE_MAJOR_VERSION >= 4
 +#include <embree4/rtcore.h>
 +#include <embree4/rtcore_geometry.h>
@@ -261,12 +246,12 @@ index 733d83b21..5f7eb03b0 100644
 +#endif // defined(EMBREE_MAJOR_VERSION) && EMBREE_MAJOR_VERSION >= 4
  #include <tbb/blocked_range.h>
  #include <tbb/cache_aligned_allocator.h>
- #include <tbb/concurrent_queue.h>
+ #include <tbb/concurrent_hash_map.h>
 diff --git a/pxr/imaging/plugin/hdEmbree/renderDelegate.h b/pxr/imaging/plugin/hdEmbree/renderDelegate.h
-index 20a80487a..046db66f7 100644
+index d4f8f78d54..4492d01512 100644
 --- a/pxr/imaging/plugin/hdEmbree/renderDelegate.h
 +++ b/pxr/imaging/plugin/hdEmbree/renderDelegate.h
-@@ -30,8 +30,13 @@
+@@ -13,8 +13,13 @@
  #include "pxr/imaging/plugin/hdEmbree/renderer.h"
  #include "pxr/base/tf/staticTokens.h"
  
@@ -282,10 +267,10 @@ index 20a80487a..046db66f7 100644
  PXR_NAMESPACE_OPEN_SCOPE
  
 diff --git a/pxr/imaging/plugin/hdEmbree/renderParam.h b/pxr/imaging/plugin/hdEmbree/renderParam.h
-index ff61000ab..7767c5f61 100644
+index 206a7458bc..52917fcd29 100644
 --- a/pxr/imaging/plugin/hdEmbree/renderParam.h
 +++ b/pxr/imaging/plugin/hdEmbree/renderParam.h
-@@ -28,7 +28,11 @@
+@@ -11,7 +11,11 @@
  #include "pxr/imaging/hd/renderDelegate.h"
  #include "pxr/imaging/hd/renderThread.h"
  
@@ -299,10 +284,10 @@ index ff61000ab..7767c5f61 100644
  PXR_NAMESPACE_OPEN_SCOPE
  
 diff --git a/pxr/imaging/plugin/hdEmbree/renderer.cpp b/pxr/imaging/plugin/hdEmbree/renderer.cpp
-index a0e233bd3..5ecedd242 100644
+index 2a5930ed5f..57b285665d 100644
 --- a/pxr/imaging/plugin/hdEmbree/renderer.cpp
 +++ b/pxr/imaging/plugin/hdEmbree/renderer.cpp
-@@ -653,9 +653,13 @@ HdEmbreeRenderer::_TraceRay(unsigned int x, unsigned int y,
+@@ -636,9 +636,13 @@ HdEmbreeRenderer::_TraceRay(unsigned int x, unsigned int y,
      rayHit.ray.flags = 0;
      _PopulateRayHit(&rayHit, origin, dir, 0.0f);
      {
@@ -316,7 +301,7 @@ index a0e233bd3..5ecedd242 100644
        //
        // there is something odd about how this is used in Embree. Is it reversed
        // here and then when it it used in
-@@ -995,9 +999,13 @@ HdEmbreeRenderer::_ComputeAmbientOcclusion(GfVec3f const& position,
+@@ -978,9 +982,13 @@ HdEmbreeRenderer::_ComputeAmbientOcclusion(GfVec3f const& position,
          shadow.flags = 0;
          _PopulateRay(&shadow, position, shadowDir, 0.001f);
          {
@@ -331,10 +316,10 @@ index a0e233bd3..5ecedd242 100644
  
          // Record this AO ray's contribution to the occlusion factor: a
 diff --git a/pxr/imaging/plugin/hdEmbree/renderer.h b/pxr/imaging/plugin/hdEmbree/renderer.h
-index 6af808167..e72ea1e0c 100644
+index 8e727ecba0..bb03a60e69 100644
 --- a/pxr/imaging/plugin/hdEmbree/renderer.h
 +++ b/pxr/imaging/plugin/hdEmbree/renderer.h
-@@ -32,8 +32,13 @@
+@@ -15,8 +15,13 @@
  #include "pxr/base/gf/matrix4d.h"
  #include "pxr/base/gf/rect2i.h"
  
@@ -351,10 +336,10 @@ index 6af808167..e72ea1e0c 100644
  #include <random>
  #include <atomic>
 diff --git a/pxr/imaging/plugin/hdEmbree/testenv/testHdEmbree.cpp b/pxr/imaging/plugin/hdEmbree/testenv/testHdEmbree.cpp
-index c361c678b..2cd2394fc 100644
+index 02c2ca69f8..d6fa2019dd 100644
 --- a/pxr/imaging/plugin/hdEmbree/testenv/testHdEmbree.cpp
 +++ b/pxr/imaging/plugin/hdEmbree/testenv/testHdEmbree.cpp
-@@ -40,7 +40,12 @@
+@@ -23,7 +23,12 @@
  
  #include "pxr/base/tf/errorMark.h"
  
@@ -368,56 +353,78 @@ index c361c678b..2cd2394fc 100644
  #include <iostream>
  
  PXR_NAMESPACE_USING_DIRECTIVE
--- 
-2.43.2
 
+From 801db836dcc41cd065310e802d72ea3c6780e6f2 Mon Sep 17 00:00:00 2001
+From: Matt Johnson <matt.johnson@epicgames.com>
+Date: Wed, 24 Jul 2024 10:07:44 -0400
+Subject: [PATCH 5/7] build_usd.py: update Embree URLs to reflect new home in
+ the RenderKit GitHub organization
 
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+---
+ build_scripts/build_usd.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/build_scripts/build_usd.py b/build_scripts/build_usd.py
+index 89169b1e36..ce51b22711 100644
+--- a/build_scripts/build_usd.py
++++ b/build_scripts/build_usd.py
+@@ -1549,9 +1549,9 @@ def InstallMaterialX(context, force, buildArgs):
+ # For MacOS we use version 3.13.3 to include a fix from Intel
+ # to build on Apple Silicon.
+ if MacOS():
+-    EMBREE_URL = "https://github.com/embree/embree/archive/v3.13.3.zip"
++    EMBREE_URL = "https://github.com/RenderKit/embree/archive/v3.13.3.zip"
+ else:
+-    EMBREE_URL = "https://github.com/embree/embree/archive/v3.2.2.zip"
++    EMBREE_URL = "https://github.com/RenderKit/embree/archive/v3.2.2.zip"
+ 
+ def InstallEmbree(context, force, buildArgs):
+     with CurrentWorkingDirectory(DownloadURL(EMBREE_URL, context, force)):
+
+From 461f43a884ab4d763fb30bdcb709af1fc4272429 Mon Sep 17 00:00:00 2001
 From: Matt Johnson <matt.johnson@epicgames.com>
 Date: Thu, 23 Feb 2023 12:25:24 -0700
-Subject: [PATCH 5/5] build_usd.py: add an option to choose Embree 3 or Embree
+Subject: [PATCH 6/7] build_usd.py: add an option to choose Embree 3 or Embree
  4
 
 The new --embree-major-version option can be given to build_usd.py to select
 between Embree 3 or Embree 4. By default, Embree 3 is still used, preserving
 the existing behavior.
-
-(cherry picked from commit 9050557a6a1765db9b17e8131f97391e0c605ad9)
 ---
  build_scripts/build_usd.py | 31 ++++++++++++++++++++++++-------
  1 file changed, 24 insertions(+), 7 deletions(-)
 
 diff --git a/build_scripts/build_usd.py b/build_scripts/build_usd.py
-index 8bc358840..d3f72c380 100644
+index ce51b22711..956e003f05 100644
 --- a/build_scripts/build_usd.py
 +++ b/build_scripts/build_usd.py
-@@ -1513,14 +1513,19 @@ MATERIALX = Dependency("MaterialX", InstallMaterialX, "include/MaterialXCore/Lib
+@@ -1546,14 +1546,19 @@ def InstallMaterialX(context, force, buildArgs):
  
  ############################################################
  # Embree
 -# For MacOS we use version 3.13.3 to include a fix from Intel
 -# to build on Apple Silicon.
 -if MacOS():
--    EMBREE_URL = "https://github.com/embree/embree/archive/v3.13.3.zip"
+-    EMBREE_URL = "https://github.com/RenderKit/embree/archive/v3.13.3.zip"
 -else:
--    EMBREE_URL = "https://github.com/embree/embree/archive/v3.2.2.zip"
+-    EMBREE_URL = "https://github.com/RenderKit/embree/archive/v3.2.2.zip"
 +
 +EMBREE_DEFAULT_MAJOR_VERSION = 3
  
  def InstallEmbree(context, force, buildArgs):
 +    if context.embreeMajorVersion >= 4:
-+        EMBREE_URL = "https://github.com/embree/embree/archive/refs/tags/v4.3.1.zip"
++        EMBREE_URL = "https://github.com/RenderKit/embree/archive/refs/tags/v4.3.3.zip"
 +    elif MacOS():
 +        # For MacOS we use version 3.13.3 to include a fix from Intel
 +        # to build on Apple Silicon.
-+        EMBREE_URL = "https://github.com/embree/embree/archive/refs/tags/v3.13.3.zip"
++        EMBREE_URL = "https://github.com/RenderKit/embree/archive/refs/tags/v3.13.3.zip"
 +    else:
-+        EMBREE_URL = "https://github.com/embree/embree/archive/refs/tags/v3.2.2.zip"
++        EMBREE_URL = "https://github.com/RenderKit/embree/archive/refs/tags/v3.2.2.zip"
 +
      with CurrentWorkingDirectory(DownloadURL(EMBREE_URL, context, force)):
          extraArgs = [
              '-DTBB_ROOT="{instDir}"'.format(instDir=context.instDir),
-@@ -1537,7 +1542,9 @@ def InstallEmbree(context, force, buildArgs):
+@@ -1570,7 +1575,9 @@ def InstallEmbree(context, force, buildArgs):
  
          RunCMake(context, force, extraArgs)
  
@@ -428,7 +435,7 @@ index 8bc358840..d3f72c380 100644
  
  ############################################################
  # AnimX
-@@ -2026,6 +2033,12 @@ subgroup.add_argument("--embree", dest="build_embree", action="store_true",
+@@ -2057,6 +2064,12 @@ def InstallUSD(context, force, buildArgs):
                        help="Build Embree sample imaging plugin")
  subgroup.add_argument("--no-embree", dest="build_embree", action="store_false",
                        help="Do not build Embree sample imaging plugin (default)")
@@ -441,7 +448,7 @@ index 8bc358840..d3f72c380 100644
  subgroup = group.add_mutually_exclusive_group()
  subgroup.add_argument("--prman", dest="build_prman", action="store_true",
                        default=False,
-@@ -2231,6 +2244,7 @@ class InstallContext:
+@@ -2269,6 +2282,7 @@ def __init__(self, args):
  
          # - Imaging plugins
          self.buildEmbree = self.buildImaging and args.build_embree
@@ -449,7 +456,7 @@ index 8bc358840..d3f72c380 100644
          self.buildPrman = self.buildImaging and args.build_prman
          self.prmanLocation = (os.path.abspath(args.prman_location)
                                 if args.prman_location else None)                               
-@@ -2501,6 +2515,7 @@ summaryMsg += """\
+@@ -2579,6 +2593,7 @@ def _JoinVersion(v):
        OpenImageIO support:      {buildOIIO} 
        OpenColorIO support:      {buildOCIO} 
        Embree support:           {buildEmbree}
@@ -457,7 +464,7 @@ index 8bc358840..d3f72c380 100644
        PRMan support:            {buildPrman}
      UsdImaging                  {buildUsdImaging}
        usdview:                  {buildUsdview}
-@@ -2566,6 +2581,8 @@ summaryMsg = summaryMsg.format(
+@@ -2643,6 +2658,8 @@ def FormatBuildArguments(buildArgs):
      buildOIIO=("On" if context.buildOIIO else "Off"),
      buildOCIO=("On" if context.buildOCIO else "Off"),
      buildEmbree=("On" if context.buildEmbree else "Off"),
@@ -466,6 +473,32 @@ index 8bc358840..d3f72c380 100644
      buildPrman=("On" if context.buildPrman else "Off"),
      buildUsdImaging=("On" if context.buildUsdImaging else "Off"),
      buildUsdview=("On" if context.buildUsdview else "Off"),
--- 
-2.43.2
 
+From 0ec76f5a0c5f1f01d04c879cea48c3e1af64c8e4 Mon Sep 17 00:00:00 2001
+From: Matt Johnson <matt.johnson@epicgames.com>
+Date: Wed, 24 Jul 2024 10:17:27 -0400
+Subject: [PATCH 7/7] build_usd.py: allow oneTBB and Embree to be used together
+ when Embree 4.x or later is selected
+
+---
+ build_scripts/build_usd.py | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/build_scripts/build_usd.py b/build_scripts/build_usd.py
+index 956e003f05..4503589544 100644
+--- a/build_scripts/build_usd.py
++++ b/build_scripts/build_usd.py
+@@ -2402,9 +2402,10 @@ def ForceBuildDependency(self, dep):
+     PrintError("Draco plugin can not be enabled for monolithic build on Windows")
+     sys.exit(1)
+ 
+-# The versions of Embree we currently support do not support oneTBB.
+-if context.buildOneTBB and context.buildEmbree:
+-    PrintError("Embree support cannot be enabled when building against oneTBB")
++# When building with both oneTBB and Embree, a 4.x version of Embree must be
++# used.
++if context.buildOneTBB and (context.buildEmbree and context.embreeMajorVersion < 4):
++    PrintError("Embree 4.x or later must be selected when building against oneTBB")
+     sys.exit(1)
+ 
+ # Error out if user explicitly enabled components which aren't
