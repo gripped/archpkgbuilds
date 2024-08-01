@@ -3,7 +3,7 @@
 # Contributor: Clement Tsang (xoronth) <cjhtsang@uwaterloo.ca>
 
 pkgname=bottom
-pkgver=0.10.0
+pkgver=0.10.1
 pkgrel=1
 pkgdesc='A graphical process/system monitor'
 arch=('x86_64')
@@ -12,8 +12,8 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('rust')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('76d7c0ed0c423b589606a6d8b6c6f6a7adf4a90f0bf63b36e18d85efab9b066b31bb771b866f8b6dfc57d907e1bcfee4d05c10157081f5c305135d01bede708a')
-b2sums=('dcd70d4ea1e44f34f8c8b31861b5a5aedd6b8dfecad12e18259e7312a72cf754059434504ff91412ed827e31160ad6c4e1ffcd1618c1ad6e0f5ab08894fde076')
+sha512sums=('dbacb947e8f9d68f0f0936d2aa6a723451bfee9c054b7ae177d80cd8ec2ed333b1ef2a72a5f3dfe06ff999c3437ec451bebe385a44cf4bc379016f14ffd5b5f4')
+b2sums=('a01057ebf5ae9588b2e83daa9e100dce71588fd4e7e2cd2bf80bd737876dcd03238c02e21e1ae08eb695bdf403032ac17ba961b2e5e70f59f908dc14be9d208c')
 
 prepare() {
   cd "$pkgname-$pkgver"
