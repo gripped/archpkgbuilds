@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=go-task
-pkgver=3.37.2
+pkgver=3.38.0
 pkgrel=1
 pkgdesc='A task runner written in Go'
 arch=('x86_64')
@@ -15,10 +15,10 @@ source=(
   "$pkgname::git+https://github.com/go-task/task#tag=v$pkgver"
   'rename-completions.patch'
 )
-sha512sums=('feb0c2a4e588a3f91d98833b9f4780f34121fbdf352114fd9077ba655eb2a91bd4ee95daa5a3a2cbca0ac1d4e5dc394ef4e03159fd38d25d3f7ac83c2edf47dd'
-            'd2958f196ddd641c8efff06d303b646e14bbfd79dcbb57288b08d8f0c85a75b11d9835f895a061186eafabd873d68d0b9e80471220d6843b85d9cbdc99511e2c')
-b2sums=('70916d31160fa419df2302d76e956992fe0b8fadc3c3a46c511ba202933f50fcd1b43ae59b963ccd0ab76d96fb5290212483f2465e2f539a226d6cfc3c2f0ba6'
-        '75a539c6cbec03eb71fda9ba2a26d16ab32656c0703f53df41b4ac8572710df72c76a82a788355152600a9cddcca11382268bd8c991e07ff8b0decfc09b16025')
+sha512sums=('9e3ddabbe0608c60aa1538a63978098687f87e0d36171fbcc853f9c3d62704f874d848ca61e053082e44b14cdc544752d9aba53cea713b9924eb767ba4e71d18'
+            '2b64a294b3b6b91c3d3e44c5aa776bd84b8ca32c88195e696be1c784ca5f83394eb7520b0a13b517b99dbdcd9833d2936707c8efdb79223b642dbdc3ffc7ac8c')
+b2sums=('89933286e1cf1879fd3a831000a7610909f82486a0d4d9498d32fe6e63b5ed5fcbac7aa2aec5aca96e4cb9dd49e0a8ba52c939698c922a45b42685e22992badc'
+        'b68ac73a03c94946169fd92f41b746b15fdb1f86c3fbebf8ab45b28272147d189646d407decadc482f3e89aa64b2f4a0ae14aedec4f5f5eb640f4b934f3b85bd')
 
 prepare() {
   cd "$pkgname"
