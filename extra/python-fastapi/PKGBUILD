@@ -4,7 +4,7 @@
 
 _name=fastapi
 pkgname=python-$_name
-pkgver=0.111.1
+pkgver=0.112.0
 pkgrel=1
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=(any)
@@ -31,6 +31,7 @@ checkdepends=(
   # test dependencies
   python-aiosqlite
   python-anyio
+  python-coverage
   python-databases
   python-flask
   python-httpx
@@ -68,8 +69,8 @@ optdepends=(
   'uvicorn: for Uvicorn as ASGI server'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('5a20171199e9664a9c649f580ac49ebffa436936254598a41023b67ca5b05444d40fa3f464d0a9541ae3ef6164ac94ac20e4379bbfee8d750454daa86bd9c7c4')
-b2sums=('0cfc49c24b9492266b961d42a8cead0682744b8ebb94e31ad25373a717c758e2941f67804ec514a9cfd2c5e2b9ed402c2e6545a870c0b6f2d57d4e0fad664c2d')
+sha512sums=('200ffbef2b5bc806de1ded01f4d44f3c22d6b9aae25ac5ccd3a1c74a585a6986d0d8f802520753a589d011ed5594f8d2b833634b35ae7fddfa1b00d25c333a9f')
+b2sums=('cfaccb51c91d424344860d800627ee1506ec42f6f779af1b2faa0d1f99f5028942b7905ea216e590c257b87b86f88e6cf1fc627b92d76efb2bd51d643d794f34')
 
 prepare() {
   cd $_name-$pkgver
@@ -94,6 +95,8 @@ check() {
     --deselect tests/test_tutorial/test_async_tests/test_main.py::test_async_testing[asyncio]
     --deselect tests/test_tutorial/test_async_tests/test_main.py::test_root[trio]
     --deselect tests/test_tutorial/test_async_tests/test_main.py::test_async_testing[trio]
+    # This test wants to run fastapi cli from $PATH
+    --deselect tests/test_fastapi_cli.py::test_fastapi_cli
   )
 
   cd $_name-$pkgver
