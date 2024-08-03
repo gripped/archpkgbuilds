@@ -6,7 +6,7 @@
 pkgbase=alsa-plugins
 pkgname=(alsa-plugins pulseaudio-alsa)
 pkgver=1.2.12
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc="Additional ALSA plugins"
 arch=(x86_64)
@@ -94,7 +94,7 @@ package_pulseaudio-alsa() {
   pkgdesc="ALSA Configuration for PulseAudio"
   depends=(
     'alsa-plugins>=1.2.2-2'
-    pulseaudio
+    libpulse
   )
 
   install -vdm 755 "$pkgdir/etc/alsa/conf.d"
