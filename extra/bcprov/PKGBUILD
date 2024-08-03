@@ -5,7 +5,7 @@
 pkgname=bcprov
 _pkgname=bc-java
 pkgver=1.78.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Bouncy Castle Crypto APIs for Java'
 arch=(any)
 url='https://www.bouncycastle.org/java.html'
@@ -41,7 +41,8 @@ build() {
 
 package() {
 	cd "$_archive"
-	install -Dm644 -t "$pkgdir/usr/share/java/$pkgname" build/artifacts/jdk1.8/jars/bcprov-jdk18on-*.jar
-	ln -s bcprov-jdk18on-*.jar "$pkgdir/usr/share/java/$pkgname/bcprov.jar"
-	install -Dm644 LICENSE.html -t "$pkgdir/usr/share/licenses/$pkgname"
+	install -Dm644 -t "$pkgdir/usr/share/java/$pkgname/" build/artifacts/jdk1.8/jars/bcprov-jdk18on-*.jar
+	install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE.html
+	pushd "$pkgdir/usr/share/java/$pkgname/"
+	ln -s bcprov-jdk18on-*.jar bcprov.jar
 }
