@@ -1,6 +1,9 @@
 stream_over_http_enabled: true
 server:
+  http_listen_address: 127.0.0.1
   http_listen_port: 3200
+  grpc_listen_address: 127.0.0.1
+  grpc_listen_port: 9095
   log_level: info
 
 query_frontend:
@@ -53,7 +56,4 @@ storage:
       path: /var/lib/tempo/blocks
 
 overrides:
-  defaults:
-    metrics_generator:
-      processors: [service-graphs, span-metrics, local-blocks] # enables metrics generator
-      generate_native_histograms: both
+    metrics_generator_processors: [service-graphs, span-metrics, local-blocks] # enables metrics generator
