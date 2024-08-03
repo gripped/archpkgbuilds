@@ -5,7 +5,7 @@
 
 pkgbase='kea'
 pkgname=("${pkgbase}" "${pkgbase}-docs")
-pkgver=2.6.0
+pkgver=2.6.1
 pkgrel=1
 pkgdesc='High-performance, extensible DHCP server engine from ISC, supporting both DHCPv4 and DHCPv6'
 arch=('x86_64')
@@ -51,7 +51,7 @@ source=(
   'kea-dhcp-ddns.service'
   'kea-ctrl-agent.service'
 )
-b2sums=('7478c90392c34c671c0f6bdb4e0274ad3769cdc8a4486e833d77c8a63a4fbae822261064454bd0c4ffa5c978d9ae9b18df623019bb247528c03706932ce478a3'
+b2sums=('7d2392a9bde1759bcd18f2b46519aeff480716166e0e9e3ccd87848a6bfefb511b39ceffd7fdbb5ad4d85b3ee7280187a09cabe88aeb97ae173e02d2cb7ad3c4'
         'SKIP'
         '7ac151ae19093350e75112ab1fba38561f6f986a8ac333ada91b86819abd65559e31cec86ef19fce68e0e56cbae7ed28858654507c4d975985db4d34ee0184fb'
         'b25f29b3cd8657508d766eb4c92c8c2b9ebebd60c3639930cb0439f69d205352b6ef066409d704228721ae252b0d954e5f6a3a26bb46c33bbc9ede4170c22e94'
@@ -62,7 +62,8 @@ validpgpkeys=('BE0E9748B718253A28BB89FFF1B11BF05CF02E57'  # Internet Systems Con
               'AE3FAC796711EC59FC007AA474BB6B9A4CBB3D38'  # Internet Systems Consortium, Inc. (Signing key, 2019-2020) <codesign@isc.org>
               '7E1C91AC8030A5A59D1EFAB9750F3C87723E4012'  # Internet Systems Consortium, Inc. (Signing key, 2021-2022) <codesign@isc.org>
               '090A2A07923F925B5767803A42E5DF78C83271DB'  # Marcin Godzina (Code-Signing Key) <mgodzina@isc.org>
-              'DA6A3508E672A49DD382AFD95B8F4D91B88ED909') # Andrei Pavel (Code-Signing Key) <andrei@isc.org>
+              'DA6A3508E672A49DD382AFD95B8F4D91B88ED909'  # Andrei Pavel (Code-Signing Key) <andrei@isc.org>
+              '0259A33B5F5A3A4466CF345C7A5E084CACA51884') # Wlodek Wencel (Code-Signing Key) <wlodek@isc.org>
 
 build() {
   cd "${pkgbase}-${pkgver}"
