@@ -3,7 +3,7 @@
 
 _srcname=SPIRV-LLVM-Translator
 pkgname=${_srcname,,}
-pkgver=18.1.2
+pkgver=18.1.3
 pkgrel=1
 pkgdesc="Tool and a library for bi-directional translation between SPIR-V and LLVM IR"
 arch=(x86_64)
@@ -11,11 +11,11 @@ url="https://github.com/KhronosGroup/SPIRV-LLVM-Translator"
 license=(LicenseRef-custom)
 depends=(llvm-libs spirv-tools)
 makedepends=(git cmake llvm spirv-headers)
-checkdepends=(python python-setuptools clang)
+checkdepends=(python clang)
 # Current point in the used LLVM branch
-_commit=3e602b4577ed85b4d5a48fd7d7df11c2f9b49d13
+_commit=7beeed2ef95d286c47416a21c8e137ae1db9565b
 source=(git+${url}.git#commit=$_commit)
-sha256sums=('53fe1e4e55f319d22baab551ce2ced9329579c4d3cd80fe64b2dea28638778f2')
+sha256sums=('494e7c753909ac362836e78d3d40825f6253466afc567e660f0792d266e8717d')
 
 pkgver() {
   git -C ${_srcname} describe --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./;s/-/+/'
@@ -37,7 +37,7 @@ build() {
 }
 
 check() {
-  LD_LIBRARY_PATH="${srcdir}/build/lib/SPIRV" ctest --test-dir build --output-on-failure
+  make -C build test
 }
 
 package() {
