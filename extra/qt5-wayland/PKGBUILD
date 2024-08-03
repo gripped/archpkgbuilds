@@ -3,9 +3,9 @@
 
 pkgname=qt5-wayland
 _basever=5.15.14
-pkgver=5.15.14+kde+r58
+pkgver=5.15.14+kde+r59
 pkgrel=1
-_commit=11e099c6b7fbec0e198bffaf8016676ef430cfba
+_commit=16e1ce54c6a83e90af2273e8d4eb3f7f3369440b
 arch=('x86_64')
 url='https://www.qt.io'
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
@@ -15,7 +15,7 @@ makedepends=('vulkan-headers' 'git')
 groups=('qt5')
 _pkgfqn=${pkgname/5-/}
 source=(kde-$_pkgfqn::git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit)
-sha256sums=('e659f4b1e029866c7475822837b3db019a5821ffcb8a85d72e7edec9ef42a6d6')
+sha256sums=('35138ab4dcfb481245c1f12a0eacf79927107b47a34de483a4448a4105e74774')
 
 pkgver() {
   cd kde-$_pkgfqn
