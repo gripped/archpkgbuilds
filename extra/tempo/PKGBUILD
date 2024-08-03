@@ -1,0 +1,42 @@
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
+pkgname=tempo
+pkgver=2.5.0
+pkgrel=3
+pkgdesc='A high volume, minimal dependency distributed tracing backend'
+arch=('x86_64')
+url='https://grafana.com/oss/tempo'
+license=('AGPL-3.0-or-later')
+depends=('glibc')
+makedepends=('go' 'git')
+options=(!lto)
+source=(git+https://github.com/grafana/tempo.git#tag=v${pkgver}
+        tempo.yaml
+        tempo.sysusers)
+backup=('etc/tempo/config.yml')
+sha512sums=('a85b7027de0bdf3a54ebc807431341883dc909888bc3888e4575b799d7cce2c12229d6cb5e5167faa19e2776d535a749369ab1f46cb72371f5a14e4fbdd82269'
+            '92f40ec4b5a497d60f16b56086962df09bf6a1e1758d8546e397a62ed25542b305817c9882da1d0641de33006b847f4278695648d3b1451bbf1942aa0327e3d5'
+            '379d35f64c1dc2f8ed4f6a53749e5fbcd3981a284d1935334e19876c96e90ce72a0e831e028aa096f6f0f243a8b4999ebca12edcb9c4a63a191965969167efc8')
+
+build() {
+  cd tempo
+
+  export CGO_LDFLAGS="${LDFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+
+  go build \
+      -mod vendor \
+      -ldflags "-linkmode external -compressdwarf=false -extldflags \"${LDFLAGS}\" -X main.Branch=main -X main.Revision=$(git rev-parse --short HEAD) -X main.Version=${pkgver}" \
+      -o ./bin/linux/tempo-amd64 \
+      ./cmd/tempo
+}
+
+package() {
+  cd tempo
+  install -Dm755 bin/linux/tempo-amd64 "${pkgdir}/usr/bin/tempo"
+  install -Dm644 "${srcdir}/tempo.yaml" "${pkgdir}/etc/tempo/config.yml"
+  install -Dm644 tools/packaging/tempo.service "${pkgdir}/usr/lib/systemd/system/tempo.service"
+  install -Dm644 "${srcdir}/tempo.sysusers" "${pkgdir}/usr/lib/sysusers.d/tempo.conf"
+}
