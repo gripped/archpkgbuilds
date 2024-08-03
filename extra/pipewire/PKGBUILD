@@ -22,7 +22,7 @@ pkgname=(
   pipewire-session-manager
   pulse-native-provider
 )
-pkgver=1.2.1
+pkgver=1.2.2
 pkgrel=1
 epoch=1
 pkgdesc="Low-latency audio/video router and processor"
@@ -75,7 +75,7 @@ checkdepends=(
 source=(
   "git+https://gitlab.freedesktop.org/pipewire/pipewire.git#tag=$pkgver"
 )
-b2sums=('c956faaa5caeb95ea9c802744c0584f25b251f3f7d5460f938aafe75def298df136824a9aff5ce7ecaad6241db51e88a19f39a89aa9e30e2256bd8cee21dbcbb')
+b2sums=('84ba0407bff0a6bab7437e6c6243b215c31cf2d9a6421215627c09ee7b7b0b8d99f41e2b5334c0b968eee1ebd1ecc4fe13c9cb6f93cca033227dd7794bb567e3')
 
 prepare() {
   cd pipewire
@@ -333,8 +333,6 @@ package_pipewire-alsa() {
     pipewire-audio
     pipewire-session-manager
   )
-  conflicts=(pulseaudio-alsa)
-  provides=(pulseaudio-alsa)
 
   mkdir -p "$pkgdir/etc/alsa/conf.d"
   ln -st "$pkgdir/etc/alsa/conf.d" \
@@ -436,15 +434,8 @@ package_pipewire-pulse() {
     pipewire-session-manager
     systemd-libs
   )
-  provides=(
-    pulse-native-provider
-    pulseaudio
-    pulseaudio-bluetooth
-  )
-  conflicts=(
-    pulseaudio
-    pulseaudio-bluetooth
-  )
+  provides=(pulse-native-provider)
+  conflicts=(pulseaudio)
   install=pipewire-pulse.install
 
   mv pulse/* "$pkgdir"
