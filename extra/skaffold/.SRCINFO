@@ -1,10 +1,11 @@
 pkgbase = skaffold
 	pkgdesc = A command line tool that facilitates continuous development for Kubernetes applications
-	pkgver = 2.10.0
+	pkgver = 2.13.1
 	pkgrel = 1
 	url = https://github.com/GoogleContainerTools/skaffold
 	arch = x86_64
-	license = Apache
+	license = Apache-2.0
+	makedepends = git
 	makedepends = go
 	makedepends = go-licenses
 	makedepends = python
@@ -13,8 +14,9 @@ pkgbase = skaffold
 	optdepends = minikube: To use Minikube
 	optdepends = kubectl: For Kubernetes support
 	optdepends = bash-completion: Tab autocompletion
-	source = skaffold-2.10.0.tar.gz::https://github.com/GoogleContainerTools/skaffold/archive/v2.10.0.tar.gz
-	sha512sums = c69bf5ea19407cb400738da6ebf2aa22e2d101f26784e9972de118267f230b5acf45d44ff94e27bc74d0d2c1e86b32968b2d69504d3ea0886d7cd838ca5dc917
-	b2sums = 854f1de5ae144745ad58edbaaecba189daae856b067f5ea834d88640be7c29e216ee475ca2660686d9a9a4fc3937f2bc35b7ddc399ba4df6b92c6d3f858ada19
+	options = !lto
+	source = skaffold::git+https://github.com/GoogleContainerTools/skaffold.git#tag=v2.13.1
+	sha512sums = b8a89c62ae47ae417289be067e4c79a30634eba78826e994376d9b05e3bb199f87783bab3f9aa025a465db51dda82ffdb7864912e3168718c944674e86688523
+	b2sums = 12d950fa7e692b03e8a88aa782b97e2ef416b9681b053c23ce525fa3cd323accadfddf7077f3141f4374fe9af215113dd94f3e5f2ebd112c06bfb4df43e10a8d
 
 pkgname = skaffold
