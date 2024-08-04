@@ -2,20 +2,35 @@
 # Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 
 pkgbase=gom
-pkgname=(gom gom-docs)
-pkgver=0.5.2
+pkgname=(
+  gom
+  gom-docs
+)
+pkgver=0.5.3
 pkgrel=1
 pkgdesc='GObject to SQLite object mapper library'
-arch=('x86_64')
+arch=(x86_64)
 url='https://wiki.gnome.org/Projects/Gom'
-license=('LGPL-2.1-or-later')
-depends=('glib2' 'glibc' 'sqlite')
-makedepends=('gdk-pixbuf2' 'gi-docgen' 'git' 'gobject-introspection' 'meson' 'python-gobject')
-source=("git+https://gitlab.gnome.org/GNOME/$pkgname.git#tag=$pkgver")
-b2sums=('b6ce604f70c775ef80705447ae060d9c373158dfdf5ed33e823fd0a95b1fcebc4f59c497f95ec8a2e654c2bf0f6f89397578a1068c957862af8566573ab448b5')
+license=(LGPL-2.1-or-later)
+depends=(
+  glib2
+  glibc
+  sqlite
+)
+makedepends=(
+  gdk-pixbuf2
+  gi-docgen
+  git
+  gobject-introspection
+  meson
+  python-gobject
+)
+source=("git+https://gitlab.gnome.org/GNOME/$pkgbase.git#tag=$pkgver")
+b2sums=('80e47b45b8f94c04c6215bb3525ce9431cc0e76b44ac407ead03c0f0d1ef2c747e529833730a5db86c4b67742373d0e6b3d96bf34ac3c77d8794e4bd65d6e660')
 
 build() {
-  arch-meson $pkgname build -D enable-gtk-doc=true
+  arch-meson $pkgbase build \
+    -D enable-gtk-doc=true
   meson compile -C build
 }
 
