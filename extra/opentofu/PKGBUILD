@@ -2,7 +2,7 @@
 # Contributor: Marcel Campello <marcel@prafrentex.com.br>
 
 pkgname=opentofu
-pkgver=1.7.3
+pkgver=1.8.0
 pkgrel=1
 pkgdesc="Lets you declaratively manage your cloud infrastructure"
 arch=(x86_64)
@@ -15,25 +15,23 @@ source=(
   "$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
   "tofu.fish"
 )
-sha256sums=('c97c470f3afbd30c67a141bb973ad4bcb458d3cd7a6bbe3aad1e99b4fbc026a8'
+sha256sums=('9e3f622741a0df00a10fcd42653260742c966936b252d3171d1ad952de6e40e0'
             '312fe00a97ed3098fa141a54dfc0694c13766957acedec19f10347b80f813ce8')
 
-_archive="$pkgname-$pkgver"
-
 prepare() {
-  cd "$_archive"
+  cd $pkgname-$pkgver
 
-  go mod download -x
+  GOFLAGS="-mod=readonly" go mod vendor -v
 }
 
 build() {
-  cd "$_archive"
+  cd $pkgname-$pkgver
 
   export CGO_CPPFLAGS="$CPPFLAGS"
   export CGO_CFLAGS="$CFLAGS"
   export CGO_CXXFLAGS="$CXXFLAGS"
   export CGO_LDFLAGS="$LDFLAGS"
-  export GOFLAGS="-buildmode=pie -mod=readonly -modcacherw"
+  export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw"
   export GOPATH="$srcdir"
 
   local ld_flags="-compressdwarf=false -linkmode=external -X github.com/opentofu/opentofu/version.dev=no"
@@ -41,20 +39,20 @@ build() {
 }
 
 check() {
-  cd "$_archive"
+  cd $pkgname-$pkgver
 
   go test ./...
 }
 
 package() {
-  cd "$_archive"
+  cd $pkgname-$pkgver
 
-  install -Dm755 -t "$pkgdir/usr/bin" tofu
+  install -vDm755 -t "$pkgdir/usr/bin" tofu
 
-  echo 'complete -C /usr/bin/tofu tofu' > tofu.bash
-  install -Dm644 tofu.bash "$pkgdir/usr/share/bash-completion/completions/tofu"
-  install -Dm644 "$srcdir/tofu.fish" "$pkgdir/usr/share/fish/completions/tofu.fish"
+  echo 'complete -C /usr/bin/tofu tofu' \
+    | install -vDm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/tofu"
+  install -vDm644 "$srcdir/tofu.fish" "$pkgdir/usr/share/fish/completions/tofu.fish"
 
-  install -Dm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
   cp -a -t "$pkgdir/usr/share/doc/$pkgname" docs
 }
