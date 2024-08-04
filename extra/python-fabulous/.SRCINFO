@@ -1,13 +1,18 @@
 pkgbase = python-fabulous
 	pkgdesc = Print images, colors, and stylish text to the terminal with Python
 	pkgver = 0.4.0
-	pkgrel = 5
+	pkgrel = 6
 	url = https://github.com/jart/fabulous
 	arch = any
-	license = Apache
+	license = Apache-2.0
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python
-	source = https://github.com/jart/fabulous/releases/download/0.4.0/fabulous-0.4.0.tar.gz
-	sha256sums = 60ae547be786b5c19b555939453ea8c1e906b99a93847c8baa65e7154801d14a
+	depends = python-pillow
+	source = git+https://github.com/jart/fabulous.git#tag=0.4.0
+	b2sums = feca83ce2a52a754a818ed2b09a6098c6606bbaa81b293358640fb444cafa89769aa31595c316ae49b5dc3f63d3e2e54613c60e3f7cad292343effc7a1c08bab
 
 pkgname = python-fabulous
