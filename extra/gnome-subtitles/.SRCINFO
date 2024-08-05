@@ -1,7 +1,7 @@
 pkgbase = gnome-subtitles
 	pkgdesc = Video subtitle editor for GNOME
 	pkgver = 1.8
-	pkgrel = 1
+	pkgrel = 2
 	url = https://gitlab.gnome.org/GNOME/gnome-subtitles
 	arch = any
 	license = GPL-2.0-or-later
@@ -14,18 +14,18 @@ pkgbase = gnome-subtitles
 	depends = enchant
 	depends = glib2
 	depends = glibc
-	depends = gstreamer
 	depends = gst-plugin-gtk
 	depends = gst-plugins-base
 	depends = gst-plugins-base-libs
 	depends = gst-plugins-good
+	depends = gstreamer
 	depends = gtk-sharp-3
 	depends = gtkspell3
 	depends = hicolor-icon-theme
 	depends = mono
+	optdepends = gst-libav: Extra media codecs
 	optdepends = gst-plugins-bad: Extra media codecs
 	optdepends = gst-plugins-ugly: Extra media codecs
-	optdepends = gst-libav: Extra media codecs
 	source = git+https://gitlab.gnome.org/GNOME/gnome-subtitles.git#tag=gnome-subtitles-1.8
 	source = git+https://gitlab.freedesktop.org/noup/gstreamer-sharp.git#tag=1.18.0-gnome-subtitles
 	source = git+https://github.com/GLibSharp/GtkSharp.git#commit=4c85f1479cf2e0dc056c0d288785e5a1d7251cb1
