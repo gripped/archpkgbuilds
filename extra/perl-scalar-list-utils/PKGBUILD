@@ -2,17 +2,17 @@
 # Contributor: John D Jones III AKA jnbek <jnbek1972 -_AT_- g m a i l -_Dot_- com>
 
 pkgname='perl-scalar-list-utils'
-pkgver=1.63
-pkgrel=3
+pkgver=1.64
+pkgrel=1
 pkgdesc="A selection of general-utility list subroutines"
 arch=('x86_64')
-license=('PerlArtistic' 'GPL')
+license=('Artistic-1.0-Perl' 'GPL-1.0-or-later')
 options=('!emptydirs')
 depends=('perl')
 makedepends=()
 url='https://metacpan.org/release/Scalar-List-Utils'
 source=("https://search.cpan.org/CPAN/authors/id/P/PE/PEVANS/Scalar-List-Utils-$pkgver.tar.gz")
-sha256sums=('cafbdf212f6827dc9a0dd3b57b6ee50e860586d7198228a33262d55c559eb2a9')
+sha256sums=('2db9e0d06afd5a9addfdc97844257317f56adbd24657dfe4a6a0327736a89a7b')
 
 build() {
   ( export PERL_MM_USE_DEFAULT=1 PERL5LIB=""                 \
