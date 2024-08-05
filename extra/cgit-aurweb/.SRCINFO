@@ -1,11 +1,11 @@
 pkgbase = cgit-aurweb
 	pkgdesc = A web interface for git written in plain C (aurweb branch)
-	pkgver = 1.2.3
-	pkgrel = 4
+	pkgver = 1.2.3.r70.g09d24d7
+	pkgrel = 1
 	url = https://git.zx2c4.com/cgit/
 	install = cgit.install
 	arch = x86_64
-	license = GPL2
+	license = GPL-2.0-only
 	makedepends = git
 	makedepends = zlib
 	makedepends = curl
@@ -16,13 +16,23 @@ pkgbase = cgit-aurweb
 	optdepends = python-pygments: syntax highlighting support
 	optdepends = python-docutils: about page formatted with reStructuredText
 	optdepends = python-markdown: about page formatted with markdown
+	optdepends = lua51-luaossl: for lua filters
 	optdepends = gzip: gzip compressed snapshots
 	optdepends = bzip2: bzip2 compressed snapshots
 	optdepends = lzip: lzip compressed snapshots
 	optdepends = xz: xz compressed snapshots
 	optdepends = zstd: zstd compressed snapshots
 	optdepends = mime-types: serve file with correct content-type header
-	source = cgit-aurweb::git+https://gitlab.archlinux.org/archlinux/cgit.git#commit=cc08c9ff936a890206bc2f7560acb44147af9bb8
+	source = git+https://git.zx2c4.com/cgit.git#commit=09d24d7cd0b7e85633f2f43808b12871bb209d69
+	source = git+https://github.com/git/git.git
+	source = 1001-aurweb.patch
+	source = tmpfiles.conf
+	source = apache.example.conf
+	validpgpkeys = AB9942E6D4A4CFC3412620A749FC7012A5DE03AE
+	sha256sums = 423a95f4fee9bdc5a50e332703d5e5f5289f523f620e275d26b950d92ae5a836
 	sha256sums = SKIP
+	sha256sums = 747587c8f13d8ccf681258c053c0d0027e47ccfb348cb60312552e2834901a91
+	sha256sums = c1d03b2abdd4091f10e777644242762d2e34f903b4587e1683a0560bebc45eea
+	sha256sums = fde213191b38137c1e29b123eb777004dc84cc6ca9d97d5f78ad717689def5f1
 
 pkgname = cgit-aurweb
