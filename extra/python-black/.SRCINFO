@@ -1,7 +1,7 @@
 pkgbase = python-black
 	pkgdesc = Uncompromising Python code formatter
-	pkgver = 24.4.2
-	pkgrel = 2
+	pkgver = 24.8.0
+	pkgrel = 1
 	url = https://github.com/psf/black
 	arch = any
 	license = MIT
@@ -11,6 +11,7 @@ pkgbase = python-black
 	checkdepends = python-pytest
 	checkdepends = python-typed-ast
 	checkdepends = python-tokenize-rt
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-hatch-fancy-pypi-readme
 	makedepends = python-hatch-vcs
@@ -26,7 +27,8 @@ pkgbase = python-black
 	optdepends = python-tokenize-rt: for Jupyter notebook support
 	optdepends = python-aiohttp: for the blackd HTTP server
 	optdepends = python-colorama: for colored diffs
-	source = https://files.pythonhosted.org/packages/source/b/black/black-24.4.2.tar.gz
-	b2sums = aa62394dc4a14fd6dd49502a86e46e7f707d6342127e2fb3b5cb7365ab392f5a0514df548d30219e9b6ed1f9d8ca80241ea206a06011ef8dc3d770191d3328ce
+	source = python-black::git+https://github.com/psf/black#tag=24.8.0
+	sha512sums = 8b53128effd999a092e327166353165ef8787334e0201acd91e2aba20113125729fe56708498a090c90b03f730e22d9181eb261e4d3a92710dbdc697fe84bffd
+	b2sums = bd98da22cd8b9b925143763bf6beca3caff8607e608288e40d70555c7c69a500825fd9089ff221e52ac93a34fbef409ac2ffb4c0a0901ca753b45c2259ed0e91
 
 pkgname = python-black
