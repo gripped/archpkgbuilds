@@ -3,7 +3,7 @@
 
 _pkgname=furo
 pkgname=python-sphinx-$_pkgname
-pkgver=2024.07.18
+pkgver=2024.08.06
 pkgrel=1
 pkgdesc='Clean customizable documentation theme for Sphinx'
 arch=(any)
@@ -25,7 +25,7 @@ makedepends=(
   python-sphinx-theme-builder
 )
 source=("git+$url.git#tag=$pkgver?signed")
-b2sums=('6c86421e8e2a0c8534d71a68c70c37d41f46930f62e29cb5240afce9db5fb6d63ebf02485084b7dbfad489166877681b5d51e4e663babcfd2f940bb08ec93245')
+b2sums=('6bc28bbbf07cbd3ae6c0657cf706862c0aa47a1168ea16dac81afd131ed9272569722a85040a0132426ffc52fee4823871105839fa31e31e402fd0b51425f354')
 validpgpkeys=(E2FEFA4CA4BDD28171DB00F3FF99710C4332258E) # Pradyun Gedam (GitHub July 2020 Key) <pradyunsg@users.noreply.github.com>
 
 prepare() {
