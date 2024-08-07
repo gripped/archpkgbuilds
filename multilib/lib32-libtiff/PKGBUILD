@@ -5,7 +5,7 @@
 _pkgname=libtiff
 pkgname=lib32-${_pkgname}
 pkgver=4.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Library for manipulation of TIFF images (32-bit)'
 url='http://www.simplesystems.org/libtiff/'
 arch=('x86_64')
@@ -19,32 +19,28 @@ depends=(
   'lib32-zlib'
   'lib32-zstd'
 )
+makedepends=(
+  'freeglut'
+  'git'
+  'glu'
+  'mesa'
+)
 provides=('libtiff.so' 'libtiffxx.so')
-source=("https://download.osgeo.org/libtiff/tiff-${pkgver}.tar.gz"{,.sig}
-        # CVE-2023-6277
-        "https://gitlab.com/libtiff/libtiff/-/commit/5320c9d89c054fa805d037d84c57da874470b01a.patch")
-sha512sums=('80a117780fe5e2519b5c6661efa90a8a1e4591eb6300068b611ff9887285641c0782d9835482f589d6d109c3be6ffab8831c3561bb40e2456258deb1e896f08e'
-            'SKIP'
-            '67488a0c17d423a9c5a9609d4014f17c78bb82a4ad9ce3d55d39c09d0f886fa824a06f547d9fbf37533a2577477cab1403732357488140ce6c08827987b662dc')
-b2sums=('aa3d51ffb7d800424a05e6a12e2eaad41adfe7d676650d2857bcc073a25627be88372410a27126e9c067692060c26bd2dec80a42a2188197f6f3ff9d8507fc8f'
-        'SKIP'
-        'f0ecae3d1b75133823aa9361caeb3123ddda72d21748552daf2bcf9c771ace743b888956d6320593e85f9b2f0fc558f21bceabf81312ed5f5845859e3f7c9199')
+source=("git+https://gitlab.com/libtiff/libtiff.git?signed#tag=v${pkgver}")
+sha512sums=('f72a845856320aea20b5061a060c8fd67006a4dd370bf71eb6288fbf6d9255caa74c2d3061aad4867063a35f131d22cc2bc490ab1ca47eca22573d0cd194bb31')
+b2sums=('e3c31b9afefecdcafb52d174840c2eee8cb4dd43ff1a81eef52a09e0753cfb247775baa7a42b865e518f2cdaa04828e4acbb43a0ead373b1251b2d0c03f8d0a6')
 validpgpkeys=(
   'EBDFDB21B020EE8FD151A88DE301047DE1198975' # Bob Friesenhahn <bfriesen@simple.dallas.tx.us>
   'B1FA7D81EEB8E66399178B9733EBBFC47B3DD87D' # Even Rouault <even.rouault@spatialys.com>
 )
 
 prepare() {
-  cd tiff-${pkgver//rc*/}
-  # apply patch from the source array (should be a pacman feature)
-  local src
-  for src in "${source[@]}"; do
-    src="${src%%::*}"
-    src="${src##*/}"
-    [[ $src = *.patch ]] || continue
-    echo "Applying patch $src..."
-    patch -Np1 < "../$src"
-  done
+  cd libtiff
+  # CVE-2023-6277
+  git cherry-pick -n 5320c9d89c054fa805d037d84c57da874470b01a
+  # CVE-2023-52356
+  git cherry-pick -n 51558511bdbbcffdce534db21dbaf5d54b31638a
+  autoreconf -fiv
 }
 
 build() {
@@ -62,25 +58,24 @@ build() {
   export CXX="g++ -m32"
   export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 
-  cd tiff-${pkgver//rc*/}
+  cd libtiff
   ./configure "${configure_options[@]}"
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
 
 check() {
-  cd tiff-${pkgver//rc*/}
+  cd libtiff
   make check
 }
 
 package() {
   depends+=('libjpeg.so')
-  cd tiff-${pkgver//rc*/}
+  cd libtiff
   make DESTDIR="${pkgdir}" install
 
   rm -rf "${pkgdir}"/usr/{share,bin}
-  mkdir -p "${pkgdir}/usr/share/licenses"
-  ln -s ${_pkgname} "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm 644 LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
 
 # vim: ts=2 sw=2 et:
