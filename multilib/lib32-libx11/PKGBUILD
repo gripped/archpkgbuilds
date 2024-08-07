@@ -2,7 +2,7 @@
 
 _pkgbasename=libx11
 pkgname=lib32-$_pkgbasename
-pkgver=1.8.9
+pkgver=1.8.10
 pkgrel=1
 pkgdesc="X11 client-side library (32-bit)"
 arch=(x86_64)
@@ -11,7 +11,7 @@ depends=('lib32-libxcb' $_pkgbasename)
 makedepends=('xorg-util-macros' 'xorgproto' 'xtrans' 'gcc-multilib')
 license=('custom:XFREE86')
 source=(${url}/releases/individual/lib/libX11-${pkgver}.tar.xz{,.sig})
-sha512sums=('737af91818537295ac86be601b1e3d7e37d150716ec549580913b7cc9a44fee7a6ce9dbc3d46167eed91f23fe857c4dd355ed8f8440fe5fbbf8e9ebe47091b96'
+sha512sums=('f801f5b77cbc55074f73dc95b29fff7b5e1b13b99641f6e397788ad9f31a29793ed4e8e5bd373122c790ef90627e8f9d6d5e271051c1767a479a85c55cd82bc1'
             'SKIP')
 validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alanc@freedesktop.org>
 validpgpkeys+=('C41C985FDCF1E5364576638B687393EE37D128F8') # Matthieu Herrb <matthieu.herrb@laas.fr>
