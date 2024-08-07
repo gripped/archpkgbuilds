@@ -2,7 +2,7 @@
 
 _pkgbasename=libxtst
 pkgname=lib32-$_pkgbasename
-pkgver=1.2.4
+pkgver=1.2.5
 pkgrel=1
 pkgdesc="X11 Testing -- Resource extension library (32-bit)"
 arch=(x86_64)
@@ -11,7 +11,7 @@ license=('custom')
 depends=('lib32-libxext' 'lib32-libxi' 'lib32-libxfixes' $_pkgbasename)
 makedepends=('gcc-multilib' 'xorg-util-macros')
 source=(${url}/releases/individual/lib/libXtst-${pkgver}.tar.xz{,.sig})
-sha256sums=('84f5f30b9254b4ffee14b5b0940e2622153b0d3aed8286a3c5b7eeb340ca33c8'
+sha256sums=('b50d4c25b97009a744706c1039c598f4d8e64910c9fde381994e1cae235d9242'
             'SKIP')
 validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
 
