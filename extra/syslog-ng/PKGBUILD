@@ -3,7 +3,7 @@
 
 pkgname=syslog-ng
 pkgver=4.6.0
-pkgrel=6
+pkgrel=7
 pkgdesc="Next-generation syslogd with advanced networking and filtering capabilities"
 arch=('x86_64')
 url="https://www.syslog-ng.com/products/open-source-log-management/"
