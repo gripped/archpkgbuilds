@@ -3,10 +3,10 @@
 # Contributor: Markus Richter <mqus at disroot dot org>
 
 pkgname=vaultwarden-web
-_pkgver=2024.5.1b
-pkgver=2024.5.1.b
+_pkgver=2024.6.2
+pkgver=2024.6.2
 _upstreamver=${_pkgver%[[:lower:]]}
-_patchver=2024.5.0
+_patchver=$_upstreamver
 pkgrel=1
 pkgdesc='Bitwarden web vault with the patches to make it work with Vaultwarden'
 arch=(any)
@@ -23,8 +23,8 @@ source=(
   "bitwarden-clients::git+https://github.com/bitwarden/clients.git#tag=web-v$_upstreamver"
   "git+https://github.com/dani-garcia/bw_web_builds#tag=v$_pkgver"
 )
-b2sums=('4f76462beca9d6dac7102a7e67cd2a362d0b1269bc0ee68025b3a22ad2ef1010dfdc5f8642118014e0b286e53d02cefaa405bf8aaa3e84ea150ff5b4127c5adb'
-        'e4d33e76e1309b30b78c2c01979c4a8d63caf1e59decf4993a9189628540c8b2998e23e08e1311dafca9b4f3ae102db83c127f8ac81894bd882ab86a9a5388e9')
+b2sums=('7fd09ee856e82fb1eaf8022b6ed6846819bc3f11b7bcdd684bb8e6cd53b2e98b4cc2e46f45fcb5b6e75dae3b68a05ae887a7e49fad7a91a1f2558a88d9aa7c1a'
+        'f8905d58c947f79a7ece9e93fe6244ef41eb853cad05ba577fb9c503944d8648efa628179356d485844900ddfd9e216cf41c33c00a4b384b8b1b478cb64e753e')
 
 # Appease vercmp by prepending trailing letter with a period
 # shellcheck disable=SC2001
