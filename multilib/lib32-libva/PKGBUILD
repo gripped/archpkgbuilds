@@ -5,7 +5,7 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski at archlinux dot org>
 
 pkgname=lib32-libva
-pkgver=2.21.0
+pkgver=2.22.0
 pkgrel=1
 pkgdesc='Video Acceleration (VA) API for Linux (32-bit)'
 arch=(x86_64)
@@ -37,14 +37,8 @@ provides=(
   libva-x11.so
   libva.so
 )
-_tag=0b01aed44ef1a6ad660261284ff266fa812829ef
-source=(git+https://github.com/intel/libva.git#tag=${_tag})
-b2sums=('91fab05ed62d1ada424612cef2bed65e45020bed00ed3bcedc6754e9abfbdbac265f4e06b68be45b14176caf5871ec38e3c24f997bde3ff2ebc74284f9f63cd9')
-
-pkgver() {
-  cd libva
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=(git+https://github.com/intel/libva.git#tag=${pkgver})
+b2sums=('91289a53ca253fab3cfafaa45e42bff58a9cc84a2deb2db040ce693c6f64785eeddceea41018ce0e0e35a3447cac9582f8a68499432a7e384f95ef98e118d7e9')
 
 build() {
   CFLAGS+=" -DENABLE_VA_MESSAGING"  # Option missing
