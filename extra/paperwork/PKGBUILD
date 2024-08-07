@@ -2,35 +2,61 @@
 
 pkgname=paperwork
 pkgver=2.2.3
-pkgrel=1
-pkgdesc='Personal document manager for GNOME to manage scanned documents and PDFs'
-arch=('any')
+pkgrel=2
+pkgdesc='Personal document manager to manage scanned documents and PDFs'
+arch=(any)
 url='https://openpaper.work/'
-license=('GPL3')
-depends=('gtk3' 'libhandy' 'libinsane' 'libnotify' 'poppler-glib' 'python-cairo'
-         'python-distro' 'python-fabulous' 'python-gobject'
-         'python-pillowfight' 'python-pycountry' 'python-pydbus' 'python-pyocr' 'python-setuptools'
-         'python-whoosh' 'python-pyxdg' 'python-psutil' 'python-scikit-learn' 'python-rich')
-makedepends=('git' 'python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
-noextract=("$pkgname-${_commit:0:8}-data.tar.gz")
-_commit=620eb5806175990ebe6fe66bb59704a4c799edd0
-source=("git+https://gitlab.gnome.org/World/OpenPaperwork/paperwork.git#commit=$_commit"
-        "$pkgname-${_commit:0:8}-data.tar.gz::https://download.openpaper.work/data/paperwork/master_${_commit:0:8}/data.tar.gz")
-sha256sums=('a46f67a67abe1ce38aee6c230fa90e339992b5b06a185ce6c8feb618a40b388a'
-            '78a4db48030d2c8ce7f584fb18250cbbd00512580d693f2a9a944d950959428a')
+license=(GPL-3.0-or-later)
+depends=(
+  gdk-pixbuf2
+  glib2
+  gtk3
+  hicolor-icon-theme
+  libhandy
+  libinsane
+  libnotify
+  pango
+  poppler-glib
+  python
+  python-cairo
+  python-distro
+  python-fabulous
+  python-gobject
+  python-numpy
+  python-pillow
+  python-pillowfight
+  python-psutil
+  python-pycountry
+  python-pydbus
+  python-pyocr
+  python-pyxdg
+  python-rich
+  python-scikit-learn
+  python-scipy
+  python-setuptools
+  python-whoosh
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools-scm
+  python-wheel
+)
+source=("git+https://gitlab.gnome.org/World/OpenPaperwork/paperwork.git#tag=$pkgver")
+b2sums=(47ffaee956dc7987809a4be056b22a935a308d61dd52652a44a4e9c68945c974c7e1be045c3b4b91980be45672fb08bf6269366fe93165216124d9019ddd8014)
 
-pkgver() {
+prepare() {
   cd $pkgname
-  git describe --tags | sed 's/-/+/g'
+  curl -s "https://download.openpaper.work/data/paperwork/master_$(git rev-parse --short HEAD)/data.tar.gz" | tar -xvz
 }
 
 build() {
   cd $pkgname
-  tar -xvzf ../$pkgname-${_commit:0:8}-data.tar.gz
   make l10n_compile
 
   for dir in openpaperwork-{core,gtk} paperwork-{backend,shell,gtk}; do
-    pushd $dir
+    pushd "$dir"
     python -m build --wheel --no-isolation
     popd
   done
@@ -39,12 +65,12 @@ build() {
 package() {
   cd $pkgname
   for dir in openpaperwork-{core,gtk} paperwork-{backend,shell,gtk}; do
-    pushd $dir
+    pushd "$dir"
     python -m installer --destdir="$pkgdir" dist/*.whl
     popd
   done
 
-  PYTHONPATH="$pkgdir"`python -c 'import site; print(site.getsitepackages()[0])'` \
+  PYTHONPATH="$pkgdir"$(python -c 'import site; print(site.getsitepackages()[0])') \
     "$pkgdir"/usr/bin/paperwork-gtk install \
       --icon_base_dir="$pkgdir/usr/share/icons" \
       --data_base_dir="$pkgdir/usr/share"
