@@ -3,7 +3,7 @@
 
 pkgname=python-py7zr
 _pyname=${pkgname#python-}
-pkgver=0.21.1
+pkgver=0.22.0
 pkgrel=1
 pkgdesc='Pure python 7-zip library'
 arch=(any)
@@ -21,17 +21,15 @@ _pydeps=(brotli
          inflate64)
 depends=(python
          "${_pydeps[@]/#/python-}")
-optdepends=('python-zstandard: zstd compression')
 makedepends=(python-{build,installer,wheel}
              python-setuptools-scm)
 checkdepends=(p7zip
-              pyannotate
               python-py-cpuinfo
               python-pytest-benchmark
               python-pytest-timeout)
 _archive="$_pyname-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
-sha256sums=('dede8ed8b7b32b3586ac476da3a482b69dd433229420bf0f62c495404b72c799')
+sha256sums=('c6c7aea5913535184003b73938490f9a4d8418598e533f9ca991d3b8e45a139e')
 
 build() {
 	cd "$_archive"
