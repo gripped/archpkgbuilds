@@ -5,7 +5,7 @@
 
 pkgname=('libvirt-python')
 epoch=1
-pkgver=10.5.0
+pkgver=10.6.0
 pkgrel=1
 pkgdesc="libvirt python binding"
 arch=('x86_64')
@@ -15,7 +15,7 @@ makedepends=('python' 'python-setuptools' 'python-build' 'python-installer' 'pyt
 depends=('python' 'libvirt')
 options=('emptydirs')
 source=("https://libvirt.org/sources/python/libvirt-python-${pkgver}.tar.gz"{,.asc})
-sha512sums=('1114405f52c9bfcfd733a26d7d2a51439fca6012313c22f40c4b488f55690d2564a26ab9376c285245e9899ef68fa136bb943ebb3702aa679874d0b98f3cebd7'
+sha512sums=('01e49babbcef5b2a12cb773e0b5e36b15d9b27890192f29ebf4cd0189e5a6383d5c51e1eda542c2724ff402cd2cffa5ee7448cf133efc1af9ba924745969da04'
             'SKIP')
 validpgpkeys=('453B65310595562855471199CA68BE8010084C9C') # Jiří Denemark <jdenemar@redhat.com>
 
