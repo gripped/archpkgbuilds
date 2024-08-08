@@ -2,62 +2,59 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=gnome-initial-setup
-pkgver=46.3
+pkgver=46.4
 pkgrel=1
 pkgdesc='Helps you to set up your OS when you boot for the first time'
 url='https://gitlab.gnome.org/GNOME/gnome-initial-setup'
-arch=('x86_64')
-license=('GPL-2.0-or-later')
+arch=(x86_64)
+license=(GPL-2.0-or-later)
 depends=(
-  'accountsservice'
-  'fontconfig'
-  'gcc-libs'
-  'gdk-pixbuf2'
-  'gdm'
-  'geoclue'
-  'geocode-glib-2'
-  'glib2'
-  'glibc'
-  'gnome-control-center'
-  'gnome-desktop-4'
-  'gnome-keyring'
-  'gsettings-desktop-schemas'
-  'gtk4'
-  'harfbuzz'
-  'krb5'
-  'libadwaita'
-  'libgdm'
-  'libgweather-4'
-  'libibus'
-  'libmalcontent'
-  'libnm'
-  'libnma-gtk4'
-  'libpwquality'
-  'libsecret'
-  'malcontent'
-  'pango'
-  'polkit'
-  'tecla'
+  accountsservice
+  fontconfig
+  gcc-libs
+  gdk-pixbuf2
+  gdm
+  geoclue
+  geocode-glib-2
+  glib2
+  glibc
+  gnome-control-center
+  gnome-desktop-4
+  gnome-keyring
+  gsettings-desktop-schemas
+  gtk4
+  harfbuzz
+  krb5
+  libadwaita
+  libgdm
+  libgweather-4
+  libibus
+  libmalcontent
+  libnm
+  libnma-gtk4
+  libpwquality
+  libsecret
+  malcontent
+  pango
+  polkit
+  tecla
 )
 makedepends=(
-  'git'
-  'glib2-devel'
-  'meson'
+  git
+  glib2-devel
+  meson
 )
-source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-initial-setup.git?signed#tag=${pkgver/[a-z]/.&}"
-)
-b2sums=('7138717e56b140e880c0ab0ec290c883499fe4307db105451055b7588fa51d56d2183d79979fafb8e8fc1ed4cd4b16dd3354668a84b7867f2f396644b522f308')
-validpgpkeys=(
-  1E68E58CF255888301645B563422DC0D7AD482A7 # Will Thompson <will@willthompson.co.uk>
-)
+source=("git+https://gitlab.gnome.org/GNOME/gnome-initial-setup.git?signed#tag=${pkgver/[a-z]/.&}")
+b2sums=('3622454c1079943add25c5ade46b272d87daff50ab52e6a8b675df7ce7ef2b7418afcd299a830ee7ad6270d322fcf9444907c590bea89dc83d6b4ec294c267e6')
+validpgpkeys=(1E68E58CF255888301645B563422DC0D7AD482A7) # Will Thompson <will@willthompson.co.uk>
 
 prepare() {
   cd $pkgname
 }
 
 build() {
-  arch-meson $pkgname build -D webkitgtk=disabled
+  arch-meson $pkgname build \
+    -D webkitgtk=disabled
   meson compile -C build
 }
 
