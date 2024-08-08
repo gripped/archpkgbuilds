@@ -2,7 +2,7 @@
 # Contributor: John D Jones III AKA jnbek <jnbek1972 -_AT_- g m a i l -_Dot_- com>
 
 pkgname='perl-scalar-list-utils'
-pkgver=1.64
+pkgver=1.65
 pkgrel=1
 pkgdesc="A selection of general-utility list subroutines"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('perl')
 makedepends=()
 url='https://metacpan.org/release/Scalar-List-Utils'
 source=("https://search.cpan.org/CPAN/authors/id/P/PE/PEVANS/Scalar-List-Utils-$pkgver.tar.gz")
-sha256sums=('2db9e0d06afd5a9addfdc97844257317f56adbd24657dfe4a6a0327736a89a7b')
+sha256sums=('ddc10e6c410ba35374f69365df4c66e32784352bd3cd88a8ad020e41f47a80c4')
 
 build() {
   ( export PERL_MM_USE_DEFAULT=1 PERL5LIB=""                 \
