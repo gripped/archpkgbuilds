@@ -1,0 +1,23 @@
+pkgbase = ruby-patron
+	pkgdesc = Ruby HTTP client library based on libcurl
+	pkgver = 0.13.3
+	pkgrel = 3
+	url = https://github.com/toland/patron
+	arch = x86_64
+	license = MIT
+	makedepends = git
+	makedepends = ruby-bundler
+	makedepends = ruby-rake-compiler
+	makedepends = ruby-rack
+	makedepends = ruby-rspec
+	makedepends = ruby-puma
+	makedepends = ruby-yard
+	depends = curl
+	depends = ruby
+	options = !emptydirs
+	source = git+https://github.com/toland/patron.git#commit=6828083e8db2d2c5f7ea1db7143a9e1a9d13ef78
+	source = ruby-patron-puma-5.patch
+	sha256sums = SKIP
+	sha256sums = 85977d0082234adb7b31308c4338f870a6ae30c3f2182c81d7c1736c33c0dc25
+
+pkgname = ruby-patron
