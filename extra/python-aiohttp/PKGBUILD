@@ -7,7 +7,7 @@
 
 _pkgname=aiohttp
 pkgname=python-aiohttp
-pkgver=3.10.1
+pkgver=3.10.2
 pkgrel=1
 pkgdesc='HTTP client/server for asyncio'
 arch=(x86_64)
@@ -54,7 +54,7 @@ source=(
   "$pkgname::git+https://github.com/aio-libs/aiohttp#tag=v$pkgver"
   git+https://github.com/nodejs/llhttp.git
 )
-b2sums=('d4f487e5685be6b9af9abf172ebb339d71a14f0697a8743bd5b8d6753f2db9c328d5e1d6f55f8970cd3a242e8e3205df2fd0e3eb720452caeb5eb67d3d5f965c'
+b2sums=('43f34fdda0b9fa8124dbc1dce858cbe56655c1380f25de3aa6b4df4b084a96a815ced4bc8485e2f461a1dac2afb4a6ab3526a87f69e9d8ac4f14b47f0b8c2fd6'
         'SKIP')
 
 prepare() {
