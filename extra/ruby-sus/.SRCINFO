@@ -1,15 +1,17 @@
 pkgbase = ruby-sus
 	pkgdesc = A fast and scalable test runner
 	pkgver = 0.24.2
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/ioquatix/sus
 	arch = any
 	license = MIT
 	checkdepends = ruby-bake-modernize
 	checkdepends = ruby-bake-test
 	checkdepends = ruby-bake-test-external
+	checkdepends = ruby-bundler
 	checkdepends = ruby-covered
 	makedepends = git
+	makedepends = ruby-rdoc
 	depends = ruby
 	options = !emptydirs
 	source = git+https://github.com/ioquatix/sus.git#commit=31c281dcf6e83cf05b70d608222a6d91248094ec
