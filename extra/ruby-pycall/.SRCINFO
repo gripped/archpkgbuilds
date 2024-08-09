@@ -1,21 +1,23 @@
 pkgbase = ruby-pycall
 	pkgdesc = Calling Python functions from the Ruby language
-	pkgver = 1.5.1
+	pkgver = 1.5.2
 	pkgrel = 1
 	url = https://github.com/mrkn/pycall.rb
 	arch = x86_64
 	license = MIT
 	checkdepends = python-numpy
 	makedepends = git
+	makedepends = ruby-bundler
+	makedepends = ruby-pry
+	makedepends = ruby-pry-byebug
 	makedepends = ruby-rake
 	makedepends = ruby-rake-compiler
 	makedepends = ruby-rspec
-	makedepends = ruby-pry
-	makedepends = ruby-pry-byebug
+	makedepends = ruby-test-unit
 	depends = ruby
 	depends = python
 	options = !emptydirs
-	source = git+https://github.com/mrkn/pycall.rb.git#commit=e083bff229738d330bfa5e039a674e43f14e2f32
+	source = git+https://github.com/mrkn/pycall.rb.git#commit=1f9e8f0d937ffc3a8b37e6b16aa3b407a5c74a4b
 	sha512sums = SKIP
 
 pkgname = ruby-pycall
