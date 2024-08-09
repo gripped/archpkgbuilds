@@ -4,12 +4,15 @@
 _gemname=rspec-core
 pkgname=ruby-${_gemname}
 pkgver=3.12.2
-pkgrel=1
+pkgrel=3
 pkgdesc='RSpec runner and formatters'
 url='https://github.com/rspec/rspec-core'
 arch=('any')
 license=('MIT')
-depends=('ruby-rspec-support')
+depends=(
+  ruby-erb
+  ruby-rspec-support
+)
 options=('!emptydirs')
 source=(https://rubygems.org/downloads/${_gemname}-${pkgver}.gem)
 noextract=(${_gemname}-${pkgver}.gem)
