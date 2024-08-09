@@ -3,13 +3,21 @@
 _gemname='temple'
 pkgname="ruby-${_gemname}"
 pkgver=0.9.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Template compilation framework in Ruby'
 arch=('any')
 url="https://github.com/judofyr/${_gemname}"
 license=('MIT')
-depends=('ruby')
-checkdepends=('ruby-erubi' 'ruby-rspec' 'ruby-tilt')
+depends=(
+  ruby
+)
+checkdepends=(
+  ruby-bundler
+  ruby-erubi
+  ruby-rake
+  ruby-rspec
+  ruby-tilt
+)
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
 sha512sums=('d0dded662825db43ec9c9f4331acff5166567f96600ce4acbd4eb360810146167b4d7fd41ec98327592e544ce1a3c27094a48af5f8e33eebf4b6726f3e8fd0c3')
