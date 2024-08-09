@@ -2,8 +2,8 @@
 
 _hkgname=OneTuple
 pkgname=haskell-onetuple
-pkgver=0.4
-pkgrel=1
+pkgver=0.4.1
+pkgrel=2
 pkgdesc="Singleton Tuple"
 url="https://github.com/phadej/OneTuple.git"
 license=("BSD")
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-base-orphans')
 makedepends=('ghc' 'haskell-foldable1-classes-compat' 'haskell-hashable')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('307a12f6a03f5820204b30a1716e1a0384c5a0f1b55e404c9879e867eb612fe0')
+sha256sums=('2b75f2581b34d10363e29252b4112f0b2078ecbfe148d254aca7a7a45ca0809a')
 
 build() {
   cd $_hkgname-$pkgver
