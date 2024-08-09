@@ -1,19 +1,20 @@
 pkgbase = ruby-activesupport
 	pkgdesc = A collection of utility classes and standard library extensions
 	pkgver = 6.1.7.6
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/rails/rails/tree/master/activesupport
 	arch = any
 	license = MIT
 	checkdepends = ruby-minitest
 	makedepends = git
 	makedepends = ruby-rake
+	makedepends = ruby-rdoc
 	depends = ruby
 	depends = ruby-concurrent
 	depends = ruby-i18n
+	depends = ruby-minitest
 	depends = ruby-tzinfo
 	depends = ruby-zeitwerk
-	depends = ruby-minitest
 	options = !emptydirs
 	source = ruby-activesupport::git+https://github.com/rails/rails#tag=v6.1.7.6?signed
 	validpgpkeys = 54FE550EA35E26D7C75362C1FC23B6D0F1EEE948
