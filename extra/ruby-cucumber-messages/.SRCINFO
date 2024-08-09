@@ -1,16 +1,19 @@
 pkgbase = ruby-cucumber-messages
 	pkgdesc = Protocol Buffer messages for Cucumber's inter-process communication
-	pkgver = 23.0.0
-	pkgrel = 1
+	pkgver = 25.0.1
+	pkgrel = 2
 	url = https://github.com/cucumber/messages/tree/main/ruby
 	arch = any
 	license = MIT
-	makedepends = ruby-cucumber-compatibility-kit
-	makedepends = ruby-rake
-	makedepends = ruby-rspec
+	checkdepends = ruby-bundler
+	checkdepends = ruby-cucumber-compatibility-kit
+	checkdepends = ruby-rake
+	checkdepends = ruby-rspec
+	makedepends = ruby-rdoc
 	depends = ruby
 	options = !emptydirs
-	source = https://github.com/cucumber/messages/archive/v23.0.0/cucumber-messages-23.0.0.tar.gz
-	sha256sums = 19b017134235c444d43c72dcb6964dd82ef4da83c7c16714c966b8b6f97d4b03
+	source = https://github.com/cucumber/messages/archive/v25.0.1/cucumber-messages-25.0.1.tar.gz
+	sha512sums = 7602fb0faf82ec518aadc68f687a333287f4c5c60ac1b3e69dc99d8a141d58d532c6f04239c3acbb0c6b5fda26f5b85a50bac9231865a6e3a39460b4f63f82ec
+	b2sums = d1489c67464b84d8e3048ee117a1fbd3aa94a41478f00bcc173dc3eb1864b70239bc60535b6b8dac54acaea50eff01c047727999adb40523377e85c23e933b70
 
 pkgname = ruby-cucumber-messages
