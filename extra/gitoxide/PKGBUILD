@@ -2,7 +2,7 @@
 
 pkgname=gitoxide
 pkgver=0.37.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An idiomatic, lean, fast & safe pure Rust implementation of Git"
 url='https://github.com/Byron/gitoxide'
 arch=('x86_64')
@@ -32,9 +32,22 @@ build() {
 
 package() {
   cd ${pkgname}-${pkgver}
-  install -Dm 755 -t "${pkgdir}/usr/bin" \
-    target/release/gix \
-    target/release/ein
+
+  for bin in gix ein; do
+    install -Dm 755 -t "${pkgdir}/usr/bin" "target/release/${bin}"
+
+    # install completions
+    install -d "${pkgdir}/usr/share/bash-completion/completions" \
+               "${pkgdir}/usr/share/zsh/site-functions" \
+               "${pkgdir}/usr/share/fish/vendor_completions.d" \
+               "${pkgdir}/usr/share/elvish/lib"
+
+    "${pkgdir}/usr/bin/${bin}" completions -s bash > "${pkgdir}/usr/share/bash-completion/completions/${bin}"
+    "${pkgdir}/usr/bin/${bin}" completions -s zsh > "${pkgdir}/usr/share/zsh/site-functions/_${bin}"
+    "${pkgdir}/usr/bin/${bin}" completions -s fish > "${pkgdir}/usr/share/fish/vendor_completions.d/${bin}.fish"
+    "${pkgdir}/usr/bin/${bin}" completions -s elvish > "${pkgdir}/usr/share/elvish/lib/${bin}.elv"
+  done
+
   install -Dm644 LICENSE-* -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
 
