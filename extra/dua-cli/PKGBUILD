@@ -1,27 +1,32 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: mexus <gilaldpellaeon@gmail.com>
 
 pkgname=dua-cli
-pkgver=2.29.0
+pkgver=2.29.1
 pkgrel=1
 pkgdesc="A tool to conveniently learn about the disk usage of directories, fast!"
 arch=('x86_64')
 url="https://github.com/Byron/dua-cli"
 license=('MIT')
-depends=('gcc-libs')
+depends=('gcc-libs' 'glibc')
 makedepends=('cargo')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/Byron/${pkgname}/archive/v${pkgver}.tar.gz")
-sha512sums=('257a839f43c4f9155b819e6a1c6e268513ef9c53a49731234d3344c130276c7e724cc32b3545342d36459d892459568c78444f826f805aa6f34cf78aa8c498b8')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
+        "$pkgname-$pkgver.lock::$url/raw/v$pkgver/Cargo.lock")
+sha512sums=('279e27df149da87a53c17c9924a7ca74a01f59bbbe2668a8eadc1333d7d3c66104836e4b28aed62f5b10c4a5ac844a59e75a31cefec9cff6814b1c89e5697942'
+            '9a2d1f0eae4b38ae9daeb0d5643d4a8dd34e913c18c0a3b7f9459461f3c0063ebb9ab46514ea9018b5521513b572526734460dc00469311ed866f21f01930b8e')
 
 prepare() {
   cd "$pkgname-$pkgver"
+  # https://github.com/Byron/dua-cli/issues/254
+  cp ../$pkgname-$pkgver.lock Cargo.lock
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
-  cargo build --release --locked
+  cd "$pkgname-$pkgver"
+  cargo build --release --frozen
 }
 
 check() {
