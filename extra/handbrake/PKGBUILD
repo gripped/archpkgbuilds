@@ -1,9 +1,9 @@
-# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 # Contributor: Sebastien Piccand <sebcactus gmail com>
 
 pkgname=('handbrake' 'handbrake-cli')
-pkgver=1.8.1
+pkgver=1.8.2
 pkgrel=1
 arch=('x86_64')
 url="https://handbrake.fr/"
@@ -18,7 +18,7 @@ makedepends=('python' 'nasm' 'wget' 'cmake' 'meson' 'git'
              "${_commondeps[@]}" "${_guideps[@]}")
 options=('!lto') # https://bugs.archlinux.org/task/72600
 source=(https://github.com/HandBrake/HandBrake/releases/download/$pkgver/HandBrake-$pkgver-source.tar.bz2{,.sig})
-sha256sums=('f411d54b1760b61b2361343ffa8f9d857f228cd477f885659e0322b619adee90'
+sha256sums=('aba13abb550cc57847010b1a6bdf2c2cf76f5fcdf97616fa184b7f4639f5541b'
             'SKIP')
 validpgpkeys+=('1629C061B3DDE7EB4AE34B81021DB8B44E4A8645') # HandBrake Team <developers@handbrake.fr>
 
