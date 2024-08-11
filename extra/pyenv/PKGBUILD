@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=pyenv
-pkgver=2.4.8
+pkgver=2.4.10
 pkgrel=1
 epoch=1
 pkgdesc="Easily switch between multiple versions of Python"
@@ -11,8 +11,8 @@ license=(MIT)
 depends=(bash)
 optdepends=('git: installing development versions')
 source=($url/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('648457479483f76814185f24a740a475545627d7a299fb5df167916db58541d09d9db53bf5015d1bb17a2f429991f9a35236d4baf3278d117d77fd688028d165')
-b2sums=('f1a21f1bed54cc4a07c4b67591b037019e35de25591666631ca6e89bd3e11428ccbbd150025c81440f11a2c53bfd6790af111af9ac3f62cb85edf43ffccd669b')
+sha512sums=('99edc76afec43b0cef1022cd84faea260529fe7a20695dc5e6b98fb48bc314d7f2c69b780247b1bf39d15148101cc464fb46708490cc5b8e96efb9d4b2a5176c')
+b2sums=('6595bcf08d5fa3609d88dfd408b70ec77f8a8ec66430b102cd28d9a87b8bfec33baef20915940c3c2e9a98468bbe97d9d5227c329b07425229ca0657d37d1bbe')
 
 package() {
   cd $pkgname-$pkgver
