@@ -4,7 +4,7 @@
 
 pkgname=ejabberd
 pkgver=24.07
-pkgrel=2
+pkgrel=3
 pkgdesc="Jabber server written in Erlang"
 arch=('x86_64')
 url="https://www.ejabberd.im/"
@@ -115,28 +115,22 @@ package() {
     -e "s|Group=.*|Group=jabber|g" \
     -e "s|User=.*|User=jabber|g" \
     ejabberd.service
-  sed -i -e "s|$pkgdir||g" "$pkgdir"/usr/bin/ejabberdctl
+  sed -i \
+    -e "s|$pkgdir||g" \
+    -e "s|INSTALLUSER=\"\"|INSTALLUSER=\"jabber\"|g" \
+    "$pkgdir"/usr/bin/ejabberdctl
 
   install -Dm0644 ejabberd.service "$pkgdir"/usr/lib/systemd/system/ejabberd.service
 
-#  install -Dm04750 deps/epam/priv/bin/epam "$pkgdir"/usr/lib/ejabberd-$pkgver/priv/bin/epam
   install -d "$pkgdir/var/lib/$pkgname"
   install -D -m0644 "$srcdir/$pkgname.logrotate" "$pkgdir/etc/logrotate.d/$pkgname"
   chmod ug+r "$pkgdir/etc/$pkgname/"*
-#  chmod a+rx "$pkgdir/usr/bin/ejabberdctl" "$pkgdir/usr/lib/ejabberd-$pkgver/priv/bin/captcha.sh"
   chmod a+rx "$pkgdir/usr/bin/ejabberdctl"
   rm -rf "$pkgdir/var/lock"
   install -Dm644 "$srcdir"/sysuser.conf "$pkgdir"/usr/lib/sysusers.d/ejabberd.conf
   install -Dm644 tools/ejabberdctl.bc "$pkgdir"/usr/share/bash-completion/completions/ejabberdctl
 
-  # workaround
- # ln -s mod_configure.beam "$pkgdir"/usr/lib/ejabberd-$pkgver/ebin/configure.beam
-#  rm -f "$pkgdir"/usr/bin/{elixir,iex,mix}
-
   cat <<EOF >>"$pkgdir"/etc/ejabberd/ejabberdctl.cfg
-
-INSTALLUSER=jabber
-
 # home dir workaround
 HOME=/var/lib/ejabberd
 EOF
@@ -150,7 +144,6 @@ EOF
     "$pkgdir"/etc/ejabberd/ejabberd.yml \
     "$pkgdir"/etc/ejabberd/ejabberdctl.cfg \
     "$pkgdir"/etc/ejabberd
-#    "$pkgdir"/usr/lib/ejabberd/priv/bin/epam
 
   # fix eimp
   chmod a+x "$pkgdir"/usr/lib/eimp-*/priv/bin/eimp
