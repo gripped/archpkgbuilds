@@ -3,7 +3,7 @@
 # Contributor: Tobias Kieslich <tobias@archlinux.org>
 
 pkgname=qjackctl
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 pkgdesc="A Qt front-end for the JACK low-latency audio server"
 arch=(x86_64)
@@ -30,8 +30,8 @@ optdepends=(
   'qt6-wayland: for native wayland support'
 )
 source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
-sha512sums=('2ca2691112d35d959ab0d0abc86e79b7526c6b5a5ef6d36581bc712ad6926b13cc559767b81c817bbfb7a5203e2cfaad396451ad749b553d6882d2c963a3f197')
-b2sums=('f27422bb98a4a7b1ec905df63989a51edfd6ccebdbae0da000f98a1dcaf93757f3aab9ec971ad3f395c668c85fc838ff62017545072028e5ccd0d435e4a9ac15')
+sha512sums=('ac0442c0fe8f29ca27dfe149db3bc20a968ff7b2abb764bbb7b7cd1f57e26edac70b834c4f6fa6578fa07afad9de3e8f846d131517e9b5862333634715933b08')
+b2sums=('c2741cfed5244e9c0b837b7bb7ac31dd6fad74226cad9401014565928e59c6fc448fda6e4e335e4acdc92d55b05f330a2101b1f9cbbce6918b7749c62f0e9379')
 
 build() {
   local cmake_options=(
