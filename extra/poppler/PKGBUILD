@@ -3,7 +3,7 @@
 
 pkgbase=poppler
 pkgname=('poppler' 'poppler-glib' 'poppler-qt5' 'poppler-qt6')
-pkgver=24.06.1
+pkgver=24.08.0
 pkgrel=1
 arch=(x86_64)
 license=('GPL-2.0-only'
@@ -21,7 +21,7 @@ url="https://poppler.freedesktop.org/"
 # https://gitlab.freedesktop.org/poppler/poppler
 source=(https://poppler.freedesktop.org/${pkgbase}-${pkgver}.tar.xz{,.sig}
         test::git+https://anongit.freedesktop.org/git/poppler/test/#commit=ff3133cdb6cb496ee1d2c3231bfa35006a5e8410)
-sha256sums=('1e629e8732286c745fbc0b15a3ee591443fb37a2210856e7f3ec38a0fb93ab13'
+sha256sums=('97453fbddf0c9a9eafa0ea45ac710d3d49bcf23a62e864585385d3c0b4403174'
             'SKIP'
             'SKIP')
 validpgpkeys=('CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7') # Albert Astals Cid <aacid@kde.org>
