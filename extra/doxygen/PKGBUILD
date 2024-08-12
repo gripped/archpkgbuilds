@@ -4,8 +4,8 @@
 
 pkgbase=doxygen
 pkgname=(doxygen doxygen-docs)
-pkgver=1.11.0
-pkgrel=4
+pkgver=1.12.0
+pkgrel=1
 pkgdesc='Documentation system for C++, C, Java, IDL and PHP'
 url='http://www.doxygen.nl'
 arch=(x86_64)
@@ -29,12 +29,9 @@ makedepends=(
   texlive-latexextra
   texlive-plaingeneric
 )
-source=(${pkgbase}-${pkgver}.tar.gz::https://github.com/doxygen/doxygen/archive/Release_${pkgver//./_}.tar.gz
-        10891-fix-buffer-overflow.patch)
-sha512sums=('68ab2c8cf570216a7e917f686ec79361179cdc9868966fcc2722ebab49032e2bc9ac60192f101793f978ad2d7236d83c461ab4d2477f7704cf32a003b87311fb'
-            'bb48499a17254853522f58246a837113c27a3a960ecc42042f411eeab19faa46587e3d7af6dbdaaca78ec90ccccba8cd2f9e0457688a6b96eaba4c5799070455')
-b2sums=('e98254aeec8ea7cedf6ec537e3d82cb898f55d435b95e58108c433f920432789fb7feba290b9a365f90ee56eec9120376b18ff26e31b1e4219b8f89f351daa8f'
-        '500304f5727316ee3e6114076525100d30613de1821108c3ed805e862602252de0b9439c0384acad6ba9d175ccab2f84cccafba5942740282ef388613d9d39a5')
+source=(${pkgbase}-${pkgver}.tar.gz::https://github.com/doxygen/doxygen/archive/Release_${pkgver//./_}.tar.gz)
+sha512sums=('be2bbbfca619dac78096d54378b95ecc786b9ff23b801c2be52c3536d067e4a299d96952ff92ec1fad13751b77f494ab9971435411dd7b40537d0b0f3797dedc')
+b2sums=('566082eef7abd0f6750eac1f0ae0cc310752a14c6f1a512c84b5423125f0312a6258f2d5c7c3028fa475c33314985daac68b02f8e1482015dd6f9f8f664ff9e3')
 
 _pick() {
   local p="$1" f d; shift
@@ -44,16 +41,6 @@ _pick() {
     mv "$f" "$d"
     rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
   done
-}
-
-prepare() {
-  cd ${pkgbase}-Release_${pkgver//./_}
-  # Install the man pages in the right place
-  sed -i 's:DESTINATION man/man1:DESTINATION "${CMAKE_INSTALL_PREFIX}/share/man/man1":g' \
-    doc/CMakeLists.txt
-
-  # Fix buffer overflow in Markdown parser https://github.com/doxygen/doxygen/pull/10891
-  patch -Np1 -i ../10891-fix-buffer-overflow.patch
 }
 
 build() {
