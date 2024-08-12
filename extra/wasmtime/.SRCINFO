@@ -1,21 +1,22 @@
 pkgbase = wasmtime
 	pkgdesc = Standalone JIT-style runtime for WebAssembly, using Cranelift
-	pkgver = 23.0.1
+	pkgver = 23.0.2
 	pkgrel = 1
 	url = https://github.com/bytecodealliance/wasmtime
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = cargo
+	makedepends = cmake
 	makedepends = git
 	depends = gcc-libs
 	options = !lto
-	source = git+https://github.com/bytecodealliance/wasmtime.git#commit=v23.0.1
+	source = git+https://github.com/bytecodealliance/wasmtime.git#commit=v23.0.2
 	source = git+https://github.com/WebAssembly/testsuite.git
 	source = git+https://github.com/WebAssembly/wasm-c-api.git
 	source = git+https://github.com/WebAssembly/WASI.git
 	source = git+https://github.com/WebAssembly/wasi-nn.git
 	source = git+https://github.com/WebAssembly/wasi-crypto.git
-	b2sums = 7ab640ce1274c089bb41239c86efb873d09d5fd816f966457c426b0a72e54e1a1edaed1a801d7e05d94f6100c43819c27ab6cdb200b2e78940869366b4a5d12e
+	b2sums = dce735c0fb3dbf70abd4ae62818a154eb0dc03360f703860eb53de46bae2f0bf3f045370c466c5cae551a02b7d2f1bfcfde8bad962f9bc94e4329b180f7e2a2a
 	b2sums = SKIP
 	b2sums = SKIP
 	b2sums = SKIP
