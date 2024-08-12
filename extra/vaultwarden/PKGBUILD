@@ -4,8 +4,8 @@
 # Contributor: Timothée Ravier <tim@siosm.fr
 
 pkgname=vaultwarden
-pkgver=1.31.0
-pkgrel=1
+pkgver=1.32.0
+pkgrel=2
 pkgdesc='Unofficial Bitwarden compatible server written in Rust'
 arch=(x86_64)
 url=https://github.com/dani-garcia/vaultwarden
@@ -13,11 +13,11 @@ license=(AGPL-3.0-only)
 depends=(
   gcc-libs
   glibc
-  mariadb-libs
   openssl
   postgresql-libs
   sqlite
 )
+depends_x86_64=(mariadb-libs)
 makedepends=(
   git
   rust
@@ -32,7 +32,7 @@ source=(
   sysusers.conf
   tmpfiles.conf
 )
-b2sums=('6916fca0d68393e1a11a3adf68eabfe0b907b0a9ce30985b3130491e9769409e2afa93d1dc240c3df83d4f200ff806da729482531d750e6e9d04edd7542ad170'
+b2sums=('b33f3c825f878124d42bb9a81d5f49256ea7275d8c1db0ec23deb07c000169bfe66822ea6426910f90a16dc1cb0f8a68f2454d07ad15efcfe9422e9ee135ee39'
         'ff8e896f820b88f079d3d4f4c2eb394362569c921f53693e25d3badaf9fdca841e4d7665862e09d22421f544802f3a64014696fd92d7f0b923faf41f8d99e472'
         '6580cf4031f262638abf11e529e8dfc489197afd6cd616c6a7810741e03c004706a5f9358f825aac6644c0ab6b251627ff988ed68f8264120b3575a655972390'
         '9cdcd6c997c884eb3c1ad0c9b8cd91e68ec6762a27f9b80a7eb6c0cb1ffa4e500a654da6f17e9f985cc67add154efe737761f74e4e5f72892fc0e9d457314973')
