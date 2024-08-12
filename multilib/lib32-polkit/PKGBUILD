@@ -5,34 +5,32 @@
 # Contributor: GordonGR <gordongr@freemail.gr>
 
 pkgname=lib32-polkit
-pkgver=124
+pkgver=125
 pkgrel=1
 pkgdesc="Application development toolkit for controlling system-wide privileges"
-url="https://gitlab.freedesktop.org/polkit/polkit"
+url="https://github.com/polkit-org/polkit"
 arch=(x86_64)
 license=(LGPL-2.0-or-later)
 depends=(
   lib32-glib2
+  lib32-glibc
   lib32-systemd
   polkit
 )
 makedepends=(
+  dbus
   git
-  lib32-expat
+  glib2-devel
   lib32-pam
   meson
+  systemd
 )
-provides=(libpolkit-gobject-1.so)
-_commit=82f0924dc0eb23b9df68e88dbaf9e07c81940a5a  # tags/124
+checkdepends=(python-dbusmock)
+provides=(libpolkit-{agent,gobject}-1.so)
 source=(
-  "git+https://gitlab.freedesktop.org/polkit/polkit.git#commit=$_commit"
+  "git+$url#tag=$pkgver"
 )
-b2sums=('SKIP')
-
-pkgver() {
-  cd polkit
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+b2sums=('3a3d10173937bd7d869e1125878bec0b6f6ac565ffea7bbf61a05634cfbe85471dc62386825a201915c03c48cbcda277704011ec760a283e5b9663ad49cf0237')
 
 prepare() {
   cd polkit
@@ -46,7 +44,7 @@ build() {
     -D os_type=redhat
     -D polkitd_uid=102
     -D polkitd_user=polkitd
-    -D session_tracking=libsystemd-login
+    -D session_tracking=logind
     -D tests=true
   )
 
