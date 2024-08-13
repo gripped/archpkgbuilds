@@ -1,6 +1,6 @@
 pkgbase = libxml++-5.0
 	pkgdesc = C++ bindings to libxml2
-	pkgver = 5.2.0
+	pkgver = 5.2.1
 	pkgrel = 1
 	url = https://libxmlplusplus.github.io/libxmlplusplus/
 	arch = x86_64
@@ -9,10 +9,11 @@ pkgbase = libxml++-5.0
 	makedepends = meson
 	makedepends = mm-common
 	depends = gcc-libs
+	depends = glibc
 	depends = libxml2
 	options = !emptydirs
-	source = git+https://github.com/libxmlplusplus/libxmlplusplus#commit=b923b8bcbb8c231280edf03b5622e2fa66c909b3
-	b2sums = SKIP
+	source = git+https://github.com/libxmlplusplus/libxmlplusplus#tag=5.2.1
+	b2sums = 4fbb3d96a68e822d5da2eea559cb76a94e14af21fc97167c523ceb54e25291836f8a3e8658abf3d93b00b41cbc0165eaeb8021fee39e80d2b2e127080c3f257d
 
 pkgname = libxml++-5.0
 	provides = libxml++-5.0.so
