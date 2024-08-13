@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=openfec
-pkgver=1.4.2.10
+pkgver=1.4.2.11
 pkgrel=1
 pkgdesc="Open Forward Erasure Codecs"
 arch=(x86_64)
@@ -16,8 +16,8 @@ provides=(libopenfec.so)
 # NOTE: we are using roc-streaming's version, because the original upstream is effectively dead:
 # https://github.com/roc-streaming/openfec
 source=(https://github.com/roc-streaming/openfec/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('8ee892241c9196d588519e2d42a48d057607d20812c7a585ff27ac34959012dfd24d89a6f5a3c6534d47d6a79714b6075baa45329bb3747c376eecc2c4c28b6c')
-b2sums=('ac59165820e1f68f2fd3d8007c53146c33a051d95ff6b51ddcf71ef0dda19108ed4f043c5ff83fc867ebc0ee71f2a944e6be3e1fa3c6cc0e326dc84e34e02d3d')
+sha512sums=('e77da3997296e6518574102e54af2f60d27a691bb32ea9eb61a5de714974e35287d2c18e1564fa7d299fa2191af1ad718ffd8f9fd5ad7ea468aca0dd6b88e9e5')
+b2sums=('d54fcb6f3a6ea76e44519384fb288e1a896315642175694ed887ee7637c9b479d94a4e461e446b92baf669695f496eb30b5b7836b86b297c3cc95bd63edbd48d')
 
 build() {
   local cmake_options=(
