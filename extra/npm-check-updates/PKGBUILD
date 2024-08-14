@@ -2,23 +2,19 @@
 
 pkgname=npm-check-updates
 pkgdesc='Find newer versions of dependencies than what your package.json or bower.json allows'
-pkgver=16.14.20
+pkgver=17.0.0
 pkgrel=1
 arch=('any')
 url='https://github.com/tjunnone/npm-check-updates'
 license=('Apache')
-depends=('nodejs-nopt' 'npm' 'semver')
+depends=('npm')
 makedepends=('git')
 source=(https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz)
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('b186c886e9f80eb8ceecd14e4ddbecd759c26abd1eb448594ec1232f8ede3344ee886321998ba08510b11b64a9191986010ec093037b6f0da55b3a04eeaeb239')
+sha512sums=('ad72538946016be1b396f3e07a6165c254ddb2a4b60b5eadae55b9f1df62b7cbb71e7a7433e17399ddcdb180450a3951960319c33b8220129df5bbc8cfacb1d1')
 
 package() {
   npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
-
-  # Experimental dedup
-  rm -r "$pkgdir"/usr/lib/node_modules/$pkgname/node_modules/{,.bin/}nopt
-  rm -r "$pkgdir"/usr/lib/node_modules/$pkgname/node_modules/{,.bin/}semver
 
   # Non-deterministic race in npm gives 777 permissions to random directories.
   # See https://github.com/npm/npm/issues/9359 for details.
