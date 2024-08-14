@@ -1,0 +1,63 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Contributor: Alex Henrie <alexhenrie24@gmail.com>
+
+pkgname=git-cinnabar
+pkgver=0.7.0beta1
+pkgrel=1
+pkgdesc="Git remote helper to interact with Mercurial repositories"
+url="https://github.com/glandium/git-cinnabar"
+arch=(x86_64)
+license=("GPL-2.0-only AND MPL-2.0")
+depends=(
+  bzip2
+  curl
+  gcc-libs
+  glibc
+  zlib
+)
+makedepends=(
+  cargo
+  git
+)
+options=('!lto')
+source=(
+  "git+$url#tag=$pkgver"
+  "git-for-windows::git+https://github.com/git-for-windows/git"
+)
+b2sums=('15249e177818ae9e81eff23c3448d686171e5cee7f7d0b865f0d099a597945bd8ef56c840a1cef77b74a06838d9f0d4b181ba4a429b1fb709cbb9ddfb9d2639c'
+        'SKIP')
+
+prepare() {
+  cd git-cinnabar
+
+  git submodule init
+  git submodule set-url git-core "$srcdir/git-for-windows"
+  git -c protocol.file.allow=always -c protocol.allow=never submodule update
+
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd git-cinnabar
+  env \
+      CARGO_PROFILE_RELEASE_LTO=true \
+      CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+      CARGO_PROFILE_RELEASE_DEBUG=2 \
+  cargo build --release --frozen --no-default-features
+}
+
+check() {
+  cd git-cinnabar
+  cargo test --frozen --no-default-features
+}
+
+package() {
+  cd git-cinnabar
+
+  install -Dt "$pkgdir/usr/bin" target/release/git-cinnabar
+  ln -s git-cinnabar "$pkgdir/usr/bin/git-remote-hg"
+
+  install -Dt "$pkgdir/usr/share/doc/$pkgname" -m644 README.md
+}
+
+# vim:set sw=2 sts=-1 et:
