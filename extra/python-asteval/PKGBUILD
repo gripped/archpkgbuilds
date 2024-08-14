@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-asteval
-pkgver=0.9.32
-pkgrel=2
+pkgver=0.9.33
+pkgrel=1
 pkgdesc="Minimalistic evaluator of python expression using ast module"
 url="https://github.com/lmfit/asteval"
 license=('MIT')
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
 checkdepends=('python-pytest-cov' 'python-numpy' 'tk')
 source=("git+https://github.com/lmfit/asteval.git#tag=$pkgver")
-sha512sums=('6a103640417583bf02138a7682bcbe53d4c8cf000e581b78def267630ccd2df5608a9364e423f518c8114f4bfce8eb7c27b57c0c8852ffd788fff8f283ad89af')
+sha512sums=('02370327f2b5fb86b928e26d6f9650f7c134f69ba194b312af12022b775fd6e141d7fed4456f4c11f395b4aed974d48ac814365b72bdc45d6d410d52194537e2')
 
 build() {
   cd asteval
