@@ -1,11 +1,12 @@
 pkgbase = feeluown-ytmusic
 	pkgdesc = YouTube Music for FeelUOwn music player
-	pkgver = 0.3.4
-	pkgrel = 2
+	pkgver = 0.4.0
+	pkgrel = 1
 	url = https://github.com/feeluown/feeluown-ytmusic
 	arch = any
 	license = GPL-3.0-or-later
 	checkdepends = python-pytest
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-poetry-core
@@ -19,9 +20,9 @@ pkgbase = feeluown-ytmusic
 	depends = python-requests
 	depends = python-ytmusicapi
 	optdepends = feeluown-netease: Lyric source
-	source = https://github.com/feeluown/feeluown-ytmusic/archive/v0.3.4/feeluown-ytmusic-0.3.4.tar.gz
+	source = git+https://github.com/feeluown/feeluown-ytmusic.git#tag=v0.4.0
 	source = feeluown-ytmusic-fix-test_stream_url.patch::https://github.com/feeluown/feeluown-ytmusic/pull/9.patch
-	sha256sums = f493dc869263ad385b0965301ddb445b4634d9384413010fffe37fecd2cfb4bf
+	sha256sums = d093d9d95fb1ee95394e78fa978b5842fb92e1913f0c3a750b87155e495a8c65
 	sha256sums = 1261f7a31798e6a088ce6b58cafe19f7bd460f140e7ee0257e1c15dd237d0bce
 
 pkgname = feeluown-ytmusic
