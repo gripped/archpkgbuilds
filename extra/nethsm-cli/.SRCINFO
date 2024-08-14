@@ -1,0 +1,18 @@
+pkgbase = nethsm-cli
+	pkgdesc = A command line interface (CLI) for the Nitrokey NetHSM
+	pkgver = 0.1.0
+	pkgrel = 1
+	url = https://gitlab.archlinux.org/archlinux/signstar/-/tree/main/nethsm-cli
+	arch = x86_64
+	license = Apache-2.0 OR MIT
+	makedepends = git
+	makedepends = mold
+	makedepends = rust
+	depends = gcc-libs
+	depends = glibc
+	options = !lto
+	source = signstar::git+https://gitlab.archlinux.org/archlinux/signstar.git?signed#tag=nethsm-cli/0.1.0
+	validpgpkeys = 991F6E3F0765CF6295888586139B09DA5BF0D338
+	sha256sums = 8f3dca1724a2687f7c31861c445b6ed0f664dce8dfd079b446b7cac6e1dc8417
+
+pkgname = nethsm-cli
