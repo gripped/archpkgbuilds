@@ -13,8 +13,8 @@
 #   +dovecot-fts-xapian
 
 pkgname=dovecot
-pkgver=2.3.20
-pkgrel=5
+pkgver=2.3.21.1
+pkgrel=1
 
 pkgdesc="An IMAP and POP3 server written with security primarily in mind"
 url="https://dovecot.org/"
@@ -44,7 +44,7 @@ source=("https://dovecot.org/releases/2.3/${pkgname}-${pkgver}.tar.gz"{,.sig}
         'dovecot.ld.so.conf'
         'dovecot.pam')
 
-sha256sums=('caa832eb968148abdf35ee9d0f534b779fa732c0ce4a913d9ab8c3469b218552'
+sha256sums=('2d90a178c4297611088bf7daae5492a3bc3d5ab6328c3a032eb425d2c249097e'
             'SKIP'
             '356e5761dc9161283cb795e62997c807ca081f4b42b443001cce07c03c47876d'
             'c5e3a8ffe23e5deb4f7893d9877d972347c2ee45c4ebf713de85c537e47cfcaf'
