@@ -1,22 +1,21 @@
 pkgbase = haxe
 	pkgdesc = Cross-platform toolkit and programming language
-	pkgver = 4.3.5
-	pkgrel = 2
+	pkgver = 4.3.6
+	pkgrel = 1
 	url = https://haxe.org/
 	arch = x86_64
-	license = GPL
-	license = LGPL
+	license = GPL-2.0-or-later
 	license = MIT
 	makedepends = camlp5
 	makedepends = git
 	makedepends = neko
 	makedepends = ocaml
 	makedepends = opam
-	makedepends = zlib
-	makedepends = perl-string-shellquote
 	makedepends = perl-ipc-system-simple
-	depends = neko
+	makedepends = perl-string-shellquote
+	makedepends = zlib
 	depends = mbedtls2
+	depends = neko
 	optdepends = java-environment
 	optdepends = mono
 	optdepends = php
@@ -24,10 +23,10 @@ pkgbase = haxe
 	source = mbedtls2.patch
 	source = haxelib_src::git+https://github.com/HaxeFoundation/haxelib#commit=f17fffa97554b1bdba37750e3418051f017a5bc2
 	source = hx3compat::git+https://github.com/HaxeFoundation/hx3compat#commit=f1f18201e5c0479cb5adf5f6028788b37f37b730
-	source = haxe-4.3.5::git+https://github.com/HaxeFoundation/haxe#commit=bd79571b89d719a45db7860d239da2164147dd15
+	source = haxe-4.3.6::git+https://github.com/HaxeFoundation/haxe#commit=760c0dd9972abadceba4e72edb1db13b2a4fb315
 	b2sums = 77f5f9c6815934b5cf2aee75ba62ed0e2a4b46f23a5bb689dffa23469b4aa13ca6d0e94623c747af63450b2ea3dc57f54507a924f1d6cec1cab3368d74def211
 	b2sums = a3a6afac931c942c2c823801d1b0e4344657a7316e1014cc2abe43416980607f54b29b2d0989eedbf57d2d4e507a69bee604a20305dd2ef18ba96ecf4e73d38d
 	b2sums = b938572cefb9a4398e0076b4450fd681d9d15be978fe3865d16aa26984ef6265965f18a97f93f8b1f6e589b75814ad1c19b60c5c8817b0deb07a41239fc19341
-	b2sums = f0223e2289b7ccd20ed2722e182156e163a8accbef3d23d97f33645c2ad2b5e3677a8225b284ebe482836581a4ebd4483d75a4b2d11e6567f39c4b122a36ee12
+	b2sums = 7cd9d2f2add506daefc376086943b89a9b98acc90b9f4fc8d89195bc25bbc1fa67a466d8a27c63fae9735bbb56fda0de8c32205f9558623df46fa9b26512f6b5
 
 pkgname = haxe
