@@ -14,7 +14,7 @@ _dcpkgver=2.3.21.1
 _dcmajor="$(awk -F'.' '{printf "%d.%d", $1, $2}' <<< "${_dcpkgver}")"
 
 pkgname=pigeonhole
-pkgver=0.5.21
+pkgver=0.5.21.1
 pkgrel=1
 
 pkgdesc='Sieve implementation for Dovecot'
@@ -28,7 +28,7 @@ conflicts=('dovecot-sieve' 'pigeonhole-hg')
 
 source=("https://pigeonhole.dovecot.org/releases/2.3/dovecot-${_dcmajor}-pigeonhole-${pkgver}.tar.gz"{,.sig})
 
-sha256sums=('1ca71d2659076712058a72030288f150b2b076b0306453471c5261498d3ded27'
+sha256sums=('0377db284b620723de060431115fb2e7791e1df4321411af718201d6925c4692'
             'SKIP')
 validpgpkeys=(
   '42F3CD50D4F25A41833BEE3704D62B1E3DFBB4F4' # Stephan Bosch <stephan@rename-it.nl>
