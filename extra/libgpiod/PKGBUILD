@@ -2,7 +2,7 @@
 # Contributor: Greg Erwin <first name last name 256 at gmail dot com>
 
 pkgname=libgpiod
-pkgver=2.1.1
+pkgver=2.1.2
 pkgrel=1
 pkgdesc="C library and tools for interacting with the linux GPIO character device"
 url="https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git"
@@ -11,7 +11,7 @@ license=('LGPL2.1')
 depends=('python')
 makedepends=('git' 'autoconf-archive' 'doxygen' 'help2man' 'python-setuptools')
 source=("git+$url#tag=v$pkgver")
-sha256sums=('cde63fcf982b9868d2e2867c9463f39a9c7eca4b4b0805219281b1a7e0e56bba')
+sha256sums=('90988849d6b6358894460b30b63893501ab968018662f7b2706c209d0ef672b6')
 
 build() {
   cd $pkgname
