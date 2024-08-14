@@ -3,8 +3,8 @@
 
 pkgname=python-ufoprocessor
 _name=ufoProcessor
-pkgver=1.9.0
-pkgrel=8
+pkgver=1.12
+pkgrel=1
 pkgdesc='library to process and generate UFO files based on fontTools.designSpaceLib'
 arch=(any)
 url="https://github.com/LettError/$_name"
@@ -13,18 +13,23 @@ depends=(python-mutatormath
          python-fontparts)
 makedepends=(python-{build,installer,wheel}
              python-setuptools-scm)
+# checkdepends=(python-pytest)
 _archive="$_name-$pkgver"
-source=("https://pypi.org/packages/source/${_name:0:1}/$_name/$_archive.zip")
-sha256sums=('baa8bd9bbbb11ce004647eb1906105f4d5bfdbc1b3388ca4d36fab57950a415b')
+# https://github.com/LettError/ufoProcessor/issues/56
+# source=("https://pypi.org/packages/source/${_name:0:1}/$_name/$_archive.zip")
+source=("$url/archive/$pkgver/$_archive.tar.gz")
+sha256sums=('26cb6f6c75d313bdcd6c105977a10e5a0bd28153c61518bbced36cc706b82147')
 
 build() {
 	cd "$_archive"
+	export SETUPTOOLS_SCM_PRETEND_VERSION="$pkgver"
 	python -m build -wn
 }
 
 check() {
 	cd "$_archive"
-	# PYTHONPATH=Lib python3 -m unittest discover Tests
+	# Tests assume remote control of Glyphs, not a CLI runner!
+	# PYTHONPATH=Lib pytest
 }
 
 package() {
