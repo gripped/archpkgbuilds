@@ -9,6 +9,13 @@ INFO
 }
 
 post_upgrade() {
+  if (( $(vercmp $2 0.9) < 0 )); then
+  cat <<INFO
+NOTE: The log output format has changed.
+
+      Refer to /usr/share/doc/stalwart-mail/CHANGELOG.md for further details.
+INFO
+  fi
   if (( $(vercmp $2 0.8) < 0 )); then
   cat <<INFO
 NOTE: The default rocksdb location has changed from /var/lib/stalwart-mail/ to /var/lib/stalwart-mail/data/!
