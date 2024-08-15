@@ -2,8 +2,8 @@
 
 _name=importlib_resources
 pkgname=python-importlib_resources
-pkgver=6.4.0
-pkgrel=2
+pkgver=6.4.2
+pkgrel=1
 pkgdesc="Design and implementation for a planned importlib.resources"
 arch=(any)
 url="https://github.com/python/importlib_resources"
@@ -27,8 +27,8 @@ checkdepends=(
 )
 provides=(python-importlib-resources)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('21b59cf15be4371abdf0d66f3e8a758c0ba2d6a933392de665ba600d51c021e697432bfcdf3cfd5893383c4ba71c2ee0c65e667f9b824dcd1b8642fbf442d6f5')
-b2sums=('4f9351ffa8b5b76aaf19b9f43e8df057239c54770c0ef35990c091a32b06c3c9535b2e189bb8f46e9de50935ffa8a32805512cad966e1a4cdd37ee09a5d68f6e')
+sha512sums=('0a967e3e182a5b390810d7dc860d0bae1f0b87c2043e4e62bf5f9b4c50ccb080ab768a5358f84243dc63b60cb1dffe9666d6d712c86ed57728ef30ee8416d89a')
+b2sums=('6e02639a19c90db117123bcb8e60898359125719aa1d327f9e364297a80ee55b2f299f4665323f3bbd9d449d906b0ce5fb053ee4fe53680464b04ca949cc4322')
 
 build() {
   cd $_name-$pkgver
