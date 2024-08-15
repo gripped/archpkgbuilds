@@ -1,0 +1,55 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Contributor: soloturn <soloturn@gmail.com>
+# Contributor: Mark Wagie <mark.wagie@proton.me>
+
+pkgname=cosmic-applets
+pkgver=1.0.0.alpha.1
+pkgrel=1
+pkgdesc='Applets for COSMIC Panel'
+arch=(x86_64)
+url=https://github.com/pop-os/cosmic-applets
+license=(GPL-3.0-only)
+groups=(cosmic)
+depends=(
+  cosmic-icon-theme
+  dbus
+  gcc-libs
+  glibc
+  libinput
+  libpulse
+  libxkbcommon
+  systemd-libs
+)
+makedepends=(
+  cargo
+  git
+  just
+  lld
+)
+_tag=0720bdbae32e6398413aad3d370a74ac3fae5b59
+source=(git+https://github.com/pop-os/cosmic-applets.git#tag=${_tag})
+b2sums=('62340d0a8b138f10412ceddde299205e8e7d8a79ce981112a8187b551e139ff066dd4276d6a0f7e2db0d0725e2905b13a81b6c2c3755dd1a13be05ab7ae4a171')
+
+prepare() {
+  cd cosmic-applets
+  cargo fetch --locked
+  sed 's/lto = "fat"/lto = "thin"/' -i Cargo.toml
+}
+
+pkgver() {
+  cd cosmic-applets
+  git describe --tags | sed 's/^epoch-//; s/-/./g'
+}
+
+build() {
+  cd cosmic-applets
+  RUSTFLAGS+=" -C link-arg=-fuse-ld=lld"
+  just build-release --frozen
+}
+
+package() {
+  cd cosmic-applets
+  just rootdir="${pkgdir}" install
+}
+
+# vim: ts=2 sw=2 et:
