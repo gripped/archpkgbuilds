@@ -5,8 +5,8 @@
 # Contributor: lucke <lucke at o2 dot pl>
 
 pkgname=weechat
-pkgver=4.3.5
-pkgrel=2
+pkgver=4.3.6
+pkgrel=1
 pkgdesc="Fast, light and extensible IRC client (curses UI)"
 arch=('x86_64')
 url="https://www.weechat.org/"
@@ -32,9 +32,9 @@ optdepends=('enchant: spellchecker support'
             'ruby: support for ruby scripts'
             'tcl: support for tcl scripts')
 source=("https://www.weechat.org/files/src/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha512sums=('39c98a07a410334b423bba5ade36912f3687a17879bd126c740f64bfb24472b324deaa0181ded744002406a7cc50cf9bdb6ae0123f2e6f04754d37d8ce96bc86'
+sha512sums=('d97223f733b4b5233f9ddcd97cb1011a2ad9edc72f17d1e3670cc843848783a6c41ff8edc12edf33eda3e6f0b1bd8898a638cf9dc1a1d2c4996a7f063d473742'
             'SKIP')
-b2sums=('9c011b02b5c625e2ee21a286676909b54dcf9b0624324c4098c1d6b4d9f16c29a035e0dc0ac038771f9c41128a17fc6f4cb6110b5abb034b7092c52bddf1f1a7'
+b2sums=('47809deba9683c8fd40cc78b54fe63cafbf5ca3e2b4dd96b1fe597f4f425ea682c3c8d3d634aae34a3b23e7cdddc97537848320e2e54d9372a17502dad022af9'
         'SKIP')
 validpgpkeys=('A9AB5AB778FA5C3522FD0378F82F4B16DEC408F8') # WeeChat (signing key) <webmaster@weechat.org>
 
