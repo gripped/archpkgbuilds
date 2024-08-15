@@ -4,7 +4,7 @@
 # Contributor: loqs <bugs-archlinux@entropy-collector.net>
 
 pkgname=gitlab-gitaly
-pkgver=17.2.2
+pkgver=17.3.0
 pkgrel=1
 pkgdesc='Speed up Git access using caching'
 arch=(x86_64)
@@ -23,8 +23,8 @@ _archive="gitaly-v$pkgver"
 source=("$url/-/archive/v$pkgver/$_archive.tar.gz"
         "$pkgname-configs.patch"
         "$pkgname.service")
-sha256sums=('25fc7ec08a779632643787fcacf158e3bed88297b9bd34eb285c1e38258bf0b3'
-            '3e312014c5e0f4f95c3ab3fc42a184b0ac6d403537508afc4b3ce9dfbaeba8ce'
+sha256sums=('2bb30e0b2aaa40711a40d829dae6d7ef351f653504ec6f0bcfaf4ccf5ce51f85'
+            '709d6e9f53e510a5e9d1fd88ec92bc92f5ff36f0a7869a47f02ad3da5d224ef8'
             'a047c82481ccbaa3b00ba1bb769135934fa4fa939eb6506d09c77f3a7aec08cd')
 
 prepare() {
