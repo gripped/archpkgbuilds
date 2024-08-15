@@ -8,6 +8,7 @@ pkgname=(
   libpipewire
   alsa-card-profiles
   pipewire-docs
+  pipewire-libcamera
   pipewire-audio
   pipewire-alsa
   pipewire-ffado
@@ -23,7 +24,7 @@ pkgname=(
   pulse-native-provider
 )
 pkgver=1.2.2
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Low-latency audio/video router and processor"
 url="https://pipewire.org"
@@ -126,8 +127,6 @@ package_pipewire() {
     gcc-libs
     glibc
     lib$_pwname.so
-    libcamera-base.so
-    libcamera.so
     libdbus-1.so
     libglib-2.0.so
     libncursesw.so
@@ -143,6 +142,7 @@ package_pipewire() {
     'pipewire-ffado: FireWire support'
     'pipewire-jack-client: PipeWire as JACK client'
     'pipewire-jack: JACK replacement'
+    'pipewire-libcamera: Libcamera support'
     'pipewire-pulse: PulseAudio replacement'
     'pipewire-roc: ROC streaming'
     'pipewire-session-manager: Session manager'
@@ -173,6 +173,8 @@ package_pipewire() {
     _pick acp usr/share/alsa-card-profile
 
     _pick docs usr/share/doc
+
+    _pick libcamera usr/lib/$_spaname/libcamera
 
     _pick audio usr/bin/pipewire-{aes67,avb}
     _pick audio usr/bin/pw-{cat,loopback,mididump}
@@ -287,6 +289,21 @@ package_pipewire-docs() {
   pkgdesc+=" - documentation"
 
   mv docs/* "$pkgdir"
+
+  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 pipewire/COPYING
+}
+
+package_pipewire-libcamera() {
+  pkgdesc+=" - Libcamera support"
+  depends=(
+    gcc-libs
+    glibc
+    libcamera-base.so
+    libcamera.so
+    pipewire
+  )
+
+  mv libcamera/* "$pkgdir"
 
   install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 pipewire/COPYING
 }
