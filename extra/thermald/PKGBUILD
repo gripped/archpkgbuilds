@@ -5,7 +5,7 @@
 
 pkgname=thermald
 _pkgname=thermal_daemon
-pkgver=2.5.7
+pkgver=2.5.8
 pkgrel=1
 pkgdesc='The Linux Thermal Daemon program from 01.org'
 arch=('x86_64')
@@ -16,7 +16,7 @@ makedepends=('autoconf-archive' 'python' 'gtk-doc')
 source=(
   "https://github.com/intel/thermal_daemon/archive/v${pkgver}/${_pkgname}-${pkgver}.tar.gz"
 )
-b2sums=('d812e1a7e0b55dd5d06ff491183ad0061acb79d2c80a6a248456821676bd3728e28a5d6b23d8fe2565ca8424830f095de8595e85bdfc514f17418af50d7e7284')
+b2sums=('a00844e0147fdb104881624ba1ecbaa565155e4554b218b04b0edd4434f552e2bcc047e6eaada30b0e63b702a75318392ef8c39a8013003377c3e9ee80e694ab')
 
 build() {
   cd ${_pkgname}-${pkgver}
