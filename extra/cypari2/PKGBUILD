@@ -2,8 +2,8 @@
 
 pkgbase=cypari2
 pkgname=python-cypari2
-pkgver=2.1.5
-pkgrel=2
+pkgver=2.2.0
+pkgrel=1
 pkgdesc='Cython bindings for PARI'
 arch=(x86_64)
 url='https://www.sagemath.org'
@@ -13,19 +13,20 @@ depends=(glibc
          python
          python-cysignals)
 makedepends=(cython
+             git
              python-build
              python-installer
              python-setuptools
              python-wheel)
-source=(https://github.com/sagemath/cypari2/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('3cea1051f7cd8832b7907d11c68764e83a430036698a215abae48924a580d7fb')
+source=(git+https://github.com/sagemath/cypari2#tag=$pkgver)
+sha256sums=('015d7421efabb57680fca1445d98585a43228a3f46c36cd7f9cad9b28f5ea0f8')
 
 build() {
-  cd $pkgbase-$pkgver
+  cd $pkgbase
   python -m build --wheel --no-isolation
 }
 
 package_python-cypari2() {
-  cd $pkgbase-$pkgver
+  cd $pkgbase
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
