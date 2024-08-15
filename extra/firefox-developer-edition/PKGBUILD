@@ -2,7 +2,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=firefox-developer-edition
-pkgver=130.0b4
+pkgver=130.0b5
 pkgrel=1
 pkgdesc="Fast, Private & Safe Web Browser (Developer Edition)"
 url="https://www.mozilla.org/firefox/developer"
@@ -79,7 +79,6 @@ source=(
   $pkgname-symbolic.svg
   $pkgname.desktop
   org.mozilla.$pkgname.metainfo.xml
-  0001-Bug-1912663-Fix-some-build-issues-with-cbindgen-0.27.patch
   firefox-install-dir.patch
 )
 validpgpkeys=(
@@ -87,19 +86,17 @@ validpgpkeys=(
   # https://blog.mozilla.org/security/2023/05/11/updated-gpg-key-for-signing-firefox-releases/
   14F26682D0916CDD81E37B6D61B7B526D98F0353
 )
-sha256sums=('6568d95c62dc8f1c66e3b0854dbb29fbe5f05e23f4360cc9a922e879269391a1'
+sha256sums=('00b3f39d2ab05619d7adcd54d23fb3392a3c2fe64d9bd82256349982eb99a002'
             'SKIP'
             'a9b8b4a0a1f4a7b4af77d5fc70c2686d624038909263c795ecc81e0aec7711e9'
             '6522f3eeefbd3550e3bb7dafb4c5c0cef7be0eec11ef3da79e0562b96edc04e3'
             'c0425c936641ad58542a03445099d1042f5ad63f955125412dddbe4e3beeca8b'
-            '91034be10a0901f8acd121d0e8d98dc44d512e06f8418619dee6abe0ff082d57'
             '294e6ec79b0a64b5cb2372dbe7a5f9191dd1f68d7aece244e208581a98db8fb3')
-b2sums=('b3dbbbcc6086f085ec86eef36cae63254bc972cfe19d20427768ff524776853efe28e121391f0aa3dd79f1463034db59641f4afce82db1d6eda8f260db049c16'
+b2sums=('e5fdbae7fb36d4e8114f9cde699d3046917668600b0d695c4159bb4f3289592791dac092735d8b3b636cbabbacab50ac1017af3cd7fb809aaf3a26cf8c5bd142'
         'SKIP'
         '63a8dd9d8910f9efb353bed452d8b4b2a2da435857ccee083fc0c557f8c4c1339ca593b463db320f70387a1b63f1a79e709e9d12c69520993e26d85a3d742e34'
         'd2d14042a03ffcc5ed9212fca9cc167e8bfb2ba3f0d61a89441e033484cb914424d0f2544e0f1bc58992fee9cae03a73679352ee0fac9777fa5633ddc8d76e7d'
         'aedd049d480172cad73c665a94c664e2c66fc81736adf80136e69c2492091ffddca36c50ba6d04d7a222e17d961f8e752f7ede6a6ff09b671a979ea2748e5b88'
-        '25bb8780e07ce13f96ecc759541e3245054c23daa82c2f9d76f80e53431567d4d0ac23f3d147dd9ab1495b8d3ad966b99466b95e878cc6c8f9cc10ecd41c9ae0'
         'eb61793257458b20bc7ab5598240bc1901666d7fb7e971941af99ac706d387859642d8fba3130fa31789546b9123c7500edbe6373701ce9fc7d65aef3974c90c')
 
 # Google API keys (see http://www.chromium.org/developers/how-tos/api-keys)
@@ -111,10 +108,6 @@ _google_api_key=AIzaSyDwr302FpOSkGRpLlUpPThNTDPbXcIn_FM
 prepare() {
   mkdir mozbuild
   cd firefox-${pkgver%b*}
-
-  # Fix build with cinbdgen 0.27.0
-  # https://bugzilla.mozilla.org/show_bug.cgi?id=1912663
-  patch -Np1 -i ../0001-Bug-1912663-Fix-some-build-issues-with-cbindgen-0.27.patch
 
   # Change install dir from 'firefox' to 'firefox-developer-edition'
   patch -Np1 -i ../firefox-install-dir.patch
