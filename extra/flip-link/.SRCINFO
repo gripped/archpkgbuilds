@@ -1,14 +1,16 @@
 pkgbase = flip-link
 	pkgdesc = Flips the memory layout of embedded programs to protect against stack overflows
-	pkgver = 0.1.8
+	pkgver = 0.1.9
 	pkgrel = 1
 	url = https://github.com/knurling-rs/flip-link
 	arch = x86_64
 	license = MIT
 	license = Apache-2.0
 	makedepends = cargo
-	source = https://github.com/knurling-rs/flip-link/archive/v0.1.8/flip-link-0.1.8.tar.gz
-	sha256sums = 1b146aa8c8606e8b7c1aad029a972bf5d279aa22b9b3d691753c19d5e68c8372
-	b2sums = ad6170373ec55540493eebafd082f257d521aa1d98467a504a7a0cbf23024aa3b72500328882acbaa967d50324a5839ddd24f09505208fd65d011d02619e6ff8
+	depends = gcc-libs
+	depends = glibc
+	source = https://github.com/knurling-rs/flip-link/archive/v0.1.9/flip-link-0.1.9.tar.gz
+	sha256sums = f0a8f6eabec1552671815ec4fc4a61d127a36f12a9f9888c0f66e02096c51ef6
+	b2sums = 81a15f5c130195225d07cf4197d2fe14661ac5b372af20a6afe82a90caa1eea752862de79f20ea298d5b6c06c2d3b4048b64cbb9a092558b998049b253a59c98
 
 pkgname = flip-link
