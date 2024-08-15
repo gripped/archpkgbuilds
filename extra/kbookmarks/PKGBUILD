@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kbookmarks
-pkgver=6.4.0
+pkgver=6.5.0
 pkgrel=1
 pkgdesc='Support for bookmarks and the XBEL format'
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('13c72b0c47e333ada60a4665af7829910f5c83dd6ed57789fa3229ca68ad3280'
+sha256sums=('97dabceae5b0eac1107c49c50d1d7d9a7d26b9246c9ab53d123990525c55fbec'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
