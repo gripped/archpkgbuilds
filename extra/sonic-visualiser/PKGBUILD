@@ -3,8 +3,8 @@
 # Contributor: Orivej Desh <masecretaire@gmx.fr>
 
 pkgname=sonic-visualiser
-pkgver=4.5.2
-pkgrel=3
+pkgver=5.0
+pkgrel=1
 pkgdesc="A viewer and analyser of music audio files."
 arch=(x86_64)
 url="https://www.sonicvisualiser.org/"
@@ -16,8 +16,8 @@ depends=(
   hicolor-icon-theme
   libmad
   opusfile
-  qt5-base
-  qt5-svg
+  qt6-base
+  qt6-svg
   vamp-plugin-sdk
 )
 makedepends=(
@@ -41,8 +41,8 @@ makedepends=(
 )
 provides=(vamp-host)
 source=(https://github.com/$pkgname/$pkgname/releases/download/sv_v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('6cfdf2c056bdad554aee7da0c46c4f4ab799c781431c3c2684f0bd8d567038b22c0a98d7f2ba8a7a1e50ae3750563c318f3fbfecfdab18f749947b3e58b12c61')
-b2sums=('3d3e3e4ba96d73b0ca2fbbdfaa554b142954dc216fd9daae38cfc80d1a63bbb665d7c41d1c88c5c73855a6292a6ffdbcaa24dcd0c3412ff71db33a93e5b2067f')
+sha512sums=('1bdd1eae85baf81973993335df3cb0674ec47bd00ec84ea66d1a1a0e653764762c94e7b3870915235a2bb8bf922f81add455dcfb143b3cb5b9f61f9b2c320126')
+b2sums=('f70ef9aab4c0b207c9a164b1153cd55d57669922992b2777a22ada051bc44479a1448fabe5a2520111cfb33b6ea2ecc8747d3eacc854b3ac4fce3bed78b353f7')
 
 build() {
   arch-meson build $pkgname-$pkgver
