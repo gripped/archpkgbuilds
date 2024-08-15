@@ -3,24 +3,27 @@
 
 _name=jq.py
 pkgname=python-jq
-pkgver=1.7.0
-pkgrel=3
+pkgver=1.8.0
+pkgrel=1
 pkgdesc='Python bindings for jq'
-arch=('x86_64')
+arch=(x86_64)
 url=https://github.com/mwilliamson/jq.py
-license=('BSD-2-Clause')
-depends=('jq' 'python')
-makedepends=(
-  'cython'
-  'git'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-wheel'
+license=(BSD-2-Clause)
+depends=(
+  jq
+  python
 )
-checkdepends=('python-pytest')
+makedepends=(
+  cython
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(python-pytest)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('d9376a2b931057b8cfb3fc18a53792656644e1663e7d091ba0b3c427db1068dbc12fbd588cea2434f6b08e16a2dfb9c27c7827c39be52222f9c7bf036d205020')
+b2sums=('ec76c281f026928e534dbcd2def044d4d6e205bf35b234e8d55ddc4212c5826c4f8a2fdf02aae279bbdbe807fd8636658075424bbb3e5a325274a542f498a974')
 
 build() {
   cd $_name
@@ -29,18 +32,19 @@ build() {
 }
 
 check() {
+  local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
+
   cd $_name
-  python -m venv --system-site-packages test-env
-  test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest
+  PYTHONPATH=build/lib.linux-$CARCH-cpython-$python_version pytest
 }
 
 package() {
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
   cd $_name
   python -m installer --destdir="$pkgdir" dist/*.whl
 
   # Symlink license file
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
   ln -s "$site_packages"/jq-$pkgver.dist-info/LICENSE \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
