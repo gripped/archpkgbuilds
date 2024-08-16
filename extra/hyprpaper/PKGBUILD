@@ -2,17 +2,19 @@
 # Contributor: ThatOneCalculator <kainoa@t1c.dev>
 
 pkgname=hyprpaper
-pkgver=0.7.0
-pkgrel=2
+pkgver=0.7.1
+pkgrel=1
 pkgdesc='a blazing fast wayland wallpaper utility with IPC controls'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
-license=(BSD)
+license=(BSD-3-Clause)
 depends=(cairo libcairo.so
          file libmagic.so
          gcc-libs
          glibc
          hyprlang libhyprlang.so
+         hyprutils libhyprutils.so
+         hyprwayland-scanner
          libglvnd
          libjpeg libjpeg.so
          libwebp libwebp.so
@@ -24,7 +26,7 @@ makedepends=(cmake
              xorgproto)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('4840425013b95b49120aeb87d4d4e7d83f8956e847a537e1e6dd7f58a4b643b4')
+sha256sums=('1086a9c7e4126446315aed23fc610f0869b77c899b9d828f997e7188341391e7')
 
 build() {
     export PKG_CONFIG_PATH='/usr/lib/wlroots0.17/pkgconfig'
