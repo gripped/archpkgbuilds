@@ -4,7 +4,7 @@
 # Contributor: damir <damir@archlinux.org>
 
 pkgname=libchewing
-_pkgver=0.8.5
+_pkgver=0.9.0
 pkgver=${_pkgver/-rc./rc}
 pkgrel=1
 pkgdesc='Intelligent Chinese phonetic input method'
@@ -17,20 +17,20 @@ makedepends=('cmake' 'minisign' 'rust' 'corrosion')
 optdepends=(
   'chewing-editor: view and modify libchewing user phrases database'
 )
-source=("https://github.com/chewing/${pkgname}/releases/download/v${_pkgver}/${pkgname}-${_pkgver}.tar.zst"{,.minisig})
-sha256sums=('472881fc7df7f1bc90383937c504589d80d542b5f2c4c5c007017c13a21f534e'
-            'a35fc41b51da3f2924031b6a39b1a346779452f943b61a511d9da96e0d4b7af4')
+source=("https://github.com/chewing/libchewing/releases/download/v${_pkgver}/libchewing-${_pkgver}.tar.zst"{,.minisig})
+sha256sums=('58e62cd0649ba3856ffa7c67560c1cfbcbb8713342a533f7700587b51efe84e3'
+            '7d85582f8e7419e9897e25227222e1e3203d789184dd3ab2715c095fa7c64d2c')
 # The key is mentioned on https://github.com/chewing/libchewing
 _validminisignkey='RWRzJFnXiLZleAyCIv1talBjyRewelcy9gzYQq9pd3SKSFBPoy57sf5s'
 
 # XXX: move to verify() when devtools supports it
 # https://gitlab.archlinux.org/archlinux/devtools/-/issues/224
 prepare() {
-  minisign -Vm $pkgname-$_pkgver.tar.zst -P $_validminisignkey
+  minisign -Vm libchewing-$_pkgver.tar.zst -P $_validminisignkey
 }
 
 build() {
-  cd $pkgname-$_pkgver
+  cd libchewing-$_pkgver
   # Specify the existence of ncurses.h manually as FindCurses.cmake cannot identify it
   cmake -B build \
     -DCMAKE_BUILD_TYPE=None \
@@ -42,9 +42,9 @@ build() {
 
 check() {
   # parallel testing is broken (https://github.com/chewing/libchewing/issues/293)
-  make -C $pkgname-$_pkgver/build -j1 check
+  make -C libchewing-$_pkgver/build -j1 check
 }
 
 package() {
-  make -C $pkgname-$_pkgver/build DESTDIR="${pkgdir}" install
+  make -C libchewing-$_pkgver/build DESTDIR="${pkgdir}" install
 }
