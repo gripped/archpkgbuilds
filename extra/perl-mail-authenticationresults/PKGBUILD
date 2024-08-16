@@ -1,8 +1,8 @@
 # Maintainer: Florian Pritz <bluewind@xinu.at>
 
 pkgname=perl-mail-authenticationresults
-pkgver=2.20230112
-pkgrel=3
+pkgver=2.20231031
+pkgrel=1
 pkgdesc='Object Oriented Authentication-Results Headers'
 arch=(any)
 license=(PerlArtistic GPL)
@@ -11,8 +11,8 @@ depends=('perl>=5.8' perl-clone perl-json)
 checkdepends=(perl-test-exception)
 url=https://metacpan.org/release/Mail-AuthenticationResults
 source=("https://cpan.metacpan.org/authors/id/M/MB/MBRADSHAW/Mail-AuthenticationResults-$pkgver.tar.gz")
-md5sums=(6a0c22bb56634bc0ff656a01e23b4674)
-sha512sums=(78ea5067e2386ccbbe5bb9c86150c8255e6f735319968180a59c992fac35a918704792b2f18bf10c0568a41690044fbdb14b9d23e7829c178a42eb64126725fb)
+md5sums=('ebabfd9e0946ca04e9693e3190ee2f2e')
+sha512sums=('fc1a1f9099e1d3c3a2185bb2ba9f53be6799779b71dc1e7524e117b78e3868e9d264668bde188e787868a303d62262e9ded2fa9e1657d1987e9cbe488d06ed8e')
 _ddir="Mail-AuthenticationResults-$pkgver"
 
 build()
