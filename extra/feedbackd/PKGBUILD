@@ -5,7 +5,7 @@
 # Contributor: Sam Whited <sam@samwhited.com>
 
 pkgname=feedbackd
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=1
 pkgdesc='A daemon to provide haptic feedback on events'
 arch=(x86_64 aarch64)
@@ -17,7 +17,7 @@ makedepends=(gobject-introspection meson vala git python-docutils
              python-packaging libgmobile glib2-devel)
 
 source=("git+${url}.git#tag=v${pkgver}")
-sha256sums=('8ba4c6e197d1c4760445114a88f54bcc801b8abd17c75eeced8cb57b975c2b64')
+sha256sums=('0133c5a2d0b35a2614b4cc1b9393a4dd5be43fe69173fc0ffd39eafa7371cc6d')
 
 pkgver() {
   cd "${pkgname}"
@@ -39,7 +39,4 @@ check() {
 
 package() {
   DESTDIR="${pkgdir}" meson install -C build
-
-  install -Dm644 "$srcdir/$pkgname"/debian/feedbackd.udev \
-                 "$pkgdir"/usr/lib/udev/rules.d/90-feedbackd.rules
 }
