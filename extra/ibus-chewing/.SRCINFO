@@ -1,6 +1,6 @@
 pkgbase = ibus-chewing
 	pkgdesc = Chinese Chewing Engine for IBus Framework
-	pkgver = 2.0.0
+	pkgver = 2.1.0
 	pkgrel = 1
 	url = https://github.com/chewing/ibus-chewing
 	arch = x86_64
@@ -9,13 +9,14 @@ pkgbase = ibus-chewing
 	checkdepends = xorg-server-xvfb
 	makedepends = cmake
 	makedepends = minisign
+	makedepends = glib2-devel
 	depends = ibus
-	depends = libchewing
+	depends = libchewing>=0.9.0
 	depends = gtk4
 	depends = libadwaita
-	source = https://github.com/chewing/ibus-chewing/releases/download/v2.0.0/ibus-chewing-2.0.0-Source.tar.xz
-	source = https://github.com/chewing/ibus-chewing/releases/download/v2.0.0/ibus-chewing-2.0.0-Source.tar.xz.minisig
-	sha512sums = 23449ac67c06e63442f859e0c0883d9f55c0de9ccf9c97f8dda4aab1066e0be9dc9f3964989c992c95d8fce17714a624d430a422c6d866646f0f0102165b6190
-	sha512sums = a3898a5a84a83e86213760101e753bdcab7111255f0823d878223c534eb39c9443a84d9b3996d098725ff186e0c306bb08eb1f4a0819d0208b3169dffdedcb3d
+	source = https://github.com/chewing/ibus-chewing/releases/download/v2.1.0/ibus-chewing-2.1.0-Source.tar.xz
+	source = https://github.com/chewing/ibus-chewing/releases/download/v2.1.0/ibus-chewing-2.1.0-Source.tar.xz.minisig
+	sha512sums = 9964a04b8918d6101c48aec5d1ccceba7bae6733eb691ea999cf572fc3c242ecc1a27caea5dc7a53e53acb8bbf0498d9c8be26436471d28cea217507c3cdefe3
+	sha512sums = 85438fb13349c8c674d1c70615f94230494744cb31df34b885fe8bf2c5f4ab0cbd94860daa429912c1b68eeee81292f322393a09a66504f69be6b7851e664749
 
 pkgname = ibus-chewing
