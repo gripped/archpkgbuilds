@@ -9,7 +9,7 @@
 
 pkgname=ansible-core
 _pkgname=ansible
-pkgver=2.17.2
+pkgver=2.17.3
 pkgrel=1
 pkgdesc='Radically simple IT automation platform'
 arch=('any')
@@ -62,8 +62,8 @@ optdepends=(
 provides=('python-ansible' 'ansible-base')
 replaces=('ansible-base')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ansible/ansible/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('516828f5f061ec3105f8de021776b543dabf9d79e506cca3b78b6b89c8734c22c6ee46679014d6da210c3dfea3aac2e9d4fb0487b41af6ea90a78135e485a040')
-b2sums=('0a72b85304518dc463de387de9ec124de10eb5acf113f3a7becf44dbd178d8c135cb2fc3b2dd1cbb9b999c9b8e23da9065defcecf7a37b24e9261d136773e952')
+sha512sums=('512c8e946726020df8057e9eefce1c16b2fd715b33c7d98ec13d272cdf58190dc931424f1dcdabaddb1a313ae9df0f9fb46a1bea2e0cbebca752e30200a24aa9')
+b2sums=('4dea98cbf443072e9397e74d2626ce47f51e1aca380b92daf27a9dfccd2e8a528d47e9c66fd742ce3bb05c16c3ebce500b0f559dca6b3643cb3801960033afbf')
 
 build() {
   cd "${_pkgname}-${pkgver}"
