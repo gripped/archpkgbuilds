@@ -1,7 +1,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=phoc
-pkgver=0.40.1
+pkgver=0.41.0
 pkgrel=1
 pkgdesc='Display compositor designed for phones'
 arch=(x86_64 aarch64)
@@ -13,7 +13,7 @@ checkdepends=(xorg-server-xvfb xorg-xauth mutter pixman)
 makedepends=(cmake meson git wayland-protocols python-jinja python-pygments python-typogrify libgirepository libgmobile glib2-devel)
 optdepends=('xorg-wayland: run X clients under phoc')
 source=(https://gitlab.gnome.org/World/Phosh/phoc/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz)
-sha256sums=('18bcd076236a6b9db6ef118c6f005f0d5a9795d4f024065cedd87d05cf6591ae')
+sha256sums=('f26406beaa67620f2f65d3933f64d763f8cc758bcb4bb88bde7131127dcf9b72')
 
 prepare() {
   cd "${pkgname}-v${pkgver}"
