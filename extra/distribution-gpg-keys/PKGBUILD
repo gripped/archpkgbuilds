@@ -1,16 +1,16 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=distribution-gpg-keys
-pkgver=1.104
+pkgver=1.105
 _rpmrel=1
 _pkgtag=$pkgname-$pkgver-$_rpmrel
-pkgrel=$_rpmrel.1
+pkgrel=1
 pkgdesc="GPG keys used by various Linux distributions to sign packages"
 arch=('any')
 url="https://github.com/rpm-software-management/$pkgname"
 license=('CC0-1.0')
 source=("$url/archive/$_pkgtag.tar.gz")
-sha256sums=('60ec27522ba960719f6b7d578106a65dc2dca235e9ebf2399a6a98571afffd5a')
+sha256sums=('22d6ab30d50a5fb947d755a932d922556ceb06befd0bc1a1af6eb6c196c3c754')
 
 package() {
 	cd "$pkgname-$_pkgtag"
