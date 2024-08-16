@@ -3,7 +3,7 @@
 
 pkgbase=python-lxml
 pkgname=('python-lxml' 'python-lxml-docs')
-pkgver=5.2.2
+pkgver=5.3.0
 pkgrel=1
 pkgdesc="Python3 binding for the libxml2 and libxslt libraries"
 arch=('x86_64')
@@ -13,12 +13,13 @@ depends=('python' 'libxslt')
 optdepends=('python-beautifulsoup4: support for beautifulsoup parser to parse not well formed HTML'
             'python-cssselect: support for cssselect'
             'python-html5lib: support for html5lib parser'
-            'python-lxml-docs: offline docs')
+            'python-lxml-docs: offline docs'
+            'python-lxml-html-clean: enable htmlclean feature')
 makedepends=('python-setuptools' 'python-pygments' 'python-sphinx' 'python-sphinx_rtd_theme'
              'cython')
 checkdepends=('python-cssselect' 'python-html5lib' 'python-beautifulsoup4')
 source=("https://github.com/lxml/lxml/archive/lxml-$pkgver.tar.gz")
-sha512sums=('20b87a2d6e7ac82b6979d6fd18ecd5c224fec6eeee6b69d47a5bf2947ce53e6a517d1b86ab68836a5974f78ce86551ddc2317c1a7255932b418b98dc64d59376')
+sha512sums=('514477bf4c865541233d73f20de816b51d265dbd75c56a0d13779e14527c73e85ca890718d06c08728da228d410459016e9cb8abdad4d03b44a81a04a198fb54')
 
 prepare() {
   mv lxml-lxml-$pkgver lxml-$pkgver
