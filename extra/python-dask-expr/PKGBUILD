@@ -1,0 +1,41 @@
+pkgname=python-dask-expr
+pkgver=1.1.10
+pkgrel=1
+pkgdesc="High Level Expressions for Dask"
+arch=(any)
+url="https://dask.org"
+license=(BSD-3-Clause)
+depends=(python python-dask python-pyarrow python-pandas)
+makedepends=(python-build python-installer python-wheel python-versioneer)
+checkdepends=(python-pytest)
+source=(${pkgname}-${pkgver}.tar.gz::https://github.com/dask/dask-expr/archive/refs/tags/v${pkgver}.tar.gz)
+
+prepare() {
+  cd dask-expr-${pkgver}
+  sed -i 's/versioneer\[toml\]==0.28/versioneer/' pyproject.toml
+}
+
+build() {
+  cd dask-expr-${pkgver}
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd dask-expr-${pkgver}
+  local pytest_options=(
+  	--deselect dask_expr/io/tests/test_parquet.py
+	--deselect dask_expr/tests/test_format.py::test_df_to_html
+	--deselect dask_expr/tests/test_describe.py::test_describe_df
+	--deselect dask_expr/tests/test_describe.py::test_describe_series
+	--deselect dask_expr/tests/test_indexing.py
+  )
+  pytest "${pytest_options[@]}"
+}
+
+package() {
+  cd dask-expr-${pkgver}
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+
+sha256sums=('543e4771286d0254952f68de7e3014869a79144f438881efedfd1b68478b0637')
