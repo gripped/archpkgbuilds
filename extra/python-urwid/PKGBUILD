@@ -5,8 +5,8 @@
 
 _name=urwid
 pkgname=python-urwid
-pkgver=2.6.10
-pkgrel=3
+pkgver=2.6.15
+pkgrel=1
 pkgdesc='Curses-based user interface library'
 url='https://urwid.org/'
 arch=('x86_64')
@@ -26,7 +26,6 @@ makedepends=(
 )
 checkdepends=(
   'python-pytest'
-  'python-pytest-cov'
   'python-twisted'
   'python-tornado'
   'python-trio'
@@ -44,8 +43,8 @@ optdepends=(
 source=(
   $_name-$pkgver.tar.gz::https://github.com/urwid/urwid/archive/refs/tags/$pkgver.tar.gz
 )
-sha256sums=('995234babe454f4a4656764d41a3c863ad106167a444d9719cca51af1abfce3b')
-sha512sums=('add8088b07bbbb0e7284bb93558028b764e4784b1593408745ad7ff5ff176f537ecc6845cbafbb11af08ff44115149cc8adf8b5714984b9017ff7b54e7a80bc8')
+sha512sums=('03d6de4d406da2b7ebd65f1ea51b915e13138da68bff9f80eb3498437d0e76a09000b441054624b1b8d1d38de89469428faae239314a41c7f143f85e5ab8648d')
+b2sums=('6313f1a2e641828d05467de7bc6394f236586bcb6f62db16516b4daaeeff62f75e7c50389ddef6ab68b57ff3dae99d10d70a76684a6f23dd653fc753efc429a0')
 
 build() {
   cd $_name-$pkgver
@@ -54,7 +53,8 @@ build() {
 
 check() {
   cd $_name-$pkgver
-  pytest -vv tests
+  # Override addopts as they invoke coverage testing
+  pytest --override-ini="addopts=-vv --doctest-modules -s" tests
 }
 
 package() {
