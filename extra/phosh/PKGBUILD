@@ -3,7 +3,7 @@
 # Contributor: Philip Goto <philip.goto@gmail.com>
 
 pkgname=phosh
-pkgver=0.40.0
+pkgver=0.41.0
 pkgrel=1
 pkgdesc='A pure Wayland shell prototype for GNOME on mobile devices'
 arch=(x86_64 aarch64)
@@ -12,7 +12,7 @@ license=(GPL3)
 depends=(gtk3 libhandy gnome-desktop gnome-session upower libpulse gcr
 	libnm phoc gnome-shell callaudiod evince fribidi wayland evolution-data-server
 	libsecret polkit libadwaita libical libedataserverui4
-	squeekboard libgmobile)
+	squeekboard libgmobile gnome-bluetooth-3.0)
 makedepends=(meson git wayland-protocols python-docutils python-packaging feedbackd libgmobile glib2-devel)
 checkdepends=(xorg-server-xvfb xorg-xauth)
 optdepends=('iio-sensor-proxy: accelerometer and other sensors'
@@ -21,11 +21,13 @@ optdepends=('iio-sensor-proxy: accelerometer and other sensors'
             'xdg-desktop-portal-wlr: for screencasts support')
 source=("git+${url}.git#tag=v${pkgver}" "pam_phosh")
 validpgpkeys=("0DB3932762F78E592F6522AFBB5A2C77584122D3")
-sha256sums=('ab6decce05b92411c95a49fbce88f94b64e4b431a8d5da9fd416cceb162c6162'
+sha256sums=('279fbb4fe4b348d217e839a46041ae5bf23aa38ec0ebf8c49d8b328b27f3b061'
             'b7793f80c533e84ad8adfe8bb46c69f107575e724aa9b53b41f370baa37e4fd5')
 
 prepare() {
   cd phosh
+  # Run meson once to setup the git submodule for libcall-ui as it should not be packaged
+  meson setup -D gtk_doc=false prep
 }
 
 build() {
