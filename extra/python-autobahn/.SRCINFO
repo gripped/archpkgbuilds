@@ -1,12 +1,17 @@
 pkgbase = python-autobahn
 	pkgdesc = Real-time framework for Web, Mobile & Internet of Things
 	pkgver = 24.4.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/crossbario/autobahn-python/
 	arch = x86_64
 	license = MIT
 	checkdepends = python-pytest
 	checkdepends = python-pytest-asyncio
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
 	makedepends = python-argon2_cffi
 	makedepends = python-cbor2
 	makedepends = python-flatbuffers
@@ -14,7 +19,6 @@ pkgbase = python-autobahn
 	makedepends = python-passlib
 	makedepends = python-pynacl
 	makedepends = python-pytrie
-	makedepends = python-setuptools
 	makedepends = python-ubjson
 	makedepends = python-u-msgpack
 	makedepends = python-ujson
@@ -47,7 +51,7 @@ pkgbase = python-autobahn
 	optdepends = python-snappy: snappy compression suppport for WebSocket messages
 	optdepends = python-click: for text highlights
 	optdepends = python-txtorcon: connections to Tor Onion services
-	source = https://files.pythonhosted.org/packages/source/a/autobahn/autobahn-24.4.2.tar.gz
-	sha256sums = a2d71ef1b0cf780b6d11f8b205fd2c7749765e65795f2ea7d823796642ee92c9
+	source = git+https://github.com/crossbario/autobahn-python.git#tag=v24.4.2
+	sha256sums = 2850e7a45ce0c466a460b09433e23d3a6bba5914fa3596428ca7233ef6815204
 
 pkgname = python-autobahn

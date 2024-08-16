@@ -5,16 +5,17 @@
 pkgname=python-autobahn
 # https://github.com/crossbario/autobahn-python/blob/master/docs/changelog.rst
 pkgver=24.4.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Real-time framework for Web, Mobile & Internet of Things'
 arch=(x86_64)
 url='https://github.com/crossbario/autobahn-python/'
 license=(MIT)
 depends=(glibc python python-cffi python-twisted python-txaio python-wsaccel
          python-cryptography python-hyperlink python-zope-interface)
-makedepends=(python-argon2_cffi python-cbor2 python-flatbuffers
+makedepends=(git python-build python-installer python-setuptools python-wheel
+             python-argon2_cffi python-cbor2 python-flatbuffers
              python-msgpack python-passlib python-pynacl python-pytrie
-             python-setuptools python-ubjson
+             python-ubjson
              python-u-msgpack python-ujson python-qrcode python-pyopenssl
              python-snappy python-click python-txtorcon)
 checkdepends=(python-pytest python-pytest-asyncio)
@@ -36,11 +37,11 @@ optdepends=(
   'python-txtorcon: connections to Tor Onion services'
 )
 
-source=(https://files.pythonhosted.org/packages/source/a/autobahn/autobahn-$pkgver.tar.gz)
-sha256sums=('a2d71ef1b0cf780b6d11f8b205fd2c7749765e65795f2ea7d823796642ee92c9')
+source=("git+https://github.com/crossbario/autobahn-python.git#tag=v$pkgver")
+sha256sums=('2850e7a45ce0c466a460b09433e23d3a6bba5914fa3596428ca7233ef6815204')
 
 prepare() {
-  cd "$srcdir/autobahn-$pkgver"
+  cd "$srcdir/autobahn-python"
   # For reproducibility
   # If Arch decides to increase CPU requirements [1], -march=native can be
   # replaced with -march=nehalem so that the SSE 4.1 implementation is built
@@ -49,21 +50,23 @@ prepare() {
 }
 
 build() {
-  cd "$srcdir/autobahn-$pkgver"
-  python setup.py build
+  cd "$srcdir/autobahn-python"
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$srcdir/autobahn-$pkgver"
+  cd "$srcdir/autobahn-python"
   pyver=$(python -c "import sys; print('{}{}'.format(*sys.version_info[:2]))")
   # "autobahn on asyncio is tested using pytest, while for twisted we are using twisted trial"
   # https://github.com/crossbario/autobahn-python/issues/1235#issuecomment-522440810
   USE_TWISTED=1 PYTHONPATH=.:build/lib.linux-$CARCH-cpython-$pyver trial autobahn
-  USE_ASYNCIO=1 PYTHONPATH=.:build/lib.linux-$CARCH-cpython-$pyver pytest autobahn
+  # pytest configurations are not well organized in upstream repo. Here I ignore everything and pick needed options from
+  # https://github.com/crossbario/autobahn-python/blob/v24.4.2/tox.ini#L104
+  USE_ASYNCIO=1 PYTHONPATH=.:build/lib.linux-$CARCH-cpython-$pyver pytest autobahn --config-file=/dev/null --rootdir "$PWD" --ignore autobahn/twisted
 }
 
 package() {
-  cd "$srcdir/autobahn-$pkgver"
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  cd "$srcdir/autobahn-python"
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
