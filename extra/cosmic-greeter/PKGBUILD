@@ -1,0 +1,55 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Contributor: Mark Wagie <mark.wagie@proton.me>
+
+pkgname=cosmic-greeter
+pkgver=1.0.0.alpha.1
+pkgrel=1
+pkgdesc='COSMIC greeter for greetd'
+arch=(x86_64)
+url=https://github.com/pop-os/cosmic-greeter
+license=(GPL-3.0-only)
+groups=(cosmic)
+depends=(
+  cosmic-comp
+  gcc-libs
+  glibc
+  greetd
+  libxkbcommon
+  pam
+  wayland
+)
+makedepends=(
+  cargo
+  clang
+  git
+  just
+  lld
+)
+_tag=cc744b0b9a6065a97808744bf63433c439e4186c
+source=(git+https://github.com/pop-os/cosmic-greeter.git#tag=${_tag})
+b2sums=('dc8bd6caca00eee21bf732b3a550aa48d2090c973473c6aea6e14983c4bca16f0898633869a5f6c92557d66e004d9c8a4fd75487fdef2d098233ca9155de6234')
+
+prepare() {
+  cd cosmic-greeter
+  cargo fetch --locked
+}
+
+pkgver() {
+  cd cosmic-greeter
+  git describe --tags | sed 's/^epoch-//; s/-/./g'
+}
+
+build() {
+  cd cosmic-greeter
+  RUSTFLAGS+=" -C link-arg=-fuse-ld=lld"
+  just build-release --frozen
+}
+
+package() {
+  cd cosmic-greeter
+  just rootdir="${pkgdir}" install
+  install -Dm 644 cosmic-greeter.toml -t "${pkgdir}"/etc/greetd/
+  install -Dm 644 debian/cosmic-greeter{.service,-daemon.service} -t "${pkgdir}"/usr/lib/systemd/system/
+}
+
+# vim: ts=2 sw=2 et:
