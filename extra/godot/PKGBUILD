@@ -5,30 +5,27 @@
 # Contributor: Matthew Bentley <matthew@mtbentley.us>
 
 pkgname=godot
-pkgver=4.2.2
-pkgrel=2
+pkgver=4.3
+pkgrel=1
 pkgdesc='Advanced cross-platform 2D and 3D game engine'
 url='https://godotengine.org/'
 license=(MIT)
 arch=(x86_64)
 makedepends=(alsa-lib pulseaudio scons yasm)
-depends=(embree3 freetype2 graphite harfbuzz harfbuzz-icu libglvnd libspeechd
+depends=(embree freetype2 graphite harfbuzz harfbuzz-icu libglvnd libspeechd
          libsquish libtheora libvorbis libwebp libwslay libxcursor libxi
-         libxinerama libxrandr mbedtls2 miniupnpc pcre2)
+         libxinerama libxrandr mbedtls miniupnpc pcre2)
 optdepends=('pipewire-alsa: for audio support'
             'pipewire-pulse: for audio support')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/godotengine/godot/archive/$pkgver-stable.tar.gz"
-         miniupnpc-2.2.8.patch)
-sha256sums=('990b7b716656122364b1672508c516c898497c50216d7c00c60eeaf507685c0e'
-            '6c1d8c189ec8b65eb5bfd1bf67fd9b050a06a634b2ca634cffb3878f5313858c')
-b2sums=('2efa04c34f5908ef37fd6f76176eef3fe6c5eb9714779670fa76ec1d5868615c79ae96155143d921673a6c0f2c9b36b949b4cac7b6a99d8731067dcd4314620b'
-        'ad308b3ed7fdd0ee305151c584e1a37c753dc5856b0afc631342c03f386a45723d2193d5a6937598a1b883d847dc3ac9c5f7db3d66ec3f9283f636e301235e50')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/godotengine/godot/archive/$pkgver-stable.tar.gz")
+b2sums=('37aeef42cca7f53f3e23cad7fb2f5456f631ddd20baf3c80329bb33d686ec685ee8e048c459bd25e75edaa775d8548241e94874578bc2b220a46855761fa11d5')
 
 prepare() {
   # Update the MIME info, ref FS#77810
   sed -i 's,xmlns="https://specifications.freedesktop.org/shared-mime-info-spec",xmlns="http://www.freedesktop.org/standards/shared-mime-info",g' \
     $pkgname-$pkgver-stable/misc/dist/linux/org.godotengine.Godot.xml
-  patch -d $pkgname-$pkgver-stable -p1 < miniupnpc-2.2.8.patch
+  # miniupnpc patch
+  sed -i 's/addr, 16/addr, 16, nullptr, 0/g' $pkgname-$pkgver-stable/modules/upnp/upnp.cpp
 }
 
 build() {
@@ -39,9 +36,9 @@ build() {
   #  AUR: libwebm, rvo2
   #  recastnavigation, xatlas
   scons -j$(nproc --all) \
-    CFLAGS="$CFLAGS -fPIC -Wl,-z,relro,-z,now -w -I/usr/include/mbedtls2" \
-    CXXFLAGS="$CXXFLAGS -fPIC -Wl,-z,relro,-z,now -w -I/usr/include/mbedtls2" \
-    LINKFLAGS="$LDFLAGS -L/usr/lib/mbedtls2" \
+    CFLAGS="$CFLAGS -fPIC -Wl,-z,relro,-z,now -w -I/usr/include/mbedtls" \
+    CXXFLAGS="$CXXFLAGS -fPIC -Wl,-z,relro,-z,now -w -I/usr/include/mbedtls" \
+    LINKFLAGS="$LDFLAGS -L/usr/lib/mbedtls" \
     arch=$CARCH \
     builtin_embree=no \
     builtin_enet=yes \
