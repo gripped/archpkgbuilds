@@ -1,0 +1,76 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Contributor: Mark Wagie <mark.wagie@proton.me>
+
+pkgname=cosmic-session
+pkgver=1.0.0.alpha.1
+pkgrel=1
+pkgdesc='Session manager for the COSMIC desktop environment'
+arch=(x86_64)
+url=https://github.com/pop-os/cosmic-session
+license=(GPL-3.0-only)
+groups=(cosmic)
+depends=(
+  bash
+  cosmic-applets
+  cosmic-app-library
+  cosmic-bg
+  cosmic-comp
+  cosmic-greeter
+  cosmic-icon-theme
+  cosmic-launcher
+  cosmic-notifications
+  cosmic-osd
+  cosmic-panel
+  cosmic-randr
+  cosmic-screenshot
+  cosmic-settings-daemon
+  cosmic-settings
+  cosmic-workspaces
+  gcc-libs
+  glibc
+  otf-fira-mono
+  otf-fira-sans
+  switcheroo-control
+  xdg-desktop-portal-cosmic
+  xorg-xwayland
+)
+makedepends=(
+  cargo
+  git
+  just
+  lld
+)
+optdepends=(
+  'cosmic-files: COSMIC file manager'
+  'cosmic-store: COSMIC store'
+  'cosmic-terminal: COSMIC terminal'
+  'cosmic-text-editor: COSMIC text editor'
+  'cosmic-wallpapers: COSMIC wallpapers'
+)
+_tag=c3de3d24dd200d5f8a19a26de56590472f461574
+source=(git+https://github.com/pop-os/cosmic-session.git#tag=${_tag})
+b2sums=('dcede987cc4e8529d32ae3b7b7b17a6f43633bde1691cbdb3f0c9fb260f9e5ffb3d3241bb0b57791f0486fbcefff694b0703d55a789bb99042975fbd88c5cd24')
+
+prepare() {
+  cd cosmic-session
+  cargo fetch --locked
+  sed -i 's/libexec/lib/g' Justfile src/main.rs
+}
+
+pkgver() {
+  cd cosmic-session
+  git describe --tags | sed 's/^epoch-//; s/-/./g'
+}
+
+build() {
+  cd cosmic-session
+  RUSTFLAGS+=" -C link-arg=-fuse-ld=lld"
+  cargo build --release --frozen
+}
+
+package() {
+  cd cosmic-session
+  just rootdir="${pkgdir}" install
+}
+
+# vim: ts=2 sw=2 et:
