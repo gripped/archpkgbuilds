@@ -7,7 +7,7 @@
 
 _pkgname=aiohttp
 pkgname=python-aiohttp
-pkgver=3.10.3
+pkgver=3.10.4
 pkgrel=1
 pkgdesc='HTTP client/server for asyncio'
 arch=(x86_64)
@@ -54,7 +54,7 @@ source=(
   "$pkgname::git+https://github.com/aio-libs/aiohttp#tag=v$pkgver"
   git+https://github.com/nodejs/llhttp.git
 )
-b2sums=('6d10bd39999bcf620eac06426b98a813ee8009123cd7c755be211e3a313cc179125a231ce97f5dc6f96793eeec8ea30112d2cd2d6f9c6bfb86996b1b94befc49'
+b2sums=('569f941a6dcdb26ef2fc9204b3b49e669e69684b004a494548dd76ce49585a2aee4f29763a393da5fa51d4e4aedbf0b91df27e318e73c8be7f0d654c9810ab58'
         'SKIP')
 
 prepare() {
@@ -84,7 +84,7 @@ check() {
   local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
   mv tests/autobahn/test_autobahn.py{,.bak} # Docker tests
   # https://github.com/aio-libs/aiohttp/issues/8234
-  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$python_version"  pytest \
+  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$python_version" pytest \
     --deselect 'tests/test_pytest_plugin.py::test_aiohttp_plugin'
   mv tests/autobahn/test_autobahn.py{.bak,}
 }
