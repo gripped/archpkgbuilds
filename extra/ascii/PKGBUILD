@@ -4,25 +4,33 @@
 # Contributor: Damir Perisa <damir.perisa@bluewin.ch>
 
 pkgname=ascii
-pkgver=3.20
-pkgrel=3
+pkgver=3.30
+pkgrel=1
 pkgdesc="Utility for conversion between various byte representations and the ASCII character table"
 arch=('x86_64')
 url='http://www.catb.org/~esr/ascii'
-license=("BSD")
+license=('BSD-2-Clause')
 depends=('glibc')
-source=("${pkgname}-${pkgver}.tar.gz::http://www.catb.org/~esr/ascii/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('f736c434c9dccb484a2c67be36296adb73c28aabd290e624dafb55a2f254182dc8f36eb48090c31f1bb3126c402d7be52261e9f73c456b8e7cb8952bbb238618')
+source=(
+  "$pkgname-$pkgver.tar.gz::$url/$pkgname-$pkgver.tar.gz"
+  "respect-cflags-and-ldflags.patch"
+)
+sha512sums=('1096afac6aaa043c4ecf7f3f9a010edcec3caefc980fd44a3e613aad579d838f5be0fc6a31bb3fdd680a102885f34fcf3cd5ea50739ef134e9eb929a18e7fdce'
+            '0ea22d5c329d0226eba855d6bacc93ee49fd527ac9f8873eb892cf3f42f429938d19d47c9d40ca301e31c915516f6054ee4836fcd3116afdebf8e7e8a0577983')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  patch -Np1 -i "$srcdir/respect-cflags-and-ldflags.patch"
+}
 
 build() {
-  cd "${pkgname}-${pkgver}"
+  cd "$pkgname-$pkgver"
   make
 }
 
 package() {
-  cd "${pkgname}-${pkgver}"
-
-  install -D -m755 ascii "${pkgdir}/usr/bin/ascii"
-  install -D -m644 ascii.1 "${pkgdir}/usr/share/man/man1/ascii.1"
-  install -D -m644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  cd "$pkgname-$pkgver"
+  install -vDm755 -t "$pkgdir/usr/bin" ascii
+  install -vDm644 -t "$pkgdir/usr/share/man/man1" ascii.1
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" COPYING
 }
