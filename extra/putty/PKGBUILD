@@ -3,7 +3,7 @@
 
 pkgname=putty
 pkgver=0.81
-pkgrel=1
+pkgrel=2
 pkgdesc='A terminal integrated SSH/Telnet client'
 arch=('x86_64')
 url='https://www.chiark.greenend.org.uk/~sgtatham/putty/'
@@ -23,7 +23,13 @@ sha256sums=('cb8b00a94f453494e345a3df281d7a3ed26bb0dd7e36264f145206f8857639fe'
             'd65139883171ed0119d9778ff4a89e6a8151a5ae97fcf8dc7cafb59df424377f')
 
 build() {
-  cmake -B build -S ${pkgname}-${pkgver} \
+  # By default this builds with support for both, GTK+ and X11.
+  # Just the first is fine, so disable X11 (and fix wayland).
+  export CFLAGS+=' -DNOT_X_WINDOWS'
+
+  cmake \
+    -B build \
+    -S ${pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -Wno-dev
@@ -31,7 +37,7 @@ build() {
 }
 
 package() {
-  DESTDIR="$pkgdir" cmake --install build
+  DESTDIR="${pkgdir}" cmake --install build
   
   install -D -m0644 "${srcdir}"/${pkgname}-${pkgver}/LICENCE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
   install -D -m0644 "${srcdir}"/putty.desktop "${pkgdir}"/usr/share/applications/putty.desktop
