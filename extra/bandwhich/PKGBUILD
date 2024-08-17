@@ -2,7 +2,7 @@
 # Contributor: Aram Drevekenin <aram@poor.dev>
 
 pkgname=bandwhich
-pkgver=0.22.2
+pkgver=0.23.0
 pkgrel=1
 pkgdesc='Terminal bandwidth utilization tool'
 url='https://github.com/imsnif/bandwhich'
@@ -14,12 +14,12 @@ depends=(
 )
 makedepends=('cargo')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/imsnif/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz)
-sha256sums=('4c41719549e05dbaac1bc84828269e59b2f2032e76ae646da9b9e3b87e5a5fd1')
-b2sums=('faa9bc5620e9e2a7d5ddd8c715934b2eefc6f4f069348fc14d983ac9c7b22e43b1d167c09dc33c987a3e4a2bdd2ac4f42d1e8e42e492ab21bb57257423c36785')
+sha256sums=('58b94588ec919fd802fc25cd209084ecc9acdfd99d5478d5ec76670774ff5886')
+b2sums=('74f85bc0889e5bbfd2a3d943c4f9c1e99177cb3522ebf709e8d78b9176f02dc498a9ea1d620fc63f23486dbb849ff37c4fa7f1ee27c6eb5a26d89295d82e4170')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
