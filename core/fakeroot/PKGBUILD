@@ -3,35 +3,33 @@
 # Contributor: Jochem Kossen <j.kossen@home.nl>
 
 pkgname=fakeroot
-pkgver=1.35.1
+pkgver=1.36
 pkgrel=1
 pkgdesc='Tool for simulating superuser privileges'
 arch=('x86_64')
-license=('GPL')
+license=('GPL-3.0-or-later')
 url='https://tracker.debian.org/pkg/fakeroot'
 install=fakeroot.install
 depends=('glibc' 'filesystem' 'sed' 'util-linux' 'sh')
-makedepends=('systemd' 'po4a')
+makedepends=('git' 'systemd' 'po4a')
 checkdepends=('sharutils')
-source=("https://deb.debian.org/debian/pool/main/f/${pkgname}/${pkgname}_${pkgver}.orig.tar.gz"
-        '0001-Cast-uint8_t-pointers.patch')
-sha256sums=('6a0de53b2de05277d4e6d4a884eb0de7a8ad467b82c07a6f8f2f6a629e655fdc'
-            'a4afc930e4ee49925a31373f1d4f4d986e7554353e9429b64f9423575f4fbbc8')
+source=("git+https://salsa.debian.org/clint/fakeroot.git#tag=upstream/${pkgver}")
+sha256sums=('6cf5ddf3fdb4d2ece465e4dc51b4d0b1a265c241bdaf2858f0a1519a9b4e8c63')
 
 prepare() {
-  cd "${pkgname}-${pkgver}"
+  cd "${pkgname}"
 
-  patch -Np1 < ../0001-Cast-uint8_t-pointers.patch
+  autoreconf -fi
 }
 
 build() {
-  cd "${pkgname}-${pkgver}"
+  cd "${pkgname}"
 
-  ./configure --prefix=/usr \
+  ./configure \
+    --prefix=/usr \
     --libdir=/usr/lib/libfakeroot \
     --disable-static \
     --with-ipc=sysv
-
   make
 
   cd doc
@@ -39,13 +37,13 @@ build() {
 }
 
 check() {
-  cd "${pkgname}-${pkgver}"
+  cd "${pkgname}"
 
   make check
 }
 
 package() {
-  cd "${pkgname}-${pkgver}"
+  cd "${pkgname}"
 
   make DESTDIR="${pkgdir}" install
 
