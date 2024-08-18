@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=atac
-pkgver=0.16.0
+pkgver=0.17.0
 pkgrel=1
 pkgdesc="A simple API client (postman like) in your terminal"
 arch=('x86_64')
@@ -10,17 +10,21 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('a54fb009b0a901103acd9a0a4de3e82d0fc4508e5a2a2bd24749020c748ae206276e53adad2ec430518ca3b33abeafd80b6425c7db7b308937ddf5c41d1dc78b')
+sha512sums=('720d8d4602ee48f6e83df53500b45188a763df7e5f8810d4df1d5e4ceb5ee06c5defc5a15367c11af415d9289fcd994dccbc332079b7f98f7230095b7e64aaf7')
 options=('!lto')
 
 prepare() {
   cd "${pkgname^^}-$pkgver"
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  mkdir completions/
 }
 
 build() {
   cd "${pkgname^^}-$pkgver"
   cargo build --release --frozen
+  "target/release/$pkgname" --directory "completions" completions bash
+  "target/release/$pkgname" --directory "completions" completions fish
+  "target/release/$pkgname" --directory "completions" completions zsh
 }
 
 check() {
@@ -33,6 +37,9 @@ package() {
   install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "completions/$pkgbase.bash" -t "$pkgdir/usr/share/bash-completion/completions/"
+  install -Dm644 "completions/$pkgbase.fish" -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+  install -Dm644 "completions/_$pkgbase" -t "$pkgdir/usr/share/zsh/site-functions/"
 }
 
 # vim: ts=2 sw=2 et:
