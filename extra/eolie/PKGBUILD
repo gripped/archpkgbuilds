@@ -3,33 +3,60 @@
 
 pkgname=eolie
 pkgver=0.9.101
-pkgrel=5
+pkgrel=6
 pkgdesc='Simple web browser for GNOME'
-arch=('any')
+arch=(any)
 url='https://wiki.gnome.org/Apps/Eolie'
-license=('GPL3')
-depends=('gnome-settings-daemon' 'gtkspell3' 'libhandy' 'python-cairo' 'python-gobject' 'webkit2gtk')
-makedepends=('git' 'gobject-introspection' 'meson')
-optdepends=('python-beautifulsoup4: Import HTML bookmarks'
-            'python-fxa: Firefox Sync support'
-            'python-pycryptodome: Firefox Sync support' 
-            'python-pyopenssl: Show SSL certificates'
-            'python-requests-hawk: Firefox Sync support')
-_commit=168b669f0bccdf41ccabfbd380af685e812f9384  # tags/0.9.101
-source=("git+https://gitlab.gnome.org/World/eolie.git#commit=$_commit"
-        "git+https://gitlab.gnome.org/gnumdk/eolie-po.git")
-sha256sums=('SKIP'
-            'SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/-/+/g'
-}
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  gdk-pixbuf2
+  glib2
+  gnome-settings-daemon
+  gtk3
+  gtkspell3
+  hicolor-icon-theme
+  libhandy
+  libsecret
+  libsoup3
+  pango
+  python
+  python-beautifulsoup4
+  python-cairo
+  python-gobject
+  python-pyopenssl
+  webkit2gtk-4.1
+)
+makedepends=(
+  appstream-glib
+  git
+  meson
+)
+source=(
+  "git+https://gitlab.gnome.org/World/eolie.git#tag=$pkgver"
+  git+https://gitlab.gnome.org/gnumdk/eolie-po.git
+  eolie-libsoup3.patch
+  eolie-disable-firefox-sync.patch
+)
+b2sums=(
+  1728085b113cffa00a44a81be6ce6880d6430eba0ac686a89bbb9affe5d9af09e5cbd95076f4ab5d6676ffe5f20d77c69b17ed0f8c7f0c9721678dfd70266b96
+  SKIP
+  c1c94a1f461d50f8bd402cbffa5e03c7e25d715282579e448af50f0d9fa710becebfbf2c6840217c1915a46536f22e6e0032a9121f37063f7a036872be5ec3ab
+  d6525928997a708fc5e1b6127433c97f6b059a081327bd9d34ff63f25b9f33e8e4b0e0520c31fbb2e9edc173109750df54ad5feabf0de9109ba359d9730d4bf9
+)
 
 prepare() {
   cd $pkgname
+
+  git submodule init
   git config submodule.subprojects/po.url "$srcdir/eolie-po"
-  git -c protocol.file.allow=always submodule update --init
+  git -c protocol.file.allow=always submodule update
+
+  # https://gitlab.gnome.org/World/eolie/-/merge_requests/285
+  git apply -3 ../eolie-libsoup3.patch
+
+  # https://gitlab.gnome.org/World/eolie/-/merge_requests/287
+  git apply -3 ../eolie-disable-firefox-sync.patch
 }
 
 build() {
