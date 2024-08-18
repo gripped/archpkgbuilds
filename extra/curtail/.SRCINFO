@@ -1,19 +1,27 @@
 pkgbase = curtail
-	pkgdesc = Image compressor GUI, supporting PNG and JPEG file types, both lossless and lossy compression mode
-	pkgver = 1.9.1
+	pkgdesc = Image compressor GUI, supporting PNG, JPEG, WebP and SVG file types, both lossless and lossy compression mode
+	pkgver = 1.10.0
 	pkgrel = 1
-	url = https://github.com/Huluti/Curtail
+	url = https://apps.gnome.org/Curtail/
 	arch = any
-	license = GPL3
-	makedepends = appstream-glib
+	license = GPL-3.0-or-later
+	makedepends = appstream
+	makedepends = git
 	makedepends = meson
+	depends = dconf
+	depends = gdk-pixbuf2
+	depends = glib2
 	depends = gtk4
-	depends = libadwaita
+	depends = hicolor-icon-theme
 	depends = jpegoptim
+	depends = libadwaita
+	depends = libwebp
 	depends = oxipng
 	depends = pngquant
+	depends = python
 	depends = python-gobject
-	source = https://github.com/Huluti/Curtail/archive/1.9.1/curtail-1.9.1.tar.gz
-	sha256sums = 0ba1e52d9a772d93386a2dbde8468d7b67c5a8d9d40797dd07740be95732998a
+	depends = scour
+	source = git+https://github.com/Huluti/Curtail.git#tag=1.10.0
+	b2sums = e7a059bbc761f092e62bca7e401c37ef70833efe84bd171f8a66b58ba124c7dd7c11a66aee40263c05357c307d892c749319f55a5e175433433e4daf273d1a0b
 
 pkgname = curtail
