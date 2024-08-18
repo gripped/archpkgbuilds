@@ -6,7 +6,7 @@
 
 pkgname=archinstall
 pkgver=2.8.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Just another guided/automated Arch Linux installer with a twist"
 arch=(any)
 url="https://github.com/archlinux/archinstall"
@@ -26,7 +26,6 @@ depends=(
   python-pydantic
   python-pyparted
   python-simple-term-menu
-  python-sphinx_rtd_theme
   systemd
   util-linux
 )
@@ -36,6 +35,7 @@ makedepends=(
   python-setuptools
   python-sphinx
   python-wheel
+  python-sphinx_rtd_theme
 )
 optdepends=(
   'python-systemd: for systemd-journald support'
