@@ -1,8 +1,8 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=nlopt
-pkgver=2.7.1
-pkgrel=12
+pkgver=2.8.0
+pkgrel=1
 pkgdesc="Nonlinear optimization library"
 arch=(x86_64)
 url="https://nlopt.readthedocs.io/en/latest/"
@@ -11,7 +11,7 @@ depends=(gcc-libs)
 makedepends=(cmake python-numpy octave guile swig)
 optdepends=('python-numpy: to use with python')
 source=(https://github.com/stevengj/nlopt/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('db88232fa5cef0ff6e39943fc63ab6074208831dc0031cf1545f6ecd31ae2a1a')
+sha256sums=('e02a4956a69d323775d79fdaec7ba7a23ed912c7d45e439bc933d991ea3193fd')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
