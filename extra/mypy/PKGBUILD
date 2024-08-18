@@ -3,7 +3,7 @@
 # Contributor: hexchain <i@hexchain.org>
 
 pkgname=mypy
-pkgver=1.10.1
+pkgver=1.11.1
 pkgrel=1
 pkgdesc='Optional static typing for Python 2 and 3 (PEP484)'
 url="http://www.mypy-lang.org/"
@@ -19,7 +19,7 @@ optdepends=(
   'python-setuptools: for mypyc'
 )
 source=("$pkgname-$pkgver.tar.gz::https://github.com/python/mypy/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('36c21d7e02b8c672c2181b210f500e049c9e1f6db41f77e6e5287043e24c93b4')
+sha256sums=('131f4e7667b1284e8f5de61db6a8b3afa1555c6fd4dba86c0deb12e1202b78d5')
 
 prepare() {
     cd "$pkgname-$pkgver"
@@ -44,7 +44,12 @@ package() {
 
     cd "$pkgname-$pkgver"
     python -m installer --destdir="$pkgdir" dist/*.whl
-    install -vDm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
     # remove tests
     rm -frv "$pkgdir/$_site_packages/$pkgname/test/"
+
+    # Symlink license file
+    local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+    install -d "$pkgdir/usr/share/licenses/$pkgname"
+    ln -s "$site_packages/$pkgname-$pkgver.dist-info/LICENSE" \
+        "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
