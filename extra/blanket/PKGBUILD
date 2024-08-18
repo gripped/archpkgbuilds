@@ -3,18 +3,49 @@
 
 pkgname=blanket
 pkgver=0.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Improve focus and increase your productivity by listening to different sounds'
-arch=('any')
-url='https://github.com/rafaelmardojai/blanket'
-license=('GPL3')
-depends=('gst-plugins-bad-libs' 'gst-plugins-base' 'gst-plugins-good' 'gst-python' 'libadwaita' 'python-gobject')
-makedepends=('appstream-glib' 'meson' 'blueprint-compiler')
-source=("https://github.com/rafaelmardojai/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('14445e5d2b56116ac741aef8bba9fed444ec52a089ebd175099539a87de10ab5')
+arch=(any)
+url='https://apps.gnome.org/Blanket/'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  glib2
+  gst-plugins-bad-libs
+  gst-plugins-base
+  gst-plugins-good
+  gst-python
+  gstreamer
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  python
+  python-gobject
+)
+makedepends=(
+  appstream
+  blueprint-compiler
+  git
+  meson
+)
+source=(
+  "git+https://github.com/rafaelmardojai/blanket.git#tag=$pkgver"
+  blanket-icon-names.patch
+)
+b2sums=(
+  75a027e0d7a80b91fd394b7c4fafaa481da8480fe4b3d788e8b438c106d7204fc107754a7533e87fa9a939bd1a0fafda51dc79add92f69c9f381d5316d765ff3
+  61dde4d1c981f015bb8802a441049d8af8e2733820ebba22dcd6f0cf748be41a13bee4b9e021059f2aefc297b850de8e662a23c9a62c7f5f35a298c340114515
+)
+
+prepare() {
+  cd $pkgname
+
+  # https://github.com/rafaelmardojai/blanket/pull/364
+  git apply -3 ../blanket-icon-names.patch
+}
 
 build() {
-  arch-meson $pkgname-$pkgver build
+  arch-meson $pkgname build
   meson compile -C build
 }
 

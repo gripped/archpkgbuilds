@@ -1,20 +1,29 @@
 pkgbase = blanket
 	pkgdesc = Improve focus and increase your productivity by listening to different sounds
 	pkgver = 0.7.0
-	pkgrel = 1
-	url = https://github.com/rafaelmardojai/blanket
+	pkgrel = 2
+	url = https://apps.gnome.org/Blanket/
 	arch = any
-	license = GPL3
-	makedepends = appstream-glib
-	makedepends = meson
+	license = GPL-3.0-or-later
+	makedepends = appstream
 	makedepends = blueprint-compiler
+	makedepends = git
+	makedepends = meson
+	depends = dconf
+	depends = glib2
 	depends = gst-plugins-bad-libs
 	depends = gst-plugins-base
 	depends = gst-plugins-good
 	depends = gst-python
+	depends = gstreamer
+	depends = gtk4
+	depends = hicolor-icon-theme
 	depends = libadwaita
+	depends = python
 	depends = python-gobject
-	source = https://github.com/rafaelmardojai/blanket/archive/0.7.0/blanket-0.7.0.tar.gz
-	sha256sums = 14445e5d2b56116ac741aef8bba9fed444ec52a089ebd175099539a87de10ab5
+	source = git+https://github.com/rafaelmardojai/blanket.git#tag=0.7.0
+	source = blanket-icon-names.patch
+	b2sums = 75a027e0d7a80b91fd394b7c4fafaa481da8480fe4b3d788e8b438c106d7204fc107754a7533e87fa9a939bd1a0fafda51dc79add92f69c9f381d5316d765ff3
+	b2sums = 61dde4d1c981f015bb8802a441049d8af8e2733820ebba22dcd6f0cf748be41a13bee4b9e021059f2aefc297b850de8e662a23c9a62c7f5f35a298c340114515
 
 pkgname = blanket
