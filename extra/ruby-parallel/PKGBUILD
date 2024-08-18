@@ -2,28 +2,36 @@
 
 _gemname='parallel'
 pkgname="ruby-${_gemname}"
-pkgver=1.22.1
-pkgrel=2
+pkgver=1.26.1
+pkgrel=1
 pkgdesc='Run any kind of code in parallel processes'
 arch=('any')
 url="https://github.com/grosser/${_gemname}"
 license=('MIT')
 depends=('ruby')
-#checkdepends=('ruby-bump' 'ruby-rspec')
+checkdepends=('ruby-bump' 'ruby-rspec' 'ruby-rspec-rerun' 'ruby-rake' 'ruby-ruby-progressbar' 'ruby-sqlite3' 'ruby-bundler' 'lsof' 'procps-ng')
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('f106ac605a5998d0e5a43b7863f8400e49270c06e55b6342a84fed788e1e854a26a5e29ec31da9d96a4d403227d002691e27786c25e8d7542f3877bf097e55ad')
+sha512sums=('92404eff2c39bb742fda8b746930262c546c03df9b4633106858e0b968c86589172e4b080f1ba50dff9d3e0873ca817950d08c8b521549ad4d71731aaad80083')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
-
-  # update gemspec/Gemfile to allow newer version of the dependencies
-  sed --in-place --regexp-extended 's|~>|>=|g' "${_gemname}.gemspec"
 
   # we build based on a tar archive, not a git repo
   sed --in-place --regexp-extended 's|git ls-files lib MIT-LICENSE.txt|find lib MIT-LICENSE.txt -type f|' "${_gemname}.gemspec"
 
   rm --verbose Gemfile.lock
+
+  # Remove dependency on activerecord
+  sed --in-place --regexp-extended '/activerecord|rubocop|legacy_formatters|mysql/d' Gemfile
+
+  # Remove certain tests as they use activerecord which Arch cannot ship right now.
+  rm spec/cases/map_with_ar.rb
+  rm spec/cases/each_with_ar_sqlite.rb
+  sed --in-place --regexp-extended '/works with SQLite/,/end/d' spec/parallel_spec.rb
+
+  # This test is simply broken
+  sed --in-place --regexp-extended '/does not leave processes behind while running/,/end/d' spec/parallel_spec.rb
 }
 
 build() {
@@ -32,14 +40,12 @@ build() {
   gem build "${_gemname}.gemspec"
 }
 
-# checks are not possible for now as we don't have rails packaged yet
-# Bundler::GemNotFound: Could not find gem 'activerecord (~> 6.0)' in locally installed gems.
-# and https://aur.archlinux.org/packages/ruby-bump is not in the official repos yet
-#check() {
-#  cd "${_gemname}-${pkgver}"
-#
-#  rake --tasks
-#}
+
+check() {
+  cd "${_gemname}-${pkgver}"
+
+  GEM_HOME="tmp_install/${_gemdir}" rspec
+}
 
 package() {
   cd "${_gemname}-${pkgver}"
