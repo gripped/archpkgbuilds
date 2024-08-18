@@ -1,0 +1,91 @@
+From 829e8d737c84769bf55caf22d547ee8f1eb2297a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 17 Aug 2024 22:44:36 +0200
+Subject: [PATCH] Fix icon name
+
+The icon is called 'org.pitivi.Pitivi', not 'pitivi'.
+---
+ pitivi/mainwindow.py          | 2 +-
+ pitivi/mediafilespreviewer.py | 2 +-
+ pitivi/medialibrary.py        | 2 +-
+ pitivi/project.py             | 4 ++--
+ pitivi/utils/misc.py          | 2 +-
+ 5 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/pitivi/mainwindow.py b/pitivi/mainwindow.py
+index f102e9bb6..93fe08ded 100644
+--- a/pitivi/mainwindow.py
++++ b/pitivi/mainwindow.py
+@@ -128,7 +128,7 @@ class MainWindow(Gtk.ApplicationWindow, Loggable):
+         """Sets up the various perspectives's UI."""
+         self.log("Setting up the perspectives.")
+ 
+-        self.set_icon_name("pitivi")
++        self.set_icon_name("org.pitivi.Pitivi")
+         self._create_actions()
+ 
+         self.greeter.setup_ui()
+diff --git a/pitivi/mediafilespreviewer.py b/pitivi/mediafilespreviewer.py
+index a7e831c20..c43efd183 100644
+--- a/pitivi/mediafilespreviewer.py
++++ b/pitivi/mediafilespreviewer.py
+@@ -457,7 +457,7 @@ class PreviewWidget(Gtk.Grid, Loggable):
+                                    message_type=Gtk.MessageType.WARNING,
+                                    buttons=Gtk.ButtonsType.OK,
+                                    text=self.error_message)
+-        dialog.set_icon_name("pitivi")
++        dialog.set_icon_name("org.pitivi.Pitivi")
+         dialog.set_title(_("Error while analyzing a file"))
+         dialog.run()
+         dialog.destroy()
+diff --git a/pitivi/medialibrary.py b/pitivi/medialibrary.py
+index eb034f5f7..6bb2736d4 100644
+--- a/pitivi/medialibrary.py
++++ b/pitivi/medialibrary.py
+@@ -861,7 +861,7 @@ class MediaLibraryWidget(Gtk.Box, Loggable):
+         dialog = Gtk.FileChooserDialog()
+         dialog.set_title(_("Select One or More Files"))
+         dialog.set_action(Gtk.FileChooserAction.OPEN)
+-        dialog.set_icon_name("pitivi")
++        dialog.set_icon_name("org.pitivi.Pitivi")
+         dialog.add_buttons(_("Cancel"), Gtk.ResponseType.CANCEL,
+                            _("Add"), Gtk.ResponseType.OK)
+         dialog.props.extra_widget = FileChooserExtraWidget(self.app)
+diff --git a/pitivi/project.py b/pitivi/project.py
+index 9c10938ec..c03368433 100644
+--- a/pitivi/project.py
++++ b/pitivi/project.py
+@@ -196,7 +196,7 @@ class ProjectManager(GObject.Object, Loggable):
+                            _("Close Pitivi"), Gtk.ResponseType.CLOSE)
+ 
+         dialog.set_default_response(1)  # Default to "Save as"
+-        dialog.set_icon_name("pitivi")
++        dialog.set_icon_name("org.pitivi.Pitivi")
+         dialog.set_modal(True)
+         dialog.get_accessible().set_name("pitivi died")
+ 
+@@ -288,7 +288,7 @@ class ProjectManager(GObject.Object, Loggable):
+         ignore_backup_btn = dialog.add_button(_("Ignore backup"), Gtk.ResponseType.REJECT)
+         ignore_backup_btn.get_style_context().add_class("destructive-action")
+         dialog.add_button(_("Restore from backup"), Gtk.ResponseType.YES)
+-        dialog.set_icon_name("pitivi")
++        dialog.set_icon_name("org.pitivi.Pitivi")
+         dialog.set_modal(True)
+         dialog.set_default_response(Gtk.ResponseType.YES)
+         dialog.get_accessible().set_name("restore from backup dialog")
+diff --git a/pitivi/utils/misc.py b/pitivi/utils/misc.py
+index 36cfd03cf..263c177ff 100644
+--- a/pitivi/utils/misc.py
++++ b/pitivi/utils/misc.py
+@@ -296,7 +296,7 @@ def unicode_error_dialog():
+                                message_type=Gtk.MessageType.ERROR,
+                                buttons=Gtk.ButtonsType.OK,
+                                text=message)
+-    dialog.set_icon_name("pitivi")
++    dialog.set_icon_name("org.pitivi.Pitivi")
+     dialog.set_title(_("Error while decoding a string"))
+     dialog.run()
+     dialog.destroy()
+-- 
+GitLab
+
