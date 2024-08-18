@@ -6,7 +6,7 @@
 # Contributor: Ben Alex <ben.alex@acegi.com.au>
 
 pkgname=influxdb
-pkgver=2.7.8
+pkgver=2.7.10
 _commit_sha=09a9607 
 pkgrel=1
 pkgdesc='Scalable datastore for metrics, events, and real-time analytics'
@@ -18,7 +18,7 @@ options=('!lto')
 backup=('etc/influxdb/influxdb.conf')
 source=("git+https://github.com/influxdata/influxdb.git#tag=v${pkgver}"
         "influxdb.service")
-sha256sums=('b21bfd46120e749d0df921bc3d6d5a6022366f1515c9f7334191a648074334bc'
+sha256sums=('d98a14549ea115326c224c784cc2c57a5e058eb375a32f96d71f49ec689605f2'
             '51444fae4a286d467ddd1cdfec4c54692ad9201f64c5c2af58304c1a7fe504ad')
 
 build(){
