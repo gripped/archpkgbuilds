@@ -2,26 +2,53 @@
 
 pkgname=gnome-podcasts
 pkgver=0.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Podcast application for GNOME'
-arch=('x86_64')
-url='https://wiki.gnome.org/Apps/Podcasts'
-license=('GPL3')
-depends=('gst-plugins-bad' 'gst-plugins-base' 'gst-plugins-good' 'gtk4' 'libadwaita')
-makedepends=('meson' 'rust')
-optdepends=('gst-plugins-ugly: Extra media codecs'
-            'gst-libav: Extra media codecs')
-source=("https://gitlab.gnome.org/World/podcasts/-/archive/$pkgver/podcasts-$pkgver.tar.gz")
-sha256sums=('933d33dfd0f36343f9c80f055a48e14307a0665b35097da176767ddbfe583399')
+arch=(x86_64)
+url='https://apps.gnome.org/Podcasts/'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  gst-plugins-bad-libs
+  gst-plugins-base
+  gst-plugins-good
+  gstreamer
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  openssl
+  sqlite
+)
+makedepends=(
+  git
+  meson
+  rust
+)
+checkdepends=(xorg-server-xvfb)
+source=("git+https://gitlab.gnome.org/World/podcasts.git#tag=$pkgver")
+b2sums=(0ef2173b4661b709f0bb976cc82cbbd32571b9ae2d09feacb3100554b6d3012a1aaf4729d49d716468fa8bd7062096b53e3316f7f98c5ef71ea0d231544887a4)
 
 build() {
-  arch-meson podcasts-$pkgver build
-  meson compile -C build
+  # Use LTO
+  export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
-# run install here to workaround gitconfig access issue
-  meson install -C build --destdir tmp-install
+  # Use debug
+  export CARGO_PROFILE_RELEASE_DEBUG=2
+
+  arch-meson podcasts build
+  meson compile -C build
+}
+
+check() {
+  dbus-run-session xvfb-run \
+    -s '-screen 0 1920x1080x24 -nolisten local' \
+    meson test -C build --print-errorlogs
 }
 
 package() {
-  mv build/tmp-install/* "$pkgdir"
+  meson install -C build --destdir "$pkgdir"
 }
