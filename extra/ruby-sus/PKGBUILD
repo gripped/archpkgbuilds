@@ -1,9 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-sus
-pkgver=0.24.2
-_commit=31c281dcf6e83cf05b70d608222a6d91248094ec
-pkgrel=3
+pkgver=0.24.3
+pkgrel=1
 pkgdesc='A fast and scalable test runner'
 arch=(any)
 url='https://github.com/ioquatix/sus'
@@ -23,8 +22,8 @@ checkdepends=(
   ruby-covered
 )
 options=(!emptydirs)
-source=(git+https://github.com/ioquatix/sus.git#commit=$_commit)
-sha256sums=('SKIP')
+source=(git+https://github.com/ioquatix/sus.git#tag=v$pkgver)
+sha256sums=('16a59e948f48896449379e46970e7f235a9279f7a90924fd9647f6b335d371ee')
 
 prepare() {
   cd sus
