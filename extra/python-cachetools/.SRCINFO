@@ -1,17 +1,18 @@
 pkgbase = python-cachetools
 	pkgdesc = Extensible memoizing collections and decorators
-	pkgver = 5.3.2
-	pkgrel = 3
+	pkgver = 5.3.3
+	pkgrel = 1
 	url = https://github.com/tkem/cachetools
 	arch = any
 	license = MIT
 	checkdepends = python-pytest
+	makedepends = git
 	makedepends = python-setuptools
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
 	depends = python
-	source = python-cachetools-5.3.2.tar.gz::https://github.com/tkem/cachetools/archive/v5.3.2.tar.gz
-	sha512sums = 0688d6caa25af2440a2ca4535adf99f275ea793521a9462df0a662c0833c608075239e8b7458f908fa742819e99a98452206c5e652c15e6c2c72458e3c1b10a5
+	source = git+https://github.com/tkem/cachetools.git#tag=v5.3.3
+	sha512sums = c18f0e92e7ccc5d58339268b5b689baca3d2cefa66774fdd55b79720e159ec0e90f4e7ff347dd4f6906e9dcb50a7a11ed20957dca20f7622c62350546e4ea7cb
 
 pkgname = python-cachetools
