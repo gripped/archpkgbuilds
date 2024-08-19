@@ -5,24 +5,21 @@
 
 _pkgbasename=fakeroot
 pkgname=lib32-${_pkgbasename}
-pkgver=1.35.1
+pkgver=1.36
 pkgrel=1
 pkgdesc='Tool for simulating superuser privileges (32-bit)'
 arch=('x86_64')
-license=('GPL')
+license=('GPL-3.0-or-later')
 url="https://tracker.debian.org/pkg/fakeroot"
 install=fakeroot.install
 depends=('lib32-glibc' "$_pkgbasename")
-makedepends=('po4a')
-source=("https://deb.debian.org/debian/pool/main/f/${_pkgbasename}/${_pkgbasename}_${pkgver}.orig.tar.gz"
-        '0001-Cast-uint8_t-pointers.patch')
-sha512sums=('fae7d619d65e0a554c40b2e98ae0f81c92c75f6cc2ac9b5060c312e2080ed4be7691ebe8328e2980efb3516e2d5ecf44f17dd56d7e7c61b543f3e888405307bf'
-            '9ecaefce3cd49f261665054e477478a0a9773b41389293031fd9ec977f12c46a44bb3781f278b196b18fa6a4d4f3259bafb8c995b687d54590c68bb697517a0c')
-
+makedepends=('git' 'po4a')
+source=("git+https://salsa.debian.org/clint/fakeroot.git#tag=upstream/${pkgver}")
+sha512sums=('532553727c842a7c65ace8ae0be356b6aaa91228ce1c7c415f9e4a09ae7b05e4b2a857c84f2c9ce71c974a63aae8ceb48f118f1ab2b18a6e1fb0cc40392333b1')
 prepare() {
-  cd "${_pkgbasename}-${pkgver}"
+  cd "${_pkgbasename}"
 
-  patch -Np1 < ../0001-Cast-uint8_t-pointers.patch
+  autoreconf -fi
 }
 
 build() {
@@ -30,10 +27,13 @@ build() {
   export CXX="g++ -m32"
   export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 
-  cd "${_pkgbasename}-${pkgver}"
-  ./bootstrap
-  ./configure --prefix=/usr --libdir=/usr/lib32/libfakeroot \
-              --disable-static --with-ipc=sysv
+  cd "${_pkgbasename}"
+
+  ./configure \
+    --prefix=/usr \
+    --libdir=/usr/lib32/libfakeroot \
+    --disable-static \
+    --with-ipc=sysv
   make
 
   cd doc
@@ -41,7 +41,8 @@ build() {
 }
 
 package() {
-  cd "${_pkgbasename}-${pkgver}"
+  cd "${_pkgbasename}"
+
   make DESTDIR="${pkgdir}" install
   rm -rf "${pkgdir}"/usr/{bin,share}
 
