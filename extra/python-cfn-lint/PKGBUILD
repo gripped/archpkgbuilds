@@ -1,8 +1,8 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-cfn-lint
-# https://github.com/aws-cloudformation/cfn-lint/blob/v0/CHANGELOG.md
-pkgver=0.87.9
+# https://github.com/aws-cloudformation/cfn-lint/blob/main/CHANGELOG.md
+pkgver=1.10.3
 pkgrel=1
 pkgdesc='CloudFormation Linter'
 arch=(any)
@@ -11,49 +11,41 @@ url='https://github.com/aws-cloudformation/cfn-lint'
 # which corresponds to https://spdx.org/licenses/MIT-0.html
 license=('MIT-0')
 depends=(python python-yaml python-aws-sam-translator
-         python-jsonpatch python-jsonschema python-networkx
-         python-junit-xml python-jschema-to-python python-sarif-om
+         python-jsonpatch python-networkx
          python-sympy python-regex
-         # Unconditionally imported since long time ago, while not listed in setup.py
-         # https://github.com/aws-cloudformation/cfn-lint/blob/v0.87.2/src/cfnlint/template/transforms/_protocols.py#L10
-         python-typing_extensions)
-makedepends=(python-build python-installer python-setuptools python-wheel)
-checkdepends=(python-pydot)
+         python-typing_extensions
+         # Not listed in pyproject.toml, maybe upstream relies on the transitive dependency jsonpath -> jsonpointer ?
+         python-jsonpointer)
+makedepends=(git python-build python-installer python-setuptools python-wheel)
+checkdepends=(python-pytest python-defusedxml
+              python-pydot python-junit-xml python-jschema-to-python python-sarif-om)
 optdepends=(
   'python-pydot: for building graphs from templates'
+  'python-junit-xml: for junit formatter'
+  'python-jschema-to-python: for sarif formatter'
+  'python-sarif-om: for sarif formatter'
 )
-source=("https://github.com/aws-cloudformation/cfn-lint/archive/v$pkgver/cfn-lint-$pkgver.tar.gz"
-        'skip-tests-that-require-git.diff')
-sha256sums=('9ec412debea53bda9c05662d204f29efae21371997ef0bd298ff79aa88ab92bc'
-            '2c00f29edd290e5c0de741ebce53d7a4caa7509a91befc806296c897b0f0e879')
-
-prepare() {
-  cd cfn-lint-$pkgver
-  patch -Np1 -i ../skip-tests-that-require-git.diff
-}
+source=("git+https://github.com/aws-cloudformation/cfn-lint.git#tag=v$pkgver")
+sha256sums=('efe51071afd1a580b2537e0a6ebaf0c238bbe1aeec06af6b1e60114f9a11e805')
 
 build() {
-  cd cfn-lint-$pkgver
+  cd cfn-lint
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd cfn-lint-$pkgver
+  cd cfn-lint
 
   # Tests in test/integration need the cfn-lint binary
   python -m installer --destdir="$PWD/tmp_install" dist/*.whl
 
   export PYTHONPATH="$PWD/src"
   export PATH="$PATH:$PWD/tmp_install/usr/bin"
-  # Using unittest following upstream. `test/unit/module/core/test_run_cli.py`
-  # fails if run after `test/unit/module/test_api.py`, which is the case for pytest.
-  # The conflict among tests exist after https://github.com/aws-cloudformation/cfn-lint/pull/2646,
-  # where the new runner.transform() pollutes environment variables via transform.transform_template()
-  python -m unittest discover test
+  pytest
 }
 
 package() {
-  cd cfn-lint-$pkgver
+  cd cfn-lint
   python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
