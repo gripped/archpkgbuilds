@@ -1,18 +1,17 @@
 pkgbase = python-py-partiql-parser
 	pkgdesc = Python Parser for PartiQL
-	pkgver = 0.5.0
-	pkgrel = 2
+	pkgver = 0.5.5
+	pkgrel = 1
 	url = https://github.com/getmoto/py-partiql-parser
 	arch = any
-	license = MIT
-	license = Apache
+	license = MIT AND Apache-2.0
 	checkdepends = python-pytest
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = python-setuptools
-	makedepends = python-wheel
+	makedepends = python-hatchling
 	depends = python
-	source = https://github.com/getmoto/py-partiql-parser/archive/refs/tags/0.5.0/python-py-partiql-parser-0.5.0.tar.gz
-	sha256sums = e9dade1734d7ee48177960d0db2d751b7d3260ffd5882c1a92be441e9b0d35b2
+	source = git+https://github.com/getmoto/py-partiql-parser#commit=a92a28fdf38b636ab2f8a85a739d1ddef0876ea9
+	sha256sums = 88bdf3052c9bc47dca3f851b5deacb5db2531033a56f309bbd929c73d6478820
 
 pkgname = python-py-partiql-parser
