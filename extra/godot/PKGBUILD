@@ -3,20 +3,21 @@
 # Contributor: Jorge Araya Navarro <jorgejavieran@yahoo.com.mx>
 # Contributor: Cristian Porras <porrascristian@gmail.com>
 # Contributor: Matthew Bentley <matthew@mtbentley.us>
+# Contributor: HurricanePootis <hurricanepootis@protonmail.com>
 
 pkgname=godot
 pkgver=4.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Advanced cross-platform 2D and 3D game engine'
 url='https://godotengine.org/'
 license=(MIT)
 arch=(x86_64)
 makedepends=(alsa-lib pulseaudio scons yasm)
-depends=(embree freetype2 graphite harfbuzz harfbuzz-icu libglvnd libspeechd
+depends=(brotli ca-certificates embree freetype2 graphite harfbuzz harfbuzz-icu libglvnd libspeechd
          libsquish libtheora libvorbis libwebp libwslay libxcursor libxi
-         libxinerama libxrandr mbedtls miniupnpc pcre2)
+         libxinerama libxrandr mbedtls openxr miniupnpc pcre2)
 optdepends=('pipewire-alsa: for audio support'
-            'pipewire-pulse: for audio support')
+            'pulse-native-provider: for audio support')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/godotengine/godot/archive/$pkgver-stable.tar.gz")
 b2sums=('37aeef42cca7f53f3e23cad7fb2f5456f631ddd20baf3c80329bb33d686ec685ee8e048c459bd25e75edaa775d8548241e94874578bc2b220a46855761fa11d5')
 
@@ -36,10 +37,13 @@ build() {
   #  AUR: libwebm, rvo2
   #  recastnavigation, xatlas
   scons -j$(nproc --all) \
-    CFLAGS="$CFLAGS -fPIC -Wl,-z,relro,-z,now -w -I/usr/include/mbedtls" \
-    CXXFLAGS="$CXXFLAGS -fPIC -Wl,-z,relro,-z,now -w -I/usr/include/mbedtls" \
-    LINKFLAGS="$LDFLAGS -L/usr/lib/mbedtls" \
+    cflags="$CFLAGS -fPIC -Wl,-z,relro,-z,now -w -I/usr/include/mbedtls" \
+    cxxflags="$CXXFLAGS -fPIC -Wl,-z,relro,-z,now -w -I/usr/include/mbedtls" \
+    linkflags="$LDFLAGS -L/usr/lib/mbedtls" \
     arch=$CARCH \
+    builtin_brotli=no \
+    builtin_certs=no \
+    builtin_clipper2=yes \
     builtin_embree=no \
     builtin_enet=yes \
     builtin_freetype=no \
@@ -56,10 +60,12 @@ build() {
     builtin_wslay=yes \
     builtin_mbedtls=no \
     builtin_miniupnpc=no \
+    builtin_openxr=no \
     builtin_pcre2=no \
     builtin_pcre2_with_jit=no \
     builtin_recastnavigation=yes \
-    builtin_rvo2=yes \
+    builtin_rvo2_2d=yes \
+    builtin_rvo2_3d=yes \
     builtin_squish=no \
     builtin_xatlas=yes \
     builtin_zlib=no \
