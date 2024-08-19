@@ -7,7 +7,7 @@
 
 pkgbase=uv
 pkgname=("$pkgbase" "python-$pkgbase")
-pkgver=0.2.32
+pkgver=0.2.37
 pkgrel=1
 pkgdesc='An extremely fast Python package installer and resolver written in Rust'
 arch=('x86_64')
@@ -20,18 +20,22 @@ makedepends=('cargo' 'maturin' 'python-installer' 'cmake' 'git')
 checkdepends=('python' 'python-zstandard' 'libxcrypt-compat' 'clang')
 options=('!lto')
 source=("git+$url.git#tag=$pkgver")
-sha256sums=('df42bd7d415b2e1f46967a6cec4f88cb07de074d098926b6d82ff9b8068b63e7')
+sha256sums=('46c6b4f36d4c6aa6442593afe34ce76040aa4e03f286de597d1761dabce181bd')
 
 prepare() {
   cd "$pkgbase"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  local tripple="$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$tripple"
   mkdir completions
 }
 
+# Note --frozen doesn't work here because cargo fetch didn't get everything
+# maturin ends up trying to use so we make do with --locked ...
 build() {
   cd "$pkgbase"
-  maturin build --locked --release --all-features --target "$(rustc -vV | sed -n 's/host: //p')" --strip
-  local compgen="target/$(rustc -vV | sed -n 's/host: //p')/release/uv --generate-shell-completion"
+  local tripple="$(rustc -vV | sed -n 's/host: //p')"
+  maturin build --locked --release --all-features --target "$tripple" --strip
+  local compgen="target/$tripple/release/uv --generate-shell-completion"
   $compgen bash >"completions/$pkgbase"
   $compgen elvish >"completions/$pkgbase.elv"
   $compgen fish >"completions/$pkgbase.fish"
@@ -44,8 +48,9 @@ check() {
   # using vendored Python installs. Even collapsing the matrix to match our
   # system Python version and patching around the path issues to use it,
   # a majority of the unit tests are irrelevant.
-  local _target="target/$(rustc -vV | sed -n 's/host: //p')/release/uv"
-  $_target -V | grep -Fx "$pkgname $pkgver"
+  local tripple="$(rustc -vV | sed -n 's/host: //p')"
+  local _target="target/$tripple/release/uv"
+  $_target -V | grep -F "$pkgname $pkgver"
 }
 
 _package_common() {
