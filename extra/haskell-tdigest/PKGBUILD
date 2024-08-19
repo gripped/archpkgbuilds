@@ -2,17 +2,17 @@
 
 _hkgname=tdigest
 pkgname=haskell-tdigest
-pkgver=0.3
-pkgrel=40
+pkgver=0.3.1
+pkgrel=1
 pkgdesc="On-line accumulation of rank-based statistics"
 url="https://github.com/phadej/haskell-tdigest#readme"
 license=("BSD")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-base-compat' 'haskell-foldable1-classes-compat' 'haskell-reducers'
-         'haskell-vector' 'haskell-vector-algorithms')
+depends=('ghc-libs' 'haskell-foldable1-classes-compat' 'haskell-reducers' 'haskell-vector'
+         'haskell-vector-algorithms')
 makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('6ba5e689297f22e45e8b240a27397285cbf76c65b631f58c5d48f579048a4d0a')
+sha256sums=('193127a89f276537cc1ae889063eb26125baa90b31e47332b71b4a18080072ec')
 
 prepare() {
   cd $_hkgname-$pkgver
