@@ -4,11 +4,11 @@
 
 pkgname=newsflash
 pkgver=3.3.4
-pkgrel=1
-pkgdesc='Keep up with your feeds'
-arch=('x86_64')
-url='https://gitlab.com/news-flash/news_flash_gtk'
-license=('GPL-3.0-only')
+pkgrel=2
+pkgdesc='Feed reader application designed to complement an already existing web-based RSS reader account'
+arch=(x86_64)
+url='https://apps.gnome.org/NewsFlash/'
+license=(GPL-3.0-or-later)
 depends=(
   cairo
   gcc-libs
@@ -19,7 +19,6 @@ depends=(
   libadwaita
   libclapper
   libclapper-gtk
-  libsoup3
   libxml2
   openssl
   pango
@@ -27,23 +26,38 @@ depends=(
   webkitgtk-6.0
 )
 makedepends=(
-  appstream-glib
   blueprint-compiler
   git
-  glib2-devel
   meson
   rust
 )
-source=("git+https://gitlab.com/news-flash/news_flash_gtk.git#tag=v.${pkgver}")
-b2sums=('9bccd80fa27eedb8b70f470207dbb733233f75c2e1a98a333e37e1fec24c003dad98ba6af232ab245389d22da5f3f7c593e5b45acaaff3438f431ba9f90548b6')
+source=(
+  "git+https://gitlab.com/news-flash/news_flash_gtk.git#tag=v.$pkgver"
+  newsflash-audio-playback.patch
+)
+b2sums=(
+  9bccd80fa27eedb8b70f470207dbb733233f75c2e1a98a333e37e1fec24c003dad98ba6af232ab245389d22da5f3f7c593e5b45acaaff3438f431ba9f90548b6
+  1cdbaff9c06b7b90289b70906b878d89da53777b4936b0e2825982d5e1ab80c72ab87bd72657dffbb1a1195cf168075a437e0ca55fcab918c5e7b2913596899a
+)
+
+prepare() {
+  cd news_flash_gtk
+  sed -i "s/version: '0.0.0'/version: '$pkgver'/" meson.build
+
+  # https://gitlab.com/news-flash/news_flash_gtk/-/merge_requests/234
+  git apply -3 ../newsflash-audio-playback.patch
+}
 
 build() {
   # Used to encrypt user passwords.
   # DO NOT CHANGE
   export PASSWORD_CRYPT_KEY="ypsSXCLhJngks9qGUAqShd8JjRaZ824wT3e"
 
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
+  # Use LTO
+  export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
+  # Use debug
+  export CARGO_PROFILE_RELEASE_DEBUG=2
 
   arch-meson news_flash_gtk build
   meson compile -C build

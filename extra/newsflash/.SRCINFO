@@ -1,14 +1,12 @@
 pkgbase = newsflash
-	pkgdesc = Keep up with your feeds
+	pkgdesc = Feed reader application designed to complement an already existing web-based RSS reader account
 	pkgver = 3.3.4
-	pkgrel = 1
-	url = https://gitlab.com/news-flash/news_flash_gtk
+	pkgrel = 2
+	url = https://apps.gnome.org/NewsFlash/
 	arch = x86_64
-	license = GPL-3.0-only
-	makedepends = appstream-glib
+	license = GPL-3.0-or-later
 	makedepends = blueprint-compiler
 	makedepends = git
-	makedepends = glib2-devel
 	makedepends = meson
 	makedepends = rust
 	depends = cairo
@@ -20,13 +18,14 @@ pkgbase = newsflash
 	depends = libadwaita
 	depends = libclapper
 	depends = libclapper-gtk
-	depends = libsoup3
 	depends = libxml2
 	depends = openssl
 	depends = pango
 	depends = sqlite
 	depends = webkitgtk-6.0
 	source = git+https://gitlab.com/news-flash/news_flash_gtk.git#tag=v.3.3.4
+	source = newsflash-audio-playback.patch
 	b2sums = 9bccd80fa27eedb8b70f470207dbb733233f75c2e1a98a333e37e1fec24c003dad98ba6af232ab245389d22da5f3f7c593e5b45acaaff3438f431ba9f90548b6
+	b2sums = 1cdbaff9c06b7b90289b70906b878d89da53777b4936b0e2825982d5e1ab80c72ab87bd72657dffbb1a1195cf168075a437e0ca55fcab918c5e7b2913596899a
 
 pkgname = newsflash
