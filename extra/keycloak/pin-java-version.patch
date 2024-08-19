@@ -1,38 +1,42 @@
-From 9248a69bc147c3a43b1af29b95f5b0b67c7a7fcb Mon Sep 17 00:00:00 2001
+From 5c5cfb1e110a34c64f274af861316054070e1698 Mon Sep 17 00:00:00 2001
 From: Frederik Schwan <frederik@tty42.de>
-Date: Mon, 10 Jun 2024 10:23:11 +0200
-Subject: [PATCH] Pin Java Version
+Date: Tue, 1 Nov 2022 18:14:03 +0100
+Subject: [PATCH] Pin Java version
 
 Inject JAVA_HOME and JAVA variables into scripts that end up in /usr/bin
 to also pin the java version for the cli tools that otherwise would use
-the default system JAVA_HOME and JAVA var.# Please enter the commit message for your changes. Lines starting
+the default system JAVA_HOME and JAVA var.
 ---
- integration/client-cli/admin-cli/src/main/bin/kcadm.sh | 1 +
- integration/client-cli/admin-cli/src/main/bin/kcreg.sh | 1 +
- 2 files changed, 2 insertions(+)
+ integration/client-cli/admin-cli/src/main/bin/kcadm.sh | 3 ++-
+ quarkus/dist/src/main/content/bin/kc.sh                | 1 +
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/integration/client-cli/admin-cli/src/main/bin/kcadm.sh b/integration/client-cli/admin-cli/src/main/bin/kcadm.sh
-index fa0e7f86a5..a08299e498 100755
+index fa0e7f86a5..40505e414f 100755
 --- a/integration/client-cli/admin-cli/src/main/bin/kcadm.sh
 +++ b/integration/client-cli/admin-cli/src/main/bin/kcadm.sh
-@@ -19,6 +19,7 @@ esac
+@@ -18,7 +18,8 @@ esac
+ 
  RESOLVED_NAME="${RESOLVED_NAME:-"$0"}"
  
- DIRNAME="$(dirname "$RESOLVED_NAME")"
+-DIRNAME="$(dirname "$RESOLVED_NAME")"
++DIRNAME=`dirname "$RESOLVED_NAME"`
 +. "$DIRNAME/common.sh"
  
  if [ -z "$JAVA" ]; then
      if [ -n "$JAVA_HOME" ]; then
-diff --git a/integration/client-cli/admin-cli/src/main/bin/kcreg.sh b/integration/client-cli/admin-cli/src/main/bin/kcreg.sh
-index be65bcadb1..ef135760e4 100755
---- a/integration/client-cli/admin-cli/src/main/bin/kcreg.sh
-+++ b/integration/client-cli/admin-cli/src/main/bin/kcreg.sh
-@@ -27,4 +27,5 @@ if [ -z "$JAVA" ]; then
- fi
+diff --git a/quarkus/dist/src/main/content/bin/kc.sh b/quarkus/dist/src/main/content/bin/kc.sh
+index 9a6e62e2dd..ed08bf2c2e 100644
+--- a/quarkus/dist/src/main/content/bin/kc.sh
++++ b/quarkus/dist/src/main/content/bin/kc.sh
+@@ -25,6 +25,7 @@ RESOLVED_NAME="${RESOLVED_NAME:-"$0"}"
  
+ GREP="grep"
  DIRNAME="$(dirname "$RESOLVED_NAME")"
 +. "$DIRNAME/common.sh"
- exec "$JAVA" $KC_OPTS -cp $DIRNAME/client/keycloak-admin-cli-${project.version}.jar --add-opens=java.base/java.security=ALL-UNNAMED -Dkc.lib.dir=$DIRNAME/client/lib org.keycloak.client.registration.cli.KcRegMain "$@"
+ 
+ abs_path () {
+   if [ -z "$IS_CYGWIN" ] ; then
 -- 
-2.45.2
+2.46.0
 
