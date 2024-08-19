@@ -1,19 +1,22 @@
 pkgbase = ruby-sus-fixtures-async
 	pkgdesc = Test fixtures for running in Async
-	pkgver = 0.1.3
-	pkgrel = 2
+	pkgver = 0.1.4
+	pkgrel = 1
 	url = https://github.com/socketry/sus-fixtures-async
 	arch = any
 	license = MIT
+	checkdepends = ruby-bake-modernize
 	checkdepends = ruby-bake-test
 	checkdepends = ruby-bundler
 	checkdepends = ruby-covered
+	checkdepends = rubocop
+	makedepends = git
 	makedepends = ruby-rdoc
 	depends = ruby
 	depends = ruby-async
 	depends = ruby-sus
 	options = !emptydirs
-	source = https://github.com/socketry/sus-fixtures-async/archive/v0.1.3/ruby-sus-fixtures-async-0.1.3.tar.gz
-	sha256sums = e16adae95630b35dd94b8b12bfbc26d30cca1499794313438a5c3d76524349ae
+	source = git+https://github.com/socketry/sus-fixtures-async.git#tag=v0.1.4
+	sha256sums = f88105c660701de22f1900dd9b50ddac418baa5e32c6ba931769e9f76225b9ae
 
 pkgname = ruby-sus-fixtures-async

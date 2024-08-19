@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-sus-fixtures-async
-pkgver=0.1.3
-pkgrel=2
+pkgver=0.1.4
+pkgrel=1
 pkgdesc='Test fixtures for running in Async'
 arch=(any)
 url='https://github.com/socketry/sus-fixtures-async'
@@ -13,26 +13,29 @@ depends=(
   ruby-sus
 )
 makedepends=(
+  git
   ruby-rdoc
 )
 checkdepends=(
+  ruby-bake-modernize
   ruby-bake-test
   ruby-bundler
   ruby-covered
+  rubocop
 )
 options=(!emptydirs)
-source=(https://github.com/socketry/sus-fixtures-async/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('e16adae95630b35dd94b8b12bfbc26d30cca1499794313438a5c3d76524349ae')
+source=(git+https://github.com/socketry/sus-fixtures-async.git#tag=v$pkgver)
+sha256sums=('f88105c660701de22f1900dd9b50ddac418baa5e32c6ba931769e9f76225b9ae')
 
 prepare() {
-  cd sus-fixtures-async-$pkgver
+  cd sus-fixtures-async
   sed -r -e 's|~>|>=|g' -e '/signing_key/d' -i sus-fixtures-async.gemspec
-  sed -i '/bake-gem/d;/bake-modernize/d' gems.rb
+  sed -i '/bake-gem/d;/utopia-project/d;/decode/d' gems.rb
 }
 
 build() {
   local _gemdir="$(gem env gemdir)"
-  cd sus-fixtures-async-$pkgver
+  cd sus-fixtures-async
   gem build sus-fixtures-async.gemspec
   gem install \
     --local \
@@ -58,12 +61,12 @@ build() {
 
 check() {
   local _gemdir="$(gem env gemdir)"
-  cd sus-fixtures-async-$pkgver
+  cd sus-fixtures-async
   GEM_HOME="tmp_install/$_gemdir" bake test
 }
 
 package() {
-  cd sus-fixtures-async-$pkgver
+  cd sus-fixtures-async
   cp -a tmp_install/* "$pkgdir"/
   install -Dm644 license.md -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
