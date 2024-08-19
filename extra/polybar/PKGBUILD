@@ -2,7 +2,7 @@
 # Contributor: Patrick Ziegler <p.ziegler96@gmail.com>
 
 pkgname=polybar
-pkgver=3.7.1
+pkgver=3.7.2
 pkgrel=1
 pkgdesc="A fast and easy-to-use status bar"
 arch=('x86_64')
@@ -16,7 +16,7 @@ makedepends=("cmake" "python" "pkg-config" "python-sphinx" "python-packaging" "i
 optdepends=("i3-wm: i3 module support")
 source=("${pkgname}-${pkgver}.tar.gz::${url}/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "${pkgname}-${pkgver}.tar.gz.asc::${url}/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz.asc")
-sha256sums=('5de6ad385ba09dc453a4e5ec7054749a4882b5b21a62c17ae40bf7c90613ff0f'
+sha256sums=('e2feacbd02e7c94baed7f50b13bcbf307d95df0325c3ecae443289ba5b56af29'
             'SKIP')
 validpgpkeys=('1D5791352D51A228D4DDDBA4521E5E03AEBCA1A7') # Patrick Ziegler <p.ziegler96@gmail.com>
 
