@@ -2,36 +2,25 @@
 # Contributor: Konsta Kokkinen <kray@tsundere.fi>
 
 pkgname=('minetest' 'minetest-server' 'minetest-common')
-pkgver=5.8.0
-pkgrel=3
+pkgver=5.9.0
+pkgrel=1
 arch=('x86_64')
 url='https://www.minetest.net/'
 license=('LGPL')
 makedepends=('sqlite' 'freetype2' 'leveldb' 'postgresql' 'spatialindex' 'openal' 'libvorbis' 'curl'
              'hicolor-icon-theme' 'cmake' 'ninja' 'hiredis' 'luajit')
-makedepends+=('libjpeg' 'libgl' 'libxi' 'git') # irrlichtmt
+makedepends+=('libjpeg' 'libgl' 'libxi' 'git')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/minetest/minetest/archive/${pkgver}.tar.gz
-        ${pkgname}-data-${pkgver}.tar.gz::https://github.com/minetest/minetest_game/archive/${pkgver}.tar.gz
-        https://github.com/minetest/minetest/commit/c9ab61aa.patch
         minetest.service
         sysusers.d
         tmpfiles.d)
-sha256sums=('610c85a24d77acdc3043a69d777bed9e6c00169406ca09df22ad490fe0d68c0c'
-            '33a3bb43b08497a0bdb2f49f140a2829e582d5c16c0ad52be1595c803f706912'
-            '689468855fcae450f416dcd7702f5f6e19a2733fe116378cd404790698bf91f5'
+sha256sums=('070bc292a0b7fc60d7ff0a14b364c8229c5cbe38296a80f948ea2c2591545a5c'
             '2d80b4ff925770bdf3d857debb2ad11227cc9b022eb01a358b18f8d5f2641a5c'
             'e4166d639b35efda2cd72269208184ab1e72c54541344cd202ff2005c90b9433'
             'd9405cf7cd0a657ef06082570783383a1f527fbc0bd122ea506d4fbe26950d4a')
 
 prepare() {
   install -d build-{client,server}
-
-  git clone https://github.com/minetest/irrlicht.git ${pkgname}-${pkgver}/lib/irrlichtmt
-  cd ${pkgname}-${pkgver}/lib/irrlichtmt
-  git checkout tags/1.9.0mt13
-
-  cd ../..
-  patch -p1 -i ../c9ab61aa.patch # Fix build with GCC 14
 }
 
 build() {
@@ -99,8 +88,6 @@ package_minetest-common() {
 
   cp -r games builtin client fonts textures "${pkgdir}"/usr/share/minetest/
   cp -r "${srcdir}"/build-client/locale "${pkgdir}"/usr/share/minetest/
-  cp -r "${srcdir}"/minetest_game-${pkgver} "${pkgdir}"/usr/share/minetest/games/minetest
-  rm -rf "${pkgdir}"/usr/share/minetest/games/minetest
 
   for file in doc/{fst_api,lua_api,menu_lua_api,protocol,world_format}.*; do
     install -Dm644 $file "${pkgdir}"/usr/share/minetest/doc/$(basename $file)
