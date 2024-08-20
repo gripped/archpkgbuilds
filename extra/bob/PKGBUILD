@@ -2,7 +2,7 @@
 
 pkgname=bob
 pkgver=4.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A version manager for neovim"
 arch=('x86_64')
 url="https://github.com/MordechaiHadad/bob"
@@ -24,9 +24,9 @@ build() {
   # https://github.com/MordechaiHadad/bob/issues/153
   cargo build --release # --frozen
   local compgen="target/release/$pkgname complete"
-  $compgen bash > "completions/$pkgname"
-  $compgen fish > "completions/$pkgname.fish"
-  $compgen zsh  > "completions/_$pkgname"
+  $compgen bash >"completions/$pkgname"
+  $compgen fish >"completions/$pkgname.fish"
+  $compgen zsh >"completions/_$pkgname"
 }
 
 check() {
