@@ -1,0 +1,26 @@
+pkgbase = libpcap
+	pkgdesc = A system-independent interface for user-level packet capture
+	pkgver = 1.10.4
+	pkgrel = 2
+	url = https://www.tcpdump.org/
+	arch = x86_64
+	license = BSD-3-Clause
+	makedepends = bluez-libs
+	makedepends = dbus
+	depends = glibc
+	depends = libnl
+	depends = sh
+	provides = libpcap.so
+	source = https://www.tcpdump.org/release/libpcap-1.10.4.tar.gz
+	source = https://www.tcpdump.org/release/libpcap-1.10.4.tar.gz.sig
+	validpgpkeys = 1F166A5742ABB9E0249A8D30E089DEF1D9C15D0D
+	sha512sums = 1f6d6ddd07dae7c557054cb246437ecdaf39d579592a5a6bdf1144eea6cb5a779ac4ca647cfed11ec1b0bb18efc63b845444e497070bacefaaed19a5787ae5e1
+	sha512sums = SKIP
+	b2sums = 05a7eafc1e1817f7844008db89d8fb10cd2525c22f7ee6c9e3d582b14229412f38ccced5e9d80a96dd459ef9eab12eccb5c1dd4978ddc9f66267469212005e4c
+	b2sums = SKIP
+
+pkgname = libpcap
+	depends = glibc
+	depends = libnl
+	depends = sh
+	depends = libdbus-1.so

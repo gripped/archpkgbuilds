@@ -4,11 +4,11 @@
 
 pkgname=libpcap
 pkgver=1.10.4
-pkgrel=1
+pkgrel=2
 pkgdesc='A system-independent interface for user-level packet capture'
 arch=(x86_64)
 url='https://www.tcpdump.org/'
-license=(BSD)
+license=(BSD-3-Clause)
 depends=(
   glibc
   libnl
@@ -19,6 +19,7 @@ makedepends=(
   dbus
 )
 provides=(libpcap.so)
+# NOTE: Switch to (signed) git tags for next release: https://github.com/the-tcpdump-group/libpcap/issues/1344
 source=(https://www.tcpdump.org/release/$pkgname-$pkgver.tar.gz{,.sig})
 sha512sums=('1f6d6ddd07dae7c557054cb246437ecdaf39d579592a5a6bdf1144eea6cb5a779ac4ca647cfed11ec1b0bb18efc63b845444e497070bacefaaed19a5787ae5e1'
             'SKIP')
