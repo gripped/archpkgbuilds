@@ -2,7 +2,7 @@
 
 pkgname=python-elastic-transport
 _pkgname=elastic-transport-python
-pkgver=8.13.1
+pkgver=8.15.0
 pkgrel=1
 pkgdesc="Transport classes and utilities shared among Python Elastic client libraries"
 arch=(any)
@@ -31,39 +31,21 @@ checkdepends=(
   python-respx
   python-trustme
 )
-source=(
-  "$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
-  "remove-dependency-mock.patch"
-)
-sha256sums=(
-  '3b634a4c760076b142567696675ec153fa85b9e8a7e66f838e6505bde827940f'
-  '5db2acadb3967e86cce85919036790362fa8ac43645c4f748e6193657c3ea982'
-)
-
-_archive="$_pkgname-$pkgver"
-
-prepare() {
-  cd "$_archive"
-
-  patch --forward --strip=1 --input="$srcdir/remove-dependency-mock.patch"
-}
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('a9d8b250bf646252de7ada32c96e289ed8853fb72a28f9bec64ba78220d11539')
 
 build() {
-  cd "$_archive"
-
+  cd $_pkgname-$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_archive"
-
+  cd $_pkgname-$pkgver
   # OpenTelemetry not in Arch repos (yet)
-  pytest --override-ini="addopts=" \
-    --ignore tests/test_otel.py
+  pytest --override-ini="addopts=" --ignore tests/test_otel.py
 }
 
 package() {
-  cd "$_archive"
-
+  cd $_pkgname-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
