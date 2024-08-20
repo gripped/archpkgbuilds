@@ -1,34 +1,43 @@
-# Maintainer: Jan de Groot <jgc@archlinux.org>
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Jan de Groot <jgc@archlinux.org>
 # Contributor: Adria Arrufat <adria.arrufat@protonmail.ch>
-pkgname=lasem
-pkgver=0.4.4
-pkgrel=2
-pkgdesc="SVG and Mathml rendering library"
-arch=('x86_64')
-url="https://wiki.gnome.org/Projects/Lasem"
-license=('LGPL')
-depends=('gtk3')
-makedepends=('intltool' 'python')
-options=('!libtool')
-source=(https://download.gnome.org/sources/$pkgname/${pkgver:0:3}/$pkgname-$pkgver.tar.xz
-        CVE-2013-7447.patch)
-sha256sums=('9bf01fcfdc913ebc05989ac1f5902d52e28e7c31f797e2b6d3d413d4b51bba39'
-            'd9e836934655db45e52f6ab1923866a5010a071c1c62fcbcb6c2fd999e978d2c')
 
-prepare() {
-  cd $pkgname-$pkgver
-  patch -Np1 -i ../CVE-2013-7447.patch
-}
+pkgname=lasem
+pkgver=0.6.0
+pkgrel=1
+pkgdesc='SVG and MathML rendering library'
+arch=(x86_64)
+url='https://github.com/LasemProject/lasem'
+license=(LGPL-2.1-or-later)
+depends=(
+  cairo
+  gdk-pixbuf2
+  glib2
+  glibc
+  libxml2
+  pango
+)
+makedepends=(
+  gi-docgen
+  git
+  glib2-devel
+  gobject-introspection
+  meson
+)
+checkdepends=(librsvg)
+source=("git+https://github.com/LasemProject/lasem.git#tag=$pkgver")
+b2sums=(721f335c94878ad788851d0d0e48a6beb6717bf3f7bc9980f1cac696491fd57623219112e548071b2f201d354aa450c3450009fcb325dd0810f90af94084f518)
 
 build() {
-  cd "$pkgname-$pkgver"
-  ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
-      --disable-static
-  make
+  arch-meson $pkgname build \
+    -D documentation=enabled
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
 }
 
 package() {
-  cd "$pkgname-$pkgver"
-  make DESTDIR="$pkgdir" install
-  mv "$pkgdir/usr/doc" "$pkgdir/usr/share/doc"
+  meson install -C build --destdir "$pkgdir"
 }
