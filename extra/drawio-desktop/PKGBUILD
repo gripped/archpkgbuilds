@@ -1,0 +1,76 @@
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Dmitry Valter <`echo ZHZhbHRlciA8YXQ+IHByb3Rvbm1haWwgPGRvdD4gY29tCg== | base64 -d`>
+
+pkgname=drawio-desktop
+pkgver=24.7.5
+pkgrel=3
+pkgdesc="Official Electron build of draw.io"
+arch=(any)
+url="https://www.drawio.com"
+license=(Apache-2.0)
+_electronver=31
+_nodever=20
+depends=(
+  "electron$_electronver"
+  hicolor-icon-theme
+)
+makedepends=(
+  "nodejs>=$_nodever"
+  git
+  yarn
+)
+source=(
+  "git+https://github.com/jgraph/drawio-desktop.git#tag=v$pkgver"
+  "git+https://github.com/jgraph/drawio.git#tag=v$pkgver"
+  "drawio.desktop"
+  "drawio.sh"
+  "drawio.xml"
+)
+sha256sums=(
+  'a0d349a343428fa3964d8e71bf7e4df8460817ceedf89824e54deb9e97e8a84e'
+  '1c92ab370c5493a3b4ae76d4749b5a8068a01e4909c3355d49ad4abfc0c838b5'
+  '1064adf2cb2cd69a95d0f820000f48291a19698df707bef8f1aff0b8d368cf4a'
+  '70735625bcb70e9a9e4a56a4723b230946c1d68336dba93864f45aed5c97899a'
+  '53fb8df9cd9101d79fd897880dc7c59b3e90cf5d980029a1ecaa5da3031f8606'
+)
+
+prepare() {
+  cd $pkgname
+  sed -i "s/@_electronver@/$_electronver/" "$srcdir/drawio.sh"
+
+  git submodule init
+  git config submodule.drawio.url "$srcdir/drawio"
+  git -c protocol.file.allow=always submodule update
+
+  # Check package.json version
+  grep -q "\"version\": \"$pkgver\"" package.json
+  # Electron & Node version compatibility checks
+  grep -q "\"electron\": \"$_electronver\." package.json
+  grep -q "\"node\": \">=$_nodever\"" package.json
+
+  # Disable auto-updates
+  sed -i 's/return false;/return true;/' src/main/disableUpdate.js
+
+  yarn install --frozen-lockfile
+}
+
+build() {
+  cd "$srcdir/$pkgname"
+  yarn run electron-builder --linux dir \
+    -c.electronDist=/usr/lib/electron$_electronver \
+    -c.electronVersion=$_electronver
+}
+
+package() {
+  cd "$srcdir/$pkgname"
+  install -vDm644 -t "$pkgdir/usr/lib/$pkgname" dist/linux-unpacked/resources/app.asar
+  install -vDm755 "$srcdir/drawio.sh" "$pkgdir/usr/bin/drawio"
+
+  install -vDm644 "$srcdir/drawio.xml" "$pkgdir/usr/share/mime/packages/drawio.xml"
+  install -vDm644 -t "$pkgdir/usr/share/applications" "$srcdir/drawio.desktop"
+
+  for icon in $(find build -regex '.*/[0-9]+x[0-9]+\.png' | sort -n); do
+    size=$(basename -s .png "$icon")
+    install -vDm644 "build/$size.png" "$pkgdir/usr/share/icons/hicolor/$size/apps/drawio.png"
+  done
+}
