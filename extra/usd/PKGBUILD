@@ -8,7 +8,7 @@ pkgname=('usd' 'usd-extras')
 _pkgname='OpenUSD'
 pkgbase=usd
 pkgver=24.08
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://openusd.org'
 pkgdesc='3D VFX pipeline interchange file format'
@@ -170,6 +170,7 @@ package_usd() {
   # Man Generation
   mkdir -p "$pkgdir/usr/share/man/man1"
   for cmd in "$pkgdir/usr/bin/"*; do
+    LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$pkgdir/usr/lib/" \
     PYTHONPATH="$pkgdir/$(python3 -c 'import site; print(site.getsitepackages()[0])')" \
       help2man \
       --no-info --no-discard-stderr --version-string="$pkgver" \
