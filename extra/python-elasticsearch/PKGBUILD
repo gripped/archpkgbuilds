@@ -3,7 +3,7 @@
 
 pkgname=python-elasticsearch
 _pkgname=elasticsearch-py
-pkgver=8.14.0
+pkgver=8.15.0
 pkgrel=1
 arch=(any)
 pkgdesc="Official Python client for Elasticsearch"
@@ -15,8 +15,8 @@ depends=(
 )
 makedepends=(
   python-build
+  python-hatchling
   python-installer
-  python-setuptools
   python-wheel
 )
 checkdepends=(
@@ -25,6 +25,7 @@ checkdepends=(
   python-numpy
   python-orjson
   python-pandas
+  python-pyarrow
   python-pytest
   python-pytest-asyncio
   python-requests
@@ -36,28 +37,24 @@ optdepends=(
   'python-aiohttp: support for asynchronous requests'
   'python-numpy: support for Maximal Marginal Relevance (MMR) for search results'
   'python-orjson: support for faster JSON serialization'
+  'python-pyarrow: support for Arrow deserialization'
   'python-requests: support for synchronous requests'
   # 'python-simsimd: support for Maximal Marginal Relevance (MMR) for search results'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('1f9e8c96a281e8e4330e0ae4b8bd60715bde408631292a0cf0bf18688d10d8fd')
-
-_archive="$_pkgname-$pkgver"
+sha256sums=('67652a077e899ba0860ebd3fd5b46f9e33482f67caaba237e9d740d91f496c0f')
 
 build() {
-  cd "$_archive"
-
+  cd $_pkgname-$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_archive"
-
+  cd $_pkgname-$pkgver
   pytest --override-ini="addopts="
 }
 
 package() {
-  cd "$_archive"
-
+  cd $_pkgname-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
