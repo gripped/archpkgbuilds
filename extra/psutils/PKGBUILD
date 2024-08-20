@@ -5,7 +5,7 @@
  
 pkgname=psutils
 _pyname=pspdfutils
-pkgver=3.3.4
+pkgver=3.3.5
 pkgrel=1
 pkgdesc='A set of postscript utilities'
 arch=(any)
@@ -24,7 +24,7 @@ checkdepends=(ghostscript
 # provides=("python-$_pyname=$pkgver")
 _archive="$_pyname-$pkgver"
 source=("$url/releases/download/v$pkgver/$_archive.tar.gz")
-sha256sums=('94b331826967d04b9d055c8a8e2a374c5824fd120d49c24b73d16644127d51fe')
+sha256sums=('49d0ed8254df3fe60eb4fd74d4dc1ccaf08cc7802ea9d79d83670b45685d5e35')
 
 prepare() {
 	cd "$_archive"
