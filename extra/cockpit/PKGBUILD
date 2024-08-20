@@ -5,20 +5,20 @@
 
 pkgbase=cockpit
 pkgname=(cockpit cockpit-packagekit cockpit-pcp cockpit-storaged)
-pkgver=322
+pkgver=323
 pkgrel=1
 pkgdesc='A systemd web based user interface for Linux servers'
 arch=('x86_64')
 url='https://cockpit-project.org/'
 license=('LGPL-2.1-or-later')
-makedepends=(krb5 libssh json-glib glib-networking glib2-devel
+makedepends=(krb5 libssh json-glib glib-networking glib2-devel systemd
              git intltool gtk-doc gobject-introspection networkmanager xmlto npm pcp
              gendesk python-installer python-wheel python-build python-pip)
 source=("https://github.com/cockpit-project/cockpit/releases/download/$pkgver/cockpit-$pkgver.tar.xz"
         "cockpit.pam"
         "cockpit-ws.sysuser.conf"
         "cockpit-wsinstance.sysuser.conf")
-sha256sums=('c4da754e6bb69629cdf265c276aece918bb93080a66cb9b3491f5db5936eda2f'
+sha256sums=('8a291f17daa8fe01b0675dcef397dce25bf75596db370b509eee2d8ff974fe8c'
             '1257fb3be713ca26831faea6963d292ec2ccd284f3a6be800142fab270c504fc'
             '1ad9dad75858264778bd94799b60c651f7cc1c7f7fa1c54622174303e639287a'
             '46ee8ecad7bc97ba588ab9471dde76e41c00daf40658902425626c3a1938b438')
@@ -53,7 +53,7 @@ build() {
 }
 
 package_cockpit() {
-  depends=(krb5 libssh json-glib glib-networking libpwquality
+  depends=(krb5 libssh json-glib glib-networking libpwquality systemd
            openssl kexec-tools python gobject-introspection-runtime)
   backup=('etc/pam.d/cockpit' 'etc/cockpit/disallowed-users')
   optdepends=("cockpit-pcp: reading performance metrics"
