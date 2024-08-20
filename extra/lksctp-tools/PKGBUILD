@@ -2,16 +2,16 @@
 # Contributer: Nicolas Martyanoff <khaelin@gmail.com>
 
 pkgname=lksctp-tools
-pkgver=1.0.19
-pkgrel=2
+pkgver=1.0.20
+pkgrel=1
 pkgdesc='An implementation of the SCTP protocol'
 arch=('x86_64')
 url='https://github.com/sctp/lksctp-tools'
-license=('GPL2' 'LGPL2.1')
+license=('GPL-2.0-or-later' 'LGPL-2.1-only')
 makedepends=('git')
-depends=('bash')
+depends=('glibc' 'bash')
 source=("git+https://github.com/sctp/lksctp-tools.git#tag=v$pkgver")
-sha256sums=('SKIP')
+sha256sums=('91c118f63d53d00b4f5eae9277aace9d9a52fdee5025ae4789abd675f47388eb')
 
 build() {
   cd $pkgname
