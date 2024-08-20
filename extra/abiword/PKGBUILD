@@ -1,97 +1,121 @@
-# Maintainer: Jan de Groot <jgc@archlinux.org>
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Jan de Groot <jgc@archlinux.org>
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 # Contributor: Maël Lavault <moimael@neuf.fr>
 
 pkgname=abiword
 pkgver=3.0.5
-pkgrel=4
+pkgrel=5
 pkgdesc='Fully-featured word processor'
-arch=('x86_64')
-license=('GPL')
-# url='https://www.abisource.com'
-url='https://gitlab.gnome.org/World/AbiWord'
-depends=('fribidi' 'wv' 'goffice' 'librsvg' 'enchant' 'desktop-file-utils'
-         'redland' 'libical' 'gtk-update-icon-cache' 'loudmouth' 'libwpg' 'libwps' 'libwmf' 'link-grammar'
-         'gtkmathview' 'aiksaurus' 'libxslt' 'libsoup' 'libots' 'libgsf' 'psiconv')
-makedepends=('pkgconfig' 'boost' 'gobject-introspection' 'libwpd' 'libwps' 'python-gobject' 'autoconf-archive')
-conflicts=('abiword-plugins')
-replaces=('abiword-plugins')
-options=('!makeflags')
-# $url/-/archive/release-3.0.5/AbiWord-release-3.0.5.tar.gz
-source=(https://www.abisource.com/downloads/$pkgname/$pkgver/source/$pkgname-$pkgver.tar.gz{,.asc}
-        abiword-3.0.0-librevenge.patch
-        abiword-3.0.1-libwps-0.4.patch
-        abiword-gcc11.patch::https://github.com/AbiWord/abiword/commit/ef29fc94.patch
-        aiksaurus-plugin.m4
-        command-plugin.m4
-        python-override.patch
-        enchant-2.1.patch
-        # https://github.com/AbiWord/abiword/commit/de5dc5fd94a5fe321791d44e88d209a4972264ba
-        boost-asio.patch
-        libxml2-2.12.patch)
-sha256sums=('1257247e9970508d6d1456d3e330cd1909c4b42b25e0f0a1bc32526d6f3a21b4'
-            'SKIP'
-            '77b52a3722096cec3bfbe4fff3802f51b6c9e0ff7aaa30028c29825fd4e6a65f'
-            'f1375b2ab7af2959717cba0259ba546c8e75ef849e84263bdc253019e849cb2a'
-            'd0d9baa60349fa3e1e9f594f896b82285a9378141ff973f4265295ab8475c413'
-            '5f80a2f94f9929cdba9809c5e1a87cd5d537a2518bb879bfb9eab51a71c8dac1'
-            '2f26826e9d59d80dacd0dae4aceb815804eaa75954e47507a0897794f33e45be'
-            'dba1e3265cd42589f17b41fea1a39c8aa4b83c7203b9d5944b578d0ff9c858be'
-            '444dc2aadea3c80310a509b690097541573f6d2652c573d04da66a0f385fcfb2'
-            '3d119595c8080f90570ce09e02d6765a0cb84b16f4cc51ef8eee4ff289c19e77'
-            '66a501a4637d50d47485acfab228f82bd7a09065620c362a768bb65809b05b18')
-validpgpkeys=('6C44DB3E0BF3EAF5B433239A5FEE05E6A56E15A3') # Hubert Figuiere <hub@figuiere.net>
+arch=(x86_64)
+url='http://www.nl.abisource.com/'
+license=(GPL-2.0-or-later)
+depends=(
+  at-spi2-core
+  cairo
+  enchant
+  fontconfig
+  fribidi
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  goffice
+  gtk3
+  hicolor-icon-theme
+  libgsf
+  libical
+  libjpeg-turbo
+  libpng
+  librsvg
+  libx11
+  libxml2
+  libxslt
+  pango
+  rasqal
+  readline
+  redland
+  wv
+  zlib
+)
+makedepends=(
+  autoconf-archive
+  boost
+  git
+  gobject-introspection
+  libwmf
+  libwpg
+  libwps
+  link-grammar
+  python-gobject
+  telepathy-glib
+)
+optdepends=(
+  'libwmf: WMF Import plugin'
+  'libwpg: WordPerfect Graphics Importer plugin'
+  'libwps: WordPerfect and Microsoft Works Importer plugin'
+  'link-grammar: AbiGrammar plugin'
+  'telepathy-glib: Collaboration plugin'
+)
+conflicts=(abiword-plugins)
+replaces=(abiword-plugins)
+source=(
+  "git+https://gitlab.gnome.org/World/AbiWord.git?signed#tag=release-$pkgver"
+  abiword-3.0.0-librevenge.patch
+  abiword-3.0.1-libwps-0.4.patch
+  abiword-fix-appstream-data.patch
+)
+b2sums=(
+  a6be891747551888053d432772a7216d7b07178325c9b85d8cbe41829c7ccd033833b4595fefb98497e523bd20e1c0e7ac455043d1330e332d9c2f500089d8a8
+  67a55edc78d4332bde26467c3791103d6c950d7c7f000f8c03783f8d7f49d5706a1fa9787a037198c06df3a0d1c4a52521228a41ae6766cdfb20db019ce4bd09
+  7bc9ebf5e6005af2e72ecd7f9db38e9ca3808bc2ee4a2bf64510f35461511ccc9888a24ce7c3e9b84575ec7842288542af669ee0f45a7f7be1558f38fcc8baa5
+  cecfa249c504d2b4a342ad6b7140be67d7422c350231e10eb1411e9eef834b7ea2a92a761d1cfced09e0520d820e1188339a3b62f0a07efed70f638502704aa5
+)
+validpgpkeys=(6C44DB3E0BF3EAF5B433239A5FEE05E6A56E15A3) # Hubert Figuiere <hub@figuiere.net>
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd AbiWord
 
-  # fix build with librevenge based import filters
-  patch -Np0 -i ../abiword-3.0.0-librevenge.patch
-
-  # Fix libwpd 0.4 detection
-  patch -Np1 -i ../abiword-3.0.1-libwps-0.4.patch
-
-  # Fix build with GCC 11
-  patch -p1 -i ../abiword-gcc11.patch
+  # Apply all fixes from the stable branch
+  git cherry-pick -n 5e9bf43e6a711c918ced5d747b6c24ed3b19e824..2c8b8db64fee3cc155dd78249a614512710c664c
 
   # Fix python override code to work with Python 3.x
-  patch -Np1 -i ../python-override.patch
+  git cherry-pick -n 51787d61993cb3981c18e4cf174fc229734fba1e
 
-  # Replace deprecated enchant functions
-  patch -Np1 -i ../enchant-2.1.patch
+  # Port to enchant 2
+  git cherry-pick -n ae05e92df5a5d6151641622c83d35a6fdba47b1f
 
-  # Install missing m4 file
-  install -m644 ../aiksaurus-plugin.m4 plugins/aiksaurus/plugin.m4
-  install -m644 ../command-plugin.m4 plugins/command/plugin.m4
+  # Install AppStream data into metainfo directory
+  sed -i 's|/appdata|/metainfo|' Makefile.am
 
-  # Generate m4 file for configure
-  find plugins -name plugin.m4 | xargs cat > plugin-configure.m4
+  # Fix build with librevenge based import filters
+  patch -Np0 -i ../abiword-3.0.0-librevenge.patch
 
-  # enchant-2 naming change
-  sed -i 's/enchant >=/enchant-2 >=/' configure.ac
+  # Port to libwps 0.4
+  patch -Np1 -i ../abiword-3.0.1-libwps-0.4.patch
 
-  # fix build with libxml2 2.12
-  patch -p1 -i ../libxml2-2.12.patch
+  # Fix AppStream data
+  patch -Np1 -i ../abiword-fix-appstream-data.patch
 
-  libtoolize --force
+  ./autogen-common.sh
   autoreconf -fi
 }
 
-
 build() {
-  cd $pkgname-$pkgver
-  ./configure --prefix=/usr \
-    --enable-shared \
-    --disable-static \
+  cd AbiWord
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --enable-plugins \
     --enable-clipart \
     --enable-templates \
-    --enable-plugins \
     --enable-introspection
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd AbiWord
   make DESTDIR="$pkgdir" install
 }
