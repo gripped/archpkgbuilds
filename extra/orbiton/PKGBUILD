@@ -2,7 +2,7 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3 orbiton-nano)
-pkgver=2.65.12
+pkgver=2.66.0
 pkgrel=1
 pkgdesc='Fast and configuration-free text editor and IDE limited by VT100'
 arch=(x86_64)
@@ -10,13 +10,8 @@ url='https://roboticoverlords.org/orbiton/'
 license=(BSD-3-Clause)
 makedepends=(git go vte3)
 options=(!lto)
-source=("git+https://github.com/xyproto/orbiton#commit=ebe984d9d8bda1aa806199de3d4f79197ee72b13") # tag: v2.65.12
-b2sums=('57ed2beb07db50dcc7e1d95a6a814aef29d84959270455dfcf7e4fc56b8ddd9c29c26d4b4d6ea12f7639fe8f7aabafe13e56aa550506ee1adf6b495620c7ea15')
-
-prepare() {
-  # Stop the install target from rebuilding executables (will be fixed in the next release)
-  sed -i 's/install: o/install:/' $pkgbase/Makefile
-}
+source=("git+https://github.com/xyproto/orbiton#commit=577e428a271a9552d88cf7c95b7d4540c81d1cfc") # tag: v2.66.0
+b2sums=('34688f1184fddbaf49a4cb42b9fbe42f0a45bc368bab08d97bb3dd3c646c965aa027ac86c6074b504d5227b805b762400ee7cc990eca892ec2726e4c9d655e15')
 
 build() {
   # Adjust the LDFLAGS to work together with go build
