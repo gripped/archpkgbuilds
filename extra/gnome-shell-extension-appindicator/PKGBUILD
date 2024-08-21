@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=gnome-shell-extension-appindicator
-pkgver=58
+pkgver=59
 pkgrel=1
 epoch=1
 pkgdesc='AppIndicator/KStatusNotifierItem support for GNOME Shell'
@@ -14,7 +14,7 @@ makedepends=(
   'meson'
 )
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ubuntu/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('7a6fda28ddd214fbb832486b85c73447ff0c5fc7a36c6d1510c4ff6801cff9d8')
+sha256sums=('37d8fb1bf800bbcb6b302fcc599758b36c23b8d166922262d004660b1e521b93')
 
 build() {
   arch-meson "${pkgname}-${pkgver}" build -Dlocal_install=disabled
