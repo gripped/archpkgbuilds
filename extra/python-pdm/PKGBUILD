@@ -2,9 +2,9 @@
 
 _name=pdm
 pkgname=python-pdm
-pkgver=2.17.3
+pkgver=2.18.1
 pkgrel=1
-pkgdesc="A modern Python package manager with PEP 582 support"
+pkgdesc="A modern Python package and dependency manager supporting the latest PEP standards"
 arch=(any)
 url="https://github.com/pdm-project/pdm"
 license=(MIT)
@@ -41,10 +41,12 @@ makedepends=(
   python-wheel
 )
 checkdepends=(
-  python-setuptools
   python-pytest
   python-pytest-httpserver
   python-pytest-mock
+  python-pytest-rerunfailures
+  python-pytest-xdist
+  python-setuptools
 )
 optdepends=(
   'python-cookiecutter: for using cookiecutter when generating project'
@@ -54,8 +56,8 @@ optdepends=(
   'python-setuptools: for parsing setup.py files'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('74df9241fc66c383765b65ab786658ac470b2ad15eb0674fcf8c74159b37a010e5cd2aef8e734048cf8bd3dc388650b7aa23348e66426b61304cafaf14443bff')
-b2sums=('cfcd43b57918980df29e52bdf8d6d2e5ee63f11db7eac54b86d9459028a64367f990d20f69e3e5683a0e7206e69c10288e24fc34b7fe39cdcbc9c570050c060b')
+sha512sums=('96362bbff09145f5e383fc5226c6d261e94753e9c04764fdf0572409864be25be7815a00b2430fe28049fe696579d7a5dc6f9ad8f8ba07fdcbb0c1bf6c731bf3')
+b2sums=('b5625f6632c878412beaa27b7df8955c283ffe7148265b795d83aa8cb1c27a4bca048f78b45ba26b855bf697ed23f8047f73d3d79f165f573b65be632d01f413')
 
 build() {
   cd $_name-$pkgver
