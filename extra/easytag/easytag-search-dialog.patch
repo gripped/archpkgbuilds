@@ -1,0 +1,25 @@
+From 3943d03a9b575ee2dce539093ec556942899d215 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 21 Aug 2024 11:03:27 +0200
+Subject: [PATCH] search dialog: Hide widget on close
+
+This fixes the problem that the search dialog remains visible when the user clicks on the close button of the window.
+---
+ src/search_dialog.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/search_dialog.c b/src/search_dialog.c
+index 6b13cf78..b1beba75 100644
+--- a/src/search_dialog.c
++++ b/src/search_dialog.c
+@@ -667,6 +667,7 @@ static gboolean
+ on_delete_event (GtkWidget *widget)
+ {
+     et_search_dialog_apply_changes (ET_SEARCH_DIALOG (widget));
++    gtk_widget_hide (widget);
+ 
+     return TRUE;
+ }
+-- 
+GitLab
+

@@ -1,5 +1,31 @@
+From 4b523802ff868ef3bd67d7592a43621bd4f430c4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 21 Aug 2024 10:58:05 +0200
+Subject: [PATCH] Port to taglib 2
+
+Closes: https://gitlab.gnome.org/GNOME/easytag/-/issues/92
+---
+ configure.ac            |  2 +-
+ src/tags/gio_wrapper.cc | 22 +++++++++++-----------
+ src/tags/gio_wrapper.h  | 12 ++++++------
+ src/tags/mp4_tag.cc     | 19 +++----------------
+ 4 files changed, 21 insertions(+), 34 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index d144fb6d..87f41668 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -294,7 +294,7 @@ dnl ################################################
+ dnl # taglib library
+ dnl ################################################
+ 
+-TAGLIB_DEPS="taglib >= 1.9.1"
++TAGLIB_DEPS="taglib >= 2.0.0"
+ AS_IF([test "x$enable_mp4" != "xno"],
+       [PKG_CHECK_EXISTS([$TAGLIB_DEPS], [have_taglib=yes], [have_taglib=no])],
+       [have_taglib=no])
 diff --git a/src/tags/gio_wrapper.cc b/src/tags/gio_wrapper.cc
-index 8716331..8772d52 100644
+index 87163313..8772d52b 100644
 --- a/src/tags/gio_wrapper.cc
 +++ b/src/tags/gio_wrapper.cc
 @@ -47,11 +47,11 @@ GIO_InputStream::name () const
@@ -72,7 +98,7 @@ index 8716331..8772d52 100644
          truncate (start);
          return;
 diff --git a/src/tags/gio_wrapper.h b/src/tags/gio_wrapper.h
-index e49e54d..4f99b24 100644
+index e49e54dd..4f99b24b 100644
 --- a/src/tags/gio_wrapper.h
 +++ b/src/tags/gio_wrapper.h
 @@ -33,10 +33,10 @@ public:
@@ -104,7 +130,7 @@ index e49e54d..4f99b24 100644
      virtual bool isOpen () const;
      virtual void seek (long int offset, TagLib::IOStream::Position p = TagLib::IOStream::Beginning);
 diff --git a/src/tags/mp4_tag.cc b/src/tags/mp4_tag.cc
-index d24695c..1728189 100644
+index d24695c4..1728189c 100644
 --- a/src/tags/mp4_tag.cc
 +++ b/src/tags/mp4_tag.cc
 @@ -222,7 +222,7 @@ mp4tag_read_file_tag (GFile *file,
@@ -157,3 +183,6 @@ index d24695c..1728189 100644
      }
  
      tag->setProperties (fields);
+-- 
+GitLab
+

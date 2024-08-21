@@ -1,4 +1,5 @@
-# Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: David Runge <dvzrv@archlinux.org>
 # Contributor: Guillaume ALAUX <guillaume@archlinux.org>
 # Contributor: Kevin Piche <kevin@archlinux.org>
 # Contributor: Aaron Griffin <aaron@archlinux.org>
@@ -6,56 +7,92 @@
 
 pkgname=easytag
 pkgver=2.4.3
-pkgrel=8
-pkgdesc="Simple application for viewing and editing tags in audio files"
-arch=('x86_64')
-url="https://wiki.gnome.org/Apps/EasyTAG"
-license=('GPL2')
-# TODO: add back opus, speex, libvorbis and opusfile when files do not get
-# corrupted anymore
-depends=('cairo' 'gcc-libs' 'gdk-pixbuf2' 'glibc' 'id3lib' 'taglib' 'wavpack'
-'zlib')
-makedepends=('appstream-glib' 'atk' 'flac' 'glib2' 'gtk3' 'harfbuzz' 'intltool'
-'itstool' 'libid3tag' 'pango' 'python' 'yelp-tools')
-source=("https://gitlab.gnome.org/GNOME/${pkgname}/-/archive/${pkgname}-${pkgver}/${pkgname}-${pkgname}-${pkgver}.tar.gz"
-         taglib-2.patch)
-sha512sums=('a14ce7432592e8430039f8960a9de70f49adf0a60bc4232e8d894b9cab09d72b8205dd1660a51718b655130a4cee69841106461df7d0b05b4b36b611398789e3'
-            '7a63fb4aaea13cf891ebfd8bf9209bf82f4ac0029f4bca67026ed529eba30037fea3649d6145610f95933301d1b25c81b80098627d5301a50614b247b906f3ab')
-b2sums=('dbb47f4f653da12e7b677a4757d60ad136d6281e075bdb74a57cab3d3848cb414dab67e3b0f463cabf8dcdeecf7dc193cfe9a52a8d9023b8b29025a9f2168d87'
-        '1d13e4b14140ba4f9e1de8dc467cf67b6ff0990e7c28949ae0379c88aa4b63c5b0fbfa4ec512b004345ffd47d95d64042063cbe041398fbcd74dc7fd732607d1')
+pkgrel=9
+pkgdesc='Simple application for viewing and editing tags in audio files'
+arch=(x86_64)
+url='https://wiki.gnome.org/Apps/EasyTAG'
+license=(GPL-2.0-or-later)
+depends=(
+  dconf
+  flac
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  id3lib
+  libid3tag
+  libogg
+  libvorbis
+  opus
+  opusfile
+  speex
+  taglib
+  wavpack
+)
+makedepends=(
+  appstream-glib
+  git
+  glib2-devel
+  intltool
+  yelp-tools
+)
+source=(
+  "git+https://gitlab.gnome.org/GNOME/$pkgname.git?signed#tag=$pkgname-$pkgver"
+  easytag-dark-theme.patch
+  easytag-taglib-2.patch
+  easytag-search-dialog.patch
+  easytag-scrolled-window.patch
+)
+b2sums=(
+  bc0e51a4d2eca339b122a5f2c65625f0a3d7364a370f4d61a7b22dae8b84a3732fd382c9800eb464562edf352116f149414230ecea670146250bbeccb8c31f66
+  3b7bbddc5ee496917d9979c821c0afd73eea815e5f5e394aaa4bd8f099e1abd65d96b3ceadd320022bb593bbc94baeeae3bf3a0a06ddf0c167b5664ffede859f
+  d6a1d7815f1e8e8ec82f49213803ae59e69bf740a509b04ee761972ffa8bd870598a3c3443d672725a4dc5083d3bd2fc44f3758cbd9e6fcd11e99b4461668bb5
+  a1e30bec03b8e798c5d7e8458193250b3ed1d42e5ca0b0adbe29d126c36d52facca58d7ba645a5006282deb816e946cd679dc1199b63e6d5eff50435e927d194
+  b86dc39a50709c114a96c69d14dee34d4ec5c66bb9f4df426defc61c9299818a46ee064fb1c21e99c152738f54322515bfc5c866fd648367416ec2631a404c1f
+)
+validpgpkeys=(5A863D019DDAAC0741E6C5BAB0E8E0F09308B4E3) # David Christopher King (amigadave) <amigadave@amigadave.com>
 
 prepare() {
-  mv -v "${pkgname}-${pkgname}-${pkgver}" "${pkgname}-${pkgver}"
-  cd "${pkgname}-${pkgver}"
-  patch -p1 -i ../taglib-2.patch
-  ./autogen.sh
+  cd $pkgname
+
+  # Revert upstream commit which causes OGG file corruption
+  # https://gitlab.gnome.org/GNOME/easytag/-/issues/8
+  git revert -n e5c640ca3f259f1b74e716723345521987a7bd68
+
+  # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/7
+  git apply -3 ../easytag-dark-theme.patch
+
+  # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/16
+  git apply -3 ../easytag-taglib-2.patch
+
+  # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/17
+  git apply -3 ../easytag-search-dialog.patch
+
+  # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/18
+  git apply -3 ../easytag-scrolled-window.patch
+
+  autoreconf -fi
 }
 
 build() {
-  cd "${pkgname}-${pkgver}"
-  # disable ogg vorbis because easytag has a bug that corrupts files
-  # https://gitlab.gnome.org/GNOME/easytag/-/issues/8
-  # disable nautilus actions because it was not ported to nautilus 43
-  # https://bugs.archlinux.org/task/76338
-  ./configure --prefix=/usr \
-              --disable-ogg \
-              --disable-opus \
-              --disable-speex \
-              --disable-nautilus-actions
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --enable-compile-warnings \
+    --disable-appdata-validate
   make
 }
 
 check() {
-  cd "${pkgname}-${pkgver}"
-  # tests claim that easytag.appdata.xml is not valid, but it is, so we touch
-  # the validation file
-  touch "data/${pkgname}.appdata.valid"
+  cd $pkgname
   make -k check
 }
 
 package() {
-  depends+=('libFLAC.so' 'libid3tag.so' 'libgdk-3.so'
-  'libgio-2.0.so' 'libglib-2.0.so' 'libgobject-2.0.so' 'libgtk-3.so')
-  cd "${pkgname}-${pkgver}"
-  make DESTDIR="${pkgdir}" install
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
 }
