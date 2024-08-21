@@ -8,7 +8,7 @@
 pkgbase=uv
 pkgname=("$pkgbase" "python-$pkgbase")
 pkgver=0.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='An extremely fast Python package installer and resolver written in Rust'
 arch=('x86_64')
 url="https://github.com/astral-sh/uv"
@@ -63,6 +63,7 @@ package_uv() {
   _package_common
   local _target="target/$(rustc -vV | sed -n 's/host: //p')/release/uv"
   install -Dm0755 -t "$pkgdir/usr/bin/" "$_target"
+  install -Dm0755 -t "$pkgdir/usr/bin/" "${_target}x"
   install -Dm 644 "completions/$pkgbase" -t "$pkgdir/usr/share/bash-completion/completions/"
   install -Dm 644 "completions/$pkgbase.elv" -t "$pkgdir/usr/share/elvish/lib/"
   install -Dm 644 "completions/$pkgbase.fish" -t "$pkgdir/usr/share/fish/vendor_completions.d/"
