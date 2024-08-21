@@ -1,0 +1,39 @@
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: Piotr Miller <nwg.piotr@gmail.com>
+
+pkgname=azote
+pkgver=1.12.9
+pkgrel=2
+pkgdesc="Wallpaper & color manager for wlroots-based compositors and some X11 WMs"
+url="https://github.com/nwg-piotr/azote"
+arch=('any')
+license=('GPL-3.0-or-later')
+depends=('python' 'python-setuptools' 'python-gobject' 'python-pillow' 'gtk3' 'python-cairo' 'python-send2trash')
+makedepends=('python-build' 'python-installer' 'python-wheel')
+optdepends=('imagemagick: for screen color picker'
+            'grim: for screen color picker on wlroots'
+            'slurp: for screen color picker on wlroots'
+            'maim: for screen color picker on X11-based WMs'
+            'libappindicator-gtk3: for tray status icon'
+            'python-yaml: for alacritty.yml toolbox'
+            'swaybg: for setting background on wlroots-based compositors'
+            'feh: for setting background on X11-based WMs'
+            'xorg-xrandr: for checking outputs on X11-based WMs'
+            'wlr-randr: for checking outputs on wlroots-based compositors other than Sway and Hyprland')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
+sha256sums=('ca8274ee99ac9d23656c228346321480660d17d21bb44ccc1a272f0368a82a81')
+
+build() {
+	cd "${pkgname}-${pkgver}"
+	python -m build --wheel --no-isolation
+}
+
+package() {
+	cd "${pkgname}-${pkgver}"
+	python -m installer --destdir="${pkgdir}" dist/*.whl
+
+	install -Dm 644 "dist/${pkgname}.svg" "${pkgdir}/usr/share/pixmaps/${pkgname}.svg"
+	install -Dm 644 dist/indicator*.png -t "${pkgdir}/usr/share/${pkgname}/"
+	install -Dm 644 "dist/${pkgname}.desktop" "${pkgdir}/usr/share/applications/${pkgname}.desktop"
+	install -Dm 644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+}
