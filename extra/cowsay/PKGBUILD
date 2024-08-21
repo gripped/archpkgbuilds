@@ -5,20 +5,19 @@
 # Contributor: Sarah Hay <sarahhay@mb.sympatico.ca>
 
 pkgname=cowsay
-pkgver=3.8.2
+pkgver=3.8.3
 pkgrel=1
 pkgdesc='Configurable talking cow (and a bit more)'
 arch=('any')
-url='https://github.com/cowsay-org/cowsay'
+url='https://cowsay.diamonds'
 license=('GPL-3.0-only')
 makedepends=('git')
 depends=('perl')
 source=("git+https://github.com/cowsay-org/cowsay.git#tag=v${pkgver}")
-sha256sums=('c027055bd77d56a685fc07d5d221d0473c066ac4219e1fb8635bcfeefd37146a')
+sha256sums=('01f20aa7e3b60e9a7b956da80bb94eef75759b85ef2bf2bd1374de4c14b5afc5')
 
 package() {
   cd ${pkgname}
   make DESTDIR="${pkgdir}" install prefix=/usr
-  # missing Acme::Cow module
-  rm "${pkgdir}"/usr/share/cowsay/cows/*.pm
+  rm -r "${pkgdir}"/usr/etc
 }
