@@ -1,0 +1,79 @@
+pkgbase = gnome-desktop
+	pkgdesc = Provides API shared by several apps on the GNOME desktop
+	pkgver = 44.1
+	pkgrel = 1
+	epoch = 1
+	url = https://gitlab.gnome.org/GNOME/gnome-desktop
+	arch = x86_64
+	license = GPL-2.0-or-later
+	license = LGPL-2.0-or-later
+	checkdepends = xorg-server-xvfb
+	makedepends = git
+	makedepends = glib2-devel
+	makedepends = gobject-introspection
+	makedepends = gtk-doc
+	makedepends = gtk3
+	makedepends = gtk4
+	makedepends = meson
+	makedepends = systemd
+	makedepends = yelp-tools
+	depends = bubblewrap
+	depends = cairo
+	depends = gcc-libs
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
+	depends = gsettings-desktop-schemas
+	depends = iso-codes
+	depends = libseccomp
+	depends = libxkbcommon
+	depends = systemd-libs
+	depends = xkeyboard-config
+	source = git+https://gitlab.gnome.org/GNOME/gnome-desktop.git#tag=44.1
+	b2sums = 22c8885f9c5bff5b14756d2f406b3830533a49e9412637ab0cbb20fcf8ac9ab8d6d50899e2a7846bdcf41da59e3985c1b8ee3e027101222a869ee4ba9f26d694
+
+pkgname = gnome-desktop-common
+	pkgdesc = Provides API shared by several apps on the GNOME desktop (common files)
+	depends = 
+
+pkgname = gnome-desktop
+	pkgdesc = Provides API shared by several apps on the GNOME desktop using GTK 3
+	depends = bubblewrap
+	depends = cairo
+	depends = gcc-libs
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
+	depends = gsettings-desktop-schemas
+	depends = iso-codes
+	depends = libseccomp
+	depends = libxkbcommon
+	depends = systemd-libs
+	depends = xkeyboard-config
+	depends = gnome-desktop-common=1:44.1-1
+	depends = gtk3
+	provides = libgnome-desktop-3.so
+
+pkgname = gnome-desktop-4
+	pkgdesc = Provides API shared by several apps on the GNOME desktop using GTK 4
+	depends = bubblewrap
+	depends = cairo
+	depends = gcc-libs
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
+	depends = gsettings-desktop-schemas
+	depends = iso-codes
+	depends = libseccomp
+	depends = libxkbcommon
+	depends = systemd-libs
+	depends = xkeyboard-config
+	depends = gnome-desktop-common=1:44.1-1
+	depends = gtk4
+	provides = libgnome-bg-4.so
+	provides = libgnome-desktop-4.so
+	provides = libgnome-rr-4.so
+
+pkgname = gnome-desktop-docs
+	pkgdesc = Provides API shared by several apps on the GNOME desktop (documentation)
+	depends = 
