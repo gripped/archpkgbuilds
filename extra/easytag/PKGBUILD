@@ -7,7 +7,7 @@
 
 pkgname=easytag
 pkgver=2.4.3
-pkgrel=9
+pkgrel=11
 pkgdesc='Simple application for viewing and editing tags in audio files'
 arch=(x86_64)
 url='https://wiki.gnome.org/Apps/EasyTAG'
@@ -42,15 +42,13 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/$pkgname.git?signed#tag=$pkgname-$pkgver"
   easytag-dark-theme.patch
   easytag-taglib-2.patch
-  easytag-search-dialog.patch
   easytag-scrolled-window.patch
 )
 b2sums=(
   bc0e51a4d2eca339b122a5f2c65625f0a3d7364a370f4d61a7b22dae8b84a3732fd382c9800eb464562edf352116f149414230ecea670146250bbeccb8c31f66
   3b7bbddc5ee496917d9979c821c0afd73eea815e5f5e394aaa4bd8f099e1abd65d96b3ceadd320022bb593bbc94baeeae3bf3a0a06ddf0c167b5664ffede859f
-  d6a1d7815f1e8e8ec82f49213803ae59e69bf740a509b04ee761972ffa8bd870598a3c3443d672725a4dc5083d3bd2fc44f3758cbd9e6fcd11e99b4461668bb5
-  a1e30bec03b8e798c5d7e8458193250b3ed1d42e5ca0b0adbe29d126c36d52facca58d7ba645a5006282deb816e946cd679dc1199b63e6d5eff50435e927d194
-  b86dc39a50709c114a96c69d14dee34d4ec5c66bb9f4df426defc61c9299818a46ee064fb1c21e99c152738f54322515bfc5c866fd648367416ec2631a404c1f
+  07c8f2f45c13dc2926aaba933534332f6074ba54553ec6489fb2f5b7ff1efe80d1d5ec5bbc29188617dcf62c7edf4db05855257227ba85c6e0c382fd413d26a2
+  0604847306d3ea65432dbe7567892d75188d9fbb046a2b30d315b00883af00d04f9893a2d3d886b1e58401617d1574553e4819cff7398e48ee3cb80ef443f273
 )
 validpgpkeys=(5A863D019DDAAC0741E6C5BAB0E8E0F09308B4E3) # David Christopher King (amigadave) <amigadave@amigadave.com>
 
@@ -61,14 +59,17 @@ prepare() {
   # https://gitlab.gnome.org/GNOME/easytag/-/issues/8
   git revert -n e5c640ca3f259f1b74e716723345521987a7bd68
 
+  # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/5
+  git cherry-pick -n 51dd4feb869f88e23540e47ac7dfd1c8a61cce18
+
+  # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/17
+  git cherry-pick -n cedfd104bd05c9370e0e65ed599487ba21848657
+
   # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/7
   git apply -3 ../easytag-dark-theme.patch
 
   # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/16
   git apply -3 ../easytag-taglib-2.patch
-
-  # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/17
-  git apply -3 ../easytag-search-dialog.patch
 
   # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/18
   git apply -3 ../easytag-scrolled-window.patch

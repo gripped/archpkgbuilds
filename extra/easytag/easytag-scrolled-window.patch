@@ -1,4 +1,4 @@
-From 766766e6c319d2953095f43204b6c234cb986282 Mon Sep 17 00:00:00 2001
+From f93ea24ec071460085c3d2602b67ef4282ae1d1e Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Wed, 21 Aug 2024 11:06:52 +0200
 Subject: [PATCH 1/2] tag area: Put common grid into a scrolled window
@@ -841,16 +841,57 @@ index a671ae55..f3475e69 100644
 GitLab
 
 
-From 9680a53d9f1c5d59d62d827557da549c50d902ef Mon Sep 17 00:00:00 2001
+From 27afcc0c47a7ee3509c3407a67f7f9687ca46435 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Wed, 21 Aug 2024 11:07:44 +0200
-Subject: [PATCH 2/2] CDDB dialog: reduce min-content-height
+Subject: [PATCH 2/2] Reduce min-content-height
 
 This allows to fit the window into smaller screens.
 ---
+ data/browser.ui     | 8 ++++----
  data/cddb_dialog.ui | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
+diff --git a/data/browser.ui b/data/browser.ui
+index 7ad17949..2c84ca1b 100644
+--- a/data/browser.ui
++++ b/data/browser.ui
+@@ -118,7 +118,7 @@
+                                 <child>
+                                     <object class="GtkScrolledWindow" id="directory_scrolled">
+                                         <property name="expand">True</property>
+-                                        <property name="min-content-height">225</property>
++                                        <property name="min-content-height">150</property>
+                                         <property name="min-content-width">225</property>
+                                         <property name="visible">True</property>
+                                         <child>
+@@ -164,7 +164,7 @@
+                                         <child>
+                                             <object class="GtkScrolledWindow" id="artist_scrolled">
+                                                 <property name="expand">True</property>
+-                                                <property name="min-content-height">225</property>
++                                                <property name="min-content-height">150</property>
+                                                 <property name="min-content-width">225</property>
+                                                 <property name="visible">True</property>
+                                                 <child>
+@@ -228,7 +228,7 @@
+                                         <child>
+                                             <object class="GtkScrolledWindow" id="album_scrolled">
+                                                 <property name="expand">True</property>
+-                                                <property name="min-content-height">225</property>
++                                                <property name="min-content-height">150</property>
+                                                 <property name="min-content-width">225</property>
+                                                 <property name="visible">True</property>
+                                                 <child>
+@@ -290,7 +290,7 @@
+                         <child>
+                             <object class="GtkScrolledWindow" id="files_scrolled">
+                                 <property name="expand">True</property>
+-                                <property name="min-content-height">225</property>
++                                <property name="min-content-height">150</property>
+                                 <property name="min-content-width">225</property>
+                                 <property name="visible">True</property>
+                                 <child>
 diff --git a/data/cddb_dialog.ui b/data/cddb_dialog.ui
 index ad9dde19..666d2ff4 100644
 --- a/data/cddb_dialog.ui
