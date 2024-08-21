@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=heh
-pkgver=0.6.0
+pkgver=0.6.1
 pkgrel=1
 pkgdesc="A terminal UI to edit bytes by the nibble"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('10912b6745a7d690c8bfe3b373531370bb535e4379de0c8b280c104e49a3a2f2')
+sha256sums=('0ff4ce09bcb9f76e1935e50e04377870df000717121d1871ac35354396335ffd')
 
 prepare() {
   cd "$pkgname-$pkgver"
