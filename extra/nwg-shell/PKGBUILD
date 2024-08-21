@@ -1,0 +1,45 @@
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: Piotr Miller <nwg.piotr@gmail.com>
+
+pkgname=nwg-shell
+pkgver=0.5.38
+pkgrel=8
+pkgdesc="Installer & meta-package for the nwg-shell project"
+url="https://nwg-piotr.github.io/nwg-shell/"
+arch=('any')
+license=('MIT')
+depends=('foot' 'gnome-themes-extra' 'grim' 'imagemagick' 'jq'
+         'libappindicator-gtk3' 'ttf-dejavu' 'network-manager-applet'
+         'papirus-icon-theme' 'playerctl' 'polkit-gnome'
+         'python' 'python-geopy' 'python-yaml' 'slurp' 'swappy' 'sway' 'swayidle'
+         'swaylock' 'swaybg' 'wl-clipboard' 'xorg-xwayland' 'wlsunset'
+         'azote' 'gopsuinfo' 'nwg-dock' 'nwg-drawer' 'nwg-menu' 'nwg-look' 'nwg-panel' 'nwg-hello'
+	 'nwg-shell-config' 'nwg-shell-wallpapers' 'nwg-displays' 'nwg-clipman' 'nwg-readme-browser'
+         'python-dasbus' 'swaync' 'gtklock' 'gtklock-userinfo-module'
+         'gtklock-powerbar-module' 'gtklock-playerctl-module' 'xdg-user-dirs')
+optdepends=('hyprland: Supported alternative Wayland compositor'
+            'nwg-dock-hyprland: nwg-dock for Hyprland'
+            'wlr-randr: Needed for output management under Hyprland'
+            'chromium: Suggested web browser'
+            'mousepad: Suggested text editor'
+            'thunar: Suggested file manager')
+makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
+install="${pkgname}.install"
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/nwg-piotr/nwg-shell/archive/v${pkgver}.tar.gz")
+sha256sums=('9e637c39a0f49d73db33f83eb7dbb7d454e8df602ced132b648496b4570a7d3c')
+
+build() {
+        cd "${pkgname}-${pkgver}"
+        python -m build --wheel --no-isolation
+}
+
+package() {
+	cd "${pkgname}-${pkgver}"
+	python -m installer --destdir="${pkgdir}" dist/*.whl
+
+	install -Dm 755 scripts/* -t "${pkgdir}/usr/bin/"
+	install -Dm 644 "${pkgname}.jpg" "${pkgdir}/usr/share/backgrounds/${pkgname}.jpg"
+	install -Dm 644 nwg-readme.desktop "${pkgdir}/usr/share/applications/nwg-readme.desktop"
+	install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+	install -Dm 644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+}
