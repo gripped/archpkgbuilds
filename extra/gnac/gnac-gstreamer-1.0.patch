@@ -1,7 +1,39 @@
-diff -Naur gnac-0.2.4.1.orig/configure.ac gnac-0.2.4.1/configure.ac
---- gnac-0.2.4.1.orig/configure.ac	2012-04-22 14:09:01.000000000 +0200
-+++ gnac-0.2.4.1/configure.ac	2015-01-09 23:55:03.296384170 +0100
-@@ -93,21 +93,21 @@
+From bb18d905b0e9078101368013edca5bbe2f571ae2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 22 Aug 2024 11:23:58 +0200
+Subject: [PATCH] Port to GStreamer 1.0
+
+---
+ configure.ac                                  |  20 +-
+ data/profiles/aac.xml.in                      |  27 +-
+ data/profiles/base.xml.in                     |   2 +-
+ data/profiles/default/CD_Quality,_AAC.xml.in  |   4 +-
+ .../default/CD_Quality,_Lossless.xml.in       |   2 +-
+ .../profiles/default/CD_Quality,_Lossy.xml.in |   2 +-
+ data/profiles/default/CD_Quality,_MP3.xml.in  |  14 +-
+ data/profiles/default/Voice,_Lossless.xml.in  |   2 +-
+ data/profiles/default/Voice,_Lossy.xml.in     |   2 +-
+ data/profiles/mp3-lame.xml.in                 | 112 +-----
+ data/profiles/ui/gnac-profiles-aac.xml        |  90 +----
+ data/profiles/ui/gnac-profiles-lame.xml       | 260 +-------------
+ libgnac/libgnac-converter.c                   |   4 +-
+ libgnac/libgnac-error.c                       |   2 +-
+ libgnac/libgnac-gst.c                         |   4 +-
+ libgnac/libgnac-metadata.c                    |  16 +-
+ src/Makefile.am                               |   2 +
+ src/gnac-options.c                            |   1 +
+ src/profiles/formats/gnac-profiles-aac.c      |  35 +-
+ src/profiles/formats/gnac-profiles-lame.c     | 331 +++---------------
+ src/profiles/formats/gnac-profiles-lame.h     |   4 +-
+ src/profiles/formats/gnac-profiles-unknown.c  |   2 +-
+ src/profiles/gnac-profiles-default.c          |   1 +
+ 23 files changed, 120 insertions(+), 819 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index b2c5605..ee9005f 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -93,21 +93,21 @@ AC_SUBST(UNIQUE_LIBS)
  dnl Find the GStreamer libraries
  GSTREAMER_REQUIRED_VERSION=0.10.31
  PKG_CHECK_MODULES(GSTREAMER, [
@@ -33,9 +65,10 @@ diff -Naur gnac-0.2.4.1.orig/configure.ac gnac-0.2.4.1/configure.ac
  
  dnl Optionnaly enable G* deprecations
  AC_MSG_CHECKING([Wether to enable deprecation warnings])
-diff -Naur gnac-0.2.4.1.orig/data/profiles/aac.xml.in gnac-0.2.4.1/data/profiles/aac.xml.in
---- gnac-0.2.4.1.orig/data/profiles/aac.xml.in	2012-01-26 01:28:46.000000000 +0100
-+++ gnac-0.2.4.1/data/profiles/aac.xml.in	2015-01-09 23:49:31.329712534 +0100
+diff --git a/data/profiles/aac.xml.in b/data/profiles/aac.xml.in
+index dfc6d3b..45326ef 100644
+--- a/data/profiles/aac.xml.in
++++ b/data/profiles/aac.xml.in
 @@ -11,8 +11,8 @@
        <pipeline>
          <process id="gstreamer-audio">faac</process>
@@ -82,9 +115,10 @@ diff -Naur gnac-0.2.4.1.orig/data/profiles/aac.xml.in gnac-0.2.4.1/data/profiles
        </pipeline>
      </profile>
    </profiles>
-diff -Naur gnac-0.2.4.1.orig/data/profiles/base.xml.in gnac-0.2.4.1/data/profiles/base.xml.in
---- gnac-0.2.4.1.orig/data/profiles/base.xml.in	2012-01-26 01:28:46.000000000 +0100
-+++ gnac-0.2.4.1/data/profiles/base.xml.in	2015-01-09 23:49:31.329712534 +0100
+diff --git a/data/profiles/base.xml.in b/data/profiles/base.xml.in
+index 70665c3..bbef919 100755
+--- a/data/profiles/base.xml.in
++++ b/data/profiles/base.xml.in
 @@ -21,7 +21,7 @@
      </variable>
    </preset-variables>
@@ -94,9 +128,10 @@ diff -Naur gnac-0.2.4.1.orig/data/profiles/base.xml.in gnac-0.2.4.1/data/profile
      <process id="audioconvert">audioconvert</process>
    </pipeline>
  </audio-profiles>
-diff -Naur gnac-0.2.4.1.orig/data/profiles/default/CD_Quality,_AAC.xml.in gnac-0.2.4.1/data/profiles/default/CD_Quality,_AAC.xml.in
---- gnac-0.2.4.1.orig/data/profiles/default/CD_Quality,_AAC.xml.in	2012-01-25 17:27:37.000000000 +0100
-+++ gnac-0.2.4.1/data/profiles/default/CD_Quality,_AAC.xml.in	2015-01-10 01:03:29.951986568 +0100
+diff --git a/data/profiles/default/CD_Quality,_AAC.xml.in b/data/profiles/default/CD_Quality,_AAC.xml.in
+index d13164f..a56cd75 100644
+--- a/data/profiles/default/CD_Quality,_AAC.xml.in
++++ b/data/profiles/default/CD_Quality,_AAC.xml.in
 @@ -8,12 +8,10 @@
      <_description>Used for converting to CD-quality audio, but with the lossy AAC codec. Use this for preparing files for copying to devices that only support the AAC codec. Note that using this format may be illegal in your jurisdiction; contact your lawyer for advice.</_description>
      <channels>2</channels>
@@ -111,9 +146,10 @@ diff -Naur gnac-0.2.4.1.orig/data/profiles/default/CD_Quality,_AAC.xml.in gnac-0
      <tns>false</tns>
    </format-specific>
  </audio-profile>
-diff -Naur gnac-0.2.4.1.orig/data/profiles/default/CD_Quality,_Lossless.xml.in gnac-0.2.4.1/data/profiles/default/CD_Quality,_Lossless.xml.in
---- gnac-0.2.4.1.orig/data/profiles/default/CD_Quality,_Lossless.xml.in	2012-01-25 17:27:37.000000000 +0100
-+++ gnac-0.2.4.1/data/profiles/default/CD_Quality,_Lossless.xml.in	2015-01-09 23:49:31.329712534 +0100
+diff --git a/data/profiles/default/CD_Quality,_Lossless.xml.in b/data/profiles/default/CD_Quality,_Lossless.xml.in
+index a052cc1..dd26c4d 100644
+--- a/data/profiles/default/CD_Quality,_Lossless.xml.in
++++ b/data/profiles/default/CD_Quality,_Lossless.xml.in
 @@ -8,7 +8,7 @@
      <_description>Used for converting to CD-quality audio, but with a lossless compression codec. Use this if you later want to edit the file or burn it to CD.</_description>
      <channels>2</channels>
@@ -123,9 +159,10 @@ diff -Naur gnac-0.2.4.1.orig/data/profiles/default/CD_Quality,_Lossless.xml.in g
    </base>
    <format-specific>
      <quality>5</quality>
-diff -Naur gnac-0.2.4.1.orig/data/profiles/default/CD_Quality,_Lossy.xml.in gnac-0.2.4.1/data/profiles/default/CD_Quality,_Lossy.xml.in
---- gnac-0.2.4.1.orig/data/profiles/default/CD_Quality,_Lossy.xml.in	2012-01-25 17:27:37.000000000 +0100
-+++ gnac-0.2.4.1/data/profiles/default/CD_Quality,_Lossy.xml.in	2015-01-09 23:49:31.333045887 +0100
+diff --git a/data/profiles/default/CD_Quality,_Lossy.xml.in b/data/profiles/default/CD_Quality,_Lossy.xml.in
+index 2a7c611..52716e0 100644
+--- a/data/profiles/default/CD_Quality,_Lossy.xml.in
++++ b/data/profiles/default/CD_Quality,_Lossy.xml.in
 @@ -8,7 +8,7 @@
      <_description>Used for converting to CD-quality audio, but with a lossy compression codec. Use this for CD extraction and radio recordings.</_description>
      <channels>2</channels>
@@ -135,9 +172,10 @@ diff -Naur gnac-0.2.4.1.orig/data/profiles/default/CD_Quality,_Lossy.xml.in gnac
    </base>
    <format-specific>
      <quality>0.5</quality>
-diff -Naur gnac-0.2.4.1.orig/data/profiles/default/CD_Quality,_MP3.xml.in gnac-0.2.4.1/data/profiles/default/CD_Quality,_MP3.xml.in
---- gnac-0.2.4.1.orig/data/profiles/default/CD_Quality,_MP3.xml.in	2012-01-25 17:27:37.000000000 +0100
-+++ gnac-0.2.4.1/data/profiles/default/CD_Quality,_MP3.xml.in	2015-01-09 23:49:31.333045887 +0100
+diff --git a/data/profiles/default/CD_Quality,_MP3.xml.in b/data/profiles/default/CD_Quality,_MP3.xml.in
+index d0cc8bd..9b98237 100644
+--- a/data/profiles/default/CD_Quality,_MP3.xml.in
++++ b/data/profiles/default/CD_Quality,_MP3.xml.in
 @@ -8,18 +8,12 @@
      <_description>Used for converting to CD-quality audio, but with the lossy MP3 codec. Use this for preparing files for copying to devices that only support the MP3 codec. Note that using this format may be illegal in your jurisdiction; contact your lawyer for advice.</_description>
      <channels>2</channels>
@@ -161,9 +199,10 @@ diff -Naur gnac-0.2.4.1.orig/data/profiles/default/CD_Quality,_MP3.xml.in gnac-0
 +    <mono/>
    </format-specific>
  </audio-profile>
-diff -Naur gnac-0.2.4.1.orig/data/profiles/default/Voice,_Lossless.xml.in gnac-0.2.4.1/data/profiles/default/Voice,_Lossless.xml.in
---- gnac-0.2.4.1.orig/data/profiles/default/Voice,_Lossless.xml.in	2012-01-25 17:27:37.000000000 +0100
-+++ gnac-0.2.4.1/data/profiles/default/Voice,_Lossless.xml.in	2015-01-09 23:49:31.333045887 +0100
+diff --git a/data/profiles/default/Voice,_Lossless.xml.in b/data/profiles/default/Voice,_Lossless.xml.in
+index 18db6fa..ab9f85c 100644
+--- a/data/profiles/default/Voice,_Lossless.xml.in
++++ b/data/profiles/default/Voice,_Lossless.xml.in
 @@ -8,7 +8,7 @@
      <_description>Used for converting to lossless voice-quality audio. Use this for recording and editing speech.</_description>
      <channels>2</channels>
@@ -173,9 +212,10 @@ diff -Naur gnac-0.2.4.1.orig/data/profiles/default/Voice,_Lossless.xml.in gnac-0
    </base>
    <format-specific>
    </format-specific>
-diff -Naur gnac-0.2.4.1.orig/data/profiles/default/Voice,_Lossy.xml.in gnac-0.2.4.1/data/profiles/default/Voice,_Lossy.xml.in
---- gnac-0.2.4.1.orig/data/profiles/default/Voice,_Lossy.xml.in	2012-01-25 17:27:37.000000000 +0100
-+++ gnac-0.2.4.1/data/profiles/default/Voice,_Lossy.xml.in	2015-01-09 23:49:31.333045887 +0100
+diff --git a/data/profiles/default/Voice,_Lossy.xml.in b/data/profiles/default/Voice,_Lossy.xml.in
+index 97d5f1d..82b14a0 100644
+--- a/data/profiles/default/Voice,_Lossy.xml.in
++++ b/data/profiles/default/Voice,_Lossy.xml.in
 @@ -8,7 +8,7 @@
      <_description>Used for converting to lossy voice-quality audio. Use this for recording speech that doesn't need to be edited.</_description>
      <channels>2</channels>
@@ -185,9 +225,10 @@ diff -Naur gnac-0.2.4.1.orig/data/profiles/default/Voice,_Lossy.xml.in gnac-0.2.
    </base>
    <format-specific>
      <bitrate-cbr/>
-diff -Naur gnac-0.2.4.1.orig/data/profiles/mp3-lame.xml.in gnac-0.2.4.1/data/profiles/mp3-lame.xml.in
---- gnac-0.2.4.1.orig/data/profiles/mp3-lame.xml.in	2012-01-26 01:28:46.000000000 +0100
-+++ gnac-0.2.4.1/data/profiles/mp3-lame.xml.in	2015-01-09 23:49:31.333045887 +0100
+diff --git a/data/profiles/mp3-lame.xml.in b/data/profiles/mp3-lame.xml.in
+index e4e9d09..e3c10d9 100644
+--- a/data/profiles/mp3-lame.xml.in
++++ b/data/profiles/mp3-lame.xml.in
 @@ -13,58 +13,27 @@
        <mimetype>application/x-id3</mimetype>
        <mimetype>audio/x-mp3</mimetype>
@@ -202,7 +243,11 @@ diff -Naur gnac-0.2.4.1.orig/data/profiles/mp3-lame.xml.in gnac-0.2.4.1/data/pro
 -          <name>Preset</name>
 -          <variable-name>preset</variable-name>
 -          <default-value>1006</default-value>
--          <possible-values>
++        <variable id="target" type="combo">
++          <name>Target</name>
++          <variable-name>target</variable-name>
++          <default-value>quality</default-value>
+           <possible-values>
 -            <_value value="1006">Medium</_value>
 -            <_value value="1001">Standard</_value>
 -            <_value value="1002">Extreme</_value>
@@ -213,11 +258,7 @@ diff -Naur gnac-0.2.4.1.orig/data/profiles/mp3-lame.xml.in gnac-0.2.4.1/data/pro
 -          <name>Bitrate mode</name>
 -          <variable-name>vbr</variable-name>
 -          <default-value>0</default-value>
-+        <variable id="target" type="combo">
-+          <name>Target</name>
-+          <variable-name>target</variable-name>
-+          <default-value>quality</default-value>
-           <possible-values>
+-          <possible-values>
 -            <_value value="0">Constant bitrate (CBR)</_value>
 -            <_value value="3">Average bitrate (ABR)</_value>
 -            <_value value="4">Variable bitrate (VBR)</_value>
@@ -230,20 +271,20 @@ diff -Naur gnac-0.2.4.1.orig/data/profiles/mp3-lame.xml.in gnac-0.2.4.1/data/pro
          <variable id="quality" type="slider">
            <name>VBR quality</name>
 -          <variable-name>vbr-quality</variable-name>
-+          <variable-name>quality</variable-name>
-           <min-value>0.0</min-value>
+-          <min-value>0.0</min-value>
 -          <max-value>9.0</max-value>
-+          <max-value>10.0</max-value>
-           <step-value>1.0</step-value>
+-          <step-value>1.0</step-value>
 -          <default-value>3.0</default-value>
 -        </variable>
 -        <variable id="compression-ratio" type="slider">
 -          <name>Compression ratio</name>
 -          <_description>Let lame choose bitrate to achieve selected compression ratio.</_description>
 -          <variable-name>compression-ratio</variable-name>
--          <min-value>0.0</min-value>
++          <variable-name>quality</variable-name>
+           <min-value>0.0</min-value>
 -          <max-value>200</max-value>
--          <step-value>1.0</step-value>
++          <max-value>10.0</max-value>
+           <step-value>1.0</step-value>
 -          <default-value>0.0</default-value>
 -        </variable>
 -        <variable id="mean-bitrate" type="slider">
@@ -327,9 +368,10 @@ diff -Naur gnac-0.2.4.1.orig/data/profiles/mp3-lame.xml.in gnac-0.2.4.1/data/pro
            </possible-values>
          </variable>
        </pipeline>
-diff -Naur gnac-0.2.4.1.orig/data/profiles/ui/gnac-profiles-aac.xml gnac-0.2.4.1/data/profiles/ui/gnac-profiles-aac.xml
---- gnac-0.2.4.1.orig/data/profiles/ui/gnac-profiles-aac.xml	2012-04-22 14:09:01.000000000 +0200
-+++ gnac-0.2.4.1/data/profiles/ui/gnac-profiles-aac.xml	2015-01-09 23:49:31.333045887 +0100
+diff --git a/data/profiles/ui/gnac-profiles-aac.xml b/data/profiles/ui/gnac-profiles-aac.xml
+index 95cc709..3eebf60 100755
+--- a/data/profiles/ui/gnac-profiles-aac.xml
++++ b/data/profiles/ui/gnac-profiles-aac.xml
 @@ -1,6 +1,7 @@
  <?xml version="1.0" encoding="UTF-8"?>
 +<!-- Generated with glade 3.18.3 -->
@@ -339,10 +381,11 @@ diff -Naur gnac-0.2.4.1.orig/data/profiles/ui/gnac-profiles-aac.xml gnac-0.2.4.1
    <object class="GtkAlignment" id="properties-alignment">
      <property name="visible">True</property>
      <property name="can_focus">False</property>
-@@ -26,84 +27,6 @@
+@@ -25,84 +26,6 @@
+                     <property name="can_focus">False</property>
                      <property name="row_spacing">5</property>
                      <property name="column_spacing">10</property>
-                     <child>
+-                    <child>
 -                      <object class="GtkLabel" id="label-outputformat">
 -                        <property name="visible">True</property>
 -                        <property name="can_focus">False</property>
@@ -420,10 +463,9 @@ diff -Naur gnac-0.2.4.1.orig/data/profiles/ui/gnac-profiles-aac.xml gnac-0.2.4.1
 -                        <property name="height">1</property>
 -                      </packing>
 -                    </child>
--                    <child>
+                     <child>
                        <object class="GtkCheckButton" id="checkbutton-tns">
                          <property name="label" translatable="yes">Temporal noise shaping</property>
-                         <property name="use_action_appearance">False</property>
 @@ -111,16 +34,14 @@
                          <property name="can_focus">True</property>
                          <property name="receives_default">False</property>
@@ -468,9 +510,10 @@ diff -Naur gnac-0.2.4.1.orig/data/profiles/ui/gnac-profiles-aac.xml gnac-0.2.4.1
            </packing>
          </child>
        </object>
-diff -Naur gnac-0.2.4.1.orig/data/profiles/ui/gnac-profiles-lame.xml gnac-0.2.4.1/data/profiles/ui/gnac-profiles-lame.xml
---- gnac-0.2.4.1.orig/data/profiles/ui/gnac-profiles-lame.xml	2012-04-22 14:09:01.000000000 +0200
-+++ gnac-0.2.4.1/data/profiles/ui/gnac-profiles-lame.xml	2015-01-09 23:49:31.336379238 +0100
+diff --git a/data/profiles/ui/gnac-profiles-lame.xml b/data/profiles/ui/gnac-profiles-lame.xml
+index 8e0f274..2051395 100755
+--- a/data/profiles/ui/gnac-profiles-lame.xml
++++ b/data/profiles/ui/gnac-profiles-lame.xml
 @@ -1,6 +1,7 @@
  <?xml version="1.0" encoding="UTF-8"?>
 +<!-- Generated with glade 3.18.3 -->
@@ -835,10 +878,11 @@ diff -Naur gnac-0.2.4.1.orig/data/profiles/ui/gnac-profiles-lame.xml gnac-0.2.4.
 +    <property name="step_increment">1</property>
 +  </object>
  </interface>
-diff -Naur gnac-0.2.4.1.orig/libgnac/libgnac-converter.c gnac-0.2.4.1/libgnac/libgnac-converter.c
---- gnac-0.2.4.1.orig/libgnac/libgnac-converter.c	2012-03-22 16:50:45.000000000 +0100
-+++ gnac-0.2.4.1/libgnac/libgnac-converter.c	2015-01-09 23:49:31.336379238 +0100
-@@ -1000,13 +1000,13 @@
+diff --git a/libgnac/libgnac-converter.c b/libgnac/libgnac-converter.c
+index 35d9bc4..2674517 100644
+--- a/libgnac/libgnac-converter.c
++++ b/libgnac/libgnac-converter.c
+@@ -1000,13 +1000,13 @@ libgnac_converter_percentage_cb(LibgnacConverter *converter)
    gint64 pos;
    static GstFormat format = GST_FORMAT_TIME;
  
@@ -854,10 +898,11 @@ diff -Naur gnac-0.2.4.1.orig/libgnac/libgnac-converter.c gnac-0.2.4.1/libgnac/li
          gfloat processed = priv->elapsed_duration + ((pos - len) / GST_SECOND);
          result = CLAMP(processed / priv->total_duration, 0.0f, 1.0f);
          /* XXX this is a workaround to prevent the remaining time
-diff -Naur gnac-0.2.4.1.orig/libgnac/libgnac-error.c gnac-0.2.4.1/libgnac/libgnac-error.c
---- gnac-0.2.4.1.orig/libgnac/libgnac-error.c	2012-01-26 01:28:46.000000000 +0100
-+++ gnac-0.2.4.1/libgnac/libgnac-error.c	2015-01-09 23:49:31.336379238 +0100
-@@ -52,7 +52,7 @@
+diff --git a/libgnac/libgnac-error.c b/libgnac/libgnac-error.c
+index 5f4662c..e2f422b 100644
+--- a/libgnac/libgnac-error.c
++++ b/libgnac/libgnac-error.c
+@@ -52,7 +52,7 @@ libgnac_error_handle_missing_plugin(LibgnacMediaItem *item,
    gst_message_unref(msg);
    if (!detail) return;
  
@@ -866,10 +911,11 @@ diff -Naur gnac-0.2.4.1.orig/libgnac/libgnac-error.c gnac-0.2.4.1/libgnac/libgna
    GstInstallPluginsReturn ret = gst_install_plugins_async(details, NULL,
        libgnac_converter_missing_plugin_result_cb, item->parent);
    g_free(detail);
-diff -Naur gnac-0.2.4.1.orig/libgnac/libgnac-gst.c gnac-0.2.4.1/libgnac/libgnac-gst.c
---- gnac-0.2.4.1.orig/libgnac/libgnac-gst.c	2012-02-28 12:26:06.000000000 +0100
-+++ gnac-0.2.4.1/libgnac/libgnac-gst.c	2015-01-09 23:49:31.336379238 +0100
-@@ -223,7 +223,7 @@
+diff --git a/libgnac/libgnac-gst.c b/libgnac/libgnac-gst.c
+index 8cfa60d..a646826 100644
+--- a/libgnac/libgnac-gst.c
++++ b/libgnac/libgnac-gst.c
+@@ -223,7 +223,7 @@ libgnac_gst_build_pipeline(LibgnacMediaItem  *item,
  
    /* decodebin */
    GstElement *decodebin = libgnac_gstu_make_pipeline_element(item->pipeline,
@@ -878,7 +924,7 @@ diff -Naur gnac-0.2.4.1.orig/libgnac/libgnac-gst.c gnac-0.2.4.1/libgnac/libgnac-
    if (err) {
      g_propagate_error(error, err);
      return;
-@@ -382,7 +382,7 @@
+@@ -382,7 +382,7 @@ libgnac_gst_newpad_cb(GstElement *decodebin,
                        gpointer    data)
  {
    LibgnacMediaItem *item = (LibgnacMediaItem *) data;
@@ -887,16 +933,17 @@ diff -Naur gnac-0.2.4.1.orig/libgnac/libgnac-gst.c gnac-0.2.4.1/libgnac/libgnac-
  
  	if (gst_caps_is_empty(caps) || gst_caps_is_any(caps)) {
      libgnac_debug("Got a bad caps: %s", gst_caps_to_string(caps));
-diff -Naur gnac-0.2.4.1.orig/libgnac/libgnac-metadata.c gnac-0.2.4.1/libgnac/libgnac-metadata.c
---- gnac-0.2.4.1.orig/libgnac/libgnac-metadata.c	2012-03-27 15:51:09.000000000 +0200
-+++ gnac-0.2.4.1/libgnac/libgnac-metadata.c	2015-01-10 00:34:27.564874078 +0100
-@@ -209,11 +209,14 @@
+diff --git a/libgnac/libgnac-metadata.c b/libgnac/libgnac-metadata.c
+index c8f1d39..540586e 100644
+--- a/libgnac/libgnac-metadata.c
++++ b/libgnac/libgnac-metadata.c
+@@ -209,11 +209,14 @@ libgnac_metadata_process_tag_image(const GstTagList *taglist,
      GstBuffer *buffer = gst_value_get_buffer(val);
      g_return_if_fail(buffer);
        
 +    GstSample *sample = gst_value_get_sample(val);
 +    g_return_if_fail(sample);
-+      
++
      gint image_type = GST_TAG_IMAGE_TYPE_NONE;
  
      /* GST_TAG_PREVIEW_IMAGE does not have an "image-type" field */
@@ -906,7 +953,7 @@ diff -Naur gnac-0.2.4.1.orig/libgnac/libgnac-metadata.c gnac-0.2.4.1/libgnac/lib
        g_return_if_fail(caps);
  
        GstStructure *structure = gst_caps_get_structure(caps, 0);
-@@ -231,8 +234,11 @@
+@@ -231,8 +234,11 @@ libgnac_metadata_process_tag_image(const GstTagList *taglist,
      {
        GdkPixbufLoader *loader = gdk_pixbuf_loader_new();
        GError *error = NULL;
@@ -920,7 +967,7 @@ diff -Naur gnac-0.2.4.1.orig/libgnac/libgnac-metadata.c gnac-0.2.4.1/libgnac/lib
  
        if (!gdk_pixbuf_loader_write(loader, data, size, &error)) {
          libgnac_debug("Error writing data to pixbuf: %s", error->message);
-@@ -297,8 +303,8 @@
+@@ -297,8 +303,8 @@ libgnac_metadata_process_tag(const GstTagList *taglist,
  
    if (g_str_equal(tag_name, GST_TAG_DATE))
    {
@@ -931,9 +978,30 @@ diff -Naur gnac-0.2.4.1.orig/libgnac/libgnac-metadata.c gnac-0.2.4.1/libgnac/lib
      if (!date) return;
      GDateYear year = g_date_get_year(date);
      g_value_unset(newval);
-diff -Naur gnac-0.2.4.1.orig/src/gnac-options.c gnac-0.2.4.1/src/gnac-options.c
---- gnac-0.2.4.1.orig/src/gnac-options.c	2012-02-28 12:26:06.000000000 +0100
-+++ gnac-0.2.4.1/src/gnac-options.c	2015-01-09 23:49:31.339712589 +0100
+diff --git a/src/Makefile.am b/src/Makefile.am
+index fffd4b1..81c9fbc 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -73,6 +73,7 @@ gnac_CFLAGS = \
+ 	$(AM_CFLAGS) \
+ 	$(GSTREAMER_CFLAGS) \
+ 	$(GTK_CFLAGS) \
++	$(LIBXML_CFLAGS) \
+ 	$(NOTIFY_CFLAGS) \
+ 	$(UNIQUE_CFLAGS) \
+ 	$(WARN_CFLAGS) \
+@@ -82,6 +83,7 @@ gnac_LDADD = \
+ 	$(top_builddir)/libgnac/libgnac.la \
+ 	$(GSTREAMER_LIBS) \
+ 	$(GTK_LIBS) \
++	$(LIBXML_LIBS) \
+ 	$(NOTIFY_LIBS) \
+ 	$(UNIQUE_LIBS)
+ 
+diff --git a/src/gnac-options.c b/src/gnac-options.c
+index 5b537ba..8dbb212 100644
+--- a/src/gnac-options.c
++++ b/src/gnac-options.c
 @@ -27,6 +27,7 @@
  #include "config.h"
  #endif
@@ -942,29 +1010,11 @@ diff -Naur gnac-0.2.4.1.orig/src/gnac-options.c gnac-0.2.4.1/src/gnac-options.c
  #include <glib/gi18n.h>
  #include <gst/gst.h>
  
-diff -Naur gnac-0.2.4.1.orig/src/Makefile.am gnac-0.2.4.1/src/Makefile.am
---- gnac-0.2.4.1.orig/src/Makefile.am	2012-03-01 00:35:14.000000000 +0100
-+++ gnac-0.2.4.1/src/Makefile.am	2015-01-09 23:49:31.339712589 +0100
-@@ -73,6 +73,7 @@
- 	$(AM_CFLAGS) \
- 	$(GSTREAMER_CFLAGS) \
- 	$(GTK_CFLAGS) \
-+	$(LIBXML_CFLAGS) \
- 	$(NOTIFY_CFLAGS) \
- 	$(UNIQUE_CFLAGS) \
- 	$(WARN_CFLAGS) \
-@@ -82,6 +83,7 @@
- 	$(top_builddir)/libgnac/libgnac.la \
- 	$(GSTREAMER_LIBS) \
- 	$(GTK_LIBS) \
-+	$(LIBXML_LIBS) \
- 	$(NOTIFY_LIBS) \
- 	$(UNIQUE_LIBS)
- 
-diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-aac.c gnac-0.2.4.1/src/profiles/formats/gnac-profiles-aac.c
---- gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-aac.c	2012-02-28 12:26:06.000000000 +0100
-+++ gnac-0.2.4.1/src/profiles/formats/gnac-profiles-aac.c	2015-01-10 01:03:33.835412850 +0100
-@@ -34,8 +34,6 @@
+diff --git a/src/profiles/formats/gnac-profiles-aac.c b/src/profiles/formats/gnac-profiles-aac.c
+index 653e8ca..9e06257 100755
+--- a/src/profiles/formats/gnac-profiles-aac.c
++++ b/src/profiles/formats/gnac-profiles-aac.c
+@@ -34,8 +34,6 @@ typedef struct
    AudioProfileGeneric *generic;
  
    gchar *bitrate;
@@ -973,7 +1023,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-aac.c gnac-0.2.4
    gchar *tns;
  }
  AudioProfileAAC;
-@@ -60,7 +58,6 @@
+@@ -60,7 +58,6 @@ static const gchar *
  gnac_profiles_aac_init(void)
  {
    GtkWidget *widget;
@@ -981,7 +1031,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-aac.c gnac-0.2.4
  
    gnac_profiles_default_init(&aac_bfi);
  
-@@ -68,23 +65,12 @@
+@@ -68,23 +65,12 @@ gnac_profiles_aac_init(void)
    gnac_profiles_utils_init_widget(&aac_bfi, "combo-bitrate",
        "//variable[@id='bitrate']");
  
@@ -1005,7 +1055,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-aac.c gnac-0.2.4
    gnac_profiles_xml_engine_free_doc_xpath(aac_bfi.doc);
    aac_bfi.doc = NULL;
  
-@@ -97,11 +83,12 @@
+@@ -97,11 +83,12 @@ gnac_profiles_aac_generate_pipeline(void)
  {
    gchar *pipeline = gnac_profiles_default_generate_pipeline(&aac_bfi);
    pipeline = gnac_profiles_utils_add_properties(pipeline, &aac_bfi,
@@ -1020,7 +1070,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-aac.c gnac-0.2.4
    g_free(aac_bfi.pipeline);
  
    aac_bfi.pipeline = pipeline;
-@@ -113,8 +100,7 @@
+@@ -113,8 +100,7 @@ gnac_profiles_aac_reset_ui(void)
  {
    gnac_profiles_default_reset_ui(&aac_bfi);
    gnac_profiles_utils_reset_values(&aac_bfi,
@@ -1030,7 +1080,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-aac.c gnac-0.2.4
  }
  
  
-@@ -129,8 +115,6 @@
+@@ -129,8 +115,6 @@ gnac_profiles_aac_set_fields(gpointer data)
    AudioProfileAAC *profile = (AudioProfileAAC *) data;
    gnac_profiles_utils_set_values(&aac_bfi,
        "combo-bitrate", profile->bitrate,
@@ -1039,7 +1089,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-aac.c gnac-0.2.4
        "checkbutton-tns", profile->tns,
        NULL);
  }
-@@ -153,8 +137,6 @@
+@@ -153,8 +137,6 @@ gnac_profiles_aac_free_audio_profile(gpointer data)
    gnac_profiles_utils_free_audio_profile_generic(profile->generic); 
  
    g_free(profile->bitrate);
@@ -1048,7 +1098,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-aac.c gnac-0.2.4
    g_free(profile->tns);
    g_free(profile);
  }
-@@ -171,8 +153,6 @@
+@@ -171,8 +153,6 @@ gnac_profiles_aac_generate_audio_profile(GError **error)
  
    gnac_profiles_utils_get_values_and_set(&aac_bfi,
        "combo-bitrate", &profile->bitrate,
@@ -1057,7 +1107,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-aac.c gnac-0.2.4
        "checkbutton-tns", &profile->tns,
        NULL);
  
-@@ -196,8 +176,6 @@
+@@ -196,8 +176,6 @@ gnac_profiles_aac_save_profile(gpointer data)
    XMLDoc *doc = gnac_profiles_default_save_profile(profile->generic, &aac_bfi);
    gnac_profiles_xml_engine_add_values(doc,
        "bitrate", profile->bitrate,
@@ -1066,7 +1116,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-aac.c gnac-0.2.4
        "tns", profile->tns,
        NULL);
    gnac_profiles_xml_engine_save_doc(doc, profile->generic->name);
-@@ -216,8 +194,6 @@
+@@ -216,8 +194,6 @@ gnac_profiles_aac_load_specific_properties(XMLDoc              *doc,
    gnac_profiles_utils_load_saved_profile(doc,
        "/audio-profile/format-specific/",
        "bitrate", &profile->bitrate,
@@ -1075,7 +1125,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-aac.c gnac-0.2.4
        "tns", &profile->tns,
        NULL);
    
-@@ -230,8 +206,7 @@
+@@ -230,8 +206,7 @@ gnac_profiles_aac_clean_up(void)
  {
    gnac_profiles_default_clean_up(&aac_bfi);
    gnac_profiles_utils_free_values(&aac_bfi,
@@ -1085,10 +1135,11 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-aac.c gnac-0.2.4
    gnac_profiles_utils_free_basic_format_info(&aac_bfi);
  }
  
-diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.4.1/src/profiles/formats/gnac-profiles-lame.c
---- gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c	2012-02-28 12:26:06.000000000 +0100
-+++ gnac-0.2.4.1/src/profiles/formats/gnac-profiles-lame.c	2015-01-09 23:49:31.339712589 +0100
-@@ -33,26 +33,17 @@
+diff --git a/src/profiles/formats/gnac-profiles-lame.c b/src/profiles/formats/gnac-profiles-lame.c
+index b3906b2..661e609 100755
+--- a/src/profiles/formats/gnac-profiles-lame.c
++++ b/src/profiles/formats/gnac-profiles-lame.c
+@@ -33,26 +33,17 @@ typedef struct
  {
    AudioProfileGeneric *generic;
  
@@ -1120,7 +1171,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
  
  BasicFormatInfo lame_bfi = {
    PKGDATADIR "/profiles/gnac-profiles-lame.xml",
-@@ -78,7 +69,7 @@
+@@ -78,7 +69,7 @@ gnac_profiles_lame_audio_profile_new(void);
  
  
  void
@@ -1129,7 +1180,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
                                              gpointer     user_data)
  {
    gnac_profiles_lame_vbr_on_changed(widget);
-@@ -90,7 +81,6 @@
+@@ -90,7 +81,6 @@ static const gchar *
  gnac_profiles_lame_init(void)
  { 
    GtkWidget *widget;
@@ -1137,7 +1188,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
  
    gnac_profiles_default_init(&lame_bfi);
  
-@@ -102,42 +92,13 @@
+@@ -102,42 +92,13 @@ gnac_profiles_lame_init(void)
    gnac_profiles_utils_init_widget(&lame_bfi, "slider-vbr-quality",
        "//variable[@id='quality']");
  
@@ -1185,10 +1236,11 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
   
    gnac_profiles_lame_vbr_on_changed(GTK_COMBO_BOX(widget));
  
-@@ -149,26 +110,6 @@
+@@ -148,26 +109,6 @@ gnac_profiles_lame_init(void)
+ }
  
  
- static void
+-static void
 -gnac_profiles_lame_show_abr_widgets(gboolean show)
 -{
 -  GtkWidget *abr_widgets[] = {
@@ -1208,11 +1260,10 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
 -}
 -
 -
--static void
+ static void
  gnac_profiles_lame_show_cbr_widgets(gboolean show)
  {
-   GtkWidget *cbr_widgets[] = {
-@@ -190,12 +131,6 @@
+@@ -190,12 +131,6 @@ gnac_profiles_lame_show_vbr_widgets(gboolean show)
    GtkWidget *vbr_widgets[] = {
      gnac_profiles_utils_get_widget(&lame_bfi, "label-vbr"),
      gnac_profiles_utils_get_widget(&lame_bfi, "hbox-vbr"),
@@ -1225,10 +1276,11 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
    };
  
    guint i;
-@@ -207,48 +142,12 @@
+@@ -206,49 +141,13 @@ gnac_profiles_lame_show_vbr_widgets(gboolean show)
+ }
  
  
- static void
+-static void
 -gnac_profiles_lame_show_presets_widgets(gboolean show)
 -{
 -  GtkWidget *presets_widgets[] = {
@@ -1260,24 +1312,25 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
 -}
 -
 -
--static void
+ static void
  gnac_profiles_lame_vbr_on_changed(GtkComboBox *widget)
  {
 -  EncodingMode encoding_mode = gtk_combo_box_get_active(GTK_COMBO_BOX(widget));
-+  Target target = gtk_combo_box_get_active(GTK_COMBO_BOX(widget));
- 
+-
 -  gnac_profiles_lame_show_abr_widgets(encoding_mode == AVERAGE_BITRATE);
 -  gnac_profiles_lame_show_cbr_widgets(encoding_mode == CONSTANT_BITRATE);
 -  gnac_profiles_lame_show_vbr_widgets(encoding_mode == VARIABLE_BITRATE);
 -  gnac_profiles_lame_show_presets_widgets(encoding_mode == PRESETS);
 -  gnac_profiles_lame_show_compression_ratio_widgets(
 -      encoding_mode == COMPRESSION_RATIO);
++  Target target = gtk_combo_box_get_active(GTK_COMBO_BOX(widget));
++
 +  gnac_profiles_lame_show_cbr_widgets(target == BITRATE);
 +  gnac_profiles_lame_show_vbr_widgets(target == QUALITY);
  }
  
  
-@@ -257,54 +156,25 @@
+@@ -257,54 +156,25 @@ gnac_profiles_lame_generate_pipeline(void)
  {
    gchar *pipeline = gnac_profiles_default_generate_pipeline(&lame_bfi);
    GtkWidget *widget = gnac_profiles_utils_get_widget(&lame_bfi,
@@ -1295,14 +1348,12 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
 +  switch (target)
    {
 -    case CONSTANT_BITRATE:
-+    case BITRATE:
-       pipeline = gnac_profiles_utils_add_properties(pipeline, &lame_bfi,
+-      pipeline = gnac_profiles_utils_add_properties(pipeline, &lame_bfi,
 -          "combo-encoding-mode", "combo-bitrate", NULL);
-+          "combo-target", "combo-bitrate", NULL);
-       break;
- 
+-      break;
+-
 -    case AVERAGE_BITRATE:
-+    case QUALITY:
++    case BITRATE:
        pipeline = gnac_profiles_utils_add_properties(pipeline, &lame_bfi,
 -          "combo-encoding-mode", NULL);
 -      pipeline =  gnac_profiles_utils_add_properties_slider(pipeline, &lame_bfi,
@@ -1312,10 +1363,12 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
 -          "combo-min-vbr", "checkbutton-min-bitrate",
 -          "combo-max-vbr", "checkbutton-max-bitrate",
 -          NULL);
--      break;
--
++          "combo-target", "combo-bitrate", NULL);
+       break;
+ 
 -    case VARIABLE_BITRATE:
--      pipeline = gnac_profiles_utils_add_properties(pipeline, &lame_bfi,
++    case QUALITY:
+       pipeline = gnac_profiles_utils_add_properties(pipeline, &lame_bfi,
 -          "combo-encoding-mode", NULL);
 +          "combo-target", NULL);
        pipeline = gnac_profiles_utils_add_properties_slider(pipeline, &lame_bfi, 
@@ -1340,7 +1393,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
        break;
  
      default:
-@@ -321,26 +191,12 @@
+@@ -321,26 +191,12 @@ gnac_profiles_lame_generate_pipeline(void)
  }
  
  
@@ -1368,7 +1421,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
  }
  
  
-@@ -354,42 +210,18 @@
+@@ -354,42 +210,18 @@ gnac_profiles_lame_set_fields(gpointer data)
  
    AudioProfileLame *profile = (AudioProfileLame *) data;
    gnac_profiles_utils_set_values(&lame_bfi,
@@ -1413,7 +1466,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
    }
  }
  
-@@ -406,16 +238,10 @@
+@@ -406,16 +238,10 @@ gnac_profiles_lame_audio_profile_new(void)
  {
    AudioProfileLame *profile = g_malloc(sizeof(AudioProfileLame));
    
@@ -1432,7 +1485,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
  
    return profile;
  }
-@@ -428,12 +254,9 @@
+@@ -428,12 +254,9 @@ gnac_profiles_lame_free_audio_profile(gpointer data)
  
    AudioProfileLame *profile = (AudioProfileLame *) data;
    gnac_profiles_utils_free_audio_profile_generic(profile->generic); 
@@ -1447,7 +1500,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
    g_free(profile);
  }
  
-@@ -447,49 +270,23 @@
+@@ -447,49 +270,23 @@ gnac_profiles_lame_generate_audio_profile(GError **error)
    profile->generic = generic;
    
    gnac_profiles_utils_get_values_and_set(&lame_bfi,
@@ -1502,7 +1555,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
        break;
  
      default:
-@@ -513,49 +310,25 @@
+@@ -513,49 +310,25 @@ gnac_profiles_lame_save_profile(gpointer data)
    if (!data) return;
  
    gchar *quality = NULL;
@@ -1554,7 +1607,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
  }
  
  
-@@ -564,42 +337,20 @@
+@@ -564,42 +337,20 @@ gnac_profiles_lame_load_specific_properties(XMLDoc              *doc,
                                              AudioProfileGeneric *generic)
  {
    gchar *quality;
@@ -1599,7 +1652,7 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
    }
  
    return profile;
-@@ -611,9 +362,7 @@
+@@ -611,9 +362,7 @@ gnac_profiles_lame_clean_up(void)
  {
    gnac_profiles_default_clean_up(&lame_bfi);
    gnac_profiles_utils_free_values(&lame_bfi,
@@ -1610,10 +1663,11 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.c gnac-0.2.
        NULL);
    gnac_profiles_utils_free_basic_format_info(&lame_bfi);
  }
-diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.h gnac-0.2.4.1/src/profiles/formats/gnac-profiles-lame.h
---- gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.h	2012-01-26 01:28:46.000000000 +0100
-+++ gnac-0.2.4.1/src/profiles/formats/gnac-profiles-lame.h	2015-01-09 23:49:31.343045941 +0100
-@@ -37,8 +37,8 @@
+diff --git a/src/profiles/formats/gnac-profiles-lame.h b/src/profiles/formats/gnac-profiles-lame.h
+index aa66083..522bb04 100644
+--- a/src/profiles/formats/gnac-profiles-lame.h
++++ b/src/profiles/formats/gnac-profiles-lame.h
+@@ -37,8 +37,8 @@ void
  gnac_profiles_lame_generate_pipeline(void);
  
  void
@@ -1624,10 +1678,11 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-lame.h gnac-0.2.
  
  void
  gnac_profiles_lame_advanced_bitrate_on_toggle(GtkWidget       *widget,
-diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-unknown.c gnac-0.2.4.1/src/profiles/formats/gnac-profiles-unknown.c
---- gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-unknown.c	2012-02-27 11:27:10.000000000 +0100
-+++ gnac-0.2.4.1/src/profiles/formats/gnac-profiles-unknown.c	2015-01-09 23:49:31.343045941 +0100
-@@ -49,7 +49,7 @@
+diff --git a/src/profiles/formats/gnac-profiles-unknown.c b/src/profiles/formats/gnac-profiles-unknown.c
+index edf6957..4d7cb76 100644
+--- a/src/profiles/formats/gnac-profiles-unknown.c
++++ b/src/profiles/formats/gnac-profiles-unknown.c
+@@ -49,7 +49,7 @@ BasicFormatInfo unknown_bfi = {
  };
  
  const gchar *base_pipeline = 
@@ -1636,9 +1691,10 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/formats/gnac-profiles-unknown.c gnac-0
  
  static GtkTextView *pipeline_text_view;
  static GtkWidget   *pipeline_box;
-diff -Naur gnac-0.2.4.1.orig/src/profiles/gnac-profiles-default.c gnac-0.2.4.1/src/profiles/gnac-profiles-default.c
---- gnac-0.2.4.1.orig/src/profiles/gnac-profiles-default.c	2012-04-22 14:09:01.000000000 +0200
-+++ gnac-0.2.4.1/src/profiles/gnac-profiles-default.c	2015-01-09 23:49:31.343045941 +0100
+diff --git a/src/profiles/gnac-profiles-default.c b/src/profiles/gnac-profiles-default.c
+index 7ef94ba..04b8266 100755
+--- a/src/profiles/gnac-profiles-default.c
++++ b/src/profiles/gnac-profiles-default.c
 @@ -23,6 +23,7 @@
   * Boston, MA  02110-1301  USA
   */
@@ -1647,3 +1703,6 @@ diff -Naur gnac-0.2.4.1.orig/src/profiles/gnac-profiles-default.c gnac-0.2.4.1/s
  #include <glib/gstdio.h>
  
  #include "gnac-main.h"
+-- 
+2.46.0
+

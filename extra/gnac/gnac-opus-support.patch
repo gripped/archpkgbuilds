@@ -1,9 +1,10 @@
-From abf950fb64e08260578ef4b5bf45061b0e27e8c4 Mon Sep 17 00:00:00 2001
+From 57d040d94ddef35767cb1eebe71bbd3cadc90e2c Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
-Date: Wed, 8 Jul 2020 22:25:13 +0200
+Date: Thu, 22 Aug 2024 20:01:57 +0200
 Subject: [PATCH] Add support for OPUS format
 
 ---
+ configure.ac                                  |   1 +
  data/profiles/Makefile.am                     |   1 +
  data/profiles/base.xml.in                     |   1 +
  data/profiles/default/CD_Quality,_AAC.xml.in  |   2 +-
@@ -17,17 +18,29 @@ Subject: [PATCH] Add support for OPUS format
  data/profiles/ui/gnac-profiles-opus.xml       | 183 +++++++++++++
  po/POTFILES.in                                |   2 +
  src/Makefile.am                               |   2 +
- src/profiles/formats/gnac-profiles-opus.c     | 255 ++++++++++++++++++
+ src/profiles/formats/gnac-profiles-opus.c     | 256 ++++++++++++++++++
  src/profiles/formats/gnac-profiles-opus.h     |  41 +++
  src/profiles/formats/gnac-profiles-unknown.c  |   2 +-
  src/profiles/gnac-profiles-properties.c       |   2 +
  src/profiles/gnac-profiles-utils.c            |  10 +-
- 18 files changed, 564 insertions(+), 9 deletions(-)
+ 19 files changed, 566 insertions(+), 9 deletions(-)
  create mode 100644 data/profiles/opus.xml.in
  create mode 100755 data/profiles/ui/gnac-profiles-opus.xml
  create mode 100755 src/profiles/formats/gnac-profiles-opus.c
  create mode 100644 src/profiles/formats/gnac-profiles-opus.h
 
+diff --git a/configure.ac b/configure.ac
+index ee9005f..9865c0c 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -106,6 +106,7 @@ dnl Find the GStreamer elements we use, and warn if they are not present
+ GST_ELEMENT_CHECK(faac, 1.0, , AC_MSG_WARN([The 'faac' element was not found. This will cause encoding to AAC to fail.]))
+ GST_ELEMENT_CHECK(flacenc, 1.0, , AC_MSG_WARN([The 'flacenc' element was not found. This will cause encoding to FLAC to fail.]))
+ GST_ELEMENT_CHECK(lamemp3enc, 1.0, , AC_MSG_WARN([The 'lamemp3enc' element was not found. This will cause encoding to MP3 to fail.]))
++GST_ELEMENT_CHECK(opusenc, 1.0, , AC_MSG_WARN([The 'opusenc' element was not found. This will cause encoding to OPUS to fail.]))
+ GST_ELEMENT_CHECK(wavenc, 1.0, , AC_MSG_WARN([The 'wavenc' element was not found. This will cause encoding to WAV to fail.]))
+ GST_ELEMENT_CHECK(wavpackenc, 1.0, , AC_MSG_WARN([The 'wavpackenc' element was not found. This will cause encoding to WAVPACK to fail.]))
+ 
 diff --git a/data/profiles/Makefile.am b/data/profiles/Makefile.am
 index 2ba31aa..50fd2bd 100755
 --- a/data/profiles/Makefile.am
@@ -432,15 +445,15 @@ index 81c9fbc..2f21ed1 100644
  	profiles/formats/gnac-profiles-unknown.h \
 diff --git a/src/profiles/formats/gnac-profiles-opus.c b/src/profiles/formats/gnac-profiles-opus.c
 new file mode 100755
-index 0000000..5963a1d
+index 0000000..31f8d19
 --- /dev/null
 +++ b/src/profiles/formats/gnac-profiles-opus.c
-@@ -0,0 +1,255 @@
+@@ -0,0 +1,256 @@
 +/*
 + * This file is part of GNAC - Gnome Audio Converter
 + *
 + * Copyright (C) 2007 - 2012 Gnac
-+ *    
++ *
 + *    - DUPASQUIER  Benoit    <bdupasqu@src.gnome.org>
 + *    - JOAQUIM     David     <djoaquim@src.gnome.org>
 + *    - ROUX        Alexandre <alexroux@src.gnome.org>
@@ -457,7 +470,7 @@ index 0000000..5963a1d
 + *
 + * You should have received a copy of the GNU General Public License
 + * along with GNAC; if not, write to the Free Software
-+ * Foundation, Inc., 51 Franklin St, Fifth Floor, 
++ * Foundation, Inc., 51 Franklin St, Fifth Floor,
 + * Boston, MA  02110-1301  USA
 + */
 +
@@ -509,7 +522,7 @@ index 0000000..5963a1d
 +  // Bitrate
 +  gnac_profiles_utils_init_widget(&opus_bfi, "combo-bitrate",
 +      "//variable[@id='bitrate']");
-+  
++
 +  gnac_profiles_xml_engine_free_doc_xpath(opus_bfi.doc);
 +  opus_bfi.doc = NULL;
 +
@@ -523,7 +536,7 @@ index 0000000..5963a1d
 +  gchar *pipeline = gnac_profiles_default_generate_pipeline(&opus_bfi);
 +  pipeline = gnac_profiles_utils_add_properties(pipeline, &opus_bfi,
 +      "combo-audio-type", "combo-bitrate-mode", "combo-bitrate", NULL);
-+  
++
 +  pipeline = gnac_profiles_utils_add_pipe(pipeline,
 +      opus_bfi.pipeline_multiplexers);
 +
@@ -553,6 +566,7 @@ index 0000000..5963a1d
 +  }
 +
 +  AudioProfileOPUS *profile = (AudioProfileOPUS *) data;
++  gnac_profiles_default_init_fields(profile->generic, &opus_bfi);
 +  gnac_profiles_utils_set_values(&opus_bfi,
 +      "combo-audio-type", profile->audio_type,
 +      "combo-bitrate-mode", profile->bitrate_mode,
@@ -575,7 +589,7 @@ index 0000000..5963a1d
 +
 +  AudioProfileOPUS *profile = (AudioProfileOPUS *) data;
 +
-+  gnac_profiles_utils_free_audio_profile_generic(profile->generic); 
++  gnac_profiles_utils_free_audio_profile_generic(profile->generic);
 +
 +  g_free(profile->audio_type);
 +  g_free(profile->bitrate_mode);
@@ -641,7 +655,7 @@ index 0000000..5963a1d
 +      "combo-bitrate-mode", &profile->bitrate_mode,
 +      "combo-bitrate", &profile->bitrate,
 +      NULL);
-+  
++
 +  return profile;
 +}
 +
@@ -693,7 +707,7 @@ index 0000000..5963a1d
 +}
 diff --git a/src/profiles/formats/gnac-profiles-opus.h b/src/profiles/formats/gnac-profiles-opus.h
 new file mode 100644
-index 0000000..6295414
+index 0000000..a0fd354
 --- /dev/null
 +++ b/src/profiles/formats/gnac-profiles-opus.h
 @@ -0,0 +1,41 @@
@@ -701,7 +715,7 @@ index 0000000..6295414
 + * This file is part of GNAC - Gnome Audio Converter
 + *
 + * Copyright (C) 2007 - 2012 Gnac
-+ *    
++ *
 + *    - DUPASQUIER  Benoit    <bdupasqu@src.gnome.org>
 + *    - JOAQUIM     David     <djoaquim@src.gnome.org>
 + *    - ROUX        Alexandre <alexroux@src.gnome.org>
@@ -718,7 +732,7 @@ index 0000000..6295414
 + *
 + * You should have received a copy of the GNU General Public License
 + * along with GNAC; if not, write to the Free Software
-+ * Foundation, Inc., 51 Franklin St, Fifth Floor, 
++ * Foundation, Inc., 51 Franklin St, Fifth Floor,
 + * Boston, MA  02110-1301  USA
 + */
 +
@@ -807,5 +821,5 @@ index c8fefef..e038765 100755
  
  
 -- 
-2.27.0
+2.46.0
 

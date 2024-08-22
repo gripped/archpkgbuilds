@@ -1,3 +1,15 @@
+From cbaf6f4e2e0485f82fb8da2265fb222a5e9fb855 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 22 Aug 2024 11:29:03 +0200
+Subject: [PATCH] Don't use deprecated gnome-doc-utils
+
+---
+ Makefile.am      |  4 +---
+ configure.ac     |  2 +-
+ help/Makefile.am | 11 +++++------
+ src/gnac-ui.c    |  2 +-
+ 4 files changed, 8 insertions(+), 11 deletions(-)
+
 diff --git a/Makefile.am b/Makefile.am
 index 4809bd5..6043fbf 100644
 --- a/Makefile.am
@@ -51,8 +63,8 @@ index dff2f18..760fc92 100644
  	intro.page \
  	license.page
  
--DOC_LINGUAS = cs da de es fr ro ru sl te
-+HELP_LINGUAS = cs da de es fr ro ru sl te
+-DOC_LINGUAS = cs da de el es fr pt_BR ro ru sl te
++HELP_LINGUAS = cs da de el es fr pt_BR ro ru sl te
 diff --git a/src/gnac-ui.c b/src/gnac-ui.c
 index 76f6401..200c7db 100644
 --- a/src/gnac-ui.c
@@ -66,3 +78,6 @@ index 76f6401..200c7db 100644
    if (!ret && error) {
      g_printerr("%s: %s\n", _("Could not display help"), error->message);
      g_clear_error(&error);
+-- 
+2.46.0
+

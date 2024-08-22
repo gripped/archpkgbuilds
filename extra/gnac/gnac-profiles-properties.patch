@@ -1,0 +1,47 @@
+From f244d3a7527e38eb5f8fb2317b459a547b2a11c0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 22 Aug 2024 19:26:36 +0200
+Subject: [PATCH] Fix close event of profiles properties window
+
+---
+ data/profiles/ui/gnac-profiles-properties.xml |  2 +-
+ src/profiles/gnac-profiles-properties.c       | 10 ++++++++++
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/data/profiles/ui/gnac-profiles-properties.xml b/data/profiles/ui/gnac-profiles-properties.xml
+index cd4171d..91e4b13 100755
+--- a/data/profiles/ui/gnac-profiles-properties.xml
++++ b/data/profiles/ui/gnac-profiles-properties.xml
+@@ -20,7 +20,7 @@
+     <property name="default_width">240</property>
+     <property name="type_hint">dialog</property>
+     <signal name="key-press-event" handler="gnac_profiles_properties_on_window_key_pressed" swapped="no"/>
+-    <signal name="delete-event" handler="gtk_widget_hide" swapped="no"/>
++    <signal name="delete-event" handler="gnac_profiles_properties_on_delete_event" swapped="no"/>
+     <child>
+       <object class="GtkVBox" id="vbox1">
+         <property name="width_request">240</property>
+diff --git a/src/profiles/gnac-profiles-properties.c b/src/profiles/gnac-profiles-properties.c
+index afe1440..c1a7fdb 100644
+--- a/src/profiles/gnac-profiles-properties.c
++++ b/src/profiles/gnac-profiles-properties.c
+@@ -572,6 +572,16 @@ gnac_profiles_properties_on_cancel(GtkWidget *widget,
+ }
+ 
+ 
++gboolean
++gnac_profiles_properties_on_delete_event(GtkWidget *widget,
++                                         GdkEvent  *event,
++                                         gpointer   user_data)
++{
++  gnac_profiles_properties_on_cancel(NULL, NULL);
++  return TRUE;
++}
++
++
+ gpointer
+ gnac_profiles_properties_load_profile_from_file(const gchar  *path,
+                                                const gchar   *filename,
+-- 
+2.46.0
+

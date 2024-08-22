@@ -1,0 +1,114 @@
+From 0c22ff515749573f3b9efcd8ccc65b264bad9d3e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 22 Aug 2024 15:01:37 +0200
+Subject: [PATCH] Fix handling advanced field
+
+---
+ src/profiles/formats/gnac-profiles-aac.c     |  1 +
+ src/profiles/formats/gnac-profiles-flac.c    |  1 +
+ src/profiles/formats/gnac-profiles-lame.c    |  2 ++
+ src/profiles/formats/gnac-profiles-wav.c     | 15 ++++++++++++++-
+ src/profiles/formats/gnac-profiles-wavpack.c |  1 +
+ src/profiles/gnac-profiles-properties.c      |  1 +
+ 6 files changed, 20 insertions(+), 1 deletion(-)
+
+diff --git a/src/profiles/formats/gnac-profiles-aac.c b/src/profiles/formats/gnac-profiles-aac.c
+index 653e8ca..a3b9838 100755
+--- a/src/profiles/formats/gnac-profiles-aac.c
++++ b/src/profiles/formats/gnac-profiles-aac.c
+@@ -127,6 +127,7 @@ gnac_profiles_aac_set_fields(gpointer data)
+   }
+ 
+   AudioProfileAAC *profile = (AudioProfileAAC *) data;
++  gnac_profiles_default_init_fields(profile->generic, &aac_bfi);
+   gnac_profiles_utils_set_values(&aac_bfi,
+       "combo-bitrate", profile->bitrate,
+       "combo-outputformat", profile->outputformat,
+diff --git a/src/profiles/formats/gnac-profiles-flac.c b/src/profiles/formats/gnac-profiles-flac.c
+index ddc6f7c..e72aef6 100755
+--- a/src/profiles/formats/gnac-profiles-flac.c
++++ b/src/profiles/formats/gnac-profiles-flac.c
+@@ -100,6 +100,7 @@ gnac_profiles_flac_set_fields(gpointer data)
+   }
+ 
+   AudioProfileFlac *profile = (AudioProfileFlac *) data;
++  gnac_profiles_default_init_fields(profile->generic, &flac_bfi);
+   gnac_profiles_utils_set_values(&flac_bfi,
+       "slider-compression", profile->quality, NULL);
+ }
+diff --git a/src/profiles/formats/gnac-profiles-lame.c b/src/profiles/formats/gnac-profiles-lame.c
+index b3906b2..f6ffc92 100755
+--- a/src/profiles/formats/gnac-profiles-lame.c
++++ b/src/profiles/formats/gnac-profiles-lame.c
+@@ -333,6 +333,7 @@ gnac_profiles_lame_advanced_bitrate_on_toggle(GtkWidget       *widget,
+ static void
+ gnac_profiles_lame_reset_ui(void)
+ {
++  gnac_profiles_default_reset_ui(&lame_bfi);
+   gnac_profiles_utils_reset_values(&lame_bfi,
+       "combo-mode", "combo-bitrate", "combo-min-vbr", "combo-max-vbr",
+       "combo-preset", "combo-encoding-mode", "slider-vbr-quality",
+@@ -353,6 +354,7 @@ gnac_profiles_lame_set_fields(gpointer data)
+   }
+ 
+   AudioProfileLame *profile = (AudioProfileLame *) data;
++  gnac_profiles_default_init_fields(profile->generic, &lame_bfi);
+   gnac_profiles_utils_set_values(&lame_bfi,
+       "combo-encoding-mode", profile->encoding_mode,
+       "combo-mode", profile->mode, NULL);
+diff --git a/src/profiles/formats/gnac-profiles-wav.c b/src/profiles/formats/gnac-profiles-wav.c
+index c80ad9c..481ce55 100755
+--- a/src/profiles/formats/gnac-profiles-wav.c
++++ b/src/profiles/formats/gnac-profiles-wav.c
+@@ -69,10 +69,23 @@ gnac_profiles_wav_generate_pipeline(void)
+ }
+ 
+ 
++static void
++gnac_profiles_wav_reset_ui(void)
++{
++  gnac_profiles_default_reset_ui(&wav_bfi);
++}
++
++
+ static void
+ gnac_profiles_wav_set_fields(gpointer data)
+ {
+-  /* nothing to do */
++  if (!data) {
++    gnac_profiles_wav_reset_ui();
++    return;
++  }
++
++  AudioProfileGeneric *profile = (AudioProfileGeneric *) data;
++  gnac_profiles_default_init_fields(profile->generic, &wav_bfi);
+ }
+ 
+ 
+diff --git a/src/profiles/formats/gnac-profiles-wavpack.c b/src/profiles/formats/gnac-profiles-wavpack.c
+index cb3ea97..792243c 100644
+--- a/src/profiles/formats/gnac-profiles-wavpack.c
++++ b/src/profiles/formats/gnac-profiles-wavpack.c
+@@ -276,6 +276,7 @@ gnac_profiles_wavpack_set_fields(gpointer data)
+   }
+ 
+   AudioProfileWavpack *profile = (AudioProfileWavpack *) data;
++  gnac_profiles_default_init_fields(profile->generic, &wavpack_bfi);
+   gnac_profiles_utils_set_values(&wavpack_bfi,
+       "combo-mode", profile->mode,
+       "slider-extra-processing", profile->extra_processing,
+diff --git a/src/profiles/gnac-profiles-properties.c b/src/profiles/gnac-profiles-properties.c
+index afe1440..04d0df2 100644
+--- a/src/profiles/gnac-profiles-properties.c
++++ b/src/profiles/gnac-profiles-properties.c
+@@ -422,6 +422,7 @@ gnac_profiles_properties_on_save(GtkWidget *widget,
+   GtkWidget *window = gnac_profiles_properties_get_widget("window1");
+   
+   GError *error = NULL;
++  current_format_module->funcs.generate_pipeline();
+   gpointer profile = current_format_module->funcs.generate_audio_profile(&error);
+   if (!profile) {
+     if (error) {
+-- 
+2.46.0
+

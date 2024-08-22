@@ -1,3 +1,14 @@
+From 8cbfba384d37936e029f631420c11a26b063242b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 22 Aug 2024 11:05:50 +0200
+Subject: [PATCH] Fix build with GCC 10
+
+---
+ libgnac/libgnac-converter.c             | 2 +-
+ src/profiles/gnac-profiles-manager.c    | 1 +
+ src/profiles/gnac-profiles-xml-engine.h | 2 +-
+ 3 files changed, 3 insertions(+), 2 deletions(-)
+
 diff --git a/libgnac/libgnac-converter.c b/libgnac/libgnac-converter.c
 index 35d9bc4..e96cf97 100644
 --- a/libgnac/libgnac-converter.c
@@ -36,3 +47,6 @@ index dcf3de5..865142c 100755
  
  typedef struct
  {
+-- 
+2.46.0
+
