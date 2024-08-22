@@ -1,41 +1,67 @@
-# Maintainer: Andrzej Giniewicz <gginiu@gmail.com>
 # Maintainer: Bruno Pagani <archange@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Andrzej Giniewicz <gginiu@gmail.com>
 # Contributor: Sebastien Binet <binet@cern.ch>
 
 pkgname=python-pytables
-pkgver=3.9.2
-pkgrel=6
-pkgdesc="A package for managing hierarchical datasets and designed to efficiently and easily cope with extremely large amounts of data"
+_pkgname=PyTables
+pkgver=3.10.1
+pkgrel=1
+pkgdesc="A Python package to manage extremely large amounts of data"
 arch=(x86_64)
 url="https://www.pytables.org"
-license=('BSD-3-Clause')
-depends=(blosc blosc2 lzo hdf5 python-numexpr python-blosc2)
-makedepends=(python-setuptools python-wheel python-build python-installer cython)
-checkdepends=(python-pytest)
-source=(https://github.com/PyTables/PyTables/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
-        numpy-2.0.patch)
-sha256sums=('4d7f2fc77fc63c95aaed2f8b8bf6cfbbdc7d52607b2112a80bf330c53b6c9838'
-            '9ad8238b779d46fa4d6b0b77b1cc65d1efaa8cb830a2840c24cedaec824e946f')
+license=(BSD-3-Clause)
+depends=(
+  blosc2
+  bzip2
+  glibc
+  hdf5
+  lzo
+  python
+  python-numexpr
+  python-numpy
+  python-packaging
+  python-py-cpuinfo
+  python-typing_extensions
+)
+makedepends=(
+  cython
+  git
+  python-blosc2
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+source=(
+  "git+https://github.com/PyTables/PyTables.git#tag=v$pkgver"
+  "git+https://github.com/Blosc/c-blosc.git"
+)
+sha256sums=('6cb9e63cdd8acab4fab2526d6e6d525a67324d80c6d18e36101f7cb594066b61'
+            'SKIP')
 
 prepare() {
-  sed -i '/oldest-supported-numpy/d' PyTables-${pkgver}/pyproject.toml
-  patch -d PyTables-$pkgver -p1 < numpy-2.0.patch
+  cd $_pkgname
+  git submodule init
+  git config submodule.c-blosc.url "$srcdir/c-blosc"
+  git -c protocol.file.allow=always submodule update
 }
 
 build() {
-  cd PyTables-${pkgver}
+  cd $_pkgname
   python -m build --wheel --no-isolation
 }
 
 check() {
-  local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
-  cd PyTables-${pkgver}/build/lib.linux-${CARCH}-cpython-${python_version}
-# some tests fails (harmlessly) with numpy 2.0, no apparent way to disable them
-# VERBOSE="TRUE" PYTHONPATH="." python -m tables.tests.test_all
+  cd $_pkgname
+  mv tables _tables # Required for package installed in tmp_install to take precedence
+  python -m installer --destdir=tmp_install dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  PYTHONPATH="$PWD/tmp_install/$site_packages" python -m tables.tests.test_all
 }
 
 package() {
-  cd PyTables-${pkgver}
+  cd $_pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 LICENSE.txt -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
 }
