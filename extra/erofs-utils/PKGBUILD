@@ -2,7 +2,7 @@
 
 pkgname=erofs-utils
 pkgver=1.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Userspace utilities for linux-erofs file system"
 arch=(x86_64)
 url="https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git"
@@ -12,6 +12,7 @@ license=(
 )
 depends=(
   glibc
+  libdeflate
   lz4
   zlib
 )
@@ -38,6 +39,8 @@ build() {
     --prefix=/usr
     --enable-fuse
     --enable-lzma
+    --with-libdeflate
+    --enable-multithreading
   )
 
   cd $pkgname-$pkgver

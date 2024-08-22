@@ -1,7 +1,7 @@
 pkgbase = erofs-utils
 	pkgdesc = Userspace utilities for linux-erofs file system
 	pkgver = 1.8.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git
 	arch = x86_64
 	license = Apache-2.0
@@ -11,6 +11,7 @@ pkgbase = erofs-utils
 	makedepends = xz
 	makedepends = zstd
 	depends = glibc
+	depends = libdeflate
 	depends = lz4
 	depends = zlib
 	optdepends = fuse2: for erofsfuse
@@ -20,6 +21,7 @@ pkgbase = erofs-utils
 
 pkgname = erofs-utils
 	depends = glibc
+	depends = libdeflate
 	depends = lz4
 	depends = zlib
 	depends = util-linux
