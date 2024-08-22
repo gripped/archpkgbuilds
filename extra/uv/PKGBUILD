@@ -7,8 +7,8 @@
 
 pkgbase=uv
 pkgname=("$pkgbase" "python-$pkgbase")
-pkgver=0.3.0
-pkgrel=2
+pkgver=0.3.1
+pkgrel=1
 pkgdesc='An extremely fast Python package installer and resolver written in Rust'
 arch=('x86_64')
 url="https://github.com/astral-sh/uv"
@@ -20,7 +20,7 @@ makedepends=('cargo' 'maturin' 'python-installer' 'cmake' 'git')
 checkdepends=('python' 'python-zstandard' 'libxcrypt-compat' 'clang')
 options=('!lto')
 source=("git+$url.git#tag=$pkgver")
-sha256sums=('cd8d94352114f1dd9a0f92711af6843cfbbb868a76347aec1369ffffed118aa5')
+sha256sums=('2bf791afbc8d5851bbff50095f8825ca75d4053b5d64ca310200746765e56e23')
 
 prepare() {
   cd "$pkgbase"
