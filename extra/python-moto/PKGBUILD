@@ -4,7 +4,7 @@
 pkgname=python-moto
 _pkgname=moto
 # https://github.com/getmoto/moto/blob/master/CHANGELOG.md
-pkgver=5.0.12
+pkgver=5.0.13
 pkgrel=1
 pkgdesc='Moto is a library to mock out the boto library.'
 arch=(any)
@@ -41,19 +41,19 @@ optdepends=(
   'python-flask: for moto_server'
   'python-flask-cors: for moto_server'
   'python-multipart: for moto_proxy'
-  # 'python-antlr4: for stepfunctions'  # already in [extra]
-  # 'python-jsonpath-ng: for stepfunctions'  # needs to be brought from AUR
+  'python-antlr4: for stepfunctions'
+  'python-jsonpath-ng: for events, stepfunctions'
 )
 checkdepends+=(python-yaml python-joserfc python-openapi-spec-validator python-docker
                python-graphql-core python-jsondiff python-aws-xray-sdk
                python-cfn-lint python-pyparsing python-py-partiql-parser
                python-crc32c
                python-flask python-flask-cors python-multipart
-               # python-antlr4 python-jsonpath-ng
+               python-antlr4 python-jsonpath-ng
 )
 source=("https://github.com/getmoto/moto/archive/refs/tags/$pkgver/$pkgname-$pkgver.tar.gz"
         "fix-tests.diff")
-sha256sums=('530ef30112652ebf062418edefef8283fe33ff295aea5aec52baed87c68db7cb'
+sha256sums=('1e7b4434e71ca5986e539814ee4a5fb9b2e3f635d6e6c9aba52c349fb8a5a633'
             '21305cdf3d650ced1acb1d0f7dde8760b26e32a94c56a5571e798d6b6976cf5a')
 
 prepare() {
@@ -76,8 +76,6 @@ check() {
   cd $_pkgname-$pkgver
 
   local pytest_args=(
-    # The parser for Step Functions needs more dependencies
-    --ignore tests/test_stepfunctions/parser
     # Needs a new package python-pycognito
     --ignore tests/test_cognitoidp/test_cognitoidp.py
     -m 'not requires_docker'
