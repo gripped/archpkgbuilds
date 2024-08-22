@@ -1,0 +1,27 @@
+pkgbase = termusic
+	pkgdesc = Music Player TUI written in Rust
+	pkgver = 0.9.1
+	pkgrel = 1
+	url = https://github.com/tramhao/termusic
+	arch = x86_64
+	license = MIT
+	license = GPL3
+	makedepends = cargo
+	makedepends = clang
+	depends = gstreamer
+	depends = gst-plugins-base
+	depends = gst-plugins-good
+	depends = gst-plugins-bad
+	depends = gst-plugins-ugly
+	depends = gst-libav
+	depends = dbus
+	depends = ueberzug
+	depends = protobuf
+	optdepends = yt-dlp: download mp3
+	optdepends = ffmpeg: download mp3
+	optdepends = emoji-font: for displaying emojis
+	options = !lto
+	source = termusic-0.9.1.tar.gz::https://github.com/tramhao/termusic/archive/v0.9.1.tar.gz
+	sha512sums = 06dfa10b4562683626766218b2ec4babac3b1f71dcdffed39ab1fafc875038d33effa5b92f6c84d6183d30574e85d8ca7a9effad397bb431d10f91a7b63eb2e2
+
+pkgname = termusic
