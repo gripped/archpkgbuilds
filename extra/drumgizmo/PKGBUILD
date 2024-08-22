@@ -1,14 +1,14 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 # Contributor: sekret, mail=$(echo c2VrcmV0QHBvc3Rlby5zZQo= | base64 -d)
 
-pkgname=drumgizmo
+pkgbase=drumgizmo
 pkgname=(drumgizmo drumgizmo-{lv2,standalone})
 pkgver=0.9.20
-pkgrel=2
+pkgrel=3
 pkgdesc="Multichannel, multilayered, cross-platform drum plugin and stand-alone application"
 arch=(x86_64)
 url="https://www.drumgizmo.org"
-license=(GPL3)
+license=(GPL-3.0-or-later)
 makedepends=(
   alsa-lib
   gcc-libs
@@ -22,11 +22,16 @@ makedepends=(
   lv2
   zita-resampler
 )
-source=($url/releases/$pkgname-$pkgver/$pkgname-$pkgver.tar.gz{,.asc})
+source=(
+  $url/releases/$pkgname-$pkgver/$pkgname-$pkgver.tar.gz{,.asc}
+  $pkgbase-0.9.20-add-missing-cstdint-include.patch
+)
 sha512sums=('3444201961d74e7787bebe4006df6c257f6c1a57dd81d272b203a4a56ad609d3fa4e88224dfe4ea6a67f4db94b340666d018cb79fc376dd264398f98d66433e8'
-            'SKIP')
+            'SKIP'
+            '05e5492ebef77b49ed3043b4e5976811e6b8f736be2c5cfde08e9519156419d6ef74ef0d834bd2b5fbc9742c985f79eb122261068cfeb411655bf451fbcdab47')
 b2sums=('c92c41fd9cfd09a42d6500ec7d5f3bffd7dd646ef11b88212393f91a06d0af596c4f627be037c3eb0d19fd3ae11448e43d7a40ae8928dea7fbdfb61cad057cdb'
-        'SKIP')
+        'SKIP'
+        '0850aa903cd3e80d22353d2b08e9af5eed3da60fd37ee839b51443e7de2cb4d7daecfa8215ef42a9db65d313597f7db22c48eeb325648036e9c73d85a30fbc91')
 validpgpkeys=('F39C94D556CCB995B1AE540E9EB89445BF071867') # DrumGizmo <info@drumgizmo.org>
 
 _pick() {
@@ -40,6 +45,7 @@ _pick() {
 }
 
 prepare() {
+  patch -Np1 -d $pkgbase-$pkgver -i ../$pkgbase-0.9.20-add-missing-cstdint-include.patch
   cd $pkgname-$pkgver
   autoreconf -fiv
 }
