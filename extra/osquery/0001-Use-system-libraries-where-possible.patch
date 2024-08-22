@@ -1,0 +1,186 @@
+From f7b34023a55648a9bef477e926793e21e0a3305b Mon Sep 17 00:00:00 2001
+From: Carl Smedstad <carl.smedstad@protonmail.com>
+Date: Sat, 10 Aug 2024 02:46:37 +0200
+Subject: [PATCH 01/12] Use system libraries where possible
+
+---
+ CMakeLists.txt                                | 118 +++++++++++++-----
+ libraries/cmake/source/glog/CMakeLists.txt    |   2 -
+ libraries/cmake/source/modules/Findglog.cmake |  15 ---
+ 3 files changed, 85 insertions(+), 50 deletions(-)
+ delete mode 100644 libraries/cmake/source/modules/Findglog.cmake
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3f71a109e..31e2e1454 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -84,43 +84,59 @@ function(main)
+   generateInstallDirectives()
+ endfunction()
+ 
++function(add_system_pkgconfig_dependency osquery_name system_name)
++  find_package(PkgConfig REQUIRED)
++  pkg_check_modules(${osquery_name} REQUIRED ${system_name})
++  add_library("thirdparty_${osquery_name}" INTERFACE)
++  add_real_target_dependencies(thirdparty_libraries "thirdparty_${osquery_name}")
++  target_link_libraries("thirdparty_${osquery_name}" INTERFACE ${${osquery_name}_LIBRARIES})
++  target_include_directories("thirdparty_${osquery_name}" INTERFACE ${${osquery_name}_INCLUDE_DIRS})
++endfunction()
++
+ function(importLibraries)
+-  set(library_descriptor_list
++  set(system_library_descriptor_list
+     # Leave lz4 at the top (see LZ4 CMakeLists.txt)
+-    "Linux,Darwin,Windows:lz4"
+-    "Linux,Darwin:augeas"
+-    "Linux,Darwin,Windows:openssl"
+-    "Linux,Darwin,Windows:boost"
+-    "Linux,Darwin,Windows:bzip2"
+-    "Linux,Darwin,Windows:gflags"
+-    "Linux,Darwin,Windows:glog"
+-    "Linux,Darwin,Windows:googletest"
+-    "Linux,Darwin,Windows:libarchive"
+-    "Linux:libaudit"
+-    "Linux:libcryptsetup"
+-    "Linux:libdevmapper"
+-    "Linux:libgcrypt"
+-    "Linux:libgpg-error"
+-    "Linux:libiptables"
+-    "Linux,Darwin:libmagic"
+-    "Linux,Darwin,Windows:librdkafka"
+-    "Linux:librpm"
+-    "Linux:libudev"
++    "Linux,Darwin,Windows:lz4:liblz4"
++    "Linux,Darwin:augeas:augeas"
++    "Linux,Darwin,Windows:bzip2:bzip2"
++    "Linux,Darwin,Windows:gflags:gflags"
++    "Linux,Darwin,Windows:libarchive:libarchive"
++    "Linux:libaudit:audit"
++    "Linux:libcryptsetup:libcryptsetup"
++    "Linux:libdevmapper:devmapper"
++    "Linux:libgcrypt:libgcrypt"
++    "Linux:libgpg-error:gpg-error"
++    "Linux:libiptables:libiptc"
++    "Linux,Darwin:libmagic:libmagic"
++    "Linux,Darwin,Windows:librdkafka:rdkafka"
++    "Linux:librpm:rpm"
++    "Linux:libudev:libudev"
++    "Linux,Darwin,Windows:lzma:liblzma"
++    "Linux:popt:popt"
++    "Linux,Darwin,Windows:rapidjson:RapidJSON"
++    "Linux,Darwin,Windows:rocksdb:rocksdb"
++    "Linux,Darwin,Windows:sleuthkit:tsk"
++    "Linux,Darwin,Windows:sqlite:sqlite3"
++    "Linux,Darwin,Windows:thrift:thrift"
++    "Linux,Darwin,Windows:yara:yara"
++    "Linux,Darwin,Windows:zlib:zlib"
++    "Linux,Darwin,Windows:zstd:libzstd"
++    "Linux:expat:expat"
++    "Linux:dbus:dbus-1"
++    "Linux:libcap:libcap"
++  )
++  set(library_descriptor_list)
++  if(NOT OSQUERY_USE_SYSTEM_LIBRARIES)
++    list(APPEND library_descriptor_list
++      ${system_library_descriptor_list}
++      "Linux,Darwin,Windows:openssl"
++      "Linux,Darwin,Windows:boost"
++      "Linux,Darwin,Windows:glog"
++    )
++  endif()
++  list(APPEND library_descriptor_list
+     "Linux,Darwin,Windows:linenoise-ng"
+-    "Linux,Darwin,Windows:lzma"
+-    "Linux:popt"
+-    "Linux,Darwin,Windows:rapidjson"
+-    "Linux,Darwin,Windows:rocksdb"
+-    "Linux,Darwin,Windows:sleuthkit"
+-    "Linux,Darwin,Windows:sqlite"
+-    "Linux,Darwin,Windows:thrift"
+     "Linux:util-linux"
+-    "Linux,Darwin,Windows:yara"
+-    "Linux,Darwin,Windows:zlib"
+-    "Linux,Darwin,Windows:zstd"
+-    "Linux:expat"
+-    "Linux:dbus"
+-    "Linux:libcap"
+   )
+ 
+   if(OSQUERY_BUILD_BPF)
+@@ -150,6 +166,42 @@ function(importLibraries)
+   # Create a target that builds all the third party libraries for convenience
+   add_custom_target(thirdparty_libraries)
+ 
++  if(OSQUERY_USE_SYSTEM_LIBRARIES)
++    find_package(glog REQUIRED)
++    add_library("thirdparty_glog" ALIAS glog::glog)
++    add_real_target_dependencies(thirdparty_libraries "thirdparty_glog")
++
++    find_package(OpenSSL REQUIRED)
++    add_library("thirdparty_openssl" INTERFACE)
++    add_real_target_dependencies(thirdparty_libraries "thirdparty_openssl")
++    target_link_libraries("thirdparty_openssl" INTERFACE OpenSSL::SSL OpenSSL::Crypto)
++    target_include_directories("thirdparty_openssl" INTERFACE ${OPENSSL_INCLUDE_DIR})
++
++    find_package(Boost REQUIRED COMPONENTS filesystem system chrono thread context)
++    add_library("thirdparty_boost" INTERFACE)
++    add_real_target_dependencies(thirdparty_libraries "thirdparty_boost")
++    target_link_libraries("thirdparty_boost" INTERFACE Boost::filesystem Boost::system Boost::chrono Boost::thread Boost::context)
++    target_include_directories("thirdparty_boost" INTERFACE ${Boost_INCLUDE_DIRS})
++
++    find_package(GTest REQUIRED)
++    add_library("thirdparty_googletest_headers" INTERFACE)
++    add_real_target_dependencies(thirdparty_libraries "thirdparty_googletest_headers")
++    target_include_directories("thirdparty_googletest_headers" INTERFACE ${GTest_INCLUDE_DIRS})
++    add_library("thirdparty_googletest" INTERFACE)
++    add_real_target_dependencies(thirdparty_libraries "thirdparty_googletest")
++    target_link_libraries("thirdparty_googletest" INTERFACE GTest::gtest GTest::gmock GTest::gtest_main GTest::gmock_main)
++
++    foreach(library_descriptor ${system_library_descriptor_list})
++      string(REPLACE ":" ";" library_descriptor "${library_descriptor}")
++      list(GET library_descriptor 0 platform_list)
++      list(GET library_descriptor 1 library)
++      list(GET library_descriptor 2 pkgconfig_library)
++      add_system_pkgconfig_dependency(${library} ${pkgconfig_library})
++    endforeach()
++
++    set_property(GLOBAL PROPERTY AUGEAS_LENSES_FOLDER_PATH "/usr/share/augeas/lenses/dist")
++  endif()
++
+   foreach(library_descriptor ${library_descriptor_list})
+     # Expand the library descriptor
+     string(REPLACE ":" ";" library_descriptor "${library_descriptor}")
+diff --git a/libraries/cmake/source/glog/CMakeLists.txt b/libraries/cmake/source/glog/CMakeLists.txt
+index e8b1459f0..4b48305c4 100644
+--- a/libraries/cmake/source/glog/CMakeLists.txt
++++ b/libraries/cmake/source/glog/CMakeLists.txt
+@@ -93,5 +93,3 @@ function(googleLogMain)
+       "${CMAKE_CURRENT_BINARY_DIR}"
+   )
+ endfunction()
+-
+-googleLogMain()
+diff --git a/libraries/cmake/source/modules/Findglog.cmake b/libraries/cmake/source/modules/Findglog.cmake
+deleted file mode 100644
+index 7fa173b44..000000000
+--- a/libraries/cmake/source/modules/Findglog.cmake
++++ /dev/null
+@@ -1,15 +0,0 @@
+-# Copyright (c) 2014-present, The osquery authors
+-#
+-# This source code is licensed as defined by the LICENSE file found in the
+-# root directory of this source tree.
+-#
+-# SPDX-License-Identifier: (Apache-2.0 OR GPL-2.0-only)
+-
+-include("${CMAKE_CURRENT_LIST_DIR}/utils.cmake")
+-
+-importSourceSubmodule(
+-  NAME "glog"
+-
+-  SHALLOW_SUBMODULES
+-    "src"
+-)
+-- 
+2.46.0
+

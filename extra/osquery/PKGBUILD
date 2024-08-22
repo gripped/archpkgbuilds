@@ -1,57 +1,163 @@
 # Maintainer: Anatol Pomozov
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=osquery
-pkgver=5.7.0
+pkgver=5.12.2
 pkgrel=1
-pkgdesc='SQL powered operating system instrumentation, monitoring, and analytics'
+pkgdesc="SQL powered operating system instrumentation, monitoring, and analytics"
 arch=(x86_64)
-url='https://osquery.io'
-license=(Apache GPL2)
-makedepends=(cmake ninja clang python gcc-libs git libunwind)
-source=(git+https://github.com/osquery/osquery.git#tag=$pkgver
-        fixes.patch
-	rocksdb.patch
-        ebpf-common.patch
-        libaudit.patch)
-sha256sums=('SKIP'
-            'b8a570a39a397e05237eeee950adba9fc67ff20b268b25818bbdfd6e6b616e64'
-            'f68fea00796db328edca1bc5e7a437522779220414f40c03708dc2ff9201cc8e'
-            '88cba2eebd12079bf3a4a8c5ba4ed34b1b5ccd9f9ac3fa518f1591396176666d'
-            '96218ef5b7d6d6deb3a7b4b3dfed8068b7e4d10acd5b19372b9882f89d4478a8')
+url="https://osquery.io"
+license=('Apache-2.0 OR GPL-2.0-only')
+depends=(
+  audit
+  augeas
+  boost-libs
+  cryptsetup
+  dbus
+  device-mapper
+  file
+  gcc-libs
+  gflags
+  glibc
+  google-glog
+  iptables
+  libarchive
+  libcap
+  librdkafka
+  openssl
+  popt
+  rocksdb
+  rpm-tools
+  sleuthkit
+  sqlite
+  systemd-libs
+  thrift
+  yara
+  zlib
+  zstd
+)
+makedepends=(
+  boost
+  clang
+  cmake
+  dpkg
+  git
+  gtest
+  libpcap
+  libunwind
+  python
+  rapidjson
+)
+backup=(
+  etc/osquery/osquery.conf
+  etc/sysconfig/osqueryd
+)
+source=(
+  "git+https://github.com/osquery/osquery.git#tag=$pkgver"
+  "git+https://github.com/arangodb/linenoise-ng.git"
+  "git+https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git"
+  "0001-Use-system-libraries-where-possible.patch"
+  "0002-Disable-submodule-fetching.patch"
+  "0003-Remove-incompatible-build-flags.patch"
+  "0004-Remove-include-of-non-existing-header-xlocale.h.patch"
+  "0005-Add-missing-includes-causing-compilation-error-with-.patch"
+  "0006-Replace-usage-of-libaudit-function-removed-in-v3.0.7.patch"
+  "0007-Fix-remaining-compilation-issues.patch"
+  "0008-Do-not-build-system_controls-tables.patch"
+  "0009-Do-not-build-block_devices-tables.patch"
+  "0010-Do-not-build-utils-requiring-libdpkg.patch"
+  "0011-Adapt-installation-to-using-system-packages.patch"
+  "0012-Fix-systemd-service-and-systemctl-script.patch"
+)
+sha256sums=('1239edfc5c1d80ce3d1a4ee072e2691df01587c00ab1e28fc9caa49f5ff46380'
+            'SKIP'
+            'SKIP'
+            'b49204d13b1a1ba32416a1d8aed403412cf6d188ce9b50ecd629cff28976cdd6'
+            '0d0a7cb792641ba861f927ec3f226aa82542f2e38ad3ea3c5bedbf51e614b5cf'
+            '49344a08321c1b7a4c3de84dfc9fb6ccdcf23dabbf5641abc0d75941fbc4ea98'
+            'fc5c2efbd4def80a0fb1ff5f8b2961b3db1232c4456e002005c9d76cd07c92cc'
+            '8751d6f90393461a4f1f755d81f02608bb262f0a24791c5f01a1c01a9a808d7d'
+            '015a0c34ef97e0f242de603714b1f5dd940be376811c5fa69d9e9702acd44a2c'
+            '7384a9dfef0deb674cecd12180fd5f258c3a2538e075f7c9fc4e091bcdef0bcd'
+            'b26c58bd579c794fc160b6e93659b573ad10d76e72d9161f7ea48282ced626e8'
+            '979d82ece22844e2974d5b8016af747561e056bc7cef02fe4bd06e89be971163'
+            '6d858191761917a2fa0f65aa5af5785377dea6242d74f1ea57ab7e68d6eb1429'
+            '66d6964aa32399a491e4e083ae79350c310fcdc9630178075d73b25a26e39cd1'
+            '96920f70b2447a7d3b2ca5a5bc444b57a0a28e8b0ee17d60f5dcc0a7842f1655')
 
 prepare() {
-  cd osquery
+  cd $pkgname
+  git submodule init
+  git config submodule.libraries/cmake/source/linenoise-ng/src.url "$srcdir/linenoise-ng"
+  git config submodule.libraries/cmake/source/util-linux/src.url "$srcdir/util-linux"
+  git -c protocol.file.allow=always submodule update \
+    libraries/cmake/source/linenoise-ng \
+    libraries/cmake/source/util-linux
 
-  # the patches come from https://github.com/anatol/osquery
-  patch -p1 < ../fixes.patch
-  patch -p1 < ../rocksdb.patch
-  # git does not pick .gitmodules changes for some reason. add the submodule explicitly.
-  #mkdir libraries/cmake/source/snappy/src
-  git submodule add https://github.com/google/snappy libraries/cmake/source/snappy/src
-
-  git submodule update --init --recursive
-
-  (cd $srcdir/osquery/libraries/cmake/source/libaudit/src && patch -p1 < $srcdir/libaudit.patch)
-  (cd $srcdir/osquery/libraries/cmake/source/ebpfpub/src/ && git submodule update --init && cd libraries/ebpf-common/src/ && patch -p1 < $srcdir/ebpf-common.patch)
+  # Patchset maintained here:
+  # https://github.com/carlsmedstad/osquery/tree/build-on-archlinux
+  patch -Np1 -i "$srcdir/0001-Use-system-libraries-where-possible.patch"
+  patch -Np1 -i "$srcdir/0002-Disable-submodule-fetching.patch"
+  patch -Np1 -i "$srcdir/0003-Remove-incompatible-build-flags.patch"
+  patch -Np1 -i "$srcdir/0004-Remove-include-of-non-existing-header-xlocale.h.patch"
+  # https://github.com/osquery/osquery/pull/8400
+  patch -Np1 -i "$srcdir/0005-Add-missing-includes-causing-compilation-error-with-.patch"
+  # https://github.com/osquery/osquery/pull/8401
+  patch -Np1 -i "$srcdir/0006-Replace-usage-of-libaudit-function-removed-in-v3.0.7.patch"
+  patch -Np1 -i "$srcdir/0007-Fix-remaining-compilation-issues.patch"
+  patch -Np1 -i "$srcdir/0008-Do-not-build-system_controls-tables.patch"
+  patch -Np1 -i "$srcdir/0009-Do-not-build-block_devices-tables.patch"
+  patch -Np1 -i "$srcdir/0010-Do-not-build-utils-requiring-libdpkg.patch"
+  patch -Np1 -i "$srcdir/0011-Adapt-installation-to-using-system-packages.patch"
+  patch -Np1 -i "$srcdir/0012-Fix-systemd-service-and-systemctl-script.patch"
 }
 
 build() {
-  cd osquery
+  cd $pkgname
+  # This flag causes a linker error:
+  # dns_resolvers.cpp:(...): undefined reference to `__res_close'
+  export LDFLAGS="${LDFLAGS/-Wl,--as-needed/}"
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev \
+    -DCMAKE_C_COMPILER=clang \
+    -DCMAKE_CXX_COMPILER=clang++ \
+    -DOSQUERY_BUILD_TESTS=ON \
+    -DOSQUERY_BUILD_BPF=OFF \
+    -DOSQUERY_BUILD_EXPERIMENTS=OFF \
+    -DOSQUERY_BUILD_AWS=OFF \
+    -DOSQUERY_BUILD_DPKG=OFF \
+    -DOSQUERY_USE_SYSTEM_LIBRARIES=ON
+  cmake --build build
+}
 
-  CC=clang CXX=clang++ cmake \
-      -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DOSQUERY_VERSION=$pkgver \
-      -G Ninja -S . -B build
-
-  ninja -C build
+check() {
+  cd $pkgname
+  local skipped_tests=(
+    osquery_events_tests_linuxtests-test
+    osquery_filesystem_filesystemtests-test
+    osquery_remote_transports_remotetransportstlstests-test
+    osquery_tables_events_tests_seccompeventstests-test
+    osquery_tables_system_linux_tests-test
+    osquery_tables_system_tests_systemtablestests-test
+    osquery_utils_json_jsontests-test
+    tests_integration_tables-test
+    tools_tests_testfschangestable
+    tools_tests_testosqueryd
+    tools_tests_testosqueryi
+    tools_tests_testrelease
+  )
+  skipped_tests_pattern="${skipped_tests[0]}$(printf '|%s' "${skipped_tests[@]:1}")"
+  ctest --test-dir build --output-on-failure -E "${skipped_tests_pattern}"
 }
 
 package() {
-  cd osquery
-
-  DESTDIR="${pkgdir}" ninja -C build install
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-  install -Dm644 tools/deployment/osquery.example.conf "$pkgdir/etc/osquery/osquery.conf"
-  install -Dm644 tools/deployment/linux_packaging/osqueryd.sysconfig "$pkgdir/etc/sysconfig/osqueryd"
-  install -Dm644 tools/deployment/linux_packaging/rpm/osqueryd.service "$pkgdir/usr/lib/systemd/system/osqueryd.service"
-  rm -r $pkgdir/control
+  cd $pkgname
+  DESTDIR="$pkgdir" cmake --install build
+  install -vdm755 "$pkgdir/var/log/osquery"
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+  install -vDm644 tools/deployment/osquery.example.conf "$pkgdir/etc/osquery/osquery.conf"
+  install -vDm644 tools/deployment/linux_packaging/osqueryd.sysconfig "$pkgdir/etc/sysconfig/osqueryd"
+  install -vDm644 tools/deployment/linux_packaging/rpm/osqueryd.service "$pkgdir/usr/lib/systemd/system/osqueryd.service"
 }

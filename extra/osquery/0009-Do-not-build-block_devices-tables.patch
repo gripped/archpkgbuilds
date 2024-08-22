@@ -1,0 +1,40 @@
+From 1b8ec15889d05976bb8306344207a8eeb17fbc55 Mon Sep 17 00:00:00 2001
+From: Carl Smedstad <carl.smedstad@protonmail.com>
+Date: Sat, 10 Aug 2024 17:11:18 +0200
+Subject: [PATCH 09/12] Do not build block_devices tables
+
+Depends on the library lvm2app.so which has been removed from lvm2.
+---
+ osquery/tables/system/CMakeLists.txt | 2 +-
+ specs/CMakeLists.txt                 | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/osquery/tables/system/CMakeLists.txt b/osquery/tables/system/CMakeLists.txt
+index c03077f2b..9f3953ebe 100644
+--- a/osquery/tables/system/CMakeLists.txt
++++ b/osquery/tables/system/CMakeLists.txt
+@@ -57,7 +57,7 @@ function(generateOsqueryTablesSystemSystemtable)
+       linux/dbus/uniquedbusmessage.cpp
+       linux/acpi_tables.cpp
+       linux/apt_sources.cpp
+-      linux/block_devices.cpp
++      # linux/block_devices.cpp
+       linux/certificates.cpp
+       linux/disk_encryption.cpp
+       linux/extended_attributes.cpp
+diff --git a/specs/CMakeLists.txt b/specs/CMakeLists.txt
+index 4510d681f..876102a7d 100644
+--- a/specs/CMakeLists.txt
++++ b/specs/CMakeLists.txt
+@@ -198,7 +198,7 @@ function(generateNativeTables)
+     "posix/acpi_tables.table:linux,macos"
+     "posix/augeas.table:linux,macos"
+     "posix/authorized_keys.table:linux,macos"
+-    "posix/block_devices.table:linux,macos"
++    # "posix/block_devices.table:linux,macos"
+     "posix/cpu_time.table:linux,macos"
+     "posix/crontab.table:linux,macos"
+     "posix/disk_encryption.table:linux,macos"
+-- 
+2.46.0
+

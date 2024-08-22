@@ -1,0 +1,43 @@
+From cb4cff51dff9a9b6671ac43ea210404f78c936ae Mon Sep 17 00:00:00 2001
+From: Carl Smedstad <carl.smedstad@protonmail.com>
+Date: Sat, 10 Aug 2024 12:14:59 +0200
+Subject: [PATCH 04/12] Remove include of non-existing header xlocale.h
+
+---
+ .../augeas/gnulib/generated/linux/x86_64/config/config.h     | 3 ---
+ .../source/augeas/gnulib/generated/linux/x86_64/lib/locale.h | 5 -----
+ 2 files changed, 8 deletions(-)
+
+diff --git a/libraries/cmake/source/augeas/gnulib/generated/linux/x86_64/config/config.h b/libraries/cmake/source/augeas/gnulib/generated/linux/x86_64/config/config.h
+index 1c69ad5d1..3623cd58a 100644
+--- a/libraries/cmake/source/augeas/gnulib/generated/linux/x86_64/config/config.h
++++ b/libraries/cmake/source/augeas/gnulib/generated/linux/x86_64/config/config.h
+@@ -914,9 +914,6 @@
+ /* Define to 1 if you have the <ws2tcpip.h> header file. */
+ /* #undef HAVE_WS2TCPIP_H */
+ 
+-/* Define to 1 if you have the <xlocale.h> header file. */
+-#define HAVE_XLOCALE_H 1
+-
+ /* Define to 1 if the system has the type `_Bool'. */
+ #define HAVE__BOOL 1
+ 
+diff --git a/libraries/cmake/source/augeas/gnulib/generated/linux/x86_64/lib/locale.h b/libraries/cmake/source/augeas/gnulib/generated/linux/x86_64/lib/locale.h
+index 4f9baece2..0230ce625 100644
+--- a/libraries/cmake/source/augeas/gnulib/generated/linux/x86_64/lib/locale.h
++++ b/libraries/cmake/source/augeas/gnulib/generated/linux/x86_64/lib/locale.h
+@@ -48,11 +48,6 @@
+ /* NetBSD 5.0 mis-defines NULL.  */
+ #include <stddef.h>
+ 
+-/* Mac OS X 10.5 defines the locale_t type in <xlocale.h>.  */
+-#if 1
+-# include <xlocale.h>
+-#endif
+-
+ /* The definitions of _GL_FUNCDECL_RPL etc. are copied here.  */
+ /* C++ compatible function declaration macros.
+    Copyright (C) 2010-2019 Free Software Foundation, Inc.
+-- 
+2.46.0
+

@@ -1,0 +1,115 @@
+From 734f24bf3f40593e69f9c2c402b1bacf0f913d38 Mon Sep 17 00:00:00 2001
+From: Carl Smedstad <carl.smedstad@protonmail.com>
+Date: Sat, 17 Aug 2024 13:15:02 +0200
+Subject: [PATCH 11/12] Adapt installation to using system packages
+
+Don't install augeas files or the directory /control.
+---
+ cmake/install_directives.cmake | 77 ----------------------------------
+ 1 file changed, 77 deletions(-)
+
+diff --git a/cmake/install_directives.cmake b/cmake/install_directives.cmake
+index c64e8ae2b..fa06920cd 100644
+--- a/cmake/install_directives.cmake
++++ b/cmake/install_directives.cmake
+@@ -15,53 +15,6 @@ function(generateInstallDirectives)
+       set(CMAKE_INSTALL_PREFIX "/opt/osquery" CACHE PATH "" FORCE)
+     endif()
+ 
+-    install(
+-      FILES "tools/deployment/linux_packaging/deb/conffiles"
+-      DESTINATION "/control/deb"
+-    )
+-
+-    install(
+-      FILES "tools/deployment/linux_packaging/deb/osqueryd.service"
+-      DESTINATION "/control/deb/lib/systemd/system"
+-    )
+-
+-    install(
+-      FILES "tools/deployment/linux_packaging/deb/copyright"
+-      DESTINATION "/control/deb"
+-    )
+-
+-    install(
+-      FILES "tools/deployment/linux_packaging/deb/osquery.initd"
+-      DESTINATION "/control/deb/etc/init.d"
+-      RENAME "osqueryd"
+-
+-      PERMISSIONS
+-        OWNER_READ OWNER_WRITE OWNER_EXECUTE
+-        GROUP_READ             GROUP_EXECUTE
+-        WORLD_READ             WORLD_EXECUTE
+-    )
+-
+-    install(
+-      FILES "tools/deployment/linux_packaging/rpm/osquery.initd"
+-      DESTINATION "/control/rpm/etc/init.d"
+-      RENAME "osqueryd"
+-
+-      PERMISSIONS
+-        OWNER_READ OWNER_WRITE OWNER_EXECUTE
+-        GROUP_READ             GROUP_EXECUTE
+-        WORLD_READ             WORLD_EXECUTE
+-    )
+-
+-    install(
+-      FILES "tools/deployment/linux_packaging/rpm/osqueryd.service"
+-      DESTINATION "/control/rpm/lib/systemd/system"
+-    )
+-
+-    install(
+-      FILES "tools/deployment/linux_packaging/postinst"
+-      DESTINATION "/control"
+-    )
+-
+     install(
+       TARGETS osqueryd
+       DESTINATION "bin"
+@@ -92,18 +45,6 @@ function(generateInstallDirectives)
+       DESTINATION "share/osquery"
+     )
+ 
+-    install(
+-      DIRECTORY "${augeas_lenses_path}/"
+-      DESTINATION "share/osquery/lenses"
+-      FILES_MATCHING PATTERN "*.aug"
+-      PATTERN "tests" EXCLUDE
+-    )
+-
+-    install(
+-      FILES "${augeas_lenses_path}/../COPYING"
+-      DESTINATION "share/osquery/lenses"
+-    )
+-
+     install(
+       DIRECTORY "packs"
+       DESTINATION "share/osquery"
+@@ -114,24 +55,6 @@ function(generateInstallDirectives)
+       DESTINATION "share/osquery/certs"
+     )
+ 
+-    install(
+-      FILES "tools/deployment/linux_packaging/osqueryd.sysconfig"
+-      DESTINATION "/control/deb/etc/default"
+-      RENAME "osqueryd"
+-    )
+-
+-    install(
+-      FILES "tools/deployment/linux_packaging/osqueryd.sysconfig"
+-      DESTINATION "/control/rpm/etc/sysconfig"
+-      RENAME "osqueryd"
+-    )
+-
+-    install(
+-      FILES "LICENSE"
+-      DESTINATION "/control"
+-      RENAME "LICENSE.txt"
+-    )
+-
+   elseif(PLATFORM_WINDOWS)
+ 
+     # CMake doesn't prefer 'Program Files' on x64 platforms, more information
+-- 
+2.46.0
+
