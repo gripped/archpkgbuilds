@@ -5,7 +5,7 @@
 
 pkgname=steam
 pkgver=1.0.0.81
-pkgrel=1
+pkgrel=2
 pkgdesc="Valve's digital software delivery system"
 url='https://steampowered.com/'
 arch=('x86_64')
@@ -50,7 +50,8 @@ depends_x86_64=(
   lib32-vulkan-icd-loader
 )
 optdepends=('steam-native-runtime: steam native runtime support')
-source=(https://repo.steampowered.com/${pkgname}/pool/${pkgname}/s/${pkgname}/${pkgname}_${pkgver}{.tar.gz,.dsc}
+# the beta directory is a superset of stable and also contains the stable releases
+source=(https://repo.steampowered.com/${pkgname}/archive/stable/${pkgname}_${pkgver}{.tar.gz,.dsc}
         steam-runtime.sh)
 sha512sums=('adbb89f3af069d9ff417ca7789a3d275e6485212ec8e08a4b2d110a2f370fc6d1a564895ba58b0548ea1521ee90029a4bb397ef86f29e093907abd562f65d07f'
             '8cab6ca49601936be3edfe334e438654861d728c330bf268a7b8c2f82bb3e148c040c464f9af948d10383714300dd87e20605dc8cb382059be465006953f0352'

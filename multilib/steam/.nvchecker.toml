@@ -1,4 +1,10 @@
 [steam]
-source = "regex"
-url = "https://repo.steampowered.com/steam/pool/steam/s/steam/"
-regex = "steam_(\\d+\\.\\d+\\.\\d+\\.\\d+).tar.gz"
+source = "apt"
+mirror = "https://repo.steampowered.com/steam"
+srcpkg = "steam"
+suite = "stable"
+repo = "steam"
+strip_release = "true"
+# ignore the APT epoch
+from_pattern = "\\d+:(.+)"
+to_pattern = "\\1"
