@@ -4,7 +4,7 @@
 
 pkgbase=podman
 pkgname=(podman podman-docker)
-pkgver=5.2.1
+pkgver=5.2.2
 pkgrel=1
 pkgdesc='Tool and library for running OCI-based containers in pods'
 arch=(x86_64)
@@ -35,7 +35,7 @@ validpgpkeys=(
   7CE1E6F8C90CB53E7E4D8F2D502E08DB0BBF8EEE  # Ashley Cui <acui@redhat.com>
   9E33DD8704CC03E2DEB84D9A1C1EDD7CC7C3A0DD  # Lokesh Mandvekar <lsm5@redhat.com>
 )
-sha256sums=('8851e17a716d10da588dd2885478fc677fa3ba3a14f2385b973af01e4c65243a')
+sha256sums=('5a1d6e8997fed3de53a1f3f5e13e5d651e31e0f4055817b21ba3d5858261f638')
 
 build() {
   # NOTE: the BUILDTAGS may change over time
