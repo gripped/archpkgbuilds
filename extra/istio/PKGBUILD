@@ -4,51 +4,45 @@
 # Contributor: jtagcat <arch-3ff61201@jtag.cat>
 
 pkgname=istio
-pkgver=1.22.3
+pkgver=1.23.0
 pkgrel=1
-pkgdesc='Istio configuration command line utility for service operators to debug and diagnose their Istio mesh'
-arch=('x86_64')
-url='https://github.com/istio/istio'
-license=('Apache-2.0')
-depends=('glibc')
-makedepends=('go')
-options=('!lto')
+pkgdesc="Istio configuration command line utility for service operators to debug and diagnose their Istio mesh"
+arch=(x86_64)
+url="https://github.com/istio/istio"
+license=(Apache-2.0)
+depends=(glibc)
+makedepends=(go)
+options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('8ed38bb4dac2258509757f924c54b8bc8352da096f10ce898fe8e54de7510970f59574b9503c23549121bd5f95dd98aa9d01f2b85d17c4b470b74ef4a6a80022')
-b2sums=('1dfa924fbcd6e04123e58c93214ecc5bec4ba3e7b8978fa9b0d2c165ac164d27206414c6cba45aa7f230cba9cbbf7f3a72260443f9d6ce5e3562eba2b8ba6827')
+sha512sums=('e40b943349cc7029942038b756e72393c2eb152f8d62c2f8f04e07b429fddd2f3246d9e0304054d459fd31804647792b6a49416a543e5323b5908cc86d59430c')
+b2sums=('2426fbd7d9807bad5ee0f08d6712018823496f4aad7d9a617d9977442d8a21296139fdee162667caecd53864025f5f7bc325df877eb7664f6cb7a7179ed993d0')
 
 prepare() {
   cd $pkgname-$pkgver
-
   GOFLAGS="-mod=readonly" go mod vendor -v
 }
 
 build() {
   cd $pkgname-$pkgver
-
   export CGO_CPPFLAGS="$CPPFLAGS"
   export CGO_CFLAGS="$CFLAGS"
   export CGO_CXXFLAGS="$CXXFLAGS"
-  # shellcheck disable=SC2153
   export CGO_LDFLAGS="$LDFLAGS"
   export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw"
   export GOPATH="$srcdir"
-
-  mkdir -p build
-  local ldflags=" \
+  local ld_flags=" \
     -compressdwarf=false  \
     -linkmode=external  \
     -X istio.io/istio/pkg/version.buildVersion=$pkgver \
   "
-  go build -v -buildvcs=false -o build -ldflags="$ldflags" \
+  go build -v -buildvcs=false -ldflags="$ld_flags" -o build/istioctl \
     ./istioctl/cmd/istioctl
 }
 
 check() {
   cd $pkgname-$pkgver
-
   # Test that the exectuble reports the correct version.
-  test "$(./build/istioctl version --remote=false)" = "$pkgver"
+  test "$(./build/istioctl version --remote=false)" = "client version: $pkgver"
 
   # Disable unit tests failing in a chroot - not sure why.
   local unit_tests=$(
@@ -61,11 +55,11 @@ check() {
 }
 
 package() {
-  install -Dm 755 "$srcdir/$pkgname-$pkgver/build/istioctl" "$pkgdir/usr/bin/istioctl"
+  cd $pkgname-$pkgver
+  install -vDm755 -t "$pkgdir/usr/bin" build/istioctl
 
-  # Populate bash and zsh completions.
-  "$pkgdir/usr/bin/istioctl" collateral --bash
-  "$pkgdir/usr/bin/istioctl" collateral --zsh
-  install -Dm 644 istioctl.bash "${pkgdir}/usr/share/bash-completion/completions/istioctl"
-  install -Dm 644 _istioctl "${pkgdir}/usr/share/zsh/site-functions/_istioctl"
+  ./build/istioctl collateral --bash
+  ./build/istioctl collateral --zsh
+  install -vDm644 istioctl.bash "$pkgdir/usr/share/bash-completion/completions/istioctl"
+  install -vDm644 _istioctl "$pkgdir/usr/share/zsh/site-functions/_istioctl"
 }
