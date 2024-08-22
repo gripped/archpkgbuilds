@@ -3,7 +3,7 @@
 
 pkgname=python-blosc2
 pkgver=2.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Wrapper for the blosc2 compressor'
 arch=('x86_64')
 url='https://github.com/Blosc/python-blosc2'
@@ -38,27 +38,21 @@ sha512sums=('add4e22a48d575d0d4b106428fcfe0f1085bccfafec3fc94da0e939718f5827a12a
 b2sums=('3e72d5608c338f3488cb1312a8da6c839b599558e7bb91709852823614031dc9e1ea3f09d7fce74b1864a93269b5c865c8ac277065eb90d026b6aac7565c77c5')
 
 build() {
-  cd "$pkgname"
-
+  cd $pkgname
   export CMAKE_ARGS="-DUSE_SYSTEM_BLOSC2=ON"
-
-  # skip unnecessary dependencies
   python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
-  cd "$pkgname"
-
-  python -m venv --system-site-packages test-env
-  test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest -v
+  cd $pkgname
+  python -m installer --destdir=tmp_install dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  cp -r tests "$PWD/tmp_install/$site_packages"
+  (cd "$PWD/tmp_install/$site_packages" && pytest)
 }
 
 package() {
-  cd "$pkgname"
-
+  cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
-
-  # license
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
 }
