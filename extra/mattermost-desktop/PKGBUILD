@@ -5,15 +5,16 @@
 # Contributor: Aleksandar Trifunović <akstrfn at gmail dot com>
 # Contributor: Jan Was <janek dot jan at gmail dot com>
 # Contributor: AUR[Severus]
+# Contributor: Matthias Mailänder <matthias@mailaender.name>
 
 pkgname=mattermost-desktop
-pkgver=5.7.0
-pkgrel=2
+pkgver=5.9.0
+pkgrel=1
 pkgdesc='Mattermost Desktop application'
 arch=(x86_64)
 url="https://github.com/${pkgname/-//}"
 license=(Apache-2.0)
-_electron=electron28
+_electron=electron31
 depends=($_electron
          libxcrypt-compat)
 makedepends=(git
@@ -26,7 +27,7 @@ _archive="${pkgname#*-}-$pkgver"
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
         "$pkgname.sh"
         "$pkgname.desktop")
-sha256sums=('766871bb8c79bf2ee57ab2f7783605fd5b20cf0809a041cbd8bbadde4520e3f2'
+sha256sums=('c71c7b79502185d2034e8de125eeb0f06b18911c307842b41148d9b343016738'
             '1c2bf48b6397d04a5a536c5c9f4960db53249c838c380f03f808c612b00ba4c6'
             '27c798af15d6aefbd41da5aacb9f9b15438349c649e9c05658387981760fd3b7')
 
@@ -47,7 +48,7 @@ prepare() {
 			--arg electronVersion "$_electronVersion" \
 			package.json |
 		sponge package.json
-	sed -i -e '/package:/s/tar.gz deb rpm/dir/' package.json
+	sed -i 's/ && cross-env CC=aarch64-linux-gnu-gcc CXX=aarch64-linux-gnu-g++ electron-builder --linux tar.gz --arm64 --publish=never//g' package.json
 	npm $_npmargs install
 }
 
@@ -55,7 +56,7 @@ build() {
 	cd "$_archive"
 	export NODE_ENV=production
 	npm $_npmargs --offline run build
-	npm $_npmargs --offline run package:linux-all-x64
+	npm $_npmargs --offline run package:linux-tar
 }
 
 package() {
