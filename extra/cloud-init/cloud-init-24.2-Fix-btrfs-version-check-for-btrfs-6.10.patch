@@ -1,0 +1,36 @@
+From 16f013cf5fb1df94ea84861426af1025c1673c08 Mon Sep 17 00:00:00 2001
+From: Adam Williamson <awilliam@redhat.com>
+Date: Tue, 13 Aug 2024 09:09:15 -0400
+Subject: [PATCH] Fix btrfs version check for btrfs 6.10
+
+In 6.10, the `--version` output has an extra line indicating
+build config and capabilities:
+
+[adamw@xps13a cloud-init (fix-btrfs-version-check-610 *)]$ btrfs --version
+btrfs-progs v6.10
+-EXPERIMENTAL -INJECT -STATIC +LZO +ZSTD +UDEV +FSVERITY +ZONED CRYPTO=libgcrypt
+
+this breaks the version parsing here, add another split operation
+to fix it.
+
+Signed-off-by: Adam Williamson <awilliam@redhat.com>
+---
+ cloudinit/config/cc_resizefs.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cloudinit/config/cc_resizefs.py b/cloudinit/config/cc_resizefs.py
+index 77a2a26a7..cb6a413ab 100644
+--- a/cloudinit/config/cc_resizefs.py
++++ b/cloudinit/config/cc_resizefs.py
+@@ -58,7 +58,7 @@ def _resize_btrfs(mount_point, devpth):
+     # the resize operation can be queued
+     btrfs_with_queue = util.Version.from_str("5.10")
+     system_btrfs_ver = util.Version.from_str(
+-        subp.subp(["btrfs", "--version"])[0].split("v")[-1].strip()
++        subp.subp(["btrfs", "--version"])[0].split("v")[-1].split("\n")[0].strip()
+     )
+     if system_btrfs_ver >= btrfs_with_queue:
+         idx = cmd.index("resize")
+-- 
+2.46.0
+

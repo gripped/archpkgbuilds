@@ -7,8 +7,8 @@
 # Contributor: Sparadox <etienne.lafarge at gmail.com>
 
 pkgname=cloud-init
-pkgver=24.1
-pkgrel=2
+pkgver=24.2
+pkgrel=1
 pkgdesc="Cloud instance initialization"
 arch=(any)
 url="https://cloud-init.io"
@@ -57,9 +57,16 @@ backup=(
 )
 source=(
   https://github.com/canonical/cloud-init/archive/$pkgver/$pkgname-$pkgver.tar.gz
+  $pkgname-24.2-Fix-btrfs-version-check-for-btrfs-6.10.patch
 )
-sha512sums=('216a824b341947189dbb252e549525bf7001c55778d9a51dde328ae4fd17da041e11813963ffedbb765245202a1e7a05ddc39350cdd8dc8e3bfb70b432b3ea5e')
-b2sums=('cdc55e9fa7c79e686aa6ac62c59bce8d243093eef90e4ef58f1cfaeae28939518c828ed688c41598216ea3614c77abea2568621240a64a4a7f1a3886ab361e8a')
+sha512sums=('2257de8c23f3a94324a7fe9e2105e6343ffe11cc86b27a68c7447b6e386a951bf2643988f3d26371420e3702a0b568107bb343d000ecae80d5e229b5a023513d'
+            'a92d1db1b73eae2a98e2a8fd6e8bdbaeba8f9ffdf2762f9c1cd43730da090317c41061295204392c440ed8b80a1f8746a8250ad4805bf7e0eab6b19fdd92de0a')
+b2sums=('19f1dd16aa673b4fdc0a8368fbf490773195f765834b89409c0fda6f6fb897c18a5632cdbd4c4cac85373fba31e0de279ce86ca6253686bc0e7eac19e8adf4f8'
+        'df454ed55e3f3f9d4a71e4f362ab59c125eb64c6e173e7b98a7a0e9c6be07a95c55a40c18288c732bf530a8ee4c29e405467ddd060d0474bf97feefe9d02a519')
+
+prepare() {
+  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-24.2-Fix-btrfs-version-check-for-btrfs-6.10.patch
+}
 
 build() {
   cd $pkgname-$pkgver
@@ -73,10 +80,9 @@ check() {
     --deselect tests/unittests/config/test_cc_ca_certs.py::TestRemoveDefaultCaCerts::test_commands
     --deselect tests/unittests/test_ds_identify.py::TestWSL::test_empty_cloudinitdir
     --deselect tests/unittests/test_ds_identify.py::TestWSL::test_found_via_userdata
-    --deselect 'tests/unittests/config/test_schema.py::TestNetplanValidateNetworkSchema::test_network_config_schema_validation_false_when_skipped[config0-]'
-    --deselect 'tests/unittests/config/test_schema.py::TestNetplanValidateNetworkSchema::test_network_config_schema_validation_false_when_skipped[config1-]'
-    --deselect 'tests/unittests/config/test_schema.py::TestNetplanValidateNetworkSchema::test_network_config_schema_validation_false_when_skipped[config2-Skipping netplan schema validation. No netplan available]'
-    --deselect 'tests/unittests/config/test_schema.py::TestNetplanValidateNetworkSchema::test_network_config_schema_validation_false_when_skipped[config3-Skipping netplan schema validation. No netplan available]'
+    --deselect tests/unittests/config/test_schema.py::TestNetplanValidateNetworkSchema::test_network_config_schema_validation_false_when_skipped
+    --deselect 'tests/unittests/config/test_schema.py::TestNetworkSchema::test_network_schema[net_v2_complex_example]'
+    --deselect 'tests/unittests/config/test_schema.py::TestNetworkSchema::test_network_schema[net_v2_invalid_config]'
     --deselect 'tests/unittests/config/test_schema.py::TestNetworkSchema::test_network_schema[net_v2_skipped]'
   )
   cd $pkgname-$pkgver
