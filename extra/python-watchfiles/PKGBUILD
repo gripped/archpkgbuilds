@@ -4,7 +4,7 @@
 pkgname=python-watchfiles
 _name=${pkgname#python-}
 pkgver=0.23.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple, modern and high performance file watching and code reload in python'
 arch=(x86_64)
 url='https://github.com/samuelcolvin/watchfiles'
@@ -36,6 +36,11 @@ prepare() {
 
 build() {
   cd $_name-$pkgver
+
+  # Set version following upstream CI workflow
+  # https://github.com/samuelcolvin/watchfiles/blob/v0.23.0/.github/workflows/ci.yml#L202
+  VERSION=$pkgver python .github/set_version.py
+
   python -m build --wheel --no-isolation
 }
 
