@@ -3,12 +3,12 @@
 
 _pyname=cylp
 pkgname=python-$_pyname
-pkgver=0.92.2
-pkgrel=3
+pkgver=0.92.3
+pkgrel=1
 pkgdesc='A Python interface to CLP, CBC, and CGL to solve LPs and MIPs'
 arch=(x86_64)
 url='https://github.com/coin-or/CyLP'
-license=(EPL)
+license=(EPL-2.0)
 depends=(coin-or-cbc
          coin-or-cgl
          coin-or-clp
@@ -20,27 +20,28 @@ depends=(coin-or-cbc
          python-numpy
          python-scipy)
 makedepends=(cython
+             git
              python-build
              python-installer
              python-setuptools
              python-wheel)
 checkdepends=(python-pytest)
-source=(https://github.com/coin-or/CyLP/archive/v$pkgver/$_pyname-$pkgver.tar.gz
+source=(git+https://github.com/coin-or/CyLP#tag=v$pkgver
         numpy-2.0.patch)
-sha256sums=('d107e457754e6da71877f4e192eedd5fdcd80c00c601b4d99fdebc8f9ff9afec'
-            'fc9565b0a6a33053a0c6033ee0e686885cb6f5192725e803091abb60dbbfef62')
+sha256sums=('0ffa66cb53b5cd626e492ff585298cb9e04b1be23280646d6dc481445d6e6a8d'
+            'c32f82aebcad77c1f24d5f1da29b025de926327b0ffb9198eca54776143b47cf')
 
 prepare() {
-  patch -d CyLP-$pkgver -p1 < numpy-2.0.patch
+  patch -d CyLP -p1 < numpy-2.0.patch
 }
 
 build() {
-  cd CyLP-$pkgver
+  cd CyLP
   python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
-  cd CyLP-$pkgver
+  cd CyLP
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
 # Prevent from loading the uncompiled cylp
@@ -51,7 +52,7 @@ check() {
 }
   
 package() {
-  cd CyLP-$pkgver
+  cd CyLP
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm755 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
 }
