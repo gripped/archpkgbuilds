@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=gum
-pkgver=0.14.3
+pkgver=0.14.4
 pkgrel=1
 pkgdesc='A tool for glamorous shell scripts'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('glibc')
 makedepends=('git' 'go')
 options=('!lto')
 source=("$pkgname::git+$url#tag=v$pkgver")
-b2sums=('deff2c90c2d034a3cdd4b9b79e4c5739f03de0112a39156e155d198496074e2580a75e7878f904d650b03019fe65e6e4ede90616592f59d00698f03ce5c3dd17')
+b2sums=('7eaf321b2962b4484ad3c266c2f7cb6e85c39f045c0c0f9eaad1e478f6225b7607c40ac9b4e2eabe364107c4b072154b08429ec3a604ffc53d8f48fe8c2cc8c3')
 
 prepare() {
   cd "$pkgname"
