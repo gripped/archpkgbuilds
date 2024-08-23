@@ -1,32 +1,40 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
-_pkgname=pyocr
 pkgname=python-pyocr
 pkgver=0.8.5
-pkgrel=2
-pkgdesc='Python wrapper for Tesseract and Cuneiform'
-arch=('any')
+pkgrel=3
+pkgdesc='Python wrapper for Tesseract'
+arch=(any)
 url='https://gitlab.gnome.org/World/OpenPaperwork/pyocr'
-license=('GPL3')
-depends=('python-pillow' 'python-six')
-makedepends=('git' 'python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
-optdepends=('cuneiform: OCR backend'
-            'tesseract: OCR backend')
-_commit=ca191ba776743fe10a1c3dd99eaa82626ee4edc1
-source=("git+https://gitlab.gnome.org/World/OpenPaperwork/pyocr.git#commit=$_commit")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd $_pkgname
-  git describe --tags | sed 's/-/+/g'
-}
+license=(GPL-3.0-or-later)
+depends=(
+  python
+  python-pillow
+  tesseract
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools-scm
+  python-wheel
+)
+checkdepends=(python-pytest)
+source=("git+https://gitlab.gnome.org/World/OpenPaperwork/pyocr.git#tag=$pkgver")
+b2sums=(77888c4d3dbedede42f87562c52e651c77f56b6491073ba4d9ae6b2bf327a5cd3ea2903b5043c2398a8ebd6affc2ddb1db348f6435e1253089955091abb76d5d)
 
 build() {
-  cd $_pkgname
+  cd pyocr
   python -m build --wheel --no-isolation
 }
 
+check() {
+  cd pyocr
+  PYTHONPATH="$PWD/build/lib" \
+    pytest
+}
+
 package() {
-  cd $_pkgname
+  cd pyocr
   python -m installer --destdir="$pkgdir" dist/*.whl
 }

@@ -1,20 +1,20 @@
 pkgbase = python-pyocr
-	pkgdesc = Python wrapper for Tesseract and Cuneiform
+	pkgdesc = Python wrapper for Tesseract
 	pkgver = 0.8.5
-	pkgrel = 2
+	pkgrel = 3
 	url = https://gitlab.gnome.org/World/OpenPaperwork/pyocr
 	arch = any
-	license = GPL3
+	license = GPL-3.0-or-later
+	checkdepends = python-pytest
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools-scm
 	makedepends = python-wheel
+	depends = python
 	depends = python-pillow
-	depends = python-six
-	optdepends = cuneiform: OCR backend
-	optdepends = tesseract: OCR backend
-	source = git+https://gitlab.gnome.org/World/OpenPaperwork/pyocr.git#commit=ca191ba776743fe10a1c3dd99eaa82626ee4edc1
-	sha256sums = SKIP
+	depends = tesseract
+	source = git+https://gitlab.gnome.org/World/OpenPaperwork/pyocr.git#tag=0.8.5
+	b2sums = 77888c4d3dbedede42f87562c52e651c77f56b6491073ba4d9ae6b2bf327a5cd3ea2903b5043c2398a8ebd6affc2ddb1db348f6435e1253089955091abb76d5d
 
 pkgname = python-pyocr
