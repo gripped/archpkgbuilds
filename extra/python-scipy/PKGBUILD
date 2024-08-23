@@ -8,7 +8,7 @@
 
 _name=scipy
 pkgname=python-scipy
-pkgver=1.14.0
+pkgver=1.14.1
 pkgrel=1
 pkgdesc='Open-source software for mathematics, science, and engineering'
 arch=(x86_64)
@@ -23,8 +23,10 @@ depends=(blas
          python-platformdirs
          python-pooch)
 provides=(scipy)
-makedepends=(cython
+makedepends=(boost
+             cython
              gcc-fortran
+             git
              meson-python
              pybind11
              python-build
@@ -33,19 +35,43 @@ makedepends=(cython
 checkdepends=(python-hypothesis
               python-pytest)
 optdepends=('python-pillow: for image saving module')
-source=(https://github.com/scipy/scipy/releases/download/v$pkgver/$_name-$pkgver.tar.gz)
-sha256sums=('b5923f48cb840380f9854339176ef21763118a7300a88203ccd0bdd26e58527b')
+source=(git+https://github.com/scipy/scipy#tag=v$pkgver
+        git+https://github.com/data-apis/array-api-compat
+        git+https://github.com/boostorg/math
+        git+https://github.com/cobyqa/cobyqa
+        git+https://github.com/scipy/highs
+        git+https://github.com/scipy/pocketfft
+        git+https://github.com/scipy/unuran)
+sha256sums=('f73c4ce9f442b56e4ff262f801dd5701e46ca86b260db7e07f734b4f3b5b127a'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP')
 options=(!lto) # crashes with numpy 2.0
 
+prepare() {
+  cd $_name
+  git submodule init
+  git submodule set-url scipy/_lib/array_api_compat "$srcdir"/array-api-compat
+  git submodule set-url scipy/_lib/boost_math "$srcdir"/math
+  git submodule set-url scipy/_lib/cobyqa "$srcdir"/cobyqa
+  git submodule set-url scipy/_lib/highs "$srcdir"/highs
+  git submodule set-url scipy/_lib/pocketfft "$srcdir"/pocketfft
+  git submodule set-url scipy/_lib/unuran "$srcdir"/unuran
+  git -c protocol.file.allow=always submodule update
+}
+
 build() {
-  cd $_name-$pkgver
+  cd $_name
   python -m build --wheel --no-isolation --skip-dependency-check \
     -C setup-args=-Dblas=blas \
     -C setup-args=-Dlapack=lapack
 }
 
 check() {
-  cd $_name-$pkgver
+  cd $_name
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   cd test-env
@@ -53,7 +79,7 @@ check() {
 }
 
 package() {
-  cd $_name-$pkgver
+  cd $_name
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname
 }
