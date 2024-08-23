@@ -2,7 +2,7 @@
 # Contributor: libertylocked <libertylocked@disroot.org>
 
 pkgname=bitwarden-cli
-pkgver=2024.6.1
+pkgver=2024.7.2
 pkgrel=1
 pkgdesc="The command line vault"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('nodejs-lts-iron')
 makedepends=('git' 'python' 'python-setuptools' 'npm' 'modclean')
 options=(!emptydirs)
 source=(bitwarden::git+https://github.com/bitwarden/clients.git#tag=cli-v${pkgver})
-sha512sums=('a209e56c0ac9ea0f724837ab628e898ba29f1a3a7e5bcdb75252a22fc8db1a37e3f0d443645cac8d0102a4a9800c571a83b896af02301599d752128c6826af56')
+sha512sums=('8ea089ed08786ebda2ac5814291322173b1a87fa9da8bbfa010f27881e60212afe876f56856c949f04eb55eed654445415f829836b95e814d3d89a8893b85a3a')
 
 prepare() {
 	cd bitwarden
@@ -33,6 +33,7 @@ build() {
 
 package() {
 	cd bitwarden/apps/cli
+    export CXXFLAGS="$CXXFLAGS -Wno-error"
 	npm install --production -g --prefix "$pkgdir"/usr $(npm pack . | tail -1)
 
 	# Non-deterministic race in npm gives 777 permissions to random directories.
