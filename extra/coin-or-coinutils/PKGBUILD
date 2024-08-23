@@ -3,25 +3,29 @@
 # Derived from Daniel Ehlers'
 
 pkgname=coin-or-coinutils
-pkgver=2.11.11
+pkgver=2.11.12
 pkgrel=1
 pkgdesc='COIN-OR collection of utility classes'
 arch=(x86_64)
 url='https://github.com/coin-or/CoinUtils'
-license=(EPL)
-depends=(bzip2
+license=(EPL-2.0)
+depends=(blas
+         bzip2
          coin-or-data-sample
+         gcc-libs
+         glibc
          glpk
          lapack
          zlib)
 makedepends=(doxygen
-             gcc-fortran)
+             gcc-fortran
+             git)
 groups=(coin-or)
-source=($pkgname-$pkgver.tar.gz::https://github.com/coin-or/CoinUtils/archive/refs/tags/releases/$pkgver.tar.gz)
-sha256sums=('27da344479f38c82112d738501643dcb229e4ee96a5f87d4f406456bdc1b2cb4')
+source=(git+https://github.com/coin-or/CoinUtils#tag=releases/$pkgver)
+sha256sums=('eb3ef8bfbf913a0af35915c49410182be5a7e21e17754295eb4a3c23762706ba')
 
 build() {
-  cd CoinUtils-releases-$pkgver
+  cd CoinUtils
   ./configure \
     --prefix=/usr \
     --with-blas-lib='-lblas' \
@@ -32,11 +36,11 @@ build() {
 }
 
 check() {
-  cd CoinUtils-releases-$pkgver
+  cd CoinUtils
   make test
 }
 
 package() {
-  cd CoinUtils-releases-$pkgver
+  cd CoinUtils
   make DESTDIR="$pkgdir" install
 }
