@@ -3,12 +3,12 @@
 # Contributor: Daniel Ehlers <danielehlers@mindeye.net>
 
 pkgname=coin-or-cbc
-pkgver=2.10.11
+pkgver=2.10.12
 pkgrel=1
 pkgdesc='COIN-OR branch-and-cut mixed integer programming solver'
 arch=(x86_64)
 url='https://github.com/coin-or/Cbc'
-license=(EPL)
+license=(EPL-2.0)
 groups=(coin-or)
 depends=(coin-or-asl
          coin-or-cgl
@@ -17,12 +17,14 @@ depends=(coin-or-asl
          coin-or-osi
          glibc
          gcc-libs)
-makedepends=(nauty)
-source=($pkgname-$pkgver.tar.gz::https://github.com/coin-or/Cbc/archive/refs/tags/releases/$pkgver.tar.gz)
-sha256sums=('1fb591dd88336fdaf096b8e42e46111e41671a5eb85d4ee36e45baff1678bd33')
+makedepends=(git
+             nauty)
+source=(git+https://github.com/coin-or/Cbc#tag=releases/$pkgver)
+sha256sums=('36ce629474dd1c7bfff0e12c1a405d8046f6f794cdb403a94e9b3aeb09b8ccfa')
 
 build() {
-  cd Cbc-releases-$pkgver
+  cd Cbc
+  CFLAGS+=" -Wno-implicit-function-declaration" \
   ./configure --prefix=/usr \
               --enable-cbc-parallel \
               --with-nauty-lib=/usr/lib/libnauty.a --with-nauty-incdir=/usr/include/nauty
@@ -31,12 +33,12 @@ build() {
 }
 
 check() {
-  cd Cbc-releases-$pkgver/Cbc
+  cd Cbc
   make test
 }
 
 package() {
-  cd Cbc-releases-$pkgver
+  cd Cbc
   make DESTDIR="$pkgdir" install
 
 # Remove nauty from linker flags in pc file, it is statically compiled

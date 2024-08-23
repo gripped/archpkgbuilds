@@ -1,11 +1,12 @@
 pkgbase = coin-or-cbc
 	pkgdesc = COIN-OR branch-and-cut mixed integer programming solver
-	pkgver = 2.10.11
+	pkgver = 2.10.12
 	pkgrel = 1
 	url = https://github.com/coin-or/Cbc
 	arch = x86_64
 	groups = coin-or
-	license = EPL
+	license = EPL-2.0
+	makedepends = git
 	makedepends = nauty
 	depends = coin-or-asl
 	depends = coin-or-cgl
@@ -14,7 +15,7 @@ pkgbase = coin-or-cbc
 	depends = coin-or-osi
 	depends = glibc
 	depends = gcc-libs
-	source = coin-or-cbc-2.10.11.tar.gz::https://github.com/coin-or/Cbc/archive/refs/tags/releases/2.10.11.tar.gz
-	sha256sums = 1fb591dd88336fdaf096b8e42e46111e41671a5eb85d4ee36e45baff1678bd33
+	source = git+https://github.com/coin-or/Cbc#tag=releases/2.10.12
+	sha256sums = 36ce629474dd1c7bfff0e12c1a405d8046f6f794cdb403a94e9b3aeb09b8ccfa
 
 pkgname = coin-or-cbc
