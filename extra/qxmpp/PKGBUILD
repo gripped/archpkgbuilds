@@ -7,7 +7,7 @@
 pkgbase=qxmpp
 pkgname=(qxmpp-qt5
          qxmpp-qt6)
-pkgver=1.8.0
+pkgver=1.8.1
 pkgrel=1
 pkgdesc='Cross-platform C++ XMPP client and server library'
 arch=(x86_64)
@@ -24,7 +24,7 @@ makedepends=(cmake
              qca-qt6)
 optdepends=('libomemo-c: OMEMO support')
 source=(git+https://github.com/qxmpp-project/qxmpp#tag=v$pkgver)
-sha256sums=('3b558a45965f9453c40fa4f962dbab31886335b6b06be5d64d138d8cdb80fbb7')
+sha256sums=('927c3972202e10371ea0d4d9630e25b4555d1923009f0b4f36ff7611e95c0e64')
 
 build() {
   cmake -B build5 -S $pkgbase \
