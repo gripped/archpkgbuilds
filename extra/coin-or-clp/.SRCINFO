@@ -1,18 +1,19 @@
 pkgbase = coin-or-clp
 	pkgdesc = COIN-OR linear programming solver
-	pkgver = 1.17.9
-	pkgrel = 2
+	pkgver = 1.17.10
+	pkgrel = 1
 	url = https://github.com/coin-or/Clp
 	arch = x86_64
 	groups = coin-or
-	license = EPL
+	license = EPL-2.0
+	makedepends = git
 	depends = coin-or-asl
 	depends = coin-or-coinutils
 	depends = coin-or-osi
 	depends = gcc-libs
 	depends = glibc
 	depends = suitesparse
-	source = coin-or-clp-1.17.9.tar.gz::https://github.com/coin-or/Clp/archive/refs/tags/releases/1.17.9.tar.gz
-	sha256sums = b02109be54e2c9c6babc9480c242b2c3c7499368cfca8c0430f74782a694a49f
+	source = git+https://github.com/coin-or/Clp#tag=releases/1.17.10
+	sha256sums = 675f2ba993bd78084a5dfcf61cd38798a9597ebf1d2321677c6f9483ce1a26da
 
 pkgname = coin-or-clp
