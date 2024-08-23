@@ -3,8 +3,8 @@
 
 pkgname=python-ipywidgets
 _pipname=ipywidgets
-pkgver=8.1.3
-pkgrel=2
+pkgver=8.1.5
+pkgrel=1
 pkgdesc='IPython HTML widgets for Jupyter'
 arch=(any)
 url='https://github.com/ipython/ipywidgets'
@@ -24,15 +24,8 @@ checkdepends=(python-ipykernel
               python-jsonschema
               python-pytest
               python-pytz)
-source=(git+https://github.com/jupyter-widgets/ipywidgets#tag=$pkgver
-        https://github.com/jupyter-widgets/ipywidgets/commit/bbc6c064.patch)
-sha256sums=('79fb72d85f7cd22f6bc8bde97d9e078ccc395637f2844502a55477d53abf094f'
-            'df055ab534084dbcb88cfbf21a87e30bd63f0b22201fdbd531fd8c4177af45e2')
-
-prepare() {
-  cd ipywidgets
-  patch -p1 -i "$srcdir"/bbc6c064.patch # Fix tests with pytest 8
-}
+source=(git+https://github.com/jupyter-widgets/ipywidgets#tag=$pkgver)
+sha256sums=('d604e88681644839dbf8cd45f93db05b0a346b5f3dcb0c7193ab0a0cecd190b9')
 
 build() {
   cd ipywidgets/python/ipywidgets
