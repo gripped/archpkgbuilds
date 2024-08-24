@@ -1,29 +1,32 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgbase=jsonrpc-glib
-pkgname=(jsonrpc-glib jsonrpc-glib-docs)
-pkgver=3.44.0
+pkgname=(
+  jsonrpc-glib
+  jsonrpc-glib-docs
+)
+pkgver=3.44.1
 pkgrel=1
-pkgdesc="A JSON-RPC library for GLib"
+pkgdesc="JSON-RPC / GVariant RPC library for GLib"
 url="https://gitlab.gnome.org/GNOME/jsonrpc-glib"
 arch=(x86_64)
-license=(LGPL)
-depends=(json-glib)
+license=(LGPL-2.1-or-later)
+depends=(
+  gcc-libs
+  glib2
+  glibc
+  json-glib
+)
 makedepends=(
   gi-docgen
   git
+  glib2-devel
   gobject-introspection
   meson
   vala
 )
-_commit=89f25f9789b8323c6c06ac086d1fba2836113f16  # tags/3.44.0^0
-source=("git+https://gitlab.gnome.org/GNOME/jsonrpc-glib.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/jsonrpc-glib.git#tag=$pkgver")
+b2sums=('a7a1f74165bf8f8124f15f10b30d67cf9be724662d687e73a5320a4e1b82ebd29453898b0de6614b6ca8a227769f26ab5de8dbaf8a4c2071e10299224fd047ea')
 
 prepare() {
   cd $pkgname

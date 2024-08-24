@@ -1,0 +1,26 @@
+pkgbase = jsonrpc-glib
+	pkgdesc = JSON-RPC / GVariant RPC library for GLib
+	pkgver = 3.44.1
+	pkgrel = 1
+	url = https://gitlab.gnome.org/GNOME/jsonrpc-glib
+	arch = x86_64
+	license = LGPL-2.1-or-later
+	makedepends = gi-docgen
+	makedepends = git
+	makedepends = glib2-devel
+	makedepends = gobject-introspection
+	makedepends = meson
+	makedepends = vala
+	depends = gcc-libs
+	depends = glib2
+	depends = glibc
+	depends = json-glib
+	source = git+https://gitlab.gnome.org/GNOME/jsonrpc-glib.git#tag=3.44.1
+	b2sums = a7a1f74165bf8f8124f15f10b30d67cf9be724662d687e73a5320a4e1b82ebd29453898b0de6614b6ca8a227769f26ab5de8dbaf8a4c2071e10299224fd047ea
+
+pkgname = jsonrpc-glib
+	provides = libjsonrpc-glib-1.0.so
+
+pkgname = jsonrpc-glib-docs
+	pkgdesc = JSON-RPC / GVariant RPC library for GLib (documentation)
+	depends = 
