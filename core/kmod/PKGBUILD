@@ -2,49 +2,38 @@
 
 pkgname=kmod
 pkgver=33
-pkgrel=1
+pkgrel=2
 pkgdesc="Linux kernel module management tools and library"
 arch=('x86_64')
 url='https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git'
 license=('LGPL-2.1-or-later' 'GPL-2.0-or-later')
 depends=('glibc' 'zlib' 'openssl' 'xz' 'zstd')
-makedepends=('scdoc')
+makedepends=('git' 'scdoc')
 checkdepends=('linux-headers' 'libelf')
 options=('strip')
-provides=('module-init-tools=3.16' 'libkmod.so')
-conflicts=('module-init-tools')
-replaces=('module-init-tools')
+provides=('libkmod.so')
 validpgpkeys=('EAB33C9690013C733916AC839BA2A5A630CBEA53')  # Lucas DeMarchi
-source=("https://www.kernel.org/pub/linux/utils/kernel/${pkgname}/${pkgname}-${pkgver}.tar."{xz,sign}
-        '0001-test-user-path.patch'
+source=("git+https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git#tag=v${pkgver}?signed"
         'depmod-search.conf'
         'depmod.hook'
         'depmod.script')
-md5sums=('c451c4aa61521adbe8af147f498046f8'
-         'SKIP'
-         '0360aff69475ebf35b1e85eac2602708'
-         'dd62cbf62bd8f212f51ef8c43bec9a77'
-         'e179ace75721e92b04b2e145b69dab29'
-         'b00253ca0d4ebfb2414e4596597bdebd')
-sha256sums=('dc768b3155172091f56dc69430b5481f2d76ecd9ccb54ead8c2540dbcf5ea9bc'
-            'SKIP'
-            '1297d45ba9cabb88edecebdbf4431b7b384bbab976d117d5ef1f44988a04895d'
+sha256sums=('f5795fe50a747609d70f764244e645cd946074e70a7e51de0f82bd2e4d0612c8'
             '1a92bfeae870f61ce814577e69d2a147a9c0caf6aed1131243e4179241fcc4a8'
             'c11c2a0f66ea405493e8617689ca10818dc81dd1dddc19bdb220c8b2917119c1'
             'd2cd04a09feba30e1376144a8110ec7521892acb0940c3c4ba459aeecf0452ed')
 
 prepare() {
-  cd "${pkgname}-${pkgver}"
+  cd "${pkgname}"
 
-  patch -Np1 < ../0001-test-user-path.patch
+  touch libkmod/docs/gtk-doc.make
+  autoreconf --force --install --symlink
 }
 
 build() {
-  cd "${pkgname}-${pkgver}"
+  cd "${pkgname}"
 
   ./configure \
     --sysconfdir='/etc' \
-    --with-module-directory='/usr/lib/modules' \
     --with-xz \
     --with-zlib \
     --with-zstd \
@@ -69,11 +58,11 @@ check() {
   local kver kdir="${kdirs[0]%/Makefile}"
   IFS=/ read _ _ _ kver _ <<<"${kdir}"
 
-  make -C "${pkgname}-${pkgver}" check KDIR="${kdir}" KVER="${kver}"
+  make -C "${pkgname}" check KDIR="${kdir}" KVER="${kver}"
 }
 
 package() {
-  make -C "${pkgname}-${pkgver}" DESTDIR="${pkgdir}" install
+  make -C "${pkgname}" DESTDIR="${pkgdir}" install
 
   # extra directories
   install -dm0755 "${pkgdir}"/{etc,usr/lib}/{depmod,modprobe}.d
