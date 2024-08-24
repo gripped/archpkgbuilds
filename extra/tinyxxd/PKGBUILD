@@ -1,16 +1,16 @@
 # Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
 
 pkgname=tinyxxd
-pkgver=1.3.4
+pkgver=1.3.5
 pkgrel=1
 pkgdesc='Standalone version of the hex dump utility that comes with ViM'
 arch=(x86_64)
 url='https://github.com/xyproto/tinyxxd'
 provides=(xxd)
 conflicts=(xxd)
-license=(GPL-2.0-only)
+license=(GPL-2.0-only MIT)
 source=("$url/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('5c9bf4868b6e02f6247594d3067a788a6455937d95a7bc7c5e553350e9e544888f50bef1ff866a11bddbe9c9606746fc9837ecb1469e53e987b205574a80841e')
+b2sums=('3f04d20a66ff58aaa155a724b4e1932a2b34543681997423c08e966ba47adb1bb83b65d358ba705703192d7d71c1f5249ccdc86f4b5c0ee4df94a5988ab88ae9')
 
 build() {
   make -C $pkgname-$pkgver
@@ -20,5 +20,7 @@ package() {
   cd $pkgname-$pkgver
   DESTDIR="$pkgdir" make install
   install -Dm644 $pkgname.1 "$pkgdir/usr/share/man/$pkgname/man1/$pkgname.1"
+  install -Dm644 AUTHORS.md "$pkgdir/usr/share/licenses/$pkgname/AUTHORS.md"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
   ln -s /usr/bin/tinyxxd "$pkgdir/usr/bin/xxd"
 }
