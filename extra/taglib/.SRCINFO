@@ -1,6 +1,6 @@
 pkgbase = taglib
 	pkgdesc = A Library for reading and editing the meta-data of several popular audio formats
-	pkgver = 2.0.1
+	pkgver = 2.0.2
 	pkgrel = 1
 	url = https://taglib.github.io/
 	arch = x86_64
@@ -8,12 +8,13 @@ pkgbase = taglib
 	license = MPL-1.1
 	checkdepends = cppunit
 	makedepends = cmake
+	makedepends = git
 	makedepends = utf8cpp
 	depends = gcc-libs
 	depends = glibc
 	depends = sh
 	depends = zlib
-	source = https://taglib.github.io/releases/taglib-2.0.1.tar.gz
-	sha256sums = 08c0a27b96aa5c4e23060fe0b6f93102ee9091a9385257b9d0ddcf467de0d925
+	source = git+https://github.com/taglib/taglib#tag=v2.0.2
+	sha256sums = 05ae54e76c2a1b259e17c5ba6f1d0a408759b02fe42af4b74e8eecaacef6a85e
 
 pkgname = taglib
