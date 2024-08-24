@@ -1,26 +1,52 @@
-# Maintainer: Eric Bélanger <eric@archlinux.org>
+# Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=lincity-ng
-pkgver=2.0
-pkgrel=10
+pkgver=2.11.1
+pkgrel=1
 pkgdesc="A city simulation game"
 arch=('x86_64')
-url="https://sourceforge.net/projects/lincity-ng.berlios/"
-license=('GPL' 'custom')
-depends=('sdl_mixer' 'sdl_ttf' 'sdl_image' 'physfs' 'libxml2' 'sdl_gfx' 'libgl')
-makedepends=('ftjam' 'mesa' 'glu')
-source=(https://sourceforge.net/projects/${pkgname}.berlios/files/${pkgname}-${pkgver}.tar.bz2)
-sha256sums=('a6b206a5dfc7a817669f4fc7cbc012bd4a7073c42f918ceb2f1f484cc0b06606')
+url="https://github.com/lincity-ng/lincity-ng"
+license=(
+  'CC-BY-SA-2.0'
+  'GPL-2.0-or-later'
+  'LicenseRef-ArevFontsCopyright'
+  'LicenseRef-BitstreamVeraFontsCopyright'
+)
+depends=(
+  'gcc-libs'
+  'glibc'
+  'hicolor-icon-theme'
+  'libglvnd'
+  'libxml2'
+  'physfs'
+  'sdl2'
+  'sdl2_gfx'
+  'sdl2_image'
+  'sdl2_mixer'
+  'sdl2_ttf'
+  'zlib'
+)
+makedepends=(
+  'cmake'
+  'libxslt'
+)
+source=("$url/archive/$pkgname-$pkgver.tar.gz")
+sha256sums=('536eae1bc4f7a7a42ab330f9650d3608ae963e3464177068c4d8a9ce916e9f42')
 
 build() {
-  cd ${pkgname}-${pkgver}
-  ./configure --prefix=/usr
-  jam
+  cd ${pkgname}-${pkgname}-${pkgver}
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev
+  cmake --build build
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  jam -sprefix="${pkgdir}/usr" install
-  install -D -m644 COPYING-data.txt "${pkgdir}/usr/share/licenses/${pkgname}/COPYING-data.txt"
-  install -D -m644 COPYING-fonts.txt "${pkgdir}/usr/share/licenses/${pkgname}/COPYING-fonts.txt"
+  cd ${pkgname}-${pkgname}-${pkgver}
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" COPYING-data.txt
+  install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" COPYING-fonts.txt
 }
