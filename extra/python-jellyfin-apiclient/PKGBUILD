@@ -1,0 +1,24 @@
+# Maintainer: Giovanni Harting <anonfunc@archlinux.org>
+# Contributor: Marius Lindvall <(firstname) {cat} varden {dog} info>
+
+pkgname=python-jellyfin-apiclient
+pkgver=1.10.0
+pkgrel=1
+pkgdesc='Python API client for Jellyfin'
+arch=(any)
+url=https://github.com/iwalton3/jellyfin-apiclient-python
+license=(GPL-3.0-only)
+depends=(python python-requests python-urllib3 python-websocket-client python-certifi)
+makedepends=(python-build python-installer python-wheel python-setuptools)
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
+b2sums=('a75d30956fb4d862b9c458d33ac9607d17fb9a1394a81bed2f04f53c9c6a73c5caccdcc3d4c1f6f845260f079ed39697229524de0d96d808c1451ca6406f23df')
+
+build() {
+	cd jellyfin-apiclient-python-$pkgver
+	python -m build --wheel --no-isolation
+}
+
+package() {
+	cd jellyfin-apiclient-python-$pkgver
+	python -m installer --destdir="$pkgdir" dist/*.whl
+}
