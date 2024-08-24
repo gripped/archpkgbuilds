@@ -80,14 +80,3 @@ diff -ur dvd+rw-tools-7.1-orig/growisofs_mmc.cpp dvd+rw-tools-7.1/growisofs_mmc.
  	    atexit (plus_r_finalize);
  	    if (next_wr_addr)
  	    {	atsignals (no_r_finalize);
-diff -ur dvd+rw-tools-7.1-orig/transport.hxx dvd+rw-tools-7.1/transport.hxx
---- dvd+rw-tools-7.1-orig/transport.hxx	2008-03-01 11:34:43.000000000 +0100
-+++ dvd+rw-tools-7.1/transport.hxx	2009-09-06 20:53:53.000000000 +0200
-@@ -9,6 +9,7 @@
- #if defined(__unix) || defined(__unix__)
- #include <stdio.h>
- #include <stdlib.h>
-+#include <limits.h>
- #include <unistd.h>
- #include <string.h>
- #include <sys/types.h>
