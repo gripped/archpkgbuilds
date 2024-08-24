@@ -5,7 +5,7 @@
 
 pkgname=git-delta
 _pkgname=delta
-pkgver=0.18.0
+pkgver=0.18.1
 pkgrel=1
 pkgdesc='Syntax-highlighting pager for git and diff output'
 arch=(x86_64)
@@ -21,8 +21,8 @@ makedepends=(cargo
              mdbook)
 checkdepends=(git)
 source=("$_url/archive/$pkgver/$_pkgname-$pkgver.tar.gz")
-sha512sums=('8119b294e0428d6ad05701619bede453bd211897bc01964fc73a9a424dd20d195bc7b9464225143bc404ad20e6bfffb9ee5a0f3de93e28bf5fb0d062a98286a6')
-b2sums=('b892618d55daf20f3439115df61ba7455fa12e1f3ce5f944c97cd46c432389a2a46b555fb016ea7620f0b1c020b8cc96bd633372734d27e1d7bba394f8b19e5e')
+sha512sums=('545d753b5e9981d87f356e123d3e7f99340adbca5b963e67a2fa5291cc4e6a175462554c50733ad30931e39e7e615bcd0cfb1490c26968b12fe172edddf352e7')
+b2sums=('1ee2f6215a2e7db7c0388fceff3e8eee6371a8946a8a100552ba3b0850fcdee2b45b6c1e12dd9902674c92816ca55247f4884ba849d96087214c03feb30f880f')
 
 prepare() {
   cd "$_pkgname-$pkgver"
