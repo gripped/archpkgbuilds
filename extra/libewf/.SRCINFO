@@ -1,16 +1,17 @@
 pkgbase = libewf
 	pkgdesc = A library for support of the Expert Witness Compression Format (EWF)
-	pkgver = 20140608
-	pkgrel = 7
-	url = https://github.com/libyal/libewf/
+	pkgver = 20140814
+	pkgrel = 1
+	url = https://github.com/libyal/libewf-legacy
 	arch = x86_64
-	license = LGPL3
+	license = LGPL-3.0-or-later
 	makedepends = fuse2
-	depends = util-linux
-	depends = zlib
+	makedepends = git
 	depends = bzip2
+	depends = glibc
+	depends = zlib
 	optdepends = fuse2: to be able to use ewfmount
-	source = https://pkgs.fedoraproject.org/repo/pkgs/libewf/libewf-20140608.tar.gz/fdf615f23937fad8e02b60b9e3e5fb35/libewf-20140608.tar.gz
-	sha256sums = d14030ce6122727935fbd676d0876808da1e112721f3cb108564a4d9bf73da71
+	source = libewf-20140814.tar.gz::https://github.com/libyal/libewf-legacy/archive/20140814.tar.gz
+	sha256sums = 0bf0c8ccc4cce1ed1b8fbd27813fe4c84dbc10d58d4065104cf2a1d9c417dab4
 
 pkgname = libewf
