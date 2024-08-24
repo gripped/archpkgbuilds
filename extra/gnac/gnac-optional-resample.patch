@@ -1,0 +1,433 @@
+From fcc20d0f949dd795d18849f42abc6b776cbf5fd7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 24 Aug 2024 11:53:54 +0200
+Subject: [PATCH] Add option to disable resample
+
+Modifying the channels and the sample rate is not needed for most cases. Disable it by default.
+---
+ data/profiles/base.xml.in                     |  5 ++
+ data/profiles/default/CD_Quality,_AAC.xml.in  |  3 +-
+ .../default/CD_Quality,_Lossless.xml.in       |  3 +-
+ .../profiles/default/CD_Quality,_Lossy.xml.in |  3 +-
+ data/profiles/default/CD_Quality,_MP3.xml.in  |  3 +-
+ data/profiles/default/Voice,_Lossless.xml.in  |  3 +-
+ data/profiles/default/Voice,_Lossy.xml.in     |  3 +-
+ data/profiles/profile-base-save.xml           |  1 +
+ .../ui/gnac-profiles-base-advanced.xml        | 68 +++++++++++--------
+ src/profiles/gnac-profiles-default.c          | 37 ++++++++--
+ src/profiles/gnac-profiles-utils.c            | 11 ++-
+ src/profiles/gnac-profiles-utils.h            |  4 +-
+ 12 files changed, 100 insertions(+), 44 deletions(-)
+
+diff --git a/data/profiles/base.xml.in b/data/profiles/base.xml.in
+index 04e61f6..985f9fa 100755
+--- a/data/profiles/base.xml.in
++++ b/data/profiles/base.xml.in
+@@ -1,6 +1,11 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <audio-profiles>
+   <preset-variables>
++    <variable id="resample" type="check">
++      <name>Override channels and sample rate</name>
++      <variable-name>resample</variable-name>
++      <default-value>false</default-value>
++    </variable>
+     <variable id="channels" type="combo">
+       <name>Channels</name>
+       <variable-name>channels</variable-name>
+diff --git a/data/profiles/default/CD_Quality,_AAC.xml.in b/data/profiles/default/CD_Quality,_AAC.xml.in
+index e7a4239..cd5967e 100644
+--- a/data/profiles/default/CD_Quality,_AAC.xml.in
++++ b/data/profiles/default/CD_Quality,_AAC.xml.in
+@@ -6,9 +6,10 @@
+     <format-extension>m4a</format-extension>
+     <_name>CD Quality, AAC</_name>
+     <_description>Used for converting to CD-quality audio, but with the lossy AAC codec. Use this for preparing files for copying to devices that only support the AAC codec. Note that using this format may be illegal in your jurisdiction; contact your lawyer for advice.</_description>
++    <resample>false</resample>
+     <channels>2</channels>
+     <sample-rate>44100</sample-rate>
+-    <pipeline>audioconvert ! audioresample ! audio/x-raw, rate=44100, channels=2 ! audioconvert ! audioresample ! faac bitrate=128000 ! audio/mpeg, mpegversion=4, stream-format=adts ! aacparse</pipeline>
++    <pipeline>audioconvert ! audioresample ! faac bitrate=128000 ! audio/mpeg, mpegversion=4, stream-format=adts ! aacparse</pipeline>
+   </base>
+   <format-specific>
+     <bitrate>128000</bitrate>
+diff --git a/data/profiles/default/CD_Quality,_Lossless.xml.in b/data/profiles/default/CD_Quality,_Lossless.xml.in
+index a26ae5a..c7d303e 100644
+--- a/data/profiles/default/CD_Quality,_Lossless.xml.in
++++ b/data/profiles/default/CD_Quality,_Lossless.xml.in
+@@ -6,9 +6,10 @@
+     <format-extension>flac</format-extension>
+     <_name>CD Quality, Lossless</_name>
+     <_description>Used for converting to CD-quality audio, but with a lossless compression codec. Use this if you later want to edit the file or burn it to CD.</_description>
++    <resample>false</resample>
+     <channels>2</channels>
+     <sample-rate>44100</sample-rate>
+-    <pipeline>audioconvert ! audioresample ! audio/x-raw, rate=44100, channels=2 ! audioconvert ! audioresample ! flacenc name=enc quality=5</pipeline>
++    <pipeline>audioconvert ! audioresample ! flacenc name=enc quality=5</pipeline>
+   </base>
+   <format-specific>
+     <quality>5</quality>
+diff --git a/data/profiles/default/CD_Quality,_Lossy.xml.in b/data/profiles/default/CD_Quality,_Lossy.xml.in
+index e3a7be9..3fdd196 100644
+--- a/data/profiles/default/CD_Quality,_Lossy.xml.in
++++ b/data/profiles/default/CD_Quality,_Lossy.xml.in
+@@ -6,9 +6,10 @@
+     <format-extension>oga</format-extension>
+     <_name>CD Quality, Lossy</_name>
+     <_description>Used for converting to CD-quality audio, but with a lossy compression codec. Use this for CD extraction and radio recordings.</_description>
++    <resample>false</resample>
+     <channels>2</channels>
+     <sample-rate>44100</sample-rate>
+-    <pipeline>audioconvert ! audioresample ! audio/x-raw, rate=44100, channels=2 ! audioconvert ! audioresample ! vorbisenc name=enc quality=0.5 ! oggmux</pipeline>
++    <pipeline>audioconvert ! audioresample ! vorbisenc name=enc quality=0.5 ! oggmux</pipeline>
+   </base>
+   <format-specific>
+     <quality>0.5</quality>
+diff --git a/data/profiles/default/CD_Quality,_MP3.xml.in b/data/profiles/default/CD_Quality,_MP3.xml.in
+index 85def17..d45a2c6 100644
+--- a/data/profiles/default/CD_Quality,_MP3.xml.in
++++ b/data/profiles/default/CD_Quality,_MP3.xml.in
+@@ -6,9 +6,10 @@
+     <format-extension>mp3</format-extension>
+     <_name>CD Quality, MP3</_name>
+     <_description>Used for converting to CD-quality audio, but with the lossy MP3 codec. Use this for preparing files for copying to devices that only support the MP3 codec. Note that using this format may be illegal in your jurisdiction; contact your lawyer for advice.</_description>
++    <resample>false</resample>
+     <channels>2</channels>
+     <sample-rate>44100</sample-rate>
+-    <pipeline>audioconvert ! audioresample ! audio/x-raw, rate=44100, channels=2 ! audioconvert ! audioresample ! lamemp3enc name=enc target=quality quality=4 ! xingmux ! id3v2mux</pipeline>
++    <pipeline>audioconvert ! audioresample ! lamemp3enc name=enc target=quality quality=4 ! xingmux ! id3v2mux</pipeline>
+   </base>
+   <format-specific>
+     <target>quality</target>
+diff --git a/data/profiles/default/Voice,_Lossless.xml.in b/data/profiles/default/Voice,_Lossless.xml.in
+index 130892f..8a56651 100644
+--- a/data/profiles/default/Voice,_Lossless.xml.in
++++ b/data/profiles/default/Voice,_Lossless.xml.in
+@@ -6,9 +6,10 @@
+     <format-extension>wav</format-extension>
+     <_name>Voice, Lossless</_name>
+     <_description>Used for converting to lossless voice-quality audio. Use this for recording and editing speech.</_description>
++    <resample>false</resample>
+     <channels>2</channels>
+     <sample-rate>44100</sample-rate>
+-    <pipeline>audioconvert ! audioresample ! audio/x-raw, rate=44100, channels=2 ! audioconvert ! audioresample ! wavenc name=enc</pipeline>
++    <pipeline>audioconvert ! audioresample ! wavenc name=enc</pipeline>
+   </base>
+   <format-specific>
+   </format-specific>
+diff --git a/data/profiles/default/Voice,_Lossy.xml.in b/data/profiles/default/Voice,_Lossy.xml.in
+index bd59ca8..e23f393 100644
+--- a/data/profiles/default/Voice,_Lossy.xml.in
++++ b/data/profiles/default/Voice,_Lossy.xml.in
+@@ -6,9 +6,10 @@
+     <format-extension>spx</format-extension>
+     <_name>Voice, Lossy</_name>
+     <_description>Used for converting to lossy voice-quality audio. Use this for recording speech that doesn't need to be edited.</_description>
++    <resample>false</resample>
+     <channels>2</channels>
+     <sample-rate>44100</sample-rate>
+-    <pipeline>audioconvert ! audioresample ! audio/x-raw, rate=44100, channels=2 ! audioconvert ! audioresample ! speexenc name=enc quality=8 vad=false mode=0 ! oggmux</pipeline>
++    <pipeline>audioconvert ! audioresample ! speexenc name=enc quality=8 vad=false mode=0 ! oggmux</pipeline>
+   </base>
+   <format-specific>
+     <bitrate-cbr/>
+diff --git a/data/profiles/profile-base-save.xml b/data/profiles/profile-base-save.xml
+index 2816e7e..cb771c8 100644
+--- a/data/profiles/profile-base-save.xml
++++ b/data/profiles/profile-base-save.xml
+@@ -6,6 +6,7 @@
+     <format-extension></format-extension>
+     <name></name>
+     <description></description>
++    <resample></resample>
+     <channels></channels>
+     <sample-rate></sample-rate>
+     <pipeline></pipeline>
+diff --git a/data/profiles/ui/gnac-profiles-base-advanced.xml b/data/profiles/ui/gnac-profiles-base-advanced.xml
+index 4fb28ab..872400c 100755
+--- a/data/profiles/ui/gnac-profiles-base-advanced.xml
++++ b/data/profiles/ui/gnac-profiles-base-advanced.xml
+@@ -1,88 +1,96 @@
+ <?xml version="1.0" encoding="UTF-8"?>
++<!-- Generated with glade 3.40.0 -->
+ <interface>
+-  <!-- interface-requires gtk+ 3.0 -->
++  <requires lib="gtk+" version="3.0"/>
++  <!-- n-columns=3 n-rows=4 -->
+   <object class="GtkGrid" id="table-advanced-base">
+     <property name="visible">True</property>
+-    <property name="can_focus">False</property>
++    <property name="can-focus">False</property>
+     <property name="hexpand">True</property>
+-    <property name="row_spacing">5</property>
+-    <property name="column_spacing">10</property>
++    <property name="row-spacing">5</property>
++    <property name="column-spacing">10</property>
++    <child>
++      <object class="GtkCheckButton" id="checkbutton-resample">
++        <property name="label" translatable="yes">Override channels and sample rate</property>
++        <property name="visible">True</property>
++        <property name="can-focus">True</property>
++        <property name="receives-default">False</property>
++        <property name="draw-indicator">True</property>
++      </object>
++      <packing>
++        <property name="left-attach">0</property>
++        <property name="top-attach">0</property>
++        <property name="width">2</property>
++      </packing>
++    </child>
+     <child>
+       <object class="GtkHBox" id="hbox-sample-rate">
+         <property name="visible">True</property>
+-        <property name="can_focus">False</property>
++        <property name="can-focus">False</property>
+         <property name="hexpand">True</property>
+         <child>
+           <object class="GtkComboBoxText" id="combo-sample-rate">
+             <property name="visible">True</property>
+-            <property name="can_focus">False</property>
++            <property name="can-focus">False</property>
+           </object>
+           <packing>
+             <property name="expand">False</property>
+             <property name="fill">False</property>
+-            <property name="pack_type">end</property>
++            <property name="pack-type">end</property>
+             <property name="position">0</property>
+           </packing>
+         </child>
+       </object>
+       <packing>
+-        <property name="left_attach">1</property>
+-        <property name="top_attach">1</property>
+-        <property name="width">1</property>
+-        <property name="height">1</property>
++        <property name="left-attach">1</property>
++        <property name="top-attach">2</property>
+       </packing>
+     </child>
+     <child>
+       <object class="GtkHBox" id="hbox-channels">
+         <property name="visible">True</property>
+-        <property name="can_focus">False</property>
++        <property name="can-focus">False</property>
+         <property name="hexpand">True</property>
+         <child>
+           <object class="GtkComboBoxText" id="combo-channels">
+             <property name="visible">True</property>
+-            <property name="can_focus">False</property>
++            <property name="can-focus">False</property>
+           </object>
+           <packing>
+             <property name="expand">False</property>
+             <property name="fill">False</property>
+-            <property name="pack_type">end</property>
++            <property name="pack-type">end</property>
+             <property name="position">0</property>
+           </packing>
+         </child>
+       </object>
+       <packing>
+-        <property name="left_attach">1</property>
+-        <property name="top_attach">0</property>
+-        <property name="width">1</property>
+-        <property name="height">1</property>
++        <property name="left-attach">1</property>
++        <property name="top-attach">1</property>
+       </packing>
+     </child>
+     <child>
+       <object class="GtkLabel" id="label-sample-rate">
+         <property name="visible">True</property>
+-        <property name="can_focus">False</property>
+-        <property name="xalign">0</property>
++        <property name="can-focus">False</property>
+         <property name="label" translatable="yes">Sample rate</property>
++        <property name="xalign">0</property>
+       </object>
+       <packing>
+-        <property name="left_attach">0</property>
+-        <property name="top_attach">1</property>
+-        <property name="width">1</property>
+-        <property name="height">1</property>
++        <property name="left-attach">0</property>
++        <property name="top-attach">2</property>
+       </packing>
+     </child>
+     <child>
+       <object class="GtkLabel" id="label-channels">
+         <property name="visible">True</property>
+-        <property name="can_focus">False</property>
+-        <property name="xalign">0</property>
++        <property name="can-focus">False</property>
+         <property name="label" translatable="yes">Channels</property>
++        <property name="xalign">0</property>
+       </object>
+       <packing>
+-        <property name="left_attach">0</property>
+-        <property name="top_attach">0</property>
+-        <property name="width">1</property>
+-        <property name="height">1</property>
++        <property name="left-attach">0</property>
++        <property name="top-attach">1</property>
+       </packing>
+     </child>
+   </object>
+diff --git a/src/profiles/gnac-profiles-default.c b/src/profiles/gnac-profiles-default.c
+index 04b8266..0a02352 100755
+--- a/src/profiles/gnac-profiles-default.c
++++ b/src/profiles/gnac-profiles-default.c
+@@ -32,6 +32,22 @@
+ #include "libgnac-debug.h"
+ 
+ 
++static void
++gnac_profiles_default_resample_on_toggle(BasicFormatInfo *bfi)
++{
++  GtkWidget *widget;
++
++  widget = gnac_profiles_utils_get_widget(bfi, "checkbutton-resample");
++  gboolean resample = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
++
++  widget = gnac_profiles_utils_get_widget(bfi, "combo-channels");
++  gtk_widget_set_sensitive(widget, resample);
++
++  widget = gnac_profiles_utils_get_widget(bfi, "combo-sample-rate");
++  gtk_widget_set_sensitive(widget, resample);
++}
++
++
+ static void
+ gnac_profiles_default_init_ui(BasicFormatInfo *bfi,
+                               XMLDoc          *base_values_doc)
+@@ -53,6 +69,12 @@ gnac_profiles_default_init_ui(BasicFormatInfo *bfi,
+       "properties-table-advanced");
+   gtk_grid_attach(GTK_GRID(widget), profile_advanced_base_widget, 0, 0, 2, 1);
+ 
++  GtkWidget *check_button = gnac_profiles_utils_get_widget(bfi, "checkbutton-resample");
++  g_signal_connect_swapped(check_button, "toggled", G_CALLBACK(gnac_profiles_default_resample_on_toggle), bfi);
++  gnac_profiles_default_resample_on_toggle(bfi);
++
++  gnac_profiles_utils_init_base_widget(bfi->builder, base_values_doc,
++      "checkbutton-resample", "//variable[@id='resample']");
+   gnac_profiles_utils_init_base_widget(bfi->builder, base_values_doc,
+       "combo-channels", "//variable[@id='channels']");
+   gnac_profiles_utils_init_base_widget(bfi->builder, base_values_doc,
+@@ -115,13 +137,16 @@ gnac_profiles_default_generate_pipeline(BasicFormatInfo *bfi)
+ {
+   GtkWidget *widget;
+   
++  widget = gnac_profiles_utils_get_widget(bfi, "checkbutton-resample");
++  gboolean resample = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
++
+   widget = gnac_profiles_utils_get_widget(bfi, "combo-channels");
+   gchar *channels = gnac_profiles_utils_get_value_combo(widget);
+   
+   widget = gnac_profiles_utils_get_widget(bfi, "combo-sample-rate");
+   gchar *rate = gnac_profiles_utils_get_value_combo(widget);
+ 
+-  gchar *pipeline = gnac_profiles_utils_get_basepipeline(channels, rate);
++  gchar *pipeline = gnac_profiles_utils_get_basepipeline(resample, channels, rate);
+ 
+   g_free(channels);
+   g_free(rate);
+@@ -144,7 +169,7 @@ void
+ gnac_profiles_default_reset_ui(BasicFormatInfo *bfi)
+ {
+   gnac_profiles_utils_reset_values(bfi,
+-      "combo-channels", "combo-sample-rate", NULL);
++      "checkbutton-resample", "combo-channels", "combo-sample-rate", NULL);
+ }
+ 
+ 
+@@ -155,6 +180,7 @@ gnac_profiles_default_init_fields(AudioProfileGeneric *profile,
+   g_return_if_fail(profile);
+ 
+   gnac_profiles_utils_set_values(bfi,
++      "checkbutton-resample", profile->resample,
+       "combo-channels", profile->channels,
+       "combo-sample-rate", profile->rate, NULL);
+ }
+@@ -169,6 +195,8 @@ gnac_profiles_default_generate_audio_profile(BasicFormatInfo *bfi)
+   profile->format_id = g_strdup(bfi->format_id);
+   profile->format_name = g_strdup(bfi->format_name);
+   profile->pipeline = g_strdup(bfi->pipeline);
++  profile->resample = g_strdup(gtk_toggle_button_get_active(
++          GTK_TOGGLE_BUTTON(gnac_profiles_utils_get_widget(bfi, "checkbutton-resample"))) ? "true" : "false");
+   profile->channels = gnac_profiles_utils_get_value_combo(
+       gnac_profiles_utils_get_widget(bfi, "combo-channels"));
+   profile->rate = gnac_profiles_utils_get_value_combo(
+@@ -186,7 +214,7 @@ gnac_profiles_default_save_profile(AudioProfileGeneric *profile,
+   XMLDoc *doc = gnac_profiles_xml_engine_load_doc_xpath(
+       PKGDATADIR "/profiles/profile-base-save.xml");
+   gnac_profiles_xml_engine_modify_values(doc, "/audio-profile/base/*",
+-      generic->pipeline, generic->rate, generic->channels,
++      generic->pipeline, generic->rate, generic->channels, generic->resample,
+       generic->description, generic->name, generic->extension,
+       generic->format_name, generic->format_id, NULL);
+   return doc;
+@@ -211,6 +239,7 @@ gnac_profiles_default_load_generic_audio_profile(const gchar          *filename,
+       "format-extension", &profile->extension,
+       "name", &profile->name,
+       "description", &profile->description,
++      "resample", &profile->resample,
+       "channels", &profile->channels,
+       "sample-rate", &profile->rate,
+       "pipeline", &profile->pipeline,
+@@ -232,5 +261,5 @@ gnac_profiles_default_clean_up(BasicFormatInfo *bfi)
+   gtk_widget_destroy(widget);
+ 
+   gnac_profiles_utils_free_values(bfi,
+-      "combo-channels", "combo-sample-rate", NULL);
++      "checkbutton-resample", "combo-channels", "combo-sample-rate", NULL);
+ }
+diff --git a/src/profiles/gnac-profiles-utils.c b/src/profiles/gnac-profiles-utils.c
+index e038765..f312a29 100755
+--- a/src/profiles/gnac-profiles-utils.c
++++ b/src/profiles/gnac-profiles-utils.c
+@@ -468,11 +468,16 @@ gnac_profiles_utils_init_raw_audioconvert(XMLDoc *doc)
+ 
+ 
+ gchar *
+-gnac_profiles_utils_get_basepipeline(const gchar *channels,
++gnac_profiles_utils_get_basepipeline(const gboolean resample,
++                                     const gchar *channels,
+                                      const gchar *rate)
+ {
+-  return g_strconcat(audioconvert, " ! ", audioresample, " ! ", raw, ", rate=", rate,
+-      ", channels=", channels, " ! ", audioconvert, " ! ", audioresample, NULL);
++  if (resample) {
++    return g_strconcat(audioconvert, " ! ", audioresample, " ! ", raw, ", rate=", rate,
++        ", channels=", channels, " ! ", audioconvert, " ! ", audioresample, NULL);
++  } else {
++    return g_strconcat(audioconvert, " ! ", audioresample, NULL);
++  }
+ }
+ 
+ 
+diff --git a/src/profiles/gnac-profiles-utils.h b/src/profiles/gnac-profiles-utils.h
+index 9e6608d..ff8ad1f 100755
+--- a/src/profiles/gnac-profiles-utils.h
++++ b/src/profiles/gnac-profiles-utils.h
+@@ -47,6 +47,7 @@ typedef struct _audio_profile_generic
+   gchar    *format_name;
+   gchar    *extension;
+   gchar    *pipeline;
++  gchar    *resample;
+   gchar    *rate;
+   gchar    *channels;
+   gpointer *user_data;
+@@ -117,7 +118,8 @@ void
+ gnac_profiles_utils_init_raw_audioconvert(XMLDoc *doc);
+ 
+ gchar *
+-gnac_profiles_utils_get_basepipeline(const gchar *channels,
++gnac_profiles_utils_get_basepipeline(const gboolean resample,
++                                     const gchar *channels,
+                                      const gchar *rate);
+ 
+ gchar *
+-- 
+2.46.0
+
