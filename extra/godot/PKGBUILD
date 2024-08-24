@@ -7,15 +7,14 @@
 
 pkgname=godot
 pkgver=4.3
-pkgrel=2
+pkgrel=3
 pkgdesc='Advanced cross-platform 2D and 3D game engine'
 url='https://godotengine.org/'
 license=(MIT)
 arch=(x86_64)
 makedepends=(alsa-lib pulseaudio scons yasm)
 depends=(brotli ca-certificates embree freetype2 graphite harfbuzz harfbuzz-icu libglvnd libspeechd
-         libsquish libtheora libvorbis libwebp libwslay libxcursor libxi
-         libxinerama libxrandr mbedtls openxr miniupnpc pcre2)
+         libsquish libtheora libvorbis libwebp libwslay libxcursor libxi libxinerama libxrandr openxr miniupnpc pcre2)
 optdepends=('pipewire-alsa: for audio support'
             'pulse-native-provider: for audio support')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/godotengine/godot/archive/$pkgver-stable.tar.gz")
@@ -33,6 +32,7 @@ build() {
   cd $pkgname-$pkgver-stable
   export BUILD_NAME=arch_linux
   # Not unbundled (yet):
+  #  mbedtls
   #  enet (contains no upstreamed IPv6 support)
   #  AUR: libwebm, rvo2
   #  recastnavigation, xatlas
@@ -58,7 +58,7 @@ build() {
     builtin_libvorbis=no \
     builtin_libwebp=no \
     builtin_wslay=yes \
-    builtin_mbedtls=no \
+    builtin_mbedtls=yes \
     builtin_miniupnpc=no \
     builtin_openxr=no \
     builtin_pcre2=no \
