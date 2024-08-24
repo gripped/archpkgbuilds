@@ -4,8 +4,8 @@
 # Contributor: Giulio Bai <giulio@hewle.com>
 
 pkgname=accerciser
-pkgver=3.42.0+r100+g6e6256e
-pkgrel=2
+pkgver=3.44.1
+pkgrel=1
 pkgdesc="Interactive Python accessibility explorer for the GNOME desktop"
 url="https://wiki.gnome.org/Apps/Accerciser"
 arch=(any)
@@ -14,6 +14,7 @@ depends=(
   at-spi2-core
   dconf
   gdk-pixbuf2
+  glib2
   gobject-introspection-runtime
   gtk3
   hicolor-icon-theme
@@ -24,9 +25,11 @@ depends=(
   python
   python-atspi
   python-cairo
+  python-dbus
   python-gobject
   python-setuptools
   python-traitlets
+  python-xdg
 )
 makedepends=(
   appstream
@@ -35,14 +38,8 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome-extra)
-_commit=6e6256ede8886a56789f315290a1a0d1c9f62b78  # master
-source=("git+https://gitlab.gnome.org/GNOME/accerciser.git#commit=$_commit")
-b2sums=('9358444abd0fed8a382cc7d8b297a102fcd80c12f984231f89f06b4a6c6a5007bd4b058470e5e843da3cf8f5bc061ce897841eeaa8d1513148da594d0b6839be')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/accerciser.git#tag=$pkgver")
+b2sums=('10d641582fe0d8ac7a901b73bc1120804d7fcffd96af80744dba9a5e2fbbd6467de1738eca0e936d6248d078d59eb897ecfd60a7849c19646376648097646b49')
 
 prepare() {
   cd $pkgname
