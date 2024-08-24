@@ -1,11 +1,10 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
-_pyname=scs
-pkgname=python-$_pyname
-pkgver=3.2.6
+pkgname=python-scs
+pkgver=3.2.7
 pkgrel=1
 pkgdesc='Splitting Conic Solver'
-url='https://github.com/cvxgrp/scs/'
+url='https://github.com/bodono/scs-python'
 license=(MIT)
 arch=(x86_64)
 depends=(blas
@@ -13,27 +12,37 @@ depends=(blas
          lapack
          python
          python-scipy)
-makedepends=(meson-python
+makedepends=(git
+             meson-python
              python-build
              python-installer)
 checkdepends=(python-pytest)
-source=(https://pypi.org/packages/source/${_pyname:0:1}/$_pyname/$_pyname-$pkgver.tar.gz)
-sha256sums=('caf6ef48b86e8d4712a3d7b586ffb7a2b413c2a9664ac4da2c8de81dec6a1020')
+source=(git+https://github.com/bodono/scs-python#tag=$pkgver
+        git+https://github.com/cvxgrp/scs)
+sha256sums=('3013f29b276256f8536e38e286e54f48e4c45c13c7ff3568af3d6d46a9b3ffc4'
+            'SKIP')
+
+prepare() {
+  cd scs-python
+  git submodule init
+  git submodule set-url scs_source "$srcdir"/scs
+  git -c protocol.file.allow=always submodule update
+}
 
 build() {
-  cd $_pyname-$pkgver
+  cd scs-python
   python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
-  cd $_pyname-$pkgver
+  cd scs-python
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m pytest -v
 }
 
 package() {
-  cd $_pyname-$pkgver
+  cd scs-python
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
 }
