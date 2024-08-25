@@ -3,17 +3,18 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 # Contributor: dorphell <dorphell@archlinux.org>
 
-pkgname=cdrdao
+pkgbase=cdrdao
+pkgname=('cdrdao' 'gcdmaster')
 pkgver=1.2.5
-pkgrel=3
+pkgrel=6
 arch=('x86_64')
-license=('GPL')
+license=('GPL-2.0-or-later')
 url="http://cdrdao.sourceforge.net/"
 pkgdesc='Records audio/data CD-Rs in disk-at-once (DAO) mode'
-depends=('gcc-libs' 'lame' 'libmad' 'libvorbis' 'libao')
-makedepends=('gtkmm3')
-optdepends=('gtkmm3: for gcdmaster')
-source=(https://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.bz2
+depends=('atkmm' 'cairomm' 'dconf' 'gcc-libs' 'glib2' 'glibc' 'glibmm' 'gtk3' 'gtkmm3' 'lame'
+         'libao' 'libmad' 'libsigc++' 'libvorbis' 'pangomm')
+options=('!emptydirs')
+source=(https://downloads.sourceforge.net/${pkgbase}/${pkgbase}-${pkgver}.tar.bz2
         https://github.com/cdrdao/cdrdao//commit/251a40ab.patch
         cdrdao-1.2.3-autoconf-update.patch
         cdrdao-1.2.3-k3b.patch)
@@ -23,7 +24,7 @@ sha256sums=('d19b67c853c5dba2406afaab6cd788e77f35eebe634cac4679528477c7be01b6'
             '6eddd7c79f548b3ad1d8d4ce23367bcae3cd6dee74f0aeb6439758d6599090e0')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgbase}-${pkgver}
   
   patch -Np1 -i ../cdrdao-1.2.3-autoconf-update.patch
   patch -Np1 -i ../cdrdao-1.2.3-k3b.patch
@@ -32,16 +33,29 @@ prepare() {
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgbase}-${pkgver}
   ./configure --prefix=/usr \
 	--mandir=/usr/share/man \
 	--sysconfdir=/etc \
-	--without-xdao --with-lame \
-	--with-ogg-support --with-mp3-support
+	--with-lame \
+	--with-ogg-support \
+	--with-mp3-support
   make
 }
 
-package() {
-  cd ${pkgname}-${pkgver}
+package_cdrdao() {
+  depends=('gcc-libs' 'glibc' 'lame' 'libao' 'libmad' 'libvorbis')
+
+  cd ${pkgbase}-${pkgver}
   make DESTDIR="${pkgdir}" install
+  make -C gcdmaster DESTDIR="${pkgdir}" uninstall
+}
+
+package_gcdmaster() {
+  pkgdesc='GUI frontend for creating audio CDs and burning them using cdrdao'
+  depends=('atkmm' 'cairomm' 'cdrdao' 'dconf' 'gcc-libs' 'glib2' 'glibc' 'glibmm' 'gtk3' 'gtkmm3'
+           'libao' 'libmad' 'libsigc++' 'libvorbis' 'pangomm')
+
+  cd ${pkgbase}-${pkgver}
+  make -C gcdmaster DESTDIR="${pkgdir}" install
 }
