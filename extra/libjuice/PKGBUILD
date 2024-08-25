@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Paul-Louis Ageneau <paul-louis at ageneau dot org>
 pkgname=libjuice
-pkgver=1.5.1
+pkgver=1.5.2
 pkgrel=1
 pkgdesc="UDP Interactive Connectivity Establishment (ICE) library"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MPL-2.0')
 makedepends=('cmake')
 depends=('glibc')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/paullouisageneau/libjuice/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('9433db78b3caaab6aa974c47e812d1f337c804b217a1cbfef612dac97430d0bbc5d79cdca5f2493a09dd26f2451f8c31ab319c5fcdf080b0a49d8ae166440eb2')
+sha512sums=('8a7e26daf05219ee2e490052b36be732bad35d570b66e9c08c36e4364ba183a511ea01e4444a8bf94dffd764a3f45f38900f7f4e26a531568b6c3adbd2bd7b53')
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
