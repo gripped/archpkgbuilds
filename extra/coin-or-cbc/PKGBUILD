@@ -4,7 +4,7 @@
 
 pkgname=coin-or-cbc
 pkgver=2.10.12
-pkgrel=1
+pkgrel=2
 pkgdesc='COIN-OR branch-and-cut mixed integer programming solver'
 arch=(x86_64)
 url='https://github.com/coin-or/Cbc'
@@ -16,9 +16,9 @@ depends=(coin-or-asl
          coin-or-coinutils
          coin-or-osi
          glibc
-         gcc-libs)
-makedepends=(git
-             nauty)
+         gcc-libs
+         nauty)
+makedepends=(git)
 source=(git+https://github.com/coin-or/Cbc#tag=releases/$pkgver)
 sha256sums=('36ce629474dd1c7bfff0e12c1a405d8046f6f794cdb403a94e9b3aeb09b8ccfa')
 
@@ -27,7 +27,7 @@ build() {
   CFLAGS+=" -Wno-implicit-function-declaration" \
   ./configure --prefix=/usr \
               --enable-cbc-parallel \
-              --with-nauty-lib=/usr/lib/libnauty.a --with-nauty-incdir=/usr/include/nauty
+              --with-nauty-lib=-lnauty --with-nauty-incdir=/usr/include/nauty
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
