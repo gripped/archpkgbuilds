@@ -2,8 +2,8 @@
 # Contributor: Lennard Hofmann
 
 pkgname=wf-recorder
-pkgver=0.4.1
-pkgrel=2
+pkgver=0.5.0
+pkgrel=1
 pkgdesc="Screen recorder for wlroots-based compositors such as sway"
 arch=("x86_64")
 url="https://github.com/ammen99/wf-recorder"
@@ -26,15 +26,8 @@ makedepends=(
 optdepends=(
 	'slurp: Select a region to record'
 )
-source=("$pkgname-$pkgver.tar.gz::https://github.com/ammen99/wf-recorder/archive/v$pkgver.tar.gz"
-         ffmpeg-7.patch)
-sha256sums=('486e9c03693026e7e287e9cddda5b78488b22706aed1ab789e19ffd09e4adfda'
-            'a3542558964c088cd88da521aaa4708b9cb8246803dd8a6367dff25b9c4b3f40')
-
-prepare() {
-  cd $pkgname-$pkgver
-  patch -p1 -i ../ffmpeg-7.patch
-}
+source=("$pkgname-$pkgver.tar.gz::https://github.com/ammen99/wf-recorder/archive/v$pkgver.tar.gz")
+sha256sums=('b9168bfdf41995bce2cfed5487e3ca8f2e75a5661b92cebea086a3468d20d87c')
 
 build() {
 	meson "$pkgname-$pkgver" build \
