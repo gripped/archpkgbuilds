@@ -10,8 +10,8 @@
 # Contributor: SanskritFritz (gmail)
 
 pkgname=bup
-pkgver=0.33.3
-pkgrel=3
+pkgver=0.33.4
+pkgrel=1
 pkgdesc='Efficient backup system based on the git packfile format'
 arch=(x86_64)
 url='https://bup.github.io/'
@@ -28,11 +28,10 @@ optdepends=('python-tornado: for bup web')
 makedepends=(git
              pandoc)
 source=(git+https://github.com/bup/bup#tag=$pkgver)
-sha256sums=('fe5e98c19574ec755baa23500097b385f950e6d0395d18239ef316d1c2757ec5')
+sha256sums=('4d729cb343a59ed3f0170420f78559fe95cc202d5ddfa40878b1eb390692d62d')
 
 prepare() {
   cd $pkgname
-  git cherry-pick -n ac289c3536ab3786a82d8f3b708b0d52d5a57be9 # Fix build with GCC 14
   sed -e 's|-Werror||' -i configure GNUmakefile
 }
 
