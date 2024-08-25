@@ -3,7 +3,7 @@
 
 pkgname=ttf-input
 pkgver=20220502
-pkgrel=3
+pkgrel=5
 pkgdesc='Fonts for code from DJR & Font Bureau'
 arch=('any')
 url='https://input.djr.com/'
@@ -15,11 +15,9 @@ source=("https://sources.archlinux.org/other/packages/ttf-input/Input_Fonts_${pk
 sha256sums=('bc314ea9026fba5134cd2a7ba93a4ec48607f341d32e4eb3dfae20d141cb91b3')
 
 package() {
-  mkdir -p ${pkgdir}/usr/share/fonts/TTF
-  find ${srcdir}/Input_Fonts -name '*.ttf' \
-    -exec cp {} ${pkgdir}/usr/share/fonts/TTF \;
-  chmod 644 ${pkgdir}/usr/share/fonts/TTF/*
-
-  mkdir -p ${pkgdir}/usr/share/licenses/${pkgname}
-  cp ${srcdir}/LICENSE.txt ${pkgdir}/usr/share/licenses/${pkgname}
+    dest_dir="${pkgdir}/usr/share/fonts/${pkgname}"
+    mkdir -p "${dest_dir}"
+    cp -rt "${dest_dir}" "${srcdir}"/Input_Fonts/*
+    find "${dest_dir}" -type f -exec chmod 644 '{}' +
+    install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" "${srcdir}/LICENSE.txt"
 }
