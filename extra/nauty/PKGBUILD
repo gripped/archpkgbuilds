@@ -2,37 +2,32 @@
 
 pkgname=nauty
 epoch=1
-pkgver=2.8.8
+pkgver=2.8.9
 pkgrel=2
 pkgdesc='A program for computing automorphism groups of graphs and digraphs'
 arch=(x86_64)
 url='http://pallini.di.uniroma1.it/'
-license=(Apache)
+license=(Apache-2.0)
 depends=(glibc)
 source=(http://pallini.di.uniroma1.it/nauty${pkgver//./_}.tar.gz)
-sha256sums=('159d2156810a6bb240410cd61eb641add85088d9f15c888cdaa37b8681f929ce')
+sha256sums=('9ac46554c5bb7ecd99601f3c8b4d7857b178059b3eb3a58676ccfdb9d959f403')
  
 build() {
   cd nauty${pkgver//./_}
 
-  export CFLAGS+=' -fPIC -ffat-lto-objects'
-  ./configure --enable-generic
+# Workaround build system discarding LDFLAGS
+  CFLAGS="$CFLAGS $LDFLAGS" \
+  ./configure \
+    --prefix=/usr \
+    --includedir=/usr/include/nauty \
+    --enable-generic
   make
 }
 
 package() {
   cd nauty${pkgver//./_}
 
-  mkdir -p "$pkgdir"/usr/bin
-  for _program in addedgeg amtog biplabg catg complg converseg copyg countg cubhamg deledgeg delptg directg dreadnaut dretodot dretog \
-    genbg genbgL geng genquarticg genrang genspecialg gentourng gentreeg hamheuristic labelg linegraphg listg multig newedgeg \
-    pickg planarg ranlabg shortg showg subdivideg twohamg vcolg watercluster2 NRswitchg;
-  do
-   install -m755 $_program "$pkgdir"/usr/bin/$program
-  done
-  install -Dm644 nauty.a "$pkgdir"/usr/lib/libnauty.a
-  install -Dm644 *.h -t "$pkgdir"/usr/include/nauty
-
+  make DESTDIR="$pkgdir" install
   mkdir -p "$pkgdir"/usr/share/licenses/nauty
   install COPYRIGHT "$pkgdir"/usr/share/licenses/nauty/LICENSE
 }
