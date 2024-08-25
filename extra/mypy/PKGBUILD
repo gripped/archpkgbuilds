@@ -3,7 +3,7 @@
 # Contributor: hexchain <i@hexchain.org>
 
 pkgname=mypy
-pkgver=1.11.1
+pkgver=1.11.2
 pkgrel=1
 pkgdesc='Optional static typing for Python 2 and 3 (PEP484)'
 url="http://www.mypy-lang.org/"
@@ -19,7 +19,7 @@ optdepends=(
   'python-setuptools: for mypyc'
 )
 source=("$pkgname-$pkgver.tar.gz::https://github.com/python/mypy/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('131f4e7667b1284e8f5de61db6a8b3afa1555c6fd4dba86c0deb12e1202b78d5')
+sha256sums=('64bb56c93fbeae322af1bec7105554ac12369687825341cc9b7f0b139b6d688d')
 
 prepare() {
     cd "$pkgname-$pkgver"
