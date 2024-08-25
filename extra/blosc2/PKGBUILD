@@ -2,7 +2,7 @@
 
 pkgname=blosc2
 _name=c-blosc2
-pkgver=2.15.0
+pkgver=2.15.1
 pkgrel=1
 pkgdesc="A fast, compressed, persistent binary data store library for C."
 arch=(x86_64)
@@ -11,8 +11,8 @@ license=(BSD-3-Clause)
 depends=(glibc lz4 zlib zstd)
 makedepends=(cmake)
 source=(https://github.com/Blosc/$_name/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('9b28a933f3f639e8b5adcd7fa7917b683636dccfbb7ac94198ce90219b9655ac180fd36962719f2f546cf07d1c4ceb16da7469f7256d72287a045d0feacc8147')
-b2sums=('1a6948a4a7815c10e22e4ee44cb05badadee9162e6e4adf60fee75eb1001a5f6d2a6922826ae49999908b80df7575014151151b91617ce38d744023e4e9f3bbe')
+sha512sums=('56e7395297ce8e336b2e881bf4dae169268ef19328bae8c037aa297696f723196f65eb3f66c03728d1c6492b768e17ad586f8aae29c9033b571f736d391e9ab9')
+b2sums=('0009afc8e9357a9d9787a60ee549bb21d68e952ca076f529add0f67500f2055a43463b3d612b600197579fd640b937024070508cb92b911d77e8ff4d8c7f16e5')
 
 build() {
   cmake -B build -S $_name-$pkgver \
