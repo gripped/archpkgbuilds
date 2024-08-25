@@ -2,7 +2,7 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=imagemagick
-pkgver=7.1.1.36
+pkgver=7.1.1.37
 pkgrel=1
 _relname=ImageMagick-${pkgver%%.*}
 _tarname=ImageMagick-${pkgver%.*}-${pkgver##*.}
@@ -35,6 +35,7 @@ optdepends=('ghostscript: PS/PDF support'
             'libraw: DNG support'
             'librsvg: SVG support'
             'libtiff: TIFF support'
+            'libultrahdr: UHDR support'
             'libwebp: WEBP support'
             'libwmf: WMF support'
             'libzip: OpenRaster support'
@@ -58,6 +59,7 @@ makedepends=(chrpath
              libjxl
              libraw
              librsvg
+             libultrahdr
              libwebp
              libwmf
              libzip
@@ -70,7 +72,7 @@ checkdepends=(gsfonts
 replaces=(imagemagick-doc)
 source=(https://imagemagick.org/archive/$_tarname.tar.xz{,.asc}
         arch-fonts.diff)
-sha256sums=('ca2b4c0144a75b90ec49a098c33eb3b811a28f7e2cd0139ef67dc4abf830870f'
+sha256sums=('685072c6e425faa62b4d0814f9d44b5d62e8b9b5d866efc160180e55a42f7fdb'
             'SKIP'
             'a85b744c61b1b563743ecb7c7adad999d7ed9a8af816650e3ab9321b2b102e73')
 validpgpkeys=(D8272EF51DA223E4D05B466989AB63D48277377A)  # Lexie Parsimoniae
@@ -111,6 +113,7 @@ build() {
     --with-perl \
     --with-perl-options='INSTALLDIRS=vendor INSTALL_BASE=' \
     --with-rsvg \
+    --with-uhdr \
     --with-webp \
     --with-wmf \
     --with-xml \
