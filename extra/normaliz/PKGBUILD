@@ -3,19 +3,19 @@
 
 pkgname=normaliz
 pkgver=3.10.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A tool for computations in affine monoids, vector configurations, lattice polytopes, and rational cones'
 arch=(x86_64)
 url='https://www.normaliz.uni-osnabrueck.de/'
 license=(GPL-3.0-or-later)
-depends=(flint
+depends=(e-antic
+         flint
          gcc-libs
          glibc
          gmp
-         e-antic)
+         nauty)
 makedepends=(boost
-             git
-             nauty)
+             git)
 source=(git+https://github.com/Normaliz/Normaliz#tag=v$pkgver)
 sha256sums=('a12ba6bbdfa93d8222d0388be3068f6a7de72396a0a96f4835ff1502dc1e1ad5')
 
