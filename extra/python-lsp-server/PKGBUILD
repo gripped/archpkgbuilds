@@ -3,8 +3,8 @@
 # Contributor: Platon Pronko <platon7pronko@gmail.com>
 
 pkgname=python-lsp-server
-pkgver=1.11.0
-pkgrel=3
+pkgver=1.12.0
+pkgrel=1
 pkgdesc="Fork of the python-language-server project, maintained by the Spyder IDE team and the community"
 arch=(any)
 url="https://github.com/python-lsp/python-lsp-server"
@@ -42,8 +42,8 @@ checkdepends=(
     python-pyqt5
     python-appdirs
 )
-source=(https://files.pythonhosted.org/packages/source/${pkgname::1}/${pkgname}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('89edd6fb3f7852e4bf5a3d1d95ea41484d1a28fa94b6e3cbff12b9db123b8e86')
+source=(https://github.com/python-lsp/python-lsp-server/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('dda5419df2dc0ff23f26724fc39f1884cccc6cc4dd922afbfcd099d21e349219')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -58,6 +58,7 @@ prepare() {
 
 build() {
   cd ${pkgname}-${pkgver}
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver \
   python -m build -wn
 }
 
