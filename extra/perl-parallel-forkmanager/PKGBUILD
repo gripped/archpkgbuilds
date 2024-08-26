@@ -2,8 +2,8 @@
 # Contributor: 3ED <krzysztof1987 at gmail dot com>
 
 pkgname=perl-parallel-forkmanager
-pkgver=2.02
-pkgrel=6
+pkgver=2.03
+pkgrel=1
 pkgdesc="A simple parallel processing fork manager"
 arch=('any')
 url="https://metacpan.org/release/Parallel-ForkManager"
@@ -12,7 +12,7 @@ depends=('perl' 'perl-moo')
 checkdepends=('perl-test-warn')
 options=('!emptydirs')
 source=(https://cpan.metacpan.org/authors/id/Y/YA/YANICK/Parallel-ForkManager-$pkgver.tar.gz)
-sha256sums=('c1b2970a8bb666c3de7caac4a8f4dbcc043ab819bbc337692ec7bf27adae4404')
+sha256sums=('c0e0bead458224b9ac5bb32ed2b1fa088963b565521c1bb1a6a3566d522c2e35')
 
 build() {
   cd Parallel-ForkManager-$pkgver
