@@ -2,10 +2,10 @@
 
 _hkgname=primitive-extras
 pkgname=haskell-primitive-extras
-pkgver=0.10.1.10
-pkgrel=22
+pkgver=0.10.2
+pkgrel=1
 pkgdesc='Extras for the "primitive" library'
-url="https://github.com/metrix-ai/primitive-extras"
+url="https://github.com/nikita-volkov/primitive-extras"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-cereal' 'haskell-deferred-folds' 'haskell-focus' 'haskell-foldl'
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-cereal' 'haskell-deferred-folds' 'haskell-focus' 'h
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-rerebase' 'haskell-tasty'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('14f95972c51a7453573770cec6f345720ea83f375e03f7f1535c34de46a903ad')
+sha256sums=('1e5b16bbdd895fc56c74636a70814669339506967d3539a3c0adbc26487bfd7c')
 
 prepare() {
   cd $_hkgname-$pkgver
