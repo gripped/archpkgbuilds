@@ -2,18 +2,21 @@
 # Contributor: ObserverOfTime <chronobserver@disroot.org>
 
 pkgname=tree-sitter-python
-pkgver=0.21.0
-pkgrel=2
+pkgver=0.23.0
+pkgrel=1
 pkgdesc='Python grammar for tree-sitter'
-arch=('x86_64')
+arch=(x86_64)
 url=https://github.com/tree-sitter/tree-sitter-python
-license=('MIT')
-groups=('tree-sitter-grammars')
-makedepends=('git' 'tree-sitter-cli')
+license=(MIT)
+groups=(tree-sitter-grammars)
+makedepends=(
+  git
+  tree-sitter-cli
+)
 optdepends=('tree-sitter: core library')
 provides=("lib$pkgname.so")
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('c23d8f5b72a88ad49238217717fa69489f79b3bcd35472f953ebf8271d54710dcd0c0dcc3e601a4fca583a49dc7c054483c7f3aec879b4f24013866215341bd4')
+b2sums=('8e4dd1af1cbae2af00633a0ff68c40d3a9939e1cc12174c123ae7946459c51c82f0253b20af0aea5b4b44b479eec2a7dc7a7c4673e6906f5f25a8a24298dbda6')
 
 prepare() {
   cd $pkgname
