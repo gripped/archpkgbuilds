@@ -1,4 +1,7 @@
 [oxc]
 source = "git"
 git = "https://github.com/oxc-project/oxc.git"
-prefix = "v"
+prefix = "oxlint_v"
+include_regex = "oxlint_v.*"
+from_pattern = 'oxlint_v([\d.]+)'
+to_pattern = '\1'
