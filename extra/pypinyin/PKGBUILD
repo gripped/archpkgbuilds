@@ -2,37 +2,39 @@
 # Contributor: Štěpán Němec <stepnem@gmail.com>
 
 pkgname=pypinyin
-pkgver=0.50.0
-pkgrel=3
+pkgver=0.51.0
+pkgrel=1
 pkgdesc='Chinese characters transliteration module and tool'
 arch=('any')
 url='https://github.com/mozillazg/python-pinyin'
 license=('MIT')
 depends=('python')
-makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel' 'phrase-pinyin-data' 'pinyin-data')
+makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel'
+             'phrase-pinyin-data' 'pinyin-data')
 checkdepends=('python-pytest-cov')
-source=("https://github.com/mozillazg/python-pinyin/archive/v$pkgver/python-pinyin-$pkgver.tar.gz")
-sha256sums=('aa6cfc7faba074d370565fe9a5e044efba097dff61ba7968ef8704f7db12c1e8')
+source=("git+https://github.com/mozillazg/python-pinyin.git#tag=v$pkgver")
+sha256sums=('a564c80affdf9774a612143426b5b0b0a0ae619762d97b331da33696fbabc6c3')
 
 prepare() {
-  cd python-pinyin-$pkgver
+  cd python-pinyin
+  sed -i 's/: sync_submodule/:/' Makefile
   ln -s /usr/share/pinyin-data/pinyin.txt pinyin-data/
   ln -s /usr/share/phrase-pinyin-data/pinyin.txt phrase-pinyin-data/
 }
 
 build() {
-  cd python-pinyin-$pkgver
+  cd python-pinyin
   make gen_data
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd python-pinyin-$pkgver
+  cd python-pinyin
   pytest pypinyin tests
 }
 
 package() {
-  cd python-pinyin-$pkgver
+  cd python-pinyin
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
 }

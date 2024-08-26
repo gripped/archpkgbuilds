@@ -1,11 +1,12 @@
 pkgbase = pypinyin
 	pkgdesc = Chinese characters transliteration module and tool
-	pkgver = 0.50.0
-	pkgrel = 3
+	pkgver = 0.51.0
+	pkgrel = 1
 	url = https://github.com/mozillazg/python-pinyin
 	arch = any
 	license = MIT
 	checkdepends = python-pytest-cov
+	makedepends = git
 	makedepends = python-setuptools
 	makedepends = python-build
 	makedepends = python-installer
@@ -13,7 +14,7 @@ pkgbase = pypinyin
 	makedepends = phrase-pinyin-data
 	makedepends = pinyin-data
 	depends = python
-	source = https://github.com/mozillazg/python-pinyin/archive/v0.50.0/python-pinyin-0.50.0.tar.gz
-	sha256sums = aa6cfc7faba074d370565fe9a5e044efba097dff61ba7968ef8704f7db12c1e8
+	source = git+https://github.com/mozillazg/python-pinyin.git#tag=v0.51.0
+	sha256sums = a564c80affdf9774a612143426b5b0b0a0ae619762d97b331da33696fbabc6c3
 
 pkgname = pypinyin
