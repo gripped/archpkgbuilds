@@ -1,29 +1,29 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-lazy-fixtures
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc="Use fixtures in @pytest.mark.parametrize"
 arch=(any)
 url="https://github.com/dev-petrov/pytest-lazy-fixtures"
 license=(MIT)
 depends=(python python-pytest)
-makedepends=(python-build python-installer python-poetry-core)
-source=(https://github.com/dev-petrov/pytest-lazy-fixtures/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('8df996a6cd3982d954f4f7f928d4e6e86edfd7b5563ca5c84742934707942202')
+makedepends=(git python-build python-installer python-poetry-core)
+source=(git+https://github.com/dev-petrov/pytest-lazy-fixtures.git#tag=$pkgver)
+sha256sums=('985b1a4fd5dbdbc32597e99fb8d048cc2f3a5f2ce5fc455b284ef77269fb9bc7')
 
 build() {
-  cd pytest-lazy-fixtures-$pkgver
+  cd pytest-lazy-fixtures
   python -m build -nw
 }
 
 check() {
-  cd pytest-lazy-fixtures-$pkgver
+  cd pytest-lazy-fixtures
   PYTHONPATH="$PWD" pytest -p pytest_lazy_fixtures.plugin
 }
 
 package() {
-  cd pytest-lazy-fixtures-$pkgver
+  cd pytest-lazy-fixtures
   python -m installer -d "$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
