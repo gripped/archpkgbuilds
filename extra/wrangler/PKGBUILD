@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=wrangler
-pkgver=3.72.1
+pkgver=3.72.2
 pkgrel=1
 _esbuild_ver='0.17.19'
 pkgdesc="The CLI for Cloudflare Workers"
@@ -26,9 +26,9 @@ makedepends=(
 options=(!lto)
 source=(https://github.com/cloudflare/workers-sdk/archive/refs/tags/wrangler@${pkgver}.tar.gz
         "esbuild-${_esbuild_ver}.tar.gz::https://github.com/evanw/esbuild/archive/v${_esbuild_ver}.tar.gz")
-sha256sums=('3f26e8d68274daf5d29098a99dfe6744e8e9660ab8aa26ecf7173ba2db2f3208'
+sha256sums=('5f3a5dedf95eddd8fbe126ded471ab7e0eaf12ee13169a6eb9466f5489498c96'
             '481201f00848594f5850ac32ddf9d4d21047e5a4c306485fb7461dd4d14d6fa2')
-b2sums=('8ab8f0156193bb8abfd41946f3d2ea4aa4b267aed017f8c66c70372dd8b6d1beabc2f532f8f8e1508823551c93ee92eea51c8213d9ec984fe540b0685347e5a7'
+b2sums=('ba6cc181a1b366e74530b0959535fe293fd04d1a3f4c788a9d1afd8a4a0ac24d9800d8b63e7edb70a544bf4ecb1179adf5ab05a5a88313171ff036ad8009ead8'
         '4c26fdd7dd52706f98c6e9d60e6b3993168b2ffefd35b326e03be806d5083adcb50d9cb931f925f551e90aef5392647c99807b73af4075d6d5e2336c565c33ea')
 
 prepare() {
