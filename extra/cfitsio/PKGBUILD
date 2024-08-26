@@ -3,46 +3,40 @@
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=cfitsio
-pkgver=4.4.1
+pkgver=4.5.0
 pkgrel=1
 epoch=1
 pkgdesc='A library of C and Fortran subroutines for reading and writing data files in FITS (Flexible Image Transport System) data format'
 arch=(x86_64)
 url='https://heasarc.gsfc.nasa.gov/fitsio/'
-license=(custom)
+license=(LicenseRef-cfitsio)
 depends=(curl
          glibc
          zlib)
+makedepends=(cmake)
 source=(https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/$pkgname-$pkgver.tar.gz)
-sha256sums=('66a1dc3f21800f9eeabd9eac577b91fcdd9aabba678fbba3b8527319110d1d25')
+sha256sums=('e4854fc3365c1462e493aa586bfaa2f3d0bb8c20b75a524955db64c27427ce09')
 
 prepare() {
-  cd $pkgname-$pkgver
-  sed -e 's|LDFLAGS=.*|LDFLAGS="$LDFLAGS"|g' -i configure.in # Fix LDFLAGS
-  autoreconf -vi
+# Fix install dir for pc and cmake files
+  sed -e 's|/lib/|/|g' -i $pkgname-$pkgver/CMakeLists.txt
 }
 
 build() {
-  cd $pkgname-$pkgver
-  ./configure --prefix=/usr --enable-reentrant
-  make shared
-  make utils
+  cmake -B build -S $pkgname-$pkgver \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DUSE_PTHREADS=ON \
+    -DTESTS=ON \
+    -DUTILS=ON
+  cmake --build build
 }
 
 check() {
-  cd $pkgname-$pkgver
-  LD_LIBRARY_PATH=. ./testprog > testprog.lis
-  [[ -z $(diff testprog.lis testprog.out) ]] || return 1
-  [[ -z $(cmp testprog.fit testprog.std) ]] || return 1
+  cd build
+  ctest
 }
 
 package() {
-  cd $pkgname-$pkgver
-  make DESTDIR="$pkgdir" install
-
-  install -D -m644 licenses/* \
-    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
-
-# Fix conflicts with ccfits and smem
-  rm "$pkgdir"/usr/bin/{cookbook,smem,testprog}
+  DESTDIR="$pkgdir" cmake --install build
+  install -D -m644 $pkgname-$pkgver/licenses/* "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }

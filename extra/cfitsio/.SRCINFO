@@ -1,15 +1,16 @@
 pkgbase = cfitsio
 	pkgdesc = A library of C and Fortran subroutines for reading and writing data files in FITS (Flexible Image Transport System) data format
-	pkgver = 4.4.1
+	pkgver = 4.5.0
 	pkgrel = 1
 	epoch = 1
 	url = https://heasarc.gsfc.nasa.gov/fitsio/
 	arch = x86_64
-	license = custom
+	license = LicenseRef-cfitsio
+	makedepends = cmake
 	depends = curl
 	depends = glibc
 	depends = zlib
-	source = https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-4.4.1.tar.gz
-	sha256sums = 66a1dc3f21800f9eeabd9eac577b91fcdd9aabba678fbba3b8527319110d1d25
+	source = https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-4.5.0.tar.gz
+	sha256sums = e4854fc3365c1462e493aa586bfaa2f3d0bb8c20b75a524955db64c27427ce09
 
 pkgname = cfitsio
