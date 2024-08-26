@@ -4,20 +4,20 @@
 
 pkgbase=racket
 pkgname=('racket' 'racket-minimal')
-pkgver=8.13
+pkgver=8.14
 pkgrel=1
 pkgdesc='A full-spectrum language with DrRacket IDE'
 arch=('x86_64')
 url='https://racket-lang.org/'
-license=('Apache' 'GPL3' 'LGPL3' 'custom')
+license=('Apache-2.0' 'GPL-3.0-only' 'LGPL-3.0-only' 'custom')
 depends=('gtk3')
 makedepends=('gsfonts' 'sqlite')
 options=('!strip' '!emptydirs')
 conflicts=('racket-docs')
 replaces=('racket-docs')
 source=("https://download.racket-lang.org/installers/${pkgver}/${pkgname}-${pkgver}-src.tgz")
-sha512sums=('cc638190288b08eb59ddb77d4d11f17d9edd9626f2c486c5af0a0767c2cc4824e709001d577a9a373046e80235cecdfc7862bddcb3ef0092b5a8bae1a4bbe692')
-b2sums=('627eb1f52549b2cab403c4eaeff37a3ddca4ba6faa820890589765491db148899b7511fc6c5988487539cf595984794b90273b4e80ca8adf3f6e051c170fa3f9')
+sha512sums=('0ff773b9456d9cf02af6fd018ef2a79d387dd8c7213d63955c88aa0a0f936a7611d5ab7e778f1ac4be493f5d21411d937d5c15e38d9e066c5e4d071797805367')
+b2sums=('d2318ca876d3212b3ad6a4849ce41e3bf3e266b595bbe89baf6c8712a7020b003c451c328d74effe7e2d9ff014376b3da1cc392708fabb635f4d08676cb9693e')
 
 prepare() {
   cd "$pkgbase-$pkgver"
