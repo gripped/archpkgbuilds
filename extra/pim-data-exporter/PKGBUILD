@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=pim-data-exporter
-pkgver=24.05.2
+pkgver=24.08.0
 pkgrel=1
 pkgdesc='Import and export KDE PIM settings'
 arch=(x86_64)
@@ -21,6 +21,7 @@ depends=(akonadi-mime
          kcrash
          kdbusaddons
          ki18n
+         kiconthemes
          kidentitymanagement
          kio
          kitemviews
@@ -40,7 +41,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-pim)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('cfe9446a82bb55f211990e2555dcc9785853ec6187a9eeabd4f7b5de4bf1c7cd'
+sha256sums=('3125a2192289418c08e72552604c7104f2e8f30f4c3d7c181a1749a88b4cb1f5'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
