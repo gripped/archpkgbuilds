@@ -1,48 +1,39 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 
 pkgname=box2d
-pkgver=2.4.2
+pkgver=3.0.0
 pkgrel=1
 pkgdesc="2D rigid body simulation library for games"
 url="http://www.box2d.org/"
 license=('MIT')
 arch=('x86_64')
 depends=('gcc-libs')
-makedepends=('cmake' 'doctest' 'doxygen' 'ninja')
+makedepends=('cmake' 'ninja' 'git' 'wayland'
+             'libxinerama' 'libxkbcommon' 'libxkbcommon-x11' 'libxt'
+             'xorg-xrandr' 'libxcursor' 'xorg-xinput' 'glfw')
 # We're going to this alternate fork until the patches are upstreamed.
 # See https://github.com/erincatto/box2d/issues/621
 source=("$pkgname-$pkgver.tar.gz::https://github.com/erincatto/Box2D/archive/v${pkgver}.tar.gz")
-sha512sums=('e769bcfa11028ea2e842bf96da4bef71a58f1b08cd144139adc724acfe3ca5911f84d0be41d9412b302d9e7c17b7741cf56da60df7bd7379c6e11b3eea100153')
-
-prepare() {
-  # Use system doctest
-  rm  $pkgname-$pkgver/unit-test/doctest.h
-  ln -s /usr/include/doctest/doctest.h $pkgname-$pkgver/unit-test/doctest.h
-}
+sha512sums=('b56e4e79aa3660ee728c1698b7a5256727b505d993103ad3cc6555e9b38cf81e6f26d5cbc717bdc6f386a6062ee47065277778ca6dd78cacb35f2d5e8c897723')
 
 build() {
   cd $pkgname-$pkgver
 
-  cmake . \
+  export CXXFLAGS="$CXXFLAGS -Wno-error=unused-result"
+  cmake \
     -Bbuild \
     -GNinja \
-    -DBOX2D_BUILD_DOCS=ON \
-    -DBOX2D_BUILD_TESTBED=OFF \
     -DBUILD_SHARED_LIBS=ON \
     -DCMAKE_INSTALL_PREFIX=/usr
   ninja -C build
-}
-
-check() {
-  cd $pkgname-$pkgver
-
-  build/bin/unit_test
 }
 
 package() {
   cd $pkgname-$pkgver
 
   DESTDIR="$pkgdir" ninja -C build install
+
+  cp -r include "$pkgdir"/usr/
   install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/box2d/LICENSE
 }
 
