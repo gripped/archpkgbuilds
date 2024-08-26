@@ -5,8 +5,8 @@
 
 pkgname=rawtherapee
 epoch=1
-pkgver=5.10
-pkgrel=2
+pkgver=5.11
+pkgrel=1
 pkgdesc='A powerful cross-platform raw image processing program'
 arch=('x86_64')
 url='https://www.rawtherapee.com/'
@@ -14,18 +14,9 @@ license=('GPL3')
 depends=('exiv2' 'fftw' 'gtk3' 'glibmm' 'gtkmm3' 'lcms2' 'lensfun' 'libcanberra'
          'libiptcdata' 'desktop-file-utils' 'hicolor-icon-theme')
 makedepends=('cmake')
-source=("https://github.com/Beep6581/RawTherapee/releases/download/${pkgver}/rawtherapee-$pkgver.tar.xz"
-        '0001-jpeg-turbo.patch')
-sha1sums=('d3ea8ba31bbe34f3387df4b3f11c645678ef1b56'
-          '38c1409719cb6fac0e1ac3ffda6789ec1d05e06a')
-sha256sums=('a799b53cd54dba4a211479e342ffc9c5db1c44d3d6c3a27d5cc13adf0debd2da'
-            'cd627950bc622ff53dc0ee4aea234543994c887bbbd9b6c0af8bc59b30959ef3')
-
-prepare() {
-  cd "$srcdir/$pkgname-$pkgver"
-
-  patch -Np1 < ../0001-jpeg-turbo.patch
-}
+source=("https://github.com/Beep6581/RawTherapee/releases/download/${pkgver}/rawtherapee-$pkgver.tar.xz")
+sha1sums=('2cb2932a904660158ee9ae8eafd8c07de77ed195')
+sha256sums=('e584c18dec112de29954b2b6471449a302a85e5cca4e42ede75fa333a36de724')
 
 build() {
   mkdir -p "$srcdir/$pkgname-build"
