@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=francis
-pkgver=24.05.2
+pkgver=24.08.0
 pkgrel=1
 pkgdesc='Track your time'
 url='https://apps.kde.org/francis/'
@@ -22,11 +22,9 @@ depends=(gcc-libs
 makedepends=(extra-cmake-modules)
 groups=(kde-applications
         kde-utilities)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
-        dependencies.patch)
-sha256sums=('3e1350cb43e64e88e26a0780c522d28b99d20afadc187893d92067e61ee9e96d'
-            'SKIP'
-            '82c92854d3e4e071806727b25c1c28254b6dd22c2f28353446db55f1df165772')
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('d666a84b37e0e5f872905186b4fa6e2808b9c76cbaa85f213f999ba03e1fd8af'
+            'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
