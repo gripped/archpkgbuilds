@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=spectacle
-pkgver=24.05.2
+pkgver=24.08.0
 pkgrel=1
 pkgdesc='KDE screenshot capture utility'
 arch=(x86_64)
@@ -22,12 +22,14 @@ depends=(gcc-libs
          knotifications
          kpipewire
          kservice
+         kstatusnotifieritem
          kwidgetsaddons
          kwindowsystem
          kxmlgui
          layer-shell-qt
          libxcb
          opencv
+         prison
          purpose
          qt6-base
          qt6-declarative
@@ -36,15 +38,14 @@ depends=(gcc-libs
          wayland
          xcb-util
          xcb-util-cursor
-         xcb-util-image
-         zxing-cpp)
+         xcb-util-image)
 makedepends=(extra-cmake-modules
              kdoctools
              plasma-wayland-protocols)
 groups=(kde-applications
         kde-graphics)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('14c1435fb057aa3d088529e28b6407b9f4f89d5f5399d58859044c2b75476d82'
+sha256sums=('8d37135c6edd62f09f5e6004bef947331466cf20fded79450500dc802dd1ad8c'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
