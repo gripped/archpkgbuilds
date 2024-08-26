@@ -2,7 +2,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kdevelop-php
-pkgver=24.05.2
+pkgver=24.08.0
 pkgrel=1
 pkgdesc='PHP language and documentation plugin for KDevelop'
 arch=(x86_64)
@@ -10,25 +10,24 @@ url='http://www.kdevelop.org/'
 license=(GPL-2.0-or-later)
 depends=(gcc-libs
          glibc
-         kcmutils5
-         kconfig5
-         kconfigwidgets5
-         kcoreaddons5
+         kconfig
+         kcoreaddons
          kdevelop
-         ki18n5
-         kio5
-         ktexteditor5
-         kwidgetsaddons5
-         kxmlgui5
-         qt5-base
-         threadweaver5)
+         ki18n
+         kio
+         ktexteditor
+         kwidgetsaddons
+         kxmlgui
+         qt6-5compat
+         qt6-base
+         threadweaver)
 makedepends=(extra-cmake-modules
              kdevelop-pg-qt
              kdoctools)
 groups=(kde-applications
         kdevelop)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/kdev-php-$pkgver.tar.xz{,.sig})
-sha256sums=('74f3c4aa72444a68d1dd4c21e248d244f1256c6c28867306e767b501037afb68'
+sha256sums=('3ac3aee8b14e726224551d524b1b4b698e30d4e58f51f2187d43377a632d1fcd'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
