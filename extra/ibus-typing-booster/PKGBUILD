@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=ibus-typing-booster
-pkgver=2.25.14
+pkgver=2.25.15
 pkgrel=1
 pkgdesc="Predictive input method for the IBus platform"
 url="https://mike-fabian.github.io/ibus-typing-booster/"
@@ -41,7 +41,7 @@ optdepends=(
   'python-pygame: Audible feedback (sounds)'
 )
 source=("git+https://github.com/mike-fabian/ibus-typing-booster#tag=$pkgver")
-b2sums=('0ffdee13d01fbdb75a8abf2521d0b3869ce5b5543c2aa2451ead3ae2771b915eaa01cbf8cf62b31722f81ca38abb99ab342081c20ed9b8ac6065de60f05ff79c')
+b2sums=('9d53b3433dffd88ccb23178b1b818b09e53c68414ed5f5148fc48c50e9777359ac7f4e5c5bcb12078ca39a6b14525b4351c7b82119c63b6b576fb67af3f23524')
 
 prepare() {
   cd $pkgname
