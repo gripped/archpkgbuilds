@@ -2,7 +2,7 @@
 
 pkgname=gnome-podcasts
 pkgver=0.7.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Podcast application for GNOME'
 arch=(x86_64)
 url='https://apps.gnome.org/Podcasts/'
@@ -29,8 +29,21 @@ makedepends=(
   rust
 )
 checkdepends=(xorg-server-xvfb)
-source=("git+https://gitlab.gnome.org/World/podcasts.git#tag=$pkgver")
-b2sums=(0ef2173b4661b709f0bb976cc82cbbd32571b9ae2d09feacb3100554b6d3012a1aaf4729d49d716468fa8bd7062096b53e3316f7f98c5ef71ea0d231544887a4)
+source=(
+  "git+https://gitlab.gnome.org/World/podcasts.git#tag=$pkgver"
+  gnome-podcasts-desktop-category.patch
+)
+b2sums=(
+  0ef2173b4661b709f0bb976cc82cbbd32571b9ae2d09feacb3100554b6d3012a1aaf4729d49d716468fa8bd7062096b53e3316f7f98c5ef71ea0d231544887a4
+  bc527c5351b13ee1813f30d7e17b58fa5a521d18d2982553a93f6640966b3440798fa2ae3cd13be969be89976657306985eb09dd62a686b23124906093a772fb
+)
+
+prepare() {
+  cd podcasts
+
+  # https://gitlab.gnome.org/World/podcasts/-/merge_requests/394
+  git apply -3 ../gnome-podcasts-desktop-category.patch
+}
 
 build() {
   # Use LTO
