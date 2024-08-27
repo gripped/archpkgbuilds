@@ -1,3 +1,4 @@
+
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
 # Contributor: Ray Rashif <schiv@archlinux.org>
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
@@ -5,7 +6,7 @@
 
 pkgname=skrooge
 pkgver=2.32.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A personal finances manager for KDE"
 arch=('x86_64')
 url="https://skrooge.org/"
@@ -13,7 +14,7 @@ license=('GPL')
 depends=('qt5-base' 'qca-qt5' 'qt5-script' 'qt5-webengine' 'qt5-xmlpatterns' 'libofx'
          'grantlee' 'knewstuff5' 'knotifyconfig5' 'kparts5'
          'sqlcipher' 'python' 'hicolor-icon-theme' 'qt5-quickcontrols2')
-makedepends=('cmake' 'kdoctools5' 'extra-cmake-modules' 'qt5-tools' 'kdesignerplugin')
+makedepends=('cmake' 'kdoctools5' 'extra-cmake-modules' 'qt5-tools')
 options=('!emptydirs')
 changelog=$pkgname.changelog
 source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
@@ -25,6 +26,7 @@ build() {
   cd $pkgname-$pkgver
 
   cmake . -DSKG_WEBENGINE=ON \
+          -DSKG_DESIGNER=OFF \
           -DSKG_BUILD_TEST=OFF
   make
 }
