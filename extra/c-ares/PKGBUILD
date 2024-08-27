@@ -5,7 +5,7 @@
 # Contributor: Alexander Fehr <pizzapunk gmail com>
 
 pkgname=c-ares
-pkgver=1.33.0
+pkgver=1.33.1
 pkgrel=1
 pkgdesc="A C library for asynchronous DNS requests"
 arch=(x86_64)
@@ -21,8 +21,8 @@ provides=(libcares.so)
 source=(
   git+$_url.git?signed#tag=v$pkgver
 )
-sha512sums=('494c7cc2ef3efd60acb7bb81989afd8db513e8b3ae8aae379025676e14b335461e51a3db1df8427e5f1c28a37431865460cb97f533f513daba656641574fb4cd')
-b2sums=('ce89f111183f045e81b1fd11985d3174558802c43e980ee90b466fa104790ef4433f5846c809a5cbd0cc9e2698d53f5ccd9ba6e2ebdc9274420c7310d30500b9')
+sha512sums=('8ad2694d9b0bfedc4e4eaf1fcdffc184a321fb17e7049a52b666d71753d3156c38f3d0cba2632171d3f4f290031358c6fc33af4627a97e1e81fe617d476cfa44')
+b2sums=('73af5643fd70067a263cca4c3fecab2c70c2a9f572252754419d8fc912a7edf6deb5d15332af81f4b46052f2948477b4cf353f95d75486e09eb7e5740627c9c0')
 validpgpkeys=(
   27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2  # Daniel Stenberg <daniel@haxx.se>
   DA7D64E4C82C6294CB73A20E22E3D13B5411B7CA  # Brad House <brad@brad-house.com>
