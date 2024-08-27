@@ -3,7 +3,7 @@
 
 pkgname=quadrapassel
 pkgver=40.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Fit falling blocks together (Tetris-like game for GNOME)"
 url="https://wiki.gnome.org/Apps/Quadrapassel"
 arch=(x86_64)
@@ -11,17 +11,14 @@ license=(GPL)
 depends=(clutter-gtk gsound librsvg libmanette)
 makedepends=(meson gobject-introspection yelp-tools appstream-glib git vala)
 groups=(gnome-extra)
-_commit=51adfcf8097fc17f7df44e228ac715272d07b60e  # tags/40.2^0
-source=("git+https://gitlab.gnome.org/GNOME/quadrapassel.git#commit=$_commit")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/^v//;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/quadrapassel.git#tag=$pkgver")
+b2sums=('9a3e80d1cc1e973e068a547e86fa6b572554dfb5274e8d932305b7d797f8175db35a3dbf45fcba11545e6b17002e8d18ddad44eabc3cc41196bbc68313303b28')
 
 prepare() {
   cd $pkgname
+
+  # Fix segmentation fault when press any key just after application started
+  git cherry-pick -n 8704e0fbcd994df45f2492c58f6ac261bfeb382f
 }
 
 build() {
