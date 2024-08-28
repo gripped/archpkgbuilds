@@ -4,8 +4,8 @@
 # Contributor: Caltlgin Stsodaat <contact@fossdaily.xyz>
 
 pkgname=haruna
-pkgver=1.1.2
-pkgrel=2
+pkgver=1.2.0
+pkgrel=1
 pkgdesc='Video player built with Qt/QML on top of libmpv'
 arch=(x86_64)
 url='https://apps.kde.org/haruna/'
@@ -26,11 +26,10 @@ depends=(ffmpeg
          qt6-5compat
          qt6-base
          qt6-declarative)
-makedepends=(extra-cmake-modules
-             kdoctools)
+makedepends=(extra-cmake-modules)
 optdepends=('yt-dlp: YouTube support')
 source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('cb01323f1195a3d8994121e66492c29d27c021fb2a5784b78ce5c06c0bb88683'
+sha256sums=('4a9fd360d66e00d0f8d7a11e73dd9bfc55e486c0135e8d133de8abeb2ca09d88'
             'SKIP')
 validpgpkeys=(4E421C6554B89766DF9B7A37E12AB207C8755905) # George Florea Bănuș <georgefb899@gmail.com>
 
