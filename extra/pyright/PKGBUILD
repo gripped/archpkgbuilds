@@ -2,7 +2,7 @@
 # Contributor: Kaizhao Zhang <zhangkaizhao@gmail.com>
 
 pkgname=pyright
-pkgver=1.1.377
+pkgver=1.1.378
 pkgrel=1
 pkgdesc='Type checker for the Python language'
 arch=(any)
@@ -14,7 +14,7 @@ makedepends=(
   npm
 )
 source=("git+https://github.com/microsoft/pyright.git#tag=$pkgver")
-b2sums=('a134950645ee5f1f578786dd34be4e3ae87846ef3d11384b94fc115fa0d8dd1ad0aef2cc0ddc00340ed192f09ca4a4a443c279f4745f6681f0da3e4deac2c965')
+b2sums=('e6b572479bcdabf8c63945c77f5a4ff5fcf70627e6845e08d23390c1294953847947b7ccb7cb64bff0d614cc81c63ab8ba1dceadfd6a3505eccea8413fdec67d')
 
 prepare() {
   cd $pkgname
@@ -33,6 +33,7 @@ check() {
 
 package() {
   local mod_dir=/usr/lib/node_modules/$pkgname
+
   install -d "$pkgdir"/{usr/bin,$mod_dir}
   ln -s $mod_dir/index.js "$pkgdir"/usr/bin/$pkgname
   ln -s $mod_dir/langserver.index.js "$pkgdir"/usr/bin/$pkgname-langserver
