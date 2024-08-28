@@ -7,10 +7,10 @@
 # Contributor: mar77i <mar77i at protonmail dot ch>
 
 pkgname=micro
-pkgver=2.0.13
+pkgver=2.0.14
 pkgrel=1
 # manually set date instead of "go run tools/build-date.go", for reproducible builds
-_build_date='October 22, 2023'
+_build_date='August 28, 2024'
 pkgdesc='Modern and intuitive terminal-based text editor'
 arch=(x86_64)
 url='https://micro-editor.github.io/'
@@ -18,14 +18,14 @@ license=(MIT)
 makedepends=(git go)
 optdepends=('wl-clipboard: for copying/pasting text using Wayland'
             'xclip: for copying/pasting text using X')
-source=("git+https://github.com/zyedidia/micro#commit=68d88b571de6dca9fb8f03e2a3caafa2287c38d4") # tag: v2.0.13
-b2sums=('SKIP')
+source=("git+https://github.com/zyedidia/micro#commit=04c577049ca898f097cd6a2dae69af0b4d4493e1") # tag: v2.0.14
+b2sums=('6c1d0fbf3b6830de95cc5bf1bd3905af36dc7a204fc353c8424848015c7ef6056e6d803e998f8dc397322168dc83a2861c75af29ff846c50435a2e5524c1632c')
 
 prepare() {
   cd $pkgname
-  # Let tools/build-date.go always return the same date, to make the package reproducible
+  # Let tools/build-date.go always return the same date, to make the build reproducible
   echo -e '//+build ignore\npackage main\nimport "fmt"\nfunc main() { fmt.Println("'$_build_date'") }' > tools/build-date.go
-  # Modify the Go build flags
+  # Modify Go build flags
   sed -i 's/-trimpath/-buildmode=pie -trimpath/g;s/GS)/GS) -linkmode=external -extldflags \\"$(LDFLAGS)\\"/g' Makefile
 }
 
