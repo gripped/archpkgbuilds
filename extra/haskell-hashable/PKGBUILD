@@ -3,18 +3,19 @@
 
 _hkgname=hashable
 pkgname=haskell-hashable
-pkgver=1.4.3.0
-pkgrel=46
+pkgver=1.4.4.0
+pkgrel=2
 pkgdesc="A class for types that can be converted to a hash value"
 url="https://github.com/haskell-unordered-containers/hashable"
 license=('BSD')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-base-orphans' 'haskell-data-array-byte' 'haskell-ghc-bignum-orphans')
+depends=('ghc-libs' 'haskell-base-orphans' 'haskell-data-array-byte' 'haskell-ghc-bignum-orphans'
+         'haskell-os-string')
 makedepends=('ghc')
 checkdepends=('haskell-hunit' 'haskell-quickcheck' 'haskell-random' 'haskell-test-framework'
               'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('d0256e2611c3fb137809553886a0473c2f1bfdf1395cf2fb08fcb302e17441053083feadc21d31cabb555e51febca6585c84812de357e22615b893f00f26b9bc')
+sha512sums=('e3ef571c1b8faefe247a7b0ac7125eef1f62a87a378cd38a1184a26d9f40760990fba0a2906e47d9f2107cbe596c7e70006dccc7a40e98973c41fa67bc01d02d')
 
 build() {
     cd $_hkgname-$pkgver
