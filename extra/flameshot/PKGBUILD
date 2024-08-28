@@ -1,16 +1,17 @@
 # Maintainer: Jiachen YANG <farseerfc@archlinux.org>
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 # Contributor: xyzzy <628208@gmail.com>
 
 pkgname=flameshot
 pkgver=12.1.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Powerful yet simple to use screenshot software"
 arch=('x86_64')
 url="https://github.com/flameshot-org/flameshot"
-license=('GPL')
+license=('GPL-3.0-or-later')
 depends=('qt5-svg' 'hicolor-icon-theme' 'kguiaddons5')
-makedepends=('make' 'qt5-tools' 'cmake')
+makedepends=('qt5-tools' 'cmake')
 optdepends=(
     'gnome-shell-extension-appindicator: for system tray icon if you are using Gnome'
     'grim: for wlroots wayland support'
