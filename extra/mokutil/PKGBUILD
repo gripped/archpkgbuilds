@@ -1,41 +1,33 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
-# Maintainer: Mantas Mikulėnas <grawity@gmail.com>
+# Contributor: Mantas Mikulėnas <grawity@gmail.com>
 pkgname=mokutil
-pkgver=0.7.0
-pkgrel=1
+pkgver=0.7.2
+pkgrel=2
 pkgdesc="Shim.efi Machine Owner Key management tool"
-arch=(i686 x86_64)
+arch=(x86_64)
 url="https://github.com/lcp/mokutil"
 license=('GPL-3.0-or-later')
 depends=(efivar openssl keyutils libxcrypt)
 makedepends=(git)
-_commit=c361087100fbb6955f32a9f364dee21b24724fb4
-source=("git+https://github.com/lcp/mokutil#commit=$_commit")
-sha256sums=('SKIP')
-validpgpkeys=()
-
-pkgver() {
-  cd "$pkgname"
-  git describe --tags | sed 's/-/.r/; s/-/./'
-}
+source=("git+https://github.com/lcp/mokutil#tag=$pkgver")
+b2sums=('8fc3481b293c5534a354322420e81e5b3f6dd26c3528d2a8792c6d66343c71e093e758f40603465dbf246fed0ba7b229ce7b0ba2cc28229162a00f2ce907e33e')
 
 prepare() {
-  cd "$pkgname"
+  cd "${pkgname}"
   autoreconf -f -i
 }
 
 build() {
-  cd "$pkgname"
+  cd "${pkgname}"
   ./configure \
-    --prefix=/usr           \
-    --sbindir=/usr/bin      \
-    --sysconfdir=/etc       ;
+    --prefix=/usr \
+    --sbindir=/usr/bin \
+    --sysconfdir=/etc
   make
 }
 
 package() {
-  cd "$pkgname"
+  cd "${pkgname}"
   make DESTDIR="$pkgdir" install
 }
 
-# vim: ts=2:sw=2:et
