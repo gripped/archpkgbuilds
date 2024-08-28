@@ -2,7 +2,7 @@
 
 pkgname=kmod
 pkgver=33
-pkgrel=2
+pkgrel=3
 pkgdesc="Linux kernel module management tools and library"
 arch=('x86_64')
 url='https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git'
@@ -20,7 +20,7 @@ source=("git+https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git#tag=v${pk
 sha256sums=('f5795fe50a747609d70f764244e645cd946074e70a7e51de0f82bd2e4d0612c8'
             '1a92bfeae870f61ce814577e69d2a147a9c0caf6aed1131243e4179241fcc4a8'
             'c11c2a0f66ea405493e8617689ca10818dc81dd1dddc19bdb220c8b2917119c1'
-            'd2cd04a09feba30e1376144a8110ec7521892acb0940c3c4ba459aeecf0452ed')
+            '18661aa40c25580f04d2ac3f32e54c2997c0994d1c829905537b413a9d291ac6')
 
 prepare() {
   cd "${pkgname}"
