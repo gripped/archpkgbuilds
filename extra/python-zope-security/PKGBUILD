@@ -1,33 +1,54 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-zope-security
-pkgver=6.2
-pkgrel=3
+_pkgname=zope.security
+pkgver=7.1
+pkgrel=1
 pkgdesc="Zope Security Framework"
 arch=('x86_64')
 url="https://github.com/zopefoundation/zope.security"
 license=('ZPL-2.1')
-depends=('python-setuptools' 'python-zope-component' 'python-zope-i18nmessageid'
-         'python-zope-interface' 'python-zope-location' 'python-zope-proxy' 'python-zope-schema')
-makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
-checkdepends=('python-btrees' 'python-zope-configuration' 'python-zope-testing'
-              'python-zope-testrunner')
-source=("git+https://github.com/zopefoundation/zope.security.git#tag=$pkgver")
-sha512sums=('fa2aaeb9738018ca694d9bbfb0276a0eae90a7095908b13322d0a84706ef52fc98eec7208a66b322bb29f12013b40673138857f8f8df0ccd3e3370a8abde969b')
+depends=(
+  'glibc'
+  'python'
+  'python-zope-component'
+  'python-zope-i18nmessageid'
+  'python-zope-interface'
+  'python-zope-location'
+  'python-zope-proxy'
+  'python-zope-schema'
+)
+makedepends=(
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+checkdepends=(
+  'python-btrees'
+  'python-zope-configuration'
+  'python-zope-testing'
+  'python-zope-testrunner'
+)
+optdepends=('python-zope-configuration: for ZCML support')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
+sha512sums=('606f4f092947e7ac5d941d351f356760c7d0c8d60765569728994fe005ad55ec13fba8da41566058ff1969bff1fc813cfa75c8579fc2ca8194d50eb4acc5e6b7')
 
 build() {
-  cd zope.security
+  cd $_pkgname-$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd zope.security
+  cd $_pkgname-$pkgver
   local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
-  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$python_version" python -m zope.testrunner --test-path=src
+  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$python_version" \
+    zope-testrunner --test-path=src
 }
 
 package() {
-  cd zope.security
+  cd $_pkgname-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
