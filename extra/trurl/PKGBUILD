@@ -3,7 +3,7 @@
 # Contributor: Michael Lass <bevan@bi-co.net>
 
 pkgname=trurl
-pkgver=0.14
+pkgver=0.15
 pkgrel=1
 pkgdesc="Command line tool for URL parsing and manipulation"
 arch=(x86_64)
@@ -11,23 +11,25 @@ url="https://github.com/curl/trurl"
 license=(custom)
 depends=(curl glibc)
 checkdepends=(python valgrind)
-source=("https://github.com/curl/$pkgname/archive/refs/tags/$pkgname-$pkgver.tar.gz")
-sha256sums=('5080ce71984fc620c1d12010c70c22e8020aeeba7009afcdfce7a9ea40caa4d2')
+validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
+source=(https://github.com/curl/$pkgname/releases/download/$pkgname-$pkgver/$pkgname-$pkgver.tar.gz{,.asc})
+sha256sums=('e58d9a698c009b2b1381f5636b5334ce7704ad2cd5ae8d30da97d483518a7f25'
+            'SKIP')
 
 build() {
-	cd "$pkgname-$pkgname-$pkgver"
+	cd "$pkgname-$pkgver"
 	make
 }
 
 check() {
-	cd "$pkgname-$pkgname-$pkgver"
+	cd "$pkgname-$pkgver"
 	make test
 	make test-memory
 }
 
 package() {
-	cd "$pkgname-$pkgname-$pkgver"
+	cd "$pkgname-$pkgver"
 
-	make PREFIX=/usr DESTDIR="$pkgdir/" install
+	make PREFIX=/usr DESTDIR="$pkgdir" install
 	install -Dm644 COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
 }
