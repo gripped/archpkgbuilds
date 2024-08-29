@@ -1,0 +1,6 @@
+[linux-rt]
+source = "git"
+git = "https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt"
+include_regex = '^v[\d.]+-rt([\d]+)-(arch[\d]+)$'
+from_pattern = 'v([\d.]+)-(rt[\d]+)-(arch[\d]+)'
+to_pattern = '\1.\2.\3'
