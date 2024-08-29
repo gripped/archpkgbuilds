@@ -5,7 +5,7 @@
 pkgbase=zabbix
 pkgname=(zabbix-server zabbix-agent{,2} zabbix-proxy zabbix-frontend-php zabbix-web-service)
 pkgver=7.0.3
-pkgrel=1
+pkgrel=3
 arch=(x86_64)
 url='https://www.zabbix.com/'
 license=('GPL-2.0-only')
@@ -166,8 +166,8 @@ package_zabbix-agent() {
 }
 
 package_zabbix-agent2() {
-  pkgdesc='Experimental monitoring agent for Zabbix (Agent 2)'
-  depends=(zabbix-agent)
+  pkgdesc='Monitoring agent for Zabbix (version 2)'
+  depends=(curl pcre2)
   backup=(etc/zabbix/zabbix_agent2.conf)
 
   cd $pkgbase-$pkgver
