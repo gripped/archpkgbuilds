@@ -5,8 +5,8 @@
 # Contributor: David Keogh <davekeogh@archlinux.us>
 
 pkgname=pycharm-community-edition
-pkgver=2024.1.4
-_build=241.18034.82
+pkgver=2024.1.5
+_build=241.18968.29
 _jrever=17
 _jdkver=17
 pkgrel=1
@@ -65,7 +65,7 @@ build() {
   export PATH="/usr/lib/jvm/java-${_jdkver}-openjdk/bin:$PATH"
   export MAVEN_REPOSITORY=/build/.m2/repository
 
-  ./python/installers.cmd -Dintellij.build.use.compiled.classes=false -Dintellij.build.target.os=linux
+  ./python/installers.cmd -Dintellij.build.use.compiled.classes=false -Dintellij.build.target.os=linux -Dbuild.number="${_build}"
 
   tar -xf out/pycharm-ce/artifacts/pycharmPC-${_build}.tar.gz -C "${srcdir}"
 }
