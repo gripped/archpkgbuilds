@@ -1,32 +1,41 @@
 # Maintainer: Anatol Pomozov
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-auth
-pkgver=0.7.1
-pkgrel=2
+pkgver=0.7.26
+pkgrel=1
 pkgdesc='C99 library implementation of AWS client-side authentication: standard credentials providers and signing'
 arch=(x86_64)
 url='https://github.com/awslabs/aws-c-auth'
-license=(Apache)
-depends=(aws-c-common aws-c-http aws-c-sdkutils)
+license=(Apache-2.0)
+depends=(
+  aws-c-cal
+  aws-c-common
+  aws-c-http
+  aws-c-io
+  aws-c-sdkutils
+  glibc
+)
 makedepends=(cmake)
-source=(aws-c-auth-$pkgver.zip::https://github.com/awslabs/aws-c-auth/archive/v$pkgver.zip)
-sha256sums=('79d43cebb3244b3a0667186166f1a3cbc176e9f5b717b275413b5e0458c5127c')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('7ec249622ac4eee38e9f974f9c0e6f3f06f3e3b55eba56e5934b0633f0e5e808')
 
 build() {
-  cd aws-c-auth-$pkgver
-
-  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -S . -B build
+  cd $pkgname-$pkgver
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev \
+    -DBUILD_SHARED_LIBS=ON
   cmake --build build
 }
 
 check() {
-  cd aws-c-auth-$pkgver
+  cd $pkgname-$pkgver
   cmake --build build --target test
 }
 
 package() {
-  cd aws-c-auth-$pkgver
-
-  cmake --build build --target install -- DESTDIR="$pkgdir/"
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  cd $pkgname-$pkgver
+  DESTDIR="$pkgdir" cmake --install build
 }
