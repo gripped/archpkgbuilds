@@ -1,17 +1,13 @@
 pkgbase = upower
 	pkgdesc = Abstraction for enumerating power devices, listening to device events and querying history and statistics
-	pkgver = 1.90.4
+	pkgver = 1.90.5
 	pkgrel = 1
 	url = https://upower.freedesktop.org
 	arch = x86_64
 	license = GPL-2.0-or-later
-	checkdepends = python-dbus
-	checkdepends = python-dbusmock
-	checkdepends = python-gobject
-	checkdepends = python-packaging
-	checkdepends = umockdev
 	makedepends = docbook-xsl
 	makedepends = git
+	makedepends = glib2-devel
 	makedepends = gobject-introspection
 	makedepends = gtk-doc
 	makedepends = meson
@@ -24,10 +20,11 @@ pkgbase = upower
 	depends = libgudev
 	depends = libimobiledevice
 	depends = libplist
+	depends = polkit
 	optdepends = usbmuxd: Read charge status of iOS devices
 	backup = etc/UPower/UPower.conf
-	source = git+https://gitlab.freedesktop.org/upower/upower.git#tag=v1.90.4
-	b2sums = 07acc8046eccaf891f3ae75673b945d00e3ae1071aac1cc9fa28e8c8d8fb31e8fd30f89d3dd0217090729ffa1c5921aa07f69994e42d4c9201fbe953fd6808ce
+	source = git+https://gitlab.freedesktop.org/upower/upower.git#tag=v1.90.5
+	b2sums = 7dd53845a7df3e1c58c00431a329a621df2c034a9cd0ed4d4f5def67d993b05eb7b030abb50fbcfc7af1a432c1413f97905c70b28ca3aef619d148f6ad035669
 
 pkgname = upower
 	depends = gcc-libs
@@ -36,6 +33,7 @@ pkgname = upower
 	depends = libgudev
 	depends = libimobiledevice
 	depends = libplist
+	depends = polkit
 	depends = libglib-2.0.so
 	depends = libgobject-2.0.so
 	depends = libgio-2.0.so

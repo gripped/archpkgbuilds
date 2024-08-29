@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=upower
-pkgver=1.90.4
+pkgver=1.90.5
 pkgrel=1
 pkgdesc="Abstraction for enumerating power devices, listening to device events and querying history and statistics"
 url="https://upower.freedesktop.org"
@@ -15,6 +15,7 @@ depends=(
   libgudev
   libimobiledevice
   libplist
+  polkit
 )
 optdepends=(
   'usbmuxd: Read charge status of iOS devices'
@@ -22,6 +23,7 @@ optdepends=(
 makedepends=(
   docbook-xsl
   git
+  glib2-devel
   gobject-introspection
   gtk-doc
   meson
@@ -29,16 +31,9 @@ makedepends=(
   systemd
   usbmuxd
 )
-checkdepends=(
-  python-dbus
-  python-dbusmock
-  python-gobject
-  python-packaging
-  umockdev
-)
 backup=(etc/UPower/UPower.conf)
 source=("git+https://gitlab.freedesktop.org/upower/upower.git#tag=v$pkgver")
-b2sums=('07acc8046eccaf891f3ae75673b945d00e3ae1071aac1cc9fa28e8c8d8fb31e8fd30f89d3dd0217090729ffa1c5921aa07f69994e42d4c9201fbe953fd6808ce')
+b2sums=('7dd53845a7df3e1c58c00431a329a621df2c034a9cd0ed4d4f5def67d993b05eb7b030abb50fbcfc7af1a432c1413f97905c70b28ca3aef619d148f6ad035669')
 
 prepare() {
   cd upower
@@ -49,9 +44,17 @@ build() {
   meson compile -C build
 }
 
-check() {
-  meson test -C build --print-errorlogs
-}
+# Requires running polkit to succeed
+#checkdepends=(
+#  python-dbus
+#  python-dbusmock
+#  python-gobject
+#  python-packaging
+#  umockdev
+#)
+#check() {
+#  meson test -C build --print-errorlogs
+#}
 
 package() {
   depends+=(libg{lib,object,io}-2.0.so)
