@@ -1,32 +1,34 @@
 # Maintainer: Anatol Pomozov
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-checksums
-pkgver=0.1.17
-pkgrel=2
+pkgver=0.1.18
+pkgrel=1
 pkgdesc='Cross-Platform HW accelerated CRC32c and CRC32 with fallback to efficient SW implementations.'
 arch=(x86_64)
 url='https://github.com/awslabs/aws-checksums'
-license=(Apache)
+license=(Apache-2.0)
 depends=(aws-c-common)
 makedepends=(cmake)
-source=(aws-checksums-$pkgver.zip::https://github.com/awslabs/aws-checksums/archive/v$pkgver.zip)
-sha256sums=('d76a01d61c3123ab7faab0099fe531530d40cd590ad1fc09458289d83528fd43')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('bdba9d0a8b8330a89c6b8cbc00b9aa14f403d3449b37ff2e0d96d62a7301b2ee')
 
 build() {
-  cd aws-checksums-$pkgver
-
-  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -S . -B build
+  cd $pkgname-$pkgver
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev \
+    -DBUILD_SHARED_LIBS=ON
   cmake --build build
 }
 
 check() {
-  cd aws-checksums-$pkgver
+  cd $pkgname-$pkgver
   cmake --build build --target test
 }
 
 package() {
-  cd aws-checksums-$pkgver
-
-  cmake --build build --target install -- DESTDIR="$pkgdir/"
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  cd $pkgname-$pkgver
+  DESTDIR="$pkgdir" cmake --install build
 }
