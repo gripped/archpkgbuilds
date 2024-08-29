@@ -1,32 +1,39 @@
 # Maintainer: Anatol Pomozov
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-mqtt
-pkgver=0.8.14
+pkgver=0.10.4
 pkgrel=1
 pkgdesc='C99 implementation of the MQTT 3.1.1 specification'
 arch=(x86_64)
 url='https://github.com/awslabs/aws-c-mqtt'
-license=(Apache)
-depends=(aws-c-common aws-c-http)
+license=(Apache-2.0)
+depends=(
+  aws-c-common
+  aws-c-http
+  aws-c-io
+  glibc
+)
 makedepends=(cmake)
-source=(aws-c-mqtt-$pkgver.zip::https://github.com/awslabs/aws-c-mqtt/archive/v$pkgver.zip)
-sha256sums=('2aa18d63ae46bc381986c12d7d13adb514f0996e80bf9d22b390902024e51912')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('6a41456f9eee15d71e4e2ee162b354865809f26620f1e6e5acb237f190f77f3f')
 
 build() {
-  cd aws-c-mqtt-$pkgver
-
-  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -S . -B build
+  cd $pkgname-$pkgver
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev \
+    -DBUILD_SHARED_LIBS=ON
   cmake --build build
 }
 
 check() {
-  cd aws-c-mqtt-$pkgver
+  cd $pkgname-$pkgver
   cmake --build build --target test
 }
 
 package() {
-  cd aws-c-mqtt-$pkgver
-
-  cmake --build build --target install -- DESTDIR="$pkgdir/"
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  cd $pkgname-$pkgver
+  DESTDIR="$pkgdir" cmake --install build
 }
