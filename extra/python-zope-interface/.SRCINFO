@@ -1,17 +1,19 @@
 pkgbase = python-zope-interface
 	pkgdesc = Zope Interfaces for Python 3.x
-	pkgver = 6.3
+	pkgver = 7.0.3
 	pkgrel = 1
-	url = https://pypi.python.org/pypi/zope.interface
+	url = https://github.com/zopefoundation/zope.interface
 	arch = x86_64
 	license = ZPL-2.1
 	checkdepends = python-zope-event
 	checkdepends = python-zope-testing
 	makedepends = python-build
 	makedepends = python-installer
+	makedepends = python-setuptools
 	makedepends = python-wheel
-	depends = python-setuptools
-	source = https://pypi.io/packages/source/z/zope.interface/zope.interface-6.3.tar.gz
-	sha512sums = fcc318fd098ca91a4617f2a15123cb727c4ebcdeb56b4e0c59475a55d67afdfeb2f2e2d0fdef462e22236c8733ba2c5982ba72c8e75648be6bf55116f5d39139
+	depends = glibc
+	depends = python
+	source = https://github.com/zopefoundation/zope.interface/archive/7.0.3/python-zope-interface-7.0.3.tar.gz
+	sha512sums = c25b144753cb99686274ff491a8d6b34bd6382c7bd5666376d4244fec49bc4ef6f389012afd74274fdcf400b34e83edbdc8db8b00db8191a8addc4db9664286c
 
 pkgname = python-zope-interface
