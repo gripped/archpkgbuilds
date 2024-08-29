@@ -2,15 +2,13 @@
 
 pkgname=kbd
 pkgver=2.6.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Keytable files and keyboard utilities"
 arch=('x86_64')
 url="http://www.kbd-project.org"
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('glibc' 'pam')
 makedepends=('check' 'git')
-#source=(https://www.kernel.org/pub/linux/utils/${pkgname}/${pkgname}-${pkgver}.tar.gz
-#        https://www.kernel.org/pub/linux/utils/kbd/${pkgname}-${pkgver}.tar.sign
 source=(git+https://git.kernel.org/pub/scm/linux/kernel/git/legion/kbd.git#tag=v$pkgver?signed
         'fix-euro2.patch'
 	'vlock.pam')
@@ -26,7 +24,7 @@ validpgpkeys=(
              )
 
 prepare() {
-  cd ${pkgname}
+  cd "${pkgname}"
   # rename keymap files with the same names
   # this is needed because when only name of keymap is specified
   # loadkeys loads the first keymap it can find, which is bad (see FS#13837)
@@ -42,13 +40,13 @@ prepare() {
 }
 
 build() {
-  cd ${pkgname}
+  cd "${pkgname}"
   ./configure --prefix=/usr --sysconfdir=/etc --datadir=/usr/share/kbd --mandir=/usr/share/man --enable-optional-progs
   make KEYCODES_PROGS=yes RESIZECONS_PROGS=yes
 }
 
 check() {
-  cd ${pkgname}
+  cd "${pkgname}"
 
 # This test is expected to fail since kbd-fix-loadkmap-compat.patch modifies the binary format
   sed -e 's|dumpkeys-bkeymap ||' -i tests/Makefile
@@ -57,7 +55,7 @@ check() {
 }
 
 package() {
-  cd ${pkgname}
+  cd "${pkgname}"
   make KEYCODES_PROGS=yes RESIZECONS_PROGS=yes DESTDIR="${pkgdir}" install
   install -Dm644 ../vlock.pam "${pkgdir}"/etc/pam.d/vlock
 }
