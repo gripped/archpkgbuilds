@@ -5,7 +5,7 @@
 # Contributor: Anton Leontiev <bunder@t-25.ru>
 
 pkgname=graphicsmagick
-pkgver=1.3.43
+pkgver=1.3.45
 pkgrel=1
 pkgdesc='Image processing system'
 url='http://www.graphicsmagick.org/'
@@ -39,7 +39,7 @@ provides=(Magick.so
           libGraphicsMagick++-Q16.so)
 _archive="GraphicsMagick-$pkgver"
 source=("https://downloads.sourceforge.net/project/$pkgname/$pkgname/$pkgver/$_archive.tar.xz")
-sha256sums=('2b88580732cd7e409d9e22c6116238bef4ae06fcda11451bf33d259f9cbf399f')
+sha256sums=('dcea5167414f7c805557de2d7a47a9b3147bcbf617b91f5f0f4afe5e6543026b')
 
 options=('!emptydirs' 'libtool')
 
