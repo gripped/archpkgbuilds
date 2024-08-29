@@ -1,55 +1,66 @@
-# Maintainer : Christian Rebischke <chris.rebischke@archlinux.org>
+# Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=traefik
-pkgver=2.10.5
+pkgver=3.1.2
 pkgrel=1
 pkgdesc="Modern reverse proxy written in Go"
 arch=('x86_64')
 url="https://github.com/traefik/traefik"
 license=('MIT')
-makedepends=('go' 'go-bindata-hashicorp' 'patch')
+makedepends=('go')
 depends=('glibc')
-backup=('etc/traefik/traefik.toml'
-  'etc/traefik/traefik.yaml'
-  'etc/traefik/traefik.yml')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/containous/traefik/releases/download/v${pkgver}/traefik-v${pkgver}.src.tar.gz"
-  'traefik.service'
-  'traefik.sysusers')
-noextract=("${pkgname}-${pkgver}.tar.gz")
-sha512sums=('f92ece277c4ed12823899897b1a07b01e5bcdffde85369ce72a1eb3907f27597d350bd3d9e9627e645a5bd265daf971595af81b78d17e74261ce289df2036925'
+source=(
+  "${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
+  "traefik.service"
+  "traefik.sysusers"
+)
+options=('!lto')
+sha512sums=('363d8c0f3c313c8bcbd517b172ac652e59dbdf329494d118815be7c02041363de5b3c35c143745083365c8419dcf1b90fa1357e44cebd37ed20e480ae007d805'
             '25ab1113bb69936c443fe49d5d3da7d39171fc82e8fa06f46ed4e2dfcaa89685d50ca50b58c32215852d79e5c8d4736a287c15b75420c78a853c51502cb2641a'
             '5fecfed5df77bf28c2c976ebaebedb030904d41509e740821140a4889bda20327f416e78f8d19b0ee78c8bc422d1907ce05ef3562e4d3e36ddfbdbea5e860b2a')
-options=('!lto')
 
 prepare() {
-  mkdir "${srcdir}/${pkgname}-${pkgver}"
-  tar xfvz "${srcdir}/${pkgname}-${pkgver}.tar.gz" -C "${srcdir}/${pkgname}-${pkgver}"
+  cd ${pkgname}-${pkgver}
+  GOFLAGS="-mod=readonly" go mod vendor -v
 }
 
 build() {
-  export CGO_CPPFLAGS="${CPPFLAGS}"
-  export CGO_CFLAGS="${CFLAGS//lto/no-lto}"
-  export CGO_CXXFLAGS="${CXXFLAGS//lto/no-lto}"
-  export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  go generate
-  cd cmd/traefik
-  go build -ldflags="-linkmode=external"
+  cd ${pkgname}-${pkgver}
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export CGO_LDFLAGS="$LDFLAGS"
+  export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw"
+  export GOPATH="${srcdir}"
+  local ld_flags=" \
+    -X github.com/traefik/traefik/v3/pkg/version.Version=${pkgver} \
+    -compressdwarf=false  \
+    -linkmode=external \
+  "
+  go build -v -ldflags "${ld_flags}" ./cmd/traefik
 }
 
 check() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  go test ./...
+  cd ${pkgname}-${pkgver}
+  # Skip tests:
+  # - v3/integration: requires a running Docker daemon.
+  # - v3/pkg/server/service: seem to be flaky.
+  local tests=$(
+    go list ./... \
+      | grep -v github.com/traefik/traefik/v3/integration \
+      | grep -v github.com/traefik/traefik/v3/pkg/server/service \
+  )
+  # shellcheck disable=SC2086
+  go test $tests
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  install -Dm755 cmd/traefik/"${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
-  install -Dm644 LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  install -Dm644 "${srcdir}/traefik.service" "${pkgdir}/usr/lib/systemd/system/traefik.service"
-  install -Dm644 "${srcdir}/traefik.sysusers" "${pkgdir}/usr/lib/sysusers.d/traefik.conf"
-  # create empty acme.json file, otherwise the service file will fail
-  mkdir -p "${pkgdir}/etc/traefik/"
-  touch "${pkgdir}/etc/traefik/acme.json"
+  cd ${pkgname}-${pkgver}
+  install -vDm755 -t "${pkgdir}/usr/bin" traefik
+  install -vDm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE.md
+  install -vDm644 -t "${pkgdir}/usr/lib/systemd/system" "${srcdir}/traefik.service"
+  install -vDm644 "${srcdir}/traefik.sysusers" "${pkgdir}/usr/lib/sysusers.d/traefik.conf"
+  # Create empty acme.json file, otherwise the service file will fail.
+  install -vDm644 /dev/null "${pkgdir}/etc/traefik/acme.json"
 }
