@@ -1,36 +1,41 @@
 # Maintainer: Anatol Pomozov
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=s2n-tls
-pkgver=1.3.47
-pkgrel=2
+pkgver=1.5.1
+pkgrel=1
 pkgdesc='A C99 implementation of the TLS/SSL protocols that is designed to be simple, small, fast, and with security as a priority'
 arch=(x86_64)
 url='https://github.com/aws/s2n-tls'
-license=(Apache)
+license=(Apache-2.0)
 provides=(s2n) # upstream renamed the project from s2n to s2n-tls
 conflicts=(s2n)
 replaces=(s2n)
-depends=(openssl gcc-libs)
+depends=(
+  gcc-libs
+  glibc
+  openssl
+)
 makedepends=(cmake)
-source=(s2n-tls-$pkgver.zip::https://github.com/aws/s2n-tls/archive/v$pkgver.zip)
-sha256sums=('36ca0621cbd1b457e303ea5b574934a23a489848cffbd987d93902ab6826fab5')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('d79710d6ef089097a3b84fc1e5cec2f08d1ec46e93b1d400df59fcfc859e15a3')
 
 build() {
-  cd s2n-tls-$pkgver
-
-  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -DUNSAFE_TREAT_WARNINGS_AS_ERRORS=OFF \
-      -S . -B build
+  cd $pkgname-$pkgver
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev \
+    -DBUILD_SHARED_LIBS=ON
   cmake --build build
 }
 
 check() {
-  cd s2n-tls-$pkgver
+  cd $pkgname-$pkgver
   cmake --build build --target test
 }
 
 package() {
-  cd s2n-tls-$pkgver
-
-  cmake --build build --target install -- DESTDIR="$pkgdir/"
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  cd $pkgname-$pkgver
+  DESTDIR="$pkgdir" cmake --install build
 }
