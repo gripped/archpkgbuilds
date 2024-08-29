@@ -3,16 +3,25 @@
 
 pkgname=python-pytest-lsp
 _name=${pkgname#python-}
-pkgver=0.4.2
+pkgver=0.4.3
 pkgrel=1
 pkgdesc='Pytest plugin for end-to-end testing of language servers'
-arch=('any')
+arch=(any)
 url=https://lsp-devtools.readthedocs.io
-license=('MIT')
-depends=('python-packaging' 'python-pygls' 'python-pytest-asyncio')
-makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+license=(MIT)
+depends=(
+  python-packaging
+  python-pygls
+  python-pytest-asyncio
+)
+makedepends=(
+  git
+  python-build
+  python-hatchling
+  python-installer
+)
 source=("git+https://github.com/swyddfa/lsp-devtools.git#tag=$_name-v$pkgver")
-b2sums=('382ee9f7c957ba0c456b4f4b518f82c1d40b0d21bec8c867613a464c28065833c3b314493fb34dd7302936f53f3caed6409d04ace8b074afc610d54f62c562f2')
+b2sums=('8770e704a7a89ffad30d89d39bca1053e19f1447e08e783b95bb80e1c235a16e8bdf1e6f6d7ceb5b988e68864c9a3170cb5f2c790c9271764f434c8107d4cbe5')
 
 build() {
   cd lsp-devtools/lib/"$_name"
@@ -30,11 +39,10 @@ check() {
 }
 
 package() {
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
   cd lsp-devtools/lib/"$_name"
   python -m installer --destdir="$pkgdir" dist/*.whl
-
-  # Symlink license file
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
   ln -s "$site_packages"/"${_name/-/_}"-$pkgver.dist-info/LICENSE \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
