@@ -3,7 +3,7 @@
 
 pkgname=python-sphinx-autodoc-typehints
 _pyname=${pkgname/python-/}
-pkgver=2.2.3
+pkgver=2.3.0
 pkgrel=1
 pkgdesc='Type hints support for the Sphinx autodoc extension'
 arch=(any)
@@ -28,7 +28,7 @@ checkdepends=(
 )
 optdepends=('python-nptyping: for numpydoc support')
 source=("git+$url.git#tag=$pkgver")
-b2sums=('2658e6b9352d06584ce3e0f33c0a7ac737aab305158dca2f726c41154050fbfd2257ba965c2b6fd5336c48c00c25e06bf82ebb3dd3197584bd6db2a600d114d7')
+b2sums=('8b6f6f63db891734771e67262192b23f9a4e6a060c19aaef410e874a312268b9be3993e8213be4840bd9e39805b28b4e85cb7ddb932461779b88c796ffc2f3a3')
 
 build() {
   cd "$_pyname"
@@ -41,15 +41,14 @@ check() {
 }
 
 package() {
-  cd "$_pyname"
-  python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
-
-  # Symlink license file
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir/usr/share/licenses/$pkgname"
   ln -s "$site_packages/${_pyname//-/_}-$pkgver.dist-info/licenses/LICENSE" \
     "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+
+  cd "$_pyname"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
 }
 
 # vim: ts=2 sw=2 et:
