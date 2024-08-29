@@ -1,32 +1,37 @@
 # Maintainer: Anatol Pomozov
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-sdkutils
-pkgver=0.1.12
-pkgrel=2
+pkgver=0.1.19
+pkgrel=1
 pkgdesc='AWS SDK utility library'
 arch=(x86_64)
 url='https://github.com/awslabs/aws-c-sdkutils'
-license=(Apache)
-depends=(aws-c-common)
+license=(Apache-2.0)
+depends=(
+  aws-c-common
+  glibc
+)
 makedepends=(cmake)
-source=(aws-c-sdkutils-$pkgver.zip::https://github.com/awslabs/aws-c-sdkutils/archive/v$pkgver.zip)
-sha256sums=('148c8e58499e25af2bf669d5daea29a1f962d5a6e861dfe8c9c9014327cb2ddc')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('66bd7a8679703386aec1539407aaed0942a78032fe340ab44e810a3cf6d7e505')
 
 build() {
-  cd aws-c-sdkutils-$pkgver
-
-  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -S . -B build
+  cd $pkgname-$pkgver
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev \
+    -DBUILD_SHARED_LIBS=ON
   cmake --build build
 }
 
 check() {
-  cd aws-c-sdkutils-$pkgver
+  cd $pkgname-$pkgver
   cmake --build build --target test
 }
 
 package() {
-  cd aws-c-sdkutils-$pkgver
-
-  cmake --build build --target install -- DESTDIR="$pkgdir/"
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  cd $pkgname-$pkgver
+  DESTDIR="$pkgdir" cmake --install build
 }
