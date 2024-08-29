@@ -1,62 +1,60 @@
-# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Balló György <ballogyor+arch at gmail dot com>
 # Contributor: Fabian Bornschein <fabiscafe-cat-mailbox-dog-org>
 # Contributor: Stefano Facchini <stefano.facchini@gmail.com>
 
 pkgname=gnome-boxes
 pkgver=46.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple GNOME application to access virtual systems'
-arch=('x86_64')
+arch=(x86_64)
 url='https://apps.gnome.org/Boxes/'
-license=('LGPL-2.0-or-later')
+license=(LGPL-2.0-or-later)
 depends=(
-  'cairo'
-  'cdrtools'
-  'dconf'
-  'edk2-ovmf'
-  'gcc-libs'
-  'gdk-pixbuf2'
-  'glib2'
-  'glibc'
-  'gtk3'
-  'hicolor-icon-theme'
-  'libarchive'
-  'libgudev'
-  'libhandy'
-  'libosinfo'
-  'libportal'
-  'libportal-gtk3'
-  'libsecret'
-  'libsoup3'
-  'libusb'
-  'libvirt-glib'
-  'libxml2'
-  'mtools'
-  'qemu-desktop'
-  'spice-gtk'
-  'tracker3'
-  'webkit2gtk-4.1'
-  'xdg-user-dirs'
+  cairo
+  cdrtools
+  dconf
+  edk2-ovmf
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  libarchive
+  libgudev
+  libhandy
+  libosinfo
+  libportal
+  libportal-gtk3
+  libsoup3
+  libusb
+  libvirt-glib
+  libxml2
+  qemu-desktop
+  spice-gtk
+  webkit2gtk-4.1
+  xdg-user-dirs
 )
 makedepends=(
-  'appstream-glib'
-  'git'
-  'gobject-introspection'
-  'meson'
-  'spice-protocol'
-  'vala'
-  'yelp-tools'
+  appstream
+  git
+  gobject-introspection
+  itstool
+  meson
+  vala
 )
-groups=('gnome-extra')
+groups=(gnome-extra)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-boxes.git?signed#tag=${pkgver/[a-z]/.&}"
-  "git+https://gitlab.gnome.org/felipeborges/libovf-glib.git"
+  git+https://gitlab.gnome.org/felipeborges/libovf-glib.git
+  gnome-boxes-derived-from.patch
 )
-b2sums=('58cf53e4c297a5e3cf22a7428b78128973453c93c596819f969a2d0d4ee8eb3d396820c4c01c53b76e6ac23222632d545a332d241d3cb10e8ea3d426f387c9a2'
-        'SKIP')
-validpgpkeys=(
-  9B60FE7947F0A3C58136817F2C2A218742E016BE # Felipe Borges <felipeborges@gnome.org>
+b2sums=(
+  58cf53e4c297a5e3cf22a7428b78128973453c93c596819f969a2d0d4ee8eb3d396820c4c01c53b76e6ac23222632d545a332d241d3cb10e8ea3d426f387c9a2
+  SKIP
+  c06080901901e7036b6baddcb6d82c10bdf1f3d1cdbc28757e5f4b23f68e6f41c6a2533b8a502f8dbdf7d4e3562070ca9220a27b1865bafe06c0f237bc106acd
 )
+validpgpkeys=(9B60FE7947F0A3C58136817F2C2A218742E016BE) # Felipe Borges <felipeborges@gnome.org>
 
 prepare() {
   cd $pkgname
@@ -64,6 +62,13 @@ prepare() {
   git submodule init
   git submodule set-url subprojects/libovf-glib "$srcdir/libovf-glib"
   git -c protocol.file.allow=always -c protocol.allow=never submodule update
+
+  # Fix build with gcc 14
+  git cherry-pick -n 00183fd26a7b51905c179a427a38bfa18d9eb2d3
+
+  # Don't assign wrong icons in the downloader
+  # https://gitlab.gnome.org/GNOME/gnome-boxes/-/merge_requests/660
+  git apply -3 ../gnome-boxes-derived-from.patch
 }
 
 build() {
