@@ -1,32 +1,39 @@
 # Maintainer: Anatol Pomozov
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-io
-pkgver=0.13.30
+pkgver=0.14.18
 pkgrel=1
 pkgdesc='AWS SDK module to handle all IO and TLS work for application protocols'
 arch=(x86_64)
 url='https://github.com/awslabs/aws-c-io'
-license=(Apache)
-depends=(aws-c-common aws-c-cal s2n-tls)
+license=(Apache-2.0)
+depends=(
+  aws-c-cal
+  aws-c-common
+  glibc
+  s2n-tls
+)
 makedepends=(cmake)
-source=(aws-c-io-$pkgver.zip::https://github.com/awslabs/aws-c-io/archive/v$pkgver.zip)
-sha256sums=('3488f441ff9acce00658a46708103d160415f96bd53cfe5b32e772418fbf6c31')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('44e9dee181ed7d867d1cc2944f4b4669259b569fc56bdd6dd4c7c30440fc4bf8')
 
 build() {
-  cd aws-c-io-$pkgver
-
-  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -S . -B build
+  cd $pkgname-$pkgver
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev \
+    -DBUILD_SHARED_LIBS=ON
   cmake --build build
 }
 
 check() {
-  cd aws-c-io-$pkgver
-  cmake --build build --target test --verbose
+  cd $pkgname-$pkgver
+  cmake --build build --target test
 }
 
 package() {
-  cd aws-c-io-$pkgver
-
-  cmake --build build --target install -- DESTDIR="$pkgdir/"
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  cd $pkgname-$pkgver
+  DESTDIR="$pkgdir" cmake --install build
 }
