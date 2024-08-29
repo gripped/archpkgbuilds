@@ -1,13 +1,16 @@
 pkgbase = detox
 	pkgdesc = An utility designed to clean up filenames by replacing characters with standard equivalents
-	pkgver = 1.4.5
-	pkgrel = 2
+	pkgver = 2.0.0
+	pkgrel = 1
 	url = https://github.com/dharple/detox
 	arch = x86_64
-	license = BSD
-	makedepends = flex
+	license = BSD-3-Clause
+	makedepends = check
+	depends = glibc
 	backup = etc/detox/detoxrc
-	source = detox-1.4.5.tar.gz::https://github.com/dharple/detox/archive/v1.4.5.tar.gz
-	sha256sums = 5d8b1eb53035589882f48316a88f50341bf98c284e8cd29dea74f680559e27cc
+	source = detox-2.0.0.tar.gz::https://github.com/dharple/detox/archive/v2.0.0.tar.gz
+	source = fix-security-warning-in-table-resize-unit-tests.patch::https://github.com/dharple/detox/commit/29f85b2471fc2c45e35695a26d06f0f00df05365.patch
+	sha256sums = 46e646855cfeae5aa51d00c834f7eeeb5967188aaa17f8882a14f98343d82924
+	sha256sums = be5937b40ed1b974c90c031af25033e2c2e2ecee4ea8e55bfb050884090d0b02
 
 pkgname = detox
