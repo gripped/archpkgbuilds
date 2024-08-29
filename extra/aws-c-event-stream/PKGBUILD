@@ -1,32 +1,39 @@
 # Maintainer: Anatol Pomozov
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-event-stream
-pkgver=0.3.1
-pkgrel=2
+pkgver=0.4.3
+pkgrel=1
 pkgdesc='C99 implementation of the vnd.amazon.eventstream content-type'
 arch=(x86_64)
 url='https://github.com/awslabs/aws-c-event-stream'
-license=(Apache)
-depends=(aws-c-common aws-checksums aws-c-io)
+license=(Apache-2.0)
+depends=(
+  aws-c-common
+  aws-c-io
+  aws-checksums
+  glibc
+)
 makedepends=(cmake)
-source=(aws-c-event-stream-$pkgver.zip::https://github.com/awslabs/aws-c-event-stream/archive/v$pkgver.zip)
-sha256sums=('334c226178fce36d4734cf9705234b094e3ae66a47df026606f1f5a384e851c7')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('d7d82c38bae68d2287ac59972a76b2b6159e7a3d7c9b7edb1357495aa4d0c0de')
 
 build() {
-  cd aws-c-event-stream-$pkgver
-
-  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -S . -B build
+  cd $pkgname-$pkgver
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev \
+    -DBUILD_SHARED_LIBS=ON
   cmake --build build
 }
 
 check() {
-  cd aws-c-event-stream-$pkgver
+  cd $pkgname-$pkgver
   cmake --build build --target test
 }
 
 package() {
-  cd aws-c-event-stream-$pkgver
-
-  cmake --build build --target install -- DESTDIR="$pkgdir/"
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  cd $pkgname-$pkgver
+  DESTDIR="$pkgdir" cmake --install build
 }
