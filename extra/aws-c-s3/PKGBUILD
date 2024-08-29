@@ -1,33 +1,43 @@
 # Maintainer: Anatol Pomozov
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-s3
-pkgver=0.3.14
+pkgver=0.6.4
 pkgrel=1
 pkgdesc='C99 library implementation for communicating with the S3 service, designed for maximizing throughput on high bandwidth EC2 instances'
 arch=(x86_64)
 url='https://github.com/awslabs/aws-c-s3'
-license=(Apache)
-depends=(aws-c-common aws-c-auth aws-checksums)
+license=(Apache-2.0)
+depends=(
+  aws-c-auth
+  aws-c-cal
+  aws-c-common
+  aws-c-http
+  aws-c-io
+  aws-checksums
+  glibc
+)
 makedepends=(cmake)
-source=(aws-c-s3-$pkgver.zip::https://github.com/awslabs/aws-c-s3/archive/v$pkgver.zip)
-sha256sums=('94052a4778afab9d9106ddfb2e5d61f99169c8bf50475bf9323fbe51550f2ad2')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('3e60ee29c97f3b03fe31526ec42ade8f8207c505ffa4cc20511364f095cde363')
 
 build() {
-  cd aws-c-s3-$pkgver
-
-  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS=ON -S . -B build
+  cd $pkgname-$pkgver
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev \
+    -DBUILD_SHARED_LIBS=ON \
+    -DENABLE_NET_TESTS=OFF
   cmake --build build
 }
 
 check() {
-  cd aws-c-s3-$pkgver
-  # A lot of tests failing
-  # cmake --build build --target test
+  cd $pkgname-$pkgver
+  cmake --build build --target test
 }
 
 package() {
-  cd aws-c-s3-$pkgver
-
-  cmake --build build --target install -- DESTDIR="$pkgdir/"
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  cd $pkgname-$pkgver
+  DESTDIR="$pkgdir" cmake --install build
 }
