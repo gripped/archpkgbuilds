@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=turbo
-pkgver=2.0.14
+pkgver=2.1.0
 pkgrel=1
 pkgdesc="Incremental bundler and build system optimized for JavaScript and TypeScript"
 url='https://turbo.build/'
@@ -19,8 +19,8 @@ makedepends=(
 )
 options=(!lto)
 source=(https://github.com/vercel/turborepo/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('b1e54317b7192189ced5d8e21dc95003f08d95c648d5e3b8ee7f3fd0f46369d9')
-b2sums=('9bc68da4743d21a0b5d697a058dd41597bd9f6372e1b4d9604eb06e902a0e807d62c3a57e6da82c6099ee47539397d286956e35fecc28b7831f22cd4d45a5bf3')
+sha256sums=('97eb8906a07efde421df392cc2bb0375f9d2a0846e2c53b8de9b44126b95c4ac')
+b2sums=('a62ebc9c1fafdb647256978496c9bfd6c4c1d3f739969ff8180ab1194f1e9ca0675326c0ffedfaa0c6ade5d73d45520274c6dd6897f7f1203b2f6592fdbc7212')
 
 prepare() {
   cd turborepo-${pkgver}
