@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=paperwork
-pkgver=2.2.3
-pkgrel=2
+pkgver=2.2.5
+pkgrel=1
 pkgdesc='Personal document manager to manage scanned documents and PDFs'
 arch=(any)
 url='https://openpaper.work/'
@@ -43,12 +43,21 @@ makedepends=(
   python-setuptools-scm
   python-wheel
 )
-source=("git+https://gitlab.gnome.org/World/OpenPaperwork/paperwork.git#tag=$pkgver")
-b2sums=(47ffaee956dc7987809a4be056b22a935a308d61dd52652a44a4e9c68945c974c7e1be045c3b4b91980be45672fb08bf6269366fe93165216124d9019ddd8014)
+source=(
+  "git+https://gitlab.gnome.org/World/OpenPaperwork/paperwork.git#tag=$pkgver"
+  paperwork-l10n-compile.patch
+)
+b2sums=(
+  f2a01e06382aee7d9dd4f1b2d53e4b5ad0ec5e29d074078c84a7fdbcccf8c33d8b4e51caea2cfea8b222fd93bb709b77ed495307c51c182c59bea73f94974e90
+  2489e31ea97f971dd89218f0b2496d3ea1ea9ac6114532e30022cbdcc194fad2091047731538352f53f4a81680e561e91b74953381ad2e0904434dcb071e9c5d
+)
 
 prepare() {
   cd $pkgname
   curl -s "https://download.openpaper.work/data/paperwork/master_$(git rev-parse --short HEAD)/data.tar.gz" | tar -xvz
+
+  # https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/merge_requests/862
+  git apply -3 ../paperwork-l10n-compile.patch
 }
 
 build() {
