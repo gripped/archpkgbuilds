@@ -3,7 +3,7 @@
 
 pkgname=eolie
 pkgver=0.9.101
-pkgrel=6
+pkgrel=7
 pkgdesc='Simple web browser for GNOME'
 arch=(any)
 url='https://wiki.gnome.org/Apps/Eolie'
@@ -37,12 +37,14 @@ source=(
   git+https://gitlab.gnome.org/gnumdk/eolie-po.git
   eolie-libsoup3.patch
   eolie-disable-firefox-sync.patch
+  eolie-po-dir.patch
 )
 b2sums=(
   1728085b113cffa00a44a81be6ce6880d6430eba0ac686a89bbb9affe5d9af09e5cbd95076f4ab5d6676ffe5f20d77c69b17ed0f8c7f0c9721678dfd70266b96
   SKIP
   c1c94a1f461d50f8bd402cbffa5e03c7e25d715282579e448af50f0d9fa710becebfbf2c6840217c1915a46536f22e6e0032a9121f37063f7a036872be5ec3ab
   d6525928997a708fc5e1b6127433c97f6b059a081327bd9d34ff63f25b9f33e8e4b0e0520c31fbb2e9edc173109750df54ad5feabf0de9109ba359d9730d4bf9
+  35584ce0d95bc8cbf293604f087d0dc976ea683184e25c0e368c71be32127c534105647640401a0169cac0ae42d9011cf09182a05a5e87e09591e63c94cbac55
 )
 
 prepare() {
@@ -57,6 +59,9 @@ prepare() {
 
   # https://gitlab.gnome.org/World/eolie/-/merge_requests/287
   git apply -3 ../eolie-disable-firefox-sync.patch
+
+  # https://gitlab.gnome.org/World/eolie/-/merge_requests/288
+  git apply -3 ../eolie-po-dir.patch
 }
 
 build() {
