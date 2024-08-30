@@ -6,8 +6,8 @@ pkgname=(
   json-glib
   json-glib-docs
 )
-pkgver=1.8.0
-pkgrel=2
+pkgver=1.10.0
+pkgrel=1
 pkgdesc="JSON library built on GLib"
 url="https://gnome.pages.gitlab.gnome.org/json-glib/"
 arch=(x86_64)
@@ -23,9 +23,10 @@ makedepends=(
   glib2-devel
   gobject-introspection
   meson
+  python-docutils
 )
-source=("git+https://gitlab.gnome.org/GNOME/json-glib.git?signed#tag=$pkgver-actual")
-b2sums=('755b85f1deda24188d421debbf32563d47873228d2115cf86ffb46695d8dec8ed2e4f627489841d04a8625db73e40861dc29d18b1af2c5b5de5a4620d3a25ecc')
+source=("git+https://gitlab.gnome.org/GNOME/json-glib.git?signed#tag=$pkgver")
+b2sums=('30d992232c79dce85966c48396167b3ba0f3427a63fc2462b81d69aa4af215ce4be965983b649401d584127c547f5373b035a1f890f27876c4548310302adf70')
 validpgpkeys=(
   53EF3DC3B63E2899271BD26322E8091EEA11BBB7 # Emmanuele Bassi <ebassi@gnome.org>
 )
@@ -36,6 +37,7 @@ prepare() {
 
 build() {
   local meson_options=(
+    -D installed_tests=false
     -D man=true
   )
 
@@ -55,8 +57,6 @@ package_json-glib() {
 
   mkdir -p doc/usr/share
   mv {"$pkgdir",doc}/usr/share/doc
-
-  rm -r "$pkgdir"/usr/{lib,share}/installed-tests
 }
 
 package_json-glib-docs() {
