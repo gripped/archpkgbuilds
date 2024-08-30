@@ -7,34 +7,31 @@
 # Contributor: Swift Geek
 # Contributor: Pablo Olmos de Aguilera C. pablo+aur at odac dot co
 
-_pkgname="powerline"
-pkgbase="powerline"
+pkgbase=powerline
+_pkgname=$pkgbase
 pkgname=(
-  "powerline"
-  "python-powerline"
-  "powerline-common"
-  "powerline-vim"
-  "powerline-fonts"
+  powerline
+  powerline-fonts
+  vim-powerline
 )
 pkgver=2.8.4
-pkgrel=1
-pkgdesc='Statusline plugin for vim, and provides statuslines and prompts for several other applications, including zsh, bash, tmux, IPython, Awesome, i3 and Qtile'
-arch=('x86_64')
+pkgrel=2
+pkgdesc="Statuslines and prompts for several applications including vim, zsh, bash, tmux, IPython, Awesome, i3 and Qtile"
+arch=(x86_64)
 url="https://github.com/powerline/powerline"
-license=('MIT')
+license=(MIT)
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-sphinx'
-  'python-wheel'
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-sphinx
+  python-wheel
 )
 checkdepends=(
-  'python-netifaces'
-  'python-pexpect'
-  'python-psutil'
-  'python-tox'
+  python-netifaces
+  python-pexpect
+  python-psutil
 )
 source=(
   "$_pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
@@ -71,20 +68,28 @@ check() {
 
 package_powerline() {
   depends=(
-    'glibc'
-    'python'
-    'python-powerline'
+    glibc
+    python
   )
-  conflicts=('python-powerline<=2.3-1')
-  replaces=('python-powerline<=2.3-1')
+  optdepends=(
+    'powerline-fonts: patched fonts for powerline'
+    'vim-powerline: vim plugin'
+    'python-netifaces: for displaying internal IP addresses'
+    'python-psutil: improved system information'
+    'python-pygit2: improved git support'
+    'which: fish bindings'
+  )
+  provides=(
+    python-powerline
+    powerline-common
+  )
+  replaces=(
+    powerline-common
+    python-powerline
+  )
 
   cd $_pkgname-$pkgver
-  install -vDm755 -t "$pkgdir/usr/bin" \
-    scripts/powerline \
-    scripts/powerline-config \
-    scripts/powerline-daemon \
-    scripts/powerline-lint \
-    scripts/powerline-render
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -vdm755 "$pkgdir/usr/share/powerline"
   ln -vs "$(python -c 'import site; print(site.getsitepackages()[0])')/powerline/bindings" \
@@ -92,46 +97,13 @@ package_powerline() {
 
   install -vDm644 -t "$pkgdir/usr/lib/systemd/user" \
     powerline/dist/systemd/powerline-daemon.service
-
+  install -vDm644 -t "$pkgdir/usr/share/man/man1" docs/_build/man/*
   install -vDm644 -t "$pkgdir/usr/share/licenses/powerline" LICENSE
 }
 
-package_python-powerline() {
-  pkgdesc='python library for powerline'
-  depends=(
-    'python'
-    'powerline-common'
-  )
-  optdepends=(
-    'python-psutil: improved system information'
-    'python-pygit2: improved git support'
-    'powerline-vim: vim plugin'
-    'powerline-fonts: patched fonts for powerline'
-    'which: fish bindings'
-  )
-
-  cd $_pkgname-$pkgver
-  python -m installer --destdir="$pkgdir" dist/*.whl
-  install -vDm644 -t "$pkgdir/usr/share/licenses/python-powerline" LICENSE
-
-  # As executables are currently installed as the separate split-package
-  # 'powerline', remove them from this package.
-  # shellcheck disable=SC2115
-  rm -vr "$pkgdir/usr/bin"
-}
-
-package_powerline-common() {
-  pkgdesc='common files for python-powerline'
-
-  cd $_pkgname-$pkgver
-  install -vDm644 -t "$pkgdir/usr/share/man/man1" docs/_build/man/*
-  install -vDm644 -t "$pkgdir/usr/share/licenses/powerline-common" LICENSE
-}
-
 package_powerline-fonts() {
-  pkgdesc='patched fonts for powerline'
-  provides=('otf-powerline-symbols')
-  depends=('powerline-common')
+  pkgdesc="Patched fonts for powerline"
+  provides=(otf-powerline-symbols)
 
   cd $_pkgname-$pkgver
   install -vDm644 -t "$pkgdir/usr/share/fonts/OTF" font/PowerlineSymbols.otf
@@ -142,16 +114,18 @@ package_powerline-fonts() {
   install -vDm644 -t "$pkgdir/usr/share/licenses/powerline-fonts" LICENSE
 }
 
-package_powerline-vim() {
-  pkgdesc='vim plugin for powerline'
+package_vim-powerline() {
+  pkgdesc="Vim plugin for powerline"
+  groups=(vim-plugins)
   depends=(
-    'powerline'
-    'powerline-common'
-    'vim-runtime'
+    powerline
+    vim-plugin-runtime
   )
+  provides=(powerline-vim)
+  replaces=(powerline-vim)
 
   cd $_pkgname-$pkgver
   install -vDm644 -t "$pkgdir/usr/share/vim/vimfiles/plugin" \
     powerline/bindings/vim/plugin/powerline.vim
-  install -vDm644 -t "$pkgdir/usr/share/licenses/powerline-vim" LICENSE
+  install -vDm644 -t "$pkgdir/usr/share/licenses/vim-powerline" LICENSE
 }

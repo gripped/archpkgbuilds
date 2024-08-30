@@ -1,14 +1,13 @@
 pkgbase = powerline
-	pkgdesc = Statusline plugin for vim, and provides statuslines and prompts for several other applications, including zsh, bash, tmux, IPython, Awesome, i3 and Qtile
+	pkgdesc = Statuslines and prompts for several applications including vim, zsh, bash, tmux, IPython, Awesome, i3 and Qtile
 	pkgver = 2.8.4
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/powerline/powerline
 	arch = x86_64
 	license = MIT
 	checkdepends = python-netifaces
 	checkdepends = python-pexpect
 	checkdepends = python-psutil
-	checkdepends = python-tox
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
@@ -27,30 +26,25 @@ pkgbase = powerline
 pkgname = powerline
 	depends = glibc
 	depends = python
-	depends = python-powerline
-	conflicts = python-powerline<=2.3-1
-	replaces = python-powerline<=2.3-1
-
-pkgname = python-powerline
-	pkgdesc = python library for powerline
-	depends = python
-	depends = powerline-common
+	optdepends = powerline-fonts: patched fonts for powerline
+	optdepends = vim-powerline: vim plugin
+	optdepends = python-netifaces: for displaying internal IP addresses
 	optdepends = python-psutil: improved system information
 	optdepends = python-pygit2: improved git support
-	optdepends = powerline-vim: vim plugin
-	optdepends = powerline-fonts: patched fonts for powerline
 	optdepends = which: fish bindings
-
-pkgname = powerline-common
-	pkgdesc = common files for python-powerline
-
-pkgname = powerline-vim
-	pkgdesc = vim plugin for powerline
-	depends = powerline
-	depends = powerline-common
-	depends = vim-runtime
+	provides = python-powerline
+	provides = powerline-common
+	replaces = powerline-common
+	replaces = python-powerline
 
 pkgname = powerline-fonts
-	pkgdesc = patched fonts for powerline
-	depends = powerline-common
+	pkgdesc = Patched fonts for powerline
 	provides = otf-powerline-symbols
+
+pkgname = vim-powerline
+	pkgdesc = Vim plugin for powerline
+	groups = vim-plugins
+	depends = powerline
+	depends = vim-plugin-runtime
+	provides = powerline-vim
+	replaces = powerline-vim
