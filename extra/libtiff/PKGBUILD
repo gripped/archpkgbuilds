@@ -3,7 +3,7 @@
 
 pkgname=libtiff
 pkgver=4.6.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Library for manipulation of TIFF images'
 url='http://www.simplesystems.org/libtiff/'
 arch=('x86_64')
@@ -26,6 +26,8 @@ prepare() {
   git cherry-pick -n 5320c9d89c054fa805d037d84c57da874470b01a
   # CVE-2023-52356
   git cherry-pick -n 51558511bdbbcffdce534db21dbaf5d54b31638a
+  # CVE-2024-7006
+  git cherry-pick -n 818fb8ce881cf839fbc710f6690aadb992aa0f9e
   autoreconf -fiv
 }
 
