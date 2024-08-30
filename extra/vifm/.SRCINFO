@@ -1,18 +1,21 @@
 pkgbase = vifm
 	pkgdesc = A file manager with curses interface, which provides Vi[m]-like environment
 	pkgver = 0.13
-	pkgrel = 2
+	pkgrel = 3
 	url = https://vifm.info/
 	changelog = vifm.changelog
 	arch = x86_64
-	license = GPL
+	license = GPL-2.0-or-later
 	makedepends = perl
+	depends = file
+	depends = glibc
 	depends = ncurses
-	depends = desktop-file-utils
-	source = https://prdownloads.sourceforge.net/vifm/vifm-0.13.tar.bz2
-	source = https://prdownloads.sourceforge.net/vifm/vifm-0.13.tar.bz2.asc
+	source = https://github.com/vifm/vifm/releases/download/v0.13/vifm-0.13.tar.bz2
+	source = https://github.com/vifm/vifm/releases/download/v0.13/vifm-0.13.tar.bz2.asc
+	source = fix-bash-completion.patch::https://github.com/vifm/vifm/commit/efbf106a095c1163eafdc144be1f1c8fecb91e72.patch
 	validpgpkeys = 22349CDBE5227D2108A5667799DC5E4DB05F6BE2
 	sha256sums = 0d9293749a794076ade967ecdc47d141d85e450370594765391bdf1a9bd45075
 	sha256sums = SKIP
+	sha256sums = 57dd10a82e87f446d45b09ccd875006c268b33fff5a1583de3a2670eddbd2b71
 
 pkgname = vifm
