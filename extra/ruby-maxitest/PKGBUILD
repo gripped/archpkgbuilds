@@ -4,7 +4,7 @@
 pkgname=ruby-maxitest
 pkgver=5.6.0
 _commit=d2fb9270761e1f14467f345dde0c10e8eb970488
-pkgrel=1
+pkgrel=2
 pkgdesc='Minitest + all the features you always wanted'
 arch=(any)
 url='https://github.com/grosser/maxitest'
@@ -15,15 +15,13 @@ depends=(
 )
 makedepends=(
   git
-  ruby-rake
-  ruby-rspec
+  ruby-rdoc
 )
 checkdepends=(
   procps-ng
-  ruby-bump
   ruby-bundler
-  ruby-byebug
-  ruby-debug
+  ruby-rake
+  ruby-rspec
 )
 options=(!emptydirs)
 source=("git+$url.git?signed#commit=$_commit")
@@ -34,10 +32,13 @@ validpgpkeys=('72170F9E193D0A5A31DB742FB19DB1587D698ED7') # Michael Grosser <mic
 prepare() {
   cd maxitest
   git rm Gemfile.lock
+
+  # Remove dependency on bump and debug
+  sed -r -e '/bump|debug/d' -i Gemfile
 }
 
 build() {
-  local _gemdir="$(gem env gemdir)"
+  local gemdir="$(gem env gemdir)"
   cd maxitest
   gem build maxitest.gemspec
   gem install \
@@ -45,10 +46,10 @@ build() {
     --verbose \
     --ignore-dependencies \
     --no-user-install \
-    --install-dir "tmp_install/$_gemdir" \
+    --install-dir "tmp_install/$gemdir" \
     --bindir "tmp_install/usr/bin" \
     maxitest-$pkgver.gem
-  find "tmp_install/$_gemdir/gems/" \
+  find "tmp_install/$gemdir/gems/" \
     -type f \
     \( \
         -iname "*.o" -o \
@@ -59,17 +60,17 @@ build() {
         -iname "Makefile" \
     \) \
     -delete
-  rm -r "tmp_install/$_gemdir/cache"
+  rm -r "tmp_install/$gemdir/cache"
 }
 
 check() {
-  local _gemdir="$(gem env gemdir)"
+  local gemdir="$(gem env gemdir)"
   cd maxitest
-  PATH="tmp_install/usr/bin:$PATH" GEM_HOME="tmp_install/$_gemdir" rake
+  PATH="tmp_install/usr/bin:$PATH" GEM_HOME="tmp_install/$gemdir" rake
 }
 
 package() {
   cd maxitest
-  cp -a tmp_install/* "$pkgdir"/
-  install -Dm644 MIT-LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  cp -a -t "$pkgdir" tmp_install/*
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" MIT-LICENSE
 }
