@@ -1,7 +1,7 @@
 pkgbase = grafana
 	pkgdesc = Gorgeous metric viz, dashboards & editors for Graphite, InfluxDB & OpenTSDB
 	pkgver = 11.2.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://grafana.com/
 	install = grafana.install
 	arch = x86_64
@@ -23,9 +23,11 @@ pkgbase = grafana
 	source = grafana.service
 	source = grafana.sysusers
 	source = grafana.tmpfiles
+	source = 0001-Fix-panic-with-golang-1.23.patch
 	sha512sums = 45a17fba2706cffa80dd55abcce298d8b3fdd5c3ea01376a5a6c35706a0555f9b5335c2a8441fecedde19fa88e9968add7ff79213701ab4c611dee278684dd0e
-	sha512sums = 02a597225ee6ba8da9491a94daa33fe681846e2140e02fbb461ff7d39acd4cf99694dc03fb5f2c5ecfd180b09c44a41fe639b121499b4222b67ada57dc60d850
+	sha512sums = bec995f07df3e5a09276ec1ec735d27dbd92c925d68d7553e19d863edd8af93bf080aa6e6db5b4ee900f2e2b3e084a2c3ac21204dc20b73610180616e782cbba
 	sha512sums = 38b46d953837a7afa5a654dfeef163b210d56cad57d937018531d00cd63b5341d6f9cd777299bdc7a994d0cb7df09b8157aad0f166e76ad47564e1ad6d5441d4
 	sha512sums = c1724bfc7cbd6a406f17acb661efca0f1e57e2c30cc1841f4cb7ccfc420adc40cc61cb1c023d00444827b2c40e9caa4c2fefbfd503419848c74a0b455b2375ab
+	sha512sums = 0b7da1c990b9237cc166fcf63909881706759bdb61157086d7465eba1273dfc42465b222e0568d85be3e9ed5edd0d08e2d904deeb76714d0f7c4d0b1af06c2e6
 
 pkgname = grafana

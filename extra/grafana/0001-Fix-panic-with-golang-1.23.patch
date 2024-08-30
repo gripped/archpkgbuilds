@@ -1,0 +1,71 @@
+From d89fa10a02a13b78d49b33c70712409051a84f4a Mon Sep 17 00:00:00 2001
+From: Jelle van der Waa <jelle@vdwaa.nl>
+Date: Fri, 30 Aug 2024 16:39:11 +0200
+Subject: [PATCH] Fix panic with golang 1.23
+
+---
+ go.mod             | 2 +-
+ go.sum             | 4 ++--
+ pkg/promlib/go.mod | 2 +-
+ pkg/promlib/go.sum | 4 ++--
+ 4 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/go.mod b/go.mod
+index dc51b413aae..fc847c0a735 100644
+--- a/go.mod
++++ b/go.mod
+@@ -97,7 +97,7 @@ require (
+ 	// Check go.work file for details
+ 	github.com/grafana/grafana/pkg/promlib v0.0.6 // @grafana/observability-metrics
+ 	github.com/grafana/otel-profiling-go v0.5.1 // @grafana/grafana-backend-group
+-	github.com/grafana/pyroscope-go/godeltaprof v0.1.7 // @grafana/observability-traces-and-profiling
++	github.com/grafana/pyroscope-go/godeltaprof v0.1.8 // @grafana/observability-traces-and-profiling
+ 	github.com/grafana/pyroscope/api v0.3.0 // @grafana/observability-traces-and-profiling
+ 	github.com/grafana/tempo v1.5.1-0.20240604192202-01f4bc8ac2d1 // @grafana/observability-traces-and-profiling
+ 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.1 // @grafana/plugins-platform-backend
+diff --git a/go.sum b/go.sum
+index bf3657527dc..b8a6c8561d3 100644
+--- a/go.sum
++++ b/go.sum
+@@ -2360,8 +2360,8 @@ github.com/grafana/otel-profiling-go v0.5.1 h1:stVPKAFZSa7eGiqbYuG25VcqYksR6iWvF
+ github.com/grafana/otel-profiling-go v0.5.1/go.mod h1:ftN/t5A/4gQI19/8MoWurBEtC6gFw8Dns1sJZ9W4Tls=
+ github.com/grafana/prometheus-alertmanager v0.25.1-0.20240625192351-66ec17e3aa45 h1:AJKOtDKAOg8XNFnIZSmqqqutoTSxVlRs6vekL2p2KEY=
+ github.com/grafana/prometheus-alertmanager v0.25.1-0.20240625192351-66ec17e3aa45/go.mod h1:01sXtHoRwI8W324IPAzuxDFOmALqYLCOhvSC2fUHWXc=
+-github.com/grafana/pyroscope-go/godeltaprof v0.1.7 h1:C11j63y7gymiW8VugJ9ZW0pWfxTZugdSJyC48olk5KY=
+-github.com/grafana/pyroscope-go/godeltaprof v0.1.7/go.mod h1:Tk376Nbldo4Cha9RgiU7ik8WKFkNpfds98aUzS8omLE=
++github.com/grafana/pyroscope-go/godeltaprof v0.1.8 h1:iwOtYXeeVSAeYefJNaxDytgjKtUuKQbJqgAIjlnicKg=
++github.com/grafana/pyroscope-go/godeltaprof v0.1.8/go.mod h1:2+l7K7twW49Ct4wFluZD3tZ6e0SjanjcUUBPVD/UuGU=
+ github.com/grafana/pyroscope/api v0.3.0 h1:WcVKNZ8JlriJnD28wTkZray0wGo8dGkizSJXnbG7Gd8=
+ github.com/grafana/pyroscope/api v0.3.0/go.mod h1:JggA80ToAAUACYGfwL49XoFk5aN5ecHp4pNIZhlk9Uc=
+ github.com/grafana/regexp v0.0.0-20221122212121-6b5c0a4cb7fd/go.mod h1:M5qHK+eWfAv8VR/265dIuEpL3fNfeC21tXXp9itM24A=
+diff --git a/pkg/promlib/go.mod b/pkg/promlib/go.mod
+index 4701f263219..cab54313f85 100644
+--- a/pkg/promlib/go.mod
++++ b/pkg/promlib/go.mod
+@@ -55,7 +55,7 @@ require (
+ 	github.com/google/uuid v1.6.0 // indirect
+ 	github.com/gorilla/mux v1.8.1 // indirect
+ 	github.com/grafana/otel-profiling-go v0.5.1 // indirect
+-	github.com/grafana/pyroscope-go/godeltaprof v0.1.7 // indirect
++	github.com/grafana/pyroscope-go/godeltaprof v0.1.8 // indirect
+ 	github.com/grafana/regexp v0.0.0-20221123153739-15dc172cd2db // indirect
+ 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.1 // indirect
+ 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.1.0 // indirect
+diff --git a/pkg/promlib/go.sum b/pkg/promlib/go.sum
+index 2212ab57a8b..19ce594f9c9 100644
+--- a/pkg/promlib/go.sum
++++ b/pkg/promlib/go.sum
+@@ -100,8 +100,8 @@ github.com/grafana/grafana-plugin-sdk-go v0.241.0 h1:zBcSW9xV9gA9hD8UN+HjJtD7tES
+ github.com/grafana/grafana-plugin-sdk-go v0.241.0/go.mod h1:2HjNwzGCfaFAyR2HGoECTwAmq8vSIn2L1/1yOt4XRS4=
+ github.com/grafana/otel-profiling-go v0.5.1 h1:stVPKAFZSa7eGiqbYuG25VcqYksR6iWvF3YH66t4qL8=
+ github.com/grafana/otel-profiling-go v0.5.1/go.mod h1:ftN/t5A/4gQI19/8MoWurBEtC6gFw8Dns1sJZ9W4Tls=
+-github.com/grafana/pyroscope-go/godeltaprof v0.1.7 h1:C11j63y7gymiW8VugJ9ZW0pWfxTZugdSJyC48olk5KY=
+-github.com/grafana/pyroscope-go/godeltaprof v0.1.7/go.mod h1:Tk376Nbldo4Cha9RgiU7ik8WKFkNpfds98aUzS8omLE=
++github.com/grafana/pyroscope-go/godeltaprof v0.1.8 h1:iwOtYXeeVSAeYefJNaxDytgjKtUuKQbJqgAIjlnicKg=
++github.com/grafana/pyroscope-go/godeltaprof v0.1.8/go.mod h1:2+l7K7twW49Ct4wFluZD3tZ6e0SjanjcUUBPVD/UuGU=
+ github.com/grafana/regexp v0.0.0-20221123153739-15dc172cd2db h1:7aN5cccjIqCLTzedH7MZzRZt5/lsAHch6Z3L2ZGn5FA=
+ github.com/grafana/regexp v0.0.0-20221123153739-15dc172cd2db/go.mod h1:M5qHK+eWfAv8VR/265dIuEpL3fNfeC21tXXp9itM24A=
+ github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.1 h1:qnpSQwGEnkcRpTqNOIR6bJbR0gAorgP9CSALpRcKoAA=
+-- 
+2.46.0
+
