@@ -4,7 +4,7 @@
 # Contributor: sysrq
 
 pkgname=picard
-pkgver=2.12.1
+pkgver=2.12.2
 pkgrel=1
 pkgdesc="Official MusicBrainz tagger"
 arch=(x86_64)
@@ -36,9 +36,9 @@ optdepends=(
   'qt5-translations: full UI translation'
 )
 source=(https://data.musicbrainz.org/pub/musicbrainz/$pkgname/$pkgname-$pkgver.tar.gz{,.asc})
-sha512sums=('d9a9f574d7a4ca981cd224068c59eef5f3acdab8e8f84a3d5c5c4428d57c49e706899f039e246c0bdbe85206b1777c8211e54d02982bd163c7bbcad5126b3d11'
+sha512sums=('d06583c82737e6b5f26a639f24ecec115f29a9df7498e2632e084bcfc31f13c72965bd862c19c496fe0539c8987812d53ed9298522e37989c733af2f7ecface1'
             'SKIP')
-b2sums=('0015b0c378088f2cd2d7f2449a41c544b9f4cb4e521e9728a872f37ab21815f492a8a80886ce294e17406808cb965968962b8fde6625907f324c50b3ba53d160'
+b2sums=('f9f8fc5ffe424ce2a9aa154994e7ec1adf61a61a94769fb36d715de9ec84f1dac2d49f27d13900354adad7dcb936d62a2eba429e4ccb20dc5d6849d7f4b22adc'
         'SKIP')
 # NOTE: OpenPGP signed tags and artifacts are being evaluated: https://tickets.metabrainz.org/browse/PICARD-1934
 validpgpkeys=('68990DD0B1EDC129B856958167997E14D563DA7C') # MusicBrainz Picard Developers <picard@metabrainz.org>
