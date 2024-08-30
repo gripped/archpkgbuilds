@@ -2,33 +2,30 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-autoar
-pkgver=0.4.4
+pkgver=0.4.5
 pkgrel=1
 pkgdesc="Automatic archives creating and extracting library"
 url="https://wiki.gnome.org/TingweiLan/GSoC2013Final"
 arch=(x86_64)
-license=(LGPL)
+license=(LGPL-2.1-or-later)
 depends=(
+  gcc-libs
   glib2
+  glibc
   gtk3
   libarchive
 )
 makedepends=(
   git
+  glib2-devel
   gobject-introspection
   gtk-doc
   meson
   vala
 )
 provides=(libgnome-autoar{,-gtk}-${pkgver%%.*}.so)
-_commit=b387c2482d2a5c8efdfc8c7498f13cd3881685c0  # tags/0.4.4^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-autoar.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-autoar.git#tag=$pkgver")
+b2sums=('089fc1f3c409f12fc660433f6884f21bb09b05bda242279b65b083474da926fcaa7cb4d7f4f4b8ab8e3703f645d85ff6dcf6c3db12d1a2a7a8551fa5101d7ca4')
 
 prepare() {
   cd $pkgname
