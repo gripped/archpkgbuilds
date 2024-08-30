@@ -1,5 +1,6 @@
 # Maintainer: Jiachen Yang <farseerfc@gmail.com>
 # Maintainer: Robin Candau <antiz@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # AUR Maintainer: Swift Geek
 # AUR Maintainer: Timothée Ravier <tim@siosm.fr>
 # AUR Maintainer: Stefan Tatschner <rumpelsepp@sevenbyte.org>
@@ -8,149 +9,149 @@
 
 _pkgname="powerline"
 pkgbase="powerline"
-pkgname=("powerline" "python-powerline" "powerline-common" "powerline-vim" "powerline-fonts")
-pkgdesc='Statusline plugin for vim, and provides statuslines and prompts for several other applications, including zsh, bash, tmux, IPython, Awesome, i3 and Qtile'
-pkgver=2.8.3
-pkgrel=4
-url="https://github.com/${_pkgname}/${_pkgname}"
-license=('MIT')
-arch=('x86_64')
-makedepends=(
-    'python-setuptools'
-    'python-sphinx'
-    'git'
-    )
-checkdepends=(
-    'python-wheel'
-    'python-pexpect'
-    'python-tox'
+pkgname=(
+  "powerline"
+  "python-powerline"
+  "powerline-common"
+  "powerline-vim"
+  "powerline-fonts"
 )
-source=("${_pkgname}-${pkgver}.tar.gz::https://github.com/${_pkgname}/${_pkgname}/archive/${pkgver}.tar.gz"
-        "fail-on-binary-error.patch"
-        "https://github.com/powerline/powerline/commit/50d73bfb.patch"
-        "https://github.com/powerline/powerline/commit/c04a8dd5.patch")
-sha512sums=('fe0301d8a64827825ed5a1c9c91066299c198bc03d949e01241fa750d892a7f86029ab777ac991dfebf05d7a163a3fdd7cd44e2dea862562bc219c3566891455'
-            'd8f77a55d6056353e05556b283840e65bc0411890b5906deaf7f041843a17b08b6975ec399810e10d333384d840e66c1125f6851559e4806a850502c685a6621'
-            '506cce7894a5634f8365cf55c09fec3031ee58f7620730213a9032195482b3adae278402198920e6918851a8f34e451b19b3176d7cd29c31bf195214886f9fcd'
-            '0045b7609e1e8ae57e15049415274bb75d13686cac894afe81795a7fe185d9ccdb91c2cc0f367144037a5915fa57554f5365239b2455bd864cef449c75ee2355')
+pkgver=2.8.4
+pkgrel=1
+pkgdesc='Statusline plugin for vim, and provides statuslines and prompts for several other applications, including zsh, bash, tmux, IPython, Awesome, i3 and Qtile'
+arch=('x86_64')
+url="https://github.com/powerline/powerline"
+license=('MIT')
+makedepends=(
+  'git'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-sphinx'
+  'python-wheel'
+)
+checkdepends=(
+  'python-netifaces'
+  'python-pexpect'
+  'python-psutil'
+  'python-tox'
+)
+source=(
+  "$_pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
+  # This patch set is maintained here:
+  # https://github.com/carlsmedstad/powerline/tree/archlinux
+  "0001-Compile-powerline-executable-without-setuptools.patch::$url/commit/ab071647568255b7c80c776beaaf467168b4f5ec.patch"
+  "0002-Point-shebangs-to-system-Python.patch::$url/commit/6324b25a2a16d5c0bf5dd05ba1bc5448215ad969.patch"
+  "0003-Remove-failing-tests.patch::$url/commit/b8772a7583e25f798e4790e550e101f9ce78a2f3.patch"
+)
+sha256sums=('9e846af9379b57e410efe264cff3a6b98eb78dd9526e83016776ae5ffc5798f4'
+            'f3098fc46c6b41adb8fd9da82ea39de218459d8064da7e4cfe5fb65ed2dd66b7'
+            '6a45dd8fefffbe4ef7dcadc3461217c010447aa67610649880ca83aa3440cd76'
+            'd0b5ff60b4fcddc89954279ffb2b4046466529cb66ca90d342ac4b4450cf81e8')
 
 prepare() {
-    # fix https://bugs.archlinux.org/task/48358
-    cd "${srcdir}/${_pkgname}-${pkgver}"
-    find scripts -type f -iname "powerline-*" -print0 | xargs -0 sed -i "1s/env //"
-    find "${_pkgname}"/bindings -type f -iname "*.py" -print0 | xargs -0 sed -i "1s/env //"
-
-    # explicitly fail if building binary usr/bin/powerline has any error
-    patch -N <../fail-on-binary-error.patch
-    # Fix build with python 3.11
-    patch -p1 -i ../50d73bfb.patch
-    # Fix tests with python 3.12
-    patch -p1 -i ../c04a8dd5.patch
+  cd $_pkgname-$pkgver
+  for patch in "$srcdir"/*.patch; do
+    patch -Np1 -i "$patch"
+  done
 }
 
-build(){
-    # build main pages
-    cd "${srcdir}/${_pkgname}-${pkgver}/docs"
-    make man
-
-    # build C client
-    cd "${srcdir}/${_pkgname}-${pkgver}"
-    LC_ALL=C python setup.py build
+build() {
+  cd $_pkgname-$pkgver
+  # shellcheck disable=SC2086
+  gcc $CFLAGS $LDFLAGS -o scripts/powerline client/powerline.c
+  python -m build --wheel --no-isolation
+  make -C docs man
 }
 
-
-# FIXME Currently test will fail with dividers and other errors
-check(){
-    cd "${srcdir}/${_pkgname}-${pkgver}"
-    LC_ALL=C python setup.py test
+check() {
+  cd $_pkgname-$pkgver
+  python -m unittest discover -vs tests/test_python
 }
 
-package_powerline(){
-    depends=('python-powerline')
-    conflicts=('python-powerline<=2.3-1')
-    replaces=('python-powerline<=2.3-1')
+package_powerline() {
+  depends=(
+    'glibc'
+    'python'
+    'python-powerline'
+  )
+  conflicts=('python-powerline<=2.3-1')
+  replaces=('python-powerline<=2.3-1')
 
-    cd "${srcdir}/${_pkgname}-${pkgver}/scripts"
-    install -Dm755 powerline "${pkgdir}/usr/bin/powerline"
-    install -Dm755 powerline-config "${pkgdir}/usr/bin/powerline-config"
-    install -Dm755 powerline-daemon "${pkgdir}/usr/bin/powerline-daemon"
-    install -Dm755 powerline-lint "${pkgdir}/usr/bin/powerline-lint"
-    install -Dm755 powerline-render "${pkgdir}/usr/bin/powerline-render"
-    
-    install -dm755 "${pkgdir}/usr/share/powerline/"
-    ln -s "$(python3 -c 'import site; print(site.getsitepackages()[0])')/powerline/bindings" "${pkgdir}/usr/share/powerline/bindings"
+  cd $_pkgname-$pkgver
+  install -vDm755 -t "$pkgdir/usr/bin" \
+    scripts/powerline \
+    scripts/powerline-config \
+    scripts/powerline-daemon \
+    scripts/powerline-lint \
+    scripts/powerline-render
 
-    # install systemd user service
-    # see https://github.com/powerline/powerline/issues/1447
-    # and https://bugs.archlinux.org/task/65781
-    cd "${srcdir}/${_pkgname}-${pkgver}/powerline/dist/systemd"
-    install -Dm644 powerline-daemon.service  "${pkgdir}/usr/lib/systemd/user/powerline-daemon.service"
-    # license is installed by powerline-common
+  install -vdm755 "$pkgdir/usr/share/powerline"
+  ln -vs "$(python -c 'import site; print(site.getsitepackages()[0])')/powerline/bindings" \
+    "$pkgdir/usr/share/powerline/bindings"
+
+  install -vDm644 -t "$pkgdir/usr/lib/systemd/user" \
+    powerline/dist/systemd/powerline-daemon.service
+
+  install -vDm644 -t "$pkgdir/usr/share/licenses/powerline" LICENSE
 }
 
 package_python-powerline() {
-    pkgdesc='python library for powerline'
-    depends=('python>=3.2' 'powerline-common')
-    optdepends=('python-psutil: improved system information'
-                'python-pygit2: improved git support'
-                'powerline-vim: vim plugin'
-                'powerline-fonts: patched fonts for powerline'
-                'which: fish bindings'
-                )
+  pkgdesc='python library for powerline'
+  depends=(
+    'python'
+    'powerline-common'
+  )
+  optdepends=(
+    'python-psutil: improved system information'
+    'python-pygit2: improved git support'
+    'powerline-vim: vim plugin'
+    'powerline-fonts: patched fonts for powerline'
+    'which: fish bindings'
+  )
 
-    # install by redirect scripts and binaries
-    cd "${srcdir}/${_pkgname}-${pkgver}"
-    python setup.py install --skip-build --root="${pkgdir}" --install-data=tmp --install-scripts=tmp --optimize=1
-    # remove redirected scripts and binaries
-    rm -rf "${pkgdir}/tmp" 
+  cd $_pkgname-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/python-powerline" LICENSE
 
-    install -dm755 "${pkgdir}/usr/share/licenses/"
-    ln -s "/usr/share/licenses/${_pkgname}" "${pkgdir}/usr/share/licenses/${pkgname}"
+  # As executables are currently installed as the separate split-package
+  # 'powerline', remove them from this package.
+  # shellcheck disable=SC2115
+  rm -vr "$pkgdir/usr/bin"
 }
 
+package_powerline-common() {
+  pkgdesc='common files for python-powerline'
 
-package_powerline-common(){
-    pkgdesc='common files for python-powerline'
-    
-    cd "${srcdir}/${_pkgname}-${pkgver}"
-
-    # license
-    install -Dm644 "LICENSE" "${pkgdir}/usr/share/licenses/${_pkgname}/LICENSE"
-
-    install -dm755 "${pkgdir}/usr/share/licenses/"
-    ln -s "/usr/share/licenses/${_pkgname}" "${pkgdir}/usr/share/licenses/${pkgname}"
-
-    # manpages
-    install -dm755 "${pkgdir}/usr/share/man/man1/"
-    install -Dm644 "${srcdir}/${_pkgname}-${pkgver}/docs/_build/man/"* \
-                   "${pkgdir}/usr/share/man/man1/"
+  cd $_pkgname-$pkgver
+  install -vDm644 -t "$pkgdir/usr/share/man/man1" docs/_build/man/*
+  install -vDm644 -t "$pkgdir/usr/share/licenses/powerline-common" LICENSE
 }
 
 package_powerline-fonts() {
-    pkgdesc='patched fonts for powerline'
-    provides=('otf-powerline-symbols')
-    depends=('powerline-common')
+  pkgdesc='patched fonts for powerline'
+  provides=('otf-powerline-symbols')
+  depends=('powerline-common')
 
-    cd "${srcdir}/${_pkgname}-${pkgver}"
-
-    install -dm755 "${pkgdir}/usr/share/fontconfig/conf.default"
-    install -Dm644 "font/PowerlineSymbols.otf" "${pkgdir}/usr/share/fonts/OTF/PowerlineSymbols.otf"
-    install -Dm644 "font/10-powerline-symbols.conf" "${pkgdir}/usr/share/fontconfig/conf.avail/10-powerline-symbols.conf"
-    ln -s "../conf.avail/10-powerline-symbols.conf" "${pkgdir}/usr/share/fontconfig/conf.default/10-powerline-symbols.conf"
-
-    install -dm755 "${pkgdir}/usr/share/licenses/"
-    ln -s "/usr/share/licenses/${_pkgname}" "${pkgdir}/usr/share/licenses/${pkgname}"
+  cd $_pkgname-$pkgver
+  install -vDm644 -t "$pkgdir/usr/share/fonts/OTF" font/PowerlineSymbols.otf
+  install -vDm644 -t "$pkgdir/usr/share/fontconfig/conf.avail" font/10-powerline-symbols.conf
+  install -vdm755 "$pkgdir/usr/share/fontconfig/conf.default"
+  ln -vs /usr/share/fontconfig/conf.avail/10-powerline-symbols.conf \
+    "$pkgdir/usr/share/fontconfig/conf.default/10-powerline-symbols.conf"
+  install -vDm644 -t "$pkgdir/usr/share/licenses/powerline-fonts" LICENSE
 }
 
-
 package_powerline-vim() {
-    pkgdesc='vim plugin for powerline'
-    depends=('powerline' 'powerline-common' 'vim-runtime')
+  pkgdesc='vim plugin for powerline'
+  depends=(
+    'powerline'
+    'powerline-common'
+    'vim-runtime'
+  )
 
-    cd "${srcdir}/${_pkgname}-${pkgver}"
-    install -Dm644 "powerline/bindings/vim/plugin/powerline.vim" \
-                   "${pkgdir}/usr/share/vim/vimfiles/plugin/powerline.vim"
-
-    install -dm755 "${pkgdir}/usr/share/licenses/"
-    ln -s "/usr/share/licenses/${_pkgname}" "${pkgdir}/usr/share/licenses/${pkgname}"
+  cd $_pkgname-$pkgver
+  install -vDm644 -t "$pkgdir/usr/share/vim/vimfiles/plugin" \
+    powerline/bindings/vim/plugin/powerline.vim
+  install -vDm644 -t "$pkgdir/usr/share/licenses/powerline-vim" LICENSE
 }
