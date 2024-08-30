@@ -8,8 +8,8 @@ pkgname=(
   crawl-ncurses
   crawl-tiles
 )
-pkgver=0.31.0
-pkgrel=3
+pkgver=0.32.0
+pkgrel=1
 pkgdesc="Dungeon Crawl Stone Soup: open-source, single-player, role-playing \
          roguelike game of exploration and treasure-hunting"
 url="https://crawl.develz.org/"
@@ -48,7 +48,7 @@ makedepends=(
   python-yaml
 )
 source=("git+https://github.com/crawl/crawl#tag=$pkgver")
-b2sums=('37868568adf787ef85df13b8241e5c8155eb782e4ef7fa12f7500ba5584ab97218f0b272d92cd780352df1ab65dc0634a7b0c67184204b0e308139ce82724ac3')
+b2sums=('fdbe06a12e69eacc4b427ff01d6ef101df2ef4f858157ce500b232aecf413c019fddbbda44beaca3b74132e1abf987e6774f6272c0d577bff3ec748556a961dc')
 
 prepare() {
   cp -a crawl crawl-tiles
