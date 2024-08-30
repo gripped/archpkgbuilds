@@ -2,7 +2,7 @@
 # Contributor: Jameson Pugh <imntreal@gmail.com>
 
 pkgname=ell
-pkgver=0.67
+pkgver=0.68
 pkgrel=1
 pkgdesc="Embedded Linux library"
 arch=(x86_64)
@@ -13,7 +13,7 @@ depends=('gcc-libs' 'glibc')
 checkdepends=('dbus' 'procps-ng')
 # https://mirrors.edge.kernel.org/pub/linux/libs/ell/sha256sums.asc
 source=(https://mirrors.edge.kernel.org/pub/linux/libs/$pkgname/$pkgname-$pkgver.tar.{xz,sign})
-sha256sums=('97942e8cefb130b632496e5485242f3f374f3b8846800fb74fffd76dc2a0c726'
+sha256sums=('ddcbf381d758f61a02954bf5d2907c8900462abb7b2dcf45589874978bc10125'
             'SKIP')
 validpgpkeys=('E932D120BC2AEC444E558F0106CA9F5D1DCF2659') # "Marcel Holtmann <marcel@holtmann.org>"
 
