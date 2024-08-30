@@ -1,6 +1,6 @@
 pkgbase = opensearch-dashboards-alerting-plugin
 	pkgdesc = OpenSearch Dashboards Alerting Plugin
-	pkgver = 2.15.0.0
+	pkgver = 2.16.0.0
 	pkgrel = 1
 	url = https://opensearch.org/docs/latest/monitoring-plugins/alerting
 	arch = x86_64
@@ -9,16 +9,16 @@ pkgbase = opensearch-dashboards-alerting-plugin
 	makedepends = npm
 	makedepends = python
 	makedepends = git
-	depends = opensearch-dashboards=2.15.0
+	depends = opensearch-dashboards=2.16.0
 	depends = opensearch-dashboards-notifications-plugin
 	depends = coffeescript
 	options = !strip
 	options = emptydirs
-	source = git+https://github.com/opensearch-project/alerting-dashboards-plugin.git#tag=2.15.0.0
-	source = git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=2.15.0
-	source = skip-failed-test.patch
-	sha256sums = f3b3c7a4862665207eecbfb88e9aea76f752197657cf040a9f8fc46205969d78
-	sha256sums = 8528ed81c9b2282472089e611a648b22f7f240e2244bddd1124cc03612cb45d8
-	sha256sums = 767800bde68861c9263d49fb71d259a08506e5048b6b922f0671663dbd3b7a70
+	source = git+https://github.com/opensearch-project/alerting-dashboards-plugin.git#tag=2.16.0.0
+	source = git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=2.16.0
+	source = fix-ut.patch
+	sha256sums = 713ee788a85a37468e63fe6445b04f7628d11a2b3dd1d5cd67451055c8335727
+	sha256sums = 461b77cc2acae8df36213d7b27b4719c28486ef96f8451ce1666c4a7dbe56103
+	sha256sums = 253048e791348374d794e2c687846b8b111c34fc1d06c08b4ab1f96bc0020a59
 
 pkgname = opensearch-dashboards-alerting-plugin
