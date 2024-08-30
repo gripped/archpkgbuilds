@@ -2,7 +2,7 @@
 
 pkgname=polari
 pkgver=46.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An IRC Client for GNOME"
 url="https://apps.gnome.org/Polari/"
 arch=(x86_64)
@@ -32,16 +32,29 @@ makedepends=(
   meson
   yelp-tools
 )
+optdepends=('webkit2gtk-4.1: URL preview feature')
 groups=(gnome-extra)
 _commit=9ea71de3d20fdc96e76bb55362418b9118e7cf07  # tags/45.0^0
 source=(
   # Polari tags use SSH signatures which makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/polari.git#tag=${pkgver/[a-z]/.&}"
+  polari-close-dialog.patch
+  polari-pointer-device.patch
 )
-b2sums=('4e8ebd9ab847cd67b0427e69e41fa1a102f00799309767efdb3b1e109a2737155224bf1558808f610639200e817dd64cef6d657cfcefbca183c8e779d36dad16')
+b2sums=('4e8ebd9ab847cd67b0427e69e41fa1a102f00799309767efdb3b1e109a2737155224bf1558808f610639200e817dd64cef6d657cfcefbca183c8e779d36dad16'
+        '933ab4573d4aafa90cfb7addfb552baff066fd35b6d383ca1c1226e2454e98036c27d56d8a494e37ff3dbea39a34a2fbc864b21fc9c2f1c8e82032e50680627e'
+        'c2d2198f6e9f8ec2b40bffad081bffff90cd24e6f5a66d0bd626a442187980121ac401eb038e0919fb6f0a9cc7c4eb8770a4b925d1129bf49ae851c5965e7de3')
 
 prepare() {
   cd polari
+
+  # joinDialog: Fix closing the dialog
+  # https://gitlab.gnome.org/GNOME/polari/-/merge_requests/319
+  git apply -3 ../polari-close-dialog.patch
+
+  # joinDialog: Fix detecting pointer devices
+  # https://gitlab.gnome.org/GNOME/polari/-/merge_requests/320
+  git apply -3 ../polari-pointer-device.patch
 }
 
 build() {

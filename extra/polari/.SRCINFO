@@ -1,7 +1,7 @@
 pkgbase = polari
 	pkgdesc = An IRC Client for GNOME
 	pkgver = 46.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://apps.gnome.org/Polari/
 	arch = x86_64
 	groups = gnome-extra
@@ -27,7 +27,12 @@ pkgbase = polari
 	depends = telepathy-logger
 	depends = telepathy-mission-control
 	depends = tracker3
+	optdepends = webkit2gtk-4.1: URL preview feature
 	source = git+https://gitlab.gnome.org/GNOME/polari.git#tag=46.0
+	source = polari-close-dialog.patch
+	source = polari-pointer-device.patch
 	b2sums = 4e8ebd9ab847cd67b0427e69e41fa1a102f00799309767efdb3b1e109a2737155224bf1558808f610639200e817dd64cef6d657cfcefbca183c8e779d36dad16
+	b2sums = 933ab4573d4aafa90cfb7addfb552baff066fd35b6d383ca1c1226e2454e98036c27d56d8a494e37ff3dbea39a34a2fbc864b21fc9c2f1c8e82032e50680627e
+	b2sums = c2d2198f6e9f8ec2b40bffad081bffff90cd24e6f5a66d0bd626a442187980121ac401eb038e0919fb6f0a9cc7c4eb8770a4b925d1129bf49ae851c5965e7de3
 
 pkgname = polari
