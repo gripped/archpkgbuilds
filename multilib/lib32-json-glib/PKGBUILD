@@ -5,8 +5,8 @@ pkgbase=lib32-json-glib
 pkgname=(
   lib32-json-glib
 )
-pkgver=1.8.0
-pkgrel=2
+pkgver=1.10.0
+pkgrel=1
 pkgdesc="JSON library built on GLib (32-bit)"
 url="https://gnome.pages.gitlab.gnome.org/json-glib/"
 arch=(x86_64)
@@ -21,8 +21,8 @@ makedepends=(
   glib2-devel
   meson
 )
-source=("git+https://gitlab.gnome.org/GNOME/json-glib.git?signed#tag=$pkgver-actual")
-b2sums=('755b85f1deda24188d421debbf32563d47873228d2115cf86ffb46695d8dec8ed2e4f627489841d04a8625db73e40861dc29d18b1af2c5b5de5a4620d3a25ecc')
+source=("git+https://gitlab.gnome.org/GNOME/json-glib.git?signed#tag=$pkgver")
+b2sums=('30d992232c79dce85966c48396167b3ba0f3427a63fc2462b81d69aa4af215ce4be965983b649401d584127c547f5373b035a1f890f27876c4548310302adf70')
 validpgpkeys=(
   53EF3DC3B63E2899271BD26322E8091EEA11BBB7 # Emmanuele Bassi <ebassi@gnome.org>
 )
@@ -34,7 +34,9 @@ prepare() {
 build() {
   local meson_options=(
     --cross-file lib32
+    -D documentation=disabled
     -D gtk_doc=disabled
+    -D installed_tests=false
     -D introspection=disabled
   )
 
@@ -52,7 +54,7 @@ package_lib32-json-glib() {
 
   meson install -C build --destdir "$pkgdir"
 
-  rm -r "$pkgdir"/usr/{bin,include,lib,share}
+  rm -r "$pkgdir"/usr/{bin,include,share}
 }
 
 # vim:set sw=2 sts=-1 et:
