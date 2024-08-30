@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-notifications-plugin'
 _pluginname='dashboards-notifications'
-pkgver=2.15.0.0
-_dashboardsver=2.15.0
+pkgver=2.16.0.0
+_dashboardsver=2.16.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Notifications Plugin'
 url='https://opensearch.org/docs/latest/notifications-plugin/index/'
@@ -16,8 +16,8 @@ source=(
   "git+https://github.com/opensearch-project/${_pluginname}.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
 )
-sha256sums=('01bedc6ac71987208f389984b1ece6319ce4bf3321ac63b67f155c85ebda4bdf'
-            '8528ed81c9b2282472089e611a648b22f7f240e2244bddd1124cc03612cb45d8')
+sha256sums=('d60fadde177229689751df3abd75d4b0e2126a7fa1abfdfb8ff21cb23a4360f7'
+            '461b77cc2acae8df36213d7b27b4719c28486ef96f8451ce1666c4a7dbe56103')
 
 prepare() {
   nodeVersion="$(node -v)"
