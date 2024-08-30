@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-observability-plugin'
 _pluginname='observability-dashboards-plugin'
-pkgver=2.15.0.0
-_dashboardsver=2.15.0
+pkgver=2.16.0.0
+_dashboardsver=2.16.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Observability Plugin'
 url='https://opensearch.org/docs/latest/observability/index/'
@@ -16,8 +16,8 @@ source=(
   "git+https://github.com/opensearch-project/dashboards-observability.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
 )
-sha256sums=('75267232d93d269f42487c248070d0f74fab05bddbe0502df186792993effad3'
-            '8528ed81c9b2282472089e611a648b22f7f240e2244bddd1124cc03612cb45d8')
+sha256sums=('02d75b66122d99a98cd99eae23a06c6f96a5a3be4fd89643e33188e93f1e3ad1'
+            '461b77cc2acae8df36213d7b27b4719c28486ef96f8451ce1666c4a7dbe56103')
 
 prepare() {
   nodeVersion="$(node -v)"
@@ -32,7 +32,7 @@ build() {
   yarn build --skip-archive
 }
 
-# This breaks in release 2.15.0 - check on next one
+# This breaks in release 2.16.0 - check on next one
 # check() {
 #   cd "OpenSearch-Dashboards/plugins/${_pluginname}"
 #   yarn test
