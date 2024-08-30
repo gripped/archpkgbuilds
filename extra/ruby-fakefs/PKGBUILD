@@ -1,52 +1,50 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=ruby-fakefs
+_pkgname=${pkgname#ruby-}
 pkgver=2.5.0
-_commit=f38d42295a62301b73a5017e395715de71d6afa2
-pkgrel=3
+pkgrel=4
 pkgdesc='A fake filesystem. Use it in your tests.'
 arch=(any)
 url='https://github.com/fakefs/fakefs'
 license=(MIT)
-depends=(
-  ruby
-)
-makedepends=(
-  git
-)
+depends=(ruby)
+makedepends=(git)
 checkdepends=(
   less
-  ruby-bump
   ruby-bundler
   ruby-irb
   ruby-maxitest
   ruby-pry
   ruby-rake
   ruby-rspec
-  ruby-rubocop
 )
 options=(!emptydirs)
-source=(git+https://github.com/fakefs/fakefs.git#commit=$_commit)
-sha256sums=('SKIP')
+source=("git+$url.git#tag=v$pkgver")
+sha256sums=('0b850305eb820775a9411c4fe0da1dcff3e6ad419f1bb8041e6d69c7df9c46e6')
 
 prepare() {
-  cd fakefs
+  cd "$_pkgname"
   sed -r -e 's|~>|>=|' -i fakefs.gemspec
+  # Remove dependency on bump and rubocop
+  sed -r -e '/bump|rubocop/d' -i fakefs.gemspec
+  sed -r -e '/bump\/tasks/d;/rubocop\/rake_task/,+1d;/namespace :bump/,+4d' -i Rakefile
 }
 
 build() {
-  local _gemdir="$(gem env gemdir)"
-  cd fakefs
+  local gemdir="$(gem env gemdir)"
+  cd "$_pkgname"
   gem build fakefs.gemspec
   gem install \
     --local \
     --verbose \
     --ignore-dependencies \
     --no-user-install \
-    --install-dir "tmp_install/$_gemdir" \
+    --install-dir "tmp_install/$gemdir" \
     --bindir "tmp_install/usr/bin" \
     fakefs-$pkgver.gem
-  find "tmp_install/$_gemdir/gems/" \
+  find "tmp_install/$gemdir/gems/" \
     -type f \
     \( \
         -iname "*.o" -o \
@@ -57,17 +55,17 @@ build() {
         -iname "Makefile" \
     \) \
     -delete
-  rm -r tmp_install/$_gemdir/cache
+  rm -r "tmp_install/$gemdir/cache"
 }
 
 check() {
-  local _gemdir="$(gem env gemdir)"
-  cd fakefs
-  GEM_HOME="tmp_install/$_gemdir" rake test spec
+  local gemdir="$(gem env gemdir)"
+  cd "$_pkgname"
+  GEM_HOME="tmp_install/$gemdir" rake test spec
 }
 
 package() {
-  cd fakefs
-  cp -a tmp_install/* "$pkgdir"/
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  cd "$_pkgname"
+  cp -a -t "$pkgdir" tmp_install/*
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
