@@ -2,17 +2,32 @@
 
 _gemname='parallel'
 pkgname="ruby-${_gemname}"
-pkgver=1.26.1
-pkgrel=1
+pkgver=1.26.3
+pkgrel=2
 pkgdesc='Run any kind of code in parallel processes'
 arch=('any')
 url="https://github.com/grosser/${_gemname}"
 license=('MIT')
-depends=('ruby')
-checkdepends=('ruby-bump' 'ruby-rspec' 'ruby-rspec-rerun' 'ruby-rake' 'ruby-ruby-progressbar' 'ruby-sqlite3' 'ruby-bundler' 'lsof' 'procps-ng')
+depends=(
+  ruby
+)
+makedepends=(
+  ruby-rdoc
+)
+checkdepends=(
+  lsof
+  procps-ng
+  ruby-bundler
+  ruby-rake
+  ruby-rspec
+  ruby-rspec-rerun
+  ruby-ruby-progressbar
+  ruby-sqlite3
+)
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('92404eff2c39bb742fda8b746930262c546c03df9b4633106858e0b968c86589172e4b080f1ba50dff9d3e0873ca817950d08c8b521549ad4d71731aaad80083')
+sha512sums=('e0e18a472b9b45697ef6b1e1cdccb60c76afb7605a958135a0414c54c8b2a143b409d8f5638a5ef52422359336ada1e8bc867856c365641f69c5f39a19cf7e22')
+b2sums=('bf82ac5620f514d7e5317b95956785d819c5d8ec583761fb7cf04ae56c643fa04cb2e59ca2459e225d3ea754e1c781065a0d51becb9f221e0fad093ebf9283bf')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
@@ -22,8 +37,8 @@ prepare() {
 
   rm --verbose Gemfile.lock
 
-  # Remove dependency on activerecord
-  sed --in-place --regexp-extended '/activerecord|rubocop|legacy_formatters|mysql/d' Gemfile
+  # Remove dependency on activerecord, bump, rubocop, legacy_formatters and mysql
+  sed --in-place --regexp-extended '/activerecord|bump|rubocop|legacy_formatters|mysql/d' Gemfile
 
   # Remove certain tests as they use activerecord which Arch cannot ship right now.
   rm spec/cases/map_with_ar.rb
@@ -37,37 +52,26 @@ prepare() {
 build() {
   cd "${_gemname}-${pkgver}"
 
-  gem build "${_gemname}.gemspec"
-}
-
-
-check() {
-  cd "${_gemname}-${pkgver}"
-
-  GEM_HOME="tmp_install/${_gemdir}" rspec
-}
-
-package() {
-  cd "${_gemname}-${pkgver}"
-
   local _gemdir="$(gem env gemdir)"
+
+  gem build --verbose "${_gemname}.gemspec"
 
   gem install \
     --local \
     --verbose \
     --ignore-dependencies \
     --no-user-install \
-    --install-dir "${pkgdir}/${_gemdir}" \
-    --bindir "${pkgdir}/usr/bin" \
+    --install-dir "tmp_install${_gemdir}" \
+    --bindir "tmp_install/usr/bin" \
     "${_gemname}-${pkgver}.gem"
 
   # remove unrepreducible files
   rm --force --recursive --verbose \
-    "${pkgdir}/${_gemdir}/cache/" \
-    "${pkgdir}/${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
-    "${pkgdir}/${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
+    "tmp_install${_gemdir}/cache/" \
+    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
+    "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
 
-  find "${pkgdir}/${_gemdir}/gems/" \
+  find "tmp_install${_gemdir}/gems/" \
     -type f \
     \( \
       -iname "*.o" -o \
@@ -79,14 +83,31 @@ package() {
     \) \
     -delete
 
-  find "${pkgdir}/${_gemdir}/extensions/" \
+  find "tmp_install${_gemdir}/extensions/" \
     -type f \
     \( \
       -iname "mkmf.log" -o \
       -iname "gem_make.out" \
     \) \
     -delete
+}
+
+
+check() {
+  cd "${_gemname}-${pkgver}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  GEM_HOME="tmp_install${_gemdir}" rspec
+}
+
+package() {
+  cd "${_gemname}-${pkgver}"
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
 
   install --verbose -D --mode=0644 MIT-LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
   install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
 }
+
+# vim: tabstop=2 shiftwidth=2 expandtab:
