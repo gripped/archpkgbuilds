@@ -5,13 +5,13 @@
 
 pkgname=python-pandas
 pkgver=2.2.2
-pkgrel=2
+pkgrel=3
 pkgdesc='High-performance, easy-to-use data structures and data analysis tools for Python'
 arch=(x86_64)
 url="https://pandas.pydata.org/"
 license=(BSD)
 depends=('python-numpy' 'python-dateutil' 'python-pytz')
-makedepends=('cython' 'python-build' 'python-installer' 'meson-python' 'python-versioneer')
+makedepends=('git' 'cython' 'python-build' 'python-installer' 'meson-python' 'python-versioneer')
 optdepends=(
     'python-pandas-datareader: pandas.io.data replacement (recommended)'
     'python-numexpr: accelerating certain numerical operations (recommended)'
@@ -105,29 +105,29 @@ checkdepends=(
     'python-botocore'
     'python-numba'
 )
-# No test data in upstream crafted tarball
+# No test data in upstream tarballs
 #source=(https://github.com/pandas-dev/pandas/releases/download/v${pkgver}/pandas-${pkgver}.tar.gz)
-source=(https://github.com/pandas-dev/pandas/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('79bc6fb5505afd27875c93fec27cece74318470c4e274ec7ef48b16f046dc006')
-
-prepare() {
-  cd pandas-${pkgver}
-  sed -e 's|2.0.0|1.0.0|' -i pandas/compat/_optional.py # Restore sqlalchemy 1.x support
-}
+source=(git+https://github.com/pandas-dev/pandas#tag=v${pkgver})
+sha256sums=('9ccd5a7d6adabae35b554eff2965848730cd18fd8c8393d2a449aa9ce5616208')
 
 build() {
-  cd pandas-${pkgver}
+  cd pandas
   python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
-  cd pandas-${pkgver}
-  # TODO: Revisit after new release with better python3.11 support
-  # pytest pandas --skip-slow --skip-network --skip-db -m "not clipboard and not single_cpu" -n 4 -r sxX || true
+  cd pandas
+  mkdir -p test-install
+  python -m installer --destdir="$PWD"/test-install dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  mv pandas{,.backup} # Prevent pytest from picking up uncompiled pandas from $PWD
+  PYTHONPATH="$srcdir"/test-install/${site_packages} \
+  pytest -v pandas.backup -m "not network and not db and not slow and not clipboard and not single_cpu" -n 4 -r sxX --no-strict-data-files || true
+  mv pandas{.backup,.}
 }
 
 package() {
-  cd pandas-${pkgver}
+  cd pandas
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }

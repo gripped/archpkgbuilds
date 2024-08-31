@@ -1,7 +1,7 @@
 pkgbase = python-pandas
 	pkgdesc = High-performance, easy-to-use data structures and data analysis tools for Python
 	pkgver = 2.2.2
-	pkgrel = 2
+	pkgrel = 3
 	url = https://pandas.pydata.org/
 	arch = x86_64
 	license = BSD
@@ -51,6 +51,7 @@ pkgbase = python-pandas
 	checkdepends = ipython
 	checkdepends = python-botocore
 	checkdepends = python-numba
+	makedepends = git
 	makedepends = cython
 	makedepends = python-build
 	makedepends = python-installer
@@ -90,7 +91,7 @@ pkgbase = python-pandas
 	optdepends = python-brotli: Brotli compression
 	optdepends = python-snappy: Snappy compression
 	optdepends = python-zstandard: Zstandard (zstd) compression
-	source = https://github.com/pandas-dev/pandas/archive/refs/tags/v2.2.2/python-pandas-2.2.2.tar.gz
-	sha256sums = 79bc6fb5505afd27875c93fec27cece74318470c4e274ec7ef48b16f046dc006
+	source = git+https://github.com/pandas-dev/pandas#tag=v2.2.2
+	sha256sums = 9ccd5a7d6adabae35b554eff2965848730cd18fd8c8393d2a449aa9ce5616208
 
 pkgname = python-pandas
