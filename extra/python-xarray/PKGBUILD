@@ -2,7 +2,7 @@
 
 _pkg=xarray
 pkgname=python-${_pkg}
-pkgver=2023.09.0
+pkgver=2024.07.0
 pkgrel=1
 pkgdesc="N-D labeled arrays and datasets in Python"
 arch=(any)
@@ -48,6 +48,7 @@ checkdepends=(
   python-boto3
   python-cftime
   python-dask
+  python-dask-expr
   python-distributed
   python-fsspec
   python-h5py
@@ -63,8 +64,17 @@ checkdepends=(
   python-seaborn
 )
 #source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-source=(https://github.com/pydata/xarray/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('ee5856f66232e9f4c88791472dc5609c424483ea8bebd3f826f4700885ee418d')
+source=(https://github.com/pydata/xarray/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz
+        https://github.com/pydata/xarray/commit/bd0fd974.patch
+        https://github.com/pydata/xarray/commit/ed6bfb26.patch)
+sha256sums=('3db5160a699a7731fba26b42aef3f175ca3a6adfe5593bebd0b7af90e55d747d'
+            'c39d864d96ea0f84d87fac027ff8a6813575a024add9805f4efc97beb32432f7'
+            'a605be5c7999d2c43fdea0a9e40f013f643aedcf8f0264a686033603455b4e48')
+
+prepare() {
+  patch -d $_pkg-$pkgver -p1 < bd0fd974.patch # Fix tests
+  patch -d $_pkg-$pkgver -p1 < ed6bfb26.patch
+}
 
 build() {
   cd ${_pkg}-${pkgver}
