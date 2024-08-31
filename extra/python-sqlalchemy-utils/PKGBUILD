@@ -4,8 +4,8 @@
 
 _name=sqlalchemy-utils
 pkgname=python-sqlalchemy-utils
-pkgver=0.38.3
-pkgrel=4
+pkgver=0.42.2
+pkgrel=1
 pkgdesc='Various utility functions, new data types and helpers for SQLAlchemy'
 url='https://github.com/kvesteri/sqlalchemy-utils'
 depends=('python' 'python-sqlalchemy' 'python-anyjson' 'python-babel'
@@ -17,8 +17,8 @@ makedepends=('python' 'python-setuptools' 'python-build' 'python-installer' 'pyt
 license=('BSD')
 arch=('any')
 source=(https://github.com/kvesteri/sqlalchemy-utils/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('d6790cc9df0424f528f066e9d9302beb9ed16ba50370878d387796b4adaec5e19466e6093b5758c189735db1f1d210a4a17579ec31a7d38df5c91f04a215ff71')
-b2sums=('162a01e67b14f419723ef698b389de1ca427f01da3a005878838755468691c8e0c2c8ca347e064940c6ef41fd0c2e1f0651cacf620407073e85cecc38b392a64')
+sha512sums=('54b770cbde6a7131229bc1b5166dd476a4ba061e470b2eb9a7c23c085f80e413bafe11b3ea98d60906669c25cca19b35d4a068df59c7858b54f8e5d19ea61f3e')
+b2sums=('65a59ab46b0dd54756b65bae1d9d120beeff6d0f142e1b6025cee6ae9152082615ed3eddd9356ab22033746f4984969d6b76ab46cf0fee80026c3a2067d69724')
 
 build() {
   cd ${_name}-${pkgver}
