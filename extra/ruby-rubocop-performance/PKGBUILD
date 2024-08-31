@@ -4,7 +4,7 @@
 _gemname='rubocop-performance'
 pkgname="ruby-${_gemname}"
 pkgver=1.15.1
-pkgrel=2
+pkgrel=3
 pkgdesc='An extension of RuboCop focused on code performance checks'
 arch=('any')
 url='https://docs.rubocop.org/rubocop-performance/'
@@ -15,16 +15,13 @@ depends=(
   ruby-rubocop-ast
 )
 checkdepends=(
-  ruby-bump
   ruby-bundler
   ruby-parallel
   ruby-rake
   ruby-rexml
   ruby-rubocop-rspec
   ruby-rspec
-  ruby-simplecov
   ruby-test-queue
-  ruby-yard
 )
 options=('!emptydirs')
 source=("https://github.com/rubocop/${_gemname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
@@ -36,6 +33,10 @@ prepare() {
 
   # update gemspec/Gemfile to allow newer version of the dependencies
   sed --in-place --regexp-extended 's|~>|>=|g' "${_gemname}.gemspec" Gemfile
+
+  # Remove dependency on bump, simplecov and yard
+  sed --in-place --regexp-extended '/bump|simplecov|yard/d' Gemfile
+  rm tasks/{cops_documentation,cut_release}.rake
 
   # we have rubocop as a package so we don't need a git checkout
   sed --in-place --regexp-extended "s|, github: 'rubocop/rubocop'||g" Gemfile
