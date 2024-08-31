@@ -1,0 +1,15 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 93fa43e2d..55ae164ae 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -273,8 +273,8 @@ target_link_libraries(cryptominisat5
+     LINK_PUBLIC ${LOUVAIN_COMMUNITIES_LIBRARIES}
+     LINK_PUBLIC ${CMAKE_THREAD_LIBS_INIT}
+     LINK_PUBLIC ${GMP_LIBRARIES}
+-    LINK_PUBLIC ${cadiback}
+-    LINK_PUBLIC ${cadical}
++    LINK_PRIVATE ${cadiback}
++    LINK_PRIVATE ${cadical}
+ )
+ 
+ if (NOT WIN32)
