@@ -1,17 +1,19 @@
 pkgbase = python-netcdf4
 	pkgdesc = Python/NumPy interface to the netCDF C library
-	pkgver = 1.6.5
-	pkgrel = 3
+	pkgver = 1.7.1.post2
+	pkgrel = 1
 	url = https://unidata.github.io/netcdf4-python
 	arch = x86_64
 	license = MIT
+	checkdepends = python-pytest
 	makedepends = cython
+	makedepends = git
 	makedepends = python-setuptools
 	depends = python-numpy
 	depends = python-cftime
 	depends = netcdf
 	depends = python-certifi
-	source = https://files.pythonhosted.org/packages/source/n/netCDF4/netCDF4-1.6.5.tar.gz
-	sha256sums = 824881d0aacfde5bd982d6adedd8574259c85553781e7b83e0ce82b890bfa0ef
+	source = git+https://github.com/Unidata/netcdf4-python#tag=v1.7.1.post2
+	sha256sums = 508b4a226154389c4d173391881e6262515592c2322973cf56ec0bf87327e7ca
 
 pkgname = python-netcdf4

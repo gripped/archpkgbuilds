@@ -5,31 +5,32 @@
 
 _pkg=netCDF4
 pkgname=python-${_pkg,,}
-pkgver=1.6.5
-pkgrel=3
+pkgver=1.7.1.post2
+pkgrel=1
 pkgdesc="Python/NumPy interface to the netCDF C library"
 arch=(x86_64)
 url="https://unidata.github.io/netcdf4-python"
 license=(MIT)
 depends=(python-numpy python-cftime netcdf python-certifi)
-makedepends=(cython python-setuptools)
-source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-sha256sums=('824881d0aacfde5bd982d6adedd8574259c85553781e7b83e0ce82b890bfa0ef')
+makedepends=(cython git python-setuptools)
+checkdepends=(python-pytest)
+source=(git+https://github.com/Unidata/netcdf4-python#tag=v$pkgver)
+sha256sums=('508b4a226154389c4d173391881e6262515592c2322973cf56ec0bf87327e7ca')
 
 build() {
-  cd ${_pkg}-${pkgver}
+  cd netcdf4-python
   CFLAGS+=" -Wno-incompatible-pointer-types" \
   USE_NCCONFIG=1 python setup.py build
 }
 
 check() {
-  cd ${_pkg}-${pkgver}/test
+  cd netcdf4-python/test
   local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
   NO_NET=1 PYTHONPATH="../build/lib.linux-${CARCH}-cpython-${python_version/./}" python -B ./run_all.py
 }
 
 package() {
-  cd ${_pkg}-${pkgver}
+  cd netcdf4-python
   USE_NCCONFIG=1 python setup.py install --prefix=/usr --root="${pkgdir}" --skip-build --optimize=2
   install -Dm644 LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}
 }
