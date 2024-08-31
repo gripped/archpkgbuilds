@@ -5,7 +5,7 @@
 _name=starlette
 pkgname=python-$_name
 pkgver=0.38.2
-pkgrel=1
+pkgrel=2
 pkgdesc='The little ASGI framework that shines'
 arch=(any)
 url="https://github.com/encode/starlette"
