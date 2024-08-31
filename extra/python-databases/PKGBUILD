@@ -1,45 +1,67 @@
-# Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Filipe Laíns (FFY00) <lains@archlinux.org>
 
-_pkgname=databases
-pkgname=python-$_pkgname
-pkgver=0.8.0
-pkgrel=2
-pkgdesc='Async database support for Python'
-arch=('any')
-url='https://github.com/encode/databases'
-license=('BSD')
-depends=('python')
-makedepends=('python-setuptools')
-optdepends=('python-asyncpg: postgresql support'
-            'python-aiopg: postgresql + aiopg support'
-            'python-aiomysql: mysql support'
-            'python-aiosqlite: sqlite support')
-#checkdepends=('python-pytest-runner' 'python-asyncpg' 'python-psycopg2' 'python-aiopg'
-#              'python-aiomysql' 'python-pymysql' 'python-aiosqlite' 'python-sqlalchemy'
-#              'python-starlette' 'python-requests')
+pkgname=python-databases
+_pkgname=${pkgname#python-}
+pkgver=0.9.0
+pkgrel=1
+pkgdesc="Async database support for Python"
+arch=(any)
+url="https://github.com/encode/databases"
+license=(BSD-3-Clause)
+depends=(
+  python
+  python-sqlalchemy
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  # postgresql
+  # python-aiomysql
+  # python-aiopg
+  # python-asyncpg
+  # python-psycopg
+  # python-pymysql
+  python-aiosqlite
+  python-httpx
+  python-pytest
+  python-requests
+  python-starlette
+)
+optdepends=(
+  # 'python-asyncmy: mysql + asyncmy support' # Not yet packaged
+  'python-aiomysql: mysql support'
+  'python-aiopg: postgresql + aiopg support'
+  'python-aiosqlite: sqlite support'
+  'python-asyncpg: postgresql support'
+)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('c409d08908a2645e53bec5436c6050f0d3b488ef8d14952aa21e753deec02c75e7234ffe00917249604f43a4d4afd2f13040368ab3c3efa239647653e273fd1e')
-
-# TODO: fix tests (need databases)
+sha256sums=('4dc05d1810ae683930b150c1325ec2e35854fc5838ed91d3bfe94ff7dadb59e5')
 
 build() {
-  cd $_pkgname-$pkgver
-
-  python setup.py build
+  cd "$_pkgname-$pkgver"
+  python -m build --wheel --no-isolation
 }
 
-#check() {
-#  cd $_pkgname-$pkgver
-#
-#  python setup.py pytest
-#}
+check() {
+  cd "$_pkgname-$pkgver"
+  export TEST_DATABASE_URLS=" \
+    sqlite:///testsuite, \
+    sqlite+aiosqlite:///testsuite \
+  "
+  python -m installer --destdir=tmp_install dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$PWD/tmp_install/$site_packages:$PWD"
+  # Fails to collect if python-asyncmy not installed.
+  pytest --ignore tests/test_connection_options.py
+}
 
 package() {
-  cd $_pkgname-$pkgver
-
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
-
-  install -Dm 644 LICENSE.md "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  cd "$_pkgname-$pkgver"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.md
 }
-
-# vim:set ts=2 sw=2 et:
