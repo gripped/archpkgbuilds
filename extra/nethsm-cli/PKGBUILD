@@ -2,7 +2,7 @@
 
 pkgname=nethsm-cli
 _name=signstar
-pkgver=0.2.0
+pkgver=0.2.1
 pkgrel=1
 pkgdesc="A command line interface (CLI) for the Nitrokey NetHSM"
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(
 )
 options=(!lto)  # ring does not work with LTO
 source=($_name::git+$_url.git?signed#tag=$pkgname/$pkgver)
-sha256sums=('764cd4b9764c5a3d9e2c322f1297be9b226f643d42bde98e2f668cba788b0c8b')
+sha256sums=('986d8fa9fc0a66fd2f1a585945a9f7a03aa64900aba3382fd5fa87238e8af55f')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
@@ -47,11 +47,13 @@ check() {
 }
 
 package() {
-  install -vDm 755 $_name/target/release/nethsm -t "$pkgdir/usr/bin/"
+  local command=${pkgname/-cli/}
+
+  install -vDm 755 $_name/target/release/$command -t "$pkgdir/usr/bin/"
   install -vDm 644 $_name/$pkgname/README.md -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 $_name/LICENSES/MIT.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
   install -vDm 644 $_name/target/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
-  install -vDm 644 $_name/target/shell_completions/$pkgname.bash "$pkgdir/usr/share/bash-completion/completions/$pkgname"
-  install -vDm 644 $_name/target/shell_completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
-  install -vDm 644 $_name/target/shell_completions/$pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+  install -vDm 644 $_name/target/shell_completions/$command.bash "$pkgdir/usr/share/bash-completion/completions/$command"
+  install -vDm 644 $_name/target/shell_completions/_$command -t "$pkgdir/usr/share/zsh/site-functions/"
+  install -vDm 644 $_name/target/shell_completions/$command.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
 }
