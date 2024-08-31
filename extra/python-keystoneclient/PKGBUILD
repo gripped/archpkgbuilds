@@ -1,9 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-keystoneclient
-pkgver=5.4.0
-_commit=c66d778f3fa9eeefbd3a71ac91faebbd3e427113
-pkgrel=2
+pkgver=5.5.0
+pkgrel=1
 pkgdesc="Client Library for OpenStack Identity"
 arch=('any')
 url="https://docs.openstack.org/python-keystoneclient/latest/"
@@ -15,8 +14,8 @@ makedepends=('git' 'python-setuptools')
 checkdepends=('python-fixtures' 'python-keyring' 'python-lxml' 'python-oauthlib'
               'python-os-client-config' 'python-oslotest' 'python-requests-mock'
               'python-stestr' 'python-testresources' 'python-testscenarios' 'python-testtools')
-source=("git+https://github.com/openstack/python-keystoneclient.git#commit=$_commit")
-sha512sums=('SKIP')
+source=("git+https://github.com/openstack/python-keystoneclient.git#tag=$pkgver")
+sha512sums=('647dc2cc6c64ee526c70a64145c8e4ab2475ac18db3984391ee12c470ab0d279f1d3b9e893df76bd08753186a9e3dd51ce84dd749eff2998a7d60fefaceaa857')
 
 build() {
   cd python-keystoneclient
