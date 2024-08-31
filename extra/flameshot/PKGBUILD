@@ -5,7 +5,7 @@
 
 pkgname=flameshot
 pkgver=12.1.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Powerful yet simple to use screenshot software"
 arch=('x86_64')
 url="https://github.com/flameshot-org/flameshot"
@@ -31,7 +31,4 @@ build() {
 
 package() {
   DESTDIR="${pkgdir}" cmake --install build
-
-  # zsh _flameshot completion is provided by zsh-completions so exclude from packaging
-  rm -rf ${pkgdir}/usr/share/zsh/
 }
