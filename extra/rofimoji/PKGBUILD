@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=rofimoji
-pkgver=6.3.2
+pkgver=6.4.0
 pkgrel=1
 pkgdesc='Emoji, unicode and general character picker for rofi and rofi-likes'
 arch=(any)
@@ -36,7 +36,7 @@ optdepends=(
   'wtype: for the Wayland typer'
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('2c8e4da01c689f2104c174c2461ba696a4d53c78902956ce761fd518e069bd5551d298e87dcc5256067a7aa8dd4a9219cca92d7a66de073585c161a6e6c09947')
+b2sums=('8e1d9bfce9d3e3383d4bb8295fcdbb8d44be657cb243665792ef380e6c2ebc0aa00d9637f07db588ed4d6c0ef50ae54cfdf58a91e8866218b63154ea940079a7')
 
 prepare() {
   cd $pkgname
@@ -50,13 +50,12 @@ build() {
 }
 
 package() {
-  cd $pkgname
-  python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 -t "$pkgdir"/usr/share/man/man1 src/picker/docs/$pkgname.1
-
-  # Symlink license file
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
   ln -s "$site_packages"/$pkgname-$pkgver.dist-info/LICENSE \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 -t "$pkgdir"/usr/share/man/man1 src/picker/docs/$pkgname.1
 }
