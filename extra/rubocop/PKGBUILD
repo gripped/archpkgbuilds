@@ -2,7 +2,7 @@
 
 pkgname="rubocop"
 pkgver=1.39.0
-pkgrel=4
+pkgrel=5
 pkgdesc='A Ruby code style checking and code formatting tool'
 arch=('any')
 url='https://rubocop.org/'
@@ -24,13 +24,11 @@ checkdepends=(
   asciidoctor
   procps-ng
   ruby-bundler
-  ruby-bump
   ruby-rake
   ruby-rspec
   ruby-rubocop-performance
   ruby-rubocop-rake
   ruby-rubocop-rspec
-  ruby-simplecov
   ruby-stackprof
   ruby-test-queue
   ruby-webmock
@@ -52,12 +50,13 @@ prepare() {
   # update gemspec/Gemfile to allow newer version of the dependencies
   sed --in-place --regexp-extended 's|~>|>=|g' "${pkgname}.gemspec" Gemfile
 
-  # don't force an upper bound on simplecov
-  sed --in-place --regexp-extended "s|gem 'simplecov'.*|gem 'simplecov'|" Gemfile
-
   # we need webmock
   sed --in-place '/group/d' Gemfile
   sed --in-place '/end/d' Gemfile
+
+  # Remove dependency on bump and simplecov
+  sed --in-place --regexp-extended '/bump|simplecov/d' Gemfile
+  rm tasks/cut_release.rake
 }
 
 build() {
