@@ -6,7 +6,7 @@
 _pkg=netCDF4
 pkgname=python-${_pkg,,}
 pkgver=1.7.1.post2
-pkgrel=1
+pkgrel=2
 pkgdesc="Python/NumPy interface to the netCDF C library"
 arch=(x86_64)
 url="https://unidata.github.io/netcdf4-python"
@@ -20,7 +20,7 @@ sha256sums=('508b4a226154389c4d173391881e6262515592c2322973cf56ec0bf87327e7ca')
 build() {
   cd netcdf4-python
   CFLAGS+=" -Wno-incompatible-pointer-types" \
-  USE_NCCONFIG=1 python setup.py build
+  USE_NCCONFIG=1 NETCDF_PLUGIN_DIR=/usr/lib/netcdf/plugin python setup.py build
 }
 
 check() {
