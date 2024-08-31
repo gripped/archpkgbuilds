@@ -3,7 +3,7 @@
 
 pkgname=python-logbook
 pkgver=1.7.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Logging sytem for Python that replaces the standard library’s logging module"
 arch=('x86_64')
 url="https://logbook.readthedocs.io/en/stable/"
