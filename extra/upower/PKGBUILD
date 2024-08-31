@@ -3,7 +3,7 @@
 
 pkgname=upower
 pkgver=1.90.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Abstraction for enumerating power devices, listening to device events and querying history and statistics"
 url="https://upower.freedesktop.org"
 arch=(x86_64)
@@ -32,11 +32,18 @@ makedepends=(
   usbmuxd
 )
 backup=(etc/UPower/UPower.conf)
-source=("git+https://gitlab.freedesktop.org/upower/upower.git#tag=v$pkgver")
-b2sums=('7dd53845a7df3e1c58c00431a329a621df2c034a9cd0ed4d4f5def67d993b05eb7b030abb50fbcfc7af1a432c1413f97905c70b28ca3aef619d148f6ad035669')
+source=(
+  "git+https://gitlab.freedesktop.org/upower/upower.git#tag=v$pkgver"
+  0001-up-polkit-Add-G_ADD_PRIVATE-UpPolkit.patch
+)
+b2sums=('7dd53845a7df3e1c58c00431a329a621df2c034a9cd0ed4d4f5def67d993b05eb7b030abb50fbcfc7af1a432c1413f97905c70b28ca3aef619d148f6ad035669'
+        '7e85772dd9cc4099ccfb74f185c56683e52899c9e041d5797d83e2a8225b7f5554214368ce3df68cb23b1c526745a45774a54cc2c7a2b96859de10569744df24')
 
 prepare() {
   cd upower
+
+  # https://gitlab.freedesktop.org/upower/upower/-/issues/281
+  git apply -3 ../0001-up-polkit-Add-G_ADD_PRIVATE-UpPolkit.patch
 }
 
 build() {
