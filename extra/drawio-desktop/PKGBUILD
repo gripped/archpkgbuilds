@@ -2,17 +2,18 @@
 # Contributor: Dmitry Valter <`echo ZHZhbHRlciA8YXQ+IHByb3Rvbm1haWwgPGRvdD4gY29tCg== | base64 -d`>
 
 pkgname=drawio-desktop
-pkgver=24.7.5
-pkgrel=3
+pkgver=24.7.8
+pkgrel=1
 pkgdesc="Official Electron build of draw.io"
 arch=(any)
 url="https://www.drawio.com"
 license=(Apache-2.0)
-_electronver=31
+_electronver=32
 _nodever=20
 depends=(
   "electron$_electronver"
   hicolor-icon-theme
+  sh
 )
 makedepends=(
   "nodejs>=$_nodever"
@@ -26,13 +27,11 @@ source=(
   "drawio.sh"
   "drawio.xml"
 )
-sha256sums=(
-  'a0d349a343428fa3964d8e71bf7e4df8460817ceedf89824e54deb9e97e8a84e'
-  '1c92ab370c5493a3b4ae76d4749b5a8068a01e4909c3355d49ad4abfc0c838b5'
-  '1064adf2cb2cd69a95d0f820000f48291a19698df707bef8f1aff0b8d368cf4a'
-  '70735625bcb70e9a9e4a56a4723b230946c1d68336dba93864f45aed5c97899a'
-  '53fb8df9cd9101d79fd897880dc7c59b3e90cf5d980029a1ecaa5da3031f8606'
-)
+sha256sums=('cc94ac46f910282dd6ee839cfae275aa796a26f8444fc73164e659b943f1fadd'
+            '49a9ed1d16b6d12a952291cf03aa77fc655fde6e24d4bb8820e797380d395980'
+            '1064adf2cb2cd69a95d0f820000f48291a19698df707bef8f1aff0b8d368cf4a'
+            '70735625bcb70e9a9e4a56a4723b230946c1d68336dba93864f45aed5c97899a'
+            '53fb8df9cd9101d79fd897880dc7c59b3e90cf5d980029a1ecaa5da3031f8606')
 
 prepare() {
   cd $pkgname
@@ -42,11 +41,12 @@ prepare() {
   git config submodule.drawio.url "$srcdir/drawio"
   git -c protocol.file.allow=always submodule update
 
-  # Check package.json version
-  grep -q "\"version\": \"$pkgver\"" package.json
-  # Electron & Node version compatibility checks
-  grep -q "\"electron\": \"$_electronver\." package.json
-  grep -q "\"node\": \">=$_nodever\"" package.json
+  grep -q "\"version\": \"$pkgver\"" package.json \
+    || ( echo "Version mismatch in package.json"; exit 1 )
+  grep -q "\"electron\": \"$_electronver\." package.json \
+    || ( echo "Electron version mismatch in package.json"; exit 1 )
+  grep -q "\"node\": \">=$_nodever\"" package.json \
+    || ( echo "Node version mismatch in package.json"; exit 1 )
 
   # Disable auto-updates
   sed -i 's/return false;/return true;/' src/main/disableUpdate.js
