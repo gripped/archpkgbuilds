@@ -4,30 +4,30 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=ibus-anthy
-pkgver=1.5.15
-pkgrel=2
+pkgver=1.5.16
+pkgrel=1
 pkgdesc='Japanese input method Anthy IMEngine for IBus Framework'
 arch=('x86_64')
 license=('LGPL')
 url='https://github.com/ibus/ibus-anthy'
 depends=('ibus' 'anthy' 'python' 'gtk-update-icon-cache' 'python-gobject')
-makedepends=('intltool' 'gobject-introspection')
-source=("https://github.com/ibus/ibus-anthy/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('0acebb1b397f98d156ba9d6465bdb1025fb23a6b05b72c9b471827b45e22af55468b7674469f348712682446641c98d68f3d2aa339d2a1997a2df8c2bac45a7c')
+makedepends=('git' 'intltool' 'gobject-introspection')
+source=("git+https://github.com/ibus/ibus-anthy.git#tag=$pkgver")
+sha512sums=('6e44a344f9e86d40f9ad2a8d2e094b20c6ee5e1804a98aa5f76f48f752926a51bc9b01e31782f44f3b2f455e01a61324071e2367a98676e4aa5a236e68638840')
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
 
   ./configure --prefix=/usr --libexec=/usr/lib/ibus
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
