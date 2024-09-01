@@ -3,8 +3,8 @@
 
 pkgname=chatblade
 pkgdesc="A CLI Swiss Army Knife for ChatGPT"
-pkgver=0.6.2
-pkgrel=2
+pkgver=0.6.4
+pkgrel=1
 arch=("any")
 url="https://github.com/npiv/chatblade"
 license=("GPL-3.0-only")
@@ -26,16 +26,13 @@ makedepends=(
 )
 source=(
 	"${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
-	"replace-distutils.patch"
 )
-sha256sums=('90b34945758bbfe66f746a35dc38953836ab261e51f7059219d8e977ea047d56'
-            'b7cd4ef4f26d7481fa3a07a9cc512dc3858e50eee0fcfaec71e10e9e4518ee1b')
+sha256sums=('519d5c4a8bd95052f72d11f2cbac735065f940bcde88e74e6407b53730800141')
 
 prepare() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
 	# Use remote assets
 	sed -i 's#<img src="assets/\([^"]*\)">#<img src="'${url}'/raw/v'${pkgver}'/assets/\1">#g' README.md
-	patch -Np1 -i "$srcdir/replace-distutils.patch"
 }
 
 build() {
