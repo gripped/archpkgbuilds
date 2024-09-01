@@ -1,9 +1,9 @@
 # Maintainer: Dan Printzell <wild@archlinux.org>
 
 pkgname=('dfmt')
-pkgver=0.15.1
-pkgrel=2
-_pkgcommit=470e65f7cc19441c4d50932520aefb7d93f242d5
+pkgver=0.15.2
+pkgrel=1
+_pkgcommit=d8e43e23eca0aa32f064fe7efe8e74a9efa8018e
 pkgdesc="Dfmt is a formatter for D source code"
 arch=('x86_64')
 url="https://github.com/dlang-community/dfmt"
@@ -35,8 +35,8 @@ prepare() {
 	git config submodule.stdx-allocator.url "$srcdir/stdx-allocator"
 	git -c protocol.file.allow=always submodule update
 
-	export _ldFlags="$(echo -ne $LDFLAGS | sed -e 's/-Wl,/-L=/g' -e 's/=auto/=full')"
-	_extraFlags="-O5 -linker=gold -link-defaultlib-shared=false $_ldFlags"
+	_ldFlags=$(echo -ne $LDFLAGS | cut -d\" -f2 | tail -c+4 | sed -e "s/-Wl,/-L=/g" -e "s/,/ -L=/g" -e "s/-flto=auto//")
+	_extraFlags="-link-defaultlib-shared=false $_ldFlags"
 	sed -i "/LDC_FLAGS \:=/ a override LDC_FLAGS += $_extraFlags" makefile
 }
 
