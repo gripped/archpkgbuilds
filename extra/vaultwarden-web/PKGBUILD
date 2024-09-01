@@ -3,8 +3,8 @@
 # Contributor: Markus Richter <mqus at disroot dot org>
 
 pkgname=vaultwarden-web
-_pkgver=2024.6.2b
-pkgver=2024.6.2.b
+_pkgver=2024.6.2c
+pkgver=2024.6.2.c
 _upstreamver=${_pkgver%[[:lower:]]}
 _patchver=$_upstreamver
 pkgrel=1
@@ -24,7 +24,7 @@ source=(
   "git+https://github.com/dani-garcia/bw_web_builds#tag=v$_pkgver"
 )
 b2sums=('7fd09ee856e82fb1eaf8022b6ed6846819bc3f11b7bcdd684bb8e6cd53b2e98b4cc2e46f45fcb5b6e75dae3b68a05ae887a7e49fad7a91a1f2558a88d9aa7c1a'
-        '4490f5dda526cd9f71923dd9fdd7e6f3976ca10676dc776ab240b2f2e815cffdf9bdbcbb3b5306c811eaa1ab4915bd3a3dfc05a8468967f20ef8f04b3124e43a')
+        'a536986d40fb0609c51fa68fa7db265ac8f2a7599ad5560ab9d089c1a1f8f497801ac6375ad5668c5cf4bb1c8cf6fece4230bfd3239ec0d597457d3d68d9ed43')
 
 # Appease vercmp by prepending trailing letter with a period
 # shellcheck disable=SC2001
@@ -40,7 +40,7 @@ prepare() {
     apps/web/src/images
 
   # Apply Vaultwarden patch
-  patch --forward --strip=1 --input=../bw_web_builds/patches/v$_patchver.patch
+  patch --forward --strip=1 --input=../bw_web_builds/patches/v"$_patchver".patch
 
   npm ci
 }
