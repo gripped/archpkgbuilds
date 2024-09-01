@@ -6,7 +6,7 @@ pkgname=(
   libgweather-4
   libgweather-4-docs
 )
-pkgver=4.4.2
+pkgver=4.4.4
 pkgrel=1
 pkgdesc="Location and timezone database and weather-lookup library"
 url="https://wiki.gnome.org/Projects/LibGWeather"
@@ -25,24 +25,22 @@ depends=(
 makedepends=(
   gi-docgen
   git
+  glib2-devel
   gobject-introspection
   meson
   python-gobject
   vala
 )
 checkdepends=(python-pylint)
-_commit=4b589e02df295b4932c122bf9328c5b2437b8d17  # tags/4.4.2^0
 source=(
-  "git+https://gitlab.gnome.org/GNOME/libgweather.git#commit=$_commit"
+  "git+https://gitlab.gnome.org/GNOME/libgweather.git?signed#tag=$pkgver"
   disable-metar-test.diff
 )
-b2sums=('5403d04f881ef3234063b03286d8e584a17b752a7e74121fd485d4f7591327727bd3b66bfcd837e44a21d76bd91792c4b96cc4b0d0d0e6d02789f9bf51ab14a4'
+b2sums=('d09243e98733f471bf7591a4f137262ccaf65f1cb6b4bd856bd09bf87406b056f7708807ed791fd9b9166b78bc995c434122d76ba41cee7cdd67266fbc1e913f'
         '3d920f17e3f82bd33791b1e9662242f90a13e3cb3832fea5b900046b0ad90f97c5cf8174a6e5905b134585f280706ab67d3b65c108ed99c8285e3f05293b2b73')
-
-pkgver() {
-  cd libgweather
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+validpgpkeys=(
+  53EF3DC3B63E2899271BD26322E8091EEA11BBB7 # Emmanuele Bassi (GNOME) <ebassi@gnome.org>
+)
 
 prepare() {
   cd libgweather
