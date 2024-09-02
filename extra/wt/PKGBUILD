@@ -4,7 +4,7 @@
 
 pkgname=wt
 pkgver=4.10.4
-pkgrel=2
+pkgrel=3
 pkgdesc="a C++ library and application server for developing and deploying web applications"
 arch=('x86_64')
 url="http://www.webtoolkit.eu/"
@@ -20,8 +20,22 @@ optdepends=('openssl: for SSL support in built-in webserver'
 	    'sqlite: for Sqlite Dbo support'
 	    'mysql++: for the hangman example')
 backup=('etc/wt/wt_config.xml')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/kdeforche/wt/archive/${pkgver}.tar.gz")
-sha512sums=('f41efec1e77bd76f6f66ffb4ff38c98cfc590debb194682e3c6eb3f7b4366c30f8e2bbc16f4c33faa45f6f49d28812215538d20f4abc6c4dc3a226ae9b10ac71')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/kdeforche/wt/archive/${pkgver}.tar.gz"
+         https://github.com/emweb/wt/commit/481f3cca.patch
+         https://github.com/emweb/wt/commit/98537ce8.patch
+         boost-1.85.patch)
+sha512sums=('f41efec1e77bd76f6f66ffb4ff38c98cfc590debb194682e3c6eb3f7b4366c30f8e2bbc16f4c33faa45f6f49d28812215538d20f4abc6c4dc3a226ae9b10ac71'
+            '85be45a365b6aa04ff47851a67df1a1dab3b12f7aa8184909acf358aec9f215601c0739325de591c163cf27cb142ba40ac0dfe7b20b8f2fe99917e8639977a76'
+            '08a91764ce33db9a59a734e5be2f7adf62e77dfee5a58bce7e6d865c2902aadfa91a62d06ca9413b3f283534310f93933b091acfce380fee799234284966f351'
+            '91c23e38edb30a84211e5c8381cc247062c49428abecca4120582dea12f342b1736cbc4000ca118c70ecbf221b32982137de9a24af4e9a285bafd838381c6788')
+
+prepare() {
+  cd $pkgname-$pkgver
+# Fix build with boost 1.85
+  patch -p1 -i ../481f3cca.patch
+  patch -p1 -i ../98537ce8.patch
+  patch -p1 -i ../boost-1.85.patch
+}
 
 build() {
   cd ${pkgname}-${pkgver}
