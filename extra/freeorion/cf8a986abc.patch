@@ -1,0 +1,71 @@
+From cf8a986abca996a8e5b251b270541cacbc7b405c Mon Sep 17 00:00:00 2001
+From: Geoff <geoffthemedio@users.noreply.github.com>
+Date: Mon, 1 Apr 2024 21:31:21 +0200
+Subject: [PATCH] updates for Boost 1.85 (#4908)
+
+---
+ GG/src/dialogs/FileDlg.cpp | 2 +-
+ util/Directories.cpp       | 6 +++---
+ util/OptionsDB.cpp         | 3 +--
+ 3 files changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/GG/src/dialogs/FileDlg.cpp b/GG/src/dialogs/FileDlg.cpp
+index 3b6701e892b..01a385e4d06 100644
+--- a/GG/src/dialogs/FileDlg.cpp
++++ b/GG/src/dialogs/FileDlg.cpp
+@@ -9,7 +9,7 @@
+ 
+ #include <boost/cast.hpp>
+ #include <boost/algorithm/string/predicate.hpp>
+-#include <boost/filesystem/operations.hpp>
++#include <boost/filesystem.hpp>
+ #include <boost/format.hpp>
+ // boost::spirit::classic pulls in windows.h which in turn defines macro
+ // versions of min and max.  Defining NOMINMAX disables the creation of those
+diff --git a/util/Directories.cpp b/util/Directories.cpp
+index 6e1c9b1e844..1216a351b22 100644
+--- a/util/Directories.cpp
++++ b/util/Directories.cpp
+@@ -4,9 +4,8 @@
+ #include "i18n.h"
+ 
+ #include <boost/algorithm/string/trim.hpp>
+-#include <boost/filesystem/convenience.hpp>
+-#include <boost/filesystem/operations.hpp>
+ #include <boost/date_time/posix_time/posix_time.hpp>
++#include <boost/filesystem.hpp>
+ 
+ #include <cstdlib>
+ #include <mutex>
+@@ -265,7 +265,7 @@ void InitBinDir(std::string const& argv0)
+ #if defined(FREEORION_WIN32)
+     try {
+         fs::path binary_file = fs::system_complete(FilenameToPath(argv0));
+-        bin_dir = binary_file.branch_path();
++        bin_dir = binary_file.parent_path();
+     } catch (const fs::filesystem_error &) {
+         bin_dir = fs::initial_path();
+     }
+@@ -314,7 +314,7 @@ void InitBinDir(std::string const& argv0)
+             std::string path_text(buf);
+ 
+             fs::path binary_file = fs::system_complete(fs::path(path_text));
+-            bin_dir = binary_file.branch_path();
++            bin_dir = binary_file.parent_path();
+ 
+             // check that a "freeoriond" file (hopefully the freeorion server binary) exists in the found directory
+             fs::path p(bin_dir);
+diff --git a/util/OptionsDB.cpp b/util/OptionsDB.cpp
+index 8ce452de599..759c4d72372 100644
+--- a/util/OptionsDB.cpp
++++ b/util/OptionsDB.cpp
+@@ -22,8 +22,7 @@ namespace std {
+ #include <boost/algorithm/string/classification.hpp>
+ #include <boost/algorithm/string/erase.hpp>
+ #include <boost/algorithm/string/predicate.hpp>
+-#include <boost/filesystem/fstream.hpp>
+-#include <boost/filesystem/operations.hpp>
++#include <boost/filesystem.hpp>
+ #include <boost/range/algorithm_ext/erase.hpp>
+ #include <boost/tokenizer.hpp>
+ 
