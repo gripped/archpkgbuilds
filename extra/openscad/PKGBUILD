@@ -6,11 +6,11 @@
 
 pkgname=openscad
 pkgver=2021.01
-pkgrel=11
+pkgrel=12
 pkgdesc='The programmers solid 3D CAD modeller'
 arch=('x86_64')
 url='https://openscad.org'
-license=('GPL2')
+license=('GPL-2.0-or-later')
 depends=(
   'glibc'
   'gcc-libs'
@@ -53,19 +53,14 @@ checkdepends=(
   'xorg-server-xvfb'
   'python'
 )
-_commit='41f58fe57c03457a3a8b4dc541ef5654ec3e8c78'
 source=(
-  "$pkgname::git+https://github.com/openscad/openscad#commit=$_commit"
+  "$pkgname::git+https://github.com/openscad/openscad#tag=openscad-$pkgver"
   "github.com-openscad-MCAD::git+https://github.com/openscad/MCAD"
+  "boost-1.86.patch"
 )
-b2sums=('SKIP'
-        'SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^openscad-//'
-}
+b2sums=('077aeeeb7b43c69337793dd7543c179234c6f08ff6ef6c67b36bdeaa0be44fb5acb86574447d0a6b9c3f266fcf844d5cc355e76c84383975643da9e8c84c750d'
+        'SKIP'
+        '767d9a9d666d3c8a28ff0a8d8355124cf3518388672d27cb4511ec6f990f8fafe55ad16e4f7c1c2491aebc489421b711f3d8eca6ff74f370ad82abb6f205cc84')
 
 prepare() {
   cd "$pkgname"
@@ -90,6 +85,9 @@ prepare() {
 
   # fix boost join
   git cherry-pick --no-commit 08bf69b4115c989fc5671254e0d05735d01bcca5
+
+  # boost 1.86 compatibility
+  patch -Np1 -i "$srcdir/boost-1.86.patch"
 
   # prepare git submodule(s) - required for running tests
   git submodule init libraries/MCAD

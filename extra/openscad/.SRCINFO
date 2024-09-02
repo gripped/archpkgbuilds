@@ -1,10 +1,10 @@
 pkgbase = openscad
 	pkgdesc = The programmers solid 3D CAD modeller
 	pkgver = 2021.01
-	pkgrel = 11
+	pkgrel = 12
 	url = https://openscad.org
 	arch = x86_64
-	license = GPL2
+	license = GPL-2.0-or-later
 	checkdepends = cmake
 	checkdepends = xorgproto
 	checkdepends = xorg-server-xvfb
@@ -39,9 +39,11 @@ pkgbase = openscad
 	depends = nettle
 	depends = mpfr
 	depends = hicolor-icon-theme
-	source = openscad::git+https://github.com/openscad/openscad#commit=41f58fe57c03457a3a8b4dc541ef5654ec3e8c78
+	source = openscad::git+https://github.com/openscad/openscad#tag=openscad-2021.01
 	source = github.com-openscad-MCAD::git+https://github.com/openscad/MCAD
+	source = boost-1.86.patch
+	b2sums = 077aeeeb7b43c69337793dd7543c179234c6f08ff6ef6c67b36bdeaa0be44fb5acb86574447d0a6b9c3f266fcf844d5cc355e76c84383975643da9e8c84c750d
 	b2sums = SKIP
-	b2sums = SKIP
+	b2sums = 767d9a9d666d3c8a28ff0a8d8355124cf3518388672d27cb4511ec6f990f8fafe55ad16e4f7c1c2491aebc489421b711f3d8eca6ff74f370ad82abb6f205cc84
 
 pkgname = openscad
