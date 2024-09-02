@@ -2,7 +2,7 @@
 
 pkgname=guitarix
 pkgver=0.46.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple mono guitar amplifier and FX for JACK using Faust"
 arch=(x86_64)
 url="https://guitarix.org"
@@ -88,8 +88,8 @@ build() {
   export LINKFLAGS="$LDFLAGS"
 
   cd $pkgname-$pkgver
-  waf configure "${waf_options[@]}"
-  waf build -vv
+  ./waf configure "${waf_options[@]}"
+  ./waf build -vv
 }
 
 package() {
@@ -112,7 +112,7 @@ package() {
   )
 
   cd $pkgname-$pkgver
-  waf install --destdir="$pkgdir"
+  ./waf install --destdir="$pkgdir"
   # docs
   install -vDm 644 {changelog,README} -t "$pkgdir/usr/share/doc/$pkgname/"
 }
