@@ -5,89 +5,139 @@
 # Contributor: Matthew Bentley <matthew@mtbentley.us>
 # Contributor: HurricanePootis <hurricanepootis@protonmail.com>
 
-pkgname=godot
+pkgbase=godot
+pkgname=(godot godot-mono)
 pkgver=4.3
-pkgrel=3
+pkgrel=4
 pkgdesc='Advanced cross-platform 2D and 3D game engine'
 url='https://godotengine.org/'
 license=(MIT)
 arch=(x86_64)
-makedepends=(alsa-lib pulseaudio scons yasm)
-depends=(brotli ca-certificates embree freetype2 graphite harfbuzz harfbuzz-icu libglvnd libspeechd
-         libsquish libtheora libvorbis libwebp libwslay libxcursor libxi libxinerama libxrandr openxr miniupnpc pcre2)
+makedepends=(alsa-lib dotnet-sdk nuget pulse-native-provider scons setconf yasm)
+depends=(brotli ca-certificates embree freetype2 graphite harfbuzz harfbuzz-icu libglvnd libspeechd libsquish libtheora libvorbis
+         libwebp libwslay libxcursor libxi libxinerama libxrandr miniupnpc openxr pcre2)
 optdepends=('pipewire-alsa: for audio support'
             'pulse-native-provider: for audio support')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/godotengine/godot/archive/$pkgver-stable.tar.gz")
 b2sums=('37aeef42cca7f53f3e23cad7fb2f5456f631ddd20baf3c80329bb33d686ec685ee8e048c459bd25e75edaa775d8548241e94874578bc2b220a46855761fa11d5')
 
 prepare() {
-  # Update the MIME info, ref FS#77810
+  cd $pkgname-$pkgver-stable
+
+  # Patch for miniupnpc
+  sed -i 's/addr, 16/addr, 16, nullptr, 0/g' modules/upnp/upnp.cpp
+
+  cd misc/dist/linux
+
+  # Prepare the Godot Mono desktop file
+  cp -f org.godotengine.Godot.desktop org.godotengine.Godot-mono.desktop
+  setconf org.godotengine.Godot-mono.desktop Exec godot-mono
+  setconf org.godotengine.Godot-mono.desktop Name 'Godot Engine Mono'
+  setconf org.godotengine.Godot-mono.desktop Icon godot-mono.svg
+
+  # Fix the MIME info, ref FS#77810
   sed -i 's,xmlns="https://specifications.freedesktop.org/shared-mime-info-spec",xmlns="http://www.freedesktop.org/standards/shared-mime-info",g' \
-    $pkgname-$pkgver-stable/misc/dist/linux/org.godotengine.Godot.xml
-  # miniupnpc patch
-  sed -i 's/addr, 16/addr, 16, nullptr, 0/g' $pkgname-$pkgver-stable/modules/upnp/upnp.cpp
+    org.godotengine.Godot.xml
+
+  # Prepare the Godot Mono MIME file as well
+  cp -f org.godotengine.Godot.xml org.godotengine.Godot-mono.xml
 }
 
 build() {
   cd $pkgname-$pkgver-stable
+
   export BUILD_NAME=arch_linux
+
   # Not unbundled (yet):
   #  mbedtls
   #  enet (contains no upstreamed IPv6 support)
   #  AUR: libwebm, rvo2
   #  recastnavigation, xatlas
-  scons -j$(nproc --all) \
-    cflags="$CFLAGS -fPIC -Wl,-z,relro,-z,now -w -I/usr/include/mbedtls" \
-    cxxflags="$CXXFLAGS -fPIC -Wl,-z,relro,-z,now -w -I/usr/include/mbedtls" \
-    linkflags="$LDFLAGS -L/usr/lib/mbedtls" \
-    arch=$CARCH \
-    builtin_brotli=no \
-    builtin_certs=no \
-    builtin_clipper2=yes \
-    builtin_embree=no \
-    builtin_enet=yes \
-    builtin_freetype=no \
-    builtin_msdfgen=yes \
-    builtin_glslang=yes \
-    builtin_graphite=no \
-    builtin_harfbuzz=no \
-    builtin_icu4c=yes \
-    builtin_libogg=no \
-    builtin_libpng=no \
-    builtin_libtheora=no \
-    builtin_libvorbis=no \
-    builtin_libwebp=no \
-    builtin_wslay=yes \
-    builtin_mbedtls=yes \
-    builtin_miniupnpc=no \
-    builtin_openxr=no \
-    builtin_pcre2=no \
-    builtin_pcre2_with_jit=no \
-    builtin_recastnavigation=yes \
-    builtin_rvo2_2d=yes \
-    builtin_rvo2_3d=yes \
-    builtin_squish=no \
-    builtin_xatlas=yes \
-    builtin_zlib=no \
-    builtin_zstd=no \
-    colored=yes \
-    platform=linuxbsd \
-    production=yes \
-    pulseaudio=yes \
-    system_certs_path=/etc/ssl/certs/ca-certificates.crt \
-    target=editor \
-    use_llvm=no \
+
+  _args=(
+    -j$(nproc --all)
+    cflags="$CFLAGS -fPIC -Wl,-z,relro,-z,now -w"
+    cxxflags="$CXXFLAGS -fPIC -Wl,-z,relro,-z,now -w"
+    linkflags="$LDFLAGS"
+    arch=$CARCH
+    builtin_brotli=no
+    builtin_certs=no
+    builtin_clipper2=yes
+    builtin_embree=no
+    builtin_enet=yes
+    builtin_freetype=no
+    builtin_msdfgen=yes
+    builtin_glslang=yes
+    builtin_graphite=no
+    builtin_harfbuzz=no
+    builtin_icu4c=yes
+    builtin_libogg=no
+    builtin_libpng=no
+    builtin_libtheora=no
+    builtin_libvorbis=no
+    builtin_libwebp=no
+    builtin_wslay=yes
+    builtin_mbedtls=yes
+    builtin_miniupnpc=no
+    builtin_openxr=no
+    builtin_pcre2=no
+    builtin_pcre2_with_jit=no
+    builtin_recastnavigation=yes
+    builtin_rvo2_2d=yes
+    builtin_rvo2_3d=yes
+    builtin_squish=no
+    builtin_xatlas=yes
+    builtin_zlib=no
+    builtin_zstd=no
+    colored=yes
+    platform=linuxbsd
+    production=yes
+    pulseaudio=yes
+    system_certs_path=/etc/ssl/certs/ca-certificates.crt
+    target=editor
+    use_llvm=no
     werror=no
+  )
+
+  # Regular build
+  scons "${_args[@]}"
+
+  # Mono build
+  _args+=(module_mono_enabled=yes mono_glue=no)
+  scons "${_args[@]}"
+
+  bin/godot.linuxbsd.editor.$CARCH.mono --headless --generate-mono-glue modules/mono/glue
+  modules/mono/build_scripts/build_assemblies.py --godot-output-dir=./bin --godot-platform=linuxbsd
 }
 
-package() {
-  cd $pkgname-$pkgver-stable
-  install -Dm644 misc/dist/linux/org.godotengine.Godot.desktop \
-    "$pkgdir/usr/share/applications/godot.desktop"
-  install -Dm644 icon.svg "$pkgdir/usr/share/pixmaps/godot.svg"
-  install -Dm644 LICENSE.txt "$pkgdir/usr/share/licenses/godot/LICENSE"
-  install -Dm644 misc/dist/linux/godot.6 "$pkgdir/usr/share/man/man6/godot.6"
-  install -Dm644 misc/dist/linux/org.godotengine.Godot.xml \
-    "$pkgdir/usr/share/mime/packages/org.godotengine.Godot.xml"
+package_godot() {
+  cd $pkgbase-$pkgver-stable
+
   install -Dm755 bin/godot.linuxbsd.editor.$CARCH "$pkgdir/usr/bin/godot"
+
+  install -Dm644 icon.svg "$pkgdir/usr/share/pixmaps/$pkgname.svg"
+  install -Dm644 misc/dist/linux/org.godotengine.Godot.desktop "$pkgdir/usr/share/applications/org.godotengine.Godot.desktop"
+  install -Dm644 misc/dist/linux/org.godotengine.Godot.xml "$pkgdir/usr/share/mime/packages/org.godotengine.Godot.xml"
+
+  install -Dm644 misc/dist/linux/godot.6 "$pkgdir/usr/share/man/man6/$pkgname.6"
+  install -Dm644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
+
+package_godot-mono(){
+  depends+=(dotnet-sdk)
+
+  cd $pkgbase-$pkgver-stable
+
+  install -Dm755 bin/godot.linuxbsd.editor.$CARCH.mono "$pkgdir/usr/lib/$pkgname/godot.linuxbsd.editor.$CARCH.mono"
+
+  cp -a bin/GodotSharp "$pkgdir/usr/lib/$pkgname/"
+  install -d "$pkgdir/usr/bin"
+  ln -s /usr/lib/$pkgname/godot.linuxbsd.editor.$CARCH.mono "$pkgdir/usr/bin/$pkgname"
+
+  install -Dm644 icon.svg "$pkgdir/usr/share/pixmaps/$pkgname.svg"
+  install -Dm644 misc/dist/linux/org.godotengine.Godot-mono.desktop "$pkgdir/usr/share/applications/org.godotengine.Godot-mono.desktop"
+  install -Dm644 misc/dist/linux/org.godotengine.Godot-mono.xml "$pkgdir/usr/share/mime/packages/org.godotengine.Godot-mono.xml"
+
+  install -Dm644 misc/dist/linux/godot.6 "$pkgdir/usr/share/man/man6/$pkgname.6"
+  install -Dm644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
