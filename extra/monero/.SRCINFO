@@ -1,7 +1,7 @@
 pkgbase = monero
 	pkgdesc = Monero: the secure, private, untraceable peer-to-peer currency
-	pkgver = 0.18.3.3
-	pkgrel = 1
+	pkgver = 0.18.3.4
+	pkgrel = 2
 	url = https://getmonero.org/
 	arch = x86_64
 	license = BSD-3-Clause
@@ -22,7 +22,7 @@ pkgbase = monero
 	depends = libzmq.so
 	depends = pcsclite
 	depends = protobuf
-	source = monero::git+https://github.com/monero-project/monero?signed#tag=v0.18.3.3
+	source = monero::git+https://github.com/monero-project/monero?signed#tag=v0.18.3.4
 	source = git+https://github.com/miniupnp/miniupnp.git
 	source = git+https://github.com/Tencent/rapidjson.git
 	source = git+https://github.com/trezor/trezor-common.git
@@ -31,10 +31,11 @@ pkgbase = monero
 	source = fortify-source.patch
 	source = monero.sysusers
 	source = monero.tmpfiles
+	source = boost-1.85.patch
 	validpgpkeys = 8777AB8F778EE89487A2F8E7F4ACA0183641E010
 	validpgpkeys = BDA6BD7042B721C467A9759D7455C5E3C0CDCEB9
 	validpgpkeys = 487277A8BD0A209C16B700F3C64552D877C32479
-	sha512sums = 4708c835831bdd4b3ce22178bb9561de0dfee221bb254a4c2ff039f94c1c24344bb17f025ba794046adb791486d590117f7e0a9a6a411b75838578e9c14f2b6c
+	sha512sums = SKIP
 	sha512sums = SKIP
 	sha512sums = SKIP
 	sha512sums = SKIP
@@ -43,6 +44,7 @@ pkgbase = monero
 	sha512sums = cbb67fee67d053bbc929ad0eeaad6421fae43acf5f1ae4df346333362da7f50adc985a63c27bc4ac2a7c1f226d27162a6cad9908b53866180153a5422038e3db
 	sha512sums = 2e4ecf3f305dab46e166f50c0451dd969927b485df544aebcf8115a65444573e6d57a8ac6bea64ce5ab4b5cce2c70f913d9ac3bce561c59acf89851edc76a22c
 	sha512sums = ae3c300548e6ba5fdf6a203146e5dcaf1955c3e19820c0bb3a73bb70ec5629a3af00d43dac95b6f3832ded5c480e872d829981a63206016d4a64f3940b713357
+	sha512sums = 70777bdcb3e461d2939598248cfd3c893ca18cf4530c0adb589ed46dc92d51ae6dfec8bf4d8e95a01dc791dfcb51d99b47a191b34cd70ee8d0d9f58c0820013d
 
 pkgname = monero
 	backup = etc/monerod.conf
