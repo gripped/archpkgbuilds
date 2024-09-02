@@ -3,7 +3,7 @@
 
 pkgname=osquery
 pkgver=5.12.2
-pkgrel=1
+pkgrel=3
 pkgdesc="SQL powered operating system instrumentation, monitoring, and analytics"
 arch=(x86_64)
 url="https://osquery.io"
@@ -11,6 +11,20 @@ license=('Apache-2.0 OR GPL-2.0-only')
 depends=(
   audit
   augeas
+  aws-c-auth
+  aws-c-cal
+  aws-c-common
+  aws-c-compression
+  aws-c-event-stream
+  aws-c-http
+  aws-c-io
+  aws-c-mqtt
+  aws-c-s3
+  aws-c-sdkutils
+  aws-checksums
+  aws-crt-cpp
+  aws-sdk-cpp
+  bash
   boost-libs
   cryptsetup
   dbus
@@ -28,6 +42,7 @@ depends=(
   popt
   rocksdb
   rpm-tools
+  s2n-tls
   sleuthkit
   sqlite
   systemd-libs
@@ -52,38 +67,52 @@ backup=(
   etc/osquery/osquery.conf
   etc/sysconfig/osqueryd
 )
+_url=https://github.com/osquery/osquery
 source=(
-  "git+https://github.com/osquery/osquery.git#tag=$pkgver"
+  # Patchset maintained here:
+  # https://github.com/carlsmedstad/osquery/tree/build-on-archlinux
+  "git+$_url.git#tag=$pkgver"
   "git+https://github.com/arangodb/linenoise-ng.git"
   "git+https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git"
-  "0001-Use-system-libraries-where-possible.patch"
-  "0002-Disable-submodule-fetching.patch"
-  "0003-Remove-incompatible-build-flags.patch"
-  "0004-Remove-include-of-non-existing-header-xlocale.h.patch"
-  "0005-Add-missing-includes-causing-compilation-error-with-.patch"
-  "0006-Replace-usage-of-libaudit-function-removed-in-v3.0.7.patch"
-  "0007-Fix-remaining-compilation-issues.patch"
-  "0008-Do-not-build-system_controls-tables.patch"
-  "0009-Do-not-build-block_devices-tables.patch"
-  "0010-Do-not-build-utils-requiring-libdpkg.patch"
-  "0011-Adapt-installation-to-using-system-packages.patch"
-  "0012-Fix-systemd-service-and-systemctl-script.patch"
+  "0001-Use-system-libraries-where-possible.patch::$_url/commit/196cef6ab11762eb81640e9d2043ec404e626994.patch"
+  "0002-Disable-submodule-fetching.patch::$_url/commit/d1b1974d416fea21676cccff8c99160f8631a7f1.patch"
+  "0003-Remove-incompatible-build-flags.patch::$_url/commit/f524afd218b67f2ef126efa2bbe01765a551fdf3.patch"
+  "0004-Remove-include-of-non-existing-header-xlocale.h.patch::$_url/commit/8461290050c4df7d6342f4454ec578cc7fa3c171.patch"
+  # https://github.com/osquery/osquery/pull/8400
+  "0005-Add-missing-includes-causing-compilation-error-with-.patch::$_url/commit/5bc0c4191ebb94830b90a957c0b6db04ad0f23c9.patch"
+  # https://github.com/osquery/osquery/pull/8401
+  "0006-Replace-usage-of-libaudit-function-removed-in-v3.0.7.patch::$_url/commit/9539fdcfe9b4ac4b9f3db244e99b39a46594a40b.patch"
+  "0007-Fix-remaining-compilation-issues.patch::$_url/commit/b4af4776764afce0c2f05d2eb195e4b3e7ca6e09.patch"
+  "0008-Do-not-build-system_controls-tables.patch::$_url/commit/9e04ff399737a2bdfcdd67eb75772e8683d47e72.patch"
+  "0009-Do-not-build-block_devices-tables.patch::$_url/commit/7add67af68c42b3995b53dcbbfd86e71c5ce4a94.patch"
+  "0010-Do-not-build-utils-requiring-libdpkg.patch::$_url/commit/e03230faef43e9bff621b2946c5f950e95382d07.patch"
+  "0011-Fix-systemd-service-and-systemctl-script.patch::$_url/commit/22b18db72392dcf72bc5601b39887ea4685a90ae.patch"
+  "0012-Adapt-installation-to-using-system-packages.patch::$_url/commit/751630a7b1b0e98731f86f29f0f90ecf7e0227c4.patch"
+  # https://github.com/osquery/osquery/pull/8409
+  "0013-Replace-boost-filesystem-path.-leaf-filename.patch::$_url/commit/6c73f2a4439a10e1e461e3801a11015793ee93b6.patch"
+  "0014-Update-usage-of-boost-property_tree-ptree-get_child.patch::$_url/commit/66070894acc3d7956162304c6a06277d94e1fa2e.patch"
+  "0015-Replace-boost-filesystem-path.-normalize-lexically_n.patch::$_url/commit/7c8aa7ee95fd560ce76da7769f5a693aa70478b8.patch"
+  "0016-Adapt-tests-for-Boost-1.86.0-JSON-serialization-chan.patch::$_url/commit/680a246f587fc300daacf2bb16e87c799bec597b.patch"
 )
 sha256sums=('1239edfc5c1d80ce3d1a4ee072e2691df01587c00ab1e28fc9caa49f5ff46380'
             'SKIP'
             'SKIP'
-            'b49204d13b1a1ba32416a1d8aed403412cf6d188ce9b50ecd629cff28976cdd6'
-            '0d0a7cb792641ba861f927ec3f226aa82542f2e38ad3ea3c5bedbf51e614b5cf'
-            '49344a08321c1b7a4c3de84dfc9fb6ccdcf23dabbf5641abc0d75941fbc4ea98'
-            'fc5c2efbd4def80a0fb1ff5f8b2961b3db1232c4456e002005c9d76cd07c92cc'
-            '8751d6f90393461a4f1f755d81f02608bb262f0a24791c5f01a1c01a9a808d7d'
-            '015a0c34ef97e0f242de603714b1f5dd940be376811c5fa69d9e9702acd44a2c'
-            '7384a9dfef0deb674cecd12180fd5f258c3a2538e075f7c9fc4e091bcdef0bcd'
-            'b26c58bd579c794fc160b6e93659b573ad10d76e72d9161f7ea48282ced626e8'
-            '979d82ece22844e2974d5b8016af747561e056bc7cef02fe4bd06e89be971163'
-            '6d858191761917a2fa0f65aa5af5785377dea6242d74f1ea57ab7e68d6eb1429'
-            '66d6964aa32399a491e4e083ae79350c310fcdc9630178075d73b25a26e39cd1'
-            '96920f70b2447a7d3b2ca5a5bc444b57a0a28e8b0ee17d60f5dcc0a7842f1655')
+            'd2ddbb5b05fc8471566e3f3d62525a601458e3b0c158658b05f6a82fef8e8533'
+            '3ed7937d82134c5412ce4071fc44d20ca2df84270884aab89df4084be1b1cc20'
+            'ca444d1212f6c7a58e1f27d713796181cd7ef9bd57b84fc73a589e76909bdd51'
+            'dbcc488d09e66acbb9cbad79404a0bd0e8e47835df068d286bd321402bd5ffdb'
+            'cf543a5008c8c542411a6753d25e16b3e7bf2493dc9c1fa20b5177fd1d8760f2'
+            'dfcc824e9a0ffa9979f15787fe3a8878b6e4d3ad4f882659cbc5c6b9e8c0e579'
+            '5fb0373369a108382d18c7579d18a2d3842ff483ffd3cf2c4e4b75bf0f3047ed'
+            '55f2e3773f3a5804e7e8c9237cd5001fa8c12ed16bd5524ab0557936aebb92d8'
+            'c2d57e27dc6b2063322d5f6a88b411b447d2904628601f82876026a8c4583e55'
+            'cc2df4a84c421ea7b133fe51797be2499783893e04053ac101d3b7ec25dd0f20'
+            '70326d8ac6555d38c7bffffc270a7f1bc36551f35a3d9132245bdeb4085b986a'
+            'd3b39d84d4c4db47f43e8568e5e4406573159cb33a6da9ad7f980dfe3305970e'
+            'dcafbb27b5a54f7e180f838d1e3fcfc62857e7ad48405e48a4e691e95f7e0f83'
+            '8f4441f3f11b9250f7c4b6107d08498cb3e231bd898fcec90373c2cb19fe8b78'
+            '07d4ea9f79ef58e9542aa251fca1d4fcb45798786aac1fb4387522a653caf63d'
+            '90ddfd8a94f40c11715a2bd8b083af5f43fcd1863b1300f6d4b08b48ccc26e13')
 
 prepare() {
   cd $pkgname
@@ -94,22 +123,9 @@ prepare() {
     libraries/cmake/source/linenoise-ng \
     libraries/cmake/source/util-linux
 
-  # Patchset maintained here:
-  # https://github.com/carlsmedstad/osquery/tree/build-on-archlinux
-  patch -Np1 -i "$srcdir/0001-Use-system-libraries-where-possible.patch"
-  patch -Np1 -i "$srcdir/0002-Disable-submodule-fetching.patch"
-  patch -Np1 -i "$srcdir/0003-Remove-incompatible-build-flags.patch"
-  patch -Np1 -i "$srcdir/0004-Remove-include-of-non-existing-header-xlocale.h.patch"
-  # https://github.com/osquery/osquery/pull/8400
-  patch -Np1 -i "$srcdir/0005-Add-missing-includes-causing-compilation-error-with-.patch"
-  # https://github.com/osquery/osquery/pull/8401
-  patch -Np1 -i "$srcdir/0006-Replace-usage-of-libaudit-function-removed-in-v3.0.7.patch"
-  patch -Np1 -i "$srcdir/0007-Fix-remaining-compilation-issues.patch"
-  patch -Np1 -i "$srcdir/0008-Do-not-build-system_controls-tables.patch"
-  patch -Np1 -i "$srcdir/0009-Do-not-build-block_devices-tables.patch"
-  patch -Np1 -i "$srcdir/0010-Do-not-build-utils-requiring-libdpkg.patch"
-  patch -Np1 -i "$srcdir/0011-Adapt-installation-to-using-system-packages.patch"
-  patch -Np1 -i "$srcdir/0012-Fix-systemd-service-and-systemctl-script.patch"
+  for patch in "$srcdir"/*.patch; do
+    patch -Np1 -i "$patch"
+  done
 }
 
 build() {
@@ -126,9 +142,10 @@ build() {
     -DOSQUERY_BUILD_TESTS=ON \
     -DOSQUERY_BUILD_BPF=OFF \
     -DOSQUERY_BUILD_EXPERIMENTS=OFF \
-    -DOSQUERY_BUILD_AWS=OFF \
+    -DOSQUERY_BUILD_AWS=ON \
     -DOSQUERY_BUILD_DPKG=OFF \
-    -DOSQUERY_USE_SYSTEM_LIBRARIES=ON
+    -DOSQUERY_USE_SYSTEM_LIBRARIES=ON \
+    -DOSQUERY_VERSION="$pkgver"
   cmake --build build
 }
 
