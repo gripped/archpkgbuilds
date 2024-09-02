@@ -1,0 +1,57 @@
+From af348d84240e9a7cf8ea3c2c19d059278c952329 Mon Sep 17 00:00:00 2001
+From: Stan <Stan@3db68df2-c116-0410-a063-a993310a9797>
+Date: Fri, 2 Aug 2024 16:17:22 +0000
+Subject: [PATCH] Fix build with Boost 1.85
+
+Patch by: @Cayleb-Ordo
+Accepted by: @Stan
+Comments by: @sera
+
+Differential Revision: https://code.wildfiregames.com/D5267
+
+
+
+git-svn-id: https://svn.wildfiregames.com/public/ps/trunk@28176 3db68df2-c116-0410-a063-a993310a9797
+---
+ .../data/mods/public/gui/credits/texts/programming.json    | 1 +
+ source/graphics/TextureManager.cpp                         | 4 ++--
+ source/lib/file/file_system.cpp                            | 7 ++++++-
+ 3 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/source/graphics/TextureManager.cpp b/source/graphics/TextureManager.cpp
+index ec68b159894..9cfa615997e 100644
+--- a/source/graphics/TextureManager.cpp
++++ b/source/graphics/TextureManager.cpp
+@@ -806,7 +806,7 @@ class CTextureManagerImpl
+ 				files.push_back(f);
+ 			p = p / GetWstringFromWpath(*it);
+ 		}
+-		return m_TextureConverter.ComputeSettings(GetWstringFromWpath(srcPath.leaf()), files);
++		return m_TextureConverter.ComputeSettings(GetWstringFromWpath(srcPath.filename()), files);
+ 	}
+ 
+ 	/**
+diff --git a/source/lib/file/file_system.cpp b/source/lib/file/file_system.cpp
+index 1db6dc65d30..2b1fdba0565 100644
+--- a/source/lib/file/file_system.cpp
++++ b/source/lib/file/file_system.cpp
+@@ -32,6 +32,7 @@
+ #include "lib/sysdep/filesystem.h"
+ 
+ #include <boost/filesystem.hpp>
++#include <boost/version.hpp>
+ #include <memory>
+ 
+ bool DirectoryExists(const OsPath& path)
+@@ -229,7 +230,11 @@ Status CopyFile(const OsPath& path, const OsPath& newPath, bool override_if_exis
+ 	try
+ 	{
+ 		if(override_if_exists)
++#if BOOST_VERSION >=107400
++			fs::copy_file(fs::path(path.string()), fs::path(newPath.string()), boost::filesystem::copy_options::overwrite_existing);
++#else
+ 			fs::copy_file(fs::path(path.string()), fs::path(newPath.string()), boost::filesystem::copy_option::overwrite_if_exists);
++#endif
+ 		else
+ 			fs::copy_file(fs::path(path.string()), fs::path(newPath.string()));
+ 	}
