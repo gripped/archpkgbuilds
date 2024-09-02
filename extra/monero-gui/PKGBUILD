@@ -1,8 +1,8 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=monero-gui
-pkgver=0.18.3.3
-pkgrel=1
+pkgver=0.18.3.4
+pkgrel=2
 pkgdesc="Qt GUI wallet for Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD-3-Clause')
 arch=('x86_64')
@@ -47,8 +47,9 @@ source=(
   "git+https://github.com/tevador/RandomX.git"
   "git+https://github.com/monero-project/supercop.git"
   "monero-gui.desktop"
+   boost-1.85.patch
 )
-sha512sums=('8d30dc41518ab30fdd0927c50b417c27e5244f1d43ec142884e2adfb17faeea7f2aa3d780b8957755aea321d8b76d4db2fe04c9dfaed448e5f31f49f25f725ab'
+sha512sums=('b2f791f9e56d3834ec90463ecbb0c82b36c0647a42a0581f7ba23dbc56b2f00dbdfc3232c45746141934efe69532cbfab1e846f8a0fa5a8270e9774db268eb23'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -56,7 +57,8 @@ sha512sums=('8d30dc41518ab30fdd0927c50b417c27e5244f1d43ec142884e2adfb17faeea7f2a
             'SKIP'
             'SKIP'
             'SKIP'
-            '98b67aec60e492f0a220a156a110baf96862343d3802ec34347c70c7af671a1ae49ccaec218f2e8f81e153c433e9145ad2f55b8613ce6999fc2c87fbd81fd8e1')
+            '98b67aec60e492f0a220a156a110baf96862343d3802ec34347c70c7af671a1ae49ccaec218f2e8f81e153c433e9145ad2f55b8613ce6999fc2c87fbd81fd8e1'
+            '70777bdcb3e461d2939598248cfd3c893ca18cf4530c0adb589ed46dc92d51ae6dfec8bf4d8e95a01dc791dfcb51d99b47a191b34cd70ee8d0d9f58c0820013d')
 validpgpkeys=(
   '8777AB8F778EE89487A2F8E7F4ACA0183641E010' # luigi1111 <luigi1111w@gmail.com>
   '487277A8BD0A209C16B700F3C64552D877C32479' # Alexander Blair (Snipa / Snipa22) <snipa@jagtech.io>
@@ -79,12 +81,15 @@ prepare() {
 # Fix build with GCC 13
   git cherry-pick -n c32befe4f8385f5f893c0db611060bc7c7b425f3
 # Fix build with protobuf 23
-  sed -e 's|CMAKE_CXX_STANDARD 14|CMAKE_CXX_STANDARD 17|' -i CMakeLists.txt
+  sed -e 's|CMAKE_CXX_STANDARD 14|CMAKE_CXX_STANDARD 17|' -e 's|CMAKE_CXX_STANDARD=11|CMAKE_CXX_STANDARD=17|' -i CMakeLists.txt -i cmake/CheckTrezor.cmake
+# Fix build with boost 1.85
+  patch -p1 < "$srcdir"/boost-1.85.patch
 }
 
 build() {
   cd "${pkgname}"
   mkdir -p build && cd build
+  CFLAGS+=" -Wno-implicit-function-declaration -Wno-int-conversion" \
   cmake -D CMAKE_BUILD_TYPE=Release -D ARCH=default -D WITH_DESKTOP_ENTRY=OFF -D WITH_UPDATER=OFF ../
   make
 }
