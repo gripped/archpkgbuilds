@@ -2,7 +2,7 @@
 
 _pyname=openapi-core
 pkgname=python-$_pyname
-pkgver=0.19.3
+pkgver=0.19.4
 pkgrel=1
 pkgdesc='Client-side and server-side support for the OpenAPI Specification v3'
 arch=(any)
@@ -47,7 +47,7 @@ checkdepends=(python-pytest
               python-responses
               python-starlette)
 source=(git+https://github.com/python-openapi/openapi-core#tag=$pkgver)
-sha256sums=('819b2bd1e1745f144e6445495d6579fcdfb5631069e972c364d711de53a97fdc')
+sha256sums=('f37c267b2154e97c5a5ac7a0c278b4871b4057a1a26001f2e4022ceb9f96fe0e')
 
 prepare() {
   cd $_pyname
