@@ -1,4 +1,5 @@
 # Maintainer: Brett Cornwall <ainola@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=sway-contrib
 # Upstream versions with <current_sway_version>-contrib.<version>. Since that
@@ -6,12 +7,13 @@ pkgname=sway-contrib
 # entirely.
 pkgver=1.9.0
 _upstream_pkgver="1.9-contrib.0"
-pkgrel=1
+pkgrel=2
 pkgdesc="A collection of user-contributed scripts for sway"
 arch=('any')
 url="https://github.com/OctopusET/sway-contrib"
 license=('MIT')
 depends=(
+    "grim"
     "jq"
     "libnotify"
     "python"
