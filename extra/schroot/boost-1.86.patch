@@ -1,0 +1,66 @@
+diff --unified --recursive --text --new-file reschroot-1.6.13.orig/sbuild/sbuild-basic-keyfile.tcc reschroot-1.6.13/sbuild/sbuild-basic-keyfile.tcc
+--- reschroot-1.6.13.orig/sbuild/sbuild-basic-keyfile.tcc	2024-08-31 15:40:52.560180767 +0200
++++ reschroot-1.6.13/sbuild/sbuild-basic-keyfile.tcc	2024-08-31 15:49:45.506602680 +0200
+@@ -214,7 +214,7 @@
+     }
+   catch (std::runtime_error const& e) // Invalid locale
+     {
+-      localename = std::locale::classic();
++      localename = std::locale::classic().name();
+     }
+   std::string::size_type pos;
+   bool status = false;
+diff --unified --recursive --text --new-file reschroot-1.6.13.orig/sbuild/sbuild-chroot-config.cc reschroot-1.6.13/sbuild/sbuild-chroot-config.cc
+--- reschroot-1.6.13.orig/sbuild/sbuild-chroot-config.cc	2024-08-31 15:40:52.560180767 +0200
++++ reschroot-1.6.13/sbuild/sbuild-chroot-config.cc	2024-08-31 15:48:05.156206942 +0200
+@@ -31,6 +31,7 @@
+ #include <cstdlib>
+ #include <cstring>
+ 
++#include <boost/filesystem/directory.hpp>
+ #include <boost/filesystem/operations.hpp>
+ 
+ #include <sys/types.h>
+diff --unified --recursive --text --new-file reschroot-1.6.13.orig/sbuild/sbuild-run-parts.cc reschroot-1.6.13/sbuild/sbuild-run-parts.cc
+--- reschroot-1.6.13.orig/sbuild/sbuild-run-parts.cc	2024-08-31 15:40:52.560180767 +0200
++++ reschroot-1.6.13/sbuild/sbuild-run-parts.cc	2024-08-31 15:47:08.522621196 +0200
+@@ -29,6 +29,7 @@
+ #include <syslog.h>
+ 
+ #include <boost/format.hpp>
++#include <boost/filesystem/directory.hpp>
+ #include <boost/filesystem/operations.hpp>
+ 
+ using boost::format;
+diff --unified --recursive --text --new-file reschroot-1.6.13.orig/sbuild/sbuild-util.cc reschroot-1.6.13/sbuild/sbuild-util.cc
+--- reschroot-1.6.13.orig/sbuild/sbuild-util.cc	2024-08-31 15:40:52.560180767 +0200
++++ reschroot-1.6.13/sbuild/sbuild-util.cc	2024-08-31 15:47:36.706082990 +0200
+@@ -35,8 +35,6 @@
+ #include <time.h>
+ #endif
+ 
+-#include <boost/filesystem/convenience.hpp>
+-
+ using namespace sbuild;
+ 
+ namespace
+diff --unified --recursive --text --new-file reschroot-1.6.13.orig/test/sbuild-run-parts.cc reschroot-1.6.13/test/sbuild-run-parts.cc
+--- reschroot-1.6.13.orig/test/sbuild-run-parts.cc	2024-08-31 15:40:52.560180767 +0200
++++ reschroot-1.6.13/test/sbuild-run-parts.cc	2024-08-31 15:51:07.440217316 +0200
+@@ -24,6 +24,7 @@
+ #include <sstream>
+ 
+ #include <boost/filesystem/operations.hpp>
++#include <boost/system/system_error.hpp>
+ 
+ #include <cppunit/extensions/HelperMacros.h>
+ 
+@@ -35,7 +36,7 @@
+ {
+   CPPUNIT_TEST_SUITE(test_run_parts);
+   CPPUNIT_TEST(test_construction);
+-  CPPUNIT_TEST_EXCEPTION(test_construction_fail, boost::filesystem::filesystem_error);
++  CPPUNIT_TEST_EXCEPTION(test_construction_fail, boost::system::system_error);
+   CPPUNIT_TEST(test_run);
+   CPPUNIT_TEST(test_run2);
+   CPPUNIT_TEST(test_run3);
