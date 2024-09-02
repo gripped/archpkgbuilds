@@ -1,0 +1,6 @@
+[powerdns]
+source = "git"
+git = "https://github.com/PowerDNS/pdns.git"
+include_regex = "auth-(.+)"
+exclude_regex = ".*(pre|alpha|beta|rc|RC).*"
+prefix = "auth-"
