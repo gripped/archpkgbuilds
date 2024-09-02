@@ -1,8 +1,8 @@
 # Maintainer: Forest Crossman <cyrozap at gmail dot com>
 
 pkgname=stp
-pkgver=2.3.3
-pkgrel=12
+pkgver=2.3.4
+pkgrel=1
 pkgdesc="Simple Theorem Prover"
 arch=('x86_64')
 url="https://stp.github.io/"
@@ -10,11 +10,9 @@ license=('MIT')
 depends=('boost-libs' 'cryptominisat' 'minisat')
 makedepends=('boost' 'cmake' 'help2man' 'ninja' 'python' 'python-setuptools')
 source=("https://github.com/$pkgname/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        'mandir.patch'
-        'gcc-13.patch')
-sha256sums=('ea6115c0fc11312c797a4b7c4db8734afcfce4908d078f386616189e01b4fffa'
-            '4c09301c5a36cd89845a7177e1215008f8bbb23fa6f3c6cc941006825e28c327'
-            'd6d4bae84e77890c3662b24852266d811d7c0d82ee8f98dd8b167a09cd1d2f74')
+        'mandir.patch')
+sha256sums=('dc197e337c058dc048451b712169a610f7040b31d0078b6602b831fbdcbec990'
+            '4c09301c5a36cd89845a7177e1215008f8bbb23fa6f3c6cc941006825e28c327')
 
 prepare() {
   # Correct the destination for man documentation.
@@ -22,9 +20,6 @@ prepare() {
 
   # Remove RPATH
   sed -i '/RPATH/d' $pkgname-$pkgver/{,tools/stp/,tools/stp_simple/}CMakeLists.txt
-
-  # Fix build with GCC 13
-  patch -d $pkgname-$pkgver -p1 < gcc-13.patch
 }
 
 build() {
