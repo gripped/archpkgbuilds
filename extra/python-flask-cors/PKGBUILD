@@ -2,11 +2,11 @@
 # Maintainer: Johannes Löthberg <johannes@kyriasis.com>
 
 pkgname=python-flask-cors
-pkgver=4.0.1
+pkgver=5.0.0
 pkgrel=1
 
 pkgdesc='A Flask extension adding a decorator for CORS support'
-url='https://pypi.org/project/Flask-Cors'
+url='https://github.com/corydolphin/flask-cors'
 arch=('any')
 license=('MIT')
 
@@ -15,7 +15,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-setu
 
 source=("git+https://github.com/corydolphin/flask-cors.git#tag=$pkgver")
 
-sha256sums=('bfab47e211d1a0fb13c749b48a9275c4c758be7288707829f3ff317b96d2e2d0')
+sha256sums=('97bdc4193b88260f77fcb69991bf12ba78aa191507be17ab099914e1d2c332fb')
 
 build() {
 	cd flask-cors
