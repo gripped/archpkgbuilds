@@ -1,0 +1,35 @@
+# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Contributor: Eduardo Jose Gomez Hernandez <eduardo@edujgh.net>
+
+pkgname=c3c
+pkgver=0.6.1
+pkgrel=1
+pkgdesc='C3 aims to be an evolution of C'
+arch=(x86_64)
+url='https://github.com/c3lang/c3c'
+license=(LGPL-3.0-or-later MIT)
+makedepends=(clang cmake git libedit lld llvm ninja)
+source=("git+$url#commit=bdc9f339c9088099de74dafdb87122dc769a4b32"
+        cmake.txt)
+b2sums=('9a6b1155fceb691abd3294640f515fe9b0ce3e14bb2115b13b9a0a27a139d38ba3e0ece824a45a9673d8e57dc8f2ef97b21c0ce66d5e6576f8d9166281673637'
+        '7cf1c92b532a636d734ae4e5b2636f99945e732efed101ba020ddb2bc10ecea96bcf1956f91568b9dea0aac65e2e958acebcfe6b056077a8718fca920c632a14')
+
+prepare() {
+  cp -f cmake.txt $pkgname/CMakeLists.txt
+}
+
+build() {
+  cd $pkgname
+  cmake -B build -D CMAKE_BUILD_TYPE=Release -D CMAKE_BUILD_WITH_INSTALL_RPATH=ON -G Ninja
+  ninja -C build
+}
+
+package() {
+  cd $pkgname
+  install -Dm755 build/c3c "$pkgdir/usr/lib/$pkgname/c3c"
+  cp -r lib "$pkgdir/usr/lib/$pkgname/lib"
+  install -d "$pkgdir/usr/bin"
+  ln -s "/usr/lib/$pkgname/c3c" "$pkgdir/usr/bin/c3c"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 LICENSE_STDLIB "$pkgdir/usr/share/licenses/$pkgname/LICENSE_STDLIB"
+}
