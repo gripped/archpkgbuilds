@@ -3,7 +3,7 @@
 
 pkgname=openmw
 pkgver=0.48.0
-pkgrel=8
+pkgrel=9
 pkgdesc="Open-source engine reimplementation for the role-playing game Morrowind"
 arch=('x86_64')
 url="http://www.openmw.org"
@@ -14,7 +14,7 @@ makedepends=('cmake' 'boost' 'doxygen' 'ninja')
 source=("https://github.com/OpenMW/openmw/archive/refs/tags/openmw-${pkgver}.tar.gz"
          gcc14.patch)
 sha512sums=('6f2429253b44a232fc69db7f04a873f7328a5e95d810c36768311bdc23064a96c9963caa7d64a906bd67509e3a2f8d142db005ce093fc2764dd672ae6a617414'
-            '4039328c3c587db9fba203156eb0dbacfb6b6bc8015ee1f483c79757b52f85da88adc6640947cf5965e91cb7babb2fabcbcf42ce51e1b0a41a8b0ebac31882e1')
+            '552ec48c2b1821229fc81bcaf7f01174b24ffd6ae80d1e59c927a422d8c17eeb435f1501a05c1f105ab87342ad91d89fab0f7e8eb06d5552bb3d8d8675577a11')
 
 prepare() {
   cd openmw-openmw-$pkgver
