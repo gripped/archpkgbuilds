@@ -1,5 +1,5 @@
 # Maintainer: Lukas Fleischer <lfleischer@archlinux.org>
-# Maintainer: Ivy Foster <iff@archlinux.org>
+# Contributor: Ivy Foster <iff@archlinux.org>
 # Contributor: Abdelhakim Qbaich <abdelhakim@qbaich.com>
 # Contributor: korjjj <korjjj+aur@gmail.com>
 # Contributor: TDY <tdy@archlinux.info>
@@ -9,37 +9,51 @@
 
 pkgname=ledger
 pkgver=3.3.2
-pkgrel=5
+pkgrel=6
 pkgdesc='Double-entry accounting system with a command-line reporting interface'
 arch=(i686 x86_64)
 url='https://ledger-cli.org'
-license=(BSD)
+license=(BSD-3-Clause)
 depends=(boost-libs libedit mpfr)
 makedepends=(boost cmake python)
 optdepends=(
 	'emacs: emacs interface'
 	'python: python library'
 )
-source=("ledger-$pkgver.tar.gz::https://github.com/ledger/ledger/archive/v$pkgver.tar.gz")
-sha256sums=('555296ee1e870ff04e2356676977dcf55ebab5ad79126667bc56464cb1142035')
+source=(
+	"ledger-$pkgver.tar.gz::https://github.com/ledger/ledger/archive/v$pkgver.tar.gz"
+	"boost-1.86.patch"
+)
+sha256sums=('555296ee1e870ff04e2356676977dcf55ebab5ad79126667bc56464cb1142035'
+						'410c2bc68f874386e129d0fa58758013953b134d8e4a11d653443ce08da2ca1e')
+
+prepare() {
+	cd "$pkgname-$pkgver"
+
+	patch -Np1 -i "$srcdir/boost-1.86.patch"
+}
 
 build() {
-	cd "ledger-$pkgver"
+	cd "$pkgname-$pkgver"
 
-	cmake . \
-		-DCMAKE_INSTALL_PREFIX:PATH=/usr \
-		-DUSE_PYTHON:BOOL=TRUE
-	make
+	cmake -S . -B build \
+		-DCMAKE_BUILD_TYPE=None \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-Wno-dev \
+		-DUSE_PYTHON=ON
+	cmake --build build
 }
 
 check() {
-	make -C "ledger-$pkgver" check
+	cd "$pkgname-$pkgver"
+
+	cmake --build build --target test
 }
 
 package() {
-	cd "ledger-$pkgver"
+	cd "$pkgname-$pkgver"
 
-	make DESTDIR="$pkgdir" install
+	DESTDIR="$pkgdir" cmake --install build
 	install -Dm644 LICENSE.md "$pkgdir/usr/share/licenses/ledger/LICENSE.md"
 	install -Dm644 contrib/ledger-completion.bash "$pkgdir/usr/share/bash-completion/completions/ledger"
 }

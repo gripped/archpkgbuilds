@@ -1,0 +1,114 @@
+commit 99ddbf3f7b3c9f2e709987c1ff53988169ff7b79
+Author: Carl Smedstad <carl.smedstad@protonmail.com>
+Date:   Sun Sep 1 01:24:01 2024 +0200
+
+    Boost 1.86 compatibility
+
+diff --git a/src/filters.cc b/src/filters.cc
+index f725c247..cfefe4b5 100644
+--- a/src/filters.cc
++++ b/src/filters.cc
+@@ -237,9 +237,9 @@ void anonymize_posts::render_commodity(amount_t& amt)
+ 
+ void anonymize_posts::operator()(post_t& post)
+ {
+-	boost::uuids::detail::sha1  sha;
+-  unsigned int message_digest[5];
+-  bool         copy_xact_details = false;
++  boost::uuids::detail::sha1 sha;
++  unsigned char message_digest[20];
++  bool copy_xact_details = false;
+ 
+   if (last_xact != post.xact) {
+     temps.copy_xact(*post.xact);
+@@ -256,21 +256,19 @@ void anonymize_posts::operator()(post_t& post)
+     buf << reinterpret_cast<boost::uintmax_t>(post.xact->payee.c_str())
+         << integer_gen() << post.xact->payee.c_str();
+ 
+-		sha.reset();
++    sha.reset();
+     sha.process_bytes(buf.str().c_str(), buf.str().length());
+     sha.get_digest(message_digest);
+ 
+-    xact.payee = to_hex(message_digest);
++    xact.payee = to_hex(message_digest, 20);
+     xact.note  = none;
+   } else {
+     xact.journal = post.xact->journal;
+   }
+ 
+-  std::list<string> account_names;
++  std::list<std::string> account_names;
+ 
+-  for (account_t * acct = post.account;
+-       acct;
+-       acct = acct->parent) {
++  for (account_t* acct = post.account; acct; acct = acct->parent) {
+     std::ostringstream buf;
+     buf << integer_gen() << acct << acct->fullname();
+ 
+@@ -278,7 +276,7 @@ void anonymize_posts::operator()(post_t& post)
+     sha.process_bytes(buf.str().c_str(), buf.str().length());
+     sha.get_digest(message_digest);
+ 
+-    account_names.push_front(to_hex(message_digest));
++    account_names.push_front(to_hex(message_digest, 20));
+   }
+ 
+   account_t * new_account =
+diff --git a/src/system.hh.in b/src/system.hh.in
+index 60ea0fd8..c17448d1 100644
+--- a/src/system.hh.in
++++ b/src/system.hh.in
+@@ -144,7 +144,6 @@
+ #include <boost/date_time/posix_time/posix_time_io.hpp>
+ #include <boost/date_time/gregorian/gregorian_io.hpp>
+ 
+-#include <boost/filesystem/convenience.hpp>
+ #include <boost/filesystem/exception.hpp>
+ #include <boost/filesystem/fstream.hpp>
+ #include <boost/filesystem/operations.hpp>
+diff --git a/src/utils.h b/src/utils.h
+index b09377b8..0f5f047d 100644
+--- a/src/utils.h
++++ b/src/utils.h
+@@ -607,29 +607,29 @@ inline int peek_next_nonws(std::istream& in) {
+     *_p = '\0';                                         \
+   }
+ 
+-inline string to_hex(unsigned int * message_digest, const int len = 1)
++inline std::string to_hex(const unsigned char* message_digest, const int len)
+ {
+   std::ostringstream buf;
+ 
+-  for(int i = 0; i < 5 ; i++) {
+-    buf.width(8);
++  for(int i = 0; i < len; i++) {
++    buf.width(2);
+     buf.fill('0');
+-    buf << std::hex << message_digest[i];
+-    if (i + 1 >= len)
+-      break;                    // only output the first LEN dwords
++    buf << std::hex << static_cast<int>(message_digest[i]);
+   }
++
+   return buf.str();
+ }
+ 
+-inline string sha1sum(const string& str)
++inline std::string sha1sum(const std::string& str)
+ {
+-	boost::uuids::detail::sha1 sha;
++  boost::uuids::detail::sha1 sha;
+ 
+   sha.process_bytes(str.c_str(), str.length());
+ 
+-  unsigned int message_digest[5];
++  unsigned char message_digest[20];
+   sha.get_digest(message_digest);
+-  return to_hex(message_digest, 5);
++
++  return to_hex(message_digest, 20);
+ }
+ 
+ extern const string version;
