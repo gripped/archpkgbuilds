@@ -2,7 +2,7 @@
 
 pkgname=heaptrack
 pkgver=1.5.0
-pkgrel=4
+pkgrel=5
 arch=(x86_64)
 pkgdesc='A heap memory profiler for Linux'
 url='http://milianw.de/tag/heaptrack'
@@ -27,8 +27,7 @@ depends=(boost-libs
          threadweaver)
 makedepends=(boost
              extra-cmake-modules
-             kitemmodels
-             sparsehash)
+             kitemmodels)
 source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig}
         https://invent.kde.org/sdk/heaptrack/-/commit/c6c45f3455a652c38aefa402aece5dafa492e8ab.patch
         https://invent.kde.org/sdk/heaptrack/-/commit/38fd1d7b0ff53a35ed7c4ef241c21c8c06e1efb2.patch
