@@ -3,11 +3,12 @@
 
 pkgname=tokei
 pkgver=12.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A blazingly fast CLOC (Count Lines Of Code) program'
 arch=('x86_64')
 url="https://github.com/XAMPPRocky/tokei"
 license=('MIT' 'Apache')
+options=('!lto')
 depends=('gcc-libs')
 makedepends=('rust' 'cargo')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/XAMPPRocky/tokei/archive/v${pkgver}.tar.gz")
