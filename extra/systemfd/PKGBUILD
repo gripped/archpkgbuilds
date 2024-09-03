@@ -1,0 +1,31 @@
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
+# Contributor: Martin Kühl <martin.kuehl@posteo.net>
+pkgname=systemfd
+pkgver=0.4.3
+pkgrel=1
+pkgdesc="Aauto reloading for projects supporting systemd socket activation"
+arch=('x86_64')
+url="https://github.com/mitsuhiko/systemfd"
+license=('Apache-2.0')
+depends=('glibc' 'gcc-libs')
+makedepends=('rust')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/mitsuhiko/$pkgname/archive/refs/tags/$pkgver.tar.gz")
+sha512sums=('862d6488bdc2b6a2036f0c49a9cfb18dd6d91da00062a94af11d37ae29b43abdae41b76cbb9ed9a6beaad294736c769f1ecc151286152e8e12025fb473822e7f')
+validpgpkeys=()
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --locked --release --all-features
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --locked --all-features
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm755 "target/release/$pkgname" "$pkgdir/usr/bin/$pkgname"
+  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+# vim:set ts=2 sw=2 et:
