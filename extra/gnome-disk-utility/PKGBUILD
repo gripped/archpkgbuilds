@@ -3,39 +3,45 @@
 # Contributor: Silvio Knizek (killermoehre)
 
 pkgname=gnome-disk-utility
-pkgver=46.0
+pkgver=46.1
 pkgrel=1
 pkgdesc="Disk Management Utility for GNOME"
 url="https://gitlab.gnome.org/GNOME/gnome-disk-utility"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
+  at-spi2-core
+  cairo
+  dconf
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
   gtk3
+  hicolor-icon-theme
   libcanberra
   libdvdread
   libhandy
   libnotify
   libpwquality
   libsecret
+  pango
   parted
-  systemd
+  systemd-libs
   udisks2
+  xz
 )
 makedepends=(
   appstream
   docbook-xsl
   git
+  glib2-devel
   meson
+  systemd
 )
 groups=(gnome)
-_commit=d5618e1a91fd3795e3470b95326a16d9f81a246c  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-disk-utility.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-disk-utility.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('4eabd5a5bfd62289700228ed36b4ee49a73474d307da8f82216c65f4efec9bbc4f0f51abd74a1eacc466ca7488444ffd92fd98523a0631bc800cf4ff40f617ae')
 
 build() {
   arch-meson $pkgname build
