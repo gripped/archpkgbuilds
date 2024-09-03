@@ -5,8 +5,8 @@
 
 pkgbase=vigra
 pkgname=(vigra python-vigra)
-pkgver=1.11.2
-pkgrel=7
+pkgver=1.12.1
+pkgrel=1
 pkgdesc='Computer vision library'
 arch=(x86_64)
 url="https://ukoethe.github.io/$pkgname"
@@ -32,27 +32,25 @@ checkdepends=(python-nose)
 _pkgver="Version-${pkgver//./-}"
 _archive="$pkgname-$_pkgver"
 source=("$_url/archive/$_pkgver/$_archive.tar.gz"
-        vigra-openexr3.patch
-        $pkgname-1.11.2-remove_imp.patch)
-sha256sums=('4841936f5c3c137611ec782e293d961df29d3b5b70ade8cb711374de0f4cb5d3'
-            '2572717e39f916c7c463b8f49306b683c5923906be2721f7da181c58b3a2b34b'
-            '496da081edcd2bb709c6c9f523b328170e8a5e0f85712d41a7faad61af5ede65')
+        vigra-openexr3.patch)
+sha256sums=('8836a40a340f96ed2abf53780e883c5bf58002eb182cfccb4255b553ca48db33'
+            '2572717e39f916c7c463b8f49306b683c5923906be2721f7da181c58b3a2b34b')
 
 prepare() {
   cd "$_archive"
   patch -p1 -i ../vigra-openexr3.patch
-  # remove the use of the imp module: https://github.com/ukoethe/vigra/pull/560
-  patch -p1 -i ../$pkgname-1.11.2-remove_imp.patch
 }
 
 build() {
-  cmake -B build -S "$_archive" \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DPYTHON_EXECUTABLE=/usr/bin/python \
-    -DDOCINSTALL=share/doc \
-    -DWITH_OPENEXR=true \
-    -DWITH_VIGRANUMPY=1
-    #-DBUILD_DOCS=OFF \
+  local cmake_flags=(
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D PYTHON_EXECUTABLE=/usr/bin/python
+    -D DOCINSTALL=share/doc
+    -D WITH_OPENEXR=true
+    -D WITH_VIGRANUMPY=1
+    # -D BUILD_DOCS=OFF
+  )
+  cmake -B build -S "$_archive" "${cmake_flags[@]}"
   make -C build
 }
 
