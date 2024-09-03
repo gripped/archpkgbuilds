@@ -10,7 +10,7 @@
 
 pkgname=gitlab
 pkgver=17.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
 url='https://gitlab.com/gitlab-org/gitlab-foss'
@@ -27,9 +27,10 @@ depends=(git
          re2 libre2.so
          redis
          ruby
+         ruby-bundler
          ruby-erb
-         ruby-rdoc
-         ruby-bundler)
+         ruby-irb
+         ruby-rdoc)
 makedepends=(cargo
              clang
              cmake
