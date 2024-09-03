@@ -9,14 +9,14 @@
 
 pkgname=font-manager
 pkgver=0.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A simple font management application for GTK+ Desktop Environments'
 url=https://fontmanager.github.io
 arch=(x86_64 i686)
 license=(GPL-3.0-only)
 depends=(gtk4
          json-glib
-         libsoup
+         libsoup3
          libxml2
          sqlite
          webkitgtk-6.0)
