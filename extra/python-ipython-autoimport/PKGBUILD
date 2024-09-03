@@ -1,0 +1,37 @@
+# Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+
+_pkgname=ipython-autoimport
+pkgname=python-$_pkgname
+pkgver=0.5
+pkgrel=1
+pkgdesc='Automagically import missing modules in IPython'
+arch=('any')
+url='https://github.com/anntzer/ipython-autoimport'
+license=('MIT')
+depends=('python' 'ipython')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm' 'python-wheel')
+checkdepends=('python-pytest' 'python-jinja' 'python-tox')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('246059c150124a937df2a843df68889505a19a6cccc4ba66ddb75756d140acf26d3c78949ba90dd3b99164fa0977fb923d76b7821600b62b7f80b43faf4b6951')
+
+build() {
+  cd $_pkgname-$pkgver
+
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build -nw
+}
+
+check() {
+  cd $_pkgname-$pkgver
+
+  PYTHONPATH=src python -m pytest
+}
+
+package() {
+  cd $_pkgname-$pkgver
+
+  python -m installer -d "$pkgdir" dist/*.whl
+
+  install -Dm 644 LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+# vim:set ts=2 sw=2 et:
