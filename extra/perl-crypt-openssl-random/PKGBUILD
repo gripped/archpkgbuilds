@@ -2,7 +2,7 @@
 
 pkgname=perl-crypt-openssl-random
 pkgver=0.17
-pkgrel=1
+pkgrel=2
 pkgdesc='Routines for accessing the OpenSSL pseudo-random number generator'
 arch=(x86_64)
 license=(PerlArtistic GPL)
