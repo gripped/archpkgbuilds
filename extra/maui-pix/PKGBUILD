@@ -1,21 +1,31 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
-pkgname=maui-pix
 _pkgname=pix
-pkgver=3.1.0
+pkgname=maui-$_pkgname
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='Image gallery application'
 url='https://mauikit.org/'
 arch=(x86_64)
-license=(GPL3)
-depends=(mauikit-filebrowsing mauikit-imagetools hicolor-icon-theme)
+license=(LGPL-3.0-only)
+depends=(gcc-libs
+         glibc
+         kcoreaddons
+         ki18n
+         mauikit
+         mauikit-filebrowsing
+         mauikit-imagetools
+         qt6-base
+         qt6-declarative)
 makedepends=(extra-cmake-modules)
 groups=(maui)
-source=(https://download.kde.org/stable/maui/$_pkgname/$pkgver/$_pkgname-$pkgver.tar.xz)
-sha256sums=('5080426feb2f3c41fd69ff753ebe9dd3ddac7005eb22fbcbd6d163c974e37d48')
+source=(https://download.kde.org/stable/maui/$_pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('5b404113a5a397c85a3ef133bf68696e205e54377571837c96964a011174adf3'
+            'SKIP')
+validpgpkeys=(023625C8D02C0D8C15C3BABB86C793550794FEB8) # Camilo Higuita <milo.h@aol.com>                                    
 
 build() {
-  cmake -B build -S $_pkgname-$pkgver
+  cmake -B build -S $pkgname-$pkgver
   cmake --build build
 }
 
