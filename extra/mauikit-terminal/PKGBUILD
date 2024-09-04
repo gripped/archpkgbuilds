@@ -1,16 +1,25 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=mauikit-terminal
-pkgver=3.1.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='Terminal support components for Maui applications'
 url='https://mauikit.org/'
 arch=(x86_64)
-license=(LGPL)
-depends=(mauikit)
+license=(LGPL-3.0-only)
+depends=(gcc-libs
+         glibc
+         kcoreaddons
+         kpty
+         mauikit
+         qt6-5compat
+         qt6-base
+         qt6-declarative)
 makedepends=(extra-cmake-modules)
-source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz)
-sha256sums=('aef458f64ed799cad7a1670303a62fa2aaf45fde83006ab556cc56f83b454d60')
+source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('b471c95b04bad6719f2b1e93a593b6e0bb1fb2f5ef273f11816abac946c66dbb'
+            'SKIP')
+validpgpkeys=(023625C8D02C0D8C15C3BABB86C793550794FEB8) # Camilo Higuita <milo.h@aol.com>                                    
 
 build() {
   cmake -B build -S $pkgname-$pkgver
