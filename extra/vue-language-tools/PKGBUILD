@@ -6,7 +6,7 @@ pkgname=(
   vue-language-server
   vue-typescript-plugin
 )
-pkgver=2.0.26
+pkgver=2.1.6
 pkgrel=1
 pkgdesc='Language server for Vue'
 arch=(any)
@@ -19,7 +19,7 @@ makedepends=(
   pnpm
 )
 source=("$pkgbase::git+https://github.com/vuejs/language-tools.git#tag=v$pkgver")
-b2sums=('6ee03ea932c0c6b72cb55fb5b1dc3fb4d0bf7690888031df8063eaaab1c7b3b8d589350cec1f7dd9e15942889717fdc89b1d4cdc63d52a810d88cba25cf3a672')
+b2sums=('06192a9d580a8071bce6f85dbd7cd52e55acc4a0217c5091e598442816a36fff91af5aad308f1a47d18f2a6e20a884bc33429838219fd2efb4e56c06ef49ca7e')
 
 prepare() {
   cd $pkgbase
@@ -41,6 +41,7 @@ package_vue-language-server() {
   optdepends=('typescript: for use in typescript.tsdk')
 
   local mod_dir=/usr/lib/node_modules/@vue/language-server
+
   install -d "$pkgdir"/{/usr/bin,$mod_dir}
   ln -s $mod_dir/bin/"${pkgname[0]}".js "$pkgdir"/usr/bin/"${pkgname[0]}"
 
@@ -64,6 +65,7 @@ package_vue-typescript-plugin() {
   )
 
   local mod_dir=/usr/lib/node_modules/@vue/typescript-plugin
+
   install -d "$pkgdir"/$mod_dir
 
   cd $pkgbase/packages/typescript-plugin
