@@ -1,29 +1,30 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=mauikit
-pkgver=3.1.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='Templated convergent controls and multi-platform utilities for Maui applications'
 url='https://mauikit.org/'
 arch=(x86_64)
-license=(LGPL)
+license=(LGPL-3.0-only)
 depends=(gcc-libs
          glibc
-         kcoreaddons5
-         ki18n5
-         kirigami2
-         knotifications5
-         kwindowsystem5
-         libxcb
+         kcoreaddons
+         ki18n
+         kirigami
+         knotifications
+         kwindowsystem
          mauiman
-         qt5-base
-         qt5-declarative
-         qt5-quickcontrols2
-         qt5-svg
-         qt5-x11extras)
+         purpose
+         qt6-base
+         qt6-declarative
+         qt6-multimedia
+         qt6-svg)
 makedepends=(extra-cmake-modules)
-source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz)
-sha256sums=('bf5216cbb93767e0e54ac11f02e057a0a93173f8c10354ccf7eece568356f6ec')
+source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('a5fbc22f5b19b11b569c8a9585c2e3b64d3226f7bf8f4b92014953403d10e1d2'
+            'SKIP')
+validpgpkeys=(023625C8D02C0D8C15C3BABB86C793550794FEB8) # Camilo Higuita <milo.h@aol.com>                                    
 
 build() {
   cmake -B build -S $pkgname-$pkgver
