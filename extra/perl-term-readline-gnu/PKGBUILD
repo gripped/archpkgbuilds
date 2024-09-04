@@ -6,7 +6,7 @@
 
 pkgname=perl-term-readline-gnu
 pkgver=1.46
-pkgrel=3
+pkgrel=4
 pkgdesc="GNU Readline XS library wrapper"
 arch=('x86_64')
 license=('PerlArtistic' 'GPL')
@@ -17,21 +17,21 @@ source=("https://search.cpan.org/CPAN/authors/id/H/HA/HAYASHI/Term-ReadLine-Gnu-
 sha512sums=('574c97b5915f6afbe75506758aa0def7a23372ef3c696e081c8e9732a57828b29ec8c9d643f767188d264a212b60595f43cb1c59bf8ffee74af73c9588a362b9')
 
 build() {
-   export PERL_MM_USE_DEFAULT=1 PERL5LIB=""                 \
-      PERL_AUTOINSTALL=--skipdeps                            \
-      PERL_MM_OPT="INSTALLDIRS=vendor"     \
-      PERL_MB_OPT="--installdirs vendor" \
-      MODULEBUILDRC=/dev/null
+  cd "${srcdir}/Term-ReadLine-Gnu-$pkgver"
 
-    cd "${srcdir}/Term-ReadLine-Gnu-$pkgver"
-    /usr/bin/perl Makefile.PL
-    make
+  export PERL_MM_USE_DEFAULT=1 PERL5LIB="" \
+    PERL_AUTOINSTALL=--skipdeps \
+    PERL_MM_OPT="INSTALLDIRS=vendor" \
+    PERL_MB_OPT="--installdirs vendor" \
+    MODULEBUILDRC=/dev/null
+
+  /usr/bin/perl Makefile.PL
+  make
 }
 
 check() {
   cd "${srcdir}/Term-ReadLine-Gnu-$pkgver"
-  export PERL_MM_USE_DEFAULT=1 PERL5LIB="" TERM=xterm
-    make test
+  PERL_MM_USE_DEFAULT=1 PERL5LIB="" TERM=xterm make test
 }
 
 package() {
