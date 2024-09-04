@@ -2,7 +2,7 @@
 #Contributor: Pete Morris <pete dot morris at gmail dot com>
 pkgname=perl-crypt-des
 pkgver=2.07
-pkgrel=14
+pkgrel=15
 pkgdesc="Perl DES encryption module"
 arch=('x86_64')
 url="https://search.cpan.org/~dparis/Crypt-DES"
@@ -14,6 +14,7 @@ sha256sums=('2db1ebb5837b4cb20051c0ee5b733b4453e3137df0a92306034c867621edd7e7')
 build() {
   cd "$srcdir"/Crypt-DES-$pkgver
   PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
+  sed -E 's|(^OPTIMIZE.*)|\1 -Wno-implicit-function-declaration|' -i Makefile
   make
 }
 
