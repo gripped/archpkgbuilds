@@ -3,7 +3,7 @@
 
 pkgname=python-jsondiff
 _pkgname=jsondiff
-pkgver=2.2.0
+pkgver=2.2.1
 pkgrel=1
 pkgdesc='Diff JSON and JSON-like structures in Python'
 arch=(any)
@@ -13,7 +13,7 @@ depends=(python python-yaml)
 makedepends=(git python-build python-installer python-setuptools python-wheel python-setuptools-scm)
 checkdepends=(python-pytest python-hypothesis)
 source=("git+https://github.com/xlwings/jsondiff.git#tag=$pkgver")
-sha256sums=('b178ab7b912004730d32e9645f432a6baf5654ba4c2d09f0dc3b7ffa7a5e6e91')
+sha256sums=('a8a5e6340365f0e1268096e32c5c602ab7100778d0d3dc3ac6fc705102994308')
 
 build() {
   cd $_pkgname
