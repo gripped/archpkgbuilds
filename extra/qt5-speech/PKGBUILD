@@ -2,10 +2,10 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt5-speech
-_basever=5.15.14
-pkgver=5.15.14+kde+r1
+_basever=5.15.15
+pkgver=5.15.15+kde+r1
 pkgrel=1
-_commit=8ad0f08ad7e2a8d27dc5e69806812c6a3f298946
+_commit=71574a57103f0da64ce5e4c0ac6d70141496d5e8
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
@@ -16,7 +16,7 @@ optdepends=('flite: flite TTS backend' 'speech-dispatcher: speech-dispatcher TTS
 groups=(qt5)
 _pkgfqn=${pkgname/5-/}
 source=(kde-$_pkgfqn::git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit)
-sha256sums=('0da673b79aaf50db9255b7c5980f53117c6867a2e4807ba0d424dbfcfa3a9aaa')
+sha256sums=('8f4dc8c9583f9146f360dad6dc9611cc0d022aaabc0117c8d6ed539266eec185')
 
 pkgver() {
   cd kde-$_pkgfqn
