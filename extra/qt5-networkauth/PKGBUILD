@@ -2,10 +2,10 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt5-networkauth
-_basever=5.15.14
-pkgver=5.15.14+kde+r1
+_basever=5.15.15
+pkgver=5.15.15+kde+r1
 pkgrel=1
-_commit=28180f28c98e329676463e24cef0097cba45bc00
+_commit=17d6ed940cea4ead62f4055184d4fc69bf06b789
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
@@ -15,7 +15,7 @@ makedepends=(git)
 groups=(qt5)
 _pkgfqn=${pkgname/5-/}
 source=(kde-$_pkgfqn::git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit)
-sha256sums=('2070a7a6e774c4816fb43b395ed0989792cd1b54a9cf958636ef0aa2fb36c818')
+sha256sums=('d97ce847d22baaa4bf4bd5da3937497a04273432e7485c680da7c3d0fcc8ebb8')
 
 pkgver() {
   cd kde-$_pkgfqn
