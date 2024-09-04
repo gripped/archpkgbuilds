@@ -1,0 +1,49 @@
+# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+
+pkgname=ollama-gemma2-2b
+_model=gemma2
+_tag=2b
+pkgver=0.0.1
+pkgrel=1
+pkgdesc='The Gemma2 (2B) large language model (LLM), for Ollama'
+arch=(any)
+url='https://www.kaggle.com/models/google/gemma-2'
+license=(custom)
+depends=(ollama)
+makedepends=(python)
+optdepends=('ollama-cuda: for using the GPU'
+            'ollama-rocm: for using the GPU')
+install=model.install
+source=(Notice ToS)
+b2sums=('7f400ad60e0426afbca7ffec23b7a651776c12d8cfcd5d91aca7351e3c896ca90f6b74211e21789d67f73b133c2c7cab55dcd3ea6c6b865ab74271a449cab3fd'
+        'ad6acc41f13e03796aca9250e9e04ca780e9cfc59723d73f526319bedbcd108d51f392a44581f89fd733637f12c2be21e217da58d81081481e7c25c2fbdea6b0')
+
+prepare() {
+  # Find a free port. This is currently a bit awkward, see also: https://github.com/ollama/ollama/issues/3369
+  export OLLAMA_HOST=":$(python -c 'import socket; s=socket.socket(socket.AF_INET, socket.SOCK_STREAM); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')"
+
+  # Create a place to keep the models
+  mkdir -p models
+  export OLLAMA_MODELS="$srcdir/models"
+
+  # Start Ollama
+  ollama serve &
+  serve_pid=$!
+
+  # Try downloading the model with Ollama. Wait 1 second if the server is not ready yet. Try 10 times.
+  echo "Downloading $_model:$_tag"
+  for i in {1..10}; do
+    ollama pull "$_model:$_tag" && break || sleep 1
+  done
+
+  # Stop Ollama
+  kill $serve_pid
+}
+
+package() {
+  install -d "$pkgdir/var/lib/ollama"
+  cp -r models/. "$pkgdir/var/lib/ollama/"
+
+  install -Dm644 Notice "$pkgdir/usr/share/licenses/$pkgname/Notice"
+  install -Dm644 ToS "$pkgdir/usr/share/licenses/$pkgname/ToS"
+}
