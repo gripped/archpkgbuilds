@@ -1,7 +1,7 @@
 pkgname=perl-sub-quote
 epoch=1
 pkgver=2.006008
-pkgrel=3
+pkgrel=4
 pkgdesc="efficient generation of subroutines via string eval"
 arch=('any')
 license=('PerlArtistic' 'GPL')
