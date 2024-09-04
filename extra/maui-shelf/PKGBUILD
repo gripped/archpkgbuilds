@@ -2,20 +2,31 @@
 
 pkgname=maui-shelf
 _pkgname=shelf
-pkgver=3.1.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='Document and EBook collection manager'
 url='https://mauikit.org/'
 arch=(x86_64)
-license=(GPL3)
-depends=(mauikit-documents mauikit-filebrowsing mauikit-texteditor poppler-qt5 hicolor-icon-theme)
+license=(LGPL-3.0-only)
+depends=(gcc-libs
+         glibc
+         kcoreaddons
+         ki18n
+         mauikit
+         mauikit-documents
+         mauikit-filebrowsing
+         mauikit-texteditor
+         qt6-base
+         qt6-declarative)
 makedepends=(extra-cmake-modules)
 groups=(maui)
-source=(https://download.kde.org/stable/maui/$_pkgname/$pkgver/$_pkgname-$pkgver.tar.xz)
-sha256sums=('7837110397025ed48bf73525520ffd2337ae535ca0e8f6f4f8be6c178b33d498')
+source=(https://download.kde.org/stable/maui/$_pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('2627d80f6b2d0d98ad03e5857b6fa934a7e763c889f8f825e580ee96fb892ea0'
+            'SKIP')
+validpgpkeys=(023625C8D02C0D8C15C3BABB86C793550794FEB8) # Camilo Higuita <milo.h@aol.com>                                    
 
 build() {
-  cmake -B build -S $_pkgname-$pkgver
+  cmake -B build -S $pkgname-$pkgver
   cmake --build build
 }
 
