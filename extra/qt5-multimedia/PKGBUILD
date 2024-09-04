@@ -2,10 +2,10 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt5-multimedia
-_basever=5.15.14
-pkgver=5.15.14+kde+r2
+_basever=5.15.15
+pkgver=5.15.15+kde+r2
 pkgrel=1
-_commit=53069c9c6eb52b744333812f42aed36c3db6e752
+_commit=85fe63b98703ced6c5568c52af77b50e6ddf1edc
 arch=('x86_64')
 url='https://www.qt.io'
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
@@ -18,7 +18,7 @@ optdepends=('qt5-declarative: QML bindings' 'gst-plugins-good: camera support, a
 groups=('qt5')
 _pkgfqn=${pkgname/5-/}
 source=(kde-$_pkgfqn::git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit)
-sha256sums=('41b2813aa798bdc08816427ae2c5f70160bd7397ab4c4c364c40f8052150eb49')
+sha256sums=('6d0ccc782e9fe5c061ef4f45c9a8f9560e1325cc65a6b01f811497f0a1623787')
 
 pkgver() {
   cd kde-$_pkgfqn
