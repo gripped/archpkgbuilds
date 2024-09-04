@@ -3,22 +3,22 @@
 
 _hkgname=ansi-terminal
 pkgname=haskell-ansi-terminal
-pkgver=0.11.4
-pkgrel=68
+pkgver=0.11.5
+pkgrel=2
 pkgdesc="Simple ANSI terminal support, with Windows compatibility"
 url="https://github.com/UnkindPartition/ansi-terminal"
 license=("BSD")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-colour')
+depends=('ghc-libs' 'haskell-ansi-terminal-types' 'haskell-colour')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('893ce121924fab1d80288316be4f1f38c05fc959e8ad87b25ed478f493c4294137aeff1c8300223774b0eede3c62337804428128b00b9c525cb7ac4d4290bac2')
+sha512sums=('7f0186793171d7e8e89c84cd8976866f17b692f1571ed8b91c19482c5cc25509c7adf9d8eec7c2327c087eff5278be0b2721d933014f39b71a8cff2f49ef5f4b')
 
 build() {
     cd $_hkgname-$pkgver
 
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-example
     runhaskell Setup build $MAKEFLAGS
@@ -26,6 +26,11 @@ build() {
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
