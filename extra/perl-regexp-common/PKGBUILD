@@ -5,7 +5,7 @@
 
 pkgname=perl-regexp-common
 pkgver=2024080801
-pkgrel=1
+pkgrel=2
 pkgdesc="Commonly requested regular expressions"
 arch=('any')
 url="https://metacpan.org/release/Regexp-Common"
