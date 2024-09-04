@@ -2,7 +2,7 @@
 
 pkgname=perl-ref-util-xs
 pkgver=0.117
-pkgrel=3
+pkgrel=4
 pkgdesc="XS implementation for Ref::Util"
 arch=('x86_64')
 license=('PerlArtistic')
