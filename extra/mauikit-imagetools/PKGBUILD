@@ -1,21 +1,37 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=mauikit-imagetools
-pkgver=3.1.0
-pkgrel=1
+pkgver=4.0.0
+pkgrel=3
 pkgdesc='MauiKit Image Tools Components'
 url='https://mauikit.org/'
 arch=(x86_64)
-license=(LGPL)
-depends=(mauikit kquickimageeditor5 qt5-location exiv2 tesseract)
-makedepends=(extra-cmake-modules opencv)
-source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz
-        leptonica-1.83.patch)
-sha256sums=('98a0f3bce9f7df3a46a9be5f5a49d0a11ceb3e44d17cdf8b18c3e8141e4df2e4'
-            'ffc6454feb8d2c11fcd83ab5323487d163e35bf37e43b5f3ff9f436a93fbb4d1')
+license=(LGPL-3.0-only)
+depends=(gcc-libs
+         glibc
+         exiv2
+         kcoreaddons
+         ki18n
+         kquickimageeditor
+         leptonica
+         mauikit
+         mauikit-filebrowsing
+         qt6-base
+         qt6-declarative
+         qt6-location
+         qt6-positioning
+         tesseract)
+makedepends=(extra-cmake-modules
+             opencv)
+source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig}
+        fix-path.patch)
+sha256sums=('7f1f02924691cc764af5f79c0c227735d75cdc3c68457160bd302ccee1699f02'
+            'SKIP'
+            'e2bf50fd2859776c49190e791b00e3c352442810a27f5ceceb691a04d5b54d76')
+validpgpkeys=(023625C8D02C0D8C15C3BABB86C793550794FEB8) # Camilo Higuita <milo.h@aol.com>                                    
 
 prepare() {
-  patch -d $pkgname-$pkgver -p1 < leptonica-1.83.patch
+  patch -d $pkgname-$pkgver -p1 < fix-path.patch
 }
 
 build() {
