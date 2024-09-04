@@ -99,6 +99,9 @@ sub scrape_verln
         if($ln =~ s/^.*VERSION *=>? *//){
             close $fh;
             return $ln;
+        }elsif($ln =~ s/^package (\w|:)+ ((\d|.)+);/$2/){
+            close $fh;
+            return $ln;
         }
     }
     close $fh;
