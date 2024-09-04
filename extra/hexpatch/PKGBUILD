@@ -1,0 +1,39 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+
+pkgname=hexpatch
+_pkgname=HexPatch
+pkgver=1.8.0
+pkgrel=1
+pkgdesc="A binary patcher and editor with a TUI"
+url="https://github.com/Etto48/HexPatch"
+depends=('gcc-libs')
+makedepends=('cargo' 'cmake')
+arch=('x86_64')
+license=('MIT')
+source=("${pkgname}-${pkgver}.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('3e2fd16aa5056bf3f68c4b7dc387139b2ae362299f585abdabda630783420234f1aef7ac9933cc7d3b2780a01dfb0d7be07523d1404ebac6833b706fac3c4b1e')
+options=('!lto')
+
+prepare() {
+  cd "${_pkgname}-${pkgver}"
+  cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')" # --locked
+}
+
+build() {
+  cd "${_pkgname}-${pkgver}"
+  cargo build --release --frozen
+}
+
+check() {
+  cd "${_pkgname}-${pkgver}"
+  cargo test --frozen
+}
+
+package() {
+  cd "${_pkgname}-${pkgver}"
+  install -Dm 755 "target/release/hex-patch" "${pkgdir}/usr/bin/${pkgname}"
+  install -Dm 644 docs/README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:
