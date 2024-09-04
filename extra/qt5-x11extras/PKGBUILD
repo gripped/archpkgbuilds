@@ -2,10 +2,10 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt5-x11extras
-_basever=5.15.14
-pkgver=5.15.14
+_basever=5.15.15
+pkgver=5.15.15
 pkgrel=1
-_commit=6c3605fcb3b34e55951f597e06c135d97dfa6cd7
+_commit=ff2cc0065a3504e6043b47b1b4601fcdce62eefb
 arch=('x86_64')
 url='https://www.qt.io'
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
@@ -15,7 +15,7 @@ makedepends=('git')
 groups=('qt5')
 _pkgfqn=${pkgname/5-/}
 source=(kde-$_pkgfqn::git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit)
-sha256sums=('99e923b91238a3ae70fd07a506ff773d2da35b48f719ba36e49510750b8251fa')
+sha256sums=('a69bfaebcb5390c2e2decfc64d68ea77042a571074216b87fd2e9b077fe190f6')
 
 pkgver() {
   cd kde-$_pkgfqn
