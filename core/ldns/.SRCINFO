@@ -1,0 +1,20 @@
+pkgbase = ldns
+	pkgdesc = Fast DNS library supporting recent RFCs
+	pkgver = 1.8.3
+	pkgrel = 3
+	url = https://www.nlnetlabs.nl/projects/ldns/
+	arch = x86_64
+	license = custom:BSD
+	makedepends = libpcap
+	depends = openssl
+	depends = dnssec-anchors
+	optdepends = libpcap: ldns-dpa tool
+	provides = drill
+	provides = libldns.so
+	source = https://www.nlnetlabs.nl/downloads/ldns/ldns-1.8.3.tar.gz
+	source = https://www.nlnetlabs.nl/downloads/ldns/ldns-1.8.3.tar.gz.asc
+	validpgpkeys = DC34EE5DB2417BCC151E5100E5F8F8212F77A498
+	sha256sums = c3f72dd1036b2907e3a56e6acf9dfb2e551256b3c1bbd9787942deeeb70e7860
+	sha256sums = SKIP
+
+pkgname = ldns
