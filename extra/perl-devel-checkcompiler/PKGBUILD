@@ -4,7 +4,7 @@
 
 pkgname=perl-devel-checkcompiler
 pkgver=0.07
-pkgrel=10
+pkgrel=11
 pkgdesc="Check the compiler's availability"
 arch=('any')
 license=('PerlArtistic' 'GPL')
