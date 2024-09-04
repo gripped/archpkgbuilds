@@ -3,7 +3,7 @@
 
 pkgname=perl-authen-sasl
 pkgver=2.1700
-pkgrel=2
+pkgrel=3
 pkgdesc="Perl/CPAN Module Authen::SASL : SASL authentication framework"
 arch=(any)
 url="https://search.cpan.org/dist/Authen-SASL"
