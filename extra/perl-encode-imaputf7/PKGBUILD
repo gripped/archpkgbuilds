@@ -3,15 +3,22 @@
 
 pkgname='perl-encode-imaputf7'
 pkgver=1.05
-pkgrel=8
+pkgrel=10
 pkgdesc='Modification of UTF-7 encoding for IMAP'
 arch=('any')
 url='https://search.cpan.org/dist/Encode-IMAPUTF7'
 license=('GPL')
 checkdepends=('perl-test-nowarnings')
 options=('!emptydirs' purge)
-source=("https://cpan.metacpan.org/authors/id/P/PM/PMAKHOLM/Encode-IMAPUTF7-${pkgver}.tar.gz")
-b2sums=('8024f0029145df4ec409394eaa799612dadd65a1bc6f2e9fdad51a950a0756b73daa5da2579f22d38efd367642a9ae0f7402f6beeea02a51f84a725803849ba6')
+source=("https://cpan.metacpan.org/authors/id/P/PM/PMAKHOLM/Encode-IMAPUTF7-${pkgver}.tar.gz"
+         Encode-IMAPUTF7-1.05-Use-Exporter-for-encode-decode.patch)
+b2sums=('8024f0029145df4ec409394eaa799612dadd65a1bc6f2e9fdad51a950a0756b73daa5da2579f22d38efd367642a9ae0f7402f6beeea02a51f84a725803849ba6'
+        '3105a24de323e59cf02f12646063d7cf7f79b2b25db8caf0022678c4f41a458f914cd5908523f166e209abec37a72f14369e1ab8e0f7311ffb9f8b333802944c')
+
+prepare() {
+  cd Encode-IMAPUTF7-${pkgver}
+  patch -p1 -i ../Encode-IMAPUTF7-1.05-Use-Exporter-for-encode-decode.patch # Fix tests with perl 5.40 (Fedora)
+}
 
 build() {
   cd Encode-IMAPUTF7-${pkgver}
