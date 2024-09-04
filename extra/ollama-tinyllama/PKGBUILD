@@ -1,0 +1,44 @@
+# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+
+# This package demonstrates one way of packaging Ollama models.
+# See https://ollama.com/models for an overview of available model names and tags.
+
+pkgname=ollama-tinyllama
+_tag=latest
+pkgver=0.0.1
+pkgrel=2
+pkgdesc='The tinyllama (1B) large language model (LLM), for Ollama'
+arch=(any)
+url='https://github.com/jzhang38/TinyLlama'
+license=(Apache-2.0)
+depends=(ollama)
+makedepends=(python)
+optdepends=('ollama-cuda: for using the GPU'
+            'ollama-rocm: for using the GPU')
+install=model.install
+
+prepare() {
+  # Find a free port. This is currently a bit awkward, see also: https://github.com/ollama/ollama/issues/3369
+  export OLLAMA_HOST=":$(python -c 'import socket; s=socket.socket(socket.AF_INET, socket.SOCK_STREAM); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')"
+
+  # Create a place to keep the models
+  mkdir -p models
+  export OLLAMA_MODELS="$srcdir/models"
+
+  # Start Ollama
+  ollama serve &
+  serve_pid=$!
+
+  # Try downloading the model with Ollama. Wait 1 second if the server is not ready yet. Try 10 times.
+  for i in {1..10}; do
+    ollama pull "${pkgname#ollama-}:$_tag" && break || sleep 1
+  done
+
+  # Stop Ollama
+  kill $serve_pid
+}
+
+package() {
+  install -d "$pkgdir/var/lib/ollama"
+  cp -r models/. "$pkgdir/var/lib/ollama/"
+}

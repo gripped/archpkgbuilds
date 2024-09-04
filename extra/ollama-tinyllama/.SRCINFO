@@ -1,0 +1,14 @@
+pkgbase = ollama-tinyllama
+	pkgdesc = The tinyllama (1B) large language model (LLM), for Ollama
+	pkgver = 0.0.1
+	pkgrel = 2
+	url = https://github.com/jzhang38/TinyLlama
+	install = model.install
+	arch = any
+	license = Apache-2.0
+	makedepends = python
+	depends = ollama
+	optdepends = ollama-cuda: for using the GPU
+	optdepends = ollama-rocm: for using the GPU
+
+pkgname = ollama-tinyllama
