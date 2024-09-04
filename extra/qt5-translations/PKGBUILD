@@ -2,10 +2,10 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt5-translations
-_basever=5.15.14
-pkgver=5.15.14
+_basever=5.15.15
+pkgver=5.15.15
 pkgrel=1
-_commit=c601106c8b5d5495f951c8ea0ad6a9e171416ae0
+_commit=07ae7ea7c94225e73c8eddc9f3f89edc863e83e0
 arch=('any')
 url='https://www.qt.io'
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
@@ -15,7 +15,7 @@ makedepends=('git' 'qt5-tools')
 groups=('qt5')
 _pkgfqn=${pkgname/5-/}
 source=(kde-$_pkgfqn::git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit)
-sha256sums=('f8d98536a22a4d42c39086dab3f19e6b8dae12eace87c2ac2b1de7934e87ef60')
+sha256sums=('a8dad28329544fa15c002d438313397a7d7e8da10abc4c7ca661d9317fd4189a')
 
 pkgver() {
   cd kde-$_pkgfqn
