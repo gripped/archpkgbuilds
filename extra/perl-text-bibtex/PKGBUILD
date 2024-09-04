@@ -3,7 +3,7 @@
 pkgname=perl-text-bibtex
 _dist=Text-BibTeX
 pkgver=0.89
-pkgrel=3
+pkgrel=4
 pkgdesc="Perl interface to read and parse BibTeX files"
 arch=('x86_64')
 url="https://metacpan.org/release/${_dist}"
