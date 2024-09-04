@@ -3,26 +3,33 @@
 _hkgname=os-string
 pkgname=haskell-os-string
 pkgver=2.0.6
-pkgrel=1
+pkgrel=3
 pkgdesc="Library for manipulating Operating system strings."
 url="https://github.com/haskell/os-string"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'haskell-quickcheck' 'haskell-quickcheck-classes-base')
+makedepends=('ghc')
+checkdepends=('haskell-quickcheck' 'haskell-quickcheck-classes-base')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('22fcc7d5fc66676b5dfc57b714d2caf93cce2d5a79d242168352f9eb0fe2f18a')
 
 build() {
   cd $_hkgname-$pkgver
 
+  if (( CHECKFUNC )); then
+    _opts=('--enable-tests')
+  else
+    _opts=('--disable-tests')
+  fi
+
   runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie' 
 
-  runhaskell Setup build
+  runhaskell Setup build $MAKEFLAGS
   runhaskell Setup register --gen-script
   runhaskell Setup unregister --gen-script
   sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
@@ -31,7 +38,7 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  runhaskell Setup test
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
