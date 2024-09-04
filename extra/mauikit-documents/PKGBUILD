@@ -1,16 +1,29 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=mauikit-documents
-pkgver=3.1.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='MauiKit QtQuick plugins for text editing'
 url='https://mauikit.org/'
 arch=(x86_64)
-license=(LGPL)
-depends=(mauikit kio5 kfilemetadata5)
-makedepends=(extra-cmake-modules poppler-qt5)
-source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz)
-sha256sums=('c4f1c0bd36f0f8e0e877d7a88614daafa793e041d0faca62517b6682d65f30ec')
+license=(LGPL-3.0-only)
+depends=(gcc-libs
+         glibc
+         karchive
+         kcoreaddons
+         kfilemetadata
+         kguiaddons
+         ki18n
+         kio
+         mauikit
+         poppler-qt6
+         qt6-base
+         qt6-declarative)
+makedepends=(extra-cmake-modules)
+source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('13ebf295a5f62a86c8e85468d3a0641259b578da9c4ec2c9c258c25e2527e84b'
+            'SKIP')
+validpgpkeys=(023625C8D02C0D8C15C3BABB86C793550794FEB8) # Camilo Higuita <milo.h@aol.com>                                    
 
 build() {
   cmake -B build -S $pkgname-$pkgver
