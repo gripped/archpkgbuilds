@@ -1,16 +1,13 @@
 pkgbase = libkcddb
 	pkgdesc = KDE CDDB library
 	pkgver = 24.08.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.kde.org/
 	arch = x86_64
 	license = GPL-2.0-or-later
 	license = LGPL-2.0-or-later
 	makedepends = extra-cmake-modules
 	makedepends = kdoctools
-	makedepends = kcmutils5
-	makedepends = kdoctools5
-	makedepends = kio5
 	depends = gcc-libs
 	depends = glibc
 	depends = kcmutils
@@ -31,18 +28,3 @@ pkgbase = libkcddb
 	sha256sums = SKIP
 
 pkgname = libkcddb
-
-pkgname = libkcddb5
-	depends = gcc-libs
-	depends = glibc
-	depends = kconfig5
-	depends = kconfigwidgets5
-	depends = kcoreaddons5
-	depends = ki18n5
-	depends = kio5
-	depends = kwidgetsaddons5
-	depends = libmusicbrainz5
-	depends = qt5-base
-	depends = libkcddb
-	conflicts = libkcddb<24
-	replaces = libkcddb<24

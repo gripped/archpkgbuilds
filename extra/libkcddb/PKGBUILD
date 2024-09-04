@@ -2,15 +2,14 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
-pkgbase=libkcddb
-pkgname=(libkcddb
-         libkcddb5)
+pkgname=libkcddb
 pkgver=24.08.0
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE CDDB library'
 url='https://www.kde.org/'
 arch=(x86_64)
-license=(GPL-2.0-or-later LGPL-2.0-or-later)
+license=(GPL-2.0-or-later
+         LGPL-2.0-or-later)
 depends=(gcc-libs
          glibc
          kcmutils
@@ -22,10 +21,7 @@ depends=(gcc-libs
          libmusicbrainz5
          qt6-base)
 makedepends=(extra-cmake-modules
-             kdoctools
-             kcmutils5
-             kdoctools5
-             kio5)
+             kdoctools)
 conflicts=('libkcddb5<24')
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('62cb6882bff4ce274bc5e98715decc8b8964f9809178219ef49cbd37d091941a'
@@ -39,32 +35,9 @@ build() {
     -DBUILD_TESTING=OFF \
     -DQT_MAJOR_VERSION=6
   cmake --build build
-
-  cmake -B build5 -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF
-  cmake --build build5
 }
 
-package_libkcddb() {
+package() {
   DESTDIR="$pkgdir" cmake --install build
 }
 
-package_libkcddb5() {
-  depends=(gcc-libs
-           glibc
-           kconfig5
-           kconfigwidgets5
-           kcoreaddons5
-           ki18n5
-           kio5
-           kwidgetsaddons5
-           libmusicbrainz5
-           qt5-base)
-  conflicts=('libkcddb<24')
-  replaces=('libkcddb<24')
-
-  DESTDIR="$pkgdir" cmake --install build5
-# Workaround conflicts with Qt6 version
-  depends+=(libkcddb)
-  rm -fr "$pkgdir"/usr/share
-}
