@@ -2,20 +2,30 @@
 
 pkgname=maui-station
 _pkgname=station
-pkgver=3.1.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='Convergent terminal emulator'
 url='https://mauikit.org/'
 arch=(x86_64)
-license=(GPL3)
-depends=(mauikit-filebrowsing mauikit-terminal hicolor-icon-theme)
+license=(LGPL-3.0-only)
+depends=(gcc-libs
+         glibc
+         kcoreaddons
+         ki18n
+         mauikit
+         mauikit-filebrowsing
+         mauikit-terminal
+         qt6-base
+         qt6-declarative)
 makedepends=(extra-cmake-modules)
 groups=(maui)
-source=(https://download.kde.org/stable/maui/$_pkgname/$pkgver/$_pkgname-$pkgver.tar.xz)
-sha256sums=('ce22dbff7bf7300f966cdffa757558ee4336f43fe2709e1b256293c6ff537c6a')
+source=(https://download.kde.org/stable/maui/$_pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('8834adb7474e924ac1a4dd0981c237fd5cc4e2902c2c94268314e9c24c5285e0'
+            'SKIP')
+validpgpkeys=(023625C8D02C0D8C15C3BABB86C793550794FEB8) # Camilo Higuita <milo.h@aol.com>                                    
 
 build() {
-  cmake -B build -S $_pkgname-$pkgver
+  cmake -B build -S $pkgname-$pkgver
   cmake --build build
 }
 
