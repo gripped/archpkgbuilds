@@ -3,7 +3,7 @@
 
 pkgname='perl-moo'
 pkgver=2.005005
-pkgrel=3
+pkgrel=4
 pkgdesc="Minimalist Object Orientation (with Moose compatiblity)"
 arch=('any')
 license=('PerlArtistic' 'GPL')
