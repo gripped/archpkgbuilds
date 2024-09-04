@@ -4,7 +4,7 @@
 
 pkgname=perl-digest-nilsimsa
 pkgver=0.06
-pkgrel=24
+pkgrel=25
 pkgdesc="Perl version of Nilsimsa code"
 arch=('x86_64')
 license=('LGPL')
@@ -17,6 +17,7 @@ sha256sums=('cd3762cd76803729fd42022d382bc93b26f9b14aed9732eef85b44a9576d2d1e')
 build() {
   cd Digest-Nilsimsa-$pkgver
   PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
+  sed -E 's|(^OPTIMIZE.*)|\1 -Wno-implicit-function-declaration|' -i Makefile
   make
 }
 
