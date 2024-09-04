@@ -1,16 +1,28 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=mauikit-filebrowsing
-pkgver=3.1.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='MauiKit File Browsing utilities and controls'
 url='https://mauikit.org/'
 arch=(x86_64)
-license=(LGPL)
-depends=(mauikit kio5)
+license=(LGPL-3.0-only)
+depends=(gcc-libs
+         glibc
+         kconfig
+         kcoreaddons
+         ki18n
+         kio
+         kservice
+         mauikit
+         qt6-base
+         qt6-declarative
+         solid)
 makedepends=(extra-cmake-modules)
-source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz)
-sha256sums=('77f7a531e4ed9643bf3bdcb8bd493973c1bb285f54aaaf822b024fb23075d190')
+source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('b93edb5b07fd1fd74f4b46d5bb1402c57370728038e7e407dba1be3730f1da2e'
+            'SKIP')
+validpgpkeys=(023625C8D02C0D8C15C3BABB86C793550794FEB8) # Camilo Higuita <milo.h@aol.com>                                    
 
 build() {
   cmake -B build -S $pkgname-$pkgver
