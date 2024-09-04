@@ -2,7 +2,7 @@
 
 pkgname=perl-b-cow
 pkgver=0.007
-pkgrel=3
+pkgrel=4
 pkgdesc="B::COW additional B helpers to check COW status"
 arch=('x86_64')
 license=('PerlArtistic')
