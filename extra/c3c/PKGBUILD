@@ -3,19 +3,20 @@
 
 pkgname=c3c
 pkgver=0.6.1
-pkgrel=1
-pkgdesc='C3 aims to be an evolution of C'
+pkgrel=2
+pkgdesc='Compiler for the C3 language'
 arch=(x86_64)
 url='https://github.com/c3lang/c3c'
 license=(LGPL-3.0-or-later MIT)
-makedepends=(clang cmake git libedit lld llvm ninja)
+depends=(lld llvm-libs)
+makedepends=(clang cmake git libedit llvm ninja)
 source=("git+$url#commit=bdc9f339c9088099de74dafdb87122dc769a4b32"
-        cmake.txt)
+        CMakeLists.txt)
 b2sums=('9a6b1155fceb691abd3294640f515fe9b0ce3e14bb2115b13b9a0a27a139d38ba3e0ece824a45a9673d8e57dc8f2ef97b21c0ce66d5e6576f8d9166281673637'
-        '7cf1c92b532a636d734ae4e5b2636f99945e732efed101ba020ddb2bc10ecea96bcf1956f91568b9dea0aac65e2e958acebcfe6b056077a8718fca920c632a14')
+        '93abca74e2431efee27aa3a9441a86ebad74c0bfaa431393b052daf12fb48f45e4cfefba267579c222d886b81c791fb37930eef7edf381c3af5da47bad1e6418')
 
 prepare() {
-  cp -f cmake.txt $pkgname/CMakeLists.txt
+  ln -sf "$srcdir/CMakeLists.txt" $pkgname/CMakeLists.txt
 }
 
 build() {

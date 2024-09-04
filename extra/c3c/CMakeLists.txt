@@ -13,10 +13,8 @@ if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
     cmake_policy(SET CMP0135 NEW)
 endif()
 
-if (NOT DEFINED CMAKE_INSTALL_LIBDIR)
-    set(CMAKE_INSTALL_LIBDIR "/usr/local/lib/c3")
-    set(CMAKE_INSTALL_BINDIR "/usr/local/bin/c3c")
-endif()
+set(CMAKE_INSTALL_LIBDIR "/usr/lib/c3")
+set(CMAKE_INSTALL_BINDIR "/usr/bin/c3c")
 
 include(FetchContent)
 include(FeatureSummary)
