@@ -2,7 +2,7 @@
 
 pkgname=perl-crypt-openssl-bignum
 pkgver=0.09
-pkgrel=10
+pkgrel=11
 pkgdesc="OpenSSL's multiprecision integer arithmetic"
 arch=(x86_64)
 license=(PerlArtistic GPL)
