@@ -1,18 +1,35 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
-pkgname=maui-nota
 _pkgname=nota
-pkgver=3.1.0
+pkgname=maui-$_pkgname
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='Multi-platform text editor'
 url='https://mauikit.org/'
 arch=(x86_64)
-license=(GPL3)
-depends=(mauikit-filebrowsing mauikit-texteditor hicolor-icon-theme)
+license=(LGPL-3.0-only)
+depends=(gcc-libs
+         glibc
+         kcoreaddons
+         ki18n
+         mauikit
+         mauikit-filebrowsing
+         mauikit-terminal
+         mauikit-texteditor
+         qt6-base
+         qt6-declarative)
 makedepends=(extra-cmake-modules)
 groups=(maui)
-source=(https://download.kde.org/stable/maui/$_pkgname/$pkgver/$_pkgname-$pkgver.tar.xz)
-sha256sums=('3d76d76a8b99f1f65a1141c86ff9384fc6485887ec30cd8fc60b6683b4523d75')
+source=(https://download.kde.org/stable/maui/$_pkgname/$pkgver/$_pkgname-$pkgver.tar.xz{,.sig}
+        fix-build.patch)
+sha256sums=('54b8a6446fd97b53a9b74288d7d6b9c6f4dc36e117860bf502d2971fbe33f8a7'
+            'SKIP'
+            '2454ffc26c87da5855c0f6b3ff88635ec79c82f998f1257ed4a5d2b86389ea21')
+validpgpkeys=(023625C8D02C0D8C15C3BABB86C793550794FEB8) # Camilo Higuita <milo.h@aol.com>                                    
+
+prepare() {
+  patch -d $_pkgname-$pkgver -p1 < fix-build.patch
+}
 
 build() {
   cmake -B build -S $_pkgname-$pkgver

@@ -1,0 +1,13 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index e36a6cb..df29b29 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -70,7 +70,7 @@ if (ANDROID)
+         Qt6::Sql
+         Qt6::Multimedia)
+ elseif(UNIX)
+-    target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets Qt6::DBus)
++    target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets Qt6::DBus Qt6::Quick)
+ endif()
+ 
+ target_compile_definitions(${PROJECT_NAME}
