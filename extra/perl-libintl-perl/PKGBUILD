@@ -4,7 +4,7 @@
 
 pkgname=perl-libintl-perl
 pkgver=1.33
-pkgrel=3
+pkgrel=4
 pkgdesc="Perl Module: Localization support"
 arch=('x86_64')
 license=('LGPL')
