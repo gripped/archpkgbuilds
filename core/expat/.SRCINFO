@@ -1,19 +1,17 @@
 pkgbase = expat
 	pkgdesc = An XML parser library
-	pkgver = 2.6.2
-	pkgrel = 1
+	pkgver = 2.6.3
+	pkgrel = 2
 	url = https://libexpat.github.io/
 	arch = x86_64
 	license = MIT
 	makedepends = cmake
+	makedepends = git
 	depends = glibc
 	provides = libexpat.so
-	source = https://github.com/libexpat/libexpat/releases/download/R_2_6_2/expat-2.6.2.tar.bz2
-	source = https://github.com/libexpat/libexpat/releases/download/R_2_6_2/expat-2.6.2.tar.bz2.asc
+	source = expat::git+https://github.com/libexpat/libexpat?signed#tag=R_2_6_3
 	validpgpkeys = 3176EF7DB2367F1FCA4F306B1F9B0E909AF37285
-	sha512sums = 15811413e92a632272188781cc3f2a9e52ed62f6edfad9b2eeeca0946e53132b6c9ca6dc460eda766d6a4e68e5920128335d705f9556b5aa3f77593658780470
-	sha512sums = SKIP
-	b2sums = 9b518cf768e53b177fd933d37686a76c4a1bd1e2829cf414f8f9c054901f61d6445232eb4d4502e888507efa12a48d8ace206fbabac5d2ca5365f0437e971fd8
-	b2sums = SKIP
+	sha512sums = d4845acf87f1b14a5bedeac8effbc4d292f7a1fafa28ea3159f74ccaeef19af3ad48a0398367c2a6e45b9a151c3c3f59b462922d5a615846ab11b9a144b09e91
+	b2sums = 57bb71f8ad2211127281d22ffebdb1cb1b023081eb83eca2843c9e6b99d3ad4570cc885889a9d80c90c4a8e9c8d5331c04b4f61e711bb0546cb4234636255106
 
 pkgname = expat
