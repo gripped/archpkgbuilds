@@ -2,10 +2,10 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt5-quickcontrols2
-_basever=5.15.14
-pkgver=5.15.14+kde+r5
+_basever=5.15.15
+pkgver=5.15.15+kde+r5
 pkgrel=1
-_commit=69fea340f8f4c483a9b2889e4e24a4b1b52ebc87
+_commit=d0537c14e71d0959f96592b20103033b128f9c0b
 arch=('x86_64')
 url='https://www.qt.io'
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
@@ -16,7 +16,7 @@ optdepends=('qt5-graphicaleffects: for the Material style')
 groups=('qt5')
 _pkgfqn=${pkgname/5-/}
 source=(kde-$_pkgfqn::git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit)
-sha256sums=('afb849d5be3d902af4158eeff1103762440ebc3a968b7c665095d28dd316fde0')
+sha256sums=('8f42cc07f6ec2742daba1acf37e37881977a9c9fd1fdf3b8f255a80456069204')
 
 pkgver() {
   cd kde-$_pkgfqn
