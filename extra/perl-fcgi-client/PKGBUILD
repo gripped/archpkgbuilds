@@ -2,7 +2,7 @@
 
 pkgname=perl-fcgi-client
 pkgver=0.09
-pkgrel=4
+pkgrel=5
 pkgdesc='client library for fastcgi protocol'
 arch=(any)
 license=(PerlArtistic GPL)
