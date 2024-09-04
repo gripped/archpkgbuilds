@@ -1,19 +1,29 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=vvave
-pkgver=3.1.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='Multi-platform media player'
 url='https://mauikit.org/'
 arch=(x86_64)
-license=(GPL3)
-depends=(mauikit-filebrowsing mauikit-accounts hicolor-icon-theme taglib)
+license=(LGPL-3.0-only)
+depends=(gcc-libs
+         glibc
+         kcoreaddons
+         ki18n
+         mauikit
+         mauikit-accounts
+         mauikit-filebrowsing
+         qt6-base
+         qt6-declarative
+         qt6-multimedia
+         taglib)
 makedepends=(extra-cmake-modules)
 groups=(maui)
-conflicts=(babe)
-replaces=(babe)
-source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz)
-sha256sums=('34c0762a2ed208b5b39999d8cb55de445dfdefedd0d49e8c4790e08cf3dfe6c5')
+source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('b846c0a155d7689f3931c29285b8ec28ed7a39c94247c08b6c02ba97a58e534d'
+            'SKIP')
+validpgpkeys=(023625C8D02C0D8C15C3BABB86C793550794FEB8) # Camilo Higuita <milo.h@aol.com>                                    
 
 build() {
   cmake -B build -S $pkgname-$pkgver
