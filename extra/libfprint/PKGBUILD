@@ -3,8 +3,8 @@
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
 pkgname=libfprint
-pkgver=1.94.7
-pkgrel=3
+pkgver=1.94.8
+pkgrel=1
 pkgdesc="Library for fingerprint readers"
 url="https://fprint.freedesktop.org/"
 arch=(x86_64)
@@ -35,7 +35,7 @@ checkdepends=(
 provides=(libfprint-2.so)
 groups=(fprint)
 source=("git+https://gitlab.freedesktop.org/libfprint/libfprint.git?signed#tag=v$pkgver")
-b2sums=('9859f976227452dc3ea9f8fbde9022809214a4eed0c994d8cb5330d0d7d7fbf19baf066518a72c8345ae01b0f34b7e32b135a4494a48db17bc6186b571f41fe6')
+b2sums=('594b70dae6bb52c479ff8ba09966b63c97d327361412e1fc472e96a82cb0343147f09bf30cfcba4e2549076e1b628e7ae52743d564eb2d2ba94054dc79947887')
 validpgpkeys=(
   D4C501DA48EB797A081750939449C2F50996635F # Marco Trevisan (Treviño) <mail@3v1n0.net>
 )
