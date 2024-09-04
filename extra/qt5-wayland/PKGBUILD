@@ -2,10 +2,10 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt5-wayland
-_basever=5.15.14
-pkgver=5.15.14+kde+r59
+_basever=5.15.15
+pkgver=5.15.15+kde+r59
 pkgrel=1
-_commit=16e1ce54c6a83e90af2273e8d4eb3f7f3369440b
+_commit=6b1ba1cd0e1389d13e59b94e65da8f20a89ba03f
 arch=('x86_64')
 url='https://www.qt.io'
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
@@ -15,7 +15,7 @@ makedepends=('vulkan-headers' 'git')
 groups=('qt5')
 _pkgfqn=${pkgname/5-/}
 source=(kde-$_pkgfqn::git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit)
-sha256sums=('35138ab4dcfb481245c1f12a0eacf79927107b47a34de483a4448a4105e74774')
+sha256sums=('e5463d376b0db2d0cbc9f517a39cfbbb85f3946d7792579da6e83978a25ee53b')
 
 pkgver() {
   cd kde-$_pkgfqn
