@@ -2,7 +2,7 @@
 
 pkgname=perl-ref-util
 pkgver=0.204
-pkgrel=3
+pkgrel=4
 pkgdesc="Utility functions for checking references"
 arch=('any')
 license=('PerlArtistic')
