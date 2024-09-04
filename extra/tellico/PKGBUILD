@@ -4,19 +4,19 @@
 # Contributor: Douglas Soares de Andrade <dsa@aur.archlinux.org>
 
 pkgname=tellico
-pkgver=3.5.5
+pkgver=4.0
 pkgrel=1
 pkgdesc="A collection manager for KDE"
 arch=('x86_64')
 url="https://tellico-project.org/"
 license=('GPL')
-depends=('exempi' 'hicolor-icon-theme' 'kio5' 'libksane5' 'libkcddb5'
-         'libcdio' 'kfilemetadata5' 'knewstuff5' 'kxmlgui5' 'kitemmodels5'
-         'perl-text-bibtex' 'python' 'solid5' 'yaz' 'taglib' 'poppler-qt5' 'qt5-base' 'qt5-charts' 'qt5-webengine')
-makedepends=('cmake' 'extra-cmake-modules' 'kdoctools5')
+depends=('exempi' 'hicolor-icon-theme' 'kio' 'libksane' 'libkcddb'
+         'libcdio' 'kfilemetadata' 'knewstuff' 'kxmlgui' 'kitemmodels'
+         'perl-text-bibtex' 'python' 'solid' 'yaz' 'taglib' 'poppler-qt6' 'qt6-base' 'qt6-charts' 'qt6-webengine')
+makedepends=('cmake' 'extra-cmake-modules' 'kdoctools')
 changelog=$pkgname.changelog
 source=(https://tellico-project.org/files/$pkgname-$pkgver.tar.xz)
-sha256sums=('001794c52e99b20feab8373440850549ccd6da0a1fe2345c6192f9385472d06c')
+sha256sums=('8d4d05f3d430048d9d694a6e82371c9d54c2c28bf78fc7921db7d089351b4d33')
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
