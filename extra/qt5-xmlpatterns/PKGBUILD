@@ -2,10 +2,10 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt5-xmlpatterns
-_basever=5.15.14
-pkgver=5.15.14
+_basever=5.15.15
+pkgver=5.15.15
 pkgrel=1
-_commit=087f6f35bd027f940818b1696d0aad822e034377
+_commit=330c47bab8333d6dc7d4ab838afb81f29b6a32d0
 arch=('x86_64')
 url='https://www.qt.io'
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
@@ -17,7 +17,7 @@ conflicts=('qtchooser')
 groups=('qt5')
 _pkgfqn=${pkgname/5-/}
 source=(kde-$_pkgfqn::git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit)
-sha256sums=('1cb5e3e6b8260dafa21d5b1f425f09bcb9f5bb7bf26ecdf1145dd6688da48306')
+sha256sums=('b76fb29f9104c0cbef827df3216c55487db8511e4e30446cd6315520160be17f')
 
 pkgver() {
   cd kde-$_pkgfqn
