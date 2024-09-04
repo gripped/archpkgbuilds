@@ -2,7 +2,7 @@
 
 pkgname=perl-math-random-isaac
 pkgver=1.004
-pkgrel=11
+pkgrel=12
 pkgdesc='Perl interface to the ISAAC PRNG algorithm'
 arch=('any')
 url='https://search.cpan.org/dist/Math-Random-ISAAC/'
