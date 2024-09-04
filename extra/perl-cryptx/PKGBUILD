@@ -2,7 +2,7 @@
 
 pkgname=perl-cryptx
 pkgver=0.080
-pkgrel=2
+pkgrel=3
 pkgdesc='Cryptographic toolkit'
 arch=(x86_64)
 license=(PerlArtistic GPL)
