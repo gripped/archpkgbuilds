@@ -5,14 +5,14 @@
 
 pkgname=hexchat
 pkgver=2.16.2
-pkgrel=2
+pkgrel=3
 pkgdesc='A popular and easy to use graphical IRC (chat) client'
 arch=('x86_64')
 url='https://hexchat.github.io/'
 license=('GPL-2.0-or-later')
 depends=('dbus-glib' 'desktop-file-utils' 'gdk-pixbuf2' 'glib2' 'gtk2'
          'libcanberra' 'openssl' 'pango' 'pciutils')
-makedepends=('git' 'intltool' 'iso-codes' 'lua' 'meson' 'perl' 'python-cffi' 'python-setuptools')
+makedepends=('git' 'glib2-devel' 'intltool' 'iso-codes' 'lua' 'meson' 'perl' 'python-cffi' 'python-setuptools')
 optdepends=('enchant: Spell check'
             'iso-codes: Display language names instead of codes'
             'lua: Lua plugin'
