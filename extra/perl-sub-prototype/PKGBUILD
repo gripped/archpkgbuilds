@@ -3,7 +3,7 @@
 pkgname=perl-sub-prototype
 _cpanname=Sub-Prototype
 pkgver=0.03
-pkgrel=1
+pkgrel=2
 pkgdesc="Set a sub's prototype"
 url='https://metacpan.org/dist/Sub-Prototype'
 arch=(x86_64)
