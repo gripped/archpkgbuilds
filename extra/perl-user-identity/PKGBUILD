@@ -4,7 +4,7 @@
 
 pkgname=perl-user-identity
 pkgver=1.02
-pkgrel=3
+pkgrel=4
 pkgdesc="Perl/CPAN Module User::Identity : Define a person"
 arch=("any")
 url="https://search.cpan.org/~markov/User-Identity/"
