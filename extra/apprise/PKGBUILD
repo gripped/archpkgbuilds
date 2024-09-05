@@ -3,7 +3,7 @@
 # Contributor: Pieter Goetschalckx <3.14.e.ter <at> gmail <dot> com>
 
 pkgname=apprise
-pkgver=1.8.1
+pkgver=1.9.0
 pkgrel=1
 pkgdesc='Push Notifications that work with just about every platform'
 arch=(any)
@@ -35,7 +35,7 @@ optdepends=(
   'python-paho-mqtt: for MQTT support'
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('c71d7649c998edd7ad6991a429f3540049489899c6454490a1690b714d1622ecc72eec184b1db6cbb901311dce39a0f4fcf86ca941ac43657bb85a4af140cbbd')
+b2sums=('d6edf67f633c1461b7c4b87e34b00152f86e5d704864df32175093d0995c2026ac8b2d364347c49e0f1b419b474e19d9e197e71483f12ec727ef0d2ca4c0a7ae')
 
 build(){
   cd $pkgname
@@ -48,12 +48,11 @@ check(){
 }
 
 package(){
-  cd $pkgname
-  python -m installer --destdir="$pkgdir" dist/*.whl
-
-  # Symlink license file
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
   ln -s "$site_packages"/$pkgname-$pkgver.dist-info/LICENSE \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
