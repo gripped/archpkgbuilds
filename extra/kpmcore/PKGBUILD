@@ -2,7 +2,7 @@
 
 pkgname=kpmcore
 pkgver=24.08.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Library for managing partitions'
 arch=(x86_64)
 url='https://apps.kde.org/partitionmanager/'
@@ -24,10 +24,9 @@ optdepends=('bcachefs-tools: BCacheFS support'
             'exfatprogs: exFAT support (alternative to exfat-utils)'
             'f2fs-tools: F2FS support'
             'fatresize: FAT resize support'
-	    'jfsutils: JFS support'
+	        'jfsutils: JFS support'
             'nilfs-utils: nilfs support'
             'ntfs-3g: NTFS support'
-            'reiserfsprogs: Reiser support'
             'udftools: UDF support'
             'xfsprogs: XFS support')
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
