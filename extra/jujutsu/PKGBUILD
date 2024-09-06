@@ -5,7 +5,7 @@
 
 pkgname=jujutsu
 _pkgname=jj
-pkgver=0.20.0
+pkgver=0.21.0
 pkgrel=1
 pkgdesc='Git-compatible VCS that is both simple and powerful'
 arch=(x86_64)
@@ -14,13 +14,14 @@ license=(Apache-2.0)
 depends=(gcc-libs # libgcc_s.so
          glibc # libc.so libm.so
          openssl
-         libgit2
+         libgit2 libgit2.so
+         libssh2 libssh2.so
          zstd)
 replaces=("$pkgname-bin")
 makedepends=(cargo)
 _archive="$_pkgname-$pkgver"
 source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
-sha256sums=('b2c898ea224fe45df81c241bf1f0bc8e74c0988b8f549e894b15a38f2f4d6665')
+sha256sums=('c38d98d7db42f08b799f5c51f33cd8454867bc4862a15aa0897b72f2d32eea0a')
 
 prepare() {
 	cd "$_archive"
@@ -31,8 +32,8 @@ prepare() {
 build() {
 	cd "$_archive"
 	CFLAGS+=' -ffat-lto-objects'
-	# https://github.com/martinvonz/jj/issues/4234
-	# export LIBGIT2_NO_VENDOR=1
+	export LIBGIT2_NO_VENDOR=1
+	export LIBSSH2_SYS_USE_PKG_CONFIG=1
 	cargo build --frozen --release --all-features --package jj-cli
 	local jj=target/release/jj
 	$jj util completion bash > completions/jj
@@ -43,9 +44,11 @@ build() {
 
 check() {
 	cd "$_archive"
+	export useNextest=false
 	local skipped=(
 		test_diff_command # relies on config of external command
 		test_acls::test_diff # relies on assumptions about tty
+		test_show_command::test_show_basic # https://github.com/martinvonz/jj/issues/4394
 	)
 	cargo test --frozen --all-features --package jj-cli -- \
 		${skipped[@]/#/--skip }
