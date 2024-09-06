@@ -2,19 +2,22 @@
 # Contributor: ObserverOfTime <chronobserver@disroot.org>
 
 pkgname=tree-sitter-bash
-pkgver=0.21.0
-pkgrel=2
+pkgver=0.23.1
+pkgrel=1
 pkgdesc='Bash grammar for tree-sitter'
-arch=('x86_64')
+arch=(x86_64)
 url=https://github.com/tree-sitter/tree-sitter-bash
-license=('MIT')
-groups=('tree-sitter-grammars')
-makedepends=('git' 'tree-sitter-cli')
+license=(MIT)
+groups=(tree-sitter-grammars)
+makedepends=(
+  git
+  tree-sitter-cli
+)
 optdepends=('tree-sitter: core library')
 provides=("lib$pkgname.so")
 source=("git+$url.git#commit=v$pkgver?signed")
-b2sums=('9c8222a4a0b757cf85c35d5bdf1a12278877a5cd92578e95b61a281236ac2bb411e4eeab0700babce6a543d7f2ea0dff10d5067b73070d7ff503cb1f605c48e3')
-validpgpkeys=('FCC13F47A6900D64239FF13BE67890ADC4227273') # Amaan Qureshi <amaanq12@gmail.com>
+b2sums=('a26d25e4c15ee23026d76e86470838fc350e2a88a59a9a9f11eeb28b95502c349dfb8d5e8b3f1d63da294fb1aeb9ad866d7039f1aea3cc113ecc72d44ea90e06')
+validpgpkeys=(FCC13F47A6900D64239FF13BE67890ADC4227273) # Amaan Qureshi <amaanq12@gmail.com>
 
 prepare() {
   cd $pkgname
@@ -23,7 +26,7 @@ prepare() {
 
 build() {
   cd $pkgname
-  make PREFIX=/usr PARSER_URL="$url"
+  make PREFIX=/usr PARSER_URL=$url
 }
 
 package() {
