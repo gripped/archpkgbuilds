@@ -2,7 +2,7 @@
 
 _name=svelte-language-tools
 pkgname=svelte-language-server
-pkgver=0.16.14
+pkgver=0.17.0
 pkgrel=1
 pkgdesc='Language server for Svelte'
 arch=(any)
@@ -18,7 +18,7 @@ makedepends=(
   pnpm
 )
 source=("$_name::git+https://github.com/sveltejs/language-tools.git#tag=language-server-$pkgver")
-b2sums=('f840cf141e9fcf2f4d442d03eb869abbe96f65f9e1c00bdc5918c36c72d1ea21f487ba5965b7d9e83898d44c2a82a573e91fa11cf9ba9edf7a0628ea7229e69d')
+b2sums=('eb2c034c536d9b62234a2670e4e8fdba9720d460de37be2d4acace67b6671274d170f6a3adbf0298bee3d84ae5418295bb777c5fce5f6252979655940bee7a97')
 
 prepare() {
   cd $_name
@@ -39,6 +39,7 @@ check() {
 
 package() {
   local mod_dir=/usr/lib/node_modules/$pkgname
+
   install -d "$pkgdir"/{usr/bin,$mod_dir}
   ln -s $mod_dir/bin/server.js "$pkgdir"/usr/bin/svelteserver
 
