@@ -5,7 +5,7 @@
 # Contributor: Jaroslav Lichtblau <svetlemodry@archlinux.org>
 
 pkgname=aspell-pl
-pkgver=20230701
+pkgver=20240901
 pkgrel=1
 pkgdesc='Polish dictionary for aspell'
 arch=('any')
@@ -13,7 +13,7 @@ url="https://www.sjp.pl/slownik/en/"
 license=('GPL' 'LGPL' 'MPL' 'CC SA' 'Apache')
 depends=('aspell')
 source=(https://sjp.pl/sl/ort/sjp-aspell6-pl-6.0_$pkgver-0.tar.bz2)
-sha256sums=('8561ce4265e3bfd1383736a6e91c32ccd47ddb25e40645fb4a43e94a5e0f4f78')
+sha256sums=('cf59cc16580191c4ad3298e8f1981367da8ef3d07cfb6ac60a166016f018f2c6')
 
 build() {
   cd aspell6-pl-6.0_$pkgver-0
