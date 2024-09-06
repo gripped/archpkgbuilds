@@ -7,7 +7,7 @@
 
 pkgname=libguestfs
 pkgver=1.52.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Access and modify virtual machine disk images"
 arch=(x86_64)
 url="https://libguestfs.org/"
@@ -43,7 +43,6 @@ _appliancedeps=(
   pciutils
   procps-ng
   psmisc
-  reiserfsprogs
   rsync
   squashfs-tools
   strace
