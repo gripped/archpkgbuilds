@@ -2,13 +2,13 @@
 
 _pyname=ipycanvas
 pkgname=python-$_pyname
-pkgver=0.13.2
-pkgrel=2
+pkgver=0.13.3
+pkgrel=1
 pkgdesc="Interactive widgets library exposing the browser's Canvas API"
 url='https://ipycanvas.readthedocs.io/en/latest/'
 arch=(any)
 license=(BSD-3-Clause)
-source=(git+https://github.com/jupyter-widgets-contrib/ipycanvas#tag=$pkgver)
+source=(git+https://github.com/jupyter-widgets-contrib/ipycanvas#tag=v$pkgver)
 depends=(python
          python-ipywidgets
          python-numpy
@@ -21,7 +21,7 @@ makedepends=(git
              python-hatchling
              python-installer
              yarn)
-sha256sums=('4bef2708b92261b7b00b914b5fc21b7f2c029eb6e1e13f40de83db66422daf1f')
+sha256sums=('df79d708a175f3a779e31d34a3abace1b61ed1ed69fff3ffa76374a9b44c8053')
 
 build() {
   cd $_pyname
