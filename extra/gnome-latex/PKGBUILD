@@ -5,29 +5,60 @@
 
 pkgname=gnome-latex
 pkgver=3.46.0
-pkgrel=3
+pkgrel=4
 pkgdesc='LaTeX editor for the GNOME desktop'
-arch=('x86_64')
-url='https://wiki.gnome.org/Apps/GNOME-LaTeX'
-license=('GPL-3.0-or-later')
-depends=('gsettings-desktop-schemas' 'gspell' 'libgee' 'libgedit-tepl')
-makedepends=('appstream-glib' 'autoconf-archive' 'git' 'gtk-doc' 'gobject-introspection' 'intltool'
-             'vala' 'yelp-tools')
-optdepends=('texlive-latex: build LaTeX documents')
-source=("git+https://gitlab.gnome.org/swilmet/gnome-latex.git#tag=$pkgver")
-b2sums=('8f74661c98e3f5aba54d1abee3869832380da3c91abf477efc462e45dd0e23f040cee1c0a2c0864934f900c3c69e3021aea7cad6d9d37e8229fc0192749e04ee')
+arch=(x86_64)
+url='https://gitlab.gnome.org/swilmet/gnome-latex'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  gdk-pixbuf2
+  glib2
+  glibc
+  gsettings-desktop-schemas
+  gspell
+  gtk3
+  hicolor-icon-theme
+  libgedit-amtk
+  libgedit-gtksourceview
+  libgedit-tepl
+  libgee
+  pango
+)
+makedepends=(
+  appstream-glib
+  autoconf-archive
+  git
+  glib2-devel
+  gobject-introspection
+  gtk-doc
+  vala
+  yelp-tools
+)
+optdepends=(
+  'texlive-binextra: Build LaTeX documents'
+  'texlive-fontsrecommended: Build LaTeX documents'
+  'texlive-latex: Build LaTeX documents'
+)
+source=("git+https://gitlab.gnome.org/swilmet/gnome-latex.git#tag=${pkgver/[a-z]/.&}")
+b2sums=(8f74661c98e3f5aba54d1abee3869832380da3c91abf477efc462e45dd0e23f040cee1c0a2c0864934f900c3c69e3021aea7cad6d9d37e8229fc0192749e04ee)
 
 prepare() {
   cd $pkgname
 
-  ## Adapt for Tepl -> libgedit-tepl rename
+  # Adapt for Tepl -> libgedit-tepl rename
   git cherry-pick -n 41e532c427f43a5eed9081766963d6e29a9975a1
-  NOCONFIGURE=1 ./autogen.sh
+
+  autoreconf -fi
 }
 
 build() {
   cd $pkgname
-  ./configure --prefix=/usr --enable-gtk-doc
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --enable-gtk-doc
   make
 }
 
