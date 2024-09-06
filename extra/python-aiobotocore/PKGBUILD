@@ -3,8 +3,8 @@
 pkgname=python-aiobotocore
 _pkgname=aiobotocore
 # https://github.com/aio-libs/aiobotocore/releases
-pkgver=2.13.2
-pkgrel=1
+pkgver=2.14.0
+pkgrel=2
 pkgdesc='asyncio support for botocore library using aiohttp'
 arch=(any)
 url='https://github.com/aio-libs/aiobotocore'
@@ -13,29 +13,33 @@ license=('Apache-2.0')
 depends=(python python-aiohttp python-botocore python-wrapt python-aioitertools
          # detected by namcap but not listed in setup.py
          python-dateutil python-jmespath python-multidict python-urllib3)
-makedepends=(python-build python-installer python-setuptools python-wheel)
+makedepends=(python-build python-installer python-setuptools python-wheel git)
 checkdepends=(python-moto python-pytest python-pytest-asyncio python-dill python-docutils python-pip
               # moto optdepends
               python-docker python-openapi-spec-validator python-yaml python-flask python-flask-cors)
-source=("https://github.com/aio-libs/aiobotocore/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+source=("git+https://github.com/aio-libs/aiobotocore.git#tag=$pkgver"
         "moto-5.x.diff")
-sha256sums=('678de334febfd754b3aa6ad2ca9a9598dc3198fdd53438595a589f338619ab0f'
+sha256sums=('1430f03fd6d72fb87fcbd1ba2a293f9c816c53aca0459675a26fd4d581e9ee01'
             '2bfadc984a4ad3a6420b356d572c8085b82a46949fc0ecaea98ddce45980503b')
 
 prepare() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
   # Work-around test failures with moto 5.x
   # See: https://github.com/aio-libs/aiobotocore/issues/1108
   patch -Np1 -i ../moto-5.x.diff
+
+  # relax setuptools build dependency specification
+  # https://github.com/aio-libs/aiobotocore/discussions/1193
+  git cherry-pick -n 24a44d7ecf4679b059349989eda0e3d39160c8be
 }
 
 build() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
 
   export PYTHONPATH="$PWD"
   # test_lambda uses moto.awslambda, which requires a running Docker service
@@ -45,6 +49,6 @@ check() {
 }
 
 package() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
 }

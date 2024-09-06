@@ -1,7 +1,7 @@
 pkgbase = python-aiobotocore
 	pkgdesc = asyncio support for botocore library using aiohttp
-	pkgver = 2.13.2
-	pkgrel = 1
+	pkgver = 2.14.0
+	pkgrel = 2
 	url = https://github.com/aio-libs/aiobotocore
 	arch = any
 	license = Apache-2.0
@@ -20,6 +20,7 @@ pkgbase = python-aiobotocore
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
+	makedepends = git
 	depends = python
 	depends = python-aiohttp
 	depends = python-botocore
@@ -29,9 +30,9 @@ pkgbase = python-aiobotocore
 	depends = python-jmespath
 	depends = python-multidict
 	depends = python-urllib3
-	source = https://github.com/aio-libs/aiobotocore/archive/2.13.2/python-aiobotocore-2.13.2.tar.gz
+	source = git+https://github.com/aio-libs/aiobotocore.git#tag=2.14.0
 	source = moto-5.x.diff
-	sha256sums = 678de334febfd754b3aa6ad2ca9a9598dc3198fdd53438595a589f338619ab0f
+	sha256sums = 1430f03fd6d72fb87fcbd1ba2a293f9c816c53aca0459675a26fd4d581e9ee01
 	sha256sums = 2bfadc984a4ad3a6420b356d572c8085b82a46949fc0ecaea98ddce45980503b
 
 pkgname = python-aiobotocore
