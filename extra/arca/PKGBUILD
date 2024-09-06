@@ -1,0 +1,35 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+pkgname=arca
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='Archiver for compressed files'
+url='https://mauikit.org/'
+arch=(x86_64)
+license=(LGPL-3.0-only)
+depends=(gcc-libs
+         glibc
+         kcoreaddons
+         ki18n
+         mauikit
+         mauikit-archiver
+         mauikit-documents
+         mauikit-filebrowsing
+         mauikit-texteditor
+         qt6-base
+         qt6-declarative)
+makedepends=(extra-cmake-modules)
+groups=(maui)
+source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('76fda84a231a8e5e59a507c9b5a5526c4e6a41f96faa63bb50e98cf7de01bc6b'
+            'SKIP')
+validpgpkeys=(023625C8D02C0D8C15C3BABB86C793550794FEB8) # Camilo Higuita <milo.h@aol.com>                                    
+
+build() {
+  cmake -B build -S $pkgname-$pkgver
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
