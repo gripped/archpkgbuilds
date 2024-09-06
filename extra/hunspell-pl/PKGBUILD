@@ -3,7 +3,7 @@
 # Contributor: Maciej Sitarz <macieks@freesco.pl>
 
 pkgname=hunspell-pl
-pkgver=20230701
+pkgver=20240901
 pkgrel=1
 pkgdesc='Polish dictionary for Hunspell'
 arch=('any')
@@ -13,7 +13,7 @@ optdepends=('hunspell: the spell checking libraries and apps')
 makedepends=('qt6-webengine')
 provides=('hunspell-dictionary')
 source=(https://sjp.pl/sl/ort/sjp-myspell-pl-$pkgver.zip)
-sha256sums=('f8eb3973c2f9400c898e67c9a54ce35a386fe903d7b6bf37ae0a1eecf3fcfd61')
+sha256sums=('0c7e5ebf3430ddec239e39047c74db51dbb105352b9c3301ee385aba139890e8')
 
 prepare() {
   bsdtar -xf pl_PL.zip
