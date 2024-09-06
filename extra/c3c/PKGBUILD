@@ -2,35 +2,40 @@
 # Contributor: Eduardo Jose Gomez Hernandez <eduardo@edujgh.net>
 
 pkgname=c3c
-pkgver=0.6.1
-pkgrel=2
+pkgver=0.6.2
+pkgrel=1
 pkgdesc='Compiler for the C3 language'
 arch=(x86_64)
 url='https://github.com/c3lang/c3c'
 license=(LGPL-3.0-or-later MIT)
 depends=(lld llvm-libs)
 makedepends=(clang cmake git libedit llvm ninja)
-source=("git+$url#commit=bdc9f339c9088099de74dafdb87122dc769a4b32"
+source=("git+$url#commit=528fecef4d0b7b5aff7529c58f8367d19a08bddc"
         CMakeLists.txt)
-b2sums=('9a6b1155fceb691abd3294640f515fe9b0ce3e14bb2115b13b9a0a27a139d38ba3e0ece824a45a9673d8e57dc8f2ef97b21c0ce66d5e6576f8d9166281673637'
-        '93abca74e2431efee27aa3a9441a86ebad74c0bfaa431393b052daf12fb48f45e4cfefba267579c222d886b81c791fb37930eef7edf381c3af5da47bad1e6418')
+b2sums=('553c05f8bcb0c268e3bd3e74cf9fde0ac1807863c1c21406f02b3143698c0da058b33a33128fc1688e88ccaff38799b7976c05ed058325edca15a6b1edc7ee6d'
+        'e034d2a4dc01d88307ac84067f9a810b6bbed296f4ee0f29722d9f2ff7d34d38f1e7dd5bae41f3d08fa9ef00661d4f09521d2fa1ca3e0f639d419b1ab545b6d4')
 
 prepare() {
-  ln -sf "$srcdir/CMakeLists.txt" $pkgname/CMakeLists.txt
+  ln -f -s "$srcdir/CMakeLists.txt" $pkgname/CMakeLists.txt
 }
 
 build() {
-  cd $pkgname
-  cmake -B build -D CMAKE_BUILD_TYPE=Release -D CMAKE_BUILD_WITH_INSTALL_RPATH=ON -G Ninja
+  cmake \
+    -B build \
+    -D C3_LINK_DYNAMIC=ON \
+    -D CMAKE_BUILD_TYPE=Release \
+    -D CMAKE_CXX_FLAGS_RELEASE="$CXXFLAGS" \
+    -D CMAKE_C_FLAGS_RELEASE="$CFLAGS" \
+    -G Ninja \
+    -S $pkgname
   ninja -C build
 }
 
 package() {
-  cd $pkgname
   install -Dm755 build/c3c "$pkgdir/usr/lib/$pkgname/c3c"
-  cp -r lib "$pkgdir/usr/lib/$pkgname/lib"
+  cp -r build/lib "$pkgdir/usr/lib/$pkgname/lib"
   install -d "$pkgdir/usr/bin"
   ln -s "/usr/lib/$pkgname/c3c" "$pkgdir/usr/bin/c3c"
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-  install -Dm644 LICENSE_STDLIB "$pkgdir/usr/share/licenses/$pkgname/LICENSE_STDLIB"
+  install -Dm644 $pkgname/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 $pkgname/LICENSE_STDLIB "$pkgdir/usr/share/licenses/$pkgname/LICENSE_STDLIB"
 }
