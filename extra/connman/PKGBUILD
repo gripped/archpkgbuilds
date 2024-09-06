@@ -4,7 +4,7 @@
 # Contributor: Lucas De Marchi <lucas.de.marchi@gmail.com>
 
 pkgname=connman
-pkgver=1.42
+pkgver=1.43
 pkgrel=1
 pkgdesc="Intel's modular network connection manager"
 url="https://01.org/connman"
@@ -12,6 +12,7 @@ arch=('x86_64')
 license=('GPL-2.0-only')
 depends=(
   'dbus'
+  'gcc-libs'
   'glib2'
   'glibc'
   'gnutls'
@@ -39,18 +40,15 @@ backup=('etc/connman/main.conf')
 source=(
   "$pkgname-$pkgver.tar.xz::https://www.kernel.org/pub/linux/network/$pkgname/$pkgname-$pkgver.tar.xz"
   "$pkgname-$pkgver.tar.sign::https://www.kernel.org/pub/linux/network/$pkgname/$pkgname-$pkgver.tar.sign"
-  "https://sources.debian.org/data/main/c/connman/1.42-5/debian/patches/03-Add-libppp-compat.h.patch"
   "allow_group_network.diff"
 )
-sha512sums=('d919080b91fb61806c0e948be14e26bfe5d2501865f76b2e2dddd4cef8c46c0f7aa26406ed938b347889e48adc726e53bbb415bf9c280f9310597045da784ace'
+sha512sums=('3289525cf764313700c520d3159431cdf719029096a1001d60ebdbda6406888699bc86336e7de890bf2c34a0624f3ba3081b0b57838a962b3c90bb5cd3484b38'
             'SKIP'
-            'ede0e6976bbadb92b976bc308a5b2765b97850e9b800de9b052fa42c9757556b7a8aebdcbccf4357baef3c89bbb9cccedb7f238d7d8241df704d26d30a353d54'
             '06dd5867d460f1c3cf6c359e650ca2ef24495493a99cd03dbd17f23e587e9066d9bc98758d85d5c690d1ae21fa77ad8da5e2fa83d0b52c95d7a535784c5c4964')
 validpgpkeys=('E932D120BC2AEC444E558F0106CA9F5D1DCF2659') # Marcel Holtmann <marcel@holtmann.org>
 
 prepare() {
   cd $pkgname-$pkgver
-  patch -Np1 -i "$srcdir/03-Add-libppp-compat.h.patch"
   patch -Np1 -i "$srcdir/allow_group_network.diff"
 }
 
