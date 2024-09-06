@@ -1,7 +1,7 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=cargo-c
-pkgver=0.10.3
+pkgver=0.10.4
 pkgrel=1
 pkgdesc='A cargo subcommand to build and install C-ABI compatibile dynamic and static libraries'
 arch=('x86_64')
@@ -9,14 +9,17 @@ url='https://github.com/lu-zero/cargo-c/'
 license=('MIT')
 depends=(
   'cargo'
-  'libcurl.so'
-  'libssl.so'
-  'libz.so'
+  'curl' 'libcurl.so'
+  'gcc-libs'
+  'glibc'
+  'openssl' 'libssl.so'
+  'zlib' 'libz.so'
 )
+options=(!lto)
 source=("https://github.com/lu-zero/cargo-c/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "${pkgname}-${pkgver}.Cargo.lock"::"https://github.com/lu-zero/cargo-c/releases/download/v${pkgver}/Cargo.lock")
-sha256sums=('922171afb3ceaf6553ff3916ae4663d3743ba22f80725f2300a26b76eb6eb94f'
-            '6c099fe28666e4c6b5da41b65d00de35c9c60ab336c625d845f28055a0e90a7d')
+sha256sums=('3382f6c3eca404695885e79babfce6448124a481a77cec11c3bfeb5830f677c1'
+            '9faed81831966f6569ecb8778443199de4126523c063c2b1257b39fe3d48691f')
 
 prepare() {
     ln -sf "../${pkgname}-${pkgver}.Cargo.lock" "${pkgname}-${pkgver}/Cargo.lock"
