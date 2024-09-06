@@ -1,15 +1,17 @@
 pkgbase = gthumb
 	pkgdesc = Image browser and viewer for the GNOME Desktop
 	pkgver = 3.12.6
-	pkgrel = 1
+	pkgrel = 3
 	url = https://wiki.gnome.org/Apps/gthumb
 	arch = x86_64
 	license = GPL-2.0-or-later
+	makedepends = appstream
 	makedepends = brasero
 	makedepends = docbook-xsl
 	makedepends = exiv2
 	makedepends = git
-	makedepends = liboauth
+	makedepends = glib2-devel
+	makedepends = libchamplain
 	makedepends = libraw
 	makedepends = meson
 	makedepends = yelp-tools
@@ -18,19 +20,17 @@ pkgbase = gthumb
 	depends = gsettings-desktop-schemas
 	depends = gst-plugin-gtk
 	depends = gst-plugins-base-libs
-	depends = json-glib
 	depends = libheif
 	depends = libjxl
 	depends = librsvg
-	depends = libsecret
-	depends = libsoup
 	depends = libwebp
-	depends = webkit2gtk
 	optdepends = brasero: burn discs
 	optdepends = exiv2: metadata support
-	optdepends = liboauth: web albums
+	optdepends = libchamplain: map viewer
 	optdepends = libraw: read RAW files
-	source = git+https://gitlab.gnome.org/GNOME/gthumb.git#commit=e93764a1ebe6bd54a32a24dfffd33267b85f7ab4
-	b2sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/gthumb.git#tag=3.12.6
+	source = gthumb-infinite-loop.patch
+	b2sums = a4577f1b5a1b23ef4982d90ebfa54008b3f6a9acb57a83ab2add7018e04e3ffb45202a2718f285b6a18bc8734b081dd2807d388d98c49bf692671a0bc2b4a734
+	b2sums = 507549d75268fd5065a8122a4b3455ebef112f4a22392200fef9a4b38997ce3c087cc8a51c26e3904e1ff0d3f7e9d1dc7870cf3b3c49aa2a4f597036f224abfb
 
 pkgname = gthumb

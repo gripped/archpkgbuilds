@@ -4,7 +4,7 @@
 
 pkgname=gthumb
 pkgver=3.12.6
-pkgrel=1
+pkgrel=3
 pkgdesc="Image browser and viewer for the GNOME Desktop"
 url="https://wiki.gnome.org/Apps/gthumb"
 arch=(x86_64)
@@ -15,21 +15,19 @@ depends=(
   gsettings-desktop-schemas
   gst-plugin-gtk
   gst-plugins-base-libs
-  json-glib
   libheif
   libjxl
   librsvg
-  libsecret
-  libsoup
   libwebp
-  webkit2gtk
 )
 makedepends=(
+  appstream
   brasero
   docbook-xsl
   exiv2
   git
-  liboauth
+  glib2-devel
+  libchamplain
   libraw
   meson
   yelp-tools
@@ -37,26 +35,26 @@ makedepends=(
 optdepends=(
   'brasero: burn discs'
   'exiv2: metadata support'
-  'liboauth: web albums'
+  'libchamplain: map viewer'
   'libraw: read RAW files'
 )
-_commit=e93764a1ebe6bd54a32a24dfffd33267b85f7ab4  # tags/3.12.6^0
 source=(
-  "git+https://gitlab.gnome.org/GNOME/gthumb.git#commit=$_commit"
+  "git+https://gitlab.gnome.org/GNOME/gthumb.git#tag=$pkgver"
+  gthumb-infinite-loop.patch
 )
-b2sums=('SKIP')
-
-pkgver() {
-  cd gthumb
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+b2sums=('a4577f1b5a1b23ef4982d90ebfa54008b3f6a9acb57a83ab2add7018e04e3ffb45202a2718f285b6a18bc8734b081dd2807d388d98c49bf692671a0bc2b4a734'
+        '507549d75268fd5065a8122a4b3455ebef112f4a22392200fef9a4b38997ce3c087cc8a51c26e3904e1ff0d3f7e9d1dc7870cf3b3c49aa2a4f597036f224abfb')
 
 prepare() {
   cd gthumb
+
+  # Avoid infinite loop when when failed to activate an extension
+  # https://gitlab.gnome.org/GNOME/gthumb/-/merge_requests/52
+  git apply -3 ../gthumb-infinite-loop.patch
 }
 
 build() {
-  arch-meson gthumb build
+  arch-meson gthumb build -D libchamplain=true
   meson compile -C build
 }
 
