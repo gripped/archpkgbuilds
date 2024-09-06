@@ -3,8 +3,8 @@
 # Contributor: Sebastian Sareyko <public@nooms.de>
 
 pkgname=gnustep-base
-pkgver=1.29.0
-pkgrel=4
+pkgver=1.30.0
+pkgrel=1
 pkgdesc="The GNUstep base package"
 arch=('x86_64')
 url="http://www.gnustep.org/"
@@ -13,20 +13,10 @@ depends=(libxslt avahi gmp gcc-libs openssl libffi gnutls icu)
 makedepends=(gcc-objc gnustep-make)
 groups=('gnustep-core')
 options=('!emptydirs' '!makeflags')
-source=(https://github.com/gnustep/libs-base/releases/download/base-${pkgver//./_}/gnustep-base-${pkgver}.tar.gz{,.sig}
-        icu68.patch
-        https://github.com/gnustep/libs-base/commit/37913d00.patch)
-sha256sums=('fa58eda665c3e0b9c420dc32bb3d51247a407c944d82e5eed1afe8a2b943ef37'
-            'SKIP'
-            '0b38c3df1a150bc64fb4f37cd92cfc63fa7c0741a77eca940fb992942858d7d0'
-            'a7a3bad7bda7e63599677294f0ee0b2273b680168b6fd9b4b4c5618ba8a184d5')
+source=(https://github.com/gnustep/libs-base/releases/download/base-${pkgver//./_}/gnustep-base-${pkgver}.tar.gz{,.sig})
+sha256sums=('00b5bc4179045b581f9f9dc3751b800c07a5d204682e3e0eddd8b5e5dee51faa'
+            'SKIP')
 validpgpkeys=('83AAE47CE829A4146EF83420CA868D4C99149679')
-
-prepare() {
-  cd $pkgname-$pkgver
-  patch -Np0 -i ../icu68.patch
-  patch -p1 -i ../37913d00.patch # Fix build with libxml2 2.12
-}
 
 build() {
   # this uses malloc_usable_size, which is incompatible with fortification level 3
