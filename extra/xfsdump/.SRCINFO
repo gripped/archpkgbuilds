@@ -1,21 +1,21 @@
 pkgbase = xfsdump
 	pkgdesc = Additional XFS filesystem utilities
-	pkgver = 3.1.12
-	pkgrel = 3
+	pkgver = 3.2.0
+	pkgrel = 1
 	url = http://xfs.org
 	arch = x86_64
 	license = GPL-2.0-only
 	makedepends = git
-	depends = xfsprogs
-	depends = attr
 	depends = acl
-	depends = util-linux-libs
+	depends = attr
 	depends = gcc-libs
-	depends = ncurses
 	depends = glibc
-	source = git+https://git.kernel.org/pub/scm/fs/xfs/xfsdump-dev.git?signed#tag=v3.1.12
+	depends = ncurses
+	depends = util-linux-libs
+	depends = xfsprogs
+	source = git+https://git.kernel.org/pub/scm/fs/xfs/xfsdump-dev.git?signed#tag=v3.2.0
 	validpgpkeys = 2B8185919E8D248981869DED20AE1692E13DDEE0
 	validpgpkeys = 4020459E58C1A52511F5399113F703E6C11CF6F0
-	b2sums = 56c3d8e6bea56f918fb2d64fe67e4270a3b5daca7cfce665b54f65ec4838673dca1f21917d2a179d453bc715e779855e7391efd32eb0dd07c32597a9299c3d36
+	b2sums = 9b54c1160922dbf2655bbf346861f736ea6d1a8bb9f36c964523d001ab2ff51bcdcd2da1e737d4b5a8d2d82693ea1054b5f9344431fbe53d274c24311d2e10c9
 
 pkgname = xfsdump
