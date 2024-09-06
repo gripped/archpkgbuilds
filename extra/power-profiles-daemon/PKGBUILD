@@ -3,7 +3,7 @@
 
 pkgname=power-profiles-daemon
 pkgver=0.22
-pkgrel=1
+pkgrel=2
 pkgdesc='Makes power profiles handling available over D-Bus'
 url='https://gitlab.freedesktop.org/upower/power-profiles-daemon'
 license=(GPL-3.0-only)
@@ -25,6 +25,12 @@ checkdepends=(python-dbusmock
 source=(git+https://gitlab.freedesktop.org/upower/$pkgname#tag=$pkgver)
 sha256sums=('1bc3965288d36554fcfa56d3de7dc1b16e09204205cf0af23bd47007a91530ec')
 
+prepare() {
+  cd $pkgname
+  # Fixes AMD GPU Regression
+  # https://gitlab.freedesktop.org/upower/power-profiles-daemon/-/issues/163
+  git cherry-pick -n 21b58819edcbbd87fc161474d1501debfd9b84b7
+}
 build() {
   meson $pkgname build \
     --prefix /usr \
