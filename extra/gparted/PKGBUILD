@@ -4,11 +4,11 @@
 
 pkgname=gparted
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A Partition Magic clone, frontend to GNU Parted'
 arch=('x86_64')
 url='https://gparted.org/'
-license=('GPL')
+license=('GPL-2.0-or-later' 'GFDL-1.2-or-later')
 depends=('parted' 'gtkmm3')
 makedepends=('intltool' 'itstool' 'pkg-config' 'yelp-tools' 'polkit')
 optdepends=('dosfstools: for FAT16 and FAT32 partitions'
@@ -17,7 +17,6 @@ optdepends=('dosfstools: for FAT16 and FAT32 partitions'
             'btrfs-progs: for btrfs partitions'
             'exfatprogs: for exFAT partitions'
             'ntfs-3g: for ntfs partitions'
-            'reiserfsprogs: for reiser partitions'
             'udftools: for UDF file system support'
             'xfsprogs: for xfs partitions'
             'nilfs-utils: for nilfs2 support'
