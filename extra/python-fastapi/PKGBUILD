@@ -4,7 +4,7 @@
 
 _name=fastapi
 pkgname=python-$_name
-pkgver=0.112.2
+pkgver=0.113.0
 pkgrel=1
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=(any)
@@ -69,8 +69,8 @@ optdepends=(
   'uvicorn: for Uvicorn as ASGI server'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('c193b94165ed84bfc8664340a44feff2f49cdb119554079a04963fb3ae5a9e406d6f36ef2f99aee2a82a3a9fa8bcb87f7c63bab0358867a461c43d993b7ef999')
-b2sums=('7027fcfda5c0b3657ae891e1ed443bd9acea1da8edaba2e5b49e50d43d33a7fdc06ddc321ccb9e39b3001c534b86fd4cf95391567f5f83cb3de356d391194006')
+sha512sums=('13dbaa554d7bcb9077cac8f43badff7c12345add287e3a8c83897ff6193ddb80132d06113ed0e63a9a2c60d66787b81e36ccf0057b2b1deca8697923fa8a1c11')
+b2sums=('791c8109764aa98506b54cfdbf0c3f2d882aa08d9c6b6acbfde9b73e78fc3b382fd3ef99bdee2d257bb62865f8a46b756f4fd24b2bc9da010a25b73496bd34c6')
 
 prepare() {
   cd $_name-$pkgver
@@ -88,13 +88,6 @@ check() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   local pytest_options=(
     -vv
-    # These tests are failing with "DeprecationWarning: The 'app' shortcut is now deprecated. Use the explicit style 'transport=ASGITransport(app=...)'"
-    # It should have been addressed by upstream by then, but for some reason it is still failing
-    # Will try to reselect them at next release
-    --deselect tests/test_tutorial/test_async_tests/test_main.py::test_root[asyncio]
-    --deselect tests/test_tutorial/test_async_tests/test_main.py::test_async_testing[asyncio]
-    --deselect tests/test_tutorial/test_async_tests/test_main.py::test_root[trio]
-    --deselect tests/test_tutorial/test_async_tests/test_main.py::test_async_testing[trio]
     # This test wants to run fastapi cli from $PATH
     --deselect tests/test_fastapi_cli.py::test_fastapi_cli
   )
