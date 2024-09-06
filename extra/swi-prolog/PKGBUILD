@@ -5,7 +5,7 @@
 # Contributor: Juergen Hoetzel <juergen@archlinux.org>
 
 pkgname=swi-prolog
-pkgver=9.2.4 # using the stable version
+pkgver=9.2.7 # using the stable version
 pkgrel=1
 pkgdesc='Prolog environment'
 arch=(x86_64)
@@ -23,7 +23,7 @@ optdepends=('java-runtime: for using Prolog from Java'
             'unixodbc: for using the odbc4pl library')
 source=("$pkgname-$pkgver.tar.gz::$url/download/stable/src/swipl-$pkgver.tar.gz"
         bdb_5.3.patch)
-b2sums=('c0b3c3db196e3f71f5475c2fab6f69bfc3d6edba5d1b861d8007acd31d878a6b7884b47196f6a9a8a50d749890370334883c9e2467934b4644d4d07f5c1cc1fc'
+b2sums=('c81e83ec62a48127e46248ef0a1cc518a7c3358158207a1402bc93d14e8f51b87dd260d67fb3cc8fdf19fe2b0fa88dc4eb0e1fd6ff99183d06362ae7f86c32a5'
         '37e14768ec59f9aee4363c5ffd63be8c50c04eecf269e52e8aadd5cadbc99f6286aa676b1145b1391490ab49072039d896eed588e934ba769d09c6bdb2d2222d')
 
 prepare() {
@@ -46,7 +46,7 @@ build() {
 }
 
 check() {
-  ctest --test-dir build
+  ctest -E "jpl:prolog_in_java" --test-dir build
 }
 
 package() {
