@@ -2,8 +2,8 @@
 # Contributor: Sergey A. <murlakatamenka@disroot.org>
 
 pkgname=aichat
-pkgver=0.20.0
-pkgrel=2
+pkgver=0.21.1
+pkgrel=1
 pkgdesc="All-in-one AI CLI tool featuring Chat-REPL, Shell Assistant, RAG, AI tools & agents"
 arch=(x86_64)
 url="https://github.com/sigoden/aichat"
@@ -18,7 +18,7 @@ makedepends=(
 )
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('e7ef65102b346504bfa60a9db5b49cec981f4c99f40c3ebfa88a7e1dad947fa1')
+sha256sums=('4045c89bd94809969cc15d29889f0d4e662d2c68b129b9cda66eebc738c8016a')
 
 prepare() {
   cd $pkgname-$pkgver
