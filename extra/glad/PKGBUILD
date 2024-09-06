@@ -3,36 +3,38 @@
 
 pkgname=glad
 pkgver=2.0.7
-pkgrel=1
+pkgrel=2
 pkgdesc='Multi-Language Vulkan/GL/GLES/EGL/GLX/WGL Loader-Generator based on the official specs'
 url='https://github.com/Dav1dde/glad'
 arch=('any')
 license=('MIT')
 depends=('python' 'python-jinja' 'python-lxml' 'python-setuptools')
 makedepends=('python-build' 'python-installer' 'python-wheel')
-checkdepends=('python-pytest' 'xorgproto' 'libx11' 'glfw-x11' 'xorg-server-xvfb' 'mingw-w64-gcc' 'rust' 'libxinerama')
-source=(${url}/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+checkdepends=('python-pytest' 'xorgproto' 'libx11' 'glfw-x11' 'xorg-server-xvfb' 'rust' 'libxinerama' 'libxcursor' 'libxi')
+source=("${url}/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
 sha512sums=('6aae5e36acd319913f3c313da2a552d3033f7acbfd38fd07da99e737a23eaf250091134d82eceaf106aaa26bdd9f3a95b64dea635d5a82010e4d9a0ba69fc0e1')
 b2sums=('b6bb2157742d4d186f83a4bb1d97e1b62a7266970cd6fa4d80218f264df48161647cd520dbd6fbde6bfd96b81e938e724a15153d4721b2fa6f678d145c7927f0')
 
 build() {
-  cd ${pkgname}-${pkgver}
-  python -m build --wheel --no-isolation
+	cd "${pkgname}-${pkgver}"
+	python -m build --wheel --no-isolation
 }
 
 check() {
-  cd ${pkgname}-${pkgver}
-  rm test/c/run/wgl -r # Remove Windows tests
-  PRINT_MESSAGE=1 \
-  EXIT_ON_FAILURE=1 \
-  xvfb-run env EXIT_ON_FAILURE=0 ./utility/test.sh || true
+	cd "${pkgname}-${pkgver}"
+
+	# Remove Windows tests
+	rm -rf test/c/run/wgl
+
+	PRINT_MESSAGE=1 \
+	EXIT_ON_FAILURE=1 \
+	xvfb-run ./utility/test.sh
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm 644 README.md -t "$pkgdir"/usr/share/doc/"$pkgname"
-  install -Dm 644 LICENSE -t "$pkgdir"/usr/share/licenses/"$pkgname"
-}
+	cd "${pkgname}-${pkgver}"
+	python -m installer --destdir="${pkgdir}" dist/*.whl
 
-# vim: ts=2 sw=2 et:
+	install -Dm 644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+	install -Dm 644 LICENSE  "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
