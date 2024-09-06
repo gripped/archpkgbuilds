@@ -4,7 +4,7 @@
 
 pkgname=bashburn
 pkgver=3.1.0
-pkgrel=5
+pkgrel=6
 pkgdesc="CD burning shell script"
 arch=('any')
 url="http://bashburn.dose.se/"
@@ -17,7 +17,8 @@ optdepends=('dvd+rw-tools: support for burning DVDs'
             'flac: Flac-Support'
             'mpg123: MP3-Support'
             'sudo: For missing permissions')
-source=(http://bashburn.dose.se/files/BashBurn-${pkgver}.tar.gz)
+#source=(http://bashburn.dose.se/files/BashBurn-${pkgver}.tar.gz)
+source=(https://fossies.org/linux/privat/old/BashBurn-$pkgver.tar.gz)
 sha256sums=('b78d5de1ee1b6e19aeee5b2f37a12aa6d02c665fd7645cad626ae7267351bb3c')
 
 prepare() {
