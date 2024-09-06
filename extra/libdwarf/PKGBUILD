@@ -4,7 +4,7 @@
 
 pkgname=libdwarf
 epoch=1
-pkgver=0.10.1
+pkgver=0.11.0
 pkgrel=1
 pkgdesc="A library for handling DWARF Debugging Information Format"
 arch=(x86_64)
@@ -17,7 +17,7 @@ options+=('staticlibs' 'debug')
 #_commit="245262d6ccaeed17f7564c31b78da2d4df1a3ee0"
 #source=(https://sourceforge.net/code-snapshots/git/l/li/libdwarf/code.git/libdwarf-code-$_commit.zip)
 source=(https://www.prevanders.net/libdwarf-$pkgver.tar.xz)
-sha512sums=('790317bd81290fa297d19cc6086594f13ea3be8b34d9e3c3494387498f8039d6c7f20fd3628a73ed4442868666600c78fe9cddad4e459e5dfffb14cc0cc4d588')
+sha512sums=('050cb111c1ed94980357011a623190b626b68425639ee1ab39ab09a31d0cc55e557ef35739ce1295cf0e1b51848fbcbb3633fe1f6466784db6d8eb008a93c355')
 
 build() {
   cd "$srcdir"/libdwarf-$pkgver
