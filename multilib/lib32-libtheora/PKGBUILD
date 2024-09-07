@@ -5,7 +5,7 @@
 
 pkgname=lib32-libtheora
 pkgver=1.1.1
-pkgrel=13
+pkgrel=14
 pkgdesc='An open video codec developed by the Xiph.org'
 arch=(x86_64)
 url=https://www.xiph.org
