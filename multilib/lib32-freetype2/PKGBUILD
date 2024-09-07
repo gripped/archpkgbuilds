@@ -7,7 +7,7 @@ pkgname=(
   lib32-freetype2
 )
 pkgver=2.13.3
-pkgrel=1
+pkgrel=2
 epoch=
 pkgdesc="Font rasterization library (32-bit)"
 url="https://www.freetype.org/"
