@@ -2,7 +2,7 @@
 
 pkgname=lib32-glu
 pkgver=9.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Mesa OpenGL utility library (32 bits)"
 arch=('x86_64')
 url="https://gitlab.freedesktop.org/mesa/glu"
