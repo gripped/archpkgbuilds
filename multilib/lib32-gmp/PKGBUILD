@@ -5,15 +5,15 @@
 _pkgbasename=gmp
 pkgname=lib32-$_pkgbasename
 pkgver=6.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A free library for arbitrary precision arithmetic (32-bit)"
 arch=('x86_64')
 url="https://gmplib.org/"
 depends=('lib32-gcc-libs' $_pkgbasename)
 makedepends=(gcc-multilib)
 license=('LGPL3' 'GPL')
-source=(https://gmplib.org/download/gmp/gmp-${pkgver}.tar.xz{,.sig})
-sha512sums=('e85a0dab5195889948a3462189f0e0598d331d3457612e2d3350799dba2e244316d256f8161df5219538eb003e4b5343f989aaa00f96321559063ed8c8f29fd2'
+source=(https://gmplib.org/download/gmp/gmp-${pkgver}.tar.lz{,.sig})
+sha512sums=('b70f3603ab40270fa6e9a7ee1dc0f91477e45803d3ee2f22af924af89dcd18b483c900685310c9e69cee91dc1b6dec00cfec6a8a111022d0122b5427209a4a2d'
             'SKIP')
 validpgpkeys=('343C2FF0FBEE5EC2EDBEF399F3599FF828C67298') # Niels Möller
 
