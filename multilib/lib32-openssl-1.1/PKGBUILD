@@ -4,7 +4,7 @@
 pkgname=lib32-openssl-1.1
 _ver=1.1.1w
 pkgver=${_ver/[a-z]/.${_ver//[0-9.]/}}
-pkgrel=1
+pkgrel=2
 pkgdesc='The Open Source toolkit for Secure Sockets Layer and Transport Layer Security'
 arch=('x86_64')
 url='https://www.openssl.org'
@@ -36,8 +36,7 @@ build() {
     --prefix='/usr' \
     --libdir='lib32/openssl-1.1' \
     --openssldir='/etc/ssl' \
-    shared no-ssl3-method linux-elf \
-    "-Wa,--noexecstack ${CPPFLAGS} ${CFLAGS} ${LDFLAGS}"
+    shared no-ssl3-method linux-elf
 
   make MAKEDEPPROG="${CC}" depend
   make
