@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Jan-Erik Rediger <badboy at archlinux dot us>
 pkgname=kcov
-pkgver=42
+pkgver=43
 pkgrel=1
 pkgdesc="Code coverage tester for compiled programs, Python scripts and shell scripts"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('GPL-2.0-or-later')
 depends=('elfutils' 'curl' 'zstd' 'zlib' 'binutils' 'libsframe.so')
 makedepends=('cmake' 'python' 'ninja')
 source=("https://github.com/SimonKagstrom/kcov/archive/v${pkgver}.tar.gz")
-sha512sums=('d28535cf5565c9b4205a2c1f28c703b45488e619d13582f75a97219a27b39339fd5ff3803fdf61e0520c39788226d1e20dafc10282465cc130aa21467d1f6c20')
+sha512sums=('11158c63a4eb5fdb34b4787c135e3c8db60e6d3292fc109fcfb43e6dab30c6c4310b09c6d94614556eb005792bab235c6cd839c585c3a98f5700c4ee4d317aca')
 
 build() {
   cd $pkgname-$pkgver
