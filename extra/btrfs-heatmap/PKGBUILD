@@ -3,7 +3,7 @@
 
 pkgname=btrfs-heatmap
 pkgver=9
-pkgrel=2
+pkgrel=3
 pkgdesc="creates a visualization of how a btrfs filesystem is using the underlying disk space "
 arch=('any')
 url="https://github.com/knorrie/btrfs-heatmap"
@@ -14,7 +14,7 @@ source=("$pkgname"::"git+https://github.com/knorrie/btrfs-heatmap.git#tag=v${pkg
 replaces=('python-btrfs-heatmap')
 conflicts=('python-btrfs-heatmap')
 provides=('python-btrfs-heatmap')
-md5sums=('SKIP')
+sha256sums=('e9dc00e62ce628745c892c14eb7869d45ffbe7d598c98ebf88df29ceafe3a965')
 
 package() {
     cd "$srcdir/${pkgname}/"

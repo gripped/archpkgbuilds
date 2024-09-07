@@ -1,0 +1,16 @@
+pkgbase = btrfs-heatmap
+	pkgdesc = creates a visualization of how a btrfs filesystem is using the underlying disk space
+	pkgver = 9
+	pkgrel = 3
+	url = https://github.com/knorrie/btrfs-heatmap
+	arch = any
+	license = GPL3
+	makedepends = git
+	depends = python-btrfs
+	provides = python-btrfs-heatmap
+	conflicts = python-btrfs-heatmap
+	replaces = python-btrfs-heatmap
+	source = btrfs-heatmap::git+https://github.com/knorrie/btrfs-heatmap.git#tag=v9
+	sha256sums = e9dc00e62ce628745c892c14eb7869d45ffbe7d598c98ebf88df29ceafe3a965
+
+pkgname = btrfs-heatmap
