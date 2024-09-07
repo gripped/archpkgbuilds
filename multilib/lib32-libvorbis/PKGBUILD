@@ -1,7 +1,7 @@
 
 pkgname=lib32-libvorbis
 pkgver=1.3.7
-pkgrel=1
+pkgrel=2
 pkgdesc='Vorbis codec library (32-bit)'
 arch=('x86_64')
 url='https://www.xiph.org/ogg/vorbis/'
