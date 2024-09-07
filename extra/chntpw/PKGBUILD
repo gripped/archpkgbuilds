@@ -3,7 +3,7 @@
 
 pkgname=chntpw
 pkgver=140201
-pkgrel=4
+pkgrel=5
 pkgdesc='Offline NT Password Editor - reset passwords in a Windows NT SAM user database file'
 arch=('x86_64')
 url='https://pogostick.net/~pnh/ntpasswd/'
@@ -15,11 +15,12 @@ sha256sums=('96e20905443e24cba2f21e51162df71dd993a1c02bfa12b1be2d0801a4ee2ccc')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
-  sed -i 's/^CFLAGS= \(.*\) -m32 $/CFLAGS= \1/' Makefile
+  sed -i 's/^CFLAGS= \(.*\) -m32 $/CFLAGS= \1 -Wno-incompatible-pointer-types/' Makefile
 }
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
+  CFLAGS+=" -Wno-incompatible-pointer-types"
   make
 }
 
