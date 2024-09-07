@@ -5,7 +5,7 @@ pkgbase=wxwidgets
 pkgname=(wxwidgets-common
          wxwidgets-gtk3
          wxwidgets-qt5)
-pkgver=3.2.5
+pkgver=3.2.6
 pkgrel=1
 arch=(x86_64)
 url='https://wxwidgets.org'
@@ -21,7 +21,7 @@ makedepends=(cmake
              sdl2
              webkit2gtk-4.1)
 source=(git+https://github.com/wxWidgets/wxWidgets#tag=v$pkgver)
-sha256sums=('d0f477627d87f67e5085c60d813df726979be248db3699a76b7c4d6987e226b0')
+sha256sums=('20f6a611ead83b448dc587c3c304e85419a2e8be4d16710f0d46ff71761d1fb1')
 
 prepare() {
   cd wxWidgets
