@@ -1,10 +1,10 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 # Contributor: FadeMind <fademind@gmail.com>
-# Contributor: Evangelos Foutras <evangelos@foutrelis.com>
+# Contributor: Evangelos Foutras <foutrelis@archlinux.org>
 
 pkgname=lib32-libgudev
 pkgver=238
-pkgrel=1
+pkgrel=2
 pkgdesc="GObject bindings for libudev"
 url="https://wiki.gnome.org/Projects/libgudev"
 arch=(x86_64)
@@ -16,6 +16,7 @@ depends=(
 )
 makedepends=(
   git
+  glib2-devel
   meson
 )
 _commit=df7c9c9940160307aaeb31347f4776a46f8736a9  # tags/238^0
