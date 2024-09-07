@@ -4,7 +4,7 @@
 
 pkgname=bees
 pkgver=0.10
-pkgrel=1
+pkgrel=2
 pkgdesc="Best-Effort Extent-Same, a btrfs deduplicator daemon"
 arch=('x86_64')
 url="https://github.com/Zygo/bees"
@@ -13,6 +13,12 @@ depends=('util-linux-libs' 'bash')
 makedepends=('btrfs-progs' 'systemd')
 source=("${pkgname}-${pkgver}.tar.gz"::"https://github.com/Zygo/bees/archive/v${pkgver}.tar.gz")
 sha256sums=('d100efbc6084f494400892ef53fa476fd6f201dba3b2fddee11ef90dd9d6111d')
+
+prepare() {
+  cd $pkgname-$pkgver
+# Honor system build flags
+  sed -e "s|^CCFLAGS =.*|CCFLAGS = $CFLAGS|" -i makeflags
+}
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
