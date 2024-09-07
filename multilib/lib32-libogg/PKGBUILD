@@ -3,7 +3,7 @@
 
 pkgname=lib32-libogg
 pkgver=1.3.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Ogg bitstream and framing library (32-bit)'
 arch=(x86_64)
 url=https://www.xiph.org/ogg/
