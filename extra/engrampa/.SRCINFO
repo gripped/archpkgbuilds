@@ -1,14 +1,19 @@
 pkgbase = engrampa
-	pkgdesc = Archive manipulator for MATE
-	pkgver = 1.28.1
+	pkgdesc = A file archiver for MATE
+	pkgver = 1.28.2
 	pkgrel = 1
 	url = https://mate-desktop.org
 	arch = x86_64
 	groups = mate-extra
-	license = GPL
+	license = GPL-2.0-or-later
+	makedepends = autoconf-archive
 	makedepends = caja
+	makedepends = git
+	makedepends = glib2-devel
 	makedepends = itstool
+	makedepends = mate-common
 	makedepends = python
+	makedepends = yelp-tools
 	depends = gtk3
 	depends = gzip
 	depends = gettext
@@ -25,7 +30,9 @@ pkgbase = engrampa
 	optdepends = cpio: RPM support
 	conflicts = engrampa-gtk3
 	replaces = engrampa-gtk3
-	source = https://pub.mate-desktop.org/releases/1.28/engrampa-1.28.1.tar.xz
-	sha256sums = 9c5c4c9bcf8b08eeaa8f275538d24b4c955089d58aec0331e89c02b84d85386a
+	source = git+https://github.com/mate-desktop/engrampa.git#tag=v1.28.2
+	source = git+https://github.com/mate-desktop/mate-submodules.git
+	sha256sums = 0b17b1bd00b1df0c3b60ded7570ea809aa7fb68934c8d9b823e161a90a752299
+	sha256sums = SKIP
 
 pkgname = engrampa
