@@ -3,8 +3,8 @@
 # Contributor: jiribb <jiribb@gmail.com>
 
 pkgname=ldns
-pkgver=1.8.3
-pkgrel=3
+pkgver=1.8.4
+pkgrel=1
 pkgdesc='Fast DNS library supporting recent RFCs'
 url='https://www.nlnetlabs.nl/projects/ldns/'
 license=('custom:BSD')
@@ -14,7 +14,7 @@ provides=('drill' 'libldns.so')
 optdepends=('libpcap: ldns-dpa tool')
 makedepends=('libpcap')
 source=("https://www.nlnetlabs.nl/downloads/${pkgname}/${pkgname}-${pkgver}.tar.gz"{,.asc})
-sha256sums=('c3f72dd1036b2907e3a56e6acf9dfb2e551256b3c1bbd9787942deeeb70e7860'
+sha256sums=('838b907594baaff1cd767e95466a7745998ae64bc74be038dccc62e2de2e4247'
             'SKIP')
 validpgpkeys=('DC34EE5DB2417BCC151E5100E5F8F8212F77A498') # Willem Toorop
 
