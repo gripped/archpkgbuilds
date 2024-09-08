@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-beetle-pce
-pkgver=1220
+pkgver=1225
 pkgrel=1
 pkgdesc='NEC PC Engine/SuperGrafx/CD core'
 arch=(x86_64)
@@ -15,9 +15,9 @@ depends=(
   zlib
 )
 makedepends=(git)
-_commit=03935421be14680a4aed799388e74ecab8167311
+_commit=3a75c7ce5fc62c524be8d0eb45cd4b39d08a885c
 source=(libretro-beetle-pce::git+https://github.com/libretro/beetle-pce-libretro.git#commit=${_commit})
-sha256sums=('0500c6225c18112f229983b39159984028cf9ff3dd862f7210801712c047ebb6')
+sha256sums=('4a0eea95ca1d2405b09e1f000b336d128fcddec1d4a762717628167259d65a61')
 
 pkgver() {
   cd libretro-beetle-pce
