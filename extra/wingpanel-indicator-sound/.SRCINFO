@@ -1,19 +1,21 @@
 pkgbase = wingpanel-indicator-sound
 	pkgdesc = Wingpanel Sound Indicator
-	pkgver = 7.0.0
+	pkgver = 8.0.0
 	pkgrel = 1
 	url = https://github.com/elementary/wingpanel-indicator-sound
 	arch = x86_64
 	groups = pantheon
-	license = GPL3
+	license = GPL-3.0-only
 	makedepends = git
 	makedepends = gobject-introspection
 	makedepends = intltool
 	makedepends = meson
 	makedepends = vala
 	depends = cairo
+	depends = dconf
 	depends = gdk-pixbuf2
 	depends = glib2
+	depends = glibc
 	depends = gtk3
 	depends = libcanberra
 	depends = libgee
@@ -21,7 +23,7 @@ pkgbase = wingpanel-indicator-sound
 	depends = libnotify
 	depends = libpulse
 	depends = libwingpanel.so
-	source = wingpanel-indicator-sound::git+https://github.com/elementary/wingpanel-indicator-sound.git#tag=0c181f3397e5a26f8ae2bda86bac7315b25a8279
-	sha256sums = SKIP
+	source = wingpanel-indicator-sound::git+https://github.com/elementary/wingpanel-indicator-sound.git#tag=f9742a5ccd6980a401d4b66da05b10d7593e12de
+	b2sums = 0a9620ba978c243c02e4351604ea0ca0a8b262fde85e65d26a6c58f3c2bca74c140b6e90347fbff63729390462c4c1f5f47ed78d790868285c9881e7180d3aac
 
 pkgname = wingpanel-indicator-sound
