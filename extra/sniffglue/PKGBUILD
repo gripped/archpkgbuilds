@@ -2,24 +2,29 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=sniffglue
-pkgver=0.16.0
+pkgver=0.16.1
 pkgrel=1
 pkgdesc='Secure multithreaded packet sniffer'
 url='https://github.com/kpcyrd/sniffglue'
 arch=('x86_64')
-license=('GPL3')
-depends=('libpcap' 'libseccomp')
+license=('GPL-3.0-or-later')
+depends=(
+  'gcc-libs'
+  'glibc'
+  'libpcap' 'libpcap.so'
+  'libseccomp' 'libseccomp.so'
+)
 makedepends=('cargo' 'scdoc')
 backup=('etc/sniffglue.conf')
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc
         sniffglue-sysuser.conf
         sniffglue.conf)
-sha256sums=('d707507e55a8697574322750eff066d9d5caf18e87a9ee1ddd1722549f2b9267'
+sha256sums=('f30b31861b07160b4efe23eda996491aaf885037d6907227d2230cd0e7db3265'
             'SKIP'
             '531e051488e57ed2f5bf5d8289fa5562aa0ca73783838c11ec13c043dc268d02'
             'a2e6cfa918a4e354b5c4c4c84867f3bb142833fde4acab545e13c8e89864004c')
-b2sums=('2cfb8e836b216caa2d90717567cb4449079b6daa54239692b3548936b1b50007c11ea4037ca1d124ead33b62359b5c3079a7e924ea0986e5bc9eb6f1aa569d38'
+b2sums=('71718d1611ae1da451d49956fa26fb4ee5f2eb501b43bcc5c9f4fc5a44a465f7a0c8a99ad2ba4123e2d9adfcfc2333f56c7611d4c51a620c4a3ed605626d0ceb'
         'SKIP'
         '69f5ba2cddca6878b776714c5015c1573df31fc4958432291baa4537349e5bdd1ab4307fd1c00bc20484213c118ecfc2ccfab88b942c0311e4d72872bf4eeeda'
         'ad68689ed08e882f734a613300c14ddfb6d84656dec8dbbed818302b0fe69907f7fc76306f49c0bac019acf4dcb46fec984e7194b16a481f7cc4636ca9aaf303')
