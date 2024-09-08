@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=pd-lua
-pkgver=0.12.11
+pkgver=0.12.14
 pkgrel=1
 pkgdesc="LUA embedding for pd"
 arch=(x86_64)
@@ -17,8 +17,8 @@ depends=(
   pd
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('92d68d677175f83fe00d43b1ef679a14efb20c88d5133d45d992fe0ed6822866a4a1e2149ed5af650b825ccd8007f4bc40cbb824a45ff517c3a49c239f07959a')
-b2sums=('109a722b7094bbdd446d4004e8c191f6e231086a0544574ba5849788f19e521f3c6d7cd3fb3f9af2a84399f0f2fd17889574752796a95b7d81aac92e23029fab')
+sha512sums=('9fed3535aa94a63b71f4e74b4f037c752cf930e59d472c53ba3d7ae8a5738a434d6dc4382598cb73a2d1410d1b95e277645106a464ed99a8552779a421284d61')
+b2sums=('2c75d108192b343bb680ecc05fa081d16001ccf2478dfebcbfd3ccdf6ce2a0e486ca9eb954d374755292980e127f2ddd9fec1d27dc6f5b20aaa45e909d9643ac')
 
 build() {
   make LDFLAGS="$LDFLAGS" CFLAGS="$CFLAGS" -C $pkgname-$pkgver
