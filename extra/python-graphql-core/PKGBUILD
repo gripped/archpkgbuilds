@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-graphql-core
-pkgver=3.2.3
-pkgrel=5
+pkgver=3.2.4
+pkgrel=1
 pkgdesc='GraphQL base implementation for Python'
 url=https://github.com/graphql-python/graphql-core
 arch=(any)
@@ -23,8 +23,14 @@ checkdepends=(
   python-pytest-asyncio
   python-pytest-benchmark
 )
-source=(git+$url.git#tag=v$pkgver)
-sha256sums=('ddd4812fb7d3bdcf5904e0381d995d82e2afc2770cb78103eebdddae4cd53b43')
+_tag=a2d71e22fa600933779f3a37fa0a759cf0628bc5
+source=(git+https://github.com/graphql-python/graphql-core.git#tag=${_tag})
+sha256sums=('3801a8f268d9938ce51e6ee00ec3613436de2018cdf6fe59a6b67fc27f84e6f0')
+
+pkgver() {
+  cd graphql-core
+  git describe --tags | sed 's/^v//'
+}
 
 build() {
   cd graphql-core
