@@ -1,23 +1,25 @@
 pkgbase = wingpanel-indicator-notifications
 	pkgdesc = Notifications indicator for Wingpanel
-	pkgver = 7.1.0
+	pkgver = 7.1.1
 	pkgrel = 1
 	url = https://github.com/elementary/wingpanel-indicator-notifications
 	arch = x86_64
 	groups = pantheon
-	license = GPL3
+	license = GPL-3.0-only
 	makedepends = git
 	makedepends = meson
 	makedepends = vala
-	depends = dbus-glib
+	depends = cairo
+	depends = dconf
 	depends = glib2
+	depends = glibc
+	depends = gdk-pixbuf2
 	depends = gtk3
-	depends = libdbus
+	depends = libgee
 	depends = libgranite.so
 	depends = libhandy-1.so
 	depends = libwingpanel.so
-	depends = libwnck3
-	source = git+https://github.com/elementary/wingpanel-indicator-notifications.git#tag=d13c834e675219bb846bf4eb052ea03bcd1c935a
-	sha256sums = SKIP
+	source = git+https://github.com/elementary/wingpanel-indicator-notifications.git#tag=564089f9b7e9a8a664e3d1fe3a87e7e21786c480
+	b2sums = 18d43468a8a32ebae9aa3f09b905e3252d5a14e10fa1acad279a4f9dca67808e538f5eb2110d74e661585c5365f4fe6054fad50d980c9c02669342709d140727
 
 pkgname = wingpanel-indicator-notifications
