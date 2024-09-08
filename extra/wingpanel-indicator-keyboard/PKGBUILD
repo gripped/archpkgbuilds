@@ -1,28 +1,32 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=wingpanel-indicator-keyboard
-pkgver=2.4.1
-pkgrel=3
+pkgver=2.4.2
+pkgrel=1
 pkgdesc='Wingpanel Keyboard Indicator'
 arch=(x86_64)
 url=https://github.com/elementary/wingpanel-indicator-keyboard
-license=(GPL3)
+license=(GPL-3.0-only)
 groups=(pantheon)
 depends=(
+  dconf
+  glibc
   glib2
   gtk3
   ibus
+  libgranite.so
+  libibus-1.0.so
   libxml2
-  wingpanel
+  libwingpanel.so
 )
 makedepends=(
   git
   meson
   vala
 )
-_tag=f9f58967e7f407949a6d631d068b2a61dcd4e4b0
+_tag=bae22dd013703dbc534aba691106cb3259726715
 source=(git+https://github.com/elementary/wingpanel-indicator-keyboard.git#tag=${_tag})
-sha256sums=(SKIP)
+b2sums=('a59ac3de2db9311352ccc8079e0aa8616719f733986361b9fcee0133a3b7dde81484fffc3206b2be5a60e6db443a79fbbff842dd49e2c4012490b503c792e2fe')
 
 pkgver() {
   cd wingpanel-indicator-keyboard
