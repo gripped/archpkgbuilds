@@ -7,6 +7,10 @@ diff '--color=auto' -rupN libretro-ppsspp.orig/libretro/libretro.cpp libretro-pp
  
 -   g_VFS.Register("", new DirectoryReader(retro_base_dir));
 +   g_VFS.Register("", new DirectoryReader(Path("/usr/share/ppsspp/assets")));
+
+   g_threadManager.Init(cpu_info.num_cores, cpu_info.logical_cpu_count);
+
+   init_output_audio_buffer(2048);
  }
  
  void retro_deinit(void)
