@@ -2,14 +2,16 @@
 
 pkgname=wingpanel-indicator-a11y
 pkgver=1.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Wingpanel Universal Access Indicator'
 arch=(x86_64)
 url=https://github.com/elementary/wingpanel-indicator-a11y
-license=(GPL3)
+license=(GPL-3.0-only)
 groups=(pantheon)
 depends=(
+  dconf
   glib2
+  glibc
   gtk3
   libgranite.so
   libwingpanel.so
