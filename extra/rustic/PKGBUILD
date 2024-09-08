@@ -2,7 +2,7 @@
 # contributor: Daniele Basso <d dot bass05 at proton dot me>
 
 pkgname=rustic
-pkgver=0.8.0
+pkgver=0.8.1
 pkgrel=1
 pkgdesc='Fast, encrypted, deduplicated backups powered by Rust (reads and writes restic repos)'
 arch=(x86_64)
@@ -16,12 +16,10 @@ replaces=(rustic-rs
 options=(!lto)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('535e89ebe1c3f29f9b69d6fc26cdb98160f9908349ace1df0003137d1593e9bc')
+sha256sums=('86117560a26a774c92dd37f52c8ed29204371eace2208c156cc32055de4092c9')
 
 prepare() {
 	cd "$_archive"
-	# https://github.com/rustic-rs/rustic/issues/1204
-	sed -i '3355s/0.7.0-dev/0.8.0/' Cargo.lock
 	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
