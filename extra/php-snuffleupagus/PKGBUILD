@@ -3,18 +3,22 @@
 
 pkgname=php-snuffleupagus
 _pkgname=snuffleupagus
-pkgver=0.10.0
-pkgrel=4
+pkgver=0.11.0
+pkgrel=1
 pkgdesc="Security module for PHP"
 url='https://snuffleupagus.readthedocs.io/'
 arch=('x86_64')
-license=('LGPL3')
-depends=('php')
+license=('LGPL-3.0-only')
+depends=(
+  'glibc'
+  'pcre2' 'libpcre2-8.so'
+  'php'
+)
 backup=('etc/php/conf.d/snuffleupagus.ini'
         'etc/php/conf.d/snuffleupagus.rules')
 source=(https://github.com/jvoisin/${_pkgname}/archive/v${pkgver}/${_pkgname}-${pkgver}.tar.gz)
-sha256sums=('2b48dc38e208e793d3e694688d9ae9fc429e99a8df01133f6e0a4444036ba304')
-b2sums=('74871999de8d5523dc8ab0cc3c9c29749f0a7e76154fef748dd477529975ea87a5846d3f746df847b1ee88c1a8e23a4e3b8b74e06c6a9000605ca73d5d031a66')
+sha256sums=('7ed7dd3aca0a8f0971e87b56c19c60a1a4d654ee4cbbee9a5091b9d4cca28a34')
+b2sums=('ee3dda0c646af72e80fad087850bdf8af5a63a008d14b5b25d05ac32af6ee6212f04b8fcbca6e70680f72acac4a21bbbfd9ebeb336cafa04bc95e6cce4ee1412')
 
 build() {
   cd ${_pkgname}-${pkgver}/src
