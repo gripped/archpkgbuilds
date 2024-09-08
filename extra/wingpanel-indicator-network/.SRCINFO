@@ -1,6 +1,6 @@
 pkgbase = wingpanel-indicator-network
 	pkgdesc = Wingpanel Network Indicator
-	pkgver = 7.1.0
+	pkgver = 7.1.1
 	pkgrel = 1
 	url = https://launchpad.net/wingpanel-indicator-network
 	arch = x86_64
@@ -9,7 +9,9 @@ pkgbase = wingpanel-indicator-network
 	makedepends = git
 	makedepends = meson
 	makedepends = vala
+	depends = dconf
 	depends = glib2
+	depends = glibc
 	depends = gtk3
 	depends = libgee
 	depends = libgranite.so
@@ -17,7 +19,7 @@ pkgbase = wingpanel-indicator-network
 	depends = libwingpanel.so
 	depends = networkmanager
 	depends = nm-connection-editor
-	source = wingpanel-indicator-network::git+https://github.com/elementary/wingpanel-indicator-network.git#tag=e1c1daba160c0af381247b211b12f01a366eab21
-	sha256sums = SKIP
+	source = wingpanel-indicator-network::git+https://github.com/elementary/wingpanel-indicator-network.git#tag=535ef901468179063fd5bd5950cc8330d4628b3b
+	b2sums = 655ada67a456cfc08b83427b153104348ef566f72fb582ce596ce5ca3bc4f8b4770528bbebac125129eb80b17ced2771d43fb352b1592e815d6a25f656eb49a3
 
 pkgname = wingpanel-indicator-network

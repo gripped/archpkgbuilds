@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=wingpanel-indicator-network
-pkgver=7.1.0
+pkgver=7.1.1
 pkgrel=1
 pkgdesc='Wingpanel Network Indicator'
 arch=(x86_64)
@@ -9,7 +9,9 @@ url=https://launchpad.net/wingpanel-indicator-network
 license=(GPL3)
 groups=(pantheon)
 depends=(
+  dconf
   glib2
+  glibc
   gtk3
   libgee
   libgranite.so
@@ -23,13 +25,12 @@ makedepends=(
   meson
   vala
 )
-_tag=e1c1daba160c0af381247b211b12f01a366eab21
+_tag=535ef901468179063fd5bd5950cc8330d4628b3b
 source=(wingpanel-indicator-network::git+https://github.com/elementary/wingpanel-indicator-network.git#tag=${_tag})
-sha256sums=(SKIP)
+b2sums=('655ada67a456cfc08b83427b153104348ef566f72fb582ce596ce5ca3bc4f8b4770528bbebac125129eb80b17ced2771d43fb352b1592e815d6a25f656eb49a3')
 
 pkgver() {
   cd wingpanel-indicator-network
-
   git describe --tags
 }
 
