@@ -5,7 +5,7 @@
 # Contributor: Carl George <carl@george.computer>
 
 pkgname=pop-gtk-theme
-pkgver=5.5.1.r6.190b5cce
+pkgver=5.5.1.r7.25ea85d9
 pkgrel=1
 pkgdesc='System76 Pop GTK+ Theme'
 arch=(any)
@@ -28,9 +28,9 @@ optdepends=(
   'ttf-fira-sans: Interface font'
   'ttf-roboto-slab: Document font'
 )
-_commit=190b5cce86988025ca681c35d6ae34d9bb6f7458
+_commit=25ea85d97126992024b03bfb4e4c3b0711c749ed
 source=(pop-gtk-theme::git+https://github.com/pop-os/gtk-theme.git#commit=${_commit})
-b2sums=(SKIP)
+b2sums=('f56e7ce19f1c22b5f291cc5a95ee574d01337246f9fe72c681161912e4a10a218794253f3a40aada4702b25d82073993c36b160104b14b259e9f805f9ad7ea75')
 
 pkgver() {
   cd pop-gtk-theme
