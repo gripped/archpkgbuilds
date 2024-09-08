@@ -1,16 +1,17 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=wingpanel-indicator-power
-pkgver=6.2.1
+pkgver=8.0.0
 pkgrel=1
 pkgdesc='Wingpanel Power Indicator'
 arch=(x86_64)
 url=https://github.com/elementary/wingpanel-indicator-power
-license=(GPL3)
+license=(GPL-3.0-only)
 groups=(pantheon)
 depends=(
-  bamf
+  dconf
   glib2
+  glibc
   gtk3
   libgee
   libgranite.so
@@ -24,13 +25,12 @@ makedepends=(
   meson
   vala
 )
-_tag=59a227ff73967d55f2f6117f0568c0851dbd7636
+_tag=edbd891e0f309725a8315fc5436c1ce74be003a3
 source=(git+https://github.com/elementary/wingpanel-indicator-power.git#tag=${_tag})
-sha256sums=(SKIP)
+b2sums=('cf92607178a97dd1bb367b63c0b32eb80fa623a06e8f1df4373f6a9ac4790bd33bd201f6e5b30dc7e699b802fb5826381da466201f81331e9de24bd08fcdf939')
 
 pkgver() {
   cd wingpanel-indicator-power
-
   git describe --tags
 }
 
