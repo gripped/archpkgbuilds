@@ -2,8 +2,8 @@
 # Maintainer: Christian Rebischke <chris.rebischke[at]archlinux[dot]org>
 
 pkgname=bettercap
-pkgver=2.32.0
-pkgrel=3
+pkgver=2.33.0
+pkgrel=1
 pkgdesc='Swiss army knife for network attacks and monitoring'
 url='https://github.com/bettercap/bettercap'
 arch=('x86_64')
@@ -25,8 +25,8 @@ makedepends=(
 optdepends=('bettercap-caplets: scripts (caplets) and proxy modules')
 options=('!emptydirs' '!lto')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('0728d2dab0c0a07fdfd91490f450be46b004ae994024bfdb6ef1b7ecac8044c4c70da9fdf986b9b31033c9698fb63e4f619604095727fb26d9ba2abc233b27d1')
-b2sums=('f322c0a49cb13beb067ee4f993795b715e505e6db34472bcf9cd687047a3b7bbe0b6dda8e57b082e7bdb09810680a3a99ccc4a34fa118c33e575c7572095c4ab')
+sha512sums=('ddfb2b2e00ed2ad944ee0eefeb6de6036e44d526e4f30f283bbfcd89578a76e4691cde54ffe76ed0ad3b8187de8b25a4c003b3aadd03b1195752e7825c5f60c4')
+b2sums=('e79ef6f8d9f5f0342f26b4f9724a0859ab0c03fb301681efdb4f1a17fbe03feb4630f86fac41079a007da640cf48d05f8f7ab2814aebdfdb6ce71b191942faf7')
 
 prepare() {
   cd ${pkgname}-${pkgver}
