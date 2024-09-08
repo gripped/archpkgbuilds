@@ -1,17 +1,17 @@
 # Maintainer: Laurent Carlier <lordheavym@gmail.com>
 
 pkgname=lib32-vulkan-validation-layers
-pkgver=1.3.275.0
-pkgrel=1
+pkgver=1.3.290
+pkgrel=2
 arch=(x86_64)
 pkgdesc="Vulkan Validation Layers (32-bit)"
 url="https://www.khronos.org/vulkan/"
 license=('custom')
 depends=('lib32-gcc-libs' 'lib32-vulkan-icd-loader' 'vulkan-headers')
-makedepends=('cmake' 'python' 'lib32-libx11' 'lib32-libxrandr' 'lib32-wayland' 'git')
-options=('!lto' '!strip') # disable LTO (https://github.com/KhronosGroup/Vulkan-ValidationLayers/issues/5994)
+makedepends=('cmake' 'python' 'lib32-libx11' 'lib32-libxrandr' 'lib32-wayland' 'ninja' 'git')
+options=('!lto') # disable LTO (https://github.com/KhronosGroup/Vulkan-ValidationLayers/issues/5994)
 source=("https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/vulkan-sdk-${pkgver}.tar.gz")
-sha256sums=('acfd84039109220129624b0ecb69980bbc3a858978c62b556dbe16efd0f26755')
+sha256sums=('c5ea27590207423bcb0686004f2814e136c44fa749e1fb9894d0d5cb713a8948')
 
 prepare() {
   cd "${srcdir}"/Vulkan-ValidationLayers*
@@ -27,7 +27,7 @@ build() {
 
   cd "${srcdir}"/Vulkan-ValidationLayers*/build
 
-  ../scripts/update_deps.py --config release
+  ../scripts/update_deps.py --config release --generator Ninja
   cmake -C helper.cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_SYSCONFDIR=/etc \
