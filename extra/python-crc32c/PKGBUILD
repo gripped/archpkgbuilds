@@ -2,7 +2,7 @@
 
 _name=crc32c
 pkgname=python-crc32c
-pkgver=2.4.1
+pkgver=2.7.post1
 pkgrel=1
 pkgdesc="A python package implementing the crc32c algorithm in hardware and software"
 arch=(x86_64)
@@ -23,8 +23,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('63469d7a0df72171a0956be1fade202bed75003d852b0ccece19949ca67126bb29c180561937982d86aa415fc38181bad94f31b0d68a37a86190a9d8c2c523c5')
-b2sums=('45c880debd530664c930b3589a232e4665fe29cbdfbcc008a3d6b5e1853add0952b479f682ef77bd1b0a7a25d7b7fb0a09b1cebcd87ac4c2417d317a7c3f1eb7')
+sha512sums=('adc1e9548400cdd78321fe3ea490f6ef56bce479941b00486f145dde687aca97b3f536c3184d1cfe809f918ccd5f2ac8a109cb9dedc90fa230aea4f228c94664')
+b2sums=('60b41c66798ab9bf01dc296fc00aaaa7acbf33f1ac50fefde0bead49bf505313d8d9aabc555ac656354a158a2aad9d1e65e1ad6fb356e590fe94476a26c57792')
 
 build() {
   cd $_name-$pkgver
@@ -32,8 +32,15 @@ build() {
 }
 
 check() {
+  local pytest_options=(
+    -vv
+  )
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
   cd $_name-$pkgver
-  pytest -vv
+  # install to temporary location, as importlib is used
+  python -m installer --destdir=test_dir dist/*.whl
+  PYTHONPATH="$PWD/test_dir/$site_packages:$PYTHONPATH" pytest "${pytest_options[@]}"
 }
 
 package() {
