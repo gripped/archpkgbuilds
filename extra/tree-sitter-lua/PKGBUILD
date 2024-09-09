@@ -2,18 +2,21 @@
 # Contributor: ObserverOfTime <chronobserver@disroot.org>
 
 pkgname=tree-sitter-lua
-pkgver=0.1.0
-pkgrel=2
+pkgver=0.2.0
+pkgrel=1
 pkgdesc='Lua grammar for tree-sitter'
-arch=('x86_64')
+arch=(x86_64)
 url=https://github.com/tree-sitter-grammars/tree-sitter-lua
-license=('MIT')
-groups=('tree-sitter-grammars')
-makedepends=('git' 'tree-sitter-cli')
+license=(MIT)
+groups=(tree-sitter-grammars)
+makedepends=(
+  git
+  tree-sitter-cli
+)
 optdepends=('tree-sitter: core library')
 provides=("lib$pkgname.so")
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('25844dc513008377a11e9056d2c052ffd4314718cfcbefe870b0b07254513a29164544114dfa07941481dd5c70e015fab24bbed75284d14e6d93ad102eae221e')
+b2sums=('0605dd2b26b6bcab3832bb6bb2ff34ed04fcf83f1b39fc9755c021247fe149d8b1188044dd5c367d3856caab869ee2cf70eb46b4881d3577c6c33b2342f3cf96')
 
 prepare() {
   cd $pkgname
@@ -22,7 +25,7 @@ prepare() {
 
 build() {
   cd $pkgname
-  make PREFIX=/usr PARSER_URL="$url"
+  make PREFIX=/usr PARSER_URL=$url
 }
 
 package() {
