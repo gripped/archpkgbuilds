@@ -1,0 +1,44 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=harper
+pkgver=0.10.0
+pkgrel=1
+pkgdesc="The Grammar Checker for Developers"
+url='https://github.com/elijah-potter/harper'
+arch=('x86_64')
+license=('Apache-2.0')
+depends=(
+  'gcc-libs'
+  'glibc'
+)
+makedepends=(
+  'cargo'
+)
+options=(!lto)
+source=(https://github.com/elijah-potter/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('7e2dadc3e5f394f505bc2b4e05f63857b9a2f568d84fa8e403aa557f1a6d0d6e')
+b2sums=('e5d34c81568c57add335a9d5c7fa0a2f948bc8f2b19cabae26d56c25e5e7086935b067fbb5dd9c0ede7c3e2be7b2f941f0b106bfe248fcc5fa2dd36714ea31c5')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd ${pkgname}-${pkgver}
+  cargo build --frozen --release
+}
+
+check() {
+  cd ${pkgname}-${pkgver}
+  cargo test --frozen
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm 755 -t "${pkgdir}/usr/bin" \
+    target/release/harper-cli \
+    target/release/harper-ls
+}
+
+# vim: ts=2 sw=2 et:
