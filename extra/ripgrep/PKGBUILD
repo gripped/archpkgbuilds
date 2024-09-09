@@ -2,7 +2,7 @@
 # Contributor: Maxim Baz <archlinux at maximbaz dot com>
 # Contributor: Andrew Gallant <jamslam@gmail.com>
 pkgname=ripgrep
-pkgver=14.1.0
+pkgver=14.1.1
 pkgrel=1
 pkgdesc="A search tool that combines the usability of ag with the raw speed of grep"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT' 'custom')
 depends=('gcc-libs' 'pcre2')
 makedepends=('rust')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/BurntSushi/$pkgname/archive/$pkgver.tar.gz")
-sha512sums=('b50044b6513f5caad1373c1cd4598779311bfce9f28092b90852ed9489c728b01ef5c91d4110d70a75ec08d977fbdd2a2da9cbf0b2820eb48b99f9ec3825e0a3')
+sha512sums=('6aacbc99025c1c0c301491574953bed4d7dd04f9ce7ce999c47eaa50d71ea7edd905f718e2e94031a5ad651d4daebce772c57ed291c639938991ad4574be8244')
 
 build() {
   cd "$pkgname-$pkgver"
