@@ -1,8 +1,8 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
 
 pkgname=datovka
-pkgver=4.24.1
-pkgrel=2
+pkgver=4.24.2
+pkgrel=1
 pkgdesc="GUI application for a 'Databox' - an electronic communication interface endorsed by the Czech government"
 arch=('i686' 'x86_64')
 url='https://www.datovka.cz/'
@@ -11,7 +11,7 @@ depends=('qt6-base' 'qt6-svg' 'qt6-5compat' 'quazip-qt6' 'qt6-websockets'
          'libdatovka' 'openssl' 'hicolor-icon-theme')
 makedepends=('qt6-tools')
 source=(https://datovka.nic.cz/$pkgver/$pkgname-$pkgver.tar.xz)
-sha256sums=('12249dcc4dc7a052f16c8c32cad428f913a71bf39ffc60dfd4ab37f0b32d1f77')
+sha256sums=('3556853c5703d6eff2784649d453d5b546b52918bd66157c79082b98df027d38')
 
 build() {
   cd "${srcdir}"/$pkgname-$pkgver
