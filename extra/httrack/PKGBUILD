@@ -7,25 +7,26 @@
 # Contributor: Muflone <webreg@vbsimple.net>
 
 pkgname=httrack
-pkgver=3.49.4
-pkgrel=2
+pkgver=3.49.5
+pkgrel=1
 pkgdesc="An easy-to-use offline browser utility"
 arch=('x86_64')
 url="https://www.httrack.com/"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('bash' 'xdg-utils' 'hicolor-icon-theme' 'openssl')
-makedepends=('git')
-_commit=4f24477a13e53346577691a0193e588e9ba992aa
-source=("git+https://github.com/xroche/httrack.git#commit=$_commit")
-# https://github.com/xroche/httrack/issues/243
-# source=(https://mirror.httrack.com/historical/$pkgname-$pkgver.tar.gz{,.asc})
+makedepends=('git' 'patch')
+source=($pkgname::git+https://github.com/xroche/httrack#tag=$pkgver
+        missing-file.patch::https://github.com/xroche/httrack/commit/ce2d2ce810cb1bbaf1c587a3947c31adb47d5244.patch)
 # validpgpkeys=('BB71C7E6CB1AD8FAF53FE42A60C3AA7180598EFB') # Xavier Roche
-sha256sums=('SKIP')
+sha256sums=('834b168b28892cfb8bd10d4f3ebe931cdb07a9979028aab7e8d72541549f4de0'
+            '6d221b14289c916ea4e71431af57e6ceae3702cebc0bbcbb7253e23ea46844d9')
 
 prepare() {
   cd "${srcdir}"/$pkgname
 
   git submodule update --init --recursive
+
+  patch -p1 -i ../missing-file.patch
 }
 
 build() {

@@ -1,16 +1,19 @@
 pkgbase = httrack
 	pkgdesc = An easy-to-use offline browser utility
-	pkgver = 3.49.4
-	pkgrel = 2
+	pkgver = 3.49.5
+	pkgrel = 1
 	url = https://www.httrack.com/
 	arch = x86_64
-	license = GPL3
+	license = GPL-3.0-or-later
 	makedepends = git
+	makedepends = patch
 	depends = bash
 	depends = xdg-utils
 	depends = hicolor-icon-theme
 	depends = openssl
-	source = git+https://github.com/xroche/httrack.git#commit=4f24477a13e53346577691a0193e588e9ba992aa
-	sha256sums = SKIP
+	source = httrack::git+https://github.com/xroche/httrack#tag=3.49.5
+	source = missing-file.patch::https://github.com/xroche/httrack/commit/ce2d2ce810cb1bbaf1c587a3947c31adb47d5244.patch
+	sha256sums = 834b168b28892cfb8bd10d4f3ebe931cdb07a9979028aab7e8d72541549f4de0
+	sha256sums = 6d221b14289c916ea4e71431af57e6ceae3702cebc0bbcbb7253e23ea46844d9
 
 pkgname = httrack
