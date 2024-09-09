@@ -2,7 +2,7 @@
 
 pkgname=presenterm
 pkgver=0.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A markdown terminal slideshow tool"
 arch=('x86_64')
 url="https://github.com/mfontanini/presenterm"
@@ -20,12 +20,12 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --frozen
+  cargo build --release --frozen --features sixel
 }
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --frozen
+  cargo test --frozen --features sixel
 }
 
 package() {
