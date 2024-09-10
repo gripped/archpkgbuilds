@@ -1,0 +1,38 @@
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+
+pkgname=mkdocs-material
+pkgver=9.5.34
+pkgrel=2
+pkgdesc="Documentation that simply works"
+arch=(any)
+url="https://github.com/squidfunk/mkdocs-material"
+license=(ISC)
+depends=(
+  mkdocs
+  python
+  python-babel
+  python-jinja
+  python-markdown
+  python-yaml
+)
+makedepends=(
+  python-build
+  python-hatch-nodejs-version
+  python-hatch-requirements-txt
+  python-hatchling
+  python-installer
+  python-wheel
+)
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
+sha256sums=('65cec120aca0e05885f3984d2b3392952615b8618d2defc4d97ef77f5e752803')
+
+build() {
+  cd $pkgname-$pkgver
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd $pkgname-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}
