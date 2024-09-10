@@ -4,7 +4,7 @@
 
 pkgname=python-pytest
 _name=${pkgname#python-}
-pkgver=8.3.2
+pkgver=8.3.3
 pkgrel=1
 epoch=1
 pkgdesc="Simple powerful testing with Python"
@@ -42,7 +42,7 @@ checkdepends=(
   python-twisted
 )
 source=("git+https://github.com/$_name-dev/$_name.git#tag=$pkgver")
-b2sums=('bef53479cf4ccc74ffd06a7c75a019a6b97d2f8a7dec003f99396fa28a249ce38b37e52949166ac36664b4bb76d63a0c1cddeb291ab7e4ef192e43c9a1db05f4')
+b2sums=('34f6b3dee29bba474080ee21a58c9b968eb4704631946509d15ada2320a80c83e5a8c5ebe25fce69e65af0556ab5b6ce6a502ffad010c2986c36e5d823caeb73')
 
 build() {
   cd "$_name"
@@ -56,12 +56,11 @@ check() {
 }
 
 package() {
-  cd "$_name"
-  python -m installer --destdir="$pkgdir" dist/*.whl
-
-  # Symlink license file
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
   ln -s "$site_packages"/"$_name"-$pkgver.dist-info/LICENSE \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
+  cd "$_name"
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
