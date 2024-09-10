@@ -3,7 +3,7 @@
 
 pkgbase=linux-rt-lts
 pkgver=6.6.48.rt40.arch1
-pkgrel=1
+pkgrel=2
 pkgdesc='Linux RT LTS'
 arch=(x86_64)
 url="https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt-lts"
@@ -34,7 +34,7 @@ _srcname=linux-${_upstream_ver}
 _srctag=v${_rt_ver}-${pkgver##*.}
 source=(
   https://cdn.kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/${_srcname}.tar.{xz,sign}
-  https://cdn.kernel.org/pub/linux/kernel/projects/rt/${_upstream_ver%.*}/patch-${_rt_ver}.patch.{xz,sign}
+  https://cdn.kernel.org/pub/linux/kernel/projects/rt/${_upstream_ver%.*}/older/patch-${_rt_ver}.patch.{xz,sign}
   $url/-/releases/${_srctag}/downloads/$pkgbase-${_srctag}.patch{,.sig}
   config
  )
