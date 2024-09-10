@@ -4,12 +4,12 @@
 
 pkgname=viking
 pkgver=1.10
-pkgrel=2
+pkgrel=3
 pkgdesc="GTK application to manage GPS data"
 arch=('x86_64')
 url="https://sourceforge.net/projects/viking/"
-license=('GPL2')
-depends=('curl' 'file' 'gpsd' 'gtk3' 'libgexiv2' 'mapnik' 'geoclue' 'liboauth' 'libzip')
+license=('GPL-2.0-only')
+depends=('curl' 'file' 'gpsd' 'gtk3' 'libgexiv2' 'geoclue' 'liboauth' 'libzip') #'mapnik'
 makedepends=('boost' 'docbook-xsl' 'intltool' 'itstool')
 optdepends=('gpsbabel: import and export GPS tracks from various formats')
 changelog=$pkgname.changelog
@@ -19,14 +19,17 @@ sha256sums=('9455c895f98bc13de24bd6b234cd0f1d5ecdc1b068b4cbc6eb6644f6126e45ac'
             'f6dad8e63e49150e60e92243c08202dec20af2d453d38c18dd18ff95712b1885')
 
 prepare() {
-  sed -i 's/org.viking.Viking.desktop/viking.desktop/' org.viking.Viking.appdata.xml
+  cd "${srcdir}"/$pkgname-$pkgver
+  sed -i 's/org.viking.Viking.desktop/viking.desktop/' ../org.viking.Viking.appdata.xml
 }
 
 build() {
   cd "${srcdir}"/$pkgname-$pkgver
 
   export CXXFLAGS="$CXXFLAGS -I/usr/include/mapnik"
-  ./configure --prefix=/usr
+  ./configure \
+    --prefix=/usr \
+    --disable-mapnik  #https://github.com/viking-gps/viking/issues/297 might be fixed in v1.11
   make
 }
 
