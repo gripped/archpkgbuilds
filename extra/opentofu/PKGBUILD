@@ -2,7 +2,7 @@
 # Contributor: Marcel Campello <marcel@prafrentex.com.br>
 
 pkgname=opentofu
-pkgver=1.8.1
+pkgver=1.8.2
 pkgrel=1
 pkgdesc="Lets you declaratively manage your cloud infrastructure"
 arch=(x86_64)
@@ -15,38 +15,38 @@ source=(
   "$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
   "tofu.fish"
 )
-sha256sums=('849f20c1f700910842c42fbf76730fabd4df82b0d0879d4bd9a88abe3d275b2a'
+sha256sums=('8e3963f1054a46e81ee0b008b3e3a3cba5a8d7718c036ef2ff0fc56670a9bff4'
             '312fe00a97ed3098fa141a54dfc0694c13766957acedec19f10347b80f813ce8')
 
 prepare() {
   cd $pkgname-$pkgver
-
   GOFLAGS="-mod=readonly" go mod vendor -v
 }
 
 build() {
   cd $pkgname-$pkgver
-
   export CGO_CPPFLAGS="$CPPFLAGS"
   export CGO_CFLAGS="$CFLAGS"
   export CGO_CXXFLAGS="$CXXFLAGS"
   export CGO_LDFLAGS="$LDFLAGS"
-  export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw"
+  export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw -buildvcs=false"
   export GOPATH="$srcdir"
 
-  local ld_flags="-compressdwarf=false -linkmode=external -X github.com/opentofu/opentofu/version.dev=no"
-  go build -v -buildvcs=false -ldflags="$ld_flags" ./cmd/...
+  local ld_flags=" \
+    -compressdwarf=false  \
+    -linkmode=external  \
+    -X github.com/opentofu/opentofu/version.dev=no \
+  "
+  go build -v -ldflags="$ld_flags" ./cmd/...
 }
 
 check() {
   cd $pkgname-$pkgver
-
   go test ./...
 }
 
 package() {
   cd $pkgname-$pkgver
-
   install -vDm755 -t "$pkgdir/usr/bin" tofu
 
   echo 'complete -C /usr/bin/tofu tofu' \
