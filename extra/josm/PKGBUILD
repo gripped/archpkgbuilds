@@ -2,12 +2,12 @@
 # Contributor: Michele Schäuble <mschaeuble@swissonline.ch>
 
 pkgname=josm
-pkgver=19039
+pkgver=19207
 pkgrel=1
 pkgdesc="An editor for OpenStreetMap written in Java"
 arch=('any')
 url="https://josm.openstreetmap.de/"
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('desktop-file-utils' 'hicolor-icon-theme' 'java-runtime>=11' 'libxtst' 'ttf-font')
 makedepends=('subversion')
 changelog=$pkgname.changelog
@@ -16,7 +16,7 @@ source=(https://josm.openstreetmap.de/download/$pkgname-snapshot-$pkgver.jar
         $pkgname.conf.d
         $pkgname::svn+https://josm.openstreetmap.de/svn/trunk#revision=$pkgver)
 noextract=($pkgname-snapshot-$pkgver.jar)
-sha512sums=('316bab3ed4654b46b65c5924a6fe8978da0af505d6287086bfb9a0a0b30486a22c53b9d93934009f49e0b18daf44b7aa34d1651d6cf66a6e9d8e0e3b5020fd57'
+sha512sums=('7de9b9f4a70cd3b4788254d4b1ab979df311362671d47ec53d8abf5324b32ecb8577ffc1b7619d51df8f8e901cbd4710bfa25e01cba3d8495fd741e53a7966af'
             'd69e681a679378915f980ebafe204c548e0d76778962e4aa33afe8f83a1e6fe4438c7729a92634e02b195349a52a388f8933959c6b81c01ecc602d061ff7c8df'
             'SKIP')
 
@@ -25,7 +25,6 @@ package() {
 
   install -Dm644 $pkgname-snapshot-$pkgver.jar "${pkgdir}"/usr/share/java/$pkgname/$pkgname.jar
 
-  # .desktop and icon file
   install -Dm644 $pkgname/native/linux/tested/usr/share/applications/org.openstreetmap.josm.desktop \
         "${pkgdir}"/usr/share/applications/org.openstreetmap.josm.desktop
   install -Dm644 $pkgname/native/linux/tested/usr/share/man/man1/josm.1 \
