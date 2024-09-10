@@ -1,13 +1,14 @@
 pkgbase = python-elastic-transport
 	pkgdesc = Transport classes and utilities shared among Python Elastic client libraries
 	pkgver = 8.15.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/elastic/elastic-transport-python
 	arch = any
 	license = Apache-2.0
 	checkdepends = python-pytest
 	checkdepends = python-pytest-asyncio
 	checkdepends = python-pytest-httpserver
+	checkdepends = python-pytest-rerunfailures
 	checkdepends = python-respx
 	checkdepends = python-trustme
 	makedepends = python-build
@@ -20,9 +21,8 @@ pkgbase = python-elastic-transport
 	depends = python-httpx
 	depends = python-orjson
 	depends = python-requests
-	depends = python-typing_extensions
 	depends = python-urllib3
 	source = python-elastic-transport-8.15.0.tar.gz::https://github.com/elastic/elastic-transport-python/archive/v8.15.0.tar.gz
-	sha256sums = a9d8b250bf646252de7ada32c96e289ed8853fb72a28f9bec64ba78220d11539
+	sha256sums = 55ae88fe51aa9698b71dcfa9d00ca2653d7b0c3f6e2bb160a8db0738499cf676
 
 pkgname = python-elastic-transport
