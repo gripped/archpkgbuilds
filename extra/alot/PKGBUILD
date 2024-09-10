@@ -5,44 +5,40 @@
 # Contributor: Ian Denhardt <ian@zenhack.net>
 
 pkgname=alot
-pkgver=0.10
-pkgrel=7
+pkgver=0.11
+pkgrel=1
 pkgdesc='Terminal-based MUA for the notmuch mail system'
 arch=(any)
 url=https://github.com/pazz/alot
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('desktop-file-utils' 'notmuch' 'python-configobj' 'python-gpgme'
          'python-magic' 'python-twisted' 'python-urwid'
          'python-urwidtrees' 'python-cffi')
-makedepends=('python-build' 'python-installer' 'python-wheel' 'python-sphinx')
+makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-sphinx' 'python-setuptools-scm')
 checkdepends=('procps-ng' 'python-pytest')
-source=("$url/archive/$pkgver/alot-$pkgver.tar.gz"
-        "alot-$pkgver.tar.gz.asc::$url/releases/download/$pkgver/$pkgver.tar.gz.asc"
-        "$pkgname-$pkgver-skip-broken-test.patch")
-sha512sums=('b07c77f3a21c9670fb14a760d036ce0e14678dd6ae75585cc929f97db5126a7dbb7f411244d317fea2913692afca6ff9f439f9dbbf047acffb8fcea2ebef7056'
-            'SKIP'
-            'a30149bb10fa594ec9f57407290157498a7b865909449e92317840907606ffb74a072bc997f5960b077bc42924c077a1a0d52a51069b0e9323e6bdec2abb3b98')
+source=("git+https://github.com/pazz/alot.git#tag=${pkgver}")
+sha512sums=('8749bb7a1d3380e18158bf7391091d1371d8fecd9b78c7c005c6413cb4300b4aa16aacb31bdc83138db10a784356d2af9d0e313282f0beeb3eb6be045fbaf8fb')
 validpgpkeys=('B7838D65FEE80DED1DCA494D94340367D7D6C5AA') # Patrick Totzke
 
-prepare() {
-  cd alot-$pkgver
-
-  patch -Np1 < "../$pkgname-$pkgver-skip-broken-test.patch"
-}
-
 build() {
-  cd alot-$pkgver
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  cd alot
   python -m build --wheel --no-isolation
-  make -C docs man
+  
+  # install to temporary location, as importlib is used
+  python -m installer --destdir=doc_dir dist/*.whl
+  PYTHONPATH="$PWD/doc_dir/$site_packages:$PYTHONPATH" make -C docs man
+  rm -rf doc_dir
 }
 
 check() {
-  cd alot-$pkgver
+  cd alot
+  export PYTHONPATH=$(find $(pwd) -name "*.so" | head -n 1 | xargs dirname):src/alot:src
   pytest
 }
 
 package() {
-  cd alot-$pkgver
+  cd alot
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 -t "$pkgdir"/usr/share/man/man1 docs/build/man/alot.1
   install -Dm644 -t "$pkgdir"/usr/share/applications extra/alot*.desktop

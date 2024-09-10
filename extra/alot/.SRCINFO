@@ -1,16 +1,18 @@
 pkgbase = alot
 	pkgdesc = Terminal-based MUA for the notmuch mail system
-	pkgver = 0.10
-	pkgrel = 7
+	pkgver = 0.11
+	pkgrel = 1
 	url = https://github.com/pazz/alot
 	arch = any
-	license = GPL3
+	license = GPL-3.0-or-later
 	checkdepends = procps-ng
 	checkdepends = python-pytest
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
 	makedepends = python-sphinx
+	makedepends = python-setuptools-scm
 	depends = desktop-file-utils
 	depends = notmuch
 	depends = python-configobj
@@ -20,12 +22,8 @@ pkgbase = alot
 	depends = python-urwid
 	depends = python-urwidtrees
 	depends = python-cffi
-	source = https://github.com/pazz/alot/archive/0.10/alot-0.10.tar.gz
-	source = alot-0.10.tar.gz.asc::https://github.com/pazz/alot/releases/download/0.10/0.10.tar.gz.asc
-	source = alot-0.10-skip-broken-test.patch
+	source = git+https://github.com/pazz/alot.git#tag=0.11
 	validpgpkeys = B7838D65FEE80DED1DCA494D94340367D7D6C5AA
-	sha512sums = b07c77f3a21c9670fb14a760d036ce0e14678dd6ae75585cc929f97db5126a7dbb7f411244d317fea2913692afca6ff9f439f9dbbf047acffb8fcea2ebef7056
-	sha512sums = SKIP
-	sha512sums = a30149bb10fa594ec9f57407290157498a7b865909449e92317840907606ffb74a072bc997f5960b077bc42924c077a1a0d52a51069b0e9323e6bdec2abb3b98
+	sha512sums = 8749bb7a1d3380e18158bf7391091d1371d8fecd9b78c7c005c6413cb4300b4aa16aacb31bdc83138db10a784356d2af9d0e313282f0beeb3eb6be045fbaf8fb
 
 pkgname = alot
