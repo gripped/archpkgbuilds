@@ -4,34 +4,34 @@
 # Contributor: Vlad Frolov <frolvlad@gmail.com>
 
 pkgname=cargo-insta
+_pkgname=insta
 pkgver=1.40.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Cargo plugin for snapshot testing in Rust"
 url="https://github.com/mitsuhiko/insta"
 depends=('gcc-libs' 'cargo')
 arch=('x86_64')
 license=('Apache-2.0')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('e59a17025f095a7bd23a3c0b7b5fdbb3572bc2eebb40f986609335f7e1332e9cbecebb01046055843a3ab2f9708a1ab526a42ebe7bdcaa9f17d912d5ac2ab34b')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
+sha512sums=('94fe673475c2e73125831e851f6b207c505f8a0432f4e14e691046ae2dbf34f4103badce3d86074ae2858981b7c7e9c266baa288ce9a2c0056818c4c23e0451b')
 
 prepare() {
-  cd "$pkgname-$pkgver"
+  cd "$_pkgname-$pkgver"
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "$_pkgname-$pkgver"
   cargo build --frozen --release --all-features
 }
 
-# https://github.com/mitsuhiko/insta/issues/588
-# check() {
-#   cd "$pkgname-$pkgver"
-#   cargo test --frozen --all-features
-# }
+check() {
+  cd "$_pkgname-$pkgver"
+  cargo test --frozen --all-features
+}
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd "$_pkgname-$pkgver"
   install -Dm644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -Dm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
   install -Dm755 "target/release/${pkgname}" "${pkgdir}/usr/bin/$pkgname"
