@@ -4,9 +4,9 @@
 
 pkgname=lib32-gtk3
 pkgver=3.24.43
-pkgrel=1
+pkgrel=2
 epoch=1
-pkgdesc="GObject-based multi-platform GUI toolkit"
+pkgdesc="GObject-based multi-platform GUI toolkit (32-bit)"
 url="https://www.gtk.org/"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
@@ -49,14 +49,20 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gtk.git#tag=$pkgver"
   gtk-query-immodules-3.0-32.hook
   0001-Allow-disabling-legacy-Tracker-search.patch
+  0002-Stop-looking-for-modules-in-cwd.patch
 )
 b2sums=('fdda77eebdc0b8e378f0258cb241eda4412b868d59ea1fd90815f459e925e6433f94c22a088d695b72fab99ecca827b370942bea47043debef4fab78e0e03dca'
         'c7136723735c4cbfe654851d0ccc1698142fa8f90b724ed9a970ebd6a74b4f59ea558e134e600736a1041417fc7fd9b3baa8bc561ed9598f2fbf45392dcc9159'
-        '7da1746e7702e4bf397f59dd1019e2c8fa8951b2bcc6bf64ec05f322de6dcec6fe5552848d6b389818f625988a3fb2211501d7f72ae97d2c49fbad1e5fe9cd6a')
+        '7da1746e7702e4bf397f59dd1019e2c8fa8951b2bcc6bf64ec05f322de6dcec6fe5552848d6b389818f625988a3fb2211501d7f72ae97d2c49fbad1e5fe9cd6a'
+        'f3a2f88b16eec5fca08d190fb8103bcf5ded43ba8292857076663f01e01352db76252701d2597c4f12c6f56bb7417041ffe0bd4aa1f4251613e3f1326059e6ac')
 
 prepare() {
   cd gtk
   git apply -3 ../0001-Allow-disabling-legacy-Tracker-search.patch
+
+  # CVE-2024-6655: https://www.openwall.com/lists/oss-security/2024/09/09/1
+  # https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/7361
+  git apply -3 ../0002-Stop-looking-for-modules-in-cwd.patch
 }
 
 build() {
@@ -78,6 +84,9 @@ build() {
 }
 
 package() {
+  optdepends=(
+    'evince: Default print preview command'
+  )
   provides=(
     libgailutil-3.so
     libgdk-3.so
@@ -86,11 +95,11 @@ package() {
   install=lib32-gtk3.install
 
   meson install -C build --destdir "$pkgdir"
-  rm -r "${pkgdir}"/{etc,usr/{include,share}}
-  find "${pkgdir}"/usr/bin -type f -not -name gtk-query-immodules-3.0 -delete
-  mv "${pkgdir}"/usr/bin/gtk-query-immodules-3.0{,-32}
+  rm -r "$pkgdir"/{etc,usr/{include,share}}
+  find "$pkgdir/usr/bin" -type f -not -name gtk-query-immodules-3.0 -delete
+  mv "$pkgdir"/usr/bin/gtk-query-immodules-3.0{,-32}
 
-  install -Dm 644 gtk-query-immodules-3.0-32.hook -t "${pkgdir}"/usr/share/libalpm/hooks/
+  install -Dm644 gtk-query-immodules-3.0-32.hook -t "$pkgdir/usr/share/libalpm/hooks"
 }
 
 # vim:set sw=2 sts=-1 et:
