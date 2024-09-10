@@ -3,8 +3,8 @@
 # Contributor: AndyRTR <andyrtr at archlinux.org>
 
 pkgname=iwd
-pkgver=2.20
-pkgrel=2
+pkgver=2.21
+pkgrel=1
 pkgdesc='Internet Wireless Daemon'
 arch=('x86_64')
 url='https://git.kernel.org/cgit/network/wireless/iwd.git/'
@@ -16,7 +16,7 @@ source=(https://www.kernel.org/pub/linux/network/wireless/iwd-${pkgver}.tar{.xz,
         0001-use-network-group-for-unprivileged-access.diff
         0002-fix-scan-segfault.patch)
 # https://mirrors.edge.kernel.org/pub/linux/network/wireless/sha256sums.asc
-sha256sums=('86827b97cb5b19ddecce36568c59378da2fae8cf37a0e2b9eacd1269f24c6f8e'
+sha256sums=('d911398242cdae78a474fe712de7bd138ddc39122f52709b52c8c3bf03716392'
             'SKIP'
             'd5fb4fb864b7a0632117aa2039df535ab5c1d024ae618a1f09e34dfab8ee0cc7'
             '4471026fb8816132e7f89327d2f0d72b63b6c8c64ffb1c449205dfe52bfec6ac')
@@ -33,7 +33,7 @@ prepare() {
 
   # fix segfault
   # https://gitlab.archlinux.org/archlinux/packaging/packages/iwd/-/issues/5
-  patch -Np1 -i ../0002-fix-scan-segfault.patch
+  # patch -Np1 -i ../0002-fix-scan-segfault.patch
 
   # https://lore.kernel.org/iwd/20240122105312.66fb4dbf@workstation64.local/T/#u
   # disable one expected test failure - requires a kernel module we cannot load
