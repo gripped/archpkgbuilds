@@ -4,40 +4,41 @@
 
 pkgname=pluma
 pkgver=1.28.0
-pkgrel=3
+pkgrel=4
 pkgdesc="A powerful text editor for MATE"
 url="https://mate-desktop.org"
 arch=('x86_64')
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('iso-codes' 'mate-desktop' 'zenity' 'gtksourceview4' 'libpeas' 'python' 'gettext' 'enchant' 'libsm')
-makedepends=('itstool' 'gobject-introspection' 'python' 'mate-common' 'yelp-tools' 'autoconf-archive')
+makedepends=('itstool' 'git' 'glib2-devel' 'gobject-introspection' 'python' 'mate-common' 'yelp-tools' 'autoconf-archive')
 optdepends=('python-gobject: to use the python plugins')
 groups=('mate-extra')
 conflicts=('pluma-gtk3')
 replaces=('pluma-gtk3')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha512sums=('8f21aabed46a70dfe8446ddf6db5cc4326782328d0b8dd3689c8b906cc8d4b746712c6b9decfa48ef028bdbb8a0b1c6a2ec43def23488ae55cfd59aafd5a691a')
+source=("git+https://github.com/mate-desktop/pluma.git#tag=v${pkgver}"
+        git+https://github.com/mate-desktop/mate-submodules.git)
+sha512sums=('df72dcd262802d2dbeaf925466fb5aa6d45f04d6db771154804da52351712b8f3f120ed0438a64c1025c3ede69e4fd2228ea55b93402c1b41aa9890f1bf6618a'
+            'SKIP')
 
 prepare() {
-	cd "${pkgname}-${pkgver}"
-	./autogen.sh
+	cd "${pkgname}"
+	git submodule init
+	git config submodule.mate-submodules.url "${srcdir}/mate-submodules"
+	git -c protocol.file.allow=always submodule update
+	NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
-	cd "${pkgname}-${pkgver}"
+	cd "${pkgname}"
 	./configure \
 	            --prefix=/usr \
-	            --libexecdir=/usr/lib/${pkgname} \
+	            --libexecdir="/usr/lib/${pkgname}" \
 	            --enable-gtk-doc=no \
 	            --enable-python
-
-	#https://bugzilla.gnome.org/show_bug.cgi?id=656231
-	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
 	make
 }
 
 package() {
-	cd "${pkgname}-${pkgver}"
+	cd "${pkgname}"
 	make DESTDIR="${pkgdir}" install
 }

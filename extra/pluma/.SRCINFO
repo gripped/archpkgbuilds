@@ -1,12 +1,14 @@
 pkgbase = pluma
 	pkgdesc = A powerful text editor for MATE
 	pkgver = 1.28.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://mate-desktop.org
 	arch = x86_64
 	groups = mate-extra
-	license = GPL
+	license = GPL-2.0-or-later
 	makedepends = itstool
+	makedepends = git
+	makedepends = glib2-devel
 	makedepends = gobject-introspection
 	makedepends = python
 	makedepends = mate-common
@@ -24,7 +26,9 @@ pkgbase = pluma
 	optdepends = python-gobject: to use the python plugins
 	conflicts = pluma-gtk3
 	replaces = pluma-gtk3
-	source = https://pub.mate-desktop.org/releases/1.28/pluma-1.28.0.tar.xz
-	sha512sums = 8f21aabed46a70dfe8446ddf6db5cc4326782328d0b8dd3689c8b906cc8d4b746712c6b9decfa48ef028bdbb8a0b1c6a2ec43def23488ae55cfd59aafd5a691a
+	source = git+https://github.com/mate-desktop/pluma.git#tag=v1.28.0
+	source = git+https://github.com/mate-desktop/mate-submodules.git
+	sha512sums = df72dcd262802d2dbeaf925466fb5aa6d45f04d6db771154804da52351712b8f3f120ed0438a64c1025c3ede69e4fd2228ea55b93402c1b41aa9890f1bf6618a
+	sha512sums = SKIP
 
 pkgname = pluma
