@@ -4,16 +4,21 @@
 
 pkgname=mate-menus
 pkgver=1.28.0
-pkgrel=1
+pkgrel=3
 pkgdesc="MATE menu specifications"
 url="https://mate-desktop.org"
 arch=('x86_64')
-license=('GPL' 'LGPL')
+license=('GPL-2.0-or-later AND LGPL-2.0-or-later')
 depends=('glib2')
-makedepends=('gobject-introspection')
+makedepends=('autoconf-archive' 'mate-common' 'gobject-introspection')
 groups=('mate')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('cf40c75c7d6f0aad1d4969828fc62025c6222bc6a84f0bb9d6ead7e45970508d')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-menus/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('3495fd3f5e0a9a88e207c2e863410d874fc9348807e68ace740c4798bc76b4d8')
+
+prepare() {
+    cd "${pkgname}-${pkgver}"
+    ./autogen.sh
+}
 
 build() {
     cd "${pkgname}-${pkgver}"
@@ -22,10 +27,6 @@ build() {
                 --sysconfdir=/etc \
                 --localstatedir=/var \
                 --enable-python
-
-    #https://bugzilla.gnome.org/show_bug.cgi?id=656231
-    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
     make
 }
 

@@ -1,15 +1,16 @@
 pkgbase = mate-menus
 	pkgdesc = MATE menu specifications
 	pkgver = 1.28.0
-	pkgrel = 1
+	pkgrel = 3
 	url = https://mate-desktop.org
 	arch = x86_64
 	groups = mate
-	license = GPL
-	license = LGPL
+	license = GPL-2.0-or-later AND LGPL-2.0-or-later
+	makedepends = autoconf-archive
+	makedepends = mate-common
 	makedepends = gobject-introspection
 	depends = glib2
-	source = https://pub.mate-desktop.org/releases/1.28/mate-menus-1.28.0.tar.xz
-	sha256sums = cf40c75c7d6f0aad1d4969828fc62025c6222bc6a84f0bb9d6ead7e45970508d
+	source = mate-menus-1.28.0.tar.gz::https://github.com/mate-desktop/mate-menus/archive/refs/tags/v1.28.0.tar.gz
+	sha256sums = 3495fd3f5e0a9a88e207c2e863410d874fc9348807e68ace740c4798bc76b4d8
 
 pkgname = mate-menus
