@@ -1,13 +1,18 @@
 pkgbase = caja
 	pkgdesc = File manager for the MATE desktop
 	pkgver = 1.28.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://mate-desktop.org
 	arch = x86_64
 	groups = mate
-	license = GPL
+	license = GPL-2.0-or-later AND LGPL-2.0-or-later
+	makedepends = autoconf-archive
+	makedepends = git
+	makedepends = glib2-devel
 	makedepends = gobject-introspection
 	makedepends = intltool
+	makedepends = mate-common
+	makedepends = python-packaging
 	depends = exempi
 	depends = gvfs
 	depends = libexif
@@ -18,7 +23,9 @@ pkgbase = caja
 	optdepends = gstreamer: automatic media playback when mouseover
 	conflicts = caja-gtk3
 	replaces = caja-gtk3
-	source = https://pub.mate-desktop.org/releases/1.28/caja-1.28.0.tar.xz
-	sha256sums = 1e3014ce1455817ec2ef74d09efdfb6835d8a372ed9a16efb5919ef7b821957a
+	source = git+https://github.com/mate-desktop/caja.git#tag=v1.28.0
+	source = git+https://github.com/mate-desktop/mate-submodules.git
+	sha256sums = 1d3387cdf0acc9d7c01a563143ab91e097e8201a183a0fcece37beb03e0009f6
+	sha256sums = SKIP
 
 pkgname = caja
