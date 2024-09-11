@@ -4,18 +4,23 @@
 
 pkgname=marco
 pkgver=1.28.1
-pkgrel=1
-pkgdesc="A window manager for MATE"
+pkgrel=2
+pkgdesc="MATE default window manager"
 url="https://mate-desktop.org"
 arch=('x86_64')
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('libcanberra' 'libgtop' 'mate-desktop' 'zenity' 'libxpresent' 'gettext' 'libxres' 'libsm')
-makedepends=('itstool')
+makedepends=('autoconf-archive' 'mate-common' 'itstool' 'yelp-tools')
 groups=('mate')
 conflicts=('marco-gtk3')
 replaces=('marco-gtk3')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('2496e5e40ee980cd6849493ac3e0f8fd0dec8b81c674da8d9ba19a577f0ac2e1')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/marco/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('3fd7f7cf0ad77770397e15478d198a5a4db518bba6565204ec073eac36be2a3b')
+
+prepare() {
+	cd "${pkgname}-${pkgver}"
+	./autogen.sh
+}
 
 build() {
 	cd "${pkgname}-${pkgver}"
@@ -24,10 +29,6 @@ build() {
         	--sysconfdir=/etc \
         	--localstatedir=/var \
         	--enable-startup-notification
-
-    	#https://bugzilla.gnome.org/show_bug.cgi?id=656231
-    	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
     	make
 }
 
