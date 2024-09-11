@@ -1,13 +1,14 @@
 pkgbase = mate-desktop
 	pkgdesc = Library with common API for various MATE modules
 	pkgver = 1.28.2
-	pkgrel = 1
+	pkgrel = 2
 	url = http://mate-desktop.org
 	arch = x86_64
 	groups = mate
-	license = GPL
-	license = LGPL
+	license = GPL-2.0-or-later AND LGPL-2.0-or-later
+	makedepends = autoconf-archive
 	makedepends = gobject-introspection
+	makedepends = mate-common
 	makedepends = intltool
 	depends = gtk3
 	depends = startup-notification
@@ -16,7 +17,7 @@ pkgbase = mate-desktop
 	conflicts = mate-desktop-schemas
 	replaces = mate-desktop-gtk3
 	replaces = mate-desktop-schemas
-	source = https://pub.mate-desktop.org/releases/1.28/mate-desktop-1.28.2.tar.xz
-	sha256sums = 32bb4b792014b391c1e1b8ae9c18a82b4d447650984b4cba7d28e95564964aa2
+	source = mate-desktop-1.28.2.tar.gz::https://github.com/mate-desktop/mate-desktop/archive/refs/tags/v1.28.2.tar.gz
+	sha256sums = 5c235208ab391a74003a38584a2001c722e4b603a7d0d0b0f45da48972e2e6e4
 
 pkgname = mate-desktop

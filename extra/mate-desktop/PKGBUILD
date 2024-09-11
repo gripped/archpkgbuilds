@@ -4,33 +4,33 @@
 
 pkgname=mate-desktop
 pkgver=1.28.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Library with common API for various MATE modules"
 url="http://mate-desktop.org"
 arch=('x86_64')
-license=('GPL' 'LGPL')
+license=('GPL-2.0-or-later AND LGPL-2.0-or-later')
 depends=('gtk3' 'startup-notification' 'iso-codes')
-makedepends=('gobject-introspection' 'intltool')
+makedepends=('autoconf-archive' 'gobject-introspection' 'mate-common' 'intltool')
 groups=('mate')
 conflicts=('mate-desktop-gtk3' 'mate-desktop-schemas')
 replaces=('mate-desktop-gtk3' 'mate-desktop-schemas')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('32bb4b792014b391c1e1b8ae9c18a82b4d447650984b4cba7d28e95564964aa2')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-desktop/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('5c235208ab391a74003a38584a2001c722e4b603a7d0d0b0f45da48972e2e6e4')
+
+prepare() {
+	cd "${pkgname}-${pkgver}"
+	./autogen.sh
+}
 
 build() {
-	cd "$pkgname-$pkgver"
+	cd "${pkgname}-${pkgver}"
     	./configure \
         	--prefix=/usr \
         	--disable-schemas-compile
-
-    	#https://bugzilla.gnome.org/show_bug.cgi?id=656231
-    	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
     	make
 }
 
 package() {
-    	cd "$pkgname-$pkgver"
-
+	cd "${pkgname}-${pkgver}"
     	make DESTDIR="${pkgdir}" install
 }
