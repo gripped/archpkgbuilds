@@ -3,36 +3,41 @@
 # Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-panel
-pkgver=1.28.0
-pkgrel=2
+pkgver=1.28.2
+pkgrel=1
 pkgdesc="The MATE Panel"
 url="https://mate-desktop.org"
 arch=('x86_64')
-license=('GPL')
+license=('GPL-2.0-or-later AND LGPL-2.0-or-later')
 depends=('dbus-glib' 'libwnck3' 'libcanberra' 'libmateweather' 'libsm' 'mate-menus' 'mate-desktop' 'gettext' 'gtk-layer-shell' 'dconf-editor')
-makedepends=('itstool' 'gobject-introspection' 'mate-common' 'yelp-tools' 'autoconf-archive')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
+makedepends=('itstool' 'git' 'glib2-devel' 'gobject-introspection' 'mate-common' 'yelp-tools' 'autoconf-archive')
 groups=('mate')
 conflicts=('mate-panel-gtk3')
 replaces=('mate-panel-gtk3')
-sha256sums=('b3bd04a094d0eb5bd7dc3380ef6f0c49d9a9d5209733d7ccd7b46d066a208cba')
+source=("git+https://github.com/mate-desktop/mate-panel.git#tag=v${pkgver}"
+        git+https://github.com/mate-desktop/mate-submodules.git)
+sha256sums=('f6d1678c9a840061bb272f4f940f6bbe7249362ab03c043aa26ff33ed368a844'
+            'SKIP')
+prepare() {
+    cd "${pkgname}"
+    git submodule init
+    git config submodule.mate-submodules.url "${srcdir}/mate-submodules"
+    git -c protocol.file.allow=always submodule update
+    ./autogen.sh
+}
 
 build() {
-    cd "${pkgname}-${pkgver}" 
+    cd "${pkgname}" 
     ./configure \
                 --prefix=/usr \
-                --libexecdir=/usr/lib/${pkgname} \
+                --libexecdir="/usr/lib/${pkgname}" \
                 --sysconfdir=/etc \
                 --localstatedir=/var \
                 --enable-introspection
-
-    #https://bugzilla.gnome.org/show_bug.cgi?id=656231
-    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
     make
 }
 
 package() {
-    cd "${pkgname}-${pkgver}"
+    cd "${pkgname}"
     make DESTDIR="${pkgdir}" install
 }

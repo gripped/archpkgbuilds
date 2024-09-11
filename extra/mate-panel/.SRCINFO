@@ -1,12 +1,14 @@
 pkgbase = mate-panel
 	pkgdesc = The MATE Panel
-	pkgver = 1.28.0
-	pkgrel = 2
+	pkgver = 1.28.2
+	pkgrel = 1
 	url = https://mate-desktop.org
 	arch = x86_64
 	groups = mate
-	license = GPL
+	license = GPL-2.0-or-later AND LGPL-2.0-or-later
 	makedepends = itstool
+	makedepends = git
+	makedepends = glib2-devel
 	makedepends = gobject-introspection
 	makedepends = mate-common
 	makedepends = yelp-tools
@@ -23,7 +25,9 @@ pkgbase = mate-panel
 	depends = dconf-editor
 	conflicts = mate-panel-gtk3
 	replaces = mate-panel-gtk3
-	source = https://pub.mate-desktop.org/releases/1.28/mate-panel-1.28.0.tar.xz
-	sha256sums = b3bd04a094d0eb5bd7dc3380ef6f0c49d9a9d5209733d7ccd7b46d066a208cba
+	source = git+https://github.com/mate-desktop/mate-panel.git#tag=v1.28.2
+	source = git+https://github.com/mate-desktop/mate-submodules.git
+	sha256sums = f6d1678c9a840061bb272f4f940f6bbe7249362ab03c043aa26ff33ed368a844
+	sha256sums = SKIP
 
 pkgname = mate-panel
