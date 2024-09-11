@@ -4,17 +4,21 @@
 
 pkgname=mate-icon-theme
 pkgver=1.28.0
-pkgrel=1
+pkgrel=2
 pkgdesc="MATE icon theme"
 url="https://mate-desktop.org"
 arch=('any')
-license=('LGPL')
+license=('LGPL-3.0-only')
 options=('!emptydirs')
-depends=('gettext')
-makedepends=('icon-naming-utils')
+makedepends=('mate-common' 'icon-naming-utils')
 groups=('mate')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('94d6079060ca5df74542921de4eea38b7d02d07561c919356d95de876f9a6d3a')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-icon-theme/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('6cd3e848131f3ab995bc7c6f8445157d79fcc6b172c0ad2bc0bc8d81bdc8ae0d')
+
+prepare() {
+   	cd "${pkgname}-${pkgver}"
+	./autogen.sh
+}
 
 build() {
    	cd "${pkgname}-${pkgver}"
