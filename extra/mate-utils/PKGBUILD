@@ -4,35 +4,40 @@
 
 pkgname=mate-utils
 pkgver=1.28.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Common MATE utilities for viewing disk usage, logs and fonts, taking screenshots, managing dictionaries and searching files"
 url="http://mate-desktop.org"
 arch=('x86_64')
-license=('GPL')
-depends=('mate-desktop' 'gettext' 'libcanberra' 'libgtop' 'libsm' 'udisks2')
-makedepends=('inkscape' 'itstool' 'mate-panel' 'python')
+license=('GPL-2.0-or-later')
+depends=('mate-desktop' 'gettext' 'libcanberra' 'libgtop' 'libsm' 'udisks2' 'libxml2')
+makedepends=('autoconf-archive' 'git' 'glib2-devel' 'inkscape' 'intltool' 'itstool' 'mate-common' 'mate-panel' 'python' 'yelp-tools')
 optdepends=('mate-panel: Look up words in dictionaries from the panel')
 groups=('mate-extra')
 conflicts=('mate-utils-gtk3')
 replaces=('mate-utils-gtk3')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('58449d7a0d1d900ff03b78ca9f7e98c21e97f47fc26bee7ff1c61834f22f88d3')
+source=("git+https://github.com/mate-desktop/mate-utils.git#tag=v${pkgver}"
+        git+https://github.com/mate-desktop/mate-submodules.git)
+sha256sums=('1b6863d8d6d48e4dc88bb68710c5a98c9ef80db9595d4a71183d679c525eeaa8'
+            'SKIP')
+prepare() {
+	cd "${pkgname}"
+	git submodule init
+	git config submodule.mate-submodules.url "${srcdir}/mate-submodules"
+	git -c protocol.file.allow=always submodule update
+	./autogen.sh
+}
 
 build() {
-    	cd "${pkgname}-${pkgver}"
+    	cd "${pkgname}"
     	./configure \
         	--prefix=/usr \
-        	--libexecdir=/usr/lib/${_pkgbase} \
+        	--libexecdir=/usr/lib/${pkgname} \
         	--sysconfdir=/etc \
         	--disable-maintainer-flags
-
-    	#https://bugzilla.gnome.org/show_bug.cgi?id=656231
-    	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
     	make
 }
 
 package() {
-    	cd "${pkgname}-${pkgver}"
+    	cd "${pkgname}"
     	make DESTDIR="${pkgdir}" install
 }
