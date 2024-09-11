@@ -1,16 +1,21 @@
 pkgbase = atril
-	pkgdesc = MATE document viewer
+	pkgdesc = A document viewer for MATE
 	pkgver = 1.28.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://mate-desktop.org
 	arch = x86_64
 	groups = mate-extra
 	license = GPL-2.0-or-later
+	makedepends = autoconf-archive
 	makedepends = caja
+	makedepends = git
+	makedepends = glib2-devel
 	makedepends = gobject-introspection
 	makedepends = itstool
+	makedepends = mate-common
 	makedepends = texlive-bin
 	makedepends = python-packaging
+	makedepends = yelp-tools
 	depends = djvulibre
 	depends = libspectre
 	depends = libgxps
@@ -25,7 +30,9 @@ pkgbase = atril
 	optdepends = texlive-bin: DVI support
 	conflicts = atril-gtk3
 	replaces = atril-gtk3
-	source = https://pub.mate-desktop.org/releases/1.28/atril-1.28.0.tar.xz
-	sha256sums = ced4725f6e9b71c4ea63676bfc3cc3be09d29dba08aa7a7ab97964e0b4355162
+	source = git+https://github.com/mate-desktop/atril.git#tag=v1.28.0
+	source = git+https://github.com/mate-desktop/mate-submodules.git
+	sha256sums = 5f089b30497d5118ac7263a87e5295bdc390838b45a22e2e542b6edd3d8ddcef
+	sha256sums = SKIP
 
 pkgname = atril

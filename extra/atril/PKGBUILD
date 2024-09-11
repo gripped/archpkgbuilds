@@ -4,33 +4,39 @@
 
 pkgname=atril
 pkgver=1.28.0
-pkgrel=2
-pkgdesc="MATE document viewer"
+pkgrel=3
+pkgdesc="A document viewer for MATE"
 url="https://mate-desktop.org"
 arch=('x86_64')
 license=('GPL-2.0-or-later')
 depends=('djvulibre' 'libspectre' 'libgxps' 'mathjax2' 'gettext' 'poppler-glib' 'cairo>=1.14.0' 'webkit2gtk>=2.6.0' 'libsynctex' 'mate-desktop')
-makedepends=('caja' 'gobject-introspection' 'itstool' 'texlive-bin' 'python-packaging')
+makedepends=('autoconf-archive' 'caja' 'git' 'glib2-devel' 'gobject-introspection' 'itstool' 'mate-common' 'texlive-bin' 'python-packaging' 'yelp-tools')
 optdepends=('caja: Document Properties extension'
             'texlive-bin: DVI support')
 groups=('mate-extra')
 conflicts=('atril-gtk3')
 replaces=('atril-gtk3')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/$pkgname-$pkgver.tar.xz")
-sha256sums=('ced4725f6e9b71c4ea63676bfc3cc3be09d29dba08aa7a7ab97964e0b4355162')
+source=("git+https://github.com/mate-desktop/atril.git#tag=v${pkgver}"
+        git+https://github.com/mate-desktop/mate-submodules.git)
+sha256sums=('5f089b30497d5118ac7263a87e5295bdc390838b45a22e2e542b6edd3d8ddcef'
+            'SKIP')
 
 prepare() {
-	cd "$pkgname-$pkgver"
+	cd "${pkgname}"
+	git submodule init
+	git config submodule.mate-submodules.url "${srcdir}/mate-submodules"
+	git -c protocol.file.allow=always submodule update
+	./autogen.sh
 
 	# Fix mathjax path
 	sed -i 's|/usr/share/javascript/mathjax|/usr/share/mathjax2|' backend/epub/epub-document.c
 }
 
 build() {
-	cd "$pkgname-$pkgver"
+	cd "${pkgname}"
 	./configure \
         	--prefix=/usr \
-        	--libexecdir=/usr/lib/${_pkgbase} \
+		--libexecdir="/usr/lib/${pkgname}" \
         	--enable-djvu \
         	--enable-dvi \
         	--enable-epub \
@@ -39,14 +45,10 @@ build() {
         	--enable-comics \
         	--enable-xps \
         	--enable-introspection
-
-    	#https://bugzilla.gnome.org/show_bug.cgi?id=656231
-    	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
     	make
 }
 
 package() {
-    	cd "$pkgname-$pkgver"
-    	make DESTDIR="$pkgdir" install
+	cd "${pkgname}"
+	make DESTDIR="${pkgdir}" install
 }
