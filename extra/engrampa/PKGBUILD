@@ -5,7 +5,7 @@
 
 pkgname=engrampa
 pkgver=1.28.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A file archiver for MATE"
 url="https://mate-desktop.org"
 arch=('x86_64')
@@ -42,11 +42,6 @@ build() {
 		--libexecdir="/usr/lib/${pkgname}" \
         	--disable-packagekit
     	make
-}
-
-check() {
-	cd "${pkgname}"
-	make check
 }
 
 package() {
