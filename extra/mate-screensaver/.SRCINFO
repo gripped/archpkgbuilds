@@ -1,11 +1,14 @@
 pkgbase = mate-screensaver
 	pkgdesc = Screensaver for MATE
 	pkgver = 1.28.0
-	pkgrel = 1
+	pkgrel = 3
 	url = https://mate-desktop.org
 	arch = x86_64
 	groups = mate-extra
-	license = GPL
+	license = GPL-2.0-or-later
+	makedepends = autoconf-archive
+	makedepends = glib2-devel
+	makedepends = mate-common
 	makedepends = systemd
 	depends = mate-panel
 	depends = libmatekbd
@@ -17,7 +20,7 @@ pkgbase = mate-screensaver
 	depends = mate-session-manager
 	conflicts = mate-screensaver-gtk3
 	replaces = mate-screensaver-gtk3
-	source = https://pub.mate-desktop.org/releases/1.28/mate-screensaver-1.28.0.tar.xz
-	sha256sums = 6a0f24a8f84a2f95e10114ab53e63fd4aca688a55fdc503ed650e0a410e3ea70
+	source = mate-screensaver-1.28.0.tar.gz::https://github.com/mate-desktop/mate-screensaver/archive/refs/tags/v1.28.0.tar.gz
+	sha256sums = bbbe2bd247ffba1116098d23b5aec57c6cb132c08287f344e1e144ebf06317dc
 
 pkgname = mate-screensaver
