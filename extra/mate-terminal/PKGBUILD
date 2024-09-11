@@ -4,27 +4,41 @@
 
 pkgname=mate-terminal
 pkgver=1.28.1
-pkgrel=1
+pkgrel=2
 pkgdesc="The MATE Terminal Emulator"
 url="https://mate-desktop.org"
 arch=('x86_64')
-license=('GPL')
+license=('GPL-3.0-or-later')
 depends=('libsm' 'gettext' 'mate-desktop' 'vte3' 'perl')
-makedepends=('itstool' 'python')
+makedepends=('autoconf-archive' 'git' 'glib2-devel' 'itstool' 'mate-common' 'python' 'yelp-tools')
 groups=('mate-extra')
 conflicts=('mate-terminal-gtk3')
 replaces=('mate-terminal-gtk3')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('f135eb1a9e2ae22798ecb2dc1914fdb4cfd774e6bb65c0152be37cc6c9469e92')
+source=("git+https://github.com/mate-desktop/mate-terminal.git#tag=v${pkgver}"
+        git+https://github.com/mate-desktop/mate-submodules.git)
+sha256sums=('978d51f27880169a9891469eb32137c1038fa1ceac07cbe1cd78a6ae59dbd28c'
+            'SKIP')
+prepare() {
+	cd "${pkgname}"
+	git submodule init
+	git config submodule.mate-submodules.url "${srcdir}/mate-submodules"
+	git -c protocol.file.allow=always submodule update
+	./autogen.sh
+}
 
 build() {
-	cd "${pkgname}-${pkgver}"
+	cd "${pkgname}"
 	./configure \
 		--prefix=/usr
 	make
 }
 
+check() {
+	cd "${pkgname}"
+	make check
+}
+
 package() {
-	cd "${pkgname}-${pkgver}"
+	cd "${pkgname}"
 	make DESTDIR="${pkgdir}" install
 }

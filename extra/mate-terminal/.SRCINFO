@@ -1,13 +1,18 @@
 pkgbase = mate-terminal
 	pkgdesc = The MATE Terminal Emulator
 	pkgver = 1.28.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://mate-desktop.org
 	arch = x86_64
 	groups = mate-extra
-	license = GPL
+	license = GPL-3.0-or-later
+	makedepends = autoconf-archive
+	makedepends = git
+	makedepends = glib2-devel
 	makedepends = itstool
+	makedepends = mate-common
 	makedepends = python
+	makedepends = yelp-tools
 	depends = libsm
 	depends = gettext
 	depends = mate-desktop
@@ -15,7 +20,9 @@ pkgbase = mate-terminal
 	depends = perl
 	conflicts = mate-terminal-gtk3
 	replaces = mate-terminal-gtk3
-	source = https://pub.mate-desktop.org/releases/1.28/mate-terminal-1.28.1.tar.xz
-	sha256sums = f135eb1a9e2ae22798ecb2dc1914fdb4cfd774e6bb65c0152be37cc6c9469e92
+	source = git+https://github.com/mate-desktop/mate-terminal.git#tag=v1.28.1
+	source = git+https://github.com/mate-desktop/mate-submodules.git
+	sha256sums = 978d51f27880169a9891469eb32137c1038fa1ceac07cbe1cd78a6ae59dbd28c
+	sha256sums = SKIP
 
 pkgname = mate-terminal
