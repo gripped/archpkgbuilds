@@ -2,19 +2,25 @@
 # Contributor: ObserverOfTime <chronobserver@disroot.org>
 
 pkgname=tree-sitter-markdown
-pkgver=0.2.3
-pkgrel=2
+pkgver=0.3.1
+pkgrel=1
 pkgdesc='Markdown grammar for tree-sitter'
-arch=('x86_64')
+arch=(x86_64)
 url=https://github.com/tree-sitter-grammars/tree-sitter-markdown
-license=('MIT')
-groups=('tree-sitter-grammars')
-makedepends=('git' 'tree-sitter-cli')
+license=(MIT)
+groups=(tree-sitter-grammars)
+makedepends=(
+  git
+  tree-sitter-cli
+)
 optdepends=('tree-sitter: core library')
-provides=("lib$pkgname.so" "lib$pkgname-inline.so")
+provides=(
+  "lib$pkgname.so"
+  "lib$pkgname-inline.so"
+)
 source=("git+$url.git#commit=v$pkgver?signed")
-b2sums=('2ba243bf2f02efb5b317c292e4c089d2186aec44b1430f04b39f827fca29b86a688ba6333dde4b647a86f21fdcd01218ed35f0dc2039eb43d64e988772756f80')
-validpgpkeys=('C3FC4EB6371B04CC6DDB9EA88A2DEA1DBAEBCA9E') # ObserverOfTime <chronobserver@disroot.org>
+b2sums=('a7378a02a71e1115badcec8be2466d249d52485ab30511c18fe90e23d059d02ce0875d365ff26a97a66d4025a28d8d1bb242ebb8f81b85b930fb6b40687b780e')
+validpgpkeys=(C3FC4EB6371B04CC6DDB9EA88A2DEA1DBAEBCA9E) # ObserverOfTime <chronobserver@disroot.org>
 
 prepare() {
   cd $pkgname/tree-sitter-markdown
@@ -26,7 +32,7 @@ prepare() {
 
 build() {
   cd $pkgname
-  make PREFIX=/usr PARSER_URL="$url"
+  make PREFIX=/usr PARSER_URL=$url
 }
 
 package() {
