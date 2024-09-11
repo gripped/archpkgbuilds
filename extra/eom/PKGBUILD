@@ -4,19 +4,24 @@
 
 pkgname=eom
 pkgver=1.28.0
-pkgrel=1
-pkgdesc="An image viewing and cataloging program for MATE"
+pkgrel=2
+pkgdesc="An image viewer for MATE"
 url="https://mate-desktop.org"
 arch=('x86_64')
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('dbus-glib' 'gobject-introspection-runtime' 'gettext' 'exempi' 'lcms2' 'libexif' 'libjpeg-turbo' 'mate-desktop' 'libpeas')
-makedepends=('gobject-introspection' 'itstool')
+makedepends=('autoconf-archive' 'glib2-devel' 'gobject-introspection' 'mate-common' 'itstool' 'yelp-tools')
 optdepends=('webp-pixbuf-loader: webp image format support')
 groups=('mate-extra')
 conflicts=('eom-gtk3')
 replaces=('eom-gtk3')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('9a01cab2995a1a8c7258c865eae5f182ed4730c44672afdc3a07e423edd53abc')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/eom/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('095ab4ae210662b0f2c9b4b8099962cd50f7ca8d4c59b01fe118686ab617a3a9')
+
+prepare() {
+    	cd "${pkgname}-${pkgver}"
+	./autogen.sh
+}
 
 build() {
     	cd "${pkgname}-${pkgver}"
@@ -24,10 +29,6 @@ build() {
         	--prefix=/usr \
         	--localstatedir=/var \
         	--with-librsvg
-
-    	#https://bugzilla.gnome.org/show_bug.cgi?id=656231
-    	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
     	make
 }
 
