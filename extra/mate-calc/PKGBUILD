@@ -4,22 +4,32 @@
 
 pkgname=mate-calc
 pkgver=1.28.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Calculator for the MATE desktop environment"
 url="https://mate-desktop.org"
 arch=('x86_64')
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('gtk3' 'gettext' 'libmpc')
-makedepends=('itstool')
+makedepends=('autoconf-archive' 'mate-common' 'glib2-devel' 'itstool' 'yelp-tools')
 groups=('mate-extra')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('804b125d1e2864b1e74af816da9b2ab8b19472b9af974437ee7355ada5e628f5')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-calc/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('afefad23bee76901ee8b84e10db42e29a1f3630d754b16960fe021402538a9b2')
+
+prepare() {
+	cd "${pkgname}-${pkgver}"
+	./autogen.sh
+}
 
 build() {
     	cd "${pkgname}-${pkgver}"
    	./configure \
         	--prefix=/usr
     	make
+}
+
+check() {
+	cd "${pkgname}-${pkgver}"
+	make check
 }
 
 package() {
