@@ -5,15 +5,20 @@
 pkgbase=caja-extensions
 pkgname=(caja-extensions-common caja-image-converter caja-open-terminal caja-sendto caja-share caja-wallpaper caja-xattr-tags caja-audio-video-properties)
 pkgver=1.28.0
-pkgrel=1
-pkgdesc="Caja extensions"
+pkgrel=2
+pkgdesc="Set of extensions for Caja, the MATE file manager"
 url="https://mate-desktop.org"
 arch=('x86_64')
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('caja' 'gettext' 'dbus-glib' 'imagemagick' 'samba')
-makedepends=('python' 'gst-plugins-base')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/$pkgbase-$pkgver.tar.xz")
-sha256sums=('d2986c5e0740835fe271cfbd5823eeeaf03291af1763203f4700abb8109e3175')
+makedepends=('autoconf-archive' 'glib2-devel' 'mate-common' 'python' 'gst-plugins-base')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/caja-extensions/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('4c63786d5c9f995a3e1f9bf89dd0532993aa964afab2a1a3c6370b8a32382f1a')
+
+prepare() {
+    cd ${pkgbase}-${pkgver}
+    ./autogen.sh
+}
 
 build() {
     cd ${pkgbase}-${pkgver}
@@ -26,10 +31,6 @@ build() {
         --prefix=/usr \
         --disable-upnp \
         --disable-gksu
-
-    #https://bugzilla.gnome.org/show_bug.cgi?id=656231
-    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
     make
 }
 
