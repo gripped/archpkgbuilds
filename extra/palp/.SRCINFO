@@ -1,13 +1,14 @@
 pkgbase = palp
 	pkgdesc = A Package for analyzing Lattice Polytopes
 	pkgver = 2.21
-	pkgrel = 2
+	pkgrel = 4
 	epoch = 1
 	url = http://hep.itp.tuwien.ac.at/~kreuzer/CY/CYpalp.html
 	arch = x86_64
 	license = GPL-3.0-only
+	makedepends = git
 	depends = glibc
-	source = https://gitlab.com/stringstuwien/PALP/-/archive/v2.21/PALP-v2.21.tar.gz
-	sha256sums = 8cb5cb9289b2ac88618c792f7720de1a3c08b4b43da7393553d6b68cc3548711
+	source = git+https://gitlab.com/stringstuwien/PALP#tag=v2.21
+	sha256sums = 6d198252f03de53a0949d10c5b90af80daa1bc0f9030ea879ac12c6f0d50839f
 
 pkgname = palp
