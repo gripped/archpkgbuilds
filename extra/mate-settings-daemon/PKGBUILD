@@ -4,34 +4,35 @@
 
 pkgname=mate-settings-daemon
 pkgver=1.28.0
-pkgrel=1
+pkgrel=2
 pkgdesc="The MATE Settings daemon"
 url="https://mate-desktop.org"
 arch=('x86_64')
-license=('GPL')
+license=('GPL-2.0-or-later LGPL-2.1-or-later')
 depends=('dbus-glib' 'libcanberra' 'libmatekbd' 'libmatemixer' 'libnotify'
          'mate-desktop' 'nss' 'polkit' 'gettext')
-makedepends=('python')
+makedepends=('autoconf-archive' 'glib2-devel' 'mate-common' 'python-packaging')
 optdepends=('libcanberra-pulse: PulseAudio support'
             'pulseaudio-alsa: PulseAudio support')
 groups=('mate')
 conflicts=('mate-settings-daemon-gtk3')
 replaces=('mate-settings-daemon-gtk3')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('4ed7cdadaaa4c99efffc0282b8411703bb76e072c41c4b57989f8c5b40611a3a')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-settings-daemon/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('6870e2c314a6b91aa31d03e56238879fe3dfbda1eb9ed104404e0a5dab9e8dd9')
+
+prepare() {
+	cd "${pkgname}-${pkgver}"
+	./autogen.sh
+}
 
 build() {
 	cd "${pkgname}-${pkgver}"
 	./configure \
 	            --prefix=/usr \
-	            --libexecdir=/usr/lib/${pkgname} \
+	            --libexecdir="/usr/lib/${pkgname}" \
 	            --sysconfdir=/etc \
 	            --enable-polkit \
 	            --enable-pulse
-
-	#https://bugzilla.gnome.org/show_bug.cgi?id=656231
-	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
 	make
 }
 
