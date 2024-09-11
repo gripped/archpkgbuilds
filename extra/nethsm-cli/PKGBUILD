@@ -2,7 +2,7 @@
 
 pkgname=nethsm-cli
 _name=signstar
-pkgver=0.2.2
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="A command line interface (CLI) for the Nitrokey NetHSM"
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(
 )
 options=(!lto)  # ring does not work with LTO
 source=($_name::git+$_url.git?signed#tag=$pkgname/$pkgver)
-sha256sums=('8d9a2d83adb359a0d100a8067c2a1bf80d3427fd255f5ee06d542d5781b7c682')
+sha256sums=('aac558ff86388eeee51f2e0dbde774566866758c4b07a7dc48ae7170e933cc76')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
@@ -50,7 +50,7 @@ package() {
   local command=${pkgname/-cli/}
 
   install -vDm 755 $_name/target/release/$command -t "$pkgdir/usr/bin/"
-  install -vDm 644 $_name/$pkgname/README.md -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 $_name/$pkgname/{CHANGELOG,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 $_name/LICENSES/MIT.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
   install -vDm 644 $_name/target/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
   install -vDm 644 $_name/target/shell_completions/$command.bash "$pkgdir/usr/share/bash-completion/completions/$command"
