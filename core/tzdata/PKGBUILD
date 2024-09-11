@@ -4,7 +4,7 @@ pkgname=tzdata
 pkgver=2024b
 _tzcode=2024b
 _tzdata=2024b
-pkgrel=1
+pkgrel=2
 pkgdesc="Sources for time zone and daylight saving time data"
 arch=('x86_64')
 url="https://www.iana.org/time-zones"
@@ -13,11 +13,13 @@ optdepends=('bash: for tzselect'
             'glibc: for zdump, zic')
 options=('!emptydirs')
 source=(https://www.iana.org/time-zones/repository/releases/tzcode${_tzcode}.tar.gz{,.asc}
-        https://www.iana.org/time-zones/repository/releases/${pkgname}${_tzdata}.tar.gz{,.asc})
+        https://www.iana.org/time-zones/repository/releases/${pkgname}${_tzdata}.tar.gz{,.asc}
+        0001-Apr-not-April.patch)
 sha512sums=('0e4e872d6c6d9e2ce8c4e567fcbb7658942b8544157d1e48673d9cb989f3af3379fa58e7a71ab98f4a8f2ac6727de1f8c4cd1981053409ebd8989345dc640026'
             'SKIP'
             '0d86686e215672343debb3471b7e7ccb8a27f063f085c9b532d5e0470377843daa0dfb6aee0db4fb9068dd52810c69aeee914a1a7c7e603fdecda7e855020193'
-            'SKIP')
+            'SKIP'
+            '19b546392fd0c8c6c2c535ca4e0d83baeef2741ee93cf58d9d8dc4f06d30e69bb47883652d2b3e23838f41d0a8600dbcfb2286bb11d107fb3f4a98920ca9bbcf')
 validpgpkeys=('7E3792A9D8ACF7D633BC1588ED97E90E62AA7E34') # Paul Eggert <eggert@cs.ucla.edu>
 
 _timezones=('africa' 'antarctica' 'asia' 'australasia'
@@ -25,6 +27,10 @@ _timezones=('africa' 'antarctica' 'asia' 'australasia'
            'etcetera' 'backward' 'factory')
 
 prepare() {
+  pwd
+  # Use "Apr", not "April", in the IN column
+  patch -Np1 -i ${srcdir}/0001-Apr-not-April.patch
+
   sed -i "s:sbin:bin:g" Makefile
 }
 
