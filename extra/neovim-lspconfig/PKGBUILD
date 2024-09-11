@@ -4,8 +4,8 @@
 _name=lspconfig
 _upstream=nvim-lspconfig
 pkgname=neovim-lspconfig
-pkgver=0.1.8
-pkgrel=2
+pkgver=1.0.0
+pkgrel=1
 pkgdesc='Collection of common configurations for Neovim’s built-in language server client'
 arch=(any)
 url="https://github.com/neovim/$_upstream"
@@ -15,11 +15,11 @@ depends=(luajit
 groups=(neovim-plugins)
 _archive="$_upstream-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('f7947cc6a028664bbc26c9ed445e01c3c5c5b61b3588c15461a926a1811b73cc')
+sha256sums=('03583cc94280e480e231a0148b37e4e17c56325bdbd8503ddc354683e5ed5695')
 
 package() {
 	cd "$_archive"
 	find doc lua plugin -type f -exec \
-	  install -Dm0644 {} "$pkgdir/usr/share/nvim/site/pack/dist/start/$_name/{}" \;
+		install -Dm0644 {} "$pkgdir/usr/share/nvim/site/pack/dist/start/$_name/{}" \;
 	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md
 }
