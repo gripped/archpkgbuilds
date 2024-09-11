@@ -3,7 +3,7 @@
 
 pkgname=qt6-webengine
 pkgver=6.7.2
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
@@ -48,11 +48,12 @@ depends=(alsa-lib
          qt6-declarative
          qt6-positioning
          qt6-webchannel
+         re2
          snappy
          ttf-font
          zlib)
        # system libvpx disabled since https://codereview.qt-project.org/c/qt/qtwebengine/+/454908
-       # libvpx pciutils re2
+       # libvpx pciutils
 makedepends=(cmake
              git
              gperf
