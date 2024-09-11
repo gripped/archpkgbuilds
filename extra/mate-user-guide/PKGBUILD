@@ -4,16 +4,21 @@
 
 pkgname=mate-user-guide
 pkgver=1.28.0
-pkgrel=1
+pkgrel=2
 pkgdesc="MATE User Guide"
 groups=('mate')
 url="https://mate-desktop.org"
 arch=('any')
-license=('FDL')
-depends=('yelp' 'gettext')
-makedepends=('itstool')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('53ef0814f506544614ed61ab7be5221cc8d3a9f14f7ef9698c90fe7e46014b9e')
+license=('GFDL-1.1-or-later')
+depends=('yelp')
+makedepends=('autoconf-archive' 'itstool' 'mate-common' 'yelp-tools')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-user-guide/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('bedce24a8f11eaeb929fa5ccf5d682160c28d6436097c710341eb4152b11b784')
+
+prepare() {
+    	cd "${pkgname}-${pkgver}"
+	./autogen.sh
+}
 
 build() {
     	cd "${pkgname}-${pkgver}"
