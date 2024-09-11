@@ -4,23 +4,29 @@
 
 pkgname=mate-netbook
 pkgver=1.27.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A simple window management tool"
 url="https://mate-desktop.org"
 arch=('x86_64')
-license=('GPL')
+license=('GPL-3.0-or-later')
 depends=('libfakekey' 'mate-panel' 'gettext')
+makedepends=('autoconf-archive' 'mate-common')
 groups=('mate-extra')
 conflicts=('mate-netbook-gtk3')
 replaces=('mate-netbook-gtk3')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('b41a890c515e4dc2f51038fbc0fca65344a3b8551c7d7fd04b5470f18049df4c')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-netbook/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('447f7ebac65f982548ff1e277e0ff0075dd7a53c3daf4e55e0cedc77fdef58a4')
+
+prepare() {
+    cd "${pkgname}-${pkgver}"
+    ./autogen.sh
+}
 
 build() {
     cd "${pkgname}-${pkgver}"
     ./configure \
                 --prefix=/usr \
-                --libexec=/usr/lib/${pkgname} \
+		--libexec="/usr/lib/${pkgname}" \
                 --sysconfdir=/etc
     make
 }
