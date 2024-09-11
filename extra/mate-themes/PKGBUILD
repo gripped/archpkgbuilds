@@ -3,20 +3,25 @@
 # Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-themes
-pkgver=3.22.24
+pkgver=3.22.26
 pkgrel=2
-pkgdesc="Default themes for the MATE desktop"
+pkgdesc="Official themes for the MATE desktop"
 url="http://mate-desktop.org"
 arch=('any')
-license=('GPL')
-makedepends=('gtk2' 'intltool')
+license=('LGPL-2.1-or-later')
+makedepends=('autoconf-archive' 'gtk2' 'mate-common' 'intltool')
 optdepends=('gtk-engines: for gtk2 themes'
             'gtk-engine-murrine: for gtk2 themes'
             'mate-icon-theme: default icon theme')
 options=('!emptydirs')
 groups=('mate')
-source=("https://pub.mate-desktop.org/releases/themes/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('3d8b3a2a285331de24c4cf5d8c9dd846daa11695f206765d8f1693ebcacf6e4a')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-themes/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('7aa022a120b02ee14bcbb35c4e33f4f675c0eb6f33bb0ec7b9595b00bd9b14b7')
+
+prepare() {
+    	cd "${pkgname}-${pkgver}"
+	./autogen.sh
+}
 
 build() {
     	cd "${pkgname}-${pkgver}"

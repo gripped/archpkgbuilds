@@ -1,18 +1,20 @@
 pkgbase = mate-themes
-	pkgdesc = Default themes for the MATE desktop
-	pkgver = 3.22.24
+	pkgdesc = Official themes for the MATE desktop
+	pkgver = 3.22.26
 	pkgrel = 2
 	url = http://mate-desktop.org
 	arch = any
 	groups = mate
-	license = GPL
+	license = LGPL-2.1-or-later
+	makedepends = autoconf-archive
 	makedepends = gtk2
+	makedepends = mate-common
 	makedepends = intltool
 	optdepends = gtk-engines: for gtk2 themes
 	optdepends = gtk-engine-murrine: for gtk2 themes
 	optdepends = mate-icon-theme: default icon theme
 	options = !emptydirs
-	source = https://pub.mate-desktop.org/releases/themes/3.22/mate-themes-3.22.24.tar.xz
-	sha256sums = 3d8b3a2a285331de24c4cf5d8c9dd846daa11695f206765d8f1693ebcacf6e4a
+	source = mate-themes-3.22.26.tar.gz::https://github.com/mate-desktop/mate-themes/archive/refs/tags/v3.22.26.tar.gz
+	sha256sums = 7aa022a120b02ee14bcbb35c4e33f4f675c0eb6f33bb0ec7b9595b00bd9b14b7
 
 pkgname = mate-themes
