@@ -4,31 +4,32 @@
 
 pkgname=mate-user-share
 pkgver=1.28.0
-pkgrel=1
+pkgrel=2
 pkgdesc="User level public file sharing via WebDAV for MATE"
 url="https://mate-desktop.org"
 arch=('x86_64')
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('gtk3' 'mod_dnssd' 'gettext')
-makedepends=('caja' 'dbus-glib' 'itstool' 'libcanberra' 'libnotify')
+makedepends=('autoconf-archive' 'caja' 'dbus-glib' 'glib2-devel' 'itstool' 'libcanberra' 'libnotify' 'mate-common' 'yelp-tools')
 optdepends=('caja: File sharing extension')
 groups=('mate-extra')
 conflicts=('mate-user-share-gtk3')
 replaces=('mate-user-share-gtk3')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('8985609999179651348e497ef08f350b86081b97b1a4a7304077eeae5739ae38')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-user-share/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('02fc1d5c245222776d18882884e886f9d9504e3a499023936a10b96c24986524')
+
+prepare() {
+	cd "${pkgname}-${pkgver}"
+	./autogen.sh
+}
 
 build() {
 	cd "${pkgname}-${pkgver}"
 	./configure \
-	            --prefix=/usr \
-            	--libexec=/usr/lib/${pkgname} \
+		--prefix=/usr \
+            	--libexec="/usr/lib/${pkgname}" \
             	--sysconfdir=/etc \
-	            --disable-bluetooth
-
-	#https://bugzilla.gnome.org/show_bug.cgi?id=656231
-	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
+	        --disable-bluetooth
 	make
 }
 
