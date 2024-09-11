@@ -1,0 +1,54 @@
+# Maintainer:
+# Contributor: Lorenzo Gaifas <brisvag at gmail dot com>
+
+_pyname=superqt
+pkgname=python-$_pyname
+pkgver=0.6.8
+pkgrel=1
+pkgdesc='Missing widgets and components for Qt-python'
+arch=(any)
+url='https://pyapp-kit.github.io/superqt/'
+license=(BSD-3-Clause)
+makedepends=(
+  git
+  python-build
+  python-hatch-vcs
+  python-hatchling
+  python-installer
+)
+depends=(
+  python
+  python-pint
+  python-pygments
+  python-qtpy
+  python-typing_extensions
+)
+checkdepends=(
+  python-numpy
+  python-pytest
+  python-pytest-qt
+  python-pyqt6
+)
+source=(git+https://github.com/pyapp-kit/superqt#tag=v$pkgver)
+sha256sums=('df610f972b3e9264a7d4bd20ae3189f3bf12669e83ebe4315c4f622f74c4c9d8')
+
+build() {
+  cd $_pyname
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd $_pyname
+  PYTHONPATH="$PWD"/src \
+  QT_QPA_PLATFORM=offscreen \
+  pytest -v \
+    --deselect tests/test_eliding_label.py \
+    --deselect tests/test_eliding_line_edit.py
+}
+
+package() {
+  cd $_pyname
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+}
