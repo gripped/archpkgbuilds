@@ -4,23 +4,28 @@
 
 pkgname=mate-power-manager
 pkgver=1.28.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Power management tool for the MATE desktop"
 url="https://mate-desktop.org"
 arch=('x86_64')
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('dbus-glib' 'gettext' 'libcanberra' 'libnotify' 'upower' 'polkit' 'libsecret')
-makedepends=('itstool' 'mate-panel' 'python')
+makedepends=('autoconf-archive' 'glib2-devel' 'itstool' 'mate-common' 'mate-panel' 'python' 'yelp-tools')
 optdepends=('mate-panel: Set brightness and inhibit power management from the panel')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-power-manager/archive/refs/tags/v${pkgver}.tar.gz")
 groups=('mate-extra')
-sha256sums=('8ebdcb74b607e868336ba9a8146cdef8f97bce535c2b0cb3bf650c58f71eee21')
+sha256sums=('fa64a9590fc83f29ec2c7eb37783ce2125c20f01413246eb7519c1bcc95c98c3')
+
+prepare() {
+    	cd "${pkgname}-${pkgver}"
+	./autogen.sh
+}
 
 build() {
     	cd "${pkgname}-${pkgver}"
     	./configure \
         	--prefix=/usr \
-        	--libexecdir=/usr/lib/${pkgname} \
+        	--libexecdir="/usr/lib/${pkgname}" \
         	--sysconfdir=/etc \
         	--localstatedir=/var \
         	--sbindir=/usr/bin \
