@@ -4,31 +4,32 @@
 
 pkgname=mate-polkit
 pkgver=1.28.1
-pkgrel=1
+pkgrel=2
 pkgdesc="PolicyKit integration for the MATE desktop"
 url="https://mate-desktop.org"
 arch=('x86_64')
-license=('LGPL')
+license=('GPL-2.0-or-later')
 groups=('mate')
 depends=('gtk3' 'polkit' 'gettext')
-makedepends=('accountsservice' 'gobject-introspection')
+makedepends=('accountsservice' 'autoconf-archive' 'mate-common' 'gobject-introspection')
 conflicts=('mate-polkit-gtk3')
 replaces=('mate-polkit-gtk3')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('350a1dd0a8ed6a2c9c183cff2a21f394299e968fcc6ae2e8c93c565dae604ae8')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-polkit/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('b7dd0999f1570e41939997f075ddbf459650c6572dd89a63b3a1963d60427001')
+
+prepare() {
+    cd "${pkgname}-${pkgver}"
+    ./autogen.sh
+}
 
 build() {
     cd "${pkgname}-${pkgver}"
     ./configure \
                 --prefix=/usr \
-                --libexecdir=/usr/lib/${pkgname} \
+                --libexecdir="/usr/lib/${pkgname}" \
                 --sysconfdir=/etc \
                 --localstatedir=/var \
                 --enable-introspection
-
-    #https://bugzilla.gnome.org/show_bug.cgi?id=656231
-    sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
     make
 }
 

@@ -1,19 +1,21 @@
 pkgbase = mate-polkit
 	pkgdesc = PolicyKit integration for the MATE desktop
 	pkgver = 1.28.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://mate-desktop.org
 	arch = x86_64
 	groups = mate
-	license = LGPL
+	license = GPL-2.0-or-later
 	makedepends = accountsservice
+	makedepends = autoconf-archive
+	makedepends = mate-common
 	makedepends = gobject-introspection
 	depends = gtk3
 	depends = polkit
 	depends = gettext
 	conflicts = mate-polkit-gtk3
 	replaces = mate-polkit-gtk3
-	source = https://pub.mate-desktop.org/releases/1.28/mate-polkit-1.28.1.tar.xz
-	sha256sums = 350a1dd0a8ed6a2c9c183cff2a21f394299e968fcc6ae2e8c93c565dae604ae8
+	source = mate-polkit-1.28.1.tar.gz::https://github.com/mate-desktop/mate-polkit/archive/refs/tags/v1.28.1.tar.gz
+	sha256sums = b7dd0999f1570e41939997f075ddbf459650c6572dd89a63b3a1963d60427001
 
 pkgname = mate-polkit
