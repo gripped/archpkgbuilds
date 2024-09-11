@@ -1,11 +1,13 @@
 pkgbase = mozo
 	pkgdesc = MATE menu editing tool
 	pkgver = 1.28.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://mate-desktop.org
 	arch = any
 	groups = mate-extra
-	license = GPL
+	license = LGPL-2.1-or-later
+	makedepends = autoconf-archive
+	makedepends = mate-common
 	depends = gtk3
 	depends = python>=3.5
 	depends = mate-menus
@@ -14,7 +16,7 @@ pkgbase = mozo
 	depends = mate-panel
 	conflicts = mozo-gtk3
 	replaces = mozo-gtk3
-	source = https://pub.mate-desktop.org/releases/1.28/mozo-1.28.0.tar.xz
-	sha256sums = fe98984ffd6aa8c36d0594bcefdba03de39b42d41e007251680384f3cef44924
+	source = mozo-1.28.0.tar.gz::https://github.com/mate-desktop/mozo/archive/refs/tags/v1.28.0.tar.gz
+	sha256sums = eb1d5af4ac0c72268e78deca888ae00c604ddfd67d50989ab0f7f82bc8fbcbef
 
 pkgname = mozo

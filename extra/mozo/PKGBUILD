@@ -4,17 +4,23 @@
 
 pkgname=mozo
 pkgver=1.28.0
-pkgrel=2
+pkgrel=3
 pkgdesc="MATE menu editing tool"
 url="https://mate-desktop.org"
 arch=('any')
-license=('GPL')
+license=('LGPL-2.1-or-later')
 depends=('gtk3' 'python>=3.5' 'mate-menus' 'python-gobject' 'gettext' 'mate-panel')
+makedepends=('autoconf-archive' 'mate-common')
 groups=('mate-extra')
 conflicts=('mozo-gtk3')
 replaces=('mozo-gtk3')
-source=("https://pub.mate-desktop.org/releases/${pkgver%.*}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('fe98984ffd6aa8c36d0594bcefdba03de39b42d41e007251680384f3cef44924')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mozo/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('eb1d5af4ac0c72268e78deca888ae00c604ddfd67d50989ab0f7f82bc8fbcbef')
+
+prepare() {
+    	cd "${pkgname}-${pkgver}"
+	./autogen.sh
+}
 
 build() {
     	cd "${pkgname}-${pkgver}"
