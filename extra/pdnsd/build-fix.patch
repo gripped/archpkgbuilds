@@ -1,0 +1,24 @@
+diff -wbBur pdnsd-1.2.9a.org/src/conff.h pdnsd-1.2.9a/src/conff.h
+--- pdnsd-1.2.9a.org/src/conff.h	2012-04-26 13:41:04.000000000 +0400
++++ pdnsd-1.2.9a/src/conff.h	2024-09-12 23:33:08.476611651 +0300
+@@ -32,7 +32,7 @@
+ #include <stdio.h>
+ #include <pthread.h>
+ #include <sys/socket.h>
+-#include <net/if.h>
++#include <linux/if.h>
+ #include "ipvers.h"
+ #include "list.h"
+ 
+diff -wbBur pdnsd-1.2.9a.org/src/dns.h pdnsd-1.2.9a/src/dns.h
+--- pdnsd-1.2.9a.org/src/dns.h	2012-04-26 13:41:04.000000000 +0400
++++ pdnsd-1.2.9a/src/dns.h	2024-09-12 23:32:59.793278422 +0300
+@@ -27,7 +27,7 @@
+ #include <config.h>
+ #include <arpa/inet.h>
+ #include <sys/socket.h>
+-#include <net/if.h>
++#include <linux/if.h>
+ #include <sys/types.h>
+ #include <inttypes.h>
+ #include "rr_types.h"
