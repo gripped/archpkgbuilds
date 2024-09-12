@@ -5,7 +5,7 @@
 pkgbase=doxygen
 pkgname=(doxygen doxygen-docs)
 pkgver=1.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Documentation system for C++, C, Java, IDL and PHP'
 url='http://www.doxygen.nl'
 arch=(x86_64)
@@ -29,9 +29,12 @@ makedepends=(
   texlive-latexextra
   texlive-plaingeneric
 )
-source=(${pkgbase}-${pkgver}.tar.gz::https://github.com/doxygen/doxygen/archive/Release_${pkgver//./_}.tar.gz)
-sha512sums=('be2bbbfca619dac78096d54378b95ecc786b9ff23b801c2be52c3536d067e4a299d96952ff92ec1fad13751b77f494ab9971435411dd7b40537d0b0f3797dedc')
-b2sums=('566082eef7abd0f6750eac1f0ae0cc310752a14c6f1a512c84b5423125f0312a6258f2d5c7c3028fa475c33314985daac68b02f8e1482015dd6f9f8f664ff9e3')
+source=(${pkgbase}-${pkgver}.tar.gz::https://github.com/doxygen/doxygen/archive/Release_${pkgver//./_}.tar.gz
+        https://github.com/doxygen/doxygen/commit/7857c88d.patch)
+sha512sums=('be2bbbfca619dac78096d54378b95ecc786b9ff23b801c2be52c3536d067e4a299d96952ff92ec1fad13751b77f494ab9971435411dd7b40537d0b0f3797dedc'
+            '7e1c018ba1cd57f10c24deb496e79a182a250603473986ef7feb3fc2c1ced1fc6fe270a15c489301fe762eb83a192bc31935935ef2418415d36ec347f064765c')
+b2sums=('566082eef7abd0f6750eac1f0ae0cc310752a14c6f1a512c84b5423125f0312a6258f2d5c7c3028fa475c33314985daac68b02f8e1482015dd6f9f8f664ff9e3'
+        'fb6c70cf899f96457fbedb582b4cd5bc196d0e809212ccd099aebacde698327f91abb1d32539c096620d303b516b3654881e4a380670df521892511966e23f97')
 
 _pick() {
   local p="$1" f d; shift
@@ -41,6 +44,11 @@ _pick() {
     mv "$f" "$d"
     rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
   done
+}
+
+prepare() {
+  cd $pkgbase-Release_${pkgver//./_}
+  patch -p1 -i ../7857c88d.patch # Fix build with fmt 11
 }
 
 build() {
