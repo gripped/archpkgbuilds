@@ -5,13 +5,13 @@ Subject: [PATCH 2/2] Set default project directory to package-provided
  directory
 
 ---
- nominatim/cli.py | 7 +++++--
+ src/nominatim_db/cli.py | 7 +++++--
  1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/nominatim/cli.py b/nominatim/cli.py
+diff --git a/src/nominatim_db/cli.py b/src/nominatim_db/cli.py
 index 8c2136f4..4f686dcd 100644
---- a/nominatim/cli.py
-+++ b/nominatim/cli.py
+--- a/src/nominatim_db/cli.py
++++ b/src/nominatim_db/cli.py
 @@ -24,6 +24,9 @@ from nominatim.clicmd.args import NominatimArgs, Subcommand
  
  LOG = logging.getLogger()
