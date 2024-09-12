@@ -1,18 +1,20 @@
 pkgbase = syndication-domination
 	pkgdesc = A simple RSS/Atom parser library in C++
 	pkgver = 1.0
-	pkgrel = 4
+	pkgrel = 5
 	url = https://gitlab.com/gabmus/syndication-domination
 	arch = x86_64
-	license = GPL3
+	license = AGPL-3.0-or-later
+	makedepends = git
 	makedepends = meson
 	makedepends = pybind11
-	depends = pugixml
 	depends = fmt
+	depends = gcc-libs
+	depends = glibc
+	depends = pugixml
+	depends = python
 	depends = tidy
-	source = https://gitlab.com/gabmus/syndication-domination/-/archive/1.0/syndication-domination-1.0.tar.gz
-	source = https://gitlab.com/gabmus/syndication-domination/-/commit/75920321.patch
-	sha256sums = eb8a1d6b3ebc2e3997397b07fe75eb62e4c788ee37d8b2a12e72becd65cf479f
-	sha256sums = f7a7b25338f632de1ed563efc50846d1b477da13ff6b7e417c73cacccfc0111f
+	source = git+https://gitlab.com/gabmus/syndication-domination.git#tag=1.0
+	b2sums = 0e7f39a0e615434e27b3aebbea374f5b0937ca0f7fe09c65308df2b9a7485ed45329d32179da4e4041fe02c323e6f3e79c0676b8d30757a9e83704ff39f5b470
 
 pkgname = syndication-domination
