@@ -2,7 +2,7 @@
 # Contributor: David Ell <david at bytesizebits dot net>
 
 pkgname=linuxdoc-tools
-pkgver=0.9.83
+pkgver=0.9.84
 pkgrel=1
 pkgdesc="Convert LinuxDoc SGML source into other formats"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('jade')
 makedepends=('texlive-bin' 'texlive-latexrecommended' 'texlive-fontsrecommended')
 optdepends=('groff' 'texlive-bin')
 source=(https://mirrors.edge.kernel.org/debian/pool/main/l/linuxdoc-tools/linuxdoc-tools_${pkgver}.orig.tar.gz)
-sha256sums=('f70e1579a298edf8546e50e4e1a51247d892a3a5a36aefc7e7a72977358a668f')
+sha256sums=('30806cf63d5e9e9d41cb767f1bf218624fef6458f86d49064b2e3bbcf0bb0b20')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
