@@ -3,7 +3,7 @@
 # Contributor: Michael Lass <bevan@bi-co.net>
 
 pkgname=trurl
-pkgver=0.15
+pkgver=0.15.1
 pkgrel=1
 pkgdesc="Command line tool for URL parsing and manipulation"
 arch=(x86_64)
@@ -13,7 +13,7 @@ depends=(curl glibc)
 checkdepends=(python valgrind)
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
 source=(https://github.com/curl/$pkgname/releases/download/$pkgname-$pkgver/$pkgname-$pkgver.tar.gz{,.asc})
-sha256sums=('e58d9a698c009b2b1381f5636b5334ce7704ad2cd5ae8d30da97d483518a7f25'
+sha256sums=('680342d123b71a08e77275f6dd4ac40847cbd3289c6ec967d4c976ea28626f04'
             'SKIP')
 
 build() {
