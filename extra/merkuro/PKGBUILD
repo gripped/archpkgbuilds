@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=merkuro
-pkgver=24.08.0
-pkgrel=3
+pkgver=24.08.1
+pkgrel=1
 pkgdesc='A calendar application using Akonadi to sync with external services'
 arch=(x86_64)
 url='https://apps.kde.org/merkuro.calendar/'
@@ -55,18 +55,12 @@ conflicts=(kalendar)
 replaces=(kalendar)
 groups=(kde-applications
         kde-pim)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/pim/merkuro/-/commit/097e0db8.patch)
-sha256sums=('726070bef38453eadd3dee68b68fb294dc215107b98c1a8edb461bad1c9fbdae'
-            'SKIP'
-            'f3add2db9476adc502fd93e54e8f5d4e9ee952de17a82acbb69c26ae3afcf381')
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('87e7135ddd54cd7aced9ec5fc593c5e283c5c2c47a82417633688637bf3206a5'
+            'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < 097e0db8.patch # Fix breakage with --as-needed
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
