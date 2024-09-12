@@ -1,49 +1,61 @@
-# Maintainer:
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Kyle Keen <keenerd@gmail.com>
 # Contributor: Dominik Heidler <dheidler@gmail.com>
 
 pkgname=libuhd
-pkgver=4.6.0.0
-pkgrel=4
+_pkgname=uhd
+pkgver=4.7.0.0
+pkgrel=1
 pkgdesc="Universal Software Radio Peripheral (USRP) userspace driver"
-arch=('x86_64')
+arch=(x86_64)
 url="https://files.ettus.com/manual/"
-license=('GPL')
-depends=('boost-libs' 'orc' 'libusb')
-optdepends=('python: usrp utils'
-            'python-numpy: python api')
-makedepends=('git' 'cmake' 'boost' 'python-setuptools' 'python-mako' 'python-numpy')
-options=(!lto)
-# gpsd?  dpdk?
-
-source=(git+https://github.com/EttusResearch/uhd#tag=v$pkgver)
-sha256sums=('cbbb74818602b1c035db97530f2d541d90c17bc90f12addc64de01e9eba3115f')
-
-prepare() {
-  cd uhd
-  git cherry-pick -n ea586168c596d13d05d145832519755794649ba0
-  git cherry-pick -n c4863b9b9f8b639260f7797157e8ac4dd81fef93 # Fix build with boost 1.85
-}
+license=(GPL-3.0-or-later)
+depends=(
+  boost-libs
+  gcc-libs
+  glibc
+  libusb
+  orc
+)
+makedepends=(
+  boost
+  cmake
+  python-mako
+  python-numpy
+  python-setuptools
+)
+checkdepends=(python-requests)
+optdepends=(
+  'python-mako: for imgbuilder'
+  'python-numpy: for Python bindings'
+  'python: for Python bindings and USRP utils'
+)
+provides=(libuhd.so)
+source=("$pkgname-$pkgver.tar.gz::https://github.com/EttusResearch/uhd/archive/v$pkgver.tar.gz")
+sha256sums=('afe56842587ce72d6a57535a2b15c061905f0a039abcc9d79f0106f072a00d10')
 
 build() {
-  cmake -B build -S uhd/host \
-           -DCMAKE_INSTALL_PREFIX=/usr/ \
-           -DPYTHON_EXECUTABLE=/usr/bin/python3 \
-           -DENABLE_PYTHON_API=ON \
-           -DENABLE_EXAMPLES=ON \
-           -DENABLE_UTILS=ON \
-           -DENABLE_TESTS=OFF \
-           -DENABLE_E100=ON \
-           -DENABLE_E300=ON
+  cd $_pkgname-$pkgver
+  cmake -S host -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev \
+    -DENABLE_PYTHON_API=ON \
+    -DENABLE_EXAMPLES=ON \
+    -DENABLE_UTILS=ON \
+    -DENABLE_TESTS=ON \
+    -DENABLE_E300=ON
   cmake --build build
 }
 
 check() {
-  cd build
-  make test
+  cd $_pkgname-$pkgver
+  ctest --test-dir build --output-on-failure
 }
 
 package() {
+  cd $_pkgname-$pkgver
   DESTDIR="$pkgdir" cmake --install build
-  install -Dm644 uhd/host/utils/uhd-usrp.rules "$pkgdir/usr/lib/udev/rules.d/10-uhd-usrp.rules"
-} 
+  install -vDm644 host/utils/uhd-usrp.rules \
+    "$pkgdir/usr/lib/udev/rules.d/10-uhd-usrp.rules"
+}
