@@ -5,13 +5,18 @@
 
 pkgname=gitui
 pkgver=0.26.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Blazing fast terminal-ui for git written in Rust'
 url='https://github.com/extrawurst/gitui'
 arch=('x86_64')
 license=('MIT')
 depends=('gcc-libs' 'glibc' 'libgit2' 'libxcb' 'openssl' 'zlib')
-makedepends=('cargo' 'git' 'python') # xcb crate needs python
+makedepends=('cargo' 'cmake' 'git' 'python') # libz-ng-sys crate needs cmake, xcb crate needs python
+optdepends=(
+  'xclip: for clipboard support on X11 (or xsel)'
+  'xsel: for clipboard support on X11 (or xclip)'
+  'wl-clipboard: for clipboard support on Wayland'
+)
 source=("git+$url.git?tag=$pkgver")
 sha256sums=('SKIP')
 
@@ -23,6 +28,9 @@ prepare() {
 build() {
   cd "$pkgname"
   CFLAGS+=' -ffat-lto-objects'
+  export LIBGIT2_NO_VENDOR=1
+  export LIBSSH2_SYS_USE_PKG_CONFIG=1
+  export OPENSSL_NO_VENDOR=true
   cargo build --frozen --release
 }
 
