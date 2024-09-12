@@ -7,7 +7,7 @@
 # Contributor: Alexander Lutsai <s.lyra@ya.ru>
 
 pkgname=kicad
-pkgver=8.0.4
+pkgver=8.0.5
 pkgrel=1
 pkgdesc='Electronic schematic and printed circuit board (PCB) design tools'
 arch=('x86_64')
@@ -37,13 +37,12 @@ optdepends=(
   'kicad-library: for footprints, symbols and templates'
   'kicad-library-3d: for 3D models of components'
 )
-_commit='ef34436d7d4bb488a9559d7fae32dc956d37c669'
 source=(
   "$pkgname::git+https://gitlab.com/kicad/code/kicad.git#tag=$pkgver"
   'fix-archive-permissions.patch'
   'fix-version-string.patch'
 )
-sha512sums=('5c9968c28e22faed9476a802f72ccfba1fcdd3194f04fd8d80fc94af96220f49494796b3ffb11ae575c4a6f15769e8c652cc9228c1f44b165e5d0aebc2b9e991'
+sha512sums=('b523bd31a98594d4399de8c71bfc74ed48b04893e0fd609125c509525345bdae9138fb75b11e859095536dcb8d2c5c977592e01f3e1dd7a547726ea951773369'
             'e36912e4144c6debe33f1711ca7a2da020389a6e376282c70f534ce9e685d0b35b58d88b810327d8baeb3466e87eda246ebf181c18e134e80bc73b91dae4bf02'
             '17100967610c85ce2e8a860dcf703a87dc0c20f52d3f056cdb5d16323160e8594698bd51e095aea63c00a75ce8b121be681e93cec1bab72a8d1d4eb8065a91f5')
 
@@ -59,6 +58,10 @@ prepare() {
   patch -p1 -i "$srcdir/fix-archive-permissions.patch"
   patch -p1 -i "$srcdir/fix-version-string.patch"
   git cherry-pick -n 1cbf6a1872c71d3bb8c00e02783cbf84b74714b3 # fix build with libgit2 1.8
+  git cherry-pick -n \
+    9fdd825681fb5c639470f8a68f1bf4cf73cc5cd1 \
+    f4f9513f808fae515acf8253269a4eec9a667cd5 \
+    9779ee0fd3c8891d80b0a75edc1ce673d7a82b0a
 }
 
 build() {
