@@ -6,12 +6,13 @@
 # Contributor: Daniel Bainton <dpb [at] backarrow.org>
 
 pkgname=ncmpc
-pkgver=0.49
-pkgrel=2
+pkgver=0.50
+pkgrel=1
 pkgdesc="Fully featured MPD client which runs in a terminal"
 arch=(x86_64)
 url=https://www.musicpd.org/clients/ncmpc/
-license=(GPL2)
+_url=https://github.com/MusicPlayerDaemon/ncmpc
+license=(GPL-2.0-or-later)
 depends=(
   gcc-libs
   glibc
@@ -20,6 +21,8 @@ depends=(
 )
 makedepends=(
   boost
+  fmt
+  git
   libmpdclient
   meson
   ncurses
@@ -29,15 +32,13 @@ optdepends=(
   'python-beautifulsoup4: for lyrics scripts'
   'python-requests: for lyrics scripts'
 )
-source=(https://www.musicpd.org/download/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha512sums=('9913f08d90b229af59c8da0ac737445661dc69f0174f996dedbd0c9d9c4833004dbd9319f6bc08dc8b35a191ae167c090a3f31b43167e1918c5fad8f044a4c17'
-            'SKIP')
-b2sums=('c87c07bcf107e20224982a99fdedb09468ed510f7e6138e6e35386c636bdf62a3fd79e609670f7931966e3be09de668d1119ade950f2b8e4cd7c546d47a405be'
-        'SKIP')
+source=(git+$_url.git?signed#tag=v$pkgver)
+sha512sums=('171bcf8ba9d1ab2491f9be53256bc2cd85133957d6d5432c506d6967b443cf7a041cd2c4baa6407dd8c006c54e4a9d1ac1a1b81b932c50a228877c564f8f5e2a')
+b2sums=('81289df71855e44ebea66ba6748549bd3419de66dcbf56a1bee328de02e5eafd9339372fea894bae2882e3cf8652e4760ee154350adc463ac77d24f04184df84')
 validpgpkeys=('0392335A78083894A4301C43236E8A58C6DB4512') # Max Kellermann <max@blarg.de>
 
 build() {
-  arch-meson -D lyrics_screen=true -D chat_screen=true build $pkgname-$pkgver
+  arch-meson -D lyrics_screen=true -D chat_screen=true build $pkgname
   meson compile -C build
 }
 
@@ -47,8 +48,10 @@ check() {
 
 package() {
   depends+=(
+    fmt libfmt.so
     libmpdclient libmpdclient.so
     ncurses libncursesw.so
+    pcre2 libpcre2-8.so
   )
 
   meson install -C build --destdir "$pkgdir"
