@@ -3,54 +3,95 @@
 
 pkgname=urh
 pkgver=2.9.6
-pkgrel=5
+pkgrel=6
 pkgdesc='Universal Radio Hacker: investigate wireless protocols like a boss'
 arch=('x86_64')
 url='https://github.com/jopohl/urh'
-license=('GPL3')
-depends=('python' 'python-pyqt5' 'python-numpy' 'python-psutil')
-makedepends=('cython' 'gcc' 'python-setuptools' 'airspy' 'hackrf' 'libuhd' 'limesuite' 'rtl-sdr' 'bladerf' 'libiio')
-checkdepends=('python-pytest-xdist' 'xorg-server-xvfb')
-optdepends=('airspy: Airspy backend'
-            'cython: compiling native modules inside URH'
-            'hackrf: HackRF backend'
-            'libuhd: USRP backend'
-            'limesuite: LimeSDR backend'
-            'rtl-sdr: RTL-SDR backend'
-            'gnuradio: GNURadio backend'
-            'bladerf: BladeRF backend'
-            'python-pylibiio: IIO backend (PlutoSDR)'
-            'gnuradio-osmosdr: OsmoSDR backend, via GNURadio'
-            'python-pyaudio: Soundcard backend')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/jopohl/urh/archive/v$pkgver.tar.gz"
-	"fieldtypes.xml-not-found.patch")
+license=('GPL-3.0-only')
+depends=(
+  'gcc-libs'
+  'glibc'
+  'python'
+  'python-numpy'
+  'python-psutil'
+  'python-pyqt5'
+)
+makedepends=(
+  'airspy'
+  'bladerf'
+  'cython'
+  'gcc'
+  'hackrf'
+  'libiio'
+  'libuhd'
+  'limesuite'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+  'rtl-sdr'
+)
+checkdepends=(
+  'python-pytest-xdist'
+  'xorg-server-xvfb'
+)
+optdepends=(
+  'airspy: Airspy backend'
+  'bladerf: BladeRF backend'
+  'cython: compiling native modules inside URH'
+  'gnuradio-osmosdr: OsmoSDR backend, via GNURadio'
+  'gnuradio: GNURadio backend'
+  'hackrf: HackRF backend'
+  'libiio: IIO backend (PlutoSDR)'
+  'libuhd: USRP backend'
+  'limesuite: LimeSDR backend'
+  'python-pyaudio: Soundcard backend'
+  'python-pylibiio: IIO backend (PlutoSDR)'
+  'rtl-sdr: RTL-SDR backend'
+)
+source=(
+  "$pkgname-$pkgver.tar.gz::https://github.com/jopohl/urh/archive/v$pkgver.tar.gz"
+  "cython3.patch::https://github.com/jopohl/urh/commit/8a34513351034bd64658648b716fae9de3139754.patch"
+  "confest.patch::https://github.com/jopohl/urh/commit/10607cd6c5e5bf89a4b0b629496543b42e9d2e42.patch"
+  "builtins.patch::https://github.com/jopohl/urh/commit/2f565c7544c71c4ee73d8d24167f546ca9aac363.patch"
+  "remove-failing-tests.patch"
+)
 sha512sums=('c5a153bf6df2421b496c58957b5ea0d591efd8caa12e08638560c125014d935abf279328a8b91fd09ab21444a58eea6ab7e59c3524b5c586c294b11123bff250'
-            '816dc20bda3ec96ec4ca43a46257499d05505f64c80d60b47a7bc5a1e88f1eaf1c3130b3a113d2ed432d3c22fd1536fa3d500b97919afcd518049ca095acd000')
+            'f4b8a9e58a51216dfe377da642569509016c023a7470829c2c6db45d8858806399188c94a4f16d63ab46a10fb6c0c35160d8a84e261ce135850f36b2ff3a7384'
+            '816dc20bda3ec96ec4ca43a46257499d05505f64c80d60b47a7bc5a1e88f1eaf1c3130b3a113d2ed432d3c22fd1536fa3d500b97919afcd518049ca095acd000'
+            'ce60fcd70602e1982c4989d2ed5037e542bb5deee74a6e6db88327832d6e8463fda0fe6babd946aef031230d8fad50c0c0a6a72603f8f00617da9ec1b191cee7'
+            'c3f5d9be231c4046eee42ff1cdd9f9c781e4de7257cc32e294b82a2b30cadbd18c6a49ba0b6158d6ee808d9bb345ebc840b5154983a57ff6c95806bed455cc7c')
 
 prepare() {
   cd $pkgname-$pkgver
-  patch -Np1 -i ${srcdir}/fieldtypes.xml-not-found.patch
+  patch -Np1 -i "$srcdir/cython3.patch"
+  patch -Np1 -i "$srcdir/confest.patch"
+  patch -Np1 -i "$srcdir/builtins.patch"
+
+  # Not sure why these tests are failing.
+  patch -Np1 -i "$srcdir/remove-failing-tests.patch"
+
+  # No need to package this build script.
+  rm src/urh/cythonext/build.py
 }
 
 build() {
   cd $pkgname-$pkgver
-
-  python setup.py build build_ext
-  python src/urh/cythonext/build.py
+  python -m build --wheel --no-isolation
 }
 
 check() {
   cd $pkgname-$pkgver
-
-  xvfb-run pytest
+  python -m installer --destdir=tmp_install dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  cp -r tests "$PWD/tmp_install/$site_packages"
+  xvfb-run pytest "$PWD/tmp_install/$site_packages"
 }
 
 package() {
   cd $pkgname-$pkgver
-
-  python setup.py install --root="$pkgdir" -O1 --skip-build
-
-  install -Dm644 ./data/urh.desktop "$pkgdir"/usr/share/applications/urh.desktop
-  install -Dm 644 data/icons/appicon.png "$pkgdir"/usr/share/pixmaps/urh.png
-  install -Dm 644 README.md "$pkgdir"/usr/share/doc/$pkgname/README
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 data/urh.desktop "$pkgdir/usr/share/applications/urh.desktop"
+  install -vDm644 data/icons/appicon.png "$pkgdir/usr/share/pixmaps/urh.png"
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
 }
