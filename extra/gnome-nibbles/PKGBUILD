@@ -2,17 +2,24 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-nibbles
-pkgver=4.0.4
+pkgver=4.1.0
 pkgrel=1
 pkgdesc="Guide a worm around a maze"
 url="https://wiki.gnome.org/Apps/Nibbles"
 arch=(x86_64)
 license=(GPL-3.0-or-later)
 depends=(
+  cairo
+  dconf
+  glib2
+  glibc
   gsound
+  gtk4
+  hicolor-icon-theme
+  libadwaita
   libgee
   libgnome-games-support-2
-  gtk4
+  pango
 )
 makedepends=(
   appstream
@@ -24,7 +31,7 @@ makedepends=(
 )
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-nibbles.git?signed#tag=$pkgver")
-b2sums=('3b6994ec3890aeed31209d9b6a6dfb2c30b36fef68cf9f9690839572f0c277176b61d7bc62f825abb195b8771fc01b69e7df7c129652cedaedbe69310acd9af4')
+b2sums=('6665df0c6b3ded3395374d63c55769a5062feff46caec0c0a5ff69241768f14f58a54398285b9086c67ed74b3645e2d16d974a1c5428d81aecf446849dd7d949')
 validpgpkeys=(
   31F449AE968CBE194119A3AD1F1DC770CE79E68B # Ben Corby <bcorby@new-ms.com>
 )
@@ -34,6 +41,13 @@ prepare() {
 }
 
 build() {
+  # Unbreak vala checks in meson.build
+  export VALAFLAGS="$VALAFLAGS --Xcc=-Wno-error=incompatible-pointer-types"
+  CFLAGS+=" -Wno-error=incompatible-pointer-types"
+
+  # Suppress a lot of unimportant warnings
+  CFLAGS+=" -Wno-unused"
+
   arch-meson $pkgname build
   meson compile -C build
 }
