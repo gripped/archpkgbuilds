@@ -2,7 +2,7 @@
 # Contributor: Joel Teichroeb <joel@teichroeb.net>
 
 pkgname=weston
-pkgver=13.0.1
+pkgver=14.0.0
 pkgrel=1
 pkgdesc='Reference implementation of a Wayland compositor'
 arch=('x86_64')
@@ -14,23 +14,20 @@ depends=('fontconfig' 'glibc' 'wayland' 'libxkbcommon' 'libinput' 'libunwind' 'p
          'libxcb' 'dbus' 'libva' 'libxcursor' 'colord' 'seatd'
          'gstreamer' 'gst-plugins-base-libs')
 makedepends=('wayland-protocols' 'meson' 'ninja' 'freerdp2' 'neatvnc' 'libpipewire'
-             'xorg-xwayland' 'xcb-util-cursor')
+             'xorg-xwayland' 'xcb-util-cursor' 'libdisplay-info')
 optdepends=('xorg-xwayland: support x11 backend'
             'libpipewire: support pipewire backend'
             'freerdp2: support rdp backend'
-            'neatvnc: support vnc backend')
+            'neatvnc: support vnc backend'
+            'libdisplay-info: support drm backend')
 options=(!lto)
 validpgpkeys=('7032877A3EB1EAE3E4DC9DFBF63412E60947D6EF' # Marius Vlad <marius.vlad@collabora.com>
               '34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48' # emersion <contact@emersion.fr>
               'C7223EBE4EF66513B892598911A30156E0E67611' # Bryce Harrington
               'C0066D7DB8E9AC6844D728715E54498E697F11D7') # Derek Foreman
-source=(
-  "https://gitlab.freedesktop.org/wayland/weston/-/releases/$pkgver/downloads/weston-$pkgver.tar.xz"{,.sig}
-  $pkgname-13.0.0-neatvnc0.8.patch  # https://gitlab.freedesktop.org/wayland/weston/-/issues/890
-)
-sha256sums=('ea1566ab4f5ffce7e9fd4f7a1fca5b30caae4d50023bf459213994094e02b29a'
-            'SKIP'
-            'c33085a00bddd2be1227e5f7a8b7d90e67c9f0b9fab39819490255cbcbc534ae')
+source=("https://gitlab.freedesktop.org/wayland/weston/-/releases/$pkgver/downloads/weston-$pkgver.tar.xz"{,.sig})
+sha256sums=('47fd0325b0b948e9b003a38fdf4eb3a8581f3fdc740b8932b35ae8793bf4e4a5'
+            'SKIP')
 
 prepare() {
   cd $pkgname-$pkgver
