@@ -1,33 +1,54 @@
 # Maintainer: Jiachen YANG <farseerfc@gmail.com>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # AUR Contributor: juantascon <juantascon.aur@horlux.org>
 # Contributor : Jingbei Li <i@jingbei.li>
 
 pkgname=plantuml
-pkgver=1.2024.6
+pkgver=1.2024.7
 pkgrel=1
 pkgdesc="Component that allows to quickly write uml diagrams"
 arch=(any)
 url="https://plantuml.com/"
 license=('GPL-3.0-or-later OR LGPL-3.0-or-later OR Apache-2.0 OR EPL-2.0 OR MIT')
-depends=("java-runtime>=8" "bash")
-makedepends=("gradle" "java-environment>=8")
-source=("https://github.com/plantuml/plantuml/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
-        "$pkgname.run")
-sha256sums=('7bb44fc1c53e73b5ac940df5ab47c625eb39453b128686ba456f06d1db361c94'
+depends=(
+  "bash"
+  "java-runtime>=8"
+)
+makedepends=(
+  "gradle"
+  "java-environment>=8"
+)
+checkdepends=(
+  "fontconfig"
+  "ttf-dejavu"
+  "ttf-liberation"
+)
+optdepends=(
+  'plantuml-ascii-math: allow use AsciiMath or JLaTeXMath notation'
+  'ditaa: allow use ditaa notation'
+  'graphviz: allow use Graphviz/DOT notation'
+)
+source=(
+  "https://github.com/plantuml/plantuml/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+  "$pkgname.run"
+)
+sha256sums=('4cdfdf38093b29b41cbafbd88e30c598c903618015c6807cfa6fc16f6e97a31e'
             'a3fb528f4c719cfd0ff6154c60fd54ce341011d132caf950cc30af4989f6aac8')
-optdepends=('plantuml-ascii-math: allow use AsciiMath or JLaTeXMath notation'
-            'ditaa: allow use ditaa notation'
-            'graphviz: allow use Graphviz/DOT notation')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd $pkgname-$pkgver
   gradle jar
 }
 
-package() {
-  install -m 755 -D "$pkgname.run" "$pkgdir/usr/bin/$pkgname"
+check() {
+  cd $pkgname-$pkgver
+  gradle test
+}
 
-  cd "$srcdir/$pkgname-$pkgver"
-  install -m 644 -D "build/libs/$pkgname-$pkgver.jar" "$pkgdir/usr/share/java/$pkgname/$pkgname.jar"
-  install -m 644 -D -t "$pkgdir/usr/share/licenses/$pkgname" plantuml-mit/mit-license.txt
+package() {
+  cd $pkgname-$pkgver
+  install -vDm755 "$srcdir/$pkgname.run" "$pkgdir/usr/bin/$pkgname"
+
+  install -vDm644 "build/libs/$pkgname-$pkgver.jar" "$pkgdir/usr/share/java/$pkgname/$pkgname.jar"
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" plantuml-mit/mit-license.txt
 }
