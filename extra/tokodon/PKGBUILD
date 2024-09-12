@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=tokodon
-pkgver=24.08.0
-pkgrel=2
+pkgver=24.08.1
+pkgrel=1
 pkgdesc='A Mastodon client for Plasma'
 url='https://apps.kde.org/tokodon/'
 arch=(x86_64)
@@ -33,22 +33,12 @@ depends=(gcc-libs
 makedepends=(extra-cmake-modules)
 groups=(kde-applications 
         kde-network)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/network/tokodon/-/commit/5950882c.patch
-        https://invent.kde.org/network/tokodon/-/commit/469ee232.patch)
-sha256sums=('24d42173986608608277f17f5687cc25f6c93968c0923945cca27da13ae4078a'
-            'SKIP'
-            '29372b75a5d4554363646949e60e2e4b054ce9b2708e3744b0cab3c3bf612378'
-            'c8aef66de6b62cdbaeefec1489bbbeb7c9fe6e9deb78a0d2cc716e815109f5e3')
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('62db86fb40a8c36f88421a09b0ddffecd8266a9c25204b9183715ddbcd74333b'
+            'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
-
-prepare() {
-# Fix hang on login
-  patch -d $pkgname-$pkgver -p1 < 5950882c.patch
-  patch -d $pkgname-$pkgver -p1 < 469ee232.patch
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
