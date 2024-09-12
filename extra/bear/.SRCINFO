@@ -1,10 +1,10 @@
 pkgbase = bear
 	pkgdesc = A tool to generate compilation database for clang tooling
 	pkgver = 3.1.4
-	pkgrel = 3
+	pkgrel = 5
 	url = https://github.com/rizsotto/Bear
 	arch = x86_64
-	license = GPL3
+	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = cmake
 	makedepends = gtest
@@ -24,7 +24,9 @@ pkgbase = bear
 	depends = re2
 	source = bear::git+https://github.com/rizsotto/Bear.git#tag=3.1.4
 	source = disable-lit-tests.patch
+	source = fmt-v11.patch::https://github.com/rizsotto/Bear/commit/8afeafe61299c87449023d63336389f159b55808.patch
 	b2sums = 7f20de8ff834455fc1086eb34adf3123fc7a1ec467ea6fa4f162d2bb8de7af7339c205a246a743fec3100937c91bc53c2a677ae1bad57a22199c8b071e511f59
 	b2sums = 9bc603ac82c4b2c8bf1263e7d24205f7445b265da16c21935f58c651c5ed78fdb81d00565a3f2b81415831564b81384cd71c799f58c85bce0445ecdf67b7c3b8
+	b2sums = 578da1c06ec36cef9706b9953a677eb26c96dbb4f67871d8a7617152f25310b413515510289e51b410a04c261c504f50711d1547618a377bdf8bc9d881afd26b
 
 pkgname = bear
