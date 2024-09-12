@@ -3,7 +3,7 @@
 
 pkgname=mtxclient
 pkgver=0.10.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Client API library for the Matrix protocol"
 arch=('x86_64')
 url="https://nheko.im/nheko-reborn/mtxclient"
@@ -13,17 +13,22 @@ makedepends=(cmake coeurl fmt libolm meson nlohmann-json openssl re2 spdlog git)
 checkdepends=(gmock gtest)
 provides=(libmatrix_client.so)
 source=("git+https://nheko.im/nheko-reborn/mtxclient.git?signed#tag=v${pkgver}"
-        "${pkgname}_remove_network_tests.patch")
+        "${pkgname}_remove_network_tests.patch"
+        "fmt-v11.patch::https://nheko.im/nheko-reborn/mtxclient/commit/4a4726c77123f805cff8b954909663eaed296558.patch")
 sha256sums=('611407853a7bd3f432b626cfd39e7a4e009b6efe8560e55de0eabfa65cee9bc5'
-            '2edba127593d172b5e535a4f0058d26a47a67f8b4c2d0cef9d6eac07e17eba3e')
+            '2edba127593d172b5e535a4f0058d26a47a67f8b4c2d0cef9d6eac07e17eba3e'
+            'f8d9f7d7a640ede7239c861e113058cd2eb78527aa0d11077486771348aaa8fc')
 b2sums=('f29052ae71580356ee9812758560b558bd17cead1f5e46c52da982586b0a3b9333fe1ad70ede07cd723dab6224360ff841e70947da725bb1661176d26a3aaae1'
-        'af9e62223b59cfae2b711420944612a40d8ff7e87d188c3ccdb3a628310458df498cba70786bcb5cb35bce7e82940249ade31003e7418dcaa6c58cde33e6b25f')
+        'af9e62223b59cfae2b711420944612a40d8ff7e87d188c3ccdb3a628310458df498cba70786bcb5cb35bce7e82940249ade31003e7418dcaa6c58cde33e6b25f'
+        'f3de8b3d782c9f8a37654b9a68f047e013e9eea1f91b4edb159e20855fda27430f4592818857b5b71b43fa5ed47517a4ef549fdaf34f26942fdbc5fca3c4b01c')
 validpgpkeys=('D58B462425A6A37125C6FEDB9206AE1B231E05BB') # Nicolas Werner @deepbluev7 https://nheko.im/deepbluev7.gpg
 
 prepare(){
   cd "$pkgname"
   # https://github.com/Nheko-Reborn/mtxclient/issues/93
   patch -Np1 < "../${pkgname}_remove_network_tests.patch"
+
+  patch -Np1 < "../fmt-v11.patch"
 }
 
 build() {
