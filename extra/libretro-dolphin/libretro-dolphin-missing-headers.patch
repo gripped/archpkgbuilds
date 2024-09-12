@@ -20,3 +20,14 @@ diff '--color=auto' -rupN libretro-dolphin.orig/Source/Core/DiscIO/WIACompressio
  #include <memory>
  #include <optional>
  #include <vector>
+diff '--color=auto' -rupN libretro-dolphin.orig/Source/Core/Core/Debugger/PPCDebugInterface.cpp libretro-dolphin/Source/Core/Core/Debugger/PPCDebugInterface.cpp
+--- libretro-dolphin.orig/Source/Core/Core/Debugger/PPCDebugInterface.cpp	2024-09-08 11:53:13.323049008 +0200
++++ libretro-dolphin/Source/Core/Core/Debugger/PPCDebugInterface.cpp	2024-09-08 11:53:56.946880416 +0200
+@@ -4,6 +4,7 @@
+ 
+ #include "Core/Debugger/PPCDebugInterface.h"
+ 
++#include <algorithm>
+ #include <array>
+ #include <cstddef>
+ #include <string>
