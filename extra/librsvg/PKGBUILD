@@ -7,7 +7,7 @@ pkgname=(
   librsvg
   librsvg-docs
 )
-pkgver=2.58.3
+pkgver=2.58.4
 pkgrel=1
 epoch=2
 pkgdesc="SVG rendering library"
@@ -38,7 +38,7 @@ source=(
   # librsvg tags use SSH signatures which makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/librsvg.git#tag=$pkgver"
 )
-b2sums=('26bc678cb8055995579a0f6091584eb3ddc73cdf2a659ffb659b3ff5c65209bdef81a65c8e4b08a657b972cf8e27b474a33cbfa5e2adf124d795ca0b0a97850f')
+b2sums=('e2ef0e55cd067d3df09bfa0a1c5e7a0bb22528c894349d3c01c1bf316251c0e552fade0eefa9326a1d456eeec0094cb4d7c0502eb6948090545aff551cded5a0')
 
 prepare() {
   cd librsvg
