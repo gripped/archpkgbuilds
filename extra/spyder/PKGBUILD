@@ -4,14 +4,15 @@
 # Contributor: TDY <tdy@gmx.com>
 
 pkgname=spyder
-pkgver=5.5.6
+pkgver=6.0.0
 pkgrel=1
 pkgdesc="The Scientific Python Development Environment"
 arch=(any)
 url="https://www.spyder-ide.org/"
 license=(MIT)
-makedepends=(python-sphinx python-setuptools-scm python-wheel python-build python-installer)
+makedepends=(python-sphinx python-setuptools-scm python-wheel python-build python-installer git)
 depends=(
+    python-asyncssh
     python-atomicwrites
     python-chardet
     python-cloudpickle
@@ -34,6 +35,7 @@ depends=(
     python-pylint-venv
     python-pyqt5
     python-pyqt5-webengine
+    python-pyuca
     python-lsp-server
     python-lsp-black
     python-pyls-spyder
@@ -48,6 +50,7 @@ depends=(
     python-setuptools
     python-sphinx
     python-spyder-kernels
+    python-superqt
     python-textdistance
     python-three-merge
     python-watchdog
@@ -60,6 +63,8 @@ depends=(
     qt5-svg
     yapf
     python-whatthepatch
+    python-yarl
+    python-aiohttp
 )
 # Starting from autopep8, required optdeps of python-language-server
 optdepends=(
@@ -76,7 +81,6 @@ checkdepends=(
     python-pytest-mock
     python-pytest-cov
     python-pytest-order
-    python-pytest-lazy-fixture
     python-pytest-timeout
     python-flaky
     python-pandas
@@ -84,66 +88,53 @@ checkdepends=(
     python-sympy
     python-pillow
     python-matplotlib
+    python-pygithub
     cython
     git
     tk
     xorg-server-xvfb
 )
-source=(https://github.com/spyder-ide/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('93ce6ac2e71bd4e81ca4a630a6fe152d1bf3c83d6e5c01dda8f3e5ad2735de1948a86642f5bc589c90616935e997526b26367ce178905ad2b80faf81f36f9164')
+source=(git+https://github.com/spyder-ide/spyder#tag=v$pkgver)
+sha256sums=('1c215f3d2f8733091526d43e337e7d1f0eb070e57b80429d894ff529c37466c5')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   # Allow our python libraries versions
   sed "s|\,\<.*\'|'|" -i spyder/dependencies.py
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   python -m build --wheel --no-isolation
 }
 
-check() {
-  cd ${pkgname}-${pkgver}
-  # Required per above patching
-  sed "s|ipython >=8.13.0,<9.0.0|ipython >=8.13.0|" -i binder/environment.yml
-  sed "s|jedi >=0.17.2,<0.20.0|jedi >=0.17.2|" -i binder/environment.yml
-  sed "s|parso >=0.7.0,<0.9.0|parso >=0.7.0|" -i binder/environment.yml
-  sed "s|python-lsp-server >=1.10.0,<1.11.0|python-lsp-server >=1.10.0|" -i binder/environment.yml
-  sed "s|qdarkstyle >=3.2.0,<3.3.0|qdarkstyle >=3.2.0|" -i binder/environment.yml
-  sed "s|qtconsole >=5.5.1,<5.6.0|qtconsole >=5.5.1|" -i binder/environment.yml
-  sed "s|ipython >=8.13.0,<9.0.0|ipython >=8.13.0|" -i requirements/main.yml
-  sed "s|jedi >=0.17.2,<0.20.0|jedi >=0.17.2|" -i requirements/main.yml
-  sed "s|parso >=0.7.0,<0.9.0|parso >=0.7.0|" -i requirements/main.yml
-  sed "s|python-lsp-server >=1.10.0,<1.11.0|python-lsp-server >=1.10.0|" -i requirements/main.yml
-  sed "s|qdarkstyle >=3.2.0,<3.3.0|qdarkstyle >=3.2.0|" -i requirements/main.yml
-  sed "s|qtconsole >=5.5.1,<5.6.0|qtconsole >=5.5.1|" -i requirements/main.yml
-  local disabled_tests=''
-  # Not working in headless env
-  disabled_tests+='not test_config_dialog'
-  disabled_tests+=' and not test_tab_copies_find_to_replace'
-  disabled_tests+=' and not test_toggle_off_show_all_files'
-  disabled_tests+=' and not test_select_all_shortcut'
-  disabled_tests+=' and not test_delete_line_shortcut'
-  disabled_tests+=' and not test_go_to_line_shortcut'
-  disabled_tests+=' and not test_transform_to_lowercase_shortcut'
-  disabled_tests+=' and not test_transform_to_uppercase_shortcut'
-  disabled_tests+=' and not test_ctrl_c_dbg'
-  disabled_tests+=' and not test_connection_dialog_remembers_input_with_ssh_passphrase'
-  disabled_tests+=' and not test_connection_dialog_remembers_input_with_password' 
-  disabled_tests+=' and not test_store_user_credentials'
-  disabled_tests+=' and not test_save_when_completions_are_visible'
-  # Many tests failures due to pytest-lazy-fixture https://github.com/TvoroG/pytest-lazy-fixture/issues/65
-  python -m venv --system-site-packages test-env
-  test-env/bin/python -m installer dist/*.whl
-  QT_API="pyqt5" \
-  FORCE_QT_API=1 \
-# Tests hang
-#  xvfb-run --auto-servernum test-env/bin/python -m pytest --color=yes -vv -k "${disabled_tests}" || echo "Tests failed"
-}
+#check() {
+#  cd ${pkgname}
+#  local disabled_tests=''
+#  # Not working in headless env
+#  disabled_tests+='not test_config_dialog'
+#  disabled_tests+=' and not test_tab_copies_find_to_replace'
+#  disabled_tests+=' and not test_toggle_off_show_all_files'
+#  disabled_tests+=' and not test_select_all_shortcut'
+#  disabled_tests+=' and not test_delete_line_shortcut'
+#  disabled_tests+=' and not test_go_to_line_shortcut'
+#  disabled_tests+=' and not test_transform_to_lowercase_shortcut'
+#  disabled_tests+=' and not test_transform_to_uppercase_shortcut'
+#  disabled_tests+=' and not test_ctrl_c_dbg'
+#  disabled_tests+=' and not test_connection_dialog_remembers_input_with_ssh_passphrase'
+#  disabled_tests+=' and not test_connection_dialog_remembers_input_with_password' 
+#  disabled_tests+=' and not test_store_user_credentials'
+#  disabled_tests+=' and not test_save_when_completions_are_visible'
+#  rm spyder/plugins/pylint/tests -r
+#  python -m venv --system-site-packages test-env
+#  test-env/bin/python -m installer dist/*.whl
+#  QT_API="pyqt5" \
+#  FORCE_QT_API=1 \
+#  xvfb-run --auto-servernum test-env/bin/python -m pytest --color=yes -vv -k "${disabled_tests}"
+#}
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   python -m installer --destdir="${pkgdir}" dist/*.whl
   # Install license file
   install -Dm644 LICENSE.txt -t ${pkgdir}/usr/share/licenses/${pkgname}/
