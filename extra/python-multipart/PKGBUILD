@@ -2,8 +2,8 @@
 
 _pkgname=multipart
 pkgname=python-$_pkgname
-pkgver=0.2.4
-pkgrel=4
+pkgver=0.2.5
+pkgrel=1
 pkgdesc='Parser for multipart/form-data'
 arch=('any')
 url='https://github.com/defnull/multipart'
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('python')
 makedepends=('python-setuptools')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('5a0cbcbbfc3232257a607892d5d2176e03ff9c7056d146b99ba1e8067c8736f2e38676e08622d5100cf85b172affbfbd8938da92819e39fc4739184f666a14ed')
+sha512sums=('268b958dfc7ab8c673c9d06ef3b26bcdec2df396289e60037ebd14f22731766ae95328b892116d5eb90210025d76f7667b59d82753e4a8c644dcd7ed383bf98d')
 
 build() {
   cd $_pkgname-$pkgver
