@@ -3,14 +3,14 @@
 pkgname=megaglest-data
 _pkgbasename=megaglest
 pkgver=3.13.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Fork of Glest, a 3D real-time strategy game in a fantastic world (data files)"
 arch=('any')
 url="https://megaglest.org"
 license=('custom:CCBYSA3.0')
 makedepends=('cmake' 'xz' 'git')
 source=("git+https://github.com/MegaGlest/megaglest-data#tag=${pkgver}")
-md5sums=('SKIP')
+sha256sums=('SKIP')
 
 build() {
   cd megaglest-data
@@ -18,7 +18,8 @@ build() {
   [[ -d build ]] && rm -r build
   mkdir build && cd build
 
-  cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+  cmake -DCMAKE_INSTALL_PREFIX=/usr .. \
+    -DMEGAGLEST_APPDATA_INSTALL_PATH=share/metainfo
 }
 
 package() {
