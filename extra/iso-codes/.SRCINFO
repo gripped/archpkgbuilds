@@ -1,12 +1,13 @@
 pkgbase = iso-codes
 	pkgdesc = Lists of the country, language, and currency names
-	pkgver = 4.16.0
+	pkgver = 4.17.0
 	pkgrel = 1
 	url = https://salsa.debian.org/iso-codes-team/iso-codes
 	arch = any
-	license = LGPL
+	license = LGPL-2.1-only
+	makedepends = git
 	makedepends = python
-	source = https://salsa.debian.org/iso-codes-team/iso-codes/-/archive/v4.16.0/iso-codes-v4.16.0.tar.gz
-	sha256sums = 7c990fc39a05975bedb0175e3ff09fc383048815f68b462abbf055a8032e66cc
+	source = git+https://salsa.debian.org/iso-codes-team/iso-codes#tag=v4.17.0
+	sha256sums = afd206beb6f33633280866d206598bc24384863a51d0fd6c1c82410b5f33eee5
 
 pkgname = iso-codes
