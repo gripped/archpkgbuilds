@@ -2,33 +2,32 @@
 
 pkgname=gnome-shell-extension-vitals
 _uuid=Vitals@CoreCoding.com
-pkgver=67.0.0
+pkgver=69.0.0
 pkgrel=1
 pkgdesc="GNOME Shell extension to display computer's temperature, voltage, fan speed, memory usage, processor load, system resources, network speed and storage stats"
-arch=('any')
+arch=(any)
 url='https://github.com/corecoding/Vitals'
-license=('GPL-2.0-or-later')
-depends=('gnome-shell')
-makedepends=('git')
-optdepends=('libgtop: show storage stats')
+license=(GPL-2.0-or-later)
+depends=(gnome-shell)
+makedepends=(git)
+optdepends=('libgtop: Show storage stats')
 source=("git+https://github.com/corecoding/Vitals.git#tag=v$pkgver")
-b2sums=('4b08a33b009efd21b603cff90f646e282c1577b6e79a6ff798af67d9ee584bd011a6278b4d1e9d0b2cbcc239a4e828abed1e989a6da7f4a9eb91360eee31cdd9')
-
+b2sums=(45def95062e18fff9de382ea99ed737c952aa6434c0b23bdf16ad6d0eb1a5d7c2798f94763e58eaf02e4335a5c4eb425480087e6973e40b0bfcd9848ecb26323)
 
 build() {
   cd Vitals
   for i in locale/*/; do
-    msgfmt $i/LC_MESSAGES/vitals.po -o $i/LC_MESSAGES/vitals.mo
+    msgfmt "$i/LC_MESSAGES/vitals.po" -o "$i/LC_MESSAGES/vitals.mo"
   done
 }
 
 package() {
   cd Vitals
   install -dm755 "$pkgdir/usr/share/gnome-shell/extensions/$_uuid"
-  cp -a helpers icons metadata.json *.css *.js *.ui LICENSE "$pkgdir/usr/share/gnome-shell/extensions/$_uuid/"
-  install -Dm644 -t "$pkgdir/usr/share/glib-2.0/schemas" schemas/org.gnome.shell.extensions.vitals.gschema.xml
+  cp -a helpers icons metadata.json ./*.css ./*.js ./*.ui LICENSE "$pkgdir/usr/share/gnome-shell/extensions/$_uuid/"
+  install -Dm644 -t "$pkgdir/usr/share/glib-2.0/schemas/" schemas/org.gnome.shell.extensions.vitals.gschema.xml
 
   for i in locale/*/; do
-    install -Dm644 -t "$pkgdir"/usr/share/$i/LC_MESSAGES $i/LC_MESSAGES/vitals.mo
+    install -Dm644 -t "$pkgdir/usr/share/$i/LC_MESSAGES/" "$i/LC_MESSAGES/vitals.mo"
   done
 }
