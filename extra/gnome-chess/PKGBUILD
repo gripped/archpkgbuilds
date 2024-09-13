@@ -2,16 +2,22 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-chess
-pkgver=46.0
+pkgver=47.0
 pkgrel=1
 pkgdesc="Play the classic two-player boardgame of chess"
 url="https://wiki.gnome.org/Apps/Chess"
 arch=(x86_64)
 license=(GPL-3.0-or-later)
 depends=(
+  cairo
+  dconf
+  glib2
+  glibc
   gtk4
+  hicolor-icon-theme
   libadwaita
   librsvg
+  pango
 )
 makedepends=(
   git
@@ -22,14 +28,8 @@ makedepends=(
 )
 optdepends=('gnuchess: Play against computer')
 groups=(gnome-extra)
-_commit=c3625ee59ab3acfd7566ef04300b15ddbadaaac3  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-chess.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-chess.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('d1a662af6a86f4f3285d5dee464f17b595a8354f5ae517834a7c5f4f7674c12acb5503551c8eff5afef57af2d34e7825eccb15520f29e4dd1bab748d3005d006')
 
 prepare() {
   cd $pkgname
