@@ -6,7 +6,7 @@
 
 pkgname=simple-scan
 pkgver=46.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Simple scanning utility"
 url="https://gitlab.gnome.org/GNOME/simple-scan"
 arch=(x86_64)
@@ -34,17 +34,18 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome)
-_commit=a42cc7bfba3766ddeaf8080ae7956951068a699d  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/simple-scan.git#commit=$_commit")
+source=("git+https://gitlab.gnome.org/GNOME/simple-scan.git?signed#tag=${pkgver/[a-z]/.&}")
 b2sums=('1d600197fb1b858759063bd1897f9d3fe0d6a5c7ab2088cba64154ef0f1e9d1b09269f9fbb09b776a08147c0ad932a9dbd9a75ec03167650cadbc95fe666fe34')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
+validpgpkeys=(
+  4D0BE12F0E4776D8AACE9696E66C775AEBFE6C7D # Jeremy Bicha <jeremy.bicha@canonical.com>
+)
 
 prepare() {
   cd $pkgname
+
+  # Fix icons
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/simple-scan/-/issues/1
+  git cherry-pick -n c09a6def153e52494072a36233c7e7b3307b67bf
 }
 
 build() {
