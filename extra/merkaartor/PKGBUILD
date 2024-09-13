@@ -5,32 +5,24 @@
 # Contributor: Brice Maron <brice bmaron net>
 
 pkgname=merkaartor
-pkgver=0.19.0
-pkgrel=9
+pkgver=0.20.0
+pkgrel=1
 pkgdesc='OpenStreetMap editor'
 arch=('x86_64')
 url='http://merkaartor.be/'
 license=('GPL2')
-depends=('exiv2' 'gdal' 'gpsd' 'hicolor-icon-theme' 'qt5-svg')
-makedepends=('qt5-tools')
-source=("https://github.com/openstreetmap/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-         https://github.com/openstreetmap/merkaartor/commit/1e20d2cc.patch)
-sha256sums=('f538d1eb380005cbd5d047070b276da59c58bb7ff47218e20a080b893d0ba457'
-            'f99f9bdeeed46b7c452b76a0292a4155535b3b6509d542d244b4a8fef8436dee')
-
-prepare() {
-# Fix build with exiv2 0.28
-  patch -d $pkgname-$pkgver -p1 < 1e20d2cc.patch
-}
+depends=('exiv2' 'gdal' 'gpsd' 'hicolor-icon-theme' 'qt6-svg' 'qt6-networkauth' 'qt6-5compat' 'protobuf')
+makedepends=('qt6-tools' 'cmake')
+source=("https://github.com/openstreetmap/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('31b73a9d50cb6366a7c15ab36e030467ffe9f7de2be38bad5f3832314d4a5751')
 
 build() {
-  cd $pkgname-$pkgver
-  lrelease src/src.pro
-  qmake-qt5 Merkaartor.pro PREFIX=/usr GPSDLIB=1 GEOIMAGE=1
-  make
+  cmake -B build -S $pkgname-$pkgver \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DGPSD=ON
+  cmake --build build
 }
 
 package() {
-  cd $pkgname-$pkgver
-  make INSTALL_ROOT="$pkgdir" install
+  DESTDIR="$pkgdir" cmake --install build
 }
