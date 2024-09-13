@@ -4,7 +4,7 @@
 
 pkgname=gedit
 pkgver=47.0
-pkgrel=1
+pkgrel=2
 pkgdesc="GNOME Text Editor"
 url="https://gedit-technology.github.io/apps/gedit/"
 arch=(x86_64)
@@ -36,6 +36,7 @@ makedepends=(
   appstream-glib
   desktop-file-utils
   git
+  glib2-devel
   gobject-introspection
   gtk-doc
   meson
