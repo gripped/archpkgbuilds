@@ -1,15 +1,15 @@
 # Maintainer: Christian Hesse <eworm@archlinux.org>
 
 pkgname=lsix
-pkgver=1.8.2
-pkgrel=3
+pkgver=1.9.1
+pkgrel=1
 pkgdesc='Like ls, but for images, shows thumbnails in terminal using sixel graphics'
 arch=('any')
 url='https://github.com/hackerb9/lsix'
 license=('GPL-3.0-or-later')
 depends=('imagemagick' 'ttf-dejavu')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/hackerb9/lsix/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('79bf81bd66747a9fab1692c52dcda004fe500fbae118dc0a6bdbc6d6aefa20c1')
+sha256sums=('310e25389da13c19a0793adcea87f7bc9aa8acc92d9534407c8fbd5227a0e05d')
 
 prepare() {
   sed -i '/fontfamily=Dejavu-Sans/s|^#||' "${srcdir}/${pkgname}-${pkgver}"/lsix
