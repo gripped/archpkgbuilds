@@ -3,7 +3,7 @@
 _name=openAV-Luppp
 pkgname=luppp
 pkgver=1.2.1
-pkgrel=5
+pkgrel=6
 pkgdesc="A music creation tool, intended for live use"
 arch=(x86_64)
 url="http://openavproductions.com/luppp/"
@@ -42,4 +42,5 @@ package() {
   DESTDIR="$pkgdir" meson install -C build
   install -vDm 644 $_name-release-$pkgver/{CHANGELOG,README.md} -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 $_name-release-$pkgver/resources/controllers/*.ctlr -t "$pkgdir/usr/share/$pkgname/"
+  mv "$pkgdir"/usr/share/{appdata,metainfo}
 }
