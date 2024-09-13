@@ -5,7 +5,7 @@
 pkgbase=amsynth
 pkgname=(amsynth amsynth-{common,dssi,lv2,standalone,vst})
 pkgver=1.13.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Analogue Modeling SYNTHesizer"
 arch=(x86_64)
 url="https://amsynth.github.io/"
@@ -45,6 +45,8 @@ b2sums=('459c59d7181f6ce7f55f21c44a1a141f24c265c3768fcfd8c0165938266502f8a72c82b
 
 prepare() {
   cd $pkgname-release-$pkgver
+# Fix metainfo install dir
+  sed -e 's|/appdata|/metainfo|' -i Makefile.am
   autoreconf -fiv
   intltoolize -f
 }
@@ -93,17 +95,17 @@ package_amsynth() {
     cd "$pkgdir"
     _pick $pkgname-common usr/share/$pkgname
     _pick $pkgname-dssi usr/lib/dssi
-    _pick $pkgname-dssi usr/share/appdata/dssi-$pkgname-plugin.metainfo.xml
+    _pick $pkgname-dssi usr/share/metainfo/dssi-$pkgname-plugin.metainfo.xml
     _pick $pkgname-lv2 usr/lib/lv2
-    _pick $pkgname-dssi usr/share/appdata/lv2-$pkgname-plugin.metainfo.xml
+    _pick $pkgname-dssi usr/share/metainfo/lv2-$pkgname-plugin.metainfo.xml
     _pick $pkgname-standalone usr/bin
-    _pick $pkgname-standalone usr/share/appdata/$pkgname.appdata.xml
+    _pick $pkgname-standalone usr/share/metainfo/$pkgname.appdata.xml
     _pick $pkgname-standalone usr/share/applications
     _pick $pkgname-standalone usr/share/icons
     _pick $pkgname-standalone usr/share/locale
     _pick $pkgname-standalone usr/share/man
     _pick $pkgname-vst usr/lib/vst
-    _pick $pkgname-dssi usr/share/appdata/vst-$pkgname-plugin.metainfo.xml
+    _pick $pkgname-dssi usr/share/metainfo/vst-$pkgname-plugin.metainfo.xml
   )
 }
 
