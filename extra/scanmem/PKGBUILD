@@ -7,7 +7,7 @@
 pkgbase=scanmem
 pkgname=('scanmem' 'libscanmem' 'gameconqueror')
 pkgver=0.17
-pkgrel=8
+pkgrel=9
 pkgdesc='Memory scanner designed to isolate the address of an arbitrary variable in an executing process'
 url='https://github.com/scanmem/scanmem'
 arch=('x86_64')
@@ -62,6 +62,7 @@ package_gameconqueror() {
   make DESTDIR="${pkgdir}" install
   rm -r "${pkgdir}/usr/"{include,lib,share/doc}
   rm "${pkgdir}"{/usr/bin/scanmem,/usr/share/man/man1/scanmem.1}
+  mv "$pkgdir"/usr/share/{appdata,metainfo}
 }
 
 # vim: ts=2 sw=2 et:
