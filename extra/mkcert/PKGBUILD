@@ -4,7 +4,7 @@
 pkgname=mkcert
 _package="github.com/FiloSottile/${pkgname}"
 pkgver=1.4.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Simple tool for making locally-trusted development certificates"
 arch=('x86_64')
 url="https://github.com/FiloSottile/mkcert"
@@ -20,8 +20,9 @@ build() {
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw -ldflags=-linkmode=external"
-  go build -v
+  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+  GO_LDFLAGS="-linkmode=external -X main.Version=v${pkgver}"
+  go build -v -ldflags "$GO_LDFLAGS"
 }
 
 check() {
