@@ -3,8 +3,8 @@
 
 pkgname=python-watchfiles
 _name=${pkgname#python-}
-pkgver=0.23.0
-pkgrel=2
+pkgver=0.24.0
+pkgrel=1
 pkgdesc='Simple, modern and high performance file watching and code reload in python'
 arch=(x86_64)
 url='https://github.com/samuelcolvin/watchfiles'
@@ -27,7 +27,7 @@ checkdepends=(
   python-pytest-timeout
 )
 source=($url/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-b2sums=('c413955207007cd461e8bc420a00a624c132216ff13599d342f20c10e0ba60a45a723758d8669c216054cc7d7a4057750ad11b919026849f943cab67fcf93d96')
+b2sums=('96d8707327d41e3a9410c291c557641e111d91ca90ec945fc05d4ec2ebab9290a65044024a324bbb1e92f99900e9bd7098933061ddc95369c33226c8aed7924b')
 
 prepare() {
   # remove __init__.py otherwise this prevents tests detecting the watchfiles module anywhere else
