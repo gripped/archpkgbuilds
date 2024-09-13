@@ -4,7 +4,7 @@
 
 pkgname=quodlibet
 pkgver=4.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Music player and music library manager"
 arch=(any)
 url="https://quodlibet.readthedocs.io/"
@@ -113,4 +113,5 @@ package() {
   cd $pkgname-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 {README,NEWS}.rst -t "$pkgdir/usr/share/doc/$pkgname/"
+  mv "$pkgdir"/usr/share/{appdata,metainfo}
 }
