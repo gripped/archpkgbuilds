@@ -5,7 +5,7 @@
 # Contributor: Otto Sabart <seberm[at]gmail[dot]com>
 
 pkgname=knot
-pkgver=3.3.8
+pkgver=3.4.0
 pkgrel=1
 pkgdesc="High-performance authoritative-only DNS server"
 arch=(x86_64)
@@ -17,7 +17,7 @@ depends=(libedit gnutls liburcu lmdb
          libbpf libxdp libnghttp2 libmnl)
 backup=('etc/knot/knot.conf')
 source=("https://secure.nic.cz/files/knot-dns/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha256sums=('498de8338489a625673797f7ecc921fa4490c826afbfa42fa66922b525089e6a'
+sha256sums=('2730b11398944faa5151c51b0655cf26631090343c303597814f2a57df424736'
             'SKIP')
 validpgpkeys=(742FA4E95829B6C5EAC6B85710BB7AF6FEBBD6AB) # Daniel Salzman <daniel.salzman@nic.cz>
 
