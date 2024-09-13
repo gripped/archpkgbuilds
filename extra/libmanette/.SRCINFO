@@ -1,11 +1,13 @@
 pkgbase = libmanette
 	pkgdesc = Simple GObject game controller library
-	pkgver = 0.2.7
+	pkgver = 0.2.9
 	pkgrel = 1
 	url = https://gnome.pages.gitlab.gnome.org/libmanette/
 	arch = x86_64
 	license = LGPL-2.1-or-later
+	makedepends = git
 	makedepends = gobject-introspection
+	makedepends = gtk-doc
 	makedepends = meson
 	makedepends = vala
 	depends = gcc-libs
@@ -13,7 +15,7 @@ pkgbase = libmanette
 	depends = glibc
 	depends = libevdev
 	depends = libgudev
-	source = https://download.gnome.org/sources/libmanette/0.2/libmanette-0.2.7.tar.xz
-	sha256sums = cddd5c02a131072c19c6cde6f2cb2cd57eae7dacb50d14c337efd980baa51a51
+	source = git+https://gitlab.gnome.org/GNOME/libmanette.git#tag=0.2.9
+	b2sums = 906f0f37c21037e1e6d7b11f264e38e141575a3decc1c7a126a96efdf02e455a2742918081ad9b0143564ba3960ea1c74a3c3bcfe51eeee07b37133cf0cb308c
 
 pkgname = libmanette
