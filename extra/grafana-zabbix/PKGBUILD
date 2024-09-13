@@ -2,7 +2,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=grafana-zabbix
-pkgver=4.5.3
+pkgver=4.5.4
 pkgrel=1
 pkgdesc="Zabbix plugin for Grafana dashboard"
 arch=('x86_64')
@@ -10,10 +10,8 @@ url="https://github.com/grafana/grafana-zabbix"
 license=('Apache-2.0')
 depends=('grafana')
 makedepends=('yarn' 'libfaketime' 'go' 'git' 'nodejs-lts-iron' 'mage')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
-        fix_panic_with_go_1.23.patch::https://github.com/grafana/grafana-zabbix/commit/f20c89003393eff94780f5f20f6d591521886128.patch)
-sha256sums=('8e5e797693297afdba7e344076c6e2db4dcb1e32fd77ec2ac308f0223937fa9f'
-            '26bd56abd3b3339ccc85f13c4f2da882afd462dc3cbaee59b4abeb6d41a5a827')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
+sha256sums=('7ae3ebbcf5392fc4c128ec8ca8ba56972b7c33b785b64c18e0637bfe82b009fd')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
@@ -21,10 +19,6 @@ prepare() {
 	sed -i 's#jest --watch --onlyChanged#jest#' package.json
 	# Remove lint related dependency (we don't care about linting tests at our level)
 	sed -i '/GO111MODULE=off go get -u golang.org\/x\/lint\/golint/d' Makefile
-	# Temporary patch to fix panic in tests with go 1.23
-	# See https://github.com/grafana/grafana-zabbix/pull/1875
-	patch -Np1 < "${srcdir}/fix_panic_with_go_1.23.patch"
-	go mod tidy
 }
 
 build() {
