@@ -6,7 +6,7 @@
 
 pkgname=galculator
 pkgver=2.1.4
-pkgrel=9
+pkgrel=10
 pkgdesc='GTK+ based scientific calculator'
 arch=('x86_64')
 url='http://galculator.sourceforge.net/'
@@ -27,4 +27,5 @@ build() {
 package() {
   cd "${pkgname}-${pkgver}"
   make DESTDIR="$pkgdir" install
+  mv "$pkgdir"/usr/share/{appdata,metainfo}
 }
