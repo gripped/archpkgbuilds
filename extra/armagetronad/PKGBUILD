@@ -5,7 +5,7 @@
 
 pkgname=armagetronad
 pkgver=0.2.9.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A Tron Clone in 3D'
 arch=('x86_64')
 url='http://armagetronad.net/'
@@ -39,4 +39,5 @@ package() {
   for f in 16x16 32x32 48x48; do
     ln -s /usr/share/armagetronad/desktop/icons/$f/armagetronad.png "$pkgdir/usr/share/icons/hicolor/$f/apps/armagetronad.png"
   done
+  mv "$pkgdir"/usr/share/{appdata,metainfo}
 }
