@@ -5,7 +5,7 @@ pkgname=python-scikit-build-core
 _name=${pkgname#python-}
 pkgdesc='Next generation Python CMake adaptor and Python API for plugins'
 url='https://github.com/scikit-build/scikit-build-core'
-pkgver=0.9.3
+pkgver=0.10.6
 pkgrel=1
 arch=(any)
 license=(Apache-2.0)
@@ -25,8 +25,8 @@ makedepends=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
 )
-sha512sums=('1e1ba9ea8ca20c2a49cd27631c8af4ebc7f0675248b0a260c1dafccb48351c57d140f991b7e5f8f29edfe1287c87225f6cfb1bcb431595c4f0f4c64a4f02edf6')
-b2sums=('3800cd698a1353778c46e25649ac072c0912088930ec8fdf748d33099e46838e206888d677a6ca7f19c0f1c6dd2f03b1b230dd266b5a182b13ab4d4ecb989365')
+sha512sums=('01f41f987969189fa10c92edccfa38bdb637db31eef43eda2891edc1175fc005f0454b9f11a0d22dc4e306aa384ecd3f628f59184817d42711144f9d748ab4a1')
+b2sums=('31743c3aa150250bb6582e064050b267c053a9a7dc15d84919c84f2bdc4d90051def6fd07fe7655fff975e18f5b53178c51e02f63daa247dd4d502a8d7b169f5')
 
 build() {
   cd $_name-$pkgver
