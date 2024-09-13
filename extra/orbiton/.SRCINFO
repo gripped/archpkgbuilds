@@ -1,6 +1,6 @@
 pkgbase = orbiton
 	pkgdesc = Fast and configuration-free text editor and IDE limited by VT100
-	pkgver = 2.67.0
+	pkgver = 2.67.1
 	pkgrel = 1
 	url = https://roboticoverlords.org/orbiton/
 	arch = x86_64
@@ -9,8 +9,8 @@ pkgbase = orbiton
 	makedepends = go
 	makedepends = vte3
 	options = !lto
-	source = git+https://github.com/xyproto/orbiton#commit=7b304230958e54068a4ce600cc1d1b7333f6739c
-	b2sums = 044a548f87c11e2c7c7ba11353ddf22fb4d5c5d624c9ceb75722999382d174fda73435a8ac0a12a7b13658bced801ce30a4ee5e3742884be079ac93e3f5a299c
+	source = git+https://github.com/xyproto/orbiton#commit=2abf5f7ab86bdc468c3084eba298356cabdee796
+	b2sums = 02bb85a2b6f67e190afe55e2f487311a49127d860f141765f5b51622c20e41e919f87818b83a3258dd1f84713e83236e2b32fdb2d9d765951be32c7b2e0b25fe
 
 pkgname = orbiton
 	optdepends = asciidoctor: for writing man pages
@@ -30,6 +30,7 @@ pkgname = orbiton
 	optdepends = java-environment: for compiling Java
 	optdepends = just: for editing justfiles
 	optdepends = kotlin: for compiling Kotlin
+	optdepends = ktlint: for formatting Kotlin
 	optdepends = lua: for compiling Lua
 	optdepends = mlton: for compiling Standard ML
 	optdepends = mono: for compiling C#

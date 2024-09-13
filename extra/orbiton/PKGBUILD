@@ -2,7 +2,7 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3 orbiton-nano)
-pkgver=2.67.0
+pkgver=2.67.1
 pkgrel=1
 pkgdesc='Fast and configuration-free text editor and IDE limited by VT100'
 arch=(x86_64)
@@ -10,8 +10,8 @@ url='https://roboticoverlords.org/orbiton/'
 license=(BSD-3-Clause)
 makedepends=(git go vte3)
 options=(!lto)
-source=("git+https://github.com/xyproto/orbiton#commit=7b304230958e54068a4ce600cc1d1b7333f6739c") # tag: v2.67.0
-b2sums=('044a548f87c11e2c7c7ba11353ddf22fb4d5c5d624c9ceb75722999382d174fda73435a8ac0a12a7b13658bced801ce30a4ee5e3742884be079ac93e3f5a299c')
+source=("git+https://github.com/xyproto/orbiton#commit=2abf5f7ab86bdc468c3084eba298356cabdee796") # tag: v2.67.1
+b2sums=('02bb85a2b6f67e190afe55e2f487311a49127d860f141765f5b51622c20e41e919f87818b83a3258dd1f84713e83236e2b32fdb2d9d765951be32c7b2e0b25fe')
 
 build() {
   # Adjust the LDFLAGS to work together with go build
@@ -24,11 +24,9 @@ package_orbiton() {
   # TODO: consider moving one or more of these from AUR:
   # 'cxx: for compiling C and C++'
   # 'elm-bin: for compiling Elm'
-  # 'guessica: for updating PKGBUILD files'
   # 'google-java-format: for formatting Java'
   # 'lua-format: for formatting Lua'
   # 'hare: for compiling Hare'
-  # 'ktlint: for formatting Kotlin'
   # 'odin: for compiling Odin'
   # 'scala: for compiling Scala'
   # 'vlang: for compiling and formatting V'
@@ -49,6 +47,7 @@ package_orbiton() {
               'java-environment: for compiling Java'
               'just: for editing justfiles'
               'kotlin: for compiling Kotlin'
+              'ktlint: for formatting Kotlin'
               'lua: for compiling Lua'
               'mlton: for compiling Standard ML'
               'mono: for compiling C#'
