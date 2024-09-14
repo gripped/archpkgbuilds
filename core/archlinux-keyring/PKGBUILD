@@ -3,7 +3,7 @@
 
 pkgname=archlinux-keyring
 pkgver=20240709
-pkgrel=1
+pkgrel=2
 pkgdesc='Arch Linux PGP keyring'
 arch=('any')
 url='https://gitlab.archlinux.org/archlinux/archlinux-keyring/'
