@@ -3,7 +3,7 @@
 
 _name=treestyletab
 pkgname=firefox-tree-style-tab
-pkgver=4.0.22
+pkgver=4.0.23
 pkgrel=1
 pkgdesc='Firefox extension to show tabs like a tree'
 arch=(any)
@@ -35,7 +35,7 @@ source=(
   git+https://github.com/piroor/webextensions-lib-shortcut-customize-ui.git
   git+https://github.com/piroor/webextensions-lib-tab-favicon-helper.git
 )
-b2sums=('b20598de69aeb7462a5bde995523c1003c87d6c6782feff5472c0c167122b093729ed4afdfe9aef8efbe2bb64d680e4bb6c1a09edcc7cf28047d8fa6cb820d95'
+b2sums=('6ca29ecc7edc9a8f1d4ac406af777b8cf22261ca749aeb6d739b02d897018c8b1ad4f61ea38e049a7ff65f3ded5ccf3c48bcddbc1d81a1c74bf5a075a56206d5'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -55,6 +55,7 @@ prepare() {
   done
   git -c protocol.file.allow=always submodule update
   cd webextensions
+  # Remove target dependencies from install_extlib and xpi
   sed -i 's/^\(install_extlib\|xpi\): .*/\1:/' Makefile
   npm ci
 }
