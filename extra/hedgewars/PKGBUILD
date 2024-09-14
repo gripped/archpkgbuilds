@@ -4,7 +4,7 @@
 
 pkgname=hedgewars
 pkgver=1.0.2
-pkgrel=94
+pkgrel=95
 pkgdesc="Turn-based strategy artillery game similiar to Worms"
 arch=('x86_64')
 url="https://hedgewars.org"
@@ -53,4 +53,5 @@ package() {
   rm -rf "$pkgdir"/usr/share/pixmaps
 
   install -D -m644 share/hedgewars/Data/misc/hedgewars.desktop "$pkgdir"/usr/share/applications/hedgewars.desktop
+  mv "$pkgdir"/usr/share/{appdata,metainfo}
 }
