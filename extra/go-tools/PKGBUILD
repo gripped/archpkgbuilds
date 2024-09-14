@@ -3,8 +3,8 @@
 
 pkgname=go-tools
 epoch=4
-pkgver=0.24.0
-pkgrel=2
+pkgver=0.25.0
+pkgrel=1
 pkgdesc='Developer tools for the Go programming language'
 arch=(x86_64)
 url='https://golang.org/'
@@ -12,7 +12,7 @@ license=(BSD)
 depends=(glibc)
 makedepends=(git go)
 source=(go-tools::git+https://go.googlesource.com/tools#tag=v$pkgver)
-sha256sums=('e55546732dfa38fd7d914e6e609558d4f70a11992dfb75e01c222ebd5386e6c8')
+sha256sums=('f18b7b003682678be553281f02889053262e5768e7da3b782b03f1faae84012a')
 
 _tools=(benchcmp callgraph compilebench digraph eg fiximports
         go-contrib-init godex godoc goimports gomvpkg gorename gotype 
