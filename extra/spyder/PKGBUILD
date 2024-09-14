@@ -5,7 +5,7 @@
 
 pkgname=spyder
 pkgver=6.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="The Scientific Python Development Environment"
 arch=(any)
 url="https://www.spyder-ide.org/"
@@ -65,6 +65,7 @@ depends=(
     python-whatthepatch
     python-yarl
     python-aiohttp
+    python-pygithub
 )
 # Starting from autopep8, required optdeps of python-language-server
 optdepends=(
@@ -88,7 +89,6 @@ checkdepends=(
     python-sympy
     python-pillow
     python-matplotlib
-    python-pygithub
     cython
     git
     tk
