@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=papilo
-pkgver=2.3.0
-pkgrel=2
+pkgver=2.3.1
+pkgrel=1
 pkgdesc='Parallel Presolve for Integer and Linear Optimization'
 arch=(x86_64)
 url='https://www.scipopt.org/'
@@ -16,7 +16,7 @@ makedepends=(boost
              cmake
              git)
 source=(git+https://github.com/scipopt/papilo#tag=v$pkgver)
-sha256sums=('19d5b3a284193740a3f8ad906461d3f3e461a75e8d79754784b7ccf125c29b91')
+sha256sums=('6712c6fef6368df3ce76dc6e48f3fb872cd011a086e027940ed691d7fc006951')
 
 build() {
   cmake -B build -S $pkgname \
