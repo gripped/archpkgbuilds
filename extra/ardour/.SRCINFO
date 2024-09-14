@@ -1,7 +1,7 @@
 pkgbase = ardour
 	pkgdesc = Professional-grade digital audio workstation
 	pkgver = 8.6
-	pkgrel = 1
+	pkgrel = 2
 	url = https://ardour.org/
 	arch = x86_64
 	groups = pro-audio
@@ -73,12 +73,15 @@ pkgbase = ardour
 	source = ardour::git+https://github.com/ardour/ardour.git#tag=8.6
 	source = ardour-midi-8.6.zip::http://stuff.ardour.org/loops/ArdourBundledMedia.zip
 	source = ardour-7.0-re-vendor_qm-dsp.patch
+	source = ardour-boost-1.85.patch
 	sha512sums = 8e7c52866a1084484e7ba6089334199d4f2c0f5e221f8b8ab4fed49ffdfbc3aef747ecbf7abd9d25355fc9ed270b7f7ee9f8250e7b5c59a6e140b7d59469bfc6
 	sha512sums = 94b681f989e834f5de25ce87da9c174b11d90617063f8c96147d7eb470391b35f6d54b85de16da8d963cacb01b50d1c1fab0fddd18eb3b086fe17124ecfa4f65
 	sha512sums = a3da14925bc25d8a57ba3e137c4b2b04010054667ac4ae2aec116ce6c157b03c9dd76bf4d73c313022282362d19b91683f062d6ab2ee0c73a576d3fa6272bd1d
+	sha512sums = ad4888bbda5da5ba3e49ca751bdec34159fde01355e8dac3e23c968a8eeba4bce3228f43ef87977ee619c70063ef16e2383c6b7126213d88125222431f79574d
 	b2sums = afdc958c7a827fd6dd965900fb84aa32d570bc003d1e00213a2e26e56ca74dff522d32e1170bd113527caa5ea237898e28dc804a0da2ee47ff1b02f5f004ef2a
 	b2sums = e31be6b51a217e2f7f799aa1d6e8c3cd024d80ab2d8d4371496a2b8bf0215749979217b565909841a346d6b3128fbfd674d2fae64b9fe741a5b418cd184c23be
 	b2sums = 73845adce9a48938cd7aef5fbc65f492e470de316620d278365d247c80caef44531e850fbd3d2f5de65a8562e67aabfd982c938439bd3670726a27bc003be017
+	b2sums = 9a86275431cb735b32b36a570450d4b5c035f1360c89e69d7d688171e299aea15128057f01dd905335c4fca68035a146cc54cd62b0aa163ec56ae06e545ca8ad
 
 pkgname = ardour
 	depends = cairo
