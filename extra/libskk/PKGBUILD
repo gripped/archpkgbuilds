@@ -4,29 +4,38 @@
 
 pkgname=libskk
 pkgver=1.0.5
-pkgrel=2
+pkgrel=3
 pkgdesc='GObject-based library to deal with Japanese kana-to-kanji conversion method'
 arch=('x86_64')
 url='https://github.com/ueno/libskk'
 license=('GPL3')
 depends=('libgee' 'libxkbcommon' 'json-glib')
-makedepends=('intltool' 'gnome-common' 'gobject-introspection' 'vala')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/ueno/libskk/archive/$pkgver.tar.gz")
-sha512sums=('50b07b244e1fbec13764ca00b90ede2584c53dd5c16783c9bb9114f69f43dbebd352653f335f1c3584b8c42ef4184e891e0ca7427c38afc99131196721e1c1c1')
+makedepends=('git' 'intltool' 'gnome-common' 'gobject-introspection' 'vala')
+source=("git+https://github.com/ueno/libskk.git#tag=$pkgver")
+sha512sums=('a6db4fa8fe898848a20145c00bdd9e450f73fd28882b288dbe37a32628464d5fed3d72bd2039b8c2d0505b06699f1b38e3e15aa165902c5a035f22c8eba67d21')
+
+prepare() {
+  cd libskk
+  # https://github.com/ueno/libskk/pull/85
+  git cherry-pick -n 7ec4a42459b090b23a772d6a568f910f380e44db
+
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/libskk/-/issues/1
+  git cherry-pick -n a2936e865fcc00e6e0c0bfc6c1d62db19e49fe74
+}
 
 build() {
-  cd $pkgname-$pkgver
+  cd libskk
   ./autogen.sh --prefix=/usr
   make
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd libskk
   make check
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd libskk
   make DESTDIR="$pkgdir" install
 }
 
