@@ -3,7 +3,7 @@
 
 pkgname=vimiv
 pkgver=0.9.1
-pkgrel=7
+pkgrel=8
 pkgdesc='Image viewer with vim-like keybindings'
 url='https://github.com/karlch/vimiv'
 arch=('x86_64')
@@ -26,6 +26,7 @@ package() {
   cd ${pkgname}-${pkgver}
   make DESTDIR="${pkgdir}" install
   install -Dm 644 readme.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  mv "$pkgdir"/usr/share/{appdata,metainfo}
 }
 
 # vim: ts=2 sw=2 et:
