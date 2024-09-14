@@ -1,0 +1,40 @@
+# Maintainer:
+# Contributor: Marcus Ben Spencer <marcus@marcusspencer.xyz>
+# Contributor: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=llhttp
+pkgver=9.2.1
+pkgrel=2
+pkgdesc='Port of http_parser to llparse'
+arch=(x86_64)
+url='https://llhttp.org'
+license=(MIT)
+depends=(glibc)
+makedepends=(cmake
+             git
+             npm
+             ts-node)
+source=(git+https://github.com/nodejs/llhttp#tag=v$pkgver)
+sha512sums=('34aaa50e3da9f0cc7a98ebbe05ebabb85fc9f1b634c48827cd1f3266b6e71b7b08e25463c9ae80b0bad6fd04508cf10f5e7b4c7b340df9f9e2a6c6c930ccf0e0')
+
+build() {
+  cd $pkgname
+
+  # codegen
+  npm install
+  make release RELEASE="$pkgver"
+
+  # build
+  cd ..
+  cmake -B build -S $pkgname/release \
+    -DBUILD_SHARED_LIBS=ON \
+    -DCMAKE_INSTALL_PREFIX=/usr
+
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" $pkgname/LICENSE-MIT
+}
