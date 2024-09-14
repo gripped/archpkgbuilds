@@ -2,7 +2,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=lib32-orc
-pkgver=0.4.39
+pkgver=0.4.40
 pkgrel=1
 pkgdesc="Optimized Inner Loop Runtime Compiler (32-bit)"
 url="https://gstreamer.freedesktop.org/modules/orc.html"
@@ -21,7 +21,7 @@ makedepends=(
 )
 provides=(liborc{,-test}-${pkgver%.*}.so)
 source=("git+https://gitlab.freedesktop.org/gstreamer/orc.git?signed#tag=$pkgver")
-b2sums=('cd93b7a29c0240d299752338f7e87569cfb4f5b7e9dfca40005d1e4c6509236ac2a499050db01d94004b7061faed5b78dd8b4f3d358ffe90fbf65964d38e5c4d')
+b2sums=('08cd279d7a572b078b00aac3ced56fc96d7d4472103357e74e86901c5b1edc02df768fe4b862a55faf56b5218b05c71c64d0b378f1b9a1d4c40efcc7c738de4c')
 validpgpkeys=(
   D637032E45B8C6585B9456565D2EEE6F6F349D7C # Tim-Philipp Müller <tim@centricular.com>
 )
