@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-auth
-pkgver=0.7.29
+pkgver=0.7.30
 pkgrel=1
 pkgdesc='C99 library implementation of AWS client-side authentication: standard credentials providers and signing'
 arch=(x86_64)
@@ -18,7 +18,7 @@ depends=(
 )
 makedepends=(cmake)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('f49f5dce1153e908dd9c0639f4aa4b1477f8564a28635f433cc0be121a18106e')
+sha256sums=('a9530a2a5b5ee6aef02756b07ee48ceb66cfa5657bbd25bfc3cf024d7791e79e')
 
 build() {
   cd $pkgname-$pkgver
