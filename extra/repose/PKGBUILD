@@ -3,19 +3,27 @@
 
 pkgname=repose
 pkgver=7.1
-pkgrel=10
-
+pkgrel=11
 pkgdesc="Arch Linux repo building tool"
 url="https://github.com/vodik/repose"
 arch=('x86_64')
-license=('GPL')
-
-depends=('pacman' 'libarchive' 'gnupg')
-makedepends=('ragel')
-checkdepends=('python-pytest' 'python-cffi' 'python-pytest-xdist')
-
+license=('GPL-2.0-or-later')
+depends=(
+  'gpgme' 'libgpgme.so'
+  'libarchive' 'libarchive.so'
+  'openssl' 'libcrypto.so'
+  'pacman' 'libalpm.so'
+)
+makedepends=(
+  'ragel'
+)
+checkdepends=(
+  'python-cffi'
+  'python-pytest'
+  'python-pytest-xdist'
+  'python-setuptools'
+)
 source=("repose-$pkgver.tar.gz::https://github.com/vodik/repose/archive/$pkgver.tar.gz")
-
 sha256sums=('c23e93aca416e08e80b4d17a98fd593e6345d7da8806bdd3c5484977ac2c800d')
 
 build() {
@@ -31,4 +39,4 @@ package() {
   make -C repose-$pkgver DESTDIR="$pkgdir" install
 }
 
-# vim: ft=PKGBUILD et
+# vim: ft=PKGBUILD ts=2 sw=2 et
