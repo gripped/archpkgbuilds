@@ -3,8 +3,8 @@
 
 _pkgbasename=libxi
 pkgname=lib32-$_pkgbasename
-pkgver=1.8.1
-pkgrel=2
+pkgver=1.8.2
+pkgrel=1
 pkgdesc="X11 Input extension library (32-bit)"
 arch=('x86_64')
 url="https://xorg.freedesktop.org"
@@ -12,7 +12,7 @@ depends=('lib32-libxext' 'lib32-libxfixes' $_pkgbasename)
 makedepends=('pkgconfig' 'xorgproto' 'xorg-util-macros' gcc-multilib automake)
 license=('custom')
 source=(${url}/releases/individual/lib/libXi-${pkgver}.tar.xz{,.sig})
-sha256sums=('89bfc0e814f288f784202e6e5f9b362b788ccecdeb078670145eacd8749656a7'
+sha256sums=('d0e0555e53d6e2114eabfa44226ba162d2708501a25e18d99cfb35c094c6c104'
             'SKIP')
 validpgpkeys=('3C2C43D9447D5938EF4551EBE23B7E70B467F0BF'  # Peter Hutterer
               'C41C985FDCF1E5364576638B687393EE37D128F8'  # Matthieu Herrb <matthieu.herrb@laas.fr>
