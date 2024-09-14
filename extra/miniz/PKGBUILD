@@ -1,0 +1,31 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=miniz
+pkgver=3.0.2
+pkgrel=1
+pkgdesc='Compression library implementing zlib (RFC 1950) & deflate (RFC 1951) specifications'
+arch=('x86_64')
+url='https://github.com/richgel999/miniz'
+license=('MIT')
+depends=('glibc')
+makedepends=('git' 'cmake')
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('d4809864e3d92e505836faafc33725a680cb9c02f4ac20546ff2a892c249160419849f2c0d37522f6ad67b883905ae042c7f00d1048b7d5c58f9e9581eda939a')
+b2sums=('0604915c173d1aa0845b616f3c8e13b0d6373a69659337233488f6343e949f8bd16198a373705d5e60fd330bc1b887ae906243ccb38b481664f8f6de55630ad4')
+
+build() {
+  cmake \
+    -S "$pkgname" \
+    -B build \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D BUILD_SHARED_LIBS=ON
+
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" "$pkgname/LICENSE"
+}
