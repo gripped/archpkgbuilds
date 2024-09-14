@@ -7,7 +7,7 @@ pkgname=(
   libadwaita-demos
   libadwaita-docs
 )
-pkgver=1.5.3
+pkgver=1.5.4
 pkgrel=1
 epoch=1
 pkgdesc="Building blocks for modern adaptive GNOME applications"
@@ -34,7 +34,7 @@ makedepends=(
 )
 checkdepends=(weston)
 source=("git+https://gitlab.gnome.org/GNOME/libadwaita.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('2288a9638da2e039c7ff8b0c2f8fcbd6b7698351afde5b350bd96752d78b56832ad4fdd82ddd1dac24c04754933253063dec22e6a8d64e06f16be257a90da54e')
+b2sums=('4abbbc69a2222687a36911b8dfb5c8d594d384ae4438a078a05295e0418ab08e920b0a78983d1ccd876d61c59754d7f05890d48d7368364d1d34ada15cc0253b')
 
 prepare() {
   cd $pkgname
@@ -50,10 +50,11 @@ build() {
 }
 
 check() (
-  export XDG_RUNTIME_DIR="$PWD/runtime-dir" WAYLAND_DISPLAY=wayland-5
-
+  export XDG_RUNTIME_DIR="$PWD/runtime-dir"
   mkdir -p -m 700 "$XDG_RUNTIME_DIR"
-  weston --backend=headless-backend.so --socket=$WAYLAND_DISPLAY --idle-time=0 &
+
+  export WAYLAND_DISPLAY=wl-$pkgbase-$RANDOM
+  weston --backend=headless --socket=$WAYLAND_DISPLAY --idle-time=0 &
   _w=$!
 
   trap "kill $_w; wait" EXIT
