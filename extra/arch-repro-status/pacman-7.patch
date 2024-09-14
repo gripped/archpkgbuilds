@@ -1,0 +1,41 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 18536fc..52f1116 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -28,9 +28,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "alpm"
+-version = "3.0.5"
++version = "4.0.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "310ec5dc25b236ee96bebf975af2d2de85e61001a7c39a0a7436a414ff3f6490"
++checksum = "d07c43bf396280fdda8928f725a89cdb8c525bba0240494f5da6b40aafe61387"
+ dependencies = [
+  "alpm-sys",
+  "bitflags 2.6.0",
+@@ -38,9 +38,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "alpm-sys"
+-version = "3.0.0"
++version = "4.0.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "08a17e0cf15a06d4b86e30c606ee8808ad791300f3bd5e364c30360354b010bd"
++checksum = "ad5eb56a41bf4f036c600aa1ddff354971926dd8ea29a3fb6589c6c375bf918b"
+ dependencies = [
+  "pkg-config",
+ ]
+diff --git a/Cargo.toml b/Cargo.toml
+index 23c2efa..d8a35ec 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -36,7 +36,7 @@ ctrlc = { version = "3.4.4", features = ["termination"] }
+ console = "0.15.8"
+ dirs-next = "2.0.0"
+ bytesize = "1.3.0"
+-alpm = "3.0.5"
++alpm = "4"
+ chrono = "0.4.38"
+ clap_complete = "4.5.12"
+ vecrem = "0.1"
