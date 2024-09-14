@@ -1,0 +1,11 @@
+[Unit]
+Description=PlantUML picoweb service
+After=network.target
+
+[Service]
+Type=simple
+User=nobody
+ExecStart=/usr/bin/java -Djava.awt.headless=true -jar /usr/share/java/plantuml/plantuml.jar -picoweb:%i
+
+[Install]
+WantedBy=multi-user.target

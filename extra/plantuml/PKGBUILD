@@ -5,7 +5,7 @@
 
 pkgname=plantuml
 pkgver=1.2024.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Component that allows to quickly write uml diagrams"
 arch=(any)
 url="https://plantuml.com/"
@@ -31,9 +31,11 @@ optdepends=(
 source=(
   "https://github.com/plantuml/plantuml/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
   "$pkgname.run"
+  "plantuml@.service"
 )
 sha256sums=('4cdfdf38093b29b41cbafbd88e30c598c903618015c6807cfa6fc16f6e97a31e'
-            'a3fb528f4c719cfd0ff6154c60fd54ce341011d132caf950cc30af4989f6aac8')
+            'a3fb528f4c719cfd0ff6154c60fd54ce341011d132caf950cc30af4989f6aac8'
+            'c423ab0c00f25c0a42a9c10144b827debff6fd3d79175a277ea9b2c1a27ec1a5')
 
 build() {
   cd $pkgname-$pkgver
@@ -48,6 +50,7 @@ check() {
 package() {
   cd $pkgname-$pkgver
   install -vDm755 "$srcdir/$pkgname.run" "$pkgdir/usr/bin/$pkgname"
+  install -vDm644 "$srcdir/plantuml@.service" "$pkgdir/usr/lib/systemd/system/plantuml@.service"
 
   install -vDm644 "build/libs/$pkgname-$pkgver.jar" "$pkgdir/usr/share/java/$pkgname/$pkgname.jar"
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" plantuml-mit/mit-license.txt
