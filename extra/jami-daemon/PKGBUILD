@@ -2,8 +2,8 @@
 # Contributor: Baptiste Jonglez <baptiste--aur at jonglez dot org>
 
 pkgname=jami-daemon
-pkgver=20240322
-pkgrel=4
+pkgver=20240812
+pkgrel=1
 pkgdesc="Free and universal communication platform which preserves the users’ privacy and freedoms (daemon component)"
 arch=(x86_64)
 url="https://jami.net"
@@ -15,21 +15,19 @@ depends=(glibc opendht gnutls nettle libgit2 libsecp256k1 libsecp256k1.so ffmpeg
 # portaudio needs a not-yet-upstream patch https://git.jami.net/savoirfairelinux/jami-daemon/-/issues/650
 makedepends=(git cmake perl asio msgpack-c msgpack-cxx restinio systemd meson)
 checkdepends=(cppunit)
-_commit=32f39e65483cb22729eb922d72434013b337f2c9
-_pjprojectver=e12ea3bfa81cc4f46031599f80707e81133f1353
-_dhtnetver=024c46fb1f14276d4adf15764ed97b733890826e
+_commit=cbf8f0af6d49d1e95cf7fc85487c9c876d49878c
+_pjprojectver=8fc165b833eea6e3c88d67a541385424b129fd3f
+_dhtnetver=cfe512b0632eea046f683b22e42d01eeb943d751
 source=(git+https://git.jami.net/savoirfairelinux/${pkgname}.git#commit=${_commit}
         https://github.com/savoirfairelinux/pjproject/archive/${_pjprojectver}/pjproject-${_pjprojectver}.tar.gz
         dhtnet-$_dhtnetver.tar.gz::https://review.jami.net/plugins/gitiles/dhtnet/+archive/$_dhtnetver.tar.gz
-        libgit2-1.8.patch
         ffmpeg-7.patch
         fmt-v11.patch)
 noextract=(pjproject-${_pjprojectver}.tar.gz
            dhtnet-${_dhtnetver}.tar.gz)
-sha512sums=('fe6bb7d9b78d2da6ec5be971a5e0e663379f541adba5a9103bba2c7252b6f0b347983f3a0c29300acc9bf0758779a7c7f55ab6b67eb0b1620c46600bf0535068'
-            '7d481f4dcbe7232ff5a63cae46206943b64ac2d30f3b4598a9caf863322c1cfcd93c6c1232e2fa8f4e747f54f70b71a9b8f42f7e90d98fdd02124088afbdd37d'
+sha512sums=('b2dae76c8d77dc641f60cb9e93ec405c7b654d3419f494bc672771f1161669b55184a73c8d6a5d3365d9a6f7b949a5063369c6d87dfc75e332c1d1efbc75f453'
+            '62eda88458411fb846582c11008f4908f4674cbd5ebf042853c802b2efa52b0c242256178475535e94845117330190d8234a1b698df21aad7ee758f531ec1c10'
             'SKIP'
-            'eef5c72149baaf9765917046a6e0dd8daffa422b69d1df15037cb0a0a756f632ddfb5f0b2299116554615972787cee2b9e2cd171063324d5d9a60c2e54038006'
             '2a895a82e8fad356445ed1a8adf860154e268f89c0812b3bfac8bb37fd45198ed8b076e81b2cc2cdd635d27cb0496a8d88ae982dcdc46fa42d7799b913695731'
             'f6a720ba4c6a119b638a159b8825af6e1427c55c394f01b7b74b5568bc74b6d3e79068fcde7e57cf8e97dfc926432f227ab65c04d128e7428e991dd73d920a8b')
 
@@ -40,11 +38,11 @@ pkgver() {
 
 prepare() {
   cd ${pkgname}
-  cp ../pjproject-${_pjprojectver}.tar.gz contrib/tarballs
+  mkdir -p contrib/tarballs
+  cp ../pjproject-${_pjprojectver}.tar.gz contrib/tarballs/
   cp ../dhtnet-$_dhtnetver.tar.gz contrib/tarballs/
   mkdir -p contrib/native
 
-  patch -p1 -i ../libgit2-1.8.patch # Fix build with libgit2 1.8
   patch -p1 -i ../ffmpeg-7.patch # Fix build with ffmpeg 7
   patch -p1 -i ../fmt-v11.patch # Fix build with fmt v11
 }
