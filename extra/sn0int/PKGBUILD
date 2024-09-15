@@ -3,21 +3,32 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=sn0int
-pkgver=0.26.0
-pkgrel=2
+pkgver=0.26.1
+pkgrel=1
 pkgdesc='Semi-automatic OSINT framework and package manager'
 url='https://github.com/kpcyrd/sn0int'
 arch=('x86_64')
-license=('GPL3')
-depends=('libcap' 'lua52' 'sqlite' 'libseccomp.so' 'libsodium' 'geoip2-database' 'publicsuffix-list')
-makedepends=('cargo' 'python-sphinx')
+license=('GPL-3.0-or-later')
+depends=(
+  'geoip2-database'
+  'libcap'
+  'libseccomp' 'libseccomp.so'
+  'libsodium' 'libsodium.so'
+  'lua52'
+  'publicsuffix-list'
+  'sqlite' 'libsqlite3.so'
+)
+makedepends=(
+  'cargo'
+  'python-sphinx'
+)
 install=sn0int.install
 options=(!lto)
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
-sha512sums=('4e416a494947e3bf9170452155189022cfbee15340c1a471672c711931ab7ea2ae6e7f3dcf060542d69ef18d2842342baa5ff413491045fb6258f2c0c577e4f6'
+sha512sums=('fed44c27bb773ad682e1d987e946dec94029f13e8263f1af58e85be5e68e4ebd8c74f3f55e0e874fbe1f572ec66fb72254faff401b5c955aae750d323e9a141a'
             'SKIP')
-b2sums=('01394a063397d4e9ac546288ae39d45bbd0e4cc5a33643d53f910f224905cd09fe4d0ee440f5bbacca689144f0d216d522cb5dddc65d360ff99a47fd65cf285c'
+b2sums=('9aff25f43a092ca678ebbf13ceb88a14da2703427f76506971cc7b97149a05617f406db6638616815975ecf6db5a8bf78808a0a444f48e302d5ade62866e4a94'
         'SKIP')
 
 validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
@@ -25,7 +36,7 @@ validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
