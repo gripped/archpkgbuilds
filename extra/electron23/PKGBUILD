@@ -11,7 +11,7 @@
 
 pkgver=23.3.13
 _gcc_patches=110-patchset-4
-pkgrel=10
+pkgrel=11
 
 _major_ver=${pkgver%%.*}
 pkgname="electron${_major_ver}"
@@ -345,7 +345,7 @@ sha256sums=('0fc3b2f75594191960a3c6703e03ae2dd3d794616ca910c95bfc76d93cac586d'
             '9341676174943fbc5268e023c3e572171289fc4748401723a6dcaef50f793dcd'
             'df9c701c8fc8c6aff626e3bd354de7486e02386f6d1c54cb41e1fadbe730083f'
             '7b32c27a5513c451032132fe5dc724de23d3b0738a0609a96bd44deee1d46681'
-            '8900ad62887512fdc8f1e66c83b712764e9c033ab7f9513f54347bc09bc47195'
+            'a588b5dbd27d32cacb11979380faab2c8b51af14e9adf0d0a4e77d695f1ddd62'
             '4c4eef3fca2afc98f69423cf27b8d289c5861271425b0a159fe3336b468aba9a'
             'e475d42b746955422ff9e905354091d0b17cdb2c8989cc6beb6470e76a4aa1dd'
             'c7ef8205f3c0455cca339e50014c2e07a41e41cce0e872f1c1a788532516a89b'
@@ -396,12 +396,12 @@ sha256sums=('0fc3b2f75594191960a3c6703e03ae2dd3d794616ca910c95bfc76d93cac586d'
             '8c630a78542df7c8c698c3d76dbf913c55cde0b9520f6a5f8a703be67b0af03a'
             'af7fcf80a4d5f12c29eb1c442194de7635947657ed51cccc0c4e3d14dee3add6'
             '355d9ea34b8773a8f0705c07fb76c266ba6bb26ab3b877c22a712f20b51b2da6'
-            '785f769c6c0d465f79038ec4f4c210025043285c345041667b122296c6b961e1'
+            '307070b52d7d46386f142d5711c50657b19c0db8bf7f4e61705ee8f4ee555d14'
             'c07cb7d7fe3b65ffe869aea3e236cb4e68b36f997df39508da6ab051ad1b330f'
             '0434674e57fc3c000ca5b0a496d51bb8f8b6422e24547c8698450fba0e459bcd'
             'fc7fcecb1f97995e17bd743274c8e49bb5969ef27783dced4cd6e2ee4a971a75'
             '75b897d38208c985cbe08443ad9253db04a716066fd92b0d05f2fd2fee32b4ff'
-            '7d89448b9cccc0e2309ce34fef37ed85fd08fd2b030422e456fc531ebb1e8f80'
+            'c23fa31250811a76be900554b9ac127f861ebde09c07ac67cd6b82dd214e5686'
             '1bb2d779cfccdf9848513e27c90b2c5f8a155ef47395b0fefc10e04306a391ed'
             '4364e1c1b8f5bc7704e1dee4f31b816b96a627f9f17ab7fd0bf0e859e548be6c'
             '913987d9bb343b530f8a7fad3f214205c5743ff902cef179f2a9ee6301284bd8'
@@ -660,6 +660,9 @@ build() {
 
   # https://crbug.com/957519#c122
   CXXFLAGS=${CXXFLAGS/-Wp,-D_GLIBCXX_ASSERTIONS}
+
+  CFLAGS+=' -Wno-c++11-narrowing-const-reference'
+  CXXFLAGS+=' -Wno-c++11-narrowing-const-reference'
 
   export CHROMIUM_BUILDTOOLS_PATH="${PWD}/buildtools"
   gn gen out/Release \
