@@ -2,21 +2,20 @@
 # Contributor: travisghansen <travisghansen@yahoo.com>
 
 pkgname=yubico-piv-tool
-pkgver=2.6.0
+pkgver=2.6.1
 pkgrel=1
 pkgdesc="Command line tool for the YubiKey PIV application"
-arch=('x86_64')
 url="https://developers.yubico.com/yubico-piv-tool"
+arch=('x86_64')
 license=('BSD-2-Clause')
 depends=('zlib' 'glibc' 'pcsclite' 'openssl')
-makedepends=('check' 'cmake' 'gengetopt' 'help2man')
-source=(https://developers.yubico.com/yubico-piv-tool/Releases/"${pkgname}-${pkgver}".tar.gz{,.sig})
-sha256sums=('80f4b7b7f5a85c86502f3286e2b4bef345a6709f4554088c745994f7027302c1'
-            'SKIP')
+makedepends=('check' 'cmake' 'gengetopt' 'git' 'help2man')
+source=("git+https://github.com/Yubico/yubico-piv-tool.git#tag=${pkgname}-${pkgver}?signed")
+sha256sums=('7696887770512683e8c4aca49f9e6eafb08c6a132f14934465546e54f87f7a63')
 validpgpkeys=('1D7308B0055F5AEF36944A8F27A9C24D9588EA0F') # Aveen Ismail <aveen.ismail@yubico.com>
 
 build() {
-	cmake -B build -S "${pkgname}-${pkgver}" \
+	cmake -B build -S "${pkgname}" \
 		-DCMAKE_BUILD_TYPE='None' \
 		-DCMAKE_INSTALL_PREFIX='/usr' \
 		-Wno-dev
@@ -30,6 +29,6 @@ check() {
 package() {
 	DESTDIR="${pkgdir}" cmake --install build
 
-	cd "${pkgname}-${pkgver}"
+	cd "${pkgname}"
 	install -Dm 644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
 }

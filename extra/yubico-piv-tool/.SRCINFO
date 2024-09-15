@@ -1,6 +1,6 @@
 pkgbase = yubico-piv-tool
 	pkgdesc = Command line tool for the YubiKey PIV application
-	pkgver = 2.6.0
+	pkgver = 2.6.1
 	pkgrel = 1
 	url = https://developers.yubico.com/yubico-piv-tool
 	arch = x86_64
@@ -8,15 +8,14 @@ pkgbase = yubico-piv-tool
 	makedepends = check
 	makedepends = cmake
 	makedepends = gengetopt
+	makedepends = git
 	makedepends = help2man
 	depends = zlib
 	depends = glibc
 	depends = pcsclite
 	depends = openssl
-	source = https://developers.yubico.com/yubico-piv-tool/Releases/yubico-piv-tool-2.6.0.tar.gz
-	source = https://developers.yubico.com/yubico-piv-tool/Releases/yubico-piv-tool-2.6.0.tar.gz.sig
+	source = git+https://github.com/Yubico/yubico-piv-tool.git#tag=yubico-piv-tool-2.6.1?signed
 	validpgpkeys = 1D7308B0055F5AEF36944A8F27A9C24D9588EA0F
-	sha256sums = 80f4b7b7f5a85c86502f3286e2b4bef345a6709f4554088c745994f7027302c1
-	sha256sums = SKIP
+	sha256sums = 7696887770512683e8c4aca49f9e6eafb08c6a132f14934465546e54f87f7a63
 
 pkgname = yubico-piv-tool
