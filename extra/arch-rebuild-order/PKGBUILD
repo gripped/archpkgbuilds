@@ -1,8 +1,8 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=arch-rebuild-order
-pkgver=0.4.3
-pkgrel=2
+pkgver=0.4.4
+pkgrel=1
 pkgdesc='CLI tool to determine the rebuild order of provided package(s)'
 url='https://gitlab.archlinux.org/archlinux/arch-rebuild-order'
 arch=('x86_64')
@@ -10,15 +10,12 @@ license=('MIT')
 depends=('glibc' 'libalpm.so')
 makedepends=('cargo' 'mandown' 'git')
 groups=('archlinux-tools')
-source=(git+https://gitlab.archlinux.org/archlinux/arch-rebuild-order.git#tag=v$pkgver?signed
-        pacman-7.patch)
-sha512sums=('93d0d993e8f854c038aa87842f300d1ea6328a6aef2c8688e5e38b5b0d4b577ef1d691e90619f5182716bb012bb0ac77a840391ca6ace2e053fcbc20bbf30f8f'
-            '2adfbc33c95262e95359fb56dcad049f5e2d0fa5dffbdb6875501904d0a1d186671d865a64295f26645058f916b2797ee6ca8b7770b1f420f2438ba06a7145c7')
+source=(git+https://gitlab.archlinux.org/archlinux/arch-rebuild-order.git#tag=v$pkgver?signed)
+sha512sums=('58bd2ad703c3a68b65bc9f6626a4f432c9be8166fb78fbc23d4ee07a4f10b83ecaa9be7445afe2f4869f3022d67987fefad863fd82a96eb0f81844c8ebcfe309')
 validpgpkeys=("E499C79F53C96A54E572FEE1C06086337C50773E")
 
 prepare() {
   cd ${pkgname}
-  patch -Np1 -i ../pacman-7.patch
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
