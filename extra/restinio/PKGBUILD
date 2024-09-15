@@ -1,20 +1,19 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=restinio
-pkgver=0.6.17
-pkgrel=3
+pkgver=0.7.2
+pkgrel=2
 pkgdesc="Header-only C++14 library that gives you an embedded HTTP/Websocket server"
 arch=(any)
 url="https://stiffstream.com/en/products/restinio.html"
 license=(BSD)
-depends=(asio http-parser fmt)
+depends=(asio llhttp fmt expected-lite)
 makedepends=(cmake gcc openssl zlib pcre pcre2 boost)
 source=(https://github.com/Stiffstream/restinio/releases/download/v.${pkgver}/${pkgname}-${pkgver}.tar.bz2)
-sha256sums=('cea0c46906196e97c30b2bfefbfd49578c9f870a89501d7ce5cd39bbd376142a')
+sha256sums=('7ba3660ccf937eae55b35aba97d500e60a53baf3f2a24ee87a01b2ed6f2c08f4')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver}/dev/ \
-      -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_INSTALL_PREFIX=/usr \
       -DRESTINIO_FIND_DEPS=ON \
       -DRESTINIO_TEST=OFF \
@@ -22,8 +21,11 @@ build() {
       -DRESTINIO_INSTALL_SAMPLES=OFF \
       -DRESTINIO_BENCH=OFF \
       -DRESTINIO_INSTALL_BENCHES=OFF \
-      -DRESTINIO_ALLOW_SOBJECTIZER=OFF \
-      -DRESTINIO_USE_EXTERNAL_HTTP_PARSER=ON
+      -DRESTINIO_WITH_SOBJECTIZER=OFF \
+      -DRESTINIO_USE_EXTERNAL_HTTP_PARSER=ON \
+      -DRESTINIO_DEP_LLHTTP=system \
+      -DRESTINIO_DEP_FMT=system \
+      -DRESTINIO_DEP_EXPECTED_LITE=system
   make -C build
 }
 

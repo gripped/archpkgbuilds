@@ -1,7 +1,7 @@
 pkgbase = restinio
 	pkgdesc = Header-only C++14 library that gives you an embedded HTTP/Websocket server
-	pkgver = 0.6.17
-	pkgrel = 3
+	pkgver = 0.7.2
+	pkgrel = 2
 	url = https://stiffstream.com/en/products/restinio.html
 	arch = any
 	license = BSD
@@ -13,9 +13,10 @@ pkgbase = restinio
 	makedepends = pcre2
 	makedepends = boost
 	depends = asio
-	depends = http-parser
+	depends = llhttp
 	depends = fmt
-	source = https://github.com/Stiffstream/restinio/releases/download/v.0.6.17/restinio-0.6.17.tar.bz2
-	sha256sums = cea0c46906196e97c30b2bfefbfd49578c9f870a89501d7ce5cd39bbd376142a
+	depends = expected-lite
+	source = https://github.com/Stiffstream/restinio/releases/download/v.0.7.2/restinio-0.7.2.tar.bz2
+	sha256sums = 7ba3660ccf937eae55b35aba97d500e60a53baf3f2a24ee87a01b2ed6f2c08f4
 
 pkgname = restinio
