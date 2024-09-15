@@ -6,7 +6,7 @@
 pkgname=sbsigntools
 pkgver=0.9.5
 _commit=8445b18f64e60137408a4867fbcbb9ba112c583a  # refs/tags/v0.9.5
-pkgrel=2
+pkgrel=3
 pkgdesc="Tools to add signatures to EFI binaries and Drivers"
 arch=(x86_64)
 url="https://git.kernel.org/pub/scm/linux/kernel/git/jejb/sbsigntools.git/about"
@@ -49,7 +49,7 @@ build() {
   )
 
   cd $pkgname
-  CFLAGS="${CFLAGS} -Wno-error" ./configure "${configure_options[@]}"
+  CFLAGS="${CFLAGS} -fshort-wchar -Wno-error" ./configure "${configure_options[@]}"
   make
 }
 
