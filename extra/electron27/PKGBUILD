@@ -10,7 +10,7 @@
 
 pkgver=27.3.11
 _gcc_patches=118-2
-pkgrel=6
+pkgrel=7
 _major_ver=${pkgver%%.*}
 pkgname="electron${_major_ver}"
 pkgdesc='Build cross platform desktop apps with web technologies'
@@ -321,7 +321,7 @@ sha256sums=('efe39ada071f6f7d42bd10aae57ae1b7a136ed5c85e9c329c25b3409588b0c5c'
             '9341676174943fbc5268e023c3e572171289fc4748401723a6dcaef50f793dcd'
             '9dceb667519695a22d1e64f422fb10a03c01a973869f1a78160f9999868b7b72'
             '7b32c27a5513c451032132fe5dc724de23d3b0738a0609a96bd44deee1d46681'
-            '6a62ad6721921b357c9542d8aee168e8c030d3f63c8cd75257d245a3e2c30b5b'
+            '9c20cc1ca63aa553895c7bad739582236ef2b6eeec484559e7c912fdc447030f'
             '33810d30dcd83520e16e0be2ddc1eec0dc2c3154f32c8d103c2988a43f7ada78'
             'e475d42b746955422ff9e905354091d0b17cdb2c8989cc6beb6470e76a4aa1dd'
             '1c4688d20fef561d21f349cf93c0cf34f20b79d01859d5bde6e45e262eb49840'
@@ -372,7 +372,7 @@ sha256sums=('efe39ada071f6f7d42bd10aae57ae1b7a136ed5c85e9c329c25b3409588b0c5c'
             '757b656ae79d5434222143221700a193593a5f07ca6b1ce0104fb167c0ef6590'
             '12b9b2baaf68793e729f6126cd69d5caa9a53ba0707b2e8926ba14879ea31723'
             'e109f753113ae5ea4cdc31e35c244f51c3be0472fb065e44bd094703d210d661'
-            '785f769c6c0d465f79038ec4f4c210025043285c345041667b122296c6b961e1'
+            '307070b52d7d46386f142d5711c50657b19c0db8bf7f4e61705ee8f4ee555d14'
             '149af77a3896e6a2a93383aa6c65e4a7cac0fe90abc909802afdd55f79a0faf5'
             '92901c0796ece4b4a5f184d8a4e7052fb8efcd221a4197cb0fc0735314a51360'
             '06f406e9d76fec5f946ee413ac21bf633495f33f8add5ba264a96b301f8c9195'
@@ -380,7 +380,7 @@ sha256sums=('efe39ada071f6f7d42bd10aae57ae1b7a136ed5c85e9c329c25b3409588b0c5c'
             'f8627f5f3a7c119807afc9dc66ce7cb350f905fd1db7fb6b0077552974a07515'
             'ac3f025aa27fec77b24b443df3a69750dc9bb070a40af5180d031b81e66e328c'
             '4f3ad08d3b7242b1a6aa8dcf78073c0fb0de332073317c5aa994d6b239e8eddd'
-            '7d89448b9cccc0e2309ce34fef37ed85fd08fd2b030422e456fc531ebb1e8f80'
+            'c23fa31250811a76be900554b9ac127f861ebde09c07ac67cd6b82dd214e5686'
             'fcee8376d94f7b0f5671e09c8e2bab92c20a752fa976f76c5e03c0a946ce1890'
             '6788bc1f2a676d4edcf4394515b7f4119fae00742f7c447e3b1e2bce49072fc9'
             '295fdb1fdf03b4f1db1fedddc922d34362ad61e09fa627456af784696fd2869b'
@@ -596,6 +596,9 @@ build() {
   # Do not warn about unknown warning options
   CFLAGS+='   -Wno-unknown-warning-option'
   CXXFLAGS+=' -Wno-unknown-warning-option'
+
+  CFLAGS+=' -Wno-c++11-narrowing-const-reference'
+  CXXFLAGS+=' -Wno-c++11-narrowing-const-reference'
 
   # Let Chromium set its own symbol level
   CFLAGS=${CFLAGS/-g }
