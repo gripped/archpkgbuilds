@@ -1,8 +1,8 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=pacquery
-pkgver=0.0.2
-pkgrel=2
+pkgver=0.0.3
+pkgrel=1
 pkgdesc="A CLI tool to get JSON output of pacman packages from the system's syncdb"
 url='https://github.com/jelly/pacquery'
 arch=('x86_64')
@@ -10,17 +10,14 @@ license=('MIT')
 depends=('glibc' 'libalpm.so')
 makedepends=('cargo' 'git')
 groups=('archlinux-tools')
-source=(git+https://github.com/jelly/pacquery.git#tag=v$pkgver?signed
-        pacman-7.patch)
-sha512sums=('e9e46d13fe0613c2874319271b4633cd88f7477d78aa559816220be36939495079f93c184cdd511712dcb761dc25a1eb9137a66bc1bbcfa58bc2468662f7ff51'
-            'c0b38c9a6c2eb2239db02f6ef41e246666d85e2f5b8c407075590e8edb87cd7a0ced45000684d416d66c2502adb3a107e2199157352583712f780a37b6495ddd')
+source=(git+https://github.com/jelly/pacquery.git#tag=v$pkgver?signed)
+sha512sums=('efa4063def0b1c1556c3bdd2572a604f7df802f3dae9fb76fbc1f87ee9851bb001e25c5dae4ed84be3cafb059cdc55d217af30bc3341eb6aef159c3d46d7a005')
 validpgpkeys=("E499C79F53C96A54E572FEE1C06086337C50773E")
 
 prepare() {
   cd ${pkgname}
   mkdir -p completions
   mkdir -p man
-  patch -Np1 -i ../pacman-7.patch
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
