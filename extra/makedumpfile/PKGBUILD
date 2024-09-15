@@ -7,7 +7,7 @@
 
 pkgname=makedumpfile
 pkgver=1.7.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A tool to generate smaller dumpfiles from kdump memory dumps"
 license=('GPL-2.0-only')
 depends=('perl' 'libelf' 'zstd')
@@ -21,6 +21,16 @@ validpgpkeys=(
   '60C5A596A37CDE6C357C5C623136D252B5E85FA9' # Kazuhito Hagio <k-hagio@ab.jp.nec.com>
 )
 
+prepare(){
+  cd "${pkgname}"
+
+  # Fix wrong exclusion of Slab pages on Linux 6.10-rc1 and later
+  # Required for kernel 6.10
+  git cherry-pick -n bad2a7c4fa75d37a41578441468584963028bdda
+
+  # Fix failure of hugetlb pages exclusion on Linux 6.9 and later
+  git cherry-pick -n 985e575253f1c2de8d6876cfe685c68a24ee06e1
+}
 build() {
   cd "${pkgname}"
   make -O \
