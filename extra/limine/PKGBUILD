@@ -2,7 +2,7 @@
 # Contributor: Mintsuki <mintsuki@protonmail.com>
 
 pkgname=limine
-pkgver=8.0.11
+pkgver=8.0.12
 pkgrel=1
 pkgdesc="An advanced, portable, multiprotocol bootloader"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('BSD-2-Clause')
 depends=('glibc')
 makedepends=('git' 'nasm' 'mtools' 'llvm' 'lld' 'clang')
 source=("git+https://github.com/limine-bootloader/limine.git#tag=v${pkgver}")
-sha256sums=('ef3f18648b97a766ca7dda1252e2f9a4a9ee05e80ba9efffb3e0b13ba891de9b')
+sha256sums=('4b300753fa9cf8aa884e6875e67fdd27870f0b874f19551b1594972491133f7f')
 
 prepare() {
 	cd "${pkgname}"
