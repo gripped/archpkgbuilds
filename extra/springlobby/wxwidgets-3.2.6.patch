@@ -1,0 +1,11 @@
+diff -ru springlobby-0.274.orig/CMakeLists.txt springlobby-0.274/CMakeLists.txt
+--- springlobby-0.274.orig/CMakeLists.txt	2024-09-14 20:00:28.300599859 +0200
++++ springlobby-0.274/CMakeLists.txt	2024-09-14 20:00:55.140903786 +0200
+@@ -2,6 +2,7 @@
+ 
+ #set minimum cmake version
+ cmake_minimum_required(VERSION 3.1)
++cmake_policy(SET CMP0004 OLD)
+ 
+ set(CMAKE_COLOR_MAKEFILE ON)
+ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})

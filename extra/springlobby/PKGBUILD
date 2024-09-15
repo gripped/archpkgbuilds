@@ -3,7 +3,7 @@
 
 pkgname=springlobby
 pkgver=0.274
-pkgrel=1
+pkgrel=3
 pkgdesc="A free cross-platform lobby client for the Spring RTS project"
 arch=('x86_64')
 url="https://springlobby.springrts.com/"
@@ -11,14 +11,18 @@ license=('GPL2')
 depends=('hicolor-icon-theme' 'wxwidgets-gtk3' 'curl' 'jsoncpp' 'alure'
          'minizip' 'libsm')
 makedepends=('boost' 'cmake' 'ninja')
-source=("https://springlobby.springrts.com/dl/stable/springlobby-${pkgver}.tar.bz2")
-sha512sums=('eef1a58ffbcf4c8aa3c4bf2c555775412649f5e8a589a47d004c605576570c2e441f35ea20a22bf618a2be6b3b104dbbec1f45d6cd221d3537eee7b0c4c754a0')
+source=("https://springlobby.springrts.com/dl/stable/springlobby-${pkgver}.tar.bz2"
+         wxwidgets-3.2.6.patch)
+sha512sums=('eef1a58ffbcf4c8aa3c4bf2c555775412649f5e8a589a47d004c605576570c2e441f35ea20a22bf618a2be6b3b104dbbec1f45d6cd221d3537eee7b0c4c754a0'
+            '20923ebaeef16419a8eb113c22d0ab8d0b5ce05910044e3a830c3e8ee44d345a1a7b8ad5c06fe6913bb47905896deee266a57bed13dc4c3f5ec6772c9a9d073e')
 
 prepare() {
   cd $pkgname-$pkgver
   # remove bundled libraries
   rm -r src/downloader/lib/src/lib/jsoncpp
   rm -r src/downloader/lib/src/lib/minizip
+
+  patch -p1 -i ../wxwidgets-3.2.6.patch # Fix build with wxwidgets 3.2.6
 }
 
 build() {
