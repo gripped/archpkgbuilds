@@ -1,7 +1,7 @@
 pkgbase = waybar
 	pkgdesc = Highly customizable Wayland bar for Sway and Wlroots based compositors
 	pkgver = 0.11.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/Alexays/Waybar/
 	arch = x86_64
 	license = MIT
@@ -43,7 +43,9 @@ pkgbase = waybar
 	backup = etc/xdg/waybar/config.jsonc
 	backup = etc/xdg/waybar/style.css
 	source = waybar-0.11.0.tar.gz::https://github.com/Alexays/Waybar/archive/0.11.0.tar.gz
+	source = fix-systray.patch::https://github.com/Alexays/Waybar/commit/0d02f6877d88551ea2be0cd151c1e6354e208b1c.patch
 	b2sums = f2407335e00f02cbf946d95cfcd409dd148917839fd73d52bec1a0c77e041022e81ad7efcde2bd4394356d92686a25b2ca345319fee5ac393202a483db339f93
+	b2sums = e99cdecc0736ba8e424caa70aca552acb34cec38b3be0952d73b6cd6b04b3b8161387d9798b088440a9effc0ae059fbbd310b372f3bfccb197f8c5888c550367
 
 pkgname = waybar
 	depends = atkmm
