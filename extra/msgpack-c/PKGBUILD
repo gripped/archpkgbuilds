@@ -1,49 +1,47 @@
 # Maintainer: Konstantin Gizdov <arch at kge dot pw>
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Baptiste Jonglez
 # Contributor: Leen Jewel <leenjewel@gmail.com>
 # Contributor: Auguste Pop <auguste [at] gmail [dot] com>
 
-pkgname='msgpack-c'
-pkgver=5.0.0
+pkgname=msgpack-c
+pkgver=6.1.0
 pkgrel=2
 pkgdesc='An efficient object serialization library'
 arch=("x86_64")
 url='https://msgpack.org/'
 license=('BSL-1.0')
 depends=('glibc')
+makedepends=(
+  'cmake'
+  'doxygen'
+  'graphviz'
+)
 checkdepends=('gtest')
-makedepends=('cmake' 'doxygen' 'graphviz')
-source=("https://github.com/msgpack/msgpack-c/releases/download/c-${pkgver}/${pkgname}-${pkgver}.tar.gz"
-        "LICENSE-${pkgname}-${pkgver}::https://raw.githubusercontent.com/msgpack/${pkgname}/c_master/COPYING")
-b2sums=('9c4ebc60387028cba04d5a8f4d97ca3cf6caa3db93fa7da1a90089d63cd58b36a7fb387b4fd5410d0c422719c1aed6d479418d3cbc011b609afb49cf89c4d0e3'
-        'f39585a8a06390e7677a46fd62c1836d2873ceb6e66927803fcbf42a572b5c6c0948b5191708bf1fe04c79b94de574d1d1ef19eaca28e81326af6ef1757c1d94')
-_builddir='build-c'
-
-prepare() {
-  cd "${srcdir}"
-  mkdir "${_builddir}"
-}
+provides=(libmsgpack-c.so)
+source=("$pkgname-$pkgver.tar.gz::https://github.com/msgpack/msgpack-c/archive/c-$pkgver.tar.gz")
+b2sums=('f244fe26b44b1985e4bd87e37c0b31b99a17e59fae0df54cb6b9599268d8ea3ba2677a94bdce148b597f0c229055c3d881fffaa92b843dad324c8160194f90ee')
 
 build() {
-  cd "${srcdir}/${_builddir}"
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_C_STANDARD='17' \
-        -DBUILD_SHARED_LIBS=ON \
-        -DMSGPACK_ENABLE_STATIC=OFF \
-        -DMSGPACK_BUILD_EXAMPLES=OFF \
-        -DMSGPACK_BUILD_TESTS=ON \
-        "${srcdir}/${pkgname}-${pkgver}"
-  make
+  cd $pkgname-c-$pkgver
+  cmake -S . -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=None \
+    -Wno-dev \
+    -DBUILD_SHARED_LIBS=ON \
+    -DMSGPACK_ENABLE_STATIC=OFF \
+    -DMSGPACK_BUILD_EXAMPLES=OFF \
+    -DMSGPACK_BUILD_TESTS=ON
+  cmake --build build
 }
 
 check() {
-  cd "${srcdir}/${_builddir}"
-  make test 
+  cd $pkgname-c-$pkgver
+  cmake --build build --target test
 }
 
 package() {
-  cd "${srcdir}/${_builddir}"
-  make DESTDIR="${pkgdir}" install
-  install -Dm644 "${srcdir}/LICENSE-${pkgname}-${pkgver}" "${pkgdir}/usr/share/licenses/${pkgname}"/LICENSE
+  cd $pkgname-c-$pkgver
+  DESTDIR="$pkgdir" cmake --install build
 }
