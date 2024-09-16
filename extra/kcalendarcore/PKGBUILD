@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kcalendarcore
-pkgver=6.5.0
+pkgver=6.6.0
 pkgrel=1
 pkgdesc='The KDE calendar access library'
 arch=(x86_64)
@@ -19,7 +19,7 @@ makedepends=(doxygen
 optdepends=('qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('6da599f5ed15f6ce54c2f928026ee2f64edd2fe0d5203b4f50bbf89a8b21f522'
+sha256sums=('1ab6390411f8681e0559cc7b3c2f3b4384d607a408681077535ff993606362f8'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
