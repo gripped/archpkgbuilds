@@ -2,7 +2,7 @@
 
 pkgname=eglexternalplatform
 pkgver=1.2
-pkgrel=1
+pkgrel=2
 pkgdesc="EGL External Platform interface"
 url=https://github.com/NVIDIA/eglexternalplatform
 arch=(any)
@@ -16,7 +16,15 @@ source=("git+$url#tag=$pkgver")
 b2sums=('9da96c07158ad5e22720ebe25f675bcb11bc87f081622a04d12af2f4406984836b2c2078f89e5a0b441ceea2052073b614356abfe2000173f7a0bfaa9fc2c325')
 
 prepare() {
+  cd $pkgname
+
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/eglexternalplatform/-/issues/1
+  git cherry-pick -n 70cd612f7da99449ba0c9bbbbc0ef1b3bef43f19
+}
+
+build() {
   arch-meson $pkgname build --includedir /usr/include/EGL
+  meson compile -C build
 }
 
 check() {
