@@ -1,0 +1,49 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Contributor: Jonathan Wright <jon@than.io>
+# Contributor: Brian Atkinson <brian@atkinson.mn>
+# Contributor: David Birks <david@birks.dev>
+
+pkgname=open-policy-agent
+pkgver=0.68.0
+pkgrel=1
+pkgdesc='Command-line utility and REPL for Open Policy Agent'
+arch=(x86_64)
+url=https://github.com/open-policy-agent/opa
+license=(Apache-2.0)
+depends=(glibc)
+makedepends=(
+  git
+  go
+)
+_tag=db53d77c482676fadd53bc67a10cf75b3d0ce00b
+source=(git+https://github.com/open-policy-agent/opa.git#tag=${_tag})
+b2sums=('dd712b725d5b1daac7263d65fa2f64dfce82216abf04af5fdf746d4d046299a063f1bc57f801ba708aaf3a882f86f29d2af85b0dfa00f08fe74ec8a7b45ef6db')
+
+build() {
+  cd opa
+
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export CGO_LDFLAGS="${LDFLAGS}"
+  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+
+  go build \
+  -ldflags "-linkmode=external -X github.com/open-policy-agent/opa/version.Version=${pkgver}" \
+  -o opa \
+  .
+
+  mkdir completion
+  ./opa completion bash > completion/opa
+  ./opa completion zsh > completion/_opa
+  ./opa completion fish > completion/opa.fish
+}
+
+package() {
+  install -Dm 755 opa/opa -t "${pkgdir}"/usr/bin/
+  install -Dm 644 opa/completion/opa -t "${pkgdir}"/usr/share/bash-completion/completions/
+  install -Dm 644 opa/completion/_opa -t "${pkgdir}"/usr/share/zsh/site-functions/
+  install -Dm 644 opa/completion/opa.fish -t "${pkgdir}"/usr/share/fish/completions/
+}
+
+# vim: ts=2 sw=2 et:
