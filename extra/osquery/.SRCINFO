@@ -1,7 +1,7 @@
 pkgbase = osquery
 	pkgdesc = SQL powered operating system instrumentation, monitoring, and analytics
-	pkgver = 5.12.2
-	pkgrel = 3
+	pkgver = 5.13.1
+	pkgrel = 1
 	url = https://osquery.io
 	arch = x86_64
 	license = Apache-2.0 OR GPL-2.0-only
@@ -58,7 +58,7 @@ pkgbase = osquery
 	depends = zstd
 	backup = etc/osquery/osquery.conf
 	backup = etc/sysconfig/osqueryd
-	source = git+https://github.com/osquery/osquery.git#tag=5.12.2
+	source = git+https://github.com/osquery/osquery.git#tag=5.13.1
 	source = git+https://github.com/arangodb/linenoise-ng.git
 	source = git+https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git
 	source = 0001-Use-system-libraries-where-possible.patch::https://github.com/osquery/osquery/commit/196cef6ab11762eb81640e9d2043ec404e626994.patch
@@ -77,7 +77,8 @@ pkgbase = osquery
 	source = 0014-Update-usage-of-boost-property_tree-ptree-get_child.patch::https://github.com/osquery/osquery/commit/66070894acc3d7956162304c6a06277d94e1fa2e.patch
 	source = 0015-Replace-boost-filesystem-path.-normalize-lexically_n.patch::https://github.com/osquery/osquery/commit/7c8aa7ee95fd560ce76da7769f5a693aa70478b8.patch
 	source = 0016-Adapt-tests-for-Boost-1.86.0-JSON-serialization-chan.patch::https://github.com/osquery/osquery/commit/680a246f587fc300daacf2bb16e87c799bec597b.patch
-	sha256sums = 1239edfc5c1d80ce3d1a4ee072e2691df01587c00ab1e28fc9caa49f5ff46380
+	source = 0017-Replace-boost-filesystem-ofstream-with-std-ofstream.patch::https://github.com/osquery/osquery/commit/d1abf764a13c409e2c27e2fd72bd3b0d63dbb6b4.patch
+	sha256sums = 8ce04443b0eecdcfa068dbff0bd5ed79dff9fff60982b87d87ced312e3514741
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = d2ddbb5b05fc8471566e3f3d62525a601458e3b0c158658b05f6a82fef8e8533
@@ -96,5 +97,6 @@ pkgbase = osquery
 	sha256sums = 8f4441f3f11b9250f7c4b6107d08498cb3e231bd898fcec90373c2cb19fe8b78
 	sha256sums = 07d4ea9f79ef58e9542aa251fca1d4fcb45798786aac1fb4387522a653caf63d
 	sha256sums = 90ddfd8a94f40c11715a2bd8b083af5f43fcd1863b1300f6d4b08b48ccc26e13
+	sha256sums = 9c8f77af47ae66e2d64c528f3458b6d88e7f9f4fdd2d6a7b6f4ef4e5238c26ce
 
 pkgname = osquery
