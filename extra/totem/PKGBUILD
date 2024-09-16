@@ -3,16 +3,16 @@
 
 pkgname=totem
 pkgver=43.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Movie player for the GNOME desktop based on GStreamer"
-url="https://wiki.gnome.org/Apps/Videos"
+url="https://apps.gnome.org/Totem/"
 arch=(x86_64)
 license=(GPL2 custom)
 depends=(totem-plparser iso-codes libpeas grilo gsettings-desktop-schemas
          python-gobject gnome-desktop gst-plugins-base gst-plugins-good
          gst-plugins-bad gst-plugin-gtk libhandy libportal-gtk3)
 makedepends=(docbook-xsl gobject-introspection git appstream-glib gtk-doc meson
-             yelp-tools)
+             yelp-tools glib2-devel)
 checkdepends=(xorg-server-xvfb)
 optdepends=('gst-plugins-ugly: Extra media codecs'
             'gst-libav: Extra media codecs'
@@ -21,16 +21,12 @@ provides=(libtotem.so)
 conflicts=(totem-plugin)
 replaces=(totem-plugin)
 groups=(gnome)
-_commit=7bb879e1f6746ca19f99629794e918cdbbd06008  # tags/43.0^0
-source=("git+https://gitlab.gnome.org/GNOME/totem.git#commit=$_commit"
-        "git+https://gitlab.gnome.org/GNOME/libgd.git")
-sha256sums=('SKIP'
-            'SKIP')
-
-pkgver() {
-  cd totem
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/totem.git#tag=${pkgver/[a-z]/.&}"
+        "git+https://gitlab.gnome.org/GNOME/libgd.git"
+        totem-gtksink-fallback.patch)
+b2sums=('7101db21b91e67919416ebd8d3efe6dae77d1c937b6aa4955afba195533981f45968441a75370868b90e502ba285687b27c0a82f0fc3e79c282567957c8e1bf7'
+        'SKIP'
+        '4d13d6671261be6c641591500e6e679c1a2cc1908ba9d619e5c5fbe2822633e669ef9c67c1b993f31546135c327b41437c11bad5dc08e8345fd0b2c24ec42b29')
 
 prepare() {
   cd totem
@@ -38,6 +34,10 @@ prepare() {
   git submodule init
   git submodule set-url subprojects/libgd "$srcdir/libgd"
   git -c protocol.file.allow=always submodule update
+
+  # Fallback to gtksink if OpenGL is unavailable
+  # https://gitlab.gnome.org/GNOME/totem/-/merge_requests/379
+  git apply -3 ../totem-gtksink-fallback.patch
 }
 
 build() {
