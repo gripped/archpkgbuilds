@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kdesu
-pkgver=6.5.0
+pkgver=6.6.0
 pkgrel=1
 pkgdesc='Integration with su for elevated privileges'
 arch=(x86_64)
@@ -23,7 +23,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('03c08d0bbcf71ef122ebe3c97b109092ad9e8719d20d341d8510607bda9ab393'
+sha256sums=('d5ac127e3b218da7a785fa606490b052c09d481bcff0227b45d42ef0e3f34a5f'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
