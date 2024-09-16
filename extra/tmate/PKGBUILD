@@ -4,18 +4,23 @@
 
 pkgname=tmate
 pkgver=2.4.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Instant terminal sharing'
 arch=('x86_64')
 url='https://tmate.io/'
 license=('BSD')
 depends=('libevent' 'libssh' 'libutempter' 'msgpack-c' 'ncurses')
-source=("https://github.com/tmate-io/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('62b61eb12ab394012c861f6b48ba0bc04ac8765abca13bdde5a4d9105cb16138')
+source=(
+  "https://github.com/tmate-io/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+  "msgpack-v6.patch"
+)
+sha256sums=('62b61eb12ab394012c861f6b48ba0bc04ac8765abca13bdde5a4d9105cb16138'
+            'a778da70f603bc76c47161e2aaf7eb13940d6e758b44d9b81343c535d0b8ae3c')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
+  patch -Np1 -i "${srcdir}/msgpack-v6.patch"
   ./autogen.sh
 }
 
