@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kitemmodels
-pkgver=6.5.0
+pkgver=6.6.0
 pkgrel=1
 pkgdesc='Models for Qt Model/View system'
 arch=(x86_64)
@@ -20,7 +20,7 @@ makedepends=(doxygen
 optdepends=('qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('36ec04b3fd25249a1ce9cfd08824f2c2e40ef4d54224e118e06fa21c5f9a4f76'
+sha256sums=('fe0677bd6eaf2bccd350e7b80eebac382908fc2388af6716171ad77417ee7802'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
