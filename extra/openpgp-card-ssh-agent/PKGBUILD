@@ -2,7 +2,7 @@
 
 pkgname=openpgp-card-ssh-agent
 _name="${pkgname#openpgp-card-}"
-pkgver=0.3.2
+pkgver=0.3.3
 pkgrel=1
 pkgdesc="A simple ssh-agent backed by OpenPGP card authentication keys"
 arch=(x86_64)
@@ -14,12 +14,13 @@ depends=(
   org.freedesktop.secrets
 )
 makedepends=(
+  dbus
   pcsclite
   rust
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('b8e013cbb35870f5185718453e2ee97c858361b66b3321e15ee069a9ef131fd2f97abb181000057057b3a66c4cfe6d089df562c1c43a291344f5fd4d8b97a426')
-b2sums=('4c1d3d3ee04a367a36a82d7266463507324135f381e839f14929b828cbbd9c385d321359aa0c24c3dcc90a12adbbc2a76fa60f500c8d65518e6f61a496fd7cf3')
+sha512sums=('202b0b2a5a3d8efceaf7dc5e67978222ac61a8fac11c611572e053b707a6b15a30c22270b1a41c3b5e8dfaf967395e8d286ca27d1a96e441b248517b6b1b2460')
+b2sums=('7a809c144af5c097843d391f5bb553d38710fe4f0edb6a259ba9a307071a3fca9cb1507c7f5e76bdd4051c3e00c0f514169682f896f7679990496b35f5669461')
 
 prepare() {
   cd $_name
@@ -42,6 +43,7 @@ check() {
 
 package() {
   depends+=(
+    dbus libdbus-1.so
     pcsclite libpcsclite.so
   )
 
