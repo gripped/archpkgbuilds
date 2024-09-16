@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=dvisvgm
-pkgver=3.4
+pkgver=3.4.1
 pkgrel=1
 pkgdesc='A fast DVI, EPS, and PDF to SVG converter'
 arch=(x86_64)
@@ -21,7 +21,7 @@ makedepends=(autoconf-archive
              git
              python)
 source=(git+https://github.com/mgieseki/dvisvgm#tag=$pkgver)
-sha256sums=('20d200859b1a717d1b4c8499214fd0fa9fc9d8892a4493f4732194f86ab2ac6a')
+sha256sums=('588921ffe6d171652a50eadd8de25046d31504bb2aae70dcc5585dff1d5ef91f')
 
 prepare() {
   cd $pkgname
