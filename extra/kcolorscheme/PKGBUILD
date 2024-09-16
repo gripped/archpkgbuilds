@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kcolorscheme
-pkgver=6.5.0
+pkgver=6.6.0
 pkgrel=1
 pkgdesc='Classes to read and interact with KColorScheme'
 arch=(x86_64)
@@ -19,7 +19,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('323b55dd37dc408ccc158df2ce5c8a46b628f9355d2a77916e4565afce90b42b'
+sha256sums=('657839e1ff8141ff09705be912e276a2dc98df122f5bcc2fdc3ed11d10100cd1'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
