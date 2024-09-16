@@ -5,18 +5,20 @@
 pkgbase=doublecmd
 pkgname=('doublecmd-gtk2' 'doublecmd-qt5' 'doublecmd-qt6')
 pkgver=1.1.17
-pkgrel=1
+pkgrel=2
 url="http://doublecmd.sourceforge.net/"
 arch=('x86_64')
 license=('GPL')
 provides=("$pkgbase")
-makedepends=('lazarus' 'gtk2' 'qt5pas' 'qt6pas')
+makedepends=('lazarus' 'gtk2' 'qt5pas' 'qt6pas' 'imagemagick' 'ffmpegthumbnailer')
 optdepends=(
     'lua: scripting'
     'unzip: support extracting zip archives'
     'zip: suport packing zip archives'
     'p7zip: support for 7zip archives'
     'libunrar: support for rar archives'
+    'imagemagick: preview xcf files'
+    'ffmpegthumbnailer: preview video files'
 )
 source=(
     "https://downloads.sourceforge.net/project/$pkgbase/Double%20Commander%20Source/$pkgbase-$pkgver-src.tar.gz"
