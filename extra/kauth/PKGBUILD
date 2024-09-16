@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kauth
-pkgver=6.5.0
+pkgver=6.6.0
 pkgrel=1
 pkgdesc='Abstraction to system policy and authentication features'
 arch=(x86_64)
@@ -21,7 +21,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('1af517a509da1c5ddb4420d7430894b751562e07cc4c134abe0dcb606358d394'
+sha256sums=('04fb5e3ff672f31f6c3f2e40a59d9c7447a5251b99dbe5f5ea67f54a4c981f3a'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
