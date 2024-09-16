@@ -2,8 +2,8 @@
 # Contributor: Konstantin Gizdov <arch at kge dot pw>
 
 pkgname=tensorboard
-pkgver=2.16.2
-pkgrel=3
+pkgver=2.17.1
+pkgrel=1
 pkgdesc="TensorFlow's Visualization Toolkit"
 url='https://github.com/tensorflow/tensorboard'
 arch=('x86_64')
@@ -16,12 +16,10 @@ optdepends=('python-tensorflow: advanced features for TensorBoard')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/tensorflow/tensorboard/archive/${pkgver}.tar.gz"
   https://github.com/bazelbuild/bazel/releases/download/6.5.0/bazel_nojdk-6.5.0-linux-x86_64
-  'numpy2.diff'
 )
 options=('!lto')
-sha512sums=('0dc57928d55ebd46386d0f0852b3b4e9078222bd4378655abb16f6bc0e5ed2969600071d5d2ae9a3f2aa6bb327fe567869a01a69fdda35c261dc44a1eadd18ce'
-            'd3789f0ecd354468f2e24d98501041430ae99c173320fa9c3eb02f225c08ed298fd1ad259e4ad9bb70b6ae89d84cd87460aaa720de3486d40b30777a8fe45453'
-            '91d3ac11bca482686e31ed77c1bf52559a475b4862d808ceed199c4af210539adb0708730206e093f34aea61e3887bb85ff0bf3e193124c553b654e823078e3f')
+sha512sums=('5819ccaf356ef768c2114e00bb583461d4a5eb98d0d6410da0dfc0f34af60d8fff0ab5b171c976bb63e8af6c81450bbf24e3035cda30ab49542e9ae36455cbe5'
+            'd3789f0ecd354468f2e24d98501041430ae99c173320fa9c3eb02f225c08ed298fd1ad259e4ad9bb70b6ae89d84cd87460aaa720de3486d40b30777a8fe45453')
 
 prepare() {
   # Since tensorboard is currently imcompatible with Bazel 6, we're going to use
@@ -35,9 +33,6 @@ prepare() {
   # Remove fixed version requirements as we usually ship more up-to-date
   # versions than are specified and it tends to work fine anyhow.
   sed -i "s/[<>=].*//" tensorboard/pip_package/requirements.txt
-
-  # Bring compatibility with NumPy v2 until the truck is fixed.
-  patch -p1 -i../numpy2.diff
 }
 
 build() {
