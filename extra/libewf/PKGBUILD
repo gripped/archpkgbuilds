@@ -5,7 +5,7 @@
 
 pkgname=libewf
 _pkgname=libewf-legacy
-pkgver=20140814
+pkgver=20140816
 pkgrel=1
 pkgdesc="A library for support of the Expert Witness Compression Format (EWF)"
 arch=('x86_64')
@@ -22,7 +22,7 @@ makedepends=(
 )
 optdepends=('fuse2: to be able to use ewfmount')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('0bf0c8ccc4cce1ed1b8fbd27813fe4c84dbc10d58d4065104cf2a1d9c417dab4')
+sha256sums=('de94366eb9586a910ae536dc8b621b5d7637ee28913a7fc0e6395b2ab67e9b9b')
 
 prepare() {
   cd $_pkgname-$pkgver
