@@ -4,22 +4,30 @@
 pkgname=gnome-shell-extension-caffeine
 _uuid=caffeine@patapon.info
 pkgver=53
-pkgrel=2
+pkgrel=3
 pkgdesc='Extension for GNOME Shell to disable screensaver and auto suspend'
-arch=('any')
+arch=(any)
 url='https://github.com/eonpatapon/gnome-shell-extension-caffeine'
-license=('GPL-3.0-or-later')
-depends=('gnome-shell')
-source=("https://github.com/eonpatapon/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('c35c3a3b52c18aca9f101257f1c7f4f492f9d4fa146ca6a74d1b141311cab8c5')
+license=(GPL-3.0-or-later)
+depends=(gnome-shell)
+makedepends=(git)
+source=("git+https://github.com/eonpatapon/gnome-shell-extension-caffeine.git#tag=v$pkgver")
+b2sums=(5f00c8ba0cb7b02d9f946bd2e5c98c9c4b0b21f43e8d831065e50fce6b9c31cdb78ae76a00f1f38c54dffebd876648682b75accfd9a0eeb76d1c49716b999311)
+
+prepare() {
+  cd $pkgname
+
+  # https://github.com/eonpatapon/gnome-shell-extension-caffeine/pull/340
+  git cherry-pick -n f37c5e0a37a5e5a619c7d4699f3ec1ab24d33e60
+}
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make build
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   install -dm755 "$pkgdir/usr/share/gnome-shell/extensions/$_uuid"
   bsdtar -xf $_uuid.zip -C "$pkgdir/usr/share/gnome-shell/extensions/$_uuid" --no-same-owner
   install -dm755 "$pkgdir/usr/share/glib-2.0"
