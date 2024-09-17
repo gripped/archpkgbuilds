@@ -1,45 +1,50 @@
-# Maintainer: Kyle Keen <keenerd@gmail.com?>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Kyle Keen <keenerd@gmail.com>
 # Contributor: Dominik Heidler <dheidler@gmail.com>
 
-_name=gr-osmosdr
 pkgname=gnuradio-osmosdr
-pkgver=0.2.5
-_commit=73d8982ac0d1f05461d49c379bb45f018c5f32f2
-pkgrel=8
-pkgdesc='Source block for Funcube Dongle, RTL-SDR, USRP, OsmoSDR, BladeRF, HackRF and AirSpy devices'
-url='https://osmocom.org/projects/gr-osmosdr'
+_pkgname=gr-osmosdr
+pkgver=0.2.6
+pkgrel=1
+pkgdesc="Source block for Funcube Dongle, RTL-SDR, USRP, OsmoSDR, BladeRF, HackRF and AirSpy devices"
 arch=(x86_64)
-license=(GPL3)
+url="https://osmocom.org/projects/gr-osmosdr"
+license=(GPL-3.0-or-later)
 depends=(
   airspy
   bladerf
+  boost-libs
   gcc-libs
   glibc
+  gnuradio
+  gnuradio-iqbal
   hackrf
   libuhd
   libvolk
-  soapysdr
+  python
+  python-numpy
   rtl-sdr
+  soapysdr
 )
 makedepends=(
-  cmake
   boost
+  cmake
   git
-  gnuradio
-  gnuradio-iqbal
   pybind11
 )
 optdepends=('python-opengl: for osmocom_fft')
 provides=(libgnuradio-osmosdr.so)
-replaces=('gr-osmosdr')
-source=(git+https://gitea.osmocom.org/sdr/$_name.git#tag=$_commit)
-sha256sums=('SKIP')
+replaces=(gr-osmosdr)
+source=("git+https://gitea.osmocom.org/sdr/gr-osmosdr.git#tag=v$pkgver")
+sha256sums=('4df6d9dc55431be207b393d1c88eb47637551fbddb63a1062fe072e97dc5ea83')
 
 build() {
+  cd $_pkgname
   local cmake_options=(
-    -B build
-    -D CMAKE_BUILD_TYPE=None
+    -S . -B build
     -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_BUILD_TYPE=None
+    -W no-dev
     -D Boost_NO_BOOST_CMAKE=ON
     -D ENABLE_AIRSPY=ON
     # -D ENABLE_AIRSPYHF=ON  # TODO: package https://github.com/airspy/airspyhf
@@ -58,20 +63,12 @@ build() {
     -D ENABLE_SOAPY=ON
     -D ENABLE_UHD=ON
     # -D ENABLE_XTRX=ON  # TODO: package https://github.com/xtrx-sdr/libxtrx
-    -S $_name
-    -W no-dev
   )
-
   cmake "${cmake_options[@]}"
   cmake --build build
 }
 
 package() {
-  depends+=(
-    boost-libs libboost_{chrono,thread}.so
-    gnuradio libgnuradio-{blocks,runtime,pmt,uhd}.so
-    gnuradio-iqbal libgnuradio-iqbalance.so    
-  )
-
+  cd $_pkgname
   DESTDIR="$pkgdir" cmake --install build
 }
