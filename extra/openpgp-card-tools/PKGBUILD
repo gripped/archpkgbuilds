@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=openpgp-card-tools
-pkgver=0.11.3
+pkgver=0.11.6
 pkgrel=1
 pkgdesc="CLI tool to inspect, manage and use OpenPGP cards"
 arch=(x86_64)
@@ -14,11 +14,12 @@ depends=(
 )
 makedepends=(
   cargo
+  dbus
   pcsclite
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('68dd38a86f3e969a8c05f5d46704eb8b7e04d61af218f86c9ec9baba84ce01717d217be76e5cf642cba285946ea53ed27551cced3b18dac83bc2712bc52c95cf')
-b2sums=('ae725e15a839055c37874a525f1ebf166ff2649154acdc3f9125515aed788b9daa91253edefb34ae753d06018832692a18f4cc4b9e4ae396f6d2eafc5ddd3c65')
+sha512sums=('2e5d33658c9e21ec51817b292e9d190475f63a53fff92a77d543a5fac59f2ebdef6ef45b3223cd2e6a2a16cfe30d18620dc15e2a9fecbd2b7235b2b4f14a18a3')
+b2sums=('9fe5a4e990b363d367cd47e6db51006ff2925c9e0c9c9a96dab2946eb6bfc01add68d8bff35abc481cb79199e64b398b48f17d154c3e4df2bc415ea277d73fb1')
 
 prepare() {
   cd $pkgname
@@ -36,6 +37,7 @@ build() {
 
 package() {
   depends+=(
+    dbus libdbus-1.so
     pcsclite libpcsclite.so
   )
 
