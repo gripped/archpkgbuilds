@@ -5,7 +5,7 @@
 
 pkgname=(texlive-bin libsynctex)
 pkgver=2024.2
-pkgrel=2
+pkgrel=3
 license=(GPL-2.0-or-later)
 arch=(x86_64)
 makedepends=(bash
@@ -22,7 +22,7 @@ makedepends=(bash
              graphite
              harfbuzz
              icu
-             libjpeg
+             libjpeg-turbo
              libpaper
              libpng
              libsigsegv
