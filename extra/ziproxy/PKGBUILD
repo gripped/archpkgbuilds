@@ -3,12 +3,12 @@
 
 pkgname=ziproxy
 pkgver=3.3.2
-pkgrel=6
+pkgrel=7
 pkgdesc="forwarding, non-caching, compressing HTTP proxy server"
 arch=('x86_64')
 url="http://ziproxy.sourceforge.net/"
 license=('GPL-2.0-or-later')
-depends=('giflib' 'glibc' 'libpng' 'libjpeg' 'zlib' 'jasper' 'libsasl')
+depends=('giflib' 'glibc' 'libpng' 'libjpeg-turbo' 'zlib' 'jasper' 'libsasl')
 backup=(etc/ziproxy/ziproxy.conf
   etc/ziproxy/bo_exception.list
   etc/ziproxy/http.passwd
