@@ -1,7 +1,7 @@
 pkgbase = gnome-shell-extension-desktop-icons-ng
 	pkgdesc = Desktop icons extension for GNOME Shell
-	pkgver = 47.0.11
-	pkgrel = 2
+	pkgver = 47.0.12
+	pkgrel = 1
 	url = https://www.rastersoft.com/programas/ding.html
 	arch = any
 	license = GPL-3.0-only
@@ -10,17 +10,19 @@ pkgbase = gnome-shell-extension-desktop-icons-ng
 	depends = cairo
 	depends = dconf
 	depends = gdk-pixbuf2
-	depends = glib2
 	depends = gjs
+	depends = glib2
 	depends = gnome-autoar
 	depends = gnome-desktop
 	depends = gnome-shell
 	depends = gtk3
 	depends = nautilus
 	depends = pango
-	source = git+https://gitlab.com/rastersoft/desktop-icons-ng.git#tag=47.0.11
+	source = git+https://gitlab.com/rastersoft/desktop-icons-ng.git#tag=47.0.12
 	source = gnome-shell-extension-desktop-icons-ng-fix-dialogs.patch
-	b2sums = 29b3fbab926e8e0f490d71c7827449ac97c80dda9a48ba2e4184b50b293cfd773b3e31d59e430c4bb1c621f518d43f7823456218f52302c7ba9edb0989be1315
+	source = gnome-shell-extension-desktop-icons-ng-gnome47.patch
+	b2sums = c7174ecff2c808f22c325c097c90dfd960454fb7c5485404540eea932d4552d8f846efbc268a6fee35f48732f70dc18cec7a3239ee521183625e366c42766392
 	b2sums = 33bd978919547094c1949db3981c2590e548699b3f1f8b0796deadec52676205deddb8c46fbc82e6e4f1635e3db8279a8883705472438c9e273afa7ce2f30394
+	b2sums = 3115e7c805851376baacfdd9c056c718dff48d5482372383c0abe2dc421a0646baf2661ca77280950f11cc478f7b424ed5aaba8843c878be889cd15545e673d4
 
 pkgname = gnome-shell-extension-desktop-icons-ng
