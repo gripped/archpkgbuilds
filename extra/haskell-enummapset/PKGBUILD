@@ -2,8 +2,8 @@
 
 _hkgname=enummapset
 pkgname=haskell-enummapset
-pkgver=0.7.2.0
-pkgrel=30
+pkgver=0.7.3.0
+pkgrel=1
 pkgdesc="IntMap and IntSet with Enum keys/elements."
 url="https://github.com/Mikolaj/enummapset"
 license=("BSD")
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-aeson')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-test-framework'
              'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('a226e15372a5964af13d6e41dc59e830059efa95c83cb06b4197c2325db4c602')
+sha256sums=('74c805415005f065379d644b2f2530d297b1cff650e5ef269a479220afdf7070')
 
 build() {
   cd $_hkgname-$pkgver
