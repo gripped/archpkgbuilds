@@ -1,12 +1,13 @@
 pkgbase = nano-syntax-highlighting
 	pkgdesc = Nano editor syntax highlighting enhancements
-	pkgver = 2020.10.10
-	pkgrel = 2
-	url = https://github.com/scopatz/nanorc
+	pkgver = 2022.11.02.r102.gbb94603
+	pkgrel = 1
+	url = https://github.com/galenguyer/nano-syntax-highlighting
 	arch = any
-	license = GPL3
+	license = GPL-3.0-or-later
+	makedepends = git
 	depends = nano
-	source = https://github.com/scopatz/nanorc/releases/download/2020.10.10/nanorc-2020.10.10.tar.gz
-	sha256sums = cd674e9eb230e4ba306b418c22d1891d93a3d2ffdf22234748d3398da50dfe64
+	source = nano-syntax-highlighting::git+https://github.com/galenguyer/nano-syntax-highlighting.git#commit=bb94603d8652afdda3bbcb3fbb35d3fd4bc7165d
+	sha256sums = SKIP
 
 pkgname = nano-syntax-highlighting
