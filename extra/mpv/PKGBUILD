@@ -6,7 +6,7 @@
 pkgname=mpv
 epoch=1
 pkgver=0.38.0
-pkgrel=7
+pkgrel=8
 pkgdesc='a free, open source, and cross-platform media player'
 arch=('x86_64')
 license=('GPL-2.0-or-later AND LGPL-2.1-or-later')
@@ -14,7 +14,7 @@ url='https://mpv.io/'
 depends=('alsa-lib' 'desktop-file-utils' 'ffmpeg' 'glibc' 'hicolor-icon-theme'
          'jack' 'lcms2' 'libarchive' 'libass' 'libbluray' 'libcdio'
          'libcdio-paranoia' 'libdrm' 'libdvdnav' 'libdvdread' 'libegl' 'libgl'
-         'libglvnd' 'libjpeg' 'libplacebo' 'libpulse' 'libsixel' 'libva'
+         'libglvnd' 'libjpeg-turbo' 'libplacebo' 'libpulse' 'libsixel' 'libva'
          'libvdpau' 'libx11' 'libxext' 'libxkbcommon' 'libxpresent' 'libxrandr'
          'libxss' 'libxv' 'luajit' 'mesa' 'mujs' 'libpipewire' 'rubberband'
          'openal' 'uchardet' 'vapoursynth' 'vulkan-icd-loader' 'wayland' 'zlib')
