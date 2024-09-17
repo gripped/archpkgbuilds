@@ -4,7 +4,7 @@
 pkgbase=poppler
 pkgname=('poppler' 'poppler-glib' 'poppler-qt5' 'poppler-qt6')
 pkgver=24.09.0
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 license=('GPL-2.0-only'
          'GPL-3.0-or-later'
@@ -12,7 +12,7 @@ license=('GPL-2.0-only'
          'LGPL-2.1-or-later'
          'MIT'
          'HPND-sell-variant')
-makedepends=('libjpeg' 'gcc-libs' 'cairo' 'fontconfig' 'openjpeg2' 
+makedepends=('libjpeg-turbo' 'gcc-libs' 'cairo' 'fontconfig' 'openjpeg2'
              'gtk3' 'pkgconfig' 'lcms2' 'gobject-introspection' 'icu'
              'qt5-base' 'qt6-base' 'git' 'nss' 'gpgme' 'gtk-doc' 'curl' 'poppler-data'
              'cmake' 'python' 'boost' 'glib2-devel')
