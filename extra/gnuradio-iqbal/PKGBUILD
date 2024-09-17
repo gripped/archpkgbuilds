@@ -1,54 +1,62 @@
-# Maintainer: Kyle Keen <keenerd@gmail.com>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Kyle Keen <keenerd@gmail.com>
 # Contributor: Dominik Heidler <dheidler@gmail.com>
 
-_name=gr-iqbal
 pkgname=gnuradio-iqbal
+_pkgname=gr-iqbal
 pkgver=0.38.2.r9.gfbee239
 _commit=fbee239a6fb36dd2fb564f6e6a0d393c4bc844db
-pkgrel=9
+pkgrel=10
 pkgdesc="Gnuradio I/Q balancing"
 arch=(x86_64)
 url="https://cgit.osmocom.org/gr-iqbal/"
-license=(GPL3)
+license=(GPL-3.0-or-later)
 depends=(
   gcc-libs
   glibc
   python
-  # python-pygccxml  # TODO: package
+  python-pygccxml
+)
+makedepends=(
+  boost
+  cmake
+  fftw
+  git
+  gmp
+  gnuradio
+  libvolk
+  pybind11
 )
 provides=(libgnuradio-iqbalance.so)
 replaces=(gr-iqbal)
-makedepends=(boost cmake fftw gnuradio git gmp libvolk pybind11)
 source=(
-  git+https://gitea.osmocom.org/sdr/gr-iqbal.git#commit=$_commit
-  git+https://gitea.osmocom.org/sdr/libosmo-dsp.git  # TODO: package this instead
+  "git+https://gitea.osmocom.org/sdr/gr-iqbal.git#commit=$_commit"
+  "git+https://gitea.osmocom.org/sdr/libosmo-dsp.git"  # TODO: package this instead
 )
-sha256sums=('SKIP'
+sha256sums=('d26a6f98e2c8ed08282eabf2d7f22ffa71b95077ea39f04fb88f73e20b60a7c9'
             'SKIP')
 
 pkgver() {
-  cd $_name
+  cd $_pkgname
   git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/v//g'
 }
 
 prepare() {
-  cd $_name
-
+  cd $_pkgname
   git submodule init
   git submodule set-url libosmo-dsp "$srcdir/libosmo-dsp"
   git -c protocol.file.allow=always submodule update
 }
 
 build() {
+  cd $_pkgname
   local cmake_options=(
-    -B build
-    -D CMAKE_BUILD_TYPE=None
+    -S . -B build
     -D CMAKE_INSTALL_PREFIX=/usr
-    -D CMAKE_LIBRARY_PATH=/usr/lib
-    -S $_name
+    -D CMAKE_BUILD_TYPE=None
     -W no-dev
+    -D CMAKE_LIBRARY_PATH=/usr/lib
   )
-
   cmake "${cmake_options[@]}"
   cmake --build build
 }
@@ -59,5 +67,6 @@ package() {
     gnuradio libgnuradio-pmt.so libgnuradio-runtime.so
   )
 
+  cd $_pkgname
   DESTDIR="$pkgdir" cmake --install build
 }
