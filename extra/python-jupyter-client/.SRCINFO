@@ -1,6 +1,6 @@
 pkgbase = python-jupyter-client
 	pkgdesc = Jupyter protocol implementation and client libraries
-	pkgver = 8.6.2
+	pkgver = 8.6.3
 	pkgrel = 1
 	url = https://pypi.python.org/pypi/jupyter_client
 	arch = any
@@ -10,6 +10,7 @@ pkgbase = python-jupyter-client
 	checkdepends = openssh
 	checkdepends = python-pytest-jupyter
 	checkdepends = python-pytest-timeout
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-hatchling
 	makedepends = python-installer
@@ -26,7 +27,7 @@ pkgbase = python-jupyter-client
 	provides = python-jupyter_client
 	conflicts = python-jupyter_client
 	replaces = python-jupyter_client
-	source = https://files.pythonhosted.org/packages/source/j/jupyter_client/jupyter_client-8.6.2.tar.gz
-	sha256sums = 2bda14d55ee5ba58552a8c53ae43d215ad9868853489213f37da060ced54d8df
+	source = git+https://github.com/jupyter/jupyter_client#tag=v8.6.3
+	sha256sums = aa4854b7ecfc06a1340267f8c6da71ceb9ac1a8f7b42d212b5c4ae278e6acd7e
 
 pkgname = python-jupyter-client
