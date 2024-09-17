@@ -4,13 +4,13 @@
 
 pkgname=pekwm
 pkgver=0.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Tabbed X11 window manager'
 arch=(x86_64)
-license=(GPL)
+license=(GPL-2.0-or-later)
 url='https://github.com/pekdon/pekwm'
-makedepends=(cmake gendesk git ninja)
-depends=(libjpeg libpng libxft libxinerama libxpm libxrandr)
+makedepends=(cmake gendesk git)
+depends=(libjpeg-turbo libpng libxft libxinerama libxpm libxrandr)
 optdepends=('lxappearance: feature-rich GTK+ theme switcher'
             'nitrogen: background browser and setter'
             'tint2: basic, good-looking task manager')
@@ -27,7 +27,7 @@ backup=(etc/pekwm/autoproperties
         etc/pekwm/start
         etc/pekwm/vars)
 source=("git+$url#commit=8416ca1d0d136397b53966e84bd47381f439d3c6") # tag: release-0.3.0
-b2sums=('SKIP')
+b2sums=('0021eaede4c4c28b3e84a6e15cc34866dadca83655684fe231684fe68325ddd9be808c0d1a096e096cb397971798ca1868694264d43685e21cb8f98fc4f92af8')
 
 prepare() {
   gendesk -f -n --pkgname $pkgname --pkgdesc "$pkgdesc" --name PekWM
@@ -38,17 +38,14 @@ build() {
   cmake \
     -B build \
     -D CMAKE_BUILD_TYPE=Release \
-    -D CMAKE_INSTALL_PREFIX=/usr \
     -D CMAKE_INSTALL_LIBDIR=lib \
-    -G Ninja \
+    -D CMAKE_INSTALL_PREFIX=/usr \
     -S $pkgname
-  ninja -C build
+  make -C build
 }
 
 package() {
-  DESTDIR="$pkgdir" ninja -C build install
-  install -Dm644 $pkgname.desktop \
-    "$pkgdir"/usr/share/xsessions/$pkgname.desktop
-  install -Dm644 ${pkgname}_kdm.desktop \
-    "$pkgdir"/usr/share/apps/kdm/sessions/$pkgname.desktop
+  DESTDIR="$pkgdir" make -C build install
+  install -Dm644 -t "$pkgdir/usr/share/xsessions" $pkgname.desktop
+  install -Dm644 -t "$pkgdir/usr/share/apps/kdm/sessions" ${pkgname}_kdm.desktop
 }
