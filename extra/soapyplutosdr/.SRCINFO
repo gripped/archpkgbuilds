@@ -1,15 +1,18 @@
 pkgbase = soapyplutosdr
 	pkgdesc = Soapy SDR plugin for PlutoSDR
-	pkgver = 0.2.1
-	pkgrel = 6
+	pkgver = 0.2.2
+	pkgrel = 1
 	url = https://github.com/pothosware/SoapyPlutoSDR
 	arch = x86_64
-	license = LGPL2.1
+	license = LGPL-2.1-only
 	makedepends = cmake
-	depends = soapysdr
-	depends = libiio.so
+	depends = gcc-libs
+	depends = glibc
 	depends = libad9361
-	source = soapyplutosdr-0.2.1.tar.gz::https://github.com/pothosware/SoapyPlutoSDR/archive/soapy-plutosdr-0.2.1.tar.gz
-	sha512sums = 7016cde54cfa0c4acdff3d6e152f744ff68780185810071f1979f1b5cf9942d6173c45d1d6f4288190c8bc544e404a695972d8c169b596f67cf102e0dc7d5483
+	depends = libiio.so
+	depends = libusb
+	depends = soapysdr
+	source = soapyplutosdr-0.2.2.tar.gz::https://github.com/pothosware/SoapyPlutoSDR/archive/soapy-plutosdr-0.2.2.tar.gz
+	sha512sums = c500346566c2215a65d2ce37f77d3e3317ca1ab8cd59001e7f51b0f3a1bcc703acf634034a55a077ee798376f14b2d96e229d073a1975ff4944314498e537f72
 
 pkgname = soapyplutosdr
