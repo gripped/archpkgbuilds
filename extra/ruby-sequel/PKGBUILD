@@ -1,9 +1,9 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-sequel
-pkgver=5.76.0
-_commit=44fda5ffcd36fd6f931d6a7b99c4f2a88d7c1d7a
-pkgrel=3
+pkgver=5.77.0
+_commit=88a4982c4482a124f40ef3fd63861ee19a9e9343
+pkgrel=1
 pkgdesc='Sequel: The Database Toolkit for Ruby'
 arch=(any)
 url='https://github.com/jeremyevans/sequel'
@@ -24,7 +24,7 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/jeremyevans/sequel.git#commit=$_commit)
-sha256sums=('SKIP')
+sha256sums=('a5f1118aef6c5ec4988fa826b1e8fb0dd5726fda5ce3ca4525dc742b290d1327')
 
 prepare() {
   cd sequel
