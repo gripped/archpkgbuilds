@@ -1,0 +1,20 @@
+pkgbase = ruby-prawn-icon
+	pkgdesc = Easy icons for Prawn
+	pkgver = 3.1.0
+	pkgrel = 4
+	url = https://github.com/jessedoyle/prawn-icon
+	arch = any
+	license = GPL-2.0-only OR GPL-3.0-only OR Ruby
+	checkdepends = ruby-pdf-inspector
+	checkdepends = ruby-rspec
+	makedepends = ruby-rdoc
+	makedepends = rubygems
+	depends = ruby
+	depends = ruby-prawn
+	options = !emptydirs
+	source = ruby-prawn-icon-3.1.0.tar.gz::https://github.com/jessedoyle/prawn-icon/archive/v3.1.0.tar.gz
+	source = remove-failing-test.patch
+	sha256sums = 13bb55525aca68bf56c6e60b865f0bfdffe295e503a5bf98bc90b14434f98f86
+	sha256sums = e720009f731b4f6a7b5be91df107060e65257305e5e31feb33e83975dfb794c8
+
+pkgname = ruby-prawn-icon
