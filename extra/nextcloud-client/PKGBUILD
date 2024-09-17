@@ -15,24 +15,23 @@
 pkgname=nextcloud-client
 pkgdesc='Nextcloud desktop client'
 epoch=2
-pkgver=3.13.4
-pkgrel=1
+pkgver=3.14.0
+pkgrel=4
 arch=(x86_64)
 url='https://nextcloud.com/'
 _url=https://github.com/nextcloud/desktop
 license=(GPL-2.0-or-later)
 depends=(hicolor-icon-theme
-         karchive5
-         kguiaddons5
+         karchive
+         kguiaddons
          libcloudproviders
          openssl
-         qt5-graphicaleffects
-         qt5-quickcontrols
-         qt5-quickcontrols2
-         qt5-svg
-         qt5-webengine
-         qt5-websockets
-         qtkeychain-qt5
+         qt6-declarative
+         qt6-svg
+         qt6-webengine
+         qt6-websockets
+         qt6-5compat
+         qtkeychain-qt6
          sqlite
          xdg-utils)
 replaces=(nextcloud-client-cloudproviders)
@@ -50,7 +49,7 @@ makedepends=(cmocka
              kio
              librsvg
              python-sphinx
-             qt5-tools)
+             qt6-tools)
 source=("$pkgname::git+$_url.git?signed#tag=v$pkgver")
 validpgpkeys=(A26B951528EA1BA1678C7AE5D406C75CEE1A36D6  # https://github.com/camilasan
               42E775EAA3E47F9E0D5CDB0E00819E3BF4177B28  # https://github.com/misch7
@@ -58,7 +57,7 @@ validpgpkeys=(A26B951528EA1BA1678C7AE5D406C75CEE1A36D6  # https://github.com/cam
               0739B11EDA696A3616666F6AE04221E85C5BB816  # https://github.com/allexzander
               267BF70F7905C2723B0243267D0F74F05C22F553  # https://github.com/mgallien
               3A877D9A896A057948059DEDAD2C27357B2CB11D) # https://github.com/FlexW
-sha256sums=('6c08533028441d23c92d80660a515c44c3dc1b78a6a8777e8a66901617386462')
+sha256sums=('eb7e554906856c0ff9952493bc3e9bf05783f6bda2be695322e1ae0956e8c4a2')
 
 prepare() {
 	# tmpdir for check()
