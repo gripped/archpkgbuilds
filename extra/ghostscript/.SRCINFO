@@ -1,7 +1,7 @@
 pkgbase = ghostscript
 	pkgdesc = An interpreter for the PostScript language
 	pkgver = 10.03.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.ghostscript.com/
 	arch = x86_64
 	license = AGPL-3.0-or-later
@@ -14,7 +14,7 @@ pkgbase = ghostscript
 	depends = fontconfig
 	depends = zlib
 	depends = libpng
-	depends = libjpeg
+	depends = libjpeg-turbo
 	depends = jbig2dec
 	depends = libtiff
 	depends = lcms2
@@ -40,8 +40,8 @@ pkgname = ghostscript
 
 pkgname = ghostxps
 	pkgdesc = An interpreter for the XPS document language
-	depends = ghostscript=10.03.1-1
+	depends = ghostscript=10.03.1-2
 
 pkgname = ghostpcl
 	pkgdesc = An interpreter for the PCL 6 language
-	depends = ghostscript=10.03.1-1
+	depends = ghostscript=10.03.1-2
