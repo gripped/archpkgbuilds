@@ -3,16 +3,16 @@
 # Contributor: Aaron Griffin <aaron@archlinux.org>
 
 pkgname=asio
-pkgver=1.28.0
-pkgrel=2
+pkgver=1.30.2
+pkgrel=1
 pkgdesc='Cross-platform C++ library for ASynchronous network I/O'
 url='https://think-async.com/Asio/'
 arch=('any')
 license=('custom:boost')
 makedepends=('boost')
 source=(https://sourceforge.net/projects/asio/files/asio/${pkgver}%20%28Stable%29/asio-${pkgver}.tar.bz2)
-sha512sums=('b3fa23caa4cbf1e374fade97102adb22a32c68bd4b050474987c065b516fdf042d46842c41ac94e71458f402fae2d05bc8f617ee523ffb6a74ef33d214e9acd5')
-b2sums=('dc0431a6710f58ce037d6e6e1cf81606b6f8be3ac9fdf6f7a69a7998fadb4f3c9dace2aa99606a9570166f9637ca7f4b9ab6964599c78027a9f32a9d243d5684')
+sha512sums=('2d26cdcfcc0c310e82ab502551b51d70fd95ba4628bd306929e78539299974fc14aa6ba27cf256f1df7a56539cb885012ba02a202ae17bf817ee6311308a795a')
+b2sums=('d902fda2338d9717bb8f2f5d43468c5d0b64591814c3ae3134350650f0dd97bf241287347d324b11d0e6993b1b44373df13305d736df09ad3375ce4976f5bb27')
 
 prepare() {
   cd ${pkgname}-${pkgver}
