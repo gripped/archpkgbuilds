@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-redcloth
-pkgver=4.3.3
-pkgrel=2
+pkgver=4.3.4
+pkgrel=1
 pkgdesc='Textile parser for Ruby'
 arch=(x86_64)
 url='https://github.com/jgarber/redcloth'
@@ -20,7 +20,7 @@ makedepends=(
 )
 options=(!emptydirs)
 source=(https://github.com/jgarber/redcloth/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('2d7fc319f38e787a332b1810cdd2d3f60636aae1e0de667cf471706212c0bb28')
+sha256sums=('e7243fe50625390eb9667527c0ca540cea28070c172631f337e492f05aa7884d')
 
 prepare() {
   cd redcloth-$pkgver
