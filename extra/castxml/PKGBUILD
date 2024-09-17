@@ -1,0 +1,49 @@
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Fabio 'Lolix' Loli <fabio.loli@disroot.org>
+
+pkgname=castxml
+_pkgname=CastXML
+pkgdesc="C-family abstract syntax tree XML output tool"
+pkgver=0.6.8
+pkgrel=2
+arch=(x86_64)
+url="https://github.com/CastXML/CastXML"
+license=(Apache-2.0)
+depends=(
+  clang
+  gcc-libs
+  glibc
+  llvm-libs
+)
+makedepends=(
+  cmake
+  llvm
+  python-sphinx
+)
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('b517a9d18ddb7f71b3b053af61fc393dd81f17911e6c6d53a85f3f523ba8ad64')
+
+prepare() {
+  cd $_pkgname-$pkgver
+  # Fix build issue as reported by Kniyl here:
+  # https://github.com/CastXML/CastXML/issues/102
+  sed -i "s|\${llvm_libs}|LLVM|g" src/CMakeLists.txt
+}
+
+build() {
+  cd $_pkgname-$pkgver
+  cmake -S . -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_BUILD_TYPE=None \
+    -Wno-dev \
+    -DCLANG_LINK_CLANG_DYLIB=ON \
+    -DSPHINX_HTML=ON \
+    -DSPHINX_MAN=ON \
+    -DCastXML_INSTALL_MAN_DIR=share/man
+  cmake --build build
+}
+
+package(){
+  cd $_pkgname-$pkgver
+  DESTDIR="$pkgdir" cmake --install build
+}
