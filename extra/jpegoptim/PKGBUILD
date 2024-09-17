@@ -4,12 +4,12 @@
 
 pkgname=jpegoptim
 pkgver=1.5.5
-pkgrel=2
+pkgrel=3
 pkgdesc="Jpeg optimisation utility"
 arch=('x86_64')
 url="https://github.com/tjko/jpegoptim"
 license=('GPL')
-depends=('glibc' 'libjpeg')
+depends=('glibc' 'libjpeg-turbo')
 source=($pkgname-$pkgver.tar.gz::https://github.com/tjko/jpegoptim/archive/refs/tags/v${pkgver}.tar.gz)
 sha256sums=('90a309d1c092de358bb411d702281ac3039b489d03adb0bc3c4ef04cf0067d38')
 #validpgpkeys=('9168CD7A2F0AAB0679D09BBA9D08A80CED908D6A')
