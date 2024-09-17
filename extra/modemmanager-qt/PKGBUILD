@@ -2,7 +2,7 @@
 # Mainrainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=modemmanager-qt
-pkgver=6.5.0
+pkgver=6.6.0
 pkgrel=1
 pkgdesc='Qt wrapper for ModemManager DBus API'
 arch=(x86_64)
@@ -18,7 +18,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('76c2b18c9c5c5d9c360282a031feaae966029322f19de050d91d39207cd5717b'
+sha256sums=('e8cff8728c83e3638aa85d2f837ca75e1c50325632f4b64e5e4185d0cd6b071b'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
