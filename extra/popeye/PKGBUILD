@@ -1,7 +1,7 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 
 pkgname=popeye
-pkgver=0.21.3
+pkgver=0.21.5
 pkgrel=1
 pkgdesc="Kubernetes cluster resource sanitizer"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('glibc')
 makedepends=('go')
 optdepends=('bash-completion')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/derailed/popeye/archive/v${pkgver}.tar.gz")
-sha512sums=('d43c7b3022ca5f3560a9709f535bbdb7fc71545dc773ec2334d6a914f91f0c7a1476ec97b44c8e3a7e3c81f97f7c3d803054a2d4c8106816436e800c5419483f')
+sha512sums=('b92d28282f41889b27cf952fe0e518d210dcf4b0e0061a96b92f08bd1a91a9e38028724ad34df4f91e31650c62a3966f7298ce3b5609bb4c4c2cf8a9a1892f0d')
 
 build(){
   cd "${pkgname}-${pkgver}"
