@@ -4,7 +4,7 @@
 
 _name=TypeScript
 pkgname=typescript
-pkgver=5.5.4
+pkgver=5.6.2
 pkgrel=1
 pkgdesc='JavaScript with syntax for types'
 arch=(any)
@@ -17,7 +17,7 @@ makedepends=(
   rsync
 )
 source=("git+https://github.com/microsoft/$_name.git#tag=v$pkgver")
-b2sums=('0c308a52c0f4629f629ecf3e6c8bf23876d34f54473526c3bc39408ae69a2c6279de884ac814d45e989c158ba595b80678f416ed5f36519152f5b463358d26d8')
+b2sums=('3690e9e6eca5ac27d7f5f76313282517c4b95bfcf22491d3991a1b649f38e7fd9746c97abe2150b4582ea5469e99635692f9bd49dab96bade0713da832b57a91')
 
 prepare() {
   cd $_name
@@ -36,6 +36,7 @@ check() {
 
 package() {
   local mod_dir=/usr/lib/node_modules/$pkgname
+
   install -d "$pkgdir"/{usr/bin,$mod_dir}
   ln -s $mod_dir/bin/{tsc,tsserver} "$pkgdir"/usr/bin
 
