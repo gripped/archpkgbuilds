@@ -4,7 +4,7 @@
 
 pkgname=ostree
 pkgver=2024.7
-pkgrel=2
+pkgrel=3
 pkgdesc="Operating system and container binary deployment and upgrades"
 url="https://ostreedev.github.io/ostree/"
 arch=(x86_64)
@@ -17,6 +17,7 @@ depends=(
   glibc
   libgpg-error
   libsodium
+  libsoup3
   sh
   util-linux
   which  # remove after https://github.com/ostreedev/ostree/pull/3154 is merged and released
@@ -24,7 +25,6 @@ depends=(
 )
 makedepends=(
   avahi
-  curl
   e2fsprogs
   git
   glib2
@@ -33,7 +33,6 @@ makedepends=(
   gpgme
   gtk-doc
   libarchive
-  libsoup3
   libxslt
   mkinitcpio
   openssl
@@ -90,13 +89,13 @@ build() {
     --prefix=/usr
     --sbindir=/usr/bin
     --sysconfdir=/etc
-    --with-curl
     --with-dracut=yesbutnoconf
     --with-ed25519-libsodium
     --with-grub2-mkconfig-path=/usr/bin/grub-mkconfig
     --with-mkinitcpio
     --with-modern-grub
     --with-openssl
+    --with-soup3
   )
 
   cd $pkgname
@@ -113,7 +112,6 @@ check() {
 package() {
   depends+=(
     avahi libavahi-client.so libavahi-common.so libavahi-glib.so
-    curl libcurl.so
     glib2 libgio-2.0.so libglib-2.0.so libgobject-2.0.so
     gpgme libgpgme.so
     libarchive libarchive.so
