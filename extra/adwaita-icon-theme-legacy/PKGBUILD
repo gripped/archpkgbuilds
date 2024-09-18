@@ -3,7 +3,7 @@
 
 pkgname=adwaita-icon-theme-legacy
 pkgver=46.2
-pkgrel=2
+pkgrel=3
 pkgdesc="GNOME fallback icons for legacy apps"
 url="https://gitlab.gnome.org/GNOME/adwaita-icon-theme-legacy"
 arch=(any)
@@ -15,11 +15,9 @@ makedepends=(
   meson
 )
 source=("git+https://gitlab.gnome.org/GNOME/adwaita-icon-theme-legacy.git#tag=${pkgver/[a-z]/.&}"
-        adwaita-icon-theme-legacy-unique-license-directory.patch
-        adwaita-icon-theme-legacy-inherit-adwaita.patch)
+        adwaita-icon-theme-legacy-unique-license-directory.patch)
 b2sums=('0b36191ec591db2cd6d2d1943a0139cc95e7ac7ba2ad1828a8d104544d264d58eaac9acf8c1c6c6cc4a648bd302711d8aba7ea33b3eee9bf3e3d5a0751782b25'
-        'da4a2fe70e29be583f2d8c23772059c94f90ad71509f459b1c8b37ec69d870cfd2e4cfb792dc3302506a496d8a140f61f073a09ed3200702200d51241fd7d65d'
-        '373614cc8a9c37650b50d2cdc3c891a8182d8152da99db0496cc4c226f5ccba23f9d0fc894619b0ad385fbe0090b656f4ccfe97807228ea25d87e44f946b5c32')
+        'da4a2fe70e29be583f2d8c23772059c94f90ad71509f459b1c8b37ec69d870cfd2e4cfb792dc3302506a496d8a140f61f073a09ed3200702200d51241fd7d65d')
 
 prepare() {
   cd $pkgname
@@ -31,10 +29,6 @@ prepare() {
   # Use a unique licenses directory
   # https://gitlab.gnome.org/GNOME/adwaita-icon-theme-legacy/-/merge_requests/1
   git apply -3 ../adwaita-icon-theme-legacy-unique-license-directory.patch
-
-  # Inherit from Adwaita to provide symbolic icons
-  # https://gitlab.gnome.org/GNOME/adwaita-icon-theme-legacy/-/merge_requests/3
-  git apply -3 ../adwaita-icon-theme-legacy-inherit-adwaita.patch
 }
 
 build() {
