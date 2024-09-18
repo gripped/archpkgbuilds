@@ -3,7 +3,7 @@
 # Contributor: Charles Lindsay <charles@chaoslizard.org>
 
 pkgname=libmirage
-pkgver=3.2.8
+pkgver=3.2.9
 pkgrel=1
 pkgdesc="CD-ROM image (B6T/C2D/CCD/CDI/CIF/CUE/ISO/MDS/MDX/NRG/TOC) access library"
 url="https://cdemu.sourceforge.io/"
@@ -29,7 +29,7 @@ makedepends=(
   vala
 )
 source=("cdemu-code::git+https://git.code.sf.net/p/cdemu/code#tag=$pkgname-$pkgver")
-b2sums=('abbf18c8a03fe09b1896194d1f10ddd7c9a6c75145e390efea2c9b8cdcfd01bf19b4ffaeb0dc618ed597f8fbd33bfc33e50b375bcef12c4c781dc28bcd75df73')
+b2sums=('b5ba434ce50dfb747b8a84e81ddc72d3478215156d104d698179169d57c4fbfc673756304d104406ec57642cec7219a0f79e1765a076dcb56b4b8338ba5f585d')
 
 prepare() {
   cd cdemu-code/$pkgname
