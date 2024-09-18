@@ -1,18 +1,19 @@
 pkgbase = libraw
 	pkgdesc = A library for reading RAW files obtained from digital photo cameras (CRW/CR2, NEF, RAF, DNG, and others)
-	pkgver = 0.21.2
+	pkgver = 0.21.3
 	pkgrel = 1
 	url = https://www.libraw.org/
 	arch = x86_64
-	license = CDDL
-	license = LGPL
+	license = CDDL-1.0
+	license = LGPL-2.1-only
+	makedepends = git
 	depends = gcc-libs
 	depends = glibc
 	depends = jasper
 	depends = lcms2
 	depends = libjpeg-turbo
 	depends = zlib
-	source = https://www.libraw.org/data/LibRaw-0.21.2.tar.gz
-	sha256sums = fe7288013206854baf6e4417d0fb63ba4ed7227bf36fff021992671c2dd34b03
+	source = git+https://github.com/LibRaw/LibRaw#tag=0.21.3
+	sha256sums = e8f8177726d8444e15fede8e5c25514833ad191401d5396b0b5af64971b9c76f
 
 pkgname = libraw
