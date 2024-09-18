@@ -4,13 +4,18 @@
 _pkgname=qtpy
 pkgname=python-qtpy
 pkgver=2.4.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Provides an uniform layer to support PyQt5 and PySide2 with a single codebase"
 arch=(any)
 url="https://github.com/spyder-ide/qtpy/"
 license=(MIT)
 depends=(python-packaging)
-makedepends=(python-setuptools)
+makedepends=(
+    python-build
+    python-installer
+    python-setuptools
+    python-wheel
+)
 optdepends=('python-pyqt5: Qt5 Python bindings'
             'python-pyqt6: Qt6 Python bindings'
             'python-pyqt5-webengine: Qt5-WebEngine python bindings'
@@ -21,15 +26,15 @@ checkdepends=(
     python-pytest
     python-pytest-qt
     python-pyqt5
-    python-pyqt5-3d
-    python-pyqt5-datavisualization
     python-pyqt5-webengine
-    #python-pyqt6
-    #python-pyqt6-3d
-    #python-pyqt6-datavisualization
-    #python-pyqt6-webengine
-    #pyside6
+    python-pyqt6
+    python-pyqt6-3d
+    python-pyqt6-datavisualization
+    python-pyqt6-webengine
+    pyside6
+    qt5-connectivity
     qt5-multimedia
+    qt5-quick3d
     qt5-remoteobjects
     qt5-sensors
     qt5-serialport
@@ -37,13 +42,14 @@ checkdepends=(
     qt5-svg
     qt5-tools
     qt5-websockets
+    qt5-x11extras
     qt5-xmlpatterns
-    #qt6-multimedia
-    #qt6-remoteobjects
-    #qt6-sensors
-    #qt6-serialport
-    #qt6-svg
-    #qt6-tools
+    qt6-multimedia
+    qt6-remoteobjects
+    qt6-sensors
+    qt6-serialport
+    qt6-svg
+    qt6-tools
     xorg-server-xvfb
 )   
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
@@ -51,7 +57,7 @@ sha256sums=('e5f3ceaf3465b453f71cc0248fc85116ae5b3dfd76cbfd491409eb345a9f9df2')
 
 build() {
   cd ${_pkgname}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -62,6 +68,6 @@ check() {
 
 package() {
   cd ${_pkgname}-${pkgver}
-  python setup.py install --prefix=/usr --root="${pkgdir}" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE.txt -t "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
