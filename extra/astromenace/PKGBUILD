@@ -5,12 +5,12 @@
 
 pkgname=astromenace
 pkgver=1.4.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Hardcore 3D space shooter with spaceship upgrade possibilities"
 arch=('x86_64')
 url="http://www.viewizard.com/astromenace/index_linux.php"
-license=('GPL3')
-depends=('sdl2' 'freealut' 'libjpeg' 'libvorbis' 'glu' 'freetype2' 'libxinerama')
+license=('GPL-3.0-only')
+depends=('sdl2' 'freealut' 'libjpeg-turbo' 'libvorbis' 'glu' 'freetype2' 'libxinerama')
 makedepends=('cmake' 'mesa' 'ninja')
 source=("$pkgname-$pkgver".tar.gz::https://github.com/viewizard/astromenace/archive/v${pkgver}.tar.gz
          https://github.com/viewizard/astromenace/commit/d5e007cf.patch)
