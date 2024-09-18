@@ -2,8 +2,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=darcs
-pkgver=2.18.1
-pkgrel=20
+pkgver=2.18.2
+pkgrel=1
 pkgdesc="A distributed, interactive, smart revision control system"
 url="http://darcs.net"
 license=("GPL-2.0-or-later")
@@ -13,8 +13,8 @@ depends=('ghc-libs' 'haskell-async' 'haskell-attoparsec' 'haskell-base16-bytestr
          'haskell-fgl' 'haskell-hashable' 'haskell-html' 'haskell-http-conduit' 'haskell-http-types'
          'haskell-knob' 'haskell-memory' 'haskell-mmap' 'haskell-network' 'haskell-network-uri'
          'haskell-old-time' 'haskell-regex-applicative' 'haskell-regex-base' 'haskell-regex-tdfa'
-         'haskell-tar' 'haskell-temporary' 'haskell-unix-compat' 'haskell-utf8-string'
-         'haskell-vector' 'haskell-zip-archive' 'haskell-zlib'
+         'haskell-safe' 'haskell-tar' 'haskell-temporary' 'haskell-unix-compat'
+         'haskell-utf8-string' 'haskell-vector' 'haskell-zip-archive' 'haskell-zlib'
          'haskell-tls' 'haskell-terminal-size' 'haskell-strict-identity')
 makedepends=('ghc' 'haskell-cmdargs' 'haskell-findbin' 'haskell-hunit' 'haskell-leancheck'
              'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-test-framework'
@@ -25,14 +25,7 @@ makedepends=('ghc' 'haskell-cmdargs' 'haskell-findbin' 'haskell-hunit' 'haskell-
              'haskell-system-fileio' 'haskell-transformers-base')
 checkdepends=('bc' 'time')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('e59cd0a0518dda1b153c2c6363c1f03467567b0345c53368c74b23e0af2dd160175a11dcfe92d03c4156dcff5e3905294e301b43750cbe770f74814410d18f74')
-
-prepare() {
-    cd $pkgname-$pkgver
-    sed -e 's/^ghc /ghc -dynamic /' \
-        -e 's/ ghc / ghc -dynamic /' \
-        -i tests/*.sh tests/lib
-}
+sha512sums=('f776b3b2efd73e9515a99bf154468aa4aef925d20c9de564a78f7a19bf302db31c6e4cdbca2c2c700a0d5cde1b62a426159554f543898712b1f603401c534a9c')
 
 build() {
     cd $pkgname-$pkgver
@@ -41,7 +34,7 @@ build() {
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
         -f-static -fterminfo -fthreaded -fexecutable \
-        -f-rts -foptimize -f-warn-as-error -f-libiconv
+        -f-rts -f-warn-as-error
     LD_LIBRARY_PATH="$srcdir"/$pkgname-$pkgver/dist/build runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
@@ -51,8 +44,7 @@ build() {
 
 check() {
     cd $pkgname-$pkgver
-    # As of Aug 9 2023, http://darcs.net/testing/repo1 returns 404
-    runhaskell Setup test --show-details=direct || echo "Tests failed"
+    runhaskell Setup test --show-details=direct --test-options="--ghcflags -dynamic"
 }
 
 package() {
