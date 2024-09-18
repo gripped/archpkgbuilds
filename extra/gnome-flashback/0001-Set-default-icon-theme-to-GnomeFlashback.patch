@@ -1,7 +1,7 @@
 From 2d8d3c9a411843a463ffd56ba93ad71a63297569 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Wed, 18 Sep 2024 13:31:17 +0200
-Subject: [PATCH] Set default icon theme to AdwaitaLegacy
+Subject: [PATCH] Set default icon theme to GnomeFlashback
 
 The panel needs various fullcolor icons, which are missing from the Adwaita
 icon theme, and not inherited properly from AdwaitaLegacy.
@@ -15,7 +15,7 @@ index 094034a..a310db6 100644
 +++ b/data/schemas/00_gnome-flashback.gschema.override
 @@ -1,3 +1,6 @@
 +[org.gnome.desktop.interface:GNOME-Flashback]
-+icon-theme='AdwaitaLegacy'
++icon-theme='GnomeFlashback'
 +
  [org.gnome.desktop.wm.keybindings:GNOME-Flashback]
  panel-main-menu=['<Alt>F1']
