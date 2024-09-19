@@ -1,12 +1,12 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
 # Maintainer: Alexander Rødseth <rodseth@gmail.com>
-# Contributor: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Contributor: Fabian Bornschein <fabiscafe@archlinux.org>
 # Contributor: Hugo Doria <hugo@archlinux.org>
 # Contributor: Christer Solskogen (solskogen@carebears.mine.nu)
 
 pkgname=gtranslator
 pkgver=46.1
-pkgrel=1
+pkgrel=2
 pkgdesc='An enhanced gettext po file editor for the GNOME desktop environment'
 arch=('x86_64')
 url='https://wiki.gnome.org/Apps/Gtranslator'
@@ -32,6 +32,7 @@ depends=(
 )
 makedepends=(
   'git'
+  'glib2-devel'
   'gobject-introspection'
   'meson'
   'yelp-tools'
