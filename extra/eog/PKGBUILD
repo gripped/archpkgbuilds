@@ -1,4 +1,4 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
@@ -7,7 +7,7 @@ pkgname=(
   eog
   eog-docs
 )
-pkgver=45.4
+pkgver=47.0
 pkgrel=1
 pkgdesc="Eye of Gnome: An image viewing and cataloging program"
 url="https://wiki.gnome.org/Apps/EyeOfGnome"
@@ -45,7 +45,7 @@ makedepends=(
   yelp-tools
 )
 source=("git+https://gitlab.gnome.org/GNOME/eog.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('c7875b5faa571941924353e734587b1e7cdd19867b7d57d5f8b3f2a4103e3aa5b62dc1d8c1abee3cdeea63524aee6dc346d697cc4059baf3a3fd39321584c80f')
+b2sums=('b6c195c0590054abc21bd004b4f97b23d30cc689534e4e6feeb37c2123dd15eae9ab180898bdf37c2843ac427d119e827bf190e467d1462e969d3c8c3f07a69e')
 
 build() {
   local meson_options=(
