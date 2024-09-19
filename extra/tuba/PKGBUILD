@@ -3,7 +3,7 @@
 
 pkgname=tuba
 pkgver=0.8.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Browse the Fediverse'
 arch=(x86_64)
 url='https://tuba.geopjr.dev/'
@@ -14,16 +14,19 @@ depends=(
   glib2
   glibc
   graphene
+  gst-libav
   gtk4
   gtksourceview5
   hicolor-icon-theme
   icu
   json-glib
   libadwaita
+  libclapper
+  libclapper-gtk
   libgee
   libsecret
   libsoup3
-  libspelling
+  libspelling-1.so
   libxml2
   org.freedesktop.secrets
   pango
@@ -34,7 +37,6 @@ makedepends=(
   meson
   vala
 )
-
 source=("git+https://github.com/GeopJr/Tuba.git#tag=v$pkgver")
 b2sums=('82a1ac1180c6a5e95f35b6257e066dfb1c4ce68779f5346a34eed07fd13f1fb06f0e729af08a2b24b0a5098c3352ef0a5a4e4e959fc62049ec7d1ed10cc997a5')
 
@@ -43,7 +45,11 @@ prepare() {
 }
 
 build() {
-  arch-meson Tuba build
+  local meson_options=(
+    -D clapper=true
+  )
+
+  arch-meson Tuba build "${meson_options[@]}"
   meson compile -C build
 }
 
@@ -53,5 +59,5 @@ check() {
 
 package() {
   meson install -C build --destdir "$pkgdir"
-  ln -s "/usr/bin/dev.geopjr.Tuba" "$pkgdir/usr/bin/tuba" 
+  ln -sr "$pkgdir"/usr/bin/{dev.geopjr.Tuba,tuba}
 }
