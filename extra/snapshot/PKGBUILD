@@ -1,7 +1,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=snapshot
-pkgver=46.3
+pkgver=47.0.1
 pkgrel=1
 pkgdesc="Take pictures and videos"
 arch=(x86_64)
@@ -13,6 +13,7 @@ depends=(
   gcc-libs
   glib2
   glibc
+  glycin
   graphene
   gst-plugin-pipewire
   gst-plugins-bad-libs
@@ -22,21 +23,27 @@ depends=(
   gstreamer
   gtk4
   hicolor-icon-theme
+  lcms2
   libadwaita
+  libseccomp
 )
 makedepends=(
   git
   meson
   rust
 )
-source=("git+https://gitlab.gnome.org/GNOME/snapshot.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('1738824ddccb3c5e0dcb7be2a46f05e308d0366e7cb41e7a01c2417a0fdd2e5b38664810d4e0ce24e3aa3b1a45177695fc522d591dbd7763287b629bae7bd92a')
+source=("git+https://gitlab.gnome.org/GNOME/snapshot.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('71b67638307ce5fc82566fe151218bf65fffba281de3dd4f7901410767ddb7b852c5da4a58729cb45aa7b35e3ca411fb34c42ef49faeb2aa4b13d91fa2446215')
 validpgpkeys=(
   3475CBA8D3483594C889B470D64A8D747F6FE706 # Maximiliano Sandoval <msandova@gnome.org>
+  D25626D42D675B9C5EAF57DF7F3B4AADE28427AE # Jamie Murphy <hello@itsjamie.dev>
 )
 
 prepare() {
   cd snapshot
+
+  export CARGO_HOME="$srcdir/build/cargo-home"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
