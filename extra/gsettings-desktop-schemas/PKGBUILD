@@ -9,8 +9,8 @@ pkgname=(
   gsettings-desktop-schemas
   gsettings-system-schemas
 )
-pkgver=46.1
-pkgrel=2
+pkgver=47.1
+pkgrel=1
 pkgdesc="GSettings schemas for GNOME"
 url="https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas"
 arch=(any)
@@ -25,7 +25,7 @@ makedepends=(
   meson
 )
 source=("git+$url.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('285fcf7651ac8066964a3ce5c050b91c88a893760133dfe578da2489a221ce80e2caea804ff3aaeec801655a0be7e7ebb079805c15523a45c468c5797c14216a')
+b2sums=('ff80d8cee04d1a498993632195242d24d3869225bdcc315fb680b7dce9f9fc9761cdf6f64d35af29707dbe29a3ce0f5c57c814a93d4cc95fc3586de260e83802')
 
 prepare() {
   cd $pkgbase
