@@ -3,10 +3,10 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-calendar
-pkgver=46.1
-pkgrel=2
+pkgver=47.0
+pkgrel=1
 pkgdesc="Simple and beautiful calendar application designed to perfectly fit the GNOME desktop"
-url="https://wiki.gnome.org/Apps/Calendar"
+url="https://apps.gnome.org/Calendar"
 arch=(x86_64)
 license=(GPL-3.0-or-later)
 depends=(
@@ -30,8 +30,8 @@ depends=(
 )
 makedepends=(
   git
+  glib2-devel
   meson
-  python-packaging
 )
 optdepends=(
   'gnome-control-center: Manage online accounts'
@@ -39,7 +39,7 @@ optdepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-calendar.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('ba82a9bce6d7feaf54094e75343d4a558ad93e04eb03aea12f0b8ba2406e9f66800bf528af350620f8e70f63626ee082e673bc388692a0a5d3e552294558ba3e')
+b2sums=('a57675325b33c6babfb4d551b396f7403a77910f7e70ab338f68085925aaddb7c03011381d94b162e08df383509034764d9522cac5818493913698053f65922b')
 
 prepare() {
   cd $pkgname
