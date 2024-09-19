@@ -1,19 +1,30 @@
-# Maintainer: Balló György <ballogyor+arch at gmail dot com>
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
+# Contributor: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=gnome-tour
-pkgver=46.0
+pkgver=47.0
 pkgrel=1
-pkgdesc='Guided tour and greeter for GNOME'
-arch=('x86_64')
-url='https://apps.gnome.org/Tour/'
-license=('GPL-3.0-or-later')
-depends=('gcc-libs' 'glib2' 'glibc' 'gtk4' 'hicolor-icon-theme' 'libadwaita')
-makedepends=('appstream-glib' 'git' 'meson' 'rust')
-groups=('gnome')
-_commit=3c2afb0773356a4d59c2400cd7bed0a0ed39ff4a  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-tour.git#commit=$_commit")
-b2sums=('SKIP')
+pkgdesc="Guided tour and greeter for GNOME"
+url="https://apps.gnome.org/Tour/"
+arch=(x86_64)
+license=(GPL-3.0-or-later)
+depends=(
+  gcc-libs
+  glib2
+  glibc
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+)
+makedepends=(
+  appstream
+  git
+  meson
+  rust
+)
+groups=(gnome)
+source=("git+https://gitlab.gnome.org/GNOME/gnome-tour.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('7553c065d4a74e2587be2d6e11256f8dd779c11e6bb663570b98b551fd013da99ad23e767e2373189139d4a348177fcd07c1c4836a654ed0ea1e75b378741350')
 
 # Use LTO
 export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
@@ -21,9 +32,12 @@ export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2
 
-pkgver() {
+prepare() {
   cd $pkgname
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
+
+  # Match CARGO_HOME in src/meson.build
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
@@ -32,9 +46,11 @@ build() {
 }
 
 check() {
-  meson test -C build --print-errorlogs
+  meson test -C build --print-errorlogs --no-rebuild
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --destdir "$pkgdir" --no-rebuild
 }
+
+# vim:set sw=2 sts=-1 et:
