@@ -3,10 +3,10 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-contacts
-pkgver=46.0
+pkgver=47.0
 pkgrel=1
 pkgdesc="Contacts Manager for GNOME"
-url="https://wiki.gnome.org/Apps/Contacts"
+url="https://apps.gnome.org/Contacts"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
@@ -37,14 +37,8 @@ makedepends=(
   vala
 )
 groups=(gnome)
-_commit=466925e6e797c62dc0ce2c01e1bca3f85c187edf  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-contacts.git#commit=$_commit")
-b2sums=('ad5c99db8d1cd07e2dda809972eb05425b245bca8ce6dabb44bf18d4eba2bcd331861be328e9d27d556cd86de1ebd34c7f766bb8279ae348fa4e172e02622e15')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-contacts.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('621ee692e7c80024fad4e311fc67304c552291163bbba083b90eb743e5807cb738ac9406fad6bbc434458e3704d77f5f8513af64f36119dc00b04e0521b9fe0a')
 
 prepare() {
   cd $pkgname
