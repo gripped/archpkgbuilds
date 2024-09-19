@@ -1,36 +1,32 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-compressor
-pkgver=5.12.23
-pkgrel=5
+pkgver=5.12.24
+pkgrel=1
 pkgdesc='A fast and lightweight application for creating and extracting archives'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-compressor"
 license=('GPL3')
 depends=('dtkcore' 'dtkgui' 'dtkwidget' 'glibc' 'gcc-libs' 'qt5-base' 'glib2' 'karchive5' 'kcodecs5'
          'libarchive' 'libzip' 'minizip' 'util-linux-libs' 'hicolor-icon-theme')
-makedepends=('cmake' 'ninja' 'qt5-tools')
+makedepends=('git' 'cmake' 'ninja' 'qt5-tools')
 groups=('deepin-extra')
-source=("https://github.com/linuxdeepin/deepin-compressor/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        $pkgname-fix-build-on-dtk-5.6.20.patch::https://github.com/linuxdeepin/deepin-compressor/pull/151.patch
-        $pkgname-fix-build-on-new-dtk.patch::https://github.com/linuxdeepin/deepin-compressor/pull/166.patch)
-sha512sums=('11a28afa828dbeb2e158026778a777d5677f6336fb8d54ec1d0a85e5aeb0b1ca4351e8203939b90d7ec0eb499981d7924465b49856591bc01ceade523121059e'
-            '1248ce22c188540db43cba475cde7c8d0e95d45ae98ddebb76f791f8d3f723cdda2651235e806fbe52ea5a96380d77a64907832cece41e3b4d981e80e1a92d92'
-            'b50d39aeb6b7beab1574d9cf05a4a6f56c4a23e38872f9a248a649e59c2e570eadd5bd5f429024e8b7c8f69509ca7a79a66f7006e3504bbc9276455f97362c81')
+source=("git+https://github.com/linuxdeepin/deepin-compressor.git#tag=$pkgver")
+sha512sums=('bc8c640c3fbc938596fcd14b9fa6d2967afaa88c8d405a20fb1cb77218602dddd670311aace0c3da0187f93af92da1219dc9d815fb7062c0ddda9de77441db20')
 
 prepare() {
-  cd deepin-compressor-$pkgver
-  patch -p1 -i ../$pkgname-fix-build-on-dtk-5.6.20.patch
-  patch -p1 -i ../$pkgname-fix-build-on-new-dtk.patch
+  cd deepin-compressor
+  git cherry-pick -n 9e13248e351dd6db49134e91e33a39d671310d8d
+  git cherry-pick -n daf74ab78f03151371f0bbf2b9e4355f29afab8d
 }
 
 build() {
-  cd deepin-compressor-$pkgver
-  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr
+  cd deepin-compressor
+  cmake . -GNinja -DCMAKE_INSTALL_LIBDIR=/usr/lib
   ninja
 }
 
 package() {
-  cd deepin-compressor-$pkgver
+  cd deepin-compressor
   DESTDIR="$pkgdir" ninja install
 }

@@ -1,11 +1,12 @@
 pkgbase = deepin-compressor
 	pkgdesc = A fast and lightweight application for creating and extracting archives
-	pkgver = 5.12.23
-	pkgrel = 5
+	pkgver = 5.12.24
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-compressor
 	arch = x86_64
 	groups = deepin-extra
 	license = GPL3
+	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
 	makedepends = qt5-tools
@@ -23,11 +24,7 @@ pkgbase = deepin-compressor
 	depends = minizip
 	depends = util-linux-libs
 	depends = hicolor-icon-theme
-	source = https://github.com/linuxdeepin/deepin-compressor/archive/5.12.23/deepin-compressor-5.12.23.tar.gz
-	source = deepin-compressor-fix-build-on-dtk-5.6.20.patch::https://github.com/linuxdeepin/deepin-compressor/pull/151.patch
-	source = deepin-compressor-fix-build-on-new-dtk.patch::https://github.com/linuxdeepin/deepin-compressor/pull/166.patch
-	sha512sums = 11a28afa828dbeb2e158026778a777d5677f6336fb8d54ec1d0a85e5aeb0b1ca4351e8203939b90d7ec0eb499981d7924465b49856591bc01ceade523121059e
-	sha512sums = 1248ce22c188540db43cba475cde7c8d0e95d45ae98ddebb76f791f8d3f723cdda2651235e806fbe52ea5a96380d77a64907832cece41e3b4d981e80e1a92d92
-	sha512sums = b50d39aeb6b7beab1574d9cf05a4a6f56c4a23e38872f9a248a649e59c2e570eadd5bd5f429024e8b7c8f69509ca7a79a66f7006e3504bbc9276455f97362c81
+	source = git+https://github.com/linuxdeepin/deepin-compressor.git#tag=5.12.24
+	sha512sums = bc8c640c3fbc938596fcd14b9fa6d2967afaa88c8d405a20fb1cb77218602dddd670311aace0c3da0187f93af92da1219dc9d815fb7062c0ddda9de77441db20
 
 pkgname = deepin-compressor
