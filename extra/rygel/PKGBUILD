@@ -2,11 +2,11 @@
 # Contributor: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=rygel
-pkgver=0.42.6
+pkgver=0.44.0
 pkgrel=1
 epoch=1
 pkgdesc="UPnP AV MediaServer and MediaRenderer"
-url="https://wiki.gnome.org/Projects/Rygel"
+url="https://gitlab.gnome.org/GNOME/rygel"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
@@ -29,7 +29,7 @@ depends=(
   libx11
   libxml2
   sqlite
-  tracker3
+  tinysparql
 )
 makedepends=(
   git
@@ -43,20 +43,17 @@ optdepends=(
   'gst-plugins-base: Extra media codecs'
   'gst-plugins-good: Extra media codecs'
   'gst-plugins-ugly: Extra media codecs'
-  'tracker3-miners: Share indexed media files'
+  'localsearch: Share indexed media files'
   'tumbler: Thumbnailing service'
 )
 provides=(librygel-{core,db,renderer,renderer-gst,ruih,server}-2.8.so)
 backup=(etc/rygel.conf)
 groups=(gnome)
-_commit=64a5f90b44bc845a4c59f37cb49d9b7693cde6b5  # tags/shotwell-0.42.6^0
-source=("git+https://gitlab.gnome.org/GNOME/rygel.git#commit=$_commit")
-b2sums=('52543e25d32c455db5e8f5bd54ec1b0874175e5307dfa5ac2717f2dc30445d3fae69bcafb0f6e252ed8489177fdeb576cdfeef3825d4bc6673c00b70c44d7911')
-
-pkgver() {
-  cd rygel
-  git describe --tags | sed 's/^[a-z]*-//;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+$url.git?signed#tag=rygel-$pkgver")
+b2sums=('81b8eccc45c74aaa4651337ee9306c3f70dcae0d5b2dce49ac5a98c84e36c58ceb5531ad6ee02597f9ddea7ae4b29b372f970ce99db6cfa49710d359eb730a5d')
+validpgpkeys=(
+  AC9CD4E32D7C7F6357BA8ADD10F6E970175D29E1 # Jens Georg <mail@jensge.org>
+)
 
 prepare() {
   cd rygel
