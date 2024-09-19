@@ -1,6 +1,6 @@
 pkgbase = loupe
 	pkgdesc = A simple image viewer for GNOME
-	pkgver = 46.2
+	pkgver = 47.0
 	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/loupe
 	arch = x86_64
@@ -10,6 +10,7 @@ pkgbase = loupe
 	makedepends = itstool
 	makedepends = meson
 	makedepends = rust
+	depends = bubblewrap
 	depends = cairo
 	depends = dconf
 	depends = gcc-libs
@@ -23,8 +24,8 @@ pkgbase = loupe
 	depends = libadwaita
 	depends = libgweather-4
 	depends = libseccomp
-	source = git+https://gitlab.gnome.org/GNOME/loupe.git?signed#tag=46.2
+	source = git+https://gitlab.gnome.org/GNOME/loupe.git?signed#tag=47.0
 	validpgpkeys = 4587A0EE1EE5478AAB82C0A93BA28A5559F08EBD
-	b2sums = 3b217f7cfcc3adadf41f0babd90b7f99c6916e384d77580431f3b945d8549bf99cad82c87a14d18f0c7095a928dab13bcb6dea42383e8a7d10ca0aab69161d0a
+	b2sums = 4cce0b36a3256d6abd622c2a6adfe30658d4aff95891655aec4fa4dfb4e65223a2bf0b469c301e3b6c87e3e7098af73ecf35888dbb8ca86564e9f991fa5860f4
 
 pkgname = loupe

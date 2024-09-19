@@ -1,14 +1,16 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=loupe
-pkgver=46.2
+pkgver=47.0
 pkgrel=1
 pkgdesc="A simple image viewer for GNOME"
-arch=(x86_64)
 url="https://gitlab.gnome.org/GNOME/loupe"
-license=('GPL-3.0-or-later')
-groups=('gnome')
+arch=(x86_64)
+license=(GPL-3.0-or-later)
+groups=(gnome)
 depends=(
+  bubblewrap
   cairo
   dconf
   gcc-libs
@@ -30,7 +32,7 @@ makedepends=(
   rust
 )
 source=("git+$url.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('3b217f7cfcc3adadf41f0babd90b7f99c6916e384d77580431f3b945d8549bf99cad82c87a14d18f0c7095a928dab13bcb6dea42383e8a7d10ca0aab69161d0a')
+b2sums=('4cce0b36a3256d6abd622c2a6adfe30658d4aff95891655aec4fa4dfb4e65223a2bf0b469c301e3b6c87e3e7098af73ecf35888dbb8ca86564e9f991fa5860f4')
 validpgpkeys=(
   4587A0EE1EE5478AAB82C0A93BA28A5559F08EBD # Sophie Herold <sophieherold@gnome.org>
 )
@@ -43,6 +45,10 @@ export CARGO_PROFILE_RELEASE_DEBUG=2
 
 prepare() {
   cd $pkgname
+
+  # Match CARGO_HOME in src/meson.build
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
@@ -51,7 +57,7 @@ build() {
 }
 
 check() {
-  meson test -C build --print-errorlogs
+  meson test -C build --print-errorlogs --no-rebuild
 }
 
 package() {
