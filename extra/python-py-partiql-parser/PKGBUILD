@@ -3,8 +3,7 @@
 pkgname=python-py-partiql-parser
 _pkgname=py-partiql-parser
 # https://github.com/getmoto/py-partiql-parser/blob/main/CHANGELOG.md
-pkgver=0.5.5
-_commit=a92a28fdf38b636ab2f8a85a739d1ddef0876ea9
+pkgver=0.5.6
 pkgrel=1
 pkgdesc='Python Parser for PartiQL'
 arch=(any)
@@ -15,8 +14,8 @@ license=('MIT AND Apache-2.0')
 depends=(python)
 makedepends=(git python-build python-installer python-hatchling)
 checkdepends=(python-pytest)
-source=("git+https://github.com/getmoto/py-partiql-parser#commit=$_commit")
-sha256sums=('88bdf3052c9bc47dca3f851b5deacb5db2531033a56f309bbd929c73d6478820')
+source=("git+https://github.com/getmoto/py-partiql-parser#tag=$pkgver")
+sha256sums=('e0f40798453c1f8e6d576aa7c488204f010fefe45769210687acf9767bd31b80')
 
 build() {
   cd $_pkgname
