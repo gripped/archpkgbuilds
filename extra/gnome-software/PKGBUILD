@@ -4,7 +4,7 @@
 # Contributor: Yosef Or Boczko <yoseforb@gnome.org>
 
 pkgname=gnome-software
-pkgver=46.5
+pkgver=47.0
 pkgrel=1
 pkgdesc="GNOME Software Tools"
 url="https://apps.gnome.org/Software"
@@ -17,6 +17,7 @@ depends=(
   gdk-pixbuf2
   glib2
   glibc
+  gnome-app-list
   gsettings-desktop-schemas
   gtk4
   hicolor-icon-theme
@@ -37,6 +38,7 @@ makedepends=(
   glib2-devel
   gobject-introspection
   gtk-doc
+  itstool
   libglib-testing
   malcontent
   meson
@@ -51,7 +53,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-software.git?signed#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/mwleeds/gnome-pwa-list.git"
 )
-b2sums=('1c35d22d79a1941f272f7cf9639bc79e0e714ef0c4d206163a351ee3a70da35b550239de077cc4d576b916fd59e2aef8260c72b8a88a98d01dcf3a88200f8665'
+b2sums=('3928ae907f3edd432216c909e110e079e15039d1403c165af9cde5bf2a9ac9011d0cfb8b684c54a110516305c6b6f8cea4bf88be0f9a5137b7f74b8f8e43dae9'
         'SKIP')
 validpgpkeys=(
   2AA441054BD2F1715EC11610FB183E7EF3C36A0D # Milan Crha <mcrha@redhat.com>
