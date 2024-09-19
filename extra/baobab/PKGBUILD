@@ -3,18 +3,24 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=baobab
-pkgver=46.0
+pkgver=47.0
 pkgrel=1
 pkgdesc="A graphical directory tree analyzer"
-url="https://wiki.gnome.org/Apps/DiskUsageAnalyzer"
+url="https://apps.gnome.org/Baobab"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
+  cairo
   dconf
+  glib2
+  glibc
+  graphene
   gsettings-desktop-schemas
   gtk4
+  hicolor-icon-theme
   libadwaita
   librsvg
+  pango
 )
 makedepends=(
   appstream-glib
@@ -25,18 +31,12 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome)
-_commit=ff8490573fcedf139f6ab45ee6d434736a0a38ec  # tags/46.0^0
 source=(
-  "git+https://gitlab.gnome.org/GNOME/baobab.git#commit=$_commit"
+  "git+https://gitlab.gnome.org/GNOME/baobab.git#tag=${pkgver/[a-z]/.&}"
   no-mimetype.diff
 )
-b2sums=('f231d875c081c4f9c290c88b5b5661bf1c6b4097587132235620e56d06657b42ccae07ea5f8f5b66b4548d1a1b4aaea1aa81261ec5ccd3f38b6fb65767f83500'
+b2sums=('535dd3e3e3c8f5c7a9018785bac4e956223a601620c70e724312c1166c4bb510c2d209ec0bf4ede822030eba0b22bcbcf2d0c8ea18ca44ab2e47db3949f7cece'
         '71e04f307e842fa0676f5b64f55e8be908e3075a9b948a6ab3979b51a8db08fdd07c0f214adb74d5461b4f175a14a7bf9867cf2c9b044660a5b46bc8ea296a22')
-
-pkgver() {
-  cd baobab
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
 
 prepare() {
   cd baobab
