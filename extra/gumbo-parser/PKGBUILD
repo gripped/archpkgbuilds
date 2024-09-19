@@ -2,7 +2,7 @@
 
 pkgname=gumbo-parser
 pkgver=0.12.1
-pkgrel=1
+pkgrel=2
 pkgdesc="HTML5 parsing library in pure C99"
 arch=(x86_64)
 url="https://codeberg.org/grisha/gumbo-parser/"
