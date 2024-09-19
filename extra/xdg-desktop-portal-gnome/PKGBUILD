@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=xdg-desktop-portal-gnome
-pkgver=47.0
+pkgver=47.1
 pkgrel=1
 pkgdesc="A backend implementation for xdg-desktop-portal for the GNOME desktop environment"
 url="https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome"
@@ -36,7 +36,7 @@ conflicts=('xdg-desktop-portal-gtk<1.10.0-2')
 replaces=('xdg-desktop-portal-gtk<1.10.0-2')
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('6c93a935c560470018f7df8ff6a8b5e0e0ed5545fc35cafbe3aa01948a00aa42eee05e57205d30c6b2767427077fb3d33546358a5554a23f8cd1d1bd64d46a7a')
+b2sums=('46c3ebd0016eae9067332f242bb90de08a461a7624edb3ce3c7743894da8b06ee127159a4cfb36477b97a4b2963d5a334208a3825530c03d0f9269787ec385cc')
 
 prepare() {
   cd $pkgname
