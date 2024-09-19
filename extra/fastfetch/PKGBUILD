@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
 pkgname=fastfetch
-pkgver=2.24.0
+pkgver=2.25.0
 pkgrel=1
 pkgdesc="An actively maintained, feature-rich and performance oriented, neofetch like system information tool"
 arch=('x86_64')
@@ -49,7 +49,7 @@ optdepends=(
   'libdrm: Displays detection'
 )
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('675ac3f9dbe00277416744fa36a28fc9cd1284d17f055a4db339063bfc6a8209')
+sha256sums=('17ea39fd062d5bccc9c608e868f593a665d569646bc9b447111b3a608b648783')
 
 build() {
 	cmake -B build -S "${pkgname}-${pkgver}" \
@@ -60,6 +60,21 @@ build() {
 		-DENABLE_RPM='OFF' \
 		-DENABLE_IMAGEMAGICK6='OFF' \
 		-DENABLE_SYSTEM_YYJSON='ON' \
+		-DPACKAGES_DISABLE_APK='ON' \
+		-DPACKAGES_DISABLE_DPKG='ON' \
+		-DPACKAGES_DISABLE_EMERGE='ON' \
+		-DPACKAGES_DISABLE_EOPKG='ON' \
+		-DPACKAGES_DISABLE_GUIX='ON' \
+		-DPACKAGES_DISABLE_LINGLONG='ON' \
+		-DPACKAGES_DISABLE_LPKG='ON' \
+		-DPACKAGES_DISABLE_LPKGBUILD='ON' \
+		-DPACKAGES_DISABLE_OPKG='ON' \
+		-DPACKAGES_DISABLE_PALUDIS='ON' \
+		-DPACKAGES_DISABLE_PKG='ON' \
+		-DPACKAGES_DISABLE_PKGTOOL='ON' \
+		-DPACKAGES_DISABLE_RPM='ON' \
+		-DPACKAGES_DISABLE_SORCERY='ON' \
+		-DPACKAGES_DISABLE_XBPS='ON' \
 		-Wno-dev
 	cmake --build build
 }
