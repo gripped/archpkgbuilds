@@ -2,8 +2,8 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-builder
-pkgver=46.3
-pkgrel=2
+pkgver=47.0
+pkgrel=1
 pkgdesc="An IDE for writing GNOME-based software"
 url="https://wiki.gnome.org/Apps/Builder"
 arch=(x86_64)
@@ -19,7 +19,6 @@ depends=(
   desktop-file-utils
   devhelp
   editorconfig-core-c
-  enchant
   flatpak
   gcc-libs
   gdk-pixbuf2
@@ -27,10 +26,10 @@ depends=(
   glib2
   glibc
   gobject-introspection-runtime
+  gom
   gtk4
   gtksourceview5
   hicolor-icon-theme
-  icu
   json-glib
   jsonrpc-glib
   libadwaita
@@ -42,6 +41,7 @@ depends=(
   libportal
   libportal-gtk4
   libsoup3
+  libspelling
   libxml2
   meson
   pango
@@ -80,7 +80,7 @@ replaces=(
 )
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-builder.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('27497e305aabbc00745446e1d6b173d3b116adc30c370d05b79dac1b0833e14fff47bc4a5134969167ea5f26a9a0bef8f096f35cd505fbb3b577616882338aba')
+b2sums=('27f18a7c6232352e43a9ea0ba4922995854c324a9b21255bf66d136a5557dd20af0d0c7e51ba89aaafaed433195add57c717becfc5c2cd6e4e9b1bb3dcee8932')
 
 prepare() {
   cd $pkgname
@@ -99,8 +99,8 @@ check() (
   export XDG_RUNTIME_DIR="$PWD/runtime-dir"
   mkdir -p -m 700 "$XDG_RUNTIME_DIR"
 
-  export WAYLAND_DISPLAY=wayland-5
-  weston --backend=headless-backend.so --socket=$WAYLAND_DISPLAY --idle-time=0 &
+  export WAYLAND_DISPLAY=wl-$pkgname-$RANDOM
+  weston --backend=headless --socket=$WAYLAND_DISPLAY --idle-time=0 &
   _w=$!
 
   trap "kill $_w; wait" EXIT
