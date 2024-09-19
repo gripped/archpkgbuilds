@@ -2,16 +2,18 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-weather
-pkgver=46.0
+pkgver=47.0
 pkgrel=1
 pkgdesc="Access current weather conditions and forecasts"
-url="https://wiki.gnome.org/Apps/Weather"
+url="https://apps.gnome.org/Weather"
 arch=(any)
 license=(GPL-2.0-or-later)
 depends=(
+  dconf
   geoclue
   gjs
   gtk4
+  hicolor-icon-theme
   libadwaita
   libgweather-4
 )
@@ -22,14 +24,8 @@ makedepends=(
   meson
 )
 groups=(gnome)
-_commit=0f746b99629fa73b9a5233ca58bc35d93ca16f58  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-weather.git#commit=$_commit")
-b2sums=('0b22ea5d6961dabece025114e73aa1cc4ba5164ebd5df0793e8b576f9781e090e27037cab722082bc7e159bf4f7e2fb99bbbfb03c5550392394567a41e101c8f')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-weather.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('2fc6461adb0e7df81e270ce17395cc5aebdff8a7ec51894f1f5e1e439a888de71f1a07cde1643636b2bcd9f6a6e32f32b57b5d1845e11ee7abba2e679f91d998')
 
 prepare() {
   cd $pkgname
