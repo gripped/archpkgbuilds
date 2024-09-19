@@ -1,0 +1,41 @@
+From 0a51aead6c149b159772c18adf43a151de550cdb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 19 Sep 2024 23:59:45 +0200
+Subject: [PATCH] Set prgame to match with desktop file
+
+Using the same ID ensures that Wayland compositors could match the
+window with the desktop file and show the appropriate icon for them.
+---
+ src/planner-main.c   | 2 ++
+ src/planner-window.c | 2 +-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/planner-main.c b/src/planner-main.c
+index 63a272d1..036f8765 100644
+--- a/src/planner-main.c
++++ b/src/planner-main.c
+@@ -86,6 +86,8 @@ main (int argc, char **argv)
+ 	migrate_config_to_xdg_dir ();
+ 	migrate_gconf_settings ();
+ 
++	g_set_prgname ("app.drey.Planner");
++
+ 	filename = mrp_paths_get_image_dir ("gnome-planner.png");
+ 	gtk_window_set_default_icon_from_file (filename, NULL);
+ 	g_free (filename);
+diff --git a/src/planner-window.c b/src/planner-window.c
+index 26d1d6ab..7b70adf9 100644
+--- a/src/planner-window.c
++++ b/src/planner-window.c
+@@ -1896,7 +1896,7 @@ window_recent_add_item (PlannerWindow *window, const gchar *uri)
+ 	recent_data->description = NULL;
+ 	recent_data->mime_type = "application/x-planner";
+ 	recent_data->app_name = (gchar *) g_get_application_name ();
+-	recent_data->app_exec = g_strjoin (" ", g_get_prgname (), "%u", NULL);
++	recent_data->app_exec = g_strdup ("planner %u");
+ 	recent_data->groups = groups;
+ 	recent_data->is_private = FALSE;
+ 
+-- 
+GitLab
+
