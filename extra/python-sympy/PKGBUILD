@@ -5,7 +5,7 @@
 # Contributor: Peter Garceau <RockyChimp@gmail.com>
 
 pkgname=python-sympy
-pkgver=1.13.2
+pkgver=1.13.3
 pkgrel=1
 arch=('any')
 pkgdesc='Symbolic manipulation package (Computer Algebra System), written in pure Python'
@@ -22,7 +22,7 @@ makedepends=('git'
 checkdepends=('python-hypothesis'
               'python-pytest')
 source=(git+https://github.com/sympy/sympy#tag=sympy-$pkgver)
-sha512sums=('cb6da14e073a9e277ca633a7e5f82545f08a5b8ebf981e46e55fc9d6056efa2f6e71dde93184f6222ca1b936408530add44c656b007fd095833e5612cc6b4232')
+sha512sums=('abc0d547ccdd43469aa546c09491df756a0f447bc63e6828ad68f340e303c735ca3bb1f34a7bb2f0c52435cc699083b678e5dc721a45bc03e47509bfda0489b0')
 
 build() {
   cd sympy
