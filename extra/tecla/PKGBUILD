@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=tecla
-pkgver=46.0
+pkgver=47.0
 pkgrel=1
 pkgdesc="Keyboard layout viewer"
 url="https://gitlab.gnome.org/GNOME/tecla"
@@ -24,14 +24,8 @@ makedepends=(
   meson
 )
 groups=(gnome)
-_commit=828a9d7083f9ca5f4e5710333d4ed9acdfa71438  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/tecla.git#commit=$_commit")
-b2sums=('0d8e742c047b4b03097231d6f7249d82e56bdba5cf19dfc81ac75531fbc99ca5638352163e7e67b5bc63635d3859cb51c5ff6d648bdbc7a505ab625d8e725018')
-
-pkgver() {
-  cd tecla
-  git describe --tags | sed -r 's/\.([a-z])/\1/;s/([a-z])\./\1/;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/tecla.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('aa25059fab60df80fbef146373f9240e83cd36b384a327a04c325de25a7d276e4d4e337046265b0e8da2dc28e89b158e4df855badc1c285c1d9522a8167ecbd0')
 
 prepare() {
   cd tecla
