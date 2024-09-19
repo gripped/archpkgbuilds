@@ -3,17 +3,23 @@
 # Contributor: Michel Brabants <michel.linux@tiscali.be>
 
 pkgname=seahorse
-pkgver=43.0
-pkgrel=3
+pkgver=47.0.1
+pkgrel=1
 epoch=1
 pkgdesc="GNOME application for managing PGP keys."
 url="https://wiki.gnome.org/Apps/Seahorse"
 arch=(x86_64)
 license=('GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-SA-3.0')
 depends=(
+  dconf
+  gcc-libs
   gcr
+  gdk-pixbuf2
+  glib2
+  glibc
   gpgme
   gtk3
+  hicolor-icon-theme
   libhandy
   libldap
   libpwquality
@@ -31,26 +37,14 @@ makedepends=(
 )
 provides=(x11-ssh-askpass)
 groups=(gnome-extra)
-source=("git+https://gitlab.gnome.org/GNOME/seahorse.git?signed#tag=$pkgver"
-        seahorse-ssh-return-type.patch)
-b2sums=('256c04738c29e91a297fc32d75eb494343ed9d1008b8fecbd7ea9066b590ec63eb3436dbc8ddc785a70d7ea501a8d91ddddc5ed900345b7d197ce735ab00d5ae'
-        '44cbd5dd20347c42c9bb77dee25af18c1f69d433aa812d603807d96674a335510e88f9813424269b6c3814d8ec6ce45856365716d77e4fb64fdc02acf13ce841')
+source=(
+  "git+https://gitlab.gnome.org/GNOME/seahorse.git?signed#tag=${pkgver/[a-z]/.&}"
+)
+b2sums=('e8d8fae487e872c180ee1e8743a95a58445f89b41471067c065745c052703f57b003b49364f350a4fe76fdcdf0ce38b7c8b16baab4a86120dcc90906b5aab390')
 validpgpkeys=('A7C626E13F9AD776776BD9CA1D8A57CF2E8D36A3') # Niels De Graef (nielsdg) <nielsdegraef@gmail.com>
 
 prepare() {
   cd seahorse
-
-  # Allow building with GnuPG-2.4.x
-  git cherry-pick -n 9260c74779be3d7a378db0671af862ffa3573d42
-
-  # Avoid C99 incompatibility around seahorse_pkcs11_backend_initialize
-  git cherry-pick -n 3887ba07ccab4aa970c24a22a183b97e255e6ece
-
-  # Refactor SSH key parsing
-  git cherry-pick -n 87a5e5312beac6cbe3b39f72cf0f120f1ed00473
-
-  # Fix return type
-  git apply -3 ../seahorse-ssh-return-type.patch
 }
 
 build() {
