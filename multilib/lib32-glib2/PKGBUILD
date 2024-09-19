@@ -7,7 +7,7 @@ pkgbase=lib32-glib2
 pkgname=(
   lib32-glib2
 )
-pkgver=2.80.5
+pkgver=2.82.0
 pkgrel=1
 pkgdesc="Low level core library - 32-bit"
 url="https://gitlab.gnome.org/GNOME/glib"
@@ -42,10 +42,11 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gvdb.git"
   gio-querymodules-32.hook
 )
-b2sums=('fbda547a8b941dd877fb704406b78e16856c0337a71102d0041b6276d648d0f90fc70a7a0c25c0d9a5b3d1cdc9c3f1599d44f386d77698ea76c24a143fa76622'
+b2sums=('9dee8619918d1bf85d853ddc661c4702046b5361bd3fde105d0b3c550f5dbdbaa6578557107588053bb4e980a21e83b95c2c9e9c7868fb89ca852bc950ac3dba'
         'SKIP'
         '678ea2d010fd64b6c55106510096363c54c357d65615c666e9cc3a0e280c0878257a45e646dd88f6bdd0623f7268c4afd2d4f98f82a5489bbfc028c5864252f1')
 validpgpkeys=(
+  53EF3DC3B63E2899271BD26322E8091EEA11BBB7 # Emmanuele Bassi <ebassi@gnome.org>
   923B7025EE03C1C59F42684CF0942E894B2EAFA0 # Philip Withnall <pwithnall@gnome.org>
 )
 
@@ -60,12 +61,14 @@ prepare() {
 build() {
   local meson_options=(
     --cross-file lib32
-    -D glib_debug=disabled
     -D documentation=false
+    -D dtrace=disabled
+    -D glib_debug=disabled
     -D introspection=disabled
     -D man-pages=disabled
     -D selinux=disabled
     -D sysprof=disabled
+    -D systemtap=disabled
   )
 
   # Produce more debug info: GLib has a lot of useful macros
