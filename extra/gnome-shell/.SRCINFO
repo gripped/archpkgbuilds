@@ -1,6 +1,6 @@
 pkgbase = gnome-shell
 	pkgdesc = Next generation desktop shell
-	pkgver = 46.5
+	pkgver = 47.0
 	pkgrel = 1
 	epoch = 1
 	url = https://gitlab.gnome.org/GNOME/gnome-shell
@@ -15,6 +15,7 @@ pkgbase = gnome-shell
 	makedepends = gnome-keybindings
 	makedepends = gobject-introspection
 	makedepends = meson
+	makedepends = python-docutils
 	makedepends = sassc
 	depends = accountsservice
 	depends = at-spi2-core
@@ -59,9 +60,9 @@ pkgbase = gnome-shell
 	depends = unzip
 	depends = upower
 	depends = webkitgtk-6.0
-	source = git+https://gitlab.gnome.org/GNOME/gnome-shell.git#tag=46.5
+	source = git+https://gitlab.gnome.org/GNOME/gnome-shell.git#tag=47.0
 	source = git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git#commit=5f9768a2eac29c1ed56f1fbb449a77a3523683b6
-	b2sums = 7fa976e8f61ec2f0a6cb3f52a465a99dd22ae105e692c28a1272f0fae40d35d8ca6660ba6f694405e77bd4f150645316084faf5f345b29324204d1c7ed5773b9
+	b2sums = 7c5b48d4ad2c9119bac501dfc99d2e73132a8418dd6d6020778c6a76090faa5489d85bb9ca9bf2908592efba077e14f66a6515e57e1c1b18ba8d22d43ca56d81
 	b2sums = e31ae379039dfc345e8032f7b9803a59ded075fc52457ba1553276d3031e7025d9304a7f2167a01be2d54c5e121bae00a2824a9c5ccbf926865d0b24520bb053
 
 pkgname = gnome-shell
@@ -109,7 +110,7 @@ pkgname = gnome-shell
 	depends = unzip
 	depends = upower
 	depends = webkitgtk-6.0
-	depends = libmutter-14.so
+	depends = libmutter-15.so
 	optdepends = evolution-data-server: Evolution calendar integration
 	optdepends = gnome-bluetooth-3.0: Bluetooth support
 	optdepends = gnome-control-center: System settings
