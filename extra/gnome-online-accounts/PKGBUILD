@@ -7,7 +7,7 @@ pkgname=(
   gnome-online-accounts
   libgoa
 )
-pkgver=3.50.5
+pkgver=3.52.0
 pkgrel=1
 pkgdesc="Single sign-on framework for GNOME"
 url="https://wiki.gnome.org/Projects/GnomeOnlineAccounts"
@@ -23,6 +23,7 @@ depends=(
   gtk4
   hicolor-icon-theme
   json-glib
+  keyutils
   krb5
   libadwaita
   librest
@@ -32,6 +33,7 @@ depends=(
 )
 makedepends=(
   git
+  gi-docgen
   glib2-devel
   gobject-introspection
   meson
@@ -41,7 +43,7 @@ source=(
   # GOA tags use SSH signatures which makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/gnome-online-accounts.git#tag=$pkgver"
 )
-b2sums=('5cd62b809d57dbcd1c2432ae4143abfa10023c8e625382c5c88c4c85082870106167f1c58eb73e8cb29b538a9229343c3fba003a2c4be0710420c40b94385554')
+b2sums=('a61869c80537b01fd0cacc9cdf4b1ced66161b975aab783607aa2cb26cdefbd0450e914feea149d4c181580a3cab04ae86343ccc361ff10c152efe141c19c6fc')
 
 prepare() {
   cd $pkgname
@@ -92,7 +94,7 @@ package_gnome-online-accounts() {
   _pick goa usr/lib/pkgconfig/goa-1.0.pc
   _pick goa usr/share/gir-1.0/Goa-1.0.gir
   _pick goa usr/share/vala/vapi/goa-1.0.*
-  _pick goa usr/share/gtk-doc
+  _pick goa usr/share/doc
 }
 
 package_libgoa() {

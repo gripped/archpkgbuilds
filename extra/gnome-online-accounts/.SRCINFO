@@ -1,11 +1,12 @@
 pkgbase = gnome-online-accounts
 	pkgdesc = Single sign-on framework for GNOME
-	pkgver = 3.50.5
+	pkgver = 3.52.0
 	pkgrel = 1
 	url = https://wiki.gnome.org/Projects/GnomeOnlineAccounts
 	arch = x86_64
 	license = LGPL-2.0-or-later
 	makedepends = git
+	makedepends = gi-docgen
 	makedepends = glib2-devel
 	makedepends = gobject-introspection
 	makedepends = meson
@@ -19,14 +20,15 @@ pkgbase = gnome-online-accounts
 	depends = gtk4
 	depends = hicolor-icon-theme
 	depends = json-glib
+	depends = keyutils
 	depends = krb5
 	depends = libadwaita
 	depends = librest
 	depends = libsecret
 	depends = libsoup3
 	depends = libxml2
-	source = git+https://gitlab.gnome.org/GNOME/gnome-online-accounts.git#tag=3.50.5
-	b2sums = 5cd62b809d57dbcd1c2432ae4143abfa10023c8e625382c5c88c4c85082870106167f1c58eb73e8cb29b538a9229343c3fba003a2c4be0710420c40b94385554
+	source = git+https://gitlab.gnome.org/GNOME/gnome-online-accounts.git#tag=3.52.0
+	b2sums = a61869c80537b01fd0cacc9cdf4b1ced66161b975aab783607aa2cb26cdefbd0450e914feea149d4c181580a3cab04ae86343ccc361ff10c152efe141c19c6fc
 
 pkgname = gnome-online-accounts
 	depends = dbus
@@ -38,13 +40,14 @@ pkgname = gnome-online-accounts
 	depends = gtk4
 	depends = hicolor-icon-theme
 	depends = json-glib
+	depends = keyutils
 	depends = krb5
 	depends = libadwaita
 	depends = librest
 	depends = libsecret
 	depends = libsoup3
 	depends = libxml2
-	depends = libgoa=3.50.5-1
+	depends = libgoa=3.52.0-1
 	optdepends = epiphany: (or another modern browser): OAuth authentication
 	optdepends = gvfs-goa: Virtual file systems, e.g. OwnCloud
 	optdepends = gvfs-google: Google Drive
