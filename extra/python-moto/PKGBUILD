@@ -4,7 +4,7 @@
 pkgname=python-moto
 _pkgname=moto
 # https://github.com/getmoto/moto/blob/master/CHANGELOG.md
-pkgver=5.0.13
+pkgver=5.0.14
 pkgrel=1
 pkgdesc='Moto is a library to mock out the boto library.'
 arch=(any)
@@ -20,7 +20,7 @@ depends=(python python-boto3 python-botocore python-cryptography python-requests
          python-jinja
          # urllib3 is used by cfnresponse.py, not directly by moto - just to make namcap happy
          python-urllib3)
-makedepends=(python-build python-installer python-setuptools python-wheel)
+makedepends=(git python-build python-installer python-setuptools python-wheel)
 # See requirements-tests.txt, excluding pytest-cov
 checkdepends=(python-pytest python-pytest-order python-freezegun)
 # Check extras_require in upstream `setup.cfg` for optional dependencies.
@@ -51,19 +51,24 @@ checkdepends+=(python-yaml python-joserfc python-openapi-spec-validator python-d
                python-flask python-flask-cors python-multipart
                python-antlr4 python-jsonpath-ng
 )
-source=("https://github.com/getmoto/moto/archive/refs/tags/$pkgver/$pkgname-$pkgver.tar.gz"
+source=("git+https://github.com/getmoto/moto#tag=$pkgver"
         "fix-tests.diff")
-sha256sums=('1e7b4434e71ca5986e539814ee4a5fb9b2e3f635d6e6c9aba52c349fb8a5a633'
+sha256sums=('64b5d2669c238fe49af0c370f8408d3f9d6235703eae01c80b89d19de7d6ab84'
             '21305cdf3d650ced1acb1d0f7dde8760b26e32a94c56a5571e798d6b6976cf5a')
 
 prepare() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
+
+  # ELBv2: Workaround botocore bug for Delete-LB waiter
+  # This work-arounds an issue in older botocore: https://github.com/boto/botocore/issues/3252
+  # I cannot upgrade botocore due to aiobotocore, though
+  git cherry-pick -n fd851c68c2fc8237cc1fc81b14700a11998fabe4
 
   patch -Np1 -i ../fix-tests.diff
 }
 
 build() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
 
   # Update versions in setup.cfg and moto/__init__.py, following upstream release pipeline
   # https://github.com/getmoto/moto/blob/master/.github/workflows/release.yml
@@ -73,7 +78,7 @@ build() {
 }
 
 check() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
 
   local pytest_args=(
     # Needs a new package python-pycognito
@@ -84,7 +89,7 @@ check() {
 }
 
 package() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
 
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
