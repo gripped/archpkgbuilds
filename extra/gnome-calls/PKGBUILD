@@ -5,7 +5,7 @@
 # Contributor: GI Jack <GI_Jack@hackermail.com>
 
 pkgname=gnome-calls
-pkgver=46.3
+pkgver=47.0
 pkgrel=1
 pkgdesc="Phone dialer and call handler"
 arch=(x86_64)
@@ -22,12 +22,12 @@ depends=(
   glibc
   gom
   gstreamer
-  gtk3
+  gtk4
   hicolor-icon-theme
+  libadwaita
   libgee
-  libhandy
   libmm-glib
-  libpeas
+  libpeas-2
   libsecret
   sofia-sip
 )
@@ -39,9 +39,9 @@ makedepends=(
   python-docutils
   vala
 )
-source=("git+https://gitlab.gnome.org/GNOME/calls.git?signed#tag=v${pkgver/[a-z]/.&}"
+source=("git+https://gitlab.gnome.org/GNOME/calls.git?signed#tag=v${pkgver/[a-z]/_&}"
         "git+https://gitlab.gnome.org/World/Phosh/libcall-ui.git")
-b2sums=('87d72fd120fc7181cc4cbe9a9e0e75957aa452ea29435a0a674ea91faaf4f5e9162fa8cceb527b29829d8677413b55e4aba45b00453cad6e8891a46ecf214467'
+b2sums=('c5414f48e994c03fdfb48a0a61185d10dfc85cf6ed65a834c83a48bdefadb3f320c8dda3790024a2def7a99dac6152b5d672291af375cd56714143d8151f0d1c'
         'SKIP')
 validpgpkeys=(
   B9386554B7DD266BCB8E29A990F0C9B18A6B4A19 # Evangelos Ribeiro Tzaras <devrtz@fortysixandtwo.eu>

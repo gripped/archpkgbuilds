@@ -2,4 +2,6 @@
 source = "git"
 git = "https://gitlab.gnome.org/GNOME/calls.git"
 include_regex = 'v\d+(\.\d+)*'
+from_pattern = '_([a-z])'
+to_pattern = '\1'
 prefix = "v"
