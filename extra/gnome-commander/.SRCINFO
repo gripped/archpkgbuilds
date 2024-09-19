@@ -1,0 +1,33 @@
+pkgbase = gnome-commander
+	pkgdesc = Graphical two-pane filemanager for GNOME
+	pkgver = 1.18.1
+	pkgrel = 3
+	url = https://gcmd.github.io/
+	arch = x86_64
+	license = GPL-2.0-or-later
+	checkdepends = xorg-server-xvfb
+	makedepends = appstream
+	makedepends = git
+	makedepends = glib2-devel
+	makedepends = gtest
+	makedepends = itstool
+	makedepends = meson
+	makedepends = smbclient
+	depends = cairo
+	depends = dconf
+	depends = exiv2
+	depends = gcc-libs
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
+	depends = gtk3
+	depends = hicolor-icon-theme
+	depends = libgsf
+	depends = pango
+	depends = poppler-glib
+	depends = taglib
+	source = git+https://gitlab.gnome.org/GNOME/gnome-commander.git?signed#tag=1.18.1
+	validpgpkeys = 7627E6FCECF4FC066A03B673F50A89A3ADE4C6E8
+	b2sums = 573070af651d6acb9b5d7a12987228222f6ec36f1a11e6a755f69fd1c5a30cc5dc15f6c91093d4368515060cc13ef4c2a5e65424ba8372e608b405836539875e
+
+pkgname = gnome-commander
