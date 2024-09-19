@@ -5,7 +5,7 @@
 
 
 pkgname=libgedit-gtksourceview
-pkgver=299.2.1
+pkgver=299.3.0
 pkgrel=1
 pkgdesc="A source code editing widget"
 arch=(x86_64)
@@ -22,14 +22,15 @@ depends=(
 )
 makedepends=(
   git
+  glib2-devel
   gobject-introspection
   gtk-doc
   meson
 )
 checkdepends=(xorg-server-xvfb)
 provides=(libgedit-gtksourceview-300.so)
-source=("git+https://github.com/gedit-technology/libgedit-gtksourceview.git#tag=$pkgver")
-b2sums=('16ed3b34ef7b0532800b75b3ba569849e088100f2509cbd9afcd4f0ca1aea9fa3298beb8712fda758dea0c6bf298e75c9340fadc13804ed828b53be352755558')
+source=("git+https://gitlab.gnome.org/World/gedit/libgedit-gtksourceview.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('be5fbdbd280dbac3c28d1a7c5446dcf40398b60400dd3ae7201bf4805da2127dda6411e8b9f19ceae2c0c49470cd832d72ce4e157456240f0c340ac2a6c95ea9')
 
 prepare() {
   cd $pkgname
