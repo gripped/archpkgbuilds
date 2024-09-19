@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-music
-pkgver=46.1
+pkgver=47.0
 pkgrel=1
 epoch=1
 pkgdesc="Music player and management application"
@@ -27,11 +27,11 @@ depends=(
   libgirepository
   libmediaart
   libsoup3
+  localsearch
   python
   python-cairo
   python-gobject
-  tracker3
-  tracker3-miners
+  tinysparql
 )
 makedepends=(
   appstream-glib
@@ -47,7 +47,7 @@ optdepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-music.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('1cb6110e135dd1a07f7ae1cacbeb212c1139108d2d7d8a63d51affc0df5ab0167b070ab417190f24a81fc535df47f1fc2525c63d99df7de648d24cfd6847a0b2')
+b2sums=('abdccb28b166c29a5949dac4677c2e4905575506cd2c6f98730a56659226fb4ea7dae16b144daa8bd4c33055beac43cb790536fe06f2d023b225fa26312a835b')
 
 prepare() {
   cd $pkgname
