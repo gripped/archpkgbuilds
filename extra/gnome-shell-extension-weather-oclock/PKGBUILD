@@ -3,26 +3,21 @@
 pkgname=gnome-shell-extension-weather-oclock
 _pkgname=weather-oclock
 _uuid=weatheroclock@CleoMenezesJr.github.io
-pkgver=46.2
+pkgver=47.0
 pkgrel=1
 pkgdesc='GNOME Shell extension that displays the current weather inside the pill next to the clock'
-arch=('any')
+arch=(any)
 url='https://github.com/CleoMenezesJr/weather-oclock'
-license=('GPL-3.0-or-later')
-depends=('gnome-shell')
-optdepends=('gnome-weather: configure location')
-source=("https://github.com/CleoMenezesJr/$_pkgname/archive/$pkgver/$_pkgname-$pkgver.tar.gz"
-        'gnome-shell-extension-weather-oclock-icon-size.patch')
-sha256sums=('7542b9888aafa81ebb942b0962ee2690f007eae82e86aee02fd8675b08e23bd9'
-            '1b7c39af7ad851f42430951e3fc896dc5aec3048f1f4bf45544c6b0cdbfd82a4')
-
-prepare() {
-  cd $_pkgname-$pkgver
-  
-  # https://github.com/CleoMenezesJr/weather-oclock/commit/64a3f9911a0e87ff5c2ef16a79b30820a40d0654
-  patch -Np1 -i ../gnome-shell-extension-weather-oclock-icon-size.patch
-}
+license=(GPL-3.0-or-later)
+depends=(gnome-shell)
+makedepends=(git)
+optdepends=('gnome-weather: Configure location')
+source=("git+https://github.com/CleoMenezesJr/weather-oclock.git#tag=$pkgver")
+b2sums=(1451c38fb0a3d2ada9ddd81c6708048fd7815aa0cfa7b1a9ee7f6816638c84f14f2db888c873c287dcfae7fd32456638de62deb745569c4cd2eeb8355b464f51)
 
 package() {
-  install -Dm644 -t "$pkgdir/usr/share/gnome-shell/extensions/$_uuid" $_pkgname-$pkgver/$_uuid/*
+  install -dm755 "$pkgdir/usr/share/gnome-shell/extensions"
+  cp -a $_pkgname/$_uuid "$pkgdir/usr/share/gnome-shell/extensions/$_uuid"
+  install -dm755 "$pkgdir/usr/share/glib-2.0"
+  mv "$pkgdir"/usr/share/gnome-shell/extensions/*/schemas "$pkgdir/usr/share/glib-2.0"
 }
