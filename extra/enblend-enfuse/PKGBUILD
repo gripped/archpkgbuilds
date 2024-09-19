@@ -10,11 +10,11 @@ _commit=b66125418f7d
 
 pkgname=enblend-enfuse
 pkgver=4.2.r1546+hb66125418f7d
-pkgrel=4
+pkgrel=5
 pkgdesc='Intelligent blend tool for overlapping picture'
 arch=(x86_64)
 url='http://enblend.sourceforge.net'
-license=(GPL-2.0-onnly)
+license=(GPL-2.0-only)
 depends=(exiv2
          gcc-libs # libgcc_s.so libgomp.so libstdc++.so
          glibc # libc.so libm.so
@@ -24,7 +24,7 @@ depends=(exiv2
          vigra) # libvigraimpex.so
 makedepends=(boost
              help2man
-             libjpeg
+             libjpeg-turbo libjpeg.so
              libpng
              mercurial
              openexr
