@@ -2,8 +2,8 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-text-editor
-pkgver=46.3
-pkgrel=2
+pkgver=47.0
+pkgrel=1
 pkgdesc="A simple text editor for the GNOME desktop"
 url="https://gitlab.gnome.org/GNOME/gnome-text-editor"
 arch=(x86_64)
@@ -12,15 +12,14 @@ depends=(
   cairo
   dconf
   editorconfig-core-c
-  enchant
   gcc-libs
   glib2
   glibc
   gtk4
   gtksourceview5
   hicolor-icon-theme
-  icu
   libadwaita
+  libspelling
   pango
 )
 makedepends=(
@@ -32,7 +31,7 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+$url.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('9bf23fd253f41df23baa434c2071f39814cda10b9bbb5def55df34a10faf52455d14595d9f92d88c8cd7ffbb02633971ea37867de4e839f1b5e13fe256948d97')
+b2sums=('6b0a43ca0b404d0c087220ee8a633311a81f9c63a85a67233e672b0063f8c5db5517ac92946f01e068f154b9c21b89957ab7b3ac61e8412a0bd8bcb3855e96df')
 
 prepare() {
   cd $pkgname
