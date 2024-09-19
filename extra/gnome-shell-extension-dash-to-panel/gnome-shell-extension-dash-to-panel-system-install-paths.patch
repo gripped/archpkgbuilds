@@ -1,7 +1,22 @@
-diff -up dash-to-panel-55/Makefile.orig dash-to-panel-55/Makefile
---- dash-to-panel-55/Makefile.orig	2023-03-09 16:32:54.000000000 +0100
-+++ dash-to-panel-55/Makefile	2023-03-15 13:42:54.227368912 +0100
-@@ -10,9 +10,12 @@ EXTRA_IMAGES = highlight_stacked_bg.svg
+From 47be063acebb5646853508a045092ddaa7776498 Mon Sep 17 00:00:00 2001
+From: Dominik 'Rathann' Mierzejewski <dominik@greysector.net>
+Date: Thu, 16 Mar 2023 11:57:13 +0100
+Subject: [PATCH] Makefile: support system-wide installation.
+
+System-wide installation should install locale/ and gsettings schema in
+system directory. This enables override supports, locale stripping and
+not shipping pre-compiled schema file.
+
+Cherry-picked-from: micheleg/dash-to-dock@4dd565dad920ce44303635b550a39bbdbe34fb70
+---
+ Makefile | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index 52bbefae..7275095f 100644
+--- a/Makefile
++++ b/Makefile
+@@ -10,9 +10,12 @@ EXTRA_IMAGES = highlight_stacked_bg.svg highlight_stacked_bg_2.svg highlight_sta
  TOLOCALIZE =  prefs.js appIcons.js
  MSGSRC = $(wildcard po/*.po)
  ifeq ($(strip $(DESTDIR)),)
