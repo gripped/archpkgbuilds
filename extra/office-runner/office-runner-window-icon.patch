@@ -1,0 +1,30 @@
+From 67b1558c0e3089caa42dd76925ef5bfa7e4c1819 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 8 Sep 2024 02:25:27 +0000
+Subject: [PATCH] Set icon for the window
+
+While the window icon is commonly used by desktop environments on Xorg,
+using the application ID for prgname ensures that Wayland compositors could
+match the window with the application and show the appropriate icon for
+them.
+---
+ src/office-runner.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/office-runner.c b/src/office-runner.c
+index d57553b..72e6148 100644
+--- a/src/office-runner.c
++++ b/src/office-runner.c
+@@ -752,6 +752,9 @@ int main (int argc, char **argv)
+ 
+ 	gtk_init (&argc, &argv);
+ 
++	g_set_prgname ("org.gnome.OfficeRunner");
++	gtk_window_set_default_icon_name ("org.gnome.OfficeRunner");
++
+ 	run = new_runner ();
+ 	gtk_widget_show_all (run->window);
+ 
+-- 
+GitLab
+
