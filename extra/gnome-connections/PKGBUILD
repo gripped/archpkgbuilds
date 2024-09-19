@@ -2,43 +2,43 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=gnome-connections
-pkgver=46.0
-pkgrel=3
+pkgver=47.0
+pkgrel=1
 pkgdesc='Remote desktop client for the GNOME desktop environment'
-arch=('x86_64')
+arch=(x86_64)
 url='https://apps.gnome.org/Connections/'
-license=('GPL-3.0-or-later')
+license=(GPL-3.0-or-later)
 depends=(
-    'cairo'
-    'dconf'
-    'freerdp'
-    'fuse3'
-    'gdk-pixbuf2'
-    'glib2'
-    'glibc'
-    'gtk3'
-    'gtk-vnc'
-    'hicolor-icon-theme'
-    'libhandy'
-    'libsecret'
-    'libxml2'
+  cairo
+  dconf
+  freerdp
+  fuse3
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk-vnc
+  gtk3
+  hicolor-icon-theme
+  libhandy
+  libsecret
+  libxml2
 )
 makedepends=(
-    'appstream-glib'
-    'git'
-    'gobject-introspection'
-    'itstool'
-    'meson'
-    'vala'
+  appstream-glib
+  git
+  gobject-introspection
+  itstool
+  meson
+  vala
 )
-groups=('gnome')
-source=("git+https://gitlab.gnome.org/GNOME/connections.git?signed#tag=${pkgver/[a-z]/.&}"
-        "git+https://gitlab.gnome.org/GNOME/gtk-frdp.git")
-b2sums=('28df54eb0065c9dc7960b4d27795ffc767564408cb5c688c4910be61bf65a060250dd6d6fa2d0574c2f40d986bc24b8edcf214c5860c8b7476e508fb67316f40'
+groups=(gnome)
+source=(
+  "git+https://gitlab.gnome.org/GNOME/connections.git?signed#tag=${pkgver/[a-z]/.&}"
+  git+https://gitlab.gnome.org/GNOME/gtk-frdp.git
+)
+b2sums=('8e9779827d6039d50ec7f3d43b8e3a2d1ab0bded137bbcadaa8a1ddfefcf66669f691a7a4d94a9d721b420d51fa6be0d09d0d6454edc41c9b4ff4c911a706d7f'
         'SKIP')
-validpgpkeys=(
-  F55CDAB508C3ACBCB1C8B930C910F152653B1688 # Marek Kasik <mkasik@redhat.com>
-)
+validpgpkeys=(F55CDAB508C3ACBCB1C8B930C910F152653B1688) # Marek Kasik <mkasik@redhat.com>
 
 prepare() {
   cd connections
