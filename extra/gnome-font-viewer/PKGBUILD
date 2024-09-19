@@ -2,31 +2,37 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-font-viewer
-pkgver=46.0
-pkgrel=2
+pkgver=47.0
+pkgrel=1
 pkgdesc="A font viewer utility for GNOME"
 url="https://gitlab.gnome.org/GNOME/gnome-font-viewer"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
-  gnome-desktop-4
+  cairo
+  fontconfig
+  freetype2
+  fribidi
+  gcc-libs
+  glib2
+  glibc
+  graphene
   gtk4
+  harfbuzz
+  hicolor-icon-theme
   libadwaita
+  pango
 )
 makedepends=(
   git
   meson
 )
 groups=(gnome)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-font-viewer.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('a730ebfd2a09abade74be298b3fff89be3159174e2e4751acb90e664376678e556065b62a490ee7ede23ee1310c8745d0ff5689c987e5c9b52fbb4a98e3c3800')
-validpgpkeys=('3475CBA8D3483594C889B470D64A8D747F6FE706') # Maximiliano Sandoval <msandova@gnome.org>
+source=("git+https://gitlab.gnome.org/GNOME/gnome-font-viewer.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('adbb8bfaf9afdf10527b210be205f480aea705d2e04d1f6c027b6deb89b14e086dba79564a443fd0da6a67adc854a148d2a2b30361ad70366ebbd6c31a0abe3c')
 
 prepare() {
   cd $pkgname
-
-  # Fix function callback definition
-  git cherry-pick -n 565d795731471c27542bb9ee60820a2d0d15534e
 }
 
 build() {
