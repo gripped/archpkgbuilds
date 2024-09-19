@@ -3,7 +3,7 @@
 # Contributor: Tomasz Jakub Rup <tomasz.rup@gmail.com>
 
 pkgname=pnpm
-pkgver=9.7.1
+pkgver=9.10.0
 pkgrel=1
 pkgdesc='Fast, disk space efficient package manager'
 arch=(any)
@@ -15,7 +15,7 @@ makedepends=(
   pnpm
 )
 source=("git+https://github.com/$pkgname/$pkgname.git#tag=v$pkgver?signed")
-b2sums=('a3f55c8223d9316e950ac9ad023a53eb4f40be72aeb94fb0177d9f62d121a5c112ed1edf430fcc66f599800449c1c369306cffa0d3131c94132e5ad50e2ccd9a')
+b2sums=('450da3e8d0923a22c2a44d8837cd50e25c176f3e53e0deaa9a683a5f6c817b2cf0b54d58ff4264c8237167985773fcfdfd759260618476b40e4648e6897d9b3d')
 validpgpkeys=(7B74D1299568B586BA9962B5649E4D4AF74E7DEC) # Zoltan Kochan <z@kochan.io>
 
 prepare() {
@@ -30,6 +30,7 @@ build() {
 
 package() {
   local mod_dir=/usr/lib/node_modules/$pkgname
+
   install -d "$pkgdir"/{usr/bin,$mod_dir/dist}
   ln -s $mod_dir/bin/$pkgname.cjs "$pkgdir"/usr/bin/$pkgname
   ln -s $mod_dir/bin/pnpx.cjs "$pkgdir"/usr/bin/pnpx
