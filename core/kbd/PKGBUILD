@@ -2,26 +2,35 @@
 
 pkgname=kbd
 pkgver=2.6.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Keytable files and keyboard utilities"
 arch=('x86_64')
 url="http://www.kbd-project.org"
 license=('GPL-2.0-or-later')
-depends=('glibc' 'pam')
-makedepends=('check' 'git')
-source=(git+https://git.kernel.org/pub/scm/linux/kernel/git/legion/kbd.git#tag=v$pkgver?signed
-        'fix-euro2.patch'
-	'vlock.pam')
+depends=(
+  glibc
+  gzip
+  pam
+)
+makedepends=(
+  check
+  git
+)
+source=(
+  git+https://git.kernel.org/pub/scm/linux/kernel/git/legion/kbd.git#tag=v$pkgver?signed
+  fix-euro2.patch
+  vlock.pam
+)
 backup=('etc/pam.d/vlock')
 provides=('vlock')
 conflicts=('vlock')
 replaces=('vlock')
-sha256sums=('SKIP'
-            'a5e0167b6a82a9eb4d581d56baab930c2d80f5541dc34630460b73e1115384b8'
-            '5c2d377a87121e7c399534fb91e2ffc0cc1e75d44a8f07ee6f55c9c089bc81e4')
+b2sums=('d519b114d95117c88f61b3d3569fd8cc16d4149cee72899cf5e9fdc9c21464c3a6a1f148f702262559aca7416264c727ad29ed6d238364383a57af518a2a13fc'
+        'd122ddb1a86e7a282df8e438903f94d697e3d18a24154d976334e6b54b8f1cf1df432cf8dbcd98daa55014ada462f284d0319fbf015554266e91f4d2a8bf812b'
+        '104543e72331a633572a26059e6dce1f25c3c8d6deabb855dd94bfffb72edf8a53a58c6ea7ef6806dd80bcd6ab0aa47cc1a45cc0cd90330be6514ff7591b5140')
 validpgpkeys=(
-              '7F2A3D07298149A0793C9A4EA45ABA544CFFD434' #Alexey Gladkov 
-             )
+  '7F2A3D07298149A0793C9A4EA45ABA544CFFD434' #Alexey Gladkov 
+)
 
 prepare() {
   cd "${pkgname}"
