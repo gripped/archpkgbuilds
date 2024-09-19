@@ -7,8 +7,8 @@ pkgname=(
   python-gobject
   python-gobject-docs
 )
-pkgver=3.48.2
-pkgrel=2
+pkgver=3.50.0
+pkgrel=1
 pkgdesc="Python bindings for GLib/GObject/GIO/GTK"
 url="https://pygobject.gnome.org/"
 arch=(x86_64)
@@ -28,6 +28,7 @@ makedepends=(
   python-cairo
   python-setuptools
   python-sphinx
+  python-sphinx-copybutton
   python-sphinx-furo
 )
 checkdepends=(
@@ -37,7 +38,7 @@ checkdepends=(
 )
 optdepends=('python-cairo: Cairo bindings')
 source=("git+https://gitlab.gnome.org/GNOME/pygobject.git?signed#tag=$pkgver")
-b2sums=('6cd9fd5022fec4c93d844079e3cc0c124f8aed52d390a6b46c536a097b79be8452590a31ba5ce03fb77e3dc0dc2c744fd9efa1135d878c81935c8cd58f4df8b3')
+b2sums=('d13a6751ec75606e9adf04c85bad53e329cbab6c7534dd81bcb64ded2f40b40371ec47ac6affa89dd075fbd423f9573ecccc3c9dbe01bf9d8b8e028fa93ddcd2')
 validpgpkeys=(
   0EBF782C5D53F7E5FB02A66746BD761F7A49B0EC # Christoph Reiter <reiter.christoph@gmail.com>
 )
