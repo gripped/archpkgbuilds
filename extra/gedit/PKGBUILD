@@ -3,9 +3,9 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gedit
-pkgver=47.0
-pkgrel=2
-pkgdesc="GNOME Text Editor"
+pkgver=48.0
+pkgrel=1
+pkgdesc="Easy-to-use general-purpose text editor"
 url="https://gedit-technology.github.io/apps/gedit/"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
@@ -33,6 +33,7 @@ depends=(
   python-gobject
 )
 makedepends=(
+  appstream
   appstream-glib
   desktop-file-utils
   git
@@ -45,12 +46,11 @@ makedepends=(
 )
 optdepends=('gedit-plugins: Additional features')
 conflicts=('gedit-code-assistance<=3.16.0+4+gd19b879-1')
-groups=(gnome-extra)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gedit.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/GNOME/libgd.git"
 )
-b2sums=('8a38d15cac226063dcd0e80b78a3f861ec94f16eb5a68ec7c81894656c6e859c036b4528ecc021cdf13b7bcea5c4aa1c79d25231aceea55f1a1e9cedf9dab387'
+b2sums=('67a57a85088496c614f3c0c8d8a1074ba005328e2a38efe3aa530ede65bd51f28c11dabb25854c2e04a58a11aeb33743d057f25d37aa796334701d5d459e557d'
         'SKIP')
 
 prepare() {
