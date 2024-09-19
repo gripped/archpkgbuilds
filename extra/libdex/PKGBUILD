@@ -6,7 +6,7 @@ pkgname=(
   libdex
   libdex-docs
 )
-pkgver=0.6.1
+pkgver=0.8.0
 pkgrel=1
 pkgdesc="A library supporting 'Deferred Execution'"
 url="https://gitlab.gnome.org/GNOME/libdex"
@@ -21,6 +21,7 @@ depends=(
 makedepends=(
   gi-docgen
   git
+  glib2-devel
   gobject-introspection
   libsoup3
   libsysprof-capture
@@ -28,7 +29,7 @@ makedepends=(
   vala
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('86e693b7e4be5d967631023b2f7464c757889a6fbb01b12c57fed74b5b88a949609db009c491a3577ef0868b65625aba0ef8d9aae459ca1bdf0fbafb195a6914')
+b2sums=('279af19eaac5e211fb17f3ae0cf147d7a3023fe471719f1e4fe18dc4d3bcd6d8f8b75164e5fa8878aa6b892bb0fcf94cfe59bc564f87edcd9ac60224053cc5d7')
 
 prepare() {
   cd libdex
