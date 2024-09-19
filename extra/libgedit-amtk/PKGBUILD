@@ -4,11 +4,11 @@
 
 
 pkgname=libgedit-amtk
-pkgver=5.8.0
-pkgrel=2
+pkgver=5.9.0
+pkgrel=1
 pkgdesc="Actions, Menus and Toolbars Kit for GTK applications'"
 arch=("x86_64")
-url="https://gedit-technology.net/"
+url="https://gedit-technology.github.io/"
 license=('LGPL-3.0-or-later')
 groups=()
 depends=(
@@ -18,6 +18,7 @@ depends=(
 )
 makedepends=(
   git
+  glib2-devel
   gobject-introspection
   gtk-doc
   meson
@@ -25,14 +26,8 @@ makedepends=(
 replaces=(amtk)
 provides=(libgedit-amtk-5.so)
 conflicts=(amtk)
-_commit=f6fbfd1c57de3d97cab2056a5c3088b0da49e8a4  # tags/5.8.0^0
-source=("git+https://github.com/gedit-technology/libgedit-amtk.git#commit=$_commit")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/World/gedit/libgedit-amtk.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('b67cdd23b6390dec5ba6e77ad59c66ee4a3489510da6c1d0adbdd015a356571d81768aa32779682a283c199b11a0946a32e1f7868345c1a03aa6489ebeab03ee')
 
 prepare() {
   cd $pkgname
