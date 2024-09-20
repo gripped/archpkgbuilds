@@ -10,8 +10,8 @@
 # Contributor: Eric Forgeot < http://esclinux.tk >
 
 pkgname=qgis
-pkgver=3.38.2
-pkgrel=3
+pkgver=3.38.3
+pkgrel=1
 pkgdesc="Geographic Information System (GIS) that supports vector, raster & database formats"
 arch=(x86_64)
 url="https://qgis.org/"
@@ -27,7 +27,7 @@ optdepends=('fcgi: Map server'
 source=(
   https://qgis.org/downloads/$pkgname-$pkgver.tar.bz2
 )
-sha256sums=('38abdf9c858e24190caac56171ad1bdea50b30f726144f224a0b7f32c96950d8')
+sha256sums=('d72d07a39729d97d8d3f536301819a4ca9c2c00f9f396e9022a5ec4356d828bf')
 
 build() {
   cmake -S $pkgname-$pkgver -B build -G Ninja \
