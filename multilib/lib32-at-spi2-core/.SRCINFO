@@ -1,27 +1,31 @@
 pkgbase = lib32-at-spi2-core
 	pkgdesc = Protocol definitions and daemon for D-Bus at-spi (32-bit)
-	pkgver = 2.52.0
-	pkgrel = 1
+	pkgver = 2.54.0
+	pkgrel = 2
 	url = https://gitlab.gnome.org/GNOME/at-spi2-core
 	arch = x86_64
 	license = LGPL-2.1-or-later
+	checkdepends = at-spi2-core
 	makedepends = dbus-broker
 	makedepends = git
+	makedepends = glib2-devel
+	makedepends = lib32-libxml2
+	makedepends = lib32-systemd
 	makedepends = meson
+	makedepends = systemd
 	depends = at-spi2-core
 	depends = lib32-dbus
 	depends = lib32-glib2
 	depends = lib32-glibc
 	depends = lib32-libx11
 	depends = lib32-libxi
-	depends = lib32-libxml2
 	depends = lib32-libxtst
-	source = git+https://gitlab.gnome.org/GNOME/at-spi2-core.git#commit=46c8de80022d28eef2da58f1054b5bff745ed7e0
-	b2sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/at-spi2-core.git#tag=AT_SPI2_CORE_2_54_0
+	b2sums = 3b1b575634dfa5269b98469f761ea5ae9621302121fa243c532a537894fdc7ee9a16ce631093afbd9c3648272084b87a3dd5b4c2263c50fcd48791a16ab0de76
 
 pkgname = lib32-at-spi2-core
-	provides = lib32-at-spi2-atk=2.52.0-1
-	provides = lib32-atk=2.52.0-1
+	provides = lib32-at-spi2-atk=2.54.0-2
+	provides = lib32-atk=2.54.0-2
 	provides = libatk-1.0.so
 	provides = libatk-bridge-2.0.so
 	provides = libatspi.so
