@@ -2,7 +2,7 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 
 pkgname=haproxy
-pkgver=3.0.4
+pkgver=3.0.5
 pkgrel=1
 
 pkgdesc='Reliable, high performance TCP/HTTP load balancer'
@@ -24,7 +24,7 @@ source=("git+https://git.haproxy.org/git/haproxy-${pkgver%.*}.git#tag=v${pkgver}
         'haproxy.sysusers'
         '0001-Use-CFLAGS-and-LDFLAGS-when-building-admin.patch')
 
-sha256sums=('b9a8248be5a42d68b01d4b0d89b1314e31cb6884eae74d7bdb9c797eb721fa66'
+sha256sums=('a25a2713dfc5d1c6c4d309d0bd3a6725ad3a41df44fdf32ea9b81d2e0daca015'
             'f6babef513b99a3fa0e50f2b144c73c980f1b78b119874ffa2580af1e651e7a9'
             'b02b4088205039f0979aef0ef3e22957f493dd54eabefaee7011f2d795303b3e'
             'a1e3a1c2923465081383eb431bae55ff9841d89909469311cdba4b394ec4a998')
