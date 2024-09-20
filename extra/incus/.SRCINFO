@@ -1,7 +1,7 @@
 pkgbase = incus
 	pkgdesc = Powerful system container and virtual machine manager
 	pkgver = 6.5
-	pkgrel = 1
+	pkgrel = 2
 	url = https://linuxcontainers.org/incus/
 	arch = x86_64
 	license = Apache-2.0
@@ -44,6 +44,11 @@ pkgbase = incus
 	source = incus-user.socket
 	source = incus-user.service
 	source = incus.sysusers
+	source = incus-o-direct.patch::https://github.com/lxc/incus/commit/572afb06f66f83ca95efa1b9386fceeaa1c9e11b.patch
+	source = incus-o-direct-conditional.patch::https://github.com/lxc/incus/commit/0c37b7e3ec65b4d0e166e2127d9f1835320165b8.patch
+	source = incus-force-threads.patch::https://github.com/lxc/incus/commit/58eeb4eeee8a9e7f9fa9c62443d00f0ec6797078.patch
+	source = incus-remove-deprecated-fd.patch::https://github.com/lxc/incus/commit/4acc15c0dcab2fe4c076eb8422bc1215fc5d4d7a.patch
+	source = incus-apparmror-rawio.patch::https://github.com/lxc/incus/commit/b77c1ee8aca2da814a534ad45ab21223a0f8faf5.patch
 	validpgpkeys = 602F567663E593BCBD14F338C638974D64792D67
 	sha256sums = d79d76c42c430b0346f25fee1059dbe0ab0db2319faaa6e0eeb6ad3982023662
 	sha256sums = SKIP
@@ -52,6 +57,11 @@ pkgbase = incus
 	sha256sums = 50288528ea910d186157a2515c5200b3b073f645922fb581d1913f236f14667d
 	sha256sums = 1c934cac1aa61be2ede5830ea76dbb9ba199498f6eb920ce1016bbb54dd088bf
 	sha256sums = 90beead5dbde947936a58df8773519c49d92a2028881ae0ec81ee5402510e39a
+	sha256sums = 61ece65bb584372cf7f3ed7076c3e10f8c54fc4170187a15a08e102b8d71d954
+	sha256sums = 4058744cc1b2a0862ddca2200f0dba7f4f2f464ba2b0c75ec10698cf2dc24722
+	sha256sums = d713dad6875062ebf55a9c049ff68117b38545cd682b6933512d5a684122aa32
+	sha256sums = e458a5b83bacc8ec4345d92e2940598bc6b6c641a3d595b335c4c7296a9a4795
+	sha256sums = 18e428fd2fe376190ea6bed4a7eba323e9077884c69bd9fba68ecb131304ddba
 
 pkgname = incus
 
