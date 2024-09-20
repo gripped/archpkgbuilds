@@ -3,8 +3,8 @@
 
 _hkgname=lua
 pkgname=haskell-lua
-pkgver=2.3.2
-pkgrel=8
+pkgver=2.3.3
+pkgrel=1
 pkgdesc="Lua, an embeddable scripting language"
 url="https://hslua.org/"
 license=("MIT")
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'lua')
 makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hunit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('ae2a8c091eeb8af2de669a36e49e5818b347c14d4ba1c27bad8fdd88c4c13731')
+sha256sums=('9aaa29966ade82740c7ab4f5f2dfb7ceaa9b14715875a633648b175d11767077')
 
 prepare() {
   cd $_hkgname-$pkgver
