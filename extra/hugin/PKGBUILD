@@ -7,11 +7,11 @@
 
 pkgname=hugin
 pkgver=2023.0.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Panorama photo stitcher"
 arch=(x86_64)
 url="http://hugin.sourceforge.net/"
-license=(GPL)
+license=(GPL-2.0-only)
 depends=(boost-libs
          enblend-enfuse
          exiv2
@@ -21,7 +21,7 @@ depends=(boost-libs
          lapack
          lcms2
          lensfun
-         libjpeg
+         libjpeg-turbo libjpeg.so
          libpano13
          libpng
          libtiff
