@@ -4,7 +4,7 @@
 
 pkgname=seahorse
 pkgver=47.0.1
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="GNOME application for managing PGP keys."
 url="https://wiki.gnome.org/Apps/Seahorse"
@@ -45,6 +45,10 @@ validpgpkeys=('A7C626E13F9AD776776BD9CA1D8A57CF2E8D36A3') # Niels De Graef (niel
 
 prepare() {
   cd seahorse
+
+  # Fix symbolic icon name
+  # https://gitlab.gnome.org/GNOME/seahorse/-/merge_requests/230
+  git cherry-pick -n c6fcd381425b638c16eeab7e5858bddf7de76b9f
 }
 
 build() {
