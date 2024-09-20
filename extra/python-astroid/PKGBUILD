@@ -6,7 +6,7 @@
 
 _pyname=astroid
 pkgname=python-$_pyname
-pkgver=3.3.2
+pkgver=3.3.3
 pkgrel=1
 pkgdesc='A common base representation of python source code'
 arch=(any)
@@ -27,7 +27,7 @@ replaces=(python-logilab-astng)
 conflicts=(python-logilab-astng)
 _archive="$_pyname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('b939e3a175fbb840f55aa5237aab19068f825bb432ca27af81cab300a689dc9e')
+sha256sums=('dff3de3d799fe3969c883380c51525e327bb73a67d1eb54eeb5a720f53885443')
 
 prepare() {
 	cd "$_archive"
@@ -41,9 +41,7 @@ build() {
 
 check() {
 	cd "$_archive"
-	# Gentoo thinks this test fails because of pydantic 2
-	# https://github.com/gentoo/gentoo/commit/70a46fcd283b608171fd5529619915e119b69405
-	pytest --deselect tests/brain/test_dataclasses.py::test_pydantic_field --deselect tests/test_regrtest.py::NonRegressionTests::test_numpy_distutils
+	pytest
 }
 
 package() {
