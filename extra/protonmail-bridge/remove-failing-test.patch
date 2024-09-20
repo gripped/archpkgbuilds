@@ -1,7 +1,8 @@
-diff --unified --recursive --text --new-file proton-bridge-3.11.1.orig/internal/bridge/user_event_test.go proton-bridge-3.11.1/internal/bridge/user_event_test.go
---- proton-bridge-3.11.1.orig/internal/bridge/user_event_test.go	2024-06-16 23:40:41.598411526 +0200
-+++ proton-bridge-3.11.1/internal/bridge/user_event_test.go	2024-06-16 23:40:55.845129405 +0200
-@@ -46,52 +46,6 @@
+diff --git a/internal/bridge/user_event_test.go b/internal/bridge/user_event_test.go
+index 1823ff0..52c3439 100644
+--- a/internal/bridge/user_event_test.go
++++ b/internal/bridge/user_event_test.go
+@@ -46,52 +46,6 @@ import (
  	"github.com/stretchr/testify/require"
  )
  
@@ -21,7 +22,7 @@ diff --unified --recursive --text --new-file proton-bridge-3.11.1.orig/internal/
 -			messageIDs = createNumMessages(ctx, t, c, addrID, labelID, 10)
 -		})
 -
--		withBridge(ctx, t, s.GetHostURL(), netCtl, locator, storeKey, func(bridge *bridge.Bridge, mocks *bridge.Mocks) {
+-		withBridge(ctx, t, s.GetHostURL(), netCtl, locator, storeKey, func(bridge *bridge.Bridge, _ *bridge.Mocks) {
 -			userLoginAndSync(ctx, t, bridge, "user", password)
 -		})
 -
@@ -32,7 +33,7 @@ diff --unified --recursive --text --new-file proton-bridge-3.11.1.orig/internal/
 -
 -		require.NoError(t, s.RefreshUser(userID, proton.RefreshMail))
 -
--		withBridge(ctx, t, s.GetHostURL(), netCtl, locator, storeKey, func(bridge *bridge.Bridge, mocks *bridge.Mocks) {
+-		withBridge(ctx, t, s.GetHostURL(), netCtl, locator, storeKey, func(bridge *bridge.Bridge, _ *bridge.Mocks) {
 -			syncCh, closeCh := chToType[events.Event, events.SyncFinished](bridge.GetEvents(events.SyncFinished{}))
 -
 -			require.Equal(t, userID, (<-syncCh).UserID)
@@ -41,7 +42,7 @@ diff --unified --recursive --text --new-file proton-bridge-3.11.1.orig/internal/
 -			userContinueEventProcess(ctx, t, s, bridge)
 -		})
 -
--		withBridge(ctx, t, s.GetHostURL(), netCtl, locator, storeKey, func(bridge *bridge.Bridge, mocks *bridge.Mocks) {
+-		withBridge(ctx, t, s.GetHostURL(), netCtl, locator, storeKey, func(bridge *bridge.Bridge, _ *bridge.Mocks) {
 -			withClient(ctx, t, s, "user", password, func(ctx context.Context, c *proton.Client) {
 -				createNumMessages(ctx, t, c, addrID, labelID, 10)
 -			})
