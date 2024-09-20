@@ -7,7 +7,7 @@ pkgname=(
   samplv1-lv2
   samplv1-standalone
 )
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc="Polyphonic sampler synthesizer with stereo fx"
 arch=(x86_64)
@@ -26,8 +26,8 @@ makedepends=(
   qt6-tools
 )
 source=(https://download.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
-sha512sums=('1069335d4aba4ee934267bd983d0c84b8f6cd4735d521003b4afcd0cda19952880d31cfb35041b0636a455d360b8b7961eb81131fc34f8b4b2601a345c9a77a7')
-b2sums=('292a38321ee74dec37e49ac1507d4f8742c1bf62ee7431cf574ed54718573ca2976cc195b2e19b00646d9db57c81201ae0d41ff0679d924aa50e5c3b56d01043')
+sha512sums=('ed14da17822416adab4beee82f81c22b9531f44a45910bcb8e9f56a6d23a611b1aeb4e25857ab41352c7fcd3e31a6d15ba3666fc8c7b9ab423f33bd9cd96b5fc')
+b2sums=('349175b874745e847124e2a9cc71cd458e242acaf17a6167199167bc2561208efe13cd2733e9b6f2b9fa5dc26550f7ef8f0f773cf5190dad921eb161b2b7b7d5')
 
 _pick() {
   local p="$1" f d; shift
