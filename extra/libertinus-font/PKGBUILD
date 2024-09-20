@@ -1,24 +1,24 @@
 # Maintainer: Ivy Foster <iff@archlinux.org>
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
-pkgbase=libertinus-font
-_fname="${pkgbase%-font}"
-pkgname=(otf-$_fname)
+pkgname=libertinus-font
 pkgver=7.040
-pkgrel=5
+pkgrel=3
 pkgdesc='Fonts based on Linux Libertine/Biolinum, with extended math support'
+url=https://github.com/alerque/libertinus
+license=(custom:OFL)
+
+provides=(otf-libertinus)
+replaces=(otf-libertinus)
+
 arch=(any)
-url="https://github.com/alerque/$_fname"
-license=(OFL-1.1-RFN)
-_archive="${_fname^}-$pkgver"
-source=("$url/releases/download/v$pkgver/$_archive.tar.xz")
+source=("https://github.com/alerque/libertinus/releases/download/v$pkgver/Libertinus-$pkgver.tar.xz")
+# Warning: checksums provided by packager, not upstream
 sha256sums=('7fe9f022722d1c1cc67dc2c28a110b3bb55bae3575196160d2422c89333b3850')
 
-package_otf-libertinus() {
-	cd "$_archive"
-	provides=("$pkgbase=$pkgver")
-	replaces=("$pkgbase")
-	install -Dm0644 -t "$pkgdir/usr/share/fonts/${_fname}/" static/OTF/*.otf
-	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" OFL.txt AUTHORS.txt
-	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md preview.svg FONTLOG.txt documentation/*.pdf
+package() {
+	cd "Libertinus-$pkgver"
+	install -d "$pkgdir/usr/share/fonts/libertinus"
+	install -m644 -t "$pkgdir/usr/share/fonts/libertinus" static/OTF/*.otf
+	install -Dm644 OFL.txt "$pkgdir/usr/share/licenses/libertinus-font/OFL.txt"
 }
