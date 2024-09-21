@@ -2,7 +2,7 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=intel-media-driver
-pkgver=24.3.2
+pkgver=24.3.3
 pkgrel=1
 pkgdesc="Intel Media Driver for VAAPI — Broadwell+ iGPUs"
 arch=(x86_64)
@@ -11,7 +11,7 @@ license=(MIT BSD-3-Clause)
 depends=(gcc-libs intel-gmmlib libva)
 makedepends=(cmake)
 source=(${url}/archive/${pkgname%-*}-${pkgver}.tar.gz)
-sha256sums=('0e0e94b2a75d2725431353f5556738b390aace907a5e696782bff10c1915eb13')
+sha256sums=('5eb35a1dd601c75ccc3af3c5b21acc82b245ae79ac8d7264f99215be8d064194')
 
 build() {
   cmake -B build -S ${pkgname#*-}-${pkgname%-*}-${pkgver} \
