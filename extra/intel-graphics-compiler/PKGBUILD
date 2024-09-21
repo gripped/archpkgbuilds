@@ -3,13 +3,13 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=1.0.17384.11
+pkgver=1.0.17537.20
 _llvmmaj=14
 _llvmver="${_llvmmaj}.0.5"
 _vciver=0.19.0
 _spirv_tools_ver=2023.6.rc1
 _spirv_headers_commit=1c6bb2743599e6eb6f37b2969acc0aef812e32e3
-_spirv_llvm_commit=2823e7052b7999c10fff63bc8089e5aa205716f4
+_spirv_llvm_commit=065a94408d01bacf2ee86443f56cfaa64fda1534
 _opencl_clang_commit=470cf0018e1ef6fc92eda1356f5f31f7da452abc
 pkgrel=1
 epoch=1
@@ -30,9 +30,9 @@ source=("${pkgname}-${pkgver}.tar.gz::https://github.com/intel/intel-graphics-co
         "git+https://github.com/KhronosGroup/SPIRV-Headers.git#commit=${_spirv_headers_commit}"
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}")
-sha256sums=('d560600e6a7c6a43b86abc3d8e9fd5e3a2110cc4818e09a9511965a86cd2f959'
+sha256sums=('44e77384ea69215d0311a08393019323f1c30217c05c972be945f2aed7fbde53'
             'da3aca24eb2d3f15240fb8dbdc90c2e27f8a921a56ca33ab2c964e77555c754a'
-            'b6c19c90d1698689e0e31998c4e765759090271fb79c9ccaa68de1b954346d1f'
+            '35357c8a651cf421656328e17a005bed088091eb46a5402f7dd06e64361312aa'
             'ad11e234110902f42c9e54d2f4bb014b64e280ac9428f4c03a04b8b4571112b8'
             '86b7a82e8169097bb84741dff6003da85c841f9d3514034b213896c498ae294c'
             '19214ef9956892960ebd10c91f13cde103ccd270aa4681bdeeb048eb500cd165'
