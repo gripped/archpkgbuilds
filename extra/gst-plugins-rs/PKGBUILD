@@ -1,0 +1,527 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+
+pkgbase=gst-plugins-rs
+pkgname=(
+  gst-webrtc-signalling-server
+  gst-plugin-aws
+  gst-plugin-cdg
+  gst-plugin-claxon
+  gst-plugin-fallbackswitch
+  gst-plugin-ffv1
+  gst-plugin-fmp4
+  gst-plugin-gif
+  gst-plugin-gopbuffer
+  gst-plugin-gtk4
+  gst-plugin-hlssink3
+  gst-plugin-hsv
+  gst-plugin-json
+  gst-plugin-lewton
+  gst-plugin-livesync
+  gst-plugin-mp4
+  gst-plugin-mpegtslive
+  gst-plugin-originalbuffer
+  gst-plugin-quinn
+  gst-plugin-raptorq
+  gst-plugin-rav1e
+  gst-plugin-regex
+  gst-plugin-reqwest
+  gst-plugin-rsaudiofx
+  gst-plugin-rsclosedcaption
+  gst-plugin-rsfile
+  gst-plugin-rsflv
+  gst-plugin-rsinter
+  gst-plugin-rsonvif
+  gst-plugin-rspng
+  gst-plugin-rsrtp
+  gst-plugin-rsrtsp
+  gst-plugin-rstracers
+  gst-plugin-rsvideofx
+  gst-plugin-rswebp
+  gst-plugin-rswebrtc
+  gst-plugin-sodium
+  gst-plugin-spotify
+  gst-plugin-textahead
+  gst-plugin-textwrap
+  gst-plugin-threadshare
+  gst-plugin-togglerecord
+  gst-plugin-webrtchttp
+)
+pkgver=0.13.1
+pkgrel=2
+pkgdesc="Multimedia graph framework"
+url="https://gstreamer.freedesktop.org/"
+arch=(x86_64)
+license=(MPL-2.0)
+depends=(
+  gcc-libs
+  glib2
+  glibc
+  gstreamer
+)
+makedepends=(
+  cairo
+  cargo-c
+  git
+  graphene
+  gst-plugins-bad
+  gst-plugins-base
+  gst-plugins-base-libs
+  gst-plugins-good
+  gtk4
+  libsodium
+  nasm
+  openssl
+  pango
+  rust
+)
+options=(!lto)
+source=(
+  "git+https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs.git?signed#tag=$pkgver"
+)
+b2sums=('0a87e3965cbdfc3fab65847949ffbfb096dd4da93a994f37709214fbcc0b3ebed351731fcc700f29d146dc35d0161e6c3f8d86b74d40f288e30b07820d01707a')
+validpgpkeys=(
+  7F4BC7CC3CA06F97336BBFEB0668CC1486C2D7B5 # Sebastian Dröge <sebastian@centricular.com>
+)
+
+_cargo_c_options=(
+  --prefix /usr
+  --library-type cdylib
+  --features asm,dmabuf,dssim,gtk_v4_16,v1_22,wayland,x11egl,x11glx
+  --workspace
+  --exclude gst-plugin-csound
+  --exclude gst-plugin-dav1d
+  --exclude gst-plugin-ndi
+  --exclude gst-plugin-uriplaylistbin
+)
+
+# Link with libsodium from system
+export SODIUM_USE_PKG_CONFIG=1
+
+# Use debug
+export CARGO_PROFILE_RELEASE_DEBUG=2
+
+# Use LTO
+export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
+prepare() {
+  cd $pkgbase
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $pkgbase
+  cargo build --release --frozen --bin gst-webrtc-signalling-server
+  cargo cbuild --release --frozen "${_cargo_c_options[@]}"
+}
+
+_pick() {
+  local p="$1" f d; shift
+  for f; do
+    d="$srcdir/$p/${f#$pkgdir/}"
+    mkdir -p "$(dirname "$d")"
+    mv -v "$f" "$d"
+    rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
+  done
+}
+
+package_gst-webrtc-signalling-server() {
+  pkgdesc+=" - webrtc signalling server"
+  depends=(
+    gcc-libs
+    glibc
+    openssl
+  )
+
+  cd $pkgbase
+  cargo cinstall --release --frozen "${_cargo_c_options[@]}" --destdir "$pkgdir"
+
+  local x
+  for x in "${pkgname[@]}"; do
+    [[ $x == gst-plugin-* ]] || continue
+    x="${x#gst-plugin-}"
+
+    _pick plugin-$x "$pkgdir"/usr/lib/gstreamer-1.0/libgst$x.so
+    _pick plugin-$x "$pkgdir"/usr/lib/pkgconfig/gst$x.pc
+  done
+
+  install -D target/release/gst-webrtc-signalling-server -t "$pkgdir/usr/bin"
+}
+
+package_gst-plugin-aws() {
+  pkgdesc+=" - aws plugin"
+  depends+=(
+    "gst-plugin-hlssink3=$pkgver-$pkgrel"
+    gst-plugins-bad
+    gst-plugins-base-libs
+    openssl
+  )
+
+  mv plugin-aws/* "$pkgdir"
+}
+
+package_gst-plugin-cdg() {
+  pkgdesc+=" - cdg plugin"
+  license=("MIT OR Apache-2.0")
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-cdg/* "$pkgdir"
+
+  install -Dm644 $pkgbase/video/cdg/LICENSE-MIT \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+package_gst-plugin-claxon() {
+  pkgdesc+=" - claxon plugin"
+  license=("MIT OR Apache-2.0")
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-claxon/* "$pkgdir"
+
+  install -Dm644 $pkgbase/audio/claxon/LICENSE-MIT \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+package_gst-plugin-fallbackswitch() {
+  pkgdesc+=" - fallbackswitch plugin"
+  depends+=(
+    gst-plugins-base-libs
+    gst-plugins-good
+  )
+
+  mv plugin-fallbackswitch/* "$pkgdir"
+}
+
+package_gst-plugin-ffv1() {
+  pkgdesc+=" - ffv1 plugin"
+  license=("MIT OR Apache-2.0")
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-ffv1/* "$pkgdir"
+
+  install -Dm644 $pkgbase/video/ffv1/LICENSE-MIT \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+package_gst-plugin-fmp4() {
+  pkgdesc+=" - fmp4 plugin"
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-fmp4/* "$pkgdir"
+}
+
+package_gst-plugin-gif() {
+  pkgdesc+=" - gif plugin"
+  license=("MIT OR Apache-2.0")
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-gif/* "$pkgdir"
+
+  install -Dm644 $pkgbase/video/gif/LICENSE-MIT \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+package_gst-plugin-gopbuffer() {
+  pkgdesc+=" - gopbuffer plugin"
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-gopbuffer/* "$pkgdir"
+}
+
+package_gst-plugin-gtk4() {
+  pkgdesc+=" - gtk4 plugin"
+  depends+=(
+    graphene
+    gst-plugins-base-libs
+    gtk4
+  )
+
+  mv plugin-gtk4/* "$pkgdir"
+}
+
+package_gst-plugin-hlssink3() {
+  pkgdesc+=" - hlssink3 plugin"
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-hlssink3/* "$pkgdir"
+}
+
+package_gst-plugin-hsv() {
+  pkgdesc+=" - hsv plugin"
+  license=("MIT OR Apache-2.0")
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-hsv/* "$pkgdir"
+
+  install -Dm644 $pkgbase/video/hsv/LICENSE-MIT \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+package_gst-plugin-json() {
+  pkgdesc+=" - json plugin"
+
+  mv plugin-json/* "$pkgdir"
+}
+
+package_gst-plugin-lewton() {
+  pkgdesc+=" - lewton plugin"
+  license=("MIT OR Apache-2.0")
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-lewton/* "$pkgdir"
+
+  install -Dm644 $pkgbase/audio/lewton/LICENSE-MIT \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+package_gst-plugin-livesync() {
+  pkgdesc+=" - livesync plugin"
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-livesync/* "$pkgdir"
+}
+
+package_gst-plugin-mp4() {
+  pkgdesc+=" - mp4 plugin"
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-mp4/* "$pkgdir"
+}
+
+package_gst-plugin-mpegtslive() {
+  pkgdesc+=" - mpegtslive plugin"
+
+  mv plugin-mpegtslive/* "$pkgdir"
+}
+
+package_gst-plugin-originalbuffer() {
+  pkgdesc+=" - originalbuffer plugin"
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-originalbuffer/* "$pkgdir"
+}
+
+package_gst-plugin-quinn() {
+  pkgdesc+=" - quinn plugin"
+
+  mv plugin-quinn/* "$pkgdir"
+}
+
+package_gst-plugin-raptorq() {
+  pkgdesc+=" - raptorq plugin"
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-raptorq/* "$pkgdir"
+}
+
+package_gst-plugin-rav1e() {
+  pkgdesc+=" - rav1e plugin"
+  license=("MIT OR Apache-2.0")
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-rav1e/* "$pkgdir"
+
+  install -Dm644 $pkgbase/video/rav1e/LICENSE-MIT \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+package_gst-plugin-regex() {
+  pkgdesc+=" - regex plugin"
+
+  mv plugin-regex/* "$pkgdir"
+}
+
+package_gst-plugin-reqwest() {
+  pkgdesc+=" - reqwest plugin"
+  license=("MIT OR Apache-2.0")
+  depends+=(openssl)
+
+  mv plugin-reqwest/* "$pkgdir"
+
+  install -Dm644 $pkgbase/net/reqwest/LICENSE-MIT \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+package_gst-plugin-rsaudiofx() {
+  pkgdesc+=" - rsaudiofx plugin"
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-rsaudiofx/* "$pkgdir"
+}
+
+package_gst-plugin-rsclosedcaption() {
+  pkgdesc+=" - rsclosedcaption plugin"
+  depends+=(
+    "gst-plugin-aws=$pkgver-$pkgrel"
+    "gst-plugin-textwrap=$pkgver-$pkgrel"
+    cairo
+    gst-plugins-bad
+    gst-plugins-base-libs
+    pango
+  )
+
+  mv plugin-rsclosedcaption/* "$pkgdir"
+}
+
+package_gst-plugin-rsfile() {
+  pkgdesc+=" - rsfile plugin"
+  license=("MIT OR Apache-2.0")
+
+  mv plugin-rsfile/* "$pkgdir"
+
+  install -Dm644 $pkgbase/generic/file/LICENSE-MIT \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+package_gst-plugin-rsflv() {
+  pkgdesc+=" - rsflv plugin"
+  license=("MIT OR Apache-2.0")
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-rsflv/* "$pkgdir"
+
+  install -Dm644 $pkgbase/mux/flavors/LICENSE-MIT \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+package_gst-plugin-rsinter() {
+  pkgdesc+=" - rsinter plugin"
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-rsinter/* "$pkgdir"
+}
+
+package_gst-plugin-rsonvif() {
+  pkgdesc+=" - rsonvif plugin"
+  depends+=(
+    cairo
+    gst-plugins-base-libs
+    pango
+  )
+
+  mv plugin-rsonvif/* "$pkgdir"
+}
+
+package_gst-plugin-rspng() {
+  pkgdesc+=" - rspng plugin"
+  license=("MIT OR Apache-2.0")
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-rspng/* "$pkgdir"
+
+  install -Dm644 $pkgbase/video/png/LICENSE-MIT \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+package_gst-plugin-rsrtp() {
+  pkgdesc+=" - rsrtp plugin"
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-rsrtp/* "$pkgdir"
+}
+
+package_gst-plugin-rsrtsp() {
+  pkgdesc+=" - rsrtsp plugin"
+  depends+=(
+    gst-plugins-base-libs
+    gst-plugins-good
+  )
+
+  mv plugin-rsrtsp/* "$pkgdir"
+}
+
+package_gst-plugin-rstracers() {
+  pkgdesc+=" - rstracers plugin"
+
+  mv plugin-rstracers/* "$pkgdir"
+}
+
+package_gst-plugin-rsvideofx() {
+  pkgdesc+=" - rsvideofx plugin"
+  depends+=(
+    cairo
+    gst-plugins-base-libs
+  )
+
+  mv plugin-rsvideofx/* "$pkgdir"
+}
+
+package_gst-plugin-rswebp() {
+  pkgdesc+=" - rswebp plugin"
+  depends+=(
+    gst-plugins-base-libs
+    libwebp
+  )
+
+  mv plugin-rswebp/* "$pkgdir"
+}
+
+package_gst-plugin-rswebrtc() {
+  pkgdesc+=" - rswebrtc plugin"
+  depends+=(
+    "gst-plugin-rsrtp=$pkgver-$pkgrel"
+    gst-plugins-bad-libs
+    gst-plugins-base
+    gst-plugins-base-libs
+    openssl
+  )
+
+  mv plugin-rswebrtc/* "$pkgdir"
+}
+
+package_gst-plugin-sodium() {
+  pkgdesc+=" - sodium plugin"
+  license=(MIT)
+  depends+=(libsodium)
+
+  mv plugin-sodium/* "$pkgdir"
+
+  install -Dm644 $pkgbase/generic/sodium/LICENSE-MIT \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+package_gst-plugin-spotify() {
+  pkgdesc+=" - spotify plugin"
+
+  mv plugin-spotify/* "$pkgdir"
+}
+
+package_gst-plugin-textahead() {
+  pkgdesc+=" - textahead plugin"
+
+  mv plugin-textahead/* "$pkgdir"
+}
+
+package_gst-plugin-textwrap() {
+  pkgdesc+=" - textwrap plugin"
+
+  mv plugin-textwrap/* "$pkgdir"
+}
+
+package_gst-plugin-threadshare() {
+  pkgdesc+=" - threadshare plugin"
+  license=(LGPL-2.1-or-later)
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-threadshare/* "$pkgdir"
+}
+
+package_gst-plugin-togglerecord() {
+  pkgdesc+=" - togglerecord plugin"
+  depends+=(gst-plugins-base-libs)
+
+  mv plugin-togglerecord/* "$pkgdir"
+}
+
+package_gst-plugin-webrtchttp() {
+  pkgdesc+=" - webrtchttp plugin"
+  depends+=(
+    gst-plugins-bad
+    gst-plugins-bad-libs
+    gst-plugins-base-libs
+    openssl
+  )
+
+  mv plugin-webrtchttp/* "$pkgdir"
+}
+
+# vim:set sw=2 sts=-1 et:
