@@ -1,19 +1,23 @@
 pkgbase = xfce4-screenshooter
 	pkgdesc = An application to take screenshots
 	pkgver = 1.11.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://docs.xfce.org/apps/xfce4-screenshooter/start
 	arch = x86_64
 	groups = xfce4-goodies
-	license = GPL2
+	license = GPL-2.0-or-later
+	makedepends = git
 	makedepends = glib2-devel
+	makedepends = xfce4-dev-tools
 	depends = xfce4-panel
-	depends = curl
-	depends = jq
-	depends = zenity
-	depends = xclip
 	depends = hicolor-icon-theme
-	source = https://archive.xfce.org/src/apps/xfce4-screenshooter/1.11/xfce4-screenshooter-1.11.1.tar.bz2
-	sha256sums = d94c4a37ac9b26f6d73214bdc254624a4ede4e111bee8d34e689f8f04c37d34d
+	optdepends = curl: upload screenshots to Imgur
+	optdepends = jq: upload screenshots to Imgur
+	optdepends = xclip: upload screenshots to Imgur
+	optdepends = zenity: upload screenshots to Imgur
+	source = git+https://gitlab.xfce.org/apps/xfce4-screenshooter.git#tag=xfce4-screenshooter-1.11.1
+	source = git+https://gitlab.freedesktop.org/wlroots/wlr-protocols.git
+	sha256sums = 46ab89a112f3336af1327a4169159aeb82855ae1340b7d7ec5dd8c35fab267d0
+	sha256sums = SKIP
 
 pkgname = xfce4-screenshooter

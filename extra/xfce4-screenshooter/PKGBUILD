@@ -1,37 +1,48 @@
 # Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
+# Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
 # Contributor: Tobias Kieslich <tobias (at) archlinux.org>
 
 pkgname=xfce4-screenshooter
 pkgver=1.11.1
-pkgrel=1
+pkgrel=2
 pkgdesc="An application to take screenshots"
 arch=('x86_64')
 url="https://docs.xfce.org/apps/xfce4-screenshooter/start"
-license=('GPL2')
+license=('GPL-2.0-or-later')
 groups=('xfce4-goodies')
-depends=('xfce4-panel' 'curl' 'jq' 'zenity' 'xclip' 'hicolor-icon-theme')
-makedepends=('glib2-devel')
-source=(https://archive.xfce.org/src/apps/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
-sha256sums=('d94c4a37ac9b26f6d73214bdc254624a4ede4e111bee8d34e689f8f04c37d34d')
+depends=('xfce4-panel' 'hicolor-icon-theme')
+makedepends=('git' 'glib2-devel' 'xfce4-dev-tools')
+optdepends=(
+  'curl: upload screenshots to Imgur'
+  'jq: upload screenshots to Imgur'
+  'xclip: upload screenshots to Imgur' 
+  'zenity: upload screenshots to Imgur'
+)
+source=("git+https://gitlab.xfce.org/apps/xfce4-screenshooter.git#tag=$pkgname-$pkgver"
+        git+https://gitlab.freedesktop.org/wlroots/wlr-protocols.git)
+sha256sums=('46ab89a112f3336af1327a4169159aeb82855ae1340b7d7ec5dd8c35fab267d0'
+            'SKIP')
 
 prepare() {
-  cd $pkgname-$pkgver
-}
-
-build() {
-  cd $pkgname-$pkgver
-
-  ./configure \
+  cd $pkgname
+  git submodule init
+  git config submodule.mate-submodules.url "$srcdir/protocols/wlr-protocols"
+  git -c protocol.file.allow=always submodule update
+  ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib \
     --localstatedir=/var \
     --disable-debug
+}
+
+build() {
+  cd $pkgname
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
 
