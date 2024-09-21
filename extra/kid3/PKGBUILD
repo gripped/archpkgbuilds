@@ -3,26 +3,19 @@
 
 pkgbase=kid3
 pkgname=('kid3-common' 'kid3-qt' 'kid3')
-pkgver=3.9.5
-pkgrel=4
+pkgver=3.9.6
+pkgrel=1
 pkgdesc="An MP3, Ogg/Vorbis and FLAC tag editor"
 arch=('x86_64')
 url="https://kid3.kde.org/"
-license=('GPL')
-depends=('chromaprint' 'flac' 'id3lib' 'kxmlgui' 'libmp4v2'
-         'qt6-declarative' 'qt6-multimedia' 'taglib' 'kio')
-makedepends=('cmake' 'docbook-xsl' 'extra-cmake-modules' 'kdoctools' 'python' 'qt6-tools' 'clang')
+license=('GPL-2.0-or-later')
+makedepends=('cmake' 'extra-cmake-modules' 'chromaprint' 'id3lib' 'python' 'taglib' 'libmp4v2'
+             'qt6-tools' 'clang' 'qt6-declarative' 'qt6-multimedia' 'kdoctools' 'kxmlgui' 'kio')
 changelog=$pkgbase.changelog
-source=(https://prdownloads.sourceforge.net/$pkgbase/$pkgbase-$pkgver.tar.gz{,.sig}
-        https://invent.kde.org/multimedia/kid3/-/commit/b3c65a8c.patch)
+source=(https://prdownloads.sourceforge.net/$pkgbase/$pkgbase-$pkgver.tar.gz{,.sig})
 validpgpkeys=('7D09794C2812F62194B081C14CAD34426E354DD2') # Urs Fleisch
-sha256sums=('d68f6e1d7b794b991b57bf976edb8e22d3457911db654ad1fb9b124cc62057f9'
-            'SKIP'
-            'd5502567094c6331b5192775e58920ce0d92235f9de3c72d3736af7abd082523')
-
-prepare() {
-  patch -d $pkgbase-$pkgver -p1 < b3c65a8c.patch # Fix rc install dir
-}
+sha256sums=('df4a330b874cace7e84beb6d178316f681d09abb94d368c056de7e749ce4dff8'
+            'SKIP')
 
 build() {
   export CXXFLAGS+=' -DNDEBUG' # FS#69904
@@ -42,7 +35,7 @@ package_kid3-common() {
   optdepends=('qt6-declarative: GUI support library'
               'qt6-multimedia: GUI support library')
 
-  make -C build DESTDIR="${pkgdir}" install
+  DESTDIR="${pkgdir}" cmake --install build
 
   rm -r "$pkgdir"/usr/bin/kid3{,-qt} \
         "$pkgdir"/usr/share/{applications,icons,kxmlgui5,metainfo}
@@ -52,14 +45,14 @@ package_kid3-qt() {
   pkgdesc="An MP3, Ogg/Vorbis and FLAC tag editor, Qt version"
   depends=("kid3-common=$pkgver" 'qt6-declarative' 'qt6-multimedia')
 
-  make -C build/src/app/qt DESTDIR="${pkgdir}" install
+  DESTDIR="${pkgdir}" cmake --install build/src/app/qt
 }
 
 package_kid3() {
   pkgdesc="An MP3, Ogg/Vorbis and FLAC tag editor, KDE version"
   depends=("kid3-common=$pkgver" 'kxmlgui' 'qt6-declarative' 'qt6-multimedia' 'kio')
 
-  make -C build/src/app DESTDIR="${pkgdir}" install
+  DESTDIR="${pkgdir}" cmake --install build/src/app
 
   rm -r "$pkgdir"/usr/bin/kid3-{cli,qt} \
         "$pkgdir"/usr/share/applications/org.kde.kid3-qt.desktop \

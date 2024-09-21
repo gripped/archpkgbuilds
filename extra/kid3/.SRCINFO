@@ -1,34 +1,30 @@
 pkgbase = kid3
 	pkgdesc = An MP3, Ogg/Vorbis and FLAC tag editor
-	pkgver = 3.9.5
-	pkgrel = 4
+	pkgver = 3.9.6
+	pkgrel = 1
 	url = https://kid3.kde.org/
 	changelog = kid3.changelog
 	arch = x86_64
-	license = GPL
+	license = GPL-2.0-or-later
 	makedepends = cmake
-	makedepends = docbook-xsl
 	makedepends = extra-cmake-modules
-	makedepends = kdoctools
+	makedepends = chromaprint
+	makedepends = id3lib
 	makedepends = python
+	makedepends = taglib
+	makedepends = libmp4v2
 	makedepends = qt6-tools
 	makedepends = clang
-	depends = chromaprint
-	depends = flac
-	depends = id3lib
-	depends = kxmlgui
-	depends = libmp4v2
-	depends = qt6-declarative
-	depends = qt6-multimedia
-	depends = taglib
-	depends = kio
-	source = https://prdownloads.sourceforge.net/kid3/kid3-3.9.5.tar.gz
-	source = https://prdownloads.sourceforge.net/kid3/kid3-3.9.5.tar.gz.sig
-	source = https://invent.kde.org/multimedia/kid3/-/commit/b3c65a8c.patch
+	makedepends = qt6-declarative
+	makedepends = qt6-multimedia
+	makedepends = kdoctools
+	makedepends = kxmlgui
+	makedepends = kio
+	source = https://prdownloads.sourceforge.net/kid3/kid3-3.9.6.tar.gz
+	source = https://prdownloads.sourceforge.net/kid3/kid3-3.9.6.tar.gz.sig
 	validpgpkeys = 7D09794C2812F62194B081C14CAD34426E354DD2
-	sha256sums = d68f6e1d7b794b991b57bf976edb8e22d3457911db654ad1fb9b124cc62057f9
+	sha256sums = df4a330b874cace7e84beb6d178316f681d09abb94d368c056de7e749ce4dff8
 	sha256sums = SKIP
-	sha256sums = d5502567094c6331b5192775e58920ce0d92235f9de3c72d3736af7abd082523
 
 pkgname = kid3-common
 	pkgdesc = An MP3, Ogg/Vorbis and FLAC tag editor, CLI version and common files
@@ -44,13 +40,13 @@ pkgname = kid3-common
 
 pkgname = kid3-qt
 	pkgdesc = An MP3, Ogg/Vorbis and FLAC tag editor, Qt version
-	depends = kid3-common=3.9.5
+	depends = kid3-common=3.9.6
 	depends = qt6-declarative
 	depends = qt6-multimedia
 
 pkgname = kid3
 	pkgdesc = An MP3, Ogg/Vorbis and FLAC tag editor, KDE version
-	depends = kid3-common=3.9.5
+	depends = kid3-common=3.9.6
 	depends = kxmlgui
 	depends = qt6-declarative
 	depends = qt6-multimedia
