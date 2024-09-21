@@ -5,7 +5,7 @@
 
 pkgname=gimp
 pkgver=2.10.38
-pkgrel=1
+pkgrel=2
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
 arch=('x86_64')
@@ -21,7 +21,7 @@ depends=(
   'libwebp' 'libwmf' 'libx11' 'libxcursor' 'libxext' 'libxfixes' 'libxmu' 'libxpm' 'openexr'
   'openjpeg2' 'poppler-data' 'poppler-glib' 'xz' 'aalib'
 )
-makedepends=('alsa-lib' 'ghostscript' 'gtk-doc' 'gvfs' 'intltool')
+makedepends=('alsa-lib' 'ghostscript' 'gtk-doc' 'gvfs' 'intltool' 'glib2-devel')
 optdepends=('alsa-lib: for MIDI event controller module'
             'ghostscript: for PostScript support'
             'gutenprint: for sophisticated printing only as gimp has built-in cups print support'
@@ -44,6 +44,9 @@ prepare() {
 
 build() {
   cd ${pkgname}-${pkgver}
+
+  export CFLAGS+=" -Wno-incompatible-pointer-types"
+  export CXXFLAGS+=" -Wno-incompatible-pointer-types"
 
   ./configure \
     --prefix=/usr \
