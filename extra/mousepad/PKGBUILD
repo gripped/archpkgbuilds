@@ -5,32 +5,35 @@
 
 pkgname=mousepad
 pkgver=0.6.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Simple text editor for Xfce"
 arch=('x86_64')
 url="https://docs.xfce.org/apps/mousepad/start"
-license=('GPL2')
+license=('GPL-2.0-or-later')
 groups=('xfce4-goodies')
 depends=('gtksourceview4' 'desktop-file-utils' 'hicolor-icon-theme')
-makedepends=('gspell' 'libxfce4ui' 'polkit')
+makedepends=('git' 'glib2-devel' 'gspell' 'libxfce4ui' 'polkit' 'xfce4-dev-tools')
 optdepends=('gspell: spell checking plugin'
             'libxfce4ui: shortcuts editor plugin')
-source=(https://archive.xfce.org/src/apps/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
-sha256sums=('e7cacb3b8cb1cd689e6341484691069e73032810ca51fc747536fc36eb18d19d')
+source=("git+https://gitlab.xfce.org/apps/mousepad.git#tag=$pkgname-$pkgver")
+sha256sums=('8905ae09035419dcfaa689d72dd4f5776800eb7c0189f6f92b06e1c7a72ac4d7')
 
-build() {
-  cd $pkgname-$pkgver
-
-  ./configure \
+prepare() {
+  cd $pkgname
+  ./autogen.sh \
     --prefix=/usr \
     --sysconfdir=/etc \
     --localstatedir=/var \
     --disable-debug
+}
+
+build() {
+  cd $pkgname
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
 
