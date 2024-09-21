@@ -1,8 +1,9 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
+# Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=libultrahdr
-pkgver=1.1.1
-pkgrel=2
+pkgver=1.2.0
+pkgrel=1
 pkgdesc='The reference codec for the Ultra HDR format'
 arch=(x86_64)
 url='https://github.com/google/libultrahdr'
@@ -14,12 +15,18 @@ depends=(gcc-libs
 makedepends=(cmake
              git)
 source=(git+https://github.com/google/libultrahdr#tag=v$pkgver)
-sha256sums=('e77d92dcda5b5a0c53ecaa1444ae51102da1e3856dce20c31e0221c666bbf943')
+sha256sums=('da991e3f02ef9b9dc7a269c7a29aa2932f45d4f8e1284d96f9a100ab209fd93a')
 
 build() {
   cmake -B build -S $pkgname \
-    -DCMAKE_INSTALL_PREFIX=/usr
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DUHDR_BUILD_TESTS=ON \
+    -Wno-dev
   cmake --build build
+}
+
+check() {
+    ctest --test-dir build --output-on-failure
 }
 
 package() {
