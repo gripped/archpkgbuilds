@@ -1,0 +1,18 @@
+pkgbase = orage
+	pkgdesc = A simple calendar application with reminders for Xfce
+	pkgver = 4.18.0
+	pkgrel = 2
+	url = https://docs.xfce.org/apps/orage/start
+	arch = x86_64
+	license = GPL-2.0-or-later
+	makedepends = git
+	makedepends = xfce4-dev-tools
+	depends = glib2
+	depends = libxfce4ui
+	depends = libnotify
+	depends = libical
+	optdepends = libnotify: desktop notifications support
+	source = git+https://gitlab.xfce.org/apps/orage.git#tag=orage-4.18.0
+	sha256sums = b60993de942c6017635900a251011725f7fdcdd8c9e3cecd982ae872cbdc5a20
+
+pkgname = orage
