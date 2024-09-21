@@ -1,7 +1,7 @@
 pkgbase = snapshot
 	pkgdesc = Take pictures and videos
 	pkgver = 47.0.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://apps.gnome.org/Snapshot
 	arch = x86_64
 	groups = gnome
@@ -15,6 +15,7 @@ pkgbase = snapshot
 	depends = glibc
 	depends = glycin
 	depends = graphene
+	depends = gst-plugin-gtk4
 	depends = gst-plugin-pipewire
 	depends = gst-plugins-bad-libs
 	depends = gst-plugins-base
@@ -27,8 +28,10 @@ pkgbase = snapshot
 	depends = libadwaita
 	depends = libseccomp
 	source = git+https://gitlab.gnome.org/GNOME/snapshot.git#tag=47.0.1
+	source = 0001-aperture-Only-get-devices-from-the-pipewiredevicepro.patch
 	validpgpkeys = 3475CBA8D3483594C889B470D64A8D747F6FE706
 	validpgpkeys = D25626D42D675B9C5EAF57DF7F3B4AADE28427AE
 	b2sums = 71b67638307ce5fc82566fe151218bf65fffba281de3dd4f7901410767ddb7b852c5da4a58729cb45aa7b35e3ca411fb34c42ef49faeb2aa4b13d91fa2446215
+	b2sums = af19eeb7f988af65ac378087986d1eb50334f5bddd7619ad8780e5b8f2b8d431e5ec2108255405baf9fca8495f33e6cdda69c245e1a6b15cee1081f02f4ddeea
 
 pkgname = snapshot
