@@ -1,16 +1,19 @@
 pkgbase = xfce4-dict
 	pkgdesc = A dictionary plugin for the Xfce panel
 	pkgver = 0.8.6
-	pkgrel = 1
+	pkgrel = 2
 	url = https://docs.xfce.org/apps/xfce4-dict/start
 	arch = x86_64
 	groups = xfce4-goodies
-	license = GPL2
+	license = GPL-2.0-or-later
+	makedepends = git
+	makedepends = glib2-devel
 	makedepends = intltool
+	makedepends = xfce4-dev-tools
 	depends = xfce4-panel
 	depends = librsvg
 	depends = hicolor-icon-theme
-	source = https://archive.xfce.org/src/apps/xfce4-dict/0.8/xfce4-dict-0.8.6.tar.bz2
-	sha256sums = ae5db7ca70354d3293fc08eaf7ca40cdbc91799a219f199d824684b39e6c0a41
+	source = git+https://gitlab.xfce.org/apps/xfce4-dict.git#tag=xfce4-dict-0.8.6
+	sha256sums = 1837c02952bcf5da8afdfc3c69fb6170b02cf2ac15d81d0c7a9c6dd71dc0c56e
 
 pkgname = xfce4-dict
