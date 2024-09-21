@@ -2,7 +2,7 @@
 # Contributor: Piotr Miller <nwg.piotr@gmail.com>
 
 pkgname=nwg-menu
-pkgver=0.1.4
+pkgver=0.1.5
 pkgrel=1
 pkgdesc="MenuStart for sway and other wlroots-based compositors"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('gtk3' 'gtk-layer-shell' 'xdg-utils')
 makedepends=('go')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('37ebca1409bdb7f8793851d26f805c8a7a73ea6b59ac6b1852c0524673c05280')
+sha256sums=('462b9d5af0d1e494a67532fab686ce6287c7405d1a7bceb01c3e428a581f10a6')
 
 prepare(){
 	cd "${pkgname}-${pkgver}"
