@@ -1,4 +1,5 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 # Contributor: Alexander F. Rødseth <xyproto@archlinux.org>
 # Contributor: Jaroslav Lichtblau <dragonlord@aur.archlinux.org>
 # Contributor: Alexander Fehr <pizzapunk@gmail.com>
@@ -7,25 +8,25 @@
 
 pkgname=catfish
 pkgver=4.18.0
-pkgrel=2
-pkgdesc='Versatile file searching tool'
+pkgrel=3
+pkgdesc="Versatile file searching tool"
 arch=('any')
-url='https://docs.xfce.org/apps/catfish/start'
-license=('GPL')
+url="https://docs.xfce.org/apps/catfish/start"
+license=('GPL-2.0-or-later')
 depends=('dbus-python' 'gtk3' 'python-cairo' 'python-gobject' 'python-pexpect' 'xdg-utils'
          'xfconf' 'which')
-makedepends=('intltool' 'python-distutils-extra' 'python-setuptools')
-optdepends=('mlocate: search in locate index'
+makedepends=('git' 'intltool' 'python-distutils-extra' 'python-build' 'python-installer' 'python-wheel')
+optdepends=('plocate: search in locate index'
             'zeitgeist: search in zeitgeist index')
-source=("https://archive.xfce.org/src/apps/catfish/${pkgver%.*}/$pkgname-$pkgver.tar.bz2")
-sha256sums=('fdae9b73cc754a50716bb04b958aa31dbd7e94047068b7207f2ae313a7d58b99')
+source=("git+https://gitlab.xfce.org/apps/catfish.git#tag=$pkgname-$pkgver")
+sha256sums=('ffebf68df7ff2fb52d34b662bbaabde6727bc9b3589f2651a8d6c66de461374b')
 
 build() {
-  cd $pkgname-$pkgver
-  python setup.py build
+  cd $pkgname
+  python -m build --wheel --no-isolation
 }
 
 package () {
-  cd $pkgname-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
