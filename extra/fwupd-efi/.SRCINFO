@@ -1,16 +1,17 @@
 pkgbase = fwupd-efi
 	pkgdesc = EFI Application used by uefi-capsule plugin in fwupd
-	pkgver = 1.6
+	pkgver = 1.7
 	pkgrel = 1
 	url = https://github.com/fwupd/fwupd-efi
-	arch = x86_64
-	license = LGPL
+	arch = any
+	license = LGPL-2.1-or-later
 	makedepends = git
 	makedepends = gnu-efi
 	makedepends = meson
 	makedepends = python-pefile
-	source = git+https://github.com/fwupd/fwupd-efi.git#tag=1.6?signed
+	source = git+https://github.com/fwupd/fwupd-efi.git#tag=1.7?signed
 	validpgpkeys = 163EB50119225DB3DF8F49EA17ACBA8DFA970E17
-	sha256sums = 00a08795795c8f05c685649ac41ff3e4c73203b5314f6fcf8651d6206219dd96
+	validpgpkeys = 0B0B6E494E9D5EFB39180D9A2D192CA624770276
+	sha256sums = 72ea065678d333e1db8e63e563b6151571b12de721b14896294ac25107c93514
 
 pkgname = fwupd-efi
