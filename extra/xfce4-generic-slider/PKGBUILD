@@ -1,0 +1,31 @@
+# Maintainer: Robin Candau <antiz@archlinux.org>
+
+pkgname=xfce4-generic-slider
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Xfce panel plugin for adjusting the value passed to a command"
+arch=('x86_64')
+url="https://docs.xfce.org/panel-plugins/xfce4-generic-slider/start"
+license=('GPL-3.0-only')
+depends=('xfce4-panel')
+makedepends=('git' 'xfce4-dev-tools')
+source=("git+https://gitlab.xfce.org/panel-plugins/xfce4-generic-slider.git#tag=$pkgname-$pkgver")
+sha256sums=('bbf049b1734200ec2fa1ece0a2fb6863ea96a99e4a271a95ff40097091a68229')
+
+prepare() {
+  cd $pkgname
+  ./autogen.sh \
+    --prefix=/usr
+}
+
+build() {
+  cd $pkgname
+  make
+}
+
+package() {
+  cd $pkgname
+	make DESTDIR="$pkgdir" install
+}
+
+# vim:set ts=2 sw=2 et:
