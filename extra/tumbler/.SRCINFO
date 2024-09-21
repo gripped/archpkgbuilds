@@ -1,12 +1,13 @@
 pkgbase = tumbler
 	pkgdesc = Thumbnail service implementing the thumbnail management D-Bus specification
 	pkgver = 4.18.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://docs.xfce.org/xfce/tumbler/start
 	arch = x86_64
 	groups = xfce4
-	license = GPL2
-	license = LGPL
+	license = GPL-2.0-or-later
+	makedepends = git
+	makedepends = glib2-devel
 	makedepends = intltool
 	makedepends = python
 	makedepends = ffmpegthumbnailer
@@ -15,6 +16,7 @@ pkgbase = tumbler
 	makedepends = libgepub
 	makedepends = libopenraw
 	makedepends = freetype2
+	makedepends = xfce4-dev-tools
 	depends = libxfce4util
 	depends = gdk-pixbuf2
 	optdepends = ffmpegthumbnailer: video thumbnails
@@ -24,7 +26,7 @@ pkgbase = tumbler
 	optdepends = libopenraw: RAW thumbnails
 	optdepends = freetype2: font thumbnails
 	backup = etc/xdg/tumbler/tumbler.rc
-	source = https://archive.xfce.org/src/xfce/tumbler/4.18/tumbler-4.18.2.tar.bz2
-	sha256sums = b530eec635eac7f898c0d8d3a3ff79d76a145d3bed3e786d54b1ec058132be7a
+	source = git+https://gitlab.xfce.org/xfce/tumbler.git#tag=tumbler-4.18.2
+	sha256sums = 83eb70ba554f701883c1fab8b5d0d1a1b29d9f931717bab9391e92d028017d1c
 
 pkgname = tumbler
