@@ -1,11 +1,12 @@
 pkgbase = xfce4-notifyd
 	pkgdesc = Notification daemon for the Xfce desktop
 	pkgver = 0.9.6
-	pkgrel = 1
+	pkgrel = 2
 	url = https://docs.xfce.org/apps/notifyd/start
 	arch = x86_64
 	groups = xfce4-goodies
-	license = GPL2
+	license = GPL-2.0-or-later
+	makedepends = git
 	makedepends = intltool
 	makedepends = glib2-devel
 	makedepends = xfce4-panel
@@ -18,7 +19,7 @@ pkgbase = xfce4-notifyd
 	depends = libcanberra
 	depends = hicolor-icon-theme
 	provides = notification-daemon
-	source = https://archive.xfce.org/src/apps/xfce4-notifyd/0.9/xfce4-notifyd-0.9.6.tar.bz2
-	sha256sums = 9e53265cca7d835c31b3c2c0d3ae961704870839ef583dcca3e4cc98ae3d2671
+	source = git+https://gitlab.xfce.org/apps/xfce4-notifyd.git#tag=xfce4-notifyd-0.9.6
+	sha256sums = 9b2923742de76258844073d9787b4b99769aac89b939029150e49ef5ac09f402
 
 pkgname = xfce4-notifyd
