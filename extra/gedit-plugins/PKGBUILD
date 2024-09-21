@@ -8,9 +8,9 @@
 
 pkgname=gedit-plugins
 pkgver=48.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Collection of plugins for the gedit Text Editor"
-url="https://gitlab.gnome.org/GNOME/gedit-plugins"
+url="https://gitlab.gnome.org/World/gedit/gedit-plugins"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
@@ -33,17 +33,15 @@ makedepends=(
   git
   gobject-introspection
   gucharmap
-  libgit2-glib
   meson
   vte3
   yelp-tools
 )
 optdepends=(
   'gucharmap: for charmap plugin'
-  'libgit2-glib: for git plugin'
   'vte3: for embedded terminal'
 )
-source=("git+https://gitlab.gnome.org/GNOME/gedit-plugins.git#tag=${pkgver/[a-z]/.&}")
+source=("git+https://gitlab.gnome.org/World/gedit/gedit-plugins.git#tag=${pkgver/[a-z]/.&}")
 b2sums=('d311965f561d56f2c761a62039f24d46c95004fdacaf7e4554787f57f8f1f72ebc76904e2048633782b1115edd117b58b0b68e747af7d38092fd80a1838b33b4')
 
 
