@@ -1,23 +1,30 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
-pkgname=libwpe
+pkgbase=libwpe
+pkgname=(
+  libwpe
+  libwpe-docs
+)
 pkgver=1.16.0
-pkgrel=1
+pkgrel=3
 pkgdesc="General-purpose library for WPE WebKit"
 url="https://wpewebkit.org"
 arch=(x86_64)
 license=(BSD-2-Clause)
 depends=(
   gcc-libs
+  glibc
   libegl
   libxkbcommon
 )
 makedepends=(
+  clang
   git
+  hotdoc
+  llvm
   mesa
   meson
 )
-provides=(libwpe-1.0.so)
 source=("git+https://github.com/WebPlatformForEmbedded/libwpe?signed#tag=$pkgver")
 b2sums=('51a8265ad9f3a025973d256d66a3fb572f180f7adcfb2b1d931ee3630803c3fd9e8dab32f06e93544a468721ab147bb6d39e35ff654b5c96ccd3557400222bde')
 validpgpkeys=(
@@ -29,7 +36,7 @@ prepare() {
 }
 
 build() {
-  arch-meson libwpe build
+  arch-meson libwpe build -D build-docs=true
   meson compile -C build
 }
 
@@ -37,8 +44,21 @@ check() {
   meson test -C build --print-errorlogs
 }
 
-package() {
+package_libwpe() {
+  provides=(libwpe-1.0.so)
+
   meson install -C build --destdir "$pkgdir"
+  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 libwpe/COPYING
+
+  mkdir -p doc/usr/share
+  mv {"$pkgdir",doc}/usr/share/doc
+}
+
+package_libwpe-docs() {
+  pkgdesc+=" (documentation)"
+  depends=()
+
+  mv doc/* "$pkgdir"
   install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 libwpe/COPYING
 }
 
