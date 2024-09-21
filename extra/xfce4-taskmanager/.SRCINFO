@@ -1,17 +1,19 @@
 pkgbase = xfce4-taskmanager
 	pkgdesc = Easy to use task manager
 	pkgver = 1.5.7
-	pkgrel = 1
-	url = https://docs.xfce.org/apps/xfce4-taskmanager
+	pkgrel = 2
+	url = https://docs.xfce.org/apps/xfce4-taskmanager/start
 	arch = x86_64
 	groups = xfce4-goodies
-	license = GPL2
+	license = GPL-2.0-or-later
+	makedepends = git
 	makedepends = intltool
+	makedepends = xfce4-dev-tools
 	depends = libxfce4ui
 	depends = xfconf
 	depends = libxmu
 	depends = libwnck3
-	source = https://archive.xfce.org/src/apps/xfce4-taskmanager/1.5/xfce4-taskmanager-1.5.7.tar.bz2
-	sha256sums = 6736832f5a64533e536f4994280bd907da19666cda8d2f465c8a53bb581f68bb
+	source = git+https://gitlab.xfce.org/apps/xfce4-taskmanager.git#tag=xfce4-taskmanager-1.5.7
+	sha256sums = 82709b5ce3968d98c9498817d60e1ce9c9ba296c5acd5f6072daf32880a6a0ac
 
 pkgname = xfce4-taskmanager
