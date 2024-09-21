@@ -2,7 +2,7 @@
 
 pkgname=python-numba
 pkgver=0.60.0
-pkgrel=1
+pkgrel=2
 pkgdesc="JIT compiler that translates a subset of Python and NumPy code into fast machine code"
 url="https://numba.pydata.org/"
 arch=(x86_64)
@@ -15,11 +15,14 @@ depends=(
   python-numpy
 )
 makedepends=(
+  git
   onetbb
   openmp
   python-build
   python-installer
+  python-packaging
   python-setuptools
+  python-versioneer
   python-wheel
 )
 optdepends=(
@@ -47,29 +50,29 @@ checkdepends=(
   python-pyyaml
   python-scipy
 )
-source=(https://github.com/numba/numba/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('102f66e7bcfeb8bfb90004bb866ad1a89802e32b474aedd78ec09d932e362ba4')
+source=(git+https://github.com/numba/numba#tag=$pkgver)
+sha256sums=('2ee47f97464e36b6118fd9c6b57db901930b8b9d5294a7dfcddbd5a8b2b05873')
 
 prepare() {
-  cd numba-$pkgver
-# Allow numpy 1.26
-  sed -e 's|1.26|1.27|' -i setup.py
-  sed -e 's|1, 25|1, 26|' -i numba/__init__.py
+  cd numba
+# Allow numpy 2.1
+  git revert -n a27405dd3048b506b8eaabda624c4c342fb9038c \
+                eb0d620c8e4f0dfb08df66ce051c66a2c4b556b4
 }
 
 build() {
-  cd numba-$pkgver
+  cd numba
   python -m build --wheel --no-isolation
 }
 
 check() {
   python -m venv --system-site-packages test-env
-  test-env/bin/python -m installer numba-$pkgver/dist/*.whl
+  test-env/bin/python -m installer numba/dist/*.whl
   test-env/bin/python -m numba.runtests -b -v -m 64 -- numba.tests || true # numpy 1.25 support incomplete
 }
 
 package() {
-  cd numba-$pkgver
+  cd numba
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
