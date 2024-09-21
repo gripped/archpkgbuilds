@@ -1,12 +1,13 @@
 # Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=libxfce4windowing
 pkgver=4.19.3
-pkgrel=3
+pkgrel=4
 pkgdesc="Windowing concept abstraction library for X11 and Wayland"
 arch=('x86_64')
 url="https://docs.xfce.org/xfce/libxfce4windowing/start"
-license=('LGPL2.1')
+license=('LGPL-2.1-only')
 depends=('gdk-pixbuf2' 'glib2' 'gtk3' 'libwnck3' 'libx11' 'wayland')
 makedepends=('gobject-introspection' 'gtk-doc')
 source=(https://archive.xfce.org/src/xfce/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
