@@ -1,19 +1,21 @@
 pkgbase = xfce4-pulseaudio-plugin
 	pkgdesc = Pulseaudio plugin for the Xfce4 panel
 	pkgver = 0.4.8
-	pkgrel = 1
-	url = https://goodies.xfce.org/projects/panel-plugins/xfce4-pulseaudio-plugin
+	pkgrel = 2
+	url = https://docs.xfce.org/panel-plugins/xfce4-pulseaudio-plugin/start
 	arch = x86_64
 	groups = xfce4-goodies
-	license = GPL2
+	license = GPL-2.0-or-later
+	makedepends = git
 	makedepends = intltool
+	makedepends = xfce4-dev-tools
 	depends = xfce4-panel
 	depends = libpulse
 	depends = libkeybinder3
 	depends = libnotify
 	depends = libcanberra
 	optdepends = pavucontrol: default pulseaudio mixer
-	source = https://archive.xfce.org/src/panel-plugins/xfce4-pulseaudio-plugin/0.4/xfce4-pulseaudio-plugin-0.4.8.tar.bz2
-	sha256sums = bd742b207c39c221e91c57c9c9be2839eb802d1b1ee01a02b7427cd02d3f0348
+	source = git+https://gitlab.xfce.org/panel-plugins/xfce4-pulseaudio-plugin.git#tag=xfce4-pulseaudio-plugin-0.4.8
+	sha256sums = 08a9d32358358ce03ae8e6d3d6496736931e666bda32705fef8ffda17ce09380
 
 pkgname = xfce4-pulseaudio-plugin
