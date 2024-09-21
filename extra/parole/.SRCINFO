@@ -1,13 +1,16 @@
 pkgbase = parole
 	pkgdesc = Modern media player based on the GStreamer framework
 	pkgver = 4.18.1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://docs.xfce.org/apps/parole/start
 	arch = x86_64
 	groups = xfce4-goodies
-	license = GPL
+	license = GPL-2.0-or-later
+	makedepends = git
+	makedepends = glib2-devel
 	makedepends = intltool
 	makedepends = python
+	makedepends = xfce4-dev-tools
 	depends = dbus-glib
 	depends = gst-plugins-base
 	depends = gst-plugins-good
@@ -16,7 +19,7 @@ pkgbase = parole
 	optdepends = gst-libav: Extra media codecs
 	optdepends = gst-plugins-bad: Extra media codecs
 	optdepends = gst-plugins-ugly: Extra media codecs
-	source = https://archive.xfce.org/src/apps/parole/4.18/parole-4.18.1.tar.bz2
-	sha256sums = 0c7364a484812f69cf2b20a2323864203334cc854fd8103d1d1131814ac55a66
+	source = git+https://gitlab.xfce.org/apps/parole.git#tag=parole-4.18.1
+	sha256sums = 20806cc8fe54c3e626999958c19e7fdaf0158de64dbeea9771ff9882970ab8eb
 
 pkgname = parole
