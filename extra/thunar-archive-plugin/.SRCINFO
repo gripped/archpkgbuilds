@@ -1,11 +1,12 @@
 pkgbase = thunar-archive-plugin
 	pkgdesc = Adds archive operations to the Thunar file context menus
 	pkgver = 0.5.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://docs.xfce.org/xfce/thunar/archive
 	arch = x86_64
 	groups = xfce4-goodies
-	license = GPL2
+	license = GPL-2.0-only
+	makedepends = git
 	makedepends = intltool
 	makedepends = xfce4-dev-tools
 	depends = thunar
@@ -14,7 +15,7 @@ pkgbase = thunar-archive-plugin
 	optdepends = engrampa
 	optdepends = ark
 	optdepends = xarchiver
-	source = https://archive.xfce.org/src/thunar-plugins/thunar-archive-plugin/0.5/thunar-archive-plugin-0.5.2.tar.bz2
-	sha256sums = 6379f877bcfc0ea85db9f43723b6fb317893050c712bd03c2ae3232fb9d5ade3
+	source = git+https://gitlab.xfce.org/thunar-plugins/thunar-archive-plugin.git#tag=thunar-archive-plugin-0.5.2
+	sha256sums = 147372fe3b114d8abb4549ae054094c4354247c4495c1927b9e6771f6f3bc1e1
 
 pkgname = thunar-archive-plugin
