@@ -1,11 +1,14 @@
 pkgbase = xfburn
 	pkgdesc = A simple CD/DVD burning tool based on libburnia libraries
 	pkgver = 0.7.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://docs.xfce.org/apps/xfburn/start
 	arch = x86_64
 	groups = xfce4-goodies
-	license = GPL
+	license = GPL-2.0-or-later
+	makedepends = git
+	makedepends = glib2-devel
+	makedepends = xfce4-dev-tools
 	depends = libburn
 	depends = libisofs
 	depends = gtk3
@@ -14,7 +17,7 @@ pkgbase = xfburn
 	depends = gst-plugins-base-libs
 	depends = libgudev
 	depends = desktop-file-utils
-	source = https://archive.xfce.org/src/apps/xfburn/0.7/xfburn-0.7.2.tar.bz2
-	sha256sums = c2bb01d9f7335e487f91db40ebddeea30d071364c1c3b56838466fd3367a9925
+	source = git+https://gitlab.xfce.org/apps/xfburn.git#tag=xfburn-0.7.2
+	sha256sums = 17a9d51c1b768b0044d5651a2d1bca0763135013a28e0f9304cc531413fd38b5
 
 pkgname = xfburn

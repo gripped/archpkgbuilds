@@ -1,32 +1,37 @@
 # Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 # Contributor: Tobias Kieslich <tobias funnychar archlinux.org>
 # Contributor: Alois Nespor alois.nespor@gmail.com
 
 pkgname=xfburn
 pkgver=0.7.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple CD/DVD burning tool based on libburnia libraries"
 arch=('x86_64')
 url="https://docs.xfce.org/apps/xfburn/start"
-license=('GPL')
+license=('GPL-2.0-or-later')
 groups=('xfce4-goodies')
 depends=('libburn' 'libisofs' 'gtk3' 'libxfce4ui' 'exo' 'gst-plugins-base-libs'
          'libgudev' 'desktop-file-utils')
-source=(https://archive.xfce.org/src/apps/xfburn/${pkgver%.*}/$pkgname-$pkgver.tar.bz2)
-sha256sums=('c2bb01d9f7335e487f91db40ebddeea30d071364c1c3b56838466fd3367a9925')
+makedepends=('git' 'glib2-devel' 'xfce4-dev-tools')
+source=("git+https://gitlab.xfce.org/apps/xfburn.git#tag=$pkgname-$pkgver")
+sha256sums=('17a9d51c1b768b0044d5651a2d1bca0763135013a28e0f9304cc531413fd38b5')
 
-build() {
-  cd "$srcdir/$pkgname-$pkgver"
-
-  ./configure \
+prepare() {
+  cd $pkgname
+  ./autogen.sh \
     --prefix=/usr \
     --enable-gstreamer \
     --disable-debug
+}
+
+build() {
+  cd $pkgname
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
 
