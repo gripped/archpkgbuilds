@@ -6,7 +6,7 @@
 
 pkgname=kdenlive
 pkgver=24.08.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A non-linear video editor for Linux using the MLT video framework'
 arch=(x86_64)
 url='https://apps.kde.org/kdenlive/'
@@ -58,7 +58,9 @@ optdepends=('bigsh0t: VR360 effects'
             'opencv: for motion tracking'
             'opentimelineio: timeline export/import'
             'plasma-desktop: theme configuration'
-            'python: for scripts'
+            'python-openai-whisper: speech to text (Whisper engine)'
+            'python-srt_equalizer: speech to text (Whisper engine)'
+            'python-vosk: speech to text (VOSK engine)'
             'qt6-imageformats: support for tiff, webp, and more image formats'
             'recordmydesktop: for screen capture')
 groups=(kde-applications
