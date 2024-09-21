@@ -5,8 +5,8 @@
 
 pkgname=python-gnupg
 pkgdesc="A wrapper for the Gnu Privacy Guard (GPG or GnuPG)"
-pkgver=0.5.2
-pkgrel=2
+pkgver=0.5.3
+pkgrel=1
 arch=(any)
 url="https://github.com/vsajip/python-gnupg/"
 license=(BSD-3-Clause)
@@ -22,9 +22,9 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($url/releases/download/$pkgver/$pkgname-$pkgver.tar.gz{,.asc})
-sha512sums=('9ccfb1dad7895cd08b86f9d220a58d67d83a8acead830364d51d49733d442e7d36e8b68541f3f867a4f11c964293b084a316c1caeb45165af2882b8603742846'
+sha512sums=('88a2d754df7265aefac6b9a0651c7e933125ba7f8170bda7e867f5dd8bb54272609c26d0ce17a15afa7710baebe06fa3ab211e2af1d1d84eb1f1c65ba7a1dd6a'
             'SKIP')
-b2sums=('c753004e60c16d9c098074b44f1d0b71e35544b478fbd90bfce0e50ab72b8581229d540ea612327b1fde0bcb247782daf4c39c51efe4de3360faeadc13a22f80'
+b2sums=('d5b646b2aadfef922d1b3116259b0f02668df373375676e679fd900bf001c91b58dd6fb06c8e3470d4135f4ef6b45fd1c5f63a78d3425e82931f2c190a28b129'
         'SKIP')
 validpgpkeys=('CA749061914EAC138E66EADB9147B477339A9B86') # Vinay Sajip (CODE SIGNING KEY) <vinay_sajip@yahoo.co.uk>
 
