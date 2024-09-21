@@ -1,13 +1,13 @@
 pkgbase = libertinus-font
 	pkgdesc = Fonts based on Linux Libertine/Biolinum, with extended math support
-	pkgver = 7.040
-	pkgrel = 3
+	pkgver = 7.050
+	pkgrel = 1
 	url = https://github.com/alerque/libertinus
 	arch = any
-	license = custom:OFL
-	provides = otf-libertinus
-	replaces = otf-libertinus
-	source = https://github.com/alerque/libertinus/releases/download/v7.040/Libertinus-7.040.tar.xz
-	sha256sums = 7fe9f022722d1c1cc67dc2c28a110b3bb55bae3575196160d2422c89333b3850
+	license = OFL-1.1-RFN
+	source = https://github.com/alerque/libertinus/releases/download/v7.050/Libertinus-7.050.tar.zst
+	sha256sums = cbb54c4c482376eb17bb6397494489baacff0755d3864f9b5c772e2f3d43d429
 
-pkgname = libertinus-font
+pkgname = otf-libertinus
+	provides = libertinus-font=7.050
+	replaces = libertinus-font
