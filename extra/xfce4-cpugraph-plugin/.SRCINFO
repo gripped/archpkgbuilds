@@ -1,16 +1,17 @@
 pkgbase = xfce4-cpugraph-plugin
 	pkgdesc = Graphical representation of the CPU load
 	pkgver = 1.2.10
-	pkgrel = 1
-	url = https://docs.xfce.org/panel-plugins/xfce4-cpugraph-plugin
+	pkgrel = 2
+	url = https://docs.xfce.org/panel-plugins/xfce4-cpugraph-plugin/start
 	arch = x86_64
 	groups = xfce4-goodies
-	license = GPL
-	license = custom
+	license = GPL-2.0-or-later
+	makedepends = git
 	makedepends = intltool
+	makedepends = xfce4-dev-tools
 	depends = xfce4-panel
 	depends = xfconf
-	source = https://archive.xfce.org/src/panel-plugins/xfce4-cpugraph-plugin/1.2/xfce4-cpugraph-plugin-1.2.10.tar.bz2
-	sha256sums = 37792dd052691712195658169b95fb6583f924485ce7a467b33d01e08775d915
+	source = git+https://gitlab.xfce.org/panel-plugins/xfce4-cpugraph-plugin.git#tag=xfce4-cpugraph-plugin-1.2.10
+	sha256sums = ae4c21fe73f1c9060a95312be49bd0100cc444c83f91fe253b7f3ced5e6720eb
 
 pkgname = xfce4-cpugraph-plugin
