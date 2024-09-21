@@ -2,20 +2,24 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-clocks
-pkgver=46.0
+pkgver=47.0
 pkgrel=1
 pkgdesc="Clocks applications for GNOME"
-url="https://wiki.gnome.org/Apps/Clocks"
+url="https://apps.gnome.org/Clocks"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
+  dconf
   geoclue
   geocode-glib-2
+  glib2
+  glibc
   gnome-desktop-4
+  gsettings-desktop-schemas
   gtk4
+  hicolor-icon-theme
   libadwaita
   libgweather-4
-  xdg-desktop-portal
 )
 makedepends=(
   git
@@ -25,14 +29,11 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome)
-_commit=f765c7423568227f82d54db8083fc56f25531b31  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-clocks.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-clocks.git?signed#tag=${pkgver/[a-z]/.&}")
+b2sums=('b9f21a87c5898b4ec9834a05ba783d943619f462cd3122b2aa95425fa20b63f289808aebe10a308c62b193a174a8e38f66a159549d2c3ed7f815438322201320')
+validpgpkeys=(
+  3475CBA8D3483594C889B470D64A8D747F6FE706 # Maximiliano Sandoval <msandova@gnome.org>
+)
 
 prepare() {
   cd $pkgname
