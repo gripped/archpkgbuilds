@@ -3,7 +3,7 @@
 # Contributor: Johann Woelper <woelper@gmail.com>
 
 pkgname=oculante
-pkgver=0.8.23
+pkgver=0.9.0
 pkgrel=1
 pkgdesc="A minimalistic image viewer with analysis and editing tools"
 arch=('x86_64')
@@ -27,7 +27,7 @@ makedepends=(
 )
 options=(!lto)
 source=("git+https://github.com/woelper/oculante.git#tag=${pkgver}")
-b2sums=('c13e54420e78ca89c45a021a835b5834510eb7b4c554c1fe0eaedaab83e575d767767d9d1adf7760ff34aa4936df3c771c0ead51dd883755272b15e10379abad')
+b2sums=('cfff0b69379cfe8a3091c9abd3aa620a01e18dcc5cd0945824899514f4ea4cd0253ac444d3b5fdcb8ee3bd1d2e2ef6a596ce04ed7cf149002260391743ceb356')
 
 
 prepare() {
@@ -54,7 +54,7 @@ check() {
 package() {
   cd $pkgname
   install -Dm755 target/release/oculante "${pkgdir}/usr/bin/${pkgname}"
-  install -Dm644 res/oculante.png "${pkgdir}/usr/share/icons/hicolor/128x128/apps/${pkgname}.png"
+  install -Dm644 res/icons/icon.png "${pkgdir}/usr/share/icons/hicolor/128x128/apps/${pkgname}.png"
   install -Dm644 res/oculante.desktop "${pkgdir}/usr/share/applications/${pkgname}.desktop"
   install -Dm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
   install -Dm644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
