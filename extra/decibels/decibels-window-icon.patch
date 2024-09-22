@@ -1,0 +1,26 @@
+From 7e9685bdb39187510f3899fcec6acd4a0caf2820 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 20 Sep 2024 11:07:30 +0000
+Subject: [PATCH] application: Set icon for the window
+
+This is commonly used by desktop environments on Xorg.
+---
+ src/application.ts | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/application.ts b/src/application.ts
+index c6533f2..02d27f8 100644
+--- a/src/application.ts
++++ b/src/application.ts
+@@ -21,6 +21,8 @@ export class Application extends Adw.Application {
+       flags: Gio.ApplicationFlags.HANDLES_OPEN,
+     });
+ 
++    Gtk.Window.set_default_icon_name(pkg.name);
++
+     const quit_action = new Gio.SimpleAction({ name: "quit" });
+     quit_action.connect("activate", () => {
+       this.quit();
+-- 
+GitLab
+
