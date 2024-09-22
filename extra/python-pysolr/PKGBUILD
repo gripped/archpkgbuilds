@@ -2,8 +2,8 @@
 
 _name=pysolr
 pkgname=python-pysolr
-pkgver=3.9.0
-pkgrel=7
+pkgver=3.10.0
+pkgrel=1
 pkgdesc="Python Solr client"
 arch=(any)
 url="https://github.com/django-haystack/pysolr"
@@ -25,8 +25,8 @@ optdepends=(
   'solr: for interfacing a local solr instance'
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('340a15a9cb14504bf76f11187493e6ae909223b039e79acfb672b797193c41703174c006d394cd6cacdb891c224d326c826d8258ef9451bd2befc2842edcdde0')
-b2sums=('92e7e29d9e756e79cae28764acaa820991c4bb74e8903f9234f8ca868c330c93d0e8c119c5311260009ca0ea175af9753b1cccf53fd789da3aadd16f3b6de096')
+sha512sums=('907591c1658a30f3f54038f16adc74b1682a28e341e55b99a0aba59d34e6c39d6f5e9d8c1acf0c6ba94e677c8614fe7b67316a816eb71c834a2139b6b5fb94b4')
+b2sums=('2d8cb9fdf073d94c2340124a9c1d6efc7e5e136aa79cb737146bced944807d1d9f0850c2165600c661113d1492e7f7fb29f6792eddd3c0c0710091c2179c98cc')
 
 build() {
   cd $_name-$pkgver
