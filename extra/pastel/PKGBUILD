@@ -3,12 +3,12 @@
 
 pkgbase=pastel
 pkgname=('pastel' 'pastel-docs')
-pkgver=0.9.0
-pkgrel=3
+pkgver=0.10.0
+pkgrel=1
 pkgdesc='A command-line tool to generate, analyze, convert and manipulate colors'
 arch=('x86_64')
 url='https://github.com/sharkdp/pastel'
-license=('MIT' 'Apache')
+license=('MIT' 'Apache-2.0')
 makedepends=('git' 'rust')
 optdepends=(
   'gpick: external color picker'
@@ -17,14 +17,9 @@ optdepends=(
   'yad: external color picker'
   'kcolorchooser: external color picker'
 )
-_commit='47f9ddd59ea14df8d9d1f1073d14501751a49fd0'
-source=("$pkgbase::git+$url.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgbase"
-  git describe --tags | sed "s/^v//"
-}
+source=("$pkgbase::git+$url.git#tag=v$pkgver")
+sha512sums=('06a5c880a95ed85534835eff91c64363af36b37e43d097dffb5d187992434efefccdb2eee74f300416ac082917473f7144bae9abeae37d143ecad13bae6e67a1')
+b2sums=('2f413811271c7f6736f47afc16ea4bdb5168883de4ba09df09d1a90bc5055ef1eb07a1c25f8565acc07d36ecbc55a8b5e76f8fb10e72dc815e60d7aaeabcfbdb')
 
 prepare() {
   cd "$pkgbase"
