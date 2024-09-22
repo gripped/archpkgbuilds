@@ -4,8 +4,8 @@
 # Contributor: bjoern lindig (bjoern _dot_ lindig _at_ google.com)
 
 pkgname=faust
-pkgver=2.74.6
-pkgrel=3
+pkgver=2.75.7
+pkgrel=1
 pkgdesc="A functional programming language for realtime audio signal processing."
 arch=(x86_64)
 url="https://faust.grame.fr/"
@@ -61,9 +61,17 @@ options=(
 )
 source=(
   https://github.com/grame-cncm/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.gz
+  $pkgname-2.75.7-link-llvm-dynamically.patch
 )
-sha512sums=('8a6e7676391196cf80ad325920a6500c624495577dac91e593090f1520715677800e996a4a1ed6063360a8ee77e9762d49b413a727f150ba173edb04b2492eb4')
-b2sums=('06d9d686f39b01ec24fa3f5d6dcd02b79bbcdf85e0ca7d69b5f85474f0397fe0023874df9774132916bc82d527d2f7c17f289ca5ff29045421510151b6fba446')
+sha512sums=('2bcf28f445e3582e43a52d38d9a3b1f79f7dc0ec21ea28d215ba87bbcfa42a2f57a7c75a91becf9ab390b1fbd2e42ae828c21f2774433a2eeea9951aef88e52f'
+            '3a8165b91b2a0b403de55aaf7c13078cef8eb69fae034a39fbd202ebdbf9e2f8d23e893bc5557af6483d943ddede1538075e04d3c80a2a8f093751d9c0000cda')
+b2sums=('fa5cb3a5412135d72fd252e721cc093d41db52f678a4a08e3ba902ae389ca92d8da55524de3ee911ba5bec8f5b1badf680d2fae3f3059a63c0b0cf7cad44ce84'
+        'e377c0bc425bfcbed56836dae13be44fd727641d89fe6daff8f2ff7955d66f658c961c7a5e91716735ae316fcb5bc52808be0ee44b73b2382eebcccfae54b79f')
+
+prepare() {
+  # dynamically link against LLVM: https://github.com/grame-cncm/faust/issues/1053
+  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-2.75.7-link-llvm-dynamically.patch
+}
 
 build() {
   local cmake_options=(
