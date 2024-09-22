@@ -2,8 +2,8 @@
 # Contributor: Piotr Miller <nwg.piotr@gmail.com>
 
 pkgname=nwg-drawer
-pkgver=0.4.9
-pkgrel=2
+pkgver=0.5.0
+pkgrel=1
 pkgdesc="Application drawer for sway and other wlroots-based compositors"
 url="https://github.com/nwg-piotr/nwg-drawer"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('gtk3' 'gtk-layer-shell' 'xdg-utils')
 makedepends=('go')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('efd6a4d7a21896406a2add69a23aaa114af6cd11909d019f4cc6dae3efa1d722')
+sha256sums=('43a1ec7b48a06b5de7b4d2c19810b3290ae33a0f1b653cc6e515128f8a83a3ec')
 
 build() {
         cd "${pkgname}-${pkgver}"
