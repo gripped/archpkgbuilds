@@ -1,0 +1,63 @@
+# Maintainer: Giovanni Harting <anonfunc@archlinux.org>
+# Contributor: sgar < swhaat at github >
+
+pkgname=esphome
+pkgver=2024.9.0
+pkgrel=4
+pkgdesc='Solution for your ESP8266/ESP32 projects with Home Assistant'
+url='https://github.com/esphome/ESPHome'
+depends=(
+  python
+	python-voluptuous
+	python-yaml
+	python-paho-mqtt
+	python-icmplib
+	python-tornado
+	python-tzlocal
+	python-tzdata
+	python-pyserial
+	platformio-core
+	esptool
+	python-click
+	python-aioesphomeapi
+	python-zeroconf
+	python-magic
+	python-ruamel-yaml
+	python-kconfiglib
+	python-pyparsing
+	python-argcomplete
+	python-pillow
+	python-cairosvg
+	python-async-timeout
+	python-requests
+	python-colorama
+	python-packaging
+	python-cryptography
+)
+makedepends=(python-build python-installer python-wheel)
+license=('MIT AND GPL-3.0-only')
+arch=(any)
+source=("$url/archive/$pkgver.tar.gz")
+b2sums=('914a67e1d1d11e6e0a084c8ad9d84e2c0b9b09a5a0eba53e11aa5ec64ca743345094e4e1a4ec571194bb8d3f02650072202b79d9b4cc1548ae6b8fe21a51b5e0')
+
+prepare() {
+	cd $pkgname-$pkgver
+
+	# relax requirements
+	sed -i 's/==.*//' requirements.txt
+	sed -i 's/setuptools==[0-9.]\+/setuptools/' pyproject.toml
+	sed -i 's/wheel~=[0-9.]\+/wheel/' pyproject.toml
+}
+
+build() {
+	cd $pkgname-$pkgver
+	python -m build --wheel --no-isolation
+}
+
+package() {
+	cd $pkgname-$pkgver
+	python -m installer --destdir="$pkgdir" dist/*.whl
+	install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+# vim:set ts=2 sw=2 et:
