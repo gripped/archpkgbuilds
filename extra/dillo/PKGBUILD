@@ -3,12 +3,12 @@
 
 pkgname=dillo
 pkgver=3.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A small, fast graphical web browser built on FLTK"
 arch=(x86_64)
 url="https://www.dillo.org"
-license=('GPL')
-depends=('fltk' 'libjpeg' 'libpng' 'openssl' 'perl' 'zlib')
+license=('GPL-3.0-or-later')
+depends=('fltk' 'libjpeg-turbo' 'libpng' 'openssl' 'perl' 'zlib')
 backup=(etc/dillo/{dillorc,domainrc,dpidrc,keysrc})
 validpgpkeys=('32E65EC501A1B6FDF8190D293EE6BA977EB2A253') # Rodrigo Arias Mallo <rodarima@gmail.com>
 source=(https://github.com/dillo-browser/dillo/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz{,.asc}
