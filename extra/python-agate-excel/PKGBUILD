@@ -5,7 +5,7 @@
 _pyname=agate-excel
 pkgname=python-$_pyname
 pkgver=0.4.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Adds read support for Excel files (xls and xlsx) to agate'
 arch=(any)
 url="https://$_pyname.readthedocs.org"
@@ -20,7 +20,6 @@ depends=(python
          "${_pydeps[@]/#/python-}")
 makedepends=(python-setuptools
              python-sphinx)
-checkdepends=(python-nose)
 _archive="$_pyname-$pkgver"
 source=("$_archive.tar.gz::https://github.com/wireservice/$_pyname/archive/$pkgver.tar.gz")
 sha256sums=('5546c65742f3550ddee90e8c688e13ec495ec4190bba0e7c9cfa05e233e2aec9')
@@ -36,7 +35,7 @@ build() {
 
 check() {
 	cd "$_archive"
-	nosetests
+	python -m unittest discover -vs .
 }
 
 package() {
