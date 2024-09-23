@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=go-task
-pkgver=3.38.0
-pkgrel=1
+pkgver=3.39.2
+pkgrel=2
 pkgdesc='A task runner written in Go'
 arch=('x86_64')
 url='https://taskfile.dev'
@@ -14,11 +14,14 @@ install=go-task.install
 source=(
   "$pkgname::git+https://github.com/go-task/task#tag=v$pkgver"
   'rename-completions.patch'
+  'fix-version-checksum.patch'
 )
-sha512sums=('9e3ddabbe0608c60aa1538a63978098687f87e0d36171fbcc853f9c3d62704f874d848ca61e053082e44b14cdc544752d9aba53cea713b9924eb767ba4e71d18'
-            '2b64a294b3b6b91c3d3e44c5aa776bd84b8ca32c88195e696be1c784ca5f83394eb7520b0a13b517b99dbdcd9833d2936707c8efdb79223b642dbdc3ffc7ac8c')
-b2sums=('89933286e1cf1879fd3a831000a7610909f82486a0d4d9498d32fe6e63b5ed5fcbac7aa2aec5aca96e4cb9dd49e0a8ba52c939698c922a45b42685e22992badc'
-        'b68ac73a03c94946169fd92f41b746b15fdb1f86c3fbebf8ab45b28272147d189646d407decadc482f3e89aa64b2f4a0ae14aedec4f5f5eb640f4b934f3b85bd')
+sha512sums=('beada14b7f84076515e5355cbf5ac65487afbfdd7729581a1b12c2ebad0d0f0b489fdbd50ee79134f1ee0d2145bcbea446f4f21dc3b2a6e7af94e3f90c0a29af'
+            '5970fdfc9d0346d4046e00a1189c97f7000e6e24ee46dd8c005bca1b1d55fddfd0663befaca8051142601f7952586c9ddad20a3df0442c406e8cbf5ca61487c9'
+            'f492ebede54202efe5d5864617c9d39e5fbd1306413d7def2d854ba4a3c76a0b8fc23d5c382a7da585c1ab90af5c01dc74f9fcfcf5788bf6602ff5cb1e781559')
+b2sums=('07f37eec004a3c63ef0587ca4af2ae31cf89a165fe03e25f46a7e91c246ef497c4ab4962ed8bc1aec5b5613400fc9f80548b1823a5aeb06d1dc53dacea1eed8f'
+        '8b5d94898fc8ff668d6bb6a01108ad45591e974f8747cbcefa3d0be4fd0abdd54c5dce28ec17da92b5bca039041e59cff22f730c5752407125e9611e0f18e96a'
+        'd05b2878b7abd160c0fb94236f472e511e7cfb13280a655a9992ab5511d193744db2c496dc72e20c4249040aa05cca2b91d617520c7ee8f97fd0f8d362622aa6')
 
 prepare() {
   cd "$pkgname"
@@ -29,6 +32,9 @@ prepare() {
 
   # rename completions from `task` to `go-task`
   patch -p1 -i "$srcdir/rename-completions.patch"
+
+  # fix version checksum
+  patch -p1 -i "$srcdir/fix-version-checksum.patch"
 }
 
 build() {
@@ -47,7 +53,8 @@ build() {
     -ldflags "-compressdwarf=false \
     -linkmode external \
     -extldflags '${LDFLAGS}' \
-    -X github.com/go-task/task/v3/internal/version.version=${pkgver}" \
+    -X github.com/go-task/task/v3/internal/version.version=${pkgver} \
+    -X github.com/go-task/task/v3/internal/version.sum=$(git rev-parse --short HEAD)" \
     -o go-task \
     ./cmd/task
 }

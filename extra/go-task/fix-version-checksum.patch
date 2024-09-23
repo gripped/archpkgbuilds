@@ -1,0 +1,13 @@
+--- a/internal/version/version.go
++++ b/internal/version/version.go
+@@ -18,7 +18,9 @@ func init() {
+ 		if version == "" {
+ 			version = info.Main.Version
+ 		}
+-		sum = info.Main.Sum
++		if sum == "" {
++			sum = info.Main.Sum
++		}
+ 	}
+ }
+ 
