@@ -1,0 +1,44 @@
+# Maintainer: Giovanni Harting <anonfunc@archlinux.org>
+# Contributor: sgar < swhaat at github >
+
+pkgname=python-aioesphomeapi
+_name=${pkgname#python-}
+pkgver=27.0.0
+pkgrel=1
+pkgdesc='Python Client for ESPHome native API'
+arch=(x86_64)
+url='https://github.com/esphome/aioesphomeapi'
+depends=(
+	glibc
+	python
+	python-aiohappyeyeballs
+	python-async_interrupt
+	python-protobuf
+	python-zeroconf
+	python-chacha20poly1305-reuseable
+	python-cryptography
+	python-noiseprotocol
+	python-async-timeout
+)
+makedepends=(python-build python-installer python-wheel python-setuptools git cython)
+license=(MIT)
+source=(git+$url.git#tag=v$pkgver)
+b2sums=('e25d9fcb905eb9ce7c548281d9b07ca88f9651e2f2c870e6c12e69ddf999c82911e654b105410e4409f1b66c409af9b857326a8fe699cf05bff7c02930b37c7f')
+
+prepare() {
+  cd $_name
+  sed -i 's/==.*//' requirements.txt
+}
+
+build() {
+  cd $_name
+  python -m build --wheel --no-isolation
+}
+
+package() {
+	cd $_name
+  python -m installer --destdir="$pkgdir" dist/*.whl
+	install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+# vim:set ts=2 sw=2 et:
