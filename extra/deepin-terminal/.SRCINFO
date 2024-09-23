@@ -1,13 +1,14 @@
 pkgbase = deepin-terminal
 	pkgdesc = Default terminal emulation application for Deepin
-	pkgver = 6.0.12
+	pkgver = 6.0.13
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-terminal
 	arch = x86_64
 	groups = deepin-extra
 	license = GPL3
+	makedepends = git
 	makedepends = cmake
-	makedepends = lxqt-build-tools
+	makedepends = lxqt-build-tools-qt5
 	makedepends = ninja
 	makedepends = qt5-tools
 	depends = dtkcore
@@ -23,9 +24,9 @@ pkgbase = deepin-terminal
 	depends = fontconfig
 	depends = hicolor-icon-theme
 	optdepends = zssh: for remote management support
-	source = https://github.com/linuxdeepin/deepin-terminal/archive/6.0.12/deepin-terminal-6.0.12.tar.gz
+	source = git+https://github.com/linuxdeepin/deepin-terminal.git#tag=6.0.13
 	source = deepin-terminal-break-non-dde.patch::https://github.com/linuxdeepin/deepin-terminal/commit/0df1446c1af214ffb568e7b956edbed7e656abf3.patch
-	sha512sums = 802bb5fd837f0304ed2aacb84447eb25f3beab107ea3d2ed6c18440dd7b9568d0ae86bf9365b0cda76bb7d3b6d19a529c920168a9938b50aabf23832413e4a31
-	sha512sums = b2a6df7aa55ca5a89c117fd784dd5ef2860a3f8410bbee8c224e4e4b98fe044a3248422f93c08a6605d5e4c091022db01e84a56637fcade8e0fd2a2962629b13
+	sha512sums = e8cc05ae51f9a5a9caa5d89ccfd5bff51e1161911086f9f7b1b461e581c0dc90b3135b04799a3792494cd19f3fac82223cb93fb2e18b20f261d3fdb1613ba40a
+	sha512sums = 58e0fed2031678a6e38e14908301ed0cceb9ff9a7b0142e1afa409210865416f4f06dd11cd162011597b5468e12effe91dce99bce9bfa1757ef2846f64489b0b
 
 pkgname = deepin-terminal

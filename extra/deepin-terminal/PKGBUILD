@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-terminal
-pkgver=6.0.12
+pkgver=6.0.13
 pkgrel=1
 pkgdesc='Default terminal emulation application for Deepin'
 arch=('x86_64')
@@ -11,33 +11,33 @@ url="https://github.com/linuxdeepin/deepin-terminal"
 license=('GPL3')
 depends=('dtkcore' 'dtkgui' 'dtkwidget' 'glib2' 'qt5-base' 'qt5-x11extras' 'libsecret' 'glibc'
          'gcc-libs' 'libxcb' 'fontconfig' 'hicolor-icon-theme')
-makedepends=('cmake' 'lxqt-build-tools' 'ninja' 'qt5-tools')
+makedepends=('git' 'cmake' 'lxqt-build-tools-qt5' 'ninja' 'qt5-tools')
 #checkdepends=('xorg-server-xvfb')
 optdepends=('zssh: for remote management support')
 groups=('deepin-extra')
-source=("https://github.com/linuxdeepin/deepin-terminal/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+source=("git+https://github.com/linuxdeepin/deepin-terminal.git#tag=$pkgver"
         $pkgname-break-non-dde.patch::https://github.com/linuxdeepin/deepin-terminal/commit/0df1446c1af214ffb568e7b956edbed7e656abf3.patch)
-sha512sums=('802bb5fd837f0304ed2aacb84447eb25f3beab107ea3d2ed6c18440dd7b9568d0ae86bf9365b0cda76bb7d3b6d19a529c920168a9938b50aabf23832413e4a31'
-            'b2a6df7aa55ca5a89c117fd784dd5ef2860a3f8410bbee8c224e4e4b98fe044a3248422f93c08a6605d5e4c091022db01e84a56637fcade8e0fd2a2962629b13')
+sha512sums=('e8cc05ae51f9a5a9caa5d89ccfd5bff51e1161911086f9f7b1b461e581c0dc90b3135b04799a3792494cd19f3fac82223cb93fb2e18b20f261d3fdb1613ba40a'
+            '58e0fed2031678a6e38e14908301ed0cceb9ff9a7b0142e1afa409210865416f4f06dd11cd162011597b5468e12effe91dce99bce9bfa1757ef2846f64489b0b')
 
 prepare() {
-  cd deepin-terminal-$pkgver
+  cd deepin-terminal
   # https://github.com/linuxdeepin/developer-center/issues/5723
   patch -Rp1 -i ../$pkgname-break-non-dde.patch
 }
 
 build(){
-  cd deepin-terminal-$pkgver
+  cd deepin-terminal
   cmake . -GNinja -DVERSION=$pkgver -DCMAKE_INSTALL_PREFIX=/usr
   ninja
 }
 
 check() {
-  cd deepin-terminal-$pkgver
+  cd deepin-terminal
   #LD_LIBRARY_PATH="$PWD/3rdparty/terminalwidget" xvfb-run ninja test || echo "Tests failed"
 }
 
 package() {
-  cd deepin-terminal-$pkgver
+  cd deepin-terminal
   DESTDIR="$pkgdir" ninja install
 }
