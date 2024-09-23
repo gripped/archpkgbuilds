@@ -2,7 +2,7 @@
 
 pkgname=kmonad
 pkgver=0.4.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Advanced keyboard remapping utility"
 url="https://hackage.haskell.org/package/kmonad"
 license=("MIT")
@@ -28,7 +28,7 @@ build() {
     --ghc-option='-pie' \
     -f-dext -f-kext
 
-  runhaskell Setup build
+  runhaskell Setup build $MAKEFLAGS
   runhaskell Setup register --gen-script
   runhaskell Setup unregister --gen-script
   sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
@@ -37,7 +37,7 @@ build() {
 
 check() {
   cd $pkgname
-  runhaskell Setup test
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
