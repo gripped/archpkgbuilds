@@ -4,7 +4,7 @@
 
 pkgname=deepin-icon-theme
 pkgver=2024.06.21
-pkgrel=1
+pkgrel=2
 pkgdesc="Deepin Icons"
 arch=('any')
 url="https://github.com/linuxdeepin/deepin-icon-theme"
@@ -27,4 +27,7 @@ package() {
   make DESTDIR="$pkgdir" install
 
   cp -a ./Sea ./usr/share/icons/hicolor "$pkgdir"/usr/share/icons/
+
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/deepin-icon-theme/-/issues/1
+  rm "$pkgdir"/usr/share/icons/bloom/icon-theme.cache
 }
