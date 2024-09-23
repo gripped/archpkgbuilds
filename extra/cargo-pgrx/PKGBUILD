@@ -1,26 +1,20 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=cargo-pgrx
-pkgver=0.11.2
+pkgver=0.12.4
 pkgrel=1
 pkgdesc='Build PostgreSQL extensions with Rust'
 arch=('x86_64')
-url='https://github.com/tcdi/pgrx'
+url='https://github.com/pgcentralfoundation/pgrx'
 license=('MIT')
 depends=('gcc-libs' 'openssl' 'clang' 'llvm' 'bzip2')
 makedepends=('git' 'rust')
 optdepends=('postgresql: to compile with system postgresql')
 replaces=('cargo-pgx')
 options=('!lto')
-_commit='14b063eae43984b25a1c88455369cb7b80b8cf2e'
-source=("$pkgname::git+$url.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+$url.git#tag=v$pkgver")
+sha512sums=('33dc4e34f2aa4ea2fa39e18b3e6b212739ef4cd1c1f1b07807e2b38f49a348dcb6d0184c2101b558b00a3386c9d2b9765413a303f4576b0bfb68460667018a7d')
+b2sums=('2c77cb99733f18fa25da49e49270e1d33249f73f9b34e6168390d6fbc3eb8f0f1e5cf2e9f0596c086bdf25f3a8f872816b833c44288191767e1fb84dc882da3c')
 
 prepare() {
   cd "$pkgname"
