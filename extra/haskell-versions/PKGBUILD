@@ -2,8 +2,8 @@
 
 _hkgname=versions
 pkgname=haskell-versions
-pkgver=6.0.2
-pkgrel=5
+pkgver=6.0.3
+pkgrel=1
 pkgdesc="Types and parsers for software version numbers"
 url="https://github.com/fosskers/versions"
 license=('BSD')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-megaparsec' 'haskell-hashable' 'haskell-parser-combinators')
 makedepends=('ghc' 'uusi' 'haskell-microlens' 'haskell-tasty' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('b2efaee4b77df4813e124e524ca9b12a31c4ffe1ef880753b2377659b0c19a57a2b16edaf1237fdd59e627bad867b8310a48b83b928b096fcef8e22edc4b915e')
+sha512sums=('df18b506b90e0c5b22c60ebe823235305906d7b9e0fd6bf180f27fa1ad8931b3e84326d8bd48dde96b9431ea5ea689860ea39baae5551f836ce458dd148e7b1a')
 
 prepare() {
     cd $_hkgname-$pkgver
