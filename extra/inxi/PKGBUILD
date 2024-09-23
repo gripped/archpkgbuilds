@@ -4,7 +4,7 @@
 # Contributor: Florian Pritz <f-p@gmx.at>
 
 pkgname=inxi
-_pkgver=3.3.35-1
+_pkgver=3.3.36-1
 pkgver=${_pkgver//-/.}
 pkgrel=1
 pkgdesc="Full featured CLI system information tool"
@@ -48,7 +48,7 @@ optdepends=(
     "xorg-xrandr: xrandr: -G (X) monitors(s) resolution; -Ga monitor data"
 )
 source=("$pkgname-$pkgver.tar.gz::https://codeberg.org/smxi/$pkgname/archive/${_pkgver}.tar.gz")
-b2sums=('5b383998a110291f02807e2d61f5454a49437bb1dea682ec677ea9e76b5d9fcfb1b1d644700670d71f999ca6fdd100e852d6ab7936309998e6992507b2083c02')
+b2sums=('7d766ac3fa3751a6dcbf0d02681361690b3b60ad31e8ce16b26a9c4292f7ab9691b95a72a537fbd23635ea866b32c38bb1ffdba0e1e54a3ff130adc8b86d5819')
 
 package() {
     cd "$pkgname"
