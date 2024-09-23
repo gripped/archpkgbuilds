@@ -16,7 +16,7 @@ pkgname=nextcloud-client
 pkgdesc='Nextcloud desktop client'
 epoch=2
 pkgver=3.14.0
-pkgrel=4
+pkgrel=5
 arch=(x86_64)
 url='https://nextcloud.com/'
 _url=https://github.com/nextcloud/desktop
@@ -89,7 +89,6 @@ build() {
 		-D WITH_CRASHREPORTER=OFF \
 		-D BUILD_UPDATER=OFF \
 		-D UNIT_TESTING=ON \
-		-D PLUGINDIR=lib/qt/plugins # Fix vfs plugin install dir https://github.com/nextcloud/desktop/issues/3781#issuecomment-918918320
 	# TODO: fix installation of PDF and HTML documents
 	# WIP at https://github.com/yan12125/desktop/tree/doc-install-path
 	make -C build all doc-man
