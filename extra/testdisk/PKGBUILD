@@ -4,12 +4,12 @@
 
 pkgname=testdisk
 pkgver=7.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Checks and undeletes partitions + PhotoRec, signature based recovery tool"
 arch=('x86_64')
 url="https://www.cgsecurity.org/index.html?testdisk.html"
 license=('GPL-3.0-or-later')
-depends=('libjpeg' 'openssl' 'ntfsprogs')
+depends=('libjpeg-turbo' 'openssl' 'ntfsprogs')
 source=(https://www.cgsecurity.org/$pkgname-$pkgver.tar.bz2)
 
 build() {
