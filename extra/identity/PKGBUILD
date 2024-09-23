@@ -1,0 +1,73 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=identity
+pkgver=0.6.0
+pkgrel=4
+pkgdesc='Compare multiple versions of an image or video'
+arch=(x86_64)
+url='https://apps.gnome.org/Identity/'
+license=(GPL-3.0-or-later)
+depends=(
+  dav1d
+  dconf
+  gcc-libs
+  glib2
+  glibc
+  graphene
+  gst-plugins-base
+  gst-plugins-base-libs
+  gst-plugins-good
+  gstreamer
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libwebp
+)
+makedepends=(
+  appstream
+  blueprint-compiler
+  git
+  meson
+  rust
+)
+optdepends=(
+  'gst-libav: Extra media codecs'
+  'gst-plugins-bad: Extra media codecs'
+  'gst-plugins-ugly: Extra media codecs'
+)
+options=(!lto)
+source=(
+  "git+https://gitlab.gnome.org/YaLTeR/identity.git#tag=v$pkgver"
+  identity-window-icon.patch
+)
+b2sums=(
+  1503a38b03b133083940f743c06e0f01c2c1cbff83a308a06bcc238f18b8005e6f37adade24672eb88ae62b6ce41c7c644a924cf8ae47b3a41f6d1af9bc01ecd
+  2a9657d48cc9230f11a7704a87eadc79ac302ebcd3352172774016790062b504cf86c800c2ce6c06147c7e329f394fc541d28c7fec68b85e6aaad147259c2497
+)
+
+prepare() {
+  cd $pkgname
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/YaLTeR/identity/-/merge_requests/18
+  git apply -3 ../identity-window-icon.patch
+}
+
+build() {
+  arch-meson $pkgname build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+}
