@@ -2,7 +2,7 @@
 # Contributor: ObserverOfTime <chronobserver@disroot.org>
 
 pkgname=tree-sitter-c
-pkgver=0.23.0
+pkgver=0.23.1
 pkgrel=1
 pkgdesc='C grammar for tree-sitter'
 arch=(x86_64)
@@ -16,7 +16,7 @@ makedepends=(
 optdepends=('tree-sitter: core library')
 provides=("lib$pkgname.so")
 source=("git+$url.git#commit=v$pkgver?signed")
-b2sums=('363a0c6cbfd801180ce8cf263ac4991c1cec202e01c38cad00fe6f3111bac897c19b80ae1eef157d96087ce1d618d11130439252e3199cdf32809df74622862e')
+b2sums=('de97c13ea02d913282040802bac2a911d218e04cff1936e11c41306099a258ffabb600cedbb9c22736d55074a4f9b66c3339e675a1e70ce1a8b72b43f400db9a')
 validpgpkeys=(FCC13F47A6900D64239FF13BE67890ADC4227273) # Amaan Qureshi <amaanq12@gmail.com>
 
 prepare() {
