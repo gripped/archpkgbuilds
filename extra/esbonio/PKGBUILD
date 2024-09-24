@@ -2,35 +2,35 @@
 # Contributor: Jeffrey Zhang <zhang.lei.fly@gmail.com>
 
 pkgname=esbonio
-pkgver=0.16.4
-pkgrel=2
+pkgver=0.16.5
+pkgrel=1
 pkgdesc='Language server for working with Sphinx projects'
-arch=('any')
+arch=(any)
 url=https://docs.esbon.io/
-license=('MIT')
+license=(MIT)
 depends=(
-  'python-platformdirs'
-  'python-pygls'
-  'python-pyspellchecker'
-  'python-sphinx'
+  python-platformdirs
+  python-pygls
+  python-pyspellchecker
+  python-sphinx
 )
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-wheel'
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
 )
 conflicts=("python-$pkgname")
 replaces=("python-$pkgname")
 #checkdepends=(
-#  'python-pytest-asyncio'
-#  'python-pytest-lsp'
-#  'python-pytest-timeout'
-#  'python-websockets'
+#  python-pytest-asyncio
+#  python-pytest-lsp
+#  python-pytest-timeout
+#  python-websockets
 #)
 source=("git+https://github.com/swyddfa/$pkgname.git#tag=$pkgname-language-server-v$pkgver")
-b2sums=('892ba0f71d9a815088b1b3aa038d994389a62dd761d9ff36863e23c62cddee7c598f017aac82b1b6d645afe824008282f05c3802e348d6060c4dbc5cec06e412')
+b2sums=('11a5358e08ead051cfbcd3adfdeb24833fb4e394f5af5a6bafd973533b5a3cd7863a212a1ce2a7dda61e8e51733a1a344ec5ddfa929cf01f60808b7369e7aa77')
 
 build() {
   cd $pkgname/lib/$pkgname
@@ -46,12 +46,11 @@ build() {
 #}
 
 package() {
-  cd $pkgname/lib/$pkgname
-  python -m installer --destdir="$pkgdir" dist/*.whl
-
-  # Symlink license file
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
   ln -s "$site_packages"/$pkgname-$pkgver.dist-info/LICENSE \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
+  cd $pkgname/lib/$pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
