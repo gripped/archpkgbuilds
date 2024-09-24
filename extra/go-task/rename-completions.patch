@@ -37,7 +37,7 @@
  complete -c $GO_TASK_PROGNAME -s d -l dir       -d 'sets directory of execution'
 --- a/completion/zsh/_task
 +++ b/completion/zsh/_task
-@@ -1,11 +1,11 @@
+@@ -1,16 +1,16 @@
 -#compdef task
 -compdef _task task
 +#compdef go-task
@@ -52,6 +52,12 @@
      local -a scripts cmd
      local -i enabled=0
      local taskfile item task desc
+ 
+-    cmd=(task)
++    cmd=(go-task)
+     taskfile=${(Qv)opt_args[(i)-t|--taskfile]}
+     taskfile=${taskfile//\~/$HOME}
+ 
 @@ -38,7 +38,7 @@ function __task_list() {
      _describe 'Task to run' scripts
  }
