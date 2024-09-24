@@ -1,10 +1,10 @@
 pkgbase = python-sphinx-prompt
 	pkgdesc = Sphinx directive to add unselectable prompt
-	pkgver = 1.8.0
-	pkgrel = 2
+	pkgver = 1.9.0
+	pkgrel = 1
 	url = https://github.com/sbrunner/sphinx-prompt
 	arch = any
-	license = BSD
+	license = BSD-3-Clause
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
@@ -14,11 +14,14 @@ pkgbase = python-sphinx-prompt
 	depends = python-sphinx
 	depends = python-pygments
 	depends = python-docutils
-	source = python-sphinx-prompt::git+https://github.com/sbrunner/sphinx-prompt#commit=adebec5cb63deea6e1a210d38e675304ee664ec2
+	source = python-sphinx-prompt::git+https://github.com/sbrunner/sphinx-prompt#tag=1.9.0
 	source = pyproject.toml-template.patch
 	source = remove-unnecessary-dependencies.patch
-	b2sums = SKIP
-	b2sums = a5c11ccae6970584c0a533f0527a118ee68f9eee1db9acf3b0c7af6b1f82b8cf6071a04a279026396886d8c8645286a7abc7787aa4afa00136a1b9922463ecf7
-	b2sums = 1552cd699b1f273f6bd0b6bf59ad23341285e645b28fee805f122b9babb7d6facb0b501825ae6f54be472b3325b7c07fa637d183c0f08ff8e15672056794e28b
+	sha512sums = caa90d9acdee7fe709119ba43c0307c78fe5327ec944baabc4767202aee75de8e0d5144401f96ad72f8e5cba888aafad556823ffc4e96eff4f5591ac0cd49468
+	sha512sums = 090ce2fba167aebf8809e2f368ffc2ce6c3d2500c88f2873c5f67599ba6bae8bac5fe5eaefee69f6e00117039af8daf089e392fe28fad7b64800f47a9b1afdb1
+	sha512sums = b3f868acce55474129c4ddfce566635e26aace3f5737f7be6974be0c8bbd3fef07610ea2f57166167d1f24fff0781c8dd4a1ff955b9526eb3e785b263f764d95
+	b2sums = a3c2ad86a479579e3d174e8915ee1e1b72e8171378d95d16733654a7cb58c751c664eff27cb47c06624ec7e37495397e53303a60887b6e6a8af05fac6ffb0194
+	b2sums = 9ebc31d79afe81f3aa2c50a9797e550fe05155f625436ca02c5ea4cf3a147c513a7a6a84dbde56ab91043c7003a71ea6f5b9b97b9366762398ca9e2b004a9a01
+	b2sums = 80650ab9af6f6820803fd5839c5fefdb280a047a128dba1d64398dcf7d8a3f2b9d6750dfa7b817a9c42e31d6a825622246fd9e2abaf769e688a869f3979f4b48
 
 pkgname = python-sphinx-prompt
