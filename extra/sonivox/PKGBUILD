@@ -1,18 +1,18 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=sonivox
-pkgver=3.6.12
-pkgrel=2
+pkgver=3.6.13
+pkgrel=1
 pkgdesc="Fork of the AOSP 'platform_external_sonivox' to use outside of Android"
 arch=(x86_64)
 url="https://github.com/pedrolcl/sonivox"
-license=(Apache)
+license=(Apache-2.0)
 depends=(glibc)
 makedepends=(cmake gtest)
 provides=(libsonivox.so)
 source=($pkgname-$pkgver.tar.gz::https://github.com/pedrolcl/$pkgname/archive/refs/tags/v$pkgver.tar.gz)
-sha256sums=('23a7f29c617e791dfcb50b75eef41464e4bf3fca15b19da395a64373ff5d8456')
-b2sums=('4a264474eb640dc3a335292c16bca74d942d096e3b74dd566dd9c5218417e71d8b4226342cf634f95a3bb9d624a0deb4e159b4ce03b95907a5b662708fcffc6b')
+sha256sums=('c5c088acc423a78f7ec103f3d99c7b16c85301c2969dcebdc49537c7247790c4')
+b2sums=('4d466059b6a5335bd6cc9c6f2c8e31b8607a184415522b906bc6c393306000a6e59e8ba9dee7663c392e4ec0c74de45fdeac70bc00efbd2e80ab966ddf6865e5')
 
 build() {
   local cmake_options=(
