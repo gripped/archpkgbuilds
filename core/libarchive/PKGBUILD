@@ -2,7 +2,7 @@
 # Maintainer: Dan McGee <dan@archlinux.org>
 
 pkgname=libarchive
-pkgver=3.7.5
+pkgver=3.7.6
 pkgrel=1
 pkgdesc='Multi-format archive and compression library'
 arch=('x86_64')
@@ -16,15 +16,20 @@ depends=('acl' 'libacl.so'
          'xz' 'liblzma.so'
          'zlib' 'libz.so'
          'zstd' 'libzstd.so')
+makedepends=('git')
 provides=('libarchive.so')
 validpgpkeys=('A5A45B12AD92D964B89EEE2DEC560C81CEC2276E'  # Martin Matuska <mm@FreeBSD.org>
               'DB2C7CF1B4C265FAEF56E3FC5848A18B8F14184B') # Martin Matuska <martin@matuska.org>
-source=("https://github.com/${pkgname}/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha256sums=('ca74ff8f99dd40ab8a8274424d10a12a7ec3f4428dd35aee9fdda8bdb861b570'
-            'SKIP')
+source=("git+https://github.com/${pkgname}/${pkgname}.git?signed#tag=v${pkgver}")
+sha256sums=('470138d8382c760bc745d4d87579f946508432932311474c923ec7cdf603f7ce')
+
+prepare() {
+  cd "${pkgname}"
+  autoreconf -fiv
+}
 
 build() {
-  cd "${pkgname}-${pkgver}"
+  cd "${pkgname}"
 
   ./configure \
       --prefix=/usr \
@@ -34,13 +39,13 @@ build() {
 }
 
 check() {
-  cd "${pkgname}-${pkgver}"
+  cd "${pkgname}"
 
   make check
 }
 
 package() {
-  cd "${pkgname}-${pkgver}"
+  cd "${pkgname}"
 
   make DESTDIR="$pkgdir" install
   install -Dm0644 COPYING "$pkgdir/usr/share/licenses/libarchive/COPYING"

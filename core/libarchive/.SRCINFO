@@ -1,10 +1,11 @@
 pkgbase = libarchive
 	pkgdesc = Multi-format archive and compression library
-	pkgver = 3.7.5
+	pkgver = 3.7.6
 	pkgrel = 1
 	url = https://libarchive.org/
 	arch = x86_64
 	license = BSD
+	makedepends = git
 	depends = acl
 	depends = libacl.so
 	depends = bzip2
@@ -21,11 +22,9 @@ pkgbase = libarchive
 	depends = zstd
 	depends = libzstd.so
 	provides = libarchive.so
-	source = https://github.com/libarchive/libarchive/releases/download/v3.7.5/libarchive-3.7.5.tar.xz
-	source = https://github.com/libarchive/libarchive/releases/download/v3.7.5/libarchive-3.7.5.tar.xz.asc
+	source = git+https://github.com/libarchive/libarchive.git?signed#tag=v3.7.6
 	validpgpkeys = A5A45B12AD92D964B89EEE2DEC560C81CEC2276E
 	validpgpkeys = DB2C7CF1B4C265FAEF56E3FC5848A18B8F14184B
-	sha256sums = ca74ff8f99dd40ab8a8274424d10a12a7ec3f4428dd35aee9fdda8bdb861b570
-	sha256sums = SKIP
+	sha256sums = 470138d8382c760bc745d4d87579f946508432932311474c923ec7cdf603f7ce
 
 pkgname = libarchive
