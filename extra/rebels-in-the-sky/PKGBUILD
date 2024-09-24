@@ -2,7 +2,7 @@
 
 pkgname=rebels-in-the-sky
 pkgver=1.0.16
-pkgrel=1
+pkgrel=2
 pkgdesc="P2P terminal game about spacepirates playing basketball across the galaxy"
 url="https://github.com/ricott1/rebels-in-the-sky"
 depends=('gcc-libs' 'alsa-lib')
@@ -10,7 +10,7 @@ makedepends=('cargo')
 arch=('x86_64')
 license=('GPL-3.0')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('7d1717a7ab4436dbb621846a3093315c8786e47c50f55ad1d5cf9eee8d68b0ef5334a5494b19a9f0f65897a2667f86f6fb388fc36f9e8b874c41a90831553937')
+sha512sums=('53f8d9503d7208ca26119d03258812d0cda3499a1f962e7552af0feb34e79a08ab536355dfadbc8c8490d59340ddbe5f57881e4e2f7db7d39e15a81387e79718')
 options=('!lto')
 
 prepare() {
