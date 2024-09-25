@@ -1,0 +1,73 @@
+# Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
+# Contributor: Gabriel M. Dutra <nulldutra@proton.me>
+
+pkgname=tflint
+pkgver=0.53.0
+pkgrel=3
+pkgdesc="A linter for Terraform code"
+arch=('x86_64')
+url="https://github.com/terraform-linters/tflint"
+license=('MPL-2.0')
+depends=(
+  glibc
+)
+makedepends=(
+  git
+  go
+)
+options=(!lto)
+source=(
+  "${pkgname}-${pkgver}::git+${url}#tag=v${pkgver}"
+  "git+https://github.com/hashicorp/terraform-aws-consul.git"
+  "git+https://github.com/terraform-aws-modules/terraform-aws-ec2-instance.git"
+)
+sha512sums=('31fb5aea8df201958aac85fa4d6660f51fa514a2d1580b7ffd13cc0d22292d60247e0ebe5c02a3e1baf46ad65ce7a6c0057a92d292114b5cbcba17f12d433751'
+            'SKIP'
+            'SKIP')
+b2sums=('397d82dcada9cfca2faf037da2b1f84ec4b92c73cdc0a36eaf93ec72701e3a053f7d1a513f34ab19614860b36e6b27fe9785491764c3a605f41fbf0688c75cef'
+        'SKIP'
+        'SKIP')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+
+  git submodule init
+  git config submodule.terraform/test-fixtures/v0.15.0_module/.terraform/modules/consul.url "${srcdir}/terraform-aws-consul"
+  git config submodule.integrationtest/inspection/with_module_init/.terraform/modules/remote.url "${srcdir}/terraform-aws-ec2-instance"
+  git -c protocol.file.allow=always submodule update
+
+  GOFLAGS="-mod=readonly" go mod vendor -v
+}
+
+build() {
+  cd "${pkgname}-${pkgver}"
+
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export CGO_LDFLAGS="${LDFLAGS}"
+  export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw"
+  export GOPATH="$srcdir"
+
+  local ld_flags=" \
+    -compressdwarf=false \
+    -linkmode=external \
+  "
+
+  go build -ldflags "$ld_flags" -v -o "./out/${pkgname}"
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+
+  export PATH="$(pwd)/out:$PATH"
+
+  go run ./plugin/stub-generator
+  go test ./...
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+
+  install --verbose -D --mode=0755 "out/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+}
