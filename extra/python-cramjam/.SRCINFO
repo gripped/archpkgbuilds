@@ -1,13 +1,15 @@
 pkgbase = python-cramjam
 	pkgdesc = Thin Python bindings to de/compression algorithms in Rust
-	pkgver = 2.8.3
-	pkgrel = 3
+	pkgver = 2.8.4
+	pkgrel = 1
 	url = https://github.com/milesgranger/cramjam
 	arch = x86_64
 	license = MIT
 	checkdepends = python-hypothesis
 	checkdepends = python-numpy
 	checkdepends = python-pytest
+	makedepends = cmake
+	makedepends = nasm
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-maturin
@@ -17,7 +19,7 @@ pkgbase = python-cramjam
 	depends = glibc
 	depends = python
 	options = !lto
-	source = python-cramjam-2.8.3.tar.gz::https://github.com/milesgranger/cramjam/archive/v2.8.3.tar.gz
-	sha256sums = 54c5d19876f63bc0955f919d9479145ca9f142f48a18db0cd560e590a6eca01a
+	source = python-cramjam-2.8.4.tar.gz::https://github.com/milesgranger/cramjam/archive/v2.8.4.tar.gz
+	sha256sums = b3f0667f0d065c55221c032dcfb6b910ff7a8e334cb93b03c8a44a426e6f2dc4
 
 pkgname = python-cramjam

@@ -3,8 +3,8 @@
 
 pkgname=python-cramjam
 _pkgname=${pkgname#python-}
-pkgver=2.8.3
-pkgrel=3
+pkgver=2.8.4
+pkgrel=1
 pkgdesc="Thin Python bindings to de/compression algorithms in Rust"
 arch=(x86_64)
 url="https://github.com/milesgranger/cramjam"
@@ -16,6 +16,8 @@ depends=(
   python
 )
 makedepends=(
+  cmake
+  nasm
   python-build
   python-installer
   python-maturin
@@ -28,18 +30,16 @@ checkdepends=(
 )
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('54c5d19876f63bc0955f919d9479145ca9f142f48a18db0cd560e590a6eca01a')
+sha256sums=('b3f0667f0d065c55221c032dcfb6b910ff7a8e334cb93b03c8a44a426e6f2dc4')
 
 build() {
-  cd "$_pkgname-$pkgver/cramjam-python"
-
+  cd "$_pkgname-$pkgver"
   export RUSTUP_TOOLCHAIN=stable
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_pkgname-$pkgver/cramjam-python"
-
+  cd "$_pkgname-$pkgver"
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   python -m installer --destdir=tmp_install dist/*.whl
   PYTHONPATH="$PWD/tmp_install/$site_packages" pytest \
@@ -48,7 +48,6 @@ check() {
 
 package() {
   cd "$_pkgname-$pkgver"
-
-  python -m installer --destdir="$pkgdir" cramjam-python/dist/*.whl
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
