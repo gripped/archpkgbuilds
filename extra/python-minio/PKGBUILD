@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-minio
-pkgver=7.2.8
+pkgver=7.2.9
 pkgrel=1
 pkgdesc='MinIO Python Library for Amazon S3 Compatible Cloud Storage'
 arch=('any')
@@ -28,7 +28,7 @@ checkdepends=(
   'python-pytest'
 )
 source=("$pkgname::git+$url.git#tag=$pkgver")
-b2sums=('d71f351c60bbf89e207d5f544aca4a290fe6659ae8d73b234b73e9a9897363aaf45d8b4c5b794e56fba87eeaba1fbf07f62ebc8ce6ad343af5cd123be790f813')
+b2sums=('6228c5e36b766d94e9feaafad0d94e3e1909bdfd09dd980896f2aca87797deb1a4ecd7e5ee8a1164b64e9f9c9c1284362c9b9268aecf5ab2538d87da63c48b44')
 
 prepare() {
   cd "$pkgname"
