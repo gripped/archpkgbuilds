@@ -2,17 +2,16 @@
 # Contributor: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
 pkgname=libuv
-pkgver=1.48.0
-pkgrel=2
+pkgver=1.49.0
+pkgrel=1
 pkgdesc="Multi-platform support library with a focus on asynchronous I/O"
 arch=('x86_64')
 url="https://github.com/libuv/libuv"
 license=('custom')
 depends=('glibc' 'libnsl')
 makedepends=('git' 'python-sphinx')
-#source=(https://dist.libuv.org/dist/v$pkgver/libuv-v$pkgver.tar.gz{,.sign})
 source=("git+https://github.com/libuv/libuv.git?signed#tag=v${pkgver}")
-sha512sums=('016401251c3490678593e92977005f6f4da16935f84fae0ed535d06fb19893b90ee59b57136d94f7c5893feed21c03000a5269218b209186f3a87cf8c34c5b9c')
+sha512sums=('22eb622ce4c2a74c835c81e57cee997717c34db5894413ceb47a6942dd1f26b93312dba9f48b90daae3c4085ede9da1751353e7b02abd7f4b1da25256dfe00db')
 # PGP key IDs are available from https://github.com/libuv/libuv/blob/v1.x/MAINTAINERS.md
 validpgpkeys=('57353E0DBDAAA7E839B66A1AFF47D5E4AD8B4FDC'  # Colin Ihrig (@cjihrig)
               '612F0EAD9401622379DF4402F28C3C8DA33C03BE'  # Santiago Gimeno
