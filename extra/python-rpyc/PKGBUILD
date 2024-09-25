@@ -2,8 +2,8 @@
 
 pkgname=python-rpyc
 _name=rpyc
-pkgver=6.0.0
-pkgrel=2
+pkgver=6.0.1
+pkgrel=1
 pkgdesc='Remote Python Call - A transparent and symmetric RPC library for python'
 url='https://github.com/tomerfiliba-org/rpyc'
 arch=('any')
@@ -19,8 +19,8 @@ makedepends=(
   'python-wheel'
 )
 source=(https://github.com/tomerfiliba-org/${_name}/archive/${pkgver}/${_name}-${pkgver}.tar.gz)
-sha256sums=('3492e83d7dd67011a9215612c13d92f52e96a0690fc7bbaea4b3ead1e9de5517')
-b2sums=('e55d008dc772be7fd4bae9065a5eabcf5612faf8131e8161e7921eeb84475183c677687ef8606c664003089ae714d4cb403ff6afa26d2695a8fe763d549aab0d')
+sha256sums=('8b73d5ae5bd055dc89635182f9625d4399e7f2dacebdbfce8bf2ad5ee590a00c')
+b2sums=('b90b8e3f16fc6c5ac481437f7b729f6bedf3f6504e3ace724b5fddccb5b42dc3354532925f3d4eaa4e1fd4fa632e649f10e562828f88585ac445a97747e53e49')
 
 build() {
   cd "${_name}-${pkgver}"
