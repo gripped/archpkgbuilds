@@ -4,8 +4,8 @@
 # Contributor: Lukas Jirkovsky <l.jirkovsky@gmail.com>
 
 pkgname=geeqie
-pkgver=2.4
-pkgrel=3
+pkgver=2.5
+pkgrel=1
 pkgdesc='Lightweight image viewer'
 arch=('x86_64')
 url="http://www.geeqie.org/"
@@ -14,7 +14,7 @@ license=('GPL-2.0-or-later')
 depends=('exiv2' 'gtk3' 'ffmpegthumbnailer' 'djvulibre' 'libheif' 'libchamplain'
          'poppler-glib' 'libarchive' 'libraw' 'lua' 'libjxl' 'gspell'
          'glib2' 'glibc' 'gcc-libs' 'lcms2' 'openjpeg2' 'clutter-gtk' 'clutter'
-         'gdk-pixbuf2' 'libtiff' 'cairo' 'pango' 'libjpeg-turbo'
+         'gdk-pixbuf2' 'libtiff' 'cairo' 'pango' 'libjpeg-turbo' 'libunwind'
          'sh' 'hicolor-icon-theme')
 makedepends=('evince'
              'fbida'
@@ -32,6 +32,7 @@ makedepends=('evince'
              # for the docs
              'doxygen' 'yelp-tools' 'graphviz'
              'pandoc-cli'
+             #'fop' - for pdf format but 'pdfoutline' is missing
 )
 checkdepends=('xorg-server-xvfb' 'shellcheck')
 optdepends=('librsvg: SVG rendering'
@@ -45,9 +46,9 @@ optdepends=('librsvg: SVG rendering'
 source=(#"http://www.geeqie.org/${pkgname}-${pkgver}.tar.xz"{,.asc}
         https://github.com/BestImageViewer/geeqie/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz{,.asc}
         Skip-failing-tests.patch)
-sha256sums=('f2b7d1290786fdd1afec09bbe0217f327ff1ee7c80363563e8a108d03aec77da'
+sha256sums=('cc991c9d4c78c58668105a15f7ece953bfc21b6b78cedc26ccbaaee6a12b8952'
             'SKIP'
-            '068adc807c17fadba0c7ff7f34f5647862d6562ebe8a22ac379fc2122230e823')
+            'cfb1ddc810006c26a28a2bc1e35116819e8f191644265c5027b5dfce532aaa2e')
 validpgpkeys=('91EC400226201276E2ADCEC7D0DA6F44C936D1DA') # "Colin Clark <colin.clark@cclark.uk>"
 
 # main repo: http://www.geeqie.org/cgi-bin/gitweb.cgi?p=geeqie.git
@@ -71,7 +72,10 @@ check() {
 
 package(){
   DESTDIR="$pkgdir" meson install -C build
+
   # add Changelog listed in help menu
-  install -m755 -d "${pkgdir}/usr/share/doc/${pkgname}"
   install -m644 $pkgname-$pkgver/ChangeLog.gqview "${pkgdir}/usr/share/doc/${pkgname}/ChangeLog"
+
+  # add missing html doc
+  cp -arv build/doc/html "${pkgdir}/usr/share/doc/${pkgname}/"
 }

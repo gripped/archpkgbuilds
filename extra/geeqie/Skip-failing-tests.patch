@@ -1,24 +1,16 @@
-From: =?utf-8?q?Andreas_R=C3=B6nnquist?= <gusnan@debian.org>
-Date: Sat, 16 Mar 2024 22:31:16 +0100
-Subject: Skip failing tests
-Forwarded: not-needed
-
----
- meson.build | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/meson.build b/meson.build
-index 294f9d5..84d2887 100644
---- a/meson.build
-+++ b/meson.build
-@@ -744,7 +744,7 @@ else
+--- geeqie-2.5/meson.build	2024-09-21 17:11:19.000000000 +0200
++++ geeqie-2.5/meson.build.new	2024-09-22 20:28:00.882740820 +0200
+@@ -845,10 +845,10 @@
  endif
  
  # Ancillary files test
 -test_ancillary_files_sh = find_program('test-ancillary-files.sh', dirs : scriptsdir, required : true)
--test('Ancillary files', test_ancillary_files_sh, args: [meson.current_source_dir()], timeout: 100)
-+# test_ancillary_files_sh = find_program('test-ancillary-files.sh', dirs : scriptsdir, required : true)
-+# test('Ancillary files', test_ancillary_files_sh, args: [meson.current_source_dir()], timeout: 100)
+-test('Ancillary files', test_ancillary_files_sh, args: [meson.current_source_dir()], timeout: 100, suite : 'analysis')
++#test_ancillary_files_sh = find_program('test-ancillary-files.sh', dirs : scriptsdir, required : true)
++#test('Ancillary files', test_ancillary_files_sh, args: [meson.current_source_dir()], timeout: 100, suite : 'analysis')
  
 -summary({'Ancillary files' : ['Test runs:', true]}, section : 'Testing', bool_yn : true)
-+# summary({'Ancillary files' : ['Test runs:', true]}, section : 'Testing', bool_yn : true)
++#summary({'Ancillary files' : ['Test runs:', true]}, section : 'Testing', bool_yn : true)
+ 
+ # Unit tests
+ if conf_data.get('ENABLE_UNIT_TESTS', 0) == 1
