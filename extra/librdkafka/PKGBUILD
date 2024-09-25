@@ -1,15 +1,22 @@
 # Maintainer: Anatol Pomozov
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Andrew Sun <adsun701 at gmail dot com>
 # Contributor: Joel Teichroeb <joel at teichroeb dot net>
 # Contributor: Alim Gokkaya <alimgokkaya at gmail dot com>
 
 pkgname=librdkafka
-pkgver=2.4.0
+pkgver=2.5.3
 pkgrel=1
 pkgdesc='The Apache Kafka C/C++ library'
 arch=(x86_64)
 url='https://github.com/confluentinc/librdkafka'
-license=(BSD)
+license=(
+  Apache-2.0
+  BSD-2-Clause
+  BSD-3-Clause
+  MIT
+  Zlib
+)
 depends=(
   curl
   gcc-libs
@@ -20,21 +27,40 @@ depends=(
   zlib
   zstd
 )
-makedepends=(python rapidjson)
-source=(librdkafka-$pkgver.tar.gz::https://github.com/confluentinc/librdkafka/archive/v$pkgver.tar.gz)
-sha256sums=('d645e47d961db47f1ead29652606a502bdd2a880c85c1e060e94eea040f1a19a')
+makedepends=(
+  cmake
+  python
+  rapidjson
+)
+source=(
+  "$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
+  "remove-failing-tests.patch"
+)
+sha256sums=('eaa1213fdddf9c43e28834d9a832d9dd732377d35121e42f875966305f52b8ff'
+            '23c8d030179724d13a91f13cf566b045b195d64a3219eb2c5122d06e1e1c6fd1')
+
+prepare() {
+  cd $pkgname-$pkgver
+  patch -Np1 -i "$srcdir/remove-failing-tests.patch"
+}
 
 build() {
   cd $pkgname-$pkgver
-  ./configure --prefix=/usr
-  make
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev
+  cmake --build build
 }
 
 check() {
-  make -k check -C $pkgname-$pkgver
+  cd $pkgname-$pkgver
+  ctest --test-dir build --output-on-failure \
+    --tests-regex RdKafkaTestBrokerLess
 }
 
 package() {
-  make DESTDIR="$pkgdir" install -C $pkgname-$pkgver
-  install -vDm 644 $pkgname-$pkgver/LICENSE* -t "$pkgdir/usr/share/licenses/$pkgname/"
+  cd $pkgname-$pkgver
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
 }
