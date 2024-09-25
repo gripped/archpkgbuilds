@@ -1,8 +1,9 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-pytest-bdd
-pkgver=7.2.0
-pkgrel=2
+pkgver=7.3.0
+pkgrel=1
 pkgdesc='BDD library for the pytest runner'
 arch=('any')
 license=('MIT')
@@ -24,29 +25,18 @@ makedepends=(
   'python-poetry-core'
 )
 checkdepends=('python-setuptools')
-source=(
-  "git+$url.git#tag=$pkgver"
-  # Fixes jrnl tests + pytest v8, see: https://github.com/jrnl-org/jrnl/issues/1879
-  # From PR: https://github.com/pytest-dev/pytest-bdd/pull/690
-  "fix-target-fixture-registration-post-pytest-8-1.patch::$url/commit/bc819bc17ed99331b7313c12f9535a23a3359ee4.patch"
-)
-sha512sums=('a6ed66fafc20967ae8609c95a56e98cacb6c30fcefc8b385952513f4e2f77cdc8a2ef87dc23b657fb8a8a7454ed3dee4cf0657a71e531f7f12184f6a55ccf4dc'
-            'e9e1aa988c9803020ea63f731fb5469bcdbc5499ae0acefd0dfbc3fd930a9737347d3325170d0f5f2a704455a383568daac2efb2f58cf9831700292e015b3ea5')
-
-prepare() {
-  cd pytest-bdd
-  patch -Np1 -i "$srcdir/fix-target-fixture-registration-post-pytest-8-1.patch"
-}
+source=("git+$url.git#tag=$pkgver")
+sha512sums=('d253556e6e823287d6e229ed677c0a366e044ea46e0b9e8c29448797e6da10c8f7820d4eee4cbd798db88017db305f4a2b9a60c534eb439917ef502ffbaac116')
 
 build() {
   cd pytest-bdd
-  python -m build -nw
+  python -m build --wheel --no-isolation
 }
 
 check() {
   cd pytest-bdd
   # Hack entry points by installing it
-  python -m installer -d tmp_install dist/*.whl
+  python -m installer --destdir=tmp_install dist/*.whl
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   PATH="$PWD/tmp_install/usr/bin:$PATH" PYTHONPATH="$PWD/tmp_install/$site_packages" \
     pytest --override-ini=addopts=
@@ -54,8 +44,8 @@ check() {
 
 package() {
   cd pytest-bdd
-  python -m installer -d "$pkgdir" dist/*.whl
-  install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
 }
 
 # vim:set ts=2 sw=2 et:
