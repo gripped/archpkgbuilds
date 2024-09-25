@@ -4,7 +4,7 @@
 
 pkgname=firefox
 pkgver=130.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast, Private & Safe Web Browser"
 url="https://www.mozilla.org/firefox/"
 arch=(x86_64)
@@ -45,7 +45,6 @@ makedepends=(
   clang
   diffutils
   imake
-  inetutils
   jack
   lld
   llvm
@@ -222,10 +221,6 @@ pref("extensions.autoDisableScopes", 11);
 
 // Enable GNOME Shell search provider
 pref("browser.gnome-search-provider.enabled", true);
-
-// Use our own captive portal detection
-pref("captivedetect.canonicalURL", "http://ping.archlinux.org/nm-check.txt");
-pref("captivedetect.canonicalContent", "NetworkManager is online\\n");
 END
 
   local distini="$pkgdir/usr/lib/$pkgname/distribution/distribution.ini"
