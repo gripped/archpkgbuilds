@@ -1,0 +1,65 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=solanum
+pkgver=5.0.0
+pkgrel=2
+pkgdesc='Pomodoro timer for the GNOME desktop'
+arch=(x86_64)
+url='https://apps.gnome.org/Solanum/'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  gcc-libs
+  glib2
+  glibc
+  gst-plugins-bad-libs
+  gst-plugins-base
+  gst-plugins-good
+  gstreamer
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+)
+makedepends=(
+  appstream
+  blueprint-compiler
+  git
+  meson
+  rust
+)
+source=(
+  "git+https://gitlab.gnome.org/World/Solanum.git?signed#tag=$pkgver"
+  solanum-appdata-path.patch
+)
+b2sums=(
+  af1bfef73c854cc0098244735bb773091e857a533237b1d99ec03efd93fcc5236e08f8c947ccabc0fe7d734bf3e47319df4635126eaad27e425f2d3621df6826
+  55c01c0f38f170f84cb223510b761370e7d98da2ea9bc6bce02430719033ec694c8524eea6a3de1d522ab29c81e2528f9ccc5f4a18b264a1ed1ef07015c27f8a
+)
+validpgpkeys=(173547C8EB86C22FF5B6EF790F974ABB3478DC48) # Christopher Davis (disroot.org) <brainblasted@disroot.org>
+
+prepare() {
+  cd Solanum
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/World/Solanum/-/merge_requests/84
+  git apply -3 ../solanum-appdata-path.patch
+}
+
+build() {
+  arch-meson Solanum build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+}
