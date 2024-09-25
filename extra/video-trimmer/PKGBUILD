@@ -1,0 +1,68 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=video-trimmer
+pkgver=0.8.2
+pkgrel=2
+pkgdesc='Cut out a fragment of a video quickly'
+arch=(x86_64)
+url='https://apps.gnome.org/VideoTrimmer/'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  ffmpeg
+  gcc-libs
+  glib2
+  glibc
+  gst-plugins-base
+  gst-plugins-good
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+)
+makedepends=(
+  appstream
+  blueprint-compiler
+  git
+  meson
+  rust
+)
+optdepends=(
+  'gst-libav: Extra media codecs'
+  'gst-plugins-bad: Extra media codecs'
+  'gst-plugins-ugly: Extra media codecs'
+)
+source=(
+  "git+https://gitlab.gnome.org/YaLTeR/video-trimmer.git#tag=v$pkgver"
+  video-trimmer-window-icon.patch
+)
+b2sums=(
+  3568265672d1d3f57b97a2bf7c0d0a06ff7da2835a1b7a4ca17c0c4c0c2651ec46ee9daad5afd20818aabd7a8d97d9118e94e115d081d2f1e6c402cfbefdd6e5
+  fda92a6abf3233603e2e1101f9902281aa0d90aaf06fc9f59882539b091c3bdbb7dc50ccc6d95f5f12d09767d7d3aca58cf683815f3f2a0b22f3c3f3dda3c790
+)
+
+prepare() {
+  cd $pkgname
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/YaLTeR/video-trimmer/-/merge_requests/26
+  git apply -3 ../video-trimmer-window-icon.patch
+}
+
+build() {
+  arch-meson $pkgname build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+}
