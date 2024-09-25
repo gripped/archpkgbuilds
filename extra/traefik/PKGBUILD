@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=traefik
-pkgver=3.1.2
+pkgver=3.1.4
 pkgrel=1
 pkgdesc="Modern reverse proxy written in Go"
 arch=('x86_64')
@@ -11,38 +11,38 @@ license=('MIT')
 makedepends=('go')
 depends=('glibc')
 source=(
-  "${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
+  "$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
   "traefik.service"
   "traefik.sysusers"
 )
 options=('!lto')
-sha512sums=('363d8c0f3c313c8bcbd517b172ac652e59dbdf329494d118815be7c02041363de5b3c35c143745083365c8419dcf1b90fa1357e44cebd37ed20e480ae007d805'
+sha512sums=('a304a05e2d92dc4f4b9154cb1b1b4f1d3eed480a21f3d019712348eff15235e17fd6af5c4cbd4cb20c7e904dbe06d199c0116969c5a91c20957ba41e1daca216'
             '25ab1113bb69936c443fe49d5d3da7d39171fc82e8fa06f46ed4e2dfcaa89685d50ca50b58c32215852d79e5c8d4736a287c15b75420c78a853c51502cb2641a'
             '5fecfed5df77bf28c2c976ebaebedb030904d41509e740821140a4889bda20327f416e78f8d19b0ee78c8bc422d1907ce05ef3562e4d3e36ddfbdbea5e860b2a')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd $pkgname-$pkgver
   GOFLAGS="-mod=readonly" go mod vendor -v
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd $pkgname-$pkgver
   export CGO_CPPFLAGS="$CPPFLAGS"
   export CGO_CFLAGS="$CFLAGS"
   export CGO_CXXFLAGS="$CXXFLAGS"
   export CGO_LDFLAGS="$LDFLAGS"
   export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw"
-  export GOPATH="${srcdir}"
+  export GOPATH="$srcdir"
   local ld_flags=" \
-    -X github.com/traefik/traefik/v3/pkg/version.Version=${pkgver} \
+    -X github.com/traefik/traefik/v3/pkg/version.Version=$pkgver \
     -compressdwarf=false  \
     -linkmode=external \
   "
-  go build -v -ldflags "${ld_flags}" ./cmd/traefik
+  go build -v -ldflags "$ld_flags" ./cmd/traefik
 }
 
 check() {
-  cd ${pkgname}-${pkgver}
+  cd $pkgname-$pkgver
   # Skip tests:
   # - v3/integration: requires a running Docker daemon.
   # - v3/pkg/server/service: seem to be flaky.
@@ -56,11 +56,11 @@ check() {
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  install -vDm755 -t "${pkgdir}/usr/bin" traefik
-  install -vDm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE.md
-  install -vDm644 -t "${pkgdir}/usr/lib/systemd/system" "${srcdir}/traefik.service"
-  install -vDm644 "${srcdir}/traefik.sysusers" "${pkgdir}/usr/lib/sysusers.d/traefik.conf"
+  cd $pkgname-$pkgver
+  install -vDm755 -t "$pkgdir/usr/bin" traefik
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.md
+  install -vDm644 -t "$pkgdir/usr/lib/systemd/system" "$srcdir/traefik.service"
+  install -vDm644 "$srcdir/traefik.sysusers" "$pkgdir/usr/lib/sysusers.d/traefik.conf"
   # Create empty acme.json file, otherwise the service file will fail.
-  install -vDm644 /dev/null "${pkgdir}/etc/traefik/acme.json"
+  install -vDm644 /dev/null "$pkgdir/etc/traefik/acme.json"
 }
