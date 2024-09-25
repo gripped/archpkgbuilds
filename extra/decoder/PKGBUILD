@@ -1,0 +1,67 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=decoder
+pkgver=0.6.0
+pkgrel=2
+pkgdesc='QR code scanner and generator'
+arch=(x86_64)
+url='https://apps.gnome.org/Decoder/'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  gcc-libs
+  glib2
+  glibc
+  graphene
+  gst-plugins-bad-libs
+  gst-plugins-base
+  gst-plugins-base-libs
+  gst-plugins-good
+  gstreamer
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  zbar
+)
+makedepends=(
+  appstream
+  git
+  meson
+  rust
+)
+options=(!lto)
+source=(
+  "git+https://gitlab.gnome.org/World/decoder.git#tag=$pkgver"
+  decoder-window-icon.patch
+)
+b2sums=(
+  eeed609d516f6b994042cd30bf8fe4cb7ce7045ca446317c220e3b61611d7432362c3b7a361cd8f67554611181f63caf9523b24768472ded486b79416540cd3d
+  e3b7709d19fb052aea8894e9d35934b9a0faaee9398bab2aca398149069c05ef0b19996b2f7a49aa859f9ea880a467f7760023fc24d5a6e3648aa0feab2f99f6
+)
+
+prepare() {
+  cd $pkgname
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/World/decoder/-/merge_requests/126
+  git apply -3 ../decoder-window-icon.patch
+}
+
+build() {
+  arch-meson $pkgname build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+}

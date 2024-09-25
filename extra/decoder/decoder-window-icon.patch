@@ -1,0 +1,26 @@
+From 94b0114b8e6c569a6d77d62dede45563a54847b2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 25 Sep 2024 17:58:54 +0000
+Subject: [PATCH] application: Set default window icon
+
+This is commonly used by desktop environments on Xorg.
+---
+ src/application.rs | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/application.rs b/src/application.rs
+index 88ece14..a67f069 100644
+--- a/src/application.rs
++++ b/src/application.rs
+@@ -27,6 +27,8 @@ mod imp {
+ 
+             aperture::init(config::APP_ID);
+ 
++            gtk::Window::set_default_icon_name(config::APP_ID);
++
+             let actions = [
+                 gio::ActionEntryBuilder::new("quit")
+                     .activate(|app: &super::Application, _, _| app.quit())
+-- 
+GitLab
+
