@@ -1,22 +1,27 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-epub-thumbnailer
-pkgver=1.7
-pkgrel=2
+pkgver=1.8
+pkgrel=1
 pkgdesc="Thumbnailer for EPub and MOBI books"
 url="https://gitlab.gnome.org/GNOME/gnome-epub-thumbnailer"
-license=(GPL)
+license=(GPL-2.0-or-later)
 arch=(x86_64)
-depends=(gdk-pixbuf2 librsvg libarchive libxml2)
-makedepends=(git meson)
-_commit=24829a20630ee5a004f00b5fdd3b6830f593503f  # tags/1.7^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-epub-thumbnailer.git#commit=$_commit")
-sha256sums=('SKIP')
- 
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+depends=(
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  libarchive
+  librsvg
+  libxml2
+)
+makedepends=(
+  git
+  meson
+)
+source=("git+https://gitlab.gnome.org/GNOME/gnome-epub-thumbnailer.git#tag=$pkgver")
+b2sums=('4273a9d198549abc4a9dddd6a939574dc4eaf2420121e980ef667832d2a866746baf6c8a1ce1fd2a11ed882918804e30806668893ddd732f1d7b3c54418b53be')
 
 prepare() {
   cd $pkgname
