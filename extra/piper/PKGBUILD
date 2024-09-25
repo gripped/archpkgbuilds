@@ -2,20 +2,21 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=piper
-pkgver=0.7
-pkgrel=3
+pkgver=0.8
+pkgrel=1
 pkgdesc='GTK application to configure gaming mice'
 arch=('any')
 url='https://github.com/libratbag/piper'
 license=('GPL-2.0-only')
-depends=('python' 'python-gobject' 'libratbag' 'python-evdev' 'python-lxml' 'python-cairo')
+depends=('desktop-file-utils' 'gtk-update-icon-cache' 'python' 'python-gobject' 'libratbag' 'python-evdev' 'python-lxml' 'python-cairo')
 makedepends=('git' 'meson' 'flake8' 'appstream')
 validpgpkeys=('3DCE51D60930EBA47858BA4146F633CBB0EB4BF2'  # Filipe Laíns (FFY00) <lains@archlinux.org>
               '3C2C43D9447D5938EF4551EBE23B7E70B467F0BF'  # Peter Hutterer (Who-T) <office@who-t.net>
               '2F2670AC164DB36F'                          # Benjamin Tissoires <benjamin.tissoires@gmail.com>
-              'BB45B0B3FF561BDBD45EE8A9B35B49EA5D563EFE') # stephanlachnit@protonmail.com <stephanlachnit@protonmail.com>
+              'BB45B0B3FF561BDBD45EE8A9B35B49EA5D563EFE'  # stephanlachnit@protonmail.com <stephanlachnit@protonmail.com>
+              '4F60BCD32573AB28D84FD0C4CCF75EB2BBF8F69C') # Yaroslav Chvanov <yaroslav.chvanov@gmail.com>
 source=("git+$url#tag=$pkgver?signed")
-sha256sums=('ec031b6c440c1308cafd8d2d2756a1e9550ce65ae66464f1c8d2d8c62b250084')
+sha256sums=('56d20003503c62ad6d879b316d40cc31e5be8c6f2e650d64b7e0f44bde63c242')
 
 prepare() {
   cd $pkgname
