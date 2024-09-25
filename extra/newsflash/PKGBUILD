@@ -3,8 +3,8 @@
 # Contributor: Felix Bühler <account at buehler dot rocks>
 
 pkgname=newsflash
-pkgver=3.3.4
-pkgrel=2
+pkgver=3.3.5
+pkgrel=1
 pkgdesc='Feed reader application designed to complement an already existing web-based RSS reader account'
 arch=(x86_64)
 url='https://apps.gnome.org/NewsFlash/'
@@ -35,10 +35,8 @@ source=(
   "git+https://gitlab.com/news-flash/news_flash_gtk.git#tag=v.$pkgver"
   newsflash-audio-playback.patch
 )
-b2sums=(
-  9bccd80fa27eedb8b70f470207dbb733233f75c2e1a98a333e37e1fec24c003dad98ba6af232ab245389d22da5f3f7c593e5b45acaaff3438f431ba9f90548b6
-  1cdbaff9c06b7b90289b70906b878d89da53777b4936b0e2825982d5e1ab80c72ab87bd72657dffbb1a1195cf168075a437e0ca55fcab918c5e7b2913596899a
-)
+b2sums=('d38010f3328db2f5a722c1cf064160a14a01b0205a385dc318267645123f0841266106b73ae5757ea12b7519832d9b82a5d9a049534b6482f74ba0a5eb165e7f'
+        '1cdbaff9c06b7b90289b70906b878d89da53777b4936b0e2825982d5e1ab80c72ab87bd72657dffbb1a1195cf168075a437e0ca55fcab918c5e7b2913596899a')
 
 prepare() {
   cd news_flash_gtk
@@ -46,6 +44,9 @@ prepare() {
 
   # https://gitlab.com/news-flash/news_flash_gtk/-/merge_requests/234
   git apply -3 ../newsflash-audio-playback.patch
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
@@ -53,18 +54,16 @@ build() {
   # DO NOT CHANGE
   export PASSWORD_CRYPT_KEY="ypsSXCLhJngks9qGUAqShd8JjRaZ824wT3e"
 
-  # Use LTO
-  export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
-
-  # Use debug
-  export CARGO_PROFILE_RELEASE_DEBUG=2
-
   arch-meson news_flash_gtk build
-  meson compile -C build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    meson compile -C build
 }
 
 check() {
-  meson test -C build --print-errorlogs
+  meson test -C build --print-errorlogs --no-rebuild
 }
 
 package() {
