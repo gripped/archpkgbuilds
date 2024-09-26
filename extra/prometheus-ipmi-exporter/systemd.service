@@ -1,15 +1,20 @@
 [Unit]
 Description=Prometheus exporter for IPMI metrics
 Documentation=https://github.com/prometheus-community/ipmi_exporter
-Requires=network-online.service
-After=network-online.service
+After=network.target network-online.target basic.target
+Wants=network-online.target
+StartLimitIntervalSec=30
+StartLimitBurst=3
 
 [Service]
-ExecStart=/usr/bin/prometheus-ipmi-exporter --config.file=/etc/prometheus/ipmi-exporter.yml
+EnvironmentFile=-/etc/prometheus/ipmi-exporter.env
+ExecStart=/usr/bin/prometheus-ipmi-exporter --config.file=/etc/prometheus/ipmi-exporter.yml $OPTIONS
 User=prometheus-ipmi-exporter
 Group=prometheus-ipmi-exporter
-Restart=always
+Type=simple
+Restart=on-failure
+RestartSec=30
+PrivateTmp=yes
 
 [Install]
 WantedBy=multi-user.target
-
