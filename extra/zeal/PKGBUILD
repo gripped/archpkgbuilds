@@ -4,7 +4,7 @@
 # Contributor: Thomas Weißschuh <thomas t-8ch de>
 
 pkgname=zeal
-pkgver=0.7.1
+pkgver=0.7.2
 pkgrel=1
 pkgdesc='Offline API documentation browser'
 arch=('x86_64')
@@ -29,8 +29,8 @@ makedepends=(
   'git'
 )
 source=("$pkgname::git+https://github.com/zealdocs/zeal#tag=v$pkgver")
-sha512sums=('a97653fa7609b055c5221cd0138307f7f2b94367b795ebca155cae6cbe664318628c0b8e078cf84a5b738927c44c7f072d2f3b3ae18423da5d1675c6b1bf882b')
-b2sums=('b512ec98ba2fdd0ce2e42d2f0e572ef6b42ff0abebb3eb3556eddf5cdc712da975d91ae9cde29c2466134a07e50171b384139102ef35f4f44ef9cee6234d0284')
+sha512sums=('1499d9f48163eaf9fc90eebfd62968035d083dc7b5ce1111d10a793b8fbe51d60fadef2f2d149a36f1a6be544a08053386d18951f80f0d04ab29f070e6012c68')
+b2sums=('e3570252d30ef21250a1755ff4e5a31a2b49f41b36e98c6ae80f2d8c75d5d4ebc9e4a7a878aef17a01587e9b7e7e15edd0087a0ccd48545b5823305742e497ff')
 
 build() {
   cmake \
