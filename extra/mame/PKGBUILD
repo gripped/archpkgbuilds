@@ -6,14 +6,14 @@
 pkgbase=mame
 pkgname=(mame
          mame-tools)
-pkgver=0.269
+pkgver=0.270
 pkgrel=1
 pkgdesc='Port of the popular Multiple Arcade Machine Emulator using SDL with OpenGL support'
 url='https://mamedev.org/'
 license=(BSD-2-Clause
          BSD-3-Clause
          BSL-1.0
-         CC0
+         CC0-1.0
          GPL-2.0-only
          LGPL-2.1-only
          MIT
@@ -40,7 +40,7 @@ source=(git+https://github.com/mamedev/mame#tag=mame${pkgver/./}?signed
         mame.desktop
         mame.sh
         mame.svg)
-sha256sums=('ba352c091ef225d781e923e731f9187f0cf9338b2dc160c791412791e3affeb2'
+sha256sums=('0211000f72b4f1fc24a7312d38fe684d5b47c8425c7cbf4a5a17c71bda2f948b'
             '0e5e93f84673c2d17a1bf7a6b256cfa54ef89a086a828df19bc054c12776d821'
             'ee1c59bafc5e5441e99fa4c58108a3e18048e60672f34de865c8a5a976094dba'
             '17c442c933d764175e4ce1de50a80c0c2ddd5d733caf09c3cd5e6ba697ac43f4')
@@ -112,7 +112,7 @@ package_mame() {
   install -Dm644 src/osd/modules/opengl/shader/glsl*.*h -t "$pkgdir"/usr/lib/$pkgname/shader/
   cp -ar {artwork,bgfx,plugins,language,ctrlr,keymaps,hash} "$pkgdir"/usr/lib/$pkgname/
 
-  # Include the license
+  # Install the license
   install -Dm644 docs/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 
   # FS#28203
@@ -139,7 +139,8 @@ package_mame-tools() {
            glibc
            libutf8proc
            sdl2
-           zlib)
+           zlib
+           zstd)
 
   cd mame
   for _i in castool \
@@ -163,4 +164,7 @@ package_mame-tools() {
   mv "$pkgdir"/usr/bin/{,mame-}split # Fix conflicts
 
   install -Dm644 docs/man/*.1* -t "$pkgdir"/usr/share/man/man1/
+
+  # Install the license
+  install -Dm644 docs/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
