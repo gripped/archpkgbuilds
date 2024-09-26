@@ -11,16 +11,16 @@ for _coll in ${_collections[@]}; do
 done
 _rev=70897
 pkgver=2024.2
-pkgrel=2
+pkgrel=3
 pkgdesc='TeX Live - '
 license=(GPL)
 arch=(any)
 depends=(texlive-bin)
 makedepends=(subversion)
 url='https://tug.org/texlive/'
-source=(texmf-dist-$pkgver::svn://tug.org/texlive/tags/texlive-$pkgver/Master/texmf-dist#revision=$_rev
-        tlpkg-$pkgver::svn://tug.org/texlive/tags/texlive-$pkgver/Master/tlpkg#revision=$_rev
-        x86_64-linux-$pkgver::svn://tug.org/texlive/tags/texlive-$pkgver/Master/bin/x86_64-linux#revision=$_rev
+source=(svn://tug.org/texlive/tags/texlive-$pkgver/Master/texmf-dist#revision=$_rev
+        svn://tug.org/texlive/tags/texlive-$pkgver/Master/tlpkg#revision=$_rev
+        svn://tug.org/texlive/tags/texlive-$pkgver/Master/bin/x86_64-linux#revision=$_rev
         09-texlive-fonts.conf
         texmf.cnf.patch
         texmfcnf.lua.patch
@@ -32,7 +32,8 @@ source=(texmf-dist-$pkgver::svn://tug.org/texlive/tags/texlive-$pkgver/Master/te
         73-texlive-updmap.hook
         texlive-updmap.script
         80-mtxrun.hook
-        mtxrun.script)
+        mtxrun.script
+        https://github.com/rrthomas/pdfjam/commit/f9b86dcf.patch)
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
@@ -47,13 +48,13 @@ sha256sums=('SKIP'
             '2141c0842668fb937fd21ca2fae39b642c9665656e404a0d4ee7bdc477bf51fe'
             'ee6e76192a5ad880a2152cd7900b86c8465239fb228045a2f8360b0d7a449f4a'
             'f6bb67db32d37ca15eba88bd15d8b9882c61915f98bc8d7c3c21a66c8cf8f019'
-            '98b730e917281227e29077ba5689ad78baee0af3859b55966b2604c6a85f1305')
+            '98b730e917281227e29077ba5689ad78baee0af3859b55966b2604c6a85f1305'
+            '5f027b8a2492d89a04c2083c0628ff2305b2646412a1e7bdf79a498b98d08d6a')
 options=(!strip) # Nothing to strip, save packaging time
 
 prepare() {
-  mv texmf-dist-$pkgver texmf-dist
-  mv tlpkg-$pkgver tlpkg
-  mv x86_64-linux-$pkgver x86_64-linux
+# Fix --paper option in pdfjam
+  patch -d texmf-dist/scripts/pdfjam -p2 < f9b86dcf.patch
 
 # Customize configuration
   patch -d texmf-dist/web2c -p0 < texmf.cnf.patch
@@ -249,6 +250,9 @@ _package() {
   # install pacman hooks
     install -Dm644 80-mtxrun.hook -t "$pkgdir"/usr/share/libalpm/hooks/
     install -Dm755 mtxrun.script "$pkgdir"/usr/share/libalpm/scripts/mtxrun
+
+  # set executable bit
+    chmod +x "$pkgdir"/usr/share/texmf-dist/scripts/context/lua/context.lua
     chmod +x "$pkgdir"/usr/share/texmf-dist/scripts/context/lua/mtxrun.lua
   fi
 
