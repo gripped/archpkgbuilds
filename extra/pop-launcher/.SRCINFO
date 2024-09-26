@@ -1,11 +1,12 @@
 pkgbase = pop-launcher
 	pkgdesc = Modular IPC-based desktop launcher service
-	pkgver = 1.2.1.r65.c994240
+	pkgver = 1.2.1.r66.6a1b8b9
 	pkgrel = 1
 	url = https://github.com/pop-os/launcher
 	arch = x86_64
 	license = MPL-2.0
 	makedepends = cargo
+	makedepends = clang
 	makedepends = git
 	makedepends = just
 	makedepends = lld
@@ -19,10 +20,7 @@ pkgbase = pop-launcher
 	depends = pop-icon-theme
 	depends = sh
 	depends = xdg-utils
-	options = !lto
-	source = git+https://github.com/pop-os/launcher.git#commit=c994240676e8fe20aaf631f657545e456725d924
-	source = pop-launcher-symlinks.patch
-	b2sums = fa8cf60eeca70fa574737d7c0d1e7a5e93dce2ec8702c946ebc0c5c9de02e47e3137962fea7ca3edca849bedb21a14ea21f22b1a09d388787a1cf7f07ecfd69d
-	b2sums = a4d39a4116df864556a960faeaf6f9c1a9847fdc4a9c32b051bc3e8dfbfb6114b9d6e47666900df17f4bbdd23434069afddd52556e68c206c9590f08d013536d
+	source = git+https://github.com/pop-os/launcher.git#commit=6a1b8b9ad0563693136872809dac2a30fb7d633f
+	b2sums = 90cc013c2621cb26022efd9bdf68894df3481f5f3dadbeac356223cffbc525df96050802f8363d85fb760cab2ed88a4bc98d539749fd3ba80be9cbe428ebd372
 
 pkgname = pop-launcher
