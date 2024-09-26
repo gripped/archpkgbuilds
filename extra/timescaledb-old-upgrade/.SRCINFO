@@ -1,19 +1,19 @@
 pkgbase = timescaledb-old-upgrade
 	pkgdesc = TimescaleDB build for migrating between major versions of PostgreSQL
-	pkgver = 2.15.1
+	pkgver = 2.16.1
 	pkgrel = 1
 	url = https://www.timescale.com/
 	arch = x86_64
-	license = Apache
+	license = Apache-2.0
 	license = custom:Timescale
 	makedepends = gcc
 	makedepends = cmake
 	makedepends = git
 	depends = postgresql-old-upgrade<16
 	depends = postgresql-old-upgrade>=15
-	depends = timescaledb=2.15.1
-	source = timescaledb::git+https://github.com/timescale/timescaledb#commit=6a8b31f866308362b76287da47473a13d279d4a6
-	sha512sums = eb46490565c43d1edeaa1bfb72535d6fd2067c68888a3c2feb9379e9435ccef6b620c58bb356200d099c002daab0419964ecb096ce60530b1df1e3405812db0b
-	b2sums = 12b9068bff6f37f55ba6253550d666285a653c4db1ee7351c8b0d7cae2cdd4c5c9d5c758a41af690942caed5830c602a01d11ac88f23a421e221e2ca31fab1ef
+	depends = timescaledb=2.16.1
+	source = timescaledb::git+https://github.com/timescale/timescaledb#commit=7c78574c4d42ec7ceb840bd9d55652182221f251
+	sha512sums = bb93dfe99b8f200d13745e7ac58f76a3393b68ff6cef3168b13de81f6000454f16babe83d14d5466bf8369c6de41b9081dc43c4671a622278fc0fc65b75d45b5
+	b2sums = 9243bda4d403e94554f94ba6bc3a5c298dc49b6d0ddc1305edcfcce66d7c4d1ca5ebf59fb1576271c47f9e972007b4cc99e9ae7b9854c25a85b84105d358d8d3
 
 pkgname = timescaledb-old-upgrade

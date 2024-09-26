@@ -6,18 +6,19 @@ _current_pg_version=16
 _old_pg_version=$(( _current_pg_version - 1 ))
 # limit to last 5 releases
 declare -gA _commits=(
-  [2.14.0]=5ede370059550c9d11d3171950767ba11ebd3797
-  [2.14.1]=39616e838b1c540a7ed83b5243a980a9c21a4333
-  [2.14.2]=8f27a70d054fc80c4bbc722d8df4b6b305a7e93d
   [2.15.0]=19f731d174820dfc0f33e073235c99368b3ad98c
   [2.15.1]=6a8b31f866308362b76287da47473a13d279d4a6
+  [2.15.2]=903847e4d69938b8bed8d1d13cb84053e243e262
+  [2.15.3]=777f7266e16ae0f3bc2ac5f4ec9d420b5d2ea110
+  [2.16.0]=4fd2a878df1dbb807a9e99d01cf5614ebddc02b4
+  [2.16.1]=7c78574c4d42ec7ceb840bd9d55652182221f251
 )
-pkgver=2.15.1
+pkgver=2.16.1
 pkgrel=1
 pkgdesc='TimescaleDB build for migrating between major versions of PostgreSQL'
 arch=('x86_64')
 url='https://www.timescale.com/'
-license=('Apache' 'custom:Timescale')
+license=('Apache-2.0' 'custom:Timescale')
 depends=(
   "postgresql-old-upgrade<$_current_pg_version"
   "postgresql-old-upgrade>=$_old_pg_version"
@@ -25,8 +26,8 @@ depends=(
 )
 makedepends=('gcc' 'cmake' 'git')
 source=("$_pkgname::git+https://github.com/timescale/timescaledb#commit=${_commits[$pkgver]}")
-sha512sums=('eb46490565c43d1edeaa1bfb72535d6fd2067c68888a3c2feb9379e9435ccef6b620c58bb356200d099c002daab0419964ecb096ce60530b1df1e3405812db0b')
-b2sums=('12b9068bff6f37f55ba6253550d666285a653c4db1ee7351c8b0d7cae2cdd4c5c9d5c758a41af690942caed5830c602a01d11ac88f23a421e221e2ca31fab1ef')
+sha512sums=('bb93dfe99b8f200d13745e7ac58f76a3393b68ff6cef3168b13de81f6000454f16babe83d14d5466bf8369c6de41b9081dc43c4671a622278fc0fc65b75d45b5')
+b2sums=('9243bda4d403e94554f94ba6bc3a5c298dc49b6d0ddc1305edcfcce66d7c4d1ca5ebf59fb1576271c47f9e972007b4cc99e9ae7b9854c25a85b84105d358d8d3')
 
 prepare() {
   mkdir -p build
