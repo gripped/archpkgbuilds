@@ -5,13 +5,13 @@
 
 pkgname=zathura-ps
 pkgver=0.2.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Adds ps support to zathura by using the libspectre library"
 url="https://pwmt.org/projects/zathura-ps"
 arch=('x86_64')
 license=('Zlib')
-depends=('libspectre' 'zathura' 'desktop-file-utils' 'appstream-glib')
-makedepends=('meson' 'ninja')
+depends=('libspectre' 'zathura' 'desktop-file-utils')
+makedepends=('meson' 'ninja' 'appstream-glib')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pwmt/${pkgname}/archive/refs/tags/${pkgver}.tar.gz")
 sha512sums=('73e230a089e40f660cbf9f478a3269bcc799d5e591fd1fe095e9ce3ec4fd4f331757a7ec74cb3ef5b3b3ffc66ba15e6f11d6e3fc619973219cb67e25a504875b')
 
