@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-session
-pkgver=1.0.0.alpha.1
+pkgver=1.0.0.alpha.2
 pkgrel=1
 pkgdesc='Session manager for the COSMIC desktop environment'
 arch=(x86_64)
@@ -31,6 +31,7 @@ depends=(
   otf-fira-mono
   otf-fira-sans
   switcheroo-control
+  vulkan-driver
   xdg-desktop-portal-cosmic
   xorg-xwayland
 )
@@ -47,12 +48,17 @@ optdepends=(
   'cosmic-text-editor: COSMIC text editor'
   'cosmic-wallpapers: COSMIC wallpapers'
 )
-_tag=c3de3d24dd200d5f8a19a26de56590472f461574
-source=(git+https://github.com/pop-os/cosmic-session.git#tag=${_tag})
-b2sums=('dcede987cc4e8529d32ae3b7b7b17a6f43633bde1691cbdb3f0c9fb260f9e5ffb3d3241bb0b57791f0486fbcefff694b0703d55a789bb99042975fbd88c5cd24')
+_tag=d06f94a8a01c47b01e0b490c98e0f6d7242ceadd
+source=(
+  git+https://github.com/pop-os/cosmic-session.git#tag=${_tag}
+  cosmic-session-lto.patch
+)
+b2sums=('a3075cd805dacceafa0aebfa24f7e3d3621713f7a2a7674133165582459ecef20c7ba0d2c618ed27e8eff8bbd126c3072f7da8d7192322992169330014f7ed3e'
+        '9265d8218817b047b9d645b78abd1ad8e9cc30ae2c84a041058c2457b631bb9d4b4068144c019536cadfea6aa301ec72166a4bf4029305c1f6e67f05bed99882')
 
 prepare() {
   cd cosmic-session
+  patch -Np1 -i ../cosmic-session-lto.patch
   cargo fetch --locked
   sed -i 's/libexec/lib/g' Justfile src/main.rs
 }
