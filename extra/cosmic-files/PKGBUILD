@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-files
-pkgver=1.0.0.alpha.1
+pkgver=1.0.0.alpha.2
 pkgrel=1
 pkgdesc='File manager for the COSMIC desktop environment'
 arch=(x86_64)
@@ -19,16 +19,22 @@ depends=(
 )
 makedepends=(
   cargo
+  clang
   git
   just
   lld
 )
-_tag=190029aa27d08a26877e73db2dda789de3e6595f
-source=(git+https://github.com/pop-os/cosmic-files.git#tag=${_tag})
-b2sums=('294e63292397c88961704bfade498c66eb374238c7e183d321607bb3b79845c146cbc5b26ef4bd4a975a72467bd274c4a31fc467de185a8f06c5233d8ae6a824')
+_tag=774ccf955f59f24cf9493f9249d20788ad394d48
+source=(
+  git+https://github.com/pop-os/cosmic-files.git#tag=${_tag}
+  cosmic-files-lto.patch
+)
+b2sums=('aa6c6ab7401786825945422240f79d9db751593d8f989fdb51f0f3b223921b6f825b183f22dd487109d1903b4943818dc05dbf6832d62f1c96ff1951c26bc4f2'
+        '105231f886affb3274d18bbe95d0fc27ba33cb557245ca567caccc9b0f5fbae0b7d92a81c0b2784130659e81b73e374ac735f8ad9b06adad18b4e4fd227164b5')
 
 prepare() {
   cd cosmic-files
+  patch -Np1 -i ../cosmic-files-lto.patch
   cargo fetch --locked
 }
 
@@ -40,7 +46,7 @@ pkgver() {
 build() {
   cd cosmic-files
   RUSTFLAGS+=" -C link-arg=-fuse-ld=lld"
-  just build-release --frozen
+  CC=clang just build-release --frozen
 }
 
 package() {
