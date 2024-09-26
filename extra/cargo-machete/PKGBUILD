@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=cargo-machete
-pkgver=0.6.2
+pkgver=0.7.0
 pkgrel=1
 pkgdesc="Remove unused Rust dependencies"
 arch=('x86_64')
@@ -9,7 +9,7 @@ url="https://github.com/bnjbvr/cargo-machete"
 license=('MIT')
 depends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('21e22ec9d107fb14ae3ab76dc3c5ee0b233aa6f16a0946ee295b0bb5a712fffd')
+sha256sums=('c28ef211a06978175c7d870d6fb0e4b1ef7eb719286707a89c9e81d70b82ec0f')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -21,9 +21,10 @@ build() {
   cargo build --release --frozen
 }
 
+# https://github.com/bnjbvr/cargo-machete/issues/140
 check() {
- cd "$pkgname-$pkgver"
- cargo test --release --locked
+  cd "$pkgname-$pkgver"
+  cargo test --release --locked -- --skip "test_ignore_target"
 }
 
 package() {
