@@ -1,20 +1,23 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=rebels-in-the-sky
-pkgver=1.0.16
-pkgrel=2
+pkgver=1.0.17
+pkgrel=1
 pkgdesc="P2P terminal game about spacepirates playing basketball across the galaxy"
 url="https://github.com/ricott1/rebels-in-the-sky"
 depends=('gcc-libs' 'alsa-lib')
 makedepends=('cargo')
 arch=('x86_64')
 license=('GPL-3.0')
-source=("${pkgname}-${pkgver}.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('53f8d9503d7208ca26119d03258812d0cda3499a1f962e7552af0feb34e79a08ab536355dfadbc8c8490d59340ddbe5f57881e4e2f7db7d39e15a81387e79718')
+source=("${pkgname}-${pkgver}.tar.gz::$url/archive/v$pkgver.tar.gz"
+  "${pkgname}-${pkgver}-lockfile.patch::https://github.com/ricott1/rebels-in-the-sky/commit/175a0e1db7cf62dcc6708545ee2a3e7f3e69654e.patch")
+sha512sums=('16d2e86c89845fd7394ffceace07c4fef91c9f0c87cfe4856bc408fc664fe385fd08a8c3f9a8cdf3adb63eb4ca89119442663901b40fa3e76d4eb5e7f84cf4c5'
+            '811a5dede09053939c51dc786845d4b08f28a7fac9700053a907739a50b31f429fb4962557c5d2706e294c42b9d49b6943b74e1311119b07a72c27b977e10981')
 options=('!lto')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
+  patch -Np1 -i "../${pkgname}-${pkgver}-lockfile.patch"
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
