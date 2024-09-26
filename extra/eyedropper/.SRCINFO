@@ -1,0 +1,27 @@
+pkgbase = eyedropper
+	pkgdesc = Color picker and formatter
+	pkgver = 2.0.1
+	pkgrel = 2
+	url = https://apps.gnome.org/Eyedropper/
+	arch = x86_64
+	license = GPL-3.0-or-later
+	makedepends = appstream
+	makedepends = blueprint-compiler
+	makedepends = git
+	makedepends = meson
+	makedepends = rust
+	depends = dconf
+	depends = gcc-libs
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
+	depends = graphene
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita
+	source = git+https://github.com/FineFindus/eyedropper.git#tag=v2.0.1
+	source = eyedropper-random-color-button.patch
+	b2sums = 1ab7a7dfd9167bf9af4449ae2332628b29d3f5259c4b19638d7ab0751ea171a3cc628088c5c43ca2ba7587f842704403d66f72a277c5bcd4adf719f5e4a539cc
+	b2sums = ea285170ea0019da39148396176843eef88c327c9f1e3216afa33b9d3ad0b49758812ee84cec9238c2c0de90303891dde7501cfb8916ee86f1d86f5fa625d7ff
+
+pkgname = eyedropper

@@ -1,0 +1,62 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=eyedropper
+pkgver=2.0.1
+pkgrel=2
+pkgdesc='Color picker and formatter'
+arch=(x86_64)
+url='https://apps.gnome.org/Eyedropper/'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  graphene
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+)
+makedepends=(
+  appstream
+  blueprint-compiler
+  git
+  meson
+  rust
+)
+source=(
+  "git+https://github.com/FineFindus/eyedropper.git#tag=v$pkgver"
+  eyedropper-random-color-button.patch
+)
+b2sums=(
+  1ab7a7dfd9167bf9af4449ae2332628b29d3f5259c4b19638d7ab0751ea171a3cc628088c5c43ca2ba7587f842704403d66f72a277c5bcd4adf719f5e4a539cc
+  ea285170ea0019da39148396176843eef88c327c9f1e3216afa33b9d3ad0b49758812ee84cec9238c2c0de90303891dde7501cfb8916ee86f1d86f5fa625d7ff
+)
+
+prepare() {
+  cd $pkgname
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://github.com/FineFindus/eyedropper/pull/162
+  git apply -3 ../eyedropper-random-color-button.patch
+}
+
+build() {
+  arch-meson $pkgname build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+}
