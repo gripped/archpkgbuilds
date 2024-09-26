@@ -3,7 +3,7 @@
 # Contributor: Maxim Baz <archlinux at maximbaz dot com>
 
 pkgname=bash-language-server
-pkgver=5.4.0
+pkgver=5.4.2
 pkgrel=1
 pkgdesc='Bash language server implementation based on Tree Sitter and its grammar for Bash'
 arch=(any)
@@ -23,7 +23,7 @@ optdepends=(
 )
 options=('!emptydirs')
 source=("git+$url.git#tag=server-$pkgver")
-b2sums=('1f9d1bfb2f57087ef9cebd8cfebf6dfda7b3617adb1980b7d1b262a049a4265c3645dd95321cdd5112823b8cad30fe42ccdd02ebb78a5528a2ae2192d8b7b8dc')
+b2sums=('e69fa3db477fb8b95e2d5eb8c6c947099ca6c4763b134cd6f2fa2cd88a247b5f6738e7a53dc72349cb36160dbce74062e5ea10322d36ec334ee1449d698b7e1a')
 
 build() {
   cd $pkgname
@@ -33,6 +33,7 @@ build() {
 
 package() {
   local mod_dir=/usr/lib/node_modules/$pkgname
+
   install -d "$pkgdir"/{usr/bin,$mod_dir}
   ln -s $mod_dir/out/cli.js "$pkgdir"/usr/bin/$pkgname
 
