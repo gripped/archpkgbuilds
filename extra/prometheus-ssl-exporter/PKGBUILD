@@ -3,29 +3,35 @@
 pkgname=prometheus-ssl-exporter
 _pkgname=ssl_exporter
 pkgver=2.4.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Prometheus exporter for TLS certificates'
 arch=('x86_64')
 url='https://github.com/ribbybibby/ssl_exporter'
 license=('MIT')
 depends=('glibc')
 makedepends=('go' 'git')
-backup=('etc/prometheus/ssl-exporter.env')
+backup=(
+  'etc/prometheus/ssl-exporter.yml'
+  'etc/prometheus/ssl-exporter.env'
+)
 options=('!lto')
 source=(
   "$pkgname::git+$url.git#tag=v$pkgver"
   'systemd.service'
   'sysusers.conf'
+  'config.yml'
   'config.env'
 )
 sha512sums=('b1d3c75a483dfee934cad722dcf020cf679dfd4cee693da354360f4e850803e53bd81edac3832ded4f73e997653758c22d0af63b3d7371815514f26594befa21'
-            'fdcc4b416783520fc2358527ab13e37ef280cd7353a8eb910c280f4053d8cf5c2beebd2005f9c79a099d4fe457ee6936114692ce47c8401caa0a920bc08575e9'
+            '2513b17997d53ef5cac8f0a6466cb553a1395f18fbe01c493f66fb27729857bcac280b98d6cb3506e9bc6025b7788cdf6580d1254758032ccd19b26ee6f37676'
             '65ac0aecb8c1585b7a08af81bbbc93e05b993bca00afe00eb74f0fe3ea201bd0a5c2792d417418efc8b453142282be73d073cc7e3b4dde0c107b01f6edd7d6ae'
-            '0521eb34976c971dd990283e399a0c6b0e5d84608203fb3e220631bdae4bd004fd52fd02a134236e94a873fe538d6a2bdd0810c527a08b21edd9756b7eb9ef8d')
+            '43fdd3ef97d8bff6824542399a9b51f8ca5803dbd9ea3024bc8d3122738c9d31f517a000270ed070f9161d6d51775e883d9b7364ccc8ec862de6bf51e514d71d'
+            '0ce0a1f01a9f7b03df172a1f61bb0903bc4e1fdfd6422c8d39f6b33672906073e4da234277a1fdc8f552d30cb772998b321fe9814c63c2cebadf64493667791f')
 b2sums=('eef313e3a4a172199f73c8c892d0ec269bdbbf912f9653816d53f3a863358f2494d6030541fd1e21be168b1c096e25e7ac7256cb636a5e04f60313d686f757ed'
-        '3661a506027f361b24d4d9832e1fcfc3ec1a116f4e52cf04779b700fa97161075adebc8790981575e68b94a42289221834b20e01f98a20c9ae364ef01e45d373'
+        'b83837a4c57161f7a57f3816385e9b1b5e0bb851c84571b2a312da43e4cad1fb797d9ebe8c9c3ae7e7291f51e7f9d44bf86d4592801d8e939114880d18dba7c0'
         'cd77da1f9c3c6919306124ef36ab7dcec96a338ba667fcd226b66c8ea54e448b14600783a6289091e9776be96e92c0ad98c007019160aa48c68df31f2eae8403'
-        '4cd5f8df6d1d4e8dcb5775de96d91f6087dcd7002a9cd910ec06e4bbb855e0f6567fd07a596e0c36dcdab610d467011dfadc65bcd2f466afcad9d7561f6eb51c')
+        '7fd776e40f03f68898cf5de67cf87c99bdab504eafa89a55a20ad408f46ccf4e7a18ab2b430144e5b9a201e4eef48e5b8dd75aca9ab2984988f07acf22e4f3f6'
+        '042b25709b320603f3440fd0592bc159b75c26991d4e608540ac78b3cb74b501750e592b938898218872310b16b7ab0d66a888a02f105ff5c1110be0f27101d6')
 
 prepare() {
   cd "$pkgname"
@@ -77,7 +83,8 @@ package() {
   # systemd integration
   install -vDm644 systemd.service "$pkgdir/usr/lib/systemd/system/$pkgname.service"
   install -vDm644 sysusers.conf "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
-  install -vDm640 config.env "$pkgdir/etc/prometheus/ssl-exporter.env"
+  install -vDm644 config.yml "$pkgdir/etc/prometheus/${pkgname#prometheus-}.yml"
+  install -vDm644 config.env "$pkgdir/etc/prometheus/${pkgname#prometheus-}.env"
 
   cd "$pkgname"
 
