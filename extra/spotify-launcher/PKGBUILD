@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=spotify-launcher
-pkgver=0.5.4
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="Client for spotify's apt repository in Rust for Arch Linux"
 url='https://github.com/kpcyrd/spotify-launcher'
@@ -10,8 +10,10 @@ license=('Apache-2.0' 'MIT')
 depends=(
   'alsa-lib>=1.0.14'
   'at-spi2-atk'
-  'desktop-file-utils'
+  'gcc-libs'
+  'glibc'
   'gtk3'
+  'hicolor-icon-theme'
   'libayatana-appindicator'
   'libcurl-gnutls'
   'libsm'
@@ -19,15 +21,16 @@ depends=(
   'nss'
   'openssl'
   'sequoia-sqv'
+  'xz' 'liblzma.so'
   'zenity'
 )
 makedepends=('cargo')
 backup=('etc/spotify-launcher.conf')
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
-sha256sums=('b4825b2a343cf3413f1ad96c98b0ad7023ecee0b767ea10127ee5d398b77d534'
+sha256sums=('63af1a2bf33d50dd40916afc98e70095cb77a86501c36647dfc1cee0fae5b56f'
             'SKIP')
-b2sums=('9cac7a3b0d19d7ffa32d61fa71320dd793c91a1995b0b09e3da91eeeba51bcb5f3449631d4cddff50ca57d2516f19c1b8f8a3c634936dd44903f7787890a8ea5'
+b2sums=('171d1bf39ddee2c10158ee122a0462b97919d827fe14df56ec7247fbd61f6d0caa6fd266a5ad686a03865829c6214a17aa50368117c8c01e7c7b183d6eb3816b'
         'SKIP')
 options=('!lto')
 
@@ -58,6 +61,7 @@ package() {
   install -Dm644 contrib/spotify-launcher.desktop -t "${pkgdir}/usr/share/applications"
   install -Dm644 contrib/icons/spotify-linux-512.png "${pkgdir}/usr/share/pixmaps/spotify-launcher.png"
   install -Dm644 contrib/spotify-launcher.conf -t "${pkgdir}/etc"
+  install -Dm644 LICENSE-* -t "${pkgdir}/usr/share/licenses/${pkgname}"
 
   for size in 22 24 32 48 64 128 256 512; do
     install -Dm644 "contrib/icons/spotify-linux-${size}.png" \
