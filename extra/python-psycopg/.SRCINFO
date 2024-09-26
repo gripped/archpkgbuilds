@@ -1,7 +1,7 @@
 pkgbase = python-psycopg
 	pkgdesc = PostgreSQL database adapter for Python
 	pkgver = 3.2.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.psycopg.org/psycopg3/
 	arch = any
 	license = LGPL-3.0-only
@@ -13,6 +13,7 @@ pkgbase = python-psycopg
 	makedepends = python-wheel
 	makedepends = python-setuptools
 	depends = python
+	depends = python-typing_extensions
 	depends = postgresql-libs
 	source = python-psycopg::git+https://github.com/psycopg/psycopg.git#tag=3.2.1
 	sha512sums = 94a3e35e30fb21b0c7be604b6038a2a2ea3673c65ac212ea5ea13f56c524e808af3904ec4b5aaca9a947eb18fa59c3d1959b696212d472cf84c2b2e74d9ffa29
