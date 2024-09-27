@@ -2,7 +2,7 @@
 # Contributor: Jokler <aur@jokler.xyz>
 
 pkgname=bacon
-pkgver=2.20.0
+pkgver=2.21.0
 pkgrel=1
 pkgdesc='A background rust code checker'
 arch=('x86_64')
@@ -12,13 +12,14 @@ depends=('glibc' 'gcc-libs')
 makedepends=('git' 'rust')
 options=('!lto')
 source=("$pkgname::git+https://github.com/Canop/bacon#tag=v$pkgver")
-sha512sums=('3a2c29c16eeb5375398816b9814f30cfe0d790190ab1a62e85cd1b020a269c31846fe72e674142a94b777359f4ec01059990852c55fc1653b8d7ef9ab9cd1b1e')
-b2sums=('6042cd8ad1f0993618f5d212b427d6aa71807db8da386b582bddfbfe01aadf81b08c97ee6a99507437273133006979976b77175133855a90f8025b0e654129c7')
+sha512sums=('639f1d658124c6ddf3e29e43e45679ed4d235312357418f6d98cb40059b89d841d8218f002683861ec9ecd1171c2367308ba76a1ca2e229516c0c8974eaf938d')
+b2sums=('6a440ac324976433925bd5b1964f863c567366e467f0bcd23f2cfffef98d7142e8e4455f95656e83960d1312b552dbc9e0e2737e3d1232cdfa811e13e2b99a02')
 
 prepare() {
   cd "$pkgname"
 
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  # download dependencies
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
