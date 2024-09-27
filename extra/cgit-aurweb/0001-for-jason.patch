@@ -1,0 +1,67 @@
+From 87fdb57d6040a71f261b2e87112492c281cd5246 Mon Sep 17 00:00:00 2001
+From: Christian Hesse <mail@eworm.de>
+Date: Sat, 14 Sep 2024 21:51:14 +0200
+Subject: [PATCH 01/02] git: update to v2.46.1
+
+Update to git version v2.46.1, no additional changes required.
+
+Signed-off-by: Christian Hesse <mail@eworm.de>
+---
+ Makefile | 2 +-
+ git      | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 7f8a5cb..9e595b8 100644
+--- a/Makefile
++++ b/Makefile
+@@ -14,7 +14,7 @@ htmldir = $(docdir)
+ pdfdir = $(docdir)
+ mandir = $(prefix)/share/man
+ SHA1_HEADER = <openssl/sha.h>
+-GIT_VER = 2.46.0
++GIT_VER = 2.46.1
+ GIT_URL = https://www.kernel.org/pub/software/scm/git/git-$(GIT_VER).tar.xz
+ INSTALL = install
+ COPYTREE = cp -r
+diff --git a/git b/git
+index 39bf06a..a731929 160000
+--- a/git
++++ b/git
+@@ -1 +1 @@
+-Subproject commit 39bf06adf96da25b87c9aa7d35a32ef3683eb4a4
++Subproject commit a731929aa8016750c09bccc67c68feaf1259ce90
+
+From 1cb701a9b615acf2d4a9f5c6c2668cd11343e124 Mon Sep 17 00:00:00 2001
+From: Christian Hesse <mail@eworm.de>
+Date: Tue, 24 Sep 2024 07:49:00 +0200
+Subject: [PATCH 02/02] git: update to v2.46.2
+
+Update to git version v2.46.2, no additional changes required.
+
+Signed-off-by: Christian Hesse <mail@eworm.de>
+---
+ Makefile | 2 +-
+ git      | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 9e595b8..fe15c2c 100644
+--- a/Makefile
++++ b/Makefile
+@@ -14,7 +14,7 @@ htmldir = $(docdir)
+ pdfdir = $(docdir)
+ mandir = $(prefix)/share/man
+ SHA1_HEADER = <openssl/sha.h>
+-GIT_VER = 2.46.1
++GIT_VER = 2.46.2
+ GIT_URL = https://www.kernel.org/pub/software/scm/git/git-$(GIT_VER).tar.xz
+ INSTALL = install
+ COPYTREE = cp -r
+diff --git a/git b/git
+index a731929..4f71522 160000
+--- a/git
++++ b/git
+@@ -1 +1 @@
+-Subproject commit a731929aa8016750c09bccc67c68feaf1259ce90
++Subproject commit 4f71522dfb7fc53eff569023303980c66114b1bc
