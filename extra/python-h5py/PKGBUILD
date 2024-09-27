@@ -6,19 +6,19 @@
 
 _pkg=h5py
 pkgname=python-${_pkg}
-pkgver=3.11.0
-pkgrel=5
+pkgver=3.12.1
+pkgrel=1
 pkgdesc="General-purpose Python bindings for the HDF5 library"
 arch=(x86_64)
 url="https://www.h5py.org/"
-license=(BSD)
+license=(BSD-3-Clause)
 depends=(hdf5 liblzf python-numpy)
-makedepends=(cython python-pkgconfig python-setuptools)
+makedepends=(cython python-pkgconfig python-build python-installer python-wheel python-setuptools)
 checkdepends=(python-pytest python-pytest-mpi python-pytables)
 conflicts=(hdf5-openmpi)
 source=(https://files.pythonhosted.org/packages/source/h/${_pkg}/${_pkg}-${pkgver}.tar.gz
         remove-version-check.patch)
-sha256sums=('7b7e8f78072a2edec87c9836f25f34203fd492a4475709a18b417a33cfb21fa9'
+sha256sums=('326d70b53d31baa61f00b8aa5f95c2fcb9621a3ee8365d770c551a13dbbcbfdf'
             '621f108e5e95dc250047501447d0dc633fbf3f8bf19e4c4b4c4d5a286864664c')
 validpgpkeys=(AC47F71DB275ECD0B3DA46E857FA4540DD4EFCF7  # Thomas A Caswell (Brookhaven National Lab) <tcaswell@bnl.gov>
               96B7334D7610EE3E68AFFE589E027116943D6A8B) # Thomas A Caswell <tcaswell@bnl.gov> (new key)
@@ -36,7 +36,7 @@ prepare() {
 
 build() {
   cd ${_pkg}-${pkgver}
-  H5PY_SYSTEM_LZF=1 python setup.py build
+  H5PY_SYSTEM_LZF=1 python -m build --wheel --no-isolation
 }
 
 check() {
@@ -47,6 +47,6 @@ check() {
 
 package() {
   cd ${_pkg}-${pkgver}
-  python setup.py install --root="${pkgdir}" --skip-build --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 licenses/license.txt -t "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
