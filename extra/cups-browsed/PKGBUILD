@@ -2,7 +2,7 @@
 
 pkgname=cups-browsed
 pkgver=2.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="a helper daemon to browse the network for remote CUPS queues and IPP network printers"
 arch=('x86_64')
 url="https://wiki.linuxfoundation.org/openprinting/cups-filters"
@@ -11,8 +11,17 @@ depends=('libcups' 'libcupsfilters' 'libppd'
           'avahi' 'glib2' 'glibc' 'libldap')
 makedepends=('glib2-devel')
 backup=(etc/cups/cups-browsed.conf)
-source=(https://github.com/OpenPrinting/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz)
-sha256sums=('ebed1b49dea593912b15fe55f88b691c1a0ac7d6c42178e9526ea949d00ef01a')
+source=(https://github.com/OpenPrinting/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz
+        CVE-2024-47176.patch)
+sha256sums=('ebed1b49dea593912b15fe55f88b691c1a0ac7d6c42178e9526ea949d00ef01a'
+            'cef22036f4512dc813e6ea2536558c2111919134b93b23b6d3f239d3fad1fa4a')
+
+prepare() {
+  cd "$pkgname"-$pkgver
+  # default to dnssd only browsing
+  patch -Np1 -i ../CVE-2024-47176.patch
+  autoreconf -vfi
+}
 
 build() {
   cd "$pkgname"-$pkgver
