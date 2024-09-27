@@ -1,0 +1,23 @@
+# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+
+pkgname=fortunecraft
+pkgver=1.7.0
+pkgrel=1
+pkgdesc='Craft fortunes using Ollama and Gemma2'
+arch=(x86_64)
+url='https://github.com/xyproto/fortunecraft'
+license=(Apache-2.0)
+depends=(ollama-gemma2-2b)
+makedepends=(git go)
+source=("git+$url#tag=v$pkgver")
+b2sums=('1447f9ae1c4ec8f7d4ffc1c74c7b7b03373785c9e838d6a7e668c49c18e1093d1df1a05df160a8dda918bb13aa36a8486a498ff5a001c3920140544ecbd4d05b')
+
+build() {
+  cd $pkgname
+  go build -buildmode=pie -trimpath -mod=readonly -modcacherw -ldflags="-s -w -linkmode=external -extldflags '$LDFLAGS'"
+}
+
+package() {
+  install -Dm755 $pkgname/$pkgname "$pkgdir/usr/bin/$pkgname"
+  install -Dm644 $pkgname/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
