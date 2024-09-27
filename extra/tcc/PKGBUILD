@@ -7,32 +7,41 @@
 # Contributor: Jeremy Cowgar <jeremy@cowgar.com>
 
 pkgname=tcc
-pkgver=0.9.27
-pkgrel=4
+_commit='b8b6a5fd7b4e8cab8e5a5d01064cf5bf2b5eed95'
+pkgver=0.9.27.r1151.gb8b6a5fd
+pkgrel=1
 pkgdesc="Tiny C Compiler"
 arch=('x86_64')
 url="https://bellard.org/tcc/"
 license=('LGPL')
 depends=('glibc')
+makedepends=('git')
 options=('docs' 'staticlibs')
-source=("https://download.savannah.nongnu.org/releases/tinycc/${pkgname}-${pkgver}.tar.bz2")
-sha256sums=('de23af78fca90ce32dff2dd45b3432b2334740bb9bb7b05bf60fdbfc396ceb9c')
+source=("git+https://repo.or.cz/tinycc.git#commit=${_commit}")
+sha256sums=('803cc5e1f2b29b3abbb3ca9f9cbcb8302c77c8d443247d73697e90a56b168db6')
+
+pkgver() {
+  cd tinycc
+
+  GITTAG="$(git describe --abbrev=0 --tags 2>/dev/null)"
+  printf '%s.r%s.g%s' \
+    "$(sed -e "s/^${pkgname%%-git}//" -e 's/^[-_/a-zA-Z]\+//' -e 's/[-_+]/./g' <<< ${GITTAG})" \
+    "$(git rev-list --count ${GITTAG}..)" \
+    "$(git rev-parse --short HEAD)"
+}
 
 build() {
-  cd ${pkgname}-${pkgver}
-  unset CFLAGS
-  unset LDFLAGS
-  ./configure --prefix=/usr
+  cd tinycc
+
+  ./configure \
+    --prefix=/usr \
+    --docdir=/usr/share/doc/tcc \
+    --disable-static
   make
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd tinycc
 
- make DESTDIR="$pkgdir" docdir="$pkgdir"/usr/share/doc/tcc install
-
- make clean
- make CFLAGS="-fPIC"
- gcc -shared -o libtcc.so *.o
- install -Dm755 libtcc.so -t "${pkgdir}/usr/lib/"
+  make DESTDIR="${pkgdir}" install
 }
