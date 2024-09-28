@@ -3,8 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-declarative
-pkgver=6.7.2
-pkgrel=1
+pkgver=6.7.3
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
@@ -19,13 +19,10 @@ makedepends=(cmake
              qt6-languageserver
              qt6-shadertools)
 optdepends=('qt6-languageserver: for qmlls')
-conflicts=(qt6-quickcontrols2)
-provides=(qt6-quickcontrols2)
-replaces=(qt6-quickcontrols2)
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
-sha256sums=('939663850c1469ffbeab7f58561f1372c7a90f00654d5514a7c730b3f506522a')
+sha256sums=('229444a49d233ddbe3295574b549e2f765e4f414d618423c51c34d3dd48f56a9')
 
 build() {
   export CXXFLAGS+=" -ffat-lto-objects"
