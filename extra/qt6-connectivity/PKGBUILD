@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-connectivity
-pkgver=6.7.2
+pkgver=6.7.3
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -19,7 +19,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
-sha256sums=('e4ca5d1e2d6479e1823e6e63feef70c93cc552b814687658eeca444da0534088')
+sha256sums=('b1cd32942232faf136f2d2cce79d1b39798396ba30ebb03324d4b5425f2db7ac')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
