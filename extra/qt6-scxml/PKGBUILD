@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-scxml
-pkgver=6.7.2
+pkgver=6.7.3
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -19,7 +19,7 @@ optdepends=('qt6-declarative: QML bindings')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
-sha256sums=('f74a55eb0f7ae05daa211782815d430ea2390491794c2c8238880df507d01336')
+sha256sums=('1cd74a62a313c6db0a593f566d525c5523453954e76f24d23a686ae5af2aa585')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
