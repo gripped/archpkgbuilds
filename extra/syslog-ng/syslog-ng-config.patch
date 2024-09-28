@@ -144,98 +144,98 @@ index e2d630200..66c7bcdaa 100644
 +	# destination(d_local);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_acpid);
 +	# destination(d_acpid);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_authpriv);
 +	# destination(d_authlog);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_cron);
 +	# destination(d_cron);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_daemon);
 +	# destination(d_daemon);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +# 	filter(f_debug);
 +# 	destination(d_debug);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_emergency);
 +	# destination(d_console);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_err);
 +	# destination(d_errors);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_everything);
 +	# destination(d_everything);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_iptables);
 +	# destination(d_iptables);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_kernel);
 +	# destination(d_kernel);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_lpr);
 +	# destination(d_lpr);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_mail);
 +	# destination(d_mail);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_messages);
 +	# destination(d_messages);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_news);
 +	# destination(d_news);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_ppp);
 +	# destination(d_ppp);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_user);
 +	# destination(d_user);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_uucp);
 +	# destination(d_uucp);
 +};
 +log {
-+	source(src);
++	source(s_local);
 +	# filter(f_syslog);
 +	# destination(d_syslog);
 +};
 +# Log everything to tty12
 +log {
-+	source(src);
++	source(s_local);
 +	# destination(d_tty12);
 +};
 +
@@ -248,7 +248,7 @@ index e2d630200..66c7bcdaa 100644
 +	keep_hostname(yes);
 +	log_fifo_size(10000);
 +	perm(0640);
-+	stats_freq(0);
++	stats(freq(0));
 +	time_reopen(10);
 +	use_dns(no);
 +	use_fqdn(no);
