@@ -4,7 +4,7 @@
 pkgname=python-symengine
 _pkgname=symengine.py
 pkgver=0.11.0
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 pkgdesc='Python wrappers for SymEngine'
 url='https://github.com/symengine/symengine.py'
@@ -16,22 +16,30 @@ depends=(gcc-libs
          mpfr
          python
          symengine)
-makedepends=(cereal
+makedepends=(boost
+             cereal
              cmake
              cython
+             git
              llvm
              python-setuptools)
 license=(MIT)
-source=(https://github.com/symengine/symengine.py/archive/v$pkgver/$_pkgname-$pkgver.tar.gz)
-sha256sums=('702fc5e5640e81714eacecf9da03ba1d9cc2f49fc8c4c6154b57d3d7dfacc698')
+source=(git+https://github.com/symengine/symengine.py#tag=v$pkgver)
+sha256sums=('d834bba84f330e7982ea30893acf95a9c5bab7e10084964740e48b1bc2207532')
+
+prepare() {
+  cd $_pkgname
+# Fix build with symengine 0.13
+  git cherry-pick -n dd3dc6efc228c9193088e3b284fa88faf920b393
+}
 
 build() {
-  cmake -B build -S $_pkgname-$pkgver \
+  cmake -B build -S $_pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr
   cmake --build build
 }
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-  install -Dm644 $_pkgname-$pkgver/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+  install -Dm644 $_pkgname/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
 }

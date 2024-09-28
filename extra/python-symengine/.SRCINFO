@@ -1,13 +1,15 @@
 pkgbase = python-symengine
 	pkgdesc = Python wrappers for SymEngine
 	pkgver = 0.11.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/symengine/symengine.py
 	arch = x86_64
 	license = MIT
+	makedepends = boost
 	makedepends = cereal
 	makedepends = cmake
 	makedepends = cython
+	makedepends = git
 	makedepends = llvm
 	makedepends = python-setuptools
 	depends = gcc-libs
@@ -18,7 +20,7 @@ pkgbase = python-symengine
 	depends = mpfr
 	depends = python
 	depends = symengine
-	source = https://github.com/symengine/symengine.py/archive/v0.11.0/symengine.py-0.11.0.tar.gz
-	sha256sums = 702fc5e5640e81714eacecf9da03ba1d9cc2f49fc8c4c6154b57d3d7dfacc698
+	source = git+https://github.com/symengine/symengine.py#tag=v0.11.0
+	sha256sums = d834bba84f330e7982ea30893acf95a9c5bab7e10084964740e48b1bc2207532
 
 pkgname = python-symengine
