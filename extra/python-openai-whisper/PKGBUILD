@@ -2,7 +2,7 @@
 
 _pyname=whisper
 pkgname=python-openai-$_pyname
-pkgver=20231117
+pkgver=20240927
 pkgrel=1
 pkgdesc='Robust speech recognition via large-scale weak supervision'
 arch=(any)
@@ -23,7 +23,7 @@ makedepends=(git
              python-wheel)
 checkdepends=(python-pytest)
 source=(git+https://github.com/openai/whisper#tag=v$pkgver)
-sha256sums=('9678f4ea396e956ff0d6746e2f2285a95fc9748a643c0239b75ce717828c9160')
+sha256sums=('2bbcf32b2439df89f9e6ab85b35104b35e4a498bd07e4c6fc90f1da53589823d')
 
 build() {
   cd $_pyname
