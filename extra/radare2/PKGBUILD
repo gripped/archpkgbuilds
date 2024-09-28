@@ -2,8 +2,8 @@
 # Contributor: Guillermo Ramos <0xwille at gmail dot com>
 
 pkgname=radare2
-pkgver=5.9.2
-pkgrel=2
+pkgver=5.9.4
+pkgrel=1
 pkgdesc='Open-source tools to disasm, debug, analyze and manipulate binary files'
 url='https://radare.org'
 arch=('x86_64')
@@ -26,8 +26,8 @@ makedepends=(
 optdepends=('r2ghidra: ghidra decompiler plugin')
 options=('!emptydirs')
 source=(https://github.com/radare/radare2/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('e190ec124c6d48e512939782148b23fb0ef50aeb66763c198fdf7a6329d6882bb49a10641902313045b6802fca233c56fbc0142155b52f915dab4099481923c9')
-b2sums=('ac849ec4bc0e2a1b8447256362d8db2518d72e2a4af3d29f9c8931ac815c1b0c339a072312658bbd725097b3401f28beee31c6f99a5eb5a62ff3eb0cf7ed122f')
+sha512sums=('51d42b6d98027d3f3d85570e79ea18a8f220c145e3451fd10d82eea1a0542648f83447bb6cb6f5bbf76241677a2412bf064ffbade75e69b486c6148543aa4b0f')
+b2sums=('14903c087fbb140a8b4b6056adcb236b76ebcad0c7821150599c0732b0bb832b26a4fee5edda914ecd1be4dcdbe28087fadb48e623c593cf949cbc421acc5080')
 
 build() {
   cd ${pkgname}-${pkgver}
