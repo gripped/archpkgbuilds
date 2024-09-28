@@ -3,17 +3,17 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=dtk6core
-pkgver=6.0.17
-pkgrel=3
+pkgver=6.0.18
+pkgrel=1
 pkgdesc='DTK core modules'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtk6core"
 license=('LGPL3')
-depends=('deepin-desktop-base' 'dtkcommon' 'gcc-libs' 'glibc' 'icu' 'libsystemd' 'lshw' 'qt6-base'
-         'uchardet' 'spdlog')
+depends=('deepin-desktop-base' 'dtkcommon' 'dtk6log' 'gcc-libs' 'glibc' 'icu' 'lshw' 'qt6-base'
+         'uchardet')
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'gtest' 'doxygen')
 source=("git+https://github.com/linuxdeepin/dtk6core.git#tag=$pkgver")
-sha512sums=('cff9e5c9815089eb8b678013ef56fcadd170052ddff9f0a5eac1fb0ee9260945e5b99210b20cbef03218b1bab943195e7aa8fff6af44ef5959577ad1322fdbac')
+sha512sums=('1dd515f6e8aeb5f8a3380bea79228f3d62aaeaffb2ab16c60387429a115e92e6a0658a1b76b4bafe03a5ed4188e322a6761e3557ea71c9357f28bba012d218e4')
 
 prepare() {
   cd dtk6core
@@ -25,7 +25,6 @@ build() {
   cmake . -GNinja \
       -DBUILD_DOCS=ON \
       -DBUILD_TESTING=ON \
-      -DBUILD_WITH_SYSTEMD=ON \
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DCMAKE_INSTALL_LIBEXECDIR=lib \
       -DCMAKE_INSTALL_PREFIX=/usr \
