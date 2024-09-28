@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-webchannel
-pkgver=6.7.2
+pkgver=6.7.3
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -18,7 +18,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
-sha256sums=('f17a06e24075898726ec787b99baba04e0f2f055c3da9ba4baafebd1db3c4de2')
+sha256sums=('f336db62db223fe13e3049fde148075c6019f8d31fc835da8405adecbf02eab4')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
