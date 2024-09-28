@@ -2,7 +2,7 @@
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 
 pkgname=libpqxx
-pkgver=7.9.0
+pkgver=7.9.2
 pkgrel=1
 pkgdesc='C++ client API for PostgreSQL'
 url='http://pqxx.org/development/libpqxx/'
@@ -12,8 +12,8 @@ depends=('postgresql-libs>=9.1')
 makedepends=('python')
 provides=("libpqxx-${pkgver%.*}.so")
 source=(https://github.com/jtv/libpqxx/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('a1fafd5f6455f6c66241fca1f35f5cb603251580b99f9a0cf1b5d0a586006f16')
-b2sums=('ef64a970c6395ad5bdbf399d64c7dfce43b74f1597cceffe96813ca1806a616b68ae79317edf8ccb9dd6385e47ef6f78c498a210330b934440047b98bcce8b11')
+sha256sums=('e37d5774c39f6c802e32d7f418e88b8e530404fb54758516e884fc0ebdee6da4')
+b2sums=('e961af7372f5dd5a214044a9c25cd8f320579c3176c31205d068a0e5ae310d5a5fd8af058293377e1ede78cb5877acdf3880c8a867aa4cd270ab9ecaacb0958f')
 
 build() {
   cd ${pkgname}-${pkgver}
