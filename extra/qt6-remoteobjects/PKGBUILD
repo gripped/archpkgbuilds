@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-remoteobjects
-pkgver=6.7.2
+pkgver=6.7.3
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -19,7 +19,7 @@ optdepends=('qt6-declarative: QML bindings')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
-sha256sums=('7c3b8cd5d47907d8a7963884826d3f78ceb0823d6b5b313972fdc4b9c2a64d93')
+sha256sums=('cbdce36d237d91498bb0ad48c7bf9107f4e7287a668f1813f2b26924a2f7590d')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
