@@ -1,11 +1,12 @@
 pkgbase = btrfs-heatmap
-	pkgdesc = creates a visualization of how a btrfs filesystem is using the underlying disk space
+	pkgdesc = Visualize the layout of data on your btrfs filesystem over time
 	pkgver = 9
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/knorrie/btrfs-heatmap
 	arch = any
-	license = GPL3
+	license = MIT
 	makedepends = git
+	depends = python
 	depends = python-btrfs
 	provides = python-btrfs-heatmap
 	conflicts = python-btrfs-heatmap
