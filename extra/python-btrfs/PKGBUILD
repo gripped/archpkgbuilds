@@ -1,21 +1,31 @@
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Maintainer: Jiachen YANG <farseerfc@gmail.com>
 # AUR Maintainer: Timofey Titovets <nefelim4ag@gmail.com>
 
 pkgname=python-btrfs
-pkgver=13
-pkgrel=5
+pkgver=14.1
+pkgrel=1
 pkgdesc="Python Btrfs module, with useful scripts to inspect btrfs internals"
-arch=('any')
+arch=(any)
 url="https://github.com/knorrie/python-btrfs"
-license=('GPL2')
+license=('LGPL-3.0-or-later')
 depends=('python')
-makedepends=('git' 'python-setuptools')
-source=("$pkgname"::"git+https://github.com/knorrie/python-btrfs.git#tag=v${pkgver}")
-sha256sums=('SKIP')
+makedepends=(
+  'git'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+source=("$pkgname::git+$url.git#tag=v${pkgver}")
+sha256sums=('696f0496e507af773b7f1958b8a4015039d221855f5d827ab1d687c54284feb0')
+
+build() {
+  cd $pkgname
+  python -m build --wheel --no-isolation
+}
 
 package() {
-    cd "$srcdir/${pkgname}/"
-    python ./setup.py install --root="$pkgdir/" --prefix=/usr --optimize=1
-    cd bin
-    install -Dm755 btrfs-* -t "$pkgdir/usr/bin/"
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
