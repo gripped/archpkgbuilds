@@ -1,0 +1,45 @@
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Jeremy Gust <jeremy AT plasticsoup DOT net>
+
+pkgname=hyprpicker
+pkgver=0.3.0
+pkgrel=2
+pkgdesc="A wlroots-compatible Wayland color picker that does not suck"
+arch=(x86_64)
+url="https://github.com/hyprwm/hyprpicker"
+license=(BSD-3-Clause)
+depends=(
+  cairo
+  gcc-libs
+  glibc
+  libxkbcommon
+  wayland
+)
+makedepends=(
+  cmake
+  libglvnd
+  libjpeg-turbo
+  ninja
+  pango
+  wayland-protocols
+  wlroots
+)
+optdepends=('wl-clipboard: Allows --autocopy to automatically copy the output to the clipboard')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('a443188ef7619be48c9992ea208121772b7e1da6662d672c650e30e159eeb891')
+
+build() {
+  cd $pkgname-$pkgver
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_MANDIR=/usr/share/man \
+    -Wno-dev
+  cmake --build build
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}
