@@ -1,17 +1,18 @@
 pkgbase = cosign
 	pkgdesc = Container Signing with support for ephemeral keys and Sigstore signing
-	pkgver = 2.2.4
+	pkgver = 2.4.0
 	pkgrel = 1
 	url = https://github.com/sigstore/cosign
 	arch = x86_64
-	license = Apache
+	license = Apache-2.0
 	checkdepends = go-tools
 	makedepends = go
 	makedepends = git
+	depends = glibc
 	depends = pcsclite
 	options = !lto
-	source = cosign-2.2.4.tar.gz::https://github.com/sigstore/cosign/archive/v2.2.4.tar.gz
-	sha512sums = 3a2e2e7ea3964428bc7c4adb9475fbb730cbe2b7dfa7a5eb5cf350d88a4f3a9aef64f00574c7f38bf0074cb3e386cd26e6cfe4558ce5989ea557b654aa82ef71
-	b2sums = 22522fc70ff6b01957af2e294b7fdad740d55cc9710f9023246855dd9383be0688934f27e5b32cde3383cdfe3c02cd2de5547a515a14c1442ac85afc9e566b8f
+	source = git+https://github.com/sigstore/cosign.git#tag=v2.4.0
+	sha512sums = 9cc94441686fef78793f09cb190434c89eb4455844abfe319f036779b4c9c7c9e723904d8b0fd83c76f00ec12f417d25c4d85689593f25725d5427155f5b4ef5
+	b2sums = 291464664203c4b77ff4c03aeba41c4d9fe6d80fe098c4a761ed4756b34f7c6025acfb766d83c20f01adf28c67fea9af7ca4f8e40547db627a7e0e5fbbb289b6
 
 pkgname = cosign
