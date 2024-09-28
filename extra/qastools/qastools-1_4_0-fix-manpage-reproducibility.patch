@@ -1,0 +1,39 @@
+diff --git a/qasconfig/share/man/CMakeLists.txt b/qasconfig/share/man/CMakeLists.txt
+index 638b6a3..b270216 100644
+--- a/qasconfig/share/man/CMakeLists.txt
++++ b/qasconfig/share/man/CMakeLists.txt
+@@ -19,7 +19,7 @@ CONFIGURE_FILE ( ${man_src} ${man_plain} )
+ 
+ ADD_CUSTOM_COMMAND (
+   OUTPUT ${man_gz}
+-  COMMAND ${GZIP} -c -9 ${man_plain} > ${man_gz}
++  COMMAND ${GZIP} -c -n -9 ${man_plain} > ${man_gz}
+   DEPENDS ${man_plain}
+   COMMENT "Building ${man_gz}" )
+ 
+diff --git a/qashctl/share/man/CMakeLists.txt b/qashctl/share/man/CMakeLists.txt
+index 1916374..f8f61c2 100644
+--- a/qashctl/share/man/CMakeLists.txt
++++ b/qashctl/share/man/CMakeLists.txt
+@@ -19,7 +19,7 @@ CONFIGURE_FILE ( ${man_src} ${man_plain} )
+ 
+ ADD_CUSTOM_COMMAND (
+   OUTPUT ${man_gz}
+-  COMMAND ${GZIP} -c -9 ${man_plain} > ${man_gz}
++  COMMAND ${GZIP} -n -c -9 ${man_plain} > ${man_gz}
+   DEPENDS ${man_plain}
+   COMMENT "Building ${man_gz}" )
+ 
+diff --git a/qasmixer/share/man/CMakeLists.txt b/qasmixer/share/man/CMakeLists.txt
+index 7fa745a..446aa31 100644
+--- a/qasmixer/share/man/CMakeLists.txt
++++ b/qasmixer/share/man/CMakeLists.txt
+@@ -19,7 +19,7 @@ CONFIGURE_FILE ( ${man_src} ${man_plain} )
+ 
+ ADD_CUSTOM_COMMAND (
+   OUTPUT ${man_gz}
+-  COMMAND ${GZIP} -c -9 ${man_plain} > ${man_gz}
++  COMMAND ${GZIP} -c -n -9 ${man_plain} > ${man_gz}
+   DEPENDS ${man_plain}
+   COMMENT "Building ${man_gz}" )
+ 

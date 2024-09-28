@@ -3,7 +3,7 @@
 
 pkgname=qastools
 pkgver=1.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A collection of desktop applications for the Linux sound system ALSA."
 arch=(x86_64)
 url="https://gitlab.com/sebholt/qastools"
@@ -22,9 +22,16 @@ makedepends=(
   qt6-tools
   systemd-libs
 )
-source=($url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('eced94ce0c796148d3dae79f8b687d481b2adb34466de41ad0c6ecf3b820562297720d8052332c3f1ba422a856dbc7742f1bdb2a32b6bb1c43eaad9cba256946')
-b2sums=('4a48ea32b41d03739497764f9677a79a0ca0f917fa758acab4ae61d776fe79d4d8b7cc6d3bfed657aafc241c2bf57d7d469184b2b95084c999133480faa8b5b6')
+source=($url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz
+        qastools-1_4_0-fix-manpage-reproducibility.patch)
+sha512sums=('eced94ce0c796148d3dae79f8b687d481b2adb34466de41ad0c6ecf3b820562297720d8052332c3f1ba422a856dbc7742f1bdb2a32b6bb1c43eaad9cba256946'
+            '2610b60f0a2c99cd55d56b98a21da29672785e74b0409f226d673ee7b4cd9980e87eb9e771061645a5ed3b83a7458e66e1e1393723c66961d99472c8102c0935')
+b2sums=('4a48ea32b41d03739497764f9677a79a0ca0f917fa758acab4ae61d776fe79d4d8b7cc6d3bfed657aafc241c2bf57d7d469184b2b95084c999133480faa8b5b6'
+        'cdd8dbafca897322c594d9ba8ba802d339f6c87d521f10f0dd1f0cf294913dc9ad674d66fab064a99749b4fe830193114a17b27459dbb7c499e44f52c26db8d8')
+
+prepare() {
+  patch -Np 1 -d $pkgname-v$pkgver -i ../qastools-1_4_0-fix-manpage-reproducibility.patch
+}
 
 build() {
   local cmake_options=(
