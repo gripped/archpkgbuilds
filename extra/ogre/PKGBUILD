@@ -1,12 +1,12 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=ogre
 pkgver=14.2.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Scene-oriented, flexible 3D engine written in C++'
 arch=('x86_64')
 url='http://www.ogre3d.org'
 license=('custom:MIT')
-depends=('freeimage' 'freetype2' 'libxaw' 'libxrandr' 'sdl2' 'glu' 'pugixml' 'zlib' 'bullet')
+depends=('freetype2' 'libxaw' 'libxrandr' 'sdl2' 'glu' 'pugixml' 'zlib' 'bullet')
 makedepends=('cmake' 'doxygen' 'graphviz' 'ttf-dejavu' 'mesa' 'python' 'ninja' 'cppunit' 'swig')
 install=ogre.install
 source=("$pkgname-$pkgver.tar.gz::https://github.com/OGRECave/ogre/archive/v${pkgver}.tar.gz")
