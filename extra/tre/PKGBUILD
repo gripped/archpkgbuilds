@@ -3,15 +3,15 @@
 # Contributor: Igor Galic<i.galic@gmail.com>
 
 pkgname=tre
-pkgver=0.8.0
-pkgrel=7
+pkgver=0.9.0
+pkgrel=1
 arch=('x86_64')
 pkgdesc="POSIX compliant regexp matching library. Includes agrep for approximate grepping."
-url="https://laurikari.net/tre"
+url="https://github.com/laurikari/tre/"
 depends=('glibc')
 license=('custom:BSD')
-source=("https://laurikari.net/tre/$pkgname-$pkgver.tar.bz2")
-sha256sums=('8dc642c2cde02b2dac6802cdbe2cda201daf79c4ebcbb3ea133915edf1636658')
+source=("https://github.com/laurikari/tre/releases/download/v${pkgver}/tre-${pkgver}.tar.gz")
+sha256sums=('f57f5698cafdfe516d11fb0b71705916fe1162f14b08cf69d7cf86923b5a2477')
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"
