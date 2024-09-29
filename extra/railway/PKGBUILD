@@ -2,7 +2,7 @@
 
 pkgname=railway
 pkgver=2.7.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Look up travel information for many different railways'
 arch=(x86_64)
 url='https://apps.gnome.org/DieBahn/'
@@ -31,6 +31,7 @@ source=(
   railway-gresource.patch
   railway-window-icon.patch
   railway-fix-crash.patch
+  railway-desktop-categories.patch
 )
 b2sums=(
   b4cfe61dcec2ab01486f686fa7279c2b5fba45bad80158f37e4595b8cc6c116bc502563364eecaad92e19e66bbe74bc97a9380b41b42732424a96f6876be8ccf
@@ -38,6 +39,7 @@ b2sums=(
   cf991744f300b1756aef5722ce6821f3c6ff42b8c9da384f5704c1322c512faf671dd6e052d4c503c496b5d712670e88b38397517e2229576328dfb34886fba7
   b74483198728a7b42bef0be15f2a3023193f730de8af60079ef001c91bdf17fcd3669ce261557053270d69b07d8062a5ef13d643606ffc7ca2aa89492224f0ef
   491f81876fff4037378711d5bb7b533ecd8004bc1494da9f35bcdb5749501ab9b72203ae7338d3b015ede848b33cd49437892faef5bb94534166a67fec868c96
+  72c60ebc2713c09e1acf80cf82cf62a6173089a44e2be88f77681ebddedaf03ecb3738270b6f0d520bd72b8cdd0c7fd9cac8018d28408610ce0a8c58b4e920d2
 )
 
 prepare() {
@@ -57,6 +59,9 @@ prepare() {
 
   # https://gitlab.com/schmiddi-on-mobile/railway/-/merge_requests/173
   git apply -3 ../railway-fix-crash.patch
+
+  # https://gitlab.com/schmiddi-on-mobile/railway/-/merge_requests/174
+  git apply -3 ../railway-desktop-categories.patch
 }
 
 build() {
