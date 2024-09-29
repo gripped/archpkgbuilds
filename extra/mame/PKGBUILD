@@ -7,7 +7,7 @@ pkgbase=mame
 pkgname=(mame
          mame-tools)
 pkgver=0.270
-pkgrel=1
+pkgrel=2
 pkgdesc='Port of the popular Multiple Arcade Machine Emulator using SDL with OpenGL support'
 url='https://mamedev.org/'
 license=(BSD-2-Clause
@@ -57,6 +57,10 @@ prepare() {
   sed -e 's|ext_lib("lua")|ext_lib("lua++")|' -i scripts/src/main.lua -i scripts/src/3rdparty.lua
 # Drop hardcoded libexec
   sed -e 's|libexec/||' -i scripts/src/osd/modules.lua
+
+# Fixes MAME deadlocks with controller disconnects
+# See https://github.com/mamedev/mame/issues/12825
+  git cherry-pick -n 59363d3d3f3fe9c1fe8f53ed4b3ca79f8fb6065d
 }
 
 build() {
