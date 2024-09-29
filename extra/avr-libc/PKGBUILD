@@ -4,7 +4,7 @@
 # Build order: avr-binutils -> avr-gcc -> avr-libc
 
 pkgname=avr-libc
-pkgver=2.2.0
+pkgver=2.2.1
 pkgrel=1
 pkgdesc='The C runtime library for the AVR family of microcontrollers'
 arch=(any)
@@ -15,7 +15,7 @@ makedepends=(python)
 options=(!strip) # it corrupts avr libraries
 _tag=avr-libc-${pkgver//./_}-release
 source=(https://github.com/avrdudes/avr-libc/archive/refs/tags/$_tag.tar.gz)
-b2sums=('c4358095c2d43493172e7deff4d5aa942bf1d5c7dcfcc09814f3926d0202fc6ea4f35c7a7a5f67675718c5abbf652b86ccaa48323d3b6aa1763922a05d57ace2')
+b2sums=('330e4ef0ee78152562650178f8a0a43487264c2e396b1f13285bbcafb18533d280810137e8229d38ea2e06aa621846fd41bf2e253c9eb62a19240dad8374cf37')
 validpgpkeys=('56628323218C669FF578705C7E9EADC3030D34EB') # Joerg Wunsch
 
 build() {
