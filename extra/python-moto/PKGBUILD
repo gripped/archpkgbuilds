@@ -4,7 +4,7 @@
 pkgname=python-moto
 _pkgname=moto
 # https://github.com/getmoto/moto/blob/master/CHANGELOG.md
-pkgver=5.0.14
+pkgver=5.0.15
 pkgrel=1
 pkgdesc='Moto is a library to mock out the boto library.'
 arch=(any)
@@ -53,16 +53,11 @@ checkdepends+=(python-yaml python-joserfc python-openapi-spec-validator python-d
 )
 source=("git+https://github.com/getmoto/moto#tag=$pkgver"
         "fix-tests.diff")
-sha256sums=('64b5d2669c238fe49af0c370f8408d3f9d6235703eae01c80b89d19de7d6ab84'
+sha256sums=('c7c3cbab71c3783c1a28dc74ddd0ad9477acd575022f98cf4739b5bdc42905ab'
             '21305cdf3d650ced1acb1d0f7dde8760b26e32a94c56a5571e798d6b6976cf5a')
 
 prepare() {
   cd $_pkgname
-
-  # ELBv2: Workaround botocore bug for Delete-LB waiter
-  # This work-arounds an issue in older botocore: https://github.com/boto/botocore/issues/3252
-  # I cannot upgrade botocore due to aiobotocore, though
-  git cherry-pick -n fd851c68c2fc8237cc1fc81b14700a11998fabe4
 
   patch -Np1 -i ../fix-tests.diff
 }
