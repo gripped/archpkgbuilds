@@ -1,0 +1,37 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+
+pkgname=adsb_deku
+pkgver=2024.09.02
+pkgrel=1
+pkgdesc="TUI radar application"
+arch=('x86_64')
+url="https://github.com/rsadsb/adsb_deku"
+license=('MIT')
+depends=('gcc-libs' 'dump1090_rs')
+makedepends=('cargo')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('e847ac72be9c430156d06760ec18a45e4265548f1e5307b385fe266438a1086054892d3ff041db43eb127bcfb86cc48bf3c58216641c3122d6d07ffed6fa88db')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release --frozen
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --frozen
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/radar" -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:
