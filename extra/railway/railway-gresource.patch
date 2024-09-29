@@ -1,0 +1,26 @@
+From a80bab9e725a73199c905c7843de6287c101d5c0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 28 Sep 2024 02:27:15 +0000
+Subject: [PATCH] build(): Don't install gresource.xml file
+
+It's needed only during build.
+---
+ data/resources/meson.build | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/data/resources/meson.build b/data/resources/meson.build
+index 519fe1c..eb4cd36 100644
+--- a/data/resources/meson.build
++++ b/data/resources/meson.build
+@@ -39,8 +39,6 @@ resources = gnome.compile_resources(
+     input: 'resources.gresource.xml.in',
+     output: '@BASENAME@',
+     configuration: resources_conf,
+-    install: true,
+-    install_dir: datadir / 'metainfo'
+   ),
+   gresource_bundle: true,
+   install: true,
+-- 
+GitLab
+

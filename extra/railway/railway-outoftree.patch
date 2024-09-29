@@ -1,0 +1,23 @@
+From dda867863fb058ed9ae09376bf594e9bb0ffdef2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 28 Sep 2024 02:13:55 +0000
+Subject: [PATCH] build(): Fix running cargo test out-of-tree
+
+cargo_options needs to be passed to cargo test to set the manifest path.
+---
+ src/meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/meson.build b/src/meson.build
+index 2201a9a1..903bff9a 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -53,4 +53,4 @@ cargo_build = custom_target(
+   ]
+ )
+ 
+-test('cargo-test', find_program('env', required: true), args: [ cargo_env, 'cargo', 'test'], timeout: 0)
++test('cargo-test', find_program('env', required: true), args: [ cargo_env, 'cargo', 'test', cargo_options], timeout: 0)
+-- 
+GitLab
+

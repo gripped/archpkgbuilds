@@ -1,0 +1,26 @@
+From 4578e238bf815355c42573fa8a37f1e9a5a659ac Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 28 Sep 2024 02:50:21 +0000
+Subject: [PATCH] fix(window): Set default window icon
+
+This is commonly used by desktop environments on Xorg.
+---
+ src/gui/window.rs | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/gui/window.rs b/src/gui/window.rs
+index 22ef596..4f656c3 100644
+--- a/src/gui/window.rs
++++ b/src/gui/window.rs
+@@ -151,6 +151,8 @@ pub mod imp {
+             self.store_journeys.setup(self.obj().clone());
+             self.store_searches.setup();
+ 
++            gtk::Window::set_default_icon_name(config::APP_ID);
++
+             if config::PROFILE == "Devel" {
+                 self.obj().add_css_class("devel");
+             }
+-- 
+GitLab
+
