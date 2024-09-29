@@ -1,7 +1,7 @@
 pkgbase = puppet
 	pkgdesc = Server automation framework and application
-	pkgver = 7.33.0
-	pkgrel = 1
+	pkgver = 8.9.0
+	pkgrel = 2
 	url = https://www.puppet.com/community/open-source
 	install = puppet.install
 	arch = any
@@ -25,9 +25,11 @@ pkgbase = puppet
 	provides = puppet
 	conflicts = puppet5
 	conflicts = puppet6
+	conflicts = hiera
+	replaces = hiera
 	backup = etc/puppetlabs/puppet/puppet.conf
 	backup = etc/puppetlabs/puppet/hiera.yaml
-	source = https://github.com/puppetlabs/puppet/archive/7.33.0/puppet-7.33.0.tar.gz
+	source = https://github.com/puppetlabs/puppet/archive/8.9.0/puppet-8.9.0.tar.gz
 	source = augeas_core::git+https://github.com/puppetlabs/puppetlabs-augeas_core#commit=245508727cdf301ea1efa5bc9214f55b90fb2b30
 	source = cron_core::git+https://github.com/puppetlabs/puppetlabs-cron_core#commit=19eb78319c9ea3389b3601fef69faafcc250ab43
 	source = host_core::git+https://github.com/puppetlabs/puppetlabs-host_core#commit=d1ab552a1dd84e7c50821878a34f4110f9f67dac
@@ -37,7 +39,7 @@ pkgbase = puppet
 	source = yumrepo_core::git+https://github.com/puppetlabs/puppetlabs-yumrepo_core#commit=394ca00538994e4cedb479767527ce50a8d1a4ca
 	source = zfs_core::git+https://github.com/puppetlabs/puppetlabs-zfs_core#commit=e86ba8f1161d9b0dc00399bb405f228dac3f3842
 	source = zone_core::git+https://github.com/puppetlabs/puppetlabs-zone_core#commit=1f0be5d14778af89b1adcdfbecda2be51f5aa01a
-	sha512sums = 1b7bfe3854daa46a5acd5ea312b89d3ed4db4c07fe0a937e7041486e0ab3bbb1183a9bf3932896ea76d31efd43ef786b01b3e8699c6156edc6d7bd6d3c8e7753
+	sha512sums = 33d3f849d327b552d412750c68ccda7af9ce3ecc9a8769360d42e2fdd6b71742d687c2ac608d403747d85d2ae671581fee2521b362b113c18d21a418e28e18f9
 	sha512sums = 6ebc4603db2e702623070f1703d3e82a25c689b8c149c3328660ab43d74bfa49c5853aa14d267b48c9f91d12bd4a96579bcf3184f8881a57748763484892bf90
 	sha512sums = 584093f64216becfeeb45514c9308c7df6819b39b93489790656f6e206c52abb7ed7077a9630c3f0aa2a6b9a6e57502f84cb1a862c03df325f2d97772773c4ce
 	sha512sums = 2bcb93ea1d9d6312205aa1975b1e233414d7bd9c713fb2e59a04f2f3ca436b89dde5b3070b3899fc0a3b5259866c6f3039c06517041d56d73dba08926e7afbec
