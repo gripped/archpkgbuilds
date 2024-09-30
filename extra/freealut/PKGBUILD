@@ -3,22 +3,38 @@
 
 pkgname=freealut
 pkgver=1.1.0
-pkgrel=9
+pkgrel=10
 pkgdesc="OpenAL Utility Toolkit (ALUT)"
 url="https://www.openal.org"
 arch=(x86_64)
-license=(LGPL)
-depends=(openal)
-source=(https://pkgs.fedoraproject.org/repo/pkgs/freealut/freealut-1.1.0.tar.gz/e089b28a0267faabdb6c079ee173664a/freealut-1.1.0.tar.gz)
-sha512sums=('270f74972548b4ac6b98c52c51787ed43c20cf79979063d073bbee7bd08ac4f34c2b579fbf15c09c4e606a5ed38dcd0252f5c46fb3cfe43b727b6b53cf747933')
+license=(LGPL-2.0-only)
+depends=(
+  bash
+  glibc
+  openal
+)
+makedepends=(
+  autoconf-archive
+  git
+)
+source=("git+https://github.com/vancegroup/freealut#tag=freealut_${pkgver//./_}")
+b2sums=('195e06a6368194e64e65b30eb1db3d0225a492146b074935bd319c574e3c2b149235a88ae262954d222a2230088bb5e094407e2ffb4c8641ea3046f12c31cd27')
+
+prepare() {
+  cd freealut
+  autoreconf -fvi
+}
 
 build() {
-  cd $pkgname-$pkgver
-  ./configure --prefix=/usr --disable-static
+  cd freealut
+  ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
+    --disable-static
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd freealut
   make DESTDIR="$pkgdir" install
 }
+
+# vim:set sw=2 sts=-1 et:
