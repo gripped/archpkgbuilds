@@ -1,7 +1,7 @@
 pkgbase = xfce4-settings
 	pkgdesc = Xfce's Configuration System
 	pkgver = 4.18.6
-	pkgrel = 2
+	pkgrel = 3
 	url = https://docs.xfce.org/xfce/xfce4-settings/start
 	arch = x86_64
 	groups = xfce4
@@ -23,8 +23,8 @@ pkgbase = xfce4-settings
 	depends = gnome-themes-extra
 	optdepends = python: xfce4-compose-mail -- "mailto:" URI handling
 	optdepends = xiccd: for displays support in xfce4-color-settings
-	optdepends = cupsd: for printers support in xfce4-color-settings
-	optdepends = saned: for scanners support in xfce4-color-settings
+	optdepends = cups: for printers support in xfce4-color-settings
+	optdepends = sane: for scanners support in xfce4-color-settings
 	source = git+https://gitlab.xfce.org/xfce/xfce4-settings.git#tag=xfce4-settings-4.18.6
 	source = default-xsettings-xml.patch
 	sha256sums = f7908fa2dd5b8cde014f5c0f750d8c6e7edea8e5e7c6eac215a767314d66c7e0
