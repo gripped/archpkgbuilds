@@ -3,8 +3,8 @@
 # Contributor: Cilyan Olowen <gaknar@gmail.com>
 
 pkgname=python-paste
-pkgver=3.5.3
-pkgrel=2
+pkgver=3.7.1
+pkgrel=1
 pkgdesc="Tools for using a Web Server Gateway Interface stack"
 arch=('any')
 url="https://pythonpaste.readthedocs.io/"
@@ -14,7 +14,7 @@ optdepends=('python-flup: WSGI utilities')
 makedepends=('python-setuptools')
 checkdepends=('python-pytest' 'python-flup')
 source=("https://files.pythonhosted.org/packages/source/P/Paste/Paste-${pkgver}.tar.gz")
-sha512sums=('3087ea7b6cc45a90b85c473cbff7f018ca961536ff70fbed4610f86dedc82cef0274ccddb767de411ec2955d0c265cb4e797a14a25697870c38667ccd7c4a2d8')
+sha512sums=('672f0476582b0c0f65a049800fbd23f7df2c62b405ed1b803474715a80d532bbf117558b201329967bf83f4c88c8740e5f626ff5c2dafa3eade04fccefd332b0')
 
 build() {
   cd Paste-$pkgver
