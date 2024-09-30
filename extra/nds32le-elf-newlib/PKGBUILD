@@ -4,7 +4,7 @@
 _target=nds32le-elf
 pkgname=$_target-newlib
 pkgver=4.4.0.20231231
-pkgrel=1
+pkgrel=2
 _upstream_ver=$pkgver
 pkgdesc='A C standard library implementation intended for use on embedded systems (Andes 32 little-endian bare metal)'
 arch=(any)
@@ -74,5 +74,8 @@ package() {
 
   install -d "$pkgdir"/usr/share/licenses/$pkgname/
   install -m644 -t "$pkgdir"/usr/share/licenses/$pkgname/ "$srcdir"/newlib-$_upstream_ver/COPYING*
+
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/riscv64-elf-newlib/-/issues/1
+  rm "${pkgdir}/usr/share/info/porting.info"
 }
 
