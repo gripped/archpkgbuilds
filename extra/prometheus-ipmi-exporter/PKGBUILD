@@ -3,7 +3,7 @@
 
 pkgname=prometheus-ipmi-exporter
 pkgver=1.8.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Prometheus exporter for IPMI metrics'
 arch=(x86_64)
 url='https://github.com/prometheus-community/ipmi_exporter'
@@ -80,9 +80,12 @@ package() {
   # taken from upstream's contrib/rpm directory
   install -vDm644 systemd.service "$pkgdir/usr/lib/systemd/system/$pkgname.service"
   install -vDm644 sysusers.conf "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
-  install -vDm644 sudoers.conf "$pkgdir/etc/sudoers.d/$pkgname"
   install -vDm644 config.yml "$pkgdir/etc/prometheus/${pkgname#prometheus-}.yml"
   install -vDm644 config.env "${pkgdir}/etc/prometheus/${pkgname#prometheus-}.env"
+
+  # sudoers configuration
+  install -vdm750 "$pkgdir/etc/sudoers.d"
+  install -vDm440 sudoers.conf "$pkgdir/etc/sudoers.d/$pkgname"
 
   cd "$pkgname"
 
