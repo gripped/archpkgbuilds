@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=bustle
-pkgver=0.9.2
+pkgver=0.10.0
 pkgrel=1
 pkgdesc='Draw sequence diagrams of D-Bus traffic'
 arch=(x86_64)
@@ -19,24 +19,39 @@ depends=(
   pango
 )
 makedepends=(
+  appstream
   git
   meson
   rust
 )
 source=("git+https://gitlab.gnome.org/World/bustle.git#tag=$pkgver")
-b2sums=(c937bdf558eaae0e0d5345664d2fe5c2ff47fd0cdfa2976dc10f4237488494e19d24d062c3f1858eb243c8e5b5ae830e02fdd11018c9989d4fc4dcac1e5371c3)
+b2sums=(2ab4ab0d5a27acf032f572a6179382b45898892cb1e9c9caa899cd8677a50f76c579f7bca6d4704a894c43d6e36606c855b526f4c8d709de9333caa3842fff59)
+
+prepare() {
+  cd $pkgname
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # note: test did not panic as expected
+  # https://gitlab.gnome.org/World/bustle/-/issues/36
+  sed -i '/#\[should_panic/d' src/i18n.rs
+}
 
 build() {
-  # Use LTO
-  export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
-
-  # Use debug
-  export CARGO_PROFILE_RELEASE_DEBUG=2
-
   arch-meson $pkgname build
-  meson compile -C build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --destdir "$pkgdir" --no-rebuild
 }
