@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=turbo
-pkgver=2.1.2
+pkgver=2.1.3
 pkgrel=1
 pkgdesc="Incremental bundler and build system optimized for JavaScript and TypeScript"
 url='https://turbo.build/'
@@ -18,16 +18,12 @@ makedepends=(
   'protobuf'
 )
 options=(!lto)
-source=(https://github.com/vercel/turborepo/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
-        https://github.com/vercel/turborepo/commit/6d188656da005efc999fd3ba803db3777f8ea079.diff)
-sha256sums=('109caa97a6ca44938c1a121eccf323ebf454488466f0375d7a9c30dd806f1bca'
-            '3cedf68990f679cddf7b5c15228d0bc7c6ffa530feb65fcf6d7d333fe1a6730a')
-b2sums=('7dbc719879dae0dc2c1a09432b7a78f0103bdf1eec4715e0c70a5cf650552939549e3bb7d2e58056951417b7c2cc900e11234df4d4eacae45abe8d9732c182d9'
-        '238d0c200057aec6ee82b0c15a611c5256e1272ba6ede726a2186da606691b0ad475b95320809efce713431c98e28174df1ab3d28d1887a48fa4f1dfb915c511')
+source=(https://github.com/vercel/turborepo/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('6b852122b1ed19cde4d988b09b48192ee7ad7029fc403b435053cead6d1b7fd2')
+b2sums=('b0d12b39a44fa3233c4507b0441afc60cb1dbba4dd92b828cd7bd673cc2e64e4aded63865e851f2986d520032909e3015e5029c6c85796d479261a6f04c20030')
 
 prepare() {
   cd turborepo-${pkgver}
-  patch -Np1 -i ../6d188656da005efc999fd3ba803db3777f8ea079.diff
   RUSTC_BOOTSTRAP=1 cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
