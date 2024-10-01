@@ -1,8 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=reapack
-pkgver=1.2.4.5
-_commit='9282e03643afead4171e4cac70a51ba32fb7dece'  # refs/tags/v1.2.4.5^{}
+pkgver=1.2.4.6
 pkgrel=1
 pkgdesc='Package manager for the Reaper DAW'
 arch=('x86_64')
@@ -30,12 +29,12 @@ makedepends=(
   'catch2'
 )
 source=(
-  "$pkgname::git+https://github.com/cfillion/reapack#commit=$_commit"
+  "$pkgname::git+https://github.com/cfillion/reapack#tag=v$pkgver"
   'github.com-justinfrankel-wdl::git+https://github.com/justinfrankel/WDL'
   'github.com-justinfrankel-reaper-sdk::git+https://github.com/justinfrankel/reaper-sdk'
   $pkgname-1.2.4.5-system_wide.patch
 )
-b2sums=('SKIP'
+b2sums=('8286ff72f0d45d8def67fa85a43f479b11763ba3f4a5fb5c5dddad9d662c659a22e57c157c78390c443cd230bcf51792cbbd8996d5a0ae7a6671b03a0c796fc0'
         'SKIP'
         'SKIP'
         '0f24c87d822322db6807a262fdb808b72937838fcb998b8d69cd938a9b33a22dfcdd95cf620ef862134f30e87681c40d99323a7762c92aef4e29f83f665e036d')
