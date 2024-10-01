@@ -3,7 +3,7 @@
 # Contributor: Sven Lechner <sven[dot]lechner[at]rwth-aachen[dot]de>
 
 pkgname=act
-pkgver=0.2.67
+pkgver=0.2.68
 pkgrel=1
 pkgdesc="Run your GitHub Actions locally"
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('MIT')
 makedepends=('go')
 optdepends=('docker: Connect to local docker')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('1a93acf48f1b8bd3689c8c6c906e42ef0bb695199abfab488f11051e9f855b57')
+sha256sums=('45653a9a73c8f5fe4bb6b05b49d3ef22589a6968ccf30a49cc399e7862870303')
 
 build() {
   cd $pkgname-$pkgver
@@ -23,11 +23,13 @@ build() {
   export CGO_LDFLAGS="${LDFLAGS}"
 
   go build \
-      -trimpath \
-      -buildmode=pie \
-      -mod=readonly \
-      -modcacherw \
-      -ldflags "-linkmode=external -X main.version=$pkgver"
+    -trimpath \
+    -buildmode=pie \
+    -mod=readonly \
+    -modcacherw \
+    -ldflags "-linkmode=external -X main.version=$pkgver"
+
+  "./$pkgname" --man-page >"$pkgname.1"
 }
 
 package() {
@@ -35,6 +37,7 @@ package() {
   install -Dm755 $pkgname -t "$pkgdir/usr/bin"
   install -Dm644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+  install -Dm644 "$pkgname.1" -t "$pkgdir/usr/share/man/man1"
 }
 
 # vim:set ts=2 sw=2 et:
