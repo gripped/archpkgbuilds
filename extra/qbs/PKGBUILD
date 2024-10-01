@@ -4,7 +4,7 @@
 # Contributor: Jake Petroules <jake.petroules@qt.io>
 
 pkgname=qbs
-pkgver=2.4.1
+pkgver=2.4.2
 pkgrel=1
 pkgdesc='Cross platform build tool'
 arch=(x86_64)
@@ -17,7 +17,7 @@ depends=(gcc-libs
 makedepends=(cmake
              git)
 source=(git+https://code.qt.io/qbs/qbs#tag=v$pkgver)
-sha256sums=('a84d4032c0fbbc4a436e89b50955db0ed29d6782762a980468847c7b6903afca')
+sha256sums=('103fa013756c4ea3389574b02420b118c7391284053da988874a8997dd8b8a20')
 
 build() {
   cmake -B build -S $pkgname \
