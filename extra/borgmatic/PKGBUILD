@@ -8,7 +8,7 @@
 
 pkgname=borgmatic
 pkgver=1.8.14
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple, configuration-driven backup software for servers and workstations'
 arch=(any)
 url=https://torsion.org/borgmatic
@@ -36,7 +36,7 @@ checkdepends=(
 )
 optdepends=(
   'apprise: for Apprise notifications'
-  'python-llfuse: for mount action'
+  'python-pyfuse3: for mount action'
 )
 source=("git+https://projects.torsion.org/borgmatic-collective/borgmatic.git#tag=$pkgver")
 b2sums=('0dbf2ffc4f487993ffffe142ff86a3a3206e808b7caea1afd3408b33ba9178e60d4e3938576549bd7b3774c5f2ef7ba2dc33bd9154089d4c181065784e7e6c12')
