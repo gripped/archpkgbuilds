@@ -1,0 +1,51 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=lorem
+pkgver=1.4
+pkgrel=2
+pkgdesc='Simple app to generate the Lorem Ipsum placeholder text'
+arch=(x86_64)
+url='https://apps.gnome.org/Lorem/'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  gcc-libs
+  glib2
+  glibc
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+)
+makedepends=(
+  appstream
+  git
+  meson
+  rust
+)
+source=("git+https://gitlab.gnome.org/World/design/lorem.git#tag=$pkgver")
+b2sums=(967ed9ffc098f3ce55a5549ce2beccde4e95a1fa69917f087c83ecf45fa2f8018983e2c892dc6d28d64fce5507d5c4d7db33f6950006f434cdc09b0de021f570)
+
+prepare() {
+  cd $pkgname
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  arch-meson $pkgname build \
+    -D install_fonts=false
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+}
