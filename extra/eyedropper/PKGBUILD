@@ -2,7 +2,7 @@
 
 pkgname=eyedropper
 pkgver=2.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Color picker and formatter'
 arch=(x86_64)
 url='https://apps.gnome.org/Eyedropper/'
@@ -50,6 +50,7 @@ build() {
   CARGO_PROFILE_RELEASE_LTO=true \
     CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
     CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
     meson compile -C build
 }
 
