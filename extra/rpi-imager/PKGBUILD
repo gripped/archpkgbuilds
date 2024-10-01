@@ -3,8 +3,8 @@
 # Contributor: Dmytro Aleksandrov <alkersan@gmail.com>
 
 pkgname=rpi-imager
-pkgver=1.8.5
-pkgrel=4
+pkgver=1.9.0
+pkgrel=2
 pkgdesc="Raspberry Pi Imaging Utility"
 depends=(
     'curl'
@@ -13,9 +13,8 @@ depends=(
     'gnutls'
     'hicolor-icon-theme'
     'libarchive'
-    'qt5-base'
-    'qt5-declarative'
-    'qt5-quickcontrols2'
+    'qt6-base'
+    'qt6-declarative'
     'xz'
 )
 optdepends=(
@@ -24,22 +23,30 @@ optdepends=(
 )
 makedepends=(
     'cmake'
-    'qt5-tools'
-    'qt5-svg'
+    'qt6-tools'
+    'qt6-svg'
 )
 arch=('x86_64')
 url="https://github.com/raspberrypi/rpi-imager"
 license=("Apache-2.0")
 
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/raspberrypi/${pkgname}/archive/v${pkgver}.tar.gz")
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/raspberrypi/${pkgname}/archive/v${pkgver}.tar.gz"
+        "$pkgname-1_9_0-remove-vendoring.patch::https://github.com/raspberrypi/rpi-imager/commit/0bd585fa0b54a2b85cea6a6768c7e1d953b24334.patch")
 
-b2sums=('a3268674a9d8345c23b765beef041404185eb31a25cefc2adee0d6de7910aa526c1b1f0073e4fd959ae3aa04764c9890355835295dab40149d07e37b0869a890')
+b2sums=('d4eae0e1f1d99901938d04d1fcd6cb3dac84296172791f215247aa6873284e4b8d6673e0e847ad9dd41167cea87122a154a440a91bf8546a4a1d0442a02cb494'
+        'e02c86d35a2854bd4ab8bd4de938cd1771b6e0e38a494be0d8886c1158627eb4c182309fff7c67ea457c8ab060279d7c57a95f08b52dab976f751163efe0267c')
+
+prepare() {
+    # https://github.com/raspberrypi/rpi-imager/issues/924
+    patch -Np1 -d "${pkgname}-${pkgver}" -i "$srcdir/$pkgname-1_9_0-remove-vendoring.patch"
+}
 
 build() {
     cmake -B build -S "${pkgname}-${pkgver}/src" \
         -DCMAKE_BUILD_TYPE='None' \
         -DCMAKE_INSTALL_PREFIX='/usr' \
-        -DENABLE_CHECK_VERSION=OFF
+        -DENABLE_CHECK_VERSION=OFF \
+        -DENABLE_VENDORING=OFF
     cmake --build build
 }
 
