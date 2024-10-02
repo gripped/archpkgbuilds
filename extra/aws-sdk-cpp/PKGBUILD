@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-sdk-cpp
-pkgver=1.11.410
+pkgver=1.11.415
 pkgrel=1
 pkgdesc='AWS SDK for C++'
 arch=(x86_64)
@@ -13,6 +13,7 @@ depends=(
   aws-c-common
   aws-c-event-stream
   aws-c-http
+  aws-c-io
   aws-c-s3
   aws-checksums
   aws-crt-cpp
@@ -24,7 +25,7 @@ depends=(
 )
 makedepends=(cmake)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('37453cf0d34aa16892c4090e4df388fa0bf8528e35ec7affe85ee0b5d60f50ee')
+sha256sums=('306df858664f86c08dce9d758503c79e1f3fdbd8e9e805ee9abbaae17ab36803')
 
 prepare() {
   cd $pkgname-$pkgver
