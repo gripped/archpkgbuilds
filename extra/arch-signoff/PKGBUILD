@@ -2,7 +2,7 @@
 
 pkgname=arch-signoff
 pkgver=0.5.2
-pkgrel=4
+pkgrel=5
 pkgdesc='Sign off Arch Linux testing packages'
 arch=(any)
 url="https://github.com/archlinux/arch-signoff"
@@ -11,7 +11,7 @@ depends=('python' 'pyalpm' 'python-click' 'python-dateutil'
          'python-requests')
 makedepends=('python-setuptools-scm' 'python-setuptools' 'python-build'
              'python-installer' 'python-wheel' 'asciidoc' 'git')
-checkdepends=('python-pytest-pacman' 'python-pytest' 'python-pytest-cov')
+checkdepends=('python-pytest-pacman' 'python-pytest')
 groups=('archlinux-tools')
 source=("$pkgname::git+https://github.com/archlinux/arch-signoff.git?signed#tag=$pkgver")
 validpgpkeys=(
@@ -27,7 +27,7 @@ build() {
 
 check() {
   cd "$pkgname"
-  make test
+  PYTHONPATH=. pytest
 }
 
 package() {
