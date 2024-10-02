@@ -5,7 +5,7 @@
 
 pkgname=python-openai
 _name=openai-python
-pkgver=1.47.1
+pkgver=1.50.2
 pkgrel=1
 pkgdesc="Python client library for the OpenAI API"
 arch=('any')
@@ -44,9 +44,8 @@ checkdepends=(
 optdepends=(
   'python-numpy: Needed for CLI fine-tuning data preparation tool'
   'python-pandas: Needed for CLI fine-tuning data preparation tool'
-  'python-pandas-stubs: Needed for type hints for mypy'
   'python-openpyxl: Needed for CLI fine-tuning data preparation tool xlsx format'
-  'python-wandb: Support for Weights & Biases'
+  # 'python-wandb: Support for Weights & Biases' # Not packaged
   'python-scikit-learn: Needed for embedding utils'
   'python-tenacity: embeddings'
   'python-matplotlib: embeddings'
@@ -54,13 +53,13 @@ optdepends=(
   'python-scipy: embeddings'
 )
 # Defined in .stats.yml
-_openai_openapi_spec=de1981b64ac229493473670d618500c6362c195f1057eb7de00bd1bc9184fbd5
+_openai_openapi_spec=71e58a77027c67e003fdd1b1ac8ac11557d8bfabc7666d1a827c6b1ca8ab98b5
 source=(
   "${_name}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
   "https://storage.googleapis.com/stainless-sdk-openapi-specs/openai-${_openai_openapi_spec}.yml"
 )
-sha256sums=('490e9c3b6d1c9eb5ceaedcda091f7fe737950282b7a90d243508ce3e445903bb'
-            'de1981b64ac229493473670d618500c6362c195f1057eb7de00bd1bc9184fbd5')
+sha256sums=('a2952ee990f834846ec803a056737213f1b147d67e1940a6304663e6a00b5802'
+            '71e58a77027c67e003fdd1b1ac8ac11557d8bfabc7666d1a827c6b1ca8ab98b5')
 
 prepare() {
   cd "${_name}-${pkgver}"
