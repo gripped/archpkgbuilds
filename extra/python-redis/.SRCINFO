@@ -1,10 +1,11 @@
 pkgbase = python-redis
 	pkgdesc = The Python interface to the Redis key-value store
-	pkgver = 5.0.8
+	pkgver = 5.1.0
 	pkgrel = 1
 	url = https://github.com/redis/redis-py
 	arch = any
 	license = MIT
+	checkdepends = python-coverage
 	checkdepends = python-cryptography
 	checkdepends = python-hiredis
 	checkdepends = python-numpy
@@ -24,7 +25,7 @@ pkgbase = python-redis
 	optdepends = python-hiredis: faster performance via hiredis
 	optdepends = python-pyopenssl: OCSP certificate validation
 	optdepends = python-requests: OCSP certificate validation
-	source = python-redis::git+https://github.com/redis/redis-py#tag=v5.0.8
-	b2sums = f93dcd011b5a88bfe13000b84bb980dd278ef8b454d30d66933887a60d8fd4c0956a45da9b42a0a8984d6dda61808a3607b63aad17f4f48484653c54147d3d48
+	source = python-redis::git+https://github.com/redis/redis-py#tag=v5.1.0
+	b2sums = 33452e10abbc440e8a948cee3f23c925b596146126491d808dbddee22aa669898be9c0175787b83a70e4c9582236c4b9f144cf833b4b05333a039402138fc38f
 
 pkgname = python-redis

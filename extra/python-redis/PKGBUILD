@@ -5,7 +5,7 @@
 # Contributor: Pierre Gueth <pierre.gueth@gmail.com>
 
 pkgname=python-redis
-pkgver=5.0.8
+pkgver=5.1.0
 pkgrel=1
 pkgdesc='The Python interface to the Redis key-value store'
 arch=('any')
@@ -22,13 +22,8 @@ makedepends=(
   'python-setuptools'
   'python-wheel'
 )
-optdepends=(
-  'python-cryptography: OCSP certificate validation'
-  'python-hiredis: faster performance via hiredis'
-  'python-pyopenssl: OCSP certificate validation'
-  'python-requests: OCSP certificate validation'
-)
 checkdepends=(
+  'python-coverage'
   'python-cryptography'
   'python-hiredis'
   'python-numpy'
@@ -38,18 +33,29 @@ checkdepends=(
   'python-requests'
   'redis'
 )
+optdepends=(
+  'python-cryptography: OCSP certificate validation'
+  'python-hiredis: faster performance via hiredis'
+  'python-pyopenssl: OCSP certificate validation'
+  'python-requests: OCSP certificate validation'
+)
 source=("$pkgname::git+$url#tag=v$pkgver")
-b2sums=('f93dcd011b5a88bfe13000b84bb980dd278ef8b454d30d66933887a60d8fd4c0956a45da9b42a0a8984d6dda61808a3607b63aad17f4f48484653c54147d3d48')
+b2sums=('33452e10abbc440e8a948cee3f23c925b596146126491d808dbddee22aa669898be9c0175787b83a70e4c9582236c4b9f144cf833b4b05333a039402138fc38f')
+
+prepare() {
+  cd "$pkgname"
+  # Compatibiltiy with recent python-pytest-asyncio.
+  sed -i 's/@pytest.mark.asyncio(forbid_global_loop=True)/@pytest.mark.asyncio/g' \
+    tests/test_asyncio/test_scripting.py
+}
 
 build() {
   cd "$pkgname"
-
   python -m build --wheel --no-isolation
 }
 
 check() {
   cd "$pkgname"
-
   # shellcheck disable=SC2317
   _teardown() {
     redis-cli -p 6379 shutdown
@@ -118,7 +124,7 @@ check() {
     --deselect=tests/test_timeseries.py
 
     # Tests that freezes, unsure of why.
-    --deselect tests/test_asyncio/test_cluster.py::TestRedisClusterObj::test_address_remap
+    --deselect=tests/test_asyncio/test_cluster.py::TestRedisClusterObj::test_address_remap
   )
 
   # Run standalone test suite - targets the Redis server running :6379 and the
@@ -137,7 +143,6 @@ check() {
 
 package() {
   cd "$pkgname"
-
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
