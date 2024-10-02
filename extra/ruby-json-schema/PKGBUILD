@@ -4,8 +4,8 @@
 
 _gemname='json-schema'
 pkgname="ruby-${_gemname}"
-pkgver=4.3.0
-pkgrel=2
+pkgver=5.0.0
+pkgrel=1
 pkgdesc='Interface for validating JSON objects against a JSON schema conforming to JSON Schema Draft 4.'
 arch=('any')
 url='https://github.com/voxpupuli/json-schema'
@@ -15,17 +15,13 @@ checkdepends=('ruby-rake' 'ruby-minitest' 'ruby-test-unit' 'ruby-webmock' 'ruby-
 depends=('ruby' 'ruby-addressable')
 options=(!emptydirs)
 source=("${url}/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
-sha512sums=('6d3269d837c60061751428e66b2dc82204c9b0a4b1c92f79d965365666cc968b8c2f819686ff5eed24395c7bbc31c4372bffb81caf4afc952531caac5e273763')
+sha512sums=('2f8c7aaa6b5e53b73c804ebccff1d5b33057d3a27d5de02392a51f0d563376fca6de24d23df659b7afce1f0bb719e5fbcae515043bebd8225586f010ca8b0962')
 
 prepare() {
   cd "${srcdir}/${_gemname}-${pkgver}"
 
   # replace upper version boundaries for ruby gems
   sed --in-place 's|~>|>=|g' "${_gemname}.gemspec"
-
-  # disable tests that try to download fixtures from dead upstream websites
-  #patch --forward --verbose --strip=1 --input=../disable_tests_with_external_fixtures.patch
-
 }
 
 build() {
