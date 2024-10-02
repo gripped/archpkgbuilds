@@ -1,29 +1,56 @@
 # Maintainer: Johannes Löthberg <johannes@kyriasis.com>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-hiredis
-pkgver=2.3.2
+_pkgname=hiredis-py
+pkgver=3.0.0
 pkgrel=1
-
 pkgdesc='Non-blocking redis client for python'
-url='https://pypi.org/project/hiredis/'
 arch=('x86_64')
-license=('Apache')
+url='https://pypi.org/project/hiredis/'
+license=('MIT')
+depends=(
+    'glibc'
+    'python'
+)
+makedepends=(
+    'git'
+    'python-build'
+    'python-installer'
+    'python-setuptools'
+    'python-wheel'
+)
+checkdepends=('python-pytest')
+source=(
+    "git+https://github.com/redis/hiredis-py.git#tag=v$pkgver"
+    "git+https://github.com/redis/hiredis.git"
+)
+sha256sums=('ae24959a5ca6004edf847d109fc484d813ba521cf1a5afa047d98f1916f66dac'
+            'SKIP')
 
-depends=('python')
-makedepends=('python-setuptools')
-
-source=("https://pypi.org/packages/source/h/hiredis/hiredis-$pkgver.tar.gz")
-
-sha256sums=('733e2456b68f3f126ddaf2cd500a33b25146c3676b97ea843665717bda0c5d43')
+prepare() {
+    cd $_pkgname
+    git submodule init
+    git config submodule.vendor/hiredis.url "$srcdir/hiredis"
+    git -c protocol.file.allow=always submodule update
+}
 
 build() {
-	cd "$srcdir"/hiredis-$pkgver
-	python setup.py build
+	cd $_pkgname
+    python -m build --wheel --no-isolation
+}
+
+check() {
+    cd $_pkgname
+    python -m installer --destdir=tmp_install dist/*.whl
+    local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+    PYTHONPATH="$PWD/tmp_install/$site_packages" pytest
 }
 
 package() {
-	cd hiredis-$pkgver
-	python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+	cd $_pkgname
+    python -m installer -d "$pkgdir" dist/*.whl
+    install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
 
 # vim: set ts=4 sw=4 tw=0 ft=PKGBUILD :
