@@ -1,13 +1,14 @@
 pkgbase = yamlfmt
 	pkgdesc = An extensible command line tool or library to format yaml files.
 	pkgver = 0.13.0
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/google/yamlfmt
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = go
 	depends = glibc
-	source = yamlfmt-0.13.0.tar.gz::https://github.com/google/yamlfmt/archive/refs/tags/v0.13.0.tar.gz
+	options = !lto
+	source = yamlfmt-0.13.0.tar.gz::https://github.com/google/yamlfmt/archive/v0.13.0.tar.gz
 	sha512sums = 28cf1d04690ce72a1330c0d93b148516e80b33306067f4dbe1b5056e243202d93ed09293b6fe5c958a341dd590edd61e6c1fdb278b28c88b421fb7364cff10b8
 
 pkgname = yamlfmt
