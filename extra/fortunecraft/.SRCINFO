@@ -1,14 +1,17 @@
 pkgbase = fortunecraft
 	pkgdesc = Craft fortunes using Ollama and Gemma2
-	pkgver = 1.7.0
+	pkgver = 1.8.0
 	pkgrel = 1
 	url = https://github.com/xyproto/fortunecraft
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = git
 	makedepends = go
-	depends = ollama-gemma2-2b
-	source = git+https://github.com/xyproto/fortunecraft#tag=v1.7.0
-	b2sums = 1447f9ae1c4ec8f7d4ffc1c74c7b7b03373785c9e838d6a7e668c49c18e1093d1df1a05df160a8dda918bb13aa36a8486a498ff5a001c3920140544ecbd4d05b
+	depends = llm-manager
+	optdepends = ollama-cuda: CUDA support for Ollama
+	optdepends = ollama-rocm: ROCm support for Ollama
+	optdepends = ollama-gemma2-2b: the Gemma2 (2B) model
+	source = git+https://github.com/xyproto/fortunecraft#tag=v1.8.0
+	b2sums = 68f213fe07c51146dffa6385823985d89dcf956a23c4959c19bd2d066455ff7635e317da6e4cdfab2d3c90cc4403da525554d65b5750bb18521b49b1933dcd24
 
 pkgname = fortunecraft
