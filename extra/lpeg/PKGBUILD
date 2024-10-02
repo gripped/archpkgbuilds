@@ -3,91 +3,45 @@
 # Contributor: Gustavo Alvarez <sl1pkn07@gmail.com>
 
 pkgbase=lpeg
-pkgname=(lua-lpeg lua51-lpeg lua52-lpeg lua53-lpeg)
+pkgname=(lua-$pkgbase lua51-$pkgbase lua52-$pkgbase lua53-$pkgbase)
 pkgver=1.1.0
-pkgrel=2
-arch=('x86_64')
-url='https://www.inf.puc-rio.br/~roberto/lpeg/'
-license=('MIT')
-makedepends=('lua' 'lua51' 'lua52' 'lua53')
-source=("https://www.inf.puc-rio.br/~roberto/${pkgbase}/${pkgbase}-${pkgver}.tar.gz"
-        'LICENSE')
-sha256sums=('4b155d67d2246c1ffa7ad7bc466c1ea899bbc40fef0257cc9c03cecbaed4352a'
+pkgrel=3
+_rockrel=2
+pkgdesc='Parsing Expression Grammars For Lua'
+arch=(x86_64)
+url="https://www.inf.puc-rio.br/~roberto/$pkgbase/"
+license=(MIT)
+depends=(glibc)
+makedepends=(lua
+             lua51
+             lua52
+             lua53
+             luarocks)
+_archive="$pkgbase-$pkgver"
+source=("https://luarocks.org/manifests/gvvaughan/$_archive-$_rockrel.src.rock"
+        LICENSE)
+sha256sums=('836d315b920a5cdd62e21786c6c9fad547c4faa131d5583ebca64f0b6595ee76'
             '6be7688c9c648e7c7cde693081be938c869a10aa4de09fe0a4c4c1d66b3cf03d')
 
-prepare() {
-  sed 's/^CFLAGS =/CFLAGS +=/' -i "${pkgbase}-${pkgver}"/makefile
-  sed 's/^COPT =/# COPT =/' -i "${pkgbase}-${pkgver}"/makefile
-
-  cp -r "${pkgbase}-${pkgver}" "${pkgbase}-${pkgver}"-51
-  cp -r "${pkgbase}-${pkgver}" "${pkgbase}-${pkgver}"-52
-  cp -r "${pkgbase}-${pkgver}" "${pkgbase}-${pkgver}"-53
-}
-
-build() {
-  cd "${pkgbase}-${pkgver}"
-  make LUADIR=/usr/include
-
-  cd "${srcdir}/${pkgbase}-${pkgver}-51"
-  make LUADIR=/usr/include/lua5.1
-
-  cd "${srcdir}/${pkgbase}-${pkgver}-52"
-  make LUADIR=/usr/include/lua5.2
-  
-  cd "${srcdir}/${pkgbase}-${pkgver}-53"
-  make LUADIR=/usr/include/lua5.3
-}
-
-check() {
-  echo "Testing with Lua 5.4"
-  cd "${srcdir}/${pkgbase}-${pkgver}"
-  lua test.lua
-
-  echo "Testing with Lua 5.1"
-  cd "${srcdir}/${pkgbase}-${pkgver}-51"
-  lua5.1 test.lua
-
-  echo "Testing with Lua 5.2"
-  cd "${srcdir}/${pkgbase}-${pkgver}-52"
-  lua5.2 test.lua
-  
-  echo "Testing with Lua 5.3"
-  cd "${srcdir}/${pkgbase}-${pkgver}-53"
-  lua5.3 test.lua
+_package() {
+	pkgdesc+=" for Lua $1"
+	luarocks --lua-version "$1" --tree "$pkgdir/usr/" \
+		install --deps-mode none --no-manifest -- "${source[0]##*/}"
+	install -Dm0664 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }
 
 package_lua-lpeg() {
-  pkgdesc='Pattern-matching library for Lua 5.4'
-
-  cd "${srcdir}/${pkgbase}-${pkgver}"
-  install -Dm0755 ${pkgbase}.so "${pkgdir}"/usr/lib/lua/5.4/${pkgbase}.so
-  install -Dm0644 re.lua "${pkgdir}"/usr/share/lua/5.4/re.lua
-  install -Dm0644 ../LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+	_package 5.4
 }
 
 package_lua51-lpeg() {
-  pkgdesc='Pattern-matching library for Lua 5.1'
-
-  cd "${srcdir}/${pkgbase}-${pkgver}-51"
-  install -Dm0755 ${pkgbase}.so "${pkgdir}"/usr/lib/lua/5.1/${pkgbase}.so
-  install -Dm0644 re.lua "${pkgdir}"/usr/share/lua/5.1/re.lua
-  install -Dm0644 ../LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+	_package 5.1
 }
 
 package_lua52-lpeg() {
-  pkgdesc='Pattern-matching library for Lua 5.2'
-
-  cd "${srcdir}/${pkgbase}-${pkgver}-52"
-  install -Dm0755 ${pkgbase}.so "${pkgdir}"/usr/lib/lua/5.2/${pkgbase}.so
-  install -Dm0644 re.lua "${pkgdir}"/usr/share/lua/5.2/re.lua
-  install -Dm0644 ../LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+	_package 5.2
 }
 
 package_lua53-lpeg() {
-  pkgdesc='Pattern-matching library for Lua 5.3'
-
-  cd "${srcdir}/${pkgbase}-${pkgver}-53"
-  install -Dm0755 ${pkgbase}.so "${pkgdir}"/usr/lib/lua/5.3/${pkgbase}.so
-  install -Dm0644 re.lua "${pkgdir}"/usr/share/lua/5.3/re.lua
-  install -Dm0644 ../LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+	_package 5.3
 }
