@@ -4,7 +4,7 @@
 pkgname=python-bidict
 _name=${pkgname#python-}
 pkgver=0.23.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Bidirectional mapping library for Python'
 url='https://bidict.readthedocs.org/'
 arch=('any')
@@ -24,7 +24,6 @@ checkdepends=(
   python-sphinx
   python-sphinx-autodoc-typehints
   python-pytest-benchmark
-  python-pytest-cov
   python-pytest-xdist
   python-hypothesis
   python-py-cpuinfo
