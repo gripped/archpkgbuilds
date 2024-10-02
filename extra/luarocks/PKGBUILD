@@ -7,7 +7,7 @@
 
 pkgname=luarocks
 pkgver=3.11.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Deployment and management system for Lua modules'
 backup=(etc/luarocks/config-5.{1,2,3,4}.lua)
 arch=('any')
@@ -33,6 +33,7 @@ source=("https://luarocks.org/releases/$pkgname-$pkgver.tar.gz"{,.asc}
         "luarocks-admin.fish"
         "luarocks-admin.zsh"
         )
+install=luarocks.install
 sha512sums=('1e214fd41711f62fda122d73441165a2d0ffe7ed29d3d3d7690b9a1a272c03e269fc39e0c2d35dddaa64fad411b87754da4e7b8236af562fde837e9e6626fbad'
             'SKIP'
             'cd90cba877c0dd435b44328a0869e3102c52eb36ed5b764c3ee8a78de95772fe094419dc032db2e2c91d9a0aa35ab7c6e8a13e29b9feeb3a3172d7a129d005c0'
