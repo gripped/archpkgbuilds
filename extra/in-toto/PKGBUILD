@@ -1,53 +1,50 @@
 # Maintainer: Santiago Torres-Arias <santiago@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
-pkgname=('in-toto')
-pkgver=1.2.0
-_commit=1a8bec5d66714a7aff69f250ef8d38310659872a  # refs/tags/v1.2.0
-pkgrel=5
+pkgname=in-toto
+pkgver=3.0.0
+pkgrel=1
 pkgdesc="A framework to secure your software supply chain"
 arch=('any')
 license=('Apache-2.0')
 url="https://in-toto.io"
 depends=(
-    'python'
-    'python-attrs'
-    'python-dateutil'
-    'python-iso8601'
-    'python-pathspec'
-    'python-securesystemslib'
+  'python'
+  'python-attrs'
+  'python-cryptography'
+  'python-dateutil'
+  'python-iso8601'
+  'python-pathspec'
+  'python-securesystemslib'
 )
 makedepends=(
-    'git'
-    'python-build'
-    'python-installer'
-    'python-setuptools'
-    'python-wheel'
+  'git'
+  'python-build'
+  'python-hatchling'
+  'python-installer'
+  'python-wheel'
 )
 optdepends=("gnupg: pgp signing/verification")
-source=("git+https://github.com/${pkgname}/${pkgname}.git#tag=$_commit?signed")
-sha256sums=('SKIP')
-validpgpkeys=("903BAB73640EB6D65533EFF3468F122CE8162295"
-    # Santiago Torres-Arias (upstream co-maintainer)
-    "8BA69B87D43BE294F23E812089A2AD3C07D962E8"
-    # Lukas Puehringher (upstream maintainer)
-    "E32941299CB8C0D93DCF27ACB83110D012545604"
-    # Aditya Saky (Upstream maintainer)
-    )
+source=("git+https://github.com/$pkgname/$pkgname.git#tag=v$pkgver?signed")
+sha256sums=('85d7a43e99435284a59ec131c6fc225bbb51abba97d3591d21244016463b186e')
+validpgpkeys=(
+  "903BAB73640EB6D65533EFF3468F122CE8162295" # Santiago Torres-Arias (upstream co-maintainer)
+  "8BA69B87D43BE294F23E812089A2AD3C07D962E8" # Lukas Puehringher (upstream maintainer)
+  "E32941299CB8C0D93DCF27ACB83110D012545604" # Aditya Saky (Upstream maintainer)
+)
 
 build() {
-    cd "${pkgname}"
-
-    python -m build --wheel --no-isolation
+  cd $pkgname
+  python -m build --wheel --no-isolation
 }
 
 check() {
-    cd "${pkgname}"
-    python -m unittest discover -vs tests
+  cd $pkgname
+  python -m unittest discover -vs tests
 }
 
 package() {
-    cd "${pkgname}"
-    python -m installer --destdir="$pkgdir" dist/*.whl
-    install -D -m644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
-
