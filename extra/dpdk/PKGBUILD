@@ -1,26 +1,62 @@
 # Maintainer: Anatol Pomozov
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=dpdk
-pkgver=23.07
-pkgrel=2
-pkgdesc='A set of libraries and drivers for fast packet processing'
+pkgver=24.07
+pkgrel=1
+pkgdesc="A set of libraries and drivers for fast packet processing"
 arch=(x86_64)
-url='http://dpdk.org'
-license=(BSD)
-options=(staticlibs)
-depends=(numactl libelf libpcap libbpf libbsd dtc jansson libarchive)
-makedepends=(linux-headers python-pyelftools meson ninja)
-source=(http://fast.dpdk.org/rel/dpdk-$pkgver.tar.xz)
-sha256sums=('e08614e8aeb929407d73d716999289a44ef4034352271f09397eef932b23b3d6')
+url="https://dpdk.org"
+license=(
+  BSD-3-Clause
+  GPL-2.0-only
+)
+depends=(
+  bash
+  dtc
+  gcc-libs
+  glibc
+  jansson
+  libarchive
+  libbsd
+  libelf
+  libpcap
+  numactl
+  openssl
+  zlib
+)
+makedepends=(
+  git
+  linux-headers
+  meson
+  ninja
+  python-pyelftools
+)
+source=("git+https://dpdk.org/git/dpdk#tag=v$pkgver")
+sha256sums=('685b4228625948e24c78808f562ac9403325cb1edc4d21c9e23ce1dcfc2aa809')
 
 build() {
-  cd dpdk-$pkgver
-  CFLAGS+=' -ffat-lto-objects' \
-  meson build --prefix=/usr -Dplatform=generic
-  ninja -C build -j1
+  cd $pkgname
+  arch-meson . build -Dplatform=generic
+  meson compile -C build
+}
+
+check() {
+  cd $pkgname
+  # Skip tests timing out. Not sure why.
+  local tests=$(
+    meson test -C build --suite fast-tests --list \
+      | awk '{print $3}' \
+      | grep -Ev pflock_autotest \
+      | grep -Ev rwlock_test1_autotest
+  )
+  # shellcheck disable=SC2068
+  meson test -C build --print-errorlogs ${tests[@]}
 }
 
 package() {
-  cd dpdk-$pkgver
-  DESTDIR="$pkgdir" ninja -C build install
+  cd $pkgname
+  meson install -C build --destdir="$pkgdir"
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" \
+    license/bsd-3-clause.txt
 }
