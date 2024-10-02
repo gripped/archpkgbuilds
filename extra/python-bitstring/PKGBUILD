@@ -1,31 +1,56 @@
 # Maintainer: Santiago Torres-Arias <santiago@archlinux.org>
-# Maintainer: nblock <nblock [/at\] archlinux DOT us>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: nblock <nblock [/at\] archlinux DOT us>
 # Contributor: Thomas Conneely <tc116 at le dot ac dot uk>
 
 pkgname=python-bitstring
-pkgver=3.1.9
-pkgrel=5
-pkgdesc='Python module designed to help make the creation, manipulation and analysis of binary data as simple and natural as possible'
+_pkgname=${pkgname#python-}
+pkgver=4.2.3
+pkgrel=1
+pkgdesc='A Python module to help you manage your bits'
 arch=('any')
 url="https://github.com/scott-griffiths/bitstring"
 license=('MIT')
-depends=('python')
-makedepends=('python-setuptools')
-source=("https://github.com/scott-griffiths/bitstring/archive/${pkgname/python-}-${pkgver}.tar.gz")
-sha256sums=('32da255b20b93a15260a8498170411ef1f112de5e5011fd0ae81fd834edf5f07')
+depends=(
+  'python'
+  'python-bitarray'
+)
+makedepends=(
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+checkdepends=(
+  'python-hypothesis'
+  'python-pytest'
+)
+source=("$url/archive/$_pkgname-$pkgver.tar.gz")
+sha256sums=('38a4275c6b23a60addf5a94d952fae5fe1f81cd76a2258c6380f1f3b2a17d0f3')
 
 build() {
-  # still unsure why the upstream tarball has the name repeated twice...
-  cd "${srcdir}/${pkgname/python-}-${pkgname/python-}-${pkgver}"
+  cd "$_pkgname-$_pkgname-$pkgver"
+  python -m build --wheel --no-isolation
+}
 
-  python setup.py build
+check() {
+  cd "$_pkgname-$_pkgname-$pkgver"
+  local pytest_args=(
+    # Requires python-gfloat which is not yet packaged.
+    # https://github.com/graphcore-research/gfloat
+    --ignore=tests/test_fp8.py
+    --ignore=tests/test_mxfp.py
+
+    # Deselect to avoid dependency on python-pytest-benchmark.
+    --deselect=tests/test_benchmarks.py
+  )
+  pytest "${pytest_args[@]}"
 }
 
 package() {
-  cd "${srcdir}/${pkgname/python-}-${pkgname/python-}-${pkgver}"
-
-  python setup.py install --root="${pkgdir}/" --optimize=1
-  install -D -m0644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  cd "$_pkgname-$_pkgname-$pkgver"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
 
 # vim:set ts=2 sw=2 et:

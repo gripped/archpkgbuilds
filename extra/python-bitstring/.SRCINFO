@@ -1,13 +1,19 @@
 pkgbase = python-bitstring
-	pkgdesc = Python module designed to help make the creation, manipulation and analysis of binary data as simple and natural as possible
-	pkgver = 3.1.9
-	pkgrel = 5
+	pkgdesc = A Python module to help you manage your bits
+	pkgver = 4.2.3
+	pkgrel = 1
 	url = https://github.com/scott-griffiths/bitstring
 	arch = any
 	license = MIT
+	checkdepends = python-hypothesis
+	checkdepends = python-pytest
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python
-	source = https://github.com/scott-griffiths/bitstring/archive/bitstring-3.1.9.tar.gz
-	sha256sums = 32da255b20b93a15260a8498170411ef1f112de5e5011fd0ae81fd834edf5f07
+	depends = python-bitarray
+	source = https://github.com/scott-griffiths/bitstring/archive/bitstring-4.2.3.tar.gz
+	sha256sums = 38a4275c6b23a60addf5a94d952fae5fe1f81cd76a2258c6380f1f3b2a17d0f3
 
 pkgname = python-bitstring
