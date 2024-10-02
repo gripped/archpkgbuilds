@@ -1,28 +1,28 @@
 pkgbase = lua-zlib
-	pkgdesc = Simple streaming interface to zlib for Lua
+	pkgdesc = Simple streaming interface to zlib
 	pkgver = 1.2
-	pkgrel = 5
+	pkgrel = 6
 	epoch = 1
 	url = https://github.com/brimworks/lua-zlib
 	arch = x86_64
 	license = MIT
 	makedepends = lua
-	makedepends = lua53
-	makedepends = lua52
 	makedepends = lua51
+	makedepends = lua52
+	makedepends = lua53
+	makedepends = luarocks
+	depends = glibc
 	depends = zlib
-	conflicts = lua-lzlib
 	source = https://github.com/brimworks/lua-zlib/archive/v1.2/lua-zlib-1.2.tar.gz
+	source = https://luarocks.org/manifests/brimworks/lua-zlib-1.2-2.rockspec
 	sha256sums = 26b813ad39c94fc930b168c3418e2e746af3b2e80b92f94f306f6f954cc31e7d
+	sha256sums = adc3e279ce67fb477ce7bf88cfb87607491d1c50d9c785b1567066c353f192f9
 
 pkgname = lua-zlib
-	pkgdesc = Simple streaming interface to zlib for Lua 5.4
+	conflicts = lua-lzlib
 
 pkgname = lua53-zlib
-	pkgdesc = Simple streaming interface to zlib for Lua 5.3
 
 pkgname = lua52-zlib
-	pkgdesc = Simple streaming interface to zlib for Lua 5.2
 
 pkgname = lua51-zlib
-	pkgdesc = Simple streaming interface to zlib for Lua 5.1

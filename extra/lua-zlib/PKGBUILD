@@ -2,64 +2,62 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
-pkgname=("lua-zlib" "lua53-zlib" "lua52-zlib" "lua51-zlib")
+pkgbase=lua-zlib
+_rockname=${pkgbase##lua-}
+pkgname=(lua-$_rockname lua53-$_rockname lua52-$_rockname lua51-$_rockname)
 epoch=1
 pkgver=1.2
-pkgrel=5
-url='https://github.com/brimworks/lua-zlib'
-pkgdesc='Simple streaming interface to zlib for Lua'
-arch=('x86_64')
-license=('MIT')
-makedepends=('lua' 'lua53' 'lua52' 'lua51')
-depends=('zlib')
-conflicts=('lua-lzlib')
-source=("https://github.com/brimworks/lua-zlib/archive/v$pkgver/lua-zlib-$pkgver.tar.gz")
-sha256sums=('26b813ad39c94fc930b168c3418e2e746af3b2e80b92f94f306f6f954cc31e7d')
+pkgrel=6
+_rockrel=2
+url="https://github.com/brimworks/$pkgbase"
+pkgdesc='Simple streaming interface to zlib'
+arch=(x86_64)
+license=(MIT)
+depends=(glibc
+         zlib)
+makedepends=(lua
+             lua51
+             lua52
+             lua53
+             luarocks)
+_archive="$pkgbase-$pkgver"
+_rock="$_archive-$_rockrel.linux-$CARCH.rock"
+source=("$url/archive/v$pkgver/$_archive.tar.gz"
+        "https://luarocks.org/manifests/brimworks/$_archive-$_rockrel.rockspec")
+sha256sums=('26b813ad39c94fc930b168c3418e2e746af3b2e80b92f94f306f6f954cc31e7d'
+            'adc3e279ce67fb477ce7bf88cfb87607491d1c50d9c785b1567066c353f192f9')
 
 build() {
-  cd "lua-zlib-$pkgver"
+	cd "$_archive"
+	for LUAVER in 5.{1,2,3,4}; do
+		luarocks --lua-version "$LUAVER" \
+			make --pack-binary-rock --deps-mode none -- "$srcdir/${source[1]##*/}"
+		install -Dm0644 -t "lua-$LUAVER/" "$_rock"
+	done
+}
 
-  gcc -fPIC $CPPFLAGS $CFLAGS -o lua_zlib.o -c lua_zlib.c
-  gcc -shared $LDFLAGS -o zlib.so lua_zlib.o -lz
-
-  gcc -fPIC $CPPFLAGS $CFLAGS -I/usr/include/lua5.3 -o lua_zlib.o -c lua_zlib.c
-  gcc -shared $LDFLAGS -o zlib-5.3.so lua_zlib.o -lz
-
-  gcc -fPIC $CPPFLAGS $CFLAGS -I/usr/include/lua5.2 -o lua_zlib.o -c lua_zlib.c
-  gcc -shared $LDFLAGS -o zlib-5.2.so lua_zlib.o -lz
-
-  gcc -fPIC $CPPFLAGS $CFLAGS -I/usr/include/lua5.1 -o lua_zlib.o -c lua_zlib.c
-  gcc -shared $LDFLAGS -o zlib-5.1.so lua_zlib.o -lz
+_package() {
+	cd "$_archive"
+	pkgdesc+=" for Lua $1"
+	conflicts=("lua${1/./}-lzlib")
+	luarocks --lua-version "$1" --tree "$pkgdir/usr/" \
+		install --deps-mode none --no-manifest -- "lua-$1/$_rock"
+	install -Dm0664 -t "$pkgdir/usr/share/licenses/$pkgname/" README
 }
 
 package_lua-zlib() {
-  pkgdesc='Simple streaming interface to zlib for Lua 5.4'
-
-  cd "lua-zlib-$pkgver"
-  install -D zlib.so "$pkgdir/usr/lib/lua/5.4/zlib.so"
-  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" README
-}
-
-package_lua53-zlib() {
-  pkgdesc='Simple streaming interface to zlib for Lua 5.3'
-
-  cd "lua-zlib-$pkgver"
-  install -D zlib-5.3.so "$pkgdir/usr/lib/lua/5.3/zlib.so"
-  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" README
-}
-
-package_lua52-zlib() {
-  pkgdesc='Simple streaming interface to zlib for Lua 5.2'
-
-  cd "lua-zlib-$pkgver"
-  install -D zlib-5.2.so "$pkgdir/usr/lib/lua/5.2/zlib.so"
-  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" README
+	_package 5.4
+	conflicts=(lua-lzlib)
 }
 
 package_lua51-zlib() {
-  pkgdesc='Simple streaming interface to zlib for Lua 5.1'
+	_package 5.1
+}
 
-  cd "lua-zlib-$pkgver"
-  install -D zlib-5.1.so "$pkgdir/usr/lib/lua/5.1/zlib.so"
-  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" README
+package_lua52-zlib() {
+	_package 5.2
+}
+
+package_lua53-zlib() {
+	_package 5.3
 }
