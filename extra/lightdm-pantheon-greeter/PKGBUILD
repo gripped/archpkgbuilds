@@ -2,8 +2,8 @@
 # Contributor: sh4nks <sh4nks7@gmail.com
 
 pkgname=lightdm-pantheon-greeter
-pkgver=7.0.0.r121.af0dfea0
-pkgrel=2
+pkgver=8.0.0
+pkgrel=1
 pkgdesc='Pantheon greeter for LightDM'
 arch=(x86_64)
 url=https://github.com/elementary/greeter
@@ -34,11 +34,9 @@ makedepends=(
   vala
 )
 install=lightdm-pantheon-greeter.install
-#_tag=bed49e46baaebf9bcc405e3e5577b99b925f56a1
-_commit=af0dfea0e429296bb806d503937f06390112753f
-#source=(lightdm-pantheon-greeter::git+https://github.com/elementary/greeter.git#tag=${_tag})
-source=(lightdm-pantheon-greeter::git+https://github.com/elementary/greeter.git#commit=${_commit})
-b2sums=('689be04b6bf6d9f0c5a6d8981a21366d63c36ff35df6ff4d79aff10dda7dd79c34577cabaac6cda5dbdd24c51ca17f6803d26acaaf2963abe9819f7afdfc907e')
+_tag=1569079e000c8b537cd68a90c35900ba68b4457d
+source=(lightdm-pantheon-greeter::git+https://github.com/elementary/greeter.git#tag=${_tag})
+b2sums=('26790420550a46a77c768b276dbc2862d2b96d774346d6dd775b40d1817f2795945cf5568eb9a5bdc0c8a0ae7148e34b9e734c2ff09c2c993f8626accd5f4d82')
 
 pkgver() {
   cd lightdm-pantheon-greeter
