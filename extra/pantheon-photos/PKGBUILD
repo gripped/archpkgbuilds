@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=pantheon-photos
-pkgver=8.0.0
+pkgver=8.0.1
 pkgrel=1
 pkgdesc='The Pantheon Photos Manager'
 arch=(x86_64)
@@ -41,9 +41,9 @@ makedepends=(
 )
 optdepends=('webkit2gtk: Publishing plugins')
 groups=(pantheon)
-_tag=aaa83606295dded21b9eb17a569f20a61c53cad1
+_tag=f976b6a2d2f46a68ad989860a338e0d47bdb6801
 source=(pantheon-photos::git+https://github.com/elementary/photos.git#tag=${_tag})
-sha256sums=('c2a85272def00190715d509c30e81095736b055644c78536d7a1a3c5b9ff7f96')
+sha256sums=('446de5fee6d4dfe09d98fe71420b3fc5566268d88472b6d86de89556d699d236')
 
 prepare() {
   cd pantheon-photos
