@@ -1,12 +1,16 @@
 pkgbase = llm-manager
 	pkgdesc = LLM task->model configuration utility
 	pkgver = 1.2.0
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/xyproto/llm-manager
 	arch = any
 	license = BSD-3-Clause
 	makedepends = git
+	depends = ollama
 	depends = python
+	optdepends = ollama-cuda: CUDA support for Ollama
+	optdepends = ollama-rocm: ROCm support for Ollama
+	provides = ollama-environment
 	backup = etc/llm.conf
 	source = git+https://github.com/xyproto/llm-manager#tag=v1.2.0
 	b2sums = f3b2f320d793748076e8689d88b5bfc549cac0d63a21b8db76a523771f7129eb9ef4d5281a684bfd6e99ddd60b8e431416eaeb7da745b2156d2da75179b2cef6
