@@ -1,17 +1,17 @@
 pkgbase = lua-compat53
 	pkgdesc = Compatibility module providing Lua-5.3-style APIs
 	pkgver = 0.14.3
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/lunarmodules/lua-compat-5.3
 	arch = x86_64
 	license = MIT
 	makedepends = lua51
 	makedepends = lua52
-	source = lua51-compat53-0.14.3.tar.gz::https://github.com/lunarmodules/lua-compat-5.3/archive/v0.14.3.tar.gz
+	makedepends = luarocks
+	depends = glibc
+	source = https://github.com/lunarmodules/lua-compat-5.3/archive/v0.14.3/lua-compat-5.3-0.14.3.tar.gz
 	sha256sums = db8ffa2c5562fac4fce5e5f48fd25763e79190af5e3d3d91f0699e4711cfbf10
 
-pkgname = lua51-compat53
-	pkgdesc = Compatibility module providing Lua-5.3-style APIs for Lua 5.1
-
 pkgname = lua52-compat53
-	pkgdesc = Compatibility module providing Lua-5.3-style APIs for Lua 5.2
+
+pkgname = lua51-compat53

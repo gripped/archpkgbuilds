@@ -1,51 +1,47 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
-pkgbase='lua-compat53'
-pkgname=('lua51-compat53' 'lua52-compat53')
+pkgbase=lua-compat53
+_rockname=${pkgbase##lua-}
+pkgname=(lua52-$_rockname lua51-$_rockname)
 pkgver=0.14.3
-pkgrel=2
+pkgrel=3
+_rockrel=1
 pkgdesc='Compatibility module providing Lua-5.3-style APIs'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/lunarmodules/lua-compat-5.3'
-license=('MIT')
-makedepends=('lua51' 'lua52')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/lunarmodules/lua-compat-5.3/archive/v$pkgver.tar.gz")
+license=(MIT)
+depends=(glibc)
+makedepends=(lua51
+             lua52
+             luarocks)
+_archive="${url##*/}-$pkgver"
+_rockspec="$_rockname-$pkgver-$_rockrel"
+_rock="$_rockspec.linux-$CARCH.rock"
+source=("$url/archive/v$pkgver/$_archive.tar.gz")
 sha256sums=('db8ffa2c5562fac4fce5e5f48fd25763e79190af5e3d3d91f0699e4711cfbf10')
 
 build() {
-	cd "lua-compat-5.3-$pkgver"
-	mkdir 5.1 5.2
+	cd "$_archive"
+	for LUAVER in 5.{1,2}; do
+		luarocks --lua-version "$LUAVER" \
+			make --pack-binary-rock --deps-mode none -- "rockspecs/$_rockspec.rockspec"
+		install -Dm0644 -t "lua-$LUAVER/" "$_rock"
+	done
+}
 
-	gcc $CPPFLAGS $CFLAGS -fPIC -I/usr/include/lua5.1 -c lutf8lib.c -o 5.1/lutf8lib.o
-	gcc $CPPFLAGS $CFLAGS -fPIC -I/usr/include/lua5.1 -c lstrlib.c -o 5.1/lstrlib.o
-	gcc $CPPFLAGS $CFLAGS -fPIC -I/usr/include/lua5.1 -c ltablib.c -o 5.1/ltablib.o
-	gcc -shared $LDFLAGS -o 5.1/utf8.so 5.1/lutf8lib.o
-	gcc -shared $LDFLAGS -o 5.1/string.so 5.1/lstrlib.o
-	gcc -shared $LDFLAGS -o 5.1/table.so 5.1/ltablib.o
-
-	gcc $CPPFLAGS $CFLAGS -fPIC -I/usr/include/lua5.2 -c lutf8lib.c -o 5.2/lutf8lib.o
-	gcc $CPPFLAGS $CFLAGS -fPIC -I/usr/include/lua5.2 -c lstrlib.c -o 5.2/lstrlib.o
-	gcc $CPPFLAGS $CFLAGS -fPIC -I/usr/include/lua5.2 -c ltablib.c -o 5.2/ltablib.o
-	gcc -shared $LDFLAGS -o 5.2/utf8.so 5.2/lutf8lib.o
-	gcc -shared $LDFLAGS -o 5.2/string.so 5.2/lstrlib.o
-	gcc -shared $LDFLAGS -o 5.2/table.so 5.2/ltablib.o
+_package() {
+	cd "$_archive"
+	pkgdesc+=" for Lua $1"
+	luarocks --lua-version "$1" --tree "$pkgdir/usr/" \
+		install --deps-mode none --no-manifest -- "lua-$1/$_rock"
+	install -Dm0664 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }
 
 package_lua51-compat53() {
-	pkgdesc='Compatibility module providing Lua-5.3-style APIs for Lua 5.1'
-
-	cd "lua-compat-5.3-$pkgver"
-	install -Dm644 compat53/{init,module,file_mt}.lua -t "$pkgdir/usr/share/lua/5.1/compat53"
-	install -D 5.1/{utf8,string,table}.so -t "$pkgdir/usr/lib/lua/5.1/compat53/"
-	install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+	_package 5.1
 }
 
 package_lua52-compat53() {
-	pkgdesc='Compatibility module providing Lua-5.3-style APIs for Lua 5.2'
-
-	cd "lua-compat-5.3-$pkgver"
-	install -Dm644 compat53/{init,module,file_mt}.lua -t "$pkgdir/usr/share/lua/5.2/compat53"
-	install -D 5.2/{utf8,string,table}.so -t "$pkgdir/usr/lib/lua/5.2/compat53/"
-	install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+	_package 5.2
 }
