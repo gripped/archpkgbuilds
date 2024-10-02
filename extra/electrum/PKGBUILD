@@ -1,49 +1,99 @@
 # Maintainer: Santiago Torres-Arias <santiago@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Christian Rebischke <chris.rebischke@archlinux.org>
 # Contributor: Timothy Redaelli <timothy.redaelli@gmail.com>
 # Contributor: Andy Weidenbaum <archbaum@gmail.com>
 
 pkgname=electrum
-pkgver=4.5.4
-pkgrel=2
+pkgver=4.5.5
+pkgrel=1
 pkgdesc="Lightweight Bitcoin wallet"
 arch=('any')
-makedepends=('python-setuptools')
-depends=('python-pyaes' 'python-ecdsa' 'python-pbkdf2' 'python-requests' 'python-qrcode'
-         'python-protobuf' 'python-dnspython' 'python-jsonrpclib-pelix' 'python-pysocks'
-         'python-pyqt5' 'python-pycryptodomex' 'python-websocket-client' 'python-certifi'
-         'python-aiorpcx' 'python-aiohttp' 'python-aiohttp-socks'
-         'libsecp256k1' 'python-bitstring' 'python-jsonpatch')
-optdepends=('python-btchip: BTChip hardware wallet support'
-            'python-hidapi: Digital Bitbox hardware wallet support'
-            'python-matplotlib: plot transaction history in graphical mode'
-            'zbar: QR code reading support'
-            'python-rpyc: send commands to Electrum Python console from an external script'
-            'python-qdarkstyle: optional dark theme in graphical mode'
-            'python-pycryptodomex: use PyCryptodome AES implementation instead of pyaes'
-         )
-
 url="https://electrum.org"
 license=('MIT')
-source=("https://download.electrum.org/${pkgver}/${pkgname^}-${pkgver}.tar.gz"
-        "${pkgname^}-${pkgver}.tar.gz.asc::https://download.electrum.org/${pkgver}/${pkgname^}-${pkgver}.tar.gz.ThomasV.asc")
-sha512sums=('3b533b0482f6757a2863b133c0026bac05456fa608d5773a5a53b5f99c3950ae6ab0e0b8f18aae03dcfe6ebee49b8b58389f7e3436edccde09049b6166fe8928'
+depends=(
+  'hicolor-icon-theme'
+  'libsecp256k1'
+  'python'
+  'python-aiohttp'
+  'python-aiohttp-socks'
+  'python-aiorpcx'
+  'python-attrs'
+  'python-certifi'
+  'python-cryptography'
+  'python-dnspython'
+  'python-jsonpatch'
+  'python-pillow'
+  'python-protobuf'
+  'python-pyaes'
+  'python-pyqt5'
+  'python-qrcode'
+)
+makedepends=(
+  'git'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+checkdepends=(
+  'python-pycryptodomex'
+  'python-pyqt6'
+  'python-pytest'
+  'qt6-declarative'
+)
+optdepends=(
+  'python-btchip: BTChip hardware wallet support'
+  'python-hidapi: Digital Bitbox hardware wallet support'
+  'python-matplotlib: plot transaction history in graphical mode'
+  'zbar: QR code reading support'
+  'python-rpyc: send commands to Electrum Python console from an external script'
+  'python-qdarkstyle: optional dark theme in graphical mode'
+  'python-pycryptodomex: use PyCryptodome AES implementation instead of pyaes'
+)
+source=(
+  "git+https://github.com/spesmilo/electrum.git#tag=$pkgver?signed"
+  "git+https://github.com/spesmilo/electrum-locale.git"
+  "git+https://github.com/spesmilo/electrum-http.git"
+)
+sha512sums=('3ff5ca9d339ba6106f579268d9b24523aa6c041da5bd2471a51646b09edd12fc69108929a3ce8adb6c536bfbbb5cda91b63b53e4600428b56a2f1f0ecb7c7fd3'
+            'SKIP'
             'SKIP')
-validpgpkeys=('6694D8DE7BE8EE5631BED9502BD5824B7F9470E6')
+validpgpkeys=('6694D8DE7BE8EE5631BED9502BD5824B7F9470E6') # Thomas Voegtlin (https://electrum.org) <thomasv@electrum.org>
 
 prepare() {
-  cd "${pkgname^}-${pkgver}"
+  cd $pkgname
+  git submodule init
+  git config submodule.contrib/deterministic-build/electrum-locale.url \
+    "$srcdir/electrum-locale"
+  git config submodule.electrum/plugins/payserver/www.url "$srcdir/electrum-http"
+  git -c protocol.file.allow=always submodule update
 }
 
 build() {
-  cd "${pkgname^}-${pkgver}"
+  cd $pkgname
+  python -m build --wheel --no-isolation
+}
 
-  python setup.py build
+check() {
+  cd $pkgname
+  pytest
 }
 
 package() {
-  cd "${pkgname^}-${pkgver}"
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
-  python setup.py install --root="${pkgdir}" --optimize=1
-  install -D -m644 LICENCE "${pkgdir}"/usr/share/licenses/"${pkgname}"/LICENSE
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  install -vdm755 "$pkgdir/$site_packages/electrum"
+  ./contrib/build_locale.sh \
+    contrib/deterministic-build/electrum-locale/locale \
+    "$pkgdir/$site_packages/electrum/locale"
+
+  install -vDm644 -t "$pkgdir/usr/share/applications" "electrum.desktop"
+  install -vDm644 -t "$pkgdir/usr/share/pixmaps" "electrum/gui/icons/electrum.png"
+  install -vDm644 -t "$pkgdir/usr/share/icons/hicolor/128x128/apps" \
+   "electrum/gui/icons/electrum.png"
+
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENCE
 }
