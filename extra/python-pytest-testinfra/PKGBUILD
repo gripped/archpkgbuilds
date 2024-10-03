@@ -7,7 +7,7 @@
 _name=pytest-testinfra
 pkgname=python-pytest-testinfra
 pkgver=10.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Testinfra test your infrastructures'
 arch=(any)
 url="https://github.com/pytest-dev/pytest-testinfra"
@@ -26,7 +26,6 @@ makedepends=(
 checkdepends=(
   ansible
   python-paramiko
-  python-pytest-cov
   python-pytest-xdist
   python-pywinrm
   python-tornado
