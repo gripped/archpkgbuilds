@@ -6,7 +6,7 @@
 
 pkgname=mitmproxy
 pkgver=10.4.2
-pkgrel=1
+pkgrel=2
 pkgdesc='SSL-capable man-in-the-middle HTTP proxy'
 arch=('any')
 url='https://mitmproxy.org'
@@ -50,7 +50,6 @@ checkdepends=(
   'python-hypothesis'
   'python-parver'
   'python-pytest-asyncio'
-  'python-pytest-cov'
   'python-pytest-timeout'
 )
 provides=('pathod')
