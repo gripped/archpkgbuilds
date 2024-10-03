@@ -1,16 +1,16 @@
-# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
 # Contributor: Gaetan Bisson <bisson@archlinux.org>
 # Contributor: Alexander Fehr <pizzapunk gmail com>
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=audacious-plugins
-pkgver=4.4
+pkgver=4.4.1
 pkgrel=1
 pkgdesc="Plugins for Audacious"
 arch=('x86_64')
 url="https://audacious-media-player.org/"
 license=('BSD' 'GPL')
-depends=('alsa-lib' 'curl' 'dbus-glib' 'faad2' 'ffmpeg' 'flac' 'fluidsynth'
+depends=('alsa-lib' 'curl' 'faad2' 'ffmpeg' 'flac' 'fluidsynth'
          'jack' 'lame' 'libcdio-paranoia' 'libcue' 'libmms' 'libmodplug'
          'libmtp' 'libpulse' 'libnotify' 'libsamplerate' 'libsidplayfp'
          'libvorbis' 'lirc' 'mpg123' 'neon' 'wavpack' 'libbs2b' 'libopenmpt'
@@ -18,7 +18,7 @@ depends=('alsa-lib' 'curl' 'dbus-glib' 'faad2' 'ffmpeg' 'flac' 'fluidsynth'
 makedepends=("audacious>=$pkgver" 'meson' 'glib2-devel')
 source=(https://distfiles.audacious-media-player.org/$pkgname-$pkgver.tar.bz2
         sidplay-rom-paths.patch)
-sha256sums=('3caf3a5fe5b6f2808f461f85132fbff4ae22a53ef9f3d26d9e6030f6c6d5baa2'
+sha256sums=('484ed416b1cf1569ce2cc54208e674b9c516118485b94ce577d7bc5426d05976'
             'c32cd36f75dd18db082f9b9447f1c0982279703b9d648f5695295ff25c9b678d')
 
 prepare() {
