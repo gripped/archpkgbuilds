@@ -3,7 +3,7 @@
 pkgname=python-semver
 pkgver=3.0.2
 _commit=ec9348aefd8e9f287f451fcf2e837621a40e3ca4
-pkgrel=2
+pkgrel=3
 pkgdesc="Python helper for Semantic Versioning"
 url="https://github.com/python-semver/python-semver"
 license=('BSD')
@@ -11,7 +11,7 @@ arch=('any')
 depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm'
              'python-wheel')
-checkdepends=('python-pytest' 'python-pytest-cov')
+checkdepends=('python-pytest')
 source=("git+https://github.com/python-semver/python-semver.git#commit=$_commit")
 sha512sums=('SKIP')
 
@@ -22,7 +22,7 @@ build() {
 
 check() {
   cd python-semver
-  pytest
+  pytest -o addopts=''
 }
 
 package() {
