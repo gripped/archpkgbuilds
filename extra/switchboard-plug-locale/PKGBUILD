@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=switchboard-plug-locale
-pkgver=2.5.9.r177.9e8cd84
+pkgver=8.0.0
 pkgrel=1
 pkgdesc='Switchboard Locale Plug'
 arch=(x86_64)
@@ -28,13 +28,13 @@ makedepends=(
   meson
   vala
 )
-_commit=9e8cd84653d4de78117fc25a6aaefbf763714dc1
-source=(git+https://github.com/elementary/switchboard-plug-locale.git#commit=${_commit})
-b2sums=('7c56394722f90b0246ffe56abab488fedd3006bf567ff40df0574c83c66f0e69bde3bced0972570a7a96e758d85dc87f710174be4476fb3c7d0f034a5c279713')
+_tag=6d1dd1303dd169c4c995f7c5011de05ea2123f58
+source=(git+https://github.com/elementary/switchboard-plug-locale.git#tag=${_tag})
+b2sums=('fa2b32e4158abfdd11517f4b30ded15f526f4a0256967a3f5e4d801781b95fcfd2ae677abe04c1119abe17b441c5a34073581282c871aec0a71322c9f310da73')
 
 pkgver() {
   cd switchboard-plug-locale
-  git describe --tags | sed 's/-/.r/; s/-g/./; s/2.5.8/2.5.9/'
+  git describe --tags
 }
 
 build() {
