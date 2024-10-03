@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=switchboard-plug-sharing
-pkgver=2.1.6.r359.2d6b2f1
+pkgver=8.0.0
 pkgrel=1
 pkgdesc='Switchboard Sharing Plug'
 arch=(x86_64)
@@ -22,13 +22,13 @@ makedepends=(
   meson
   vala
 )
-_commit=2d6b2f1d6e7e6e58bf64693730129c9ca3bc77f2
-source=(git+https://github.com/elementary/switchboard-plug-sharing.git#commit=${_commit})
-b2sums=('c45e27f81909db9b8ea9ec1a93f8c08696817389b299f903a75293bb8fecbc3be0721f94a454ed76e13db906240bef4c520faacdf796ba57cc35d66c1a1aa6c7')
+_tag=488644b42d7e3ddbab2b8d9714d40ade3ee203b2
+source=(git+https://github.com/elementary/switchboard-plug-sharing.git#tag=${_tag})
+b2sums=('770b88e9e5f99c27a46786caabb6dc65fc1bd65b568e956a9a5d0f5038ab64987708b3a1425291af1c9c651be55afea0c93496c94f6e3625d1e746654a8a7d99')
 
 pkgver() {
   cd switchboard-plug-sharing
-  git describe --tags | sed 's/-/.r/; s/-g/./'
+  git describe --tags
 }
 
 build() {
