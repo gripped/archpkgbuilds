@@ -3,7 +3,7 @@
 pkgname=python-gitlabber
 pkgver=1.2.6
 _commit=661774337fc61a71b9af2d1f7563c89173f254fb
-pkgrel=1
+pkgrel=2
 pkgdesc='Clones or pulls entire groups tree from GitLab'
 arch=('any')
 license=('MIT')
@@ -23,7 +23,6 @@ makedepends=(
   'git'
 )
 checkdepends=(
-  'python-pytest-cov'
   'python-pytest-integration'
 )
 source=("$pkgname::git+${url}#commit=$_commit")
