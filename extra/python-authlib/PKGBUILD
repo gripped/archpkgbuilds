@@ -3,7 +3,7 @@
 
 pkgname=python-authlib
 pkgver=1.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc='The ultimate Python library in building OAuth and OpenID Connect servers & clients'
 arch=('any')
 url='https://github.com/lepture/authlib'
