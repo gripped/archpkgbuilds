@@ -1,17 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-emoji
-pkgver=2.13.0
+pkgver=2.13.1
 pkgrel=1
 pkgdesc="Emoji for Python"
 url="https://github.com/carpedm20/emoji"
 license=('BSD')
 arch=('any')
-depends=('python-typing_extensions')
+depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
 source=("git+https://github.com/carpedm20/emoji.git#tag=v$pkgver")
-sha512sums=('564e473a61b00729af1770c4d719b721d23bdf25c3b9117dda1bda0c96593fe1409593584da00ad10fc5924a862954219d11f9cdcba66ed10e38f2f375bbef8a')
+sha512sums=('1884fd55b6c98bf4422db11bd5f3f2630a09d7d05f5c095a0d95f7e8cbdddf9c06adc111610593a9ac477322001b1c963576771aca8d87b9cf88e0abfc6499a9')
 
 build() {
   cd emoji
