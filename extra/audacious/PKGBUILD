@@ -1,10 +1,10 @@
-# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
 # Contributor: Gaetan Bisson <bisson@archlinux.org>
 # Contributor: Alexander Fehr <pizzapunk gmail com>
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 
 pkgname=audacious
-pkgver=4.4
+pkgver=4.4.1
 pkgrel=1
 pkgdesc="Lightweight, advanced audio player focused on audio quality"
 arch=('x86_64')
@@ -15,7 +15,7 @@ depends=('qt6-base' 'qt6-svg' 'qt6-imageformats' 'glib2' 'hicolor-icon-theme'
 makedepends=('meson' 'glib2-devel')
 optdepends=('unzip: zipped skins support')
 source=(https://distfiles.audacious-media-player.org/$pkgname-$pkgver.tar.bz2)
-sha256sums=('aadc5d26ea2954236a00153e424094d9e6eb55c5c324c08fd0491b7c2ae2f830')
+sha256sums=('260d988d168e558f041bbb56692e24c535a96437878d60dfd01efdf6b1226416')
 
 build() {
   arch-meson $pkgname-$pkgver build \
