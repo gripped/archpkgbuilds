@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=switchboard-plug-applications
-pkgver=7.0.1.r247.92346d65
+pkgver=8.0.0
 pkgrel=1
 pkgdesc='Switchboard Applications Plug'
 arch=(x86_64)
@@ -24,13 +24,13 @@ makedepends=(
   meson
   vala
 )
-_commit=92346d650e861dd6a4260aa90c684adc7fe00373
-source=(git+https://github.com/elementary/switchboard-plug-applications.git#commit=${_commit})
+_tag=7f030df9adfa051e38c068893440dbf981d41ebb
+source=(git+https://github.com/elementary/switchboard-plug-applications.git#tag=${_tag})
 b2sums=(SKIP)
 
 pkgver() {
   cd switchboard-plug-applications
-  git describe --tags | sed 's/-/.r/; s/-g/./'
+  git describe --tags
 }
 
 build() {
