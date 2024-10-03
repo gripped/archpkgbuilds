@@ -1,7 +1,7 @@
 pkgbase = python-django-rest-framework
 	pkgdesc = A powerful and flexible toolkit for building Web APIs.
 	pkgver = 3.15.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.django-rest-framework.org/
 	arch = any
 	license = BSD-3-Clause
@@ -21,7 +21,13 @@ pkgbase = python-django-rest-framework
 	optdepends = python-pygments: for syntax highlighting
 	optdepends = python-yaml: for YAML support
 	source = django-rest-framework-3.15.2.tar.gz::https://github.com/encode/django-rest-framework/archive/refs/tags/3.15.2.tar.gz
+	source = django-rest-framework-3.15.2-accept-integers.patch::https://github.com/encode/django-rest-framework/commit/125ad42eb3922cd5ce1f4b332c91baf6d6162fb3.patch
+	source = django-rest-framework-3.15.2-django5.1-support.patch::https://github.com/encode/django-rest-framework/commit/2ede857de0bbcc8863fadd6acdb1f8d5570d87dc.patch
 	sha512sums = a24322fb09398ee1608900ae623d8ba44c3cb066fc7921e38f847a93513d3ca549d933da6cfc045a556edfe50dae3431b6782d0241a9f53ac3dbc0caf48fa520
+	sha512sums = 9b130d0938dddbc8c83eb77e1189400d9e5d91df8fa4b9a78f7614411ea710415a363f89792fa92121d3fe112d3d61479d9e43b7611194fe992ba530496962fe
+	sha512sums = 52b3b5b053be764840cc4082420b89d12497d0beb6b3a4dee53c8b03cf6ce1b45cca25e465c2ef43f17eeaa090ff202b74c925171a6a5facbaf4792ebab64707
 	b2sums = 588aebbdd89f749bacd4244707f6b4b0e2a6aef0759973e5451ebcc4acb4d2e1c2d9773ab576e33442f5123ce860cae087622a26d1d208edc70df04057c4d401
+	b2sums = a43aa9df5f4c4a47aaf77508bee10ecb5332ee7c8c3105066e970601d5d49f7f0d6780c43c5bda5acb233ce22a3d1784e69cd40a434a77f5afe54a0965b49853
+	b2sums = 9859b64d3c03d3f518c7bfdc7c77737e13dc7ab435c0a0752a2681364f49d7a31787acfe646200d0360053cb39a63cc1967c4e4d042e58d9a2b3b4c6b102aef2
 
 pkgname = python-django-rest-framework
