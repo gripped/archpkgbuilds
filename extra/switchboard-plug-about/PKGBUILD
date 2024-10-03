@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=switchboard-plug-about
-pkgver=6.2.0.r282.94871c21
+pkgver=8.0.0
 pkgrel=1
 pkgdesc='Switchboard About Plug'
 arch=(x86_64)
@@ -30,13 +30,13 @@ makedepends=(
   meson
   vala
 )
-_commit=94871c2132021adc7e2887a69e48ce7fa632498c
-source=(git+https://github.com/elementary/switchboard-plug-about.git#commit=${_commit})
+_tag=2345b890c248794293a7609c72ae40ef97c104e1
+source=(git+https://github.com/elementary/switchboard-plug-about.git#tag=${_tag})
 b2sums=(SKIP)
 
 pkgver() {
   cd switchboard-plug-about
-  git describe --tags | sed 's/-/.r/; s/-g/./'
+  git describe --tags
 }
 
 build() {
