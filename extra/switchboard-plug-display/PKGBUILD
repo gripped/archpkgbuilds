@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=switchboard-plug-display
-pkgver=7.0.0.r66.39d2ae5
+pkgver=8.0.0
 pkgrel=1
 pkgdesc='Switchboard Display Plug'
 arch=(x86_64)
@@ -22,13 +22,13 @@ makedepends=(
   meson
   vala
 )
-_commit=39d2ae5375afb8ed2f7b5cac6c746f6d3f354772
-source=(git+https://github.com/elementary/switchboard-plug-display.git#commit=${_commit})
+_tag=310d75149780b94fe959f7fe576927c84b44ae05
+source=(git+https://github.com/elementary/switchboard-plug-display.git#tag=${_tag})
 b2sums=(SKIP)
 
 pkgver() {
   cd switchboard-plug-display
-  git describe --tags | sed 's/-/.r/; s/-g/./'
+  git describe --tags
 }
 
 build() {
