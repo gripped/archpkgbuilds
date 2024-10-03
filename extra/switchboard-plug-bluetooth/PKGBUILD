@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=switchboard-plug-bluetooth
-pkgver=2.3.6.r148.34e1d73
+pkgver=8.0.0
 pkgrel=1
 pkgdesc='Switchboard Bluetooth Plug'
 arch=(x86_64)
@@ -22,13 +22,13 @@ makedepends=(
   meson
   vala
 )
-_commit=34e1d73379e8d05f2d57760a1974cd41f7584d0e
-source=(git+https://github.com/elementary/switchboard-plug-bluetooth.git#commit=${_commit})
-b2sums=('2345bb6ecd457729187dce98327b94f68d3b451fd0cd3c1ff37f8acbf2c6276aefaf9341c7e062b0d9c9f4514cd428a9dd8a358300c763c033c4931320db1cb2')
+_tag=0c3644a863ef78668a0559434b2f0810405d8085
+source=(git+https://github.com/elementary/switchboard-plug-bluetooth.git#tag=${_tag})
+b2sums=('35bdd1c4163d31e15dc02606375b38dc4b48056c200b4192c745d16782a0f31ff5c6f419e051c064fce6bcd37e1c2e262d8b3baa8a7bfe4802d529f05895bf2e')
 
 pkgver() {
   cd switchboard-plug-bluetooth
-  git describe --tags | sed 's/-/.r/; s/-g/./'
+  git describe --tags
 }
 
 build() {
