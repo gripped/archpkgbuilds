@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=capnet-assist
-pkgver=2.4.4
+pkgver=8.0.0
 pkgrel=1
 pkgdesc='Captive Portal Assistant'
 arch=(x86_64)
@@ -9,14 +9,14 @@ url=https://github.com/elementary/capnet-assist
 license=(GPL3)
 groups=(pantheon)
 depends=(
-  gcr
+  gcr-4
   glib2
-  gtk3
-  libgranite.so
-  libhandy-1.so
+  gtk4
+  libadwaita-1.so
+  libgranite-7.so
   libsoup
   networkmanager
-  webkit2gtk-4.1
+  webkitgtk-6.0
 )
 makedepends=(
   git
@@ -24,9 +24,9 @@ makedepends=(
   meson
   vala
 )
-_tag=3402c143f5487fecf2330f4af9c46032532c0a9c
+_tag=3dd49f55ddf9d61e7fb1cafdb44a85a8baf6cf6e
 source=(git+https://github.com/elementary/capnet-assist.git#tag=${_tag})
-b2sums=(SKIP)
+b2sums=('e9027f622fb1dddb7a65f4054e34c32138737f029ec8873d146944021c7c508f19c9fcfb768aad9f605b009cd630d82c45438a403da2984388c0243e43f42cfb')
 
 pkgver() {
   cd capnet-assist
