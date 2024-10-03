@@ -2,7 +2,7 @@
 # Contributor: Helder Bertoldo <helder.bertoldo@gmail.com>
 
 pkgname=pantheon-session
-pkgver=6.0.0.r14.71b7b44
+pkgver=8.0.1
 pkgrel=1
 pkgdesc='Session settings for Pantheon'
 arch=(any)
@@ -27,13 +27,13 @@ makedepends=(
   meson
 )
 optdepends=(pantheon-default-settings)
-_commit=71b7b445189419c34ef24bfbb47709f714055136
-source=(pantheon-session-settings::git+https://github.com/elementary/session-settings.git#commit=${_commit})
-b2sums=('29fd84df3c5affe7fa299074632e1ab8fc16ffce0fcfe8b5eb7065153025a6cfa5d77844cc99950e51769e8771c3d0139f617f0480a2ff30a5cc4d0f5c1715f6')
+_tag=4977435ad247972ce2658443c9900a3e8c8a3baf
+source=(pantheon-session-settings::git+https://github.com/elementary/session-settings.git#tag=${_tag})
+b2sums=('88d49c5cf42efd4d0cf02c886e6038b0574b1fedde76e9e9bf22556221b15688ad509275fda0e6d4305413e378b630c9ccd62e10e768e490f547c824098302bc')
 
 pkgver() {
   cd pantheon-session-settings
-  git describe --tags | sed 's/-/.r/; s/-g/./'
+  git describe --tags
 }
 
 build() {
