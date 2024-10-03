@@ -3,16 +3,20 @@
 # Contributor: pressh <pressh@gmail.com>
 
 pkgname=alacarte
-pkgver=3.52.0
-pkgrel=2
+pkgver=3.54.0
+pkgrel=1
 epoch=1
 pkgdesc="Menu editor for gnome"
 url="https://gitlab.gnome.org/GNOME/alacarte"
 arch=(any)
 license=(LGPL-2.0-or-later)
 depends=(
+  gdk-pixbuf2
+  glib2
   gnome-menus
   gtk3
+  hicolor-icon-theme
+  python
   python-cairo
   python-gobject
 )
@@ -21,14 +25,11 @@ makedepends=(
   git
   libxslt
 )
-_commit=f2f3f859b8f4455d061172dd354a075f997a4a9e  # tags/3.52.0^0
-source=("git+https://gitlab.gnome.org/GNOME/alacarte.git#commit=$_commit")
-b2sums=('b2b0e05e8c800129985e956f77c412fdcb04471fc96dd1f08919a4300324f539d20f1ac0a6efb04a528723f8b02d1427f74fe48405b3d977e71e9235bf5dc8e9')
-
-pkgver() {
-  cd alacarte
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/alacarte.git?signed#tag=$pkgver")
+b2sums=('1884cffaee5cf709a990b50ac161d05d98b1abaf03d4959bfb99b6b67a24ff8d89fd270cdbc1071b53925ca4cde97df437303a229745803f38a6f5602a4ad5a7')
+validpgpkeys=(
+  7B44FD78E49334EC10B3B288A3D013EC303E1894 # Alberts Muktupāvels <alberts.muktupavels@gmail.com>
+)
 
 prepare() {
   cd alacarte
@@ -48,9 +49,7 @@ build() {
 }
 
 package() {
-  cd alacarte
-  make DESTDIR="$pkgdir" install
-
+  make -C alacarte DESTDIR="$pkgdir" install
   python -m compileall -d /usr "$pkgdir/usr"
   python -O -m compileall -d /usr "$pkgdir/usr"
 }
