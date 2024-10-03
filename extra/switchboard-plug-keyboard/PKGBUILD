@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=switchboard-plug-keyboard
-pkgver=3.2.1.r166.2d87a593
+pkgver=8.0.1
 pkgrel=1
 pkgdesc='Switchboard Keyboard Plug'
 arch=(x86_64)
@@ -25,13 +25,13 @@ makedepends=(
   meson
   vala
 )
-_commit=2d87a5932b0ae174809deef3778d780246e62d2a
-source=(git+https://github.com/elementary/switchboard-plug-keyboard.git#commit=${_commit})
+_tag=6e63405a36c2e1dc56d231624bf2501ba4503c74
+source=(git+https://github.com/elementary/switchboard-plug-keyboard.git#tag=${_tag})
 b2sums=(SKIP)
 
 pkgver() {
   cd switchboard-plug-keyboard
-  git describe --tags | sed 's/-/.r/; s/-g/./'
+  git describe --tags
 }
 
 build() {
