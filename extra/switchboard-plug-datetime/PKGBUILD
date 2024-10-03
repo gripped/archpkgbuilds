@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=switchboard-plug-datetime
-pkgver=2.2.0.r194.3d22837
+pkgver=8.0.0
 pkgrel=1
 pkgdesc='Switchboard Date & Time Plug'
 arch=(x86_64)
@@ -22,13 +22,13 @@ makedepends=(
   meson
   vala
 )
-_commit=3d22837762f05d25412498650364cfab3425af59
-source=(git+https://github.com/elementary/switchboard-plug-datetime.git#commit=${_commit})
-b2sums=('8cb3e8a607ef1653e75a939b425cb44bab831fbd163992180176881322a7122a0c6a04d35fc294d069ce4c122321ea3add0521e2df745cf022a7748312960aca')
+_tag=e6b327586e73def9b6d8d651600aa5bbf5da32de
+source=(git+https://github.com/elementary/switchboard-plug-datetime.git#tag=${_tag})
+b2sums=('eadccb6125b0c1b4f5798afe8168679c92103f70eda6cb6313a5e1c87654c18e79c1f8c655c99d97988283286481d09f4f243d78221c102e1303b3c2b83cd653')
 
 pkgver() {
   cd switchboard-plug-datetime
-  git describe --tags | sed 's/-/.r/; s/-g/./'
+  git describe --tags
 }
 
 build() {
