@@ -2,7 +2,7 @@
 # Contributor: xiretza <xiretza+aur@xiretza.xyz>
 
 pkgname=python-cmake-build-extension
-pkgver=0.6.0
+pkgver=0.6.1
 pkgrel=1
 pkgdesc='Setuptools extension to build and package CMake projects'
 arch=(any)
@@ -22,9 +22,9 @@ makedepends=(
   python-build
   python-installer
 )
-_tag=d7450a39009db5f5ccc181942e4ac8b0b0c54787
+_tag=7a5deb54ee165aa157e33937420c933d0c2c41c6
 source=(git+https://github.com/diegoferigo/cmake-build-extension.git#tag=${_tag})
-b2sums=('44cf0e9fce72e4f0dba4f6dde4a68dd70000043804229c34b4a54e526b5690d35172334d3bccab2e2f331f43db24253e7cc763c9fb90b9391cea1bd8f3dd9257')
+b2sums=('f0cae38c14b038bfb50cfb0ed2231a536ae59efd3ef5f2ef92c0e9b7335d7ed8bf40a9d396ec7ab4df5e072b5ff7cef9dee7944e23e21cd320690668b7bed73a')
 
 pkgver() {
   cd cmake-build-extension
