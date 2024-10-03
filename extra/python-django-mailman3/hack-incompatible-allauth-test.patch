@@ -1,0 +1,12 @@
+diff -aur django_mailman3.old/tests/test_signals.py django_mailman3/tests/test_signals.py
+--- django_mailman3.old/tests/test_signals.py	2024-09-09 20:24:30.962861453 +0200
++++ django_mailman3/tests/test_signals.py	2024-09-09 20:25:19.100319986 +0200
+@@ -96,7 +96,7 @@
+         unverified = EmailAddress(
+             email='unverified@example.com', verified=False)
+         sociallogin = SocialLogin(
+-            user=self.user, email_addresses=[verified, unverified])
++            user=self.user, email_addresses=[verified, unverified], account=True)
+         with patch('django_mailman3.signals.add_address_to_mailman_user') \
+                 as aatmu:
+             social_account_added.send(sender=User, sociallogin=sociallogin)
