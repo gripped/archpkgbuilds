@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=switchboard-plug-network
-pkgver=2.5.0.r158.63d08c3e
-pkgrel=2
+pkgver=8.0.0
+pkgrel=1
 pkgdesc='Switchboard Network Plug'
 arch=(x86_64)
 url=https://github.com/elementary/switchboard-plug-network
@@ -28,13 +28,13 @@ makedepends=(
   meson
   vala
 )
-_commit=63d08c3e84f30c09150a1328b3103fef63496749
-source=(git+https://github.com/elementary/switchboard-plug-network.git#commit=${_commit})
-b2sums=(SKIP)
+_tag=6a328c296b25d12e0e8b8d0affa37c8c476479e4
+source=(git+https://github.com/elementary/switchboard-plug-network.git#tag=${_tag})
+b2sums=('c197ed74d4d4d95b64d5eee25a398761f9f5fa36a47f1c4ba60f2024ceabfc91c47c978e1d54b02dd36c64417a2d7177fde3cf5e432e462bfae5c4fcf77b7748')
 
 pkgver() {
   cd switchboard-plug-network
-  git describe --tags | sed 's/-/.r/; s/-g/./'
+  git describe --tags
 }
 
 build() {
