@@ -4,7 +4,7 @@
 _pyname=jupyterlab_server
 pkgname=python-${_pyname/_/-}
 pkgver=2.27.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Launch an application built using JupyterLab'
 arch=(any)
 url='https://jupyter.org/'
@@ -29,7 +29,6 @@ checkdepends=(python-jupyter-server-terminals
               python-openapi-core
               python-parse
               python-pytest
-              python-pytest-cov
               python-pytest-jupyter
               python-pytest-timeout
               python-pytest-tornasync
