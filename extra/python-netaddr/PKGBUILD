@@ -5,7 +5,7 @@
 pkgname=python-netaddr
 _pyname=netaddr
 pkgver=1.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Pure Python network address representation and manipulation library'
 url='https://github.com/drkjam/netaddr'
 arch=(any)
@@ -23,7 +23,6 @@ makedepends=(
 )
 checkdepends=(
   python-pytest
-  python-pytest-cov
 )
 optdepends=(
   'ipython: netaddr interractive command support'
