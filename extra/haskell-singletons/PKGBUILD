@@ -2,8 +2,8 @@
 
 _hkgname=singletons
 pkgname=haskell-singletons
-pkgver=3.0.2
-pkgrel=2
+pkgver=3.0.3
+pkgrel=1
 pkgdesc="Basic singleton types and definitions"
 url="https://github.com/goldfirere/singletons"
 license=('BSD')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('406bd77012663d7c05f8318c6880ad8f3cf055fd6c7ef679dfd22264c169a7b5ec922e2869835c62ec8cb9ff61a4a8f0356600ab4d2885dde67f0a6aed65beb5')
+sha512sums=('bb6a750dd176f1e9417b5f6fb9b1fcf3df5a2bdc481a9a659c7d296eb77f218b2a5f00358d3bf2e7d2fcb817bbe8147e3e7773baf8b998b4a739e46695d2d730')
 
 build() {
     cd $_hkgname-$pkgver
