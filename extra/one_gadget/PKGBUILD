@@ -2,8 +2,8 @@
 
 _gemname=one_gadget
 pkgname=${_gemname}
-pkgver=1.9.0
-pkgrel=2
+pkgver=1.10.0
+pkgrel=1
 pkgdesc='The best tool for finding one gadget RCE in libc.so.6'
 url='https://github.com/david942j/one_gadget'
 arch=('any')
@@ -13,8 +13,8 @@ makedepends=('ruby-rake' 'ruby-rdoc' 'ruby-bundler' 'ruby-yard' 'ruby-rspec')
 provides=('ruby-one_gadget')
 options=('!emptydirs')
 source=(${url}/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz)
-sha512sums=('42b957a6600746cb01263fd82448d33ac8037e9ebf84b2ec20f07d4bf6a3056b38c94248a9fe437ae21e5cc2b404ed53c51b74c481934c27b194ac0eb4fa2ed8')
-b2sums=('b7ffdf6ea58096af1c16a2ecb4bc733ef3087299046d5a788703e06ed76b9ef7bd32d60f1b9b56677738a200a2a271026f2e7dde063213c30dbae139234de6b0')
+sha512sums=('6b5060e1165352de358ae84b55299b0bab9b7a41b53973512de32cee99973e7bcea69640f2b8e07354ed12e5cf34e5f4df3c51399e636a9ee20710e903754839')
+b2sums=('d6e932c4cbb6dd4dfb8d9b304c45e9c865e02c22fed530beeadee2fde59d98b798caf1f4abee6573b212feec030fdb45e490950272f6b10654429fc2f3bdba79')
 
 prepare() {
   cd ${_gemname}-${pkgver}
