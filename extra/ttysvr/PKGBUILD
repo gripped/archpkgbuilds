@@ -1,0 +1,37 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+
+pkgname=ttysvr
+pkgver=0.3.0
+pkgrel=2
+pkgdesc="Screen saver for your terminal"
+arch=('x86_64')
+url="https://github.com/cxreiff/ttysvr"
+license=('MIT' 'Apache-2.0')
+depends=('gcc-libs' 'alsa-lib' 'systemd-libs')
+makedepends=('cargo')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('75d5cacccc3917b9148771ed503d9d9010155ef8ce99ad5b292ee50ebe9ecbf96a2055f048c9deaa65e6cd6d9dab80723ff673f0254f9862d1948b69fa0df4a0')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release --frozen
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --frozen
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  install -Dm 644 LICENSE-MIT -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:
