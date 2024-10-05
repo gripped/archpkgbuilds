@@ -1,49 +1,42 @@
 # Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
 
 pkgname=ollama-gemma2-2b
-_model=gemma2
-_tag=2b
 pkgver=0.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='The Gemma2 (2B) large language model (LLM), for Ollama'
 arch=(any)
 url='https://www.kaggle.com/models/google/gemma-2'
 license=(custom)
 depends=(ollama)
-makedepends=(python)
-optdepends=('ollama-cuda: for using the GPU'
+optdepends=('llm-manager: for configuring which models to use for which tasks'
+            'ollama-cuda: for using the GPU'
             'ollama-rocm: for using the GPU')
 install=model.install
-source=(Notice ToS)
-b2sums=('7f400ad60e0426afbca7ffec23b7a651776c12d8cfcd5d91aca7351e3c896ca90f6b74211e21789d67f73b133c2c7cab55dcd3ea6c6b865ab74271a449cab3fd'
-        'ad6acc41f13e03796aca9250e9e04ca780e9cfc59723d73f526319bedbcd108d51f392a44581f89fd733637f12c2be21e217da58d81081481e7c25c2fbdea6b0')
-
-prepare() {
-  # Find a free port. This is currently a bit awkward, see also: https://github.com/ollama/ollama/issues/3369
-  export OLLAMA_HOST=":$(python -c 'import socket; s=socket.socket(socket.AF_INET, socket.SOCK_STREAM); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')"
-
-  # Create a place to keep the models
-  mkdir -p models
-  export OLLAMA_MODELS="$srcdir/models"
-
-  # Start Ollama
-  ollama serve &
-  serve_pid=$!
-
-  # Try downloading the model with Ollama. Wait 1 second if the server is not ready yet. Try 10 times.
-  echo "Downloading $_model:$_tag"
-  for i in {1..10}; do
-    ollama pull "$_model:$_tag" && break || sleep 1
-  done
-
-  # Stop Ollama
-  kill $serve_pid
-}
+source=(
+    'https://registry.ollama.ai/v2/library/gemma2/blobs/sha256:e18ad7af7efbfaecd8525e356861b84c240ece3a3effeb79d2aa7c0f258f71bd'
+    'https://registry.ollama.ai/v2/library/gemma2/blobs/sha256:7462734796d67c40ecec2ca98eddf970e171dbb6b370e43fd633ee75b69abe1b'
+    'https://registry.ollama.ai/v2/library/gemma2/blobs/sha256:e0a42594d802e5d31cdc786deb4823edb8adff66094d49de8fffe976d753e348'
+    'https://registry.ollama.ai/v2/library/gemma2/blobs/sha256:097a36493f718248845233af1d3fefe7a303f864fae13bc31a3a9704229378ca'
+    'https://registry.ollama.ai/v2/library/gemma2/blobs/sha256:2490e7468436707d5156d7959cf3c6341cc46ee323084cfa3fcf30fe76e397dc'
+    'manifest.json::https://registry.ollama.ai/v2/library/gemma2/manifests/2b'
+    Notice
+    LICENSE
+)
+sha256sums=('e18ad7af7efbfaecd8525e356861b84c240ece3a3effeb79d2aa7c0f258f71bd'
+            '7462734796d67c40ecec2ca98eddf970e171dbb6b370e43fd633ee75b69abe1b'
+            'e0a42594d802e5d31cdc786deb4823edb8adff66094d49de8fffe976d753e348'
+            '097a36493f718248845233af1d3fefe7a303f864fae13bc31a3a9704229378ca'
+            '2490e7468436707d5156d7959cf3c6341cc46ee323084cfa3fcf30fe76e397dc'
+            '17b8bb37b46f0aba2270a1f46ca51cffa75c2e07c4b4b805ebaadd7eda781d38'
+            '66f856d7da72797f528fca46b7c80634ab481f917bfe020960e123d84b19f75f'
+            '11d889838c616c709c120f5fc97369ffc872609aee6accd6aa91f3abf807341f')
 
 package() {
-  install -d "$pkgdir/var/lib/ollama"
-  cp -r models/. "$pkgdir/var/lib/ollama/"
+  for f in sha256:*; do
+    install -Dm644 "$f" "$pkgdir/var/lib/ollama/blobs/${f/:/-}"
+  done
+  install -Dm644 manifest.json "$pkgdir/var/lib/ollama/manifests/registry.ollama.ai/library/gemma2/2b"
 
   install -Dm644 Notice "$pkgdir/usr/share/licenses/$pkgname/Notice"
-  install -Dm644 ToS "$pkgdir/usr/share/licenses/$pkgname/ToS"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }

@@ -1,3 +1,7 @@
 post_install() {
   chown -R ollama:ollama /var/lib/ollama
 }
+
+post_upgrade() {
+  chown -R ollama:ollama /var/lib/ollama
+}
