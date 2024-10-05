@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=towncrier
-pkgver=23.11.0
+pkgver=24.7.0
 pkgrel=1
 pkgdesc="Utility to produce useful, summarised news files for your project"
 arch=('any')
@@ -10,42 +10,36 @@ license=('MIT')
 depends=(
   'python'
   'python-click'
-  'python-incremental'
   'python-jinja'
 )
 makedepends=(
+  'git'
   'python-build'
   'python-installer'
   'python-hatchling'
+  'python-wheel'
 )
 checkdepends=(
-  'git'
   'python-twisted'
 )
-source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-sha512sums=('6226ef75c163748872f0f5d60c03629365cf0a942412ca791ea28762a227942d974f8573205551678735380629eadf2bf726478b0ef1d4d1e6ee14b47e25fbae')
-
-prepare() {
-  # we do not support byzantine pinning of build dependencies
-  sed -e 's/~=/>=/g; s/==/>=/g' -i $pkgname-$pkgver/pyproject.toml
-}
+source=("git+https://github.com/twisted/towncrier.git#tag=$pkgver")
+sha512sums=('d7b8e82b0df30f0766860f0912b114f02f26a2cbfd670a8b5c0800d3e5d396186da31c54955d255d1219dde28da118e5891da9e4a91512dfedb66bf9670a602c')
 
 build() {
-  cd towncrier-$pkgver
+  cd towncrier
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd towncrier-$pkgver
+  cd towncrier
   python -m installer --destdir=tmp_install dist/*.whl
   local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
   PYTHONPATH="$PWD/tmp_install/usr/lib/python${python_version}/site-packages" PATH="$PWD/tmp_install/usr/bin:$PATH" trial towncrier
 }
 
 package() {
-  cd towncrier-$pkgver
+  cd towncrier
   python -m installer --destdir="$pkgdir" dist/*.whl
-
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
