@@ -3,7 +3,7 @@
 
 pkgname=python-shtab
 pkgver=1.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Automagic shell tab completion for Python CLI applications'
 arch=('any')
 url='https://github.com/iterative/shtab'
@@ -18,12 +18,22 @@ makedepends=(
 )
 checkdepends=(
   'python-pytest'
-  'python-pytest-cov'
   'python-pytest-timeout'
 )
-source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('41cbf9acfc6efaa55971ea4dede60e0361e9bc45d65363a85dd9f6866f1b978ce2e89bd5083097f930e8088661f7111559522b472ee080bb4c99c3225d575932')
-b2sums=('bd2d5680b2a53d15ef896bc511dd884f52f19b426bfb9b12be00eeb39563fb871a2561211365136261f52eb18dc829661a9e9284651b98b17b8b9acac45471cc')
+source=(
+  "$pkgname::git+$url#tag=v$pkgver"
+  'remove-cov.patch'
+)
+sha512sums=('41cbf9acfc6efaa55971ea4dede60e0361e9bc45d65363a85dd9f6866f1b978ce2e89bd5083097f930e8088661f7111559522b472ee080bb4c99c3225d575932'
+            'c1390c0c1140ed701a56394b44bc5a0497901811cfbc7b6185f964b773db7851a13c745fe8122705ee74bbcdb3ce7ff5e19a5b8cfcf20df6e32b28f0887cb18a')
+b2sums=('bd2d5680b2a53d15ef896bc511dd884f52f19b426bfb9b12be00eeb39563fb871a2561211365136261f52eb18dc829661a9e9284651b98b17b8b9acac45471cc'
+        '3d265e70111506165beddf031af0efb01ca62bd2d0b41af04e74f175db8b9fec6e1b31ad5dbba5d001d53d48313e581b3bbfa4d2ba7d1094cb983521a5b3c1d2')
+
+prepare() {
+  cd "$pkgname"
+
+  patch -p1 -i "$srcdir/remove-cov.patch"
+}
 
 build() {
   cd "$pkgname"
@@ -54,13 +64,10 @@ package() {
 
   python -m installer --destdir="$pkgdir" dist/*.whl
 
-  # completions
+  # shell completions
   install -vDm644 bash.completion "$pkgdir/usr/share/bash-completion/completions/shtab"
   install -vDm644 zsh.completion "$pkgdir/usr/share/zsh/site-functions/_shtab"
 
-  # symlink license file
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  install -d "$pkgdir/usr/share/licenses/$pkgname"
-  ln -s "$site_packages/${pkgname#python-}-$pkgver.dist-info/LICENCE" \
-    "$pkgdir/usr/share/licenses/$pkgname/LICENCE"
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENCE
 }
