@@ -6,7 +6,7 @@ pkgname=(
   libspelling
   libspelling-docs
 )
-pkgver=0.4.1
+pkgver=0.4.2
 pkgrel=1
 pkgdesc="Spellcheck library for GTK 4"
 url="https://gitlab.gnome.org/chergert/libspelling"
@@ -39,7 +39,7 @@ checkdepends=(
   libvoikko
 )
 source=("git+https://gitlab.gnome.org/chergert/libspelling.git#tag=$pkgver")
-b2sums=('bf19452fd4f416661ff1627a7bb9590db471b35244af935397f0530ab5da75312102a7249881d56f1978a506c2374f863f2db769c7940efb6ca427ab9ce65f36')
+b2sums=('6008d99dafb776a2f2c9ac0a73a47207ec5c77eb2c0c88df4a3ce3a9196472ea7d2352db7905f4cc6ffcafb71501db71b6a91a00ed734e54080e2d9c7f326a92')
 
 build() {
   arch-meson $pkgname build
