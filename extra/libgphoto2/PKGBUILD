@@ -6,16 +6,18 @@
 
 pkgname=libgphoto2
 pkgver=2.5.31
-pkgrel=2
+pkgrel=3
 pkgdesc="Digital camera access library"
 url="http://www.gphoto.org/"
 arch=(x86_64)
-license=(LGPL)
+license=(LGPL-2.1-or-later)
 depends=(
+  bash
   curl
   gd
+  glibc
   libexif
-  libjpeg
+  libjpeg-turbo
   libltdl
   libusb
   libxml2
@@ -25,15 +27,11 @@ makedepends=(
   git
 )
 provides=(libgphoto2{,_port}.so)
-_commit=ba28af2d22fd4cb7fa76a8ff569ba498e8021db5  # tags/libgphoto2-2_5_31-release
-source=("git+https://github.com/gphoto/libgphoto2#commit=$_commit")
-b2sums=('SKIP')
-validpgpkeys=('7C4AFD61D8AAE7570796A5172209D6902F969C95') # Marcus Meissner
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/^libgphoto2-//;s/-release//;s/^v//;s/_/./g;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://github.com/gphoto/libgphoto2#tag=v$pkgver")
+b2sums=('4359a165282d4c1a512f9cf01367421e735897b0e790271848f1a1eafd8bfdd13e27257b0e62fdc089cd959b10135935b765c4646a0e564dacd85c7eb1f62c82')
+validpgpkeys=(
+  7C4AFD61D8AAE7570796A5172209D6902F969C95 # Marcus Meissner <marcus@jet.franken.de>
+)
 
 prepare() {
   cd $pkgname
@@ -55,25 +53,20 @@ build() {
 }
 
 package() {
-  cd $pkgname
-  make DESTDIR="$pkgdir" install
+  make -C $pkgname DESTDIR="$pkgdir" install
 
   # Remove unused udev helper
   rm -rv "$pkgdir/usr/lib/udev"
 
-  _genudev
+  (
+    export LD_LIBRARY_PATH="$pkgdir/usr/lib"
+    export CAMLIBS="$PWD/$pkgver"
+
+    "$pkgdir/usr/lib/libgphoto2/print-camera-list" hwdb \
+      | install -Dm644 /dev/stdin "$pkgdir/usr/lib/udev/hwdb.d/20-gphoto.hwdb"
+    "$pkgdir/usr/lib/libgphoto2/print-camera-list" udev-rules version 201 \
+      | install -Dm644 /dev/stdin "$pkgdir/usr/lib/udev/rules.d/40-gphoto.rules"
+  )
 }
-
-_genudev() (
-  cd "$pkgdir/usr/lib/libgphoto2"
-
-  export LD_LIBRARY_PATH="$pkgdir/usr/lib${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
-  export CAMLIBS="$PWD/$pkgver"
-
-  ./print-camera-list hwdb \
-    | install -Dm644 /dev/stdin "$pkgdir/usr/lib/udev/hwdb.d/20-gphoto.hwdb"
-  ./print-camera-list udev-rules version 201 \
-    | install -Dm644 /dev/stdin "$pkgdir/usr/lib/udev/rules.d/40-gphoto.rules"
-)
 
 # vim:set sw=2 sts=-1 et:
