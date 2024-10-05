@@ -3,20 +3,19 @@
 
 _hkgname=servant
 pkgname=haskell-servant
-pkgver=0.20.1
-pkgrel=18
+pkgver=0.20.2
+pkgrel=1
 pkgdesc="A family of combinators for defining webservices APIs"
 url="http://haskell-servant.readthedocs.org/"
 license=("BSD")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-base-compat' 'haskell-aeson' 'haskell-attoparsec'
-         'haskell-bifunctors' 'haskell-case-insensitive' 'haskell-constraints'
-         'haskell-http-api-data' 'haskell-http-media' 'haskell-http-types' 'haskell-mmorph'
-         'haskell-network-uri' 'haskell-quickcheck' 'haskell-tagged' 'haskell-sop-core'
-         'haskell-singleton-bool' 'haskell-string-conversions' 'haskell-vault')
-makedepends=('ghc' 'haskell-hspec' 'haskell-quickcheck-instances')
+depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-bifunctors'
+         'haskell-case-insensitive' 'haskell-constraints' 'haskell-http-api-data'
+         'haskell-http-media' 'haskell-http-types' 'haskell-mmorph' 'haskell-network-uri'
+         'haskell-quickcheck' 'haskell-sop-core' 'haskell-singleton-bool' 'haskell-vault')
+makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover' 'haskell-quickcheck-instances')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('b99b68ac106d1955f3868ed3de47052ea9498cbbff6ea21c7bb3e29f3228be169e09db5b8e1778397072f4bfb26262bafac8483b52da64f8f099fedd1bde7709')
+sha512sums=('cc763214578e6b2d2372e0dd38957d33fb05fe1b27bb31027135b651c63390f314625dfdc4d8ac09f9ca106ca3a9f25af9493bb7bf7f544a5bb5ac3325969b4c')
 
 build() {
     cd $_hkgname-$pkgver
