@@ -1,7 +1,7 @@
 pkgbase = lib32-gstreamer
 	pkgdesc = Multimedia graph framework (32-bit)
 	pkgver = 1.24.8
-	pkgrel = 1
+	pkgrel = 2
 	url = https://gstreamer.freedesktop.org/
 	arch = x86_64
 	license = LGPL-2.1-or-later
@@ -29,7 +29,7 @@ pkgbase = lib32-gstreamer
 	makedepends = lib32-libglvnd
 	makedepends = lib32-libgudev
 	makedepends = lib32-libiec61883
-	makedepends = lib32-libjpeg
+	makedepends = lib32-libjpeg-turbo
 	makedepends = lib32-libogg
 	makedepends = lib32-libpng
 	makedepends = lib32-libpulse
@@ -85,7 +85,7 @@ pkgname = lib32-gstreamer
 
 pkgname = lib32-gst-plugins-base-libs
 	pkgdesc = Multimedia graph framework (32-bit) - base
-	depends = lib32-gstreamer=1.24.8-1
+	depends = lib32-gstreamer=1.24.8-2
 	depends = gst-plugins-base-libs
 	depends = lib32-gcc-libs
 	depends = lib32-glib2
@@ -105,15 +105,15 @@ pkgname = lib32-gst-plugins-base-libs
 
 pkgname = lib32-gst-plugins-base
 	pkgdesc = Multimedia graph framework (32-bit) - base plugins
-	depends = lib32-gst-plugins-base-libs=1.24.8-1
-	depends = lib32-gstreamer=1.24.8-1
+	depends = lib32-gst-plugins-base-libs=1.24.8-2
+	depends = lib32-gstreamer=1.24.8-2
 	depends = gst-plugins-base
 	depends = lib32-alsa-lib
 	depends = lib32-cairo
 	depends = lib32-cdparanoia
 	depends = lib32-glib2
 	depends = lib32-glibc
-	depends = lib32-libjpeg
+	depends = lib32-libjpeg-turbo
 	depends = lib32-libogg
 	depends = lib32-libpng
 	depends = lib32-libtheora
@@ -124,8 +124,8 @@ pkgname = lib32-gst-plugins-base
 
 pkgname = lib32-gst-plugins-good
 	pkgdesc = Multimedia graph framework (32-bit) - good plugins
-	depends = lib32-gst-plugins-base-libs=1.24.8-1
-	depends = lib32-gstreamer=1.24.8-1
+	depends = lib32-gst-plugins-base-libs=1.24.8-2
+	depends = lib32-gstreamer=1.24.8-2
 	depends = gst-plugins-good
 	depends = lib32-aalib
 	depends = lib32-bzip2
@@ -140,7 +140,7 @@ pkgname = lib32-gst-plugins-good
 	depends = lib32-libdv
 	depends = lib32-libgudev
 	depends = lib32-libiec61883
-	depends = lib32-libjpeg
+	depends = lib32-libjpeg-turbo
 	depends = lib32-libpng
 	depends = lib32-libpulse
 	depends = lib32-libraw1394

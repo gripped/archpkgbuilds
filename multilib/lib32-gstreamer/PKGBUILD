@@ -9,7 +9,7 @@ pkgname=(
   lib32-gst-plugins-good
 )
 pkgver=1.24.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Multimedia graph framework (32-bit)"
 url="https://gstreamer.freedesktop.org/"
 arch=(x86_64)
@@ -38,7 +38,7 @@ makedepends=(
   lib32-libglvnd
   lib32-libgudev
   lib32-libiec61883
-  lib32-libjpeg
+  lib32-libjpeg-turbo
   lib32-libogg
   lib32-libpng
   lib32-libpulse
@@ -262,7 +262,7 @@ package_lib32-gst-plugins-base() {
     lib32-cdparanoia
     lib32-glib2
     lib32-glibc
-    lib32-libjpeg
+    lib32-libjpeg-turbo
     lib32-libogg
     lib32-libpng
     lib32-libtheora
@@ -303,7 +303,7 @@ package_lib32-gst-plugins-good() {
     lib32-libdv
     lib32-libgudev
     lib32-libiec61883
-    lib32-libjpeg
+    lib32-libjpeg-turbo
     lib32-libpng
     lib32-libpulse
     lib32-libraw1394
