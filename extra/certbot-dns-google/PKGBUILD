@@ -3,7 +3,7 @@
 
 pkgname=certbot-dns-google
 pkgver=2.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Google Cloud DNS Authenticator plugin for Certbot'
 arch=('any')
 license=('Apache-2.0')
@@ -12,7 +12,6 @@ depends=(
   "certbot=$pkgver"
   "python-acme=$pkgver"
   'python-google-api-python-client'
-  'python-oauth2client'
   'python-httplib2'
 )
 makedepends=(
