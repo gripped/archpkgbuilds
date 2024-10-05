@@ -7,7 +7,7 @@ pkgname=(
   lib32-gdk-pixbuf2
 )
 pkgver=2.42.12
-pkgrel=1
+pkgrel=2
 pkgdesc="An image loading library (32-bit)"
 url="https://wiki.gnome.org/Projects/GdkPixbuf"
 arch=(x86_64)
@@ -16,13 +16,14 @@ depends=(
   gdk-pixbuf2
   lib32-glib2
   lib32-glibc
-  lib32-libjpeg
+  lib32-libjpeg-turbo
   lib32-libpng
   lib32-libtiff
   shared-mime-info
 )
 makedepends=(
   git
+  glib2-devel
   meson
 )
 optdepends=(
