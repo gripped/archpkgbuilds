@@ -7,7 +7,7 @@ pkgname=(
   gdk-pixbuf2-docs
 )
 pkgver=2.42.12
-pkgrel=1
+pkgrel=2
 pkgdesc="An image loading library"
 url="https://wiki.gnome.org/Projects/GdkPixbuf"
 arch=(x86_64)
@@ -15,7 +15,7 @@ license=(LGPL-2.0-or-later)
 depends=(
   glib2
   glibc
-  libjpeg
+  libjpeg-turbo
   libpng
   libtiff
   shared-mime-info
@@ -23,6 +23,7 @@ depends=(
 makedepends=(
   gi-docgen
   git
+  glib2-devel
   gobject-introspection
   meson
   python-docutils
