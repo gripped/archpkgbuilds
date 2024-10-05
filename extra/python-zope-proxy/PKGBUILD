@@ -2,8 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-zope-proxy
-_pkgname=zope.proxy
-pkgver=6.0
+pkgver=6.1
 pkgrel=1
 pkgdesc="Generic Transparent Proxies"
 arch=('x86_64')
@@ -15,6 +14,7 @@ depends=(
   'python-zope-interface'
 )
 makedepends=(
+  'git'
   'python-build'
   'python-installer'
   'python-setuptools'
@@ -24,23 +24,23 @@ checkdepends=(
   'python-zope-security'
   'python-zope-testrunner'
 )
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('b72ba4cd5893fcf5af484088d8e03d80e1695a04589c6d92c73ec148189c6461e3137b6081de479392ef99278598151c6d468a48aeb780664784e40fd9f3325a')
+source=("git+https://github.com/zopefoundation/zope.proxy.git#tag=$pkgver")
+sha512sums=('b70b0c713eef784b7ba48910bc335031f9baf4ce20194269c015d21541a0f39c752d5a7bccbb20ecba0fa6269e7a5010792e7adfb0a42055bd6012a06971b22f')
 
 build() {
-  cd $_pkgname-$pkgver
+  cd zope.proxy
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $_pkgname-$pkgver
+  cd zope.proxy
   local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
   PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$python_version" \
     zope-testrunner --test-path=src
 }
 
 package() {
-  cd $_pkgname-$pkgver
+  cd zope.proxy
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 

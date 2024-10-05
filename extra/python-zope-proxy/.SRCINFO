@@ -1,12 +1,13 @@
 pkgbase = python-zope-proxy
 	pkgdesc = Generic Transparent Proxies
-	pkgver = 6.0
+	pkgver = 6.1
 	pkgrel = 1
 	url = https://github.com/zopefoundation/zope.proxy
 	arch = x86_64
 	license = ZPL-2.1
 	checkdepends = python-zope-security
 	checkdepends = python-zope-testrunner
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -14,7 +15,7 @@ pkgbase = python-zope-proxy
 	depends = glibc
 	depends = python
 	depends = python-zope-interface
-	source = python-zope-proxy-6.0.tar.gz::https://github.com/zopefoundation/zope.proxy/archive/6.0.tar.gz
-	sha512sums = b72ba4cd5893fcf5af484088d8e03d80e1695a04589c6d92c73ec148189c6461e3137b6081de479392ef99278598151c6d468a48aeb780664784e40fd9f3325a
+	source = git+https://github.com/zopefoundation/zope.proxy.git#tag=6.1
+	sha512sums = b70b0c713eef784b7ba48910bc335031f9baf4ce20194269c015d21541a0f39c752d5a7bccbb20ecba0fa6269e7a5010792e7adfb0a42055bd6012a06971b22f
 
 pkgname = python-zope-proxy
