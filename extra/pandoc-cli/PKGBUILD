@@ -2,8 +2,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=pandoc-cli
-pkgver=0.1.1.1
-pkgrel=142
+pkgver=3.1.10
+pkgrel=1
 pkgdesc="Conversion between documentation formats"
 url="https://pandoc.org"
 license=("GPL-2.0-or-later")
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'hslua-cli' 'haskell-pandoc' 'haskell-pandoc-lua-engine' 'ha
          'haskell-safe' 'haskell-temporary' 'haskell-wai-extra' 'haskell-warp')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('1f41974aaa827682db5507e3c339babddda2c21b10aa70af9b8cd1c9be7d1ba3')
+sha256sums=('f1ffb5396df4600279f544f4e1782ae4f53408151c5a1ac09cef6880f3345d89')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -48,4 +48,5 @@ package() {
 
   LD_LIBRARY_PATH="$PWD/dist/build" dist/build/pandoc/pandoc --bash-completion > pandoc-completion.bash
   install -Dm644 pandoc-completion.bash "$pkgdir"/usr/share/bash-completion/completions/pandoc
+  install -Dm644 man/pandoc.1 -t "${pkgdir}"/usr/share/man/man1/
 }
