@@ -2,7 +2,7 @@
 # Contributor: Sam A. Horvath-Hunt <hello@samhh.com>
 
 pkgname=eslint_d
-pkgver=14.0.3
+pkgver=14.1.1
 pkgrel=1
 pkgdesc="Makes eslint the fastest linter on the planet."
 url="https://github.com/mantoni/eslint_d.js"
@@ -12,7 +12,7 @@ depends=("nodejs")
 makedepends=("npm")
 source=("https://registry.npmjs.org/${pkgname}/-/${pkgname}-${pkgver}.tgz")
 noextract=("${pkgname}-${pkgver}.tgz")
-sha256sums=('90f2506865f76c8bc346d998ecef5f3f82f7d795300afd1d2213bc41a2138b90')
+sha256sums=('9746de47b4eb30ed0eee5600adc62b792aec10bd3ba6d7c0bffe9083618a4fac')
 
 prepare() {
   tar xf "${pkgname}-${pkgver}.tgz" package/LICENSE
