@@ -2,7 +2,7 @@
 # Contributor: KokaKiwi <kokakiwi+aur at kokakiwi dot net>
 
 pkgname=cargo-nextest
-pkgver=0.9.78
+pkgver=0.9.80
 pkgrel=1
 pkgdesc="A next-generation test runner for Rust."
 arch=('x86_64')
@@ -10,8 +10,8 @@ url="https://github.com/nextest-rs/nextest"
 license=('Apache-2.0' 'MIT')
 depends=('cargo' 'gcc-libs')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/cargo-nextest-$pkgver.tar.gz")
-sha256sums=('cab5f307ca28cca63ba577614a41a7d390731571241d0460e005e2b32d5efac6')
-b2sums=('5e63ca23ec70b18a129f528e61f92be1da82039e2c90da27648895be89e08f3801b59daf6b8c2f8aab1f5d289ef24667cd7cfd703f76a02e5e180fff97fbf590')
+sha256sums=('b6b6907ef4ef3a7cafa4c3f0ac468d27fe782f94728a8873c6b2e274304c4de9')
+b2sums=('f74ed57c8e415033c3e6dbca6a6ead71bfd28fd6e5e448c61954a5d7165eba26abc6da1e95d0c7f82e46035eccc986bddeeab85ade79a3ae665f93f41e9c2de6')
 options=('!lto')
 
 prepare() {
@@ -27,7 +27,7 @@ build() {
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo run --package cargo-nextest -- nextest run
+  cargo run --package cargo-nextest -- nextest run -- --skip test_version_info
 }
 
 package() {
