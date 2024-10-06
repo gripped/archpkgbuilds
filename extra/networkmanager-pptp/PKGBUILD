@@ -3,12 +3,12 @@
 
 pkgname=networkmanager-pptp
 pkgver=1.2.12
-pkgrel=3
+pkgrel=4
 pkgdesc="NetworkManager VPN plugin for PPTP"
 url="https://wiki.gnome.org/Projects/NetworkManager"
 arch=(x86_64)
 license=(GPL)
-_pppver=2.5.0
+_pppver=2.5.1
 depends=(
   libnm
   libsecret
@@ -17,6 +17,7 @@ depends=(
 )
 makedepends=(
   git
+  glib2-devel
   libnma
   libnma-gtk4
   python
@@ -27,7 +28,7 @@ optdepends=(
 )
 _commit=ad5a2951d5f281eeea482404058ace8d15e23f30  # tags/1.2.12^0
 source=("git+https://gitlab.gnome.org/GNOME/NetworkManager-pptp.git#commit=$_commit")
-b2sums=('SKIP')
+b2sums=('1dbd40c92f0f93ffe050822ce4187f71b4f808bf9cb3f05f2549957315771c7bb70b5b2b44e261a7481edfb85c9a33c61a5e94a4df735f80c2eb1a56efb897e0')
 
 pkgver() {
   cd NetworkManager-pptp
