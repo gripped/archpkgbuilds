@@ -1,6 +1,6 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 pkgname=hwdata
-pkgver=0.387
+pkgver=0.388
 pkgrel=1
 pkgdesc="hardware identification databases"
 makedepends=('git')
@@ -10,7 +10,7 @@ license=('GPL-2.0-or-later')
 arch=('any')
 source=("git+https://github.com/vcrhonek/hwdata.git#tag=v${pkgver}?signed")
 validpgpkeys=('3C40194FB79138CE0F78FD4919C2F062574F5403') # Vitezslav Crhonek
-b2sums=('d7a436035b132706a8af6f60fbbc2f7604014866fb929fd52ea7a95f8db5bd6255831f58f6a29b1d81ae9190bd57402a10d0e8d8a01f07d875ac329ae14a54da')
+b2sums=('93a9e742591d5f8252af4d9ea144a39302b828180eafd5f1af794cc15eadb03b8e6c82edc94355b015aba55536241eddcb50f14fe218938323ae0907096e79eb')
 
 build() {
   cd ${pkgname}
