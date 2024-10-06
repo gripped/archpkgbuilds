@@ -3,13 +3,13 @@
 
 pkgname=('minetest' 'minetest-server' 'minetest-common')
 pkgver=5.9.0
-pkgrel=2
+pkgrel=4
 arch=('x86_64')
 url='https://www.minetest.net/'
 license=('LGPL')
 makedepends=('sqlite' 'freetype2' 'leveldb' 'postgresql' 'spatialindex' 'openal' 'libvorbis' 'curl'
              'hicolor-icon-theme' 'cmake' 'ninja' 'hiredis' 'luajit')
-makedepends+=('libjpeg' 'libgl' 'libxi' 'git')
+makedepends+=('libjpeg-turbo' 'libgl' 'libxi' 'git')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/minetest/minetest/archive/${pkgver}.tar.gz
         minetest.service
         sysusers.d
@@ -52,7 +52,7 @@ package_minetest() {
   depends=('minetest-common' 'curl' 'libvorbis' 'sqlite'
            'openal' 'hicolor-icon-theme' 'desktop-file-utils' 'xdg-utils'
            'freetype2' 'luajit' 'postgresql-libs' 'spatialindex' 'jsoncpp'
-           'libgl' 'libjpeg' 'libxi') # irrlichtmt
+           'libgl' 'libjpeg-turbo' 'libxi') # irrlichtmt
 
   cd build-client
   DESTDIR="${pkgdir}" ninja install
