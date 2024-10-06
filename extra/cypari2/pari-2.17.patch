@@ -1,0 +1,267 @@
+diff --git a/cypari2/paridecl.pxd b/cypari2/paridecl.pxd
+index 29cb8ef..9ccf336 100644
+--- a/cypari2/paridecl.pxd
++++ b/cypari2/paridecl.pxd
+@@ -118,6 +118,7 @@ cdef extern from *:     # PARI headers already included by types.pxd
+     extern PariOUT* pariOut
+     extern PariOUT* pariErr
+     extern byteptr diffptr
++    extern pari_prime* pari_PRIMES
+ 
+     ###############################################
+     #                                             #
+diff --git a/cypari2/types.pxd b/cypari2/types.pxd
+index 9ee4fe6..7f00b52 100644
+--- a/cypari2/types.pxd
++++ b/cypari2/types.pxd
+@@ -24,6 +24,7 @@ cdef extern from "pari/pari.h":
+     ctypedef long* GEN
+     ctypedef char* byteptr
+     ctypedef unsigned long pari_sp
++    ctypedef unsigned long pari_prime
+ 
+     # PARI types
+     enum:diff --git a/autogen/args.py b/autogen/args.py
+index cd84008..4f2ac3e 100644
+--- a/autogen/args.py
++++ b/autogen/args.py
+@@ -308,7 +308,7 @@ class PariArgumentPrec(PariArgumentClass):
+     def get_argument_name(self, namesiter):
+         return "precision"
+     def c_convert_code(self):
+-        s = "        {name} = prec_bits_to_words({name})\n"
++        s = "        {name} = prec_bits_to_pari({name})\n"
+         return s.format(name=self.name)
+ 
+ class PariArgumentBitprec(PariArgumentClass):
+diff --git a/autogen/generator.py b/autogen/generator.py
+index 048adce..e4b85a7 100644
+--- a/autogen/generator.py
++++ b/autogen/generator.py
+@@ -149,7 +149,7 @@ class PariFunctionGenerator(object):
+                     cdef GEN _tech = NULL
+                     if _have_tech:
+                         _tech = (<Gen>tech).g
+-                    precision = prec_bits_to_words(precision)
++                    precision = prec_bits_to_pari(precision)
+                     cdef GEN _ret = bnfinit0(_P, flag, _tech, precision)
+                     return new_gen(_ret)
+             <BLANKLINE>
+diff --git a/cypari2/gen.pyx b/cypari2/gen.pyx
+index a109244..dc2d80d 100644
+--- a/cypari2/gen.pyx
++++ b/cypari2/gen.pyx
+@@ -66,7 +66,7 @@ from .types cimport *
+ from .string_utils cimport to_string, to_bytes
+ from .paripriv cimport *
+ from .convert cimport PyObject_AsGEN, gen_to_integer
+-from .pari_instance cimport (prec_bits_to_words,
++from .pari_instance cimport (prec_bits_to_pari,
+                              default_bitprec, get_var)
+ from .stack cimport (new_gen, new_gens2, new_gen_noclear,
+                      clone_gen, clear_stack, reset_avma,
+@@ -647,7 +647,7 @@ cdef class Gen(Gen_base):
+         if m is not None:
+             t0 = t0.Mod(m)
+         sig_on()
+-        return new_gen(gpow(t0.g, t1.g, prec_bits_to_words(0)))
++        return new_gen(gpow(t0.g, t1.g, prec_bits_to_pari(0)))
+ 
+     def __neg__(self):
+         sig_on()
+@@ -2926,7 +2926,7 @@ cdef class Gen(Gen_base):
+         54.9711779448622
+         """
+         sig_on()
+-        return new_gen(bernreal(self, prec_bits_to_words(precision)))
++        return new_gen(bernreal(self, prec_bits_to_pari(precision)))
+ 
+     def besselk(nu, x, unsigned long precision=0):
+         """
+@@ -2963,7 +2963,7 @@ cdef class Gen(Gen_base):
+         """
+         cdef Gen t0 = objtogen(x)
+         sig_on()
+-        return new_gen(kbessel(nu.g, t0.g, prec_bits_to_words(precision)))
++        return new_gen(kbessel(nu.g, t0.g, prec_bits_to_pari(precision)))
+ 
+     def eint1(x, long n=0, unsigned long precision=0):
+         r"""
+@@ -2991,9 +2991,9 @@ cdef class Gen(Gen_base):
+         """
+         sig_on()
+         if n <= 0:
+-            return new_gen(eint1(x.g, prec_bits_to_words(precision)))
++            return new_gen(eint1(x.g, prec_bits_to_pari(precision)))
+         else:
+-            return new_gen(veceint1(x.g, stoi(n), prec_bits_to_words(precision)))
++            return new_gen(veceint1(x.g, stoi(n), prec_bits_to_pari(precision)))
+ 
+     log_gamma = Gen_base.lngamma
+ 
+@@ -3026,7 +3026,7 @@ cdef class Gen(Gen_base):
+         -0.400459056163451
+         """
+         sig_on()
+-        return new_gen(polylog0(m, x.g, flag, prec_bits_to_words(precision)))
++        return new_gen(polylog0(m, x.g, flag, prec_bits_to_pari(precision)))
+ 
+     def sqrtn(x, n, unsigned long precision=0):
+         r"""
+@@ -3090,7 +3090,7 @@ cdef class Gen(Gen_base):
+         cdef GEN ans, zetan
+         cdef Gen t0 = objtogen(n)
+         sig_on()
+-        ans = gsqrtn(x.g, t0.g, &zetan, prec_bits_to_words(precision))
++        ans = gsqrtn(x.g, t0.g, &zetan, prec_bits_to_pari(precision))
+         return new_gens2(ans, zetan)
+ 
+     def ffprimroot(self):
+@@ -4609,7 +4609,7 @@ cdef class Gen(Gen_base):
+         elif typ(g0) == t_RFRAC:
+             g0 = rfrac_to_ser(g0, n+4)
+ 
+-        cdef GEN r = ellwp0(self.g, g0, flag, prec_bits_to_words(precision))
++        cdef GEN r = ellwp0(self.g, g0, flag, prec_bits_to_pari(precision))
+         if flag == 1 and have_ellwp_flag1_bug():
+             # Work around ellwp() bug: double the second element
+             set_gel(r, 2, gmulgs(gel(r, 2), 2))
+diff --git a/cypari2/pari_instance.pxd b/cypari2/pari_instance.pxd
+index f239487..528db5c 100644
+--- a/cypari2/pari_instance.pxd
++++ b/cypari2/pari_instance.pxd
+@@ -3,8 +3,7 @@ cimport cython
+ 
+ from .gen cimport Gen
+ 
+-cpdef long prec_bits_to_words(unsigned long prec_in_bits) noexcept
+-cpdef long prec_words_to_bits(long prec_in_words) noexcept
++cpdef long prec_bits_to_pari(unsigned long prec_in_bits) noexcept
+ cpdef long default_bitprec() noexcept
+ 
+ cdef class Pari_auto:
+diff --git a/cypari2/pari_instance.pyx b/cypari2/pari_instance.pyx
+index 65d705a..1e8e3ea 100644
+--- a/cypari2/pari_instance.pyx
++++ b/cypari2/pari_instance.pyx
+@@ -301,7 +301,7 @@ from .closure cimport _pari_init_closure
+ 
+ # Default precision (in PARI words) for the PARI library interface,
+ # when no explicit precision is given and the inputs are exact.
+-cdef long prec = prec_bits_to_words(53)
++cdef long prec = prec_bits_to_pari(53)
+ 
+ 
+ #################################################################
+@@ -341,7 +341,7 @@ def prec_dec_to_bits(long prec_in_dec):
+     return int(prec_in_dec*log_10 + 1.0)  # Add one to round up
+ 
+ 
+-cpdef long prec_bits_to_words(unsigned long prec_in_bits) noexcept:
++cpdef long prec_bits_to_pari(unsigned long prec_in_bits) noexcept:
+     r"""
+     Convert from precision expressed in bits to pari real precision
+     expressed in words. Note: this rounds up to the nearest word,
+@@ -350,46 +350,18 @@ cpdef long prec_bits_to_words(unsigned long prec_in_bits) noexcept:
+ 
+     Examples:
+ 
+-    >>> from cypari2.pari_instance import prec_bits_to_words
++    >>> from cypari2.pari_instance import prec_bits_to_pari
+     >>> import sys
+     >>> bitness = '64' if sys.maxsize > (1 << 32) else '32'
+-    >>> prec_bits_to_words(70) == (5 if bitness == '32' else 4)
++    >>> prec_bits_to_pari(70) == (5 if bitness == '32' else 4)
+     True
+ 
+     >>> ans32 = [(32, 3), (64, 4), (96, 5), (128, 6), (160, 7), (192, 8), (224, 9), (256, 10)]
+     >>> ans64 = [(32, 3), (64, 3), (96, 4), (128, 4), (160, 5), (192, 5), (224, 6), (256, 6)]
+-    >>> [(32*n, prec_bits_to_words(32*n)) for n in range(1, 9)] == (ans32 if bitness == '32' else ans64)
++    >>> [(32*n, prec_bits_to_pari(32*n)) for n in range(1, 9)] == (ans32 if bitness == '32' else ans64)
+     True
+     """
+-    if not prec_in_bits:
+-        return prec
+-    cdef unsigned long wordsize = BITS_IN_LONG
+-
+-    # This equals ceil(prec_in_bits/wordsize) + 2
+-    return (prec_in_bits - 1)//wordsize + 3
+-
+-
+-cpdef long prec_words_to_bits(long prec_in_words) noexcept:
+-    r"""
+-    Convert from pari real precision expressed in words to precision
+-    expressed in bits. Note: this adjusts for the two codewords of a
+-    pari real, and is architecture-dependent.
+-
+-    Examples:
+-
+-    >>> from cypari2.pari_instance import prec_words_to_bits
+-    >>> import sys
+-    >>> bitness = '64' if sys.maxsize > (1 << 32) else '32'
+-    >>> prec_words_to_bits(10) == (256 if bitness == '32' else 512)
+-    True
+-
+-    >>> ans32 = [(3, 32), (4, 64), (5, 96), (6, 128), (7, 160), (8, 192), (9, 224)]
+-    >>> ans64 = [(3, 64), (4, 128), (5, 192), (6, 256), (7, 320), (8, 384), (9, 448)] # 64-bit
+-    >>> [(n, prec_words_to_bits(n)) for n in range(3, 10)] == (ans32 if bitness == '32' else ans64)
+-    True
+-    """
+-    # see user's guide to the pari library, page 10
+-    return (prec_in_words - 2) * BITS_IN_LONG
++    return max(LOWDEFAULTPREC, nbits2prec(prec_in_bits))
+ 
+ 
+ cpdef long default_bitprec() noexcept:
+@@ -402,7 +374,7 @@ cpdef long default_bitprec() noexcept:
+     >>> default_bitprec()
+     64
+     """
+-    return (prec - 2) * BITS_IN_LONG
++    return LOWDEFAULTPREC
+ 
+ 
+ def prec_dec_to_words(long prec_in_dec):
+@@ -424,29 +396,7 @@ def prec_dec_to_words(long prec_in_dec):
+     >>> [(n, prec_dec_to_words(n)) for n in range(10, 90, 10)] == (ans32 if bitness == '32' else ans64)
+     True
+     """
+-    return prec_bits_to_words(prec_dec_to_bits(prec_in_dec))
+-
+-
+-def prec_words_to_dec(long prec_in_words):
+-    r"""
+-    Convert from precision expressed in words to precision expressed in
+-    decimal. Note: this adjusts for the two codewords of a pari real,
+-    and is architecture-dependent.
+-
+-    Examples:
+-
+-    >>> from cypari2.pari_instance import prec_words_to_dec
+-    >>> import sys
+-    >>> bitness = '64' if sys.maxsize > (1 << 32) else '32'
+-    >>> prec_words_to_dec(5) == (28 if bitness == '32' else 57)
+-    True
+-
+-    >>> ans32 = [(3, 9), (4, 19), (5, 28), (6, 38), (7, 48), (8, 57), (9, 67)]
+-    >>> ans64 = [(3, 19), (4, 38), (5, 57), (6, 77), (7, 96), (8, 115), (9, 134)]
+-    >>> [(n, prec_words_to_dec(n)) for n in range(3, 10)] == (ans32 if bitness == '32' else ans64)
+-    True
+-    """
+-    return prec_bits_to_dec(prec_words_to_bits(prec_in_words))
++    return prec_bits_to_pari(prec_dec_to_bits(prec_in_dec))
+ 
+ 
+ # Callbacks from PARI to print stuff using sys.stdout.write() instead
+diff --git a/cypari2/types.pxd b/cypari2/types.pxd
+index 9ee4fe6..48571cf 100644
+--- a/cypari2/types.pxd
++++ b/cypari2/types.pxd
+@@ -52,6 +52,7 @@ cdef extern from "pari/pari.h":
+         t_INFINITY
+ 
+     int BITS_IN_LONG
++    int LOWDEFAULTPREC
+     long DEFAULTPREC       # 64 bits precision
+     long MEDDEFAULTPREC    # 128 bits precision
+     long BIGDEFAULTPREC    # 192 bits precision
