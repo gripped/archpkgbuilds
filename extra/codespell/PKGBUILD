@@ -3,14 +3,14 @@
 
 pkgname=codespell
 pkgver=2.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='check code for common misspellings'
 arch=('any')
 url='https://github.com/codespell-project/codespell'
 license=('GPL-2.0-only')
 depends=('python-chardet')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools-scm')
-checkdepends=('python-pytest-cov' 'python-pytest-dependency')
+checkdepends=('python-pytest-dependency')
 source=("https://pypi.io/packages/source/c/codespell/${pkgname}-${pkgver}.tar.gz"
 	"remove-check-test_command.patch")
 sha256sums=('360c7d10f75e65f67bad720af7007e1060a5d395670ec11a7ed1fed9dd17471f'
@@ -30,17 +30,11 @@ build() {
 
 check() {
 	cd "${pkgname}-${pkgver}"
-
-	# Tests now want to run codespell: https://github.com/codespell-project/codespell/issues/3433
-	# Below is my attempt at installing codespell in a temporary location for the tests
-	# The `codespell` command works (in the sense that it is correctly added to $PATH with python modules correctly imported)
-	# But tests are still failing with "E   FileNotFoundError: [Errno 2] No such file or directory: 'codespell'" regardless
-	# I'm disabling tests for now while waiting for an upstream fix (or a downstream workaround)
-
-	#python -m installer --destdir="test_dir" dist/*.whl
-	#export PATH="test_dir/usr/bin/:${PATH}"
-	#export PYTHONPATH="test_dir/$site_packages:$PYTHONPATH"
-	#pytest
+	python -m installer --destdir=tmp_install dist/*.whl
+	local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+	export PATH="$PWD/tmp_install/usr/bin:$PATH"
+	export PYTHONPATH="$PWD/tmp_install/$site_packages"
+	pytest --override-ini="addopts="
 }
 
 package() {
