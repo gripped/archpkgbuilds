@@ -8,14 +8,14 @@ _mpi=openmpi
 pkgname=${_pkg}
 #-${_mpi}
 pkgver=5.13.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Parallel Visualization application using VTK (${_mpi} version)"
 arch=(x86_64)
 url="https://www.paraview.org"
 license=(BSD custom)
 depends=(qt5-tools qt5-svg intel-tbb openmpi ffmpeg
          adios2 liblas ospray pdal python-numpy protobuf
-         cgns double-conversion expat freetype2 gdal gl2ps glew hdf5 libjpeg
+         cgns double-conversion expat freetype2 gdal gl2ps glew hdf5 libjpeg-turbo
          jsoncpp libjsoncpp.so libharu libxml2 lz4 xz python-mpi4py netcdf
          libogg libpng pugixml libtheora libtiff zlib verdict)
 optdepends=(python-matplotlib python-pandas)
