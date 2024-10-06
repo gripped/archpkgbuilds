@@ -4,18 +4,21 @@ Frequently asked questions for the [Quicklisp beta](index.html).
 
 **How can I add a project to Quicklisp?**
 It's easy to request that a library you write or find be added to Quicklisp.
-If it's a public project available via HTTP, CVS, git, darcs, etc., please
-[create a request](http://github.com/quicklisp/quicklisp-projects/issues) with
-info about where to find it.
+If it's a public project, please [create a
+request](http://github.com/quicklisp/quicklisp-projects/issues) with info
+about where to find it. If you want me to use a specific branch, commit, or
+release of the project, please include that information in your request. If
+you'd rather not use github, feel free to [send me an email
+instead](mailto:zach@quicklisp.org).
 
-There are two blog posts on the topic: [Getting a library into
-Quicklisp](http://blog.quicklisp.org/2015/01/getting-library-into-
-quicklisp.html) and [Some problems when adding libraries to
+There are two blog posts on the topic of adding new projects: [Getting a
+library into Quicklisp](http://blog.quicklisp.org/2015/01/getting-library-
+into-quicklisp.html) and [Some problems when adding libraries to
 Quicklisp](http://blog.quicklisp.org/2015/01/some-problems-when-adding-
 libraries-to.html).
 
-You will be able to make your own private repositories of Quicklisp software
-(called _dists_ ), but it's not documented right now.
+You can make able to make your own private repositories of Quicklisp software
+(called _dists_), but it's not documented right now.
 
 **How is Quicklisp related to ASDF?**
 Quicklisp has an archive of project files and metadata about project
@@ -63,7 +66,7 @@ Yes. After loading `quicklisp.lisp`, you can use the `:path` option of
 You can also change the Quicklisp path after installation simply by renaming
 `quicklisp` to something else.
 
-**I got this error in Emacs when using quicklisp-slime-helper: _Searching for
+**I got this error in Emacs when using quicklisp-slime-helper:_Searching for
 program: no such file or directory, lisp_**
 This error occurs because you need to tell slime what Lisp implementation to
 use by setting an appropriate value for `inferior-lisp-program`. For example,
@@ -80,7 +83,7 @@ There are other ways to configure which CL implementation is used when
 starting slime. See [the slime manual](http://common-
 lisp.net/project/slime/doc/html/Multiple-Lisps.html) for more details.
 
-**I got this error: _Quicklisp has already been installed._**
+**I got this error:_Quicklisp has already been installed._**
 This error occurs if you load quicklisp.lisp after the initial installation.
 After Quicklisp has been installed, you don't need to load quicklisp.lisp
 again. To load Quicklisp into your Lisp, you can use this:

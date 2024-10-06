@@ -10,11 +10,11 @@ lisp.net/project/armedbear/), [Allegro
 CL](http://franz.com/enterprise_development_tools.lhtml),
 [Clasp](https://github.com/drmeister/clasp), [Clozure
 CL](http://ccl.clozure.com/), [CLISP](http://www.clisp.org/),
-[CMUCL](http://cmucl.cons.org/), [ECL](http://common-lisp.net/project/ecl/),
+[CMUCL](https://cmucl.org/), [ECL](http://common-lisp.net/project/ecl/),
 [LispWorks](http://www.lispworks.com/), [MKCL](https://common-
 lisp.net/project/mkcl/), [SBCL](http://www.sbcl.org/), and [Scieneer
 CL](http://www.scieneer.com/), on Linux, Mac OS X, and Windows. The
-[libraries](releases.html) were last updated on February 20, 2022.
+[libraries](releases.html) were last updated on June 19, 2023.
 
 To get started with the Quicklisp beta, download and load
 <https://beta.quicklisp.org/quicklisp.lisp>
@@ -219,7 +219,7 @@ starts.
 
 
 
-        (ql:quickload _system-name_ )
+        (ql:quickload _system-name_)
 
 
 For example:
@@ -254,7 +254,7 @@ troubleshooting problems.
 
 
 
-        (ql:uninstall _system-name_ )
+        (ql:uninstall _system-name_)
 
 
 For example:
@@ -279,7 +279,7 @@ session is ended.
 
 
 
-        (ql:system-apropos _substring_ )
+        (ql:system-apropos _substring_)
 
 
 For example:
@@ -357,7 +357,7 @@ etc) of the Quicklisp library universe from a particular point in time.
 
 
 
-       (ql:who-depends-on _system-name_ )
+       (ql:who-depends-on _system-name_)
 
 
 ### License information
