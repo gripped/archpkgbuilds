@@ -4,12 +4,12 @@
 
 pkgname=libpano13
 pkgver=2.9.22
-pkgrel=1
+pkgrel=2
 pkgdesc="Basic library to calculate panoramical pictures - core functions of the panotools"
 arch=(x86_64)
 url="http://panotools.sourceforge.net/"
-license=(GPL2)
-depends=(libjpeg libpng libtiff suitesparse)
+license=(GPL-2.0-or-later)
+depends=(libjpeg-turbo libpng libtiff suitesparse)
 makedepends=(cmake)
 source=(https://downloads.sourceforge.net/sourceforge/panotools/${pkgname}-${pkgver}.tar.gz)
 sha256sums=('affc6830cdbe71c28d2731dcbf8dea2acda6d9ffd4609c6dbf3ba0c68440a8e3')
