@@ -5,12 +5,12 @@
 
 pkgname=perl-tk
 pkgver=804.036
-pkgrel=6
+pkgrel=7
 pkgdesc="A graphical user interface toolkit for Perl"
 arch=('x86_64')
 url="https://search.cpan.org/dist/Tk"
 license=('PerlArtistic' 'GPL' 'custom')
-depends=('libpng' 'libjpeg' 'libx11' 'perl')
+depends=('libpng' 'libjpeg-turbo' 'libx11' 'perl')
 checkdepends=('xorg-server-xvfb' 'perl-devel-leak' 'perl-test-pod' 'ttf-font')
 options=('!emptydirs')
 source=("https://www.cpan.org/authors/id/S/SR/SREZIC/Tk-$pkgver.tar.gz"
