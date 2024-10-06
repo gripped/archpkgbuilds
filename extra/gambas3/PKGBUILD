@@ -28,11 +28,11 @@ pkgname=('gambas3-gb-args'
          'gambas3-gb-web-feed' 'gambas3-gb-web-form' 'gambas3-gb-web-gui' 'gambas3-gb-web'
          'gambas3-runtime' 'gambas3-dev-tools' 'gambas3-ide' 'gambas3-script')
 pkgver=3.19.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A free development environment based on a Basic interpreter."
 arch=('x86_64')
 url="http://gambas.sourceforge.net/"
-license=('GPL2')
+license=('GPL-2.0-or-later')
 groups=('gambas3')
 makedepends=('intltool' 'postgresql' 'libffi' 'bzip2' 'glib2' 'v4l-utils'
          'zlib' 'mesa' 'glew' 'xdg-utils' 'imlib2' 'gdk-pixbuf2' 'gtk3' 'webkit2gtk'
@@ -678,7 +678,7 @@ package_gambas3-gb-util() {
 }
 
 package_gambas3-gb-v4l() {
-  depends=('gambas3-runtime' 'v4l-utils' 'libjpeg' 'libpng')
+  depends=('gambas3-runtime' 'v4l-utils' 'libjpeg-turbo' 'libpng')
   pkgdesc="Video4linux component"
 
   _install fakeinstall/usr/lib/gambas3/gb.v4l.*
