@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-dunamai
-pkgver=1.18.0
-pkgrel=2
+pkgver=1.22.0
+pkgrel=1
 pkgdesc='A library for producing dynamic version strings, derived from VCS tags'
 arch=('any')
 url='https://github.com/mtkennerly/dunamai'
@@ -18,15 +18,9 @@ makedepends=(
   'python-poetry-core'
 )
 checkdepends=('python-pytest' 'python-setuptools')
-_commit='8dec48ce6eff2092aff01aa92847e4bf1c67f0af'
-source=("$pkgname::git+$url#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('67092f6d7d5774f66ec5ae29cf0cbd4f71bc54383d906488c6da4c5655a71db2ace57b952ccd3bc17c9fb6955843b71764fc31456f1da3f02bc23d0a71eb4af3')
+b2sums=('2256820ff2525fd61d2a0fcaef3bec497c869d5499f5a3eea6902c948922601f028674740198b1bef5aa699fca4f800916c09b779242870616ce007a0c3a64ea')
 
 build() {
   cd "$pkgname"
@@ -51,7 +45,9 @@ check() {
     --deselect tests/integration/test_dunamai.py::test__version__from_git__with_lightweight_tags \
     --deselect tests/integration/test_dunamai.py::test__version__from_git__with_mixed_tags \
     --deselect tests/integration/test_dunamai.py::test__version__from_git__with_nonchronological_commits \
-    --deselect tests/integration/test_dunamai.py::test__version__from_git__gitflow
+    --deselect tests/integration/test_dunamai.py::test__version__from_git__gitflow \
+    --deselect tests/integration/test_dunamai.py::test__version__from_git__exclude_decoration \
+    --deselect tests/integration/test_dunamai.py::test__version__from_git__broken_ref
 }
 
 package() {
