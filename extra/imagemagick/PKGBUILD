@@ -2,8 +2,8 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=imagemagick
-pkgver=7.1.1.38
-pkgrel=3
+pkgver=7.1.1.39
+pkgrel=1
 _relname=ImageMagick-${pkgver%%.*}
 _tarname=ImageMagick-${pkgver%.*}-${pkgver##*.}
 pkgdesc='An image viewing/manipulation program'
@@ -70,23 +70,10 @@ makedepends=(chrpath
 checkdepends=(gsfonts
               ttf-dejavu)
 replaces=(imagemagick-doc)
-source=(https://imagemagick.org/archive/$_tarname.tar.xz{,.asc}
-        arch-fonts.diff)
-sha256sums=('48de548d4977fc226c982ca03b9d6ad8001b47d8dc142b49fdca69333bc4ad82'
-            'SKIP'
-            'a85b744c61b1b563743ecb7c7adad999d7ed9a8af816650e3ab9321b2b102e73')
+source=(https://imagemagick.org/archive/$_tarname.tar.xz{,.asc})
+sha256sums=('b5a18ed9eb0db1e5e1fde26fc95f38bd7d71d9de05dde8b23c238debe332fada'
+            'SKIP')
 validpgpkeys=(D8272EF51DA223E4D05B466989AB63D48277377A)  # Lexie Parsimoniae
-
-shopt -s extglob
-
-prepare() {
-  mkdir -p docpkg/usr/share
-
-  cd $_tarname
-
-  # Fix up typemaps to match our packages, where possible
-  patch -p1 -i ../arch-fonts.diff
-}
 
 build() {
   cd $_tarname
@@ -140,5 +127,5 @@ package() {
   rm "$pkgdir"/etc/$_relname/type-{apple,urw-base35,windows}.xml
   rm "$pkgdir"/usr/lib/*.la
 
-  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 LICENSE NOTICE
+  install -Dm644 LICENSE NOTICE -t "$pkgdir"/usr/share/licenses/$pkgname
 }
