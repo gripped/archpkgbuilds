@@ -2,8 +2,8 @@
 
 _name=crispy-bootstrap4
 pkgname=python-crispy-bootstrap4
-pkgver=2024.1
-pkgrel=4
+pkgver=2024.10
+pkgrel=1
 pkgdesc="Bootstrap4 template pack for django-crispy-forms"
 arch=(any)
 url="https://github.com/django-crispy-forms/crispy-bootstrap4"
@@ -24,8 +24,8 @@ checkdepends=(
   python-pytest-django
 )
 source=($url/archive/$pkgver/$_name-$pkgver.tar.gz)
-sha512sums=('c4c4e02117a2b3cf24c9111579c20f1454c5feb8c485c954e48436354e82d0a26e34b54212fb642d010a7c370236028119e5193fdb43ff2053cabae56a01a7c2')
-b2sums=('5778544067c7c23971a410bb52556a267fed9109bee4b5a4cd7e72c9bde0888e6744c2e12aa079c92217c0b6bc0ef2709de2eae127fe92ccc92ca1acb5015aa6')
+sha512sums=('4cd7cde7d987baa5f6806076fe7f991e450544427deee9b0e64a45acd94b2987352369a6d277b90e6c9ff19e35225a3b5bc219336725b67e4aa0c8280cd6ac12')
+b2sums=('8104bc4964fa11df05a6b6e244e4c58cc678225afdedf4a72749cc74986d8b763c6fe32aba9376d2a4077ac765c06df4582fa796caee885e82156c81369dcf16')
 
 build() {
   cd $_name-$pkgver
