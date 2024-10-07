@@ -2,7 +2,7 @@
 
 pkgname=identity
 pkgver=0.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Compare multiple versions of an image or video'
 arch=(x86_64)
 url='https://apps.gnome.org/Identity/'
@@ -49,6 +49,9 @@ prepare() {
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/YaLTeR/identity/-/issues/70
+  git cherry-pick -n 2295259b273ec4280e240f546888ef8d7cea414b
 }
 
 build() {
