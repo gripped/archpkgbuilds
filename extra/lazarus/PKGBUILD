@@ -4,8 +4,8 @@
 
 pkgbase=lazarus
 pkgname=('lazarus' 'lazarus-gtk2' 'lazarus-gtk3' 'lazarus-qt5' 'lazarus-qt6')
-_lazarus_tag=3_4
-pkgver=3.4
+_lazarus_tag=3_6
+pkgver=3.6
 pkgrel=1
 url='http://www.lazarus.freepascal.org/'
 license=('GPL2' 'MPL' 'custom:modifiedLGPL')
@@ -13,32 +13,32 @@ arch=('x86_64')
 makedepends=('fpc' 'fpc-src' 'gtk2' 'gtk3' 'qt5pas' 'qt6pas' 'rsync')
 options=(!makeflags libtool staticlibs !strip)
 source=("https://gitlab.com/freepascal.org/lazarus/lazarus/-/archive/lazarus_${_lazarus_tag}/lazarus-lazarus_${_lazarus_tag}.tar.bz2")
-sha512sums=('4cca953741f024fa6ca9a34491940937cc617ae8914606d300a4426c8dadbe9e71b9742a66f6aad9ae3176a4e6caf34a58ef594a179d573d7976e5894fa502d7')
+sha512sums=('07caf0b16214f18be9e66c2caa7cc904c17acd55641757451d7eca3b494f6e4c8e2f2c784866a8a609625a2b838be6101e368159b636bd2ee4bd6b799839c2bf')
 
 build() {
   cd "lazarus-lazarus_${_lazarus_tag}"
 
-  # build gtk2 ide
+  # build GTK2 IDE
   make FPC=/usr/bin/fpc OPT='-gl -gw -Crtoi' LCL_PLATFORM=gtk2 clean bigide
-  # move gtk binaries
+  # move GTK binaries
   mv lazarus lazarus-gtk2
   mv startlazarus startlazarus-gtk2
 
-  # build gtk3 ide
+  # build GTK3 IDE
   make FPC=/usr/bin/fpc OPT='-gl -gw -Crtoi' LCL_PLATFORM=gtk3 clean bigide
-  # move gtk binaries
+  # move GTK binaries
   mv lazarus lazarus-gtk3
   mv startlazarus startlazarus-gtk3
 
-  # build qt5 ide
+  # build Qt5 IDE
   make FPC=/usr/bin/fpc OPT='-gl -gw -Crtoi' LCL_PLATFORM=qt5 bigide
-  # move qt binaries
+  # move Qt binaries
   mv lazarus lazarus-qt5
   mv startlazarus startlazarus-qt5
 
-  # build qt6 ide
+  # build Qt6 IDE
   make FPC=/usr/bin/fpc OPT='-gl -gw -Crtoi' LCL_PLATFORM=qt6 bigide
-  # move qt binaries
+  # move Qt binaries
   mv lazarus lazarus-qt6
   mv startlazarus startlazarus-qt6
 }
@@ -47,8 +47,8 @@ package_lazarus() {
   pkgdesc='Delphi-like IDE for FreePascal common files'
   depends=('fpc' 'fpc-src' 'gdb')
   optdepends=(
-    'perl: to run some scirpts in the tools directory'
-    'gtk3: to compile gtk3 apps'
+    'perl: to run some scripts in the tools directory'
+    'gtk3: to compile GTK3 apps'
     'qt5pas: to compile Qt5 apps'
     'qt6pas: to compile Qt6 apps'
   )
@@ -70,7 +70,7 @@ package_lazarus() {
     --exclude="*.app"   --exclude="tools/install" \
     . "$pkgdir"/usr/lib/lazarus
 
-  #remove some stuff, not needed or for in other package
+  # remove some stuff, not needed or for in other package
   pushd "$pkgdir"/usr/lib/lazarus
   rm lazarus-*
   rm startlazarus-*
@@ -96,7 +96,7 @@ package_lazarus-gtk2() {
 
   cd "lazarus-lazarus_${_lazarus_tag}"
 
-  # install gtk binaries
+  # install GTK binaries
   install -Dm755 lazarus-gtk2 "$pkgdir"/usr/lib/lazarus/lazarus
   install -Dm755 startlazarus-gtk2 "$pkgdir"/usr/lib/lazarus/startlazarus
   install -dm755 "$pkgdir"/usr/bin
@@ -114,13 +114,13 @@ package_lazarus-gtk2() {
 }
 
 package_lazarus-gtk3() {
-  pkgdesc='Delphi-like IDE for FreePascal gtk3 version'
+  pkgdesc='Delphi-like IDE for FreePascal GTK3 version'
   depends=('lazarus' 'desktop-file-utils' 'gtk3')
   conflicts=('lazarus-gtk2' 'lazarus-qt5' 'lazarus-qt6')
 
   cd "lazarus-lazarus_${_lazarus_tag}"
 
-  # install gtk binaries
+  # install GTK binaries
   install -Dm755 lazarus-gtk3 "$pkgdir"/usr/lib/lazarus/lazarus
   install -Dm755 startlazarus-gtk3 "$pkgdir"/usr/lib/lazarus/startlazarus
   install -dm755 "$pkgdir"/usr/bin
@@ -145,7 +145,7 @@ package_lazarus-qt5() {
 
   cd "lazarus-lazarus_${_lazarus_tag}"
 
-  # install qt binaries
+  # install Qt binaries
   install -Dm755 lazarus-qt5 "$pkgdir"/usr/lib/lazarus/lazarus
   install -Dm755 startlazarus-qt5 "$pkgdir"/usr/lib/lazarus/startlazarus
   install -dm755 "$pkgdir"/usr/bin
@@ -169,7 +169,7 @@ package_lazarus-qt6() {
 
   cd "lazarus-lazarus_${_lazarus_tag}"
 
-  # install qt binaries
+  # install Qt binaries
   install -Dm755 lazarus-qt6 "$pkgdir"/usr/lib/lazarus/lazarus
   install -Dm755 startlazarus-qt6 "$pkgdir"/usr/lib/lazarus/startlazarus
   install -dm755 "$pkgdir"/usr/bin
