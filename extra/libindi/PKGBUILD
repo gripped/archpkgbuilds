@@ -4,7 +4,7 @@
 
 pkgname=libindi
 pkgver=2.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A distributed control protocol designed to operate astronomical instrumentation'
 url='https://www.indilib.org/index.php?title=Main_Page'
 license=(LGPL-2.1-only)
@@ -30,7 +30,7 @@ makedepends=(cmake
              qt5-base)
 optdepends=('qt5-base: Qt client library')
 source=(git+https://github.com/indilib/indi#tag=v$pkgver)
-sha256sums=('119a418a1aad7eb7f9849e6f42e0ec8cc350530629a324fb95c11ebda7d30111')
+sha256sums=('3bb65617a0e47cc127c3a8fa49d16cc0151278546287c31251ce348da7a69232')
 
 build() {
   cmake -B build -S indi \
