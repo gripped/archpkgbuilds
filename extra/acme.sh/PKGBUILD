@@ -2,20 +2,21 @@
 # Contributor: Gavin Lloyd <gavinhungry@gmail.com>
 
 pkgname=acme.sh
-pkgver=3.0.7
+pkgver=3.0.8
 pkgrel=1
 pkgdesc='An ACME Shell script, an acme client alternative to certbot'
 arch=('any')
 url='https://github.com/acmesh-official/acme.sh'
 license=('GPL3')
 depends=('bash')
+makedepends=('git')
 optdepends=('socat: for standalone mode'
             'oath-toolkit: Used to compute the OTP for some DNS providers')
-source=("$pkgname-$pkgver.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha512sums=('83d080b461662bf2c5cfa9cb51aaf41d7f873f54908e2e5f94d7e3fe8e3f6953d73aafb66adc97455aa958f37c72ef77ba475c7d7cbb3ca3c5bbffb4937c4bae')
+source=("git+$url.git#tag=$pkgver")
+sha512sums=('bafc40c3459dad5fa7b7a93af5808d66db1a54a2501e66beb089ac53b250d5cde2a9b03c787cd7698f2030db7e77fe304e0bb3a0152baa83fa12ba8fb09b6105')
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
 
   install -dm755 "$pkgdir"/usr/share/acme.sh/deploy
   install -dm755 "$pkgdir"/usr/share/acme.sh/dnsapi
