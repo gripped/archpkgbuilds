@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark dot wagie at tutanota dot com>
 
 pkgname=curtail
-pkgver=1.10.0
+pkgver=1.11.0
 pkgrel=1
 pkgdesc='Image compressor GUI, supporting PNG, JPEG, WebP and SVG file types, both lossless and lossy compression mode'
 arch=(any)
@@ -29,7 +29,7 @@ makedepends=(
   meson
 )
 source=("git+https://github.com/Huluti/Curtail.git#tag=$pkgver")
-b2sums=(e7a059bbc761f092e62bca7e401c37ef70833efe84bd171f8a66b58ba124c7dd7c11a66aee40263c05357c307d892c749319f55a5e175433433e4daf273d1a0b)
+b2sums=(ddb9faa591b8aee199972a2df035179cbde7dddec0e4593fcd8643feb41a503c36f053733385c9c4c64fec55f006bbd58572d9dd617a198ef3c6f307dd7cc340)
 
 build() {
   arch-meson Curtail build
