@@ -2,35 +2,69 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-applets
-pkgver=3.52.0
-pkgrel=2
+pkgver=3.54.0
+pkgrel=1
 pkgdesc='Small applications for the GNOME Panel'
-arch=('x86_64')
+arch=(x86_64)
 url='https://wiki.gnome.org/Projects/GnomeApplets'
-license=('GPL-2.0-or-later')
-depends=('at-spi2-core' 'cairo' 'cpupower' 'dconf' 'gdk-pixbuf2' 'glib2' 'glibc' 'gnome-panel'
-         'gsettings-desktop-schemas' 'gtk3' 'hicolor-icon-theme' 'libgtop' 'libgweather-4'
-         'libnotify' 'libwnck3' 'libx11' 'libxml2' 'pango' 'polkit' 'tracker3' 'upower')
-makedepends=('autoconf-archive' 'git' 'glib2-devel' 'yelp-tools')
+license=(GPL-2.0-or-later)
+depends=(
+  at-spi2-core
+  cairo
+  cpupower
+  dconf
+  gdk-pixbuf2
+  glib2
+  glibc
+  gnome-panel
+  gsettings-desktop-schemas
+  gtk3
+  hicolor-icon-theme
+  libgtop
+  libgweather-4
+  libnotify
+  libwnck3
+  libx11
+  libxml2
+  pango
+  polkit
+  tracker3
+  upower
+)
+makedepends=(
+  autoconf-archive
+  git
+  glib2-devel
+  yelp-tools
+)
 optdepends=('tracker3-miners: Search bar')
-source=("git+https://gitlab.gnome.org/GNOME/$pkgname.git?signed#tag=$pkgver"
-        'gnome-applets-98.patch')
-b2sums=('407d35d76d56f32ef1cd86404c66077f776f93f5f9cfbaaa7f679f2247cc2f26c17f58b9cbc4ba61177894ecbc795559cd3d23a4d76258e84047c4b127e5949e'
-        'd33772454e20dbfcb884e9ccbb4ad8705366c6a0313f94fef3791c90daa4d5daf50b39333b2af89992c37d34fdca99cb42384d479dd07438095ec2f67a214fe1')
-validpgpkeys=('7B44FD78E49334EC10B3B288A3D013EC303E1894') # Alberts Muktupāvels <alberts.muktupavels@gmail.com>
+source=(
+  "git+https://gitlab.gnome.org/GNOME/$pkgname.git?signed#tag=$pkgver"
+  gnome-applets-98.patch
+)
+b2sums=(
+  3338080f7ce02eb6562180adc20151a0859dbe723cd0c843dc4941bef2cd83a2d3c0ddcb286a2b1ecbbb2b29bbd2aaa3af9ea4dc2df6ccf85937ba7f905875c5
+  d33772454e20dbfcb884e9ccbb4ad8705366c6a0313f94fef3791c90daa4d5daf50b39333b2af89992c37d34fdca99cb42384d479dd07438095ec2f67a214fe1
+)
+validpgpkeys=(7B44FD78E49334EC10B3B288A3D013EC303E1894) # Alberts Muktupāvels <alberts.muktupavels@gmail.com>
 
 prepare() {
   cd $pkgname
 
   # https://gitlab.gnome.org/GNOME/gnome-applets/-/merge_requests/98
-  patch -Np1 -i ../gnome-applets-98.patch
+  git apply -3 ../gnome-applets-98.patch
 
   autoreconf -fi
 }
 
 build() {
   cd $pkgname
-  ./configure --prefix=/usr --disable-debug --enable-compile-warnings
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-debug \
+    --enable-compile-warnings
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
