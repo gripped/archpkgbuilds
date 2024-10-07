@@ -4,18 +4,28 @@
 
 pkgname=gnome-browser-connector
 pkgver=42.1
-pkgrel=5
+pkgrel=6
 pkgdesc='Native browser connector for integration with extensions.gnome.org'
-arch=('any')
-url='https://wiki.gnome.org/Projects/GnomeShellIntegration'
-license=('GPL-3.0-or-later')
-depends=('gnome-shell' 'gobject-introspection-runtime' 'hicolor-icon-theme' 'python' 'python-gobject')
-makedepends=('meson')
-source=("https://download.gnome.org/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.xz")
-sha256sums=('bd9702ce1c163606ca32b8c13d1f3ba6e82b247cf87aac60610b411df1556212')
+arch=(any)
+url='https://gitlab.gnome.org/GNOME/gnome-browser-connector'
+license=(GPL-3.0-or-later)
+depends=(
+  glib2
+  gnome-shell
+  hicolor-icon-theme
+  python
+  python-gobject
+)
+makedepends=(
+  git
+  meson
+)
+source=("git+https://gitlab.gnome.org/GNOME/$pkgname.git?signed#tag=v$pkgver")
+b2sums=(f7c82138a339e9a0a43731a9cac888a422a7f08eb79b1816018336c3ba5339b8ea2b176744469432a63d95479e361ba5ff758d611b76698d31dfbc9c46b28aae)
+validpgpkeys=(A38985B860EE304703B3DF1D6AFB7B50A87DF972) # Yuri Konotopov <ykonotopov@gmail.com>
 
 build() {
-  arch-meson $pkgname-$pkgver build
+  arch-meson $pkgname build
   meson compile -C build
 }
 
