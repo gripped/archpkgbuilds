@@ -2,7 +2,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=lychee
-pkgver=0.15.1
+pkgver=0.16.0
 pkgrel=1
 pkgdesc='Fast, async, resource-friendly link checker written in Rust'
 arch=('x86_64')
@@ -14,10 +14,11 @@ checkdepends=('cargo-nextest')
 conflicts=('lychee-link-checker' 'lychee-rs')
 replaces=('lychee-link-checker' 'lychee-rs')
 options=('!lto')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/lycheeverse/lychee/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('5d9895468dd6ab10ffc37e9a341bec96f3a927e9be246d58f6dbb9e63e8202bcc4688ccbffd01e90c69229e48cfe473129b800f99ef657c33cf67180d2384067')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/lycheeverse/lychee/archive/$pkgname-v$pkgver/$pkgname-$pkgver.tar.gz")
+b2sums=('b9d03335ecd53642003de04191b275eb5bf20a81bb5f93c13b9acc2ba31e3cc36d72ca05b2f82ef8ec73016f8c82279c48a25d835a28ff9b7f00c9728fb4c175')
 
 prepare() {
+  mv $pkgname-$pkgname-v$pkgver $pkgname-$pkgver
   cd $pkgname-$pkgver
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
@@ -32,8 +33,8 @@ check() {
   # Avoid vendoring openssl, which is enabled by vendored-openssl feature
   export OPENSSL_NO_VENDOR=1
   test_expr="(!test(test_exclude_example_domains) and !test(test_detailed_json_output_on_error))"
-  cargo nextest run --all-targets --all-features -E "$test_expr" --test-threads 1
-  cargo nextest run --filter-expr 'test(test_exclude_example_domains)' --test-threads 1
+  RUSTFLAGS="--cfg tokio_unstable" cargo nextest run --all-targets --all-features -E "$test_expr" --test-threads 1
+  RUSTFLAGS="--cfg tokio_unstable" cargo nextest run --filter-expr 'test(test_exclude_example_domains)' --test-threads 1
   cargo test --doc
 }
 
