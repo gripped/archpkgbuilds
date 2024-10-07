@@ -5,7 +5,7 @@
 
 pkgname=lutris
 pkgver=0.5.17
-pkgrel=5
+pkgrel=6
 pkgdesc='Open Gaming Platform'
 arch=(any)
 url=https://lutris.net
@@ -70,8 +70,17 @@ optdepends=(
   'wine: Windows support'
   'xorg-xgamma: Restore gamma on game exit'
 )
-source=("git+https://github.com/lutris/lutris.git#tag=v${pkgver}")
-sha256sums=('fd80281d0bc0e0b3f077184313bb774d93309c32b93d8591da9fb05ec757d2ce')
+source=("git+https://github.com/lutris/lutris.git#tag=v${pkgver}"
+        "fix_umu_launcher_integration.patch")
+sha256sums=('fd80281d0bc0e0b3f077184313bb774d93309c32b93d8591da9fb05ec757d2ce'
+            '790c592dd186432c208915bea986351cb8ea50bf85fc67e77100dbdd091300a0')
+
+prepare() {
+  cd lutris
+  # Temporary patch to fix the umu launcher integration
+  # See https://github.com/lutris/lutris/issues/5639 & https://github.com/lutris/lutris/commit/3ec23ac521871e2ba648d64a7734cfc78eb8b9bc
+  patch -Np1 < "${srcdir}/fix_umu_launcher_integration.patch"
+}
 
 build() {
   arch-meson lutris build
