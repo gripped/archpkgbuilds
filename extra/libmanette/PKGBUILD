@@ -2,7 +2,7 @@
 
 pkgname=libmanette
 pkgver=0.2.9
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple GObject game controller library'
 arch=(x86_64)
 url='https://gnome.pages.gitlab.gnome.org/libmanette/'
@@ -22,7 +22,7 @@ makedepends=(
   vala
 )
 source=("git+https://gitlab.gnome.org/GNOME/$pkgname.git#tag=$pkgver")
-b2sums=(906f0f37c21037e1e6d7b11f264e38e141575a3decc1c7a126a96efdf02e455a2742918081ad9b0143564ba3960ea1c74a3c3bcfe51eeee07b37133cf0cb308c)
+b2sums=(8c8ea03efb067e91984dbecb54eaed747644eb675ecb7b98691b5b52915aa88ce96343e62328096d814282e769438944b04d2456c3e978cfa094ff813231f596)
 
 build() {
   arch-meson $pkgname build \
