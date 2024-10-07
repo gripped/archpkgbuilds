@@ -2,7 +2,7 @@
 
 _pyname=httpx-ws
 pkgname=python-$_pyname
-pkgver=0.6.1
+pkgver=0.6.2
 pkgrel=1
 pkgdesc='WebSocket support for HTTPX'
 arch=(any)
@@ -24,7 +24,7 @@ checkdepends=(python-pytest
               uvicorn)
 source=(git+https://github.com/frankie567/httpx-ws#tag=v$pkgver
         no-regex-commit.patch)
-sha256sums=('4eefeecfa4a25246b1c1983c64cc962e28eeaa688118bd1a546265d7f1440141'
+sha256sums=('52d5bf0a885bbd3127fb438dd0880ab1d4be993ca9dd16dbd21f468cbd4f8d68'
             '015fb328b794b85aa45cefe3fc50e9e82f0263994e678d70055d96e6365fcfd4')
 
 prepare() {
