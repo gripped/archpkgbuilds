@@ -1,7 +1,7 @@
 pkgbase = video-trimmer
 	pkgdesc = Cut out a fragment of a video quickly
-	pkgver = 0.8.2
-	pkgrel = 2
+	pkgver = 0.9.0
+	pkgrel = 1
 	url = https://apps.gnome.org/VideoTrimmer/
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -15,6 +15,7 @@ pkgbase = video-trimmer
 	depends = gcc-libs
 	depends = glib2
 	depends = glibc
+	depends = graphene
 	depends = gst-plugins-base
 	depends = gst-plugins-good
 	depends = gtk4
@@ -23,9 +24,7 @@ pkgbase = video-trimmer
 	optdepends = gst-libav: Extra media codecs
 	optdepends = gst-plugins-bad: Extra media codecs
 	optdepends = gst-plugins-ugly: Extra media codecs
-	source = git+https://gitlab.gnome.org/YaLTeR/video-trimmer.git#tag=v0.8.2
-	source = video-trimmer-window-icon.patch
-	b2sums = 3568265672d1d3f57b97a2bf7c0d0a06ff7da2835a1b7a4ca17c0c4c0c2651ec46ee9daad5afd20818aabd7a8d97d9118e94e115d081d2f1e6c402cfbefdd6e5
-	b2sums = fda92a6abf3233603e2e1101f9902281aa0d90aaf06fc9f59882539b091c3bdbb7dc50ccc6d95f5f12d09767d7d3aca58cf683815f3f2a0b22f3c3f3dda3c790
+	source = git+https://gitlab.gnome.org/YaLTeR/video-trimmer.git#tag=v0.9.0
+	b2sums = 5532f0e3728412d6bfaf868d6d54a48cff4918975f2e4656d097b103250becc91b445e4c539ee661fa51e3cd382c1e368545705e7a0dba837b5608788ac9cccd
 
 pkgname = video-trimmer
