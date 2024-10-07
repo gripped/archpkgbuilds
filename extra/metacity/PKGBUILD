@@ -2,35 +2,63 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=metacity
-pkgver=3.52.0
-pkgrel=2
+pkgver=3.54.0
+pkgrel=1
 pkgdesc='Window manager of GNOME Flashback'
-arch=('x86_64')
+arch=(x86_64)
 url='https://wiki.gnome.org/Projects/Metacity'
-license=('GPL-2.0-or-later')
-depends=('at-spi2-core' 'cairo' 'dconf' 'gdk-pixbuf2' 'glib2' 'glibc' 'gsettings-desktop-schemas'
-         'gtk3' 'libcanberra' 'libice' 'libgtop' 'libsm' 'libx11' 'libxcomposite' 'libxcursor'
-         'libxdamage' 'libxext' 'libxfixes' 'libxinerama' 'libxpresent' 'libxrandr' 'libxres'
-         'libxrender' 'pango' 'startup-notification' 'zenity')
-makedepends=('autoconf-archive' 'git' 'glib2-devel')
-source=("git+https://gitlab.gnome.org/GNOME/$pkgname.git?signed#tag=$pkgver"
-        '0001-frames-Add-basic-color-scheme-support.patch')
-b2sums=('99cf83b1792c3d723564f409b61bcf7da9b279bb707a5a00add48d9a331b21ec0ab15335b858a54d8a0000d9ba7cb96890588c75ac9b3c640e95c6617720445e'
-        '3b0c2ae18687912b8d67d11b6046a534bff3c0cdaed1907e9b840a19fdc7ab8a9894cc13351f4dfa51e73acde057c054b5d3c1a98b4e8672abed37bc9b025cd4')
-validpgpkeys=('7B44FD78E49334EC10B3B288A3D013EC303E1894') # Alberts Muktupāvels <alberts.muktupavels@gmail.com>
+license=(GPL-2.0-or-later)
+depends=(
+  at-spi2-core
+  cairo
+  dconf
+  gdk-pixbuf2
+  glib2
+  glibc
+  gsettings-desktop-schemas
+  gtk3
+  libcanberra
+  libgtop
+  libice
+  libsm
+  libx11
+  libxcomposite
+  libxcursor
+  libxdamage
+  libxext
+  libxfixes
+  libxinerama
+  libxpresent
+  libxrandr
+  libxrender
+  libxres
+  pango
+  startup-notification
+  zenity
+)
+makedepends=(
+  autoconf-archive
+  git
+  glib2-devel
+)
+source=("git+https://gitlab.gnome.org/GNOME/$pkgname.git?signed#tag=$pkgver")
+b2sums=(dd13996f87d09c654995c48dc19c80651f191197def708eec14fd97daac2ef7006f1d9c0cc78991abe25d79aaae0799d3c064496289aff12c3010fc99bb7654c)
+validpgpkeys=(7B44FD78E49334EC10B3B288A3D013EC303E1894) # Alberts Muktupāvels <alberts.muktupavels@gmail.com>
 
 prepare() {
   cd $pkgname
-
-  # https://gitlab.gnome.org/GNOME/metacity/-/merge_requests/36
-  patch -Np1 -i ../0001-frames-Add-basic-color-scheme-support.patch
-
   autoreconf -fi
 }
 
 build() {
   cd $pkgname
-  ./configure --prefix=/usr --disable-debug --enable-compile-warnings --disable-vulkan
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-debug \
+    --enable-compile-warnings \
+    --disable-vulkan
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
