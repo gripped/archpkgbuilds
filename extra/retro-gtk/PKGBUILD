@@ -5,7 +5,7 @@
 
 pkgname=retro-gtk
 pkgver=1.0.2
-pkgrel=4
+pkgrel=5
 pkgdesc='Toolkit to write GTK based Libretro frontends'
 arch=(x86_64)
 url='https://gnome.pages.gitlab.gnome.org/retro-gtk/'
@@ -28,7 +28,7 @@ makedepends=(
   vala
 )
 source=("git+https://gitlab.gnome.org/GNOME/$pkgname.git#tag=$pkgver")
-b2sums=(e183a3da1d42704f8c76c3c33c0acd3308e8f129bef6ed9f0e831d862a14cb7fb9fa29340f3ad2f113132bbbd61fedff8523f2558b0aa99483d955bb62374f7a)
+b2sums=(a699e01edd159dfcebae12569350348caed57efe99ea2e0972a09125f869e7f0a07b5ddf025e3d2d2ce2a02c654fb622265766c553ab167b147a7a852bfb8a17)
 
 prepare() {
   cd $pkgname
@@ -46,6 +46,7 @@ build() {
 
 check() {
   # Tests try to run the installed /usr/lib/retro-runner
+  # https://gitlab.gnome.org/GNOME/retro-gtk/-/issues/56
 
   #dbus-run-session xvfb-run \
   #  -s '-screen 0 1920x1080x24 -nolisten local' \
