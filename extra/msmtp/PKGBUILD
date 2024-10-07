@@ -4,8 +4,8 @@
 
 pkgbase=msmtp
 pkgname=('msmtp' 'msmtp-mta')
-pkgver=1.8.26
-pkgrel=2
+pkgver=1.8.27
+pkgrel=1
 pkgdesc="A mini smtp client"
 arch=('x86_64')
 url="https://marlam.de/msmtp/"
@@ -13,7 +13,7 @@ license=('GPL3')
 makedepends=('git' 'libsecret' 'gsasl' 'texlive-plaingeneric')
 optdepends=('netcat: for included msmtpq script')
 source=("git+https://git.marlam.de/git/msmtp.git?signed#tag=${pkgname}-${pkgver}")
-sha512sums=('80669bce965c4394392369772229629968d426d2c3cc66241fd891ef8c24de0a8b4f35950a2961a791ffc2e4208a38eb4da6a745e99609996e9799f59c46703a')
+sha512sums=('2d3f6062484c256e066cc8d46a5c3741c5ab3ebe8d2ba54a44e9c8bb0e9a5b02c515907284e7b177bf669a67de5586489eaa6b41e70058a5fa97594fc17b1059')
 validpgpkeys=('2F61B4828BBA779AECB3F32703A2A4AB1E32FD34')  # Martin Lambers
 
 prepare() {
@@ -42,7 +42,7 @@ package_msmtp() {
   cp -r scripts/{find_alias,msmtpqueue,msmtpq,set_sendmail} "$pkgdir"/usr/share/doc/msmtp/
   install -D -m644 doc/*.example "$pkgdir"/usr/share/doc/msmtp/
 
-  install -D -m644 scripts/vim/msmtp.vim "$pkgdir"/usr/share/vim/vimfiles/syntax/msmtp.vim
+  install -D -m644 scripts/vim/syntax/msmtp.vim "$pkgdir"/usr/share/vim/vimfiles/syntax/msmtp.vim
 
   chmod 755 "$pkgdir"/usr/share/doc/msmtp/{find_alias,msmtpqueue,set_sendmail}/*.sh
   chmod 755 "$pkgdir"/usr/share/doc/msmtp/msmtpq/msmtp*
