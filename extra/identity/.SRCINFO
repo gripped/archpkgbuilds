@@ -1,7 +1,7 @@
 pkgbase = identity
 	pkgdesc = Compare multiple versions of an image or video
-	pkgver = 0.6.0
-	pkgrel = 4
+	pkgver = 0.7.0
+	pkgrel = 1
 	url = https://apps.gnome.org/Identity/
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -10,11 +10,14 @@ pkgbase = identity
 	makedepends = git
 	makedepends = meson
 	makedepends = rust
+	depends = bubblewrap
 	depends = dav1d
 	depends = dconf
+	depends = fontconfig
 	depends = gcc-libs
 	depends = glib2
 	depends = glibc
+	depends = glycin
 	depends = graphene
 	depends = gst-plugins-base
 	depends = gst-plugins-base-libs
@@ -22,15 +25,15 @@ pkgbase = identity
 	depends = gstreamer
 	depends = gtk4
 	depends = hicolor-icon-theme
+	depends = lcms2
 	depends = libadwaita
+	depends = libseccomp
 	depends = libwebp
 	optdepends = gst-libav: Extra media codecs
 	optdepends = gst-plugins-bad: Extra media codecs
 	optdepends = gst-plugins-ugly: Extra media codecs
 	options = !lto
-	source = git+https://gitlab.gnome.org/YaLTeR/identity.git#tag=v0.6.0
-	source = identity-window-icon.patch
-	b2sums = 1503a38b03b133083940f743c06e0f01c2c1cbff83a308a06bcc238f18b8005e6f37adade24672eb88ae62b6ce41c7c644a924cf8ae47b3a41f6d1af9bc01ecd
-	b2sums = 2a9657d48cc9230f11a7704a87eadc79ac302ebcd3352172774016790062b504cf86c800c2ce6c06147c7e329f394fc541d28c7fec68b85e6aaad147259c2497
+	source = git+https://gitlab.gnome.org/YaLTeR/identity.git#tag=v0.7.0
+	b2sums = d67453bbe52e2044f8ce7dec4cd028a8d0ebc632844c5642ad78fa6c6f6fb3a03973b029ac16df6cb8884e68fb7b6da42679393cf92dad377c76bbad4e8521b0
 
 pkgname = identity
