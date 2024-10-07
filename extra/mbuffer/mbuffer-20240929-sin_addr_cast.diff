@@ -1,0 +1,13 @@
+diff -r f3f26cba3842 network.c
+--- a/network.c	Sun Sep 29 22:12:11 2024 +0200
++++ b/network.c	Sun Oct 06 19:14:01 2024 +0200
+@@ -337,7 +337,8 @@
+ 			continue;
+ 		}
+ 		char addrstr[64+IF_NAMESIZE];
+-		inet_ntop(x->ai_family,AF_INET == x->ai_family ? &((struct sockaddr_in *)x->ai_addr)->sin_addr : &((struct sockaddr_in6 *)x->ai_addr)->sin6_addr,addrstr,sizeof(addrstr));
++		void *src = AF_INET == x->ai_family ? (void*)(&((struct sockaddr_in *)x->ai_addr)->sin_addr) : (void*)(&((struct sockaddr_in6 *)x->ai_addr)->sin6_addr);
++		inet_ntop(x->ai_family,src,addrstr,sizeof(addrstr));
+ 		debugmsg("connecting to %s\n",addrstr);
+ 		if (0 == connect(fd, x->ai_addr, x->ai_addrlen)) {
+ 			struct sockaddr_in6 laddr;

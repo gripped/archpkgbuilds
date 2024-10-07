@@ -1,6 +1,6 @@
 pkgbase = mbuffer
 	pkgdesc = A tool for buffering data streams
-	pkgver = 20240707
+	pkgver = 20240929
 	pkgrel = 1
 	url = https://www.maier-komor.de/mbuffer.html
 	arch = x86_64
@@ -8,9 +8,12 @@ pkgbase = mbuffer
 	makedepends = openssl
 	depends = gcc-libs
 	depends = glibc
-	source = https://www.maier-komor.de/software/mbuffer/mbuffer-20240707.tgz
-	sha512sums = 603877e86df666807c77e6147268d15242acbbc9787fbc9962af97367694a25d95eda1c66197975b858739ce4683e3c36cd1b442f65daae304f25056096319c6
-	b2sums = ae03f9a581ef37d7502d60df35ab7026987ca1e4cdd09b7bd0a2e90fa6f3b75aead9a6add7907f18c582ba40b110f24c9430a1e145772996641196de88a1470e
+	source = https://www.maier-komor.de/software/mbuffer/mbuffer-20240929.tgz
+	source = mbuffer-20240929-sin_addr_cast.diff
+	sha512sums = 1348f6a60e0fea1ce5248576d4deffba72c0c7b2e36a7a8f52ecf49f11af9afb211d9aa58ef8aa6b9cdb3cbfb33b0f2bd064fa0f666ae3d37ca266a6dd277e05
+	sha512sums = 3d0ed60d364dd393c7517bab7fe5326487f4799e53bd2d3d0ee9fa5fc1a257788d3d3b7c503073f0c3014fc8703f6f588c6d1a9f4d79bb8992cd7b1911bdb1f8
+	b2sums = af0d93298b0e6d426965bace64a030f54bee70bd3506275ee1936fe4334a65cbf00e42c410725ff4bb603860ac16e1e28a2d1b20ea287a471db6066aff64dc8c
+	b2sums = df31813657c015e1d19f0192426c16cac82c0c1371666892c977cbaf3536ea0816bcc15cf1f6840313cac2b433924ad03e9c4ea2c2c4b6b4c1ebf137782b0ad3
 
 pkgname = mbuffer
 	depends = gcc-libs
