@@ -8,7 +8,7 @@
 pkgname=cgit-aurweb
 _commit='09d24d7cd0b7e85633f2f43808b12871bb209d69'
 pkgver=1.2.3.r70.g09d24d7
-pkgrel=2
+pkgrel=3
 pkgdesc='A web interface for git written in plain C (aurweb branch)'
 arch=('x86_64')
 url='https://git.zx2c4.com/cgit/'
@@ -36,8 +36,8 @@ source=("git+https://git.zx2c4.com/cgit.git#commit=${_commit}"
         'apache.example.conf')
 sha256sums=('423a95f4fee9bdc5a50e332703d5e5f5289f523f620e275d26b950d92ae5a836'
             'SKIP'
-            'a19e54fdb7288ce1922fbf081f230522ef6cec5ee0489b0d6846eaaed80a334c'
-            '747587c8f13d8ccf681258c053c0d0027e47ccfb348cb60312552e2834901a91'
+            '2c0fcd821015f7d27e2086fd4b7765bcfb51f6604486846a7122436c8a777e7c'
+            '559ac2f5edba496444bbbe989a52939513fa16515417b673a78793811fa67c59'
             'c1d03b2abdd4091f10e777644242762d2e34f903b4587e1683a0560bebc45eea'
             'fde213191b38137c1e29b123eb777004dc84cc6ca9d97d5f78ad717689def5f1')
 
@@ -56,11 +56,11 @@ prepare() {
 
   # branch 'for-jason' for recent git...
   # Please do *NOT* merge/cherry-pick, as commit hashes may change before landing in master!
-  git apply --index < ../0001-for-jason.patch
+  git apply --verbose --index < ../0001-for-jason.patch
 
   # branch 'aurweb' from https://gitlab.archlinux.org/archlinux/cgit.git ...
   # Please do *NOT* merge/cherry-pick, as commit hashes will change on rebase!
-  git apply --index < ../1001-aurweb.patch
+  git apply --verbose --index < ../1001-aurweb.patch
 
   git config --file=.gitmodules submodule.git.url ../git/
   git submodule init

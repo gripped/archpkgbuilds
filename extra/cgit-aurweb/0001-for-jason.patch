@@ -1,7 +1,7 @@
 From 87fdb57d6040a71f261b2e87112492c281cd5246 Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Sat, 14 Sep 2024 21:51:14 +0200
-Subject: [PATCH 01/02] git: update to v2.46.1
+Subject: [PATCH] git: update to v2.46.1
 
 Update to git version v2.46.1, no additional changes required.
 
@@ -35,7 +35,7 @@ index 39bf06a..a731929 160000
 From 1cb701a9b615acf2d4a9f5c6c2668cd11343e124 Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Tue, 24 Sep 2024 07:49:00 +0200
-Subject: [PATCH 02/02] git: update to v2.46.2
+Subject: [PATCH] git: update to v2.46.2
 
 Update to git version v2.46.2, no additional changes required.
 
@@ -65,3 +65,121 @@ index a731929..4f71522 160000
 @@ -1 +1 @@
 -Subproject commit a731929aa8016750c09bccc67c68feaf1259ce90
 +Subproject commit 4f71522dfb7fc53eff569023303980c66114b1bc
+
+From c1733e28d91bea5647e11fe099751fbc839669d7 Mon Sep 17 00:00:00 2001
+From: Christian Hesse <mail@eworm.de>
+Date: Thu, 26 Sep 2024 19:41:29 +0200
+Subject: [PATCH] git: update to v2.47.0
+
+Update to git version v2.47.0, this requires changes for these
+upstream commits:
+
+* e8207717f1623325fe1c95338fb03c1104ed5687
+  refs: add referent to each_ref_fn
+
+Signed-off-by: Christian Hesse <mail@eworm.de>
+---
+ Makefile    | 2 +-
+ cgit.c      | 4 ++--
+ cgit.h      | 4 ++--
+ git         | 2 +-
+ shared.c    | 4 ++--
+ ui-clone.c  | 4 ++--
+ ui-shared.c | 4 ++--
+ 7 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index fe15c2c..27b50ee 100644
+--- a/Makefile
++++ b/Makefile
+@@ -14,7 +14,7 @@ htmldir = $(docdir)
+ pdfdir = $(docdir)
+ mandir = $(prefix)/share/man
+ SHA1_HEADER = <openssl/sha.h>
+-GIT_VER = 2.46.2
++GIT_VER = 2.47.0
+ GIT_URL = https://www.kernel.org/pub/software/scm/git/git-$(GIT_VER).tar.xz
+ INSTALL = install
+ COPYTREE = cp -r
+diff --git a/cgit.c b/cgit.c
+index 2efa962..65c38c0 100644
+--- a/cgit.c
++++ b/cgit.c
+@@ -448,8 +448,8 @@ struct refmatch {
+ 	int match;
+ };
+ 
+-static int find_current_ref(const char *refname, const struct object_id *oid,
+-			    int flags, void *cb_data)
++static int find_current_ref(const char *refname, const char *referent UNUSED,
++                            const struct object_id *oid, int flags, void *cb_data)
+ {
+ 	struct refmatch *info;
+ 
+diff --git a/cgit.h b/cgit.h
+index e0d286d..9146d9a 100644
+--- a/cgit.h
++++ b/cgit.h
+@@ -346,8 +346,8 @@ extern void strbuf_ensure_end(struct strbuf *sb, char c);
+ 
+ extern void cgit_add_ref(struct reflist *list, struct refinfo *ref);
+ extern void cgit_free_reflist_inner(struct reflist *list);
+-extern int cgit_refs_cb(const char *refname, const struct object_id *oid,
+-			int flags, void *cb_data);
++extern int cgit_refs_cb(const char *refname, const char *referent UNUSED,
++			const struct object_id *oid, int flags, void *cb_data);
+ 
+ extern void cgit_free_commitinfo(struct commitinfo *info);
+ extern void cgit_free_taginfo(struct taginfo *info);
+diff --git a/git b/git
+index 4f71522..777489f 160000
+--- a/git
++++ b/git
+@@ -1 +1 @@
+-Subproject commit 4f71522dfb7fc53eff569023303980c66114b1bc
++Subproject commit 777489f9e09c8d0dd6b12f9d90de6376330577a2
+diff --git a/shared.c b/shared.c
+index ae3f6c1..c1403b4 100644
+--- a/shared.c
++++ b/shared.c
+@@ -212,8 +212,8 @@ void cgit_free_reflist_inner(struct reflist *list)
+ 	free(list->refs);
+ }
+ 
+-int cgit_refs_cb(const char *refname, const struct object_id *oid, int flags,
+-		  void *cb_data)
++int cgit_refs_cb(const char *refname, const char *referent UNUSED,
++		 const struct object_id *oid, int flags, void *cb_data)
+ {
+ 	struct reflist *list = (struct reflist *)cb_data;
+ 	struct refinfo *info = cgit_mk_refinfo(refname, oid);
+diff --git a/ui-clone.c b/ui-clone.c
+index df196a0..31989a5 100644
+--- a/ui-clone.c
++++ b/ui-clone.c
+@@ -16,8 +16,8 @@
+ #include "packfile.h"
+ #include "object-store.h"
+ 
+-static int print_ref_info(const char *refname, const struct object_id *oid,
+-                          int flags, void *cb_data)
++static int print_ref_info(const char *refname, const char *referent UNUSED,
++			  const struct object_id *oid, int flags, void *cb_data)
+ {
+ 	struct object *obj;
+ 
+diff --git a/ui-shared.c b/ui-shared.c
+index 6fae72d..4250b89 100644
+--- a/ui-shared.c
++++ b/ui-shared.c
+@@ -936,8 +936,8 @@ void cgit_add_clone_urls(void (*fn)(const char *))
+ 		add_clone_urls(fn, ctx.cfg.clone_prefix, ctx.repo->url);
+ }
+ 
+-static int print_branch_option(const char *refname, const struct object_id *oid,
+-			       int flags, void *cb_data)
++static int print_branch_option(const char *refname, const char *referent UNUSED,
++			       const struct object_id *oid, int flags, void *cb_data)
+ {
+ 	char *name = (char *)refname;
+ 	html_option(name, name, ctx.qry.head);

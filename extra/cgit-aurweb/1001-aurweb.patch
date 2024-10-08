@@ -1,4 +1,4 @@
-From f71ee852d32be67ddd9f5a7618aaa73a907e66b3 Mon Sep 17 00:00:00 2001
+From f80a0eedb067057c1c41ae1d95241e45d35ffe49 Mon Sep 17 00:00:00 2001
 From: Lukas Fleischer <lfleischer@archlinux.org>
 Date: Thu, 14 Jan 2016 17:58:07 +0100
 Subject: [PATCH 1/2] Add an option to disable the branch switch form
@@ -24,7 +24,7 @@ Signed-off-by: Lukas Fleischer <lfleischer@archlinux.org>
  5 files changed, 26 insertions(+), 1 deletion(-)
 
 diff --git a/cgit.c b/cgit.c
-index 2efa962..8cd5d5d 100644
+index 65c38c0..7ca83d9 100644
 --- a/cgit.c
 +++ b/cgit.c
 @@ -76,6 +76,8 @@ static void repo_config(struct cgit_repo *repo, const char *name, const char *va
@@ -62,7 +62,7 @@ index 2efa962..8cd5d5d 100644
  		fprintf(f, "repo.branch-sort=age\n");
  	if (repo->commit_sort) {
 diff --git a/cgit.h b/cgit.h
-index e0d286d..de2df1b 100644
+index 9146d9a..a9bb1b5 100644
 --- a/cgit.h
 +++ b/cgit.h
 @@ -106,6 +106,7 @@ struct cgit_repo {
@@ -116,7 +116,7 @@ index 6f3e952..92a86ed 100644
  	Flag which, when set to "1", hides the repository from the repository
  	index. The repository can still be accessed by providing a direct path.
 diff --git a/shared.c b/shared.c
-index ae3f6c1..fe700a1 100644
+index c1403b4..01719eb 100644
 --- a/shared.c
 +++ b/shared.c
 @@ -67,6 +67,7 @@ struct cgit_repo *cgit_add_repo(const char *url)
@@ -128,7 +128,7 @@ index ae3f6c1..fe700a1 100644
  	ret->branch_sort = ctx.cfg.branch_sort;
  	ret->commit_sort = ctx.cfg.commit_sort;
 diff --git a/ui-shared.c b/ui-shared.c
-index 6fae72d..b58c0f3 100644
+index 4250b89..115eab8 100644
 --- a/ui-shared.c
 +++ b/ui-shared.c
 @@ -1038,7 +1038,7 @@ static void print_header(void)
@@ -140,11 +140,8 @@ index 6fae72d..b58c0f3 100644
  			html("</td><td class='form'>");
  			html("<form method='get'>\n");
  			cgit_add_hidden_formfields(0, 1, ctx.qry.page);
--- 
-2.46.0
 
-
-From a449f625d943ff876577a497d6bef961951e70b5 Mon Sep 17 00:00:00 2001
+From f497facf25bba1dc51687fd8ebab0a45a46a0ca0 Mon Sep 17 00:00:00 2001
 From: Lukas Fleischer <lfleischer@archlinux.org>
 Date: Thu, 14 Jan 2016 17:57:37 +0100
 Subject: [PATCH 2/2] Customize cgit for the AUR
@@ -177,7 +174,7 @@ Signed-off-by: Lukas Fleischer <lfleischer@archlinux.org>
  9 files changed, 32 insertions(+), 29 deletions(-)
 
 diff --git a/cgit.c b/cgit.c
-index 8cd5d5d..a532aa5 100644
+index 7ca83d9..13f445f 100644
 --- a/cgit.c
 +++ b/cgit.c
 @@ -620,7 +620,7 @@ static int prepare_repo_cmd(int nongit)
@@ -327,7 +324,7 @@ index ee2a607..8fbdce3 100644
  	cgit_open_filter(ctx.repo->email_filter, info->author_email, "log");
  	html_txt(info->author);
 diff --git a/ui-shared.c b/ui-shared.c
-index b58c0f3..bfb01b2 100644
+index 115eab8..d3f2b47 100644
 --- a/ui-shared.c
 +++ b/ui-shared.c
 @@ -930,10 +930,10 @@ static void add_clone_urls(void (*fn)(const char *), char *txt, char *suffix)
@@ -344,7 +341,7 @@ index b58c0f3..bfb01b2 100644
 +	add_clone_urls(fn, strbuf_detach(&url, NULL), NULL);
  }
  
- static int print_branch_option(const char *refname, const struct object_id *oid,
+ static int print_branch_option(const char *refname, const char *referent UNUSED,
 @@ -1035,9 +1035,12 @@ static void print_header(void)
  
  	html("<td class='main'>");
@@ -402,6 +399,3 @@ index 947812a..9c88d01 100644
  	cgit_print_tags(ctx.cfg.summary_tags);
  	if (ctx.cfg.summary_log > 0) {
  		htmlf("<tr class='nohover'><td colspan='%d'>&nbsp;</td></tr>", columns);
--- 
-2.46.0
-
