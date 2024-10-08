@@ -11,7 +11,7 @@
 
 pkgver=23.3.13
 _gcc_patches=110-patchset-4
-pkgrel=11
+pkgrel=12
 
 _major_ver=${pkgver%%.*}
 pkgname="electron${_major_ver}"
@@ -427,7 +427,7 @@ declare -gA _system_libs=(
   [libaom]=aom
   # [libavif]=libavif # libavif.so libavutil.so # needs https://github.com/AOMediaCodec/libavif/commit/5410b23f76
   [libdrm]=libdrm # libdrm.so
-  [libjpeg]="libjpeg libjpeg.so"
+  [libjpeg]="libjpeg-turbo libjpeg.so"
   [libpng]="libpng libpng16.so"
   #[libvpx]=libvpx
   [libwebp]="libwebp libwebpdemux.so libwebpmux.so libwebp.so"
