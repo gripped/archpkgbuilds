@@ -1,8 +1,8 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=ttysvr
-pkgver=0.3.0
-pkgrel=2
+pkgver=0.3.1
+pkgrel=1
 pkgdesc="Screen saver for your terminal"
 arch=('x86_64')
 url="https://github.com/cxreiff/ttysvr"
@@ -10,7 +10,7 @@ license=('MIT' 'Apache-2.0')
 depends=('gcc-libs' 'alsa-lib' 'systemd-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('75d5cacccc3917b9148771ed503d9d9010155ef8ce99ad5b292ee50ebe9ecbf96a2055f048c9deaa65e6cd6d9dab80723ff673f0254f9862d1948b69fa0df4a0')
+sha512sums=('abc235354a44d76184dee338f48bd6861e2403500d0aee00a2fea6ecc0be13a4bb3d366a45dd560b5e10ac3ddcfc93db9cf4fc28e350edea92e939f462619f06')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -19,12 +19,12 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --frozen
+  cargo build --release --frozen --no-default-features
 }
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --frozen
+  cargo test --frozen --no-default-features
 }
 
 package() {
