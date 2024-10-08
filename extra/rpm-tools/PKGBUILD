@@ -8,8 +8,8 @@
 # Note: rebuilds required: sogrep all librpmio.so and librpm.so
 
 pkgname=rpm-tools
-pkgver=4.19.1.1
-pkgrel=2
+pkgver=4.20.0
+pkgrel=1
 pkgdesc="RPM Package Manager - RPM.org fork, used in major RPM distros"
 arch=('x86_64')
 url='https://rpm.org/'
@@ -29,7 +29,7 @@ _base_pkgver=$_pkgver_major.$_pkgver_minor.x
 source=(http://ftp.rpm.org/releases/rpm-$_base_pkgver/rpm-$pkgver.tar.bz2
 	rpmextract.sh
         rpmlib-filesystem-check.patch)
-sha256sums=('874091b80efe66f9de8e3242ae2337162e2d7131e3aa4ac99ac22155e9c521e5'
+sha256sums=('56ff7638cff98b56d4a7503ff59bc79f281a6ddffcda0d238c082bedfb5fbe7b'
             '3e5bf450d4628366ba35469ec0530a99cd09ab2616a3d261a3f68270f481f777'
             'bd0e6dbd458f990268c60324190c6825b234647ecdde08296d2b453dc4bce27a')
 
