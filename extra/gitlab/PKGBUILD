@@ -10,7 +10,7 @@
 
 pkgname=gitlab
 pkgver=17.4.1
-pkgrel=1
+pkgrel=3
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
 url='https://gitlab.com/gitlab-org/gitlab-foss'
@@ -38,7 +38,7 @@ makedepends=(cargo
              node-gyp
              nodejs
              postgresql
-             ruby-rake
+             # ruby-rake
              rust
              yarn)
 optdepends=('postgresql: database backend'
@@ -54,7 +54,6 @@ backup=("etc/webapps/$pkgname/database.yml"
 options=(!buildflags !debug !lto)
 source=("git+$url.git#tag=v$pkgver"
         "$pkgname-configs.patch"
-        "${url%-foss}/-/commit/6256fc51dcd67b0fa2ec21ae2b74a21175f185a4.patch"
         "$pkgname-environment"
         "$pkgname-puma.service"
         "$pkgname-sidekiq.service"
@@ -71,7 +70,6 @@ replaces=(gitlab-workhorse)
 install=gitlab.install
 sha256sums=('e07c862a6099ca2ec60c6ff421ab623faf88c1c2e0426fe9a6e5d1b066f66e14'
             'dfbafb383942f0e6088f49c49a40c59994e1af57c6197e9443f9839e145154e3'
-            '36f747b2d51484f2c28c78d0800fc0fcb84bf5d4ad3cd72ec2c05187b1583380'
             '8cc4d933743906b4213b8ea8d8c5a62535e27e4073f73581a5dad40078dde000'
             'f99499116f5d7cf59ccb7bfabd2d1ba68fbf83040571c607f7b0b50e6f50cbcf'
             '2e5d83b3ff8166094ca35dfc58d9e591bc3127a66d9515d344753a622a22aa8a'
@@ -95,10 +93,6 @@ prepare() {
 	git rev-parse --short HEAD > REVISION
 
 	patch -p1 -i ../$pkgname-configs.patch
-
-	# Fix migration that uses newer Ruby syntax, fails on 3.0
-	# https://gitlab.com/gitlab-org/gitlab/-/merge_requests/160736
-	patch -p1 -i ../6256fc51dcd67b0fa2ec21ae2b74a21175f185a4.patch
 
 	# '/home/git' path in the config files indicates a default path that need to be adjusted
 	! grep -FqR '/home/git' config
@@ -156,7 +150,7 @@ build() {
 	make -C workhorse
 
 	yarn install --production --pure-lockfile
-	rake -r erb -r rdoc gitlab:assets:compile RAILS_ENV=production NODE_ENV=production USE_DB=false SKIP_STORAGE_VALIDATION=true NODE_OPTIONS="--max_old_space_size=8192"
+	bundle exec rake -r erb -r rdoc gitlab:assets:compile RAILS_ENV=production NODE_ENV=production USE_DB=false SKIP_STORAGE_VALIDATION=true NODE_OPTIONS="--max_old_space_size=8192"
 }
 
 package() {
