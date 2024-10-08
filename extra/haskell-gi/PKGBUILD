@@ -3,8 +3,8 @@
 
 _hkgname=haskell-gi
 pkgname=haskell-gi
-pkgver=0.26.5
-pkgrel=2
+pkgver=0.26.6
+pkgrel=1
 pkgdesc="Generate Haskell bindings for GObject Introspection capable libraries"
 url="https://github.com/haskell-gi/haskell-gi"
 license=("LGPL2")
@@ -16,7 +16,7 @@ makedepends=('ghc' 'gobject-introspection' 'haskell-cabal-doctest' 'haskell-doct
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz"
         $pkgname-glib-2.79.patch::https://github.com/haskell-gi/haskell-gi/pull/427.patch
         $pkgname-glib-2.80.patch::https://github.com/haskell-gi/haskell-gi/pull/430.patch)
-sha512sums=('835402ac6cf66fb6cce190b8bb731f9f56469a14c5a8da4b836eec1e2720befce9dd8a064118e7006bded5e1481b0633e085df4c5b0c3b98a54e67dac6647dc1'
+sha512sums=('d908d51efa63fc44787382dcc969613829a49c7a8f95bc1952b2f298a968bbfa8c01a0ac5058917216cd886eef02d6fd7cbd54337ed5950cb3d97c5fe1eaf50f'
             'f453a061a2bff493960e102dab6b3ee9a6603b081575e7a24d683b9cd4ac78875dde3c7fdfceba50acbe5b7c45100ec29a3303b0cb008e1c157c97d493d539f3'
             'ca2f214e0af6f6939632d974db2f6bf8d20aed88203e266fa56f92f6bee178dae8237c6deaabda6386145c9a4908c85e4bbbcc41f82fc467531f2c0efd5cbeb8')
 
