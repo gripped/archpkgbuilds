@@ -5,7 +5,7 @@
 # Contributor: rmorgans <rick.morgans@gmail.com>
 
 pkgname=direnv
-pkgver=2.34.0
+pkgver=2.35.0
 pkgrel=1
 pkgdesc='A shell extension that manages your environment'
 arch=('x86_64')
@@ -16,7 +16,7 @@ makedepends=('git' 'go')
 checkdepends=('zsh' 'fish' 'bash' 'tcsh' 'elvish')
 options=('!lto')
 source=("$pkgname::git+https://github.com/direnv/direnv.git#tag=v$pkgver")
-sha256sums=('f731147bda2556d685cc1b8c2413fd498bc379dc7b7bf0198b8cb84616cd7564')
+sha256sums=('5e6d16dfc8c37a40fed18dc832d92afddad3f85f66d5b9c17c5d4ca79e3973d5')
 
 prepare() {
   cd "$pkgname"
