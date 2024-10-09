@@ -5,16 +5,21 @@
 
 pkgname=python-pycountry
 pkgver=24.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="ISO country, subdivision, language, currency and script definitions and their translations"
 arch=('any')
 url="https://pypi.org/project/pycountry/"
-license=('LGPL2.1')
+license=('LGPL-2.1-or-later')
 depends=(python python-lxml)
 makedepends=('python' 'python-build' 'python-installer' 'python-poetry-core')
-checkdepends=('python-pytest' 'python-importlib-metadata' 'python-pytest-cov')
+checkdepends=('python-pytest' 'python-importlib-metadata')
 source=("https://pypi.io/packages/source/p/pycountry/pycountry-${pkgver}.tar.gz")
 sha512sums=('36d8f68b830d74259a5f9ac1c9c97c1b228b0072613229e6f579ea5af587ab1cd25f0637a2cdd1dbf2ae8225e2aa2958d25f1e6df42d577da821d85c4c49ae93')
+
+prepare() {
+  cd "pycountry-${pkgver}"
+  sed -i '/pytest-cov/d' pyproject.toml
+}
 
 build(){
   cd "pycountry-${pkgver}"
@@ -25,7 +30,7 @@ check(){
   cd "pycountry-${pkgver}"
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest -v
+  test-env/bin/python -m pytest -v --override-ini="addopts="
 #  PYTHONPATH="$PWD/src" pytest -v
 }
 
