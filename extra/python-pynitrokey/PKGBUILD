@@ -3,7 +3,7 @@
 
 _name=pynitrokey
 pkgname=python-pynitrokey
-pkgver=0.4.50
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="A command line interface for the Nitrokey FIDO2 and Nitrokey Start"
 arch=(any)
@@ -12,6 +12,7 @@ license=('Apache-2.0 OR MIT')
 depends=(
   libnitrokey  # NOTE: libnitrokey is required for udev rules
   python
+  python-asn1crypto
   python-certifi
   python-cffi
   python-click
@@ -20,16 +21,15 @@ depends=(
   python-dateutil
   python-ecdsa
   python-fido2
-  python-frozendict
   python-intelhex
   python-nethsm
+  python-nitrokey
   python-nkdfu
-  python-protobuf
-  python-pyserial
+  python-pyscard
+  python-pyserial  # implicit via python-nitrokey
   python-pyusb
   python-requests
-  python-semver
-  python-spsdk
+  python-semver  # implicit via python-nitrokey
   python-tlv8
   python-tqdm
   python-typing_extensions
@@ -41,19 +41,15 @@ makedepends=(
   python-installer
   python-wheel
 )
-checkdepends=(python-pytest)
+# NOTE: there are no tests to run
 optdepends=(
   'python-libusb1: for pro and storage subcommands'
-  'python-pyscard: for pcsclite integration'
 )
 source=(
   "$_name::git+$url.git?signed#tag=v$pkgver"
-  https://raw.githubusercontent.com/NordicSemiconductor/pc-nrfutil/16cb5a3d352bcc7a3ddbbf541426e3cca0f34671/nordicsemi/dfu/dfu-cc.proto
 )
-sha512sums=('bfd5b0f6e51dfcf52edf93b371232f352d0134647ca59bf9af664a8e9114fc3b72993d8bdaf5da3b346eb861c2c8495ff14fd5db7ce15514af9817c3e3600f66'
-            '5da1202115f2fb76f8f2d592a2a510d9815e52dcb529e245afb5bbed22571e11b3a8c6743fc3e3824fcfea5bb408373e2ed4e65e4ca43f8159c0e01e05080193')
-b2sums=('1ea9b7f00652517233a9384dac088aaea45ab603dc998cc47b26702f8f7d42fdaf54012c7c5b2cb45426823fbbdf45718fc613f61dda1d306cfbe62b05954cf1'
-        'a999aeee79d06fe9201fdb115cbd03cb59ac84724893bc334bff8a071cd9ae13990793b889b6281df0d6e4dd229e77e5f24b73d51a69363f30d6bedf8d3cfd59')
+sha512sums=('759f41ac8b7599b4e623713da4f99fc0d821dae1d641c1159802cc5523467845660c17bbbb0dc8551fff4d4b64a785674fab357186fe527c6e3da17c883f2343')
+b2sums=('d3e5a7c3642c7e84f2fb09b0c3300d02a29adca7cad6f2c339d9be8902596670bf27efe0559e96c6eaf45731c4537adf282b50c0743113ca8dfd80bda01a6ffb')
 validpgpkeys=(
   868184069239FF65DE0BCD7DD9BAE35991DE5B22  # Szczepan Zalega <szczepan@nitrokey.com> (@szszszsz)
   CC74B7120BFAA36FF42868724C1449F1C9804176  # Markus Meissner <meissner@nitrokey.com> (@daringer)
@@ -61,19 +57,9 @@ validpgpkeys=(
   93CCB0DB717DAE30622F671436DA48A4C827B354  # Sosthène Guédon <sosthene@nitrokey.com> (@sosthene-nitrokey)
 )
 
-prepare() {
-  # Regenerate protobuf code for protobuf 27+
-  protoc dfu-cc.proto --python_out $_name/pynitrokey/trussed/bootloader/nrf52_upload/dfu/
-}
-
 build() {
   cd $_name
   python -m build --wheel --skip-dependency-check --no-isolation
-}
-
-check() {
-  cd $_name
-  pytest -vv
 }
 
 package() {
