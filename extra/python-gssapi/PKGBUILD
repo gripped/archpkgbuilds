@@ -3,8 +3,8 @@
 # Contributor: Samuel Laurén <samuel.lauren@iki.fi>
 
 pkgname=python-gssapi
-pkgver=1.8.3
-pkgrel=3
+pkgver=1.9.0
+pkgrel=1
 pkgdesc='Provides both low-level and high level wrappers around the GSSAPI C libraries'
 url='https://github.com/pythongssapi/python-gssapi'
 arch=('x86_64')
@@ -27,8 +27,8 @@ checkdepends=(
   'python-parameterized'
 )
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('63e6981977cb3f90c734a0f2089fc0628a86709f120814629b85576abe326f2602cfe4c351d7b3fc08cf3999e2b2f0091f829b1f1f9f1a784496bf39a781ddde')
-b2sums=('a3238112f66b7cce61ec95e5da9fb65e2983b334111a398b1ac52d6c56141d2ed548be82242e4c3f83f562476b5193585842638041c08f720b0faabd9f9b0ca9')
+sha512sums=('d5917f5ff99f59778dd873623aceddd179fa0ff736fc7daea09f30e157e4a5cc23dc9fe050f410f08914f3f84e024651f829587d01ed26059763fdde04d09b5a')
+b2sums=('79f03ecd992d45f508ee04e6005ab520ecd85c8b6305af74ca5c2d6ef1ba511bf2acb336a8f92e1f2ac1aab1788c5262e6b07ebef1d241999a7438b0ab3e2cb6')
 
 build() {
   cd "${pkgname}-${pkgver}"
