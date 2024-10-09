@@ -3,22 +3,30 @@
 
 _name=cbor2
 pkgname=python-cbor2
-pkgver=5.6.4
+pkgver=5.6.5
 pkgrel=1
 pkgdesc="Pure Python CBOR (de)serializer with extensive tag support"
 arch=(x86_64)
 url="https://github.com/agronholm/cbor2"
 license=(MIT)
-depends=(glibc
-         python)
-makedepends=(python-{build,installer,wheel}
-             python-setuptools-scm
-             python-toml)
-checkdepends=(python-hypothesis
-              python-pytest)
+depends=(
+  glibc
+  python
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools-scm
+  python-toml
+  python-wheel
+)
+checkdepends=(
+  python-hypothesis
+  python-pytest
+)
 source=($url/archive/refs/tags/$pkgver/$_name-$pkgver.tar.gz)
-sha512sums=('713e82bfc64d82eeaba7f9a18f9be82ec846f8cb18ec393edffd9108aec5346ca0184b188ffeec2e51343d4c30832640d4dbaaaf5de7dc80618f503502c979e9')
-b2sums=('ed6c8945cb6d5abaeaae1d4ebb78379f5ba230e36b8e1c44c7dc0945108b6e4dd00a0213bc73b039df8534a451496652d1fa8bee68e0b01766a80ed08677bd19')
+sha512sums=('a8c1267665ef8bd97f0bd622c82b8942d9cb08b82b82c5ad9ba8a498c71bc199f4d8aca209165087684695ed7792fdff41ea6a3eaa1a4d2d8d0824106f79db92')
+b2sums=('ecb3c0085c12e77e55a7c6833c7de2d330d48e57dd857770fc6fcfa3ff4f3425c63d4b68d3b36e1a86e0412fd5ded10a45ce6e7d9fa906b74020c14a1dfbbc4d')
 
 build() {
   cd $_name-$pkgver
