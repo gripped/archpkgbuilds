@@ -2,8 +2,8 @@
 
 _hkgname=stm-containers
 pkgname=haskell-stm-containers
-pkgver=1.2.0.3
-pkgrel=42
+pkgver=1.2.1
+pkgrel=1
 pkgdesc="Containers for STM"
 url="https://github.com/nikita-volkov/stm-containers"
 license=("MIT")
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-deferred-folds' 'haskell-focus' 'haskell-hashable' 
 makedepends=('ghc' 'uusi' 'haskell-foldl' 'haskell-free' 'haskell-quickcheck-instances'
              'haskell-rerebase' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('928cbcbcd8300e16cda4f2042d9fff2cbc89feec4ea95e901e38f6e9a5f690b1')
+sha256sums=('8fb08679dab21a9dc7f034983b8b8be361c2147e744f67a005c3f652fbcca8ed')
 
 prepare() {
   cd $_hkgname-$pkgver
