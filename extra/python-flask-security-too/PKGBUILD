@@ -3,9 +3,9 @@
 _pkgname=flask-security
 pkgname=python-flask-security-too
 pkgver=5.4.3
-pkgrel=3
+pkgrel=4
 pkgdesc='Quick and simple security for Flask applications'
-url='https://github.com/Flask-Middleware/flask-security'
+url='https://github.com/pallets-eco/flask-security'
 arch=('any')
 license=('MIT')
 depends=('python' 'python-flask' 'python-flask-login' 'python-flask-mailman' 'python-flask-principal'
@@ -13,7 +13,7 @@ depends=('python' 'python-flask' 'python-flask-login' 'python-flask-mailman' 'py
          'python-email-validator' 'python-importlib_resources')
 makedepends=('python-sphinx' 'python-pallets-sphinx-themes' 'python-sphinx-issues' 'python-setuptools'
              'python-build' 'python-installer' 'python-wheel')
-checkdepends=('python-pytest' 'python-pytest-cov' 'python-peewee'
+checkdepends=('python-pytest' 'python-peewee'
               'python-sqlalchemy' 'python-flask-sqlalchemy' 'python-bcrypt'
               'python-zxcvbn' 'python-cryptography' 'python-qrcode' 'python-bleach'
               'python-phonenumbers' 'python-argon2_cffi' 'python-freezegun'
@@ -21,7 +21,7 @@ checkdepends=('python-pytest' 'python-pytest-cov' 'python-peewee'
 optdepends=('python-bleach: scrub user input')
 provides=('python-flask-security')
 conflicts=('python-flask-security')
-source=(https://github.com/Flask-Middleware/flask-security/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
+source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
 sha512sums=('9fdce3dfbfd622ae417166da383bb8bf744648b92026b4f28640e6658d355d25f7267382636bc1a5cc47969a7c0ebdd43d66b29aaafdd0cf7a6cafb248aff7a6')
 b2sums=('b57bb06e673bd8cb77f4ad67b1857a5546bae543eb685ec06c982e5c7c6cab83ad69f53a497762f99191a6ee27c22659f948ce10f8aa1e3a97db9c4bd845f7bb')
 
