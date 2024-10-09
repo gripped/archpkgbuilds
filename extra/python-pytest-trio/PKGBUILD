@@ -2,7 +2,7 @@
 
 pkgname=python-pytest-trio
 pkgver=0.8.0
-pkgrel=6
+pkgrel=7
 pkgdesc='Pytest plugin for Trio'
 arch=(any)
 url=https://github.com/python-trio/pytest-trio
@@ -24,7 +24,6 @@ makedepends=(
   python-wheel
 )
 checkdepends=(
-  python-pytest-cov
   python-trio-asyncio
 )
 source=(git+$url.git#tag=v$pkgver)
@@ -47,7 +46,7 @@ build() {
 
 check() {
   cd pytest-trio
-  PYTHONPATH="." python -m pytest
+  PYTHONPATH="." pytest --override-ini="addopts=--pyargs pytest_trio"
 }
 
 package() {
