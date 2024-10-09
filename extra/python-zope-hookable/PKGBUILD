@@ -1,30 +1,44 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-zope-hookable
-pkgver=6.0
-pkgrel=2
+_pkgname=zope.hookable
+pkgver=7.0
+pkgrel=1
 pkgdesc="Represents the core of the Zope hookable Architecture"
 arch=('x86_64')
 url="https://github.com/zopefoundation/zope.hookable"
-license=('ZPL')
-depends=('python-setuptools')
-checkdepends=('python-nose')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/zopefoundation/zope.hookable/archive/$pkgver.tar.gz")
-sha512sums=('273fa07d0682ce0f97435221d99311467b8dfdea88c8ea50acec727d43f9a6ae2cd6f173c360d37024cd5067252442e6af52df9227395051c515e0c04c9c95f2')
+license=('ZPL-2.1')
+depends=(
+  'glibc'
+  'python'
+)
+makedepends=(
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+checkdepends=('python-zope-testrunner')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
+sha512sums=('05c16b2ed0bf9708f3038d07c279efe07472f320a6d33db4cd2f518fced2f2da3ff27412222c446e224e2baf135178ccaacdea2679dce5317e7bc1fb0fbaa572')
 
 build() {
-  cd "$srcdir"/zope.hookable-$pkgver
-  python setup.py build
+  cd $_pkgname-$pkgver
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$srcdir"/zope.hookable-$pkgver
-  python setup.py nosetests
+  cd $_pkgname-$pkgver
+  python -m installer --destdir=tmp_install dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$PWD/tmp_install/$site_packages"
+  zope-testrunner --test-path=src -vc
 }
 
 package() {
-  cd "$srcdir"/zope.hookable-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
+  cd $_pkgname-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
 # vim:set ts=2 sw=2 et:
