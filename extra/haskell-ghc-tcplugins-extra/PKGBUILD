@@ -2,8 +2,8 @@
 
 _hkgname=ghc-tcplugins-extra
 pkgname=haskell-ghc-tcplugins-extra
-pkgver=0.4.5
-pkgrel=2
+pkgver=0.4.6
+pkgrel=1
 pkgdesc="Utilities for writing GHC type-checker plugins"
 url="https://github.com/clash-lang/ghc-tcplugins-extra"
 license=('custom:BSD2')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-ghc')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('9e5963aafc192e5fa6019b51120363963e1a625e127128eb2af55d1e148093f8c707993e81649d0b75cca09c477bbe3797da74d279924b2f2d01733edfeeb6a7')
+sha512sums=('498a12f9ffad2c5a39b5421edc95a3e6b85eaa28ef6d1ca0699de313d3d608fd2a945b732845c1e3f7a0002ad815148777815e92b296cc11c781a7338a30a2ea')
 
 build() {
     cd $_hkgname-$pkgver
