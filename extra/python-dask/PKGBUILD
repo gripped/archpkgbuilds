@@ -3,7 +3,7 @@
 _pkg=dask
 pkgname=python-${_pkg}
 pkgver=2024.8.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Parallel computing with task scheduling"
 arch=(any)
 url="https://dask.org"
@@ -46,7 +46,6 @@ optdepends=(
 checkdepends=(
     ipython
     python-pytest
-    python-pytest-cov
     python-pytest-rerunfailures
     python-aiohttp
 #    python-bokeh
@@ -106,6 +105,7 @@ check() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   local pytest_options=(
     -vv
+    --override-ini="addopts="
     --deselect dask/dataframe/io/tests/test_sql.py::test_division_or_partition
     --deselect dask/tests/test_base.py::test_visualize_order
     --deselect dask/tests/test_tokenize.py::test_tokenize_dataclass
