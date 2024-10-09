@@ -2,7 +2,7 @@
 
 pkgname=python-dogpile.cache
 pkgver=1.2.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A caching front-end based on the Dogpile lock"
 arch=('any')
 url="https://pypi.python.org/pypi/dogpile.cache"
@@ -10,7 +10,7 @@ license=('BSD')
 depends=('python-decorator' 'python-stevedore')
 makedepends=('python-setuptools')
 checkdepends=('memcached' 'pifpaf' 'redis' 'python-mako' 'python-redis' 'python-pytest'
-              'python-pytest-cov' 'python-pylibmc')
+              'python-pylibmc')
 source=("https://pypi.io/packages/source/d/dogpile.cache/dogpile.cache-$pkgver.tar.gz")
 sha512sums=('23b078b79e4b1f87c8d397d35b772f0b5fee66a0e452de06e7644ecb1ef577ae1629307a0e32fa62f49d536f95fb62fe70ededeb43647fa0c2e0baf896261931')
 
