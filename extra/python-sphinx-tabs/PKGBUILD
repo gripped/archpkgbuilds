@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-sphinx-tabs
-pkgver=3.4.5
-pkgrel=2
+pkgver=3.4.7
+pkgrel=1
 pkgdesc='Create tabbed content in Sphinx documentation'
 arch=('any')
 url='https://sphinx-tabs.readthedocs.io/'
@@ -20,15 +20,9 @@ makedepends=(
   'python-wheel'
   'python-setuptools'
 )
-_commit='b8666a582f9bb571de4186fea7fa0871b1b198fb'
-source=("$pkgname::git+https://github.com/executablebooks/sphinx-tabs#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+https://github.com/executablebooks/sphinx-tabs#tag=v$pkgver")
+sha512sums=('6e6dbb4e9593526d89aa8435c1ad14359c9a37d38690cc473a570f80b8ea107d7a96a8b41f6fbf21bc404d99b01cd2df2519443ea672e14488800b1afa5fd38a')
+b2sums=('85bc80d191dbe60b64595871213758e62fc1f90ce631bcf6ff941a29403aa1ba8ebe226df806883263e6b555b778e6fbf1216e84bb3c3cc67e5c28216c00b566')
 
 build() {
   cd "$pkgname"
@@ -41,9 +35,6 @@ package() {
 
   python -m installer --destdir="$pkgdir" dist/*.whl
 
-  # symlink license file
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  install -d "$pkgdir/usr/share/licenses/$pkgname"
-  ln -s "$site_packages/sphinx_tabs-$pkgver.dist-info/LICENSE" \
-    "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
