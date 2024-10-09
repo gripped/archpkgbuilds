@@ -4,8 +4,8 @@
 # Contributor: Roman Kyrylych <roman@archlinux.org>
 
 pkgname=gnome-bluetooth-3.0
-pkgver=47.0
-pkgrel=2
+pkgver=47.1
+pkgrel=1
 pkgdesc="GNOME Bluetooth Subsystem"
 url="https://wiki.gnome.org/Projects/GnomeBluetooth"
 arch=(x86_64)
@@ -35,7 +35,7 @@ makedepends=(
 checkdepends=(python-dbusmock)
 provides=(libgnome-bluetooth{,-ui}-3.0.so)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-bluetooth.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('b0dc3836cda4a6497cc1a7864b2e96aba7422f62891f034eeda61474e705e40ecc64cc9abd4bcdcc08a1805b53116f42d572ab1f445deaa8c2206394b81a766f')
+b2sums=('f769aa01ce530f6cc69e87477e9ebd86d4e5a984b2b785d57da1ade3a5728e87aaef2c6480d4a8378b0cb5894ac82efba482c07d8f6b743c4bfd4b39711b7043')
 
 prepare() {
   cd gnome-bluetooth
