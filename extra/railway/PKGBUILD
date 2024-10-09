@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=railway
-pkgver=2.7.0
-pkgrel=3
+pkgver=2.7.1
+pkgrel=1
 pkgdesc='Look up travel information for many different railways'
 arch=(x86_64)
 url='https://apps.gnome.org/DieBahn/'
@@ -25,43 +25,14 @@ makedepends=(
   rust
 )
 options=(!lto)
-source=(
-  "git+https://gitlab.com/schmiddi-on-mobile/railway.git#tag=$pkgver"
-  railway-outoftree.patch
-  railway-gresource.patch
-  railway-window-icon.patch
-  railway-fix-crash.patch
-  railway-desktop-categories.patch
-)
-b2sums=(
-  b4cfe61dcec2ab01486f686fa7279c2b5fba45bad80158f37e4595b8cc6c116bc502563364eecaad92e19e66bbe74bc97a9380b41b42732424a96f6876be8ccf
-  86d66c2e88633c3e15c5fe516e14dba3bf1a4f3b94ad0cf299ea6da3f543f7862bf08d70662439600944913e3f3dd797f73ae058af179b9bcaa876df6b8108d9
-  cf991744f300b1756aef5722ce6821f3c6ff42b8c9da384f5704c1322c512faf671dd6e052d4c503c496b5d712670e88b38397517e2229576328dfb34886fba7
-  b74483198728a7b42bef0be15f2a3023193f730de8af60079ef001c91bdf17fcd3669ce261557053270d69b07d8062a5ef13d643606ffc7ca2aa89492224f0ef
-  491f81876fff4037378711d5bb7b533ecd8004bc1494da9f35bcdb5749501ab9b72203ae7338d3b015ede848b33cd49437892faef5bb94534166a67fec868c96
-  72c60ebc2713c09e1acf80cf82cf62a6173089a44e2be88f77681ebddedaf03ecb3738270b6f0d520bd72b8cdd0c7fd9cac8018d28408610ce0a8c58b4e920d2
-)
+source=("git+https://gitlab.com/schmiddi-on-mobile/railway.git#tag=$pkgver")
+b2sums=(671d369533469a2c1b9e2dcac88a85be7a15bb181c330c43dd5956690c70becec2054c178f2735e6404f5a87967d836012042e0e74d477f91ee7a58e7c3fb20f)
 
 prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-
-  # https://gitlab.com/schmiddi-on-mobile/railway/-/merge_requests/170
-  git apply -3 ../railway-outoftree.patch
-
-  # https://gitlab.com/schmiddi-on-mobile/railway/-/merge_requests/171
-  git apply -3 ../railway-gresource.patch
-
-  # https://gitlab.com/schmiddi-on-mobile/railway/-/merge_requests/172
-  git apply -3 ../railway-window-icon.patch
-
-  # https://gitlab.com/schmiddi-on-mobile/railway/-/merge_requests/173
-  git apply -3 ../railway-fix-crash.patch
-
-  # https://gitlab.com/schmiddi-on-mobile/railway/-/merge_requests/174
-  git apply -3 ../railway-desktop-categories.patch
 }
 
 build() {
@@ -70,6 +41,7 @@ build() {
   CARGO_PROFILE_RELEASE_LTO=true \
     CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
     CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
     meson compile -C build
 }
 
