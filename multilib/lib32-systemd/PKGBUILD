@@ -2,7 +2,7 @@
 
 pkgname=lib32-systemd
 _pkgbasename=systemd
-_tag='256.6'
+_tag='256.7'
 # Upstream versioning is incompatible with pacman's version comparisons, one
 # way or another. So we replace dashes and tildes with the empty string to
 # make sure pacman's version comparing does the right thing for rc versions:
@@ -25,7 +25,7 @@ validpgpkeys=('63CDA1E5D3FC22B998D20DD6327F26951A015CC4'  # Lennart Poettering <
               '9A774DB5DB996C154EBBFBFDA0099A18E29326E1'  # Yu Watanabe <watanabe.yu+github@gmail.com>
               '5C251B5FC54EB2F80F407AAAC54CA336CFEB557E') # Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
 source=("git+https://github.com/systemd/systemd#tag=v${_tag}?signed")
-sha512sums=('e9fc19946f329aa89c1014a735d4d7828cebaa32ece8244b79e101c41d1c0cb0207b4109ce55d14204b0915f6cac57ace6286c6abaebd809031949693131de16')
+sha512sums=('468f772b3dfa83483da75516499c50159206dc5f8e26d7a62fc08437c93a4e536c0b27ee7fa5ac11fb1bc27a9c0e41315261751e5cc7428629a30849aeb23386')
 
 _backports=(
 )
@@ -148,7 +148,6 @@ build() {
     -Dxkbcommon=disabled
 
     -Ddbuspolicydir=/usr/share/dbus-1/system.d
-    -Ddefault-hierarchy=unified
     -Ddefault-kill-user-processes=false
     -Ddefault-locale='C.UTF-8'
     -Dfallback-hostname='archlinux'
