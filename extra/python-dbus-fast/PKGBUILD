@@ -2,7 +2,7 @@
 
 pkgname=python-dbus-fast
 pkgver=2.24.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A faster version of dbus-next'
 arch=(x86_64)
 url=https://github.com/bluetooth-devices/dbus-fast
@@ -26,7 +26,6 @@ makedepends=(
 checkdepends=(
   python-pytest
   python-pytest-asyncio
-  python-pytest-cov
   python-pytest-timeout
 )
 _tag=355835854731316583e6bc945e916542aacd5b07
@@ -46,7 +45,7 @@ build() {
 check() {
   cd dbus-fast
   PYTHONPATH="$PWD" \
-  dbus-run-session -- pytest -v
+  dbus-run-session -- pytest -v --override-ini="addopts="
 }
 
 package() {
