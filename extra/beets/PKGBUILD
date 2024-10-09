@@ -3,7 +3,7 @@
 
 pkgname=beets
 pkgver=2.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Flexible music library manager and tagger'
 arch=(any)
 url=https://beets.io/
@@ -36,7 +36,6 @@ checkdepends=(
   python-py7zr
   python-pylast
   python-pytest
-  python-pytest-cov
   python-reflink
   python-requests-oauthlib
   python-responses
@@ -85,8 +84,9 @@ build() {
 
 check() {
   cd beets
-  rm test/plugins/test_player.py
-  python -m pytest \
+  pytest \
+    --override-ini="addopts=" \
+    --ignore test/plugins/test_player.py \
     --deselect test/test_ui.py::CompletionTest::test_completion
 }
 
