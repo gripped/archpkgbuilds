@@ -2,7 +2,7 @@
 
 _name=pdm
 pkgname=python-pdm
-pkgver=2.18.2
+pkgver=2.19.1
 pkgrel=1
 pkgdesc="A modern Python package and dependency manager supporting the latest PEP standards"
 arch=(any)
@@ -41,12 +41,14 @@ makedepends=(
   python-wheel
 )
 checkdepends=(
+  git
   python-pytest
   python-pytest-httpserver
   python-pytest-mock
   python-pytest-rerunfailures
   python-pytest-xdist
   python-setuptools
+  python-uv
 )
 optdepends=(
   'python-cookiecutter: for using cookiecutter when generating project'
@@ -54,10 +56,11 @@ optdepends=(
   'python-keyring: for storing credentials'
   'python-pytest-mock: for pytest plugin'
   'python-setuptools: for parsing setup.py files'
+  'python-uv: use uv as installer and resolver'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('11f745b08fa8a56d80b25d148b7abf5254d797e5aedddbf944f2aaac14cafa3691484ef18af799fc8aaeefd397f8066b9316d673774c6cd4e252920cd76329b7')
-b2sums=('f7ba8fc14384572878c248f98e811c9579c5138dc1b09ffbd73d5a995c9899432b246c5b796ce0f6934eb64187966219b393b7815fa0edd04a6d359d706f1c46')
+sha512sums=('aef99eea541060fd026d8c6933255e0cf4d7bfc788d951c44cb356359e97d7f611fe034fe281cb8d60d615eceb888f7e6b4c9e8e8ca9b2fe09008c9345cbd7c2')
+b2sums=('e653916b7cf976a00aa8cbe3fedb56c1a204fecb756cf52d4067a00a241d597c2b9be4009509b57a78665d9fb12423272653ed22399bb0f34d614468f50ead40')
 
 build() {
   cd $_name-$pkgver
