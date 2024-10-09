@@ -2,7 +2,7 @@
 # Contributor: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=cargo-release
-pkgver=0.25.11
+pkgver=0.25.12
 pkgrel=1
 pkgdesc='Cargo subcommand "release": everything about releasing a rust crate'
 url='https://github.com/crate-ci/cargo-release'
@@ -20,8 +20,8 @@ depends=(
 makedepends=(rust)
 options=(!lto)
 source=($url/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('9b64d07cb1cf3d785d8cae51da06772da265b2d540cab9d97465a323855d231f394082ac48958b2063ba7b6760989d75167e86264b0bfe1737bbefc8d280f2f9')
-b2sums=('b473f385b5e0e52d313507a030d5613b180654c946eb82e2bba3d220852f69ef5acc0e000e266232496d95c7fbeb5e70617f651e6a04556f0625eeb488a18143')
+sha512sums=('f6022291f38bac9c0ec674886837227d5e5abfb023b7c3042803c8b982e8356d2180a0cabd8e49177267f50c527eb3c0131c70bbd53eee1ce45339d060c6fe67')
+b2sums=('b6692518b7157dde6815b16dfa216cd87e12bf22b171e93da44e4e23c11195125fb695abdeb3e3c055841d9c3cdd31ca0c0cb88c075a93fbb0a259f5b71f63ec')
 
 prepare() {
   cd $pkgname-$pkgver
