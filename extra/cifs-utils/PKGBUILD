@@ -1,17 +1,27 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 pkgname=cifs-utils
-pkgver=7.0
-pkgrel=5
+pkgver=7.1
+pkgrel=1
 pkgdesc="CIFS filesystem user-space tools"
 arch=(x86_64)
 url="https://wiki.samba.org/index.php/LinuxCIFS_utils"
 license=('GPL-3.0-or-later')
-depends=('libcap-ng' 'keyutils' 'krb5' 'talloc' 'pam' 'libwbclient')
-makedepends=('git' 'python-docutils')
+depends=(
+  keyutils
+  krb5
+  pam
+  libcap-ng
+  libwbclient  
+  talloc  
+)
+makedepends=(
+  git
+  python-docutils
+)
 optdepends=('python: for smb2-quota and smbinfo script')
 source=("git+https://git.samba.org/cifs-utils.git?signed#tag=${pkgname}-${pkgver}")
 validpgpkeys=('C699981A31F338706C817650DF5BA9D30642D5A0') #cifs-utils Distribution Verification Key <cifs-utils@samba.org>
-b2sums=('962d5e129d9f0bf352667bd7709e77520f3c178ac07f36233ac71cf8017532a924acf79946035707265c0d5becb9c725f1b8e227efcaa9a951d22d761b96d183')
+b2sums=('a8c4fc9312daed0e2d27c4ac5ed9aeeb1148891419032bc359c258a241d8cda248473173823098f9c146eab61b199d7fc6cad7b5f2b110a56da95600417b3740')
 
 prepare() {
   cd "${srcdir}/${pkgname}"
@@ -38,3 +48,4 @@ package() {
   mkdir -p "${pkgdir}"/etc/cifs-utils
   ln -s /usr/lib/cifs-utils/idmapwb.so "${pkgdir}"/etc/cifs-utils/idmap-plugin
 }
+
