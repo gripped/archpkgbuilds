@@ -3,7 +3,7 @@
 
 pkgname=python-blessed
 pkgver=1.20.0
-pkgrel=5
+pkgrel=6
 pkgdesc='A thin, practical wrapper around terminal styling, screen positioning, and keyboard input'
 arch=(any)
 url=https://github.com/jquast/blessed
@@ -19,7 +19,6 @@ makedepends=(
 )
 checkdepends=(
   python-pytest
-  python-pytest-cov
   python-pytest-rerunfailures
   python-pytest-xdist
 )
@@ -39,7 +38,7 @@ build() {
 
 check() {
   cd blessed
-  pytest
+  pytest --override-ini="addopts="
 }
 
 package() {
