@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=mbuffer
-pkgver=20240929
+pkgver=20241007
 pkgrel=1
 pkgdesc="A tool for buffering data streams"
 arch=(x86_64)
@@ -14,15 +14,11 @@ depends=(
 makedepends=(openssl)
 source=(
   https://www.maier-komor.de/software/$pkgname/$pkgname-$pkgver.tgz
-  $pkgname-20240929-sin_addr_cast.diff
 )
-sha512sums=('1348f6a60e0fea1ce5248576d4deffba72c0c7b2e36a7a8f52ecf49f11af9afb211d9aa58ef8aa6b9cdb3cbfb33b0f2bd064fa0f666ae3d37ca266a6dd277e05'
-            '3d0ed60d364dd393c7517bab7fe5326487f4799e53bd2d3d0ee9fa5fc1a257788d3d3b7c503073f0c3014fc8703f6f588c6d1a9f4d79bb8992cd7b1911bdb1f8')
-b2sums=('af0d93298b0e6d426965bace64a030f54bee70bd3506275ee1936fe4334a65cbf00e42c410725ff4bb603860ac16e1e28a2d1b20ea287a471db6066aff64dc8c'
-        'df31813657c015e1d19f0192426c16cac82c0c1371666892c977cbaf3536ea0816bcc15cf1f6840313cac2b433924ad03e9c4ea2c2c4b6b4c1ebf137782b0ad3')
+sha512sums=('cb8f9e962510030f8e1500dcd21a556b73144c445bc12ece3915df201fa5e8849c183546c7ce700e06d1c734c0fdf36e31046ac984e232b64f9b019b54e1ddd2')
+b2sums=('d26c0d87abacc8826bf2e6f414fe9264da7b3196c62a9853a8ffb6b118df353977c38ea5b1bf79e71fadcae6585b90b1f21152f742c7fafee08ae4294acceb60')
 
 prepare() {
-  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-20240929-sin_addr_cast.diff
   cd $pkgname-$pkgver
   autoreconf -fiv
 }
