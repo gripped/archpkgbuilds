@@ -2,7 +2,7 @@
 # Contributor: Jonne Haß <me@jhass.eu>
 
 pkgname=crystal
-pkgver=1.13.3
+pkgver=1.14.0
 pkgrel=1
 pkgdesc='The Crystal Programming Language'
 arch=(x86_64)
@@ -16,7 +16,7 @@ optdepends=('shards: crystal language package manager'
             'gmp: For BigInt support'
             'libxml2: For XML support')
 source=(crystal-$pkgver.tar.gz::https://github.com/crystal-lang/crystal/archive/$pkgver.tar.gz)
-sha256sums=('b060a75a7c3d29424f1d16bfb42ee4a46055fa218b964556b81bd1885cb30d77')
+sha256sums=('85c74d8654a0e111e2eaec6de38470bc9cb6762bc5b799dd3693d18cce4bc807')
 
 build() {
   cd $pkgname-$pkgver
