@@ -2,14 +2,14 @@
 
 pkgname=python-numpydoc
 pkgver=1.7.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Numpy's Sphinx extensions"
 url="https://github.com/numpy/numpydoc"
 license=('Apache')
 arch=('any')
 depends=('python-sphinx' 'python-jinja' 'python-tabulate')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-checkdepends=('python-matplotlib' 'python-numpy' 'python-pytest-cov' 'python-pytest')
+checkdepends=('python-matplotlib' 'python-numpy' 'python-pytest')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/numpy/numpydoc/archive/v$pkgver.tar.gz")
 sha512sums=('0858d7eaafdd93d5a0894bb107b8238f75bd7cd34afa64fee38effcf4bebf9b4db957768143a46eec46023e69b53599a79b07a39640887f3a0471b5996022247')
 
@@ -20,7 +20,7 @@ build() {
 
 check() {
   cd numpydoc-$pkgver
-  python -m pytest
+  PYTHONPATH="$PWD" pytest --override-ini="addopts="
 }
 
 package() {
