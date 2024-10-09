@@ -1,31 +1,43 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-zope-i18nmessageid
-pkgver=6.1.0
-pkgrel=2
+_pkgname=zope.i18nmessageid
+pkgver=7.0
+pkgrel=1
 pkgdesc="Message Identifiers for internationalization"
 arch=('x86_64')
 url="https://github.com/zopefoundation/zope.i18nmessageid"
 license=('ZPL-2.1')
-depends=('python-setuptools')
-makedepends=('python-build' 'python-installer' 'python-wheel')
+depends=(
+  'glibc'
+  'python'
+)
+makedepends=(
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
 checkdepends=('python-zope-testrunner')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/zopefoundation/zope.i18nmessageid/archive/$pkgver.tar.gz")
-sha512sums=('31a18cf8f4639d21e9d3a8eeb39205e778521353f49a53a0bc807ca520ca437cfd83aeb1246e4631b323f1197f02b1246b6d254e2f0d917b6a3353426fb9725e')
+sha512sums=('5c5e255c426ab5a560847efaaf1f5aacaf7ed034f05bf4a44c38d81b0cba9474328577323826574725223aa7674a18e6fbd0e93c4c024e0bd594ea6c234fd04c')
 
 build() {
-  cd zope.i18nmessageid-$pkgver
+  cd $_pkgname-$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd zope.i18nmessageid-$pkgver
-  local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
-  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$python_version" python -m zope.testrunner --test-path=src
+  cd $_pkgname-$pkgver
+  python -m installer --destdir=tmp_install dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$PWD/tmp_install/$site_packages"
+  zope-testrunner --test-path=src -vc
 }
 
 package() {
-  cd zope.i18nmessageid-$pkgver
+  cd $_pkgname-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
