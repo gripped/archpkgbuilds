@@ -2,7 +2,7 @@
 
 pkgname=python-zeep
 pkgver=4.2.1
-pkgrel=4
+pkgrel=5
 pkgdesc="A fast and modern Python SOAP client"
 arch=('any')
 license=('MIT')
@@ -10,7 +10,7 @@ url="https://docs.python-zeep.org"
 depends=('python-attrs' 'python-isodate' 'python-lxml' 'python-platformdirs' 'python-requests'
          'python-requests-toolbelt' 'python-requests-file' 'python-pytz')
 makedepends=('python-setuptools' 'python-wheel' 'python-build' 'python-installer')
-checkdepends=('python-pytest' 'python-freezegun' 'python-pretend' 'python-pytest-cov'
+checkdepends=('python-pytest' 'python-freezegun' 'python-pretend'
               'python-requests-mock' 'python-pytest-httpx' 'python-pytest-asyncio' 'python-aiohttp'
               'python-aioresponses' 'python-xmlsec')
 source=("https://github.com/mvantellingen/python-zeep/archive/$pkgver/$pkgname-$pkgver.tar.gz")
