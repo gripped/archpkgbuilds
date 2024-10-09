@@ -1,31 +1,44 @@
-# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Bruno Pagani <archange@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-rtree
-pkgver=1.2.0
+_pkgname=${pkgname#python-}
+pkgver=1.3.0
 pkgrel=1
 pkgdesc="Rtree: spatial index for Python GIS"
+arch=(any)
 url="https://rtree.readthedocs.io/en/latest/"
-license=('MIT')
-arch=('any')
-depends=('python' 'spatialindex')
-makedepends=('python-setuptools' 'python-wheel')
-checkdepends=('python-pytest' 'python-pytest-cov' 'python-numpy')
+license=(MIT)
+depends=(
+  python
+  spatialindex
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-numpy
+  python-pytest
+)
 source=("https://github.com/Toblerity/rtree/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('ab0ff77aad2dd7901c0997fd6d3673edda88539257a06564f6cd1d358aa29b19d269c1cb05db99cd06764ff7ea7209989996f87f9cfd43e4d04770e0be40c0eb')
+sha256sums=('8829823d83658cdf5f7f7925107363f1bba31bb6a94e255124c1026c7cbbbfe7')
 
 build() {
-  cd rtree-$pkgver
-  python setup.py build
+  cd "$_pkgname-$pkgver"
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd rtree-$pkgver
+  cd "$_pkgname-$pkgver"
   pytest
 }
 
 package() {
-  cd rtree-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
-
-  install -Dm 0644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  cd "$_pkgname-$pkgver"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
 }
