@@ -3,15 +3,15 @@
 
 pkgname=python-zeroconf
 pkgver=0.132.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A pure python implementation of multicast DNS service discovery"
 arch=('any')
 url="https://github.com/jstasiak/python-zeroconf"
-license=('LGPL')
+license=('LGPL-2.1-or-later')
 depends=('python' 'python-netifaces' 'python-six' 'python-ifaddr' 'python-async-timeout')
 makedepends=('python-setuptools' 'python-build' 'python-installer'
              'python-wheel' 'python-poetry-core' 'cython')
-checkdepends=('python-pytest' 'python-pytest-cov')
+checkdepends=('python-pytest')
 source=($pkgname-$pkgver.tar.gz::https://github.com/jstasiak/${pkgname}/archive/${pkgver}.tar.gz)
 sha256sums=('a0188086e1806d19bf49f797b25a1eba9b14e60422931188af287a98b304b80e')
 
@@ -28,7 +28,9 @@ package() {
 
 check() {
   cd "${pkgbase}-${pkgver}"
-  pytest -k 'not test_integration_with_listener_ipv6' tests
+  pytest tests \
+    --override-ini="addopts=" \
+    --deselect tests/services/test_types.py::test_integration_with_listener_ipv6
 }
 
 # vim:set ts=2 sw=2 et:
