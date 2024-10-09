@@ -1,6 +1,6 @@
 pkgbase = podman
 	pkgdesc = Tool and library for running OCI-based containers in pods
-	pkgver = 5.2.3
+	pkgver = 5.2.4
 	pkgrel = 1
 	url = https://github.com/containers/podman
 	arch = x86_64
@@ -8,20 +8,20 @@ pkgbase = podman
 	makedepends = apparmor
 	makedepends = btrfs-progs
 	makedepends = catatonit
-	makedepends = device-mapper
 	makedepends = git
 	makedepends = go
 	makedepends = go-md2man
 	makedepends = gpgme
 	makedepends = libseccomp
 	makedepends = man-db
+	makedepends = shadow
 	makedepends = systemd
 	options = !lto
-	source = git+https://github.com/containers/podman?signed#tag=v5.2.3
+	source = git+https://github.com/containers/podman?signed#tag=v5.2.4
 	validpgpkeys = B7DBDCA456F7335E91F1C25CD3624C551D0515C4
 	validpgpkeys = 7CE1E6F8C90CB53E7E4D8F2D502E08DB0BBF8EEE
 	validpgpkeys = 9E33DD8704CC03E2DEB84D9A1C1EDD7CC7C3A0DD
-	sha256sums = 82a56e02906d9116fbf7a1017a6b54016a860bbe0e59aee985f9ad39bda92eeb
+	sha256sums = 451288666ba5c607c53af6543b5eda352f84cd325a0a07db2dfa2e4e815e2c22
 
 pkgname = podman
 	depends = catatonit
@@ -31,13 +31,12 @@ pkgname = podman
 	depends = gcc-libs
 	depends = glibc
 	depends = iptables
-	depends = device-mapper
-	depends = libdevmapper.so
 	depends = gpgme
 	depends = libgpgme.so
 	depends = libseccomp
 	depends = libseccomp.so
 	depends = passt
+	depends = shadow
 	optdepends = apparmor: for AppArmor support
 	optdepends = btrfs-progs: support btrfs backend devices
 	optdepends = cni-plugins: for an alternative container-network-stack implementation

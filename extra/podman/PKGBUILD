@@ -4,7 +4,7 @@
 
 pkgbase=podman
 pkgname=(podman podman-docker)
-pkgver=5.2.3
+pkgver=5.2.4
 pkgrel=1
 pkgdesc='Tool and library for running OCI-based containers in pods'
 arch=(x86_64)
@@ -14,13 +14,13 @@ makedepends=(
   apparmor
   btrfs-progs
   catatonit
-  device-mapper
   git
   go
   go-md2man
   gpgme
   libseccomp
   man-db
+  shadow
   systemd
 )
 # https://github.com/containers/podman/issues/13297
@@ -35,11 +35,9 @@ validpgpkeys=(
   7CE1E6F8C90CB53E7E4D8F2D502E08DB0BBF8EEE  # Ashley Cui <acui@redhat.com>
   9E33DD8704CC03E2DEB84D9A1C1EDD7CC7C3A0DD  # Lokesh Mandvekar <lsm5@redhat.com>
 )
-sha256sums=('82a56e02906d9116fbf7a1017a6b54016a860bbe0e59aee985f9ad39bda92eeb')
+sha256sums=('451288666ba5c607c53af6543b5eda352f84cd325a0a07db2dfa2e4e815e2c22')
 
 build() {
-  # NOTE: the BUILDTAGS may change over time
-  export BUILDTAGS='apparmor seccomp systemd'
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
@@ -60,10 +58,10 @@ package_podman() {
     gcc-libs
     glibc
     iptables
-    device-mapper libdevmapper.so
     gpgme libgpgme.so
     libseccomp libseccomp.so
     passt
+    shadow
   )
   optdepends=(
     'apparmor: for AppArmor support'
