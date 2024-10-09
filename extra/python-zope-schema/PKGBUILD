@@ -1,30 +1,46 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-zope-schema
+_pkgname=zope.schema
 pkgver=7.0.1
-pkgrel=3
+pkgrel=4
 pkgdesc="zope.interface extension for defining data schemas"
 arch=('any')
 url="https://github.com/zopefoundation/zope.schema"
-license=('ZPL')
-depends=('python-setuptools' 'python-zope-interface' 'python-zope-event')
-checkdepends=('python-zope-testrunner' 'python-zope-testing' 'python-zope-i18nmessageid')
+license=('ZPL-2.1')
+depends=(
+  'python'
+  'python-zope-event'
+  'python-zope-interface'
+)
+makedepends=(
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+checkdepends=(
+  'python-zope-i18nmessageid'
+  'python-zope-testing'
+  'python-zope-testrunner'
+)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/zopefoundation/zope.schema/archive/$pkgver.tar.gz")
 sha512sums=('35ef47aa059cecced52abaff9a7d5fb1070008ead2526fe1b3f6d11619c28e70c6f3e3a78c299af1a8a6503d510a363a1dded6d8e4dfde90cae45b9ea90bd89f')
 
 build() {
-  cd "$srcdir"/zope.schema-$pkgver
-  python setup.py build
+  cd $_pkgname-$pkgver
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$srcdir"/zope.schema-$pkgver
+  cd $_pkgname-$pkgver
   PYTHONPATH="$PWD/build/lib:$PYTHONPATH" python -m zope.testrunner --test-path=src
 }
 
 package() {
-  cd "$srcdir"/zope.schema-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
+  cd $_pkgname-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
 # vim:set ts=2 sw=2 et:
