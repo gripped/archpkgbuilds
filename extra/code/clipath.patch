@@ -1,21 +1,34 @@
 diff --git a/src/vs/code/node/cli.ts b/src/vs/code/node/cli.ts
-index 3b823317303..095fcd9e34d 100644
+index b25377a804d..cd690d9a230 100644
 --- a/src/vs/code/node/cli.ts
 +++ b/src/vs/code/node/cli.ts
-@@ -45,7 +45,7 @@ export async function main(argv: string[]): Promise<any> {
+@@ -43,7 +43,7 @@ export async function main(argv: string[]): Promise<any> {
  	let args: NativeParsedArgs;
  
  	try {
 -		args = parseCLIProcessArgv(argv);
-+		args = parseCLIProcessArgv(argv.slice(Math.max(0, argv.findIndex(a => a.endsWith('/code.js')) - 1)));
++		args = parseCLIProcessArgv(argv.slice(Math.max(0, argv.findIndex(a => a.endsWith('/code.mjs')) - 1)));
  	} catch (err) {
  		console.error(err.message);
  		return;
+diff --git a/src/vs/platform/lifecycle/electron-main/lifecycleMainService.ts b/src/vs/platform/lifecycle/electron-main/lifecycleMainService.ts
+index 0016baac80f..0974953cc92 100644
+--- a/src/vs/platform/lifecycle/electron-main/lifecycleMainService.ts
++++ b/src/vs/platform/lifecycle/electron-main/lifecycleMainService.ts
+@@ -690,7 +690,7 @@ export class LifecycleMainService extends Disposable implements ILifecycleMainSe
+ 		const quitListener = () => {
+ 			if (!this.relaunchHandler?.handleRelaunch(options)) {
+ 				this.trace('Lifecycle#relaunch() - calling app.relaunch()');
+-				electron.app.relaunch({ args });
++				electron.app.relaunch({ args, execPath: '/usr/lib/code/code.mjs' });
+ 			}
+ 		};
+ 		electron.app.once('quit', quitListener);
 diff --git a/src/vs/platform/native/electron-main/nativeHostMainService.ts b/src/vs/platform/native/electron-main/nativeHostMainService.ts
-index af0e0cfe14c..aaa96fc1b56 100644
+index 6f57b9a7b44..4a05b88edf1 100644
 --- a/src/vs/platform/native/electron-main/nativeHostMainService.ts
 +++ b/src/vs/platform/native/electron-main/nativeHostMainService.ts
-@@ -498,31 +498,7 @@ export class NativeHostMainService extends Disposable implements INativeHostMain
+@@ -609,31 +609,7 @@ export class NativeHostMainService extends Disposable implements INativeHostMain
  
  	@memoize
  	private get cliPath(): string {

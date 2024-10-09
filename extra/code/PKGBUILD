@@ -6,7 +6,7 @@ pkgname=code
 pkgdesc='The Open Source build of Visual Studio Code (vscode) editor'
 # Important: Remember to check https://github.com/microsoft/vscode/wiki/How-to-Contribute#prerequisites for target node version
 _electron=electron30
-pkgver=1.93.1
+pkgver=1.94.0
 pkgrel=1
 arch=('x86_64')
 url='https://github.com/microsoft/vscode'
@@ -15,18 +15,18 @@ depends=($_electron 'libsecret' 'libx11' 'libxkbfile' 'ripgrep')
 optdepends=('bash-completion: Bash completions'
             'zsh-completions: ZSH completitons'
             'x11-ssh-askpass: SSH authentication')
-makedepends=('gulp' 'git' 'npm' 'python' 'yarn' 'nodejs-lts-iron' 'desktop-file-utils' 'zip')
+makedepends=('gulp' 'git' 'npm' 'python' 'nodejs-lts-iron' 'desktop-file-utils' 'zip')
 provides=('vscode')
 source=(vscode::"git+https://github.com/microsoft/vscode.git#tag=$pkgver"
-        'code.js'
+        'code.mjs'
         'code.sh'
         'product_json.diff'
         'clipath.patch')
-sha512sums=('db35a1c17bd428107ba431010d7923ea1be4e27941e6b12cd3a2e50d8dd2b9d5f4a7df340c2b8ec6dc01e93804db99c6a11bf4224b1b8a4edd7629216460637b'
-            'c8a3528f88a198e45c8c201940c55a56f1344f0d0d5352cf04348d083027d828f42f1a76b82cb595d3372f7d62859e3b64e3109d5fedf8f97c7b517415df9ad5'
-            '425fbb7588020c2fce15d9be43e34f57ea0de327ebdf7693dc90d2b24a86df67bbc1ddfd7224e8579c17d0f34ad3cbfaacbf0e2044685a356e0cb662c0e1a2d0'
+sha512sums=('82e30634eb829d1f2238aaf6fd6b87057ad4fed3a2504bd17075ef4b58878307f7b553f376bceca9f8da5e075879a0cae21d6e74bb61506c5f7cdef03fd1f662'
+            '793f9ff6306e3992ac89802d98110cba288ea1181a901467333293b7d76182ef9792c2a39ff49d9347a18a174b1f42bc58862091dff583f4146c2704eea28033'
+            'd2b3683085d98744ba4f7d8cb33fa38620b59220797917c3858cac6a0bf7962c2b7e293785a237f178e527384cc04bc19fe71d75f04fbf06be881263d4aa2b35'
             'b1aa0d7c5b3e3e8ba1172822d75ea38e90efc431b270e0b4ca9e45bf9c0be0f60922c8618969ef071b5b6dbd9ac9f030294f1bf49bcc28c187b46d113dca63a7'
-            '9809c9719b04c00d46477e2786a64ec40867096d287d68c97b31a881545e734d4f97d73c7c75e8fc0727f288ef696d169bbaf989a0cb9f8d5c8e2f045b89c60f')
+            '961b89334514aad68db4115f11b6e070240b1dd0567c4456c7b37a2dd6ae4be54965dbd5665cdc3b91c73d8f3269da3ba7d90ef634632ef6a252be1bfa7f967b')
 
 # Even though we don't officially support other archs, let's
 # allow the user to use this PKGBUILD to compile the package
@@ -58,7 +58,7 @@ esac
 prepare() {
   cd vscode
 
-  _electronver=$(awk '{if ($1 == "target") {gsub(/"|\..*"/, "", $2); print $2}}' .yarnrc)
+  local _electronver=$(awk -F= '{if ($1 == "target") {gsub(/"|\..*"/, "", $2); print $2}}' .npmrc)
   if [[ "electron$_electronver" != "$_electron" ]]; then
     echo "Wrong electron dependency. Change _electron to $_electronver"
     exit 1
@@ -68,7 +68,7 @@ prepare() {
   sed -e "s|name=electron|name=$_electron |" \
       -e '/PKGBUILD/d' \
       -i ../code.sh
-  sed "1s|.*|#!/usr/lib/$_electron/electron|" -i ../code.js
+  sed "1s|.*|#!/usr/lib/$_electron/electron|" -i ../code.mjs
 
   # This patch no longer contains proprietary modifications.
   # See https://github.com/Microsoft/vscode/issues/31168 for details.
@@ -78,8 +78,8 @@ prepare() {
   sed -e "s/@COMMIT@/$(git rev-parse HEAD)/" -e "s/@DATE@/$(date -u -Is | sed 's/\+00:00/Z/')/" -i product.json
 
   # Build native modules for system electron
-  local _target=$(</usr/lib/$_electron/version)
-  sed -i "s/^target .*/target \"${_target//v/}\"/" .yarnrc
+  _electronver=$(</usr/lib/$_electron/version)
+  sed -i "s/^target .*/target \"${_electronver//v/}\"/" .npmrc
 
   # Patch appdata and desktop file
   sed -i 's|/usr/share/@@NAME@@/@@NAME@@|@@NAME@@|g
@@ -108,12 +108,11 @@ prepare() {
   patch -p1 -i "$srcdir/clipath.patch"
 
   # The build process wants a zipped electron, let's construct one from system electron and put it in cache.
-  local _electron_ver=$(</usr/lib/$_electron/version)
-  local _hash=$(echo -n "https://github.com/electron/electron/releases/download/v$_electron_ver" | sha256sum | cut -d ' ' -f 1)
+  local _hash=$(echo -n "https://github.com/electron/electron/releases/download/v$_electronver" | sha256sum | cut -d ' ' -f 1)
   export XDG_CACHE_HOME="$srcdir" # Don't let our manually created electron zip appear in users' cache dir
   local _cache_dir="$XDG_CACHE_HOME/electron/$_hash"
   mkdir -p "$_cache_dir"
-  local _electron_zip="electron-v$_electron_ver-linux-$_electron_arch.zip"
+  local _electron_zip="electron-v$_electronver-linux-$_electron_arch.zip"
   cd "/usr/lib/$_electron" && zip -r "$_cache_dir/$_electron_zip" . && cd -
   echo "$(sha256sum "$_cache_dir/$_electron_zip" | cut -d " " -f 1) *$_electron_zip" > build/checksums/electron.txt
 }
@@ -122,7 +121,7 @@ build() {
   cd vscode
   export ELECTRON_SKIP_BINARY_DOWNLOAD=1 PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
   export XDG_CACHE_HOME="$srcdir"
-  yarn install --arch=$_vscode_arch
+  npm install --cpu=$_vscode_arch
   gulp --max_old_space_size=8192 \
        --openssl-legacy-provider \
        vscode-linux-$_vscode_arch-min
@@ -134,11 +133,11 @@ package() {
   cp -r --no-preserve=ownership --preserve=mode VSCode-linux-$_vscode_arch/resources/app/* "$pkgdir"/usr/lib/$pkgname/
   chmod -R u=rwX,go=rX "$pkgdir"
   # Replace statically included binary with system copy
-  ln -sf /usr/bin/rg "$pkgdir"/usr/lib/code/node_modules.asar.unpacked/@vscode/ripgrep/bin/rg
+  ln -sf /usr/bin/rg "$pkgdir"/usr/lib/code/node_modules/@vscode/ripgrep/bin/rg
 
   # Install binary
   install -Dm 755 code.sh "$pkgdir"/usr/bin/code-oss
-  install -Dm 755 code.js "$pkgdir"/usr/lib/$pkgname/code.js
+  install -Dm 755 code.mjs "$pkgdir"/usr/lib/$pkgname/code.mjs
   ln -sf code-oss "$pkgdir"/usr/bin/code
 
   # Install appdata and desktop file
