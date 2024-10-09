@@ -1,6 +1,6 @@
 pkgbase = cloud-init
 	pkgdesc = Cloud instance initialization
-	pkgver = 24.2
+	pkgver = 24.3.1
 	pkgrel = 1
 	url = https://cloud-init.io
 	arch = any
@@ -37,11 +37,8 @@ pkgbase = cloud-init
 	optdepends = python-urllib3: for LXD and Scaleway data sources
 	backup = etc/cloud/cloud.cfg
 	backup = etc/cloud/cloud.cfg.d/05_logging.cfg
-	source = https://github.com/canonical/cloud-init/archive/24.2/cloud-init-24.2.tar.gz
-	source = cloud-init-24.2-Fix-btrfs-version-check-for-btrfs-6.10.patch
-	sha512sums = 2257de8c23f3a94324a7fe9e2105e6343ffe11cc86b27a68c7447b6e386a951bf2643988f3d26371420e3702a0b568107bb343d000ecae80d5e229b5a023513d
-	sha512sums = a92d1db1b73eae2a98e2a8fd6e8bdbaeba8f9ffdf2762f9c1cd43730da090317c41061295204392c440ed8b80a1f8746a8250ad4805bf7e0eab6b19fdd92de0a
-	b2sums = 19f1dd16aa673b4fdc0a8368fbf490773195f765834b89409c0fda6f6fb897c18a5632cdbd4c4cac85373fba31e0de279ce86ca6253686bc0e7eac19e8adf4f8
-	b2sums = df454ed55e3f3f9d4a71e4f362ab59c125eb64c6e173e7b98a7a0e9c6be07a95c55a40c18288c732bf530a8ee4c29e405467ddd060d0474bf97feefe9d02a519
+	source = https://github.com/canonical/cloud-init/archive/24.3.1/cloud-init-24.3.1.tar.gz
+	sha512sums = 01b798d67328ecd66229568233fb674f45c055ac469adb31a55a909b6b2c8fd1901a833accb66423923b8945210aa4dc6a0d61945787aabe414c01b501b1416d
+	b2sums = 7e4cb8bd65d34d08b4b4e5ea2370ac952e05b3a210b91a9b29d8e4b633246a9520c2d9259aedfe8edded0d7d761808b86b6b19d98309633c981b2eb0e7cf1f93
 
 pkgname = cloud-init
