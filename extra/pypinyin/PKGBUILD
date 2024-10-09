@@ -3,7 +3,7 @@
 
 pkgname=pypinyin
 pkgver=0.51.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Chinese characters transliteration module and tool'
 arch=('any')
 url='https://github.com/mozillazg/python-pinyin'
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('python')
 makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel'
              'phrase-pinyin-data' 'pinyin-data')
-checkdepends=('python-pytest-cov')
+checkdepends=('python-pytest')
 source=("git+https://github.com/mozillazg/python-pinyin.git#tag=v$pkgver")
 sha256sums=('a564c80affdf9774a612143426b5b0b0a0ae619762d97b331da33696fbabc6c3')
 
@@ -30,7 +30,7 @@ build() {
 
 check() {
   cd python-pinyin
-  pytest pypinyin tests
+  pytest --override-ini="addopts=-slv" pypinyin tests
 }
 
 package() {
