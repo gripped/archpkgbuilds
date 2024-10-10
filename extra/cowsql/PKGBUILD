@@ -1,24 +1,18 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=cowsql
-pkgver=1.15.3
+pkgver=1.15.6
 pkgrel=1
 pkgdesc='An embeddable and replicated SQLite engine with high availability & automatic failover'
 arch=('x86_64')
 url='https://github.com/cowsql/cowsql'
-license=('LGPL3')
+license=('LGPL-3.0-only' 'LicenseRef-Custom')
 depends=('glibc' 'libuv' 'raft' 'sqlite')
 makedepends=('git' 'tcl' 'readline' 'zlib')
 options=('strip')
-_commit='a1d49d0d3e40b32ba655fffe14b7669c2aa1bcec'
-source=("$pkgname::git+$url#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('c4cc632f56416af4e310d41cda60ba9b2e9e9d94c368e5323410358bd2bfd297ca90132c9b423756afdc8f2c60acd764fdc057539951d0620579394e5b9d9705')
+b2sums=('5bb68a511802f3f4b52039189029530416b48199eda1f742e17c42a01121fa0494b9b6e0ec5b47ef39244a0b6bb7f74950bdccfe14c1462a80e3eb58b4df5a5a')
 
 build() {
   cd "$pkgname"
@@ -42,4 +36,7 @@ package() {
   cd "$pkgname"
 
   make DESTDIR="$pkgdir" install
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
