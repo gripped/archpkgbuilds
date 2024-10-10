@@ -37,6 +37,7 @@ EXTLINUX="/usr/bin/extlinux"
 
 bios_autoupdate_file="/boot/syslinux/SYSLINUX_AUTOUPDATE"
 pciids_file="/usr/share/hwdata/pci.ids"
+cfg_file="/usr/share/syslinux/syslinux.cfg"
 
 ## Helper functions ##
 # Taken from libui-sh
@@ -324,6 +325,9 @@ install_modules() {
 }
 
 _install() {
+    [[ ! -d "$bios_bootpath" ]] && install -d -- "$bios_bootpath"
+    [[ ! -e "${bios_bootpath}/syslinux.cfg" ]] && install -m0644 -- "$cfg_file" "${bios_bootpath}/syslinux.cfg"
+
     install_modules
 
     if device_is_raid "$bootpart" ; then

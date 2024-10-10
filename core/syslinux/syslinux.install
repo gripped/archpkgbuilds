@@ -25,6 +25,11 @@ post_install() {
 }
 
 post_upgrade() {
+  # Move /boot/syslinux/syslinux.cfg back now that it is not packaged anymore.
+  if [ ! -f /boot/syslinux/syslinux.cfg -a -f /boot/syslinux/syslinux.cfg.pacsave ]; then
+    mv /boot/syslinux/syslinux.cfg.pacsave /boot/syslinux/syslinux.cfg
+  fi
+
   ## auto-update syslinux if /boot/syslinux/SYSLINUX_AUTOUPDATE exists
   /usr/bin/syslinux-install_update -s
 
