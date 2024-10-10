@@ -4,7 +4,7 @@
 
 pkgname=intel-compute-runtime
 pkgver=24.35.30872.22
-pkgrel=1
+pkgrel=2
 pkgdesc="Intel(R) Graphics Compute Runtime for oneAPI Level Zero and OpenCL(TM) Driver"
 arch=(x86_64)
 url="https://01.org/compute-runtime"
@@ -60,4 +60,5 @@ package() {
   install -Dm644 compute-runtime-${pkgver}/LICENSE.md -t "${pkgdir}"/usr/share/licenses/${pkgname}
   
   ln -s $(find "${pkgdir}"/usr/lib -regex '.*libze_intel_gpu.so.[0-9]*' -exec basename {} \;) "${pkgdir}"/usr/lib/libze_intel_gpu.so
+  ln -s $(find "${pkgdir}"/usr/bin -name 'ocloc-*' -exec basename {} \;) "${pkgdir}"/usr/bin/ocloc
 }
