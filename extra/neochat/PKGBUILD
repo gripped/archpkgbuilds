@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=neochat
-pkgver=24.08.1
+pkgver=24.08.2
 pkgrel=1
 pkgdesc='A client for matrix, the decentralized communication protocol'
 url='https://apps.kde.org/neochat/'
@@ -43,11 +43,11 @@ depends=(cmark
 makedepends=(extra-cmake-modules
              kdoctools
              python
-             qcoro-qt6)
+             qcoro)
 groups=(kde-applications
         kde-network)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('a394f04cf19d5567437e558075c9f7ce5c37bf73943b13c47739ff56acde571d'
+sha256sums=('873f08f35ef1055b17647098a2ba5a3924dc0fb8350441d380c3598d8213c1bc'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
