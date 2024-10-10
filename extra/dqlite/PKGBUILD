@@ -3,12 +3,12 @@
 
 pkgname=dqlite
 pkgver=1.16.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Distributed SQLite"
 arch=('x86_64')
 url="https://github.com/CanonicalLtd/dqlite"
-license=('LGPL3')
-depends=('libuv' 'raft' 'sqlite')
+license=('LGPL-3.0-only')
+depends=('libuv' 'sqlite')
 makedepends=('tcl' 'readline' 'zlib')
 options=(strip)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/canonical/${pkgname}/archive/v${pkgver}.tar.gz")
@@ -18,7 +18,7 @@ build() {
 	cd "$pkgname-$pkgver"
 	autoreconf -i 
 	#PKG_CONFIG_PATH="/usr/lib/sqlite-replication/pkgconfig" ./configure --prefix=/usr
-	./configure --prefix=/usr
+	./configure --prefix=/usr --enable-build-raft
 	make
 }
 
