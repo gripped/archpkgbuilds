@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma-welcome
-pkgver=6.1.5
+pkgver=6.2.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='A friendly onboarding wizard for Plasma'
@@ -27,12 +27,13 @@ depends=(gcc-libs
          libplasma
          plasma-nm
          plasma5support
+         qt6-5compat
          qt6-base
          qt6-declarative)
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('12ece9e7d61c3ec6a23fe9357667416e26802abafdc69f245cc3d96a05ef9d96'
+sha256sums=('6782406d5643745953de82b1b1f58a44a6f854c2d7e0d675d037e63377f552d5'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
