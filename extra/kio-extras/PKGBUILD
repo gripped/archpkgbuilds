@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kio-extras
-pkgver=24.08.1
+pkgver=24.08.2
 pkgrel=1
 pkgdesc='Additional components to increase the functionality of KIO'
 arch=(x86_64)
@@ -44,7 +44,7 @@ makedepends=(extra-cmake-modules
              libappimage
              openexr
              plasma-activities-stats
-             qcoro-qt6
+             qcoro
              taglib)
 optdepends=('icoutils: Windows executable thumbnails'
             'kimageformats: thumbnails for additional image formats'
@@ -56,18 +56,12 @@ optdepends=('icoutils: Windows executable thumbnails'
             'taglib: audio file thumbnails')
 groups=(kde-applications
         kde-network)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/network/kio-extras/-/commit/0b589bd8.patch)
-sha256sums=('64051dda2f17a3901426c0a9b5ca65b64429f00b6820e7796e605084b0cfceda'
-            'SKIP'
-            '414bc89c5a2112a09ffaa2b61311891560d37da0bf95a21dc9f130c0676c8962')
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('99a6f548c7aac18017ebe2b73ac99327f2585b418257bc1c7e065ced82bd2cc7'
+            'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < 0b589bd8.patch # Fix SFTP file corruption
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
