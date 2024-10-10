@@ -1,7 +1,7 @@
 pkgbase = cockpit
 	pkgdesc = A systemd web based user interface for Linux servers
 	pkgver = 326
-	pkgrel = 1
+	pkgrel = 2
 	url = https://cockpit-project.org/
 	arch = x86_64
 	license = LGPL-2.1-or-later
@@ -44,16 +44,18 @@ pkgname = cockpit
 	depends = kexec-tools
 	depends = python
 	depends = gobject-introspection-runtime
-	optdepends = cockpit-pcp: reading performance metrics
 	optdepends = cockpit-storaged: manage storage
 	optdepends = cockpit-packagekit: manage packaged
 	optdepends = cockpit-podman: user interface for managing podman containers
 	optdepends = cockpit-machines: user interface for managing virtual machines
+	optdepends = pcp: reading performance metrics
 	optdepends = polkit: elevate privileges
 	optdepends = sudo: elevate privileges
 	optdepends = networkmanager: manage network connections
 	optdepends = sssd: authentication
 	optdepends = sscg: generate self-signed certificate
+	provides = cockpit-pcp
+	replaces = cockpit-pcp
 	backup = etc/pam.d/cockpit
 	backup = etc/cockpit/disallowed-users
 
@@ -63,11 +65,6 @@ pkgname = cockpit-packagekit
 	depends = polkit
 	depends = packagekit
 	depends = python
-
-pkgname = cockpit-pcp
-	pkgdesc = Cockpit support for reading PCP metrics and loading PCP archives
-	depends = cockpit
-	depends = pcp
 
 pkgname = cockpit-storaged
 	pkgdesc = Cockpit user interface for storage, using udisks

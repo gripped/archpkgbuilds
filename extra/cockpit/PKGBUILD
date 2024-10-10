@@ -4,9 +4,9 @@
 # Contributor: Anatol Pomozov <anatol.pomozov@gmail.com>
 
 pkgbase=cockpit
-pkgname=(cockpit cockpit-packagekit cockpit-pcp cockpit-storaged)
+pkgname=(cockpit cockpit-packagekit cockpit-storaged)
 pkgver=326
-pkgrel=1
+pkgrel=2
 pkgdesc='A systemd web based user interface for Linux servers'
 arch=('x86_64')
 url='https://cockpit-project.org/'
@@ -55,12 +55,14 @@ build() {
 package_cockpit() {
   depends=(krb5 libssh json-glib glib-networking libpwquality systemd
            openssl kexec-tools python gobject-introspection-runtime)
+  provides=(cockpit-pcp)
+  replaces=(cockpit-pcp)
   backup=('etc/pam.d/cockpit' 'etc/cockpit/disallowed-users')
-  optdepends=("cockpit-pcp: reading performance metrics"
-              "cockpit-storaged: manage storage"
+  optdepends=("cockpit-storaged: manage storage"
               "cockpit-packagekit: manage packaged"
               "cockpit-podman: user interface for managing podman containers"
               "cockpit-machines: user interface for managing virtual machines"
+              "pcp: reading performance metrics"
               "polkit: elevate privileges"
               "sudo: elevate privileges"
               "networkmanager: manage network connections"
@@ -83,27 +85,12 @@ package_cockpit() {
          "$pkgdir"/usr/share/metainfo/org.cockpit-project.cockpit-{selinux,sosreport}.metainfo.xml
 
   # remove plugins packaged separately
-  rm -rf "$pkgdir"/usr/share/cockpit/{apps,packagekit,pcp,storaged} \
-         "$pkgdir"/usr/share/metainfo/org.cockpit-project.cockpit-storaged.metainfo.xml \
-         "$pkgdir"/usr/lib/cockpit/cockpit-pcp \
-         "$pkgdir"/var/lib/pcp
+  rm -rf "$pkgdir"/usr/share/cockpit/{apps,packagekit,storaged} \
+         "$pkgdir"/usr/share/metainfo/org.cockpit-project.cockpit-storaged.metainfo.xml
 
   # Disallow root login by default
   printf "# List of users which are not allowed to login to Cockpit\nroot\n" > "$pkgdir"/etc/cockpit/disallowed-users
   chmod 644 "$pkgdir"/etc/cockpit/disallowed-users
-}
-
-package_cockpit-pcp() {
-  pkgdesc='Cockpit support for reading PCP metrics and loading PCP archives'
-  depends=(cockpit pcp)
-
-  cd cockpit-$pkgver
-  make DESTDIR="$pkgdir"/tmp install
-
-  cd "$pkgdir"/tmp
-  bsdtar -cf - usr/share/cockpit/pcp usr/lib/cockpit/cockpit-pcp var/lib/pcp \
-    | bsdtar -xf - -C "$pkgdir"
-  rm -rf "$pkgdir"/tmp
 }
 
 _do_package_component() {
