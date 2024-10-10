@@ -1,22 +1,22 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=cargo-msrv
-pkgver=0.15.1
-pkgrel=4
+pkgver=0.16.1
+pkgrel=1
 pkgdesc="Find the minimum supported Rust version (MSRV) for your project"
 arch=('x86_64')
 url="https://github.com/foresterre/cargo-msrv"
-license=('MIT' 'Apache')
+license=('MIT' 'Apache-2.0')
 depends=('gcc-libs' 'openssl' 'rustup')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('58c54cc718cfe9653a0b506b9f85eb688583e0aa4a8b8df02738050b69460762')
+sha256sums=('d480ab89abce0a9ca831546c6c6199fcc3c6d1ceed7e5e227fe3c27e3ffc9db9')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
   export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
@@ -26,7 +26,7 @@ build() {
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --frozen --all -- --test-threads=1
+  cargo test --frozen --all --lib -- --test-threads=1
 }
 
 package() {
