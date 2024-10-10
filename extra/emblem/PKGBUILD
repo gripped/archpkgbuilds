@@ -1,0 +1,55 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=emblem
+pkgver=1.4.0
+pkgrel=2
+pkgdesc='Generate projects avatars for your Matrix rooms and git forges from a symbolic icon'
+arch=(x86_64)
+url='https://apps.gnome.org/Emblem/'
+license=(GPL-3.0-or-later)
+depends=(
+  cairo
+  dconf
+  gcc-libs
+  glib2
+  glibc
+  graphene
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libxml2
+  pango
+)
+makedepends=(
+  appstream
+  git
+  meson
+  rust
+)
+source=("git+https://gitlab.gnome.org/World/design/emblem.git#tag=$pkgver")
+b2sums=(64276f311dda37461cee960049e5732b3e65f9f90deb362c6066bb3831bce037b8f411176911e1cae2660185ce6e84687a155a5bb830600debe59a13b8c6c9a7)
+
+prepare() {
+  cd $pkgname
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  arch-meson $pkgname build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+}
