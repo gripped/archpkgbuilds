@@ -2,19 +2,21 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 # Contributor: Felix Fung <fylixeoi@gmail.com>
 
+# NOTE: 2.17.0 provides support for PG17, so as soon as Arch gets PG17,
+# we can rebuild for PG17.
+
 pkgname=timescaledb
 _current_pg_version=16
 _next_pg_version=$(( _current_pg_version + 1 ))
 # limit to last 5 releases
 declare -gA _commits=(
-  [2.15.0]=19f731d174820dfc0f33e073235c99368b3ad98c
-  [2.15.1]=6a8b31f866308362b76287da47473a13d279d4a6
   [2.15.2]=903847e4d69938b8bed8d1d13cb84053e243e262
   [2.15.3]=777f7266e16ae0f3bc2ac5f4ec9d420b5d2ea110
   [2.16.0]=4fd2a878df1dbb807a9e99d01cf5614ebddc02b4
   [2.16.1]=7c78574c4d42ec7ceb840bd9d55652182221f251
+  [2.17.0]=43ef9b7bda813c10f845fe55f7fc6113bbd47b07
 )
-pkgver=2.16.1
+pkgver=2.17.0
 pkgrel=1
 pkgdesc='An open-source time-series database optimized for fast ingest and complex queries'
 arch=('x86_64')
@@ -34,8 +36,8 @@ optdepends=(
 )
 install=timescaledb.install
 source=("$pkgname::git+https://github.com/timescale/timescaledb#commit=${_commits[$pkgver]}")
-sha512sums=('bb93dfe99b8f200d13745e7ac58f76a3393b68ff6cef3168b13de81f6000454f16babe83d14d5466bf8369c6de41b9081dc43c4671a622278fc0fc65b75d45b5')
-b2sums=('9243bda4d403e94554f94ba6bc3a5c298dc49b6d0ddc1305edcfcce66d7c4d1ca5ebf59fb1576271c47f9e972007b4cc99e9ae7b9854c25a85b84105d358d8d3')
+sha512sums=('a05f70319b3a7781eee5fc81cccfb74b940bcfe543080e285a44175b10a99de4a4eb24c20a4c8a27609e9a73e950a38dc9e54c19a434d7c1d197cc351618a4f3')
+b2sums=('32205b411d78abc0248fc26b033c112c2936f7d4920222682df6f4f35f2ae6a56dacbc26fc327e29e971741954a824e2343f6a168349289e6df7bc8ff8da5b77')
 
 prepare() {
   mkdir -p build
