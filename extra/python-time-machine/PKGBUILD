@@ -2,7 +2,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=python-time-machine
-pkgver=2.15.0
+pkgver=2.16.0
 pkgrel=1
 pkgdesc='Travel through time in your tests'
 arch=('x86_64')
@@ -25,13 +25,7 @@ checkdepends=(
 )
 optdepends=('python-pytest: for pytest plugin')
 source=("$pkgname::git+$url#tag=$pkgver")
-b2sums=('d40168607b38b9ca53d76849959c14237f7542e6996118f33266fd1f055b71951acc95dd99785f6b7ae989e64fd35254b834e9f441ceb7734f023c68f21f2796')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+b2sums=('800fd97077b62497eac4378d732ff32dfde9b16261237ded7cb55452b4d11acd44ade247a56749e8cd05165ada0c464130f14a18319172d5b8d33d5c52c8cad5')
 
 build() {
   cd "$pkgname"
