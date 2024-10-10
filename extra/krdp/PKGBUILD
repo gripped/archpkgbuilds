@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=krdp
-pkgver=6.1.5
+pkgver=6.2.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Library and examples for creating an RDP server'
@@ -14,6 +14,7 @@ depends=(freerdp2
          kcmutils
          kconfig
          kcoreaddons
+         kcrash
          ki18n
          kirigami
          kpipewire
@@ -28,7 +29,7 @@ makedepends=(extra-cmake-modules
              plasma-wayland-protocols)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('a91de2c8e8b6fe852edeee50b722f2abebc3b38477d7ef935f9e6b7b7ce7c6b7'
+sha256sums=('be59f74c7baae2143bf5b2ff7722a392ed48e35dc42e4fd9b6fb6a81e9df4a9a'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
