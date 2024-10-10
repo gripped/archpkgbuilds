@@ -1,0 +1,48 @@
+# Maintainer: Christian Heusel <gromit@archlinux.org>
+# Contributor: Omar Sandoval <osandov at osandov dot com>
+
+pkgname=drgn
+pkgver=0.0.29
+pkgrel=2
+pkgdesc='Programmable debugger'
+arch=('x86_64')
+url='https://github.com/osandov/drgn'
+license=('LGPL-2.1-or-later')
+depends=(
+    'gcc-libs'
+    'glibc'
+    'libelf'
+    'libkdumpfile'
+    'python'
+    'python-prompt_toolkit'
+    'python-typing_extensions'
+)
+makedepends=(
+    'python-build'
+    'python-installer'
+    'python-setuptools'
+    'python-wheel'
+)
+checkdepends=('check')
+source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz")
+sha256sums=('acbd5b7504a04cde4f61ed1a7e9906ef9d43f623013ad8312a2cd9b74406b7c9')
+
+build() {
+    cd $pkgname-$pkgver
+    python -m build --wheel --no-isolation
+}
+
+check() {
+    cd "$pkgname-$pkgver"
+    # this is not affected by the setup.py test removal:
+    # https://github.com/osandov/drgn/issues/435
+    python setup.py test
+}
+
+package() {
+    cd "$pkgname-$pkgver"
+    python -m installer --destdir="$pkgdir" dist/*.whl
+    install -d "$pkgdir/usr/share/drgn"
+    cp -dR --no-preserve=ownership contrib tools "$pkgdir/usr/share/drgn"
+    find "$pkgdir/usr/share/drgn" -name '*.pyc' -delete
+}
