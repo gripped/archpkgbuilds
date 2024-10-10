@@ -1,14 +1,14 @@
 pkgbase = openrazer
 	pkgdesc = Community-led effort to support Razer peripherals on Linux
-	pkgver = 3.8.0
+	pkgver = 3.9.0
 	pkgrel = 1
 	url = https://openrazer.github.io
 	arch = any
 	license = GPL
 	makedepends = git
 	makedepends = python-setuptools
-	source = git+https://github.com/openrazer/openrazer.git#tag=v3.8.0
-	b2sums = b2f05076242e259a123b54b3ca6b9dc40fb984fd057103d3a62a08ed018082e309da58ab77c01e49dbe66310ea1f8a07c5e7319fa7339eff8442dff6d3931085
+	source = git+https://github.com/openrazer/openrazer.git#tag=v3.9.0
+	b2sums = 8f97ab3a613eecb0e7a729327a291616987e31e83e42cae2fbcd9321b148c183ddaa4d7824445128c90912ab7b2ed8bb703cef996e80f5b193c69872b9ef0290
 
 pkgname = openrazer-daemon
 	pkgdesc = Userspace daemon that abstracts access to the kernel driver. Provides a DBus service for applications to use
@@ -20,7 +20,7 @@ pkgname = openrazer-daemon
 	depends = python-pyudev
 	depends = python-setproctitle
 	depends = xautomation
-	optdepends = python-notify2: for the battery notifier
+	optdepends = libnotify: for the battery notifier
 
 pkgname = openrazer-driver-dkms
 	pkgdesc = OpenRazer kernel modules sources
