@@ -1,45 +1,54 @@
-# Maintainer: David Runge <dave@sleepmap.de>
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
 pkgname=zita-bls1
-pkgver=0.3.3
-pkgrel=4
+pkgver=0.4.0
+pkgrel=1
 pkgdesc="Blumlein Shuffler (binaural stereo signals to convential stereo speaker conversion)"
-arch=('x86_64')
+arch=(x86_64)
 url="https://kokkinizita.linuxaudio.org/linuxaudio"
-license=('GPL2')
-groups=('pro-audio')
-depends=('cairo' 'clthreads' 'clxclient' 'jack' 'zita-convolver')
-makedepends=('gendesk')
-source=("https://kokkinizita.linuxaudio.org/linuxaudio/downloads/${pkgname}-${pkgver}.tar.bz2")
-sha512sums=('a23624e674fb5cbbdfb8bbf01ab9010f79a942d41bb3a9c564bdec5d01e56fba3b548c766bfe257f087929b7b9cd1decdd4b8a3b4d4beddcddb3bce8ac714463')
+license=(
+  GPL-2.0-or-later
+  GPL-3.0-or-later
+)
+groups=(pro-audio)
+depends=(
+  cairo
+  clthreads
+  clxclient
+  fftw
+  gcc-libs
+  glibc
+  jack
+  libpng
+  libx11
+  zita-convolver
+)
+makedepends=(gendesk)
+source=(https://kokkinizita.linuxaudio.org/linuxaudio/downloads/$pkgname-$pkgver.tar.bz2)
+sha512sums=('05c7e29660caf577e4680786289753edd0b3fc94447b5ed53a4f0322e8611dee0ae11cfb72f3c74c901c912d0b40cc319f2611a5e40edd0396af25314864ff80')
+b2sums=('7a4e72e52527a925be98661c694ca97d37e9d69ebb32dc942e2d88875106110fe628f0be27488365cebf45bf7a4a8fd70dc6584f364d5eb849322cebedba8d8a')
 
 prepare() {
-  cd "${pkgname}-${pkgver}"
+  # XDG desktop file
+  gendesk -n \
+          --pkgname $pkgname \
+          --pkgdesc "$pkgdesc" \
+          --name zita-bls1 \
+          --categories "AudioVideo;Audio"
+
+  cd $pkgname-$pkgver
   # strip march=native
   sed -e '/native/d' \
       -i source/Makefile
-  # XDG desktop file
-  gendesk -n \
-          --pkgname ${pkgname} \
-          --pkgdesc "${pkgdesc}" \
-          --name zita-bls1 \
-          --categories "AudioVideo;Audio"
 }
 
 build() {
-  cd "${pkgname}-${pkgver}/source"
-  make PREFIX=/usr
+  make PREFIX=/usr -C $pkgname-$pkgver/source
 }
 
 package() {
-  cd "${pkgname}-${pkgver}/source"
-  make PREFIX=/usr DESTDIR="$pkgdir" install
+  make PREFIX=/usr DESTDIR="$pkgdir" install -C $pkgname-$pkgver/source
 
-  # XDG desktop integration
-  install -vDm 644 "../${pkgname}.desktop" \
-    -t "${pkgdir}/usr/share/applications/"
-
-  # docs
-  install -t "${pkgdir}/usr/share/doc/${pkgname}" \
-    -vDm 644 ../doc/html/* \
-    -vDm 644 ../{AUTHORS,README}
+  install -vDm 644 $pkgname.desktop -t "$pkgdir/usr/share/applications/"
+  install -vDm 644 $pkgname-$pkgver/doc/html/* $pkgname-$pkgver/{AUTHORS,README} -t "$pkgdir/usr/share/doc/$pkgname/"
 }
