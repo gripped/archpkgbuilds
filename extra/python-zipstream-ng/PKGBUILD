@@ -3,8 +3,8 @@
 
 _pkgname=zipstream-ng
 pkgname=python-$_pkgname
-pkgver=1.7.1
-pkgrel=3
+pkgver=1.8.0
+pkgrel=1
 pkgdesc='A modern and easy to use streamable zip file generator'
 arch=(any)
 url="https://github.com/pR0Ps/$_pkgname"
@@ -16,7 +16,7 @@ makedepends=(python-{build,installer,wheel}
              python-setuptools)
 _archive="$_pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('7fbf1cf482108a0a6c89879382425aaf6a007e8948352f155c4ca7c6e268bffa')
+sha256sums=('7d18e9c4f6daf7c5d4c9981972fcccc4de4e1bd34ab5f782ec649b805beaee10')
 
 build() {
 	cd "$_archive"
