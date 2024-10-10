@@ -4,7 +4,7 @@
 # Contributor: Alexey D. <lq07829icatm at rambler.ru>
 
 pkgname=plasma-workspace
-pkgver=6.1.5
+pkgver=6.2.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE Plasma Workspace'
@@ -13,13 +13,12 @@ url='https://kde.org/plasma-desktop/'
 license=(LGPL-2.0-or-later)
 depends=(accountsservice
          appstream-qt
+         dbus
          fontconfig
          freetype2
          gcc-libs
          glibc
          icu
-         plasma-activities
-         plasma-activities-stats
          kactivitymanagerd
          karchive
          kauth
@@ -63,6 +62,7 @@ depends=(accountsservice
          ksystemstats
          ktexteditor
          ktextwidgets
+         kunitconversion
          kuserfeedback
          kwallet
          kwayland
@@ -89,12 +89,14 @@ depends=(accountsservice
          milou
          ocean-sound-theme
          phonon-qt6
+         plasma-activities
+         plasma-activities-stats
          plasma5support
          prison
-         qcoro-qt6
          qt6-5compat
          qt6-base
          qt6-declarative
+         qt6-positioning
          qt6-svg
          qt6-tools # for qdbus
          qt6-virtualkeyboard
@@ -116,7 +118,8 @@ makedepends=(baloo
              kdoctools
              kunitconversion
              networkmanager-qt
-             plasma-wayland-protocols)
+             plasma-wayland-protocols
+             qcoro)
 optdepends=('appmenu-gtk-module: global menu support for GTK2 and some GTK3 applications'
             'baloo: Baloo search runner'
             'discover: manage applications installation from the launcher'
@@ -131,7 +134,7 @@ conflicts=(plasma-wayland-session)
 replaces=(plasma-wayland-session)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('c29e15a3ed42446f997b7e1695864f85ebff084e2ece581c914a0d8a8e265ae7'
+sha256sums=('2d4268cbae757631be57d69d34fc02c8d0204762515370c9679ecb2aa2afdf33'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
