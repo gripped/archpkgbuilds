@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma5support
-pkgver=6.1.5
+pkgver=6.2.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Support components for porting from KF5/Qt5 to KF6/Qt6'
@@ -13,6 +13,9 @@ depends=(gcc-libs
          kconfig
          kcoreaddons
          ki18n
+         kio
+         kjobwidgets
+         kservice
          qt6-base
          qt6-declarative
          solid
@@ -25,7 +28,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('0563585222c5333e2279efda829c36a139741c9e0cf3ad36e3e8096840c017d1'
+sha256sums=('46eb4f5d94077c46c24b494bbae2e5749b5b5f7cc1db6ef2923b8112ae6ae58d'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
