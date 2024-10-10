@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org> 
 
 pkgname=discover
-pkgver=6.1.5
+pkgver=6.2.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE and Plasma resources management GUI'
@@ -35,7 +35,7 @@ depends=(appstream-qt
          kwidgetsaddons
          kwindowsystem
          purpose
-         qcoro-qt6
+         qcoro
          qt6-base
          qt6-declarative
          qt6-webview)
@@ -48,7 +48,7 @@ optdepends=('flatpak: Flatpak packages support'
             'packagekit-qt6: to manage packages from Arch Linux repositories (not recommended, use at your own risk)')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('6e2cf59fac2cb792420ed6df653f80307d6e33d6e6ae9c1af2827a93bae3cb8d'
+sha256sums=('40ffcab43962034ed4c8848baa4e354f48ff3dd8b94d329dc3deec38606495ff'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
