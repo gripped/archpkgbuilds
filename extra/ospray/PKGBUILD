@@ -1,8 +1,8 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=ospray
-pkgver=3.1.0
-pkgrel=3
+pkgver=3.2.0
+pkgrel=1
 pkgdesc="Ray Tracing Based Rendering Engine for High-Fidelity Visualization"
 arch=(x86_64)
 url="https://www.ospray.org/"
@@ -30,7 +30,11 @@ makedepends=(
 optdepends=('benchmark: benchmarks'
             'gtest: tests suite')
 source=(https://github.com/ospray/OSPRay/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('0b9d7df900fe0474b12e5a2641bb9c3f5a1561217b2789834ebf994a15288a82')
+sha256sums=('2c8108df2950bc5d1bc2a62f74629233dbe4f36e3f6a8ea032907d4a3fdc6750')
+
+prepare() {
+  sed -i "s/EXACT REQUIRED/REQUIRED/g" $pkgname-$pkgver/cmake/ospray_options.cmake
+}
 
 build() {
   local cmake_options=(
