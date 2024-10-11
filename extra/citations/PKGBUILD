@@ -1,0 +1,55 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=citations
+pkgver=0.7.0
+pkgrel=2
+pkgdesc='Manage your bibliographies using the BibTeX format'
+arch=(x86_64)
+url='https://apps.gnome.org/Citations/'
+license=(GPL-3.0-or-later)
+depends=(
+  cairo
+  dconf
+  gcc-libs
+  glib2
+  glibc
+  gtk4
+  gtksourceview5
+  hicolor-icon-theme
+  libadwaita
+  openssl
+  poppler-glib
+)
+makedepends=(
+  appstream
+  git
+  meson
+  rust
+)
+source=("git+https://gitlab.gnome.org/World/citations.git#tag=$pkgver")
+b2sums=(56193dafac5f16fcf4af382f55bbbf29ffb3b05db175f4c20833dcebae93408a6d2b58fd9214c234ec470b5a4364298d56ada1f912a2560231e5115fa8a83daa)
+
+prepare() {
+  cd $pkgname
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  arch-meson $pkgname build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+}
