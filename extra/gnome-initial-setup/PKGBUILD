@@ -2,7 +2,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=gnome-initial-setup
-pkgver=47.0
+pkgver=47.1
 pkgrel=1
 pkgdesc='Helps you to set up your OS when you boot for the first time'
 url='https://gitlab.gnome.org/GNOME/gnome-initial-setup'
@@ -45,7 +45,7 @@ makedepends=(
   meson
 )
 source=("git+https://gitlab.gnome.org/GNOME/gnome-initial-setup.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('4922d2da72d911f22ea06e58510d64da18f90c6c0dd05561dfd2685f591f4af77f9ab70cacb103549e834c0f9d295dac3c39a7fd91764758f8ae46aaa3633aab')
+b2sums=('a01079f43d35a6e44e3a50d52ba683bf756fc9cce0bb50cc1009d2c4396870fa483081e8d6a13c12018664dcaf040dea7174244d99254b3392399153359e691d')
 validpgpkeys=(1E68E58CF255888301645B563422DC0D7AD482A7) # Will Thompson <will@willthompson.co.uk>
 
 prepare() {
