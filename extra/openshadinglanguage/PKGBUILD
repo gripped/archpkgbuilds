@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=openshadinglanguage
 pkgver=1.13.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Advanced shading language for production GI renderers"
 arch=('x86_64')
 url="https://github.com/imageworks/OpenShadingLanguage"
@@ -33,6 +33,9 @@ package() {
 
   # Fixup an upstream fucky (See #1)
   rm "$pkgdir"/usr/build-scripts/serialize-bc.py
+  rmdir "$pkgdir"/usr/build-scripts
+  rm "$pkgdir"/usr/cmake/llvm_macros.cmake
+  rmdir "$pkgdir"/usr/cmake
 
   install -Dm644 LICENSE.md "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.md
 }
