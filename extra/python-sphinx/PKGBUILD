@@ -6,7 +6,7 @@
 
 pkgname=python-sphinx
 _name=${pkgname#python-}
-pkgver=8.0.2
+pkgver=8.1.0
 pkgrel=1
 pkgdesc='Python documentation generator'
 arch=(any)
@@ -37,6 +37,7 @@ checkdepends=(
   python-defusedxml
   python-pytest
   python-setuptools
+  python-typing_extensions
   texlive-{fontsextra,fontsrecommended,latexextra,luatex,xetex}
 )
 optdepends=(
@@ -45,7 +46,7 @@ optdepends=(
   'texlive-latexextra: for generation of PDF documentation'
 )
 source=("git+https://github.com/$_name-doc/$_name.git#tag=v$pkgver")
-b2sums=('a6ac5e7ec9fc892c60f22cc023a9d713e1f73668c582ac483d8abb2008fc752c133eba27fc631b20466eddffe41be11b5a826511e83eb79bcc621dc95d61af04')
+b2sums=('f3174d521f6a78f8775ca7ba0529d390f44aa9157d4614985b8b1ee6e82b90063a34295c950449dfcf831c57cee68eca575ecc0e84f6c57a0d70b1db9da03f09')
 
 build() {
   cd "$_name"
@@ -62,13 +63,12 @@ check() {
 }
 
 package() {
-  cd "$_name"
-  python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dt "$pkgdir"/usr/share/man/man1 doc/_build/man/"$_name"-*.1
-
-  # Symlink license file
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
   ln -s "$site_packages"/"$_name"-$pkgver.dist-info/LICENSE.rst \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.rst
+
+  cd "$_name"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dt "$pkgdir"/usr/share/man/man1 doc/_build/man/"$_name"-*.1
 }
