@@ -3,7 +3,7 @@
 _name=ucx
 pkgname=openucx
 pkgver=1.17.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Communication framework for data-centric and high-performance applications"
 arch=(x86_64)
 url="http://www.openucx.org"
@@ -37,6 +37,7 @@ sha256sums=('36db6b00b0939d746e86f9e0d32dc445faaa109e46dc643fb5ad779492abfaef')
 build() {
   local configure_options=(
     --prefix=/usr
+    --sysconfdir=/etc
     --with-cuda=/opt/cuda
     --with-rocm=/opt/rocm
     --with-verbs
