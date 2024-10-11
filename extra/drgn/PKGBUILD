@@ -3,7 +3,7 @@
 
 pkgname=drgn
 pkgver=0.0.29
-pkgrel=2
+pkgrel=3
 pkgdesc='Programmable debugger'
 arch=('x86_64')
 url='https://github.com/osandov/drgn'
@@ -14,14 +14,15 @@ depends=(
     'libelf'
     'libkdumpfile'
     'python'
-    'python-prompt_toolkit'
-    'python-typing_extensions'
 )
 makedepends=(
     'python-build'
     'python-installer'
     'python-setuptools'
     'python-wheel'
+)
+optdepends=(
+    'python-prompt_toolkit: enhanced terminal support in contrib/ptdrgn.py'
 )
 checkdepends=('check')
 source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz")
