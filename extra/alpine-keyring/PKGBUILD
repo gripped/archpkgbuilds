@@ -1,10 +1,11 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 # Contributor: Natanael Copa <ncopa@alpinelinux.org>
 
 pkgname=alpine-keyring
-_commit="aab68f8c9ab434a46710de8e12fb3206e2930a59"
-pkgver=2.4
-pkgrel=2
+_commit="6d473fb38effb2389f567b29fb7eb27039b3a279"
+pkgver=2.5
+pkgrel=1
 pkgdesc="Public keys for Alpine Linux packages"
 url="https://git.alpinelinux.org/aports/tree/main/alpine-keys"
 arch=('any')
@@ -33,6 +34,8 @@ _keys=(
 
 	riscv64:alpine-devel@lists.alpinelinux.org-60ac2099.rsa.pub
 	riscv64:alpine-devel@lists.alpinelinux.org-616db30d.rsa.pub
+
+	loongarch64:alpine-devel@lists.alpinelinux.org-66ba20fe.rsa.pub
 )
 
 source=()
@@ -57,7 +60,8 @@ sha256sums=('73867d92083f2f8ab899a26ccda7ef63dfaa0032a938620eda605558958a8041'
             '0caf5662fde45616d88cfd7021b7bda269a2fcaf311e51c48945a967a609ec0b'
             '59c01c57b446633249f67c04b115dd6787f4378f183dff2bbf65406df93f176d'
             'db0b49163f07ffba64a5ca198bcf1688610b0bd1f0d8d5afeaf78559d73f2278'
-            '40a216cbd163f22e5f16a9e0929de7cde221b9cbae8e36aa368b1e128afe0a31')
+            '40a216cbd163f22e5f16a9e0929de7cde221b9cbae8e36aa368b1e128afe0a31'
+            '7cf4cb8314e6ccc985b0d7f1aa0c6e0a81e3588f69a41f383af7a63d1ba61793')
 b2sums=('b155ce2a9922f12939fdd2726e80b1d8a45ad331f4e367cc34201ce8e94fb1ab34bd56d39a19ba5bd38c0c7fecf16b5380d6764f2271f435e8d712e6ad321997'
         '977478ac11d402e4752ca1c4e7d1fd3284916dcb21282b008f4bbda9afb894594d64a09e62435d266268f160d4c875ac1c5f68f764ea67a91c3f141012f6664a'
         '88f4500710e7cc0a885dc4e69a07b604ca819a18c2a902ef8172ea375550819cecc95a66ef38a6c5e053039ca4c85c97b9831fdc062a542a8c195cda58fcbfdd'
@@ -74,7 +78,8 @@ b2sums=('b155ce2a9922f12939fdd2726e80b1d8a45ad331f4e367cc34201ce8e94fb1ab34bd56d
         '2447ec6ded34aceb6ee40000b900c27dc07dbcd99a45c1b06fc882abf8fb2b8373b4f2fa8f0550621c1874efedff4b0b026b0386b374830081235dd19b0bab50'
         '11e5e246e94b74729412fb6e01eea4fb7af52017708e5b8e7625d95de2a0673bca61039d6672f1dfbc460bf3e52a77c2ec4461e5ebe4fb5935e502b136f1e3c0'
         'ce7ec227adf80a5bf1f267095d6a92aab7f2757b087d38f47ecc43ac8727d19c5212f86502fff9ff3b263a137296ffc6d756ef799c55e5d0e0141594d1500029'
-        'a111bce314a18f284a09b879be1ee683d508888419000d59e404e1f73f49629df8d3a7a08bd05fc0a999ed07780c9954c09deba11b558c52a452c1c8bfc8b629')
+        'a111bce314a18f284a09b879be1ee683d508888419000d59e404e1f73f49629df8d3a7a08bd05fc0a999ed07780c9954c09deba11b558c52a452c1c8bfc8b629'
+        '34414834714da7a7d0047076aec3afbbd559b378b0751fafb7cff199a3de259dcc25a9dde84095c2993bb33b1c156b2775bef48c60142d6fae18a9f20534972a')
 
 package() {
   for i in "${_keys[@]}"; do
