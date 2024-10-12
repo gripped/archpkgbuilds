@@ -1,0 +1,42 @@
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: Dominic Meiser [git at msrd0 dot de]
+# Contributor: Clar Fon <them@lightdark.xyz>
+
+pkgname=abuild
+pkgver=3.13.0
+pkgrel=1
+pkgdesc="Alpine build tools"
+url="https://git.alpinelinux.org/abuild"
+arch=("x86_64")
+license=("GPL-2.0-or-later")
+depends=("busybox" "glibc" "pax-utils" "openssl" "apk-tools" "attr" "tar" "pkgconf" "lzip" "curl" "bubblewrap" "gettext" "git")
+makedepends=("zlib" "scdoc")
+optdepends=("perl: for cpan resolver"
+            "perl-libwww: for cpan resolver"
+            "perl-json: for cpan resolver"
+            "perl-module-build-tiny: for cpan resolver"
+            "perl-lwp-protocol-https: for cpan resolver"
+            "ruby: for gem resolver"
+            "ruby-augeas: for gem resolver")
+source=("https://gitlab.alpinelinux.org/alpine/abuild/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+        "${pkgname}.tmpfiles")
+sha512sums=('9aa46693984bd65a1a940d4547239e0a10170e82f186ab231b0d3a26b09a75cf258fae0e16f936e79cf52353dce9fc8a18881e84042b7961f390aba3f34d88da'
+            '1f96156f2a83dac4e77dc7606652eec4f0be37532378e1f3aa591ad971db6a5e4179ce284e11b954e1ef9fd1c991dc75d9c79b4e3bea4ab2f7366fae7b17d773')
+
+build() {
+	cd "${pkgname}-${pkgver}"
+	make VERSION="${pkgver}"
+}
+
+package() {
+	cd "${pkgname}-${pkgver}"
+	make install VERSION="${pkgver}" DESTDIR="${pkgdir}"
+
+	for bin in "${pkgdir}"/usr/bin/*; do
+		sed -E -i "${bin}" \
+			-e '1s|#!/bin/ash$|#!/bin/busybox ash|' \
+			-e '1s|#!/bin/ash\s+(.*)$|#!/bin/busybox ash\nset \1|'
+	done
+
+	install -Dm 644 abuild.conf "${pkgdir}/etc/abuild.conf"
+}
