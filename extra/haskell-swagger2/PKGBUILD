@@ -3,8 +3,8 @@
 
 _hkgname=swagger2
 pkgname=haskell-swagger2
-pkgver=2.8.8
-pkgrel=17
+pkgver=2.8.9
+pkgrel=1
 pkgdesc="Swagger 2.0 data model"
 url="https://github.com/GetShopTV/swagger2"
 license=("BSD")
@@ -18,7 +18,7 @@ makedepends=('ghc' 'haskell-hspec' 'haskell-hunit' 'haskell-quickcheck-instances
              'haskell-hspec-discover' 'haskell-doctest' 'haskell-cabal-doctest' 'haskell-glob'
              'haskell-utf8-string')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('606486d3c43e15e3d32f6a104c8b046d36a26563b2fa33233de0f86000b79cab83848898d293a6feda81e8ddbb7b9169bb358ce09f1643261bdbd7708c70d515')
+sha512sums=('5b70ef4b8ba37f1add9fe8d56ce14c45dd1e8161a3b9b86c6e97c5b1d6212a80de8ad680a6fe4521faf0119d1cb15496b7eb64a67ca1dfce1d462909df6bc832')
 
 build() {
     cd $_hkgname-$pkgver
