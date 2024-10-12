@@ -2,7 +2,7 @@
 # Contributor: pallxk <aur@pallxk.com>
 # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux
 pkgname=azure-cli
-pkgver=2.64.0
+pkgver=2.65.0
 pkgrel=1
 pkgdesc="Command-line tools for Microsoft Azure"
 arch=('any')
@@ -10,19 +10,11 @@ url="https://github.com/Azure/azure-cli"
 license=('MIT')
 depends=("python")
 makedepends=("git")
-options=("!debug")
+options=('!debug' '!strip')
 source=("git+https://github.com/Azure/azure-cli.git#tag=azure-cli-${pkgver}"
-        "${pkgname}-27196.patch::https://github.com/Azure/azure-cli/compare/azure-cli-${pkgver}...4801ee240ce11b9b37c80a600302a9164db5bbca.diff"
         "az")
-sha256sums=('2e0cb7a40b680afeb58a5ae4fef5472724bde185a226cee12932d877b91b3807'
-            '55f3e047db43e822e8819d082c284b5280a2fa32a28f3fcf074bbdcf3667a37a'
+sha256sums=('d19e3b921efb076af4f29e6b4998579405f8b32651465f9417952ba584e7a1ca'
             '990f70efec828c1e1f3f57748fc6e40f9705f2223dc96683e8e29d118daac116')
-options=('!strip')
-
-prepare() {
-  cd azure-cli
-  patch -Np1 -i "${srcdir}"/${pkgname}-27196.patch
-}
 
 package() {
   cd azure-cli
