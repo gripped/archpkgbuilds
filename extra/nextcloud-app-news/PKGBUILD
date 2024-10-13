@@ -3,7 +3,7 @@
 
 pkgname=nextcloud-app-news
 _name=news
-pkgver=25.0.0.alpha7
+pkgver=25.0.0.alpha9
 pkgrel=1
 pkgdesc="An RSS/Atom feed aggregator"
 arch=(any)
@@ -11,8 +11,8 @@ url="https://github.com/nextcloud/news"
 license=(AGPL-3.0-or-later)
 makedepends=(nextcloud yq)
 source=($pkgname-${pkgver/.a/-a}.tar.gz::$url/releases/download/${pkgver/.a/-a}/$_name.tar.gz)
-sha512sums=('735b7df32f472a64af4697e7517e555664b8642b0c0abac2c2b42f28394bfca85af65198f6b7ce38e2586abec587666e38f7d136228596923d0d2f62c3a817ed')
-b2sums=('b2546fa769333ebc7bcf4a694b7799e60bc40a0de4e75122b4a93f75c9a6866fddb2d6e8cdc4579699f0b295de0564a29fe989c404f335dfe73028d71c46854f')
+sha512sums=('05d4e2163bf69f7f1027f5f8b97fd3945ec27beb555c7d8fd46746ea9e37c887321b3dc07dc660790e856d42eff195ce3fcbec83e6a315a03048be0ba8087b7a')
+b2sums=('53bcfa8ad380efc16acc296ab2567fad35fb9cc789ed4367370241948fdc0e2323a6e654ede1ddc4f5f32e7b7cfe66e554434f078dda646255dd1bd5989694b4')
 
 # BEGIN boilerplate nextcloud app version clamping, see also other packages in group
 # 1. Call respective function helpers in check() and package() *after* cd'ing to the source directory
