@@ -3,20 +3,20 @@
 
 pkgname=evcxr_repl
 _pkgname=evcxr
-pkgver=0.17.0
+pkgver=0.18.0
 pkgrel=1
 pkgdesc="A Rust REPL based on evcxr"
 arch=('x86_64')
 url="https://github.com/evcxr/evcxr"
-license=('Apache')
+license=('Apache-2.0')
 depends=('gcc-libs' 'rust-src')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('372cee9626d547409d8482116a04a5d59db84ad2faf59468f55e141d21785cd5')
+sha256sums=('80287d888e8976ffb72a06469d4c1167154caed795ac0897ec5c1e6f1eabbab6')
 options=('!lto')
 
 prepare() {
   cd "$_pkgname-$pkgver"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
