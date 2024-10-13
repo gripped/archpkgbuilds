@@ -2,7 +2,7 @@
 
 pkgname=stern
 pkgdesc="Multi pod and container log tailing for Kubernetes"
-pkgver=1.30.0
+pkgver=1.31.0
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/stern/stern"
@@ -12,8 +12,8 @@ makedepends=('go')
 optdepends=('bash-completion: for bash completion support')
 options=(!lto)
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}/${pkgver}.tar.gz")
-sha512sums=('721165405e4d87c8b9354e2208895f7f408c43adffc2397f27a1046dabaf5cb2162363ceb3a914802911d7c4c0393bd247bc5a46eff691f6b5044b8fb2e5f823')
-b2sums=('5c81019734188a2b390955a7e0337749525fbdf5d66c1b61350b182891f0a16f7cd9edb4e2db68846c0fe63dc3aab70c9f86decdefe6c3b71420ff9954d5b136')
+sha512sums=('6bcd1799b32482b7f45ffa389d42e31c509f8b3a307e26d435c037b2418ebb0f478abd4819e05dcf7a9dad8e5b07753f28f074f6e581fd16deda0a5d4978be49')
+b2sums=('62a41b01eeef41ce2737a06e5c1cdbe2ccc91f4bc21cc5a2215fc1041af75dc941afb593b9fd3383d9109485afa467cc18d303004a9e22abec3b7ef0ffd97b71')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
