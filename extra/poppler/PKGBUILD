@@ -4,7 +4,7 @@
 pkgbase=poppler
 pkgname=('poppler' 'poppler-glib' 'poppler-qt5' 'poppler-qt6')
 pkgver=24.09.0
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 license=('GPL-2.0-only'
          'GPL-3.0-or-later'
@@ -43,7 +43,7 @@ check() {
 
 package_poppler() {
   pkgdesc="PDF rendering library based on xpdf 3.0"
-  depends=('libjpeg' 'gcc-libs' 'cairo' 'fontconfig' 
+  depends=('libjpeg-turbo' 'gcc-libs' 'cairo' 'fontconfig'
            'openjpeg2' 'lcms2' 'nss' 'curl' 'gpgme'
            'nspr' 'libpng' 'freetype2' 'zlib' 'libtiff' 'glibc')
   optdepends=('poppler-data: highly recommended encoding data to display PDF documents with certain encodings and characters')
