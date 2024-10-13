@@ -2,8 +2,8 @@
 
 pkgname=python-elastic-transport
 _pkgname=elastic-transport-python
-pkgver=8.15.0
-pkgrel=2
+pkgver=8.15.1
+pkgrel=1
 pkgdesc="Transport classes and utilities shared among Python Elastic client libraries"
 arch=(any)
 url="https://github.com/elastic/elastic-transport-python"
@@ -32,7 +32,7 @@ checkdepends=(
   python-trustme
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('55ae88fe51aa9698b71dcfa9d00ca2653d7b0c3f6e2bb160a8db0738499cf676')
+sha256sums=('9bc0aa1b94cc0761efeceac5f0ba1d7dd19bf8b5571d863ca49c6b2f212db75c')
 
 build() {
   cd $_pkgname-$pkgver
