@@ -1,7 +1,7 @@
 pkgbase = intel-oneapi-tcm
 	pkgdesc = Thread Composability Manager
 	pkgver = 1.0.1
-	pkgrel = 1
+	pkgrel = 3
 	url = https://www.intel.com/content/www/us/en/developer/tools/oneapi/overview.html
 	arch = x86_64
 	license = LicenseRef-Intel-Simplified
@@ -9,6 +9,7 @@ pkgbase = intel-oneapi-tcm
 	depends = glibc
 	depends = gcc-libs
 	depends = hwloc
+	conflicts = intel-oneapi-basekit
 	noextract = intel-oneapi-tcm-1.0-1.0.1-175_amd64.deb
 	source = https://apt.repos.intel.com/oneapi/pool/main/intel-oneapi-tcm-1.0-1.0.1-175_amd64.deb
 	b2sums = 5e8429c7e4635509cd438a4c54da7eeb838be9da12c25c4aab487583787cc55ea546b60b513138fc9882fc631ec8af8933d3740cf5e429ea0ddb4f590fb69542
