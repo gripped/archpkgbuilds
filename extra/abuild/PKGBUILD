@@ -4,7 +4,7 @@
 
 pkgname=abuild
 pkgver=3.13.0
-pkgrel=1
+pkgrel=4
 pkgdesc="Alpine build tools"
 url="https://git.alpinelinux.org/abuild"
 arch=("x86_64")
@@ -18,10 +18,11 @@ optdepends=("perl: for cpan resolver"
             "perl-lwp-protocol-https: for cpan resolver"
             "ruby: for gem resolver"
             "ruby-augeas: for gem resolver")
-source=("https://gitlab.alpinelinux.org/alpine/abuild/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+backup=("etc/${pkgname}.conf")
+source=("https://gitlab.alpinelinux.org/alpine/${pkgname}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "${pkgname}.tmpfiles")
 sha512sums=('9aa46693984bd65a1a940d4547239e0a10170e82f186ab231b0d3a26b09a75cf258fae0e16f936e79cf52353dce9fc8a18881e84042b7961f390aba3f34d88da'
-            '1f96156f2a83dac4e77dc7606652eec4f0be37532378e1f3aa591ad971db6a5e4179ce284e11b954e1ef9fd1c991dc75d9c79b4e3bea4ab2f7366fae7b17d773')
+            '3fc94f88e572a46005eabbca97b3950a56c1026b320c2c8b137e1757cda9f97cc7fa35832574ccbd872efe5a39d6725e685d1fda6af4175e4594951cc89e3cb8')
 
 build() {
 	cd "${pkgname}-${pkgver}"
@@ -38,5 +39,6 @@ package() {
 			-e '1s|#!/bin/ash\s+(.*)$|#!/bin/busybox ash\nset \1|'
 	done
 
-	install -Dm 644 abuild.conf "${pkgdir}/etc/abuild.conf"
+	install -Dm 644 "${pkgname}.conf" "${pkgdir}/etc/${pkgname}.conf"
+	install -Dm 644 "../${pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
 }
