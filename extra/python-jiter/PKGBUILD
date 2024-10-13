@@ -1,9 +1,10 @@
+# Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-jiter
 _pkgname=${pkgname#python-}
-pkgver=0.5.0
-pkgrel=2
+pkgver=0.6.1
+pkgrel=1
 pkgdesc="Fast iterable JSON parser"
 arch=(x86_64)
 url="https://github.com/pydantic/jiter"
@@ -24,31 +25,23 @@ checkdepends=(
   python-pytest
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('5b831a82deb4fec481eb90fcd0ebb5bb61181a9687db1efcb73ab627ac0c37c6')
-
-_archive="$_pkgname-$pkgver"
+sha256sums=('2da46d7a55c546c11837ffc6116c0ce5248f2b7cfec52704e499a9725e518fd8')
 
 build() {
-  cd "$_archive/crates/jiter-python"
-
+  cd "$_pkgname-$pkgver/crates/jiter-python"
   export RUSTUP_TOOLCHAIN=stable
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_archive/crates/jiter-python"
-
-  rm -rf tmp_install
+  cd "$_pkgname-$pkgver/crates/jiter-python"
   python -m installer --destdir=tmp_install dist/*.whl
-
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  export PYTHONPATH="$PWD/tmp_install/$site_packages"
-  pytest
+  PYTHONPATH="$PWD/tmp_install/$site_packages" pytest
 }
 
 package() {
-  cd "$_archive"
-
+  cd "$_pkgname-$pkgver"
   python -m installer --destdir="$pkgdir" crates/jiter-python/dist/*.whl
-  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
