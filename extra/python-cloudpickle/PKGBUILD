@@ -4,8 +4,8 @@
 
 _pkg=cloudpickle
 pkgname=python-${_pkg}
-pkgver=2.2.1
-pkgrel=3
+pkgver=3.1.0
+pkgrel=1
 pkgdesc="Extended pickling support for Python objects"
 arch=(any)
 url="https://github.com/cloudpipe/cloudpickle"
@@ -14,7 +14,7 @@ depends=(python)
 makedepends=(
     python-build
     python-installer
-    python-setuptools
+    python-flit
     python-wheel
 )
 checkdepends=(
@@ -25,7 +25,7 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-sha256sums=('d89684b8de9e34a2a43b3460fbca07d09d6e25ce858df4d5a44240403b6178f5')
+sha256sums=('81a929b6e3c7335c863c771d673d105f02efdb89dfaba0c90495d1c64796601b')
 
 build() {
   cd ${_pkg}-${pkgver}
@@ -34,22 +34,7 @@ build() {
 
 check() {
   cd ${_pkg}-${pkgver}
-  cd tests/cloudpickle_testpkg
-  python setup.py build
-  cd ../../
-  # file_handles: https://github.com/cloudpipe/cloudpickle/issues/252
-  # builtin_classmethod: https://github.com/cloudpipe/cloudpickle/pull/486
-  # pytest_module: https://github.com/cloudpipe/cloudpickle/issues/487
-  PYTHONPATH="${PWD}"/tests/cloudpickle_testpkg/build/lib/ \
-  pytest -vl --color=yes -m 'not avoid_ci' \
-    --deselect tests/cloudpickle_test.py::CloudPickleTest::test_builtin_classmethod \
-    --deselect tests/cloudpickle_test.py::CloudPickleTest::test_dynamic_pytest_module \
-    --deselect tests/cloudpickle_test.py::Protocol2CloudPickleTest::test_builtin_classmethod \
-    --deselect tests/cloudpickle_test.py::Protocol2CloudPickleTest::test_dynamic_pytest_module \
-    --deselect tests/cloudpickle_file_test.py::CloudPickleFileTests::test_pickling_special_file_handles \
-    --deselect tests/cloudpickle_test.py::CloudPickleTest::test_pickling_file_handles \
-    --deselect tests/cloudpickle_test.py::Protocol2CloudPickleTest::test_pickling_file_handles
-
+  PYTHONPATH=. pytest .
 }
 
 package() {
