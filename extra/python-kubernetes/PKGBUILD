@@ -3,8 +3,8 @@
 
 pkgname=python-kubernetes
 _pkgbase="${pkgname#python-}"
-pkgver=28.1.0
-pkgrel=3
+pkgver=29.0.0
+pkgrel=1
 license=('Apache')
 pkgdesc='Python client for the kubernetes API'
 arch=('any')
@@ -17,7 +17,7 @@ makedepends=('python-setuptools')
 checkdepends=('python-pytest' 'python-pluggy' 'python-py' 'python-isort')
 source=("${_pkgbase}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
 	"removed-unittest-alias.patch")
-sha256sums=('eb03b3b3c586f90323a9aa8ec04bf6691b57abc56af7156030b7bf612c80af17'
+sha256sums=('b532d65763cab592783287bc9bf8007a09aa54345706e5b8cd377825cbd30b16'
             '8fac6ead5125dd8c6644d5bc1696c9581b1a5aeb467254487acf9b8e1146ecd6')
 
 prepare() {
