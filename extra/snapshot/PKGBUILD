@@ -1,8 +1,8 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=snapshot
-pkgver=47.0.1
-pkgrel=2
+pkgver=47.1
+pkgrel=1
 pkgdesc="Take pictures and videos"
 arch=(x86_64)
 url="https://apps.gnome.org/Snapshot"
@@ -35,10 +35,8 @@ makedepends=(
 )
 source=(
   "git+https://gitlab.gnome.org/GNOME/snapshot.git#tag=${pkgver/[a-z]/.&}"
-  0001-aperture-Only-get-devices-from-the-pipewiredevicepro.patch
 )
-b2sums=('71b67638307ce5fc82566fe151218bf65fffba281de3dd4f7901410767ddb7b852c5da4a58729cb45aa7b35e3ca411fb34c42ef49faeb2aa4b13d91fa2446215'
-        'af19eeb7f988af65ac378087986d1eb50334f5bddd7619ad8780e5b8f2b8d431e5ec2108255405baf9fca8495f33e6cdda69c245e1a6b15cee1081f02f4ddeea')
+b2sums=('59d14993723a3926ac316601c60cbb48a4909d8aa96aef55ce9093c04f2f8a6d6c8c8640570219a9fdcf728bf6f4acdc9e8caac73bb142863289f9ac2eb0c083')
 validpgpkeys=(
   3475CBA8D3483594C889B470D64A8D747F6FE706 # Maximiliano Sandoval <msandova@gnome.org>
   D25626D42D675B9C5EAF57DF7F3B4AADE28427AE # Jamie Murphy <hello@itsjamie.dev>
@@ -47,11 +45,9 @@ validpgpkeys=(
 prepare() {
   cd snapshot
 
-  # Don't crash trying to use a v4l2src
-  git apply -3 ../0001-aperture-Only-get-devices-from-the-pipewiredevicepro.patch
-
-  export CARGO_HOME="$srcdir/build/cargo-home"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  # Match CARGO_HOME in src/meson.build
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
