@@ -1,10 +1,11 @@
-# Maintainer: Campbell Jones <arch at serebit dot com>
+# Maintainer: Campbell Jones <serebit at archlinux dot org>
 # Contributor: Sandy Carter <bwrsandman at gmail dot com>
 # Contributor: Hans-Kristian Arntzen <post at arntzen-software dot no>
 # Contributor: Joshua Ashton <joshua at froggi dot es>
+# Contributor: Hans-Kristian Arntzen <post at arntzen-software dot no>
 
 pkgname=renderdoc
-pkgver=1.34
+pkgver=1.35
 pkgrel=1
 pkgdesc="OpenGL and Vulkan debugging tool"
 arch=(x86_64)
@@ -17,7 +18,7 @@ source=("$pkgname-v${pkgver}.tar.gz::https://github.com/baldurk/$pkgname/archive
         "$pkgname-v${pkgver}.tar.gz.asc::https://github.com/baldurk/$pkgname/releases/download/v${pkgver}/v${pkgver}.tar.gz.asc"
         "https://github.com/baldurk/swig/archive/${pkgname}-modified-7.zip")
 validpgpkeys=('1B039DB9A4718A2D699DE031AC612C3120C34695')
-b2sums=('7c613f9a399531202be8e3d2d87be94bee2408474277b4628b2b3315c8604afc7391ab4fec4f72149c13b4a69e9473691b93f13c1196232de61ac2707ed396da'
+b2sums=('0ce0551482c225c5abd117073f3a783177fffe7261680e43105baca58fed013e530d43c263a7893bbb27a9e0962b1b05d2bace55df743a5633c8e5fbc74c4b42'
         'SKIP'
         '136b0b48d5bddb2dfe6fffd54220a5b62bb9a725b800f1f7846d03469f0c859d0585a61118f64b2def81ad94ff650bdf82d1db7aeb7608a190792ce8033597dc')
 
@@ -33,6 +34,7 @@ build() {
         -DVULKAN_LAYER_FOLDER="/etc/vulkan/implicit_layer.d" \
         -B"${pkgname}-$pkgver"/build \
         -H"${pkgname}-$pkgver"
+
     cmake --build "${pkgname}-$pkgver"/build
 }
 
