@@ -11,8 +11,8 @@ pkgname=(
   protonmail-bridge-core
   protonmail-bridge
 )
-pkgver=3.13.0
-pkgrel=2
+pkgver=3.14.0
+pkgrel=3
 pkgdesc="Integrate ProtonMail paid account with any program that supports IMAP and SMTP"
 arch=(x86_64)
 url="https://github.com/ProtonMail/proton-bridge"
@@ -36,16 +36,17 @@ makedepends=(
 options=(!lto)
 source=(
   "git+$url#tag=v$pkgver"
-  "protonmail-bridge.desktop"
   "protonmail-bridge.service"
   "remove-vcpkg-dependency.patch"
   "remove-failing-test.patch"
+  # https://github.com/ProtonMail/proton-bridge/pull/497
+  "fix-wayland-icon.patch::$url/commit/75e7bba6e62ef4b0a58334f2bcc7c56b7769c69c.patch"
 )
-sha256sums=('4bfca738ce373896846d236ae8ca95c4e074241647e5dceb3bf03a6cebd6c026'
-            '404db600803b9be875365d84e0726c3f7aedceaf122a795ca2248ee9f005753b'
+sha256sums=('14f08f3b2d01b0454979fd6a85b1cbcf3fa0864e272019653d86b75b6d7842ce'
             'd51fb6efde22354d84b894b979a685d06fcc9cf3040d999d1cd6ebf5242a5043'
             '436a9a293424fb7d48a8fd61fff7d63985dec56d6170cd2fbae24fe03ef98136'
-            'c3a72d39a76abf3ee1567c5c44aac130fb327f4f5c93e426fef7ae3b4bf7f04f')
+            'c3a72d39a76abf3ee1567c5c44aac130fb327f4f5c93e426fef7ae3b4bf7f04f'
+            '45a68688cf2a06539d60e3e35b112a67319c58c23c35ec4cf3712d2f0cb50cb2')
 
 _archive="$_pkgbase"
 
@@ -59,6 +60,10 @@ prepare() {
   # Remove a single test that fails on build.archlinux.org but not locally -
   # not sure why this is the case.
   patch --forward --strip 1 --input "$srcdir/remove-failing-test.patch"
+
+  # Set the desktop filename in initQtApplication() to fix icon display
+  # on Wayland
+  patch --forward --strip 1 --input "$srcdir/fix-wayland-icon.patch"
 
   # Use system Qt rather than bundling it.
   cat /dev/null > internal/frontend/bridge-gui/bridge-gui/DeployLinux.cmake
@@ -179,7 +184,7 @@ package_protonmail-bridge() {
 
   cd "$_archive"
 
-  install -Dm644 -t "$pkgdir/usr/share/applications" "$srcdir/protonmail-bridge.desktop"
+  install -Dm644 -t "$pkgdir/usr/share/applications" dist/proton-bridge.desktop
   install -Dm644 dist/bridge.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/protonmail-bridge.svg"
 
   # The "gui" bin is expected to be called "bridge-gui" but that's a too
