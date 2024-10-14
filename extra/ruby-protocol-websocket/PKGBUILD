@@ -1,9 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-protocol-websocket
-pkgver=0.11.1
-_commit=14292e9c0c55708efa4995ccbe0568fa5b243a9b
-pkgrel=3
+pkgver=0.19.0
+pkgrel=2
 pkgdesc='A low level implementation of the WebSocket protocol'
 arch=(any)
 url='https://github.com/socketry/protocol-websocket'
@@ -11,7 +10,6 @@ license=(MIT)
 depends=(
   ruby
   ruby-protocol-http
-  ruby-protocol-http1
 )
 makedepends=(
   git
@@ -20,22 +18,28 @@ makedepends=(
 checkdepends=(
   ruby-async-http
   ruby-async-websocket
-  ruby-bake-modernize
+  ruby-bake
   ruby-bake-test
   ruby-bake-test-external
   ruby-bundler
   ruby-covered
+  ruby-decode
   ruby-falcon
   ruby-sus
+  ruby-sus-fixtures-async
+  ruby-sus-fixtures-async-http
 )
 options=(!emptydirs)
-source=(git+https://github.com/socketry/protocol-websocket.git#commit=$_commit)
-sha256sums=('SKIP')
+source=("git+${url}.git#tag=v${pkgver}")
+sha256sums=('07a5a539afb8fc6e53c9da0914cb69318a805c5a7f7d6fa1ea0a7828d169a89e')
 
 prepare() {
   cd protocol-websocket
   sed -r -e 's|~>|>=|g' -e '/signing_key/d' -i protocol-websocket.gemspec
-  sed -i '/bake-gem/d;/utopia-project/d' gems.rb
+  sed --in-place \
+    --expression '/group :maintenance/,/end/d' \
+    --expression '/rubocop/d' \
+    gems.rb
 }
 
 build() {

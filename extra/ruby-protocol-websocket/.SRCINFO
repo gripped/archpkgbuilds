@@ -1,26 +1,28 @@
 pkgbase = ruby-protocol-websocket
 	pkgdesc = A low level implementation of the WebSocket protocol
-	pkgver = 0.11.1
-	pkgrel = 3
+	pkgver = 0.19.0
+	pkgrel = 2
 	url = https://github.com/socketry/protocol-websocket
 	arch = any
 	license = MIT
 	checkdepends = ruby-async-http
 	checkdepends = ruby-async-websocket
-	checkdepends = ruby-bake-modernize
+	checkdepends = ruby-bake
 	checkdepends = ruby-bake-test
 	checkdepends = ruby-bake-test-external
 	checkdepends = ruby-bundler
 	checkdepends = ruby-covered
+	checkdepends = ruby-decode
 	checkdepends = ruby-falcon
 	checkdepends = ruby-sus
+	checkdepends = ruby-sus-fixtures-async
+	checkdepends = ruby-sus-fixtures-async-http
 	makedepends = git
 	makedepends = ruby-rdoc
 	depends = ruby
 	depends = ruby-protocol-http
-	depends = ruby-protocol-http1
 	options = !emptydirs
-	source = git+https://github.com/socketry/protocol-websocket.git#commit=14292e9c0c55708efa4995ccbe0568fa5b243a9b
-	sha256sums = SKIP
+	source = git+https://github.com/socketry/protocol-websocket.git#tag=v0.19.0
+	sha256sums = 07a5a539afb8fc6e53c9da0914cb69318a805c5a7f7d6fa1ea0a7828d169a89e
 
 pkgname = ruby-protocol-websocket
