@@ -10,29 +10,37 @@
 
 pkgname=facter
 pkgver=4.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Collect and display system facts"
 arch=('x86_64')
 url="https://github.com/puppetlabs/${pkgname}"
 license=('Apache-2.0')
 depends=('dmidecode' 'pciutils' 'ruby-hocon' 'ruby-sys-filesystem' 'ruby-thor' 'virt-what')
 makedepends=('git' 'ruby-rdoc')
-checkdepends=('rubocop' 'ruby-bundler' 'ruby-rake' 'ruby-rubocop-performance' 'ruby-rubocop-rspec' 'ruby-rspec' 'ruby-simplecov' 'ruby-octokit' 'ruby-webmock' 'ruby-yard' 'systemd')
+checkdepends=('rubocop' 'ruby-bundler' 'ruby-rake' 'ruby-rubocop-performance' 'ruby-rubocop-rspec' 'ruby-rspec' 'ruby-octokit' 'ruby-webmock' 'ruby-yard' 'systemd')
 optdepends=('puppet: retrieve puppet facts')
 conflicts=('libwhereami' 'cpp-hocon' 'leatherman')
 replaces=('libwhereami' 'cpp-hocon' 'leatherman')
 source=("https://downloads.puppet.com/$pkgname/$pkgname-$pkgver.gem"{,.asc}
-        "git+https://github.com/puppetlabs/facter.git#tag=$pkgver")
+        "git+https://github.com/puppetlabs/facter.git#tag=$pkgver"
+        'disable-simplecov.patch'
+        )
 validpgpkeys=('D6811ED3ADEEB8441AF5AA8F4528B6CD9E61EF26') # "Puppet, Inc. Release Key (Puppet, Inc. Release Key) <release@puppet.com>"
 sha512sums=('662ddc180a1cf18a76259cfc54a322c4e94ba1a47c03a429b9ac64af3289d543a88c1cd38ab59a568e80e9a11af8de7fb3b586af1609cbe8fe3d5537712a09c0'
             'SKIP'
-            '8b3c32101739e7baf3418bb76835c0b03e272e4df5031fff128be6884392d9154f75266a35a561336521473c85027863eb74d99b146d1ad7c75a3fa2627234b9')
+            '8b3c32101739e7baf3418bb76835c0b03e272e4df5031fff128be6884392d9154f75266a35a561336521473c85027863eb74d99b146d1ad7c75a3fa2627234b9'
+            'fd44b3ad3832ee5443733fee3bd2f865c467bae6af6faeac1d1f3671170db83a3f2207a16ba7cd65f10af21b2a9851a9b1d3ccf4d6473fd538ba09414a8cad88')
 noextract=($pkgname-$pkgver.gem)
 
 prepare() {
   cd $pkgname
 
-  sed -i -e '/packaging/d' -e '/ronn/d' Gemfile
+  # remove development deps
+  rm Gemfile
+  sed --in-place '/add_development_dependency/g' facter.gemspec
+
+  # don't try to load simplecov
+  patch --forward --verbose --strip=1 --input='../disable-simplecov.patch'
 }
 
 build() {
@@ -52,7 +60,7 @@ build() {
   # update gemspec/Gemfile to allow newer version of the dependencies
   sed --in-place --regexp-extended --expression 's|~>|>=|g' \
     --expression "s/, *' *< *[0-9\.]+ *'//" \
-    facter.gemspec Gemfile \
+    facter.gemspec \
     "tmp_install${_gemdir}/specifications/facter-${pkgver}.gemspec"
 
   # remove upper version constraint for thor
