@@ -4,11 +4,11 @@
 _gemname='gettext'
 pkgname="ruby-${_gemname}"
 pkgver=3.4.9
-pkgrel=2
+pkgrel=3
 pkgdesc='Gettext gem is a pure Ruby Localization(L10n) library and tool which is modeled after the GNU gettext package.'
 arch=(any)
 url="https://github.com/${pkgname}/${_gemname}"
-license=('RUBY' 'LGPL3')
+license=('Ruby' 'LGPL-3.0-or-later')
 makedepends=('ruby-rdoc' 'ruby-yard' 'ruby-bundler')
 depends=('ruby' 'ruby-locale' 'ruby-text' 'ruby-erubi' 'ruby-prime' 'ruby-racc')
 checkdepends=('ruby-test-unit' 'ruby-rake' 'ruby-test-unit-rr')
@@ -30,7 +30,7 @@ prepare() {
 build() {
   cd "${_gemname}-${pkgver}"
 
-  gem build "${_gemname}.gemspec"
+  gem build --verbose "${_gemname}.gemspec"
 }
 
 # tests are currently broken upstream
