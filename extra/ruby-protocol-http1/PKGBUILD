@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-protocol-http1
-pkgver=0.15.0
-pkgrel=3
+pkgver=0.27.0
+pkgrel=1
 pkgdesc='A low level implementation of the HTTP/1 protocol'
 arch=(any)
 url='https://github.com/socketry/protocol-http1'
@@ -20,19 +20,25 @@ checkdepends=(
   ruby-bake-test-external
   ruby-bundler
   ruby-covered
+  ruby-decode
   ruby-sus
 )
 options=(!emptydirs)
-source=(https://github.com/socketry/protocol-http1/archive/v$pkgver/$pkgname-$pkgver.tar.gz
-        $pkgname-test-dependencies.patch::https://github.com/socketry/protocol-http1/pull/15.patch)
-sha256sums=('cdb044d2fb8daa9bd85f65fb209aec09e032804cf211d7d2257c1d423e152751'
-            '01aff72318d4ab71c699585b8ddc814587f4d9ed0834dc10ca470dfc989e5702')
+source=(https://github.com/socketry/protocol-http1/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('34816894910078e10f87bb579e0bc23f9e36cee06809366054490fe1f268ff5a')
 
 prepare() {
   cd protocol-http1-$pkgver
-  patch -p1 -i ../$pkgname-test-dependencies.patch
-  sed -r -e 's|~>|>=|g' -e '/signing_key/d' -i protocol-http1.gemspec
-  sed -i '/bake-gem/d;/bake-github-pages/d;/utopia-project/d;s/gem "stringio".*$/gem "stringio"/' gems.rb
+
+  sed -r \
+    -e 's|~>|>=|g' \
+    -e '/signing_key/d' \
+    -i protocol-http1.gemspec
+
+  sed -i \
+    -e '/bake-gem/d;/bake-github-pages/d;/utopia-project/d;s/gem "stringio".*$/gem "stringio"/' \
+    -e '/rubocop/d' \
+    gems.rb
 }
 
 build() {
