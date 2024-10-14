@@ -3,7 +3,7 @@
 _hkgname=hls-class-plugin
 pkgname=haskell-hls-class-plugin
 pkgver=1.1.1.1
-pkgrel=14
+pkgrel=15
 pkgdesc="Class/instance management plugin for Haskell Language Server"
 url="https://github.com/haskell/haskell-language-server#readme"
 license=("Apache")
@@ -19,6 +19,7 @@ sha512sums=('c7248d0564d906c34fc1a4437e86eb14ebd920aba1282bdb3d55328f9d09cec68ea
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u hls-test-utils
 }
 
 build() {
