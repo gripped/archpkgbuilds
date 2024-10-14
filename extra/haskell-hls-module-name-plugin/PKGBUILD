@@ -3,7 +3,7 @@
 _hkgname=hls-module-name-plugin
 pkgname=haskell-hls-module-name-plugin
 pkgver=1.1.1.0
-pkgrel=202
+pkgrel=203
 pkgdesc="Module name plugin for Haskell Language Server"
 url="https://hackage.haskell.org/package/hls-module-name-plugin"
 license=("Apache")
@@ -18,6 +18,7 @@ sha512sums=('d15cc9b6ffb605c0efa14790945ebeeb7bfdc53dc8523de8cc71c0adbfe81515eee
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u ghcide -u hls-test-utils
 }
 
 build() {
