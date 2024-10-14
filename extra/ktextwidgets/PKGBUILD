@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=ktextwidgets
-pkgver=6.6.0
+pkgver=6.7.0
 pkgrel=1
 pkgdesc='Advanced text editing widgets'
 arch=(x86_64)
@@ -26,7 +26,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('805dff320b75a62316fe50aa33eedb355c1e2db36d00b58c39fc36ce6bfd8988'
+sha256sums=('23bb71450e39f437c06bd9af48e7893253c31ad10649b0901d0a8ec1ee18ae01'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
