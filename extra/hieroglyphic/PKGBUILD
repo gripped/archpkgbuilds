@@ -1,0 +1,54 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=hieroglyphic
+pkgver=2.0.0
+pkgrel=1
+pkgdesc='Search through over 1000 different LaTeX symbols by sketching'
+arch=(x86_64)
+url='https://apps.gnome.org/Hieroglyphic/'
+license=(GPL-3.0-or-later)
+depends=(
+  cairo
+  dconf
+  gcc-libs
+  glib2
+  glibc
+  graphene
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+)
+makedepends=(
+  appstream
+  git
+  meson
+  rust
+)
+options=(!lto)
+source=("git+https://github.com/FineFindus/Hieroglyphic.git#tag=v$pkgver")
+b2sums=(e3f4e5c03ce94c974937e5b8c7a7c0ee348e2eeba82ff09ccaa6c7789379179d0be05c5af5d71c80f11b9cff7b636a7cc92af2ad4cd6fc6a278f55bb62d5a41c)
+
+prepare() {
+  cd Hieroglyphic
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  arch-meson Hieroglyphic build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+}
