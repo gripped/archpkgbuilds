@@ -2,14 +2,22 @@
 
 pkgname=ruby-sys-uname
 pkgver=1.2.3
-pkgrel=3
+pkgrel=4
 pkgdesc='An interface for gathering information about your current platform'
 arch=(any)
 url='https://github.com/djberg96/sys-uname'
 license=(Apache)
-depends=(ruby-ffi)
-makedepends=(ruby-rspec ruby-rake)
-checkdepends=(ruby-rubocop)
+depends=(
+  ruby
+  ruby-ffi
+)
+makedepends=(
+  ruby-rdoc
+)
+checkdepends=(
+  ruby-rake
+  ruby-rspec
+)
 options=(!emptydirs)
 source=(https://github.com/djberg96/sys-uname/archive/sys-uname-$pkgver.tar.gz)
 sha256sums=('6a17f1708def7dce959a6b6e788e7078b2fde74a6a4aafbf8a8ef663fcc9a520')
@@ -17,6 +25,11 @@ sha256sums=('6a17f1708def7dce959a6b6e788e7078b2fde74a6a4aafbf8a8ef663fcc9a520')
 prepare() {
   cd sys-uname-sys-uname-$pkgver
   sed -r 's|~>|>=|g' -i sys-uname.gemspec
+
+  sed -r -i \
+    -e '/[rR]ubo[cC]op/d' \
+    Rakefile \
+    sys-uname.gemspec
 }
 
 build() {
