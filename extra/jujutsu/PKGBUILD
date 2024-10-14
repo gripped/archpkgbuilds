@@ -6,7 +6,7 @@
 pkgname=jujutsu
 _pkgname=jj
 pkgver=0.22.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Git-compatible VCS that is both simple and powerful'
 arch=(x86_64)
 url="https://github.com/martinvonz/$_pkgname"
@@ -61,7 +61,7 @@ package() {
 	install -Dm0755 -t "$pkgdir/usr/bin" target/release/jj
 	install -Dm0644 -t "$pkgdir/usr/share/bash-completion/completions/" completions/jj
 	install -Dm0644 -t "$pkgdir/usr/share/elvish/lib/" completions/jj.elv
-	install -Dm0644 -t "$pkgdir/usr/share/fish/completions/" completions/jj.fish
+	install -Dm0644 -t "$pkgdir/usr/share/fish/vendor_completions.d/" completions/jj.fish
 	install -Dm0644 -t "$pkgdir/usr/share/zsh/site-functions/" completions/_jj
 	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
 	cp -at "$pkgdir/usr/share/doc/$pkgname" docs
