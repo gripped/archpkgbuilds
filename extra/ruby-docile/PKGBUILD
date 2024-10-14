@@ -3,8 +3,8 @@
 
 _gemname='docile'
 pkgname="ruby-${_gemname}"
-pkgver=1.4.0
-pkgrel=5
+pkgver=1.4.1
+pkgrel=1
 pkgdesc="keeps your Ruby DSLs tame and well-behaved"
 arch=('any')
 url='https://ms-ati.github.io/docile'
@@ -23,7 +23,7 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("https://github.com/ms-ati/docile/archive/v$pkgver/$_gemname-$pkgver.tar.gz")
-sha512sums=('78350144a9b0d84d6025770d05b1e9999f34ce431691c08e73232f8b10537bc265f9f06409ff6feabf2e6f20d018dbb83aaf8c0f66e7dcec3e195475820481cd')
+sha512sums=('4c87155b062de8863e153d58725d8f84ac0a58bc11a88dd1f49e61f6bb7d89f177a9df96c5310a6a83c82b0af3f43a7c49fa33670cfde3925b86f4d77e1e2c95')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
