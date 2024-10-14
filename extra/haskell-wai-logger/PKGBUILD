@@ -3,8 +3,8 @@
 
 _hkgname=wai-logger
 pkgname=haskell-wai-logger
-pkgver=2.4.1
-pkgrel=7
+pkgver=2.5.0
+pkgrel=1
 pkgdesc="A logging system for WAI"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-byteorder' 'haskell-fast-logger'
          'haskell-http-types' 'haskell-network' 'haskell-wai')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('91b39013a496946c3706347eef5caf3ad33291334fee63a637f5a11a3b30a86513a6234abb606a8716fd6da8404383e89f565bda470192e8cc1136872bcfd070')
+sha512sums=('0c24548b8f0e21ca8a9fe3512bf6f390ca27d37b7d61bd11c3a6fdf514b51f3f8744f0bbd02ba0b9fd56b200653a8a2fdad76085e0416f67ad962e16bc408f7b')
 
 build() {
     cd $_hkgname-$pkgver
