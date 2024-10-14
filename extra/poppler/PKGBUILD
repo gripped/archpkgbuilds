@@ -4,7 +4,7 @@
 pkgbase=poppler
 pkgname=('poppler' 'poppler-glib' 'poppler-qt5' 'poppler-qt6')
 pkgver=24.09.0
-pkgrel=3
+pkgrel=4
 arch=(x86_64)
 license=('GPL-2.0-only'
          'GPL-3.0-or-later'
