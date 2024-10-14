@@ -1,0 +1,63 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=health
+pkgver=0.95.0
+pkgrel=3
+pkgdesc='Health tracking app for the GNOME desktop'
+arch=(x86_64)
+url='https://apps.gnome.org/Health/'
+license=(GPL-3.0-or-later)
+depends=(
+  cairo
+  dconf
+  gcc-libs
+  glib2
+  glibc
+  graphene
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libsecret
+  pango
+  tinysparql
+)
+makedepends=(
+  blueprint-compiler
+  git
+  meson
+  rust
+)
+options=(!lto)
+source=(
+  "git+https://gitlab.gnome.org/World/Health.git#tag=$pkgver"
+  health-window-icon.patch
+)
+b2sums=(
+  7cae069263f1fb0da21f42cbf96f21ac5c810f156666e6ff23f5269d64f895caaa5355a0ccc555249a26f8d42c69218d3213182b96a36ec2f2c9be35f64269ad
+  5f8c6c5dd35539cea6dcff43375587b596dd3986e3e36074f0632f4eff8accd968406fbef1cfef1b88aa82f6ebbd46875cb659189ede353e58b4b04a31a8d124
+)
+
+prepare() {
+  cd Health
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/World/Health/-/merge_requests/205
+  git apply -3 ../health-window-icon.patch
+}
+
+build() {
+  arch-meson Health build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
+    meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+  ln -s dev.Cogitri.Health "$pkgdir/usr/bin/health"
+}

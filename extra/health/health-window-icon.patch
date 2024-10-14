@@ -1,0 +1,26 @@
+From e9cd623774a8f45d7c4a2b22b148184c2c65459e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 14 Oct 2024 11:49:42 +0000
+Subject: [PATCH] application: Set default window icon
+
+This is commonly used by desktop environments on Xorg.
+---
+ src/core/application.rs | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/core/application.rs b/src/core/application.rs
+index 103e252a..13f1db9c 100644
+--- a/src/core/application.rs
++++ b/src/core/application.rs
+@@ -105,6 +105,8 @@ mod imp {
+ 
+             self.parent_startup();
+ 
++            gtk::Window::set_default_icon_name(crate::config::APPLICATION_ID);
++
+             if let Some(true) = gtk::Settings::default()
+                 .and_then(|s| s.gtk_theme_name())
+                 .map(|s| s.as_str().contains("-dark"))
+-- 
+GitLab
+

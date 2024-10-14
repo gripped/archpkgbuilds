@@ -1,0 +1,30 @@
+pkgbase = health
+	pkgdesc = Health tracking app for the GNOME desktop
+	pkgver = 0.95.0
+	pkgrel = 3
+	url = https://apps.gnome.org/Health/
+	arch = x86_64
+	license = GPL-3.0-or-later
+	makedepends = blueprint-compiler
+	makedepends = git
+	makedepends = meson
+	makedepends = rust
+	depends = cairo
+	depends = dconf
+	depends = gcc-libs
+	depends = glib2
+	depends = glibc
+	depends = graphene
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita
+	depends = libsecret
+	depends = pango
+	depends = tinysparql
+	options = !lto
+	source = git+https://gitlab.gnome.org/World/Health.git#tag=0.95.0
+	source = health-window-icon.patch
+	b2sums = 7cae069263f1fb0da21f42cbf96f21ac5c810f156666e6ff23f5269d64f895caaa5355a0ccc555249a26f8d42c69218d3213182b96a36ec2f2c9be35f64269ad
+	b2sums = 5f8c6c5dd35539cea6dcff43375587b596dd3986e3e36074f0632f4eff8accd968406fbef1cfef1b88aa82f6ebbd46875cb659189ede353e58b4b04a31a8d124
+
+pkgname = health
