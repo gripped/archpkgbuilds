@@ -3,7 +3,7 @@
 pkgname=ruby-rbnacl
 pkgver=7.1.1
 _commit=8794ab08c482e67819958705198df9e866165133
-pkgrel=4
+pkgrel=5
 pkgdesc='Ruby FFI binding to the Networking and Cryptography (NaCl) library (libsodium)'
 arch=(any)
 url='https://github.com/RubyCrypto/rbnacl'
@@ -15,10 +15,12 @@ depends=(
 )
 makedepends=(
   git
+  ruby-rdoc
+)
+checkdepends=(
   ruby-bundler
   ruby-rake
   ruby-rspec
-  ruby-rubocop
 )
 options=(!emptydirs)
 source=(git+https://github.com/RubyCrypto/rbnacl.git#commit=$_commit)
@@ -26,7 +28,8 @@ sha256sums=('SKIP')
 
 prepare() {
   cd rbnacl
-  sed -i '/guard-rspec/d;/[cC]overalls/d;s/, "= 0.70.0"//' Rakefile Gemfile spec/spec_helper.rb
+  sed -i '/rubocop/d;/guard-rspec/d;/[cC]overalls/d;s/, "= 0.70.0"//' Rakefile Gemfile spec/spec_helper.rb
+  git rm tasks/rubocop.rake
 }
 
 build() {
