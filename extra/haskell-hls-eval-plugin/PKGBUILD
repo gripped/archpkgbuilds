@@ -2,8 +2,8 @@
 
 _hkgname=hls-eval-plugin
 pkgname=haskell-hls-eval-plugin
-pkgver=1.4.0.0
-pkgrel=202
+pkgver=1.5.0.0
+pkgrel=1
 pkgdesc="Eval plugin for Haskell Language Server"
 url="https://github.com/haskell/haskell-language-server"
 license=("Apache")
@@ -17,11 +17,12 @@ depends=('ghc-libs' 'haskell-diff' 'haskell-quickcheck' 'haskell-aeson' 'haskell
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('e4faae334b55835c15a2736e69390d7528ac5e2971b7ddf178715c1b351dea2f07443c90e3d985ce5bb70a3af7db3cc064f54133b885be0603f4ef7bf0f2f22f')
+sha512sums=('ea5482873bc1623d45d551f93875abf4c6b82ff44093ac26014ce579ee1c0d2c6c770ff4a0e150284c75c5a1805e669a8bb50de8154e2d428beac6c309bad68d')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u hls-test-utils
 }
 
 build() {
