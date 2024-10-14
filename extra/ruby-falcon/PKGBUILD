@@ -1,8 +1,9 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
-pkgname=ruby-falcon
-pkgver=0.42.3
-pkgrel=4
+_gemname='falcon'
+pkgname="ruby-${_gemname}"
+pkgver=0.48.2
+pkgrel=1
 pkgdesc='A fast, asynchronous, rack-compatible web server'
 arch=(any)
 url='https://github.com/socketry/falcon'
@@ -13,12 +14,12 @@ depends=(
   ruby-async-container
   ruby-async-http
   ruby-async-http-cache
-  ruby-async-io
-  ruby-build-environment
+  ruby-async-service
+  ruby-bundler
   ruby-localhost
   ruby-process-metrics
+  ruby-protocol-http
   ruby-protocol-rack
-  ruby-rackup
   ruby-samovar
 )
 makedepends=(
@@ -26,68 +27,100 @@ makedepends=(
 )
 checkdepends=(
   ruby-async-process
-  ruby-async-rspec
   ruby-async-websocket
   ruby-bake
   ruby-bake-test
   ruby-bake-test-external
-  ruby-bundler
   ruby-covered
+  ruby-decode
   ruby-puma
-  ruby-rspec
+  ruby-rackup
+  ruby-sus
+  ruby-sus-fixtures-async
+  ruby-sus-fixtures-async-http
+  ruby-sus-fixtures-openssl
 )
 options=(!emptydirs)
-source=(https://github.com/socketry/falcon/archive/v$pkgver/$pkgname-$pkgver.tar.gz
-        ruby-falcon-0.42.3-ruby-rack-3.patch)
-sha512sums=('2086beb1ffe5f776d6b9a322a1648e4e55a5b5615c1f8c58418e84ff84cf581e8ab8cc76d4461c5c924ef4291b486cb274f0fa4bb7f4eeff3b73f7f5cc752a9d'
-            'a07e7756e0a71c314504339f7c2fbfe9d69e6b52168059beb86861c9682cc0a97f904c389b96c0a073525ffc1068879b6fced087dd0fb98c061f90ecb3742adc')
-b2sums=('63b0b1cd28346140ddaf32e1ff2535760f85f603f24138bdd5c69e878a9226f49d03b1a11219eda4d03fe14b420636f7eaa24612eb29b42e6adc1aa05bccbfdb'
-        '425b9395a799942c0df40570e966163bc3aa88ac3dec587ccf48c2e48d06571cbef7e81a5c288b728361cde00b88962ea25f28ecdfe53923c4e846a7ecfb6da0')
+source=("${url}/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('33ef4c31b13c792a9cf37d963e6ac5b0d08fbf7fc75ca289d78f73e4caf37c5b2b3573997057a41c6d9449104bea3fd69906d64fb8687421ebadefc02c42c639')
+b2sums=('9c9a6909b2be839a9991c13132be8aeb91662bccbbb8379b8c401ff3b119d471448db959a25071c987e35c3106f7e99f22677e7a1222c36226c37423f559291e')
 
 prepare() {
-  cd falcon-$pkgver
-  patch -Np1 -i ../ruby-falcon-0.42.3-ruby-rack-3.patch
-  sed -r -e 's|~>|>=|g' -e '/signing_key/d' -i falcon.gemspec
-  sed -i \
-    -e '/group :maintenance/,/end/d' \
-    -e '/group :development/,/end/d' \
+  cd "${_gemname}-${pkgver}"
+
+  sed --in-place --regexp-extended \
+    --expression 's|~>|>=|g' \
+    --expression '/signing_key/d' \
+    falcon.gemspec
+
+  sed --in-place \
+    --expression '/group :maintenance/,/end/d' \
+    --expression '/group :development/,/end/d' \
+    --expression '/rubocop/d' \
     gems.rb
 }
 
 build() {
+  cd "${_gemname}-${pkgver}"
+
   local _gemdir="$(gem env gemdir)"
-  cd falcon-$pkgver
-  gem build falcon.gemspec
+
+  gem build --verbose "${_gemname}.gemspec"
+
   gem install \
     --local \
     --verbose \
     --ignore-dependencies \
     --no-user-install \
-    --install-dir "tmp_install/$_gemdir" \
+    --install-dir "tmp_install${_gemdir}" \
     --bindir "tmp_install/usr/bin" \
-    falcon-$pkgver.gem
-  find "tmp_install/$_gemdir/gems/" \
+    "${_gemname}-${pkgver}.gem"
+
+  # remove unreproducible files
+  rm --force --recursive --verbose \
+    tmp_install/usr/bin/*.lock \
+    "tmp_install${_gemdir}/cache/" \
+    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
+    "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
+
+  find "tmp_install${_gemdir}/gems/" \
     -type f \
     \( \
-        -iname "*.o" -o \
-        -iname "*.c" -o \
-        -iname "*.so" -o \
-        -iname "*.time" -o \
-        -iname "gem.build_complete" -o \
-        -iname "Makefile" \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
     \) \
     -delete
-  rm -r tmp_install/$_gemdir/cache
+
+  find "tmp_install${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
 }
 
 check() {
+  cd "${_gemname}-${pkgver}"
+
   local _gemdir="$(gem env gemdir)"
-  cd falcon-$pkgver
-  GEM_HOME="tmp_install/$_gemdir" bake test
+
+  export PATH="$(pwd)/tmp_install/usr/bin:${PATH}"
+
+  GEM_HOME="tmp_install${_gemdir}" bake test
 }
 
 package() {
-  cd falcon-$pkgver
-  cp -a tmp_install/* "$pkgdir"/
-  install -Dm644 license.md -t "$pkgdir"/usr/share/licenses/$pkgname/
+  cd "${_gemname}-${pkgver}"
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
+
+  install --verbose -D --mode=0644 license.md --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
 }
+
+# vim: tabstop=2 shiftwidth=2 expandtab:
