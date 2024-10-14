@@ -2,9 +2,9 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-maxitest
-pkgver=5.6.0
-_commit=d2fb9270761e1f14467f345dde0c10e8eb970488
-pkgrel=2
+_pkgname=${pkgname#ruby-}
+pkgver=5.7.0
+pkgrel=1
 pkgdesc='Minitest + all the features you always wanted'
 arch=(any)
 url='https://github.com/grosser/maxitest'
@@ -24,13 +24,11 @@ checkdepends=(
   ruby-rspec
 )
 options=(!emptydirs)
-source=("git+$url.git?signed#commit=$_commit")
-sha256sums=('70eb0df5a26f6b7cd89b17ea680a1e2acb7d93abf8ec005cd065facfe2adc9c0')
-# curl https://github.com/grosser.gpg | gpg --import
-validpgpkeys=('72170F9E193D0A5A31DB742FB19DB1587D698ED7') # Michael Grosser <michael@grosser.it>
+source=("git+$url.git#tag=v$pkgver")
+sha256sums=('c6eff7f6a3e8871e64df9888396dd13890c559b79aa6a4558edbb65392286027')
 
 prepare() {
-  cd maxitest
+  cd "$_pkgname"
   git rm Gemfile.lock
 
   # Remove dependency on bump and debug
@@ -38,39 +36,52 @@ prepare() {
 }
 
 build() {
+  cd "$_pkgname"
   local gemdir="$(gem env gemdir)"
-  cd maxitest
-  gem build maxitest.gemspec
+
+  gem build "$_pkgname.gemspec"
+
   gem install \
     --local \
     --verbose \
     --ignore-dependencies \
     --no-user-install \
-    --install-dir "tmp_install/$gemdir" \
-    --bindir "tmp_install/usr/bin" \
-    maxitest-$pkgver.gem
+    --build-root "tmp_install" \
+    "$_pkgname-$pkgver.gem"
+
+  rm --force --recursive --verbose \
+    "tmp_install/$gemdir/cache/" \
+    "tmp_install/$gemdir/gems/$_pkgname-$pkgver/vendor/" \
+    "tmp_install/$gemdir/doc/$_pkgname-$pkgver/ri/ext/"
+
   find "tmp_install/$gemdir/gems/" \
     -type f \
     \( \
-        -iname "*.o" -o \
-        -iname "*.c" -o \
-        -iname "*.so" -o \
-        -iname "*.time" -o \
-        -iname "gem.build_complete" -o \
-        -iname "Makefile" \
+    -iname "*.o" -o \
+    -iname "*.c" -o \
+    -iname "*.so" -o \
+    -iname "*.time" -o \
+    -iname "gem.build_complete" -o \
+    -iname "Makefile" \
     \) \
     -delete
-  rm -r "tmp_install/$gemdir/cache"
+
+  find "tmp_install/$gemdir/extensions/" \
+    -type f \
+    \( \
+    -iname "mkmf.log" -o \
+    -iname "gem_make.out" \
+    \) \
+    -delete
 }
 
 check() {
-  local gemdir="$(gem env gemdir)"
-  cd maxitest
-  PATH="tmp_install/usr/bin:$PATH" GEM_HOME="tmp_install/$gemdir" rake
+  cd "$_pkgname"
+  PATH="tmp_install/usr/bin:$PATH" GEM_HOME="tmp_install/$(gem env gemdir)" rake
 }
 
 package() {
-  cd maxitest
+  cd "$_pkgname"
   cp -a -t "$pkgdir" tmp_install/*
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" MIT-LICENSE
 }
