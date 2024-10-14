@@ -3,7 +3,7 @@
 _hkgname=hls-code-range-plugin
 pkgname=haskell-hls-code-range-plugin
 pkgver=1.1.0.0
-pkgrel=202
+pkgrel=203
 pkgdesc="HLS Plugin to support smart selection range and Folding range"
 url="https://github.com/haskell/haskell-language-server.git"
 license=("Apache")
@@ -19,6 +19,7 @@ sha256sums=('198cc8308967cbb1b3616316da42ac12f6469a071f753c8a5086cc7754c3f1e3')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u hls-test-utils -u ghcide
 }
 
 build() {
