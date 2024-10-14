@@ -2,13 +2,13 @@
 
 pkgname=ruby-ffi-compiler
 pkgver=1.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Ruby library for automating compilation of native libraries for use with ffi'
 arch=(any)
 url='https://github.com/ffi/ffi-compiler'
 license=(Apache)
 depends=(ruby-ffi ruby-rake)
-makedepends=(ruby-rspec ruby-rubygems-tasks)
+makedepends=(ruby-rspec ruby-rubygems-tasks ruby-rdoc)
 options=(!emptydirs)
 source=(https://github.com/ffi/ffi-compiler/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
 sha256sums=('633cdcc7bd6e146523a665872dd5a4db0c0972c661064bdfd60b82f8d221376e')
