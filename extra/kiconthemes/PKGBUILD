@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kiconthemes
-pkgver=6.6.0
+pkgver=6.7.0
 pkgrel=1
 pkgdesc='Support for icon themes'
 arch=(x86_64)
@@ -27,7 +27,7 @@ makedepends=(doxygen
 optdepends=('qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('2d00b17929d886425395e96c4c18bf5e8dfbf3f1cac2dac199a6f2ac5af35b22'
+sha256sums=('be25bff1f5f65edd45b24ff9beda44b04c0e22d193e72458c96a5c591b70b968'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
