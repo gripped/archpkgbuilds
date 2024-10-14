@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-async-pool
-pkgver=0.4.0
-pkgrel=3
+pkgver=0.8.1
+pkgrel=1
 pkgdesc='A singleplex and multiplex resource pool for implementing robust clients'
 arch=(any)
 url='https://github.com/socketry/async-pool'
@@ -10,27 +10,36 @@ license=(MIT)
 depends=(
   ruby
   ruby-async
+  ruby-metrics
+  ruby-traces
 )
 makedepends=(
   ruby-rdoc
 )
 checkdepends=(
+  ruby-bake
   ruby-bake-test
   ruby-bake-test-external
   ruby-bundler
   ruby-covered
+  ruby-decode
   ruby-io-event
   ruby-sus
   ruby-sus-fixtures-async
 )
 options=(!emptydirs)
 source=(https://github.com/socketry/async-pool/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('baa44734e7407f30a6c3d7106a62d4982bfa78f12f44afb08f6af73da1bc6f15')
+sha256sums=('0364c3de1b34b87bdac759e7852ae23d94a12ddcbcb2262685c6810b63b1940f')
 
 prepare() {
   cd async-pool-$pkgver
-  sed -r -e 's|~>|>=|g' -e '/signing_key/d' -i async-pool.gemspec
-  echo gemspec > gems.rb
+
+  sed -r -e 's|~>|>=|g' -e '/signing_key/d' -i async-pool.gemspec gems.rb
+
+  sed --in-place \
+    --expression '/group :maintenance/,/end/d' \
+    --expression '/rubocop/d' \
+    gems.rb
 }
 
 build() {
