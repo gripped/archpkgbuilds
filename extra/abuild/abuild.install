@@ -1,0 +1,12 @@
+post_install() {
+	cat <<EOM
+:: To be able to build packages in a clean chroot with "abuild rootbld", you need to install the "alpine-keyring" package.
+   You also need to create the "abuild" group and add your user to it (requires a logout / login to take effect):
+     # groupadd -g 300 abuild
+     # usermod -aG abuild your_user
+EOM
+}
+
+post_upgrade() {
+	post_install
+}
