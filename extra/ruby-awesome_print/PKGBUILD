@@ -2,7 +2,7 @@
 
 pkgname=ruby-awesome_print
 pkgver=1.9.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Pretty print your Ruby objects with style'
 arch=(any)
 url='https://github.com/awesome-print/awesome_print'
@@ -11,14 +11,15 @@ depends=(
   ruby
 )
 makedepends=(
-  ruby-fakefs
-  ruby-nokogiri
-  ruby-rspec
-  ruby-sqlite3
+  ruby-rdoc
 )
 checkdepends=(
   ruby-bundler
+  ruby-fakefs
+  ruby-nokogiri
   ruby-rake
+  ruby-rspec
+  ruby-sqlite3
 )
 options=(!emptydirs)
 source=(https://github.com/awesome-print/awesome_print/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
