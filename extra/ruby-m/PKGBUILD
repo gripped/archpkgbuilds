@@ -3,7 +3,7 @@
 pkgname=ruby-m
 pkgver=1.6.1
 _commit=c5220612016b014f4aac29632d044a024704cdd9
-pkgrel=2
+pkgrel=3
 pkgdesc='Run test/unit tests by line number. Metal!'
 arch=(any)
 url='https://github.com/qrush/m'
@@ -29,7 +29,7 @@ sha256sums=('SKIP')
 prepare() {
   cd m
   sed '/[rR]occo/d;/appraisal/d;/coveralls/d' -i m.gemspec Rakefile
-  echo gemspec > Gemfile
+  echo -e "gemspec\ngem 'logger'\ngem 'mutex_m'\ngem 'base64'\ngem 'bigdecimal'\ngem 'drb'" > Gemfile
   git rm Gemfile.lock
 }
 
