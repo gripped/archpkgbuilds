@@ -3,7 +3,7 @@
 _gemname='net-imap'
 pkgname="ruby-${_gemname}"
 pkgver=0.4.12
-pkgrel=1
+pkgrel=3
 pkgdesc='Ruby client api for Internet Message Access Protocol'
 arch=('any')
 url="https://github.com/ruby/${_gemname}"
@@ -28,7 +28,7 @@ prepare() {
   sed --in-place --regexp-extended 's|~>|>=|g' "${_gemname}.gemspec"
 
   # we don't build from a git checkout
-  sed --in-place --regexp-extended 's|`git ls-files -z`\.split\("\\x0"\)|`find . -type f -not -path "*/\.git*" -printf "%P\n"`\.split\("\n"\)|' "${_gemname}.gemspec"
+  sed --in-place --regexp-extended 's|`git ls-files -z 2>/dev/null`\.split\("\\x0"\)|`find . -type f -not -path "*/\.git*" -printf "%P\n"`\.split\("\n"\)|' "${_gemname}.gemspec"
 }
 
 build() {
