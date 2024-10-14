@@ -3,8 +3,7 @@
 
 pkgname=ruby-pycall
 pkgver=1.5.2
-_commit=1f9e8f0d937ffc3a8b37e6b16aa3b407a5c74a4b
-pkgrel=1
+pkgrel=2
 pkgdesc='Calling Python functions from the Ruby language'
 arch=(x86_64)
 url='https://github.com/mrkn/pycall.rb'
@@ -15,6 +14,10 @@ depends=(
 )
 makedepends=(
   git
+  ruby-rdoc
+)
+checkdepends=(
+  python-numpy
   ruby-bundler
   ruby-pry
   ruby-pry-byebug
@@ -23,11 +26,8 @@ makedepends=(
   ruby-rspec
   ruby-test-unit
 )
-checkdepends=(
-  python-numpy
-)
 options=(!emptydirs)
-source=(git+https://github.com/mrkn/pycall.rb.git#commit=$_commit)
+source=("git+${url}.git#tag=v${pkgver}")
 sha512sums=('SKIP')
 
 prepare() {
@@ -38,7 +38,7 @@ prepare() {
 build() {
   local _gemdir="$(gem env gemdir)"
   cd pycall.rb
-  rake build
+  gem build --verbose pycall.gemspec
   gem install \
     --local \
     --verbose \
@@ -46,7 +46,7 @@ build() {
     --no-user-install \
     --install-dir "tmp_install/$_gemdir" \
     --bindir "tmp_install/usr/bin" \
-    pkg/pycall-$pkgver.gem
+    pycall-$pkgver.gem
   find "tmp_install/$_gemdir/gems/" \
     -type f \
     \( \
