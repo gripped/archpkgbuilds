@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-childprocess
-pkgver=5.0.0
+pkgver=5.1.0
 pkgrel=1
 pkgdesc='Cross-platform Ruby library for managing child processes'
 arch=(any)
@@ -18,7 +18,7 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(https://github.com/enkessler/childprocess/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('0c8aac0ab62441a7b634b63ac3eb24dbf88929af71e165fcf40fba68089cba7f')
+sha256sums=('144b9cd1de515694a73d332682dfc975c6c4d8e38d7c475a0e9a714f6671808e')
 
 prepare() {
   cd childprocess-$pkgver
