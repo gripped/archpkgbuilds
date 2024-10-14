@@ -2,8 +2,8 @@
 
 _hkgname=hls-explicit-record-fields-plugin
 pkgname=haskell-hls-explicit-record-fields-plugin
-pkgver=1.0.0.0
-pkgrel=202
+pkgver=1.0.1.0
+pkgrel=1
 pkgdesc="Explicit record fields plugin for Haskell Language Server"
 url="https://github.com/haskell/haskell-language-server"
 license=("BSD")
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-ghcide' 'haskell-hls-graph' 'haskell-hls-plugin-api
          'haskell-lsp' 'haskell-syb' 'haskell-unordered-containers')
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils' 'haskell-lsp-test')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('ebdd590b978b09ddbfe53842c3173e876ec13c4d60bb196c5aba4794befcdccb')
+sha256sums=('9180f9ad47f0f923f323e9e3f24eb73d87afa0a02caca1ab68add1430af5df3e')
 
 prepare() {
   cd $_hkgname-$pkgver
