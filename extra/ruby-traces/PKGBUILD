@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-traces
-pkgver=0.8.0
-pkgrel=3
+pkgver=0.13.1
+pkgrel=1
 pkgdesc='Application instrumentation and tracing'
 arch=(any)
 url='https://github.com/socketry/traces'
@@ -20,16 +20,25 @@ checkdepends=(
   ruby-bundler
   ruby-console
   ruby-covered
+  ruby-decode
   ruby-sus
+  ruby-sus-fixtures-console
 )
 options=(!emptydirs)
 source=(https://github.com/socketry/traces/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('d1123d125c159e20921d11d364fd0ac62b488f0a9f7ea79e0ca75958002d95a8')
+sha256sums=('df0bd6966ef3457153af628d4ffcf92adbfecdd220393a8931a3dee222384929')
 
 prepare() {
   cd traces-$pkgver
-  sed -r -e 's|~>|>=|g' -e '/signing_key/d' -i traces.gemspec
-  sed -i '/bake-gem/d;/bake-github-pages/d;/utopia-project/d' gems.rb
+  sed -r \
+    -e 's|~>|>=|g' \
+    -e '/signing_key/d' \
+    -i traces.gemspec
+
+  sed -i \
+    -e '/bake-gem/d;/bake-github-pages/d;/utopia-project/d' \
+    -e '/rubocop/d' \
+    gems.rb
 }
 
 build() {
