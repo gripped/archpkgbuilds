@@ -3,8 +3,8 @@
 # Contributor: Anatoly Bashmakov anatoly at posteo dot net
 
 pkgname=asciidoctor-pdf
-pkgver=2.3.18
-pkgrel=3
+pkgver=2.3.19
+pkgrel=1
 pkgdesc="A native PDF converter for AsciiDoc based on Asciidoctor and Prawn"
 arch=(any)
 url="https://github.com/asciidoctor/asciidoctor-pdf"
@@ -36,10 +36,8 @@ source=(
   "$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
   "remove-failing-tests.patch"
 )
-sha256sums=(
-  'd2d9140363e8a81c2aa4a06a35d2fb63971773900674d7b1942b4e090bd8194c'
-  '40e0aea913c4abc3313b9ae05957e334510899ae64fd882a898144c9ede025d4'
-)
+sha256sums=('cf3ce76b021dc5c0a0e350d3482b3d2b4df1b182cc11bbad893257f76ed75054'
+            '40e0aea913c4abc3313b9ae05957e334510899ae64fd882a898144c9ede025d4')
 
 prepare() {
   cd $pkgname-$pkgver
