@@ -3,7 +3,7 @@
 _hkgname=hls-explicit-fixity-plugin
 pkgname=haskell-hls-explicit-fixity-plugin
 pkgver=1.1.0.0
-pkgrel=202
+pkgrel=203
 pkgdesc="Show fixity explicitly while hovering"
 url="https://github.com/haskell/haskell-language-server.git"
 license=("Apache")
@@ -17,6 +17,7 @@ sha256sums=('5c73b0ff6c77e38c8ad5b310b4eb6359f3f0c0bfa42212c63d95d9ebdc544a27')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u ghcide -u hls-test-utils
 }
 
 build() {
