@@ -2,8 +2,8 @@
 
 _hkgname=hls-floskell-plugin
 pkgname=haskell-hls-floskell-plugin
-pkgver=1.0.2.0
-pkgrel=205
+pkgver=1.0.2.1
+pkgrel=1
 pkgdesc="Integration with the Floskell code formatter"
 url="https://hackage.haskell.org/package/hls-floskell-plugin"
 license=("Apache")
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-floskell' 'haskell-ghcide' 'haskell-hls-plugin-api'
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('5fb9e2361d5406409eb14b2e40fe84f5702e8454cbc63471c997b4e42eb64534657df93e4901e33306dc20a725dc65034c4c816d3994ceacc66e8a7335c87233')
+sha512sums=('4028ecd2ece93016a189482a697144b765e3ea5001486770bd931cb2f947fe8b89518c33ee13b500577a290a169d8118afcddc766a735eb87e47f1b88b62dcc3')
 
 prepare() {
   cd $_hkgname-$pkgver
