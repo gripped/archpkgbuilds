@@ -4,7 +4,7 @@
 _gemname='rubocop-ast'
 pkgname="ruby-${_gemname}"
 pkgver=1.30.0
-pkgrel=2
+pkgrel=3
 pkgdesc="RuboCop's AST extensions and NodePattern functionality"
 arch=('any')
 url="https://github.com/rubocop/${_gemname}"
@@ -17,15 +17,24 @@ makedepends=(
   ruby-bundler
   ruby-oedipus_lex
   ruby-rake
+  ruby-rdoc
   ruby-rspec
 )
 options=('!emptydirs')
-source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('203eb5a369cb8da2e3b40ed3856754a03139ab4395c9511250147155aed98cb86cf63bf9a7718cec8f7a33b9cd7f2995213ffc012b4237c0696c4861dbf55a34')
-b2sums=('47774c812912e8f964f68931bd2a7b4d9612983e7f4d5fdd94eea25537483b2bbb5685a86a1ed2230958e77a0b09a12dedc795b75b10c3d87f38b34586e0ea46')
+source=(
+  "${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+  # https://github.com/rubocop/rubocop-ast/pull/278
+  "${url}/pull/278/commits/e897d99d91d4499e555c0d4053791b3a5b86defe.patch"
+)
+sha512sums=('203eb5a369cb8da2e3b40ed3856754a03139ab4395c9511250147155aed98cb86cf63bf9a7718cec8f7a33b9cd7f2995213ffc012b4237c0696c4861dbf55a34'
+            'f1c3a2f32b305bdbcae90342b0b3c7172f10f22c284dd7c6ec3262ec6b1eb39b447a8afe25334f7d69cda81b431821edfd2dccb17bc3263aa170b4e2b0aab516')
+b2sums=('47774c812912e8f964f68931bd2a7b4d9612983e7f4d5fdd94eea25537483b2bbb5685a86a1ed2230958e77a0b09a12dedc795b75b10c3d87f38b34586e0ea46'
+        '30a4c84db322502ff5f6231932d1fe8410dc312fb0f505320ffc6185426e6b94657d28f27a5b047c26162b683e0c5d4668eec2cc5211b8af32902ddc9d5562c3')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
+
+  patch --verbose --strip=1 --input="../e897d99d91d4499e555c0d4053791b3a5b86defe.patch"
 
   # update gemspec/Gemfile to allow newer version of the dependencies
   sed --in-place --regexp-extended 's|~>|>=|g' "${_gemname}.gemspec" Gemfile
