@@ -2,8 +2,8 @@
 
 _hkgname=hls-explicit-imports-plugin
 pkgname=haskell-hls-explicit-imports-plugin
-pkgver=1.2.0.0
-pkgrel=202
+pkgver=1.2.1.0
+pkgrel=1
 pkgdesc="Explicit imports plugin for Haskell Language Server"
 url="https://hackage.haskell.org/package/hls-explicit-imports-plugin"
 license=("Apache")
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-ghc' 'haskell-ghcide' 'haskell-hls-
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('b4e52b974c0a79ce43bfb4a5a6252a5f5adf06bbf5fbecdc80aa14d359042471381b44fb2f810bbdaa0e687dc828f4a08b71c76fa088de18b9d1e8e23aa562cd')
+sha512sums=('9e2afb87eb82d9d67c25ba6cdcd74babfe260a92e53119a6a7f8e53bea0d3b4848aff5e883cb6dca5397bf8f38127a38c53acdaf4843cdba08a02b4a3d49a75d')
 
 prepare() {
   cd $_hkgname-$pkgver
