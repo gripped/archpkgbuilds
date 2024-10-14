@@ -5,19 +5,19 @@
 
 _gemname=ffi
 pkgname=ruby-$_gemname
-pkgver=1.16.3
-pkgrel=2
+pkgver=1.17.0
+pkgrel=1
 pkgdesc='Ruby FFI'
 arch=('x86_64')
 url='https://github.com/ffi/ffi'
-license=('BSD')
+license=('BSD-3-Clause' 'MIT')
 depends=('ruby')
 makedepends=('ruby-rdoc')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem")
 noextract=("$_gemname-$pkgver.gem")
-sha512sums=('b3d823a03055412a85ae3dbc10c3b50615614f0b66830e144ca47610b1f93f588ff693a95d364b4f686968b79bba91f9f9fa60b932479c6bf9ceb10e15575b98')
-b2sums=('887c28320af9caa7fa2d38e2be7775413c0fc4385dab9763279e41bf993b149f8cef6e117ac4f1eeccf9afabb41ee990507cb901483c143ba4e872a165b7fb77')
+sha512sums=('5cdaf19eaa499127607de7389f69b4927c7bd8a154a53071c53906050bc712b67c1fbc7b4b37fcf9a82fa6c79d705796032cd7ab61755646cfed0c2d279940a1')
+b2sums=('b34c26059e1649313c4d1fa158f13e24a48d1a739d2aa85c4a6f176072ef5606c192bc5ee8a63ce249461878be93fbd7045cb567cccb877fc500adaa1be1440d')
 
 package() {
   local _gemdir="$(ruby -e'puts Gem.default_dir')"
