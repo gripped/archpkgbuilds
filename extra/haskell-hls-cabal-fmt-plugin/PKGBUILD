@@ -3,7 +3,7 @@
 _hkgname=hls-cabal-fmt-plugin
 pkgname=haskell-hls-cabal-fmt-plugin
 pkgver=0.1.0.0
-pkgrel=202
+pkgrel=203
 pkgdesc="Integration with the cabal-fmt code formatter"
 url="https://hackage.haskell.org/package/hls-cabal-fmt-plugin"
 license=("Apache")
@@ -17,6 +17,7 @@ sha256sums=('b71ae62ebe3dd35a19f6571fd3c8f17654c80c4b36607e39347516677606defe')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u ghcide -u hls-test-utils
 }
 
 build() {
