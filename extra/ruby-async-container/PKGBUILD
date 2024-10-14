@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-async-container
-pkgver=0.16.12
-pkgrel=3
+pkgver=0.18.3
+pkgrel=1
 pkgdesc='Abstract container-based parallelism using threads and processes where appropriate'
 arch=(any)
 url='https://github.com/socketry/async-container'
@@ -10,23 +10,32 @@ license=(MIT)
 depends=(
   ruby
   ruby-async
-  ruby-async-io
 )
 checkdepends=(
-  psmisc
-  ruby-async-rspec
+  ruby-bake
+  ruby-bake-test
+  ruby-bake-test-external
   ruby-bundler
   ruby-covered
-  ruby-rspec
+  ruby-decode
+  ruby-sus
 )
 options=(!emptydirs)
 source=(https://github.com/socketry/async-container/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('dc298856d04c5d91f0a8dcba36f437062af4c3e721f997a8b726d537fb0b4bd0')
+sha256sums=('51b5c19bf41678aadbeb483a2b0cb552027d749ff0314e22c9ac763d340d3382')
 
 prepare() {
   cd async-container-$pkgver
-  sed -r -e 's|~>|>=|g' -i async-container.gemspec
-  echo gemspec > gems.rb
+
+  sed -r \
+    -e 's|~>|>=|g' \
+    -e '/signing_key/d' \
+    -i async-container.gemspec
+
+  sed --in-place \
+    --expression '/group :maintenance/,/end/d' \
+    --expression '/rubocop/d' \
+    gems.rb
 }
 
 build() {
@@ -58,9 +67,7 @@ build() {
 check() {
   local _gemdir="$(gem env gemdir)"
   cd async-container-$pkgver
-  GEM_HOME="tmp_install/$_gemdir" rspec
-  # https://github.com/socketry/async-container/issues/24
-  killall --ns $$ -e bundle -u builduser
+  GEM_HOME="tmp_install/$_gemdir" bake test
 }
 
 package() {
