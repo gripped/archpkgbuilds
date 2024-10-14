@@ -2,8 +2,8 @@
 
 _hkgname=hls-alternate-number-format-plugin
 pkgname=haskell-hls-alternate-number-format-plugin
-pkgver=1.3.0.0
-pkgrel=202
+pkgver=1.3.0.1
+pkgrel=1
 pkgdesc="Provide Alternate Number Formats plugin for Haskell Language Server"
 url="https://github.com/haskell/haskell-language-server"
 license=("Apache")
@@ -14,11 +14,12 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-extra' 'haskell-ghcide' 'haskell-hi
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-hls-test-utils' 'haskell-tasty-quickcheck')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('7202b7115bb5696f604f0392012cbf6a1ed1ed1ec88ef3564c2083da34378152')
+sha256sums=('fd64780b3e222687091e411c086c8570124c75574bf06dbe1be1b3d3ae0f5154')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u hls-test-utils
 }
 
 build() {
