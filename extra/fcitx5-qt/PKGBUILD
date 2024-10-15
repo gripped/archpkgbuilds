@@ -3,7 +3,7 @@
 
 pkgname=fcitx5-qt
 pkgver=5.1.6
-pkgrel=6
+pkgrel=7
 pkgdesc="Fcitx5 Qt Library (Qt5 & Qt6 integrations)"
 arch=('x86_64')
 url="https://github.com/fcitx/fcitx5-qt"
@@ -14,6 +14,11 @@ makedepends=('git' 'extra-cmake-modules' 'qt5-base' 'ninja')
 source=("git+https://github.com/fcitx/fcitx5-qt.git#tag=$pkgver?signed")
 sha512sums=('e881009b56d23d575f809d8d64a436558147efed062b8aac9ff0736f86285ff31e2be7564f66cbff0199adad7b7662ab1c20c5bbca3e9627b110eb8d746a120b')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
+
+prepare() {
+  cd $pkgname
+  git cherry-pick -n 0837a9654b37b889065d13242546fc3d7052fd83 # Fix build with Qt 6.8
+}
 
 build() {
   cd $pkgname
