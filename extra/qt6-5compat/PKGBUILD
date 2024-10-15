@@ -3,7 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-5compat
-pkgver=6.7.3
+_pkgver=6.8.0
+pkgver=6.8.0
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -17,13 +18,12 @@ depends=(gcc-libs
 makedepends=(cmake
              git
              ninja
-             qt6-declarative
-             qt6-shadertools)
+             qt6-declarative)
 optdepends=('qt6-declarative: for QtGraphicalEffects')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
-source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
-sha256sums=('5764c228cc23c426f0f4221a75352e366599e7f8b5f40b6aaadf36b40de6cd53')
+source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
+sha256sums=('35bd88affe3eff97a5691e39af92baf53ab7daa9afdd89cca8a9c60de2ca25bf')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
