@@ -3,7 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-wayland
-pkgver=6.7.3
+_pkgver=6.8.0
+pkgver=6.8.0
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -15,23 +16,15 @@ depends=(gcc-libs
          libxkbcommon
          qt6-base
          qt6-declarative
+         qt6-svg
          wayland)
 makedepends=(cmake
              git
              ninja)
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
-source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
-sha256sums=('3a92357c143e981b3eda636fb07bf4057805c83bfe732cc6634fb26a219a80a9')
-
-prepare() {
-  cd $_pkgfn
-
-  git cherry-pick -n 92bcb8f6b7a852c7a5d662fc34de561692a7a454
-  git cherry-pick -n c2f61bc47baacf2e6a44c6c3c4e4cbf0abfa4095
-  git cherry-pick -n 406995207eae8d644b6e5262aa716a48c7e471a8
-  git cherry-pick -n 632127d7f1d86cba4dd17361f24f9fd70a0ae44c
-}
+source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
+sha256sums=('09927060c5595c33176d7a9828b427a0934484c0741d910437a49c6cad5165d4')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
