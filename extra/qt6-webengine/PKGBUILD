@@ -2,7 +2,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-webengine
-pkgver=6.7.3
+_pkgver=6.8.0
+pkgver=6.8.0
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -69,21 +70,16 @@ makedepends=(cmake
 optdepends=('pipewire: WebRTC desktop sharing under Wayland')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
-source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver
-        git+https://code.qt.io/qt/qtwebengine-chromium
-        qtwebengine-ffmpeg-7.patch)
-sha256sums=('31c13b702b6ebd9aba04c751dedb6d6d301adf74ab0efd13192b482a6786485a'
-            'SKIP'
-            'f108c916ab87a247571255c56f9d04fc9bccdc3fe8972bf5a60d29636c6f5c3e')
+source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
+        git+https://code.qt.io/qt/qtwebengine-chromium)
+sha256sums=('3c26e443a0d742af4107916ec94db224a9a6a4131f1415655a6b0b6820a18c58'
+            'SKIP')
 
 prepare() {
   cd $_pkgfn
   git submodule init
   git submodule set-url src/3rdparty "$srcdir"/qtwebengine-chromium
   git -c protocol.file.allow=always submodule update
-
-# Fix build with ffmpeg 7 - Chromium patches
-  patch -d src/3rdparty/chromium -p1 -i "$srcdir"/qtwebengine-ffmpeg-7.patch
 }
 
 build() {
