@@ -1,7 +1,7 @@
 pkgbase = valkey
 	pkgdesc = An in-memory database that persists on disk
 	pkgver = 8.0.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://valkey.io/
 	install = valkey.install
 	arch = x86_64
@@ -12,6 +12,7 @@ pkgbase = valkey
 	depends = jemalloc
 	depends = shadow
 	depends = systemd-libs
+	provides = redis
 	conflicts = redis
 	backup = etc/valkey/valkey.conf
 	backup = etc/valkey/sentinel.conf
