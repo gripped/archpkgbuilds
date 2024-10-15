@@ -1,0 +1,77 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=authenticator
+pkgver=4.5.0
+pkgrel=2
+pkgdesc='Simple application for generating two-factor authentication (2FA) codes'
+arch=(x86_64)
+url='https://apps.gnome.org/Authenticator/'
+license=(GPL-3.0-or-later)
+depends=(
+  bzip2
+  dconf
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  graphene
+  gst-plugin-pipewire
+  gst-plugins-bad
+  gst-plugins-bad-libs
+  gst-plugins-base
+  gst-plugins-base-libs
+  gst-plugins-good
+  gstreamer
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  openssl
+  sqlite
+  zbar
+)
+makedepends=(
+  appstream
+  git
+  meson
+  rust
+)
+options=(!lto)
+source=(
+  "git+https://gitlab.gnome.org/World/Authenticator.git#tag=$pkgver"
+  authenticator-cargo-test.patch
+)
+b2sums=(
+  01d8c12f869db0fe14f0c30f1e7590244890685f9953143787c0d31f7f40de99753b60c2badc41df66005af93199d6f2e23c8fe4b35bf529f5560d5062592a4c
+  7bfd26c7ee520d2207c17089f0af18910cb27bbe8e9c0d5a0eb168c347758773c73a5d779e01da3f085d97791fe7df65af3d4dc3266ce38cce8d7797f9678e9c
+)
+
+prepare() {
+  cd Authenticator
+
+  # Cargo.lock needs to be updated
+  cargo update
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/World/Authenticator/-/merge_requests/280
+  git apply -3 ../authenticator-cargo-test.patch
+}
+
+build() {
+  arch-meson Authenticator build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+}
