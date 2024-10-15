@@ -2,7 +2,7 @@
 
 pkgname=libxmlb
 pkgver=0.3.20
-pkgrel=1
+pkgrel=2
 pkgdesc="Library to help create and query binary XML blobs"
 arch=(x86_64)
 url="https://github.com/hughsie/libxmlb"
@@ -10,10 +10,16 @@ license=(LGPL)
 depends=(glib2 libstemmer xz zstd)
 makedepends=(meson gobject-introspection gtk-doc)
 checkdepends=(shared-mime-info)
-source=("https://github.com/hughsie/libxmlb/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz"{,.asc})
+source=("https://github.com/hughsie/libxmlb/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz"{,.asc}
+         https://github.com/hughsie/libxmlb/commit/97e22e0a.patch)
 sha256sums=('4c5b534d645f7328643d6a0d3040ffb9832e13e3530025af55086a06e3c018ed'
-            'SKIP')
+            'SKIP'
+            '7db094e7175a9b226f4b3d9648bec8b02c6b7086e34df072b9fbe34334ed8cbd')
 validpgpkeys=(163EB50119225DB3DF8F49EA17ACBA8DFA970E17) # Richard Hughes <richard@hughsie.com>
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < 97e22e0a.patch # Revert commit that breaks appstream
+}
 
 build() {
   arch-meson ${pkgname}-${pkgver} build -D stemmer=true
