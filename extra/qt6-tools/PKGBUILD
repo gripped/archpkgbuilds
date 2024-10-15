@@ -3,7 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-tools
-pkgver=6.7.3
+_pkgver=6.8.0
+pkgver=6.8.0
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -25,9 +26,9 @@ optdepends=('clang: for qdoc and lupdate'
             'qt6-declarative: for qdoc and lupdate')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
-source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver
+source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
         git+https://code.qt.io/playground/qlitehtml)
-sha256sums=('41a81ffdf6411a5f350f7c7099c1431fbd5ff009e3e0cd5f236f7fec9544c5e1'
+sha256sums=('74659933b95b94a78b9ec24e6f24633473c4dfa180b34531abf847768ccd8822'
             'SKIP')
 
 prepare() {
@@ -35,8 +36,6 @@ prepare() {
   git submodule init
   git submodule set-url src/assistant/qlitehtml "$srcdir"/qlitehtml
   git -c protocol.file.allow=always submodule update
-
-  git cherry-pick -n 46ffaed90df8c14d67b4b16fdf5e0b87ab227c88 # Fix crash in Designer
 }
 
 build() {
