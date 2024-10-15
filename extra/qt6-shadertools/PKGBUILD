@@ -3,7 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-shadertools
-pkgver=6.7.3
+_pkgver=6.8.0
+pkgver=6.8.0
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -17,8 +18,8 @@ makedepends=(cmake
              ninja)
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
-source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
-sha256sums=('bb80a3bae6182cfbdb2846c311bf10227887a497d71b7ff678db9929d94e921b')
+source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
+sha256sums=('51e72c258a442ac25d0ecef3e22eaea94c91333315310464680e7a9b23c84609')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
