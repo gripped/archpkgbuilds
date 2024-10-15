@@ -1,0 +1,61 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=obfuscate
+pkgver=0.0.10
+pkgrel=1
+pkgdesc='Censor private information from any image'
+arch=(x86_64)
+url='https://apps.gnome.org/Obfuscate/'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  gcc-libs
+  glib2
+  glibc
+  graphene
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+)
+makedepends=(
+  appstream
+  git
+  meson
+  rust
+)
+source=(
+  "git+https://gitlab.gnome.org/World/obfuscate.git#tag=$pkgver"
+  obfuscate-application-name.patch
+)
+b2sums=(
+  5b2ff8e5d07f982e94a77e6a8a1092acbe5f01eb8f82780381a48dee8891a9563fb7b93bd8d157693550de1e8b6b0446bbc3497a3e27739e0c96e6a8dd038fd8
+  117600581f68b7c7b1b4e206b2a7fe254dc394187d50f973d5973d51f5a4d4f45e695ceb8442d325cd074cbd3d91b175585819560a2f38f420d162c966eedcb1
+)
+
+prepare() {
+  cd $pkgname
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/World/obfuscate/-/merge_requests/37
+  git apply -3 ../obfuscate-application-name.patch
+}
+
+build() {
+  arch-meson $pkgname build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+}
