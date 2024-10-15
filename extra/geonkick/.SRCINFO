@@ -1,7 +1,7 @@
 pkgbase = geonkick
 	pkgdesc = A free software percussion synthesizer
-	pkgver = 3.4.0
-	pkgrel = 3
+	pkgver = 3.5.0
+	pkgrel = 1
 	url = https://geonkick.org/
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -24,14 +24,14 @@ pkgbase = geonkick
 	makedepends = xcb-util
 	makedepends = xcb-util-cursor
 	makedepends = xcb-util-keysyms
-	source = https://gitlab.com/Geonkick-Synthesizer/geonkick/-/archive/v3.4.0/geonkick-v3.4.0.tar.gz
-	sha512sums = 6779b313ae0a859454d7d4af7e9ea5c7c666ba9bfaa6653871b9f55e7f20010a7c475d704e68c844354188a6395b190b48dd9b9bd378fabd96415c577b597295
-	b2sums = 560f4f5a5043954c8963ba6ca66f005e625434a474c6f0349fb0b692456eb15fd2a02f6a1b4a951512505db2a5fce27e8719f1d80c8f68f51f6a6e6499b81b0d
+	source = https://gitlab.com/Geonkick-Synthesizer/geonkick/-/archive/v3.5.0/geonkick-v3.5.0.tar.gz
+	sha512sums = 85517017932b90349c9ec28711d957bf3fa3e3e26778ac4f9912683224af64130f6cbcf0f70210b452358c05615b908132027c298959e02253c46db3f2c5ebca
+	b2sums = a7f8492fcbc1164608f4d0272f62f3f739d20d27b848e6ed2236ff2db7793677f92941dc6c1390d989a44e2b2c02e3aa8e481812ba9766a28b969943b4123f0a
 
 pkgname = geonkick
-	depends = geonkick-lv2=3.4.0
-	depends = geonkick-standalone=3.4.0
-	depends = geonkick-vst3=3.4.0
+	depends = geonkick-lv2=3.5.0
+	depends = geonkick-standalone=3.5.0
+	depends = geonkick-vst3=3.5.0
 
 pkgname = geonkick-common
 	pkgdesc = A free software percussion synthesizer - common files
@@ -42,7 +42,7 @@ pkgname = geonkick-lv2
 	groups = pro-audio
 	depends = cairo
 	depends = gcc-libs
-	depends = geonkick-common=3.4.0
+	depends = geonkick-common=3.5.0
 	depends = glibc
 	depends = libsndfile
 	depends = libx11
@@ -53,7 +53,7 @@ pkgname = geonkick-standalone
 	groups = pro-audio
 	depends = cairo
 	depends = gcc-libs
-	depends = geonkick-common=3.4.0
+	depends = geonkick-common=3.5.0
 	depends = glibc
 	depends = hicolor-icon-theme
 	depends = jack
@@ -66,7 +66,7 @@ pkgname = geonkick-vst3
 	groups = vst3-plugins
 	depends = cairo
 	depends = gcc-libs
-	depends = geonkick-common=3.4.0
+	depends = geonkick-common=3.5.0
 	depends = glibc
 	depends = libsndfile
 	depends = vst3-host
