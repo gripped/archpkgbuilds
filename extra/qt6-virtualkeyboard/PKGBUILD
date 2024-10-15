@@ -2,7 +2,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-virtualkeyboard
-pkgver=6.7.3
+_pkgver=6.8.0
+pkgver=6.8.0
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -13,14 +14,15 @@ depends=(gcc-libs
          hunspell
          qt6-base
          qt6-declarative
+         qt6-multimedia
          qt6-svg)
 makedepends=(cmake
              git
              ninja)
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
-source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
-sha256sums=('f3a107e78bdec21899b486e07b9c0f1ae6d47b30353bb230471b8a1af33ec486')
+source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
+sha256sums=('ceb49257f3bd837b71d1664fb009326ff4152fa689fbeefb0a79731a36a65756')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
