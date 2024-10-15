@@ -1,0 +1,32 @@
+pkgbase = warp
+	pkgdesc = Securely send files to each other via the internet or local network by exchanging a word-based code
+	pkgver = 0.7.0
+	pkgrel = 3
+	url = https://apps.gnome.org/Warp/
+	arch = x86_64
+	license = GPL-3.0-or-later
+	makedepends = appstream
+	makedepends = git
+	makedepends = itstool
+	makedepends = meson
+	makedepends = rust
+	depends = gcc-libs
+	depends = glib2
+	depends = glibc
+	depends = graphene
+	depends = gst-plugin-pipewire
+	depends = gst-plugins-bad
+	depends = gst-plugins-bad-libs
+	depends = gst-plugins-base
+	depends = gst-plugins-base-libs
+	depends = gst-plugins-good
+	depends = gstreamer
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita
+	options = !lto
+	source = git+https://gitlab.gnome.org/World/warp.git?signed#tag=v0.7.0
+	validpgpkeys = FD04DCE1EB3443DE17FB904ECFD6416C8173524E
+	b2sums = 84cc32a1ae9b031204b734d6695964c53e7e88e5267547211655d479c93143e25a38ca5e3153a4ce5a90c08d6196f35d59034675dfb3de44771b049c5a275c81
+
+pkgname = warp
