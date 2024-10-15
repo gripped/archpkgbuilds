@@ -2,7 +2,7 @@
 
 pkgname=decoder
 pkgver=0.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc='QR code scanner and generator'
 arch=(x86_64)
 url='https://apps.gnome.org/Decoder/'
@@ -13,6 +13,7 @@ depends=(
   glib2
   glibc
   graphene
+  gst-plugins-bad
   gst-plugins-bad-libs
   gst-plugins-base
   gst-plugins-base-libs
@@ -55,6 +56,7 @@ build() {
   CARGO_PROFILE_RELEASE_LTO=true \
     CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
     CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
     meson compile -C build
 }
 
