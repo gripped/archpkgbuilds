@@ -2,23 +2,23 @@
 # Contributor: Carlos Aznarán <caznaranl@uni.pe>
 
 pkgname=mdformat
-pkgver=0.7.17
-pkgrel=3
+pkgver=0.7.18
+pkgrel=1
 pkgdesc='CommonMark compliant Markdown formatter'
-arch=('any')
+arch=(any)
 url=https://github.com/executablebooks/mdformat
-license=('MIT')
-depends=('python-markdown-it-py')
+license=(MIT)
+depends=(python-markdown-it-py)
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-wheel'
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
 )
-checkdepends=('python-pytest')
+checkdepends=(python-pytest)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('93b7a634a1ef23042a338f3f7f9806c3882f7eed79715e7c22e2ee1a5068f3917cf216013b649a2d55ea83061dd1439385de45da2eeb42152777b0f3c94170e5')
+b2sums=('2f597ec2c1eca54cf43379928de8c0deef88ad7c7154841dfb9ca34869b7fe23676d5c0478194df92a4c969ac5f1c7006346606b441437c023a8ce2676597605')
 
 build() {
   cd $pkgname
@@ -27,16 +27,15 @@ build() {
 
 check() {
   cd $pkgname
-  PYTHONPATH="build/lib" pytest
+  PYTHONPATH=build/lib pytest
 }
 
 package() {
-  cd $pkgname
-  python -m installer --destdir="$pkgdir" dist/*.whl
-
-  # Symlink license file
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
   ln -s "$site_packages"/$pkgname-$pkgver.dist-info/LICENSE \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
