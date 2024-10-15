@@ -7,7 +7,7 @@ pkgname=(pyside6
          shiboken6)
 _qtver=6.8.0
 pkgver=${_qtver/-/}
-pkgrel=3
+pkgrel=4
 arch=(x86_64)
 url='https://www.qt.io'
 license=(LGPL)
@@ -48,7 +48,7 @@ sha256sums=('64179fd95435d14504cf0b31247142b6c4f60df16f0e1b46f359ba813657b119'
 
 prepare() {
   cd pyside-setup
-  git cherry-pick -n 556bc8d158b06546343ae2f51b05f555d47442c0 # Fix star imports (PYSIDE-2675)
+  git cherry-pick -n 2a2d01399ad837db17cae3c2d00446b88338a627 # Fix crashes (PYSIDE-2888)
   patch -p1 < ../fix-build.patch
 }
 
