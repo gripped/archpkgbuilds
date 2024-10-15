@@ -3,7 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-quick3d
-pkgver=6.7.3
+_pkgver=6.8.0
+pkgver=6.8.0
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -11,6 +12,7 @@ license=(GPL3)
 pkgdesc='Qt module and API for defining 3D content in Qt Quick'
 depends=(gcc-libs
          glibc
+         openxr
          qt6-base
          qt6-declarative
          qt6-quicktimeline
@@ -23,8 +25,8 @@ makedepends=(assimp
 optdepends=('assimp: assimp import plugin')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
-source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
-sha256sums=('49db9102a23ed3080448370e8c7454c57a8ecff1baa2ed3561daefc2b5095589')
+source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
+sha256sums=('83be32b96d9c868be71175914e10f2d2d8a8dc033e4698bccb9ea81cab872a09')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
