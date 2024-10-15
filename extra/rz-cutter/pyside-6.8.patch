@@ -1,0 +1,12 @@
+diff --git a/src/common/PythonManager.cpp b/src/common/PythonManager.cpp
+index eb43b018..2d452c92 100644
+--- a/src/common/PythonManager.cpp
++++ b/src/common/PythonManager.cpp
+@@ -133,7 +133,6 @@ void PythonManager::shutdown()
+     Core()->setProperty("_PySideInvalidatePtr", QVariant());
+ 
+     // see PySide::destroyQCoreApplication()
+-    PySide::SignalManager::instance().clear();
+     Shiboken::BindingManager &bm = Shiboken::BindingManager::instance();
+     SbkObject *pyQApp = bm.retrieveWrapper(QCoreApplication::instance());
+     PyTypeObject *pyQObjectType = Shiboken::Conversions::getPythonTypeObject("QObject*");
