@@ -2,7 +2,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-grpc
-pkgver=6.7.3
+_pkgver=6.8.0
+pkgver=6.8.0
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -16,11 +17,13 @@ depends=(abseil-cpp
 makedepends=(cmake
              git
              grpc
-             ninja)
+             ninja
+             qt6-declarative)
+optdepends=('qt6-declarative: QML bindings')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
-source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
-sha256sums=('5bec085b59382c209af06bd1b0d2e79c1625b39c94b7439c6f69a87d98120f97')
+source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
+sha256sums=('5f77eae22de1ec77fc9ed53fd94e1ced8cdeff05a4884321b7910348f438a152')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
