@@ -1,7 +1,7 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=gnome-firmware
-pkgver=46.0
+pkgver=47.0
 pkgrel=1
 pkgdesc="Manage firmware on devices supported by fwupd"
 arch=(x86_64)
@@ -10,7 +10,7 @@ license=(GPL2)
 depends=(gtk4 glib2 fwupd libadwaita libxmlb systemd)
 makedepends=(meson help2man)
 source=(https://people.freedesktop.org/~hughsient/releases/${pkgname}-${pkgver}.tar.xz)
-sha256sums=('364b99bf921a9b7dbd663fd6c6fbe95dbc930f742a0c62fae96bd62c87980b43')
+sha256sums=('1b13d44034d3d8203c2a7c97bf59eb59e8c220a781309d00028abdb5d75f2026')
 
 build() {
   arch-meson ${pkgname}-${pkgver} build
