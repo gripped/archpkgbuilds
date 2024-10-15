@@ -3,7 +3,7 @@
 
 pkgname=libqtxdg
 pkgver=4.0.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Library providing freedesktop.org XDG specs implementations for Qt"
 arch=("x86_64")
 url="https://github.com/lxqt/$pkgname"
@@ -18,15 +18,21 @@ provides=("libQt6Xdg.so" "libQt6XdgIconLoader.so")
 source=(
   "https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
   "https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz.asc"
+   qt-6.8.patch
 )
 sha256sums=('8c1b250de914b2e1fb451c213ee6f249b7b5729c85ac3283fd75615a47a66b62'
-            'SKIP')
+            'SKIP'
+            'c0871facc5ec8a4254b06d6b82e42f199a4294dced5f6fdcf8de31a060878b41')
 validpgpkeys=(
   "169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>
   "7C733BA5F585AAD669E4D23A42C9C8D3AF5EA5E3"  # Alf Gaida <agaida@siduction.org>
   "19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # Pedram Pourang <tsujan2000@gmail.com>
 )
 
+prepare() {
+  cd $pkgname-$pkgver
+  patch -p1 -i ../qt-6.8.patch
+}
 
 build() {
   mkdir -p build
