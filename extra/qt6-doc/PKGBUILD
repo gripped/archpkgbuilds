@@ -4,7 +4,10 @@
 
 pkgbase=qt6-doc
 pkgname=(qt6-doc qt6-examples)
-pkgver=6.7.3
+_pkgver=6.8.0
+pkgver=6.8.0
+# Account for Qt special naming of -rc1 tarballs
+_pkgver=6.8.0
 pkgrel=1
 arch=('any')
 url='https://www.qt.io'
@@ -23,22 +26,20 @@ makedepends=(alsa-lib
              mariadb-libs
              ninja
              nodejs
+             openxr
              postgresql
              python
              python-html5lib
-             qt6-declarative
-             qt6-tools
              unixodbc
              vulkan-headers)
 groups=(qt6)
-_pkgfn=qt-everywhere-src-$pkgver
-source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/${pkgver/-/}/single/$_pkgfn.tar.xz)
-sha256sums=('a3f1d257cbb14c6536585ffccf7c203ce7017418e1a0c2ed7c316c20c729c801')
+_pkgfn=qt-everywhere-src-$_pkgver
+source=(https://download.qt.io/official_releases/qt/${_pkgver%.*}/${_pkgver}/single/$_pkgfn.tar.xz)
+sha256sums=('70f1a87c6ecc6c108dec6e9389e564f8798bd48bec4c596f28d0564c1dbbc2c6')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DQT_HOST_PATH=/usr \
     -DINSTALL_BINDIR=lib/qt6/bin \
     -DINSTALL_DOCDIR=share/doc/qt6 \
     -DINSTALL_ARCHDATADIR=lib/qt6 \
