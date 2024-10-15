@@ -2,7 +2,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-positioning
-pkgver=6.7.3
+_pkgver=6.8.0
+pkgver=6.8.0
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -21,8 +22,8 @@ optdepends=('geoclue: geoclue2 plugin'
             'qt6-serialport: NMEA plugin')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
-source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$pkgver)
-sha256sums=('37bb849c8174f35846057f598579a8a52dde2adfebb84ea043829ed567917ebb')
+source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
+sha256sums=('cecca0b42cae1047ddbb7cac96d447adbedb4d5b09933fc31081381727de248a')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
