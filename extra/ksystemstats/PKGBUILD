@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=ksystemstats
-pkgver=6.2.0
+pkgver=6.2.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='A plugin based system monitoring daemon'
@@ -26,7 +26,7 @@ optdepends=('libnl: network usage monitor'
             'systemd-libs: GPU monitor')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('05815d01acdb199c052fa994c48f49f694b4356a7fc23eff38bb00614ae4687e'
+sha256sums=('c3198a96216b48e8754e5dfc70a8f675af7b35def3fe063f727044839d45a073'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
