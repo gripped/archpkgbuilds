@@ -1,0 +1,22 @@
+From f6feee897419eb3ddb037406ffdbbf555de8e341 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 16 Oct 2024 14:11:21 +0200
+Subject: [PATCH] application: Set default icon for the window
+
+This is commonly used by desktop environments on Xorg.
+---
+ src/application.vala | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/application.vala b/src/application.vala
+index 95032a1..c23593a 100644
+--- a/src/application.vala
++++ b/src/application.vala
+@@ -55,6 +55,7 @@ public class PaperClip.Application : Adw.Application {
+     public override void startup () {
+         base.startup ();
+         Xmp.init ();
++        Gtk.Window.set_default_icon_name (Config.APP_ID);
+     }
+ 
+     public override void shutdown () {

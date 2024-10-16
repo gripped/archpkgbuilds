@@ -1,0 +1,67 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=paper-clip
+pkgver=5.5.1
+pkgrel=2
+pkgdesc='PDF document metadata editor'
+arch=(x86_64)
+url='https://apps.gnome.org/PdfMetadataEditor/'
+license=(GPL-3.0-or-later)
+depends=(
+  cairo
+  dconf
+  exempi
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  poppler-glib
+)
+makedepends=(
+  appstream
+  git
+  meson
+  vala
+)
+source=(
+  "git+https://github.com/Diego-Ivan/Paper-Clip.git#tag=v$pkgver"
+  paper-clip-window-icon.patch
+  paper-clip-metainfo.patch
+)
+b2sums=(
+  3232196b481d7a1364af55f107e24ac322c068efb7723a0d0463525b887ce060d6057c305a03783528e08eee4de440b15a688c94b9363443bef199a9abfeafec
+  e356727a81b5a1eb1dccdeb17e1061815d52b9b7e148d5c03f9e4b1bd2243a502fe5e8b3f087007c6b6911c0cf4be8fac4727be547b34fd6e04b0f3eed0954fa
+  c4ed3f355cd4e636bab32e1977fb9544ece9f042add66c80880226d458f19c403c191a720cebde0d0d41304e0de6653e3365160e640ce1cd7d6dfc4ea304adb0
+)
+
+prepare() {
+  cd Paper-Clip
+
+  # Fix build
+  git cherry-pick -n 33a64d825b87c842b9ecc243297c7a0248db7180
+
+  # Fix drop overlay
+  git cherry-pick -n bcd4cce79b7bc61a1c35661e23a8649b44fa9ea3
+  git cherry-pick -n cefb4359ebb95f648847b5379a6d84c344a272e9
+
+  # https://github.com/Diego-Ivan/Paper-Clip/pull/99
+  git apply -3 ../paper-clip-window-icon.patch
+
+  # https://github.com/Diego-Ivan/Paper-Clip/pull/100
+  git apply -3 ../paper-clip-metainfo.patch
+}
+
+build() {
+  arch-meson Paper-Clip build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+}
