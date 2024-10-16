@@ -3,7 +3,7 @@
 
 pkgname=handlr-regex
 _pkgname=handlr
-pkgver=0.11.2
+pkgver=0.12.0
 pkgrel=1
 pkgdesc="Powerful alternative to xdg-utils written in Rust"
 arch=('x86_64')
@@ -15,16 +15,20 @@ conflicts=('handlr')
 depends=('shared-mime-info')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('20833e3de4d36f5a77c5af9dcc16f6089d05a1cc9e31eeb43ee60c1f847c0cdf5813db7433e27f5254e7280429ee1c2fd66120b3c258393799f96219dfccd5b2')
+sha512sums=('640438fe11550cc2050ca6a2e4559ef5681588c1fad0479a4e1b9c74755f2f806a9cc2bdc36bf0f40a6a18f2157c3c7b3281d03305f9bbe4e3d2c54de4164581')
 
 prepare() {
   cd "$pkgname-$pkgver"
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  mkdir -p completions
 }
 
 build() {
   cd "$pkgname-$pkgver"
   cargo build --release --frozen
+  COMPLETE=bash target/release/$_pkgname >"completions/$_pkgname"
+  COMPLETE=fish target/release/$_pkgname >"completions/$_pkgname.fish"
+  COMPLETE=zsh target/release/$_pkgname >"completions/_$_pkgname"
 }
 
 check() {
@@ -37,9 +41,9 @@ package() {
   install -Dm 755 "target/release/$_pkgname" -t "$pkgdir/usr/bin"
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
-  install -Dm 644 "assets/completions/$_pkgname" -t "$pkgdir/usr/share/bash-completion/completions"
-  install -Dm 644 "assets/completions/$_pkgname.fish" -t "$pkgdir/usr/share/fish/vendor_completions.d"
-  install -Dm 644 "assets/completions/_$_pkgname" -t "$pkgdir/usr/share/zsh/site-functions"
+  install -Dm 644 "completions/$_pkgname" -t "$pkgdir/usr/share/bash-completion/completions"
+  install -Dm 644 "completions/$_pkgname.fish" -t "$pkgdir/usr/share/fish/vendor_completions.d"
+  install -Dm 644 "completions/_$_pkgname" -t "$pkgdir/usr/share/zsh/site-functions"
 }
 
 # vim: ts=2 sw=2 et:
