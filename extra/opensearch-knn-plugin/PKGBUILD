@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-knn-plugin
-pkgver=2.17.0.0
+pkgver=2.17.1.0
 pkgrel=1
-_opensearchver=2.17.0
+_opensearchver=2.17.1
 _jdkver=11
 pkgdesc="OpenSearch Index Management Plugin"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=("java-environment=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/k-NN/archive/${pkgver}.tar.gz"
 )
-sha256sums=('6b8bcd73142d4662cafba083411bf3c54e5635ba106abcab317343b08ff5c6d8')
+sha256sums=('a571bcb77da75b38842670f6d648f321e47ff80e48737b8227713cef5fd26e21')
 
 build() {
   cd "k-NN-${pkgver}"
