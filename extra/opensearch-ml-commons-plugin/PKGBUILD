@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-ml-commons-plugin
-pkgver=2.17.0.0
+pkgver=2.17.1.0
 pkgrel=1
-_opensearchver=2.17.0
+_opensearchver=2.17.1
 _jdkver=11
 pkgdesc="OpenSearch Machine Learning Commons Plugin"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=("opensearch=${_opensearchver}")
 makedepends=("java-environment=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/ml-commons/archive/${pkgver}.tar.gz")
-sha256sums=('86aedea07791a943d1431eabd89b59653bef824e2ee21963cfd185ab1e179a74')
+sha256sums=('1377ed4478883a372031f97229e3f8b4e3f0144ad64cd5bc5543c1fc696fff2a')
 
 build() {
   cd "ml-commons-${pkgver}"
