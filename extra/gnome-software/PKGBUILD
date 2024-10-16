@@ -5,7 +5,7 @@
 
 pkgname=gnome-software
 pkgver=47.1
-pkgrel=1
+pkgrel=2
 pkgdesc="GNOME Software Tools"
 url="https://apps.gnome.org/Software"
 arch=(x86_64)
