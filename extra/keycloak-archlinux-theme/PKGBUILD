@@ -1,7 +1,7 @@
 # Maintainer: Leonidas Spyropoulos <artafinde@archlinux.org>
 
 pkgname=keycloak-archlinux-theme
-pkgver=1.5.0
+pkgver=1.5.1
 pkgrel=1
 _java=21 # match keycloak's JDK
 pkgdesc="Keycloak Arch Linux theme"
@@ -11,7 +11,7 @@ license=('Apache-2.0')
 depends=('keycloak>=23')
 makedepends=('gradle' 'git' "java-environment=${_java}")
 source=("git+$url.git?signed#tag=v$pkgver")
-sha256sums=('816d86789697a0d1c31d7233b5fbbf657c9a93ea805395227309fefdc56f133b')
+sha256sums=('ff76d4c5f981e7dfa4679f283886d6bda4ceb7cd9e510d9ab673a155b6d2ed4a')
 validpgpkeys=(
   2191B89431BAC0A8B96DE93D244740D17C7FD0EC # artafinde@archlinux.org
   05C7775A9E8B977407FE08E69D4C5AA15426DA0A # freswa@archlinux.org
