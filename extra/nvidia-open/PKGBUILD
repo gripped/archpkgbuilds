@@ -1,9 +1,9 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
-# Contributor: Peter Jung <ptr1337@archlinux.org>
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
 
 pkgname=nvidia-open
 pkgver=560.35.03
-pkgrel=14
+pkgrel=16
 pkgdesc="NVIDIA open kernel modules"
 arch=('x86_64')
 url="https://github.com/NVIDIA/open-gpu-kernel-modules"
@@ -11,6 +11,8 @@ depends=("nvidia-utils=${pkgver}" 'libglvnd')
 makedepends=('linux-headers' "nvidia-open-dkms=$pkgver")
 license=('MIT AND GPL-2.0-only')
 options=('!strip')
+conflicts=('NVIDIA-MODULE')
+provides=('NVIDIA-MODULE')
 
 build() {
     _kernver=$(</usr/src/linux/version)
