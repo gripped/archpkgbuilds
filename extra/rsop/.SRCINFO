@@ -1,6 +1,6 @@
 pkgbase = rsop
 	pkgdesc = Stateless OpenPGP (SOP) based on rpgp
-	pkgver = 0.3.9
+	pkgver = 0.4.0
 	pkgrel = 1
 	url = https://codeberg.org/heiko/rsop
 	arch = x86_64
@@ -9,13 +9,15 @@ pkgbase = rsop
 	license = CC0-1.0
 	makedepends = pcsclite
 	makedepends = rust
+	depends = dbus
 	depends = gcc-libs
 	depends = glibc
-	source = rsop-0.3.9.tar.gz::https://codeberg.org/heiko/rsop/archive/rsop/v0.3.9.tar.gz
-	sha512sums = 2d5249df1711c8e7b395664e4dffd4df523682df73f62bf4e7071512c58ad93ed90f3389fbb9fd7d6c8337aaae93c9d071e3857786b9c3226eefcb48560eb55f
-	b2sums = 95609eaffe689d66ace612a903b671e8cfb3777134332b7192e4497738fbab2568cc588a8191eb8323eb3c28cde54ff36c30214ed6081bc3a1b06e7010683be6
+	source = rsop-0.4.0.tar.gz::https://codeberg.org/heiko/rsop/archive/rsop/v0.4.0.tar.gz
+	sha512sums = b5dd07d6c6878b8d7f4f984976ae59f263ede3e32eb9787c65901218c4080f5caf10e1412b1c9f44f22a4c8f131dedc67d2e5d9041ca6e451a754a27930dcfae
+	b2sums = 3622162298f4cec60cc451d8381aeeb96a4a5531499e49daa25fcaa00abee076ccf9408f2c7b5b9c8b5371f62b5178a423aa2b147b1254f872a70fbee25af2e3
 
 pkgname = rsop
+	depends = dbus
 	depends = gcc-libs
 	depends = glibc
 	depends = pcsclite
