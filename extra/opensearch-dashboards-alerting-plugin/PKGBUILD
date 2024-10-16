@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-alerting-plugin'
 _pluginname='alerting-dashboards-plugin'
-pkgver=2.17.0.0
-_dashboardsver=2.17.0
+pkgver=2.17.1.0
+_dashboardsver=2.17.1
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Alerting Plugin'
 url='https://opensearch.org/docs/latest/monitoring-plugins/alerting'
@@ -16,8 +16,8 @@ source=(
   "git+https://github.com/opensearch-project/${_pluginname}.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
 )
-sha256sums=('034ab5b830ed6ce6b65a96f30b51c35a424011b8e6ecf1bf92dce50eaeb524cb'
-            '9bd4ce716740da32351ec4de0317f683cc642369f8f611626649d6ed6416cfaa')
+sha256sums=('09302f97fe13b3468c37e93438e85f796ba06cd9edbda059a18c4d89f279bd1c'
+            '8d3826382d89649efd499152f53758b03afbb375d666fee40793bb882bff1a82')
 
 prepare() {
   nodeVersion="$(node -v)"
