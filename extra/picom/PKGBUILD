@@ -6,55 +6,62 @@
 
 pkgname=picom
 pkgver=12.3
-pkgrel=1
-pkgdesc="A lightweight compositor for X11"
-url="https://picom.app"
-arch=('x86_64')
+pkgrel=2
+pkgdesc='Lightweight compositor for X11'
+url='https://picom.app'
+arch=(x86_64)
 license=('MPL-2.0 AND MIT')
-depends=('hicolor-icon-theme' 'libconfig' 'libdbus' 'libev' 'libgl' 'pcre2' 'pixman'
-         'xcb-util-image' 'xcb-util-renderutil' 'libepoxy')
-makedepends=('asciidoctor' 'git' 'mesa' 'meson' 'ninja' 'setconf' 'uthash')
+depends=(hicolor-icon-theme libconfig libdbus libepoxy libev libgl pcre2 pixman xcb-util-image xcb-util-renderutil)
+makedepends=(asciidoctor git mesa meson ninja setconf uthash)
 optdepends=('dbus: for controlling picom via D-Bus'
             'python: for running picom-convgen.py'
             'rtkit: for realtime scheduling priority'
             'xorg-xprop: for picom-trans'
             'xorg-xwininfo: for picom-trans')
-backup=('etc/xdg/picom.conf')
-source=("git+https://github.com/yshui/picom.git?signed#tag=v${pkgver}")
+backup=(etc/xdg/picom.conf)
+source=("git+https://github.com/yshui/picom.git?signed#tag=v$pkgver")
 validpgpkeys=('A22F5C0F4FCF9C7C89A167462C965E9E5D45D730') # Yuxuan Shui <yshuiv7@gmail.com>
 b2sums=('d7e4b5ecba5a03ca4b545fbefb5cea297d550493b1147211310788228fc3aa008000189e895a9d97103fefe55b24164f6f16ef890f5497175ecfcd41d08da068')
 
 prepare() {
-	cd "${pkgname}"
-	# More subtle transparency in the default settings
-	setconf picom.sample.conf 'frame-opacity=0.9;'
-	setconf picom.sample.conf 'inactive-opacity=0.95;'
-	# Improve performance (recommended option)
-	setconf -u picom.sample.conf 'glx-no-stencil=true;'
-	# Force xrender as the default backend (default upstream value)
-	setconf -u picom.sample.conf 'backend="xrender"'
+  cd $pkgname
+
+  # More subtle transparency in the default settings
+  setconf picom.sample.conf 'frame-opacity=0.9;'
+  setconf picom.sample.conf 'inactive-opacity=0.95;'
+  # Improve performance (recommended option)
+  setconf -u picom.sample.conf 'glx-no-stencil=true;'
+  # Force xrender as the default backend (default upstream value)
+  setconf -u picom.sample.conf 'backend="xrender"'
+  # Capitalize the desktop icon name for picom
+  setconf picom.desktop 'Name=Picom'
+  # Upstream does not appear to provide an icon for picom yet
+  setconf picom.desktop 'Icon=compton'
 }
 
 build() {
-	cd "${pkgname}"
-	mkdir -p build
-	arch-meson --buildtype=release -D with_docs=true build
-	ninja -v -C build
+  cd $pkgname
+
+  mkdir -p build
+  arch-meson --buildtype=release -D with_docs=true build
+  ninja -v -C build
 }
 
 check() {
-	cd "${pkgname}"
-	ninja -C build test
+  cd $pkgname
+
+  ninja -C build test
 }
 
 package() {
-	cd "${pkgname}"
-	DESTDIR="${pkgdir}" ninja -C build install
+  cd $pkgname
 
-	# Default and example configuration
-	install -Dm 644 "${pkgname}.sample.conf" "${pkgdir}/etc/xdg/picom.conf"
-	install -Dm 644 "${pkgname}.sample.conf" "${pkgdir}/usr/share/doc/picom/picom.conf.example"
+  DESTDIR="$pkgdir" ninja -C build install
 
-	# License
-	install -Dm 644 "LICENSES/MIT" "${pkgdir}/usr/share/licenses/${pkgname}/MIT"
+  # Default and example configuration
+  install -Dm 644 $pkgname.sample.conf "$pkgdir/etc/xdg/picom.conf"
+  install -Dm 644 $pkgname.sample.conf "$pkgdir/usr/share/doc/picom/picom.conf.example"
+
+  # License
+  install -Dm 644 LICENSES/MIT "$pkgdir/usr/share/licenses/$pkgname/MIT"
 }
