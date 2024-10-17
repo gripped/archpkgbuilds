@@ -2,7 +2,7 @@
 # Contributor: graysky <graysky AT archlinux DOT us>
 
 pkgname=ssh-audit
-pkgver=3.2.0
+pkgver=3.3.0
 pkgrel=1
 pkgdesc='SSH configuration auditing'
 arch=('any')
@@ -18,8 +18,8 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('30803f7cad987cf381973df285f0a85110c2da571a85f920b78ec25cae952d44201cb4bb427551b05cfa14811009a4b9b2d324298b95086a71f1bd8153640bd1')
-b2sums=('0ab4843bd1c5ad49f8b04febbe1f58a0a41befdddfacc86268176c0e555cd2b329abfff7efe2fe0e16574c5b44141e4bf4d91f06015af6f3b8c92c7a1f5c0b86')
+sha512sums=('3f134a509e42652822017c34794104b77b9e833d009aff2ec5f66f68dab86c9f0b9399035ba4e2fdc6d4a1db20b57af0acc186171aee47e65c3496ce1778881f')
+b2sums=('89790ccd118aca255f84df5a430624462a6d8be7bbad590540cfb4349d18b8d0624069cc9d1f87f49c2d17280311a6eafdc2ab1d4769320b7df3702fa9498343')
 
 build() {
   cd "$pkgname"
