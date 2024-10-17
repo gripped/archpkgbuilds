@@ -1,0 +1,26 @@
+pkgbase = binary
+	pkgdesc = Simple app to convert between different hexadecimal and binary numbers
+	pkgver = 5.1
+	pkgrel = 1
+	url = https://apps.gnome.org/Binary/
+	arch = any
+	license = GPL-3.0-or-later
+	makedepends = appstream
+	makedepends = blueprint-compiler
+	makedepends = git
+	makedepends = meson
+	depends = dconf
+	depends = glib2
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita
+	depends = python
+	depends = python-gobject
+	source = git+https://github.com/fizzyizzy05/binary.git#tag=5.1
+	source = binary-install-mode.patch
+	source = binary-window-icon.patch
+	b2sums = da6a6fc3cdfc075937228d635b71ca796bd5fdfded60fefdf2e897badb226aee6960817523262061e8911536ba42b68abf8c42b60dbdc378ed66c9c543ee69e8
+	b2sums = f45c1e20d327cfae625eb98dec9e91e9facf55cc2b8b556d562f4d868b25371ecfcce135fca0ab23675f0a537f7189e174cd248ffc138d8a300c15f82572842b
+	b2sums = 80c6bccbdb7b0c18fae8ea1f1a35d5fcd9caecbf7e93dce36d2e88fd28ac5759350a634334ce3c0142321a57384ef1ef9c5c0c54e203f000b380c81807099275
+
+pkgname = binary
