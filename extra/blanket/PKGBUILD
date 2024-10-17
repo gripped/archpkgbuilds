@@ -3,7 +3,7 @@
 
 pkgname=blanket
 pkgver=0.7.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Improve focus and increase your productivity by listening to different sounds'
 arch=(any)
 url='https://apps.gnome.org/Blanket/'
@@ -55,4 +55,7 @@ check() {
 
 package() {
   meson install -C build --destdir "$pkgdir"
+
+  python -m compileall -d /usr/share "$pkgdir/usr/share"
+  python -O -m compileall -d /usr/share "$pkgdir/usr/share"
 }
