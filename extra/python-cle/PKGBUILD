@@ -3,8 +3,8 @@
 
 _pyname=cle
 pkgname=python-${_pyname}
-pkgver=9.2.101
-_testbinaries_ver=9.2.101
+pkgver=9.2.123
+_testbinaries_ver=9.2.123
 pkgrel=1
 pkgdesc='Loads binaries and their libraries, resolves imports and provides an abstraction of process memory'
 url='https://github.com/angr/cle'
@@ -19,13 +19,13 @@ optdepends=(
   'python-pyaxmlparser: apk'
 )
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
-checkdepends=('python-pytest' 'python-minidump' 'python-pyxbe' 'python-arpy' 'python-claripy' 'python-pyaxmlparser')
+checkdepends=('python-pytest' 'python-minidump' 'python-pyxbe' 'python-arpy' 'python-claripy' 'python-pyaxmlparser' 'python-cart')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "https://github.com/angr/binaries/archive/v${_testbinaries_ver}/angr-binaries-${_testbinaries_ver}.tar.gz")
-sha512sums=('745b800c72994416001cb1aaf7f9b15b71fa77c016d1098a19e7367f0206bd0a385fcff8e848eb6ed2db2a2dd3b7337e429f570fe0d1f0dece2537192d8515d4'
-            'd08ab57282381e57380f1bcdfeb1ebdb23d0ac4a0d97aa0d2694366ed54fe35bf9704ba7fef1c33be9b502e1e0480012d12e63fa385789d6c14e58b85ba1456c')
-b2sums=('2985724634a66c598145b37d4ded4309d3f6ab6665e410430827a8e105ae2090010db861c5d310155d6d3484fc27c2a404887201f510e4da501f7fcc51417990'
-        'ce9b370e757b0efff4f9ed5689ae60de27d85b3c8d4899c89b9cdb090a562f2f269ccb3b862cba895d8b4b64e63e0b5dc26eee89d15fbce8a1212e6c10a21564')
+sha512sums=('79720a1017a15576803d5284827f5308b520c1261e61ee3735b4d908d200a4cbd54e5947baa110ebd4c7c7fbcc82b121d57f36445cb908d8565676b420fe5411'
+            '5f88c4fb5e811426d83fcb7c75fcb666ecd634abdd32e30d458d2cdf1f4cfabf4a16ec6794129c719e0bdd245363f2693a008ba414bb1bddd0d4c4defda36f89')
+b2sums=('17558ea60665310c55f0814282952954ebe7e581adb3668acca5b1cbd59fd6a66ec7cb5cf2347f034493e7e2398864d25aac123485652932b11023697017da3c'
+        'd8f2d5287f4c5eb8c06ab2a2429fd951998a3a5a6dcb4a1fa3867598c1076cc32461940e92fe281ae8843ad856fc382cd3343ede9153372ccad724cacccd0b6d')
 
 prepare() {
   ln -s binaries-${_testbinaries_ver} binaries
