@@ -8,7 +8,7 @@
 
 pkgname=julia
 epoch=2
-pkgver=1.11.0
+pkgver=1.11.1
 pkgrel=1
 arch=(x86_64)
 pkgdesc='High-level, high-performance, dynamic programming language'
@@ -36,18 +36,16 @@ makedepends=(cmake
 optdepends=('gnuplot: If using the Gaston Package from julia')
 source=(https://github.com/JuliaLang/julia/releases/download/v$pkgver/$pkgname-$pkgver-full.tar.gz{,.asc}
         c12e8515.patch
-        julia-libgit2-1.8.patch
-        julia-libunwind-1.6.patch
         julia-hardcoded-libs.patch
+        julia-libgit2-1.8.patch
         julia-metainfo.patch
         https://github.com/JuliaLang/Downloads.jl/commit/1061ecc3.patch)
 backup=(etc/julia/startup.jl)
-sha256sums=('8d77780cd04484e21f9c3805be6b1bd56a69bcbe6caedf2485e899205d85c874'
+sha256sums=('a49b804de6e86a03fe26c73f58851eaee1ff243d7204f2b5ae4dbc5c1dc2758d'
             'SKIP'
             '2cc294b63e601d50341979fb936826bdba59de2165a5929eae927e152652f367'
-            'dc541120600e9c0574016a2738461ddb99be21fc8f763d4a3152169fd2f3bf54'
-            '3c0c03eabb668e3242fcd3058c1011dfbb579cc1c5adc3ae1016531e711cc64e'
             'e981ce26bb2394333c83512a607e8aa48ae0d66ec40e0f0b6d97ec70b6baa39f'
+            'dc541120600e9c0574016a2738461ddb99be21fc8f763d4a3152169fd2f3bf54'
             '074690d913b9544bef11468454fbf5f52005b2a12160123340cfacc91d4daf9f'
             '69297a9fcf35ffdb7961f4dd0c3bc07a7dffd936b879f29715b6d44929781b6b')
 validpgpkeys=('3673DF529D9049477F76B37566E3C7DC03D6E495') # Julia (Binary signing key) <buildbot@julialang.org>
@@ -56,8 +54,6 @@ options=(!lto)
 prepare() {
   cd $pkgname-$pkgver
 
-# libunwind 1.6 compatibility
-  patch -p1 -i ../julia-libunwind-1.6.patch
 # Update metadata install path
   patch -p1 -i ../julia-metainfo.patch
 # Revert test that depends on patched gmp
