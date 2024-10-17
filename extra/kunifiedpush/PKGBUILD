@@ -1,0 +1,31 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+pkgname=kunifiedpush
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='UnifiedPush client components'
+arch=(x86_64)
+url='https://www.kde.org'
+license=(LGPL-2.0-or-later)
+depends=(gcc-libs
+         glibc
+         kcmutils
+         kcoreaddons
+         kservice
+         qt6-base
+         qt6-declarative
+         qt6-websockets)
+makedepends=(extra-cmake-modules)
+source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('2ddeba21306d0307114ec50a2c38159ec62359f9fc6cdd58da30a369fbd550cf'
+            'SKIP')
+validpgpkeys=('39FFA93CAE9C6AFC212AD00202325448204E452A') # Carl Schwan <carl@carlschwan.eu>
+
+build() {
+  cmake -B build -S $pkgname-$pkgver
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
