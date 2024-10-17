@@ -2,7 +2,7 @@
 
 _gemname='falcon'
 pkgname="ruby-${_gemname}"
-pkgver=0.48.2
+pkgver=0.48.3
 pkgrel=1
 pkgdesc='A fast, asynchronous, rack-compatible web server'
 arch=(any)
@@ -42,8 +42,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("${url}/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('33ef4c31b13c792a9cf37d963e6ac5b0d08fbf7fc75ca289d78f73e4caf37c5b2b3573997057a41c6d9449104bea3fd69906d64fb8687421ebadefc02c42c639')
-b2sums=('9c9a6909b2be839a9991c13132be8aeb91662bccbbb8379b8c401ff3b119d471448db959a25071c987e35c3106f7e99f22677e7a1222c36226c37423f559291e')
+sha512sums=('1a3caf31c75328f17d5b12422e5892c040a724fd67ce4e7cc6ef2d0c991c33ed2b70ab42802fc48d93e3651b2ee87f77a5d60b658f6499bcf2511c4bd5debe7f')
+b2sums=('7230d00241a553cd3c11fefd75d0a8953dffc2130ee2927f171339b21a33be7a837c1e2cac8d1140e94c4ac1d351048d651a4c137e889a85e615f5939683203b')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
