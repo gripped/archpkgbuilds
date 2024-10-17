@@ -1,0 +1,25 @@
+From 4d90c9a5240be8c9af80527304ecb83750447012 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 16 Oct 2024 21:25:31 +0000
+Subject: [PATCH] build: Don't set install mode for gschema
+
+It's not needed to make it world writable.
+---
+ data/meson.build | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/data/meson.build b/data/meson.build
+index e45077b5..a86c0ab4 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -44,7 +44,6 @@ endif
+ 
+ install_data(application_id + '.gschema.xml',
+   install_dir: join_paths(datadir, 'glib-2.0/schemas'),
+- install_mode: 'rwxrwxrwx',
+ )
+ gnome.compile_schemas(
+   depend_files: [application_id + '.gschema.xml'],
+-- 
+GitLab
+
