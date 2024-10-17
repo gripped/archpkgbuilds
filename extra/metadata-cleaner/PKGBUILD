@@ -1,0 +1,57 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=metadata-cleaner
+pkgver=2.5.6
+pkgrel=2
+pkgdesc='Python GTK application to view and clean metadata in files, using mat2'
+arch=(any)
+url='https://apps.gnome.org/MetadataCleaner/'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  glib2
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  mat2
+  python
+  python-gobject
+)
+makedepends=(
+  appstream
+  git
+  itstool
+  meson
+)
+source=(
+  "git+https://gitlab.com/rmnvgr/metadata-cleaner.git?signed#tag=v$pkgver"
+  metadata-cleaner-window-icon.patch
+)
+b2sums=(
+  c9131565149088f890f8d49395bcaa761928522fac2cbe2c1cf0063f65fb3fec78ee044828a48022ea9e19d78afd603ff3080223d9e87f9f6469bf3564aba52c
+  1582ad698ae4a845c5d976d8cdcd59d5b096756d634725b7982c11a4150ac892b1efb8ab74ee5075ab1b945b606a43dfb71bb0b92624c8e73289af22fd49e6fd
+)
+validpgpkeys=(8E6737F5943A27EECEBE14528C66D1CA798D512D) # Romain Vigier <romain@romainvigier.fr>
+
+prepare() {
+  cd $pkgname
+
+  # https://gitlab.com/rmnvgr/metadata-cleaner/-/merge_requests/281
+  git apply -3 ../metadata-cleaner-window-icon.patch
+}
+
+build() {
+  arch-meson $pkgname build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+
+  python -m compileall -d /usr/share "$pkgdir/usr/share"
+  python -O -m compileall -d /usr/share "$pkgdir/usr/share"
+}

@@ -1,0 +1,26 @@
+pkgbase = metadata-cleaner
+	pkgdesc = Python GTK application to view and clean metadata in files, using mat2
+	pkgver = 2.5.6
+	pkgrel = 2
+	url = https://apps.gnome.org/MetadataCleaner/
+	arch = any
+	license = GPL-3.0-or-later
+	makedepends = appstream
+	makedepends = git
+	makedepends = itstool
+	makedepends = meson
+	depends = dconf
+	depends = glib2
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita
+	depends = mat2
+	depends = python
+	depends = python-gobject
+	source = git+https://gitlab.com/rmnvgr/metadata-cleaner.git?signed#tag=v2.5.6
+	source = metadata-cleaner-window-icon.patch
+	validpgpkeys = 8E6737F5943A27EECEBE14528C66D1CA798D512D
+	b2sums = c9131565149088f890f8d49395bcaa761928522fac2cbe2c1cf0063f65fb3fec78ee044828a48022ea9e19d78afd603ff3080223d9e87f9f6469bf3564aba52c
+	b2sums = 1582ad698ae4a845c5d976d8cdcd59d5b096756d634725b7982c11a4150ac892b1efb8ab74ee5075ab1b945b606a43dfb71bb0b92624c8e73289af22fd49e6fd
+
+pkgname = metadata-cleaner
