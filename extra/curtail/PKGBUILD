@@ -3,7 +3,7 @@
 
 pkgname=curtail
 pkgver=1.11.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Image compressor GUI, supporting PNG, JPEG, WebP and SVG file types, both lossless and lossy compression mode'
 arch=(any)
 url='https://apps.gnome.org/Curtail/'
@@ -42,4 +42,7 @@ check() {
 
 package() {
   meson install -C build --destdir "$pkgdir"
+
+  python -m compileall -d /usr/share "$pkgdir/usr/share"
+  python -O -m compileall -d /usr/share "$pkgdir/usr/share"
 }
