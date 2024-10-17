@@ -7,7 +7,7 @@ pkgname=(pyside6
          shiboken6)
 _qtver=6.8.0.1
 pkgver=${_qtver/-/}
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(LGPL)
@@ -49,6 +49,9 @@ sha256sums=('929605e1a8b66f64010d4d78b739e909173af0a95949fd433a70066b4b542c2f'
 prepare() {
   cd pyside-setup
   patch -p1 < ../fix-build.patch
+# Install missing doc snippets
+  git cherry-pick -n 12aba6c4dfafe191a4640e3ab755a1c7e2ddfc44
+  git cherry-pick -n cacc9c5803a6dec820dd46211a836453183c8dab
 }
 
 build() {
@@ -127,11 +130,6 @@ package_pyside6() {
   python setup.py egg_info --build-type=pyside6
   _pythonpath=`python -c "from sysconfig import get_path; print(get_path('platlib'))"`
   cp -r PySide6.egg-info "$pkgdir"/$_pythonpath
-
-# Install pyi files
-  install -Dm644 "$srcdir"/build/sources/pyside6/PySide6/*.pyi -t "$pkgdir"/usr/lib/python*/site-packages/PySide6
-# Install missing doc files
-  cp -r "$srcdir"/pyside-setup/sources/pyside6/PySide6/doc "$pkgdir"/usr/share/PySide6/
 }
 
 package_pyside6-tools() {
