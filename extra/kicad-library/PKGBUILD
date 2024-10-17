@@ -5,7 +5,7 @@
 
 pkgbase=kicad-library
 pkgname=($pkgbase{,-3d})
-pkgver=8.0.5
+pkgver=8.0.6
 pkgrel=1
 pkgdesc='Assorted libraries for KiCad'
 arch=('any')
@@ -19,10 +19,10 @@ source=(
   "git+https://gitlab.com/kicad/libraries/kicad-templates.git#tag=$pkgver"
   "git+https://gitlab.com/kicad/libraries/kicad-footprints.git#tag=$pkgver"
 )
-sha512sums=('10459de39443a6120f1ba83d970c570288e4119b6debd754c4f80c499b3fb032ee49b4fee9519385410150423d1ab0f96dde59f8637e1eae36c773d5d780c8fb'
-            'ac74fba5f57d12cf794d9aafa8a1e4139ef4921574b5c12338b6c4cd1b0152f6701c355c07275f6de3e06057cedd3da1bd3ae3e71b3587def4be98817da2e5e8'
+sha512sums=('2f8d3e0bfb3a8aa9a9feb6658c2ed7723a33b9af3eda5825c08266076d100c326aa56c36fdf02d29d8a4471b9fc4678ce9d419101437716f73d79a899725ec31'
+            '151da5cdf0088ff0c1ee961b320a8019a326ee3360e7e601696aa4e4cc7451f19bb0f804fb2b83d78fdb65f85acada4575487c226792b746eb6f69c3f92626e6'
             '12e432100b9962e7f7f6c3f122bc8f956f831cc8ccacf793f070fe46bca94cf20968e201e9feeff16a10d9a430f3244535d82a6787cc105658e9ae992c692a96'
-            '13748990d22755c43e6cbd8a5e26151219213e571d96a57d149cb852bfab63c3e4b526089721cb95ba00c33378dd88831451051acb7b50ff6cc0a08a60ef03a0')
+            'a201b60d1260a51e1154a461d398bffac6d15ea3878f67e227cbe50c6ae898efb5a715222ca4b817e51c72ec29002b4e4f116d72932bbe2ee73fbc889a8a392d')
 
 build() {
   for package in symbols footprints packages3D templates; do
