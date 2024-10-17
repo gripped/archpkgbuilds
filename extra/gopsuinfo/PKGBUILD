@@ -2,8 +2,8 @@
 # Contributor: Piotr Miller <nwg.piotr@gmail.com>
 
 pkgname=gopsuinfo
-pkgver=0.1.6
-pkgrel=2
+pkgver=0.1.7
+pkgrel=1
 pkgdesc="A gopsutil-based command to display customizable system info"
 url="https://github.com/nwg-piotr/gopsuinfo"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('glibc')
 makedepends=('go')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('0b16d014da1bc39ffa5420a7a7c55089eb4a4fad7b3b56ba011f6e7a8281ddee')
+sha256sums=('e24b4cc20a5a83fc21b4c34338b347fbccb7fedabfca11fad2e29c162e8f779e')
 
 prepare(){
         cd "${pkgname}-${pkgver}"
