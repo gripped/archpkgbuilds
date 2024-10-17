@@ -1,25 +1,42 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-async-rest
-pkgver=0.12.4
-pkgrel=4
+pkgver=0.18.0
+pkgrel=1
 pkgdesc='A library for RESTful clients (and hopefully servers)'
 arch=(any)
 url='https://github.com/socketry/async-rest'
 license=(MIT)
-depends=(ruby-async-http ruby-protocol-http)
-checkdepends=(ruby-async-rspec ruby-bake ruby-covered ruby-rake ruby-rspec)
+depends=(
+  ruby
+  ruby-async-http
+  ruby-protocol-http
+)
+checkdepends=(
+  ruby-bake
+  ruby-bake-test
+  ruby-bake-test-external
+  ruby-bundler
+  ruby-covered
+  ruby-decode
+  ruby-sus
+  ruby-sus-fixtures-async-http
+)
 options=(!emptydirs)
-source=(https://github.com/socketry/async-rest/archive/v$pkgver/$pkgname-$pkgver.tar.gz
-        https://github.com/felixonmars/async-rest/commit/279bf0bd28c7e9a209c95fc0e1b458bf3a494b36.patch)
-sha256sums=('7aa5959a4684090a6d1d9edb0a74ca1961376160580e815cff8f502ad6b151d6'
-            '0738f594b3671b65a94602af4f4e95150e56e5b2d3f9a0d142a52f5da67fbba4')
+source=(https://github.com/socketry/async-rest/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
+sha512sums=('ee2550f37e99cb65456cb6d4f6530aff2315e3fe23122a5f256d1b7810c911701d1fae8645e3832842940416bcb4cba4e0a4ccb3b064e498aaec83e6bb8ed0db')
+b2sums=('893c1fb04e43a5b2a023146a727d323b76ff3003fb5d7d8e0840db1b21903fd1c47ad861d708a52b68565010b966b22171d01d687b83e2e9c87dac866b532a2c')
 
 prepare() {
   cd async-rest-$pkgver
-  patch -p1 -i ../279bf0bd28c7e9a209c95fc0e1b458bf3a494b36.patch
-  sed -r -e 's|~>|>=|g' -i async-rest.gemspec
-  echo gemspec > gems.rb
+  sed -r -i \
+    -e 's|~>|>=|g' \
+    -e '/signing_key/d' \
+    async-rest.gemspec
+  sed --in-place \
+    --expression '/group :maintenance/,/end/d' \
+    --expression '/rubocop/d' \
+    gems.rb
 }
 
 build() {
@@ -51,7 +68,7 @@ build() {
 check() {
   local _gemdir="$(gem env gemdir)"
   cd async-rest-$pkgver
-  GEM_HOME="tmp_install/$_gemdir" rspec
+  GEM_HOME="tmp_install/$_gemdir" bake test
 }
 
 package() {
