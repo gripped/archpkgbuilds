@@ -4,7 +4,7 @@
 
 pkgname=ktexteditor
 pkgver=6.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Advanced embeddable text editor'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -25,7 +25,6 @@ depends=(editorconfig-core-c
          kio
          kitemviews
          kparts
-         ktextwidgets
          kwidgetsaddons
          kxmlgui
          qt6-declarative
