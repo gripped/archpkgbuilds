@@ -5,7 +5,7 @@
 pkgbase=doublecmd
 pkgname=('doublecmd-gtk2' 'doublecmd-qt5' 'doublecmd-qt6')
 pkgver=1.1.19
-pkgrel=1
+pkgrel=2
 url="http://doublecmd.sourceforge.net/"
 arch=('x86_64')
 license=('GPL')
@@ -19,6 +19,7 @@ optdepends=(
     'libunrar: support for rar archives'
     'imagemagick: preview xcf files'
     'ffmpegthumbnailer: preview video files'
+    'mplayer: to make use of the wlxmplayer plugin'
 )
 source=(
     "https://downloads.sourceforge.net/project/$pkgbase/Double%20Commander%20Source/$pkgbase-$pkgver-src.tar.gz"
@@ -36,9 +37,6 @@ prepare() {
 
 build() {
     cd "$srcdir/$pkgbase-$pkgver"
-    ./build.sh components
-    ./build.sh plugins
-
     cd "$srcdir"
 
     cp -a "$pkgbase-$pkgver" "$pkgbase-gtk"
@@ -47,31 +45,25 @@ build() {
 
     # build gtk
     cd "$srcdir/$pkgbase-gtk"
-    /usr/bin/lazbuild --lazarusdir="$srcdir/lazarus" \
-        src/doublecmd.lpi \
-        --bm="NoDebug Full Optimizations" \
-        --widgetset=gtk2
-    #./build.sh beta gtk2
+    ./build.sh components gtk2
+    ./build.sh plugins gtk2
+    ./build.sh doublecmd gtk2
 
     # build qt5
     cd "$srcdir/$pkgbase-qt5"
-    /usr/bin/lazbuild --lazarusdir="$srcdir/lazarus" \
-        src/doublecmd.lpi \
-        --bm="NoDebug Full Optimizations" \
-        --widgetset=qt5
-    #./build.sh beta qt5
+    ./build.sh components qt5
+    ./build.sh plugins qt5
+    ./build.sh doublecmd qt5
 
     # build qt6
     cd "$srcdir/$pkgbase-qt6"
-    /usr/bin/lazbuild --lazarusdir="$srcdir/lazarus" \
-        src/doublecmd.lpi \
-        --bm="NoDebug Full Optimizations" \
-        --widgetset=qt6
-    #./build.sh beta qt6
+    ./build.sh components qt6
+    ./build.sh plugins qt6
+    ./build.sh doublecmd qt6
 }
 
 package_doublecmd-gtk2() {
-    pkgdesc="twin-panel (commander-style) file manager (GTK3)"
+    pkgdesc="twin-panel (commander-style) file manager (GTK2)"
     depends=('gtk2' 'desktop-file-utils' 'hicolor-icon-theme' 'shared-mime-info')
     conflicts=('doublecmd-qt5' 'doublecmd-qt6')
     cd "$srcdir/$pkgbase-gtk"
