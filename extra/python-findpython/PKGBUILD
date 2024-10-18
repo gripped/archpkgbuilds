@@ -2,8 +2,8 @@
 
 _name=findpython
 pkgname=python-findpython
-pkgver=0.6.1
-pkgrel=2
+pkgver=0.6.2
+pkgrel=1
 pkgdesc="A utility to find python versions on your system"
 arch=(any)
 url="https://github.com/frostming/findpython"
@@ -20,8 +20,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('ec6bb95fe19f3b1c5408c91948dc8b9aaa4516c664d5a810bff80a658b03df0d40b1e077b170b247293ccc0375156b9c010632b07dac57d435cb5d006ac4b6e6')
-b2sums=('a74e91d2fd4f2cc46c4311f3f9ab6a4aa9e42f0c1b020dbb76d403363fae8e208195024f2df255e58cf46b5fb686ebeded9b80c716c7158a21f39f1684c3bbf8')
+sha512sums=('10d4ea7b5815dfb05d6319ab1a9476a83ca44daf8aff27efed592fbeb782f0eb2ae9279c5577e30f07c46391967edfd3676af751722f478271c4a86d6664062f')
+b2sums=('21823b127d63b7f0b799e4164cc46218a8c195a9d0f8b95d540787cfcd59a89aaaf382cd6a2c3d3f349748be96f06de3798d8fca597cf582fd80daa57146e489')
 
 build() {
   cd $_name-$pkgver
