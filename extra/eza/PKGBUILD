@@ -4,7 +4,7 @@
 
 pkgname=eza
 pkgver=0.20.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A modern replacement for ls (community fork of exa)"
 url="https://github.com/eza-community/eza"
 arch=(x86_64)
@@ -14,16 +14,24 @@ replaces=(exa)
 conflicts=(exa)
 depends=(gcc-libs # libgcc_s.so
          glibc # libc.so libm.so
-         libgit2
-         zlib)
+         libgit2)
 makedepends=(cargo
              pandoc)
-source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('51a61bba14d1e4043981cabc5cf3d14352bf6a4ca0e308f437d0c8d00f42c2f7')
-b2sums=('4e1d4c8231404623fd317862c9ea31cce2f90c0bd29c1dd98713521b65a5f5c2b645f9d5f7935c267b6f622cc1e44a24773f6f94da1afd5cbaade324c57d9246')
+source=(
+  "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+  fix-executable-check.diff
+)
+sha256sums=('51a61bba14d1e4043981cabc5cf3d14352bf6a4ca0e308f437d0c8d00f42c2f7'
+            '896442c0d441614e3ffb3c400f14650ed96a458f793659233ff4debe8cadca95')
+b2sums=('4e1d4c8231404623fd317862c9ea31cce2f90c0bd29c1dd98713521b65a5f5c2b645f9d5f7935c267b6f622cc1e44a24773f6f94da1afd5cbaade324c57d9246'
+        '446f759a012e248622928934f5c40534dcf29edd423ff4ec6debd1c2333e1a1482448c6b30dc9de23ae97d0320a9d63fe4b28fa65a2ac9bdd232fc8c556e4ad7')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
+
+  # https://github.com/eza-community/eza/issues/1195#issuecomment-2419658018
+  patch -Np1 -i ../fix-executable-check.diff
+
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
@@ -48,8 +56,7 @@ check() {
 
 
 package() {
-  depends+=(libgit2.so
-            libz.so)
+  depends+=(libgit2.so)
   cd "${pkgname}-${pkgver}"
   install -Dm755 "target/release/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
   ln -s eza "${pkgdir}/usr/bin/exa"
