@@ -2,8 +2,8 @@
 
 _name=calmjs.parse
 pkgname=python-calmjs.parse
-pkgver=1.3.1
-pkgrel=2
+pkgver=1.3.2
+pkgrel=1
 pkgdesc="Various parsers for ECMA standards"
 arch=(any)
 url="https://github.com/calmjs/calmjs.parse"
@@ -20,8 +20,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('6bed01b67c6568a61663b9a489728cc428c5c001d000d4f468230809418d17e4253cf2ffb336e924fe654399484be2c770428f9e1da94c6a218cea6235fd7118')
-b2sums=('134e71521d7287c0d082ccab31e99163f59d065bd1ad2af532fa542e20491856b5eaa42053480466e64f92873095e960648aae773bc2bafe04461f26c170102f')
+sha512sums=('ba9f07ca40efa773a05bcdb2ba0d76eb8bb381eba8667853440f14d28ba1d3cf82774b1ef8bf92b3cd6638278406727c46289b3a69509271c2eba12245050bde')
+b2sums=('7ba3265d74b15085f2724fc9ce39ef4cfa101db8b28da07f458ba3b1c2baffa3ef11bada07857b954e305aec3971f3a9b0eaab66ab1d3a2178ec0f150e993deb')
 
 prepare() {
   cd $_name-$pkgver
@@ -37,7 +37,7 @@ build() {
 
 check() {
   cd $_name-$pkgver
-  export PYTHONPATH="build:$PYTHONPATH"
+  export PYTHONPATH="$PWD/src:$PYTHONPATH"
   PYTHONDONTWRITEBYTECODE=1 pytest -vv
 }
 
