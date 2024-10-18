@@ -4,7 +4,7 @@
 
 pkgname=kguiaddons
 pkgver=6.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Addons to QtGui'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -18,8 +18,10 @@ depends=(gcc-libs
 makedepends=(doxygen
              extra-cmake-modules
              plasma-wayland-protocols
+             qt6-declarative
              qt6-doc
              qt6-tools)
+optdepends=('qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('ac437ca6baf50b0178bc8bf0b4dd1e6e70e0e4ef1ac770259738a1c42d035bcc'
