@@ -3,16 +3,28 @@
 # Contributor: Luca Weiss <luca (at) z3ntu (dot) xyz>
 # Contributor: Julian Schacher <jspp@posteo.net>
 
-_electron=electron31
+_electron=electron32
 pkgbase=element.io
 pkgname=(element-web element-desktop)
-pkgver=1.11.78
+pkgver=1.11.81
 pkgrel=1
 pkgdesc="Glossy Matrix collaboration client — "
 arch=(x86_64)
 url="https://element.io"
 license=(Apache)
-makedepends=(npm git yarn python rust tcl ${_electron} nodejs libxcrypt-compat python-setuptools)
+makedepends=(
+  ${_electron}
+  git
+  jq
+  libxcrypt-compat
+  nodejs
+  npm
+  python
+  python-setuptools
+  rust
+  tcl
+  yarn
+)
 _url="https://github.com/vector-im/element"
 source=(element-web-${pkgver}.tar.gz::${_url}-web/archive/v${pkgver}.tar.gz
         element-web-${pkgver}.tar.gz.asc::${_url}-web/releases/download/v${pkgver}/v${pkgver}.tar.gz.asc
@@ -21,9 +33,9 @@ source=(element-web-${pkgver}.tar.gz::${_url}-web/archive/v${pkgver}.tar.gz
         autolaunch.patch
         io.element.Element.desktop
         element-desktop.sh)
-sha256sums=('a31635b7e336f16a526f867d7c571d3338d27fb5ebed90059be83bb637a5dd79'
+sha256sums=('5566878582994344f752086a616a5316948149f2a3367c7ac818567c75ff2191'
             'SKIP'
-            'edf65a1e6ff1b1ca6de0146aee8e7692159179ecadd91bd03b64750c05faa764'
+            '762463f507e042cf4c3ac01d58e6d7c575cbb160f74c46a264a2246dc8a672e9'
             'SKIP'
             '268485f35103d00a89be7f5c84703e3d393350c71f4f90932f7bcb5ea2fd094f'
             '0103f28a32fe31f698836516783c1c70a76a0117b5df7fd0af5c422c224220f9'
@@ -31,6 +43,15 @@ sha256sums=('a31635b7e336f16a526f867d7c571d3338d27fb5ebed90059be83bb637a5dd79'
 validpgpkeys=(712BFBEE92DCA45252DB17D7C7BE97EFA179B100) # Element Releases <releases@riot.im>
 
 prepare() {
+  # Find out which major release of electron this version of element-desktop requires
+  _electron_major=$(jq --raw-output '.devDependencies.electron' < "${srcdir}/element-desktop-${pkgver}/package.json" | sed 's/^[~^]\?\([0-9]\+\)\(\.[0-9]\+\)*$/\1/')
+
+  # Check if we depend on the correct electron version
+  if [ "${_electron}" != "electron${_electron_major}" ] ; then
+    echo "Error: Incorrect electron version detected. Please change the value of \"_electron\" from \"${_electron}\" to \"electron${_electron_major}\"."
+    return 1
+  fi
+
   # Specify electron version in launcher
   sed -i "s|@ELECTRON@|${_electron}|" element-desktop.sh
 
