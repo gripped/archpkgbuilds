@@ -1,0 +1,23 @@
+From e2ec6e58b81d22934000abf1e0ed44dc287e89cd Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 18 Oct 2024 00:38:48 +0200
+Subject: [PATCH] Set default window icon for window managers
+
+---
+ webfontkitgenerator/window.py | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/webfontkitgenerator/window.py b/webfontkitgenerator/window.py
+index 8adfab4..d6d702e 100644
+--- a/webfontkitgenerator/window.py
++++ b/webfontkitgenerator/window.py
+@@ -50,6 +50,9 @@ class Window(Adw.ApplicationWindow):
+     def __init__(self, **kwargs):
+         super().__init__(**kwargs)
+ 
++        # Set default window icon for window managers
++        self.set_default_icon_name('com.rafaelmardojai.WebfontKitGenerator')
++
+         self.setup_actions()
+ 
+         # Out directory chooser

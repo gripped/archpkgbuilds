@@ -1,0 +1,59 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=webfont-kit-generator
+pkgver=1.2.0
+pkgrel=1
+pkgdesc='Utility to generate WOFF, WOFF2 and the necessary CSS boilerplate from non-web font formats (OTF & TTF)'
+arch=(any)
+url='https://apps.gnome.org/WebfontKitGenerator/'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  glib2
+  gtk4
+  gtksourceview5
+  hicolor-icon-theme
+  libadwaita
+  libsoup3
+  python
+  python-brotli
+  python-fonttools
+  python-gobject
+)
+makedepends=(
+  appstream
+  blueprint-compiler
+  git
+  meson
+)
+source=(
+  "git+https://github.com/rafaelmardojai/webfont-kit-generator.git#tag=$pkgver"
+  webfont-kit-generator-window-icon.patch
+)
+b2sums=(
+  3267ebabe18f2399db2d994f0da65f682cf68852ddb7d8c0b32a2185d848ccc3fd757fbdac96fcd906f9ef0d952ecf29ff5a59d2088709ccbaeb6ffc2d5937b1
+  3a54147c2ce4ea63d65a4221fe2005cd0b434b8abddc8853358ca58e06297d7fe1627c6b0140f7c697ca062c22c4720afc2f61cb050d6c088a41d72d46097f0a
+)
+
+prepare() {
+  cd $pkgname
+
+  # https://github.com/rafaelmardojai/webfont-kit-generator/pull/52
+  git apply -3 ../webfont-kit-generator-window-icon.patch
+}
+
+build() {
+  arch-meson $pkgname build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+
+  python -m compileall -d /usr/share "$pkgdir/usr/share"
+  python -O -m compileall -d /usr/share "$pkgdir/usr/share"
+}
