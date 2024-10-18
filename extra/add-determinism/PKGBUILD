@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=add-determinism
-pkgver=0.3.5
+pkgver=0.4.2
 pkgrel=1
 pkgdesc="Build postprocessor to reset metadata fields for build reproducibility"
 url='https://github.com/keszybz/add-determinism'
@@ -16,10 +16,10 @@ makedepends=('cargo')
 options=(!lto)
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/keszybz/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz
         Cargo.lock)
-sha256sums=('07589cc9214cc3b515ab4b9ef68e2c24da30e41bc2b4bdb0348fcd96987b7253'
-            '2cdf47dda5fa99159d887224ee0c2e1afb72a6cdbdbd0101b04bee8aca17e08a')
-b2sums=('7d48e75452e8a486496ba3a175271c20dc26aeffeaec56f4ba17859e7c84c0855f07d004702831b75f9458bd51f3a903dff582b464b9d1f259e133999072e66a'
-        '65796975e41c8ac2feed5572a1ea9c7f85368c3592efd88a3badb5375b29a5ccc6e6b3d0c55bdfd30c2fb9a8368225569df9fdc6098abb6a87471896b5067d15')
+sha256sums=('f34e5e674b8caec89265b8af7e596fd2cec8e61f7f82dcd203ea553c73f6c598'
+            '712c17c7d1b1a5b6da9c7e10f872fe825330976217afb84eaba2957ce5d398e5')
+b2sums=('543cd857eab9c72511e8c2dad0ef5c4dd1bf8ea8ff7f54100d0a8b22bc606f712cf589971d8f59648a5a1729456b33701acdce8d0f020331f0c8f616f604e1eb'
+        '7f8bc8f9084f877274e49d3b8f44d8ec962ec439d73c5b2f20e0914d390e478d9d6d55433fffdb884d17f53b01264c2d988ba406a45ca31a0d3ea48d6ffe9ae0')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
