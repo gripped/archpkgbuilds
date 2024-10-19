@@ -4,7 +4,7 @@
 
 pkgname=deepin-dock
 pkgver=6.0.37
-pkgrel=2
+pkgrel=3
 pkgdesc='The dock of Deepin Desktop Environment'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-dock"
@@ -18,9 +18,6 @@ depends=('deepin-menu' 'deepin-daemon' 'deepin-launchpad' 'deepin-qt5integration
          'xcb-util-wm' 'xcb-util-image' 'gcc-libs' 'dconf' 'deepin-application-manager'
          'deepin-appearance' 'deepin-widgets' 'deepin-wloutput-daemon' 'deepin-session-shell')
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'extra-cmake-modules')
-conflicts=('dde-dock')
-replaces=('dde-dock')
-groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-dock.git#tag=$pkgver")
 sha512sums=('48bb12f92a2c5dceac3e067a37a3fba2470258403016201098ac6dc98d364d1d5e175323d968682b393220b3e5eadc8adbfa7fd224aa876f5e9b990088640589')
 
