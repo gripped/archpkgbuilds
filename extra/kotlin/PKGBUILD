@@ -2,7 +2,7 @@
 # Contributor: Romain Gautier <romain.gautier@nimamoh.com>
 
 pkgname=kotlin
-pkgver=2.0.20
+pkgver=2.0.21
 pkgrel=1
 pkgdesc='Statically typed programming language that can interoperate with Java'
 arch=(any)
@@ -11,7 +11,7 @@ license=(Apache-2.0 custom)
 makedepends=(setconf)
 depends=(java-runtime-headless)
 source=("https://github.com/JetBrains/kotlin/releases/download/v${pkgver/_/-}/kotlin-compiler-${pkgver/_/-}.zip")
-b2sums=('601e6d8b0ac3af3b8b0b2ddc87bb8ab2d69769e9f3d217c1be317874bfd77a8b767fd84c315637b48782393326bc3b1abc875d1293b3766dc03a0216d26cddf0')
+b2sums=('007a3cb8902e5a12d883ede2ef670f821471c3273dc97d17935006e0dc35989fe540cbeaa0a8203fc95e05f2b36d95000a1e3ac11803c2723b1dfa361a102470')
 
 prepare() {
   cd ${pkgname}c/bin
