@@ -1,0 +1,31 @@
+From 8d25501bac50b57c7706b9d9cef67607b58a9c74 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 19 Oct 2024 00:47:13 +0200
+Subject: [PATCH] Remove Disable Current Plugin menu item
+
+It doesn't work: https://gitlab.gnome.org/World/Health/-/issues/187
+---
+ data/ui/window.blp | 7 -------
+ 1 file changed, 7 deletions(-)
+
+diff --git a/data/ui/window.blp b/data/ui/window.blp
+index 458701b..c2c65f3 100644
+--- a/data/ui/window.blp
++++ b/data/ui/window.blp
+@@ -2,13 +2,6 @@ using Gtk 4.0;
+ using Adw 1;
+ 
+ menu primary_menu {
+-  section {
+-    item {
+-      action: "win.disable-current-plugin";
+-      label: _("_Disable Current Plugin");
+-    }
+-  }
+-
+   section {
+     item {
+       action: "app.preferences";
+-- 
+2.47.0
+
