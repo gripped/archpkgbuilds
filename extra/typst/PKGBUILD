@@ -2,8 +2,8 @@
 # Contributor: Ilaï Deutel
 
 pkgname=typst
-pkgver=0.11.1
-pkgrel=1
+pkgver=0.12.0
+pkgrel=2
 epoch=1
 pkgdesc='A markup-based typesetting system for the sciences'
 arch=(x86_64)
@@ -16,19 +16,21 @@ depends=(gcc-libs # libgcc_s.so
 replaces=(typst-bin)
 makedepends=(cargo
              git)
+optdepends=('otf-libertinus: additional weights and variants for default font'
+            'ttf-linux-libertine: legacy default font prior to v0.12.0')
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('b1ba054e821073daafd90675c4822bcd8166f33fe2e3acba87ba1451a0d1fc56')
+sha256sums=('5e92463965c0cf6aa003a3bacd1c68591ef2dc0db59dcdccb8f7b084836a1266')
 
 prepare() {
 	cd "$_archive"
-	cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
 	local hash=$(gunzip < "$_archive.tar.gz" | git get-tar-commit-id)
 	cd "$_archive"
-	CFLAGS+=" -ffat-lto-objects"
+	CFLAGS+=' -ffat-lto-objects'
 	export TYPST_VERSION="$pkgver (${hash::8})"
 	export GEN_ARTIFACTS=artifacts/
 	export OPENSSL_NO_VENDOR=true
