@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-twisted
-pkgver=1.14.2
+pkgver=1.14.3
 pkgrel=1
 pkgdesc='A twisted plugin for py.test'
 arch=('any')
@@ -10,7 +10,7 @@ url='https://github.com/pytest-dev/pytest-twisted'
 depends=('python-pytest' 'python-greenlet' 'python-decorator' 'python-twisted')
 makedepends=('git' 'python-setuptools')
 source=("git+https://github.com/pytest-dev/pytest-twisted.git#tag=v$pkgver")
-sha512sums=('d653dbb131fc904ff1e76580731fc43672a60a0e1ee461638975bacc6227d74b00d2897be44c3659aef2e65c6d398e044bff4cfdeaf032fde82166fcc2637572')
+sha512sums=('afbc985721bb7d7b063c1181c0d295d930c0f6eb2a66434eee4980755c77657456bd9817bc42e29230341eb51cb59c0bd54f39484d4e95ff810cb3eaf5d09a61')
 
 build() {
   cd pytest-twisted
