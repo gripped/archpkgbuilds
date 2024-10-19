@@ -1,0 +1,37 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: justforlxz <justforlxz@gmail.com>
+
+pkgname=deepin-shell
+pkgver=0.0.24
+pkgrel=1
+pkgdesc='New DDE shell'
+arch=('x86_64')
+url="https://github.com/linuxdeepin/dde-shell"
+license=('LGPL3')
+depends=('deepin-qt-dbus-factory' 'dtkgui' 'dtkwidget' 'dtk6core' 'dtk6gui' 'dtk6widget'
+         'dtk6declarative' 'gcc-libs' 'glibc' 'libx11' 'libxcb' 'libxcursor' 'libxext' 'libxtst'
+         'qt5-base' 'qt5-wayland' 'qt6-5compat' 'qt6-base' 'qt6-declarative' 'qt6-svg' 'qt6-wayland'
+         'xcb-util-image' 'xcb-util-wm' 'util-linux-libs' 'wayland' 'yaml-cpp')
+makedepends=('git' 'extra-cmake-modules' 'cmake' 'ninja' 'qt6-tools' 'wayland-protocols'
+             # TODO: should be removed?
+             'libnm' 'libxres')
+groups=('deepin')
+replaces=('deepin-dock')
+conflicts=('deepin-dock')
+source=("git+https://github.com/linuxdeepin/dde-shell.git#tag=$pkgver")
+sha512sums=('bd24e3f6dfd757c4bf0b6e9a7e5b8566acceec58a004e6d61a4ed1580bf44e5813f519a5e70f6fa6699daa2816ce2e08c50684309f62e1c0bafee98d9fdc9eeb')
+
+build() {
+  cd dde-shell
+  cmake . -GNinja \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_SYSCONFDIR=/etc \
+    -DCMAKE_INSTALL_LIBEXECDIR=lib
+  cmake --build .
+}
+
+package() {
+  cd dde-shell
+  DESTDIR="$pkgdir" ninja install
+}
