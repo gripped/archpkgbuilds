@@ -6,12 +6,12 @@
 
 pkgname=isync
 pkgver=1.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="IMAP and MailDir mailbox synchronizer"
 arch=('x86_64')
 url="https://isync.sourceforge.io/"
 license=('GPL2')
-depends=('libsasl' 'zlib' 'db')
+depends=('libsasl' 'zlib')
 source=(https://downloads.sourceforge.net/sourceforge/isync/$pkgname-$pkgver.tar.gz
         https://downloads.sourceforge.net/sourceforge/isync/$pkgname-$pkgver.tar.gz.asc)
 sha256sums=('a0c81e109387bf279da161453103399e77946afecf5c51f9413c5e773557f78d'
