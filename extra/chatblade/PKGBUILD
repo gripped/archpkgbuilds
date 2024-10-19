@@ -3,7 +3,7 @@
 
 pkgname=chatblade
 pkgdesc="A CLI Swiss Army Knife for ChatGPT"
-pkgver=0.6.4
+pkgver=0.7.0
 pkgrel=1
 arch=("any")
 url="https://github.com/npiv/chatblade"
@@ -24,26 +24,23 @@ makedepends=(
 	"python-setuptools"
 	"python-wheel"
 )
-source=(
-	"${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
-)
-sha256sums=('519d5c4a8bd95052f72d11f2cbac735065f940bcde88e74e6407b53730800141')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
+sha256sums=('ffe136b110debe72bae6d651d21f259c5e85117276b8458c4ebd598b9cc368e4')
 
 prepare() {
-	cd "${srcdir}/${pkgname}-${pkgver}"
+	cd "${pkgname}-${pkgver}"
 	# Use remote assets
 	sed -i 's#<img src="assets/\([^"]*\)">#<img src="'${url}'/raw/v'${pkgver}'/assets/\1">#g' README.md
 }
 
 build() {
-	cd "${srcdir}/${pkgname}-${pkgver}"
-
+	cd "${pkgname}-${pkgver}"
 	python -m build --wheel --no-isolation
 }
 
 package() {
-	cd "${srcdir}/${pkgname}-${pkgver}"
-	install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-	install -Dm644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+	cd "${pkgname}-${pkgver}"
 	python -m installer --destdir="${pkgdir}" dist/*.whl
+	install -vDm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE
+	install -vDm644 -t "${pkgdir}/usr/share/doc/${pkgname}" README.md
 }
