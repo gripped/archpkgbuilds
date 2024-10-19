@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=mkdocs-material
-pkgver=9.5.39
+pkgver=9.5.40
 pkgrel=1
 pkgdesc="Documentation that simply works"
 arch=(any)
@@ -11,8 +11,12 @@ depends=(
   mkdocs
   python
   python-babel
+  python-colorama
   python-jinja
   python-markdown
+  # python-paginate # Not packaged
+  python-regex
+  python-requests
   python-yaml
 )
 makedepends=(
@@ -24,7 +28,7 @@ makedepends=(
   python-wheel
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('c5ef40437d17138cbf9905ff9daf57bc978039823a106b35d8e12c0eff661cf9')
+sha256sums=('14b1d5d32dc52e2388907955a3d8fd43731127059a1e1863f2f635bed4c45cf8')
 
 build() {
   cd $pkgname-$pkgver
