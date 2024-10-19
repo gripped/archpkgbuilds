@@ -3,22 +3,22 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-desktop-schemas
-pkgver=6.0.5
-pkgrel=3
+pkgver=6.0.6
+pkgrel=1
 pkgdesc='GSettings deepin desktop-wide schemas'
 arch=('any')
 url="https://github.com/linuxdeepin/deepin-desktop-schemas"
 license=('GPL3')
 depends=('dconf' 'deepin-gtk-theme' 'deepin-icon-theme' 'deepin-sound-theme')
-makedepends=('python' 'go')
+makedepends=('git' 'python' 'go')
 conflicts=('deepin-artwork-themes')
 replaces=('deepin-artwork-themes')
 groups=('deepin')
-source=("https://github.com/linuxdeepin/deepin-desktop-schemas/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('1a643ce876efa715d2f1efae2ee77d783effbdbe7b9a2aedbd90a002fdcdb8bd8df8f8993b86c10e8bce00ff6c927b65fcada3896e04553982d5d1013ca70008')
+source=("git+https://github.com/linuxdeepin/deepin-desktop-schemas.git#tag=$pkgver")
+sha512sums=('d3877c111b6dc79342b363eaac332c0d44bb71b71f11f2d51ad9e9e18f744e3e7593743d5d502723da2d0f20fa6d05961292b75889b369c3f61685b14d8e4052')
 
 prepare() {
-  cd deepin-desktop-schemas-$pkgver
+  cd deepin-desktop-schemas
   # fix default background url
   sed -i "s#/usr/share/backgrounds/default_background.jpg#/usr/share/backgrounds/deepin/desktop.jpg#" \
     overrides/common/com.deepin.wrap.gnome.desktop.override schemas/com.deepin.dde.appearance.gschema.xml
@@ -34,16 +34,16 @@ build() {
   export CGO_LDFLAGS="${LDFLAGS}"
   export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
 
-  cd deepin-desktop-schemas-$pkgver
+  cd deepin-desktop-schemas
   make
 }
 
 check() {
-  cd deepin-desktop-schemas-$pkgver
+  cd deepin-desktop-schemas
   make test
 }
 
 package() {
-  cd deepin-desktop-schemas-$pkgver
+  cd deepin-desktop-schemas
   make DESTDIR="$pkgdir" install
 }
