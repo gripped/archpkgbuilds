@@ -6,7 +6,7 @@ pkgname=(
   libpanel
   libpanel-docs
 )
-pkgver=1.8.0
+pkgver=1.8.1
 pkgrel=1
 pkgdesc="Dock/panel library for GTK 4"
 url="https://gitlab.gnome.org/GNOME/libpanel"
@@ -30,7 +30,7 @@ makedepends=(
   vala
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('d8945535cf3bcc74b0530eacf891cead760930f4b3df9d0c28e812c0b18389e8b87adac698d63350b44ceb94e536bcec8b164f29ac6dbc4291195faa024d967b')
+b2sums=('2fb27a73a563db7aa17bd0ce6cdddccbc65684b56ce90809d847319ecf656f0a56d1332789d38256e0f08b840e35f082db7ac6003dc82cee0080764fdebd59c3')
 
 build() {
   local meson_options=(
