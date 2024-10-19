@@ -2,30 +2,31 @@
 
 pkgname=copr-cli
 pkgver=1.105
-pkgrel=2
+pkgrel=3
 pkgdesc="CLI tool to run copr"
 url="https://github.com/fedora-copr/copr"
 license=('GPL-2.0-or-later')
 arch=('any')
 depends=('python-copr' 'python-humanize' 'python-simplejson' 'python-jinja' 'python-setuptools'
          'python-future')
-makedepends=('python-build' 'python-installer' 'python-wheel')
+makedepends=('git' 'asciidoc' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest' 'python-responses')
-source=("https://github.com/fedora-copr/copr/archive/copr-cli-$pkgver-1.tar.gz")
-sha512sums=('76ce84a9300ac9f68732a0c8d4421d1e6007a4d92dacac4182b5687aa3f5c256a06dcc877a86d087ca737db29e53cafce470f62c8974b481f4e42cb30cb4e8ad')
+source=("git+https://github.com/fedora-copr/copr.git#tag=copr-cli-$pkgver-1")
+sha512sums=('690005b33cdf7bee6bc567914bb9acb7cd111059adfbb7b1ca94dc60af82df13c3a6660ac9dd3815481bc4e0ab1e2556d35bebc48bd53f5eb73f4d47fe259aa0')
 
 build() {
-  cd copr-copr-cli-$pkgver-1/cli
+  cd copr/cli
   python -m build --wheel --no-isolation
+  a2x -d manpage -f manpage man/copr-cli.1.asciidoc
 }
 
 check() {
-  cd copr-copr-cli-$pkgver-1/cli
+  cd copr/cli
   python -m pytest
 }
 
 package() {
-  cd copr-copr-cli-$pkgver-1/cli
+  cd copr/cli
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 man/*.1 -t "$pkgdir"/usr/share/man/man1/
 }
