@@ -2,9 +2,8 @@
 # Contributor: Chris Warrick <aur@chriswarrick.com>
 
 pkgname=twine
-pkgver=5.0.0
-_commit=94f810c54c8bc9d418a9ed64890ca9fa4ec7b59f
-pkgrel=3
+pkgver=5.1.0
+pkgrel=1
 pkgdesc='Collection of utilities for interacting with PyPI'
 arch=('any')
 url='https://github.com/pypa/twine/'
@@ -18,8 +17,8 @@ checkdepends=('git' 'python-munch' 'python-jaraco.envs' 'python-portend' 'python
 provides=('python-twine')
 conflicts=('python-twine')
 replaces=('python-twine')
-source=("git+https://github.com/pypa/twine.git#commit=$_commit")
-sha512sums=('0b98ce43cc5f9b9828c38a83b91468f6c9d7d8dc29d6d929586ed77cfd763dd840bffc4f431f6671040eab654a22de9053b1058affb613f2c64e8ba159b43f93')
+source=("git+https://github.com/pypa/twine.git#tag=$pkgver")
+sha512sums=('127718f293702e29ae5cd90efaacf8093d77f0ee8c5fa6ec949c960057081b72b17df2d53ce9e3d03ce7d7bc2ef31d84c81af09b506135cf66e87cb836fe2f59')
 
 prepare() {
   cd $pkgname
