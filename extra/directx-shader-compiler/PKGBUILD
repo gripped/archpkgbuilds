@@ -2,8 +2,8 @@
 
 pkgname=directx-shader-compiler
 pkgdesc="A compiler for HLSL to DXIL (DirectX Intermediate Language)."
-pkgver=1.7.2308
-pkgrel=2
+pkgver=1.8.2407
+pkgrel=1
 arch=('x86_64')
 url="https://github.com/microsoft/DirectXShaderCompiler"
 license=('custom')
@@ -17,7 +17,7 @@ source=("${pkgname}::git+https://github.com/microsoft/DirectXShaderCompiler.git#
         "${pkgname}-effcee::git+https://github.com/google/effcee"
         "${pkgname}-googletest::git+https://github.com/google/googletest"
         "${pkgname}-re2::git+https://github.com/google/re2")
-sha256sums=('3540da8f542da705a245629944896acb2a9ea768a3559cb39fb01dbd026f7427'
+sha256sums=('36606d88de4b7d278a1387276395aa4ec0e37d539a48072bdf8fd96a5547d296'
             'SKIP'
             'SKIP'
             'SKIP'
