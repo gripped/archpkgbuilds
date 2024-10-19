@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-builder
-pkgver=47.1
+pkgver=47.2
 pkgrel=1
 pkgdesc="An IDE for writing GNOME-based software"
 url="https://wiki.gnome.org/Apps/Builder"
@@ -80,7 +80,7 @@ replaces=(
 )
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-builder.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('f3b123ef19368022bedc702c54c2e5d39532881d837d45e301b558127c36059db927874e98f85bcb009462f9d1f87856f16cd541ed5c2fe074d46ac55033984b')
+b2sums=('57ce8187399405832868ea274326bc11b7379fb150685330e9ee47e342365c21a9e4f1bd4b64b74a393128cafaab3a3f853ceab13d2ac7058b466eb8c43888a0')
 
 prepare() {
   cd $pkgname
