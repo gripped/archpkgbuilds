@@ -4,7 +4,7 @@
 
 pkgname=rpi-imager
 pkgver=1.9.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Raspberry Pi Imaging Utility"
 depends=(
     'curl'
@@ -31,14 +31,14 @@ url="https://github.com/raspberrypi/rpi-imager"
 license=("Apache-2.0")
 
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/raspberrypi/${pkgname}/archive/v${pkgver}.tar.gz"
-        "$pkgname-1_9_0-remove-vendoring.patch::https://github.com/raspberrypi/rpi-imager/commit/0bd585fa0b54a2b85cea6a6768c7e1d953b24334.patch")
+        "remove-vendoring.patch")
 
 b2sums=('d4eae0e1f1d99901938d04d1fcd6cb3dac84296172791f215247aa6873284e4b8d6673e0e847ad9dd41167cea87122a154a440a91bf8546a4a1d0442a02cb494'
         'e02c86d35a2854bd4ab8bd4de938cd1771b6e0e38a494be0d8886c1158627eb4c182309fff7c67ea457c8ab060279d7c57a95f08b52dab976f751163efe0267c')
 
 prepare() {
     # https://github.com/raspberrypi/rpi-imager/issues/924
-    patch -Np1 -d "${pkgname}-${pkgver}" -i "$srcdir/$pkgname-1_9_0-remove-vendoring.patch"
+    patch -Np1 -d "${pkgname}-${pkgver}" -i "$srcdir/remove-vendoring.patch"
 }
 
 build() {
