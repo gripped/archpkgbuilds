@@ -5,13 +5,11 @@ After=network-online.target
 AssertFileIsExecutable=/usr/bin/traefik
 
 [Service]
-# Run traefik as its own user (create new user with: useradd -r -s /bin/false -U -M traefik)
 User=traefik
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 
-# configure service behavior
 Type=notify
-ExecStart=/usr/bin/traefik
+ExecStart=/usr/bin/traefik --configfile /etc/traefik/traefik.yml
 Restart=always
 WatchdogSec=1s
 

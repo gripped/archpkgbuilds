@@ -1,18 +1,21 @@
 pkgbase = traefik
 	pkgdesc = Modern reverse proxy written in Go
-	pkgver = 3.1.5
-	pkgrel = 1
+	pkgver = 3.1.6
+	pkgrel = 2
 	url = https://github.com/traefik/traefik
 	arch = x86_64
 	license = MIT
 	makedepends = go
+	makedepends = npm
+	makedepends = yarn
 	depends = glibc
 	options = !lto
-	source = traefik-3.1.5.tar.gz::https://github.com/traefik/traefik/archive/v3.1.5.tar.gz
+	backup = etc/traefik/traefik.yml
+	source = traefik-3.1.6.tar.gz::https://github.com/traefik/traefik/archive/v3.1.6.tar.gz
 	source = traefik.service
 	source = traefik.sysusers
-	sha512sums = 2240770ceaeba034fbdde729c4c88e8fd7923c7e53f281713b39a3e660b3cd247b7e20785221f4e19e81119df9e0dac68cf4444783d582bfdc8c0fd9b7659c68
-	sha512sums = 25ab1113bb69936c443fe49d5d3da7d39171fc82e8fa06f46ed4e2dfcaa89685d50ca50b58c32215852d79e5c8d4736a287c15b75420c78a853c51502cb2641a
+	sha512sums = 01e777c66f91ca51b3f25fc2d9f03f5bf815606ef2a459fd389549fe06a0cfdf425efe133e5dcd32fad09946775fbd4fe9d70a2c1c8b0fa2b9fddd800a862778
+	sha512sums = 8a068799588d8982cfcafe994254af1f29b4aa0065e5d29de0b7acf89e442ff43723adf9519654822d7d44dc6c6a46025f514768f0d3ec0e34a434576a9f4d45
 	sha512sums = 5fecfed5df77bf28c2c976ebaebedb030904d41509e740821140a4889bda20327f416e78f8d19b0ee78c8bc422d1907ce05ef3562e4d3e36ddfbdbea5e860b2a
 
 pkgname = traefik
