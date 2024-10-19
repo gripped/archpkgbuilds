@@ -1,0 +1,61 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=chess-clock
+pkgver=0.6.1
+pkgrel=1
+pkgdesc='Simple application to provide time control for over-the-board chess games'
+arch=(any)
+url='https://apps.gnome.org/Chessclock/'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  glib2
+  gsound
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  python
+  python-gobject
+)
+makedepends=(
+  appstream
+  git
+  meson
+)
+source=(
+  "git+https://gitlab.gnome.org/World/chess-clock.git?signed#tag=v$pkgver"
+  chess-clock-metainfo.patch
+  chess-clock-window-icon.patch
+)
+b2sums=(
+  cab2d861a373f06e956fa9d4ac34f9c244538b4a7eea7348c24b5c7cfee874c55728a790352ee38255f2cd1786d1500422a8551dfbbbb439e939b19981cf6a5e
+  193926c2f170a040232f0acca8919a9f1c01a314ba92b9e544612d60eff826e3c68c1b59b19d284419a670a36fbb88d9c4b10599001febac0430185759dc35fb
+  7c7a666d64eea1bbd637e75bc018d4caf3dd3c0b4741d7ebb25f758ae1054831f2e5ee88e042524474c33cd92d3aa6d92e4c991ee71eb9b98ca6591171f8aedc
+)
+validpgpkeys=(B9386554B7DD266BCB8E29A990F0C9B18A6B4A19) # Evangelos Ribeiro Tzaras <devrtz@fortysixandtwo.eu>
+
+prepare() {
+  cd $pkgname
+
+  # https://gitlab.gnome.org/World/chess-clock/-/merge_requests/31
+  git apply -3 ../chess-clock-metainfo.patch
+
+  # https://gitlab.gnome.org/World/chess-clock/-/merge_requests/32
+  git apply -3 ../chess-clock-window-icon.patch
+}
+
+build() {
+  arch-meson $pkgname build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+
+  python -m compileall -d /usr/share "$pkgdir/usr/share"
+  python -O -m compileall -d /usr/share "$pkgdir/usr/share"
+}
