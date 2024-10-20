@@ -6,7 +6,7 @@
 
 pkgname=docbook-xsl
 pkgver=1.79.2
-pkgrel=8
+pkgrel=9
 pkgdesc='XML stylesheets for Docbook-xml transformations'
 url='https://docbook.org/'
 arch=(any)
@@ -47,6 +47,7 @@ package() {
         install -Dt "$pkgroot/$fn" -m644 $dir/$fn/*.{xml,xsl,dtd,ent}
       done
     )
+  ln -s xsl-stylesheets-$pkgver$ns "$pkgdir"/usr/share/xml/docbook/xsl-stylesheets$ns
   done
 
   install -Dm644 $dir/COPYING -t "$pkgdir"/usr/share/licenses/$pkgname
