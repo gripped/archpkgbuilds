@@ -7,7 +7,7 @@ pkgname=(
   gnome-online-accounts
   libgoa
 )
-pkgver=3.52.0
+pkgver=3.52.1
 pkgrel=1
 pkgdesc="Single sign-on framework for GNOME"
 url="https://wiki.gnome.org/Projects/GnomeOnlineAccounts"
@@ -43,7 +43,7 @@ source=(
   # GOA tags use SSH signatures which makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/gnome-online-accounts.git#tag=$pkgver"
 )
-b2sums=('a61869c80537b01fd0cacc9cdf4b1ced66161b975aab783607aa2cb26cdefbd0450e914feea149d4c181580a3cab04ae86343ccc361ff10c152efe141c19c6fc')
+b2sums=('890c76a2533582eb5fd00de49ecaaa6768f990940ae06b87879dc36db61cd1d562e1802fa5e6d34a0823cbee797fc857428d6cfb287251213f77585cd31791f5')
 
 prepare() {
   cd $pkgname
