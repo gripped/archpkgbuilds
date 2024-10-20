@@ -1,0 +1,51 @@
+From 15059eacca14204d1092a6e32ef30c6ce4df6d36 Mon Sep 17 00:00:00 2001
+From: Dawid Dziurla <dawidd0811@gmail.com>
+Date: Wed, 22 May 2024 19:28:12 +0200
+Subject: [PATCH] file_chooser.py: fix segfault by holding a ref to dialog
+
+---
+ src/file_chooser.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/file_chooser.py b/src/file_chooser.py
+index cf0fa07..f87b6c2 100644
+--- a/src/file_chooser.py
++++ b/src/file_chooser.py
+@@ -27,7 +27,7 @@ class FileChooser:
+ 
+     @staticmethod
+     def open_file(parent, last_view_page, *args):
+-        def __on_response(_dialog, response):
++        def __on_response(_dialog, response, _dialog_ref):
+             """Run if the user selects a file."""
+             if response == Gtk.ResponseType.ACCEPT:
+                 parent.check_is_image(_dialog.get_file())
+@@ -39,7 +39,7 @@ class FileChooser:
+         )
+ 
+         dialog.set_modal(True)
+-        dialog.connect("response", __on_response)
++        dialog.connect("response", __on_response, dialog)
+ 
+         file_filter = Gtk.FileFilter.new()
+         file_filter.set_name(_("Supported image files"))
+@@ -92,7 +92,7 @@ class FileChooser:
+                 toast.set_action_target_value(GLib.Variant("s", file.get_path()))
+             parent.toast_overlay.add_toast(toast)
+ 
+-        def __on_response(_dialog, response):
++        def __on_response(_dialog, response, _dialog_ref):
+             """Run if the user selects a file."""
+             if response == Gtk.ResponseType.ACCEPT:
+                 __on_save_file(_dialog.get_file())
+@@ -102,6 +102,6 @@ class FileChooser:
+         )
+ 
+         dialog.set_modal(True)
+-        dialog.connect("response", __on_response)
++        dialog.connect("response", __on_response, dialog)
+         dialog.set_current_name("output.txt")
+         dialog.show()
+-- 
+GitLab
+
