@@ -1,0 +1,32 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: justforlxz <justforlxz@gmail.com>
+
+pkgname=deepin-tray-loader
+pkgver=0.0.12
+pkgrel=1
+pkgdesc='A set of tray plugins that integrated into task bar and the tool loader which can load the plugins'
+arch=('x86_64')
+url="https://github.com/linuxdeepin/dde-tray-loader"
+license=('LGPL3')
+depends=('dconf' 'deepin-qt-dbus-factory' 'dtkcore' 'dtkgui' 'dtkwidget' 'gcc-libs' 'glibc'
+         'gsettings-qt' 'libdbusmenu-qt5' 'libx11' 'libxcb' 'libxcursor' 'libxtst'
+         'networkmanager-qt5' 'qt5-base' 'qt5-svg' 'qt5-wayland' 'wayland' 'xcb-util-image'
+         'xcb-util-wm')
+makedepends=('git' 'cmake' 'extra-cmake-modules' 'ninja' 'qt5-tools')
+source=("git+https://github.com/linuxdeepin/dde-tray-loader.git#tag=$pkgver")
+sha512sums=('6c381874b68db3d45a7a1e2feae63102c9001ed61b3bb983cb9cbd314b30c6c05e733aa14ec316755a9db3670a1186f8fc5e47aab3e8c9300cf66b24f1c6760d')
+
+build() {
+  cd dde-tray-loader
+  cmake -B build -GNinja \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_SYSCONFDIR=/etc \
+    -DCMAKE_INSTALL_LIBEXECDIR=lib
+  cmake --build build
+}
+
+package() {
+  cd dde-tray-loader/build
+  DESTDIR="$pkgdir" ninja install
+}
