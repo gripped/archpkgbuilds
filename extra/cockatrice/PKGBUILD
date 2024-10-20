@@ -5,7 +5,7 @@ _pkgname=Cockatrice
 pkgver=2.9.0
 _date=2023-09-14
 _tag=$_date-Release-$pkgver
-pkgrel=9
+pkgrel=10
 pkgdesc='A cross-platform virtual tabletop for multiplayer card games'
 arch=('x86_64')
 url='https://cockatrice.github.io'
@@ -18,12 +18,17 @@ optdepends=('zlib: Load zipped files in Oracle'
 provides=('cockatrice-client' 'cockatrice-server')
 conflicts=('cockatrice-client' 'cockatrice-server')
 source=("git+https://github.com/Cockatrice/Cockatrice.git#tag=$_tag"
-         protobuf-23.patch)
-sha512sums=('SKIP'
-            '42eb9d1dbceee5f4e39a9ed6fa7b7b3b72901b001975b81b629fe0d2d51aef0d1cd4e5d1519d240479679b2532cf0aae73340d5ac2afe3294177288c405c8acd')
+         protobuf-23.patch
+         'fix-deleting-homedir.patch::https://github.com/Cockatrice/Cockatrice/pull/5135.patch')
+sha512sums=('2ff9cf9ebf78d2e7c13cb3204e7ceb7dc3ae2adc1962eb0de12ba64f168495c188961a947895548eaf288ebadebcc63a6d436bd7a3a76e680039136f98f97d8e'
+            '42eb9d1dbceee5f4e39a9ed6fa7b7b3b72901b001975b81b629fe0d2d51aef0d1cd4e5d1519d240479679b2532cf0aae73340d5ac2afe3294177288c405c8acd'
+            '934267902dadf504c3756dfa45cbb164e2fab70eb70e516ef821d57bdbb92ab922991918902df25a32c64df37de67d40f6259d95901222de105439137892a95f')
 
 prepare() {
-  patch -d $_pkgname -p1 < protobuf-23.patch # Fix build with protobuf 23
+  cd $_pkgname
+
+  patch -p1 -i ../protobuf-23.patch  # Fix build with protobuf 23
+  patch -p1 -i ../fix-deleting-homedir.patch  # Fix bug where the user home directory could be deleted (see https://github.com/Cockatrice/Cockatrice/issues/5134)
 }
 
 build() {
