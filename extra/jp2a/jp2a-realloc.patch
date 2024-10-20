@@ -1,0 +1,23 @@
+From 0ae69d30a34d83844cdfde8d5476c87cf5110a65 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 19 Oct 2024 22:46:52 +0200
+Subject: [PATCH] Fix condition in webp data
+
+The data needs to be reallocated if the new data size is larger than the allocated size.
+---
+ src/image.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/image.c b/src/image.c
+index 5db93a2..d978985 100644
+--- a/src/image.c
++++ b/src/image.c
+@@ -1090,7 +1090,7 @@ webp_data* get_webp_data(FILE *fp) {
+ 			break;
+ 		}
+ 		size_t new_data_size = data_size + bytes_read;
+-		if ( new_data_size < data_allocated_size ) {
++		if ( new_data_size > data_allocated_size ) {
+ 			data_allocated_size *= 2;
+ 			data = realloc(data, data_allocated_size);
+ 		}
