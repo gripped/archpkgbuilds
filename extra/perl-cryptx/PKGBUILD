@@ -1,7 +1,7 @@
 # Maintainer: Florian Pritz <bluewind@archlinux.org>
 
 pkgname=perl-cryptx
-pkgver=0.081
+pkgver=0.084
 pkgrel=1
 pkgdesc='Cryptographic toolkit'
 arch=(x86_64)
@@ -10,8 +10,8 @@ options=(!emptydirs)
 depends=('perl>=5.6')
 url=https://metacpan.org/release/CryptX
 source=("https://cpan.metacpan.org/authors/id/M/MI/MIK/CryptX-$pkgver.tar.gz")
-md5sums=('e75b68643ccac3fa09c11ece603bfbef')
-sha512sums=('7d527bb664e853051cab4d6e0a77a26af8ab705f9d88ecce79352920b497c0c7ff62df371522276a1ad97e8d8f9a7405e2bc77d71df6f5629aab389f67a348fe')
+md5sums=('9fb6d6f477e7f33571a2782d0ef2b86b')
+sha512sums=('c67c5b0aca1899155c37c3dbdb92249d1bc3e1781478a0aec3b3d4e01c70efd806bc325dc991462f9064ba0f18ec7c56c6d8383f068277ae1fc684cad88d4bd9')
 _ddir="CryptX-$pkgver"
 
 build()
