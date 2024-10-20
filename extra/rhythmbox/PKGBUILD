@@ -4,9 +4,9 @@
 
 pkgname=rhythmbox
 pkgver=3.4.7
-pkgrel=2
+pkgrel=3
 pkgdesc="Music playback and management application"
-url="https://wiki.gnome.org/Apps/Rhythmbox"
+url="https://gitlab.gnome.org/GNOME/rhythmbox"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
@@ -23,6 +23,7 @@ depends=(
   gst-plugins-good
   gstreamer
   gtk3
+  gvfs
   hicolor-icon-theme
   json-glib
   libgirepository
@@ -79,6 +80,9 @@ prepare() {
 
   # Python 3.12
   git cherry-pick -n ceeed5736c3e25d33fec5a100afde20ef485e07e
+
+  # Python 3.13
+  git cherry-pick -n cc16682850445eea289ca8a82a3f5a4bd8b62fb4
 }
 
 build() {
