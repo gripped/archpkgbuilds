@@ -1,8 +1,8 @@
 # Maintainer: AndyRTR <andyrtr@archlinux.org>
 
 pkgname=opengl-man-pages
-pkgver=20231125
-_commit=f50027c1c911e019648a6a08176aa6813de66d47
+pkgver=20240713
+_commit=9813a5569411cad5250d719a9efed2fac732e56f
 pkgrel=1
 pkgdesc="OpenGL Man Pages - OpenGL 4.x"
 arch=('any')
@@ -18,7 +18,7 @@ build() {
   for manpages in gl4; do
     cd "${srcdir}/${pkgname}/${manpages}"
       for file in *.xml; do
-        xsltproc --xinclude --noout --nonet /usr/share/xml/docbook/xsl-stylesheets-*/manpages/docbook.xsl ${file}
+        xsltproc --xinclude --noout --nonet /usr/share/xml/docbook/xsl-stylesheets/manpages/docbook.xsl ${file}
       done
   done
 }
