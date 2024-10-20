@@ -2,18 +2,18 @@
 
 _hkgname=typst
 pkgname=haskell-typst
-pkgver=0.5
-pkgrel=3
+pkgver=0.5.0.1
+pkgrel=1
 pkgdesc="Parsing and evaluating typst syntax."
 url="https://github.com/jgm/typst-hs.git"
 license=("BSD")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-aeson' 'haskell-cassava' 'haskell-digits' 'haskell-ordered-containers'
+depends=('ghc-libs' 'haskell-aeson' 'haskell-cassava' 'haskell-ordered-containers'
          'haskell-regex-tdfa' 'haskell-scientific' 'haskell-toml-parser' 'haskell-typst-symbols'
          'haskell-vector' 'haskell-xml-conduit' 'haskell-yaml')
 makedepends=('ghc' 'uusi' 'haskell-pretty-show' 'haskell-tasty' 'haskell-tasty-golden')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('849519c34e0978c9dc2ddc323917765fa5966fed3dfb0bfd8be64558065a1506')
+sha256sums=('44cc9e78c922c5bfdbf3418fc8952bee79f8b31fa4c03ca8bfc64539cd3cecb2')
 
 prepare() {
   cd $_hkgname-$pkgver
