@@ -1,7 +1,7 @@
 pkgbase = toolbox
 	pkgdesc = Unprivileged development environment
-	pkgver = 0.0.99.5
-	pkgrel = 2
+	pkgver = 0.0.99.6
+	pkgrel = 1
 	url = https://github.com/containers/toolbox
 	arch = x86_64
 	license = APACHE
@@ -13,10 +13,11 @@ pkgbase = toolbox
 	makedepends = git
 	makedepends = meson
 	makedepends = podman
+	makedepends = fish
 	depends = podman
 	depends = bash
 	depends = flatpak
-	source = git+https://github.com/containers/toolbox#commit=ccc3eee72722e29172ec35184df89cad7c100a5b
-	sha256sums = SKIP
+	source = git+https://github.com/containers/toolbox#tag=0.0.99.6
+	sha256sums = 9b17fc5298d1c60aeca593b72fc47b42dd2d24d675a851dfb4538be025a2e069
 
 pkgname = toolbox
