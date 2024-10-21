@@ -8,7 +8,7 @@
 
 pkgname=khal
 pkgver=0.11.3
-pkgrel=2
+pkgrel=3
 pkgdesc='CLI calendar application built around CalDAV'
 arch=('any')
 url="https://lostpackets.de/khal/"
@@ -49,6 +49,11 @@ source=($pkgname-$pkgver.tar.gz::https://github.com/pimutils/$pkgname/archive/re
 sha256sums=('e6aeb486c024c19ad3f33dfd305ea7d52dfd1f8ea5d6d85bf2aec531f0ce3d63')
 b2sums=('0785e5e1572c7c00d4094f4d84615f775acf1ae076ad3b6ed1e153677d13c26b4fe6b5066679fafad679a98e16dd65f89ceea0e5b81a43ab976263740bb1a9fe')
 
+prepare() {
+  # fix issue with python-sphinx > 8: https://github.com/pimutils/khal/issues/1356
+  sed -i '/intersphinx_mapping/d' -i $pkgname-$pkgver/doc/source/conf.py
+}
+
 build() {
   cd $pkgname-$pkgver
   SETUPTOOLS_SCM_PRETEND_VERSION="$pkgver" python -m build --wheel --skip-dependency-check --no-isolation
@@ -57,10 +62,7 @@ build() {
 
 check() {
   cd $pkgname-$pkgver
-  env
-  export PYTHONPATH="build:$PYTHONPATH"
-  export LC_ALL="C"
-  pytest -v
+  LC_ALL="C" PYTHONPATH="build:$PYTHONPATH" pytest -v
 }
 
 package() {
@@ -76,9 +78,9 @@ package() {
   install -vDm 644 doc/build/man/${pkgname}.1 -t "$pkgdir/usr/share/man/man1/"
   # completions
   install -vd "$pkgdir/usr/share/"{bash-completion/completions,fish/vendor_completions.d,zsh/site-functions}
-  _KHAL_COMPLETE=bash_source "$pkgdir"/usr/bin/khal > "$pkgdir/usr/share/bash-completion/completions/$pkgname"
-  _KHAL_COMPLETE=fish_source "$pkgdir"/usr/bin/khal > "$pkgdir/usr/share/fish/vendor_completions.d/$pkgname.fish"
-  _KHAL_COMPLETE=zsh_source "$pkgdir"/usr/bin/khal > "$pkgdir/usr/share/zsh/site-functions/_$pkgname"
+  PYTHONPATH="$pkgdir/$site_packages:$PYTHONPATH" _KHAL_COMPLETE=bash_source "$pkgdir"/usr/bin/khal > "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+  PYTHONPATH="$pkgdir/$site_packages:$PYTHONPATH" _KHAL_COMPLETE=fish_source "$pkgdir"/usr/bin/khal > "$pkgdir/usr/share/fish/vendor_completions.d/$pkgname.fish"
+  PYTHONPATH="$pkgdir/$site_packages:$PYTHONPATH" _KHAL_COMPLETE=zsh_source "$pkgdir"/usr/bin/khal > "$pkgdir/usr/share/zsh/site-functions/_$pkgname"
   # desktop file
   install -vDm 644 misc/khal.desktop -t "$pkgdir/usr/share/applications/"
   # docs
