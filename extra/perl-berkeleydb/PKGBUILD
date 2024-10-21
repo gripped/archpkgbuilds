@@ -3,8 +3,8 @@
 # Contributor: Francois Charette <firmicus@gmx.net>
 
 pkgname=perl-berkeleydb
-pkgver=0.65
-pkgrel=7
+pkgver=0.66
+pkgrel=1
 pkgdesc="Interface to Berkeley DB"
 arch=('x86_64')
 url="https://search.cpan.org/dist/BerkeleyDB/"
@@ -12,7 +12,7 @@ license=('GPL' 'PerlArtistic')
 depends=('perl' 'db5.3')
 options=('!emptydirs')
 source=(https://search.cpan.org/CPAN/authors/id/P/PM/PMQS/BerkeleyDB-$pkgver.tar.gz)
-sha256sums=('410aa89e7232941d49106c9e048d6337475543ec1d233ea7cdb725cb5b963504')
+sha256sums=('c64138df293afcd961fc6d5d4253992d94dcbbfbd54bf889565cc8be4fe6b291')
 
 build() {
   cd  "$srcdir"/BerkeleyDB-$pkgver
