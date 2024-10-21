@@ -2,7 +2,7 @@
 
 pkgname=letterpress
 pkgver=2.1
-pkgrel=3
+pkgrel=6
 pkgdesc='Convert your images into a picture made up of ASCII characters, using jp2a'
 arch=(any)
 url='https://apps.gnome.org/Letterpress/'
@@ -29,16 +29,16 @@ source=(
   letterpress-ref-dialog.patch
   letterpress-window-icon.patch
   letterpress-drop-target.patch
+  letterpress-clear-tmpfiles.patch
   letterpress-webp-support.patch
-  letterpress-no-rotation.patch
 )
 b2sums=(
   150cec7703733d6466008baa29aa77310749328ae4aab193e23da4dac25cbeb810058551a144069852b0f647b403e89060c65673124032ca37340c1c34ab441b
   85b95ddf80a445a8fd13856086da45e7702d171a780deb62512b27ef03ed56acd30ddf43cd27c67a935961b11cab2fe8a68607d3d6519802cfa4edaaedc6710d
-  0d40af8d8808b88ea10e6dc2bf30de623da280374f03d1ab4612b7229932e30dfa817cc9111ab091bcca11d33223d38303bef42b4f7a8091816301faa429a26f
-  2c8057af4d369cb942902b29ccf972fed351fd7b0234e52a66dcd2e008418cc94905e982c8b3186d90292c7da87d95e6385b79e2648de5309dac43a0200f4eb4
+  001ea58a749bc573f69f6a6de235572a07092d99f414f9e66f2a8180ad1df523988536d5b21589e3d6f2c8869fa0cfd08fea8b203abb8043bcbc9d143975cd0f
+  4030ec1653f77719e00f28435a615a431fd139833db2a706af165866ac0ecc8f5edeb6c0ac66f931a53d50ae57578e1b97fcb7af423dedbb67b5a034fccabd4c
+  6686d328c10e8176a745a1ff616e9abb18fe7f523912fc13bc1c9b0e6439c1945bf8cf0cbffcd67f1f5dd5ccc373bb636bbd8975e06f074720096bc682946216
   1ce45e3b5b837fbae2267799483b876a739c67fabfdc6b3e2d8c5043b5c6d78a9b742b0c6bfe807f5e5f15303f7ee7fcca50c5edf925815b948c64ec57a6b28b
-  51ef8a368ae2f1745a8ffe90429b4b1d1eb11538898dfc26bd090a2c34e22a4d8de961444d4de98f9fa8e48fc89e3825f1f7d77bb99aba898ae3ce437d647146
 )
 
 prepare() {
@@ -53,11 +53,11 @@ prepare() {
   # https://gitlab.gnome.org/World/Letterpress/-/merge_requests/19
   git apply -3 ../letterpress-drop-target.patch
 
+  # https://gitlab.gnome.org/World/Letterpress/-/merge_requests/21
+  git apply -3 ../letterpress-clear-tmpfiles.patch
+
   # https://gitlab.gnome.org/World/Letterpress/-/merge_requests/24
   git apply -3 ../letterpress-webp-support.patch
-
-  # Remove image rotation feature
-  git apply -3 ../letterpress-no-rotation.patch
 
   # Don't maximize window by default, reduce output width
   sed -i '/"window-is-maximized"/{n;s/>true</>false</}

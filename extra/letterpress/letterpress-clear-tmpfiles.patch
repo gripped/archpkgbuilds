@@ -1,0 +1,94 @@
+From 43c175fe03600fdb0f8017f19ef2852229c9425c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 21 Oct 2024 17:06:18 +0200
+Subject: [PATCH] Clear temporary files on close
+
+Without this, all temporary files remain on the system for each opened images.
+---
+ src/main.py    | 22 +++++++++++++++++++++-
+ src/pasting.py |  4 ++--
+ src/window.py  |  4 +++-
+ 3 files changed, 26 insertions(+), 4 deletions(-)
+
+diff --git a/src/main.py b/src/main.py
+index 55eef07..266b82b 100644
+--- a/src/main.py
++++ b/src/main.py
+@@ -74,6 +74,8 @@ class LetterpressApplication(Adw.Application):
+             "open-output", self.__open_output, param=GLib.VariantType("s")
+         )
+         self.file = None
++        self.pasted_tmpfile = None
++        self.rotated_tmpfile = None
+ 
+     def do_activate(self):
+         """Called when the application is activated.
+@@ -92,9 +94,27 @@ class LetterpressApplication(Adw.Application):
+         if self.file != None:
+             win.check_is_image(Gio.File.new_for_path(self.file))
+ 
++    def do_shutdown(self):
++        self.rotated_tmpfile = None
++
++        if self.pasted_tmpfile:
++            self.pasted_tmpfile.delete()
++
++        Gtk.Application.do_shutdown(self)
++
++    def __paste_image_cb(self, file, temporary):
++        if temporary:
++            if self.pasted_tmpfile:
++                self.pasted_tmpfile.delete()
++
++            self.pasted_tmpfile = file;
++
++        win = self.get_active_window()
++        win.check_is_image(file)
++
+     def __paste_image(self, *args):
+         win = self.get_active_window()
+-        Paster().paste_image(win, win.check_is_image)
++        Paster().paste_image(win, self.__paste_image_cb)
+ 
+     def __change_output_width(self, down=False):
+         win = self.get_active_window()
+diff --git a/src/pasting.py b/src/pasting.py
+index 36c9122..3079c51 100644
+--- a/src/pasting.py
++++ b/src/pasting.py
+@@ -33,7 +33,7 @@ class Paster:
+     def __on_file_pasted(self, clipboard, result):
+         try:
+             paste_as_file = clipboard.read_value_finish(result)
+-            self.callback(paste_as_file)
++            self.callback(paste_as_file, False)
+ 
+         except:
+             clipboard.read_texture_async(None, self.__on_texture_pasted)
+@@ -42,7 +42,7 @@ class Paster:
+         try:
+             paste_as_texture = clipboard.read_texture_finish(result)
+             file = texture_to_file.to_file(paste_as_texture)
+-            self.callback(file)
++            self.callback(file, True)
+ 
+         except:
+             toast = Adw.Toast.new(_("No image found in clipboard"))
+diff --git a/src/window.py b/src/window.py
+index d2183a6..4717919 100644
+--- a/src/window.py
++++ b/src/window.py
+@@ -113,7 +113,9 @@ class LetterpressWindow(Adw.ApplicationWindow):
+                     __wrong_image_type()
+                     return
+ 
+-                self.filepath = NamedTemporaryFile(suffix=f".{img_format}").name
++                app = self.get_application()
++                app.rotated_tmpfile = NamedTemporaryFile(suffix=f".{img_format}")
++                self.filepath = app.rotated_tmpfile.name
+ 
+                 shrunken_img = ImageOps.cover(img, (500, 500))
+                 exif_rotated_img = ImageOps.exif_transpose(shrunken_img)
+-- 
+GitLab
+

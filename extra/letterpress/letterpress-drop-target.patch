@@ -1,4 +1,4 @@
-From 382dd6926ab087de507c054a15dd30295637f773 Mon Sep 17 00:00:00 2001
+From 0aa85c0801829f18f7ae921cf40220a09d6d71d8 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Sat, 19 Oct 2024 07:59:54 +0000
 Subject: [PATCH] Set active state to false on drop
@@ -9,10 +9,10 @@ The 'leave' event is triggered on Xorg only when the pointer leaves the drop tar
  1 file changed, 1 insertion(+)
 
 diff --git a/src/window.py b/src/window.py
-index 4cd9598..6b32ecf 100644
+index d2183a6..06ee717 100644
 --- a/src/window.py
 +++ b/src/window.py
-@@ -229,6 +229,7 @@ class LetterpressWindow(Adw.ApplicationWindow):
+@@ -160,6 +160,7 @@ class LetterpressWindow(Adw.ApplicationWindow):
          return Gdk.DragAction.COPY
  
      def __on_drop(self, widget, drop, *args):
