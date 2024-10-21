@@ -3,7 +3,7 @@
 # Contributor: AndyRTR <andyrtr at archlinux.org>
 
 pkgname=iwd
-pkgver=2.22
+pkgver=3.0
 pkgrel=1
 pkgdesc='Internet Wireless Daemon'
 arch=('x86_64')
@@ -16,7 +16,7 @@ source=(https://www.kernel.org/pub/linux/network/wireless/iwd-${pkgver}.tar{.xz,
         0001-use-network-group-for-unprivileged-access.diff
         0002-fix-scan-segfault.patch)
 # https://mirrors.edge.kernel.org/pub/linux/network/wireless/sha256sums.asc
-sha256sums=('2c41c5da9924b90f8383b293b0c0b3d0bfb34fdc8822d8d0d37ec100707f263e'
+sha256sums=('bd167ab368b6ba302b6c948a4f41f02d233a12e20d5094b1c0393325309f8a60'
             'SKIP'
             'd5fb4fb864b7a0632117aa2039df535ab5c1d024ae618a1f09e34dfab8ee0cc7'
             '4471026fb8816132e7f89327d2f0d72b63b6c8c64ffb1c449205dfe52bfec6ac')
