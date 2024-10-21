@@ -1,7 +1,7 @@
 pkgbase = lightsoff
 	pkgdesc = Turn off all the lights
 	pkgver = 46.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://wiki.gnome.org/Apps/Lightsoff
 	arch = x86_64
 	groups = gnome-extra
@@ -10,9 +10,13 @@ pkgbase = lightsoff
 	makedepends = meson
 	makedepends = vala
 	makedepends = yelp-tools
+	depends = dconf
+	depends = glib2
+	depends = glibc
 	depends = gtk3
+	depends = hicolor-icon-theme
 	depends = librsvg
-	source = git+https://gitlab.gnome.org/GNOME/lightsoff.git#commit=b383e33570b957b823036b0d7813d4d9d70c1aa8
-	b2sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/lightsoff.git#tag=46.0
+	b2sums = e1706c329479c65f4e0abbfbd504f54e4ec35f2e991f413cbe3e91c5821883e47f9d6de8aefb1c90d9534c0840b2dacc5a70a7ecfd261012919e4b5d14cbfb8e
 
 pkgname = lightsoff

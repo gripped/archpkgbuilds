@@ -3,13 +3,17 @@
 
 pkgname=lightsoff
 pkgver=46.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Turn off all the lights"
 url="https://wiki.gnome.org/Apps/Lightsoff"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
+  dconf
+  glib2
+  glibc
   gtk3
+  hicolor-icon-theme
   librsvg
 )
 makedepends=(
@@ -19,14 +23,8 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome-extra)
-_commit=b383e33570b957b823036b0d7813d4d9d70c1aa8  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/lightsoff.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/lightsoff.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('e1706c329479c65f4e0abbfbd504f54e4ec35f2e991f413cbe3e91c5821883e47f9d6de8aefb1c90d9534c0840b2dacc5a70a7ecfd261012919e4b5d14cbfb8e')
 
 prepare() {
   cd $pkgname
