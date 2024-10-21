@@ -2,8 +2,8 @@
 # Contributor: Francois Charette <firmicus@gmx.net>
 
 pkgname=perl-xml-rss
-pkgver=1.63
-pkgrel=2
+pkgver=1.64
+pkgrel=1
 pkgdesc="Parse or create Rich Site Summaries (RSS)"
 arch=('any')
 url="https://search.cpan.org/dist/XML-RSS"
@@ -12,7 +12,7 @@ depends=('perl-datetime' 'perl-datetime-format-mail' 'perl-datetime-format-w3cdt
 	 'perl-html-parser' 'perl-xml-parser')
 options=('!emptydirs')
 source=(https://search.cpan.org/CPAN/authors/id/S/SH/SHLOMIF/XML-RSS-$pkgver.tar.gz)
-sha256sums=('bc010a4afdf6d5bade39774dc338eb982b95319db3eadd1b3d79b41ec1c9dce1')
+sha256sums=('898d9685e7c47446426029b8868397065f5430f13421f8231a952b7e23f15e41')
 
 build() {
   cd  "$srcdir"/XML-RSS-$pkgver
