@@ -1,9 +1,9 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
-_name=py-zopfli
 pkgname=python-zopfli
-pkgver=0.2.3
-pkgrel=2
+_name="${pkgname/thon/}"
+pkgver=0.2.3.post1
+pkgrel=1
 pkgdesc="Python bindings to zopfli"
 arch=(x86_64)
 url="https://github.com/fonttools/py-zopfli"
@@ -11,7 +11,6 @@ license=(Apache-2.0)
 depends=(
   glibc
   python
-  zopfli libzopfli.so libzopflipng.so
 )
 makedepends=(
   python-build
@@ -19,11 +18,12 @@ makedepends=(
   python-setuptools
   python-setuptools-scm
   python-wheel
+  zopfli
 )
 checkdepends=(python-pytest)
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('071e897270a5af893670a3744d5bec9557cc80ea3ad29dd7bf44e990e8db8a9d1eaa6b8e8bfab38094cfba00d18ee3ff393f729aa95242a52bdfac3535097efb')
-b2sums=('c6c352a3ac81b3b5097da038502f73c51778ad0914a8f9e4a3a8fdd7d0ebfc3523fbad87d6527981b3607f898a43f0455f4dd9ac7cd37db9fd80d8a39c76e743')
+sha512sums=('dfea6d501bc2204e606f98485c1512838685d9b92dcc93d2f53114a8afa682728f10205b3bea16bd12ecf8f2f95893fd3f0372f49ba1855b016909b5799dfe04')
+b2sums=('b39e392e3b0edfed97fcbf90bc81c119c1080cb01a6a3abb5d56fa7e4167197f2a5bbcaed89a044c65112ddb9bda6497f2a168b284095cbb787921705c618e75')
 
 build() {
   cd $_name-$pkgver
@@ -40,6 +40,10 @@ check() {
 }
 
 package() {
+  depends+=(
+    zopfli libzopfli.so libzopflipng.so
+  )
+
   cd $_name-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 README.rst -t "$pkgdir/usr/share/doc/$pkgname/"
