@@ -4,7 +4,7 @@
 
 pkgname=python-pyacoustid
 pkgver=1.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Bindings for Chromaprint acoustic fingerprinting and the Acoustid API'
 arch=(any)
 url=https://github.com/beetbox/pyacoustid
@@ -12,6 +12,7 @@ license=(MIT)
 depends=(
   chromaprint
   python
+  python-requests
 )
 makedepends=(
   git
