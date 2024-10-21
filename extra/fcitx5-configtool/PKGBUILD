@@ -2,7 +2,7 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-configtool
-pkgver=5.1.6
+pkgver=5.1.7
 pkgrel=1
 pkgdesc="Configuration Tool for Fcitx5"
 arch=('x86_64')
@@ -21,7 +21,7 @@ optdepends=('kcmutils: for KCM support'
 makedepends=('git' 'extra-cmake-modules' 'kcmutils' 'kdeclarative' 'kirigami' 'ksvg' 'libplasma'
              'ninja' 'python')
 source=("git+https://github.com/fcitx/fcitx5-configtool.git#tag=$pkgver?signed")
-sha512sums=('bd4e3d20132700ccc320b7af4b9adc41188e2452aa41ce926b71c58a2d837f20683a7fff152649f0d1e43400e6f60f7d3f1f84ca9b518d35be216611637a8025')
+sha512sums=('64e3f98d9471567a3040edc0292031d9d6508ecb9bd32613b504abaa387639f5b2449e15e774724d83bd60294460c54a4fd34db9077b99726c7eef19e36fa840')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
 prepare() {
