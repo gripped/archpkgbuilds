@@ -2,7 +2,7 @@
 
 pkgbase=decasify
 pkgname=("$pkgbase" "lua-$pkgbase" "lua53-$pkgbase" "lua52-$pkgbase" "lua51-$pkgbase" "neovim-$pkgbase" "python-$pkgbase")
-pkgver=0.7.1
+pkgver=0.7.2
 _rockrel=1
 pkgrel=1
 pkgdesc='cast strings to title-case according to locale specific style guides including Turkish'
@@ -22,7 +22,7 @@ makedepends=(cargo
              jq)
 _archive="$pkgbase-$pkgver"
 source=("$url/releases/download/v$pkgver/$_archive.tar.zst"{,.asc})
-sha256sums=('b9e41a336dc718b59d688acfd07335b98216cd52ad134609da12659c2c365bc6'
+sha256sums=('bb9a2529368b356f79e33e8d9efdb92c5acc3569c81b7bbfdc9f16a739c55076'
             'SKIP')
 validpgpkeys=('9F377DDB6D3153A48EB3EB1E63CC496475267693') # Caleb Maclennan <caleb@alerque.com> (@alerque)
 
@@ -76,7 +76,7 @@ package_lua53-decasify() {
 
 package_neovim-decasify() {
 	cd "$_archive"
-	depends=("lua51-$pkgbase"
+	depends=("lua51-$pkgbase=$pkgver"
 	         neovim)
 	find plugin -type f -exec \
 		install -Dm0644 {} "$pkgdir/usr/share/nvim/site/pack/dist/start/$pkgbase/{}" \;
