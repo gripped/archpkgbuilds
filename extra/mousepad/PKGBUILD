@@ -4,8 +4,8 @@
 # Contributor: tobias [tobias at archlinux.org]
 
 pkgname=mousepad
-pkgver=0.6.2
-pkgrel=4
+pkgver=0.6.3
+pkgrel=1
 pkgdesc="Simple text editor for Xfce"
 arch=('x86_64')
 url="https://docs.xfce.org/apps/mousepad/start"
@@ -16,7 +16,7 @@ makedepends=('git' 'glib2-devel' 'gspell' 'libxfce4ui' 'polkit' 'xfce4-dev-tools
 optdepends=('gspell: spell checking plugin'
             'libxfce4ui: shortcuts editor plugin')
 source=("git+https://gitlab.xfce.org/apps/mousepad.git#tag=$pkgname-$pkgver")
-sha256sums=('8905ae09035419dcfaa689d72dd4f5776800eb7c0189f6f92b06e1c7a72ac4d7')
+sha256sums=('1f2ab5b7652d6289f2643b32b4e067dddb11b7065e48b6203aa1d2c19c131f21')
 
 prepare() {
   cd $pkgname
