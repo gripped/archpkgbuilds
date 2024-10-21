@@ -3,6 +3,7 @@
 pkgname=libgedit-gfls
 pkgver=0.2.0
 pkgrel=1
+epoch=1
 pkgdesc='A module dedicated to file loading and saving.'
 arch=('x86_64')
 url='https://gitlab.gnome.org/World/gedit/libgedit-gfls'
