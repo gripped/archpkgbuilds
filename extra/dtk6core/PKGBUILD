@@ -3,8 +3,8 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=dtk6core
-pkgver=6.0.18
-pkgrel=2
+pkgver=6.0.19
+pkgrel=1
 pkgdesc='DTK core modules'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtk6core"
@@ -14,7 +14,7 @@ depends=('deepin-desktop-base' 'dtkcommon' 'dtk6log' 'gcc-libs' 'glibc' 'icu' 'l
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'gtest' 'doxygen')
 source=("git+https://github.com/linuxdeepin/dtk6core.git#tag=$pkgver"
          qt-6.8.patch)
-sha512sums=('1dd515f6e8aeb5f8a3380bea79228f3d62aaeaffb2ab16c60387429a115e92e6a0658a1b76b4bafe03a5ed4188e322a6761e3557ea71c9357f28bba012d218e4'
+sha512sums=('c42e88e152e685b260ce85b97c7bf094ca81b4354bc07470f388f6f2f072352db8d7a4af86d394daa480e3ece22348c5a863ae5d5dcd04de657e5bba7de3d1e3'
             'ecc648232a032288ac7ca02615f861675bab5cebfe2123d9a0e8b790f3ab66af740e316aae5286920a523d0bb12c10cf9054aa7d43a097f1fc8e4c38c5dccda5')
 
 prepare() {
