@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=release-cli
-pkgver=0.18.0
+pkgver=0.19.0
 pkgrel=1
 pkgdesc="Gitlab Release CLI"
 arch=(x86_64)
@@ -9,9 +9,10 @@ url="https://gitlab.com/gitlab-org/release-cli"
 license=(MIT)
 depends=(glibc)
 makedepends=(go)
+options=(!lto)
 source=($pkgname-$pkgver.tar.gz::$url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('6c5b7198ffd2597d7c9f0f1c5413a65e0ef3623552c40829326da127dd78379e3d5493c521067ea6193e5cda294995ccd87e1e9dd8d31496d94086fda289a2b4')
-b2sums=('b10bfd42a1fd9af4468b1c2656df7dc023a7e596a25715d47ecb4dc20a08c97f60adf435770c5e86004e9ece30412d4e1c85aa402ff2e92d9fe165a4924ebba5')
+sha512sums=('1ce886e80ca3cac89f0a714f591495d788e331f4066abd5ab9a725c7452ef718f2094c4392c83197d32112c1a27af8f923ddb6a969d85a654d2f2f0bd48362a9')
+b2sums=('f0a611b73f914ae2c8108b374fbd20c53b3e237a9a8dc8e733183b65449148384093a8f4fa944c6ec88708412dffbfec76278c69ff2f2f05e2da335d2d9bee5b')
 
 prepare() {
   mkdir -vp $pkgname-v$pkgver/build
