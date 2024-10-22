@@ -1,0 +1,53 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=wkd-exporter
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Exports an OpenPGP keyring into an advanced WKD directory path"
+arch=(x86_64)
+url="https://github.com/wiktor-k/wkd-exporter"
+license=('Apache-2.0 OR MIT')
+groups=(openpgp-tools)
+depends=(
+  gcc-libs
+  glibc
+)
+makedepends=(
+  just
+  rust
+  rust-script
+)
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
+sha256sums=('e75ca3b86fb133a17ec44fbced2f26a3a4a3e4ebd4d9e83d3eb135f0441a1001')
+
+prepare() {
+  cd $pkgname-$pkgver
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $pkgname-$pkgver
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release --all-features
+  just generate manpages
+  just generate shell_completions
+}
+
+check() {
+  cd $pkgname-$pkgver
+  export RUSTUP_TOOLCHAIN=stable
+  cargo test --frozen --all-features
+}
+
+package() {
+  cd $pkgname-$pkgver
+  install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 LICENSE* -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 target/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
+  install -vDm 644 target/shell_completions/$pkgname.bash "$pkgdir/usr/share/bash-completions/completions/_$pkgname"
+  install -vDm 644 target/shell_completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
+  install -vDm 644 target/shell_completions/$pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+}
