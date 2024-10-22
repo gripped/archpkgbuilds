@@ -2,35 +2,35 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=sequoia-sq
-pkgver=0.37.0
+pkgver=0.38.0
 pkgrel=1
 pkgdesc='Command-line frontends for Sequoia'
 url='https://sequoia-pgp.org/'
-arch=('x86_64')
-license=('LGPL-2.0-or-later')
-groups=('sequoia')
-replaces=('sequoia')
+arch=(x86_64)
+license=(LGPL-2.0-or-later)
+groups=(sequoia)
+replaces=(sequoia)
 depends=(
-  'bzip2' 'libbz2.so'
-  'gcc-libs'
-  'glibc'
-  'gmp'
-  'nettle' 'libnettle.so' 'libhogweed.so'
-  'openssl'
-  'sqlite'
+  gcc-libs
+  glibc
+  gmp
+  openssl
+  sqlite
 )
 makedepends=(
-  'capnproto'
-  'cargo'
-  'clang'
-  'git'
+  bzip2
+  capnproto
+  cargo
+  clang
+  git
+  nettle
 )
-options=('!lto')
-source=("git+https://gitlab.com/sequoia-pgp/sequoia-sq.git?signed#tag=v$pkgver")
-sha512sums=('7b467b92755dd163e0b55dfd48092c38ed3e09c7cc26fdce1294820d5078823125cefa076f4a743b661de7e6ad0a19e310ad0d94b3d832a1eeaee4d30eb7bc91')
-b2sums=('4f9dce159c588f819f94fe464ffbde20b9de7d2fdf0bddb9c33d0fdf920f386008dd367e2c20d24d1f85457b85e9ec8a0b329f6f3f270b5d72b90bd59814f09a')
+options=(!lto)
+source=(git+https://gitlab.com/sequoia-pgp/sequoia-sq.git?signed#tag=v$pkgver)
+sha512sums=('f8048434620e27d34cecec04443deead4d2eeffaa19219b9cc2c2081d04a4dd749a5d31381a4df9865e8f9c3c03d3d6f57bf630e4c7f3d37389b113fe0c62285')
+b2sums=('ba48e480ca4ec685a97f2f15aaa41a970cdf9d1b19d1c20c47dca720210625ff391d443db7abaa2a53e6dea6cdfa6c7a48d2f791133173094ef4060f0c851249')
 validpgpkeys=(
-  D2F2C5D45BE9FDE6A4EE0AAF31855247603831FD  # Justus Winter (Code Signing Key) <justus@sequoia-pgp.org>
+  CBCD8F030588653EEDD7E2659B7DD433F254904A  # Justus Winter <justus@sequoia-pgp.org>
   8F17777118A33DDA9BA48E62AACB3243630052D9  # Neal H. Walfield <neal@sequoia-pgp.org>
 )
 
@@ -51,7 +51,7 @@ build() {
   export RUSTUP_TOOLCHAIN=stable
   export ASSET_OUT_DIR=../target
   # NOTE: we select specific (default) features, as there are multiple crypto backends
-  cargo build --release --frozen --features 'default'
+  cargo build --release --frozen --features default
 }
 
 check() {
@@ -60,16 +60,20 @@ check() {
   # https://gitlab.com/sequoia-pgp/sequoia-sq/-/issues/96
   export CARGO_TARGET_DIR=../target-test
   export RUSTUP_TOOLCHAIN=stable
-  cargo test --release --frozen --features 'default'
+  cargo test --release --frozen --features default
 }
 
 package() {
-  install -vDm 755 target/release/sq -t "${pkgdir}/usr/bin"
+  depends+=(
+    bzip2 libbz2.so
+    nettle libnettle.so libhogweed.so
+  )
 
-  install -vDm 644 target/shell-completions/sq.bash "${pkgdir}/usr/share/bash-completion/completions/sq"
-  install -vDm 644 target/shell-completions/_sq -t "${pkgdir}/usr/share/zsh/site-functions"
-  install -vDm 644 target/shell-completions/sq.fish -t "${pkgdir}/usr/share/fish/vendor_completions.d"
-  install -vDm 644 target/man-pages/*.1 -t "${pkgdir}/usr/share/man/man1/"
+  install -vDm 755 target/release/sq -t "$pkgdir/usr/bin"
+  install -vDm 644 target/shell-completions/sq.bash "$pkgdir/usr/share/bash-completion/completions/sq"
+  install -vDm 644 target/shell-completions/_sq -t "$pkgdir/usr/share/zsh/site-functions/"
+  install -vDm 644 target/shell-completions/sq.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+  install -vDm 644 target/man-pages/*.1 -t "$pkgdir/usr/share/man/man1/"
 }
 
 # vim: ts=2 sw=2 et:
