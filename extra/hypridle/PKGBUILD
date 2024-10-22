@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hypridle
-pkgver=0.1.2
+pkgver=0.1.3
 pkgrel=1
 pkgdesc='hyprland’s idle daemon'
 arch=(x86_64 aarch64)
@@ -16,7 +16,7 @@ depends=(gcc-libs # libgcc_s.so libstdc++.so
 makedepends=(cmake)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('40ab0bc7183e880f46fcc2d24b182226a5dfd8ce7695af6c320527eccf8d7c79')
+sha256sums=('45cd5c616680b762a84f1652a158298bbb1c3cf78a22e59d3bbc1371301953fa')
 
 build() {
 	cd "$_archive"
