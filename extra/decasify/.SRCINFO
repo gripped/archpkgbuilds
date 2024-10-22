@@ -1,6 +1,6 @@
 pkgbase = decasify
 	pkgdesc = cast strings to title-case according to locale specific style guides including Turkish
-	pkgver = 0.7.2
+	pkgver = 0.7.3
 	pkgrel = 1
 	url = https://github.com/alerque/decasify
 	arch = x86_64
@@ -22,11 +22,15 @@ pkgbase = decasify
 	makedepends = jq
 	depends = gcc-libs
 	depends = glibc
-	source = https://github.com/alerque/decasify/releases/download/v0.7.2/decasify-0.7.2.tar.zst
-	source = https://github.com/alerque/decasify/releases/download/v0.7.2/decasify-0.7.2.tar.zst.asc
+	source = https://github.com/alerque/decasify/releases/download/v0.7.3/decasify-0.7.3.tar.zst
+	source = https://github.com/alerque/decasify/releases/download/v0.7.3/decasify-0.7.3.tar.zst.asc
+	source = https://luarocks.org/manifests/alerque/decasify.sile-0.7.3-1.rockspec
+	source = https://raw.githubusercontent.com/alerque/decasify/refs/tags/v0.7.3/sile/decasify.lua
 	validpgpkeys = 9F377DDB6D3153A48EB3EB1E63CC496475267693
-	sha256sums = bb9a2529368b356f79e33e8d9efdb92c5acc3569c81b7bbfdc9f16a739c55076
+	sha256sums = 210cbe39f4fdc6320080d48a3a3c753540a5e810bf041752f962ee0af2862775
 	sha256sums = SKIP
+	sha256sums = 89a9dd09cbcacf92f94aa16c0d959e80657252ec8dcbe0b43174591e46c7bbbf
+	sha256sums = 8749eb5e5af00806206d6e8879c36ed2bf7bd01e7f43d3cae90e4e733995c01a
 
 pkgname = decasify
 
@@ -39,8 +43,12 @@ pkgname = lua52-decasify
 pkgname = lua51-decasify
 
 pkgname = neovim-decasify
-	depends = lua51-decasify=0.7.2
+	depends = lua51-decasify=0.7.3
 	depends = neovim
 
 pkgname = python-decasify
 	depends = python
+
+pkgname = sile-decasify
+	depends = lua51-decasify=0.7.3
+	depends = sile
