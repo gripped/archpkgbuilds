@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=slumber
-pkgver=2.1.0
+pkgver=2.2.0
 pkgrel=1
 pkgdesc="Terminal-based REST client"
 arch=('x86_64')
@@ -10,17 +10,21 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('100e7c4320a539fd0fdd10b1fee8ea5973709f394259fae273506605ab15047a')
+sha256sums=('8b18cea3fb6161aab620293b7ace6f6a77a1cda181fa3263213595c531333848')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  mkdir -p completions
 }
 
 build() {
   cd "$pkgname-$pkgver"
   cargo build --release --frozen
+  COMPLETE=bash target/release/$pkgname >"completions/$pkgname"
+  COMPLETE=fish target/release/$pkgname >"completions/$pkgname.fish"
+  COMPLETE=zsh target/release/$pkgname >"completions/_$pkgname"
 }
 
 check() {
@@ -33,6 +37,9 @@ package() {
   install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+  install -Dm 664 "completions/$pkgname" -t "$pkgdir/usr/share/bash-completion/completions/"
+  install -Dm 664 "completions/$pkgname.fish" -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+  install -Dm 664 "completions/_$pkgname" -t "$pkgdir/usr/share/zsh/site-functions/"
 }
 
 # vim: ts=2 sw=2 et:
