@@ -2,7 +2,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=libdnf
-pkgver=0.73.2
+pkgver=0.73.3
 pkgrel=1
 pkgdesc="Library providing simplified C and Python API to libsolv"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=('cmake' 'gtk-doc' 'python' 'python-sphinx' 'swig')
 checkdepends=('check' 'cppunit')
 optdepends=('python: for python bindings')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('8b35bfaa84d10300f07070a2c83446bfc8d748fcb42a4432f33b0d21117205cd')
+sha256sums=('b352491d8057be476f98a89db2e0ceceb9056745f3e44499e8250dd6e89c72b7')
 
 prepare() {
   cd "$pkgname-$pkgver"
