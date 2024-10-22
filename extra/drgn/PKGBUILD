@@ -3,7 +3,7 @@
 
 pkgname=drgn
 pkgver=0.0.29
-pkgrel=4
+pkgrel=5
 pkgdesc='Programmable debugger'
 arch=('x86_64')
 url='https://github.com/osandov/drgn'
@@ -46,5 +46,5 @@ package() {
     install -d "$pkgdir/usr/share/drgn"
     cp -dR --no-preserve=ownership contrib tools "$pkgdir/usr/share/drgn"
     find "$pkgdir/usr/share/drgn" -name '*.pyc' -delete
-    rmdir "$pkgdir/usr/share/drgn/tools/__pycache__"
+    rmdir "$pkgdir/usr/share/drgn/tools/__pycache__" || true
 }
