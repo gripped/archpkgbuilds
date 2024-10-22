@@ -3,8 +3,8 @@
 
 _hkgname=language-c
 pkgname=haskell-language-c
-pkgver=0.9.3
-pkgrel=2
+pkgver=0.9.4
+pkgrel=1
 pkgdesc="Analysis and generation of C code"
 url="https://visq.github.io/language-c/"
 license=("BSD")
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('alex' 'happy' 'ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('f0744ffb55a0dfa3e752130de8f6c8dfb57aa4ac49097ccf6e72002490db459564c908c4b860491de0a238f0a6f7a2d1e374806b9aa49a5d560d85bc8117f970')
+sha512sums=('6681fdf07d13d4e96838fcc61148e4ff60d2632f8e600c9eb2fb5d250e93a327b754d2359cdbd06e8b2d59c5ace67aa5cd2491b010ea5b85c65cc48237861050')
 
 build() {
     cd $_hkgname-$pkgver
@@ -20,7 +20,7 @@ build() {
     runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
-            -fseparatesyb -fusebytestrings -f-allwarnings -fiecfpextension
+            -fusebytestrings -fiecfpextension
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
