@@ -3,7 +3,7 @@
 # Contributor: Balwinder S "bsd" Dheeman (bdheeman AT gmail.com)
 
 pkgname=dkms
-pkgver=3.0.13
+pkgver=3.1.1
 pkgrel=1
 pkgdesc='Dynamic Kernel Modules System'
 arch=('any')
@@ -33,19 +33,11 @@ source=("git+https://github.com/dell/dkms.git#tag=v$pkgver"
         'hook.remove'
         'hook.upgrade'
         'hook.sh')
-sha256sums=('70b7f13f2b9fda11aeb41a1bf1a0dbec75947e044adc9d1d47113dbb1e54fd42'
+sha256sums=('ddf1445405b004d8a4aab8b8a55cafe187dbeac1776e65939d23ea889cad2aa7'
             'da2dd53bdb427c3ffbe793fd05f898d8a0545e6dbd346c85fad1717b0f838c62'
             '497422e72b2f10a71caae40c44a07b215425d393acb365700e38944e09f9a554'
             'cc04280e8eb095f4950f5e3c6b2997fbc8d5862d79c5ae29d5943b8ac204d0d4'
             'c1b4a4e2e4e0e0e59ee0887403e79d60b209f3878dbbec6612573f13b90cce01')
-
-prepare() {
-  cd dkms
-  # Since kmod 33 it generates "weakdep"
-  # This puts a leftover in /usr/lib/modules
-  # https://github.com/dell/dkms/issues/437
-  git cherry-pick -n a894e3b0bd1b511baba1c9c515322811566fbef9
-}
 
 package() {
   # alpm hooks
