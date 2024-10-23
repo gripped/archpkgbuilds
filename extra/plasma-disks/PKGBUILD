@@ -1,7 +1,7 @@
 # Maintainer:Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma-disks
-pkgver=6.2.1
+pkgver=6.2.2
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Monitors S.M.A.R.T. capable devices for imminent failure'
@@ -28,7 +28,7 @@ depends=(gcc-libs
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('c03bd68e5e36cf93da927f92dc60cb44b874a906c93d2a160125633530ffc10a'
+sha256sums=('a0101b10dd6f4bbbdd479a0ce8ae60c2fb9a98cc882ca1e1c59b534c661a17e9'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
