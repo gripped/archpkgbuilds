@@ -2,42 +2,85 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=totem
-pkgver=43.0
-pkgrel=3
+pkgver=43.1
+pkgrel=1
 pkgdesc="Movie player for the GNOME desktop based on GStreamer"
 url="https://apps.gnome.org/Totem/"
 arch=(x86_64)
-license=(GPL2 custom)
-depends=(totem-plparser iso-codes libpeas grilo gsettings-desktop-schemas
-         python-gobject gnome-desktop gst-plugins-base gst-plugins-good
-         gst-plugins-bad gst-plugin-gtk libhandy libportal-gtk3)
-makedepends=(docbook-xsl gobject-introspection git appstream-glib gtk-doc meson
-             yelp-tools glib2-devel)
+license=('GPL-2.0-or-later WITH GStreamer-exception-2008')
+depends=(
+  at-spi2-core
+  cairo
+  dconf
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  gnome-desktop
+  grilo
+  gsettings-desktop-schemas
+  gst-plugin-gtk
+  gst-plugins-bad
+  gst-plugins-base
+  gst-plugins-base-libs
+  gst-plugins-good
+  gstreamer
+  gtk3
+  hicolor-icon-theme
+  iso-codes
+  libepoxy
+  libgirepository
+  libhandy
+  libpeas
+  libportal
+  libportal-gtk3
+  pango
+  python
+  python-gobject
+  totem-plparser
+)
+makedepends=(
+  appstream-glib
+  docbook-xsl
+  git
+  glib2-devel
+  gobject-introspection
+  gtk-doc
+  meson
+  yelp-tools
+)
 checkdepends=(xorg-server-xvfb)
-optdepends=('gst-plugins-ugly: Extra media codecs'
-            'gst-libav: Extra media codecs'
-            'grilo-plugins: Media discovery')
+optdepends=(
+  'gst-plugins-ugly: Extra media codecs'
+  'gst-libav: Extra media codecs'
+  'grilo-plugins: Media discovery'
+)
 provides=(libtotem.so)
 conflicts=(totem-plugin)
 replaces=(totem-plugin)
 groups=(gnome)
-source=("git+https://gitlab.gnome.org/GNOME/totem.git#tag=${pkgver/[a-z]/.&}"
-        "git+https://gitlab.gnome.org/GNOME/libgd.git"
-        totem-gtksink-fallback.patch)
-b2sums=('7101db21b91e67919416ebd8d3efe6dae77d1c937b6aa4955afba195533981f45968441a75370868b90e502ba285687b27c0a82f0fc3e79c282567957c8e1bf7'
+source=(
+  "git+https://gitlab.gnome.org/GNOME/totem.git#tag=${pkgver/[a-z]/.&}"
+  "git+https://gitlab.gnome.org/GNOME/libgd.git"
+  0001-backend-Add-fallback-to-gtksink.patch
+  0002-rotation-Hide-rotate-option-if-gl-is-not-used.patch
+)
+b2sums=('78bb8bb29ebcad26913bf4997867a75830900d53068b32edbad41b15aed8ded004f08f88da374cf03ab13dd8bedcf7ba77d2bbc928d5983a6800b3edb4d7ec5c'
         'SKIP'
-        '4d13d6671261be6c641591500e6e679c1a2cc1908ba9d619e5c5fbe2822633e669ef9c67c1b993f31546135c327b41437c11bad5dc08e8345fd0b2c24ec42b29')
+        'f781804db7ebd39df8003b620814c54ea82526a01abc689aa769f960ee40895318edb9882086a445ea5f8205804a374ba487f9ae5b69e4c73711f11a4b32843b'
+        '90c3c808f433022a6afe2c3edd1f93ba1d22c06fc618482b16f93f255012143d7b32e31e4309e1358c03678885cd217a570211ccbb8f5a0577b324223f6f84ed')
 
 prepare() {
   cd totem
 
-  git submodule init
+  git submodule init subprojects/libgd  # Skip flatpak/shared-modules
   git submodule set-url subprojects/libgd "$srcdir/libgd"
-  git -c protocol.file.allow=always submodule update
+  git -c protocol.file.allow=always -c protocol.allow=never submodule update
 
   # Fallback to gtksink if OpenGL is unavailable
   # https://gitlab.gnome.org/GNOME/totem/-/merge_requests/379
-  git apply -3 ../totem-gtksink-fallback.patch
+  git apply -3 ../0001-backend-Add-fallback-to-gtksink.patch
+  git apply -3 ../0002-rotation-Hide-rotate-option-if-gl-is-not-used.patch
 }
 
 build() {
