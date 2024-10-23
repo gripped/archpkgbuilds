@@ -2,7 +2,7 @@
 
 pkgbase=decasify
 pkgname=("$pkgbase" "lua-$pkgbase" "lua53-$pkgbase" "lua52-$pkgbase" "lua51-$pkgbase" "neovim-$pkgbase" "python-$pkgbase" "sile-$pkgbase")
-pkgver=0.7.3
+pkgver=0.7.6
 _rockrel=1
 pkgrel=1
 pkgdesc='cast strings to title-case according to locale specific style guides including Turkish'
@@ -21,22 +21,14 @@ makedepends=(cargo
              python-maturin
              jq)
 _archive="$pkgbase-$pkgver"
-source=("$url/releases/download/v$pkgver/$_archive.tar.zst"{,.asc}
-	"https://luarocks.org/manifests/alerque/decasify.sile-$pkgver-$_rockrel.rockspec"
-	"https://raw.githubusercontent.com/alerque/decasify/refs/tags/v$pkgver/sile/decasify.lua")
-sha256sums=('210cbe39f4fdc6320080d48a3a3c753540a5e810bf041752f962ee0af2862775'
-            'SKIP'
-            '89a9dd09cbcacf92f94aa16c0d959e80657252ec8dcbe0b43174591e46c7bbbf'
-            '8749eb5e5af00806206d6e8879c36ed2bf7bd01e7f43d3cae90e4e733995c01a')
+source=("$url/releases/download/v$pkgver/$_archive.tar.zst"{,.asc})
+sha256sums=('299e462cf5a93b5a7da865764ca94729111945349f5fb6e2e79b5bbeff574cd9'
+            'SKIP')
 validpgpkeys=('9F377DDB6D3153A48EB3EB1E63CC496475267693') # Caleb Maclennan <caleb@alerque.com> (@alerque)
 
 prepare() {
 	cd "$_archive"
 	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-	# Make up for upstream dist package missing files in v0.7.3
-	mkdir -p rockspecs sile
-	cp ../${source[2]##*/} rockspecs
-	cp ../${source[3]##*/} sile
 }
 
 build() {
