@@ -1,9 +1,9 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org> 
 
 pkgname=discover
-pkgver=6.2.1
+pkgver=6.2.2
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=2
+pkgrel=1
 pkgdesc='KDE and Plasma resources management GUI'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -49,7 +49,7 @@ optdepends=('flatpak: Flatpak packages support'
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
         0001-FwupdBackend-Do-not-use-more-API-now-removed-in-fwupd-2-0-0.patch)
-sha256sums=('71ed2df481441ef69e1d5c6f0997f0376d83a8714851c6d014d1164bc8ee6d91'
+sha256sums=('d4fefafaa9b5b98005222a298cfcb7e3e1c89820d0ef8c02540e1a82108d5aae'
             'SKIP'
             '85b701bfca5b3944abda1d1b8101d381b16c484773da25848a89f69734248c05')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
