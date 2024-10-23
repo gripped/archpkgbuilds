@@ -6,7 +6,7 @@
 
 pkgbase=parallel
 pkgname=('parallel' 'parallel-docs')
-pkgver=20240922
+pkgver=20241022
 pkgrel=1
 pkgdesc='A shell tool for executing jobs in parallel'
 arch=('any')
@@ -16,12 +16,12 @@ source=(
   "https://ftp.gnu.org/gnu/$pkgbase/$pkgbase-$pkgver.tar.bz2"{,.sig}
   '0001-Remove-citation-things.patch'
 )
-sha512sums=('6db45bcb61a00bd6699e7a97cc9ad342c864689f81883051dba9dc9d5356be84d8fa913ee3c07461ba3724da9ff4d554e99cf70481b6c6367e65eb708e01da05'
+sha512sums=('100cb032e93e054f17d3b987e9aedb63ece5b58ba43baccd420c1e83085ed846dfc4c5c0941e4d8de128058352a336d46a69a96fd259039996dcfa2db9e0786c'
             'SKIP'
-            '9ea7d85814daa57d69157f4d1819c34b21cf31d3acf7a7d0bce3a2fbaa1761f2e34193d3ec7c31396e3cfb0525137e7ed8fc0f8a045fda05c81827483ac50003')
-b2sums=('f1efb6d45496c694afabcdaf6273f1d45fddd59bf3f925708474702aef5ee062f09ca5e00715ab5da8ee7a8c3f3f28fee3c8582ce0214dc8bf588bb3a1adb122'
+            'a2cb69903b331fd37f6f46db9dc89ca7625661a45af40468ff9bdbb1a375a30c1266406e28de28b1f00e3318662cdce3d1bd92a8cf484a34535385fb499d4759')
+b2sums=('3783185c26686b4ddc37472e01d814ebb5464b39864194a5b1604e3f592cff3d8277a104a7c98a428c0d340d1e1cbacd125dc4292db13c503c0f985edd1ed8dd'
         'SKIP'
-        '9edfac80826f8429ada7154d2afd8e710d44806283e01248fa447262966fd067835b4756ba3a78cb257bcd809b2e91eaeb1227956f1590135e8476fef6f5ff75')
+        '4ee261562baacd39f9f049c49e7eedee909d4b50d361465fa0b6055044ebd6e1cd566cb8e6027281d93c2fdcbfa368144dd8b8ab970ccd3a775b65282cd9d7bf')
 validpgpkeys=('CDA01A4208C4F74506107E7BD1AB451688888888')
 
 prepare() {
