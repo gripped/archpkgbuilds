@@ -6,7 +6,7 @@
 pkgname=lib32-libjpeg-turbo
 _name=${pkgname#lib32-}
 pkgver=3.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="JPEG image codec with accelerated baseline compression and decompression"
 url="https://libjpeg-turbo.org/"
 _url="https://github.com/libjpeg-turbo/libjpeg-turbo/"
@@ -26,7 +26,6 @@ makedepends=(
   nasm
 )
 provides=(
-  lib32-libjpeg
   libjpeg.so
   libturbojpeg.so
 )
