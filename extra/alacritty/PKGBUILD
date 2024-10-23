@@ -7,8 +7,8 @@
 
 pkgname='alacritty'
 pkgdesc="A cross-platform, GPU-accelerated terminal emulator"
-pkgver=0.13.2
-pkgrel=3
+pkgver=0.14.0
+pkgrel=1
 arch=('x86_64')
 url="https://github.com/alacritty/alacritty"
 license=('Apache-2.0' 'MIT')
@@ -19,7 +19,7 @@ optdepends=('ncurses: for alacritty terminfo database')
 source=("git+$url.git#tag=v$pkgver?signed")
 validpgpkeys=('4DAA67A9EA8B91FCC15B699C85CDAE3C164BA7B4'  # Christian Dürr <contact@christianduerr.com>
               'A56EF308A9F1256C25ACA3807EA8F8B94622A6A9') # Kirill Chibisov <contact@kchibisov.com>
-sha256sums=('3a6d77fb34870b9974265cc199f96923104908c9f4164ced4d29632db3d7d38f')
+sha256sums=('23c8deb3abf28a7aabe78fd66c3324c9eb241abdfb85f2a7a726fd704f036c0e')
 
 prepare() {
   cd "$pkgname"
