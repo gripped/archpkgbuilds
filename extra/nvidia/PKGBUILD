@@ -4,7 +4,7 @@
 
 pkgname=nvidia
 pkgver=560.35.03
-pkgrel=16
+pkgrel=17
 pkgdesc="NVIDIA kernel modules"
 arch=('x86_64')
 url="https://www.nvidia.com/"
