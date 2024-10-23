@@ -3,7 +3,7 @@
 
 pkgname=trippy
 pkgver=0.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A network diagnostic tool'
 arch=('x86_64')
 url='https://trippy.cli.rs'
@@ -18,15 +18,18 @@ prepare() {
   cd $pkgname-$pkgver
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
   mkdir completions
+  mkdir manuals
 }
 
 build() {
   cd $pkgname-$pkgver
   cargo build --release --frozen
   local compgen="target/release/trip --generate"
+  local mangen="target/release/trip --generate-man"
   $compgen bash >"completions/$pkgname"
   $compgen fish >"completions/$pkgname.fish"
   $compgen zsh >"completions/_$pkgname"
+  $mangen >"manuals/trip.1"
 }
 
 check() {
@@ -38,6 +41,7 @@ package() {
   cd $pkgname-$pkgver
   install -Dm 755 -t "$pkgdir"/usr/bin target/release/trip
   install -Dm 644 -t "$pkgdir"/usr/share/doc/"$pkgname" README.md
+  install -Dm 644 "manuals/trip.1" -t "$pkgdir/usr/share/man/man1/"
   install -Dm 644 "completions/$pkgname" -t "$pkgdir/usr/share/bash-completion/completions/"
   install -Dm 644 "completions/$pkgname.fish" -t "$pkgdir/usr/share/fish/vendor_completions.d/"
   install -Dm 644 "completions/_$pkgname" -t "$pkgdir/usr/share/zsh/site-functions/"
