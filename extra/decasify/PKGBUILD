@@ -4,7 +4,7 @@ pkgbase=decasify
 pkgname=("$pkgbase" "lua-$pkgbase" "lua53-$pkgbase" "lua52-$pkgbase" "lua51-$pkgbase" "neovim-$pkgbase" "python-$pkgbase" "sile-$pkgbase")
 pkgver=0.7.6
 _rockrel=1
-pkgrel=1
+pkgrel=2
 pkgdesc='cast strings to title-case according to locale specific style guides including Turkish'
 arch=(x86_64)
 url="https://github.com/alerque/$pkgbase"
@@ -49,11 +49,13 @@ check() {
 
 package_decasify() {
 	cd "$_archive"
+	pkgdesc+=' (CLI tool)'
 	make DESTDIR="$pkgdir" install
 }
 
 _package() {
 	cd "$_archive"
+	pkgdesc+=" (Rock for Lua $1)"
 	luarocks --lua-version "$1" --tree "$pkgdir/usr/" \
 		make --deps-mode none --no-manifest "rockspecs/$_archive-$_rockrel.rockspec"
 }
@@ -76,6 +78,7 @@ package_lua53-decasify() {
 
 package_neovim-decasify() {
 	cd "$_archive"
+	pkgdesc+=' (Neovim plugin)'
 	depends=("lua51-$pkgbase=$pkgver"
 	         neovim)
 	find plugin -type f -exec \
@@ -83,13 +86,15 @@ package_neovim-decasify() {
 }
 
 package_python-decasify() {
-	depends=(python)
 	cd "$_archive"
+	pkgdesc+=' (Python module)'
+	depends=(python)
 	python -m installer -d "$pkgdir" dist/*.whl
 }
 
 package_sile-decasify() {
 	cd "$_archive"
+	pkgdesc+=' (SILE package)'
 	depends=("lua51-$pkgbase=$pkgver"
 	         sile)
 	luarocks --lua-version 5.1 --tree "$pkgdir/usr/" \
