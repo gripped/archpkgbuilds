@@ -2,9 +2,9 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
 pkgname=fastfetch
-pkgver=2.27.1
+pkgver=2.28.0
 pkgrel=1
-pkgdesc="An actively maintained, feature-rich and performance oriented, neofetch like system information tool"
+pkgdesc="A feature-rich and performance oriented neofetch like system information tool"
 arch=('x86_64')
 url="https://github.com/fastfetch-cli/fastfetch"
 license=('MIT')
@@ -50,7 +50,7 @@ optdepends=(
   'zlib: Faster image output when using kitty graphics protocol'
 )
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('de12f8cdb52bc1f123aa9b37813f009eeb09f15cbf43b033693c2936716e2626')
+sha256sums=('115d9947ee0acf6246894888998db31de024f651123396c6251033390c241dc7')
 
 build() {
 	cmake -B build -S "${pkgname}-${pkgver}" \
