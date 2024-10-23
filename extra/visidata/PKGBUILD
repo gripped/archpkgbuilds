@@ -5,12 +5,12 @@
 
 pkgname=visidata
 pkgver=3.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Terminal spreadsheet multitool for discovering and arranging data'
 arch=(any)
 url="https://www.$pkgname.org"
 _url="https://github.com/saulpw/$pkgname"
-license=(GPL3)
+license=(GPL-3.0-only)
 depends=(python
          python-dateutil
          python-importlib-metadata
@@ -84,5 +84,4 @@ package() {
 	python -m installer -d "$pkgdir" dist/*.whl
 	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
 	install -Dm0644 -t "$pkgdir/usr/share/zsh/site-functions" "_$pkgname"
-	find "$pkgdir/usr/lib/" -name man -type d -print0 | xargs -0 -I {} rm -rf {}
 }
