@@ -2,8 +2,8 @@
 
 _hkgname=text-rope
 pkgname=haskell-text-rope
-pkgver=0.2
-pkgrel=30
+pkgver=0.3
+pkgrel=1
 pkgdesc="Text lines and ropes"
 url="https://github.com/Bodigrim/text-rope"
 license=("BSD")
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-vector')
 makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('b14422855e9cc375a31c22758454013ac629671331de6ccb77b496509bcae78b')
+sha256sums=('bfafee27b63885b19eb58120cc97771d127aa8ba9f141f03044d1ac476699337')
 
 prepare() {
   cd $_hkgname-$pkgver
