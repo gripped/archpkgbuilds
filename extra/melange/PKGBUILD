@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=melange
-pkgver=0.14.4
+pkgver=0.14.7
 pkgrel=1
 pkgdesc='Build APKs from source code'
 url='https://github.com/chainguard-dev/melange'
@@ -16,8 +16,8 @@ depends=(
 makedepends=('go')
 options=('!lto')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/chainguard-dev/melange/archive/v${pkgver}.tar.gz")
-sha256sums=('00c1876ece13c9e808f872cdbf0e0130763913fb79f15f3850c12912d3a516da')
-b2sums=('96f95e7b27da064628650e0f1fcc2a9ca2c25ba9be726ccfee657b951d9b2ef6ce970cbd96acadbb878edc9ea6d0930d16d8c203c5f25cd429653031f4a86633')
+sha256sums=('a761d60b83d2a83d0bfedba94d8472ffa5b130600c7cf54eeea4f96b53f1e28b')
+b2sums=('864068bde6a05e3cb78c851bad758526b3d421ce0eaea65fec6ed06006de36a618bdbb418e08178f8e817e3e493ab437f87387b4cc2185f8a3ba5771c6bbad34')
 
 build() {
   cd ${pkgname}-${pkgver}
