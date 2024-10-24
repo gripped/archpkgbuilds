@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hyprlock
-pkgver=0.4.1
+pkgver=0.5.0
 pkgrel=1
 pkgdesc='hyprland’s GPU-accelerated screen locking utility'
 arch=(x86_64 aarch64)
@@ -21,13 +21,14 @@ depends=(cairo # libcairo.so
          mesa # libgbm.so
          pam libpam.so
          pango libpango-1.0.so libpangocairo-1.0.so
+         sdbus-cpp libsdbus-c++.so
          wayland libwayland-client.so libwayland-egl.so
          wayland-protocols)
 makedepends=(cmake)
 backup=("etc/pam.d/$pkgname")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('87531a43088cafcadf29115889f37f73ab4a8cb1e4347723dfe8d53fa0aaba60')
+sha256sums=('4f8a0199de205ad21a4e3da88c0196514a0ba3c6162e44f93e7cfb96371daf99')
 
 build() {
 	cd "$_archive"
@@ -40,5 +41,5 @@ build() {
 package() {
 	cd "$_archive"
 	DESTDIR="$pkgdir" cmake --install build
-	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }
