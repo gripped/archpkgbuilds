@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=zenity
-pkgver=4.0.2
+pkgver=4.0.3
 pkgrel=1
 pkgdesc="Display graphical dialog boxes from shell scripts"
 url="https://gitlab.gnome.org/GNOME/zenity"
@@ -25,11 +25,11 @@ makedepends=(
   util-linux
   yelp-tools
 )
-source=(
-  # unknown public key E520923A38618D6C (Logan Rathbone <poprocks@gmail.com>)
-  "git+$url.git#tag=$pkgver"
+source=("git+$url.git?signed#tag=$pkgver")
+b2sums=('6a8770c60d5a8ec8e9afb01dd7456bbffb6f2bdb80b34ea48c62189e8035556f47169e9387b026be86b4c895ef4c94bd5c11c806cb5300ed13afbc766a99a508')
+validpgpkeys=(
+  98FF7532A4639119B8FB4F15E520923A38618D6C # Logan Rathbone (GNOME) <larathbone@gnome.org>
 )
-b2sums=('5d99c70fec39102d93a33832615a2b58107792ad2478b20d5e75642b3c9baff6f80df8c4e8e75ecf749513758c6208cf586b4b0251e1caf446b8b1ea6452600f')
 
 prepare() {
   cd zenity
