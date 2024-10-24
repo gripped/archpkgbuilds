@@ -4,7 +4,7 @@
 pkgname=handlr-regex
 _pkgname=handlr
 pkgver=0.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Powerful alternative to xdg-utils written in Rust"
 arch=('x86_64')
 url="https://github.com/Anomalocaridid/handlr-regex"
@@ -29,6 +29,10 @@ build() {
   COMPLETE=bash target/release/$_pkgname >"completions/$_pkgname"
   COMPLETE=fish target/release/$_pkgname >"completions/$_pkgname.fish"
   COMPLETE=zsh target/release/$_pkgname >"completions/_$_pkgname"
+  echo "$PWD/target/release/$_pkgname|/usr/bin/$_pkgname"
+  for f in completions/*; do
+    sed -i "s|$PWD/target/release/$_pkgname|/usr/bin/$_pkgname|g" "$f"
+  done
 }
 
 check() {
