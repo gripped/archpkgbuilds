@@ -1,8 +1,8 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 
 pkgname=toml-bombadil
-pkgver=3.1.0
-pkgrel=3
+pkgver=4.0.0
+pkgrel=1
 pkgdesc="Adotfile manager with templating"
 arch=('x86_64')
 url="https://github.com/oknozor/toml-bombadil"
@@ -11,7 +11,7 @@ depends=('gcc-libs' 'zlib')
 makedepends=('rust')
 options=(!lto)
 source=($pkgname-$pkgver.tar.gz::https://github.com/oknozor/toml-bombadil/archive/${pkgver}.tar.gz)
-sha512sums=('ea9e25a0e6540317c32d992351414730a097dcc257ba053a4b003635f807687635d606071ebddb2cdcf2344f9fd66e71109d549b520eb669ef1e94a0188f6ff2')
+sha512sums=('bd70130e557516252dcc6d73ef11c54e7f75159ab04df5824ea905439205dea3ad983613105b05d35e447e50a5ef4332ae67504dde09f7250d7d56492242df90')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
