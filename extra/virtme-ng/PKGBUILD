@@ -1,0 +1,57 @@
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
+# Contributor: Manuel Wiesinger <m {you know what belongs here} mmap {and here} at>
+
+pkgname=virtme-ng
+_virtme_ng_init_commit=6e2b515c5c178ba2ae3206933024ad24f658f368
+pkgver=1.31
+pkgrel=2
+pkgdesc="A tool that allows to easily and quickly recompile and test a Linux kernel, starting from the source code."
+arch=('x86_64')
+url="https://github.com/arighi/virtme-ng"
+license=('GPL-2.0-only')
+depends=(
+  bash
+  busybox
+  coreutils
+  gcc-libs
+  glibc
+  python
+  python-requests
+  qemu
+  python-argcomplete
+  python-argparse-manpage
+  python-setuptools
+  python-argcomplete
+)
+makedepends=(
+  cargo
+  git
+  python-build
+  python-installer
+  python-wheel
+)
+optdepends=('virtiofsd: better filesystem performance inside the virtme-ng guests')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/arighi/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz"
+       "virtme-init-ng-${_virtme_ng_init_commit}.zip::https://github.com/arighi/virtme-ng-init/archive/${_virtme_ng_init_commit}.zip")
+b2sums=('46ab850a27fde8a81ca588feff5ce2b088ac13b36c07bb409234bbe756920b05632900613cf63b57ded35e0c112be2cbfba20d9eaa878dbe9c1a900e4b09be77'
+        '6ca1d1288a07286bf8a240ec9e0ae955b5126936d51d902276050735df474e3be01d8f5238d08cfa3822a1c9310dcccc84bd69837c8bde1ac49d249f8c6e1d61')
+
+prepare() {
+    cd "${srcdir}"
+
+    # When rebuilding this dir is not empty, so rmdir(1) fails
+    rm -rf "${pkgname}-${pkgver}/virtme_ng_init"
+
+    cp -r "virtme-ng-init-${_virtme_ng_init_commit}" "${pkgname}-${pkgver}/virtme_ng_init"
+}
+
+build() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    export RUSTUP_TOOLCHAIN=stable
+    BUILD_VIRTME_NG_INIT=1 python -m build --wheel --no-isolation
+}
+
+package() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    python -m installer --destdir="$pkgdir" dist/*.whl
+}
