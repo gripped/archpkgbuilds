@@ -5,9 +5,9 @@ pkgbase=pyside6
 pkgname=(pyside6
          pyside6-tools
          shiboken6)
-_qtver=6.8.0.1
+_qtver=6.8.0.2
 pkgver=${_qtver/-/}
-pkgrel=2
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(LGPL)
@@ -43,7 +43,7 @@ makedepends=(clang
              qt6-websockets)
 source=(git+https://code.qt.io/pyside/pyside-setup#tag=v$pkgver
         fix-build.patch)
-sha256sums=('929605e1a8b66f64010d4d78b739e909173af0a95949fd433a70066b4b542c2f'
+sha256sums=('384baf3fe0dc73fc2915c45274f7e579e70bf4661b9ab0ac08e9cf586e5678b0'
             '77b83cb164ea87d826259864f6a81fb33199510e1948d6daaf5c8d5ab55735a7')
 
 prepare() {
