@@ -3,8 +3,8 @@
 
 pkgbase=sdbus-cpp
 pkgname=($pkgbase $pkgbase-doc)
-pkgver=1.5.0
-pkgrel=3
+pkgver=2.0.0
+pkgrel=1
 pkgdesc='a high-level C++ D-Bus library designed to provide expressive, easy-to-use API'
 url="https://github.com/Kistler-Group/$pkgbase"
 arch=(x86_64)
@@ -16,7 +16,7 @@ makedepends=(cmake
              systemd)
 _archive="$pkgbase-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('577986929f911320fb9ef6a3e2badd464dc38411ebc25d2966f5cb85c39f0897')
+sha256sums=('88af4569161a0d0192f0f4a94582a1af4e75722499d06984fb7f91f638f5afb3')
 
 build() {
 	cmake -B build -S "$_archive" \
@@ -48,7 +48,7 @@ _package_dir() {
 package_sdbus-cpp() {
 	provides=(libsdbus-c++.so)
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgbase/" "$_archive/COPYING"*
-	for dir in lib include bin; do
+	for dir in lib include; do
 		_package_dir $dir
 	done
 }
