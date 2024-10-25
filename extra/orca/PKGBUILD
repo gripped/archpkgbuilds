@@ -4,7 +4,7 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=orca
-pkgver=47.0
+pkgver=47.1
 pkgrel=1
 pkgdesc="Screen reader for individuals who are blind or visually impaired"
 url="https://orca.gnome.org/"
@@ -43,7 +43,7 @@ groups=(gnome)
 _pkgver=${pkgver/[a-z]/.&}
 _pkgver=${_pkgver^^}
 source=("git+https://gitlab.gnome.org/GNOME/orca.git#tag=ORCA_${_pkgver//./_}")
-b2sums=('7b7df48573b6d31eaca28e946b520e1563f3cf1f655a088c7e1c6a8d832d87ddc3a31ab24a0626c025c91fbf4bf2a230e7332f71f8e81ae72c1a2883fad3c3b7')
+b2sums=('042c3fa6ef63b3b5015b9707dbb90708e6cd33b05b1fb37d71f065e282185a29881ed03ae69dbf6b29e08186dc4c5d9f87327490620c0e928c2e3324a854b912')
 
 prepare() {
   cd orca
