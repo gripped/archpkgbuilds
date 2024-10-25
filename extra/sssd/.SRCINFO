@@ -1,7 +1,7 @@
 pkgbase = sssd
 	pkgdesc = System Security Services Daemon
 	pkgver = 2.10.0
-	pkgrel = 2
+	pkgrel = 4
 	url = https://github.com/SSSD/sssd
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -38,10 +38,12 @@ pkgbase = sssd
 	backup = etc/logrotate.d/sssd
 	source = https://github.com/SSSD/sssd/releases/download/2.10.0/sssd-2.10.0.tar.gz
 	source = https://github.com/SSSD/sssd/releases/download/2.10.0/sssd-2.10.0.tar.gz.asc
+	source = sssd-perms.service
 	source = sssd-perms.tmpfile
 	validpgpkeys = C13CD07FFB2DB1408E457A3CD3D21B2910CF6759
 	sha512sums = d237ff135fb21bcd1040787d6dfe8fa383290fbae1f15c6917284beb38dd95ecf6418335302e26be40c65e44e8b44135499eec0b98119ea53a38098ac0bc1e2c
 	sha512sums = SKIP
-	sha512sums = 4ef54f47a04e83236b93790995e289afd95bfc9e465a038b5750e81bf15c186371ea4bc7b9bd302ab1a4b104b20ef7b6124c0634aea85febb6483c87da078ea3
+	sha512sums = 197d43ab693cf875a2ae02de9973b812c134ab6086fd1e74c170b34bfbd48e2e7fa5987081f5ef39f2103750762be0d1502aa1a6e50b3b69e9e51ee6a06c970e
+	sha512sums = 2f32c18f9f2f6c3a9197395186b9a5ea172f6deb56513e4348ea1176736c6796f13093b8d584bba9fb6d58bc12c5cd0c251b2941c0b294525483254721a9f70a
 
 pkgname = sssd

@@ -3,7 +3,7 @@
 
 pkgname=sssd
 pkgver=2.10.0
-pkgrel=2
+pkgrel=4
 pkgdesc="System Security Services Daemon"
 arch=('x86_64')
 url="https://github.com/SSSD/sssd"
@@ -46,10 +46,12 @@ checkdepends=(
 options=('!lto')
 backup=('etc/logrotate.d/sssd')
 source=("https://github.com/SSSD/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.gz"{,.asc}
+        "sssd-perms.service"
         "sssd-perms.tmpfile")
 sha512sums=('d237ff135fb21bcd1040787d6dfe8fa383290fbae1f15c6917284beb38dd95ecf6418335302e26be40c65e44e8b44135499eec0b98119ea53a38098ac0bc1e2c'
             'SKIP'
-            '4ef54f47a04e83236b93790995e289afd95bfc9e465a038b5750e81bf15c186371ea4bc7b9bd302ab1a4b104b20ef7b6124c0634aea85febb6483c87da078ea3')
+            '197d43ab693cf875a2ae02de9973b812c134ab6086fd1e74c170b34bfbd48e2e7fa5987081f5ef39f2103750762be0d1502aa1a6e50b3b69e9e51ee6a06c970e'
+            '2f32c18f9f2f6c3a9197395186b9a5ea172f6deb56513e4348ea1176736c6796f13093b8d584bba9fb6d58bc12c5cd0c251b2941c0b294525483254721a9f70a')
 validpgpkeys=('C13CD07FFB2DB1408E457A3CD3D21B2910CF6759')
 
 prepare() {
@@ -122,6 +124,12 @@ package() {
   install -Dm0644 src/examples/logrotate "$pkgdir"/etc/logrotate.d/sssd
   install -Dm0644 contrib/sssd.sysusers "$pkgdir"/usr/lib/sysusers.d/sssd.conf
   install -Dm0644 "$srcdir"/sssd-perms.tmpfile "$pkgdir"/usr/lib/tmpfiles.d/sssd-perms.conf
+  install -Dm0644 "$srcdir"/sssd-perms.service "$pkgdir"/usr/lib/systemd/system/sssd.service.d/10-perms.conf
+
+  setcap cap_chown,cap_dac_override,cap_setuid,cap_setgid=ep "$pkgdir"/usr/lib/sssd/sssd/krb5_child
+  setcap cap_chown,cap_dac_override,cap_setuid,cap_setgid=ep "$pkgdir"/usr/lib/sssd/sssd/ldap_child
+  setcap cap_chown,cap_dac_override,cap_setuid,cap_setgid=ep "$pkgdir"/usr/lib/sssd/sssd/proxy_child
+  setcap cap_dac_read_search=p "$pkgdir"/usr/lib/sssd/sssd/sssd_pam
 
   cd "$srcdir"
   rm -rf "$pkgdir/etc/systemd" # remove the drop-in
