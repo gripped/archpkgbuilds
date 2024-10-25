@@ -2,7 +2,7 @@
 
 _pkgname=python-multipart
 pkgname=python-$_pkgname
-pkgver=0.0.9
+pkgver=0.0.14
 pkgrel=1
 pkgdesc='streaming multipart parser for Python'
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python')
 makedepends=('python-build' 'python-installer' 'python-hatchling')
 checkdepends=('python-pytest' 'python-yaml')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('6e41be080e079b1e9730e61d72b5b339fbb447bfb2b171a617c17025c5ad69924ca3c24f39e160f7b1cc495cea0999e72e6674e5631ce88a48240ecc229d0343')
+sha512sums=('c53d3e8faec421dd05cd9c3695e80555ee9fdd65cf616fb65b4a948fa2ca86119e076d7b6b7aa1add386306774a5de1a03811b36eaf1cc36d6ab5310573ed0f3')
 
 build() {
   cd $_pkgname-$pkgver
