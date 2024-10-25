@@ -4,7 +4,5 @@ ExecStartPre=+-/usr/bin/chgrp sssd /usr/lib/sssd/sssd/krb5_child
 ExecStartPre=+-/usr/bin/setcap cap_chown,cap_dac_override,cap_setuid,cap_setgid=ep /usr/lib/sssd/sssd/krb5_child
 ExecStartPre=+-/usr/bin/chgrp sssd /usr/lib/sssd/sssd/ldap_child
 ExecStartPre=+-/usr/bin/setcap cap_chown,cap_dac_override,cap_setuid,cap_setgid=ep /usr/lib/sssd/sssd/ldap_child
-ExecStartPre=+-/usr/bin/chgrp sssd /usr/lib/sssd/sssd/proxy_child
-ExecStartPre=+-/usr/bin/setcap cap_chown,cap_dac_override,cap_setuid,cap_setgid=ep /usr/lib/sssd/sssd/proxy_child
 ExecStartPre=+-/usr/bin/chgrp sssd /usr/lib/sssd/sssd/sssd_pam
 ExecStartPre=+-/usr/bin/setcap cap_dac_read_search=p /usr/lib/sssd/sssd/sssd_pam
