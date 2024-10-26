@@ -4,8 +4,8 @@
 _pkgname=aws-crt-python
 pkgname=python-awscrt
 # https://github.com/awslabs/aws-crt-python/releases
-pkgver=0.21.5
-pkgrel=1
+pkgver=0.22.0
+pkgrel=2
 pkgdesc='A common runtime for AWS Python projects'
 arch=(x86_64)
 url='https://github.com/awslabs/aws-crt-python'
@@ -15,6 +15,7 @@ depends=(glibc gcc-libs python openssl)
 makedepends=(git cmake python-build python-installer python-setuptools python-wheel)
 checkdepends=(python-websockets)
 source=("git+https://github.com/awslabs/aws-crt-python.git#tag=v$pkgver"
+        "test-timeout-workaround.diff"
         "git+https://github.com/awslabs/aws-c-auth"
         "git+https://github.com/awslabs/aws-c-cal"
         "git+https://github.com/awslabs/aws-c-common"
@@ -27,7 +28,8 @@ source=("git+https://github.com/awslabs/aws-crt-python.git#tag=v$pkgver"
         "git+https://github.com/awslabs/aws-c-sdkutils"
         "git+https://github.com/awslabs/aws-checksums"
         "git+https://github.com/awslabs/s2n")
-sha256sums=('dfe1b4897b474f9431a39fec507cff77401b3e0d0f4453eb2e999694cc1051e1'
+sha256sums=('cadc5b1e7bf79e9362ce740fa7e538a9644292ab2bda3624c15b5b30655bab83'
+            '2a76a90dfa59b2fadf25f6e74cd7ff516a50d6b4005f185b9fa2df48ece86d79'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -59,6 +61,10 @@ prepare() {
     git config submodule.crt/$crt.url "$srcdir"/$crt
     git -c protocol.file.allow=always submodule update crt/$crt
   done
+
+  # Work-around timeout in test_h2_client. Although the test file takes less than 10 seconds to download with curl,
+  # the test takes more than 80 seconds.
+  patch -Np0 -i ../test-timeout-workaround.diff
 }
 
 build() {
