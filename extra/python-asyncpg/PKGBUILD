@@ -3,8 +3,8 @@
 
 pkgname=python-asyncpg
 _pkgname=${pkgname#python-}
-pkgver=0.29.0
-pkgrel=5
+pkgver=0.30.0
+pkgrel=1
 pkgdesc="A fast PostgreSQL Database Client Library for Python/asyncio"
 arch=(x86_64)
 url="https://github.com/MagicStack/asyncpg"
@@ -25,6 +25,7 @@ makedepends=(
 )
 checkdepends=(
   postgresql
+  python-distro
   python-pytest
   python-uvloop
 )
@@ -32,39 +33,29 @@ source=(
   "git+$url.git#tag=v$pkgver"
   "git+https://github.com/MagicStack/py-pgproto"
 )
-sha256sums=(
-  '57ce4ef0a1f6095b484fa608fda82e18b9b01c4257841b1044605cf256706de6'
-  'SKIP'
-)
-
-_archive="$_pkgname"
+sha256sums=('9f9812ecd04ec04484d440a8e21436db91946867c2ec91303742db88f52ea9cf'
+            'SKIP')
 
 prepare() {
-  cd "$_archive"
-
+  cd "$_pkgname"
   git submodule init
   git config submodule.asyncpg/pgproto.url "$srcdir/py-pgproto"
   git -c protocol.file.allow=always submodule update
-
-  sed -e 's|>=0.29.24,<0.30.0|>=0.29.24|' -e 's|>=0.29.24,<3.0.0|>=0.29.24|' -i setup.py -i pyproject.toml # Drop Cython version constraints
 }
 
 build() {
-  cd "$_archive"
-
+  cd "$_pkgname"
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_archive"
-
+  cd "$_pkgname"
   python -m installer --destdir=tmp_install dist/*.whl
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   PYTHONPATH="$PWD/tmp_install/$site_packages" pytest
 }
 
 package() {
-  cd "$_archive"
-
-  python -m installer -d "$pkgdir" dist/*.whl
+  cd "$_pkgname"
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
