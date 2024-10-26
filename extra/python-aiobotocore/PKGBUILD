@@ -3,7 +3,7 @@
 pkgname=python-aiobotocore
 _pkgname=aiobotocore
 # https://github.com/aio-libs/aiobotocore/releases
-pkgver=2.15.1
+pkgver=2.15.2
 pkgrel=1
 pkgdesc='asyncio support for botocore library using aiohttp'
 arch=(any)
@@ -19,7 +19,7 @@ checkdepends=(python-moto python-pytest python-pytest-asyncio python-dill python
               python-docker python-openapi-spec-validator python-yaml python-flask python-flask-cors)
 source=("git+https://github.com/aio-libs/aiobotocore.git#tag=$pkgver"
         "moto-5.x.diff")
-sha256sums=('b806a979243e254b110ddcf7301a2da181114ecf7310ea946d00517dbe374b57'
+sha256sums=('3e1932d68a097f8d6c7afd812514c9bc4d7f4e61f5a1bfcd5aa1b5d0eefd88da'
             '2bfadc984a4ad3a6420b356d572c8085b82a46949fc0ecaea98ddce45980503b')
 
 prepare() {
