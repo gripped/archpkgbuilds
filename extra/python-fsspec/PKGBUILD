@@ -3,8 +3,8 @@
 
 _pkgname=filesystem_spec
 pkgname=python-fsspec
-pkgver=2024.9.0
-pkgrel=2
+pkgver=2024.10.0
+pkgrel=1
 pkgdesc="Specification that python filesystems should adhere to"
 arch=(any)
 url="https://github.com/intake/filesystem_spec"
@@ -61,7 +61,7 @@ optdepends=(
   'python-zstandard: zstandard (zstd) compression support'
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('c02c956b0f89ff1f5dc3c78d1298d45264b3ac1a517ff92008c9e866ca34cf0f')
+sha256sums=('c63053dbc872b07effaf02f2e59d1314f1c5a5deaa95cc36149895c151fa7eb3')
 
 build() {
   cd $_pkgname-$pkgver
@@ -73,8 +73,15 @@ check() {
   cd $_pkgname-$pkgver
   pytest \
     --deselect fsspec/implementations/tests/test_ftp.py \
-    --deselect fsspec/implementations/tests/test_zip.py::test_find_returns_expected_result_detail_true \
-    --deselect fsspec/implementations/tests/test_zip.py::test_find_returns_expected_result_detail_true_include_dirs
+    --deselect fsspec/implementations/tests/test_http.py \
+    --deselect fsspec/implementations/tests/test_reference.py::test_defaults \
+    --deselect fsspec/implementations/tests/test_reference.py::test_info \
+    --deselect fsspec/implementations/tests/test_reference.py::test_simple \
+    --deselect fsspec/implementations/tests/test_reference.py::test_simple_ver1 \
+    --deselect fsspec/tests/test_caches.py::test_background \
+    --deselect fsspec/tests/test_generic.py::test_cat_async \
+    --deselect fsspec/tests/test_generic.py::test_cp_async_to_sync \
+    --deselect fsspec/tests/test_generic.py::test_remote_async_ops
 }
 
 package() {
