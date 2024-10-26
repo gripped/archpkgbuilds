@@ -1,7 +1,7 @@
 pkgbase = decoder
 	pkgdesc = QR code scanner and generator
-	pkgver = 0.6.0
-	pkgrel = 4
+	pkgver = 0.6.1
+	pkgrel = 1
 	url = https://apps.gnome.org/Decoder/
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -14,6 +14,7 @@ pkgbase = decoder
 	depends = glib2
 	depends = glibc
 	depends = graphene
+	depends = gst-plugin-gtk4
 	depends = gst-plugin-pipewire
 	depends = gst-plugins-bad
 	depends = gst-plugins-bad-libs
@@ -26,9 +27,7 @@ pkgbase = decoder
 	depends = libadwaita
 	depends = zbar
 	options = !lto
-	source = git+https://gitlab.gnome.org/World/decoder.git#tag=0.6.0
-	source = decoder-window-icon.patch
-	b2sums = eeed609d516f6b994042cd30bf8fe4cb7ce7045ca446317c220e3b61611d7432362c3b7a361cd8f67554611181f63caf9523b24768472ded486b79416540cd3d
-	b2sums = e3b7709d19fb052aea8894e9d35934b9a0faaee9398bab2aca398149069c05ef0b19996b2f7a49aa859f9ea880a467f7760023fc24d5a6e3648aa0feab2f99f6
+	source = git+https://gitlab.gnome.org/World/decoder.git#tag=0.6.1
+	b2sums = c605eae4b7202cff0a612736dd4558d5c92f9c00e4c08a65df2663c77f62a7905bf94306bd7a308d0b42b6198ad9007baf73f9f61b1b54c158b4d11379f05272
 
 pkgname = decoder
