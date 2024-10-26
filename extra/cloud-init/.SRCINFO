@@ -1,7 +1,7 @@
 pkgbase = cloud-init
 	pkgdesc = Cloud instance initialization
 	pkgver = 24.3.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://cloud-init.io
 	arch = any
 	license = GPL-3.0-only OR Apache-2.0
@@ -18,6 +18,7 @@ pkgbase = cloud-init
 	makedepends = python-wheel
 	depends = bash
 	depends = dhclient
+	depends = openbsd-netcat
 	depends = python
 	depends = python-configobj
 	depends = python-jinja
@@ -38,7 +39,10 @@ pkgbase = cloud-init
 	backup = etc/cloud/cloud.cfg
 	backup = etc/cloud/cloud.cfg.d/05_logging.cfg
 	source = https://github.com/canonical/cloud-init/archive/24.3.1/cloud-init-24.3.1.tar.gz
+	source = cloud-init-24.3.1-systemd-ordering.patch
 	sha512sums = 01b798d67328ecd66229568233fb674f45c055ac469adb31a55a909b6b2c8fd1901a833accb66423923b8945210aa4dc6a0d61945787aabe414c01b501b1416d
+	sha512sums = 83985119e95d7f377353d207b7485b496ba60a724a909899071ee0b09a52ecec22c0353d0e107631336db0018bf86db12d4b951b4f2dcbef208f5a0e6cbd2f78
 	b2sums = 7e4cb8bd65d34d08b4b4e5ea2370ac952e05b3a210b91a9b29d8e4b633246a9520c2d9259aedfe8edded0d7d761808b86b6b19d98309633c981b2eb0e7cf1f93
+	b2sums = 5069819bf18f156b35768d3607dba1f3fcd79ef6f0571886734f6472cc2f3fa3db4fc330f32b176501ea7fde34d1ccf15d747a17b4b80ec050a996d106a4afe8
 
 pkgname = cloud-init

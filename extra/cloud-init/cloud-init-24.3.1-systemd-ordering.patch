@@ -1,0 +1,129 @@
+From 9cc458c7d88467914a29f2608d0b371e36b563b9 Mon Sep 17 00:00:00 2001
+From: Alberto Contreras <alberto.contreras@canonical.com>
+Date: Wed, 4 Sep 2024 16:11:27 +0200
+Subject: [PATCH] fix(systemd): add Before=shutdown.target to
+ cloud-init-main.service.tmpl (#5653)
+
+Fixes lintian warning systemd-service-file-shutdown-problems. See [1,
+2].
+
+Remove superflous conditional additions of Conflicts=shutdown.target as
+it is unconditionally added for every target.
+
+[1] https://salsa.debian.org/lintian/lintian/-/blob/2.118.0/tags/s/systemd-service-file-shutdown-problems.tag
+[2] https://github.com/systemd/systemd/issues/11821
+---
+ systemd/cloud-init-main.service.tmpl | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/systemd/cloud-init-main.service.tmpl b/systemd/cloud-init-main.service.tmpl
+index 1ddfd62073e..7a9114bb58b 100644
+--- a/systemd/cloud-init-main.service.tmpl
++++ b/systemd/cloud-init-main.service.tmpl
+@@ -17,16 +17,15 @@ Requires=dbus.socket
+ After=dbus.socket
+ Before=network.service
+ Before=firewalld.target
+-Conflicts=shutdown.target
+ {% endif %}
+ {% if variant in ["ubuntu", "unknown", "debian"] %}
+ Before=sysinit.target
+-Conflicts=shutdown.target
+ {% endif %}
+ 
+ After=systemd-remount-fs.service
+ Before=sysinit.target
+ Before=cloud-init-local.service
++Before=shutdown.target
+ Conflicts=shutdown.target
+ RequiresMountsFor=/var/lib/cloud
+ ConditionPathExists=!/etc/cloud/cloud-init.disabled
+
+From 86ee2ef37b55df1eefcd3e4c430fce06cd266d92 Mon Sep 17 00:00:00 2001
+From: Brett Holman <brett.holman@canonical.com>
+Date: Fri, 11 Oct 2024 20:54:08 -0600
+Subject: [PATCH 1/2] fix: fix ordering cycle for distros with default deps
+ (#5819)
+
+Since After=sysinit.target is a default dependency, a cycle is
+introduced when Before=sysinit.target and not DefaultDependencies=no.
+
+Fixes GH-5755
+---
+ systemd/cloud-init-main.service.tmpl | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/systemd/cloud-init-main.service.tmpl b/systemd/cloud-init-main.service.tmpl
+index 7a9114bb58b..01a7c3aee36 100644
+--- a/systemd/cloud-init-main.service.tmpl
++++ b/systemd/cloud-init-main.service.tmpl
+@@ -23,7 +23,6 @@ Before=sysinit.target
+ {% endif %}
+ 
+ After=systemd-remount-fs.service
+-Before=sysinit.target
+ Before=cloud-init-local.service
+ Before=shutdown.target
+ Conflicts=shutdown.target
+
+From 91deb08947a7c399cff4e6a08bf164334f62e9c0 Mon Sep 17 00:00:00 2001
+From: Brett Holman <brett.holman@canonical.com>
+Date: Fri, 11 Oct 2024 21:03:18 -0600
+Subject: [PATCH 2/2] chore: eliminate redundant ordering dependencies (#5819)
+
+A Before= on a single service doesn't need to exist in both
+cloud-init-main.service and cloud-init-local.service, because
+cloud-init-local.service and cloud-init-main.service are themselves
+ordered. Only one requires it. The same applies for After=.
+---
+ systemd/cloud-init-local.service.tmpl | 5 -----
+ systemd/cloud-init-main.service.tmpl  | 6 ------
+ 2 files changed, 11 deletions(-)
+
+diff --git a/systemd/cloud-init-local.service.tmpl b/systemd/cloud-init-local.service.tmpl
+index e682f637a26..3c2c03194c7 100644
+--- a/systemd/cloud-init-local.service.tmpl
++++ b/systemd/cloud-init-local.service.tmpl
+@@ -7,10 +7,6 @@ DefaultDependencies=no
+ {% endif %}
+ Wants=network-pre.target
+ After=hv_kvp_daemon.service
+-{% if variant in ["almalinux", "cloudlinux", "rhel"] %}
+-Requires=dbus.socket
+-After=dbus.socket
+-{% endif %}
+ Before=NetworkManager.service
+ {% if variant in ["almalinux", "cloudlinux", "rhel"] %}
+ Before=network.service
+@@ -25,7 +21,6 @@ Conflicts=shutdown.target
+ Before=sysinit.target
+ Conflicts=shutdown.target
+ {% endif %}
+-RequiresMountsFor=/var/lib/cloud
+ ConditionPathExists=!/etc/cloud/cloud-init.disabled
+ ConditionKernelCommandLine=!cloud-init=disabled
+ ConditionEnvironment=!KERNEL_CMDLINE=cloud-init=disabled
+diff --git a/systemd/cloud-init-main.service.tmpl b/systemd/cloud-init-main.service.tmpl
+index 01a7c3aee36..2cabb79b5bf 100644
+--- a/systemd/cloud-init-main.service.tmpl
++++ b/systemd/cloud-init-main.service.tmpl
+@@ -8,18 +8,12 @@
+ # https://www.freedesktop.org/software/systemd/man/latest/systemd-remount-fs.service.html
+ [Unit]
+ Description=Cloud-init: Single Process
+-Wants=network-pre.target
+ {% if variant in ["almalinux", "cloudlinux", "ubuntu", "unknown", "debian", "rhel"] %}
+ DefaultDependencies=no
+ {% endif %}
+ {% if variant in ["almalinux", "cloudlinux", "rhel"] %}
+ Requires=dbus.socket
+ After=dbus.socket
+-Before=network.service
+-Before=firewalld.target
+-{% endif %}
+-{% if variant in ["ubuntu", "unknown", "debian"] %}
+-Before=sysinit.target
+ {% endif %}
+ 
+ After=systemd-remount-fs.service
+
