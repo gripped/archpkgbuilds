@@ -1,0 +1,44 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=wike
+pkgver=3.1.0
+pkgrel=2
+pkgdesc='Wikipedia reader for the GNOME desktop'
+arch=(any)
+url='https://apps.gnome.org/Wike/'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  glib2
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libsoup3
+  pango
+  python
+  python-gobject
+  webkitgtk-6.0
+)
+makedepends=(
+  appstream
+  git
+  meson
+)
+source=("git+https://github.com/hugolabe/Wike.git#tag=$pkgver")
+b2sums=(57ea64679f864962429702da83cd6517ce9f463f1f8e2c1320f0f0c6bf621ca32b02ba6db4aeecdb4f3c578b1f12933f722adfa152f82efff218b8f48f6411ab)
+
+build() {
+  arch-meson Wike build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+
+  python -m compileall -d /usr/share "$pkgdir/usr/share"
+  python -O -m compileall -d /usr/share "$pkgdir/usr/share"
+}
