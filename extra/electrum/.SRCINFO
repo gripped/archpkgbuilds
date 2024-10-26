@@ -1,6 +1,6 @@
 pkgbase = electrum
 	pkgdesc = Lightweight Bitcoin wallet
-	pkgver = 4.5.5
+	pkgver = 4.5.8
 	pkgrel = 1
 	url = https://electrum.org
 	arch = any
@@ -33,15 +33,18 @@ pkgbase = electrum
 	optdepends = python-btchip: BTChip hardware wallet support
 	optdepends = python-hidapi: Digital Bitbox hardware wallet support
 	optdepends = python-matplotlib: plot transaction history in graphical mode
-	optdepends = zbar: QR code reading support
-	optdepends = python-rpyc: send commands to Electrum Python console from an external script
-	optdepends = python-qdarkstyle: optional dark theme in graphical mode
 	optdepends = python-pycryptodomex: use PyCryptodome AES implementation instead of pyaes
-	source = git+https://github.com/spesmilo/electrum.git#tag=4.5.5?signed
+	optdepends = python-qdarkstyle: optional dark theme in graphical mode
+	optdepends = python-rpyc: send commands to Electrum Python console from an external script
+	optdepends = python-pyqt6: QML GUI
+	optdepends = qt6-declarative: QML GUI
+	optdepends = zbar: QR code reading support
+	source = git+https://github.com/spesmilo/electrum.git#tag=4.5.8?signed
 	source = git+https://github.com/spesmilo/electrum-locale.git
 	source = git+https://github.com/spesmilo/electrum-http.git
 	validpgpkeys = 6694D8DE7BE8EE5631BED9502BD5824B7F9470E6
-	sha512sums = 3ff5ca9d339ba6106f579268d9b24523aa6c041da5bd2471a51646b09edd12fc69108929a3ce8adb6c536bfbbb5cda91b63b53e4600428b56a2f1f0ecb7c7fd3
+	validpgpkeys = 4AD64339DFA05E20B3F6AD51E7B748CDAF5E5ED9
+	sha512sums = 874a9cfc117103fdccce0b2658201e8cad9705705daa45bae27881bf775c51dae26466f3d7411573182d3919aaa1d53f93c1418813c4e733fd04ee322a8039e0
 	sha512sums = SKIP
 	sha512sums = SKIP
 
