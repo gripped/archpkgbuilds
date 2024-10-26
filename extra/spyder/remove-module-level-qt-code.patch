@@ -1,0 +1,23 @@
+diff --git a/spyder/plugins/preferences/widgets/configdialog.py b/spyder/plugins/preferences/widgets/configdialog.py
+index c3f6bb3b0..6bdf946ab 100644
+--- a/spyder/plugins/preferences/widgets/configdialog.py
++++ b/spyder/plugins/preferences/widgets/configdialog.py
+@@ -28,7 +28,6 @@ class ConfigDialog(SidebarDialog):
+ 
+     # Constants
+     TITLE = _("Preferences")
+-    ICON = ima.icon('configure')
+     MIN_WIDTH = 940 if MAC else (875 if WIN else 920)
+     MIN_HEIGHT = 700 if MAC else (660 if WIN else 670)
+ 
+@@ -41,6 +40,10 @@ def __init__(self, parent=None):
+         # Ensures that the config is present on spyder first run
+         CONF.set('main', 'interface_language', load_lang_conf())
+ 
++    @property
++    def ICON(self):
++        return ima.icon('configure')
++
+     # ---- Public API
+     # -------------------------------------------------------------------------
+     def get_index_by_name(self, name):

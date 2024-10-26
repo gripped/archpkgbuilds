@@ -1,145 +1,171 @@
-# Maintainer: Muflone http://www.muflone.com/contacts/english/
 # Maintainer: Bruno Pagani <archange@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Muflone http://www.muflone.com/contacts/english/
 # Contributor: Francois Boulogne <fboulogne@april.org>
 # Contributor: TDY <tdy@gmx.com>
 
 pkgname=spyder
-pkgver=6.0.0
-pkgrel=2
+pkgver=6.0.1
+pkgrel=1
 pkgdesc="The Scientific Python Development Environment"
 arch=(any)
 url="https://www.spyder-ide.org/"
 license=(MIT)
-makedepends=(python-sphinx python-setuptools-scm python-wheel python-build python-installer git)
 depends=(
-    python-asyncssh
-    python-atomicwrites
-    python-chardet
-    python-cloudpickle
-    python-cookiecutter
-    python-diff-match-patch
-    python-intervaltree
-    ipython
-    python-jedi
-    python-jellyfish
-    python-jsonschema
-    python-keyring
-    jupyter-nbconvert
-    python-numpydoc
-    python-parso
-    python-pexpect
-    python-pickleshare
-    python-psutil
-    python-pygments
-    python-pylint
-    python-pylint-venv
-    python-pyqt5
-    python-pyqt5-webengine
-    python-pyuca
-    python-lsp-server
-    python-lsp-black
-    python-pyls-spyder
-    python-pyxdg
-    python-pyzmq
-    python-qdarkstyle
-    python-qstylizer
-    python-qtawesome
-    python-qtconsole
-    python-qtpy
-    python-rtree
-    python-setuptools
-    python-sphinx
-    python-spyder-kernels
-    python-superqt
-    python-textdistance
-    python-three-merge
-    python-watchdog
-    autopep8
-    flake8
-    python-pycodestyle
-    python-pydocstyle
-    python-pyflakes
-    python-rope
-    qt5-svg
-    yapf
-    python-whatthepatch
-    python-yarl
-    python-aiohttp
-    python-pygithub
+  autopep8
+  flake8
+  hicolor-icon-theme
+  ipython
+  jupyter-nbconvert
+  jupyter-nbformat
+  python
+  python-aiohttp
+  python-asyncssh
+  python-atomicwrites
+  python-chardet
+  python-cloudpickle
+  python-cookiecutter
+  python-dateutil
+  python-diff-match-patch
+  python-docutils
+  python-intervaltree
+  python-jedi
+  python-jellyfish
+  python-jinja
+  python-jsonschema
+  python-jupyter-client
+  python-jupyter-core
+  python-keyring
+  python-lsp-black
+  python-lsp-server
+  python-numpydoc
+  python-packaging
+  python-parso
+  python-pexpect
+  python-pickleshare
+  python-pillow
+  python-psutil
+  python-pycodestyle
+  python-pydocstyle
+  python-pyflakes
+  python-pygithub
+  python-pygments
+  python-pylint
+  python-pylint-venv
+  python-pyls-spyder
+  python-pyqt5
+  python-pyqt5-webengine
+  python-pyuca
+  python-pyxdg
+  python-pyzmq
+  python-qdarkstyle
+  python-qstylizer
+  python-qtawesome
+  python-qtconsole
+  python-qtpy
+  python-requests
+  python-rope
+  python-rtree
+  python-setuptools
+  python-sphinx
+  python-spyder-kernels
+  python-superqt
+  python-textdistance
+  python-three-merge
+  python-tornado
+  python-traitlets
+  python-typing_extensions
+  python-watchdog
+  python-whatthepatch
+  python-yarl
+  qt5-svg
+  yapf
 )
-# Starting from autopep8, required optdeps of python-language-server
-optdepends=(
-    'cython: run Cython files in the IPython Console'
-    'python-matplotlib: 2D/3D plotting in the IPython Console'
-    'python-numpy: support for N-dimensional arrays in the Variable Explorer'
-    'python-pandas: support for DataFrames and Series in the Variable Explorer'
-    'python-scipy: support for Matlab workspace in the Variable Explorer'
-    'python-sympy: symbolic mathematics in the IPython Console'
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools-scm
+  python-wheel
 )
 checkdepends=(
-    python-pytest
-    python-pytest-qt
-    python-pytest-mock
-    python-pytest-cov
-    python-pytest-order
-    python-pytest-timeout
-    python-flaky
-    python-pandas
-    python-scipy
-    python-sympy
-    python-pillow
-    python-matplotlib
-    cython
-    git
-    tk
-    xorg-server-xvfb
+  cython
+  python-flaky
+  python-matplotlib
+  python-pandas
+  python-pillow
+  python-pytest
+  python-pytest-lazy-fixture
+  python-pytest-mock
+  python-pytest-order
+  python-pytest-qt
+  python-pytest-timeout
+  python-scipy
+  python-sympy
+  tk
+  xorg-server-xvfb
 )
-source=(git+https://github.com/spyder-ide/spyder#tag=v$pkgver)
-sha256sums=('1c215f3d2f8733091526d43e337e7d1f0eb070e57b80429d894ff529c37466c5')
+optdepends=(
+  'cython: run Cython files in the IPython Console'
+  'python-matplotlib: 2D/3D plotting in the IPython Console'
+  'python-numpy: support for N-dimensional arrays in the Variable Explorer'
+  'python-pandas: support for DataFrames and Series in the Variable Explorer'
+  'python-scipy: support for Matlab workspace in the Variable Explorer'
+  'python-sympy: symbolic mathematics in the IPython Console'
+)
+source=(
+  "git+https://github.com/spyder-ide/spyder#tag=v$pkgver"
+  "remove-module-level-qt-code.patch"
+)
+sha256sums=('91919a42c92ee88e0c0e8992e60985c0c2496ab85c5d5cd37acaa30604d15f62'
+            'e898320f7576faa923d96b952bc7b62d7f3b53b17941d3a40a9beac4d0d42826')
 
 prepare() {
-  cd ${pkgname}
-  # Allow our python libraries versions
-  sed "s|\,\<.*\'|'|" -i spyder/dependencies.py
+  cd $pkgname
+  patch -Np1 -i ../remove-module-level-qt-code.patch
 }
 
 build() {
-  cd ${pkgname}
+  cd $pkgname
   python -m build --wheel --no-isolation
 }
 
-#check() {
-#  cd ${pkgname}
-#  local disabled_tests=''
-#  # Not working in headless env
-#  disabled_tests+='not test_config_dialog'
-#  disabled_tests+=' and not test_tab_copies_find_to_replace'
-#  disabled_tests+=' and not test_toggle_off_show_all_files'
-#  disabled_tests+=' and not test_select_all_shortcut'
-#  disabled_tests+=' and not test_delete_line_shortcut'
-#  disabled_tests+=' and not test_go_to_line_shortcut'
-#  disabled_tests+=' and not test_transform_to_lowercase_shortcut'
-#  disabled_tests+=' and not test_transform_to_uppercase_shortcut'
-#  disabled_tests+=' and not test_ctrl_c_dbg'
-#  disabled_tests+=' and not test_connection_dialog_remembers_input_with_ssh_passphrase'
-#  disabled_tests+=' and not test_connection_dialog_remembers_input_with_password' 
-#  disabled_tests+=' and not test_store_user_credentials'
-#  disabled_tests+=' and not test_save_when_completions_are_visible'
-#  rm spyder/plugins/pylint/tests -r
-#  python -m venv --system-site-packages test-env
-#  test-env/bin/python -m installer dist/*.whl
-#  QT_API="pyqt5" \
-#  FORCE_QT_API=1 \
-#  xvfb-run --auto-servernum test-env/bin/python -m pytest --color=yes -vv -k "${disabled_tests}"
-#}
+check() {
+  cd $pkgname
+  local pytest_args=(
+    # pytestqt.exceptions.TimeoutError
+    --deselect='spyder/plugins/completion/providers/languageserver/tests/test_client.py'
+    --deselect='spyder/plugins/completion/tests/test_plugin.py'
+    --deselect='spyder/plugins/editor/widgets/codeeditor/'
+    --deselect='spyder/plugins/editor/widgets/editorstack'
+    --deselect='spyder/plugins/editor/widgets/tests/test_editorsplitter.py'
+    --deselect='spyder/plugins/editor/widgets/tests/test_formatting.py'
+    --deselect='spyder/plugins/ipythonconsole/tests/test_ipythonconsole.py'
+    --deselect='spyder/app/tests/test_mainwindow.py'
+
+    # Requires keyring access
+    --deselect='spyder/config/tests/test_manager.py::test_secure_options'
+    --deselect='spyder/plugins/ipythonconsole/widgets/tests/test_kernelconnect.py::test_connection_dialog_remembers_input_with_password'
+    --deselect='spyder/plugins/ipythonconsole/widgets/tests/test_kernelconnect.py::test_connection_dialog_remembers_input_with_ssh_passphrase'
+    --deselect='spyder/widgets/github/tests/test_github_backend.py::test_store_user_credentials'
+
+    # Python error: Segmentation fault
+    --deselect='spyder/plugins/plots/tests/test_plugin.py'
+
+    # assert 102 < 100
+    --deselect='spyder/plugins/plots/widgets/tests/test_plots_widgets.py::test_zoom_figure_viewer[image/svg+xml]'
+
+    # Failed: DID NOT RAISE <class 'spyder.utils.vcs.ActionToolNotFound'>
+    --deselect='spyder/utils/tests/test_vcs.py::test_vcs_tool'
+  )
+  PYTEST_QT_API="pyqt5" xvfb-run pytest "${pytest_args[@]}"
+}
 
 package() {
-  cd ${pkgname}
-  python -m installer --destdir="${pkgdir}" dist/*.whl
-  # Install license file
-  install -Dm644 LICENSE.txt -t ${pkgdir}/usr/share/licenses/${pkgname}/
-  # Install icon file
-  install -Dm644 spyder/images/spyder.svg -t "${pkgdir}"/usr/share/icons/hicolor/scalable/apps/
-  # Remove useless spyder_win_post_install script
-  rm -f "${pkgdir}"/usr/bin/spyder_win_post_install.py
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
+  install -vDm644 -t "$pkgdir/usr/share/icons/hicolor/scalable/apps/" \
+    spyder/images/spyder.svg
+  rm -f "$pkgdir/usr/bin/spyder_win_post_install.py"
 }
