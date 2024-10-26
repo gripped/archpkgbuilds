@@ -3,18 +3,22 @@
 _name=django-mailman3
 pkgname=python-django-mailman3
 pkgver=1.3.15
-pkgrel=2
+pkgrel=3
 pkgdesc="Libraries and templates to Django-based interfaces interacting with Mailman"
 arch=(any)
 url="https://gitlab.com/mailman/django-mailman3"
 license=(GPL-3.0-or-later)
 depends=(
   python
+  python-cryptography  # for python-django-allauth social account support
   python-django
   python-django-allauth
   python-django-gravatar
   python-mailmanclient
-  python-openid
+  python-openid  # for python-django-allauth openid support
+  python-pyjwt  # for python-django-allauth social account support
+  python-requests  # for python-django-allauth social account support
+  python-requests-oauthlib  # for python-django-allauth social account support
 )
 makedepends=(
   git
