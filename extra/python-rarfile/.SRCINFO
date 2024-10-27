@@ -1,0 +1,28 @@
+pkgbase = python-rarfile
+	pkgdesc = Python module for RAR archive reading
+	pkgver = 4.2
+	pkgrel = 2
+	url = https://github.com/markokr/rarfile
+	arch = any
+	license = ISC
+	checkdepends = p7zip
+	checkdepends = python-cryptography
+	checkdepends = python-pytest
+	checkdepends = unarchiver
+	checkdepends = unrar
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-sphinx
+	makedepends = python-wheel
+	depends = python
+	optdepends = p7zip: Alternative decompression backend
+	optdepends = python-cryptography: Process archives with password-protected headers
+	optdepends = python-pycryptodome: Alternative crypto backend
+	optdepends = unarchiver: Alternative decompression backend
+	optdepends = unrar: Recommended decompression backend
+	source = git+https://github.com/markokr/rarfile.git#tag=v4.2
+	b2sums = 85d518c4b7603eabb00eabdb811209f99461899f318b18f063e36411b72f3d5f7938fc03e6946d141b13fb607e8500fd1ad7f4e5958f6e19a76de9cd9817c8b6
+
+pkgname = python-rarfile

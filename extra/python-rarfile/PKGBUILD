@@ -1,0 +1,54 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=python-rarfile
+pkgver=4.2
+pkgrel=2
+pkgdesc='Python module for RAR archive reading'
+arch=(any)
+url='https://github.com/markokr/rarfile'
+license=(ISC)
+depends=(python)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-sphinx
+  python-wheel
+)
+optdepends=(
+  'p7zip: Alternative decompression backend'
+  'python-cryptography: Process archives with password-protected headers'
+  'python-pycryptodome: Alternative crypto backend'
+  'unarchiver: Alternative decompression backend'
+  'unrar: Recommended decompression backend'
+)
+checkdepends=(
+  p7zip
+  python-cryptography
+  python-pytest
+  unarchiver
+  unrar
+)
+source=("git+https://github.com/markokr/rarfile.git#tag=v$pkgver")
+b2sums=(85d518c4b7603eabb00eabdb811209f99461899f318b18f063e36411b72f3d5f7938fc03e6946d141b13fb607e8500fd1ad7f4e5958f6e19a76de9cd9817c8b6)
+
+build() {
+  cd rarfile
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd rarfile
+  pytest -v
+}
+
+package() {
+  cd rarfile
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  python -m sphinx -b html doc "$pkgdir/usr/share/doc/$pkgname/html"
+  rm -r "$pkgdir/usr/share/doc/$pkgname/html/.doctrees"
+
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+}
