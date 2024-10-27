@@ -4,7 +4,7 @@
 pkgname=python-moto
 _pkgname=moto
 # https://github.com/getmoto/moto/blob/master/CHANGELOG.md
-pkgver=5.0.15
+pkgver=5.0.18
 pkgrel=1
 pkgdesc='Moto is a library to mock out the boto library.'
 arch=(any)
@@ -43,17 +43,18 @@ optdepends=(
   'python-multipart: for moto_proxy'
   'python-antlr4: for stepfunctions'
   'python-jsonpath-ng: for events, stepfunctions'
+  'python-jsonschema: for quicksight'
 )
 checkdepends+=(python-yaml python-joserfc python-openapi-spec-validator python-docker
                python-graphql-core python-jsondiff python-aws-xray-sdk
                python-cfn-lint python-pyparsing python-py-partiql-parser
                python-crc32c
                python-flask python-flask-cors python-multipart
-               python-antlr4 python-jsonpath-ng
+               python-antlr4 python-jsonpath-ng python-jsonschema
 )
 source=("git+https://github.com/getmoto/moto#tag=$pkgver"
         "fix-tests.diff")
-sha256sums=('c7c3cbab71c3783c1a28dc74ddd0ad9477acd575022f98cf4739b5bdc42905ab'
+sha256sums=('c43d650062631a1e146b15a32360b7195e8439a35a8e09fba02877cd8cac4fe3'
             '21305cdf3d650ced1acb1d0f7dde8760b26e32a94c56a5571e798d6b6976cf5a')
 
 prepare() {

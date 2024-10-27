@@ -1,6 +1,6 @@
 pkgbase = python-moto
 	pkgdesc = Moto is a library to mock out the boto library.
-	pkgver = 5.0.15
+	pkgver = 5.0.18
 	pkgrel = 1
 	url = https://github.com/spulec/moto
 	arch = any
@@ -24,6 +24,7 @@ pkgbase = python-moto
 	checkdepends = python-multipart
 	checkdepends = python-antlr4
 	checkdepends = python-jsonpath-ng
+	checkdepends = python-jsonschema
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
@@ -56,9 +57,10 @@ pkgbase = python-moto
 	optdepends = python-multipart: for moto_proxy
 	optdepends = python-antlr4: for stepfunctions
 	optdepends = python-jsonpath-ng: for events, stepfunctions
-	source = git+https://github.com/getmoto/moto#tag=5.0.15
+	optdepends = python-jsonschema: for quicksight
+	source = git+https://github.com/getmoto/moto#tag=5.0.18
 	source = fix-tests.diff
-	sha256sums = c7c3cbab71c3783c1a28dc74ddd0ad9477acd575022f98cf4739b5bdc42905ab
+	sha256sums = c43d650062631a1e146b15a32360b7195e8439a35a8e09fba02877cd8cac4fe3
 	sha256sums = 21305cdf3d650ced1acb1d0f7dde8760b26e32a94c56a5571e798d6b6976cf5a
 
 pkgname = python-moto
