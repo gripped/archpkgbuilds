@@ -2,9 +2,9 @@
 
 pkgbase=decasify
 pkgname=("$pkgbase" "lua-$pkgbase" "lua53-$pkgbase" "lua52-$pkgbase" "lua51-$pkgbase" "neovim-$pkgbase" "python-$pkgbase" "sile-$pkgbase")
-pkgver=0.7.6
+pkgver=0.8.0
 _rockrel=1
-pkgrel=2
+pkgrel=1
 pkgdesc='cast strings to title-case according to locale specific style guides including Turkish'
 arch=(x86_64)
 url="https://github.com/alerque/$pkgbase"
@@ -22,7 +22,7 @@ makedepends=(cargo
              jq)
 _archive="$pkgbase-$pkgver"
 source=("$url/releases/download/v$pkgver/$_archive.tar.zst"{,.asc})
-sha256sums=('299e462cf5a93b5a7da865764ca94729111945349f5fb6e2e79b5bbeff574cd9'
+sha256sums=('1d35006ffc8bdc7e01fe7fc471dfdf0e99d3622ab0728fc4d3bb1aea9148214e'
             'SKIP')
 validpgpkeys=('9F377DDB6D3153A48EB3EB1E63CC496475267693') # Caleb Maclennan <caleb@alerque.com> (@alerque)
 
