@@ -1,0 +1,65 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgbase=python-pillow-heif
+pkgname=(
+  python-pillow-heif
+  python-pillow-heif-docs
+)
+pkgver=0.20.0
+pkgrel=1
+pkgdesc='Python bindings to libheif for working with HEIF images and plugin for Pillow'
+arch=(x86_64)
+url='https://github.com/bigcat88/pillow_heif'
+license=(BSD-3-Clause)
+depends=(
+  glibc
+  libheif
+  python
+  python-pillow
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-sphinx-issues
+  python-sphinx_rtd_theme
+  python-wheel
+)
+checkdepends=(
+  python-defusedxml
+  python-pytest
+)
+source=("git+https://github.com/bigcat88/pillow_heif.git#tag=v$pkgver")
+b2sums=(33e4a4d124dd140c9a07425c3dffbf02ceb2083b02bdba4a5676e2d3a4a1b8dc2b0c7fbb4c2549e2f824ded71c2dc6c1347efd2e38a6a154b3484e92a2e3d66b)
+
+build() {
+  cd pillow_heif
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd pillow_heif
+  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')" \
+    pytest
+}
+
+package_python-pillow-heif() {
+  conflicts=(python-pillow_heif)
+  provides=("python-pillow_heif=$pkgver")
+  replaces=(python-pillow_heif)
+
+  cd pillow_heif
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE.txt
+}
+
+package_python-pillow-heif-docs() {
+  pkgdesc="Developer documentation for python-pillow-heif"
+  depends=()
+
+  cd pillow_heif
+  python -m sphinx -b html docs "$pkgdir/usr/share/doc/$pkgbase/html"
+  rm -r "$pkgdir/usr/share/doc/$pkgbase/html/.doctrees"
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE.txt
+}
