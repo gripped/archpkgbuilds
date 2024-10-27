@@ -2,7 +2,7 @@
 
 pkgbase=oxc
 pkgname=(oxlint oxc-language-server)
-pkgver=0.10.1
+pkgver=0.10.3
 pkgrel=1
 pkgdesc="A collection of JavaScript tools written in Rust"
 arch=(x86_64)
@@ -12,7 +12,7 @@ depends=('gcc-libs')
 options=('!lto')
 makedepends=('rust' 'cargo' 'nodejs')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/oxc-project/oxc/archive/refs/tags/oxlint_v${pkgver}.tar.gz")
-sha256sums=('8f12e2a2a3b515e234590f841268deb9cd69625ed2b70166d731660b590baccf')
+sha256sums=('59d0093d4e2498bbf803bc2aafea22e3b170db7b07accb6efbfe1498fcadfddb')
 
 prepare() {
   cd "oxc-oxlint_v${pkgver}"
