@@ -5,7 +5,7 @@
 pkgname=qt6-declarative
 _pkgver=6.8.0
 pkgver=6.8.0
-pkgrel=3
+pkgrel=4
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
@@ -26,7 +26,9 @@ sha256sums=('89b497818a0e36bf08f5a42324dcde1b441b5a0ee1c9b6cfa38fb281479de3ed')
 
 prepare() {
   cd $_pkgfn
-  git cherry-pick -n 0ae3697cf40bcd3ae1de20621abad17cf6c5f52d # Fix crash in neochat
+# Fix crashes in Plasma
+  git cherry-pick -n 0ae3697cf40bcd3ae1de20621abad17cf6c5f52d
+  git cherry-pick -n 861a7921ed7833a90f77b5fca436c789a4f9517c
 }
 
 build() {
