@@ -7,19 +7,18 @@ pkgbase=lib32-nss
 pkgname=(
   lib32-nss
 )
-pkgver=3.105
+pkgver=3.106
 pkgrel=1
 pkgdesc="Network Security Services (32-bit)"
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
 arch=(x86_64)
 license=(MPL-2.0)
 depends=(
-  'lib32-nspr>=4.35'
-  'lib32-p11-kit>=0.23.19'
   lib32-glibc
+  lib32-nspr
+  lib32-p11-kit
   lib32-sqlite
   lib32-zlib
-
   nss
 )
 makedepends=(
@@ -30,16 +29,16 @@ makedepends=(
 )
 source=(
   "hg+https://hg.mozilla.org/projects/nss#tag=NSS_${pkgver//./_}_RTM"
-  0001-Hack-mpi_x64.s-to-work-with-fno-plt.patch
+  0001-Hack-mpi_x86.s-to-work-with-fno-plt.patch
 )
-b2sums=('bc35bf6823057f2e97f8304eec16ec6c1c6e2a5dfe54cdb0ab7bd06324a64ffa820cc680a21458674bbfe277fdb46d10c48b7b814990ec28e59d889bce60f628'
-        '5a1f419e0cb6f61413bba9af4264bb1d8cc5b9a7d679b0b8fcceb030f6eeb50291509cd7317e2129d848048ad023818284f10942ce6d8c1bbcaaebc106a9726e')
+b2sums=('ef1c559d89a5f375e885cd76c32895f726c4b0009f432f358c34650112aec3764f7bd79a39e2bf2cb7563ed2410beafb7ebd83e8a8a2837aba33d6cbee81abf9'
+        '6d7bfcfc2b7681ca24b220b8f07d55e305342ee4e3475a221f71d21c83b5a5e998ef9e2779ca1c76d9075a80de0f42a7f97565ab568dc47530ee2accc9eec966')
 
 prepare() {
   cd nss
 
   # https://bugzilla.mozilla.org/show_bug.cgi?id=1382942
-  patch -Np1 -i ../0001-Hack-mpi_x64.s-to-work-with-fno-plt.patch
+  patch -Np1 -i ../0001-Hack-mpi_x86.s-to-work-with-fno-plt.patch
 }
 
 build() {
