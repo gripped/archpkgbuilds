@@ -4,7 +4,7 @@
 
 pkgname=dkms
 pkgver=3.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Dynamic Kernel Modules System'
 arch=('any')
 url='https://github.com/dell/dkms'
@@ -61,6 +61,9 @@ package() {
     LIBDIR=/../trash \
     MODDIR=/usr/lib/modules \
     install
+  # quick fix for broken kernel-install scripts
+  # see: https://gitlab.archlinux.org/archlinux/packaging/packages/dkms/-/issues/5
+  rm -r "$pkgdir/usr/lib"
 }
 
 # vim:set ts=2 sw=2 et:
