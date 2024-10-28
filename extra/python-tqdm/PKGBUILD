@@ -2,7 +2,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=python-tqdm
-pkgver=4.66.5
+pkgver=4.66.6
 pkgrel=1
 pkgdesc='Fast, Extensible Progress Meter'
 arch=('any')
@@ -13,7 +13,7 @@ optdepends=('python-requests: telegram')
 makedepends=('git' 'python-setuptools-scm' 'python-toml' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest' 'python-pytest-asyncio' 'python-pytest-timeout' 'python-numpy' 'python-pandas' 'python-rich' 'python-dask' 'tk' 'python-keras')
 source=("git+https://github.com/tqdm/tqdm.git#commit=v${pkgver}")
-sha512sums=('10e2481f0a388dd17a6bbaee8891ac2e186e29fddc7fe4fae7e84b5a5ddaaffbb6b0d09ef3d7b835a92b3761788eed98ece5c88883f026b1e2830cd4b257ce57')
+sha512sums=('27d6d13099dd6b3f91fce3d2117838967377f67e8234e7f0253be529ed1077997bb7adb1b5295d8cdf3b83133090cdc32537d15f7b5a7cb1a92399dc0150d424')
 
 build() {
   cd tqdm
