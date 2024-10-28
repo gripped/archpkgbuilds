@@ -7,8 +7,8 @@ pkgname=(
   mkvtoolnix-cli
   mkvtoolnix-gui
 )
-pkgver=87.0
-pkgrel=2
+pkgver=88.0
+pkgrel=1
 pkgdesc='Set of tools to create, edit and inspect Matroska files'
 arch=(x86_64)
 url=https://mkvtoolnix.download/
@@ -39,11 +39,11 @@ makedepends=(
   ruby-rake
   zlib
 )
-_tag=94bb8630304f6de9883b7e56c42b8921dd32ff7b
+_tag=7a32d31e7029b1ca4f323eb0f7fb975ec979b089
 #source=(git+https://gitlab.com/mbunkus/mkvtoolnix.git?signed#tag=${_tag})
 source=(git+https://gitlab.com/mbunkus/mkvtoolnix.git#tag=${_tag})
 validpgpkeys=(D9199745B0545F2E8197062B0F92290A445B9007) # Moritz Bunkus <moritz@bunkus.org>
-sha256sums=('85580aef547ed4fc8e4fdfcc0afed157e7d51eaf7a58eed3b3dbf6ddbad1ec69')
+sha256sums=('639b7143d10ea05da2b8ff13b8e19418daa6ac23c31fa4e168853553568a980a')
 
 prepare() {
   cd mkvtoolnix
