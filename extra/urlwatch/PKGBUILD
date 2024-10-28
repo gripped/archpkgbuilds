@@ -6,18 +6,18 @@
 # Contributor: Allan McRae <allan@archlinux.org>
 
 pkgname=urlwatch
-pkgver=2.28
-pkgrel=4
+pkgver=2.29
+pkgrel=1
 pkgdesc='Tool for monitoring webpages for updates'
 arch=(any)
 url=https://thp.io/2008/urlwatch/
 license=(BSD-3-Clause)
 depends=(
-  python-appdirs
   python-cssselect
   python-keyring
   python-lxml
   python-minidb
+  python-platformdirs
   python-requests
   python-yaml
 )
@@ -30,6 +30,7 @@ makedepends=(
 )
 checkdepends=(
   python-docutils
+  python-pycodestyle
   python-pytesseract
   python-pytest
 )
@@ -45,8 +46,8 @@ optdepends=(
   'python-pytesseract: for the ocr filter'
 )
 source=("git+https://github.com/thp/urlwatch.git#tag=$pkgver")
-sha256sums=('f2868ba625c560b801e519d6310c1624f11382d14cd040ef1aa4234e20d5b9b8')
-b2sums=('7703127d0c4e96c31aaaf415ca16e12cac797508651fd28fa7c6eb18c2ca7e1b98a04da362c136eb520ba13a12a1bbaaa732c471e57eccdc799ad54edc1a0d87')
+sha256sums=('0dacf27a451845a326d9069d8298cf37b99d602b2bfe4bd6dbcbb1378beafdac')
+b2sums=('e546395c89c37bcfd78d839dbfe9f3154fe728674a39aeb41192ac3ae4587bd0e6f6b0c9697d62b326ed35f5e465e30335e7bc0329472167dd37cad9fdb564f8')
 
 prepare() {
   cd $pkgname
