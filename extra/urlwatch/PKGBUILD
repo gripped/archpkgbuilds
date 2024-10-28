@@ -7,7 +7,7 @@
 
 pkgname=urlwatch
 pkgver=2.29
-pkgrel=1
+pkgrel=2
 pkgdesc='Tool for monitoring webpages for updates'
 arch=(any)
 url=https://thp.io/2008/urlwatch/
@@ -30,7 +30,6 @@ makedepends=(
 )
 checkdepends=(
   python-docutils
-  python-pycodestyle
   python-pytesseract
   python-pytest
 )
@@ -49,14 +48,6 @@ source=("git+https://github.com/thp/urlwatch.git#tag=$pkgver")
 sha256sums=('0dacf27a451845a326d9069d8298cf37b99d602b2bfe4bd6dbcbb1378beafdac')
 b2sums=('e546395c89c37bcfd78d839dbfe9f3154fe728674a39aeb41192ac3ae4587bd0e6f6b0c9697d62b326ed35f5e465e30335e7bc0329472167dd37cad9fdb564f8')
 
-prepare() {
-  cd $pkgname
-
-  # Fix the CSS selector filter with python-lxml>=5
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/urlwatch/-/issues/1
-  git cherry-pick -n 123de66d019aef7fc18fab6d56cc2a54d81fea3f || true
-}
-
 build() {
   cd $pkgname
   python -m build --wheel --skip-dependency-check --no-isolation
@@ -64,7 +55,7 @@ build() {
 
 check() {
   cd $pkgname
-  pytest -k 'not test_pep8_conformance'
+  pytest --ignore lib/urlwatch/tests/test_pep8.py
 }
 
 package() {
