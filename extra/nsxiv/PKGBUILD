@@ -3,7 +3,7 @@
 
 pkgname=nsxiv
 pkgver=32
-pkgrel=4
+pkgrel=5
 pkgdesc='Neo (or New or Not) Simple (or Small or Suckless) X Image Viewer'
 arch=('x86_64')
 license=('GPL-2.0-or-later')
@@ -29,6 +29,8 @@ prepare() {
 }
 
 build() {
+  echo "RUSTFLAGS: $RUSTFLAGS"
+  echo "Debug RUSTFLAGS: $DEBUG_RUSTFLAGS"
   make -C "$pkgname" HAVE_INOTIFY=1 HAVE_LIBFONT=1 HAVE_LIBEXIF=1
 }
 
