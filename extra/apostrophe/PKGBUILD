@@ -1,0 +1,119 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=apostrophe
+pkgver=3.2
+pkgrel=1
+pkgdesc='Distraction free Markdown editor'
+arch=(any)
+url='https://apps.gnome.org/Apostrophe/'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  glib2
+  graphene
+  gtk4
+  gtksourceview5
+  hicolor-icon-theme
+  libadwaita
+  libspelling
+  pango
+  python
+  python-chardet
+  python-gobject
+  python-pypandoc
+  webkitgtk-6.0
+)
+makedepends=(
+  appstream
+  git
+  meson
+)
+optdepends=(
+  'texlive-bin: Export to LaTeX'
+  'texlive-fontsrecommended: Export to PDF'
+  'texlive-latex: Inline math preview'
+  'texlive-latexrecommended: Export to PDF'
+)
+source=(
+  "git+https://gitlab.gnome.org/World/apostrophe.git#tag=v$pkgver"
+  apostrophe-window-icon.patch
+  apostrophe-gresource-install.patch
+  apostrophe-optional-revealjs.patch
+  apostrophe-no-chdir.patch
+  apostrophe-symbolic-icon.patch
+  apostrophe-png-tempfile.patch
+  apostrophe-insert-image.patch
+  apostrophe-open-file-path.patch
+  apostrophe-not-found.patch
+)
+b2sums=(
+  cdc29505c886181ca7ae8c66559a17ceec2884a6a656819930015fc8ba210bdab71d7f216cd9bac580710559c7d74d010f84a9a9e9ed0fb50c8b1f41be1c9178
+  d1b0f180db18e90a84639c2e42531705dc02af1a3d4b00808fb403f3fd9f7fd2739b2142412f5791ae6a67d3887ddb266a7b575b4de5e4bfef981a9a7addefb1
+  bc3fafba468c1f48e5e17ac0e8496328bf0a5c9c4f1472cba2e59cb0feb49b4bac8f4d2d13c133aa3e0e0ef8d15c6ccd5c9e7bcaa89094f4b82444a0e0bee24b
+  e6ae80361d9484c8661737febadb53c94ac5d4ef563ab056321c70e31055b048df6b0b29ccd80ff11c529248d83eb8cd5dbbb17b2dcf93e5b4ab9998c5feb3a5
+  f17eeb909c2acc85a3e394119d91894d45eb60b8c3192f08de6fecdf8273c7358ffc4a7e0ec04ff2de21ad19452beeee6e598d6c7a15817dc0bda7b8d66010e0
+  d93b8097bb3c6dd7157fcf0f03c488f646e72cff54c707bb77633ca7c1be9321383220141bb18cfdce20c75fc0d623569f364f3d96d92cdf3346f52919cd8ca7
+  367c13fce9bbaba833d5de51b264a44972fb70d080404fe788c1d57218a0c5cd8fbcdcfb00ec0c4d0f736bb2f912a4cb261a80a5c15e4757596ccae45de8ed17
+  946fc0acaf3171b4c3688c9db16c94fe39152b0a46f5f5df0e6a3de333a14e6dd678f4fa4c03d443e011d82139afcb6e7399fdb46809e41c62f7db46215f2efe
+  671c1fc272f50a6b852ae2f023e7f4e4000fedf2e7e4126b178a084d13cd7c4f198e4ba2c078e6e2801553cf6fd53dc1f28212575ab7aec58d3873f62e10e03a
+  523ca1925354e2feb06cfb23c606aba709ef1fbe97755eff5549677c25fc591135ac16c3e64591ddb0028ef7a47a9819294949ce3073d513b8bd3510adbc53dd
+)
+
+prepare() {
+  cd $pkgname
+
+  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/301
+  git cherry-pick -n bd6e4503582f1622742c633b9a788c1477f94cd5
+
+  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/294
+  git cherry-pick -n a09f8ce7ba06ef12474b5a1b9b932007f0db39f8
+
+  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/264
+  git cherry-pick -n 2fc464da1a7054c072234111bff27456c157f87e
+
+  # https://gitlab.gnome.org/World/apostrophe/-/issues/559
+  git cherry-pick -n 01770a0ce4e350d713ed3b92793f20a69bb82f38
+
+  # https://gitlab.gnome.org/World/apostrophe/-/issues/572
+  git cherry-pick -n bde1e4614adea99d79673158c796a14356654c56
+
+  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/303
+  git apply -3 ../apostrophe-window-icon.patch
+
+  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/304
+  git apply -3 ../apostrophe-gresource-install.patch
+
+  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/305
+  git apply -3 ../apostrophe-optional-revealjs.patch
+
+  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/306
+  git apply -3 ../apostrophe-no-chdir.patch
+
+  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/307
+  git apply -3 ../apostrophe-symbolic-icon.patch
+
+  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/308
+  git apply -3 ../apostrophe-png-tempfile.patch
+
+  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/309
+  git apply -3 ../apostrophe-insert-image.patch
+
+  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/310
+  git apply -3 ../apostrophe-open-file-path.patch
+
+  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/311
+  git apply -3 ../apostrophe-not-found.patch
+}
+
+build() {
+  arch-meson $pkgname build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+}

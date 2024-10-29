@@ -1,0 +1,25 @@
+From 243e8f982f27ed5bfab1da115b9e37202756279f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 28 Oct 2024 11:58:41 +0100
+Subject: [PATCH] Set default icon for windows
+
+This is commonly used by desktop environments on Xorg.
+---
+ apostrophe/application.py | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/apostrophe/application.py b/apostrophe/application.py
+index 1ee89f4..565bb12 100644
+--- a/apostrophe/application.py
++++ b/apostrophe/application.py
+@@ -65,6 +65,7 @@ class Application(Adw.Application):
+         scheme_manager.prepend_search_path(get_media_path("/styles"))
+ 
+         # Set icons
++        Gtk.Window.set_default_icon_name(self._application_id)
+         Gtk.IconTheme.get_for_display(
+             Gdk.Display.get_default()).add_resource_path(
+             "/org/gnome/gitlab/somas/Apostrophe/icons"
+-- 
+GitLab
+

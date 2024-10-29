@@ -1,0 +1,34 @@
+From 4d7d7c9a44d915e1ba97f1ebe78fcc0c9857d692 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 28 Oct 2024 12:42:54 +0100
+Subject: [PATCH] Don't install files that already present in GResource
+
+These resources are loaded from the GResource, installing them is not necessary.
+---
+ data/meson.build | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/data/meson.build b/data/meson.build
+index 0aac6101..b4fadc95 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -90,14 +90,11 @@ install_subdir(
+ 
+ install_subdir(
+ 	'media',
+-  # exclude_directories: 'css/gtk'
++	exclude_directories: ['css/gtk', 'icons'],
++	exclude_files: ['apostrophe_markdown.md'],
+ 	install_dir: pkgdatadir
+ )
+ 
+-install_subdir(
+-	'ui',
+-	install_dir: pkgdatadir
+-)
+ install_subdir(
+ 	'reference_files',
+ 	install_dir: pkgdatadir
+-- 
+GitLab
+

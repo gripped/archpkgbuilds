@@ -1,0 +1,33 @@
+From c9005d5b6e2ec9c8fa9ad3ee9bbfd96bc0b60d99 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 29 Oct 2024 04:51:51 +0100
+Subject: [PATCH] Fix inserting image
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+`relative_path` can be `None` if `image` doesn’t have `basepath` as prefix.
+---
+ apostrophe/text_view_format_inserter.py | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/apostrophe/text_view_format_inserter.py b/apostrophe/text_view_format_inserter.py
+index 9711814b..6596cb4b 100644
+--- a/apostrophe/text_view_format_inserter.py
++++ b/apostrophe/text_view_format_inserter.py
+@@ -454,7 +454,11 @@ class FormatInserter:
+             basepath = self.settings.get_string("open-file-path")
+             if basepath != "/":
+                 basepath = Gio.File.new_for_path(basepath)
+-                path = urllib.parse.quote(basepath.get_relative_path(image))
++                relative_path = basepath.get_relative_path(image)
++                if relative_path:
++                    path = urllib.parse.quote(relative_path)
++                else:
++                    path = urllib.parse.quote(image.get_path())
+             else:
+                 path = urllib.parse.quote(image.get_path())
+ 
+-- 
+GitLab
+

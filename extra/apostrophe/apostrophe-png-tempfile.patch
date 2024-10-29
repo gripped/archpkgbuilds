@@ -1,0 +1,63 @@
+From 9dfb69f5dfc9adf7d3f0c8f0ac848e747bcc4a5b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 29 Oct 2024 03:42:59 +0100
+Subject: [PATCH] Clear tempfiles after they are no longer needed
+
+Also, don't create a tempfile on init.
+---
+ apostrophe/inline_preview.py | 8 +++++---
+ apostrophe/latex_to_PNG.py   | 6 ++++--
+ 2 files changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/apostrophe/inline_preview.py b/apostrophe/inline_preview.py
+index 010d461..474c30d 100644
+--- a/apostrophe/inline_preview.py
++++ b/apostrophe/inline_preview.py
+@@ -268,10 +268,12 @@ class InlinePreview(GObject.Object):
+         }
+ 
+     def get_view_for_math(self, match):
+-
+-        success, result = self.latex_converter.generatepng(match.group("text"))
++        success, temp_result = self.latex_converter.generatepng(match.group("text"))
+         if success:
+-            result = Gdk.Texture.new_from_filename(result)
++            result = Gdk.Texture.new_from_filename(temp_result.name)
++            temp_result.close()
++        else:
++            result = temp_result
+ 
+         if match == self.current_match:
+             GLib.idle_add(self.get_view_for_math_finish, success, result)
+diff --git a/apostrophe/latex_to_PNG.py b/apostrophe/latex_to_PNG.py
+index aa7431c..01942fd 100644
+--- a/apostrophe/latex_to_PNG.py
++++ b/apostrophe/latex_to_PNG.py
+@@ -54,7 +54,7 @@ class LatexToPNG:
+     TEX_FOOTER = r"""\end{document}"""
+ 
+     def __init__(self):
+-        self.temp_result = tempfile.NamedTemporaryFile(suffix=".png")
++        self.temp_result = None
+ 
+     def latex2png(self, tex, outfile, dpi, modified):
+         """Convert LaTeX input file infile to PNG file named outfile."""
+@@ -111,12 +111,14 @@ class LatexToPNG:
+                 error = error[:-1]
+             raise Exception(error)
+ 
++        self.clean_up(temps)
++
+     def generatepng(self, formula):
+         try:
+             self.temp_result = tempfile.NamedTemporaryFile(suffix=".png")
+             formula = "$" + formula + "$"
+             self.latex2png(formula, self.temp_result.name, 300, False)
+-            return True, self.temp_result.name
++            return True, self.temp_result
+ 
+         except Exception as e:
+             self.temp_result.close()
+-- 
+GitLab
+

@@ -1,0 +1,50 @@
+From 186500dbd004bc607d77258eb7b4923bbc8b313f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 29 Oct 2024 11:42:15 +0100
+Subject: [PATCH] Handle the case in inline preview when image is not found
+
+Also show the "Not Found" message when none of `preview_fns` matches.
+---
+ apostrophe/inline_preview.py | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/apostrophe/inline_preview.py b/apostrophe/inline_preview.py
+index 010d461..0b05f79 100644
+--- a/apostrophe/inline_preview.py
++++ b/apostrophe/inline_preview.py
+@@ -232,7 +232,8 @@ class InlinePreviewPopover(Gtk.Popover):
+         self.stack.set_visible_child(self.empty)
+ 
+     def set_not_found(self):
+-        self.stack.set_visible_child(self.error)
++        self.is_loaded = True
++        GLib.idle_add(self.stack.set_visible_child, self.error)
+ 
+     def _on_popover_closed(self, *args, **kwargs):
+         self.remove_preview()
+@@ -312,8 +313,11 @@ class InlinePreview(GObject.Object):
+         path = unquote(path)
+ 
+         if match == self.current_match:
+-            texture = Gdk.Texture.new_from_filename(path)
+-            GLib.idle_add(self.get_view_for_image_finish, texture)
++            try:
++                texture = Gdk.Texture.new_from_filename(path)
++                GLib.idle_add(self.get_view_for_image_finish, texture)
++            except GLib.GError as error:
++                self.popover.set_not_found()
+ 
+     def get_view_for_image_finish(self, texture):
+         image = Gtk.Picture()
+@@ -464,5 +468,7 @@ class InlinePreview(GObject.Object):
+                     threading.Thread(target=get_view_fn, args=(match,)).start()
+                     return
+ 
++        self.popover.set_not_found()
++
+     def _on_popover_closed(self, *args, **kwargs):
+         self.current_match = None
+\ No newline at end of file
+-- 
+GitLab
+

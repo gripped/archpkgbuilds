@@ -1,0 +1,246 @@
+From 624b73a42a07d970f6d11fabbc9cb5e2a9ded391 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 29 Oct 2024 01:56:11 +0100
+Subject: [PATCH] Improvements for the relative to absolute feature
+
+`chdir()` does not work if multiple documents are opened from different
+directories, because it sets the current directory for the whole process.
+Pass the `base_path` as a parameter to the Lua script instead.
+
+Also add an export option for this feature, and enable it for all formats
+by default, which is especially useful for formats that contain internal
+images.
+---
+ apostrophe/export_dialog.py       | 16 ++++++++++------
+ apostrophe/latex_to_PNG.py        |  4 +---
+ apostrophe/main_window.py         |  3 +--
+ apostrophe/preview_converter.py   |  7 ++++---
+ apostrophe/preview_handler.py     |  8 +-------
+ data/lua/relative_to_absolute.lua | 16 ++++++++++++++--
+ data/ui/Export.ui                 |  7 +++++++
+ 7 files changed, 38 insertions(+), 23 deletions(-)
+
+diff --git a/apostrophe/export_dialog.py b/apostrophe/export_dialog.py
+index 0fd93be0..220e9731 100644
+--- a/apostrophe/export_dialog.py
++++ b/apostrophe/export_dialog.py
+@@ -94,9 +94,7 @@ class ExportDialog:
+             "args": ["--embed-resources",
+                      "--standalone",
+                      "--css=%s" % Theme.get_current().web_css,
+-                     "--mathjax",
+-                     "--lua-filter=%s"
+-                     % helpers.get_media_path('/lua/relative_to_absolute.lua')]
++                     "--mathjax"]
+         },
+         "odt":
+         {
+@@ -109,6 +107,7 @@ class ExportDialog:
+     }
+ 
+     def __init__(self, file, _format, text):
++        self.file = file
+         self.format = _format
+         self.text = text
+ 
+@@ -144,7 +143,10 @@ class ExportDialog:
+             if not self._show_texlive_warning:
+                 file = self.dialog.get_file()
+                 fmt = self.formats[self.format]["to"]
+-                args = self.formats[self.format]["args"]
++                args = self.formats[self.format]["args"].copy()
++
++                args.append("--metadata=base_path:%s" % self.file.base_path)
++                args.append("--lua-filter=%s" % helpers.get_media_path('/lua/relative_to_absolute.lua'))
+ 
+                 if response == Gtk.ResponseType.ACCEPT:
+                     try:
+@@ -177,6 +179,7 @@ class AdvancedExportDialog(Adw.Dialog):
+ 
+     # #### --option properties-- #####
+     sw_standalone = Gtk.Template.Child()
++    sw_absolute = Gtk.Template.Child()
+     sw_toc = Gtk.Template.Child()
+     sw_numbers = Gtk.Template.Child()
+ 
+@@ -350,6 +353,9 @@ class AdvancedExportDialog(Adw.Dialog):
+ 
+         if self.sw_standalone.get_active():
+             args.append("--standalone")
++        if self.sw_absolute.get_active():
++            args.append("--metadata=base_path:%s" % self.file.base_path)
++            args.append("--lua-filter=%s" % helpers.get_media_path('/lua/relative_to_absolute.lua'))
+         if self.sw_toc.get_active():
+             args.append("--toc")
+         if self.sw_numbers.get_active():
+@@ -372,8 +378,6 @@ class AdvancedExportDialog(Adw.Dialog):
+         if self.show_html_options:
+             args.append("--css=%s" % Theme.get_current().web_css)
+             args.append("--mathjax")
+-            args.append("--lua-filter=%s" % helpers.get_media_path(
+-                '/lua/relative_to_absolute.lua'))
+             if self.sw_self_contained.get_active():
+                 args.append("--embed-resources")
+                 args.append("--standalone")
+diff --git a/apostrophe/latex_to_PNG.py b/apostrophe/latex_to_PNG.py
+index aa7431c8..f70952db 100644
+--- a/apostrophe/latex_to_PNG.py
++++ b/apostrophe/latex_to_PNG.py
+@@ -71,9 +71,7 @@ class LatexToPNG:
+         open(texfile, "w").write(tex)
+         saved_pwd = os.getcwd()
+ 
+-        os.chdir(outdir)
+-
+-        args = ["latex", "-halt-on-error", texfile]
++        args = ["latex", "-halt-on-error", "-output-directory=" + outdir, texfile]
+         p = subprocess.Popen(args,
+                              stderr=subprocess.STDOUT,
+                              stdout=subprocess.PIPE)
+diff --git a/apostrophe/main_window.py b/apostrophe/main_window.py
+index e0e4082a..16a6f48b 100644
+--- a/apostrophe/main_window.py
++++ b/apostrophe/main_window.py
+@@ -775,7 +775,6 @@ class File(GObject.Object):
+         else:
+             self.title = _("New File")
+             self.base_path = "/"
+-        os.chdir(self.base_path)
+ 
+         self.name = self.title
+         if self.name.endswith(".md"):
+@@ -793,4 +792,4 @@ class File(GObject.Object):
+         self.base_path = "/"
+         self.title = _("New File")
+         self.name = ""
+-        self.security_level = PreviewSecurity.ASK
+\ No newline at end of file
++        self.security_level = PreviewSecurity.ASK
+diff --git a/apostrophe/preview_converter.py b/apostrophe/preview_converter.py
+index 05de99d6..63359f78 100644
+--- a/apostrophe/preview_converter.py
++++ b/apostrophe/preview_converter.py
+@@ -19,12 +19,12 @@ class PreviewConverter:
+         worker.daemon = True
+         worker.start()
+ 
+-    def convert(self, text, secure_preview, callback, *user_data):
++    def convert(self, text, secure_preview, base_path, callback, *user_data):
+         """Converts text to html, calling callback when done.
+ 
+         The callback argument contains the result."""
+ 
+-        self.queue.put((text, secure_preview, callback, user_data))
++        self.queue.put((text, secure_preview, base_path, callback, user_data))
+ 
+     def stop(self):
+         """Stops the background worker.
+@@ -35,7 +35,7 @@ class PreviewConverter:
+     def __do_convert(self):
+         while True:
+             while True:
+-                (text, secure_preview, callback, user_data) = self.queue.get()
++                (text, secure_preview, base_path, callback, user_data) = self.queue.get()
+                 if text is None and callback is None:
+                     return
+                 if self.queue.empty():
+@@ -49,6 +49,7 @@ class PreviewConverter:
+                     '--standalone',
+                     '--mathjax',
+                     '--css=' + Theme.get_current().web_css,
++                    '--metadata=base_path:' + base_path,
+                     '--lua-filter=' +
+                     helpers.get_media_path('/lua/relative_to_absolute.lua')]
+ 
+diff --git a/apostrophe/preview_handler.py b/apostrophe/preview_handler.py
+index 2b3e6354..0e290f1f 100644
+--- a/apostrophe/preview_handler.py
++++ b/apostrophe/preview_handler.py
+@@ -88,15 +88,12 @@ class PreviewHandler:
+             self.preview_converter.convert(
+                 buf.get_text(buf.get_start_iter(), buf.get_end_iter(), False),
+                 secure_preview,
++                self.window().current.base_path,
+                 self.__show, Step.LOAD_WEBVIEW)
+ 
+         elif step == Step.LOAD_WEBVIEW:
+             # Second step: load HTML.
+             if not self.web_view:
+-                # chdir to a base path so the webview doesn't crash
+-                # once the webview is loaded we'll change back to the previous one
+-                # TODO: check out if we can remove this in the future
+-                os.chdir("/")
+                 self.web_view = PreviewWebView()
+                 self.web_view.get_settings().set_allow_universal_access_from_file_urls(True)
+                 self.web_view.get_settings().set_enable_developer_extras(config.PROFILE == '.Devel')
+@@ -182,9 +179,6 @@ class PreviewHandler:
+                 self.window().preview_stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
+             self.shown = False
+         elif event == WebKit.LoadEvent.FINISHED:
+-            # once the webview is loaded, change back the working dir
+-            # to the file path, so pandoc can work properly
+-            os.chdir(self.window().current.base_path)
+             if self.web_view_pending_html:
+                 self.__show(html=self.web_view_pending_html, step=Step.LOAD_WEBVIEW)
+                 self.web_view_pending_html = None
+diff --git a/data/lua/relative_to_absolute.lua b/data/lua/relative_to_absolute.lua
+index 6da1d367..ac7df6aa 100644
+--- a/data/lua/relative_to_absolute.lua
++++ b/data/lua/relative_to_absolute.lua
+@@ -1,3 +1,5 @@
++local base_path = "/"
++
+ function string.starts(String, Starts)
+   any_start_with = false
+   for i, Start in ipairs(Starts) do
+@@ -7,13 +9,17 @@ function string.starts(String, Starts)
+ end
+ 
+ function fix_path (path)
+-  if string.starts(path, {"/", "www.", "http", "file://", "#", "mailto:"}) then
++  if base_path == "/" or string.starts(path, {"/", "www.", "http", "file://", "#", "mailto:"}) then
+     return path
+   else
+-    return (pandoc.system.get_working_directory() or '') .. "/" .. path
++    return base_path .. "/" .. path
+   end
+ end
+ 
++function Meta(meta)
++  base_path = tostring(meta.base_path or "/")
++end
++
+ function Link (element)
+   element.target = fix_path(element.target)
+   return element
+@@ -23,3 +29,9 @@ function Image (element)
+   element.src = fix_path(element.src)
+   return element
+ end
++
++return {
++  {Meta = Meta},
++  {Link = Link},
++  {Image = Image}
++}
+diff --git a/data/ui/Export.ui b/data/ui/Export.ui
+index 25f5a4b1..526b0422 100644
+--- a/data/ui/Export.ui
++++ b/data/ui/Export.ui
+@@ -91,6 +91,13 @@
+                                             <property name="active">1</property>
+                                           </object>
+                                         </child>
++                                        <child>
++                                          <object class="AdwSwitchRow" id="sw_absolute">
++                                            <property name="title" translatable="yes">Relative to Absolute</property>
++                                            <property name="subtitle" translatable="yes">Replace relative path with absolute for images and links</property>
++                                            <property name="active">1</property>
++                                          </object>
++                                        </child>
+                                         <child>
+                                           <object class="AdwSwitchRow" id="sw_toc">
+                                             <property name="title" translatable="yes">Table of Contents</property>
+-- 
+GitLab
+

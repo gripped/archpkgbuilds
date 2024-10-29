@@ -1,0 +1,101 @@
+From f86c570d988dba8c2177d655386a1b8b64b10742 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 29 Oct 2024 10:19:59 +0100
+Subject: [PATCH] Read base_path directly from the window
+
+The setting `open-file-path` does not work if multiple documents are opened
+from different directories. Read it directly from `window` to always get
+the appropiate value.
+---
+ apostrophe/inline_preview.py                       | 7 ++++---
+ apostrophe/main_window.py                          | 2 --
+ apostrophe/text_view.py                            | 2 +-
+ apostrophe/text_view_format_inserter.py            | 3 +--
+ data/org.gnome.gitlab.somas.Apostrophe.gschema.xml | 7 -------
+ 5 files changed, 6 insertions(+), 15 deletions(-)
+
+diff --git a/apostrophe/inline_preview.py b/apostrophe/inline_preview.py
+index 010d461f..dd5a8822 100644
+--- a/apostrophe/inline_preview.py
++++ b/apostrophe/inline_preview.py
+@@ -300,15 +300,16 @@ class InlinePreview(GObject.Object):
+ 
+     def get_view_for_image(self, match):
+         path = match.group("url")
++        window = self.text_view.get_root()
++        basepath = window.current.base_path
+ 
+         if path.startswith(("https://", "http://", "www.")):
+             self.get_view_for_link(match)
+             return
+         if path.startswith(("file://")):
+             path = path[7:]
+-        if not path.startswith(("/", "file://")):
+-            path = os.path.join(
+-                self.settings.get_string("open-file-path"), path)
++        if not path.startswith(("/", "file://")) and basepath != "/":
++            path = os.path.join(basepath, path)
+         path = unquote(path)
+ 
+         if match == self.current_match:
+diff --git a/apostrophe/main_window.py b/apostrophe/main_window.py
+index e0e4082a..59bbe9dd 100644
+--- a/apostrophe/main_window.py
++++ b/apostrophe/main_window.py
+@@ -780,8 +780,6 @@ class File(GObject.Object):
+         self.name = self.title
+         if self.name.endswith(".md"):
+             self.name = self.name[:-3]
+-        # TODO: remove path in favor of gfile
+-        self._settings.set_string("open-file-path", self.base_path)
+         self._gfile = file
+ 
+     def __init__(self, gfile=None, encoding="UTF-8"):
+diff --git a/apostrophe/text_view.py b/apostrophe/text_view.py
+index edca04f4..67e743d9 100644
+--- a/apostrophe/text_view.py
++++ b/apostrophe/text_view.py
+@@ -182,7 +182,7 @@ class ApostropheTextView(GtkSource.View):
+                 content = content[7:]
+ 
+                 if mime[0] is not None and mime[0].startswith('image/'):
+-                    basepath = self.settings.get_string("open-file-path")
++                    basepath = self.get_root().current.base_path
+                     basepath = urllib.parse.quote(basepath)
+ 
+ 
+diff --git a/apostrophe/text_view_format_inserter.py b/apostrophe/text_view_format_inserter.py
+index 9711814b..1d18c5fc 100644
+--- a/apostrophe/text_view_format_inserter.py
++++ b/apostrophe/text_view_format_inserter.py
+@@ -450,8 +450,7 @@ class FormatInserter:
+                 # get an uri
+                 text_view.grab_focus()
+                 return
+-            self.settings = Settings.new()
+-            basepath = self.settings.get_string("open-file-path")
++            basepath = window.current.base_path
+             if basepath != "/":
+                 basepath = Gio.File.new_for_path(basepath)
+                 path = urllib.parse.quote(basepath.get_relative_path(image))
+diff --git a/data/org.gnome.gitlab.somas.Apostrophe.gschema.xml b/data/org.gnome.gitlab.somas.Apostrophe.gschema.xml
+index 7d590bc4..4a5b12d9 100644
+--- a/data/org.gnome.gitlab.somas.Apostrophe.gschema.xml
++++ b/data/org.gnome.gitlab.somas.Apostrophe.gschema.xml
+@@ -65,13 +65,6 @@
+         Hide the header and status bars when typing.
+       </description>
+     </key>
+-    <key name='open-file-path' type='s'>
+-      <default>"/tmp"</default>
+-      <summary>Open file base path</summary>
+-      <description>
+-        Open file paths of the current session
+-      </description>
+-    </key>
+     <key name='stat-default' enum='org.gnome.gitlab.somas.Apostrophe.Stat'>
+       <default>"words"</default>
+       <summary>Default statistic</summary>
+-- 
+GitLab
+

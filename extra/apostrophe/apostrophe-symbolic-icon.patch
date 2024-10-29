@@ -1,0 +1,26 @@
+From d00b0fb7b1b73b27bbc8a540a4479e5c79d5450e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 29 Oct 2024 02:06:10 +0100
+Subject: [PATCH] Use symbolic icon for Show More Controls button
+
+This makes it consistent with the rest of the toolbar.
+---
+ data/ui/Toolbar.ui | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/data/ui/Toolbar.ui b/data/ui/Toolbar.ui
+index 8e2ff547..f889aee2 100644
+--- a/data/ui/Toolbar.ui
++++ b/data/ui/Toolbar.ui
+@@ -151,7 +151,7 @@
+         <child>
+           <object class="GtkToggleButton" id="show_extra_controls_button">
+             <property name="tooltip-text" translatable="yes">Show More Controls</property>
+-            <property name="icon-name">go-next</property>
++            <property name="icon-name">go-next-symbolic</property>
+             <property name="active" bind-source="Toolbar" bind-property="extra_toolbar_revealed" bind-flags="bidirectional"/>
+             <style>
+               <class name="flat" />
+-- 
+GitLab
+
