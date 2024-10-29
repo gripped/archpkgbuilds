@@ -1,7 +1,8 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=apk-tools
-pkgver=2.14.4
+pkgver=2.14.5
 pkgrel=1
 pkgdesc="Alpine Package Keeper - package manager for alpine"
 url="https://gitlab.alpinelinux.org/alpine/apk-tools"
@@ -18,8 +19,8 @@ makedepends=(
   'scdoc'
 )
 source=("https://gitlab.alpinelinux.org/alpine/${pkgname}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
-sha256sums=('c8ad16bddfae988392ad067a244cfdaf643eb7d6761b73450739585ca76f9a25')
-b2sums=('367d23a2abce3a9fa8391af15a9907c1ee5fc44ae57bf00bd0cc3eeb892d2302a00fe29b46dacfd5e998e7c18e743381de0ff7f6f1a40f18470a19af10e033e2')
+sha256sums=('f61b45fc514b7b1e15817bdbb982a08ea235407f87acbb426529265fc0d02b5c')
+b2sums=('4c13c96c8c6ffcf40e1ad2e8d19a9b8617ac0ced1f93cd019250453a147ccc4794e3fb6ca0da1c98e21d47e71fe7be4b725c9ab2ed08d9f0e6345ae80d6febf7')
 
 prepare() {
   cd "${pkgname}-v${pkgver}"
