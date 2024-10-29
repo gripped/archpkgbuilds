@@ -2,7 +2,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=cargo-audit
-pkgver=0.20.0
+pkgver=0.21.0
 pkgrel=1
 pkgdesc="Audit Cargo.lock for crates with security vulnerabilities"
 url="https://github.com/RustSec/cargo-audit"
@@ -15,12 +15,12 @@ depends=(
 )
 options=(!lto)
 source=("https://github.com/RustSec/rustsec/archive/${pkgname}/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('695e8d0526bbc672d227a7f8b4592a5fd6641a9e819767146a8a4e3a32e57e5c')
-b2sums=('481230bcaf80c642b52bc6941ed3c0785b1c466be944c543ee685d348cc781bed1decba2fc343853e4cb3f28b723174188d6a7b8f752f12fd8f4100945287d7a')
+sha256sums=('343242874edd00c2aa49c7481af0c4735ebcf682d04710f0c02a56a9015f6092')
+b2sums=('8012299296f7cd54e100328f6e1aac1554b929c53f714c8d3ab41b64fdd46741780f07098d311851441c250845b3a3df9a3f547f0aa51f496648caa2a770f618')
 
 prepare() {
   cd rustsec-${pkgname}-v${pkgver}/${pkgname}
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
