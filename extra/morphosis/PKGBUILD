@@ -1,0 +1,55 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=morphosis
+pkgver=1.4.1
+pkgrel=2
+pkgdesc='Document conversion app using Pandoc and WebKitGTK'
+arch=(any)
+url='https://gitlab.gnome.org/World/morphosis'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  glib2
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  pandoc-cli
+  python
+  python-gobject
+  webkitgtk-6.0
+)
+makedepends=(
+  appstream
+  blueprint-compiler
+  git
+  meson
+)
+source=("git+https://gitlab.gnome.org/World/morphosis.git#tag=v$pkgver")
+b2sums=(15e40e1ae622642c757d1085e8551d1e400cc5815d219808819ef08f27017cabe61f88a4d0ba58e93aeaf5aa5d2747bb9f16c138a30198371aa7cd235a5ff042)
+
+prepare() {
+  cd $pkgname
+
+  # https://gitlab.gnome.org/World/morphosis/-/merge_requests/8
+  git cherry-pick -n 5c3a7bd90a3dd9cbc30c0e8304ff3444327fc772
+
+  # https://gitlab.gnome.org/World/morphosis/-/merge_requests/9
+  git cherry-pick -n 70faf64542a7fa740439af1dd4f217bc11fecad1
+  git cherry-pick -n 3d6813f3380d08153d411226c101fbb13dfd1e67
+}
+
+build() {
+  arch-meson $pkgname build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+
+  python -m compileall -d /usr/share "$pkgdir/usr/share"
+  python -O -m compileall -d /usr/share "$pkgdir/usr/share"
+}
