@@ -5,8 +5,8 @@
 pkgname=code
 pkgdesc='The Open Source build of Visual Studio Code (vscode) editor'
 # Important: Remember to check https://github.com/microsoft/vscode/wiki/How-to-Contribute#prerequisites for target node version
-_electron=electron30
-pkgver=1.94.2
+_electron=electron32
+pkgver=1.95.0
 pkgrel=1
 arch=('x86_64')
 url='https://github.com/microsoft/vscode'
@@ -15,14 +15,14 @@ depends=($_electron 'libsecret' 'libx11' 'libxkbfile' 'ripgrep')
 optdepends=('bash-completion: Bash completions'
             'zsh-completions: ZSH completitons'
             'x11-ssh-askpass: SSH authentication')
-makedepends=('gulp' 'git' 'npm' 'python' 'nodejs-lts-iron' 'desktop-file-utils' 'zip')
+makedepends=('gulp' 'git' 'npm' 'python' 'nodejs-lts-iron' 'desktop-file-utils' 'zip' 'jq')
 provides=('vscode')
 source=(vscode::"git+https://github.com/microsoft/vscode.git#tag=$pkgver"
         'code.mjs'
         'code.sh'
         'product_json.diff'
         'clipath.patch')
-sha512sums=('d6fd6eaf78080a79d9325feda6e41ed3aa5327d67692905d89e7d4b86ecc12120f1ae14ffe0e831ba0a2fbf4b66496e3b3f96cba75807f1be0e273929b078ddd'
+sha512sums=('f4d4194d40a2260eb411487e4d77d6c8536e826d7c3a6f43087b80247597eb388bb8f96d89822827f6aa2fed0e2af06d342fcf9899241c12e4578ecc6c44851a'
             '793f9ff6306e3992ac89802d98110cba288ea1181a901467333293b7d76182ef9792c2a39ff49d9347a18a174b1f42bc58862091dff583f4146c2704eea28033'
             'd2b3683085d98744ba4f7d8cb33fa38620b59220797917c3858cac6a0bf7962c2b7e293785a237f178e527384cc04bc19fe71d75f04fbf06be881263d4aa2b35'
             'b1aa0d7c5b3e3e8ba1172822d75ea38e90efc431b270e0b4ca9e45bf9c0be0f60922c8618969ef071b5b6dbd9ac9f030294f1bf49bcc28c187b46d113dca63a7'
@@ -63,6 +63,7 @@ prepare() {
     echo "Wrong electron dependency. Change _electron to $_electronver"
     exit 1
   fi
+  _electronver=$(jq -r '.packages[""].devDependencies.electron' package-lock.json)
 
   # Change electron binary name to the target electron
   sed -e "s|name=electron|name=$_electron |" \
@@ -78,7 +79,6 @@ prepare() {
   sed -e "s/@COMMIT@/$(git rev-parse HEAD)/" -e "s/@DATE@/$(date -u -Is | sed 's/\+00:00/Z/')/" -i product.json
 
   # Build native modules for system electron
-  _electronver=$(</usr/lib/$_electron/version)
   sed -i "s/^target .*/target \"${_electronver//v/}\"/" .npmrc
 
   # Patch appdata and desktop file
