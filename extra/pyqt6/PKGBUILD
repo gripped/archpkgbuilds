@@ -5,7 +5,7 @@ pkgname=python-pyqt6
 pkgdesc='A set of Python bindings for the Qt6 toolkit'
 _pkgver=6.8.0.dev2410211537
 pkgver=${_pkgver/.dev/dev}
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://riverbankcomputing.com/software/pyqt/intro'
 license=(GPL)
@@ -54,5 +54,5 @@ package_python-pyqt6(){
   python -O -m compileall -d / "$pkgdir"/usr/lib
 
   # fix permissions
-  find "$pkgdir" -type f -exec chmod 644 {} \;
+  find "$pkgdir"/usr/lib -type f -exec chmod 644 {} \;
 }
