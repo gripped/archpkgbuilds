@@ -3,7 +3,7 @@
 
 pkgbase=level-zero
 pkgname=(level-zero-headers level-zero-loader)
-pkgver=1.17.42
+pkgver=1.17.45
 pkgrel=1
 pkgdesc="API for accessing low level interfaces in oneAPI platform devices"
 arch=(x86_64)
@@ -11,7 +11,7 @@ url="https://spec.oneapi.com/versions/latest/elements/l0/source/index.html"
 license=(MIT)
 makedepends=(git cmake fmt opencl-headers spdlog)
 source=(https://github.com/oneapi-src/level-zero/archive/v${pkgver}/${pkgbase}-${pkgver}.tar.gz)
-sha256sums=('16ba86e9fee6699c5300bb0ef09cb0852cd261e2ddd9960f88df93d4d04a4829')
+sha256sums=('c7e4d3e98ee71ba4992f5891191fa792e0affe6da2bbb93a537b192eb0d24f57')
 
 prepare() {
   printf '%s\n' ${pkgver##*.} > ${pkgbase}-${pkgver}/VERSION_PATCH
