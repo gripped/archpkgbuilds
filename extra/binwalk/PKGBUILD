@@ -5,24 +5,21 @@
 # Contributor: s1gma <s1gma@mindslicer.com>
 
 pkgname=binwalk
-pkgver=2.4.2
+pkgver=3.1.0
 pkgrel=1
 pkgdesc='Tool for searching a given binary image for embedded files'
-url='https://github.com/OSPG/binwalk'
-arch=(any)
+url='https://github.com/ReFirmLabs/binwalk'
+arch=(x86_64)
 license=(MIT)
 depends=(
-  python
-  python-setuptools
+  'bzip2'
+  'gcc-libs'
+  'freetype2'
+  'fontconfig'
+  'xz'
 )
 makedepends=(
-  python-build
-  python-installer
-  python-setuptools
-  python-wheel
-)
-checkdepends=(
-  python-pytest
+  'rust'
 )
 optdepends=(
   'python-opengl: binviz module support'
@@ -40,34 +37,32 @@ optdepends=(
   'p7zip: ZIP, LZMA and ISO decompression support'
   'squashfs-tools: squashfs support'
   'tar: TAR archive support'
-  'bzip2: BZIP2 archive support'
   'unrar: RAR decompression support'
-  'xz: XZ decompression support'
   'lhasa: LHA support'
   'sleuthkit: forensic analysis support'
 )
 source=(
   "${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
 )
-sha512sums=('b9d3b13de9b81216759f5e1573bf6056a3210892ad920b43afe0c6ef2ff1d200be28ecfe12bec11fd7540545d1bb2f27d210ee5afb968910d4e9fb46a21673ce')
-b2sums=('65e3c44b2e2c4cc639ad6b8adf3fbac7cda574ca8b00f714d4ae5635dd3e24fcfc8c0d151c20ad40ad891adef803667e6f65167f96d4405ad83abee44121c224')
+sha512sums=('ebed0d260252a18d32af3d24ef7414df656eaa619fbd0327bdd4a9e104654e348dc5cb093d2627258c5839682cfb30bba33f54b91e7e10c1e513f9ceb8509aa7')
+b2sums=('021384121d961775172c282775ed78a783e2eaba1a0c2a7eb4f98e2fc6fcfaa9e11ef419aba9fa2eb8f350eba327e31cc8adc31b92ef48b6134c9ecab1a3a396')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
 
 build() {
   cd ${pkgname}-${pkgver}
-  python -m build --wheel --no-isolation
-}
-
-check() {
-  cd ${pkgname}-${pkgver}
-  python -m venv --clear --without-pip --system-site-packages .testenv
-  .testenv/bin/python -m installer dist/*.whl
-  .testenv/bin/python -m pytest
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --release --locked
 }
 
 package() {
   cd ${pkgname}-${pkgver}
-  python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm 644 ./*.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -Dm755 -t "${pkgdir}"/usr/bin target/release/binwalk
   install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
 
