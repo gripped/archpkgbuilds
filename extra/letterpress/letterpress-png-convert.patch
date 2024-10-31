@@ -1,4 +1,4 @@
-From 8181b33207ed4e32064b2554b50f97233ca965ba Mon Sep 17 00:00:00 2001
+From 5db605aae4df1469263a005f9e21087fe5ac7c78 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Tue, 29 Oct 2024 21:42:54 +0100
 Subject: [PATCH] Convert images to PNG
@@ -7,11 +7,11 @@ This allows to open any image formats supported by Pillow.
 ---
  ....gitlab.gregorni.Letterpress.desktop.in.in |  2 +-
  src/supported_formats.py                      |  2 +-
- src/window.py                                 | 22 ++-----------------
- 3 files changed, 4 insertions(+), 22 deletions(-)
+ src/window.py                                 | 23 +++----------------
+ 3 files changed, 5 insertions(+), 22 deletions(-)
 
 diff --git a/data/io.gitlab.gregorni.Letterpress.desktop.in.in b/data/io.gitlab.gregorni.Letterpress.desktop.in.in
-index 9fec511..4c6c69d 100644
+index 9fec511..4e192e6 100644
 --- a/data/io.gitlab.gregorni.Letterpress.desktop.in.in
 +++ b/data/io.gitlab.gregorni.Letterpress.desktop.in.in
 @@ -13,4 +13,4 @@ Categories=GTK;GNOME;TextTools;Graphics;ImageProcessing;
@@ -19,9 +19,9 @@ index 9fec511..4c6c69d 100644
  StartupNotify=true
  X-Purism-FormFactor=Workstation;Mobile;
 -MimeType=image/png;image/jpeg;
-+MimeType=image/bmp;image/x-pcx;image/gif;image/png;image/jp2;image/icns;image/x-icon;image/jpeg;image/tiff;image/mpo;image/x-portable-anymap;image/vnd.adobe.photoshop;image/sgi;image/x-tga;image/webp;image/xbm;image/xpm;
++MimeType=image/bmp;image/x-dds;image/vnd.zbrush.pcx;image/gif;image/png;image/jp2;image/x-icns;image/vnd.microsoft.icon;image/jpeg;image/tiff;image/x-portable-anymap;image/vnd.adobe.photoshop;image/qoi;image/x-sgi;image/x-tga;image/webp;image/x-xpixmap;
 diff --git a/src/supported_formats.py b/src/supported_formats.py
-index d513dfd..7a6eeb9 100644
+index d513dfd..95052ef 100644
 --- a/src/supported_formats.py
 +++ b/src/supported_formats.py
 @@ -17,4 +17,4 @@
@@ -29,20 +29,21 @@ index d513dfd..7a6eeb9 100644
  # SPDX-License-Identifier: GPL-3.0-or-later
  
 -formats = ["jpeg", "png"] #, "webp", "gif"]
-+formats = ["bmp", "x-pcx", "gif", "png", "jp2", "icns", "x-icon", "jpeg", "tiff", "mpo", "x-portable-anymap", "vnd.adobe.photoshop", "sgi", "x-tga", "webp", "xbm", "xpm"]
++formats = ["bmp", "x-dds", "vnd.zbrush.pcx", "gif", "png", "jp2", "x-icns", "vnd.microsoft.icon", "jpeg", "tiff", "x-portable-anymap", "vnd.adobe.photoshop", "qoi", "x-sgi", "x-tga", "webp", "x-xpixmap"]
 diff --git a/src/window.py b/src/window.py
-index 4cd9598..ca0081d 100644
+index 4cd9598..7b7458f 100644
 --- a/src/window.py
 +++ b/src/window.py
-@@ -23,7 +23,6 @@ from tempfile import NamedTemporaryFile
+@@ -23,7 +23,7 @@ from tempfile import NamedTemporaryFile
  from gi.repository import Adw, Gdk, Gio, Gtk
  from PIL import Image, ImageChops, ImageOps
  
 -from . import texture_to_file, supported_formats
++from . import texture_to_file
  from .file_chooser import FileChooser
  from .zoom_box import ZoomBox
  from .zoom_consts import INITIAL_ZOOM, ZOOM_FACTOR, MIN_ZOOM, MAX_ZOOM
-@@ -108,31 +107,14 @@ class LetterpressWindow(Adw.ApplicationWindow):
+@@ -108,31 +108,14 @@ class LetterpressWindow(Adw.ApplicationWindow):
  
          try:
              with Image.open(filepath) as img:
