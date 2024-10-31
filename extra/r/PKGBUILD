@@ -4,7 +4,7 @@
 # Contributor: K. Piche <kpiche@rogers.com>
 
 pkgname=r
-pkgver=4.4.1
+pkgver=4.4.2
 pkgrel=1
 pkgdesc='Language and environment for statistical computing and graphics'
 arch=(x86_64)
@@ -54,7 +54,7 @@ source=(https://cran.r-project.org/src/base/R-${pkgver%%.*}/R-$pkgver.tar.gz
 	r.desktop
 	r.png
 	R.conf)
-sha256sums=('b4cb675deaaeb7299d3b265d218cde43f192951ce5b89b7bb1a5148a36b2d94d'
+sha256sums=('1578cd603e8d866b58743e49d8bf99c569e81079b6a60cf33cdf7bdffeb817ec'
             '25b01ea93fa704884b65ba002d44d4e99725bd826997e8c73b6467df9f23c798'
             '1580d06a737951f4f3c903cbd514247d9071fc6868eb9c2de94bb999cc195cb1'
             'b7833166041b06f716b6a79095d27d4abd83549816dc53193213827139eae6ef')
