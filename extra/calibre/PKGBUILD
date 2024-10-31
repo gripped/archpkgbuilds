@@ -9,7 +9,7 @@
 
 pkgname=calibre
 pkgver=7.17.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Ebook management application'
 arch=(x86_64)
 url=https://calibre-ebook.com
@@ -72,7 +72,8 @@ makedepends=(cmake
              xdg-utils)
 checkdepends=(poppler
               python-fonttools
-              speech-dispatcher)
+              speech-dispatcher
+              tk)
 optdepends=('poppler: required for converting pdf to html'
             'python-fonttools: required for font subset feature in epub editor'
             'speech-dispatcher: TTS support in the viewer')
@@ -81,9 +82,15 @@ conflicts=(calibre-common
 replaces=("${conflicts[@]}")
 _archive="$pkgname-$pkgver"
 source=("https://download.calibre-ebook.com/$pkgver/$_archive.tar.xz"
-        "$url/signatures/$_archive.tar.xz.sig")
+        "$url/signatures/$_archive.tar.xz.sig"
+         https://github.com/kovidgoyal/calibre/commit/0796e120.patch
+         https://github.com/kovidgoyal/calibre/commit/358a2022.patch
+         https://github.com/kovidgoyal/calibre/commit/a961ddbf.patch)
 sha256sums=('ce89672c0acfad8be70c1bb94d56bd4bc54def90375806ff6a7d5059c0b0d748'
-            'SKIP')
+            'SKIP'
+            '5e58c2a65fd3de3d12b23ac23c153071e49b23c7f295f4df22a45821ae3e9fa2'
+            '21f6894c1631cb27b6c25379df65f2a706a27304837f42ec66090a64cc44afb4'
+            '510cc0ede9f5f00222c2ed91551b4c94189cc84ee0abdbbace866f9b4ddad38d')
 validpgpkeys=('3CE1780F78DD88DF45194FD706BC317B515ACE7C') # Kovid Goyal (New longer key) <kovid@kovidgoyal.net>
 
 prepare(){
@@ -97,6 +104,13 @@ prepare(){
 	# Remove unneeded files
 	rm -f resources/$pkgname-portable.*
         sed -e 's|"14"|"17"|' -e 's|"11"|"17"|' -i setup/extensions.json # Fix build with ICU 75
+
+# Fix issues with Qt 6.8
+  patch -p1 -i ../0796e120.patch
+# Fix test failure with openssl 3.4
+  patch -p1 -i ../358a2022.patch
+# Fix tests with pillow 11
+  patch -p1 -i ../a961ddbf.patch
 }
 
 build() {
