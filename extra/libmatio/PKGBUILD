@@ -6,8 +6,8 @@
 # Contributor: William Rea <sillywilly at gmail dot com>
 
 pkgname=libmatio
-pkgver=1.5.27
-pkgrel=3
+pkgver=1.5.28
+pkgrel=1
 pkgdesc='C library with a fortran 90/95 module interface for reading/writing MATLAB MAT-files'
 arch=(x86_64)
 license=(BSD-2-Clause)
@@ -17,7 +17,7 @@ depends=(glibc
          zlib)
 makedepends=(git)
 source=(git+https://github.com/tbeu/matio#tag=v$pkgver)
-sha256sums=('86adb65dc3f40040a5a72eda4c2dc5243c8a0e1fa76ab2a709e0ec0cc6f26678')
+sha256sums=('d0f1b2f6e7919bf353442ad12863acf89aea58e20d918cc0dfd8a1c23a933dd3')
 
 prepare() {
   cd matio
