@@ -2,8 +2,8 @@
 # Maintainer: Peter Jung <ptr1337@archlinux.org>
 
 pkgname=nvidia-open
-pkgver=560.35.03
-pkgrel=19
+pkgver=565.57.01
+pkgrel=1
 pkgdesc="NVIDIA open kernel modules"
 arch=('x86_64')
 url="https://github.com/NVIDIA/open-gpu-kernel-modules"
