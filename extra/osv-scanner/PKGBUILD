@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=osv-scanner
-pkgver=1.9.0
+pkgver=1.9.1
 pkgrel=1
 pkgdesc="Vulnerability scanner written in Go which uses the data provided by https://osv.dev"
 url='https://github.com/google/osv-scanner'
@@ -11,8 +11,8 @@ depends=('glibc')
 makedepends=('go')
 options=('!lto')
 source=(https://github.com/google/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('85ce158b6dce22cddc19b652bdc5150145b57119e3acfa8e3ae5ba1cfa449a3f')
-b2sums=('c2869929a0b58f329ddfacbba67ea5e813f8f8654c32500f4e1831ad1e55fc625c287c7ce4805272bcb661138a0ac350124cfc987a41ea356db7f665b2abe2b8')
+sha256sums=('ebb7f5017c6fe0c9aad25c520a44ac32d0424efb75f87641f66d5c2ef4fafe1a')
+b2sums=('98c0a607a7d94b838b84cbb1c30d11492d16012d2ce02e992c53c45a3ba14e126e988dd7ee41d1ffa845b788ce0ce08a0425a2ee48cfdd781eab7cbc68cff65e')
 
 build() {
   cd ${pkgname}-${pkgver}
