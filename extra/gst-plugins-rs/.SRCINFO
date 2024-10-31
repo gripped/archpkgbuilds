@@ -1,12 +1,13 @@
 pkgbase = gst-plugins-rs
 	pkgdesc = Multimedia graph framework
-	pkgver = 0.13.1
-	pkgrel = 2
+	pkgver = 0.13.2
+	pkgrel = 1
 	url = https://gstreamer.freedesktop.org/
 	arch = x86_64
 	license = MPL-2.0
 	makedepends = cairo
 	makedepends = cargo-c
+	makedepends = dav1d
 	makedepends = git
 	makedepends = graphene
 	makedepends = gst-plugins-bad
@@ -24,9 +25,9 @@ pkgbase = gst-plugins-rs
 	depends = glibc
 	depends = gstreamer
 	options = !lto
-	source = git+https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs.git?signed#tag=0.13.1
+	source = git+https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs.git?signed#tag=0.13.2
 	validpgpkeys = 7F4BC7CC3CA06F97336BBFEB0668CC1486C2D7B5
-	b2sums = 0a87e3965cbdfc3fab65847949ffbfb096dd4da93a994f37709214fbcc0b3ebed351731fcc700f29d146dc35d0161e6c3f8d86b74d40f288e30b07820d01707a
+	b2sums = 48e7bae4e5f71cc144ede1e306bb7954b7493785c451b2d7046be26da8bc4733bde8b81a12273e3b1496ddc8479bb751e75d5a19c82c2504bf6b5255f6914035
 
 pkgname = gst-webrtc-signalling-server
 	pkgdesc = Multimedia graph framework - webrtc signalling server
@@ -40,7 +41,7 @@ pkgname = gst-plugin-aws
 	depends = glib2
 	depends = glibc
 	depends = gstreamer
-	depends = gst-plugin-hlssink3=0.13.1-2
+	depends = gst-plugin-hlssink3=0.13.2-1
 	depends = gst-plugins-bad
 	depends = gst-plugins-base-libs
 	depends = openssl
@@ -61,6 +62,16 @@ pkgname = gst-plugin-claxon
 	depends = glib2
 	depends = glibc
 	depends = gstreamer
+	depends = gst-plugins-base-libs
+
+pkgname = gst-plugin-dav1d
+	pkgdesc = Multimedia graph framework - dav1d plugin
+	license = MIT OR Apache-2.0
+	depends = gcc-libs
+	depends = glib2
+	depends = glibc
+	depends = gstreamer
+	depends = dav1d
 	depends = gst-plugins-base-libs
 
 pkgname = gst-plugin-fallbackswitch
@@ -218,8 +229,8 @@ pkgname = gst-plugin-rsclosedcaption
 	depends = glib2
 	depends = glibc
 	depends = gstreamer
-	depends = gst-plugin-aws=0.13.1-2
-	depends = gst-plugin-textwrap=0.13.1-2
+	depends = gst-plugin-aws=0.13.2-1
+	depends = gst-plugin-textwrap=0.13.2-1
 	depends = cairo
 	depends = gst-plugins-bad
 	depends = gst-plugins-base-libs
@@ -309,7 +320,7 @@ pkgname = gst-plugin-rswebrtc
 	depends = glib2
 	depends = glibc
 	depends = gstreamer
-	depends = gst-plugin-rsrtp=0.13.1-2
+	depends = gst-plugin-rsrtp=0.13.2-1
 	depends = gst-plugins-bad-libs
 	depends = gst-plugins-base
 	depends = gst-plugins-base-libs

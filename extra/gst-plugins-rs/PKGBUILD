@@ -6,6 +6,7 @@ pkgname=(
   gst-plugin-aws
   gst-plugin-cdg
   gst-plugin-claxon
+  gst-plugin-dav1d
   gst-plugin-fallbackswitch
   gst-plugin-ffv1
   gst-plugin-fmp4
@@ -46,8 +47,8 @@ pkgname=(
   gst-plugin-togglerecord
   gst-plugin-webrtchttp
 )
-pkgver=0.13.1
-pkgrel=2
+pkgver=0.13.2
+pkgrel=1
 pkgdesc="Multimedia graph framework"
 url="https://gstreamer.freedesktop.org/"
 arch=(x86_64)
@@ -61,6 +62,7 @@ depends=(
 makedepends=(
   cairo
   cargo-c
+  dav1d
   git
   graphene
   gst-plugins-bad
@@ -78,7 +80,7 @@ options=(!lto)
 source=(
   "git+https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs.git?signed#tag=$pkgver"
 )
-b2sums=('0a87e3965cbdfc3fab65847949ffbfb096dd4da93a994f37709214fbcc0b3ebed351731fcc700f29d146dc35d0161e6c3f8d86b74d40f288e30b07820d01707a')
+b2sums=('48e7bae4e5f71cc144ede1e306bb7954b7493785c451b2d7046be26da8bc4733bde8b81a12273e3b1496ddc8479bb751e75d5a19c82c2504bf6b5255f6914035')
 validpgpkeys=(
   7F4BC7CC3CA06F97336BBFEB0668CC1486C2D7B5 # Sebastian Dröge <sebastian@centricular.com>
 )
@@ -89,7 +91,6 @@ _cargo_c_options=(
   --features asm,dmabuf,dssim,gtk_v4_16,v1_22,wayland,x11egl,x11glx
   --workspace
   --exclude gst-plugin-csound
-  --exclude gst-plugin-dav1d
   --exclude gst-plugin-ndi
   --exclude gst-plugin-uriplaylistbin
 )
@@ -178,6 +179,20 @@ package_gst-plugin-claxon() {
   mv plugin-claxon/* "$pkgdir"
 
   install -Dm644 $pkgbase/audio/claxon/LICENSE-MIT \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+package_gst-plugin-dav1d() {
+  pkgdesc+=" - dav1d plugin"
+  license=("MIT OR Apache-2.0")
+  depends+=(
+    dav1d
+    gst-plugins-base-libs
+  )
+
+  mv plugin-dav1d/* "$pkgdir"
+
+  install -Dm644 $pkgbase/video/dav1d/LICENSE-MIT \
     -t "$pkgdir/usr/share/licenses/$pkgname"
 }
 
