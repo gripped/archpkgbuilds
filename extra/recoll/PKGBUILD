@@ -5,7 +5,7 @@
 # Contributor: Robert Emil Berge <filoktetes@linuxophic.org>
 
 pkgname=recoll
-pkgver=1.40.1
+pkgver=1.40.3
 pkgrel=1
 pkgdesc="Full text search tool based on Xapian backend"
 arch=('x86_64')
@@ -35,7 +35,7 @@ optdepends=('libxslt: for XML based formats (fb2,etc)'
 	    'krunner: KDE plugins'
 	    'aspell-en: English stemming support')
 source=("https://www.recoll.org/$pkgname-${pkgver/_/}.tar.gz")
-sha512sums=('7590f1d17f9d8fc7930044d43d92be47158cbd2c830d8723a1604b672d3d8df22e507d7208525e1bfdc169b5151f5b6a3f96bbfefb5bededd0e2dae7bdeb2359')
+sha512sums=('1f374e2f3ff721cdacd146d96e404d59554587ec30da63ffda8c9075a0b4407f70714e96a2ab3d7963f5d848096e5f295dc80bd7254ad8109e1e93732a8556a2')
 
 prepare() {
   cd "$srcdir/$pkgname-${pkgver/_/}"
@@ -62,7 +62,12 @@ build() {
   cp CMakeLists-KF6.txt CMakeLists.txt
   mkdir -p build
   cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr -DRECOLL_PUBLIC_LIB=ON -DQT_MAJOR_VERSION=6 ..
+  cmake \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DRECOLL_PUBLIC_LIB=ON \
+    -DQT_MAJOR_VERSION=6 \
+    -DDATA_INSTALL_DIR=/usr/share/recoll/kio_recoll \
+    ..
   make
   popd
 
@@ -70,7 +75,12 @@ build() {
   cp CMakeLists-KF6.txt CMakeLists.txt
   mkdir -p build
   cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr -DRECOLL_PUBLIC_LIB=ON -DQT_MAJOR_VERSION=6 ..
+  cmake \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DRECOLL_PUBLIC_LIB=ON \
+    -DQT_MAJOR_VERSION=6 \
+    -DDATA_INSTALL_DIR=/usr/share/recoll/krunner \
+    ..
   make
   popd
 
