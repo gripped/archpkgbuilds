@@ -3,11 +3,12 @@
 
 pkgname=ueberzugpp
 pkgver=2.9.6
-pkgrel=4
+pkgrel=5
 pkgdesc="Command line utility which allows to display images in the terminal, written in C++"
 arch=('x86_64')
 url="https://github.com/jstkdng/ueberzugpp"
 license=("GPL-3.0-or-later")
+provides=('ueberzug')
 conflicts=("ueberzug")
 makedepends=("cmake" "cli11" "nlohmann-json" "wayland-protocols" "extra-cmake-modules" "range-v3")
 depends=("opencv" "libvips" "glib2" "libxcb" "xcb-util-image" "libsixel" "openssl" "spdlog" "libglvnd"
