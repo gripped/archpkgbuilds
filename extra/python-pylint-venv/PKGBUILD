@@ -1,26 +1,34 @@
-# Maintainer:
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Stijn Seghers <stijnseghers at gmail dot com>
 
 pkgname=python-pylint-venv
-_pyname=pylint-venv
-pkgver=3.0.3
-pkgrel=2
+_pkgname=${pkgname#python-}
+pkgver=3.0.4
+pkgrel=1
 pkgdesc='Make pylint respect virtualenvs'
 arch=(any)
-url="https://github.com/jgosmann/$_pyname"
+url="https://github.com/jgosmann/pylint-venv"
 license=(MIT)
-depends=(python-pylint python-virtualenv)
-makedepends=(python-build python-installer python-wheel python-poetry-core)
-source=(https://github.com/jgosmann/$_pyname/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('4c85eee2830e12432dbb7570b0cefc046552283bf8a8658d86e7a505a8a51e88')
+depends=(
+  python
+  python-pylint
+)
+makedepends=(
+  python-build
+  python-installer
+  python-poetry-core
+  python-wheel
+)
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('3b05ed629731744ba4a8cf8dbe33db0d578416131143a43e9ee85c5004c977ab')
 
 build() {
-    cd $_pyname-$pkgver
-    python -m build --wheel --no-isolation
+  cd "$_pkgname-$pkgver"
+  python -m build --wheel --no-isolation
 }
 
 package() {
-    cd $_pyname-$pkgver
-    python -m installer --destdir="$pkgdir" dist/*.whl
-    install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname
+  cd "$_pkgname-$pkgver"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
 }
