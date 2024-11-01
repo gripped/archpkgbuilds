@@ -3,14 +3,15 @@
 
 pkgname=python-zope-copy
 _pkgname=zope.copy
-pkgver=4.3
-pkgrel=4
+pkgver=5.0
+pkgrel=1
 pkgdesc="Pluggable object copying mechanism"
 arch=('any')
 url="https://github.com/zopefoundation/zope.copy"
 license=('ZPL-2.1')
 depends=(
   'python'
+  'python-zodbpickle'
   'python-zope-interface'
 )
 makedepends=(
@@ -25,11 +26,11 @@ checkdepends=(
   'python-zope-testrunner'
 )
 source=("$pkgname-$pkgver.tar.gz::https://github.com/zopefoundation/zope.copy/archive/$pkgver.tar.gz")
-sha512sums=('ca9acf3fb65677ee123a4e1f3cd01051330ecde62f22528ff7aef719e0c60936e9a19c260f461e1aa17a280b43389198bbab85f94f52827e9762e60f65560360')
+sha512sums=('5ce5907036e1572cdb4143030b25fc89ca738dec04fc91acf423b1570ab01e8906f8ffb2a389cc7f1edd58e25ad4ebaa324925032f05a21dbc07c94160086918')
 
 build() {
   cd $_pkgname-$pkgver
-  python -m build --wheel --no-isolation
+  python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
