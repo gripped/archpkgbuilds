@@ -3,7 +3,7 @@
 
 pkgname=python-voila
 _name=${pkgname#python-}
-pkgver=0.5.7
+pkgver=0.5.8
 pkgrel=1
 pkgdesc="Voilà turns Jupyter notebooks into standalone web applications"
 arch=(any)
@@ -28,8 +28,7 @@ makedepends=(
   python-hatch-jupyter-builder
   python-jupyter-packaging
   npm
-  # jupyterlab depends on jupyter-lsp according to its pyproject.toml
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/jupyterlab/-/issues/1
+  # optdepends for jupyterlab
   jupyter-lsp
   # optdepends for jupyter-server
   python-jupyter-server-terminals
@@ -60,7 +59,7 @@ checkdepends=(
   python-pytest-tornasync
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-b2sums=('d59f7fc34c2c216f1027b628ceefbefcab3869fb748752906f68aba95945de1ebdf041f34ca50fc9ad0e37872c7e1a518b86ba41a349c7c5e3ab12c5dd9a5e93')
+b2sums=('edf78dd90e9b546cbb1edf751bd4279fefaf648796c544e5d3b11050ab94404e8cb45d40d9b9f25559c07331cdaeac5922cec546a47d76115454bcae17fd635d')
 
 build() {
   cd $_name-$pkgver
