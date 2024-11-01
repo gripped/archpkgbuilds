@@ -6,7 +6,7 @@ pkgname=(pcp pcp-gui pcp-pmda-activemq pcp-pmda-bcc pcp-pmda-bind2 pcp-pmda-bpft
          pcp-pmda-mysql pcp-pmda-nginx pcp-pmda-nutcracker pcp-pmda-openmetrics
          pcp-pmda-podman pcp-pmda-postgresql pcp-pmda-snmp)
 pkgver=6.3.1
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="https://pcp.io"
 license=(GPL-2.0-or-later LGPL-2.1-or-later CC-BY-3.0)
@@ -425,7 +425,14 @@ package_pcp() {
   )
 
   cd "$pkgbase-$pkgver"
-  rsync -vaHAX --exclude-from=../gui.list --exclude-from=<(echo /{etc/pcp,var/lib/pcp/config/pmlogconf,{usr,var}/lib/pcp/pmdas}/{activemq,bcc,bind2,bpftrace,libvirt,json,mysql,nginx,nutcracker,openmetrics,podman,postgresql,snmp} /usr/share/man/man1/pmda{activemq,bcc,bind2,bpftrace,libvirt,json,mysql,nginx,nutcracker,openmetrics,podman,postgresql,snmp}.1.gz | sed -r 's/ +/\n/g') "$srcdir"/installskel/ "$pkgdir"/
+  rsync -vaHAX --exclude-from=../gui.list --exclude-from=<(echo \
+    /etc/pcp \
+    /var/lib/pcp/config/pmlogconf \
+    /{usr,var}/lib/pcp/pmdas/{activemq,bcc,bind2,bpftrace,libvirt,json,mysql,nginx,nutcracker,openmetrics,podman,postgresql,snmp} \
+    /usr/share/man/man1/pmda{activemq,bcc,bind2,bpftrace,libvirt,json,mysql,nginx,nutcracker,openmetrics,podman,postgresql,snmp}.1.gz \
+    /usr/lib/sysusers.d/pcp-testsuite.conf \
+      | sed -r 's/ +/\n/g' \
+  ) "$srcdir"/installskel/ "$pkgdir"/
 
   install -D -m644 "$srcdir"/sysuser.conf "$pkgdir"/usr/lib/sysusers.d/pcp.conf
   install -D -m644 "$srcdir"/tmpfile.conf "$pkgdir"/usr/lib/tmpfiles.d/pcp.conf
