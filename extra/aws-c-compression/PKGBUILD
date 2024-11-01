@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-compression
-pkgver=0.2.19
+pkgver=0.3.0
 pkgrel=1
 pkgdesc='C99 implementation of huffman encoding/decoding'
 arch=(x86_64)
@@ -14,7 +14,7 @@ depends=(
 )
 makedepends=(cmake)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('51796f98a29a0d6e257c02e1f842bbc41db324758939093e6d46ec28337a3272')
+sha256sums=('7e5d7308d1dbb1801eae9356ef65558f707edf33660dd6443c985db9474725eb')
 
 build() {
   cd $pkgname-$pkgver
