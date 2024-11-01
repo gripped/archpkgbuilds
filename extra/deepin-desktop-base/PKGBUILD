@@ -3,26 +3,27 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-desktop-base
-pkgver=2024.01.03
+pkgver=2024.04.16
 pkgrel=1
 epoch=2
 pkgdesc='Base component for Deepin'
 arch=('any')
 url="https://github.com/linuxdeepin/deepin-desktop-base"
 license=('GPL3')
+makedepends=('git')
 groups=('deepin')
-source=("https://github.com/linuxdeepin/deepin-desktop-base/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+source=("git+https://github.com/linuxdeepin/deepin-desktop-base.git#tag=$pkgver"
         distribution.info)
-sha512sums=('3828007c10836a63d62244f5490bd0f8b66763b2b5a2ff43919c1e53e5d0d7a39973b44cc4ec1f17598f5f52f1db349d8617a44fa5a2d1875789b7b616f62dc0'
+sha512sums=('c5e90e79d7baa3d819027f67615ce1e900a465b1961e8eeb1bc1d2ffe39c27ea58a5204f567ade25d49b013e13156d70be265b7f4600e21a852d38034d82e0a9'
             '17b17c3174a052ae93e57cfffaf551cac05a56da62b2f4829f5e8f4d0bd9dbe47e043ffcbd2c6299a771f7f8b8f2fffc727f2b5b754ab1cffbbf72fa3f54d035')
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 
   install -Dm644 "$srcdir"/distribution.info -t "$pkgdir"/usr/share/deepin/
