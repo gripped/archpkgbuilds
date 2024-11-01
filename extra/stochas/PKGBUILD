@@ -3,8 +3,7 @@
 _name=Stochas
 pkgbase=stochas
 pkgname=(stochas stochas-{clap,standalone,vst3})
-pkgver=1.3.10
-_commit=b62d684a24f179cc969f086d53f7c7656cc36ca4  # refs/tags/v1.3.10
+pkgver=1.3.12
 pkgrel=1
 pkgdesc="A probabilistic polyrhythmic sequencer"
 arch=(x86_64)
@@ -35,27 +34,22 @@ makedepends=(
   zlib
 )
 source=(
-  git+https://github.com/surge-synthesizer/$pkgname.git#commit=$_commit
+  git+https://github.com/surge-synthesizer/$pkgname.git#tag=v$pkgver
   git+https://github.com/free-audio/clap-juce-extensions.git
   git+https://github.com/free-audio/clap.git
   git+https://github.com/free-audio/clap-helpers.git
   $pkgname-1.3.10-devendor_juce.patch
 )
-sha512sums=('SKIP'
+sha512sums=('2ee8e4a4721b04628164ce4e256f64fc11029394ae8bbdee312da74e3fa8088440e193b502d2ff5830adc8e4471a5e478648426272e00962d6315dc4454c675f'
             'SKIP'
             'SKIP'
             'SKIP'
             'db06c3662932cd2d64ea991979021220164e9c45d677bd61f6d40632fd774c6021e7a554c19f94c827370af2bc4dbcfad31dde8dea6733e8027a87bf92c9ccb5')
-b2sums=('SKIP'
+b2sums=('74c1a9f9f9265ba3c873ab01938fb74d9c1e424312dcf936f1c0255cd9d44e04f7638fa58f70481b7f680a1bfebae742a0b56c596dd04b81d3394235d05f372b'
         'SKIP'
         'SKIP'
         'SKIP'
         '3acfa843d49a47b8f0fd05a56eba26a37c28a7e3317e8d18aba5984f20a1bf93b6e7b49a2d8967ba6430b8a6f0b25510067e790a61005fe4e0722c6dd4ac64d7')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/v//g'
-}
 
 prepare() {
   (
