@@ -2,7 +2,7 @@
 
 pkgname=python-pymdown-extensions
 _pkgname=${pkgname#python-}
-pkgver=10.11.2
+pkgver=10.12
 pkgrel=1
 pkgdesc="Extensions for Python Markdown"
 arch=(any)
@@ -27,7 +27,7 @@ optdepends=('python-pygments: for code highlighting')
 provides=(pymdown-extensions)
 replaces=(pymdown-extensions)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('6b75892ec70e2ef428901e7fb323010677e46605173da51ee8442fcf5bf3065f')
+sha256sums=('1b9c8eb98a4175447aed6a63572d01526dd9063efa13106cf71adc6bf29a0ad7')
 
 build() {
   cd "$_pkgname-$pkgver"
