@@ -2,8 +2,8 @@
 
 _hkgname=tamarin-prover-sapic
 pkgname=haskell-tamarin-prover-sapic
-pkgver=1.8.0
-pkgrel=56
+pkgver=1.10.0
+pkgrel=1
 pkgdesc="Library for input processes in SAPIC calculus for the tamarin prover"
 url="http://www.infsec.ethz.ch/research/software/tamarin"
 license=("GPL")
@@ -11,13 +11,13 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-dlist' 'haskell-fclabels'
          'haskell-parallel' 'haskell-safe' 'haskell-uniplate' 'haskell-raw-strings-qq'
          'haskell-tamarin-prover-utils' 'haskell-tamarin-prover-term' 'haskell-tamarin-prover-theory')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("tamarin-prover-$pkgver.tar.gz::https://github.com/tamarin-prover/tamarin-prover/archive/$pkgver.tar.gz")
-sha512sums=('62d8da7a46d521f85fa4544c676b5c7a6d0f26770eb4169fc3aef66e9b1df61753fc1e1fca9531cbe29d971807cc04f7af80c4c9f9c4bb2bae632c6e1fb32662')
+sha512sums=('52ea3e77051208ab2f2b9425988640a2a699adfaaac90d5946d3ce43663ad535f5efb1bf845e0d540eb719e0f26c4d8beec4e231f54f0f393f42c2a392cfd486')
 
 prepare() {
     cd tamarin-prover-$pkgver/lib/sapic
-    echo -e "import Distribution.Simple\nmain = defaultMain" > Setup.hs
+    gen-setup
 }
 
 build() {
