@@ -1,38 +1,44 @@
-# Maintainer: Kyle Keen <keenerd@gmail.com>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=airspy
+_pkgname=airspyone_host
 pkgver=1.0.10
-pkgrel=2
-pkgdesc="Host code for Airspy SDR."
-arch=('x86_64')
+pkgrel=3
+pkgdesc="Host code for Airspy SDR"
+arch=(x86_64)
 url="https://www.airspy.com"
-license=('GPL2')
-depends=('libusb>=1.0')
-makedepends=('cmake')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/airspy/airspyone_host/archive/v$pkgver.tar.gz"
-        "airspy.conf")
-sha512sums=('61ea82e8b9892053b6fdccd7de05f248145bb5da0d4f63bb31d3a815fa739b248662a875d53d88de260cfa2a98ef266ea165ba50397e67822ea21ca273c93b24'
-            '6dfc97dd628c39980861e01c89d8a32e72929f19e2d64c6aa37f41cbfb5832a7aefba9a79d631c0235080252668a1d04e2e723b2a68e10df88cc8bcf964cfca8')
+license=('GPL-2.0-or-later')
+depends=(
+  glibc
+  libusb
+)
+makedepends=(cmake)
+source=(
+  "$pkgname-$pkgver.tar.gz::https://github.com/airspy/airspyone_host/archive/v$pkgver.tar.gz"
+  "airspy.conf"
+)
+sha256sums=('fcca23911c9a9da71cebeffeba708c59d1d6401eec6eb2dd73cae35b8ea3c613'
+            'b210dd0698c3bb8ad59f0393c12a74e1ed8fe1b16a2faabc38467f68ebed0120')
 
 prepare() {
-  cd "$srcdir/airspyone_host-$pkgver"
+  cd $_pkgname-$pkgver
   # FS#47169
   sed -i 's|MODE.*$|TAG+="uaccess"|' airspy-tools/52-airspy.rules
 }
 
 build() {
-  cd "$srcdir/airspyone_host-$pkgver"
-  mkdir -p build
-  cd build
-  cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -Wno-dev ../
-  make
+  cd $_pkgname-$pkgver
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev
+  cmake --build build
 }
 
 package() {
-  cd "$srcdir/airspyone_host-$pkgver/build"
-  make DESTDIR="$pkgdir" install
-  install -Dm644 "../airspy-tools/52-airspy.rules" "$pkgdir/usr/lib/udev/rules.d/52-airspy.rules"
-  install -Dm644 "$srcdir/airspy.conf" "$pkgdir/etc/modprobe.d/airspy.conf"
+  cd $_pkgname-$pkgver
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm644 -t "$pkgdir/usr/lib/udev/rules.d" airspy-tools/52-airspy.rules
+  install -vDm644 -t "$pkgdir/etc/modprobe.d" "$srcdir/airspy.conf"
 }
-
-# vim:set ts=2 sw=2 et:
