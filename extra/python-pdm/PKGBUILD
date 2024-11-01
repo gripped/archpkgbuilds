@@ -2,7 +2,7 @@
 
 _name=pdm
 pkgname=python-pdm
-pkgver=2.19.3
+pkgver=2.20.0.post1
 pkgrel=1
 pkgdesc="A modern Python package and dependency manager supporting the latest PEP standards"
 arch=(any)
@@ -11,12 +11,13 @@ license=(MIT)
 depends=(
   python
   python-blinker
+  python-certifi  # implicitly pulled in by python-httpx and python-httpcore
   python-dep-logic
   python-dotenv
   python-filelock
   python-findpython
   python-hishel
-  python-httpcore  # pulled in by python-httpx
+  python-httpcore  # implicitly pulled in by python-httpx and python-hishel
   python-httpx
   python-installer
   python-msgpack
@@ -27,12 +28,11 @@ depends=(
   python-resolvelib
   python-rich
   python-shellingham
-  python-socksio  # required via python-httpx feature
+  python-socksio  # required via python-httpx 'socks' feature
   python-tomlkit
   python-truststore
   python-unearth
   python-virtualenv
-  python-zstandard  # required by python-pbs-installer
 )
 makedepends=(
   python-build
@@ -59,8 +59,8 @@ optdepends=(
   'python-uv: use uv as installer and resolver'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('d6a6c641f4848c420a1dee3653669e0d0e22853f94cd7c9220dcea0345fd2aefcaeed40eaa502bef4426bbca6b49fd3ff6779633d11d0f6a787a77ec7eef7cf8')
-b2sums=('6fe3626e129d3f3a1c71497873ea4967bd34af2e1549ad1b3e92dc19758288ad9fc35d2f78b418160475b529a68f1dba451f8089a25ab1d092e7e25edb98c4de')
+sha512sums=('b023059d3e943d0fbbdb45a6990f2c8373310e5f5144f9ba042edc24fb7bdd127393a44d331524cd2eda4b3543f49bab953390b04381bf346f124b5272a3d316')
+b2sums=('06c837ccf94e9a53dde5f9fbddcbd08bc1faa8830d60a59589aed8f8e68fd3fded9e540064c81c0661e8fbb91b340ac71876221550fb9216f38f47545b90ef81')
 
 build() {
   cd $_name-$pkgver
