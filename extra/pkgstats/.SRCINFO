@@ -1,18 +1,19 @@
 pkgbase = pkgstats
 	pkgdesc = Submit a list of installed packages to the Arch Linux project
-	pkgver = 3.2.18
+	pkgver = 3.3.1
 	pkgrel = 1
 	url = https://pkgstats.archlinux.de/
 	arch = x86_64
-	license = GPL
+	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = go
 	makedepends = just
 	makedepends = gcc
-	depends = pacman
+	depends = glibc
 	depends = systemd
-	source = pkgstats::git+https://github.com/archlinux-de/pkgstats-cli.git?signed#tag=3.2.18
+	depends = ca-certificates
+	source = pkgstats::git+https://github.com/archlinux-de/pkgstats-cli.git?signed#tag=3.3.1
 	validpgpkeys = 3E80CA1A8B89F69CBA57D98A76A5EF9054449A5C
-	sha256sums = 995a5e021fa602eda391007190ca358a8835dbb5cd418ede7e876165a20dd94a
+	sha256sums = 6ce1b9e39c08d59e719933f6d0db70719248d6277f6c43ddc487264966014c74
 
 pkgname = pkgstats
