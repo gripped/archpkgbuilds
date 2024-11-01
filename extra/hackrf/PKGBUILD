@@ -1,44 +1,48 @@
-# Maintainer:
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Kyle Keen <keenerd@gmail.com>
 # Contributor: Dominik Heidler <dheidler@gmail.com>
 
 pkgname=hackrf
 pkgver=2024.02.1
-pkgrel=1
-pkgdesc="Driver for HackRF, allowing general purpose software defined radio (SDR)."
-arch=('x86_64')
-url="https://github.com/mossmann/hackrf"
-license=('GPL2')
-depends=('libusb' 'fftw')
-makedepends=('cmake')
-source=("https://github.com/mossmann/hackrf/releases/download/v${pkgver}/hackrf-$pkgver.tar.xz"
-        'hackrf.conf')
+pkgrel=3
+pkgdesc="Driver for HackRF, allowing general purpose software defined radio (SDR)"
+arch=(x86_64)
+url="https://github.com/greatscottgadgets/hackrf"
+license=('GPL-2.0-or-later')
+depends=(
+  fftw
+  glibc
+  libusb
+)
+makedepends=(cmake)
+source=(
+  "$url/releases/download/v$pkgver/hackrf-$pkgver.tar.xz"
+  'hackrf.conf'
+)
 sha256sums=('d9ced67e6b801cd02c18d0c4654ed18a4bcb36c24a64330c347dfccbd859ad16'
             '8246a539049ec2bd6226337d8d9b4f48bd503d77de13408a5751d2a60dc76965')
 
 prepare() {
-  cd $pkgname-$pkgver/host
+  cd $pkgname-$pkgver
   # FS#41895
-  sed -i 's|MODE.*$|TAG+="uaccess"|' libhackrf/53-hackrf.rules*
+  sed -i 's|MODE.*$|TAG+="uaccess"|' host/libhackrf/53-hackrf.rules*
 }
 
 build() {
-  cmake -B build -S $pkgname-$pkgver/host \
-    -DCMAKE_INSTALL_PREFIX=/usr
+  cd $pkgname-$pkgver
+  cmake -S host -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev
   cmake --build build
 }
 
 package() {
-  DESTDIR="$pkgdir" cmake --install build
   cd $pkgname-$pkgver
-  pushd host/libhackrf
-  install -vD -m644 53-hackrf.rules "$pkgdir/usr/lib/udev/rules.d/53-hackrf.rules"
-  popd
-  pushd firmware-bin
-  #for i in *.{bin,dfu,xsvf}; do
-  for i in *.{bin,dfu}; do
-    install -vDm644 "$i" "$pkgdir/usr/share/hackrf/$i"
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm644 -t "$pkgdir/usr/lib/udev/rules.d" host/libhackrf/53-hackrf.rules
+  for file in firmware-bin/*.{bin,dfu}; do
+    install -vDm644 -t "$pkgdir/usr/share/hackrf" "$file"
   done
-  popd
-  install -Dm644 "$srcdir/hackrf.conf" "$pkgdir/etc/modprobe.d/hackrf.conf"
+  install -vDm644 -t "$pkgdir/etc/modprobe.d" "$srcdir/hackrf.conf"
 }
