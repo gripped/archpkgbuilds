@@ -2,8 +2,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=darcs
-pkgver=2.18.2
-pkgrel=19
+pkgver=2.18.3
+pkgrel=1
 pkgdesc="A distributed, interactive, smart revision control system"
 url="http://darcs.net"
 license=("GPL-2.0-or-later")
@@ -25,7 +25,7 @@ makedepends=('ghc' 'haskell-cmdargs' 'haskell-findbin' 'haskell-hunit' 'haskell-
              'haskell-system-fileio' 'haskell-transformers-base')
 checkdepends=('bc' 'time')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('f776b3b2efd73e9515a99bf154468aa4aef925d20c9de564a78f7a19bf302db31c6e4cdbca2c2c700a0d5cde1b62a426159554f543898712b1f603401c534a9c')
+sha512sums=('de70b87493ed9776a16d492ca1fb2f7e1a4a46bf3538ebe937adc8b548b1b4519cb7a737edd13b92253c797a04765832b37c9ef6d552705db6980454429da3d6')
 
 build() {
     cd $pkgname-$pkgver
