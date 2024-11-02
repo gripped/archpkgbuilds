@@ -1,66 +1,68 @@
 # Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Contributor: Steven Allen <steven@stebalien.com>
 # Contributor: Matt Harrison <matt@harrison.us.com>
+# Contributor: Kainoa Kanter <kainoa@t1c.dev>
 
 pkgname=ollama-cuda
+pkgver=0.3.12
+pkgrel=4
 pkgdesc='Create, run and share large language models (LLMs) with CUDA'
-pkgver=0.1.32
-pkgrel=2
 arch=(x86_64)
 url='https://github.com/ollama/ollama'
+_llama_cpp_commit=$(curl -sL "https://github.com/ollama/ollama/tree/v$pkgver/llm" | tr ' ' '\n' | tr '"' '\n' | grep ggerganov | cut -d/ -f5 | head -1)
 license=(MIT)
-_ollamacommit=fb9580df85c562295d919b6c2632117d3d8cea89 # tag: v0.1.32
-# The llama.cpp git submodule commit hash can be found here:
-# https://github.com/ollama/ollama/tree/v0.1.32/llm
-_llama_cpp_commit=7593639ce335e8d7f89aa9a54d616951f273af60
-makedepends=(cmake cuda git go)
 provides=(ollama)
 conflicts=(ollama)
+makedepends=(clblast cmake cuda git go)
+optdepends=('nvidia-utils: monitor GPU usage with nvidia-smi')
 source=(git+$url#tag=v$pkgver
         llama.cpp::git+https://github.com/ggerganov/llama.cpp#commit=$_llama_cpp_commit
         ollama.service
         sysusers.conf
-        tmpfiles.d
-        "mixtral.patch::https://github.com/ollama/ollama/commit/435cc866a3fbabb5029b8a2496631847a871616f.diff")
-b2sums=('12b952df20a194e7b41040574b449aa9781dc40e9316d6d459caf0228c51c588d93a79223fe4009ca6532dffb9846853a6e74769db15c25135032bf5ccfde65e'
-        'de8f50fb5a99a0251f6a0f3d596975cf43ad76770ac2edeaac6497b81214a7f31574b499f10b77f0542f9d46c5d33e0f5ac1e49fa72343d860c70fd3ca0ca113'
-        '2bf4c2076b7841de266ec40da2e2cbb675dcbfebfa8aed8d4ede65435854cb43d39ea32bc9210cfc28a042382dd0094a153e351edfa5586eb7c6a0783f3bc517'
+        tmpfiles.d)
+b2sums=('7b230922a233f0be967abb40b300125fb59ed64850a109db185954c549e12e5de0c1be094c1cdb67484c9e8705804a3761bfefa517fac1adfb05bcae8d2c197d'
+        'e568ac334cf07b69f98c4581f212f2e30bdebf1f285a37e4bb5c8ac31733df9a3c125e6d16b7f6bbe412cedb11d249a07ca9793a487e0ad34810cbb35cd32ee2'
+        '031e0809a7f564de87017401c83956d43ac29bd0e988b250585af728b952a27d139b3cad0ab1e43750e2cd3b617287d3b81efc4a70ddd61709127f68bd15eabd'
         '3aabf135c4f18e1ad745ae8800db782b25b15305dfeaaa031b4501408ab7e7d01f66e8ebb5be59fc813cfbff6788d08d2e48dcf24ecc480a40ec9db8dbce9fec'
-        'e8f2b19e2474f30a4f984b45787950012668bf0acb5ad1ebb25cd9776925ab4a6aa927f8131ed53e35b1c71b32c504c700fe5b5145ecd25c7a8284373bb951ed'
-        '3326071dcd80ae8078d002cb98f7f61cb2493cc0de33cf2923f0e28675ebb115455c82be7cb0890501accc0fd34b1805ac0ae230dcac970570331254aaf756c0')
+        'e8f2b19e2474f30a4f984b45787950012668bf0acb5ad1ebb25cd9776925ab4a6aa927f8131ed53e35b1c71b32c504c700fe5b5145ecd25c7a8284373bb951ed')
 
 prepare() {
-  cd ${pkgname/-cuda}
+  echo "Using llama.cpp git submodule commit $_llama_cpp_commit"
 
-  patch -p1 -i ../mixtral.patch
+  # Prepare the git submodule by copying in files (the build process is sensitive to symlinks)
+  rm -frv ollama/llm/llama.cpp
+  cp -r llama.cpp ollama/llm/llama.cpp
 
-  rm -frv llm/llama.cpp
-
-  # Copy git submodule files instead of symlinking because the build process is sensitive to symlinks.
-  cp -r "$srcdir/llama.cpp" llm/llama.cpp
-
-  # Turn LTO on and set the build type to Release
-  sed -i 's,T_CODE=on,T_CODE=on -D LLAMA_LTO=on -D CMAKE_BUILD_TYPE=Release,g' llm/generate/gen_linux.sh
+  # Set the CMake build type to "Release"
+  sed -i 's,T_CODE=on,T_CODE=on -D CMAKE_BUILD_TYPE=Release,g' ollama/llm/generate/gen_linux.sh
 }
 
 build() {
-  cd ${pkgname/-cuda}
+  export CFLAGS+=' -w'
+  export CXXFLAGS+=' -w'
+  export LDFLAGS+=' -L/opt/cuda/targets/x86_64-linux/lib/stubs/'
   export CGO_CFLAGS="$CFLAGS" CGO_CPPFLAGS="$CPPFLAGS" CGO_CXXFLAGS="$CXXFLAGS" CGO_LDFLAGS="$LDFLAGS"
+  local goflags='-buildmode=pie -trimpath -mod=readonly -modcacherw'
+  local ldflags="-linkmode=external -buildid= -X github.com/ollama/ollama/version.Version=$pkgver -X github.com/ollama/ollama/server.mode=release"
+  export CUDA_LIB_DIR=/opt/cuda/targets/x86_64-linux/lib
+  cd ollama
   go generate ./...
-  go build -buildmode=pie -trimpath -mod=readonly -modcacherw -ldflags=-linkmode=external \
-    -ldflags=-buildid='' -ldflags="-X=github.com/ollama/ollama/version.Version=$pkgver"
+  go build $goflags -ldflags="$ldflags" -tags cuda
 }
 
 check() {
-  cd ${pkgname/-cuda}
-  ./ollama --version > /dev/null
+  ollama/ollama --version > /dev/null
+  cd ollama
   go test .
 }
 
 package() {
-  install -Dm755 ${pkgname/-cuda}/${pkgname/-cuda} "$pkgdir/usr/bin/${pkgname/-cuda}"
+  install -Dm755 ollama/ollama "$pkgdir/usr/bin/ollama"
   install -dm755 "$pkgdir/var/lib/ollama"
   install -Dm644 ollama.service "$pkgdir/usr/lib/systemd/system/ollama.service"
   install -Dm644 sysusers.conf "$pkgdir/usr/lib/sysusers.d/ollama.conf"
   install -Dm644 tmpfiles.d "$pkgdir/usr/lib/tmpfiles.d/ollama.conf"
-  install -Dm644 ${pkgname/-cuda}/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 ollama/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 ollama/llm/llama.cpp/LICENSE "$pkgdir/usr/share/licenses/$pkgname/llama.cpp-LICENSE"
+  ln -s /var/lib/ollama "$pkgdir/usr/share/ollama"
 }
