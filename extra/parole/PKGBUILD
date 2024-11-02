@@ -5,7 +5,7 @@
 
 pkgname=parole
 pkgver=4.18.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Modern media player based on the GStreamer framework"
 arch=('x86_64')
 url="https://docs.xfce.org/apps/parole/start"
@@ -21,12 +21,14 @@ sha256sums=('20806cc8fe54c3e626999958c19e7fdaf0158de64dbeea9771ff9882970ab8eb')
 
 prepare() {
   cd $pkgname
-  ./autogen.sh \
-    --prefix=/usr
+  NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
   cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --enable-maintainer-mode
   make
 }
 
