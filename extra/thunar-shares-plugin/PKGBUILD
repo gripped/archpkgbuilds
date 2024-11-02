@@ -4,7 +4,7 @@
 
 pkgname=thunar-shares-plugin
 pkgver=0.3.2
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc="Thunar plugin to quickly share a folder using Samba without requiring root access"
 arch=('x86_64')
@@ -17,12 +17,12 @@ sha256sums=('11475656f37ef84ea2aa653d7f986dc4c66c906adeece98aef66787862eb33df')
 
 prepare() {
   cd $pkgname
-  ./autogen.sh \
-    --prefix=/usr
+  NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
   cd $pkgname
+  ./configure --prefix=/usr
   make
 }
 
