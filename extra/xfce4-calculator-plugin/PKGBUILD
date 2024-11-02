@@ -5,7 +5,7 @@
 
 pkgname=xfce4-calculator-plugin
 pkgver=0.7.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Simple command line based calculator for the XFCE panel"
 arch=('x86_64')
 url="https://docs.xfce.org/panel-plugins/xfce4-calculator-plugin"
@@ -17,17 +17,18 @@ sha256sums=('4c074c43f509a553f3dfb9c15b3a3719d3e13c279caedacb053a93ed17ac737f')
 
 prepare() {
   cd $pkgname
-  ./autogen.sh \
+  NOCONFIGURE=1 ./autogen.sh
+}
+
+build() {
+  cd $pkgname
+  ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib \
     --localstatedir=/var \
     --disable-static \
     --disable-debug
-}
-
-build() {
-  cd $pkgname
   make
 }
 
