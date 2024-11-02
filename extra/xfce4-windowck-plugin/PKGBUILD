@@ -5,7 +5,7 @@
 
 pkgname=xfce4-windowck-plugin
 pkgver=0.5.1
-pkgrel=3
+pkgrel=4
 epoch=1
 pkgdesc="Xfce panel plugin for displaying window title and buttons"
 arch=('x86_64')
@@ -27,12 +27,12 @@ prepare() {
   # and https://gitlab.xfce.org/panel-plugins/xfce4-windowck-plugin/-/merge_requests/82#note_58149
   patch -Np1 < "$srcdir/fix_concurrency_issue.patch"
 
-  ./autogen.sh \
-    --prefix=/usr
+  NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
   cd $pkgname
+  ./configure --prefix=/usr
   make
 }
 
