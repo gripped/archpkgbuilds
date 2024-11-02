@@ -6,7 +6,7 @@
 
 pkgname=recoll
 pkgver=1.40.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Full text search tool based on Xapian backend"
 arch=('x86_64')
 url="https://www.recoll.org"
@@ -66,7 +66,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DRECOLL_PUBLIC_LIB=ON \
     -DQT_MAJOR_VERSION=6 \
-    -DDATA_INSTALL_DIR=/usr/share/recoll/kio_recoll \
+    -DDATA_INSTALL_DIR=/usr/share \
     ..
   make
   popd
@@ -79,7 +79,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DRECOLL_PUBLIC_LIB=ON \
     -DQT_MAJOR_VERSION=6 \
-    -DDATA_INSTALL_DIR=/usr/share/recoll/krunner \
+    -DDATA_INSTALL_DIR=/usr/share \
     ..
   make
   popd
