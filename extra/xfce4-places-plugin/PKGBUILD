@@ -5,7 +5,7 @@
 
 pkgname=xfce4-places-plugin
 pkgver=1.8.3
-pkgrel=3
+pkgrel=4
 pkgdesc="A menu with quick access to folders, documents, and removable media"
 arch=('x86_64')
 url="https://docs.xfce.org/panel-plugins/xfce4-places-plugin/start"
@@ -18,17 +18,18 @@ sha256sums=('9e87facd1ecca5374a30d84f285f25eaea2a6a3bd28043d85d3da608f5a62d69')
 
 prepare() {
   cd $pkgname
-  ./autogen.sh \
-	  --prefix=/usr \
+  NOCONFIGURE=1 ./autogen.sh
+}
+
+build() {
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib \
     --localstatedir=/var \
     --disable-static \
     --disable-debug
-}
-
-build() {
-  cd $pkgname
   make
 }
 
