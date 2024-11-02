@@ -4,20 +4,25 @@
 
 _hkgname=path-io
 pkgname=haskell-path-io
-pkgver=1.8.1
-pkgrel=72
+pkgver=1.8.2
+pkgrel=1
 pkgdesc="Interface to ‘directory’ package for users of ‘path’"
 url="https://github.com/mrkkrp/path-io"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-dlist' 'haskell-path' 'haskell-temporary'
          'haskell-unix-compat')
-makedepends=('ghc' 'haskell-hspec')
+makedepends=('ghc' 'uusi' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-${pkgver}.tar.gz")
-sha512sums=('9aa3a596a03e472c90c23356ae26b5442eb7e8cb145ccdf5ee2f4ef1d4ba7ab2a977f28e6e8605a983d64cad96061fd63276f01a9401919a8221d371376044c3')
+sha512sums=('9a6872a7e441812a3fd69d5984e4197519d2fa5598eab8a83ca21e317e9b26d42c0f4c12a670b84ee850a2198f83571f7cf2b9d4b93b11123418b652020a0dfe')
+
+prepare() {
+  cd $_hkgname-$pkgver
+  gen-setup
+}
 
 build() {
-  cd "$srcdir/$_hkgname-$pkgver"
+  cd $_hkgname-$pkgver
   runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
