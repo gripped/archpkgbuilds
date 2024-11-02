@@ -2,7 +2,7 @@
 
 _name=pydantic-settings
 pkgname=python-pydantic-settings
-pkgver=2.6.0
+pkgver=2.6.1
 pkgrel=1
 pkgdesc="Settings management using pydantic"
 arch=(any)
@@ -12,6 +12,7 @@ depends=(
   python
   python-dotenv
   python-pydantic
+  python-pydantic-core  # directly used, but transitive dependency of python-pydantic
   python-typing_extensions
 )
 makedepends=(
@@ -29,8 +30,8 @@ optdepends=(
   'python-pyyaml: for YAML support'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('8e5388afd9542720b1ea40b7708cb2bef8c320d63436dfc17b1e431bf64f8d7c77380fa0e5d2e89bcefa95f4537dac51a2d76db83165ddb2158d29edeae8e459')
-b2sums=('e9ee460a92ced99943705e1bc489a61151cb635aed062a631140696bad690e0ad6af0c032f375726bb692696928ba07713540f1c1b5ba5404aff4586cded3b4b')
+sha512sums=('f88e74ddf15f7bbbec644557d5993f9507478e6aff647f233519354b760f058be7d0e0b7e630740ad0516f5dd023f5532c62a17acab758dd19a69049c5cfc4e8')
+b2sums=('efce42bf6a7d7258f86b40f841e04879fab771ea5631416f70b2c5991d7abd49c45609164bf6de139ab8b7bec5a045ed92fdafe7c35c362201ebbf599dbbf579')
 
 build() {
   cd $_name-$pkgver
