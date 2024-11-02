@@ -2,7 +2,7 @@
 
 _name=myMPD
 pkgname=mympd
-pkgver=18.1.2
+pkgver=18.2.0
 pkgrel=1
 pkgdesc="A standalone and lightweight web-based MPD client"
 arch=(x86_64)
@@ -26,8 +26,8 @@ optdepends=(
   'sh: for mympd-config'
 )
 source=($url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('b43391e9f36a23ad560cdcd3bfbe1f542d8979db222cdd55ab0bf8e236fb4fe0b912040d112bfae05f3f139e02c8b8a6e15fc60b9cd7ce079f4ff8ea4363d1bc')
-b2sums=('885f0345555a721e75aa999b86d443235834d5cb8de6a16d0ba3560cc2fc69f262c6840fcb339d2fd8d5e73a237f280e31409e22fc373565bc59701ec54a7e66')
+sha512sums=('2526e2d1d0ef4fecfc959cb3c28db9ae0c7ce05c22c50dde1b2ec2550f75a2dbc1983ae690f0953e07bec3e5f285e06260e945330fedb77ca96c46ae264ce37f')
+b2sums=('a6e90beb3d94c0ca5c1648c838ac522c6349ab527350cdee343203228c6e8c6e79cc976a3a0464ddf67ac5a70b0195bd69a1fd6791f6aeec9d72c4df5f067dff')
 
 build() {
   local cmake_options=(
