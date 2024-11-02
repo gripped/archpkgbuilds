@@ -3,7 +3,7 @@
 pkgbase=cypari2
 pkgname=python-cypari2
 pkgver=2.2.0
-pkgrel=7
+pkgrel=8
 pkgdesc='Cython bindings for PARI'
 arch=(x86_64)
 url='https://www.sagemath.org'
@@ -18,10 +18,11 @@ makedepends=(cython
              python-installer
              python-setuptools
              python-wheel)
+checkdepends=(python-pytest)
 source=(git+https://github.com/sagemath/cypari2#tag=$pkgver
         pari-2.17.patch)
 sha256sums=('015d7421efabb57680fca1445d98585a43228a3f46c36cd7f9cad9b28f5ea0f8'
-            '90629010327c4cadd1e6742cb73c929736c98bfbb4b143edd0bc16806f6f9f9c')
+            '0746739b9d6ffe12544b34078dea878e669822d2a7a1ec87a2130d00564af8cd')
 
 prepare() {
   cd $pkgbase
@@ -31,6 +32,14 @@ prepare() {
 build() {
   cd $pkgbase
   python -m build --wheel --no-isolation
+}
+
+check() {
+  cd $pkgbase
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  cd tests
+  ../test-env/bin/python -m pytest -v
 }
 
 package_python-cypari2() {
