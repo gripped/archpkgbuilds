@@ -4,7 +4,7 @@
 
 pkgname=xfmpc
 pkgver=0.3.1
-pkgrel=3
+pkgrel=4
 pkgdesc='A graphical GTK+ MPD client focusing on low footprint'
 arch=('x86_64')
 url='https://docs.xfce.org/apps/xfmpc/start'
@@ -16,12 +16,14 @@ sha256sums=('27cd3edefa3299f726d0e11a1dc0a972c9ab75627b99522d1e0c6cede40da808')
 
 prepare() {
   cd $pkgname
-  ./autogen.sh \
-    --prefix=/usr
+  NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
   cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --enable-maintainer-mode
   make
 }
 
