@@ -3,7 +3,7 @@
 
 pkgname=xfce4-indicator-plugin
 pkgver=2.4.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Plugin to display information from applications in the Xfce4 panel"
 arch=('x86_64')
 url="https://docs.xfce.org/panel-plugins/xfce4-indicator-plugin/start"
@@ -15,15 +15,17 @@ sha256sums=('a04ee0baccea7c4873b1a5cc1842c6dc25836cc614a6657b378206f0302a8427')
 
 prepare() {
   cd $pkgname
-  ./autogen.sh \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --localstatedir=/var \
-    --disable-static
+  NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
   cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-static \
+    --enable-maintainer-mode
   make
 }
 
