@@ -4,7 +4,7 @@
 
 pkgname=xfce4-weather-plugin
 pkgver=0.11.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A weather plugin for the Xfce4 panel"
 arch=('x86_64')
 url="https://docs.xfce.org/panel-plugins/xfce4-weather-plugin/start"
@@ -17,16 +17,18 @@ sha256sums=('47c87d44bfc5ec17861e8ef596317c09f782f170af7f6dd362d2d27c23778eb3')
 
 prepare() {
   cd $pkgname
-  ./autogen.sh \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --localstatedir=/var \
-    --disable-debug \
-    --disable-upower
+  NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
   cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-debug \
+    --disable-upower \
+    --enable-maintainer-mode
   make
 }
 
