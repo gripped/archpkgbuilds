@@ -5,7 +5,7 @@
 
 pkgname=xfce4-systemload-plugin
 pkgver=1.3.2
-pkgrel=3
+pkgrel=4
 pkgdesc="System load plugin for the Xfce panel"
 arch=('x86_64')
 license=('BSD-2-Clause')
@@ -18,15 +18,16 @@ sha256sums=('93fc07d6216ac83111f5271f1dd76c22799467deb172d502baeaf2d39904625b')
 
 prepare() {
   cd $pkgname
-  ./autogen.sh \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --localstatedir=/var \
-    --disable-static
+  NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
   cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-static
   make
 }
 
