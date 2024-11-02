@@ -3,7 +3,7 @@
 
 pkgname=thunar-vcs-plugin
 pkgver=0.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc="SVN and GIT integration for Thunar"
 arch=('x86_64')
 url="https://docs.xfce.org/xfce/thunar/thunar-vcs-plugin"
@@ -15,14 +15,15 @@ sha256sums=('86511d7433eade7f4f9867b37bd57d7d2133f05d678b48b78f71a40dc45014d7')
 
 prepare() {
   cd $pkgname
-  ./autogen.sh \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --libexecdir=/usr/lib/xfce4
+  NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
   cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --libexecdir=/usr/lib/xfce4
   make
 }
 
