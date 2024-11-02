@@ -3,7 +3,7 @@
 
 pkgname=orage
 pkgver=4.18.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A simple calendar application with reminders for Xfce"
 arch=('x86_64')
 url="https://docs.xfce.org/apps/orage/start"
@@ -16,17 +16,18 @@ sha256sums=('b60993de942c6017635900a251011725f7fdcdd8c9e3cecd982ae872cbdc5a20')
 
 prepare() {
   cd $pkgname
-  ./autogen.sh \
+  NOCONFIGURE=1 ./autogen.sh
+}
+
+build() {
+  cd $pkgname
+  ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib/xfce4 \
     --localstatedir=/var \
     --disable-static \
     --disable-debug
-}
-
-build() {
-  cd $pkgname
   make
 }
 
