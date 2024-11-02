@@ -4,7 +4,7 @@
 
 pkgname=xfce4-screenshooter
 pkgver=1.11.1
-pkgrel=2
+pkgrel=3
 pkgdesc="An application to take screenshots"
 arch=('x86_64')
 url="https://docs.xfce.org/apps/xfce4-screenshooter/start"
@@ -28,16 +28,17 @@ prepare() {
   git submodule init
   git config submodule.mate-submodules.url "$srcdir/protocols/wlr-protocols"
   git -c protocol.file.allow=always submodule update
-  ./autogen.sh \
+  NOCONFIGURE=1 ./autogen.sh
+}
+
+build() {
+  cd $pkgname
+  ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
     --libexecdir=/usr/lib \
     --localstatedir=/var \
     --disable-debug
-}
-
-build() {
-  cd $pkgname
   make
 }
 
