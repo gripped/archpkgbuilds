@@ -3,7 +3,7 @@
 
 pkgname=xfce4-volumed-pulse
 pkgver=0.2.4
-pkgrel=4
+pkgrel=5
 pkgdesc="A volume keys control daemon for Xfce using pulseaudio"
 arch=('x86_64')
 url="https://gitlab.xfce.org/apps/xfce4-volumed-pulse"
@@ -16,15 +16,16 @@ sha256sums=('73d38fcf931c850101f0a772889c196c142a77b10e9647b46ebded70d89fac7e')
 
 prepare() {
   cd $pkgname
-  ./autogen.sh \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --libexecdir=/usr/lib \
-    --localstatedir=/var
+  NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
   cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --libexecdir=/usr/lib \
+    --localstatedir=/var
   make
 }
 
