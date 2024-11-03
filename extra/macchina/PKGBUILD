@@ -2,8 +2,8 @@
 # Contributor: grtcdr <ba.tahaaziz@gmail.com>
 
 pkgname=macchina
-pkgver=6.2.1
-pkgrel=2
+pkgver=6.4.0
+pkgrel=1
 pkgdesc="A system information fetcher, with an (unhealthy) emphasis on performance."
 arch=('x86_64')
 url="https://github.com/Macchina-CLI/macchina"
@@ -12,7 +12,7 @@ depends=('gcc-libs' 'glibc')
 makedepends=('cargo' 'libgit2' 'git')
 optdepends=('wmctrl: window manager support')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('87a38bde067fadd96615899d6a8b9efdb238a4bd3859008be47b3e4c2a02c607')
+sha256sums=('edd7591565f199c1365420655a144507bcd2838aed09b79fefdc8b661180432f')
 
 prepare() {
   cd "$pkgname-$pkgver"
