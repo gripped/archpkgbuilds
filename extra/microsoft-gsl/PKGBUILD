@@ -3,15 +3,15 @@
 
 _pkgname=GSL
 pkgname=microsoft-gsl
-pkgver=4.0.0
-pkgrel=2
+pkgver=4.1.0
+pkgrel=1
 pkgdesc="C++ Core Guidelines Support Library"
 arch=('any')
 url="https://github.com/Microsoft/GSL"
 license=('MIT')
 makedepends=('cmake' 'git' 'ninja')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Microsoft/GSL/archive/v${pkgver}.tar.gz")
-sha256sums=('f0e32cb10654fea91ad56bde89170d78cfbf4363ee0b01d8f097de2ba49f6ce9')
+sha256sums=('0a227fc9c8e0bf25115f401b9a46c2a68cd28f299d24ab195284eb3f1d7794bd')
 
 build() {
     cd "$_pkgname-$pkgver"
