@@ -1,6 +1,6 @@
 pkgbase = django
 	pkgdesc = A high-level Python Web framework that encourages rapid development and clean design
-	pkgver = 4.2.12
+	pkgver = 5.1.2
 	pkgrel = 1
 	url = http://www.djangoproject.com/
 	arch = any
@@ -9,13 +9,16 @@ pkgbase = django
 	checkdepends = python-tblib
 	makedepends = python
 	makedepends = python-setuptools
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
 	depends = python
 	depends = python-pytz
 	depends = python-sqlparse
 	depends = python-asgiref
 	optdepends = python-psycopg2: for PostgreSQL backend
-	optdepends = python-argon2_cffi: for Argon2 password hashing support
-	source = Django-4.2.12.tar.gz::https://www.djangoproject.com/download/4.2.12/tarball/
-	sha512sums = 5fe9a7b1c12d6e2aee2ff9108eca77719d0bc44bd26990465a6651cd5ea0d705cce49704be1a0e9afcf11b3ec37457232484193ed1902bb8e872e28b3c05c4c1
+	optdepends = python-argon2-cffi: for Argon2 password hashing support
+	source = Django-5.1.2.tar.gz::https://www.djangoproject.com/download/5.1.2/tarball/
+	sha512sums = 7c7199fe5884f184ce6460df2186c6638110d77b06a37a5fc5cdfe359561b67d3ee8bb80d405c67fbbe16f10c50bfd0270a8e382d18c4366cb0da46d3ef7b4d2
 
 pkgname = python-django
