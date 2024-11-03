@@ -1,12 +1,12 @@
-# Maintainer: Felix Yan <felixonmars@archlinux.org>
 # Maintainer: Brett Cornwall <ainola@archlinux.org>
-# Contributor: Zerial <fernando@zerial.org>
-# Contributor: Patrick Leslie Polzer <leslie.polzer@gmx.net>
-# Contributor: Jose Riha <jose1711 gmail com>
+# Contributor: Felix Yan
+# Contributor: Zerial
+# Contributor: Patrick Leslie Polzer
+# Contributor: Jose Riha
 
 pkgname=dd_rescue
-pkgver=1.99.13
-pkgrel=3
+pkgver=1.99.17
+pkgrel=1
 pkgdesc="A dd version that is very useful for data-recovery"
 url="http://www.garloff.de/kurt/linux/ddrescue/"
 license=("GPL")
@@ -15,9 +15,9 @@ optdepends=('lzo: for libddr_lzo')
 arch=('x86_64')
 source=("http://www.garloff.de/kurt/linux/ddrescue/$pkgname-${pkgver}.tar.bz2"{,.asc}
         "gzip_reproducible.patch")
-sha512sums=('2276128fe176dce3ecbd6aa8e0d00b9547887f0498ce0cd135e61dbf882c521e22e2afce3539a73496da1d0472cd9582971a30eb558ce3211820c8d0358c8241'
+sha512sums=('8bdd63ed48413607e1da004f497feec8b8a990488348105d30d4d7e56e342b54b4e6439270e581e434b4b0edcf55ab11490739b0c6563358c59b5a64a390a0df'
             'SKIP'
-            'd398d31c78a9efb3e8d106a2d62e10577971e123278f95e368b0f553a93cebfc399a927f7c27058a0bdb769052f3b9e9a71abf1af0bf491ab5cbf761001f823d')
+            '6c29100cfd138ae8c2105161ca03da199ba68d9a2561a6a6876656d138d94df2b17ff048eabddf1bfab5b7a94cd5466845b6395184439ab8be8ae8901b0362c4')
 validpgpkeys=('6669F7340D31E95EC5565490DE4F1B3A2BFFC5BF') # Kurt Garloff <kurt@garloff.de>
 
 prepare() {
