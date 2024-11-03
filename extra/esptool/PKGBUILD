@@ -1,27 +1,28 @@
-# Maintainer: Jelle van der Waa <jelle@vdwaa.nl>
+# Maintainer: Giovanni Harting <anonfunc@archlinux.org>
+# Contributor: Jelle van der Waa <jelle@vdwaa.nl>
 # Contributor: Marcin (CTRL) Wieczorek <marcin@marcin.co>
 # Contributor: Marcin Kornat <rarvolt+aur@gmail.com>
 # Contributor: MatejSpindler <spindler.matej@gmail.com>
 
 pkgname=esptool
-pkgver=4.7.0
-pkgrel=3
-pkgdesc="A cute Python utility to communicate with the ROM bootloader in Espressif ESP8266"
-arch=('any')
-url="https://github.com/espressif/esptool"
-license=('GPL-2.0-only')
-makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
-depends=('python' 'python-pyserial' 'python-ecdsa' 'python-bitstring' 'python-reedsolo' 'python-cryptography' 'python-pyyaml' 'python-intelhex')
+pkgver=4.8.1
+pkgrel=1
+pkgdesc='Espressif SoC serial bootloader utility'
+arch=(any)
+url='https://github.com/espressif/esptool'
+license=(GPL-2.0-only)
+makedepends=(git python-build python-installer python-wheel)
+depends=(python python-pyserial python-ecdsa python-bitstring python-reedsolo python-cryptography python-yaml python-intelhex)
 optdepends=('python-python-pkcs11: Support for HSM devices')
-source=($pkgname-$pkgver.tar.gz::https://github.com/espressif/esptool/archive/v${pkgver}.tar.gz)
-sha512sums=('dda2af5d9b2f8a4ec5706eaf58021e95094c152380c732074809c370a5d1bfaeb424cb27f69a3b980dec83ae9c4c9ee1eddfeb0a7990c3b1f1494160a2d369cc')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+b2sums=('ffd8e6aa4c8460765b21c3542b9e953a4e0810e88e1771f02c80ed7145b20623d4b3922268680cc250c64422ab8b90920261af5ef56b9abc14b60b6a10cb6c59')
 
 build() {
-  cd "${pkgname}-${pkgver}"
+  cd $pkgname-$pkgver
   python -m build --wheel --no-isolation
 }
 
 package() {
-  cd "${pkgname}-${pkgver}"
+  cd $pkgname-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
