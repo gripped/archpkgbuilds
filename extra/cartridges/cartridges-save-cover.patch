@@ -1,0 +1,380 @@
+From 31c2a1dfee7d5edb5063c3fb7345834cb1a3a55e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 2 Nov 2024 10:13:12 +0100
+Subject: [PATCH 1/4] Save covers directly into covers dir
+
+Instead of saving the pixbuf of the new cover into a temporary file and
+then copy into covers dir, save it directly to there. Without this, a lot
+of temporary files are created on import, which remain on the system even
+after the application is closed.
+---
+ cartridges/details_dialog.py               | 13 +++++++------
+ cartridges/game_cover.py                   | 12 +++++++++++-
+ cartridges/store/managers/cover_manager.py |  4 +---
+ cartridges/utils/save_cover.py             | 21 ++++++++++++++-------
+ 4 files changed, 33 insertions(+), 17 deletions(-)
+
+diff --git a/cartridges/details_dialog.py b/cartridges/details_dialog.py
+index 8d85586a2..98c27d5a7 100644
+--- a/cartridges/details_dialog.py
++++ b/cartridges/details_dialog.py
+@@ -240,6 +240,7 @@ def apply_preferences(self, *_args: Any) -> None:
+             save_cover(
+                 self.game.game_id,
+                 self.game_cover.path,
++                self.game_cover.pixbuf,
+             )
+ 
+         shared.store.add_game(self.game, {}, run_pipeline=False)
+@@ -304,17 +305,17 @@ def thread_func() -> None:
+             except UnidentifiedImageError:
+                 pass
+ 
+-            if not new_path:
+-                new_path = convert_cover(
++            if new_path:
++                self.game_cover.new_cover(new_path)
++            else:
++                self.game_cover.new_cover(
+                     pixbuf=shared.store.managers[CoverManager].composite_cover(
+                         Path(path)
+                     )
+                 )
+ 
+-            if new_path:
+-                self.game_cover.new_cover(new_path)
+-                self.cover_button_delete_revealer.set_reveal_child(True)
+-                self.cover_changed = True
++            self.cover_button_delete_revealer.set_reveal_child(True)
++            self.cover_changed = True
+ 
+             self.toggle_loading()
+ 
+diff --git a/cartridges/game_cover.py b/cartridges/game_cover.py
+index 46dd6740c..c6f3759c4 100644
+--- a/cartridges/game_cover.py
++++ b/cartridges/game_cover.py
+@@ -45,12 +45,22 @@ def __init__(self, pictures: set[Gtk.Picture], path: Optional[Path] = None) -> N
+         self.pictures = pictures
+         self.new_cover(path)
+ 
+-    def new_cover(self, path: Optional[Path] = None) -> None:
++    def new_cover(
++        self,
++        path: Optional[Path] = None,
++        pixbuf: Optional[GdkPixbuf.Pixbuf] = None
++    ) -> None:
+         self.animation = None
+         self.texture = None
+         self.blurred = None
+         self.luminance = None
+         self.path = path
++        self.pixbuf = pixbuf
++
++        if pixbuf:
++             self.texture = Gdk.Texture.new_for_pixbuf(pixbuf)
++             self.set_texture(self.texture)
++             return
+ 
+         if path:
+             if path.suffix == ".gif":
+diff --git a/cartridges/store/managers/cover_manager.py b/cartridges/store/managers/cover_manager.py
+index 34a358040..d5cbd194d 100644
+--- a/cartridges/store/managers/cover_manager.py
++++ b/cartridges/store/managers/cover_manager.py
+@@ -192,7 +192,5 @@ def main(self, game: Game, additional_data: dict) -> None:
+ 
+             save_cover(
+                 game.game_id,
+-                convert_cover(
+-                    pixbuf=self.composite_cover(image_path, **composite_kwargs)
+-                ),
++                pixbuf=self.composite_cover(image_path, **composite_kwargs),
+             )
+diff --git a/cartridges/utils/save_cover.py b/cartridges/utils/save_cover.py
+index d5ad44ff6..38c414bae 100644
+--- a/cartridges/utils/save_cover.py
++++ b/cartridges/utils/save_cover.py
+@@ -30,7 +30,6 @@
+ 
+ def convert_cover(
+     cover_path: Optional[Path] = None,
+-    pixbuf: Optional[GdkPixbuf.Pixbuf] = None,
+     resize: bool = True,
+ ) -> Optional[Path]:
+     if not cover_path and not pixbuf:
+@@ -44,10 +43,6 @@ def convert_cover(
+     if not resize and cover_path and cover_path.suffix.lower()[1:] in pixbuf_extensions:
+         return cover_path
+ 
+-    if pixbuf:
+-        cover_path = Path(Gio.File.new_tmp("XXXXXX.tiff")[0].get_path())
+-        pixbuf.savev(str(cover_path), "tiff", ["compression"], ["1"])
+-
+     try:
+         with Image.open(cover_path) as image:
+             if getattr(image, "is_animated", False):
+@@ -88,7 +83,11 @@ def convert_cover(
+     return tmp_path
+ 
+ 
+-def save_cover(game_id: str, cover_path: Path) -> None:
++def save_cover(
++    game_id: str,
++    cover_path: Optional[Path] = None,
++    pixbuf: Optional[GdkPixbuf.Pixbuf] = None,
++) -> None:
+     shared.covers_dir.mkdir(parents=True, exist_ok=True)
+ 
+     animated_path = shared.covers_dir / f"{game_id}.gif"
+@@ -98,7 +97,15 @@ def save_cover(game_id: str, cover_path: Path) -> None:
+     animated_path.unlink(missing_ok=True)
+     static_path.unlink(missing_ok=True)
+ 
+-    if not cover_path:
++    if not cover_path and not pixbuf:
++        return
++
++    if pixbuf:
++        pixbuf.savev(str(static_path), "tiff", ["compression"], ["1"])
++
++        if game_id in shared.win.game_covers:
++            shared.win.game_covers[game_id].new_cover(static_path)
++
+         return
+ 
+     copyfile(
+
+From fa86a258703bcf945b47bde9328e39855edc6b55 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 2 Nov 2024 15:32:45 +0100
+Subject: [PATCH 2/4] Make sure that image can be opened
+
+Checking for file extension does not ensure that the image file can be
+actually opened. Check if it can be loaded into a pixbuf, and convert it if
+necessary.
+---
+ cartridges/store/managers/cover_manager.py | 21 ++++++++++++++++-----
+ cartridges/utils/save_cover.py             |  8 --------
+ 2 files changed, 16 insertions(+), 13 deletions(-)
+
+diff --git a/cartridges/store/managers/cover_manager.py b/cartridges/store/managers/cover_manager.py
+index d5cbd194d..28b4e1ba7 100644
+--- a/cartridges/store/managers/cover_manager.py
++++ b/cartridges/store/managers/cover_manager.py
+@@ -19,10 +19,10 @@
+ # SPDX-License-Identifier: GPL-3.0-or-later
+ 
+ from pathlib import Path
+-from typing import NamedTuple
++from typing import NamedTuple, Optional
+ 
+ import requests
+-from gi.repository import GdkPixbuf, Gio
++from gi.repository import GdkPixbuf, Gio, GLib
+ from requests.exceptions import HTTPError, SSLError
+ 
+ from cartridges import shared
+@@ -128,9 +128,20 @@ def composite_cover(
+         """
+ 
+         # Load source image
+-        source = GdkPixbuf.Pixbuf.new_from_file(
+-            str(convert_cover(image_path, resize=False))
+-        )
++        try:
++            source = GdkPixbuf.Pixbuf.new_from_file(
++                str(image_path)
++            )
++        except GLib.Error:
++            new_path = convert_cover(image_path, resize=False)
++
++            if new_path:
++                source = GdkPixbuf.Pixbuf.new_from_file(
++                    str(new_path)
++                )
++            else:
++                return None
++
+         source_size = ImageSize(source.get_width(), source.get_height())
+         cover_size = ImageSize._make(shared.image_size)
+ 
+diff --git a/cartridges/utils/save_cover.py b/cartridges/utils/save_cover.py
+index 38c414bae..ac3fb92a0 100644
+--- a/cartridges/utils/save_cover.py
++++ b/cartridges/utils/save_cover.py
+@@ -35,14 +35,6 @@ def convert_cover(
+     if not cover_path and not pixbuf:
+         return None
+ 
+-    pixbuf_extensions = set()
+-    for pixbuf_format in GdkPixbuf.Pixbuf.get_formats():
+-        for pixbuf_extension in pixbuf_format.get_extensions():
+-            pixbuf_extensions.add(pixbuf_extension)
+-
+-    if not resize and cover_path and cover_path.suffix.lower()[1:] in pixbuf_extensions:
+-        return cover_path
+-
+     try:
+         with Image.open(cover_path) as image:
+             if getattr(image, "is_animated", False):
+
+From 117055bf641d6b1a03ce9998f3171fdfead8b05c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 2 Nov 2024 15:48:31 +0100
+Subject: [PATCH 3/4] Handle more error types when opening/saving images with
+ PIL
+
+Decoding/encoding errors sometimes raise an OSError or ValueError.
+---
+ cartridges/details_dialog.py   | 2 +-
+ cartridges/utils/save_cover.py | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/cartridges/details_dialog.py b/cartridges/details_dialog.py
+index 98c27d5a7..0677199e0 100644
+--- a/cartridges/details_dialog.py
++++ b/cartridges/details_dialog.py
+@@ -302,7 +302,7 @@ def thread_func() -> None:
+                 with Image.open(path) as image:
+                     if getattr(image, "is_animated", False):
+                         new_path = convert_cover(path)
+-            except UnidentifiedImageError:
++            except (UnidentifiedImageError, OSError, ValueError):
+                 pass
+ 
+             if new_path:
+diff --git a/cartridges/utils/save_cover.py b/cartridges/utils/save_cover.py
+index ac3fb92a0..29d2d849e 100644
+--- a/cartridges/utils/save_cover.py
++++ b/cartridges/utils/save_cover.py
+@@ -63,7 +63,7 @@ def convert_cover(
+                     if shared.schema.get_boolean("high-quality-images")
+                     else shared.TIFF_COMPRESSION,
+                 )
+-    except UnidentifiedImageError:
++    except (UnidentifiedImageError, OSError, ValueError):
+         try:
+             Gdk.Texture.new_from_filename(str(cover_path)).save_to_tiff(
+                 tmp_path := Gio.File.new_tmp("XXXXXX.tiff")[0].get_path()
+
+From 4331b0d8c01cafe8ff4ac0d0bb7dfb4043f70d6d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 2 Nov 2024 19:16:32 +0100
+Subject: [PATCH 4/4] Clear temporary files after conversion
+
+convert_cover() now always return a temporary file, which needs to be
+removed after the cover is saved. Without this, these files would remain on
+the system until reboot. Also remove the downloaded temporary files after
+save.
+---
+ cartridges/details_dialog.py               | 23 +++++++++++++++++-----
+ cartridges/store/managers/cover_manager.py | 10 +++++++---
+ cartridges/utils/steamgriddb.py            |  6 +++++-
+ 3 files changed, 30 insertions(+), 9 deletions(-)
+
+diff --git a/cartridges/details_dialog.py b/cartridges/details_dialog.py
+index 0677199e0..f2bf5ccd9 100644
+--- a/cartridges/details_dialog.py
++++ b/cartridges/details_dialog.py
+@@ -68,7 +68,8 @@ def __init__(self, game: Optional[Game] = None, **kwargs: Any):
+ 
+         # Make it so only one dialog can be open at a time
+         self.__class__.is_open = True
+-        self.connect("closed", lambda *_: self.set_is_open(False))
++        self.tmp_cover_path = None
++        self.connect("closed", self.on_closed)
+ 
+         self.game: Optional[Game] = game
+         self.game_cover: GameCover = GameCover({self.cover})
+@@ -160,11 +161,20 @@ def set_exec_info_a11y_label(*_args: Any) -> None:
+         self.set_focus(self.name)
+ 
+     def delete_pixbuf(self, *_args: Any) -> None:
++        if self.tmp_cover_path:
++            self.tmp_cover_path.unlink(missing_ok=True)
++
+         self.game_cover.new_cover()
+ 
+         self.cover_button_delete_revealer.set_reveal_child(False)
+         self.cover_changed = True
+ 
++    def on_closed(self, *args):
++        if self.tmp_cover_path:
++            self.tmp_cover_path.unlink(missing_ok=True)
++
++        self.set_is_open(False)
++
+     def apply_preferences(self, *_args: Any) -> None:
+         final_name = self.name.get_text()
+         final_developer = self.developer.get_text()
+@@ -296,17 +306,20 @@ def set_cover(self, _source: Any, result: Gio.Task, *_args: Any) -> None:
+             return
+ 
+         def thread_func() -> None:
+-            new_path = None
++            is_animated = False
+ 
+             try:
+                 with Image.open(path) as image:
+                     if getattr(image, "is_animated", False):
+-                        new_path = convert_cover(path)
++                        is_animated = True
+             except (UnidentifiedImageError, OSError, ValueError):
+                 pass
+ 
+-            if new_path:
+-                self.game_cover.new_cover(new_path)
++            if is_animated:
++                if self.tmp_cover_path:
++                    self.tmp_cover_path.unlink(missing_ok=True)
++                self.tmp_cover_path = convert_cover(path)
++                self.game_cover.new_cover(self.tmp_cover_path)
+             else:
+                 self.game_cover.new_cover(
+                     pixbuf=shared.store.managers[CoverManager].composite_cover(
+diff --git a/cartridges/store/managers/cover_manager.py b/cartridges/store/managers/cover_manager.py
+index 28b4e1ba7..5cf2f259d 100644
+--- a/cartridges/store/managers/cover_manager.py
++++ b/cartridges/store/managers/cover_manager.py
+@@ -133,12 +133,13 @@ def composite_cover(
+                 str(image_path)
+             )
+         except GLib.Error:
+-            new_path = convert_cover(image_path, resize=False)
++            tmp_cover_path = convert_cover(image_path, resize=False)
+ 
+-            if new_path:
++            if tmp_cover_path:
+                 source = GdkPixbuf.Pixbuf.new_from_file(
+-                    str(new_path)
++                    str(tmp_cover_path)
+                 )
++                tmp_cover_path.unlink(missing_ok=True)
+             else:
+                 return None
+ 
+@@ -205,3 +206,6 @@ def main(self, game: Game, additional_data: dict) -> None:
+                 game.game_id,
+                 pixbuf=self.composite_cover(image_path, **composite_kwargs),
+             )
++
++            if key == "online_cover_url":
++                image_path.unlink(missing_ok=True)
+diff --git a/cartridges/utils/steamgriddb.py b/cartridges/utils/steamgriddb.py
+index d4d8affca..e1cd6f907 100644
+--- a/cartridges/utils/steamgriddb.py
++++ b/cartridges/utils/steamgriddb.py
+@@ -134,7 +134,11 @@ def conditionaly_update_cover(self, game: Game) -> None:
+                 tmp_file = Gio.File.new_tmp()[0]
+                 tmp_file_path = tmp_file.get_path()
+                 Path(tmp_file_path).write_bytes(response.content)
+-                save_cover(game.game_id, convert_cover(tmp_file_path))
++                tmp_cover_path = convert_cover(tmp_file_path)
++                if tmp_cover_path:
++                    save_cover(game.game_id, tmp_cover_path)
++                    tmp_cover_path.unlink(missing_ok=True)
++                tmp_file_path.unlink(missing_ok=True)
+             except SgdbAuthError as error:
+                 # Let caller handle auth errors
+                 raise error
