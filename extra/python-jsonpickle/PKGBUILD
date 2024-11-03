@@ -1,9 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-jsonpickle
-pkgver=3.0.2
-_commit=7ceb2e7b61a24cb6ec0fb48a34943e802de019f8
-pkgrel=2
+pkgver=3.3.0
+pkgrel=1
 arch=('any')
 pkgdesc="Python library for serializing any arbitrary object graph into JSON"
 url="https://jsonpickle.github.io/"
@@ -14,8 +13,8 @@ optdepends=("python-numpy: for serializing sklearn models, numpy arrays, and oth
 makedepends=('git' 'python-setuptools-scm' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-numpy' 'python-feedparser' 'python-simplejson' 'python-gmpy2'
               'python-pymongo' 'python-ujson' 'python-pandas' 'python-pytest')
-source=("git+https://github.com/jsonpickle/jsonpickle.git#commit=$_commit")
-sha512sums=('SKIP')
+source=("git+https://github.com/jsonpickle/jsonpickle.git#tag=v$pkgver")
+sha512sums=('0ceb162f93d0c67e33b5e251a2ab11aa92f62f48cbe3c2371ae4bbe59f42ffb63d543f42f28f0c4297b4cfa784e07580c4b9a09962177f656f60f05ba0833784')
 
 prepare() {
   cd jsonpickle
@@ -30,7 +29,7 @@ build() {
 
 check() {
   cd jsonpickle
-  pytest
+  pytest tests
 }
 
 package() {
