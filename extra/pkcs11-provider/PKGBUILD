@@ -3,30 +3,31 @@
 
 pkgname=pkcs11-provider
 pkgver=0.5
-pkgrel=2
+pkgrel=4
 pkgdesc="A pkcs#11 provider for OpenSSL 3.0+"
 url="https://github.com/latchset/pkcs11-provider"
 arch=('x86_64')
 license=('Apache-2.0')
 depends=('glibc' 'openssl>=3.0.7' 'p11-kit')
-makedepends=('gcc' 'git' 'meson')
+makedepends=('git' 'meson')
 checkdepends=('expect' 'gnutls' 'nss' 'opensc' 'softhsm')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('ce38a1653e46bb049b9fefff07714e962cab180e7f689935838ad45786d69a89')
+source=("git+${url}.git#tag=v${pkgver}?signed")
+sha256sums=('0a8622ca1ad04782fca30053d5df49a561d7b280f910eefac26cc698cacdc491')
+validpgpkeys=('7C7BD146943B206BB645B64594EAD67E004B65AB')
 
 build() {
-	cd "${pkgname}-${pkgver}"
+	cd "${pkgname}"
 	meson setup build --wipe --prefix=/usr --sysconfdir=/etc
 	meson compile -C build
 }
 
 check() {
-	cd "${pkgname}-${pkgver}"
+	cd "${pkgname}"
 	meson test -C build
 }
 
 package() {
-	cd "${pkgname}-${pkgver}"
+	cd "${pkgname}"
 	meson install -C build --destdir="${pkgdir}"
-	install -Dm 644 README.md "${pkgdir}/usr/share/doc/pkcs11-provider/README.md"
+	install -Dm 644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
 }
