@@ -4,10 +4,10 @@ pkgbase=systray-x
 _pkgbase=SysTray-X
 pkgname=('systray-x-common' 'systray-x-kde')
 pkgver=0.9.10
-pkgrel=1
-pkgdesc="A system tray extension for Thunderbird 68+ (for X)"
-arch=('x86_64')
+pkgrel=2
+pkgdesc="A system tray extension for Thunderbird"
 url="https://github.com/Ximi1970/systray-x"
+arch=('x86_64')
 license=('MPL-2.0')
 depends=('qt6-base' 'qt6-wayland' 'thunderbird')
 makedepends=('git' 'zip' 'unzip' 'libx11' 'kstatusnotifieritem')
@@ -19,11 +19,11 @@ sha256sums=('7a9bc146f341288b0b41e65d56190dcead694681b1bed25ad36a35768abf3029'
 prepare() {
 	cd "${pkgbase}-${pkgver}"
 	
-	# Input the correct path to the binary in the json file
+	# Add the correct path to the binary in the json file
 	sed -i 's/\/path\/to\/native-messaging\/app/\/usr\/bin/g' "app/${_pkgbase//-/_}.json"
 
-	# Patch the Makefile to build both binaries into a separated directory
-	patch -Np1 <"${srcdir}"/Makefile.patch
+	# Patch the Makefile to build both binaries into separate directories
+	patch -Np1 < "${srcdir}"/Makefile.patch
 }
 
 _build() {
@@ -41,7 +41,7 @@ build() {
 }
 
 package_systray-x-common() {
-pkgdesc="A system tray extension for Thunderbird 68+ (for X) - Common version"
+pkgdesc="${pkgdesc} - Common version"
 optdepends=('gnome-shell-extension-appindicator: Gnome integration')
 provides=("${pkgbase}")
 conflicts=("${pkgbase}")
@@ -54,7 +54,7 @@ conflicts=("${pkgbase}")
 }
 
 package_systray-x-kde() {
-pkgdesc="A system tray extension for Thunderbird 68+ (for X) - KDE version"
+pkgdesc="${pkgdesc} - KDE version"
 depends=('kstatusnotifieritem')
 provides=("${pkgbase}")
 conflicts=("${pkgbase}")
