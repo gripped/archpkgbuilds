@@ -5,7 +5,7 @@
 
 pkgname=lutris
 pkgver=0.5.17
-pkgrel=7
+pkgrel=8
 pkgdesc='Open Gaming Platform'
 arch=(any)
 url=https://lutris.net
@@ -71,6 +71,7 @@ optdepends=(
   'vulkan-tools: Vulkan support'
   'wine: Windows support'
   'xorg-xgamma: Restore gamma on game exit'
+  'umu-launcher: For running games through Proton'
 )
 source=("git+https://github.com/lutris/lutris.git#tag=v${pkgver}"
         "fix_umu_launcher_integration.patch"
