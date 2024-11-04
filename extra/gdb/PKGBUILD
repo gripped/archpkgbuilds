@@ -8,13 +8,29 @@ pkgbase=gdb
 # of gdb (for arm/avr/...)
 pkgname=(gdb gdb-common)
 pkgver=15.2
-pkgrel=2
+pkgrel=3
 pkgdesc='The GNU Debugger'
 arch=(x86_64)
 url='https://www.gnu.org/software/gdb/'
-license=(GPL3)
-makedepends=(glibc gcc-libs texinfo python guile ncurses expat xz mpfr
-             source-highlight boost readline)
+license=(GPL-3.0-or-later LGPL-3.0-or-later)
+makedepends=(
+  bash
+  boost
+  expat
+  gcc-libs
+  glibc
+  gmp
+  guile
+  mpfr
+  ncurses
+  python
+  readline
+  source-highlight
+  texinfo
+  xxhash
+  xz
+  zstd
+)
 source=(https://ftp.gnu.org/gnu/gdb/${pkgname}-${pkgver}.tar.xz{,.sig})
 sha1sums=('f06b8694d2019e03f55560059aac4a5b70a32677'
           'SKIP')
@@ -49,8 +65,30 @@ package_gdb-common() {
 }
 
 package_gdb() {
-  depends=(glibc ncurses libncursesw.so gcc-libs expat xz mpfr source-highlight gdb-common=$pkgver
-           readline libreadline.so guile python libelf)
+  depends=(
+    bash
+    expat
+    gcc-libs
+    gdb-common=$pkgver
+    glibc
+    gmp
+    guile
+    libelf
+    liblzma.so
+    libmpfr.so
+    libncursesw.so
+    libreadline.so
+    libxxhash.so
+    libzstd.so
+    mpfr
+    ncurses
+    python
+    readline
+    source-highlight
+    xxhash
+    xz
+    zstd
+  )
   backup=(etc/gdb/gdbinit)
 
   cd gdb-$pkgver/build
