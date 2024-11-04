@@ -1,0 +1,55 @@
+# Maintainer: Anton Hvornum <anton@hvornum.se>
+
+pkgname=python-pylint-pydantic
+pkgver=0.3.2
+pkgrel=1
+pkgdesc="A Pylint plugin to help Pylint understand the Pydantic"
+arch=(any)
+url="https://github.com/fcfangcc/pylint-pydantic"
+license=(MIT)
+depends=(
+    python-pylint
+    python-pydantic
+    python-pylint-plugin-utils
+)
+makedepends=(
+    git
+    python-build
+    python-installer
+    python-wheel
+    python-pylint
+    python-setuptools
+)
+provides=(python-pylint-pydantic)
+conflicts=(python-pylint-pydantic python-pylint-pydantic-git)
+replaces=(python-pylint-pydantic python-pylint-pydantic-git)
+source=(
+    $pkgname-$pkgver::git+https://github.com/fcfangcc/pylint-pydantic.git#commit=v$pkgver
+)
+sha512sums=('26b664723d7a3a063a70f2b50b727f8c0ea4b0fc8cceb00db3d0d40f90435777295632dcab1cce868c1593c6d45a86f5018ffd302e5f3e491ae25000607d3ceb')
+b2sums=('d4c33454ac81ca1d8ff3144463c868904208fb05bba0f99de7adfa33d7dcc20fb608719932aebea8e87bab7870c96326ee9062294b26ab76d56eba32aeae5627')
+
+# Waiting for PR https://github.com/falling-springs/onepassword-keyring/pull/2
+# pkgver() {
+#   cd "$pkgname-$pkgver"
+#   # Due to lack of git tagging in the project, `git describe` will fail with:
+#   # > No names found, cannot describe anything.
+#   # Falling back to sed grabing the version string
+#   sed -nr 's/version.*"([0-9]+.[0-9]+.[0-9])"/\1/p' pyproject.toml
+# }
+
+check(){
+    cd $pkgname-$pkgver
+
+    PYTHONDONTWRITEBYTECODE=true PYTHONPATH=$(pwd) pylint --rcfile=pylintrc --load-plugins pylint_pydantic tests/
+}
+
+build() {
+    cd $pkgname-$pkgver
+    PYTHONDONTWRITEBYTECODE=true python -m build --wheel --no-isolation
+}
+
+package() {
+    cd $pkgname-$pkgver
+    python -m installer --destdir="$pkgdir" dist/*.whl
+}
