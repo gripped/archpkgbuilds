@@ -3,7 +3,7 @@
 pkgbase=pyqt6-datavisualization
 pkgname=(python-pyqt6-datavisualization)
 pkgver=6.7.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Python bindings for QtDataVisualization'
 arch=(x86_64)
 url='https://www.riverbankcomputing.com/software/pyqtdatavisualization/intro'
@@ -25,7 +25,8 @@ build() {
   cd PyQt6_DataVisualization-$pkgver
   sip-build \
     --no-make \
-    --qmake=/usr/bin/qmake6
+    --qmake=/usr/bin/qmake6 \
+    --pep484-pyi
   cd build
   make
 }
