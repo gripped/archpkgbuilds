@@ -1,0 +1,44 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=cargo-debstatus
+pkgver=0.6.0
+pkgrel=1
+pkgdesc="cargo-tree for Debian packaging"
+url='https://github.com/kpcyrd/cargo-debstatus'
+arch=('x86_64')
+license=('(MIT OR Apache-2.0) AND GPL-3.0-or-later')
+depends=(
+  'gcc-libs'
+  'glibc'
+)
+makedepends=(
+  'cargo'
+)
+source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('c10c6fd701456d97f30eb0f5513bf23986185c11a02f41a3c6a70946cebfa8e0')
+b2sums=('1550cec7eb7783bf746451e7bf9553cd7946a963baa5130b70adb1ccfe4b5559eb99e61683b642510204050eff9501764e20cc58a05d9ae2c846cf3a472da34e')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd ${pkgname}-${pkgver}
+  cargo build --frozen --release
+}
+
+check() {
+  cd ${pkgname}-${pkgver}
+  cargo test --frozen
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm 755 -t "${pkgdir}/usr/bin" \
+    "target/release/${pkgname}"
+
+  install -Dm 644 LICENSE-* -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:
