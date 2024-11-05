@@ -1,0 +1,53 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
+# Contributor: Mark Wagie <mark.wagie@proton.me>
+
+pkgname=cosmic-idle
+pkgver=1.0.0.alpha.3
+pkgrel=1
+pkgdesc='Cosmic idle daemon'
+arch=(x86_64)
+url=https://github.com/pop-os/cosmic-idle
+license=(GPL-3.0-only)
+groups=(cosmic)
+depends=(
+  gcc-libs
+  glibc
+  libxkbcommon
+  wayland
+)
+makedepends=(
+  cargo
+  clang
+  git
+  just
+  lld
+)
+_tag=08c1cf318e91831b6cbfd2c94d2fafbedb90919f
+source=(
+  git+https://github.com/pop-os/cosmic-idle.git#tag=${_tag}
+)
+b2sums=('0246f17af02d4b557ff38304fce81d00c9346034ad1192ef02851915b44e406b87c2e1f5d2fddb58b1f90a1cf1b80ee971a1a27ce72a9539ab65e5b79a722afb')
+
+prepare() {
+  cd $pkgname
+  cargo fetch --locked
+}
+
+pkgver() {
+  cd $pkgname
+  git describe --tags | sed 's/^epoch-//; s/-/./g'
+}
+
+build() {
+  cd $pkgname
+  RUSTFLAGS+=" -C link-arg=-fuse-ld=lld"
+  CC=clang just build-release --frozen
+}
+
+package() {
+  cd $pkgname
+  just rootdir="${pkgdir}" install
+}
+
+# vim: ts=2 sw=2 et:
