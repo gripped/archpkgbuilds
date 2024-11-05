@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kscreenlocker
-pkgver=6.2.2
+pkgver=6.2.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Library and components for secure lock screen architecture'
@@ -47,7 +47,7 @@ source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{
         kde.pam
         kde-fingerprint.pam 
         kde-smartcard.pam)
-sha256sums=('1c8563e811bda80a6a129dd54897c35fb40345b9f5aa0e9cd99d1e28082a7699'
+sha256sums=('1438c8bdbd8e098ecc5a0f6da205e6fae525401d9cf13d279f55faf713d1e54f'
             'SKIP'
             'adba7bb7c27eb3a572e5e9d3cea0dbeebe59d3634472d1863d14fe892cb13b2b'
             '32734b4e1ec8b7f7e32b6cb2d68285c5c4f15f53736bba085096e76095181241'
