@@ -1,9 +1,10 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
 # Contributor: soloturn <soloturn@gmail.com>
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-settings
-pkgver=1.0.0.alpha.2
+pkgver=1.0.0.alpha.3
 pkgrel=1
 pkgdesc='The settings application for the COSMIC desktop environment'
 arch=(x86_64)
@@ -35,9 +36,9 @@ makedepends=(
   lld
 )
 optdepends=('power-profiles-daemon: power profiles support')
-_tag=5fc02288564e059f8d325c061f0787d5a86fb39a
+_tag=ef051c3b13718969e92ade81d98871688ddd8bfe
 source=(git+https://github.com/pop-os/cosmic-settings.git#tag=${_tag})
-b2sums=('b4cb80d63496792d9a0f716fdeaacb2dcdd4644169b9ed8567351cb049eab0f3cc740fa2348132177c3530726e8aa1dc32688c0c7772d03afe79fc677a18da2c')
+b2sums=('d600f96f0a6560be7be5f8649c5f12a1b2a76b4669249507041378039080658dff978c1de7b49106bd34d40f360af0a6bdd1a1702dffffb8ae1f98789d78605b')
 
 prepare() {
   cd cosmic-settings
