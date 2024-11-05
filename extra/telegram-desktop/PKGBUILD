@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: hexchain <i@hexchain.org>
 pkgname=telegram-desktop
-pkgver=5.6.3
+pkgver=5.7.1
 pkgrel=1
 pkgdesc='Official Telegram Desktop client'
 arch=('x86_64')
@@ -17,24 +17,30 @@ makedepends=('cmake' 'git' 'ninja' 'python' 'range-v3' 'tl-expected' 'microsoft-
              'glib2-devel')
 optdepends=('webkit2gtk: embedded browser features'
             'xdg-desktop-portal: desktop integration')
-source=("https://github.com/telegramdesktop/tdesktop/releases/download/v${pkgver}/tdesktop-${pkgver}-full.tar.gz")
-sha512sums=('0cce16f780f1350199d8a10a9eff6e8052888aede5d3839d3435acdfb34f445098ec24cac21d1950f704350c22bec86020e6c746706bb34c5533e2086e6cb597')
+source=("https://github.com/telegramdesktop/tdesktop/releases/download/v${pkgver}/tdesktop-${pkgver}-full.tar.gz"
+        $pkgname-28611.patch::https://patch-diff.githubusercontent.com/raw/telegramdesktop/tdesktop/pull/28611.patch)
+sha512sums=('06c465c6766ba2bb349bb37dd629fa494275cd9c165357ae39bfa7d967f0cce40c587788e88551705923d7bab089fc6a11d3175902c930dca7506a3bfb7d09b5'
+            'a2ece7e7cefcb7beab66ff3365b943f1d9dcb36baace300cfe2ead887e345d33294db67523fc97afd124a17c70ef522f8408c16d9f6db80e51fafd728ab414dd')
+
+prepare() {
+  patch -Np1 -d tdesktop-$pkgver-full -i "$srcdir"/$pkgname-28611.patch
+}
 
 build() {
-    CXXFLAGS+=' -ffat-lto-objects'
+  CXXFLAGS+=' -ffat-lto-objects'
 
-    # Turns out we're allowed to use the official API key that telegram uses for their snap builds:
-    # https://github.com/telegramdesktop/tdesktop/blob/8fab9167beb2407c1153930ed03a4badd0c2b59f/snap/snapcraft.yaml#L87-L88
-    # Thanks @primeos!
-    cmake -B build -S tdesktop-$pkgver-full -G Ninja \
-        -DCMAKE_VERBOSE_MAKEFILE=ON \
-        -DCMAKE_INSTALL_PREFIX="/usr" \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DTDESKTOP_API_ID=611335 \
-        -DTDESKTOP_API_HASH=d524b414d21f4d37f08684c1df41ac9c
-    cmake --build build
+  # Turns out we're allowed to use the official API key that telegram uses for their snap builds:
+  # https://github.com/telegramdesktop/tdesktop/blob/8fab9167beb2407c1153930ed03a4badd0c2b59f/snap/snapcraft.yaml#L87-L88
+  # Thanks @primeos!
+  cmake -B build -S tdesktop-$pkgver-full -G Ninja \
+    -DCMAKE_VERBOSE_MAKEFILE=ON \
+    -DCMAKE_INSTALL_PREFIX="/usr" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DTDESKTOP_API_ID=611335 \
+    -DTDESKTOP_API_HASH=d524b414d21f4d37f08684c1df41ac9c
+  cmake --build build
 }
 
 package() {
-    DESTDIR="$pkgdir" cmake --install build
+  DESTDIR="$pkgdir" cmake --install build
 }
