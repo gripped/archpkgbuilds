@@ -1,9 +1,10 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 # Contributor: soloturn <soloturn@gmail.com>
 
 pkgname=cosmic-notifications
-pkgver=1.0.0.alpha.2
+pkgver=1.0.0.alpha.3
 pkgrel=1
 pkgdesc='Layer Shell notifications daemon which integrates with COSMIC'
 arch=(x86_64)
@@ -23,12 +24,12 @@ makedepends=(
   just
   lld
 )
-_tag=e9abef567a928cfa88949dbbdb5c49bb87c2f6a0
+_tag=980b9621332502af4754c837f54e514282581c2f
 source=(
   git+https://github.com/pop-os/cosmic-notifications.git#tag=${_tag}
   cosmic-notifications-lto.patch
 )
-b2sums=('bb8ab78fd417cbbd27ec57a362e34cc704143a4de0ce8bcc8508da521b9504980aa931de78c0a22f6cc80970d5c8967c321a355cfd086c191c8870f5d93379a4'
+b2sums=('00f7e255ef73e81706ac456dc3506bbe93e146297429ba9aba0779a17df9bc2625374b01604fae05a5958b2b5852da9e90e066e49e471e776195ae0cfaa35ab1'
         '2c3b1b321c7d86c43806885d9b0cc24485bd0186adebdaf3f511cbd861ead2fd7a1491d5583fb85f686c833c1cb2622ce944781f7b26d5486a86509b79ac636a')
 
 prepare() {
