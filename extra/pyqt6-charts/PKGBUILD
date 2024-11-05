@@ -3,7 +3,7 @@
 pkgbase=pyqt6-charts
 pkgname=(python-pyqt6-charts)
 pkgver=6.7.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Python bindings for QtChart'
 arch=(x86_64)
 url='https://www.riverbankcomputing.com/software/pyqtchart/intro'
@@ -24,7 +24,8 @@ build() {
   cd PyQt6_Charts-$pkgver
   sip-build \
     --no-make \
-    --qmake=/usr/bin/qmake6
+    --qmake=/usr/bin/qmake6 \
+    --pep484-pyi
   cd build
   make
 }
