@@ -1,8 +1,9 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-osd
-pkgver=1.0.0.alpha.2
+pkgver=1.0.0.alpha.3
 pkgrel=1
 pkgdesc='COSMIC On-Screen Display'
 arch=(x86_64)
@@ -22,12 +23,12 @@ makedepends=(
   git
   lld
 )
-_tag=27fc5e5ba4bbed119a1fc85f840db0ade13dde85
+_tag=c6fda40a0aa42c07dc357ebed6ce935cee3269ae
 source=(
   git+https://github.com/pop-os/cosmic-osd.git#tag=${_tag}
   cosmic-osd-lto.patch
 )
-b2sums=('1e7665a1c4dfbabcb0ca181efc4545a6973c7ef7188266a426977d783db18318179015ba255e31450be2d85a8fa8266bd14aaf54baac4616728a303634662f1d'
+b2sums=('631362c3f8a72dce54d078d9ea85a057539a515da860ce1add7a3cfee39e7a1a5ee6090934c3a333aa961f12d149fe22318594a7ca85541b264e675c67873177'
         '85c53fa0409511b863b11bd7cf28fa253890e00872a84e3c358299ea92a18e4a9e1844c676dba9c2118ff5555900d1043465b61d7768afbf82811cb4b7b58563')
 
 prepare() {
@@ -37,10 +38,10 @@ prepare() {
   sed 's|libexec|lib/polkit-1|g' -i Makefile src/subscriptions/polkit_agent_helper.rs
 }
 
-#pkgver() {
-#  cd cosmic-osd
-#  git describe --tags | sed 's/^epoch-//; s/-/./g'
-#}
+pkgver() {
+  cd cosmic-osd
+  git describe --tags | sed 's/^epoch-//; s/-/./g'
+}
 
 build() {
   cd cosmic-osd
