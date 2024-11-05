@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=libplasma
-pkgver=6.2.2
+pkgver=6.2.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Plasma library and runtime components'
@@ -46,7 +46,7 @@ conflicts=(plasma-framework)
 replaces=(plasma-framework)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('df43da9f3d745ceece1bcfc2c6746107553bb9f37bf0ec0ad10253418c7e6048'
+sha256sums=('2e85f3245c10b80c841985c4479fa8f45f88f4af01a6b8053fd0b7db8a9c58ee'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
