@@ -2,8 +2,8 @@
 
 _gemname='puppet_metadata'
 pkgname="ruby-${_gemname}"
-pkgver=4.4.0
-pkgrel=2
+pkgver=4.5.0
+pkgrel=1
 pkgdesc='Data structures for the Puppet Metadata'
 arch=('any')
 url="https://github.com/voxpupuli/${_gemname}"
@@ -12,7 +12,7 @@ depends=('ruby' 'ruby-metadata-json-lint' 'ruby-semantic_puppet')
 makedepends=('ruby-rdoc' 'ruby-rake' 'ruby-rspec' 'ruby-rspec-its')
 options=('!emptydirs')
 source=("${url}/archive/${pkgver}/${_gemname}-${pkgver}.tar.gz")
-sha512sums=('483f4fe09ad4e539b8098aa80d20e5b6116bc2454765cf21474d964d2e1a45a6b85f403562ee8d8526a2fdd1c5cee62ad5cc36a0abafc8bec5f9deb4512feb41')
+sha512sums=('0457ddcb4dbdc00dd5f2ad6f6d34701b7f188feca0d96c8f444a564b54717f56c27e29522cbba14a6949b53b1ed7f9c2b56cd380e49cdb9cdf692987cd45e4a5')
 
 prepare() {
   cd "${srcdir}/${_gemname}-${pkgver}"
