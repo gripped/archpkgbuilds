@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=cargo-debstatus
-pkgver=0.6.0
+pkgver=0.6.1
 pkgrel=1
 pkgdesc="cargo-tree for Debian packaging"
 url='https://github.com/kpcyrd/cargo-debstatus'
@@ -15,8 +15,8 @@ makedepends=(
   'cargo'
 )
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('c10c6fd701456d97f30eb0f5513bf23986185c11a02f41a3c6a70946cebfa8e0')
-b2sums=('1550cec7eb7783bf746451e7bf9553cd7946a963baa5130b70adb1ccfe4b5559eb99e61683b642510204050eff9501764e20cc58a05d9ae2c846cf3a472da34e')
+sha256sums=('30dbffd2becc5ad1ee0976c7339df76f6953980008a6f4f87f2a58315a783668')
+b2sums=('20c61c7decf9ddfd6d74ed5f37574a7ea4a1f55267b7e7673ae37302a3280620953417da5e61761e8f7fc451e3c1113a22c20477b57362ddb5bc8af59beb96ba')
 
 prepare() {
   cd ${pkgname}-${pkgver}
