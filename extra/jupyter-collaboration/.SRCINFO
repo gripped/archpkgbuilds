@@ -1,7 +1,7 @@
 pkgbase = jupyter-collaboration
 	pkgdesc = A Jupyter Server Extension Providing Support for Y Documents
 	pkgver = 3.0.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://jupyterlab-realtime-collaboration.readthedocs.io/en/latest/
 	arch = any
 	license = custom
@@ -21,7 +21,6 @@ pkgbase = jupyter-collaboration
 	makedepends = python-installer
 	depends = jupyter-server
 	depends = jupyter-server-fileid
-	depends = jupyter-server-ydoc
 	depends = python
 	depends = python-jupyter-events
 	depends = python-jupyter-ydoc
@@ -29,6 +28,8 @@ pkgbase = jupyter-collaboration
 	depends = python-pycrdt-websocket
 	depends = python-tornado
 	depends = python-traitlets
+	conflicts = jupyter-server-ydoc
+	replaces = jupyter-server-ydoc
 	source = git+https://github.com/jupyterlab/jupyter-collaboration#tag=v3.0.0
 	sha256sums = 4db645f8e58672a0a1c54c67cbd390bbb17c752df5e0945e0df6d852535383a6
 
