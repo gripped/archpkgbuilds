@@ -3,7 +3,7 @@
 pkgbase=pyqt6-networkauth
 pkgname=(python-pyqt6-networkauth)
 pkgver=6.7.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Python bindings for QtNetworkAuth'
 arch=(x86_64)
 url='https://www.riverbankcomputing.com/software/pyqtnetworkauth/intro'
@@ -24,7 +24,8 @@ build() {
   cd PyQt6_NetworkAuth-$pkgver
   sip-build \
     --no-make \
-    --qmake=/usr/bin/qmake6
+    --qmake=/usr/bin/qmake6 \
+    --pep484-pyi
   cd build
   make
 }
