@@ -4,11 +4,12 @@
 
 pkgname=ueberzug
 pkgver=18.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Command line util which allows to display images in combination with X11'
 arch=('x86_64')
 url=https://github.com/ueber-devel/ueberzug
 license=('GPL-3.0-or-later')
+options=(!lto)
 depends=(
     'libxext'
     'libxres'
@@ -29,11 +30,13 @@ sha256sums=('78fe7c335a6d75beacf853d7cf9e9e32fc744050de0ed5bd070c8c715d9da047')
 b2sums=('2e91f55c39b6e9028ce95274c7e71c054fa623f2b61710a22bebec0b5a56ef719161f924b7af6741abc5c1f40d093daf24dfc562cacc4c2d639d9d0d53ed958c')
 
 build() {
-  cd $pkgname-$pkgver
-  python -m build --wheel --no-isolation
+    cd $pkgname-$pkgver
+    # set a fixed build dir to fix repro issue, see
+    # https://github.com/mesonbuild/meson-python/issues/703 for details
+    python -m build --wheel --no-isolation -Cbuild-dir=build
 }
 
 package() {
-  cd $pkgname-$pkgver
-  python -m installer --destdir="$pkgdir" dist/*.whl
+    cd $pkgname-$pkgver
+    python -m installer --destdir="$pkgdir" dist/*.whl
 }
