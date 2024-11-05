@@ -1,0 +1,24 @@
+From 62a34d144ed70df0341533c1b8503a1abbf3db08 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 4 Nov 2024 12:03:59 +0100
+Subject: [PATCH] Enable live thumbnail for all tabs
+
+Without this, the thumbnail is refreshed only for the selected tab. It also causes that only the first thumbnail is visible when the application is launched. Setting the live-thumbnail property to True for all tabs solves the problem.
+
+Reference: https://gnome.pages.gitlab.gnome.org/libadwaita/doc/main/class.TabOverview.html
+---
+ src/tabs.js | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/tabs.js b/src/tabs.js
+index fb6dfeb..13c8b35 100644
+--- a/src/tabs.js
++++ b/src/tabs.js
+@@ -64,6 +64,7 @@ export function Tabs({
+       webview.instance_id = instance.id;
+ 
+       const tab_page = tab_view.append(webview);
++      tab_page.set_live_thumbnail(true);
+ 
+       webview.bind_property(
+         "favicon",

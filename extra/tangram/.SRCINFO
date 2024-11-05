@@ -1,0 +1,29 @@
+pkgbase = tangram
+	pkgdesc = Browser for your pinned tabs
+	pkgver = 3.1
+	pkgrel = 2
+	url = https://apps.gnome.org/Tangram/
+	arch = any
+	license = GPL-3.0-only
+	makedepends = appstream
+	makedepends = blueprint-compiler
+	makedepends = git
+	makedepends = meson
+	depends = dconf
+	depends = gdk-pixbuf2
+	depends = gjs
+	depends = glib2
+	depends = gstreamer
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita
+	depends = libsoup3
+	depends = webkitgtk-6.0
+	source = git+https://github.com/sonnyp/Tangram.git#tag=v3.1
+	source = git+https://github.com/sonnyp/troll.git
+	source = tangram-live-thumbnail.patch
+	b2sums = 4f8a5fffa4382aaed847e208f0437f0cb6ecfb6decaea654be9a0fbafd49612ffa7366bf56c366a5a3f1592dbacd72156be44a3950dd071398e672c47423c69b
+	b2sums = SKIP
+	b2sums = 8caf4d3b9d9ba6ae3ef08a0234014c0601c1049bffed3257c342c887856d8bcb7f71ba93c9c1dd33e8006ab78bbc5de8a5534a69bc28314c890acf2197490ea4
+
+pkgname = tangram

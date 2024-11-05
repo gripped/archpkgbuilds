@@ -1,0 +1,62 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=tangram
+pkgver=3.1
+pkgrel=2
+pkgdesc='Browser for your pinned tabs'
+arch=(any)
+url='https://apps.gnome.org/Tangram/'
+license=(GPL-3.0-only)
+depends=(
+  dconf
+  gdk-pixbuf2
+  gjs
+  glib2
+  gstreamer
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libsoup3
+  webkitgtk-6.0
+)
+makedepends=(
+  appstream
+  blueprint-compiler
+  git
+  meson
+)
+source=(
+  "git+https://github.com/sonnyp/Tangram.git#tag=v$pkgver"
+  git+https://github.com/sonnyp/troll.git
+  tangram-live-thumbnail.patch
+)
+b2sums=(
+  4f8a5fffa4382aaed847e208f0437f0cb6ecfb6decaea654be9a0fbafd49612ffa7366bf56c366a5a3f1592dbacd72156be44a3950dd071398e672c47423c69b
+  SKIP
+  8caf4d3b9d9ba6ae3ef08a0234014c0601c1049bffed3257c342c887856d8bcb7f71ba93c9c1dd33e8006ab78bbc5de8a5534a69bc28314c890acf2197490ea4
+)
+
+prepare() {
+  cd Tangram
+
+  git submodule init
+  git submodule set-url troll "$srcdir/troll"
+  git -c protocol.file.allow=always submodule update
+
+  # https://github.com/sonnyp/Tangram/pull/311
+  git apply -3 ../tangram-live-thumbnail.patch
+}
+
+build() {
+  arch-meson Tangram build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+  ln -s re.sonny.Tangram "$pkgdir/usr/bin/tangram"
+}
