@@ -2,7 +2,7 @@
 
 _name=pydantic-extra-types
 pkgname=python-pydantic-extra-types
-pkgver=2.9.0
+pkgver=2.10.0
 pkgrel=1
 pkgdesc="Extra pydantic types"
 arch=(any)
@@ -37,8 +37,8 @@ optdepends=(
   'python-ulid: for ULID support'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('8697085069437aeacb34d6dee27b9b8c669dfd0009b11fdda37c6259de9d51776c4d75187c45a6f576b9cf1ed57d4e8e045689f577ed77ce49cc5a66894c20c9')
-b2sums=('12454ad3a34e14550fac0389d4f52d37720df8cc5801ac5b3e932eb7faddf178f43ccfcf20f66a511db552133158df9148333745eb580c9e90586d86a2400d8e')
+sha512sums=('a6ebae2eaaf49c1c31d76919babed2d9a692c8beee34ab038dbf72fb9f3c6ab64f1d56103191c3b81013502ebcccd5ddcf7f0958c4dc9ff602df5c3725a36178')
+b2sums=('732183d05969054e61ab96b4e0b19edd315cf58145dd5d8eb29697449f1c9b3a8652d099579eb519e8f94fd2629d387e0ba4c2a83a018bc7fd5eabb1551de3bc')
 
 build() {
   cd $_name-$pkgver
