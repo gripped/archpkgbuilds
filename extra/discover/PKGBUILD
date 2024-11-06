@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org> 
 
 pkgname=discover
-pkgver=6.2.2
+pkgver=6.2.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE and Plasma resources management GUI'
@@ -47,21 +47,13 @@ optdepends=('flatpak: Flatpak packages support'
             'fwupd: firmware update support'
             'packagekit-qt6: to manage packages from Arch Linux repositories (not recommended, use at your own risk)')
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
-        0001-FwupdBackend-Do-not-use-more-API-now-removed-in-fwupd-2-0-0.patch)
-sha256sums=('d4fefafaa9b5b98005222a298cfcb7e3e1c89820d0ef8c02540e1a82108d5aae'
-            'SKIP'
-            '85b701bfca5b3944abda1d1b8101d381b16c484773da25848a89f69734248c05')
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('6df2de75e9de8bfcba55aee7a1ceb8dbbf0fab3b018a59183fbcafbab2fb22ca'
+            'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
-
-prepare() {
-  cd $pkgname-$pkgver
-
-  patch -Np1 < ../0001-FwupdBackend-Do-not-use-more-API-now-removed-in-fwupd-2-0-0.patch
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
