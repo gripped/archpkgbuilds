@@ -11,7 +11,7 @@ _llvm_project_revision=b9198a17315757dc0c2e831c9df0498dcab55285
 # https://github.com/emscripten-core/emscripten/issues/12252
 # I'm obviously unhappy about that but it appears to be the only practical solution for the time being.
 pkgver=3.1.71
-pkgrel=1
+pkgrel=2
 pkgdesc="Compile C and C++ into highly-optimizable JavaScript for the web"
 arch=('x86_64')
 url="https://emscripten.org"
@@ -63,7 +63,7 @@ build() {
     -DLLVM_INSTALL_TOOLCHAIN_ONLY=ON \
     -DLLVM_INCLUDE_EXAMPLES=OFF \
     -DLLVM_INCLUDE_TESTS=OFF \
-    -DLLVM_TARGETS_TO_BUILD="X86;WebAssembly" \
+    -DLLVM_TARGETS_TO_BUILD="host;WebAssembly" \
     -DLLVM_ENABLE_PROJECTS="lld;clang" \
     -DCLANG_INCLUDE_TESTS=OFF
   ninja -C build
