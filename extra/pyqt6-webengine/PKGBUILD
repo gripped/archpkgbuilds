@@ -3,7 +3,7 @@
 pkgbase=pyqt6-webengine
 pkgname=(python-pyqt6-webengine)
 pkgver=6.7.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Python bindings for QtWebEngine'
 arch=(x86_64)
 url='https://www.riverbankcomputing.com/software/pyqtwebengine/intro'
@@ -24,7 +24,8 @@ build() {
   cd PyQt6_WebEngine-$pkgver
   sip-build \
     --no-make \
-    --qmake=/usr/bin/qmake6
+    --qmake=/usr/bin/qmake6 \
+    --pep484-pyi
   cd build
   make
 }
