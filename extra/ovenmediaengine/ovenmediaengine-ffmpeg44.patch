@@ -1,0 +1,15 @@
+diff --git a/src/core/config.mk b/src/core/config.mk
+index d573e7c9..7399d09d 100644
+--- a/src/core/config.mk
++++ b/src/core/config.mk
+@@ -36,8 +36,8 @@ ifneq ($(DISABLE_CUSTOM_LIBRARY_PATHS),true)
+     CONFIG_LIBRARY_PATHS := /opt/ovenmediaengine/lib:/opt/ovenmediaengine/lib64
+     CONFIG_PKG_PATHS := /opt/ovenmediaengine/lib/pkgconfig:/opt/ovenmediaengine/lib64/pkgconfig
+ else
+-    CONFIG_LIBRARY_PATHS :=
+-    CONFIG_PKG_PATHS :=
++	CONFIG_LIBRARY_PATHS := /usr/lib/ffmpeg4.4:/usr/lib
++    CONFIG_PKG_PATHS := /usr/lib/ffmpeg4.4/pkgconfig:/usr/lib/pkgconfig
+ endif
+ 
+ ifeq (${OS_VERSION},darwin)

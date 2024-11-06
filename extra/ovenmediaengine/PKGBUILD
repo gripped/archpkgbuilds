@@ -3,7 +3,7 @@
 
 pkgname=ovenmediaengine
 pkgver=0.17.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Open-source streaming video service with sub-second latency'
 arch=('x86_64')
 url='https://ovenmediaengine.com'
@@ -14,7 +14,7 @@ depends=(
 	'libsrtp'
 	'srt'
 	'opus'
-	'ffmpeg'
+	'ffmpeg4.4' # https://github.com/AirenSoft/OvenMediaEngine/pull/1626
 	'jemalloc'
 	'pcre2'
 	'hiredis'
@@ -36,15 +36,13 @@ makedepends=(
 	'libvpx'
 	'fdkaac'
 )
-# https://github.com/AirenSoft/OvenMediaEngine/pull/1626
-# We skip 1ebe64ae0b363ca120bdb193ae34eaa658f4f856 since it will fail on 0.16.5 (`ffmpeg Update: Drop depreacted avcodec_close ...`)
 source=(
 	"${pkgname}-${pkgver}.tar.gz::https://github.com/AirenSoft/OvenMediaEngine/archive/refs/tags/v${pkgver}.tar.gz"
-	"ovenmediaengine-ffmpeg7-1625.patch::https://github.com/AirenSoft/OvenMediaEngine/pull/1626.patch"
+	"ovenmediaengine-ffmpeg44.patch"
 	"ovenmediaengine.service"
 )
 sha512sums=('6526b6be63d61e7fe21eb308b22f73157238ec7a9e3ba1c6be302d96c674cfa97c1cba4c31c671e7fa7798d1d193d633b359d878a19b80b7e31b54f61c339506'
-            'ce6a949fa5b68e94dc900f7b72825fe39fc2d530fd8c392c131b0a33faaa2992bb53b6f71967eab7dcedb4bf9b1a52f56f5e9688b120de49393911a1352b0018'
+            '1a4c59f49d4135a2e20c4c869f6bb3e213027992ce4d9e932712db6809ab9f97e3f2d79d7b1717574c410f46ca3ce15d2f854bbf0ef2af5a85e348ca7bb9e257'
             'c5c4615d4c50a55c6fea177a1bc73b13d1365224c4e102067e45ce956741cb95366ec3b16cdec8932083c923910794e9164b0f9a25a6b0e2f186557fac3e42f1')
 
 backup=(
@@ -55,7 +53,7 @@ backup=(
 prepare() {
 	cd "OvenMediaEngine-${pkgver}"
 
-	patch -Np1 -i "${srcdir}/ovenmediaengine-ffmpeg7-1625.patch"
+	patch -Np1 -i "${srcdir}/ovenmediaengine-ffmpeg44.patch"
 
 	# Assets take up ~13MB of space
 	rm -Rf docs/.gitbook
@@ -64,6 +62,8 @@ prepare() {
 
 build() {
 	cd "OvenMediaEngine-${pkgver}/src"
+
+	export CXXFLAGS="${CXXFLAGS} -I/usr/include/ffmpeg4.4"
 
 	DISABLE_CUSTOM_LIBRARY_PATHS=true \
 	make release
