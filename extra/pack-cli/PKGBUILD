@@ -5,7 +5,7 @@
 _base=pack
 pkgname=pack-cli
 pkgver=0.35.1
-pkgrel=1
+pkgrel=2
 pkgdesc="CLI for building apps using Cloud Native Buildpacks"
 depends=('glibc')
 makedepends=('go' 'git')
@@ -30,7 +30,7 @@ build() {
     -modcacherw \
     -ldflags "-linkmode external -extldflags \"${LDFLAGS}\" ${_BUILDINFO}" \
     -o "dist/${_base}" \
-    .
+    -a ./cmd/pack
 }
 
 # Seems like it needs docker
