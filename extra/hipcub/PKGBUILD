@@ -1,22 +1,22 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 pkgname=hipcub
-pkgver=6.0.2
+pkgver=6.2.2
 pkgrel=1
 pkgdesc='Header-only library on top of rocPRIM or CUB'
 arch=('x86_64')
 url='https://hipcub.readthedocs.io/en/latest/'
 license=('NCSA')
-depends=('rocm-core' 'rocprim' 'hip')
+depends=('rocm-core' 'rocprim' 'hip-runtime-amd')
 makedepends=('cmake' 'rocm-cmake')
 _git='https://github.com/ROCm/hipCUB'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('3f912a23dc34510cf18d9097f6eda37e01d01724975c8149c92a64c92415968c')
+sha256sums=('b66a8ba7bb34e9cf533a9a081dee3e11cc6dd283f479bd855aae015b3dd66972')
 _dirname="$(basename $_git)-$(basename "${source[0]}" ".tar.gz")"
 
 build() {
   # -fcf-protection is not supported by HIP, see
-  # https://rocm.docs.amd.com/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
+  # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
   local cmake_args=(
     -Wno-dev
     -S "$_dirname"
