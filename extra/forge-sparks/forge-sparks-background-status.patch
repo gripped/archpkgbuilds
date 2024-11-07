@@ -1,0 +1,28 @@
+From 86955b404c12744d6ca08c3daec66149d0d1fbbc Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 7 Nov 2024 17:45:54 +0100
+Subject: [PATCH] util: Set background status only if sandboxed
+
+---
+ src/util.js | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/src/util.js b/src/util.js
+index d0b3fa4..39ff246 100644
+--- a/src/util.js
++++ b/src/util.js
+@@ -80,9 +80,11 @@ export function requestBackground(window, autostart=false, hidden=false) {
+  * @param {String} message
+  */
+ export function setBackgroundStatus(message=_('Monitoring new notifications')) {
+-    portal.set_background_status(message, null, (portal, result) => {
+-        portal.set_background_status_finish(result);
+-    });
++    if (Xdp.Portal.running_under_sandbox()) {
++        portal.set_background_status(message, null, (portal, result) => {
++            portal.set_background_status_finish(result);
++        });
++    }
+ }
+ 
+ /**

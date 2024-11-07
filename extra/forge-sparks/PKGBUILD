@@ -1,0 +1,62 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=forge-sparks
+pkgver=0.4.0
+pkgrel=1
+pkgdesc='Simple notifier app with support for Github, GitLab, Gitea and Forgejo'
+arch=(any)
+url='https://apps.gnome.org/ForgeSparks/'
+license=(MIT)
+depends=(
+  dconf
+  gjs
+  glib2
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libportal
+  libportal-gtk4
+  libsecret
+  libsoup3
+)
+makedepends=(
+  appstream
+  blueprint-compiler
+  git
+  meson
+)
+source=(
+  "git+https://github.com/rafaelmardojai/forge-sparks.git#tag=$pkgver"
+  git+https://github.com/sonnyp/troll.git
+  forge-sparks-background-status.patch
+)
+b2sums=(
+  7854c572ecea01c35a374f42126cf178b3de24029a03653b4f6e5a8483e3c81f055d0b649ce06644c4822c8e846a355efca6a5af63f43f6393c95ff88184c67e
+  SKIP
+  c4d7dd1a4ec9a9381fa312670366d3f44ccb6f133c4957b0eccdcbce0b2b614a91beac6182809e0da9c34dd9895c95cb07627d42eab0f316f10868f5cbc96961
+)
+
+prepare() {
+  cd $pkgname
+
+  git submodule init
+  git submodule set-url troll "$srcdir/troll"
+  git -c protocol.file.allow=always submodule update
+
+  # https://github.com/rafaelmardojai/forge-sparks/pull/45
+  git apply -3 ../forge-sparks-background-status.patch
+}
+
+build() {
+  arch-meson $pkgname build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" $pkgname/LICENSE
+}
