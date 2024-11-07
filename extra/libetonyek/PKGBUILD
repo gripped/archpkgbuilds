@@ -3,16 +3,16 @@
 # Contributor: Yue
 
 pkgname=libetonyek
-pkgver=0.1.10
-pkgrel=4
+pkgver=0.1.11
+pkgrel=1
 pkgdesc='Library and a set of tools for reading and converting Apple Keynote presentations'
 arch=('x86_64')
 url="https://wiki.documentfoundation.org/DLP/Libraries/libetonyek"
 license=('MPL-2.0')
-depends=('libxml2' 'zlib' 'libwpd' 'librevenge' 'liblangtag' 'gcc-libs' 'glibc')
+depends=('libxml2' 'zlib' 'librevenge' 'liblangtag' 'gcc-libs' 'glibc')
 makedepends=('boost' 'cppunit' 'gperf' 'doxygen' 'glm' 'mdds')
 source=(https://dev-www.libreoffice.org/src/$pkgname/$pkgname-$pkgver.tar.xz)
-sha256sums=('b430435a6e8487888b761dc848b7981626eb814884963ffe25eb26a139301e9a')
+sha256sums=('4bbce5aecbfc939e24a2c654efed561930c4605c270476df455fb3118b3ce3ce')
 
 build() {
   cd $pkgname-$pkgver
