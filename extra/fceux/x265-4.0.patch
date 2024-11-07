@@ -1,0 +1,31 @@
+diff --git a/src/drivers/Qt/AviRecord.cpp b/src/drivers/Qt/AviRecord.cpp
+index e6a695d9..0b7d4c25 100644
+--- a/src/drivers/Qt/AviRecord.cpp
++++ b/src/drivers/Qt/AviRecord.cpp
+@@ -388,7 +388,7 @@ namespace X265
+ {
+ static x265_param *param = NULL;
+ static x265_picture *pic = NULL;
+-static x265_picture pic_out;
++static x265_picture *pic_out;
+ static x265_encoder *hdl = NULL;
+ static x265_nal *nal = NULL;
+ static unsigned int i_nal = 0;
+@@ -471,7 +471,7 @@ static int encode_frame( unsigned char *inBuf, int width, int height )
+ 		flags = 0;
+ 		totalPayload = 0;
+ 
+-		if ( IS_X265_TYPE_I(pic_out.sliceType) )
++		if ( IS_X265_TYPE_I(pic_out->sliceType) )
+ 		{
+ 			flags |= gwavi_t::IF_KEYFRAME;
+ 		}
+@@ -504,7 +504,7 @@ static int close(void)
+ 		totalPayload = 0;
+ 		flags = 0;
+ 
+-		if ( IS_X265_TYPE_I(pic_out.sliceType) )
++		if ( IS_X265_TYPE_I(pic_out->sliceType) )
+ 		{
+ 			flags |= gwavi_t::IF_KEYFRAME;
+ 		}
