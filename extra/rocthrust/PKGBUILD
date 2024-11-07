@@ -1,22 +1,22 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 pkgname=rocthrust
-pkgver=6.0.2
+pkgver=6.2.2
 pkgrel=1
 pkgdesc='Port of the Thrust parallel algorithm library atop HIP/ROCm'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocThrust/en/latest/index.html'
 license=('Apache-2.0')
-depends=('rocm-core' 'hip' 'rocprim')
+depends=('rocm-core' 'hip-runtime-amd' 'rocprim')
 makedepends=('cmake' 'rocm-cmake')
 _git='https://github.com/ROCm/rocThrust'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('8de9414f6b921ff549ba102239fcf65f5cc70ece5eec9753de5ec91870e6934d')
+sha256sums=('39dfd8311635a6ca5528e1b870b908c083dcabed4ee96aa3b3c03cd60cf0b1bd')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 build() {
   # -fcf-protection is not supported by HIP, see
-  # https://rocm.docs.amd.com/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
+  # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
   local cmake_args=(
     -Wno-dev
     -S "$_dirname"
