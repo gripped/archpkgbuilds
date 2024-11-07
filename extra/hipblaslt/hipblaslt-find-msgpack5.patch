@@ -7,7 +7,7 @@ index 4320652..b51e04a 100644
  
  if(TENSILE_USE_MSGPACK)
 -    find_package(msgpack REQUIRED)
-+    find_package(msgpackc-cxx REQUIRED)
++    find_package(msgpack-cxx REQUIRED)
      target_compile_definitions(TensileHost PUBLIC -DTENSILE_MSGPACK=1)
  
      if(TARGET msgpackc-cxx)
