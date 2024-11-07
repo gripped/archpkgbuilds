@@ -3,8 +3,8 @@
 _pkgname=ginkgo
 pkgbase=ginkgo-hpc
 pkgname=(ginkgo-hpc ginkgo-hpc-docs ginkgo-hpc-cuda ginkgo-hpc-hip)
-pkgver=1.7.0
-pkgrel=5
+pkgver=1.8.0
+pkgrel=1
 pkgdesc="Numerical linear algebra software package"
 arch=(x86_64)
 url=https://ginkgo-project.github.io/
@@ -40,18 +40,13 @@ makedepends=(
   roctracer
 )
 source=("$_pkgname-$pkgver.tar.gz::https://github.com/ginkgo-project/ginkgo/archive/refs/tags/v$pkgver.tar.gz"
-        "fix-cuda-12.4.patch")
-sha256sums=('f4b362bcb046bc53fbe2e578662b939222d0c44b96449101829e73ecce02bcb3'
-            '20cfc54e8128f0d6eb2917828eb95d7c115d06d19c3c87a41d4eef08e6126530')
+        "fix-rocm-6.1.patch")
+sha256sums=('421efaed1be2ef11d230b79fc68bcf7e264a2c57ae52aff6dec7bd90f8d4ae30'
+            '303963ef8df2bb18166f4942d60e2522ae4af43a6f70a7043b50d3fb80110708')
 
 prepare() {
-  # fix build with CUDA 12.4 - based on https://github.com/ginkgo-project/ginkgo/pull/1569
-  patch --directory=$_pkgname-$pkgver -Np1 < fix-cuda-12.4.patch
-
-  # replace deprecated flag, will be fixed by https://github.com/ginkgo-project/ginkgo/pull/1334
-  sed -i 's|--amdgpu-target|--offload-arch|g' $_pkgname-$pkgver/cmake/hip.cmake
-  # fix finding roctracer
-  sed -i 's|${ROCTRACER_PATH}/include|${ROCM_PATH}/include/roctracer|' $_pkgname-$pkgver/cmake/Modules/FindROCTX.cmake
+  # fix ROCm 6.1 issues https://github.com/ginkgo-project/ginkgo/pull/1670
+  patch --directory=$_pkgname-$pkgver -Np1 < fix-rocm-6.1.patch
 }
 
 build() {
@@ -68,7 +63,10 @@ build() {
     -DGINKGO_BUILD_DOC=ON
     -DGINKGO_BUILD_TESTS=ON
   )
-  local _cuda_archs="All"
+  # In general, we want to ist all real archs (sm_XX) and the latest virtual arch (compute_XX) for future PTX compatibility.
+  # Valid values can be discovered from nvcc --help
+  # Compiling Ginkgo for all real architectures triggers linker limits (2 GB binary size). So let's omit 52, 53, 62, 72 from the list.
+  local _cuda_archs="50;60;61;70;75;80;86;87;89;90;90a;90a-virtual"
   # archs gfx1010;gfx1012;gfx1030;gfx1100;gfx1101;gfx1102 are not supported: https://github.com/ginkgo-project/ginkgo/issues/1429
   local _amdgpu_archs="gfx906;gfx908;gfx90a;gfx940;gfx941;gfx942"
 
@@ -80,34 +78,35 @@ build() {
   cmake --build build
 
   # -cuda package
+  # Compile source code for supported GPU archs in parallel
+  export CUDAFLAGS="--threads $(nproc)"
   cmake -B build-cuda "${common_cmake_flags[@]}" \
-    -DGINKGO_CUDA_ARCHITECTURES="$_cuda_archs" \
+    -DCMAKE_CUDA_ARCHITECTURES="$_cuda_archs" \
     -DGINKGO_BUILD_CUDA=ON \
     -DGINKGO_BUILD_HIP=OFF \
     -DGINKGO_BUILD_SYCL=OFF
   cmake --build build-cuda
 
   # -hip package
-  # ginkgo has insufficient auto-detection for HIP_PATH https://github.com/ginkgo-project/ginkgo/issues/1529
+  # Ginkgo has insufficient auto-detection for HIP_PATH https://github.com/ginkgo-project/ginkgo/issues/1624
   export ROCM_PATH=/opt/rocm
   export HIP_PATH="$ROCM_PATH"
-  export HIP_THRUST_PATH="$HIP_PATH"/include
-  export ROCTRACER_PATH="$ROCM_PATH"
-  # FIXME: GINKGO_HIPCONFIG_PATH must be set due to https://github.com/ginkgo-project/ginkgo/issues/1565
-  # FIXME: CMAKE_MODULE_PATH=/opt/rocm/lib/cmake/hip is needed due to https://github.com/NixOS/nixpkgs/issues/216655
-  # FIXME: benchmarks fail to build with ROCm/HIP 6.0 https://github.com/ginkgo-project/ginkgo/issues/1566
+  # LTO does not work with HIP
+  export HIPFLAGS="${CXXFLAGS/-flto=auto/}"
+  export CXXFLAGS="${CXXFLAGS/-flto=auto/}"
+  # HIP does not support -fcf-protection
+  export HIPFLAGS="${HIPFLAGS/-fcf-protection/}"
+  # Ginkgo does not support _GLIBCXX_ASSERTIONS for device builds https://github.com/ginkgo-project/ginkgo/issues/1143#issuecomment-2036957897
+  export HIPFLAGS="${HIPFLAGS/-Wp,-D_GLIBCXX_ASSERTIONS/}"
+  # Compile source code for supported GPU archs in parallel
+  export HIPFLAGS="$HIPFLAGS -parallel-jobs=$(nproc)"
   cmake -B build-hip "${common_cmake_flags[@]}" \
-    -DGINKGO_HIPCONFIG_PATH=/opt/rocm/bin/hipconfig \
-    -DCMAKE_MODULE_PATH=/opt/rocm/lib/cmake/hip \
-    -DGINKGO_HIP_AMDGPU="$_amdgpu_archs" \
+    -DCMAKE_CXX_COMPILER=/opt/rocm/lib/llvm/bin/amdclang++ \
+    -DCMAKE_HIP_ARCHITECTURES="$_amdgpu_archs" \
     -DGINKGO_BUILD_CUDA=OFF \
     -DGINKGO_BUILD_HIP=ON \
-    -DGINKGO_BUILD_SYCL=OFF \
-    -DGINKGO_BUILD_BENCHMARKS=OFF
+    -DGINKGO_BUILD_SYCL=OFF
   cmake --build build-hip
-  unset ROCM_PATH
-  unset HIP_PATH
-  unset HIP_THRUST_PATH
 }
 
 check() {
