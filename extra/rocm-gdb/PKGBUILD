@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 pkgname=rocm-gdb
-pkgver=6.0.2
-pkgrel=4
+pkgver=6.2.2
+pkgrel=1
 pkgdesc='ROCm source-level debugger for Linux, based on GDB'
 arch=('x86_64')
 url='https://github.com/ROCm-Developer-Tools/ROCgdb'
@@ -10,7 +10,7 @@ depends=('glibc' 'gcc-libs' 'rocm-dbgapi' 'bash' 'python' 'guile' 'ncurses' 'exp
          'xz' 'zlib' 'zstd' 'mpfr' 'gmp' 'libelf' 'readline')
 makedepends=('texinfo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('69b7c3d63435e7d99088980498c68422e52b69244d10a3a62541633e733286e0')
+sha256sums=('f0f4a7882551947f28dcd1516bd75390ed9535121a619c5f405373f159de45fe')
 _dirname="$(basename "$url")-$(basename "${source[0]}" ".tar.gz")"
 
 build() {
