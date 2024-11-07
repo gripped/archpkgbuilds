@@ -3,14 +3,14 @@
 # Contributor: JP-Ellis <josh@jpellis.me>
 
 pkgname=miopen-hip
-pkgver=6.0.2
+pkgver=6.2.2
 pkgrel=1
 pkgdesc="AMD's Machine Intelligence Library (HIP backend)"
 arch=('x86_64')
 url="https://rocm.docs.amd.com/projects/MIOpen/en/latest/index.html"
 license=('MIT')
-depends=('rocm-core' 'glibc' 'gcc-libs' 'rocblas' 'rocm-clang-ocl' 'hip'
-         'comgr' 'bzip2' 'composable-kernel' 'roctracer' 'sqlite')
+depends=('rocm-core' 'glibc' 'gcc-libs' 'rocblas' 'rocrand' 'rocm-clang-ocl'
+         'hip-runtime-amd' 'comgr' 'bzip2' 'composable-kernel' 'roctracer' 'sqlite')
 makedepends=('cmake' 'ninja' 'rocm-cmake' 'boost' 'lbzip2'
              'nlohmann-json' 'eigen' 'half' 'functional-plus' 'frugally-deep')
 provides=('miopen')
@@ -19,8 +19,8 @@ _git='https://github.com/ROCm/MIOpen'
 _mlir='https://github.com/ROCm/rocMLIR'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
         "$pkgname-rocmlir-$pkgver.tar.gz::$_mlir/archive/rocm-$pkgver.tar.gz")
-sha256sums=('e6f671bd6af59f7470f42cda2ff9e77441d8f6c2105772bbf855d31da1085ffa'
-            '6ed039e8045169bb64c10fb063c2e1753b8d52d6d56c60e001c929082be1f20b')
+sha256sums=('fff86a753c9dca9c14384e0cf30f354eaf1fff6e685769835c8898001bfedec8'
+            '09f90b9c1a29e32576014b96a20690f6bb7b15553ca707274705c6dee2b8b533')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
 _mlirname="$(basename "$_mlir")-$(basename "${source[1]}" .tar.gz)"
@@ -34,7 +34,7 @@ build() {
   export CC=/opt/rocm/llvm/bin/clang
   export CXX=/opt/rocm/llvm/bin/clang++
   # -fcf-protection is not supported by HIP, see
-  # https://rocm.docs.amd.com/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
+  # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
   # Set ROCm test chipset to Vega in order to pass the configuration step.
   local llvm_args=(
     -Wno-dev
