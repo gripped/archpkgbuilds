@@ -3,21 +3,23 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=hipsparse
-pkgver=6.0.2
+pkgver=6.2.2
 pkgrel=1
 pkgdesc='rocSPARSE marshalling library.'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/hipSPARSE/en/latest/index.html'
 license=('MIT')
-depends=('rocm-core' 'glibc' 'gcc-libs' 'hip' 'rocsparse')
+depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'rocsparse')
 makedepends=('cmake' 'rocm-cmake' 'gcc-fortran')
 _git='https://github.com/ROCm/hipSPARSE'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('40c1d2493f87c686d9afd84a00321ad10ca0d0d80d6dcfeee8e51858dd1bd8c1')
+sha256sums=('c7ca971a3530aae383b6179009b8b919a599a0e78359422d334cb9a16c3a50c7')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 build() {
+  # -fcf-protection is not supported by HIP, see
+  # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
   local cmake_args=(
     -Wno-dev
     -S "$_dirname"
