@@ -1,23 +1,24 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 
 pkgname=hipsolver
-pkgver=6.0.2
+pkgver=6.2.2
 pkgrel=1
 pkgdesc='rocSOLVER marshalling library.'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/hipSOLVER/en/latest/index.html'
 license=('MIT')
-depends=('rocm-core' 'glibc' 'gcc-libs' 'hip' 'rocsolver' 'rocblas')
+depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'rocsolver' 'rocblas'
+         'suitesparse')
 makedepends=('cmake' 'rocm-cmake' 'gcc-fortran')
 _git='https://github.com/ROCm/hipSOLVER'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('8215e55c3a5bc9c7eeb141cefdc6a6eeba94d8bc3aeae9e685ab7904965040d4')
+sha256sums=('ae94f3bf312a3b4b163ff45564da19d82b8c39e3423c05fb577c04461fecc36b')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 build() {
   # -fcf-protection is not supported by HIP, see
-  # https://rocm.docs.amd.com/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
+  # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
   local cmake_args=(
     -Wno-dev
     -S "$_dirname"
