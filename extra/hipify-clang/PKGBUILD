@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 pkgname=hipify-clang
-pkgver=6.0.2
-pkgrel=1
+pkgver=6.2.2
+pkgrel=2
 pkgdesc='Convert CUDA to Portable C++ Code'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/HIPIFY/en/latest'
@@ -10,17 +10,10 @@ depends=('glibc' 'gcc-libs' 'ncurses' 'bash' 'perl' 'zstd' 'zlib'
          'rocm-llvm' 'cuda')
 makedepends=('cmake')
 _git='https://github.com/ROCm-Developer-Tools/HIPIFY'
-source=("${pkgname}-${pkgver}.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
-        "hipify-fix-install-cmake.patch")
-sha256sums=('21e46276677ec8c00e61c0cbf5fa42185517f6af0d4845ea877fd40eb35198c4'
-            '64d422e402b2f93cc83df2b762cf9f06f2b9b358de2643abff78298f875acd0a')
+source=("${pkgname}-${pkgver}.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
+sha256sums=('d5ae72fba0d24602079eb623dcb795d67dcd82f30278e1a5fc256d6bc9f7e452')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
-
-prepare() {
-  cd "$_dirname"
-  patch -Np1 -i "$srcdir/hipify-fix-install-cmake.patch"
-}
 
 build() {
   local cmake_args=(
@@ -37,6 +30,8 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
+  # The script hipify-perl is generated read-only
+  chmod a+x "$pkgdir/opt/rocm/bin/hipify-perl"
 
   install -Dm644 "$_dirname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
