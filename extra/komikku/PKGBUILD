@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=komikku
-pkgver=1.60.0
-pkgrel=2
+pkgver=1.61.1
+pkgrel=1
 pkgdesc='Manga and comics reader for GNOME'
 arch=(any)
 url='https://apps.gnome.org/Komikku/'
@@ -47,21 +47,8 @@ makedepends=(
   git
   meson
 )
-source=(
-  "git+https://codeberg.org/valos/Komikku.git#tag=v$pkgver"
-  komikku-icon-gresource.patch
-)
-b2sums=(
-  f264b00aa971a56e4ed5e13d248dba590a2f0f251becc748f32f5b2254f6491f6826441fedaad2d3c13b395bb56be5bc74ebc5f79b5bd1b4431e18a454b642e1
-  3c04a7475e20b15da06e16359cb62c4841056c5eb483ffce3f83ccdd00cd4b417d553bb7c2055ece730791c5a15676455fb5fd1b2737fc3468039253f7e984e0
-)
-
-prepare() {
-  cd Komikku
-
-  # https://codeberg.org/valos/Komikku/pulls/745
-  git apply -3 ../komikku-icon-gresource.patch
-}
+source=("git+https://codeberg.org/valos/Komikku.git#tag=v$pkgver")
+b2sums=(6ac3f2c2822663f81144f0613c9f3e6bfc835bb25396571a2509821ae8c1b02aaed335b21c1593d701bfd49921a8184f117a3ae982b19bbe32c987822ecbc7f5)
 
 build() {
   arch-meson Komikku build
