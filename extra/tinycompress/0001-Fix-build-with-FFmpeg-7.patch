@@ -1,5 +1,14 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Antonio Rojas <arojas@archlinux.org>
+Date: Sat, 25 May 2024 19:12:00 +0200
+Subject: [PATCH] Fix build with FFmpeg 7
+
+---
+ src/utils-lgpl/fcplay.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
 diff --git a/src/utils-lgpl/fcplay.c b/src/utils-lgpl/fcplay.c
-index aff0915..eac0712 100644
+index aff091579d7d..eac0712b907c 100644
 --- a/src/utils-lgpl/fcplay.c
 +++ b/src/utils-lgpl/fcplay.c
 @@ -240,8 +240,8 @@ static int parse_file(char *file, struct snd_codec *codec)
