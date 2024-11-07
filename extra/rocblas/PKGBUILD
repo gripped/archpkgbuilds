@@ -1,38 +1,31 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: Markus Näther <naether.markus@gmail.com>
 pkgname=rocblas
-pkgver=6.0.2
+pkgver=6.2.2
 pkgrel=1
 pkgdesc='Next generation BLAS implementation for ROCm platform'
 arch=('x86_64')
 url='https://rocblas.readthedocs.io/en/latest'
 license=('MIT')
-depends=('rocm-core' 'hip' 'glibc' 'gcc-libs' 'openmp')
+depends=('rocm-core' 'hip-runtime-amd' 'glibc' 'gcc-libs' 'openmp')
 makedepends=('rocm-cmake' 'python' 'python-virtualenv' 'python-pyaml' 'python-wheel'
              'python-msgpack' 'python-joblib' 'perl-file-which' 'msgpack-cxx' 'gcc-fortran')
 _rocblas='https://github.com/ROCmSoftwarePlatform/rocBLAS'
 _tensile='https://github.com/ROCmSoftwarePlatform/Tensile'
 source=("$pkgname-$pkgver.tar.gz::$_rocblas/archive/rocm-$pkgver.tar.gz"
-        "$pkgname-tensile-$pkgver.tar.gz::$_tensile/archive/refs/tags/rocm-$pkgver.tar.gz"
-        "find-msgpack-5.patch")
-sha256sums=('d1bf31063a2d349797b88c994c91d05f94e681bafb5550ad9b53529703d89dbb'
-            '1d8a92422560c1e908fa25fd97a4aa07a96659528a543f77618408ffcfe1f307'
-            '3f91bf087e4ea72eaef5acd500e16b61aa69c029cfcca14666799a7c42a0c5aa')
+        "$pkgname-tensile-$pkgver.tar.gz::$_tensile/archive/refs/tags/rocm-$pkgver.tar.gz")
+sha256sums=('fcb28d098a6ba71512dd9589a11e4c4a7c61779fab0575a71abaac1f04de8bc8'
+            '8b3ee61cead8d3d229c123cc6bcebc2dc26b846de1a25ee4ec455ed7dbcdc93b')
 options=(!lto)
 _dirname="$(basename "$_rocblas")-$(basename "${source[0]}" ".tar.gz")"
 _tensile_dir="$(basename "$_tensile")-$(basename "${source[1]}" ".tar.gz")"
-
-prepare() {
-    cd "$_tensile_dir"
-    patch -Np1 -i "$srcdir/find-msgpack-5.patch"
-}
 
 build() {
   # Compile source code for supported GPU archs in parallel
   export HIPCC_COMPILE_FLAGS_APPEND="-parallel-jobs=$(nproc)"
   export HIPCC_LINK_FLAGS_APPEND="-parallel-jobs=$(nproc)"
   # -fcf-protection is not supported by HIP, see
-  # https://rocm.docs.amd.com/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
+  # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
   local cmake_args=(
     -Wno-dev
     -S "$_dirname"
