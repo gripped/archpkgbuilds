@@ -1,12 +1,13 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 # Contributor: Carl Smedstad <carl.smedstad at protonmail dot com>
 # Contributor: George Rawlinson <grawlinson@archlinux.org>
 # Contributor: Thomas <thomas at 6f dot io>
 
 pkgname=jujutsu
 _pkgname=jj
-pkgver=0.22.0
-pkgrel=2
+pkgver=0.23.0
+pkgrel=1
 pkgdesc='Git-compatible VCS that is both simple and powerful'
 arch=(x86_64)
 url="https://github.com/martinvonz/$_pkgname"
@@ -21,7 +22,7 @@ replaces=("$pkgname-bin")
 makedepends=(cargo)
 _archive="$_pkgname-$pkgver"
 source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
-sha256sums=('ed49b1c01ee6086bb782a465a4437e2f1b66f43bcf39c231df2b261091ab114b')
+sha256sums=('18e0cc5600c06e940defce0a23ab4b29885bac265f94176603e5f8f926ed000e')
 
 prepare() {
 	cd "$_archive"
@@ -48,7 +49,6 @@ check() {
 	local skipped=(
 		test_diff_command # relies on config of external command
 		test_acls::test_diff # relies on assumptions about tty
-		test_show_command::test_show_basic # https://github.com/martinvonz/jj/issues/4394
 	)
 	cargo test --frozen --all-features --package jj-cli -- \
 		${skipped[@]/#/--skip }
