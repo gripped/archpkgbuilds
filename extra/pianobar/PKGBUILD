@@ -5,7 +5,7 @@
 
 pkgname=pianobar
 pkgver=2022.04.01
-pkgrel=3
+pkgrel=4
 pkgdesc="Console-based frontend for Pandora"
 arch=('x86_64')
 url="https://6xq.net/pianobar/"
@@ -30,5 +30,6 @@ build() {
 package() {
   make -C ${pkgname}-${pkgver} DESTDIR="${pkgdir}" PREFIX=/usr install
   install -Dm644 $pkgname-"${pkgver}"/COPYING "${pkgdir}"/usr/share/licenses/$pkgname/LICENSE
+  install -Dm644 $pkgname-"${pkgver}"/contrib/config-example "${pkgdir}"/usr/share/$pkgname/config-example
   install -Dm755 $pkgname-"${pkgver}"/contrib/headless_pianobar "${pkgdir}"/usr/bin/pianoctl
 }
