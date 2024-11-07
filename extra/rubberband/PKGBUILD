@@ -4,12 +4,13 @@
 
 pkgbase=rubberband
 pkgname=(rubberband rubberband-{ladspa,lv2,vamp})
-pkgver=3.3.0
-pkgrel=2
+pkgver=4.0.0
+pkgrel=1
 pkgdesc="Time-stretching and pitch-shifting audio library and utility"
 arch=(x86_64)
 url="https://www.breakfastquay.com/rubberband/"
-license=(GPL2)
+_url="https://github.com/breakfastquay/rubberband"
+license=(GPL-2.0-or-later)
 makedepends=(
   boost
   fftw
@@ -21,9 +22,9 @@ makedepends=(
   libsndfile
   vamp-plugin-sdk
 )
-source=($pkgbase-$pkgver.tar.gz::https://github.com/breakfastquay/$pkgbase/archive/v$pkgver.tar.gz)
-sha512sums=('6d7ce80f47a5870920748d6e2ff9425f9d90e3fd2d62d7b937158ad2134829bc1d1e34ec4fd6327de5d6f1924b4bb793dc4c9d10574102e11338383c4522ba84')
-b2sums=('09002ddb20dc34ea3bceb3d35468cd6b5398e41808c8e9ef9346e5fb3a3544b725c7da6c6bce80e6b9a2b58e1f55faea83d365b255852d3b953f5134dfc6445e')
+source=($pkgbase-$pkgver.tar.gz::$_url/archive/v$pkgver.tar.gz)
+sha512sums=('f581e900a71f78fde3361d2bed2fe165952c2ca087168c5f4e4994586bd832267eea58e0662a74b6a7430bc361fe80b5307b2ee6bf631a3561a8cba86e1cd3f2')
+b2sums=('5ed7c160ac6653eec25c0e0d555ae98b72bb36ae330f7361e39104ace64d837c3b17dbb0922c40e9a630b37e25d6bb2e17f6455c870ae477361496307c82b980')
 
 _pick() {
   local p="$1" f d; shift
