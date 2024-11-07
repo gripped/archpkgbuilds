@@ -1,8 +1,8 @@
 # Maintainer: Jelle van der Waa <jelle@vdwaa.nl>
 
 pkgname=gcovr
-pkgver=7.2
-pkgrel=2
+pkgver=8.2
+pkgrel=1
 pkgdesc='provides a utility for managing the use of the GNU gcov utility'
 arch=(any)
 url="https://gcovr.com/"
@@ -11,7 +11,7 @@ depends=('python' 'python-jinja' 'python-lxml' 'gcc' 'python-colorlog')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
 source=("https://github.com/gcovr/gcovr/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('17d3014b2dcfdfd155a8c38ef808ad6da11502cbb156e58172af259631e9b4ad')
+sha256sums=('b435c7d741d3e83ba9d8305099245a298c287b3f8b7a5385032189702fa052a2')
 
 build() {
   cd ${pkgname}-${pkgver}
