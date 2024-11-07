@@ -2,8 +2,8 @@
 # Maintainer: Christian Hesse <mail@eworm.de>
 
 pkgname=open-isns
-pkgver=0.102
-pkgrel=4
+pkgver=0.103
+pkgrel=1
 pkgdesc='iSNS server and client for Linux'
 arch=('x86_64')
 depends=('openssl')
@@ -11,7 +11,7 @@ makedepends=('meson')
 url='https://github.com/gonzoleeman/open-isns'
 license=('GPL')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/gonzoleeman/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('9611344733c0cdf14395f60880950ea4c3c7d6b765565b6493ad3e1afbe216de')
+sha256sums=('47499f3ce87a832840884dcf3eedbec8c039f472fe921a5378e3b206a3fc1a32')
 
 build() {
   local _meson_options=(
