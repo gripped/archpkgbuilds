@@ -2,17 +2,17 @@
 # Contributor: Jakub Okoński <jakub@okonski.org>
 # Contributor: Markus Näther <naetherm@cs.uni-freiburg.de>
 pkgname=rocfft
-pkgver=6.0.2
+pkgver=6.2.2
 pkgrel=1
 pkgdesc='Next generation FFT implementation for ROCm'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocFFT/en/latest/index.html'
 license=('MIT')
-depends=('rocm-core' 'hip' 'glibc' 'gcc-libs')
+depends=('rocm-core' 'hip-runtime-amd' 'glibc' 'gcc-libs')
 makedepends=('cmake' 'rocm-cmake')
 _git='https://github.com/ROCmSoftwarePlatform/rocFFT'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('d3e1f7a4dc661f1e5ffce02e2e01ae6c3c339bac8e93deaf175e4c03ddfea459')
+sha256sums=('99a8cb78473678986d30e8ccb9a3dc5b42ea08b9ec390d02c384222c8a88cb34')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
@@ -21,7 +21,7 @@ build() {
   export HIPCC_COMPILE_FLAGS_APPEND="-parallel-jobs=$(nproc)"
   export HIPCC_LINK_FLAGS_APPEND="-parallel-jobs=$(nproc)"
   # -fcf-protection is not supported by HIP, see
-  # https://rocm.docs.amd.com/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
+  # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
   local cmake_args=(
     -Wno-dev
     -S "$_dirname"
