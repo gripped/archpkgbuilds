@@ -1,6 +1,6 @@
 pkgbase = onnxruntime
-	pkgver = 1.18.0
-	pkgrel = 3
+	pkgver = 1.19.2
+	pkgrel = 2
 	url = https://github.com/microsoft/onnxruntime
 	arch = x86_64
 	license = MIT
@@ -10,7 +10,6 @@ pkgbase = onnxruntime
 	makedepends = pybind11
 	makedepends = nlohmann-json
 	makedepends = chrono-date
-	makedepends = eigen
 	makedepends = cxxopts
 	makedepends = openmpi
 	makedepends = python-setuptools
@@ -42,16 +41,14 @@ pkgbase = onnxruntime
 	depends = onednn
 	depends = intel-oneapi-mkl
 	optdepends = openmpi: Distributed memory parallelization
-	source = git+https://github.com/microsoft/onnxruntime#tag=v1.18.0
+	source = git+https://github.com/microsoft/onnxruntime#tag=v1.19.2
 	source = onnxruntime-install-orttraining-files.patch
 	source = onnxruntime-system-dnnl.patch
 	source = onnxruntime-system-flatbuffers.patch
-	source = onnxruntime-cuda-12.5-missing-include.patch
-	b2sums = 65aa112ca758669dee8830e25fc5fd1e9619cd2667d69799165d37c26b2a8bacc79dbade39c69970bbb24271ad19e738d8a101df1366c4b4849b0e40b9cc990e
+	b2sums = 5912d3dadfd4a4876a14e44287f8090fdefba14f2cbfaa29d36b64cc4fb673295cbee73a1a7b40cdbaf2d2e8ab122da33e6cb7fc0931e1a44a029405964ca536
 	b2sums = af5a5524dd9b5fe0052d2d0da232de7f219d4abffb37a7a321145b428d06fcb2901ab4e76b6754440146c223fc761bcbdfeee230167d33aa4434b82a1ebad5c0
 	b2sums = 57c79382537f5bd25a891de3a99415a6dd8f490676df213016e897040c88e28fb5f5a5c3a8a98057e3f6630edb3ddcaeae36dcc47d5354abaafafc36e579f731
 	b2sums = 207f020f310a7b447b4dc2fac74819f80099f088fdad6e42d67d0f01aa35bb5b9475bd006d9bec318127ae2db3d7ae3df33382fa16339d936c1dfb3832010837
-	b2sums = 80248d35e9ef8d58a4d889200bd0a8e4daf84f6a3aca896576c28b4c011a147d6873c0a50c7c6d855f6ad2a6fe91759264b2ebc0979ce7a947a16626e92544fc
 
 pkgname = onnxruntime
 	pkgdesc = Cross-platform, high performance scoring engine for ML models
@@ -66,7 +63,7 @@ pkgname = onnxruntime-opt
 	optdepends = cuda: nVidia GPU acceleration
 	optdepends = cudnn: nVidia GPU acceleration
 	optdepends = nccl: nVidia GPU acceleration
-	provides = onnxruntime=1.18.0
+	provides = onnxruntime=1.19.2
 	conflicts = onnxruntime
 
 pkgname = onnxruntime-rocm
@@ -79,7 +76,7 @@ pkgname = onnxruntime-rocm
 	depends = rocm-hip-sdk
 	depends = roctracer
 	depends = rccl
-	provides = onnxruntime=1.18.0
+	provides = onnxruntime=1.19.2
 	conflicts = onnxruntime
 
 pkgname = onnxruntime-opt-rocm
@@ -92,7 +89,7 @@ pkgname = onnxruntime-opt-rocm
 	depends = rocm-hip-sdk
 	depends = roctracer
 	depends = rccl
-	provides = onnxruntime=1.18.0
+	provides = onnxruntime=1.19.2
 	conflicts = onnxruntime
 
 pkgname = python-onnxruntime
@@ -142,7 +139,7 @@ pkgname = python-onnxruntime-opt
 	optdepends = cuda: nVidia GPU acceleration
 	optdepends = cudnn: nVidia GPU acceleration
 	optdepends = nccl: nVidia GPU acceleration
-	provides = python-onnxruntime=1.18.0
+	provides = python-onnxruntime=1.19.2
 	conflicts = python-onnxruntime
 
 pkgname = python-onnxruntime-rocm
@@ -164,7 +161,7 @@ pkgname = python-onnxruntime-rocm
 	depends = python-flatbuffers
 	depends = python-protobuf
 	depends = python-packaging
-	provides = python-onnxruntime=1.18.0
+	provides = python-onnxruntime=1.19.2
 	conflicts = python-onnxruntime
 
 pkgname = python-onnxruntime-opt-rocm
@@ -186,5 +183,5 @@ pkgname = python-onnxruntime-opt-rocm
 	depends = python-flatbuffers
 	depends = python-protobuf
 	depends = python-packaging
-	provides = python-onnxruntime=1.18.0
+	provides = python-onnxruntime=1.19.2
 	conflicts = python-onnxruntime

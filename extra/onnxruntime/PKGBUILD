@@ -6,9 +6,9 @@ pkgbase=onnxruntime
 pkgname=("${pkgbase}" "${pkgbase}-opt"  "${pkgbase}-rocm" "${pkgbase}-opt-rocm"
          "python-${pkgbase}" "python-${pkgbase}-opt"
          "python-${pkgbase}-rocm" "python-${pkgbase}-opt-rocm")
-pkgver=1.18.0
+pkgver=1.19.2
 _pkgdesc='Cross-platform, high performance scoring engine for ML models'
-pkgrel=3
+pkgrel=2
 arch=('x86_64')
 url='https://github.com/microsoft/onnxruntime'
 license=('MIT')
@@ -17,7 +17,7 @@ depends=('abseil-cpp' 'boost' 'nsync' 'onednn' 'intel-oneapi-mkl')
 _pydepends=('python-onnx' 'python-numpy' 'python-coloredlogs' 'python-psutil'
             'python-py-cpuinfo' 'python-sympy' 'python-scipy' 'python-pillow'
             'python-flatbuffers' 'python-protobuf' 'python-packaging')
-makedepends=('git' 'cmake' 'ninja' 'pybind11' 'nlohmann-json' 'chrono-date' 'eigen' 'cxxopts' 'openmpi'
+makedepends=('git' 'cmake' 'ninja' 'pybind11' 'nlohmann-json' 'chrono-date' 'cxxopts' 'openmpi'
              'python-setuptools' 'python-installer' 'python-wheel' 'python-build' 'gcc13'
              'cuda' 'cudnn' 'nccl' 'rocm-hip-sdk' 'hipify-clang' 'rocm-smi-lib' 'roctracer')
 makedepends+=("${_pydepends[@]}")
@@ -26,13 +26,11 @@ optdepends=('openmpi: Distributed memory parallelization')
 source=("git+https://github.com/microsoft/onnxruntime#tag=v${pkgver}"
         "${pkgbase}-install-orttraining-files.patch"
         "${pkgbase}-system-dnnl.patch"
-        "${pkgbase}-system-flatbuffers.patch"
-        "${pkgbase}-cuda-12.5-missing-include.patch")
-b2sums=('65aa112ca758669dee8830e25fc5fd1e9619cd2667d69799165d37c26b2a8bacc79dbade39c69970bbb24271ad19e738d8a101df1366c4b4849b0e40b9cc990e'
+        "${pkgbase}-system-flatbuffers.patch")
+b2sums=('5912d3dadfd4a4876a14e44287f8090fdefba14f2cbfaa29d36b64cc4fb673295cbee73a1a7b40cdbaf2d2e8ab122da33e6cb7fc0931e1a44a029405964ca536'
         'af5a5524dd9b5fe0052d2d0da232de7f219d4abffb37a7a321145b428d06fcb2901ab4e76b6754440146c223fc761bcbdfeee230167d33aa4434b82a1ebad5c0'
         '57c79382537f5bd25a891de3a99415a6dd8f490676df213016e897040c88e28fb5f5a5c3a8a98057e3f6630edb3ddcaeae36dcc47d5354abaafafc36e579f731'
-        '207f020f310a7b447b4dc2fac74819f80099f088fdad6e42d67d0f01aa35bb5b9475bd006d9bec318127ae2db3d7ae3df33382fa16339d936c1dfb3832010837'
-        '80248d35e9ef8d58a4d889200bd0a8e4daf84f6a3aca896576c28b4c011a147d6873c0a50c7c6d855f6ad2a6fe91759264b2ebc0979ce7a947a16626e92544fc')
+        '207f020f310a7b447b4dc2fac74819f80099f088fdad6e42d67d0f01aa35bb5b9475bd006d9bec318127ae2db3d7ae3df33382fa16339d936c1dfb3832010837')
 
 _valid_sm() {
   # Check PKGBUILDs of python-pytorch and tensorflow for CUDA architectures built by official packages
@@ -68,8 +66,9 @@ prepare() {
     -i cmake/external/onnxruntime_external_deps.cmake
 
   # Find system nsync
+  # NOTE check line number after every release
   sed -e 's|NAMES nsync|&_cpp|g' \
-      -e '351aadd_library(nsync::nsync_cpp ALIAS nsync_cpp)' \
+      -e '368aadd_library(nsync::nsync_cpp ALIAS nsync_cpp)' \
       -i cmake/external/onnxruntime_external_deps.cmake
 
   patch -Np1 -i "${srcdir}/${pkgbase}-install-orttraining-files.patch"
@@ -82,8 +81,6 @@ prepare() {
   # fix missing #include <iostream>
   sed '11a#include <iostream>' \
     -i orttraining/orttraining/test/training_api/trainer/trainer.cc
-
-  patch -Np1 -i "${srcdir}/onnxruntime-cuda-12.5-missing-include.patch"
 
   cd "${srcdir}"
   cp -r "${pkgbase}" "${pkgbase}-cuda"
@@ -111,8 +108,8 @@ build() {
     -Donnxruntime_ENABLE_LAZY_TENSOR=OFF
     -Donnxruntime_USE_MPI=ON
     -Donnxruntime_USE_DNNL=ON
-    -Donnxruntime_USE_PREINSTALLED_EIGEN=ON
-    -Deigen_SOURCE_PATH="$(pkg-config --cflags eigen3 | sed 's|-I||g')"
+    # Stable release of eigen is too old for onnxruntime.
+    -Donnxruntime_USE_PREINSTALLED_EIGEN=OFF
     -DCMAKE_CXX_STANDARD=17)
 
   # Use protobuf-lite instead of full protobuf to workaround symbol conflicts
