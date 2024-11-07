@@ -1,7 +1,7 @@
 pkgbase = wf-recorder
 	pkgdesc = Screen recorder for wlroots-based compositors such as sway
 	pkgver = 0.5.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/ammen99/wf-recorder
 	arch = x86_64
 	license = MIT
@@ -18,6 +18,8 @@ pkgbase = wf-recorder
 	depends = libwayland-client.so
 	optdepends = slurp: Select a region to record
 	source = wf-recorder-0.5.0.tar.gz::https://github.com/ammen99/wf-recorder/archive/v0.5.0.tar.gz
+	source = https://patch-diff.githubusercontent.com/raw/ammen99/wf-recorder/pull/279.patch
 	sha256sums = b9168bfdf41995bce2cfed5487e3ca8f2e75a5661b92cebea086a3468d20d87c
+	sha256sums = 48a09fd3b6012f0dae8901aeeff38865e324701037c07543e9a888b34eb0d9f1
 
 pkgname = wf-recorder

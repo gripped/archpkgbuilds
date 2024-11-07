@@ -3,7 +3,7 @@
 
 pkgname=wf-recorder
 pkgver=0.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Screen recorder for wlroots-based compositors such as sway"
 arch=("x86_64")
 url="https://github.com/ammen99/wf-recorder"
@@ -26,8 +26,19 @@ makedepends=(
 optdepends=(
 	'slurp: Select a region to record'
 )
-source=("$pkgname-$pkgver.tar.gz::https://github.com/ammen99/wf-recorder/archive/v$pkgver.tar.gz")
-sha256sums=('b9168bfdf41995bce2cfed5487e3ca8f2e75a5661b92cebea086a3468d20d87c')
+source=(
+	"$pkgname-$pkgver.tar.gz::https://github.com/ammen99/wf-recorder/archive/v$pkgver.tar.gz"
+	"https://patch-diff.githubusercontent.com/raw/ammen99/wf-recorder/pull/279.patch"
+)
+sha256sums=('b9168bfdf41995bce2cfed5487e3ca8f2e75a5661b92cebea086a3468d20d87c'
+            '48a09fd3b6012f0dae8901aeeff38865e324701037c07543e9a888b34eb0d9f1')
+
+prepare() {
+	cd "$pkgname-$pkgver"
+	# The frame_rate variable has been made private.
+	# https://github.com/ammen99/wf-recorder/pull/279
+	patch -p1 < ../279.patch
+}
 
 build() {
 	meson "$pkgname-$pkgver" build \
