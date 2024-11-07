@@ -1,17 +1,17 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 
 pkgname=rocsolver
-pkgver=6.0.2
-pkgrel=3
+pkgver=6.2.2
+pkgrel=1
 pkgdesc='Subset of LAPACK functionality on the ROCm platform'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocSOLVER/en/latest/index.html'
 license=('BSD-2-Clause')
-depends=('rocm-core' 'glibc' 'gcc-libs' 'hip' 'rocblas' 'rocsparse')
+depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'rocblas' 'rocsparse')
 makedepends=('rocm-cmake' 'python-pyaml' 'fmt')
 _git='https://github.com/ROCmSoftwarePlatform/rocSOLVER'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('781d5df2886ab0d5087a215a33ac390dd27653b2a9b4a620c7d51b0ae56f63d2')
+sha256sums=('47c623b0a381205379ae1f49891c26a88c71c4a33b1ea18793165e6f3e9465c9')
 options=(!lto !buildflags)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
 
@@ -20,7 +20,7 @@ build() {
     export HIPCC_COMPILE_FLAGS_APPEND="-parallel-jobs=$(nproc)"
     export HIPCC_LINK_FLAGS_APPEND="-parallel-jobs=$(nproc)"
     # -fcf-protection is not supported by HIP, see
-    # https://rocm.docs.amd.com/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
+    # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
     local cmake_args=(
         -Wno-dev
         -S "$_dirname"

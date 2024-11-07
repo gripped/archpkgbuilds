@@ -1,7 +1,7 @@
 pkgbase = rocsolver
 	pkgdesc = Subset of LAPACK functionality on the ROCm platform
-	pkgver = 6.0.2
-	pkgrel = 3
+	pkgver = 6.2.2
+	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/rocSOLVER/en/latest/index.html
 	arch = x86_64
 	license = BSD-2-Clause
@@ -11,12 +11,12 @@ pkgbase = rocsolver
 	depends = rocm-core
 	depends = glibc
 	depends = gcc-libs
-	depends = hip
+	depends = hip-runtime-amd
 	depends = rocblas
 	depends = rocsparse
 	options = !lto
 	options = !buildflags
-	source = rocsolver-6.0.2.tar.gz::https://github.com/ROCmSoftwarePlatform/rocSOLVER/archive/rocm-6.0.2.tar.gz
-	sha256sums = 781d5df2886ab0d5087a215a33ac390dd27653b2a9b4a620c7d51b0ae56f63d2
+	source = rocsolver-6.2.2.tar.gz::https://github.com/ROCmSoftwarePlatform/rocSOLVER/archive/rocm-6.2.2.tar.gz
+	sha256sums = 47c623b0a381205379ae1f49891c26a88c71c4a33b1ea18793165e6f3e9465c9
 
 pkgname = rocsolver
