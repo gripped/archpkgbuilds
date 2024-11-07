@@ -5,16 +5,16 @@
 _pkg=cloudpickle
 pkgname=python-${_pkg}
 pkgver=3.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Extended pickling support for Python objects"
 arch=(any)
 url="https://github.com/cloudpipe/cloudpickle"
-license=(BSD)
+license=(BSD-3-Clause)
 depends=(python)
 makedepends=(
     python-build
     python-installer
-    python-flit
+    python-flit-core
     python-wheel
 )
 checkdepends=(
@@ -24,8 +24,8 @@ checkdepends=(
     python-numpy
 )
 options=(!emptydirs)
-source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-sha256sums=('81a929b6e3c7335c863c771d673d105f02efdb89dfaba0c90495d1c64796601b')
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
+sha256sums=('3a6cf611c6cc12b93dcafe0d539da7c5e3d7aac52b041a452980fdf3b8753946')
 
 build() {
   cd ${_pkg}-${pkgver}
