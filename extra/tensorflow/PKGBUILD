@@ -7,7 +7,7 @@ pkgbase=tensorflow
 pkgname=(tensorflow tensorflow-opt tensorflow-cuda tensorflow-opt-cuda python-tensorflow python-tensorflow-opt python-tensorflow-cuda python-tensorflow-opt-cuda)
 pkgver=2.18.0
 _pkgver=2.18.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for computation using data flow graphs for scalable machine learning"
 url="https://www.tensorflow.org/"
 license=('APACHE')
@@ -18,12 +18,12 @@ makedepends=('bazel' 'cuda' 'nvidia-utils' 'nccl' 'git' 'cudnn' 'openmp'
              'python-installer' 'patchelf' 'libxcrypt-compat' 'clang' 'lld')
 optdepends=('tensorboard: Tensorflow visualization toolkit')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/tensorflow/tensorflow/archive/v${_pkgver}.tar.gz"
-        https://github.com/tensorflow/tensorflow/commit/13ea77ab753dc0e3bae6b92777cd835e464b26e7.patch
+        tensorflow-newer-hermetic-nvidia-versions.patch
         https://github.com/tensorflow/tensorflow/commit/3f4b2fda6ffe7dfe03c1663ef37f54fc4432cc8b.patch
         tensorflow-2.16.1-python-distutils-removal.patch
         https://github.com/bazelbuild/bazel/releases/download/6.5.0/bazel_nojdk-6.5.0-linux-x86_64)
 sha512sums=('177decaafcdef27afee84a17268f473141d2d0c092d5f3fe33c9cdd3ce4fd52f6b4b83bc41b4b005c8889f5e65602a57ae3eba8f63e0c527feaf83917453f4e6'
-            '243c194778c75a073393af246dd206b2f20e13ea8c922a8ba5286b947a3dab6146bebd397712c17473ee018fd0e3bc0f1c01443be2c5f143920d4e0c73ec23d3'
+            '4c2780d69d72c8794aad252a96b21ab81d4e24cb9c6a4b89ff24f0627c7e96b58bec27e59725ef77d6673665faebcb0e958e4dd9406704899ba12fa8d313929e'
             '03e8d7188a81cc237899f4f287f129e7759d268f604252636e007e1ffe71b6a07926c219f79b5bf1f8c088345e292eff461d2375ca1a73af435cdca182e9c26c'
             'e4c44d2f5314b83d8ed404e5ec14960ef8b7df0c1a2a3e826f913a02c901f9fd0326f9014a602121e0fdb2f928d1459f8b8180455491a1f937ce84e12f6a7d3e'
             'd3789f0ecd354468f2e24d98501041430ae99c173320fa9c3eb02f225c08ed298fd1ad259e4ad9bb70b6ae89d84cd87460aaa720de3486d40b30777a8fe45453')
@@ -65,8 +65,8 @@ prepare() {
   export PATH="${srcdir}/bazel:$PATH"
   bazel --version
 
-  # [GPU] Fix compilation with NVIDIA driver 560.
-  patch -Np1 -i ../13ea77ab753dc0e3bae6b92777cd835e464b26e7.patch -d tensorflow-${_pkgver}
+  # Bump versions of hermetic nvidia stuff
+  patch -Np1 -i ../tensorflow-newer-hermetic-nvidia-versions.patch -d tensorflow-${_pkgver}
 
   # PR #16882: Symlink hermetic cuda headers to permit clang cuda version detection
   patch -Np1 -i ../3f4b2fda6ffe7dfe03c1663ef37f54fc4432cc8b.patch -d tensorflow-${_pkgver}
