@@ -1,0 +1,27 @@
+pkgbase = commit
+	pkgdesc = Editor that helps you write better Git and Mercurial commit messages
+	pkgver = 4.2
+	pkgrel = 3
+	url = https://apps.gnome.org/Commit/
+	arch = any
+	license = GPL-3.0-or-later
+	makedepends = appstream
+	makedepends = blueprint-compiler
+	makedepends = git
+	makedepends = meson
+	depends = dconf
+	depends = gjs
+	depends = glib2
+	depends = gtk4
+	depends = gtksourceview5
+	depends = hicolor-icon-theme
+	depends = libadwaita
+	depends = libspelling
+	optdepends = git: Git support
+	optdepends = mercurial: Mercurial support
+	source = git+https://github.com/sonnyp/Commit.git#tag=v4.2
+	source = git+https://github.com/sonnyp/troll.git
+	b2sums = 9e6f0d4dd86298241340176e4cb8053070a90d352e90d1198ae759bdc5fd9a577937f5191a2b7cf06109e049abfc83466657243886d11a1ca3ffcb2698d3e513
+	b2sums = SKIP
+
+pkgname = commit
