@@ -2,7 +2,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=lychee
-pkgver=0.16.1
+pkgver=0.17.0
 pkgrel=1
 pkgdesc='Fast, async, resource-friendly link checker written in Rust'
 arch=('x86_64')
@@ -27,7 +27,7 @@ replaces=(
 )
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/lycheeverse/lychee/archive/$pkgname-v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('f339ed1b805aab5d8eaf8adff7120410d152feb8a3ccf14a0083868c922983f762dd9cb95f8c436c4dfdddbe670b2accf2a3f2c3d30293db31f2363f68e8a0a9')
+b2sums=('33aebfcfa552b96b3e07d8862249696700a22b690477bc5a6c344299329ac6560093bc5840c01926f7382a5bcf99a4d33a5557c43e9fb44d91b855dd2c6638e6')
 
 prepare() {
   mv $pkgname-$pkgname-v$pkgver $pkgname-$pkgver
@@ -45,8 +45,8 @@ check() {
   # Avoid vendoring openssl, which is enabled by vendored-openssl feature
   export OPENSSL_NO_VENDOR=1
   test_expr="(!test(test_exclude_example_domains) and !test(test_detailed_json_output_on_error))"
-  RUSTFLAGS="--cfg tokio_unstable" cargo nextest run --all-targets --all-features -E "$test_expr" --test-threads 1
-  RUSTFLAGS="--cfg tokio_unstable" cargo nextest run --filter-expr 'test(test_exclude_example_domains)' --test-threads 1
+  cargo nextest run --all-targets --all-features -E "$test_expr" --test-threads 1
+  cargo nextest run --filter-expr 'test(test_exclude_example_domains)' --test-threads 1
   cargo test --doc
 }
 
