@@ -1,0 +1,24 @@
+From ce64002177c39b9baa3357906c7d0c29cd111f6b Mon Sep 17 00:00:00 2001
+From: Ahmad Abdelfattah <ahmad@icl.utk.edu>
+Date: Wed, 21 Aug 2024 09:03:55 -0400
+Subject: [PATCH] a quick fix to build issues against cuda 12.6
+
+---
+ magmablas/zgbtf2_kernels.cu | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/magmablas/zgbtf2_kernels.cu b/magmablas/zgbtf2_kernels.cu
+index 59d3f489f..b83ba8085 100644
+--- a/magmablas/zgbtf2_kernels.cu
++++ b/magmablas/zgbtf2_kernels.cu
+@@ -12,6 +12,10 @@
+ 
+ #include "magma_internal.h"
+ #if   defined(MAGMA_HAVE_CUDA)
++#if CUDA_VERSION >= 12060
++#undef max
++#undef min
++#endif
+ #include <cooperative_groups.h>
+ namespace cg = cooperative_groups;
+ #elif defined(MAGMA_HAVE_HIP)

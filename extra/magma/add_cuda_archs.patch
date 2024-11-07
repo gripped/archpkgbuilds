@@ -1,45 +1,52 @@
---- magma-2.6.2lol/CMakeLists.txt	2022-10-06 07:08:50.732278629 +0200
-+++ magma-2.6.2/CMakeLists.txt	2022-10-06 07:10:36.348650499 +0200
-@@ -294,6 +294,42 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0c9b41c7d..16772cfdf 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -260,12 +260,12 @@ if (MAGMA_ENABLE_CUDA)
+         message( STATUS "    compile for CUDA arch 7.0 (Volta)" )
+     endif()
+
+-    if (GPU_TARGET MATCHES sm_71)
++    if (GPU_TARGET MATCHES sm_72)
+         if (NOT MIN_ARCH)
+-            set( MIN_ARCH 710 )
++            set( MIN_ARCH 720 )
+         endif()
+-        list(APPEND __cuda_architectures 71)
+-        message( STATUS "    compile for CUDA arch 7.1 (Volta)" )
++        list(APPEND __cuda_architectures 72)
++        message( STATUS "    compile for CUDA arch 7.2 (Volta)" )
+     endif()
+
+     if (GPU_TARGET MATCHES sm_75)
+@@ -284,6 +284,30 @@ if (MAGMA_ENABLE_CUDA)
          message( STATUS "    compile for CUDA arch 8.0 (Ampere)" )
      endif()
- 
+
 +    if (GPU_TARGET MATCHES sm_86)
 +        if (NOT MIN_ARCH)
 +            set( MIN_ARCH 860 )
 +        endif()
-+        set( NV_SM ${NV_SM} -gencode arch=compute_86,code=sm_86 )
-+        set( NV_COMP        -gencode arch=compute_86,code=compute_86 )
-+        message( STATUS "    compile for CUDA arch 8.6" )
++        list(APPEND __cuda_architectures 86)
++        message( STATUS "    compile for CUDA arch 8.6 (Ampere)" )
 +    endif()
 +
 +    if (GPU_TARGET MATCHES sm_87)
 +        if (NOT MIN_ARCH)
 +            set( MIN_ARCH 870 )
 +        endif()
-+        set( NV_SM ${NV_SM} -gencode arch=compute_87,code=sm_87 )
-+        set( NV_COMP        -gencode arch=compute_87,code=compute_87 )
-+        message( STATUS "    compile for CUDA arch 8.7" )
++        list(APPEND __cuda_architectures 87)
++        message( STATUS "    compile for CUDA arch 8.7 (Ampere)" )
 +    endif()
 +
 +    if (GPU_TARGET MATCHES sm_89)
 +        if (NOT MIN_ARCH)
 +            set( MIN_ARCH 890 )
 +        endif()
-+        set( NV_SM ${NV_SM} -gencode arch=compute_89,code=sm_89 )
-+        set( NV_COMP        -gencode arch=compute_89,code=compute_89 )
-+        message( STATUS "    compile for CUDA arch 8.9" )
++        list(APPEND __cuda_architectures 89)
++        message( STATUS "    compile for CUDA arch 8.9 (Ada)" )
 +    endif()
 +
-+    if (GPU_TARGET MATCHES sm_90)
-+        if (NOT MIN_ARCH)
-+            set( MIN_ARCH 900 )
-+        endif()
-+        set( NV_SM ${NV_SM} -gencode arch=compute_90,code=sm_90 )
-+        set( NV_COMP        -gencode arch=compute_90,code=compute_90 )
-+        message( STATUS "    compile for CUDA arch 9.0" )
-+    endif()
-+
-     if (NOT MIN_ARCH)
-         message( FATAL_ERROR "GPU_TARGET must contain one or more of Fermi, Kepler, Maxwell, Pascal, Volta, Turing, Ampere, or valid sm_[0-9][0-9]" )
-     endif()
+     if (GPU_TARGET MATCHES sm_90)
+         if (NOT MIN_ARCH)
+             set( MIN_ARCH 900 )
