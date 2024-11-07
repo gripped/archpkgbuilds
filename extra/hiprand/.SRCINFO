@@ -1,6 +1,6 @@
 pkgbase = hiprand
 	pkgdesc = rocRAND marshalling library
-	pkgver = 6.0.2
+	pkgver = 6.2.2
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/hipRAND/en/latest/
 	arch = x86_64
@@ -11,13 +11,13 @@ pkgbase = hiprand
 	depends = rocm-core
 	depends = glibc
 	depends = gcc-libs
-	depends = hip
+	depends = hip-runtime-amd
 	depends = rocrand
 	optdepends = gcc-fortran: Use Fortran wrapper
 	options = !lto
-	source = hiprand-6.0.2.tar.gz::https://github.com/ROCm/hipRAND/archive/rocm-6.0.2.tar.gz
+	source = hiprand-6.2.2.tar.gz::https://github.com/ROCm/hipRAND/archive/rocm-6.2.2.tar.gz
 	source = hiprand-rocm-bin-path.patch
-	sha256sums = cb6ff8f58c024b60b3914271921f58f0ab3bdbc9889a53795b40c99c9de0bcd4
+	sha256sums = 7879d2decbb048de79f3e542b54d50b3e18c785dad99f3d223dcf6f4bd1d9c8f
 	sha256sums = 144fb5162222d81559e847d31226f7b56215fa558a549c8be534cfba3fbca241
 
 pkgname = hiprand

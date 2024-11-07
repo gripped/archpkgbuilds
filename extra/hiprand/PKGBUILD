@@ -1,18 +1,18 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 pkgname=hiprand
-pkgver=6.0.2
+pkgver=6.2.2
 pkgrel=1
 pkgdesc='rocRAND marshalling library'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/hipRAND/en/latest/'
 license=('MIT')
-depends=('rocm-core' 'glibc' 'gcc-libs' 'hip' 'rocrand')
+depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'rocrand')
 makedepends=('cmake' 'rocm-cmake' 'gcc-fortran')
 optdepends=('gcc-fortran: Use Fortran wrapper')
 _git='https://github.com/ROCm/hipRAND'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
         "$pkgname-rocm-bin-path.patch")
-sha256sums=('cb6ff8f58c024b60b3914271921f58f0ab3bdbc9889a53795b40c99c9de0bcd4'
+sha256sums=('7879d2decbb048de79f3e542b54d50b3e18c785dad99f3d223dcf6f4bd1d9c8f'
             '144fb5162222d81559e847d31226f7b56215fa558a549c8be534cfba3fbca241')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
@@ -24,7 +24,7 @@ prepare() {
 
 build() {
   # -fcf-protection is not supported by HIP, see
-  # https://rocm.docs.amd.com/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
+  # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
   local cmake_args=(
     -Wno-dev
     -S "$_dirname"
