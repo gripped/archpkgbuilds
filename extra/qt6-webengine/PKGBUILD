@@ -4,7 +4,7 @@
 pkgname=qt6-webengine
 _pkgver=6.8.0
 pkgver=6.8.0
-pkgrel=7
+pkgrel=8
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
