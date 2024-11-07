@@ -3,7 +3,7 @@
 
 pkgname=jellyfin-ffmpeg
 epoch=1
-pkgver=7.0.2p2
+pkgver=7.0.2p5
 pkgrel=1
 pkgdesc='Jellyfin fork of ffmpeg'
 arch=('x86_64')
@@ -73,8 +73,8 @@ optdepends=(
 )
 options=('!lto')
 source=("$pkgname::git+$url#tag=v${pkgver/p/-}")
-sha512sums=('5b3450c33596c6aaf3116486c137e1eff42466ed21eb33f2bb2774f9bcb44354c7ce2210707d2f7cbffbf6b06f321c97e806e51941f827e0f561882d6e235c7e')
-b2sums=('eab92e115399096b514db90684109169737d46871e93fa4e3ab886cfdae8b290c81abe8c0e40f4450448e8a29a3ad00594de8d1a9b14f163907a8e9cfcdfea13')
+sha512sums=('a1f9025511c20e576369f24ca766f4ec8108d579bcf3743e6a5269599b37392206bc730db92fb805fd4a0f4caa672459b37f66ec502d05b723dd7cf2f9fbda18')
+b2sums=('58d023184168bd852f03ad2f32d1573995e796e2bf5041ec08b2153bc32fb7984102fb4367dd0f7bd217837e1587afd9a23d54ac6b9d2a49a742ef720714fc47')
 
 prepare() {
   cd "$pkgname"
