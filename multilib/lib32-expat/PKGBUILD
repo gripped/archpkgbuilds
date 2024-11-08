@@ -2,25 +2,27 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
-_name=expat
 pkgname=lib32-expat
-pkgver=2.6.3
+_name=${pkgname#lib32-}
+pkgver=2.6.4
 pkgrel=1
 pkgdesc='An XML Parser library'
 arch=(x86_64)
 url=https://libexpat.github.io/
+_url="https://github.com/libexpat/libexpat"
 license=(MIT)
 depends=(
   "expat=$pkgver"
   lib32-glibc
 )
-makedepends=(cmake)
+makedepends=(
+  cmake
+  git
+)
 provides=(libexpat.so)
-source=(https://github.com/libexpat/libexpat/releases/download/R_${pkgver//./_}/$_name-$pkgver.tar.bz2{,.asc})
-sha512sums=('ee5acbd0cd1df829ef138217a8497254bfe1952efad6311e805c8e6fcfc0133e8d8324da2f5a9734fe71402acec338c256a220420ec49d40f65b0aa28fced9c8'
-            'SKIP')
-b2sums=('524d8ed0599f51a50f3dd711302c463e024528f871b614c7df4fc6f8567122b1c51024771e859cd796f1be943977c088f733a654c9c5f16c4999788c2231493e'
-        'SKIP')
+source=($_name::git+$_url?signed#tag=R_${pkgver//./_})
+sha512sums=('99a4d3014a43b5dc5862f18daf901656ff2698f42bf9080f7b46c995fb7f69126add770e9ce52d26be44432852b9aa5ff326a75eb880d6921a3a3ae822792ab6')
+b2sums=('063dcf84994afa7cd9bc4a172a328c1b13335bd2fd6456b9727e42e1821898e000a152a2991334924ded1813d4b59a5f1237d80dd37df89b46fb41124d40bc25')
 validpgpkeys=(3176EF7DB2367F1FCA4F306B1F9B0E909AF37285) # Sebastian Pipping
 
 build() {
@@ -29,7 +31,7 @@ build() {
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_LIBDIR=lib32
     -D CMAKE_INSTALL_PREFIX=/usr
-    -S $_name-$pkgver
+    -S $_name/$_name
     -W no-dev
   )
 
@@ -47,7 +49,7 @@ check() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-  install -vDm 644 $_name-$pkgver/COPYING -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 $_name/$_name/COPYING -t "$pkgdir/usr/share/licenses/$pkgname/"
   rm -rf "$pkgdir"/usr/{bin,include,share/man,share/doc}
 }
 
