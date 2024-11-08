@@ -1,7 +1,7 @@
 # Maintainer: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
 pkgname=cockpit-machines
-pkgver=322
+pkgver=323
 pkgrel=1
 pkgdesc='Cockpit UI for virtual machines'
 arch=('any')
@@ -13,7 +13,7 @@ optdepends=(
   "virt-viewer: open graphical display of virtual machines"
 )
 source=("https://github.com/cockpit-project/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz")
-sha256sums=('01e5e81b9b996a8fcd4e4758348c157cbc4ce0a6d7017e81d735871777523fcf')
+sha256sums=('46ee5de8b666ba3a923a875353a63ae5b12ed4a975eae99f13c4cf60215e4ffb')
 
 package() {
   cd $pkgname
