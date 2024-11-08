@@ -2,7 +2,7 @@
 
 _upstream_name=cyclonedx-rust-cargo
 pkgname=cargo-cyclonedx
-pkgver=0.5.5
+pkgver=0.5.6
 pkgrel=1
 pkgdesc="Creates CycloneDX Software Bill of Materials (SBOM) from Rust (Cargo) projects"
 arch=(x86_64)
@@ -17,8 +17,8 @@ makedepends=(rust)
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgname-$pkgver.tar.gz
 )
-sha512sums=('e7aa93be8044712d4bcf2d68b2595012b228555cc3cdd0441087ccf4969a43cab15991899169f5ead2ce9e22f9e6414967a59e7edf4890460ec8cb38a9561a61')
-b2sums=('0e15f62051aabc383929e3b3522068db3764aba45ce8e7cbd63fe0eade3046a4de218453dacf262f9329468151d9b8d9711ac2234435ea8d81b06de6c144fd70')
+sha512sums=('f3e0890a4f32a9959a4f53568f8c24243a9c08e98433b05ee1ba9dfe2bb9007774c0d4eeda3bd49d31f95a0aa3e1575954455fd0ed9f66e03dcd4a243016b097')
+b2sums=('09736af4ff4308acfffab3c65983fe39054c8ad0bd87bc3dc178ccdc81bfae92dc0ea8f71b9decf4772f0542cce8cd37125e1d6f32cfeff7869312f9573b6fb4')
 
 prepare() {
   cd $_upstream_name-$pkgname-$pkgver
