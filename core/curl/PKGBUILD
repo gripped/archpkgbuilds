@@ -7,7 +7,7 @@
 pkgbase=curl
 pkgname=(curl libcurl-compat libcurl-gnutls)
 pkgver=8.11.0
-pkgrel=2
+pkgrel=3
 pkgdesc='command line tool and library for transferring data with URLs'
 arch=('x86_64')
 url='https://curl.se/'
@@ -31,6 +31,8 @@ sha512sums=('d438f215b2e6023104af52961a8a8de9082bd8ceaf9a557f353b3b754b18510cccf
 _backports=(
   # duphandle: also init netrc
   'f5c616930b5cf148b1b2632da4f5963ff48bdf88'
+  # netrc: support large file, longer lines, longer tokens
+  '0cdde0fdfbeb8c35420f6d03fa4b77ed73497694'
 )
 
 _reverts=(
