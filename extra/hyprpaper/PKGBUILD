@@ -3,7 +3,7 @@
 
 pkgname=hyprpaper
 pkgver=0.7.1
-pkgrel=2
+pkgrel=3
 pkgdesc='a blazing fast wayland wallpaper utility with IPC controls'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
@@ -19,8 +19,7 @@ depends=(cairo libcairo.so
          libjpeg-turbo libjpeg.so
          libwebp libwebp.so
          pango
-         wayland # libwayland-cursor.so libwaylant-client.so
-         wlroots0.17)
+         wayland) # libwayland-cursor.so libwaylant-client.so
 makedepends=(cmake
              wayland-protocols
              xorgproto)
@@ -29,7 +28,6 @@ source=("$url/archive/v$pkgver/$_archive.tar.gz")
 sha256sums=('1086a9c7e4126446315aed23fc610f0869b77c899b9d828f997e7188341391e7')
 
 build() {
-	export PKG_CONFIG_PATH='/usr/lib/wlroots0.17/pkgconfig'
 	cd "$_archive"
 	cmake -B build \
 		-D CMAKE_INSTALL_PREFIX=/usr \
