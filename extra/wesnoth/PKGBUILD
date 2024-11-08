@@ -6,9 +6,9 @@
 
 pkgname=wesnoth
 # NOTE: Odd minor versions are unstable! Do not package those.
-pkgver=1.18.2
+pkgver=1.18.3
 epoch=1
-pkgrel=2
+pkgrel=1
 pkgdesc="A turn-based strategy game on a fantasy world"
 arch=('x86_64')
 license=('GPL')
@@ -16,16 +16,8 @@ url="https://www.wesnoth.org/"
 depends=('sdl2_mixer' 'sdl2_image' 'boost-libs' 'pango' 'dbus' 'lua')
 makedepends=('boost' 'cmake' 'git' 'ninja' 'python')
 options=(!emptydirs)
-source=("git+https://github.com/wesnoth/wesnoth.git#tag=${pkgver}"
-         boost-1.86.patch)
-sha512sums=('SKIP'
-            '9044a1e9b121f5a035712dec40aece61a4624b071cfa959f3d4e8c66e26465423d5bfc31169d2f9e5ed10750caeaa22a71cdccb1b13b89998f35202eaf474bf1')
-
-prepare() {
-  cd $pkgname
-  git cherry-pick -n 55162c465405d55f03be0f89daf16818c552d506 # Fix build with boost 1.85
-  patch -p1 -i ../boost-1.86.patch
-}
+source=("git+https://github.com/wesnoth/wesnoth.git#tag=${pkgver}")
+sha512sums=('59011699186606e5201103f99355e91735130c19f99e88910d5ca27e860ac0e72e556e9f118c616a1251ac3de05522591665810191734d0efed273a8463f704d')
 
 build() {
   cd "$pkgname"
