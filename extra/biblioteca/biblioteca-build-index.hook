@@ -1,0 +1,12 @@
+[Trigger]
+Type = Path
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Target = usr/share/app.drey.Biblioteca/build-index.js
+Target = usr/share/doc/*/index.json
+
+[Action]
+Description = Building Biblioteca index...
+When = PostTransaction
+Exec = /usr/share/app.drey.Biblioteca/build-index.js /usr/share/app.drey.Biblioteca
