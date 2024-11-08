@@ -2,7 +2,7 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=aardvark-dns
-pkgver=1.13.0
+pkgver=1.13.1
 pkgrel=1
 pkgdesc="Authoritative dns server for A/AAAA container records"
 arch=(x86_64)
@@ -18,7 +18,7 @@ makedepends=(
   libgit2
 )
 source=(git+$url#tag=v$pkgver)
-sha256sums=('e2a97ee2e0c3dbbdee11afdab811ab0672df286c43ad322149b20d95a303905e')
+sha256sums=('d4c594598ec507aa35d74defeb7548b796409ada993d1434f15d2ec2fc4605a0')
 # NOTE: pinning commit until upstream clarifies commitment to chain of trust:
 # https://github.com/containers/aardvark-dns/issues/83
 # validpgpkeys=('74FE091D25519980B2D84447160386BECB6F0643')  # Brent Baude <bbaude@redhat.com>
