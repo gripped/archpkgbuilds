@@ -1,6 +1,6 @@
 pkgbase = libblockdev
 	pkgdesc = A library for manipulating block devices
-	pkgver = 3.2.0
+	pkgver = 3.2.1
 	pkgrel = 1
 	url = https://github.com/storaged-project/libblockdev
 	arch = x86_64
@@ -34,9 +34,9 @@ pkgbase = libblockdev
 	makedepends = util-linux
 	makedepends = util-linux-libs
 	makedepends = volume_key
-	source = https://github.com/storaged-project/libblockdev/releases/download/3.2.0/libblockdev-3.2.0.tar.gz
-	sha512sums = 02a56f566a768a4f4bc68e3e40c80a080cb5ced58675dfae7986f55aea57f887425ebab19d9c2659887d489f08ace082aca0cf97ed3d95e266fb83a236a2f66c
-	b2sums = 1ab26e4fc3098f6aa1eac6bf2660961b9339e3553039f2d99ba5f6b96b53cd13bac174a8e310af442f35a7b9d49fc95c6ea14e66058150cefbd6794e98199a6a
+	source = https://github.com/storaged-project/libblockdev/releases/download/3.2.1/libblockdev-3.2.1.tar.gz
+	sha512sums = f810233932f399f1fbcef8352bd7179a1bf586b3bc73792d11e7b5e781a3d9e712fd7b2054ef4f54d774b98b92599993a3b6b1ec470838283862c5d1f2cc5dba
+	b2sums = 75a74e327ace4f5d87d7a1c085f38b734ef84a5165055375354932f7f171de7ea558ed6ac87475423b3c184afa383d9c4a6cd9dae60d0ec31718ba9da8f50c77
 
 pkgname = libblockdev
 	depends = glib2
@@ -73,7 +73,7 @@ pkgname = libblockdev-btrfs
 	depends = glib2
 	depends = libglib-2.0.so
 	depends = glibc
-	depends = libblockdev=3.2.0
+	depends = libblockdev=3.2.1
 	depends = libbd_utils.so
 	depends = libbytesize
 	provides = libbd_btrfs.so
@@ -88,7 +88,7 @@ pkgname = libblockdev-crypto
 	depends = glibc
 	depends = keyutils
 	depends = libkeyutils.so
-	depends = libblockdev=3.2.0
+	depends = libblockdev=3.2.1
 	depends = libbd_utils.so
 	depends = nss
 	depends = util-linux-libs
@@ -103,7 +103,7 @@ pkgname = libblockdev-dm
 	depends = glib2
 	depends = libglib-2.0.so
 	depends = glibc
-	depends = libblockdev=3.2.0
+	depends = libblockdev=3.2.1
 	depends = libbd_utils.so
 	provides = libbd_dm.so
 
@@ -116,7 +116,7 @@ pkgname = libblockdev-fs
 	depends = glib2
 	depends = libglib-2.0.so
 	depends = glibc
-	depends = libblockdev=3.2.0
+	depends = libblockdev=3.2.1
 	depends = libbd_utils.so
 	depends = libbytesize
 	depends = parted
@@ -142,7 +142,7 @@ pkgname = libblockdev-loop
 	depends = glib2
 	depends = libglib-2.0.so
 	depends = glibc
-	depends = libblockdev=3.2.0
+	depends = libblockdev=3.2.1
 	depends = libbd_utils.so
 	provides = libbd_loop.so
 
@@ -154,7 +154,7 @@ pkgname = libblockdev-lvm
 	depends = glib2
 	depends = libglib-2.0.so
 	depends = glibc
-	depends = libblockdev=3.2.0
+	depends = libblockdev=3.2.1
 	depends = libbd_utils.so
 	depends = libblockdev.so
 	depends = libyaml
@@ -172,7 +172,7 @@ pkgname = libblockdev-mdraid
 	depends = glib2
 	depends = libglib-2.0.so
 	depends = glibc
-	depends = libblockdev=3.2.0
+	depends = libblockdev=3.2.1
 	depends = libbd_utils.so
 	depends = libbytesize
 	depends = mdadm
@@ -185,7 +185,7 @@ pkgname = libblockdev-mpath
 	depends = glib2
 	depends = libglib-2.0.so
 	depends = glibc
-	depends = libblockdev=3.2.0
+	depends = libblockdev=3.2.1
 	depends = libbd_utils.so
 	provides = libbd_mpath.so
 
@@ -194,7 +194,7 @@ pkgname = libblockdev-nvdimm
 	depends = glib2
 	depends = libglib-2.0.so
 	depends = glibc
-	depends = libblockdev=3.2.0
+	depends = libblockdev=3.2.1
 	depends = libbd_utils.so
 	depends = ndctl
 	depends = util-linux-libs
@@ -206,7 +206,7 @@ pkgname = libblockdev-nvme
 	depends = glib2
 	depends = libglib-2.0.so
 	depends = glibc
-	depends = libblockdev=3.2.0
+	depends = libblockdev=3.2.1
 	depends = libbd_utils.so
 	depends = libnvme
 	provides = libbd_nvme.so
@@ -216,7 +216,7 @@ pkgname = libblockdev-part
 	depends = glib2
 	depends = libglib-2.0.so
 	depends = glibc
-	depends = libblockdev=3.2.0
+	depends = libblockdev=3.2.1
 	depends = libbd_utils.so
 	depends = util-linux-libs
 	depends = libfdisk.so
@@ -229,7 +229,7 @@ pkgname = libblockdev-smart
 	depends = glibc
 	depends = json-glib
 	depends = libatasmart
-	depends = libblockdev=3.2.0
+	depends = libblockdev=3.2.1
 	depends = libbd_utils.so
 	optdepends = smartmontools: for experimental smartmontools-based plugin
 	provides = libbd_smart.so
@@ -241,7 +241,7 @@ pkgname = libblockdev-swap
 	depends = glib2
 	depends = libglib-2.0.so
 	depends = glibc
-	depends = libblockdev=3.2.0
+	depends = libblockdev=3.2.1
 	depends = libbd_utils.so
 	depends = util-linux-libs
 	depends = libblkid.so
@@ -249,6 +249,7 @@ pkgname = libblockdev-swap
 
 pkgname = python-libblockdev
 	pkgdesc = A library for manipulating block devices - Python support
-	depends = python
-	depends = gobject-introspection-runtime
+	depends = glib2
 	depends = libbytesize
+	depends = python
+	depends = python-gobject
