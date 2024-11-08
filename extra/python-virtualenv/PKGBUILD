@@ -5,7 +5,7 @@
 
 pkgname=python-virtualenv
 pkgver=20.27.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Virtual Python Environment builder'
 arch=('any')
 url='https://virtualenv.pypa.io'
@@ -30,7 +30,6 @@ makedepends=(
 )
 checkdepends=(
   'fish'
-  'python-coverage'
   'python-flaky'
   'python-pip'
   'python-pytest'
