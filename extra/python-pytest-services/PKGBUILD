@@ -3,7 +3,7 @@
 _name=pytest-services
 pkgname=python-pytest-services
 pkgver=2.2.1
-pkgrel=10
+pkgrel=11
 pkgdesc="Services plugin for pytest testing framework"
 arch=(any)
 url="https://github.com/pytest-dev/pytest-services"
@@ -25,7 +25,6 @@ makedepends=(
 checkdepends=(
   memcached
   python-astroid
-  python-coverage
   python-mysqlclient
   python-pylibmc
   xorg-server-xvfb
