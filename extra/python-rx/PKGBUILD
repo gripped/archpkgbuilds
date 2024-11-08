@@ -4,7 +4,7 @@
 
 pkgname=python-rx
 pkgver=3.2.0
-pkgrel=6
+pkgrel=7
 pkgdesc='Reactive Extensions for Python'
 arch=(any)
 url=http://reactivex.io
@@ -15,7 +15,6 @@ makedepends=(
   python-setuptools
 )
 checkdepends=(
-  python-coverage
   python-pytest
   python-pytest-asyncio
 )
