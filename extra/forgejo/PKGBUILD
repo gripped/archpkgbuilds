@@ -2,13 +2,13 @@
 
 pkgname=forgejo
 pkgver=9.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A lightweight software forge'
 arch=('x86_64')
 url='https://forgejo.org'
 license=('MIT')
 depends=('glibc' 'git')
-makedepends=('go' 'nodejs' 'npm' 'python-poetry')
+makedepends=('go' 'nodejs' 'npm')
 checkdepends=('openssh')
 optdepends=(
   'mariadb: MariaDB support'
@@ -35,6 +35,11 @@ b2sums=('171626c68c8c9f237b03035eb32ffcedeea8b4c6dde9136190fcd7d2b3f5ae82d8e3c4f
         'e1222485c0dfe63fffeb6ce03c09bd025b8c170c829c48289ce5edfdafca315097b6d532a35b6a1f423866a2982afb6416e52441e2b38e78f1e468b966ad152b'
         'cab7b5cbf24242e3d941725111de012c0ee16495e8f367ab48cb02b2261133c262a1704f58b20fd08ec626bcb23cef2473b55e19dbf7db60c243b1f30fd13743'
         'f48abdd1d207ee61b1f688e2050adaac30eb19514d1d7ef095cf2e92326f4218a16e37a8910d9eeabc17fda2dbf2e4709961560b5ecd3f06187eddde3312702c')
+
+prepare() {
+  cd "$pkgname"
+  make deps-frontend deps-backend deps-tools
+}
 
 build() {
   cd "$pkgname"
