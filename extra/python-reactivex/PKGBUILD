@@ -4,7 +4,7 @@
 
 pkgname=python-reactivex
 pkgver=4.0.4
-pkgrel=5
+pkgrel=6
 pkgdesc='Reactive Extensions for Python'
 arch=(any)
 url=http://reactivex.io
@@ -20,7 +20,6 @@ makedepends=(
   python-installer
 )
 checkdepends=(
-  python-coverage
   python-pytest
   python-pytest-asyncio
 )
