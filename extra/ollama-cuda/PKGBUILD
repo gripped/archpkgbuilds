@@ -5,7 +5,7 @@
 
 pkgname=ollama-cuda
 pkgver=0.3.12
-pkgrel=4
+pkgrel=5
 pkgdesc='Create, run and share large language models (LLMs) with CUDA'
 arch=(x86_64)
 url='https://github.com/ollama/ollama'
@@ -38,9 +38,8 @@ prepare() {
 }
 
 build() {
-  export CFLAGS+=' -w'
-  export CXXFLAGS+=' -w'
-  export LDFLAGS+=' -L/opt/cuda/targets/x86_64-linux/lib/stubs/'
+  export CFLAGS+=" $(pkg-config --cflags cuda) -w" CXXFLAGS+=" $(pkg-config --cflags cuda) -w"
+  export LDFLAGS+=" -L/opt/cuda/targets/x86_64-linux/lib/stubs/ $(pkg-config --libs cuda)"
   export CGO_CFLAGS="$CFLAGS" CGO_CPPFLAGS="$CPPFLAGS" CGO_CXXFLAGS="$CXXFLAGS" CGO_LDFLAGS="$LDFLAGS"
   local goflags='-buildmode=pie -trimpath -mod=readonly -modcacherw'
   local ldflags="-linkmode=external -buildid= -X github.com/ollama/ollama/version.Version=$pkgver -X github.com/ollama/ollama/server.mode=release"
