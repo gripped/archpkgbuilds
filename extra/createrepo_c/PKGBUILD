@@ -1,0 +1,52 @@
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: larchunix <larchunix@gmail.com>
+# Contributor: Patrick McCarty <pnorcks at gmail dot com>
+
+pkgname=createrepo_c
+pkgver=1.1.4
+pkgrel=2
+pkgdesc="A C implementation of createrepo, a tool to create yum repositories"
+url="http://rpm-software-management.github.io/createrepo_c"
+arch=('x86_64')
+license=('GPL-2.0-or-later')
+depends=('bzip2' 'curl' 'drpm' 'glib2' 'libmodulemd' 'libxml2' 'openssl' 'rpm-tools' 'sqlite' 'xz' 'zchunk' 'zlib' 'zstd')
+makedepends=('bash-completion' 'cmake' 'doxygen' 'pkg-config' 'python' 'python-setuptools' 'python-sphinx')
+optdepends=('python: for python bindings')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/rpm-software-management/createrepo_c/archive/${pkgver}.tar.gz")
+sha256sums=('b4f020ef0400e3f9840d37d16238bda2b529b47749dcea6f43c9038056c64669')
+
+build() {
+	cd "${pkgname}-${pkgver}"
+
+	cmake -B build \
+	      -DCMAKE_BUILD_TYPE='None' \
+	      -DCMAKE_INSTALL_PREFIX='/usr' \
+	      -DCMAKE_C_FLAGS_RELEASE='-DNDEBUG' \
+	      -DCMAKE_INSTALL_LIBDIR='lib' \
+	      -DENABLE_BASHCOMP='ON' \
+	      -DENABLE_DRPM='ON' \
+	      -DENABLE_PYTHON='ON' \
+	      -DWITH_LEGACY_HASHES='ON' \
+	      -DWITH_LIBMODULEMD='ON' \
+	      -DWITH_ZCHUNK='ON' \
+	      -Wno-dev
+
+	cmake --build build
+	cmake --build build --target doc
+	cmake --build build --target tests
+}
+
+check() {
+	cd "${pkgname}-${pkgver}"
+
+	ctest --test-dir build --output-on-failure
+}
+
+package() {
+	cd "${pkgname}-${pkgver}"
+
+	DESTDIR="${pkgdir}" cmake --install build
+	install -d "${pkgdir}/usr/share/doc/${pkgname}"
+	cp -R examples "${pkgdir}/usr/share/doc/${pkgname}"
+	install -Dm 644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+}
