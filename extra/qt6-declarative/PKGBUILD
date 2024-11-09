@@ -5,7 +5,7 @@
 pkgname=qt6-declarative
 _pkgver=6.8.0
 pkgver=6.8.0
-pkgrel=4
+pkgrel=5
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
@@ -29,6 +29,8 @@ prepare() {
 # Fix crashes in Plasma
   git cherry-pick -n 0ae3697cf40bcd3ae1de20621abad17cf6c5f52d
   git cherry-pick -n 861a7921ed7833a90f77b5fca436c789a4f9517c
+# https://bugreports.qt.io/browse/QTBUG-127340
+  git cherry-pick -n 281f620ceea03e7a222d796ae0cca917a9778368
 }
 
 build() {
