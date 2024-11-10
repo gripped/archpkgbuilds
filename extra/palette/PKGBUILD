@@ -1,0 +1,52 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=palette
+pkgver=2.0.3
+pkgrel=2
+pkgdesc='Tool for viewing the GNOME color palette as defined by the design guidelines'
+arch=(x86_64)
+url='https://gitlab.gnome.org/World/design/palette'
+license=(GPL-3.0-only)
+depends=(
+  glib2
+  glibc
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+)
+makedepends=(
+  appstream
+  git
+  meson
+  vala
+)
+source=(
+  "git+https://gitlab.gnome.org/World/design/palette.git#tag=$pkgver"
+  git+https://gitlab.gnome.org/Teams/Design/HIG-app-icons.git
+)
+b2sums=(
+  c5ebb68a435f67c84fbbc2a2f3cc2e975a6de89922207af9769ee6a2d6a7d3a9e883ec3161d0fcbb4c8015bbe9bacd2b24ba4c4093ee7e2d6f3665aec093d2fb
+  SKIP
+)
+
+prepare() {
+  cd $pkgname
+
+  git submodule init
+  git submodule set-url src/hig "$srcdir/HIG-app-icons"
+  git -c protocol.file.allow=always submodule update
+}
+
+build() {
+  arch-meson $pkgname build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+  ln -s org.gnome.design.Palette "$pkgdir/usr/bin/palette"
+}
