@@ -3,16 +3,16 @@
 
 pkgname=xtrabackup
 pkgver=8.4.0_1
-pkgrel=2
+pkgrel=3
 pkgdesc='Non-blocking backup tool for MySQL'
 arch=('x86_64')
 url='https://www.percona.com/software/mysql-database/percona-xtrabackup'
 license=('GPL-2.0-only')
 depends=('libaio' 'libev' 'libgcrypt' 'curl' 'perl-dbd-mysql' 'numactl' 'protobuf' 'libprocps' 'icu' 'zlib' 'zstd' 'lz4')
 makedepends=('cmake' 'python-sphinx' 'vim' 'libedit' 'libevent' 'libfido2')
-source=("https://downloads.percona.com/downloads/Percona-XtraBackup-innovative-release/Percona-XtraBackup-${pkgver//_/-}/source/tarball/percona-xtrabackup-${pkgver//_/-}.tar.gz")
-
+source=("https://downloads.percona.com/downloads/Percona-XtraBackup-${pkgver%.*}/Percona-XtraBackup-${pkgver//_/-}/source/tarball/percona-xtrabackup-${pkgver//_/-}.tar.gz")
 sha256sums=('d55caa8f8bfcc33ec299c22a16311fd9595b00c04543e0f7abde553e38e96e0b')
+
 prepare() {
   mkdir build
 }
