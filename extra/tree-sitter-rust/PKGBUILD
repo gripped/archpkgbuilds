@@ -1,7 +1,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=tree-sitter-rust
-pkgver=0.23.0
+pkgver=0.23.1
 pkgrel=1
 pkgdesc='Rust grammar for tree-sitter'
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('git' 'tree-sitter-cli')
 optdepends=('tree-sitter: core library')
 provides=("lib$pkgname.so")
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('e11c34e76c61ebfa6194b2f33cd884b5366bc8da27fb37601bcb8d8564fee2d1d92abcaf88190c769491e948a652fb8a46f2b780526a80487f67fc3f1743829a')
+b2sums=('4559ed300129ad358dc11db05ddfb24bf5536ba5f3b9049bdea5ee7a850d9057524d483b2528c7095fc272beeeb578181b5e3e575f950377952c217de149301a')
 
 prepare() {
   cd $pkgname
