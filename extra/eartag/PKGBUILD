@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=eartag
-pkgver=0.6.2
-pkgrel=2
+pkgver=0.6.3
+pkgrel=1
 pkgdesc='Simple audio file tag editor'
 arch=(any)
 url='https://apps.gnome.org/EarTag/'
@@ -29,59 +29,8 @@ makedepends=(
   meson
 )
 checkdepends=(python-pytest)
-source=(
-  "git+https://gitlab.gnome.org/World/eartag.git#tag=$pkgver"
-  eartag-tag-selector-button.patch
-  eartag-request-timeout.patch
-)
-b2sums=(
-  bb4f0fb7a92afe04de5c4aa692f91f69538b0c83197c72e561ae26c78403e7f1ae3acc280fc2538a9a06ec6b91ebc242e180cb88fa15cd7536132dcb0e6e1a07
-  54654edaa7e4e4a6f7aba52b3275139b88f64d0804e713aaa23b059b3b2b040b294d2b39e14a27ad592661adb18d90ac789f6ab3b9abb2f760c0e2c2d1d5af5e
-  8ea02f20e150237fb0851c1c1f77b22476ab35f1ecbeeabb697c41d3ea66248108c83dc418b7cd881218610a4c2166c510b258722279c90b8703535145331121
-)
-
-prepare() {
-  cd $pkgname
-
-  # https://gitlab.gnome.org/World/eartag/-/issues/141
-  git cherry-pick -n 6fc66f7b3e4d75d4d61c1d2ef379f0426001c0ec
-
-  # https://gitlab.gnome.org/World/eartag/-/merge_requests/129
-  git cherry-pick -n e6fb82017c0955cab0dd5d3f0994d54ae8c08cf8
-
-  # https://gitlab.gnome.org/World/eartag/-/issues/143
-  git cherry-pick -n c51aee7163220c8ad4a1ed5348e19254b564c19e
-  
-  # https://gitlab.gnome.org/World/eartag/-/merge_requests/128
-  git cherry-pick -n da27e883a4fc5f88213ce063c75e3df0e6e31d8a
-  
-  # https://gitlab.gnome.org/World/eartag/-/merge_requests/132
-  git cherry-pick -n baede3f58496f44430ef960fa64e70b13ab59a41
-  
-  # https://gitlab.gnome.org/World/eartag/-/merge_requests/133
-  git cherry-pick -n c7bfb4653ae76914e874aedbcf6b28117a57dd8c
-  
-  # https://gitlab.gnome.org/World/eartag/-/merge_requests/134
-  git cherry-pick -n 214a9d12fef6ca7006551b042e4b2759d6b15491
-
-  # https://gitlab.gnome.org/World/eartag/-/merge_requests/136
-  git cherry-pick -n e5667ed8f93d7abcf7a902edc1cbea926fec814d
-
-  # https://gitlab.gnome.org/World/eartag/-/merge_requests/137
-  git cherry-pick -n 9aae73d70195b8fe2ddb9202851a2526940e88a9
-
-  # https://gitlab.gnome.org/World/eartag/-/merge_requests/139
-  git cherry-pick -n 85812301cb2f140862fd3802a614c4ecb77aec62
-
-  # https://gitlab.gnome.org/World/eartag/-/merge_requests/138
-  git cherry-pick -n 2fe0b7f80346dc2cdd28212ff3ef5f7078ec433b
-
-  # https://gitlab.gnome.org/World/eartag/-/merge_requests/130
-  git apply -3 ../eartag-tag-selector-button.patch
-
-  # https://gitlab.gnome.org/World/eartag/-/merge_requests/141
-  git apply -3 ../eartag-request-timeout.patch
-}
+source=("git+https://gitlab.gnome.org/World/eartag.git#tag=$pkgver")
+b2sums=(f86dc42b34981908948240f2f18a07a2a83ad90de79164484f8495598a3b7b2a90c221710cdb51fd5f229937643b1120ff066a63dad22b81b545e2cea427df3f)
 
 build() {
   arch-meson $pkgname build
