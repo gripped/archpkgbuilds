@@ -3,8 +3,8 @@
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 
 pkgname=rhythmbox
-pkgver=3.4.7
-pkgrel=3
+pkgver=3.4.8
+pkgrel=1
 pkgdesc="Music playback and management application"
 url="https://gitlab.gnome.org/GNOME/rhythmbox"
 arch=(x86_64)
@@ -45,7 +45,6 @@ makedepends=(
   brasero
   git
   gobject-introspection
-  gtk-doc
   libdmapsharing
   libgpod
   libmtp
@@ -73,22 +72,15 @@ optdepends=(
   'zeitgeist: Zeitgeist logging plugin'
 )
 source=("git+https://gitlab.gnome.org/GNOME/rhythmbox.git#tag=v$pkgver")
-b2sums=('4c4d2bf06fbfe642ebc81829c1fc7bc4a4d61ee4687acfa253c758fc7ddd061eccf2aa8ce257a6e61a4a35194c40aea85f4f9113c65b2e9ac1484ed683029794')
+b2sums=('b4b8b61e7f6978a06982e9cc00fd49ec1011f94bfe6f696f19f228d651b1e2499f6ce3e53c1641c5120e65897be56e200aa7fccb159e0611079eaaf9e26dae90')
 
 prepare() {
   cd $pkgname
-
-  # Python 3.12
-  git cherry-pick -n ceeed5736c3e25d33fec5a100afde20ef485e07e
-
-  # Python 3.13
-  git cherry-pick -n cc16682850445eea289ca8a82a3f5a4bd8b62fb4
 }
 
 build() {
   local meson_options=(
     -D daap=enabled
-    -D gtk_doc=true
   )
 
   arch-meson $pkgname build "${meson_options[@]}"
