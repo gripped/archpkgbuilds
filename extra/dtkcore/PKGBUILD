@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=dtkcore
-pkgver=5.6.34
+pkgver=5.7.1
 pkgrel=1
 epoch=1
 pkgdesc='DTK core modules'
@@ -14,7 +14,7 @@ depends=('deepin-desktop-base' 'dtkcommon' 'dtklog' 'gcc-libs' 'glibc' 'gsetting
          'lshw' 'qt5-base' 'uchardet')
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'gtest' 'doxygen')
 source=("git+https://github.com/linuxdeepin/dtkcore.git#tag=$pkgver")
-sha512sums=('eb884d65bd63ea66ea3b7fb9b2f0cd7ff173529b25f96baa4345649a2ead65025f4d34e565c0e3b6cd89dabbb77a5e52e80832d7ca78c1c961bd9e7a7a7fdd18')
+sha512sums=('2f04e59c3cb0af9f187856e63a0436aa45e0f5a3e690b234516661a38b5666430b6fb0d077de75eb7bb458c406241cde2ade293c3adbed3bbc4a28e51c7f1ce1')
 
 prepare() {
   cd dtkcore
@@ -26,6 +26,7 @@ build() {
   cmake . -GNinja \
       -DMKSPECS_INSTALL_DIR=lib/qt/mkspecs/modules/ \
       -DFEATURES_INSTALL_DIR=lib/qt/mkspecs/features/ \
+      -DBUILD_WITH_SYSTEMD=ON \
       -DBUILD_DOCS=ON \
       -DBUILD_TESTING=ON \
       -DQCH_INSTALL_DESTINATION=share/doc/qt \
