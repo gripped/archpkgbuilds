@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-qiniu
-pkgver=7.13.2
+pkgver=7.14.0
 pkgrel=1
 pkgdesc="Qiniu Resource Storage SDK for Python"
 arch=('any')
@@ -11,7 +11,7 @@ depends=('python-requests')
 makedepends=('git' 'python-setuptools')
 checkdepends=('python-pytest' 'python-freezegun')
 source=("git+https://github.com/qiniu/python-sdk.git#tag=v$pkgver")
-sha512sums=('8effb5cd66ed26a59f49a1c67576127dcc281366960102ec5f30217d456cade43b1a8c8dbbe5882fc602bd2a9036d562f4543ce0692674a6968645dead38810e')
+sha512sums=('87539eef8cedffe46e4f68a057aba9a7df3bfe0c521260a7b25d17e5ccfbcf34ea5c825b76d5722fa5a46aa8b50325c61abcf0b1de954473768c3d0dfd6bda40')
 
 build() {
   cd python-sdk
