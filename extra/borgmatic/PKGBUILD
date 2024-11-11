@@ -7,8 +7,8 @@
 # Contributor: stef204 <https://aur.archlinux.org/account/stef204>
 
 pkgname=borgmatic
-pkgver=1.9.0
-pkgrel=2
+pkgver=1.9.1
+pkgrel=1
 pkgdesc='Simple, configuration-driven backup software for servers and workstations'
 arch=(any)
 url=https://torsion.org/borgmatic
@@ -38,19 +38,12 @@ optdepends=(
   'apprise: for Apprise notifications'
   'python-pyfuse3: for mount action'
 )
-source=(
-  "git+https://projects.torsion.org/borgmatic-collective/borgmatic.git#tag=$pkgver"
-  0001-Comment-out-encrypted-credentials.patch
-)
-b2sums=('8e4e618408660fc91b83667f0a5e38fc96b0ef0487db78253b81afe8ad8fcdffcbbc0bad00083885966ea875cc5047d0a1f8fd9b0d2a3588e8a60542a2ebf7b3'
-        '53bf49630e91a7aba1bb3a75fea1a1f8b994eb91f8fac1f047e523a1025475101ddea4d0ba917b57f5eff6a6709bbc3a4b45f4e239801c43bc491260bed6a7ca')
+source=("git+https://projects.torsion.org/borgmatic-collective/borgmatic.git#tag=$pkgver")
+b2sums=('369f767f82d7bc0e3abaa3a69f6b68bbaed5566d6133764613e23a3b5587a647e72741aa82c6c93230d9f3d25cbf782d60a9d3d32462ad564eb61a6325c1c633')
 
 prepare() {
   cd $pkgname
   sed -i 's,root/.local,usr,' sample/systemd/borgmatic{,-user}.service
-
-  # https://projects.torsion.org/borgmatic-collective/borgmatic/pulls/929
-  patch --forward --strip=1 --input=../0001-Comment-out-encrypted-credentials.patch
 }
 
 build() {
