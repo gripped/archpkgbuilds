@@ -3,7 +3,7 @@
 pkgname=prometheus-json-exporter
 _pkgname=json_exporter
 pkgver=0.6.0
-pkgrel=2
+pkgrel=4
 pkgdesc="Prometheus exporter which scrapes remote JSON by JSONPath"
 arch=('x86_64')
 url="https://github.com/prometheus-community/json_exporter"
@@ -42,7 +42,7 @@ build() {
     -X github.com/prometheus/common/version.Revision=$pkgver \
     -X github.com/prometheus/common/version.Branch=tarball \
     -X github.com/prometheus/common/version.BuildUser=someone@builder \
-    -X github.com/prometheus/common/version.BuildDate=$(date -d@"$SOURCE_DATE_EPOCH" +%Y%m%d-%H:%M:%S)" \
+    -X github.com/prometheus/common/version.BuildDate=$(date -u '+%Y%m%d-%H:%M:%S' --date=@${SOURCE_DATE_EPOCH})" \
     -o build .
 }
 
