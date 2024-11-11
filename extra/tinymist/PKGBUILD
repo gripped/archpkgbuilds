@@ -1,0 +1,49 @@
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+
+pkgname=tinymist
+pkgver=0.12.0
+pkgrel=1
+pkgdesc='an integrated language service for Typst'
+arch=(i686 x86_64)
+url="https://github.com/Myriad-Dreamin/$pkgname"
+license=(Apache-2.0)
+depends=(gcc-libs # libgcc_s.so
+         glibc # libc.so libm.so
+         openssl libcrypto.so)
+makedepends=(cargo)
+replaces=("$pkgname-bin")
+_archive="$pkgname-$pkgver"
+source=("$url/archive/v$pkgver/$_archive.tar.gz")
+sha256sums=('4b919f2a823b727edb6601d9675a2716baa816ea5e510b09fea4d0d696cc31a0')
+
+prepare() {
+	cd "$_archive"
+	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+_srcenv() {
+	cd "$_archive"
+	export RUSTUP_TOOLCHAIN=stable
+	export CARGO_TARGET_DIR=target
+	export OPENSSL_NO_VENDOR=true
+}
+
+build() {
+	_srcenv
+	CFLAGS+=' -ffat-lto-objects'
+	cargo build --frozen --release
+}
+
+check() {
+	_srcenv
+	local skipped=(
+		e2e
+	)
+	cargo test --frozen -- ${skipped[@]/#/--skip }
+}
+
+package() {
+	cd "$_archive"
+	install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+}
