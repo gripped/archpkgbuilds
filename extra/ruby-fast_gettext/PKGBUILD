@@ -3,8 +3,8 @@
 
 _gemname=fast_gettext
 pkgname=ruby-${_gemname}
-pkgver=2.3.0
-pkgrel=3
+pkgver=3.1.0
+pkgrel=1
 pkgdesc='A simple, fast, memory-efficient and threadsafe implementation of GetText'
 arch=(any)
 url='https://github.com/grosser/fast_gettext'
@@ -13,7 +13,7 @@ makedepends=(ruby-rdoc ruby-rake ruby-rspec ruby-bundler)
 depends=(ruby)
 source=("https://github.com/grosser/fast_gettext/archive/v${pkgver}/${_gemname}-v${pkgver}.tar.gz")
 options=(!emptydirs)
-sha512sums=('517499785022922e54278ad4427abaabb63fd9d0470398cfca1c1804f3ca4992c01105ea727d152d2b8d1cbab86138a7552dfbbd4b3b3241b5fc1a3298db7dc2')
+sha512sums=('71d3a9a0ce2ebc09fa462ea2ddc65c4fc6e6e5ae345e7c831dcfe02c1303d2c26700a14dadff31a457e701961dd3cc076bb50dbf9c654640636ce797cc9e7d5a')
 
 # disable cloud metric reporting during tests
 prepare() {
