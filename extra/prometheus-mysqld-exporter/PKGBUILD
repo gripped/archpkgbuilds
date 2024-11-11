@@ -3,7 +3,7 @@
 
 pkgname=prometheus-mysqld-exporter
 pkgver=0.15.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Prometheus exporter for MySQL server metrics"
 arch=('x86_64')
 url="https://github.com/prometheus/mysqld_exporter"
@@ -17,7 +17,7 @@ source=("mysql_exporter-${pkgver}.tar.gz::https://github.com/prometheus/mysqld_e
         "prometheus-mysqld-exporter.conf")
 sha512sums=('571314effc975a63a0b647fab3f2be5aec0d1724f2ba9e294b56b58798f9016a1040fd919908739b9e6896331a371ba37c80741f3d1bc6af348c64ff08189fb4'
             '50619f4fa62c97c9c3533dc6a18024e2f2548e72b79e4cabae766d8b2135b4a5fdc9a6af87a279ecbae9101feac642851f2e239333a181b0db8d48af75eeac6c'
-            'c13a99a42e5a28e2be1287c337aa0f351dc8ffdbafb903e51a360d00aecf1d49d2b28b73e3741cdf681cb18c33546ae2088a8dab8bc4908b5c5ef008500b40fb')
+            '6e4fa86980897e92161cf6143b27a72db8b0f1366d842c55340da56bd325bfdbb29a1d8043d26477bf161f723d164b0337a12ffb74057f0e14de4172d027762c')
 
 build() {
   cd "mysqld_exporter-${pkgver}"
@@ -32,7 +32,7 @@ build() {
       -X github.com/prometheus/common/version.Revision=${pkgver} \
       -X github.com/prometheus/common/version.Branch=tarball \
       -X github.com/prometheus/common/version.BuildUser=someone@builder \
-      -X github.com/prometheus/common/version.BuildDate=$(date -d@"${SOURCE_DATE_EPOCH}" +%Y%m%d-%T)" \
+      -X github.com/prometheus/common/version.BuildDate=$(date -u '+%Y%m%d-%H:%M:%S' --date=@${SOURCE_DATE_EPOCH})" \
     .
 }
 
