@@ -12,6 +12,6 @@ if [ -z "$IDEA_CLASSPATH" ] ; then
   IDEA_CLASSPATH="${IDEA_JDK}/lib/*:${IDEA_JFX}/lib/*"
 fi
 
-exec env IDEA_JDK="$IDEA_JDK" IDEA_CLASSPATH="$IDEA_CLASSPATH" /usr/share/idea/bin/idea.sh "$@"
+exec env IDEA_JDK="$IDEA_JDK" IDEA_CLASSPATH="$IDEA_CLASSPATH" /usr/share/idea/bin/idea "$@"
 
 # vim: ts=2 sw=2 et:
