@@ -1,6 +1,8 @@
 [Unit]
 Description=Mosquitto MQTT Broker daemon
 Requires=network.target
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 Type=notify
