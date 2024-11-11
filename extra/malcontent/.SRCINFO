@@ -1,11 +1,12 @@
 pkgbase = malcontent
 	pkgdesc = Parental control support for applications
-	pkgver = 0.12.0
+	pkgver = 0.13.0
 	pkgrel = 1
 	url = https://gitlab.freedesktop.org/pwithnall/malcontent
 	arch = x86_64
 	license = LGPL-2.1-or-later
 	makedepends = git
+	makedepends = glib2-devel
 	makedepends = gobject-introspection
 	makedepends = gtk-doc
 	makedepends = libglib-testing
@@ -26,8 +27,9 @@ pkgbase = malcontent
 	depends = polkit
 	depends = python
 	depends = python-gobject
-	source = git+https://gitlab.freedesktop.org/pwithnall/malcontent.git#commit=3ba80995bb25b7aeda7e21d547f9e39ff9a81736
-	b2sums = 6d0887476764bfd8b481bd42b8f5405227160c33026cdf8bdb6d83c3b0bad8e4831d5dea9ede44d7bcad7a0173e5ac7bec780e37e6577bf393054d01004018b4
+	source = git+https://gitlab.freedesktop.org/pwithnall/malcontent.git#tag=0.13.0
+	validpgpkeys = 923B7025EE03C1C59F42684CF0942E894B2EAFA0
+	b2sums = 9d92fd3f8032a7828dba57bf2d7e76b041f101d06d77c1038724c928e78eec7890c35573ba68dbcd5111740ba7fcee7e733a48b5aa361c5362daaf5e69906175
 
 pkgname = malcontent
 	groups = gnome
@@ -45,7 +47,7 @@ pkgname = malcontent
 	depends = polkit
 	depends = python
 	depends = python-gobject
-	depends = libmalcontent=0.12.0-1
+	depends = libmalcontent=0.13.0-1
 	provides = libmalcontent-ui-1.so
 
 pkgname = libmalcontent
