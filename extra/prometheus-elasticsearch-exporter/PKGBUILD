@@ -2,7 +2,7 @@
 
 pkgname=prometheus-elasticsearch-exporter
 pkgver=1.7.0
-pkgrel=1
+pkgrel=2
 
 pkgdesc='Elasticsearch stats exporter for Prometheus'
 url='https://github.com/prometheus-community/elasticsearch_exporter'
@@ -33,12 +33,12 @@ build() {
     -buildmode=pie \
     -mod=readonly \
     -modcacherw \
-    -ldflags "-linkmode external -extldflags ${LDFLAGS} \
+    -ldflags "-linkmode external -extldflags \"${LDFLAGS}\" \
       -X github.com/prometheus/common/version.Version=$pkgver \
       -X github.com/prometheus/common/version.Revision=$pkgver \
       -X github.com/prometheus/common/version.Branch=tarball \
       -X github.com/prometheus/common/version.BuildUser=someone@builder \
-      -X github.com/prometheus/common/version.BuildDate=$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m%d-%H:%M:%S)" \
+      -X github.com/prometheus/common/version.BuildDate=$(date -u '+%Y%m%d-%H:%M:%S' --date=@${SOURCE_DATE_EPOCH})" \
     .
 }
 
