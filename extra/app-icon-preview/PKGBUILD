@@ -1,0 +1,75 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=app-icon-preview
+pkgver=3.4.0
+pkgrel=2
+pkgdesc='Tool for designing applications icons'
+arch=(x86_64)
+url='https://gitlab.gnome.org/World/design/app-icon-preview'
+license=(GPL-3.0-or-later)
+depends=(
+  cairo
+  dconf
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  graphene
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libxml2
+  pango
+)
+makedepends=(
+  appstream
+  git
+  meson
+  rust
+)
+source=(
+  "git+https://gitlab.gnome.org/World/design/app-icon-preview.git#tag=$pkgver"
+  app-icon-preview-close-popup.patch
+  app-icon-preview-about-translate.patch
+  app-icon-preview-fix-crash.patch
+)
+b2sums=(
+  b4b1f1e800935910e57bf9f0d7c83def4e1c593230c5837662335ac70dc6cd322f0801e00a9c221523f291f13629abaeaad846281509179716b12ae8b23777e1
+  6d4e02a12aa568b255784b4df38609f2ceeed2c59e6c216fbfb7f7efa2924f7e09fc1dbcf70839e8d6fc46dbbeac4c784074814513af3796e5b9cde096e5dea4
+  f6d1b44861b6123219df2742a85a80f7c23de0b9c46244d22566c2f8c073eccc15e44b2f9a2bfdfa5a43bc36f16d6cc4c318a37da84602dee03f664b20e768d6
+  dc040d22cf68e4d1889ebf9ad9e5d4562663ce9d2e856afa5701aed19a0eeeb701965a6d428dddf9f023b98f2068bc2ae53ffca8e79cdb15ba556b19ad35f27b
+)
+
+prepare() {
+  cd $pkgname
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/World/design/app-icon-preview/-/merge_requests/98
+  git apply -3 ../app-icon-preview-close-popup.patch
+
+  # https://gitlab.gnome.org/World/design/app-icon-preview/-/merge_requests/99
+  git apply -3 ../app-icon-preview-about-translate.patch
+
+  # Fix crash on second activate of the application
+  git apply -3 ../app-icon-preview-fix-crash.patch
+}
+
+build() {
+  arch-meson $pkgname build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+}
