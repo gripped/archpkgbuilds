@@ -1,0 +1,80 @@
+From d709589dfc221a625880b48919a9ccf9f363b267 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 12 Nov 2024 00:18:18 +0100
+Subject: [PATCH] Port to FileDialog
+
+Hide the popover while selecting the location and show it again after that.
+Without this, the export popup remains open when the user clicks on the
+"Browse..." button, and have to dismiss it before being able to select
+the export location, and then have to reopen the popup manually again.
+---
+ src/widgets/export/popover.rs | 20 ++++----------------
+ src/widgets/new_project.rs    | 15 ++-------------
+ 2 files changed, 6 insertions(+), 29 deletions(-)
+
+diff --git a/src/widgets/export/popover.rs b/src/widgets/export/popover.rs
+index bc85629..a2efd21 100644
+--- a/src/widgets/export/popover.rs
++++ b/src/widgets/export/popover.rs
+@@ -76,27 +76,15 @@ impl ExportPopover {
+         self.imp().export_btn.set_sensitive(export_dest.exists());
+     }
+ 
+-    // TODO: figure out a replacement UI to be able to switch to FileDialog
+-    #[allow(deprecated)]
+     async fn select_destination(&self) {
++        self.popdown();
+         let parent = self.root().and_downcast::<gtk::Window>().unwrap();
+-
+-        let dialog = gtk::FileChooserDialog::new(
+-            Some(&gettext("Select a Location")),
+-            Some(&parent),
+-            gtk::FileChooserAction::SelectFolder,
+-            &[
+-                (&gettext("_Cancel"), gtk::ResponseType::Cancel),
+-                (&gettext("_Select"), gtk::ResponseType::Accept),
+-            ],
+-        );
+-        dialog.set_modal(true);
+-
+-        if dialog.run_future().await == gtk::ResponseType::Accept {
+-            let destination = dialog.file().unwrap();
++        let file_dialog = gtk::FileDialog::new();
++        if let Ok(destination) = file_dialog.select_folder_future(Some(&parent)).await {
+             self.imp()
+                 .path_entry
+                 .set_text(destination.path().unwrap().to_str().unwrap());
+         }
++        self.popup();
+     }
+ }
+diff --git a/src/widgets/new_project.rs b/src/widgets/new_project.rs
+index 5bd9546..ae002bc 100644
+--- a/src/widgets/new_project.rs
++++ b/src/widgets/new_project.rs
+@@ -141,20 +141,9 @@ impl NewProjectWindow {
+         self.destroy();
+     }
+ 
+-    // TODO: figure out a replacement UI to be able to switch to FileDialog
+-    #[allow(deprecated)]
+     async fn select_destination(&self) {
+-        let dialog = gtk::FileChooserDialog::new(
+-            Some(&gettext("Select a Location")),
+-            Some(self),
+-            gtk::FileChooserAction::SelectFolder,
+-            &[
+-                (&gettext("_Cancel"), gtk::ResponseType::Cancel),
+-                (&gettext("_Select"), gtk::ResponseType::Accept),
+-            ],
+-        );
+-        if dialog.run_future().await == gtk::ResponseType::Accept {
+-            let destination = dialog.file().unwrap();
++        let file_dialog = gtk::FileDialog::new();
++        if let Ok(destination) = file_dialog.select_folder_future(Some(self)).await {
+             self.imp()
+                 .path_entry
+                 .set_text(destination.path().unwrap().to_str().unwrap());
+-- 
+2.47.0
+

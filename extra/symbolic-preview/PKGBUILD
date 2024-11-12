@@ -1,0 +1,67 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=symbolic-preview
+pkgver=0.0.9
+pkgrel=2
+pkgdesc='Utility to create, preview and export symbolic icons'
+arch=(x86_64)
+url='https://gitlab.gnome.org/World/design/symbolic-preview'
+license=(GPL-3.0-or-later)
+depends=(
+  cairo
+  dconf
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libxml2
+  pango
+)
+makedepends=(
+  appstream
+  git
+  meson
+  rust
+)
+source=(
+  "git+https://gitlab.gnome.org/World/design/symbolic-preview.git#tag=$pkgver"
+  symbolic-preview-filedialog.patch
+)
+b2sums=(
+  291520a94fd3c9a6e878f43997b8ae23c0aa2b26a36ef9bb147cf4e79fe094751a1e627b3e2457e706473c254367ef37420448ce31fa7a4e1fd068442c8f7e7e
+  c987cb9bf823239ec885ce3a9dcdfba882a11f80cb843012b3eadbd601913d0310506472efad8287d4e6f0da19b250a2c397c79f125259219eaca014d35218c8
+)
+
+prepare() {
+  cd $pkgname
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/World/design/symbolic-preview/-/issues/46
+  git cherry-pick -n 75e47ee4811dc466e9a5ece21e73f56a42866009
+
+  # Fix some file dialogs
+  git apply -3 ../symbolic-preview-filedialog.patch
+}
+
+build() {
+  arch-meson $pkgname build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+}
