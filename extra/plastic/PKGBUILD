@@ -2,7 +2,7 @@
 
 pkgbase=plastic
 pkgname=(plastic plastic_tui)
-pkgver=0.3.1
+pkgver=0.3.4
 pkgrel=1
 pkgdesc="A NES emulator with GUI and TUI"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('gcc-libs' 'alsa-lib')
 makedepends=('cargo' 'alsa-lib')
 source=("$pkgbase-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('d3c8f0898e402f6f944f986d3e7cf81f69d05d870a5532d93034b49c8b4aa6ffd24e7e77b67a86ca8bde52b8872d2573db199d439a684634dda0251bd5339e5b')
+sha512sums=('323c6820d841298c71a15be50e33b59238f86d38f7dde934436e1a29607043adc928c1fc28be8ad7c85bcd61fb298c4131b8eb72ccfab2c96311676a7663aa0e')
 
 prepare() {
   cd "$pkgbase-$pkgver"
@@ -35,6 +35,9 @@ package_plastic() {
   install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+  install -Dm 644 "package/plastic.desktop" "$pkgdir/usr/share/applications/plastic.desktop"
+  install -Dm 644 "images/icon.png" "$pkgdir/usr/share/icons/hicolor/256x256/apps/plastic.png"
+  install -Dm 644 "docs/man/plastic.1" "$pkgdir/usr/share/man/man1/plastic.1"
 }
 
 package_plastic_tui() {
