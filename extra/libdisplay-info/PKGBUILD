@@ -1,13 +1,9 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Simon Ser <contact@emersion.fr>
 
-# Enable checks in next release when edid-decode is not required for tests:
-# https://gitlab.freedesktop.org/emersion/libdisplay-info/-/issues/35
-BUILDENV+=(!check)
-
 pkgname=libdisplay-info
 pkgver=0.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='EDID and DisplayID library'
 url="https://gitlab.freedesktop.org/emersion/$pkgname"
 arch=(x86_64)
@@ -30,7 +26,7 @@ build() {
 }
 
 check() {
-	meson test -C build --no-rebeuild --print-errorlogs
+	meson test -C build --no-rebuild --print-errorlogs
 }
 
 package() {
