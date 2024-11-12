@@ -4,7 +4,7 @@
 
 pkgname=rhythmbox
 pkgver=3.4.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Music playback and management application"
 url="https://gitlab.gnome.org/GNOME/rhythmbox"
 arch=(x86_64)
@@ -24,10 +24,12 @@ depends=(
   gstreamer
   gtk3
   gvfs
+  gvfs-mtp
   hicolor-icon-theme
   json-glib
   libgirepository
   libgudev
+  libmtp
   libnotify
   libpeas
   libsecret
@@ -47,7 +49,6 @@ makedepends=(
   gobject-introspection
   libdmapsharing
   libgpod
-  libmtp
   lirc
   meson
   vala
@@ -64,10 +65,8 @@ optdepends=(
   'gst-libav: Extra media codecs'
   'gst-plugins-bad: Extra media codecs'
   'gst-plugins-ugly: Extra media codecs'
-  'gvfs-mtp: Portable Players - Android plugin'
   'libdmapsharing: DAAP Music Sharing plugin'
   'libgpod: Portable Players - iPod plugin'
-  'libmtp: Portable Players - MTP plugin'
   'lirc: LIRC plugin'
   'zeitgeist: Zeitgeist logging plugin'
 )
