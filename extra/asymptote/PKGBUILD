@@ -4,7 +4,7 @@
 # Contributor: bender02 at gmx dot com
 
 pkgname=asymptote
-pkgver=2.92
+pkgver=2.93
 pkgrel=1
 pkgdesc='A vector graphics language (like metapost)'
 arch=(x86_64)
@@ -26,42 +26,44 @@ makedepends=(boost
              cmake
              doxygen
              ghostscript
+             git
              glm
              glu
              imagemagick
+             python-click
              python-pyqt5
-             texlive-binextra texlive-meta
+             texlive-binextra
              texlive-fontutils
              texlive-latexextra
              texlive-plaingeneric)
 optdepends=('python-pyqt5: for the xasy GUI'
             'python-cson: for the xasy GUI'
             'ghostscript: PDF output')
-source=(https://github.com/vectorgraphics/asymptote/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('41124c7d71b1d0457776be729ba6917690c808656defd75cae8b3bed5dccd769')
+source=(git+https://github.com/vectorgraphics/asymptote#tag=$pkgver)
+sha256sums=('59a06d742e54ded2efe462957ec19f273c5b95ed496193f60ae28c68ee0b6eb0')
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   ./autogen.sh
 }
 
 build() {
-  cd $pkgname-$pkgver
-  CXXFLAGS+=" -I$srcdir/$pkgname-$pkgver" \
+  cd $pkgname
+  CXXFLAGS+=" -I$srcdir/$pkgname" \
   ./configure --enable-gc=/usr \
               --prefix=/usr \
               --with-latex=/usr/share/texmf/tex/latex \
               --with-context=/usr/share/texmf/tex/context
-  make asy asy-keywords.el
+  make asy asy-keywords.el base/webgl/asygl.js
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make check-all
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install-asy
   # this dir contains png files that are already embedded in the pdf documentation:
   rm -rf "$pkgdir"/usr/share/info/asymptote

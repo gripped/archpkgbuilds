@@ -1,6 +1,6 @@
 pkgbase = asymptote
 	pkgdesc = A vector graphics language (like metapost)
-	pkgver = 2.92
+	pkgver = 2.93
 	pkgrel = 1
 	url = http://asymptote.sourceforge.net/
 	arch = x86_64
@@ -9,12 +9,13 @@ pkgbase = asymptote
 	makedepends = cmake
 	makedepends = doxygen
 	makedepends = ghostscript
+	makedepends = git
 	makedepends = glm
 	makedepends = glu
 	makedepends = imagemagick
+	makedepends = python-click
 	makedepends = python-pyqt5
 	makedepends = texlive-binextra
-	makedepends = texlive-meta
 	makedepends = texlive-fontutils
 	makedepends = texlive-latexextra
 	makedepends = texlive-plaingeneric
@@ -33,7 +34,7 @@ pkgbase = asymptote
 	optdepends = python-pyqt5: for the xasy GUI
 	optdepends = python-cson: for the xasy GUI
 	optdepends = ghostscript: PDF output
-	source = https://github.com/vectorgraphics/asymptote/archive/2.92/asymptote-2.92.tar.gz
-	sha256sums = 41124c7d71b1d0457776be729ba6917690c808656defd75cae8b3bed5dccd769
+	source = git+https://github.com/vectorgraphics/asymptote#tag=2.93
+	sha256sums = 59a06d742e54ded2efe462957ec19f273c5b95ed496193f60ae28c68ee0b6eb0
 
 pkgname = asymptote
