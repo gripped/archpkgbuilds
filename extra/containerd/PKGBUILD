@@ -6,11 +6,12 @@
 
 pkgname=containerd
 pkgver=2.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='An open and reliable container runtime'
 url='https://containerd.io/'
 depends=('runc')
 makedepends=('go' 'git' 'btrfs-progs' 'libseccomp' 'containers-common' 'go-md2man')
+checkdepends=('procps-ng')
 provides=('container-runtime')
 arch=('x86_64')
 license=("Apache-2.0")
@@ -32,9 +33,8 @@ build() {
 }
 
 check() {
-  cd "${pkgname}" 
-  # Ugly, but they are trying to do priviledged operations during testing
-  GOFLAGS="-trimpath" make test || true
+  cd "${pkgname}"
+  GOFLAGS="-trimpath" make test
 }
 
 package() {
