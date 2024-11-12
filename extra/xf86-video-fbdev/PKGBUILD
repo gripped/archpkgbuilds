@@ -2,8 +2,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=xf86-video-fbdev
-pkgver=0.5.0
-pkgrel=4
+pkgver=0.5.1
+pkgrel=1
 pkgdesc="X.org framebuffer video driver"
 arch=(x86_64)
 license=('X11')
@@ -12,17 +12,11 @@ depends=('glibc')
 makedepends=('xorg-server-devel' 'X-ABI-VIDEODRV_VERSION=25.2') # git)
 conflicts=('xorg-server<21.1.1' 'X-ABI-VIDEODRV_VERSION<25' 'X-ABI-VIDEODRV_VERSION>=26')
 groups=('xorg-drivers')
-source=(${url}/releases/individual/driver/${pkgname}-${pkgver}.tar.bz2{,.sig}
-        gcc8.diff)
-sha256sums=('dcc3d85f378022180e437a9ec00a59b6cb7680ff79c40394d695060af2374699'
-            'SKIP'
-            '050db537aae39b6deb1b2531b0064d62e2725f92b6c5c8ee6ade32e73cd3d5e8')
-validpgpkeys=('995ED5C8A6138EB0961F18474C09DD83CAAA50B2')
-
-prepare() {
-  cd $pkgname-$pkgver
-  patch -Np0 -i ../gcc8.diff
-}
+source=(${url}/releases/individual/driver/${pkgname}-${pkgver}.tar.xz{,.sig})
+sha512sums=('ab345d796fb6a404c44a5caec31497fd36dce8882befad644b3f6fac1969c0a4ba9243e911e86a29a149ee7b0847ba676a28a49e15f1789238f2726b9dcea1a8'
+            'SKIP')
+# validpgpkeys=('995ED5C8A6138EB0961F18474C09DD83CAAA50B2')
+validpgpkeys+=('3BB639E56F861FA2E86505690FDD682D974CA72A') # Matt Turner <mattst88@gmail.com>
 
 build() {
   cd $pkgname-$pkgver
