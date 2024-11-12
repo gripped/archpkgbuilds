@@ -6,7 +6,7 @@
 
 pkgname=knot
 pkgver=3.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="High-performance authoritative-only DNS server"
 arch=(x86_64)
 url="https://www.knot-dns.cz/"
@@ -15,6 +15,7 @@ depends=(libedit gnutls liburcu lmdb
          libidn2 systemd libcap-ng
          fstrm protobuf-c libmaxminddb
          libbpf libxdp libnghttp2 libmnl)
+makedepends=(python-sphinx)
 backup=('etc/knot/knot.conf')
 source=("https://secure.nic.cz/files/knot-dns/${pkgname}-${pkgver}.tar.xz"{,.asc})
 sha256sums=('2730b11398944faa5151c51b0655cf26631090343c303597814f2a57df424736'
