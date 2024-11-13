@@ -1,4 +1,8 @@
 [xcompmgr]
-source = "git"
-git = "https://gitlab.freedesktop.org/xorg/app/xcompmgr.git"
+source = "gitlab"
+gitlab = "xorg/app/xcompmgr"
+host = "gitlab.freedesktop.org"
+use_max_tag = true
+
+include_regex = ".*xcompmgr-.*"
 prefix = "xcompmgr-"
