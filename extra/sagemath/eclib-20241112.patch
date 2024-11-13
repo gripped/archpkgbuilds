@@ -1,5 +1,5 @@
 diff --git a/src/sage/libs/eclib/__init__.pxd b/src/sage/libs/eclib/__init__.pxd
-index d44d4fba865..a40c604159b 100644
+index d44d4fba865..84d1fc92275 100644
 --- a/src/sage/libs/eclib/__init__.pxd
 +++ b/src/sage/libs/eclib/__init__.pxd
 @@ -55,7 +55,7 @@ cdef extern from "eclib/matrix.h":
@@ -7,7 +7,7 @@ index d44d4fba865..a40c604159b 100644
          mat()
          mat(mat m)
 -        scalar* get_entries()
-+        vec get_entries()
++        vector[scalar] get_entries()
          scalar sub(long, long)
          long nrows()
          long ncols()
@@ -16,29 +16,28 @@ index d44d4fba865..a40c604159b 100644
          smat()
          smat(smat m)
 -        scalar* get_entries()
-+        svec get_entries()
++        vector[scalar] get_entries()
          scalar sub(long, long)
          long nrows()
          long ncols()
 diff --git a/src/sage/libs/eclib/mat.pyx b/src/sage/libs/eclib/mat.pyx
-index a5ef4f45c68..2b395819e7a 100644
+index a5ef4f45c68..1a50d8fd392 100644
 --- a/src/sage/libs/eclib/mat.pyx
 +++ b/src/sage/libs/eclib/mat.pyx
-@@ -2,7 +2,7 @@
- Cremona matrices
- """
+@@ -10,6 +10,7 @@ from sage.rings.integer_ring import ZZ
+ from sage.matrix.matrix_integer_sparse cimport Matrix_integer_sparse
+ from sage.matrix.matrix_integer_dense cimport Matrix_integer_dense
+ from sage.rings.integer cimport Integer
++from libcpp.vector cimport vector
  
--from sage.libs.eclib cimport scalar, addscalar
-+from sage.libs.eclib cimport vec, scalar, addscalar
  
- from sage.matrix.matrix_space import MatrixSpace
- from sage.rings.integer_ring import ZZ
-@@ -213,7 +213,7 @@ cdef class Matrix:
+ cdef class Matrix:
+@@ -213,7 +214,7 @@ cdef class Matrix:
          """
          cdef long n = self.nrows()
          cdef long i, j, k
 -        cdef scalar* v = <scalar*> self.M.get_entries()   # coercion needed to deal with const
-+        cdef vec v = <vec> self.M.get_entries()   # coercion needed to deal with const
++        cdef vector[scalar] v = <vector[scalar]> self.M.get_entries()   # coercion needed to deal with const
  
          cdef Matrix_integer_dense Td
          cdef Matrix_integer_sparse Ts
