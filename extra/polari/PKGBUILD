@@ -2,7 +2,7 @@
 
 pkgname=polari
 pkgver=46.0
-pkgrel=2
+pkgrel=3
 pkgdesc="An IRC Client for GNOME"
 url="https://apps.gnome.org/Polari/"
 arch=(x86_64)
@@ -40,10 +40,14 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/polari.git#tag=${pkgver/[a-z]/.&}"
   polari-close-dialog.patch
   polari-pointer-device.patch
+  polari-userlist-action.patch
+  polari-optional-thumbnail.patch
 )
 b2sums=('4e8ebd9ab847cd67b0427e69e41fa1a102f00799309767efdb3b1e109a2737155224bf1558808f610639200e817dd64cef6d657cfcefbca183c8e779d36dad16'
         '933ab4573d4aafa90cfb7addfb552baff066fd35b6d383ca1c1226e2454e98036c27d56d8a494e37ff3dbea39a34a2fbc864b21fc9c2f1c8e82032e50680627e'
-        'c2d2198f6e9f8ec2b40bffad081bffff90cd24e6f5a66d0bd626a442187980121ac401eb038e0919fb6f0a9cc7c4eb8770a4b925d1129bf49ae851c5965e7de3')
+        'c2d2198f6e9f8ec2b40bffad081bffff90cd24e6f5a66d0bd626a442187980121ac401eb038e0919fb6f0a9cc7c4eb8770a4b925d1129bf49ae851c5965e7de3'
+        '8cea7f7871c68ab47bbef2509630afed4a99b919e96e053e4de51c76a3fe8e8d7ef12bb83ec923bd13c4dd19336e3907baeddde56ba5cf8318a062deda96355f'
+        '68d908ff6e72907cac01877454709035c57f66c8ca60fa72ef3be254dc89891996cd96284af5cf951c2aca996551a4bedfc483530d4285687c95e75bb81e230d')
 
 prepare() {
   cd polari
@@ -55,6 +59,14 @@ prepare() {
   # joinDialog: Fix detecting pointer devices
   # https://gitlab.gnome.org/GNOME/polari/-/merge_requests/320
   git apply -3 ../polari-pointer-device.patch
+
+  # mainWindow: Disconnect event handler on destroy
+  # https://gitlab.gnome.org/GNOME/polari/-/merge_requests/329
+  git apply -3 ../polari-userlist-action.patch
+
+  # Add option to disable URL preview feature
+  # https://gitlab.gnome.org/GNOME/polari/-/merge_requests/330
+  git apply -3 ../polari-optional-thumbnail.patch
 }
 
 build() {
