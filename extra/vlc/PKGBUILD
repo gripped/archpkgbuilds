@@ -9,7 +9,7 @@ _vlcver=3.0.21
 # optional fixup version including hyphen
 _vlcfixupver=
 pkgver=$_vlcver${_vlcfixupver//-/.r}
-pkgrel=8
+pkgrel=9
 pkgdesc='Multi-platform MPEG, VCD/DVD, and DivX player'
 url=https://www.videolan.org/vlc/
 arch=(x86_64)
@@ -375,7 +375,6 @@ package_vlc() {
     'libtheora: theora codec'
     'libtiger: Tiger rendering for Kate streams'
     'libva-intel-driver: video backend intel'
-    'libva-vdpau-driver: vdpau backend nvidia'
     'libvorbis: Vorbis decoder/encoder'
     'libvpx: VP8 and VP9 codec'
     'lirc: lirc control'
