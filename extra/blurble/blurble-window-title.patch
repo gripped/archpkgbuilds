@@ -1,0 +1,26 @@
+From 0bd97da93750763ba1dc45f92972d5b7b538ad11 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 12 Nov 2024 19:00:33 +0000
+Subject: [PATCH] window: Set title
+
+This is displayed on the taskbar and on the window switcher.
+---
+ src/window.blp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/window.blp b/src/window.blp
+index 8857e50..55949cf 100644
+--- a/src/window.blp
++++ b/src/window.blp
+@@ -20,7 +20,7 @@ using Gtk 4.0;
+ using Adw 1;
+ 
+ template WGWindow : Adw.ApplicationWindow {
+-    title: "";
++    title: _("Blurble");
+     default-width: 980;
+     default-height: 640;
+ 
+-- 
+GitLab
+
