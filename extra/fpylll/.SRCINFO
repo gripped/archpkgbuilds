@@ -1,12 +1,13 @@
 pkgbase = fpylll
 	pkgdesc = A Python interface for fplll
 	pkgver = 0.6.1
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/fplll/fpylll
 	arch = x86_64
-	license = GPL2
+	license = GPL-2.0-only
 	checkdepends = python-pytest
 	makedepends = cython
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -20,7 +21,7 @@ pkgbase = fpylll
 	depends = python-cysignals
 	depends = python-numpy
 	depends = qd
-	source = https://github.com/fplll/fpylll/releases/download/0.6.1/fpylll-0.6.1.tar.gz
-	sha256sums = c8a18e735358adef4c398fcc2f567fda01f79f7321825d747dfb2d3dfeef33b3
+	source = git+https://github.com/fplll/fpylll#tag=0.6.1
+	sha256sums = SKIP
 
 pkgname = python-fpylll

@@ -3,11 +3,11 @@
 pkgbase=fpylll
 pkgname=python-fpylll
 pkgver=0.6.1
-pkgrel=3
+pkgrel=4
 pkgdesc='A Python interface for fplll'
 arch=(x86_64)
 url='https://github.com/fplll/fpylll'
-license=(GPL2)
+license=(GPL-2.0-only)
 depends=(fplll
          gcc-libs
          glibc
@@ -18,27 +18,32 @@ depends=(fplll
          python-numpy
          qd)
 makedepends=(cython
+             git
              python-build
              python-installer
              python-setuptools
              python-wheel)
 checkdepends=(python-pytest)
-source=(https://github.com/fplll/fpylll/releases/download/$pkgver/$pkgbase-$pkgver.tar.gz)
-sha256sums=('c8a18e735358adef4c398fcc2f567fda01f79f7321825d747dfb2d3dfeef33b3')
+source=(git+https://github.com/fplll/fpylll#tag=$pkgver)
+sha256sums=('SKIP')
+
+prepare() {
+  cd $pkgbase
+  git cherry-pick -n bc4396095e0efb683bcc579c45c4c7527574a4b0 5e16a94815a6124937c0a26e355bbf7caddd39ad # Fix build with fplll 5.5
+}
 
 build() {
-  cd $pkgbase-$pkgver
+  cd $pkgbase
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $pkgbase-$pkgver
-  python -m venv --system-site-packages test-env
-  test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest -v
+  cd $pkgbase
+  PYTHONPATH="$PWD"/$(ls -d build/lib.*) \
+  pytest -v tests
 }
 
 package_python-fpylll() {
-  cd $pkgbase-$pkgver
+  cd $pkgbase
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
