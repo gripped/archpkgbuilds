@@ -1,0 +1,40 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+
+pkgname=cargo-docs-rs
+pkgver=0.1.14
+pkgrel=1
+pkgdesc="Imitate the documentation build that docs.rs would do"
+arch=('x86_64')
+url="https://github.com/dtolnay/cargo-docs-rs"
+license=('MIT' 'Apache-2.0')
+depends=('gcc-libs')
+makedepends=('cargo')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
+  "Cargo.lock")
+sha512sums=('3b12609b2782a8896a57b0a58f470c317a3d2233beee25d20162804275dce2f7ae4d1e76175e4bff06437cd017d96ebda0df886e4b3d1ed4e27cd33637dc3736'
+            '94e88a790902a2073bc40279d69d3cfefcacef16d8c79f815322a50fdf03247872d79a115d029093648dea9cf7c0409b8731d0fcd117f2a140ba6f31eafb1f3d')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cp "$srcdir/Cargo.lock" .
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release --frozen
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --frozen
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  install -Dm 644 LICENSE-MIT -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim:set ts=2 sw=2 et:
