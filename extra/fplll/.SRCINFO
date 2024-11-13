@@ -1,16 +1,17 @@
 pkgbase = fplll
 	pkgdesc = Lattice algorithms using floating-point arithmetic
-	pkgver = 5.4.5
+	pkgver = 5.5.0
 	pkgrel = 1
 	url = https://github.com/fplll/fplll
 	arch = x86_64
 	license = LGPL
+	makedepends = git
 	depends = gcc-libs
 	depends = glibc
 	depends = gmp
 	depends = mpfr
 	depends = qd
-	source = https://github.com/fplll/fplll/releases/download/5.4.5/fplll-5.4.5.tar.gz
-	sha256sums = 76d3778f0326597ed7505bab19493a9bf6b73a5c5ca614e8fb82f42105c57d00
+	source = git+https://github.com/fplll/fplll#tag=5.5.0
+	sha256sums = 428ac29ea969eb9a04cb8bcb89afc8f8e31c1e75fe8b437cb62cef3bdd6f9417
 
 pkgname = fplll

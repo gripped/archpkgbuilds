@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=fplll
-pkgver=5.4.5
+pkgver=5.5.0
 pkgrel=1
 pkgdesc='Lattice algorithms using floating-point arithmetic'
 arch=(x86_64)
@@ -12,16 +12,22 @@ depends=(gcc-libs
          gmp
          mpfr
          qd)
-source=(https://github.com/fplll/fplll/releases/download/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('76d3778f0326597ed7505bab19493a9bf6b73a5c5ca614e8fb82f42105c57d00')
+makedepends=(git)
+source=(git+https://github.com/fplll/fplll#tag=$pkgver)
+sha256sums=('428ac29ea969eb9a04cb8bcb89afc8f8e31c1e75fe8b437cb62cef3bdd6f9417')
+
+prepare() {
+  cd $pkgname
+  autoreconf -vi
+}
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   ./configure --prefix=/usr
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
