@@ -1,0 +1,56 @@
+From 20d69ada9a48ecd4781e9fd75350956205a50f75 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 13 Nov 2024 21:34:31 +0100
+Subject: [PATCH] Port to gtksourceview4
+
+---
+ configure.ac      | 2 +-
+ src/giggle-main.c | 5 +++++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 9dea2c3..bb565fa 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -62,7 +62,7 @@ PKG_CHECK_MODULES(GIGGLE, [
+         gdk-pixbuf-2.0    >= $GDK_PIXBUF_REQUIRED_VERSION
+         gdk-3.0           >= $GTK_REQUIRED_VERSION
+         gtk+-3.0          >= $GTK_REQUIRED_VERSION
+-        gtksourceview-3.0 >= $GTKSOURCE_REQUIRED_VERSION
++        gtksourceview-4   >= $GTKSOURCE_REQUIRED_VERSION
+ ])
+ 
+ dnl  -----------------------
+diff --git a/src/giggle-main.c b/src/giggle-main.c
+index d346e60..cc2b064 100644
+--- a/src/giggle-main.c
++++ b/src/giggle-main.c
+@@ -22,6 +22,7 @@
+ 
+ #include <glib/gi18n.h>
+ #include <gtk/gtk.h>
++#include <gtksourceview/gtksource.h>
+ #include <stdlib.h>
+ #include <locale.h>
+ 
+@@ -70,6 +71,8 @@ main (int    argc,
+ 	gdk_threads_init ();
+ 	gdk_threads_enter ();
+ 
++	gtk_source_init ();
++
+ 	context = g_option_context_new (NULL);
+ 
+ 	g_option_context_set_translation_domain (context, GETTEXT_PACKAGE);
+@@ -163,6 +166,8 @@ end:
+ 	if (window)
+ 		gtk_widget_destroy (window);
+ 
++	gtk_source_finalize ();
++
+ 	gdk_threads_leave ();
+ 
+ 	return result;
+-- 
+2.47.0
+
