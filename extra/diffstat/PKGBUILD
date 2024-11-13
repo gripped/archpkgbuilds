@@ -1,9 +1,10 @@
-# Maintainer: Alad Wenter <alad@mailbox.org>
+# Maintainer: T.J. Townsend <blakkheim@archlinux.org>
+# Contributor: Alad Wenter <alad@mailbox.org>
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 # Contributor: Matthias-Christian Ott <matthias.christian.at.tiscali.de>
 
 pkgname=diffstat
-pkgver=1.66
+pkgver=1.67
 pkgrel=1
 pkgdesc="Display a histogram of diff changes"
 arch=('x86_64')
@@ -11,7 +12,7 @@ url="https://invisible-island.net/diffstat"
 depends=('glibc')
 license=('MIT')
 source=("https://invisible-island.net/archives/$pkgname/$pkgname-$pkgver.tgz"{,.asc})
-sha256sums=('f54531bbe32e8e0fa461f018b41e3af516b632080172f361f05e50367ecbb69e'
+sha256sums=('760ed0c99c6d643238d41b80e60278cf1683ffb94a283954ac7ef168c852766a'
             'SKIP')
 validpgpkeys=('19882D92DDA4C400C22C0D56CC2AF4472167BE03') # Thomas Dickey <dickey@invisible-island.net>"
 
