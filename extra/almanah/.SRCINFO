@@ -1,7 +1,7 @@
 pkgbase = almanah
 	pkgdesc = Small GTK application to allow you to keep a diary of your life
 	pkgver = 0.12.3
-	pkgrel = 7
+	pkgrel = 8
 	url = https://wiki.gnome.org/Apps/Almanah_Diary
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -13,12 +13,12 @@ pkgbase = almanah
 	depends = cairo
 	depends = dconf
 	depends = evolution-data-server
-	depends = gcr
+	depends = gcr-4
 	depends = glib2
 	depends = glibc
 	depends = gpgme
 	depends = gtk3
-	depends = gtksourceview3
+	depends = gtksourceview4
 	depends = gtkspell3
 	depends = hicolor-icon-theme
 	depends = libcryptui
@@ -26,7 +26,11 @@ pkgbase = almanah
 	depends = pango
 	depends = sqlite
 	source = git+https://gitlab.gnome.org/GNOME/almanah.git?signed#tag=0.12.3
+	source = almanah-sourceview-include.patch
+	source = almanah-setlocale.patch
 	validpgpkeys = 923B7025EE03C1C59F42684CF0942E894B2EAFA0
 	b2sums = 1a7f0c3c706efa6043ea7c2710a0df1868aa9376793bb23facca366cb9956689bc56d3e057bc28b03d4ae45188083de8aee7a39ec83eb21e38cbf17854e8bf5c
+	b2sums = cc5f079b573297c067be1fce20e3ec7984b5d3f02e7ffa74752875b9731680dea161360a1aa2edb97f3d320314ec5b272a845a183d8a5de62af4bb5233600d6e
+	b2sums = 0fccdd30f60c34166d2c45b1c670b891e9911117b1ca4c6af490a727d18945ff093121d9607c9ad4e940bf6688bd1b6cefa878da4ac86094d67c99d9e6af082f
 
 pkgname = almanah
