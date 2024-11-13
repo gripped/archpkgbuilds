@@ -5,7 +5,7 @@
 # Contributor: Valère Monseur <valere.monseur@ymail.com>
 
 pkgname=picom
-pkgver=12.4
+pkgver=12.5
 pkgrel=1
 pkgdesc='Lightweight compositor for X11'
 url='https://picom.app'
@@ -21,7 +21,7 @@ optdepends=('dbus: for controlling picom via D-Bus'
 backup=(etc/xdg/picom.conf)
 source=("git+https://github.com/yshui/picom.git?signed#tag=v$pkgver")
 validpgpkeys=('A22F5C0F4FCF9C7C89A167462C965E9E5D45D730') # Yuxuan Shui <yshuiv7@gmail.com>
-b2sums=('8756041bdc7f6aafd498cdaddadbac59fe18561929363f0bf7bfd8b86434ffae0f008ccb89eac036a5732ee3e5823c1ee4ef704dd8d7903abfe92b759c3e7a2b')
+b2sums=('6df1649e6b7842223b846e148ea59160a2b8c5513235a4f84f62387648b5f64cce39fefa65d40cef59e6fc02c40fff4f40d2b7c26158c132c3cc9ab651eb814c')
 
 prepare() {
   cd $pkgname
