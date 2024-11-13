@@ -4,7 +4,7 @@
 # Contributor: kevku <kevku@msn.com>
 
 pkgname=opensc
-pkgver=0.25.1
+pkgver=0.26.0
 pkgrel=1
 pkgdesc='Tools and libraries for smart cards'
 arch=('x86_64')
@@ -15,7 +15,7 @@ makedepends=('docbook-xsl')
 depends=('pcsclite' 'glib2' 'libltdl')
 options=(!emptydirs !lto)
 source=("https://github.com/OpenSC/OpenSC/releases/download/$pkgver/opensc-$pkgver.tar.gz")
-sha512sums=('6277abb31f903af68b4c19f549fc881b69d7aa9a55ba39936386118eadde86b62853ba2906cd165d9b1ad9090e1aa4d2b236bf19650aa228ed776b3f4d9f8805')
+sha512sums=('99d88e6f83eb8b6d349bd88d51df652bc44973ac9397d516ad503c256d664a842698093b4e50e0877ece5f05151b5575fc39220620c82c7a000c971f8c98449f')
 
 build() {
   cd $pkgname-$pkgver
