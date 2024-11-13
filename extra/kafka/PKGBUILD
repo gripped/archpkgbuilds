@@ -1,13 +1,13 @@
 # Maintainer: Leonidas Spyropoulos <artafinde@archlinux.org>
 
 pkgname=kafka
-pkgver=3.8.1
+pkgver=3.9.0
 pkgrel=1
 _scalaver=2.13
 pkgdesc="An open-source distributed event streaming platform"
 arch=('any')
 url="https://kafka.apache.org/"
-license=('Apache')
+license=('Apache-2.0')
 depends=(bash 'java-runtime=17')
 makedepends=(gradle 'java-environment=17')
 source=(
@@ -18,14 +18,14 @@ source=(
     zookeeper.service
     set-base_dir.patch
 )
-sha512sums=('3e9166f1b6a570837cc6c0cdef7612820d046c9ea71dbf214b7b8fcbadfc03da813da099578d2900c080d5d4159198a4ecc2365cd343772cd0169597bf211bef'
+sha512sums=('39e88205335db30ba95f10ae32a091d2a257943275248624da04d55fc85d43841266d9f5407bb89f1cf98abc979614cc3969f82907634a5c8d47858898ae14b7'
             'SKIP'
             '5b61517a2236bbfce86cc372f0000fdd78fd8715fa2ee872972401df6b9950427ef952b3b248479a5fedc0f7caab3df9cf08982dac4ba5ed2d486c96e521eed5'
             'ae31dd1282250295401df11047bfca13263f8ab867df08f4030f1ddbd2dd5b407e5a59674e8d77a02cdf8a33916a3486b308b022b4fcda0374dbf42d9a29ef28'
             '6712da5b177131ad235ac857fbd8fb97d2c8821ce5c15c40f82f638eb8b08ee693d73030bce893a61934b48b20e67d611dffb365979aafe12e448100c0b82981'
             '6aca852f63f62c8df32721a86cf2ce56630ab1bf428111655908113fe337714fe1149865567e7f0ba1da96fd026cccdb851bcb10ac1823e033edc18adb2ba4c6'
             '3739ec988aada505a0eccee6ae27a9ca620547b3117a034d9eec7cae5bc2af26f41aa8bd066945946c19c05e8529034b7a1b1f49ea03a6574760bb6c1a64a7ad')
-b2sums=('75d29cadc79e3b90179ac3376ff28a0174dfe1349c909abaef4a05a36fde85fff9de24556d61021d4d43a97ce8cfe65d9bc19a0fd099c65bbc751e2b4f51549a'
+b2sums=('c4eea64e34c302a6345e621f9e9954c92dc631fddf682e2d4535a48f43ce6d01c87f5f3eae41c34c6dbe4ecd62351e0e8c5342913c9391e600b4cfeb7e6daf14'
         'SKIP'
         '0276cf21cf93d26022c484f085da18d4e314d6f2c6270591a3853cb84a63bbe9ad480949479ac0ef69a96b38508bb2fa528a205e666ce9305713d9da8f074711'
         'da8989434085e937bf24735f8ab9cec969293e2db5f0e715e33f9ba91f3cbde864467fd6d9a4ebb37a367cc3c72b364d74c4093dd027fbe3f96c2bd94987d0ac'
@@ -43,6 +43,7 @@ validpgpkeys=(
     '7C38C2F6E7DF40E527C7C996DE0D9D12FB1360DA' # Stanislav Kozlovski <stanislavkozlovski@apache.org>
     '4687E2BC1319B57B321D6F0E39AB5531A7FCB08E' # Igor Soarez (CODE SIGNING KEY) <soarez@apache.org>
     'CF9500821E9557AEB04E026C05EEA67F87749E61' # Josep Prat (Apache) <jlprat@apache.org>
+    '7EEAA203132DC48CF650C9248AF5CC6A1653902F' # Colin Patrick McCabe (CODE SIGNING KEY) <cmccabe@apache.org>
 )
 
 prepare() {
