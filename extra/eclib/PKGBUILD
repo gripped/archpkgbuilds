@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=eclib
-pkgver=20240408
-pkgrel=3
+pkgver=20241112
+pkgrel=1
 pkgdesc='Includes mwrank (for 2-descent on elliptic curves over Q) and modular symbol code used to create the elliptic curve database'
 arch=(x86_64)
 url='https://github.com/JohnCremona/eclib/'
@@ -16,7 +16,7 @@ depends=(boost-libs
 makedepends=(boost
              git)
 source=(git+https://github.com/JohnCremona/eclib#tag=v$pkgver)
-sha256sums=('65fffb2f063df532c562c457540a5116e585883c09acd323c2c55aa3fc51bf02')
+sha256sums=('b98dc7c505746750b8e7a6a4fe4d0f4e025054db77f6027f3b383492011be360')
 
 prepare() {
   cd $pkgname
