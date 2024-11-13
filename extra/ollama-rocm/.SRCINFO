@@ -1,7 +1,7 @@
 pkgbase = ollama-rocm
 	pkgdesc = Create, run and share large language models (LLMs) with ROCm
-	pkgver = 0.3.12
-	pkgrel = 6
+	pkgver = 0.4.1
+	pkgrel = 1
 	url = https://github.com/ollama/ollama
 	arch = x86_64
 	license = MIT
@@ -15,13 +15,11 @@ pkgbase = ollama-rocm
 	optdepends = rocm-smi-lib: monitor GPU usage with rocm-smi
 	provides = ollama
 	conflicts = ollama
-	source = git+https://github.com/ollama/ollama#tag=v0.3.12
-	source = llama.cpp::git+https://github.com/ggerganov/llama.cpp#commit=8962422b1c6f9b8b15f5aeaea42600bcc2d44177
+	source = git+https://github.com/ollama/ollama#tag=v0.4.1
 	source = ollama.service
 	source = sysusers.conf
 	source = tmpfiles.d
-	b2sums = 7b230922a233f0be967abb40b300125fb59ed64850a109db185954c549e12e5de0c1be094c1cdb67484c9e8705804a3761bfefa517fac1adfb05bcae8d2c197d
-	b2sums = e568ac334cf07b69f98c4581f212f2e30bdebf1f285a37e4bb5c8ac31733df9a3c125e6d16b7f6bbe412cedb11d249a07ca9793a487e0ad34810cbb35cd32ee2
+	b2sums = d1efcd4169f0c259c5632bc430d26483d8fc42961e9baaf8ceda5ea4a176338688371ee373e1608d63d52d1d9b97569b4ccf60c7dc91c3a5deeb30074cd6d505
 	b2sums = 031e0809a7f564de87017401c83956d43ac29bd0e988b250585af728b952a27d139b3cad0ab1e43750e2cd3b617287d3b81efc4a70ddd61709127f68bd15eabd
 	b2sums = 3aabf135c4f18e1ad745ae8800db782b25b15305dfeaaa031b4501408ab7e7d01f66e8ebb5be59fc813cfbff6788d08d2e48dcf24ecc480a40ec9db8dbce9fec
 	b2sums = e8f2b19e2474f30a4f984b45787950012668bf0acb5ad1ebb25cd9776925ab4a6aa927f8131ed53e35b1c71b32c504c700fe5b5145ecd25c7a8284373bb951ed
