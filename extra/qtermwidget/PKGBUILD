@@ -2,7 +2,7 @@
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=qtermwidget
-pkgver=2.0.1
+pkgver=2.1.0
 pkgrel=1
 pkgdesc="A terminal widget for Qt, used by QTerminal"
 arch=("x86_64")
@@ -19,7 +19,7 @@ optdepends=(
 source=(
   "git+https://github.com/lxqt/qtermwidget.git?signed#tag=$pkgver"
 )
-sha256sums=('7502ef3ca75f5c98514e0590756570df4af447b777600dc948290f4d60850191')
+sha256sums=('f757c30fda5c023bc88be4bf9628097ab8eacc87335ed9aca136eb672bca9e84')
 validpgpkeys=(
   "19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # https://github.com/tsujan.gpg
 )
