@@ -1,27 +1,30 @@
 pkgbase = swtpm
 	pkgdesc = Libtpms-based TPM emulator with socket, character device, and Linux CUSE interface
-	pkgver = 0.8.2
+	pkgver = 0.9.0
 	pkgrel = 1
 	url = https://github.com/stefanberger/swtpm
 	arch = x86_64
-	license = BSD
+	license = BSD-3-Clause
 	checkdepends = softhsm
-	makedepends = git
 	makedepends = expect
+	makedepends = git
 	makedepends = iproute2
-	makedepends = libtasn1
 	makedepends = python
 	makedepends = socat
 	depends = fuse2
+	depends = gcc-libs
 	depends = glib2
+	depends = glibc
+	depends = gmp
 	depends = gnutls
 	depends = json-glib
 	depends = libseccomp
+	depends = libseccomp.so
+	depends = libtasn1
 	depends = libtpms
 	depends = openssl
-	depends = libseccomp.so
-	source = git+https://github.com/stefanberger/swtpm.git?signed#tag=v0.8.2
+	source = git+https://github.com/stefanberger/swtpm.git?signed#tag=v0.9.0
 	validpgpkeys = B818B9CADF9089C2D5CEC66B75AD65802A0B4211
-	sha512sums = 6a55a3495638e73d9f61fbc6766b125328fab9aa8f71e45b810e92789f7db71c2370914f6fb313673db380a0faff058602d79d66f34128b55c69ed945ed88404
+	sha512sums = 0d56ef4c297dc5bf7914dc5bd4cfa2827880abd2b8f915b6d9e8221a11958ca5ded3bbcf088fcb1f40c2b05d9012e51f6e65ca2b5754c44b90e5322fc0837bb8
 
 pkgname = swtpm
