@@ -4,7 +4,7 @@
 
 pkgname=gnome-system-monitor
 pkgver=47.0
-pkgrel=2
+pkgrel=3
 pkgdesc="View current processes and monitor system state"
 url="https://apps.gnome.org/SystemMonitor"
 arch=(x86_64)
@@ -43,6 +43,10 @@ b2sums=('39ab0f7ce6c924f333610ad7469701cb8bea75ff2ff11e25f8ca79c9e77cbc852f04a4c
 
 prepare() {
   cd $pkgname
+
+  # Fix resuming from suspended state
+  # https://gitlab.gnome.org/GNOME/gnome-system-monitor/-/merge_requests/166
+  git cherry-pick -n 714faa9fad2a41f6353a242d48e5cb59b6ecdaac
 }
 
 build() {
