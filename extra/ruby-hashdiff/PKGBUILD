@@ -3,8 +3,8 @@
 
 _gemname='hashdiff'
 pkgname="ruby-${_gemname}"
-pkgver=1.1.0
-pkgrel=3
+pkgver=1.1.2
+pkgrel=1
 pkgdesc='Library to compute the smallest difference between two hashes'
 arch=('any')
 url="https://github.com/liufengyun/${_gemname}"
@@ -14,7 +14,7 @@ checkdepends=('ruby-rake' 'ruby-rspec')
 depends=('ruby')
 options=(!emptydirs)
 source=("${url}/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
-sha512sums=('8f39b7cffd60cf04c2485665b1d0a27d5fde64e7bf4ddc9f00bedbe9d6aa868139236082551d04d540d9309b8ce7bdb42ca95324f9393e47e9b98c0308049cce')
+sha512sums=('477593786887414819b0d98fd062fc6cb7a98b96c0154c6a23585636d0b27d6f6202f555d3e1ee83a2572640fc70c60bfc13e7c7d80880565966629b1396f0ad')
 
 prepare() {
   cd "${srcdir}/${_gemname}-${pkgver}"
@@ -36,6 +36,8 @@ prepare() {
   sed --in-place '/bluecloth/d' "${_gemname}.gemspec"
   sed --in-place '/rubocop/d' "${_gemname}.gemspec"
   sed --in-place '/yard/d' "${_gemname}.gemspec"
+  # delete CI configs
+  rm -rf \.*
 }
 
 build() {
