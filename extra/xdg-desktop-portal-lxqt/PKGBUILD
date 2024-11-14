@@ -3,7 +3,7 @@
 # Contributor: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=xdg-desktop-portal-lxqt
-pkgver=1.0.2
+pkgver=1.1.0
 pkgrel=1
 pkgdesc='A backend implementation for xdg-desktop-portal using Qt/KDE Frameworks/libfm-qt'
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(cmake)
 provides=(xdg-desktop-portal-impl)
 source=("https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
         lxqt-portals.conf)
-sha256sums=('f5ddcf868b0f7d2945193b4584e68610a9d2c72f02fbc4fd83c78fdbcfdb6130'
+sha256sums=('6be7c08f586f139f75099f27999116ad7cba98b11dbf1d7566fd6bc134538c60'
             'SKIP'
             '867b15caa72e2a85d2ef566cce9f35d8cdea9ed181fbb0290e5ab50e18a8d4aa')
 validpgpkeys=(
