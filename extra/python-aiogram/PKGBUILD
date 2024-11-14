@@ -4,7 +4,7 @@
 
 pkgname=python-aiogram
 _pkgname=${pkgname#python-}
-pkgver=3.13.1
+pkgver=3.14.0
 pkgrel=1
 pkgdesc="A modern and fully asynchronous framework for Telegram Bot API"
 arch=('any')
@@ -49,17 +49,8 @@ optdepends=(
   'python-motor: MongoDB storage support'
   'python-babel: i18n support'
 )
-source=(
-  "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
-  "fix-pytest-asyncio-deprecation-warning-in-test.patch::$url/commit/5cd958c5477330270c5c293682d53b11c24309dc.patch"
-)
-sha256sums=('d834ef3856f0f3706ae9baf00a534fd0a0efbebc1e4b4647e16255009e7a3196'
-            '11dc7ebfc156d2eed143f2925de6625e8ef094cdf27b37b946fe1fa5fb8a2aa0')
-
-prepare() {
-  cd "$_pkgname-$pkgver"
-  patch -Np1 -i ../fix-pytest-asyncio-deprecation-warning-in-test.patch
-}
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('f012783d5c22c98f86ab8eb2e4a875a2e0b5c9fee9741159d909975eba8fc388')
 
 build() {
   cd "$_pkgname-$pkgver"
@@ -68,6 +59,7 @@ build() {
 
 check() {
   cd "$_pkgname-$pkgver"
+  # shellcheck disable=2016
   pifpaf run redis -- bash -c 'python -m pytest --redis $PIFPAF_REDIS_URL'
 }
 
