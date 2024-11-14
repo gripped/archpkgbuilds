@@ -5,7 +5,7 @@
 pkgname=gnome-shell-extension-dash-to-panel
 _pkgname=dash-to-panel
 pkgver=64
-pkgrel=1
+pkgrel=2
 pkgdesc='Extension for GNOME Shell to combine the dash and main panel'
 arch=(any)
 url='https://github.com/home-sweet-gnome/dash-to-panel'
@@ -34,6 +34,9 @@ prepare() {
 
   # https://github.com/home-sweet-gnome/dash-to-panel/pull/2134
   git apply -3 ../gnome-shell-extension-dash-to-panel-fix-crash-on-shutdown.patch
+
+  # Update Extensions app executable name
+  sed -i 's/gnome-shell-extension-prefs/gnome-extensions-app/' appIcons.js
 }
 
 build() {
