@@ -3,7 +3,7 @@
 
 pkgname=python-flask-caching
 pkgver=2.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A caching extension for Flask"
 url="https://github.com/pallets-eco/flask-caching"
 license=('BSD-3-Clause')
@@ -34,13 +34,18 @@ optdepends=(
   'python-pylibmc: for memcached backend'
   'python-redis: for Redis backend'
 )
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v.$pkgver.tar.gz")
-sha512sums=('ed6c73f4dc7008c317a245cd4f3619deedfa43f118e50bfcab329f6f70a4b1a7adb893e1b6f7fe194bcf64f215eb17dfba136f58d8f7af68615976c84f8a01d2')
+source=(
+  "$pkgname-$pkgver.tar.gz::$url/archive/v.$pkgver.tar.gz"
+  "relax-cachelib-version.patch::https://github.com/pallets-eco/flask-caching/commit/7fcb14d26b9543bb99afa355a45d193855514cf8.patch"
+)
+sha512sums=('ed6c73f4dc7008c317a245cd4f3619deedfa43f118e50bfcab329f6f70a4b1a7adb893e1b6f7fe194bcf64f215eb17dfba136f58d8f7af68615976c84f8a01d2'
+            '54be76d05f61823d49afbd34f21e09dd3b1238fee8cfb42d4302960935ed46f32d6343a54984087a16b5265768e60a10165593ca88962fccaad4e0dacc428d7c')
 
 _archive=flask-caching-v.$pkgver
 
 prepare() {
   cd "$_archive"
+  patch -p1 -i ../relax-cachelib-version.patch
   # Remove failing (faulty?) import that causes skipped tests.
   sed -i '/__import__("pytest_xprocess")/d' tests/conftest.py
 }
