@@ -4,7 +4,7 @@
 
 pkgname=gnome-contacts
 pkgver=47.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Contacts Manager for GNOME"
 url="https://apps.gnome.org/Contacts"
 arch=(x86_64)
@@ -19,6 +19,10 @@ depends=(
   glib2
   glibc
   gnome-online-accounts
+  gst-plugin-gtk4
+  gst-plugin-pipewire
+  gst-plugins-base
+  gstreamer
   gtk4
   hicolor-icon-theme
   libadwaita
@@ -37,11 +41,27 @@ makedepends=(
   vala
 )
 groups=(gnome)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-contacts.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('621ee692e7c80024fad4e311fc67304c552291163bbba083b90eb743e5807cb738ac9406fad6bbc434458e3704d77f5f8513af64f36119dc00b04e0521b9fe0a')
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-contacts.git#tag=${pkgver/[a-z]/.&}"
+  gnome-contacts-cancel-action.patch
+)
+b2sums=('621ee692e7c80024fad4e311fc67304c552291163bbba083b90eb743e5807cb738ac9406fad6bbc434458e3704d77f5f8513af64f36119dc00b04e0521b9fe0a'
+        'cb810fdcbfb05cad30d7f9c539ad85a2e55e88e088baa04a1bb9ec6d140587ca29906505fa7bee195c267aaf75d86b95109e913098b6caf334646661b791c901')
 
 prepare() {
   cd $pkgname
+
+  # Support taking a picture with the camera without OpenGL
+  # https://gitlab.gnome.org/GNOME/gnome-contacts/-/merge_requests/305
+  git cherry-pick -n cfbc0c35e30f5fb4603378b89299f630808d7978
+
+  # Set application name only in the startup phase
+  # https://gitlab.gnome.org/GNOME/gnome-contacts/-/merge_requests/303
+  git cherry-pick -n d27745c29a2c25f8a5647c0496aadcc55f68570a
+
+  # Add missing action
+  # https://gitlab.gnome.org/GNOME/gnome-contacts/-/merge_requests/304
+  git apply -3 ../gnome-contacts-cancel-action.patch
 }
 
 build() {

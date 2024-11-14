@@ -1,0 +1,45 @@
+From c91b1a6fe1c9be790f9ca1481d1651079f2763ca Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 12 Oct 2024 23:05:07 +0200
+Subject: [PATCH] main-window: Add missing action
+
+This is needed for the Cancel button to work.
+
+It was removed accidently in commit 3e84850def40672cf22307933c75fa07c550dd31.
+---
+ src/contacts-main-window.vala | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/src/contacts-main-window.vala b/src/contacts-main-window.vala
+index 0b2e743e..6245ce53 100644
+--- a/src/contacts-main-window.vala
++++ b/src/contacts-main-window.vala
+@@ -14,6 +14,7 @@ public class Contacts.MainWindow : Adw.ApplicationWindow {
+     { "cancel", cancel_action },
+     { "new-contact", new_contact },
+     { "edit-contact", edit_contact },
++    { "edit-contact-cancel", edit_contact_cancel },
+     { "edit-contact-save", edit_contact_save },
+     { "focus-search", focus_search },
+     { "mark-favorite", mark_favorite },
+@@ -358,7 +359,7 @@ public class Contacts.MainWindow : Adw.ApplicationWindow {
+     switch (this.state) {
+       case UiState.CREATING:
+       case UiState.UPDATING:
+-        edit_contact_cancel ();
++        edit_contact_cancel (null, null);
+         break;
+       case UiState.SELECTING:
+         cancel_selection_action (null, null);
+@@ -369,7 +370,7 @@ public class Contacts.MainWindow : Adw.ApplicationWindow {
+     }
+   }
+ 
+-  private void edit_contact_cancel ()
++  private void edit_contact_cancel (SimpleAction? action, GLib.Variant? parameter)
+       requires (this.state == UiState.CREATING || this.state == UiState.UPDATING) {
+ 
+     if (this.state == UiState.CREATING) {
+-- 
+GitLab
+

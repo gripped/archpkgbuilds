@@ -1,7 +1,7 @@
 pkgbase = gnome-contacts
 	pkgdesc = Contacts Manager for GNOME
 	pkgver = 47.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://apps.gnome.org/Contacts
 	arch = x86_64
 	groups = gnome
@@ -20,6 +20,10 @@ pkgbase = gnome-contacts
 	depends = glib2
 	depends = glibc
 	depends = gnome-online-accounts
+	depends = gst-plugin-gtk4
+	depends = gst-plugin-pipewire
+	depends = gst-plugins-base
+	depends = gstreamer
 	depends = gtk4
 	depends = hicolor-icon-theme
 	depends = libadwaita
@@ -30,6 +34,8 @@ pkgbase = gnome-contacts
 	depends = pango
 	depends = qrencode
 	source = git+https://gitlab.gnome.org/GNOME/gnome-contacts.git#tag=47.0
+	source = gnome-contacts-cancel-action.patch
 	b2sums = 621ee692e7c80024fad4e311fc67304c552291163bbba083b90eb743e5807cb738ac9406fad6bbc434458e3704d77f5f8513af64f36119dc00b04e0521b9fe0a
+	b2sums = cb810fdcbfb05cad30d7f9c539ad85a2e55e88e088baa04a1bb9ec6d140587ca29906505fa7bee195c267aaf75d86b95109e913098b6caf334646661b791c901
 
 pkgname = gnome-contacts
