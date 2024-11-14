@@ -3,7 +3,7 @@
 
 pkgname=python-jiter
 _pkgname=${pkgname#python-}
-pkgver=0.6.1
+pkgver=0.7.0
 pkgrel=1
 pkgdesc="Fast iterable JSON parser"
 arch=(x86_64)
@@ -25,7 +25,7 @@ checkdepends=(
   python-pytest
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('2da46d7a55c546c11837ffc6116c0ce5248f2b7cfec52704e499a9725e518fd8')
+sha256sums=('cd4808cbec3c08789758a19b5a048b3ada7e41ff4e4c4eaa1bbe289e0ebf4af7')
 
 build() {
   cd "$_pkgname-$pkgver/crates/jiter-python"
