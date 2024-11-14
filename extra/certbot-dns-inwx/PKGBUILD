@@ -1,16 +1,32 @@
 # Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
 
 pkgname='certbot-dns-inwx'
-pkgver=2.2.0
-pkgrel=4
+pkgver=3.0.0
+pkgrel=2
 pkgdesc="INWX DNS authenticator plugin for certbot"
 arch=('any')
 url="https://github.com/oGGy990/certbot-dns-inwx"
 license=('Apache')
-depends=('certbot' 'python')
-makedepends=('python-build' 'python-installer' 'python-wheel')
+depends=(
+  certbot
+  python
+  python-inwx-domrobot
+)
+makedepends=(
+  python-build
+  python-installer
+  python-wheel
+)
+checkdepends=(
+  python-dnspython
+  python-pytest
+)
+optdepends=(
+  'python-dnspython: needed for CNAME redirects'
+)
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('67f40b50823f11c92750d5e961eb452b9cfde57a0a6c19863e07828f082615cc2a0282eb3d7c6c4ed192557dbaeeef7e2e98f1857b228557f1259e1a7ec0acc3')
+sha512sums=('72f8d227650845a4bcaa2a6930953fe06f6377b6bebc3f256b10d825dbf0f568705d4e439a149de9eed99f27b8c55ce7c7f0b93705782ad4ada8d28d8bc518f0')
+b2sums=('0987656523181bfd9b5771add273070808d280537535dff7d4c4002516cdf4e37ffa1b4a33540eb863da04b9b1216951240fce35c1ddd0ea22619bd2d55b1b3b')
 backup=(
   'etc/letsencrypt/inwx.cfg'
 )
@@ -21,16 +37,17 @@ build() {
   python -m build --wheel --skip-dependency-check --no-isolation
 }
 
-package() {
+check() {
   cd "${pkgname}-${pkgver}"
 
-  local _site_packages="$(python -c "import site; print(site.getsitepackages()[0])")"
+  pytest -vv
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
 
   python -m installer --destdir="${pkgdir}" dist/*.whl
 
   install --verbose -D --mode=0600 inwx.cfg "${pkgdir}/etc/letsencrypt/inwx.cfg"
   install --verbose -D --mode=0644 README.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
-
-  # remove unneeded config file from site-packages
-  rm --recursive --verbose "${pkgdir}${_site_packages}/etc"
 }
