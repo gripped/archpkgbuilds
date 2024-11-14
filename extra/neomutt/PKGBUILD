@@ -5,7 +5,7 @@
 # Contributor: Chris Salzberg <chris@dejimata.com>
 # Contributor: Leonidas Spyropoulos <artafinde@gmail.com>
 pkgname=neomutt
-pkgver=20241002
+pkgver=20241114
 pkgrel=1
 pkgdesc='A version of mutt with added features'
 url='https://neomutt.org/'
@@ -47,7 +47,7 @@ source=(
     "$pkgname-$pkgver.tar.gz.sig::$_github/releases/download/$pkgver/$pkgver.tar.gz.sig"
     "default-ca-certificates.patch"
 )
-sha256sums=('8d5673d9cc4b239adcf4bc718d372c8c85d0b53248ecd628358625c877a53064'
+sha256sums=('044bb5a37d5095016569a1b505f7c2f7d8b93e90ff95c2edb82830313319ce9a'
             'SKIP'
             '571716b8979e9b43328416c3c56eff228b6c58355d7c080b8987ea89c6360776')
 validpgpkeys=('86C2397270DD7A561263CA4E5FAF0A6EE7371805') # Richard Russon (flatcap) <rich@flatcap.org>
