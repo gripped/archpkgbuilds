@@ -1,15 +1,14 @@
 pkgbase = libhx
 	pkgdesc = A library providing queue, tree, I/O and utility functions
-	pkgver = 4.23
+	pkgver = 4.24
 	pkgrel = 1
 	url = http://libhx.sourceforge.net/
 	arch = x86_64
-	license = GPL
+	license = GPL-3.0-only
+	license = LGPL-3.0-only
+	makedepends = git
 	depends = glibc
-	source = https://inai.de/files/libhx/libHX-4.23.tar.xz
-	source = https://inai.de/files/libhx/libHX-4.23.tar.asc
-	validpgpkeys = BCA0C5C309CAC569E74A921CF76EFE5D0C223A8F
-	sha256sums = 048cd43a71b79753820f36b18d44d8bbdbfde6d38d45348f49b9303c4d9758e8
-	sha256sums = SKIP
+	source = git+https://codeberg.org/jengelh/libhx#tag=v4.24
+	sha256sums = cfd32e95510a46f2e6fc5367b706d857b28b6f9eccc5074c83de2e07b60df1b5
 
 pkgname = libhx
