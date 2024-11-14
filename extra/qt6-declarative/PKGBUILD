@@ -5,7 +5,7 @@
 pkgname=qt6-declarative
 _pkgver=6.8.0
 pkgver=6.8.0
-pkgrel=5
+pkgrel=6
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
@@ -31,6 +31,9 @@ prepare() {
   git cherry-pick -n 861a7921ed7833a90f77b5fca436c789a4f9517c
 # https://bugreports.qt.io/browse/QTBUG-127340
   git cherry-pick -n 281f620ceea03e7a222d796ae0cca917a9778368
+# https://bugs.kde.org/show_bug.cgi?id=494804
+  git cherry-pick -n 104b0d6e88ce6781c9d31cf0dd14dfe99988b789
+  git show fbdbed919f59cc7b4520f5aab2149f4c99b63e24 -- 	src/qml/jsruntime/qv4qobjectwrapper_p.h | git apply -
 }
 
 build() {
