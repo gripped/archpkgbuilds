@@ -7,7 +7,7 @@ pkgbase=tensorflow
 pkgname=(tensorflow tensorflow-opt tensorflow-cuda tensorflow-opt-cuda python-tensorflow python-tensorflow-opt python-tensorflow-cuda python-tensorflow-opt-cuda)
 pkgver=2.18.0
 _pkgver=2.18.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Library for computation using data flow graphs for scalable machine learning"
 url="https://www.tensorflow.org/"
 license=('APACHE')
@@ -157,7 +157,7 @@ build() {
 
   echo "Building with cuda and with non-x86-64 optimizations"
   cd "${srcdir}"/tensorflow-${_pkgver}-opt-cuda
-  export CC_OPT_FLAGS="-march=haswell -O2"
+  export CC_OPT_FLAGS="-march=x86-64-v3 -O2"
   export TF_NEED_CUDA=1
   ./configure
   bazel \
@@ -187,7 +187,7 @@ build() {
 
   echo "Building without cuda and with non-x86-64 optimizations"
   cd "${srcdir}"/tensorflow-${_pkgver}-opt
-  export CC_OPT_FLAGS="-march=haswell -O2"
+  export CC_OPT_FLAGS="-march=x86-64-v3 -O2"
   export TF_NEED_CUDA=0
   ./configure
   bazel \
