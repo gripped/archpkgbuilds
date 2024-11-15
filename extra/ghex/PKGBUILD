@@ -7,13 +7,22 @@ pkgname=(
   ghex
   ghex-docs
 )
-pkgver=46.0
+pkgver=46.1
 pkgrel=1
 pkgdesc="A simple binary editor for the Gnome desktop"
 url="https://wiki.gnome.org/Apps/Ghex"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
-depends=(libadwaita)
+depends=(
+  cairo
+  dconf
+  glib2
+  glibc
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  pango
+)
 makedepends=(
   gi-docgen
   git
@@ -22,14 +31,8 @@ makedepends=(
   vala
   yelp-tools
 )
-_commit=573bc9b9304f815b0d58427d54852cb2099b421e  # tags/46.0^0
-source=("git+https://gitlab.gnome.org/GNOME/ghex.git#commit=$_commit")
-b2sums=('00ba3ef6276e59c33736a1657d179557b10eb0ee5c6568b374881747b67cdaccd7b89e874b4910fa5a5c154fe3f305dd0ad55cf4ba40664ea17d93b730decc3a')
-
-pkgver() {
-  cd ghex
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/ghex.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('b5c7c07a429b4b74f9b236819e5942d9efd911655368357e5c051cde2a52ecce53f6c963c968e33efbcf1c40954137ef5fe7d440bd1cad5d73e2b44b03d2a1c1')
 
 prepare() {
   cd ghex
