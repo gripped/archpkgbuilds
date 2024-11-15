@@ -1,12 +1,13 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kaidan
-pkgver=0.9.1
-pkgrel=5
+pkgver=0.9.2
+pkgrel=1
 pkgdesc='A user-friendly XMPP client for every device'
 arch=(x86_64)
 url='https://www.kaidan.im/'
-license=(GPL3 MIT)
+license=(GPL-3.0-or-later
+         MIT)
 depends=(gcc-libs
          glibc
          kcoreaddons5
@@ -27,19 +28,20 @@ depends=(gcc-libs
          qxmpp-qt5
          zxing-cpp)
 makedepends=(extra-cmake-modules
+             git
              qt5-tools)
-source=(https://download.kde.org/unstable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('8137011d5c36a11d23fcc600d4fd5b0767951d69cf21c8eaac43e98d1c918f90'
-            'SKIP')
+source=(git+https://invent.kde.org/network/kaidan#tag=v$pkgver)
+sha256sums=('0009e1ad34808dbfd5271e9b0ba793047e08c051910de4a19254b938d534c8f4')
 validpgpkeys=(03C2D10DC97E5B0BEBB8F3B44663231A91A1E27B) # Linus Jahn <lnj@kaidan.im>
 
 build() {
-  cmake -B build -S $pkgname-$pkgver
+  cmake -B build -S $pkgname \
+    -DCMAKE_BUILD_TYPE=None
   cmake --build build
 }
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  install -Dm644 $pkgname-$pkgver/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+  install -Dm644 $pkgname/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
 }
