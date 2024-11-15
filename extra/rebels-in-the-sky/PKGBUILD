@@ -1,16 +1,16 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=rebels-in-the-sky
-pkgver=1.0.19
+pkgver=1.0.20
 pkgrel=1
 pkgdesc="P2P terminal game about spacepirates playing basketball across the galaxy"
 url="https://github.com/ricott1/rebels-in-the-sky"
 depends=('gcc-libs' 'alsa-lib')
-makedepends=('cargo')
+makedepends=('cargo' 'cmake')
 arch=('x86_64')
 license=('GPL-3.0')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('88ac27014afeaad945725ead643d904c74d373f40e083fbb7ee8ad0e1c1c60f94c6f4ff6a3ae98d27c00b93b7ed895cce6f165c5fa798fb0f4153360ffce9791')
+sha512sums=('8862a09dffb9d361fdeb92e284ae61a3f7701c474dd29fb5ed284e39de3a4bf9056bfb41ba87e6b674aceb0a5ae2319270072062230ed2425d08d068b5756987')
 options=('!lto')
 
 prepare() {
