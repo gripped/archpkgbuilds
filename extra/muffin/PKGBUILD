@@ -6,21 +6,21 @@
 
 pkgname=muffin
 pkgver=6.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Cinnamon window manager based on Mutter"
 arch=(x86_64)
 url="https://github.com/linuxmint/${pkgname}"
 license=(GPL)
 depends=(cinnamon-desktop gobject-introspection-runtime libcanberra libinput
          libsm libxkbcommon-x11 startup-notification zenity graphene pipewire xorg-xwayland)
-makedepends=(meson intltool gobject-introspection wayland-protocols)
+makedepends=(meson intltool gobject-introspection wayland-protocols glib2-devel egl-wayland)
 options=(!emptydirs)
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
 sha256sums=('889200ceb45334899e7568f1735ec2b15e1ae042d176821a0d45c524960bee0a')
 b2sums=('d2cf508eeea77e22c79c65404e90beced72b9eca87542dc38abbf8a411464b4afce4d48e73cddf284a4cb86d9eca420edf95e3cb0ad7a0bc6b2c93a4bd1df257')
 
 build() {
-  arch-meson build ${pkgname}-${pkgver}
+  arch-meson build ${pkgname}-${pkgver} -D egl_device=true -D wayland_eglstream=true
   meson compile -C build
 }
 
