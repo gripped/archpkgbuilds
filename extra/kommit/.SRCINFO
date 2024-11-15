@@ -1,12 +1,13 @@
 pkgbase = kommit
 	pkgdesc = Git gui client
-	pkgver = 1.6.0
+	pkgver = 1.7.0
 	pkgrel = 1
 	url = https://apps.kde.org/kommit
 	arch = x86_64
 	license = GPL-3.0-only
 	makedepends = extra-cmake-modules
 	makedepends = dolphin
+	makedepends = git
 	makedepends = kdoctools
 	makedepends = ktexteditor
 	depends = gcc-libs
@@ -22,13 +23,13 @@ pkgbase = kommit
 	depends = kwidgetsaddons
 	depends = kxmlgui
 	depends = libgit2
+	depends = openssl
 	depends = qt6-base
+	depends = qt6-charts
 	depends = sh
 	depends = syntax-highlighting
-	source = https://download.kde.org/stable/kommit/kommit-1.6.0.tar.xz
-	source = https://download.kde.org/stable/kommit/kommit-1.6.0.tar.xz.sig
+	source = git+https://invent.kde.org/sdk/kommit#tag=v1.7.0
 	validpgpkeys = E0A3EB202F8E57528E13E72FD7574483BB57B18D
-	sha256sums = ac30eb5f1a8c4035c6499d27325d499121ac2de7b3d381cacb0dd7427fb45025
-	sha256sums = SKIP
+	sha256sums = 0f7a170528742452406fce36374faae5dd9b4994168034ca656f9d0213a6d46e
 
 pkgname = kommit
