@@ -3,7 +3,7 @@
 # Contributor: Dmitriy Morozov <foxcub>
 
 pkgname=cgal
-pkgver=6.0
+pkgver=6.0.1
 pkgrel=1
 pkgdesc="Computational Geometry Algorithms Library"
 arch=(any)
@@ -13,7 +13,7 @@ depends=(boost eigen gmp mpfr)
 makedepends=(cmake)
 source=(https://github.com/CGAL/cgal/releases/download/v${pkgver}/CGAL-${pkgver}.tar.xz)
 # https://github.com/CGAL/cgal/releases/download/v${pkgver}/sha256sum.txt
-sha256sums=('6b0c9b47c7735a2462ff34a6c3c749d1ff4addc1454924b76263dc60ab119268')
+sha256sums=('0acdfbf317c556630dd526f3253780f29b6ec9713ee92903e81b5c93c0f59b7f')
 
 build() {
   cmake -B build -S CGAL-${pkgver} \
