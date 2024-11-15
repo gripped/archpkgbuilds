@@ -1,19 +1,17 @@
 pkgbase = vnstat
 	pkgdesc = A console-based network traffic monitor
 	pkgver = 2.12
-	pkgrel = 2
+	pkgrel = 3
 	url = https://humdi.net/vnstat/
 	arch = x86_64
 	license = GPL
 	makedepends = gd
+	makedepends = git
 	depends = bash
 	depends = sqlite
 	optdepends = gd: image output
 	backup = etc/vnstat.conf
-	source = https://humdi.net/vnstat/vnstat-2.12.tar.gz
-	source = https://humdi.net/vnstat/vnstat-2.12.tar.gz.asc
-	validpgpkeys = 23EF1DD76E65248FB055201ADAFE84E63D140114
-	sha256sums = b7386b12fc1fc6f47fab31f208b12eda61862e63e229e84e95a6fa80406d2852
-	sha256sums = SKIP
+	source = git+https://github.com/vergoh/vnstat.git#tag=v2.12
+	sha256sums = 515ef3f47745b37961e563ac7ef2387e03003e738da091943690183d341baf96
 
 pkgname = vnstat
