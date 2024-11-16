@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-checksums
-pkgver=0.2.0
+pkgver=0.2.2
 pkgrel=1
 pkgdesc='Cross-Platform HW accelerated CRC32c and CRC32 with fallback to efficient SW implementations.'
 arch=(x86_64)
@@ -14,7 +14,7 @@ depends=(
 )
 makedepends=(cmake)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('aae619de7fb5908a52223eae3b80fae70260eed5919ad4c385b2d5a144a641f0')
+sha256sums=('96acfea882c06acd5571c845e4968892d6ffc0fae81b31a0b1565100049743b2')
 
 build() {
   cd $pkgname-$pkgver
