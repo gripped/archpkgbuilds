@@ -2,21 +2,17 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 
 pkgname=toolbox
-pkgver=0.0.99.6
+pkgver=0.1.1
 pkgrel=1
 pkgdesc='Unprivileged development environment'
 arch=(x86_64)
 url='https://github.com/containers/toolbox'
-license=(APACHE)
+license=(Apache-2.0)
 depends=(podman bash flatpak)
 makedepends=(go shellcheck go-md2man bash-completion ninja git meson podman fish)
 source=("git+$url#tag=$pkgver")
-sha256sums=('9b17fc5298d1c60aeca593b72fc47b42dd2d24d675a851dfb4538be025a2e069')
-
-pkgver() {
-  cd toolbox
-  git describe --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
-}
+sha512sums=('3398901ecd40ad2ee8f203298455d6b6e0b615ca2d4065c091b869fde3169469c328a9c0bd006ff05aa30546a508e9b4b0d162587067c14995a25b9885f9b94f')
+b2sums=('2c24a67d198c8c856aa5df567ff9e804f20df9296ad9ee5b54c5e9d035a54f738cc1ff0aa1d3c1296e84bff16f2201759f4b6e6700afaa4d481b9d916985e702')
 
 build() {
   export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
