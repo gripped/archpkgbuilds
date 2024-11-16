@@ -2,8 +2,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=osquery
-pkgver=5.13.1
-pkgrel=2
+pkgver=5.14.1
+pkgrel=1
 pkgdesc="SQL powered operating system instrumentation, monitoring, and analytics"
 arch=(x86_64)
 url="https://osquery.io"
@@ -69,52 +69,36 @@ backup=(
 )
 _url=https://github.com/osquery/osquery
 source=(
-  # Patchset maintained here:
-  # https://github.com/carlsmedstad/osquery/tree/build-on-archlinux
   "git+$_url.git#tag=$pkgver"
   "git+https://github.com/arangodb/linenoise-ng.git"
   "git+https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git"
-  "0001-Use-system-libraries-where-possible.patch::$_url/commit/196cef6ab11762eb81640e9d2043ec404e626994.patch"
-  "0002-Disable-submodule-fetching.patch::$_url/commit/d1b1974d416fea21676cccff8c99160f8631a7f1.patch"
-  "0003-Remove-incompatible-build-flags.patch::$_url/commit/f524afd218b67f2ef126efa2bbe01765a551fdf3.patch"
-  "0004-Remove-include-of-non-existing-header-xlocale.h.patch::$_url/commit/8461290050c4df7d6342f4454ec578cc7fa3c171.patch"
-  # https://github.com/osquery/osquery/pull/8400
-  "0005-Add-missing-includes-causing-compilation-error-with-.patch::$_url/commit/5bc0c4191ebb94830b90a957c0b6db04ad0f23c9.patch"
+  # Patchset maintained here:
+  # https://github.com/carlsmedstad/osquery/tree/build-on-archlinux
+  "0001-Use-system-libraries-where-possible.patch::$_url/commit/dd08b4e2f1db5d19003e1728ed6122474060ef91.patch"
+  "0002-Disable-submodule-fetching.patch::$_url/commit/e6e3b683fe8ae9131bcbeb4aeb4ae0a4549a4aeb.patch"
+  "0003-Remove-include-of-non-existing-header-xlocale.h.patch::$_url/commit/6528b181ebdf75316d145a2819cffa8dcb3a4ec9.patch"
   # https://github.com/osquery/osquery/pull/8401
-  "0006-Replace-usage-of-libaudit-function-removed-in-v3.0.7.patch::$_url/commit/9539fdcfe9b4ac4b9f3db244e99b39a46594a40b.patch"
-  "0007-Fix-remaining-compilation-issues.patch::$_url/commit/b4af4776764afce0c2f05d2eb195e4b3e7ca6e09.patch"
-  "0008-Do-not-build-system_controls-tables.patch::$_url/commit/9e04ff399737a2bdfcdd67eb75772e8683d47e72.patch"
-  "0009-Do-not-build-block_devices-tables.patch::$_url/commit/7add67af68c42b3995b53dcbbfd86e71c5ce4a94.patch"
-  "0010-Do-not-build-utils-requiring-libdpkg.patch::$_url/commit/e03230faef43e9bff621b2946c5f950e95382d07.patch"
-  "0011-Fix-systemd-service-and-systemctl-script.patch::$_url/commit/22b18db72392dcf72bc5601b39887ea4685a90ae.patch"
-  "0012-Adapt-installation-to-using-system-packages.patch::$_url/commit/751630a7b1b0e98731f86f29f0f90ecf7e0227c4.patch"
-  # https://github.com/osquery/osquery/pull/8409
-  "0013-Replace-boost-filesystem-path.-leaf-filename.patch::$_url/commit/6c73f2a4439a10e1e461e3801a11015793ee93b6.patch"
-  "0014-Update-usage-of-boost-property_tree-ptree-get_child.patch::$_url/commit/66070894acc3d7956162304c6a06277d94e1fa2e.patch"
-  "0015-Replace-boost-filesystem-path.-normalize-lexically_n.patch::$_url/commit/7c8aa7ee95fd560ce76da7769f5a693aa70478b8.patch"
-  "0016-Adapt-tests-for-Boost-1.86.0-JSON-serialization-chan.patch::$_url/commit/680a246f587fc300daacf2bb16e87c799bec597b.patch"
-  "0017-Replace-boost-filesystem-ofstream-with-std-ofstream.patch::$_url/commit/d1abf764a13c409e2c27e2fd72bd3b0d63dbb6b4.patch"
+  "0004-Replace-usage-of-libaudit-function-removed-in-v3.0.7.patch::$_url/commit/8c6c589a2e966f8e231f866cb152bd15832abf22.patch"
+  "0005-Fix-remaining-compilation-issues.patch::$_url/commit/a0d28a211afb7291c2ebed321cd91e2c7a686a21.patch"
+  "0006-Do-not-build-system_controls-tables.patch::$_url/commit/c52b0ae5a9717ef1da45c05f91f8af4884e6aecd.patch"
+  "0007-Do-not-build-block_devices-tables.patch::$_url/commit/c80a3a215eb155c570e76888e74bc81e17ccbeb1.patch"
+  "0008-Do-not-build-utils-requiring-libdpkg.patch::$_url/commit/8ae3260cd2bfc7fa108c5bb345a3227b58ba5d7e.patch"
+  "0009-Fix-systemd-service-and-systemctl-script.patch::$_url/commit/d792974525c271cfb9984f42d0ee157ed6444705.patch"
+  "0010-Adapt-installation-to-using-system-packages.patch::$_url/commit/63d89a012efcd9b4e773abbc63be0e445a58675d.patch"
 )
-sha256sums=('8ce04443b0eecdcfa068dbff0bd5ed79dff9fff60982b87d87ced312e3514741'
+sha256sums=('66eb91a24f544cd13e8053afb1e0dcbd74814dc949270aba184ece6d78fcf53e'
             'SKIP'
             'SKIP'
-            'd2ddbb5b05fc8471566e3f3d62525a601458e3b0c158658b05f6a82fef8e8533'
-            '3ed7937d82134c5412ce4071fc44d20ca2df84270884aab89df4084be1b1cc20'
-            'ca444d1212f6c7a58e1f27d713796181cd7ef9bd57b84fc73a589e76909bdd51'
-            'dbcc488d09e66acbb9cbad79404a0bd0e8e47835df068d286bd321402bd5ffdb'
-            'cf543a5008c8c542411a6753d25e16b3e7bf2493dc9c1fa20b5177fd1d8760f2'
-            'dfcc824e9a0ffa9979f15787fe3a8878b6e4d3ad4f882659cbc5c6b9e8c0e579'
-            '5fb0373369a108382d18c7579d18a2d3842ff483ffd3cf2c4e4b75bf0f3047ed'
-            '55f2e3773f3a5804e7e8c9237cd5001fa8c12ed16bd5524ab0557936aebb92d8'
-            'c2d57e27dc6b2063322d5f6a88b411b447d2904628601f82876026a8c4583e55'
-            'cc2df4a84c421ea7b133fe51797be2499783893e04053ac101d3b7ec25dd0f20'
-            '70326d8ac6555d38c7bffffc270a7f1bc36551f35a3d9132245bdeb4085b986a'
-            'd3b39d84d4c4db47f43e8568e5e4406573159cb33a6da9ad7f980dfe3305970e'
-            'dcafbb27b5a54f7e180f838d1e3fcfc62857e7ad48405e48a4e691e95f7e0f83'
-            '8f4441f3f11b9250f7c4b6107d08498cb3e231bd898fcec90373c2cb19fe8b78'
-            '07d4ea9f79ef58e9542aa251fca1d4fcb45798786aac1fb4387522a653caf63d'
-            '90ddfd8a94f40c11715a2bd8b083af5f43fcd1863b1300f6d4b08b48ccc26e13'
-            '9c8f77af47ae66e2d64c528f3458b6d88e7f9f4fdd2d6a7b6f4ef4e5238c26ce')
+            'e9f39c6e9a0279311b0034656126141d0ce82d93c02e3f9f98d652ae022f044e'
+            'db1bb8553cfae7ef95100950192dd346511fcd3c32b6b60e122c8d56e4e1afe2'
+            'b7c4833b19d367a56e3c1dfb6928dbc175d59b22cf0e03f7251907358f9329e7'
+            '14440ac27b84daa539f0a3bf88a7d5d195217f8627f113703e25508acb6433e2'
+            '6c1f7dbc3139200933991059eda9d1a13cf3e953143d673b3a32b0f916fdedf1'
+            '55797a7612ddf1f651c851733ca3cebc76a8047306cf85644f8e809dd566251d'
+            'f59ab7a52e6c6ffbf278ca202544f2ab74d02515412f17f9d9e82368c2fa1d72'
+            '925be32deb7261c28b03436c3acc0220e1d461291c85e25df58bcc643ec3f46d'
+            '79516bce1332b5513687eef3137445d66118f27e79db36be76b86c80c850ac1a'
+            '0b4ed3b0c69275a040e2c17b1f25e112da6b7b18c3a48c849bfcabf8e66f422c')
 
 prepare() {
   cd $pkgname
