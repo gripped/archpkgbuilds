@@ -4,29 +4,31 @@
 
 _pypiname=wheel
 pkgname=python-wheel
-pkgver=0.44.0
-pkgrel=2
+pkgver=0.45.0
+pkgrel=1
 pkgdesc="A built-package format for Python"
 arch=(any)
 url="https://pypi.python.org/pypi/wheel"
 license=('MIT')
-depends=('python-packaging')
+depends=('python' 'python-packaging')
 optdepends=('python-keyring: for wheel.signatures'
-            'python-xdg: for wheel.signatures')
+            'python-xdg: for wheel.signatures'
+            'python-setuptools: for legacy bdist_wheel subcommand')
 makedepends=('python-build' 'python-flit-core' 'python-installer')
 checkdepends=('python-jsonschema' 'python-pytest' 'python-keyring' 'python-keyrings-alt'
               'python-xdg' 'python-setuptools')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/pypa/wheel/archive/$pkgver.tar.gz")
-sha512sums=('1ffd45d988f713876f4856a947ad14736f590e4592797bbd5120b7751fc7e86043fbf9c75d405f410caaaf274f2c863bbef87ff0b663803651facd6acf50452b')
+source=(
+  "$pkgname-$pkgver.tar.gz::https://github.com/pypa/wheel/archive/$pkgver.tar.gz"
+  $pkgname-0.45.0-devendor.patch
+)
+sha512sums=('b5610405ae6aa387d4597821793e82115873137bd24d9e07f4b68680089e93f595ecdf42c8e290b2daaca2b9687afe02a0255baf32d1ee60870b1e9f0a9dd644'
+            'b9e705f1ca4f71332cd20b404d3eaae13a0785958a021078d786177b161e789c370d20dd0411246e53890235d8dc527c72a4cc8023c0bcff8921135422b98173')
 
 prepare() {
   cd wheel-$pkgver
-  # https://github.com/pypa/wheel/pull/365 but why?
-  rm -r src/wheel/vendored
-  sed -i 's/from .vendored.packaging.requirements import Requirement/from packaging.requirements import Requirement/' src/wheel/metadata.py
-  sed -i 's/from .vendored.packaging import tags/from packaging import tags/' src/wheel/bdist_wheel.py src/wheel/_bdist_wheel.py
-  sed -i 's/from .vendored.packaging import version as _packaging_version/from packaging import version as _packaging_version/' src/wheel/bdist_wheel.py src/wheel/_bdist_wheel.py
-  sed -i 's/from wheel.vendored.packaging import tags/from packaging import tags/' tests/test_bdist_wheel.py
+  # remove vendored python-packaging
+  patch -Np1 -d . -i ../$pkgname-0.45.0-devendor.patch
+  rm -rv src/wheel/vendored
 }
 
 build() {
