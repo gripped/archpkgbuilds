@@ -3,8 +3,8 @@
 
 pkgbase=edk2
 pkgname=(edk2-arm edk2-aarch64 edk2-shell edk2-ovmf)
-pkgver=202408
-pkgrel=2
+pkgver=202408.01
+pkgrel=1
 pkgdesc="Modern, feature-rich firmware development environment for the UEFI specifications"
 arch=(any)
 url="https://github.com/tianocore/edk2"
@@ -37,7 +37,7 @@ source=(
   brotli::git+https://github.com/google/brotli.git
   jansson::git+https://github.com/akheron/jansson.git
   googletest::git+https://github.com/google/googletest.git  # also a submodule for public-mipi-sys-t
-  # subhook::git+https://github.com/Zeex/subhook.git
+  edk2-subhook::git+https://github.com/tianocore/edk2-subhook.git
   pylibfdt::git+https://github.com/devicetree-org/pylibfdt.git
   public-mipi-sys-t::git+https://github.com/MIPI-Alliance/public-mipi-sys-t.git
   pugixml::git+https://github.com/zeux/pugixml.git  # submodule for public-mipi-sys-t
@@ -54,7 +54,8 @@ source=(
   80-edk2-ovmf-ia32-on-x86_64-secure-4m.json
   81-edk2-ovmf-ia32-on-x86_64-4m.json
 )
-sha512sums=('fd43746d76a205f0e67c54a933b2a3315e15f30e7bd50df4604b8de422c3a7a4bd041a2e8ed92cea15a1cdbf0e5cc04c2a4cf58c9612b885ba7ef3d89d5efb8a'
+sha512sums=('7a2a9c67c76aa081834dc88dfefa8d208dca089d3dafda8374046e6b43e9b6b4af82ceefd4ad01b2d50911619805e2da77b62ccfe6e4436bca99e4006683e906'
+            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -82,7 +83,8 @@ sha512sums=('fd43746d76a205f0e67c54a933b2a3315e15f30e7bd50df4604b8de422c3a7a4bd0
             'bbf663d539a985504d5fbc95552a2a60ac860a6bce4a62ecc551292d838b41cba3b5203f580a76a05e9f862ef98e7a3e5da39505c1f39d8ef48c08778fac584a'
             '95661c2182112a76652507de84b7d0f9bb0d21f6b3b62134952bd7aada8df5cfc727658d11b71a7780a22049d9cafc4361d9a1d515b68d1463e7082465fd4f7e'
             'c9dbe7b2b6b8c18b7b8fdfef5bc329d9142c442f2f3dbae3ca4919255dcaf2ab576cd305648228d5dd48040ca3b14f44ee33b05cb6ca13b49e2836947b78ea53')
-b2sums=('eba20795c57ea55f445e32ff74b6d73244f0b7380a86ec88bcede0ff7c1e8043ab016325528bfe8f141e36a172e4efe37b2deb39b1f9323577b09145c3128278'
+b2sums=('2214e629c2ad261618cb2d036e7a3c74cab0eb191022c4f78049a3fbd3b9d72ffa877193a17f4c298d743804a5cdc9e44037d0ae4f181c083a3cb8eb62a7c993'
+        'SKIP'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -128,9 +130,7 @@ prepare() {
   git config submodule.BaseTools/Source/C/BrotliCompress/brotli.url ../brotli
   git config submodule.RedfishPkg/Library/JsonLib/jansson.url ../jansson
   git config submodule.UnitTestFrameworkPkg/Library/GoogleTestLib/googletest.url ../googletest
-  # the subhook upstream is gone: https://github.com/tianocore/edk2/issues/6398
-  git submodule deinit UnitTestFrameworkPkg/Library/SubhookLib/subhook
-  # git config submodule.UnitTestFrameworkPkg/Library/SubhookLib/subhook.url ../subhook
+  git config submodule.UnitTestFrameworkPkg/Library/SubhookLib/subhook.url ../$pkgbase-subhook
   git config submodule.MdePkg/Library/BaseFdtLib/libfdt.url ../pylibfdt
   git config submodule.MdePkg/Library/MipiSysTLib/mipisyst.url ../public-mipi-sys-t
   git config submodule.CryptoPkg/Library/MbedTlsLib/mbedtls.url ../mbedtls
