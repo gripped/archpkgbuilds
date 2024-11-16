@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=niri
-pkgver=0.1.9
+pkgver=0.1.10.1
 pkgrel=1
 pkgdesc="A scrollable-tiling Wayland compositor"
 arch=(x86_64)
@@ -42,8 +42,8 @@ optdepends=(
 # NOTE: linking issues with LTO enabled
 options=(!lto)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('7436ad537b6f4e2d0b05731d94bf02594310526843083a175c061327958d7673d19ec601732969f9910c4e41b97be64a04d2a1eac3c7ec19c4d71a31fdad8d6c')
-b2sums=('86caa9f2b9a468c5aef8041f902bbbd252200ab2fda4da5bf9d0997d61014b8f99336dd2b0579cf754d188ce51dfbcee0d83f413d8a10dba451c104a69f73ca0')
+sha512sums=('ba816350bad30debcb961d6c516c96a0a732621e78e08f7f04bbf3bee46cb463318a59acf532660288022a247cfcd636d59159b66fd01c1c702d58f8ddf44e6a')
+b2sums=('394cce3c11d19ef65d450a0e402e3c97affdff798340bb37aba90ea9b49c4cb5e7417873bd0e66bafb2ff035d71ddfca14fb91a86aa997dc23534bd1eff48035')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -55,7 +55,7 @@ build() {
   cd $pkgname-$pkgver
   export RUSTUP_TOOLCHAIN=stable
   export CARGO_TARGET_DIR=target
-  cargo build --frozen --release
+  cargo build --frozen --release --features default
 }
 
 check() {
