@@ -5,7 +5,7 @@
 pkgbase=doxygen
 pkgname=(doxygen doxygen-docs)
 pkgver=1.12.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Documentation system for C++, C, Java, IDL and PHP'
 url='http://www.doxygen.nl'
 arch=(x86_64)
