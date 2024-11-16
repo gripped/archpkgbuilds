@@ -3,8 +3,8 @@
 
 pkgname=python-wheezy-template
 _pkgname=wheezy.template
-pkgver=3.2.2
-pkgrel=2
+pkgver=3.2.3
+pkgrel=1
 pkgdesc="A lightweight template library"
 arch=(x86_64)
 url="https://github.com/akornatskyy/wheezy.template"
@@ -22,7 +22,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('fea0cfd58f737c40dfc4d7916b08db88cb7b6a8896345f7f07739cbd8909d3f6')
+sha256sums=('7ab065cac94f1509857662be718c10dafadeba550c8d8dc853b8f66c270569c2')
 
 build() {
   cd "$_pkgname-$pkgver"
