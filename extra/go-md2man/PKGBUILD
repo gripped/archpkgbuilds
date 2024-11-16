@@ -2,7 +2,7 @@
 # Contributor: Sébastien "Seblu" Luttringer <seblu@arhlinux.org>
 
 pkgname=go-md2man
-pkgver=2.0.4
+pkgver=2.0.5
 pkgrel=1
 pkgdesc='A markdown to manpage generator'
 arch=('x86_64')
@@ -10,7 +10,7 @@ url='https://github.com/cpuguy83/go-md2man'
 license=('MIT')
 makedepends=('go')
 source=($pkgname-$pkgver.tar.gz::"https://github.com/cpuguy83/go-md2man/archive/v$pkgver.tar.gz")
-sha256sums=('b0a4c7c077ede56967deef6ab7e7696c0f46124b0b3360fd05564ec5a536f11f')
+sha256sums=('6bb799e8fff06d82ca4617190157338d336e2361aa6c5b1786f763a684ffc3f2')
 
 build() {
   cd "$pkgname-$pkgver"
