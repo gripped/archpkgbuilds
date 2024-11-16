@@ -3,7 +3,7 @@
 
 pkgname=python-elasticsearch
 _pkgname=elasticsearch-py
-pkgver=8.15.1
+pkgver=8.16.0
 pkgrel=1
 arch=(any)
 pkgdesc="Official Python client for Elasticsearch"
@@ -42,7 +42,7 @@ optdepends=(
   # 'python-simsimd: support for Maximal Marginal Relevance (MMR) for search results'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('03854c70ff687542d041b1f242e96b4e47fbfd707b7be8ab45821e87daa4a3ba')
+sha256sums=('ff11e054db75c399746d536cde360803880350eaa3c3ae08a04f1b96e50e13f5')
 
 build() {
   cd $_pkgname-$pkgver
