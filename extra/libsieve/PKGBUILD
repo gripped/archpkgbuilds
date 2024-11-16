@@ -2,20 +2,23 @@
 
 pkgname=libsieve
 pkgver=2.3.1
-pkgrel=5
+_commit=9b9856f675daa2847dfdd6c1bea7213db71be0c1
+pkgrel=6
 pkgdesc="sieve interpretator lib"
 arch=(x86_64)
 url="http://libsieve.sourceforge.net/"
-license=('GPL')
-source=("https://github.com/downloads/sodabrew/libsieve/libsieve-$pkgver.tar.gz"
+license=('LGPL-2.1-only')
+makedepends=('git')
+#source=("https://github.com/downloads/sodabrew/libsieve/libsieve-$pkgver.tar.gz"
+source=("git+https://github.com/sodabrew/libsieve.git#commit=${_commit}"
 	"glibc-regex.patch"
 	"crash-fix.patch")
-sha512sums=('6d03f48daf8b85723f04efe673bb246ae79320b1e7862b81d17ea0fe7941b9057012cd217d0593ecd15192ecef572d83d57051a36388e53028bf018c3c5a792f'
+sha512sums=('202de28bd3fd2b5616af4f6040fa6e39a1d46e2da85cd4349678d9a25958c3754b8ef722447d69c5e4b4f57a7cf5f79f2f0682a1c1f85bc19f9e78e094f9f96d'
             'c58e2f5a5d78748e49dee20b2c9e73e290bff844619bd625e02368164be12907923cbc659ea726e33deccf2a1c4f446f49b50f7f014d49e75ce5eec192480a14'
             '9b7b3254027a27290ed5aaed5d4d801ebf1bc51f0d3a3dcdbadf82fc66d00f20cadd54aeb370ed1932f907cf1db57a85acb6473ddd45adc29705233a93b7a762')
 
 prepare() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname"
   rm -rf src/sv_regex
   rm -f src/sv_parser/{addr,header,sieve}.{c,h}
   rm -f src/sv_parser/{addr,header,sieve}-lex.{c,h}
@@ -24,9 +27,11 @@ prepare() {
 }
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname"
   aclocal
-  automake
+  libtoolize
+  touch config.h.in
+  automake --add-missing
   autoconf
 #  export CFLAGS="-g -O2"
 #  export LDFLAGS="-g -O2"
@@ -36,8 +41,8 @@ build() {
 }
 
 check() {
-  cd "$srcdir/$pkgname-$pkgver/src/sv_test"
-  export LD_LIBRARY_PATH="$srcdir"/libsieve-$pkgver/src/.libs:$LD_LIBRARY_PATH
+  cd "$srcdir/$pkgname/src/sv_test"
+  export LD_LIBRARY_PATH="$srcdir"/libsieve/src/.libs:$LD_LIBRARY_PATH
   ls -1 script* | while read script; do
     ls -1 message* | while read msg; do
       if [ "$script" == "script22.sv" ]; then
@@ -56,6 +61,6 @@ check() {
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname"
   make DESTDIR="$pkgdir/" install
 }
