@@ -5,20 +5,20 @@
 
 pkgname=opensc
 pkgver=0.26.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Tools and libraries for smart cards'
 arch=('x86_64')
 url='https://github.com/OpenSC/OpenSC/wiki'
 license=('LGPL')
 backup=('etc/opensc.conf')
-makedepends=('docbook-xsl')
+makedepends=('docbook-xsl' 'git')
 depends=('pcsclite' 'glib2' 'libltdl')
 options=(!emptydirs !lto)
-source=("https://github.com/OpenSC/OpenSC/releases/download/$pkgver/opensc-$pkgver.tar.gz")
-sha512sums=('99d88e6f83eb8b6d349bd88d51df652bc44973ac9397d516ad503c256d664a842698093b4e50e0877ece5f05151b5575fc39220620c82c7a000c971f8c98449f')
+source=("git+https://github.com/OpenSC/OpenSC.git#tag=${pkgver}")
+sha512sums=('6de92cfa2b6be790c22ffa81ae8e9a04f16d1897da56343d9a59df918fc98dce650ff6d7d583239e5289ef765d0c328aaedddd5099077924a8cf3920188db15f')
 
 build() {
-  cd $pkgname-$pkgver
+  cd OpenSC
 
   _sheetdir=(/usr/share/xml/docbook/xsl-stylesheets-*-nons)
 
@@ -42,11 +42,12 @@ build() {
 }
 
 package(){
-  cd $pkgname-$pkgver
+  cd OpenSC
 
   make DESTDIR="$pkgdir" install
 
   install -D -m644 etc/opensc.conf "$pkgdir/etc/opensc.conf"
+  install -D -m644 packaging/opensc.module "$pkgdir/usr/share/p11-kit/modules/opensc.module"
 }
 
 # vim:set ts=2 sw=2 et:
