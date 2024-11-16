@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-pytest-bdd
-pkgver=7.3.0
+pkgver=8.0.0
 pkgrel=1
 pkgdesc='BDD library for the pytest runner'
 arch=('any')
@@ -10,6 +10,7 @@ license=('MIT')
 url='https://github.com/pytest-dev/pytest-bdd'
 depends=(
   'python'
+  'python-gherkin'
   'python-mako'
   'python-packaging'
   'python-parse'
@@ -26,7 +27,7 @@ makedepends=(
 )
 checkdepends=('python-setuptools')
 source=("git+$url.git#tag=$pkgver")
-sha512sums=('d253556e6e823287d6e229ed677c0a366e044ea46e0b9e8c29448797e6da10c8f7820d4eee4cbd798db88017db305f4a2b9a60c534eb439917ef502ffbaac116')
+sha512sums=('39ebf30d41e00a27d943d232917fa0b8632445c28ca085f77f20aa730be4224164f29196b647bb9fc50760c0d1909251c84b4bbfbfe9f7efdf9a7e6d37b8caa5')
 
 build() {
   cd pytest-bdd
@@ -35,7 +36,6 @@ build() {
 
 check() {
   cd pytest-bdd
-  # Hack entry points by installing it
   python -m installer --destdir=tmp_install dist/*.whl
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   PATH="$PWD/tmp_install/usr/bin:$PATH" PYTHONPATH="$PWD/tmp_install/$site_packages" \
@@ -47,5 +47,3 @@ package() {
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
 }
-
-# vim:set ts=2 sw=2 et:
