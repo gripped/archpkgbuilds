@@ -1,9 +1,7 @@
 # Maintainer:
 pkgname=python-tpm2-pytss
 _name=${pkgname#python-}
-# NOTE: no trust path: https://github.com/tpm2-software/tpm2-pytss/issues/566
-pkgver=2.1.0.r40.70a4ccc
-_commit=70a4ccc850bd9dba05043a90f08f818a1860826c # refs/tags/2.1.1
+pkgver=2.3.0
 pkgrel=1
 pkgdesc='Python bindings for tpm2-tss'
 arch=(x86_64)
@@ -34,10 +32,9 @@ checkdepends=(
   tpm2-tools
 )
 source=(
-  "git+$url.git#tag=$_commit"
+  "git+$url.git#tag=$pkgver"
 )
 sha512sums=('SKIP')
-validpgpkeys=('5B482B8E3E19DA7C978E1D016DE2E9078E1F50C1') # William Roberts (Bill Roberts) <william.c.roberts@intel.com>
 
 pkgver() {
   cd $_name
