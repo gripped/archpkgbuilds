@@ -1,24 +1,34 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: Markus Näther <naether.markus@gmail.com>
+# Contributor: Lubosz Sarnecki <lubosz@gmail.com>
 pkgname=rocblas
 pkgver=6.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Next generation BLAS implementation for ROCm platform'
 arch=('x86_64')
 url='https://rocblas.readthedocs.io/en/latest'
 license=('MIT')
 depends=('rocm-core' 'hip-runtime-amd' 'glibc' 'gcc-libs' 'openmp')
-makedepends=('rocm-cmake' 'python' 'python-virtualenv' 'python-pyaml' 'python-wheel'
+makedepends=('rocm-cmake' 'python' 'python-virtualenv' 'python-pyaml' 'python-wheel' 'git'
              'python-msgpack' 'python-joblib' 'perl-file-which' 'msgpack-cxx' 'gcc-fortran')
 _rocblas='https://github.com/ROCmSoftwarePlatform/rocBLAS'
 _tensile='https://github.com/ROCmSoftwarePlatform/Tensile'
 source=("$pkgname-$pkgver.tar.gz::$_rocblas/archive/rocm-$pkgver.tar.gz"
-        "$pkgname-tensile-$pkgver.tar.gz::$_tensile/archive/refs/tags/rocm-$pkgver.tar.gz")
+        "$pkgname-tensile-$pkgver.tar.gz::$_tensile/archive/refs/tags/rocm-$pkgver.tar.gz"
+        "remove-mf16c-flag-as-f16-intrinsics.patch")
 sha256sums=('fcb28d098a6ba71512dd9589a11e4c4a7c61779fab0575a71abaac1f04de8bc8'
-            '8b3ee61cead8d3d229c123cc6bcebc2dc26b846de1a25ee4ec455ed7dbcdc93b')
+            '8b3ee61cead8d3d229c123cc6bcebc2dc26b846de1a25ee4ec455ed7dbcdc93b'
+            '5ed4d48d747c36c7a3739abd0ee791d92754cbabade09be0e80261d3431bb268')
 options=(!lto)
 _dirname="$(basename "$_rocblas")-$(basename "${source[0]}" ".tar.gz")"
 _tensile_dir="$(basename "$_tensile")-$(basename "${source[1]}" ".tar.gz")"
+
+
+prepare() {
+  cd "$_dirname"
+  # https://github.com/ROCm/Tensile/issues/2044
+  patch -Np1 -i ../remove-mf16c-flag-as-f16-intrinsics.patch
+}
 
 build() {
   # Compile source code for supported GPU archs in parallel
