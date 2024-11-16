@@ -3,7 +3,7 @@
 
 pkgname=python-dulwich
 _name=${pkgname#python-}
-pkgver=0.22.5
+pkgver=0.22.6
 pkgrel=1
 pkgdesc='Pure-Python implementation of the Git file formats and protocols'
 arch=(x86_64)
@@ -29,9 +29,9 @@ optdepends=(
   'python-pyopenssl: for HTTPS support via urllib3'
   'python-pyinotify: to watch for changes to refs'
 )
-source=("git+https://github.com/jelmer/dulwich.git#tag=dulwich-$pkgver")
-b2sums=('0b041996e6dfbb75f4ad4f2dd9338a1f61b6109fa9164d6230ac3ea233f23281a849eb18cc7e19e7adf2fd483edef002849ffaf89170bc0925a212c28b3e04ea')
-validpgpkeys=('DC837EE14A7E37347E87061700806F2BD729A457') # Jelmer Vernooĳ <jelmer@jelmer.uk>
+source=("git+https://github.com/jelmer/dulwich.git#tag=v$pkgver")
+b2sums=('88267d7bd79812612530f99eb1bafc58a0fc2a6dd39d6ab6a8b8047196c046e0d5aba8352f3a8aa6037b8a1652541b18221818236e0e6f2e7c3906811039b686')
+validpgpkeys=(DC837EE14A7E37347E87061700806F2BD729A457) # Jelmer Vernooĳ <jelmer@jelmer.uk>
 
 build() {
   cd "$_name"
@@ -40,7 +40,7 @@ build() {
 
 check() {
   cd "$_name"
-  PYTHONPATH="$PWD/dulwich:$PYTHONPATH" python -m unittest -v tests.test_suite
+  PYTHONPATH=dulwich python -m unittest -v tests.test_suite
 }
 
 package() {
