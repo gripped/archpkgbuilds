@@ -1,7 +1,7 @@
 pkgbase = php-memcached
 	pkgdesc = PHP extension for interfacing with memcached via libmemcached library
-	pkgver = 3.2.0
-	pkgrel = 5
+	pkgver = 3.3.0
+	pkgrel = 1
 	url = https://github.com/php-memcached-dev/php-memcached
 	arch = x86_64
 	license = PHP
@@ -9,16 +9,19 @@ pkgbase = php-memcached
 	makedepends = php-legacy
 	makedepends = git
 	depends = libmemcached
-	source = git+https://github.com/php-memcached-dev/php-memcached.git#commit=d1cb3ae87be5382444322118f87324f4044d13b0
-	sha256sums = SKIP
+	depends = zstd
+	source = git+https://github.com/php-memcached-dev/php-memcached.git#tag=v3.3.0
+	sha256sums = 1a85bf72ca4a2dbe74e031ac5abd5ca2ad483d921f5feabf4991f9cb972f339d
 
 pkgname = php-memcached
 	depends = libmemcached
+	depends = zstd
 	depends = php
 	backup = etc/php/conf.d/memcached.ini
 
 pkgname = php-legacy-memcached
 	pkgdesc = PHP Legacy extension for interfacing with memcached via libmemcached library
 	depends = libmemcached
+	depends = zstd
 	depends = php-legacy
 	backup = etc/php-legacy/conf.d/memcached.ini

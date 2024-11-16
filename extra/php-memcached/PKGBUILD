@@ -1,22 +1,16 @@
-# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
 
 pkgname=('php-memcached' 'php-legacy-memcached')
-pkgver=3.2.0
-_commit=d1cb3ae87be5382444322118f87324f4044d13b0
-pkgrel=5
+pkgver=3.3.0
+pkgrel=1
 pkgdesc="PHP extension for interfacing with memcached via libmemcached library"
 arch=('x86_64')
 url="https://github.com/php-memcached-dev/php-memcached"
 license=('PHP')
-depends=('libmemcached')
+depends=('libmemcached' 'zstd')
 makedepends=('php' 'php-legacy' 'git')
-source=("git+https://github.com/php-memcached-dev/php-memcached.git#commit=$_commit")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd $pkgbase
-  git describe --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
-}
+source=("git+https://github.com/php-memcached-dev/php-memcached.git#tag=v$pkgver")
+sha256sums=('1a85bf72ca4a2dbe74e031ac5abd5ca2ad483d921f5feabf4991f9cb972f339d')
 
 prepare() {
   cp -a $pkgbase{,-php-legacy}
@@ -25,12 +19,12 @@ prepare() {
 build() {
   cd $pkgbase
   phpize
-  ./configure --prefix=/usr
+  ./configure --prefix=/usr --with-zstd
   make
 
   cd ../$pkgbase-php-legacy
   phpize-legacy
-  ./configure --prefix=/usr
+  ./configure --prefix=/usr --with-zstd
   make
 }
 
