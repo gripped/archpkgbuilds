@@ -5,9 +5,9 @@ pkgname=sway-contrib
 # Upstream versions with <current_sway_version>-contrib.<version>. Since that
 # is illegal in PKGBUILD-land, let's just remove the "-contrib" portion
 # entirely.
-pkgver=1.9.0
-_upstream_pkgver="1.9-contrib.0"
-pkgrel=2
+pkgver=1.10.0
+_upstream_pkgver="$(echo "$pkgver" | sed -E 's/^([0-9]+\.[0-9]+)\.(.*)$/\1-contrib.\2/')"
+pkgrel=1
 pkgdesc="A collection of user-contributed scripts for sway"
 arch=('any')
 url="https://github.com/OctopusET/sway-contrib"
@@ -23,7 +23,7 @@ depends=(
     "wl-clipboard"
 )
 source=("$pkgname-$pkgver::https://github.com/OctopusET/$pkgname/archive/refs/tags/$_upstream_pkgver.tar.gz")
-sha256sums=('3233a4a1671973c950802b4efb0912d08c6e08c78c0998daffff2844683f3457')
+sha256sums=('d81a6eee472d9b8dedd0ac9badc6fb88504c19b9dcf873f18d24378eab3f0995')
 
 package() {
     cd "$pkgname-$_upstream_pkgver"
@@ -31,7 +31,8 @@ package() {
     install -dm755 "$pkgdir/usr/share/$pkgname"
     for util in autoname-workspaces.py \
                 firefox-focus-monitor.py \
-                grimshot \
+                grimpicker/grimpicker \
+                grimshot/grimshot \
                 inactive-windows-transparency.py \
                 layout-per-window.py \
                 switch-top-level.py; do
@@ -46,7 +47,17 @@ package() {
     install -Dm644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
 
     install -dm755 "$pkgdir/usr/share/man/man1"
-    install -Dm644 grimshot.1 -t "$pkgdir/usr/share/man/man1"
+    install -Dm644 grimshot/grimshot.1 -t "$pkgdir/usr/share/man/man1"
+
+    install -dm755 "$pkgdir/usr/share/bash-completion/completions/"
+    install -Dm644 grimpicker/completion.bash "$pkgdir/usr/share/bash-completion/completions/grimpicker"
+    install -Dm644 grimshot/grimshot-completion.bash "$pkgdir/usr/share/bash-completion/completions/grimshot"
+
+    install -dm755 "$pkgdir/usr/share/zsh/site-functions/"
+    install -Dm644 grimpicker/completion.zsh "$pkgdir/usr/share/zsh/site-functions/_grimpicker"
+
+    install -dm755 "$pkgdir/usr/share/fish/vendor_completions.d/"
+    install -Dm644 grimpicker/completion.fish "$pkgdir/usr/share/fish/vendor_completions.d/grimpicker.fish"
 
     install -dm755 "$pkgdir/usr/share/licenses/$pkgname"
     install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
