@@ -1,20 +1,22 @@
 pkgbase = python-filelock
 	pkgdesc = A platform independent file lock
-	pkgver = 3.13.3
-	pkgrel = 2
+	pkgver = 3.16.1
+	pkgrel = 1
 	url = https://github.com/benediktschmitt/py-filelock
 	arch = any
-	license = custom:Unlicense
+	license = Unlicense
 	checkdepends = python-pytest
-	checkdepends = python-pytest-timeout
+	checkdepends = python-pytest-asyncio
 	checkdepends = python-pytest-mock
+	checkdepends = python-pytest-timeout
+	checkdepends = python-virtualenv
 	makedepends = git
 	makedepends = python-build
-	makedepends = python-installer
-	makedepends = python-hatchling
 	makedepends = python-hatch-vcs
+	makedepends = python-hatchling
+	makedepends = python-installer
 	depends = python
-	source = git+https://github.com/benediktschmitt/py-filelock.git#tag=3.13.3
-	sha512sums = 8a3d9baf75beb1f53cc5d661b9a59970e18483423d3c05a799c330e127406d3866999ad2de09490de60e6a4d74c0cf5d4bc6333164d3961e8a14cf0306210d70
+	source = git+https://github.com/benediktschmitt/py-filelock.git#tag=3.16.1
+	sha512sums = 09195653115069df8d848fb37ff08587aeafc7123f1dd5681bcc9af844e4c5793ca44409d70d3185389219659033f676ac3c57f62dfa36f39f139bce77afec4c
 
 pkgname = python-filelock
