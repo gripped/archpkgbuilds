@@ -1,47 +1,56 @@
 # Maintainer: Thore Bödecker <foxxx0@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Ian Beringer <ian@ianberinger.com>
 
 pkgname=python-kubernetes
 _pkgbase="${pkgname#python-}"
-pkgver=29.0.0
+pkgver=31.0.0
 pkgrel=1
-license=('Apache')
+license=('Apache-2.0')
 pkgdesc='Python client for the kubernetes API'
 arch=('any')
 url='https://github.com/kubernetes-client/python'
-depends=('python' 'python-certifi' 'python-six' 'python-dateutil'
-         'python-urllib3' 'python-yaml' 'python-google-auth'
-         'python-websocket-client' 'python-requests' 'python-requests-oauthlib'
-         'python-adal')
-makedepends=('python-setuptools')
-checkdepends=('python-pytest' 'python-pluggy' 'python-py' 'python-isort')
-source=("${_pkgbase}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
-	"removed-unittest-alias.patch")
-sha256sums=('b532d65763cab592783287bc9bf8007a09aa54345706e5b8cd377825cbd30b16'
-            '8fac6ead5125dd8c6644d5bc1696c9581b1a5aeb467254487acf9b8e1146ecd6')
-
-prepare() {
-  cd "${srcdir}"
-
-  mv -v "python-${pkgver}" "${_pkgbase}-${pkgver}"
-
-  cd "${srcdir}/${_pkgbase}-${pkgver}"
-  patch -Np1 -i $srcdir/removed-unittest-alias.patch
-}
+depends=(
+  'python'
+  'python-adal'
+  'python-certifi'
+  'python-dateutil'
+  'python-durationpy'
+  'python-google-auth'
+  'python-requests'
+  'python-requests-oauthlib'
+  'python-six'
+  'python-urllib3'
+  'python-websocket-client'
+  'python-yaml'
+)
+makedepends=(
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+checkdepends=(
+  'python-isort'
+  'python-pluggy'
+  'python-py'
+  'python-pytest'
+)
+source=("$_pkgbase-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('43d58af5db557fc3de6f9eb1378c14d0b27e146ff20f230615f2f7343cbc8d56')
 
 build() {
-  cd "${srcdir}/${_pkgbase}-${pkgver}"
-  python setup.py build
+  cd python-$pkgver
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "${srcdir}/${_pkgbase}-${pkgver}"
-  export PYTHONPATH="${PWD}"
-  py.test -vvv -s --ignore=kubernetes/e2e_test
+  cd python-$pkgver
+  PYTHONPATH="$PWD" pytest -v
 }
 
 package() {
-  cd "${srcdir}/${_pkgbase}-${pkgver}"
-  python setup.py install --root="${pkgdir}" --optimize=1
-  install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  cd python-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
