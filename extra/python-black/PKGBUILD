@@ -4,7 +4,7 @@
 
 pkgname=python-black
 pkgver=24.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Uncompromising Python code formatter'
 arch=('any')
 url='https://github.com/psf/black'
@@ -30,7 +30,6 @@ checkdepends=(
   'python-aiohttp'
   'python-parameterized'
   'python-pytest'
-  'python-typed-ast'
   'python-tokenize-rt'
 )
 optdepends=(
