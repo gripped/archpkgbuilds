@@ -3,7 +3,7 @@
 pkgname=blosc2
 _name=c-blosc2
 pkgver=2.15.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast, compressed, persistent binary data store library for C."
 arch=(x86_64)
 url="https://www.blosc.org"
@@ -21,6 +21,7 @@ build() {
     -D PREFER_EXTERNAL_LZ4=ON \
     -D PREFER_EXTERNAL_ZLIB=ON \
     -D PREFER_EXTERNAL_ZSTD=ON \
+    -D BUILD_STATIC=OFF \
     -W no-dev
   cmake --build build
 }
