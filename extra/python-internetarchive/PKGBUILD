@@ -5,7 +5,7 @@
 
 pkgname=python-internetarchive
 _pkgname=${pkgname#python-}
-pkgver=4.1.0
+pkgver=5.0.4
 pkgrel=1
 pkgdesc="A Python and Command-Line Interface to Archive.org"
 arch=(any)
@@ -13,7 +13,6 @@ url="https://github.com/jjjake/internetarchive"
 license=(AGPL-3.0-or-later)
 depends=(
   python
-  python-docopt
   python-jsonpatch
   python-requests
   python-schema
@@ -36,7 +35,7 @@ optdepends=(
   'python-ujson: faster json parsing'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('77f07496fbce591374f6f485c060a251b9b4ba0133ce529407b0a58b4ba74c36')
+sha256sums=('d2f3d13d7a7937850e8444058762783b53a344dba0fdb0d882f3b163e4805557')
 
 build() {
   cd "$_pkgname-$pkgver"
