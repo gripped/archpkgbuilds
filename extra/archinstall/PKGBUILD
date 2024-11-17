@@ -5,12 +5,12 @@
 # Contributor: demostanis worlds <demostanis@protonmail.com>
 
 pkgname=archinstall
-pkgver=2.8.6
+pkgver=3.0.0
 pkgrel=1
 pkgdesc="Just another guided/automated Arch Linux installer with a twist"
 arch=(any)
 url="https://github.com/archlinux/archinstall"
-license=(GPL3)
+license=(GPL-3.0-only)
 depends=(
   arch-install-scripts
   btrfs-progs
@@ -25,17 +25,24 @@ depends=(
   python
   python-pydantic
   python-pyparted
-  python-simple-term-menu
   systemd
   util-linux
+  xfsprogs
+  lvm2
+  f2fs-tools
+  ntfs-3g
+  reiserfsprogs
 )
 makedepends=(
+  ruff
   python-build
   python-installer
   python-setuptools
   python-sphinx
   python-wheel
   python-sphinx_rtd_theme
+  python-pylint
+  python-pylint-pydantic
 )
 optdepends=(
   'python-systemd: for systemd-journald support'
@@ -45,11 +52,17 @@ source=(
   $pkgname-v$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
   $pkgname-v$pkgver.tar.gz.sig::$url/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz.sig
 )
-sha512sums=('382f909d46b21583d3e81f736cb2fd520a8515fe816b087402d38abfd7c73f25eccd159b324f9201def9ed0edafadb95b282bd8a1cebdbc4744a1b682f855190'
+sha512sums=('c0194fea6ad7fb1c4c9adb3cf365d584d464758c096fd5d9a472ed8dba0b57b4d831dceb9c2d60e2515e1507ea5faaed0a5a51121de066233591ac98a936dcce'
             'SKIP')
-b2sums=('686e900b3544d47feebccdc9f413b6d8044e3146b78240105400a6739039281b752ea5e1157981f72a202fa9fc0819cbfa065f17913169b87a5cbfca10fe1cf7'
+b2sums=('72fec314b3c1adb7b4f234c48f476d1f2e764c5813041d66ba0487ea3c8bfbf7afa5bec6af0c6aa4587e93d2fa742b525d39746cd09c13a3eb8a421863749003'
         'SKIP')
 validpgpkeys=('8AA2213C8464C82D879C8127D4B58E897A929F2E') # torxed@archlinux.org
+
+check() {
+  cd $pkgname-$pkgver
+  pylint .
+  ruff check
+}
 
 prepare() {
   cd $pkgname-$pkgver
