@@ -2,17 +2,19 @@
 # Contributor: libertylocked <libertylocked@disroot.org>
 
 pkgname=bitwarden-cli
-pkgver=2024.10.0
+pkgver=2024.11.0
 pkgrel=1
 pkgdesc="The command line vault"
 arch=('x86_64')
 url="https://github.com/bitwarden/clients"
 license=('GPL3')
-depends=('nodejs-lts-iron')
-makedepends=('git' 'python' 'python-setuptools' 'npm' 'modclean')
+depends=('nodejs-lts-iron' 'argon2')
+makedepends=('git' 'python' 'python-setuptools' 'npm' 'modclean' 'fdupes')
 options=(!emptydirs)
-source=(bitwarden::git+https://github.com/bitwarden/clients.git#tag=cli-v${pkgver})
-sha512sums=('d87e7d41080386dea5512149192f2fc77d6c912aef869651017062fe3a789e505e02aae1d859384643b2fc17ce474ffe86ee7a4342b752570687a664589fb2a4')
+source=(bitwarden::git+https://github.com/bitwarden/clients.git#tag=cli-v${pkgver}
+        system-libargon2.patch)
+sha512sums=('c2b64d23930eeaab594ddb59d1cf4c525f4728a6d7421d1109cae52a4db8d5d75bbc262f53ace52a6ba2c45e02c3f9f7ede4464aad09b9b306dc39772495e73e'
+            '6970261c24d8056b001f4ff308af7b9be67ef638be28f54f7c08ee4bed9ad895145a6cedf9a3cbda61b023104c50a6758a8bfcc8bc40097a298b98b60b1ffee7')
 
 prepare() {
 	cd bitwarden
@@ -21,11 +23,14 @@ prepare() {
 	export npm_config_cache="$srcdir/npm_cache"
 
 	npm ci
+	patch -p1 -i "$srcdir/system-libargon2.patch"
 }
 
 build() {
 	cd bitwarden/apps/cli
+	export npm_config_build_from_source=true
 	export npm_config_cache="$srcdir/npm_cache"
+	export CXXFLAGS="$CXXFLAGS -Wno-error"
 	npm run build:bit
 	npm run clean
 	node ./build/bw.js completion --shell zsh > _bw
@@ -33,7 +38,9 @@ build() {
 
 package() {
 	cd bitwarden/apps/cli
-    export CXXFLAGS="$CXXFLAGS -Wno-error"
+	export npm_config_build_from_source=true
+	export npm_config_cache="$srcdir/npm_cache"
+	export CXXFLAGS="$CXXFLAGS -Wno-error"
 	npm install --production -g --prefix "$pkgdir"/usr $(npm pack . | tail -1)
 
 	# Non-deterministic race in npm gives 777 permissions to random directories.
@@ -47,7 +54,53 @@ package() {
 	install -vDm644 _bw -t "${pkgdir}/usr/share/zsh/site-functions"
 
 	# cleanup
+	rm -vr "$pkgdir"/usr/lib/node_modules/@bitwarden/cli/node_modules/argon2/prebuilds/
 	sed -e "s|${srcdir}|/|" -i "$pkgdir"/usr/lib/node_modules/@bitwarden/cli/package.json
 	find "$pkgdir"/usr/lib/node_modules -name 'package.json' -exec sed -e "s|${srcdir}||" -i {} \;
 	modclean --path "$pkgdir"/usr/lib -r -a "*.ts,.bin,.github,.vscode,bin.js" --ignore='license'
+
+	fdupes "$pkgdir"/usr/lib
+	pushd "$pkgdir"/usr/lib
+	#JS debug symbols (unusable)
+	find -name '*.map' -type f -print -delete
+	#Source code
+	find -name '*.c' -type f -print -delete
+	find -name '*.cpp' -type f -print -delete
+	find -name '*.h' -type f -print -delete
+	find -name '*.gyp' -type f -print -delete
+	find -name '*.gypi' -type f -print -delete
+	find -name '*.ts' -type f -print -delete
+	find -name '*.cts' -type f -print -delete
+	find -name build-tmp-napi-v3  -print0 |xargs -r0 -- rm -rvf --
+	find -name src -print0 |xargs -r0 -- rm -rvf --
+	find -name Makefile -type f -print -delete
+	find -name 'Pipfile*' -type f -print -delete
+	find -name '*.patch' -type f -print -delete
+	#Temporary build files
+	find -name '.deps' -print0 |xargs -r0 -- rm -rvf --
+	find -name 'obj.target' -print0 |xargs -r0 -- rm -rvf --
+	find -name 'vendor' -print0 |xargs -r0 -- rm -rvf --
+	find -name '*package-lock.json' -type f -print -delete
+	find -name '*.mk' -type f -print -delete
+	find -name '*.Makefile' -type f -print -delete
+
+	#Documentation
+	find -name '*.md' -type f -print -delete
+	find -name doc -print0 |xargs -r0 -- rm -rvf --
+	find -name test -print0 |xargs -r0 -- rm -rvf --
+	#Compile-time-only dependencies
+	find -name nan -print0 |xargs -r0 -- rm -rvf --
+	find -name node-addon-api -print0 |xargs -r0 -- rm -rvf --
+	#Other trash
+	find -name '*.yml' -type f -print -delete
+	find -name '.npmignore' -type f -print -delete
+	find -name '.gitignore' -type f -print -delete
+
+	#Fix file mode
+	find . -type f -exec chmod 644 {} \;
+	find . -name '*.node' -exec chmod 755 {} \;
+
+	# Remove empty directories
+	find . -type d -empty -print -delete
+	popd
 }
