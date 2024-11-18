@@ -4,7 +4,7 @@
 
 pkgname=shotwell
 epoch=2
-pkgver=0.32.8
+pkgver=0.32.10
 _basever=${pkgver%.*}
 pkgrel=1
 pkgdesc="A digital photo organizer designed for the GNOME desktop environment (odd versions are unstable!)"
@@ -18,7 +18,7 @@ depends=('libgee' 'libgexiv2' 'libraw' 'libsoup3'
 makedepends=('intltool' 'vala>=0.17.2' 'itstool' 'meson' 'ninja' 'cmake')
 # odd versions are unstable!
 source=("https://download.gnome.org/sources/shotwell/${_basever}/shotwell-$pkgver.tar.xz")
-sha256sums=('47063c0179e5d80f534373dc560e1ce8077aadd584eeef06c523a460e2f929c3')
+sha256sums=('26e45a61b5431b096ffcd176f115bd07be9a77a68335899542106e19e07f400e')
 
 prepare() {
   cd ${pkgname}-${pkgver}
