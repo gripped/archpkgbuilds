@@ -2,7 +2,7 @@
 # Contributor: Frederic Bezies <fredbezies at gmail dot com>
 
 pkgname=dtc
-pkgver=1.7.1
+pkgver=1.7.2
 pkgrel=1
 pkgdesc='Device Tree Compiler'
 url='https://www.devicetree.org/'
@@ -14,7 +14,7 @@ checkdepends=(valgrind)
 source=(https://www.kernel.org/pub/software/utils/dtc/dtc-$pkgver.tar.xz
         pyscm.patch
         fix-tests-for-Python3.12.patch)
-sha256sums=('398098bac205022b39d3dce5982b98c57f1023f3721a53ebcbb782be4cf7885e'
+sha256sums=('92d8ca769805ae1f176204230438fe52808f4e1c7944053c9eec0e649b237539'
             '3198c9e41cbebb0bcd9caa5de0940ccaf02b3b3bcc00fbc19bfdf3cdb8a075bb'
             'c2786c6c4bbd7031394ab534ceca2fa6832142dd0cb3c74750388be9374b22fa')
 
