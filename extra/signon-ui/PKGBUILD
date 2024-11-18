@@ -4,12 +4,12 @@
 
 pkgname=signon-ui
 pkgver=0.17+20231016
-pkgrel=2
+pkgrel=3
 _commit=eef943f0edf3beee8ecb85d4a9dae3656002fc24
 pkgdesc='UI component responsible for handling the user interactions which can happen during the login process of an online account'
 arch=(x86_64)
 url='https://launchpad.net/online-accounts-signon-ui'
-license=(GPL)
+license=(GPL-3.0-only)
 depends=(gcc-libs
          glib2
          glibc
@@ -20,22 +20,19 @@ depends=(gcc-libs
          qt6-declarative
          qt6-webengine
          signond)
-source=(https://gitlab.com/accounts-sso/signon-ui/-/archive/$_commit/$pkgname-$pkgver.tar.gz
-        fake-user-agent.patch)
-sha256sums=('0906a1adee88e331e9dcf1f2d5978c24f8564fb734f5c114c88bddb63196d3d4'
-            '5eb7782c6472e51a8107a25324d1d30052bac5d8e9050907cd957c89568fa577')
+makedepends=(git)
+source=(git+https://gitlab.com/accounts-sso/signon-ui#commit=$_commit)
+sha256sums=('f89a79a4a7619c8d415c39b6d377aebb92d898cfb126c211b756e5b8624c5ae7')
 
 prepare() {
-  cd $pkgname-$_commit
+  cd $pkgname
 
   # Do not install tests
   sed -e 's|src \\|src|' -e '/tests/d' -i signon-ui.pro
-  # Fake user ID to bypass Google blacklist
-  patch -p1 -i ../fake-user-agent.patch
 }
 
 build() {
-  cd $pkgname-$_commit
+  cd $pkgname
 
   qmake6 \
     PREFIX=/usr \
@@ -44,7 +41,7 @@ build() {
 }
 
 package() {
-  cd $pkgname-$_commit
+  cd $pkgname
 
   make INSTALL_ROOT="$pkgdir" install
 }
