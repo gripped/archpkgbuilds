@@ -1,21 +1,22 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 # Maintainer: Konstantin Gizdov <arch at kge dot pw>
+# Contributor: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 _pkg=arrow
 _pkgname=pyarrow
 pkgname=python-${_pkgname}
 pkgver=17.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Columnar in-memory analytics layer for big data — Python module."
 arch=(x86_64)
 url="https://arrow.apache.org"
 license=(Apache-2.0)
-depends=(arrow gcc-libs glibc python python-numpy python-setuptools-scm)
+depends=(arrow gcc-libs glibc python python-numpy)
 optdepends=('python-cffi: interact with C code'
             'python-pandas: Pandas integration'
             'python-fsspec: Filesystem Spec support')
-makedepends=(git cmake cython python-build python-installer python-wheel python-cffi python-pandas)
+makedepends=(git cmake cython python-build python-installer python-wheel python-cffi python-pandas python-setuptools-scm)
 checkdepends=(python-brotli python-hypothesis python-pandas python-pytest python-pytz)
 source=(
   https://archive.apache.org/dist/${_pkg}/${_pkg}-${pkgver}/apache-${_pkg}-${pkgver}.tar.gz{,.asc}
