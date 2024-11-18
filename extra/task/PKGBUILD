@@ -8,7 +8,8 @@
 
 pkgname=task
 pkgver=3.2.0
-pkgrel=1
+pkgrel=2
+_commit=7a092bea037517be4dc839ee8141b8d6b00738eb
 pkgdesc="Taskwarrior, a command-line todo list manager"
 arch=('x86_64')
 url="https://taskwarrior.org/"
@@ -16,13 +17,12 @@ license=('MIT')
 depends=('util-linux' 'gnutls')
 makedepends=('cmake' 'git' 'cargo')
 optdepends=('bash-completion: for bash completion' 'python: for python export addon' 'ruby: for ruby export addon' 'perl: for perl export addon' 'perl-json: for perl export addon')
-_commit=5c6cc3e5229676655e93264e24a146a26b980e45
 source=(
   "$pkgname::git+https://github.com/GothenburgBitFactory/taskwarrior.git#commit=$_commit"
   "$pkgname-libshared::git+https://github.com/GothenburgBitFactory/libshared.git"
 )
-sha256sums=('9bd443b1f7e26d08152c3292506e2d89f958859cfc88e8c60226b208a19aca94'
-            'SKIP')
+sha256sums=('ed79247f2f4c5b75e7974b76d910711bb7af232c27b57f8974e684bcc61d2402'
+  'SKIP')
 options=('!lto')
 
 prepare() {
