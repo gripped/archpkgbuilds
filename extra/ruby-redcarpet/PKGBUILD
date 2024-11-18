@@ -3,7 +3,7 @@
 pkgname=ruby-redcarpet
 pkgver=3.6.0
 _commit=3e3f0b522fbe9283ba450334b5cec7a439dc0955
-pkgrel=5
+pkgrel=6
 pkgdesc='A fast, safe and extensible Markdown to (X)HTML parser'
 arch=(x86_64)
 url='https://github.com/vmg/redcarpet'
@@ -45,19 +45,32 @@ build() {
     --install-dir "tmp_install/$_gemdir" \
     --bindir "tmp_install/usr/bin" \
     redcarpet-$pkgver.gem
-  find "tmp_install/$_gemdir/gems/" \
+
+  # remove unreproducible files
+  rm --force --recursive --verbose \
+    "tmp_install${_gemdir}/cache/" \
+    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
+    "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
+
+  find "tmp_install${_gemdir}/gems/" \
     -type f \
     \( \
-        -iname "*.o" -o \
-        -iname "*.c" -o \
-        -iname "*.so" -o \
-        -iname "*.time" -o \
-        -iname "gem.build_complete" -o \
-        -iname "Makefile" \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
     \) \
     -delete
-  rm -r tmp_install/$_gemdir/cache
-  ls -lR tmp_install
+
+  find "tmp_install${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
 }
 
 check() {
