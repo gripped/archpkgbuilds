@@ -3,7 +3,7 @@
 
 pkgname=bitwarden-cli
 pkgver=2024.11.0
-pkgrel=1
+pkgrel=3
 pkgdesc="The command line vault"
 arch=('x86_64')
 url="https://github.com/bitwarden/clients"
@@ -72,14 +72,12 @@ package() {
 	find -name '*.ts' -type f -print -delete
 	find -name '*.cts' -type f -print -delete
 	find -name build-tmp-napi-v3  -print0 |xargs -r0 -- rm -rvf --
-	find -name src -print0 |xargs -r0 -- rm -rvf --
 	find -name Makefile -type f -print -delete
 	find -name 'Pipfile*' -type f -print -delete
 	find -name '*.patch' -type f -print -delete
 	#Temporary build files
 	find -name '.deps' -print0 |xargs -r0 -- rm -rvf --
 	find -name 'obj.target' -print0 |xargs -r0 -- rm -rvf --
-	find -name 'vendor' -print0 |xargs -r0 -- rm -rvf --
 	find -name '*package-lock.json' -type f -print -delete
 	find -name '*.mk' -type f -print -delete
 	find -name '*.Makefile' -type f -print -delete
@@ -103,4 +101,5 @@ package() {
 	# Remove empty directories
 	find . -type d -empty -print -delete
 	popd
+	chmod 755 "$pkgdir"/usr/lib/node_modules/@bitwarden/cli/build/bw.js
 }
