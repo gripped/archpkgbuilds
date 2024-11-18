@@ -3,8 +3,8 @@
 
 _pkgname=cleo
 pkgname=python-cleo
-pkgver=2.1.0
-pkgrel=2
+pkgver=2.2.0.post1
+pkgrel=1
 pkgdesc="create beautiful and testable command-line interfaces"
 arch=(any)
 url="https://github.com/python-poetry/$_pkgname"
@@ -18,8 +18,8 @@ checkdepends=(python-pytest
               python-pytest-mock)
 _archive="$_pkgname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('f5905052d783d540271de62b546c8ad89792e8c2787a59c41b0d8c8c31934093')
-b2sums=('7c9d0cc869d1e185c2c5a092a8aa1d1b3cce5fc25246939c0ff94920ac7070000b110be9f6cd9d1f827ed951ff22b9ad62e3c17a941022967b7599e456cda837')
+sha256sums=('a1f3eb5ed525db133393e4206317086767f967a6eaf3780d8e4531dc7d9163f9')
+b2sums=('8fdb4175ee578b6d862e401815d807c2f167341bd778d248fa3eb4fb93c9a7da6b8c235f5d2ff4b03d0b938d07e323a1bf22fcf42711338f185cacb6df5ff708')
 
 prepare() {
     cd "$_archive"
