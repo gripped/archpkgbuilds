@@ -2,7 +2,7 @@
 
 pkgname=ruby-byebug
 pkgver=11.1.3
-pkgrel=5
+pkgrel=6
 pkgdesc='A simple to use and feature rich debugger for Ruby'
 arch=(x86_64)
 url='https://github.com/deivid-rodriguez/byebug'
@@ -46,29 +46,46 @@ prepare() {
 }
 
 build() {
-  local _gemdir="$(gem env gemdir)"
   cd byebug-$pkgver
-  gem build byebug.gemspec
+
+  local _gemdir="$(gem env gemdir)"
+
+  gem build --verbose byebug.gemspec
+
   gem install \
     --local \
     --verbose \
     --ignore-dependencies \
     --no-user-install \
-    --install-dir "tmp_install/$_gemdir" \
+    --install-dir "tmp_install${_gemdir}" \
     --bindir "tmp_install/usr/bin" \
     byebug-$pkgver.gem
-  find "tmp_install/$_gemdir/gems/" \
+
+  # remove unreproducible files
+  rm --force --recursive --verbose \
+    "tmp_install${_gemdir}/cache/" \
+    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
+    "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
+
+  find "tmp_install${_gemdir}/gems/" \
     -type f \
     \( \
-        -iname "*.o" -o \
-        -iname "*.c" -o \
-        -iname "*.so" -o \
-        -iname "*.time" -o \
-        -iname "gem.build_complete" -o \
-        -iname "Makefile" \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
     \) \
     -delete
-  rm -r tmp_install/$_gemdir/cache
+
+  find "tmp_install${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
 }
 
 check() {
@@ -79,6 +96,9 @@ check() {
 
 package() {
   cd byebug-$pkgver
-  cp -a tmp_install/* "$pkgdir"/
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
+
+  install --verbose -D --mode=0644 LICENSE* --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
 }
