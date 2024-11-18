@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=apko
-pkgver=0.19.9
+pkgver=0.20.0
 pkgrel=1
 pkgdesc="Declarative APK-based container building tool with support for sigstore signatures"
 url="https://github.com/chainguard-dev/apko"
@@ -16,8 +16,8 @@ makedepends=(
   'go'
 )
 source=("https://github.com/chainguard-dev/apko/archive/v${pkgver}/apko-${pkgver}.tar.gz")
-sha256sums=('a891956998fa0070ca93a8b7abf2301ec500c2a4eaa3102a0d608f55c7b067c2')
-b2sums=('c1eb8f3f54fc3ea415a434ef5a7fcb99fa545ff003cc8d088fd925076898a0c939d074038f2e0b9dbafc39d2c8722f4af4dbc911b5486048af2f3fe2dbd27478')
+sha256sums=('3f39e793b8f4a7d1844b649729ac997fb46df84ba3b9f14374b9e54b977ef27f')
+b2sums=('a4cab021fb216393120e94ab9d71904d55bca789932b5bea4316037cc3461cfc42b1c5554ddae8faae277f9445c6e7c9cc4503f6a31311de6a35bd52e5515b78')
 
 build() {
   cd "${pkgname}-${pkgver}"
