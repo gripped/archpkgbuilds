@@ -3,7 +3,7 @@
 _pyname=pycrdt
 pkgname=python-$_pyname
 pkgver=0.10.6
-pkgrel=1
+pkgrel=2
 pkgdesc='CRDTs based on Yrs'
 arch=(x86_64)
 url='https://github.com/jupyter-server/pycrdt'
@@ -16,7 +16,6 @@ makedepends=(git
              python-installer
              python-maturin)
 checkdepends=(python-anyio
-              python-objsize
               python-pydantic
               python-pytest
               python-trio
