@@ -1,7 +1,7 @@
 pkgbase = gimagereader
 	pkgdesc = Gtk/Qt front-end to tesseract-ocr
 	pkgver = 3.4.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/manisandro/gImageReader
 	arch = x86_64
 	license = GPL3
@@ -24,7 +24,9 @@ pkgbase = gimagereader
 	depends = sane
 	depends = tesseract
 	source = https://github.com/manisandro/gImageReader/releases/download/v3.4.2/gimagereader-3.4.2.tar.xz
+	source = gimagereader-enchant-provider.patch
 	sha256sums = 184cafe57d86ffc4115ce76e29a47f0d627655de46b7890dffbb82267091a264
+	sha256sums = 2825615cac6b1d112663fa57c849a812db4d859efdb2c430da52bfe889f82c4e
 
 pkgname = gimagereader-gtk
 	pkgdesc = Gtk front-end to tesseract-ocr
