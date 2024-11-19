@@ -1,6 +1,6 @@
 pkgbase = openpmix
 	pkgdesc = Extended version of the PMI standard
-	pkgver = 5.0.3
+	pkgver = 5.0.4
 	pkgrel = 1
 	url = https://github.com/openpmix/openpmix
 	arch = x86_64
@@ -13,9 +13,10 @@ pkgbase = openpmix
 	makedepends = libevent_pthreads-2.1.so
 	makedepends = python
 	makedepends = zlib
-	source = https://github.com/openpmix/openpmix/releases/download/v5.0.3/pmix-5.0.3.tar.gz
-	sha512sums = 8b53bc1cf5556b670a1f8734f2bbc773ce085fc684b41fe7eaeb99cacde45d3af17fa466de68531db5e7be0d70d13d6fd4c3466162d923cd056eaeeb7feb76fd
-	b2sums = 4974f0d4c1dc2df175f45a5000cb3d6914ff497c501279d916860b34bb3afc61c4a5696c00b9c860416c4e9580c874c103a1296af231851ceaa0683ecb479331
+	options = !lto
+	source = https://github.com/openpmix/openpmix/releases/download/v5.0.4/pmix-5.0.4.tar.gz
+	sha512sums = 8d723767131629d8c0c5d86832519b67a88fbdca865f3b57768f6d5aa75cec72223c69c2bef5316fe32dbb7a98f7556e0bc1c857c0e24a4d81551f02745e0715
+	b2sums = 29c81cafdab7a7077e5bd9e20f419be074b45399b3d5eaff0eb40ae8f07043b8ce9f1ee90d1d49bd2c7b3f222af4e57fd9c38c157b45b1ae4bb90649b22dc708
 
 pkgname = openpmix
 	depends = glibc
