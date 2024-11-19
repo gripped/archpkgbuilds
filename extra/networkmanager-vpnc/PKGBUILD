@@ -2,52 +2,53 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=networkmanager-vpnc
-pkgver=1.2.8
-pkgrel=4
+pkgver=1.4.0
+pkgrel=1
 pkgdesc="NetworkManager VPN plugin for VPNC"
-url="https://wiki.gnome.org/Projects/NetworkManager"
+url="https://networkmanager.dev/docs/vpn/"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-2.0-or-later)
 depends=(
+  gcc-libs
+  glib2
+  glibc
   libnm
   libsecret
   vpnc
 )
 makedepends=(
   git
-  intltool
   libnma
   libnma-gtk4
   python
 )
 optdepends=(
-  'libnma-gtk4: GUI support (GTK 4)'
-  'libnma: GUI support (GTK 3)'
+  "libnma-gtk4: GUI support (GTK 4)"
+  "libnma: GUI support (GTK 3)"
 )
-_commit=75f664ff13ff1de9bf305894ccd94b30867bd06a  # tags/1.2.8^0
-source=("git+https://gitlab.gnome.org/GNOME/NetworkManager-vpnc.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd NetworkManager-vpnc
-  git describe --tags | sed 's/-dev/dev/;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/NetworkManager-vpnc.git?signed#tag=$pkgver")
+b2sums=('fd745613d8cddb67f70783465c03192656231ce3ae1beea36e397a7af3cecf9f3d60e87e280a43d91a45c0e59a46e608ec5987cd51d6c93001269d14c5661d4e')
+validpgpkeys=(
+  4B8EF9745A973724E965939189A2DA5AF73D5E3D # Lubomir Rintel <lkundrak@v3.sk>
+)
 
 prepare() {
   cd NetworkManager-vpnc
-
-  # https://gitlab.gnome.org/GNOME/NetworkManager-vpnc/-/issues/8
-  # https://gitlab.gnome.org/GNOME/NetworkManager-vpnc/-/merge_requests/9
-  git cherry-pick -n f4df2db6ca1c0dfe29ea721c443f38c545721be9
-
-  intltoolize --automake --copy
   autoreconf -fvi
 }
 
 build() {
+  local configure_options=(
+    --prefix=/usr
+    --sysconfdir=/etc
+    --localstatedir=/var
+    --libexecdir=/usr/lib
+    --disable-static
+    --with-gtk4
+  )
+
   cd NetworkManager-vpnc
-  ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
-    --libexecdir=/usr/lib --disable-static --with-gtk4
+  ./configure "${configure_options[@]}"
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
