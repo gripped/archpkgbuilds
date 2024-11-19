@@ -2,13 +2,12 @@
 
 pkgname=fortunecraft
 pkgver=1.8.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Craft fortunes using Ollama'
 arch=(x86_64)
 url='https://github.com/xyproto/fortunecraft'
 license=(Apache-2.0)
 depends=(ollama-environment)
-optdepends=('ollama-gemma2-2b: the Gemma2 (2B) model')
 makedepends=(git go)
 source=("git+$url#tag=v$pkgver")
 b2sums=('93cf0c04e67817fc3287dbdca4c3f7b2cafc38eb6020cf3de45c6647b6cf919326e998d316192b1765f7e3dbb8b2ef01be1fbef2cd4a0da5e87305e5ba3162ff')
