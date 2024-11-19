@@ -7,8 +7,8 @@ pkgname=(
   gtksourceviewmm
   gtksourceviewmm-docs
 )
-pkgver=3.18.0
-pkgrel=7
+pkgver=3.91.1
+pkgrel=1
 epoch=1
 pkgdesc='C++ bindings for the gtksourceview library'
 arch=(x86_64)
@@ -23,7 +23,7 @@ depends=(
   glibmm
   gtk3
   gtkmm3
-  gtksourceview3
+  gtksourceview4
   libsigc++
   pangomm
 )
@@ -33,7 +33,7 @@ makedepends=(
   mm-common
 )
 source=("git+https://gitlab.gnome.org/GNOME/$pkgname.git#tag=$pkgver")
-b2sums=(2ba1cd756e27edaba46e7115bcfbf496a62d9a149184151cb0f5fae297412da10ba008ffa2c74d8332de28eefd8a119787156b5b6c9164fe23f2056054185759)
+b2sums=(25f6fc2f05b947153fd69f6d20c45261c15c453d74b4609d04d97dad6731fd6d754f4244879137b6399206c79e7db33a328764faa669413b974ba92703206e76)
 
 prepare() {
   cd $pkgbase
@@ -43,14 +43,13 @@ prepare() {
 
 build() {
   cd $pkgbase
-  export M4PATH=/usr/lib/gtkmm-3.0/proc/m4/:/usr/lib/pangomm-1.4/proc/m4/:/usr/lib/atkmm-1.6/proc/m4/
   ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
     --localstatedir=/var \
     --enable-maintainer-mode
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-  make
+  make M4PATH='/usr/lib/gtkmm-3.0/proc/m4/:/usr/lib/pangomm-1.4/proc/m4/:/usr/lib/atkmm-1.6/proc/m4/'
 }
 
 package_gtksourceviewmm() {
