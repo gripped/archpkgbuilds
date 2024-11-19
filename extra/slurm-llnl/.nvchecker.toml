@@ -4,5 +4,5 @@ git = "https://github.com/SchedMD/slurm"
 prefix = "slurm-"
 from_pattern = "-"
 to_pattern = "."
-# the repository has this weird tag on a commit that is not part of any branch
-exclude_regex = "start"
+# the repository has a weird 'start' tag on a commit that is not part of any branch
+exclude_regex = "start|.*(pre|rc|alpha|beta).*"
