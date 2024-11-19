@@ -3,7 +3,7 @@
 
 pkgbase=prrte
 pkgname=(prrte{,-docs})
-pkgver=3.0.6
+pkgver=3.0.7
 pkgrel=1
 pkgdesc="PMIx Reference RunTime Environment"
 arch=(x86_64)
@@ -16,15 +16,17 @@ makedepends=(
   openpmix
   perl
 )
+# prrte does not support LTO https://github.com/openpmix/prrte/pull/1998
+options=(!lto)
 source=(
   $pkgname-$pkgver.tar.gz::$url/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz
   prte-mca-params.conf
   prrte-ssh
 )
-sha512sums=('f7d3a1bedc0029fcb0e4e906a099d1de07b171805f0cc8d6e443826b8c321e3d5e7fa80867d8ab9ae1f628446a1a8f663231d8b67e243650582225805adc6e9d'
+sha512sums=('34b032ba461d095d549af0580fa7366290cdb54c22056dad71a24c85a6dcbd3614f69bc01892a8b2505f406ae728f6d7520a0f03a597ee0ab0208091d5319e18'
             '7a1c9d8785bf9bd51a72e526bcdceb8e7bea382528ac67989c56b0b5643d2b86cef04414136d5f959630da1eb67ae5dddb87e074aa28e974f01edadb492e9e7a'
             'ababfc5afa98c1f050b2f3f40a923e3fd83b2048c96689efa9f2f032670253136dcae800117875bf46fb5625e2dacee45b036eb7df807cceb98b059b6fab913a')
-b2sums=('62cff51ebb7e72c32a237eb36db925f5bf5811cf5f409619128fa8ef490d3ba9e6ba4a1701edd21486878974088ff17645c98dab12904abd48c4a4b50453f807'
+b2sums=('e12133f2d6515620bce639faa1b439947a5fd50bfdbf5d0c855e9ce138b82da452776bb92a326dcfe1b2b43be8b31dade528f0230b40ad5b38586ca6c0ee5c42'
         'ebdad2a0c220c6ecd10df0804f5bd2afa9aa50652fdb38d45ebf8f1402cbbb6521ac358371d2055011e907e3ed4b0269e5f92880bb4f1758ef2ecc184110ccb7'
         'cdac9def9d40d3df5e13449cfb8f0c977eaf5da5884135221c29b7add01c0b9bc151558f038ae972344cea242130ee6baa32f2b769f004c5517edf4200869337')
 
