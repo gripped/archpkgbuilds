@@ -1,0 +1,46 @@
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
+# Contributor: Tejun Heo <tj@kernel.org>
+# Contributor: Piotr Górski <lucjan.lucjanov@gmail.com>
+
+pkgname=scx-scheds
+_gitname=scx
+pkgver=1.0.6
+pkgrel=4
+pkgdesc='sched_ext schedulers and tools'
+url='https://github.com/sched-ext/scx'
+arch=('x86_64')
+backup=('etc/default/scx')
+license=('GPL-2.0-only')
+depends=(
+  bash
+  bpf
+  gcc-libs
+  glibc
+  jq
+  libbpf
+  libelf
+  zlib
+)
+makedepends=(
+  clang
+  git
+  llvm
+  llvm-libs
+  meson
+  python
+  rust
+)
+options=(!lto)
+source=("git+https://github.com/sched-ext/scx#tag=v${pkgver}")
+sha256sums=('81ebebdef84d9e02fb56b766633545ecfa875c297381c4912448409592aa407a')
+
+build() {
+  cd $_gitname
+  arch-meson . build -D openrc=disabled -D libbpf_a=disabled -D bpftool=disabled -D cargo_home="$srcdir"/scx
+  meson compile -C build
+}
+
+package() {
+  cd $_gitname
+  meson install -C build --destdir "${pkgdir}"
+}
