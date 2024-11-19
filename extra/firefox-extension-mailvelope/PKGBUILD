@@ -1,18 +1,18 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 
 pkgname=firefox-extension-mailvelope
-pkgver=5.1.2
+pkgver=5.2.0
 pkgrel=1
 pkgdesc="Browser extension for OpenPGP encryption with Webmail"
 url="https://www.mailvelope.com"
-license=('GPL2')
+license=('AGPL-3.0-only')
 arch=('any')
 groups=('firefox-addons')
 depends=('firefox' 'gpgme')
 source=("mailvelope-${pkgver}.xpi::https://github.com/mailvelope/mailvelope/releases/download/v${pkgver}/mailvelope.firefox.xpi"
 				"mailvelope-${pkgver}.xpi.sig::https://github.com/mailvelope/mailvelope/releases/download/v${pkgver}/mailvelope.firefox.xpi.sig"
 		    'gpgmejson.json')
-sha256sums=('8319529760a588ce9bf10ffec1e213746b9e7b159ab54fba01d6f9d98a4886af'
+sha256sums=('833bffcb546cb6f0c193bd3246ec7f60ff80a8c0db4e1340a1db81b209045ee2'
             'SKIP'
             '1f8d0cdef00aad2291772931da99968167b8c40ff48ce244084f381cea6a333f')
 validpgpkeys=('16F45CCC184812B4AC930EF360DD1F16B3390CD1')
