@@ -5,7 +5,7 @@
 
 pkgname=hyprland
 pkgver=0.45.1
-pkgrel=1
+pkgrel=2
 pkgdesc='a highly customizable dynamic tiling Wayland compositor'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/${pkgname^}"
@@ -68,6 +68,9 @@ prepare() {
 	ln -sf hyprland-source "$_archive"
 	cd "$_archive"
 	sed -i -e '/^release:/{n;s/-D/-DCMAKE_SKIP_RPATH=ON -D/}' Makefile
+
+	# Workaround for https://gitlab.archlinux.org/archlinux/packaging/packages/hyprland/-/issues/15
+	rm -fv scripts/generateVersion.sh
 }
 
 build() {
