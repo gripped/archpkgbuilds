@@ -3,7 +3,7 @@
 
 pkgname=singular
 _majver=4-4-0
-_patchver=p6
+_patchver=p7
 _pkgver=${_majver}${_patchver}
 pkgver=${_majver//-/.}${_patchver/p/.p}
 pkgrel=1
@@ -32,7 +32,7 @@ makedepends=(4ti2
 provides=(singular-factory)
 #source=(https://www.singular.uni-kl.de/ftp/pub/Math/Singular/SOURCES/$_majver/singular-${_pkgver//-/.}.tar.gz)
 source=(git+https://github.com/Singular/Singular#tag=Release-$_pkgver)
-sha256sums=('4e6f889cf3e0a92bf642d9d90a0d932cfbe779f21a33b4fd7c859a44b0be7922')
+sha256sums=('3fcd5a354a31ca7dbe5b901d07414cc6dcd165102f1d814c242fdf9ddbf457e1')
 options=(!zipman)
 #_srcdir=singular-${_majver//-/.}
 _srcdir=Singular
