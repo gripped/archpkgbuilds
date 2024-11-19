@@ -1,0 +1,39 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+
+pkgname=television
+_pkgname=tv
+pkgver=0.5.0
+pkgrel=1
+pkgdesc="A general purpose fuzzy finder for your terminal"
+arch=('x86_64')
+url="https://github.com/alexpasmantier/television"
+license=('MIT')
+depends=('gcc-libs')
+makedepends=('cargo')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
+sha512sums=('2ba858fda6363a2d9e45b6f23e129bff84d7ec0805e87eb2ce44b1cc4f47515f19af500b0fde661abb897d450e5603fcc21bccf55cac1d7c695ae0adc09edc6d')
+options=('!lto')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release --frozen
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --frozen
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/$_pkgname" -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:
