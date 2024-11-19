@@ -3,8 +3,8 @@
 # Contributor: Stéphane Graber <stgraber AT ubuntu DOT com>
 
 pkgname=distrobuilder
-pkgver=3.0
-pkgrel=2
+pkgver=3.1
+pkgrel=1
 pkgdesc='System container image builder for Incus and LXC'
 arch=('x86_64')
 url='https://linuxcontainers.org/distrobuilder/'
@@ -27,16 +27,11 @@ optdepends=(
   'wimlib: for repack-windows command'
 )
 options=('!lto')
-source=(
-  "https://linuxcontainers.org/downloads/$pkgname/$pkgname-$pkgver.tar.gz"{,.asc}
-  'distrobuilder-move-to-zstd.patch::https://github.com/lxc/distrobuilder/commit/b8bfb111643727dbdbc8ca3a5638bca17272238c.patch'
-)
-sha512sums=('c2218e6312257e5f15077d8380b9b49f7b8afd7ed5e43d46ac5d18a8cc332b096ab50c7301f74eb93769548c10f273e21a584ab2e908260ead4d2b219683bd1c'
-            'SKIP'
-            '369991a0022b7c70f0a9b46cb4c0f3a9b3770cfd4395194db819f02399b07a377f5b3c3035c821c52be7c406471cf8b79aa1171de7e7107d0d0cf61889e0cba7')
-b2sums=('71cf594cdece46890418ea58af06205c59beaecce46a977efadcb336b93f0e1ed85ba4c1563a1f9f95937e935f844c91b6e45dfc73c0210f134ba3a694adea1d'
-        'SKIP'
-        'edea682d490cb0cfc16952933ee5b18aa126c44c25ebbaedf7fde095ec3ec22f01eac77a8c9652a3ac5c1571507bc273c2bc96ac9026e4de492ee60f843a7baa')
+source=("https://linuxcontainers.org/downloads/$pkgname/$pkgname-$pkgver.tar.gz"{,.asc})
+sha512sums=('5b0853a5f9a31b635f2d5160e918af8b7a66812570a1e50e70a515ef581bffe3904f6cf2487fa3d6691ed76ff34f97cd24b645b5f5ba146fec2127c3d9f21558'
+            'SKIP')
+b2sums=('2cb88f90c4459f71a2878824f7cb8f1d982f960ef498251561f58a57948d4dca35e67c85b15fff584db9ba369da07055d4854689f6d01a8f0f22dff97e813424'
+        'SKIP')
 validpgpkeys=('602F567663E593BCBD14F338C638974D64792D67') # Stéphane Graber <stgraber@stgraber.org>
 
 prepare() {
@@ -44,9 +39,6 @@ prepare() {
 
   # create folder for build output
   mkdir build
-
-  # https://github.com/lxc/distrobuilder/pull/841
-  patch -p1 -i "$srcdir/distrobuilder-move-to-zstd.patch"
 }
 
 build() {
