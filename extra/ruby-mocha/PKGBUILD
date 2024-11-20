@@ -4,8 +4,8 @@
 
 _gemname=mocha
 pkgname="ruby-${_gemname}"
-pkgver=2.3.0
-pkgrel=2
+pkgver=2.5.0
+pkgrel=1
 pkgdesc='Mocha is a mocking and stubbing library for Ruby'
 arch=('any')
 url='https://github.com/freerange/mocha'
@@ -15,7 +15,7 @@ checkdepends=('ruby-rake' 'ruby-bundler' 'ruby-introspection' 'ruby-metaclass' '
 makedepends=('ruby-minitest')
 options=('!emptydirs')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/freerange/mocha/archive/v${pkgver}.tar.gz")
-sha512sums=('fc8d3922c593924d4e7ba138af06a90dbc00f2a466251f188de4d62ba3b3eb197252750561575383400aaeac65d59c436d3a14f5a288c2f1685d8d1bf5ae7202')
+sha512sums=('4ca3be919cf143f661e135f9b477d305688a69f3ea8587028eff20ab93a05b8259632edcc7704773aff88e85237ae95c42f08d48700bcd102696a28ceb11973a')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
