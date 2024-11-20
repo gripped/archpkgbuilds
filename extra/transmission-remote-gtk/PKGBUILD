@@ -1,24 +1,34 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Sébastien LEBEAU <sebcbi1 at gmail dot com>
 # Contributor: Patrick Griffis <tingping@fedoraproject.org>
 
 pkgname=transmission-remote-gtk
-pkgver=1.5.1
-pkgrel=2
+pkgver=1.6.0
+pkgrel=1
 pkgdesc="GTK remote control for the Transmission BitTorrent client"
 arch=(x86_64)
 url="https://github.com/transmission-remote-gtk/transmission-remote-gtk"
-license=(GPL2)
-depends=(curl glib2 gtk3 json-glib libappindicator-gtk3 libproxy geoip)
+license=(GPL-2.0-or-later)
+depends=(
+  gcc-libs
+  gdk-pixbuf2
+  geoip
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  json-glib
+  libappindicator-gtk3
+  libsoup3
+  pango
+)
 makedepends=(meson)
-# The new maintainer does not sign releases
-#source=(${url}/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz{,.asc})
-source=(${url}/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz)
-sha256sums=('4ee0d809585336e73c503cd6fea3eeba4d65915644901a8ef77e2811efe6a2d1')
-#validpgpkeys=('108BF2212A051F4A72B18448B3C7CE210DE76DFC') # Patrick Griffis <tingping@tingping.se>
+source=("${url}/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('b090844f6a482e6f3588070ff3fdd54b79e8f85df02b39853cfb01fccee10cac')
 
 build() {
-  arch-meson -D mrss=disabled ${pkgname}-${pkgver} build
+  arch-meson ${pkgname}-${pkgver} build
   meson compile -C build
 }
 
