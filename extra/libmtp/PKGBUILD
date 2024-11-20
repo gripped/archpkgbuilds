@@ -4,8 +4,8 @@
 # Contributor: Kevin Edmonds <edmondskevin@hotmail.com>
 
 pkgname=libmtp
-pkgver=1.1.21
-pkgrel=2
+pkgver=1.1.22
+pkgrel=1
 pkgdesc='Library implementation of the Media Transfer Protocol'
 arch=(x86_64)
 url='http://libmtp.sourceforge.net'
@@ -15,7 +15,7 @@ depends=(glibc
          libusb)
 makedepends=(doxygen)
 source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz{,.asc})
-sha256sums=('c4ffa5ab8c8f48c91b0047f2e253c101c418d5696a5ed65c839922a4280872a7'
+sha256sums=('c3fcf411aea9cb9643590cbc9df99fa5fe30adcac695024442973d76fa5f87bc'
             'SKIP')
 validpgpkeys=(7C4AFD61D8AAE7570796A5172209D6902F969C95) # Marcus Meißner <meissner@suse.de>
 
