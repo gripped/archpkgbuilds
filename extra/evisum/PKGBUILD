@@ -1,16 +1,16 @@
 # Maintainer: Carsten Haitzler <raster@archlinux.org>
 
 pkgname=evisum
-pkgver=0.6.0
-pkgrel=2
-pkgdesc="EFL Process viewer"
+pkgver=0.6.1
+pkgrel=3
+pkgdesc="GUI top/htop-like process viewer using EFL"
 arch=('x86_64')
 url="https://www.enlightenment.org"
 license=('BSD')
 depends=('efl')
 makedepends=('meson' 'ninja')
 source=("https://download.enlightenment.org/rel/apps/${pkgname}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('256062cfeb6dc1779cbd7c3fe6b958e1a2d0bd6209814dcdbcc032086ecde3c6')
+sha256sums=('832f20b8de13e290890810267cf41ed84cbb0c84e2e20a14f6783632612dadb9')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
