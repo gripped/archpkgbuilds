@@ -4,8 +4,8 @@
 
 _gemname='json-schema'
 pkgname="ruby-${_gemname}"
-pkgver=5.0.1
-pkgrel=2
+pkgver=5.1.0
+pkgrel=1
 pkgdesc='Interface for validating JSON objects against a JSON schema conforming to JSON Schema Draft 4.'
 arch=('any')
 url='https://github.com/voxpupuli/json-schema'
@@ -28,7 +28,7 @@ options=(!emptydirs)
 source=(
   "${url}/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz"
 )
-sha512sums=('a1fc5cf8fd26e98e70383b7f1a8d2b8a0042513dace852e095000b7010639b0ede3283a37fa0773a91c0c15062e46200bfaf760addcc8d0053776fd45c292e75')
+sha512sums=('4a2965a3ab079b76e72ed6dd9d602553cce10f52cba5e74f9e8acb59fce64c88c69967cd90be9073cd92baf75d58775d9f05a1ea10004950d9cc2a7687e6aa3c')
 
 prepare() {
   cd "${srcdir}/${_gemname}-${pkgver}"
