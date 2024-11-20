@@ -8,16 +8,24 @@ _pkgbase="${pkgbase^}"
 pkgname=('tela-circle-icon-theme-all' 'tela-circle-icon-theme-standard' 'tela-circle-icon-theme-black' 'tela-circle-icon-theme-blue' 'tela-circle-icon-theme-brown' 'tela-circle-icon-theme-green' 'tela-circle-icon-theme-grey' 'tela-circle-icon-theme-orange' 'tela-circle-icon-theme-pink' 'tela-circle-icon-theme-purple' 'tela-circle-icon-theme-red' 'tela-circle-icon-theme-yellow' 'tela-circle-icon-theme-manjaro' 'tela-circle-icon-theme-ubuntu' 'tela-circle-icon-theme-dracula' 'tela-circle-icon-theme-nord')
 pkgver=2024_11_15
 _pkgver="${pkgver//_/-}"
-pkgrel=1
+pkgrel=2
 pkgdesc="A flat colorful design icon theme"
 url="https://github.com/vinceliuice/Tela-circle-icon-theme"
 arch=('any')
 license=('GPL-3.0-or-later')
 depends=('hicolor-icon-theme')
-makedepends=('gtk-update-icon-cache')
-source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${_pkgver}.tar.gz")
-sha256sums=('a59a2717596b0eb19d12dfc0c2577c02e7dcceb1815a24fc19c236a9a07a07e4')
+source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${_pkgver}.tar.gz"
+        "do_not_generate_cache_files.patch")
+sha256sums=('a59a2717596b0eb19d12dfc0c2577c02e7dcceb1815a24fc19c236a9a07a07e4'
+            'f046c202a44ff3d9ee7bc32fdbaa9ff80845d06aceb4485a88c88789c88435b4')
 options=(!strip)
+
+prepare() {
+	cd "${_pkgbase}-${_pkgver}"
+	# Do not generate cache files during build
+	# This is already handled by the `gtk-update-icon-cache.hook` pacman hook (shipped by the `gtk4` package)
+	patch -Np1 < "${srcdir}/do_not_generate_cache_files.patch"
+}
 
 package_tela-circle-icon-theme-all() {
 	pkgdesc="${pkgdesc} - all variants"
