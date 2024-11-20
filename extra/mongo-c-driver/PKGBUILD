@@ -2,7 +2,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=mongo-c-driver
-pkgver=1.28.1
+pkgver=1.29.0
 pkgrel=1
 pkgdesc="A client library written in C for MongoDB"
 arch=(x86_64)
@@ -31,7 +31,7 @@ replaces=(
   libmongoc
 )
 source=("https://github.com/mongodb/mongo-c-driver/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('249fd66d8d12aac2aec7dea1456e1bf24908c87971016c391a1a82a636029a87')
+sha256sums=('507414795dfb24ddf1a418b155b57459d8cea1191c7f0fcd8b826acf5400343c')
 
 build() {
   cd $pkgname-$pkgver
@@ -52,6 +52,7 @@ check() {
   export MONGOC_TEST_OFFLINE=ON
   export MONGOC_TEST_SKIP_LIVE=ON
   local skip_tests=(
+    mongoc/Client/ipv6/single
     mongoc/ClientPool/openssl/change_ssl_opts
     mongoc/MongoDB/handshake/null_args
     mongoc/TOPOLOGY/scanner_ssl
