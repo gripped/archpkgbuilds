@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=antimicrox
-pkgver=3.4.0
+pkgver=3.5.0
 pkgrel=1
 pkgdesc='Graphical program used to map keyboard buttons & mouse controls to a gamepad'
 arch=('x86_64')
@@ -25,8 +25,8 @@ makedepends=(
   'qt5-tools'
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('30083848fcd27d4991ef485e5ac3b357571b67230bf33f35f91f8561485aea24a5d1b5b7b911e29229a2cd3df0ae2b7487ce55c0aaed1cfd9af09bb40aa5b151')
-b2sums=('e46147a524678e9da9fb91e43f836acf7e9b2744ad0a52e152def0c492212e5994422d64673f1fc4766d4a3959ef40839963542b7816043408d3ac03a8aa2308')
+sha512sums=('e7e2bfa3b7af8b46a8e0136ebfdad8d4cace18d8344021a9dcae9d2ef99975ebb43e0afdeb2d131369da02b5da20cbddd156ab4206691c54c17bc03f99e8f5d9')
+b2sums=('045f1e10002f32878729a042b9bface09b7f454721157cadecf29526957c9b155663574c5cfbac1962ef13f968b7c4dc4c05636754704eaf8dabda6d9db5e411')
 
 build() {
   cmake \
