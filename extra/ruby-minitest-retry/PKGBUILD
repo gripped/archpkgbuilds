@@ -2,8 +2,8 @@
 
 _gemname='minitest-retry'
 pkgname="ruby-${_gemname}"
-pkgver=0.2.2
-pkgrel=3
+pkgver=0.2.3
+pkgrel=1
 pkgdesc='re-run the test when the test fails'
 arch=('any')
 url='https://github.com/y-yagi/minitest-retry'
@@ -19,17 +19,12 @@ makedepends=(
 options=('!emptydirs')
 source=(
   "${url}/archive/v${pkgver}/${_gemname}-v${pkgver}.tar.gz"
-  "${pkgname}_fix_tests.patch::${url}/commit/d977b24dc0a0dd1181bc34adbd6a89d167f94b5e.patch"
 )
-sha512sums=('c49620387999894742fb92a399440756eac046f7aa179dbf084e77cc2a43260bff7f5d012c2140062da8785b9592bedf6e6b38692fbd7753dd3d15fc5ca932a1'
-            'e4841bbc0c9423dba4dc2158a586f9bced3dd90d2603e86f6c5691cc884737d3f83c2790bea80fd4fc1a6543b671938215c8b3481dff50197a220ddcd2834e36')
-b2sums=('b1afb2e362d3b77ac2008d3d5905da71f4c43c817ea0630db50105e28fe63e1eb4426befcc669455efbd56ef557f6f46a6a8bbe06858e33af2943469d4300fcd'
-        'f4c568b0d4953b57b97c01d6d6662c82a5d4117154da57d04891db293c4959a33d01ec308b0f047fbd2a5851e3a4315a9e6dde37b2018067b7c047faa8d27451')
+sha512sums=('830dfbfc920542e8f3e1dab6f50ed74c177b30de12b6a004e826d0da9f209547ec75a51414d4ee3d810260572ed8b75cc44cd7e9f7238a1b5dc105c435884567')
+b2sums=('b006e6b0bb18432d67afae24d691349928cd985b21d8ff9fe8d2a40273fe1acdbcf93024ccb66acfe71b06692f91f4b834e5ebc39953d243608be8a2d6ad7dbf')
 
 prepare() {
   cd "${srcdir}/${_gemname}-${pkgver}"
-
-  patch --verbose --strip=1 --input="../${pkgname}_fix_tests.patch"
 
   # allow latest dependencies
   sed --in-place 's|`git ls-files -z`|`find . -print0`|' "${_gemname}.gemspec"
