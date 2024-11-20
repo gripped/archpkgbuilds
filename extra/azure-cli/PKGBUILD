@@ -2,7 +2,7 @@
 # Contributor: pallxk <aur@pallxk.com>
 # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux
 pkgname=azure-cli
-pkgver=2.65.0
+pkgver=2.66.0
 pkgrel=1
 pkgdesc="Command-line tools for Microsoft Azure"
 arch=('any')
@@ -13,13 +13,13 @@ makedepends=("git")
 options=('!debug' '!strip')
 source=("git+https://github.com/Azure/azure-cli.git#tag=azure-cli-${pkgver}"
         "az")
-sha256sums=('d19e3b921efb076af4f29e6b4998579405f8b32651465f9417952ba584e7a1ca'
+sha256sums=('ba82a4cfc33856edd8fdb57f87ad13837c517394adae7f407cfb132124c9fed1'
             '990f70efec828c1e1f3f57748fc6e40f9705f2223dc96683e8e29d118daac116')
 
 package() {
   cd azure-cli
 
-  mkdir "$pkgdir/opt"
+  mkdir -v "$pkgdir/opt"
 
   # We're going to just slap all of this junk into /opt because it needs so much stuff
   # with very specific versions that it's just not worth the hassle to try to fight it.
@@ -29,6 +29,6 @@ package() {
 
   scripts/install_full.sh
 
-  install -Dm755 "$srcdir/az" "$pkgdir/usr/bin/az"
-  install -Dm644 az.completion "$pkgdir/usr/share/bash-completion/completions/az"
+  install -vDm755 "$srcdir/az" "$pkgdir/usr/bin/az"
+  install -vDm644 az.completion "$pkgdir/usr/share/bash-completion/completions/az"
 }
