@@ -6,14 +6,27 @@
 pkgname=rawtherapee
 epoch=1
 pkgver=5.11
-pkgrel=1
+pkgrel=2
 pkgdesc='A powerful cross-platform raw image processing program'
 arch=('x86_64')
 url='https://www.rawtherapee.com/'
 license=('GPL3')
-depends=('exiv2' 'fftw' 'gtk3' 'glibmm' 'gtkmm3' 'lcms2' 'lensfun' 'libcanberra'
-         'libiptcdata' 'desktop-file-utils' 'hicolor-icon-theme')
+depends=('exiv2'
+         'desktop-file-utils'
+         'fftw'
+         'glibmm'
+         'gtk3'
+         'gtkmm3'
+         'hicolor-icon-theme'
+         'lcms2'
+         'lensfun'
+         'libcanberra'
+         'libiptcdata'
+         'libjxl')
 makedepends=('cmake')
+# Build without LTO for now...
+# https://github.com/Beep6581/RawTherapee/issues/7203
+options=('!lto')
 source=("https://github.com/Beep6581/RawTherapee/releases/download/${pkgver}/rawtherapee-$pkgver.tar.xz")
 sha1sums=('2cb2932a904660158ee9ae8eafd8c07de77ed195')
 sha256sums=('e584c18dec112de29954b2b6471449a302a85e5cca4e42ede75fa333a36de724')
