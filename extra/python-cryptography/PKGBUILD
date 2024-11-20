@@ -1,23 +1,44 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-cryptography
-pkgver=42.0.8
+pkgver=43.0.3
 pkgrel=1
 pkgdesc="A package designed to expose cryptographic recipes and primitives to Python developers"
 arch=('x86_64')
-license=('Apache')
+license=('Apache-2.0 OR BSD-3-Clause')
 url="https://github.com/pyca/cryptography"
-depends=('python-cffi')
-makedepends=('git' 'python-setuptools-rust' 'llvm' 'clang' 'lld' 'python-build' 'python-installer' 'python-wheel')
-checkdepends=('python-pytest' 'python-pytest-subtests' 'python-iso8601' 'python-pretend'
-              'python-hypothesis' 'python-pytz' 'python-certifi')
+depends=(
+  'gcc-libs'
+  'glibc'
+  'openssl'
+  'python'
+  'python-cffi'
+)
+makedepends=(
+  'clang'
+  'git'
+  'lld'
+  'llvm'
+  'python-build'
+  'python-installer'
+  'python-maturin'
+  'python-setuptools'
+  'python-wheel'
+)
+checkdepends=(
+  'python-certifi'
+  'python-hypothesis'
+  'python-pretend'
+  'python-pytest'
+)
 source=("git+https://github.com/pyca/cryptography.git#tag=$pkgver")
-sha512sums=('8f6d45273662f4bda624c39c77dbe6476e2d4ffefdfb8c47c39aab1caa9f306638ac9fc34e3e087cf6d28f950325dc4892d15b870fd935647b442ea711e24a33')
+sha512sums=('ed17b32ef6b2a380d637905e543538e532d65166833144bd8b4de32928a0732cb9b18408f791230b1f4ee23a1e850a626ea8edfd5c81f572cfcbf265a3cba13a')
 
 prepare() {
   cd cryptography
-  # Drop all benchmark tests, this means we don't have to checkdepends on pytest-benchmark nor are
-  # benchmark tests interesting for a distribution.
+  # Drop all benchmark tests, this means we don't have to checkdepends on
+  # pytest-benchmark nor are benchmark tests interesting for a distribution.
   rm -rf tests/bench
 }
 
@@ -25,16 +46,20 @@ build() {
   cd cryptography
   echo $RUSTFLAGS
   # https://github.com/pyca/cryptography/issues/9023
-  CC=clang RUSTFLAGS+="-Clinker-plugin-lto -Clinker=clang -Clink-arg=-fuse-ld=lld" python -m build --wheel --no-isolation
+  CC=clang RUSTFLAGS+="-Clinker-plugin-lto -Clinker=clang -Clink-arg=-fuse-ld=lld" \
+    python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
   cd cryptography
-  local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
-  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$python_version:$PWD/vectors" pytest -o addopts=''
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  python -m installer --destdir="tmp_install" dist/*.whl
+  PYTHONPATH="$PWD/tmp_install/$site_packages:$PWD/vectors" \
+    pytest --override-ini="addopts="
 }
 
 package() {
   cd cryptography
   python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.BSD
 }

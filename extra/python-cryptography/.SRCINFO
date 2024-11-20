@@ -1,27 +1,29 @@
 pkgbase = python-cryptography
 	pkgdesc = A package designed to expose cryptographic recipes and primitives to Python developers
-	pkgver = 42.0.8
+	pkgver = 43.0.3
 	pkgrel = 1
 	url = https://github.com/pyca/cryptography
 	arch = x86_64
-	license = Apache
-	checkdepends = python-pytest
-	checkdepends = python-pytest-subtests
-	checkdepends = python-iso8601
-	checkdepends = python-pretend
-	checkdepends = python-hypothesis
-	checkdepends = python-pytz
+	license = Apache-2.0 OR BSD-3-Clause
 	checkdepends = python-certifi
-	makedepends = git
-	makedepends = python-setuptools-rust
-	makedepends = llvm
+	checkdepends = python-hypothesis
+	checkdepends = python-pretend
+	checkdepends = python-pytest
 	makedepends = clang
+	makedepends = git
 	makedepends = lld
+	makedepends = llvm
 	makedepends = python-build
 	makedepends = python-installer
+	makedepends = python-maturin
+	makedepends = python-setuptools
 	makedepends = python-wheel
+	depends = gcc-libs
+	depends = glibc
+	depends = openssl
+	depends = python
 	depends = python-cffi
-	source = git+https://github.com/pyca/cryptography.git#tag=42.0.8
-	sha512sums = 8f6d45273662f4bda624c39c77dbe6476e2d4ffefdfb8c47c39aab1caa9f306638ac9fc34e3e087cf6d28f950325dc4892d15b870fd935647b442ea711e24a33
+	source = git+https://github.com/pyca/cryptography.git#tag=43.0.3
+	sha512sums = ed17b32ef6b2a380d637905e543538e532d65166833144bd8b4de32928a0732cb9b18408f791230b1f4ee23a1e850a626ea8edfd5c81f572cfcbf265a3cba13a
 
 pkgname = python-cryptography
