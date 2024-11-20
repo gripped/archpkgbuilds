@@ -2,37 +2,33 @@
 
 _gemname='bcrypt_pbkdf'
 pkgname="ruby-${_gemname}"
-pkgver=1.1.0
-pkgrel=6
+pkgver=1.1.1
+pkgrel=1
 pkgdesc="OpenBSD's bcrypt_pdkfd (a variant of PBKDF2 with bcrypt-based PRF)"
 arch=('x86_64')
 url='https://github.com/net-ssh/bcrypt_pbkdf-ruby'
 license=('MIT')
 depends=('ruby')
-makedepends=('ruby-rake' 'ruby-bundler' 'ruby-rdoc' 'ruby-rake-compiler')
+makedepends=('ruby-rake' 'ruby-bundler' 'ruby-rdoc' 'ruby-rake-compiler' 'ruby-rake-compiler-dock')
 checkdepends=('ruby-minitest')
 options=('!emptydirs')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
-         https://github.com/net-ssh/bcrypt_pbkdf-ruby/commit/8d4c58ef.patch)
-sha512sums=('d7a21ff439b2d023597f1cd45e16b9072f4747fa9498dbcb1920a615dcd09ac020ebbe2a99275042d7bf87a4db207b8329a3c7ef2a95405ad0491d0b8afb6d02'
-            '845bb60143653993c68926f3ad4250735cbe0937970876eafe8f860234d89cd151282870fec5d65701400dc81aa266aa1ede12f4c4d16de16dfe6d4ae2299492')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
+sha512sums=('d0ec5ba137ae4d7f3b35138cd3ce9915365046653f458c39c9fa2f909f90cb79f493d13fbf6e81ae59b3b86b5ce5eab4bfd4fcd0550f3db593e16b16dcd4cbb6')
 
 prepare() {
   cd "${srcdir}/${_gemname}-ruby-${pkgver}"
 
   sed -E 's|~>|>=|g' --in-place "${_gemname}.gemspec"
   sed --in-place 's|git ls-files|find|' "${_gemname}.gemspec"
-  sed --in-place '/bundler/d' Rakefile
   sed --in-place '/rake-compiler-dock/d' bcrypt_pbkdf.gemspec
   sed --in-place '/has_rdoc/d' bcrypt_pbkdf.gemspec
-
-  patch -p1 -i ../8d4c58ef.patch # Fix tests
+  rm -rf .github
 }
 
 build() {
   cd "${srcdir}/${_gemname}-ruby-${pkgver}"
   rake compile
-  rake gem
+  rake build
 }
 
 check() {
