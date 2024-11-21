@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=pik
-pkgver=0.10.0
+pkgver=0.11.0
 pkgrel=1
 pkgdesc="Process interactive kill"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('beb454794282c222dee329009f75f39ba7e5b582f5a9edbf0606829d9942751f62a893c38ba4166ccd6e8358916c25eabca0dba265ba157690dcf3246a6ec310')
+sha512sums=('eedc74ce45a6143c7c64752f5a2dce2b35ec2a1496d15f7c08bafd304f38aa7fabf0e23a654bc54e87d29dcc19e88912366550ed2df7eef95952d601a492c6a2')
 
 prepare() {
   cd "$pkgname-$pkgver"
