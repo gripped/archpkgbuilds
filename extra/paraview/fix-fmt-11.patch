@@ -1,0 +1,60 @@
+diff --git a/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/Ioss_Decomposition.C b/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/Ioss_Decomposition.C
+index a3f69e7..1cbf2c6 100644
+--- a/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/Ioss_Decomposition.C
++++ b/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/Ioss_Decomposition.C
+@@ -16,6 +16,7 @@
+ #include <cassert>
+ #include "vtk_fmt.h"
+ #include VTK_FMT(fmt/ostream.h)
++#include VTK_FMT(fmt/ranges.h)
+ #include <numeric>
+ 
+ #if !defined(NO_ZOLTAN_SUPPORT)
+diff --git a/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/Ioss_Field.C b/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/Ioss_Field.C
+index fbb2100..8909eef 100644
+--- a/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/Ioss_Field.C
++++ b/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/Ioss_Field.C
+@@ -12,6 +12,7 @@
+ #include <cstdint>
+ #include "vtk_fmt.h"
+ #include VTK_FMT(fmt/ostream.h)
++#include VTK_FMT(fmt/ranges.h)
+ #include <iostream>
+ #include <string>
+ #include <vector>
+diff --git a/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/Ioss_ParallelUtils.h b/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/Ioss_ParallelUtils.h
+index dce6a20..7e1b9f4 100644
+--- a/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/Ioss_ParallelUtils.h
++++ b/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/Ioss_ParallelUtils.h
+@@ -20,6 +20,7 @@
+ #include "vtk_fmt.h"
+ #include VTK_FMT(fmt/format.h)
+ #include VTK_FMT(fmt/ostream.h)
++#include VTK_FMT(fmt/ranges.h)
+ #endif
+ 
+ #ifdef SEACAS_HAVE_MPI
+diff --git a/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/Ioss_VariableType.C b/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/Ioss_VariableType.C
+index b081dc3..4f1a841 100644
+--- a/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/Ioss_VariableType.C
++++ b/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/Ioss_VariableType.C
+@@ -19,6 +19,7 @@
+ #include VTK_FMT(fmt/core.h)
+ #include VTK_FMT(fmt/format.h)
+ #include VTK_FMT(fmt/ostream.h)
++#include VTK_FMT(fmt/ranges.h)
+ #include <map>
+ #include <sstream>
+ #include <string>
+diff --git a/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/cgns/Iocgns_DecompositionData.C b/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/cgns/Iocgns_DecompositionData.C
+index 5a6dd26..dc34865 100644
+--- a/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/cgns/Iocgns_DecompositionData.C
++++ b/ParaView-v5.13.1/VTK/ThirdParty/ioss/vtkioss/cgns/Iocgns_DecompositionData.C
+@@ -21,6 +21,7 @@
+ #include VTK_FMT(fmt/color.h)
+ #include VTK_FMT(fmt/format.h)
+ #include VTK_FMT(fmt/ostream.h)
++#include VTK_FMT(fmt/ranges.h)
+ #include <tokenize.h>
+ 
+ #include VTK_CGNS(pcgnslib.h)
