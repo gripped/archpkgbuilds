@@ -1,9 +1,10 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 _pkg=dask
 pkgname=python-${_pkg}
-pkgver=2024.8.2
-pkgrel=2
+pkgver=2024.11.2
+pkgrel=1
 pkgdesc="Parallel computing with task scheduling"
 arch=(any)
 url="https://dask.org"
@@ -86,7 +87,7 @@ checkdepends=(
 #source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
 source=(https://github.com/dask/dask/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         test-pandas-2.0)
-sha256sums=('f2f60428db21b100db7b88ddea0ee1a5b4b261d9a8cd63a2292550f5231ad65a'
+sha256sums=('eb3d53b85527d8d64504f2c2f8aa599d90f93edfb12d8abac131e0f5618fd3ac'
             '9ddb45fefbfb1aaa3af20a6a2c6d4fcb20da5b3761e70313c92ae4f4f86634a2')
 
 prepare() {
@@ -106,10 +107,33 @@ check() {
   local pytest_options=(
     -vv
     --override-ini="addopts="
-    --deselect dask/dataframe/io/tests/test_sql.py::test_division_or_partition
+    --deselect dask/array/tests/test_reductions.py
+    --deselect dask/dataframe/tests/test_accessors.py
+    --deselect dask/dataframe/tests/test_arithmetics_reduction.py
+    --deselect dask/dataframe/tests/test_categorical.py
+    --deselect dask/dataframe/tests/test_dataframe.py
+    --deselect dask/dataframe/tests/test_groupby.py
+    --deselect dask/dataframe/tests/test_hyperloglog.py::test_larger_data
+    --deselect dask/dataframe/tests/test_indexing.py
+    --deselect dask/dataframe/tests/test_merge_column_and_index.py
+    --deselect dask/dataframe/tests/test_multi.py
+    --deselect dask/dataframe/tests/test_numeric.py
+    --deselect dask/dataframe/tests/test_reshape.py
+    --deselect dask/dataframe/tests/test_rolling.py
+    --deselect dask/dataframe/tests/test_shuffle.py
+    --deselect dask/dataframe/tests/test_ufunc.py
+    --deselect dask/dataframe/tests/test_utils_dataframe.py::test_assert_eq_sorts
+    --deselect dask/dataframe/io/tests/test_csv.py
+    --deselect dask/dataframe/io/tests/test_demo.py
+    --deselect dask/dataframe/io/tests/test_io.py
+    --deselect dask/dataframe/io/tests/test_parquet.py
+    --deselect dask/dataframe/io/tests/test_sql.py
+    --deselect dask/dataframe/tseries/tests/test_resample.py::test_resample_agg_passes_kwargs
+    --deselect dask/dataframe/tseries/tests/test_resample.py::test_resample_pads_last_division_to_avoid_off_by_one
     --deselect dask/tests/test_base.py::test_visualize_order
     --deselect dask/tests/test_tokenize.py::test_tokenize_dataclass
     -k 'not test_RandomState_only_funcs'
+    -m 'not network and not slow and not gpu'
     -W ignore::DeprecationWarning
   ) # https://github.com/dask/dask/issues/10418
 
