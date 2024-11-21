@@ -1,0 +1,28 @@
+From c2ee39ac2a8b43bb1a69ed5d77a2853722a005a6 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 20 Nov 2024 11:21:06 +0100
+Subject: [PATCH] application: Present active window if available
+
+---
+ src/application.rs | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/application.rs b/src/application.rs
+index 4583ec3..31bb978 100644
+--- a/src/application.rs
++++ b/src/application.rs
+@@ -66,6 +66,11 @@ mod imp {
+ 
+             let app = self.obj();
+ 
++            if let Some(window) = app.active_window() {
++                window.present();
++                return;
++            }
++
+             let (sender, receiver) = async_std::channel::unbounded();
+             self.sender.set(sender.clone()).unwrap();
+ 
+-- 
+GitLab
+
