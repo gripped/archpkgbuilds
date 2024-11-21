@@ -1,5 +1,7 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
 pkgname=python-dask-expr
-pkgver=1.1.10
+pkgver=1.1.19
 pkgrel=1
 pkgdesc="High Level Expressions for Dask"
 arch=(any)
@@ -9,6 +11,7 @@ depends=(python python-dask python-pyarrow python-pandas)
 makedepends=(python-build python-installer python-wheel python-versioneer)
 checkdepends=(python-pytest)
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/dask/dask-expr/archive/refs/tags/v${pkgver}.tar.gz)
+sha256sums=('1ceae66d7bac8aabfe453e03e3314037a1f3691a00f2dc6534c51dac50f85249')
 
 prepare() {
   cd dask-expr-${pkgver}
@@ -23,11 +26,11 @@ build() {
 check() {
   cd dask-expr-${pkgver}
   local pytest_options=(
-  	--deselect dask_expr/io/tests/test_parquet.py
-	--deselect dask_expr/tests/test_format.py::test_df_to_html
-	--deselect dask_expr/tests/test_describe.py::test_describe_df
-	--deselect dask_expr/tests/test_describe.py::test_describe_series
-	--deselect dask_expr/tests/test_indexing.py
+    --deselect dask_expr/io/tests/test_parquet.py
+    --deselect dask_expr/tests/test_format.py::test_df_to_html
+    --deselect dask_expr/tests/test_describe.py::test_describe_df
+    --deselect dask_expr/tests/test_describe.py::test_describe_series
+    --deselect dask_expr/tests/test_indexing.py
   )
   pytest "${pytest_options[@]}"
 }
@@ -36,6 +39,3 @@ package() {
   cd dask-expr-${pkgver}
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
-
-
-sha256sums=('543e4771286d0254952f68de7e3014869a79144f438881efedfd1b68478b0637')
