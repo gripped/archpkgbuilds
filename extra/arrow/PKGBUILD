@@ -3,11 +3,11 @@
 
 pkgname=arrow
 pkgver=17.0.0
-pkgrel=8
+pkgrel=9
 pkgdesc="Columnar in-memory analytics layer for big data."
 arch=(x86_64)
 url="https://arrow.apache.org"
-license=(Apache)
+license=(Apache-2.0)
 depends=(apache-orc brotli bzip2 gflags grpc google-glog libutf8proc
          lz4 openssl protobuf re2 snappy thrift zlib zstd)
 provides=(parquet-cpp)
@@ -57,6 +57,8 @@ build(){
     -DARROW_BUILD_STATIC=OFF \
     -DARROW_DEPENDENCY_SOURCE=SYSTEM \
     -DARROW_BUILD_TESTS=ON \
+    -DARROW_SIMD_LEVEL=NONE \
+    -DARROW_RUNTIME_SIMD_LEVEL=MAX \
     -DARROW_COMPUTE=ON \
     -DARROW_CSV=ON \
     -DARROW_SUBSTRAIT=ON \
