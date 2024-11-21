@@ -1,0 +1,37 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+
+pkgname=hl
+pkgver=0.29.9
+pkgrel=1
+pkgdesc="A fast and powerful log viewer and processor"
+arch=('x86_64')
+url="https://github.com/pamburus/hl"
+license=('MIT')
+depends=('gcc-libs')
+makedepends=('cargo')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('06cfe16127f72b2e00e65404594d789a1340e50a8ccad382c7fa1e323171646bb78b4effcd32f740d500f68424a52521cdc5684165d647fecfeebe7bd90a112c')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release --frozen
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --frozen
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:
