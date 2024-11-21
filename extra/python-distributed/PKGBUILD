@@ -1,11 +1,12 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 _pkg=distributed
 pkgname=python-${_pkg}
-pkgver=2024.4.1
-pkgrel=2
+pkgver=2024.11.2
+pkgrel=1
 pkgdesc="Distributed task scheduler for Dask"
-arch=(x86_64)
+arch=(any)
 url="https://distributed.dask.org/"
 license=(BSD-3-Clause)
 depends=(
@@ -14,6 +15,7 @@ depends=(
     python-cloudpickle
     python-dask
     python-jinja
+    python-locket
     python-msgpack
     python-packaging
     python-psutil
@@ -31,21 +33,21 @@ makedepends=(
     python-setuptools
     python-versioneer
     python-wheel
-    )
-checkdepends=(ipython
+)
+checkdepends=(
+    ipython
     python-pytest
     python-pytest-repeat
     python-pytest-timeout
     python-flaky
     python-blosc
     python-cryptography
-    python-distributed
+    python-dask-expr
     python-fsspec
     python-h5py
     python-ipykernel
     python-ipywidgets
     python-jsonschema
-    python-locket
     python-lz4
     python-netcdf4
     python-numpy
@@ -53,7 +55,6 @@ checkdepends=(ipython
     python-paramiko
     python-prometheus_client
     python-pyarrow
-    python-pytorch
     python-requests
     python-scipy
     python-snappy
@@ -62,7 +63,7 @@ checkdepends=(ipython
 # No tests in PyPi tarballs
 #source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
 source=(https://github.com/dask/distributed/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('37908bfb644f223a15e010f33b6ff75b8c99ffa7b8a38370a8e688b4fac3b1cb')
+sha256sums=('8e0f87d088152bbdb607077953dc870a76723133a2297aa5221304f7afefdb4a')
 
 prepare() {
   sed -i 's/, "versioneer\[toml\].*"//' ${_pkg}-${pkgver}/pyproject.toml
@@ -73,14 +74,43 @@ build() {
   python -m build --wheel --no-isolation
 }
 
-# Not collecting properly, no time to investigate
-#check() {
-#  cd ${_pkg}-${pkgver}
-#  pytest -vvrsfE --color=yes distributed -m "not avoid_ci"
-#}
+check() {
+  local pytest_options=(
+    -vv
+    --override-ini="addopts="
+    --deselect distributed/cli/tests/test_dask_scheduler.py
+    --deselect distributed/cli/tests/test_dask_spec.py
+    --deselect distributed/cli/tests/test_dask_worker.py
+    --deselect distributed/cli/tests/test_tls_cli.py
+    --deselect distributed/comm/tests/test_comms.py::test_tls_comm_closed_implicit[tornado]
+    --deselect distributed/comm/tests/test_ws.py
+    --deselect distributed/deploy/tests/test_local.py::test_defaults_5
+    --deselect distributed/deploy/tests/test_old_ssh.py
+    --deselect distributed/deploy/tests/test_subprocess.py
+    --deselect distributed/tests/test_client.py::test_computation_object_code_dask_compute 
+    --deselect distributed/tests/test_init.py::test_git_revision 
+    --deselect distributed/tests/test_queues.py::test_queue_in_task
+    --deselect distributed/tests/test_steal.py::test_steal_twice
+    --deselect distributed/tests/test_variable.py::test_variable_in_task 
+    --deselect distributed/tests/test_worker_memory.py::test_fail_to_pickle_execute_1
+    # TypeError: _FlakyPlugin._make_test_flaky() got an unexpected keyword argument 'reruns'
+    --deselect distributed/deploy/tests/test_slow_adaptive.py::test_scale_up_down
+    --deselect distributed/diagnostics/tests/test_progress.py::test_many_Progress
+    --deselect distributed/diagnostics/tests/test_progress.py::test_AllProgress
+    --deselect distributed/diagnostics/tests/test_progress.py::test_AllProgress_lost_key 
+    --deselect distributed/tests/test_client.py::test_profile
+    --deselect distributed/tests/test_worker.py::test_statistical_profiling
+    -m "not avoid_ci and not gpu and not extra_packages"
+  )
+
+  cd ${_pkg}-${pkgver}
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest "${pytest_options[@]}" distributed
+}
 
 package() {
   cd ${_pkg}-${pkgver}
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 LICENSE.txt -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install -vDm 644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
