@@ -1,6 +1,6 @@
 pkgbase = deepin-shell
 	pkgdesc = New DDE shell
-	pkgver = 0.0.24
+	pkgver = 1.0.2
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-shell
 	arch = x86_64
@@ -12,11 +12,7 @@ pkgbase = deepin-shell
 	makedepends = ninja
 	makedepends = qt6-tools
 	makedepends = wayland-protocols
-	makedepends = libnm
-	makedepends = libxres
-	depends = deepin-qt-dbus-factory
-	depends = dtkgui
-	depends = dtkwidget
+	depends = deepin-tray-loader
 	depends = dtk6core
 	depends = dtk6gui
 	depends = dtk6widget
@@ -25,24 +21,17 @@ pkgbase = deepin-shell
 	depends = glibc
 	depends = libx11
 	depends = libxcb
-	depends = libxcursor
-	depends = libxext
 	depends = libxtst
-	depends = qt5-base
-	depends = qt5-wayland
 	depends = qt6-5compat
 	depends = qt6-base
 	depends = qt6-declarative
-	depends = qt6-svg
 	depends = qt6-wayland
-	depends = xcb-util-image
 	depends = xcb-util-wm
-	depends = util-linux-libs
 	depends = wayland
 	depends = yaml-cpp
 	conflicts = deepin-dock
 	replaces = deepin-dock
-	source = git+https://github.com/linuxdeepin/dde-shell.git#tag=0.0.24
-	sha512sums = bd24e3f6dfd757c4bf0b6e9a7e5b8566acceec58a004e6d61a4ed1580bf44e5813f519a5e70f6fa6699daa2816ce2e08c50684309f62e1c0bafee98d9fdc9eeb
+	source = git+https://github.com/linuxdeepin/dde-shell.git#tag=1.0.2
+	sha512sums = 564f3534d303292c565d69f9825124d2c7a49eef9fdb6052a1d9f73439015a8483123990c8c00a2dca214ad5b7bc2cb445c35d1416f143aa70811797c319fcf4
 
 pkgname = deepin-shell

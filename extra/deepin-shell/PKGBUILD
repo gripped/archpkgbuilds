@@ -2,24 +2,27 @@
 # Contributor: justforlxz <justforlxz@gmail.com>
 
 pkgname=deepin-shell
-pkgver=0.0.24
+pkgver=1.0.2
 pkgrel=1
 pkgdesc='New DDE shell'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-shell"
 license=('LGPL3')
-depends=('deepin-qt-dbus-factory' 'dtkgui' 'dtkwidget' 'dtk6core' 'dtk6gui' 'dtk6widget'
-         'dtk6declarative' 'gcc-libs' 'glibc' 'libx11' 'libxcb' 'libxcursor' 'libxext' 'libxtst'
-         'qt5-base' 'qt5-wayland' 'qt6-5compat' 'qt6-base' 'qt6-declarative' 'qt6-svg' 'qt6-wayland'
-         'xcb-util-image' 'xcb-util-wm' 'util-linux-libs' 'wayland' 'yaml-cpp')
-makedepends=('git' 'extra-cmake-modules' 'cmake' 'ninja' 'qt6-tools' 'wayland-protocols'
-             # TODO: should be removed?
-             'libnm' 'libxres')
+depends=('deepin-tray-loader' 'dtk6core' 'dtk6gui' 'dtk6widget' 'dtk6declarative' 'gcc-libs' 'glibc'
+         'libx11' 'libxcb' 'libxtst' 'qt6-5compat' 'qt6-base' 'qt6-declarative' 'qt6-wayland'
+         'xcb-util-wm' 'wayland' 'yaml-cpp')
+makedepends=('git' 'extra-cmake-modules' 'cmake' 'ninja' 'qt6-tools' 'wayland-protocols')
 groups=('deepin')
 replaces=('deepin-dock')
 conflicts=('deepin-dock')
 source=("git+https://github.com/linuxdeepin/dde-shell.git#tag=$pkgver")
-sha512sums=('bd24e3f6dfd757c4bf0b6e9a7e5b8566acceec58a004e6d61a4ed1580bf44e5813f519a5e70f6fa6699daa2816ce2e08c50684309f62e1c0bafee98d9fdc9eeb')
+sha512sums=('564f3534d303292c565d69f9825124d2c7a49eef9fdb6052a1d9f73439015a8483123990c8c00a2dca214ad5b7bc2cb445c35d1416f143aa70811797c319fcf4')
+
+prepare() {
+  cd dde-shell
+  # qt 6.8 fix
+  git cherry-pick -n 46871c83cf8ecfcf83bf2fb49e1f09af997eca96
+}
 
 build() {
   cd dde-shell
