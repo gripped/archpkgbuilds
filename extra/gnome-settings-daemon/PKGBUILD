@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-settings-daemon
-pkgver=47.1
+pkgver=47.2
 pkgrel=1
 pkgdesc="GNOME Settings Daemon"
 url="https://gitlab.gnome.org/GNOME/gnome-settings-daemon"
@@ -73,9 +73,9 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git"
   0001-subprojects-Update-gvc-to-latest-commit.patch
 )
-b2sums=('2e0a3c678673511be82a69607bf23c46869eaf2478adec849bdecbc6015e9e4e91f5e0f216f2c1df833e08d91504c065ba9bff10a292a7ff166551eaf375cfef'
+b2sums=('a962e60e7a68991ac08552d770bb53b5df15025f04bd24ed5fb04bd17d8ffc40974e044d63891559d1332ea127c974b33e5d4cd8b66102f87b15c4e6bc42571c'
         'SKIP'
-        '51cfe280b938ae8c74a46432feddbafb598d7e82fec7dfbf657791cb4749a0a205d5e99decb4953272451b03c91fe7c3891df0c4e945c2070615405db3ec897c')
+        'ca4bdec5aed515e4e2a15c32302ea08b951e24a94a6f8cc72c0f46846a32fda89d26c65da2d64d4df96f7151703f0c9b8b9ceab33cdd29ac384e711885f76416')
 
 prepare() {
   cd $pkgname
