@@ -1,15 +1,17 @@
 pkgbase = deepin-grand-search
 	pkgdesc = System-wide desktop search for DDE
-	pkgver = 5.4.5
-	pkgrel = 6
+	pkgver = 5.4.7
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-grand-search
 	arch = x86_64
 	groups = deepin-extra
 	license = GPL3
+	makedepends = git
 	makedepends = cmake
-	makedepends = deepin-dock
+	makedepends = deepin-tray-loader
 	makedepends = ninja
 	makedepends = qt5-tools
+	makedepends = boost
 	depends = deepin-anything
 	depends = deepin-application-manager
 	depends = taglib
@@ -18,9 +20,13 @@ pkgbase = deepin-grand-search
 	depends = deepin-pdfium
 	depends = ffmpegthumbnailer
 	depends = deepin-qt-dbus-factory
-	source = deepin-grand-search-5.4.5.tar.gz::https://github.com/linuxdeepin/dde-grand-search/archive/5.4.5.tar.gz
+	depends = dtkgui
+	depends = dtkwidget
+	depends = lucene++
+	depends = poppler-qt5
+	source = git+https://github.com/linuxdeepin/dde-grand-search.git#tag=5.4.7
 	source = taglib-2.patch
-	sha512sums = 7d2bd203b9c0dfef57a0667690252a9b3b3f3b5b2e30f44f6706de0d98885908f21f982fd19257812b92a0564e4e7888f8a6789bee2aa5ac2c573a2cadf0b838
+	sha512sums = 9c70e0043acfa9a4432bc524421d6ef27a44c71bbb9829d770da13a8913ae9d541c71d17e13cc6784e86abdd84e9d9da2512aa7894e0b6a65d250d178d809891
 	sha512sums = 8364cd5aa0350a7d109be7ce10035c6c4e3fd6686205bc880017b1fc93a10cff6e78a8f66daeb25427c416a6dc075482136146c9d8278aee6de71653673d59a0
 
 pkgname = deepin-grand-search

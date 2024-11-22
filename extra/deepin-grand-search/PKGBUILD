@@ -1,39 +1,37 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-grand-search
-pkgver=5.4.5
-pkgrel=6
+pkgver=5.4.7
+pkgrel=1
 pkgdesc='System-wide desktop search for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-grand-search"
 license=('GPL3')
 # deepin-application-manager: org.deepin.dde.Application1.Manager :/
 depends=(deepin-anything deepin-application-manager taglib ffmpeg icu deepin-pdfium ffmpegthumbnailer
-         deepin-qt-dbus-factory)
-makedepends=(cmake deepin-dock ninja qt5-tools)
+         deepin-qt-dbus-factory dtkgui dtkwidget lucene++ poppler-qt5)
+makedepends=(git cmake deepin-tray-loader ninja qt5-tools boost)
 groups=(deepin-extra)
-source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/dde-grand-search/archive/$pkgver.tar.gz"
+source=("git+https://github.com/linuxdeepin/dde-grand-search.git#tag=$pkgver"
          taglib-2.patch)
-sha512sums=('7d2bd203b9c0dfef57a0667690252a9b3b3f3b5b2e30f44f6706de0d98885908f21f982fd19257812b92a0564e4e7888f8a6789bee2aa5ac2c573a2cadf0b838'
+sha512sums=('9c70e0043acfa9a4432bc524421d6ef27a44c71bbb9829d770da13a8913ae9d541c71d17e13cc6784e86abdd84e9d9da2512aa7894e0b6a65d250d178d809891'
             '8364cd5aa0350a7d109be7ce10035c6c4e3fd6686205bc880017b1fc93a10cff6e78a8f66daeb25427c416a6dc075482136146c9d8278aee6de71653673d59a0')
 
 prepare() {
-  cd dde-grand-search-$pkgver
+  cd dde-grand-search
   # https://github.com/linuxdeepin/dde-grand-search/pull/65
   sed -i 's/-fPIE -pie//g' src/*/CMakeLists.txt
 
   patch -p1 -i ../taglib-2.patch
-
-  sed -e 's|CMAKE_CXX_STANDARD 14|CMAKE_CXX_STANDARD 17|' -i src/*/CMakeLists.txt # Fix build with ICU 75
 }
 
 build() {
-  cd dde-grand-search-$pkgver
+  cd dde-grand-search
   cmake -GNinja .
   ninja
 }
 
 package() {
-  cd dde-grand-search-$pkgver
+  cd dde-grand-search
   DESTDIR="$pkgdir" ninja install
 }
