@@ -2,7 +2,7 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3 orbiton-nano)
-pkgver=2.68.2
+pkgver=2.68.3
 pkgrel=1
 pkgdesc='Fast and configuration-free text editor and IDE limited by VT100'
 arch=(x86_64)
@@ -11,7 +11,7 @@ license=(BSD-3-Clause)
 makedepends=(git go vte3)
 options=(!lto)
 source=("git+https://github.com/xyproto/orbiton#tag=v$pkgver")
-b2sums=('a7365d652c8860c468bbbb971076ce031a389b970d0e2455a9dd3493f94c1656cc0c7eea13374b264f63fcec3edf65413e0812d19df4286db462f9832eea4a41')
+b2sums=('14a12ce2e5e0039be2dcc131862a9f7ec01678b2b7cade220c9383b06a5cb1040b72c0f0d71fab97580c5aed70192b46d748e3d6e78a643a358eff73747c0703')
 
 build() {
   # Adjust the LDFLAGS to work together with go build
@@ -27,7 +27,6 @@ package_orbiton() {
   # 'google-java-format: for formatting Java'
   # 'lua-format: for formatting Lua'
   # 'hare: for compiling Hare'
-  # 'odin: for compiling Odin'
   # 'scala: for compiling Scala'
   # 'vlang: for compiling and formatting V'
   optdepends=('asciidoctor: for writing man pages'
@@ -53,6 +52,7 @@ package_orbiton() {
               'mono: for compiling C#'
               'nasm: for compiling Assembly'
               'ocaml: for compiling and formatting OCaml'
+              'odin: for compiling Odin'
               'ollama: for experimental tab completion'
               'perl-tidy: for formatting Perl'
               'pandoc: for exporting Markdown to PDF'
