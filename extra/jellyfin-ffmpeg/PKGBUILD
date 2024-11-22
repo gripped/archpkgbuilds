@@ -4,7 +4,7 @@
 pkgname=jellyfin-ffmpeg
 epoch=1
 pkgver=7.0.2p7
-pkgrel=1
+pkgrel=2
 pkgdesc='Jellyfin fork of ffmpeg'
 arch=('x86_64')
 url='https://github.com/jellyfin/jellyfin-ffmpeg'
@@ -45,6 +45,7 @@ depends=(
   'opus'
   'shaderc'
   'srt'
+  'svt-av1'
   'vulkan-icd-loader'
   'xz'
   'zlib'
@@ -117,6 +118,7 @@ build() {
     --enable-libtheora \
     --enable-libvorbis \
     --enable-libdav1d \
+    --enable-libsvtav1 \
     --enable-libwebp \
     --enable-libvpx \
     --enable-libx264 \
