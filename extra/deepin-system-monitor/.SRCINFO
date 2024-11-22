@@ -1,18 +1,19 @@
 pkgbase = deepin-system-monitor
 	pkgdesc = A more user-friendly system monitor
-	pkgver = 6.0.16
-	pkgrel = 4
+	pkgver = 6.0.21
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-system-monitor
 	install = deepin-system-monitor.install
 	arch = x86_64
 	groups = deepin
 	license = GPL3
+	makedepends = git
 	makedepends = cmake
 	makedepends = deepin-gettext-tools
 	makedepends = gtest
 	makedepends = ninja
 	makedepends = qt5-tools
-	makedepends = deepin-dock
+	makedepends = deepin-tray-loader
 	depends = dtkcore
 	depends = dtkgui
 	depends = dtkwidget
@@ -29,7 +30,8 @@ pkgbase = deepin-system-monitor
 	depends = libcap
 	depends = libpcap
 	depends = startdde
-	source = https://github.com/linuxdeepin/deepin-system-monitor/archive/6.0.16/deepin-system-monitor-6.0.16.tar.gz
-	sha512sums = 802b73068151344d09f67cda14d28b0d0655d31497ce844eff1039ef087359c0c3a4cc3fa8ad188ce0cc752f8398e536b37a76f3aa78bba50b3a8959b65e98bb
+	depends = polkit-qt5
+	source = git+https://github.com/linuxdeepin/deepin-system-monitor.git#tag=6.0.21
+	sha512sums = 134a45c4be9470bd1e547569556276936cf1c4a155f32001aed1d145c2d0b5ae5fa7aa265d75d7c3fe4d88b8bfe54a3b23f9f5ec5011dd0051c3b1d2b32b877b
 
 pkgname = deepin-system-monitor
