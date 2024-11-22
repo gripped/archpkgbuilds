@@ -3,8 +3,8 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-file-manager
-pkgver=6.0.42
-pkgrel=5
+pkgver=6.0.43
+pkgrel=1
 epoch=1
 pkgdesc='Deepin File Manager'
 arch=('x86_64')
@@ -16,7 +16,7 @@ depends=('dtkcore' 'dtkgui' 'dtkwidget' 'deepin-anything' 'deepin-util-dfm' 'qt5
          'libxcb' 'libx11' 'qt5-multimedia' 'cryptsetup' 'lucene++' 'avfs' 'gsettings-qt'
          'polkit-qt5' 'poppler' 'kcodecs5' 'taglib' 'util-linux-libs' 'icu' 'pcre' 'glibc' 'gcc-libs'
          'deepin-appearance' 'deepin-qt-dbus-factory' 'cryfs' 'socat')
-makedepends=('git' 'boost' 'cmake' 'ninja' 'qt5-tools' 'deepin-dock' 'deepin-movie'
+makedepends=('git' 'boost' 'cmake' 'ninja' 'qt5-tools' 'deepin-tray-loader' 'deepin-movie'
              'deepin-gettext-tools')
 optdepends=('deepin-manual: for help menual'
             'deepin-shortcut-viewer: for shortcut display'
@@ -32,11 +32,14 @@ replaces=('deepin-desktop')
 options=('!lto')
 source=("git+https://github.com/linuxdeepin/dde-file-manager.git#tag=$pkgver"
          taglib-2.patch)
-sha512sums=('b234037b880778f969d21acfb298da195adf593855f34404e1609b7accf93b2d7fa9ce0d6d7cb6020e358fe19f351477b2026270afce9a5418e8a6afe8c5f817'
+sha512sums=('84329a70fc68117d8577c9e56b08e6ed3ca17e97db389823fce6a4dbd868d981afbe1a7e9bfe5cff2e1794221368d2377eb966417d1bff21ae2d5a35562aa5d6'
             'd010d787b406fc66ccf8aa2f6544dcabf291e21969e94a2b77455084395b8fd1620d7c359bd915518be79fac685791b60d401b0e9e1ff6544a05cdb3e2791fd7')
 
 prepare() {
-  patch -d dde-file-manager -p1 < taglib-2.patch
+  cd dde-file-manager
+  # New dde-dock interface
+  git cherry-pick -n b0125c3a11a7cd7a914473beb85c8e4e5c449906
+  patch -p1 -i ../taglib-2.patch
 }
 
 build() {
