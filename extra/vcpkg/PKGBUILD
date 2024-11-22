@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=vcpkg
-pkgver=2024.10.18
+pkgver=2024.11.12
 _pkgver="${pkgver//./-}"
 pkgrel=1
 pkgdesc='C++ library manager'
@@ -23,9 +23,9 @@ source=(
   "$pkgname::git+https://github.com/microsoft/vcpkg-tool#tag=$_pkgver"
   'vcpkg.sh'
 )
-sha512sums=('30b9f25cc251964f76d55e50dd843bf7445b2957b04ca672f9fe2fddc403fa0cad71502943936ec5a4a803845698f4fced84b9a4a9170adc1644a490c806c2c5'
+sha512sums=('ab13247d1da07e860f746de5a7586eafa57bbc432b3b361e41e619c357c48dfefe82bbfc0cccf629ccf249b0b1c802507565428baf255c28f1185c7ae54981cf'
             'a71f4de5044197871b01d66db0453c8df228d690b259972fd4cf242806f3eac65d80e3c794ce511ce03b69f95d6c40ab20989e6fd9907efc962337d5dfbdf4f6')
-b2sums=('65bdde28f615852b6db9a763307ea8ce05cb584e58774f6274ae836c1b29d4c44c2ec390e715625d0c346de0deb2d42ce88c03924ee3b8a0237314a5b067ef6b'
+b2sums=('5b6f6e939cea2d7061c489d159a0509d6271468dc0bac292ef24a6b63609c2a1a19f56b8abd63fd6a091f1f97ab7be3f68d76075a898f81f348dd140bd3d216d'
         'c67bb718f04146ae72ba5d7a290d08079e965cc330db11c98b94de355cd4a6ff489dbd4c363c940f4a96a1fd7ff8a754ff0efb62156e81bcccfd80376b4d0e39')
 
 build() {
