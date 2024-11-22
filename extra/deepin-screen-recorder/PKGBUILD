@@ -3,8 +3,8 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-screen-recorder
-pkgver=5.12.15
-pkgrel=5
+pkgver=5.12.17
+pkgrel=1
 pkgdesc='Deepin Screen Recorder'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-screen-recorder"
@@ -12,18 +12,18 @@ license=('GPL3')
 depends=('deepin-qt5integration' 'deepin-qt-dbus-factory' 'dtkcore' 'dtkgui' 'dtkwidget'
          'qt5-base' 'qt5-x11extras' 'qt5-multimedia' 'deepin-turbo' 'ffmpeg4.4' 'libxtst' 'opencv'
          'dconf' 'libxext' 'libx11' 'libxfixes' 'portaudio' 'deepin-image-editor' 'gcc-libs')
-makedepends=('deepin-dock')
+makedepends=('git' 'deepin-tray-loader')
 optdepends=('deepin-shortcut-viewer: for shortcut display')
 provides=('deepin-screenshot')
 conflicts=('deepin-screenshot')
 groups=('deepin-extra')
-source=("https://github.com/linuxdeepin/deepin-screen-recorder/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        $pkgname-unqualified-id.patch::https://github.com/linuxdeepin/deepin-screen-recorder/pull/416.patch)
-sha512sums=('9e9281918b27b34e27f9f7c2ef7b490eda272adc63370fb2908fd98735983467195cc24a466ca3b9a04e7e6a1b622eb905158da513947b633b434882fe797fa2'
-            '5b26c7127cde0ae041ca53ab87edb3ea341d883f7d204f03e697175245c5ad564f9f0e30448fb291cff34fa26d03e1ee2dec4d368527f0bb217b086d7f1dde78')
+source=("git+https://github.com/linuxdeepin/deepin-screen-recorder.git#tag=$pkgver"
+        "$pkgname-unqualified-id.patch")
+sha512sums=('a9291b3378c94209c8baff33b6c47b09efa9f83610fe5a567c5203ba6f83883d6958af802513137044871648969b09078e5747fc6efa98f0bf89bd44040f4864'
+            '5624a25292b0d4f74aa73c1374c51d9098db8a6984e9586da1f88349c0315e2dde1cb6f3b26ac7db6fd04044b9283238ab93a607be6883f746b0e1a57e8c3ce3')
 
 prepare() {
-  cd deepin-screen-recorder-$pkgver
+  cd deepin-screen-recorder
   patch -Np1 -i ../$pkgname-unqualified-id.patch
 
   # https://github.com/linuxdeepin/developer-center/issues/3035
@@ -37,7 +37,7 @@ prepare() {
 }
 
 build(){
-  cd deepin-screen-recorder-$pkgver
+  cd deepin-screen-recorder
   export PKG_CONFIG_PATH='/usr/lib/ffmpeg4.4/pkgconfig'
   qmake-qt5 PREFIX=/usr
   CFLAGS+=" -Wno-implicit-function-declaration -I/usr/include/ffmpeg4.4/" \
@@ -45,6 +45,6 @@ build(){
 }
 
 package() {
-  cd deepin-screen-recorder-$pkgver
+  cd deepin-screen-recorder
   make INSTALL_ROOT="$pkgdir" install
 }
