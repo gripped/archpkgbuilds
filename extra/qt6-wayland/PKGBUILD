@@ -5,10 +5,13 @@
 pkgname=qt6-wayland
 _pkgver=6.8.0
 pkgver=6.8.0
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
-license=(GPL3 LGPL3 FDL custom)
+license=(GPL-3.0-only
+         LGPL-3.0-only
+         LicenseRef-Qt-Commercial
+         Qt-GPL-exception-1.0)
 pkgdesc='Provides APIs for Wayland'
 depends=(gcc-libs
          glibc
@@ -25,6 +28,13 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
 sha256sums=('09927060c5595c33176d7a9828b427a0934484c0741d910437a49c6cad5165d4')
+
+prepare() {
+  cd $_pkgfn
+  # Cherry picks for DDE
+  git cherry-pick -n 67f121cc4c3865aa3a93cf563caa1d9da3c92695
+  git cherry-pick -n 070414dd4155e13583e5e8b16bed1a5b68d32910
+}
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
