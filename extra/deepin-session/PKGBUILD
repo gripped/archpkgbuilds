@@ -1,37 +1,42 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-session
-pkgver=1.2.6
-pkgrel=2
+pkgver=1.2.9
+pkgrel=1
 pkgdesc='New deepin session, based on systemd and existing projects'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-session"
 license=('GPL3')
 # deepin-session-ui: org.deepin.dde.Osd1
 # deepin-kwin: dde-session@.service
-# deepin-dock: dde-session-initialized.target.wants/dde-dock.service
+# deepin-shell: dde-session-initialized.target.wants/dde-shell@DDE.service
 # deepin-qt{5,6} plugins/integrations: enabled by dde-session
 depends=('glibc' 'gcc-libs' 'glib2' 'libx11' 'libsecret' 'qt5-base' 'gsettings-qt' 'dtkcore'
-         'libxcursor' 'libxfixes' 'systemd-libs' 'deepin-session-ui' 'deepin-kwin' 'deepin-dock'
+         'libxcursor' 'libxfixes' 'systemd-libs' 'deepin-session-ui' 'deepin-kwin' 'deepin-shell'
          'deepin-qt5platform-plugins' 'deepin-qt5integration'
          'deepin-qt6platform-plugins' 'deepin-qt6integration')
-makedepends=('cmake' 'ninja')
+makedepends=('git' 'cmake' 'ninja')
 groups=('deepin')
-source=("https://github.com/linuxdeepin/dde-session/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('f443d5badfac544d6c102e485d0f32b4b889474f58f5eddd2768ec812eb471c5592db8a55a2be4f295e71cb26f40501176d947c5c939b3ab1fe91d36c111b6b4')
+source=("git+https://github.com/linuxdeepin/dde-session.git#tag=$pkgver"
+        fix-dtk6-theme.patch)
+sha512sums=('e3c07db03570ce8d2d41a238fa5e7c1949babc92d3849ec1e86a5bf64000b96c4f33bc73c4e764628be6f44fb292745cf2229079d208ff22f4889451eb1cacfa'
+            'e0a164009493927a3ceeb497e978d31daa0c3022f57e609b7b3784520635c31405f1f734652cc5c50f5a1915195b45cf4f7d147f6accbcdfcd8be897368f0c24')
 
 prepare(){
-  cd dde-session-$pkgver
+  cd dde-session
+  # DDE sets these envvars in /etc/X11/Xsession.d, which is Debian-specific
+  # Patch from openSUSE
+  patch -Np1 -i ../fix-dtk6-theme.patch
   sed -i 's|/etc/os-version|/etc/uos-version|' misc/Xsession.d/00deepin-dde-env
 }
 
 build() {
-  cd dde-session-$pkgver
+  cd dde-session
   cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DCMAKE_INSTALL_LIBEXECDIR=lib
   ninja
 }
 
 package() {
-  cd dde-session-$pkgver
+  cd dde-session
   DESTDIR="$pkgdir" ninja install
 }

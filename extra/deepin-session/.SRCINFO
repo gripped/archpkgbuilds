@@ -1,11 +1,12 @@
 pkgbase = deepin-session
 	pkgdesc = New deepin session, based on systemd and existing projects
-	pkgver = 1.2.6
-	pkgrel = 2
+	pkgver = 1.2.9
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-session
 	arch = x86_64
 	groups = deepin
 	license = GPL3
+	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
 	depends = glibc
@@ -21,12 +22,14 @@ pkgbase = deepin-session
 	depends = systemd-libs
 	depends = deepin-session-ui
 	depends = deepin-kwin
-	depends = deepin-dock
+	depends = deepin-shell
 	depends = deepin-qt5platform-plugins
 	depends = deepin-qt5integration
 	depends = deepin-qt6platform-plugins
 	depends = deepin-qt6integration
-	source = https://github.com/linuxdeepin/dde-session/archive/1.2.6/deepin-session-1.2.6.tar.gz
-	sha512sums = f443d5badfac544d6c102e485d0f32b4b889474f58f5eddd2768ec812eb471c5592db8a55a2be4f295e71cb26f40501176d947c5c939b3ab1fe91d36c111b6b4
+	source = git+https://github.com/linuxdeepin/dde-session.git#tag=1.2.9
+	source = fix-dtk6-theme.patch
+	sha512sums = e3c07db03570ce8d2d41a238fa5e7c1949babc92d3849ec1e86a5bf64000b96c4f33bc73c4e764628be6f44fb292745cf2229079d208ff22f4889451eb1cacfa
+	sha512sums = e0a164009493927a3ceeb497e978d31daa0c3022f57e609b7b3784520635c31405f1f734652cc5c50f5a1915195b45cf4f7d147f6accbcdfcd8be897368f0c24
 
 pkgname = deepin-session
