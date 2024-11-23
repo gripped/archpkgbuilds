@@ -11,7 +11,7 @@ pkgname=('virtualbox'
          'virtualbox-ext-vnc')
 pkgver=7.1.4
 _tarver=${pkgver}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://virtualbox.org/'
 license=('GPL' 'custom:CDDL')
@@ -54,6 +54,7 @@ makedepends=('alsa-lib'
              'yasm')
 source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_tarver}.tar.bz2"
         'virtualbox-host-dkms.conf'
+        'virtualbox.modprobe'
         'virtualbox.sysusers'
         'virtualbox-guest-utils.sysusers'
         '60-vboxdrv.rules'
@@ -75,6 +76,7 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_tarv
         '020-python-3-12.patch')
 sha256sums=('872e7a42b41f8558abbf887f1bdc7aac932bb88b2764d07cbce270cab57e3b5e'
             '76d98ea062fcad9e5e3fa981d046a6eb12a3e718a296544a68b66f4b65cb56db'
+            '03ed7f65d8e2f91b17b81bdf2f0f634e62b95e71f7c6c1acaf22d8be97d10e59'
             '2101ebb58233bbfadf3aa74381f22f7e7e508559d2b46387114bc2d8e308554c'
             'da4c49f6ca94e047e196cdbcba2c321199f4760056ea66e0fbc659353e128c9e'
             'f876e9f55243eded423fda4fc2ffe3b174dca90380a6315f7c9b3cd1c9d07206'
@@ -145,7 +147,8 @@ package_virtualbox() {
                 'virtualbox-guest-iso: Guest Additions CD image'
                 'virtualbox-ext-vnc: VNC server support'
                 'virtualbox-sdk: Developer kit')
-    backup=('etc/vbox/vbox.cfg')
+    backup=('etc/modprobe.d/virtualbox.conf'
+            'etc/vbox/vbox.cfg')
     replaces=('virtualbox-ose')
     conflicts=('virtualbox-ose')
 
@@ -229,6 +232,11 @@ package_virtualbox() {
     # install module reloading shortcut (with a symlink with default helper)
     install -D -m0755 vboxreload "${pkgdir}/usr/bin"
     ln -s vboxreload "${pkgdir}/usr/bin/rcvboxdrv"
+
+    # Starting with Linux 7.12 the kernel virtual machine (KVM) enables
+    # virtualization on module load, preventing virtualbox from functioning.
+    # Disable this behavior...
+    install -D -m0644 virtualbox.modprobe "${pkgdir}/etc/modprobe.d/virtualbox.conf"
 }
 
 package_virtualbox-sdk() {
@@ -298,7 +306,7 @@ package_virtualbox-guest-utils() {
     source "VirtualBox-${pkgver}/env.sh"
     pushd "VirtualBox-${pkgver}/out/linux.${BUILD_PLATFORM_ARCH}/release/bin/additions"
     install -d "${pkgdir}/usr/bin"
-    install -m0755 VBoxAudioTest VBoxClient VBoxControl VBoxDRMClient VBoxService "${pkgdir}/usr/bin"
+    install -m0755 VBoxAudioTest VBoxClient VBoxControl VBoxDRMClient VBoxService vboxwl "${pkgdir}/usr/bin"
     install -m0755 -D "${srcdir}"/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/98vboxadd-xclient \
         "${pkgdir}"/usr/bin/VBoxClient-all
     install -m0644 -D "${srcdir}"/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/vboxclient.desktop \
