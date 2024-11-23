@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-appearance
-pkgver=1.1.29
+pkgver=1.1.30
 pkgrel=1
 pkgdesc='Application resource management and control services for the dde desktop environment'
 arch=('x86_64')
@@ -11,18 +11,18 @@ license=('GPL3')
 depends=('qt5-base' 'dtkcore' 'kconfig5' 'kwindowsystem5' 'kglobalaccel5' 'libxcursor' 'libxfixes'
          'libx11' 'gtk3' 'libxcb' 'xcb-util-cursor' 'fontconfig' 'openssl' 'gsettings-qt' 'glib2'
          'dtkgui' 'glibc' 'gcc-libs' 'startdde')
-makedepends=('cmake' 'ninja' 'qt5-tools')
+makedepends=('git' 'cmake' 'ninja' 'qt5-tools')
 groups=('deepin')
-source=("https://github.com/linuxdeepin/dde-appearance/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('3a60a792b88c109ff2c707e02248b738cb3d3af04cb4b91bdf67a0a3e2047b9c1afd5c13d4844f8534a5803963f9548c88733606704b69aaf84bf2300b26b07b')
+source=("git+https://github.com/linuxdeepin/dde-appearance.git#tag=$pkgver")
+sha512sums=('a3cd3c1d21b48375ee203be4f5342cee9d42f0c20390c7b4082c49e20d0287f5c48adfe53af0e3d7db3c87dd25e681d87206069440ccc38db6a4bbd88c84eafe')
 
 build() {
-  cd dde-appearance-$pkgver
+  cd dde-appearance
   cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc
   ninja
 }
 
 package() {
-  cd dde-appearance-$pkgver
+  cd dde-appearance
   DESTDIR="$pkgdir" ninja install
 }
