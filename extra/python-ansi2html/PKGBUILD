@@ -2,8 +2,8 @@
 
 pkgname=python-ansi2html
 _libname=${pkgname/python-/}
-pkgver=1.9.1
-pkgrel=3
+pkgver=1.9.2
+pkgrel=1
 pkgdesc="Convert text with ANSI color codes to HTML"
 arch=('any')
 url="https://github.com/pycontribs/ansi2html"
@@ -14,8 +14,8 @@ checkdepends=(python-pytest)
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
 )
-sha256sums=('08395451ee39e661ad6e5449ff8334cf30bb9844755c666764c5d6bb08d758c5')
-b2sums=('39e1ceab8301378812d2dc0f0e8b27f1f26b54040736ffcd0d7bb2078abc6033a8d88884bf9ffa685629d8e0d82502b9bdceb3119e005989285b329354194b25')
+sha256sums=('d4a12e0d0ed06af467882bcc24fad34ddcf7d4d61f237125ce7713f7f1341c3f')
+b2sums=('a43f25a47af819a4302217fcfbe39081b40b2a94bb8a186f2ae3b52aceac9ab1a789e5c8848da2de00ec817cc8e182b36aec69d2a5d042838db100a2e6d693ee')
 validpgpkeys=(94504C3AE11DD197920058ABA90ED7DE971095FF)
 
 build() {
