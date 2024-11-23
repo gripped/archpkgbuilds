@@ -1,11 +1,12 @@
 pkgbase = deepin-app-services
 	pkgdesc = Service collection of DDE applications, including dconfig-center
-	pkgver = 1.0.25
+	pkgver = 1.0.26
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-app-services
 	arch = x86_64
 	groups = deepin
 	license = GPL3
+	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
 	makedepends = doxygen
@@ -14,7 +15,7 @@ pkgbase = deepin-app-services
 	depends = qt5-base
 	depends = dtkcore
 	depends = dtkwidget
-	source = deepin-app-services-1.0.25.tar.gz::https://github.com/linuxdeepin/dde-app-services/archive/1.0.25.tar.gz
-	sha512sums = c531b0a408a360c563a3019f79959fe85748ef4d2e2475f8447d011798f82b548b781e066027ea758e895a7f5f9aaac29807752786eb1754608a5f1b3e50f32b
+	source = git+https://github.com/linuxdeepin/dde-app-services.git#tag=1.0.26
+	sha512sums = c46f6249a5fe4f9cde3cca29a83d63e10be08f8c3f5051f307c1c011a904eb7a548c7b7280e539e12e1ebd8c7e824cbe4cc71b2b124371a9c9e0daa802c06b7f
 
 pkgname = deepin-app-services
