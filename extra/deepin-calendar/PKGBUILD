@@ -3,20 +3,20 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-calendar
-pkgver=5.12.3
-pkgrel=2
+pkgver=5.12.4
+pkgrel=1
 pkgdesc='Calendar for Deepin Desktop Environment'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-calendar"
 license=('GPL3')
 depends=('dtkcore' 'dtkgui' 'dtkwidget' 'glibc' 'gcc-libs' 'libical' 'qt5-svg' 'qt5-base')
-makedepends=('cmake' 'ninja' 'qt5-tools')
+makedepends=('git' 'cmake' 'ninja' 'qt5-tools')
 groups=('deepin')
-source=("https://github.com/linuxdeepin/dde-calendar/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('e8374e5a28342ceecec4e969da89f6f01e9db2afb4a52f0cf8156f7a0570a5d03fc55caabb5da513c837bf341e44a2ddfe99ffd80420b12b60adb92232bab8a1')
+source=("git+https://github.com/linuxdeepin/dde-calendar.git#tag=$pkgver")
+sha512sums=('3f185b0878714877a992009e90362530462f88b6512210ef36ed9a70b0190d19ce511608b3ccf995b6009fce23afab7afe7e2c7e01b8ae9c1e815b681e3dd249')
 
 build() {
-  cd dde-calendar-$pkgver
+  cd dde-calendar
   cmake -GNinja . \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_SYSCONFDIR=/etc \
@@ -26,6 +26,6 @@ build() {
 }
 
 package() {
-  cd dde-calendar-$pkgver
+  cd dde-calendar
   DESTDIR="$pkgdir" ninja install
 }

@@ -1,11 +1,12 @@
 pkgbase = deepin-calendar
 	pkgdesc = Calendar for Deepin Desktop Environment
-	pkgver = 5.12.3
-	pkgrel = 2
+	pkgver = 5.12.4
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-calendar
 	arch = x86_64
 	groups = deepin
 	license = GPL3
+	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
 	makedepends = qt5-tools
@@ -17,7 +18,7 @@ pkgbase = deepin-calendar
 	depends = libical
 	depends = qt5-svg
 	depends = qt5-base
-	source = https://github.com/linuxdeepin/dde-calendar/archive/5.12.3/deepin-calendar-5.12.3.tar.gz
-	sha512sums = e8374e5a28342ceecec4e969da89f6f01e9db2afb4a52f0cf8156f7a0570a5d03fc55caabb5da513c837bf341e44a2ddfe99ffd80420b12b60adb92232bab8a1
+	source = git+https://github.com/linuxdeepin/dde-calendar.git#tag=5.12.4
+	sha512sums = 3f185b0878714877a992009e90362530462f88b6512210ef36ed9a70b0190d19ce511608b3ccf995b6009fce23afab7afe7e2c7e01b8ae9c1e815b681e3dd249
 
 pkgname = deepin-calendar
