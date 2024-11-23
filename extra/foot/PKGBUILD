@@ -5,7 +5,7 @@ pkgbase=foot
 pkgdesc='Fast, lightweight, and minimalistic Wayland terminal emulator'
 pkgname=($pkgbase $pkgbase-terminfo)
 pkgver=1.19.0
-pkgrel=1
+pkgrel=2
 url="https://codeberg.org/dnkl/$pkgbase"
 arch=(x86_64)
 license=(MIT)
@@ -34,11 +34,9 @@ build() {
 	./pgo/pgo.sh \
 		full-headless-sway \
 		. build \
-		-Dterminfo=disabled \
+		-Dterminfo-base-name=foot-extra \
 		--prefix=/usr \
 		--wrap-mode=nodownload
-	sed 's/@default_terminfo@/foot-extra/g' foot.info |
-		tic -x -o build -e foot-extra,foot-extra-direct -
 }
 
 check() {
@@ -60,6 +58,7 @@ package_foot() {
 	         wayland)
 	cd "$pkgbase"
 	DESTDIR="$pkgdir" ninja -C build install
+	rm -r "$pkgdir/usr/share/terminfo/"
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }
 
