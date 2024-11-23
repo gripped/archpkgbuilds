@@ -4,8 +4,8 @@
 # Contributor: Mark Schneider <queueRAM@gmail.com>
 
 pkgname=gnucash
-pkgver=5.8
-pkgrel=2
+pkgver=5.9
+pkgrel=1
 pkgdesc='Personal and small-business financial-accounting application'
 arch=(x86_64)
 url='https://gnucash.org/'
@@ -18,7 +18,7 @@ optdepends=('gnucash-docs: documentation'
             'perl-finance-quote: stock information lookups')
 options=(!emptydirs)
 source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2)
-sha256sums=('a2c823fb700b9d4598692ec81394959bde388d8ef191efe4ea2c02426bb52593')
+sha256sums=('5be2e5364fc36464fc32c768e2ab460a630f74db6aeb7d44266e3dab98222fd0')
 
 build() {
   cd $pkgname-$pkgver
