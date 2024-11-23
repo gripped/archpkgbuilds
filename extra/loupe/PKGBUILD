@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=loupe
-pkgver=47.1
+pkgver=47.2
 pkgrel=1
 pkgdesc="A simple image viewer for GNOME"
 url="https://gitlab.gnome.org/GNOME/loupe"
@@ -32,7 +32,7 @@ makedepends=(
   rust
 )
 source=("git+$url.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('5a9feb046acbaff3f8bfaa4ac86b33823990b98939170b5fe10e5e59844d773b3765dbdf470f6ca3a9eebe7f8e964462b3145b2c3a712120feb88642741ee6da')
+b2sums=('ae6e09a338c55aee91d7308dae0a65e29bb9bb5925ef1754246d27cb2846040f64ecd3d09c904ee2da0c44a842d59bef920daa470c5aa73eb77badaa6d1920a3')
 validpgpkeys=(
   4587A0EE1EE5478AAB82C0A93BA28A5559F08EBD # Sophie Herold <sophieherold@gnome.org>
 )
