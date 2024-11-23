@@ -1,33 +1,33 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-font-manager
-pkgver=6.0.4
+pkgver=6.5.0
 pkgrel=1
 pkgdesc='A font management tool for Deepin desktop'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-font-manager"
 license=('GPL3')
 depends=('deepin-qt5integration' 'dtkcore' 'dtkgui' 'dtkwidget' 'qt5-base' 'fontconfig' 'freetype2' 'gcc-libs')
-makedepends=('cmake' 'deepin-file-manager' 'ninja' 'qt5-tools')
+makedepends=('git' 'cmake' 'deepin-file-manager' 'ninja' 'qt5-tools')
 optdepends=('deepin-file-manager: font preview in file manager')
 groups=('deepin-extra')
-source=("https://github.com/linuxdeepin/deepin-font-manager/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('0260c95278268bab3110c6afae141ba69ef8fbd883f3d3a4db2410c8d89efeaf0484d3ca52eec7d59eee1212eb01628dbea5db9a97f4e33cc11152e02687abf2')
+source=("git+https://github.com/linuxdeepin/deepin-font-manager.git#tag=$pkgver")
+sha512sums=('0361e0b337fc62a869d49da2a9c20b586be14e52f0765f98b96ed45ad74e081959e0a87c3e3a7718f305389b5ed870d186215732b262c3968f188732ffb0aaba')
 
 prepare() {
-  cd deepin-font-manager-$pkgver
+  cd deepin-font-manager
 
   # Fix linker flags
   sed -i 's/CMAKE_EXE_LINKER_FLAGS "-pie"/CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pie"/' deepin-font-manager/CMakeLists.txt
 }
 
 build() {
-  cd deepin-font-manager-$pkgver
+  cd deepin-font-manager
   cmake -GNinja . -DPLUGIN_INSTALL_DIR=  -DCMAKE_INSTALL_PREFIX=/usr
   ninja
 }
 
 package() {
-  cd deepin-font-manager-$pkgver
+  cd deepin-font-manager
   DESTDIR="$pkgdir" ninja install
 }

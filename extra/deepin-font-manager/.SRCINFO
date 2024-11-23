@@ -1,11 +1,12 @@
 pkgbase = deepin-font-manager
 	pkgdesc = A font management tool for Deepin desktop
-	pkgver = 6.0.4
+	pkgver = 6.5.0
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-font-manager
 	arch = x86_64
 	groups = deepin-extra
 	license = GPL3
+	makedepends = git
 	makedepends = cmake
 	makedepends = deepin-file-manager
 	makedepends = ninja
@@ -19,7 +20,7 @@ pkgbase = deepin-font-manager
 	depends = freetype2
 	depends = gcc-libs
 	optdepends = deepin-file-manager: font preview in file manager
-	source = https://github.com/linuxdeepin/deepin-font-manager/archive/6.0.4/deepin-font-manager-6.0.4.tar.gz
-	sha512sums = 0260c95278268bab3110c6afae141ba69ef8fbd883f3d3a4db2410c8d89efeaf0484d3ca52eec7d59eee1212eb01628dbea5db9a97f4e33cc11152e02687abf2
+	source = git+https://github.com/linuxdeepin/deepin-font-manager.git#tag=6.5.0
+	sha512sums = 0361e0b337fc62a869d49da2a9c20b586be14e52f0765f98b96ed45ad74e081959e0a87c3e3a7718f305389b5ed870d186215732b262c3968f188732ffb0aaba
 
 pkgname = deepin-font-manager
