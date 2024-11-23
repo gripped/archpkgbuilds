@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Avery <aur@avery.cafe>
 pkgname=delfin
-pkgver=0.4.6
+pkgver=0.4.8
 pkgrel=1
 pkgdesc="Stream movies and TV shows from Jellyfin"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('GPL-3.0-or-later')
 depends=('gtk4' 'libadwaita' 'mpv')
 makedepends=('rust' 'clang' 'meson')
 source=("$pkgname-$pkgver.tar.gz::https://codeberg.org/avery42/delfin/archive/v$pkgver.tar.gz")
-sha256sums=('64cf284457d4097d49e5246423262929c1bb0c54a4d40ff474683eb67c65b003')
+sha256sums=('8eeed8e47d369df85f00dcae75b31dd6a790ab7207b710eb9686591306f43ef2')
 
 prepare() {
   export CARGO_HOME="$srcdir"
