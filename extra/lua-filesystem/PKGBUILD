@@ -7,53 +7,57 @@
 # Contributor: Anders Bergh <anders1@gmail.com>
 
 pkgbase=lua-filesystem
+_rockname=${pkgbase/-/}
 pkgname=(lua-filesystem lua51-filesystem lua52-filesystem lua53-filesystem)
 pkgver=1.8.0
 _tag=${pkgver//./_}
-pkgrel=4
+pkgrel=5
+_rockrel=1
 pkgdesc='File System Library for the Lua Programming Language'
-arch=('x86_64')
-url='https://lunarmodules.github.io/luafilesystem'
-_url='https://github.com/lunarmodules/luafilesystem'
-license=('MIT')
-makedepends=('lua' 'lua51' 'lua52' 'lua53')
-_archive="${pkgbase/-/}-$_tag"
-source=("$_url/archive/v$_tag/$_archive.tar.gz")
-sha256sums=('16d17c788b8093f2047325343f5e9b74cccb1ea96001e45914a58bbae8932495')
+arch=(x86_64)
+url="https://lunarmodules.github.io/$_rockname"
+_url="https://github.com/lunarmodules/$_rockname"
+license=(MIT)
+makedepends=(lua
+             lua51
+             lua52
+             lua53
+             luarocks)
+_archive="$_rockname-$_tag"
+_rock="$_rockname-$pkgver-$_rockrel.linux-$CARCH.rock"
+source=("$_url/archive/v$_tag/$_archive.tar.gz"
+        "https://luarocks.org/manifests/hisham/$_rockname-$pkgver-$_rockrel.rockspec")
+sha256sums=('16d17c788b8093f2047325343f5e9b74cccb1ea96001e45914a58bbae8932495'
+            'ca559fbf3df9bfaf0bf526bdd9b4070df17295a4bb3c4999afad9c05f454d3a2')
 
 build() {
-  cp -a $_archive $_archive-51
-  make -C $_archive-51 PREFIX=/usr LIB_OPTION="-shared ${LDFLAGS}" LUA_VERSION=5.1
+	cd "$_archive"
+	for LUAVER in 5.1 5.2 5.3 5.4; do
+		luarocks --lua-version "$LUAVER" \
+			make --pack-binary-rock --deps-mode none -- "../${source[1]##*/}"
+		install -Dm0644 -t "lua$LUAVER/" "$_rock"
+	done
+}
 
-  cp -a $_archive $_archive-52
-  make -C $_archive-52 PREFIX=/usr LIB_OPTION="-shared ${LDFLAGS}" LUA_VERSION=5.2
-
-  cp -a $_archive $_archive-53
-  make -C $_archive-53 PREFIX=/usr LIB_OPTION="-shared ${LDFLAGS}" LUA_VERSION=5.3
-
-  make -C $_archive PREFIX=/usr LIB_OPTION="-shared ${LDFLAGS}" LUA_VERSION=5.4
+_package() {
+	cd "$_archive"
+	luarocks --lua-version "$1" --tree "$pkgdir/usr/" \
+		install --deps-mode none --no-manifest -- "lua$1/$_rock"
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }
 
 package_lua-filesystem() {
-  cd $_archive
-  make DESTDIR="$pkgdir" PREFIX=/usr LUA_VERSION=5.4 install
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
-}
-
-package_lua51-filesystem() {
-  cd $_archive-51
-  make DESTDIR="$pkgdir" PREFIX=/usr LUA_VERSION=5.1 install
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
-}
-
-package_lua52-filesystem() {
-  cd $_archive-52
-  make DESTDIR="$pkgdir" PREFIX=/usr LUA_VERSION=5.2 install
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+	_package 5.4
 }
 
 package_lua53-filesystem() {
-  cd $_archive-53
-  make DESTDIR="$pkgdir" PREFIX=/usr LUA_VERSION=5.3 install
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+	_package 5.3
+}
+
+package_lua52-filesystem() {
+	_package 5.2
+}
+
+package_lua51-filesystem() {
+	_package 5.1
 }
