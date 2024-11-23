@@ -4,12 +4,11 @@
 # Contributor: Giuseppe Calà <jiveaxe@gmail.com>
 
 pkgname=cryfs
-pkgver=1.0.0
-pkgrel=2
+pkgver=1.0.1
+pkgrel=1
 pkgdesc='Cryptographic filesystem for the cloud'
 arch=(x86_64)
 depends=(boost-libs
-         curl
          fmt
          fuse2
          gcc-libs
@@ -17,31 +16,31 @@ depends=(boost-libs
          spdlog)
 makedepends=(boost
              cmake
+             git
              python
              range-v3)
 url='https://www.cryfs.org'
 license=(LGPL-3.0-only)
-source=(https://github.com/cryfs/cryfs/releases/download/$pkgver/cryfs-$pkgver.tar.xz{,.asc})
-sha256sums=('b4652c0816a233a54269a11f72b179b570872105da94f1c9c2b4f08c39031469'
-            'SKIP')
+source=(git+https://github.com/cryfs/cryfs#tag=$pkgver)
+sha256sums=('53675a7f2ec667e4bf8cdc26d07c216a4dc486fc5016dd15d237f3c4ef908bd9')
 validpgpkeys=(5D5EC7BC6F1443EC2AF7177A9E6C996C991D25E1) # CryFS Team <messmer@cryfs.org>
 
 prepare() {
+  cd $pkgname
   sed -e '/Release/d' -i doc/CMakeLists.txt # Install man page also with dafault build type
 }
 
 build() {
-  cmake -B build -S . \
+  cmake -B build -S cryfs \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_TESTING=OFF \
-    -DCRYFS_UPDATE_CHECKS=OFF \
-    -DDEPENDENCY_CONFIG="cmake-utils/DependenciesFromLocalSystem.cmake"
+    -DCRYFS_UPDATE_CHECKS=OFF
   cmake --build build
 }
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  install -Dm 644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname
-  install -Dm 644 README.md -t "$pkgdir"/usr/share/doc/$pkgname
+  install -Dm 644 $pkgname/LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname
+  install -Dm 644 $pkgname/README.md -t "$pkgdir"/usr/share/doc/$pkgname
 }
