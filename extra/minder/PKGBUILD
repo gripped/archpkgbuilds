@@ -2,7 +2,7 @@
 # Contributor: Dimitris Kiziridis <ragouel at outlook dot com>
 
 pkgname=minder
-pkgver=1.16.4
+pkgver=1.17.0
 pkgrel=1
 pkgdesc='Mind-mapping application designed for Pantheon'
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('GPL3')
 depends=('discount' 'granite' 'gtksourceview4' 'libarchive' 'libhandy')
 makedepends=('meson' 'vala')
 source=("https://github.com/phase1geo/Minder/archive/$pkgver/Minder-$pkgver.tar.gz")
-sha256sums=('3a9c2831d36a7744f7df27412b2f75b2bec38f5974984a027d6fa7f634a37c7e')
+sha256sums=('440dec61b25efdb40d166f683845aba93cb382bb92379b1a1a66a4ac0f3a37a3')
 
 build() {
   arch-meson Minder-$pkgver build
