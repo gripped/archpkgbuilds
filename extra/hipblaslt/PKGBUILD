@@ -1,6 +1,6 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 pkgname=hipblaslt
-pkgver=6.2.2
+pkgver=6.2.4
 pkgrel=1
 pkgdesc='General matrix-matrix operations beyond a traditional BLAS library'
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('rocm-cmake' 'python' 'cmake' 'git'
 _git='https://github.com/ROCm/hipBLASLt'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
         "$pkgname-find-msgpack5.patch")
-sha256sums=('ecdb62cde38a6343cd457438a81d951f93c7d0135b5b72b19af3194edb75dfa8'
+sha256sums=('b8a72cb1ed4988b0569817c6387fb2faee4782795a0d8f49b827b32b52572cfd'
             '8e6d134a1d45de814099dfe591296de5e1d47f9906ccf9c51d7f2228e992c5f4')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
