@@ -3,8 +3,8 @@
 # Contributor: arkhan <arkhan@disroot.org>
 
 pkgname=ueberzug
-pkgver=18.3.0
-pkgrel=2
+pkgver=18.3.1
+pkgrel=3
 pkgdesc='Command line util which allows to display images in combination with X11'
 arch=('x86_64')
 url=https://github.com/ueber-devel/ueberzug
@@ -26,8 +26,8 @@ makedepends=(
 provides=("python-$pkgname")
 replaces=("python-$pkgname")
 source=("https://github.com/ueber-devel/ueberzug/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('78fe7c335a6d75beacf853d7cf9e9e32fc744050de0ed5bd070c8c715d9da047')
-b2sums=('2e91f55c39b6e9028ce95274c7e71c054fa623f2b61710a22bebec0b5a56ef719161f924b7af6741abc5c1f40d093daf24dfc562cacc4c2d639d9d0d53ed958c')
+sha256sums=('7e775065b60ceacc7f45928bfb62ab85a5afc7f8b556a008ea2a585ef591c6af')
+b2sums=('879f4dd7898a569cf70200fb683d6220bd410b7738963527030e504c59ef9095a28c4380c695ae8034ac2cd1d841df044ad4cad34f72c3ad24b8ef32c9473f7e')
 
 build() {
     cd $pkgname-$pkgver
