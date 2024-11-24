@@ -2,10 +2,10 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt5-declarative
-_basever=5.15.15
-pkgver=5.15.15+kde+r25
-pkgrel=1
-_commit=310c124dac82d711ab15309a9cb0b9d95db9ea8f
+_basever=5.15.16
+pkgver=5.15.16+kde+r22
+pkgrel=3
+_commit=e2b38659cb79104f157e1d0099c01e545d04d0db
 arch=('x86_64')
 url='https://www.qt.io'
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
@@ -16,7 +16,7 @@ groups=('qt5')
 conflicts=('qtchooser')
 _pkgfqn=${pkgname/5-/}
 source=(kde-$_pkgfqn::git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit)
-sha256sums=('e54c2d5238311836043c1d726297186cd44c7d5e0b440c8d9943deef08130e82')
+sha256sums=('50f25c205cb82ff68946d2306cae53a0e0898df42cb204bb9daa365896e6e186')
 
 pkgver() {
   cd kde-$_pkgfqn
