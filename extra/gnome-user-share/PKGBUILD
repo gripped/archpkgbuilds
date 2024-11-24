@@ -2,7 +2,7 @@
 # Contributor: Roman Kyrylych <roman@archlinux.org>
 
 pkgname=gnome-user-share
-pkgver=47.0
+pkgver=47.2
 pkgrel=1
 pkgdesc="Easy to use user-level file sharing for GNOME"
 url="https://gitlab.gnome.org/GNOME/gnome-user-share"
@@ -22,7 +22,7 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-user-share.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('dd64a3aeb167ed15e448ef5ad90892d7b3bd089e43cfa4aba1eaf79c7224112105e11d2ef1c5c4e1e4c2626ab8bd33a385723ba613b7f583a4bb3b926c1f5feb')
+b2sums=('72089d2eb55fbb0a26003b2e3a5135b510a1342ba5c5de6da5058565bb8d7f77ec7528941912a63295b951ede361988209ba47345e3ee14c09d940aa80e7d8c3')
 
 prepare() {
   cd $pkgname
