@@ -1,26 +1,38 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 # Contributor: Giorgio Gilestro <giorgio@gilest.ro>
 
-pkgbase=nautilus-python
-pkgname=python-nautilus
+pkgname=nautilus-python
 pkgver=4.0.1
-pkgrel=1
-pkgdesc="Python bindings for the Nautilus Extension API"
+pkgrel=3
+pkgdesc='Python bindings for the Nautilus Extension API'
 arch=(x86_64)
-url="https://wiki.gnome.org/Projects/NautilusPython"
-license=(GPL2)
-depends=(nautilus python-gobject)
-makedepends=(gtk-doc meson)
-source=(https://download.gnome.org/sources/$pkgbase/${pkgver%.*}/$pkgbase-$pkgver.tar.xz)
-sha256sums=('fc49c104fb32a0ad195a66b0136784cd19d10d8b3e8d59d5ee7f73e8f94e928f')
+url='https://wiki.gnome.org/Projects/NautilusPython'
+license=(GPL-2.0-or-later)
+depends=(
+  gcc-libs
+  glib2
+  glibc
+  libnautilus-extension
+  nautilus
+  python
+  python-gobject
+)
+makedepends=(
+  git
+  gtk-doc
+  meson
+)
+conflicts=(python-nautilus)
+provides=("python-nautilus=$pkgver")
+replaces=(python-nautilus)
+source=("git+https://gitlab.gnome.org/GNOME/nautilus-python.git#tag=$pkgver")
+b2sums=(c8e562d5dcb82a86648a8c725b8e0c874a32970e74e00d2c24f5e5dc917e6b451a7aa17b4fbb7a875d226921a3a5e34b247e31052d3fcdda1c9e4259d905c96d)
 
 build() {
-  meson build $pkgbase-$pkgver \
-    --prefix=/usr \
-    -D docs=enabled
+  arch-meson $pkgname build
   meson compile -C build
 }
 
-package_python-nautilus() {
-  meson install -C build --destdir="$pkgdir"
+package() {
+  meson install -C build --destdir "$pkgdir"
 }
