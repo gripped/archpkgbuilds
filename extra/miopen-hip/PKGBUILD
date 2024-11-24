@@ -3,7 +3,7 @@
 # Contributor: JP-Ellis <josh@jpellis.me>
 
 pkgname=miopen-hip
-pkgver=6.2.2
+pkgver=6.2.4
 pkgrel=1
 pkgdesc="AMD's Machine Intelligence Library (HIP backend)"
 arch=('x86_64')
@@ -19,8 +19,8 @@ _git='https://github.com/ROCm/MIOpen'
 _mlir='https://github.com/ROCm/rocMLIR'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
         "$pkgname-rocmlir-$pkgver.tar.gz::$_mlir/archive/rocm-$pkgver.tar.gz")
-sha256sums=('fff86a753c9dca9c14384e0cf30f354eaf1fff6e685769835c8898001bfedec8'
-            '09f90b9c1a29e32576014b96a20690f6bb7b15553ca707274705c6dee2b8b533')
+sha256sums=('8e4836e007e5e66fa487288887a098aaeeb95f3c63a19c2b91f6e848c023a040'
+            '3283685431fd59e20a6ac5737df22c7c7421901779a2a0b6dbd6c1ab1f1b5adb')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
 _mlirname="$(basename "$_mlir")-$(basename "${source[1]}" .tar.gz)"
