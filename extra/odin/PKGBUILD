@@ -6,7 +6,7 @@
 
 pkgname=odin
 pkgver=dev_2024_11
-pkgrel=1
+pkgrel=2
 pkgdesc='Data-oriented programming language'
 arch=(x86_64)
 url='https://odin-lang.org/'
@@ -22,7 +22,7 @@ build() {
 
   export CXX=/usr/bin/clang++
   export LLVM_CONFIG=llvm-config
-  make release_native
+  make release
 
   # TODO: unbundle third-party dependencies
   make -C vendor/stb/src
