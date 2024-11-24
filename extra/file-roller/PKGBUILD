@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=file-roller
-pkgver=44.3
+pkgver=44.4
 pkgrel=1
 pkgdesc="Create and modify archives"
 url="https://wiki.gnome.org/Apps/FileRoller"
@@ -11,7 +11,6 @@ arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
   dconf
-  file
   gcc-libs
   glib2
   glibc
@@ -21,28 +20,51 @@ depends=(
   libadwaita
   libarchive
   libnautilus-extension
-  libportal
-  libportal-gtk4
   pango
-  unzip
-  zip
 )
 makedepends=(
   appstream-glib
+  arj
+  binutils
+  bzip3
+  cdrtools
+  cpio
+  dpkg
   git
+  glib2-devel
+  lhasa
+  lrzip
   meson
+  p7zip
+  python
+  rpmextract
+  squashfs-tools
+  unace
+  unrar
+  unzip
   yelp-tools
+  zip
 )
 optdepends=(
-  'lrzip: lrzip archive support'
-  'p7zip: 7z, arj, exe and encrypted zip files support'
+  'arj: arj archive support'
+  'binutils: ar archive support'
+  'bzip3: bzip3 compression support'
+  'cdrtools: ISO image support'
+  'cpio: cpio archive support'
+  'dpkg: deb archive support'
+  'lhasa: LHA/LZA archive support'
+  'lrzip: lrzip compression support'
+  'p7zip: 7z archive support'
+  'rpmextract: rpm archive support'
   'squashfs-tools: squashfs image support'
   'unace: ACE archive support'
   'unrar: better RAR archive support'
+  'unzip: better ZIP archive support'
+  'zip: better ZIP archive support'
 )
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/file-roller.git#tag=$pkgver")
-b2sums=('09c1f1071e2c1c4124aee562e40803027eabf323c801df25fd4a093b25a8f37c09edcdcf022c7a0cacbc30ff12d5e957ac857c15fa785ccf0e184a83358dd280')
+b2sums=('4a4e6dd7f1a2201a10bdfd2cfc664999590d24cd2d96df3893dc32a2416a5226f7782ed0582ca1146277c4b8c32779b30b427c78157efa94e3035651bb2f5fa8')
 
 prepare() {
   cd $pkgname
