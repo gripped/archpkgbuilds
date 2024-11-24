@@ -4,10 +4,10 @@
 
 pkgname=python-wxpython
 _pkgname=wxPython
-pkgver=4.2.1
+pkgver=4.2.2
 _pkgver="${pkgver%.*}"
 _post="${pkgver##*.}"
-pkgrel=2
+pkgrel=1
 epoch=1
 pkgdesc='Cross-platform GUI toolkit'
 arch=('x86_64')
@@ -18,7 +18,7 @@ optdepends=('python-pypubsub: Alternative to the deprecated wx.lib.pubsub API')
 makedepends=('mesa' 'glu' 'webkit2gtk' 'python-requests' 'python-setuptools' 'python-attrdict' 'sip' 'doxygen' 'waf')
 checkdepends=('xorg-server-xvfb' 'python-pytest-forked' 'python-numpy')
 source=("https://files.pythonhosted.org/packages/source/w/wxPython/wxPython-$pkgver.tar.gz")
-sha512sums=('ee9ab8effb3c71de004c3d61ec583b9980c6b75fe9bb04cf2c76025ea70afc206bc3073c44d1c83c7ba604afed9fd38c01b9ef506617ba279a4ac58e3cf34438')
+sha512sums=('08b74285b94f21ebf30fef8c9ebf8cfd074dd3976209372bb5b704b0b792038f9af484dd1378894052eedb0ce603af6935b7d00d695da4e4a15e1ea3bdb3520f')
 
 build() {
   cd $_pkgname-$pkgver
