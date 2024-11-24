@@ -2,8 +2,8 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 pkgbase=hip-runtime
 pkgname=(hip-runtime-amd hip-runtime-nvidia)
-pkgver=6.2.2
-pkgrel=2
+pkgver=6.2.4
+pkgrel=1
 _pkgdesc="Heterogeneous Interface for Portability"
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/HIP/en/latest/'
@@ -26,10 +26,10 @@ source=("$pkgbase-$pkgver.tar.gz::$_hip/archive/rocm-$pkgver.tar.gz"
         "$pkgbase-clr-$pkgver.tar.gz::$_clr/archive/rocm-$pkgver.tar.gz"
         "$pkgbase-hipother-$pkgver.tar.gz::$_hipother/archive/rocm-$pkgver.tar.gz"
         "hipcc-amd-fix-include.patch")
-sha256sums=('72c064a5b22d007272075917ab504d4d38716975bdba370110f7a1d7e3658aa8'
-            '43aad76be2099ecc40d8d323d35b8a81dea4b8d9bfe993a51aa6220f91216dfb'
-            '3af1d829fc7b2fe9c16c930c1bcea4d82fee16e9e1b244f0fc370cd7ea0e34e5'
-            'cb029266f5adb4de35d310d6c47be67578822119379b7fa888614e8c02876108'
+sha256sums=('76e4583ae3d31786270fd92abbb2e3dc5e665b22fdedb5ceff0093131d4dc0ca'
+            '7af782bf5835fcd0928047dbf558f5000e7f0207ca39cf04570969343e789528'
+            '0a3164af7f997a4111ade634152957378861b95ee72d7060eb01c86c87208c54'
+            'b7ebcf8a2679e50d27c49ebec0dbea5a67573f8b8c3f4a29108c84b28b5bedee'
             '9f384e6d43b9fa75d722d1b22cd310667c8569ce7e1c4deefcff3e58875f099a')
 _dirhip="$(basename "$_hip")-$(basename "${source[0]}" ".tar.gz")"
 _dirhipcc="$(basename "$_hipcc")-$(basename "${source[1]}" ".tar.gz")"
