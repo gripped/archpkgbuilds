@@ -2,29 +2,33 @@
 # Contributor: Francois Boulogne <fboulogne at april dot org>
 
 pkgname=python-gphoto2
-pkgver=2.3.4
-pkgrel=3
+pkgver=2.5.1
+pkgrel=1
 pkgdesc="Python interface to libgphoto2"
 arch=('x86_64')
 url="https://github.com/jim-easterbrook/python-gphoto2"
-license=('GPL3')
-depends=('libgphoto2' 'python')
-makedepends=('swig' 'python-setuptools')
+license=('LGPL-3.0-or-later')
+depends=(
+  'libgphoto2'
+  'python'
+)
+makedepends=(
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-toml'
+  'python-wheel'
+  'swig'
+)
 source=($pkgname-$pkgver.tar.gz::https://github.com/jim-easterbrook/$pkgname/archive/v$pkgver.tar.gz)
-sha256sums=('80dd2bc08de4e883e2513835ebba8b8587ad21e70cb828f1374d161c171665c3')
-
-prepare() {
-  cd $pkgname-$pkgver
-#https://github.com/jim-easterbrook/python-gphoto2/issues/136
-  python developer/build_swig.py system
-}
+sha256sums=('2cdfd8ddb676a8041298bee32b7943d0f3a261067a5b0b95e238f1647ebe0316')
 
 build() {
   cd $pkgname-$pkgver
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package(){
   cd $pkgname-$pkgver
-  python setup.py install --root="${pkgdir}" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
