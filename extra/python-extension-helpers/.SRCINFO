@@ -1,7 +1,7 @@
 pkgbase = python-extension-helpers
 	pkgdesc = Utilities for building and installing packages with compiled extensions
-	pkgver = 1.1.0
-	pkgrel = 2
+	pkgver = 1.2.0
+	pkgrel = 1
 	url = https://github.com/astropy/extension-helpers
 	arch = any
 	license = BSD
@@ -10,8 +10,9 @@ pkgbase = python-extension-helpers
 	makedepends = python-installer
 	makedepends = python-setuptools-scm
 	makedepends = python-wheel
+	makedepends = git
 	depends = python-setuptools
-	source = https://files.pythonhosted.org/packages/source/e/extension-helpers/extension-helpers-1.1.0.tar.gz
-	sha256sums = 49460c78a3f8d1f8cec174479f5e85ad445948ccc416033c5aa3e6ddf2c50229
+	source = git+https://github.com/astropy/extension-helpers#tag=v1.2.0
+	sha256sums = 56b16a128fbaa933d02503ea302754b94b4c1b6c5b7ffcc335812ab614b57433
 
 pkgname = python-extension-helpers

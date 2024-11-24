@@ -3,31 +3,31 @@
 
 _pkg=extension-helpers
 pkgname=python-${_pkg}
-pkgver=1.1.0
-pkgrel=2
+pkgver=1.2.0
+pkgrel=1
 pkgdesc="Utilities for building and installing packages with compiled extensions"
 arch=(any)
 url="https://github.com/astropy/extension-helpers"
 license=(BSD)
 depends=(python-setuptools)
-makedepends=(python-build python-installer python-setuptools-scm python-wheel)
+makedepends=(python-build python-installer python-setuptools-scm python-wheel git)
 checkdepends=(python-pytest)
-source=(https://files.pythonhosted.org/packages/source/e/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-sha256sums=('49460c78a3f8d1f8cec174479f5e85ad445948ccc416033c5aa3e6ddf2c50229')
+source=(git+https://github.com/astropy/extension-helpers#tag=v$pkgver)
+sha256sums=('56b16a128fbaa933d02503ea302754b94b4c1b6c5b7ffcc335812ab614b57433')
 
 build() {
-  cd ${_pkg}-${pkgver}
+  cd ${_pkg}
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd ${_pkg}-${pkgver}/build/lib/extension_helpers
+  cd ${_pkg}/build/lib/extension_helpers
   # Some strange failures but no time to investigate
   pytest -vv --color=yes || echo "Tests failed"
 }
 
 package() {
-  cd ${_pkg}-${pkgver}
+  cd ${_pkg}
   python -m installer --destdir="$pkgdir" dist/*.whl
   rm -r "${pkgdir}"$(python -c "import site; print(site.getsitepackages()[0])")/extension_helpers/tests
   install -Dm644 LICENSE.rst -t "${pkgdir}"/usr/share/licenses/$pkgname/
