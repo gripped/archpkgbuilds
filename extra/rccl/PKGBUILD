@@ -3,7 +3,7 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=rccl
-pkgver=6.2.2
+pkgver=6.2.4
 pkgrel=1
 pkgdesc="ROCm Communication Collectives Library"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'rocm-smi-lib')
 makedepends=('cmake' 'rocm-cmake' 'hipify-clang' 'python')
 _git='https://github.com/ROCm/rccl'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('2f4fdc54841e810e3f02ad96bbd113ef8fd2fca6f268ad12aa603c440737a22e')
+sha256sums=('12a04743ed89a74b4a08aa046b6a549d385e15d6866042fd41eac8f085f50eea')
 options=(!lto)
 _dirname="$(basename $_git)-$(basename ${source[0]} .tar.gz)"
 
