@@ -3,7 +3,7 @@
 # Contributor: Peter Mattern <pmattern at arcor dot de>
 
 pkgname=featherpad
-pkgver=1.5.1
+pkgver=1.5.2
 pkgrel=1
 pkgdesc='Lightweight Qt plain text editor'
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('GPL3')
 depends=('hicolor-icon-theme' 'hunspell' 'qt6-svg')
 makedepends=('cmake' 'ninja' 'qt6-tools')
 source=("https://github.com/tsujan/FeatherPad/releases/download/V$pkgver/FeatherPad-$pkgver.tar.xz"{,.asc})
-sha256sums=('7ea930530d2d910dff1e8ff6fa1a2677653639929a9fc6e24010262b495ac345'
+sha256sums=('d63d977c875ee18be1ef007b8cd653ae495018184ea641e2bbc812781b926e87'
             'SKIP')
 validpgpkeys=('19DFDF3A579BD509DBB572D8BE793007AD22DF7E')
 
