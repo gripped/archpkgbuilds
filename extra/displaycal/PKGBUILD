@@ -5,8 +5,8 @@
 
 _pkgname=DisplayCAL
 pkgname=displaycal
-pkgver=3.9.12
-pkgrel=2
+pkgver=3.9.14
+pkgrel=1
 pkgdesc="Open Source Display Calibration and Characterization powered by Argyll CMS (Formerly known as dispcalGUI)"
 arch=(x86_64)
 url="https://github.com/eoyilmaz/displaycal-py3"
@@ -19,17 +19,17 @@ makedepends=(libxrandr libxxf86vm python-build python-installer
 optdepends=('gnome-color-manager: profile installation for GNOME'
             'colord-kde: profile installation for KDE Plasma')
 source=(${url}/releases/download/${pkgver}/${_pkgname}-${pkgver}.tar.gz)
-sha256sums=('071c2f04e0ff683d4b1999bd20417313fa26b5dfa1b9a9b3c78d62fc07b5c37b')
+sha256sums=('d88e5f896812f67ec863f65ac9606f11a3f4b8d2005dfbe4caa41edaf2c53c9c')
 
 build() {
-  cd ${_pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}
 # Workaround broken install
   install -Dm644 misc/*.appdata.xml -t dist
   python -m build --wheel --no-isolation
 }
 
 package() {
-  cd ${_pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}
   python -m installer --destdir="${pkgdir}" dist/*.whl
   # https://github.com/eoyilmaz/displaycal-py3/issues/117
   install -d "${pkgdir}"/etc/xdg/autostart
