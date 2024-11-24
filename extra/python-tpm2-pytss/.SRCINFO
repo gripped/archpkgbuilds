@@ -1,7 +1,7 @@
 pkgbase = python-tpm2-pytss
 	pkgdesc = Python bindings for tpm2-tss
 	pkgver = 2.3.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/tpm2-software/tpm2-pytss
 	arch = x86_64
 	license = BSD-2-Clause
@@ -24,7 +24,9 @@ pkgbase = python-tpm2-pytss
 	depends = python-packaging
 	depends = python-yaml
 	source = git+https://github.com/tpm2-software/tpm2-pytss.git#tag=2.3.0
-	sha512sums = SKIP
+	source = adjust-tpm-pt-revision-to-fix-test.patch
+	sha512sums = ca6013685b5f0e251a691086a48476f87fde6a74166bd499a12105d1bce8648b2b35e4a3c0f49f894b5b5a09b60ecc771b709c75a5bb806d20f4676911f13281
+	sha512sums = 5be9f4944b080910ef082feb73f408ab3b3443a5aa7a84544016e20cbc5b3ee07276e770005d75d589a4177c34289996ef4d10757e5299af180d004846b49fec
 
 pkgname = python-tpm2-pytss
 	depends = glibc
