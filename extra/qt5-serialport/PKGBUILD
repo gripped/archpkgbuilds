@@ -2,10 +2,10 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt5-serialport
-_basever=5.15.15
-pkgver=5.15.15
-pkgrel=1
-_commit=aa2ffdbd7295db9e5814070d1432a0b77c59cfce
+_basever=5.15.16
+pkgver=5.15.16
+pkgrel=3
+_commit=875adfdf3ca8f1059fdd3c5fd20baaa00694a2e7
 arch=('x86_64')
 url='https://www.qt.io'
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
@@ -15,7 +15,7 @@ makedepends=('git')
 groups=('qt5')
 _pkgfqn=${pkgname/5-/}
 source=(kde-$_pkgfqn::git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit)
-sha256sums=('59c8db46c00dbc9a97d1b6ff24b9ba8b277e687ad38cd75c8480fdfa410c3f03')
+sha256sums=('6f4315c8261aa5f068b6aa2f807aab3e0c52191b39c9629eb9b3abf6aaf1417b')
 
 pkgver() {
   cd kde-$_pkgfqn
