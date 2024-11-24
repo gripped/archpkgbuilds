@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 pkgname=rocprofiler
-pkgver=6.2.2
+pkgver=6.2.4
 pkgrel=1
 pkgdesc="ROC profiler library. Profiling with perf-counters and derived metrics."
 arch=('x86_64')
@@ -15,7 +15,7 @@ _roctracer='https://github.com/ROCm/roctracer'
 source=("$pkgname::git+$_git#tag=rocm-$pkgver"
         "$pkgname-roctracer::git+$_roctracer#tag=rocm-$pkgver"
         "${pkgname}-perfetto::git+https://github.com/google/perfetto")
-sha256sums=('c9704894ad4608a606918b0f4d2a781a5950f9d6e73e59832c9d3647fc4adb5d'
+sha256sums=('4305858271288ed6bfd8e4ac228984246247a10f65cf9933f9e2b059c05c0fb2'
             '78174746efb2ba9fec5cde7113ac425e267cfcca75a99a3c00bb75f115e42959'
             'SKIP')
 options=(!lto)
