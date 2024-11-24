@@ -4,7 +4,7 @@
 
 pkgname=python-aiogram
 _pkgname=${pkgname#python-}
-pkgver=3.14.0
+pkgver=3.15.0
 pkgrel=1
 pkgdesc="A modern and fully asynchronous framework for Telegram Bot API"
 arch=('any')
@@ -50,7 +50,7 @@ optdepends=(
   'python-babel: i18n support'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('f012783d5c22c98f86ab8eb2e4a875a2e0b5c9fee9741159d909975eba8fc388')
+sha256sums=('f885422ba2817dd37d8f88e25975476772bf6abff3d4c5a65297ac57290783b8')
 
 build() {
   cd "$_pkgname-$pkgver"
