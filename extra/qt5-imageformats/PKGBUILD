@@ -2,10 +2,10 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt5-imageformats
-_basever=5.15.15
-pkgver=5.15.15+kde+r4
-pkgrel=1
-_commit=9f658c2093e81d1dc3333e594cc1aa4b0990e221
+_basever=5.15.16
+pkgver=5.15.16+kde+r2
+pkgrel=3
+_commit=7b25a0435edc2602f8999bd216c4bec711ffe09e
 arch=('x86_64')
 url='https://www.qt.io'
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
@@ -15,7 +15,7 @@ makedepends=('git')
 groups=('qt5')
 _pkgfqn=${pkgname/5-/}
 source=(kde-$_pkgfqn::git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit)
-sha256sums=('510240996f5a6307cb8156dfeb362a666b6ef31110538929b3c3d021cde18992')
+sha256sums=('b4dd753720e6e4548b638187ea810b943ad5fb0d958de38619b5154e32e05466')
 
 pkgver() {
   cd kde-$_pkgfqn
