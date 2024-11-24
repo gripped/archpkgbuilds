@@ -1,21 +1,18 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=sugar-datastore
-pkgver=0.120
-pkgrel=2
+pkgver=0.121
+pkgrel=1
 pkgdesc="Sugar datastore service"
 arch=('x86_64')
 url="https://sugarlabs.org/"
 license=('GPL')
 depends=('dbus-python' 'python-gobject' 'python-xapian')
-source=(https://download.sugarlabs.org/sources/sucrose/glucose/$pkgname/$pkgname-$pkgver.tar.xz
-        python310.patch)
-sha256sums=('57373da5b6bd877f5198c5e4e3b7921856e9d4ff47e7e163806ed1787a3c4b62'
-            'ab1cf0024c0d1d1c91af037b6dcb2397c197070fd5d5a7bd4dc8948a40b5b520')
+source=(https://download.sugarlabs.org/sources/sucrose/glucose/$pkgname/$pkgname-$pkgver.tar.xz)
+sha256sums=('6c38b10cf0e294a9c5d9d00d291aa9be9b8e85e3045dc6f71a54ab3792880bb4')
 
 prepare() {
   cd $pkgname-$pkgver
-  patch -Np1 -i ../python310.patch
   autoreconf -vif
 }
 
