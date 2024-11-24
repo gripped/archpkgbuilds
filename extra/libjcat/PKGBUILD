@@ -1,7 +1,7 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=libjcat
-pkgver=0.2.1
+pkgver=0.2.2
 pkgrel=1
 pkgdesc="Library for reading and writing Jcat files"
 arch=(x86_64)
@@ -10,7 +10,7 @@ license=(LGPL)
 depends=(json-glib gnutls gpgme)
 makedepends=(meson gobject-introspection gtk-doc vala help2man)
 source=("https://github.com/hughsie/libjcat/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha256sums=('a6232aeca3c3fab6dbb3bed06ec3832088b49a4b278a7119558d72be60ce921f'
+sha256sums=('f1bed6217234cc2f833d72ae3a375d9164f92a0010b49c5b19b63e88e03de12c'
             'SKIP')
 validpgpkeys=(163EB50119225DB3DF8F49EA17ACBA8DFA970E17) # Richard Hughes <richard@hughsie.com>
 
