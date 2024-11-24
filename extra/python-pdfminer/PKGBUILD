@@ -2,8 +2,8 @@
 
 _pkg=pdfminer
 pkgname=python-${_pkg}
-pkgver=20231228
-pkgrel=2
+pkgver=20240706
+pkgrel=1
 pkgdesc="Python PDF Parser"
 arch=(any)
 url="https://github.com/pdfminer/pdfminer.six"
@@ -14,7 +14,7 @@ checkdepends=(python-pytest)
 # Provided tarballs do not include tests
 #source=(${url}/releases/download/${pkgver}/${_pkg}.six-${pkgver}.tar.gz)
 source=(${url}/archive/${pkgver}/${_pkg}-${pkgver}.tar.gz)
-sha256sums=('548db64879d6bef83d20654389a5d0ab4c1df496d7e13cc982c3109054f31080')
+sha256sums=('b8b50609fa59c7e949f7efd58af8d250a51d39697d464b5b93bef4a27534ebda')
 
 prepare() {
   sed -e '/setuptools-git-versioning/d' -e 's|"enabled": True|"enabled": False|' -i ${_pkg}.six-${pkgver}/setup.py
