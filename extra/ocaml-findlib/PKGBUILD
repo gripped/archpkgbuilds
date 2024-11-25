@@ -7,8 +7,8 @@
 # Contributor: Alif <alive4ever@live.com>
 
 pkgname=ocaml-findlib
-pkgver=1.9.6
-pkgrel=7
+pkgver=1.9.8
+pkgrel=1
 pkgdesc='OCaml package manager'
 arch=(x86_64)
 url='http://projects.camlcity.org/projects/findlib.html'
@@ -16,7 +16,7 @@ license=(MIT)
 depends=(ocaml-compiler-libs)
 options=(staticlibs zipman)
 source=("http://download.camlcity.org/download/findlib-$pkgver.tar.gz")
-b2sums=('c9c98b9e92c0cf690e2c8794a1ed606c0288d49a016dfa08592c9f617be1020385f52bf37345a7cbcbc7f0fcb19750a6617036cbf90afef231eccdbc7132baf8') # expired https certificate
+b2sums=('2483d2b833d566508680a5b9b3949aef187c290ab5602ef423ede214cb57f4b8f61dfeb9cc712499d8c7d0590388bf5e481263bbc841488e1fb62e866f9b64d8')
 
 build() {
   cd findlib-$pkgver
