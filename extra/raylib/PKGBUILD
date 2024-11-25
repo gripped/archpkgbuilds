@@ -2,15 +2,15 @@
 # Contributor: Wilhem Barbier <wilhem.b@free.fr>
 
 pkgname=raylib
-pkgver=5.0
+pkgver=5.5
 pkgrel=1
 pkgdesc='Simple and easy-to-use game programming library'
 arch=(x86_64)
 url='https://www.raylib.com'
-license=(ZLIB)
+license=(Zlib)
 makedepends=(cmake git libx11 libxcursor libxinerama libxrandr ninja vulkan-headers xorg-server-devel xorg-xinput)
-source=("git+https://github.com/raysan5/raylib#commit=ae50bfa2cc569c0f8d5bc4315d39db64005b1b08") # tag: 5.0
-b2sums=('SKIP')
+source=("git+https://github.com/raysan5/raylib#tag=$pkgver")
+b2sums=('7b03b06de247420d621fc75b317c83c9405f09bae3855dc369e0fcba9b395d318739ea284b98f3588a76c4f90f638878aba481b5296e39d72f81bf22c142b817')
 
 build() {
   cmake \
@@ -33,11 +33,9 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" ninja -C build install
-  # Extra include files that are used in the raylib examples
+  # Include files that are used in the raylib examples
   for f in rcamera rgestures; do
     install -Dm644 $pkgname/src/$f.h "$pkgdir/usr/include/$f.h"
   done
   install -Dm644 $pkgname/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
-
-# getver: github.com/raysan5/raylib/releases
