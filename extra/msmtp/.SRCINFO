@@ -1,7 +1,7 @@
 pkgbase = msmtp
 	pkgdesc = A mini smtp client
 	pkgver = 1.8.27
-	pkgrel = 1
+	pkgrel = 2
 	url = https://marlam.de/msmtp/
 	arch = x86_64
 	license = GPL3
@@ -9,6 +9,7 @@ pkgbase = msmtp
 	makedepends = libsecret
 	makedepends = gsasl
 	makedepends = texlive-plaingeneric
+	optdepends = libnotify: for msmtpq notifications
 	optdepends = netcat: for included msmtpq script
 	source = git+https://git.marlam.de/git/msmtp.git?signed#tag=msmtp-1.8.27
 	validpgpkeys = 2F61B4828BBA779AECB3F32703A2A4AB1E32FD34
