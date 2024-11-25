@@ -1,0 +1,48 @@
+From 49507c04e027b0d48e050bfc38ae2b631d7403c7 Mon Sep 17 00:00:00 2001
+From: Ralph Sennhauser <ralph.sennhauser@gmail.com>
+Date: Wed, 20 Nov 2024 20:19:36 +0100
+Subject: [PATCH] Make failed audio device query non fatal
+
+Querring the audio device name may fail. The name is only used for the
+sake of logging it for debugging. Avoid querry failure to be fatal and
+insted just log the issue.
+
+Signed-off-by: Ralph Sennhauser <ralph.sennhauser@gmail.com>
+---
+ source/soundmanager/SoundManager.cpp | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
+
+diff --git a/source/soundmanager/SoundManager.cpp b/source/soundmanager/SoundManager.cpp
+index 6cd34f19ac..ed045d8efd 100644
+--- a/source/soundmanager/SoundManager.cpp
++++ b/source/soundmanager/SoundManager.cpp
+@@ -838,15 +838,23 @@ void CSoundManager::RunHardwareDetection()
+ 		else
+ 			devices = alcGetString(nullptr, ALC_DEVICE_SPECIFIER);
+ 	}
+-	WARN_IF_FALSE(devices);
+ 
+ 	m_SoundCardNames.clear();
+-	do
++	if (devices)
+ 	{
+-		m_SoundCardNames += devices;
+-		devices += strlen(devices) + 1;
+-		m_SoundCardNames += "; ";
+-	} while (*devices);
++		do
++		{
++			m_SoundCardNames += devices;
++			devices += strlen(devices) + 1;
++			m_SoundCardNames += "; ";
++		} while (*devices);
++	}
++	else
++	{
++		const char* failMsg = "Failed to query audio device names";
++		LOGERROR(failMsg);
++		m_SoundCardNames = failMsg;
++	}
+ 
+ 	// Driver version
+ 	const ALCchar* al_version = alGetString(AL_VERSION);
