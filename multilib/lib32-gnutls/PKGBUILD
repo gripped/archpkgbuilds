@@ -1,12 +1,13 @@
-# Maintainer: Florian Pritz <bluewind@xinu.at>
-# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+# Contributor: Florian Pritz <bluewind@xinu.at>
+# Contributor: Felix Yan <felixonmars@archlinux.org>
 # Contributor: Christoph Vigano <mail at cvigano dot de>
 # Contributor: Biru Ionut <ionut@archlinux.ro>
 # Contributor: Pierre Schmitz <pierre@archlinux.de>
 # Contributor: Mikko Seppälä <t-r-a-y@mbnet.fi>
 
 pkgname=lib32-gnutls
-pkgver=3.8.7
+pkgver=3.8.8
 pkgrel=1
 pkgdesc="A library which provides a secure layer over a reliable transport layer (32-bit)"
 arch=('x86_64')
@@ -14,12 +15,12 @@ license=('GPL-3.0-or-later AND LGPL-2.1-or-later')
 url="https://gnutls.org/"
 depends=('lib32-nettle' 'libnettle.so' 'libhogweed.so'
          'lib32-p11-kit' 'libp11-kit.so' 'lib32-libtasn1' 'libtasn1.so'
-         'lib32-libidn2' 'gnutls' 'lib32-brotli' 'lib32-zstd')
+         'lib32-libidn2' 'gnutls' 'lib32-brotli' 'lib32-zstd'
+         'lib32-zlib')
 makedepends=()
 provides=('libgnutls.so' 'libgnutlsxx.so')
-source=(#https://www.gnupg.org/ftp/gcrypt/gnutls/v${pkgver%.*}/gnutls-${pkgver}.tar.xz{,.sig}
-        https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-${pkgver}.1.tar.xz{,.sig})
-sha256sums=('9ca0ddaccce28a74fa18d738744190afb3b0daebef74e6ad686bf7bef99abd60'
+source=(https://www.gnupg.org/ftp/gcrypt/gnutls/v${pkgver%.*}/gnutls-${pkgver}.tar.xz{,.sig})
+sha256sums=('ac4f020e583880b51380ed226e59033244bc536cad2623f2e26f5afa2939d8fb'
             'SKIP')
 validpgpkeys=('462225C3B46F34879FC8496CD605848ED7E69871'  # "Daiki Ueno <ueno@unixuser.org>"
               '5D46CB0F763405A7053556F47A75A648B3F9220C') # "Zoltan Fridrich <zfridric@redhat.com>"
