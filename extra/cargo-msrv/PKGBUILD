@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=cargo-msrv
-pkgver=0.17.0
+pkgver=0.17.1
 pkgrel=1
 pkgdesc="Find the minimum supported Rust version (MSRV) for your project"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT' 'Apache-2.0')
 depends=('gcc-libs' 'openssl' 'rustup')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('95bfff82edeaaad5b1087b6c42f71a18423403c6304c258eda4d04390520f095')
+sha256sums=('b9e628ab70bbd008da0c57ba3d0f4f66c5fcc1cd694de5ec970a363cce780c06')
 options=('!lto')
 
 prepare() {
