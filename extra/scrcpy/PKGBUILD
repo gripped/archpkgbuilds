@@ -3,23 +3,22 @@
 # Contributor: Andrew Rabert <ar@nullsum.net>
 
 pkgname=scrcpy
-pkgver=2.7
-pkgrel=2
+pkgver=3.0
+pkgrel=1
 pkgdesc='Display and control your Android device'
 arch=(x86_64)
 url='https://github.com/Genymobile/scrcpy'
 license=(Apache-2.0)
 depends=(android-tools ffmpeg sdl2 glibc libusb)
 makedepends=(git meson)
-source=("git+$url#tag=v${pkgver}"
+source=("git+$url#tag=v$pkgver"
         "$pkgname-server-$pkgver.apk::$url/releases/download/v$pkgver/$pkgname-server-v$pkgver")
-b2sums=('13cfe95fdea27fc9187bf7da5ace217e9f345504ca58f212f6c46c89b2aada10127e50e375ab6b9e586cde80de21ceb2f1cf3234bb85aae7d966107821e16899'
-        '968d7454e4e5702eecd439256378c7b28f234d9ed4ff97d3073505cfaafe4554a70445a8483bf062de45b9e0045974de1a1610e8d4a21f168ef2b8be336f9a75')
+b2sums=('33737b089d35dd102f79e93ffeea3a2d4f53ad3c5bf7dd0adc1b41c4ebbd0d6467f47c9fdf3af923cde5b5464c50764468e4fb6a1c66dd183d765fbc20200beb'
+        '8198010ca20cc681f8b983a1f31631a03887225af33131676056332da90397522a124cdbb1d52e376651f201880e74cbba9b0c1225fcb5ae6fa7521ae1cfc09a')
 
 build() {
   mkdir -p build
-  arch-meson build $pkgname \
-    --buildtype release \
+  arch-meson build $pkgname --buildtype release \
     -D b_lto=true \
     -D b_ndebug=true \
     -D prebuilt_server=../$pkgname-server-$pkgver.apk
