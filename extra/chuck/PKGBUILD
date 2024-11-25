@@ -6,7 +6,7 @@
 # Contributor: tardo <tardo@nagi-fanboi.net>
 
 pkgname=chuck
-pkgver=1.5.2.0
+pkgver=1.5.4.2
 pkgrel=1
 pkgdesc='Concurrent, on-the-fly audio programming language'
 arch=(x86_64)
@@ -15,8 +15,8 @@ license=(GPL)
 depends=(jack libsndfile)
 groups=(pro-audio)
 source=("https://chuck.cs.princeton.edu/release/files/$pkgname-$pkgver.tgz")
-sha256sums=('04d846f776752ff0d4dfd3c2e208c90226559de2ae24960ed30a456e67264f27')
-b2sums=('13be7882299fa77ca5e439fa94345a896b4993790d5034cb4c7d4236b6740256fa45461f9cc2d5a374adeed993247814d52008035fab9853e7289def17447b3a')
+sha256sums=('cc04cffb5b7fc93ca63154324a2787478d47a0992e0590e4c623ac4808294a10')
+b2sums=('1215211c837fa55c132742a9a4edef97446304fffb6a6e9f4de0d1da66c634c81398870fbd30ba864939f7e3a54bd0f2125bd6c4c9634edb51da43fa25fd05a9')
 
 build() {
   make -C "$pkgname-$pkgver/src" linux-jack
