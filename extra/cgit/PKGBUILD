@@ -8,7 +8,7 @@
 pkgname=cgit
 _commit='09d24d7cd0b7e85633f2f43808b12871bb209d69'
 pkgver=1.2.3.r70.g09d24d7
-pkgrel=3
+pkgrel=4
 pkgdesc='A web interface for git written in plain C'
 arch=('x86_64')
 url='https://git.zx2c4.com/cgit/'
@@ -35,7 +35,7 @@ source=("git+https://git.zx2c4.com/cgit.git#commit=${_commit}"
         'apache.example.conf')
 sha256sums=('423a95f4fee9bdc5a50e332703d5e5f5289f523f620e275d26b950d92ae5a836'
             'SKIP'
-            '2c0fcd821015f7d27e2086fd4b7765bcfb51f6604486846a7122436c8a777e7c'
+            'dd9b5eeb638bacbda1433fc414df9a8c3657dd7feec72aa10e99658dcecf01e2'
             '4004b72d433e5810b046fc6019171a11a0dae3e9c6b29a44f16ed41705c46c3d'
             '89927d462c0504863c163eb8a210e5d65db30ee6e4300ff6a2f92460e4f20a62')
 
@@ -54,7 +54,7 @@ prepare() {
 
   # branch 'for-jason' for recent git...
   # Please do *NOT* merge/cherry-pick, as commit hashes may change before landing in master!
-  git apply --index < ../0001-for-jason.patch
+  git apply --verbose --index < ../0001-for-jason.patch
 
   git config --file=.gitmodules submodule.git.url ../git/
   git submodule init
