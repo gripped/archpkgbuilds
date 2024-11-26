@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=icon-library
-pkgver=0.0.19
-pkgrel=2
+pkgver=0.0.20
+pkgrel=1
 pkgdesc='Find the right icon to use on your GNOME application'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/design/icon-library'
@@ -24,7 +24,7 @@ makedepends=(
   rust
 )
 source=("git+https://gitlab.gnome.org/World/design/icon-library.git#tag=$pkgver")
-b2sums=(19437f93810c67d642c57199f0cfb556a81143a6efee4e0a0403f046c2a4d3d22796ed628f0dc50be51d242f3f60355418da76d9241d37c4d193f70c38dd21f6)
+b2sums=(0ac0c54f825d70ab21caac43093ec394d4c1f57300e91f5f2e75c01c52b2a74acf8e832804fa93913d540abf710e07e9436f027c2c361d36879acb9a69a90d5c)
 
 prepare() {
   cd $pkgname
