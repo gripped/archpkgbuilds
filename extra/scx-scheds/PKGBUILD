@@ -5,7 +5,7 @@
 pkgname=scx-scheds
 _gitname=scx
 pkgver=1.0.6
-pkgrel=3
+pkgrel=4
 pkgdesc='sched_ext schedulers and tools'
 url='https://github.com/sched-ext/scx'
 arch=('x86_64')
@@ -31,8 +31,7 @@ makedepends=(
   rust
 )
 options=(!lto)
-_tag=607dfab7e9d3229711e7be87a39bebea2a55e859
-source=("git+https://github.com/sched-ext/scx#tag=${_tag}")
+source=("git+https://github.com/sched-ext/scx#tag=v${pkgver}")
 sha256sums=('81ebebdef84d9e02fb56b766633545ecfa875c297381c4912448409592aa407a')
 
 build() {
