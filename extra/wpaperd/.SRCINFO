@@ -1,18 +1,21 @@
 pkgbase = wpaperd
 	pkgdesc = Modern wallpaper daemon for Wayland
-	pkgver = 1.0.1
-	pkgrel = 3
+	pkgver = 1.1.1
+	pkgrel = 1
 	url = https://github.com/danyspin97/wpaperd
 	arch = x86_64
 	license = GPL-3.0-or-later
+	makedepends = dav1d
 	makedepends = cargo
 	makedepends = scdoc
 	makedepends = git
 	depends = libxkbcommon
 	depends = mesa
 	depends = wayland
-	source = git+https://github.com/danyspin97/wpaperd.git?signed#tag=1.0.1
+	optdepends = dav1d: for loading avif images
+	options = !lto
+	source = git+https://github.com/danyspin97/wpaperd.git?signed#tag=1.1.1
 	validpgpkeys = DCBD48B9859422FA548BA46B1733BCAC9AF70936
-	sha256sums = a847f8bc960d7264aaad2574895be9c613a489d7a08d85044037dd68307aef61
+	sha256sums = 69aa66b8d60b905000a16d0b570a2dad9fbe3fd404134a11f897c3f954b58c73
 
 pkgname = wpaperd
