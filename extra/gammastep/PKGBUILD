@@ -1,14 +1,14 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=gammastep
 pkgver=2.0.9
-pkgrel=4
+pkgrel=6
 pkgdesc="Adjust the color temperature of your screen according to your surroundings."
 arch=(x86_64)
 url="https://gitlab.com/chinstrap/gammastep"
 license=(GPL-3.0-or-later)
 depends=(
-  geoclue
   glibc
   hicolor-icon-theme
   libdrm
@@ -24,6 +24,7 @@ makedepends=(
   systemd
 )
 optdepends=(
+  'geoclue: for automatic location based on GeoClue2'
   'python-gobject: for gammastep-indicator'
   'python-xdg: for gammastep-indicator'
   'gtk3: for gammastep-indicator'
