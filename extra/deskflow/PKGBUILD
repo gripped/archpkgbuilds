@@ -1,6 +1,6 @@
 pkgname=deskflow
-pkgver=1.17.1
-pkgrel=2
+pkgver=1.17.2
+pkgrel=1
 pkgdesc='Share one mouse and keyboard between multiple computers'
 url='https://deskflow.org/'
 arch=(x86_64)
@@ -39,10 +39,11 @@ makedepends=(
   ninja
   python
   qt6-tools
+  xorgproto
 )
 source=("git+https://github.com/deskflow/deskflow.git#tag=v${pkgver}")
-sha256sums=('baec26e8d436d4f4f4a85bebed4a98fd6f1ac162f41d99bc76f971cb368c957b')
-b2sums=('c01f06d9e9f20ec449bb0caa62128be087d0eb2e49bdb8a744895ee45c8609e15c2920e2e65b6c65dc6e8f5adb4d360b06418ed44f3baf31857d3c463f57f6b3')
+sha256sums=('e6114141303027f46b37c0a813f1c0013b980bdf52fca35cb45776070c1e348e')
+b2sums=('d06011edd535d4b4a8a3f24030c63e9f367cfc13474f47d693eae22461e28dcc92a3b102382d0ee6af325899ea14833169894b930dbb0f3c089342fd5e09191e')
 
 build() {
   cd "${pkgname}"
