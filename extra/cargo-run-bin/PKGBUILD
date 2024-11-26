@@ -2,7 +2,7 @@
 
 pkgname=cargo-run-bin
 _pkgname=cargo-bin
-pkgver=1.7.3
+pkgver=1.7.4
 pkgrel=1
 pkgdesc="Build, cache, and run CLI tools scoped in Cargo.toml"
 arch=('x86_64')
@@ -10,7 +10,7 @@ url='https://github.com/dustinblackman/cargo-run-bin'
 license=('MIT')
 depends=('cargo' 'gcc-libs')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('522c5e22f89ee8e1abffb16ff6a54b7c2566ba40b4a218ad2f01f22455c4233c')
+sha256sums=('fd492430a60ca488ad8c356f9c6389426f3fbcd59658e5b721855e171cb62841')
 
 prepare() {
   cd "$pkgname-$pkgver"
