@@ -2,7 +2,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 
 pkgname=alsa-ucm-conf
-pkgver=1.2.12
+pkgver=1.2.13
 pkgrel=1
 pkgdesc="ALSA Use Case Manager configuration (and topologies)"
 arch=(any)
@@ -11,9 +11,9 @@ license=(BSD-3-Clause)
 source=(
   $url/files/pub/lib/$pkgname-$pkgver.tar.bz2{,.sig}
 )
-sha512sums=('391dde123271172d899c04865d1d6e21b4ad0060ee9b2256dfbc6fc89ad48edcaa43c861893ab0e5c70d972e20d15c528defc19c00308e7465f13f954cce25d7'
+sha512sums=('cad867268851ac178f3a5378a00e292184b0e0ec7955f297ae7ed56073d3dddb06c08666b23b1bf6b0065068a9370ee34608bd687763658c79d34b64059b1c85'
             'SKIP')
-b2sums=('65f429afa6a9134f1896acac3827f6065ce9315f1920d27d5ea97244fe376f1f7780c9537cf33b8a91eeaebfde7489842bd603a7d60c0d20b6017f2e7e1eda4e'
+b2sums=('87e4bf2285961e316ca853e9245e02447ea9e60fa506e124c072e2b6ed71345fc0c30b19bf8c849f8123a6b95a4facd22225eafccba8164266961110a60ef44c'
         'SKIP')
 validpgpkeys=('F04DF50737AC1A884C4B3D718380596DA6E59C91') # ALSA Release Team (Package Signing Key v1) <release@alsa-project.org>
 
