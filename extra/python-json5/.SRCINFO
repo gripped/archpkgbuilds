@@ -1,17 +1,18 @@
 pkgbase = python-json5
 	pkgdesc = A Python implementation of the JSON5 data format
-	pkgver = 0.9.28
+	pkgver = 0.10.0
 	pkgrel = 1
 	url = https://pypi.org/project/json5/
 	arch = any
 	license = Apache-2.0
 	checkdepends = python-pytest
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
 	depends = python
-	source = https://github.com/dpranke/pyjson5/archive/v0.9.28/python-json5-0.9.28.tar.gz
-	sha256sums = 368c39097fad3ba8d147118ae231f02e9012b7a8b9c8a24d6bbe849aad46e2e5
+	source = git+https://github.com/dpranke/pyjson5#tag=v0.10.0
+	sha256sums = 8e502181f32fe57925378c65d64b994e57165e226c4d3d907b63729d38088189
 
 pkgname = python-json5
