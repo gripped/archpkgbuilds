@@ -1,0 +1,43 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=python-recurring-ical-events
+pkgver=3.3.3
+pkgrel=2
+pkgdesc='Python library to calculate recurrence times of events, todos and journals based on icalendar RFC5545'
+arch=(any)
+url='https://github.com/niccokunzmann/python-recurring-ical-events'
+license=(LGPL-3.0-or-later)
+depends=(
+  python
+  python-dateutil
+  python-icalendar
+  python-x-wr-timezone
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-pytest
+  python-tzdata
+)
+source=("git+https://github.com/niccokunzmann/python-recurring-ical-events.git#tag=v$pkgver")
+b2sums=(a3feb2591540bf6f6e2ccf3e566cff5905cab552a24fafa9575b0ef990746416141b02f4b4f18ca0c86fef2a974c728bbc8ba1b93b44d26d6e835094c3d38e7e)
+
+build() {
+  cd $pkgname
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd $pkgname
+  pytest --ignore=test/test_readme.py --ignore=test/test_with_doctest.py
+}
+
+package() {
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
