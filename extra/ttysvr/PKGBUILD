@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=ttysvr
-pkgver=0.3.3
+pkgver=0.3.4
 pkgrel=1
 pkgdesc="Screen saver for your terminal"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT' 'Apache-2.0')
 depends=('gcc-libs' 'alsa-lib' 'systemd-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('f04c60598676923c9792edf1e06a9089a2b8ec37b329421efa3f4d38eaa539e9904737e24f97a49c3ac875b912372111479870acf0967f031e25cceb1b03986c')
+sha512sums=('74bab2615698d5064afe802756f3aca66ff949f2b2b653cbd48789a30462413aca4e574905745dbff77e678cbdb12426e15177030b14bf563383dae333a91cd5')
 
 prepare() {
   cd "$pkgname-$pkgver"
