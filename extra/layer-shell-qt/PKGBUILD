@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=layer-shell-qt
-pkgver=6.2.3
+pkgver=6.2.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Qt component to allow applications to make use of the Wayland wl-layer-shell protocol'
@@ -18,7 +18,7 @@ makedepends=(extra-cmake-modules
 optdepends=('qt6-declarative: QML bindings')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('00941fedfc5420f65d6be24704b5cc2f07f5971f5b7c00145668cedc73651e1c'
+sha256sums=('001897a7d4991a9e95be73152d9513662cc7d8a53211702d906d597b73ced872'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
