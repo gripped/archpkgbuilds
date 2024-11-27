@@ -2,7 +2,7 @@
 
 pkgname=signstar-configure-build
 _name=signstar
-pkgver=0.1.0
+pkgver=0.1.1
 pkgrel=1
 pkgdesc="A commandline tool to configure a Signstar system during build"
 arch=(x86_64)
@@ -21,8 +21,8 @@ makedepends=(
   rust-script
 )
 source=($_name::git+$_url.git?signed#tag=$pkgname/$pkgver)
-sha512sums=('57c618fd8e38e9a612b2bdfb86c02aad76d8dc84a6b657823dcd40831b7416844493553700f26317b53b58a31d0d89ba9371ad3a50ffbdb5bab72d95ba840a45')
-b2sums=('565668d6df48eb7b2f32dfec1597e1d470389cbc5ce17ab9ebc69866c6506e9953e234b0668e2d864ce7ecf7d704a98e2a78ec4cb63b16b08180572fca588230')
+sha512sums=('29eb7923552c9650feb77186a2825fee47bf87c97b451f058a54a1675f360f7e79b3d457c0671298d3823778d060c17e5eb41c573fec0f8b944e5edfef3bc642')
+b2sums=('26fc72d25cf1529aabf989704318d4a2d204fa42b16b2e93fb6a39cb355a2c992934fa250745c207f917a673dfbfb15f8f698688b3f252113c9d8216755a35a9')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
