@@ -3,7 +3,7 @@
 # Contributor: Maxim Baz <archlinux at maximbaz dot com>
 
 pkgname=prettier
-pkgver=3.3.3
+pkgver=3.4.1
 pkgrel=1
 pkgdesc='An opinionated code formatter'
 arch=(any)
@@ -19,11 +19,11 @@ makedepends=(
 )
 checkdepends=(npm)
 source=("git+https://github.com/$pkgname/$pkgname.git#tag=$pkgver")
-b2sums=('66aaeabc3d0c56ffd7bad266e56e943e8c415a93c0c699f942190efe4ea88522c7aac923b0e5a65fefdcc6cf70ab190c6f2d4c4a3b3b605060fe023f98334740')
+b2sums=('5fda7f9ab1791cc99de3eeade446fa101adde3ef44c654793aab6ca1edfddae89e1a97bc7cd0137810753d1588518fb8b39a24f72c0dfee2b574d2c0062e117b')
 
 prepare() {
   cd $pkgname
-  yarn --frozen-lockfile
+  yarn install --immutable
 }
 
 build() {
@@ -38,6 +38,7 @@ check() {
 
 package() {
   local mod_dir=/usr/lib/node_modules/$pkgname
+
   install -d "$pkgdir"/{usr/bin,usr/share/licenses/$pkgname,$mod_dir}
   ln -s $mod_dir/bin/$pkgname.cjs "$pkgdir"/usr/bin/$pkgname
   ln -s $mod_dir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
