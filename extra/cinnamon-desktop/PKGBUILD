@@ -4,19 +4,19 @@
 # Contributor: Jan de Groot <jan@archlinux.org>
 
 pkgname=cinnamon-desktop
-pkgver=6.2.0
+pkgver=6.4.0
 pkgrel=1
 pkgdesc="Library with common API for various Cinnamon modules"
 arch=(x86_64)
 url="https://github.com/linuxmint/${pkgname}"
 license=(GPL LGPL)
 depends=(accountsservice gtk3 libxkbfile libpulse)
-makedepends=(meson samurai gobject-introspection intltool)
+makedepends=(meson samurai gobject-introspection intltool glib2-devel)
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         config.patch)
-sha256sums=('95bb6fc16597601b1febde4bd1317ba9c3ab662119b6b8e602b49e832d3f3eb7'
+sha256sums=('61d2fb8a8b2e9eac66522ff78ece2cdc63c6083895a4823642c6f3c06bf83c51'
             'e70227c64eca6857fe9adc21c6aee851df40b3a54bf34a145e0dc4b9819a7b6a')
-b2sums=('e91cc5de64cfa2b936dd224727a493f7ca9049272d7cead88f6e6682b3e11505798d340e245816386e8427712dc3159c416bc51ac6b8cdf937649f34afa247f7'
+b2sums=('80d92c846b4099e258304bbb9cbe3717ea4da07ff332e0cc047db69dfb736fab44deaf533190949993b218db2a08e91a10825169488d2b2477c5ef0da148bfdd'
         '5ae28fca1f3fee35222569afdba3f6f2df00f2b27709d1135589f33a3b80546ca541c391f5ee02759467fcaffe380dc1cbc4117dffe3c10cdf7046fd8588e384')
 
 prepare() {
