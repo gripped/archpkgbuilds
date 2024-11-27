@@ -17,7 +17,7 @@ pkgname=(nemo-audio-tab
         #nemo-dropbox dropbox in AUR
         #nemo-media-columns pypdf2 in AUR but mostly unmaintained
         #nemo-repairer
-pkgver=6.2.0
+pkgver=6.4.0
 pkgrel=1
 pkgdesc="Various extensions for Nemo"
 arch=(x86_64)
@@ -30,13 +30,16 @@ _seahorse_deps=(libcryptui)
 makedepends=(intltool gobject-introspection meson samurai glib2-devel)
 makedepends+=("${_preview_deps[@]}" "${_python_deps[@]}" "${_seahorse_deps[@]}")
 options=(!emptydirs)
-source=("${url}/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz")
-sha256sums=('b1c7e3d269ed05f472c80c16cf3f12827cbb48cb05406b276be14060225dbbc3')
-b2sums=('762133790dd565b159a7a6310d2660b417c811a2d19fd2898b3e91a3eff875fa8ddb3e36b24768948da0c8438be949ce57dd18d36ea703ddb9deb978b4418a8f')
+source=("${url}/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz"
+        https://github.com/linuxmint/nemo-extensions/commit/9cd1e890.patch)
+sha256sums=('55e8fb43edde09c3ceba197a4359c1e79b1f0ea7007543d26f32532957aabd49'
+            '2d170132547eee4f698625aa5055cb5e15c510902c46ea70fcf84c05f71bc5cb')
+b2sums=('5c8b26b12ecd752d8e1fefc055891dc70c91b210c99c729babae3946b134634abfb5ef8f0314c8392f0edad891bee6b8e32fae7e4805f0463f30685dcb88ce11'
+        'cd83da627a1db611f78f9daaf6ce497fa36c86c749854174616e2a5418ffee7f3d166028e00172e38ec7c1ec86834fa6d080562aa1631daabb210606b0adfde2')
 
 prepare() {
   cd $pkgbase-$pkgver
-  rm -r ./*/debian # Fix build with newer setuptools
+  patch -p1 -i ../9cd1e890.patch # Fix build
 }
 
 build() {
