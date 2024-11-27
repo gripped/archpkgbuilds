@@ -1,0 +1,26 @@
+From ee5006cec4cc1818692d2e64669c01d83a8891b2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 27 Nov 2024 02:36:03 +0100
+Subject: [PATCH] Exclude source icon from install
+
+This is not needed on runtime.
+---
+ data/meson.build | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/data/meson.build b/data/meson.build
+index 80e4eccb..9b9ad74f 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -1,6 +1,10 @@
+ subdir('resources')
+ 
+-install_subdir('icons', install_dir: get_option('datadir'))
++install_subdir(
++  'icons',
++  install_dir: get_option('datadir'),
++  exclude_files: ['io.github.mrvladus.List.Source.svg'],
++)
+ 
+ desktop_file = i18n.merge_file(
+   input: configure_file(

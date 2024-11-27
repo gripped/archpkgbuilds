@@ -1,0 +1,73 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=errands
+pkgver=46.2.6
+pkgrel=2
+pkgdesc='Todo application for those who prefer simplicity'
+arch=(any)
+url='https://apps.gnome.org/List/'
+license=(MIT)
+depends=(
+  dconf
+  glib2
+  gtk4
+  gtksourceview5
+  hicolor-icon-theme
+  libadwaita
+  libgoa
+  libportal
+  libsecret
+  python
+  python-caldav
+  python-gobject
+  python-requests
+  python-urllib3
+)
+makedepends=(
+  appstream
+  git
+  meson
+)
+source=(
+  "git+https://github.com/mrvladus/Errands.git#tag=$pkgver"
+  errands-bin-exec.patch
+  errands-autostart.patch
+  errands-exclude-source-icon.patch
+)
+b2sums=(
+  b0a0b61a5d3568cf5a8f640804c960b964fae84d3df9ed7a6b1822d8d509a576d8e5310251e956eb3ed4545bea5b5e9d7953524fd6fa1ef38c94db6c77deb080
+  8150e1ff09a68eb6b9c3f72b1bf99d0bc5943da2443258c13ac58f292cd0a0451f47a718d7e47192d58e5725619ca17e27cb12041215b3d61296247bff70ac10
+  22e12624286f758643fef63a91c0e736b915c4970292c45127cb80561583adfc129306a04a74bd1b8b2c18c42fca65049e739d3dfd5e9784a6ea2e86c71249b7
+  aed6d3c7e7cca6aa5fe321c3c2c5c3e06c612ba7954d63596d829f44ce80715bd9cb03383e55cc5bbbcafa9f03baef32a9ecc2ca78f3ee9c64d5f0a99ffbbd62
+)
+
+prepare() {
+  cd Errands
+
+  # https://github.com/mrvladus/Errands/pull/357
+  git apply -3 ../errands-bin-exec.patch
+
+  # https://github.com/mrvladus/Errands/pull/358
+  git apply -3 ../errands-autostart.patch
+
+  # https://github.com/mrvladus/Errands/pull/360
+  git apply -3 ../errands-exclude-source-icon.patch
+}
+
+build() {
+  arch-meson Errands build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+
+  python -m compileall -d /usr/share "$pkgdir/usr/share"
+  python -O -m compileall -d /usr/share "$pkgdir/usr/share"
+
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" Errands/LICENSE
+}
