@@ -3,16 +3,32 @@
 # Contributor: Glaucous <glakke1 at gmail dot com>
 
 pkgname=apitrace
-pkgver=11.1
-pkgrel=3
+pkgver=12.0
+pkgrel=1
 pkgdesc="Graphics API Tracing"
 arch=('x86_64')
 url="https://github.com/apitrace/apitrace"
 license=('MIT')
-makedepends=('cmake' 'git' 'mesa' 'qt5-base')
-depends=('python' 'libgl' 'libprocps')
+depends=(
+  'brotli'
+  'gcc-libs'
+  'glibc'
+  'python'
+  'python-numpy'
+  'python-pillow'
+  'libpng'
+  'libprocps'
+  'libx11'
+  'zlib'
+)
+makedepends=(
+  'cmake'
+  'git'
+  'mesa'
+  'qt5-base'
+)
 optdepends=('qt5-base: GUI support')
-source=("$pkgname-$pkgver::git+https://github.com/apitrace/apitrace.git#tag=${pkgver}"
+source=("$pkgname::git+https://github.com/apitrace/apitrace.git#tag=${pkgver}"
         "git+https://github.com/apitrace/gltrim-tests.git"
         "git+https://github.com/google/brotli.git"
         "git+https://github.com/google/googletest.git"
@@ -21,18 +37,18 @@ source=("$pkgname-$pkgver::git+https://github.com/apitrace/apitrace.git#tag=${pk
         "git+https://github.com/google/snappy.git"
         "git+https://github.com/madler/zlib.git"
         "git+https://github.com/microsoft/DirectXMath.git")
-sha256sums=(SKIP
-            SKIP
-            SKIP
-            SKIP
-            SKIP
-            SKIP
-            SKIP
-            SKIP
-            SKIP)
+sha256sums=('022d88388c4b702da43aa21e7f552035ecbb6f458f24b0fb8f29683d714ebdcc'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP')
 
 prepare() {
-  cd apitrace-${pkgver}
+  cd $pkgname
 
   git submodule init
   git config submodule.frametrim/tests.url "$srcdir/gltrim-tests"
@@ -47,18 +63,24 @@ prepare() {
 }
 
 build() {
-  cd apitrace-${pkgver}
+  local cmake_options=(
+    -B build
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D ENABLE_GUI=TRUE
+    -S $pkgname
+    -W no-dev
+  )
 
-  cmake . -Bbuild -DCMAKE_INSTALL_PREFIX=/usr \
-    -DENABLE_GUI=TRUE 
-  make -C build
+  cmake "${cmake_options[@]}"
+  cmake --build build --verbose
+}
+
+check() {
+  ctest --test-dir build --output-on-failure
 }
 
 package() {
-  cd apitrace-${pkgver}
-
-  make -C build DESTDIR="${pkgdir}/" install
-
-  install -m755 -d "${pkgdir}/usr/share/licenses/apitrace"
-  install -m644 LICENSE "${pkgdir}/usr/share/licenses/apitrace/"
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm 644 $pkgname/LICENSE -t "${pkgdir}/usr/share/licenses/apitrace/"
 }
