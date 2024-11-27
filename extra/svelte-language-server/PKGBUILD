@@ -2,7 +2,7 @@
 
 _name=svelte-language-tools
 pkgname=svelte-language-server
-pkgver=0.17.6
+pkgver=0.17.7
 pkgrel=1
 pkgdesc='Language server for Svelte'
 arch=(any)
@@ -18,7 +18,7 @@ makedepends=(
   pnpm
 )
 source=("$_name::git+https://github.com/sveltejs/language-tools.git#tag=language-server-$pkgver")
-b2sums=('0fb7a35098045c121a4e569b31353086ed5cec17561806cf37975a6e456a34dfba6ac77af838ae4da562b0816c97513e092a18f020cb1f3687de3f67d6bea7b4')
+b2sums=('d6629388781e1dfbf4f3e2c17cbe93e0f1be4768af0d704a051e0704b5abce66bc5afad91c608767eee9a1a1539082992baaa6569e544981feeb865a6ca26977')
 
 prepare() {
   cd $_name
