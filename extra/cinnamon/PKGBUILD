@@ -6,16 +6,16 @@
 # Contributor: CReimer
 
 pkgname=cinnamon
-pkgver=6.2.9
+pkgver=6.4.0
 pkgrel=1
 pkgdesc="Linux desktop which provides advanced innovative features and a traditional user experience"
 arch=(x86_64)
 url="https://github.com/linuxmint/cinnamon"
 license=(GPL2)
-depends=(accountsservice caribou cinnamon-control-center cinnamon-menus cinnamon-screensaver
-         cinnamon-session cinnamon-settings-daemon cjs gnome-backgrounds gsound
-         gstreamer libgnomekbd libkeybinder3 librsvg muffin
-         network-manager-applet nemo polkit-gnome python-cairo python-dbus
+depends=(accountsservice caribou cinnamon-control-center cinnamon-desktop cinnamon-menus cinnamon-screensaver
+         cinnamon-session cinnamon-settings-daemon cjs gcr gdk-pixbuf2 glib2 gnome-backgrounds gsound
+         gstreamer gtk3 libgnomekbd libkeybinder3 librsvg muffin
+         network-manager-applet nemo pango polkit-gnome python python-cairo python-dbus
          python-gobject python-pam python-pexpect python-pillow python-pyinotify
          python-pytz python-tinycss2 python-xapp python-requests timezonemap xapps xdg-desktop-portal-xapp)
 optdepends=('blueman: Bluetooth support'
@@ -27,15 +27,15 @@ optdepends=('blueman: Bluetooth support'
             'gnome-terminal: X terminal emulator'
             'touchegg: touch gestures'
             'switcheroo-control: GPU offloading')
-makedepends=(meson samurai gobject-introspection intltool glib2-devel)
+makedepends=(meson samurai gobject-introspection intltool glib2-devel python-libsass)
 options=('!emptydirs')
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         set_wheel.diff
         default-theme.patch)
-sha512sums=('8226dedfa26069fd86e6e52daa5bfd46b54de58865cd98e07715caf8843ec1981b28fa2c8195ab153e127156eee6d6b6cd7e94eb715a66c206c0a7e9452fed11'
+sha512sums=('690beb1a01674fea7bb3cf588c70583def97227e6f583ee12be4150dbde3b3c33de580115354ecebfc550fd6764d58468a424f7aa8ede639bd654128f5468fbd'
             'fd7e117054996ed1c3dfd0f968c2bf98ca4fcee9a100221f8839a232147745ec0140e1f68eeffba58a3c44f66f26e05d433648a7a28858ec669524f7266ba04c'
             'ee7dedd59ea370cf81d75def49060f9a29b22e7b025ca7d5db87a0102d50f138c79aa562b0d36a748c4b1c59a37f600ba1f60ff6caf303cf5b6fc4d110d051b4')
-b2sums=('13a03e5f521d79f6929c16802629fb99b86d7e7f09ea65df76505b8216aa54ca37471a59ed68437bc470df34ca6b5b79e1b66df33721736e2a2c802b8a7755d8'
+b2sums=('91dac40f1f47ad844d336a16e58032fee1b8368c85c651b5df8790036682575462d81c04953ac9bb3e20314da4ffaa3393d68c48130366506e06bdd2b521eb96'
         '3becf1f40068fc629109e6e7d464c3c484296afacc9ab6328b2ccbb3c9735bcbfa9550f9f73b430ede178ae668e37c660ce322b5b4d1873526de3d3d41185160'
         '86c3a29acd132ca321f08fd81dd5a45707accdc035b2aeec95bf358b29072ff1eedb77b2566cf48d7253d1d791599f0f44938c4600761d711cb18b59019f1c62')
 
