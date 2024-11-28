@@ -1,0 +1,87 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgbase=papers
+pkgname=(
+  papers
+  papers-lib-docs
+)
+pkgver=47.0
+pkgrel=2
+pkgdesc='Document viewer for PDF and other document formats aimed at the GNOME desktop'
+arch=(x86_64)
+url='https://apps.gnome.org/Papers/'
+license=(GPL-2.0-or-later)
+depends=(
+  cairo
+  dconf
+  djvulibre
+  exempi
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  graphene
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libarchive
+  libnautilus-extension
+  libtiff
+  pango
+  poppler-glib
+)
+makedepends=(
+  appstream
+  gi-docgen
+  git
+  glib2-devel
+  gobject-introspection
+  itstool
+  meson
+  rust
+)
+source=("git+https://gitlab.gnome.org/GNOME/Incubator/papers.git#tag=$pkgver")
+b2sums=(1604832180bdb94ca1b621192ac69d86e3eee2de95aed0e907a1d42f5ccbefa718406b41d1168d8dd0b463b23eb0bea33adc2160b724d2f47609a89406d37077)
+
+prepare() {
+  cd $pkgbase
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')" \
+      --manifest-path=shell-rs/Cargo.toml
+
+  # https://gitlab.gnome.org/GNOME/Incubator/papers/-/merge_requests/333
+  git cherry-pick -n 455ad2aebe5e5d5a57a2f4defc6af054927eac73
+
+  # https://gitlab.gnome.org/GNOME/Incubator/papers/-/merge_requests/337
+  git cherry-pick -n 13dcf088b201ca3446feefe92aee3aec653cb4c5
+}
+
+build() {
+  arch-meson $pkgbase build \
+    -D xps=disabled
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
+}
+
+package_papers() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+
+  mkdir -p doc/usr/share
+  mv {"$pkgdir",doc}/usr/share/doc
+}
+
+package_papers-lib-docs() {
+  pkgdesc+=" (library API documentation)"
+  depends=()
+
+  mv doc/* "$pkgdir"
+}

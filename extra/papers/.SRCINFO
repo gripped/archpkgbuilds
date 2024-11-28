@@ -1,0 +1,40 @@
+pkgbase = papers
+	pkgdesc = Document viewer for PDF and other document formats aimed at the GNOME desktop
+	pkgver = 47.0
+	pkgrel = 2
+	url = https://apps.gnome.org/Papers/
+	arch = x86_64
+	license = GPL-2.0-or-later
+	makedepends = appstream
+	makedepends = gi-docgen
+	makedepends = git
+	makedepends = glib2-devel
+	makedepends = gobject-introspection
+	makedepends = itstool
+	makedepends = meson
+	makedepends = rust
+	depends = cairo
+	depends = dconf
+	depends = djvulibre
+	depends = exempi
+	depends = gcc-libs
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
+	depends = graphene
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita
+	depends = libarchive
+	depends = libnautilus-extension
+	depends = libtiff
+	depends = pango
+	depends = poppler-glib
+	source = git+https://gitlab.gnome.org/GNOME/Incubator/papers.git#tag=47.0
+	b2sums = 1604832180bdb94ca1b621192ac69d86e3eee2de95aed0e907a1d42f5ccbefa718406b41d1168d8dd0b463b23eb0bea33adc2160b724d2f47609a89406d37077
+
+pkgname = papers
+
+pkgname = papers-lib-docs
+	pkgdesc = Document viewer for PDF and other document formats aimed at the GNOME desktop (library API documentation)
+	depends = 
