@@ -1,0 +1,47 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=clairvoyant
+pkgver=3.1.8
+pkgrel=2
+pkgdesc='Get psychic answers from this fortune teller'
+arch=(x86_64)
+url='https://apps.gnome.org/Clairvoyant/'
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  glib2
+  glibc
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libportal
+)
+makedepends=(
+  appstream
+  git
+  meson
+  vala
+)
+source=("git+https://github.com/cassidyjames/clairvoyant.git#tag=$pkgver")
+b2sums=(df9c1cc8e6feb91ddf5b285729f80f1c33039ac348d60bc192e16f3dbbbd26c9bcee5faad80abe3d36d815127d5fb93e6a108e9400c30761cfc7547b0b2c5361)
+
+prepare() {
+  cd $pkgname
+
+  # Remove useless banner
+  sed -i '/main_layout.append (banner)/d' src/MainWindow.vala
+}
+
+build() {
+  arch-meson $pkgname build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+  ln -s com.github.cassidyjames.clairvoyant "$pkgdir/usr/bin/clairvoyant"
+}
