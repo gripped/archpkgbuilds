@@ -1,0 +1,71 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=gaphor
+pkgver=2.27.0
+pkgrel=1
+pkgdesc='Simple UML and SysML modeling tool'
+arch=(any)
+url='https://apps.gnome.org/Gaphor/'
+license=(Apache-2.0)
+depends=(
+  dconf
+  gdk-pixbuf2
+  glib2
+  gtk4
+  gtksourceview5
+  hicolor-icon-theme
+  libadwaita
+  pango
+  python
+  python-babel
+  python-better-exceptions
+  python-cairo
+  python-defusedxml
+  python-dulwich
+  python-gaphas
+  python-generic
+  python-gobject
+  python-jedi
+  python-pillow
+  python-pydot
+  python-tinycss2
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-poetry-core
+  python-wheel
+)
+_flathub_commit=56b092315f04d59cac81e68b876a597f19973c22
+source=(
+  "git+https://github.com/gaphor/gaphor.git#tag=$pkgver"
+  "git+https://github.com/flathub/org.gaphor.Gaphor.git#commit=$_flathub_commit"
+)
+b2sums=(
+  7adfabbe9a93e3c4a8756445092dd1dabf290e7afddfae3e8bc603e6a02f2991bb1ebaf32ed3f36c37c86e2f78467016d9304c4c502d241da5ece6c0dc3829be
+  46cf548c23bafa34f02dce42eadeccab794435678767eaf68a88a471e7c5172ba7481fdacb4ad8295ba1a7e19cd9cf43596f9553199629482f7c80703c12b82e
+)
+
+build() {
+  cd $pkgname
+  python po/build-babel.py
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 -t "$pkgdir/usr/share/glib-2.0/schemas/" gaphor/ui/installschemas/org.gaphor.Gaphor.gschema.xml
+
+  cd ../org.gaphor.Gaphor
+  install -Dm644 share/org.gaphor.Gaphor.appdata.xml "$pkgdir/usr/share/metainfo/org.gaphor.Gaphor.appdata.xml"
+  install -Dm644 share/org.gaphor.Gaphor.desktop "$pkgdir/usr/share/applications/org.gaphor.Gaphor.desktop"
+  install -Dm644 share/org.gaphor.Gaphor.xml "$pkgdir/usr/share/mime/packages/org.gaphor.Gaphor.xml"
+  install -Dm644 logos/gaphor-24x24.png "$pkgdir/usr/share/icons/hicolor/24x24/apps/org.gaphor.Gaphor.png"
+  install -Dm644 logos/gaphor-48x48.png "$pkgdir/usr/share/icons/hicolor/48x48/apps/org.gaphor.Gaphor.png"
+  install -Dm644 logos/gaphor-96x96.png "$pkgdir/usr/share/icons/hicolor/96x96/apps/org.gaphor.Gaphor.png"
+  install -Dm644 logos/gaphor-256x256.png "$pkgdir/usr/share/icons/hicolor/256x256/apps/org.gaphor.Gaphor.png"
+  install -Dm644 logos/org.gaphor.Gaphor.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/org.gaphor.Gaphor.svg"
+  install -Dm644 logos/org.gaphor.Gaphor-symbolic.svg "$pkgdir/usr/share/icons/hicolor/symbolic/apps/org.gaphor.Gaphor-symbolic.svg"
+}
