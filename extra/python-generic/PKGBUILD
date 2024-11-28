@@ -1,0 +1,49 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=python-generic
+pkgver=1.1.3
+pkgrel=2
+pkgdesc='Generic programming library for Python'
+arch=(any)
+url='https://github.com/gaphor/generic'
+license=(BSD-3-Clause)
+depends=(python)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-poetry-core
+  python-sphinx-furo
+  python-wheel
+)
+checkdepends=(python-pytest)
+source=("git+https://github.com/gaphor/generic.git#tag=$pkgver")
+b2sums=(7b1e4a01789c3420500f180efdedbd680b2374092bf062489069ebfd9c0bf081957553e8714c09e22b43c0d0c569233d136ce8e66874f70496602d6db81b3fee)
+
+prepare() {
+  cd generic
+
+  # https://github.com/gaphor/generic/pull/560
+  git cherry-pick -n e76c7f56f55846ca21a17b56634dccae0dc9ffa1
+}
+
+build() {
+  cd generic
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd generic
+  PYTHONPATH="$PWD/dist/generic-$pkgver-py3-none-any.whl" \
+    pytest
+}
+
+package() {
+  cd generic
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  PYTHONPATH="$PWD/dist/generic-$pkgver-py3-none-any.whl" \
+    python -m sphinx -b html docs "$pkgdir/usr/share/doc/$pkgname/html"
+
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSES/BSD-3-Clause.txt
+}
