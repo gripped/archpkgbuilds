@@ -3,7 +3,7 @@
 
 pkgbase=edk2
 pkgname=(edk2-arm edk2-aarch64 edk2-shell edk2-ovmf)
-pkgver=202408.01
+pkgver=202411
 pkgrel=1
 pkgdesc="Modern, feature-rich firmware development environment for the UEFI specifications"
 arch=(any)
@@ -54,7 +54,7 @@ source=(
   80-edk2-ovmf-ia32-on-x86_64-secure-4m.json
   81-edk2-ovmf-ia32-on-x86_64-4m.json
 )
-sha512sums=('7a2a9c67c76aa081834dc88dfefa8d208dca089d3dafda8374046e6b43e9b6b4af82ceefd4ad01b2d50911619805e2da77b62ccfe6e4436bca99e4006683e906'
+sha512sums=('fb15d0709778aebca8060004820f7af6718e95ea3b3ceb50efe7af82b64feee85af1480be4126691569d0c89c891677db4bb27b4d54126875a3748044017f4eb'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -83,7 +83,7 @@ sha512sums=('7a2a9c67c76aa081834dc88dfefa8d208dca089d3dafda8374046e6b43e9b6b4af8
             'bbf663d539a985504d5fbc95552a2a60ac860a6bce4a62ecc551292d838b41cba3b5203f580a76a05e9f862ef98e7a3e5da39505c1f39d8ef48c08778fac584a'
             '95661c2182112a76652507de84b7d0f9bb0d21f6b3b62134952bd7aada8df5cfc727658d11b71a7780a22049d9cafc4361d9a1d515b68d1463e7082465fd4f7e'
             'c9dbe7b2b6b8c18b7b8fdfef5bc329d9142c442f2f3dbae3ca4919255dcaf2ab576cd305648228d5dd48040ca3b14f44ee33b05cb6ca13b49e2836947b78ea53')
-b2sums=('2214e629c2ad261618cb2d036e7a3c74cab0eb191022c4f78049a3fbd3b9d72ffa877193a17f4c298d743804a5cdc9e44037d0ae4f181c083a3cb8eb62a7c993'
+b2sums=('fb2977af32fd2f33bfc661cb6c4b28a7f5d390c498122b26920cf18d1c3c0f29f19c618726d7f5a439a1b964e05d689eac94be1bada34c35b6358eb5e591e287'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -186,11 +186,14 @@ build() {
     -D FD_SIZE_4MB
     -D NETWORK_HTTP_BOOT_ENABLE
     -D NETWORK_IP6_ENABLE
-    -D NETWORK_TLS_ENABLE
     -D TPM_CONFIG_ENABLE
     -D TPM_ENABLE
     -D TPM1_ENABLE
     -D TPM2_ENABLE
+  )
+  # network TLS for some targets (all but )
+  local _network_tls=(
+    -D NETWORK_TLS_ENABLE
   )
 
   cd $pkgbase
@@ -226,6 +229,7 @@ build() {
         -a "$_arch"
         "${_common_args[@]}"
         "${_efi_args[@]}"
+        "${_network_tls[@]}"
         -D LOAD_X64_ON_IA32_ENABLE
         -D SECURE_BOOT_ENABLE
         -D SMM_REQUIRE
@@ -239,6 +243,7 @@ build() {
         -a "$_arch"
         "${_common_args[@]}"
         "${_efi_args[@]}"
+        "${_network_tls[@]}"
         -D LOAD_X64_ON_IA32_ENABLE
       )
       BaseTools/BinWrappers/PosixLike/build "${_build_options[@]}"
@@ -252,6 +257,7 @@ build() {
         -a "$_arch"
         "${_common_args[@]}"
         "${_efi_args[@]}"
+        "${_network_tls[@]}"
       )
       BaseTools/BinWrappers/PosixLike/build "${_build_options[@]}"
       mv -v Build/MicrovmX64{,-4mb}
@@ -263,6 +269,7 @@ build() {
         -a "$_arch"
         "${_common_args[@]}"
         "${_efi_args[@]}"
+        "${_network_tls[@]}"
         -D SECURE_BOOT_ENABLE
         -D SMM_REQUIRE
       )
@@ -275,6 +282,7 @@ build() {
         -a "$_arch"
         "${_common_args[@]}"
         "${_efi_args[@]}"
+        "${_network_tls[@]}"
       )
       BaseTools/BinWrappers/PosixLike/build "${_build_options[@]}"
       mv -v Build/OvmfX64{,-4mb}
@@ -286,6 +294,7 @@ build() {
         -a "$_arch"
         "${_common_args[@]}"
         "${_efi_args[@]}"
+        "${_network_tls[@]}"
         -D SECURE_BOOT_ENABLE
       )
       BaseTools/BinWrappers/PosixLike/build "${_build_options[@]}"
