@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie
 
 pkgname=xdg-desktop-portal-xapp
-pkgver=1.0.9
+pkgver=1.1.0
 pkgrel=1
 pkgdesc='A backend implementation for xdg-desktop-portal using GTK and various pieces of Cinnamon/MATE/Xfce4 infrastructure'
 arch=(x86_64)
@@ -13,7 +13,7 @@ makedepends=(meson glib2-devel)
 provides=(xdg-desktop-portal-impl)
 source=(https://github.com/linuxmint/xdg-desktop-portal-xapp/archive/$pkgver/$pkgname-$pkgver.tar.gz
         xapp-portals.conf)
-sha256sums=('4d767025ba3389ce25b4f3ab0ac3447fac4ff05a5f00bf72fe95384105d9afe2'
+sha256sums=('2d0746ad1021d8848fb60f1444d09c81c5a4da90df334b44418d6533e6811c13'
             '86f7bad3112e2bccfe07eb9345e95ed4716c126de5e9397966c6de30ae056c11')
 
 build() {
