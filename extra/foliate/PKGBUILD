@@ -2,7 +2,7 @@
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=foliate
-pkgver=3.1.1
+pkgver=3.2.0
 pkgrel=1
 pkgdesc='A simple and modern GTK eBook reader'
 arch=(any)
@@ -25,7 +25,7 @@ optdepends=(#'dictd: Offline dictionary support'
             'tracker3')
 _archive="com.github.johnfactotum.${pkgname^}-$pkgver"
 source=("$_url/releases/download/$pkgver/$_archive.tar.xz")
-sha256sums=('1bda9cd32b4d9a2480b0fc4f9884ad04450bd96fdb30a48ab9c1e7b6ec625144')
+sha256sums=('714d42d54e103f4a3c367bf18186a56401228b7ee1175224e760ae59f204e1e6')
 
 build() {
 	cd "$_archive"
