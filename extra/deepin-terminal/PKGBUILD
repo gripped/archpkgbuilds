@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-terminal
-pkgver=6.0.14
+pkgver=6.0.15
 pkgrel=1
 pkgdesc='Default terminal emulation application for Deepin'
 arch=('x86_64')
@@ -17,7 +17,7 @@ optdepends=('zssh: for remote management support')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-terminal.git#tag=$pkgver"
         $pkgname-break-non-dde.patch::https://github.com/linuxdeepin/deepin-terminal/commit/0df1446c1af214ffb568e7b956edbed7e656abf3.patch)
-sha512sums=('271ba25572cc6210a92ce25e059735a0f06a34692c0b60792ab1879fe47842379e0e041dc26be3e672f3f87b4cd84a02733b59b602f38185bed0bb5b2faa308e'
+sha512sums=('3e453e9bc4378896b08f6699b615cef8b4babccf7773b07683115b1420a82ebfcec2c5bbc38d33ddc5275238213fab06949f1858c59f7971c942d01370ede75c'
             '58e0fed2031678a6e38e14908301ed0cceb9ff9a7b0142e1afa409210865416f4f06dd11cd162011597b5468e12effe91dce99bce9bfa1757ef2846f64489b0b')
 
 prepare() {
