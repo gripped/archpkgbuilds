@@ -1,24 +1,23 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-voice-note
-pkgver=6.0.18
+pkgver=6.5.0
 pkgrel=1
 pkgdesc='A lightweight memo tool to make text notes and voice recordings'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-voice-note"
 license=('GPL3')
 replaces=('deepin-voice-recorder')
-depends=('deepin-qt5integration' 'deepin-qt-dbus-factory' 'dtkcore' 'dtkgui' 'dtkwidget' 'qt5-base'
-         'qt5-svg' 'qt5-multimedia' 'qt5-declarative' 'qt5-webchannel' 'qt5-location' 'qt5-webengine'
-         'gstreamer' 'vlc' 'glib2' 'gcc-libs' 'deepin-movie')
-makedepends=('git' 'cmake' 'gmock' 'gtest' 'ninja' 'qt5-tools')
+depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-multimedia' 'qt6-declarative'
+         'qt6-webchannel' 'qt6-webengine' 'gstreamer' 'vlc' 'glib2' 'gcc-libs' 'deepin-movie')
+makedepends=('git' 'cmake' 'gmock' 'gtest' 'ninja' 'qt6-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-voice-note.git#tag=$pkgver")
-sha512sums=('640f7ac2b908289e37532c2a393c6120c21d69b3bb797696acb44b8ec1c15edbbe034360be11b09e1dabb269675fa37202ed27252f9a8486bd5574d5896ad52a')
+sha512sums=('31040d2b271291c7fa9b5b112c3651549712efb86c809582fb97bc21a345b458283e41dd1a187d18b1b4cb8c8cf9665d15006197bb195e5b94a91e8c18f534e6')
 
 build() {
   cd deepin-voice-note
-  cmake -GNinja .
+  cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr .
   ninja
 }
 
