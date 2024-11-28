@@ -1,12 +1,14 @@
 pkgbase = deepin-network-core
 	pkgdesc = DDE network library and plugins
-	pkgver = 2.0.15
-	pkgrel = 3
+	pkgver = 2.0.18
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-network-core
 	arch = x86_64
 	groups = deepin
 	license = GPL3
+	makedepends = git
 	makedepends = cmake
+	makedepends = deepin-session-shell
 	makedepends = gtest
 	makedepends = ninja
 	makedepends = qt5-tools
@@ -19,7 +21,7 @@ pkgbase = deepin-network-core
 	depends = gsettings-qt
 	depends = networkmanager-qt5
 	depends = qt5-base
-	source = deepin-network-core-2.0.15.tar.gz::https://github.com/linuxdeepin/dde-network-core/archive/2.0.15.tar.gz
-	sha512sums = 7ec7d0c4bc9af01d2c4b14410e940097cf08e4f850c674edafcf57046a3cbcfc63dfa2bd3976c40d3b2fe3438cb1ee87dfed8aaa9bd3e30d4ce65c3d61d4662e
+	source = git+https://github.com/linuxdeepin/dde-network-core.git#tag=2.0.18
+	sha512sums = 565f57f2ea1c3f4b392a526596eadd16337ee6bf8b2a285274afd530c18bf759b0b71bb20829aa1889c58d2cf796c67645aaa080161c052bd543bad0742d35ef
 
 pkgname = deepin-network-core
