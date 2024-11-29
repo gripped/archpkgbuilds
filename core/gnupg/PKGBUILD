@@ -7,7 +7,7 @@
 # Contributor: Judd Vinet <jvinet@zeroflux.org>
 
 pkgname=gnupg
-pkgver=2.4.6
+pkgver=2.4.7
 pkgrel=1
 pkgdesc='Complete and free implementation of the OpenPGP standard'
 arch=(x86_64)
@@ -62,7 +62,7 @@ source=(
   $pkgname-2.4-keep-systemd-support.patch
   $pkgname-2.4-keyboxd-systemd-support.patch
 )
-sha256sums=('95acfafda7004924a6f5c901677f15ac1bda2754511d973bb4523e8dd840e17a'
+sha256sums=('7b24706e4da7e0e3b06ca068231027401f238102c41c909631349dcc3b85eb46'
             'SKIP'
             '80a3a80f9f1f337da555a6838483e1baca44cde8a8a3d8c4ba7743626304b981'
             '8374255ce93a3c343019ab425963bcbc41982ea89e669d1ad1df0aa7be810de1'
@@ -87,7 +87,7 @@ sha256sums=('95acfafda7004924a6f5c901677f15ac1bda2754511d973bb4523e8dd840e17a'
             'ef2267eecd9eb59bbbbdb97d55cbfe10236b4979a125c6683a840830bc202905'
             '677ca409e8ece61e64a94102a2b71ec119941b5ae0f0ed4f1c4f2c0c2bdd158a'
             'e0aff9f80abb6059e41cb3bb7cc86b7aa3fc1c27626676385c5479d69ef830a1')
-b2sums=('3b0deb3da1ec404e8f0aa50c424c7072727f933228de732d661a17ca15785b7430700e7b88afba69538f9794863cb218c90ae3d43469541fb9152fbabd3bc909'
+b2sums=('4cdc6be4330b0c8f150d9d1a9ce9c7d34232ecf9b980b15fbd20e96ff6fcd8665688456d66f1c862b816472034eaa0796444357b1f36e75e8520a603a0e6b298'
         'SKIP'
         '7a3af856305eb4b00929aaf029dd4e5c84376df4f30add76976b9b058addf6fc4d8c39335fc83d11493ea9d8a40f0510dbac8572b99a8c8b9b3a4eca8e585774'
         'ee51a4702715f5ec2629ff42eeba8630010da8a67545d1e53961e710de5faf197708e55d2d55796917a134ca2a76b1d6c88a8f7756d0706e0cbc33b605f52d86'
