@@ -3,25 +3,25 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-picker
-pkgver=6.0.1
-pkgrel=2
+pkgver=6.0.2
+pkgrel=1
 pkgdesc='Color picker tool for deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-picker"
 license=('GPL3')
 depends=('deepin-qt5integration' 'qt5-base' 'dtkcore' 'dtkgui' 'dtkwidget' 'gcc-libs')
-makedepends=('qt5-tools' 'deepin-gettext-tools')
+makedepends=('git' 'qt5-tools' 'deepin-gettext-tools')
 groups=('deepin-extra')
-source=("https://github.com/linuxdeepin/deepin-picker/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('b43fdf3bddbee63f1284658862e41d8b96ff5da34edc61fb9dfcfb208964b9e2631dd9562aa368f61678e143055b36e20940521f099cb7b750dd7c59ceee3035')
+source=("git+https://github.com/linuxdeepin/deepin-picker.git#tag=$pkgver")
+sha512sums=('b403acf0d8dd798e3d5e85c5d9e938ef3ac6ce096ae7e338c99575d85dafab78a6a5fc2dc4c1901fc9165f96fd86ac7c6cc661d0eae67f7429ecb839551e03b4')
 
 build() {
-  cd deepin-picker-$pkgver
+  cd deepin-picker
   qmake-qt5 PREFIX=/usr
   make
 }
 
 package() {
-  cd deepin-picker-$pkgver
+  cd deepin-picker
   make INSTALL_ROOT="$pkgdir" install
 }
