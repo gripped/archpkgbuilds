@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-session
-pkgver=1.2.10
+pkgver=1.2.11
 pkgrel=1
 pkgdesc='New deepin session, based on systemd and existing projects'
 arch=('x86_64')
@@ -18,7 +18,7 @@ depends=('glibc' 'gcc-libs' 'glib2' 'libx11' 'libsecret' 'qt5-base' 'gsettings-q
 makedepends=('git' 'cmake' 'ninja')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-session.git#tag=$pkgver")
-sha512sums=('ae970bfc812fa638ee067ae352f86348b2e119d0b5bf2e7cf8af0bf96602fa59aafa4df9eb5d12bbf874f3c51febef3856e3cb4bed63c3b153b5efb5beb76688')
+sha512sums=('0cc777314eab331856f2bff73486727635e76fdd5ee55ef3507d2dbe5ae7f3248063b85f62fdf2a6aa984b1737435db05fa064b532ecb31f7805cd897f27f7bb')
 
 prepare(){
   cd dde-session
