@@ -8,7 +8,7 @@ pkgname=(
   libgit2-glib-docs
 )
 pkgver=1.2.0
-pkgrel=3
+pkgrel=4
 pkgdesc="GLib wrapper for libgit2"
 url="https://gitlab.gnome.org/GNOME/libgit2-glib"
 license=(LGPL-2.1-or-later)
@@ -16,7 +16,7 @@ arch=(x86_64)
 makedepends=(
   gi-docgen
   git
-  glib2
+  glib2-devel
   gobject-introspection
   libgit2
   meson
