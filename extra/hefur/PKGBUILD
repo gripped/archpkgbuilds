@@ -1,48 +1,56 @@
-# Maintainer: Pierre Schmitz <pierre@archlinux.de>
+# Maintainer : Daniel Bermond <dbermond@archlinux.org>
+# Contributor: Pierre Schmitz <pierre@archlinux.de>
 # Contributor: Alexandre Bique <bique.alexandre@gmail.com>
 
 pkgname=hefur
 pkgver=1.0
-pkgrel=18
+pkgrel=19
 pkgdesc='A standalone and lightweight BitTorrent tracker'
 arch=('x86_64')
 url='https://github.com/abique/hefur'
 license=('MIT')
+depends=('abseil-cpp' 'gnutls' 'nettle' 'protobuf' 'xz' 'zlib')
 makedepends=('git' 'cmake')
-depends=('gnutls' 'xz' 'protobuf')
-source=("git+https://github.com/abique/${pkgname}.git#tag=${pkgver}"
-        'hefurd.service' 'tmpfiles.conf' 'sysusers.conf'
-        'protobuf-23.patch')
-sha256sums=('SKIP'
+source=("git+https://github.com/abique/hefur.git#tag=${pkgver}"
+        'git+https://github.com/abique/mimosa.git'
+        'hefurd.service'
+        'sysusers.conf'
+        'tmpfiles.conf'
+        '010-hefur-fix-install.patch'::'https://github.com/abique/hefur/commit/5136250a567a290f41507f607d2c590f1a14eb2f.patch'
+        '020-hefur-fix-invalid-port-set-for-https.patch'::'https://github.com/abique/hefur/commit/f8b0fe6295257a6bfd7da00b1bd9cd4da966ddeb.patch'
+        '030-hefur-mimosa-submodule-protobuf23-fix.patch')
+sha256sums=('d6db02ee070102c6da4374edaf50f558e47559268eb4c1491bdc44a7bb4c8e04'
+            'SKIP'
             '3d8b0a716f35798f6aa25d6ee6a032d8a142811b920338bcb398c24beb1c8b43'
-            '7d39eec7c9f004a8651de95d11d32422f0a506f0fe21d5fdf37a407a05d4de0f'
             'e265b34eff94197c33a1409191aa75812f099b3638f8877db3d2d43bf0decc19'
-            '608a0422c80ac4c6d399ac0d7b0d27c34b436b9d4bd31f32e3ccbb678f1d0ffa')
+            '7d39eec7c9f004a8651de95d11d32422f0a506f0fe21d5fdf37a407a05d4de0f'
+            'def46ba311fc4df1c039cddec69f23c19ba4f5a362acbc128084c38df6c3ba50'
+            '05cd1f9630f3bbd4ff9f60d7d4d93603eb839450141e7aeff6cef57763421c2b'
+            '0f995b712fa4390e4b9b625113d283ae8264892d4707ee240c99f220e0a8048c')
 
 prepare() {
-	cd "${srcdir}/${pkgname}"
-	git submodule set-url mimosa https://github.com/abique/mimosa.git
-	git submodule init
-	git submodule update
-	sed -i "s/PROJECT_NUMBER.*/PROJECT_NUMBER=${pkgver}/g" Doxyfile
-	sed -i "s/tracker-controller.hh//g" hefur/CMakeLists.txt
-
-        patch -d mimosa -p1 -i "$srcdir"/protobuf-23.patch # Fix build with protobuf 23
+	git -C hefur submodule init
+	git -C hefur config --local submodule.mimosa.url "${srcdir}/mimosa"
+	git -C hefur -c protocol.file.allow='always' submodule update
+	
+	patch -d hefur -Np1 -i "${srcdir}/010-hefur-fix-install.patch"
+	patch -d hefur -Np1 -i "${srcdir}/020-hefur-fix-invalid-port-set-for-https.patch"
+	patch -d hefur/mimosa -Np1 -i "${srcdir}/030-hefur-mimosa-submodule-protobuf23-fix.patch"
 }
 
 build() {
-	cd "${srcdir}/${pkgname}"
-	mkdir build
-	cd build
-	cmake -DCMAKE_INSTALL_PREFIX=/usr ..
-	make
+	cmake -B build -S hefur \
+		-G 'Unix Makefiles' \
+		-DCMAKE_BUILD_TYPE:STRING='None' \
+		-DCMAKE_INSTALL_PREFIX:PATH='/usr' \
+		-Wno-dev
+	cmake --build build
 }
 
 package() {
-	cd "${srcdir}/${pkgname}/build"
-	DESTDIR="${pkgdir}" make install
-	install -D -m644 "${srcdir}/hefurd.service" "${pkgdir}/usr/lib/systemd/system/hefurd.service"
-	install -D -m644 "${srcdir}/tmpfiles.conf" "${pkgdir}/usr/lib/tmpfiles.d/hefurd.conf"
-	install -D -m644 "${srcdir}/sysusers.conf" "${pkgdir}/usr/lib/sysusers.d/hefurd.conf"
-	install -D -m644 "${srcdir}/${pkgname}/LICENSE.md" "${pkgdir}/usr/share/licenses/hefur/LICENSE"
+	DESTDIR="$pkgdir" cmake --install build
+	install -D -m644 hefurd.service -t "${pkgdir}/usr/lib/systemd/system"
+	install -D -m644 sysusers.conf "${pkgdir}/usr/lib/sysusers.d/hefurd.conf"
+	install -D -m644 tmpfiles.conf "${pkgdir}/usr/lib/tmpfiles.d/hefurd.conf"
+	install -D -m644 hefur/LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
