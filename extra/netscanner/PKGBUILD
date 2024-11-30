@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=netscanner
-pkgver=0.6.0
+pkgver=0.6.1
 pkgrel=1
 pkgdesc="Network scanner"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('GPL3')
 depends=('gcc-libs' 'iw')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('3d469a17828482773e1f2c6048b522c85c802a397294fe157a32e3bd491ec63eb6c47e3b00d2eec6e7b957780ce397a8f653191db838272e3bbba3f2832f6398')
+sha512sums=('4aeda82e9fe3c63549ffdc061b861a80ae7b0578421044a3aa5a204cc58024d749567e6fb7e609780a4b525c43622d4379568728767fbb9447a8fdbea6a604a8')
 
 prepare() {
   cd "$pkgname-$pkgver"
