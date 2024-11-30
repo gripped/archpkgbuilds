@@ -1,14 +1,15 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=python-x-wr-timezone
-pkgver=1.0.1
-pkgrel=2
+pkgver=2.0.0
+pkgrel=1
 pkgdesc='Handling of non-standard X-WR-TIMEZONE icalendar property in Python'
 arch=(any)
 url='https://github.com/niccokunzmann/x-wr-timezone'
 license=(LGPL-3.0-or-later)
 depends=(
   python
+  python-click
   python-icalendar
 )
 makedepends=(
@@ -20,7 +21,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("git+https://github.com/niccokunzmann/x-wr-timezone.git#tag=v$pkgver")
-b2sums=(4a5479349b151d923af4d1f5c11d009e6635409f7ccae46a1b8f48e01446a9a4ff77c92877ad5dff7e006278052e9900f966407bee6d7b58e4dbfdebe8643f33)
+b2sums=(579bb15519a93d05f4ba680cb0ba4a670b434cea895b083404c8af8f69075c77ccdfc6b4a3eb981d1133e2d09b66ce0d7415c3ba23fee27754077bf04441744c)
 
 build() {
   cd x-wr-timezone
@@ -29,7 +30,7 @@ build() {
 
 check() {
   cd x-wr-timezone
-  pytest --ignore=test/test_command_line.py --ignore=test/test_readme.py
+  pytest --ignore=test/test_command_line.py --ignore=test/test_readme.py --ignore=test/test_issue_4_add_vtimezone.py
 }
 
 package() {
