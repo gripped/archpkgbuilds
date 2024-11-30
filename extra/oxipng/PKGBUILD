@@ -2,7 +2,7 @@
 # Contributor: Nicolas F. <aur@fratti.ch>
 
 pkgname=oxipng
-pkgver=9.1.2
+pkgver=9.1.3
 pkgrel=1
 pkgdesc="A lossless PNG compression optimiser"
 arch=(x86_64)
@@ -12,10 +12,13 @@ depends=('gcc-libs')
 options=('!lto')
 makedepends=('rust')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/shssoichiro/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('8eae13e5aa6f500b231b4d15b9fefdeb5f6cc566ddab959b9b7a03a00bb3a520')
+sha256sums=('5f34bc3a9eba661a686106261720061b1136301ccd67cc653c9c70d71fa33c09')
 
 build() {
   cd "$pkgname-$pkgver"
+
+  # Generate man page
+  cargo xtask mangen
 
   cargo build --release --locked
 }
@@ -24,6 +27,6 @@ package() {
   cd "$pkgname-$pkgver"
 
   install -Dm755 target/release/oxipng "$pkgdir/usr/bin/oxipng"
-  install -Dm644 target/release/assets/oxipng.1 "$pkgdir/usr/share/man/man1/oxipng.1"
+  install -Dm644 target/xtask/mangen/manpages/oxipng.1 "$pkgdir/usr/share/man/man1/oxipng.1"
   install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
