@@ -4,7 +4,7 @@
 # Contributor: Jokler <aur@jokler.xyz>
 
 pkgname=bacon
-pkgver=3.3.0
+pkgver=3.4.0
 pkgrel=1
 pkgdesc='A background rust code checker'
 arch=('x86_64')
@@ -14,8 +14,8 @@ depends=('glibc' 'gcc-libs')
 makedepends=('git' 'rust')
 options=('!lto')
 source=("$pkgname::git+https://github.com/Canop/bacon#tag=v$pkgver")
-sha512sums=('a38cf7830e3a48ceef55211c0f814f5b882771be955bff29be4b07ca39077d612d311714ca121dc7faf685c2dcb4cd80e9e4b2f275ad131ae948a416d35d72e2')
-b2sums=('c3d104c9f384346588c229f1cf2278c2b66c23b215c979f3d0e3c828240bdf20dc2ac7b15850e9ba6edc6b7f9951b66e2643f81380edc53827734878550adaac')
+sha512sums=('ebc8b48da81bb9c53e7ad1af9dfb2e1cddfb7180061970e576fd792ce13d5ec0d4504e9f9e6b88bb681148a6e968a0121057f354b6f96972a5a2abfd7e2b20a2')
+b2sums=('d0319719594089f0f44cbab2216bc6526bb90fd28b02821f347984c2dd2c6d1862b53649f3e9cf29eb2bba212e30e021cc355a67d1aaec6e447ea0feb55558d0')
 
 prepare() {
   cd "$pkgname"
