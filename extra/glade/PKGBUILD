@@ -3,13 +3,13 @@
 
 pkgname=glade
 pkgver=3.40.0+r14+g1fbca367
-pkgrel=3
+pkgrel=4
 pkgdesc="User Interface Builder for GTK+ applications"
 url="https://glade.gnome.org/"
 arch=(x86_64)
 license=(GPL LGPL)
 depends=(gtk3 libxml2)
-makedepends=(gtk-doc gobject-introspection itstool docbook-xsl git meson gjs
+makedepends=(gtk-doc glib2-devel gobject-introspection itstool docbook-xsl git meson gjs
              python-gobject webkit2gtk-4.1 python-setuptools)
 checkdepends=(xorg-server-xvfb)
 optdepends=('devhelp: development help'
