@@ -1,0 +1,25 @@
+From 0608703a2216f9e9fa7425eafaf919a994ce44eb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 29 Nov 2024 16:24:39 +0100
+Subject: [PATCH] Install symbolic icon
+
+---
+ setup.py | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/setup.py b/setup.py
+index ebad7b1..b1b409d 100644
+--- a/setup.py
++++ b/setup.py
+@@ -98,6 +98,8 @@ setup(
+             ['data/org.gnome.Keysign.appdata.xml']),
+         ( 'share/icons/hicolor/scalable/apps',
+             ['data/org.gnome.Keysign.svg']),
++        ( 'share/icons/hicolor/symbolic/apps',
++            ['data/org.gnome.Keysign-symbolic.svg']),
+         #( 'share/locale/',
+         # # We cannot use the glob below, because it only copies the file
+         # # into the directory mentioned above, i.e. keysign.po, rather
+-- 
+GitLab
+

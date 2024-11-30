@@ -1,0 +1,27 @@
+From 663a5adee273772abec94ee5f74c8fc05dc6b527 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 29 Nov 2024 15:25:16 +0100
+Subject: [PATCH] QRCode: Hide fullscreen window only if it's still visible
+
+This avoids a crash when the button release event is activated twice at the
+same time.
+---
+ keysign/QRCode.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/keysign/QRCode.py b/keysign/QRCode.py
+index e37d06c..30ff970 100755
+--- a/keysign/QRCode.py
++++ b/keysign/QRCode.py
+@@ -249,7 +249,7 @@ class FullscreenQRImageWindow(Gtk.Window):
+         '''Connected to the button-release-event and closes this
+         window''' # It's unclear whether all resources are free()d
+         self.log.info('Event on fullscreen: %s', event)
+-        if event.button == 1:
++        if self.get_visible() and event.button == 1:
+             self.unfullscreen()
+             self.hide()
+             self.close()
+-- 
+GitLab
+

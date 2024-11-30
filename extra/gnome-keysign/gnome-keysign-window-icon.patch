@@ -1,0 +1,36 @@
+From 0abef7940eca631d98e6c23c362f7575762118eb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 29 Nov 2024 15:31:25 +0100
+Subject: [PATCH] app: Set prgname and icon for the window
+
+While the window icon is commonly used by desktop environments on Xorg,
+using the application ID for prgname ensures that Wayland compositors could
+match the window with the application and show the appropriate icon for
+them.
+---
+ keysign/app.py | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/keysign/app.py b/keysign/app.py
+index 2b2c723..87cd4b8 100755
+--- a/keysign/app.py
++++ b/keysign/app.py
+@@ -120,6 +120,7 @@ class KeysignApp(Gtk.Application):
+         window = builder.get_object(appwindow)
+         window.set_wmclass ("GNOME Keysign", "GNOME Keysign")
+         window.set_title("GNOME Keysign")
++        window.set_icon_name("org.gnome.Keysign")
+         window.connect("delete-event", self.on_delete_window)
+         self.headerbar = window.get_titlebar()
+         self.header_button = builder.get_object("back_refresh_button")
+@@ -332,6 +333,7 @@ def main(args=[]):
+     if not args:
+         args = []
+     Gst.init(None)
++    GLib.set_prgname("org.gnome.Keysign")
+ 
+     app = KeysignApp()
+     try:
+-- 
+GitLab
+
