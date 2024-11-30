@@ -4,7 +4,7 @@
 
 pkgname=onionshare
 pkgver=2.6.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Share a file over Tor Hidden Services anonymously and securely'
 url='https://github.com/onionshare/onionshare'
 arch=('any')
@@ -33,7 +33,7 @@ depends=(
 makedepends=(
   'python-build'
   'python-installer'
-  'python-poetry'
+  'python-poetry-core'
   'python-wheel'
 )
 optdepends=(
