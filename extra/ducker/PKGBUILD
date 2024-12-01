@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=ducker
-pkgver=0.1.6
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="A terminal app for managing docker containers"
 url="https://github.com/robertpsoane/ducker"
@@ -10,7 +10,7 @@ makedepends=('cargo')
 arch=('x86_64')
 license=('MIT')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('3ff1301597f8726fccf489dd7c9c196d1ac49bfaaf5bbc2f29cc5adce9144dd75d2cfb7afb0b0b5df978f882c9aeb64d0f95c4b769735136ad0159f1745bbedc')
+sha512sums=('d556e6e53782191d248c42f4056e80fda4b720bc9b7d35b9166f28568b79d25d3d0c58b8c2106e5816047e84dd2d3be8502cb76694c1aec6f035ff31e13ffd11')
 options=('!lto')
 
 prepare() {
