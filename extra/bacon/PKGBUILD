@@ -5,13 +5,17 @@
 
 pkgname=bacon
 pkgver=3.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A background rust code checker'
 arch=('x86_64')
 url='https://dystroy.org/bacon'
 license=('AGPL-3.0-only')
 depends=('glibc' 'gcc-libs')
 makedepends=('git' 'rust')
+optdepends=('cargo: for use with Rust'
+            'eslint: for use with JavaScript'
+            'python: for use with Python via unittest'
+            'python-pytest: for use with Python via pytest')
 options=('!lto')
 source=("$pkgname::git+https://github.com/Canop/bacon#tag=v$pkgver")
 sha512sums=('ebc8b48da81bb9c53e7ad1af9dfb2e1cddfb7180061970e576fd792ce13d5ec0d4504e9f9e6b88bb681148a6e968a0121057f354b6f96972a5a2abfd7e2b20a2')
