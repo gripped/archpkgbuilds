@@ -1,9 +1,9 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=firefox-decentraleyes
-pkgver=2.0.19
-_commit=d4e868b87302240a95a0be83da24822fdc0f52ba
-pkgrel=2
+pkgver=3.0.0
+_commit=852627c493902dfda50271fe592b784f41fafb71
+pkgrel=1
 pkgdesc='Local emulation of Content Delivery Networks'
 url=https://decentraleyes.org/
 arch=('any')
@@ -15,7 +15,7 @@ b2sums=('SKIP')
 validpgpkeys=('A6B7BA10893FE67EE17A9F8FCECC45E1E979013C') # Thomas Rientjes <synzvato@protonmail.com>
 
 check() {
-  cd decentraleyes/audit
+  cd decentraleyes/auditor
   npm install
   node run
 }
