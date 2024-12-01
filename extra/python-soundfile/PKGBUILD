@@ -1,0 +1,38 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Contributor: Christopher Arndt <aur@chrisarndt.de>
+
+pkgname=python-soundfile
+pkgver=0.12.1
+pkgrel=6
+pkgdesc='A Python library to read and write audio files using libsndfile, CFFI and NumPy'
+url=https://github.com/bastibe/python-soundfile
+arch=(any)
+license=(BSD-3-Clause)
+depends=(
+  libsndfile
+  python
+  python-cffi
+  python-numpy
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+_tag=960d43ffd50fcc6fee23893014c993725e7ae458
+source=(git+https://github.com/bastibe/python-soundfile.git#tag=${_tag})
+b2sums=('4c52bb1a2eef7c16a85b96d088c9c33ae29558edb5146ea067e5fbfd1e3f618b916b5566cdb5396f7f3a9a515d478acc17abe4d92763ed028ad1c061a654e68a')
+
+build() {
+  cd python-soundfile
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  python -m installer --destdir="${pkgdir}" python-soundfile/dist/*.whl
+  install -Dm 644 python-soundfile/LICENSE -t "${pkgdir}"/usr/share/licenses/python-soundfile/
+}
+
+# vim: ts=2 sw=2 et:
