@@ -2,9 +2,9 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=efifs
-pkgver=1.10
+pkgver=1.11
 pkgrel=1
-_commit=408787353c3ad06226f54940437101323efec11b
+_commit=cc679906228b76b78d0457cea54f058eb7396ffc
 pkgdesc='Standalone EFI file system drivers'
 arch=('any')
 url='https://efi.akeo.ie/'
@@ -17,12 +17,12 @@ source=("git+https://github.com/pbatard/EfiFs.git#commit=${_commit}?signed"
         '010-efifs-grub-fix-conflicting-parameter-types.patch'
         '020-efifs-grub-fix-incompatible-pointer-types.patch'
         '030-efifs-gnu-efi-remove-werror.patch')
-sha256sums=('f6b3b5055e10554b226383c2f23a1736b4d61fce249dd96e1ef230c4987d3f04'
+sha256sums=('51a6af9eb2f9760365dc564c703715b262aaa694d1249706d84dbe2e138bde59'
             'SKIP'
             'SKIP'
             'f87972064fbde9215ee2c9c9f7085dfc738f79cecd8b5b735cd4ce2916b543f8'
             '5f207623fd37dfc6be89e600e5d54c118d93537c94fb8ec19f9ae5e1473cca6b'
-            'a9c3fc0aae024e3e2966536e575336858da85232db7888c495bf9444786215bd')
+            'acf342ebe5f88198caefaf50661280c1f873a477f8d8be4bafc8224e303eafd0')
 validpgpkeys=('E7CDF2A016DDDD53F0B7943838E0CF5E69EDD671') # Pete Batard <pete@akeo.ie>
 
 prepare() {
