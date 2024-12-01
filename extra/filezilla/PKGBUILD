@@ -1,14 +1,15 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 # Contributor: Alexander Fehr <pizzapunk gmail com>
 
 pkgname=filezilla
-pkgver=3.67.1
-pkgrel=2
-pkgdesc='Fast and reliable FTP, FTPS and SFTP client'
-url='https://filezilla-project.org/'
+pkgver=3.68.1
+pkgrel=1
+pkgdesc="Fast and reliable FTP, FTPS and SFTP client"
+url="https://filezilla-project.org"
 arch=('x86_64')
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=(
   dbus libdbus-1.so
   gtk3 libgtk-3.so libgdk-3.so
@@ -24,17 +25,20 @@ makedepends=(
   gnutls
   libidn
 )
-source=(https://download.filezilla-project.org/client/FileZilla_${pkgver}_src.tar.xz)
-sha256sums=('10468e6ef623ad9789996df61f588ca7417d39353678313611d54f2d8131a1db')
-sha512sums=('630820a0c67ee8b1d48a8ff4193e066d35bbf9048526c91b8804d786defc28a635dac252b298de518b506506607abd96ce35c455c21a50503844a57c47ea78e7')
+# Upstream download link became (purposely) unstable
+# See https://trac.filezilla-project.org/ticket/13186
+#source=("https://download.filezilla-project.org/client/FileZilla_${pkgver}_src.tar.xz")
+source=("https://sources.archlinux.org/other/filezilla/${pkgname}-${pkgver}.tar.xz")
+sha256sums=('9df9209e29564ad92bcdee4a8ebe0e07648ef473028cdbde160f3d0612517679')
+sha512sums=('b8cd7a524c13753118f8c48b0f4063a3459d119efe2bfd11c0ca40e35573885e2cae85007e7958d6eec4bcbdd557eba76bcaa72a922d3bd4f85385fc06d0df6b')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd "${pkgname}-${pkgver}"
   autoreconf -vif
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd "${pkgname}-${pkgver}"
   ./configure \
     --prefix=/usr \
     --disable-manualupdatecheck \
@@ -44,9 +48,9 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd "${pkgname}-${pkgver}"
   make DESTDIR="${pkgdir}" install
-  mv "$pkgdir"/usr/share/{appdata,metainfo}
+  mv "${pkgdir}"/usr/share/{appdata,metainfo}
 }
 
 # vim: ts=2 sw=2 et:
