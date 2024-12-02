@@ -4,8 +4,8 @@
 # Contributor: Frederik “Freso” S. Olesen <freso.dk@gmail.com>
 
 pkgname=lutris
-pkgver=0.5.17
-pkgrel=8
+pkgver=0.5.18
+pkgrel=1
 pkgdesc='Open Gaming Platform'
 arch=(any)
 url=https://lutris.net
@@ -74,10 +74,8 @@ optdepends=(
   'umu-launcher: For running games through Proton'
 )
 source=("git+https://github.com/lutris/lutris.git#tag=v${pkgver}"
-        "fix_umu_launcher_integration.patch"
         "git+https://github.com/bartok765/galaxy_blizzard_plugin.git")
-sha256sums=('fd80281d0bc0e0b3f077184313bb774d93309c32b93d8591da9fb05ec757d2ce'
-            '790c592dd186432c208915bea986351cb8ea50bf85fc67e77100dbdd091300a0'
+sha256sums=('8ef52446984b43fbd52378aeb21828f7763193553a25b8d8631e8b147dfb4dda'
             'SKIP')
 
 prepare() {
@@ -86,12 +84,6 @@ prepare() {
   # And https://github.com/lutris/lutris/issues/5659
   protoc --proto_path=galaxy_blizzard_plugin/src --python_out=. product_db.proto
   cp -vf product_db_pb2.py lutris/lutris/util/battlenet/product_db_pb2.py
-
-  cd lutris
-  # Temporary patch to fix the umu launcher integration
-  # See https://github.com/lutris/lutris/issues/5639 & https://github.com/lutris/lutris/commit/3ec23ac521871e2ba648d64a7734cfc78eb8b9bc
-  patch -Np1 < "${srcdir}/fix_umu_launcher_integration.patch"
-
 }
 
 build() {
