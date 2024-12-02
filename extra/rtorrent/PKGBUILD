@@ -5,37 +5,35 @@
 # Contributor: sh__
 
 pkgname=rtorrent
-pkgver=0.9.8
-pkgrel=6
+pkgver=0.10.0
+pkgrel=1
 pkgdesc='Ncurses BitTorrent client based on libTorrent'
 url='https://rakshasa.github.io/rtorrent/'
 license=('GPL')
 arch=('x86_64')
 makedepends=('git')
-depends=("libtorrent=0.13.${pkgver##*.}" 'curl' 'xmlrpc-c')
+depends=("libtorrent=0.14.${pkgver##*.}" 'curl' 'xmlrpc-c')
 source=("git+https://github.com/rakshasa/rtorrent.git#tag=v${pkgver}")
-sha256sums=('36c91dce07420840d429a649596776cc6fa669c476e2dee732c7c59736293027')
+sha256sums=('9ab79dddd8498d2cc601804b3e3a48dded73c7926e631e64dd0e614875b76205')
 
 prepare() {
-	cd ${pkgname}
-	# https://gitlab.archlinux.org/archlinux/packaging/packages/rtorrent/-/issues/1
-	git cherry-pick -n 92bec88d0904bfb31c808085c2fd0f22d0ec8db7
-	./autogen.sh
+  cd ${pkgname}
+  git cherry-pick -n 38b39bdafc9edd7e7e72672e6fcbd397b6c2cab8
+  autoreconf -fiv
 }
 
 build() {
-	cd ${pkgname}
-	export CXXFLAGS+=' -fno-strict-aliasing'
-	./configure \
-		--prefix=/usr \
-		--disable-debug \
-		--with-xmlrpc-c \
-
-	make
+  cd ${pkgname}
+  export CXXFLAGS+=' -fno-strict-aliasing'
+  ./configure \
+  --prefix=/usr \
+  --disable-debug \
+  --with-xmlrpc-c
+  make
 }
 
 package() {
-	cd ${pkgname}
-	make DESTDIR="${pkgdir}" install
-	install -D doc/rtorrent.rc "${pkgdir}"/usr/share/doc/rtorrent/rtorrent.rc
+  cd ${pkgname}
+  make DESTDIR="${pkgdir}" install
+  install -D doc/rtorrent.rc "${pkgdir}"/usr/share/doc/rtorrent/rtorrent.rc
 }
