@@ -1,12 +1,12 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=mingw-w64-winpthreads
-pkgver=11.0.0
+pkgver=12.0.0
 pkgrel=1
 pkgdesc='MinGW-w64 winpthreads library'
 arch=('any')
 url='http://mingw-w64.sourceforge.net'
-license=('custom')
+license=('LicenseRef-custom')
 groups=('mingw-w64-toolchain' 'mingw-w64')
 makedepends=('mingw-w64-gcc' 'mingw-w64-binutils' "mingw-w64-crt=${pkgver}")
 provides=('mingw-w64-headers-bootstrap')
@@ -15,14 +15,14 @@ replaces=('mingw-w64-headers-bootstrap')
 options=('!strip' '!buildflags' 'staticlibs' '!emptydirs')
 validpgpkeys=('CAF5641F74F7DFBA88AE205693BDB53CD4EBC740')
 source=(https://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/mingw-w64-v${pkgver}.tar.bz2{,.sig})
-sha512sums=('bc1c9fd9d8593ead9375fcbe40950f06cf7616b94dc676db2793ac9b496fe3a6cc94b5793effda3b752942be0d7d01a1c37a8f221aaf178df0d4eeb0aa6d1f8d'
+sha512sums=('949b2bfab8763ab10ec4e9fdfdaf5361517a4ab787fb98ab419b38d02694061c2e821ebbf6e2e4b39d92bdf17419d116daa8e63afd9e01d11592f39df4da69d7'
             'SKIP')
 
 _targets="i686-w64-mingw32 x86_64-w64-mingw32"
 
 build() {
   for _target in ${_targets}; do
-    msg "Building ${_target} winpthreads..."
+    echo "Building ${_target} winpthreads..."
     mkdir -p "$srcdir"/winpthreads-build-${_target} && cd "$srcdir"/winpthreads-build-${_target}
     "$srcdir"/mingw-w64-v${pkgver}/mingw-w64-libraries/winpthreads/configure --prefix=/usr/${_target} \
         --host=${_target} --enable-static --enable-shared
@@ -36,4 +36,9 @@ package() {
     make DESTDIR="$pkgdir" install
     ${_target}-strip --strip-unneeded "$pkgdir"/usr/${_target}/bin/*.dll
   done
+
+  # Licenses
+  install -Dm644 "$srcdir"/mingw-w64-v${pkgver}/COPYING.MinGW-w64/COPYING.MinGW-w64.txt "$pkgdir"/usr/share/licenses/${pkgname}/COPYING.MinGW-w64.txt
+  install -Dm644 "$srcdir"/mingw-w64-v${pkgver}/COPYING.MinGW-w64-runtime/COPYING.MinGW-w64-runtime.txt "$pkgdir"/usr/share/licenses/${pkgname}/COPYING.MinGW-w64-runtime.txt
+  install -Dm644 "$srcdir"/mingw-w64-v${pkgver}/mingw-w64-headers/ddk/readme.txt "$pkgdir"/usr/share/licenses/${pkgname}/ddk-readme.txt
 }
