@@ -3,12 +3,15 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-declarative
-_pkgver=6.8.0
-pkgver=6.8.0
-pkgrel=6
+_pkgver=6.8.1
+pkgver=6.8.1
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
-license=(GPL3 LGPL3 FDL custom)
+license=(GPL-3.0-only
+         LGPL-3.0-only
+         LicenseRef-Qt-Commercial
+         Qt-GPL-exception-1.0)
 pkgdesc='Classes for QML and JavaScript languages'
 depends=(gcc-libs
          glibc
@@ -22,19 +25,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('89b497818a0e36bf08f5a42324dcde1b441b5a0ee1c9b6cfa38fb281479de3ed')
-
-prepare() {
-  cd $_pkgfn
-# Fix crashes in Plasma
-  git cherry-pick -n 0ae3697cf40bcd3ae1de20621abad17cf6c5f52d
-  git cherry-pick -n 861a7921ed7833a90f77b5fca436c789a4f9517c
-# https://bugreports.qt.io/browse/QTBUG-127340
-  git cherry-pick -n 281f620ceea03e7a222d796ae0cca917a9778368
-# https://bugs.kde.org/show_bug.cgi?id=494804
-  git cherry-pick -n 104b0d6e88ce6781c9d31cf0dd14dfe99988b789
-  git show fbdbed919f59cc7b4520f5aab2149f4c99b63e24 -- 	src/qml/jsruntime/qv4qobjectwrapper_p.h | git apply -
-}
+sha256sums=('07182cf3318667969a8bc682e0b0fa680a18ca9565a7c21b2f4189f913acda27')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
