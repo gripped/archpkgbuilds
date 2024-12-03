@@ -1,7 +1,7 @@
 pkgbase = python-plotly
 	pkgdesc = An open-source, interactive graphing library
-	pkgver = 5.23.0
-	pkgrel = 2
+	pkgver = 5.24.1
+	pkgrel = 1
 	url = https://github.com/plotly/plotly.py
 	arch = any
 	license = MIT
@@ -15,7 +15,7 @@ pkgbase = python-plotly
 	makedepends = python-setuptools
 	makedepends = python-jupyter_core
 	makedepends = python-tornado
-	makedepends = jupyterlab
+	makedepends = jupyterlab<4.0
 	depends = python
 	depends = python-tenacity
 	optdepends = ipython
@@ -32,9 +32,7 @@ pkgbase = python-plotly
 	optdepends = python-psutil
 	options = !strip
 	options = !debug
-	source = python-plotly::git+https://github.com/plotly/plotly.py#tag=v5.23.0
-	source = js-build.patch
-	sha256sums = fffdb97d8ba828be95b331c4adabaeb8a8b2bbdcc6fee7fc4848f3d7095342bb
-	sha256sums = 347d8de2ed5c6529a0113086780ecdd0b21c0a167fa60a890ca18bbac0d99392
+	source = python-plotly::git+https://github.com/plotly/plotly.py#tag=v5.24.1
+	sha256sums = 495e0bc42ea89db4b92c78d4e153a55864546d2561ea9a257d911c7514517c3a
 
 pkgname = python-plotly

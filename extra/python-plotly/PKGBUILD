@@ -2,8 +2,8 @@
 # Contributor: Grey Christoforo <first name at last name dot net>
 
 pkgname=python-plotly
-pkgver=5.23.0
-pkgrel=2
+pkgver=5.24.1
+pkgrel=1
 pkgdesc="An open-source, interactive graphing library"
 arch=('any')
 url="https://github.com/plotly/plotly.py"
@@ -36,7 +36,7 @@ makedepends=(
     python-setuptools
     python-jupyter_core
     python-tornado
-    jupyterlab
+    'jupyterlab<4.0'
 )
 checkdepends=(
      python-requests
@@ -44,17 +44,14 @@ checkdepends=(
 )
 source=(
      "${pkgname}::git+https://github.com/plotly/plotly.py#tag=v$pkgver"
-     "js-build.patch"
 )
-sha256sums=('fffdb97d8ba828be95b331c4adabaeb8a8b2bbdcc6fee7fc4848f3d7095342bb'
-            '347d8de2ed5c6529a0113086780ecdd0b21c0a167fa60a890ca18bbac0d99392')
+sha256sums=('495e0bc42ea89db4b92c78d4e153a55864546d2561ea9a257d911c7514517c3a')
 options=(!strip !debug) # strip and debug aren't useful for python files and take forever
 
 prepare() {
   cd python-plotly
 
   git clean -dfx
-  patch -p1 < ../js-build.patch
 }
 
 build() {
