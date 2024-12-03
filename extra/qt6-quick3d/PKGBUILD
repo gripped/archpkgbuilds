@@ -3,12 +3,15 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-quick3d
-_pkgver=6.8.0
-pkgver=6.8.0
+_pkgver=6.8.1
+pkgver=6.8.1
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
-license=(GPL3)
+license=(GPL-3.0-only
+         LGPL-3.0-only
+         LicenseRef-Qt-Commercial
+         Qt-GPL-exception-1.0)
 pkgdesc='Qt module and API for defining 3D content in Qt Quick'
 depends=(gcc-libs
          glibc
@@ -26,7 +29,7 @@ optdepends=('assimp: assimp import plugin')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('83be32b96d9c868be71175914e10f2d2d8a8dc033e4698bccb9ea81cab872a09')
+sha256sums=('8bb7cc1a5ef488e3d6926c4acbb5c78c402f7377f734ddc3e973ebc5ecdbcbbe')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
