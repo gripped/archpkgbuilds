@@ -2,12 +2,15 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-httpserver
-_pkgver=6.8.0
-pkgver=6.8.0
+_pkgver=6.8.1
+pkgver=6.8.1
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
-license=(GPL3 LGPL3 FDL custom)
+license=(GPL-3.0-only
+         LGPL-3.0-only
+         LicenseRef-Qt-Commercial
+         Qt-GPL-exception-1.0)
 pkgdesc='Qt HTTP Server'
 depends=(gcc-libs
          glibc
@@ -19,7 +22,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('49e8a1bc3901b857d8ef5c6f217f09bde0c20bac3389825fb365e9070d4b50d5')
+sha256sums=('191e6a1a357c100067710af967612a2bad670a2fa603d9fc79fc52547e26eb21')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
