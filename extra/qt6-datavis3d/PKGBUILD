@@ -2,12 +2,15 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-datavis3d
-_pkgver=6.8.0
-pkgver=6.8.0
+_pkgver=6.8.1
+pkgver=6.8.1
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
-license=(GPL3 LGPL3 FDL custom)
+license=(GPL-3.0-only
+         LGPL-3.0-only
+         LicenseRef-Qt-Commercial
+         Qt-GPL-exception-1.0)
 pkgdesc='Qt6 Data Visualization module'
 depends=(gcc-libs
          glibc
@@ -20,7 +23,7 @@ optdepends=('qt6-declarative: QML bindings')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('2f9586a77cb61a04799507551e96c2d798913a5eb29012b88b2641949479a1e0')
+sha256sums=('a3cc074788e54f39bab3e9a0a8bc73d8e09489283d9ef445e5171038c1fabce8')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
