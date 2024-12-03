@@ -1,7 +1,7 @@
 pkgbase = qtpass
 	pkgdesc = A multi-platform GUI for pass
 	pkgver = 1.4.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://qtpass.org/
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -12,8 +12,12 @@ pkgbase = qtpass
 	depends = pwgen
 	source = qtpass-1.4.0.tar.gz::https://github.com/IJHack/qtpass/archive/v1.4.0.tar.gz
 	source = qtpass-1.4.0.tar.gz.asc::https://github.com/IJHack/qtpass/releases/download/v1.4.0/QtPass-1.4.0.tar.gz.asc
+	source = 0001-Fix-multiple-profiles-issue-for-Qt6.patch
+	source = 0002-fix-add-missing-QDirIterator-include.patch
 	validpgpkeys = DF7FEF8DFBA721E320B18F5615B63ADCA0034B9E
 	sha256sums = 9abe9cde35a412b26b6376a5e8996dfeeeb5910fe6a723b78bcf954656fca0e6
 	sha256sums = SKIP
+	sha256sums = a4332e146a53f8591bd48f8c85b85dfb8244d4de055fc60180dac39d31fb85de
+	sha256sums = d17ea9ff5f8c1e2fcba1e1f503c5b312c04be2d74cdfebf5833a6c788f220d22
 
 pkgname = qtpass
