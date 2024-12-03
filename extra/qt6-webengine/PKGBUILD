@@ -2,12 +2,15 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-webengine
-_pkgver=6.8.0
-pkgver=6.8.0
-pkgrel=8
+_pkgver=6.8.1
+pkgver=6.8.1
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
-license=(GPL3 LGPL3 FDL custom)
+license=(GPL-3.0-only
+         LGPL-3.0-only
+         LicenseRef-Qt-Commercial
+         Qt-GPL-exception-1.0)
 pkgdesc='Provides support for web applications using the Chromium browser project'
 depends=(alsa-lib
          dbus
@@ -75,7 +78,7 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
         git+https://code.qt.io/qt/qtwebengine-chromium)
-sha256sums=('3c26e443a0d742af4107916ec94db224a9a6a4131f1415655a6b0b6820a18c58'
+sha256sums=('44c5f3bfe85551a81e733283782f2bd4050e35bde2aeb34fc0cb4d2bb0526fd1'
             'SKIP')
 
 prepare() {
@@ -83,9 +86,6 @@ prepare() {
   git submodule init
   git submodule set-url src/3rdparty "$srcdir"/qtwebengine-chromium
   git -c protocol.file.allow=always submodule update
-
-  cd src/3rdparty
-  git cherry-pick -n 3b9f0ed808a23cf5849ea3b82a61ef7ab566ad68 # Fix mp3 playback
 }
 
 build() {
