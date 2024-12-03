@@ -1,5 +1,5 @@
 diff --git a/src/dci/private/ddcifileengine.cpp b/src/dci/private/ddcifileengine.cpp
-index bf2090d..cf022a9 100644
+index bf2090d..e05672c 100644
 --- a/src/dci/private/ddcifileengine.cpp
 +++ b/src/dci/private/ddcifileengine.cpp
 @@ -30,14 +30,13 @@ Q_LOGGING_CATEGORY(logFE, "dtk.dci.fileengine", QtInfoMsg)
@@ -19,11 +19,13 @@ index bf2090d..cf022a9 100644
          return nullptr;
      }
  
-@@ -66,18 +65,12 @@ static DDciFileShared getDciFile(const QString &dciFilePath, bool usePath = true
+@@ -65,19 +64,13 @@ static DDciFileShared getDciFile(const QString &dciFilePath, bool usePath = true
+     return shared;
  }
  
- DDciFileEngineIterator::DDciFileEngineIterator(QDir::Filters filters, const QStringList &nameFilters)
+-DDciFileEngineIterator::DDciFileEngineIterator(QDir::Filters filters, const QStringList &nameFilters)
 -    : QAbstractFileEngineIterator(filters, nameFilters)
++DDciFileEngineIterator::DDciFileEngineIterator(QDirListing::IteratorFlags filters, const QStringList &nameFilters)
 +    : QAbstractFileEngineIterator(nullptr, filters, nameFilters)
  {
  
@@ -53,7 +55,7 @@ index bf2090d..cf022a9 100644
  #endif
  
 -DDciFileEngine::Iterator *DDciFileEngine::beginEntryList(QDir::Filters filters, const QStringList &filterNames)
-+QAbstractFileEngine::IteratorUniquePtr DDciFileEngine::beginEntryList(const QString &path, QDir::Filters filters, const QStringList &filterNames)
++QAbstractFileEngine::IteratorUniquePtr DDciFileEngine::beginEntryList(const QString &path, QDirListing::IteratorFlags filters, const QStringList &filterNames)
  {
 -    return new DDciFileEngineIterator(filters, filterNames);
 +    return QAbstractFileEngine::IteratorUniquePtr(new DDciFileEngineIterator(filters, filterNames));
@@ -65,7 +67,7 @@ index bf2090d..cf022a9 100644
      return nullptr;
  }
 diff --git a/src/dci/private/ddcifileengine_p.h b/src/dci/private/ddcifileengine_p.h
-index 143365d..f4eb80d 100644
+index 143365d..4aa7023 100644
 --- a/src/dci/private/ddcifileengine_p.h
 +++ b/src/dci/private/ddcifileengine_p.h
 @@ -24,7 +24,7 @@ DCORE_BEGIN_NAMESPACE
@@ -77,13 +79,16 @@ index 143365d..f4eb80d 100644
  };
  
  class DDciFile;
-@@ -35,9 +35,7 @@ class DDciFileEngineIterator : public QAbstractFileEngineIterator
+@@ -33,11 +33,9 @@ class DDciFileEngineIterator : public QAbstractFileEngineIterator
+ {
+     friend class DDciFileEngine;
  public:
-     DDciFileEngineIterator(QDir::Filters filters, const QStringList &nameFilters);
- 
+-    DDciFileEngineIterator(QDir::Filters filters, const QStringList &nameFilters);
+-
 -    QString next() override;
 -    bool hasNext() const override;
--
++    DDciFileEngineIterator(QDirListing::IteratorFlags filters, const QStringList &nameFilters);
+ 
 +    bool advance() override;
      QString currentFileName() const override;
  
@@ -94,13 +99,13 @@ index 143365d..f4eb80d 100644
      typedef DDciFileEngineIterator Iterator;
 -    Iterator *beginEntryList(QDir::Filters filters, const QStringList &filterNames) override;
 -    Iterator *endEntryList() override;
-+    IteratorUniquePtr beginEntryList(const QString &path, QDir::Filters filters, const QStringList &filterNames) override;
++    IteratorUniquePtr beginEntryList(const QString &path, QDirListing::IteratorFlags filters, const QStringList &filterNames) override;
 +    IteratorUniquePtr endEntryList() override;
  
      qint64 read(char *data, qint64 maxlen) override;
      qint64 write(const char *data, qint64 len) override;
 diff --git a/src/filesystem/dcapfsfileengine.cpp b/src/filesystem/dcapfsfileengine.cpp
-index 933616b..51b066e 100644
+index 933616b..66ed0bb 100644
 --- a/src/filesystem/dcapfsfileengine.cpp
 +++ b/src/filesystem/dcapfsfileengine.cpp
 @@ -14,24 +14,9 @@ DCORE_BEGIN_NAMESPACE
@@ -135,7 +140,7 @@ index 933616b..51b066e 100644
  }
  
 -QAbstractFileEngine::Iterator *DCapFSFileEngine::beginEntryList(QDir::Filters filters, const QStringList &filterNames)
-+QAbstractFileEngine::IteratorUniquePtr DCapFSFileEngine::beginEntryList(const QString &path, QDir::Filters filters, const QStringList &filterNames)
++QAbstractFileEngine::IteratorUniquePtr DCapFSFileEngine::beginEntryList(const QString &path, QDirListing::IteratorFlags filters, const QStringList &filterNames)
  {
 -    auto ret = QFSFileEngine::beginEntryList(filters, filterNames);
 -    DVtableHook::overrideVfptrFun(ret, &QAbstractFileEngineIterator::hasNext, &capDirIteraterHasNext);
@@ -144,7 +149,7 @@ index 933616b..51b066e 100644
  }
  
 diff --git a/src/filesystem/private/dcapfsfileengine_p.h b/src/filesystem/private/dcapfsfileengine_p.h
-index 3a4a06b..68e6f90 100644
+index 3a4a06b..8f49ba6 100644
 --- a/src/filesystem/private/dcapfsfileengine_p.h
 +++ b/src/filesystem/private/dcapfsfileengine_p.h
 @@ -14,7 +14,7 @@ DCORE_BEGIN_NAMESPACE
@@ -161,7 +166,7 @@ index 3a4a06b..68e6f90 100644
      bool setSize(qint64 size) override;
      QStringList entryList(QDir::Filters filters, const QStringList &filterNames) const override;
 -    Iterator *beginEntryList(QDir::Filters filters, const QStringList &filterNames) override;
-+    IteratorUniquePtr beginEntryList(const QString &path, QDir::Filters filters, const QStringList &filterNames) override;
++    IteratorUniquePtr beginEntryList(const QString &path, QDirListing::IteratorFlags filters, const QStringList &filterNames) override;
  
      bool canReadWrite(const QString &path) const;
  };
