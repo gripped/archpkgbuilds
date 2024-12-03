@@ -3,7 +3,7 @@
 
 pkgname=fcitx5-qt
 pkgver=5.1.8
-pkgrel=4
+pkgrel=5
 pkgdesc="Fcitx5 Qt Library (Qt5 & Qt6 integrations)"
 arch=('x86_64')
 url="https://github.com/fcitx/fcitx5-qt"
