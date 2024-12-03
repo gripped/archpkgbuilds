@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
 pkgname=fastfetch
-pkgver=2.30.1
+pkgver=2.31.0
 pkgrel=1
 pkgdesc="A feature-rich and performance oriented neofetch like system information tool"
 arch=('x86_64')
@@ -50,7 +50,7 @@ optdepends=(
   'zlib: Faster image output when using kitty graphics protocol'
 )
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('5248311a3d8ce65f6f48756dfc0df9f8922d64f5201ee8d980497d52e924906e')
+sha256sums=('3036e34acc1355bf39619df1a2400f5f8316d188088f07d9a366a521bb30ad61')
 
 build() {
 	cmake -B build -S "${pkgname}-${pkgver}" \
