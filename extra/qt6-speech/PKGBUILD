@@ -2,12 +2,15 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-speech
-_pkgver=6.8.0
-pkgver=6.8.0
+_pkgver=6.8.1
+pkgver=6.8.1
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
-license=(GPL3 LGPL3 FDL custom)
+license=(GPL-3.0-only
+         LGPL-3.0-only
+         LicenseRef-Qt-Commercial
+         Qt-GPL-exception-1.0)
 pkgdesc='Qt Speech support'
 depends=(gcc-libs
          glibc
@@ -25,7 +28,7 @@ optdepends=('flite: flite TTS backend'
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('044059a383057ecb2a30e00eb0efe18b08b186444fe1ec2e1cde201011eaa5e2')
+sha256sums=('ecfca57596c9be73783d5b7c0b6513c719c90e12cac14e7376b579592188b123')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
