@@ -5,8 +5,8 @@
 # Contributor: sh__
 
 pkgname=libtorrent
-pkgver=0.13.8
-pkgrel=4
+pkgver=0.14.0
+pkgrel=1
 pkgdesc='BitTorrent library with a focus on high performance and good code'
 url='https://rakshasa.github.io/rtorrent/'
 arch=('x86_64')
@@ -14,24 +14,23 @@ license=('GPL')
 makedepends=('git')
 depends=('openssl')
 source=("git+https://github.com/rakshasa/libtorrent.git#tag=v${pkgver}")
-sha256sums=('71e09b1b878ba463b3698968afd94412623b793b95a6c06967b405c1b7f584f3')
+sha256sums=('771623ec47ad6e30d39b717aa3eb7535720e822aadf1a87ed40794b6a20cecf8')
 
 prepare() {
-	cd ${pkgname}
-	./autogen.sh
+  cd ${pkgname}
+  autoreconf -fiv
 }
 
 build() {
-	cd ${pkgname}
-	export CXXFLAGS+=' -fno-strict-aliasing'
-	./configure \
-		--prefix=/usr \
-		--disable-debug \
-
-	make
+  cd ${pkgname}
+  export CXXFLAGS+=' -fno-strict-aliasing'
+  ./configure \
+  --prefix=/usr \
+  --disable-debug
+  make
 }
 
 package() {
-	cd ${pkgname}
-	make DESTDIR="${pkgdir}" install
+  cd ${pkgname}
+  make DESTDIR="${pkgdir}" install
 }
