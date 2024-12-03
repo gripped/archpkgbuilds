@@ -2,12 +2,15 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-grpc
-_pkgver=6.8.0
-pkgver=6.8.0
-pkgrel=2
+_pkgver=6.8.1
+pkgver=6.8.1
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
-license=(GPL3 LGPL3 FDL custom)
+license=(GPL-3.0-only
+         LGPL-3.0-only
+         LicenseRef-Qt-Commercial
+         Qt-GPL-exception-1.0)
 pkgdesc='Provides the modules QtGrpc and QtProtobuf'
 depends=(abseil-cpp
          gcc-libs
@@ -23,7 +26,7 @@ optdepends=('qt6-declarative: QML bindings')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('5f77eae22de1ec77fc9ed53fd94e1ced8cdeff05a4884321b7910348f438a152')
+sha256sums=('98f8049799fa328047d551bbbdcac717b37c705357ee412b21b11055d8398aef')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
