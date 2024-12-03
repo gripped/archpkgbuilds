@@ -2,12 +2,15 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-webview
-_pkgver=6.8.0
-pkgver=6.8.0
+_pkgver=6.8.1
+pkgver=6.8.1
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
-license=(GPL3 LGPL3 FDL custom)
+license=(GPL-3.0-only
+         LGPL-3.0-only
+         LicenseRef-Qt-Commercial
+         Qt-GPL-exception-1.0)
 pkgdesc='Provides a way to display web content in a QML application'
 depends=(gcc-libs
          glibc
@@ -20,7 +23,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('eeca02538c5732aad172f94c02427c5588f431fe1cf2c2e1775a18b21976c088')
+sha256sums=('74e0029d584c7ccf275a5c2144be4bd3f8d941f7e383d931c78aed95b1f10a26')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
