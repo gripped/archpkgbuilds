@@ -1,0 +1,43 @@
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+# Contributor: Antonio Rojas <arojas@archlinux.org>
+_pkgname=jupyterlab
+pkgname=jupyterlab-3
+pkgver=3.6.8
+pkgrel=2
+pkgdesc="JupyterLab computational environment, version 3.x"
+arch=(any)
+url='https://github.com/jupyterlab/jupyterlab'
+license=(LicenseRef-custom)
+provides=($_pkgname=$pkgver)
+conflicts=($_pkgname)
+makedepends=(python-build python-installer python-pre-commit)
+depends=(python python-jupyterlab_server python-jupyter_packaging jupyter-notebook-shim nodejs)
+optdepends=('npm: to install extensions' 'jupyterlab-widgets: ipywidgets support')
+checkdepends=(python-pytest-tornasync python-pytest-jupyter npm)
+source=($_pkgname-$pkgver::https://github.com/jupyterlab/$_pkgname/releases/download/v$pkgver/jupyterlab-$pkgver.tar.gz
+        no-nbclassic.patch)
+sha256sums=('a2477383e23f20009188bd9dac7e6e38dbc54307bc36d716bea6ced450647c97'
+            'c06dc4b2bc712e7fbffe9850a9c99f98ee4f5210ecd3a9572b7ed21496c8d59e')
+
+prepare() {
+	patch -d $_pkgname-$pkgver -p1 < no-nbclassic.patch # Drop nbclassic dependency
+	sed -e '/nbclassic/d' -e '/notebook<7/d' -e 's|ydoc\~\=.*|ydoc|g' -i $_pkgname-$pkgver/setup.cfg
+}
+
+build() {
+	cd "$_pkgname-$pkgver"
+	python -m build --wheel --no-isolation
+}
+
+check() {
+	cd "$_pkgname-$pkgver"
+	pytest -v -k 'not test_build and not test_announcements'
+}
+
+package() {
+	cd "$_pkgname-$pkgver"
+	python -m installer --destdir="$pkgdir" dist/*.whl
+	mv "$pkgdir"/usr/etc "$pkgdir"
+
+	install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}

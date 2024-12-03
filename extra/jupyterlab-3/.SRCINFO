@@ -1,0 +1,28 @@
+pkgbase = jupyterlab-3
+	pkgdesc = JupyterLab computational environment, version 3.x
+	pkgver = 3.6.8
+	pkgrel = 2
+	url = https://github.com/jupyterlab/jupyterlab
+	arch = any
+	license = LicenseRef-custom
+	checkdepends = python-pytest-tornasync
+	checkdepends = python-pytest-jupyter
+	checkdepends = npm
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-pre-commit
+	depends = python
+	depends = python-jupyterlab_server
+	depends = python-jupyter_packaging
+	depends = jupyter-notebook-shim
+	depends = nodejs
+	optdepends = npm: to install extensions
+	optdepends = jupyterlab-widgets: ipywidgets support
+	provides = jupyterlab=3.6.8
+	conflicts = jupyterlab
+	source = jupyterlab-3.6.8::https://github.com/jupyterlab/jupyterlab/releases/download/v3.6.8/jupyterlab-3.6.8.tar.gz
+	source = no-nbclassic.patch
+	sha256sums = a2477383e23f20009188bd9dac7e6e38dbc54307bc36d716bea6ced450647c97
+	sha256sums = c06dc4b2bc712e7fbffe9850a9c99f98ee4f5210ecd3a9572b7ed21496c8d59e
+
+pkgname = jupyterlab-3
