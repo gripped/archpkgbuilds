@@ -2,17 +2,18 @@
 # Contributor: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname='python-et-xmlfile'
-pkgver=1.1
-pkgrel=5
-pkgdesc="A low memory library for creating large XML files."
+pkgver=2.0.0
+pkgrel=1
+pkgdesc='A low memory library for creating large XML files'
 arch=('any')
-url="https://et-xmlfile.readthedocs.io/"
+url='https://foss.heptapod.net/openpyxl/et_xmlfile'
 license=('MIT')
 depends=('python')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest' 'python-lxml')
 source=("https://foss.heptapod.net/openpyxl/et_xmlfile/-/archive/${pkgver}/et_xmlfile-${pkgver}.tar.gz")
-sha256sums=('707c2211ba4a041fd866ef6a60966f4ff82c89f4d4dfabf5aea59aaf97f9be4f')
+sha512sums=('b23c0d110b85aba2881e4bb2702efc7a7d411aa1528e1096fd11c09b54e1afed01bf8ae5231874eeb64011ae0ebd6342dd89add45237bfc98ff19f2a895eb013')
+b2sums=('810cb9119558bd139e19e5ad9df90db0b1445f47dc410040d319d5a761a357eb07776e9a4d2515d7ddd10c2b845ea834769d7bddc7cebff54e1085261203a936')
 
 prepare() {
   cd "$srcdir"/et_xmlfile-${pkgver}
