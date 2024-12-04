@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=sagemath-doc
-pkgver=10.4
-pkgrel=2
+pkgver=10.5
+pkgrel=1
 pkgdesc='HTML documentation for SageMath'
 arch=(any)
 url='http://www.sagemath.org'
@@ -21,7 +21,7 @@ makedepends=(cython
              python-sphinx-inline-tabs
              sagemath)
 source=(git+https://github.com/sagemath/sage#tag=$pkgver)
-sha256sums=('22b7e87978b7fe1935a4e06c0a3cc2bf0e65087feb67fa0f5b7b39a0b9206a08')
+sha256sums=('dc62465ae2d07cde84176979a2211a4a72966827c98f82d3b238c2d94c7f433f')
 options=(!strip) # nothing to strip, save packaging time
 
 prepare() {
