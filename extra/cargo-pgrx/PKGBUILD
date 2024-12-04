@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=cargo-pgrx
-pkgver=0.12.4
+pkgver=0.12.9
 pkgrel=1
 pkgdesc='Build PostgreSQL extensions with Rust'
 arch=('x86_64')
@@ -13,14 +13,14 @@ optdepends=('postgresql: to compile with system postgresql')
 replaces=('cargo-pgx')
 options=('!lto')
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('33dc4e34f2aa4ea2fa39e18b3e6b212739ef4cd1c1f1b07807e2b38f49a348dcb6d0184c2101b558b00a3386c9d2b9765413a303f4576b0bfb68460667018a7d')
-b2sums=('2c77cb99733f18fa25da49e49270e1d33249f73f9b34e6168390d6fbc3eb8f0f1e5cf2e9f0596c086bdf25f3a8f872816b833c44288191767e1fb84dc882da3c')
+sha512sums=('ed0b174fdb28f4fbe5cc651677e58488c4bba7f1e409e783ce62b6909f3ad5df2f803de84fa2d270ad20a34f4c4d02993279373adfb1ec96d78dc9a7e20d6a77')
+b2sums=('2738ca0bca59f9a652848d91ed81922a2dc0224813679d02160caa9ad72500d0e383b92f547b24efb37f48ba32c470b4f4b876675d356963fffc8b2b178b3fb2')
 
 prepare() {
   cd "$pkgname"
 
   # download dependencies
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
