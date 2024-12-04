@@ -2,12 +2,15 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-scxml
-_pkgver=6.8.0
-pkgver=6.8.0
+_pkgver=6.8.1
+pkgver=6.8.1
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
-license=(GPL3 LGPL3 FDL custom)
+license=(GPL-3.0-only
+         LGPL-3.0-only
+         LicenseRef-Qt-Commercial
+         Qt-GPL-exception-1.0)
 pkgdesc='Static and runtime integration of SCXML models into Qt6 code'
 depends=(gcc-libs
          glibc
@@ -20,7 +23,7 @@ optdepends=('qt6-declarative: QML bindings')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('0d147b96c1ff47df52b106c976120ec67d9d0e6ecc55fd0a884ff2ac955f1d2c')
+sha256sums=('86c2f2d9a7fc946cf46d7d0baed1efed05831faf8dffd77bd7ed09e3018bb328')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
