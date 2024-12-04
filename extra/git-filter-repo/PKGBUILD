@@ -2,7 +2,7 @@
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=git-filter-repo
-pkgver=2.45.0
+pkgver=2.47.0
 pkgrel=1
 pkgdesc='Quickly rewrite git repository history (filter-branch replacement)'
 arch=(any)
@@ -15,7 +15,7 @@ makedepends=(python-{build,installer,wheel}
 checkdepends=(rsync)
 _archive="$pkgname-$pkgver"
 source=("$url/releases/download/v$pkgver/$_archive.tar.xz")
-sha256sums=('430a2c4a5d6f010ebeafac6e724e3d8d44c83517f61ea2b2d0d07ed8a6fc555a')
+sha256sums=('4662cbe5918196a9f1b5b3e1211a32e61cff1812419c21df4f47c5439f09e902')
 
 build() {
   cd "$_archive"
