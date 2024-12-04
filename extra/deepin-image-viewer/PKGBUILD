@@ -1,39 +1,34 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-image-viewer
-pkgver=5.9.14
-pkgrel=6
+pkgver=5.9.15
+pkgrel=1
 pkgdesc='An image viewing tool with fashion interface and smooth performance'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-image-viewer"
 license=('GPL3')
 depends=('deepin-qt5integration' 'qt5-base' 'dtkcore' 'dtkgui' 'dtkwidget' 'deepin-image-editor'
-         'gcc-libs' 'libraw')
-makedepends=('cmake' 'ninja' 'qt5-tools')
+         'gcc-libs' 'libraw' 'dtkdeclarative')
+makedepends=('git' 'cmake' 'ninja' 'qt5-tools')
 optdepends=('deepin-manual: for help manual'
             'deepin-shortcut-viewer: for shortcut display')
 groups=('deepin')
-source=("https://github.com/linuxdeepin/deepin-image-viewer/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        libraw-0.21.patch
-        qt-5.15.11.patch)
-sha512sums=('4aa3399ec0d775ca5bfd6269648aac3ca5282c38d903deb659394a15b35001c5ac3d0d900289ac15006c778c73799d441e5fd3daf075f580449bea9df168c19f'
-            '37587172bb74d6e243ae34120f6d0f27c5aa0ce46fc3faf53878c2827811ba922370820c62715f406bbfe9ebf14dbfc0042b85dc0ee7c51c3a4da08d840b7fd4'
-            '80eed1be01595f7828ab05a8fe1aca68d5ca91fef01c299f0ccbbf0398a4ecbdeee5a2fefbc3d5219a0a0bd6e4e3e1a204339b1e7ea5f652cfb91291f351786c')
+source=("git+https://github.com/linuxdeepin/deepin-image-viewer.git#tag=$pkgver")
+sha512sums=('c827eba4f7761003d65f3d18f1062dc1d069f528c95fec60b25ca33617d31d5d26fe064d49b8901a41887bfab01f47962bfb8a026e9c04a6d80c10fe646cb132')
 
 prepare() {
-  cd deepin-image-viewer-$pkgver
+  cd deepin-image-viewer
   sed -i -e 's|qt5/plugins|qt/plugins|' -e 's|${Qt5Core_DIR}|/usr/lib/cmake/Qt5Core|' qimage-plugins/libraw/CMakeLists.txt
-  patch -p1 < ../libraw-0.21.patch # Fix build with libraw 0.21
-  patch -p1 < ../qt-5.15.11.patch # Fix build with Qt 5.15.11
+  git cherry-pick -n b0a7efaf1afb752bd2cbe96250db1e97e4f4da6f
 }
 
 build() {
-  cd deepin-image-viewer-$pkgver
+  cd deepin-image-viewer
   cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib
   ninja
 }
 
 package() {
-  cd deepin-image-viewer-$pkgver
+  cd deepin-image-viewer
   DESTDIR="$pkgdir" ninja install
 }
