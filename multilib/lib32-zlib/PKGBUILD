@@ -5,14 +5,14 @@
 _name=zlib
 pkgname=lib32-$_name
 pkgver=1.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Compression library implementing the deflate compression method found in gzip and PKZIP (32-bit)'
 arch=(x86_64)
 license=(Zlib)
 url="https://www.zlib.net/"
 depends=(
   lib32-glibc
-  $_name=1:$pkgver
+  $_name
 )
 provides=(libz.so)
 source=(https://github.com/madler/zlib/releases/download/v$pkgver/$_name-$pkgver.tar.xz{,.asc})
