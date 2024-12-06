@@ -9,7 +9,7 @@ pkgname=(
   crawl-tiles
 )
 pkgver=0.32.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Dungeon Crawl Stone Soup: open-source, single-player, role-playing \
          roguelike game of exploration and treasure-hunting"
 url="https://crawl.develz.org/"
@@ -56,6 +56,11 @@ prepare() {
 
 _make() {
   local make_options=(
+    # Don't let Makefile override our optimization with -O0
+    # https://github.com/crawl/crawl/issues/4152
+    # https://github.com/crawl/crawl/issues/4156
+    CFOPTIMIZE=
+
     EXTERNAL_FLAGS="$CXXFLAGS"
     EXTERNAL_LDFLAGS="$LDFLAGS"
     INSTALL_UGRP=root:root
