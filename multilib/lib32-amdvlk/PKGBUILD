@@ -2,7 +2,7 @@
 # Contributor: lod <aur@cyber-anlage.de>
 
 pkgname=lib32-amdvlk
-pkgver=2024.Q4.1
+pkgver=2024.Q4.2
 pkgrel=1
 pkgdesc="AMD's standalone Vulkan driver"
 arch=(x86_64)
@@ -14,7 +14,7 @@ makedepends=('perl-xml-xpath' 'python' 'lib32-wayland' 'lib32-libxrandr' 'xorg-s
              'directx-shader-compiler' 'python-ruamel-yaml' 'cmake' 'ninja' 'git')
 options=('!lto')
 source=("https://github.com/GPUOpen-Drivers/AMDVLK/archive/v-${pkgver}.tar.gz")
-sha256sums=('7e403b9a78a8bca8fc9a1cda2776df0422b3102182889fab95d275686f6416f7')
+sha256sums=('c2658c73465de8fc7f44edcfbe51b2ca76c50f0306cf90916627031238f3d01d')
             
 prepare() {
   local nrepos path name revision
