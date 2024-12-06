@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-qt5platform-plugins
-pkgver=5.6.34
+pkgver=5.7.1
 pkgrel=1
 pkgdesc='Qt platform plugins for DDE'
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt5-xcb-private-headers' 'libglv
              'extra-cmake-modules' 'dtkcommon' 'cairo')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/qt5platform-plugins.git#tag=$pkgver")
-sha512sums=('e39942052ad250ce8383e8173d2ab391b0a381811b8ec2cb0503ee532593edfaee694273447e8d2322783b5929d6e255b797ba17a6371384d12c9a8e1dc75c0c')
+sha512sums=('83066c98d5ca7d52667bc42e5316cf726287dec47d4107c4da5bf29e6c47f01290682c0d9e33eff77d0111670e1aacfb2a207f5c0c823d5e7dd8838a1977622a')
 
 prepare() {
   cd qt5platform-plugins
