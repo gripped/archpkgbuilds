@@ -1,17 +1,21 @@
 pkgbase = ruby-mime-types
 	pkgdesc = MIME Content-Type database
-	pkgver = 3.4.1
-	pkgrel = 3
+	pkgver = 3.6.0
+	pkgrel = 1
 	url = http://mime-types.rubyforge.org
 	arch = any
 	license = GPL2
 	license = MIT
 	license = PerlArtistic
+	checkdepends = ruby-rake
+	checkdepends = ruby-hoe
+	checkdepends = ruby-minitest
+	checkdepends = ruby-minitest-hooks
+	makedepends = ruby-rdoc
 	depends = ruby
 	depends = ruby-mime-types-data
-	noextract = mime-types-3.4.1.gem
 	options = !emptydirs
-	source = https://rubygems.org/downloads/mime-types-3.4.1.gem
-	sha256sums = 6bcf8b0e656b6ae9977bdc1351ef211d0383252d2f759a59ef4bcf254542fc46
+	source = ruby-mime-types-3.6.0.tar.gz::https://github.com/mime-types/mime-types/archive/refs/tags/v3.6.0.tar.gz
+	sha256sums = 47e92d1894559864f10941c286846d5791c98a6494c067ffba2a121dda34c2a7
 
 pkgname = ruby-mime-types

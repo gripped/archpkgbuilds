@@ -1,27 +1,88 @@
-# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+# Contributor: Maxime Gauduin <alucryd@archlinux.org>
 # Contributor: Alexsandr Pavlov <kidoz@mail.ru>
 
+_name=mime-types
 pkgname=ruby-mime-types
-pkgver=3.4.1
-pkgrel=3
+pkgver=3.6.0
+pkgrel=1
 pkgdesc='MIME Content-Type database'
 arch=('any')
 url='http://mime-types.rubyforge.org'
 license=('GPL2' 'MIT' 'PerlArtistic')
 depends=('ruby' 'ruby-mime-types-data')
+makedepends=('ruby-rdoc')
+checkdepends=('ruby-rake' 'ruby-hoe' 'ruby-minitest'{,-hooks})
 options=('!emptydirs')
-source=("https://rubygems.org/downloads/mime-types-${pkgver}.gem")
-noextract=("mime-types-${pkgver}.gem")
-sha256sums=('6bcf8b0e656b6ae9977bdc1351ef211d0383252d2f759a59ef4bcf254542fc46')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/mime-types/$_name/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('47e92d1894559864f10941c286846d5791c98a6494c067ffba2a121dda34c2a7')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended 's|~>|>=|g' "${_name}.gemspec"
+
+  # remove ruby-minitest-focus requirement
+  sed '/minitest\/focus/d' -i test/minitest_helper.rb
+}
+
+build() {
+  cd "${pkgname}-${pkgver}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  gem build "${_name}.gemspec"
+
+  gem install \
+    --local \
+    --verbose \
+    --ignore-dependencies \
+    --no-user-install \
+    --build-root "tmp_install" \
+    "${_name}-${pkgver}.gem"
+
+  # remove unrepreducible files
+  rm --force --recursive --verbose \
+    "tmp_install/${_gemdir}/cache/" \
+    "tmp_install/${_gemdir}/gems/${_name}-${pkgver}/vendor/" \
+    "tmp_install/${_gemdir}/doc/${_name}-${pkgver}/ri/ext/"
+
+  find "tmp_install/${_gemdir}/gems/" \
+    -type f \
+    \( \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
+    \) \
+    -delete
+
+  find "tmp_install/${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  GEM_HOME="tmp_install/${_gemdir}" rake test
+}
 
 package() {
-  local _gemdir="$(ruby -e'puts Gem.default_dir')"
+  cd "${pkgname}-${pkgver}"
 
-  gem install --ignore-dependencies --no-user-install -N -i "${pkgdir}"/${_gemdir} mime-types-${pkgver}.gem
-  find "${pkgdir}" -type f -name *.gem -delete
+  cp --archive --verbose tmp_install/* "${pkgdir}"
 
-  install -dm 755 "${pkgdir}"/usr/share/licenses/ruby-mime-types
-  ln -s ${_gemdir}/gems/mime-types-${pkgver}/Licence.rdoc "${pkgdir}"/usr/share/licenses/ruby-mime-types/
+  install --verbose -D --mode=0644 Licence.md --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
 }
 
 # vim: ts=2 sw=2 et:
