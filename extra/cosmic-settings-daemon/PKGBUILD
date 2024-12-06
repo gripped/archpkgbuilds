@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-settings-daemon
-pkgver=1.0.0.alpha.3
+pkgver=1.0.0.alpha.4
 pkgrel=1
 pkgdesc='Cosmic settings daemon'
 arch=(x86_64)
@@ -26,12 +26,12 @@ makedepends=(
   git
   lld
 )
-_tag=2f17f33875315a4cf463f82c5dceca4d83a75bfd
+_tag=f079ab7f98132787de385934915547f333dfbddc
 source=(
   git+https://github.com/pop-os/cosmic-settings-daemon.git#tag=${_tag}
   cosmic-settings-daemon-lto.patch
 )
-b2sums=('46ac491a67c928d6263e47d87e05d3d6bc4290d09aae9efd4f050398dd3ed8ccab6c6e97ae60cb0fcf7975dda50ecb8720ea00807697f2e57c94bcc10726d0e8'
+b2sums=('71e4d32667cba01270b2ff065a041146795a8416f0096965aae9d0ed6b89de19c9f80bfb581becb6c3a2b3bce80d0aafeeaa51855a338e47c15a45eec4b76c86'
         'd08aacbcc5b98304f9a99bc2d6a0072473f4ccd9175dcd558334179561bb2e68c0c339471f6e85b849087108998fb1b17707be9d3c87bd018c75b45b7774e91e')
 
 prepare() {
