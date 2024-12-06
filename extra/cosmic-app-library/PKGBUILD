@@ -1,9 +1,10 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
 # Contributor: soloturn <soloturn@gmail.com>
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-app-library
-pkgver=1.0.0.alpha.3
+pkgver=1.0.0.alpha.4
 pkgrel=1
 pkgdesc='Cosmic App Library'
 arch=(x86_64)
@@ -22,9 +23,9 @@ makedepends=(
   just
   lld
 )
-_tag=3dd148df0bbb044e2addab28c5ad045265b6bfaa
+_tag=676656da1eca2110db22f11f5a26e1d70628fdbd
 source=(git+https://github.com/pop-os/cosmic-applibrary.git#tag=${_tag})
-b2sums=('0948bf9f66f561617e215e7b0eb0e03c8944872f588027f813180a9f3f91cf32278a48fb24d76911e73a0e8ba8af226dca2bc7630fdc5ecbeed1e61b8bc9aa7c')
+b2sums=('2425e78e49ebc1ae0bd2fe550e7bfecd96006d8d1d0e1a607ac55ec3ab47cf881035e79dfa8345cc56d7128ac0fad6fcb659923c9111c902bc94765a025ec3df')
 
 prepare() {
   cd cosmic-applibrary
