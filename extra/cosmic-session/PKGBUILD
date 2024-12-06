@@ -3,8 +3,8 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-session
-pkgver=1.0.0.alpha.3
-pkgrel=3
+pkgver=1.0.0.alpha.4
+pkgrel=1
 pkgdesc='Session manager for the COSMIC desktop environment'
 arch=(x86_64)
 url=https://github.com/pop-os/cosmic-session
@@ -51,12 +51,12 @@ optdepends=(
   'cosmic-text-editor: COSMIC text editor'
   'cosmic-wallpapers: COSMIC wallpapers'
 )
-_tag=5a0df6afb6c9c5e9c29e33a756bf7e600c3d0264
+_tag=87a0644435145b009ea4c159d3992ff279292424
 source=(
   git+https://github.com/pop-os/cosmic-session.git#tag=${_tag}
   cosmic-session-lto.patch
 )
-b2sums=('e576c29b7a575f2c178eb8a966537ed4aaa4ee595f0728479719a4a959f9392c6d8e346b2d5514cbb75b1c9bf9b72cb4fd0d0b4911742d5f5744ee58704460d7'
+b2sums=('0ede78197c6a2bd4664632273fb9467f0c5b25540b36811441bc412c7fa3b39012f56e788f26bfc1036469ccab3284e754e9c96619516325f5bcd126f5e4a6e5'
         '9265d8218817b047b9d645b78abd1ad8e9cc30ae2c84a041058c2457b631bb9d4b4068144c019536cadfea6aa301ec72166a4bf4029305c1f6e67f05bed99882')
 
 prepare() {
