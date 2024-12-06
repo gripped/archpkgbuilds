@@ -1,25 +1,84 @@
-
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+_name=mini_mime
 pkgname=ruby-mini_mime
-pkgver=1.1.2
-pkgrel=3
+pkgver=1.1.5
+pkgrel=1
 pkgdesc='A lightweight mime type lookup toy'
 arch=('any')
 url='https://github.com/discourse/mini_mime'
 depends=('ruby')
+checkdepends=('ruby-bundler' 'ruby-minitest' 'ruby-rake')
 license=('MIT')
 options=('!emptydirs')
-source=("https://rubygems.org/downloads/${pkgname#*-}-${pkgver}.gem")
-noextract=("${pkgname#*-}-${pkgver}.gem")
-sha256sums=('a54aec0cc7438a03a850adb00daca2bdb60747f839e28186994df057cea87151')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/discourse/$_name/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('920dcec03f599d654bed03a465801d85a3c4d9691c97fd5dc67ace013c1ad60e')
+
+prepare() {
+  cd "${_name}-${pkgver}"
+
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended 's|~>|>=|g' "${_name}.gemspec"
+
+  # we don't build from a git checkout
+  sed --in-place --regexp-extended 's|git ls-files -z|find . -type f -print0|' "${_name}.gemspec"
+}
+
+build() {
+  cd "${_name}-${pkgver}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  gem build "${_name}.gemspec"
+
+  gem install \
+    --local \
+    --verbose \
+    --ignore-dependencies \
+    --no-user-install \
+    --build-root "tmp_install" \
+    "${_name}-${pkgver}.gem"
+
+  # remove unrepreducible files
+  rm --force --recursive --verbose \
+    "tmp_install/${_gemdir}/cache/" \
+    "tmp_install/${_gemdir}/gems/${_name}-${pkgver}/vendor/" \
+    "tmp_install/${_gemdir}/doc/${_name}-${pkgver}/ri/ext/"
+
+  find "tmp_install/${_gemdir}/gems/" \
+    -type f \
+    \( \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
+    \) \
+    -delete
+
+  find "tmp_install/${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
+}
+
+check() {
+  cd "${_name}-${pkgver}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  GEM_HOME="tmp_install/${_gemdir}" rake test
+}
 
 package() {
-  local _gemdir="$(ruby -e'puts Gem.default_dir')"
+  cd "${_name}-${pkgver}"
 
-  gem install --ignore-dependencies --no-user-install -N -i "${pkgdir}"/${_gemdir} ${pkgname#*-}-${pkgver}.gem
-  find "${pkgdir}" -type f -name *.gem -delete
+  cp --archive --verbose tmp_install/* "${pkgdir}"
 
-  install -dm 755 "${pkgdir}"/usr/share/licenses/${pkgname}
-  ln -s ${_gemdir}/gems/${pkgname#*-}-${pkgver}/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install --verbose -D --mode=0644 LICENSE.txt --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
 }
 
 # vim: ts=2 sw=2 et:
