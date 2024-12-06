@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: hexchain <i@hexchain.org>
 pkgname=telegram-desktop
-pkgver=5.8.3
+pkgver=5.9.0
 pkgrel=1
 pkgdesc='Official Telegram Desktop client'
 arch=('x86_64')
@@ -18,7 +18,7 @@ makedepends=('cmake' 'git' 'ninja' 'python' 'range-v3' 'tl-expected' 'microsoft-
 optdepends=('webkit2gtk: embedded browser features'
             'xdg-desktop-portal: desktop integration')
 source=("https://github.com/telegramdesktop/tdesktop/releases/download/v${pkgver}/tdesktop-${pkgver}-full.tar.gz")
-sha512sums=('272c677544fdca4e2a7e24a5821fb0e99f9caef4388d577c47442351ff1939837163fb2d83a2ec929b92c60197608ed968b5f98b180735218b6cf57cdd501327')
+sha512sums=('378735399cfd3557d473723fcf35b52fccb17c96bc8ce8e3d54658e4d955c750743aa44e5b3fe905a01276030fe4df8618fe8647e71cd5100409b339482b73c2')
 
 build() {
   CXXFLAGS+=' -ffat-lto-objects'
