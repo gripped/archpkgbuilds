@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-boot-maker
-pkgver=5.7.11
+pkgver=5.10.0
 pkgrel=1
 pkgdesc='Tool to create a bootable usb stick quick and easy'
 arch=('x86_64')
@@ -11,12 +11,10 @@ depends=('deepin-qt5integration' 'p7zip' 'mtools' 'polkit-qt5' 'syslinux')
 makedepends=('git' 'qt5-tools' 'python' 'gtest')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-boot-maker.git#tag=$pkgver")
-sha512sums=('1dfda9c9ee1e2dfeda5402c27267bc21466eed997304302f07725fc329e4fb0597c88b69091add08e1a2db7267272375a32edaf9a9bc580778d32c53c51bbaa4')
+sha512sums=('705482bbb3febc0601287c8a2107c36992e608f3253939cc067bbfbda5e29dba66cb1fe781fb134a5753f2dd15950fd4f6511d922722d3b8b2ba44e332fd63da')
 
 prepare() {
   cd deepin-boot-maker
-  # adapt to new dtklog
-  git cherry-pick -n 6ca621a339f5f080107e29de12dc8a341327713f
   # use c++14 for new gtest
   # https://github.com/linuxdeepin/deepin-boot-maker/pull/71
   git cherry-pick -n 8a848fb45e48ec67052337b4825892f8788f0802
