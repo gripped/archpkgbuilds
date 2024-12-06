@@ -4,7 +4,7 @@
 # Contributor: redtide <redtid3 at gmail dot com>
 
 pkgname=lite-xl
-pkgver=2.1.6
+pkgver=2.1.7
 pkgrel=1
 pkgdesc='A lightweight text editor written in Lua'
 arch=(x86_64 aarch64)
@@ -21,7 +21,7 @@ provides=(lite)
 replaces=("$pkgname-bin")
 _archive="$pkgname-$pkgver"
 source=("https://github.com/$pkgname/$pkgname/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('4eee4e4a0480066e85052321408bc624bb83e5efec0cd1b895c51fd4511cb6a1')
+sha256sums=('69d1ce4c1d148d382ccb06f45feca2565c5c8fe9d0b1b9bc1cbe014f6826ce6b')
 
 build() {
         arch-meson "$_archive" build -D use_system_lua=true
