@@ -7,20 +7,20 @@
 
 pkgname=byacc
 pkgver=20240109
-pkgrel=1
+pkgrel=2
 pkgdesc='Berkeley reimplementation of the Unix parser generator Yacc'
 url='https://invisible-island.net/byacc/'
 arch=('x86_64')
 license=('custom')
 depends=('glibc')
+makedepends=('git')
 replaces=('byacc-noconflict')
-source=(https://invisible-mirror.net/archives/${pkgname}/${pkgname}-${pkgver}.tgz{,.asc})
-sha512sums=('d1c50ede256a6c960243a16f4bfcafb5c78c19c82f10c567443b59a3ccacdcde37d09da491e22e0601b1b7864ba3f16068ca2eaf7c250d0bcb26449b735cb5b5'
-            'SKIP')
-validpgpkeys=('19882D92DDA4C400C22C0D56CC2AF4472167BE03') # Thomas Dickey <dickey@his.com>
+source=(${pkgname}::git+https://github.com/ThomasDickey/byacc-snapshots.git#tag=t${pkgver})
+sha512sums=('49fe527cdbcb68aa56c104fd08ea0310f18363f72eb4bd65347e0a27a35e994017e1a9a83288bb9077251c2dddd9a8c538cfe89e9ce519a7e40c9efdb48c7568')
+#validpgpkeys=('19882D92DDA4C400C22C0D56CC2AF4472167BE03') # Thomas Dickey <dickey@his.com>
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   sed -n '/is distributed/,/distributed freely/p' README > LICENSE
   ./configure \
     --prefix=/usr \
@@ -31,7 +31,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   make DESTDIR="${pkgdir}" install
   install -Dm 644 README -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
