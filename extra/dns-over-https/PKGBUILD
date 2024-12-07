@@ -4,7 +4,7 @@
 # Contributor: Ariel AxionL <i [at] axionl [dot] me>
 
 pkgname=dns-over-https
-pkgver=2.3.6
+pkgver=2.3.7
 pkgrel=1
 pkgdesc="Client and server software to query DNS over HTTPS, using Google DNS-over-HTTPS protocol"
 url="https://github.com/m13253/dns-over-https"
@@ -16,7 +16,7 @@ provides=('dns-over-https-client' 'dns-over-https-server')
 makedepends=('go' 'git')
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/m13253/dns-over-https/archive/v$pkgver.tar.gz")
-sha256sums=('daecd9b01a3938dac7f2cc4921f5bc12522762b3f53422716a52448a3a82f9fd')
+sha256sums=('8b0db994d54104157046a7d287cf2526c44814d05b405a423d699d8d0274a8c1')
 
 prepare(){
   cd "$pkgname-$pkgver"
