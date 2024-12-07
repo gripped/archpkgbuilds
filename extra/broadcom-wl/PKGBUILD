@@ -5,7 +5,7 @@ _kernelname=              # Build against stock -ARCH kernel
 #_kernelname=-custom      # Build against kernel with a different name
 pkgname=${_module}${_kernelname}
 pkgver=6.30.223.271
-pkgrel=589
+pkgrel=592
 pkgdesc='Broadcom 802.11 Linux STA wireless driver'
 arch=('x86_64')
 url='https://www.broadcom.com/support/download-search/?pf=Wireless+LAN+Infrastructure'
@@ -25,7 +25,7 @@ package() {
     _extramodules="/usr/lib/modules/${_kernver}/extramodules"
 
     install -Dm644 -t "${pkgdir}${_extramodules}" \
-        ${_module}/${pkgver}/${_kernver}/${CARCH}/module/*
+        ${_module}/${pkgver}/${_kernver}/${CARCH}/module/*.ko
 
     # compress kernel modules
     find "${pkgdir}" -name '*.ko' -exec zstd --rm -19 {} +
