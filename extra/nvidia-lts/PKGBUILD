@@ -1,8 +1,10 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
 # Contributor: Eric Bélanger <eric@archlinux.org>
+
 pkgname=nvidia-lts
-pkgver=565.57.01
-pkgrel=6
+pkgver=565.77
+pkgrel=2
 epoch=1
 pkgdesc="NVIDIA drivers for linux-lts"
 arch=('x86_64')
@@ -23,7 +25,7 @@ package() {
 
     _kernver="$(</usr/src/linux-lts/version)"
 
-    install -Dt "${pkgdir}/usr/lib/modules/${_kernver}/extramodules" -m644 nvidia/${pkgver}/${_kernver}/${CARCH}/module/*
+    install -Dt "${pkgdir}/usr/lib/modules/${_kernver}/extramodules" -m644 nvidia/${pkgver}/${_kernver}/${CARCH}/module/*.ko
 
     # compress each module individually
     find "$pkgdir" -name '*.ko' -exec zstd --rm -19 {} +
