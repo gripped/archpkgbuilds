@@ -2,7 +2,7 @@
 
 pkgname=deepin-app-services
 pkgver=1.0.26
-pkgrel=1
+pkgrel=2
 pkgdesc='Service collection of DDE applications, including dconfig-center'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-app-services"
@@ -12,6 +12,12 @@ makedepends=(git cmake ninja doxygen gtest qt5-tools)
 groups=(deepin)
 source=(git+https://github.com/linuxdeepin/dde-app-services.git#tag=$pkgver)
 sha512sums=('c46f6249a5fe4f9cde3cca29a83d63e10be08f8c3f5051f307c1c011a904eb7a548c7b7280e539e12e1ebd8c7e824cbe4cc71b2b124371a9c9e0daa802c06b7f')
+
+prepare() {
+  cd dde-app-services
+  # fix dbus activation issue of dde-dconfig-daemon
+  git cherry-pick -n e187b2d698e413a1a3c4a06a3d368e8a29a6026f
+}
 
 build() {
   cd dde-app-services
