@@ -1,17 +1,18 @@
 # Maintainer: Laurent Carlier <lordheavym@gmail.com>
 
 pkgname=vulkan-tools
-pkgver=1.3.269
+pkgver=1.4.303
 pkgrel=1
 arch=(x86_64)
 url="https://www.khronos.org/vulkan/"
 pkgdesc="Vulkan Utilities and Tools"
 license=('custom')
 depends=('libx11' 'wayland' 'libvulkan.so')
-makedepends=('cmake' 'python' 'vulkan-headers' 'vulkan-icd-loader' 'wayland-protocols' 'glslang' 'spirv-tools')
+makedepends=('cmake' 'python' 'wayland-protocols' 'vulkan-headers' 'glslang' 'spirv-tools')
+makedepends+=('libx11' 'libxrandr' 'ninja' 'git') # for update_deps.py -- volk dependency
 groups=('vulkan-devel')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KhronosGroup/Vulkan-Tools/archive/v${pkgver}.tar.gz")
-sha256sums=('029784dcc16154258499d97418142fb43d07a136bcefcaf0575bb7194068e381')
+sha256sums=('958b646bbc5ac0a54908342df30da8c183690f579dce7f7130ac93d433d9d3a8')
 
 prepare() {
   cd "${srcdir}"/Vulkan-Tools*
@@ -22,7 +23,8 @@ prepare() {
 build() {
   cd "${srcdir}"/Vulkan-Tools*/build
 
-  cmake \
+  ../scripts/update_deps.py --config release --generator Ninja
+  cmake -C helper.cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_SYSCONFDIR=/etc \
     -DCMAKE_INSTALL_DATADIR=/usr/share \
@@ -39,7 +41,8 @@ build() {
 
   cd "${srcdir}"/Vulkan-Tools*/build-wayland
 
-  cmake \
+  ../scripts/update_deps.py --config release --generator Ninja
+  cmake -C helper.cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_SYSCONFDIR=/etc \
     -DCMAKE_INSTALL_DATADIR=/usr/share \
@@ -61,7 +64,7 @@ package() {
   
   make DESTDIR="${pkgdir}" install
 
-  install -m755 ../build-wayland/cube/vkcube-wayland "${pkgdir}"/usr/bin/
+  install -m755 ../build-wayland/cube/vkcube "${pkgdir}"/usr/bin/vkcube-wayland
 
   install -dm755 "${pkgdir}"/usr/share/licenses/${pkgname}
   install -m644 ../LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
