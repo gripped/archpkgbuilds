@@ -2,8 +2,8 @@
 # Contributor: Jakob Gahde <j5lx@fmail.co.uk>
 
 pkgname=prometheus-mysqld-exporter
-pkgver=0.15.1
-pkgrel=2
+pkgver=0.16.0
+pkgrel=1
 pkgdesc="Prometheus exporter for MySQL server metrics"
 arch=('x86_64')
 url="https://github.com/prometheus/mysqld_exporter"
@@ -15,7 +15,7 @@ backup=('etc/conf.d/prometheus-mysqld-exporter')
 source=("mysql_exporter-${pkgver}.tar.gz::https://github.com/prometheus/mysqld_exporter/archive/v${pkgver}.tar.gz"
         "prometheus-mysqld-exporter.service"
         "prometheus-mysqld-exporter.conf")
-sha512sums=('571314effc975a63a0b647fab3f2be5aec0d1724f2ba9e294b56b58798f9016a1040fd919908739b9e6896331a371ba37c80741f3d1bc6af348c64ff08189fb4'
+sha512sums=('a645221c815a6a647cebf7bcc8696bac367f2fab3a8fcb191237d68794299502a43a7814f15f6dce045cd231166f62b6ea8c1d408bb0d914af333f20235d70f8'
             '50619f4fa62c97c9c3533dc6a18024e2f2548e72b79e4cabae766d8b2135b4a5fdc9a6af87a279ecbae9101feac642851f2e239333a181b0db8d48af75eeac6c'
             '6e4fa86980897e92161cf6143b27a72db8b0f1366d842c55340da56bd325bfdbb29a1d8043d26477bf161f723d164b0337a12ffb74057f0e14de4172d027762c')
 
