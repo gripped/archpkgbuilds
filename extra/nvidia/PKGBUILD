@@ -3,8 +3,8 @@
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
 pkgname=nvidia
-pkgver=565.57.01
-pkgrel=8
+pkgver=565.77
+pkgrel=4
 pkgdesc="NVIDIA kernel modules"
 arch=('x86_64')
 url="https://www.nvidia.com/"
@@ -24,7 +24,7 @@ package() {
 
     _kernver="$(</usr/src/linux/version)"
 
-    install -Dt "${pkgdir}/usr/lib/modules/${_kernver}/extramodules" -m644 nvidia/${pkgver}/${_kernver}/${CARCH}/module/*
+    install -Dt "${pkgdir}/usr/lib/modules/${_kernver}/extramodules" -m644 nvidia/${pkgver}/${_kernver}/${CARCH}/module/*.ko
 
     # compress each module individually
     find "$pkgdir" -name '*.ko' -exec zstd --rm -19 {} +
