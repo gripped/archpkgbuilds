@@ -3,7 +3,7 @@
 
 pkgname=netfilter-fullconenat
 pkgver=r73.0cf3b48
-pkgrel=410
+pkgrel=413
 pkgdesc="A kernel module that turns MASQUERADE into full cone SNAT"
 arch=('x86_64')
 url="https://github.com/Chion82/netfilter-full-cone-nat"
@@ -42,7 +42,7 @@ package() {
   local extradir=/usr/lib/modules/$(</usr/src/linux/version)/extramodules
   install -Dt "${pkgdir}${extradir}" -m644 ${pkgname}/*.ko
   find "${pkgdir}" -name '*.ko' -exec strip --strip-debug {} +
-  find "${pkgdir}" -name '*.ko' -exec xz {} +
+  find "${pkgdir}" -name '*.ko' -exec zstd --rm -19 {} +
 
   echo "xt_FULLCONENAT" | \
     install -Dm644 /dev/stdin "${pkgdir}/usr/lib/modules-load.d/${pkgname}.conf"
