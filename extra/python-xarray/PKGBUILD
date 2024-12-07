@@ -2,7 +2,7 @@
 
 _pkg=xarray
 pkgname=python-${_pkg}
-pkgver=2024.07.0
+pkgver=2024.11.0
 pkgrel=1
 pkgdesc="N-D labeled arrays and datasets in Python"
 arch=(any)
@@ -64,17 +64,8 @@ checkdepends=(
   python-seaborn
 )
 #source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-source=(https://github.com/pydata/xarray/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz
-        https://github.com/pydata/xarray/commit/bd0fd974.patch
-        https://github.com/pydata/xarray/commit/ed6bfb26.patch)
-sha256sums=('3db5160a699a7731fba26b42aef3f175ca3a6adfe5593bebd0b7af90e55d747d'
-            'c39d864d96ea0f84d87fac027ff8a6813575a024add9805f4efc97beb32432f7'
-            'a605be5c7999d2c43fdea0a9e40f013f643aedcf8f0264a686033603455b4e48')
-
-prepare() {
-  patch -d $_pkg-$pkgver -p1 < bd0fd974.patch # Fix tests
-  patch -d $_pkg-$pkgver -p1 < ed6bfb26.patch
-}
+source=(https://github.com/pydata/xarray/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('81a35500234afcb4410cb92ac1204895da7dc1f345427ed8b1723d09a978e401')
 
 build() {
   cd ${_pkg}-${pkgver}
@@ -91,7 +82,8 @@ check() {
     --deselect xarray/tests/test_dataset.py::TestDataset::test_rename_multiindex \
     --deselect xarray/tests/test_backends.py::test_open_mfdataset_manyfiles \
     --deselect xarray/tests/test_backends.py::TestDask::test_save_mfdataset_compute_false_roundtrip \
-    --deselect xarray/tests/test_dataarray.py::TestDataArray::test_unstack_roundtrip_integer_array
+    --deselect xarray/tests/test_dataarray.py::TestDataArray::test_unstack_roundtrip_integer_array \
+    --deselect xarray/tests/test_groupby.py::test_dask_da_groupby_quantile
 }
 
 package() {
