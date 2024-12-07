@@ -2,7 +2,7 @@
 
 pkgbase=vulkan-docs
 pkgname=(vulkan-html-docs)
-pkgver=1.3.279
+pkgver=1.4.303
 pkgrel=1
 epoch=1
 _pkgname=Vulkan-Docs
@@ -13,10 +13,10 @@ makedepends=(python3 python-pyparsing dblatex source-highlight cmake ghostscript
 makedepends+=(rubygems graphicsmagick pango gdk-pixbuf2 jbigkit)
 groups=(vulkan-devel)
 source=("https://github.com/KhronosGroup/${_pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('1dc3bf5ef03d6a0c8fe249d149627fbd1ddd0156538e0dbbc118d2f52ea6e452')
+sha256sums=('894d9d09b442ed303736376ab7d41003fa987311ae0ccb19a073d8321a478f00')
 
 prepare() {
-  export PATH="${PATH}:/build/.local/share/gem/ruby/3.0.0/bin"
+  export PATH="${PATH}:/build/.local/share/gem/ruby/3.3.0/bin"
 
   gem install -N asciidoctor:1.5.8 asciidoctor-diagram asciidoctor-mathematical \
      asciidoctor-pdf coderay json-schema i18n prawn-gmagick \
@@ -26,7 +26,7 @@ prepare() {
 }
 
 build() {
-  export PATH="${PATH}:/build/.local/share/gem/ruby/3.0.0/bin"
+  export PATH="${PATH}:/build/.local/share/gem/ruby/3.3.0/bin"
   export NODE_PATH="${srcdir}/node_modules"
 
   cd "${srcdir}/${_pkgname}-${pkgver}"
