@@ -7,11 +7,12 @@
 pkgbase=ollama
 pkgname=(ollama ollama-rocm ollama-cuda ollama-docs)
 pkgver=0.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Create, run and share large language models (LLMs)'
 arch=(x86_64)
 url='https://github.com/ollama/ollama'
 license=(MIT)
+options=('!lto')
 makedepends=(cmake git go hipblas cuda clblast)
 source=(git+https://github.com/ollama/ollama#tag=v$pkgver
         ollama-7499.patch::https://github.com/ollama/ollama/pull/7499.patch
@@ -32,11 +33,6 @@ prepare() {
 }
 
 build() {
-  # Remove some problematic flags
-  CXXFLAGS=${CXXFLAGS/-fcf-protection/}
-  CXXFLAGS=${CXXFLAGS/-fstack-clash-protection/}
-  CXXFLAGS=${CXXFLAGS/-Wp,-D_GLIBCXX_ASSERTIONS/}
-
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
