@@ -1,31 +1,56 @@
-# Maintainer:
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
 # Contributor: Antonio Rojas <arojas@archlinux.org>
 # Contributor: Bernard Baeyens (berbae) <berbae52 at sfr dot fr>
 
 pkgname=pan
-pkgver=0.155
-pkgrel=1
-pkgdesc='A powerful Newsgroup Article reader'
+pkgver=0.161
+pkgrel=2
+pkgdesc='Powerful Usenet newsreader'
 arch=(x86_64)
 url='http://pan.rebelbase.com/'
-license=(GPL2)
-depends=(gtkspell3 gmime3)
-makedepends=(itstool)
-source=(https://gitlab.gnome.org/GNOME/pan/-/archive/v$pkgver/pan-v$pkgver.tar.gz)
-sha256sums=('49acd5e18e323e16f53438ac7721cf0fb2d8c1c78846e69c8985dd3640187670')
-
-prepare() {
-  cd pan-v$pkgver
-  ./autogen.sh
-}
+license=(GPL-2.0-only)
+depends=(
+  cairo
+  gcc-libs
+  gcr
+  gdk-pixbuf2
+  glib2
+  glibc
+  gmime3
+  gnutls
+  gspell
+  gtk3
+  hicolor-icon-theme
+  libnotify
+  libsecret
+  pango
+  zlib
+)
+makedepends=(
+  cmake
+  git
+  itstool
+  ninja
+)
+source=("git+https://gitlab.gnome.org/GNOME/pan.git?signed#tag=v$pkgver")
+b2sums=(fedb03e6718ad4bdbe972c0df5ad01490af0419dbf45dcc2fcf1520e7b7f817c2aaf15e1d8553436f96df122876007af0b0830fd65f726ab9c9f94000a911b91)
+validpgpkeys=(9F7239FCB664F10B33E9DC03C31F4FD949AB2B6C) # Dominique Dumont <domi.dumont@free.fr>
 
 build() {
-  cd pan-v$pkgver
-  ./configure --prefix=/usr --with-gnutls --with-gtkspell
-  make
+  cmake -S $pkgname -B build -G Ninja \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D WANT_DBUS=1 \
+    -D WANT_GMIME_CRYPTO=1 \
+    -D WANT_NOTIFY=1 \
+    -D WANT_GKR=1 \
+    -D ENABLE_MANUAL=1
+  cmake --build build
+}
+
+check() {
+  ctest --test-dir build --output-on-failure
 }
 
 package() {
-  cd pan-v$pkgver
-  make DESTDIR="$pkgdir" install
+  DESTDIR="$pkgdir" cmake --install build
 }
