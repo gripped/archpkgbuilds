@@ -3,7 +3,7 @@
 # Contributor: Philip Goto <philip.goto@gmail.com>
 
 pkgname=squeekboard
-pkgver=1.42.1
+pkgver=1.43.0
 pkgrel=1
 pkgdesc='An on-screen-keyboard input method for Wayland'
 arch=(x86_64 aarch64)
@@ -12,7 +12,7 @@ license=(GPL3)
 depends=(feedbackd gnome-desktop python)
 makedepends=(pkg-config meson libbsd intltool rust gtk-doc wayland-protocols python-packaging glib2-devel)
 source=("https://gitlab.gnome.org/World/Phosh/squeekboard/-/archive/v${pkgver}/squeekboard-v${pkgver}.tar.gz")
-sha256sums=('5ab0412e3ee938ea20d92740192117a82dadb5a2be380fcdf8bc8084fe82a385')
+sha256sums=('7bbed94ad8c9b580d58a7a56e3c36db4c9d0f03d52b1641e0ced312bb787d602')
 
 build() {
   arch-meson "squeekboard-v${pkgver}" build
