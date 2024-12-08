@@ -2,7 +2,7 @@
 # Contributor: justforlxz <justforlxz@gmail.com>
 
 pkgname=deepin-shell
-pkgver=1.0.2
+pkgver=1.0.3
 pkgrel=1
 pkgdesc='New DDE shell'
 arch=('x86_64')
@@ -11,17 +11,20 @@ license=('LGPL3')
 depends=('deepin-tray-loader' 'dtk6core' 'dtk6gui' 'dtk6widget' 'dtk6declarative' 'gcc-libs' 'glibc'
          'libx11' 'libxcb' 'libxtst' 'qt6-5compat' 'qt6-base' 'qt6-declarative' 'qt6-wayland'
          'xcb-util-wm' 'wayland' 'yaml-cpp')
-makedepends=('git' 'extra-cmake-modules' 'cmake' 'ninja' 'qt6-tools' 'wayland-protocols')
+makedepends=('git' 'extra-cmake-modules' 'cmake' 'ninja' 'qt6-tools' 'wayland-protocols'
+             'treeland-protocols')
 groups=('deepin')
 replaces=('deepin-dock')
 conflicts=('deepin-dock')
 source=("git+https://github.com/linuxdeepin/dde-shell.git#tag=$pkgver")
-sha512sums=('564f3534d303292c565d69f9825124d2c7a49eef9fdb6052a1d9f73439015a8483123990c8c00a2dca214ad5b7bc2cb445c35d1416f143aa70811797c319fcf4')
+sha512sums=('8bef59cf5bcf6bd7d375713db4033d7bb8db66e10c6d255c2c5604bd75b77eeb40bea342998e9dac04f002fd3504371c875bb6cc57216a261d6b4b113bcaa2fa')
 
 prepare() {
   cd dde-shell
   # qt 6.8 fix
   git cherry-pick -n 46871c83cf8ecfcf83bf2fb49e1f09af997eca96
+  # treeland fix
+  sed -i 's/TreeLandProtocols/TreelandProtocols/' panels/dock/taskmanager/CMakeLists.txt
 }
 
 build() {
