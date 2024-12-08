@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-cal
-pkgver=0.8.0
+pkgver=0.8.1
 pkgrel=1
 pkgdesc='AWS Crypto Abstraction Layer: Cross-Platform, C99 wrapper for cryptography primitives'
 arch=(x86_64)
@@ -15,7 +15,7 @@ depends=(
 )
 makedepends=(cmake)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('3803311ee7c73446a35466199084652ec5f76dedcf20452ebdbba8ed34d4230d')
+sha256sums=('4d603641758ef350c3e5401184804e8a6bba4aa5294593cc6228b0dca77b22f5')
 
 build() {
   cd $pkgname-$pkgver
