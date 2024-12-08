@@ -2,8 +2,8 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=igsc
-pkgver=0.9.3
-pkgrel=2
+pkgver=0.9.5
+pkgrel=1
 pkgdesc="Intel graphics system controller firmware update library"
 arch=(x86_64)
 url="https://github.com/intel/igsc/"
@@ -11,7 +11,7 @@ license=(Apache-2.0)
 depends=(intel-metee systemd-libs)
 makedepends=(cmake systemd)
 source=(${url}/archive/V${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('e657553ebe3dbb7196012bd9a234382f9053522c377651400268ce45b2a9e43a')
+sha256sums=('516a099239ad0541598be87025556c878c0d11c6d43e09115d2bb2e24508b6ec')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
