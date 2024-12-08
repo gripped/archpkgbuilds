@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=diesel-cli
-pkgver=2.2.4
+pkgver=2.2.6
 pkgrel=1
 pkgdesc="CLI for the Diesel crate"
 arch=('x86_64')
@@ -18,10 +18,10 @@ depends=(
 makedepends=('cargo')
 source=(https://github.com/diesel-rs/diesel/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         Cargo.lock)
-sha512sums=('98d3cee072f15d98d7be09b0219facaffddbdadabf83b19968bcd22fe565757ec0122fb9abf54f75e3ce0f24c6072dfaf6e055f4baa7d9de1ea6857d5e8d7507'
-            'd4cd59962215c442c0fcb3a8dd73ac8f2aa4ff27515b9c8d7a3d2cfe1d5f4aa58c939b1fabd669b4e876d9d4292eb6a61961b92d17943b033c149b716b3a54a5')
-b2sums=('1a1db64cc7bbe1a03017f5931f3312783ff8f05665a8adf850a645e67dfb4851231a5ba024e5426e802c355f30b778d5bb0df48499fd148357cdbb495fd48dd0'
-        '021b8741d79ca905216525f5e40b488dba6b6b34e007230df4021f55cf7154a20b28919a324d591587a18e4a3e62cde8f763a0cc02c31f079a5131f153bd810a')
+sha512sums=('bdc770c400ed7c7caa1c72f74df9357026e911155bda23136d618034b02c9e79fad90fd1f63f1e3e5dc4de48c6b952e4bfdf8d638ca3d638ef311ec8ad1fce08'
+            'c6dee91c53a45821397b4f38f898bdd921e836897248a205c6c188cc5de9865ccf8bc6cfd005053a7cfe204cb4dd1dd8fe2a511a90904b85c20b54419b11d518')
+b2sums=('96b51c636fb4b74da5081621a52b24ef269feb1ff3518da80c0668f641672d20bf5fc0da2783f64315031b80ddf03835f715b95bdbdd9d20aebd7efec4790092'
+        'd6a5f9d876f89e860d01b36e3bb0d4b2d1c079c6ee6edb934e368b4741b455fab37b9893182b26759796f23687d32ea877cb8a8890eb71e77aba2a590f443c1a')
 
 prepare() {
   cp Cargo.lock "diesel-${pkgver}"
