@@ -5,7 +5,7 @@
 # Contributor: Vlad M. <vlad@archlinux.net>
 
 pkgname=cargo-outdated
-pkgver=0.15.0
+pkgver=0.16.0
 pkgrel=1
 pkgdesc="A cargo subcommand for displaying when Rust dependencies are out of date"
 url="https://github.com/kbknapp/cargo-outdated"
@@ -21,8 +21,8 @@ depends=(
   'libz.so'
 )
 source=("${pkgname}-${pkgver}.tar.gz::https://crates.io/api/v1/crates/${pkgname}/${pkgver}/download")
-sha256sums=('0641d14a828fe7dcf73e6df54d31ce19d4def4654d6fa8ec709961e561658a4d')
-b2sums=('d951d3debd1ce6cbe19cc43612fcfd157bc65df075517873cb1c2e997cd5a1c502b28c2836d2cf9d68f896b1b1cf78d5c40f93efb06a72473307c806e8bd0fa6')
+sha256sums=('965d39dfcc7afd39a0f2b01e282525fc2211f6e8acc85f1ee27f704420930678')
+b2sums=('5691d93c204f7437ce0e3e035ed916aa476f13174784d90f27eddcadc324bd96f75bc9d4a9221471e107881e92117d84eb525fe37c958e0d16d02961c3e680f1')
 options=('!lto')
 
 prepare() {
