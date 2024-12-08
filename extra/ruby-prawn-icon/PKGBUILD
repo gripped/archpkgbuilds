@@ -3,8 +3,8 @@
 
 pkgname=ruby-prawn-icon
 _pkgname=${pkgname#ruby-}
-pkgver=3.1.0
-pkgrel=5
+pkgver=4.0.0
+pkgrel=1
 pkgdesc="Easy icons for Prawn"
 arch=(any)
 url="https://github.com/jessedoyle/prawn-icon"
@@ -22,19 +22,14 @@ checkdepends=(
   ruby-rspec
 )
 options=(!emptydirs)
-source=(
-  "$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
-  "remove-failing-test.patch"
-)
-sha256sums=('13bb55525aca68bf56c6e60b865f0bfdffe295e503a5bf98bc90b14434f98f86'
-            'e720009f731b4f6a7b5be91df107060e65257305e5e31feb33e83975dfb794c8')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('867f5e4f59bad010a7b891ba241b967b682517262cb93575e89a85d20352aeb9')
 
 prepare() {
   cd "$_pkgname-$pkgver"
   sed -i -E 's|~>|>=|g' "$_pkgname.gemspec"
   sed -i '/bundler/Id' spec/spec_helper.rb
   sed -i '/simplecov/Id' spec/spec_helper.rb
-  patch -Np1 -i "$srcdir/remove-failing-test.patch"
 }
 
 build() {
