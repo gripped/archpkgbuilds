@@ -1,0 +1,36 @@
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
+# Contributor: VCalV
+pkgname=mergiraf
+pkgver=0.3.1
+pkgrel=2
+pkgdesc="A syntax-aware git merge driver for a growing collection of programming languages and file formats"
+arch=('x86_64')
+url="https://mergiraf.org/"
+license=('GPL-3.0-or-later')
+makedepends=('rust')
+checkdepends=('git')
+depends=('glibc' 'gcc-libs')
+options=('!lto')
+source=("$pkgname-$pkgver.tar.gz::https://codeberg.org/mergiraf/mergiraf/archive/v$pkgver.tar.gz")
+sha512sums=('7d5733517db1f1599399ebb2f665f228ea56ec7b52373644c18312ab3ea3285b44de664f798c00ce9fe77f3cc72422b490f6251dba1fb3466b4a8d5e5050c27b')
+
+build() {
+    cd "$pkgname"
+    
+    cargo build --release --all-features --locked
+}
+
+check() {
+    cd "$pkgname"
+
+    cargo test --all-features --locked
+}
+
+
+package() {
+    cd "$pkgname"
+
+    install -Dm755 target/release/mergiraf "$pkgdir"/usr/bin/mergiraf
+    install -Dm444 LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+    install -Dm444 README.md "$pkgdir"/usr/share/doc/$pkgname/README.md
+}
