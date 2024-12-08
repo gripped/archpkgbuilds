@@ -2,7 +2,7 @@
 # Contributor: Adrian Perez de Castro <aperez@igalia.com>
 
 pkgname=mold
-pkgver=2.34.1
+pkgver=2.35.0
 pkgrel=1
 pkgdesc='A Modern Linker'
 arch=('x86_64')
@@ -13,8 +13,8 @@ depends=('glibc' 'gcc-libs' 'mimalloc' 'zlib' 'tbb' 'zstd')
 makedepends=('git' 'python' 'cmake' 'mold')
 checkdepends=('clang' 'libdwarf')
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('1d0820074b2c83661df5d208bbbf235622298425174fd228879b39777b185b47ac220c1e268fdbc3d11c266f0cc06a507d784491464cfa59aa6b4e0d1830c548')
-b2sums=('5914d23a851c2e2173c20124f256104720da7f1a96f1e3509d4c725215e4b928de614ee5a678ff3bd67aac0189f534b269fb9854381e157d222ac3970572b634')
+sha512sums=('d68e9f66940faf4f1fd3400949cea9838c58027989fa78f0f4ecd28de15f02b8e0ceb5685c7c04621229329c6bf8625fe3cfe181bc945944138f5824f3f155a1')
+b2sums=('e4b03f5d52cfef96eebeeda008068912ec95794b8f911aad521650d05d54db7daf3af6f8db3b89024d56e81b2f84c9c17eb9cc397225c82240df0eff2cb60a04')
 
 build() {
   cmake \
