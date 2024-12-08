@@ -2,17 +2,23 @@
 
 pkgname=dtk6gui
 pkgver=6.0.21
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='Deepin Toolkit, gui module for DDE look and feel'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtk6gui"
 license=('LGPL3')
-# 'libqtxdg' disabled until it supports Qt6
+# libqtxdg: doesn't compile yet
 depends=('glibc' 'dtk6core' 'freeimage' 'libraw' 'librsvg' 'qt6-base' 'qt6-wayland' 'glib2' 'libx11' 'gcc-libs')
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'gtest' 'doxygen' 'treeland-protocols')
 source=("git+https://github.com/linuxdeepin/dtk6gui.git#tag=$pkgver")
 sha512sums=('159d875e2a4b674f85fcc1001d9d13b4766547a28ea46029944b99532983d6e5fb1164d523f27bcc6261445a03295d4e7b76ccd3ee85f3c70759e85939b92ed8')
+
+prepare() {
+  cd dtk6gui
+  # treeland fix
+  sed -i 's/TreeLandProtocols/TreelandProtocols/' src/CMakeLists.txt src/wayland/config.tests/wayland_test/CMakeLists.txt
+}
 
 build() {
   cd dtk6gui
@@ -36,3 +42,4 @@ package() {
   cd dtk6gui
   DESTDIR="$pkgdir" ninja install
 }
+
