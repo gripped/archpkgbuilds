@@ -3,8 +3,8 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=dtk6core
-pkgver=6.0.19
-pkgrel=2
+pkgver=6.0.21
+pkgrel=1
 pkgdesc='DTK core modules'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtk6core"
@@ -12,15 +12,15 @@ license=('LGPL3')
 depends=('deepin-desktop-base' 'dtkcommon' 'dtk6log' 'gcc-libs' 'glibc' 'icu' 'lshw' 'qt6-base'
          'uchardet')
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'gtest' 'doxygen')
-source=("git+https://github.com/linuxdeepin/dtk6core.git#tag=$pkgver"
-         qt-6.8.patch)
-sha512sums=('c42e88e152e685b260ce85b97c7bf094ca81b4354bc07470f388f6f2f072352db8d7a4af86d394daa480e3ece22348c5a863ae5d5dcd04de657e5bba7de3d1e3'
-            '6a4297497e648faff6844297a038abe702e0a20f21b2fd231e3132acadf26879f85d983c9dc7a618396735c9c5e6a870e0ad4b7141b62b0c85605a8cda5cda5e')
+source=("git+https://github.com/linuxdeepin/dtk6core.git#tag=$pkgver")
+sha512sums=('f614233fec2d67acb2d8ac8188b7f1aeac9d8999118303dc677ac22f87af29b97b52b56af244bee1a00ff92b0e9fa2368a7d26d3b776cd9a23da006f4070871b')
 
 prepare() {
   cd dtk6core
+  # upstream qt 6.8.1 fix
+  git cherry-pick -n f8f1e7ccf297182aef12af19897f32f23ba9d555
+  git cherry-pick -n a711231b5cbd253fdb240a8f35c08a677f22e811
   sed -i 's|/etc/os-version|/etc/uos-version|' src/dsysinfo.cpp
-  patch -p1 -i ../qt-6.8.patch
 }
 
 build() {
