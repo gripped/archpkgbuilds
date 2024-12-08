@@ -3,13 +3,13 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=1.0.17791.9
+pkgver=2.1.12
 _llvmmaj=14
 _llvmver="${_llvmmaj}.0.5"
-_vciver=0.19.0
+_vciver=0.20.1
 _spirv_tools_ver=2023.6.rc1
 _spirv_headers_commit=1c6bb2743599e6eb6f37b2969acc0aef812e32e3
-_spirv_llvm_commit=a53b216b970cd101e5019c35d3f3f096459073de
+_spirv_llvm_commit=1cfcf1b5ec2ec9c52fd56dc7cb47dcf12125e8db
 _opencl_clang_commit=470cf0018e1ef6fc92eda1356f5f31f7da452abc
 pkgrel=1
 epoch=1
@@ -23,16 +23,16 @@ provides=("intel-opencl-clang=${_llvmmaj}")
 conflicts=('intel-opencl-clang')
 replaces=('intel-opencl-clang')
 options=('!emptydirs' '!lto')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/intel/intel-graphics-compiler/archive/refs/tags/igc-${pkgver}.tar.gz"
+source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "git+https://github.com/intel/vc-intrinsics.git#tag=v${_vciver}"
         "git+https://github.com/KhronosGroup/SPIRV-LLVM-Translator.git#commit=${_spirv_llvm_commit}"
         "git+https://github.com/KhronosGroup/SPIRV-Tools.git#tag=v${_spirv_tools_ver}"
         "git+https://github.com/KhronosGroup/SPIRV-Headers.git#commit=${_spirv_headers_commit}"
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}")
-sha256sums=('2a9b758ad0875bdd090e2d415bca1cf55bff991a23d50d88002e3951fc44c4aa'
-            'da3aca24eb2d3f15240fb8dbdc90c2e27f8a921a56ca33ab2c964e77555c754a'
-            '89bf7ba925c80cfbe8309c3d17adf3a8bddf32fc79a17ced79f21d1d6ddd03f8'
+sha256sums=('62e5f1d32ba23a910e1d370092843f599b5f49ccd26cfa7236a7309aaa49a9e0'
+            '1a2ad7ac65dddd8d152a8f9efa08a9cf908154ea2289223bd6643e236228fad7'
+            '19be593ce8d6f0174c1fbf3f11456f17630b505c0b156315cf3d05e888244e9f'
             'ad11e234110902f42c9e54d2f4bb014b64e280ac9428f4c03a04b8b4571112b8'
             '86b7a82e8169097bb84741dff6003da85c841f9d3514034b213896c498ae294c'
             '19214ef9956892960ebd10c91f13cde103ccd270aa4681bdeeb048eb500cd165'
@@ -59,7 +59,7 @@ build() {
     export CXXFLAGS="${CXXFLAGS/-Wp,-D_FORTIFY_SOURCE=?/}"
 
     EMAIL='builduser@archlinux.org' \
-    cmake -B build -S "${pkgname}-igc-${pkgver}" \
+    cmake -B build -S "${pkgname}-${pkgver}" \
         -G 'Unix Makefiles' \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
@@ -75,16 +75,15 @@ build() {
         -DIGC_OPTION__USE_KHRONOS_SPIRV_TRANSLATOR_IN_SC=ON \
         -DIGC_OPTION__VC_INTRINSICS_MODE=Source \
         -DCCLANG_FROM_SYSTEM=OFF \
-        -DINSTALL_GENX_IR=ON \
         -Wno-dev
     cmake --build build
 }
 
 package() {
     DESTDIR="$pkgdir" cmake --install build
-    install -D -m644 "${pkgname}-igc-${pkgver}"/LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
+    install -D -m644 "${pkgname}-${pkgver}"/LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
     mv "${pkgdir}/usr/include"/opencl-c{,-base}.h "${pkgdir}/usr/include/igc"
-    mv "${pkgdir}/usr/lib/igc/NOTICES.txt" "${pkgdir}/usr/share/licenses/${pkgname}"
+    mv "${pkgdir}/usr/lib/igc${pkgver%%.*}/NOTICES.txt" "${pkgdir}/usr/share/licenses/${pkgname}"
     rm "${pkgdir}/usr/bin/lld"
     
     # additional files for opencl-clang
