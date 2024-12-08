@@ -1,0 +1,58 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=key-rack
+pkgver=0.4.0
+pkgrel=2
+pkgdesc='Password manager for GNOME'
+arch=(x86_64)
+url='https://gitlab.gnome.org/World/key-rack'
+license=(GPL-3.0-or-later)
+depends=(
+  gcc-libs
+  glib2
+  glibc
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+)
+makedepends=(
+  git
+  meson
+  rust
+)
+source=(
+  "git+https://gitlab.gnome.org/World/key-rack.git#tag=$pkgver"
+  key-rack-manifest-path.patch
+)
+b2sums=(
+  9f6bba19184eb157e60bd58c1e002d7134f263d54990e5d20a6c679def701d209ad6040d96ab5e6ed9ca5eec4166a2654a689a97c2dcad72357f8a28ca108d6e
+  cee8c7db52e99fe3868e1c759f538fb9228fdf2199b4043432751028f5ae563a9a011a4a74d8a4b5b95dfdd6be554742d8264437eafab0cfa2efbb401f342d68
+)
+
+prepare() {
+  cd $pkgname
+
+  CARGO_HOME="$srcdir/build/cargo" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/World/key-rack/-/merge_requests/43
+  git apply -3 ../key-rack-manifest-path.patch
+}
+
+build() {
+  arch-meson $pkgname build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+}

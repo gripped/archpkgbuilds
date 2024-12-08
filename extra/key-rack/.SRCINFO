@@ -1,0 +1,22 @@
+pkgbase = key-rack
+	pkgdesc = Password manager for GNOME
+	pkgver = 0.4.0
+	pkgrel = 2
+	url = https://gitlab.gnome.org/World/key-rack
+	arch = x86_64
+	license = GPL-3.0-or-later
+	makedepends = git
+	makedepends = meson
+	makedepends = rust
+	depends = gcc-libs
+	depends = glib2
+	depends = glibc
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita
+	source = git+https://gitlab.gnome.org/World/key-rack.git#tag=0.4.0
+	source = key-rack-manifest-path.patch
+	b2sums = 9f6bba19184eb157e60bd58c1e002d7134f263d54990e5d20a6c679def701d209ad6040d96ab5e6ed9ca5eec4166a2654a689a97c2dcad72357f8a28ca108d6e
+	b2sums = cee8c7db52e99fe3868e1c759f538fb9228fdf2199b4043432751028f5ae563a9a011a4a74d8a4b5b95dfdd6be554742d8264437eafab0cfa2efbb401f342d68
+
+pkgname = key-rack

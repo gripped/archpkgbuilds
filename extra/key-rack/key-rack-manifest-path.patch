@@ -1,0 +1,33 @@
+From 5084dda8d41b60fb1c28ce1c1ec271913bc8a71d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 7 Dec 2024 14:58:40 +0000
+Subject: [PATCH] meson: Set cargo manifest path explicitly
+
+This is needed for out of tree build.
+---
+ src/meson.build | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/meson.build b/src/meson.build
+index d35e340..330319b 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -1,6 +1,7 @@
+ cargo_bin = find_program('cargo')
+ 
+ target_dir = meson.project_build_root() / 'src'
++manifest = meson.project_source_root() / 'Cargo.toml'
+ 
+ if get_option('profile') == 'release'
+   rust_target = 'release'
+@@ -13,6 +14,7 @@ endif
+ cargo_options = [
+   '--target-dir', target_dir,
+   '--profile', profile,
++  '--manifest-path', manifest,
+ ]
+ 
+ cargo_env = {
+-- 
+GitLab
+
