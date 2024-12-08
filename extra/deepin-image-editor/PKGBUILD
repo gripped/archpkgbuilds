@@ -1,23 +1,26 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-image-editor
-pkgver=1.0.45
+pkgver=1.0.46
 pkgrel=1
 pkgdesc='Public library for deepin-image-viewer and deepin-album'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/image-editor"
 license=('GPL3')
 depends=('dtkcore' 'dtkgui' 'dtkwidget' 'qt5-base' 'qt5-svg' 'libtiff' 'ffmpegthumbnailer'
-         'freeimage' 'libmediainfo' 'gcc-libs' 'deepin-util-dfm')
+         'libmediainfo' 'gcc-libs' 'deepin-util-dfm')
 makedepends=('git' 'cmake' 'expac' 'ninja' 'qt5-tools')
 source=("git+https://github.com/linuxdeepin/image-editor.git#tag=$pkgver"
         remove-broken-flags.patch)
-sha512sums=('7f473435bac9b80e822a37e51511ffd22af18a167d3e093cba823157c855175b590fd6cb7e365bbda1b34ec5c7c53d008085278f769f1a1a86565e00c16a71ac'
+sha512sums=('57498a07110efa30a9fd96459e46a50102377a27cd3745f8052b9f5501e51117c4f388c05b1a15ad564627f52ffa071ddc0198e6f9d542e603d841edcc033c61'
             'bc72e7732ae045a10129336a770d04827c487fb57938c4711e57aeeccde369fca207913477a695cddffc7d0fb6d77add1f75b9b5ca784d0285b8f4f56c2376ad')
 
 prepare() {
-  patch -d image-editor -p2 < remove-broken-flags.patch
-  sed -i -e 's/dpkg -s libdtkwidget-dev/expac %v dtkwidget/' -e '/COMMAND grep Version/d' image-editor/libimageviewer/CMakeLists.txt
+  cd image-editor
+  # drop freeimage
+  git cherry-pick -n b7fe6611472560020e202b6a5d07616e588e40a7
+  patch -p2 < ../remove-broken-flags.patch
+  sed -i -e 's/dpkg -s libdtkwidget-dev/expac %v dtkwidget/' -e '/COMMAND grep Version/d' libimageviewer/CMakeLists.txt
 }
 
 build() {
