@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gedit
-pkgver=48.0
+pkgver=48.1
 pkgrel=1
 pkgdesc="Easy-to-use general-purpose text editor"
 url="https://gedit-technology.github.io/apps/gedit/"
@@ -50,7 +50,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gedit.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/GNOME/libgd.git"
 )
-b2sums=('67a57a85088496c614f3c0c8d8a1074ba005328e2a38efe3aa530ede65bd51f28c11dabb25854c2e04a58a11aeb33743d057f25d37aa796334701d5d459e557d'
+b2sums=('ed42c57aeac7bfd5d6f3b5ae17af8060698d515c5f2fbfc815a8eb530e27b8bc506e0090025250945aa425b27921a71f7b7635bb09a6d1884287f324c9a0efd4'
         'SKIP')
 
 prepare() {
