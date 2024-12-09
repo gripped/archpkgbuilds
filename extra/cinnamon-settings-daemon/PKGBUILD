@@ -4,7 +4,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 
 pkgname=cinnamon-settings-daemon
-pkgver=6.4.0
+pkgver=6.4.1
 pkgrel=1
 pkgdesc="The Cinnamon Settings daemon"
 arch=(x86_64)
@@ -17,8 +17,8 @@ optdepends=('cinnamon-translations: i18n')
 makedepends=(meson samurai xf86-input-wacom glib2-devel)
 options=(!emptydirs)
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('8820c168b18779227e46494b62f8b90f86a5cfa2731e60e79efc7e382ffaef5331feff64a2a58487f626b0ad16674b1867041ef21ce5b5488685a5ea76d6b22c')
-b2sums=('de548745d835f62f92547965ef231c9cc432724502e915380ba7d28ddc2c8550f8465dac9e65e326583af5d6576a01728d345ffff1fd2290e30250cd5f837dc9')
+sha512sums=('82bd130331bc400ef6d48ef99d6c5c1d6e5663403f2497ef5eb324fb68613dc0b25bcf8bd7f10a9c0a65d1f3085310d0e387a2a83ea77290cfc63db52c1b22b3')
+b2sums=('8c0ff327f73df5c4046d0b794fbd84b9d8d12c38a28870c661e2e8fb09321d30c7040e6876022dc7a9a240c252a6c6d8fc192beda431ed069c132600703471fe')
 
 build() {
   arch-meson --libexecdir=lib/${pkgname} ${pkgname}-${pkgver} build
