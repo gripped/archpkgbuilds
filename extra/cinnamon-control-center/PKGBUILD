@@ -6,7 +6,7 @@
 # Jan de Groot <jgc@archlinux.org>
 
 pkgname=cinnamon-control-center
-pkgver=6.4.0
+pkgver=6.4.1
 pkgrel=1
 pkgdesc="The Control Center for Cinnamon"
 arch=(x86_64)
@@ -20,8 +20,8 @@ optdepends=('cinnamon-translations: i18n'
 makedepends=(meson samurai gnome-online-accounts glib2-devel)
 options=(!emptydirs)
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('44735f498fcd286cbb00c0e87a21caf9ed3c12033df61e5f2b4280c1327dea2a')
-b2sums=('97cff434e7e8d7246fe6e6169bdbb3f0744f14c9de6dc6a3b75dbd61641d9dcdc3278f7516376e98b7bef2dc8587eb35dc088dfec28866dffa517cfc821c957f')
+sha256sums=('a68886524ce3f18952bc79d28061b71fc48a24e5dac5175874e3d390425bad92')
+b2sums=('6fbd6ec999f886a95f265f9bc3275659176daf0354b8cb4a02de6a560ad58050f722bd1490ee7e4457fd4a3299f445f7c18101af11d950379a363e7cac9ceac8')
 
 build() {
   arch-meson build ${pkgname}-${pkgver}
