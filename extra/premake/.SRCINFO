@@ -1,12 +1,13 @@
 pkgbase = premake
 	pkgdesc = A simple build configuration and project generation tool
 	pkgver = 5.0beta3
-	pkgrel = 1
+	pkgrel = 2
 	url = https://premake.github.io/
 	arch = x86_64
-	license = BSD
+	license = BSD-3-Clause
 	depends = glibc
-	source = https://github.com/premake/premake-core/releases/download/v5.0.0-beta3/premake-5.0.0-beta3-src.zip
-	sha512sums = a349dabe3db5b503c283e836da89a5239007696f87756fe34e011bee655c86cd8ccc1c0c00f72a46d0d10302c2f5d67e37d566313e68a16406924a8ba70c5d8f
+	depends = util-linux-libs
+	source = premake-5.0beta3.tar.gz::https://github.com/premake/premake-core/archive/refs/tags/v5.0.0-beta3.tar.gz
+	sha512sums = 3fd5cf526e28b36bf32d3015bcb5841b8dc3e3570029dd25442bba118369f104e7504682f7e1a409d879de562b19db55bccfed97939fef376c211cfb77ceff6e
 
 pkgname = premake
