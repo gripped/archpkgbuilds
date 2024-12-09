@@ -5,7 +5,7 @@
 _name=elfutils
 pkgname=lib32-libelf
 pkgver=0.192
-pkgrel=1
+pkgrel=2
 pkgdesc="Handle ELF object files and DWARF debugging information (libraries) (32-bit)"
 arch=(x86_64)
 url="https://sourceware.org/elfutils"
@@ -51,7 +51,6 @@ build() {
     --disable-static
     --libdir=/usr/lib32
     --libexecdir=/usr/lib32
-    --includedir=/usr/include/${_name}32
     --prefix=/usr
     --program-suffix="-32"
     --sysconfdir=/etc
@@ -60,7 +59,7 @@ build() {
   export CC="gcc -m32"
   export CXX="g++ -m32"
   export LDFLAGS+=" -m32"
-  export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+  export PKG_CONFIG=i686-pc-linux-gnu-pkg-config
   # fat-lto-objects is required for non-mangled .a files in libelf
   CFLAGS+=" -ffat-lto-objects"
   # debugging information is required for test-suite
