@@ -1,7 +1,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=libgedit-tepl
-pkgver=6.11.0
+pkgver=6.12.0
 pkgrel=1
 pkgdesc='Library that eases the development of GtkSourceView-based text editors and IDEs'
 arch=('x86_64')
@@ -32,7 +32,7 @@ conflicts=(tepl)
 replaces=(tepl)
 provides=(libgedit-tepl-6.so)
 source=("git+https://gitlab.gnome.org/World/gedit/libgedit-tepl.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('609043e41292fe2e5b036af39819cad849f05b0752cf5f7873804e7f0846c4824fa90113415fb0346d5c7667f1334d821b5152b10c0922213da6b542e553a351')
+b2sums=('0b68933a8c485dbfe14d1f4f5504a3abadb005297a0dc85c843c9c9c9f3a128632c89570ee355102ffb84c51da6bdcdbaa56b06c4e4de16f53728d07ca728173')
 
 build() {
   arch-meson $pkgname build
