@@ -2,22 +2,22 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=himalaya
-pkgver=0.9.0
-pkgrel=2
+pkgver=1.0.0
+pkgrel=1
 pkgdesc="A CLI email client"
 arch=('x86_64')
 url="https://github.com/soywod/himalaya"
-license=('BSD')
-depends=('gcc-libs' 'gpgme' 'notmuch' 'openssl')
+license=('MIT')
+depends=('gcc-libs' 'glibc' 'gpgme' 'notmuch' 'openssl')
 makedepends=('cargo')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('0233289968a80672e39d7cd133f14bb9cd27129f389fccc4b366844389395a5bbfb89184e4d2b2ef2ecbbcaaf959a679f937f4b4b7c6018a52269a196c4af551')
+sha512sums=('99a4a9bd73b6eefcf08d8769ff6dfd9ee572b4130c5572139ba802357834d860e4c18e474d36acb7e743e5fb16c904e5f274892375dbac5257a02b165aa3b75c')
 
-_features='notmuch-backend,pgp-gpg'
+_features='notmuch,pgp-gpg'
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
   mkdir -p {completions,man}
 }
 
