@@ -2,7 +2,7 @@
 
 pkgname=nethsm-cli
 _name=signstar
-pkgver=0.4.1
+pkgver=0.5.0
 pkgrel=1
 pkgdesc="A command line interface (CLI) for the Nitrokey NetHSM"
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(
 )
 options=(!lto)  # ring does not work with LTO
 source=($_name::git+$_url.git?signed#tag=$pkgname/$pkgver)
-sha256sums=('b646036d9456045dfa039cbc98677db992ead1da472d351566d6e2beb9feb0bc')
+sha256sums=('ebd83c196ad852aee0e6c9994300326c09f15c5f35149506a765e9c9c95c3288')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
