@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=buho
-pkgver=4.0.0
+pkgver=4.0.1
 pkgrel=1
 pkgdesc='Task and note keeper'
 url='https://mauikit.org/'
@@ -19,16 +19,10 @@ depends=(gcc-libs
          qt6-declarative)
 makedepends=(extra-cmake-modules)
 groups=(maui)
-source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig}
-        fix-build.patch)
-sha256sums=('ffa4125150b35f3e2944a8ef04a781ce5d2f874bd7c2c44bf7be969f836dbddf'
-            'SKIP'
-            'ad61cf43d27226a2af4f0cae19a73d4c9db8ea77606c2e6e90961f4c9aa6bfe2')
+source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('87a3a8fa4beccbcda31fdc5393c7eabc688be98bb99c24f4d9ac7fdc80efeb4e'
+            'SKIP')
 validpgpkeys=(023625C8D02C0D8C15C3BABB86C793550794FEB8) # Camilo Higuita <milo.h@aol.com>                                    
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < fix-build.patch
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver
