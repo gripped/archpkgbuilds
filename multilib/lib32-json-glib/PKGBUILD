@@ -5,7 +5,7 @@ pkgbase=lib32-json-glib
 pkgname=(
   lib32-json-glib
 )
-pkgver=1.10.0
+pkgver=1.10.6
 pkgrel=1
 pkgdesc="JSON library built on GLib (32-bit)"
 url="https://gnome.pages.gitlab.gnome.org/json-glib/"
@@ -22,7 +22,7 @@ makedepends=(
   meson
 )
 source=("git+https://gitlab.gnome.org/GNOME/json-glib.git?signed#tag=$pkgver")
-b2sums=('30d992232c79dce85966c48396167b3ba0f3427a63fc2462b81d69aa4af215ce4be965983b649401d584127c547f5373b035a1f890f27876c4548310302adf70')
+b2sums=('c55cd4acae7e5f7ceed3f9b08406e7128895f8805bdaa49a0d64753127a7ffb69b1e403c08dd34085114b68cf598caed9cfe1add570e71a9505533fc7a77387d')
 validpgpkeys=(
   53EF3DC3B63E2899271BD26322E8091EEA11BBB7 # Emmanuele Bassi <ebassi@gnome.org>
 )
