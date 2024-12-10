@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=mauikit-imagetools
-pkgver=4.0.0
-pkgrel=3
+pkgver=4.0.1
+pkgrel=1
 pkgdesc='MauiKit Image Tools Components'
 url='https://mauikit.org/'
 arch=(x86_64)
@@ -23,16 +23,10 @@ depends=(gcc-libs
          tesseract)
 makedepends=(extra-cmake-modules
              opencv)
-source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig}
-        fix-path.patch)
-sha256sums=('7f1f02924691cc764af5f79c0c227735d75cdc3c68457160bd302ccee1699f02'
-            'SKIP'
-            'e2bf50fd2859776c49190e791b00e3c352442810a27f5ceceb691a04d5b54d76')
+source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('44f1e5f0133a13f3b998489b5936eb373cc529d826fa4a46c8c8ecb0d0d76ae3'
+            'SKIP')
 validpgpkeys=(023625C8D02C0D8C15C3BABB86C793550794FEB8) # Camilo Higuita <milo.h@aol.com>                                    
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < fix-path.patch
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver
