@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=gfold
-pkgver=4.5.0
+pkgver=4.5.1
 pkgrel=1
 pkgdesc="A CLI tool to help keep track of Git repositories"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('Apache-2.0')
 depends=('gcc-libs' 'glibc' 'libgit2')
 makedepends=('cargo' 'git')
 source=("git+$url.git#tag=$pkgver")
-sha256sums=('9e75efa9dcee31300098f9ea91aba2a0776440ca45c12491bdc754688657bf9c')
+sha256sums=('15318217808f2e753c5c4788fc4c741c9cdaad2758e43d16144c74c33bdc4470')
 
 prepare() {
   cd "$pkgname"
