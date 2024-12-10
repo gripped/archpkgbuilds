@@ -7,7 +7,7 @@ pkgbase=lib32-glib2
 pkgname=(
   lib32-glib2
 )
-pkgver=2.82.2
+pkgver=2.82.3
 pkgrel=1
 pkgdesc="Low level core library - 32-bit"
 url="https://gitlab.gnome.org/GNOME/glib"
@@ -42,7 +42,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gvdb.git"
   gio-querymodules-32.hook
 )
-b2sums=('3ff7ea88d69b945524b28211cd11373856e78813ea2795c6aff040fb264d6323edcd2fd2782d827936bdee34238a6995b2c7a6b51eeac49de583a21a0072a2d2'
+b2sums=('9abb7878311f0df50affd3e308aa157ff711e8789e9f12b6b95f9cab198e3d662528fa1f8a48d5e489bfb1925886e9c5b1bcc5161d65e6323d04c5f3351df831'
         'SKIP'
         '678ea2d010fd64b6c55106510096363c54c357d65615c666e9cc3a0e280c0878257a45e646dd88f6bdd0623f7268c4afd2d4f98f82a5489bbfc028c5864252f1')
 validpgpkeys=(
