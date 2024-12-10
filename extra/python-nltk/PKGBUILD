@@ -4,8 +4,8 @@
 # Contributor: Chris Baker <baker.chris.3@gmail.com>
 
 pkgname=python-nltk
-pkgver=3.8.1
-pkgrel=4
+pkgver=3.9.1
+pkgrel=1
 pkgdesc='Natural language processing in Python'
 arch=('any')
 url='https://www.nltk.org/'
@@ -17,7 +17,7 @@ optdepends=('nltk-data: test data'
 	    'python-numpy: used for calculations'
 	    'python-matplotlib: used for plotting')
 source=($pkgname-$pkgver.tar.gz::"https://github.com/nltk/nltk/archive/$pkgver.tar.gz")
-sha256sums=('676970e2b7aa0a7184e68f76e0c4f2756fd1b82559a509d5656a23117faeb658')
+sha256sums=('03e06c8c13e352133962c4395ebe0696905c9f1fbdead2d19deae37ba48eb47c')
 
 build() {
   cd nltk-$pkgver
