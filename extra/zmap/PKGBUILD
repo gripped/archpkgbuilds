@@ -3,7 +3,7 @@
 # Contributor: Arch3y <arch3y[at]archstrike[dot]org>
 
 pkgname=zmap
-pkgver=4.2.0
+pkgver=4.3.1
 pkgrel=1
 pkgdesc='Fast network scanner designed for Internet-wide network surveys'
 url='https://zmap.io/'
@@ -29,8 +29,8 @@ backup=(
   etc/zmap/zmap.conf
 )
 source=(https://github.com/zmap/zmap/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('97995626a0c7b0f0138095fea0f4d484d361a40db1e71bfa853062d4320bc83049d4fb30f87e648de2dfcc6c6ac6e0da28214507718584c25f1a6063715aa23c')
-b2sums=('763808c039ca323a7a98de9f5a306900e4fca7e953836f9560038a0ed04663a01dda96321b7241cbb68d6c7d75d587761836191a3b7e5fd093abcc540dad10af')
+sha512sums=('940f15b485df50304eb7eaac582cd2cb60e072eb4b84438cb39cdf54fd7c6e06d224a3831e37b6e77b030e83da3c70b352cdf24e81eeb9a5bfb3beb78760b627')
+b2sums=('c7c4c009807df68102d4d38681141c7a274d82588d42613643824b06fe61d55a9bae01ef5fd7d19e6d11d4f0b30945f7073e977e89cade574e85fc64b872f996')
 
 prepare () {
   cd ${pkgname}-${pkgver}
