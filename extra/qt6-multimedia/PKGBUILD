@@ -7,7 +7,7 @@ pkgname=(qt6-multimedia
          qt6-multimedia-gstreamer)
 _pkgver=6.8.1
 pkgver=6.8.1
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -94,6 +94,7 @@ package_qt6-multimedia-ffmpeg() {
            libxext
            libxrandr
            qt6-base
+           qt6-declarative
            qt6-multimedia)
   provides=(qt6-multimedia-backend)
   groups=()
