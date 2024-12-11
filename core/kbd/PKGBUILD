@@ -1,8 +1,8 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=kbd
-pkgver=2.6.4
-pkgrel=3
+pkgver=2.7
+pkgrel=1
 pkgdesc="Keytable files and keyboard utilities"
 arch=('x86_64')
 url="http://www.kbd-project.org"
@@ -25,7 +25,7 @@ backup=('etc/pam.d/vlock')
 provides=('vlock')
 conflicts=('vlock')
 replaces=('vlock')
-b2sums=('d519b114d95117c88f61b3d3569fd8cc16d4149cee72899cf5e9fdc9c21464c3a6a1f148f702262559aca7416264c727ad29ed6d238364383a57af518a2a13fc'
+b2sums=('ddc6cdc397ba0a40242ca479542d0173f8f8b5c89775a9c10287e4b88ae72aa23f60b93f044bab79b63950d2eb8fdb2cf21342952a3531ab102a0afef30d5539'
         'd122ddb1a86e7a282df8e438903f94d697e3d18a24154d976334e6b54b8f1cf1df432cf8dbcd98daa55014ada462f284d0319fbf015554266e91f4d2a8bf812b'
         '104543e72331a633572a26059e6dce1f25c3c8d6deabb855dd94bfffb72edf8a53a58c6ea7ef6806dd80bcd6ab0aa47cc1a45cc0cd90330be6514ff7591b5140')
 validpgpkeys=(
