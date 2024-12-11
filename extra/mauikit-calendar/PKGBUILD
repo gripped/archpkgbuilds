@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=mauikit-calendar
-pkgver=4.0.0
+pkgver=4.0.1
 pkgrel=1
 pkgdesc='Calendar support components for Maui applications'
 url='https://mauikit.org/'
@@ -23,16 +23,10 @@ depends=(akonadi-calendar
          qt6-base
          qt6-declarative)
 makedepends=(extra-cmake-modules)
-source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig}
-        fix-build.patch)
-sha256sums=('0a9169250bab954fb1b7d07195e9e6322c183946b6268aa2983e080bf55095d0'
-            'SKIP'
-            '5baa80ca61fee38e08b2f242dd255356356ec830e3dd0d315cde1c6e57a02e28')
+source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('3c4d12943a2b91d98eaf4ffbd23fcdde9fe7f218eb8b087829e508578f0d6164'
+            'SKIP')
 validpgpkeys=(023625C8D02C0D8C15C3BABB86C793550794FEB8) # Camilo Higuita <milo.h@aol.com>                                    
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < fix-build.patch
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver
