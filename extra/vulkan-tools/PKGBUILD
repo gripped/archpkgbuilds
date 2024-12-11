@@ -2,12 +2,12 @@
 
 pkgname=vulkan-tools
 pkgver=1.4.303
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url="https://www.khronos.org/vulkan/"
 pkgdesc="Vulkan Utilities and Tools"
 license=('custom')
-depends=('libx11' 'wayland' 'libvulkan.so')
+depends=('libx11' 'wayland')
 makedepends=('cmake' 'python' 'wayland-protocols' 'vulkan-headers' 'glslang' 'spirv-tools')
 makedepends+=('libx11' 'libxrandr' 'ninja' 'git') # for update_deps.py -- volk dependency
 groups=('vulkan-devel')
