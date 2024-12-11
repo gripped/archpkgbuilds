@@ -1,13 +1,13 @@
 diff --git a/pyproject.toml b/pyproject.toml
-index d96d480..6e5788e 100644
+index 25e4130..eea800f 100644
 --- a/pyproject.toml
 +++ b/pyproject.toml
-@@ -49,8 +49,8 @@ pyink-use-majority-quotes = true
- [build-system]
+@@ -51,8 +51,8 @@ pyink-use-majority-quotes = true
  requires = [
-     # TODO(phawkins): update this to 2.0.0 after its release.
--    "numpy==2.0.0rc1",
--    "setuptools~=68.1.0",
+     # We build against the most recent supported NumPy 2.0 release;
+     # see https://github.com/numpy/numpy/issues/27265
+-    "numpy~=2.0",
+-    "setuptools~=73.0.1",
 +    "numpy",
 +    "setuptools",
  ]
