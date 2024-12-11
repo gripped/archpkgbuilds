@@ -1,20 +1,20 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=systeroid
-pkgver=0.4.4
-pkgrel=2
+pkgver=0.4.5
+pkgrel=1
 pkgdesc="A more powerful alternative to sysctl"
 arch=('x86_64')
 url="https://github.com/orhun/systeroid"
-license=('MIT' 'Apache')
+license=('MIT' 'Apache-2.0')
 depends=('libxcb' 'libxkbcommon' 'linux-docs')
 makedepends=('cargo' 'python')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('61d8f8bdd34404f57e237f0843f67c1aaf9d9e552fd7857bc770db1ebf6296ed6f1c86edcf620cde271ba86f9039ce39209908c2a0076bee8cf05aa2925351a3')
+sha512sums=('686625eb07a00004f0c445337a34147bdcb6b1a128235fc88d6bced76daf7e9c4a7a68643397287f0802904daa3f8a858c0088bdf72f32e02662254a338faba6')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
