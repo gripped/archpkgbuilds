@@ -2,8 +2,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=python-pypandoc
-pkgver=1.13
-pkgrel=2
+pkgver=1.14
+pkgrel=1
 pkgdesc="Thin wrapper for pandoc"
 arch=('any')
 license=('MIT')
@@ -12,7 +12,7 @@ depends=('pandoc')
 makedepends=('python-build' 'python-installer' 'python-poetry-core' 'python-wheel')
 checkdepends=('texlive-basic' 'texlive-latexextra' 'texlive-fontsrecommended' 'python-pandocfilters')
 source=("https://github.com/JessicaTegner/pypandoc/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('6f7acb4fd113606244a4a6eccac28bc4605e038da19dbb8c86c65b4b6a00aa5bc7cd0a8740145784335b10fb5d12bb85857c41a5a69bfb70c1d845c3738dcfa1')
+sha512sums=('f3ad3b14e45726de47cdd251a988cb377dad41f33a4569e9c051ff6d4d13a7688b23221972140b97fba5160575a02e115d4bf22861d0472931142bb24534646b')
 
 build() {
   cd pypandoc-$pkgver
