@@ -4,7 +4,7 @@
 # Contributor: Dr.Egg <rwhite@archlinux.us>
 
 pkgname=musescore
-pkgver=4.3.2
+pkgver=4.4.3
 pkgrel=1
 pkgdesc='Create, play and print beautiful sheet music'
 arch=(x86_64)
@@ -14,20 +14,22 @@ groups=(pro-audio)
 depends=(
   gcc-libs
   glibc
+  harfbuzz
   hicolor-icon-theme
   libasound.so
   libfreetype.so
+  libopusenc
   libsndfile.so
-  qt5-base
-  qt5-declarative
-  qt5-graphicaleffects
-  qt5-networkauth
-  qt5-quickcontrols
-  qt5-quickcontrols2
-  qt5-svg
-  qt5-x11extras
-  qt5-xmlpatterns
+  opus
+  qt6-5compat
+  qt6-base
+  qt6-declarative
+  qt6-networkauth
+  qt6-scxml
+  qt6-svg
+  tinyxml2
   zlib
+  zstd
 )
 makedepends=(
   cmake
@@ -36,19 +38,13 @@ makedepends=(
   lame
   ninja
   python
-  qt5-tools
+  qt6-tools
 )
 optdepends=('lame: MP3 export')
 options=(!lto)
-_tag=22b46f27e224cd38a0100be44409e648575d1931
+_tag=eb6b367549f94d195704c77bfc68fae95a517e3c
 source=(git+https://github.com/musescore/MuseScore.git#tag=${_tag})
-sha256sums=('c1c6e956194e0cd33e1c3e7515dafbd0edd9539fa287aeb0e6daecf1884452b6')
-
-prepare() {
-  cd MuseScore
-  # Fix display of scores with recent qt5-declarative
-  git cherry-pick -n c747bdbcba81109e2749015a575827b2494af971
-}
+sha256sums=('927a14da23ad2cbc295ead7ba36a76ced7880349aef315ee5c88910920d26585')
 
 pkgver() {
   cd MuseScore
@@ -61,13 +57,18 @@ build() {
     -DCMAKE_C_FLAGS_RELEASE="$CFLAGS" \
     -DCMAKE_CXX_FLAGS_RELEASE="$CXXFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
     -DCMAKE_SKIP_RPATH=ON \
+    -DMUSESCORE_APP_BUILD_MODE=release \
     -DMUSESCORE_BUILD_CONFIGURATION=app \
-    -DMUSESCORE_BUILD_MODE=release \
     -DMUSESCORE_REVISION=$(git rev-parse --short=7 HEAD) \
-    -DMUE_BUILD_CRASHPAD_CLIENT=OFF \
     -DMUE_BUILD_UNIT_TESTS=OFF \
+    -DMUE_COMPILE_USE_SYSTEM_FLAC=ON \
     -DMUE_COMPILE_USE_SYSTEM_FREETYPE=ON \
+    -DMUE_COMPILE_USE_SYSTEM_HARFBUZZ=ON \
+    -DMUE_COMPILE_USE_SYSTEM_OPUS=ON \
+    -DMUE_COMPILE_USE_SYSTEM_OPUSENC=ON \
+    -DMUE_COMPILE_USE_SYSTEM_TINYXML=ON \
     -DMUE_ENABLE_FILE_ASSOCIATION=ON \
     -DMUE_INSTALL_SOUNDFONT=ON \
     -Wno-dev
