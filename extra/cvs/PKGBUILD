@@ -1,11 +1,12 @@
-# Maintainer: Lukas Fleischer <lfleischer@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor: Lukas Fleischer <lfleischer@archlinux.org>
 # Contributor: dorphell <dorphell@archlinux.org>
 # Contributor: Dan McGee <dan@archlinux.org>
 # Contributor: Alexander F. Rødseth <xyproto@archlinux.org>
 
 pkgname=cvs
 pkgver=1.11.23
-pkgrel=15
+pkgrel=16
 pkgdesc='Source control'
 arch=(x86_64)
 url='https://cvs.nongnu.org/'
@@ -14,7 +15,8 @@ depends=(krb5)
 makedepends=(tinyxxd)
 optdepends=('openssh: for using cvs over ssh'
             'inetutils: for using cvs over rsh')
-source=("https://ftp.gnu.org/non-gnu/cvs/source/stable/$pkgver/$pkgname-$pkgver.tar.bz2"
+_archive="$pkgname-$pkgver"
+source=("https://ftp.gnu.org/non-gnu/cvs/source/stable/$pkgver/$_archive.tar.bz2"
         cvs-1.11.19-abortabort.patch
         cvs-1.11.19-comp.patch
         cvs-1.11.19-extzlib.patch
@@ -25,6 +27,7 @@ source=("https://ftp.gnu.org/non-gnu/cvs/source/stable/$pkgver/$pkgname-$pkgver.
         cvs-1.11.21-diff-kk.patch
         cvs-1.11.21-diff.patch
         cvs-1.11.21-sort.patch
+        cvs-1.11.23-c99.patch
         cvs-1.11.23-cve-2010-3846.patch
         cvs-1.11.23-cvspass.patch
         cvs-1.11.23-doc-Add-mandatory-argument-to-sp.patch
@@ -44,6 +47,7 @@ b2sums=('73c01741793c74106be076c9f931a90e0eb8630e80375762d5add70d940a81837b4690e
         '3a9fe195c03471049874d6a97353c30aa1f0ec40504d0531dea332f731c3d5034548c60bfd5b09f33a72fe9bb72035e5f1c2d8a02b0908c8b6284b69b75b769d'
         '0e58ecc574cf47b2e2b5bc7da105a3efd8c718cfa58e9acfccc0f1d8d7ce0cc25bac00b750ac89011448da60358fae4c0b84e6310453a297c54399e6f6ca1008'
         '7f617e1de7d8b9ffcc5ca6c54824765105b7a3300ba313e46eaef5e75dd31df461bac6699f33e075048c14d1597e15c8627adef41de10e24be382e8b3c689f96'
+        '39952f0ad9c1e3b5d955043243a95b6b0274359905c509b01ffb18125d132c8932c60889f5732c668b5ffeb18f53feacbf068909aab1696cbd7b20c8303ba74e'
         'd2c002046297c4bfea3655d1e11a7cca1265542f5e4832707f1a0206e4da5b406af1fae549b53487ef8f9c2c5f288bfeffc8829d3626eff9caf2ab0fd565529c'
         '16f49030e303375a59e5dc8eddc085453e7a0901848de2532e53375c7da9fa68d6724f8f610b19f4e76d1178f2b2305465f408974f536e77850dadf392b672f7'
         '8406bdc0a0dc948bfe73fed36892bc3e7bb517557854dbde3924600ce5cf8cb703cca2c1d9d469d909fb94cc0bca52536d4bccbc22a28a9acb0080633ce542e2'
@@ -53,9 +57,8 @@ b2sums=('73c01741793c74106be076c9f931a90e0eb8630e80375762d5add70d940a81837b4690e
         '6502722ec9f3ea711d0c3ce3cc525bbd930cd64d9e1b9be1ef3b5a768cd57d98c29560c097814e5ac9f4c1e09b804b3cfcfe580d63196deadf0e17cf0786fc66'
         'e4a17d12810a3b73dc4687c9935e2d2664d3c944e55c9e1fa9102ec3c37b0a1e39c76c75b5ed233f73852bca0ca3fda878ae628140c0296781a157e6b0633fb6')
 
-build() {
+prepare() {
   cd $pkgname-$pkgver
-  unset EDITOR VISUAL
   patch -Np1 -i ../cvs-1.11.19-extzlib.patch
   patch -Np1 -i ../cvs-1.11.23-getline64.patch
   # CVE-2010-3864, https://www.redhat.com/security/data/cve/CVE-2010-3846.html
@@ -75,6 +78,12 @@ build() {
   patch -Np1 -i ../cvs-1.11.23-Pass-compilation-with-Wformat-security.patch
   patch -Np1 -i ../cvs-1.11.23-remove_undefined_date_from_cvs_1_header.patch
   patch -Np1 -i ../cvs-1.11.23-sanity.patch
+  patch -Np1 -i ../cvs-1.11.23-c99.patch
+}
+
+build() {
+  cd $pkgname-$pkgver
+  unset EDITOR VISUAL
   sed -i -e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/' configure.in
   find . -type f -name Makefile.am -exec sed -i -e 's/^INCLUDES/AM_CPPFLAGS/' {} +
   touch vi
@@ -86,6 +95,6 @@ build() {
 }
 
 package() {
-  DESTDIR="$pkgdir" make -C $pkgname-$pkgver install
+  DESTDIR="$pkgdir" make -C $_archive install
   rm "$pkgdir/usr/share/info/dir"
 }
