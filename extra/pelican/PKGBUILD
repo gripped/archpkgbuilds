@@ -3,8 +3,8 @@
 # Contributor: David Runge <dave@sleepmap.de>
 
 pkgname=pelican
-pkgver=4.9.1
-pkgrel=2
+pkgver=4.10.2
+pkgrel=1
 pkgdesc="A tool to generate a static blog, with restructured text (or markdown) input files."
 arch=('any')
 url="https://blog.getpelican.com/"
@@ -14,7 +14,7 @@ depends=('python-jinja' 'python-pygments' 'python-feedgenerator'
          'python-docutils' 'python-blinker' 'python-unidecode'
          'python-dateutil' 'python-rich' 'python-watchfiles' 'python-ordered-set')
 checkdepends=('python-lxml' 'git'
-              'python-feedparser' 'python-markdown' 'python-typogrify' 'python-pytest-xdist')
+              'python-feedparser' 'python-markdown' 'python-typogrify' 'python-pytest-xdist' 'python-beautifulsoup4')
 optdepends=('python-markdown: Markdown support'
             'asciidoc: AsciiDoc support'
             'python-beautifulsoup4: importing from wordpress/dotclear/posterous'
@@ -30,7 +30,7 @@ optdepends=('python-markdown: Markdown support'
             'pandoc: for pelican-import auto convert'
             'python-mdx-video: easier embedding of youtube videos in markdown')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/getpelican/pelican/archive/$pkgver.tar.gz")
-sha512sums=('70b7efd7a38dc2069b1eb9141647fa80bf959de36936ad7b4d38407be7e029fc788ef9b9f297d99e5dc6cad67d58fe6ff97f9b542db7e0a9c23e2907d4604e21')
+sha512sums=('ae9794997093c7d193cb48e629127d1fa9443984b496f287330f5101e5da5c5ef7d8ac6170ce14ede31e0eaa9c14b844c2cf49b43e3b68e81848c08dd163ac1d')
 
 build() {
     cd $pkgname-$pkgver
@@ -58,5 +58,7 @@ package() {
 
 check() {
     cd "$srcdir/$pkgname-$pkgver"
-    pytest -v -k 'not test_blinker_is_ordered'
+    python -m venv --system-site-packages test-env
+    test-env/bin/python -m installer dist/*.whl
+    test-env/bin/python -m pytest -v -k 'not test_blinker_is_ordered'
 }
