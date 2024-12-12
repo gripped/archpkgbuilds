@@ -5,8 +5,8 @@
 # Contributor: Chris Salzberg <chris@dejimata.com>
 # Contributor: Leonidas Spyropoulos <artafinde@gmail.com>
 pkgname=neomutt
-pkgver=20241114
-pkgrel=2
+pkgver=20241212
+pkgrel=1
 pkgdesc='A version of mutt with added features'
 url='https://neomutt.org/'
 license=('GPL-2.0-only')
@@ -41,24 +41,21 @@ makedepends=(
     'libxslt'
     'w3m'
 )
-_github='https://github.com/neomutt/neomutt'
 source=(
-    "$pkgname-$pkgver.tar.gz::$_github/archive/$pkgver.tar.gz"
-    "$pkgname-$pkgver.tar.gz.sig::$_github/releases/download/$pkgver/$pkgver.tar.gz.sig"
+    "git+https://github.com/neomutt/neomutt.git#tag=${pkgver}"
     "default-ca-certificates.patch"
 )
-sha256sums=('044bb5a37d5095016569a1b505f7c2f7d8b93e90ff95c2edb82830313319ce9a'
-            'SKIP'
+sha256sums=('c913e660a75d1f15a32d9df11ff30d7e8bd10039a7d8a00901eca8e94de6ecbc'
             '571716b8979e9b43328416c3c56eff228b6c58355d7c080b8987ea89c6360776')
 validpgpkeys=('86C2397270DD7A561263CA4E5FAF0A6EE7371805') # Richard Russon (flatcap) <rich@flatcap.org>
 
 prepare() {
-    cd "$pkgname-$pkgver"
+    cd "$pkgname"
     patch -Np1 -i ../default-ca-certificates.patch
 }
 
 build() {
-    cd "$pkgname-$pkgver"
+    cd "$pkgname"
     ./configure \
         --prefix=/usr \
         --sysconfdir=/etc \
@@ -86,6 +83,6 @@ build() {
 }
 
 package() {
-    cd "$pkgname-$pkgver"
+    cd "$pkgname"
     make DESTDIR="$pkgdir" install
 }
