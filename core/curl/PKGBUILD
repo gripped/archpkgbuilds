@@ -6,8 +6,8 @@
 
 pkgbase=curl
 pkgname=(curl libcurl-compat libcurl-gnutls)
-pkgver=8.11.0
-pkgrel=3
+pkgver=8.11.1
+pkgrel=2
 pkgdesc='command line tool and library for transferring data with URLs'
 arch=('x86_64')
 url='https://curl.se/'
@@ -26,13 +26,9 @@ makedepends=('git' 'patchelf')
 checkdepends=('valgrind')
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
 source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed")
-sha512sums=('d438f215b2e6023104af52961a8a8de9082bd8ceaf9a557f353b3b754b18510cccf37f33476eb896744559ccf26eadf6e1411c5f8f04fa9526af04df6439a7d8')
+sha512sums=('3ed91b678e318a62bbde32b986ebddb8c3ec2e5932462c9c368437414eaed85b4ecd5ae2d8d35c31c90a3a435d4cd9d26e1b91265e1b4396b6868641c629bd81')
 
 _backports=(
-  # duphandle: also init netrc
-  'f5c616930b5cf148b1b2632da4f5963ff48bdf88'
-  # netrc: support large file, longer lines, longer tokens
-  '0cdde0fdfbeb8c35420f6d03fa4b77ed73497694'
 )
 
 _reverts=(
@@ -78,6 +74,9 @@ build() {
     --with-libssh2
     --with-random='/dev/urandom'
     --with-ca-bundle='/etc/ssl/certs/ca-certificates.crt'
+
+    # https://github.com/curl/curl/issues/15725
+    ac_cv_func_eventfd=no
   )
 
   mkdir build-curl{,-compat,-gnutls}
