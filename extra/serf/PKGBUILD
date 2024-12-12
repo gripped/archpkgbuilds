@@ -3,13 +3,13 @@
 
 pkgname=serf
 pkgver=1.3.10
-pkgrel=1
+pkgrel=2
 pkgdesc="High-performance asynchronous HTTP client library"
 arch=('x86_64')
 url="https://serf.apache.org"
 license=('Apache')
-depends=('apr-util')
-makedepends=('scons')
+depends=('apr-util' 'krb5')
+makedepends=('db' 'scons')
 source=(https://www.apache.org/dist/serf/${pkgname}-${pkgver}.tar.bz2{,.asc}
         openssl3-ERR_GET_FUNC.patch)
 validpgpkeys=('C236283C970D2C3CFEEB4936BF35CF0078383142'
