@@ -4,7 +4,7 @@
 # Contributor: Simon Lipp <sloonz+aur@gmail.com>
 
 pkgname=java-commons-io
-pkgver=2.16.1
+pkgver=2.18.0
 pkgrel=1
 pkgdesc='IO related classes for Java.'
 arch=('any')
@@ -12,7 +12,7 @@ url='https://commons.apache.org/io/'
 license=('APACHE')
 depends=('java-runtime')
 source=("https://www.apache.org/dist/commons/io/binaries/commons-io-$pkgver-bin.tar.gz"{,.asc})
-sha512sums=('4b132b8ad88483e58b1dcbf21f31d0d1095e05b5ee7bf4e586d0652d61e00818cdbf6c940535ae0aa00e5090af6b7c3a43edc22f57e313ef0b8f1fbe6f3fe1ad'
+sha512sums=('c99462d341a9ee1436f38fb2a594a823625fefc31a9d2a51910fa66830c4f3a65fd21dc9a9c3004e9a3c90025691e2863c0753b748f81aa2f38e6e6dbf1b36b0'
             'SKIP')
 validpgpkeys=('6BDACA2C0493CCA133B372D09C4F7E9D98B1CC53'  # Benson Margulies
               'CD5464315F0B98C77E6E8ECD9DAADC1C9FCC82D0'  # Benedikt Ritter
