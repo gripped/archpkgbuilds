@@ -2,7 +2,7 @@
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=openjpeg2
-pkgver=2.5.2
+pkgver=2.5.3
 pkgrel=1
 pkgdesc="An open source JPEG 2000 codec, version ${pkgver}"
 arch=(x86_64)
@@ -11,7 +11,7 @@ url="https://github.com/uclouvain/openjpeg"
 makedepends=('cmake' 'doxygen' 'graphviz')
 depends=('libpng' 'libtiff' 'lcms2' 'glibc')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/uclouvain/openjpeg/archive/v$pkgver.tar.gz")
-sha256sums=('90e3896fed910c376aaf79cdd98bdfdaf98c6472efd8e1debf0a854938cbda6a')
+sha256sums=('368fe0468228e767433c9ebdea82ad9d801a3ad1e4234421f352c8b06e7aa707')
 
 prepare() {
   # Remove all third party libraries just to be sure
