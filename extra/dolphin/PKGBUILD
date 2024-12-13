@@ -4,7 +4,7 @@
 # Contributor: Pierre Schmitz <pierre@archlinux.de>
 
 pkgname=dolphin
-pkgver=24.08.3
+pkgver=24.12.0
 pkgrel=1
 pkgdesc='KDE File Manager'
 arch=(x86_64)
@@ -25,6 +25,7 @@ depends=(baloo
          kcrash
          kdbusaddons
          kfilemetadata
+         kguiaddons
          ki18n
          kiconthemes
          kio
@@ -54,7 +55,7 @@ optdepends=('ffmpegthumbs: video thumbnails'
 groups=(kde-applications
         kde-system)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('95bbce876019fb0c7cc6ca4a5fd8ec1f625f70fd511fe883df12446a5285806d'
+sha256sums=('421f02f9699b609d7e66e0aae9fa1fd735ba0a92a56febe75880ecbeb8dfc513'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
