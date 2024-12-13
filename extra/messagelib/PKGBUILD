@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=messagelib
-pkgver=24.08.3
+pkgver=24.12.0
 pkgrel=1
 pkgdesc='KDE PIM messaging library'
 arch=(x86_64)
@@ -45,8 +45,8 @@ depends=(akonadi-contacts
          libgravatar
          libkdepim
          libkleo
+         openssl
          pimcommon
-         qca-qt6
          qgpgme-qt6
          qt6-base
          qt6-webengine
@@ -57,7 +57,7 @@ makedepends=(doxygen
              qt6-doc
              qt6-tools)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('e67ce81f227c9fad4c4181863b5662f2d187c8842ad8e5d82c51eeeb272fdbdd'
+sha256sums=('9eff795b5e12d30ba33171442de3a3bd66772039f19214e55384e9596fc82ff6'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
