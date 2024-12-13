@@ -17,7 +17,7 @@ pkgname=(kde-applications-meta
          kde-system-meta
          kde-utilities-meta
          kdevelop-meta)
-pkgver=24.08
+pkgver=24.12
 pkgrel=1
 arch=(any)
 license=(None)
@@ -183,7 +183,8 @@ package_kde-network-meta() {
 
 package_kde-office-meta() {
   pkgdesc='Meta package for KDE office applications'
-  depends=(ghostwriter)
+  depends=(calligra
+           ghostwriter)
 }
 
 package_kde-pim-meta() {
