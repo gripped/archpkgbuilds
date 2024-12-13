@@ -8,7 +8,7 @@ pkgname=(
   vscode-json-languageserver
 )
 pkgbase=vscode-languageservers
-pkgver=1.95.1
+pkgver=1.96.0
 pkgrel=1
 pkgdesc='VS Code language servers'
 arch=(any)
@@ -21,7 +21,7 @@ makedepends=(
   typescript
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('701348f5f751ee914200d9b95125d76db848607d8215325b7556fd10c0adb4e60bd5272930d436378a0f34c3bbaf549a2983be661480e20a0b1c20bbc5fa6306')
+b2sums=('7e2964af877685815c8eb4b19f9799f080d1854292435410a31f867ce59adc1fcd88f7d831db69fe527cc153639432131b2bc3abac69f2cbdd772434b221817c')
 
 prepare() {
   for i in css html json; do
