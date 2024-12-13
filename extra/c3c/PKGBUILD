@@ -2,14 +2,14 @@
 # Contributor: Eduardo Jose Gomez Hernandez <eduardo@edujgh.net>
 
 pkgname=c3c
-pkgver=0.6.2
+pkgver=0.6.4
 pkgrel=1
 pkgdesc='Compiler for the C3 language'
 arch=(x86_64)
 url='https://github.com/c3lang/c3c'
 license=(LGPL-3.0-or-later MIT)
 depends=(lld llvm-libs)
-makedepends=(clang cmake git libedit llvm ninja)
+makedepends=(clang cmake git libedit llvm)
 source=("git+$url#commit=528fecef4d0b7b5aff7529c58f8367d19a08bddc"
         CMakeLists.txt)
 b2sums=('553c05f8bcb0c268e3bd3e74cf9fde0ac1807863c1c21406f02b3143698c0da058b33a33128fc1688e88ccaff38799b7976c05ed058325edca15a6b1edc7ee6d'
@@ -26,9 +26,8 @@ build() {
     -D CMAKE_BUILD_TYPE=Release \
     -D CMAKE_CXX_FLAGS_RELEASE="$CXXFLAGS" \
     -D CMAKE_C_FLAGS_RELEASE="$CFLAGS" \
-    -G Ninja \
     -S $pkgname
-  ninja -C build
+  make -C build
 }
 
 package() {
