@@ -8,7 +8,7 @@ pkgname=(
   php-legacy-redis
 )
 pkgver=6.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An API for communicating with the Redis key-value store"
 arch=(x86_64)
 url="https://github.com/phpredis/phpredis/"
@@ -16,6 +16,7 @@ license=(PHP-3.01)
 depends=(glibc)
 makedepends=(
   liblzf
+  zstd
   php-igbinary
   php-legacy-igbinary
 )
@@ -53,8 +54,10 @@ build() {
   local configure_options=(
     --prefix=/usr
     --enable-redis-igbinary
+    --enable-redis-zstd
     --enable-redis-lzf
     --with-liblzf=/usr/lib/
+    --with-libzstd=/usr/lib/
   )
 
   (
@@ -93,7 +96,7 @@ check() {
 }
 
 package_php-redis() {
-  depends+=(liblzf.so php-igbinary)
+  depends+=(liblzf.so libzstd.so php-igbinary)
   backup=(etc/php/conf.d/$_name.ini)
 
   cd $pkgname-$pkgver
@@ -103,7 +106,7 @@ package_php-redis() {
 }
 
 package_php-legacy-redis() {
-  depends+=(liblzf.so php-legacy-igbinary)
+  depends+=(liblzf.so libzstd.so php-legacy-igbinary)
   backup=(etc/php-legacy/conf.d/$_name.ini)
 
   cd "$pkgname-$pkgver"
