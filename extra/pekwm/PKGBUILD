@@ -3,8 +3,8 @@
 # Contributor: Eddie Lozon <almostlucky@attbi.com>
 
 pkgname=pekwm
-pkgver=0.3.0
-pkgrel=3
+pkgver=0.3.1
+pkgrel=1
 pkgdesc='Tabbed X11 window manager'
 arch=(x86_64)
 license=(GPL-2.0-or-later)
@@ -26,8 +26,8 @@ backup=(etc/pekwm/autoproperties
         etc/pekwm/mouse_system
         etc/pekwm/start
         etc/pekwm/vars)
-source=("git+$url#commit=8416ca1d0d136397b53966e84bd47381f439d3c6") # tag: release-0.3.0
-b2sums=('0021eaede4c4c28b3e84a6e15cc34866dadca83655684fe231684fe68325ddd9be808c0d1a096e096cb397971798ca1868694264d43685e21cb8f98fc4f92af8')
+source=("git+$url#tag=release-$pkgver")
+b2sums=('6dac9d7c3cbc136debcce034d492df06918255cb96eaa04c79414626fba97f9d5ec68495ca9a3dd8c561b8d2a8228d373e18d9275399574affdf55477fc5f228')
 
 prepare() {
   gendesk -f -n --pkgname $pkgname --pkgdesc "$pkgdesc" --name PekWM
@@ -40,7 +40,8 @@ build() {
     -D CMAKE_BUILD_TYPE=Release \
     -D CMAKE_INSTALL_LIBDIR=lib \
     -D CMAKE_INSTALL_PREFIX=/usr \
-    -S $pkgname
+    -S $pkgname \
+    -W no-dev
   make -C build
 }
 
