@@ -6,7 +6,7 @@
 # Contributor: Josh VanderLinden <arch@cloudlery.com>
 
 pkgname=docker-compose
-pkgver=2.31.0
+pkgver=2.32.0
 pkgrel=1
 pkgdesc="Fast, isolated development environments using Docker"
 arch=('x86_64')
@@ -15,7 +15,7 @@ license=("Apache-2.0")
 makedepends=('go')
 checkdepends=('docker')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/docker/compose/archive/v$pkgver.tar.gz")
-b2sums=('89937fadee19eec4d3eb755dcb77867dfdca96ff9bf0080678695eec636060f7f8ab284b14036e49a7f5874dbfa3efd4fcc434ab891a00a32d3a0afef3229360')
+b2sums=('c3fd853d8cb6df1b3f1766fcdaf1d16939b7619bde66c795e253307348d7ccbea9df08e26526ac6fb452d22366f4fd882edcb80d43cec93f91c3231a2e124c06')
 
 build() {
   cd "compose-$pkgver"
