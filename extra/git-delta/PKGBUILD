@@ -6,13 +6,13 @@
 pkgname=git-delta
 _pkgname=delta
 pkgver=0.18.2
-pkgrel=1
+pkgrel=3
 pkgdesc='Syntax-highlighting pager for git and diff output'
 arch=(x86_64)
 url='https://dandavison.github.io/delta/'
 _url='https://github.com/dandavison/delta'
 license=(MIT)
-depends=(gcc-libs # libgcc_s.so
+depends=(gcc-libs # libgcc_s.so ld-linux-x86-64.so
          glibc # libc.so libm.so
          libgit2
          oniguruma # libonig.so
