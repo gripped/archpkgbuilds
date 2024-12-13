@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=incidenceeditor
-pkgver=24.08.3
+pkgver=24.12.0
 pkgrel=1
 pkgdesc='KDE PIM incidence editor'
 arch=(x86_64)
@@ -19,12 +19,11 @@ depends=(akonadi-calendar
          kcodecs
          kcompletion
          kconfig
-         kconfigwidgets
          kcontacts
          kcoreaddons
          kdiagram
+         kguiaddons
          ki18n
-         kiconthemes
          kidentitymanagement
          kio
          kitemmodels
@@ -43,7 +42,7 @@ makedepends=(doxygen
              qt6-doc
              qt6-tools)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('c2c2063443616a7e4a0b05cedb58e71129e260aacf5b2a4219c950737e1dcb82'
+sha256sums=('38aa0bdef8407f23faec133e7e91e6044e4e61b5437450a0c4b5b6ebf90fef1d'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
