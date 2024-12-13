@@ -9,7 +9,7 @@
 # Contributor: TIanyi Cui <tianyicui@gmail.com>
 
 pkgname=nodejs
-pkgver=23.3.0
+pkgver=23.4.0
 pkgrel=1
 pkgdesc='Evented I/O for V8 javascript'
 arch=('x86_64')
@@ -37,7 +37,7 @@ source=("git+https://github.com/nodejs/node.git#tag=v$pkgver?signed"
         "0001-test-make-test-crypto-hash-compatible-with-OpenSSL-3.patch"
         "0002-test-adjust-OpenSSL-error-code-for-3.4.0.patch"
         "0001-test-disable-openssl-3.4.0-incompatible-tests.patch")
-sha512sums=('a51a2516df12e14d157696c7e640a624b202b23ec0067a94dd3929c5c2ab15f2d25f7b0e38b6ad89fc97c0300ed6e1313fad1f190e2f6bd4e330755c8d14876c'
+sha512sums=('1db1536af0c8ae154272aea1dba1c625c54790301a80ca0c363d4202a4f445f0637d40773c80b4ad5accdb53548c9f90e78b484604b5bd785d1b6798012d4d63'
             'dd3d2328c4b24228f0109aa3159989527bfa622497f685ce493fed8334ce5c367d07ebc442bb77b050559a4ec5eb0956661c658f6c9957bc40f1927d384cf728'
             '296a9117bee86ba141e0748e4857a5f2fb6e630f931f724ce1f3c0acfe166dfe1eb9d6bceaeb2ba06d23e8a937d02bb529aaf3ed458cd18b72fc745237e69b60'
             'a4f1218b6970b9beb4a0e3da5fb732e74722f014084423293be402b5876da7bba29c9aef770a1e34db7c8876b5dc7b150b44c32c5fd3ca4b741978342fcc636a')
@@ -50,9 +50,9 @@ validpgpkeys=(
 
 prepare() {
   cd node
-  patch -Np1 -i "${srcdir}/0001-test-make-test-crypto-hash-compatible-with-OpenSSL-3.patch"
-  patch -Np1 -i "${srcdir}/0002-test-adjust-OpenSSL-error-code-for-3.4.0.patch"
-  patch -Np1 -i "${srcdir}/0001-test-disable-openssl-3.4.0-incompatible-tests.patch"
+  patch -Np1 -i ../0001-test-make-test-crypto-hash-compatible-with-OpenSSL-3.patch
+  patch -Np1 -i ../0002-test-adjust-OpenSSL-error-code-for-3.4.0.patch
+  patch -Np1 -i ../0001-test-disable-openssl-3.4.0-incompatible-tests.patch
 }
 
 build() {
