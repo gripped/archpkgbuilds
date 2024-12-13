@@ -3,24 +3,22 @@
 # Contributor: Maks Verver <maksverver@geocities.com>
 
 pkgname=milkytracker
-pkgver=1.04.00
-pkgrel=4
+pkgver=1.05.01
+pkgrel=1
 pkgdesc='Music tracker inspired by Fast Tracker II'
 arch=(x86_64)
 url='https://milkytracker.titandemo.org/'
 license=(GPL-3.0-or-later)
 depends=(alsa-lib gcc-libs glibc lhasa rtmidi sdl2 zlib zziplib)
-makedepends=(cmake jack ninja)
+makedepends=(cmake jack)
 optdepends=('jack: JACK audio support')
 options=(!strip)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/milkytracker/MilkyTracker/archive/v$pkgver.tar.gz")
-b2sums=('374a17c3f49feef5ea485e3257679debd83f7498b53178aaabb3bbf4588b89ef7e3109c65975bcf8730e68947649c982bb919f5b5a6b98b8d4380ec81df9e047')
+b2sums=('447d0fd939d6def41223f4d65afedbf4f98e49dde77d0f94e959d0444f3c133a376613c8dfcc0b8b76184fa1db4a1317c04078512bbc9984149fd6267ef8641f')
 
 prepare() {
-  mv MilkyTracker-$pkgver $pkgname-$pkgver
-
   # Remove explicit use of C++98
-  sed -e '/CMAKE_CXX_STANDARD/d' -e '/CMAKE_CXX_EXTENSIONS/d' -i $pkgname-$pkgver/CMakeLists.txt
+  sed -e '/CMAKE_CXX_STANDARD/d' -e '/CMAKE_CXX_EXTENSIONS/d' -i MilkyTracker-$pkgver/CMakeLists.txt
 }
 
 build() {
@@ -28,19 +26,18 @@ build() {
     -B build \
     -D CMAKE_INSTALL_PREFIX=/usr \
     -D CMAKE_INSTALL_LIBDIR=lib \
-    -G Ninja \
-    -S $pkgname-$pkgver \
-    -W nodev
-  ninja -C build
+    -S MilkyTracker-$pkgver \
+    -W no-dev
+  make -C build
 }
 
 package() {
   depends+=(libasound.so librtmidi.so)
 
-  DESTDIR="$pkgdir" ninja install -C build
+  DESTDIR="$pkgdir" make install -C build
 
-  cd $pkgname-$pkgver/resources
+  cd MilkyTracker-$pkgver/resources
   install -Dm644 pictures/carton.png "$pkgdir/usr/share/pixmaps/$pkgname.png"
   install -Dm644 $pkgname.desktop -t "$pkgdir/usr/share/applications/"
-  install -Dm644 $pkgname.appdata "$pkgdir/usr/share/metainfo/$pkgname.appdata.xml"
+  install -Dm644 org.milkytracker.MilkyTracker.metainfo.xml -t "$pkgdir/usr/share/metainfo"
 }
