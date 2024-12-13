@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=zanshin
-pkgver=24.08.3
+pkgver=24.12.0
 pkgrel=1
 pkgdesc='To-do management application based on Akonadi'
 arch=(x86_64)
@@ -12,6 +12,7 @@ depends=(gcc-libs
          kcalendarcore
          kconfig
          kcoreaddons
+         kcrash
          kdepim-runtime
          ki18n
          kitemmodels
@@ -29,7 +30,7 @@ makedepends=(boost
 groups=(kde-applications
         kde-pim)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('83d22fe2c0be98fedfe1ba49ee50f08059640c93a3494c125656090dbcafe6da'
+sha256sums=('6a84825fc75e5b0ce04aec8decd8062989f5463ab94f76f8d40a5f5ccbf6cf90'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
