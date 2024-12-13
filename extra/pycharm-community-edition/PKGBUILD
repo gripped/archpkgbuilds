@@ -5,11 +5,11 @@
 # Contributor: David Keogh <davekeogh@archlinux.us>
 
 pkgname=pycharm-community-edition
-pkgver=2024.1.5
-_build=241.18968.29
+pkgver=2024.3
+_build=243.21565.199
 _jrever=17
 _jdkver=17
-pkgrel=1
+pkgrel=3
 pkgdesc='Python IDE for Professional Developers'
 arch=(x86_64)
 options=(!debug)
@@ -82,6 +82,7 @@ package() {
   ln -s /usr/share/pycharm/bin/pycharm.png "${pkgdir}"/usr/share/pixmaps/
   install -Dm 644 ../pycharm.desktop -t "${pkgdir}"/usr/share/applications/
   install -Dm 755 ../pycharm.sh "${pkgdir}"/usr/bin/pycharm
+  install -Dm 644 product-info.json -t "${pkgdir}"/usr/share/pycharm
 }
 
 # vim: ts=2 sw=2 et:
