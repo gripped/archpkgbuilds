@@ -1,32 +1,36 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 # Contributor: Firegem <mrfiregem [at] protonmail [dot] ch>
 
 pkgname=taplo-cli
 _name=${pkgname%-cli}
-pkgver=0.9.2
+pkgver=0.9.3
 pkgrel=1
 pkgdesc='TOML toolkit written in Rust'
 arch=(x86_64)
 url=https://taplo.tamasfe.dev/cli/introduction.html
 license=(MIT)
-depends=(gcc-libs)
+depends=(gcc-libs openssl)
 makedepends=(
   cargo
   git
 )
 provides=("$_name")
 options=(!lto)
-source=("git+https://github.com/tamasfe/$_name.git#tag=$pkgver")
-b2sums=('bfdf168a71d2f2374bcced2c7432345e4bb7c45e639a9d3d2fe83453d151250430370b67597d7a0ac267705fa8e43e8c350bcb4b10c54f2ed44cc95172468264')
+source=("git+https://github.com/tamasfe/$_name.git#tag=$pkgver"
+  "$pkgname-$pkgver-cargo-lock.patch::https://github.com/tamasfe/taplo/commit/116ec57dddb720ba6474ca5abea6887831936380.patch")
+b2sums=('38c9879cc08bf61c72c20ad3a3aadeee2e8558b0dc5afde637b091ca1d19c1d1da758f5f126253f2c07eb8b6745a9ed4afda8eb44b82e6fa0bd00d767a43731e'
+  '144777a489ebdc325dc2924a91efdbac9dd8dc392a4ebb8b38901ad286580803d43fab36da0dd84c6b99d7b8e06962873a7f42b614eb8bf052106645a5d6087f')
 
 prepare() {
   cd "$_name"
+  patch -Np1 -i ../$pkgname-$pkgver-cargo-lock.patch
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
   cd "$_name"
-  cargo build --release --locked --offline --all-features
+  cargo build --release --frozen --all-features
 }
 
 package() {
@@ -34,3 +38,5 @@ package() {
   install -Dt "$pkgdir"/usr/bin target/release/"$_name"
   install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE.md
 }
+
+# vim: ts=2 sw=2 et:
