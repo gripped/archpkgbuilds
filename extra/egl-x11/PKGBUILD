@@ -1,0 +1,33 @@
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
+
+pkgname=egl-x11
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="NVIDIA XLib and XCB EGL Platform Library"
+arch=('x86_64')
+url="https://github.com/NVIDIA/egl-x11"
+license=('Apache-2.0')
+depends=(
+  eglexternalplatform
+  glibc
+  libdrm
+  libx11
+  libxcb
+  mesa
+)
+makedepends=(
+  meson
+  git
+)
+source=("git+https://github.com/NVIDIA/egl-x11#tag=v$pkgver")
+sha256sums=('d122650b9119f0ab9b7aa84595a5ccfaff83cea6a0c83ce6543af3433c23fdab')
+
+build() {
+  arch-meson "$pkgname" build
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+}
+
