@@ -1,7 +1,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=tree-sitter-javascript
-pkgver=0.23.0
+pkgver=0.23.1
 pkgrel=1
 pkgdesc='JavaScript grammar for tree-sitter'
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('git' 'tree-sitter-cli')
 optdepends=('tree-sitter: core library')
 provides=("lib$pkgname.so")
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('d052e6811063a6c8108c516bc2ce20637e75cdc89cae534597568e03428464949078baadcc256330b78797623f5396617d0fdc6e990573c184a5d0d0dc768a00')
+b2sums=('83e2ba024002c33a9334c2b9467f75405d32a11f8d46907de9f5de86f393cb62f76bd8a30958b2e7e00d264ef21ecd92625c9686c734f057abd1c83333643833')
 
 prepare() {
   cd $pkgname
