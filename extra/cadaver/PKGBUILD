@@ -2,25 +2,26 @@
 # Maintainer: William Rea <sillywilly@gmail.com>
 
 pkgname=cadaver
-pkgver=0.24
-pkgrel=2
+pkgver=0.26
+pkgrel=1
 pkgdesc="Command-line WebDAV client for Unix"
 arch=('x86_64')
 #url="http://www.webdav.org/cadaver"
 url="https://notroj.github.io/cadaver/"
 license=('GPL-2.0-only')
 depends=('neon')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/notroj/cadaver/archive/refs/tags/$pkgver.tar.gz")
-sha256sums=('df4fabc042ae9d90dae793cd36fcba5f250f96e5f43de20e9a5929a06d71085d')
+#source=("$pkgname-$pkgver.tar.gz::https://github.com/notroj/cadaver/archive/refs/tags/$pkgver.tar.gz")
+source=("https://notroj.github.io/cadaver/cadaver-$pkgver.tar.gz")
+sha256sums=('9236e43cdf3505d9ef06185fda43252840105c0c02d9370b6e1077d866357b55')
 
 prepare() {
   cd "$srcdir"/cadaver-$pkgver
-  sed -i 's|NE_REQUIRE_VERSIONS(\[0\], \[27 28 29 30 31 32\])|NE_REQUIRE_VERSIONS([0], [27 28 29 30 31 32 33 34 35])|' configure.ac
+#  sed -i 's|NE_REQUIRE_VERSIONS(\[0\], \[27 28 29 30 31 32\])|NE_REQUIRE_VERSIONS([0], [27 28 29 30 31 32 33 34 35])|' configure.ac
 }
 
 build() {
   cd "$srcdir"/cadaver-$pkgver
-  test -x ./configure || ./autogen.sh
+#  test -x ./configure || ./autogen.sh
   ./configure --prefix=/usr --with-ssl
   make
 }
