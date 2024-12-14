@@ -3,7 +3,7 @@
 _pkgname=ginkgo
 pkgbase=ginkgo-hpc
 pkgname=(ginkgo-hpc ginkgo-hpc-docs ginkgo-hpc-cuda ginkgo-hpc-hip)
-pkgver=1.8.0
+pkgver=1.9.0
 pkgrel=1
 pkgdesc="Numerical linear algebra software package"
 arch=(x86_64)
@@ -39,14 +39,17 @@ makedepends=(
   rocthrust
   roctracer
 )
-source=("$_pkgname-$pkgver.tar.gz::https://github.com/ginkgo-project/ginkgo/archive/refs/tags/v$pkgver.tar.gz"
-        "fix-rocm-6.1.patch")
-sha256sums=('421efaed1be2ef11d230b79fc68bcf7e264a2c57ae52aff6dec7bd90f8d4ae30'
-            '303963ef8df2bb18166f4942d60e2522ae4af43a6f70a7043b50d3fb80110708')
+source=(
+  "$_pkgname-$pkgver.tar.gz::https://github.com/ginkgo-project/ginkgo/archive/refs/tags/v$pkgver.tar.gz"
+  split_cuda_library.patch
+)
+b2sums=('4a95910f712c21b316f9f155baef5defefeeeab50f154d0b43391c1a2844eb6e0db9b4930330020afe2f4ba8f253b557f611f0cba3f6f9b2d8b65b2b79bdfc41'
+        '3dd2558f399a4e9e7176021415b53e8f06e41c328df920ed254890ffc4c2a430344162c5054bb8d8f4ef2c53ae4029084fd85f89f46a047ebf5707a70fb6d7fe')
 
 prepare() {
-  # fix ROCm 6.1 issues https://github.com/ginkgo-project/ginkgo/pull/1670
-  patch --directory=$_pkgname-$pkgver -Np1 < fix-rocm-6.1.patch
+  # Ginkgo is too big to build all CUDA archs into a single library, we need to split it
+  # https://github.com/ginkgo-project/ginkgo/issues/1734#issuecomment-2517784197
+  patch --directory=$_pkgname-$pkgver -Np1 < split_cuda_library.patch
 }
 
 build() {
@@ -63,10 +66,9 @@ build() {
     -DGINKGO_BUILD_DOC=ON
     -DGINKGO_BUILD_TESTS=ON
   )
-  # In general, we want to ist all real archs (sm_XX) and the latest virtual arch (compute_XX) for future PTX compatibility.
+  # In general, we want to list all real archs (sm_XX) and the latest virtual arch (compute_XX) for future PTX compatibility.
   # Valid values can be discovered from nvcc --help
-  # Compiling Ginkgo for all real architectures triggers linker limits (2 GB binary size). So let's omit 52, 53, 62, 72 from the list.
-  local _cuda_archs="50;60;61;70;75;80;86;87;89;90;90a;90a-virtual"
+  local _cuda_archs="50;52;53;60;61;62;70;72;75;80;86;87;89;90;90a;90a-virtual"
   # archs gfx1010;gfx1012;gfx1030;gfx1100;gfx1101;gfx1102 are not supported: https://github.com/ginkgo-project/ginkgo/issues/1429
   local _amdgpu_archs="gfx906;gfx908;gfx90a;gfx940;gfx941;gfx942"
 
@@ -88,9 +90,6 @@ build() {
   cmake --build build-cuda
 
   # -hip package
-  # Ginkgo has insufficient auto-detection for HIP_PATH https://github.com/ginkgo-project/ginkgo/issues/1624
-  export ROCM_PATH=/opt/rocm
-  export HIP_PATH="$ROCM_PATH"
   # LTO does not work with HIP
   export HIPFLAGS="${CXXFLAGS/-flto=auto/}"
   export CXXFLAGS="${CXXFLAGS/-flto=auto/}"
@@ -111,12 +110,8 @@ build() {
 
 check() {
   # FIXME: some tests fail:
-  # - https://github.com/ginkgo-project/ginkgo/issues/1143
   # - https://github.com/ginkgo-project/ginkgo/issues/1567
-  local excluded_tests="test/factorization/par_ilu_kernels_omp"  # 1143
-  excluded_tests+="|reference/test/reorder/mc64_kernels"  # 1143
-  excluded_tests+="|omp/test/reorder/rcm_kernels"  # 1143
-  excluded_tests+="|test/matrix/matrix_omp"  # 1143
+  local excluded_tests=""
   excluded_tests+="|benchmark_multi_vector_distributed"  #1567
   excluded_tests+="|benchmark_spmv_distributed"  #1567
   excluded_tests+="|benchmark_solver_distributed"  #1567
