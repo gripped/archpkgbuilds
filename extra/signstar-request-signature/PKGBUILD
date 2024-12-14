@@ -1,0 +1,58 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=signstar-request-signature
+_name=signstar
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="A commandline tool for creating, reading and writing of signing requests for files"
+arch=(x86_64)
+url="https://gitlab.archlinux.org/archlinux/signstar/-/tree/main/signstar-request-signature"
+_url="https://gitlab.archlinux.org/archlinux/signstar"
+license=('Apache-2.0 OR MIT')
+depends=(
+  gcc-libs
+  glibc
+)
+makedepends=(
+  git
+  just
+  mold
+  rust
+  rust-script
+)
+source=($_name::git+$_url.git?signed#tag=$pkgname/$pkgver)
+sha512sums=('959346eaa2055ab86a74aeaca3244043d5d6396d8b30e64d0f0d5ca98cc521b2b8a6d5cab2fada7a0eb6612b66830d90d8546063e794926951f01e8abb1fd040')
+b2sums=('783c9185a6dc98e3f339eeee8ae43ab6dcd77cc09034ef828ab2680478c5f264c386dc93d978d456d0331c5ad35edc41752796a0beb44f47a25145db434b0efa')
+validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
+
+prepare() {
+  cd $_name
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $_name
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release --all-features --package $pkgname
+  just generate shell_completions $pkgname
+  just generate manpages $pkgname
+}
+
+check() {
+  cd $_name
+  export RUSTUP_TOOLCHAIN=stable
+  cargo test --frozen --all-features --package $pkgname
+}
+
+package() {
+  install -vDm 755 $_name/target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 $_name/$pkgname/{CHANGELOG,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 $_name/$pkgname/resources/docs/design.md -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 $_name/LICENSES/MIT.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 $_name/target/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
+  install -vDm 644 $_name/target/shell_completions/$pkgname.bash "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+  install -vDm 644 $_name/target/shell_completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
+  install -vDm 644 $_name/target/shell_completions/$pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+}
