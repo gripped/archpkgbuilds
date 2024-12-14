@@ -3,12 +3,12 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=breeze-icons
-pkgver=6.8.0
+pkgver=6.9.0
 pkgrel=1
 pkgdesc='Breeze icon theme'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
-license=(GPL-3.0-or-later
+license=(LGPL-3.0-or-later
          LGPL-2.1-only)
 depends=(glibc
          qt6-base)
@@ -16,7 +16,7 @@ makedepends=(extra-cmake-modules
              python-lxml)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('75ee11fc441c27504e199e365693296edcd465f890db6aabcb0deca0ace22d3a'
+sha256sums=('618f633bafb0a5aabaa93eaa6733dfebd6e79303ef1d0a93dcf249181896bed9'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
