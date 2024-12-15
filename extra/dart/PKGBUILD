@@ -9,7 +9,7 @@
 # Contributor: The one with the braid <info@braid.business>
 
 pkgname=dart
-pkgver=3.5.3
+pkgver=3.6.0
 pkgrel=1
 pkgdesc='The dart programming language SDK'
 arch=('x86_64')
@@ -29,10 +29,12 @@ source=(
   "git+https://github.com/dart-lang/sdk.git#tag=$pkgver"
   "git+https://chromium.googlesource.com/chromium/tools/depot_tools.git"
   "DEPS.patch"
+  "0001-Roll-boringssl-to-cd95210465496ac2337b313cf49f607762.patch"
 )
-sha256sums=('21d00f59e7a7a7ffade1ae128a59f5e3fb7f69221bef9eb63fcc81bd38a6f618'
+sha256sums=('07f528288d8f88b4f5552249b324ec9923c567ff85c0ab239b621252b5f98589'
             'SKIP'
-            'db6576a70c6719e26795b9824546058b79fefa64158c1002d36546d826084403')
+            'db6576a70c6719e26795b9824546058b79fefa64158c1002d36546d826084403'
+            'f0f9ffd34ee1b81cfaf94c49990d53876e02cec3df152fb20594514e0e06e6ff')
 
 prepare() {
 cat >.gclient <<EOF
@@ -53,6 +55,7 @@ EOF
   cd sdk
 
   patch -Np 1 --input=$srcdir/DEPS.patch
+  patch -Np 1 --input=$srcdir/0001-Roll-boringssl-to-cd95210465496ac2337b313cf49f607762.patch
 
   python ../depot_tools/gclient.py sync -D \
       --nohooks \
