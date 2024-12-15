@@ -3,7 +3,7 @@
 
 pkgname=sssd
 pkgver=2.10.1
-pkgrel=1
+pkgrel=3
 pkgdesc="System Security Services Daemon"
 arch=('x86_64')
 url="https://github.com/SSSD/sssd"
@@ -50,7 +50,7 @@ source=("https://github.com/SSSD/$pkgname/releases/download/$pkgver/$pkgname-$pk
         "sssd-perms.tmpfile")
 sha512sums=('001ff9cd60aa510ead11e418a1b96714136cc270b29551027cb12c340744890b358da5900a10863d4df649ad073f14f6f26c28e3f973b1cd5c2ab61f2a2a045b'
             'SKIP'
-            '382b38070343440a5807d81993e696e28b04658c9f4c71cfafcd0032b79e2f0a70ec0283f0a40808f29395a8313e7f64a5cc095692bd05f8e2270876768c58b5'
+            'aec6bac39318db2b66ebdbae5fb78db758951f53f0f3385b33b4a6d16341f11296faed147520b2d60f1b25e0cb7ca78565ffbdc27b2102f1f28c2250f1b63582'
             '21646ea5900340c1b0a69c79fc72b0d3e360d56e04dc0daf7947024a420d214a931365e684e8f7cfd37c959327e6909ad4c0d6c3a8186153bca870f508dad486')
 validpgpkeys=('C13CD07FFB2DB1408E457A3CD3D21B2910CF6759')
 
@@ -126,8 +126,8 @@ package() {
   install -Dm0644 "$srcdir"/sssd-perms.tmpfile "$pkgdir"/usr/lib/tmpfiles.d/sssd-perms.conf
   install -Dm0644 "$srcdir"/sssd-perms.service "$pkgdir"/usr/lib/systemd/system/sssd.service.d/10-perms.conf
 
-  setcap cap_chown,cap_dac_override,cap_setuid,cap_setgid=ep "$pkgdir"/usr/lib/sssd/sssd/krb5_child
-  setcap cap_chown,cap_dac_override,cap_setuid,cap_setgid=ep "$pkgdir"/usr/lib/sssd/sssd/ldap_child
+  setcap cap_dac_read_search,cap_setgid,cap_setuid=p "$pkgdir"/usr/lib/sssd/sssd/krb5_child
+  setcap cap_dac_read_search=p "$pkgdir"/usr/lib/sssd/sssd/ldap_child
   setcap cap_dac_read_search=p "$pkgdir"/usr/lib/sssd/sssd/sssd_pam
 
   cd "$srcdir"
