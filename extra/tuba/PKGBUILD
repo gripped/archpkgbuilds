@@ -2,19 +2,21 @@
 # Contributor: Luna Jernberg <lunajernberg@gnome.org>
 
 pkgname=tuba
-pkgver=0.8.4
-pkgrel=2
+pkgver=0.9.0
+pkgrel=1
 pkgdesc='Browse the Fediverse'
 arch=(x86_64)
-url='https://tuba.geopjr.dev/'
+url='https://apps.gnome.org/Tuba/'
 license=('GPL-3.0-only')
 depends=(
+  cairo
   dconf
   gdk-pixbuf2
   glib2
   glibc
   graphene
   gst-libav
+  gstreamer
   gtk4
   gtksourceview5
   hicolor-icon-theme
@@ -38,7 +40,7 @@ makedepends=(
   vala
 )
 source=("git+https://github.com/GeopJr/Tuba.git#tag=v$pkgver")
-b2sums=('82a1ac1180c6a5e95f35b6257e066dfb1c4ce68779f5346a34eed07fd13f1fb06f0e729af08a2b24b0a5098c3352ef0a5a4e4e959fc62049ec7d1ed10cc997a5')
+b2sums=('fc1eba164c6daeb2b4f8a2888593d796c657ec8eec6e0c90db5882c144a47a8598b476404c24b53aaf40bd80226eaebfbc93383841e076030b05a3a2f305dcb2')
 
 prepare() {
   cd Tuba
