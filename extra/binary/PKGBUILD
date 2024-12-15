@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=binary
-pkgver=5.1
+pkgver=5.2
 pkgrel=1
 pkgdesc='Simple app to convert between different hexadecimal and binary numbers'
 arch=(any)
@@ -22,26 +22,8 @@ makedepends=(
   git
   meson
 )
-source=(
-  "git+https://github.com/fizzyizzy05/binary.git#tag=$pkgver"
-  binary-install-mode.patch
-  binary-window-icon.patch
-)
-b2sums=(
-  da6a6fc3cdfc075937228d635b71ca796bd5fdfded60fefdf2e897badb226aee6960817523262061e8911536ba42b68abf8c42b60dbdc378ed66c9c543ee69e8
-  f45c1e20d327cfae625eb98dec9e91e9facf55cc2b8b556d562f4d868b25371ecfcce135fca0ab23675f0a537f7189e174cd248ffc138d8a300c15f82572842b
-  80c6bccbdb7b0c18fae8ea1f1a35d5fcd9caecbf7e93dce36d2e88fd28ac5759350a634334ce3c0142321a57384ef1ef9c5c0c54e203f000b380c81807099275
-)
-
-prepare() {
-  cd $pkgname
-
-  # https://github.com/fizzyizzy05/binary/pull/30
-  git apply -3 ../binary-install-mode.patch
-
-  # https://github.com/fizzyizzy05/binary/pull/31
-  git apply -3 ../binary-window-icon.patch
-}
+source=("git+https://github.com/fizzyizzy05/binary.git#tag=$pkgver")
+b2sums=(2e4c8611e51d8634eac953183328a65bc689f5111fc158672417df585eb54b267dbf5bb6c13e912ef46f769dd3d70995cffac76e046fea7f6e55c88f70938893)
 
 build() {
   arch-meson $pkgname build
