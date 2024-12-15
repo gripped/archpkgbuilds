@@ -2,37 +2,40 @@
 
 pkgname=endeavour
 pkgver=43.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Personal task manager (Formerly GNOME Todo)"
 url="https://wiki.gnome.org/Apps/Todo"
 arch=(x86_64)
 license=(GPL-3.0-or-later)
 depends=(
+  dconf
   evolution-data-server
+  gcc-libs
+  glib2
+  glibc
+  graphene
   gtk4
+  hicolor-icon-theme
   libadwaita
+  libgirepository
+  libgoa
+  libical
   libpeas
-  python
+  pango
 )
 makedepends=(
-  appstream-glib
   git
+  glib2-devel
   gobject-introspection
+  itstool
   meson
-  yelp-tools
 )
 provides=(gnome-todo)
 replaces=("gnome-todo<=41.0+r106+gebc68374-1")
 conflicts=("gnome-todo<=41.0+r106+gebc68374-1")
 groups=(gnome-extra)
-_commit=92706b42784e553d9f841117111a5e14bd201e1c  # tags/43.0^0
-source=("git+https://gitlab.gnome.org/World/Endeavour.git#commit=$_commit")
+source=("git+https://gitlab.gnome.org/World/Endeavour.git#tag=$pkgver")
 b2sums=('fb09f53f7f980d5caa4badfec372baaa4a144aaf14888431aa6ec0ecf9d43da36141a5f5e7d8b5a15fc768e0bcc851b9b6a11d33c68e4cbb5728ed7d00823295')
-
-pkgver() {
-  cd Endeavour
-  git describe --tags | sed 's/^v//;s/[^-]*-g/r&/;s/-/+/g'
-}
 
 prepare() {
   cd Endeavour
