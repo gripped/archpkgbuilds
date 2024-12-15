@@ -4,8 +4,8 @@
 
 pkgname=perl-digest-hmac
 _realname=Digest-HMAC
-pkgver=1.04
-pkgrel=6
+pkgver=1.05
+pkgrel=1
 pkgdesc="Perl Module: Keyed-Hashing for Message Authentication."
 arch=('any')
 license=('PerlArtistic')
@@ -13,7 +13,7 @@ url="https://search.cpan.org/dist/Digest-HMAC/"
 depends=('perl-digest-sha1' 'perl')
 options=(!emptydirs)
 source=("https://www.cpan.org/authors/id/A/AR/ARODLAND/Digest-HMAC-$pkgver.tar.gz")
-sha512sums=('d30b62e60bfa9f6c0f0c058e190938f13a08a70a816771a0641226c24045cb6dbd622756f1f88593fd3690442a45636bdcaf35457e9dfea6de5f8a342a538a6d')
+sha512sums=('1ee8b30810aa4cfefd5c7ef2049e846946ca1535683e27cbf2d344719b7d2444e88014f68adda4d19ce65af42a413461fd46a7835aefa4e09907fe345b1cd1ac')
 
 build() {
   cd Digest-HMAC-$pkgver
