@@ -5,8 +5,8 @@
 # Contributor: Bill Kolokithas
 
 pkgname=j4-dmenu-desktop
-pkgver=3.1
-pkgrel=3
+pkgver=3.2
+pkgrel=1
 pkgdesc="Find .desktop files and offer you a menu to start an application using dmenu"
 arch=('x86_64')
 url="https://github.com/enkore/j4-dmenu-desktop"
@@ -22,20 +22,25 @@ makedepends=(
     'cmake'
     'meson'
 )
+checkdepends=(
+    'python-pytest'
+)
 optdepends=(
     'dmenu: The default backend'
-    'bemenu: An alternative backend'
     'bemenu: An alternative backend'
     'wmenu: An alternative backend'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/r$pkgver.tar.gz"
         "$pkgname-$pkgver.tar.gz.sig::$url/releases/download/r$pkgver/r$pkgver.tar.gz.sig")
 validpgpkeys=('7B0F58A5E0F1A2EA11578A731A14CB3464CBE5BF')  # Meator <meator.dev@gmail.com>
-sha256sums=('0e6cf25663cc220e3e3e2bc013fe957c3e4a44f900b5ee6a7609cd501021652d'
+sha256sums=('99e2f394570f8fb0b1a2cde2926980fd9685ce60e1500b575057f8424c9ad555'
             'SKIP')
 
 build() {
-    arch-meson "$pkgname-r$pkgver" build
+    # Shell completions are already generated/provided by upstream.
+    arch-meson "$pkgname-r$pkgver" \
+        -Dgenerate-shell-completions=disabled \
+        build
     meson compile -C build
 }
 
@@ -49,6 +54,17 @@ package() {
     cd "$pkgname-r$pkgver"
     install -Dm0644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
     install -Dm0644 CHANGELOG -t "$pkgdir/usr/share/doc/$pkgname/"
+
+    install -dm0755 "$pkgdir/usr/share/bash-completion/completions" \
+                    "$pkgdir/usr/share/zsh/site-functions" \
+                    "$pkgdir/usr/share/fish/completions"
+    install -Dm0644 etc/completions/j4-dmenu-desktop -t \
+        "$pkgdir/usr/share/bash-completion/completions"
+    install -Dm0644 etc/completions/_j4-dmenu-desktop -t \
+        "$pkgdir/usr/share/zsh/site-functions"
+    install -Dm0644 etc/completions/j4-dmenu-desktop.fish -t \
+        "$pkgdir/usr/share/fish/completions"
+
 
     install -dm0755 "$pkgdir/usr/share/man/man1"
     gzip < j4-dmenu-desktop.1 > "$pkgdir/usr/share/man/man1/j4-dmenu-desktop.1.gz"
