@@ -4,7 +4,7 @@
 
 pkgname=solid
 pkgver=6.9.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Hardware integration and detection'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -24,7 +24,7 @@ makedepends=(doxygen
              qt6-declarative
              qt6-doc
              qt6-tools)
-optdepends=('qt5-declarative: QML bindings')
+optdepends=('qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('254d562da6611a15f1f617e7afb78d4702455b89ca95de1dba9f6b9928320367'
