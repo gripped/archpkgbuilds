@@ -1,6 +1,6 @@
 # Maintainer: Konstantin Gizdov <arch at kge dot pw>
 pkgname=perl-locale-codes
-pkgver=3.80
+pkgver=3.81
 pkgrel=1
 pkgdesc='Distribution of modules to handle locale codes'
 _dist=Locale-Codes
@@ -11,7 +11,7 @@ depends=(perl)
 checkdepends=('perl-test-inter')
 options=('!emptydirs' purge)
 source=("https://search.cpan.org/CPAN/authors/id/SBECK/${_dist}-${pkgver}.tar.gz")
-b2sums=('79e27971c7e7dd7d6e50ad1ce324340a02f4ba22b00cb5dd31e7cb5879c8af0f80e346605ba2abdb6b0892b9016a72a50f73aa428ade282b9a12169a92501ed6')
+b2sums=('4f2b90d00b78ba36e3ec582119c33922cca66056fc8f2564c22e9556cbe081f313b83c7d34e84713cd5d3dc498b57be93b4515bb068709d63977cd7b017effd9')
 
 build() {
   cd "${srcdir}/${_dist}-${pkgver}"
