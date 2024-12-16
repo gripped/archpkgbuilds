@@ -8,8 +8,8 @@ pkgname=(
   libclapper
 )
 pkgver=0.6.1
-pkgrel=3
-pkgdesc="Modern and user-friendly media player."
+pkgrel=4
+pkgdesc="Modern and user-friendly media player"
 arch=(x86_64)
 url="https://rafostar.github.io/clapper"
 license=('LGPL-2.1-or-later AND GPL-3.0-or-later')
@@ -19,7 +19,6 @@ makedepends=(
   glib2
   glibc
   graphene
-  gst-plugins-bad
   gst-plugins-base
   gst-plugins-base-libs
   gst-plugins-good
@@ -113,6 +112,7 @@ package_clapper() {
     $pkgdir/usr/lib/libgstclapperglcontexthandler.so* \
     $pkgdir/usr/lib/pkgconfig/clapper-gtk-0.0.pc \
     $pkgdir/usr/share/gir-1.0/ClapperGtk-0.0.gir \
+    $pkgdir/usr/share/locale/*/LC_MESSAGES/clapper-gtk.mo \
     $pkgdir/usr/share/vala/vapi/clapper-gtk-*
 
   _pick libclapper \
@@ -153,6 +153,7 @@ package_libclapper() {
   depends=(
     glib2
     glibc
+    gst-plugins-base
     gst-plugins-base-libs
     gst-plugins-good
     gstreamer
@@ -160,9 +161,10 @@ package_libclapper() {
     libsoup3
   )
   optdepends=(
-    "gst-libav: Extra media decoders (via ffmpeg)"
-    "gst-plugins-ugly: Extra nonfree media decoders"
-    "gst-plugin-va: (hardware) video acceleration"
+    "gst-libav: Extra media decoders (via FFmpeg)"
+    "gst-plugins-bad: Extra media decoders"
+    "gst-plugins-ugly: Extra media decoders"
+    "gst-plugin-va: Hardware-accelerated video decode (via VA-API)"
     "gst-plugins-gtuber: Streaming service support"
   )
   provides=(libclapper-0.0.so)
