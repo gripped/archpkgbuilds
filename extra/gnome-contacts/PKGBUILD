@@ -3,8 +3,8 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-contacts
-pkgver=47.0
-pkgrel=2
+pkgver=47.1.1
+pkgrel=1
 pkgdesc="Contacts Manager for GNOME"
 url="https://apps.gnome.org/Contacts"
 arch=(x86_64)
@@ -42,26 +42,15 @@ makedepends=(
 )
 groups=(gnome)
 source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-contacts.git#tag=${pkgver/[a-z]/.&}"
-  gnome-contacts-cancel-action.patch
+  "git+https://gitlab.gnome.org/GNOME/gnome-contacts.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('621ee692e7c80024fad4e311fc67304c552291163bbba083b90eb743e5807cb738ac9406fad6bbc434458e3704d77f5f8513af64f36119dc00b04e0521b9fe0a'
-        'cb810fdcbfb05cad30d7f9c539ad85a2e55e88e088baa04a1bb9ec6d140587ca29906505fa7bee195c267aaf75d86b95109e913098b6caf334646661b791c901')
+b2sums=('a470ad97ce7049adb077bd40a67ca15a169cfb6390a3f58fe717ea9d574fb513382b0597db8475bf84163781072ca0c1b90130a30042432d3d6e6e4e61c6f49c')
+validpgpkeys=(
+  A7C626E13F9AD776776BD9CA1D8A57CF2E8D36A3 # Niels De Graef (nielsdg) <nielsdegraef@gmail.com>
+)
 
 prepare() {
   cd $pkgname
-
-  # Support taking a picture with the camera without OpenGL
-  # https://gitlab.gnome.org/GNOME/gnome-contacts/-/merge_requests/305
-  git cherry-pick -n cfbc0c35e30f5fb4603378b89299f630808d7978
-
-  # Set application name only in the startup phase
-  # https://gitlab.gnome.org/GNOME/gnome-contacts/-/merge_requests/303
-  git cherry-pick -n d27745c29a2c25f8a5647c0496aadcc55f68570a
-
-  # Add missing action
-  # https://gitlab.gnome.org/GNOME/gnome-contacts/-/merge_requests/304
-  git apply -3 ../gnome-contacts-cancel-action.patch
 }
 
 build() {
