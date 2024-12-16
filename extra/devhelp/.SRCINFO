@@ -1,0 +1,25 @@
+pkgbase = devhelp
+	pkgdesc = API documentation browser for GNOME
+	pkgver = 43.0
+	pkgrel = 2
+	url = https://apps.gnome.org/Devhelp/
+	arch = x86_64
+	license = GPL
+	makedepends = git
+	makedepends = appstream-glib
+	makedepends = gobject-introspection
+	makedepends = meson
+	makedepends = yelp-tools
+	makedepends = gi-docgen
+	makedepends = glib2-devel
+	depends = webkit2gtk-4.1
+	source = git+https://gitlab.gnome.org/GNOME/devhelp.git?signed#tag=43.0
+	validpgpkeys = 53EF3DC3B63E2899271BD26322E8091EEA11BBB7
+	sha256sums = e7d1fac86c028c08418e70364615a0170c012f1a999a537bff574a3120e75bf2
+
+pkgname = devhelp
+	groups = gnome-extra
+
+pkgname = devhelp-docs
+	pkgdesc = API documentation browser for GNOME (documentation)
+	depends = 
