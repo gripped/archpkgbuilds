@@ -5,14 +5,14 @@
 
 pkgname=opensc
 pkgver=0.26.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Tools and libraries for smart cards'
 arch=('x86_64')
 url='https://github.com/OpenSC/OpenSC/wiki'
 license=('LGPL')
 backup=('etc/opensc.conf')
 makedepends=('docbook-xsl' 'git')
-depends=('pcsclite' 'glib2' 'libltdl')
+depends=('pcsclite' 'glib2')
 options=(!emptydirs !lto)
 source=("git+https://github.com/OpenSC/OpenSC.git#tag=${pkgver}")
 sha512sums=('6de92cfa2b6be790c22ffa81ae8e9a04f16d1897da56343d9a59df918fc98dce650ff6d7d583239e5289ef765d0c328aaedddd5099077924a8cf3920188db15f')
