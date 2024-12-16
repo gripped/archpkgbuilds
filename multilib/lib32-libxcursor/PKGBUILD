@@ -3,7 +3,7 @@
 
 _pkgbasename=libxcursor
 pkgname=lib32-$_pkgbasename
-pkgver=1.2.2
+pkgver=1.2.3
 pkgrel=1
 pkgdesc="X cursor management library (32-bit)"
 arch=(x86_64)
@@ -12,10 +12,11 @@ license=('custom')
 depends=('lib32-libxfixes' 'lib32-libxrender' $_pkgbasename)
 makedepends=('xorg-util-macros')
 source=(${url}/releases/individual/lib/libXcursor-${pkgver}.tar.xz{,.sig})
-sha256sums=('53d071bd2cc56e517a30998d5e685c8a74556ddada43c6985d14da9a023a88ee'
+sha256sums=('fde9402dd4cfe79da71e2d96bb980afc5e6ff4f8a7d74c159e1966afb2b2c2c0'
             'SKIP')
 validpgpkeys=('C41C985FDCF1E5364576638B687393EE37D128F8'  # "Matthieu Herrb <matthieu.herrb@laas.fr>"
-              '4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
+              '4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E'  # Alan Coopersmith <alan.coopersmith@oracle.com>
+              '19882D92DDA4C400C22C0D56CC2AF4472167BE03') # "Thomas E. Dickey (self-signed w/o SHA1) <dickey@invisible-island.net>"
 
 build() {
   export CC="gcc -m32"
