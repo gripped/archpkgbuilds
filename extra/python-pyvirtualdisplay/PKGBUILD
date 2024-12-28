@@ -3,7 +3,7 @@
 _pkg=PyVirtualDisplay
 pkgname=python-${_pkg,,}
 pkgver=3.0
-pkgrel=5
+pkgrel=6
 pkgdesc="Python wrapper for Xvfb, Xephyr and Xvnc"
 arch=(any)
 url="https://github.com/ponty/PyVirtualDisplay"
@@ -13,7 +13,7 @@ makedepends=(python-setuptools)
 checkdepends=(
     python-pytest python-pytest-xdist
     python-pyscreenshot python-pillow python-easyprocess
-    python-entrypoint2 python-path.py python-psutil
+    python-entrypoint2 python-path python-psutil
     xorg-server-xvfb xorg-server-xephyr
     xorg-xmessage xorg-xdpyinfo scrot vncdotool
 )
