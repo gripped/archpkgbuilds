@@ -2,7 +2,7 @@
 
 pkgname=python-txredisapi
 pkgver=1.4.7
-pkgrel=6
+pkgrel=7
 
 pkgdesc='Non-blocking redis client for python'
 url='https://pypi.python.org/pypi/txredisapi/'
