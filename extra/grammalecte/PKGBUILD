@@ -2,23 +2,28 @@
 
 pkgname=grammalecte
 pkgver=2.1.1
-pkgrel=4
+pkgrel=5
 pkgdesc="Grammar and typographic checker dedicated to the French language – standalone version"
 arch=(any)
 url="https://grammalecte.net/"
 license=(GPL3)
 depends=(python)
-makedepends=(unzip python-setuptools)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+  unzip)
 options=(!emptydirs)
 source=(https://grammalecte.net/zip/Grammalecte-fr-v${pkgver}.zip)
 sha256sums=('f643eca603652469947d9bd85fb0ec08f8eb0f7b6ab925d2fb18bfc6fdd8d21c')
 
 build() {
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
-  python setup.py install --root="${pkgdir}" --skip-build --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   mv "${pkgdir}"/usr/bin/grammalecte-cli{.py,}
   mv "${pkgdir}"/usr/bin/grammalecte-server{.py,}
 }
