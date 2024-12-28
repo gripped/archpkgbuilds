@@ -3,7 +3,7 @@
 
 pkgname=sssd
 pkgver=2.10.1
-pkgrel=3
+pkgrel=4
 pkgdesc="System Security Services Daemon"
 arch=('x86_64')
 url="https://github.com/SSSD/sssd"
