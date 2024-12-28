@@ -3,17 +3,17 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=vice
-pkgver=3.8
-pkgrel=3
+pkgver=3.9
+pkgrel=1
 pkgdesc='Versatile Commodore Emulator'
 arch=(x86_64)
 license=(GPL-2.0-only)
 url='https://vice-emu.sourceforge.io/'
-depends=(alsa-lib giflib glew gtk3 libjpeg-turbo libpng libpulse python sdl2 sdl2_image)
+depends=(alsa-lib giflib glew gtk3 libevdev libjpeg-turbo libpng libpulse python sdl2 sdl2_image)
 makedepends=(dos2unix glib2-devel libpcap libxaw xa xorg-bdftopcf xorg-mkfontscale)
-source=("https://downloads.sourceforge.net/project/vice-emu/releases/$pkgname-${pkgver%.0}.tar.gz"
+source=("https://downloads.sourceforge.net/project/vice-emu/releases/$pkgname-$pkgver.tar.gz"
         disable-fc-cache.patch)
-b2sums=('709fd6eda874de542e5770a328b0c0308d04f755e3bf1fceba5147156eb894a95ce6f14e9f8848ca6992d4f958082f83a198d2176c1fe54e87027c7dfac8849c'
+b2sums=('0c063e152c10ff537fbc9b1d8a5b4a108f08874fa4240772ec159ca19e457f626d6a5abbf4cb7c350291cc8b9fc19f8dba0b2be058363d50040ea42554d3ef4c'
         'a27ff2a70537a57fd1c3be561181403fede8a6fd75ca8a31a4a4ed97b010cd8f8f0376a619be126ac22ad8c81bf0d1fd9c7e5e411bf94da32006c9ecdd10d32e')
 
 prepare() {
@@ -26,7 +26,7 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
-  export CFLAGS="$CFLAGS -w -Wl,--allow-multiple-definition"
+  export CFLAGS="$CFLAGS -Wl,--allow-multiple-definition -w"
   PKG_CONFIG_PATH='/usr/lib/ffmpeg/pkgconfig' ./configure \
     --disable-ffmpeg \
     --enable-gtk3ui \
