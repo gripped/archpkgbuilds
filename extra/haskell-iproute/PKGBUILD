@@ -3,8 +3,8 @@
 
 _hkgname=iproute
 pkgname=haskell-iproute
-pkgver=1.7.13
-pkgrel=4
+pkgver=1.7.14
+pkgrel=1
 pkgdesc="IP Routing Table"
 url="https://www.mew.org/~kazu/proj/iproute/"
 license=("BSD")
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' "haskell-appar" "haskell-byteorder" "haskell-network")
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-discover' 'haskell-safe')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('f86cf1446035b4092bc34dc39a93a80ae2e2e9850e16b2896ef5bc6149a838acfafee7a69e9ff5944c71b90ae1248e03b42d5bd4543601cd149159770d1196b1')
+sha512sums=('eba8be939b109d083f7b1579cd4aa28d019adc29fec6fc2cc16e33d9630d1667829bb57ae5bc48180fcb1191bb502807b0c7ca90f6dc1bc95fda38c18468cbcc')
 
 build() {
     cd $_hkgname-$pkgver
