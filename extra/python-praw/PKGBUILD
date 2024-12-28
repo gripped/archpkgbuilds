@@ -2,7 +2,7 @@
 
 pkgname=python-praw
 pkgver=7.7.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Python Reddit API Wrapper that allows for simple access to Reddit's API"
 arch=('any')
 license=('BSD-2-Clause')
