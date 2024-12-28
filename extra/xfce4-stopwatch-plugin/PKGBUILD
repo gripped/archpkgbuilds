@@ -1,8 +1,8 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=xfce4-stopwatch-plugin
-pkgver=0.5.0
-pkgrel=2
+pkgver=0.5.2
+pkgrel=1
 pkgdesc="A simple stopwatch plugin for Xfce panel"
 arch=('x86_64')
 url="https://docs.xfce.org/panel-plugins/xfce4-stopwatch-plugin/start"
@@ -10,7 +10,7 @@ license=('BSD-2-Clause')
 depends=('libxfce4ui' 'libxfce4util' 'xfce4-panel')
 makedepends=('git' 'xfce4-dev-tools')
 source=("git+https://gitlab.xfce.org/panel-plugins/xfce4-stopwatch-plugin.git#tag=$pkgname-$pkgver")
-sha256sums=('12c4f524490d59d221830831722d845080693ec804f1f641a8b416c2405768c4')
+sha256sums=('b6331a5b889fafbd33033ce6e6bbded87eeda9553a5c091443e1c800eb0c7ab0')
 
 prepare() {
   cd $pkgname
