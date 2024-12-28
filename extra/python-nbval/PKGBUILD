@@ -2,8 +2,8 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-nbval
-pkgver=0.10.0
-pkgrel=7
+pkgver=0.11.0
+pkgrel=1
 pkgdesc="A py.test plugin to validate Jupyter notebooks"
 url="https://github.com/computationalmodelling/nbval"
 license=('BSD-3-Clause')
@@ -16,7 +16,7 @@ optdepends=(
   'python-nbdime: for --nbdime option'
 )
 source=("https://github.com/computationalmodelling/nbval/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('65da8cbb2196b0fab591017e3ec83a6ae908db863bf53a989eb48d5037d99587d23abb3729eda38556f3c11c0a769eea60fa77f02c05836178519aac6e923e87')
+sha512sums=('8565f5d3683f202042f927e606e8c28df3ba6341e3efc03c6cd75f25984a4c883df1c3f11d70972de2effd04a1cb48a1f72ebd7eb36bf652d2ab6ab96516ba8c')
 
 build() {
   cd nbval-$pkgver
