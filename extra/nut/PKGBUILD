@@ -7,7 +7,7 @@
 
 pkgname=nut
 pkgver=2.8.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A collection of programs which provide a common interface for monitoring and administering UPS, PDU and SCD hardware'
 arch=(x86_64)
 url=https://networkupstools.org/
