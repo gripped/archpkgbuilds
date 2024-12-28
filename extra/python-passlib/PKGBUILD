@@ -3,7 +3,7 @@
 
 pkgname=python-passlib
 pkgver=1.7.4
-pkgrel=9
+pkgrel=10
 pkgdesc="A password hashing library for Python"
 arch=('any')
 url="https://passlib.readthedocs.io/en/stable"
