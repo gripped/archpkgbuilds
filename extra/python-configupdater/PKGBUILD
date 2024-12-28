@@ -2,7 +2,7 @@
 
 pkgname=python-configupdater
 pkgver=3.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Parser like ConfigParser but for updating configuration files"
 url="https://github.com/pyscaffold/configupdater"
 license=('MIT')
