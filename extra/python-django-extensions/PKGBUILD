@@ -7,7 +7,7 @@
 
 pkgname=python-django-extensions
 pkgver=3.2.3
-pkgrel=3
+pkgrel=4
 pkgdesc='A collection of custom extensions for the Django Framework'
 arch=(any)
 url=https://github.com/django-extensions/django-extensions
