@@ -1,8 +1,9 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=python-nitrokey
 _name="${pkgname#python-}-sdk-py"
-pkgver=0.2.0
+pkgver=0.2.3
 pkgrel=1
 pkgdesc="Python SDK for Nitrokey devices"
 arch=(any)
@@ -28,8 +29,8 @@ makedepends=(
   python-poetry-core
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('5c18f7b68134f74dd7525809f2528316c7ad857ed7250bb99da979c637c79cd1032066281697e8e512d24ce6958b771a15a92e82f2163e75f3cdd5edae5bb0c7')
-b2sums=('5c9c18b9e3a843d3a04ecf9e7f43cc11b92b9aa5e60e515276951c0c8138e74137811287e0f605927933f350666636921b5611fd4601fca9933e3f4180674675')
+sha512sums=('d622944912caa778f9998478511c4773bca4de6f6186140602e0e561cc6598f215e8d450d512358bd219535bbb90569341ff44db0632240ae82294ac05afb79f')
+b2sums=('3b70dfe4e27494f0db2d6b7e8704502f2cb41b2e6c6eef8b0f882aada213aef66e11422ee2b5ec082b088fddadc2a272aea0aa039a3b2bfec79c786f936afe1b')
 
 build() {
   cd $_name-$pkgver
