@@ -3,17 +3,18 @@
 
 _gemname=iconv
 pkgname=ruby-$_gemname
-pkgver=1.0.8
-pkgrel=5
+pkgver=1.1.0
+pkgrel=1
 pkgdesc='Wrapper library for iconv'
 arch=('x86_64')
 url='https://github.com/ruby/iconv'
-license=('BSD')
+license=('BSD-2-Clause')
 depends=('ruby')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem")
 noextract=("$_gemname-$pkgver.gem")
-b2sums=('f706a8baf5136e0b165190361a340d39f6fda8f65896559cbc3b4933e54930d9dcd2f06a9059040da002e06eb1f45a2918a8562d51a8d0853f3e4613aec0acc1')
+sha512sums=('0b3a95f07d921d5d08e3e54e14914af2174bb6086911cf880a30a6953003b5993d67cd329aa9d7dd42dd198a7ff9baec3c229874fd2803b55cd2bbb7cc98b469')
+b2sums=('ba061bd7457dc2df29c78823dbb8b8f16b4a663dc2f75db0549e44197b6e069078dfda85d3fc54d05579425de83576ae24e7d699fe3f1542f6191da1610492c2')
 
 package() {
   local _gemdir="$(ruby -e'puts Gem.default_dir')"
