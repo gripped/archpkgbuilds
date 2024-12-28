@@ -2,7 +2,7 @@
 
 pkgname=python-pipenv-to-requirements
 pkgver=0.9.0
-pkgrel=9
+pkgrel=10
 pkgdesc="Generate requirements[-dev].txt from Pipfile using pipenv"
 url="https://github.com/gsemet/pipenv-to-requirements"
 license=('MIT')
