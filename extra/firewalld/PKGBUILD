@@ -5,7 +5,7 @@
 
 pkgname=firewalld
 pkgver=2.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Firewall daemon with D-Bus interface"
 arch=('any')
 url="https://firewalld.org"
