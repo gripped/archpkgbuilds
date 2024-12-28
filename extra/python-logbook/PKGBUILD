@@ -2,20 +2,20 @@
 # Contributor: Tomas Schertel<tschertel@gmail.com>
 
 pkgname=python-logbook
-pkgver=1.7.0
-pkgrel=3
+pkgver=1.8.0
+pkgrel=2
 pkgdesc="Logging sytem for Python that replaces the standard library’s logging module"
 arch=('x86_64')
 url="https://logbook.readthedocs.io/en/stable/"
 license=('BSD')
-depends=('python-six')
-makedepends=('python-setuptools' 'cython' 'python-six' 'python-build' 'python-installer' 'python-wheel')
+depends=('python')
+makedepends=('python-setuptools' 'cython' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('redis' 'python-pytest' 'python-sqlalchemy'
               'python-redis' 'python-pyzmq'
               'python-execnet' 'python-jinja' 'python-brotli' 
               'pifpaf')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/mitsuhiko/logbook/archive/$pkgver.tar.gz")
-sha512sums=('50b52f54e894be303a7e910602cfbbceee04280cb134ad89f32f0a79c21d509ae0f6ae83beac9a9e22726d1c394e9893eea884ff43b56aae9dbad6dd1221d96f')
+sha512sums=('73e4d9170af6c4db6eadf27e84419927136658c786b173e5eae91dc9499d3c374fe5a4a7e8f7bc463194b19648aee23aceba0cce9a63fd25a6ee0a53b1dbe8f9')
 
 prepare() {
   cd "$srcdir"/logbook-$pkgver
