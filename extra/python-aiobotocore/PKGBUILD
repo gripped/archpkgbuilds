@@ -3,8 +3,8 @@
 pkgname=python-aiobotocore
 _pkgname=aiobotocore
 # https://github.com/aio-libs/aiobotocore/releases
-pkgver=2.15.2
-pkgrel=2
+pkgver=2.16.0
+pkgrel=3
 pkgdesc='asyncio support for botocore library using aiohttp'
 arch=(any)
 url='https://github.com/aio-libs/aiobotocore'
@@ -15,11 +15,12 @@ depends=(python python-aiohttp python-botocore python-wrapt python-aioitertools
          python-dateutil python-jmespath python-multidict python-urllib3)
 makedepends=(python-build python-installer python-setuptools python-wheel git)
 checkdepends=(python-moto python-pytest python-pytest-asyncio python-dill python-docutils python-pip
+              python-time-machine
               # moto optdepends
               python-docker python-openapi-spec-validator python-yaml python-flask python-flask-cors)
 source=("git+https://github.com/aio-libs/aiobotocore.git#tag=$pkgver"
         "moto-5.x.diff")
-sha256sums=('3e1932d68a097f8d6c7afd812514c9bc4d7f4e61f5a1bfcd5aa1b5d0eefd88da'
+sha256sums=('b00c43901c9f268b9d18af39eb244eee800cfc9cb04b52849470d6f5bd564e16'
             '2bfadc984a4ad3a6420b356d572c8085b82a46949fc0ecaea98ddce45980503b')
 
 prepare() {
@@ -27,10 +28,6 @@ prepare() {
   # Work-around test failures with moto 5.x
   # See: https://github.com/aio-libs/aiobotocore/issues/1108
   patch -Np1 -i ../moto-5.x.diff
-
-  # relax setuptools build dependency specification
-  # https://github.com/aio-libs/aiobotocore/discussions/1193
-  git cherry-pick -n 24a44d7ecf4679b059349989eda0e3d39160c8be
 }
 
 build() {
@@ -44,7 +41,7 @@ check() {
   export PYTHONPATH="$PWD"
   # test_lambda uses moto.awslambda, which requires a running Docker service
   # See: https://github.com/spulec/moto/issues/3276
-  pytest -m moto tests \
+  pytest -m "not localonly" tests \
       --ignore=tests/test_lambda.py
 }
 
