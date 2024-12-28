@@ -5,12 +5,12 @@
 
 pkgname=python-apsw
 pkgver=3.46.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Python wrapper for SQLite"
 arch=('x86_64')
 url="https://github.com/rogerbinns/apsw"
 license=('MIT')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 depends=('python' 'sqlite')
 source=("apsw-$pkgver.tar.gz::https://github.com/rogerbinns/apsw/archive/$pkgver.tar.gz")
 sha512sums=('3cd81ceab03dadf10d9c10d645d33b962ba9ec55075bb193eb076f458dde11d5c5c6ec087ec31fc96d011ca1b339a9ffe07cb5d660b8205f6f156baaa0b18c81')
@@ -19,7 +19,7 @@ b2sums=('c0ad61e61a97471ef677ffe80f3f91e6520c95f8cece225a8086884f34de497714892e4
 build() {
   cd apsw-${pkgver}
 
-  python setup.py build --enable=load_extension
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -34,6 +34,6 @@ check() {
 package() {
   cd "$srcdir"/apsw-${pkgver}
 
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -D -m644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
