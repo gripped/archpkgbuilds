@@ -2,18 +2,18 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=homebank
-pkgver=5.8.3
+pkgver=5.8.5
 pkgrel=1
 pkgdesc="Free, easy, personal accounting for everyone"
 arch=('x86_64')
-url="http://homebank.free.fr/"
-license=('GPL')
+url="https://www.gethomebank.org/"
+license=('GPL-2.0-or-later')
 depends=('desktop-file-utils' 'gtk3' 'hicolor-icon-theme' 'libofx'
          'librsvg' 'perl-xml-parser' 'shared-mime-info' 'libsoup')
 makedepends=('intltool')
 changelog=$pkgname.changelog
 source=(https://www.gethomebank.org/public/sources/$pkgname-$pkgver.tar.gz)
-sha256sums=('e4083d52301dc53e51e9c615e954fb92d6951ea7749334282c2a5f4b9ab9c4c2')
+sha256sums=('4eb4451e57840395468c2d6a3fe4d016ada0ba7d47ca7f1cec0418c0a1339e97')
 
 build() {
   cd "${srcdir}"/$pkgname-$pkgver
