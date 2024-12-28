@@ -1,11 +1,13 @@
 pkgbase = python-pivy
 	pkgdesc = Bindings to Coin3D
-	pkgver = 0.6.9.a0
-	pkgrel = 4
+	pkgver = 0.6.9
+	pkgrel = 1
+	epoch = 1
 	url = https://github.com/coin3d/pivy
 	arch = x86_64
 	license = ISC
 	makedepends = cmake
+	makedepends = git
 	makedepends = glu
 	makedepends = swig
 	depends = coin
@@ -16,7 +18,7 @@ pkgbase = python-pivy
 	depends = python-numpy
 	depends = qt6-base
 	depends = soqt
-	source = python-pivy-0.6.9.a0.tar.gz::https://github.com/coin3d/pivy/archive/refs/tags/0.6.9.a0.tar.gz
-	b2sums = 1e72ff67bfb28a4a193e08a073705d6c82d65297090ca90734b6f7b8c31b79102ca0aecc5e6a192f9db45859afbec151318b34188fa7e92214fc3cb6db0faf05
+	source = git+https://github.com/coin3d/pivy#tag=0.6.9
+	b2sums = b87ca2b04b39ebe8a8c2796e27ff05abd8fde474b670ee07d288128ee7feda55c3c40924a704f5bc01fd16911a0c91cee480c2771ac684a63df988e5792da6e7
 
 pkgname = python-pivy
