@@ -3,7 +3,7 @@
 pkgname=python-flufl.bounce
 _name="${pkgname#python-}"
 pkgver=4.0
-pkgrel=5
+pkgrel=6
 pkgdesc="Email bounce detectors"
 arch=(any)
 url="https://gitlab.com/warsaw/flufl.bounce"
