@@ -3,7 +3,7 @@
 # Contributor: Anibal Pacheco <apacheco.uy@gmail.com>
 
 pkgname=scrapy
-pkgver=2.11.1
+pkgver=2.12.0
 pkgrel=1
 pkgdesc="A fast high-level scraping and web crawling framework."
 arch=('any')
@@ -13,6 +13,7 @@ depends=(
   'python'
   'python-cryptography'
   'python-cssselect'
+  'python-defusedxml'
   'python-itemadapter'
   'python-itemloaders'
   'python-lxml'
@@ -62,8 +63,8 @@ optdepends=(
 source=(
   "$pkgname-$pkgver.tar.gz::https://github.com/scrapy/scrapy/archive/$pkgver.tar.gz"
 )
-sha512sums=('a191b95a190ff758b9b392f3b0461470fb968110dae83dda9c413ca1dfc73327f6236568f30e47d653ff67783a544037ae9321cb54792e449558a15fc8f64a72')
-b2sums=('5bd647ea3cd4024b73378445ba26a5776afa6d481b281095e7e7bc4dd720036eb3f0acb48e2933bdc41a6aa73b255626f7447687a8cd7607694509bb4f948579')
+sha512sums=('28c40bfe39b3d8b804e1faf3fc7c82853d22307f879ecdbd2b0e1cd0801f72528eaa4df3a941cfd6eca2b1fa92139140694f2710f38576654b74c6424e575e1b')
+b2sums=('5362b7b8b36b978da50b5f0b3c138941b838e7e5e3a0ec98ae2331eb56117f5ee9d5a457099313e1842b911f530e3af83faa8e42fc4598cc21128deb663701fa')
 
 build() {
   cd $pkgname-$pkgver
