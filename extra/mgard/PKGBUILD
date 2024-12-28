@@ -3,7 +3,7 @@
 
 pkgname=mgard
 pkgver=1.5.2
-pkgrel=2
+pkgrel=4
 pkgdesc="MultiGrid Adaptive Reduction of Data"
 arch=(x86_64)
 url="https://github.com/CODARcode/MGARD"
@@ -26,17 +26,19 @@ source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
 b2sums=('fbebe814483f7ebbfd1f3bc33ca387fe77f7b0f0de369e5c4d2525d01172146197458e1a070824a8697fd0b9acef267f5813562aa9848db32d9175f879ce13f7')
 
 build() {
-  local cmake_flags=(
-    -B build -S ${pkgname^^}-${pkgver} -G Ninja
+  local cmake_options=(
+    -B build
+    -S ${pkgname^^}-${pkgver}
+    -G Ninja
+    -W no-dev
     -DCMAKE_INSTALL_PREFIX=/usr
     -DMGARD_ENABLE_SERIAL=ON
     -DMGARD_ENABLE_OPENMP=ON
     -DMGARD_ENABLE_MDR=ON
     #-DMGARD_ENABLE_CLI=ON  requires tclap 1.4
     -DBUILD_TESTING=ON
-    -Wno-dev
   )
-  cmake "${cmake_flags[@]}"
+  cmake "${cmake_options[@]}"
   cmake --build build
 }
 
