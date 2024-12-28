@@ -3,7 +3,7 @@
 
 pkgname=python-flask-cors
 pkgver=5.0.0
-pkgrel=2
+pkgrel=3
 
 pkgdesc='A Flask extension adding a decorator for CORS support'
 url='https://github.com/corydolphin/flask-cors'
