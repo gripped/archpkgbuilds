@@ -5,7 +5,7 @@
 
 pkgname=ansible-lint
 pkgver=24.12.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Checks playbooks for practices and behaviour that could potentially be improved."
 arch=('any')
 url="https://github.com/ansible/ansible-lint"
