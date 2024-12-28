@@ -4,7 +4,7 @@
 
 pkgname='python-hkdf'
 pkgver=0.0.3
-pkgrel=12
+pkgrel=14
 pkgdesc="HMAC-based Extract-and-Expand Key Derivation Function"
 arch=('any')
 url="https://github.com/casebeer/python-hkdf"
