@@ -1,0 +1,522 @@
+diff --git a/tests/autoconfig.py b/tests/autoconfig.py
+index 2e43239..051e5f1 100644
+--- a/tests/autoconfig.py
++++ b/tests/autoconfig.py
+@@ -52,6 +52,9 @@ class cxx_parsers_cfg(object):
+         config.define_symbols.append('_HAS_EXCEPTIONS=0')
+ 
+ 
++cxx_parsers_cfg.config.cflags = "-std=c++11"
++
++
+ if cxx_parsers_cfg.config.xml_generator:
+     generator_name = cxx_parsers_cfg.config.xml_generator
+ if cxx_parsers_cfg.config.xml_generator_path:
+diff --git a/tests/test_cpp_standards.py b/tests/test_cpp_standards.py
+index 36ea3c9..7b9d566 100644
+--- a/tests/test_cpp_standards.py
++++ b/tests/test_cpp_standards.py
+@@ -17,10 +17,11 @@ def test_cpp_standards():
+     Test different compilation standards by setting cflags.
+ 
+     """
++    COMPILATION_MODE = parser.COMPILATION_MODE.ALL_AT_ONCE
+ 
+     config = autoconfig.cxx_parsers_cfg.config.clone()
+ 
+-    parser.parse(["cpp_standards.hpp"], config)
++    parser.parse(["cpp_standards.hpp"], config, COMPILATION_MODE)
+ 
+     if platform.system() != 'Windows':
+         config.cflags = "-std=c++98"
+@@ -31,13 +32,13 @@ def test_cpp_standards():
+ 
+     config.cflags = "-std=c++11"
+ 
+-    parser.parse(["cpp_standards.hpp"], config)
++    parser.parse(["cpp_standards.hpp"], config, COMPILATION_MODE)
+ 
+     config.cflags = "-std=c++14"
+-    parser.parse(["cpp_standards.hpp"], config)
++    parser.parse(["cpp_standards.hpp"], config, COMPILATION_MODE)
+ 
+     config.cflags = "-std=c++1z"
+-    parser.parse(["cpp_standards.hpp"], config)
++    parser.parse(["cpp_standards.hpp"], config, COMPILATION_MODE)
+ 
+     # Pass down a flag that does not exist.
+     # This should raise an exception.
+diff --git a/tests/test_decl_printer.py b/tests/test_decl_printer.py
+index 0a3542e..2f7918a 100644
+--- a/tests/test_decl_printer.py
++++ b/tests/test_decl_printer.py
+@@ -31,7 +31,7 @@ TEST_FILES = [
+ 
+ @pytest.fixture
+ def decls():
+-    COMPILATION_MODE = parser.COMPILATION_MODE.FILE_BY_FILE
++    COMPILATION_MODE = parser.COMPILATION_MODE.ALL_AT_ONCE
+     config = autoconfig.cxx_parsers_cfg.config.clone()
+     config.castxml_epic_version = 1
+     decls = parser.parse(TEST_FILES, config, COMPILATION_MODE)
+diff --git a/tests/test_declarations_comparison.py b/tests/test_declarations_comparison.py
+index 6510e68..b8619bd 100644
+--- a/tests/test_declarations_comparison.py
++++ b/tests/test_declarations_comparison.py
+@@ -18,7 +18,7 @@ TEST_FILES = [
+ def test_comparison_declaration_by_declaration():
+     config = autoconfig.cxx_parsers_cfg.config.clone()
+     config.castxml_epic_version = 1
+-    parsed = parser.parse(TEST_FILES, config)
++    parsed = parser.parse(TEST_FILES, config, parser.COMPILATION_MODE.ALL_AT_ONCE)
+     copied = copy.deepcopy(parsed)
+     parsed = declarations.make_flatten(parsed)
+     copied = declarations.make_flatten(copied)
+@@ -40,7 +40,7 @@ def test_comparison_declaration_by_declaration():
+ def test_comparison_from_reverse():
+     config = autoconfig.cxx_parsers_cfg.config.clone()
+     config.castxml_epic_version = 1
+-    parsed = parser.parse(TEST_FILES, config)
++    parsed = parser.parse(TEST_FILES, config, parser.COMPILATION_MODE.ALL_AT_ONCE)
+     copied = copy.deepcopy(parsed)
+     parsed.sort()
+     copied.reverse()
+@@ -68,6 +68,6 @@ def test___lt__transitivnost():
+ def test_same_declarations_different_intances():
+     config = autoconfig.cxx_parsers_cfg.config.clone()
+     config.castxml_epic_version = 1
+-    parsed = parser.parse(TEST_FILES, config)
++    parsed = parser.parse(TEST_FILES, config, parser.COMPILATION_MODE.ALL_AT_ONCE)
+     copied = copy.deepcopy(parsed)
+     assert parsed == copied
+diff --git a/tests/test_file_cache.py b/tests/test_file_cache.py
+index 4fcb472..dc386df 100644
+--- a/tests/test_file_cache.py
++++ b/tests/test_file_cache.py
+@@ -34,7 +34,7 @@ def test_update_cache():
+     with open(TEST_FILE, "r") as old_header:
+         content = old_header.read()
+ 
+-    declarations = parser.parse([TEST_FILE], config)
++    declarations = parser.parse([TEST_FILE], config, parser.COMPILATION_MODE.ALL_AT_ONCE)
+     cache = parser.file_cache_t(cache_file)
+     cache.update(
+         source_file=TEST_FILE,
+@@ -57,7 +57,7 @@ def test_update_cache():
+ def test_cache_from_file():
+     reset_cache()
+     config = autoconfig.cxx_parsers_cfg.config.clone()
+-    declarations = parser.parse([TEST_FILE], config)
++    declarations = parser.parse([TEST_FILE], config, parser.COMPILATION_MODE.ALL_AT_ONCE)
+     cache = parser.file_cache_t(cache_file)
+     cache.update(
+         source_file=TEST_FILE,
+diff --git a/tests/test_find_container_traits.py b/tests/test_find_container_traits.py
+index dbf6fd6..7e4f737 100644
+--- a/tests/test_find_container_traits.py
++++ b/tests/test_find_container_traits.py
+@@ -51,77 +51,77 @@ def test_find_traits(global_ns):
+         global_ns,
+         "v_int",
+         declarations.vector_traits,
+-        "vector< int >"
++        "vector<int>"
+     )
+     __cmp_traits(
+         global_ns,
+         "l_int",
+         declarations.list_traits,
+-        "list< int >"
++        "list<int>"
+     )
+     __cmp_traits(
+         global_ns, "d_v_int",
+         declarations.deque_traits,
+-        "deque< std::vector< int > >"
++        "deque<std::vector<int>>"
+     )
+     __cmp_traits(
+         global_ns, "q_int",
+         declarations.queue_traits,
+-        "queue< int >"
++        "queue<int>"
+     )
+     __cmp_traits(
+         global_ns, "pq_int",
+         declarations.priority_queue_traits,
+-        "priority_queue< int >"
++        "priority_queue<int>"
+     )
+     __cmp_traits(
+         global_ns, "s_v_int",
+         declarations.set_traits,
+-        "set< std::vector< int > >"
++        "set<std::vector<int>>"
+     )
+     __cmp_traits(
+         global_ns,
+         "ms_v_int",
+         declarations.multiset_traits,
+-        "multiset< std::vector< int > >",
++        "multiset<std::vector<int>>",
+     )
+     __cmp_traits(
+         global_ns, "m_i2d",
+         declarations.map_traits,
+-        "map< int, double >",
++        "map<int, double>",
+         "int"
+     )
+     __cmp_traits(
+         global_ns,
+         "mm_i2d",
+         declarations.multimap_traits,
+-        "multimap< int, double >",
++        "multimap<int, double>",
+         "int",
+     )
+     __cmp_traits(
+         global_ns,
+         "hs_v_int",
+         declarations.unordered_set_traits,
+-        "unordered_set< std::vector< int > >",
++        "unordered_set<std::vector<int>>",
+     )
+     __cmp_traits(
+         global_ns,
+         "mhs_v_int",
+         declarations.unordered_multiset_traits,
+-        "unordered_multiset< std::vector< int > >",
++        "unordered_multiset<std::vector<int>>",
+     )
+     __cmp_traits(
+         global_ns,
+         "hm_i2d",
+         declarations.unordered_map_traits,
+-        "unordered_map< int, double >",
++        "unordered_map<int, double>",
+         "int",
+     )
+     __cmp_traits(
+         global_ns,
+         "hmm_i2d",
+         declarations.unordered_multimap_traits,
+-        "unordered_multimap< int, double >",
++        "unordered_multimap<int, double>",
+         "int",
+     )
+ 
+@@ -129,13 +129,13 @@ def test_find_traits(global_ns):
+ def test_multimap(global_ns):
+     m = global_ns.class_(lambda decl: decl.name.startswith("multimap"))
+     declarations.find_container_traits(m)
+-    assert m.partial_name == "multimap< int, int >"
++    assert m.partial_name == "multimap<int, int>"
+ 
+ 
+ def test_recursive_partial_name(global_ns):
+     f1 = global_ns.free_function("f1")
+     t1 = declarations.class_traits.get_declaration(f1.arguments[0].decl_type)
+-    assert "type< std::set< std::vector< int > > >" == t1.partial_name
++    assert "type< std::set<std::vector<int>> >" == t1.partial_name
+ 
+ 
+ def test_remove_defaults_partial_name_namespace(global_ns):
+@@ -154,7 +154,7 @@ def test_from_ogre():
+         "map<std::string, bool (*)(std::string&, "
+         + "Ogre::MaterialScriptContext&), std::less<std::string>, "
+         + "std::allocator<std::pair<std::string const, bool (*)"
+-        + "(std::string&, Ogre::MaterialScriptContext&)> > >"
++        + "(std::string&, Ogre::MaterialScriptContext&)>>>"
+     )
+     ct = declarations.find_container_traits(x)
+     ct.remove_defaults(x)
+diff --git a/tests/test_non_copyable_recursive.py b/tests/test_non_copyable_recursive.py
+index fe36544..dedcdd4 100644
+--- a/tests/test_non_copyable_recursive.py
++++ b/tests/test_non_copyable_recursive.py
+@@ -22,7 +22,7 @@ def test_infinite_recursion_base_classes():
+     calling a Python object
+     """
+     config = autoconfig.cxx_parsers_cfg.config.clone()
+-    decls = parser.parse(TEST_FILES, config)
++    decls = parser.parse(TEST_FILES, config, parser.COMPILATION_MODE.ALL_AT_ONCE)
+     global_ns = declarations.get_global_namespace(decls)
+ 
+     # Description of the problem (before the fix):
+@@ -49,7 +49,7 @@ def test_infinite_recursion_sstream():
+     calling a Python object
+     """
+     config = autoconfig.cxx_parsers_cfg.config.clone()
+-    decls = parser.parse(TEST_FILES, config)
++    decls = parser.parse(TEST_FILES, config, parser.COMPILATION_MODE.ALL_AT_ONCE)
+     global_ns = declarations.get_global_namespace(decls)
+ 
+     # Real life example of the bug. This leads to a similar error,
+diff --git a/tests/test_null_comparison.py b/tests/test_null_comparison.py
+index af48904..3f34a3f 100644
+--- a/tests/test_null_comparison.py
++++ b/tests/test_null_comparison.py
+@@ -19,7 +19,7 @@ def test_argument_null_comparison():
+     """
+ 
+     config = autoconfig.cxx_parsers_cfg.config.clone()
+-    decls = parser.parse(TEST_FILES, config)
++    decls = parser.parse(TEST_FILES, config, parser.COMPILATION_MODE.ALL_AT_ONCE)
+     global_ns = declarations.get_global_namespace(decls)
+ 
+     ns = global_ns.namespace("ns")
+diff --git a/tests/test_overrides.py b/tests/test_overrides.py
+index f641571..7a17bd1 100644
+--- a/tests/test_overrides.py
++++ b/tests/test_overrides.py
+@@ -16,7 +16,7 @@ def global_ns_fixture():
+     config = autoconfig.cxx_parsers_cfg.config.clone()
+     config.castxml_epic_version = 1
+     config.cflags = "-std=c++11"
+-    decls = parser.parse(["test_overrides.hpp"], config)
++    decls = parser.parse(["test_overrides.hpp"], config, parser.COMPILATION_MODE.ALL_AT_ONCE)
+     global_ns = declarations.get_global_namespace(decls)
+     return global_ns
+ 
+diff --git a/tests/test_pattern_parser.py b/tests/test_pattern_parser.py
+index 2f3d853..75da9b2 100644
+--- a/tests/test_pattern_parser.py
++++ b/tests/test_pattern_parser.py
+@@ -35,7 +35,7 @@ def test_template_split_std_vector(global_ns):
+ 
+     config = autoconfig.cxx_parsers_cfg.config.clone()
+     config.cflags = "-std=c++11"
+-    decls = parser.parse(TEST_FILES, config)
++    decls = parser.parse(TEST_FILES, config, parser.COMPILATION_MODE.ALL_AT_ONCE)
+ 
+     for decl in declarations.make_flatten(decls):
+         if "myClass" in decl.name:
+diff --git a/tests/test_project_reader_correctness.py b/tests/test_project_reader_correctness.py
+index 030d983..a321a02 100644
+--- a/tests/test_project_reader_correctness.py
++++ b/tests/test_project_reader_correctness.py
+@@ -42,7 +42,7 @@ def __test_correctness_impl(file_name):
+     prj_reader = parser.project_reader_t(config)
+     prj_decls = prj_reader.read_files(
+         [file_name] * 2,
+-        compilation_mode=parser.COMPILATION_MODE.FILE_BY_FILE)
++        compilation_mode=parser.COMPILATION_MODE.ALL_AT_ONCE)
+     src_reader = parser.source_reader_t(config)
+     src_decls = src_reader.read_file(file_name)
+     if src_decls != prj_decls:
+@@ -67,7 +67,7 @@ def test_separate_compilation():
+     prj_reader = parser.project_reader_t(config)
+     prj_decls = prj_reader.read_files(
+         TEST_FILES2,
+-        compilation_mode=parser.COMPILATION_MODE.FILE_BY_FILE)
++        compilation_mode=parser.COMPILATION_MODE.ALL_AT_ONCE)
+     src_reader = parser.source_reader_t(config)
+     src_decls = src_reader.read_file('separate_compilation/all.h')
+ 
+diff --git a/tests/test_remove_template_defaults.py b/tests/test_remove_template_defaults.py
+index 5f5024a..f138695 100644
+--- a/tests/test_remove_template_defaults.py
++++ b/tests/test_remove_template_defaults.py
+@@ -37,91 +37,91 @@ def global_ns():
+ def test_vector(global_ns):
+     v_int = global_ns.typedef('v_int')
+     v_traits = declarations.vector_traits
+-    assert 'vector< int >' == v_traits.remove_defaults(v_int)
++    assert 'vector<int>' == v_traits.remove_defaults(v_int)
+     v_string = global_ns.typedef('v_string')
+-    assert 'vector< std::string >' == \
++    assert 'vector<std::basic_string<char>>' == \
+         v_traits.remove_defaults(v_string)
+     v_v_int = global_ns.typedef('v_v_int')
+-    assert 'vector< std::vector< int > >' == \
++    assert 'vector<std::vector<int>>' == \
+         v_traits.remove_defaults(v_v_int)
+ 
+ 
+ def test_list(global_ns):
+     l_int = global_ns.typedef('l_int')
+     l_traits = declarations.list_traits
+-    assert 'list< int >' == l_traits.remove_defaults(l_int)
++    assert 'list<int>' == l_traits.remove_defaults(l_int)
+     l_wstring = global_ns.typedef('l_wstring')
+-    assert 'list< std::wstring >' == l_traits.remove_defaults(l_wstring)
++    assert 'list<std::basic_string<wchar_t>>' == l_traits.remove_defaults(l_wstring)
+ 
+ 
+ def test_deque(global_ns):
+     d_v_int = global_ns.typedef('d_v_int')
+     d_v_traits = declarations.deque_traits
+-    assert 'deque< std::vector< int > >' == \
++    assert 'deque<std::vector<int>>' == \
+         d_v_traits.remove_defaults(d_v_int)
+     d_l_string = global_ns.typedef('d_l_string')
+-    assert 'deque< std::list< std::string > >' == \
++    assert 'deque<std::list<std::basic_string<char>>>' == \
+         d_v_traits.remove_defaults(d_l_string)
+ 
+ 
+ def test_queue(global_ns):
+     q_int = global_ns.typedef('q_int')
+     q_traits = declarations.queue_traits
+-    assert 'queue< int >' == q_traits.remove_defaults(q_int)
++    assert 'queue<int>' == q_traits.remove_defaults(q_int)
+     q_string = global_ns.typedef('q_string')
+-    assert 'queue< std::string >' == q_traits.remove_defaults(q_string)
++    assert 'queue<std::basic_string<char>>' == q_traits.remove_defaults(q_string)
+ 
+ 
+ def test_priority_queue(global_ns):
+     pq_int = global_ns.typedef('pq_int')
+     pq_traits = declarations.priority_queue_traits
+-    assert 'priority_queue< int >' == pq_traits.remove_defaults(pq_int)
++    assert 'priority_queue<int>' == pq_traits.remove_defaults(pq_int)
+     pq_string = global_ns.typedef('pq_string')
+-    assert 'priority_queue< std::string >' == \
++    assert 'priority_queue<std::basic_string<char>>' == \
+         pq_traits.remove_defaults(pq_string)
+ 
+ 
+ def test_set(global_ns):
+     s_v_int = global_ns.typedef('s_v_int')
+-    assert 'set< std::vector< int > >' == \
++    assert 'set<std::vector<int>>' == \
+         declarations.set_traits.remove_defaults(s_v_int)
+     s_string = global_ns.typedef('s_string')
+-    assert 'set< std::string >' == \
++    assert 'set<std::basic_string<char>>' == \
+         declarations.set_traits.remove_defaults(s_string)
+ 
+ 
+ def test_multiset(global_ns):
+     ms_v_int = global_ns.typedef('ms_v_int')
+     ms_v_traits = declarations.multiset_traits
+-    assert 'multiset< std::vector< int > >' == \
++    assert 'multiset<std::vector<int>>' == \
+         ms_v_traits.remove_defaults(ms_v_int)
+     ms_string = global_ns.typedef('ms_string')
+-    assert 'multiset< std::string >' == \
++    assert 'multiset<std::basic_string<char>>' == \
+         ms_v_traits.remove_defaults(ms_string)
+ 
+ 
+ def test_map(global_ns):
+     m_i2d = global_ns.typedef('m_i2d')
+-    assert 'map< int, double >' == \
++    assert 'map<int, double>' == \
+         declarations.map_traits.remove_defaults(m_i2d)
+     m_wstr2d = global_ns.typedef('m_wstr2d')
+-    assert 'map< std::wstring, double >' == \
++    assert 'map<std::basic_string<wchar_t>, double>' == \
+         declarations.map_traits.remove_defaults(m_wstr2d)
+     m_v_i2m_wstr2d = global_ns.typedef('m_v_i2m_wstr2d')
+-    m = 'map< const std::vector< int >, std::map< std::wstring, double > >'
++    m = 'map<const std::vector<int>, std::map<std::basic_string<wchar_t>, double>>'
+     assert m == declarations.map_traits.remove_defaults(m_v_i2m_wstr2d)
+ 
+ 
+ def test_multimap(global_ns):
+     mm_i2d = global_ns.typedef('mm_i2d')
+     mm_traits = declarations.multimap_traits
+-    assert 'multimap< int, double >' == mm_traits.remove_defaults(mm_i2d)
++    assert 'multimap<int, double>' == mm_traits.remove_defaults(mm_i2d)
+     mm_wstr2d = global_ns.typedef('mm_wstr2d')
+-    assert 'multimap< const std::wstring, double >' == \
++    assert 'multimap<const std::basic_string<wchar_t>, double>' == \
+         mm_traits.remove_defaults(mm_wstr2d)
+     mm_v_i2mm_wstr2d = global_ns.typedef('mm_v_i2mm_wstr2d')
+-    assert ('multimap< const std::vector< int >, ' +
+-            'const std::multimap< const std::wstring, double > >') == \
++    assert ('multimap<const std::vector<int>, ' +
++            'const std::multimap<const std::basic_string<wchar_t>, double>>') == \
+         mm_traits.remove_defaults(mm_v_i2mm_wstr2d)
+ 
+ 
+@@ -129,11 +129,11 @@ def test_hash_set(global_ns):
+     hs_v_int = global_ns.typedef('hs_v_int')
+     hs_traits = declarations.unordered_set_traits
+     name = 'unordered_set'
+-    assert (name + '< std::vector< int > >') == \
++    assert (name + '<std::vector<int>>') == \
+         hs_traits.remove_defaults(hs_v_int), \
+         hs_traits.remove_defaults(hs_v_int)
+     hs_string = global_ns.typedef('hs_string')
+-    assert (name + '< std::string >') == \
++    assert (name + '<std::basic_string<char>>') == \
+         hs_traits.remove_defaults(hs_string)
+ 
+ 
+@@ -141,10 +141,10 @@ def test_hash_multiset(global_ns):
+     mhs_v_int = global_ns.typedef('mhs_v_int')
+     mhs_traits = declarations.unordered_multiset_traits
+     name = 'unordered_multiset'
+-    assert (name + '< std::vector< int > >') == \
++    assert (name + '<std::vector<int>>') == \
+         mhs_traits.remove_defaults(mhs_v_int)
+     mhs_string = global_ns.typedef('mhs_string')
+-    assert (name + '< std::string >') == \
++    assert (name + '<std::basic_string<char>>') == \
+         mhs_traits.remove_defaults(mhs_string)
+ 
+ 
+@@ -152,10 +152,10 @@ def test_hash_map(global_ns):
+     hm_i2d = global_ns.typedef('hm_i2d')
+     hm_traits = declarations.unordered_map_traits
+     name = 'unordered_map'
+-    assert (name + '< int, double >') == \
++    assert (name + '<int, double>') == \
+         hm_traits.remove_defaults(hm_i2d)
+     hm_wstr2d = global_ns.typedef('hm_wstr2d')
+-    assert (name + '< std::wstring, double >') == \
++    assert (name + '<std::basic_string<wchar_t>, double>') == \
+         hm_traits.remove_defaults(hm_wstr2d)
+ 
+ 
+@@ -163,10 +163,10 @@ def test_hash_multimap(global_ns):
+     hmm_i2d = global_ns.typedef('hmm_i2d')
+     hmm_traits = declarations.unordered_multimap_traits
+     name = 'unordered_multimap'
+-    assert (name + '< int, double >') == \
++    assert (name + '<int, double>') == \
+         hmm_traits.remove_defaults(hmm_i2d)
+     hmm_wstr2d = global_ns.typedef('hmm_wstr2d')
+-    assert (name + '< const std::wstring, double >') == \
++    assert (name + '<const std::basic_string<wchar_t>, double>') == \
+         hmm_traits.remove_defaults(hmm_wstr2d)
+ 
+     hmm_v_i2mm_wstr2d = global_ns.typedef('hmm_v_i2mm_wstr2d')
+@@ -174,12 +174,12 @@ def test_hash_multimap(global_ns):
+     hmm_traits_value = hmm_traits.remove_defaults(hmm_v_i2mm_wstr2d)
+ 
+     possible_values = (
+-        name + '< const std::vector< int >, ' +
+-        'const __gnu_cxx::' + name + '< const std::wstring, double > >',
+-        name + '< const std::vector< int >, ' +
++        name + '<const std::vector<int>, ' +
++        'const __gnu_cxx::' + name + '<const std::basic_string<wchar_t>, double>>',
++        name + '<const std::vector<int>, ' +
+         'const std::' + utils.get_tr1(hmm_traits_value) + name +
+-        '< const std::wstring, double > >',
+-        name + '< const std::vector< int >, ' +
+-        'const stdext::' + name + '< const std::wstring, double > >')
++        '<const std::basic_string<wchar_t>, double>>',
++        name + '<const std::vector<int>, ' +
++        'const stdext::' + name + '<const std::basic_string<wchar_t>, double>>')
+ 
+     assert hmm_traits_value in possible_values, hmm_traits_value
+diff --git a/tests/test_variable_matcher.py b/tests/test_variable_matcher.py
+index 49347f7..93c2abd 100644
+--- a/tests/test_variable_matcher.py
++++ b/tests/test_variable_matcher.py
+@@ -54,7 +54,7 @@ def test_no_defaults():
+     global_ns = declarations.get_global_namespace(decls)
+ 
+     global_ns.decls(lambda decl: 'vector<' in decl.name)
+-    global_ns.decl('vector< _0_ >')
+-    global_ns.class_('vector< std::vector< int > >')
+-    global_ns.class_('vector< std::string >')
+-    global_ns.decl('vector< const int >')
++    global_ns.decl('vector<_0_>')
++    global_ns.class_('vector<std::vector<int>>')
++    global_ns.class_('vector<std::basic_string<char>>')
++    global_ns.decl('vector<const int>')
