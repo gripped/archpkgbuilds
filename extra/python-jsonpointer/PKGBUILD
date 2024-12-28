@@ -4,7 +4,7 @@
 
 pkgname=python-jsonpointer
 pkgver=3.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Identify specific nodes in a JSON document (RFC 6901)'
 arch=('any')
 url='https://python-json-pointer.readthedocs.org/'
