@@ -1,21 +1,43 @@
-# Maintainer: Eric Belanger <eric@archlinux.org>
+# Contributor: Eric Belanger <eric@archlinux.org>
 # Contributor: Kritoke <typeolinux@yahoo.com>
 
 pkgname=gnumeric
 pkgver=1.12.57
-pkgrel=4
-pkgdesc="A GNOME Spreadsheet Program"
+pkgrel=6
+pkgdesc="Spreadsheet application for GNOME"
 arch=('x86_64')
 url="http://www.gnumeric.org/"
 license=('GPL')
-depends=('goffice')
-makedepends=('intltool' 'psiconv' 'pygobject-devel' docbook-xml
-             'gobject-introspection' 'python-gobject' gtk-doc yelp-tools
-             python-setuptools glib2-devel)
-optdepends=('python-gobject: for python plugin support'
-            'perl: for perl plugin support'
-            'psiconv: for Psion 5 file support'
-            'yelp: for viewing the help manual')
+depends=(
+  at-spi2-core
+  cairo
+  dconf
+  gdk-pixbuf2
+  glib2
+  glibc
+  goffice
+  gtk3
+  hicolor-icon-theme
+  libgsf
+  libxml2
+  pango
+  zlib
+)
+makedepends=(
+  docbook-xml
+  glib2-devel
+  gobject-introspection
+  gtk-doc
+  intltool
+  python-gobject
+  python-setuptools
+  yelp-tools
+)
+optdepends=(
+  'perl: for perl plugin support'
+  'python-gobject: for python plugin support'
+  'yelp: for viewing the help manual'
+)
 source=(https://download.gnome.org/sources/gnumeric/1.12/gnumeric-$pkgver.tar.xz
         revert-warnings.patch)
 sha256sums=('aff50b1b62340c24fccf453d5fad3e7fb73f4bc4b34f7e34b6c3d2d9af6a1e4f'
