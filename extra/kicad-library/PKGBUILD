@@ -5,24 +5,28 @@
 
 pkgbase=kicad-library
 pkgname=($pkgbase{,-3d})
-pkgver=8.0.6
+pkgver=8.0.7
 pkgrel=1
 pkgdesc='Assorted libraries for KiCad'
 arch=('any')
 url='http://kicad.org/'
 license=('CC-BY-SA-4.0')
 makedepends=('git' 'cmake')
-options=('!strip')
+options=('!strip' '!debug')
 source=(
   "git+https://gitlab.com/kicad/libraries/kicad-packages3D.git#tag=$pkgver"
   "git+https://gitlab.com/kicad/libraries/kicad-symbols.git#tag=$pkgver"
   "git+https://gitlab.com/kicad/libraries/kicad-templates.git#tag=$pkgver"
   "git+https://gitlab.com/kicad/libraries/kicad-footprints.git#tag=$pkgver"
 )
-sha512sums=('2f8d3e0bfb3a8aa9a9feb6658c2ed7723a33b9af3eda5825c08266076d100c326aa56c36fdf02d29d8a4471b9fc4678ce9d419101437716f73d79a899725ec31'
-            '151da5cdf0088ff0c1ee961b320a8019a326ee3360e7e601696aa4e4cc7451f19bb0f804fb2b83d78fdb65f85acada4575487c226792b746eb6f69c3f92626e6'
+sha512sums=('d8c26d388aaa44990e7651e9495d9f056f60f150a47cc1c6228096d68a4656188526d32c01bc10f3cb5196648c7f63bc8daedc3eadd06e8a6cb80f1564eb29ee'
+            '776f0101d280b9cb9acbfa0c06da63308614bce22d413a619bd8912020766bdfe400bfec1c5d4a6b36ae806e39d5dbdba1c395c5021f71586f433fc193c346e0'
             '12e432100b9962e7f7f6c3f122bc8f956f831cc8ccacf793f070fe46bca94cf20968e201e9feeff16a10d9a430f3244535d82a6787cc105658e9ae992c692a96'
-            'a201b60d1260a51e1154a461d398bffac6d15ea3878f67e227cbe50c6ae898efb5a715222ca4b817e51c72ec29002b4e4f116d72932bbe2ee73fbc889a8a392d')
+            '1ebff872c8e313c752fc6594b3e57ca31d28a8db44a4eff2bdd79374ff41700b5d69f485c52e69d3c0be26baa4b0466a04377cb0931338d6c7953113b9fb7012')
+b2sums=('70c491093b1706eecde8e4bd231c83184c59a294ea9d309b06f4278761a906d049bf8f2017e9622e5287e3349101e2473a5b38b99bdb6de927865d099b8e2dbc'
+        '3bfa48a26ba9a987f72c7f7851d0e72e92ed1efa8c67c40a6105e16b2ef735e0a811e8360f692c2be65256d369e8fec8360a246f00d7bb120edc22ed91551b4f'
+        '2329e15fec77c4d310e6cbe5d4c114e5044b87883593cb9b7c7d094beb72feb62f91075deb6d76d43c71a71b5aea16edf4779f67331e13a45d5ba3e5b504cb4c'
+        '18433df54cd2e5db7ccc8a55edd7f9af49e1eab02feaab310b675077c8bae8c7a738e8decfbd513bf35aaccbb1436a873741865eb8800c6f9cff16fd05355b22')
 
 build() {
   for package in symbols footprints packages3D templates; do
