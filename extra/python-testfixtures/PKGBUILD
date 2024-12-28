@@ -2,7 +2,7 @@
 
 pkgname=python-testfixtures
 pkgver=8.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A collection of helpers and mock objects that are useful when writing unit tests or doc tests"
 arch=('any')
 license=('MIT')
