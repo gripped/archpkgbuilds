@@ -3,7 +3,7 @@
 # Contributor: Sebastien Binet <binet@lblbox>
 
 pkgname=python-numexpr
-pkgver=2.10.1
+pkgver=2.10.2
 pkgrel=1
 pkgdesc="Fast numerical array expression evaluator for Python, NumPy, PyTables, pandas"
 url="https://github.com/pydata/numexpr"
@@ -17,7 +17,7 @@ makedepends=(
     python-wheel
 )
 source=(https://github.com/pydata/numexpr/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('e499bd19a7fd9803d5ec1b2cff2e0a11a2f01a109d5326e5a09eff590448c793')
+sha256sums=('7e61a8aa4dacb15787b31c31bd7edf90c026d5e6dbe727844c238726e8464592')
 
 prepare() {
   sed -i 's/, "oldest-supported-numpy"//' numexpr-$pkgver/pyproject.toml
