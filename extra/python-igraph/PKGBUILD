@@ -4,7 +4,7 @@
 _pyname=igraph
 pkgname=python-$_pyname
 pkgver=0.11.8
-pkgrel=1
+pkgrel=2
 url='https://igraph.org/python/'
 license=(GPL-2.0-or-later)
 arch=(x86_64)
@@ -25,7 +25,7 @@ sha256sums=('de5c02c3330edec9aae514eea143df1ba5ebd5188c9a4a284cab4b33a1248221')
 build() {
   cd $pkgname
   IGRAPH_USE_PKG_CONFIG=1 \
-  python -m build --wheel --no-isolation
+  python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
