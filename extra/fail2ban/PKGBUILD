@@ -7,7 +7,7 @@
 
 pkgname=fail2ban
 pkgver=1.1.0
-pkgrel=6
+pkgrel=7
 pkgdesc='Bans IPs after too many failed authentication attempts'
 arch=('any')
 url='https://www.fail2ban.org/'
