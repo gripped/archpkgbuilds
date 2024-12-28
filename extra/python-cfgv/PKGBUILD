@@ -3,7 +3,7 @@
 _name=cfgv
 pkgname=python-cfgv
 pkgver=3.4.0
-pkgrel=2
+pkgrel=6
 pkgdesc="Validate configuration and produce human readable error messages"
 arch=(any)
 url="https://github.com/asottile/cfgv"
