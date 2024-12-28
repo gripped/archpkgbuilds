@@ -2,7 +2,7 @@
 
 pkgname=python-betamax-matchers
 pkgver=0.4.0
-pkgrel=11
+pkgrel=12
 pkgdesc="Experimental set of Matchers for Betamax that may possibly end up in the main package"
 arch=('any')
 license=('Apache-2.0')
