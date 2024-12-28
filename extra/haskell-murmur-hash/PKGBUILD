@@ -3,8 +3,8 @@
 
 _hkgname=murmur-hash
 pkgname=haskell-murmur-hash
-pkgver=0.1.0.10
-pkgrel=3
+pkgver=0.1.0.11
+pkgrel=1
 pkgdesc="MurmurHash2 implementation for Haskell."
 url="https://github.com/nominolo/murmur-hash"
 license=('BSD')
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('d6d28fcd738de98ce4fb6c7e997b32bb15eef9efe53642cefffd2cfeccd1b56f634adbcadeec9fb94c69d1df9e675f7daf368c62806ef819dc242df947ddf70b')
+sha512sums=('9ff9ac2c749cc590bcb195f873d6319abaaea1e728423b95fa281a9b21da6a1257e08b485915bb59d540e8fab2ad8bdcfe924eea4e93ae3d75dc9ac3bba7aba0')
 
 build() {
     cd $_hkgname-$pkgver
