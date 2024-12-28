@@ -1,0 +1,25 @@
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
+# Contributor: Lex Black <autumn-wind@web.de>
+
+pkgname=libsfdo
+pkgver=0.1.3
+pkgrel=2
+pkgdesc='collection of libraries which implement some of the freedesktop.org specifications'
+url="https://gitlab.freedesktop.org/vyivel/libsfdo"
+arch=('x86_64')
+license=('BSD-2-Clause')
+depends=('glibc')
+makedepends=('meson' 'git')
+source=("git+https://gitlab.freedesktop.org/vyivel/libsfdo#tag=v${pkgver}")
+b2sums=('6944af537299654b309fa0d625b2ccf4fdc11d5e5593b90379dcb0c6b73cca8a7b0bbc304731ca4722f85e702aee4f454f3b1217782e41c58afd13c7e47a4a24')
+
+
+build() {
+  arch-meson "$pkgname" build
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" "$srcdir"/$pkgname/LICENSE
+}
