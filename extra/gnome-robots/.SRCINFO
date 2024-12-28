@@ -1,23 +1,29 @@
 pkgbase = gnome-robots
 	pkgdesc = Avoid the robots and make them crash into each other
-	pkgver = 40.0
-	pkgrel = 2
+	pkgver = 41.1
+	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Robots
 	arch = x86_64
-	groups = gnome-extra
-	license = GPL
-	makedepends = meson
-	makedepends = gobject-introspection
-	makedepends = yelp-tools
-	makedepends = appstream-glib
+	license = GPL-3.0-or-later
+	makedepends = appstream
 	makedepends = git
-	makedepends = vala
-	depends = gtk3
-	depends = gsound
-	depends = librsvg
-	depends = libgnome-games-support
-	depends = libgee
-	source = git+https://gitlab.gnome.org/GNOME/gnome-robots.git#commit=6c9525c31e4ee08f2cb4e21d9d9de41850084fb4
-	sha256sums = SKIP
+	makedepends = librsvg
+	makedepends = meson
+	makedepends = rust
+	makedepends = yelp-tools
+	depends = cairo
+	depends = dconf
+	depends = gcc-libs
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
+	depends = graphene
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita
+	depends = libxml2
+	depends = pango
+	source = git+https://gitlab.gnome.org/GNOME/gnome-robots.git#tag=41.1
+	b2sums = a49885c2112433628351b3b26a9d2e98f260ce84d20f5fc4f7fae4296004d128a8e13a9469811f933d0e02164c3369fb6343262d167034190cc11fb049db2c6a
 
 pkgname = gnome-robots

@@ -2,30 +2,57 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-robots
-pkgver=40.0
-pkgrel=2
+pkgver=41.1
+pkgrel=1
 pkgdesc="Avoid the robots and make them crash into each other"
 url="https://wiki.gnome.org/Apps/Robots"
 arch=(x86_64)
-license=(GPL)
-depends=(gtk3 gsound librsvg libgnome-games-support libgee)
-makedepends=(meson gobject-introspection yelp-tools appstream-glib git vala)
-groups=(gnome-extra)
-_commit=6c9525c31e4ee08f2cb4e21d9d9de41850084fb4  # tags/40.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-robots.git#commit=$_commit")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/-/+/g'
-}
+license=(GPL-3.0-or-later)
+depends=(
+  cairo
+  dconf
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  graphene
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libxml2
+  pango
+)
+makedepends=(
+  appstream
+  git
+  librsvg
+  meson
+  rust
+  yelp-tools
+)
+source=("git+https://gitlab.gnome.org/GNOME/gnome-robots.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('a49885c2112433628351b3b26a9d2e98f260ce84d20f5fc4f7fae4296004d128a8e13a9469811f933d0e02164c3369fb6343262d167034190cc11fb049db2c6a')
 
 prepare() {
   cd $pkgname
+
+  # Match CARGO_HOME in src/meson.build
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
-  arch-meson $pkgname build
+  local meson_options=(
+    -D profile=release
+  )
+
+  # Use debug
+  export CARGO_PROFILE_RELEASE_DEBUG=2
+
+  # Use LTO
+  export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
+  arch-meson $pkgname build "${meson_options[@]}"
   meson compile -C build
 }
 
@@ -34,5 +61,7 @@ check() {
 }
 
 package() {
-  DESTDIR="$pkgdir" meson install -C build
+  meson install -C build --destdir "$pkgdir"
 }
+
+# vim:set sw=2 sts=-1 et:
