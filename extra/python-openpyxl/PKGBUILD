@@ -7,7 +7,7 @@
 pkgname=python-openpyxl
 _pkgname="${pkgname#python-}"
 pkgver=3.1.5
-pkgrel=1
+pkgrel=2
 pkgdesc='A Python library to read/write Excel 2010 xlsx/xlsm/xltx/xltm files'
 arch=('any')
 url='https://openpyxl.readthedocs.org'
