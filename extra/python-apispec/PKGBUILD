@@ -2,7 +2,7 @@
 
 pkgname=python-apispec
 pkgver=6.0.2
-pkgrel=4
+pkgrel=5
 pkgdesc="A pluggable API specification generator. Currently supports the OpenAPI Specification."
 url="https://github.com/marshmallow-code/apispec"
 license=('MIT')
