@@ -1,66 +1,89 @@
 # Maintainer: Konstantin Gizdov < arch at kge dot pw >
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 # Contributor: Jan Kašpar < jan.kaspar at gmail dot com >
 # Contributor: Alex Pearce < alex at alexpearce dot me >
+
 pkgname=xrootd
 pkgdesc="Software framework for fast, low latency, scalable and fault tolerant data access."
-pkgver=5.6.4
-pkgrel=2
-arch=('x86_64')
+pkgver=5.7.2
+pkgrel=1
+arch=(x86_64)
 url="https://xrootd.slac.stanford.edu/"
-license=('LGPL-3.0-or-later')
-depends=('curl' 'fuse2' 'json-c' 'libxml2' 'openssl' 'perl' 'python' 'systemd'
-         'python-setuptools' 'tinyxml' 'davix')
-makedepends=('cmake' 'git' 'python-pip')
-checkdepends=('cppunit')
-_commit=730df73734e3d3f6fd09714c0b4812f0efb67bd6  # v5.6.4
-source=("${pkgname}-${pkgver}::git+https://github.com/${pkgname}/${pkgname}.git#commit=$_commit")
-sha256sums=('SKIP')
-
-get_pyver () {
-    python -c 'import sys; print(str(sys.version_info[0]) + "." + str(sys.version_info[1]))'
-}
+license=(LGPL-3.0-or-later)
+depends=(
+  bash
+  curl
+  davix
+  e2fsprogs libcom_err.so
+  fuse2
+  gcc-libs
+  glibc
+  krb5 libkrb5.so
+  libxcrypt libcrypt.so
+  libxml2 libxml2.so
+  openssl libssl.so libcrypto.so
+  perl
+  python
+  readline libreadline.so
+  systemd-libs libsystemd.so
+  tinyxml
+  util-linux-libs libuuid.so
+  zlib libz.so
+)
+makedepends=(
+  cmake
+  git
+  gtest
+  ninja
+  python-pip
+  python-setuptools
+  yasm
+)
+checkdepends=(
+  procps-ng  # some tests use ps
+)
+source=("$pkgname::git+https://github.com/$pkgname/$pkgname.git#tag=v$pkgver")
+b2sums=('f5bcee8c9d592a1e961bca7b31b613e060585e7d514dce8f427c96e6ffb40a62454226326be898c666bcef6b427a0e7d0db20f37339c12e617307d7233764c24')
 
 build() {
-    local cmake_args=(
-        -Wno-dev
-        -S "${pkgbase}-${pkgver}"
-        -B build
-        -D CMAKE_INSTALL_PREFIX=/usr
-        -D CMAKE_BUILD_TYPE=Release
-        -D CMAKE_INSTALL_LIBDIR=lib
-        -D CMAKE_CXX_STANDARD="17"
-        -D WITH_OPENSSL3=TRUE
-        -D ENABLE_TESTS=OFF
-        -DXRD_PYTHON_REQ_VERSION="$(get_pyver)"
-    )
-    cmake "${cmake_args[@]}"
-    cmake --build build
+  local cmake_options=(
+    -B build
+    -S $pkgname
+    -G Ninja
+    -W no-dev
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_INSTALL_LIBDIR=lib
+    # fail CMake configuration if enabled components cannot be built
+    -D FORCE_ENABLED=ON
+    -D ENABLE_TESTS=ON
+    # disable plugins that have unpackaged dependencies
+    -D ENABLE_MACAROONS=OFF
+    -D ENABLE_SCITOKENS=OFF
+    -D ENABLE_VOMS=OFF
+    -D USE_SYSTEM_ISAL=OFF
+  )
+  cmake "${cmake_options[@]}"
+  cmake --build build
 }
 
-# check() {
-    # cd "${srcdir}/build/tests"
-
-    # Check has significantly changed, to-be-updated
-    # ./common/text-runner ./XrdCephTests/libXrdCephTests.so "All Tests"
-
-    ##
-    # This requires a running XRootD server with multiIP DNS forwarder and local disk servers
-    # only run this if you have configured the env correctly,
-    # examples in https://github.com/xrootd/xrootd-test-suite
-    # sample environment can be configured like so:
-    # export XRDTEST_MAINSERVERURL=metaman.xrd.test
-    # or export XRDTEST_MAINSERVERURL=http://xrootd.cern.ch/
-    # export XRDTEST_DISKSERVERURL=srv1.xrd.test
-    # or export XRDTEST_DISKSERVERURL=http://xrootd.cern.ch/
-    # export XRDTEST_DATAPATH=/tests/test-files/
-    # export XRDTEST_LOCALFILE=/data/a048e67f-4397-4bb8-85eb-8d7e40d90763.dat
-    # or export XRDTEST_LOCALFILE=/tmp/accwe.root
-    # export XRDTEST_REMOTEFILE=${XRDTEST_MAINSERVERURL}${XRDTEST_DATAPATH}/a048e67f-4397-4bb8-85eb-8d7e40d90763.dat
-    # or export XRDTEST_MULTIIPSERVERURL=multiip.xrd.test
-    # ./common/text-runner ./XrdClTests/libXrdClTests.so "All Tests"
-# }
+check() {
+  local excluded_tests=""
+  local ctest_flags=(
+    --test-dir build
+    # show the stdout and stderr when the test fails
+    --output-on-failure
+    # execute tests in parallel
+    --parallel $(nproc)
+    # exclude problematic tests
+    --exclude-regex "$excluded_tests"
+  )
+  ctest "${ctest_flags[@]}"
+}
 
 package() {
-    DESTDIR="${pkgdir}" cmake --install build
-    install -Dm644 "${pkgbase}-${pkgver}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgbase}/LICENSE"
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm 644 $pkgname/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
+
+# vim: ts=2 sw=2 et:
