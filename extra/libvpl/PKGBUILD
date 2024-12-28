@@ -1,7 +1,7 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=libvpl
-pkgver=2.13.0
+pkgver=2.14.0
 pkgrel=1
 pkgdesc='Intel Video Processing Library'
 arch=('x86_64')
@@ -16,7 +16,7 @@ conflicts=('onevpl')
 replaces=('onevpl')
 options=('!emptydirs')
 source=("https://github.com/intel/libvpl/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('1c740e2b58f7853f56b618bdb7d4a7e5d37f8c1a9b30105a0b79ba80873e1cbd')
+sha256sums=('7c6bff1c1708d910032c2e6c44998ffff3f5fdbf06b00972bc48bf2dd9e5ac06')
 
 build() {
     # fix warning: "_FORTIFY_SOURCE" redefined
