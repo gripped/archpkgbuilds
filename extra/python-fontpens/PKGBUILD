@@ -1,15 +1,10 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
-# Upstream test suite has a circular dependency (it uses fontparts which in
-# turn depends on this library) and thus cannot be run by default without
-# blocking installation until first building without tests.
-BUILDENV+=(!check)
-
 _pyname=fontPens
 pkgname=python-${_pyname,,}
 pkgver=0.2.4
-pkgrel=8
+pkgrel=9
 pkgdesc='A collection of classes implementing the pen protocol for manipulating glyphs'
 arch=(any)
 url="https://github.com/robotools/$_pyname"
@@ -30,7 +25,10 @@ build() {
 
 check() {
 	cd "$_archive"
-	PYTHONPATH=Lib pytest Lib
+	# Upstream test suite has a circular dependency (it uses fontparts which in
+	# turn depends on this library) and thus cannot be run by default without
+	# blocking installation until first building without tests.
+	# TODO: use a venv instead for testing
 }
 
 package() {
