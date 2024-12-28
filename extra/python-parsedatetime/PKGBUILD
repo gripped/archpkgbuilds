@@ -7,7 +7,7 @@
 
 pkgname=python-parsedatetime
 pkgver=2.6
-pkgrel=9
+pkgrel=10
 pkgdesc="Parse human-readable date/time strings."
 arch=('any')
 license=('Apache-2.0')
