@@ -4,8 +4,8 @@
 
 _name=pycuda
 pkgname=python-pycuda
-pkgver=2024.1
-pkgrel=4
+pkgver=2024.1.2
+pkgrel=1
 pkgdesc="Python wrapper for Nvidia CUDA"
 arch=(x86_64)
 url="https://documen.tician.de/pycuda/"
@@ -39,11 +39,11 @@ provides=(pycuda-headers)
 conflicts=(pycuda-headers)
 replaces=(pycuda-headers)
 source=($_name-$pkgver.tar.gz::https://github.com/inducer/pycuda/archive/refs/tags/v$pkgver.tar.gz
-        numpy-2.0.patch)
-sha512sums=('d6905a20a00be446992eb40842c1e8c498ef97f56bb93c5796062c0ccbd312bad054048fff1f914cca69d5b648529a944e58c9153dfe8261d1eec450ccd4cb83'
-            'a15562f161fa7f424dfa1ed096a40ed734c49a6fe45d3261974bd544edad405f14c292a50a965a309ac5c745a803cd4cf64c664faf36b35976d3eddafe0ca187')
-b2sums=('a0a41e11d2e40e89e9440140f0f1bc4d484566e087e11af9da8f816c1c30df88dc4ed4dc5cb7266f905bbf95ee0069646e1c4f2dd91dc377730164459275d0ce'
-        '7567e1db7c764eaacc351d0d8e73c8f34a07bb357b79dfe4668258a9b53012cb1bf8ee1bbd0a7ab9ca3d926dad9fce1fff032085e449251fa0d6e6dd5c2123c7')
+        python3.13.patch)
+sha512sums=('42ab9355ab13b7a955c957728edf9b67ca376b2e45a98662ba49732a364af6661740d2b1c56abf1cd6715ac089877a861944cbb472055a7b881bbc86ec8b8ced'
+            'e2553877a780c825ab7ab9b2378f816ded7eb587fcfdfc8a6235a882cfeeb2b5a9cf2a3ed1775209ec97f42d0a5a4c0ff04f086b01d157e3cfd80fa9ff7dca78')
+b2sums=('173e4f08b475c4fcdad7982b9f826a19b478ec688c62ed4fc4ee135eddb6ebe474bd44f9aee0308a13d6895eb6bd4e5806cbd2fba08131a1640dab6d3da1500c'
+        '69c00ae3c5eb8598d67600e3c8f81ef80f2616dd7c15c22ae5391405fbb0c9f15b4d804ab8ca3b0f409a2acfe79c89420b75c8875a24a17ff490786a64808338')
 
 prepare() {
   local lib_arch=''
@@ -62,7 +62,9 @@ prepare() {
 
   # fix build with numpy 2.0
   sed -e 's|\"core\"|\"_core\"|' -i $_name-$pkgver/aksetup_helper.py
-  patch -d $_name-$pkgver -p1 < numpy-2.0.patch
+  cd $_name-$pkgver
+  # fix build against new Python 3.13 C API
+  patch -Np1 -i ../python3.13.patch
 }
 
 build() {
