@@ -4,7 +4,7 @@
 
 pkgname=python-factory-boy
 pkgver=3.3.0
-pkgrel=5
+pkgrel=6
 pkgdesc="A versatile test fixtures replacement based on thoughtbot's factory_bot for Ruby"
 url="https://github.com/FactoryBoy/factory_boy"
 license=('MIT')
