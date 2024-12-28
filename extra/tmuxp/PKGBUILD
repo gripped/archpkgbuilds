@@ -2,7 +2,7 @@
 
 pkgname=tmuxp
 pkgver=1.47.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Tmux session manager built on libtmux"
 arch=(any)
 url="https://tmuxp.git-pull.com/en/latest/"
