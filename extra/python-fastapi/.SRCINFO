@@ -1,8 +1,8 @@
 pkgbase = python-fastapi
 	pkgdesc = FastAPI framework, high performance, easy to learn, fast to code, ready for production
 	pkgver = 0.115.6
-	pkgrel = 2
-	url = https://github.com/tiangolo/fastapi
+	pkgrel = 5
+	url = https://github.com/fastapi/fastapi
 	arch = any
 	license = MIT
 	checkdepends = python-aiosqlite
@@ -51,8 +51,11 @@ pkgbase = python-fastapi
 	optdepends = python-httpx: for TestClient support
 	optdepends = python-ujson: for faster JSON parsing and UJSONResponse
 	optdepends = uvicorn: for Uvicorn as ASGI server
-	source = fastapi-0.115.6.tar.gz::https://github.com/tiangolo/fastapi/archive/0.115.6.tar.gz
+	source = fastapi-0.115.6.tar.gz::https://github.com/fastapi/fastapi/archive/0.115.6.tar.gz
+	source = 0001-Allow-httpx-0.28.x-relax-pins.patch
 	sha512sums = 1676d48c7abe877b5b642421eef981aa2064c8b61678c3745374b2ed9f01e56cfc0d70de12777e98837676c4b5ec2731ba754e52f80b5919b1004d4207f2eeff
+	sha512sums = a5bf297d551d76859e7333283adeeb04e3d07a3050055943a108329ba60019bf4e3b30235923cfbef435616ef33e3d0c249caaa0ae71a9676bea6829db540013
 	b2sums = 99c0700cb515d4774d0676d6c38e3ee7ac61253acb7e70912ad7c1eda68923a70a8fd0ddecde82b5e4a7ef7fc5956fa8befb13889d4ee665556e523a1996837a
+	b2sums = 958730cad0faff1d5c96c32fa774f039478544daf9c25942edc478f76fe9c75b10913afd7f3b31bb898e538cf18c8bd3822f1d6274eed2298384f317e912c67d
 
 pkgname = python-fastapi

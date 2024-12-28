@@ -5,10 +5,10 @@
 _name=fastapi
 pkgname=python-$_name
 pkgver=0.115.6
-pkgrel=2
+pkgrel=5
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=(any)
-url="https://github.com/tiangolo/fastapi"
+url="https://github.com/fastapi/fastapi"
 license=(MIT)
 depends=(
   python
@@ -69,15 +69,20 @@ optdepends=(
   'python-ujson: for faster JSON parsing and UJSONResponse'
   'uvicorn: for Uvicorn as ASGI server'
 )
-source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('1676d48c7abe877b5b642421eef981aa2064c8b61678c3745374b2ed9f01e56cfc0d70de12777e98837676c4b5ec2731ba754e52f80b5919b1004d4207f2eeff')
-b2sums=('99c0700cb515d4774d0676d6c38e3ee7ac61253acb7e70912ad7c1eda68923a70a8fd0ddecde82b5e4a7ef7fc5956fa8befb13889d4ee665556e523a1996837a')
+source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz
+        0001-Allow-httpx-0.28.x-relax-pins.patch)
+sha512sums=('1676d48c7abe877b5b642421eef981aa2064c8b61678c3745374b2ed9f01e56cfc0d70de12777e98837676c4b5ec2731ba754e52f80b5919b1004d4207f2eeff'
+            'a5bf297d551d76859e7333283adeeb04e3d07a3050055943a108329ba60019bf4e3b30235923cfbef435616ef33e3d0c249caaa0ae71a9676bea6829db540013')
+b2sums=('99c0700cb515d4774d0676d6c38e3ee7ac61253acb7e70912ad7c1eda68923a70a8fd0ddecde82b5e4a7ef7fc5956fa8befb13889d4ee665556e523a1996837a'
+        '958730cad0faff1d5c96c32fa774f039478544daf9c25942edc478f76fe9c75b10913afd7f3b31bb898e538cf18c8bd3822f1d6274eed2298384f317e912c67d')
 
 prepare() {
   cd $_name-$pkgver
   # do not pin starlette dependency
   sed -i 's|starlette.*"|starlette"|' pyproject.toml
   sed -i '/"error"/d' pyproject.toml
+
+  patch -Np1 -i ../0001-Allow-httpx-0.28.x-relax-pins.patch
 }
 
 build() {
