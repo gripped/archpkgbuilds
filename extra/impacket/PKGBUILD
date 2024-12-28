@@ -4,7 +4,7 @@
 
 pkgname=impacket
 pkgver=0.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Collection of classes for working with network protocols'
 url='https://github.com/CoreSecurity/impacket'
 arch=(any)
@@ -43,7 +43,10 @@ build() {
 
 check() {
   cd ${pkgname}-${pkgname}_${pkgver//./_}
-  pytest -m "not remote"
+  # Deselected tests are not compatible with Python 3.13, see:
+  # https://github.com/fortra/impacket/issues/1824
+  pytest -m "not remote" \
+    --deselect tests/SMB_RPC/test_smbserver.py
 }
 
 package() {
