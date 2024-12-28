@@ -5,7 +5,7 @@
 pkgname=python-rtree
 _pkgname=${pkgname#python-}
 pkgver=1.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Rtree: spatial index for Python GIS"
 arch=(any)
 url="https://rtree.readthedocs.io/en/latest/"
