@@ -3,7 +3,7 @@
 
 pkgname=check-jsonschema
 pkgver=0.30.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A JSON Schema CLI and pre-commit hook built on jsonschema"
 arch=(any)
 url="https://github.com/python-jsonschema/check-jsonschema"
