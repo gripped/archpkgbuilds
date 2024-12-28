@@ -2,15 +2,15 @@
 # Contributor: Frederik “Freso” S. Olesen <freso.dk@gmail.com>
 
 pkgname=python-mediafile
-pkgver=0.12.0
-pkgrel=3
+pkgver=0.13.0
+pkgrel=1
 pkgdesc='Elegant audio file tagging'
 arch=(any)
 url=https://github.com/beetbox/mediafile
 license=(MIT)
 depends=(
   python-mutagen
-  python-six
+  python-filetype
 )
 makedepends=(
   git
@@ -18,9 +18,9 @@ makedepends=(
   python-flit-core
   python-installer
 )
-_tag=11c180078d6775f7c72dd182d9b6762061b677c7
+_tag=e1de3640e253ff88f00e8495d3b7626ff6b3e2b8
 source=(git+https://github.com/beetbox/mediafile.git#tag=${_tag})
-sha256sums=(SKIP)
+sha256sums=('8b9a86f0ca50f95dda715f475b03cfe081db48648fe58faaff0e65de429370e8')
 
 pkgver() {
   cd mediafile
