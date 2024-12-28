@@ -2,7 +2,7 @@
 
 pkgname=python-zxcvbn-rs
 pkgver=0.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Python bindings for zxcvbn-rs, the Rust implementation of zxcvbn"
 url="https://github.com/fief-dev/zxcvbn-rs-py"
 arch=(x86_64)
@@ -18,11 +18,20 @@ makedepends=(
   python-installer
   rust
 )
-source=("git+$url#tag=v$pkgver")
-b2sums=('5cdbf3803f313ad437ceda32916144982b77d2ea9b76c1d496427dfa20a4fc9c6e758a557e0218a537e1061260babe8a7cf0736419171a78b107dc7fd6c8742e')
+source=(
+  "git+$url#tag=v$pkgver"
+  0001-Upgrade-to-PyO3-0.23.patch
+)
+b2sums=('5cdbf3803f313ad437ceda32916144982b77d2ea9b76c1d496427dfa20a4fc9c6e758a557e0218a537e1061260babe8a7cf0736419171a78b107dc7fd6c8742e'
+        'c36d91ebd5df0b09a7ec673273b41563e58c06ad9e85b6806f8979f71bb13207cb9f136ace4e73d65db5cdc225f49c0ebfa61d42bd93b4f209347e3e92d5b149')
 
 prepare() {
   cd zxcvbn-rs-py
+
+  # Python 3.13
+  git cherry-pick -n ..b3f667de3441ae26b5097aca886e362800c14e96
+  git apply -3 ../0001-Upgrade-to-PyO3-0.23.patch
+
   cargo fetch --locked
 }
 
