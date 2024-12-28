@@ -4,10 +4,10 @@
 pkgbase=level-zero
 pkgname=(level-zero-headers level-zero-loader)
 pkgver=1.18.5
-pkgrel=1
+pkgrel=2
 pkgdesc="API for accessing low level interfaces in oneAPI platform devices"
 arch=(x86_64)
-url="https://spec.oneapi.com/versions/latest/elements/l0/source/index.html"
+url='https://github.com/oneapi-src/level-zero/'
 license=(MIT)
 makedepends=(git cmake fmt opencl-headers spdlog)
 source=(https://github.com/oneapi-src/level-zero/archive/v${pkgver}/${pkgbase}-${pkgver}.tar.gz)
