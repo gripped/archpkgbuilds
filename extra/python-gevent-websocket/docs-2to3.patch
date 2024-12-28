@@ -1,0 +1,60 @@
+diff -aur gevent-websocket-0.10.1/docs/conf.py gevent-websocket-0.10.1.new/docs/conf.py
+--- gevent-websocket-0.10.1/docs/conf.py	2017-03-13 00:33:21.000000000 +0100
++++ gevent-websocket-0.10.1.new/docs/conf.py	2024-11-24 10:34:54.248861224 +0100
+@@ -40,8 +40,8 @@
+ master_doc = 'index'
+ 
+ # General information about the project.
+-project = u'gevent-websocket'
+-copyright = u'2013, Jeffrey Gelens'
++project = 'gevent-websocket'
++copyright = '2013, Jeffrey Gelens'
+ 
+ # The version info for the project you're documenting, acts as replacement for
+ # |version| and |release|, also used in various other places throughout the
+@@ -50,9 +50,9 @@
+ # The short X.Y version.
+ import pkg_resources
+ try:
+-    release = pkg_resources.get_distribution('gevent-websocket').version
++    release = '0.10.1'
+ except pkg_resources.DistributionNotFound:
+-    print "Install gevent-websocket in order to build the docs"
++    print("Install gevent-websocket in order to build the docs")
+     sys.exit(1)
+ del pkg_resources
+ 
+@@ -193,8 +193,8 @@
+ # Grouping the document tree into LaTeX files. List of tuples
+ # (source start file, target name, title, author, documentclass [howto/manual]).
+ latex_documents = [
+-  ('index', 'gevent-websocket.tex', u'gevent-websocket Documentation',
+-   u'Jeffrey Gelens', 'manual'),
++  ('index', 'gevent-websocket.tex', 'gevent-websocket Documentation',
++   'Jeffrey Gelens', 'manual'),
+ ]
+ 
+ # The name of an image file (relative to this directory) to place at the top of
+@@ -223,8 +223,8 @@
+ # One entry per manual page. List of tuples
+ # (source start file, name, description, authors, manual section).
+ man_pages = [
+-    ('index', 'gevent-websocket', u'gevent-websocket Documentation',
+-     [u'Jeffrey Gelens'], 1)
++    ('index', 'gevent-websocket', 'gevent-websocket Documentation',
++     ['Jeffrey Gelens'], 1)
+ ]
+ 
+ # If true, show URL addresses after external links.
+@@ -237,8 +237,8 @@
+ # (source start file, target name, title, author,
+ #  dir menu entry, description, category)
+ texinfo_documents = [
+-  ('index', 'gevent-websocket', u'gevent-websocket Documentation',
+-   u'Jeffrey Gelens', 'gevent-websocket', 'One line description of project.',
++  ('index', 'gevent-websocket', 'gevent-websocket Documentation',
++   'Jeffrey Gelens', 'gevent-websocket', 'One line description of project.',
+    'Miscellaneous'),
+ ]
+ 
+Only in gevent-websocket-0.10.1.new/docs: conf.py.bak
