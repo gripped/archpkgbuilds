@@ -5,7 +5,7 @@
 
 pkgname=picard
 pkgver=2.12.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Official MusicBrainz tagger"
 arch=(x86_64)
 url="https://github.com/metabrainz/picard"
