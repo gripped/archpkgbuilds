@@ -3,7 +3,7 @@
 _pkg=geopandas
 pkgname=python-${_pkg}
 pkgver=1.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Python tools for geographic data"
 arch=(any)
 url="https://geopandas.org"
