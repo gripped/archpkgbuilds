@@ -3,7 +3,7 @@
 _pkgname=sphinx-pytest
 pkgname=python-$_pkgname
 pkgver=0.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Helpful pytest fixtures for sphinx extensions'
 arch=('any')
 url='https://github.com/chrisjsewell/sphinx-pytest'
