@@ -1,0 +1,167 @@
+From 28d90d144ea8c172830e42269ab13618dbe80bdd Mon Sep 17 00:00:00 2001
+From: Christian Heusel <christian@heusel.eu>
+Date: Wed, 18 Dec 2024 15:15:54 +0100
+Subject: [PATCH] Drop the dependency on python-future
+
+Python version 2 is now EOL for 11 years, so it should be safe to drop
+support for it. As python-future is not compatible with python 3.13 it
+is also desirable to actively patch it out.
+
+Signed-off-by: Christian Heusel <christian@heusel.eu>
+---
+ README.md                             | 1 -
+ requirements-dev.txt                  | 1 -
+ requirements.txt                      | 1 -
+ routersploit/core/exploit/exploit.py  | 7 +++----
+ routersploit/core/exploit/payloads.py | 5 ++---
+ routersploit/core/exploit/printer.py  | 1 -
+ routersploit/interpreter.py           | 4 ----
+ rsf.py                                | 1 -
+ setup.py                              | 1 -
+ 9 files changed, 5 insertions(+), 17 deletions(-)
+
+diff --git a/README.md b/README.md
+index 7b3b6d1..2010c7a 100644
+--- a/README.md
++++ b/README.md
+@@ -24,7 +24,6 @@ It consists of various modules that aid penetration testing operations:
+ ## Requirements
+ 
+ Required:
+-* future
+ * requests
+ * paramiko
+ * pysnmp
+diff --git a/requirements-dev.txt b/requirements-dev.txt
+index 4bd4fd2..8f1b3ab 100644
+--- a/requirements-dev.txt
++++ b/requirements-dev.txt
+@@ -1,4 +1,3 @@
+-future
+ requests==2.31.0
+ paramiko
+ pysnmp==4.4.6
+diff --git a/requirements.txt b/requirements.txt
+index 89575ba..1632575 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,4 +1,3 @@
+-future
+ requests==2.31.0
+ paramiko
+ pysnmp==4.4.6
+diff --git a/routersploit/core/exploit/exploit.py b/routersploit/core/exploit/exploit.py
+index 683ec5c..4d6dc97 100644
+--- a/routersploit/core/exploit/exploit.py
++++ b/routersploit/core/exploit/exploit.py
+@@ -1,7 +1,6 @@
+ import os
+ import threading
+ import time
+-from future.utils import with_metaclass, iteritems
+ from itertools import chain
+ from functools import wraps
+ 
+@@ -40,9 +39,9 @@ class ExploitOptionsAggregator(type):
+         except AttributeError:
+             attrs["exploit_attributes"] = {}
+         else:
+-            attrs["exploit_attributes"] = {k: v for d in base_exploit_attributes for k, v in iteritems(d)}
++            attrs["exploit_attributes"] = {k: v for d in base_exploit_attributes for k, v in d.items()}
+ 
+-        for key, value in iteritems(attrs.copy()):
++        for key, value in attrs.copy().items():
+             if isinstance(value, Option):
+                 value.label = key
+                 attrs["exploit_attributes"].update({key: [value.display_value, value.description, value.advanced]})
+@@ -55,7 +54,7 @@ class ExploitOptionsAggregator(type):
+         return super(ExploitOptionsAggregator, cls).__new__(cls, name, bases, attrs)
+ 
+ 
+-class BaseExploit(with_metaclass(ExploitOptionsAggregator, object)):
++class BaseExploit(metaclass=ExploitOptionsAggregator):
+     @property
+     def options(self):
+         """ Returns list of options that user can set.
+diff --git a/routersploit/core/exploit/payloads.py b/routersploit/core/exploit/payloads.py
+index b3ebea0..1f9aabb 100644
+--- a/routersploit/core/exploit/payloads.py
++++ b/routersploit/core/exploit/payloads.py
+@@ -1,7 +1,6 @@
+ import importlib
+ from collections import namedtuple
+ from struct import pack
+-from future.utils import with_metaclass
+ 
+ from routersploit.core.exploit.exploit import (
+     BaseExploit,
+@@ -90,13 +89,13 @@ ARCH_ELF_HEADERS = {
+ }
+ 
+ 
+-class ReverseTCPPayloadMixin(with_metaclass(ExploitOptionsAggregator, object)):
++class ReverseTCPPayloadMixin(metaclass=ExploitOptionsAggregator):
+     handler = PayloadHandlers.REVERSE_TCP
+     lhost = OptIP('', 'Connect-back IP address')
+     lport = OptPort(5555, 'Connect-back TCP Port')
+ 
+ 
+-class BindTCPPayloadMixin(with_metaclass(ExploitOptionsAggregator, object)):
++class BindTCPPayloadMixin(metaclass=ExploitOptionsAggregator):
+     handler = PayloadHandlers.BIND_TCP
+     rport = OptPort(5555, 'Bind Port')
+ 
+diff --git a/routersploit/core/exploit/printer.py b/routersploit/core/exploit/printer.py
+index 053407d..12c9e3b 100644
+--- a/routersploit/core/exploit/printer.py
++++ b/routersploit/core/exploit/printer.py
+@@ -1,4 +1,3 @@
+-from __future__ import print_function
+ from __future__ import absolute_import
+ 
+ import threading
+diff --git a/routersploit/interpreter.py b/routersploit/interpreter.py
+index b0713fc..d94a56b 100644
+--- a/routersploit/interpreter.py
++++ b/routersploit/interpreter.py
+@@ -1,5 +1,3 @@
+-from __future__ import print_function
+-
+ import atexit
+ import itertools
+ import pkgutil
+@@ -9,8 +7,6 @@ import getopt
+ import traceback
+ from collections import Counter
+ 
+-from future.builtins import input
+-
+ from routersploit.core.exploit.exceptions import RoutersploitException
+ from routersploit.core.exploit.utils import (
+     index_modules,
+diff --git a/rsf.py b/rsf.py
+index 61664a7..89f3a99 100755
+--- a/rsf.py
++++ b/rsf.py
+@@ -1,6 +1,5 @@
+ #!/usr/bin/env python3
+ 
+-from __future__ import print_function
+ import logging.handlers
+ import sys
+ if sys.version_info.major < 3:
+diff --git a/setup.py b/setup.py
+index c6d18c6..b5c6226 100644
+--- a/setup.py
++++ b/setup.py
+@@ -18,7 +18,6 @@ setup(
+     scripts=('rsf.py',),
+     entry_points={},
+     install_requires=[
+-        "future",
+         "requests",
+         "paramiko",
+         "pysnmp",
+-- 
+2.47.1
+

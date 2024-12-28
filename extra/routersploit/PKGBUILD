@@ -2,7 +2,7 @@
 # Contributor: Gordian Edenhofer <gordian.edenhofer@gmail.com>
 
 pkgname=routersploit
-pkgver=3.4.4
+pkgver=3.4.6
 pkgrel=1
 pkgdesc='Open-source exploitation framework dedicated to embedded devices'
 url='https://github.com/threat9/routersploit'
@@ -12,7 +12,6 @@ depends=(
   python
   python-bluepy
   python-cryptography
-  python-future
   python-paramiko
   python-pycryptodome
   python-pysnmp
@@ -32,12 +31,19 @@ checkdepends=(
   python-pytest-xdist
   python-threat9-test-bed
 )
-source=(https://github.com/threat9/routersploit/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('7813881a7f59e043736fc61db3871b69c961f69a75e824025e934d394d114c110c15d5dd98e4ce42e2a5441632c4dd8066646f241ceaa87808a5932708bacf32')
-b2sums=('be47c728c89cf87c0e013e2af8aed63b5e408483b5d670fa632202d35825612f3c41025171c2565613f15e3e0d931ec26a00870450adf4762b12b0cadf3b524a')
+source=(
+  https://github.com/threat9/routersploit/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
+  routersploit-drop-python-future.patch
+)
+sha512sums=('24f10a09f5e03e13fe9ef9925244045cf9ef35b26ff05ca4563682a584ec066d94c26dafe7ef6de836ccec18a092e61757c27a30e0fea1848703cc9f0cf3a937'
+            '9eff1bc7b579cb51451874de35cd38fa4662349e3b568440ae16e339aea9348766c8586d05eb75c254412cec50130dbc14f4be721705b7b844c76a70de274b9e')
+b2sums=('88d80104887d2dea7e0ae3b958303ce8e3dd67dbc31f8eaedac314940deb8693f8332f6933843a6b4dcb73c495a8e21f5415b091b0df29dcc5af9f291dc853c2'
+        'ec08359478f7d3f716ca52045026f101d9a355a4bc69ff18ade75a468b902bb43ac2bd796e0b0012040dad7a6380955a444d5c9c635bb620df89953c4493847a')
 
 prepare() {
   cd $pkgname-$pkgver
+
+  patch -Np1 < ../routersploit-drop-python-future.patch
 
   # Remove failing tests
   rm tests/exploits/misc/miele/test_pg8528_path_traversal.py
