@@ -5,8 +5,8 @@
 
 pkgname=ruby-tins
 _pkgname="${pkgname#ruby-}"
-pkgver=1.32.1
-pkgrel=3
+pkgver=1.37.1
+pkgrel=1
 pkgdesc='All the stuff that is not good/big enough for a real library'
 arch=('any')
 url='https://github.com/flori/tins'
@@ -14,15 +14,9 @@ license=('MIT')
 depends=('ruby' 'ruby-sync')
 makedepends=('git' 'ruby-rake')
 options=('!emptydirs')
-_commit='6e1d4309ae4bd0e7b0e21280336732a2f51311e2'
-source=("$pkgname::git+$url#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('04838ba35236acaf24492984782b3f4a66d906b3c537badfd2db9660afb3d8715265db601346ebd2b468c63dfba020405e6b5173383d1a7c666b5545a9ac2f71')
+b2sums=('806c720414401fc8f27a18193e7bb81c17abadc8e2b2ae570df90ffe062ede3f0359b9fb8910680b7a904b88d790e4cdac62f1e2818c09e63ab9799a8f5a8133')
 
 build() {
   cd "$pkgname"
