@@ -3,7 +3,7 @@
 _name=python3-saml
 pkgname=python-saml
 pkgver=1.16.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Python SAML Toolkit"
 arch=(any)
 url="https://github.com/SAML-Toolkits/python3-saml"
