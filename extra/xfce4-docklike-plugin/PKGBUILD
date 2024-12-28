@@ -3,16 +3,16 @@
 # Contributor: nsz32 <nszabo2 at gmail dot com>, bittin
 
 pkgname=xfce4-docklike-plugin
-pkgver=0.4.2
-pkgrel=7
+pkgver=0.4.3
+pkgrel=1
 pkgdesc="A modern, docklike, minimalist taskbar for XFCE"
 arch=('x86_64')
 url="https://docs.xfce.org/panel-plugins/xfce4-docklike-plugin/start"
 license=('GPL-3.0-or-later')
 depends=('xfce4-panel' 'libwnck3' 'libxfce4ui' 'gtk3' 'cairo' 'glib2' 'exo')
-makedepends=('git' 'intltool' 'xfce4-dev-tools')
+makedepends=('git' 'xfce4-dev-tools')
 source=("git+https://gitlab.xfce.org/panel-plugins/xfce4-docklike-plugin.git#tag=$pkgname-$pkgver")
-sha256sums=('598d228eec9759dfad6db65ad0ae4b7ca8cc9f93a46323574d8c5ea7849d470b')
+sha256sums=('c02c93be762c00dc90db2d5930ea9104c3434df3695ef6359603394980282a5b')
 
 prepare() {
 	cd $pkgname
