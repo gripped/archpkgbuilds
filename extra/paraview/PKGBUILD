@@ -6,7 +6,7 @@
 
 pkgname=paraview
 pkgver=5.13.1
-pkgrel=6
+pkgrel=10
 pkgdesc="Parallel Visualization application using VTK"
 arch=(x86_64)
 url="https://www.paraview.org"
@@ -41,6 +41,7 @@ depends=(
   onetbb
   openmpi libmpi.so
   ospray
+  paraview-catalyst
   pdal
   proj
   protobuf libprotobuf.so
@@ -74,7 +75,7 @@ makedepends=(
 )
 # pegtl: https://gitlab.kitware.com/vtk/vtk/-/issues/18151
 # rapidjson: https://gitlab.kitware.com/vtk/vtk/-/issues/18366
-# catalyst, exprtk, ioss: not packaged
+# exprtk, ioss: not packaged
 conflicts=(paraview-opt)
 replaces=(paraview-opt)
 source=(${url}/files/v${pkgver%.*}/ParaView-v${pkgver/R/-R}.tar.xz
@@ -113,8 +114,11 @@ prepare() {
 build() {
   export CFLAGS+=" -ffat-lto-objects"
   export CXXFLAGS+=" -ffat-lto-objects"
-  local cmake_flags=(
-    -B build -S ParaView-v${pkgver/R/-R} -G Ninja
+  local cmake_options=(
+    -B build
+    -S ParaView-v${pkgver/R/-R}
+    -G Ninja
+    -W no-dev
     -DCMAKE_BUILD_TYPE=Release
     -DCMAKE_INSTALL_PREFIX=/opt/paraview
     -DCMAKE_INSTALL_LICENSEDIR=share/licenses/paraview
@@ -122,6 +126,7 @@ build() {
     -DPARAVIEW_IGNORE_CMAKE_CXX11_CHECKS=ON
     -DCMAKE_SKIP_INSTALL_RPATH=OFF
     -DPARAVIEW_ENABLE_ADIOS2=ON
+    -DPARAVIEW_ENABLE_CATALYST=ON
     -DPARAVIEW_ENABLE_FFMPEG=ON
     -DPARAVIEW_ENABLE_FIDES=ON
     -DPARAVIEW_ENABLE_GDAL=ON
@@ -143,9 +148,8 @@ build() {
     -DVTK_MODULE_USE_EXTERNAL_VTK_ioss=OFF
     -DVTK_MODULE_USE_EXTERNAL_VTK_pegtl=OFF
     -DVTK_MODULE_USE_EXTERNAL_VTK_token=OFF
-    -Wno-dev
   )
-  cmake "${cmake_flags[@]}"
+  cmake "${cmake_options[@]}"
   cmake --build build
 }
 
