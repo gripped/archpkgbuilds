@@ -3,20 +3,20 @@
 
 pkgname=vit
 pkgver=2.3.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Terminal interface for Taskwarrior with Vim key bindings and colorization'
 url='https://github.com/vit-project/vit'
 arch=('any')
 license=('MIT')
 depends=('task' 'python' 'python-urwid' 'python-tasklib')
-makedepends=('python-setuptools')
+makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
 sha256sums=('42f7f2d92d010ec86228179f4fe54395dce933ad2a8166218da5258fc5834fe4')
 b2sums=('5d12a4504930fe4c1aeacd9dce5d38d765a400360a27fa4c8ef6346573c81d252ec73832f94f6fc4ae3f9e2d27ce44f77bdfc50934a4539f846bb97c9f9c6f56')
 
 build() {
   cd ${pkgname}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -27,7 +27,7 @@ check() {
 
 package() {
   cd ${pkgname}-${pkgver}
-  python setup.py install --root="${pkgdir}" -O1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm 644 scripts/bash/vit.bash_completion "${pkgdir}/usr/share/bash-completion/completions/vit"
   install -Dm 644 *.md -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
