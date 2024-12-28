@@ -3,15 +3,13 @@
 
 pkgname=ruby-fakefs
 _pkgname=${pkgname#ruby-}
-pkgver=2.5.0
-pkgrel=5
+pkgver=2.8.0
+pkgrel=1
 pkgdesc='A fake filesystem. Use it in your tests.'
 arch=(any)
 url='https://github.com/fakefs/fakefs'
 license=(MIT)
-depends=(
-  ruby
-)
+depends=(ruby)
 makedepends=(
   git
   ruby-rdoc
@@ -26,19 +24,11 @@ checkdepends=(
   ruby-rspec
 )
 options=(!emptydirs)
-source=(
-  "git+$url.git#tag=v$pkgver"
-  # https://github.com/fakefs/fakefs/pull/496
-  "https://github.com/fakefs/fakefs/pull/496/commits/19fd2e70bf79911caa720954fc631d01294f330d.patch"
-)
-sha256sums=('0b850305eb820775a9411c4fe0da1dcff3e6ad419f1bb8041e6d69c7df9c46e6'
-            '707e8332660055bd21a524df979f6285c1a2058d54ab0011fbd82bcf2e34f847')
+source=("git+$url.git#tag=v$pkgver")
+sha256sums=('602b65020c15b1e0e00a255b620e6a437e9a7c7a7200f617a3339a2bc85fe0d3')
 
 prepare() {
   cd "$_pkgname"
-
-  patch --verbose --strip=1 --input="../19fd2e70bf79911caa720954fc631d01294f330d.patch"
-
   sed -r -e 's|~>|>=|' -i fakefs.gemspec
   # Remove dependency on bump and rubocop
   sed -r -e '/bump|rubocop/d' -i fakefs.gemspec
