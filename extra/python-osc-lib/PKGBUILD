@@ -3,7 +3,7 @@
 
 pkgname=python-osc-lib
 pkgver=3.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenStackClient Library"
 arch=('any')
 url="https://docs.openstack.org/osc-lib/latest/"
