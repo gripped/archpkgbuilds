@@ -4,7 +4,7 @@
 
 pkgname=python-confuse
 pkgver=2.0.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Painless YAML config files for Python'
 arch=(any)
 url=https://github.com/beetbox/confuse
