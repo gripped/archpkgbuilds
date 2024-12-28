@@ -3,7 +3,7 @@
 
 pkgname=archlinux-contrib
 pkgver=20241215
-pkgrel=1
+pkgrel=2
 pkgdesc='Collection of contrib scripts used in Arch Linux'
 arch=('any')
 license=('GPL-2.0-or-later')
@@ -11,6 +11,7 @@ url='https://github.com/archlinux/contrib'
 depends=('python' 'bash' 'pyalpm')
 optdepends=('python-requests: for security tracker'
             'jq: for rebuild-todo'
+            'devtools: for rebuild-todo (needs pkgctl)'
             'pacman-contrib: to enable pacdiff usage in the checkservices script'
             'python-httpx: for check-pkg-urls'
             'python-tqdm: for check-pkg-urls')

@@ -1,7 +1,7 @@
 pkgbase = archlinux-contrib
 	pkgdesc = Collection of contrib scripts used in Arch Linux
 	pkgver = 20241215
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/archlinux/contrib
 	arch = any
 	license = GPL-2.0-or-later
@@ -10,6 +10,7 @@ pkgbase = archlinux-contrib
 	depends = pyalpm
 	optdepends = python-requests: for security tracker
 	optdepends = jq: for rebuild-todo
+	optdepends = devtools: for rebuild-todo (needs pkgctl)
 	optdepends = pacman-contrib: to enable pacdiff usage in the checkservices script
 	optdepends = python-httpx: for check-pkg-urls
 	optdepends = python-tqdm: for check-pkg-urls
