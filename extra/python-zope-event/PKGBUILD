@@ -3,7 +3,7 @@
 
 pkgname=python-zope-event
 pkgver=5.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Provides a simple event system"
 arch=(any)
 license=('ZPL')
