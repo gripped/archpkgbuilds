@@ -5,7 +5,7 @@
 
 pkgname=accerciser
 pkgver=3.44.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Interactive Python accessibility explorer for the GNOME desktop"
 url="https://wiki.gnome.org/Apps/Accerciser"
 arch=(any)
