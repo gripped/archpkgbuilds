@@ -1,12 +1,13 @@
 pkgbase = python-netcdf4-openmpi
-	pkgdesc = Python/NumPy interface to the netCDF C library (openmpi version)
-	pkgver = 1.6.5
-	pkgrel = 4
-	url = https://unidata.github.io/netcdf4-python
+	pkgdesc = Python/NumPy interface to the netCDF C library ( version)
+	pkgver = 1.7.2
+	pkgrel = 1
+	url = https://unidata.github.io/netcdf4-python-python
 	arch = x86_64
 	license = MIT
 	checkdepends = openssh
 	makedepends = cython
+	makedepends = git
 	makedepends = python-setuptools
 	depends = python-numpy
 	depends = python-cftime
@@ -15,7 +16,7 @@ pkgbase = python-netcdf4-openmpi
 	depends = python-certifi
 	provides = python-netcdf4
 	conflicts = python-netcdf4
-	source = https://files.pythonhosted.org/packages/source/n/netCDF4/netCDF4-1.6.5.tar.gz
-	sha256sums = 824881d0aacfde5bd982d6adedd8574259c85553781e7b83e0ce82b890bfa0ef
+	source = git+https://github.com/Unidata/netcdf4-python#tag=v1.7.2rel
+	sha256sums = 0c491ff44c2c2b42625b104b4276a3b0d8fbaea8971d967794e2722373651389
 
 pkgname = python-netcdf4-openmpi
