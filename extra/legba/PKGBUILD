@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=legba
-pkgver=0.9.0
+pkgver=0.10.0
 pkgrel=1
 pkgdesc="A multiprotocol credentials bruteforcer / password sprayer and enumerator"
 url='https://github.com/evilsocket/legba'
@@ -22,8 +22,8 @@ makedepends=(
 )
 options=('!lto')
 source=(https://github.com/evilsocket/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('4ec96a5602c2704cc911c3030aa2a8d9bb3a99dfbb9987861e34d1496e793ccc')
-b2sums=('adc5e92eba95387e5c5096fd3d7ea73c99ec0eb7bfde6920f91ecd1f947d98d531d88b00bec0a4f1c5613cc8aafe28ab1a5a3fd791863bab016ea737b601111b')
+sha256sums=('9755ec21539ec31dfc6c314dde1416c9b2bc79199f5aceb937e84bafc445b208')
+b2sums=('81522d57e0088e33dd7d154e1154d4e3775bab4429d60b7a00ed6fe49b22d85e588cd25efa8aa7f86ee9246b4c8987186f14bae9e7f0bf6e9417e6d9aa655fcb')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
