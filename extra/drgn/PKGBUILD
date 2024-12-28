@@ -2,8 +2,8 @@
 # Contributor: Omar Sandoval <osandov at osandov dot com>
 
 pkgname=drgn
-pkgver=0.0.29
-pkgrel=5
+pkgver=0.0.30
+pkgrel=2
 pkgdesc='Programmable debugger'
 arch=('x86_64')
 url='https://github.com/osandov/drgn'
@@ -26,7 +26,7 @@ optdepends=(
 )
 checkdepends=('check')
 source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz")
-sha256sums=('acbd5b7504a04cde4f61ed1a7e9906ef9d43f623013ad8312a2cd9b74406b7c9')
+sha256sums=('3594ca8095c846f7acd9d723a2304f0171fd740250804633b791b15223b44eed')
 
 build() {
     cd $pkgname-$pkgver
