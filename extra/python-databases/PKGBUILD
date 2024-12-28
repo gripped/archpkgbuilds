@@ -4,7 +4,7 @@
 pkgname=python-databases
 _pkgname=${pkgname#python-}
 pkgver=0.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Async database support for Python"
 arch=(any)
 url="https://github.com/encode/databases"
