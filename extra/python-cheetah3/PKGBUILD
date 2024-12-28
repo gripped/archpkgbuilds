@@ -4,12 +4,12 @@
 pkgbase=python-cheetah3
 pkgname=('python-cheetah3' 'python-cheetah3-docs')
 pkgver=3.3.3
-pkgrel=2
+pkgrel=3
 pkgdesc='A Python powered template engine and code generator'
 arch=('x86_64')
 url='https://cheetahtemplate.org'
 license=('MIT' 'custom:Public') # manpage released by Debian in public domain
-makedepends=('git' 'python' 'python-setuptools' 'python-sphinx')
+makedepends=('git' 'python' 'python-legacy-cgi' 'python-setuptools' 'python-sphinx')
 checkdepends=('python-markdown' 'python-pygments')
 optdepends=(
   'python-markdown: for markdown filter'
@@ -47,7 +47,7 @@ check() {
 }
 
 package_python-cheetah3() {
-  depends=('python')
+  depends=('python' 'python-legacy-cgi')
   optdepends=(
     'python-markdown: for markdown filter'
     'python-memcache: for caching'
