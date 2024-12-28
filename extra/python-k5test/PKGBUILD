@@ -2,7 +2,7 @@
 
 pkgname=python-k5test
 pkgver=0.10.4
-pkgrel=3
+pkgrel=4
 pkgdesc='Library for setting up self-contained Kerberos 5 environments'
 url='https://github.com/pythongssapi/k5test'
 arch=('any')
