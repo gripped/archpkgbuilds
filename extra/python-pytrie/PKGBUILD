@@ -4,7 +4,7 @@
 
 pkgname=python-pytrie
 pkgver=0.4.0
-pkgrel=7
+pkgrel=8
 pkgdesc="A pure Python implementation of the trie data structure."
 url="https://github.com/gsakkis/pytrie/"
 depends=(python python-sortedcontainers)
