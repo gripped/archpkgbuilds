@@ -1,24 +1,34 @@
-# Maintainer: Kyle Keen <keenerd@gmail.com>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Kyle Keen <keenerd@gmail.com>
+
 pkgname=jshon
 pkgver=20131105
-pkgrel=5
-pkgdesc="A json parser for the shell."
+pkgrel=6
+pkgdesc='A json parser for the shell'
 arch=('x86_64')
-url="http://kmkeen.com/jshon/"
+url='https://github.com/keenerd/jshon'
 license=('MIT')
 depends=('jansson')
-source=(http://kmkeen.com/$pkgname/$pkgname-$pkgver.tar.gz)
-md5sums=('84596bcf2d6cde7bbc0fcb4626765b99')
-sha256sums=('c8bcf5633b5964bdc1c56305e004510af19bed8714d5db696dfd6c19b72746e5')
+makedepends=('git')
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('6fad927d6e319e613507db9fa0a0b098612ec500e74b6c91a29b7e2752b6488a1194a5b13a8b33e9ce3a3350148dcd9e8d06b4089ee254c3f79346072985b6aa')
+b2sums=('2646235147588def8a6c19f395df67f67bcfc28d6072c8cd51394ac11553d22b5db4232fdbf11295919a57f67cffc1e795f692a537904599f43bd0c7e47c953b')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$pkgname"
+
   make
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
-  install -Dm755 $pkgname   "$pkgdir/usr/bin/$pkgname"
-  install -Dm644 $pkgname.1 "$pkgdir/usr/share/man/man1/$pkgname.1"
-  install -Dm644 LICENSE    "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  cd "$pkgname"
+
+  # binary
+  install -vDm755 -t "$pkgdir/usr/bin" jshon
+
+  # man page
+  install -vDm644 -t "$pkgdir/usr/share/man/man1" jshon.1
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
