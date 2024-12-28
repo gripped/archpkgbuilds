@@ -1,11 +1,14 @@
 pkgbase = nyx
 	pkgdesc = Command-line status monitor for tor
 	pkgver = 2.1.0
-	pkgrel = 8
+	pkgrel = 9
 	url = https://nyx.torproject.org/
 	arch = any
 	license = GPL-3.0-or-later
 	makedepends = python-setuptools
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
 	depends = python
 	depends = python-stem
 	depends = net-tools
@@ -15,6 +18,6 @@ pkgbase = nyx
 	source = https://files.pythonhosted.org/packages/source/n/nyx/nyx-2.1.0.tar.gz
 	source = python3.11.patch::https://gitweb.torproject.org/nyx.git/patch/?id=dcaddf2ab7f9d2ef8649f98bb6870995ebe0b893
 	sha512sums = 69a645cc811a1b1fbd9cf0501d8f23f1a52e0e92a0598097bb0c9efb040e1895e1dd431bad93be36db0e85ca7ac32ee5c866d50d2812069a39e5160b44575a37
-	sha512sums = f2bac1f9731489f01292120785874ee40135c363abc638eb767b003209290fad61b8a1aa4577b1037cdb09dddb5ce55711800d243f65f9a30fd5d7826f295b27
+	sha512sums = 00db02e9d7aa8787a2b167a5b4364168c5fdc60f7baa1edd7416466b4f981ca69ba4488011cf87420c0b49b7232c2efca8915873b32f68127819f4e073c9a9bb
 
 pkgname = nyx
