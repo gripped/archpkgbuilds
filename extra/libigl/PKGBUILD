@@ -3,7 +3,7 @@
 
 pkgname=libigl
 pkgver=2.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple C++ geometry processing library'
 arch=(any)
 url=https://github.com/libigl/libigl
@@ -50,6 +50,7 @@ build() {
 
 package() {
   DESTDIR="${pkgdir}" cmake --install build
+  cp -dr --no-preserve=ownership libigl/include/igl "${pkgdir}"/usr/include/
   rm -rf "${pkgdir}"/usr/{include/Eigen,lib/cmake/eigen}
 }
 
