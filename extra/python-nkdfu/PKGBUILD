@@ -3,7 +3,7 @@
 pkgname=python-nkdfu
 _name="${pkgname#python-}"
 pkgver=0.2
-pkgrel=4
+pkgrel=5
 pkgdesc="Python tool for Nitrokeys' firmware update"
 arch=(any)
 url="https://github.com/Nitrokey/nkdfu"
