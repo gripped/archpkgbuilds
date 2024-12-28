@@ -5,13 +5,13 @@
 
 pkgname=trash-cli
 pkgver=0.24.5.26
-pkgrel=1
+pkgrel=2
 pkgdesc="Command line trashcan (recycle bin) interface"
 arch=('any')
 url="https://github.com/andreafrancia/trash-cli"
 license=('GPL-2.0-only')
 depends=('python' 'python-psutil' 'python-six')
-makedepends=('python-setuptools' 'python-shtab')
+makedepends=('python-setuptools' 'python-shtab' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest' 'python-flexmock' 'python-parameterized')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
 sha256sums=('1d7dec1ad8f0264ceb1b0211d25fffee99c9409cd2e1d36dcc82ac5540f39ce5')
@@ -27,7 +27,7 @@ prepare() {
 build() {
     cd "${srcdir}"/${pkgname}-${pkgver}
 
-    python setup.py build
+    python -m build --wheel --no-isolation
     for cmd in trash-empty trash-list trash-restore trash-put trash; do
       ./$cmd --print-completion bash > ./$cmd-completion
       ./$cmd --print-completion zsh > ./_$cmd-completion
@@ -43,7 +43,7 @@ check() {
 package(){
     cd "${srcdir}"/${pkgname}-${pkgver}
 
-    python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+    python -m installer --destdir="$pkgdir" dist/*.whl
     for cmd in trash-empty trash-list trash-restore trash-put trash; do
       install -vDm 644 ./$cmd-completion "$pkgdir/usr/share/bash-completion/completions/$cmd"
       install -vDm 644 ./_$cmd-completion "$pkgdir/usr/share/zsh/site-functions/_$cmd"
