@@ -3,7 +3,7 @@
 
 pkgname=python-pyicu
 pkgver=2.12
-pkgrel=5
+pkgrel=6
 pkgdesc="Python binding for ICU"
 arch=('x86_64')
 license=('MIT')
