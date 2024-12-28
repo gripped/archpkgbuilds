@@ -2,7 +2,7 @@
 # Contributor: Sergey A. <murlakatamenka@disroot.org>
 
 pkgname=rmpc
-pkgver=0.6.0
+pkgver=0.7.0
 pkgrel=1
 pkgdesc='A beautiful and configurable TUI client for MPD'
 url='https://mierak.github.io/rmpc/'
@@ -16,7 +16,7 @@ optdepends=(
   'ueberzugpp: for alternative album art method')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/mierak/rmpc/archive/v$pkgver.tar.gz")
-sha256sums=('bc9b038c9a0bfcab6ed7a2c0678ecd802287d3c67c8f02e8af3232f25613aca0')
+sha256sums=('8ea6d5a61d3ca5d5b8a6fb694ab2646b2be702bec308e70e0fd67618ad67c086')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -49,8 +49,6 @@ package() {
   # docs
   install -Dm 644 "target/man/$pkgname.1" "$pkgdir/usr/share/man/man1/rmpc.1"
   install -Dm 644 "README.md" "$pkgdir/usr/share/doc/$pkgname/README.md"
-  install -Dm 644 "assets/example_config.ron" -t "$pkgdir/usr/share/doc/$pkgname"
-  install -Dm 644 "assets/example_theme.ron" -t "$pkgdir/usr/share/doc/$pkgname"
 
   # license
   install -Dm 644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENCE"
