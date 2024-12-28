@@ -1,6 +1,6 @@
 pkgbase = virtualbox
 	pkgver = 7.1.4
-	pkgrel = 2
+	pkgrel = 4
 	url = https://virtualbox.org/
 	arch = x86_64
 	license = GPL
@@ -64,9 +64,10 @@ pkgbase = virtualbox
 	source = 013-support-building-from-dkms.patch
 	source = 018-upate-xclient-script.patch
 	source = 020-python-3-12.patch
+	source = 021-python-3-13.patch
 	sha256sums = 872e7a42b41f8558abbf887f1bdc7aac932bb88b2764d07cbce270cab57e3b5e
-	sha256sums = 76d98ea062fcad9e5e3fa981d046a6eb12a3e718a296544a68b66f4b65cb56db
-	sha256sums = 03ed7f65d8e2f91b17b81bdf2f0f634e62b95e71f7c6c1acaf22d8be97d10e59
+	sha256sums = f753501352054576c510aa81e83f4935079ea620e601057784b02b4d4d1eeb04
+	sha256sums = 07fe5c8b313cd7f01505eb9721357269a288ccd0c04e6467afb954038d6f46df
 	sha256sums = 2101ebb58233bbfadf3aa74381f22f7e7e508559d2b46387114bc2d8e308554c
 	sha256sums = da4c49f6ca94e047e196cdbcba2c321199f4760056ea66e0fbc659353e128c9e
 	sha256sums = f876e9f55243eded423fda4fc2ffe3b174dca90380a6315f7c9b3cd1c9d07206
@@ -86,6 +87,7 @@ pkgbase = virtualbox
 	sha256sums = 00f68b86d32a1fada900c2da8dad2ab4215106cd58004f049bded99727cda2ff
 	sha256sums = 73ed7ef243c975227660b9bbe7c576018f2c0216b3a3b5efcc4cc56c44c90914
 	sha256sums = ddb2092a5a000aa6ef854796f39dcdf86e72c06d53b24bac3835350571182df6
+	sha256sums = 70245fc3abafbd3b191d87e2910f0f004050672f2d0d056db029a062e80e73bc
 
 pkgname = virtualbox
 	pkgdesc = Powerful x86 virtualization for enterprise as well as home use
@@ -119,7 +121,6 @@ pkgname = virtualbox
 	optdepends = virtualbox-sdk: Developer kit
 	conflicts = virtualbox-ose
 	replaces = virtualbox-ose
-	backup = etc/modprobe.d/virtualbox.conf
 	backup = etc/vbox/vbox.cfg
 
 pkgname = virtualbox-sdk
@@ -128,7 +129,6 @@ pkgname = virtualbox-sdk
 
 pkgname = virtualbox-host-dkms
 	pkgdesc = VirtualBox Host kernel modules sources
-	install = virtualbox-host-dkms.install
 	depends = dkms
 	depends = gcc
 	depends = make
