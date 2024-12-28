@@ -2,7 +2,7 @@
 
 pkgname=python-tiny-proxy
 pkgver=0.2.1
-pkgrel=4
+pkgrel=5
 pkgdesc='Simple proxy (SOCKS4(a), SOCKS5(h), HTTP tunnel) server built with anyio'
 arch=('any')
 url='https://github.com/romis2012/tiny-proxy'
