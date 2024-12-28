@@ -4,7 +4,7 @@
 
 pkgname=mozo
 pkgver=1.28.0
-pkgrel=3
+pkgrel=4
 pkgdesc="MATE menu editing tool"
 url="https://mate-desktop.org"
 arch=('any')
