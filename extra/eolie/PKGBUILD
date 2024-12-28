@@ -3,7 +3,7 @@
 
 pkgname=eolie
 pkgver=0.9.101
-pkgrel=7
+pkgrel=9
 pkgdesc='Simple web browser for GNOME'
 arch=(any)
 url='https://wiki.gnome.org/Apps/Eolie'
@@ -75,4 +75,7 @@ check() {
 
 package() {
   meson install -C build --destdir "$pkgdir"
+
+  python -m compileall -d /usr/lib "$pkgdir/usr/lib"
+  python -O -m compileall -d /usr/lib "$pkgdir/usr/lib"
 }
