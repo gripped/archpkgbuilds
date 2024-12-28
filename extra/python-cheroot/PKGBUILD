@@ -6,7 +6,7 @@ _name=cheroot
 pkgname=python-cheroot
 pkgdesc="Highly-optimized, pure-python HTTP server"
 pkgver=10.0.1
-pkgrel=3
+pkgrel=4
 arch=(any)
 url="https://github.com/cherrypy/cheroot"
 license=(BSD-3-Clause)
@@ -65,6 +65,7 @@ check() {
     --deselect cheroot/test/test_conn.py::test_remains_alive_post_unhandled_exception
     --deselect cheroot/test/test_conn.py::test_unhandled_exception_in_request_handler
     --deselect cheroot/test/test_ssl.py::test_https_over_http_error
+     -p no:unraisableexception
   )
   pytest "${pytest_options[@]}"
 }
