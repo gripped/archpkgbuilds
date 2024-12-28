@@ -2,7 +2,7 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3 orbiton-nano)
-pkgver=2.68.4
+pkgver=2.68.6
 pkgrel=1
 pkgdesc='Fast and configuration-free text editor and IDE limited by VT100'
 arch=(x86_64)
@@ -11,12 +11,10 @@ license=(BSD-3-Clause)
 makedepends=(git go vte3)
 options=(!lto)
 source=("git+https://github.com/xyproto/orbiton#tag=v$pkgver")
-b2sums=('64c1bfaa213a697e77fcd778befe557b048abffe98d56a3366bcd3337b1351da2a2c1fe679acb0cb7b3ee0f8da88c75a45972912b0e265b938c9f0e4b2a81040')
+b2sums=('fe6010f36d12fbc77c7a9eb4ec1b5e62ae5d1aad60d82f54269ec38de7bb9eb9f6fe2fd94fa88ecb189c50272c308593ac6cd42517c81b9b6199b115a6805c06')
 
 build() {
-  # Adjust the LDFLAGS to work together with go build
   export LDFLAGS="$(echo $LDFLAGS | sed 's/ -Wl//g;s/,--sort-common//')"
-
   make -C $pkgbase o gui
 }
 
@@ -53,6 +51,7 @@ package_orbiton() {
               'nasm: for compiling Assembly'
               'ocaml: for compiling and formatting OCaml'
               'odin: for compiling Odin'
+              'odinfmt: for formatting Odin'
               'ollama: for experimental tab completion'
               'perl-tidy: for formatting Perl'
               'pandoc: for exporting Markdown to PDF'

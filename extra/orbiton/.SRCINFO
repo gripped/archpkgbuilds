@@ -1,6 +1,6 @@
 pkgbase = orbiton
 	pkgdesc = Fast and configuration-free text editor and IDE limited by VT100
-	pkgver = 2.68.4
+	pkgver = 2.68.6
 	pkgrel = 1
 	url = https://roboticoverlords.org/orbiton/
 	arch = x86_64
@@ -9,8 +9,8 @@ pkgbase = orbiton
 	makedepends = go
 	makedepends = vte3
 	options = !lto
-	source = git+https://github.com/xyproto/orbiton#tag=v2.68.4
-	b2sums = 64c1bfaa213a697e77fcd778befe557b048abffe98d56a3366bcd3337b1351da2a2c1fe679acb0cb7b3ee0f8da88c75a45972912b0e265b938c9f0e4b2a81040
+	source = git+https://github.com/xyproto/orbiton#tag=v2.68.6
+	b2sums = fe6010f36d12fbc77c7a9eb4ec1b5e62ae5d1aad60d82f54269ec38de7bb9eb9f6fe2fd94fa88ecb189c50272c308593ac6cd42517c81b9b6199b115a6805c06
 
 pkgname = orbiton
 	optdepends = asciidoctor: for writing man pages
@@ -37,6 +37,7 @@ pkgname = orbiton
 	optdepends = nasm: for compiling Assembly
 	optdepends = ocaml: for compiling and formatting OCaml
 	optdepends = odin: for compiling Odin
+	optdepends = odinfmt: for formatting Odin
 	optdepends = ollama: for experimental tab completion
 	optdepends = perl-tidy: for formatting Perl
 	optdepends = pandoc: for exporting Markdown to PDF
