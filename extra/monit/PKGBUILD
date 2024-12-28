@@ -3,7 +3,7 @@
 # Contributor: Marco Bartholomew <marco@marcobartholomew.com>
 
 pkgname=monit
-pkgver=5.34.0
+pkgver=5.34.3
 pkgrel=1
 pkgdesc="Utility for managing and monitoring, processes, files, directories and devices on a *NIX system"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('openssl')
 backup=('etc/monitrc')
 changelog=$pkgname.changelog
 source=(https://mmonit.com/$pkgname/dist/$pkgname-$pkgver.tar.gz)
-sha256sums=('37f514cd8973bbce104cb8517ff3fc504052a083703eee0d0e873db26b919820')
+sha256sums=('669d8b95ddec124d1444ba5264f67fdeae8e90e53b2929719f4750fc5ff3ba60')
 
 build() {
   cd "${srcdir}"/$pkgname-$pkgver
