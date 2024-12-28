@@ -3,8 +3,8 @@
 
 _pkgname=qtpy
 pkgname=python-qtpy
-pkgver=2.4.1
-pkgrel=4
+pkgver=2.4.2
+pkgrel=1
 pkgdesc="Provides an uniform layer to support PyQt5 and PySide2 with a single codebase"
 arch=(any)
 url="https://github.com/spyder-ide/qtpy/"
@@ -53,7 +53,7 @@ checkdepends=(
     xorg-server-xvfb
 )   
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('e5f3ceaf3465b453f71cc0248fc85116ae5b3dfd76cbfd491409eb345a9f9df2')
+sha256sums=('0b94653368151f7a71efdf73de49daea848948f331eef082e322c4e8ab4c7e30')
 
 build() {
   cd ${_pkgname}-${pkgver}
@@ -62,7 +62,7 @@ build() {
 
 check() {
   cd ${_pkgname}-${pkgver}
-  sed -i 's|--cov=qtpy --cov-report=term-missing||' pytest.ini
+  sed -i 's|--cov-report=term-missing --cov-report=xml||' pytest.ini
   PYTHONPATH="${PWD}"/build/lib xvfb-run --auto-servernum pytest qtpy
 }
 
