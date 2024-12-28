@@ -3,7 +3,7 @@
 _pyname=async-lru
 pkgname=python-$_pyname
 pkgver=2.0.4
-pkgrel=3
+pkgrel=4
 pkgdesc='Simple LRU cache for asyncio'
 arch=(any)
 url='https://github.com/aio-libs/async-lru'
