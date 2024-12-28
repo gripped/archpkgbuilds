@@ -3,7 +3,7 @@
 _name=click-aliases
 pkgname=python-click-aliases
 pkgver=1.0.1
-pkgrel=3
+pkgrel=6
 pkgdesc="Enable aliases for click"
 arch=(any)
 url="https://github.com/click-contrib/click-aliases"
