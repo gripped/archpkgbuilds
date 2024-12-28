@@ -4,7 +4,7 @@
 pkgname=jupyter-nbconvert
 _name=nbconvert
 pkgver=7.16.4
-pkgrel=3
+pkgrel=4
 pkgdesc='Jupyter Notebook Conversion'
 arch=(any)
 url='https://pypi.python.org/pypi/nbconvert'
