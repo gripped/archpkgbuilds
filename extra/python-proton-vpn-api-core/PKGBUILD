@@ -1,0 +1,26 @@
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
+# Maintainer: Ali Molaei <ali dot molaei at protonmail dot com>
+
+pkgname=python-proton-vpn-api-core
+pkgver=0.38.2
+pkgrel=3
+pkgdesc="The proton-vpn-core-api acts as a facade to the other Proton VPN components, exposing a uniform API to the available Proton VPN services."
+arch=("any")
+url="https://github.com/ProtonVPN/python-proton-vpn-api-core"
+license=(GPL-3.0-or-later)
+makedepends=(
+  git
+  python-setuptools
+)
+source=("git+https://github.com/ProtonVPN/${pkgname}.git#tag=v${pkgver}")
+sha256sums=('9a1cf20681eb6fc0f2a6818afd32faa0642c2e167eb76b3860d5bc550deb7076')
+
+build() {
+  cd "$pkgname"
+  python setup.py build
+}
+
+package() {
+  cd "$pkgname"
+  python setup.py install --root="$pkgdir" --optimize=1
+}
