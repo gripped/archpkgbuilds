@@ -2,7 +2,7 @@
 
 pkgname=python-ukkonen
 pkgver=1.0.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Implementation of bounded Levenshtein distance (Ukkonen)"
 url="https://github.com/asottile/ukkonen"
 license=('MIT')
