@@ -1,7 +1,7 @@
 pkgbase = cartridges
 	pkgdesc = Simple game launcher written in Python using GTK4 and Libadwaita
-	pkgver = 2.10.1
-	pkgrel = 2
+	pkgver = 2.11
+	pkgrel = 1
 	url = https://apps.gnome.org/Cartridges/
 	arch = any
 	license = GPL-3.0-or-later
@@ -19,18 +19,12 @@ pkgbase = cartridges
 	depends = python
 	depends = python-gobject
 	depends = python-pillow
-	depends = python-yaml
 	depends = python-requests
 	depends = python-urllib3
-	source = git+https://github.com/kra-mo/cartridges.git#tag=v2.10.1
+	depends = python-yaml
+	source = git+https://github.com/kra-mo/cartridges.git#tag=v2.11
 	source = cartridges-save-cover.patch
-	source = cartridges-get-blurred.patch
-	source = cartridges-image-filter.patch
-	source = cartridges-animation-draw.patch
-	b2sums = 4c205efcd99df0cc94e2b2f6937e72432d26d03c4bb509682288d7e82b34de68d2821376818b04aadbcc4eb000e4230881de29ef025ec952619c3c3a6e904274
+	b2sums = b52db871c404bda813798ce10af1c58263a11eb8eb866b2c0823601d8e11556f57d81f64cbcfa8230ce186c16c894bda86e7e909945cf1ee1c56e53da05fbc56
 	b2sums = d0f7ec28c561cc3d6b92943884bc6c467fac642d0f4950e0954061f027d4ecac691436dc8e4d9f863fa7318a9007eafda94cde30b72cf8e8871dfa154b97e299
-	b2sums = f5e6158fed9d902cee5c4848b4d8f3b745ebacb9f269feda7a5d62d5aa6c14848971d6c6f576beabb538976dce4d2babf1d83640793b36e28e844a4bd358dadd
-	b2sums = f3a6b3fbedc240aafb559526da23ea70b4ca1586364c3918bdc39cacdc876285339e67c247b5ee37420a22058c372ff28c8a9e017a559a648b37cb20d49c2724
-	b2sums = 13f91e71aed13eecc6a3b419ed072903597aa04e5611f32de0f7953063436833980090b57d858d105fef979a71d82009492c6fe9833db8a9da564832d3a7afd5
 
 pkgname = cartridges
