@@ -3,7 +3,7 @@
 
 pkgname=python-munkres
 pkgver=1.1.4
-pkgrel=5
+pkgrel=6
 pkgdesc='Munkres algorithm for Python'
 arch=(any)
 url=https://github.com/bmc/munkres
