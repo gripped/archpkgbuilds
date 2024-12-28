@@ -3,7 +3,7 @@
 
 pkgname=python-flake8-black
 pkgver=0.3.6
-pkgrel=4
+pkgrel=5
 pkgdesc='Flake8 plugin to call black as a code style validator'
 arch=('any')
 url=https://github.com/peterjc/flake8-black
