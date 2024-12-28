@@ -1,0 +1,29 @@
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
+# Contributor: Ali Molaei <ali dot molaei at protonmail dot com>
+
+pkgname=python-proton-vpn-network-manager
+pkgver=0.10.1
+pkgrel=4
+pkgdesc="The proton-vpn-network-manager component provides the necessary functionality for other components to interact with NetworkManager."
+arch=(any)
+url="https://github.com/ProtonVPN/python-proton-vpn-network-manager"
+license=(GPL-3.0-or-later)
+makedepends=(
+  git
+  python-setuptools
+)
+source=("git+https://github.com/ProtonVPN/${pkgname}.git#tag=v${pkgver}")
+depends=(networkmanager-openvpn)
+optdepends=("network-manager-applet: password prompt on Gnome and other GTK DEs"
+            "plasma-nm: password prompt on KDE Plasma")
+sha256sums=('cc17f23fb2b3740ab39627f7f0b0ce86f32d15ddf8fd75ee1b16feaf6e16ec2d')
+
+build() {
+  cd "$pkgname"
+  python setup.py build
+}
+
+package() {
+  cd "$pkgname"
+  python setup.py install --root="$pkgdir" --optimize=1
+}
