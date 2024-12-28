@@ -4,7 +4,7 @@
 pkgbase=pyatspi
 pkgname=(python-atspi)
 pkgver=2.46.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Python bindings for D-Bus AT-SPI"
 url="https://gitlab.gnome.org/GNOME/pyatspi2"
 arch=(any)
