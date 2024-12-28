@@ -4,7 +4,7 @@
 _name=pytest-httpserver
 pkgname=python-pytest-httpserver
 pkgver=1.1.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Http server for pytest to test http clients"
 arch=(any)
 url="https://github.com/csernazs/pytest-httpserver"
