@@ -6,7 +6,7 @@
 pkgname=python-gnupg
 pkgdesc="A wrapper for the Gnu Privacy Guard (GPG or GnuPG)"
 pkgver=0.5.3
-pkgrel=1
+pkgrel=2
 arch=(any)
 url="https://github.com/vsajip/python-gnupg/"
 license=(BSD-3-Clause)
