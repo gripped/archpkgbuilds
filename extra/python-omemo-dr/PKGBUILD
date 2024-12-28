@@ -3,7 +3,7 @@
 pkgname='python-omemo-dr'
 _pkgname="${pkgname#python-}"
 pkgver=1.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc="OMEMO Crypto Library"
 arch=('x86_64')
 url="https://dev.gajim.org/gajim/omemo-dr"
