@@ -3,16 +3,16 @@
 # Contributor: Bernhard Landauer <oberon@manjaro.org>
 
 pkgname=xfce4-panel-profiles
-pkgver=1.0.14
-pkgrel=3
+pkgver=1.0.15
+pkgrel=2
 pkgdesc="Simple application to manage Xfce panel layouts"
 arch=('any')
 url="https://docs.xfce.org/apps/xfce4-panel-profiles/start"
 license=('GPL-3.0-only')
 depends=('xfce4-panel' 'python' 'python-gobject' 'python-psutil')
-makedepends=('git' 'intltool' 'xfce4-dev-tools')
+makedepends=('git' 'xfce4-dev-tools')
 source=("git+https://gitlab.xfce.org/apps/xfce4-panel-profiles.git#tag=$pkgname-$pkgver")
-sha256sums=('efb6d8a40121d6d6d5c7db8afa48532d89283b3ff71dfb2026d9a03cf0fec267')
+sha256sums=('cb3ddc0451b0b4aaa04abb4676ea63090abe41da3d4451573f2b6405a2413ee5')
 
 build() {
   cd $pkgname
