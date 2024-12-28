@@ -1,9 +1,9 @@
-# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
 
 _name=sphinxcontrib-spelling
 pkgname=python-$_name
 pkgver=8.0.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Spelling checker for Sphinx"
 arch=('any')
 url="https://sphinxcontrib-spelling.readthedocs.io/"
