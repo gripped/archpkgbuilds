@@ -2,7 +2,7 @@
 
 pkgname=python-wsgiproxy2
 pkgver=0.5.1
-pkgrel=7
+pkgrel=8
 pkgdesc="A WSGI Proxy with various http client backends"
 arch=('any')
 license=('MIT')
