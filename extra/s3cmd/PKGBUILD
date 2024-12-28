@@ -8,11 +8,11 @@
 
 pkgname=s3cmd
 pkgver=2.4.0
-pkgrel=3
+pkgrel=4
 pkgdesc="A command line client for Amazon S3"
 arch=('any')
-url='http://s3tools.org/s3cmd'
-license=('GPL2')
+url='https://s3tools.org/s3cmd'
+license=('GPL-2.0-only')
 depends=('python-dateutil' 'python-magic')
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 optdepends=('gnupg: encrypted file storage')
