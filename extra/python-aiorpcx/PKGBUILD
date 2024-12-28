@@ -5,7 +5,7 @@
 pkgname=python-aiorpcx
 _pkgname=aiorpcX
 pkgver=0.23.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A generic asyncio library implementation of RPC suitable for an application that is a client, server or both"
 url="https://github.com/kyuupichan/aiorpcX"
 arch=('any')
