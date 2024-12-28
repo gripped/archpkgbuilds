@@ -5,7 +5,7 @@
 pkgname=python-autobahn
 # https://github.com/crossbario/autobahn-python/blob/master/docs/changelog.rst
 pkgver=24.4.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Real-time framework for Web, Mobile & Internet of Things'
 arch=(x86_64)
 url='https://github.com/crossbario/autobahn-python/'
@@ -47,6 +47,11 @@ prepare() {
   # replaced with -march=nehalem so that the SSE 4.1 implementation is built
   # [1] https://gitlab.archlinux.org/archlinux/rfcs/-/blob/master/rfcs/0002-march.rst
   sed -i "s#, '-march=native'##" autobahn/nvx/_utf8validator.py
+
+  # Backport a commit [1] to fix compatibility with pytest-asyncio 0.24.0, which is stricter about pytest marks [2]
+  # [1] https://github.com/crossbario/autobahn-python/pull/1647
+  # [2] https://github.com/pytest-dev/pytest-asyncio/pull/886
+  git cherry-pick -n 7bc85b34e200640ab98a41cfddb38267f39bc92e
 }
 
 build() {
