@@ -3,7 +3,7 @@
 pkgname=python-geographiclib
 _name="${pkgname#python-}-python"
 pkgver=2.0
-pkgrel=4
+pkgrel=6
 pkgdesc="Python implementation of the geodesic routines in GeographicLib"
 arch=(any)
 url="https://github.com/geographiclib/geographiclib-python"
