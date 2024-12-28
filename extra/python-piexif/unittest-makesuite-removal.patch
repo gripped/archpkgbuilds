@@ -1,0 +1,18 @@
+diff -aur Piexif-1.1.3.old/tests/s_test.py Piexif-1.1.3/tests/s_test.py
+--- Piexif-1.1.3.old/tests/s_test.py	2024-05-15 21:51:44.742030341 +0200
++++ Piexif-1.1.3/tests/s_test.py	2024-05-15 21:52:12.922702189 +0200
+@@ -1056,10 +1056,10 @@
+ def suite():
+     suite = unittest.TestSuite()
+     suite.addTests([
+-        unittest.makeSuite(UTests),
+-        unittest.makeSuite(ExifTests),
+-        unittest.makeSuite(HelperTests),
+-        unittest.makeSuite(WebpTests),
++        unittest.defaultTestLoader.loadTestsFromTestCase(UTests),
++        unittest.defaultTestLoader.loadTestsFromTestCase(ExifTests),
++        unittest.defaultTestLoader.loadTestsFromTestCase(HelperTests),
++        unittest.defaultTestLoader.loadTestsFromTestCase(WebpTests),
+     ])
+     return suite
+ 
