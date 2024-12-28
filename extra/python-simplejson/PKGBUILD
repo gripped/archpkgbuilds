@@ -6,7 +6,7 @@
 pkgname=python-simplejson
 _name="${pkgname#python-}"
 pkgver=3.19.2
-pkgrel=4
+pkgrel=5
 pkgdesc='Simple, fast and extensible JSON decoder/encoder'
 license=(MIT)
 arch=(x86_64)
