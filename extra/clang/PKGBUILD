@@ -3,7 +3,7 @@
 
 pkgname=clang
 pkgver=18.1.8
-pkgrel=4
+pkgrel=5
 pkgdesc="C language family frontend for LLVM"
 arch=('x86_64')
 url="https://clang.llvm.org/"
@@ -67,10 +67,6 @@ prepare() {
   patch -Np2 -i ../enable-fstack-protector-strong-by-default.patch
   patch -Np2 -i ../clang-disable-float128-diagnostics-for-device-compilation.patch
   patch -Np2 -i ../support-__GCC_-CON-DE-STRUCTIVE_SIZE.patch
-
-  # Attempt to convert script to Python 3
-  2to3 -wn --no-diffs \
-    tools/extra/clang-include-fixer/find-all-symbols/tool/run-find-all-symbols.py
 }
 
 build() {
