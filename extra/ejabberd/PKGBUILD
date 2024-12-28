@@ -3,7 +3,7 @@
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 
 pkgname=ejabberd
-pkgver=24.10
+pkgver=24.12
 pkgrel=1
 pkgdesc="Jabber server written in Erlang"
 arch=('x86_64')
@@ -23,6 +23,7 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/processone/ejabberd/archive
 	"jiffy::git+https://github.com/davisp/jiffy"
 	"base64url::git+https://github.com/dvv/base64url"
 	"lager::git+https://github.com/erlang-lager/lager"
+	"eredis::git+https://github.com/Nordix/eredis/"
 	"erlang-jose::git+https://github.com/potatosalad/erlang-jose"
 	"cache_tab::git+https://github.com/processone/cache_tab"
 	"eimp::git+https://github.com/processone/eimp"
@@ -46,10 +47,9 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/processone/ejabberd/archive
 	"xmpp::git+https://github.com/processone/xmpp"
 	"yconf::git+https://github.com/processone/yconf"
 	"luerl::git+https://github.com/rvirding/luerl"
-	"eredis::git+https://github.com/wooga/eredis"
 	"$pkgname.logrotate"
 	"sysuser.conf")
-sha256sums=('e260de76fc75354cd302caf2281e5114fdd1120d4fa2f4d24ddb1785dc43e343'
+sha256sums=('22b15ab9be8f0ac4b7a5a7a48cd59c282c87f17b038017b960c15cfd314689f2'
             'SKIP'
             'SKIP'
             'SKIP'
