@@ -2,21 +2,22 @@
 # Contributor: Eduardo Jose Gomez Hernandez <eduardo@edujgh.net>
 
 pkgname=c3c
-pkgver=0.6.4
-pkgrel=1
+pkgver=0.6.5
+pkgrel=2
 pkgdesc='Compiler for the C3 language'
 arch=(x86_64)
 url='https://github.com/c3lang/c3c'
 license=(LGPL-3.0-or-later MIT)
 depends=(lld llvm-libs)
 makedepends=(clang cmake git libedit llvm)
-source=("git+$url#commit=528fecef4d0b7b5aff7529c58f8367d19a08bddc"
-        CMakeLists.txt)
-b2sums=('553c05f8bcb0c268e3bd3e74cf9fde0ac1807863c1c21406f02b3143698c0da058b33a33128fc1688e88ccaff38799b7976c05ed058325edca15a6b1edc7ee6d'
-        'e034d2a4dc01d88307ac84067f9a810b6bbed296f4ee0f29722d9f2ff7d34d38f1e7dd5bae41f3d08fa9ef00661d4f09521d2fa1ca3e0f639d419b1ab545b6d4')
+source=("git+$url#tag=v$pkgver")
+b2sums=('ce3936fe84002ff9deb07bb626a4b6f84b4f2c824315a7d81276ca433b9cd59455e56e49bf55b0f79b919b2ac16e0d87682d51dca91187d6c710cbb89a441954')
 
 prepare() {
-  ln -f -s "$srcdir/CMakeLists.txt" $pkgname/CMakeLists.txt
+  cd $pkgname
+  # Pretend that git is missing and define the git hash manually
+  sed -i '/find_package(Git /d' CMakeLists.txt git_hash.cmake
+  sed -i "s/unknown/$(git rev-parse HEAD)/g" git_hash.cmake
 }
 
 build() {
