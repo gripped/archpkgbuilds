@@ -3,8 +3,8 @@
 # Contributor: Ralf Schmitt <ralf@systemexit.de>
 
 pkgname=python-greenlet
-pkgver=3.1.0
-pkgrel=1
+pkgver=3.1.1
+pkgrel=2
 pkgdesc="Lightweight in-process concurrent programming"
 license=("MIT")
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=('python-build' 'python-installer' 'python-setuptools'
              'python-wheel')
 checkdepends=('python-objgraph' 'python-psutil')
 source=("https://files.pythonhosted.org/packages/source/g/greenlet/greenlet-${pkgver}.tar.gz")
-sha512sums=('2c0d97848757e6346933426e3f6feb18120b3a63695a746acddbb467e01503174c46aea9b62e7507e8700f3450581ff2460f45700331368333977abebeb805eb')
+sha512sums=('915a6e22c20b235de472c61c7bc4cb60a08b79e29127c4fb817c362cee37f589bc362f12ed31bdc7dda91f49976d4e2784c8d13202bf598156a0aacacdb7f6fb')
 
 build() {
     cd greenlet-$pkgver
@@ -24,6 +24,7 @@ build() {
 check() {
     cd greenlet-$pkgver
     local _python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
+    echo PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$_python_version" python -m unittest discover -v greenlet.tests
     PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$_python_version" python -m unittest discover -v greenlet.tests
 }
 
