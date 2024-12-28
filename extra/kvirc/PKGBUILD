@@ -2,7 +2,7 @@
 
 pkgname=kvirc
 pkgver=5.2.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Qt based IRC client'
 arch=('x86_64')
 url='http://kvirc.net/'
