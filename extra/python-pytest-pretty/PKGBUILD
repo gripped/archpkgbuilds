@@ -3,7 +3,7 @@
 pkgname=python-pytest-pretty
 _name="${pkgname#python-}"
 pkgver=1.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Pytest plugin for pretty printing the test summary"
 arch=(any)
 url="https://github.com/samuelcolvin/pytest-pretty"
