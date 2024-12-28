@@ -1,17 +1,19 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
+_pkgname=mdt
 pkgname=md-tui
 pkgver=0.8.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Markdown renderer in the terminal"
 arch=('x86_64')
-url="https://github.com/henriklovhaug/md-tui"
+url="https://github.com/henriklovhaug/$pkgname"
 license=('AGPL-3.0-only')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('ce9d45cecc7df0503c9fea2a264837f8b8043d5e2ae4ac19c5b788396e991c62')
 options=('!lto')
+install="$pkgname.install"
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -30,7 +32,8 @@ check() {
 
 package() {
   cd "$pkgname-$pkgver"
-  install -Dm 755 "target/release/mdt" -t "$pkgdir/usr/bin"
+  install -Dm 755 "target/release/$_pkgname" "$pkgdir/usr/bin/$pkgname"
+  ln -s "/usr/bin/$pkgname" "$pkgdir/usr/bin/$_pkgname"
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
 }
 
