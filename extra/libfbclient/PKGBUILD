@@ -3,7 +3,7 @@
 # Contributor: Douglas Soares de Andrade <dsa@aur.archlinux.org>
 
 pkgname=libfbclient
-pkgver=4.0.4.3010
+pkgver=4.0.5.3140
 pkgrel=1
 pkgdesc="Client library for Firebird"
 arch=('x86_64')
@@ -13,13 +13,14 @@ depends=('gcc-libs' 'libtommath')
 makedepends=('editline' 'libtomcrypt' 're2' 'unzip')
 source=(https://github.com/FirebirdSQL/firebird/releases/download/v${pkgver%.*}/Firebird-$pkgver-0.tar.xz
         LICENSE)
-sha512sums=('a3bba5fd28ccae67f0f040be61763d14f97c63ad381bbbaf359e09117f11ab5c54a965c1ed14c2092d60a145373743e12202b0d8e80ec7b456d32ab00c8f1b08'
+sha512sums=('716cd8ed7412b02e9a926e2314c0a3a67df946b85d879160710e6f2dc7fa78dcec7b9e514bd7ff653994bcfc3f353f25b5ac158e24c6c1399181aca34c0f2967'
             '1e4c24f60d2cdc1a89b52b45f778ed264ae14428a940b0509ca5c50182aed6149b7a6a546e7d08b0f264bafde81a210abe20db204c20db596f5fc2ec205ac37e')
 options=(!lto) # Segfaults with LTO
 
 prepare() {
   # Ensure system libs are used
   rm -r Firebird-$pkgver-0/extern/{editline,libtommath,libtomcrypt,zlib}
+  find -type f -exec sed -e 's|c++11|c++17|g' -i {} \;
 }
 
 build() {
