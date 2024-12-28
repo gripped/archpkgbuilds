@@ -3,7 +3,7 @@
 
 pkgname=python-curtsies
 pkgver=0.4.2
-pkgrel=4
+pkgrel=5
 pkgdesc='Curses-like terminal wrapper with a display based on compositing 2d arrays of text'
 arch=('any')
 url='https://github.com/bpython/curtsies'
