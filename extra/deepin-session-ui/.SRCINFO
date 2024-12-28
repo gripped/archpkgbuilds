@@ -1,6 +1,6 @@
 pkgbase = deepin-session-ui
 	pkgdesc = Deepin desktop-environment - Session UI module
-	pkgver = 6.0.22
+	pkgver = 6.0.24
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-session-ui
 	arch = x86_64
@@ -10,20 +10,17 @@ pkgbase = deepin-session-ui
 	makedepends = cmake
 	makedepends = deepin-tray-loader
 	makedepends = deepin-gettext-tools
-	makedepends = qt5-tools
+	makedepends = qt6-tools
 	makedepends = gtest
 	makedepends = ninja
-	depends = gsettings-qt
 	depends = deepin-daemon
 	depends = deepin-wallpapers
 	depends = deepin-pw-check
-	depends = dtkcore
-	depends = dtkgui
-	depends = dtkwidget
-	depends = glib2
+	depends = dtk6core
+	depends = dtk6widget
 	depends = libxext
-	depends = qt5-base
-	depends = qt5-x11extras
+	depends = qt6-base
+	depends = qt6-svg
 	depends = systemd-libs
 	depends = xcb-util-wm
 	depends = libxcrypt
@@ -31,7 +28,7 @@ pkgbase = deepin-session-ui
 	depends = gcc-libs
 	depends = hicolor-icon-theme
 	depends = startdde
-	source = git+https://github.com/linuxdeepin/dde-session-ui.git#tag=6.0.22
-	sha512sums = be1aa2bde13e8c635de2a312174c6dceceb82f85e1267354f8ea235a9ae22076e2456c0bdd8421004e5be6d4b3c05c40ff10ea87c43311a72fb8f180813fab4e
+	source = git+https://github.com/linuxdeepin/dde-session-ui.git#tag=6.0.24
+	sha512sums = 9cbfa9fbd8ea21636d1b1408072abc708cb273fe066d35c16723c9c5c170613149aac4a99ab1f5c048a8d7246e40d377066501b527d69c96d9bb72c1e20868e2
 
 pkgname = deepin-session-ui
