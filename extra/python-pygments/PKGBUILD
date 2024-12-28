@@ -1,9 +1,9 @@
-# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
 # Contributor: Timm Preetz <timm@preetz.us>
 
 pkgname=python-pygments
 pkgver=2.18.0
-pkgrel=1
+pkgrel=3
 pkgdesc="Python syntax highlighter"
 arch=('any')
 url="https://pygments.org/"
