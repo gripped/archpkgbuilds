@@ -3,13 +3,13 @@
 pkgname=python-olefile
 _pyname=olefile
 pkgver=0.47
-pkgrel=2
+pkgrel=4
 pkgdesc='Python library to parse, read and write Microsoft OLE2 files (formerly OleFileIO_PL)'
 url='https://www.decalage.info/olefile'
 arch=('any')
 license=('BSD')
 depends=('python')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
 replaces=('python3-olefileio')
 conflicts=('python3-olefileio')
@@ -18,7 +18,7 @@ sha512sums=('efd73092f4fb428a91066c11fd319a60fa43e46f7abc4e7ba38627f11e19a6fbba2
 
 build() {
   (cd ${_pyname}-${pkgver}
-    python setup.py build
+    python -m build --wheel --no-isolation
   )
 }
 
@@ -30,7 +30,7 @@ check() {
 
 package() {
   cd ${_pyname}-${pkgver}
-  python setup.py install -O1 --root="${pkgdir}" --prefix=/usr --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm 644 LICENSE.txt -t "${pkgdir}/usr/share/licenses/${pkgname}"
   install -Dm 644 README.md doc/*.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
 
