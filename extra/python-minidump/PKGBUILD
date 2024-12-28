@@ -3,8 +3,8 @@
 
 _pyname=minidump
 pkgname=python-${_pyname}
-pkgver=0.0.23
-pkgrel=2
+pkgver=0.0.24
+pkgrel=1
 pkgdesc='Python library to parse and read Microsoft minidump file format'
 url='https://github.com/skelsec/minidump'
 arch=('any')
@@ -12,8 +12,8 @@ license=('MIT')
 depends=('python')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 source=("${url}/archive/refs/tags/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('df938d85196726db78f5c5a3809963fef8a1a473a4afb0869c271226166edf2e8c6329d1b0946fe297a2d7e01d4e1da55baa4b3ce59a74429b17434521bf4d6d')
-b2sums=('1b0904b7ebba2cd9bf70882ea0bf375e1114454dab3deeccebce4fd7a9522f41523d15eb658a4ddf774c47973c8bf92b538add884a3421e12cca0e91ee28a031')
+sha512sums=('9a7652a0430b26eabdebfaf8278414c266f226634d1c268beccbf06d3961fdf4450e8acb025340353c9d4737c7bea9fd2a3afb0e1d9bf317be807d9685b9c2f9')
+b2sums=('d99d54302990a9a6777a4f4771257fb4b41be212cda3afd6fd6b38b43415f159ad49b0b732da73634714acc9f0604cb0cde3878be6f5c45dc7894b77ea9ebd13')
 
 build() {
   cd ${_pyname}-${pkgver}
