@@ -1,0 +1,14 @@
+python_version_warning() {
+  echo "WARNING: This version of the TensorFlow package is not compatible with Python 3.13"
+  echo ""
+  echo "If you want to use TensorFlow, consider installing an older version of Python and use a virtual environment or use the official Docker image,"
+  echo "https://www.tensorflow.org/install"
+}
+
+post_install() {
+  python_version_warning
+}
+
+post_upgrade() {
+  python_version_warning
+}
