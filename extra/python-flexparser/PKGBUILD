@@ -3,7 +3,7 @@
 pkgname=python-flexparser
 _name=${pkgname#python-}
 pkgver=0.3.1
-pkgrel=2
+pkgrel=3
 pkgdesc="A parser by hgrecco"
 arch=(any)
 url=https://github.com/hgrecco/flexparser
