@@ -3,7 +3,7 @@
 
 pkgname=python-shtab
 pkgver=1.7.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Automagic shell tab completion for Python CLI applications'
 arch=('any')
 url='https://github.com/iterative/shtab'
