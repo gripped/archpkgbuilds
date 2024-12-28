@@ -4,7 +4,7 @@ pkgname=python-py-partiql-parser
 _pkgname=py-partiql-parser
 # https://github.com/getmoto/py-partiql-parser/blob/main/CHANGELOG.md
 pkgver=0.5.6
-pkgrel=1
+pkgrel=3
 pkgdesc='Python Parser for PartiQL'
 arch=(any)
 url='https://github.com/getmoto/py-partiql-parser'
