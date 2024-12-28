@@ -3,8 +3,8 @@
 
 _hkgname=MonadRandom
 pkgname=haskell-monadrandom
-pkgver=0.6
-pkgrel=41
+pkgver=0.6.1
+pkgrel=1
 pkgdesc="Random-number generation monad."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("custom")
@@ -12,12 +12,12 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-primitive' 'haskell-random' 'haskell-transformers-compat')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('a6e0944bc2448a376c036330dcc17eeb6076de4b44c64729b94dede87935c2ad06af5d69ee14953a7b38d06529daa0a46a4569bc3d959f7748ce7e77abcea713')
+sha512sums=('09ceff973334e2d7a8bbaa6c265e946a29972d209fc22846c858aaf20b485c3596ce2288127fbb06bbda660e7e7136b652ee8b7f0636b0ca660da1caf86cedd8')
 
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
