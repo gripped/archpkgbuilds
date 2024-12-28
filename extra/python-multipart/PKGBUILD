@@ -2,7 +2,7 @@
 
 _pkgname=multipart
 pkgname=python-$_pkgname
-pkgver=1.1.0
+pkgver=1.2.1
 pkgrel=1
 pkgdesc='Parser for multipart/form-data'
 arch=('any')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('python')
 makedepends=('python-build' 'python-installer' 'python-flit-core')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('4a1d1b519ff9a13fff7dbed77e79f61ee91d3b2c7d84bdfd0300a30821cf691e2aaa626e863b143e0366cdc611202cb164b1cfffe0f29a9c01239dee52f3fa26')
+sha512sums=('4d1337fc2dc1f38e1402dc77e7a47caa055f9b18a965d71a90dc4172e1a48e6cab513a20f95e14664451bbee545e1d90de5643ace3d854bcb168008dd2aa3223')
 
 build() {
   cd $_pkgname-$pkgver
