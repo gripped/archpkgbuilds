@@ -1,8 +1,8 @@
 # Maintainer: Konstantin Gizdov <arch at kge dot pw>
 _pkgname='pp'
 pkgname="ocaml-${_pkgname}"
-pkgver=1.2.0
-pkgrel=2
+pkgver=2.0.0
+pkgrel=1
 pkgdesc="OCaml Pretty printing: a lean alternative to the Format module of the OCaml standard library."
 arch=('x86_64')
 url="https://github.com/ocaml-dune/pp"
@@ -11,7 +11,7 @@ makedepends=('dune' 'ocaml')
 depends=('glibc')
 options=('!strip' '!debug')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('ab1e833736b994200009805e78f88a309cef365fc3e57b98b3cfc86b9216a8b44ae3a63cf2a6755ff14250a1a27bcfde8083409e77c0cd8e3e4a57fda3771d2c')
+sha512sums=('0a407e2674e71050ba17b768e473e9e856c7a050c7e9d712e7649424b9207d272a0091f97452ae8939693c74d5007e2616398a2dc7e9de6c5880588510887d29')
 
 build() {
     cd "${srcdir}/${_pkgname}-${pkgver}"
