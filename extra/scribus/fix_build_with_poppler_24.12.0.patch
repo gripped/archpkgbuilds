@@ -1847,3 +1847,37 @@ index 35de565..9eca5a8 100644
  	QHash<QString, QList<int> > m_radioMap;
  	QHash<int, PageItem*> m_radioButtons;
  	int m_actPage { 1 };
+diff --git a/scribus/plugins/import/pdf/pdftextrecognition.h b/scribus/plugins/import/pdf/pdftextrecognition.h
+index a04b453..631a2d1 100644
+--- a/scribus/plugins/import/pdf/pdftextrecognition.h
++++ b/scribus/plugins/import/pdf/pdftextrecognition.h
+@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
+ #include "slaoutput.h"
+ 
+ #include <poppler/GfxState.h>
+-#include <poppler/CharCodeToUnicode.h>
+ 
+ /* PDF TextBox Framework */
+ /*
+@@ -143,7 +142,7 @@ class PdfTextOutputDev : public SlaOutputDev
+ {
+ public:
+ 	PdfTextOutputDev(ScribusDoc* doc, QList<PageItem*>* Elements, QStringList* importedColors, int flags);
+-	virtual ~PdfTextOutputDev();
++	~PdfTextOutputDev() override;
+ 
+ 	void updateFont(GfxState* state) override;
+ 
+diff --git a/scribus/plugins/import/pdf/slaoutput.h b/scribus/plugins/import/pdf/slaoutput.h
+index 35de565..66582c7 100644
+--- a/scribus/plugins/import/pdf/slaoutput.h
++++ b/scribus/plugins/import/pdf/slaoutput.h
+@@ -45,8 +45,6 @@ for which a new license (GPL+exception) is in place.
+ #include <poppler/Form.h>
+ #include <poppler/Page.h>
+ #include <poppler/Catalog.h>
+-#include <poppler/CharCodeToUnicode.h>
+-#include <poppler/FontEncodingTables.h>
+ #include <poppler/splash/SplashFontFileID.h>
+ #include <poppler/splash/SplashFontFile.h>
+ #include <poppler/splash/SplashFontEngine.h>
