@@ -3,7 +3,7 @@
 
 pkgname=python-blosc2
 pkgver=3.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Wrapper for the blosc2 compressor'
 arch=('x86_64')
 url='https://github.com/Blosc/python-blosc2'
