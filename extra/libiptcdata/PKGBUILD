@@ -3,24 +3,38 @@
 
 pkgname=libiptcdata
 pkgver=1.0.5
-pkgrel=3
+pkgrel=4
 pkgdesc='Library for manipulating the IPTC metadata'
-arch=('x86_64')
+arch=(x86_64)
 url='https://libiptcdata.sourceforge.net/'
-license=('LGPL-2.0-or-later')
-depends=('glibc')
-makedepends=('python' 'python-setuptools')
+license=(LGPL-2.0-or-later)
+depends=(glibc)
+makedepends=(
+  git
+  gtk-doc
+  python-setuptools
+)
 optdepends=('python: Python bindings')
-source=("https://github.com/ianw/libiptcdata/releases/download/release_${pkgver//./_}/$pkgname-$pkgver.tar.gz")
-sha256sums=('c094d0df4595520f194f6f47b13c7652b7ecd67284ac27ab5f219bc3985ea29e')
+source=("git+https://github.com/ianw/libiptcdata.git#tag=release_${pkgver//./_}")
+b2sums=(def76cf757f9c4b8f0d4f2e406e14fe3bb98364bcc8d4307609e0cf3927e0befe514389795401a83a867ca4b5f0407d097b22dc0ecb82166aa4f8a3c88241db9)
+
+prepare() {
+  cd $pkgname
+  autoreconf -fi
+}
 
 build() {
-  cd $pkgname-$pkgver
-  ./configure --prefix=/usr --enable-python
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --enable-gtk-doc \
+    --enable-python
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
