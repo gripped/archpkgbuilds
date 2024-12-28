@@ -4,7 +4,7 @@
 _pyname=icecream
 pkgname=python-$_pyname
 pkgver=2.1.3
-pkgrel=5
+pkgrel=6
 pkgdesc='Sweet and creamy print debugging'
 arch=(any)
 url='https://github.com/gruns/icecream'
