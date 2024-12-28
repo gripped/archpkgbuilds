@@ -5,7 +5,7 @@
 pkgname=python-pyaes
 _pipname=pyaes
 pkgver=1.6.1
-pkgrel=11
+pkgrel=12
 pkgdesc="Pure-Python Implementation of the AES block-cipher and common modes of operation"
 arch=('any')
 depends=('python')
