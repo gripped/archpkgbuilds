@@ -3,7 +3,7 @@
 pkgname=python-pynetbox
 _name="${pkgname#python-}"
 pkgver=7.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="NetBox API client library"
 arch=('any')
 url="https://github.com/netbox-community/pynetbox"
