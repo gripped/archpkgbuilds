@@ -7,7 +7,7 @@
 pkgbase=tuned
 pkgname=("${pkgbase}" "${pkgbase}-ppd")
 pkgver=2.24.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Daemon that performs monitoring and adaptive configuration of devices in the system'
 arch=('any')
 url="https://github.com/redhat-performance/${pkgbase}"
@@ -24,7 +24,6 @@ prepare() {
 
   sed -i 's|/libexec/|/lib/|g' Makefile
   sed -i 's|/sbin/|/bin/|g' Makefile tuned.service tuned-gui.py tuned-gui.desktop tuned/ppd/tuned-ppd.service
-  sed -i 's|install-ppd: install$|install-ppd: install-dirs|' Makefile
 }
 
 package_tuned() {
@@ -61,7 +60,6 @@ package_tuned-ppd() {
   provides=('power-profiles-daemon')
   conflicts=('power-profiles-daemon')
   backup=('etc/tuned/ppd.conf')
-  options=('!emptydirs')
 
   cd "${pkgbase}-${pkgver}"
 
