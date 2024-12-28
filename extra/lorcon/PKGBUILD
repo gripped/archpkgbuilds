@@ -8,7 +8,7 @@
 pkgbase=lorcon
 pkgname=(lorcon python-pylorcon2)
 pkgver=2020.06.06
-pkgrel=5
+pkgrel=6
 epoch=2
 pkgdesc='Generic library for injecting 802.11 frames'
 url='https://github.com/kismetwireless/lorcon'
@@ -26,6 +26,7 @@ prepare() {
 
 build() {
   cd ${pkgbase}-${pkgver}
+  export CFLAGS+=" -Wno-implicit-function-declaration -Wno-int-conversion"
   ./configure \
     --prefix=/usr \
     --mandir=/usr/share/man
