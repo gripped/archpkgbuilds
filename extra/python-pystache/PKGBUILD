@@ -4,7 +4,7 @@
 pkgname=python-pystache
 _pkgname=pystache
 pkgver=0.6.5
-pkgrel=2
+pkgrel=3
 pkgdesc='The mustache template engine written in python'
 arch=(any)
 url='https://github.com/PennyDreadfulMTG/pystache'
