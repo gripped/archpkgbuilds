@@ -3,7 +3,7 @@
 
 pkgname=python-plyvel
 pkgver=1.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast and feature-rich Python interface to LevelDB"
 arch=('x86_64')
 license=('BSD-3-Clause')
@@ -13,7 +13,7 @@ makedepends=('cython' 'python-setuptools')
 makedepends=('cython' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
 source=("plyvel-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('8f613197e85d085ea47e5a5d6b2bf0310f52fb51eeda6ed7f8cb559c192583f3cb25b66227876c01a08f6a355aafd5092673b7d5341b9b6e5d24546b7755d275')
+sha512sums=('4445ff5db2c58c763a5698912307751766def76caa7f008970db3ff2cb38f76cf22be913f8247c00918d4808e7890f89972933755c0c380460a480aa6c6b052a')
 
 prepare() {
   # Shipped egg-info has wrong permission etc
