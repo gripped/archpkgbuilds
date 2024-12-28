@@ -2,7 +2,7 @@
 
 pkgname=python-socketio
 pkgver=5.8.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Python implementation of the Socket.IO realtime server'
 url='https://github.com/miguelgrinberg/python-socketio'
 arch=('any')
