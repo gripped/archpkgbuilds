@@ -1,0 +1,14 @@
+diff -aur osprofiler.old/osprofiler/drivers/elasticsearch_driver.py osprofiler/osprofiler/drivers/elasticsearch_driver.py
+--- osprofiler.old/osprofiler/drivers/elasticsearch_driver.py	2024-12-03 18:35:40.404032789 +0100
++++ osprofiler/osprofiler/drivers/elasticsearch_driver.py	2024-12-03 19:35:22.955346490 +0100
+@@ -41,8 +41,8 @@
+                 "please install `elasticsearch` library. "
+                 "To install with pip:\n `pip install elasticsearch`.")
+ 
+-        client_url = parser.urlunparse(parser.urlparse(self.connection_str)
+-                                       ._replace(scheme="http"))
++        url = parser.urlparse(self.connection_str)
++        client_url = parser.urlunparse(("http", f"{host}{':' + str(9200 if url.port is None else url.port)}", url.path, url.params, url.query, url.fragment))
+         self.conf = conf
+         self.client = Elasticsearch(client_url)
+         self.index_name = index_name

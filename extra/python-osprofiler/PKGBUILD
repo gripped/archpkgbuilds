@@ -3,7 +3,7 @@
 pkgname=python-osprofiler
 pkgver=3.4.3
 _commit=32863011fe90aa283425b6347123c38e5c251ac3
-pkgrel=5
+pkgrel=6
 pkgdesc="OpenStack Profiler Library"
 arch=('any')
 url="https://docs.openstack.org/osprofiler/latest/"
@@ -13,8 +13,15 @@ depends=('python-netaddr' 'python-oslo-concurrency' 'python-oslo-serialization' 
 makedepends=('git' 'python-setuptools')
 checkdepends=('python-ddt' 'python-stestr' 'python-testtools' 'python-docutils' 'python-pymongo'
               'python-elasticsearch' 'python-redis')
-source=("git+https://github.com/openstack/osprofiler.git#commit=$_commit")
-sha512sums=('SKIP')
+source=("git+https://github.com/openstack/osprofiler.git#commit=$_commit"
+	"elasticsearch-url-fix.patch")
+sha512sums=('809bffc0bc3ed560aa1fba32c1bf7d497b7f36c396e9a5f4b15ac64cf40a5e2bb95a6b6000483355dfd0d71fe689ece8782b4bb5661e38958444e31ad5714286'
+            '0c420ff3e5d9a9357d14398e0768c6329277712da9f315c74f594ca8b8394ca34178de14dec7986111999a5d31b20ab2be83fc119481f745a30876311b12eb0d')
+
+prepare() {
+  cd osprofiler
+  patch -Np1 -i ${srcdir}/elasticsearch-url-fix.patch
+}
 
 build() {
   cd osprofiler

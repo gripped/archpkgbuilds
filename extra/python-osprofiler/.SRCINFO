@@ -1,7 +1,7 @@
 pkgbase = python-osprofiler
 	pkgdesc = OpenStack Profiler Library
 	pkgver = 3.4.3
-	pkgrel = 5
+	pkgrel = 6
 	url = https://docs.openstack.org/osprofiler/latest/
 	arch = any
 	license = Apache
@@ -22,6 +22,8 @@ pkgbase = python-osprofiler
 	depends = python-requests
 	depends = python-webob
 	source = git+https://github.com/openstack/osprofiler.git#commit=32863011fe90aa283425b6347123c38e5c251ac3
-	sha512sums = SKIP
+	source = elasticsearch-url-fix.patch
+	sha512sums = 809bffc0bc3ed560aa1fba32c1bf7d497b7f36c396e9a5f4b15ac64cf40a5e2bb95a6b6000483355dfd0d71fe689ece8782b4bb5661e38958444e31ad5714286
+	sha512sums = 0c420ff3e5d9a9357d14398e0768c6329277712da9f315c74f594ca8b8394ca34178de14dec7986111999a5d31b20ab2be83fc119481f745a30876311b12eb0d
 
 pkgname = python-osprofiler
