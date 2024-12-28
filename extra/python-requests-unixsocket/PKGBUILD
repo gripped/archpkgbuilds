@@ -4,7 +4,7 @@
 pkgname=python-requests-unixsocket
 _pkgname="${pkgname#python-}"
 pkgver=0.3.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Use requests to talk HTTP via a UNIX domain socket'
 arch=('any')
 url='https://github.com/msabramo/requests-unixsocket'
