@@ -3,7 +3,7 @@
 
 pkgname=cryptominisat
 pkgver=5.11.22
-pkgrel=2
+pkgrel=3
 _cadiback=ea65a9442fc2604ee5f4ffd0f0fdd0bf481d5b42
 _cadical=c90592eab35a4a26ad901367db3cd727c5ab79c5
 pkgdesc='A modern, multi-threaded, feature-rich, simplifying SAT solver'
@@ -20,7 +20,7 @@ makedepends=(cmake
              python-build
              python-installer
              python-setuptools
-             python-toml
+             python-tomli
              python-wheel
              vim)
 optdepends=('python: python module')
@@ -28,12 +28,14 @@ source=(git+https://github.com/msoos/cryptominisat#tag=$pkgver
         git+https://github.com/meelgroup/cadiback#commit=$_cadiback
         git+https://github.com/meelgroup/cadical.git#commit=$_cadical
         python-system-libs.patch
-        link-private.patch)
+        link-private.patch
+        python-3.13.patch)
 sha256sums=('0e6fc417cfbe03f1b993cdaf5ba8c22e98585f58321df24ad87a28fc3854bb2f'
             'e7e96d6e91bba3c9d28c798545f25236f107aec97780ee0c459352606c7c3a0c'
             '1769c624bb55a26de5a027f17bfaa323fac8d338db8069eeb76934aa3c0625d4'
             'd5f0d3c314a36283dbea3022c45d1c21b0857b6e5ccddec61985b15391f611bb'
-            'a5006f49e8adf1474725d2a3e4205cdd65beb2f100f5538b2f89e14de0613e0f')
+            'a5006f49e8adf1474725d2a3e4205cdd65beb2f100f5538b2f89e14de0613e0f'
+            '369e1e31936c0fce8960eb9130a03ec2550f5f379af2a31164c2b4234503e81c')
 
 prepare() {
   cd $pkgname
@@ -41,7 +43,8 @@ prepare() {
   git cherry-pick -n 2905d6d9a755e9f20ec4a4c22f7f27070c4455e7 \
                      1d735b6ce0e3d17cdec182db491646fc89aa8cf4 # Fix python build
   patch -p1 -i ../python-system-libs.patch # Build python module against shared library
-  sed -e '/makeSuite(TestDump)/d' -i python/tests/test_pycryptosat.py # Remove broken tests
+  patch -p1 -i ../python-3.13.patch # Fix tests with python 3.13
+  sed -e '/(TestDump)/d' -i python/tests/test_pycryptosat.py # Remove broken tests
   sed -e 's|/$COMPILE/|/${COMPILE//\\//\\\\/}/|' -i ../cadiback/configure # Honor system build flags
   patch -p1 -i ../link-private.patch # Link cadiback and cadical privately
 }
