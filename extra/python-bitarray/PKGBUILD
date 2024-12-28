@@ -3,7 +3,7 @@
 pkgname=python-bitarray
 _pkgname=${pkgname#python-}
 pkgver=3.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Efficient arrays of booleans for Python"
 arch=(x86_64)
 url="https://github.com/ilanschnell/bitarray"
