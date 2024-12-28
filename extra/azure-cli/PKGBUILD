@@ -2,8 +2,8 @@
 # Contributor: pallxk <aur@pallxk.com>
 # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux
 pkgname=azure-cli
-pkgver=2.66.0
-pkgrel=1
+pkgver=2.67.0
+pkgrel=2
 pkgdesc="Command-line tools for Microsoft Azure"
 arch=('any')
 url="https://github.com/Azure/azure-cli"
@@ -12,9 +12,16 @@ depends=("python")
 makedepends=("git")
 options=('!debug' '!strip')
 source=("git+https://github.com/Azure/azure-cli.git#tag=azure-cli-${pkgver}"
-        "az")
-sha256sums=('ba82a4cfc33856edd8fdb57f87ad13837c517394adae7f407cfb132124c9fed1'
-            '990f70efec828c1e1f3f57748fc6e40f9705f2223dc96683e8e29d118daac116')
+        "az"
+        "python-3.13-compat-update-cffi.patch")
+sha256sums=('d456d284968eb7124aed7e0ac9e4aa35caf78e229a4043a860212ea0f40c5b59'
+            '990f70efec828c1e1f3f57748fc6e40f9705f2223dc96683e8e29d118daac116'
+            'bae8e3fc18eafa94a68f84cd7b9a2252adee095647a8da28e8aabe64515c973a')
+
+prepare() {
+  cd azure-cli
+  patch -Np1 -i ../python-3.13-compat-update-cffi.patch
+}
 
 package() {
   cd azure-cli
@@ -25,6 +32,7 @@ package() {
   # with very specific versions that it's just not worth the hassle to try to fight it.
   # Sometimes you just have to be like water, my friend.
   python -m venv "$pkgdir/opt/azure-cli"
+  # shellcheck disable=SC1091
   source "$pkgdir/opt/azure-cli/bin/activate"
 
   scripts/install_full.sh
