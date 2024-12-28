@@ -1,8 +1,8 @@
-# Maintainer: Evangelos Foutras <evangelos@foutrelis.com
+# Maintainer: Evangelos Foutras <foutrelis@archlinux.org
 
 pkgname='python-virtualenv-clone'
 pkgver=0.5.7
-pkgrel=5
+pkgrel=6
 pkgdesc="A script for cloning a non-relocatable virtualenv."
 arch=('any')
 url="https://github.com/edwardgeorge/virtualenv-clone"
