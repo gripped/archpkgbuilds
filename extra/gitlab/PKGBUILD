@@ -9,7 +9,7 @@
 # Contributor: loqs <bugs-archlinux@entropy-collector.net>
 
 pkgname=gitlab
-pkgver=17.6.2
+pkgver=17.7.0
 pkgrel=1
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
@@ -68,7 +68,7 @@ provides=(gitlab-workhorse) # FS78036
 conflicts=(gitlab-workhorse)
 replaces=(gitlab-workhorse)
 install=gitlab.install
-sha256sums=('08d77ddb952be48663441384b349930f252d490309213349c1bf12eb07bb0076'
+sha256sums=('d00ff84749de155a29f70ac6197f14a3bd887d544dd25f6f05cc7602e1521dda'
             'dfbafb383942f0e6088f49c49a40c59994e1af57c6197e9443f9839e145154e3'
             '8cc4d933743906b4213b8ea8d8c5a62535e27e4073f73581a5dad40078dde000'
             'f99499116f5d7cf59ccb7bfabd2d1ba68fbf83040571c607f7b0b50e6f50cbcf'
@@ -226,7 +226,7 @@ package() {
 	install -Dm644 "${srcdir}/$pkgname-environment" "${pkgdir}${_appdir}/environment"
 
 	# Install license and help files
-	mv README.md MAINTENANCE.md CONTRIBUTING.md CHANGELOG.md PROCESS.md VERSION config/*.{example,postgresql} "${pkgdir}/usr/share/doc/gitlab"
+	mv README.md MAINTENANCE.md CONTRIBUTING.md CHANGELOG.md VERSION config/*.{example,postgresql} "${pkgdir}/usr/share/doc/gitlab"
 	install -Dm644 "LICENSE" "${pkgdir}/usr/share/licenses/gitlab/LICENSE"
 
 	# TODO: structure.sql looks more like an application data and should be stored under /var/lib/gitlab
