@@ -9,11 +9,11 @@
 
 pkgname=libspf2
 pkgver=1.2.11
-pkgrel=2
+pkgrel=3
 pkgdesc="Sender Policy Framework record checking library"
 arch=('x86_64')
-url="https://www.libspf2.org/"
-license=('LGPL')
+url="https://www.libspf2.net/"
+license=('LGPL-2.1-only OR BSD-2-Clause')
 depends=('glibc' 'libnsl')
 makedepends=('libmilter' 'git')
 source=(
@@ -52,19 +52,26 @@ prepare() {
 
 build() {
   cd "$pkgname"
+
   ./configure --prefix='/usr'
+
   make
 }
 
 check() {
   cd "$pkgname"
+
   make check
 }
 
 package() {
   cd "$pkgname"
+
   make DESTDIR="$pkgdir" install
 
   # remove unused binaries
   rm -v "${pkgdir}"/usr/bin/*_static "${pkgdir}/usr/bin/spfd" "${pkgdir}/usr/bin/spf_example" "${pkgdir}/usr/bin/spftest"
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSES
 }
