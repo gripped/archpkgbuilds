@@ -3,7 +3,7 @@
 
 pkgname=python-gnupginterface
 pkgver=0.3.2
-pkgrel=12
+pkgrel=13
 pkgdesc='A Python interface to GNU Privacy Guard (GnuPG).'
 arch=('x86_64')
 url='http://py-gnupg.sourceforge.net/'
