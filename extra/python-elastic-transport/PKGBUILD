@@ -3,7 +3,7 @@
 pkgname=python-elastic-transport
 _pkgname=elastic-transport-python
 pkgver=8.15.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Transport classes and utilities shared among Python Elastic client libraries"
 arch=(any)
 url="https://github.com/elastic/elastic-transport-python"
