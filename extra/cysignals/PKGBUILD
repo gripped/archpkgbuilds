@@ -2,8 +2,8 @@
 
 pkgbase=cysignals
 pkgname=python-cysignals
-pkgver=1.12.0
-pkgrel=3
+pkgver=1.12.2
+pkgrel=2
 pkgdesc='Interrupt and signal handling for Cython'
 arch=(x86_64)
 url='https://www.sagemath.org'
@@ -15,15 +15,8 @@ makedepends=(cython
              meson-python
              python-build
              python-installer)
-source=(git+https://github.com/sagemath/cysignals#tag=$pkgver
-        fix-build-of-consumers.patch)
-sha256sums=('61658dda2f7ef2f6dc6005b372a01251a443d63fd3f9634358c13caa9fbfbce4'
-            '523d50764e22886632a729172ef37e74776b8e8d88b104388d80e84139d409c2')
-
-prepare() {
-# https://github.com/sagemath/cysignals/issues/212
-  patch -d $pkgbase -p1 < fix-build-of-consumers.patch
-}
+source=(git+https://github.com/sagemath/cysignals#tag=$pkgver)
+sha256sums=('5872e1cfb1151b6c6ea4376f4bfac6910b2d5ff33e906f78baf9e24e3a73f34a')
 
 build() {
   cd $pkgbase
