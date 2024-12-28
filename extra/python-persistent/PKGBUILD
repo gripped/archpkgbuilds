@@ -2,7 +2,7 @@
 
 pkgname=python-persistent
 pkgver=5.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Translucent persistent objects"
 arch=('x86_64')
 license=('ZPL-2.1')
