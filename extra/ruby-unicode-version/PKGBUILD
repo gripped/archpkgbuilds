@@ -2,8 +2,8 @@
 
 pkgname=ruby-unicode-version
 _pkgname="${pkgname#ruby-}"
-pkgver=1.3.0
-pkgrel=3
+pkgver=1.4.0
+pkgrel=1
 pkgdesc='Returns Unicode/Emoji versions of current and previous Rubies'
 arch=('any')
 url='https://github.com/janlelis/unicode-version'
@@ -12,15 +12,9 @@ depends=('ruby')
 makedepends=('git')
 checkdepends=('ruby-rake' 'ruby-minitest')
 options=('!emptydirs')
-_commit='e5016f56648986f96bca4925f010777581980d46'
-source=("$pkgname::git+$url#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('78c0a3dcb6e0195d41403faa8eced4487d458873b0d38cfafc44665f106cb6c73a109285f20cd3bda9ea14b2e464f0565bffe06f47c7aabcfae98ea018136937')
+b2sums=('e1dcf8360cc60ffe1182a7d1ed2ce748c971907bcf96d9e75142a256a131bb64fd800ebd792f572120ec3e170b559e0409575a7d0de0e39d9f9f72a7f175a0ea')
 
 build() {
   cd "$pkgname"
