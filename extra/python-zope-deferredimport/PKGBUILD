@@ -4,7 +4,7 @@
 pkgname=python-zope-deferredimport
 _pkgname=zope.deferredimport
 pkgver=5.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Allows you to perform imports names that will only be resolved when used in the code"
 arch=('any')
 url="https://github.com/zopefoundation/zope.deferredimport"
