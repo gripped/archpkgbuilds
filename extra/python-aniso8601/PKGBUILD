@@ -2,13 +2,13 @@
 
 pkgname=python-aniso8601
 pkgver=9.0.1
-pkgrel=7
+pkgrel=8
 pkgdesc="A library for parsing ISO 8601 strings."
 url="https://bitbucket.org/nielsenb/aniso8601"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('any')
 depends=('python')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-dateutil' 'python-pytest')
 source=("$pkgname-$pkgver.tar.gz::https://bitbucket.org/nielsenb/aniso8601/get/v$pkgver.tar.gz")
 sha512sums=('82b3c943fe3be845ee375e232c6aafb20d4ede560831f594e91ad75e93fd6d12316ad7285c6ebb796587ace27f56c4b0c17059d9c2d1aa9525394802ea19d00c')
@@ -19,7 +19,7 @@ prepare() {
 
 build() {
   cd "$srcdir"/aniso8601-$pkgver
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -29,6 +29,6 @@ check() {
 
 package() {
   cd aniso8601-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
