@@ -3,7 +3,7 @@
 pkgname=python-aafigure
 _name="${pkgname#python-}"
 pkgver=0.6
-pkgrel=5
+pkgrel=6
 pkgdesc="ASCII art to image converter"
 arch=(any)
 url="https://github.com/aafigure/aafigure"
