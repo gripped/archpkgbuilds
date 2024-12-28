@@ -4,8 +4,8 @@
 
 pkgname=python-pygraphviz
 _name=${pkgname#python-}
-pkgver=1.13
-pkgrel=2
+pkgver=1.14
+pkgrel=1
 pkgdesc='Python interface to Graphviz'
 arch=(x86_64)
 url=https://pygraphviz.github.io
@@ -22,7 +22,7 @@ makedepends=(
   python-wheel
 )
 source=("git+https://github.com/$_name/$_name.git#tag=$_name-$pkgver")
-b2sums=('4df015ae7867465e8d7eb9e58afe119becf3b44b8446adbd74a846a540ac8492e1dc5ab912441579866588ba8f0f9177a5f37d9897afa6b12dbeb8a9026d1f29')
+b2sums=('9013cd96ab59fed0dca920b1c70294fd12654f82ca4c167c24bbe6c6ed76ec50c10eab5e082f7eb77ec0cfea31a120d03f1771a3ae4b0dacf5b95a1585dfb0a2')
 
 build() {
   cd "$_name"
