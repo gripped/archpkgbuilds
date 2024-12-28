@@ -1,9 +1,9 @@
-# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
 
 pkgname=python-sphobjinv
 _name=${pkgname#python-}
 pkgver=2.3.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Manipulate and inspect Sphinx objects.inv files"
 arch=('any')
 url="https://github.com/bskinn/sphobjinv"
