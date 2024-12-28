@@ -2,7 +2,7 @@
 
 pkgname=python-aiounittest
 pkgver=1.4.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Test asyncio code more easily"
 url="https://github.com/kwarunek/aiounittest"
 license=('MIT')
