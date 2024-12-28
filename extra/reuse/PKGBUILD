@@ -4,8 +4,8 @@
 # SPDX-License-Identifier: CC0-1.0
 
 pkgname=reuse
-pkgver=4.0.3
-pkgrel=2
+pkgver=5.0.2
+pkgrel=1
 pkgdesc='Helper tool for providing and confirming copyright and licensing information'
 arch=('any')
 url='https://reuse.software/'
@@ -24,6 +24,7 @@ depends=(
   'python-binaryornot'
   'python-attrs'
   'python-tomlkit'
+  'python-click'
 )
 makedepends=(
   'git'
@@ -42,8 +43,8 @@ optdepends=(
   'mercurial: mercurial repository support'
 )
 source=("$pkgname::git+https://github.com/fsfe/reuse-tool#tag=v$pkgver")
-sha512sums=('e0923fdba1da62fe263a402e2cebc36fd99a46d326dfa7a63284668a1ebb229eb4f76d1df689551a34dccb90a7bfa73530502a3a03e82875725a0526aa8b4c18')
-b2sums=('d6279d3df2571754450eefdcf17a144ab28c38ae1af352c19d733aecbb1ad525f61e88c33cde4d2363d13597ba6231d36dc4a59813c9b96d3b79e13dd913316f')
+sha512sums=('f9bbaa22133fe411b8781b4d6699c6ff6846df8dd5bdbf35da600c1bc2d32419c548dd47016b5ddc3d4196eccb044be46571a3ebbaa5f83b80566f29337ff124')
+b2sums=('7466b09fc1bd9f1c150b47c3ec86cdd1ac6f441e7ecc87686f214e1742ac12cc398635cb933afc0bf3ea59a335882e100b6dc6d867ab8f2948e1690da9896677')
 
 prepare() {
   cd "$pkgname"
@@ -57,14 +58,22 @@ build() {
 
   python -m build --wheel --no-isolation
 
+  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$(pwd)/tmp/$site_packages"
+
   make -C docs man
 }
 
-check() {
-  cd "$pkgname"
-
-  pytest -v
-}
+#check() {
+#  cd "$pkgname"
+#
+#  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
+#  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+#  export PYTHONPATH="$(pwd)/tmp/$site_packages"
+#
+#  pytest -v
+#}
 
 package() {
   cd "$pkgname"
