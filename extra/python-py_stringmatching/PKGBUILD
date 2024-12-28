@@ -2,8 +2,8 @@
 
 _pkg=py_stringmatching
 pkgname=python-${_pkg/-/_}
-pkgver=0.4.5
-pkgrel=4
+pkgver=0.4.6
+pkgrel=1
 pkgdesc="Comprehensive and scalable set of string tokenizers and similarity measures"
 arch=(x86_64)
 url="https://github.com/anhaidgroup/py_stringmatching"
@@ -12,14 +12,14 @@ depends=(python-numpy)
 makedepends=(python-setuptools cython)
 source=(https://github.com/anhaidgroup/py_stringmatching/archive/v${pkgver}/${_pkg}-${pkgver}.tar.gz
         fix-test-utils-import.patch)
-sha256sums=('ea0b4a3ca51c3e4cf2fc7afa84894d66f07fe06136fa842996e19f12d688ca4a'
+sha256sums=('34e300c5994e2e9b200335b7b8046a452477da05bdda72802b1a0cd6975d264f'
             '195cd5a2e2f63c6b041440a84a818c3932f0594c02c55bff0e530805fa795e18')
 
 prepare() {
   cd ${_pkg}-${pkgver}
   patch -Np1 -i ${srcdir}/fix-test-utils-import.patch
   sed -e 's|np.int_t|np.npy_long|' -i py_stringmatching/similarity_measure/cython/cython_levenshtein.pyx # Fix build with numpy 2.0
-  sed -e 's|core/include|_core/include|' -i setup.py # Fix build with numpy 2.0
+  sed -e 's|core/include|_core/include|' -e 's|,<2.0||g' -i setup.py # Fix build with numpy 2.0
 }
 
 build() {
