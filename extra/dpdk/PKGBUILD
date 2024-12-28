@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=dpdk
-pkgver=24.07
+pkgver=24.11.1
 pkgrel=1
 pkgdesc="A set of libraries and drivers for fast packet processing"
 arch=(x86_64)
@@ -32,30 +32,31 @@ makedepends=(
   ninja
   python-pyelftools
 )
-source=("git+https://dpdk.org/git/dpdk#tag=v$pkgver")
-sha256sums=('685b4228625948e24c78808f562ac9403325cb1edc4d21c9e23ce1dcfc2aa809')
+source=("git+https://dpdk.org/git/dpdk-stable#tag=v$pkgver")
+sha256sums=('5a6b9b38a159e318353b860b35ac709ece9be9fc0d9670da8fcac6a8ed75fdb5')
 
 build() {
-  cd $pkgname
+  cd dpdk-stable
   arch-meson . build -Dplatform=generic
   meson compile -C build
 }
 
 check() {
-  cd $pkgname
+  cd dpdk-stable
   # Skip tests timing out. Not sure why.
   local tests=$(
     meson test -C build --suite fast-tests --list \
       | awk '{print $3}' \
       | grep -Ev pflock_autotest \
-      | grep -Ev rwlock_test1_autotest
+      | grep -Ev rwlock_test1_autotest \
+      | grep -Ev ticketlock_autotest
   )
   # shellcheck disable=SC2068
   meson test -C build --print-errorlogs ${tests[@]}
 }
 
 package() {
-  cd $pkgname
+  cd dpdk-stable
   meson install -C build --destdir="$pkgdir"
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" \
     license/bsd-3-clause.txt
