@@ -3,7 +3,7 @@
 pkgname=python-pytest-home
 _name=${pkgname#python-}
 pkgver=0.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Home directory fixtures'
 arch=(any)
 url=https://github.com/jaraco/pytest-home
