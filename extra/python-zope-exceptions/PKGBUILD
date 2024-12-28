@@ -4,7 +4,7 @@
 pkgname=python-zope-exceptions
 _pkgname=zope.exceptions
 pkgver=5.2
-pkgrel=1
+pkgrel=3
 pkgdesc="Generic exceptions and implementations for Zope"
 arch=('any')
 url="https://github.com/zopefoundation/zope.exceptions"
