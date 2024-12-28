@@ -1,10 +1,10 @@
-# Maintainer: Jelle van der Waa <jelle@archlinux.org>
 # Maintainer: Bruno Pagani <archange@archlinux.org>
+# Contributor: Jelle van der Waa <jelle@archlinux.org>
 # Contributor: Platon Pronko <platon7pronko@gmail.com>
 
 pkgname=python-lsp-server
 pkgver=1.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Fork of the python-language-server project, maintained by the Spyder IDE team and the community"
 arch=(any)
 url="https://github.com/python-lsp/python-lsp-server"
@@ -54,6 +54,9 @@ prepare() {
   sed 's|pycodestyle>=2.11.0,<2.12.0|pycodestyle>=2.11.0|' -i pyproject.toml
   sed 's|pyflakes>=3.1.0,<3.2.0|pyflakes>=3.1.0|' -i pyproject.toml
   sed 's|yapf<=0.32.0|yapf>=0.33.0|' -i pyproject.toml
+
+  # https://github.com/python-lsp/python-lsp-server/issues/605
+  sed -i 's/DEBUG/INFO/' test/conftest.py
 }
 
 build() {
@@ -66,7 +69,8 @@ check() {
   cd ${pkgname}-${pkgver}
   # Disable coverage
   sed -i '/--cov/d' pyproject.toml
-  pytest -vv --color=yes
+  # https://github.com/python-lsp/python-lsp-server/issues/602
+  pytest -vv --color=yes -k 'not test_jedi_completion_with_fuzzy_enabled'
 }
 
 package() {
