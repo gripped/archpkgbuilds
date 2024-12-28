@@ -2,7 +2,7 @@
 # Contributor: Thorben Günther <echo YWRtaW5AeGVucm94Lm5ldAo= | base64 -d>
 
 pkgname=navidrome
-pkgver=0.53.3
+pkgver=0.54.2
 pkgrel=1
 pkgdesc='A web-based music collection server and streamer'
 arch=('x86_64')
@@ -30,12 +30,12 @@ source=(
   'tmpfiles.conf'
   'config.toml'
 )
-sha512sums=('dbdf775405619a5016cfcda5a80f625c949e73c14d8492e05c3fcce339f5f725c4bbaf9932ab65e85198063011bcd3b3c38340af290e33d595f4160efbb414d5'
+sha512sums=('777f3114d4262a1f223033d2e93ca1daa65b4123ecb5ab4776405f5b5773404332c79a164bf91c8ad17ef89a293aed1924c47e1116081e43f1e202c1e23dc1df'
             '6b9d0c7f9827890cd90c740fd1bfcfed2f058b0544884e177dbd3c3f6006f6b629cba42be25474e37451873d854f5792697c130ab9d2756d18bf2feb520fb856'
             'a62f283a10236b6223a75d2745601eaf95b87f3eead7a94aa0a2e0306eacd86edcbecf4525214d2c6dd2648410d7aa921a2a909db7f49a55a061075cdb2a90a0'
             '7cc7033219d87982e3f60216a68bedd5232ce8e1612cc4fea87fa8057ad5007014b11ecdabb01b0ee33541c0bd2690ec00a6657c05944dc1d8813440c99f5aff'
             '96caf0c526b63d055ba64dfdb0236910c4740e05c97717b665c4c016f8ca8e96448cffa29067e558b0089a0adb8b535c35ede42ecbe1f8b787e83570efdad73d')
-b2sums=('2a3de653b818c63bfa726cbff0e10720dbd6638bf8e39696291946ae56a80651fc8f61174d8e1e40ba26f9c52389c2d125027b3f53b6b3fe367661d9e132ee1d'
+b2sums=('934e105bde17d8e66efeafde66b57e0160fead5213ee6864e985958bf5751d770ca93d059ed03546f8282837422a956a1632a5237aa87ab72967c95fa7bb0f85'
         'e274f0c9ac104981b2e8b2a43143e680f417e0cc22135bbe527cd66151e8fea24cd00187f4b404c641f7eade671ebe635666cc1c2a693f1a53588545585df8b0'
         '0bc712d7d9ac570fd2f4a92ba84276ef1d2bdea28e628f781de8cb73dfdca8f8763ebc99be0a2a682351d4e478f5612675e203de76dc71ae0c44b91b45c658ba'
         'f0b2c04e069801cf6c30b9d9116cf8470d52b50aa18497a449aff5bd379e3f95369a287f207c347aa5cb75f22cc682b5d1ca9717b333fba8662563806508279c'
@@ -78,6 +78,7 @@ build() {
     -extldflags '${LDFLAGS}' \
     -X github.com/navidrome/navidrome/consts.gitSha=$(git rev-parse HEAD) \
     -X github.com/navidrome/navidrome/consts.gitTag=$pkgver" \
+    -tags=netgo \
     -o build \
     .
 }
