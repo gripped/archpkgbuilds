@@ -6,25 +6,23 @@
 # Contributor: Matthias Meulien <orontee@gmail.com>
 
 pkgname=global
-pkgver=6.6.12
+pkgver=6.6.14
 pkgrel=1
 pkgdesc='Source code tagging system'
 arch=(x86_64)
 url='https://www.gnu.org/software/global/'
-license=('BSD-3-Clause', 'GPL-2.0-only', 'GPL-3.0-or-later', 'LGPL-2.0-or-later', 'LicenseRef-CALDERA', 'LicenseRef-PD', 'MIT')
+license=(BSD-3-Clause GPL-2.0-only GPL-3.0-or-later LGPL-2.0-or-later LicenseRef-CALDERA LicenseRef-PD MIT)
 depends=(libltdl perl python sqlite)
 optdepends=(ctags emacs idutils python-pygments vim)
 options=(!emptydirs !libtool)
 validpgpkeys=("26F631B43D624A927E6F1C33969C3BE389DDA6EB")
 source=("https://ftp.gnu.org/pub/gnu/$pkgname/$pkgname-$pkgver.tar.gz"{,.sig})
-b2sums=('985b84c35d9c526f26bd3cfbed41914d9c581f80b55979a19e1fb87db7fdb90834a0cc055775542eafd971ee10f43d74793e24e9e6265993e3dd344937ac7bab'
+b2sums=('92972098f0aa4ffa242725d1604138b6898ee4742aacb8334b84f1ad8970a77e374c08da05b38acd75b43f13bf828a4765106df2c3db5b67bea2c0de69466213'
         'SKIP')
 
 prepare() {
   cd $pkgname-$pkgver
-
   sed -i 's/\.la/.so/g' gtags.conf.in
-
   # Rename lid to lid-idutils to avoid a name collision with idutils
   sed -i 's/usable("lid")/usable("lid-idutils")/g' "$pkgname/$pkgname.c"
 }
@@ -46,13 +44,11 @@ check() {
 
 package() {
   make -C $pkgname-$pkgver DESTDIR="$pkgdir" install
-
   install -d "$pkgdir/usr/share/vim/vimfiles/plugin"
   mv "$pkgdir/usr/share/gtags/gtags.vim" \
     "$pkgdir/usr/share/vim/vimfiles/plugin/gtags.vim"
   mv "$pkgdir/usr/share/gtags/gtags-cscope.vim" \
     "$pkgdir/usr/share/vim/vimfiles/plugin/gtags-cscope.vim"
-
   install -d "$pkgdir/usr/share/emacs/site-lisp"
   mv "$pkgdir/usr/share/gtags/gtags.el" \
     "$pkgdir/usr/share/emacs/site-lisp/gtags.el"
