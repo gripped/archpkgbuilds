@@ -3,7 +3,7 @@
 pkgname=python-hishel
 _name="${pkgname#python-}"
 pkgver=0.1.1
-pkgrel=2
+pkgrel=3
 pkgdesc="An elegant HTTP Cache implementation for HTTPX and HTTP Core"
 arch=(any)
 url="https://github.com/karpetrosyan/hishel"
