@@ -1,0 +1,25 @@
+From f180f6b1ce8afbe0131cc42d2318e89d8604b4cc Mon Sep 17 00:00:00 2001
+From: Giovanni Harting <539@idlegandalf.com>
+Date: Wed, 20 Nov 2024 10:51:02 +0100
+Subject: [PATCH] remove setuptools dependency
+
+---
+ pyproject.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pyproject.toml b/pyproject.toml
+index 63cbfbf..2f9fba1 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -93,7 +93,7 @@ module = "tests.*"
+ allow_untyped_defs = true
+ 
+ [build-system]
+-requires = ['setuptools>=65.4.1', 'wheel', "poetry-core>=1.0.0"]
++requires = ['wheel', "poetry-core>=1.0.0"]
+ build-backend = "poetry.core.masonry.api"
+ 
+ [tool.codespell]
+-- 
+2.47.0
+
