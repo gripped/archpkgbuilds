@@ -3,7 +3,7 @@
 
 pkgname=ruby-prawn-icon
 _pkgname=${pkgname#ruby-}
-pkgver=4.0.0
+pkgver=4.1.0
 pkgrel=1
 pkgdesc="Easy icons for Prawn"
 arch=(any)
@@ -23,7 +23,7 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('867f5e4f59bad010a7b891ba241b967b682517262cb93575e89a85d20352aeb9')
+sha256sums=('73d2309a613c169bd053605a8cee93e1be2639250dba1e6083d477e77b134751')
 
 prepare() {
   cd "$_pkgname-$pkgver"
