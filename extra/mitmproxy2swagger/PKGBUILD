@@ -1,8 +1,8 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=mitmproxy2swagger
-pkgver=0.13.0
-pkgrel=2
+pkgver=0.14.0
+pkgrel=1
 pkgdesc='Automagically reverse-engineer REST APIs via capturing traffic'
 url='https://github.com/alufers/mitmproxy2swagger'
 arch=('any')
@@ -21,8 +21,8 @@ makedepends=(
   python-wheel
 )
 source=(https://github.com/alufers/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('95f9d5aa49bac77bfc0fcc336a04b5f9865ce3a50ae9a9e980b6d1b44531c121')
-b2sums=('f7ebb4afe745ce1bc8dfae126cff4e5e9f072aa8c21d74c24303bce3943cabd457a1b8b57661c58a13db0206ebe8201ff4913729b1a1afd412b10ef23aae78e5')
+sha256sums=('ed7a0a7bb1da7e044cc29221f3d1862b1547662fabe9d280cecd84d224af7dad')
+b2sums=('f4d89aec4cf9a9129e8e6fc60ade7ec68459a8be992606a97589b8a8002ebc84dce7c8871fcf7178813315e14f87abe79a985b46579a5e8da8a28c55bdcae20c')
 
 build() {
   cd ${pkgname}-${pkgver}
