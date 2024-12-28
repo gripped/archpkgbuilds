@@ -2,7 +2,7 @@
 
 pkgname=libbytesize
 pkgver=2.8
-pkgrel=3
+pkgrel=4
 pkgdesc='A tiny library providing a C "class" for working with arbitrary big sizes in bytes'
 arch=('x86_64')
 url="https://github.com/rhinstaller/libbytesize"
