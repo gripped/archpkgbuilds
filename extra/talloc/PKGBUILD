@@ -3,7 +3,7 @@
 
 pkgname=talloc
 pkgver=2.4.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Hierarchical pool based memory allocator with destructors"
 arch=('x86_64')
 license=('GPL-3.0-or-later')
