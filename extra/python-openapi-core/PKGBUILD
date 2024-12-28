@@ -3,7 +3,7 @@
 _pyname=openapi-core
 pkgname=python-$_pyname
 pkgver=0.19.4
-pkgrel=2
+pkgrel=3
 pkgdesc='Client-side and server-side support for the OpenAPI Specification v3'
 arch=(any)
 url='https://github.com/p1c2u/openapi-core'
