@@ -3,7 +3,7 @@
 pkgname=python-django-haystack
 _name="${pkgname#python-}"
 pkgver=3.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Modular search for Django"
 arch=(any)
 url="https://github.com/django-haystack/django-haystack"
