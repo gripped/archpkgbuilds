@@ -3,7 +3,7 @@
 
 pkgname=python-augeas
 pkgver=1.1.0
-pkgrel=8
+pkgrel=9
 pkgdesc="Python bindings for Augeas"
 arch=('any')
 license=('LGPL')
@@ -20,7 +20,7 @@ build() {
 
 check() {
   cd python-augeas-$pkgver
-  PYTHONPATH="$PWD/build/lib:$PYTHONPATH" make check
+  PYTHONPATH="$PWD/build/lib:$PYTHONPATH" python -m unittest discover -vs .
 }
 
 package() {
