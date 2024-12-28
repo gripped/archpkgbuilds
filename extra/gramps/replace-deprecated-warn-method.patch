@@ -1,0 +1,22 @@
+From 094794a36e742957b33f04a6c1e2d3003286f6b2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Andr=C3=A9=20Apitzsch?= <git@apitzsch.eu>
+Date: Wed, 12 Jun 2024 20:40:05 +0200
+Subject: [PATCH] Replace deprecated 'warn' method with 'warning'
+
+---
+ test/GrampsLogger/GtkHandler_Test.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/test/GrampsLogger/GtkHandler_Test.py b/test/GrampsLogger/GtkHandler_Test.py
+index d6ff19d9ca..023111e542 100644
+--- a/test/GrampsLogger/GtkHandler_Test.py
++++ b/test/GrampsLogger/GtkHandler_Test.py
+@@ -55,7 +55,7 @@ def test_window(self):
+         l.addHandler(gtkh)
+ 
+         l.info("An info message")
+-        l.warn("A warn message")
++        l.warning("A warn message")
+         l.debug("A debug message")
+         log_message = "Debug message"
+ 

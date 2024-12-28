@@ -1,0 +1,37 @@
+From 3c660121d5fbb5b41ba3a7023f08e9f05b323d2a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Andr=C3=A9=20Apitzsch?= <git@apitzsch.eu>
+Date: Wed, 12 Jun 2024 20:39:13 +0200
+Subject: [PATCH] Replace deprecated makeSuite with
+ TestLoader().loadTestsFromTestCase
+
+---
+ test/GrampsLogger/ErrorReportAssistant_Test.py | 2 +-
+ test/GrampsLogger/GtkHandler_Test.py           | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/test/GrampsLogger/ErrorReportAssistant_Test.py b/test/GrampsLogger/ErrorReportAssistant_Test.py
+index 2799ab080f5..f298284013f 100644
+--- a/test/GrampsLogger/ErrorReportAssistant_Test.py
++++ b/test/GrampsLogger/ErrorReportAssistant_Test.py
+@@ -68,7 +68,7 @@ def test_buffer_recall(self):
+ 
+ 
+ def testSuite():
+-    suite = unittest.makeSuite(ErrorReportAssistantTest, "test")
++    suite = unittest.TestLoader().loadTestsFromTestCase(ErrorReportAssistantTest)
+     return suite
+ 
+ 
+diff --git a/test/GrampsLogger/GtkHandler_Test.py b/test/GrampsLogger/GtkHandler_Test.py
+index a5bfced1764..d6ff19d9ca7 100644
+--- a/test/GrampsLogger/GtkHandler_Test.py
++++ b/test/GrampsLogger/GtkHandler_Test.py
+@@ -71,7 +71,7 @@ def test_window(self):
+ 
+ 
+ def testSuite():
+-    suite = unittest.makeSuite(GtkHandlerTest, "test")
++    suite = unittest.TestLoader().loadTestsFromTestCase(GtkHandlerTest)
+     return suite
+ 
+ 
