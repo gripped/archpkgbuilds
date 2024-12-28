@@ -2,8 +2,8 @@
 # Contributor: Piotr Miller <nwg.piotr@gmail.com>
 
 pkgname=nwg-shell-config
-pkgver=0.5.54
-pkgrel=1
+pkgver=0.5.55
+pkgrel=2
 pkgdesc="nwg-shell configuration utility"
 url="https://github.com/nwg-piotr/nwg-shell-config"
 arch=('any')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('pacman-contrib' 'python' 'python-gobject' 'python-i3ipc' 'python-geopy' 'python-requests' 'playerctl' 'gtklock' 'noto-fonts' 'wlsunset')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('e7981c73bdb24b3ad203fb4113e6ff3adeb39907e1826e8042f7658eb6154063')
+sha256sums=('295adecfb943590eaf16f25f2d35fd2c878402fe9333224f317587ad4413ce94')
 
 build() {
         cd "${pkgname}-${pkgver}"
