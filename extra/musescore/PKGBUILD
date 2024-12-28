@@ -4,7 +4,7 @@
 # Contributor: Dr.Egg <rwhite@archlinux.us>
 
 pkgname=musescore
-pkgver=4.4.3
+pkgver=4.4.4
 pkgrel=1
 pkgdesc='Create, play and print beautiful sheet music'
 arch=(x86_64)
@@ -42,14 +42,8 @@ makedepends=(
 )
 optdepends=('lame: MP3 export')
 options=(!lto)
-_tag=eb6b367549f94d195704c77bfc68fae95a517e3c
-source=(git+https://github.com/musescore/MuseScore.git#tag=${_tag})
-sha256sums=('927a14da23ad2cbc295ead7ba36a76ced7880349aef315ee5c88910920d26585')
-
-pkgver() {
-  cd MuseScore
-  git describe --tags | sed 's/^v//'
-}
+source=(git+https://github.com/musescore/MuseScore.git#tag=v${pkgver})
+sha256sums=('470c1ab07e0ef613943a8c296c5bdc330da46c77ecbf918ccd90ad3c87786316')
 
 build() {
   cmake -S MuseScore -B build -G Ninja \
@@ -59,7 +53,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
     -DCMAKE_SKIP_RPATH=ON \
-    -DMUSESCORE_APP_BUILD_MODE=release \
+    -DMUSE_APP_BUILD_MODE=release \
     -DMUSESCORE_BUILD_CONFIGURATION=app \
     -DMUSESCORE_REVISION=$(git rev-parse --short=7 HEAD) \
     -DMUE_BUILD_UNIT_TESTS=OFF \
