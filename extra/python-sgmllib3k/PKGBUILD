@@ -2,7 +2,7 @@
 
 pkgname=python-sgmllib3k
 pkgver=1.0.0
-pkgrel=6
+pkgrel=7
 arch=(any)
 license=("BSD")
 pkgdesc="Python 3 smgllib port"
