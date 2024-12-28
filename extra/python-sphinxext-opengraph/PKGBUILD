@@ -1,9 +1,9 @@
-# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
 
 _name=sphinxext-opengraph
 pkgname=python-$_name
 pkgver=0.9.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Sphinx extension to generate unique OpenGraph metadata"
 arch=('any')
 url="https://sphinxext-opengraph.readthedocs.io/"
