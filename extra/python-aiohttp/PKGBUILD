@@ -8,7 +8,7 @@
 _pkgname=aiohttp
 pkgname=python-aiohttp
 pkgver=3.10.5
-pkgrel=1
+pkgrel=2
 pkgdesc='HTTP client/server for asyncio'
 arch=(x86_64)
 url=https://aiohttp.readthedocs.io
