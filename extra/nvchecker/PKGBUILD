@@ -3,7 +3,7 @@
 
 pkgname=nvchecker
 pkgver=2.16
-pkgrel=2
+pkgrel=3
 pkgdesc="New version checker for software releases"
 arch=('any')
 url="https://github.com/lilydjwg/nvchecker"
