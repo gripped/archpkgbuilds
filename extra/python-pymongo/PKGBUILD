@@ -7,7 +7,7 @@
 pkgname=python-pymongo
 _pkgname=mongo-python-driver
 pkgver=4.10.1
-pkgrel=1
+pkgrel=2
 pkgdesc="The official MongoDB Python driver"
 arch=(x86_64)
 license=(Apache-2.0)
