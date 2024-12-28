@@ -2,8 +2,8 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=libdnf
-pkgver=0.73.3
-pkgrel=2
+pkgver=0.73.4
+pkgrel=1
 pkgdesc="Library providing simplified C and Python API to libsolv"
 arch=('x86_64')
 url="https://github.com/rpm-software-management/$pkgname"
@@ -13,11 +13,15 @@ depends=('glib2' 'gpgme' 'json-c' 'libmodulemd' 'librepo' 'libsolv'
 makedepends=('cmake' 'gtk-doc' 'python' 'python-sphinx' 'swig')
 checkdepends=('check' 'cppunit')
 optdepends=('python: for python bindings')
-source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('b352491d8057be476f98a89db2e0ceceb9056745f3e44499e8250dd6e89c72b7')
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+	"fix-segfault-iterator-of-configparser.patch")
+sha256sums=('bce14012d29d58867669fc606938f6fa84f037efcd9c802150fba6506356814c'
+            '99e38e225462e2c726c808fe6f9e8fdfd5e47e918e9afc0b6ce0ee5422fcc3bf')
 
 prepare() {
   cd "$pkgname-$pkgver"
+  patch -Np1 -i ${srcdir}/fix-segfault-iterator-of-configparser.patch
+
   # TODO: libsolv installs cmake in something where libdnf can't find it
   cp -p /usr/share/cmake/Modules/FindLibSolv.cmake cmake/modules/
 }
