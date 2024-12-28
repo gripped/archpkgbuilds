@@ -2,12 +2,12 @@
 # Contributor: Hector Mtz-Seara <hseara.#at#.gmail*.*com>
 
 pkgname=pyzo
-pkgver=4.16.0
-pkgrel=1
+pkgver=4.18.0
+pkgrel=2
 pkgdesc="Cross-platform Python IDE focused on interactivity and introspection, very suitable for scientific computing."
 arch=(any)
 url="https://pyzo.org"
-license=(BSD)
+license=(BSD-2-Clause)
 depends=(python-packaging)
 makedepends=(python-setuptools)
 optdepends=(
@@ -17,7 +17,7 @@ optdepends=(
 )
 checkdepends=(python-pytest pyside6 python-pyqt5 python-pyqt6 xorg-server-xvfb)
 source=(https://github.com/pyzo/pyzo/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('ce3aafa37c4e3ad312c8cf3dd3e4482cf5b2803806fccecab7b07dc4e13f092b')
+sha256sums=('a046439a143d9e423e96a6e0d530e3ab93e3ab773e09c15b80bd2c2b0aea8225')
 
 build() {
     cd ${pkgname}-${pkgver}
