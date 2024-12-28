@@ -5,7 +5,7 @@ _pkgname=aws-crt-python
 pkgname=python-awscrt
 # https://github.com/awslabs/aws-crt-python/releases
 pkgver=0.22.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A common runtime for AWS Python projects'
 arch=(x86_64)
 url='https://github.com/awslabs/aws-crt-python'
