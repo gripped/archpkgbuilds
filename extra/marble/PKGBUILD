@@ -11,7 +11,7 @@ pkgname=(marble
          marble-maps
          marble-qt)
 pkgver=24.12.0
-pkgrel=3
+pkgrel=5
 pkgdesc='Desktop Globe'
 arch=(x86_64)
 url='https://apps.kde.org/marble/'
@@ -75,7 +75,7 @@ package_marble-common() {
   rm -r "$pkgdir"/usr/share/{config.kcfg,kxmlgui5,metainfo} \
         "$pkgdir"/usr/bin \
         "$pkgdir"/usr/lib/qt6/plugins/{kf6,*.so} \
-        "$pkgdir"/usr/share/applications/{marble_geo.desktop,marble_worldwind.desktop,org.kde.marble*.desktop} \
+        "$pkgdir"/usr/share/applications/{marble_geo.desktop,marble_worldwind.desktop,org.kde.marble*.desktop,marble_thumbnail_*.desktop} \
         "$pkgdir"/usr/share/icons/hicolor/scalable/apps/org.kde.marble*.svg \
         "$pkgdir"/usr/share/plasma
 }
