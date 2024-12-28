@@ -3,7 +3,7 @@
 
 pkgname=python-hiredis
 _pkgname=hiredis-py
-pkgver=3.0.0
+pkgver=3.1.0
 pkgrel=1
 pkgdesc='Non-blocking redis client for python'
 arch=('x86_64')
@@ -25,7 +25,7 @@ source=(
     "git+https://github.com/redis/hiredis-py.git#tag=v$pkgver"
     "git+https://github.com/redis/hiredis.git"
 )
-sha256sums=('ae24959a5ca6004edf847d109fc484d813ba521cf1a5afa047d98f1916f66dac'
+sha256sums=('e2ce5f597d97d575883085dbe6a5e90109f6b8edc86f56bfc3d3e0335d751df3'
             'SKIP')
 
 prepare() {
@@ -52,5 +52,3 @@ package() {
     python -m installer -d "$pkgdir" dist/*.whl
     install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
-
-# vim: set ts=4 sw=4 tw=0 ft=PKGBUILD :
