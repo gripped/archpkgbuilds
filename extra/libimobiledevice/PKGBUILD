@@ -5,7 +5,7 @@
 
 pkgname=libimobiledevice
 pkgver=1.3.0
-pkgrel=14
+pkgrel=15
 pkgdesc='Library to communicate with services on iOS devices using native protocols'
 arch=(x86_64)
 url='https://libimobiledevice.org/'
