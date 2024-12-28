@@ -3,15 +3,15 @@
 pkgname=python-softlayer
 pkgver=6.1.4
 _commit=0e656572a605dcb5c2f34d0f6a5c13d0589f396e
-pkgrel=3
+pkgrel=5
 pkgdesc="A library for SoftLayer's API"
 arch=('any')
 license=('MIT')
 url='https://github.com/softlayer/softlayer-python'
-depends=('python-six' 'python-prettytable' 'python-click' 'python-requests' 'python-prompt_toolkit'
+depends=('python-prettytable' 'python-click' 'python-requests' 'python-prompt_toolkit'
          'python-pygments' 'python-urllib3' 'python-rich')
 makedepends=('git' 'python-setuptools')
-checkdepends=('python-pytest' 'python-testtools' 'python-softlayer-zeep' 'tk')
+checkdepends=('python-pytest' 'python-testtools' 'tk')
 source=("git+https://github.com/softlayer/softlayer-python.git#commit=$_commit")
 sha512sums=('SKIP')
 
