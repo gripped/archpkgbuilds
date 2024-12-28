@@ -1,14 +1,15 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-b2sdk
-pkgver=2.5.1
-pkgrel=1
+pkgver=2.7.0
+pkgrel=2
 pkgdesc='Python module to access B2 cloud storage'
 arch=('any')
 url='https://github.com/Backblaze/b2-sdk-python'
 license=('MIT')
 depends=(
   'python'
+  'python-annotated-types'
   'python-logfury'
   'python-requests'
   'python-urllib3'
@@ -24,7 +25,8 @@ makedepends=(
 checkdepends=(
   'python-pytest'
   'python-pytest-mock'
-  'python-pytest-lazy-fixture'
+  'python-pytest-lazy-fixtures'
+  'python-pytest-timeout'
   'python-pyfakefs'
   'python-tqdm'
   'python-pydantic'
@@ -34,8 +36,8 @@ optdepends=(
   'python-pydantic: for improved type hints'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('0ef1a1bf3f35d3c3f02be3fb9fb28f76fb981bddb90481a0b7e17e551fd96e1abde0eb63a03f09cf8751a3129d2711313ac938bad01c78975275e6c6fc49c8cd')
-b2sums=('56f6d6b3d8840b8440bcde49897fef6c12315138320f65ffea4501d92d64cef757b414aa82fc403492e7e03304e36e2590c8b471f850e43ef930f8583c1504c4')
+sha512sums=('5cd09260593246789bfb36ba269122cde33571acee31dc44109e513d16782a4a9d388d98620c6b1b235f304d46fa9cf19756420e48ba27f4668cab7b78b80a7f')
+b2sums=('87384f1654c27470a55cd121406e22416d6842f08220bd0b41bba1fba4a7424cc67e77aa64b5381bf039593330e52145c05925b97b497c264ca90d350680b02c')
 
 build() {
   cd "$pkgname"
