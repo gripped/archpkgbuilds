@@ -3,7 +3,7 @@
 pkgname=python-fastbencode
 _pkgname=fastbencode
 pkgver=0.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Implementation of bencode with optional fast C extensions"
 arch=(x86_64)
 url="https://github.com/breezy-team/fastbencode"
