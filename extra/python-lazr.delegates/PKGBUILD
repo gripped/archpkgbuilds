@@ -3,7 +3,7 @@
 _name=lazr.delegates
 pkgname=python-lazr.delegates
 pkgver=2.1.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Easily write objects that delegate behavior"
 arch=(any)
 url="https://launchpad.net/lazr.delegates"
