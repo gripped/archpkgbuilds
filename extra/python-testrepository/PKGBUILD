@@ -2,7 +2,7 @@
 
 pkgname=python-testrepository
 pkgver=0.0.21
-pkgrel=2
+pkgrel=3
 pkgdesc="A repository of test results."
 arch=('any')
 license=('Apache-2.0 OR BSD-3-Clause')
