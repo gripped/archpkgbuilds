@@ -4,7 +4,7 @@
 pkgname=python-zope-copy
 _pkgname=zope.copy
 pkgver=5.0
-pkgrel=1
+pkgrel=3
 pkgdesc="Pluggable object copying mechanism"
 arch=('any')
 url="https://github.com/zopefoundation/zope.copy"
