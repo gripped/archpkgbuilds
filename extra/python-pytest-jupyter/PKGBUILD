@@ -2,7 +2,7 @@
 
 pkgname=python-pytest-jupyter
 pkgver=0.10.1
-pkgrel=2
+pkgrel=3
 pkgdesc='A pytest plugin for testing Jupyter core libraries and extensions'
 arch=(any)
 url='https://github.com/jupyter-server/pytest-jupyter'
@@ -32,7 +32,7 @@ build() {
 check() {
   cd pytest_jupyter-$pkgver
   PYTHONPATH="$PWD" \
-  pytest -v
+  pytest -v -W ignore::DeprecationWarning
 }
 
 package() {
