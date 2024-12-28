@@ -3,7 +3,7 @@
 _pkg=colorcet
 pkgname=python-${_pkg}
 pkgver=3.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Set of useful perceptually uniform colormaps for plotting scientific data"
 arch=(any)
 url="https://colorcet.holoviz.org/"
@@ -19,7 +19,7 @@ makedepends=(
 checkdepends=(python-pytest)
 source=(https://github.com/holoviz/colorcet/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
 #source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-sha256sums=('810b53ba732b439c37c15eed122069d38e77b44aa69ca099442121b57d167e38')
+sha256sums=('00300d1b4e0b8f12d4ba9de491726c71bbf22e32d9f152a6359b0a4c1a4a8e2a')
 
 build() {
   cd ${_pkg}-${pkgver}
