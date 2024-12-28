@@ -3,7 +3,7 @@
 
 pkgname='python-et-xmlfile'
 pkgver=2.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A low memory library for creating large XML files'
 arch=('any')
 url='https://foss.heptapod.net/openpyxl/et_xmlfile'
