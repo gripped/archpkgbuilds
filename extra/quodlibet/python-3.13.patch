@@ -1,0 +1,57 @@
+From 4d527111e694fc9b934d887dee8ce3a209d95d11 Mon Sep 17 00:00:00 2001
+From: LuK1337 <priv.luk@gmail.com>
+Date: Tue, 20 Aug 2024 14:16:53 +0200
+Subject: [PATCH] Squeezebox plugins: Migrate to raw socket connection
+
+I did basic tests with justifiably/logitechmediaserver docker image and
+I was able to read the version and player count just fine.
+
+Fixes #4473
+---
+ quodlibet/ext/_shared/squeezebox/server.py | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/quodlibet/ext/_shared/squeezebox/server.py b/quodlibet/ext/_shared/squeezebox/server.py
+index 5871667..36002c6 100644
+--- a/quodlibet/ext/_shared/squeezebox/server.py
++++ b/quodlibet/ext/_shared/squeezebox/server.py
+@@ -7,7 +7,6 @@
+ 
+ import socket
+ from typing import List
+-from telnetlib import Telnet
+ import time
+ from urllib.parse import quote, unquote
+ 
+@@ -63,7 +62,9 @@ class SqueezeboxServer:
+             try:
+                 if self._debug:
+                     print_d("Trying %s..." % self.config)
+-                self.telnet = Telnet(hostname, port, self._TIMEOUT)
++                self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
++                self.socket.settimeout(self._TIMEOUT)
++                self.socket.connect((socket.gethostbyname(hostname), port))
+             except socket.error as e:
+                 print_d("Couldn't talk to %s (%s)" % (self.config, e))
+             else:
+@@ -95,11 +96,14 @@ class SqueezeboxServer:
+         if self._debug:
+             print_(">>>> \"%s\"" % line)
+         try:
+-            self.telnet.write((line + "\n").encode('utf-8'))
++            self.socket.send((line + "\n").encode("utf-8"))
+             if not want_reply:
+                 return None
+-            raw_response = self.telnet.read_until(b"\n", 5).decode('utf-8')
+-        except socket.error as e:
++            raw_response = b""
++            while not raw_response.endswith(b"\n"):
++                raw_response += self.socket.recv(1)
++            raw_response = raw_response.decode("utf-8")
++        except (socket.error, socket.timeout) as e:
+             print_w("Couldn't communicate with squeezebox (%s)" % e)
+             self.failures += 1
+             if self.failures >= self._MAX_FAILURES:
+-- 
+2.46.0
+
