@@ -7,7 +7,7 @@ pkgname=(
   tree-sitter-cli
 )
 pkgver=0.24.3
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url=https://github.com/tree-sitter/tree-sitter
 license=(MIT)
