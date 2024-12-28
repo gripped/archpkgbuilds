@@ -4,7 +4,7 @@
 pkgname=python-sqlmodel
 _name=${pkgname#python-}
 pkgver=0.0.22
-pkgrel=1
+pkgrel=2
 pkgdesc="SQL databases in Python, designed for simplicity, compatibility, and robustness"
 url="https://sqlmodel.tiangolo.com"
 license=('MIT')
