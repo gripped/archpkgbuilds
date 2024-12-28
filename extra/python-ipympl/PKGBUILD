@@ -5,8 +5,8 @@
 
 _pyname=ipympl
 pkgname=python-$_pyname
-pkgver=0.9.4
-pkgrel=3
+pkgver=0.9.5
+pkgrel=2
 pkgdesc='Matplotlib Jupyter Extension'
 url='https://pypi.org/project/ipympl/'
 depends=(ipython
@@ -29,12 +29,11 @@ checkdepends=(python-numpy
               python-pytest)
 license=(BSD-3-Clause)
 arch=(any)
-source=(git+https://github.com/matplotlib/ipympl#tag=$pkgver)
-sha256sums=('61661074ffe5e1c4c62e87f98605db58af69d4fe8d6af7839e54b23283164056')
+source=(git+https://github.com/matplotlib/ipympl#tag=v$pkgver)
+sha256sums=('f5109a5c046473913f1562277c275205b7f01f11a35a9133bbaadbe6ee74bad6')
 
 prepare() {
   sed -e 's|>=.*\"|\"|g' -e 's|~=.*\"|\"|g' -i $_pyname/pyproject.toml
-#  sed -e '/index.js/d' -e '/plugin.js/d' -i $_pyname/setup.py
 }
 
 build() {
@@ -44,8 +43,9 @@ build() {
 
 check() {
   cd $_pyname
-  PYTHONPATH="$PWD" \
-  pytest -v
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest -v
 }
 
 package() {
