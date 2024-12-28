@@ -8,36 +8,36 @@ pkgname=(
   libpeas-docs
 )
 pkgver=1.36.0
-pkgrel=5
+pkgrel=6
 pkgdesc="GObject Plugin System"
 url="https://wiki.gnome.org/Projects/Libpeas"
 arch=(x86_64)
-license=(LGPL)
+license=(LGPL-2.1-or-later)
 depends=(
-  gobject-introspection-runtime
+  glib2
+  glibc
   gtk3
+  hicolor-icon-theme
+  libgirepository
 )
 makedepends=(
   gi-docgen
   git
   glade
+  glib2-devel
   gobject-introspection
+  lua51
   lua51-lgi
   luajit
   meson
+  python
   python-gobject
   python-setuptools
   vala
 )
 checkdepends=(xorg-server-xvfb)
-_commit=7f245fa5158204621c3469756a951b68a651c4fe  # tags/libpeas-1.36.0^0
-source=("git+https://gitlab.gnome.org/GNOME/libpeas.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd libpeas
-  git describe --tags | sed 's/^libpeas-//;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/libpeas.git#tag=libpeas-$pkgver")
+b2sums=('8845366ccd5c0244a6ed1b28d5b44590496d260db0da47bc0ac87b2063c1063ee92541bc7f4eb056bb2c52d1299febedf517e90b9dc8765a0f3f9f954430e691')
 
 prepare() {
   cd libpeas
@@ -88,6 +88,10 @@ package_libpeas() {
 package_libpeas-demos() {
   pkgdesc+=" (demo applications)"
   depends=(
+    glib2
+    glibc
+    gtk3
+    libgirepository
     libpeas
     python-gobject
   )
