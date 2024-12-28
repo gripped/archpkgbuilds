@@ -1,45 +1,55 @@
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
 
-_pkgname=aiomysql
-pkgname=python-$_pkgname
+pkgname=python-aiomysql
+_pkgname=${pkgname#python-}
 pkgver=0.2.0
-pkgrel=2
-pkgdesc='library for accessing a MySQL database from the asyncio'
-arch=('any')
-url='https://github.com/aio-libs/aiomysql'
-license=('MIT')
-depends=('python' 'python-pymysql')
-makedepends=('python-build' 'python-installer' 'python-wheel'
-             'python-setuptools' 'python-setuptools-scm')
+pkgrel=3
+pkgdesc="Library for accessing a MySQL database from the asyncio"
+arch=(any)
+url="https://github.com/aio-libs/aiomysql"
+license=(MIT)
+depends=(
+  python
+  python-pymysql
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-setuptools-scm
+  python-wheel
+)
+# checkdepends=(
+#   python-docker
+#   python-ipdb
+#   python-pytest
+#   python-sqlalchemy
+#   python-uvloop
+# )
 optdepends=('python-sqlalchemy: SQLAlchemy support')
-#checkdepends=('python-pytest' 'python-ipdb' 'python-docker' 'python-sqlalchemy' 'python-uvloop')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('8816556455036d0f247a663f1e508a3b9845f68b94723255cddfb9afc89dae796054a9aad712452e37e8d784bb97be8722dc87e98f8380fa924626343bbcf295')
+sha256sums=('5581db0b209972fec4a0fe861af5081c42bfeca2d4350948bc13fd1ccaf301be')
 
-prepare() {
-  # remove the use of python-setuptools-scm-git-archive: https://github.com/aio-libs/aiomysql/pull/872
-  sed -e '/setuptools_scm_git_archive/d' -e 's/, < 7//' -i $_pkgname-$pkgver/pyproject.toml
-}
+_archive=$_pkgname-$pkgver
 
 build() {
-  cd $_pkgname-$pkgver
+  cd "$_archive"
 
-  python -m build -nw
+  export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
+  python -m build --wheel --no-isolation --skip-dependency-check
 }
 
-## NOTE: most tests require a running mysql instance
-#check() {
-#  cd $_pkgname-$pkgver
+# Tests require a running MySQL instance.
+# check() {
+#   cd "$_archive"
 #
-#  python -m pytest
-#}
+#   pytest
+# }
 
 package() {
-  cd $_pkgname-$pkgver
+  cd "$_archive"
 
   python -m installer -d "$pkgdir" dist/*.whl
-
-  install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
-
-# vim:set ts=2 sw=2 et:
