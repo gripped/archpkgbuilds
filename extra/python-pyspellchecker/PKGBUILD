@@ -3,23 +3,23 @@
 
 pkgname=python-pyspellchecker
 _name=${pkgname#python-}
-pkgver=0.8.1
-pkgrel=2
+pkgver=0.8.2
+pkgrel=1
 pkgdesc='Pure python spell checker based on work by Peter Norvig'
-arch=('any')
+arch=(any)
 url=https://github.com/barrust/pyspellchecker
-license=('MIT')
-depends=('python')
+license=(MIT)
+depends=(python)
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-wheel'
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
 )
-checkdepends=('python-pytest')
+checkdepends=(python-pytest)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('642569d20d8262dc37b5342cde65a0eac883fd7be75b3e9b582e7851f35788da1a7f848c434422931a9d65bfeb1256925d38af631a1bc41a9e2d6a2fa1425b97')
+b2sums=('8351854336c0f8c0d8581b08c3039a12382e8227bdff10cb784508781fadacbb2ee56c2c6d6c04cdcb0f3d9c6c5d6d71cef2863504110e5c13262d80b1231905')
 
 build() {
   cd "$_name"
@@ -32,12 +32,11 @@ check() {
 }
 
 package() {
-  cd "$_name"
-  python -m installer --destdir="$pkgdir" dist/*.whl
-
-  # Symlink license file
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
   ln -s "$site_packages"/"$_name"-$pkgver.dist-info/LICENSE \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
+  cd "$_name"
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
