@@ -3,7 +3,7 @@
 _pyname=cvxpy
 pkgname=python-$_pyname
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A Python-embedded modeling language for convex optimization problems'
 url='https://www.cvxpy.org/'
 license=(Apache-2.0)
@@ -40,6 +40,8 @@ prepare() {
 
 build() {
   cd $_pyname
+# https://github.com/cvxpy/cvxpy/issues/1690
+  CXXFLAGS="$CFLAGS -DNDEBUG" \
   python -m build --wheel --no-isolation
 }
 
