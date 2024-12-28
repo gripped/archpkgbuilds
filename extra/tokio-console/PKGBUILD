@@ -1,0 +1,41 @@
+# Maintainer: Christian Heusel <gromit@archlinux.org>
+
+pkgname=tokio-console
+pkgver=0.1.13
+pkgrel=2
+pkgdesc='A debugger for async rust! '
+url='https://github.com/tokio-rs/console'
+license=("MIT")
+arch=('x86_64')
+makedepends=('cargo' 'git')
+checkdepends=('protobuf')
+depends=('glibc' 'gcc-libs')
+source=("$pkgname::git+${url}.git#tag=tokio-console-v${pkgver}")
+sha256sums=('35f0c6fb405f39d79ae85af3d080f23816c7ad6fc7eb36b30938a1ac100f9e29')
+
+prepare() {
+    cd $pkgname
+    export RUSTUP_TOOLCHAIN=stable
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+    cd $pkgname
+    export RUSTUP_TOOLCHAIN=stable
+    export CARGO_TARGET_DIR=target
+    export RUSTFLAGS="$RUSTFLAGS --cfg tokio_unstable"
+    cargo build --frozen --release --all-features
+}
+
+check() {
+    cd $pkgname
+    export RUSTUP_TOOLCHAIN=stable
+    cargo test --frozen --all-features
+}
+
+package() {
+    cd $pkgname
+    install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
+    # for custom license, e.g. MIT
+    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
