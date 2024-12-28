@@ -7,7 +7,7 @@
 pkgbase=libkate
 pkgname=(libkate libkate-docs)
 pkgver=0.4.1
-pkgrel=10
+pkgrel=11
 pkgdesc="A karaoke and text codec for embedding in ogg"
 license=(BSD)
 url="https://wiki.xiph.org/OggKate"
