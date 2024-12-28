@@ -2,7 +2,7 @@
 
 pkgname=memray
 pkgver=1.14.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A memory profiler for Python"
 arch=('x86_64')
 url="https://github.com/bloomberg/memray"
