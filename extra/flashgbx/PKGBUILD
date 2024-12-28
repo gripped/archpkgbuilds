@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=flashgbx
-pkgver=4.2
+pkgver=4.3
 pkgrel=1
 pkgdesc='Reads and writes Game Boy and Game Boy Advance cartridge data'
 arch=(any)
@@ -16,9 +16,9 @@ depends=(
   python-setuptools
 )
 makedepends=(git)
-_tag=201d76301d1ba02c2479fd117f6a0582a4ec58f8
+_tag=c7f16885511799a42f84e4aeba864fb70217dbaf
 source=(git+https://github.com/lesserkuma/FlashGBX.git#tag=${_tag})
-sha256sums=('c22773773e747704df308c9f415a37d7b12658c9b32c21feb29ff0a98f252837')
+sha256sums=('2c743f9ebc9d07755083ffb44ad574f7a5c96a3d7afda66248ad6539bc5c049d')
 
 pkgver() {
   cd FlashGBX
