@@ -3,7 +3,7 @@
 
 pkgname=python-pytools
 pkgver=2024.1.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A collection of tools for Python"
 arch=('any')
 url="https://github.com/inducer/pytools"
