@@ -1,17 +1,24 @@
 pkgbase = python-flask-marshmallow
 	pkgdesc = Flask + marshmallow for beautiful APIs
 	pkgver = 1.2.1
-	pkgrel = 3
+	pkgrel = 4
 	url = https://flask-marshmallow.readthedocs.io/
 	arch = any
 	license = MIT
+	checkdepends = python-flask-sqlalchemy
+	checkdepends = python-marshmallow-sqlalchemy
+	checkdepends = python-pytest
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-flit-core
 	makedepends = python-installer
+	depends = python
 	depends = python-flask
 	depends = python-marshmallow
+	depends = python-werkzeug
+	optdepends = python-flask-sqlalchemy: SQLAlchemy integration
+	optdepends = python-marshmallow-sqlalchemy: SQLAlchemy integration
 	source = git+https://github.com/marshmallow-code/flask-marshmallow.git#tag=7ea089d21d39f1d4abc549a4e7c8622c872c152b
-	b2sums = SKIP
+	b2sums = a650a9002d8e6f862e38fc34d7072cb73043b3110c4eada5029b0f1a5f88278ae1a6abb84844235fd91c41c36d2901358173ca538609bb8d4d1d6258edef9a91
 
 pkgname = python-flask-marshmallow
