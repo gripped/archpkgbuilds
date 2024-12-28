@@ -2,7 +2,7 @@
 
 pkgname=python-pytest-freezer
 pkgver=0.4.8
-pkgrel=2
+pkgrel=3
 pkgdesc='Pytest plugin providing a fixture interface for freezegun'
 arch=('any')
 url='https://github.com/pytest-dev/pytest-freezer'
