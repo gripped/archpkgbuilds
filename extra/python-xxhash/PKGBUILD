@@ -1,40 +1,43 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 # Maintainer: Konstantin Gizdov <arch at kge dot pw>
 
-_pyname=xxhash
-pkgname="python-${_pyname}"
-pkgver=3.4.1
-pkgrel=3
+pkgname=python-xxhash
+pkgver=3.5.0
+pkgrel=1
 pkgdesc='Python binding for xxHash'
-arch=('x86_64')
-url="https://github.com/ifduyue/${pkgname}"
-depends=('python' 'xxhash')
-makedepends=('git' 'python-setuptools-scm' 'python-build' 'python-installer' 'python-wheel')
-license=('BSD')
-source=("${pkgname}::git+https://github.com/ifduyue/${pkgname}.git#tag=v${pkgver}")
-sha512sums=('SKIP')
-
-prepare() {
-    # link to xxHash
-    export XXHASH_LINK_SO=1
-}
+arch=(x86_64)
+url="https://github.com/ifduyue/$pkgname"
+license=(BSD-2-Clause)
+depends=(
+    glibc
+    python
+    xxhash
+)
+makedepends=(
+    git
+    python-build
+    python-installer
+    python-setuptools-scm
+    python-wheel
+)
+source=("$pkgname::git+$url.git#tag=v$pkgver")
+b2sums=('485183d0d545c63018bc9c3e7777977858d1470cdcd44f49b7874127274b40659d6d4d8e818536ec8a46150afbd6169a3a809db4a9221d0ff0f401934ec4eca8')
 
 build() {
-    cd "${srcdir}/${pkgname}"
+    cd $pkgname
+    # link to xxHash
+    XXHASH_LINK_SO=1 \
     python -m build --wheel --no-isolation
 }
 
 check() {
-    cd "${srcdir}/${pkgname}"
-    # name clash is preventing import, rename source temporarily
-    # don't forget to rename back after running tests
-    mv xxhash _noxxhash
-    local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
-    PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-${python_version}" python -m unittest discover -vs tests
-    mv _noxxhash xxhash
+    python -m venv --system-site-packages test-env
+    test-env/bin/python -m installer $pkgname/dist/*.whl
+    test-env/bin/python -m unittest discover -vs $pkgname/tests
 }
 
 package() {
-    cd "${srcdir}/${pkgname}"
-    python -m installer --destdir="${pkgdir}" dist/*.whl
-    install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+    cd $pkgname
+    python -m installer --destdir="$pkgdir" dist/*.whl
+    install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
