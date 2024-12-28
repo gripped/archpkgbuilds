@@ -4,7 +4,7 @@
 pkgname=python-zope-schema
 _pkgname=zope.schema
 pkgver=7.0.1
-pkgrel=4
+pkgrel=5
 pkgdesc="zope.interface extension for defining data schemas"
 arch=('any')
 url="https://github.com/zopefoundation/zope.schema"
