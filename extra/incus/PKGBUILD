@@ -7,7 +7,7 @@
 
 pkgbase=incus
 pkgname=(incus incus-tools)
-pkgver=6.7
+pkgver=6.8
 pkgrel=1
 pkgdesc="Powerful system container and virtual machine manager"
 arch=('x86_64')
@@ -41,7 +41,7 @@ source=("https://linuxcontainers.org/downloads/incus/incus-$pkgver.tar.xz"{,.asc
         )
 validpgpkeys=('602F567663E593BCBD14F338C638974D64792D67'  # Stéphane Graber <stgraber@stgraber.org>
              )
-sha256sums=('a2c429142e99b00af5353a6acf8e7d408fc4f4b1925c20a2b58d39a67325332e'
+sha256sums=('19be50514acd845ceab62cbdb34cd7a9a6782e1e063f334245135be8db0f0489'
             'SKIP'
             '602a8035cc51b8e0c4ca265e31ebf96c7977db4239d384d8f60fed0d2d0317c4'
             '28e99ff6333aec1dd1cac539f7664cbf855ddcbea9de4a0fea6247979b10e28f'
@@ -66,7 +66,7 @@ build() {
   CGO_LDFLAGS="-static" go build -v -tags "agent" -o bin/ ./cmd/incus-agent/...
 
   go build -v -ldflags "${GO_LDFLAGS}" -tags "netgo" -o bin/ ./cmd/incus-migrate/...
-  for tool in fuidshift incus lxc-to-incus lxd-to-incus incusd incus-benchmark incus-user; do
+  for tool in fuidshift incus lxc-to-incus lxd-to-incus incusd incus-benchmark incus-simplestreams incus-user; do
     go build -v -ldflags "${GO_LDFLAGS}" -tags "libsqlite3" -o bin/ ./cmd/$tool
   done
 
@@ -108,7 +108,7 @@ package_incus() {
 package_incus-tools() {
   conflicts=('lxd')
   cd "$pkgbase-${pkgver}"
-  for tool in fuidshift lxc-to-incus incus-benchmark; do
+  for tool in fuidshift lxc-to-incus incus-benchmark incus-simplestreams; do
     install -v -p -Dm755 "bin/$tool" "${pkgdir}/usr/bin/$tool"
   done
   # Package license
