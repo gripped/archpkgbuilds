@@ -3,7 +3,7 @@
 pkgname=python-proxy.py
 _name=${pkgname#python-}
 pkgver=2.4.4rc5
-pkgrel=1
+pkgrel=2
 pkgdesc='Lightweight HTTP, HTTPS, HTTP2 and WebSockets proxy server'
 arch=(any)
 url='https://github.com/abhinavsingh/proxy.py'
