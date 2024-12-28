@@ -4,7 +4,7 @@
 pkgname=python-aiopg
 _pkgname=${pkgname#python-}
 pkgver=1.4.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Library for accessing a PostgreSQL database from the asyncio"
 arch=(any)
 url="https://github.com/aio-libs/aiopg"
