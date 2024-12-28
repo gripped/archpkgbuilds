@@ -3,7 +3,7 @@
 _pkgname=LibCST
 pkgname=python-libcst
 pkgver=1.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A concrete syntax tree parser and serializer library for Python that preserves many aspects of Python's abstract syntax tree"
 arch=('x86_64')
 url='https://github.com/Instagram/LibCST'
