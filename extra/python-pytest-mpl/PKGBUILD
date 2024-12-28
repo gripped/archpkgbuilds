@@ -3,7 +3,7 @@
 _pkgname='pytest-mpl'
 pkgname="python-${_pkgname}"
 pkgver=0.17.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Pytest plugin to help with testing figures output from Matplotlib"
 arch=('any')
 url="https://github.com/matplotlib/pytest-mpl"
