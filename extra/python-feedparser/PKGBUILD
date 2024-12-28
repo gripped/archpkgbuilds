@@ -4,7 +4,7 @@
 pkgname=python-feedparser
 _name=${pkgname#python-}
 pkgver=6.0.11
-pkgrel=2
+pkgrel=3
 pkgdesc='Parse RSS and Atom feeds in Python'
 arch=('any')
 url=https://github.com/kurtmckee/feedparser
