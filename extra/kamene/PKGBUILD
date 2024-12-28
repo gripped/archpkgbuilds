@@ -2,7 +2,7 @@
 
 pkgname=kamene
 pkgver=0.32
-pkgrel=6
+pkgrel=7
 pkgdesc='Powerful interactive packet manipulation program (based on scapy) written in Python'
 url='https://github.com/phaethon/kamene'
 depends=('tcpdump' 'python')
@@ -13,7 +13,7 @@ optdepends=('python-cryptography: WEP decryption, IPsec and certificate support'
             'graphviz: conversations() method support'
             'sox: for VOIP support')
 checkdepends=('python-cryptography' 'python-pyx' 'python-matplotlib' 'python-netifaces' 'graphviz' 'sox')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 replaces=('scapy3k')
 arch=('any')
 license=('GPL2')
@@ -23,7 +23,7 @@ sha512sums=('ba0e7ceb41e0687a8b8deb743f4cc8dc00021200ae028faac0afc3a1f202ac2c2cf
 
 build() {
   cd ${pkgname}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -34,7 +34,7 @@ check() {
 
 package() {
   cd ${pkgname}-${pkgver}
-  python setup.py install -O1 --skip-build --root="${pkgdir}" --prefix=/usr
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm 644 doc/kamene/*.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -Dm 644 doc/kamene.1.gz -t "${pkgdir}/usr/share/man/man1"
 }
