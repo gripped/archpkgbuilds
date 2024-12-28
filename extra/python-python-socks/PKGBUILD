@@ -2,15 +2,15 @@
 # Contributor: Jonas Witschel <diabonas@archlinux.org>
 
 pkgname=python-python-socks
-pkgver=2.4.4
-pkgrel=2
+pkgver=2.5.3
+pkgrel=1
 pkgdesc='Core proxy client (SOCKS4, SOCKS5, HTTP) functionality for Python'
 arch=('any')
 url='https://github.com/romis2012/python-socks'
 license=('APACHE')
 depends=('python') 
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-checkdepends=('python-anyio' 'python-async-timeout' 'python-curio' 'python-flask' 'python-pytest'
+checkdepends=('python-anyio' 'python-curio' 'python-flask' 'python-pytest'
               'python-pytest-asyncio' 'python-pytest-trio' 'python-trio' 'python-yarl' 'python-trustme' 'python-tiny-proxy')
 optdepends=('python-anyio: anyio support'
             'python-async-timeout: asyncio support'
@@ -19,7 +19,7 @@ optdepends=('python-anyio: anyio support'
 provides=('python-python_socks')
 replaces=('python-python_socks')
 source=("git+$url.git?signed#tag=v$pkgver")
-sha512sums=('SKIP')
+sha512sums=('abb1bb86bbe68fc162a58e665ca939f5165cb5231792e53a0a9e4b84d2adbcc4f80296839b98b2960da41eca70029233b620ffe79fc9676cc60c207d71a93c7e')
 validpgpkeys=('706A8935FED55F3BFB7C188B5EEAD7400A5D80ED') # Roman Snegirev <rsng@mail.ru>
 
 pkgver() {
