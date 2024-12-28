@@ -6,7 +6,7 @@
 pkgname=python-openai
 _name=openai-python
 pkgver=1.59.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Python client library for the OpenAI API"
 arch=('any')
 url="https://github.com/openai/openai-python"
