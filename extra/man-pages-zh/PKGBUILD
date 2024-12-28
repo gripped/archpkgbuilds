@@ -5,15 +5,14 @@
 pkgbase=man-pages-zh
 pkgname=(man-pages-zh_cn man-pages-zh_tw)
 pkgver=1.6.4.0
-_commit=f1170c10185d1be9d42146e9779249bde89b2b08
-pkgrel=2
+pkgrel=3
 arch=('any')
 url='https://github.com/man-pages-zh/manpages-zh'
 license=('custom:GFDL1.2')
 depends=('man')
 makedepends=('opencc' 'python' 'git')
-source=("git+https://github.com/man-pages-zh/manpages-zh.git#commit=$_commit")
-sha512sums=('SKIP')
+source=("git+https://github.com/man-pages-zh/manpages-zh.git#tag=v$pkgver")
+sha512sums=('cd08c39743b62e6c0c32dad7f1e596e3c8047bc3706ab533addcc3d9789f01a447d05384ec22c182b3a4357f8d43cae731ccb9e19a6d74dd3294c98074ccf430')
 
 build() {
   cd manpages-zh
@@ -34,9 +33,9 @@ package_man-pages-zh_cn() {
 
   rm -r "$pkgdir"/usr/share/man/zh_TW
 
-  # remove conflicted files with shadow
+  # remove conflicted files
   cd "$pkgdir"/usr/share/man/zh_CN
-  rm ./man1/groups*
+  rm ./man1/groups.1 ./man1/free.1 ./man8/vmstat.8
 }
 
 package_man-pages-zh_tw() {
@@ -50,8 +49,4 @@ package_man-pages-zh_tw() {
   rmdir "$pkgdir"/usr/share/doc/manpages-zh "$pkgdir"/usr/share/doc
 
   rm -r "$pkgdir"/usr/share/man/zh_CN
-
-  # remove conflicted files with shadow
-  cd "$pkgdir"/usr/share/man/zh_TW
-  rm ./man1/groups*
 }
