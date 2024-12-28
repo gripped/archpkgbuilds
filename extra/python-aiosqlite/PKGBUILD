@@ -4,7 +4,7 @@
 pkgname=python-aiosqlite
 _pkgname=${pkgname#python-}
 pkgver=0.20.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Asyncio bridge to the standard sqlite3 module"
 arch=(any)
 url="https://github.com/omnilib/aiosqlite"
