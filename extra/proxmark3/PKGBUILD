@@ -2,7 +2,7 @@
 
 pkgname=proxmark3
 pkgver=4.19552
-pkgrel=1
+pkgrel=2
 pkgdesc='Software for the the Proxmark3, an RFID swiss-army tool'
 arch=('x86_64')
 url='https://github.com/RfidResearchGroup/proxmark3'
@@ -21,11 +21,11 @@ prepare() {
 build() {
   cd "$srcdir"/$pkgname-$pkgver
 
-  make PLATFORM=PM3GENERIC SKIPQT=0 all
+  make PLATFORM=PM3GENERIC SKIPQT=0 DONT_BUILD_NATIVE=y all
 
   cd "$srcdir"/$pkgname-$pkgver-rdv4
 
-  make PLATFORM=PM3RDV4 FWTAG=rdv4 common bootrom recovery fullimage
+  make PLATFORM=PM3RDV4 FWTAG=rdv4 DONT_BUILD_NATIVE=y common bootrom recovery fullimage
 }
 
 package() {
