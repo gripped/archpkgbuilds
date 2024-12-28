@@ -2,7 +2,7 @@
 
 pkgname=python-parver
 pkgver=0.5
-pkgrel=1
+pkgrel=3
 pkgdesc="Parse and manipulate version numbers"
 url="https://github.com/RazerM/parver"
 license=('MIT')
