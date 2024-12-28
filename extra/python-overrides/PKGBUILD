@@ -4,7 +4,7 @@
 _pyname=overrides
 pkgname=python-$_pyname
 pkgver=7.7.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A decorator to automatically detect mismatch when overriding a method'
 url='https://github.com/mkorpela/overrides'
 arch=(any)
