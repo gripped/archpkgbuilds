@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=pantheon-terminal
-pkgver=6.2.0
+pkgver=6.3.0
 pkgrel=1
 pkgdesc='The Pantheon Terminal Emulator'
 arch=(x86_64)
@@ -24,9 +24,9 @@ makedepends=(
   xorg-server-xvfb
 )
 groups=(pantheon)
-_tag=0500b6872e76d2f0bf6b529aac00a8bdcf08ccd9
+_tag=b6ef92a8dc17b6d225bb06ff1dd29a7cd50f5f1f
 source=(pantheon-terminal::git+https://github.com/elementary/terminal.git#tag=${_tag})
-b2sums=('fe55f48612989f80c8f2cef500cfee0ad5cde1b636cb5ccffca80ebbaaa884788c85329b88962bde701caa9b84cdc318130d8d5259f1ad8f409c8850fa9ecd18')
+b2sums=('6a58d9d31aa13607e0f61b8da472d47cc5aedd116d9f76fb633a829caa7562ffa5197c9c6838e6576bf5d735f6b260a170d4dac8db139021f3f3ba68999b8f21')
 
 pkgver() {
   cd pantheon-terminal
