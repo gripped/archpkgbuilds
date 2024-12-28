@@ -1,9 +1,9 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
-_pipname=jupyter_events
+_pyname=jupyter_events
 pkgname=python-jupyter-events
-pkgver=0.10.0
-pkgrel=2
+pkgver=0.11.0
+pkgrel=3
 pkgdesc='Configurable event system for Jupyter applications and extensions'
 arch=(any)
 url='https://jupyter.org/'
@@ -16,23 +16,24 @@ depends=(python
          python-rich
          python-traitlets
          python-yaml)
-makedepends=(python-build
+makedepends=(git
+             python-build
              python-hatchling
              python-installer)
 checkdepends=(python-pytest-asyncio
               python-pytest-console-scripts
               python-rfc3339-validator
               python-rfc3986-validator)
-source=(https://github.com/jupyter/jupyter_events/releases/download/v$pkgver/$_pipname-$pkgver.tar.gz)
-sha256sums=('670b8229d3cc882ec782144ed22e0d29e1c2d639263f92ca8383e66682845e22')
+source=(git+https://github.com/jupyter/jupyter_events#tag=v$pkgver)
+sha256sums=('90d59501fd34544d631c6141481f2224311a20b50901f967160b7d841d16e4b6')
 
 build() {
-  cd $_pipname-$pkgver
+  cd $_pyname
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $_pipname-$pkgver
+  cd $_pyname
   python -m venv --system-site-packages test-env
   export PATH="$PWD/test-env/bin:$PATH"
   test-env/bin/python -m installer dist/*.whl
@@ -41,7 +42,7 @@ check() {
 }
 
 package() {
-  cd $_pipname-$pkgver
+  cd $_pyname
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
 }

@@ -1,7 +1,7 @@
 pkgbase = python-jupyter-events
 	pkgdesc = Configurable event system for Jupyter applications and extensions
-	pkgver = 0.10.0
-	pkgrel = 2
+	pkgver = 0.11.0
+	pkgrel = 3
 	url = https://jupyter.org/
 	arch = any
 	license = BSD-3-Clause
@@ -9,6 +9,7 @@ pkgbase = python-jupyter-events
 	checkdepends = python-pytest-console-scripts
 	checkdepends = python-rfc3339-validator
 	checkdepends = python-rfc3986-validator
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-hatchling
 	makedepends = python-installer
@@ -20,7 +21,7 @@ pkgbase = python-jupyter-events
 	depends = python-rich
 	depends = python-traitlets
 	depends = python-yaml
-	source = https://github.com/jupyter/jupyter_events/releases/download/v0.10.0/jupyter_events-0.10.0.tar.gz
-	sha256sums = 670b8229d3cc882ec782144ed22e0d29e1c2d639263f92ca8383e66682845e22
+	source = git+https://github.com/jupyter/jupyter_events#tag=v0.11.0
+	sha256sums = 90d59501fd34544d631c6141481f2224311a20b50901f967160b7d841d16e4b6
 
 pkgname = python-jupyter-events
