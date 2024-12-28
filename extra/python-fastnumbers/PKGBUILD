@@ -1,9 +1,10 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 
 _name=fastnumbers
 pkgname=python-fastnumbers
-pkgver=5.1.0
-pkgrel=2
+pkgver=5.1.1
+pkgrel=1
 pkgdesc="Super-fast and clean conversions to numbers"
 arch=(x86_64)
 url="https://github.com/SethMMorton/fastnumbers"
@@ -17,6 +18,7 @@ makedepends=(
   python-build
   python-installer
   python-setuptools
+  python-setuptools-scm
   python-wheel
 )
 checkdepends=(
@@ -29,11 +31,12 @@ optdepends=(
   'python-numpy: for conversion to numpy arrays'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('d2a1e1430f1ec5f2540c4ab1ddd2e855fdeb98079389849d33289505af2542631f2690769ec4ca92a079650947fcb564dff84c399eae2d1034b266df25a8851f')
-b2sums=('905200063bcb1d053420b54d580db795714fac7da4fe981cbe0f559fb6eaf9861349effee72533442f1afb4811d79e9cd2534f207c15b253bfce349bec2371ba')
+sha512sums=('ba84a0a03c9ddce24c6aac195d98ca1dd4e68b8d37cb0dd27fe81fd954d00f4763ac51c2a31645ce374cdfee3a185fece86a2e88753a9e5f556ec75a9012165c')
+b2sums=('909dac4205587f575ebed12d8d8ab8f235eb40bde1d581674f8e30d297632411e56fac13b81f25a9a4c8a0d94b8ddf98004b8e41c77ea09810e2bfebb69aaafa')
 
 build() {
   cd $_name-$pkgver
+  export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
   python -m build --wheel --no-isolation
 }
 
