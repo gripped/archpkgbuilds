@@ -1,0 +1,26 @@
+# Maintainer:
+
+pkgname=anari-sdk
+pkgver=0.11.1
+pkgrel=1
+pkgdesc='ANARI Software Development Kit (SDK)'
+arch=(x86_64)
+url='https://github.com/KhronosGroup/ANARI-SDK'
+license=(Apache-2.0)
+depends=(gcc-libs
+         glibc
+         python)
+makedepends=(cmake
+             git)
+source=(git+https://github.com/KhronosGroup/ANARI-SDK#tag=v$pkgver)
+sha256sums=('68e0ec25b42c375acad782a67250962651deff4b0d0f00cebbfa8ec1d3d4f82d')
+
+build() {
+  cmake -B build -S ANARI-SDK \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
