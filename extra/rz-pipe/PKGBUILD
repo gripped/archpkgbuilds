@@ -2,7 +2,7 @@
 
 pkgbase=rz-pipe
 pkgname=(python-rzpipe)
-pkgver=0.6.0
+pkgver=0.6.2
 pkgrel=1
 pkgdesc='Access rizin via pipe from any programming language'
 url='https://github.com/rizinorg/rz-pipe'
@@ -10,8 +10,8 @@ arch=('any')
 license=('MIT')
 makedepends=('python' 'python-setuptools' 'rizin')
 source=(${url}/archive/python-v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('37fb091fa305ecdb0417bc500189fb52799ac7b5118739b8f9b094f84122d2f82c0ad879c08a02696f3ae17a40cb09b84d6ca574d8a4d8f6467916a48fdc0096')
-b2sums=('97487f0d02571086bea5125a8cfcd16a195b7abc372f32825f67a3d5a173af6851c8634b56ba7acbd5d897d0c9f695bb4274afd6884621e7a662a8f4b29aa4db')
+sha512sums=('af17e81012d4fd62cf51664bf31530cb364356c8817e624c0ead562455d83c1dd525557c59e3f028b831ee55f63799ee7ae9da5bf5f91ef781037f312fd0a725')
+b2sums=('b3f7c8ab227fe340da89a9560e0f093c679924790415c28cd999fc263e944cae130df0e8606ef88c5d80a85e32d426bf88dfc14a4d85202d40972335fa0615e9')
 
 build() {
   cd rz-pipe-python-v${pkgver}/python
