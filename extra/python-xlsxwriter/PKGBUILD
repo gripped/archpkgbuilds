@@ -3,7 +3,7 @@
 
 pkgname=python-xlsxwriter
 pkgver=3.1.9
-pkgrel=2
+pkgrel=3
 pkgdesc='A Python module for creating Excel XLSX files'
 arch=('any')
 url='https://github.com/jmcnamara/XlsxWriter'
