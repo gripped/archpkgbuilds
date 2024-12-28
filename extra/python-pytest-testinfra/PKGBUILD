@@ -7,7 +7,7 @@
 _name=pytest-testinfra
 pkgname=python-pytest-testinfra
 pkgver=10.1.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Testinfra test your infrastructures'
 arch=(any)
 url="https://github.com/pytest-dev/pytest-testinfra"
@@ -29,7 +29,6 @@ checkdepends=(
   python-pytest-xdist
   python-pywinrm
   python-tornado
-  salt
 )
 optdepends=(
   'ansible: for tests using ansible inventories'
@@ -70,6 +69,10 @@ check() {
   # install to temporary location
   python -m installer --destdir=test_dir dist/*.whl
   export PYTHONPATH="test_dir/$site_packages:$PYTHONPATH"
+  # We don't have salt in the repos
+  pytest_options=(
+  	-k 'not test_backend_importables'
+  )
   pytest "${pytest_options[@]}"
 }
 
