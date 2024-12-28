@@ -3,20 +3,21 @@
 # Contributor: Limao Luo <luolimao+AUR@gmail.com>
 
 pkgname=aegisub
-pkgver=3.3.3
-pkgrel=10
+pkgver=3.4.0
+pkgrel=1
 pkgdesc='A general-purpose subtitle editor with ASS/SSA support'
 arch=(x86_64)
 url=http://www.aegisub.org
-license=(
-  GPL
-  BSD
-)
+license=(BSD-3-Clause)
 depends=(
   alsa-lib
   boost-libs
+  curl
   fftw
   fontconfig
+  gcc-libs
+  glibc
+  hicolor-icon-theme
   hunspell
   icu
   libass.so
@@ -24,6 +25,7 @@ depends=(
   libgl
   libpulse
   uchardet
+  wxwidgets-common
   wxwidgets-gtk3
   zlib
 )
@@ -32,35 +34,35 @@ makedepends=(
   cmake
   git
   mesa
-  ninja
+  meson
 )
-_tag=a596a88115890a6f8ecd41518f1dbcdea1f6cd61
-source=(git+https://github.com/wangqr/Aegisub#tag=${_tag}
-        boost-1.81.0.patch)
+_tag=b0fc741099f610ee9486bfaf0186d39f74b8d756
+source=(git+https://github.com/TypesettingTools/Aegisub.git#tag=${_tag})
 #validpgpkeys=(6DD9508BCB1CE31AF295FF9B6A889F50A8B00C08) # Thomas Goyne <plorkyeran@aegisub.org>
-b2sums=('SKIP'
-        '5b6874ebb89f6ed3ab7929796bd1f59e1748c418ae5397df265fe3007d9f971eec7388f5f6a2dcac020d71c9cffece931a1ae5eb78f8ff4ab61fdc4c5e65328a')
+b2sums=('879c6418260aea594cf68245c1dc0d7a6c428ec600f3972f548cfaf16595f793366ae189eba55b069736c061168414498ec3f47e20beddc53f09622673bb47c9')
+
+prepare() {
+  cd Aegisub
+  meson subprojects download luajit
+  meson subprojects packagefiles --apply luajit
+  sed "/subdir('tests')/d" -i meson.build
+}
 
 pkgver() {
   cd Aegisub
   git describe --tags | sed 's/^v//'
 }
 
-prepare() {
-  cd Aegisub
-  patch -Np1 -i ../boost-1.81.0.patch # Patch from Gentoo]
-}
-
 build() {
-  cmake -S Aegisub -B build -G Ninja \
-    -DCMAKE_BUILD_TYPE=None \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DWITH_OSS=OFF
-  cmake --build build
+  export CXXFLAGS+=" -fpermissive"
+  arch-meson Aegisub build \
+    -Dopenal=disabled \
+    -Dportaudio=disabled
+  meson compile -C build
 }
 
 package() {
-  DESTDIR="${pkgdir}" cmake --install build
+  meson install -C build --destdir "${pkgdir}"
   install -dm 755 "${pkgdir}"/usr/share/aegisub/automation/include
   cp -dr --no-preserve=ownership Aegisub/automation/{autoload,demos} "${pkgdir}"/usr/share/aegisub/automation/
   cp -dr --no-preserve=ownership Aegisub/automation/include/{aegisub,*.lua} "${pkgdir}"/usr/share/aegisub/automation/include/
