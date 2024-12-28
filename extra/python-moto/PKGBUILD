@@ -5,7 +5,7 @@ pkgname=python-moto
 _pkgname=moto
 # https://github.com/getmoto/moto/blob/master/CHANGELOG.md
 pkgver=5.0.22
-pkgrel=1
+pkgrel=2
 pkgdesc='Moto is a library to mock out the boto library.'
 arch=(any)
 url='https://github.com/spulec/moto'
@@ -79,6 +79,8 @@ check() {
   local pytest_args=(
     # Needs a new package python-pycognito
     --ignore tests/test_cognitoidp/test_cognitoidp.py
+    # Skip broken tests https://github.com/getmoto/moto/issues/8400
+    --deselect tests/test_core/test_responses_module.py::TestResponsesMockWithPassThru
     -m 'not requires_docker'
   )
   TZ=UTC pytest tests "${pytest_args[@]}"
