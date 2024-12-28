@@ -5,7 +5,7 @@
 _name=dropbox-sdk-python
 pkgname=python-dropbox
 pkgver=12.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Python SDK for Dropbox Core APIs"
 url="https://github.com/dropbox/dropbox-sdk-python"
 arch=(any)
