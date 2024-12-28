@@ -2,7 +2,7 @@
 pkgname=python-python-pkcs11
 _name=${pkgname#python-}
 pkgver=0.7.0
-pkgrel=8
+pkgrel=9
 pkgdesc='PKCS#11/Cryptoki support for Python'
 arch=('x86_64')
 url='https://github.com/danni/python-pkcs11'
