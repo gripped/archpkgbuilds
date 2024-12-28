@@ -2,10 +2,10 @@
 
 _gemname=rouge
 pkgname=ruby-rouge
-pkgver=4.3.0
-pkgrel=2
+pkgver=4.5.1
+pkgrel=1
 pkgdesc='Pure-ruby code highlighter that is compatible with pygments'
-url='http://rouge.jneen.net/'
+url='https://rouge.jneen.net/'
 arch=('any')
 license=('MIT')
 depends=(
@@ -28,8 +28,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("https://github.com/jneen/rouge/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('6546c3062e38b059936c6af8aa8b872049a416b9c1a28fb4dba144427b567102f0bc6f71275f5b995378e51abad9c5b30186b6722e17a4eed4928c16bebf8e18')
-b2sums=('8ec161f4b94d4a37bf29fc995d80c44ee39fe179a6ea3efb1ff3853b7aeac413efeb2b5ad596314c06e90dc0b42887967a0c350f37812e5c976734ac3d33cdb7')
+sha512sums=('f0659597cb04d04c48d1d20722be870f04fec5cf92f5b47f9ba6dde8e653a359c2a6798a1bb9f8785682e218390f16ebf5cba5c4582604a0a3a7a3596e0139b1')
+b2sums=('b74cd8aeec73b35fd2670b611ae1ab3220a0d98ee85cd0abe2d008fa1a34aa827f1e66aab770ec867d4b59b9491e61339be0bb5e896dfeb4b93d77759ba256ff')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
