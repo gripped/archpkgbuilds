@@ -3,38 +3,38 @@
 pkgname=python-ipython-genutils
 _name=ipython_genutils
 pkgver=0.2.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Vestigial utilities from IPython'
 arch=(any)
 url='http://ipython.org/'
-license=(BSD)
+license=(BSD-3-Clause)
 depends=(python)
-makedepends=(python-build
+makedepends=(git
+             python-build
              python-installer
              python-setuptools
              python-wheel)
 checkdepends=(python-nose)
-source=(https://files.pythonhosted.org/packages/source/i/$_name/$_name-$pkgver.tar.gz
-        python-3.12.patch)
-sha256sums=('eb2e116e75ecef9d4d228fdc66af54269afa26ab4463042e33785b887c628ba8'
-            '9733e6604a67e2e7652436827e7c5f72326c15f84403b0b2985abd3fce936f96')
+source=(git+https://github.com/ipython/ipython_genutils#tag=$pkgver)
+sha256sums=('30652fe4cffe207eb85a25b45ad2ea6ce536be8e1d29d67fef2cb02af097a61b')
 
 prepare() {
-  patch -d $_name-$pkgver -p1 < python-3.12.patch # Fix tests with python 3.11
+  cd $_name
+  git cherry-pick -n 27279feaed2cd253b50683db9239d829de48f64a # Fix tests with python 3.11
 }
 
 build() {
-  cd $_name-$pkgver
+  cd $_name
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $_name-$pkgver
+  cd $_name
   nosetests
 }
 
 package() {
-  cd $_name-$pkgver
+  cd $_name
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 COPYING.md "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
