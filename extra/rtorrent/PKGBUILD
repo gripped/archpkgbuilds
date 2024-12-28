@@ -5,20 +5,19 @@
 # Contributor: sh__
 
 pkgname=rtorrent
-pkgver=0.10.0
-pkgrel=1
+pkgver=0.15.0
+pkgrel=2
 pkgdesc='Ncurses BitTorrent client based on libTorrent'
 url='https://rakshasa.github.io/rtorrent/'
-license=('GPL')
+license=('GPL-2.0-only')
 arch=('x86_64')
 makedepends=('git')
-depends=("libtorrent=0.14.${pkgver##*.}" 'curl' 'xmlrpc-c')
+depends=("libtorrent=0.15.${pkgver##*.}" 'curl' 'tinyxml2')
 source=("git+https://github.com/rakshasa/rtorrent.git#tag=v${pkgver}")
-sha256sums=('9ab79dddd8498d2cc601804b3e3a48dded73c7926e631e64dd0e614875b76205')
+sha256sums=('e59e8fdb70acad0b94dc5fcaff88533e9e42cd68c0d077b90b8508c5dbccac46')
 
 prepare() {
   cd ${pkgname}
-  git cherry-pick -n 38b39bdafc9edd7e7e72672e6fcbd397b6c2cab8
   autoreconf -fiv
 }
 
@@ -28,7 +27,7 @@ build() {
   ./configure \
   --prefix=/usr \
   --disable-debug \
-  --with-xmlrpc-c
+  --with-xmlrpc-tinyxml2
   make
 }
 
