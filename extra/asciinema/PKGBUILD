@@ -3,28 +3,53 @@
 # Contributor: Marcin Kulik <marcin@asciinema.org>
 
 pkgname=asciinema
-pkgver=2.4.0
-pkgrel=3
+pkgver=3.0.0rc.3
+pkgrel=2
 pkgdesc='Record and share terminal sessions'
 arch=(any)
-url='https://asciinema.org/'
-license=(GPL3)
-depends=(python)
-makedepends=(git python-setuptools python-wheel python-build python-installer)
-source=("git+https://github.com/asciinema/asciinema#tag=v$pkgver") # tag: v2.4.0
-sha256sums=('ad52df52cc18d58477d7eb8d0e9897f3c6834693c3dd13c9b97e0dcc88908685')
+url='https://asciinema.org'
+license=(GPL-3.0-only)
+makedepends=(cargo git)
+options=(!lto)
+source=("git+https://github.com/$pkgname/$pkgname#commit=6779be971533b90b9a805f093a11fe41d5479285") # v3.0.0-rc.3, in prep. for the stable release
+b2sums=('b4ea34c191eb46683520511cdd5e30d65347a88148e8b307ae7e4432993f1e637bc97080a61b67f5b02b81f73e92549c6dc3cd1a6e98dd6d3a204f3988c60f6d')
 
 prepare() {
-  echo -e '#!/bin/sh\n/usr/bin/python -m asciinema "$@"' > "$pkgname/asciinema.sh"
+  cd $pkgname
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
   cd $pkgname
-  python -m build --wheel --no-isolation
+  env \
+    ASCIINEMA_GEN_DIR="$PWD" \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_LTO=true \
+    cargo build --frozen --release
+  mv completion/asciinema{.bash,}
+}
+
+check() {
+  cd $pkgname
+  local skipped=(
+    pty::tests::exec_basic # PTY interaction
+    pty::tests::exec_quick # PTY interaction
+    pty::tests::exec_extra_env
+    pty::tests::exec_no_output
+    pty::tests::exec_winsize_override
+  )
+  cargo test --frozen -- ${skipped[@]/#/--skip }
 }
 
 package() {
   cd $pkgname
-  install -Dm755 -t "$pkgdir/usr/bin" asciinema.sh
-  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm0755 target/release/$pkgname -t "$pkgdir/usr/bin"
+  install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+  install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+  install -Dm0644 -t "$pkgdir/usr/share/bash-completion/completions/" completion/$pkgname
+  install -Dm0644 -t "$pkgdir/usr/share/elvish/lib/" completion/$pkgname.elv
+  install -Dm0644 -t "$pkgdir/usr/share/fish/vendor_completions.d/" completion/$pkgname.fish
+  install -Dm0644 -t "$pkgdir/usr/share/zsh/site-functions/" completion/_$pkgname
+  install -Dm0644 -t "$pkgdir/usr/share/man/man1/" man/*.1
 }
