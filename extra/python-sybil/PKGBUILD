@@ -3,7 +3,7 @@
 pkgname=python-sybil
 pkgver=6.0.3
 _commit=0fc6f9cca420d46481e0e4bf3668b40f38034abc
-pkgrel=2
+pkgrel=3
 pkgdesc='Automated testing for the examples in your documentation.'
 arch=('any')
 license=('MIT')
