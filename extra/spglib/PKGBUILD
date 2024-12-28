@@ -2,7 +2,7 @@
 
 pkgname=spglib
 pkgver=2.5.0
-pkgrel=2
+pkgrel=3
 pkgdesc='C library for finding and handling crystal symmetries'
 arch=(x86_64)
 url='https://spglib.readthedocs.io/en/latest/'
@@ -20,7 +20,7 @@ makedepends=(cmake
 optdepends=('gcc-libs: Fortran interface'
             'python-numpy: Python interface')
 source=(git+https://github.com/spglib/spglib#tag=v$pkgver)
-sha256sums=('570b46d69e46d17dc0e8bc35c358df36334a8b08977791ee00cb9e48b31932b0')
+sha256sums=('da4a4e8a82836b8fc1569680e981daa945d30eb02543e07843ddca976ab6257e')
 
 prepare() {
   sed -e 's|TARGET Spglib_symspg|0|' -i $pkgname/python/CMakeLists.txt # Don't duplicate shared libs in python tree
