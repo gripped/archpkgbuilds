@@ -8,7 +8,7 @@
 
 pkgname=systemtap
 pkgver=5.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Infrastructure to simplify the gathering of information about the running Linux system"
 url="https://sourceware.org/systemtap/"
 arch=('x86_64')
@@ -17,7 +17,6 @@ depends=('elfutils' 'nss' 'python' 'cpio')
 makedepends=('python-setuptools' 'xmlto')
 optdepends=('sqlite3: for storing results in a database')
 options=('!emptydirs')
-install="${pkgname}.install"
 source=("https://sourceware.org/ftp/${pkgname}/releases/${pkgname}-${pkgver}.tar.gz"{,.asc}
         systemtap.sysusers)
 sha512sums=('30137e232e44abe98747ae61a71a162eff5abc89e9a922f86ade834eac2cac1923ae06d4ed17710718adba082ad06d2fb544822003a54e13b97eea9e183bdf9d'
