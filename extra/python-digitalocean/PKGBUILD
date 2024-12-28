@@ -2,7 +2,7 @@
 
 pkgname=python-digitalocean
 pkgver=1.17.0
-pkgrel=6
+pkgrel=7
 pkgdesc='digitalocean.com API to manage Droplets and Images'
 arch=('any')
 license=('LGPL')
