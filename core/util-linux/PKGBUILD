@@ -2,11 +2,19 @@
 # Maintainer: Dave Reisner <dreisner@archlinux.org>
 # Contributor: judd <jvinet@zeroflux.org>
 
+# ➡️ Pushing pre-releases to [core-testing] can cause havoc, especially
+#   as all [core] packages are built there, and may be moved before.
+#   Anyway, pre-release packages may be available in my personal testing
+#   repository. Brave souls add it with:
+#     [eworm-testing]
+#     SigLevel = Required
+#     Server = https://pkgbuild.com/~eworm/$repo/$arch/
+
 pkgbase=util-linux
 pkgname=(util-linux util-linux-libs)
 _tag='2.40.2'
 pkgver="${_tag/-/}"
-pkgrel=1
+pkgrel=2
 pkgdesc='Miscellaneous system utilities for Linux'
 url='https://github.com/util-linux/util-linux'
 arch=('x86_64')
