@@ -3,8 +3,8 @@
 
 _pkg=py-lmdb
 pkgname=python-lmdb
-pkgver=1.4.1
-pkgrel=3
+pkgver=1.5.1
+pkgrel=1
 pkgdesc="Universal Python binding for the LMDB Lightning Database"
 arch=(x86_64)
 url="https://github.com/jnwatson/py-lmdb/"
@@ -12,8 +12,14 @@ license=('OLDAP-2.8')
 depends=(python python-cffi lmdb)
 makedepends=(python-build python-installer python-setuptools python-wheel)
 checkdepends=(python-pytest)
-source=(${url}/archive/${_pkg}_${pkgver}.tar.gz)
-sha256sums=('c574035dd85ef7f5b1d6d9c9f639fcaff51fcf85a397c5b6d721e161e6077f51')
+source=(${url}/archive/${_pkg}_${pkgver}.tar.gz
+        010-python-lmdb-python3.13-fix.patch::https://github.com/jnwatson/py-lmdb/pull/368/commits/206a3754466397baeb418e70be9d35b12cc4079f.patch)
+sha256sums=('fa0a84d166418fdb87fc8bd235d85aa7bcb690e995ff32ea411aa50eaf52607e'
+            '5f97c3327e23cd01041373214f95d42304943f681bf88733ee933194a874aca9')
+
+prepare() {
+    patch -d ${_pkg}-${_pkg}_${pkgver} -Np1 -i "${srcdir}/010-python-lmdb-python3.13-fix.patch"
+}
 
 build() {
   cd ${_pkg}-${_pkg}_${pkgver}
