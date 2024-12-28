@@ -4,7 +4,7 @@
 _name=pytest-socket
 pkgname=python-pytest-socket
 pkgver=0.7.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Pytest Plugin to disable socket calls during tests'
 arch=(any)
 license=(MIT)
