@@ -4,7 +4,7 @@
 _name=pysaml2
 pkgname=python-pysaml2
 pkgver=7.5.0
-pkgrel=2
+pkgrel=3
 
 pkgdesc='Python implementation of SAML Version 2'
 url='https://github.com/IdentityPython/pysaml2'
