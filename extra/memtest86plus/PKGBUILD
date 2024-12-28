@@ -3,9 +3,8 @@
 
 pkgbase=memtest86+
 pkgname=('memtest86+' 'memtest86+-efi' 'memtest86+-iso')
-_tag=5dde13b0a1b4b23b26e627a659455016df22ad5a
-pkgver=7.00
-pkgrel=1
+pkgver=7.20
+pkgrel=2
 pkgdesc='Advanced memory diagnostic tool'
 url='https://www.memtest.org'
 arch=('any')
@@ -13,10 +12,10 @@ license=('GPL2')
 makedepends=('git')
 makedepends+=('xorriso' 'dosfstools' 'mtools') # to build the iso image
 source=(#https://www.memtest.org/download/${pkgver}/${pkgname}-${pkgver}.bin.gz
-        "git+https://github.com/memtest86plus/memtest86plus.git#tag=${_tag}"
+        "git+https://github.com/memtest86plus/memtest86plus.git#tag=v$pkgver"
         60_memtest86+ 
         60_memtest86+-efi)
-sha512sums=('SKIP'
+sha512sums=('1d32fc828a6cab878374a19c5b63e934214ae2101116d27854bd3b19ebfcd27dac40e1e899bb7b2f87a7d88d3461631286430c4d6da5894be51b324e56648ebd'
             '9067f58ab7ad6d7080a7f5e428fb2ef68a44cb6d83e531badf385df134d1e764e0f77e9b2d1c3e8fca36cd5e25dcde672f71a4a8f883783ec600a70f0ee1c22c'
             '926f5a7ef54e706c977bc03ca66a9e5ec3aa5ca119359c6e6bfdf83834ff5097689b312032cdf7661afab6baa04867e25792f27dd665fc89a061f2a9e39cf97e')
 
