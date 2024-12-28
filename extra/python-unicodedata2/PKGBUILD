@@ -6,7 +6,7 @@
 pkgname=python-unicodedata2
 _pyname=${pkgname#python-}
 pkgver=15.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="unicodedata backport/updates to Python 3"
 arch=('x86_64')
 url="https://github.com/fonttools/$_pyname"
