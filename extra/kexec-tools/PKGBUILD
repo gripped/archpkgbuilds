@@ -2,8 +2,8 @@
 # Contributor: Camille Moncelier <pix@devlife.org>, simo <simo@archlinux.org>
 
 pkgname=kexec-tools
-pkgver=2.0.29
-pkgrel=2
+pkgver=2.0.30
+pkgrel=1
 pkgdesc="Load another kernel from the currently executing Linux kernel"
 arch=('x86_64')
 url="https://kernel.org/pub/linux/utils/kernel/kexec/"
@@ -12,7 +12,7 @@ makedepends=('git')
 validpgpkeys=('E27CD9A1F5ACC2FF4BFE7285D7CF64696A374FBE') # Simon Horman <horms@debian.org>
 depends=('zlib' 'xz')
 license=('GPL-2.0-or-later')
-b2sums=('e49b21dadc06cd91ec71a7c48e6a731a29560dde91f53cea615ffcfc747f443b5db3bfc2fe56050a2a604e4eb5b4f50788b8887e73d2f5c7e8c485a14c467580')
+b2sums=('9092d6cb1f08018088c96bf42c734be97be072726888617b58505349c0c4945d6e1c382210bc1c176548615c7fdd169a6331a6fffc17b75ea79795669bfcb49b')
 
 prepare() {
   cd "${pkgname}"
