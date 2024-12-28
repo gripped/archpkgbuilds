@@ -7,7 +7,7 @@
 
 pkgname=redshift
 pkgver=1.12
-pkgrel=13
+pkgrel=14
 pkgdesc='Adjusts the color temperature of your screen according to your surroundings.'
 arch=('x86_64')
 url='http://jonls.dk/redshift/'
