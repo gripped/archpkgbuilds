@@ -3,20 +3,27 @@
 _pkgname=flask-principal
 pkgname=python-flask-principal
 pkgver=0.4.0
-pkgrel=11
+pkgrel=12
 pkgdesc='Identity management for Flask applications'
 url='https://pythonhosted.org/Flask-Principal/'
 arch=('any')
 license=('MIT')
 depends=('python' 'python-flask')
 makedepends=('python-blinker' 'python-sphinx' 'python-setuptools')
-source=(${pkgname}-${pkgver}.tar.gz::https://github.com/mattupstate/flask-principal/archive/${pkgver}.tar.gz)
-sha256sums=('ed8c58943460d7d54c29463e2fe98ae4969d3818c0f59b36e9b2649128db96c9')
-sha512sums=('ed8cb28c4e8d936de96db0bf9f7cb45b253dc204c4b8f8dd8022ef1552592ff6324b4a33d3ee862794a6e20eb8c32a0365e7b9397d427da5022c5ded3dfa308a')
+source=(${pkgname}-${pkgver}.tar.gz::https://github.com/mattupstate/flask-principal/archive/${pkgver}.tar.gz
+        convert-conf.py-to-python3.patch
+        sphinx8-fix.patch)
+sha256sums=('ed8c58943460d7d54c29463e2fe98ae4969d3818c0f59b36e9b2649128db96c9'
+            'fd8d835a1467467802f0e49b55c492ee61d77b81d614354f8f9538c97b91a346'
+            'bc7685ee3d7bfc6d60be31bfdbfc593dbac7275b870795f24ffbdcd7f3a7c05b')
+sha512sums=('ed8cb28c4e8d936de96db0bf9f7cb45b253dc204c4b8f8dd8022ef1552592ff6324b4a33d3ee862794a6e20eb8c32a0365e7b9397d427da5022c5ded3dfa308a'
+            '288b761f8a1af2ebe362293677215c5fbc228edc1f9cf725bebf226ed8cacbca0d9f0749996ea1507a7f8fe05b8744285f4f65c6c337ec413d177abd7f7a6166'
+            '417922cb84c34064daed920244320e44f255645103608fbf5b72cee7fceb46526706e6529a0ba3fa5415fb09121ea376e19bfd1bdab1bcd59219224e2f20a0ba')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
-  2to3 -w docs/conf.py
+  patch -Np1 -i ${srcdir}/convert-conf.py-to-python3.patch
+  patch -Np1 -i ${srcdir}/sphinx8-fix.patch
 }
 
 build() {
