@@ -3,7 +3,7 @@
 pkgname=python-pyasynchat
 _pkgname=${pkgname#python-}
 pkgver=1.0.4
-pkgrel=3
+pkgrel=4
 pkgdesc="Make asynchat available for Python 3.12 onwards"
 arch=(any)
 url="https://github.com/simonrob/pyasynchat"
