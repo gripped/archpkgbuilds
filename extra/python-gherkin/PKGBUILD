@@ -3,7 +3,7 @@
 pkgname=python-gherkin
 _pkgname=${pkgname#python-}
 pkgver=30.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A parser and compiler for the Gherkin language"
 arch=('any')
 url="https://github.com/cucumber/gherkin"
