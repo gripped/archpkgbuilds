@@ -1,27 +1,35 @@
-# Maintainer: Andrzej Giniewicz <gginiu@gmail.com>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Andrzej Giniewicz <gginiu@gmail.com>
 # Contributor: lilydjwg <lilydjwg@gmail.com>
 
 pkgname=python-requests-file
-pkgver=1.5.1
-pkgrel=7
-pkgdesc="File transport adapter for Requests"
+pkgver=2.1.0
+pkgrel=1
+pkgdesc='File transport adapter for Requests'
 arch=('any')
-url="https://github.com/dashea/requests-file"
-license=('Apache')
-depends=('python-six' 'python-requests')
-makedepends=('python-setuptools')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/dashea/requests-file/archive/${pkgver}.tar.gz")
-sha256sums=('a9b0a80675727f320cd5c71d6eb70cc3969b468dc27896a893148c0f6b424446')
+url='https://github.com/dashea/requests-file'
+license=('Apache-2.0')
+depends=('python' 'python-six' 'python-requests')
+makedepends=(
+  'git'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-setuptools-scm'
+  'python-wheel'
+)
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('29cb33b3fc71fc865d5c729729885d797adfe129cf87feeb3443b97f3e04e3b599b08a4ffd989505f833d878d72b77a33d8ac537d976ec869d30fbcc22989a06')
+b2sums=('460e5940c2f32eb8a114884eb766cd7ad90a968da6b95c7d129a6ef0ea1b13e35b11fa0cd9eff5cece4fbba6bca2de9aca6720ad9bd4b3b57a1d781d80c147e9')
 
 build() {
-  cd "$srcdir"/requests-file-${pkgver}
+  cd "$pkgname"
 
-  python setup.py build_ext --inplace
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
-  cd "$srcdir"/requests-file-${pkgver}
+  cd "$pkgname"
 
-  python setup.py install --skip-build --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
