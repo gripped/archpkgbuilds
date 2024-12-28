@@ -3,7 +3,7 @@
 
 pkgname=gnome-tour
 pkgver=47.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Guided tour and greeter for GNOME"
 url="https://apps.gnome.org/Tour/"
 arch=(x86_64)
@@ -38,6 +38,10 @@ prepare() {
   # Match CARGO_HOME in src/meson.build
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # Fix crash on second activation
+  # https://gitlab.gnome.org/GNOME/gnome-tour/-/merge_requests/79
+  git cherry-pick -n 6e4e8a7d90c76cd1aaa8efa8eb676f68e53c84b9
 }
 
 build() {
