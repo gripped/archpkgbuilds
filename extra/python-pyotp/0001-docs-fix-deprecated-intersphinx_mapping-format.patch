@@ -1,0 +1,28 @@
+From 1287e4fde57b82a8c5654524a76979d4bfe67fbf Mon Sep 17 00:00:00 2001
+From: Jelle van der Waa <jelle@archlinux.org>
+Date: Fri, 29 Nov 2024 20:53:26 +0100
+Subject: [PATCH] docs: fix deprecated intersphinx_mapping format
+
+Since Sphinx 8.0 the docs cannot be build as the old
+`intersphinx_mapping` format is still used which is deprecated since
+Sphinx 0.5.
+---
+ docs/conf.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/docs/conf.py b/docs/conf.py
+index f508b98..13dc6fc 100644
+--- a/docs/conf.py
++++ b/docs/conf.py
+@@ -15,7 +15,7 @@ source_suffix = [".rst", ".md"]
+ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+ pygments_style = "sphinx"
+ intersphinx_mapping = {
+-    "https://docs.python.org/3": None,
++    "python": ("https://docs.python.org/3", None),
+ }
+ templates_path = [""]
+ ogp_site_url = "https://pyauth.github.io/pyotp/"
+-- 
+2.47.1
+
