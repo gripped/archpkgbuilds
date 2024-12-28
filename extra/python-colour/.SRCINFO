@@ -1,12 +1,15 @@
 pkgbase = python-colour
 	pkgdesc = Colour representations manipulation library (RGB, HSL, web, ...)
 	pkgver = 0.1.5
-	pkgrel = 13
+	pkgrel = 15
 	url = https://github.com/vaab/colour
 	arch = any
-	license = BSD
+	license = BSD-2-Clause
 	checkdepends = python-pytest
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python
 	source = https://files.pythonhosted.org/packages/source/c/colour/colour-0.1.5.tar.gz
 	source = drop-d2to1-requirement.patch

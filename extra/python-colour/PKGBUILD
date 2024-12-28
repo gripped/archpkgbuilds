@@ -4,13 +4,13 @@
 pkgname=python-colour
 _pyname=colour
 pkgver=0.1.5
-pkgrel=13
+pkgrel=15
 pkgdesc="Colour representations manipulation library (RGB, HSL, web, ...)"
 arch=('any')
 url="https://github.com/vaab/colour"
-license=('BSD')
+license=('BSD-2-Clause')
 depends=('python')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
 source=("https://files.pythonhosted.org/packages/source/${_pyname:0:1}/${_pyname}/${_pyname}-${pkgver}.tar.gz"
 	"drop-d2to1-requirement.patch")
@@ -24,7 +24,7 @@ prepare() {
 
 build() {
   cd $_pyname-$pkgver
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -34,6 +34,6 @@ check() {
 
 package() {
   cd $_pyname-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer -d "$pkgdir" dist/*.whl
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
