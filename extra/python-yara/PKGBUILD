@@ -3,9 +3,8 @@
 
 _gitname=yara-python
 pkgname=python-yara
-pkgver=4.5.0
-_gitcommit=3d5674a30808b26b44fc896dd059e94e704e4d63
-pkgrel=2
+pkgver=4.5.1
+pkgrel=1
 pkgdesc='Tool aimed at helping malware researchers to identify and classify malware samples'
 url='https://github.com/VirusTotal/yara-python'
 arch=('x86_64')
@@ -13,8 +12,8 @@ license=('Apache')
 depends=('python' 'yara' 'libyara.so' 'glibc')
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 checkdepends=('python-pytest')
-source=(${pkgname}::git+"https://github.com/VirusTotal/${_gitname}#commit=${_gitcommit}")
-sha512sums=('SKIP')
+source=(${pkgname}::git+"https://github.com/VirusTotal/${_gitname}#tag=v$pkgver")
+sha512sums=('807e7f07acaaae5071076cc334a80e09920918c4fd871a6cdc8e5d72cad386bc16ba384b1d6943e567beec7d1ea992e66e61b372f65fb15bf9427425cdf360d0')
 
 pkgver() {
   cd ${pkgname}
