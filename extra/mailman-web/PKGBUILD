@@ -2,7 +2,7 @@
 
 pkgname=mailman-web
 pkgver=0.0.9
-pkgrel=3
+pkgrel=4
 pkgdesc="The web interface for Mailman 3"
 arch=(any)
 url="https://gitlab.com/mailman/mailman-web"
