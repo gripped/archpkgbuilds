@@ -6,7 +6,7 @@
 pkgname=python-pytables
 _pkgname=PyTables
 pkgver=3.10.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A Python package to manage extremely large amounts of data"
 arch=(x86_64)
 url="https://www.pytables.org"
