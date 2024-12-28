@@ -4,7 +4,7 @@
 # Contributor: Jokler <aur@jokler.xyz>
 
 pkgname=bacon
-pkgver=3.6.0
+pkgver=3.7.0
 pkgrel=1
 pkgdesc='A background rust code checker'
 arch=('x86_64')
@@ -13,13 +13,15 @@ license=('AGPL-3.0-only')
 depends=('glibc' 'gcc-libs')
 makedepends=('git' 'rust')
 optdepends=('cargo: for use with Rust'
+            'clang: for use with C++ via clang'
+            'gcc: for use with C++ via gcc'
             'eslint: for use with JavaScript'
             'python: for use with Python via unittest'
             'python-pytest: for use with Python via pytest')
 options=('!lto')
 source=("$pkgname::git+https://github.com/Canop/bacon#tag=v$pkgver")
-sha512sums=('90db9bfa868d384c014f84268f7659f0ee8a91d184b38c09dabf15b2e09644e055aa0770ea2fb14b59ab1828e2d568edc682e1e28a591bdb36db15bf4a5500cc')
-b2sums=('a084531dbc13f0438eda5b9dac8e0a0e7c9b52deb811481c22be3875fff40c70c3bb1d1bdb49c27af1d76d79ab4b31e50f467ae02d9376a0f0a6541f31673154')
+sha512sums=('ca78a918557e3ea0cb1c0e72da8f7564a4e1d494edda3fe7d6b18059d6f5649899ab9b3f5fa64e0042ab2142da2996c30e7f3645064185d6fc889a5a14b972a8')
+b2sums=('2c5c32fbf8bb66704118e028009d7e5bc4faedb1c7543415533d5d7d41b61a7e9da61b431600443f2bbb9dde7e17fc77cce4feb9014c894bb98d4146e704f980')
 
 prepare() {
   cd "$pkgname"
