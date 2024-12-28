@@ -3,7 +3,7 @@
 _pyname=expandvars
 pkgname=python-$_pyname
 pkgver=0.12.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Expand system variables Unix style'
 arch=(any)
 url='https://github.com/sayanarijit/expandvars'
