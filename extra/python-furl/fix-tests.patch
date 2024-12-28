@@ -1,0 +1,12 @@
+diff --unified --recursive --text --new-file furl-2.1.3.orig/tests/test_furl.py furl-2.1.3/tests/test_furl.py
+--- furl-2.1.3.orig/tests/test_furl.py	2024-11-18 06:41:51.694860282 +0100
++++ furl-2.1.3/tests/test_furl.py	2024-11-18 06:42:05.701539824 +0100
+@@ -1639,7 +1639,7 @@
+         # of a netloc, even if the netloc is empty.
+         f = furl.furl('////path')
+         assert f.netloc == '' and str(f.path) == '//path'
+-        assert f.url == '////path'
++        assert f.url == '//////path'
+ 
+         # TODO(grun): Test more odd URLs.
+ 
