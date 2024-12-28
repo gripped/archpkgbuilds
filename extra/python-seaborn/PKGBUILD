@@ -4,11 +4,11 @@
 
 pkgname=python-seaborn
 pkgver=0.13.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Statistical data visualization"
 arch=(any)
 url="https://seaborn.pydata.org/"
-license=(BSD)
+license=(BSD-3-Clause)
 depends=(python-pandas python-matplotlib)
 makedepends=(python-build python-installer python-flit-core)
 optdepends=('python-scipy: clustering matrices and some advanced options'
@@ -27,7 +27,8 @@ check() {
   PYTHONWARNINGS="ignore" \
   pytest -vv --color=yes \
     --deselect tests/test_relational.py::TestScatterPlotter::test_unfilled_marker_edgecolor_warning \
-    --deselect tests/test_distributions.py::TestHistPlotUnivariate::test_kde_singular_data # broken by numpy deprecation warnings
+    --deselect tests/test_distributions.py::TestHistPlotUnivariate::test_kde_singular_data \
+    --deselect tests/test_distributions.py::TestKDEPlotBivariate::test_weights # broken by numpy deprecation warnings
 }
 
 package() {
