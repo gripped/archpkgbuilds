@@ -2,8 +2,8 @@
 # Contributor: Shinlun Hsieh <yngwiexx@yahoo.com.tw>
 
 pkgname=ser2net
-pkgver=4.3.13
-pkgrel=2
+pkgver=4.6.2
+pkgrel=1
 pkgdesc="A proxy that allows telnet/tcp connections to be made to serial ports"
 arch=(x86_64)
 url="https://sourceforge.net/projects/ser2net"
@@ -12,7 +12,7 @@ depends=('gensio' 'libyaml')
 backup=(etc/ser2net/ser2net.yaml)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/cminyard/ser2net/archive/v$pkgver.tar.gz"
 	ser2net.service)
-sha256sums=('3013eda7fdfc54cb87123d73635ee357d5384beeee922b4c536772b3382eacdb'
+sha256sums=('9d0fe10d7efbe1e04cb3a48b6163e25f0eba26d2db8f7d730d0b93e5f0f0d82a'
             'aac37d4122ec4ed4efbbe0ee59b02b0a988429a5302c98409f87e88289de8fac')
 
 build() {
