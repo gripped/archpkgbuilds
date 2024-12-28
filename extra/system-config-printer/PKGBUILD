@@ -3,7 +3,7 @@
 
 pkgname=system-config-printer
 pkgver=1.5.18
-pkgrel=4
+pkgrel=5
 pkgdesc="A CUPS printer configuration tool and status applet"
 url="https://github.com/OpenPrinting/system-config-printer"
 arch=('x86_64')
