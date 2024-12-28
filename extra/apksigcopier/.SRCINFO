@@ -1,11 +1,14 @@
 pkgbase = apksigcopier
 	pkgdesc = copy/extract/patch android apk signatures & compare apks
 	pkgver = 1.1.1
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/obfusk/apksigcopier
 	arch = any
-	license = GPL3
+	license = GPL-3.0-or-later
 	makedepends = python-setuptools
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
 	makedepends = pandoc
 	depends = python
 	depends = python-click
