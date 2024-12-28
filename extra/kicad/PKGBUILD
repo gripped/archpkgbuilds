@@ -7,7 +7,7 @@
 # Contributor: Alexander Lutsai <s.lyra@ya.ru>
 
 pkgname=kicad
-pkgver=8.0.6
+pkgver=8.0.7
 pkgrel=1
 pkgdesc='Electronic schematic and printed circuit board (PCB) design tools'
 arch=('x86_64')
@@ -42,15 +42,9 @@ source=(
   'fix-archive-permissions.patch'
   'fix-version-string.patch'
 )
-sha512sums=('c3149f0b17071cec0bbf5694405118de4aac1e5b88bf3785553ef4622d2b340dce4429821222f0cb16c4613a62887f1deb883c843f30a71db9ec9a78d0196285'
+sha512sums=('06f6c5fa15ef7e82f42b027134b868e040a281d62147581e50245d5bf0eec7f6c0a37e7432e8183739c04ac1da8d23cde6f18e145b74dee209e2c95f62733ee3'
             'e36912e4144c6debe33f1711ca7a2da020389a6e376282c70f534ce9e685d0b35b58d88b810327d8baeb3466e87eda246ebf181c18e134e80bc73b91dae4bf02'
             '17100967610c85ce2e8a860dcf703a87dc0c20f52d3f056cdb5d16323160e8594698bd51e095aea63c00a75ce8b121be681e93cec1bab72a8d1d4eb8065a91f5')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
 
 prepare() {
   cd "$pkgname"
