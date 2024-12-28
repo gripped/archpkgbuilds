@@ -1,17 +1,23 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=firefox-tridactyl
-pkgver=1.24.1
+pkgver=1.24.2
 pkgrel=1
 pkgdesc="Replace Firefox's control mechanism with one modelled on Vim"
-arch=('any')
+arch=(any)
 url=https://github.com/tridactyl/tridactyl
-license=('Apache')
-groups=('firefox-addons')
-makedepends=('git' 'node-gyp' 'python' 'strip-nondeterminism' 'yarn')
+license=(Apache-2.0)
+groups=(firefox-addons)
+makedepends=(
+  git
+  node-gyp
+  python
+  strip-nondeterminism
+  yarn
+)
 source=("git+$url.git#commit=$pkgver?signed")
-b2sums=('183d6cb70e5bd05b68fdf7c15380852712e2fbfe54909964b0b8e47f82fc0e3c25ce98a176b71b74823f1718275978d622f4426bebc43567d1e9b8ec73eb781b')
-validpgpkeys=('15D03C86837936A0A638AA2D2BB8C36BB504BFF3') # Oliver Blanthorn <freedom4cows@gmail.com>
+b2sums=('bcc1303586e3e78c095712b655fb8f3b9e6397697f7d2e2bd1aea4b6ddf05d1aa6392c47907ad85a81915f50e109f2a98636ace1a86fc5382412b4fe1093b8e6')
+validpgpkeys=(15D03C86837936A0A638AA2D2BB8C36BB504BFF3) # Oliver Blanthorn <freedom4cows@gmail.com>
 
 prepare() {
   cd tridactyl
