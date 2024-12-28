@@ -3,7 +3,7 @@
 
 pkgname=ruby-css_parser
 _pkgname=${pkgname#ruby-}
-pkgver=1.19.1
+pkgver=1.21.0
 pkgrel=1
 pkgdesc="Ruby CSS parser"
 arch=(any)
@@ -24,21 +24,18 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("git+$url.git#tag=v$pkgver")
-sha256sums=('baaaaa3e39fe150beda0eafdaef46de25ce5493d5e348c23e2c092ad5e9db9f1')
+sha256sums=('33b316b39e9bd8d61e2171d5110ce39e8601c1cf6f8086f4d54ca2819e59eb38')
 
 prepare() {
   cd "$_pkgname"
   sed -i -E 's|~>|>=|g' "$_pkgname.gemspec"
   sed -i '/bundler/Id' Rakefile test/test_helper.rb
   sed -i '/require.*bump/Id' Rakefile
-
-  sed -i -e '/rubocop/d' Gemfile
   sed -i \
     -e "/require 'rubocop/d" \
     -e '/RuboCop/,/end/d' \
     Rakefile
-
-  rm Gemfile.lock
+  echo "require 'pathname'" >> test/test_helper.rb
 }
 
 build() {
