@@ -4,7 +4,7 @@
 pkgname=python-motor
 _pkgname=${pkgname#python-}
 pkgver=3.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Async Python driver for MongoDB and Tornado or asyncio"
 arch=(any)
 url="https://github.com/mongodb/motor"
