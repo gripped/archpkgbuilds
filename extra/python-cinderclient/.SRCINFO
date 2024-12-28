@@ -1,7 +1,7 @@
 pkgbase = python-cinderclient
 	pkgdesc = OpenStack Block Storage API Client Library
 	pkgver = 9.6.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://docs.openstack.org/developer/python-cinderclient
 	arch = any
 	license = Apache
@@ -20,6 +20,8 @@ pkgbase = python-cinderclient
 	depends = python-requests
 	depends = python-stevedore
 	source = git+https://github.com/openstack/python-cinderclient.git#commit=c4ecade6b16c25541d8e241c83f6c214ec5b437f
+	source = fix-tests-in-python-3.13.patch.zip::https://review.opendev.org/changes/openstack%2Fpython-cinderclient~930218/revisions/1/patch?zip
 	sha512sums = 460cfb2845988d2c920d9e391a16ceaec9b93bde2f9586b05cd50edfb2d7fa636eb3368f1d5c856de319766b6aa1086328342ead1fc5e44ac27cfd6c8ff70642
+	sha512sums = a61b9312ddd1f5a954f2184cfd4b86e68a638a39b6d7814189ec9851f903a9d8d3c36c132032e62a29c2a0fb2341c91c8bab29c810bc42f007f580d6e55342c3
 
 pkgname = python-cinderclient

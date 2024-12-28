@@ -4,7 +4,7 @@
 pkgname=python-cinderclient
 pkgver=9.6.0
 _commit=c4ecade6b16c25541d8e241c83f6c214ec5b437f
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenStack Block Storage API Client Library"
 arch=('any')
 url="https://docs.openstack.org/developer/python-cinderclient"
@@ -14,8 +14,17 @@ depends=('python-pbr' 'python-prettytable' 'python-keystoneauth1' 'python-oslo-i
 makedepends=('git')
 checkdepends=('python-ddt' 'python-fixtures' 'python-requests-mock' 'python-testtools'
               'python-stestr' 'python-oslo-serialization')
-source=("git+https://github.com/openstack/python-cinderclient.git#commit=$_commit")
-sha512sums=('460cfb2845988d2c920d9e391a16ceaec9b93bde2f9586b05cd50edfb2d7fa636eb3368f1d5c856de319766b6aa1086328342ead1fc5e44ac27cfd6c8ff70642')
+source=(
+  "git+https://github.com/openstack/python-cinderclient.git#commit=$_commit"
+  "fix-tests-in-python-3.13.patch.zip::https://review.opendev.org/changes/openstack%2Fpython-cinderclient~930218/revisions/1/patch?zip"
+)
+sha512sums=('460cfb2845988d2c920d9e391a16ceaec9b93bde2f9586b05cd50edfb2d7fa636eb3368f1d5c856de319766b6aa1086328342ead1fc5e44ac27cfd6c8ff70642'
+            'a61b9312ddd1f5a954f2184cfd4b86e68a638a39b6d7814189ec9851f903a9d8d3c36c132032e62a29c2a0fb2341c91c8bab29c810bc42f007f580d6e55342c3')
+
+prepare() {
+  cd python-cinderclient
+  patch -p1 -i ../e23f23c.diff # fix-tests-in-python-3.13.patch.zip
+}
 
 build() {
   cd python-cinderclient
