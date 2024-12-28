@@ -3,7 +3,7 @@
 _name=mailman
 pkgname=mailman3
 pkgver=3.3.10
-pkgrel=1
+pkgrel=3
 pkgdesc="The GNU mailing list manager"
 arch=(any)
 url="https://www.list.org/"
@@ -31,6 +31,7 @@ depends=(
   python-zope-configuration
   python-zope-event
   python-zope-interface
+  python-nntplib
 )
 makedepends=(
   git
