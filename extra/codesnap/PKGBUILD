@@ -1,0 +1,40 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Contributor: Adam Perkowski <adas1per@protonmail.com>
+
+_pkgname=CodeSnap
+pkgname=codesnap
+pkgver=0.8.3
+pkgrel=1
+pkgdesc="Pure Rust tool for generating beautiful code snapshots"
+arch=('x86_64')
+url="https://github.com/mistricky/$_pkgname"
+license=('MIT')
+depends=('oniguruma' 'gcc-libs')
+makedepends=('cargo')
+source=("$_pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('acb3e160039c9986f4566f3504df2c820558e62b7a412d4fd5030008f2c44f81')
+
+prepare() {
+  cd "$_pkgname-$pkgver"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  export RUSTFLAGS="-C link-arg=/usr/lib/libonig.so"
+  cd "$_pkgname-$pkgver"
+  cargo build --frozen --release
+}
+
+# check() {
+#   cd "$_pkgname-$pkgver"
+#   cargo test --frozen
+# }
+
+package() {
+  cd "$_pkgname-$pkgver"
+  install -Dm0755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  install -Dm644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:
