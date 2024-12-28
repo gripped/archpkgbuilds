@@ -2,8 +2,8 @@
 
 _pkg=pyogrio
 pkgname=python-${_pkg}
-pkgver=0.9.0
-pkgrel=2
+pkgver=0.10.0
+pkgrel=1
 pkgdesc="Vectorized vector I/O using OGR"
 arch=(x86_64)
 url="https://pyogrio.readthedocs.io/"
@@ -12,7 +12,7 @@ depends=(gdal python-certifi python-numpy)
 makedepends=(cython python-build python-installer python-setuptools python-versioneer python-wheel)
 checkdepends=(python-pytest)
 source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-sha256sums=('6a6fa2e8cf95b3d4a7c0fac48bce6e5037579e28d3eb33b53349d6e11f15e5a8')
+sha256sums=('ec051cb568324de878828fae96379b71858933413e185148acb6c162851ab23c')
 
 prepare() {
   sed -e '/oldest-supported-numpy/d' -e '/versioneer\[toml\]==0.28/d' \
