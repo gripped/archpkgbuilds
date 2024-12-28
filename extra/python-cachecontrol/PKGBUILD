@@ -4,7 +4,7 @@
 _name=cachecontrol
 pkgname=python-cachecontrol
 pkgver=0.14.1
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Port of the caching algorithms in httplib2 for use with requests session object"
 arch=(any)
