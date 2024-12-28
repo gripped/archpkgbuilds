@@ -2,7 +2,7 @@
 
 pkgname=python-caldav
 pkgver=1.4.0
-pkgrel=2
+pkgrel=3
 pkgdesc='CalDAV (RFC4791) client library for Python'
 arch=(any)
 url='https://github.com/python-caldav/caldav'
@@ -46,4 +46,5 @@ package() {
   cd caldav
   python -m installer --destdir="$pkgdir" dist/*.whl
   python -m sphinx -b html docs/source "$pkgdir/usr/share/doc/$pkgname/html"
+  rm -r "$pkgdir/usr/share/doc/$pkgname/html/.doctrees"
 }
