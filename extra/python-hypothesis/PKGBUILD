@@ -1,10 +1,12 @@
-# Maintainer:
+# Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+# Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 _name=hypothesis
 _alt_name=$_name-python
 pkgname=python-hypothesis
-pkgver=6.118.7
+pkgver=6.122.6
 _version=$_alt_name-$pkgver
 pkgrel=1
 pkgdesc="Advanced Quickcheck style testing library for Python"
@@ -55,9 +57,9 @@ optdepends=(
   'python-redis: for redis support'
   'python-rich: for CLI'
 )
-source=($_name-$_version.tar.gz::$_url/archive/$_version.tar.gz)
-sha512sums=('b33a1cdcc56301fde6bd7176caed2c34b43a2a7a5e21590b0fac2cf734332ed9e626f9114f7b6f6c06b67926b5a59649a7de6008a256b7a7655d8acb8b482f0f')
-b2sums=('1247665e4cc6c10ff6f628f4ef312ce90e1f791ea853a2c22fffec5f57af182e423e97b392535b569fc19889a1e7176905ba6b933e8ca69ae693c8845dd9c89f')
+source=("$_name-$_version.tar.gz::$_url/archive/$_version.tar.gz")
+sha512sums=('3aa0d6a8ac033b6145b6ba831663074002bd67a793e8fe157e76d2768b2048d9864b82179667f7cb732444f09a5b178490b6eecb34d4c0460a164968b33c9f88')
+b2sums=('2d111698688050f3ce0d9cfdc1bc5b900b4d347b3733edac483e8e1b0b915b158903d055955893041c80064a0878d6a2a7aaafcf3b9b00c4c232567b9709aeae')
 
 build() {
   cd $_name-$_version/$_alt_name
@@ -77,12 +79,12 @@ check() {
   cd $_name-$_version/$_alt_name
   # install to temporary location, as importlib is used
   python -m installer --destdir=test_dir dist/*.whl
-  export PYTHONPATH="$PWD/test_dir/$site_packages:$PYTHONPATH"
+  export PYTHONPATH="$PWD/test_dir/$site_packages"
   export PATH="$PWD/test_dir/usr/bin:$PATH"
   pytest "${pytest_options[@]}" tests/
 }
 
 package() {
   cd $_name-$_version/$_alt_name
-  python -m installer -d "$pkgdir" dist/*.whl
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
