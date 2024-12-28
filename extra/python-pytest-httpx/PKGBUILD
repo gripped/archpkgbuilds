@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-httpx
-pkgver=0.30.0
-pkgrel=2
+pkgver=0.35.0
+pkgrel=1
 pkgdesc='Send responses to httpx'
 arch=('any')
 license=('MIT')
@@ -11,7 +11,7 @@ depends=('python-httpx' 'python-pytest')
 makedepends=('python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
 checkdepends=('python-pytest-asyncio')
 source=("https://github.com/Colin-b/pytest_httpx/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('e3c20993921a5ae23a6dabcb68e495477fad32fdf69ce8a03b3a7fb5ab9732b364b5293c91fa7bb0eab7e57fe681a7ef118e8df1cdfc15ff012a6f5496207ec7')
+sha512sums=('9d991f14654db8deb2ce7f6974efc2aaa9c2f0243c1eef10e1e0ebef4fcce11d886c92b086d122121aaa2b5b8711abdbc6cc7e017296f24a1c1257554821f3b3')
 
 build() {
   cd pytest_httpx-$pkgver
