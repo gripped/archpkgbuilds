@@ -3,14 +3,14 @@
 pkgname=python-flask-socketio
 _pkgname=Flask-SocketIO
 pkgver=5.3.6
-pkgrel=2
+pkgrel=3
 pkgdesc='Socket.IO integration for Flask applications'
 url='https://flask-socketio.readthedocs.org/'
 arch=('any')
 license=('MIT')
 depends=('python' 'python-flask' 'python-eventlet' 'python-socketio')
 makedepends=('python-setuptools' 'python-sphinx' 'python-build' 'python-installer' 'python-wheel')
-checkdepends=('python-coverage' 'python-pytest' 'python-tox-current-env' 'flake8' 'python-redis')
+checkdepends=('python-pytest' 'python-redis')
 options=('!makeflags')
 source=(https://github.com/miguelgrinberg/Flask-SocketIO/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
 sha512sums=('b568358f826d9235c51f8dfb8460d1f3941d6915a22425f49e4f8e5e98f121872f01992ba8619216a5c21c8b97c5dbffb8a0841306933e8402f7f59e465ab87b')
