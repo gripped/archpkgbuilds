@@ -5,7 +5,7 @@
 
 pkgname=libsigrok
 pkgver=0.5.2
-pkgrel=20
+pkgrel=21
 pkgdesc='Client software that supports various hardware logic analyzers, core library'
 arch=('x86_64')
 url='https://www.sigrok.org/wiki/Libsigrok'
@@ -60,6 +60,8 @@ prepare() {
   git cherry-pick e803574173bdac8a7f33085a648c29eaf248a394
   # bindings/ruby: Fix ruby SWIG bindings generation
   git cherry-pick 2e199405e53fee2fb3cad72858ebe7af6990bce0
+  # bindings/python: rephrase for Python 3.9 deprecation (call API)
+  git cherry-pick 5bc8174531df86991ba8aa6d12942923925d9e72 # Oct 2 18:33:08 2023
 
   # https://sigrok.org/bugzilla/show_bug.cgi?id=1827
   patch -p1 < ../libsigrok-0.5.2-swig-4.1.patch
