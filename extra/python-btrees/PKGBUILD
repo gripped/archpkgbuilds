@@ -2,7 +2,7 @@
 
 pkgname=python-btrees
 pkgver=6.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A fancy and practical functional tools'
 arch=('x86_64')
 license=('ZPL')
@@ -12,6 +12,12 @@ makedepends=('python-setuptools' 'python-build' 'python-wheel' 'python-installer
 checkdepends=('python-transaction' 'python-zope-testrunner')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/zopefoundation/btrees/archive/$pkgver.tar.gz")
 sha512sums=('ec45359eb18a30cf838bc5e1c4276e59d1672f19da17d06aed9877b8661c926a87ff408317401615d267dcb6be9de1772491de19182d79ad5f1510324f4203bb')
+
+prepare() {
+  cd BTrees-$pkgver
+  # HACK: allow building with our setuptools version
+  sed -i 's/setuptools<74/setuptools/' pyproject.toml
+}
 
 build() {
   cd BTrees-$pkgver
