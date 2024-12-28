@@ -5,7 +5,7 @@
 
 pkgname=hexchat
 pkgver=2.16.2
-pkgrel=3
+pkgrel=4
 pkgdesc='A popular and easy to use graphical IRC (chat) client'
 arch=('x86_64')
 url='https://hexchat.github.io/'
