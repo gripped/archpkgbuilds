@@ -1,7 +1,7 @@
 pkgbase = python-bottle
 	pkgdesc = A fast and simple micro-framework for small web-applications
-	pkgver = 0.12.25
-	pkgrel = 5
+	pkgver = 0.13.0
+	pkgrel = 1
 	url = https://bottlepy.org
 	arch = any
 	license = MIT
@@ -24,9 +24,7 @@ pkgbase = python-bottle
 	optdepends = python-cherrypy: Cherrypy WSGI server
 	optdepends = python-eventlet: Eventlet server support
 	options = !emptydirs
-	source = python-bottle-0.12.25.tar.gz::https://github.com/defnull/bottle/archive/0.12.25.tar.gz
-	source = python-3.12.patch
-	sha512sums = b4b163d0225cc2be0f009427ac903dfbddc6f4bda89d3d7da2b201ccd2edbee97c2c08e7b210ffaa95077fe8ab6c1ff79ac5ffb212e8fdfed6268bfcfd6749bd
-	sha512sums = e1cef59f6ff005e78049c468942aef30ca1901a50466cf25d433f9aadbc3508a18e6b31bc302d02ee4f3d6d4801da5414762d6085166e40ad4568dea363cef6e
+	source = git+https://github.com/defnull/bottle.git#tag=0.13.0
+	sha512sums = 004ccca1eb7b9fcd4b5fda7ee1b0abb83ccf82263f9681b617522332089e6cd5ce66c7de73973b1c6c3773f5c7d77bd597f2161a7349ac0c697de3716c833885
 
 pkgname = python-bottle
