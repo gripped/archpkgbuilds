@@ -2,7 +2,7 @@
 
 pkgname=canto-curses
 pkgver=0.9.9
-pkgrel=6
+pkgrel=7
 pkgdesc="Next-gen console RSS/Atom reader"
 arch=(x86_64)
 url="https://github.com/themoken/canto-curses"
@@ -20,9 +20,19 @@ makedepends=(
   python-wheel
   readline
 )
-source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('2a88631506c1fda7278bb3ac376c2b67b4f2e5e1f443e49fe3035f542b66ac4b232fa66e7ae1b40e86b0a5cde3c38d11a0953754e5c5c7ed572a0da74656d798')
-b2sums=('c6154dfa71ec88b405fb89feec66a6bb922dfb93523c865c33fe0664ed7ea796d795027ff65a355fd3767342ffd5fa8cb01f48475c262ded4413924df6339509')
+source=(
+  "$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
+  "fix-build.patch"
+)
+sha512sums=('2a88631506c1fda7278bb3ac376c2b67b4f2e5e1f443e49fe3035f542b66ac4b232fa66e7ae1b40e86b0a5cde3c38d11a0953754e5c5c7ed572a0da74656d798'
+            '2dd7a8645f779e62da9511d11d12302596318b44eb5f6288e7e11eb12df804f49ce8ea9ee3fe402887fc09fd79f53577f937a303dc49dc7a7b263c13f3803e9d')
+b2sums=('c6154dfa71ec88b405fb89feec66a6bb922dfb93523c865c33fe0664ed7ea796d795027ff65a355fd3767342ffd5fa8cb01f48475c262ded4413924df6339509'
+        'c23540d2b28bb725643f5612e7c511114b83dac3cfae620a4fc82f829342ced53a91171a6036c5d1138dd0e70c6d84746e7bce8aa20cf58eb6831e6da18261e5')
+
+prepare() {
+  cd $pkgname-$pkgver
+  patch -Np1 -i ../fix-build.patch
+}
 
 build() {
   cd $pkgname-$pkgver
