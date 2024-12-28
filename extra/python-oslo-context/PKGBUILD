@@ -3,7 +3,7 @@
 
 pkgname=python-oslo-context
 pkgver=5.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="OpenStack Context library"
 arch=('any')
 url="https://pypi.python.org/pypi/oslo.context/$pkgver"
