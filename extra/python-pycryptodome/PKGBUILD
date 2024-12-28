@@ -4,7 +4,7 @@
 
 pkgname=python-pycryptodome
 pkgver=3.21.0
-pkgrel=1
+pkgrel=3
 license=('BSD')
 arch=('x86_64')
 pkgdesc="Collection of cryptographic algorithms and protocols, implemented for use from Python 3."
