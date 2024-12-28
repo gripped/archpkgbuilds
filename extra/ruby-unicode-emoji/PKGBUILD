@@ -2,8 +2,8 @@
 
 pkgname=ruby-unicode-emoji
 _pkgname="${pkgname#ruby-}"
-pkgver=3.3.2
-pkgrel=4
+pkgver=4.0.4
+pkgrel=1
 pkgdesc='Provides Unicode Emoji data and regexes, incorporating the latest standards'
 arch=('any')
 url='https://github.com/janlelis/unicode-emoji'
@@ -21,15 +21,9 @@ checkdepends=(
   ruby-minitest
 )
 options=('!emptydirs')
-_commit='0439d030a04a0418c05946a65339aeec732e0107'
-source=("$pkgname::git+$url#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('d733a18bec0ac3838f53b21518c98cb843a37e11f7f4dcb49a597ab14f66a04356da1925ff73073f6eb5fddca3b8c4f7e883db7a5b6c228a58af3890992098fd')
+b2sums=('8cd1b24581c5af4ea6a35e5b540d3bdc4cb39818fdfb8fd3d64e82587c7ff580953dd22f2fe7a5c6d99d871d8b693bf89cab29e75ea8d714565e3f63828042d9')
 
 build() {
   cd "$pkgname"
