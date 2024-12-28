@@ -4,7 +4,7 @@
 pkgname=python-zope-testing
 _pkgname=zope.testing
 pkgver=5.0.1
-pkgrel=5
+pkgrel=8
 pkgdesc="Zope testing helpers"
 arch=('any')
 url="https://github.com/zopefoundation/zope.testing"
