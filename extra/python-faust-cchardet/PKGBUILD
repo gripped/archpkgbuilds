@@ -2,7 +2,7 @@
 
 pkgname=python-faust-cchardet
 pkgver=2.1.19
-pkgrel=2
+pkgrel=3
 pkgdesc="Fork of the original cChardet"
 url="https://github.com/faust-streaming/cChardet"
 arch=(x86_64)
