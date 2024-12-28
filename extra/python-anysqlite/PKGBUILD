@@ -3,7 +3,7 @@
 pkgname=python-anysqlite
 _name="${pkgname#python-}"
 pkgver=0.0.5
-pkgrel=2
+pkgrel=3
 pkgdesc="Sqlite3 for asyncio and trio "
 arch=(any)
 url="https://github.com/karpetrosyan/anysqlite"
