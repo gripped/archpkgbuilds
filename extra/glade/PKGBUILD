@@ -3,7 +3,7 @@
 
 pkgname=glade
 pkgver=3.40.0+r14+g1fbca367
-pkgrel=4
+pkgrel=5
 pkgdesc="User Interface Builder for GTK+ applications"
 url="https://glade.gnome.org/"
 arch=(x86_64)
