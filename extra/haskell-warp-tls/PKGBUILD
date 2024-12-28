@@ -3,18 +3,18 @@
 
 _hkgname=warp-tls
 pkgname=haskell-warp-tls
-pkgver=3.4.7
-pkgrel=11
+pkgver=3.4.9
+pkgrel=2
 pkgdesc="HTTP over TLS support for Warp via the TLS package"
 url="https://github.com/yesodweb/wai"
 license=("MIT")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-data-default-class' 'haskell-network' 'haskell-recv'
+depends=('ghc-libs' 'haskell-data-default' 'haskell-network' 'haskell-recv'
          'haskell-streaming-commons' 'haskell-tls' 'haskell-tls-session-manager' 'haskell-unliftio'
          'haskell-wai' 'haskell-warp')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('9a154a4b1e385d38877112c2605a9f8b0e1b0440e7c850c15806133dbc07805e0ba592596cfb4af69c486f0c0bb8265dfd693b6751083cd08b3b2b20129596c8')
+sha512sums=('2e603983b9fa1c11ba027dd921ab7333497d5e3b9382794a31945edd762d41e912c52e1c09647058239e00ed2a28e5d4b179ab76bad9cf3542a667b541b91afc')
 
 build() {
     cd $_hkgname-$pkgver
