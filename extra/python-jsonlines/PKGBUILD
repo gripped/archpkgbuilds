@@ -2,7 +2,7 @@
 
 pkgname=python-jsonlines
 pkgver=4.0.0
-pkgrel=2
+pkgrel=4
 pkgdesc="Library with helpers for the jsonlines file format"
 url="https://github.com/wbolster/jsonlines"
 license=('BSD')
