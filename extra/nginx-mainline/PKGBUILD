@@ -6,15 +6,17 @@
 
 _pkgbase=nginx
 pkgbase=nginx-mainline
-pkgname=(nginx-mainline nginx-mainline-src)
-pkgver=1.27.2
+pkgname=(nginx-mainline nginx-mainline-src nginx-mainline-mod-geoip nginx-mainline-mod-image-filter
+         nginx-mainline-mod-mail nginx-mainline-mod-perl nginx-mainline-mod-stream
+         nginx-mainline-mod-xslt)
+pkgver=1.27.3
 pkgrel=1
-_tests_commit=2a607a31f583add7adfa1ac434a3f793d327ca6b
+_tests_commit=898407c62387
 arch=('x86_64')
 pkgdesc='Lightweight HTTP server and IMAP/POP3 proxy server, mainline release'
 url='https://nginx.org'
 license=(BSD-2-Clause)
-makedepends=(mercurial pcre2 zlib openssl geoip mailcap libxcrypt)
+makedepends=(mercurial pcre2 zlib openssl gd geoip mailcap libxcrypt libxslt rsync)
 checkdepends=(perl perl-gd perl-io-socket-ssl perl-fcgi perl-cache-memcached
               perl-cryptx memcached ffmpeg coreutils)
 source=($url/download/nginx-$pkgver.tar.gz{,.asc}
@@ -28,49 +30,16 @@ validpgpkeys=(
   '13C82A63B603576156E30A4EA0EA981B66B0D967' # Konstantin Pavlov <thresh@nginx.com>
   '43387825DDB1BB97EC36BA5D007C8D7C15D87369' # Roman Arutyunyan <r.arutyunyan@f5.com>
 )
-sha512sums=('5e2e0ccba596c5fa67571095e7c9b34e0a8a44f12d72c5cc714360926a192a09810e08f653b16112b5a3223e8cddc5a61f9f8dba026fb0854ec7a0d440666cf2'
+sha512sums=('5536d41ead0da71b6593cb361fd3da79707362919e6b6e71ec64816b5c2205903af0cd151796c942b32dfca0f8e8e3ffd9dcb3acf993144342ca671330b1a0dc'
             'SKIP'
-            '2c1efc38f4d36c10e7d13bb48e035246215c33213e42d733ef0c1bbbdbce71777b2430247d1c1fe922e03d10ce53c05fe555bd9fea547658e6c6d763af8d8b93'
+            'a83dfb5d8ac130338ab6f3d6e1b41ff80a222ccec319abb5322b3a03cdd3308ed15ed1c44ba64e8f4fb32d91a72a85abbd17a5b8a0e06e3c580caf035c1faaba'
             'f469b3b14def666e955abf6f2d3c68a47631cad7bee90c92039ffe5bf629aa7e32bb4250844d52c0f963740fb07bf7fea5f8887cc1d5199403f07be6214fcb8d'
             '2f4dfcfa711b8bcbc5918ba635f5e430ef7132e66276261ade62bb1cba016967432c8dce7f84352cb8b07dc7c6b18f09177aa3eb92c8e358b2a106c8ca142fe9')
-b2sums=('f3a68e0f5f89cdbae2f79dc71ecf9074cf39bbee114c3bdc59892baec54eb44fc4fdb1e0aa7f3f688ae28386a2371d2301fa12fba93e4a08ed05ebfd3d481952'
+b2sums=('283f90d9c935650085e028f6cb41bf2db6a04ea6e8f50b9b0b3f157326ee370f503fa84aeef1230b3501432a9e64be5462065ec6877024bb8f49376643959e54'
         'SKIP'
-        'd496b725f0a4100f3d3f937099c8d23155aee110ed7d5f84fd746e5db6f401606ec90ed808997467676658ebd8c44788462d3761525f766584c5c771a2bbd0bb'
+        'd0c10634ee7b9e0bcda7b2c904a3ba71ee5508cae2b0024321527ca328c8f28627baca011a4221e6b3e7ea358d9fb5401de1cba26c9b5bcd9fdbfb31b745914c'
         '6600d4f603f8f20a5694402df57d1281a81ec469e48fb0d1f2fa555e6aed9976470a4d15b9e9fdcf6aaabef5c76a34695f0ab15d724533dbafddb80ba6e25d97'
         'e1755f61b4eaece83c6c22e48f9e5e316851d1dc35f8d770f837c7d3c8bdc894af1b697c25f1788ac50cd597085c22fb9bf8096a55ecf7659d63185f68ba2d8a')
-
-_common_flags=(
-  --with-compat
-  --with-debug
-  --with-file-aio
-  --with-http_addition_module
-  --with-http_auth_request_module
-  --with-http_dav_module
-  --with-http_degradation_module
-  --with-http_flv_module
-  --with-http_geoip_module
-  --with-http_gunzip_module
-  --with-http_gzip_static_module
-  --with-http_mp4_module
-  --with-http_random_index_module
-  --with-http_realip_module
-  --with-http_secure_link_module
-  --with-http_slice_module
-  --with-http_ssl_module
-  --with-http_stub_status_module
-  --with-http_sub_module
-  --with-http_v2_module
-  --with-http_v3_module
-  --with-mail
-  --with-mail_ssl_module
-  --with-pcre-jit
-  --with-stream
-  --with-stream_geoip_module
-  --with-stream_realip_module
-  --with-stream_ssl_module
-  --with-stream_ssl_preread_module
-  --with-threads
-)
 
 prepare() {
   cp -r $_pkgbase-$pkgver{,-src}
@@ -82,6 +51,7 @@ build() {
     --prefix=/etc/nginx \
     --conf-path=/etc/nginx/nginx.conf \
     --sbin-path=/usr/bin/nginx \
+    --modules-path=/usr/lib/nginx/modules \
     --pid-path=/run/nginx.pid \
     --lock-path=/run/lock/nginx.lock \
     --user=http \
@@ -95,9 +65,88 @@ build() {
     --http-uwsgi-temp-path=/var/lib/nginx/uwsgi \
     --with-cc-opt="$CFLAGS $CPPFLAGS" \
     --with-ld-opt="$LDFLAGS" \
-    "${_common_flags[@]}"
+    --with-compat \
+    --with-debug \
+    --with-file-aio \
+    --with-http_addition_module \
+    --with-http_auth_request_module \
+    --with-http_dav_module \
+    --with-http_degradation_module \
+    --with-http_flv_module \
+    --with-http_geoip_module=dynamic \
+    --with-http_gunzip_module \
+    --with-http_gzip_static_module \
+    --with-http_image_filter_module=dynamic \
+    --with-http_mp4_module \
+    --with-http_perl_module=dynamic \
+    --with-http_random_index_module \
+    --with-http_realip_module \
+    --with-http_secure_link_module \
+    --with-http_slice_module \
+    --with-http_ssl_module \
+    --with-http_stub_status_module \
+    --with-http_sub_module \
+    --with-http_v2_module \
+    --with-http_v3_module \
+    --with-http_xslt_module=dynamic \
+    --with-mail=dynamic \
+    --with-mail_ssl_module \
+    --with-pcre-jit \
+    --with-stream=dynamic \
+    --with-stream_geoip_module=dynamic \
+    --with-stream_realip_module \
+    --with-stream_ssl_module \
+    --with-stream_ssl_preread_module \
+    --with-threads
 
   make
+  make DESTDIR="$srcdir/install" install
+
+  rsync -am \
+    --remove-source-files \
+    --include="usr/lib/nginx/modules/ngx_*geoip*.so" \
+    --include='*/' \
+    --exclude='*' \
+    "$srcdir/install/" "$srcdir/install-geoip/"
+
+  rsync -am \
+    --remove-source-files \
+    --include="usr/lib/nginx/modules/ngx_*image*.so" \
+    --include='*/' \
+    --exclude='*' \
+    "$srcdir/install/" "$srcdir/install-image-filter/"
+
+  rsync -am \
+    --remove-source-files \
+    --include="usr/lib/nginx/modules/ngx_*mail*.so" \
+    --include='*/' \
+    --exclude='*' \
+    "$srcdir/install/" "$srcdir/install-mail/"
+
+  rsync -am \
+    --remove-source-files \
+    --include='*.3pm' \
+    --include="usr/lib/perl*/***" \
+    --include="usr/lib/nginx/modules/ngx_*perl*.so" \
+    --include='*/' \
+    --exclude='*' \
+    "$srcdir/install/" "$srcdir/install-perl/"
+
+  rsync -am \
+    --remove-source-files \
+    --include="usr/lib/nginx/modules/ngx_*stream*.so" \
+    --include='*/' \
+    --exclude='*' \
+    "$srcdir/install/" "$srcdir/install-stream/"
+
+  rsync -am \
+    --remove-source-files \
+    --include="usr/lib/nginx/modules/ngx_*xslt*.so" \
+    --include='*/' \
+    --exclude='*' \
+    "$srcdir/install/" "$srcdir/install-xslt/"
+
+  find "$srcdir/install/usr" -type d -empty -delete
 }
 
 check() {
@@ -108,7 +157,15 @@ check() {
 }
 
 package_nginx-mainline() {
-  depends=('glibc' 'pcre2' 'zlib' 'openssl' 'geoip' 'mailcap' 'libxcrypt')
+  depends=('glibc' 'pcre2' 'zlib' 'openssl' 'mailcap' 'libxcrypt')
+  optdepends=(
+    'nginx-mainline-mod-geoip: GeoIP support'
+    'nginx-mainline-mod-image-filter: transform images'
+    'nginx-mainline-mod-mail: proxy IMAP, POP and SMTP protocols'
+    'nginx-mainline-mod-perl: perl variables and location handlers'
+    'nginx-mainline-mod-stream: proxy TCP/UDP data streams'
+    'nginx-mainline-mod-xslt: transform XML responses'
+  )
   backup=('etc/nginx/fastcgi.conf'
           'etc/nginx/fastcgi_params'
           'etc/nginx/koi-win'
@@ -122,15 +179,18 @@ package_nginx-mainline() {
   conflicts=($_pkgbase)
 
   cd $_pkgbase-$pkgver
-  make DESTDIR="$pkgdir" install
+  mv "$srcdir"/install/* "$pkgdir/"
 
   sed -e 's|\<user\s\+\w\+;|user http;|g' \
     -e '44s|html|/usr/share/nginx/html|' \
     -e '54s|html|/usr/share/nginx/html|' \
+    -e '/^events {/ i # Load all installed modules\n#include modules.d/*.conf;\n' \
     -i "$pkgdir"/etc/nginx/nginx.conf
 
   rm "$pkgdir"/etc/nginx/*.default
   rm "$pkgdir"/etc/nginx/mime.types  # in mailcap
+
+  install -dm0755 "$pkgdir"/etc/nginx/modules.d
 
   install -d "$pkgdir"/var/lib/nginx
   install -dm700 "$pkgdir"/var/lib/nginx/proxy
@@ -162,4 +222,60 @@ package_nginx-mainline-src() {
   install -d "$pkgdir/usr/src"
   cp -r $_pkgbase-$pkgver-src "$pkgdir/usr/src/nginx"
   install -Dm644 $_pkgbase-$pkgver/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+_package_module() {
+  modname="$1"
+  priority="${2:-20}"
+
+  mv "$srcdir/install-$modname"/* "$pkgdir/"
+  install -Dm644 $_pkgbase-$pkgver/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
+  install -dm0755 "$pkgdir"/etc/nginx/modules.d
+  cd $pkgdir
+  find usr/lib/nginx/modules -type f -name \*.so \
+    | sed -e 's@^@load_module "/@' -e 's@$@";@' \
+    >> "$pkgdir/etc/nginx/modules.d/$priority-$modname.conf"
+}
+
+package_nginx-mainline-mod-geoip() {
+  pkgdesc="GeoIP module for nginx-mainline"
+  depends=($_pkgbase 'geoip')
+  backup=(etc/nginx/modules.d/20-geoip.conf)
+  _package_module geoip
+}
+
+package_nginx-mainline-mod-image-filter() {
+  pkgdesc="Module for nginx-mainline that transforms images in JPEG, GIF, PNG, and WebP formats"
+  depends=($_pkgbase 'gd')
+  backup=(etc/nginx/modules.d/20-image-filter.conf)
+  _package_module image-filter
+}
+
+package_nginx-mainline-mod-mail() {
+  pkgdesc="Mail module for nginx-mainline to proxy IMAP, POP3 and SMTP protocols"
+  depends=($_pkgbase)
+  backup=(etc/nginx/modules.d/20-mail.conf)
+  _package_module mail
+}
+
+package_nginx-mainline-mod-perl() {
+  pkgdesc="Module for nginx-mainline to implement location and variable handlers in Perl"
+  depends=($_pkgbase 'perl')
+  backup=(etc/nginx/modules.d/20-perl.conf)
+  _package_module perl
+}
+
+package_nginx-mainline-mod-stream() {
+  pkgdesc="Module for nginx-mainline to proxy TCP and UDP data streams"
+  depends=($_pkgbase)
+  backup=(etc/nginx/modules.d/10-stream.conf)
+  _package_module stream 10
+}
+
+package_nginx-mainline-mod-xslt() {
+  pkgdesc="Module for nginx-mainline to transform XML responses with XSLT stylesheets"
+  depends=($_pkgbase 'libxslt')
+  backup=(etc/nginx/modules.d/20-xslt.conf)
+  _package_module xslt
 }
