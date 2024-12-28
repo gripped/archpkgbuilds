@@ -2,7 +2,7 @@
 
 pkgname=python-flask-login
 pkgver=0.6.3
-pkgrel=5
+pkgrel=6
 pkgdesc="User session management for Flask"
 arch=('any')
 url="https://pythonhosted.org/Flask-Login/"
