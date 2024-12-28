@@ -3,7 +3,7 @@
 pkgname=python-csscompressor
 _name="${pkgname#python-}"
 pkgver=0.9.5
-pkgrel=7
+pkgrel=8
 pkgdesc="Port of YUI CSS Compressor to Python"
 arch=(any)
 url="https://github.com/sprymix/csscompressor"
