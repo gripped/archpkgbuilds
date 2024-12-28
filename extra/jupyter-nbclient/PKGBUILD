@@ -2,8 +2,8 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=jupyter-nbclient
-pkgver=0.10.1
-pkgrel=1
+pkgver=0.10.2
+pkgrel=2
 pkgdesc='A tool for running Jupyter Notebooks in different execution contexts'
 arch=(any)
 url='https://github.com/jupyter/nbclient'
@@ -13,7 +13,8 @@ depends=(jupyter-nbformat
          python-jupyter-client
          python-jupyter-core
          python-traitlets)
-makedepends=(python-build
+makedepends=(git
+             python-build
              python-hatchling
              python-installer)
 checkdepends=(jupyter-nbconvert
@@ -22,21 +23,21 @@ checkdepends=(jupyter-nbconvert
               python-pytest-asyncio
               python-testpath
               python-xmltodict)
-source=(https://github.com/jupyter/nbclient/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('a912f708e847fb2d0c46866457dbe936661c301d5d87e46664647c4076f992d7')
+source=(git+https://github.com/jupyter/nbclient#tag=v$pkgver)
+sha256sums=('c92255950decb930edb0b95a657ecc4e9f999b5be19b8242f556afcba8b783b0')
 
 build() {
-  cd nbclient-$pkgver
+  cd nbclient
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd nbclient-$pkgver
+  cd nbclient
   pytest -v -k 'not test_cli_simple' # fails on build server
 }
 
 package() {
-  cd nbclient-$pkgver
+  cd nbclient
   python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
