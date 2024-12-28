@@ -1,48 +1,69 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 # Maintainer: Konstantin Gizdov <arch at kge dot pw>
 
 _pkgname=cuda
 pkgbase="python-${_pkgname}"
 pkgname=("python-${_pkgname}" "python-${_pkgname}-docs")
 pkgver=12.4.0
-pkgrel=2
-pkgdesc="Python interface for CUDA provided by NVIDIA."
-arch=('x86_64')
+pkgrel=3
+pkgdesc="Python interface for CUDA provided by NVIDIA"
+arch=(x86_64)
 url="https://nvidia.github.io/cuda-python"
-license=('custom')
-depends=('cuda' 'cython' 'python-pyclibrary' 'NVIDIA-MODULE')
-makedepends=('git' 'python-wheel' 'python-build' 'python-installer' 'python-setuptools-scm' 'python-versioneer')
-checkdepends=('python-pytest' 'python-pytest-benchmark' 'python-numpy' 'python-scipy')
+license=(LicenseRef-NVIDIA)
+makedepends=(
+  cuda
+  cython
+  git
+  python-wheel
+  python-build
+  python-installer
+  python-setuptools-scm
+  python-versioneer
+  python-pyclibrary
+)
+checkdepends=(
+  python-pytest
+  python-pytest-benchmark
+  python-numpy
+  python-scipy
+)
 options=(!emptydirs)
-source=("${pkgbase}::git+https://github.com/NVIDIA/cuda-python#tag=v${pkgver}")
-sha256sums=('05a6273602125a1e27f47827ed8e9dd6e0f41489bd9490ac30657acabf6d9d6f')
-
-get_pyver () {
-    python -c 'import sys; print(str(sys.version_info[0]) + "." + str(sys.version_info[1]))'
-}
+source=("$pkgbase::git+https://github.com/NVIDIA/cuda-python#tag=v$pkgver")
+sha256sums=('1e30ea4dc7c047f48e3a12a74f3b1ce4a6d5ca089652fbd9c0ce63c4ae53f0c5')
 
 build() {
-  cd "${srcdir}/${pkgbase}"
+  cd $pkgbase
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "${srcdir}/${pkgbase}"
-  echo 'pythonpath = '"${PWD}/build/lib.linux-${CARCH}-$(get_pyver)" >> pytest.ini
+  cd $pkgbase
   # cannot run tests in chroot
-  # python -m pytest --import-mode=importlib
+  #python -m venv --system-site-packages test-env
+  #test-env/bin/python -m installer dist/*.whl
+  #test-env/bin/python -m pytest
 }
 
 package_python-cuda() {
-  cd "${srcdir}/${pkgname}"
+  depends=(
+    cuda
+    cython
+    python-pyclibrary
+    NVIDIA-MODULE
+  )
 
-  install -D -m644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
-  python -m installer --destdir="${pkgdir}" dist/*.whl
+  cd $pkgbase
+
+  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
 package_python-cuda-docs() {
-  cd "${srcdir}/${pkgbase}"
+  pkgdesc+=" - documentation"
 
-  install -d -m755 "${pkgdir}/usr/share/doc/${pkgname}"
-  cp -a docs/* "${pkgdir}/usr/share/doc/${pkgname}"
-  install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE
+  cd $pkgbase
+
+  install -vdm 755 "${pkgdir}/usr/share/doc/$pkgname"
+  cp -va docs/* "$pkgdir/usr/share/doc/$pkgname"
+  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
 }
