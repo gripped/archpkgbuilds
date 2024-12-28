@@ -2,9 +2,9 @@
 # Contributor: Achmad Fathoni <fathoni.id(at)gmail.com>
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
-pkgname=python-types-python-dateutil
-_name=${pkgname#python-}
-pkgver=2.9.0.20241003
+_name=types_python_dateutil
+pkgname=python-${_name//_/-}
+pkgver=2.9.0.20241206
 pkgrel=1
 pkgdesc="Typing stubs for python-dateutil"
 arch=(any)
@@ -18,7 +18,7 @@ makedepends=(
   python-wheel
 )
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
-b2sums=('5acdd917e2c20e8d1f1644e3f15736022d81b2da793bdef191f1c8633e527a5ac6bdd68bf6dbd9312a5923aa0123c5ae7e9f949bf2d47eb51a64e961a6acfb12')
+b2sums=('5836dbdb547b2ce74b775dc3241703b38f2c7dca612104d84e93d3994afdcbbba1ce2448f439f4ea1f78db4f240393bbd1eae06757d7f85c55317cfd5665ce8a')
 
 build() {
   cd $_name-$pkgver
