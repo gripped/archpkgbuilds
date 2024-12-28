@@ -1,8 +1,8 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=woob
-pkgver=3.6
-pkgrel=4
+pkgver=3.7
+pkgrel=1
 pkgdesc="Core library and modules for Web outside of Browsers"
 arch=(any)
 url="https://woob.tech/"
@@ -32,13 +32,13 @@ optdepends=(
     'python-google-api-python-client: multiple Google services like YouTube'
 )
 makedepends=(python-build python-installer python-wheel)
-checkdepends=(python-pytest python-prettytable)
+checkdepends=(python-pytest python-prettytable python-responses)
 replaces=(weboob)
 provides=(weboob)
 conflicts=(weboob)
 #source=(https://files.pythonhosted.org/packages/source/w/${pkgname}/${pkgname}-${pkgver}.tar.gz)
 source=(https://gitlab.com/woob/woob/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('8fcba28af08de4df12e2f5543f48ef460c30c876e4391b10476e24618bc4f6ab')
+sha256sums=('e155d2f75f6c815fe1283648028509439cc663433b11084f9818490d9fedaaf3')
 
 build() {
   cd ${pkgname}-${pkgver}
@@ -47,7 +47,10 @@ build() {
 
 check() {
   cd ${pkgname}-${pkgver}
-  pytest -vv --color=yes
+  # Regression in python-requests,
+  # https://gitlab.com/woob/woob/-/issues/706
+  # https://github.com/psf/requests/issues/6730
+  pytest -vv --color=yes --deselect=tests/browser/adapters.py::TestAdapter::test_ciphers
 }
 
 package() {
