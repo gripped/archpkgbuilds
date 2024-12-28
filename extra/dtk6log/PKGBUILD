@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dtk6log
-pkgver=0.0.1
-pkgrel=4
+pkgver=0.0.2
+pkgrel=1
 pkgdesc='Simple, convinient and thread safe logger for Qt-based C++ apps'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtk6log"
@@ -10,7 +10,7 @@ license=('LGPL3')
 depends=('glibc' 'libsystemd' 'qt6-base' 'spdlog' 'fmt' 'gcc-libs')
 makedepends=('git' 'cmake' 'ninja')
 source=("git+https://github.com/linuxdeepin/dtk6log.git#tag=$pkgver")
-sha512sums=('bd0216330e2570298ed4c3e5c71b0fa6e487bcad96bc2377ae4534dc9ffebe3aab8dface0ae374abdbffc2658a66415af138dadf014e2b07225027864661a1a0')
+sha512sums=('1c404161d69686bc0666107f73c36526ecc720551bda6c6cf4a6bf3c4fb5c98e291ee7cf5514e2296617e943260492d380d0117b9d3bef171ef66601c09f4036')
 
 build() {
   cd dtk6log
