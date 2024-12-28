@@ -1,0 +1,61 @@
+From eb21a8c80d46cbface44f67a45a6d206efe0a511 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>
+Date: Sat, 30 Nov 2024 01:38:27 +0000
+Subject: [PATCH] Replace imghdr with filetype
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Filipe Laíns <lains@riseup.net>
+---
+ kivy/core/image/__init__.py | 7 ++++---
+ setup.cfg                   | 1 +
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/kivy/core/image/__init__.py b/kivy/core/image/__init__.py
+index af69907f1..09915c4c4 100644
+--- a/kivy/core/image/__init__.py
++++ b/kivy/core/image/__init__.py
+@@ -62,7 +62,7 @@ Or you can get the bytes (new in `1.11.0`):
+ '''
+ import re
+ from base64 import b64decode
+-import imghdr
++from filetype import guess_extension
+ 
+ __all__ = ('Image', 'ImageLoader', 'ImageData')
+ 
+@@ -443,6 +443,9 @@ class ImageLoader(object):
+ 
+         filename = resource_find(filename)
+ 
++        # Get actual image format instead of extension if possible
++        ext = guess_extension(filename) or ext
++
+         # special case. When we are trying to load a "zip" file with image, we
+         # will use the special zip_loader in ImageLoader. This might return a
+         # sequence of images contained in the zip.
+@@ -450,8 +453,6 @@ class ImageLoader(object):
+             return ImageLoader.zip_loader(filename)
+         else:
+             im = None
+-            # Get actual image format instead of extension if possible
+-            ext = imghdr.what(filename) or ext
+             for loader in ImageLoader.loaders:
+                 if ext not in loader.extensions():
+                     continue
+diff --git a/setup.cfg b/setup.cfg
+index be8136b00..121e11783 100644
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -50,6 +50,7 @@ dev =
+ base =
+     pillow>=9.5.0,<11
+     requests
++    filetype
+     docutils
+     pygments
+     kivy_deps.angle~=0.4.0; sys_platform == "win32"
+-- 
+2.47.1
+

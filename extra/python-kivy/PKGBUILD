@@ -5,42 +5,57 @@
 
 pkgname=python-kivy
 pkgver=2.3.0
-pkgrel=1
+pkgrel=3
 pkgdesc="A software library for rapid development of hardware-accelerated multitouch applications."
 arch=('x86_64')
 url="https://kivy.org/"
 license=('MIT')
-depends=('python-docutils' 'gstreamer' 'sdl2_ttf' 'sdl2_mixer' 'sdl2_image' 'python-requests')
-makedepends=('python-setuptools' 'cython')
+depends=('python-docutils' 'gstreamer' 'sdl2_ttf' 'sdl2_mixer' 'sdl2_image' 'python-requests' 'python-filetype')
+makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel' 'cython' 'dos2unix')
 optdepends=('python-oscpy: for TUIO provider')
-checkdepends=('python-pytest' 'python-pytest-benchmark' 'python-coverage' 'python-gobject' 'xorg-server-xvfb' 'opencv' 'python-pyenchant'
+checkdepends=('python-pytest' 'python-pytest-benchmark' 'python-gobject' 'xorg-server-xvfb' 'opencv' 'python-pyenchant'
               'git' 'mtdev' 'xclip' 'xsel' 'gtk3' 'gst-plugins-base'
               'gst-plugins-good' 'gst-libav' 'dbus-python' 'python-responses')
-source=("https://pypi.io/packages/source/K/Kivy/Kivy-$pkgver.tar.gz")
-sha512sums=('9d3244dc5942659ea95cf5200074b01f41e3d0ee26da91c715c89572b2d878854208a010ea3013633344ff7f4f9857fd0817b1f1ab0e98e34363c65d8c57f40b')
+source=("https://pypi.io/packages/source/K/Kivy/Kivy-$pkgver.tar.gz"
+        '0001-Replace-imghdr-with-filetype.patch')
+sha512sums=('9d3244dc5942659ea95cf5200074b01f41e3d0ee26da91c715c89572b2d878854208a010ea3013633344ff7f4f9857fd0817b1f1ab0e98e34363c65d8c57f40b'
+            'ad269152905a8958ea1109cf8448ce45ccdf7e84bfff63e17e3b47fd535eb3334736b45afdc379992a55d46e4c9b44ae5a67b9fb3d57bdebbe13ea2dd023e448')
 
 prepare() {
   cd Kivy-$pkgver
+
+  # Fix source using CRLF for some reason ??? ­- Was the sdist built in Windows?
+  find -type f -exec dos2unix {} \;
+
+  # Backport replacing imghdr with filetype, as imghdr was removed in Python 3.13
+  patch -p1 -l -i ../0001-Replace-imghdr-with-filetype.patch
+
   # Do not use certifi
   sed -e '/import certifi/d;s|certifi.where()|"/etc/ssl/certs/ca-certificates.crt"|' -i kivy/network/urlrequest.py -i kivy/loader.py \
     -i kivy/tests/test_urlrequest/test_urlrequest_urllib.py -i kivy/tests/test_urlrequest/test_urlrequest_requests.py
+
+  # Drop cython <=3.0.0 limitation
+  sed -i 's/cython.*/cython",/' pyproject.toml
 }
 
 build() {
   cd Kivy-$pkgver
   CFLAGS+=" -Wno-incompatible-pointer-types" \
-  python setup.py build
+  USE_X11=1 USE_WAYLAND=1 \
+  python -m build --wheel --no-isolation \
+    -C--global-option=build_ext \
+    -C--global-option=--inplace
 }
 
 check() {
   cd Kivy-$pkgver
-  python setup.py build_ext --inplace
-  xvfb-run -s "-screen 0 1280x720x24 -ac +extension GLX" pytest kivy/tests \
+
+  xvfb-run -s "-screen 0 1280x720x24 -ac +extension GLX" python -m pytest kivy/tests \
     -k 'not test_urlrequest_urllib.py::test_auth_header and not test_urlrequest_urllib.py::test_auth_auto' # flaky tests that depend on network access
 }
 
 package() {
   cd Kivy-$pkgver
-  python setup.py install --prefix=/usr --root="$pkgdir"
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
