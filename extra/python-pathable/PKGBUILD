@@ -2,7 +2,7 @@
 
 pkgname=python-pathable
 pkgver=0.4.3
-pkgrel=3
+pkgrel=4
 pkgdesc="Object-oriented paths"
 url="https://github.com/p1c2u/pathable"
 license=('Apache')
