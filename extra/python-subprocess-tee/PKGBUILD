@@ -3,7 +3,7 @@
 _name=subprocess-tee
 pkgname=python-subprocess-tee
 pkgver=0.4.1
-pkgrel=4
+pkgrel=5
 pkgdesc="A subprocess.run that works like tee"
 arch=(any)
 url="https://github.com/pycontribs/subprocess-tee"
