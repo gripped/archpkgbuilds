@@ -2,8 +2,8 @@
 
 _name=cytoolz
 pkgname=python-cytoolz
-pkgver=0.12.3
-pkgrel=2
+pkgver=1.0.0
+pkgrel=1
 pkgdesc="Cython implementation of Toolz: High performance functional utilities"
 arch=(x86_64)
 url="https://github.com/pytoolz/cytoolz/"
@@ -22,8 +22,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('b3c46182b1d93b4e862e8d37e7e49fd44126e7ce503b9a25f7d78ff79ee9eac938bf47a63fda6ff6adbb660efedf0eb07810fbc2e91d7a471cb0167bb7ef0ad6')
-b2sums=('ad1b4474a5c5f954cabf38c447982fb44f4c57fb5637e827876fe3bf4fad7c947fb926087294d06769944a4d67d7cfea3e7f7cc68162ebd69cc9746a80fc5aad')
+sha512sums=('4edf016e8027c646d85170de418acedd4f254e8e684f249160e79c892d8cf19c6ab897f32e55a02d4b936c8a2e150ec27bde125336325a07af06d1715b4e1208')
+b2sums=('f409c1d577f81f6909153052968dd878dbe38e126ed94dc375afad9431b37d3903434b56221119cb5bdd15703ba400f32e03d55a01f8dd797dc9d45c72fdb3b3')
 
 build() {
   cd $_name-$pkgver
