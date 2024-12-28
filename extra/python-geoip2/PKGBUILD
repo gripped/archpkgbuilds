@@ -1,9 +1,9 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-geoip2
-pkgver=4.8.0
+pkgver=4.8.1
 _testdatacommit=1271107ccad72c320bc7dc8aefd767cba550101a
-pkgrel=2
+pkgrel=1
 pkgdesc="MaxMind GeoIP2 API"
 url="https://github.com/maxmind/GeoIP2-python"
 license=('Apache')
@@ -22,14 +22,14 @@ makedepends=(
   'python-wheel'
 )
 checkdepends=(
-  'python-mocket'
   'python-pytest'
+  'python-pytest-httpserver'
 )
 source=(
   "https://github.com/maxmind/GeoIP2-python/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
   MaxMind-DB-$_testdatacommit.tar.gz::https://github.com/maxmind/MaxMind-DB/archive/$_testdatacommit.tar.gz
 )
-sha512sums=('e22fac4c5016d6bc17a2e7902ea61f5ac43526a3d86c21a3199a409d084fd7a60001ed553a2c3d355636a06a73baad15014dc0ed41e5bb0eb93cefde5a14509e'
+sha512sums=('4c2c212702bd039b9e69de6b3479b35d817dd3defe6ec76ba52711bd6cd54c26a4a8cb8a7566545b0e90e156c769064dbbad9451d88c6cd3007f7b44728e1979'
             'a028b07cfdb84b98629e66937472feb291e0c022cf226513d765b21c420672620ff00b9004aa4cf1519d76a428a33600c453335e2fa9832e78e4621307b5723b')
 
 prepare() {
@@ -46,31 +46,6 @@ build() {
 check() {
   local pytest_options=(
     -vv
-    # upstream mocket disabled tests for async on py311 as it suspects a client bug:
-    # https://github.com/mindflayer/python-mocket/releases/tag/3.11.0
-    --deselect tests/webservice_test.py::TestAsyncClient::test_200_error
-    --deselect tests/webservice_test.py::TestAsyncClient::test_300_error
-    --deselect tests/webservice_test.py::TestAsyncClient::test_500_error
-    --deselect tests/webservice_test.py::TestAsyncClient::test_account_id_required
-    --deselect tests/webservice_test.py::TestAsyncClient::test_account_id_unkown
-    --deselect tests/webservice_test.py::TestAsyncClient::test_auth_invalid
-    --deselect tests/webservice_test.py::TestAsyncClient::test_bad_body_error
-    --deselect tests/webservice_test.py::TestAsyncClient::test_city_ok
-    --deselect tests/webservice_test.py::TestAsyncClient::test_country_ok
-    --deselect tests/webservice_test.py::TestAsyncClient::test_insights_ok
-    --deselect tests/webservice_test.py::TestAsyncClient::test_ip_address_not_found
-    --deselect tests/webservice_test.py::TestAsyncClient::test_ip_address_required
-    --deselect tests/webservice_test.py::TestAsyncClient::test_ip_address_reserved
-    --deselect tests/webservice_test.py::TestAsyncClient::test_license_key_required
-    --deselect tests/webservice_test.py::TestAsyncClient::test_me
-    --deselect tests/webservice_test.py::TestAsyncClient::test_no_body_error
-    --deselect tests/webservice_test.py::TestAsyncClient::test_out_of_queries_error
-    --deselect tests/webservice_test.py::TestAsyncClient::test_permission_required
-    --deselect tests/webservice_test.py::TestAsyncClient::test_request
-    --deselect tests/webservice_test.py::TestAsyncClient::test_unknown_error
-    --deselect tests/webservice_test.py::TestAsyncClient::test_user_id_required
-    --deselect tests/webservice_test.py::TestAsyncClient::test_user_id_unkown
-    --deselect tests/webservice_test.py::TestAsyncClient::test_weird_body_error
   )
 
   cd GeoIP2-python-$pkgver
