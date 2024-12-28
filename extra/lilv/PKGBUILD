@@ -8,7 +8,7 @@ pkgname=(
   python-lilv
 )
 pkgver=0.24.24
-pkgrel=2
+pkgrel=3
 pkgdesc="A C library interface to the LV2 plug-in standard"
 arch=(x86_64)
 url="https://drobilla.net/software/lilv.html"
