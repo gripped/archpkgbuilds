@@ -2,7 +2,7 @@
 
 pkgname=python-graphql-core
 pkgver=3.2.4
-pkgrel=1
+pkgrel=2
 pkgdesc='GraphQL base implementation for Python'
 url=https://github.com/graphql-python/graphql-core
 arch=(any)
@@ -30,6 +30,12 @@ sha256sums=('3801a8f268d9938ce51e6ee00ec3613436de2018cdf6fe59a6b67fc27f84e6f0')
 pkgver() {
   cd graphql-core
   git describe --tags | sed 's/^v//'
+}
+
+prepare() {
+  cd graphql-core
+  # HACK: workaround older setuptools requirements
+  sed -i 's/setuptools>=59,<70/setuptools/' pyproject.toml
 }
 
 build() {
