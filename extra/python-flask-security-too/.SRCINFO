@@ -1,7 +1,7 @@
 pkgbase = python-flask-security-too
 	pkgdesc = Quick and simple security for Flask applications
 	pkgver = 5.5.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/pallets-eco/flask-security
 	arch = any
 	license = MIT
@@ -23,6 +23,7 @@ pkgbase = python-flask-security-too
 	checkdepends = python-phonenumbers
 	checkdepends = python-pytest
 	checkdepends = python-zxcvbn
+	checkdepends = python-asgiref
 	makedepends = python-babel
 	makedepends = python-build
 	makedepends = python-flit-core
@@ -48,7 +49,10 @@ pkgbase = python-flask-security-too
 	provides = python-flask-security
 	conflicts = python-flask-security
 	source = https://github.com/pallets-eco/flask-security/archive/5.5.2/python-flask-security-too-5.5.2.tar.gz
+	source = fix-subdomain-issue-with-flask-3.1.patch::https://github.com/pallets-eco/flask-security/commit/7f3977d3557498b9e94333473e5d186b303ba05c.patch
 	sha512sums = d1e8dca327c1b2e8865a82ab99bbb5573c4f236172c5d77fe6fce0c3f0540b66a3e3974dfd1d39220f1fc1f615e3cc07fe21d0d80721d2cc39505ff5961c8729
+	sha512sums = e594dbe8faca2c0fe45dc9b72b9616dfe3c6330f6a6c478b136f0166676386d05a12e5101744737b6f04205dae0f44cadcddc1750007062fd007cb6837bc12e9
 	b2sums = d2230e84c84d75302d364a295b3f50f2ba38857e98a88f6d14e5b25b11a36b975fd7603af3c5b344f341e80115ea7baf2ce4a32b28842373efae291211c47dd1
+	b2sums = 043b8264f084d0953b21031ab4b3a244bdabaea1b33fce7a6998a47fa111a9138cc26a6df7df31705487768ec464a504eb0e0c03da8928dd3c97b36d21e71c07
 
 pkgname = python-flask-security-too

@@ -3,7 +3,7 @@
 _pkgname=flask-security
 pkgname=python-flask-security-too
 pkgver=5.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Quick and simple security for Flask applications'
 url='https://github.com/pallets-eco/flask-security'
 arch=(any)
@@ -60,22 +60,27 @@ checkdepends=(
 
   python-pytest
   python-zxcvbn
+
+  python-asgiref
 )
 optdepends=('python-bleach: scrub user input')
 provides=('python-flask-security')
 conflicts=('python-flask-security')
-source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('d1e8dca327c1b2e8865a82ab99bbb5573c4f236172c5d77fe6fce0c3f0540b66a3e3974dfd1d39220f1fc1f615e3cc07fe21d0d80721d2cc39505ff5961c8729')
-b2sums=('d2230e84c84d75302d364a295b3f50f2ba38857e98a88f6d14e5b25b11a36b975fd7603af3c5b344f341e80115ea7baf2ce4a32b28842373efae291211c47dd1')
+source=(
+  ${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
+  fix-subdomain-issue-with-flask-3.1.patch::${url}/commit/7f3977d3557498b9e94333473e5d186b303ba05c.patch
+)
+sha512sums=('d1e8dca327c1b2e8865a82ab99bbb5573c4f236172c5d77fe6fce0c3f0540b66a3e3974dfd1d39220f1fc1f615e3cc07fe21d0d80721d2cc39505ff5961c8729'
+            'e594dbe8faca2c0fe45dc9b72b9616dfe3c6330f6a6c478b136f0166676386d05a12e5101744737b6f04205dae0f44cadcddc1750007062fd007cb6837bc12e9')
+b2sums=('d2230e84c84d75302d364a295b3f50f2ba38857e98a88f6d14e5b25b11a36b975fd7603af3c5b344f341e80115ea7baf2ce4a32b28842373efae291211c47dd1'
+        '043b8264f084d0953b21031ab4b3a244bdabaea1b33fce7a6998a47fa111a9138cc26a6df7df31705487768ec464a504eb0e0c03da8928dd3c97b36d21e71c07')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
-  sed -e 's/ --translations//' \
-      -e 's/ --pep8//' \
-      -e 's/ --black//' \
-      -e 's/ --flake8//' \
-      -e 's/ --flakes//' \
-      -i pytest.ini
+  # Avoid patch conflict
+  sed -n '\|^diff --git a/tests/test_basic.py b/tests/test_basic.py|,$p' \
+    ../fix-subdomain-issue-with-flask-3.1.patch \
+    | patch -Np1 -i -
 }
 
 build() {
