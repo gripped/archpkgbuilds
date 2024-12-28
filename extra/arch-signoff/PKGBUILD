@@ -2,10 +2,10 @@
 
 pkgname=arch-signoff
 pkgver=0.5.2
-pkgrel=5
+pkgrel=6
 pkgdesc='Sign off Arch Linux testing packages'
 arch=(any)
-url="https://github.com/archlinux/arch-signoff"
+url="https://gitlab.archlinux.org/archlinux/arch-signoff"
 license=("ISC")
 depends=('python' 'pyalpm' 'python-click' 'python-dateutil'
          'python-requests')
@@ -13,7 +13,7 @@ makedepends=('python-setuptools-scm' 'python-setuptools' 'python-build'
              'python-installer' 'python-wheel' 'asciidoc' 'git')
 checkdepends=('python-pytest-pacman' 'python-pytest')
 groups=('archlinux-tools')
-source=("$pkgname::git+https://github.com/archlinux/arch-signoff.git?signed#tag=$pkgver")
+source=("$pkgname::git+https://gitlab.archlinux.org/archlinux/$pkgname.git#tag=$pkgver?signed")
 validpgpkeys=(
     'E499C79F53C96A54E572FEE1C06086337C50773E' # Jelle van der Waa
 )
