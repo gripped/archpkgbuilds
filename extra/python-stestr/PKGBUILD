@@ -4,7 +4,7 @@
 
 pkgname=python-stestr
 pkgver=4.1.0
-pkgrel=6
+pkgrel=7
 pkgdesc="A test runner runner similar to testrepository"
 url="https://stestr.readthedocs.io/en/latest/"
 license=('Apache')
