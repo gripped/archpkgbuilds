@@ -5,8 +5,8 @@
 # Contributor: Tim Huetz <tim at huetz biz>
 
 pkgname=libsvm
-pkgver=3.32
-pkgrel=2
+pkgver=3.35
+pkgrel=1
 pkgdesc='A library for Support Vector Machines classification (includes binaries and bindings for python and java)'
 arch=('x86_64')
 url='https://www.csie.ntu.edu.tw/~cjlin/libsvm/'
@@ -22,9 +22,9 @@ source=("https://github.com/cjlin1/libsvm/archive/v${pkgver/./}/${pkgname}-${pkg
         '010-libsvm-fix-qt-headers-path.patch'
         '020-libsvm-use-archlinux-flags.patch'
         '030-libsvm-fix-tools-path.patch')
-sha256sums=('e1d7d316112d199ebd69c9695f79226d236b86e2c8d88e70cfe35fd383954ed8'
+sha256sums=('f864faaf0e6606aa5eb89b48d76b77db43b501c3b0b1842ae036f9d754e675d9'
             '07bc50e50c3e34823e1669fec1be84a50fcea2307dcf33b00300135e08d2de4d'
-            '5542910c91c0a8ddeb020c4d941c5fbf67eeef6d4b9804f18d9bc4bafedae78f'
+            '276e6bad76186a160b2b340e34c6318061b4f7e02f23dfd5cf5ffdd6568b7539'
             '67f57236a6c4b09f051e74f8cb1ef5dbc9b5de3fdbb2b1a6ff86a07db0dd5fb9')
 
 prepare() {

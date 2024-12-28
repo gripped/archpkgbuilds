@@ -3,8 +3,8 @@
 @@ -1,5 +1,5 @@
  CXX ?= g++
 -CFLAGS = -Wall -Wconversion -O3 -fPIC
-+CXXFLAGS += -Wall -Wconversion -fPIC
- SHVER = 3
++CXXFLAGS += -Wall -Wconversion -O3 -fPIC
+ SHVER = 4
  OS = $(shell uname)
  ifeq ($(OS),Darwin)
 @@ -15,14 +15,14 @@ endif
@@ -12,7 +12,7 @@
  
  lib: svm.o
 -	$(CXX) $(SHARED_LIB_FLAG) svm.o -o libsvm.so.$(SHVER)
-+	$(CXX) $(SHARED_LIB_FLAG) svm.o -o libsvm.so.$(SHVER) $(LDFLAGS)
++	$(CXX) $(CXXFLAGS) $(SHARED_LIB_FLAG) svm.o -o libsvm.so.$(SHVER) $(LDFLAGS)
  svm-predict: svm-predict.c svm.o
 -	$(CXX) $(CFLAGS) svm-predict.c svm.o -o svm-predict -lm
 +	$(CXX) $(CXXFLAGS) svm-predict.c svm.o -o svm-predict -lm $(LDFLAGS)
@@ -34,7 +34,7 @@
  CXX? = g++
  INCLUDE = /usr/include/qt
 -CFLAGS = -Wall -O3 -I$(INCLUDE) -I$(INCLUDE)/QtWidgets -I$(INCLUDE)/QtGui -I$(INCLUDE)/QtCore -fPIC -std=c++11
-+CXXFLAGS += -Wall -I$(INCLUDE) -I$(INCLUDE)/QtWidgets -I$(INCLUDE)/QtGui -I$(INCLUDE)/QtCore -fPIC -std=c++11
++CXXFLAGS += -Wall -O3 -I$(INCLUDE) -I$(INCLUDE)/QtWidgets -I$(INCLUDE)/QtGui -I$(INCLUDE)/QtCore -fPIC -std=c++11
  LIB = -lQt5Widgets -lQt5Gui -lQt5Core
  MOC = /usr/bin/moc
  
