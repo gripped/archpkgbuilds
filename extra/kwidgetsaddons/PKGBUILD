@@ -4,7 +4,7 @@
 
 pkgname=kwidgetsaddons
 pkgver=6.9.0
-pkgrel=2
+pkgrel=4
 pkgdesc='Addons to QtWidgets'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -19,6 +19,7 @@ makedepends=(doxygen
              python-setuptools
              qt6-doc
              qt6-tools)
+optdepends=('pyside6: Python bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
 sha256sums=('bda7d5cef310ad3b8e0aa9accf319c3349e2b7cbead673bd25a39af593787a48'
