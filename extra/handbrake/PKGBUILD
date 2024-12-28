@@ -3,11 +3,11 @@
 # Contributor: Sebastien Piccand <sebcactus gmail com>
 
 pkgname=('handbrake' 'handbrake-cli')
-pkgver=1.8.2
+pkgver=1.9.0
 pkgrel=1
 arch=('x86_64')
 url="https://handbrake.fr/"
-license=('GPL')
+license=('GPL-2.0-only')
 _commondeps=('libxml2' 'libass' 'libvorbis' 'opus' 'speex' 'libtheora' 'lame'
              'x264' 'jansson' 'libvpx' 'libva' 'numactl' 'bzip2' 'gcc-libs'
              'zlib' 'xz' 'libjpeg-turbo')
@@ -18,9 +18,9 @@ makedepends=('python' 'nasm' 'wget' 'cmake' 'meson' 'git'
              "${_commondeps[@]}" "${_guideps[@]}")
 options=('!lto') # https://bugs.archlinux.org/task/72600
 source=(https://github.com/HandBrake/HandBrake/releases/download/$pkgver/HandBrake-$pkgver-source.tar.bz2{,.sig})
-sha256sums=('aba13abb550cc57847010b1a6bdf2c2cf76f5fcdf97616fa184b7f4639f5541b'
+sha256sums=('c15b451502f5c938798595df897a41290e8881b3efb8edd69ff7db2d985733b0'
             'SKIP')
-validpgpkeys+=('1629C061B3DDE7EB4AE34B81021DB8B44E4A8645') # HandBrake Team <developers@handbrake.fr>
+validpgpkeys=('1629C061B3DDE7EB4AE34B81021DB8B44E4A8645') # HandBrake Team <developers@handbrake.fr>
 
 prepare() {
   cd HandBrake-$pkgver
