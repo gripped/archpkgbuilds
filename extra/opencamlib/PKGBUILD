@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=opencamlib
 pkgver=2023.01.11
-pkgrel=1
+pkgrel=3
 pkgdesc="Multi-Purpose CNC Toolpath Library"
 arch=('x86_64')
 url="https://github.com/aewallin/opencamlib"
@@ -25,8 +25,9 @@ build() {
 
 package() {
   cd opencamlib
+  local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
   DESTDIR="$pkgdir" ninja -C build install
 
-  mkdir -p "$pkgdir"/usr/lib/python3.12/site-packages
-  mv "$pkgdir"/usr/opencamlib "$pkgdir"/usr/lib/python3.12/site-packages/
+  mkdir -p "$pkgdir/usr/lib/python${python_version}/site-packages"
+  mv "$pkgdir"/usr/opencamlib "$pkgdir/usr/lib/python${python_version}/site-packages/"
 }
