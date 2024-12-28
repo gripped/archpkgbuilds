@@ -10,7 +10,7 @@
 pkgname='python-cherrypy'
 _pkgname="${pkgname#python-}"
 pkgver=18.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A pythonic, object-oriented web development framework'
 arch=('any')
 url='https://cherrypy.dev'
