@@ -2,8 +2,8 @@
 
 pkgname=ruby-benchmark-ips
 _pkgname="${pkgname#ruby-}"
-pkgver=2.12.0
-pkgrel=3
+pkgver=2.14.0
+pkgrel=1
 pkgdesc='Provides iteration per second benchmarking for Ruby'
 arch=('any')
 url='https://github.com/evanphx/benchmark-ips'
@@ -21,15 +21,9 @@ checkdepends=(
   ruby-minitest
 )
 options=('!emptydirs')
-_commit='fb95c7c90a2a64171ed7ee952f0ad1b8fcfbf0e7'
-source=("$pkgname::git+$url#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('1a1fb73ea84f7ea03f018f6578514a2b77e2e8985ee3766120f7587e767e2d3072f41c18c99c21ccc1379ee3fd7a26615efc164466fdb68d71f9a67fd130e3f3')
+b2sums=('7ce7c4a4399c722d1178c03cc033c0ee67496a6de51f225e3544039a5a74b6e969ac24ae5d454663413f80491ff56d82f690861ed99ed221d202dc8eb4b4d2d2')
 
 prepare() {
   cd "$pkgname"
