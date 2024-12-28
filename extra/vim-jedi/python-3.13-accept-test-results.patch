@@ -1,0 +1,12 @@
+diff --unified --recursive --text --new-file jedi-vim-0.11.2.orig/test/vspec/completions.vim jedi-vim-0.11.2/test/vspec/completions.vim
+--- jedi-vim-0.11.2.orig/test/vspec/completions.vim	2024-11-24 14:42:09.468488430 +0100
++++ jedi-vim-0.11.2/test/vspec/completions.vim	2024-11-24 14:41:35.575428690 +0100
+@@ -62,7 +62,7 @@
+         " This might be a misunderstanding though, since the test might not
+         " expect the "import" keyword to be offered for completion?!
+         normal oImpXErrX()
+-        Expect getline('.') == 'ImportError()'
++        Expect getline('.') == 'ImportErrorErr()'
+     end
+ 
+     it 'cycling through entries popup_select_first=0'

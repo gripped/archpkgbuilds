@@ -5,7 +5,7 @@
 pkgname=vim-jedi
 _reponame=jedi-vim
 pkgver=0.11.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Vim plugin for jedi, an awesome Python autocompletion'
 url='https://github.com/davidhalter/jedi-vim'
 arch=('any')
@@ -16,9 +16,17 @@ optdepends=('vim-supertab: tab completion'
 checkdepends=('python-pytest')
 groups=('vim-plugins')
 options=('!emptydirs')
-source=(https://github.com/davidhalter/${_reponame}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('e169429a6a4bce5a32b94a3d7cc784c746f9d4fd78354122895ba50ded867afa')
-b2sums=('375cdf4742eb6328f5dc601b7a0b529a3d18b70711f93ab860e2827275f36454281c9d4ec85de0cfe280115fadde3a45f1bf74bfb4a4f1036b603eaa6051bf56')
+source=(https://github.com/davidhalter/${_reponame}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
+        python-3.13-accept-test-results.patch)
+sha256sums=('e169429a6a4bce5a32b94a3d7cc784c746f9d4fd78354122895ba50ded867afa'
+            '08fe5fd50fac1f5d74ec95defb2411d079e518c396b94d4721105f6d5900099f')
+b2sums=('375cdf4742eb6328f5dc601b7a0b529a3d18b70711f93ab860e2827275f36454281c9d4ec85de0cfe280115fadde3a45f1bf74bfb4a4f1036b603eaa6051bf56'
+        '5c160c31c46cf887a4b20e72b4386ad8c762dd229a469c184257dbc288c56f02fc256fce72cd993dfd7c843d347d55aef55683997449ad9955330adf21270d15')
+
+prepare() {
+  cd ${_reponame}-${pkgver}
+  patch -Np1 -i ../python-3.13-accept-test-results.patch
+}
 
 check() {
   cd ${_reponame}-${pkgver}
