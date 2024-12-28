@@ -3,7 +3,7 @@
 _name=calmjs.types
 pkgname=python-calmjs.types
 pkgver=1.0.1
-pkgrel=7
+pkgrel=8
 pkgdesc="Base types for calmjs framework"
 arch=(any)
 url="https://github.com/calmjs/calmjs.types"
