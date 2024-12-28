@@ -3,25 +3,27 @@
 # Contributor: glatavento <glatavento at outlook dot com>
 
 pkgname=libjaylink
-pkgver=0.3.1
-pkgrel=2
+pkgver=0.4.0
+pkgrel=1
 pkgdesc='Library for accessing SEGGER J-Link and compatible devices'
 arch=('x86_64')
 url='https://gitlab.zapb.de/libjaylink/libjaylink'
 license=('GPL')
 depends=('libusb')
 provides=("$pkgname.so")
-source=("$pkgname-$pkgver.tar.bz2::$url/-/archive/$pkgver/$pkgname-$pkgver.tar.bz2")
-sha256sums=('3a1dea87a0ec57c24d2e017b0f5fc11953edda8fac8eeec7c5a1452a4c8816f6')
+makedepends=('git' 'meson')
+source=("git+https://gitlab.zapb.de/libjaylink/libjaylink.git#tag=$pkgver")
+sha256sums=('01083f298381c3d0f7031cdca1c47885038f2142a484073f554e4b0309b0b7a2')
 
 build() {
-  cd $pkgname-$pkgver
-  ./autogen.sh
-  ./configure --prefix=/usr
-  make
+  arch-meson $pkgname build
+  ninja -C build
+}
+
+check() {
+  meson test -C build
 }
 
 package() {
-  cd $pkgname-$pkgver
-  make DESTDIR="$pkgdir/" install
+  meson install -C build --destdir="$pkgdir"
 }
