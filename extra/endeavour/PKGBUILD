@@ -2,7 +2,7 @@
 
 pkgname=endeavour
 pkgver=43.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Personal task manager (Formerly GNOME Todo)"
 url="https://wiki.gnome.org/Apps/Todo"
 arch=(x86_64)
@@ -34,8 +34,12 @@ provides=(gnome-todo)
 replaces=("gnome-todo<=41.0+r106+gebc68374-1")
 conflicts=("gnome-todo<=41.0+r106+gebc68374-1")
 groups=(gnome-extra)
-source=("git+https://gitlab.gnome.org/World/Endeavour.git#tag=$pkgver")
-b2sums=('fb09f53f7f980d5caa4badfec372baaa4a144aaf14888431aa6ec0ecf9d43da36141a5f5e7d8b5a15fc768e0bcc851b9b6a11d33c68e4cbb5728ed7d00823295')
+source=(
+  "git+https://gitlab.gnome.org/World/Endeavour.git#tag=$pkgver"
+  0001-omni-area-check-for-n_messages-greater-zero-to-avoid.patch
+)
+b2sums=('fb09f53f7f980d5caa4badfec372baaa4a144aaf14888431aa6ec0ecf9d43da36141a5f5e7d8b5a15fc768e0bcc851b9b6a11d33c68e4cbb5728ed7d00823295'
+        '47983047ca62ddd6442997f0d7c7d572eb10508733628867711a6a40550d88a6bdff3948b04c1bee8476212e93a1476e93547e0d4b896f46e35e1da0e2300bf8')
 
 prepare() {
   cd Endeavour
