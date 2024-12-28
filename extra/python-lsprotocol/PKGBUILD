@@ -3,7 +3,7 @@
 pkgname=python-lsprotocol
 _name=${pkgname#python-}
 pkgver=2023.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Python types for Language Server Protocol'
 arch=('any')
 url=https://github.com/microsoft/lsprotocol
