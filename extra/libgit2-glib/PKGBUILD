@@ -8,7 +8,7 @@ pkgname=(
   libgit2-glib-docs
 )
 pkgver=1.2.0
-pkgrel=4
+pkgrel=5
 pkgdesc="GLib wrapper for libgit2"
 url="https://gitlab.gnome.org/GNOME/libgit2-glib"
 license=(LGPL-2.1-or-later)
