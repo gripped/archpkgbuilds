@@ -4,7 +4,7 @@
 pkgname=python-moto
 _pkgname=moto
 # https://github.com/getmoto/moto/blob/master/CHANGELOG.md
-pkgver=5.0.22
+pkgver=5.0.24
 pkgrel=2
 pkgdesc='Moto is a library to mock out the boto library.'
 arch=(any)
@@ -54,7 +54,7 @@ checkdepends+=(python-yaml python-joserfc python-openapi-spec-validator python-d
 )
 source=("git+https://github.com/getmoto/moto#tag=$pkgver"
         "fix-tests.diff")
-sha256sums=('119ecb17b4f943c2c4baf1b3d6728ea6fd34b8902df135e71d1cd57ec84495c3'
+sha256sums=('b97a62597aea1ff9e47ea9701bbe14ff13d606d0b5eb31f3de68d2d0cd262e69'
             '21305cdf3d650ced1acb1d0f7dde8760b26e32a94c56a5571e798d6b6976cf5a')
 
 prepare() {
@@ -79,8 +79,6 @@ check() {
   local pytest_args=(
     # Needs a new package python-pycognito
     --ignore tests/test_cognitoidp/test_cognitoidp.py
-    # Skip broken tests https://github.com/getmoto/moto/issues/8400
-    --deselect tests/test_core/test_responses_module.py::TestResponsesMockWithPassThru
     -m 'not requires_docker'
   )
   TZ=UTC pytest tests "${pytest_args[@]}"
