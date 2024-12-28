@@ -3,13 +3,13 @@
 _pkg=pyscreenshot
 pkgname=python-${_pkg}
 pkgver=3.1
-pkgrel=4
+pkgrel=6
 pkgdesc="Copy the contents of the screen to a PIL or Pillow image memory"
 arch=(any)
 url="https://github.com/ponty/pyscreenshot"
-license=(BSD)
+license=(BSD-2-Clause)
 depends=(python-easyprocess python-entrypoint2 python-mss python-jeepney)
-makedepends=(python-setuptools)
+makedepends=(python-setuptools python-wheel python-build python-installer)
 checkdepends=(
     python-pytest python-pyvirtualdisplay python-pillow python-path.py python-pygame
     python-xlib python-gobject python-pyqt5 python-wxpython
@@ -22,7 +22,7 @@ sha256sums=('8c0e93f0aef66a6bfe55a86abfced6bd396ae4b4f6cc1e36f04a28ad2625594d')
 
 build() {
   cd ${_pkg}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -36,6 +36,6 @@ check() {
 
 package() {
   cd ${_pkg}-${pkgver}
-  python setup.py install --prefix=/usr --root="${pkgdir}" --skip-build --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE.txt -t "${pkgdir}"/usr/share/licenses/${pkgname}
 }
