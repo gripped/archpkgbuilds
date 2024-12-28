@@ -4,7 +4,7 @@
 pkgname=python-voila
 _name=${pkgname#python-}
 pkgver=0.5.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Voilà turns Jupyter notebooks into standalone web applications"
 arch=(any)
 url="https://github.com/voila-dashboards/voila"
@@ -43,9 +43,6 @@ makedepends=(
   python-rfc3986-validator
   python-uri-template
   python-webcolors
-  # this will be a dependency of python-arrow
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/python-arrow/-/merge_requests/2
-  python-types-python-dateutil
 )
 checkdepends=(
   python-ipykernel
@@ -63,7 +60,8 @@ b2sums=('edf78dd90e9b546cbb1edf751bd4279fefaf648796c544e5d3b11050ab94404e8cb45d4
 
 build() {
   cd $_name-$pkgver
-  python -m build --wheel --no-isolation
+  # NOTE: jupyterlab requires 'httpx~=0.28.0' in its pyproject.toml, but Arch still has only 0.27.0 so we must use --skip-dependency-check
+  python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check(){
