@@ -4,7 +4,7 @@
 
 pkgname=python-rx
 pkgver=3.2.0
-pkgrel=7
+pkgrel=8
 pkgdesc='Reactive Extensions for Python'
 arch=(any)
 url=http://reactivex.io
