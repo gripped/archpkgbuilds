@@ -3,7 +3,7 @@
 pkgname=python-pbs-installer
 _name="${pkgname#python-}"
 pkgver=2024.10.16
-pkgrel=1
+pkgrel=2
 pkgdesc="Installer for Python Build Standalone"
 arch=(any)
 url="https://github.com/frostming/pbs-installer"
