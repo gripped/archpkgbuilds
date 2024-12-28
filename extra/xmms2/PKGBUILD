@@ -9,11 +9,11 @@
 
 pkgname=xmms2
 pkgver=0.9.4
-pkgrel=3
+pkgrel=4
 pkgdesc='X-platform Music Multiplexing System 2'
 arch=(x86_64)
 url='https://github.com/xmms2/wiki/wiki'
-license=(GPL LGPL)
+license=(GPL-2.0-only LGPL-2.1-only)
 _depends=('alsa-lib: ALSA output'
           'avahi: announce xmms2d via bonjour/mDNS/zeroconf'
           'boost: C++ bindings'
