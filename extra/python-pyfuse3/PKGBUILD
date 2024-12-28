@@ -2,7 +2,7 @@
 
 pkgname=python-pyfuse3
 pkgver=3.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Python bindings for libfuse 3 with asynchronous API'
 arch=(x86_64)
 url='https://github.com/libfuse/pyfuse3'
@@ -25,6 +25,12 @@ checkdepends=(python-pytest)
 source=("git+https://github.com/libfuse/pyfuse3.git?signed#tag=$pkgver")
 b2sums=(7a8afd92130ffa56818eade9aaf7f29f0e51fa3bcc802b90b3a9ce3bee08628040356815ba5fb31afbe8e0cf6226523a504962778670f87178ec488e1622da97)
 validpgpkeys=(6D5BEF9ADD2075805747B70F9F88FB52FAF7B393) # Thomas Waldmann <tw@waldmann-edv.de>
+
+prepare() {
+  cd pyfuse3
+  # Disable developer mode - avoid enabling harsh compiler flags, like -Werror.
+  sed -i 's/DEVELOPER_MODE = .*/DEVELOPER_MODE = False/' setup.py
+}
 
 build() {
   cd pyfuse3
