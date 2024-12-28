@@ -3,7 +3,7 @@
 
 pkgname=python-astunparse
 _pkgname=astunparse
-pkgrel=8
+pkgrel=9
 pkgver=1.6.3
 pkgdesc="An AST unparser for Python"
 depends=('python' 'python-six')
