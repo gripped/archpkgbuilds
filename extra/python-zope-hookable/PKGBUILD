@@ -4,7 +4,7 @@
 pkgname=python-zope-hookable
 _pkgname=zope.hookable
 pkgver=7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Represents the core of the Zope hookable Architecture"
 arch=('x86_64')
 url="https://github.com/zopefoundation/zope.hookable"
@@ -25,7 +25,7 @@ sha512sums=('05c16b2ed0bf9708f3038d07c279efe07472f320a6d33db4cd2f518fced2f2da3ff
 
 build() {
   cd $_pkgname-$pkgver
-  python -m build --wheel --no-isolation
+  python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
