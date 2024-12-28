@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-daemon
-pkgver=6.0.43
+pkgver=6.0.44
 pkgrel=1
 pkgdesc='Daemon handling the DDE session settings'
 arch=('x86_64')
@@ -16,11 +16,13 @@ depends=('deepin-desktop-schemas' 'deepin-api' 'deepin-app-services' 'deepin-wlo
          'gtk3' 'libx11' 'gdk-pixbuf-xlib' 'gdk-pixbuf2' 'libxi' 'libpulse' 'glib2' 'libxcursor'
          'libxcrypt' 'libgudev' 'pam' 'iso-codes'
          # accounts
-         'accountsservice'
+         'accountsservice' 
          # accounts/grub
          'deepin-polkit-agent' 'deepin-polkit-agent-ext-gnomekeyring'
          # accounts/keybinding/systeminfo
          'deepin-desktop-base'
+         # accounts1/user
+         'deepin-desktop-theme'
          # appearance
          'fontconfig' 'noto-fonts'
          # audio/session
@@ -66,7 +68,7 @@ install="$pkgname.install"
 source=("git+https://github.com/linuxdeepin/dde-daemon.git#tag=$pkgver"
         $pkgname-fix-vanilla-libinput.patch
         'deepin-daemon.sysusers')
-sha512sums=('0b70ee4a5db3b97cd208cf778fe1c73367e1e0c483f823120accf45829616bd4223c6e12f7c4672f934ceb040a795615088e040eaada17ab0565b2ba30123f5c'
+sha512sums=('6765bd23f6349e0ee35e166f715d213ac9387ff0a352473f1ea8d9f87051925fa52db63762489a979a85d2c71ebb935a0b04a4b958e4644e90cc1e47b4bbc5ea'
             '944b0ae6cf7f613fd00884593c5e5f43aaf0efe4ea7aaa546a06b4367b8da4f2bc486dca640f77743bd1b7b9e4aacf741afe5c5e3ee219c2fdd4cc891ab3d367'
             '808c02d4fec4cbbb01119bbb10499090199e738b7dd72c28a57dde098eef6132723f3434c151f79e21d9f788c7f7bae8046573ac93ba917afe0e803fbffa6d5a')
 
