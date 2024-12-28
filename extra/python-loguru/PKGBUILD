@@ -3,7 +3,7 @@
 _name=loguru
 pkgname=python-loguru
 pkgver=0.7.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Python logging made (stupidly) simple"
 arch=(any)
 url="https://github.com/Delgan/loguru"
@@ -20,9 +20,17 @@ checkdepends=(
   python-freezegun
   python-pytest
 )
-source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha256sums=('2b3517ef6941a3bb24ed108074194041b3de429d5d43fe9d51359f4abdd8bad5')
-b2sums=('208c4ad989257e0e0d5cecf41c9722f398e5c73528f8a88c92e28490121723d5c19b4170ff246446e94237e8bb732f83e4b9fcc66c42aa7e3c1ba25aaa069e34')
+source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
+        https://github.com/Delgan/loguru/commit/9311c763.patch)
+sha256sums=('2b3517ef6941a3bb24ed108074194041b3de429d5d43fe9d51359f4abdd8bad5'
+            'db4b3bf2d687fc65818f769d24a5c501f499644dee7281927a8d03bf7d8eb8a0')
+b2sums=('208c4ad989257e0e0d5cecf41c9722f398e5c73528f8a88c92e28490121723d5c19b4170ff246446e94237e8bb732f83e4b9fcc66c42aa7e3c1ba25aaa069e34'
+        '5ded4b98a519cc8a87fe12d869d23eb98c7c232c3e4ff9e0bca77d24d38ddfdd9a7b7e4057cc64cf5ddedeada4ffd1ae184f6ee96e22a8da3af9093589590d77')
+
+prepare() {
+  cd $_name-$pkgver
+  patch -p1 -i ../9311c763.patch # Fix tests with python 3.13
+}
 
 build() {
   cd $_name-$pkgver
