@@ -3,7 +3,7 @@
 _pkgname=libusb1
 pkgname=python-$_pkgname
 pkgver=3.1.0
-pkgrel=2
+pkgrel=4
 pkgdesc='Python ctype-based wrapper around libusb1'
 arch=('any')
 url='https://github.com/vpelletier/python-libusb1'
