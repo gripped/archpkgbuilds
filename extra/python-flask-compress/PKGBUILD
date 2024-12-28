@@ -4,7 +4,7 @@
 _pyname=Flask-Compress
 pkgname=python-flask-compress
 pkgver=1.14
-pkgrel=3
+pkgrel=4
 pkgdesc='Compress responses in your Flask app'
 url='http://pypi.python.org/pypi/Flask-Compress/'
 arch=('any')
