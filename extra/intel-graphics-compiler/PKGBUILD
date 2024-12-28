@@ -3,7 +3,7 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=2.1.12
+pkgver=2.2.3
 _llvmmaj=14
 _llvmver="${_llvmmaj}.0.5"
 _vciver=0.20.1
@@ -30,7 +30,7 @@ source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${p
         "git+https://github.com/KhronosGroup/SPIRV-Headers.git#commit=${_spirv_headers_commit}"
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}")
-sha256sums=('62e5f1d32ba23a910e1d370092843f599b5f49ccd26cfa7236a7309aaa49a9e0'
+sha256sums=('fe8a38b9398126835566ff18c2b88e197d351b645d3e6326b0d24d118bdb8ec9'
             '1a2ad7ac65dddd8d152a8f9efa08a9cf908154ea2289223bd6643e236228fad7'
             '19be593ce8d6f0174c1fbf3f11456f17630b505c0b156315cf3d05e888244e9f'
             'ad11e234110902f42c9e54d2f4bb014b64e280ac9428f4c03a04b8b4571112b8'
