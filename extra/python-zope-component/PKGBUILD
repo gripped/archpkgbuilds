@@ -3,7 +3,7 @@
 
 pkgname=python-zope-component
 pkgver=6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Represents the core of the Zope Component Architecture"
 arch=('any')
 url="https://github.com/zopefoundation/zope.component"
