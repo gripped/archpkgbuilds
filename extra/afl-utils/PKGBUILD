@@ -2,7 +2,7 @@
 
 pkgname=afl-utils
 pkgver=1.35a
-pkgrel=3
+pkgrel=4
 pkgdesc='Utilities for automated crash sample processing/analysis, easy afl-fuzz job management and corpus optimization'
 url='https://gitlab.com/rc0r/afl-utils'
 arch=('any')
@@ -11,7 +11,7 @@ depends=('afl' 'coreutils' 'python' 'rsync')
 optdepends=('sqlite: database support'
             'screen: interactive/screen mode support'
             'gdb: gdb script execution support')
-makedepends=('python-setuptools')
+makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 source=(${pkgname}-${pkgver}.tar.gz::https://gitlab.com/rc0r/afl-utils/-/archive/v${pkgver}/afl-utils-v${pkgver}.tar.gz fix-dependencies.patch)
 sha256sums=('c547e6100366e5def49e75fd3aa5b19e62d07581f80f404b00ee7fac76b8e439'
             '343d1c6db64e70f87524ff47c4733819b3ed519bf7ee30f8e43baa64b2ac8f3f')
@@ -26,12 +26,12 @@ prepare() {
 
 build() {
   cd ${pkgname}-v${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd ${pkgname}-v${pkgver}
-  python setup.py install -O1 --root="${pkgdir}"
+  python -m installer --destdir="$pkgdir" dist/*.whl
   rm -rf "${pkgdir}"/usr/lib/python*/site-packages/tests
   install -Dm 644 README.md docs/CHANGELOG.md -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -Dm 644 config/* -t "${pkgdir}/usr/share/doc/${pkgname}"

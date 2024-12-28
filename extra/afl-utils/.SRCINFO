@@ -1,11 +1,14 @@
 pkgbase = afl-utils
 	pkgdesc = Utilities for automated crash sample processing/analysis, easy afl-fuzz job management and corpus optimization
 	pkgver = 1.35a
-	pkgrel = 3
+	pkgrel = 4
 	url = https://gitlab.com/rc0r/afl-utils
 	arch = any
 	license = Apache
 	makedepends = python-setuptools
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
 	depends = afl
 	depends = coreutils
 	depends = python
