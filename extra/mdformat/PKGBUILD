@@ -2,11 +2,11 @@
 # Contributor: Carlos Aznarán <caznaranl@uni.pe>
 
 pkgname=mdformat
-pkgver=0.7.18
+pkgver=0.7.21
 pkgrel=1
 pkgdesc='CommonMark compliant Markdown formatter'
 arch=(any)
-url=https://github.com/executablebooks/mdformat
+url=https://github.com/hukkin/mdformat
 license=(MIT)
 depends=(python-markdown-it-py)
 makedepends=(
@@ -18,7 +18,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('2f597ec2c1eca54cf43379928de8c0deef88ad7c7154841dfb9ca34869b7fe23676d5c0478194df92a4c969ac5f1c7006346606b441437c023a8ce2676597605')
+b2sums=('8b20a0b0832f5d284d55540811b0b4e0cd31b7ec26ca452867bd052b1b4e92fcb1dcee0e2be8646cb0413273e28db03ecc673c89052cf7d581d52db748d1c8e1')
 
 build() {
   cd $pkgname
