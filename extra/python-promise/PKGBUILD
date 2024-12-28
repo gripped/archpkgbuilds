@@ -2,7 +2,7 @@
 
 pkgname=python-promise
 pkgver=2.3.0
-pkgrel=7
+pkgrel=8
 pkgdesc='Ultra-performant Promise implementation in Python'
 url=https://github.com/syrusakbary/promise
 arch=(any)
