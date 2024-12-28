@@ -3,14 +3,16 @@
 
 pkgname=python-sphinx-autoapi
 _name=${pkgname#python-}
-pkgver=3.3.3
+pkgver=3.4.0
 pkgrel=1
 pkgdesc='Sphinx API documentation generator'
 arch=(any)
 url=https://github.com/readthedocs/sphinx-autoapi
 license=(MIT)
 depends=(
+  python
   python-astroid
+  python-docutils  # used directly, pulled in via python-sphinx
   python-jinja
   python-sphinx
   python-yaml
@@ -26,7 +28,7 @@ checkdepends=(
   python-pytest
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('25620f5a0c1d26f96032b0f28ec8dd00a2a4d7f9729cd4abd6db4e3c53f250d4a207c99819c51dd4059121821521ce6a940deb8381cd48713a9684a90397ccbf')
+b2sums=('1fd129ea4832a337e4dc062530f8db291dc6612af947bc825a5919d0575e6e2b23467779e0f45ab88ac1a398105e170708485bc5bb55726df37d7dcfe6825ce5')
 
 build() {
   cd "$_name"
