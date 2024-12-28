@@ -4,7 +4,7 @@
 pkgname=python-pyee
 _name=${pkgname#python-}
 pkgver=11.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Port of node.js's EventEmitter to python"
 arch=(any)
 url=https://github.com/jfhbrook/pyee
