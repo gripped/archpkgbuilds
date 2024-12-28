@@ -3,7 +3,7 @@
 pkgname=python-django-compressor
 _name="${pkgname#python-}"
 pkgver=4.5.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Compresses linked and inline javascript or CSS into a single cached file"
 arch=(any)
 url="https://github.com/django-compressor/django-compressor"
