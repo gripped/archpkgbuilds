@@ -7,7 +7,7 @@
 
 pkgname=python-rope
 pkgver=1.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Refactoring library'
 arch=('any')
 url='https://github.com/python-rope/rope'
