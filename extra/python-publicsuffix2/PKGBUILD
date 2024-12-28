@@ -2,10 +2,10 @@
 
 pkgname=python-publicsuffix2
 _name="${pkgname#python-}"
-pkgver=2.20191221
 # bizarre tagging: https://github.com/nexB/python-publicsuffix2/issues/12
-_version="${pkgver:0:2}${pkgver:2:4}-${pkgver:4:2}-${pkgver:6:2}"
-pkgrel=8
+_version=2.2019-12-21
+pkgver=${_version//-/}
+pkgrel=9
 pkgdesc="Library to deal with publicsuffix data"
 arch=(any)
 url="https://github.com/nexB/python-publicsuffix2"
