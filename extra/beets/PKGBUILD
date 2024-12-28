@@ -2,19 +2,20 @@
 # Contributor: Adrian Sampson <adrian@radbox.org>
 
 pkgname=beets
-pkgver=2.0.0
-pkgrel=2
+pkgver=2.1.0
+pkgrel=1
 pkgdesc='Flexible music library manager and tagger'
 arch=(any)
 url=https://beets.io/
 license=(MIT)
 depends=(
+  python
   python-confuse
   python-jellyfish
   python-mediafile
   python-munkres
   python-musicbrainzngs
-  python-typing_extensions
+  python-platformdirs
   python-unidecode
   python-yaml
 )
@@ -22,7 +23,7 @@ makedepends=(
   git
   python-build
   python-installer
-  python-setuptools
+  python-poetry-core
   python-sphinx
   python-wheel
 )
@@ -32,7 +33,9 @@ checkdepends=(
   python-beautifulsoup4
   python-discogs-client
   python-flask
+  python-librosa
   python-mpd2
+  python-numba
   python-py7zr
   python-pylast
   python-pytest
@@ -55,6 +58,7 @@ optdepends=(
   'python-discogs-client: Discogs plugin'
   'python-flask: Web plugin'
   'python-gobject: ReplayGain plugin'
+  'python-librosa: AutoBPM plugin'
   'python-mpd2: MPDStats plugin'
   'python-pyacoustid: Chromaprint/Acoustid plugin'
   'python-pylast: LastGenre plugin'
@@ -62,12 +66,12 @@ optdepends=(
   'python-requests-oauthlib: Beatport plugin'
   'python-xdg: Thumbnails plugin'
 )
-_tag=b88c09720c3f0782b90f83df74e65680c050392f
+_tag=0780bf386c5485e2b9e2ac34dfd3379d1097a2ef
 source=(
   git+https://github.com/beetbox/beets.git#tag=${_tag}
   beet
 )
-b2sums=('a249a826278ce772248b96a55d5defd81e333c66dab2ff2b481bcc23ea7db3d25947d09c4c8feb05259301eb5195536e8a604be7ff7df6e294ae822c5f1148d0'
+b2sums=('9789d0a81f372a500b0604b2fd8405c89bbdf43b9b5fd2836bda8e297205f2520f8c6a5cce679934c1d5efb32a809f73bc6b6e28e727a4b1d611cba9ef151d4a'
         '1b36ba07d85f0fbcae0a3d8253ce2e5d7ecf8a17c6f0bb946579663de546d53cd4fe5da84ee8d880d7f95f48e66ef6010232a995d86d0c52b52218cd991a7782')
 
 pkgver() {
@@ -77,9 +81,8 @@ pkgver() {
 
 build() {
   cd beets
-  sed "s/1.6.1/${pkgver}/" -i setup.py
-  # Do not use --wheel so man pages are included
-  python -m build --no-isolation
+  make -C docs man
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -91,13 +94,12 @@ check() {
 }
 
 package() {
-  cd beets
-  python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm 644 ../beet -t "${pkgdir}"/usr/share/bash-completion/completions/
-  install -Dm 644 extra/_beet -t "${pkgdir}"/usr/share/zsh/site-functions/
-  install -Dm 644 man/beet.1 -t "${pkgdir}"/usr/share/man/man1/
-  install -Dm 644 man/beetsconfig.5 -t "${pkgdir}"/usr/share/man/man5/
-  install -Dm 644 LICENSE -t "${pkgdir}"/usr/share/licenses/beets/
+  python -m installer --destdir="$pkgdir" beets/dist/*.whl
+  install -Dm 644 beet -t "${pkgdir}"/usr/share/bash-completion/completions/
+  install -Dm 644 beets/extra/_beet -t "${pkgdir}"/usr/share/zsh/site-functions/
+  install -Dm 644 beets/docs/_build/man/beet.1 -t "${pkgdir}"/usr/share/man/man1/
+  install -Dm 644 beets/docs/_build/man/beetsconfig.5 -t "${pkgdir}"/usr/share/man/man5/
+  install -Dm 644 beets/LICENSE -t "${pkgdir}"/usr/share/licenses/beets/
 }
 
 # vim: ts=2 sw=2 et:
