@@ -1,7 +1,7 @@
 pkgbase = python-datrie
 	pkgdesc = Fast, efficiently stored Trie for Python. Uses libdatrie
 	pkgver = 0.8.2
-	pkgrel = 5
+	pkgrel = 6
 	url = https://github.com/pytries/datrie
 	arch = x86_64
 	license = LGPL-2.0-only
@@ -16,6 +16,8 @@ pkgbase = python-datrie
 	depends = glibc
 	options = !emptydirs
 	source = datrie-0.8.2.tar.gz::https://github.com/pytries/datrie/archive/0.8.2.tar.gz
+	source = fix-alphamap-definition-in-cdatrie-pdx.patch::https://github.com/pytries/datrie/commit/12ffaa89e589a47d0b29b32997cb3623d231d920.patch
 	sha256sums = 79d9a2960749903d632812fcc0edd09d991774933c8c332b8a82b70097721923
+	sha256sums = 8518d077261407e168b045738d2e7d4df2a40a3d7e579c61c544da47723a3bd7
 
 pkgname = python-datrie

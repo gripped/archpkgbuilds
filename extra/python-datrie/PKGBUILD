@@ -5,7 +5,7 @@
 pkgname=python-datrie
 _pkgname=datrie
 pkgver=0.8.2
-pkgrel=5
+pkgrel=6
 pkgdesc="Fast, efficiently stored Trie for Python. Uses libdatrie"
 arch=('x86_64')
 url="https://github.com/pytries/datrie"
@@ -14,11 +14,17 @@ depends=('libdatrie' 'glibc')
 makedepends=('python-build' 'python-wheel' 'python-installer' 'python-setuptools' 'cython')
 checkdepends=('python-pytest' 'python-hypothesis')
 options=(!emptydirs)
-source=($_pkgname-$pkgver.tar.gz::https://github.com/pytries/datrie/archive/$pkgver.tar.gz)
-sha256sums=('79d9a2960749903d632812fcc0edd09d991774933c8c332b8a82b70097721923')
+source=(
+  "$_pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
+  # https://github.com/pytries/datrie/pull/99
+  "fix-alphamap-definition-in-cdatrie-pdx.patch::$url/commit/12ffaa89e589a47d0b29b32997cb3623d231d920.patch"
+)
+sha256sums=('79d9a2960749903d632812fcc0edd09d991774933c8c332b8a82b70097721923'
+            '8518d077261407e168b045738d2e7d4df2a40a3d7e579c61c544da47723a3bd7')
 
 prepare() {
   cd "$srcdir"/$_pkgname-$pkgver
+  patch -Np1 -i ../fix-alphamap-definition-in-cdatrie-pdx.patch
   sed -i 's/"pytest-runner", //' setup.py
   sed -i 's|../libdatrie/||g' src/cdatrie.pxd src/datrie.pyx
 }
