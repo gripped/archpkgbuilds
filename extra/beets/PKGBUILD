@@ -3,7 +3,7 @@
 
 pkgname=beets
 pkgver=2.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Flexible music library manager and tagger'
 arch=(any)
 url=https://beets.io/
@@ -87,10 +87,16 @@ build() {
 
 check() {
   cd beets
-  pytest \
-    --override-ini="addopts=" \
-    --ignore test/plugins/test_player.py \
-    --deselect test/test_ui.py::CompletionTest::test_completion
+  local pytest_args=(
+    --override-ini="addopts="
+    --ignore=test/plugins/test_player.py
+    --deselect=test/test_ui.py::CompletionTest::test_completion
+    # Requires sunau, removed in Python 3.13
+    --deselect=test/plugins/test_autobpm.py
+    # Requires aifc, removed in Python 3.13
+    --deselect=test/plugins/test_aura.py
+  )
+  pytest "${pytest_args[@]}"
 }
 
 package() {
