@@ -1,7 +1,7 @@
 pkgbase = med-openmpi
 	pkgdesc = Library for reading and writing MED files
-	pkgver = 4.1.1
-	pkgrel = 10
+	pkgver = 5.0.0
+	pkgrel = 1
 	url = https://github.com/chennes/med
 	arch = x86_64
 	license = LGPL
@@ -19,7 +19,11 @@ pkgbase = med-openmpi
 	replaces = med
 	source = git+https://github.com/chennes/med#commit=621956ec1a18d66346b40e91679021e4595ffa1b
 	source = hdf5-1.12.patch
-	b2sums = SKIP
+	source = https://src.fedoraproject.org/rpms/med/raw/rawhide/f/med-swig-4.3.0.patch
+	source = https://src.fedoraproject.org/rpms/med/raw/rawhide/f/med-py3.13.patch
+	b2sums = 93fdb2cf5d2a44a67fd8bdebccb70491728b0d0c0ce88f7a0164048096f44451df39ff169dd6fde1831d714ddf97459c8d8e04c492a32443612d2a6637e969b6
 	b2sums = 9fb63135d64d7a905cfad012a5d5fc2ecc8605ea0e30adeeb21d29d5e36ecedbe91f7b6254a53ae11d74336633c352b7021bdebda8d772640b5fafb70ad6796f
+	b2sums = bb5a095e1e61b0c16561860eb931836a85a93b2389fd29a487eb260a5890c1c80fe175fea21116ae6590d4b303d6737f871fc48256ca7b590162b23079bebcc8
+	b2sums = db04bc0ef21f1d06e282ce32797409746167555a549dd08cc05e36db2f474d342cd4057e7d99b37ea3d0f268518b3daa96d0ea410ac5cc09966ce1267248e415
 
 pkgname = med-openmpi
