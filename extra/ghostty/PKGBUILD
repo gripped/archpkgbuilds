@@ -1,0 +1,72 @@
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
+
+pkgbase=ghostty
+pkgname=(ghostty ghostty-shell-integration ghostty-terminfo)
+pkgver=1.0.0
+pkgrel=3
+pkgdesc='Fast, native, feature-rich terminal emulator pushing modern features'
+arch=(x86_64 aarch64 i686)
+url="https://github.com/ghostty-org/$pkgbase"
+license=(MIT)
+depends=(bzip2
+         fontconfig libfontconfig.so
+         freetype2 libfreetype.so
+         gcc-libs # ld-linux-x86-64.so
+         glibc # libc.so libm.so
+         glib2 libglib-2.0.so libgio-2.0.so libgobject-2.0.so
+         gtk4 libgtk-4.so
+         harfbuzz libharfbuzz.so
+         libadwaita libadwaita-1.so
+         libpng
+         oniguruma # libonig.so
+         pixman
+         zlib)
+makedepends=(pandoc-cli
+             zig)
+_archive="$pkgname-$pkgver"
+source=("$url/archive/v$pkgver/$_archive.tar.gz")
+sha256sums=('bd12953c8bbe7149e2f94e7e578a88e981932a69aa483f5ce9a2cfba726e0015')
+
+prepare() {
+	cd "$_archive"
+	ZIG_GLOBAL_CACHE_DIR="$srcdir/zig-global-cache/" ./nix/build-support/fetch-zig-cache.sh
+}
+
+build() {
+	cd "$_archive"
+	zig build \
+		--summary all \
+		--prefix "$PWD/build/usr" \
+		--system "$srcdir/zig-global-cache/p" \
+		-Doptimize=ReleaseFast \
+		-Dcpu=baseline \
+		-Dpie=true \
+		-Demit-docs
+}
+
+package_ghostty() {
+	depends+=(ghostty-shell-integration
+	          ghostty-terminfo)
+	cd "$_archive"
+	cp -a build/* "$pkgdir/"
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+	rm -r "$pkgdir"/usr/share/terminfo
+	rm -r "$pkgdir"/usr/share/ghostty/shell-integration
+}
+
+package_ghostty-shell-integration() {
+	pkgdesc='Shell integration scripts for ghostty'
+	depends=()
+	cd "$_archive"
+	mkdir -p "$pkgdir/usr/share/ghostty/shell-integration"
+	cp -r build/usr/share/ghostty/shell-integration/* "$pkgdir/usr/share/ghostty/shell-integration/"
+}
+
+package_ghostty-terminfo() {
+	pkgdesc='Terminfo for ghostty'
+	depends=()
+	cd "$_archive"
+	mkdir -p "$pkgdir/usr/share/terminfo"
+	cp -r build/usr/share/terminfo/* "$pkgdir/usr/share/terminfo/"
+}
