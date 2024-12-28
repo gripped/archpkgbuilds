@@ -4,7 +4,7 @@
 pkgname=python-zope-i18nmessageid
 _pkgname=zope.i18nmessageid
 pkgver=7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Message Identifiers for internationalization"
 arch=('x86_64')
 url="https://github.com/zopefoundation/zope.i18nmessageid"
@@ -25,7 +25,7 @@ sha512sums=('5c5e255c426ab5a560847efaaf1f5aacaf7ed034f05bf4a44c38d81b0cba9474328
 
 build() {
   cd $_pkgname-$pkgver
-  python -m build --wheel --no-isolation
+  python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
