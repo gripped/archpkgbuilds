@@ -1,7 +1,7 @@
 # Maintainer: Jonas Witschel <diabonas@archlinux.org>
 pkgname=python-oscrypto
 pkgver=1.3.0
-pkgrel=6
+pkgrel=7
 pkgdesc='Compiler-free Python crypto library backed by the OS'
 arch=('any')
 url='https://github.com/wbond/oscrypto'
