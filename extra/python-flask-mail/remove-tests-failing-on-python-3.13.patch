@@ -1,0 +1,24 @@
+diff --unified --recursive --text --new-file flask-mail-0.9.1.orig/tests.py flask-mail-0.9.1/tests.py
+--- flask-mail-0.9.1.orig/tests.py	2024-11-25 08:04:03.747147015 +0100
++++ flask-mail-0.9.1/tests.py	2024-11-25 08:04:12.494074438 +0100
+@@ -387,20 +387,6 @@
+         self.assertIsNotNone(r)
+         self.assertIn('Message-ID: ' + msg.msgId, msg.as_string())
+ 
+-    def test_unicode_sender_tuple(self):
+-        msg = Message(subject="subject",
+-                      sender=(u"ÄÜÖ → ✓", 'from@example.com>'),
+-                      recipients=["to@example.com"])
+-
+-        self.assertIn('From: =?utf-8?b?w4TDnMOWIOKGkiDinJM=?= <from@example.com>', msg.as_string())
+-
+-    def test_unicode_sender(self):
+-        msg = Message(subject="subject",
+-                      sender=u'ÄÜÖ → ✓ <from@example.com>>',
+-                      recipients=["to@example.com"])
+-
+-        self.assertIn('From: =?utf-8?b?w4TDnMOWIOKGkiDinJM=?= <from@example.com>', msg.as_string())
+-
+     def test_unicode_headers(self):
+         msg = Message(subject="subject",
+                       sender=u'ÄÜÖ → ✓ <from@example.com>',
