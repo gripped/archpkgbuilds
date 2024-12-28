@@ -6,17 +6,16 @@
 # Contributor: Lee.MaRS<leemars at gmail.com>
 
 pkgname=ibus-libpinyin
-pkgver=1.15.4
-_commit=a4135b9cc686f2c269d535dba2602ebd112aca75
-pkgrel=2
+pkgver=1.15.8
+pkgrel=1
 pkgdesc="Intelligent Pinyin engine based on libpinyin for IBus"
 arch=('x86_64')
 license=('LGPL')
 url="https://github.com/libpinyin/ibus-libpinyin"
 depends=('ibus' 'libpinyin' 'libsoup3' 'lua' 'opencc' 'python-pyxdg')
 makedepends=('boost' 'git' 'gnome-common' 'intltool')
-source=("git+https://github.com/libpinyin/ibus-libpinyin.git#commit=$_commit")
-sha512sums=('SKIP')
+source=("git+https://github.com/libpinyin/ibus-libpinyin.git#tag=$pkgver")
+sha512sums=('df7c7001b5b1d09c82d65b926df2f93b2ffc8dacaa912e0446fef45a4320435895764bb14790ace722c2408399629f086f8eaf61d87c87f6baa32be231c40c7d')
 
 build() {
   cd $pkgname
