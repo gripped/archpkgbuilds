@@ -4,7 +4,7 @@
 
 pkgname=gedit
 pkgver=48.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Easy-to-use general-purpose text editor"
 url="https://gedit-technology.github.io/apps/gedit/"
 arch=(x86_64)
