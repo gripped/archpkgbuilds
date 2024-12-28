@@ -7,7 +7,7 @@
 pkgname=python-qrcode
 _pkgname=${pkgname#python-}
 pkgver=7.4.2
-pkgrel=5
+pkgrel=6
 pkgdesc='Python library to generate QR codes'
 arch=('any')
 url='https://github.com/lincolnloop/python-qrcode'
