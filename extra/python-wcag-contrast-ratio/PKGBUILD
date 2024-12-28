@@ -1,9 +1,9 @@
-# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
+# Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
 
 _name=wcag-contrast-ratio
 pkgname=python-$_name
 pkgver=0.9
-pkgrel=5
+pkgrel=6
 pkgdesc="Library for computing contrast ratios, as required by WCAG 2.0"
 arch=('any')
 url="https://github.com/gsnedders/wcag-contrast-ratio"
