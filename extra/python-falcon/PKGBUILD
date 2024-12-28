@@ -3,7 +3,7 @@
 _name=falcon
 pkgname=python-falcon
 pkgver=3.1.3
-pkgrel=2
+pkgrel=4
 pkgdesc="Web API framework for fast and reliable microservices, proxies, and app backends"
 arch=(x86_64)
 url="https://falconframework.org/"
@@ -12,6 +12,8 @@ license=(Apache-2.0)
 depends=(
   glibc
   python
+  # TODO: remove when bumping to 4.x
+  python-cgi
 )
 makedepends=(
   cython
