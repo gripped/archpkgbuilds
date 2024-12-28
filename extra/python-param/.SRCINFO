@@ -1,18 +1,24 @@
 pkgbase = python-param
 	pkgdesc = Make your Python code clearer and more reliable by declaring Parameters
-	pkgver = 1.13.0
-	pkgrel = 3
+	pkgver = 2.1.1
+	pkgrel = 1
 	url = https://param.holoviz.org/
 	arch = any
-	license = BSD
+	license = BSD-3-Clause
 	checkdepends = python-pytest
+	checkdepends = python-pytest-asyncio
 	checkdepends = python-jsonschema
 	checkdepends = python-numpy
 	checkdepends = python-pandas
 	checkdepends = ipython
-	makedepends = python-setuptools
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	makedepends = python-hatchling
+	makedepends = python-hatch-vcs
 	depends = python
-	source = https://github.com/holoviz/param/archive/v1.13.0/param-1.13.0.tar.gz
-	sha256sums = ab195ed7fd61f935b1be302dc8a2e43b5b297e30e0a4fc5911dcd15485a0aa3e
+	source = git+https://github.com/holoviz/param#tag=v2.1.1
+	sha256sums = 57025f9dc79bea9b9aabf47be2a5ee384a2839f4ffe58d2d9106e2157ab33f82
 
 pkgname = python-param
