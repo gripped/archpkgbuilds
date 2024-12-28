@@ -1,7 +1,7 @@
 pkgbase = rocm-gdb
 	pkgdesc = ROCm source-level debugger for Linux, based on GDB
 	pkgver = 6.2.4
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/ROCm-Developer-Tools/ROCgdb
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -22,6 +22,8 @@ pkgbase = rocm-gdb
 	depends = libelf
 	depends = readline
 	source = rocm-gdb-6.2.4.tar.gz::https://github.com/ROCm-Developer-Tools/ROCgdb/archive/rocm-6.2.4.tar.gz
+	source = python3.13.patch
 	sha256sums = 061d00f3d02ca64094008c5da185712712ccd3a922f6e126d5f203cdae2b9e04
+	sha256sums = 7947483fd51fca5221fafd9efee3d902ed0aeda2ad4cdf5e577cd9c38969eb8c
 
 pkgname = rocm-gdb

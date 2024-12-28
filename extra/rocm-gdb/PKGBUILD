@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 pkgname=rocm-gdb
 pkgver=6.2.4
-pkgrel=1
+pkgrel=2
 pkgdesc='ROCm source-level debugger for Linux, based on GDB'
 arch=('x86_64')
 url='https://github.com/ROCm-Developer-Tools/ROCgdb'
@@ -9,9 +9,17 @@ license=('GPL-3.0-or-later')
 depends=('glibc' 'gcc-libs' 'rocm-dbgapi' 'bash' 'python' 'guile' 'ncurses' 'expat'
          'xz' 'zlib' 'zstd' 'mpfr' 'gmp' 'libelf' 'readline')
 makedepends=('texinfo')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('061d00f3d02ca64094008c5da185712712ccd3a922f6e126d5f203cdae2b9e04')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz"
+        "python3.13.patch")
+sha256sums=('061d00f3d02ca64094008c5da185712712ccd3a922f6e126d5f203cdae2b9e04'
+            '7947483fd51fca5221fafd9efee3d902ed0aeda2ad4cdf5e577cd9c38969eb8c')
 _dirname="$(basename "$url")-$(basename "${source[0]}" ".tar.gz")"
+
+prepare() {
+    cd "$_dirname"
+    # https://github.com/ROCm/ROCgdb/issues/31
+    patch -Np1 -i ../python3.13.patch
+}
 
 build() {
     export PKG_CONFIG_PATH="/opt/rocm/share/pkgconfig:$PKG_CONFIG_PATH"

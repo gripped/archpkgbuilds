@@ -1,0 +1,90 @@
+unchanged:
+--- a/gdb/python/python-internal.h
++++ b/gdb/python/python-internal.h
+@@ -772,6 +772,30 @@ class gdbpy_allow_threads
+   PyThreadState *m_save;
+ };
+ 
++/* A helper class to save and restore the GIL, but without touching
++   the other globals that are handled by gdbpy_enter.  */
++
++class gdbpy_gil
++{
++public:
++
++  gdbpy_gil ()
++    : m_state (PyGILState_Ensure ())
++  {
++  }
++
++  ~gdbpy_gil ()
++  {
++    PyGILState_Release (m_state);
++  }
++
++  DISABLE_COPY_AND_ASSIGN (gdbpy_gil);
++
++private:
++
++  PyGILState_STATE m_state;
++};
++
+ /* Use this after a TRY_EXCEPT to throw the appropriate Python
+    exception.  */
+ #define GDB_PY_HANDLE_EXCEPTION(Exception)	\
+unchanged:
+--- a/gdb/python/python.c
++++ b/gdb/python/python.c
+@@ -264,30 +264,6 @@ gdbpy_enter::finalize ()
+   python_gdbarch = current_inferior ()->arch ();
+ }
+ 
+-/* A helper class to save and restore the GIL, but without touching
+-   the other globals that are handled by gdbpy_enter.  */
+-
+-class gdbpy_gil
+-{
+-public:
+-
+-  gdbpy_gil ()
+-    : m_state (PyGILState_Ensure ())
+-  {
+-  }
+-
+-  ~gdbpy_gil ()
+-  {
+-    PyGILState_Release (m_state);
+-  }
+-
+-  DISABLE_COPY_AND_ASSIGN (gdbpy_gil);
+-
+-private:
+-
+-  PyGILState_STATE m_state;
+-};
+-
+ /* Set the quit flag.  */
+ 
+ static void
+only in patch2:
+unchanged:
+--- a/gdb/python/py-gdb-readline.c
++++ b/gdb/python/py-gdb-readline.c
+@@ -56,13 +56,11 @@ gdbpy_readline_wrapper (FILE *sys_stdin, FILE *sys_stdout,
+       if (except.reason == RETURN_QUIT)
+ 	return NULL;
+ 
+-      /* The thread state is nulled during gdbpy_readline_wrapper,
+-	 with the original value saved in the following undocumented
+-	 variable (see Python's Parser/myreadline.c and
+-	 Modules/readline.c).  */
+-      PyEval_RestoreThread (_PyOS_ReadlineTState);
++
++      /* This readline callback is called without the GIL held.  */
++      gdbpy_gil gil;
++
+       gdbpy_convert_exception (except);
+-      PyEval_SaveThread ();
+       return NULL;
+     }
+ 
