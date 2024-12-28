@@ -3,7 +3,7 @@
 
 pkgname=python-copr
 pkgver=2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Python interface for Copr"
 url="https://github.com/fedora-copr/copr"
 license=('GPL-2.0-or-later')
