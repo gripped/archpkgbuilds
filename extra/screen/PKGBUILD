@@ -5,7 +5,7 @@
 
 pkgname=screen
 pkgver=5.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Full-screen window manager that multiplexes a physical terminal'
 url='https://www.gnu.org/software/screen/'
 arch=('x86_64')
@@ -43,6 +43,7 @@ build() {
     --enable-colors256 \
     --enable-pam \
     --enable-rxvt_osc \
+    --enable-utmp \
     --enable-telnet \
     --with-pty-group=$_ptygroup \
     --with-socket-dir=/run/screens \
