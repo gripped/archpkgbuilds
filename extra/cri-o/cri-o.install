@@ -1,8 +1,12 @@
+_notice() {
+  echo -e "\e[1;33m$1\e[0m"
+}
+
 post_install() {
   if ! grep "br_netfilter" /proc/modules; then
-    echo "Load the br_netfilter kernel module or reboot: modprobe br_netfilter."
+    _notice "Load the br_netfilter kernel module or reboot: modprobe br_netfilter."
   fi
   if ! grep "overlay" /proc/modules; then
-    echo "Load the overlay kernel module (if required) or reboot: modprobe overlay."
+    _notice "Load the overlay kernel module (if required) or reboot: modprobe overlay."
   fi
 }
