@@ -2,8 +2,8 @@
 
 pkgname=python-anyio
 # https://github.com/agronholm/anyio/blob/master/docs/versionhistory.rst
-pkgver=4.6.2.post1
-pkgrel=2
+pkgver=4.7.0
+pkgrel=1
 pkgdesc='High level compatibility layer for multiple asynchronous event loop implementations'
 arch=(any)
 url='https://github.com/agronholm/anyio'
@@ -20,11 +20,9 @@ optdepends=(
   'python-pytest: pytest plugin'
 )
 source=(https://github.com/agronholm/anyio/archive/$pkgver/anyio-$pkgver.tar.gz
-        no-exceptiongroup.diff
-        python-3.12.diff)
-sha256sums=('aae56b725ba03ba3005f47b27c1d8c70c9d89d30f706ce9624a9b89edcf25308'
-            '72658edd045a382790a3218736c641d2b6e16e4b464137b4fb01e488112ca609'
-            '9cd05959ecc9408653e6a96be2bcd27104a430f5426b86edf22ef257b68139d4')
+        no-exceptiongroup.diff)
+sha256sums=('f60b4c7ba4281dafa34d90781bb270db0db3b7322a7334200925abddec61a44e'
+            '3f0b76ba8f7c8d79170701ab94746568b1cc121caa8f749a29568018ab88f036')
 
 export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 
@@ -38,10 +36,6 @@ prepare() {
   # [1] https://gitlab.archlinux.org/archlinux/packaging/state/-/commit/de33ab36729b786b80bf314f4e0296fc0cefec5b
   # [2] https://github.com/agronholm/exceptiongroup?tab=readme-ov-file#catching-exceptions
   patch -Np1 -i ../no-exceptiongroup.diff
-
-  # Partial revert of https://github.com/agronholm/anyio/commit/4e9f18dfaa6e7db55231a35fcd93e18c343519a4
-  # Don't fail tests with features that require uvloop 0.21
-  patch -Np1 -i ../python-3.12.diff
 }
 
 build() {
