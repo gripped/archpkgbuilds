@@ -4,7 +4,7 @@
 _hkgname=yesod-auth
 pkgname=haskell-yesod-auth
 pkgver=1.6.11.3
-pkgrel=47
+pkgrel=48
 pkgdesc="Authentication for Yesod."
 url="http://www.yesodweb.com/"
 license=("MIT")
@@ -25,7 +25,7 @@ sha512sums=('88be0432e0b0ca5202974da40ea26d40fe4b767415721af63e52456e93c0cf1f65d
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fnetwork-uri
