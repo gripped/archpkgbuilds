@@ -3,28 +3,33 @@
 
 _hkgname=system-fileio
 pkgname=haskell-system-fileio
-pkgver=0.3.16.4
-pkgrel=249
+pkgver=0.3.16.5
+pkgrel=1
 pkgdesc="Consistent filesystem interaction across GHC versions"
 url="https://github.com/fpco/haskell-filesystem"
 license=("MIT")
 arch=('x86_64')
-depends=('ghc-libs' "haskell-system-filepath")
-makedepends=('ghc')
+depends=('ghc-libs' 'haskell-system-filepath')
+makedepends=('ghc' 'haskell-chell' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('68530cd11b25aa8a05967d3f51091ea57a5be138b672bd5373918163281c55a91b60dea03bdd22bcd4ba1d6bb26e2ed14660ce55bbdaf2737d2dd2b7e608d698')
+sha512sums=('fa10fb53e949f90d13434fb9ba50b04d9fc32963ce89b19a1d1e6345b015c5421255d661e01927bbe20e7801e94c18ca2072d722a9cf61764d2a0a7a7792e2b8')
 
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
