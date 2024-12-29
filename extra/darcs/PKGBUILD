@@ -3,7 +3,7 @@
 
 pkgname=darcs
 pkgver=2.18.3
-pkgrel=5
+pkgrel=6
 pkgdesc="A distributed, interactive, smart revision control system"
 url="http://darcs.net"
 license=("GPL-2.0-or-later")
@@ -30,7 +30,7 @@ sha512sums=('de70b87493ed9776a16d492ca1fb2f7e1a4a46bf3538ebe937adc8b548b1b4519cb
 build() {
     cd $pkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
         -f-static -fterminfo -fthreaded -fexecutable \
