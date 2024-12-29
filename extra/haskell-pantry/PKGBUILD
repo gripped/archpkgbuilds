@@ -3,7 +3,7 @@
 _hkgname=pantry
 pkgname=haskell-pantry
 pkgver=0.5.7
-pkgrel=279
+pkgrel=280
 pkgdesc="Content addressable Haskell package management"
 url="https://github.com/commercialhaskell/pantry"
 license=('BSD')
@@ -33,7 +33,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
