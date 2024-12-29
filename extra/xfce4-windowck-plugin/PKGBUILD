@@ -1,11 +1,11 @@
 # Maintainer:  Robin Candau <antiz@archlinux.org>
-# Maintainer:  twa022 <twa022 at gmail dot com>
+# Contributor:  twa022 <twa022 at gmail dot com>
 # Contributor: Thanos Apostolou <thanosapostolou@outlook.com>
 # Contributor: Cedric Leporcq <cedric at gmail dot com>
 
 pkgname=xfce4-windowck-plugin
-pkgver=0.5.1
-pkgrel=4
+pkgver=0.5.2
+pkgrel=1
 epoch=1
 pkgdesc="Xfce panel plugin for displaying window title and buttons"
 arch=('x86_64')
@@ -13,20 +13,11 @@ url="https://docs.xfce.org/panel-plugins/xfce4-windowck-plugin/start"
 license=('GPL-3.0-only')
 depends=('xfce4-panel' 'libwnck3')
 makedepends=('git' 'python' 'xfce4-dev-tools')
-source=("git+https://gitlab.xfce.org/panel-plugins/xfce4-windowck-plugin.git#tag=$pkgname-$pkgver"
-        fix_concurrency_issue.patch::https://gitlab.xfce.org/panel-plugins/xfce4-windowck-plugin/-/commit/3ead9068421769576d8a477ec17728abebbe1f3c.patch)
-sha256sums=('c02d176fb541d86ff8728b8309ffc62a6180f2de1a1bde68b7b27f5f6c441dc1'
-            '309b47b3a65afe6b926f959552c649244fde168d8ee66ff3e1a206c26ec5a609')
+source=("git+https://gitlab.xfce.org/panel-plugins/xfce4-windowck-plugin.git#tag=$pkgname-$pkgver")
+sha256sums=('620093215e34d58d6d0253827957c091d84ac2e34a981835aaaa5e8b8801dce5')
 
 prepare() {
   cd $pkgname
-
-  # Temporary patch to fix a concurrency issue during build
-  # Without this patch, `make -j1` is required for the build to succeed
-  # See https://gitlab.xfce.org/panel-plugins/xfce4-windowck-plugin/-/commit/3ead9068421769576d8a477ec17728abebbe1f3c
-  # and https://gitlab.xfce.org/panel-plugins/xfce4-windowck-plugin/-/merge_requests/82#note_58149
-  patch -Np1 < "$srcdir/fix_concurrency_issue.patch"
-
   NOCONFIGURE=1 ./autogen.sh
 }
 
