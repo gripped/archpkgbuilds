@@ -1,0 +1,37 @@
+From fbca6c2999e9c97c062df7252b27f8bd0082c773 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 28 Dec 2024 18:03:41 +0000
+Subject: [PATCH] Delete stylesheet on shutdown
+
+The disable() function is called only when the extension gets disabled,
+but not when the user logs out, causing that the stylesheet file remains
+on the system.
+---
+ extension.js | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/extension.js b/extension.js
+index 326bfb8..5be3305 100644
+--- a/extension.js
++++ b/extension.js
+@@ -50,12 +50,17 @@ export default class ArcMenu extends Extension {
+ 
+         // listen to dash to panel if they are compatible and already enabled
+         this._connectExtensionSignals();
++
++        this._shutdownId = global.connect('shutdown', () => {
++            Theming.deleteStylesheet();
++        });
+     }
+ 
+     disable() {
+         this.searchProviderEmitter.destroy();
+         delete this.searchProviderEmitter;
+ 
++        global.disconnect(this._shutdownId);
+         Theming.deleteStylesheet();
+ 
+         this._disconnectExtensionSignals();
+-- 
+GitLab
+
