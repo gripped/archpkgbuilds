@@ -3,7 +3,7 @@
 _hkgname=persistent-qq
 pkgname=haskell-persistent-qq
 pkgver=2.12.0.6
-pkgrel=247
+pkgrel=248
 pkgdesc="Provides a quasi-quoter for raw SQL for persistent"
 url="https://github.com/yesod-web/persistent"
 license=('MIT')
@@ -24,7 +24,7 @@ build() {
         _opts=('--disable-tests')
     fi
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
