@@ -2,7 +2,7 @@
 
 pkgname=atomix
 pkgver=44.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Puzzle game where you move atoms to build a molecule"
 url="https://wiki.gnome.org/Apps/Atomix"
 arch=(x86_64)
@@ -25,6 +25,10 @@ b2sums=('c4e0fbc1bece6ce64ff2ab0eebd813a2fb59298744a7cb8f342375fd8dde192fcb5daad
 
 prepare() {
   cd atomix
+
+  # Don't override default decoration layout
+  # https://gitlab.gnome.org/GNOME/atomix/-/merge_requests/10
+  git cherry-pick -n de4fd5d9e0981dc4d6463a928f5e3e6a6e2c9cfb
 }
 
 build() {
