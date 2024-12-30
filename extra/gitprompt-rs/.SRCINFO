@@ -1,13 +1,15 @@
 pkgbase = gitprompt-rs
 	pkgdesc = Simple Git prompt
-	pkgver = 0.3.0
-	pkgrel = 2
-	url = https://github.com/Streetwalrus/gitprompt-rs
+	pkgver = 0.4.1
+	pkgrel = 1
+	url = https://github.com/9ary/gitprompt-rs
 	arch = x86_64
-	license = MPL2
+	license = 0BSD
+	makedepends = git
 	makedepends = rust
+	depends = gcc-libs
 	depends = git
-	source = gitprompt-rs-0.3.0.tar.gz::https://static.crates.io/crates/gitprompt-rs/gitprompt-rs-0.3.0.crate
-	b2sums = 7108951cc7e71ee5fb99f48f110fc5e82d1570f4e47453639d93e0783e2b67d56df3c3607eb7f8b10eae87680f743326c54e76ea5543c74410a01a8d9f3c6469
+	source = git+https://github.com/9ary/gitprompt-rs.git#tag=0.4.1
+	b2sums = a10a9fb2d59fd54bdfcb8bbe92142dba2d23e1f4124798738cbfb0a0c526fb4dce68c869b1647f0ce3c311447077b91a38ec7b934808ea846a71d500e705f18d
 
 pkgname = gitprompt-rs
