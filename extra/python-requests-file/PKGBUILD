@@ -4,12 +4,12 @@
 
 pkgname=python-requests-file
 pkgver=2.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='File transport adapter for Requests'
 arch=('any')
 url='https://github.com/dashea/requests-file'
 license=('Apache-2.0')
-depends=('python' 'python-six' 'python-requests')
+depends=('python' 'python-requests')
 makedepends=(
   'git'
   'python-build'
