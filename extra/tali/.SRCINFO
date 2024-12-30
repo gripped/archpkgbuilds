@@ -1,7 +1,7 @@
 pkgbase = tali
 	pkgdesc = Beat the odds in a poker-style dice game
 	pkgver = 40.9
-	pkgrel = 2
+	pkgrel = 3
 	url = https://wiki.gnome.org/Apps/Tali
 	arch = x86_64
 	groups = gnome-extra
@@ -14,7 +14,10 @@ pkgbase = tali
 	depends = gtk3
 	depends = librsvg
 	depends = libgnome-games-support
-	source = git+https://gitlab.gnome.org/GNOME/tali.git#commit=cfe92305315f7850fdf83aaf0dffd628fa8d64ed
-	sha256sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/tali.git?signed#tag=40.9
+	source = tali-fix-activate.patch
+	validpgpkeys = 93A56F193C261368CD7F056904DA8079BE94C646
+	b2sums = bca079d586d79bcdc905660b2a721f711b51d568b19a369b1834c6c9fac615774915aaa7765e5b26609dc86c38c1439941b9f0260727a78c2b56ac3637c0722c
+	b2sums = b9263f00bee8cb4aecdbda7e17fab57167e31237bd1ec91eb76c530feca73a8a621793b8ca9aa1163d2be536cb5b2d84f92c80fe2da61fdc6655a7368044ed70
 
 pkgname = tali

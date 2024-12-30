@@ -3,7 +3,7 @@
 
 pkgname=tali
 pkgver=40.9
-pkgrel=2
+pkgrel=3
 pkgdesc="Beat the odds in a poker-style dice game"
 url="https://wiki.gnome.org/Apps/Tali"
 arch=(x86_64)
@@ -11,17 +11,18 @@ license=(GPL)
 depends=(gtk3 librsvg libgnome-games-support)
 makedepends=(meson gobject-introspection yelp-tools appstream-glib git)
 groups=(gnome-extra)
-_commit=cfe92305315f7850fdf83aaf0dffd628fa8d64ed  # tags/40.9^0
-source=("git+https://gitlab.gnome.org/GNOME/tali.git#commit=$_commit")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd tali
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/tali.git?signed#tag=$pkgver"
+        tali-fix-activate.patch)
+b2sums=('bca079d586d79bcdc905660b2a721f711b51d568b19a369b1834c6c9fac615774915aaa7765e5b26609dc86c38c1439941b9f0260727a78c2b56ac3637c0722c'
+        'b9263f00bee8cb4aecdbda7e17fab57167e31237bd1ec91eb76c530feca73a8a621793b8ca9aa1163d2be536cb5b2d84f92c80fe2da61fdc6655a7368044ed70')
+validpgpkeys=(93A56F193C261368CD7F056904DA8079BE94C646) # Mart Raudsepp <leio@gentoo.org>
 
 prepare() {
   cd tali
+
+  # Fix crash on second activation
+  # https://gitlab.gnome.org/GNOME/tali/-/merge_requests/21
+  git apply -3 ../tali-fix-activate.patch
 }
 
 build() {

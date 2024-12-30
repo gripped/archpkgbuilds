@@ -1,0 +1,64 @@
+From e42526755d00b7972ee31b3059515733f9b09516 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 29 Dec 2024 12:02:34 +0000
+Subject: [PATCH] Fix crash on second activation
+
+Switch to the existing window properly when the application is launched second time.
+---
+ src/gyahtzee.c | 23 +++++++++++------------
+ 1 file changed, 11 insertions(+), 12 deletions(-)
+
+diff --git a/src/gyahtzee.c b/src/gyahtzee.c
+index 753bfdf..42a99bb 100644
+--- a/src/gyahtzee.c
++++ b/src/gyahtzee.c
+@@ -736,6 +736,7 @@ static const GActionEntry app_entries[] = {
+ static void
+ GyahtzeeCreateMainWindow (GApplication *app, gpointer user_data)
+ {
++  GamesScoresImporter *importer;
+   GtkWidget *hbox, *vbox;
+   GtkWidget *toolbar;
+   GtkWidget *tmp;
+@@ -753,7 +754,14 @@ GyahtzeeCreateMainWindow (GApplication *app, gpointer user_data)
+   gtk_window_set_hide_titlebar_when_maximized (GTK_WINDOW (window), FALSE);
+   gtk_window_set_icon_name (GTK_WINDOW (window), "org.gnome.Tali");
+ 
+-  //games_conf_add_window (GTK_WINDOW (window), NULL);
++  importer = GAMES_SCORES_IMPORTER (games_scores_directory_importer_new ());
++  highscores = games_scores_context_new_with_importer ("tali",
++                                                       _("Game Type:"),
++                                                       GTK_WINDOW (window),
++                                                       create_category_from_key, NULL,
++                                                       GAMES_SCORES_STYLE_POINTS_GREATER_IS_BETTER,
++                                                       importer);
++  g_object_unref (importer);
+ 
+   g_signal_connect (GTK_WIDGET (window), "key_press_event",
+ 		    G_CALLBACK (key_press), NULL);
+@@ -872,20 +880,11 @@ GyahtzeeCreateMainWindow (GApplication *app, gpointer user_data)
+ static void
+ GyahtzeeActivateGame (GApplication *app, gpointer user_data)
+ {
+-  GamesScoresImporter *importer;
+-
+-  importer = GAMES_SCORES_IMPORTER (games_scores_directory_importer_new ());
+-  highscores = games_scores_context_new_with_importer ("tali",
+-                                                       _("Game Type:"),
+-                                                       GTK_WINDOW (window),
+-                                                       create_category_from_key, NULL,
+-                                                       GAMES_SCORES_STYLE_POINTS_GREATER_IS_BETTER,
+-                                                       importer);
+-  g_object_unref (importer);
+-
+   if (!gtk_widget_is_visible (window)) {
+     gtk_widget_show (window);
+     GyahtzeeNewGame ();
++  } else {
++    gtk_window_present (GTK_WINDOW (window));
+   }
+ }
+ 
+-- 
+GitLab
+
