@@ -3,7 +3,7 @@
 
 pkgname=gnome-mines
 pkgver=40.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Clear hidden mines from a minefield"
 url="https://wiki.gnome.org/Apps/Mines"
 arch=(x86_64)
@@ -11,17 +11,15 @@ license=(GPL)
 depends=(gtk3 librsvg libgnome-games-support)
 makedepends=(yelp-tools appstream-glib vala git meson)
 groups=(gnome-extra)
-_commit=c7a2abc8a62a2d313959db76df3a811209409dc9  # tags/40.1^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-mines.git#commit=$_commit")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-mines.git#tag=$pkgver")
+b2sums=('f3980321785e4f734f00f64aa64722ddb5420a7b6843c8dce9196c3288f364d26bd9b23bf1fb8440eecdc6bbc0bd335bd9f4b35dbf05b2b0e88642f827c39ed6')
 
 prepare() {
   cd $pkgname
+
+  # Fix window icon name
+  # https://gitlab.gnome.org/GNOME/gnome-mines/-/merge_requests/40
+  sed -i '/icon_name/ s/gnome-mines/org.gnome.Mines/' src/interface.ui
 }
 
 build() {
