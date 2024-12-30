@@ -6,7 +6,7 @@
 # Contributor: Brenton Horne
 
 pkgname=hugo
-pkgver=0.140.1
+pkgver=0.140.2
 pkgrel=1
 pkgdesc="Fast and Flexible Static Site Generator in Go"
 arch=('x86_64')
@@ -16,7 +16,7 @@ depends=('glibc' 'gcc-libs')
 makedepends=('go' 'git')
 optdepends=('python-docutils: reStructuredText support')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/gohugoio/${pkgname}/archive/v${pkgver}.tar.gz")
-sha512sums=('28158dc210feebff43880e98d4a3a2bafb66a51f1afc9bd5783d6a0840793e0ff3a28b97e28eda22e050a1342b600d5ab8da7634d79366dabf7fb6768040fc19')
+sha512sums=('2792f3c6b8885e53fa028a7ab96cda3e2ec77412ecbe4bcb185c4f081df8a1354bccdc5f77ca62c683bc2bde0b4d0734d772b8ca5eff6295df2944daeabd45ce')
 
 build() {
   cd "${pkgname}-${pkgver}"
