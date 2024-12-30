@@ -6,33 +6,27 @@ pkgname=(
   'drone'
   'drone-oss'
 )
-pkgver=2.18.0
+pkgver=2.25.0
 pkgrel=1
 pkgdesc='Continuous Delivery platform built on container technology'
 arch=('x86_64')
 url='https://drone.io'
 makedepends=('git' 'go')
 options=('!lto')
-_commit='15819f259e5ae40edf4311bd2e3bfd127d68af5b'
 source=(
-  "$pkgbase::git+https://github.com/harness/drone.git#commit=$_commit"
+  "$pkgbase::git+https://github.com/harness/harness.git#tag=v$pkgver"
   'systemd.service'
   'tmpfiles.conf'
   'sysusers.conf'
 )
-sha512sums=('SKIP'
+sha512sums=('7dc1ebf42e020072acf81c5b342ae2010e3c04d2a8e2000681958f53b102e90952773c4e28d5d60633b92bdeaa497dc60b13e3c28e4d6af98e43b497f0539529'
             '44b29c1388ea6cd0a064c1384f3224d164a37f9ca85fdb956ffafa1ddbcb11f3f01f91701d3b8ce341a593cd85a52cbf102f6549d3c722d6ff8f8eb9cc572ab1'
             'dfdc522b0e17f6b68d86f6599020bc75328de84aa1a393c53a0edc5ed229fb6ef99a0b544eebca6f9eee1b9f2ce04906bcca105792bccf2e49cdd51f10026886'
             '9488ba861487ecaf96e6b39afc3aeabd0951b9c0ee552cdb552d12f08f73cdcf2c57e5a322139f34e0aa5b2c9b2f5751f08bf66dca2bd8dd041b60b96e41c710')
-b2sums=('SKIP'
+b2sums=('7846f4ae7e0a15fb93b79fcd3176bc2a53c627e8407e502a71f11d910f67f270a5c03851511bc25d5a36874a4bed647c74175149a0c8098cec6e138d2b79e7ec'
         'ed1d5aebd207997ae2a523786eab0c6a3500080a294864ed5eb6e6251a827ef85a8b2c3bbfdc0ce41bb2f67e14dc65ae627c595688eabb4d822df2f4c971a449'
         '9c1bf8e4a382190f2d1bd560ef5c4a9fadad8c38dcd3cf3b79af42f6d0c16de533ba2d5f6cf676003e4ca6b745833e5e100baf4328111cf540ac5f43f67c6145'
         '18e5c4ea19348479dc3408bd2546f324f0908acc759c7c79c350006c6c5e6db02cd388a9aa9bd3d4f6b4b1f2efcf6aa7f7e67eac43f8d55566afe341b7ec142e')
-
-pkgver() {
-  cd "$pkgbase"
-  git describe --tags | sed "s/^v//"
-}
 
 prepare() {
   cd "$pkgbase"
@@ -60,7 +54,7 @@ build() {
     -modcacherw
     -ldflags "-compressdwarf=false \
     -linkmode external \
-    -extldflags ${LDFLAGS}"
+    -extldflags '${LDFLAGS}'"
   )
 
   # enterprise version
