@@ -2,7 +2,7 @@
 
 pkgname=python-engineio
 pkgver=4.9.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Python implementation of the Engine.IO realtime server'
 url='https://github.com/miguelgrinberg/python-engineio'
 arch=(any)
@@ -28,7 +28,6 @@ makedepends=(
   python-gevent-websocket
   python-installer
   python-setuptools
-  python-six
   python-sphinx
   python-tornado
   python-urllib3
