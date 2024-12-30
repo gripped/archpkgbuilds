@@ -2,13 +2,13 @@
 
 pkgname=python-django-csp
 pkgver=3.8
-pkgrel=4
+pkgrel=5
 pkgdesc="Django-CSP adds Content-Security-Policy headers to Django"
 arch=('any')
 url="https://github.com/mozilla/django-csp"
 license=('BSD-3-Clause')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
-checkdepends=('python-pytest' 'python-pytest-django' 'python-six')
+checkdepends=('python-pytest' 'python-pytest-django')
 depends=('python-django' 'python-jinja')
 source=($pkgname-$pkgver.tar.gz::https://github.com/mozilla/django-csp/archive/refs/tags/${pkgver}.tar.gz)
 sha512sums=('11eb783b2caf41b67e0a00ab4b011c4ead84a142630f511163335be98390ac52fb86960230ff0afd7fc774af11a79e28dcd5b7647d47459ba0cce3a7e26ec082')
