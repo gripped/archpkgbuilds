@@ -1,0 +1,41 @@
+From c556139f68127c50a0d8a74a1d51d4dd9f1f41da Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 29 Dec 2024 10:09:07 +0000
+Subject: [PATCH] Switch to existing window instead of creating new one on
+ second activation
+
+This ensures that only one instance can run at a time.
+---
+ src/gnome-nibbles.vala | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/src/gnome-nibbles.vala b/src/gnome-nibbles.vala
+index 74b04c0..d459ec0 100644
+--- a/src/gnome-nibbles.vala
++++ b/src/gnome-nibbles.vala
+@@ -147,10 +147,6 @@ private class Nibbles : Gtk.Application
+         #endif
+ 
+         var application = new Nibbles ();
+-        application.activate.connect (()=>
+-        {
+-            application.setup ();
+-        });
+ 
+         return application.run (args);
+     }
+@@ -237,8 +233,10 @@ private class Nibbles : Gtk.Application
+         return -1;
+     }
+ 
+-    void setup ()
++    protected override void startup ()
+     {
++        base.startup ();
++
+         Environment.set_prgname ("org.gnome.Nibbles");
+         Environment.set_application_name (PROGRAM_NAME);
+ 
+-- 
+GitLab
+
