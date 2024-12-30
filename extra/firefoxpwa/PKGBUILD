@@ -1,0 +1,90 @@
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: filips <projects at filips dot si>
+# Contributor: Peter Cai <peter at typeblog dot net>
+
+pkgname=firefoxpwa
+_pkgname=PWAsForFirefox
+pkgver=2.13.2
+pkgrel=1
+pkgdesc="A tool to install, manage and use Progressive Web Apps (PWAs) in Mozilla Firefox (native component)"
+url="https://pwasforfirefox.filips.si"
+arch=('x86_64')
+license=('MPL-2.0')
+depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'openssl')
+makedepends=('cargo')
+optdepends=('firefox: Support for browser extension')
+provides=('firefox-pwa')
+replaces=('firefox-pwa')
+install="${pkgname}.install"
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/filips123/PWAsForFirefox/archive/refs/tags/v${pkgver}.tar.gz")
+b2sums=('10f0567891d33d712a06542cfbc8a4e44291fffbb6e79da3f46837aaf5279746e7ff26e602042da91c2848e287abf263d063246cbe08be0ab92b5eb7ddddc9f3')
+
+prepare() {
+	cd "${_pkgname}-${pkgver}/native"
+	
+	# Set the correct version in source files
+	sed -i "s/version = \"0.0.0\"/version = \"${pkgver}\"/g" Cargo.toml
+	sed -i "s/DISTRIBUTION_VERSION = '0.0.0'/DISTRIBUTION_VERSION = '${pkgver}'/g" userchrome/profile/chrome/pwa/chrome.jsm
+
+	# We don't use libexec in Arch
+	sed -i "s|/usr/libexec/firefoxpwa-connector|/usr/lib/firefoxpwa/firefoxpwa-connector|g" manifests/linux.json
+
+	export RUSTUP_TOOLCHAIN=stable
+	cargo update
+	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+	cd "${_pkgname}-${pkgver}/native"
+
+	# Needed to make LTO work with GCC
+	export CFLAGS="-fuse-linker-plugin"
+	
+	export RUSTUP_TOOLCHAIN=stable
+	export CARGO_TARGET_DIR=target
+	cargo build --frozen --release
+}
+
+check() {
+	cd "${_pkgname}-${pkgver}/native"
+
+	# Verify that the version has been set correctly in prepare()
+	echo "Verify version..."
+
+	if [ "$(./target/release/firefoxpwa --version)" == "${pkgname} ${pkgver}" ]; then
+		echo "Passed"
+	else
+		echo "Failed"
+		exit 1
+	fi
+}
+
+package() {
+	cd "${_pkgname}-${pkgver}/native"
+	
+	# Executables
+	install -Dm 755 "target/release/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+	install -Dm 755 "target/release/${pkgname}-connector" "${pkgdir}/usr/lib/${pkgname}/${pkgname}-connector"
+	
+	# Manifest
+	install -Dm 644 manifests/linux.json "${pkgdir}/usr/lib/mozilla/native-messaging-hosts/${pkgname}.json"
+	
+	# Completions
+	install -Dm 755 "target/release/completions/${pkgname}.bash" "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
+	install -Dm 755 "target/release/completions/${pkgname}.fish" "${pkgdir}/usr/share/fish/vendor_completions.d/${pkgname}.fish"
+	install -Dm 755 "target/release/completions/_${pkgname}" "${pkgdir}/usr/share/zsh/vendor-completions/_${pkgname}"
+	
+	# UserChrome
+	install -dm 755 "${pkgdir}/usr/share/${pkgname}/userchrome/"
+	cp -r userchrome/* "${pkgdir}/usr/share/${pkgname}/userchrome/"
+	
+	# Documentation
+	install -Dm 644 ../README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+	install -Dm 644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README-NATIVE.md"
+	install -Dm 644 ../extension/README.md "${pkgdir}/usr/share/doc/${pkgname}/README-EXTENSION.md"
+	install -Dm 644 packages/deb/copyright "${pkgdir}/usr/share/doc/${pkgname}/copyright"
+	
+	# AppStream Metadata
+	install -Dm 644 packages/appstream/si.filips.FirefoxPWA.metainfo.xml "${pkgdir}/usr/share/metainfo/si.filips.FirefoxPWA.metainfo.xml"
+	install -Dm 644 packages/appstream/si.filips.FirefoxPWA.svg "${pkgdir}/usr/share/icons/hicolor/scalable/apps/si.filips.FirefoxPWA.svg"
+}
