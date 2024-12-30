@@ -5,8 +5,8 @@
 # Contributor: Stefan Husmann <stefan-husmann@t-online.de>
 
 pkgname=mixxx
-pkgver=2.4.2
-pkgrel=3
+pkgver=2.5.0
+pkgrel=1
 pkgdesc="Free, open source software for digital DJing"
 arch=(x86_64)
 url="https://www.mixxx.org"
@@ -28,12 +28,11 @@ depends=(
   openssl
   opus
   opusfile
-  qt5-base
-  qt5-declarative
-  qt5-script
-  qt5-svg
-  qt5-x11extras
-  qtkeychain
+  qt6-5compat
+  qt6-base
+  qt6-declarative
+  qt6-svg
+  qtkeychain-qt6
   soundtouch
   speex
   sqlite
@@ -60,15 +59,16 @@ makedepends=(
   lilv
   lv2
   microsoft-gsl
-  qt5-tools
+  qt6-shadertools
+  qt6-tools
   portaudio
   portmidi
   protobuf
   rubberband
 )
 source=($_url/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('f6478012ba5fbfd4125838e78657d681ace7d9e4eb3f18534d550cd90ce2663952d7780675993d2cb2ff81683004f9cea19827dd2d6ead87b5029326689e6b3a')
-b2sums=('d16c0e857b23cdbd0c1c127fad9b5d5621d77a3febfddc11402d38b4cb03b3daf8baa07a063a384e5fdefe47e385af565b1f884af2a624907585dcc5e4fb3772')
+sha512sums=('ee3c682d40267358025aba5bfdc378fee1cb6691dc899280132f7e69d315b9ce3d8568ca182752bac96a38310c2f2d71ddc80eea4448b8b32bf6ec6a61a9d608')
+b2sums=('e5c5aa02a4b13228857eb620ad174144562d7b4675a40565fda1e641138e0e65dbb2bbe8c7fb32ead242a5bdf8581368ea604c93afbfc5c991ac92065e7bdae7')
 
 build() {
   local cmake_options=(
