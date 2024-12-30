@@ -4,7 +4,7 @@
 _hkgname=yesod-static
 pkgname=haskell-yesod-static
 pkgver=1.6.1.0
-pkgrel=755
+pkgrel=756
 pkgdesc="Static file serving subsite for Yesod Web Framework."
 url="http://www.yesodweb.com/"
 license=("MIT")
@@ -22,7 +22,7 @@ sha512sums=('66037ec28eac83e374161c1b306a4d20805ecb35ccfc4878e7894d961daaf30d993
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
