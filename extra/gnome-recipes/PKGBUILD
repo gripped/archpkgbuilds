@@ -2,7 +2,7 @@
 
 pkgname=gnome-recipes
 pkgver=2.0.4
-pkgrel=11
+pkgrel=12
 pkgdesc='Recipe management application for GNOME'
 arch=(x86_64)
 url='https://wiki.gnome.org/Apps/Recipes'
@@ -39,6 +39,7 @@ source=(
   gnome-recipes-optional-todoist.patch
   gnome-recipes-ingredients-title.patch
   gnome-recipes-details-activated.patch
+  gnome-recipes-no-appmenu.patch
 )
 b2sums=(
   73f026063407e0d9b679a52bd8611efe6e859ce413e47f0856c446d5ca392bf57ade01fc09d8f499b4bc64a58beea2ab603bd8e55c29d91f9fefddfa686d66ab
@@ -50,6 +51,7 @@ b2sums=(
   e3d3640e2ce0ecd67c2ee8452dd77cd125675a80b2c5ae14d9c4b6dcc41725ef7978287792af228cfdc0e22fc0b13ba4fb4f246c81be5747042b8b354172cf19
   8d17c8de881ead4b28e76127369d7c7295517e27fd93f509be45eb834fd0fc6f222896479609531bb8d31c891e1d830a8401e2abce4f82695fc61bdf8f59af3b
   e4a5099786300a98bf00f9d538bbd8511df87c90c118624f5bdbedc48c7ce68da14caa9993ecb4cd12f3e396b05354cf6e067563f4c92c3aab087685756bf4c4
+  b5a624d7210661d657e0e17e3856d200411d3db518c93d73458ca12012f019901dc34bb09a4ce543e58297dc78ab5ab139d2ffee3b00c1ae50c269ed55704b09
 )
 
 prepare() {
@@ -86,6 +88,9 @@ prepare() {
 
   # https://gitlab.gnome.org/GNOME/recipes/-/merge_requests/53
   git apply -3 ../gnome-recipes-details-activated.patch
+
+  # https://gitlab.gnome.org/GNOME/recipes/-/merge_requests/55
+  patch -Np1 -i ../gnome-recipes-no-appmenu.patch
 }
 
 build() {

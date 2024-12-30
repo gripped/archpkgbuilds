@@ -1,0 +1,97 @@
+From acd5dc3665e65c1d4c3d1a91a8a81340273b843b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 29 Dec 2024 16:57:23 +0100
+Subject: [PATCH] Migrate from appmenu to in-app menu
+
+---
+ src/gr-app.c     |  4 ----
+ src/gr-window.c  |  9 +++++++++
+ src/gr-window.ui | 16 ++++++++++++++++
+ 3 files changed, 25 insertions(+), 4 deletions(-)
+
+diff --git a/src/gr-app.c b/src/gr-app.c
+index 140e3598..f710bfa6 100644
+--- a/src/gr-app.c
++++ b/src/gr-app.c
+@@ -340,10 +340,6 @@ load_application_menu (GApplication *application)
+                 menu = gtk_builder_get_object (builder, "menubar");
+                 gtk_application_set_menubar (GTK_APPLICATION (application), G_MENU_MODEL (menu));
+         }
+-        else {
+-                menu = gtk_builder_get_object (builder, "app-menu");
+-                gtk_application_set_app_menu (GTK_APPLICATION (application), G_MENU_MODEL (menu));
+-        }
+ }
+ 
+ static void
+diff --git a/src/gr-window.c b/src/gr-window.c
+index 031df6a9..8eeae8ae 100644
+--- a/src/gr-window.c
++++ b/src/gr-window.c
+@@ -58,6 +58,7 @@ struct _GrWindow
+         GtkWidget *header_start_stack;
+         GtkWidget *header_title_stack;
+         GtkWidget *header_end_stack;
++        GtkWidget *primary_menu_button;
+         GtkWidget *back_button;
+         GtkWidget *search_button;
+         GtkWidget *cooking_button;
+@@ -972,6 +973,7 @@ gr_window_class_init (GrWindowClass *klass)
+         gtk_widget_class_bind_template_child (widget_class, GrWindow, header_start_stack);
+         gtk_widget_class_bind_template_child (widget_class, GrWindow, header_title_stack);
+         gtk_widget_class_bind_template_child (widget_class, GrWindow, header_end_stack);
++        gtk_widget_class_bind_template_child (widget_class, GrWindow, primary_menu_button);
+         gtk_widget_class_bind_template_child (widget_class, GrWindow, back_button);
+         gtk_widget_class_bind_template_child (widget_class, GrWindow, search_button);
+         gtk_widget_class_bind_template_child (widget_class, GrWindow, cooking_button);
+@@ -1078,6 +1080,9 @@ static GActionEntry entries[] = {
+ static void
+ gr_window_init (GrWindow *self)
+ {
++        g_autoptr(GtkBuilder) builder = NULL;
++        GObject *menu;
++
+         gtk_widget_init_template (GTK_WIDGET (self));
+         self->back_entry_stack = g_queue_new ();
+ 
+@@ -1086,6 +1091,10 @@ gr_window_init (GrWindow *self)
+                                          self);
+ 
+         update_sort_menu (self);
++
++        builder = gtk_builder_new_from_resource ("/org/gnome/Recipes/menus.ui");
++        menu = gtk_builder_get_object (builder, "app-menu");
++        gtk_menu_button_set_menu_model (GTK_MENU_BUTTON (self->primary_menu_button), G_MENU_MODEL (menu));
+ }
+ 
+ void
+diff --git a/src/gr-window.ui b/src/gr-window.ui
+index 16dc9712..a7a3805a 100644
+--- a/src/gr-window.ui
++++ b/src/gr-window.ui
+@@ -82,6 +82,22 @@
+             </child>
+           </object>
+         </child>
++        <child>
++          <object class="GtkMenuButton" id="primary_menu_button">
++            <property name="visible">1</property>
++            <property name="receives-default">1</property>
++            <child>
++              <object class="GtkImage">
++                <property name="visible">1</property>
++                <property name="icon-name">open-menu-symbolic</property>
++                <property name="icon-size">1</property>
++              </object>
++            </child>
++          </object>
++          <packing>
++            <property name="pack-type">end</property>
++          </packing>
++        </child>
+         <child>
+           <object class="GtkStack" id="header_end_stack">
+             <property name="visible">1</property>
+-- 
+GitLab
+
