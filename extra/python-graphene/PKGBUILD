@@ -3,7 +3,7 @@
 
 pkgname=python-graphene
 pkgver=3.3.0
-pkgrel=3
+pkgrel=4
 pkgdesc='GraphQL framework for Python'
 arch=(any)
 url=https://graphene-python.org/
@@ -12,7 +12,6 @@ depends=(
   python-aniso8601
   python-graphql-core
   python-graphql-relay
-  python-six
 )
 makedepends=(
   git
