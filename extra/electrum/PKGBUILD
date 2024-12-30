@@ -6,7 +6,7 @@
 
 pkgname=electrum
 pkgver=4.5.8
-pkgrel=2
+pkgrel=3
 pkgdesc="Lightweight Bitcoin wallet"
 arch=('any')
 url="https://electrum.org"
@@ -43,7 +43,8 @@ checkdepends=(
   'qt6-declarative'
 )
 optdepends=(
-  'python-btchip: BTChip hardware wallet support'
+  # Moved to AUR - dead project/upstream
+  # 'python-btchip: BTChip hardware wallet support'
   'python-hidapi: Digital Bitbox hardware wallet support'
   'python-matplotlib: plot transaction history in graphical mode'
   'python-pycryptodomex: use PyCryptodome AES implementation instead of pyaes'
