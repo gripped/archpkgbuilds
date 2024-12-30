@@ -4,7 +4,7 @@
 _hkgname=yesod-form
 pkgname=haskell-yesod-form
 pkgver=1.7.6
-pkgrel=117
+pkgrel=118
 pkgdesc="Form handling support for Yesod Web Framework"
 url="http://www.yesodweb.com/"
 license=("MIT")
@@ -20,7 +20,7 @@ sha512sums=('61aeecc699cccd33b4761cea3d82faa294ad3cafe027142f617fbbb6e01e911c053
 build() {
   cd $_hkgname-$pkgver
   
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
       -fnetwork-uri
