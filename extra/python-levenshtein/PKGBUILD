@@ -5,9 +5,8 @@
 # Contributor: scj <scj archlinux us>
 
 pkgname=python-levenshtein
-_name=Levenshtein
-pkgver=0.25.0
-pkgrel=3
+pkgver=0.26.1
+pkgrel=1
 pkgdesc='Python extension for computing string edit distances and similarities'
 arch=('x86_64')
 url='https://github.com/rapidfuzz/Levenshtein'
@@ -19,32 +18,38 @@ depends=(
   'python-rapidfuzz'
 )
 makedepends=(
+  'git'
   'python-build'
   'python-installer'
   'python-setuptools'
-  'python-scikit-build'
+  'python-scikit-build-core'
   'cython'
   'rapidfuzz-cpp'
 )
 checkdepends=('python-pytest')
-source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-b2sums=('cb3bb55b37b5bfa8dc95d78dc6898154b4d4240c27348c6e03b13cdaa2c8ff19d1e8f2bf3d6b4fcc5c77be917afaa391276e93dcac24c2c19e1b285653a45c72')
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('1939c1a73062306eab6e25ac0096216f42891a1c1c7be90a8a862a1bd1a62f5d945c8ba39daa65a8cc834ac26169426777888b50820bc33ca282dce21c2ffd34')
+b2sums=('e13810b819b875b641839e48f5db2822156f3c9a118b02dd37bdd1e780c5a841931f63aa023cde91ce5608629eef9967e2d40f0ae086c90504340a98dab5f010')
 
 build() {
-  cd "$_name-$pkgver"
+  cd "$pkgname"
 
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_name-$pkgver"
+  cd "$pkgname"
 
-  PYTHONPATH=`echo "$(pwd)"/_skbuild/linux-${CARCH}-*/setuptools/lib.linux-${CARCH}-*` \
-  pytest -v
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
+  # install to temporary directory
+  python -m installer --destdir="$PWD/tmp_install" dist/*.whl
+
+  PYTHONPATH="$PWD/tmp_install$site_packages" pytest -v
 }
 
 package() {
-  cd "$_name-$pkgver"
+  cd "$pkgname"
 
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
