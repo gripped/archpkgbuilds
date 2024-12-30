@@ -6,14 +6,13 @@
 
 pkgname=python-discogs-client
 pkgver=2.7
-pkgrel=3
+pkgrel=4
 pkgdesc='Python Client for the Discogs API'
 arch=(any)
 url=https://github.com/joalla/discogs_client
 license=(BSD)
 depends=(
   python-dateutil
-  python-six
   python-requests
   python-oauthlib
 )
