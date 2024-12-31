@@ -3,7 +3,7 @@
 # Contributor: Jean Lucas <jean@4ray.co>
 
 pkgname=sccache
-pkgver=0.8.2
+pkgver=0.9.0
 pkgrel=1
 pkgdesc='Shared compilation cache'
 arch=(x86_64)
@@ -13,8 +13,6 @@ depends=(
   gcc-libs
   glibc
   openssl
-  zlib
-  zstd
 )
 makedepends=(
   git
@@ -24,49 +22,37 @@ optdepends=(
   'memcached: Memcached support'
   'redis: Redis support'
 )
-_tag=d7763fc54d52a4bf12de2f75a55ae089753b8320
-source=(git+https://github.com/mozilla/sccache.git#tag=${_tag})
-b2sums=('4174959caf6d68c3ce17f5926f4a794dfb7613a109161d5a3f0d04b1fa611b6e242f222e706804d1c371b4f12dd8ea6d92b2d8b9b4550b1c8cb1af93ac4a8f1e')
-
-pkgver() {
-  cd sccache
-  git describe --tags | sed 's/^v//'
-}
+options=(!lto)
+_tag=ac3bff7e70728a7e15ad756a1a9acc4312616624
+source=("git+https://github.com/mozilla/sccache.git#tag=$_tag")
+b2sums=('c2832c101f77a7aa596d4e550e0d939b96f44c40d5a5edeac2596ca3ab96ea0ead32d0d8b492a0583b96c15b95362cac9882951041c6bb3bb95445871d142722')
 
 prepare() {
-  cargo fetch \
-    --locked \
-    --manifest-path sccache/Cargo.toml
+  cd sccache
+  cargo fetch --locked
 }
 
 build() {
-  export CFLAGS+=' -ffat-lto-objects'
-  export LDFLAGS+=' -lzstd'
-  cargo build \
-    --release \
-    --frozen \
-    --manifest-path sccache/Cargo.toml \
-    --features all,dist-server,native-zlib
+  cd sccache
+
+  # Use debug
+  export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
+
+  # Use LTO
+  export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
+  cargo build --release --frozen --features all,dist-server
 }
 
 #check() {
-#  cargo test \
-#    --release \
-#    --frozen \
-#    --manifest-path sccache/Cargo.toml \
-#    --features all,dist-server,native-zlib
+#  cd sccache
+#  cargo test --frozen --features all,dist-server
 #}
 
 package() {
-  export CFLAGS+=' -ffat-lto-objects'
-  export LDFLAGS+=' -lzstd'
-  cargo install \
-    --frozen \
-    --offline \
-    --no-track \
-    --path sccache \
-    --root "${pkgdir}"/usr \
-    --features all,dist-server,native-zlib
+  cd sccache
+  install -Dt "$pkgdir/usr/bin" target/release/sccache{,-dist}
+  install -Dt "$pkgdir/usr/share/doc/$pkgname" -m644 README.md docs/*
 }
 
-# vim: ts=2 sw=2 et:
+# vim:set sw=2 sts=-1 et:
