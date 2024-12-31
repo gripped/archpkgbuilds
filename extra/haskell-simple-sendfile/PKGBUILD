@@ -4,7 +4,7 @@
 _hkgname=simple-sendfile
 pkgname=haskell-simple-sendfile
 pkgver=0.2.32
-pkgrel=51
+pkgrel=52
 pkgdesc="Cross platform library for the sendfile system call"
 url="https://github.com/kazu-yamamoto/simple-sendfile"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('a6daf74f32d33096409c1650310b79005823b2513531b01b80e8a495af736299fd4
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fallow-bsd -f-fallback
