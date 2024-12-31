@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-bake-test-external
-pkgver=0.3.3
-pkgrel=5
+pkgver=0.4.0
+pkgrel=1
 pkgdesc='Run external test suites to check for breakage'
 arch=(any)
 url='https://github.com/ioquatix/bake-test-external'
@@ -12,6 +12,7 @@ depends=(
   ruby-bake
 )
 makedepends=(
+  git
   ruby-rdoc
 )
 checkdepends=(
@@ -23,18 +24,18 @@ checkdepends=(
   ruby-sus
 )
 options=(!emptydirs)
-source=(https://github.com/ioquatix/bake-test-external/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('75ec580d49e80cb87f22557b3a7526df511af5ab712a6586f5c1e49925b0b73b')
+source=(git+https://github.com/ioquatix/bake-test-external.git#tag=v$pkgver)
+sha256sums=('70777470aaf40349aff91bd0a378b8de57a9aab34de0d122170b3e214a7cd3b3')
 
 prepare() {
-  cd bake-test-external-$pkgver
+  cd bake-test-external
   sed -e '/signing_key/d' -i bake-test-external.gemspec
   sed -i '/bake-gem/d' gems.rb
 }
 
 build() {
   local _gemdir="$(gem env gemdir)"
-  cd bake-test-external-$pkgver
+  cd bake-test-external
   gem build bake-test-external.gemspec
   gem install \
     --local \
@@ -60,12 +61,12 @@ build() {
 
 check() {
   local _gemdir="$(gem env gemdir)"
-  cd bake-test-external-$pkgver
+  cd bake-test-external
   GEM_HOME="tmp_install/$_gemdir" bake test
 }
 
 package() {
-  cd bake-test-external-$pkgver
+  cd bake-test-external
   cp -a tmp_install/* "$pkgdir"/
   install -Dm644 license.md -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
