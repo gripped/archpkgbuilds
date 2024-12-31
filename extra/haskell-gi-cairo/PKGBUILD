@@ -3,7 +3,7 @@
 _hkgname=gi-cairo
 pkgname=haskell-gi-cairo
 pkgver=1.0.29
-pkgrel=79
+pkgrel=80
 pkgdesc="Cairo bindings"
 url="https://github.com/haskell-gi/haskell-gi"
 license=("LGPL2.1")
@@ -16,7 +16,7 @@ sha512sums=('239d4259c54cd706dacaafbc3014ce693075a039e7996f93394c66d6b8850bca672
 build() {
   cd $_hkgname-$pkgver    
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
