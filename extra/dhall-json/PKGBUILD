@@ -2,7 +2,7 @@
 
 pkgname=dhall-json
 pkgver=1.7.11
-pkgrel=204
+pkgrel=205
 pkgdesc='Convert between Dhall and JSON or YAML'
 url='https://dhall-lang.org'
 license=('BSD')
@@ -17,7 +17,7 @@ sha512sums=('39161058a6912c4bc739489a058a0b704c9fc4ac308a6453a13202f1bedeae2d7c8
 build() {
     cd $pkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
