@@ -4,7 +4,7 @@
 _hkgname=yesod-core
 pkgname=haskell-yesod-core
 pkgver=1.6.26.0
-pkgrel=28
+pkgrel=29
 pkgdesc="Creation of type-safe, RESTful web applications."
 url="http://www.yesodweb.com/"
 license=("MIT")
@@ -25,7 +25,7 @@ sha512sums=('090f53c8dadb5674f15d7f7544ee0633e3ba147eb909f5096b47b94697f0f73f429
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
