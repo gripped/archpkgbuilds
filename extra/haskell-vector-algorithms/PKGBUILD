@@ -3,8 +3,8 @@
 
 _hkgname=vector-algorithms
 pkgname=haskell-vector-algorithms
-pkgver=0.9.0.2
-pkgrel=15
+pkgver=0.9.0.3
+pkgrel=1
 pkgdesc="Efficient algorithms for vector arrays"
 url="https://github.com/erikd/vector-algorithms/"
 license=("BSD")
@@ -12,12 +12,12 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-bitvec' 'haskell-primitive' 'haskell-vector')
 makedepends=('ghc' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('fc03bddd4d2f8433b9dc303cf4f5abe55c419339951febc4357cfcb173d41663714e497dd488bea50dbd5b1c3d62c7bb8422938d2de92e63f767b3f744c903e6')
+sha512sums=('5f6bddce7d0ebc6ff79c0cbe2f3e48af3f51ee70dfde6e3f20905b49789a51c654d27c27dfc73e1e9f3b6a1bd716a247cb7dacde7714de8f11fbd984c82712fd')
 
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fproperties -f-bench -f-internalchecks -f-unsafechecks -fboundschecks -f-llvm
