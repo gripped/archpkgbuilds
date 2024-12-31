@@ -2,8 +2,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=pandoc-plot
-pkgver=1.9.0
-pkgrel=9
+pkgver=1.9.1
+pkgrel=1
 pkgdesc="A Pandoc filter to include figures generated from code blocks using your plotting toolkit of choice."
 url="https://github.com/LaurentRDC/pandoc-plot#readme"
 license=("GPL")
@@ -15,12 +15,12 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-data-default' 'haskell-gitrev' 'has
 makedepends=('ghc' 'haskell-hspec-expectations' 'haskell-tasty' 'haskell-tasty-hspec'
              'haskell-tasty-hunit')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('ea453cff15e82b9af3461dcf5918e2329267a5aa3cd9b609feeed690c87fbec0')
+sha256sums=('a34a08faf483ed7c9c5e7c439ac275077b9262bb3384d1f551e47d6aa59dd434')
 
 build() {
   cd $pkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
