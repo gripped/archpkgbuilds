@@ -2,7 +2,7 @@
 # Contributor: Brody <archfan at brodix dot de>
 
 pkgname=markdownlint-cli2
-pkgver=0.16.0
+pkgver=0.17.0
 pkgrel=1
 pkgdesc='Fast, flexible, configuration-based command-line interface for linting Markdown/CommonMark files with the markdownlint library'
 arch=(any)
@@ -16,7 +16,7 @@ makedepends=(
 )
 options=(!emptydirs)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('ef1c7395dc5ab82e636db5c03a048022d9584a2e191a081c6c074f5724421e49ac399a206ee0286209a1b229d5fd8c767e2122be18f1a3f13c39ebf7cdfd9da0')
+b2sums=('d2e2890010ea67304284305a45337667fb8f045ff2547a29fda1960c92d504842240ddf1ef21b8f31c4be64caf1ca50549693229b092c1fce52b6b01f3e52d77')
 
 prepare() {
   cd $pkgname
@@ -32,7 +32,7 @@ package() {
   local mod_dir=/usr/lib/node_modules/$pkgname
 
   install -d "$pkgdir"/{usr/{bin,share/{doc,licenses}/$pkgname},$mod_dir}
-  ln -s $mod_dir/$pkgname.js "$pkgdir"/usr/bin/$pkgname
+  ln -s $mod_dir/$pkgname-bin.mjs "$pkgdir"/usr/bin/$pkgname
   ln -s $mod_dir/{CHANGELOG,README}.md "$pkgdir"/usr/share/doc/$pkgname
   ln -s $mod_dir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname
 
@@ -41,4 +41,5 @@ package() {
 
   readarray -t mod_files < <(jq -r '.files[]' package.json)
   cp --parents -r "${mod_files[@]}" node_modules package.json "$pkgdir"/$mod_dir
+  chmod +x "$pkgdir"/$mod_dir/$pkgname-bin.mjs
 }
