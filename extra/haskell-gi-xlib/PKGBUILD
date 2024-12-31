@@ -3,7 +3,7 @@
 _hkgname=gi-xlib
 pkgname=haskell-gi-xlib
 pkgver=2.0.13
-pkgrel=38
+pkgrel=39
 pkgdesc="xlib bindings"
 url="https://github.com/haskell-gi/haskell-gi"
 license=("LGPL2.1")
@@ -16,7 +16,7 @@ sha256sums=('14bf7aaaf861e803c78a5555ee22e1dd068471b03906b35cef113ac7a0d3df84')
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
