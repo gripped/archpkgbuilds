@@ -3,7 +3,7 @@
 
 pkgname=hoogle
 pkgver=5.0.18.4
-pkgrel=57
+pkgrel=58
 pkgdesc="Haskell API Search"
 url="https://www.haskell.org/hoogle/"
 license=("BSD")
@@ -23,7 +23,7 @@ sha512sums=('3237d8b2ed9f7b1c44ccbd2e09d3aa54e7c805043d172f053f076a53e642fdfbfae
 build() {
     cd $pkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
         --ghc-option='-pie'
