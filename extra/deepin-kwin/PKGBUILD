@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-kwin
-pkgver=5.25.23
+pkgver=5.25.24
 pkgrel=1
 pkgdesc='DDE window manager forked from KWin'
 arch=('x86_64')
@@ -19,7 +19,7 @@ depends=(qt5-declarative qt5-x11extras kconfig5 kconfigwidgets5 kcoreaddons5 kdb
 makedepends=(git extra-cmake-modules kdoctools5 ninja qt5-tools wayland-protocols
              deepin-wayland-protocols)
 source=("git+https://github.com/linuxdeepin/deepin-kwin.git#tag=$pkgver")
-sha512sums=('c15ad8ebd70dcde574ee343ec6598a62e7bc7ab49a0cd53e53d28aaa1e4af94cec506231b2cae4265d6b85797e6c8ef4970f032c9f8f2b402f76846de279876e')
+sha512sums=('b593ca13ceb281381ee191009e2a1504152d2759f36ba33823910e261ad8f6eb3257122c803025bc1ee4814d29e6ad0ffdd316dc7da98c8d1d44269a3c0376be')
 
 prepare() {
   cd deepin-kwin
