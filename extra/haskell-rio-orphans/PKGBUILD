@@ -3,7 +3,7 @@
 _hkgname=rio-orphans
 pkgname=haskell-rio-orphans
 pkgver=0.1.2.0
-pkgrel=325
+pkgrel=326
 pkgdesc="Orphan instances for the RIO type in the rio package"
 url="https://github.com/commercialhaskell/rio"
 license=('MIT')
@@ -18,7 +18,7 @@ sha512sums=('85e883977e161161e5ba8f4fa6d13026d71f7367bac262307f9a8cfdc0316b71a49
 build() {
     cd $_hkgname-$pkgver    
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
