@@ -3,7 +3,7 @@
 _hkgname=hls-floskell-plugin
 pkgname=haskell-hls-floskell-plugin
 pkgver=1.0.2.1
-pkgrel=12
+pkgrel=13
 pkgdesc="Integration with the Floskell code formatter"
 url="https://hackage.haskell.org/package/hls-floskell-plugin"
 license=("Apache")
@@ -22,7 +22,7 @@ prepare() {
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
