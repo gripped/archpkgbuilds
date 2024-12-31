@@ -3,7 +3,7 @@
 _hkgname=LambdaHack
 pkgname=haskell-lambdahack
 pkgver=0.11.0.1
-pkgrel=32
+pkgrel=33
 pkgdesc="A game engine library for tactical squad ASCII roguelike dungeon crawlers"
 url="https://lambdahack.github.io"
 license=("BSD")
@@ -22,7 +22,7 @@ sha256sums=('758111db44143d30f36ebaf8927b09a4e3f92beec63b8c2fe66e339cca67b2e2')
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --datasubdir=haskell-lambdahack --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
