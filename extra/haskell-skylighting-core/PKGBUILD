@@ -4,7 +4,7 @@
 _hkgname=skylighting-core
 pkgname=haskell-skylighting-core
 pkgver=0.14.1.1
-pkgrel=7
+pkgrel=8
 pkgdesc="Syntax highlighting library"
 url="https://github.com/jgm/skylighting"
 license=('BSD')
@@ -20,7 +20,7 @@ sha512sums=('96f7d0fbe0808ca7d6268cbc8ea44d5e2484ced163ed837e926dacc5d6fd52239b4
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fexecutable
