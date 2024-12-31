@@ -1,26 +1,20 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=redo-sh
-pkgver=4.0.4
-pkgrel=3
+pkgver=4.0.6
+pkgrel=1
 pkgdesc="An implementation of the Redo build system in Bash"
 arch=('any')
 url="http://news.dieweltistgarnichtso.net/bin/redo-sh.html"
-license=('AGPL3')
-depends=('bash')
+license=('AGPL-3.0-or-later')
+depends=('sh')
 makedepends=('git')
 optdepends=('graphviz: dependency graph support via redo-dot')
 provides=('redo')
 conflicts=('redo-python' 'redo-jdebp' 'redo-c')
-_commit='039767509a6b52707f9fc28e8dc16c2da294b92b'
-source=("$pkgname::git+http://news.dieweltistgarnichtso.net/bin.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^redo-v//'
-}
+source=("$pkgname::git+http://news.dieweltistgarnichtso.net/bin.git#tag=redo-v$pkgver")
+sha512sums=('6b40ca79ce23deae7130e862596684efffd4b3aceaba3166dc5bfcc3712fd43cff09cc644c314978901e8363b3c76e6da10087ba8343250226d5d913483eecfc')
+b2sums=('91cc963b3536e480219190e21e9679915f4d2690339b45c904992e5d9bdff1bb9e6a9bbad538fd6871472c7d476b69e9e255cd36f0e3f8ca4fd7c754108659d0')
 
 prepare() {
   cd "$pkgname"
