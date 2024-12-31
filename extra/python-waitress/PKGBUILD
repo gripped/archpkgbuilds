@@ -1,29 +1,29 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-waitress
-pkgver=3.0.0
-pkgrel=4
+pkgver=3.0.1
+pkgrel=1
 pkgdesc="Waitress WSGI server"
 arch=('any')
 license=('ZPL-2.1')
 url="https://github.com/Pylons/waitress"
 depends=('python')
-makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
+makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
-source=("https://github.com/Pylons/waitress/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('4ec7d002a0c23eb7d0f3fb5091ab101e36609938f5f65ac2c7f444a910e6e33a762fb25aef4c038489d2e4fe89c0a52d8769dfc6d55c79f7851a29473d311ae5')
+source=("git+https://github.com/Pylons/waitress.git#tag=v$pkgver")
+sha512sums=('04100440db7dab0dcca5f6b09739dd0984f5205134546da1f8abb562ea7689e0e201f6bf7697e76199de50c9c266c3dc37fc829bf009235ac80ab817c518e204')
 
 build() {
-  cd waitress-$pkgver
+  cd waitress
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd waitress-$pkgver
+  cd waitress
   PYTHONPATH="$PWD"/src pytest -o addopts=''
 }
 
-package_python-waitress() {
-  cd waitress-$pkgver
+package() {
+  cd waitress
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
