@@ -4,7 +4,7 @@
 _hkgname=wai-app-static
 pkgname=haskell-wai-app-static
 pkgver=3.1.9
-pkgrel=42
+pkgrel=43
 pkgdesc="WAI application for static serving"
 url="https://www.yesodweb.com/book/web-application-interface"
 license=("MIT")
@@ -21,7 +21,7 @@ sha512sums=('2b28f196ae10ace1db0bf1ca160bf9dbf188b373f6d0176a4d5d634deb7ae719a63
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-print
