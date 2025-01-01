@@ -4,7 +4,7 @@
 _hkgname=shake
 pkgname=haskell-shake
 pkgver=0.19.6
-pkgrel=204
+pkgrel=205
 pkgdesc="Build system library, like Make, but more accurate dependencies."
 url="https://shakebuild.com"
 license=("BSD")
@@ -36,7 +36,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-portable -f-cloud -f-embed-files
