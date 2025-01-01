@@ -4,7 +4,7 @@
 _hkgname=aws
 pkgname=haskell-aws
 pkgver=0.24
-pkgrel=161
+pkgrel=162
 pkgdesc="Amazon Web Services (AWS) for Haskell"
 url="https://github.com/aristidb/aws"
 license=("BSD")
@@ -26,7 +26,7 @@ sha512sums=('d453ea185a47b0fb93d2e8849ea81e1b0bae081aa81d280f94618d8fb357b6e4b71
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-examples
