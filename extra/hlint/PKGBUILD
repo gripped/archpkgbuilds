@@ -3,7 +3,7 @@
 
 pkgname=hlint
 pkgver=3.4.1
-pkgrel=31
+pkgrel=32
 pkgdesc="Source code suggestions"
 url="http://community.haskell.org/~ndm/hlint/"
 license=("BSD")
@@ -26,7 +26,7 @@ prepare() {
 
 build() {
     cd "${srcdir}/${pkgname}-${pkgver}"
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fgpl -fthreaded -f-ghc-lib
