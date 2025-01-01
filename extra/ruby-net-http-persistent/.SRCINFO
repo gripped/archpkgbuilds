@@ -1,15 +1,16 @@
 pkgbase = ruby-net-http-persistent
 	pkgdesc = Thread-safe persistent connections with Net::HTTP
-	pkgver = 4.0.2
-	pkgrel = 3
+	pkgver = 4.0.3
+	pkgrel = 1
 	url = https://github.com/drbrain/net-http-persistent
 	arch = any
 	license = MIT
 	checkdepends = ruby-rake
 	checkdepends = ruby-minitest
+	makedepends = git
 	depends = ruby-connection_pool
 	options = !emptydirs
-	source = https://github.com/drbrain/net-http-persistent/archive/v4.0.2/ruby-net-http-persistent-4.0.2.tar.gz
-	sha256sums = 10aab67179e80159f4e080dea3b47d86742331d693a8712803fe3906b5b1f6db
+	source = git+https://github.com/drbrain/net-http-persistent.git#tag=v4.0.3
+	sha256sums = dcb9ca9efbb82fe47df32f885fcf08989033fce68cdd194b1963ed0e83778e46
 
 pkgname = ruby-net-http-persistent
