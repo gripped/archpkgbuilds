@@ -2,8 +2,8 @@
 
 _hkgname=bytes
 pkgname=haskell-bytes
-pkgver=0.17.3
-pkgrel=48
+pkgver=0.17.4
+pkgrel=1
 pkgdesc="Sharing code for serialization between binary and cereal"
 url="https://github.com/ekmett/bytes"
 license=("BSD")
@@ -13,12 +13,12 @@ depends=('ghc-libs' 'haskell-binary-orphans' 'haskell-cereal' 'haskell-hashable'
          'haskell-void')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('d10acf05802d4df9646d7aed1b4ebcee13fb38f243f1525caaef1f2e1fd929c7')
+sha256sums=('8ca99a2449ae1233440930c8393eda065108a8725025bf079c61c6f3a4e5a393')
 
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --datasubdir=haskell-bytes --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
