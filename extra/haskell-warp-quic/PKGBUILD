@@ -3,7 +3,7 @@
 _hkgname=warp-quic
 pkgname=haskell-warp-quic
 pkgver=0.0.0
-pkgrel=217
+pkgrel=218
 pkgdesc="Warp based on QUIC"
 url="https://github.com/kazu-yamamoto/warp-quic"
 license=("BSD")
@@ -16,7 +16,7 @@ sha256sums=('579b52242d195b78b7ac596042ad55fbda05e3b07578c10b83be2874b5ce8907')
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
