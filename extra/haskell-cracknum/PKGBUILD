@@ -4,7 +4,7 @@
 _hkgname=crackNum
 pkgname=haskell-cracknum
 pkgver=3.2
-pkgrel=266
+pkgrel=267
 pkgdesc="Crack various integer and floating-point data formats"
 url="https://github.com/LeventErkok/crackNum"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('1721a70cbebb89cf795882d1e3635e4d4aac5971bb41a2817c188257e459d558809
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
