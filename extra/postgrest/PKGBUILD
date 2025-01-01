@@ -3,7 +3,7 @@
 
 pkgname=postgrest
 pkgver=10.0.0
-pkgrel=278
+pkgrel=279
 pkgdesc="REST API for any Postgres database"
 url="https://github.com/begriffs/postgrest"
 license=("MIT")
@@ -43,7 +43,7 @@ prepare() {
 build() {
     cd $pkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-CI --ghc-option='-pie'
