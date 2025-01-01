@@ -3,7 +3,7 @@
 _hkgname=gi-gsk
 pkgname=haskell-gi-gsk
 pkgver=4.0.7
-pkgrel=75
+pkgrel=76
 pkgdesc="Gsk bindings"
 url="https://github.com/haskell-gi/haskell-gi"
 license=("LGPL2.1")
@@ -18,7 +18,7 @@ sha256sums=('94a112abacda3b91256f7764b3f3bbea9475e8bc2b3dbf075763dc17de830ed7')
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
