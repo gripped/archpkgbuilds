@@ -4,7 +4,7 @@
 _hkgname=monad-logger
 pkgname=haskell-monad-logger
 pkgver=0.3.40
-pkgrel=80
+pkgrel=81
 pkgdesc="A class of monads which can log messages."
 url="https://github.com/snoyberg/monad-logger"
 license=("MIT")
@@ -20,7 +20,7 @@ sha512sums=('a4dd32624a9feb399cf30f107b591742ac558180cb3220acb91f833459c9c525947
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -ftemplate_haskell
