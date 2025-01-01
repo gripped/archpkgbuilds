@@ -3,7 +3,7 @@
 
 pkgname=sssd
 pkgver=2.10.1
-pkgrel=4
+pkgrel=5
 pkgdesc="System Security Services Daemon"
 arch=('x86_64')
 url="https://github.com/SSSD/sssd"
@@ -64,6 +64,7 @@ prepare() {
   done
 
   sed -i 's#/var/run/#/run/#' src/examples/logrotate
+  sed -i 's#^u #u! #' contrib/sssd.sysusers
 
   # Fix issue with autoconf 2.70+
   sed '/AM_PROG_CC_C_O/ i AC_PROG_CPP' -i configure.ac
