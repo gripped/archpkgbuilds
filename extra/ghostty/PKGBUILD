@@ -3,8 +3,8 @@
 
 pkgbase=ghostty
 pkgname=(ghostty ghostty-shell-integration ghostty-terminfo)
-pkgver=1.0.0
-pkgrel=3
+pkgver=1.0.1
+pkgrel=1
 pkgdesc='Fast, native, feature-rich terminal emulator pushing modern features'
 arch=(x86_64 aarch64 i686)
 url="https://github.com/ghostty-org/$pkgbase"
@@ -26,7 +26,7 @@ makedepends=(pandoc-cli
              zig)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('bd12953c8bbe7149e2f94e7e578a88e981932a69aa483f5ce9a2cfba726e0015')
+sha256sums=('4e4d9725ef2e50715492df26265e275417acca0db374f6d21740b848c77d6189')
 
 prepare() {
 	cd "$_archive"
@@ -35,9 +35,9 @@ prepare() {
 
 build() {
 	cd "$_archive"
-	zig build \
+	DESTDIR="build" zig build \
 		--summary all \
-		--prefix "$PWD/build/usr" \
+		--prefix "/usr" \
 		--system "$srcdir/zig-global-cache/p" \
 		-Doptimize=ReleaseFast \
 		-Dcpu=baseline \
