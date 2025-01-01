@@ -2,12 +2,12 @@
 
 pkgname=python-socketio
 pkgver=5.8.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Python implementation of the Socket.IO realtime server'
 url='https://github.com/miguelgrinberg/python-socketio'
 arch=('any')
 license=('MIT')
-depends=('python' 'python-six' 'python-engineio' 'python-bidict' 'python-msgpack')
+depends=('python' 'python-engineio' 'python-bidict' 'python-msgpack')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel'
              'python-sphinx' 'python-tornado')
 optdepends=('python-tornado: tornado asyncio webserver')
