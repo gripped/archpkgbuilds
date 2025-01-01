@@ -3,7 +3,7 @@
 _hkgname=hOpenPGP
 pkgname=haskell-hopenpgp
 pkgver=2.9.8
-pkgrel=211
+pkgrel=212
 pkgdesc="Native Haskell implementation of OpenPGP (RFC4880)"
 url="http://floss.scru.org/hOpenPGP/"
 license=('MIT')
@@ -25,7 +25,7 @@ sha512sums=('2d4ccf9af498b0ec33d353fa891b555109318dc5f0c5be5eb4165ff88115efcd79d
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fnetwork-uri
