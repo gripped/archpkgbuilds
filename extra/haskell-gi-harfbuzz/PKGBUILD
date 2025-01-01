@@ -3,7 +3,7 @@
 _hkgname=gi-harfbuzz
 pkgname=haskell-gi-harfbuzz
 pkgver=0.0.9
-pkgrel=74
+pkgrel=75
 pkgdesc="HarfBuzz bindings"
 url="https://github.com/haskell-gi/haskell-gi"
 license=("LGPL2.1")
@@ -17,7 +17,7 @@ sha256sums=('c773e189fd0db0bfeb58a6e9d856904a5d0b53915f40aaa6fcf505ac17d8329e')
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
