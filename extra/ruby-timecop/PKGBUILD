@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-timecop
-pkgver=0.9.8
-pkgrel=3
+pkgver=0.9.9
+pkgrel=1
 pkgdesc='A gem providing "time travel" and "time freezing" capabilities, making it dead simple to test time-dependent code'
 arch=(any)
 url='https://github.com/travisjeffery/timecop'
@@ -11,6 +11,7 @@ depends=(
   ruby
 )
 makedepends=(
+  git
   ruby-rdoc
 )
 checkdepends=(
@@ -21,17 +22,17 @@ checkdepends=(
   ruby-rake
 )
 options=(!emptydirs)
-source=(https://github.com/travisjeffery/timecop/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('3abb18214bc93fbbf93500b529c95307598911164f87cc32c4380bc819abeb89')
+source=(git+https://github.com/travisjeffery/timecop.git#tag=v$pkgver)
+sha256sums=('47777cdc0c976886a611436271b4cd807a6ebbc127bf98fd3f4df681678859ec')
 
 prepare() {
-  cd timecop-$pkgver
+  cd timecop
   sed '/bundler/d' -i Rakefile test/*.rb
 }
 
 build() {
   local _gemdir="$(gem env gemdir)"
-  cd timecop-$pkgver
+  cd timecop
   gem build timecop.gemspec
   gem install \
     --local \
@@ -57,12 +58,12 @@ build() {
 
 check() {
   local _gemdir="$(gem env gemdir)"
-  cd timecop-$pkgver
+  cd timecop
   GEM_HOME="tmp_install/$_gemdir" rake
 }
 
 package() {
-  cd timecop-$pkgver
+  cd timecop
   cp -a tmp_install/* "$pkgdir"/
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
