@@ -4,7 +4,7 @@
 _hkgname=warp
 pkgname=haskell-warp
 pkgver=3.3.30
-pkgrel=80
+pkgrel=81
 pkgdesc="A fast, light-weight web server for WAI applications."
 url="https://github.com/yesodweb/wai"
 license=("MIT")
@@ -22,7 +22,7 @@ sha512sums=('59028da2b7e6dfa57a0325a5e6acec4e2dbb2fcc15d19cc8c03e23fea405c8edc8f
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-warp-debug -fallow-sendfilefd -f-network-bytestring
