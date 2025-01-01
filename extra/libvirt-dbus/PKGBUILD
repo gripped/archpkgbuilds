@@ -2,7 +2,7 @@
 
 pkgname=libvirt-dbus
 pkgver=1.4.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Wrapper around libvirt API to provide a high-level object-oriented API better suited for dbus-based applications"
 arch=('x86_64')
 url="https://libvirt.org/dbus.html"
@@ -27,6 +27,6 @@ check() {
 package() {
   meson install -C build --destdir "${pkgdir}"
 
-  echo "u libvirtdbus - -" |
-    install -Dm0755 /dev/stdin "${pkgdir}/usr/lib/sysusers.d/libvirtdbus.conf"
+  echo "u! libvirtdbus - -" |
+    install -Dm0644 /dev/stdin "${pkgdir}/usr/lib/sysusers.d/libvirtdbus.conf"
 }
