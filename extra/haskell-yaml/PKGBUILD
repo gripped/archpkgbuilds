@@ -5,7 +5,7 @@
 _hkgname=yaml
 pkgname=haskell-yaml
 pkgver=0.11.11.2
-pkgrel=65
+pkgrel=66
 pkgdesc="Support for parsing and rendering YAML documents."
 url="https://github.com/snoyberg/yaml/"
 license=("BSD")
@@ -21,7 +21,7 @@ sha512sums=('419b5fb86d96d2e7adda5b0091d9d32eb2a5c964d32ca9d72e83feb14aef738e502
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
         -f-no-exe
