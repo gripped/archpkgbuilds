@@ -3,7 +3,7 @@
 _hkgname=aeson-diff
 pkgname=haskell-aeson-diff
 pkgver=1.1.0.13
-pkgrel=123
+pkgrel=124
 pkgdesc="Extract and apply patches to JSON documents"
 url="https://github.com/ysangkok/aeson-diff"
 license=('BSD')
@@ -18,7 +18,7 @@ sha512sums=('78ae5da41f4962871bc3dd0a2cc79abf4964e639eb7cdb5b5cb65f5a4dfabeddd9c
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
