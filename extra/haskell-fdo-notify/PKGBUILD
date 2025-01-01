@@ -4,7 +4,7 @@
 _hkgname=fdo-notify
 pkgname=haskell-fdo-notify
 pkgver=0.3.1
-pkgrel=760
+pkgrel=761
 pkgdesc="Desktop Notifications client"
 url="https://bitbucket.org/taejo/fdo-notify/"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('d9193899d5eebd7c36e9464571827bd5b560fcc156e89822877b3b67a1f376c7abe
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
