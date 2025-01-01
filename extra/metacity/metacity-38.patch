@@ -1,0 +1,135 @@
+From 682d9d189e93efdd2022f5b5f1722c438d6614e9 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 31 Dec 2024 16:56:09 +0100
+Subject: [PATCH] ui: Add fallback window icon
+
+This makes it consistent with libwnck.
+---
+ data/ui/Makefile.am       |   1 +
+ data/ui/default_icon.png  | Bin 0 -> 345 bytes
+ src/Makefile.am           |  11 +++++++++++
+ src/ui/meta.gresource.xml |   6 ++++++
+ src/ui/ui.c               |  25 +++++++++++++++++--------
+ 5 files changed, 35 insertions(+), 8 deletions(-)
+ create mode 100644 data/ui/default_icon.png
+ create mode 100644 src/ui/meta.gresource.xml
+
+diff --git a/data/ui/Makefile.am b/data/ui/Makefile.am
+index 25e1cd9ee..ca70a822c 100644
+--- a/data/ui/Makefile.am
++++ b/data/ui/Makefile.am
+@@ -1,6 +1,7 @@
+ NULL =
+ 
+ EXTRA_DIST = \
++	default_icon.png \
+ 	theme-viewer-window.ui \
+ 	$(NULL)
+ 
+diff --git a/data/ui/default_icon.png b/data/ui/default_icon.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..ce66be1561fa88dcf8705e345824dd900b6b94a3
+GIT binary patch
+literal 345
+zcmeAS@N?(olHy`uVBq!ia0vp^0wB!61|;P_|4#%`jKx9jP7LeL$-D$|*pj^6T^Rm@
+z;DWu&Cj&(|3p^r=85p>QL70(Y)*K0-AbW|YuPgfv4q;(t<?H@CP635(db&7<Se(8(
+z$u^J4P^4vlrBV2T?k!4-7A<rWT;wvv<E7?K#sWsABY_h%!dC_tFfW<%vbcT5p?gOa
+z>dG!FEUVgff3~@?k&P772{-wF_J{3%I<2$lx!=CEZToD0hM20KTW^O;z58yJ`j%l?
+zvwhlRz5DsREFOod`&A|g9GbLi>ekGE&(3@{W>sTu6gZ*WQX->QEi^|c;)cMcuP$a2
+z61h$#y_?P{qRPhoQO3OOmtLc+bTXS}W~P2<ZPr19$PY1s?`}1p47jsGDMoUa>x8{~
+kuKnv(J(#ukiDe<ftOYXropNQ*0zJv#>FVdQ&MBb@0JvF#9RL6T
+
+literal 0
+HcmV?d00001
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 37da0f521..6e24eb9ec 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -215,14 +215,25 @@ core/meta-enum-types.h: core/meta-enum-types.h.in $(ENUM_TYPES) Makefile.am
+ 	$(AM_V_GEN) $(GLIB_MKENUMS) --template $(srcdir)/core/meta-enum-types.h.in $(ENUM_TYPES) > \
+ 		meta-enum-types.h.tmp && mv meta-enum-types.h.tmp core/meta-enum-types.h
+ 
++ui/meta-resources.c: ui/meta.gresource.xml $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir)/ui --generate-dependencies $(srcdir)/ui/meta.gresource.xml)
++	$(MKDIR_P) ui
++	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir)/ui --generate --c-name meta $<
++
++ui/meta-resources.h: ui/meta.gresource.xml $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir)/ui --generate-dependencies $(srcdir)/ui/meta.gresource.xml)
++	$(MKDIR_P) ui
++	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir)/ui --generate --c-name meta $<
++
+ BUILT_SOURCES = \
+ 	core/meta-enum-types.c \
+ 	core/meta-enum-types.h \
++	ui/meta-resources.c \
++	ui/meta-resources.h \
+ 	$(NULL)
+ 
+ EXTRA_DIST = \
+ 	core/meta-enum-types.c.in \
+ 	core/meta-enum-types.h.in \
++	ui/meta.gresource.xml \
+ 	$(NULL)
+ 
+ -include $(top_srcdir)/git.mk
+diff --git a/src/ui/meta.gresource.xml b/src/ui/meta.gresource.xml
+new file mode 100644
+index 000000000..252cd130c
+--- /dev/null
++++ b/src/ui/meta.gresource.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<gresources>
++  <gresource prefix="/org/gnome/metacity/ui">
++    <file alias="default_icon.png">../../data/ui/default_icon.png</file>
++  </gresource>
++</gresources>
+diff --git a/src/ui/ui.c b/src/ui/ui.c
+index 6a9cf4a13..d8ff7fb19 100644
+--- a/src/ui/ui.c
++++ b/src/ui/ui.c
+@@ -34,8 +34,6 @@
+ #include <cairo-xlib.h>
+ #include <libmetacity/meta-theme.h>
+ 
+-#define META_DEFAULT_ICON_NAME "window"
+-
+ struct _MetaUI
+ {
+   Display *xdisplay;
+@@ -685,15 +683,26 @@ meta_gdk_pixbuf_get_from_pixmap (Pixmap       xpixmap,
+ static GdkPixbuf *
+ load_default_window_icon (int size)
+ {
+-  GtkIconTheme *theme = gtk_icon_theme_get_default ();
+-  const char *icon_name;
++  GdkPixbuf *base;
++
++  base = gdk_pixbuf_new_from_resource ("/org/gnome/metacity/ui/default_icon.png", NULL);
+ 
+-  if (gtk_icon_theme_has_icon (theme, META_DEFAULT_ICON_NAME))
+-    icon_name = META_DEFAULT_ICON_NAME;
++  g_assert (base);
++
++  if (gdk_pixbuf_get_width (base) == size &&
++      gdk_pixbuf_get_height (base) == size)
++    {
++      return base;
++    }
+   else
+-    icon_name = "image-missing";
++    {
++      GdkPixbuf *scaled;
+ 
+-  return gtk_icon_theme_load_icon (theme, icon_name, size, 0, NULL);
++      scaled = gdk_pixbuf_scale_simple (base, size, size, GDK_INTERP_BILINEAR);
++      g_object_unref (G_OBJECT (base));
++
++      return scaled;
++    }
+ }
+ 
+ GdkPixbuf*
+-- 
+GitLab
+

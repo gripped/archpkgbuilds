@@ -1,7 +1,7 @@
 pkgbase = metacity
 	pkgdesc = Window manager of GNOME Flashback
 	pkgver = 3.54.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://wiki.gnome.org/Projects/Metacity
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -35,7 +35,11 @@ pkgbase = metacity
 	depends = startup-notification
 	depends = zenity
 	source = git+https://gitlab.gnome.org/GNOME/metacity.git?signed#tag=3.54.0
+	source = metacity-37.patch
+	source = metacity-38.patch
 	validpgpkeys = 7B44FD78E49334EC10B3B288A3D013EC303E1894
 	b2sums = dd13996f87d09c654995c48dc19c80651f191197def708eec14fd97daac2ef7006f1d9c0cc78991abe25d79aaae0799d3c064496289aff12c3010fc99bb7654c
+	b2sums = 9dda027e875e6d15050e1f6b3b8cf74c46f006ef307da30fc92c2c3efdbc887feccd061b8ec37da0be2584ccfc476742a3ac3300c663c344ad473bdb855addff
+	b2sums = aa75a7b379cc0880a31f4863d6666287da5ff35e9494a7c467fb50f6d649f50b6f256d9c2cc40fb43ea4d28f9b0364e981e0114715f8fd2bc1c42b206cde5a4a
 
 pkgname = metacity
