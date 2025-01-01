@@ -3,7 +3,7 @@
 _hkgname=servant-client
 pkgname=haskell-servant-client
 pkgver=0.20
-pkgrel=54
+pkgrel=55
 pkgdesc="Automatic derivation of querying functions for servant"
 url="http://docs.servant.dev/"
 license=("BSD")
@@ -22,7 +22,7 @@ sha512sums=('ea3b04120c3301e7a9c51cfa5e3d7cf27898c73889c0338fa93c9bb0d3ec04adc79
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
