@@ -4,7 +4,7 @@
 _hkgname=project-template
 pkgname=haskell-project-template
 pkgver=0.2.1.0
-pkgrel=363
+pkgrel=364
 pkgdesc="Specify Haskell project templates and generate files"
 url="https://github.com/fpco/haskell-ide"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('ed70f640e5197f7a6158b851dcd3990e77b7266f716be248ecfb012c4827dc68802
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
