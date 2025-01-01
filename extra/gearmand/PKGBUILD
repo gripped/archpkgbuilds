@@ -5,7 +5,7 @@
 
 pkgname=gearmand
 pkgver=1.1.21
-pkgrel=2
+pkgrel=3
 pkgdesc="Distributed job queue server."
 arch=('x86_64')
 depends=('libevent' 'boost-libs' 'mariadb-libs' 'postgresql-libs' 'sqlite' 'hiredis')
@@ -23,7 +23,7 @@ source=(https://github.com/gearman/$pkgname/releases/download/$pkgver/$pkgname-$
 sha256sums=('2688b83e48f26fdcd4fbaef2413ff1a76c9ecb067d1621d0e0986196efecd308'
             '1ce84be1a03697ababe099889c80abac79262f625e8591f83a325827ff6e091d'
             '6c14fdcd94105338e13bdd59dbed4f9b77430a517b2c125ac2e6d3bc43bdf506'
-            '02f11878d7c32039385586e527006f5cbb08444007f6c72a012e8acd8a855aef')
+            'eeb9e706dc4216b704c08daa7e60e80cd9f6cef1c17bc67d02612271742abca5')
 
 build() {
   cd "$srcdir"/$pkgname-$pkgver
