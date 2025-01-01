@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-printer
-pkgver=0.9.20
-pkgrel=2
+pkgver=0.9.21
+pkgrel=1
 pkgdesc='Printer configuration project for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-printer"
@@ -10,23 +10,23 @@ license=('GPL3')
 # smbclient: dlopen
 depends=('cups' 'dtkcore' 'dtkgui' 'dtkwidget' 'glibc' 'gcc-libs' 'libusb' 'qt5-base'
          'hicolor-icon-theme' 'xdg-utils' 'smbclient')
-makedepends=('qt5-tools')
+makedepends=('git' 'qt5-tools')
 groups=('deepin-extra')
-source=("https://github.com/linuxdeepin/dde-printer/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('5897e4eed212548cadcb8808a5d0e434866b19d9b1be438595d2cd0ce4628e64779356918072c4eddbcc06ff3724bfc9d44e3edfd5159e6b49e4a138bffa93fd')
+source=("git+https://github.com/linuxdeepin/dde-printer.git#tag=$pkgver")
+sha512sums=('bb71e2a87391b20464024a6612f7b081f92ff8945c309cec3a927a25db4f5dfdb74d10dbd9b7bd2ab74ae2ba03a7e05b2203ad37a8f12d64e9c3e50b2737438a')
 
 prepare() {
-  cd dde-printer-$pkgver
+  cd dde-printer
   sed -i '$aOnlyShowIn=Deepin' src/Printer/platform/linux/dde-printer.desktop
 }
 
 build() {
-  cd dde-printer-$pkgver
+  cd dde-printer
   qmake-qt5 PREFIX=/usr
   make
 }
 
 package() {
-  cd dde-printer-$pkgver
+  cd dde-printer
   make INSTALL_ROOT="$pkgdir" install
 }
