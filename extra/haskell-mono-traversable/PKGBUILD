@@ -4,7 +4,7 @@
 _hkgname=mono-traversable
 pkgname=haskell-mono-traversable
 pkgver=1.0.20.0
-pkgrel=9
+pkgrel=10
 pkgdesc="Type classes for mapping, folding, and traversing monomorphic containers"
 url="https://github.com/snoyberg/mono-traversable"
 license=("MIT")
@@ -19,7 +19,7 @@ sha512sums=('67d625abf6899729c51042b4d446e444fd24af203e1a127a94c9b8139cc1218e473
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
