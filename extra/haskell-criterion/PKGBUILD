@@ -4,7 +4,7 @@
 _hkgname=criterion
 pkgname=haskell-criterion
 pkgver=1.6.1.0
-pkgrel=38
+pkgrel=39
 pkgdesc="Robust, reliable performance measurement and analysis"
 url="http://www.serpentine.com/criterion"
 license=("BSD")
@@ -22,7 +22,7 @@ sha512sums=('47a3b5bf7ff243bf2696ce741fa3cc9188827763fb7c88e5d2633da3107bd1714f6
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-fast -f-embed-data-files
