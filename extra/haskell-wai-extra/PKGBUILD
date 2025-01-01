@@ -4,7 +4,7 @@
 _hkgname=wai-extra
 pkgname=haskell-wai-extra
 pkgver=3.1.15
-pkgrel=35
+pkgrel=36
 pkgdesc="Provides some basic WAI handlers and middleware."
 url="https://github.com/yesodweb/wai"
 license=("MIT")
@@ -22,7 +22,7 @@ sha512sums=('3e1fba9077e5b26cd17f2cbe6e3efdb08a45a0935c63271513a8992ea5cd34bb6c5
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-build-example
