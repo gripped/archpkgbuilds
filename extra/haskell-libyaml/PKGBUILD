@@ -3,7 +3,7 @@
 _hkgname=libyaml
 pkgname=haskell-libyaml
 pkgver=0.1.4
-pkgrel=21
+pkgrel=22
 pkgdesc="Low-level, streaming YAML interface."
 url="https://github.com/snoyberg/yaml"
 license=('BSD')
@@ -15,7 +15,7 @@ sha512sums=('b62d7ac0c4d5cbbbd86f640866d55a68ccfdd347063706de14dac715a4de87faaf6
 
 build() {
     cd $_hkgname-$pkgver
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fsystem-libyaml
