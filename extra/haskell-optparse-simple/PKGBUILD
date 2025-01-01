@@ -4,7 +4,7 @@
 _hkgname=optparse-simple
 pkgname=haskell-optparse-simple
 pkgver=0.1.1.4
-pkgrel=345
+pkgrel=346
 pkgdesc="Simple interface to optparse-applicative"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('1e49f60eead8553d7dd4cc162b5a2a07a99eda2519a53947808d7b4c909e37cfa77
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
 	  -f-build-example
