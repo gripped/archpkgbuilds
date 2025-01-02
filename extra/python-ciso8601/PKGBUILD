@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-ciso8601
-pkgver=2.3.1
-pkgrel=4
+pkgver=2.3.2
+pkgrel=1
 pkgdesc='Fast ISO8601 date time parser for Python written in C'
 arch=(x86_64)
 url=https://github.com/closeio/ciso8601
@@ -19,9 +19,9 @@ makedepends=(
   python-setuptools
   python-wheel
 )
-_tag=b17984f5b4c6db0ef596b4d31456c8a39ae278ee
+_tag=9412b8c6fe9905d64e48e5571cb0ef48d16bdd78
 source=(git+https://github.com/closeio/ciso8601.git#tag=${_tag})
-sha256sums=(SKIP)
+sha256sums=('a481e1b24c3ea0a7944960755700ccbf23e2908257df9f768318e2e4d713f2e3')
 
 pkgver() {
   cd ciso8601
