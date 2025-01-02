@@ -5,8 +5,8 @@
 
 _pyname=wtforms
 pkgname=python-wtforms
-pkgver=3.1.2
-pkgrel=3
+pkgver=3.2.1
+pkgrel=1
 pkgdesc='Flexible forms validation and rendering library for python web development'
 url='https://wtforms.readthedocs.io/'
 arch=('any')
@@ -16,8 +16,8 @@ makedepends=('python-build' 'python-installer' 'python-babel' 'python-hatchling'
 checkdepends=('python-pytest' 'python-email-validator')
 optdepends=('python-email-validator: Email validation')
 source=(https://github.com/wtforms/wtforms/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('90120caa2e303c680177a6662e418e06c958c72c73f5bea0358381be9f674d2a850e81269772ae4e50db7cd3a03697a8b8e766a9b9291ff84aaa4ad78361a276')
-b2sums=('1fa847135bc6cd27e8784e84864e2f86ffb81e251cc80070e99340b746e797f7a04b44cd67726e2a65da912725b1d20c990953c96fc50650862258053d894c35')
+sha512sums=('a0eb0c11ea241be3881bc43b14505e807015c9459ece5b5ffe29af38cb774d89ceefcf734d962d62d2c6f647e975b175ad4ede0bbd98fdf82e3b0213e30fba1c')
+b2sums=('d8ad2ec5b0bd54410bcb71b769c59708e952b5716e88ee35d93fde613318ba79d1ee69ca8ffd1a639e639372b423586fec544643406eda758feebb3a8a69ef81')
 
 build() {
   cd ${_pyname}-${pkgver}
