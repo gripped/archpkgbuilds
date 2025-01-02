@@ -9,7 +9,7 @@
 
 pkgbase=apt
 pkgname=('apt' 'apt-docs')
-pkgver=2.9.20
+pkgver=2.9.21
 pkgrel=1
 pkgdesc='Command-line package manager used on Debian-based systems'
 arch=('x86_64')
@@ -21,7 +21,7 @@ license=(
   'MIT'
 )
 makedepends=('cmake' 'docbook-xsl' 'doxygen' 'git' 'gtest' 'w3m' 'triehash'
-             'po4a' 'xxhash' 'gnupg' 'db'  'perl-text-wrapi18n' 'perl-locale-gettext'
+             'po4a' 'xxhash' 'sequoia-sqv' 'db'  'perl-text-wrapi18n' 'perl-locale-gettext'
              'perl-yaml-tiny' 'perl-syntax-keyword-try' 'dpkg' 'git' 'gnutls'
              'perl-term-readkey' 'perl-sgmls' 'perl-module-build'
              'perl-unicode-linebreak' 'perl-pod-parser')
@@ -31,7 +31,7 @@ options=('emptydirs')
 source=("git+https://salsa.debian.org/apt-team/apt.git?signed#tag=${pkgver}"
         "apt-sysusers.conf"
         "apt-tmpfiles.conf")
-sha256sums=('e8d35f19469c92d3d18335c013b0cf6fc5dd5dc3d043a499cc5ee7d38d3dc2a7'
+sha256sums=('d80803d2f0aa12a293677e77d33fec6d3e737302c84800ac17f03dc90e9483f1'
             'f4528114112f05ce7e78d5b64e77d20053a6ce29a59588345985be7335cf63d6'
             '424ca4feab152d7f5ce73a2ddd29bcd3e482cfe1c96cffb969d7542d19da0455')
 validpgpkeys=('AEE1C8AAAAF0B7684019C546021B361B6B031B00') # Julian Andres Klode <jak@debian.org>
@@ -56,7 +56,7 @@ check() {
 }
 
 package_apt() {
-  depends=('systemd-libs' 'libseccomp' 'perl' 'xxhash' 'dpkg' 'gnutls' 'bzip2'
+  depends=('systemd-libs' 'libseccomp' 'perl' 'xxhash' 'dpkg' 'gnutls' 'bzip2' 'sequoia-sqv'
            'xz' 'gcc-libs' 'lz4' 'bash' 'zlib' 'zstd' 'db' 'libgcrypt' 'glibc')
   pkgdesc='Command-line package manager used on Debian-based systems'
   install=apt.install
@@ -71,6 +71,7 @@ package_apt() {
   touch "${pkgdir}"/etc/apt/sources.list
   install -vDm 644 apt-sysusers.conf "${pkgdir}/usr/lib/sysusers.d/apt.conf"
   install -vDm 644 apt-tmpfiles.conf "${pkgdir}"/usr/lib/tmpfiles.d/apt.conf
+  install -vDm 644 apt/debian/default-sequoia.config -t "${pkgdir}/usr/share/apt"
   install -vDm 644 apt/COPYING -t "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
 
