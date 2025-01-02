@@ -1,7 +1,7 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=sequoia-sop
-pkgver=0.34.0
+pkgver=0.36.0
 pkgrel=1
 pkgdesc='Implementation of the Stateless OpenPGP Interface using Sequoia'
 url='https://gitlab.com/sequoia-pgp/sequoia-sop'
@@ -12,9 +12,11 @@ groups=(
   stateless-openpgp
 )
 depends=(
-  glibc
   gcc-libs
+  glibc
   gmp
+  # this dependency is due to overlinking, but even though it's technically unused the linker is going to expect this .so to be present
+  sqlite
 )
 makedepends=(
   bzip2
@@ -24,8 +26,8 @@ makedepends=(
   nettle
 )
 source=(sequoia-sop::"git+$url#tag=v$pkgver?signed")
-sha512sums=('99689bbeb241f0148df44ede5bacc6d018a25300bacb6b38bed6d268d014a2cc8d74de2c83aa1775c383e1df0f68367ba146f764c8ad2169e00dfdef149b3d84')
-b2sums=('d1cb8fed12b92101ed8a560730934e985bc95f3c7f410baa83c0d44842044f0d1a2edf5c734892ca4167ed9b95ba33e02cc4141eab8a6edc206bc96fa2691394')
+sha512sums=('02c63609ea66ab163592996dbbe7f919427a6795b4d31e6eff93104b659b468877c7fc18b716457e7ece6185c268fac98a6886eb0df32df27e9b9fc08b1dace3')
+b2sums=('133957f24c5cbcffe40c0b522412f0e152b87b9fdf86722847138e4ef918bfd0455efae9405d3a464b7042abd3cc43aff649dfe0b6d15631e7f686627d872ead')
 validpgpkeys=(
   CBCD8F030588653EEDD7E2659B7DD433F254904A  # Justus Winter <justus@sequoia-pgp.org>
 )
@@ -40,6 +42,7 @@ build() {
   export RUSTUP_TOOLCHAIN=stable
   export CARGO_TARGET_DIR=target
   cd ${pkgname}
+  export ASSET_OUT_DIR="$srcdir/${pkgname}"
   cargo build --release --frozen --all-features
 }
 
@@ -56,8 +59,15 @@ package() {
   )
 
   cd ${pkgname}
-  install -Dm 755 target/release/sqop -t "${pkgdir}/usr/bin"
-  install -Dm 644 man-sqop/*.1 -t "${pkgdir}/usr/share/man/man1"
+  install -Dm 755 -t "${pkgdir}/usr/bin" \
+    target/release/sqop \
+    target/release/sqopv
+
+  install -Dm 644 man-pages/*.1 -t "${pkgdir}/usr/share/man/man1"
+  install -Dm 644 shell-completions/{sqop,sqopv}.bash -t "${pkgdir}/usr/share/bash-completion/completions"
+  install -Dm 644 shell-completions/_{sqop,sqopv} -t "${pkgdir}/usr/share/zsh/site-functions"
+  install -Dm 644 shell-completions/{sqop,sqopv}.fish -t "${pkgdir}/usr/share/fish/vendor_completions.d"
+
   install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
 }
 
