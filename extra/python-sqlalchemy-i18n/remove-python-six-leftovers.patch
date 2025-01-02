@@ -1,0 +1,34 @@
+From 95660717256a9403a4bde3aa8a0490d8437583fc Mon Sep 17 00:00:00 2001
+From: Alexandre Detiste <alexandre.detiste@gmail.com>
+Date: Tue, 7 Nov 2023 12:39:29 +0100
+Subject: [PATCH] remove SIX crumbs
+
+---
+ setup.py | 1 -
+ tox.ini  | 1 -
+ 2 files changed, 2 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 9971cc0..0096661 100644
+--- a/setup.py
++++ b/setup.py
+@@ -52,7 +52,6 @@ def get_version():
+     install_requires=[
+         'SQLAlchemy>=1.3',
+         'SQLAlchemy-Utils>=0.37.3',
+-        'six>=1.4.1'
+     ],
+     python_requires='>=3.6',
+     extras_require=extras_require,
+diff --git a/tox.ini b/tox.ini
+index d05f47a..9a87836 100644
+--- a/tox.ini
++++ b/tox.ini
+@@ -5,7 +5,6 @@ envlist = py36, py37, py38, pypy3
+ deps =
+     pytest
+     psycopg2
+-    six
+     SQLAlchemy>=0.9
+     SQLAlchemy-Utils>=0.25.3
+ commands = py.test --pdb
