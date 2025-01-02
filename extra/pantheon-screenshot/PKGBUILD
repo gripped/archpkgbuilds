@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=pantheon-screenshot
-pkgver=8.0.0
+pkgver=8.0.1
 pkgrel=1
 pkgdesc='The Pantheon Screenshot Tool'
 arch=(x86_64)
@@ -11,20 +11,22 @@ groups=(pantheon)
 depends=(
   gdk-pixbuf2
   glib2
-  gtk3
+  gtk4
   libcanberra
-  libgranite.so
+  libgranite-7.so
   libhandy-1.so
+  libportal
 )
 makedepends=(
+  cmake
   git
   intltool
   meson
   vala
 )
-_tag=1f989fe300eabd89487fb06ff6891e44cd83113a
+_tag=fa364dc1971239c05733721b7267bd9ac49b6dff
 source=(pantheon-screenshot::git+https://github.com/elementary/screenshot.git#tag=${_tag})
-b2sums=('85486d886572d9f8d7ee613f1c260ee4ccabd23aa9a1aa031a42fb0c0559365c5eff644f7d6d685cc28540b6efcaa869918836ac1d1ef06c25a50f1c1ed61c5e')
+b2sums=('6707b8b501ee7b3cea34bf89d6d5d7ec276c829a4862ef57e190ef2866ac4b565c7b898ffa7946751b6b613968f8372184dc1fab84815fe5e370093f0d25bd4b')
 
 pkgver() {
   cd pantheon-screenshot
