@@ -4,14 +4,13 @@
 _pyname=flask-wtf
 pkgname=python-flask-wtf
 pkgver=1.2.1
-pkgrel=4
+pkgrel=5
 pkgdesc='Simple integration of Flask and WTForms'
 url='https://flask-wtf.readthedocs.io/'
 arch=('any')
 license=('BSD-3-Clause')
 depends=('python-flask' 'python-wtforms' 'python-werkzeug' 'python-flask-babel')
-makedepends=('python-build' 'python-installer' 'python-sphinx' 'python-pallets-sphinx-themes'
-             'python-sphinxcontrib-log-cabinet' 'python-sphinx-issues' 'python-hatchling')
+makedepends=('python-build' 'python-installer' 'python-hatchling')
 checkdepends=('python-pytest')
 options=('!makeflags')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/wtforms/flask-wtf/archive/v${pkgver}.tar.gz)
@@ -24,7 +23,6 @@ prepare() {
 
 build() {
   cd ${_pyname}-${pkgver}
-  make -C docs man text SPHINXBUILD=sphinx-build
   python -m build --wheel --no-isolation
 }
 
@@ -39,9 +37,6 @@ package() {
   cd ${_pyname}-${pkgver}
   python -m installer --destdir="${pkgdir}" dist/*.whl
   install -Dm 644 LICENSE.rst -t "${pkgdir}/usr/share/licenses/${pkgname}"
-  install -Dm 644 README.rst  -t "${pkgdir}/usr/share/doc/${pkgname}"
-  cp -r docs/_build/text "${pkgdir}/usr/share/doc/${pkgname}/text"
-  install -Dm 644 docs/_build/man/flask-wtf.1 "${pkgdir}/usr/share/man/man1/${pkgname}.1"
 }
 
 # vim: ts=2 sw=2 et:
