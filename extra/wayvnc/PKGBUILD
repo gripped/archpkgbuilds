@@ -2,8 +2,8 @@
 # Contributor: Andri Yngvason <andri@yngvason.is>
 
 pkgname=wayvnc
-pkgver=0.8.0
-pkgrel=2
+pkgver=0.9.1
+pkgrel=1
 pkgdesc='VNC server for wlroots-based Wayland compositors'
 arch=(x86_64)
 url=https://github.com/any1/wayvnc
@@ -26,15 +26,13 @@ makedepends=(
   scdoc
 )
 optdepends=('pam: PAM authentication')
-_tag=15d09b0f9f971792c1a09a5e53640951b8b74aac
+_tag=e4ec935d29c0aa2de38d9c12dd30d682f83b91c2
 source=(
   git+https://github.com/any1/wayvnc.git#tag=${_tag}
   wayvnc.service
 )
-b2sums=(
-  SKIP
-  083d7ddbf353d06126b76152e51807ed7572684e0c995b71802fcf36ca133c48401126907fcac657271bf9590b4a304a103f7bf9104b73e0699af98f7388f65c
-)
+b2sums=('a4a123ce471c8d1e47f0d8fd8e0fbc01f7c27e93084129e20c8bfb915a291fbc504f795f497d183481abefeec82fcb1d877537be3c699397a8460b7b939d0ee7'
+        '083d7ddbf353d06126b76152e51807ed7572684e0c995b71802fcf36ca133c48401126907fcac657271bf9590b4a304a103f7bf9104b73e0699af98f7388f65c')
 
 pkgver() {
   cd wayvnc
