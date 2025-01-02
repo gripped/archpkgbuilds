@@ -1,0 +1,41 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+
+pkgname=pantheon-wayland
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='Wayland integration library to the Pantheon Desktop'
+arch=(x86_64)
+url=https://github.com/elementary/pantheon-wayland
+license=(LGPL-3.0-only)
+groups=(pantheon)
+depends=(
+  glib2
+  glibc
+  gtk4
+  wayland
+)
+makedepends=(
+  git
+  gobject-introspection
+  meson
+  vala
+)
+_tag=28584e9e59486d60546c9a84ae37f9166435e32d
+source=(git+https://github.com/elementary/pantheon-wayland.git#tag=${_tag})
+b2sums=('bb1decb00f8b65af05aa2ce1f2aba5022fb08a0cb896caf8f12e07c5b6356cb79f253de778208c7d64ade2995c2cb4301f2108f57cca6fcef5ff961f3ab78a3a')
+
+pkgver() {
+  cd pantheon-wayland
+  git describe --tags
+}
+
+build() {
+  arch-meson pantheon-wayland build
+  ninja -C build
+}
+
+package() {
+  DESTDIR="${pkgdir}" ninja -C build install
+}
+
+# vim: ts=2 sw=2 et:
