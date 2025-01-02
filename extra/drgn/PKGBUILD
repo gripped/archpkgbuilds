@@ -3,7 +3,7 @@
 
 pkgname=drgn
 pkgver=0.0.30
-pkgrel=2
+pkgrel=3
 pkgdesc='Programmable debugger'
 arch=('x86_64')
 url='https://github.com/osandov/drgn'
@@ -25,8 +25,15 @@ optdepends=(
     'python-prompt_toolkit: enhanced terminal support in contrib/ptdrgn.py'
 )
 checkdepends=('check')
-source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz")
-sha256sums=('3594ca8095c846f7acd9d723a2304f0171fd740250804633b791b15223b44eed')
+source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz"
+        drgn-fix-libkdumpfile-0_5_5-memory-leak.patch)
+sha256sums=('3594ca8095c846f7acd9d723a2304f0171fd740250804633b791b15223b44eed'
+            '5473bfcaee6874847d75b7cc7bcec1ad0f4dc156934422c584c406a1af2b9bbd')
+
+prepare() {
+    cd $pkgname-$pkgver
+    patch -Np1 < ../drgn-fix-libkdumpfile-0_5_5-memory-leak.patch
+}
 
 build() {
     cd $pkgname-$pkgver
