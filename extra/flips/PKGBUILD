@@ -2,7 +2,7 @@
 # Contributor: Vaporeon <vaporeon@vaporeon.io>
 
 pkgname=flips
-pkgver=181
+pkgver=183
 pkgrel=1
 pkgdesc='A patcher for IPS and BPS files'
 arch=(x86_64)
@@ -19,12 +19,13 @@ depends=(
   harfbuzz
   hicolor-icon-theme
   pango
+  wayland
   zlib
 )
 makedepends=(git)
-_tag=e12ef189900b2c720c6dcd55036a8bb43925ea53
+_tag=07162cac69114bdb4b8a2302d131604c29df853b
 source=(git+https://github.com/Alcaro/Flips.git#tag=${_tag})
-b2sums=('0a0c9f3e7a49111d9bb38f83d51f2abbfd82b5dfce1f4da9ecf8b9f26e51d318d364878c2f2639132697fe0ca3707120905b5e64651f8f8c02e1af6d8e00f109')
+b2sums=('cdf89d07b2e79a373184efb2069c33f22515d5456d86abe417c93dd97d16dcd1ef0c4915e6acff75eb94048c7337d42b351364c2e5523294f47adbe35ad7eaba')
 
 pkgver() {
   cd Flips
