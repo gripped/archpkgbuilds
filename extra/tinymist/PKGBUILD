@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=tinymist
-pkgver=0.12.14
-pkgrel=2
+pkgver=0.12.16
+pkgrel=1
 pkgdesc='an integrated language service for Typst'
 arch=(i686 x86_64)
 url="https://github.com/Myriad-Dreamin/$pkgname"
@@ -14,7 +14,7 @@ makedepends=(cargo)
 replaces=("$pkgname-bin")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('24bd7b64487158f41ca980066fff3b9b95b2d5367d364c62b23974f6a82cfd32')
+sha256sums=('f50a13e3395a5b018664653151a81bf3e1b77b683154622e252ab485e680ef67')
 
 prepare() {
 	cd "$_archive"
