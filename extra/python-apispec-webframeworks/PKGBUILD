@@ -1,31 +1,31 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-apispec-webframeworks
-pkgver=0.5.2
-pkgrel=10
+pkgver=1.2.0
+pkgrel=1
 pkgdesc="Web framework plugins for apispec"
 url="https://github.com/marshmallow-code/apispec-webframeworks"
 license=('MIT')
 arch=('any')
 depends=('python-apispec' 'python-yaml')
-makedepends=('python-setuptools')
-checkdepends=('python-pytest' 'python-bottle' 'python-flask' 'python-tornado')
+makedepends=('python-flit-core' 'python-build' 'python-installer' 'python-wheel')
+checkdepends=('python-pytest' 'python-bottle' 'python-flask' 'python-tornado' 'python-aiohttp')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/marshmallow-code/apispec-webframeworks/archive/$pkgver.tar.gz")
-sha512sums=('56e39f69da7909d6db81c331dc00cb16414832c9393c272d1b1329282ff2e49f36fee51e3e131bf2586d0c2960c08cd4ba5f04f2d984a2d6a73a17942268f2e6')
+sha512sums=('82a43a8c3a888f1d8745751bde6dfe3a59e3b4418a3019962d86a1922cb7e7be8746d9faebc70f010bfdd90b13cdf123feef2f4f6877d205258788620e6707a8')
 
 build() {
   cd apispec-webframeworks-$pkgver
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
   cd apispec-webframeworks-$pkgver
-  pytest .
+  PYTHONPATH=src pytest .
 }
 
 package() {
   cd apispec-webframeworks-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
