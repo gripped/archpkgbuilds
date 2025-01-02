@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=oxyromon
-pkgver=0.19.0
+pkgver=0.20.1
 pkgrel=1
 pkgdesc='Rusty ROM OrgaNizer'
 arch=(x86_64)
@@ -20,6 +20,7 @@ makedepends=(
   mame-tools
   maxcso
   p7zip
+  qt6-base
   rust
   wit
   yarn
@@ -34,10 +35,10 @@ optdepends=(
   'p7zip: 7Z and ZIP support'
   'wit: WBFS support'
 )
-_tag=3435f4e3f83ccf583fde12ddebba6b555fa058db
+_tag=9e8da505458de2a2447142845305b1fa2b70a611
 source=(git+https://github.com/alucryd/oxyromon.git#tag=${_tag})
 validpgpkeys=(95220BE99CE6FF778AE0DC670F65C7D881506130) # Maxime Gauduin <alucryd@archlinux.org>
-b2sums=('830494114f30087de4dc67caf020c7bf72a00471df4627e8c84e64e4b6b885ecfc73cb2bba594d4706df21e75ec61f9f4a4a96889439eddf1b4d2c7b58b40499')
+b2sums=('1791bf25f5c906f5c3a80d331d8746ddabd2a4b3f2ad7c2a3dd0e5d0efaaef8616b3f574786ba760aa86ea211835ccec10389e168d2577fa41b016b1db6b7bc8')
 options=(!lto)
 
 prepare() {
