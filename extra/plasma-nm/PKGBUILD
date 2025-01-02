@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=plasma-nm
-pkgver=6.2.4
+pkgver=6.2.5
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Plasma applet written in QML for managing network connections'
@@ -48,7 +48,7 @@ optdepends=('openconnect: Cisco AnyConnect VPN plugin'
             'qt6-webengine: Cisco AnyConnect VPN plugin')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('f4363f327ccd757fb013dd4bf2992a37a58db6b6627cf2d010f30d5afafd832a'
+sha256sums=('146d76936ce98558839a9a7cf30fa951b7ee6cd3daa7c32d71ccdf157a4f6c68'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
