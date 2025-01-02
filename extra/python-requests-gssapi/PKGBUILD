@@ -1,26 +1,42 @@
-# Maintainer:
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Mantas Mikulėnas <grawity@gmail.com>
 
-_pkgname=requests-gssapi
 pkgname=python-requests-gssapi
-pkgver=1.2.3
-pkgrel=5
+pkgver=1.3.0
+pkgrel=1
 pkgdesc="GSSAPI (HTTP Negotiate) authentication for Python-Requests"
-url="https://github.com/pythongssapi/requests-gssapi"
 arch=(any)
-license=(custom:ISC)
-depends=(python-gssapi python-requests)
-makedepends=(python-setuptools)
-source=(https://github.com/pythongssapi/requests-gssapi/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('0ce61f46476dfd36227d74c330a6e1287236fb5fdb7daa9a54aaa47f0093d815')
+url="https://github.com/pythongssapi/requests-gssapi"
+license=(ISC)
+depends=(
+  python
+  python-gssapi
+  python-requests
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(python-pytest)
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('6f82e7c50c914691a635fe0e29df1d53db693296393af978c622ed1d5a280cae')
 
 build() {
-  cd $_pkgname-$pkgver
-  python setup.py build
+  cd "${pkgname#python-}-$pkgver"
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "${pkgname#python-}-$pkgver"
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest
 }
 
 package() {
-  cd $_pkgname-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  cd "${pkgname#python-}-$pkgver"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
