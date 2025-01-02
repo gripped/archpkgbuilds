@@ -1,22 +1,20 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-apispec
-pkgver=6.0.2
-pkgrel=6
+pkgver=6.8.0
+pkgrel=1
 pkgdesc="A pluggable API specification generator. Currently supports the OpenAPI Specification."
 url="https://github.com/marshmallow-code/apispec"
 license=('MIT')
 arch=('any')
 depends=('python-packaging')
-optdepends=('python-yaml: for yaml support'
-            'python-prance: for validation'
-            'python-openapi-spec-validator: for validation')
-makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
+optdepends=('python-yaml: for yaml support')
+makedepends=('python-flit' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-tornado' 'python-bottle' 'python-marshmallow'
               'python-flask' 'python-prance' 'python-yaml'
               'python-openapi-spec-validator' 'python-pytest')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/marshmallow-code/apispec/archive/$pkgver.tar.gz")
-sha512sums=('aa5e2cc41d5b3c4555da929819135df30192e6f6ff08518d62674495f0d28c14e51a0aa111b289e5f9d7205f821c1fd4e28b914899ea3e15b3e20f6052258117')
+sha512sums=('bec209878a88298ec35c6e68b10f02409ec3d8fdcbbe6d50f99e3e47ff79c2884d0aef1911e713bf7de9f59bad2fd2788698922566bab5d091dd1920548966e8')
 
 build() {
   cd apispec-$pkgver
