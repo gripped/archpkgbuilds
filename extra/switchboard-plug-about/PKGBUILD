@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=switchboard-plug-about
-pkgver=8.0.0
-pkgrel=2
+pkgver=8.1.0
+pkgrel=1
 pkgdesc='Switchboard About Plug'
 arch=(x86_64)
 url=https://github.com/elementary/switchboard-plug-about
@@ -30,22 +30,15 @@ makedepends=(
   meson
   vala
 )
-_tag=2345b890c248794293a7609c72ae40ef97c104e1
+_tag=f688445cf9ea4f08b061b0df9d5f8065239df050
 source=(
   git+https://github.com/elementary/switchboard-plug-about.git#tag=${_tag}
-  fwupd-2.0-compat.patch
 )
-b2sums=('19e2c8e71e5175049b7236191a2ffc67ab32349166881ed8e2447f7232aa8fd7d885d72172fcbffd424e545e15bb3249007063beb9a7e04fb2eae9a6122fd982'
-        '5e61ccd97fd6fd5ead0afe1e1c528834e58c852d6f3bc4f74a2bd2d5e569c3e83d13b6ea7f1e1d36b995a233b5c26a7a86a30828e128ff92af9afd3783efefab')
+b2sums=('9086d0f50515bca1e81714c1878620d009c7de88e2c10835ef39a523ecdb6bbfb934e46b165b97a43bb63fe9faee5b261270087560663588cb956f131ba8d350')
 
 pkgver() {
   cd switchboard-plug-about
   git describe --tags
-}
-
-prepare() {
-  cd switchboard-plug-about
-  patch -Np1 -i ../fwupd-2.0-compat.patch
 }
 
 build() {
