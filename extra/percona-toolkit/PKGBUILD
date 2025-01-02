@@ -4,7 +4,7 @@
 # Contributor: Sławomir Kowalski <suawekk@gmail.com>
 
 pkgname=percona-toolkit
-pkgver=3.6.0
+pkgver=3.7.0
 pkgrel=1
 pkgdesc="Collection of advanced command-line tools to perform a variety of MySQL and system tasks."
 url="https://www.percona.com/software/database-tools/percona-toolkit"
@@ -18,7 +18,7 @@ optdepends=(
 )
 options=('!emptydirs' 'purge' '!lto')
 source=("https://github.com/percona/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('1fa92b3898c43d4434beb16aa11e51327ffd6c4fff6581ad7ea0d6ab0a42de7a')
+sha256sums=('1afa7c9eeec7197cf0d94ece2e7f75383d45064cb30817d45ccf9af5f07ec8a2')
 
 prepare() {
     mkdir -p "$srcdir"/src/github.com/percona
@@ -64,9 +64,12 @@ package() {
     make install DESTDIR="$pkgdir"
     rm -rf "$pkgdir"/usr/lib
 
+    mv "$pkgdir/usr/bin/vendor_perl/"* "$pkgdir/usr/bin/"
+    rm -r "$pkgdir/usr/bin/vendor_perl/"
+
     cd bin
     for bin in *; do
-        if [ ! -f "$pkgdir/usr/bin/vendor_perl/$bin" ]; then
+        if [ ! -f "$pkgdir/usr/bin/$bin" ]; then
             install -Dm755 "$bin" "$pkgdir/usr/bin/$bin"
         fi
     done
