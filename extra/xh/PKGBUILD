@@ -3,7 +3,7 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=xh
-pkgver=0.23.0
+pkgver=0.23.1
 pkgrel=1
 pkgdesc="Friendly and fast tool for sending HTTP requests"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('gcc-libs' 'openssl')
 makedepends=('cargo')
 replaces=('ht-rs' 'ht')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('c44ca41b52b5857895d0118b44075d94c3c4a98b025ed3433652519a1ff967a0')
+sha256sums=('3f7dc6a3c8809f57a32c9aae7a192b54e87702a65d426784c1775676eea2e67f')
 
 prepare() {
   cd "$pkgname-$pkgver"
