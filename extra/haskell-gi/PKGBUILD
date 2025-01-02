@@ -3,8 +3,8 @@
 
 _hkgname=haskell-gi
 pkgname=haskell-gi
-pkgver=0.26.8
-pkgrel=6
+pkgver=0.26.9
+pkgrel=1
 pkgdesc="Generate Haskell bindings for GObject Introspection capable libraries"
 url="https://github.com/haskell-gi/haskell-gi"
 license=("LGPL2")
@@ -13,15 +13,8 @@ depends=('ghc-libs' 'glib2' 'gobject-introspection-runtime' 'haskell-gi-base'
          'haskell-ansi-terminal' 'haskell-attoparsec' 'haskell-pretty-show' 'haskell-safe'
          'haskell-xdg-basedir' 'haskell-xml-conduit' 'haskell-regex-tdfa')
 makedepends=('ghc' 'gobject-introspection' 'haskell-cabal-doctest' 'haskell-doctest')
-source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz"
-        $pkgname-glib-2.80.patch::https://github.com/haskell-gi/haskell-gi/pull/430.patch)
-sha512sums=('2a544919a01dd0090f26a2efe4d1da96de418e05fa0fb508f69a905e391e542ecc8fc522275b37a4beb86cb6d35d739e7478b6b8891df321081cbf3c6890a31e'
-            'ca2f214e0af6f6939632d974db2f6bf8d20aed88203e266fa56f92f6bee178dae8237c6deaabda6386145c9a4908c85e4bbbcc41f82fc467531f2c0efd5cbeb8')
-
-prepare(){
-    cd $_hkgname-$pkgver
-    patch -p1 -i ../$pkgname-glib-2.80.patch
-}
+source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
+sha512sums=('6bc29a2c0f9220f5ddf2e833192535e538a3f88b4319ed300ec7c83ab8c50d46a3af4c48576586f2b4fb621f87e8e2c2209f2a1ef6b1e52e9890369525983a90')
 
 build() {
     cd $_hkgname-$pkgver
