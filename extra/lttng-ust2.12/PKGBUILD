@@ -4,7 +4,7 @@
 # Contributor: Manuel Mendez <mmendez534 at gmail dot com>
 
 pkgname=lttng-ust2.12
-pkgver=2.12.9
+pkgver=2.12.10
 pkgrel=1
 pkgdesc='LTTng user space tracing libraries for LTTng'
 arch=(x86_64)
@@ -21,10 +21,10 @@ depends=(
 )
 makedepends=(git)
 conflicts=(lttng-ust)
-_tag=32b9b7ba68b8705ce6c85e0342069ae6c75b790f
+_tag=6de183f5ea81ed551546ee955a86caf7e966e400
 #source=(git+https://github.com/lttng/lttng-ust.git?signed#tag=${_tag})
 source=(git+https://github.com/lttng/lttng-ust.git#tag=${_tag})
-b2sums=(SKIP)
+b2sums=('650d4e31c1076745525a289b57b04e4de6bfef87de57f2c8e9dc724bb5c36d9071f8e8c16279724cdfbe4785d4a34fa62b47568702b4c65af03e919a9fd0a879')
 validpgpkeys=(2A0B4ED915F2D3FA45F5B16217280A9781186ACF) # Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 
 prepare() {
