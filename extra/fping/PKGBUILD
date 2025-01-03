@@ -3,7 +3,7 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=fping
-pkgver=5.2
+pkgver=5.3
 pkgrel=1
 pkgdesc='Utility to ping multiple hosts at once'
 url='https://www.fping.org/'
@@ -13,9 +13,9 @@ depends=('glibc')
 install=${pkgname}.install
 validpgpkeys=('8D1E89B8FBA920A5A609F2615A11A22BC5A1F734') # David Schweikert <david@schweikert.ch>
 source=("https://www.fping.org/dist/${pkgname}-${pkgver}.tar.gz"{,.asc})
-sha512sums=('062896662804c55ffe2d4e3eb7efc2ff796d20a77b367e16f8fa381e302986b5127ca55f0866bbf08f8ae2b2f6795ec4c5d43dc59ebec157fb3e8eff25d0bdb3'
+sha512sums=('b8cdc6bbd64cc854387b3868843e14d493ddae5ed3edbdc907326e16f1a9418a4bff3c9d07611edd0e78c055bca735ff7d326ef154b34e32b2d2d35956eb06fe'
             'SKIP')
-b2sums=('7efb445f32ffe2d3766d598da5f1585270ae8e68ceb8b64e418040f330e7736bfaf0313077e28b12031af25ed7952943603d3a5908174c3f78d9a1af0b735da9'
+b2sums=('cc7b8bd2c8099c8bfb5e14d5b27f45cf1dc1aef24f941f5bf9c7aede95dac9472d2fe4033e8b7ea66fea8d901b99a7c908e7beff5484c0577c3f88517ef1a7ea'
         'SKIP')
 
 build() {
