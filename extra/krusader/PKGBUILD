@@ -2,7 +2,7 @@
 # Contributor: Lukas Jirkovsky <l.jirkovsky@gmail.com>
 
 pkgname=krusader
-pkgver=2.8.1
+pkgver=2.9.0
 pkgrel=1
 pkgdesc='Advanced twin panel (commander style) file manager'
 arch=(x86_64)
@@ -11,32 +11,36 @@ license=(GPL-2.0-or-later)
 depends=(acl
          gcc-libs
          glibc
-         karchive5
-         kbookmarks5
-         kcodecs5
-         kcompletion5
-         kconfig5
-         kconfigwidgets5
-         kcoreaddons5
-         kguiaddons5
-         ki18n5
-         kiconthemes5
-         kio5
-         kitemviews5
-         kjobwidgets5
-         knotifications5
-         kparts5
-         kservice5
-         ktextwidgets5
-         kwallet5
-         kwidgetsaddons5
-         kwindowsystem5
-         kxmlgui5
-         qt5-base
-         solid5
+         karchive
+         kbookmarks
+         kcodecs
+         kcolorscheme
+         kcompletion
+         kconfig
+         kconfigwidgets
+         kcoreaddons
+         kcrash
+         kglobalaccel
+         kguiaddons
+         ki18n
+         kiconthemes
+         kio
+         kitemviews
+         kjobwidgets
+         kparts
+         kservice
+         kstatusnotifieritem
+         ktextwidgets
+         kwallet
+         kwidgetsaddons
+         kwindowsystem
+         kxmlgui
+         qt6-5compat
+         qt6-base
+         solid
          zlib)
 makedepends=(extra-cmake-modules
-             kdoctools5)
+             kdoctools)
 optdepends=('xz: LZMA and XZ archive support'
             'unzip: ZIP decompression support'
             'zip: ZIP archive support'
@@ -46,19 +50,20 @@ optdepends=('xz: LZMA and XZ archive support'
             'arj: ARJ archive support'
             'unarj: ARJ decompression support'
             'unace: ACE decompression support'
-            'p7zip: 7z archive support'
+            '7zip: 7z archive support'
             # additional apps
             'keditbookmarks: Manage Bookmarks functionality'
             'kde-cli-tools: manage file associations, root mode'
             'kompare: file contents comparison'
             'kdiff3: file contents comparison'
             'krename: advanced rename tool'
-            'konsolepart5: terminal'
-            'ktexteditor5: file editing support')
+            'konsolepart: terminal'
+            'ktexteditor: file editing support')
 source=(https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('37bf204519d0ab1ba40964af02741bc228f11e97f28c4c518ca05d358df18283'
+sha256sums=('c9b79bfade6cc69fe0e341ecef932fcac8afd9fe94e8cbcfbd729feb54394e04'
             'SKIP')
-validpgpkeys=(3381929FB59A539333042D57AD596556DFF2501F) # Nikita Melnichenko <nikita+kde@melnichenko.name>
+validpgpkeys=(3381929FB59A539333042D57AD596556DFF2501F  # Nikita Melnichenko <nikita+kde@melnichenko.name>
+              03D30A1182C9000A769666A250DA16FAE2CC4E5B) # A. Bikadorov <alex.bikadorov@kdemail.net>
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
