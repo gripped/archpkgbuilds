@@ -2,8 +2,8 @@
 
 pkgname=python-flexparser
 _name=${pkgname#python-}
-pkgver=0.3.1
-pkgrel=3
+pkgver=0.4
+pkgrel=1
 pkgdesc="A parser by hgrecco"
 arch=(any)
 url=https://github.com/hgrecco/flexparser
@@ -26,7 +26,7 @@ checkdepends=(
   python-pytest-subtests
 )
 source=("git+$url.git#tag=$pkgver")
-sha256sums=('e3de6665dc91aba4d9657b86824f884a1069ae7e6c00796b2c8a6f09806b6029')
+sha256sums=('ece9f178317c159f38e06c71f3c8c251b204d0ce29a8481b35f3cf385eb28f1c')
 
 prepare() {
 	cd "$_name"
