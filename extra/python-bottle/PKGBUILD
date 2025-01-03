@@ -4,7 +4,7 @@
 # Contributor: Felix Kaiser <felix.kaiser@fxkr.net>
 
 pkgname=python-bottle
-pkgver=0.13.1
+pkgver=0.13.2
 pkgrel=1
 pkgdesc="A fast and simple micro-framework for small web-applications"
 arch=(any)
@@ -21,7 +21,7 @@ optdepends=('python-waitress: Waitress WSGI server'
             'python-cherrypy: Cherrypy WSGI server'
             'python-eventlet: Eventlet server support')
 source=("git+https://github.com/defnull/bottle.git#tag=$pkgver")
-sha512sums=('24d0ae314dc884aa656be81b85618f7cfe2af2da665af5c52fe3f1ca4bbe011128633d9792f73ffadc0a2f9899c363d009cff1b5f2f0b18b092c1abdf8a35aa5')
+sha512sums=('a5971921452501fd0cdb8566ecfcd3706899a898b1e77c89d7e04b794b2d3613d829fce06e7bcdc5e2080c2c171d7ceb529b87d554c6ab13687bef1f7f431bd8')
 
 build() {
   cd bottle
