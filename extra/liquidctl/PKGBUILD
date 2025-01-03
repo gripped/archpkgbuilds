@@ -1,8 +1,8 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
 
 pkgname=liquidctl
-pkgver=1.13.0
-pkgrel=3
+pkgver=1.14.0
+pkgrel=1
 arch=('any')
 url='https://github.com/liquidctl/liquidctl'
 license=('GPL3')
@@ -12,7 +12,7 @@ makedepends=('git' 'python-setuptools-scm' 'python-build' 'python-installer' 'py
 checkdepends=('python-pytest')
 source=("git+$url.git?signed#tag=v$pkgver")
 validpgpkeys=('23F335ED4E829797734B22F65841AF7406AF7AD0') # Jonas Tadeu Silva Malaco Filho <jonas@jonasmalaco.com>
-sha512sums=('SKIP')
+sha512sums=('b33da33556dd39463c36ce66204d76adb8d09aa5208b2637b1ca820b862efc87130518bc576b9da52a0b78614f43e396f0997bb97a901066547b4b0096b5dafa')
 
 prepare() {
   cd "${pkgname}"
