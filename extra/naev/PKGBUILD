@@ -2,8 +2,8 @@
 # Contributor: Johan Rehnberg <cleanrock@gmail.com>
 
 pkgname=naev
-pkgver=0.12.0
-pkgrel=2
+pkgver=0.12.1
+pkgrel=1
 pkgdesc='2D action/rpg space game'
 arch=('x86_64')
 url="https://github.com/naev/naev"
@@ -12,7 +12,7 @@ depends=('glu' 'openal' 'libvorbis' 'sdl2' 'sdl2_image' 'sdl2_mixer' 'libgl' 'li
          'libpng' 'libzip' 'luajit' 'glpk' 'physfs' 'libunibreak' 'suitesparse' 'cblas')
 makedepends=('freeglut' 'zip' 'meson' 'git' 'python-yaml')
 source=("https://github.com/naev/naev/releases/download/v$pkgver/naev-$pkgver-source.tar.xz")
-sha512sums=('1e0700f4ce58740490173f0b2a7e460b43fb269ebeeae54ffc3c8bada73b72fc0860083d2987868dee01b60ec110e7f39099b60367654d4bec04bf9b88ca57e2')
+sha512sums=('d6bbe25d930723fec1786f7160ef72091d1480714bdec2032a8d194aec281ca352eaab0a4b8af538b79068be972cf28fc81d681ff5659733cdc2044ad250a9df')
 
 build() {
   cd "$pkgname-$pkgver"
