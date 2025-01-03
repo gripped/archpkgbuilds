@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=fingerterm
-pkgver=1.4.11
+pkgver=1.4.12
 pkgrel=1
 pkgdesc="A terminal emulator with a custom virtual keyboard"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('GPL-2.0-only')
 depends=('qt5-feedback' 'nemo-qml-plugin-notifications')
 makedepends=('git' 'qt5-tools')
 source=("git+https://github.com/sailfishos/fingerterm.git#tag=$pkgver")
-sha512sums=('7805aff4eb10e50ea13b80abf6f99becd014f3b06a42b4ddd68144766ad90cae245c6714221fa609ac933b2be3c92d51f5c98857d281d079b42dcc7108a00b50')
+sha512sums=('e36c2bcd41d18202dbef203532f678278e2f50dbf622d870687dcdfd5fa6914450ebe218799c83726cd2db76aa5836b93ca32400db0118e1228672d45ca64c3c')
 
 build() {
   cd fingerterm
