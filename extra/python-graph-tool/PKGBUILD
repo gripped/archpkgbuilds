@@ -1,0 +1,67 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+# Contributor: Tiago de Paula Peixoto <tiago@skewed.de>
+
+pkgname=python-graph-tool
+pkgver=2.80
+pkgrel=5
+pkgdesc='A Python module for manipulation and statistical analysis of graphs'
+arch=(x86_64)
+url='https://graph-tool.skewed.de'
+license=(LGPL-3.0-or-later)
+depends=(
+  boost-libs
+  cairomm-1.16
+  expat
+  gcc-libs
+  glib2
+  glibc
+  gmp
+  python
+  python-cairo
+  python-gobject
+  python-numpy
+  python-scipy
+  python-zstandard
+)
+makedepends=(
+  autoconf-archive
+  boost
+  cgal
+  sparsehash
+)
+optdepends=(
+  'graphviz: graph layout'
+  'python-matplotlib: graph drawing'
+)
+source=("https://downloads.skewed.de/graph-tool/graph-tool-$pkgver.tar.bz2")
+sha256sums=('c1a70e075dbe728fad25dc3f5a9a9597880a6d6ff68435b91d21f0b44ef8dbe6')
+
+# LTO causes performance degradation
+options=(!lto)
+
+build() {
+  cd graph-tool-$pkgver
+
+  # disable assertions which lead to runtime performance degradation
+  CXXFLAGS=${CXXFLAGS/-Wp,-D_GLIBCXX_ASSERTIONS/}
+  # the package benefits from -O3 (due to -funswitch-loops and others)
+  export CXXFLAGS=${CXXFLAGS/-O2/-O3}
+
+  ./configure --enable-openmp --prefix=/usr --docdir=/usr/share/doc/$pkgname
+  # prevent excessive overlinking due to libtool
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  make
+}
+
+check() {
+  cd graph-tool-$pkgver
+  make check
+}
+
+package() {
+  cd graph-tool-$pkgver
+  make DESTDIR="$pkgdir" install
+
+  # remove doc subdirectory with unbuilt sphinx sources
+  rm -frv "$pkgdir"/usr/share/doc/$pkgname/doc/
+}
