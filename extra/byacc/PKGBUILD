@@ -6,8 +6,8 @@
 # Contributor: Anton Bazhenov <anton.bazhenov at gmail>
 
 pkgname=byacc
-pkgver=20240109
-pkgrel=2
+pkgver=20241231
+pkgrel=1
 pkgdesc='Berkeley reimplementation of the Unix parser generator Yacc'
 url='https://invisible-island.net/byacc/'
 arch=('x86_64')
@@ -16,7 +16,7 @@ depends=('glibc')
 makedepends=('git')
 replaces=('byacc-noconflict')
 source=(${pkgname}::git+https://github.com/ThomasDickey/byacc-snapshots.git#tag=t${pkgver})
-sha512sums=('49fe527cdbcb68aa56c104fd08ea0310f18363f72eb4bd65347e0a27a35e994017e1a9a83288bb9077251c2dddd9a8c538cfe89e9ce519a7e40c9efdb48c7568')
+sha512sums=('86dd45c8acef0e078448d04078c5cc290952dbf588a98019b4f26984260fb7269b915c6b1207041db6b2df567f5ff5f92120780e39f5c091297c077363285e6c')
 #validpgpkeys=('19882D92DDA4C400C22C0D56CC2AF4472167BE03') # Thomas Dickey <dickey@his.com>
 
 build() {
