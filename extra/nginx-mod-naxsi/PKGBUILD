@@ -1,9 +1,9 @@
 # Maintainer: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
 pkgname=nginx-mod-naxsi
-pkgver=1.6
+pkgver=1.7
 _injectionver=3.10.0
-pkgrel=4
+pkgrel=1
 _modname=naxsi
 pkgdesc='Nginx Anti XSS & SQL Injection'
 arch=('x86_64')
@@ -33,7 +33,7 @@ backup=(
 source=(https://github.com/wargio/$_modname/archive/$pkgver/$_modname-$pkgver.tar.gz
         https://github.com/libinjection/libinjection/archive/refs/tags/v3.10.0/libinjection-3.10.0.tar.gz)
 validpgpkeys=(B0F4253373F8F6F510D42178520A9993A1C052F8) # Maxim Dounin <mdounin@mdounin.ru>
-sha256sums=('e5920fdd09cae155b89eb21a94a21c029ebfdb056c284130221525be54044aae'
+sha256sums=('adee817da71913f64a9fb0fca142d9520bb0e5014b1acc797841cd8e31273f4d'
             '9dd7ae68a21a3c50f705c383b1b714c77fd4093b0a561a5400f0cb0ad79b1ae7')
 
 prepare() {
