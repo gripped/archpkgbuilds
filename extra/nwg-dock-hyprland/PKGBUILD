@@ -2,7 +2,7 @@
 # contributor: Piotr Miller <nwg.piotr@gmail.com>
 
 pkgname=nwg-dock-hyprland
-pkgver=0.4.0
+pkgver=0.4.2
 pkgrel=1
 pkgdesc="GTK3-based dock for Hyprland Wayland compositor"
 url="https://github.com/nwg-piotr/nwg-dock-hyprland"
@@ -12,7 +12,7 @@ depends=('gtk3' 'gtk-layer-shell')
 makedepends=('go' 'gobject-introspection')
 optdepends=('nwg-drawer: default application launcher')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('0198bc2f59104c6936177dd9d80cc71f7f454eb8aead4dfcca3b7936cfc2e9ac')
+sha256sums=('f53a0d62d86598a7f1d96deeca92ee575726c4678b73e2d05b74c847c1f8b543')
 
 prepare(){
         cd "${pkgname}-${pkgver}"
