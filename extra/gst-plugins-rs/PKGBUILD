@@ -47,7 +47,7 @@ pkgname=(
   gst-plugin-togglerecord
   gst-plugin-webrtchttp
 )
-pkgver=0.13.2
+pkgver=0.13.4
 pkgrel=1
 pkgdesc="Multimedia graph framework"
 url="https://gstreamer.freedesktop.org/"
@@ -80,7 +80,7 @@ options=(!lto)
 source=(
   "git+https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs.git?signed#tag=$pkgver"
 )
-b2sums=('48e7bae4e5f71cc144ede1e306bb7954b7493785c451b2d7046be26da8bc4733bde8b81a12273e3b1496ddc8479bb751e75d5a19c82c2504bf6b5255f6914035')
+b2sums=('d16fcd83d195f3bcfd647f07d528c68046c6f09e420dba7c908a5615bd3b7d7f8699c1e6d5b5ca0a3b0df5b4097fa78e70020de3fdae70ecfc684cb6cb721e7b')
 validpgpkeys=(
   7F4BC7CC3CA06F97336BBFEB0668CC1486C2D7B5 # Sebastian Dröge <sebastian@centricular.com>
 )
