@@ -5,7 +5,7 @@
 _hkgname=pandoc-types
 pkgname=haskell-pandoc-types
 pkgver=1.23.1
-pkgrel=33
+pkgrel=34
 pkgdesc="Types for representing a structured document"
 url="https://pandoc.org/"
 license=("BSD")
@@ -19,7 +19,7 @@ sha512sums=('c09dd9966da80e7121d2033d175832fef190f17044f3fa340c554b4f3ec1a288ffe
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
