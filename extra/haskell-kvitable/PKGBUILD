@@ -3,7 +3,7 @@
 _hkgname=kvitable
 pkgname=haskell-kvitable
 pkgver=1.0.3.0
-pkgrel=18
+pkgrel=19
 pkgdesc="Key/Value Indexed Table container and formatting library"
 url="https://github.com/kquick/kvitable"
 license=("custom:ISC")
@@ -17,7 +17,7 @@ sha256sums=('82ed3fbe0ff2eb33d5b2d4b727cd5293e5f90f9433e966413a2a8eda250bc83a')
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
