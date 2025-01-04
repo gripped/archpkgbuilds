@@ -4,7 +4,7 @@
 _hkgname=semigroupoids
 pkgname=haskell-semigroupoids
 pkgver=5.3.7
-pkgrel=153
+pkgrel=154
 pkgdesc="Semigroupoids: Category sans id"
 url="https://github.com/ekmett/semigroupoids"
 license=("BSD")
@@ -19,7 +19,7 @@ sha512sums=('5e908f3b1618cfeb45e03335284e8811ff443f3d7cd8013813337729da62570c052
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -ftagged -fcomonad -fdoctests -fdistributive -fcontravariant -fcontainers -funordered-containers
