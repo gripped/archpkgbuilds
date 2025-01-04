@@ -3,7 +3,7 @@
 _hkgname=openpgp-asciiarmor
 pkgname=haskell-openpgp-asciiarmor
 pkgver=0.1.2
-pkgrel=245
+pkgrel=246
 pkgdesc="OpenPGP (RFC4880) ASCII Armor codec"
 url="http://floss.scru.org/openpgp-asciiarmor"
 license=('MIT')
@@ -16,7 +16,7 @@ sha512sums=('8dc41995d2a8db54304c558efd7ab083f519be35908fc9d69c980ce943c5c1de89e
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
