@@ -3,7 +3,7 @@
 _hkgname=fuzzy
 pkgname=haskell-fuzzy
 pkgver=0.1.1.0
-pkgrel=35
+pkgrel=36
 pkgdesc="Filters a list based on a fuzzy string search."
 url="https://github.com/joom/fuzzy"
 license=("MIT")
@@ -16,7 +16,7 @@ sha512sums=('e2bbb9118af13180fa46bdcb5f764531dc123359cae6070ebadc115e51dc43eefc4
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
