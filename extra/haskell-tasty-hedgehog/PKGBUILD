@@ -3,7 +3,7 @@
 _hkgname=tasty-hedgehog
 pkgname=haskell-tasty-hedgehog
 pkgver=1.4.0.1
-pkgrel=17
+pkgrel=18
 pkgdesc="Integration for tasty and hedgehog"
 url="https://github.com/qfpl/tasty-hedgehog"
 license=('BSD')
@@ -23,7 +23,7 @@ build() {
         _opts=('--disable-tests')
     fi
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
