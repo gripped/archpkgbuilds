@@ -4,7 +4,7 @@
 _hkgname=vector-instances
 pkgname=haskell-vector-instances
 pkgver=3.4.2
-pkgrel=57
+pkgrel=58
 pkgdesc="Orphan Instances for 'Data.Vector'"
 url="https://github.com/ekmett/vector-instances"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('120351ae58dba4161160a20b04696fc72dbdfde9c114fb3e5a232795e297ed13bee
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fhashable
