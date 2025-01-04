@@ -4,7 +4,7 @@
 _hkgname=transformers-base
 pkgname=haskell-transformers-base
 pkgver=0.4.6
-pkgrel=107
+pkgrel=108
 pkgdesc="Lift computations from the bottom of a transformer stack"
 url="https://github.com/mvv/transformers-base"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('b056b01bd5b3d882cf08bc9977c518ed6231d7da529cee61f2f52de886da4b8ee57
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -forphaninstances
