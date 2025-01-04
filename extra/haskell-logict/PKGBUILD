@@ -3,7 +3,7 @@
 _hkgname=logict
 pkgname=haskell-logict
 pkgver=0.7.1.0
-pkgrel=257
+pkgrel=259
 pkgdesc="A backtracking logic-programming monad."
 url="http://code.haskell.org/~dolio/"
 license=('BSD')
@@ -23,7 +23,7 @@ build() {
         _opts=('--disable-tests')
     fi
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
