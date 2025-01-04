@@ -3,22 +3,24 @@
 
 pkgname=zxing-cpp
 pkgver=2.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A C++ library to decode QRCode'
 arch=(x86_64)
 url='https://github.com/nu-book/zxing-cpp'
 license=(Apache)
 depends=(gcc-libs
          glibc)
-makedepends=(cmake)
+makedepends=(cmake
+             git)
 checkdepends=(gtest)
-source=(https://github.com/nu-book/zxing-cpp/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('64e4139103fdbc57752698ee15b5f0b0f7af9a0331ecbdc492047e0772c417ba')
+source=(git+https://github.com/nu-book/zxing-cpp#tag=v$pkgver)
+sha256sums=('1042010b960c29e6d7c5cd99e8c2a887cf84febb918abeb0405bcf12aaf8543c')
 
 build() {
-  cmake -B build -S $pkgname-$pkgver \
+  cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_CXX_FLAGS="$CXXFLAGS -DNDEBUG" \
     -DBUILD_EXAMPLES=OFF \
     -DBUILD_UNIT_TESTS=ON
   cmake --build build
