@@ -3,7 +3,7 @@
 _hkgname=ap-normalize
 pkgname=haskell-ap-normalize
 pkgver=0.1.0.1
-pkgrel=11
+pkgrel=12
 pkgdesc="Self-normalizing applicative expressions"
 url="https://github.com/lysxia/ap-normalize"
 license=('MIT')
@@ -16,7 +16,7 @@ sha512sums=('8566f61303238c8e8d27badf851403a8e2419b06149c25b5236ee2de17f0733eaaf
 build() {
     cd $_hkgname-$pkgver    
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
