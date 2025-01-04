@@ -3,7 +3,7 @@
 _hkgname=ghc-check
 pkgname=haskell-ghc-check
 pkgver=0.5.0.8
-pkgrel=49
+pkgrel=50
 pkgdesc="detect mismatches between compile-time and run-time versions of the ghc api"
 url="https://hackage.haskell.org/package/ghc-check"
 license=("BSD")
@@ -16,7 +16,7 @@ sha512sums=('7e7d4f845c61572e94aac9f2a30a4953670f9bcdc8aa1ccf66a608932b99620d69e
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
