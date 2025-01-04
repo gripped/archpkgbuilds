@@ -4,7 +4,7 @@
 _hkgname=fgl
 pkgname=haskell-fgl
 pkgver=5.8.3.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Martin Erwig's Functional Graph Library"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('1541596a303e048ade3b4ba97e02b4ae9e504e80e47cd30b77d1562d8eff832b272
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fcontainers042
