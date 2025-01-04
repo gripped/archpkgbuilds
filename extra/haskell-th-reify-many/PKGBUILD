@@ -3,7 +3,7 @@
 _hkgname=th-reify-many
 pkgname=haskell-th-reify-many
 pkgver=0.1.10
-pkgrel=111
+pkgrel=112
 pkgdesc="Recurseively reify template haskell datatype info"
 url="https://github.com/mgsloan/th-reify-many"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('9c5b64e791a0649d7e05a471cfc1b6e84e50c90a3711ffd7304c2bd8af9623ba3c0
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
