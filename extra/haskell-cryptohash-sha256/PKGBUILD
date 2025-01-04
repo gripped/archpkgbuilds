@@ -4,7 +4,7 @@
 _hkgname=cryptohash-sha256
 pkgname=haskell-cryptohash-sha256
 pkgver=0.11.102.1
-pkgrel=96
+pkgrel=97
 pkgdesc="Fast, pure and practical SHA-256 implementation"
 url="https://github.com/hvr/cryptohash-sha256"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('fb4432050ab1236fc913ba50949ee52a117b0d74509b58868e8ade69bfc6e89e137
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fexe
