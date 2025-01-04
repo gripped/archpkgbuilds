@@ -3,7 +3,7 @@
 _hkgname=test-framework-th
 pkgname=haskell-test-framework-th
 pkgver=0.2.4
-pkgrel=247
+pkgrel=248
 pkgdesc="Automagically generate the HUnit- and Quickcheck-bulk-code using Template Haskell"
 url="https://github.com/finnsson/test-generator"
 license=('BSD')
@@ -17,7 +17,7 @@ sha512sums=('0e8b6898eb7bf481bafb0c9ff9caa615dbf768e538e26b15ab899c5c9a1ad6bd6ed
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
