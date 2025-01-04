@@ -4,7 +4,7 @@
 _hkgname=critbit
 pkgname=haskell-critbit
 pkgver=0.2.0.0
-pkgrel=259
+pkgrel=260
 pkgdesc="Crit-bit maps and sets"
 url="https://github.com/bos/critbit"
 license=("BSD")
@@ -24,7 +24,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-developer
