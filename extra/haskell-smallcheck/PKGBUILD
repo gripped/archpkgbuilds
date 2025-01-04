@@ -3,7 +3,7 @@
 _hkgname=smallcheck
 pkgname=haskell-smallcheck
 pkgver=1.2.1.1
-pkgrel=52
+pkgrel=54
 pkgdesc="A property-based testing library"
 url="https://github.com/feuerbach/smallcheck"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('8112b48ecf68cc2d1e214dd67ae97319cd2941a8df884d187626f718e40e0f9b1fa
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
