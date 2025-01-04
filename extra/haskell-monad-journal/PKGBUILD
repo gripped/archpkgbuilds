@@ -4,7 +4,7 @@
 _hkgname=monad-journal
 pkgname=haskell-monad-journal
 pkgver=0.8.1
-pkgrel=274
+pkgrel=275
 pkgdesc="Pure logger typeclass and monad transformer"
 url="https://github.com/phaazon/monad-journal"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('3fbc984b3f74d24fca71bc2530832f3748a64e636adfd504fe48e86fefabe53b091
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
