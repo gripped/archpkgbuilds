@@ -5,7 +5,7 @@
 _hkgname=tasty
 pkgname=haskell-tasty
 pkgver=1.4.3
-pkgrel=83
+pkgrel=85
 pkgdesc="Modern and extensible testing framework"
 url="https://github.com/UnkindPartition/tasty"
 license=("MIT")
@@ -18,7 +18,7 @@ sha512sums=('88d4e13bdc6e70a865d9779c9c990b2ce98bb495dd8aa7893254d99ae87e37a696a
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fclock
