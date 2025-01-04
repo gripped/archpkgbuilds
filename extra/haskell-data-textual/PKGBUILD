@@ -3,7 +3,7 @@
 _hkgname=data-textual
 pkgname=haskell-data-textual
 pkgver=0.3.0.3
-pkgrel=339
+pkgrel=340
 pkgdesc="Human-friendly textual representations."
 url="https://github.com/mvv/data-textual"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('36f87d0ad6ef1207d59288013a74efb5458747b03a9ad0d0d5a242672b6f32c562e
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
