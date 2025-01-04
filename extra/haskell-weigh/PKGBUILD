@@ -3,7 +3,7 @@
 _hkgname=weigh
 pkgname=haskell-weigh
 pkgver=0.0.17
-pkgrel=56
+pkgrel=57
 pkgdesc="Measure allocations of a Haskell functions/values"
 url="https://github.com/fpco/weigh"
 license=('BSD')
@@ -17,7 +17,7 @@ sha512sums=('7ef989cef8c73161a338d3f967fe1c063d52d930d71d35eb527a7d8711ed68a115d
 build() {
     cd $_hkgname-$pkgver    
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
