@@ -3,7 +3,7 @@
 _hkgname=should-not-typecheck
 pkgname=haskell-should-not-typecheck
 pkgver=2.1.0
-pkgrel=267
+pkgrel=268
 pkgdesc="A HUnit/hspec assertion library to verify that an expression does not typecheck"
 url="https://github.com/CRogers/should-not-typecheck"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('46ba4435a4408e23dfe6e04f827a7efcfd3c94a4a53a0562061d5cd40c11fcbae75
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
