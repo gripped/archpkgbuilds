@@ -3,12 +3,12 @@
 
 pkgbase=hunspell-es
 pkgname=(hunspell-es_any hyphen-es mythes-es)
-pkgver=2.8
-pkgrel=2
+pkgver=2.9
+pkgrel=1
 epoch=1
 arch=(any)
 url='https://github.com/sbosio/rla-es'
-license=(LGPL3)
+license=(LGPL-3.0-or-later)
 makedepends=(qt6-webengine)
 _countries=(
   'AR "Argentina"'
@@ -47,27 +47,27 @@ for _co in "${_countries[@]}"; do
   }"
 done
 
-sha256sums=('8313cd843bbf235849278ad2ce04eb66a76b22332f68190a1ca7726d7a5c890d'
-            '4114adf962633b57b01e6cf1a73e46bd0651dd4c737b75a968ab7cbf5eea8f46'
-            'a6d73341951f2c60d9d631de5467a77bc3d3399514d615de7f44f67d69582971'
-            '4abc591fa31f83a3405ff7d42ee6325bb0d306adf0c0f8e4f2f29b7aad0f2051'
-            'bba2b1070f7eec88c160aade745729793eeeeee68529481d675654a389e8c0fa'
-            'ca4ef428efde0618ffd63b8a836fe323756b5ab897b4a757b282b4bcaace9c7c'
-            'b9b2e511072c395489fad98d79892c54f7b7fa3568411a98806d8873e8b6e973'
-            '83ada8c5ad5e11ba1c826dd835414436ec880d43c60c8d042025142820357598'
-            '04f7dcb09cac83d7938ff093a37df599800b0907ce096a9b88afe21046e6c589'
-            '7b3984bf12217a9d5d4d33fc30e34a55517a4b9041d0fbde8433be49fa4f7a6c'
-            '7be61504d92c6f2d03f2a1edcf1ebb145db6d8ca460d931f0fdb9adfb21c1c4e'
-            'd3ff8aebee9cc7256d8b31a2e297a0a69b4ec61c1968f39f5b33c8c68d047b7d'
-            '2d93e44e02179c308d10bbc0a1d8a1040352db3d7ffb48eadd09c1d985069703'
-            'd5d8d9ef7238e5a9bc362078b6bf0ff6ada29a84b9acadc4c1d9b0ff48a4d83a'
-            '1f3d0d0afaee6e6a1c540795679b7bc09d2582d238fb327a11b7ab83bd51882e'
-            'd98ed4e94bea269c2ef114c756e5c900cbeccba8c1ec394ad70d58c700bcb791'
-            'e8ef7aeeebb8ebc465f7a6c05b6a2cb641b22a2c7e34c7c20fd189e84d2249ff'
-            '0b273f69f8aaba0bc73f0d8abdedb3d4aad71cb0f6799942161dc17b7e8ff655'
-            '0b6913eb8a6b184eb55ea91eb683122ad7d26cc5ab9fb68f53f14d86a22700ef'
-            'd16cc805c1fd0a93df360fd11e4e71c7f29c68282fd03b403670ee9f2bf7ff84'
-            '9af61a09ce0d9bb81bc88fdfe9c3aab808134c2b3ba8dc21cde513be72569095')
+sha256sums=('b08a1a0e3e044697f63a67184f591f7e2c37bbb53bbfbb4780bcbd84929d6e8c'
+            'e1793f41a686e86b9c59ede1d53046dcbdc43e449ae7640ea340c88dd0e78f5c'
+            '4593bd3d386402d356209966176f6151a2a69de302bd9ac1b3d3a68a18310ff7'
+            'efe92c2939622c6a5793e5d3dde5c617b8cb86a6d0aae6058f6be6ab2fc23a2e'
+            'd47ff4cf5cab98577d9a1913e226e31bc8ade9334c15fd389b97ddc0341a2901'
+            '60d5ce5a47cf78284bf60ac7aef7024d62bec3d89360f2254ca40ec649c56863'
+            'bb488f6601a5c131cd52afa5c8de2c02c6f442d7e742bace2d5c69a5baeb18be'
+            '98836c4a19430d88dcb78ed8d74061e1f19c28e8d9378e357779bb4f0ee44d5e'
+            '33c723d36f447a8c5893f8ffdc00784d156dd5fe75fbf8bba88879472de24ba2'
+            '3eea87836b24b6004aa1ee6fd285b6c71774b0996aec70d096d75d5526efb4ac'
+            '273f152ce66c204c76478a9451f1062247c9043663fb73335eca17ee9b725464'
+            'd08fb5aae91bde07ee7ae26c721bde76621d71ba1767c5c5f12094a88dd5edbe'
+            '8cb7b24f5797eb4749648e7808ce3fcaa80bc668add7894242a4edf2be4a6726'
+            'de46657a0ee6d696c16935a3b118fe99419845b2ab9181c14b493f3afe65f22c'
+            '3a4d0ad8b746c4a088cb6ea0adc1b1ed8f653965486503c1c76bd44f427d1a22'
+            '5ed93708bb2524ae10308665aa079641dbb69d6e1bfd647b62f3b9905d542fca'
+            'aa0a90d1329854b45b4bf42ad83048628d5a34cee80168eaf417c1a4832d929f'
+            'eee4316f9fa65f8085235fd0025cc329870bbd7911fb607712d7f6be0c46a291'
+            '0534c4ccb69346d7e9ffa209a56114ccc74909ebfc3e2f12cb63d60aa701f9bb'
+            '9aee79535df6eaca101222ed538f9ad04c20056270c814d73700c985b8bb73b6'
+            '65515d99ea66308b89bb238f7975c7a3acee1c060e6eaeee45865b1be8d5d38e')
 
 _package() {
   pkgdesc="Spanish ($2) hunspell dictionary"
