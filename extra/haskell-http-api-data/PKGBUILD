@@ -4,7 +4,7 @@
 _hkgname=http-api-data
 pkgname=haskell-http-api-data
 pkgver=0.5.1
-pkgrel=65
+pkgrel=66
 pkgdesc="Converting to/from HTTP API data like URL pieces, headers and query parameters."
 url="https://github.com/fizruk/http-api-data"
 license=("BSD")
@@ -20,7 +20,7 @@ sha512sums=('04518851593fa8a081ca4ba706a7a21a693c0645968720f734df25fe884b5176a12
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-use-text-show
