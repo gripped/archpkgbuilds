@@ -3,7 +3,7 @@
 _hkgname=bimap
 pkgname=haskell-bimap
 pkgver=0.5.0
-pkgrel=63
+pkgrel=64
 pkgdesc="Bidirectional mapping between two key types"
 url="https://github.com/joelwilliamson/bimap"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('677f15b491e5aaf3dd8d96bc79ba8a7702879dbd8f8220b813f45a38608989ae604
 build() {
     cd $_hkgname-$pkgver    
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
