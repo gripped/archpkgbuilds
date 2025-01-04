@@ -4,7 +4,7 @@
 _hkgname=cassava
 pkgname=haskell-cassava
 pkgver=0.5.3.2
-pkgrel=3
+pkgrel=4
 pkgdesc="A CSV parsing and encoding library"
 url="https://github.com/haskell-hvr/cassava"
 license=("BSD")
@@ -20,7 +20,7 @@ sha512sums=('003bd6760041ff03fb973316fadbe16c63aea2b30032d3f27968ad615453c173803
 build() {
     cd $_hkgname
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
