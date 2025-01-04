@@ -3,7 +3,7 @@
 _hkgname=atomic-write
 pkgname=haskell-atomic-write
 pkgver=0.2.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Atomically write to a file"
 url="https://github.com/stackbuilders/atomic-write"
 license=('MIT')
@@ -16,7 +16,7 @@ sha512sums=('5ff555fd3d72de2b613ecd0445e5ec5f45c1ca722947c67709e6c622a52522d05d6
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
