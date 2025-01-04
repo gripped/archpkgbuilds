@@ -3,7 +3,7 @@
 _hkgname=type-errors
 pkgname=haskell-type-errors
 pkgver=0.2.0.2
-pkgrel=29
+pkgrel=30
 pkgdesc="Tools for writing better type errors"
 url="https://github.com/isovector/type-errors"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('5d4f4ec7bf2968e7d13b613fe52725a8f13ace6df798239e4344220a134a84d0e7d
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
