@@ -4,8 +4,8 @@
 pkgname=python-moto
 _pkgname=moto
 # https://github.com/getmoto/moto/blob/master/CHANGELOG.md
-pkgver=5.0.24
-pkgrel=2
+pkgver=5.0.25
+pkgrel=1
 pkgdesc='Moto is a library to mock out the boto library.'
 arch=(any)
 url='https://github.com/spulec/moto'
@@ -54,7 +54,7 @@ checkdepends+=(python-yaml python-joserfc python-openapi-spec-validator python-d
 )
 source=("git+https://github.com/getmoto/moto#tag=$pkgver"
         "fix-tests.diff")
-sha256sums=('b97a62597aea1ff9e47ea9701bbe14ff13d606d0b5eb31f3de68d2d0cd262e69'
+sha256sums=('d797b5fa1b9969c4528f1e499c62a2ffe33dc099fa71d77b40283a75c67fb3cd'
             '21305cdf3d650ced1acb1d0f7dde8760b26e32a94c56a5571e798d6b6976cf5a')
 
 prepare() {
