@@ -4,7 +4,7 @@
 _hkgname=easy-file
 pkgname=haskell-easy-file
 pkgver=0.2.5
-pkgrel=26
+pkgrel=27
 pkgdesc="Cross-platform File handling"
 url="https://github.com/kazu-yamamoto/easy-file"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('d85e5292d65e5f5fd037ab72dd559bccfd4b900d568e3d92ec175ab454292746122
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
