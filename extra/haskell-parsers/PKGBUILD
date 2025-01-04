@@ -4,7 +4,7 @@
 _hkgname=parsers
 pkgname=haskell-parsers
 pkgver=0.12.11
-pkgrel=131
+pkgrel=132
 pkgdesc="Parsing combinators"
 url="https://github.com/ekmett/parsers/"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('7ffa8b092aa731dc263151f755b52126924a8dd0a6c51aa52b044937976ad6410dd
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
         -fbinary -fparsec -fattoparsec
