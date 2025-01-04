@@ -4,7 +4,7 @@
 _hkgname=path
 pkgname=haskell-path
 pkgver=0.9.5
-pkgrel=28
+pkgrel=29
 pkgdesc="Path"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('7d248093b916985726eabc5fe960f3a9b3ce06c8340fc9d5eb24a697543c0dfe310
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
