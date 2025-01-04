@@ -4,7 +4,7 @@
 _hkgname=reflection
 pkgname=haskell-reflection
 pkgver=2.1.8
-pkgrel=4
+pkgrel=5
 pkgdesc="Reifies arbitrary terms into types that can be reflected back into terms"
 url="https://github.com/ekmett/reflection"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('6bd13e435910f591d4c9ad187ebc03978055d8fcaa9ebd075c05a89b22e7f9da860
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -ftemplate-haskell -f-slow
