@@ -4,7 +4,7 @@
 _hkgname=psqueues
 pkgname=haskell-psqueues
 pkgver=0.2.8.0
-pkgrel=15
+pkgrel=16
 pkgdesc="Pure priority search queues"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('95c7d9640269a8dcf082766fdf4622d8d9bb082536b0f9c7d8d95be8c45486867fa
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
