@@ -3,7 +3,7 @@
 _hkgname=prettyprinter-convert-ansi-wl-pprint
 pkgname=haskell-prettyprinter-convert-ansi-wl-pprint
 pkgver=1.1.2
-pkgrel=178
+pkgrel=179
 pkgdesc="Converter from ansi-wl-pprint documents to prettyprinter-based ones."
 url="https://github.com/quchen/prettyprinter"
 license=('custom:BSD2')
@@ -17,7 +17,7 @@ sha512sums=('a90396034b440b3b18d37cbe785d00e757a69fec56cc7ea59a297b32c129b62fa54
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
