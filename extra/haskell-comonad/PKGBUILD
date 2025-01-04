@@ -4,7 +4,7 @@
 _hkgname=comonad
 pkgname=haskell-comonad
 pkgver=5.0.8
-pkgrel=283
+pkgrel=285
 pkgdesc="Comonads"
 url="https://github.com/ekmett/comonad/"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('b823ea36826da74c6ec46cb835493224f62da66516841b9660a04c391dee803c31e
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fdistributive -fcontravariant -fcontainers -ftest-doctests
