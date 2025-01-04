@@ -4,7 +4,7 @@
 _hkgname=STMonadTrans
 pkgname=haskell-stmonadtrans
 pkgver=0.4.8
-pkgrel=10
+pkgrel=11
 pkgdesc="A monad transformer version of the ST monad"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('f2a83d8e00875f7dd454cf2e1c210fd0e662c17f95ad70af1aeff1e2a49ae3d5bd2
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fsplitbase
