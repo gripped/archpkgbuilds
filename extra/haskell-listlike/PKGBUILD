@@ -3,7 +3,7 @@
 _hkgname=ListLike
 pkgname=haskell-listlike
 pkgver=4.7.8.2
-pkgrel=10
+pkgrel=11
 pkgdesc="Generic support for list-like structures"
 url="https://github.com/ddssff/listlike"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('bba76a99d0b946c80a398d792036c91398db8004804e6267aa9aa3d3a66a76a8a51
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
