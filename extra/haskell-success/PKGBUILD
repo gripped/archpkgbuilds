@@ -4,7 +4,7 @@
 _hkgname=success
 pkgname=haskell-success
 pkgver=0.2.6
-pkgrel=281
+pkgrel=282
 pkgdesc="A version of Either specialised for encoding of success or failure"
 url="https://github.com/nikita-volkov/success"
 license=("MIT")
@@ -17,7 +17,7 @@ sha512sums=('be0fc1627fb65e7607cf7753594a0db86ab3feaf4df241808231bd3d3ed1f4be7db
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
