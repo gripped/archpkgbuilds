@@ -5,7 +5,7 @@
 _hkgname=cmark-gfm
 pkgname=haskell-cmark-gfm
 pkgver=0.2.5
-pkgrel=45
+pkgrel=46
 pkgdesc="Fast, accurate GitHub Flavored Markdown parser and renderer"
 url="https://github.com/kivikakk/cmark-gfm-hs"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('693b1581cfb93d43ce12b6273a789a2f1226e70a83e9211cb3172ca644b76ba64b1
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fpkgconfig
