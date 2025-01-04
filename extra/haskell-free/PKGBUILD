@@ -4,7 +4,7 @@
 _hkgname=free
 pkgname=haskell-free
 pkgver=5.1.10
-pkgrel=81
+pkgrel=82
 pkgdesc="Monads for free"
 url="https://github.com/ekmett/free/"
 license=("BSD")
@@ -19,7 +19,7 @@ sha512sums=('f4e4a1463ce97ec061fae8f36e292baa60967bda8195aa8cc20dcc7a6e386232d86
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
