@@ -4,7 +4,7 @@
 _hkgname=vty
 pkgname=haskell-vty
 pkgver=5.39
-pkgrel=4
+pkgrel=5
 pkgdesc="A simple terminal UI library"
 url="https://github.com/jtdaugherty/vty"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('7692a4a1ce0f3b332b23ead8bf49b6ed580d84bea1d40c01fdf732d124c13ae53bf
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
