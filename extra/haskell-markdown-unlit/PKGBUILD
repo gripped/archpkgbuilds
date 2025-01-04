@@ -3,7 +3,7 @@
 _hkgname=markdown-unlit
 pkgname=haskell-markdown-unlit
 pkgver=0.5.1
-pkgrel=164
+pkgrel=165
 pkgdesc="Literate Haskell support for Markdown"
 url="https://github.com/sol/markdown-unlit"
 license=('MIT')
@@ -17,7 +17,7 @@ sha512sums=('a9018d201c81af673eb40398a47a2010b7deb15546b2c67aca59329f8132d42b29d
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
