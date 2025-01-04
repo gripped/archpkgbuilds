@@ -4,7 +4,7 @@
 _hkgname=test-framework-quickcheck2
 pkgname=haskell-test-framework-quickcheck2
 pkgver=0.3.0.5
-pkgrel=681
+pkgrel=684
 pkgdesc="QuickCheck-2 support for the test-framework package"
 url="https://haskell.github.io/test-framework/"
 license=("BSD")
@@ -23,7 +23,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
