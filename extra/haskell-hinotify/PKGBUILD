@@ -4,7 +4,7 @@
 _hkgname=hinotify
 pkgname=haskell-hinotify
 pkgver=0.4.1
-pkgrel=176
+pkgrel=177
 pkgdesc="Haskell binding to inotify"
 url="https://github.com/kolmodin/hinotify"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('2f4627a3604ac6ec5d745ba6f4fd11e39a094ad54a5ab4d5040fe6c7c2a8823e42b
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
