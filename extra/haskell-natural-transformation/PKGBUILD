@@ -4,7 +4,7 @@
 _hkgname=natural-transformation
 pkgname=haskell-natural-transformation
 pkgver=0.4.1
-pkgrel=2
+pkgrel=3
 pkgdesc="A natural transformation package"
 url="https://github.com/ku-fpg/natural-transformation"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('6d2931f2f33bca76c7cb9fa89df710940ce3ebb6c52d2567ca36c931a8b9223c457
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
