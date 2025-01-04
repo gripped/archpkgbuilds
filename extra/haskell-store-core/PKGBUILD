@@ -3,7 +3,7 @@
 _hkgname=store-core
 pkgname=haskell-store-core
 pkgver=0.4.4.7
-pkgrel=9
+pkgrel=10
 pkgdesc="Fast and lightweight binary serialization"
 url="https://github.com/fpco/store"
 license=('MIT')
@@ -16,7 +16,7 @@ sha512sums=('5479c2822170f9c361324ff35a76efebe6c71f1be3cfab293b8f38d8e28e899b1c9
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-force-alignment
