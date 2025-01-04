@@ -3,7 +3,7 @@
 _hkgname=clash-prelude
 pkgname=haskell-clash-prelude
 pkgver=1.8.1
-pkgrel=22
+pkgrel=23
 pkgdesc="Clash: a functional hardware description language - Prelude library"
 url="https://github.com/clash-lang/clash-prelude"
 license=('BSD')
@@ -29,7 +29,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
