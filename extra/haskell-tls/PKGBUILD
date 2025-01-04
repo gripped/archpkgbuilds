@@ -4,7 +4,7 @@
 _hkgname=tls
 pkgname=haskell-tls
 pkgver=1.8.0
-pkgrel=35
+pkgrel=36
 pkgdesc="TLS/SSL protocol native implementation (Server and Client)"
 url="https://github.com/haskell-tls/hs-tls"
 license=("BSD")
@@ -21,7 +21,7 @@ sha512sums=('23463ebbe331e02ed3b8d9c5a4e7dccc0b921898709c600e4a0a7b50575029c00dd
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-hans -fnetwork -fcompat
