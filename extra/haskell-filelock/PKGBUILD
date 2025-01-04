@@ -4,7 +4,7 @@
 _hkgname=filelock
 pkgname=haskell-filelock
 pkgver=0.1.1.7
-pkgrel=17
+pkgrel=18
 pkgdesc="Portable interface to file locking (flock / LockFileEx)"
 url="https://github.com/haskell-pkg-janitors/filelock"
 license=("custom:PublicDomain")
@@ -17,7 +17,7 @@ sha512sums=('ca82dc7efde8a36dc4c7df63609159349d145e7de1fed6b9dcdc8c16b64cdddb3d1
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
