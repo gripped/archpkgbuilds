@@ -4,7 +4,7 @@
 _hkgname=storable-complex
 pkgname=haskell-storable-complex
 pkgver=0.2.3.0
-pkgrel=246
+pkgrel=247
 pkgdesc="Storable instance for Complex"
 url="https://github.com/cartazio/storable-complex"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('26e2dec12e84bdd1ce1eeb6662577179e203e2af12e8f04f5c2fd323a5474645232
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
