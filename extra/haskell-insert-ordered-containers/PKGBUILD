@@ -3,7 +3,7 @@
 _hkgname=insert-ordered-containers
 pkgname=haskell-insert-ordered-containers
 pkgver=0.2.5.3
-pkgrel=58
+pkgrel=59
 pkgdesc="Associative containers retating insertion order for traversals."
 url="https://github.com/phadej/insert-ordered-containers"
 license=('BSD')
@@ -18,7 +18,7 @@ sha512sums=('9e903314911f42b797da75623a4423df19ed1af355f5d00026a84a04738e8cf0dbb
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
