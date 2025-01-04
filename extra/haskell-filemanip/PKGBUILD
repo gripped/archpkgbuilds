@@ -4,7 +4,7 @@
 _hkgname=filemanip
 pkgname=haskell-filemanip
 pkgver=0.3.6.3
-pkgrel=162
+pkgrel=163
 pkgdesc="Expressive file and directory manipulation for Haskell."
 url="https://hackage.haskell.org/package/filemanip"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('5cb6ad4e310c1ae3b038ccfa3154536db73145e4dea4a7be1ae0563ba44565494e3
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
