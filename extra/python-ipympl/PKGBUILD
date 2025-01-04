@@ -5,13 +5,12 @@
 
 _pyname=ipympl
 pkgname=python-$_pyname
-pkgver=0.9.5
-pkgrel=2
+pkgver=0.9.6
+pkgrel=1
 pkgdesc='Matplotlib Jupyter Extension'
 url='https://pypi.org/project/ipympl/'
 depends=(ipython
          python
-         python-ipython-genutils
          python-ipywidgets
          python-matplotlib
          python-numpy
@@ -30,7 +29,7 @@ checkdepends=(python-numpy
 license=(BSD-3-Clause)
 arch=(any)
 source=(git+https://github.com/matplotlib/ipympl#tag=v$pkgver)
-sha256sums=('f5109a5c046473913f1562277c275205b7f01f11a35a9133bbaadbe6ee74bad6')
+sha256sums=('9f449e221bcdc1f5e87562cf8c3c83a00d119c1246e4953ee04f12635f92b178')
 
 prepare() {
   sed -e 's|>=.*\"|\"|g' -e 's|~=.*\"|\"|g' -i $_pyname/pyproject.toml
