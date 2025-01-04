@@ -4,7 +4,7 @@
 _hkgname=language-javascript
 pkgname=haskell-language-javascript
 pkgver=0.7.1.0
-pkgrel=164
+pkgrel=165
 pkgdesc="Parser for JavaScript"
 url="https://github.com/erikd/language-javascript"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('35f935f121cb8aad1a28be50ba8d571ee60bd2c6721eaf9bc7f897cbc4a33b17213
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
