@@ -3,7 +3,7 @@
 
 pkgname=stylish-haskell
 pkgver=0.14.3.0
-pkgrel=25
+pkgrel=26
 pkgdesc="Haskell code prettifier"
 url="https://github.com/haskell/stylish-haskell"
 license=("BSD")
@@ -24,7 +24,7 @@ prepare() {
 build() {
     cd $pkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-ghc-lib --ghc-option='-pie'
