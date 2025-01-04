@@ -4,7 +4,7 @@
 _hkgname=tls-session-manager
 pkgname=haskell-tls-session-manager
 pkgver=0.0.4
-pkgrel=382
+pkgrel=383
 pkgdesc="In-memory TLS session manager"
 url="https://hackage.haskell.org/package/tls-session-manager"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('8516a2a6a12ee33ca3cbfcf33f5108218dcfea54b092a5292cbe0935b1c181d1aa2
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
