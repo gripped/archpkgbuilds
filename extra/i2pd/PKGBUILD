@@ -9,8 +9,8 @@
 # Contributor: r4sas
 
 pkgname=i2pd
-pkgver=2.54.0
-pkgrel=2
+pkgver=2.55.0
+pkgrel=1
 pkgdesc='A full-featured C++ implementation of the I2P router'
 arch=('x86_64')
 url='https://i2pd.website/'
@@ -27,14 +27,16 @@ source=("https://github.com/PurpleI2P/i2pd/archive/${pkgver}/${pkgname}-${pkgver
         '020-i2pd-do-not-override-config.patch'
         '030-i2pd-systemd-service-hardening.patch'
         '040-i2pd-tunnels-d-readme.patch'
+        '050-i2pd-fix-test-aead-chacha20-poly1305.patch'::'https://github.com/PurpleI2P/i2pd/commit/619ec5d9c1dd26df267cc6ef39f463558d309540.patch'
         'i2pd.sysusers'
         'i2pd.tmpfiles')
-sha256sums=('5c3f703417bb5f3e5dda642d39c5d30593a5dcf69d5a5ecfe82d5e8a7d454aaf'
+sha256sums=('f5792a1c0499143c716663e90bfb105aaa7ec47d1c4550b5f90ebfc25da00c6c'
             '2ddf15f1c1cdf5d747a0af667145238023fd126ab00c65f2897cacae935015b1'
             'ed1bde650139731921bf3c8091b3332620404e7700fb9c486a4a806fe34e2d3b'
             '805a82f23c244afbdfae0a4f30d1707301bc0e23437f83d1c84f13c33f62ea28'
             '2b84d85d4234eb3b640925d0dd244c8abe3b48bc69c8456629af923de17acf10'
             'cfcb6b07b67aff3e3af12767f4649d88b9320dc71907b6c01b465e5c138cdaa3'
+            'b768c3fe11e3bf477779f1a6c3928ea947ca4a9cff12c32f2a5ed86f02d49172'
             '2f91fd455ea801df9a9bcc5f3f83def231d9149eec8b206588c8be21654e5b7c'
             'fe8cc2ec83cb5b5c2b2ec8cce9a989e0cb6fd347e00b84e03a17b12efd152fac')
 
@@ -44,6 +46,7 @@ prepare() {
     patch -d "${pkgname}-${pkgver}" -Np1 -i "${srcdir}/020-i2pd-do-not-override-config.patch"
     patch -d "${pkgname}-${pkgver}" -Np1 -i "${srcdir}/030-i2pd-systemd-service-hardening.patch"
     patch -d "${pkgname}-${pkgver}" -Np1 -i "${srcdir}/040-i2pd-tunnels-d-readme.patch"
+    patch -d "${pkgname}-${pkgver}" -Np1 -i "${srcdir}/050-i2pd-fix-test-aead-chacha20-poly1305.patch"
 }
 
 build() {
