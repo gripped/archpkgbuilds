@@ -4,7 +4,7 @@
 _hkgname=test-framework-hunit
 pkgname=haskell-test-framework-hunit
 pkgver=0.3.0.2
-pkgrel=694
+pkgrel=697
 pkgdesc="HUnit support for the test-framework package."
 url="https://batterseapower.github.io/test-framework/"
 license=("BSD")
@@ -21,7 +21,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-base3 -fbase4
