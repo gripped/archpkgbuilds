@@ -3,7 +3,7 @@
 _hkgname=cassava-megaparsec
 pkgname=haskell-cassava-megaparsec
 pkgver=2.1.1
-pkgrel=24
+pkgrel=25
 pkgdesc="Megaparsec parser of CSV files that plays nicely with Cassava"
 url="https://github.com/stackbuilders/cassava-megaparsec"
 license=('MIT')
@@ -17,7 +17,7 @@ sha512sums=('6e35e59e300480261dc8a96773975ae234b7a0e0533358bd1daef86377b6446eaff
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
