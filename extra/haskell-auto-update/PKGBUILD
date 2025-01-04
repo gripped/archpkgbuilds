@@ -4,7 +4,7 @@
 _hkgname=auto-update
 pkgname=haskell-auto-update
 pkgver=0.1.6
-pkgrel=344
+pkgrel=345
 pkgdesc="Efficiently run periodic, on-demand actions"
 url="https://github.com/yesodweb/wai"
 license=("MIT")
@@ -17,7 +17,7 @@ sha512sums=('ff0f4f835d0b24aafbe18dbc42a9c3cc396cea24be3f4b13b5f5dac49b3b21030c9
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
