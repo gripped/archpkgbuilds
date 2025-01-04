@@ -4,7 +4,7 @@
 _hkgname=wai-websockets
 pkgname=haskell-wai-websockets
 pkgver=3.0.1.2
-pkgrel=477
+pkgrel=478
 pkgdesc="Provide a bridge between WAI and the websockets package."
 url="https://github.com/yesodweb/wai"
 license=("MIT")
@@ -18,7 +18,7 @@ sha512sums=('c3415d1a36ca2f063fb1ae0ff7d3d9d271d8ff2c6099a754baed45f1c36f24cf1fa
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-example
