@@ -3,7 +3,7 @@
 _hkgname=interpolatedstring-perl6
 pkgname=haskell-interpolatedstring-perl6
 pkgver=1.0.2
-pkgrel=293
+pkgrel=294
 pkgdesc="QuasiQuoter for Perl6-style multi-line interpolated strings"
 url="https://github.com/audreyt/interpolatedstring-perl6"
 license=('custom:PublicDomain')
@@ -16,7 +16,7 @@ sha512sums=('660e2fafe2f5a03baf16d56fa298e9fe0df677023fff7b3e5d8879910a76066b95a
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
