@@ -4,7 +4,7 @@
 _hkgname=fingertree
 pkgname=haskell-fingertree
 pkgver=0.1.5.0
-pkgrel=74
+pkgrel=75
 pkgdesc="Generic finger-tree structure, with example instances"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('c5a580c64dfe374fe818f1388e4a8870ebfc27bd09137a58fb72afee18d73b8217a
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
