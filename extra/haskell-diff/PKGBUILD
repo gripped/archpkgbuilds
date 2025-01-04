@@ -4,7 +4,7 @@
 _hkgname=Diff
 pkgname=haskell-diff
 pkgver=0.4.1
-pkgrel=80
+pkgrel=81
 pkgdesc="O(ND) diff algorithm in haskell"
 url="https://github.com/seereason/Diff"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('54a3743635812be22747a50db44a1519f6aabd695bb586a406fb917cf328b7036d3
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
