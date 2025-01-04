@@ -4,7 +4,7 @@
 _hkgname=extra
 pkgname=haskell-extra
 pkgver=1.7.16
-pkgrel=6
+pkgrel=7
 pkgdesc="Extra functions I use."
 url="https://github.com/ndmitchell/extra#readme"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('ee10e9105b17a17980c76cf41225ac7a49b85c2a2a6847bb830a9e1ea142ad09a49
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
