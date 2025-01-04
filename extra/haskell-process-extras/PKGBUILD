@@ -4,7 +4,7 @@
 _hkgname=process-extras
 pkgname=haskell-process-extras
 pkgver=0.7.4
-pkgrel=316
+pkgrel=317
 pkgdesc="Process extras"
 url="https://github.com/seereason/process-extras"
 license=('MIT')
@@ -18,7 +18,7 @@ sha512sums=('4747b4bd920796b7b4ddf32d0e72a3af556c9db66c828b725ac7a7467442dad2b0d
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
