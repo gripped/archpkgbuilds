@@ -4,7 +4,7 @@
 _hkgname=aeson-pretty
 pkgname=haskell-aeson-pretty
 pkgver=0.8.10
-pkgrel=19
+pkgrel=20
 pkgdesc="JSON pretty-printing library and command-line tool."
 url="https://github.com/informatikr/aeson-pretty"
 license=("BSD")
@@ -19,7 +19,7 @@ sha512sums=('9eb39f5d70fe841d10c4e9fcacc3b380aa2a377590e8165f11c11318f7cdacb2675
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-lib-only
