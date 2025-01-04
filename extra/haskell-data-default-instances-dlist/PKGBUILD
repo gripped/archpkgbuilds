@@ -3,7 +3,7 @@
 _hkgname=data-default-instances-dlist
 pkgname=haskell-data-default-instances-dlist
 pkgver=0.0.1.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Default instances for types in dlist"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD')
@@ -15,7 +15,7 @@ sha512sums=('9d5819ef3b607b7f2868dc95f2a94890e3d2062879072bd6290b64972474d64b3fb
 
 build() {
     cd ${srcdir}/${_hkgname}-${pkgver}
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid -fnetwork-uri
     runhaskell Setup build $MAKEFLAGS
