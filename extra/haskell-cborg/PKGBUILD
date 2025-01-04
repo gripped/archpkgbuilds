@@ -3,7 +3,7 @@
 _hkgname=cborg
 pkgname=haskell-cborg
 pkgver=0.2.9.0
-pkgrel=55
+pkgrel=56
 pkgdesc="Concise Binary Object Representation (CBOR)"
 url="https://github.com/well-typed/cborg"
 license=('BSD')
@@ -18,7 +18,7 @@ sha512sums=('cc6e8d8a60d6d219c537023c1f618f91b1a886b1163e645d86bf621849530f6a6fa
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
