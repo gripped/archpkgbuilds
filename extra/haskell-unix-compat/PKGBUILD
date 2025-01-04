@@ -6,7 +6,7 @@
 pkgname=haskell-unix-compat
 _hkgname=unix-compat
 pkgver=0.7.2
-pkgrel=7
+pkgrel=8
 pkgdesc="Portable POSIX-compatibility layer."
 url="https://github.com/haskell-pkg-janitors/unix-compat"
 license=('BSD-3-Clause')
@@ -20,7 +20,7 @@ sha512sums=('2d0487a332c6115b675128c62c0b9a6b2d5c9b658cba101d877c629e7d3c60bf397
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
