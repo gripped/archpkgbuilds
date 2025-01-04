@@ -3,7 +3,7 @@
 _hkgname=tf-random
 pkgname=haskell-tf-random
 pkgver=0.5
-pkgrel=718
+pkgrel=722
 pkgdesc='High-quality splittable pseudorandom number generator'
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('a766909571b4b37daaaaa9fa1aa9739bd2db8c32c0f64452fd7c3717f4578090e52
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
