@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=glycin
-pkgver=1.1.2
+pkgver=1.1.4
 pkgrel=1
 pkgdesc="Sandboxed and extendable image decoding"
 arch=(x86_64)
@@ -47,7 +47,7 @@ source=(
   "git+https://gitlab.gnome.org/sophie-h/glycin.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/sophie-h/test-images.git"
 )
-b2sums=('b782f8c392eb93ae7536d93343ffae17d4765a2637775da56c93382b8d38172e4896492448bd3151bc7a22050edeef8f98d80e7327b69fd553b1c51b0fcec298'
+b2sums=('44cecb3b94037fb197ccc539e59da3f1086c9bd86a72f9e345f6df11e857aed9433ea13175d410ffd591f6c377c80d88df21af528085055bdfb8b32802e9ab3c'
         'SKIP')
 
 # Use LTO
