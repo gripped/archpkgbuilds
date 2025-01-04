@@ -3,7 +3,7 @@
 
 pkgname=haskell-src-meta
 pkgver=0.8.13
-pkgrel=2
+pkgrel=3
 pkgdesc="Parse source to template-haskell abstract syntax"
 url="https://github.com/haskell-party/haskell-src-meta"
 license=("BSD")
@@ -16,7 +16,7 @@ sha512sums=('fce4c96505fc065443f4818366ec518579cc47c433c3a487e33a70aafde52cbb452
 build() {
     cd $pkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
