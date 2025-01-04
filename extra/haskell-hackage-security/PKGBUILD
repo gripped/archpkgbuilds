@@ -4,7 +4,7 @@
 _hkgname=hackage-security
 pkgname=haskell-hackage-security
 pkgver=0.6.2.6
-pkgrel=6
+pkgrel=7
 pkgdesc="Hackage security library"
 url="https://github.com/well-typed/hackage-security"
 license=("BSD")
@@ -26,7 +26,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -flukko
