@@ -4,7 +4,7 @@
 _hkgname=wl-pprint-annotated
 pkgname=haskell-wl-pprint-annotated
 pkgver=0.1.0.1
-pkgrel=245
+pkgrel=246
 pkgdesc="Pretty printer with annotation support"
 url="https://github.com/minad/wl-pprint-annotated"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('45f1881254f8b20d9992a477a36a7408d2df8d94f99c71d72d75cd04aee38319668
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
