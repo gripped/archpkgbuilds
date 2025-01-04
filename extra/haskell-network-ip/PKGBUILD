@@ -3,7 +3,7 @@
 _hkgname=network-ip
 pkgname=haskell-network-ip
 pkgver=0.3.0.3
-pkgrel=350
+pkgrel=351
 pkgdesc="Internet Protocol data structures"
 url="https://github.com/mvv/network-ip"
 license=('BSD')
@@ -18,7 +18,7 @@ sha512sums=('0d628e514d3696db04350e54f87f179d5468e983001bfc3865ac65f6f430416c5c1
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
