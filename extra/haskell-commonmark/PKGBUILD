@@ -4,7 +4,7 @@
 _hkgname=commonmark
 pkgname=haskell-commonmark
 pkgver=0.2.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Pure Haskell commonmark parser"
 url="https://github.com/jgm/commonmark-hs"
 license=('BSD')
@@ -17,7 +17,7 @@ sha512sums=('bf2e06ef30ca21aba10634ae1dc09a446353c83f4d792a3a37653d55f0e3e66a878
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
