@@ -2,12 +2,12 @@
 
 pkgname=labplot
 pkgver=2.11.1
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 pkgdesc='KDE Application for interactive graphing and analysis of scientific data'
 url='https://labplot.kde.org/'
 license=(GPL-2.0-or-later)
-depends=(cantor
+depends=(# cantor
          cblas
          cfitsio
          discount
@@ -16,41 +16,58 @@ depends=(cantor
          glibc
          gsl
          hdf5
-         karchive5
-         kcompletion5
-         kconfig5
-         kconfigwidgets5
-         kcoreaddons5
-         kcrash5
-         ki18n5
-         kiconthemes5
-         kio5
-         kparts5
-         ktextwidgets5
-#        kuserfeedback5
-         kwidgetsaddons5
-         kxmlgui5
+         karchive
+         kcolorscheme
+         kcompletion
+         kconfig
+         kconfigwidgets
+         kcoreaddons
+         kcrash
+         ki18n
+         kiconthemes
+         kio
+         ktextwidgets
+         kuserfeedback
+         kwidgetsaddons
+         kxmlgui
          libcerf
+         libixion
          libmatio
+         liborcus
          liborigin
          libxcb
          lz4
          netcdf
-         poppler-qt5
-         qt5-base
-         qt5-mqtt
-         qt5-serialport
-         qt5-svg
-         qxlsx-qt5
+         purpose
+         qt6-base
+         qt6-mqtt
+         qt6-serialport
+         qt6-svg
+         qxlsx
          readstat
-         syntax-highlighting5
+         syntax-highlighting
          vector-blf
          zlib)
-makedepends=(dbc-parser-cpp
+makedepends=(boost
+             dbc-parser-cpp
+             eigen
              extra-cmake-modules
-             kdoctools5)
-source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz)
-sha256sums=('53aa6ac8df39324d99463e60d88de25346b3928da5bb0f210b0563489046679d')
+             kdoctools
+             knewstuff)
+source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz
+        kuserfeedback.patch
+        qxlsx.patch
+        https://invent.kde.org/education/labplot/-/commit/0edfd286.patch)
+sha256sums=('53aa6ac8df39324d99463e60d88de25346b3928da5bb0f210b0563489046679d'
+            'd964ba68a6f563207e095db07a243a9010adfa7dc0b592d4e2f614419e4171b6'
+            '41198660cd4f56a1a8298fc6b8d1247ffacf1e7dc0efe5413dc9eac6e628f217'
+            '998d361b026aa5db9153c73ca930a1843098d8ba4b7b357b1508a6361bb3aa51')
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < kuserfeedback.patch # Fix kuserfeedback detection
+  patch -d $pkgname-$pkgver -p1 < qxlsx.patch # Fix qxlsx detection
+  patch -d $pkgname-$pkgver -p1 < 0edfd286.patch # Fix build
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
