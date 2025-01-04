@@ -3,7 +3,7 @@
 _hkgname=hi-file-parser
 pkgname=haskell-hi-file-parser
 pkgver=0.1.6.0
-pkgrel=17
+pkgrel=18
 pkgdesc="Parser for GHC's hi files"
 url="https://github.com/commercialhaskell/hi-file-parser"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('49a29ce589440aa0554d8c1b26a2e97c2d55aff5e4a0fc63f102d8be4003572b571
 build() {
     cd $_hkgname-$pkgver    
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
