@@ -4,7 +4,7 @@
 _hkgname=Glob
 pkgname=haskell-glob
 pkgver=0.10.2
-pkgrel=95
+pkgrel=96
 pkgdesc="Globbing library"
 url="https://iki.fi/matti.niemenmaa/glob/"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('cd3c3fb00fad3b3e8d9ae2856a76d0d1688885ecec0b083eed87a4c1cf46111df74
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
