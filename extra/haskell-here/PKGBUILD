@@ -4,7 +4,7 @@
 _hkgname=here
 pkgname=haskell-here
 pkgver=1.2.14
-pkgrel=23
+pkgrel=24
 pkgdesc="Here docs & interpolated strings via quasiquotation"
 url="https://github.com/tmhedberg/here"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('e77e22a114fbe187d237354605d4ed01c9e4e38cf6da136f559bca36b6117f4e5b6
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
