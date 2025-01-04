@@ -4,7 +4,7 @@
 _hkgname=turtle
 pkgname=haskell-turtle
 pkgver=1.6.2
-pkgrel=26
+pkgrel=27
 pkgdesc="Shell programming, Haskell-style"
 url="https://github.com/Gabriel439/turtle"
 license=('BSD')
@@ -24,7 +24,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
