@@ -3,7 +3,7 @@
 _hkgname=safe-exceptions
 pkgname=haskell-safe-exceptions
 pkgver=0.1.7.4
-pkgrel=26
+pkgrel=27
 pkgdesc="Safe, consistent, and easy exception handling"
 url="https://github.com/fpco/safe-exceptions"
 license=('MIT')
@@ -16,7 +16,7 @@ sha512sums=('d2b5d10a30a5b61f53c536501d9639d6929f73fa3cd007e7b0cf7835f23d3d2a0d2
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
