@@ -4,7 +4,7 @@
 _hkgname=fast-logger
 pkgname=haskell-fast-logger
 pkgver=3.1.2
-pkgrel=89
+pkgrel=90
 pkgdesc="A fast logging system"
 url="https://github.com/kazu-yamamoto/logger"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('fe034662f090a761bcc79f9a2fbaafc90828f162f2d13a865030b52699ba8a8eadf
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
