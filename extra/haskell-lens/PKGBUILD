@@ -4,7 +4,7 @@
 _hkgname=lens
 pkgname=haskell-lens
 pkgver=5.2.3
-pkgrel=56
+pkgrel=57
 pkgdesc="Lenses, Folds and Traversals"
 url="https://github.com/ekmett/lens/"
 license=("BSD")
@@ -25,7 +25,7 @@ sha512sums=('ec904ace54a4ab0f8f9ebb92541bbee6af8a064d993477d56d84aace811dccbce8a
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-j -ftrustworthy -f-safe -ftest-templates -ftest-properties -ftest-hunit \
