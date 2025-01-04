@@ -4,7 +4,7 @@
 _hkgname=http-types
 pkgname=haskell-http-types
 pkgver=0.12.4
-pkgrel=17
+pkgrel=18
 pkgdesc="Generic HTTP types for Haskell (for both client and server code)."
 url="https://github.com/Vlix/http-types"
 license=('BSD-3-Clause')
@@ -17,7 +17,7 @@ sha512sums=('d386b340c7da67764ca8fb99bd6a72aca275b19758a80fc0449056b1194d000f505
 
 build() {
     cd $_hkgname-$pkgver
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid -fnetwork-uri
     runhaskell Setup build $MAKEFLAGS
