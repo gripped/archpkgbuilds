@@ -3,7 +3,7 @@
 _hkgname=input-parsers
 pkgname=haskell-input-parsers
 pkgver=0.3.0.2
-pkgrel=37
+pkgrel=38
 pkgdesc="Extension of the parsers library with more capability and efficiency"
 url="https://github.com/blamario/input-parsers"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('d18c09afa167f11ce9c7a9f6b95a75ec98694e56cc5a5962356b0d998d56e7f0d0f
 build() {
     cd $_hkgname-$pkgver    
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
         -fbinary -fparsec -fattoparsec
