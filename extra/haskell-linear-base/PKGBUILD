@@ -3,7 +3,7 @@
 _hkgname=linear-base
 pkgname=haskell-linear-base
 pkgver=0.3.0
-pkgrel=71
+pkgrel=72
 pkgdesc="Standard library for linear types"
 url="https://github.com/tweag/linear-base"
 license=("MIT")
@@ -19,7 +19,7 @@ sha256sums=('65e4dafd21f5e2bc709cd65526e09090f348b594814f1068dd68aba48cd0302c')
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
