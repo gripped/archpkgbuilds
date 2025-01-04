@@ -3,7 +3,7 @@
 _hkgname=atomic-primops
 pkgname=haskell-atomic-primops
 pkgver=0.8.7
-pkgrel=2
+pkgrel=3
 pkgdesc="A safe approach to CAS and other atomic ops in Haskell"
 url="https://github.com/rrnewton/haskell-lockfree/wiki"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('3cf49658216bfc7ee0938f81b37a2fbe725ed2aa35ef39f4f0c60891cd55292256b
 build() {
     cd $_hkgname-$pkgver    
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
