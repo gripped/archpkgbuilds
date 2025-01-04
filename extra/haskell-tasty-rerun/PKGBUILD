@@ -4,7 +4,7 @@
 _hkgname=tasty-rerun
 pkgname=haskell-tasty-rerun
 pkgver=1.1.19
-pkgrel=23
+pkgrel=24
 pkgdesc="Rerun only tests which failed in a previous test run"
 url="https://github.com/ocharles/tasty-rerun"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('ba6d801fc69d30648f81d0b0cd14d82b07d93b5a3182627ce0aad21384915a30695
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
