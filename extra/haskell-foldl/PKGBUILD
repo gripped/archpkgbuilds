@@ -4,7 +4,7 @@
 _hkgname=foldl
 pkgname=haskell-foldl
 pkgver=1.4.17
-pkgrel=6
+pkgrel=7
 pkgdesc="Composable, streaming, and efficient left folds"
 url="https://github.com/Gabriella439/foldl"
 license=("BSD")
@@ -19,7 +19,7 @@ sha512sums=('86959d166f33aa19b5d4e34bce09913ab5fffdbc26dd8f1e91bfc7ddfcd49124993
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
