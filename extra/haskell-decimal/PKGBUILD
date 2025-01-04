@@ -4,7 +4,7 @@
 _hkgname=Decimal
 pkgname=haskell-decimal
 pkgver=0.5.2
-pkgrel=131
+pkgrel=132
 pkgdesc="Decimal numbers with variable precision"
 url="https://github.com/PaulJohnson/Haskell-Decimal"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('59a3e9230719ec55ccad2ca54255a93edfcee405154f71f780ef729c03231b552bc
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
