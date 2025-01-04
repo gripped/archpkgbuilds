@@ -3,7 +3,7 @@
 
 pkgname=haskell-zlib
 pkgver=0.6.3.0
-pkgrel=65
+pkgrel=66
 pkgdesc="Compression and decompression in the gzip and zlib formats"
 url="https://hackage.haskell.org/package/zlib"
 license=('BSD')
@@ -20,7 +20,7 @@ prepare() {
 
 build() {
     cd zlib-$pkgver
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-non-blocking-ffi -fpkg-config -f-bundled-c-zlib
