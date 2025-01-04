@@ -5,7 +5,7 @@
 _hkgname=optparse-applicative
 pkgname=haskell-optparse-applicative
 pkgver=0.17.1.0
-pkgrel=39
+pkgrel=41
 pkgdesc="Utilities and combinators for parsing command line options"
 url="https://github.com/pcapriotti/optparse-applicative"
 license=("BSD")
@@ -25,7 +25,7 @@ build() {
         _opts=('--disable-tests')
     fi
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
