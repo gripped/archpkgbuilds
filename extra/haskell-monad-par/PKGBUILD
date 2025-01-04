@@ -4,7 +4,7 @@
 _hkgname=monad-par
 pkgname=haskell-monad-par
 pkgver=0.3.6
-pkgrel=22
+pkgrel=23
 pkgdesc="A library for parallel programming based on a monad"
 url="https://github.com/simonmar/monad-par"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('63d5d04932e9f863908e1faa907836e2c69bce5c1d737ca97cf0cc2075d07585a1f
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-newgeneric -f-chaselev
