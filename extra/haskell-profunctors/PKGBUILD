@@ -4,7 +4,7 @@
 _hkgname=profunctors
 pkgname=haskell-profunctors
 pkgver=5.6.2
-pkgrel=184
+pkgrel=185
 pkgdesc="Profunctors"
 url="https://github.com/ekmett/profunctors/"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('ddf33426fdf52dbe0ffea5c9124e1d35b79696564b8e88bcd7a015b8361634566e5
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
