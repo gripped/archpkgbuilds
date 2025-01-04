@@ -4,7 +4,7 @@
 _hkgname=word-wrap
 pkgname=haskell-word-wrap
 pkgver=0.5
-pkgrel=99
+pkgrel=100
 pkgdesc="A library for word-wrapping"
 url="https://github.com/jtdaugherty/word-wrap/"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('489280b91ba6b26fe16d3ecbaaadc9055887ea63a193c9f03fa839bee024788dc96
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
