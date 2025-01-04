@@ -3,7 +3,7 @@
 _hkgname=configurator
 pkgname=haskell-configurator
 pkgver=0.3.0.0
-pkgrel=410
+pkgrel=411
 pkgdesc="Configuration management"
 url="https://github.com/bos/configurator"
 license=('BSD')
@@ -17,7 +17,7 @@ sha512sums=('0c4c95b3182874c87c4b6b8e74bf8e39ec7528b49f06e9a02baed5fa4aa90a22a95
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-developer
