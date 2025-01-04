@@ -4,7 +4,7 @@
 _hkgname=docopt
 pkgname=haskell-docopt
 pkgver=0.7.0.8
-pkgrel=20
+pkgrel=21
 pkgdesc="A command-line interface parser that will make you smile"
 url="https://github.com/docopt/docopt.hs"
 license=("MIT")
@@ -22,7 +22,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -ftemplate-haskell
