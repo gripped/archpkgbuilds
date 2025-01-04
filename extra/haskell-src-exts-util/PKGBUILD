@@ -3,7 +3,7 @@
 _hkgname=haskell-src-exts-util
 pkgname=haskell-src-exts-util
 pkgver=0.2.5
-pkgrel=322
+pkgrel=323
 pkgdesc="Helper functions for working with haskell-src-exts trees"
 url="https://github.com/pepeiborra/haskell-src-exts-util"
 license=("BSD")
@@ -21,7 +21,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
