@@ -4,7 +4,7 @@
 _hkgname=JuicyPixels
 pkgname=haskell-juicypixels
 pkgver=3.3.8
-pkgrel=36
+pkgrel=37
 pkgdesc="Picture loading/serialization (in png, jpeg, bitmap, gif, tga, tiff and radiance)"
 url="https://github.com/Twinside/Juicy.Pixels"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('28af970743efc2b8b579bc78142192bee31ddba37fb4deaff72f598bea8324b5eeb
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-mmap
