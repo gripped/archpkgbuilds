@@ -3,7 +3,7 @@
 _hkgname=postgresql-simple
 pkgname=haskell-postgresql-simple
 pkgver=0.6.5
-pkgrel=84
+pkgrel=85
 pkgdesc="Mid-Level PostgreSQL client library"
 url="https://github.com/haskellari/postgresql-simple"
 license=("BSD")
@@ -19,13 +19,13 @@ sha256sums=('fda53ab2a72bbe402947526ccb02f9928563eae03e0832bb871c00912e455e96')
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -d bytestring-builder $_hkgname.cabal
+  uusi -d bytestring-builder -u inspection-testing
 }
 
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
