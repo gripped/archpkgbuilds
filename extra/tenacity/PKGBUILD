@@ -8,9 +8,8 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=tenacity
-pkgver=1.3.3
-_commit=ac281fcdf1c4fc75885c98a2b8e5d017fcbb939c
-pkgrel=4
+pkgver=1.3.4
+pkgrel=2
 pkgdesc="An easy-to-use multi-track audio editor and recorder, forked from Audacity"
 arch=(x86_64)
 url="https://tenacityaudio.org"
@@ -51,15 +50,10 @@ makedepends=(
     python
     sdl2
 )
-source=("git+https://codeberg.org/tenacityteam/tenacity.git#commit=${_commit}"
+source=("git+https://codeberg.org/tenacityteam/tenacity.git#tag=v${pkgver}"
         "git+https://codeberg.org/tenacityteam/libnyquist")
-b2sums=('SKIP'
+b2sums=('241f1d3eea9c2a288d9bc1fa046bb5c84bb7f9620008605eb712ce4da2298893da53ab528c25fa7c148dd413be165b80a6639d39a444b681df5274f41ba668b8'
         'SKIP')
-
-pkgver() {
-  cd "${pkgname}"
-  git describe --tags | sed 's/^[vV]//;s/-/+/g'
-}
 
 prepare() {
   cd $pkgname
@@ -85,8 +79,9 @@ build() {
 }
 
 package() {
-  cd tenacity/build
-  make DESTDIR="${pkgdir}" install
+  cd tenacity
+  DESTDIR="$pkgdir" cmake --install build
+
   test -f ${pkgdir}/usr/tenacity && rm ${pkgdir}/usr/tenacity # remove unused launch script
 
   mv "${pkgdir}/usr/share/pixmaps/gnome-mime-application-x-audacity-project.xpm" \
