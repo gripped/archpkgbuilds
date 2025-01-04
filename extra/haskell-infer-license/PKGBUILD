@@ -3,7 +3,7 @@
 _hkgname=infer-license
 pkgname=haskell-infer-license
 pkgver=0.2.0
-pkgrel=254
+pkgrel=255
 pkgdesc="Infer software license from a given license file"
 url="https://github.com/sol/infer-license"
 license=('MIT')
@@ -16,7 +16,7 @@ sha512sums=('266651d9890ccbd9281ef3f9cd16df10f9c6fa8449990b63e956bd13559b1ef773c
 build() {
   cd $_hkgname-$pkgver
   
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
   runhaskell Setup build $MAKEFLAGS
