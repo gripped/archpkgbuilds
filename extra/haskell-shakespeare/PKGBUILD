@@ -4,7 +4,7 @@
 _hkgname=shakespeare
 pkgname=haskell-shakespeare
 pkgver=2.1.0.1
-pkgrel=56
+pkgrel=57
 pkgdesc="A toolkit for making compile-time interpolated templates"
 url="https://www.yesodweb.com/book/shakespearean-templates"
 license=("MIT")
@@ -18,7 +18,7 @@ sha512sums=('c265dcf07f2f355cd2614d882b5bd73a9b7239b3c2b6482d326be5137051ee630b5
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-test_roy -f-test_coffee -f-test_export
