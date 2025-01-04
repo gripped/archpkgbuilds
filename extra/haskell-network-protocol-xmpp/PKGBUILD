@@ -4,7 +4,7 @@
 _hkgname=network-protocol-xmpp
 pkgname=haskell-network-protocol-xmpp
 pkgver=0.4.10
-pkgrel=105
+pkgrel=106
 pkgdesc="Client library for the XMPP protocol."
 url="https://git.sr.ht/~singpolyma/network-protocol-xmpp"
 license=("GPL3")
@@ -18,7 +18,7 @@ sha512sums=('5d809eec7243b081c9b2d8f8887b7ed4e1e767ace90ec0a58142ee6ee5e53556b51
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
