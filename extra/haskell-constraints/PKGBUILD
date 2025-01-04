@@ -4,7 +4,7 @@
 _hkgname=constraints
 pkgname=haskell-constraints
 pkgver=0.13.4
-pkgrel=55
+pkgrel=56
 pkgdesc="Constraint manipulation"
 url="https://github.com/ekmett/constraints/"
 license=("custom:BSD2")
@@ -17,7 +17,7 @@ sha512sums=('3e4cf62ee897cc103332ae1823552c52568fe090968ee763b83a0cc95c978c6766d
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
