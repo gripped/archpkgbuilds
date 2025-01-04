@@ -3,7 +3,7 @@
 _hkgname=invariant
 pkgname=haskell-invariant
 pkgver=0.6.3
-pkgrel=17
+pkgrel=18
 pkgdesc="Haskell98 invariant functors"
 url="https://github.com/nfrisby/invariant-functors"
 license=('custom:BSD2')
@@ -18,7 +18,7 @@ sha512sums=('d3bff53881c1687385ffbc9055bafab82be92a7f5b40d6cf21eae28616660bee61f
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
