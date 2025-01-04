@@ -4,7 +4,7 @@
 _hkgname=servant-swagger
 pkgname=haskell-servant-swagger
 pkgver=1.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Generate Swagger specification for your servant API"
 url="https://github.com/haskell-servant/servant/tree/master/servant-swagger"
 license=("BSD")
@@ -21,7 +21,7 @@ sha512sums=('52efd1dcbb4c55e9a843c857a5684d8e1e7bc7a5ff29acc234b8fdf55b8fe749c87
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
