@@ -4,7 +4,7 @@
 _hkgname=split
 pkgname=haskell-split
 pkgver=0.2.5
-pkgrel=11
+pkgrel=12
 pkgdesc="Combinator library for splitting lists."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('3904b4ad27766f136377bbf4be223e0f701b01dfceadb008be8e05fc3617f679551
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
