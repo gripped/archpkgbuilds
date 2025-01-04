@@ -5,7 +5,7 @@
 _hkgname=texmath
 pkgname=haskell-texmath
 pkgver=0.12.8.6
-pkgrel=7
+pkgrel=8
 pkgdesc="Conversion between math formats."
 url="https://github.com/jgm/texmath"
 license=("GPL2")
@@ -19,7 +19,7 @@ sha512sums=('0e23516071b42656c1dd9638977b94ea993a84575717885da97ed7824c4c6d4c16a
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir="/usr/share/doc/$pkgname" --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
         --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
