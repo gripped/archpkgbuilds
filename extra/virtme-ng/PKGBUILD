@@ -2,9 +2,9 @@
 # Contributor: Manuel Wiesinger <m {you know what belongs here} mmap {and here} at>
 
 pkgname=virtme-ng
-_virtme_ng_init_commit=6e2b515c5c178ba2ae3206933024ad24f658f368
-pkgver=1.31
-pkgrel=3
+_virtme_ng_init_commit=9b1e02a0deb094a36741b6172fb7ea8dc7dd8ddb
+pkgver=1.32
+pkgrel=1
 pkgdesc="A tool that allows to easily and quickly recompile and test a Linux kernel, starting from the source code."
 arch=('x86_64')
 url="https://github.com/arighi/virtme-ng"
@@ -33,8 +33,8 @@ makedepends=(
 optdepends=('virtiofsd: better filesystem performance inside the virtme-ng guests')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/arighi/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz"
        "virtme-init-ng-${_virtme_ng_init_commit}.zip::https://github.com/arighi/virtme-ng-init/archive/${_virtme_ng_init_commit}.zip")
-b2sums=('46ab850a27fde8a81ca588feff5ce2b088ac13b36c07bb409234bbe756920b05632900613cf63b57ded35e0c112be2cbfba20d9eaa878dbe9c1a900e4b09be77'
-        '6ca1d1288a07286bf8a240ec9e0ae955b5126936d51d902276050735df474e3be01d8f5238d08cfa3822a1c9310dcccc84bd69837c8bde1ac49d249f8c6e1d61')
+b2sums=('fe9b197a196e03e8a4e203a875c3541e5d1b4f5d62540795469b8b265caf46b7b9f7766f6c9f4f8a098d72650dcce069a02c8c692cbcc024f7569dad006e0f20'
+        'f78eb6677a9b233097a207f11fed2ab6950a546eed0b5d0d64d2d91ad0f72fc00e58406e93725d2b4af629efc3ee85498d30f6f69cc448c95409977c97f633e5')
 
 prepare() {
     cd "${srcdir}"
