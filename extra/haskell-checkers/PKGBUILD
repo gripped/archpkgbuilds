@@ -3,7 +3,7 @@
 _hkgname=checkers
 pkgname=haskell-checkers
 pkgver=0.6.0
-pkgrel=130
+pkgrel=131
 pkgdesc="Check properties on standard classes and data structures"
 url="https://github.com/haskell-checkers/checkers"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('443bd51924ab1b50b25158d0eacb8fec91e57ad49f7543796ad7600e91ad644bf07
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
