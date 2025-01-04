@@ -3,7 +3,7 @@
 _hkgname=http-common
 pkgname=haskell-http-common
 pkgver=0.8.3.4
-pkgrel=166
+pkgrel=167
 pkgdesc="Common types for HTTP clients and servers"
 url="https://github.com/aesiniath/http-common"
 license=('BSD')
@@ -22,7 +22,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
