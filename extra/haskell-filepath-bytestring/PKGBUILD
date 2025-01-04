@@ -3,7 +3,7 @@
 _hkgname=filepath-bytestring
 pkgname=haskell-filepath-bytestring
 pkgver=1.4.2.1.13
-pkgrel=9
+pkgrel=10
 pkgdesc="Library for manipulating RawFilePaths in a cross platform way"
 url="https://hackage.haskell.org/package/filepath-bytestring"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('51e4fa875b82d7f2b395154cdfe7175286202290811570e9b452946e0f1f3939dee
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
