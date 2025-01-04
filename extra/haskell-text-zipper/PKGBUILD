@@ -4,7 +4,7 @@
 _hkgname=text-zipper
 pkgname=haskell-text-zipper
 pkgver=0.13
-pkgrel=31
+pkgrel=32
 pkgdesc="A text editor zipper library"
 url="https://github.com/jtdaugherty/text-zipper/"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('c1ccfb7b3e9adc97b89f7dfd91ed8d7179de79cab3f1c7f8015be705ee32e933e71
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
