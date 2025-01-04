@@ -4,7 +4,7 @@
 _hkgname=tasty-golden
 pkgname=haskell-tasty-golden
 pkgver=2.3.5
-pkgrel=93
+pkgrel=94
 pkgdesc="Golden tests support for tasty"
 url="https://github.com/feuerbach/tasty-golden"
 license=("MIT")
@@ -18,7 +18,7 @@ sha512sums=('e98935654b0df84a5bbfe36d772c0895b4bb50a6fcc30d305261c3845f7c8a5ab0c
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
