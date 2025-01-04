@@ -4,7 +4,7 @@
 _hkgname=monoid-subclasses
 pkgname=haskell-monoid-subclasses
 pkgver=1.2.5.1
-pkgrel=8
+pkgrel=9
 pkgdesc="Subclasses of Monoid"
 url="https://github.com/blamario/monoid-subclasses/"
 license=('BSD')
@@ -18,7 +18,7 @@ sha512sums=('f8eb5f8b2af86dd858f2a607bc9b8ff2f239cc96b0e524c00a9ecfb3be3ae679bba
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
