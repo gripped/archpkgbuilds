@@ -4,7 +4,7 @@
 _hkgname=quickcheck-assertions
 pkgname=haskell-quickcheck-assertions
 pkgver=0.3.0
-pkgrel=287
+pkgrel=288
 pkgdesc="HUnit like assertions for QuickCheck"
 url="https://github.com/s9gf4ult/quickcheck-assertions"
 license=("LGPL")
@@ -17,7 +17,7 @@ sha512sums=('7a7a2d503ef270b4b6dcb1665bd1b83e0f7f3477b7fb714ed4685d96bb5e2244f5f
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
