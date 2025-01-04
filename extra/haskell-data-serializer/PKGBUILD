@@ -3,7 +3,7 @@
 _hkgname=data-serializer
 pkgname=haskell-data-serializer
 pkgver=0.3.5
-pkgrel=218
+pkgrel=219
 pkgdesc="Common API for serialization libraries"
 url="https://github.com/mvv/data-serializer"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('02c1371f5cf5167818effffbc5d706b1b4b1d45c39c275aa0f6b1abb6d21986493b
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
