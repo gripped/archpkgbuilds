@@ -5,7 +5,7 @@
 _hkgname=QuickCheck
 pkgname=haskell-quickcheck
 pkgver=2.14.3
-pkgrel=78
+pkgrel=81
 pkgdesc='Automatic testing of Haskell programs'
 url='https://hackage.haskell.org/package/QuickCheck'
 license=('BSD')
@@ -19,7 +19,7 @@ build() {
   cd $_hkgname-$pkgver
 
   runhaskell Setup configure \
-    -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir="/usr/share/doc/$pkgname" --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     -ftemplateHaskell
