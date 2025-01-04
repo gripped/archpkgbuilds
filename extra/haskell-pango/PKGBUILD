@@ -3,7 +3,7 @@
 _hkgname=pango
 pkgname=haskell-pango
 pkgver=0.13.11.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Binding to the pango library for Gtk2Hs."
 url="https://hackage.haskell.org/package/pango"
 license=('LGPL2.1')
@@ -19,7 +19,7 @@ sha512sums=('d9cacf72221ca55ecc15e0712a90b14cf8c91569ea0e72bdb3c6e2c1d7a054619ce
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
