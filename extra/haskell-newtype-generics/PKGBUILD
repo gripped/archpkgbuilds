@@ -3,7 +3,7 @@
 _hkgname=newtype-generics
 pkgname=haskell-newtype-generics
 pkgver=0.6.2
-pkgrel=61
+pkgrel=62
 pkgdesc="A typeclass and set of functions for working with newtypes"
 url="https://github.com/sjakobi/newtype-generics"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('31525fe18aa97ff34d9d18f385ec427b577051b583a649d52f6df01634e93fe594f
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
