@@ -3,7 +3,7 @@
 _hkgname=xdg-desktop-entry
 pkgname=haskell-xdg-desktop-entry
 pkgver=0.1.1.2
-pkgrel=15
+pkgrel=16
 pkgdesc="Parse files conforming to the xdg desktop entry spec"
 url="https://github.com/taffybar/xdg-desktop-entry"
 license=("BSD")
@@ -17,7 +17,7 @@ sha256sums=('cfe040c6aa615c917a25ff1c27bfb556ba08aa4a079506e34ecd76c5d57fb6a0')
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
