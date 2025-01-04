@@ -4,7 +4,7 @@
 _hkgname=doctemplates
 pkgname=haskell-doctemplates
 pkgver=0.11
-pkgrel=84
+pkgrel=85
 pkgdesc="Pandoc-style document templates"
 url="https://github.com/jgm/doctemplates"
 license=("BSD")
@@ -19,7 +19,7 @@ sha512sums=('f6e99c7fdc1c2ce4bdac3ff7bd92ad032d9d545f45300bdea46ca09518942adf6ba
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
