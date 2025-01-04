@@ -4,7 +4,7 @@
 _hkgname=brick
 pkgname=haskell-brick0.71
 pkgver=0.71.1
-pkgrel=98
+pkgrel=99
 pkgdesc="A declarative terminal user interface library (legacy 0.71.* version)"
 url="https://github.com/jtdaugherty/brick"
 license=("BSD")
@@ -19,7 +19,7 @@ sha512sums=('f2fe3c32fe663e1c6d7688ebd058d792c5faf30a32997bbc45b828e2f10ec0c6072
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-demos
