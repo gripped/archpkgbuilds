@@ -1,14 +1,14 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=ada
-pkgver=2.9.0
-pkgrel=2
+pkgver=2.9.2
+pkgrel=1
 pkgdesc='WHATWG-compliant and fast URL parser written in modern C++'
 arch=('x86_64')
 url="https://github.com/ada-url/ada"
 license=('Apache-2.0')
 makedepends=('cmake')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-b2sums=('5c9a6e7f02a8ed6a741e7c5bd1617728e5cf8deed5be6ef414024efa785106f5bfdc02f0e469ae3a80cf2b08c9f79a6642e5024bc1cb4fcd6b142b1b1013a224')
+b2sums=('c2531474230837fcc73d780b7d05802df0e50217d8e84ba72af042fbcf37f3eaef228383867010f8ba2787c01e72a0877fb6ff8139d8a46dd5cfb9c2aef05e3f')
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
