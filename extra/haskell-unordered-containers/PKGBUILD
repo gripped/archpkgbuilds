@@ -7,7 +7,7 @@
 _hkgname=unordered-containers
 pkgname=haskell-unordered-containers
 pkgver=0.2.20
-pkgrel=24
+pkgrel=25
 pkgdesc="Efficient hashing-based container types"
 url="https://github.com/haskell-unordered-containers/unordered-containers"
 license=("BSD")
@@ -21,7 +21,7 @@ sha512sums=('836077c204dc5a8f12abd6bfe3de1b6334bcf35c43e0a81025bc154a5450d2c5e70
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-debug
