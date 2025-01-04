@@ -1,0 +1,22 @@
+From ee8277eb93f72a24ca56a97909e0ed7a27f94e19 Mon Sep 17 00:00:00 2001
+From: Christian Hesse <mail@eworm.de>
+Date: Wed, 1 Jan 2025 23:51:02 +0100
+Subject: [PATCH 1/1] create a fully locked system account
+
+https://github.com/systemd/systemd/blob/v257/NEWS#L767-L777
+https://www.freedesktop.org/software/systemd/man/latest/sysusers.d.html#u
+---
+ src/daemon/lldpd.sysusers.conf.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/daemon/lldpd.sysusers.conf.in b/src/daemon/lldpd.sysusers.conf.in
+index 7cbf50a..5c79a3a 100644
+--- a/src/daemon/lldpd.sysusers.conf.in
++++ b/src/daemon/lldpd.sysusers.conf.in
+@@ -2,5 +2,5 @@
+ # @PRIVSEP_USER@:@PRIVSEP_GROUP@
+ 
+ # Type Name ID GECOS Home
+-u @PRIVSEP_USER@ - "lldpd user" @PRIVSEP_CHROOT@
++u! @PRIVSEP_USER@ - "lldpd user" @PRIVSEP_CHROOT@
+ m @PRIVSEP_USER@ @PRIVSEP_GROUP@
