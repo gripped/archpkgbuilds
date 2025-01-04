@@ -6,7 +6,7 @@
 
 pkgname=xmonad-contrib
 pkgver=0.18.1
-pkgrel=8
+pkgrel=9
 pkgdesc='Community-maintained extensions for xmonad'
 url='https://xmonad.org/'
 arch=('x86_64')
@@ -18,7 +18,7 @@ sha512sums=('d9bd1f03d3376b28f2458b69ed8c3be00d2109eaa5b55b94a59774d1515f30501f5
 
 build() {
   cd ${pkgname}-${pkgver}
-  runhaskell Setup.lhs configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup.lhs configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
              --prefix=/usr -fuse_xft --libsubdir=\$compiler/site-local/\$pkgid \
              --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests
   runhaskell Setup build $MAKEFLAGS
