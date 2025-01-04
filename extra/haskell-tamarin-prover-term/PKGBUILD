@@ -4,7 +4,7 @@
 _hkgname=tamarin-prover-term
 pkgname=haskell-tamarin-prover-term
 pkgver=1.10.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Term manipulation library for the tamarin prover"
 url="http://www.infsec.ethz.ch/research/software/tamarin"
 license=("GPL")
@@ -18,7 +18,7 @@ sha512sums=('52ea3e77051208ab2f2b9425988640a2a699adfaaac90d5946d3ce43663ad535f5e
 build() {
     cd tamarin-prover-$pkgver/lib/term
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
