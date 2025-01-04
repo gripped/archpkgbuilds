@@ -4,7 +4,7 @@
 _hkgname=swagger2
 pkgname=haskell-swagger2
 pkgver=2.8.9
-pkgrel=6
+pkgrel=7
 pkgdesc="Swagger 2.0 data model"
 url="https://github.com/GetShopTV/swagger2"
 license=("BSD")
@@ -23,7 +23,7 @@ sha512sums=('5b70ef4b8ba37f1add9fe8d56ce14c45dd1e8161a3b9b86c6e97c5b1d6212a80de8
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
