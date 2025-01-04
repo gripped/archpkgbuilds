@@ -2,7 +2,7 @@
 
 pkgname=haskell-glib
 pkgver=0.13.10.0
-pkgrel=19
+pkgrel=20
 pkgdesc="Binding to the GLIB library for Gtk2Hs."
 url="https://hackage.haskell.org/package/glib"
 license=('LGPL2.1')
@@ -18,7 +18,7 @@ sha512sums=('59f85b442140c12338b9fecb0f51cee5aba64793f2c9baef9b50490024f58b27f6d
 build() {
     cd "${srcdir}/glib-${pkgver}"
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
