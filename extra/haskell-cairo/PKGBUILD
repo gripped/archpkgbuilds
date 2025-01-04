@@ -2,7 +2,7 @@
 
 pkgname=haskell-cairo
 pkgver=0.13.10.0
-pkgrel=8
+pkgrel=9
 pkgdesc="Binding to the cairo library for Gtk2Hs."
 url="https://hackage.haskell.org/package/cairo"
 license=('LGPL2.1')
@@ -18,7 +18,7 @@ sha512sums=('86465f37999144a8330b2921eb7233a6a1e5258ac9debe4c70c515ccc183ed6cc04
 build() {
     cd "${srcdir}/cairo-${pkgver}"
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
