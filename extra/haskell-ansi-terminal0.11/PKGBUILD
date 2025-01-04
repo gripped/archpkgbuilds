@@ -4,7 +4,7 @@
 _hkgname=ansi-terminal
 pkgname=haskell-ansi-terminal0.11
 pkgver=0.11.5
-pkgrel=4
+pkgrel=5
 pkgdesc="Simple ANSI terminal support, with Windows compatibility (legacy 0.11.* release)"
 url="https://github.com/UnkindPartition/ansi-terminal"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('7f0186793171d7e8e89c84cd8976866f17b692f1571ed8b91c19482c5cc25509c7a
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-example
