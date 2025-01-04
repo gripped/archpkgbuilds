@@ -4,7 +4,7 @@
 _hkgname=enclosed-exceptions
 pkgname=haskell-enclosed-exceptions
 pkgver=1.0.3
-pkgrel=258
+pkgrel=259
 pkgdesc="Catching all exceptions from within an enclosed computation"
 url="https://github.com/jcristovao/enclosed-exceptions"
 license=("MIT")
@@ -17,7 +17,7 @@ sha512sums=('68edb501f42f01d8b4bbce374e49295e045650a8b19fdbf527a54458728e61f53c6
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
