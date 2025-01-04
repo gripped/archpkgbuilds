@@ -3,7 +3,7 @@
 _hkgname=minimorph
 pkgname=haskell-minimorph
 pkgver=0.3.0.1
-pkgrel=51
+pkgrel=52
 pkgdesc="English spelling functions with an emphasis on simplicity."
 url="https://github.com/Mikolaj/minimorph"
 license=("BSD")
@@ -16,7 +16,7 @@ sha256sums=('0ff81778ff96766114b3256eb9dc3a38816c510604976d71def45481cdf0e217')
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --datasubdir=haskell-minimorph --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
