@@ -4,20 +4,21 @@
 
 pkgname=gitolite
 pkgver=3.6.13
-pkgrel=3
+pkgrel=4
 pkgdesc='An access control layer on top of git'
 url='https://github.com/sitaramc/gitolite'
 arch=('any')
 license=('GPL2')
 depends=('git' 'perl' 'openssh')
 optdepends=('perl-json: json output')
+install=gitolite.install
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
         '0001-perl-sys-hostname.patch'
         'gitolite-sysusers.conf'
         'gitolite-tmpfiles.conf')
 sha256sums=('b8ebd9f0ad89d1d7494da37883636f9475ef254cd018c8a54d21e678f4bf2b2a'
             '60775fcf967599ba2d48cdb21591a3150c7314f74e50579b040fc6bc05f0325f'
-            'ec26dcc194ae1bea33d99744a51673c22542b1e2ed0273a43affef9a2ba29c57'
+            'ba1b125fc8541aab6884559450e0f7121734112bfb4bec6646819b94da17efb9'
             '5682190c639618cd4744d3ae193425df1044dde4fb36acf03fc4d20423eeb10c')
 
 prepare() {
