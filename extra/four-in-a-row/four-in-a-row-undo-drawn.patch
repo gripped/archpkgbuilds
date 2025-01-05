@@ -1,0 +1,28 @@
+From 2fa3e000a68fc170b6209f818b4b2f308763eaa4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 5 Jan 2025 16:52:57 +0100
+Subject: [PATCH] Don't assert when the last winner is nobody
+
+Actually it's valid when the last match is drawn.
+
+Closes: https://gitlab.gnome.org/GNOME/four-in-a-row/-/issues/30
+---
+ src/scorebox.vala | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/src/scorebox.vala b/src/scorebox.vala
+index 7077dcb9..2f0a3182 100644
+--- a/src/scorebox.vala
++++ b/src/scorebox.vala
+@@ -174,8 +174,6 @@ private class Scorebox : Dialog
+ 
+     internal void unwin ()
+     {
+-        if (last_winner == Player.NOBODY)
+-            assert_not_reached ();
+         scores [last_winner]--;
+         last_winner = Player.NOBODY;
+         update ();
+-- 
+GitLab
+
