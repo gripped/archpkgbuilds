@@ -4,7 +4,7 @@
 _hkgname=uuid-types
 pkgname=haskell-uuid-types
 pkgver=1.0.5.1
-pkgrel=21
+pkgrel=22
 pkgdesc="Type definitions for Universally Unique Identifiers"
 url="https://github.com/aslatter/uuid"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('36f6c1a1723680ef426d15f492f59f8f5350ec967496b373caee1e32305b4407880
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
