@@ -2,7 +2,7 @@
 
 pkgname=freecell-solver
 pkgver=6.12.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A program that automatically solves layouts of Freecell and similar variants of Card Solitaire'
 arch=(x86_64)
 url='https://fc-solve.shlomifish.org'
@@ -22,7 +22,7 @@ optdepends=('python-pysol_cards: for the Python interface'
 source=(https://fc-solve.shlomifish.org/downloads/fc-solve/$pkgname-$pkgver.tar.xz
         no-random2.patch)
 sha256sums=('a2b89e804ce4b918ef749031676210f2095fea3a8cb129805602843c7c4884a0'
-            'a384e89e557d56d6c28296f24378dfbfbbb8000250a73f885051fc75b18b57b8')
+            '1546187f3ae12c8128d079a926a997cee533fb4a1a3c66599c6bcc0ed5554b72')
 
 prepare() {
   patch -d $pkgname-$pkgver -p3 < no-random2.patch # Stop searching for unused random2

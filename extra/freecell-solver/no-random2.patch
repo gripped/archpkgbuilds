@@ -1,8 +1,8 @@
 diff --git a/fc-solve/source/CMakeLists.txt b/fc-solve/source/CMakeLists.txt
-index 95a49d13f..f820c81df 100644
+index 95a49d13f..09900bf3f 100644
 --- a/fc-solve/source/CMakeLists.txt
 +++ b/fc-solve/source/CMakeLists.txt
-@@ -1018,13 +1018,6 @@ ENDFUNCTION()
+@@ -1018,18 +1018,11 @@ ENDFUNCTION()
  
  IF (NOT "${_PYTHON3}" STREQUAL "_PYTHON3-NOTFOUND")
      SET (found_python3 "1")
@@ -16,3 +16,9 @@ index 95a49d13f..f820c81df 100644
      ASSERT_PYTHON3_MODULE_PRESENCE("six" "")
      ASSERT_PYTHON3_MODULE_PRESENCE("pysol_cards" "")
  ENDIF ()
+ 
+-IF (found_python3_random2)
++IF ("TRUE")
+     FOREACH(idx 24 164 981 1941 11982 1107600547)
+         GEN_BOARD("${idx}")
+     ENDFOREACH(idx)
