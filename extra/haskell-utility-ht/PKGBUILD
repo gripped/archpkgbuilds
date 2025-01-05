@@ -4,7 +4,7 @@
 _hkgname=utility-ht
 pkgname=haskell-utility-ht
 pkgver=0.0.17.2
-pkgrel=6
+pkgrel=7
 pkgdesc="Various small helper functions for Lists, Maybes, Tuples, Functions"
 url="http://www.haskell.org/haskellwiki/Utility-HT"
 license=("BSD")
@@ -24,7 +24,7 @@ build() {
         _opts=('--disable-tests')
     fi
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
