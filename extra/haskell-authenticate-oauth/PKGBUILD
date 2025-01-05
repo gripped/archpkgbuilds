@@ -3,7 +3,7 @@
 _hkgname=authenticate-oauth
 pkgname=haskell-authenticate-oauth
 pkgver=1.7
-pkgrel=240
+pkgrel=241
 pkgdesc="Library to authenticate with OAuth for Haskell web applications."
 url="https://github.com/yesodweb/authenticate"
 license=('BSD')
@@ -18,7 +18,7 @@ sha512sums=('c216d05051971715a834f2831278833fb685d91b7c0c8c1cf9732a3b39795a2dcf5
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
