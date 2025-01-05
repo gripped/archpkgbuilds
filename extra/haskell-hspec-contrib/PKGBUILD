@@ -3,7 +3,7 @@
 _hkgname=hspec-contrib
 pkgname=haskell-hspec-contrib
 pkgver=0.5.2
-pkgrel=31
+pkgrel=32
 pkgdesc="Contributed functionality for Hspec"
 url="https://hspec.github.io/"
 license=('MIT')
@@ -16,7 +16,7 @@ sha512sums=('2d3e5e87820fdfcd9a4ed41a754ac54ca962229b965d89b22bc61f923ba7b55553a
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
