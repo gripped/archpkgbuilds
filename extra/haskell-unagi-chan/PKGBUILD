@@ -3,7 +3,7 @@
 _hkgname=unagi-chan
 pkgname=haskell-unagi-chan
 pkgver=0.4.1.4
-pkgrel=92
+pkgrel=93
 pkgdesc="Fast concurrent queues with a Chan-like API, and more"
 url="https://github.com/jberryman/unagi-chan"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('2b4e23cbb0706dbcf4aeb820901b4b1c357a136472ff065c42dd58f6cfbb3c8e87b
 build() {
     cd $_hkgname-$pkgver    
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
