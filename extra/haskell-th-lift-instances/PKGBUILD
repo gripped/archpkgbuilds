@@ -3,7 +3,7 @@
 _hkgname=th-lift-instances
 pkgname=haskell-th-lift-instances
 pkgver=0.1.20
-pkgrel=52
+pkgrel=53
 pkgdesc="Lift instances for template-haskell for common data types."
 url="https://github.com/bennofs/th-lift-instances/"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('bb43b13df8fb939a79a3fc1099900fcaa8741eb61b8f5574b7d7b68c220acc0cbb9
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
