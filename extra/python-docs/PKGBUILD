@@ -1,24 +1,21 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 # Contributor: Rohan Dhruva (rohandhruva at gmail dot com)
 
 pkgname=python-docs
-pkgver=3.11.3
-pkgrel=3
+pkgver=3.13.1
+pkgrel=1
 pkgdesc="Set of HTML documentation for python"
+url="https://www.python.org/doc"
 arch=('any')
-url="https://docs.python.org/py3k/"
-license=('GPL')
+license=('PSF-2.0')
 options=('docs')
-source=(https://sources.archlinux.org/other/packages/python-docs/python-$pkgver-docs-html.tar.bz2)
-sha256sums=('8af1ff8163810b328a0f9ce0e88fc430b0fe6a54a99dfd3265dded3bf547ccb9')
+source=("${pkgname}-${pkgver}.tar.bz2::https://www.python.org/ftp/python/doc/${pkgver}/python-${pkgver}-docs-html.tar.bz2")
+sha256sums=('238ac8153a50c8be09c136f5d02479c50a5eb91a0bd11869d22589fac654947d')
 
 package() {
-  mkdir -p "$pkgdir"/usr/share/doc/python/html
-  cp -rf "$srcdir"/python-$pkgver-docs-html/* "$pkgdir"/usr/share/doc/python/html/
-  find "$pkgdir"/usr/share/doc/python/html/ -type f -exec chmod 0644 {} \;
-  find "$pkgdir"/usr/share/doc/python/html/ -type d -exec chmod 0755 {} \;
-  install -dm0755 "$pkgdir"/etc/profile.d
-  echo "export PYTHONDOCS=/usr/share/doc/python/html/library" >"$pkgdir"/etc/profile.d/$pkgname.sh
-  echo "setenv PYTHONDOCS /usr/share/doc/python/html/library" >"$pkgdir"/etc/profile.d/$pkgname.csh
+	cd "python-${pkgver}-docs-html"
+	install -dm 755 "${pkgdir}/usr/share/doc/python/html"
+	cp -r * "${pkgdir}/usr/share/doc/python/html/"
 }
