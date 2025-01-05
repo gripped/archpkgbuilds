@@ -4,7 +4,7 @@
 _hkgname=string-conversions
 pkgname=haskell-string-conversions
 pkgver=0.4.0.1
-pkgrel=176
+pkgrel=177
 pkgdesc="Simplifies dealing with different types for strings"
 url="https://github.com/soenkehahn/string-conversions"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('8bd015215d1a8a48f01abf95f53bd75f67c83dc48c5b4c4f0731e9da924f99c18e9
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
