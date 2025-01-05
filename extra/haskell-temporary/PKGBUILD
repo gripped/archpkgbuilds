@@ -4,7 +4,7 @@
 _hkgname=temporary
 pkgname=haskell-temporary
 pkgver=1.3
-pkgrel=602
+pkgrel=605
 pkgdesc="Portable temporary file and directory support"
 url="https://www.github.com/batterseapower/temporary"
 license=("BSD")
@@ -24,7 +24,7 @@ build() {
         _opts=('--disable-tests')
     fi
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
