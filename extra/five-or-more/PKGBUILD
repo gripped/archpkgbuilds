@@ -3,25 +3,25 @@
 
 pkgname=five-or-more
 pkgver=3.32.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Remove colored balls from the board by forming lines"
-url="https://wiki.gnome.org/Apps/Five%20or%20more"
+url="https://wiki.gnome.org/Apps/Five(20)or(20)more"
 arch=(x86_64)
 license=(GPL)
 depends=(gtk3 librsvg libgnome-games-support)
 makedepends=(gobject-introspection yelp-tools appstream-glib git meson vala)
 groups=(gnome-extra)
-_commit=3cf5c431460ff812bc4af59e41772aa7dbe4e68f  # tags/3.32.3^0
-source=("git+https://gitlab.gnome.org/GNOME/five-or-more.git#commit=$_commit")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/five-or-more.git#tag=$pkgver"
+        five-or-more-new-game.patch)
+b2sums=('4fa1320ffcc5fc8ca30d1bc81af90a4047805c368281b2d52ad4f63bed56bbeec338bc12ddbe73fa95739bfcc2a415bbca3ba43a3f9d493b0989d349786b34b6'
+        '9242a23b7a5e84a06d803f190f6e3471fb4ce4022c851418bd18d6ca0f5f89942f6a767a629c58f2408d5ee046f3c0b69fd41858d044c23dbe554c44f8a6e0ff')
 
 prepare() {
   cd $pkgname
+
+  # Reset positions when the board is changed
+  # https://gitlab.gnome.org/GNOME/five-or-more/-/merge_requests/29
+  git apply -3 ../five-or-more-new-game.patch
 }
 
 build() {

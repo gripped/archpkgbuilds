@@ -1,0 +1,29 @@
+From 26ed0fa6511a63c20f111409256163aabf77836b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 5 Jan 2025 14:59:46 +0100
+Subject: [PATCH] Reset positions when the board is changed
+
+Closes: https://gitlab.gnome.org/GNOME/five-or-more/-/issues/25
+---
+ src/view.vala | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/view.vala b/src/view.vala
+index 55414b8..e58ebc2 100644
+--- a/src/view.vala
++++ b/src/view.vala
+@@ -98,6 +98,11 @@ private class View : DrawingArea
+         board_rectangle.x = board_rectangle.y = 0;
+         update_sizes (MINIMUM_BOARD_SIZE, MINIMUM_BOARD_SIZE);
+         game.board.board_changed.connect (() => {
++            start_x = -1;
++            start_y = -1;
++            end_x = -1;
++            end_y = -1;
++
+             show_cursor = false;
+             keyboard_cursor_x = -1;
+             keyboard_cursor_y = -1;
+-- 
+GitLab
+
