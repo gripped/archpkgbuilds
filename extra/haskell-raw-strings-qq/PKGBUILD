@@ -3,7 +3,7 @@
 _hkgname=raw-strings-qq
 pkgname=haskell-raw-strings-qq
 pkgver=1.1
-pkgrel=228
+pkgrel=229
 pkgdesc="Raw string literals for Haskell"
 url="https://github.com/23Skidoo/raw-strings-qq"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('9daf7acad6619c9d077b49591003f2c42baca060b20202f597c7468da765a59add2
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
