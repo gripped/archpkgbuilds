@@ -3,7 +3,7 @@
 _hkgname=hspec-core
 pkgname=haskell-hspec-core
 pkgver=2.10.9
-pkgrel=114
+pkgrel=120
 pkgdesc="A Testing Framework for Haskell"
 url="https://hspec.github.io/"
 license=('MIT')
@@ -30,7 +30,7 @@ build() {
         _opts=('--disable-tests')
     fi
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
