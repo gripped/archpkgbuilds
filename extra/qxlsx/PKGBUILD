@@ -1,54 +1,31 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 # Contributor: Carlos Aznarán <caznaranl@uni.pe>
 
-pkgbase=qxlsx
-pkgname=(qxlsx-qt5
-         qxlsx-qt6)
-pkgver=1.4.9
-pkgrel=1
+pkgname=qxlsx
+pkgver=1.5.0
+pkgrel=2
 pkgdesc='Excel file reader/writer library using Qt'
 arch=(x86_64)
 url='https://github.com/QtExcel/QXlsx'
 license=(MIT)
 depends=(gcc-libs
-         glibc)
+         glibc
+         qt6-base)
 makedepends=(cmake
-             git
-             qt5-base
-             qt6-base)
+             git)
+conflicts=(qxlsx-qt6)
+replaces=(qxlsx-qt6)
 source=(git+https://github.com/QtExcel/QXlsx#tag=v$pkgver)
-sha256sums=('26a6d862b964a1783d141a6977d70d395dbc35b5309fc9a758f8a7e1d832cb9c')
-
-prepare() {
-  cd QXlsx
-  git cherry-pick -n 14d07ebdc0dc99ec3a37915c8a8dc74c0a3e5960 \
-                     11bafef83286e79a95f17773926b62253ba53cab # Fix build
-}
+sha256sums=('5edc0f44c112946213db51954dacb0a1e60c3a11299001156a6703d7d61a5232')
 
 build() {
-  cmake -B build5 -S QXlsx/QXlsx \
+  cmake -B build -S QXlsx/QXlsx \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DQT_VERSION_MAJOR=5 \
     -DBUILD_SHARED_LIBS=ON
-  cmake --build build5
-
-  cmake -B build6 -S QXlsx/QXlsx \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DQT_VERSION_MAJOR=6 \
-    -DBUILD_SHARED_LIBS=ON
-  cmake --build build6
+  cmake --build build
 }
 
-package_qxlsx-qt5() {
-  depends+=(qt5-base)
-
-  DESTDIR="$pkgdir" cmake --install build5
-  install -Dm644 QXlsx/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
-}
-
-package_qxlsx-qt6() {
-  depends+=(qt6-base)
-
-  DESTDIR="$pkgdir" cmake --install build6
+package() {
+  DESTDIR="$pkgdir" cmake --install build
   install -Dm644 QXlsx/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname 
 }
