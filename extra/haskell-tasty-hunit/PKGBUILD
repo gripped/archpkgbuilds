@@ -4,7 +4,7 @@
 _hkgname=tasty-hunit
 pkgname=haskell-tasty-hunit
 pkgver=0.10.1
-pkgrel=49
+pkgrel=51
 pkgdesc="HUnit support for the Tasty test framework."
 url="https://github.com/UnkindPartition/tasty"
 license=("MIT")
@@ -17,7 +17,7 @@ sha512sums=('5661bd52d747c571eec1fbea2c60e36dbb2df4166355a74959909e8e481da983ea0
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
