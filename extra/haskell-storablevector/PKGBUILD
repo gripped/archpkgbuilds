@@ -4,7 +4,7 @@
 _hkgname=storablevector
 pkgname=haskell-storablevector
 pkgver=0.2.13.2
-pkgrel=25
+pkgrel=26
 pkgdesc="Fast, packed, strict storable arrays with a list interface like ByteString"
 url="https://www.haskell.org/haskellwiki/Storable_Vector"
 license=("BSD")
@@ -23,7 +23,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fsplitbase -fseparatesyb
