@@ -2,8 +2,8 @@
 # Contributor: Rémy Oudompheng <oudomphe@clipper.ens.fr>
 
 pkgname=m4rie
-pkgver=20250102
-pkgrel=2
+pkgver=20250103
+pkgrel=1
 pkgdesc='Algorithms for linear algebra over F_2^e'
 arch=(x86_64)
 url='https://bitbucket.org/malb/m4rie'
@@ -12,12 +12,11 @@ depends=(glibc
          m4ri)
 makedepends=(git)
 source=(git+https://bitbucket.org/malb/m4rie#tag=release-$pkgver)
-sha256sums=('9d6c4e1df85d8e2701a379e9ad12f9bb7a5815e33d74b6872ba2a341339c9197')
+sha256sums=('c2291d3df8de570bacd669e4ab95e80212ba9bf3d100b39c7376cb27544eee42')
 
 prepare() {
   cd $pkgname
   autoreconf -vi
-  sed -e 's|const mzd_t|mzd_t|g' -i src/m4ri_functions.h
 }
 
 build() {
