@@ -3,7 +3,7 @@
 _hkgname=serialise
 pkgname=haskell-serialise
 pkgver=0.2.6.1
-pkgrel=40
+pkgrel=41
 pkgdesc="A binary serialisation library for Haskell values"
 url="https://github.com/well-typed/cborg"
 license=('BSD')
@@ -18,7 +18,7 @@ sha512sums=('ffe43d96f0427fe1f1da47a01df7c7f86157b61180adf420bd698ee9ed3186cc545
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
