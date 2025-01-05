@@ -5,7 +5,7 @@
 
 pkgname=ttf-opensans
 pkgver=1.101
-pkgrel=4
+pkgrel=5
 pkgdesc='Sans-serif typeface commissioned by Google'
 arch=('any')
 url='https://fonts.google.com/specimen/Open+Sans'
@@ -16,9 +16,9 @@ _raw="https://github.com/google/fonts/raw/${_commit}/ofl/opensans"
 
 source=(
     # OpenSans-Italic[wdth,wght].ttf
-    "${_raw}/OpenSans-Italic%5Bwdth,wght%5D.ttf"
+    "OpenSans-Italic.ttf::${_raw}/OpenSans-Italic%5Bwdth,wght%5D.ttf"
     # OpenSans[wdth,wght].ttf
-    "${_raw}/OpenSans%5Bwdth%2Cwght%5D.ttf"
+    "OpenSans.ttf::${_raw}/OpenSans%5Bwdth%2Cwght%5D.ttf"
 )
 
 sha256sums=('fe269381e992f32e135801740998544d6235061e37c93ec067ad2be3edd5b17b'
