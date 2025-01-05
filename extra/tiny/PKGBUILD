@@ -4,8 +4,8 @@
 # Contributor: Jean Lucas <jean at 4ray dot co>
 
 pkgname=tiny
-pkgver=0.12.0
-pkgrel=3
+pkgver=0.13.0
+pkgrel=1
 pkgdesc="A terminal IRC client written in Rust"
 arch=(x86_64)
 url="https://github.com/osa1/tiny"
@@ -21,11 +21,10 @@ makedepends=(
 )
 options=(!lto)
 source=("git+$url.git#tag=v$pkgver")
-sha256sums=('a7cfb3f5c04d93e0831acea51c6c3d19ba222e503526dc73f6e563ac60ed0f98')
+sha256sums=('673aaf9d34e32dbbb87fbb040fffc82a1b63de61356dd26165efeab4061eae39')
 
 prepare() {
   cd $pkgname
-
   export RUSTUP_TOOLCHAIN=stable
   cargo update --workspace
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
@@ -33,7 +32,6 @@ prepare() {
 
 build() {
   cd $pkgname
-
   export RUSTUP_TOOLCHAIN=stable
   export CARGO_TARGET_DIR=target
   cargo build --frozen --release --features desktop-notifications
@@ -41,14 +39,12 @@ build() {
 
 check() {
   cd $pkgname
-
   export RUSTUP_TOOLCHAIN=stable
   cargo test --frozen --workspace --features desktop-notifications
 }
 
 package() {
   cd $pkgname
-
   install -vDm755 -t "$pkgdir/usr/bin" target/release/$pkgname
   install -vDm644 -t "$pkgdir/usr/share/$pkgname" crates/tiny/config.yml
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
