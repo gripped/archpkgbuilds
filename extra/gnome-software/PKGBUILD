@@ -4,7 +4,7 @@
 # Contributor: Yosef Or Boczko <yoseforb@gnome.org>
 
 pkgname=gnome-software
-pkgver=47.2
+pkgver=47.3
 pkgrel=1
 pkgdesc="GNOME Software Tools"
 url="https://apps.gnome.org/Software"
@@ -53,7 +53,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-software.git?signed#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/mwleeds/gnome-pwa-list.git"
 )
-b2sums=('d841325d415d11e4944d84add5927640acc391035fb7beccd1ced7836e374830f4620724dbef5f6e5fe9177cc454231975eb4ab78b6d707888f6d0f24870c12e'
+b2sums=('58510fddeb5ad5d071ddb2e8e618f3b5f46cd7eacead49df07d7903474e151be409e1b6714a5526fcc0089983ac023728b54a66cb3dcd2f9187f76d9ea46f08b'
         'SKIP')
 validpgpkeys=(
   2AA441054BD2F1715EC11610FB183E7EF3C36A0D # Milan Crha <mcrha@redhat.com>
