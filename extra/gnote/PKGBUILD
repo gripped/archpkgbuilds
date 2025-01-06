@@ -4,7 +4,7 @@
 # Contributor: uastasi <uastasi@archlinux.us>
 
 pkgname=gnote
-pkgver=47.0
+pkgver=47.2
 pkgrel=1
 pkgdesc="A note taking application"
 url="https://wiki.gnome.org/Apps/Gnote"
@@ -35,7 +35,7 @@ makedepends=(
   yelp-tools
 )
 source=("git+https://gitlab.gnome.org/GNOME/gnote.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('df0e04885c959d9aacd4c0c9cea0f69a8cf79bfb102a49b4b36202755e2e3a810a604b3666178388c899cf9aaa9b877c5be10b5086663dfa853c5ac350b6560b')
+b2sums=('2076de3b69c1722a87d1ad2e420ab353a146f1598ccad3c737f057c88da1382facb0b42f98b113accebdd28d04909a0fd58a8c048ec9a320a3eb89387337552d')
 
 prepare() {
   cd gnote
