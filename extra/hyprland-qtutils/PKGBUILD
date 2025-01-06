@@ -2,8 +2,8 @@
 # Contributor: Charles Dong <chardon_cs@proton.me>
 
 pkgname=hyprland-qtutils
-pkgver=0.1.1
-pkgrel=5
+pkgver=0.1.2
+pkgrel=1
 pkgdesc='Qt/QML utility apps for Hyprland'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -18,7 +18,7 @@ depends=(gcc-libs # libgcc_s.so libstdc++.so
 makedepends=(cmake)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('3d88e7aaea9ad1c5dc7703d43e4021f06e3f582a656a7592708d8204a272236c')
+sha256sums=('25a95bbfd63f018e595591a8d5c94423dbf87226b063bf7de081084ef31cea65')
 
 build() {
 	cd "$_archive"
