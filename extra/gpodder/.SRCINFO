@@ -1,11 +1,13 @@
 pkgbase = gpodder
 	pkgdesc = Podcast client written in Python using GTK
-	pkgver = 3.11.4
-	pkgrel = 5
+	pkgver = 3.11.5
+	pkgrel = 1
 	url = https://gpodder.github.io/
 	arch = any
 	license = GPL3
 	makedepends = intltool
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
 	depends = gtk3
 	depends = python-cairo
@@ -18,9 +20,7 @@ pkgbase = gpodder
 	optdepends = python-mutagen: Tag downloaded files, Remove cover art from OGG files extensions
 	optdepends = webkit2gtk: HTML show notes
 	optdepends = yt-dlp: Youtube-dl extension
-	source = https://github.com/gpodder/gpodder/archive/3.11.4/gpodder-3.11.4.tar.gz
-	source = gpodder-3_11_4-fix-imp-module.patch::https://github.com/gpodder/gpodder/commit/dd9b594d24a541c0f1d3b096e47b6d7f1c11ca7e.patch
-	sha256sums = 8022a6c29157dc287b5661f8915d04404767c33b6858e8d1a6c728904f8dae55
-	sha256sums = 974704a51dff3d5b727fe897e72e8d7994715f9a55d4dd0ca3a2f4742a950609
+	source = https://github.com/gpodder/gpodder/archive/3.11.5/gpodder-3.11.5.tar.gz
+	sha256sums = c09de56290589f5d66592d79acdfb8b70e76deab6df590715e4556c6d2d2068c
 
 pkgname = gpodder
