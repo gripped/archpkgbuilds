@@ -12,7 +12,7 @@ pkgname=(
   aws-sdk-cpp-s3
 )
 pkgver=1.11.478
-pkgrel=2
+pkgrel=3
 pkgdesc='AWS SDK for C++'
 arch=(x86_64)
 url='https://github.com/aws/aws-sdk-cpp'
@@ -113,8 +113,10 @@ package_aws-sdk-cpp() {
     cd "$pkgdir"
     {
       _get_component_parts core
-      # Smithy headers are required when building against most parts of the SDK
+      # Smithy headers and AWSSDK CMake files are commonly used when building
+      # against the SDK.
       echo "usr/include/smithy"
+      echo "usr/lib/cmake/AWSSDK"
     } | _pick "$srcdir/aws-sdk-cpp-core"
     local ec2_components=(
       ec2
