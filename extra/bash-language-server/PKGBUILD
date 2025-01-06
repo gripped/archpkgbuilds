@@ -3,7 +3,7 @@
 # Contributor: Maxim Baz <archlinux at maximbaz dot com>
 
 pkgname=bash-language-server
-pkgver=5.4.2
+pkgver=5.4.3
 pkgrel=1
 pkgdesc='Bash language server implementation based on Tree Sitter and its grammar for Bash'
 arch=(any)
@@ -21,9 +21,9 @@ optdepends=(
   'shellcheck: for linting support'
   'shfmt: for formatting support'
 )
-options=('!emptydirs')
+options=(!emptydirs)
 source=("git+$url.git#tag=server-$pkgver")
-b2sums=('e69fa3db477fb8b95e2d5eb8c6c947099ca6c4763b134cd6f2fa2cd88a247b5f6738e7a53dc72349cb36160dbce74062e5ea10322d36ec334ee1449d698b7e1a')
+b2sums=('87ce9254d5ab9c0b99666565eedb58ffcd324dedda090ca45dce33368a2a282b382995f7505716dda88111001ae62ed140e14a6e674891423825affec988e428')
 
 build() {
   cd $pkgname
