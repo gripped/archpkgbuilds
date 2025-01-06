@@ -1,0 +1,24 @@
+From 4fad34211e572b065e4aabd877bd2ecd3ac7bc51 Mon Sep 17 00:00:00 2001
+From: Maxwell Ruben <maxruben1@outlook.com>
+Date: Sun, 11 Feb 2024 21:52:11 +0000
+Subject: [PATCH] Fix off by one error
+
+---
+ src/history.vala | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/history.vala b/src/history.vala
+index 80a9de5..490d321 100644
+--- a/src/history.vala
++++ b/src/history.vala
+@@ -111,7 +111,6 @@ private class History : Object
+         best_time_item = entry_item;
+         do { best_time_item = best_time_item.prev; }
+         while (best_time_item != entries && best_time_item.data.size == puzzle_size);
+-        best_time_item = best_time_item.next;
+         return entries.position (best_time_item);
+     }
+ 
+-- 
+GitLab
+

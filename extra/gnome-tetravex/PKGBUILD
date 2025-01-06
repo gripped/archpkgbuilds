@@ -3,7 +3,7 @@
 
 pkgname=gnome-tetravex
 pkgver=3.38.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Complete the puzzle by matching numbered tiles"
 url="https://wiki.gnome.org/Apps/Tetravex"
 arch=(x86_64)
@@ -11,17 +11,20 @@ license=(GPL)
 depends=(gtk3)
 makedepends=(meson gobject-introspection vala yelp-tools appstream-glib git)
 groups=(gnome-extra)
-_commit=76c564d4cd5aaaf3e2eea89d538358070b019753  # tags/3.38.2^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-tetravex.git#commit=$_commit")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-tetravex.git#tag=$pkgver"
+        gnome-tetravex-highscore.patch)
+b2sums=('0860c8a161d4f948fe726b7ece46740571ceaa9f60dc069522853a6b5846d16ab6fc6c098131351eb7abf45ced868ae72319e8a042ea5e687c457c98963db378'
+        '4434e031aa2817579f9c6a1395fafc1446e2c9ea5f17a57a5886c8a47f1e67635f3ce7be1012920f8313ae5aed85f8b5c8cb3daee01d5fe2ece441de6a7a6dc2')
 
 prepare() {
   cd $pkgname
+
+  # Fix build with meson >= 0.60.1
+  git cherry-pick -n 2b4fc00c961c6e43049479e555e138f2c85560b3
+
+  # Fix off by one error in history object
+  # https://gitlab.gnome.org/GNOME/gnome-tetravex/-/merge_requests/26
+  git apply -3 ../gnome-tetravex-highscore.patch
 }
 
 build() {
