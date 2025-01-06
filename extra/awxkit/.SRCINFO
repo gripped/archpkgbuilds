@@ -1,7 +1,7 @@
 pkgbase = awxkit
 	pkgdesc = The official command line interface for Ansible AWX
 	pkgver = 24.6.1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/ansible/awx
 	arch = any
 	license = Apache
@@ -25,6 +25,8 @@ pkgbase = awxkit
 	optdepends = python-cryptography: for cryptography support
 	options = !emptydirs
 	source = awx::git+https://github.com/ansible/awx#tag=94e5795dfc37b95c576d61f3e3b4e936c021548c
+	source = 15692.patch
 	sha512sums = b59d1710e5cfdeb19c194af77d5e9045c2ab1201b4f55fdb3b446de80dceb0d3a01de34b73dcfe009e71cf4610e95b63be1ae4b8b998a771ebc0b3c2764621ea
+	sha512sums = e726d6b888b10e9143e3a553289263c3c3ce7a36308af585d4d66e93290ac4a389dd11cb60aa6a713afa6334d6163fb5113e67e4ae22bd26080d7c0d5ced1131
 
 pkgname = awxkit
