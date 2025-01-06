@@ -1,8 +1,8 @@
 # Maintainer: Sébastien Luttringer
 
 pkgname=perl-test-output
-pkgver=1.034
-pkgrel=4
+pkgver=1.035
+pkgrel=1
 pkgdesc='Utilities to test STDOUT and STDERR messages'
 arch=('any')
 license=('GPL' 'PerlArtistic')
@@ -13,8 +13,8 @@ depends=('perl-sub-exporter'
   'perl-capture-tiny')
 url='https://search.cpan.org/dist/Test-Output'
 options=('!emptydirs')
-source=("https://search.cpan.org/CPAN/authors/id/B/BD/BDFOY/Test-Output-$pkgver.tar.gz")
-sha512sums=('f7e6a121dbcaa6644b5128ba27c70894775bcb77e5c4abb3a2546d935cb1a99b3190230b2be76161377d0151665ec97303c48746b224d1b2301803e6082b0283')
+source=("https://search.cpan.org/CPAN/authors/id/B/BR/BRIANDFOY/Test-Output-$pkgver.tar.gz")
+sha512sums=('dcd251d0ba26663b36dc23d52e0e36fa039e97655bcb489ccf61c3dd7fad6b5ed4a38a35db45b02193b541c1b4b1149d8f19eceac3ddfe0784dc87fb33727188')
 
 build() {
   cd Test-Output-$pkgver
