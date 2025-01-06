@@ -1,6 +1,6 @@
 pkgbase = lsp-plugins
 	pkgdesc = Collection of open-source plugins
-	pkgver = 1.2.19
+	pkgver = 1.2.20
 	pkgrel = 1
 	url = https://lsp-plug.in
 	arch = x86_64
@@ -21,9 +21,12 @@ pkgbase = lsp-plugins
 	makedepends = libsndfile
 	makedepends = lv2
 	makedepends = php
-	source = https://github.com/sadko4u/lsp-plugins/releases/download/1.2.19/lsp-plugins-src-1.2.19.tar.gz
-	sha512sums = 9be4b0bc60fd33ab8204431dc4b819da77fa513df38019af4c216697adda497260bb3538978cd408fd97dfcbc3afab67d965f8e1274ef3304945d9f5b6387274
-	b2sums = e42381a29980a658551935e9462049d337f1db96d04674db85cfa911b7ef48d0fdd227f2407ff5d32a1573c045e73e8c7b96ad6d44136b7729d8b4bc8db8f031
+	source = https://github.com/sadko4u/lsp-plugins/releases/download/1.2.20/lsp-plugins-src-1.2.20.tar.gz
+	source = https://github.com/lsp-plugins/lsp-dsp-lib/commit/bf4a8bed.patch
+	sha512sums = da9ca4f28863dd7c51d345a8ad6db3e5de7b9ab367b07f4d022c82a8a4a08101ce709ee5f8ae49cb5315c6c07726d644a2cbf394b860ad9b04bb9b9463c99039
+	sha512sums = 6b5c6006bc728dfea866d877ab56fb701becb9835aaeffad09f6177285c3605468c9e119951a5efa08562aa82ad68e41dd9b33f24da5368fadc57dc0fe71dd78
+	b2sums = 500f3a9cda9bef95823a7eaf892dcada0ee36db148e6de3eabc34265116a1bc8592c5547ef46e214458665acdef291cb018f5ba90cd1ea1e26f9ea97631d22fb
+	b2sums = 081ca3e9bd980dd6b1d83557ebbebbf1e137b9000dc15efc090360d38e7a55ff5b71af2dd16138db527051f882f30fd37815c72c02330dcceef4c0343bb74289
 
 pkgname = lsp-plugins
 	depends = lsp-plugins-clap
@@ -43,7 +46,7 @@ pkgname = lsp-plugins-clap
 	depends = freetype2
 	depends = gcc-libs
 	depends = glibc
-	depends = liblsp-r3d-glx-lib=1.2.19
+	depends = liblsp-r3d-glx-lib=1.2.20
 	depends = libsndfile
 	depends = libsndfile.so
 	depends = libx11
@@ -62,7 +65,7 @@ pkgname = lsp-plugins-gst
 	depends = glibc
 	depends = gstreamer
 	depends = gst-plugins-base-libs
-	depends = liblsp-r3d-glx-lib=1.2.19
+	depends = liblsp-r3d-glx-lib=1.2.20
 	depends = libsndfile
 	depends = libsndfile.so
 
@@ -72,7 +75,7 @@ pkgname = lsp-plugins-ladspa
 	depends = gcc-libs
 	depends = glibc
 	depends = ladspa-host
-	depends = liblsp-r3d-glx-lib=1.2.19
+	depends = liblsp-r3d-glx-lib=1.2.20
 	depends = libsndfile
 	depends = libsndfile.so
 
@@ -84,7 +87,7 @@ pkgname = lsp-plugins-lv2
 	depends = gcc-libs
 	depends = glibc
 	depends = lv2-host
-	depends = liblsp-r3d-glx-lib=1.2.19
+	depends = liblsp-r3d-glx-lib=1.2.20
 	depends = libsndfile
 	depends = libsndfile.so
 	depends = libx11
@@ -100,7 +103,7 @@ pkgname = lsp-plugins-standalone
 	depends = hicolor-icon-theme
 	depends = jack
 	depends = libjack.so
-	depends = liblsp-r3d-glx-lib=1.2.19
+	depends = liblsp-r3d-glx-lib=1.2.20
 	depends = libsndfile
 	depends = libsndfile.so
 	depends = libx11
@@ -113,7 +116,7 @@ pkgname = lsp-plugins-vst
 	depends = freetype2
 	depends = gcc-libs
 	depends = glibc
-	depends = liblsp-r3d-glx-lib=1.2.19
+	depends = liblsp-r3d-glx-lib=1.2.20
 	depends = libsndfile
 	depends = libsndfile.so
 	depends = libx11
@@ -127,7 +130,7 @@ pkgname = lsp-plugins-vst3
 	depends = freetype2
 	depends = gcc-libs
 	depends = glibc
-	depends = liblsp-r3d-glx-lib=1.2.19
+	depends = liblsp-r3d-glx-lib=1.2.20
 	depends = libsndfile
 	depends = libsndfile.so
 	depends = libx11
