@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-waitress
-pkgver=3.0.1
+pkgver=3.0.2
 pkgrel=1
 pkgdesc="Waitress WSGI server"
 arch=('any')
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
 source=("git+https://github.com/Pylons/waitress.git#tag=v$pkgver")
-sha512sums=('04100440db7dab0dcca5f6b09739dd0984f5205134546da1f8abb562ea7689e0e201f6bf7697e76199de50c9c266c3dc37fc829bf009235ac80ab817c518e204')
+sha512sums=('102c08d52a0866c28d21f6f41b899f3a4eb53c54dc8f09e0e4256a8bbbbea9aa956bc2f046cf9fddae54ba15f6adfaa5ad421be37587315e9735e105e3bb80b7')
 
 build() {
   cd waitress
