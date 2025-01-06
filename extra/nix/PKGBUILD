@@ -10,14 +10,14 @@
 pkgbase=nix
 pkgname=('nix' 'nix-docs')
 pkgver=2.24.11
-pkgrel=1
+pkgrel=6
 pkgdesc='A purely functional package manager'
 arch=('x86_64')
 url='https://nixos.org/nix'
 license=('LGPL-2.1-only')
 makedepends=(
-  'aws-sdk-cpp'
-  'aws-crt-cpp'
+  'aws-sdk-cpp-core'
+  'aws-sdk-cpp-s3'
   'autoconf-archive'
   'boost'
   'brotli'
@@ -51,12 +51,12 @@ source=(
   'user.tmpfiles.conf'
 )
 sha512sums=('f94198e1fde6f1f0422b0913e0e7ea9a423d09321a8ee225437ac33909a662ed864f6b85e89306fc7daadb27a5115fbed4909b59e4e5487355a9fb84b77be8fb'
-            '46fdd1134626da81f0ec3ada47b69bb803277e8dd379052db5d8606475f5ff7ece63c8ae41b5f8ba6d2174465e1e977212c648a11c853b199e11b2014789a661'
+            '9e5305680feac56c207a63d3db8dcac2eb8b7d82499e864ce618bbd4be09862b267965fc1378e30426fdcecc1e55b5b65d780355778e0d851a77e6d56a11679c'
             '6511badd6e4c71d9b7f6e6a87ea521a9727a5569ecf48dca11ee0d04151adf083453dcf7e05eadd5c28278fd8aee9fe44bbb90067f5fc8067c99c5e9665affd9'
             '879bc28faf877a560ac67500388d9774ec890391ef08d367a18f98ef17faeef8c7d208e747fed1fd501b07c3a3b2286af436eb1bd137de2d8ea9a9c32b48088a'
             'da5b6d449f8e69c9211e6bd97b1ce4c6e398da5a34fea9a8a89a28084489a1549188e52f66ce7536903afeb75e690e764188daac20a16227b66cc14a72b7311a')
 b2sums=('4282426db82741d79c92d514f41d9311db3cb04cdb9d3c863cc305f14de32808f8ca8a4055be256f8861d1392e83dcc857bcefc07397b0324688b84c2a0a0641'
-        'e79ceeb12faf7c38a167857ded355a74511c1d98e7fcb1efb589072c16b35f017239e6723bad04e13ed5b16cbebc91923363e36c130bf51d06a66a4d4ef54f6b'
+        'da4733fa3b5bf20e7be59a260f8dc0ddfd52ad610e312d792e11d729a2c20834b34fbbfc8f0a56128b0cc15035c06d244be93174b7264e132c66f18ec63d048b'
         'e92b8192bae89f0bc8c62371fbe63b4bfd68352699e5ea6900bf4313fd573322a06cb85074b292a005cbf644a50abbb67694f9458f071b0fd223d220494f6b6c'
         'bffaabbe8c9efee79c7761e72a189796f35c0a40805b53fe954c10590ab9bfd0a321b45c7050ddf30810e36fa4431768f36f19fdc55085c0396ac5338b88f839'
         '57610fc5fa370f9c3df50ab411dfe154b273349b3b321ad01768cacdf371e27603e8446a4e4269ccf4ca6cdb59b4a70fdcac59cda29c47eb7e7224555ec7e2e2')
@@ -95,8 +95,8 @@ build() {
 
 package_nix() {
   depends=(
-    'aws-crt-cpp'
-    'aws-sdk-cpp'
+    'aws-sdk-cpp-core'
+    'aws-sdk-cpp-s3'
     'boost-libs' 'libboost_context.so'
     'brotli' 'libbrotlienc.so' 'libbrotlidec.so'
     'curl' 'libcurl.so'
