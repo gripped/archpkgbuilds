@@ -2,7 +2,7 @@
 # Contributor: ObserverOfTime <chronobserver@disroot.org>
 
 pkgname=tree-sitter-bash
-pkgver=0.23.1
+pkgver=0.23.3
 pkgrel=1
 pkgdesc='Bash grammar for tree-sitter'
 arch=(x86_64)
@@ -16,12 +16,12 @@ makedepends=(
 optdepends=('tree-sitter: core library')
 provides=("lib$pkgname.so")
 source=("git+$url.git#commit=v$pkgver?signed")
-b2sums=('a26d25e4c15ee23026d76e86470838fc350e2a88a59a9a9f11eeb28b95502c349dfb8d5e8b3f1d63da294fb1aeb9ad866d7039f1aea3cc113ecc72d44ea90e06')
+b2sums=('90deca5b95088cc90e70717b83c67cb10987683b1138a321127abfcfd8f5a0b5de1d652957b86b356d2f645f5849423fc606c9011d536c6291d99981d7144be5')
 validpgpkeys=(FCC13F47A6900D64239FF13BE67890ADC4227273) # Amaan Qureshi <amaanq12@gmail.com>
 
 prepare() {
   cd $pkgname
-  tree-sitter generate --no-bindings src/grammar.json
+  tree-sitter generate src/grammar.json
 }
 
 build() {
