@@ -1,8 +1,6 @@
 [orca]
 source = "git"
 git = "https://gitlab.gnome.org/GNOME/orca.git"
-# FIXME: doesn't do the uppercase > lowercase transformation of ALPHA etc
-include_regex = 'ORCA_\d+(_\d+)*'
-from_pattern = '_'
-to_pattern = '.'
-prefix = "ORCA_"
+include_regex = '\d+(\.\d+)*'
+from_pattern = '\.([a-z])'
+to_pattern = '\1'
