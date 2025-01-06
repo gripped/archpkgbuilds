@@ -3,7 +3,7 @@
 
 pkgname=zxing-cpp
 pkgver=2.3.0
-pkgrel=3
+pkgrel=4
 pkgdesc='An open-source, multi-format linear/matrix barcode image processing library implemented in C++'
 arch=(x86_64)
 url='https://github.com/zxing-cpp/zxing-cpp'
@@ -16,11 +16,15 @@ checkdepends=(gtest)
 source=(git+https://github.com/zxing-cpp/zxing-cpp#tag=v$pkgver)
 sha256sums=('1042010b960c29e6d7c5cd99e8c2a887cf84febb918abeb0405bcf12aaf8543c')
 
+prepare() {
+  cd $pkgname
+  git cherry-pick -n 82806f5f92173b8cb4e1e9bee13a2d07a33fb69f # Fix improper use of NDEBUG
+}
+
 build() {
   cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=None \
-    -DCMAKE_CXX_FLAGS="$CXXFLAGS -DNDEBUG" \
     -DZXING_EXAMPLES=OFF \
     -DZXING_UNIT_TESTS=ON \
     -DZXING_C_API=ON
