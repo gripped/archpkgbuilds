@@ -3,7 +3,7 @@
 pkgname=krita
 _pkgver=5.2.6
 pkgver=${_pkgver/-/}
-pkgrel=5
+pkgrel=7
 pkgdesc='Edit and paint images'
 arch=(x86_64)
 url='https://krita.org'
@@ -69,7 +69,6 @@ optdepends=('kimageformats5: PSD support'
             'libjxl: JPEG-XL filter'
             'libmypaint: support for MyPaint brushes'
             'poppler-qt5: PDF filter'
-            'python-legacy-cgi: for the Python plugins'
             'python-pyqt5: for the Python plugins')
 source=(https://download.kde.org/stable/krita/$_pkgver/$pkgname-$_pkgver.tar.gz{,.sig}
         sip-6.8.patch
@@ -77,7 +76,7 @@ source=(https://download.kde.org/stable/krita/$_pkgver/$pkgname-$_pkgver.tar.gz{
 sha256sums=('48d7128554fdf4b4e92c54ae31b52af7921f47a8da6cecaa06744abbfc82d5fb'
             'SKIP'
             'bb3b503993030bb98a99c6a0376c65ee74d0c32c1e8932110698682eed1e3d3c'
-            '439f8a95cee437bb20a4ea3bacebf99e600209672d6d9a8326e96a2d7a9cccda')
+            '8b7789d7096a34f129fb7cb620565a022e93a08e8b31f240f49b2111b352681c')
 validpgpkeys=('05D00A8B73A686789E0A156858B9596C722EA3BD'  # Boudewijn Rempt <foundation@krita.org>
               'E9FB29E74ADEACC5E3035B8AB69EB4CF7468332F'  # Dmitry Kazakov (main key) <dimula73@gmail.com>
               '064182440C674D9F8D0F6F8B4DA79EDA231C852B') # Stichting Krita Foundation <foundation@krita.org>
