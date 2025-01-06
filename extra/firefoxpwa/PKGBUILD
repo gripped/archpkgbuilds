@@ -5,7 +5,7 @@
 pkgname=firefoxpwa
 _pkgname=PWAsForFirefox
 pkgver=2.13.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A tool to install, manage and use Progressive Web Apps (PWAs) in Mozilla Firefox (native component)"
 url="https://pwasforfirefox.filips.si"
 arch=('x86_64')
@@ -37,8 +37,8 @@ prepare() {
 build() {
 	cd "${_pkgname}-${pkgver}/native"
 
-	# Needed to make LTO work with GCC
-	export CFLAGS="-fuse-linker-plugin"
+	# Required to make LTO work with GCC
+	export CFLAGS+=" -ffat-lto-objects"
 	
 	export RUSTUP_TOOLCHAIN=stable
 	export CARGO_TARGET_DIR=target
