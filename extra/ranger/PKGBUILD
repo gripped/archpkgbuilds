@@ -5,7 +5,7 @@
 
 pkgname=ranger
 pkgver=1.9.4
-pkgrel=2
+pkgrel=3
 pkgdesc='Simple, vim-like file manager'
 arch=('any')
 url='https://ranger.github.io'
@@ -32,9 +32,11 @@ optdepends=(
 checkdepends=('python-pytest')
 makedepends=(python-{build,installer,wheel}
              python-setuptools)
-source=(https://ranger.github.io/${pkgname}-${pkgver}.tar.gz{,.sig})
+source=(https://ranger.github.io/${pkgname}-${pkgver}.tar.gz{,.sig}
+        ranger-1.9.4-fix-ncurses-endwin-error.patch)
 sha512sums=('18cd1d66838a5f85176e6b7502521a7e449aaa0b12e97d62142d39f980c529c5b97a50f6fb8a65adb64612fa80450b1e13047327f7bcc005a494af4ab321e4d4'
-            'SKIP')
+            'SKIP'
+            'c1bbe01c287527ead05f627dbb3de678d3d6c170dd1d3ae2a719592c1b56463838664ee8b2470310f0a658d252496a6f0005502259cd5bc1e7abf7f35c24f97a')
 validpgpkeys=('1E9B36EC051FF6F7FFC969A7F08CE1E200FB5CDF' # Roman Zimbelmann <hut@hut.pm> (@hut)
               '30193C49CB39CD27008246ADE5902A52B247B8DE' # Wojciech Siewierski <wojciech.siewierski@onet.pl>
               '66FA95C0F1619BDA520A41F60D63346A5D15D055') # Toon Nolten <toonn@toonn.io> (@huterich)
@@ -45,6 +47,8 @@ prepare() {
   # upsteam fix was never released:
   # https://github.com/ranger/ranger/commit/2241cac899536a94c032a58bb7f1bf921980687e
   sed -i 's/xdg-open -- /xdg-open /' "ranger/config/rifle.conf"
+
+  patch -Np1 < ../ranger-1.9.4-fix-ncurses-endwin-error.patch
 }
 
 build() {
