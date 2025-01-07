@@ -11,7 +11,7 @@ for _coll in ${_collections[@]}; do
 done
 _rev=70897
 pkgver=2024.2
-pkgrel=3
+pkgrel=4
 pkgdesc='TeX Live - '
 license=(GPL)
 arch=(any)
@@ -33,7 +33,8 @@ source=(svn://tug.org/texlive/tags/texlive-$pkgver/Master/texmf-dist#revision=$_
         texlive-updmap.script
         80-mtxrun.hook
         mtxrun.script
-        https://github.com/rrthomas/pdfjam/commit/f9b86dcf.patch)
+        https://github.com/rrthomas/pdfjam/commit/f9b86dcf.patch
+        newtxtt.patch)
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
@@ -49,12 +50,16 @@ sha256sums=('SKIP'
             'ee6e76192a5ad880a2152cd7900b86c8465239fb228045a2f8360b0d7a449f4a'
             'f6bb67db32d37ca15eba88bd15d8b9882c61915f98bc8d7c3c21a66c8cf8f019'
             '98b730e917281227e29077ba5689ad78baee0af3859b55966b2604c6a85f1305'
-            '5f027b8a2492d89a04c2083c0628ff2305b2646412a1e7bdf79a498b98d08d6a')
+            '5f027b8a2492d89a04c2083c0628ff2305b2646412a1e7bdf79a498b98d08d6a'
+            '77d6f116d092447779de27922cb22fd7757254c0c7c2bc871d4943596630d10c')
 options=(!strip) # Nothing to strip, save packaging time
 
 prepare() {
 # Fix --paper option in pdfjam
   patch -d texmf-dist/scripts/pdfjam -p2 < f9b86dcf.patch
+
+# Fix missing variants in newtxtt font
+  patch -p2 < newtxtt.patch
 
 # Customize configuration
   patch -d texmf-dist/web2c -p0 < texmf.cnf.patch
