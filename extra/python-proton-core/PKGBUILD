@@ -3,11 +3,19 @@
 
 pkgname=python-proton-core
 pkgver=0.4.0
-pkgrel=3
+pkgrel=4
 pkgdesc="The proton-core component contains core logic used by the other Proton components."
 arch=(any)
 url="https://github.com/ProtonVPN/python-proton-core"
 license=(GPL-3.0-or-later)
+depends=(
+  python-aiohttp
+  python-bcrypt
+  python-gnupg
+  python-importlib-metadata
+  python-pyopenssl
+  python-requests
+)
 makedepends=(
   git
   python-setuptools
