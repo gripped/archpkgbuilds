@@ -4,7 +4,7 @@
 
 pkgname=xterm
 pkgver=397
-pkgrel=1
+pkgrel=2
 pkgdesc="X Terminal Emulator"
 arch=('x86_64')
 url="https://invisible-island.net/xterm/"
@@ -46,6 +46,7 @@ build() {
       --enable-exec-xterm \
       --enable-sixel-graphics \
       --enable-regis-graphics \
+      --enable-block-select \
       --with-tty-group=tty \
       --with-utempter
   make
