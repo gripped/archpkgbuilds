@@ -1,8 +1,8 @@
-# Maintainer: Florian Pritz <bluewind@xinu.at>
 # Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: Florian Pritz <bluewind@xinu.at>
 
 pkgname=grafana-zabbix
-pkgver=4.6.0
+pkgver=4.6.1
 pkgrel=1
 pkgdesc="Zabbix plugin for Grafana dashboard"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('Apache-2.0')
 depends=('grafana')
 makedepends=('yarn' 'libfaketime' 'go' 'git' 'nodejs-lts-iron' 'mage')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('3345236ba10685bd37f240563cc059f86c2827423f76722bd508eab1dacd0186')
+sha256sums=('13a0a5730fdfe152ab185074b72fd8cd8b897b36658f90244d148ae770f42a14')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
