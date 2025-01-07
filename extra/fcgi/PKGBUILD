@@ -3,19 +3,23 @@
 # Original by Benjamin Andresen, klapmuetz [at] gmail [dot] com
 
 pkgname=fcgi
-pkgver=2.4.2
-pkgrel=4
+pkgver=2.4.3
+pkgrel=2
 depends=('gcc-libs')
 pkgdesc='FASTCgi (fcgi) is a language independent, high performant extension to CGI'
 arch=('x86_64')
 license=('custom')
 options=('!makeflags')
 url='https://github.com/FastCGI-Archives/fcgi2'
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/FastCGI-Archives/fcgi2/archive/${pkgver}.tar.gz")
-sha256sums=('1fe83501edfc3a7ec96bb1e69db3fd5ea1730135bd73ab152186fd0b437013bc')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/FastCGI-Archives/fcgi2/archive/${pkgver}.tar.gz"
+        '0001-Update-fcgiapp-c.patch')
+sha256sums=('5273bc54c28215d81b9bd78f937a9bcdd4fe94e41ccd8d7c991aa8a01b50b70e'
+            '40245b58e0023e6f1437c4fd47e774d22fe88b8a10c457846e88415aaa9d1d80')
 
 prepare() {
   cd "${srcdir}/fcgi2-${pkgver}"
+
+  patch -Np1 -R < ../0001-Update-fcgiapp-c.patch
 
   ./autogen.sh
 }
@@ -31,5 +35,5 @@ package() {
   cd "${srcdir}/fcgi2-${pkgver}"
 
   make DESTDIR="${pkgdir}" install
-  install -Dm0644 LICENSE.TERMS "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm0644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
