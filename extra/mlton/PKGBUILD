@@ -5,22 +5,20 @@
 # Contributor: Brian De Wolf <arch@bldewolf.com>
 
 pkgname=mlton
-pkgver=20210117
-pkgrel=6
-pkgdesc='Whole-program, optimizing Standard ML compiler'
+pkgver=20241230
+pkgrel=1
+pkgdesc='Whole-program optimizing Standard ML compiler'
 arch=(x86_64)
-# no HTTPS available
-url='http://mlton.org/'
-license=(BSD LGPL MIT)
+url='http://mlton.org/' # HTTPS is not available
+license=(HPND MIT)
 depends=(gmp)
-makedepends=(git mlton setconf)
+makedepends=(git mlton)
 options=(staticlibs)
-source=("git+https://github.com/MLton/mlton#commit=b1f1f0f0916d28c0d183fba85549d5bf96f1fa41") # tag: on-20210117-release
-b2sums=(SKIP)
+source=("git+https://github.com/MLton/mlton#tag=on-$pkgver-release")
+b2sums=('be2850460ce452f029714303d9d812b34e7330e645f5c1ed10be9e760cfbb77a451fe049681e521a8efde8b8a80bebb5d4b8046474618541244205244953ab32')
 
 prepare() {
-  cd $pkgname
-  make MLTON_VERSION="$pkgver" version
+  make -C $pkgname MLTON_VERSION="$pkgver" version
 }
 
 build() {
