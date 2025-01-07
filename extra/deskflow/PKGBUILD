@@ -1,5 +1,5 @@
 pkgname=deskflow
-pkgver=1.17.2
+pkgver=1.18.0
 pkgrel=1
 pkgdesc='Share one mouse and keyboard between multiple computers'
 url='https://deskflow.org/'
@@ -42,8 +42,8 @@ makedepends=(
   xorgproto
 )
 source=("git+https://github.com/deskflow/deskflow.git#tag=v${pkgver}")
-sha256sums=('e6114141303027f46b37c0a813f1c0013b980bdf52fca35cb45776070c1e348e')
-b2sums=('d06011edd535d4b4a8a3f24030c63e9f367cfc13474f47d693eae22461e28dcc92a3b102382d0ee6af325899ea14833169894b930dbb0f3c089342fd5e09191e')
+sha256sums=('c11ce545f214cdfd29e87858133819c580d003d0c3c01e788665ff0505b51004')
+b2sums=('80528b3e854af0c0e5981c9a16a7b14c796b264260c45ff7fbe2bee81ca7cd912178bff41dd3d3fbb5757a03e86f6242878b245c801792902df6b5c2e97d6fde')
 
 build() {
   cd "${pkgname}"
