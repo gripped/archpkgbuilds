@@ -1,0 +1,31 @@
+# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Contributor: Peter Sutton <peter@foxdogstudios.com>
+# Contributor: Christopher Arndt <chris@chrisarndt.de>
+# Contributor: Luis Pablo Gasparotto <lpgasparotto@gmail.com>
+# Contributor: Phillip Fynan <pfynan@gmail.com>
+
+pkgname=abcmidi
+pkgver=2025_01_04
+pkgrel=1
+pkgdesc='Tools for ABC and MIDI files'
+groups=(pro-audio)
+arch=(x86_64)
+url='https://github.com/sshlien/abcmidi'
+license=(GPL-2.0-or-later)
+makedepends=(git)
+source=("git+$url#tag=${pkgver//_/.}")
+b2sums=('eab2daaf57789df0b39451aaca97ce78e2927e6eed1119632a5f8c8d56b4b88ccd6bf205336596fa32138560ac51cf376e5d0e803761f11c7c700334ddfee843')
+
+build() {
+  cd $pkgname
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
+  install -m 755 -d "$pkgdir"/usr/share/doc/$pkgname/{programming,samples}
+  install -m 644 -t "$pkgdir"/usr/share/doc/$pkgname/programming doc/programming/*.{abc,txt}
+  install -m 644 -t "$pkgdir"/usr/share/doc/$pkgname/samples samples/*.abc
+}
