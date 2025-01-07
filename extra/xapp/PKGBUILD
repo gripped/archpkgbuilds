@@ -4,8 +4,8 @@
 # Contributor: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=xapp
-pkgver=2.8.7
-pkgrel=2
+pkgver=2.8.8
+pkgrel=1
 pkgdesc="Common library for X-Apps project"
 arch=(x86_64)
 url="https://github.com/linuxmint/${pkgname}"
@@ -17,8 +17,8 @@ provides=(xapps)
 conflicts=(xapps)
 replaces=(xapps)
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('95ad692de2f53bd12b8fd5fb7786ba197f830f982a73903c342c3a64bc6fb604')
-b2sums=('58fe46d6d9ab42b2bb2a58f7a34831c8be0a007c1a31272c0a314a9dab61b93f2e45130f62530cb12d3ea559179ae34aac6d2381e538fd1c58fd95166ca2d6b0')
+sha256sums=('343cc336dc0fba86f4b27a46125600c2173c6d7ea0bf7df28cf941c42b55a45d')
+b2sums=('ad6d33785a2935777bf1dfa96de22edef676280eb7ac48976889c27351010627805c7ebabfd2f7ba7c16ac71ccc65f7306f40f94a045733ff005a841e8b17676')
 
 build() {
   arch-meson ${pkgname}-${pkgver} build \
