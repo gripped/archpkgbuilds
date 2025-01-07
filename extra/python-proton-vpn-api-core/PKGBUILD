@@ -2,8 +2,8 @@
 # Maintainer: Ali Molaei <ali dot molaei at protonmail dot com>
 
 pkgname=python-proton-vpn-api-core
-pkgver=0.38.2
-pkgrel=3
+pkgver=0.39.0
+pkgrel=1
 pkgdesc="The proton-vpn-core-api acts as a facade to the other Proton VPN components, exposing a uniform API to the available Proton VPN services."
 arch=("any")
 url="https://github.com/ProtonVPN/python-proton-vpn-api-core"
@@ -13,7 +13,7 @@ makedepends=(
   python-setuptools
 )
 source=("git+https://github.com/ProtonVPN/${pkgname}.git#tag=v${pkgver}")
-sha256sums=('9a1cf20681eb6fc0f2a6818afd32faa0642c2e167eb76b3860d5bc550deb7076')
+sha256sums=('c75143600836a415f9a70fb877765a2843df3b437e571733baf6c671bf1d5943')
 
 build() {
   cd "$pkgname"
