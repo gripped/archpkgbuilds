@@ -2,7 +2,7 @@
 # Contributor: flu
 
 pkgname=sqlcipher
-pkgver=4.6.0
+pkgver=4.6.1
 pkgrel=1
 pkgdesc="SQLite extension that provides transparent 256-bit AES encryption of database files"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('BSD')
 depends=('openssl' 'sqlite' 'tcl' 'readline' 'zlib')
 source=(https://www.zetetic.net/$pkgname/verify/$pkgver/$pkgname-$pkgver.zip{,.sig})
 validpgpkeys=('D83F5F9EB811D6E6B4A0D9C5D1FA3A2A97ED25C2') # Zetetic LLC <support@zetetic.net>
-sha256sums=('068fdfb5b2903763e0d5809f3331ae3d9cfb640221ba5920c4e65b2315d05669'
+sha256sums=('759adee03f53b46f07c9c0be51a0be3a6fe31640e81d0777b919c8df8d40f6d8'
             'SKIP')
 
 build() {
