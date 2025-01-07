@@ -2,8 +2,8 @@
 # Contributor: Tiago de Paula Peixoto <tiago@skewed.de>
 
 pkgname=python-graph-tool
-pkgver=2.82
-pkgrel=1
+pkgver=2.83
+pkgrel=2
 pkgdesc='A Python module for manipulation and statistical analysis of graphs'
 arch=(x86_64)
 url='https://graph-tool.skewed.de'
@@ -34,9 +34,11 @@ optdepends=(
   'python-matplotlib: graph drawing'
 )
 source=("https://downloads.skewed.de/graph-tool/graph-tool-$pkgver.tar.bz2")
-b2sums=('c194f514cfe72e795d7b5c3b63ce916449f54e49bb72aeedb39df9b142988131392f353f79a8524c6b940893964a6cb0fa7400c33aa8fefb5e39126940a1311a')
+b2sums=('cf727d3d2bd17f5372e86d2c3658fc99b6143cadd536ee574223f4ece791792568944828955998a35700546c8106c4eaa0e1064bfa50048e44a8727b03e266c1')
 
-# LTO causes performance degradation
+# -flto needs to be set via MOD_CXXFLAGS below, not globally, since it must be
+# overridden in specific compilation units to prevent performance degradation
+# (due to unwanted mixture of optimization flags during link time).
 options=(!lto)
 
 build() {
@@ -47,7 +49,8 @@ build() {
   # the package benefits from -O3 (due to -funswitch-loops and others)
   export CXXFLAGS=${CXXFLAGS/-O2/-O3}
 
-  ./configure --enable-openmp --prefix=/usr --docdir=/usr/share/doc/$pkgname
+  ./configure --enable-openmp --prefix=/usr --docdir=/usr/share/doc/$pkgname \
+    MOD_CXXFLAGS="-flto=auto"
   # prevent excessive overlinking due to libtool
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
