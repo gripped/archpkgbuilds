@@ -2,7 +2,7 @@
 
 pkgname=kitinerary
 pkgver=24.12.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Data model and extraction system for travel reservation information'
 arch=(x86_64)
 url='https://kontact.kde.org'
@@ -28,12 +28,21 @@ makedepends=(doxygen
              extra-cmake-modules
              qt6-doc
              qt6-tools)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
+        fix_build_with_poppler_25.01.patch)
 sha256sums=('4c11339a5bce980bd061a4437a943200fae82e104bd8472f3b2f7dc36f82b5c7'
-            'SKIP')
+            'SKIP'
+            'a8561e01d397be5045c42d9dbd52eb919e2538e803e977be85df2d756b079d18')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
+
+prepare() {
+  cd $pkgname-$pkgver
+  # Temporary patch to fix build with poppler 25.01
+  # See https://github.com/KDE/kitinerary/commit/bcb009f56f8f1c9c0d1612a0ec9f581907b51534
+  patch -Np1 -i $srcdir/fix_build_with_poppler_25.01.patch
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
