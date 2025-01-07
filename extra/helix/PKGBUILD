@@ -1,10 +1,11 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 # Contributor: Maxim Baz <archlinux at maximbaz dot com>
 # Contributor: Wojciech Kępka (wojciech@wkepka.dev)
+# Contributor: Théo Daron (theo@daron.be)
 
 pkgname=helix
-pkgver=24.07
-pkgrel=2
+pkgver=25.01
+pkgrel=1
 pkgdesc="A post-modern modal text editor"
 arch=('x86_64')
 url="https://helix-editor.com"
@@ -39,7 +40,7 @@ optdepends=(
 )
 install="$pkgname.install"
 source=("$pkgname-$pkgver.tar.gz::https://github.com/helix-editor/helix/archive/$pkgver.tar.gz")
-b2sums=('d95f373ccf89d0c97c610131d39bb286878ea01ee265b7d2c2c18986decae11086dceb227b3b67099bfc6d1744f728297ca59c4ae8b15c438fffdc935134de25')
+b2sums=('fbac61630c923d8dd99200d4b99ff8adca284c70ba9676fe9306ee3f9ec617ad6895715fc48166685d64c5b1009fc3979f85965fb409be04f87920421b3bc2fc')
 options=('!lto')
 
 prepare() {
