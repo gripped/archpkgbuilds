@@ -1,0 +1,21 @@
+diff --unified --recursive --text --new-file scribus-1.6.2.orig/scribus/plugins/import/pdf/slaoutput.cpp scribus-1.6.2/scribus/plugins/import/pdf/slaoutput.cpp
+--- scribus-1.6.2.orig/scribus/plugins/import/pdf/slaoutput.cpp	2025-01-05 14:55:32.980845515 +0100
++++ scribus-1.6.2/scribus/plugins/import/pdf/slaoutput.cpp	2025-01-05 14:56:43.914591368 +0100
+@@ -123,7 +123,7 @@
+ 
+ 	Object obj3 = getFileSpecNameForPlatform(&obj1);
+ 	if (!obj3.isNull())
+-		fileName = obj3.getString()->copy();
++		fileName = obj3.getString()->copy().release();
+ }
+ 
+ LinkImportData::~LinkImportData()
+@@ -176,7 +176,7 @@
+ 	if (state->getFont())
+ 		fontName = state->getFont()->getName()->copy();
+ #endif
+-	itemText = s->copy();
++	itemText = s->copy().release();
+ }
+ 
+ QString AnoOutputDev::getColor(GfxColorSpace *color_space, const GfxColor *color, int *shade)
