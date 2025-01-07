@@ -3,7 +3,7 @@
 
 pkgname=khard
 pkgver=0.19.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Console address book manager'
 arch=('any')
 url=https://github.com/lucc/khard
@@ -31,8 +31,17 @@ optdepends=(
   'diffutils: Using sdiff_khard_wrapper.sh'
   'vdirsyncer: Synchronization of address books with a DAV server'
 )
-source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('9a3783235b910a543402ba47f98f23a59febdee72985740e0afefa0f27833405f0a0415022848cef495e2718676208c1be093b92fea436f567c4d5cf55be4472')
+source=(
+  $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
+  $pkgname-0.19.1-disable-deprecationwarning.patch
+)
+b2sums=('9a3783235b910a543402ba47f98f23a59febdee72985740e0afefa0f27833405f0a0415022848cef495e2718676208c1be093b92fea436f567c4d5cf55be4472'
+        '048fc62d868a4da4e7c712af4f570be797a09a4d0ef58491ecbbfc98ed3c7b403fbd5f6536e13962ecafc21faec6556958b284f28d2814846b7ef2f7e0748616')
+
+prepare() {
+  # disable DeprecationWarning as it breaks core functionality: https://github.com/lucc/khard/issues/335
+  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-0.19.1-disable-deprecationwarning.patch
+}
 
 build() {
   cd $pkgname-$pkgver

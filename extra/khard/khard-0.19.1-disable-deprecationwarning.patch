@@ -1,0 +1,13 @@
+diff --git i/khard/khard.py w/khard/khard.py
+index f90f753..ee0577e 100644
+--- i/khard/khard.py
++++ w/khard/khard.py
+@@ -25,6 +25,8 @@ from .helpers import interactive
+ from .helpers.interactive import confirm
+ from .query import AndQuery, AnyQuery, OrQuery, Query, TermQuery
+ from .version import version as khard_version
++import warnings
++warnings.filterwarnings("ignore", category=DeprecationWarning)
+ 
+ 
+ logger = logging.getLogger(__name__)
