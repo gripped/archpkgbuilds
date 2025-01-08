@@ -4,7 +4,7 @@
 libgmobile_commit=a3c67a1184bfa73c593edefabe77cce57a5e38f6
 
 pkgname=phosh-mobile-settings
-pkgver=0.43.0
+pkgver=0.44.0
 pkgrel=1
 pkgdesc='A settings app for mobile specific things'
 arch=(x86_64 aarch64)
@@ -14,7 +14,7 @@ depends=(feedbackd libadwaita lm_sensors phoc phosh)
 makedepends=(git meson wayland-protocols python-packaging glib2-devel)
 source=("${url}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz"
 	https://gitlab.gnome.org/World/Phosh/gmobile/-/archive/${libgmobile_commit}/gmobile-${libgmobile_commit}.tar.gz)
-sha256sums=('6cc483876866558fada5b329799f08a8299ca28e05697a3f81f3b2fa9a933244'
+sha256sums=('593dacef0feaeb8a99a919a8f916a2337aea2e19fba19f216c2c95fd3634ab3b'
             '1aeac55a790525c2028a66562de877a8f99ce391636d8e0e3d059b0899c7a7ec')
 
 prepare() {
