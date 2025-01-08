@@ -2,7 +2,7 @@
 
 _name=svelte-language-tools
 pkgname=svelte-language-server
-pkgver=0.17.8
+pkgver=0.17.10
 pkgrel=1
 pkgdesc='Language server for Svelte'
 arch=(any)
@@ -18,7 +18,7 @@ makedepends=(
   pnpm
 )
 source=("$_name::git+https://github.com/sveltejs/language-tools.git#tag=language-server-$pkgver")
-b2sums=('491c75632ae7f226a27588bf285c2951e81beffb4061e9b1b182ec0232e379eb0097021d6175b303e0ac06889b05d8e3856d2201884b57ced9215b3bd9181eae')
+b2sums=('dfec0dce63e7e95f7608bef53eba21ae0942958cccb4a0d821c2773ea6b50b07ddf80c594feadc0282d08faa6e2dc03b2724ddf1ee860f2b1bd10cf14d8430bd')
 
 prepare() {
   cd $_name
@@ -51,7 +51,7 @@ package() {
   cp package.json{,.bak}
   sed -i 's/workspace:~/*/' package.json
   rm -r node_modules
-  npm install --production
+  npm install --omit=dev
   rm -r node_modules/typescript
   mv package.json{.bak,}
 
