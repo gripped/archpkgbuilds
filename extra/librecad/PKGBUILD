@@ -5,8 +5,8 @@
 # Contributor: GazJ Gary James <garyjames82 at gmail dot com> (CADuntu PKGBUILD)
 
 pkgname=librecad
-pkgver=2.2.0.2
-pkgrel=2
+pkgver=2.2.1
+pkgrel=3
 pkgdesc='A 2D CAD drawing tool based on the community edition of QCad'
 arch=('x86_64')
 url='https://www.librecad.org/'
@@ -16,7 +16,7 @@ makedepends=('qt5-tools' 'boost' 'imagemagick' 'librsvg')
 conflicts=('librecad-git')
 replaces=('librecad-svn' 'caduntu' 'caduntu-svn')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/LibreCAD/LibreCAD/archive/${pkgver}.tar.gz")
-sha256sums=('fcb888a550f1f515ef6a2f7af2dd02605dd5c6da8a23f6c3a52479f8532ac109')
+sha256sums=('5f63661811d97560a3ab3e2d7252de8f1836af2e5197c8a96fdf07581d6e2c3b')
 
 build() {
 	cd "${srcdir}/LibreCAD-${pkgver}"
@@ -53,8 +53,9 @@ package() {
 	# icons
 	for SIZE in 16 24 32 48 64 96 128; do
 		# set modify/create for reproducible builds
-		convert -scale ${SIZE} +set date:create +set date:modify \
+		magick \
 			desktop/graphics_icons_and_splash/Icon\ LibreCAD/Icon_Librecad.svg \
+			-scale ${SIZE} +set date:create +set date:modify \
 			"${srcdir}"/librecad.png
 		install -D -m0644 "${srcdir}"/librecad.png "${pkgdir}/usr/share/icons/hicolor/${SIZE}x${SIZE}/apps/librecad.png"
 	done
@@ -71,5 +72,8 @@ package() {
 	for plugin in "${pkgdir}/usr/lib/librecad/"*.so; do
 		ln -sf "../../../lib/librecad/$(basename $plugin)" "${pkgdir}/usr/share/librecad/plugins/"
 	done
+
+	# header files for plugin interface
+	install -Dm0644 -t "${pkgdir}/usr/include/librecad/" librecad/src/plugins/{document_interface,qc_plugininterface}.h
 }
 
