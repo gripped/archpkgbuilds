@@ -5,14 +5,14 @@
 
 pkgname=neovim-qt
 pkgver=0.2.18
-pkgrel=5
+pkgrel=6
 pkgdesc='GUI for Neovim'
 arch=(x86_64)
 url='https://github.com/equalsraf/neovim-qt'
 license=(ISC)
-depends=(hicolor-icon-theme neovim qt5-svg)
-makedepends=(cmake git ninja)
-source=("git+$url#commit=1854bdc2b481a90a7845c2f17e5da0519bf16f48") # tag: v0.2.18
+depends=(hicolor-icon-theme neovim qt6-svg)
+makedepends=(cmake git)
+source=("git+$url#tag=v$pkgver")
 b2sums=('08aba78fd332819d771fd4ddc2303f97db63affec400595a27fed91cd8408d743953bfefafc22aa3c873eabfac4565a57c719c95c9c5b11df1acca8b83740dbf')
 
 build() {
@@ -25,12 +25,12 @@ build() {
     -D CMAKE_INSTALL_LIBDIR=lib \
     -D CMAKE_INSTALL_PREFIX=/usr \
     -D USE_SYSTEM_MSGPACK=on \
-    -G Ninja \
+    -D WITH_QT=Qt6 \
     -S $pkgname
-  ninja -C build
+  make -C build
 }
 
 package() {
-  DESTDIR="$pkgdir" ninja -C build install
+  DESTDIR="$pkgdir" make -C build install
   install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" $pkgname/LICENSE
 }
