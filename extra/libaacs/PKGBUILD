@@ -4,7 +4,7 @@
 
 pkgname=libaacs
 pkgver=0.11.1
-pkgrel=2
+pkgrel=4
 pkgdesc="Advanced Access Content System"
 arch=('x86_64')
 license=('LGPL')
@@ -15,7 +15,10 @@ sha512sums=('42dcba5fd593c9a8ec7af11251006b083ad2c49ec198734d1d66f67c2ded4557d77
 
 build() {
     cd "${pkgname}-${pkgver}"
-    ./bootstrap
+    # fails to check for libgcrypt for version 1.11
+    rm m4/libgcrypt.m4
+    autoreconf -vif
+    libtoolize
     ./configure --prefix=/usr
     make
 }
