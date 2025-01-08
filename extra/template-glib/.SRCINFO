@@ -1,19 +1,22 @@
 pkgbase = template-glib
 	pkgdesc = A templating library for GLib
-	pkgver = 3.36.2
+	pkgver = 3.36.3
 	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/template-glib
 	arch = x86_64
 	license = LGPL-2.1-or-later
 	makedepends = git
+	makedepends = glib2-devel
 	makedepends = gobject-introspection
 	makedepends = gtk-doc
 	makedepends = meson
 	makedepends = vala
+	depends = gcc-libs
 	depends = glib2
-	depends = gobject-introspection-runtime
+	depends = glibc
+	depends = libgirepository
 	provides = libtemplate_glib-1.0.so
-	source = git+https://gitlab.gnome.org/GNOME/template-glib.git#commit=51ab89b83f47e6435df454699bcde6816372b9d3
-	b2sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/template-glib.git#tag=3.36.3
+	b2sums = bd32bd950c3e7ce64165e860b3519ccf78ab1d7d41a58a995a2f995a18a3ffc20f40b23ee27af4e2c45f19a6eed9aa38c33e1318c78d1bfc87c1f731ab7b0f02
 
 pkgname = template-glib

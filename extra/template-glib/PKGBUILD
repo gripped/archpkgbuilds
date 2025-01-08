@@ -1,32 +1,29 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=template-glib
-pkgver=3.36.2
+pkgver=3.36.3
 pkgrel=1
 pkgdesc="A templating library for GLib"
 url="https://gitlab.gnome.org/GNOME/template-glib"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
+  gcc-libs
   glib2
-  gobject-introspection-runtime
+  glibc
+  libgirepository
 )
 makedepends=(
   git
+  glib2-devel
   gobject-introspection
   gtk-doc
   meson
   vala
 )
 provides=(libtemplate_glib-1.0.so)
-_commit=51ab89b83f47e6435df454699bcde6816372b9d3  # tags/3.36.2^0
-source=("git+https://gitlab.gnome.org/GNOME/template-glib.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/template-glib.git#tag=$pkgver")
+b2sums=('bd32bd950c3e7ce64165e860b3519ccf78ab1d7d41a58a995a2f995a18a3ffc20f40b23ee27af4e2c45f19a6eed9aa38c33e1318c78d1bfc87c1f731ab7b0f02')
 
 prepare() {
   cd $pkgname
