@@ -5,8 +5,8 @@
 
 pkgname=python-bitstring
 _pkgname=${pkgname#python-}
-pkgver=4.2.3
-pkgrel=3
+pkgver=4.3.0
+pkgrel=1
 pkgdesc='A Python module to help you manage your bits'
 arch=('any')
 url="https://github.com/scott-griffiths/bitstring"
@@ -25,17 +25,8 @@ checkdepends=(
   'python-hypothesis'
   'python-pytest'
 )
-source=(
-  "$url/archive/$_pkgname-$pkgver.tar.gz"
-  "update-bitarray-dependency.patch::$url/commit/6132b121df612efa12180f2cd6242ec32a70d80d.patch"
-)
-sha256sums=('38a4275c6b23a60addf5a94d952fae5fe1f81cd76a2258c6380f1f3b2a17d0f3'
-            '4815e7c8bc0aa5c3a2ecea274c8d98766b867c49fe6b36bc91e088b9f882e8d5')
-
-prepare() {
-  cd "$_pkgname-$_pkgname-$pkgver"
-  patch -Np1 -i ../update-bitarray-dependency.patch
-}
+source=("$url/archive/$_pkgname-$pkgver.tar.gz")
+sha256sums=('d9c3785ffa2c270e90ed9b896ed728630c5830c29356276fb39dd09fbeb17517')
 
 build() {
   cd "$_pkgname-$_pkgname-$pkgver"
