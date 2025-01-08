@@ -4,8 +4,8 @@
 # Contributor: Douglas Soares de Andrade <douglas@archlinux.org>
 
 pkgname=meld
-pkgver=3.22.2
-pkgrel=5
+pkgver=3.22.3
+pkgrel=1
 pkgdesc="Compare files, directories and working copies"
 url="https://meldmerge.org/"
 license=(GPL-2.0-or-later)
@@ -30,14 +30,10 @@ makedepends=(
 )
 checkdepends=(appstream-glib)
 source=("git+https://gitlab.gnome.org/GNOME/meld.git#tag=$pkgver")
-b2sums=('05edce3ee1b4bf14c494290f46a39fafc6683337ef71187bf4d1b6d4ce5e8fa8657e88f865ad159dfebc26aa6ea060f451869f989684cd411e19fa2153e1d5c8')
+b2sums=('7f6b807b841ef34a09cc04dc045ea11f5c3909ecce5fd238b07625d5c9fd4465cb300a5a5158ac9f66d7487828b88acd16b81270eed01fca97b17fe8c15d84ca')
 
 prepare() {
   cd meld
-
-  # Python 3.13
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/meld/-/issues/2
-  git cherry-pick -n aa817dce6bb0667fc6ef38163c213803dc8b37b3
 }
 
 build() {
