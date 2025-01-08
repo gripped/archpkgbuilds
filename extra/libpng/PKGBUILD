@@ -5,7 +5,7 @@
 # Contributor: Douglas Soares de Andrade <douglas@archlinux.org>
 
 pkgname=libpng
-pkgver=1.6.44
+pkgver=1.6.45
 pkgrel=1
 pkgdesc='A collection of routines used to create PNG format graphics files'
 arch=('x86_64')
@@ -15,8 +15,10 @@ depends=('zlib' 'sh')
 makedepends=('git')
 provides=('libpng16.so')
 source=("git+https://github.com/pnggroup/libpng.git?signed#tag=v${pkgver}")
-sha256sums=('56d285e5bdc6a7ef5a46b987d62fc88b199cfdf1cb1dad19df10b361ef6613ce')
-validpgpkeys=('F57A55036A4D45837074FD92C9E384533403C2F8') # Cosmin Truta
+sha256sums=('7c55c3e408ce275e21adade7e50817c9da97da2f16a50a0521732aa4abf9d4db')
+validpgpkeys=('F57A55036A4D45837074FD92C9E384533403C2F8'  # Cosmin Truta <ctruta@gmail.com>
+              '1FED507E3236B4A6E53E922BB292C64843FF5BCF') # Cosmin Truta <ctruta@gmail.com>
+
 
 prepare() {
   cd $pkgname
