@@ -5,8 +5,8 @@
 # Contributor: Sam Whited <sam@samwhited.com>
 
 pkgname=feedbackd
-pkgver=0.5.0
-pkgrel=2
+pkgver=0.6.0
+pkgrel=1
 pkgdesc='A daemon to provide haptic feedback on events'
 arch=(x86_64)
 url='https://source.puri.sm/Librem5/feedbackd'
@@ -15,7 +15,7 @@ depends=(dconf gsound json-glib libgudev gsettings-desktop-schemas libgmobile)
 checkdepends=(umockdev)
 makedepends=(gobject-introspection meson vala git python-docutils glib2-devel)
 source=("git+${url}.git#tag=v${pkgver}")
-sha256sums=('2692b6227521c2bed07c3495f2d15eee63a84a71ffa6e5dc82f153a972c677a2')
+sha256sums=('975f671be2d9cf3be36d9c09f8545d793e431de2c322bca4c5683bc83c43d385')
 
 pkgver() {
   cd "${pkgname}"
