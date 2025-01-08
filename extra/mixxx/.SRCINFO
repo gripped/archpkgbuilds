@@ -1,7 +1,7 @@
 pkgbase = mixxx
 	pkgdesc = Free, open source software for digital DJing
 	pkgver = 2.5.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.mixxx.org
 	arch = x86_64
 	groups = pro-audio
@@ -55,8 +55,11 @@ pkgbase = mixxx
 	depends = upower
 	depends = wavpack
 	source = https://github.com/mixxxdj/mixxx/archive/2.5.0/mixxx-2.5.0.tar.gz
+	source = remove_uaccess_group_from_udev_rules.patch
 	sha512sums = ee3c682d40267358025aba5bfdc378fee1cb6691dc899280132f7e69d315b9ce3d8568ca182752bac96a38310c2f2d71ddc80eea4448b8b32bf6ec6a61a9d608
+	sha512sums = 6e40b4dd517100096cc5821b7ef732e501d4e61b264094de8d9a4c5f041e26bcd69873b34ce9e8eac3cb26f46b7d0af0f713d35524f7ca446db9f6101c90821e
 	b2sums = e5c5aa02a4b13228857eb620ad174144562d7b4675a40565fda1e641138e0e65dbb2bbe8c7fb32ead242a5bdf8581368ea604c93afbfc5c991ac92065e7bdae7
+	b2sums = 5e37eb1f9f43858dc53dbe56880dd902b5c2046caec5cd3187239ab49b5addf7487c0ec6267cc9f69c3f22c69e3df575de0cb12a834d4dba3a99749946b5aea9
 
 pkgname = mixxx
 	depends = gcc-libs
