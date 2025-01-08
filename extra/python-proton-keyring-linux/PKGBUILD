@@ -3,13 +3,15 @@
 
 pkgname=python-proton-keyring-linux
 pkgver=0.2.0
-pkgrel=3
+pkgrel=4
 pkgdesc="The proton-keyring-linux component."
 arch=(any)
 url="https://github.com/ProtonVPN/python-proton-keyring-linux"
 license=(GPL-3.0-or-later)
 depends=(
+  python
   python-keyring
+  python-proton-core
   org.freedesktop.secrets
 )
 makedepends=(
