@@ -2,8 +2,8 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=check-jsonschema
-pkgver=0.30.0
-pkgrel=3
+pkgver=0.31.0
+pkgrel=1
 pkgdesc="A JSON Schema CLI and pre-commit hook built on jsonschema"
 arch=(any)
 url="https://github.com/python-jsonschema/check-jsonschema"
@@ -35,8 +35,8 @@ optdepends=(
   'python-orjson: for using orjson as JSON parser'
 )
 source=($url/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('a56bac49968cf65a007492348697b84242be67f65467b28553cb8a99a09407cf40afc33b4e1d7e219a808ad8248bc82bc08af4aec24500e227d055c6cfd35cd8')
-b2sums=('4acc0a01e306b74ddb574736d98bea488e90012bc5ee8f438c06b46c007fa0ece87620aa3e456a692df1bd98a0ffc976b0d9ca66304579f101e856007f5b1700')
+sha512sums=('0a016c2b3cabbc147d362fbff729e6217d9051c57e7681895e59fe8009d7854e460d28d5815841f53333f590d5ada4278b35a78f0d654c7531669c9c76680806')
+b2sums=('101ba1b47f5b884086d0055661a13adb12e5e4f4df70ddda1d15790163c6cbdfcb1825bdf429e951047d467b9ca2c110b1c0593d47ff86d8e0f1086cff29c408')
 
 check() {
   # we don't support pinning
