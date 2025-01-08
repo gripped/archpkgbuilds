@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=flip-link
-pkgver=0.1.9
+pkgver=0.1.10
 pkgrel=1
 pkgdesc="Flips the memory layout of embedded programs to protect against stack overflows"
 url='https://github.com/knurling-rs/flip-link'
@@ -15,8 +15,8 @@ makedepends=(
   'cargo'
 )
 source=(https://github.com/knurling-rs/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('f0a8f6eabec1552671815ec4fc4a61d127a36f12a9f9888c0f66e02096c51ef6')
-b2sums=('81a15f5c130195225d07cf4197d2fe14661ac5b372af20a6afe82a90caa1eea752862de79f20ea298d5b6c06c2d3b4048b64cbb9a092558b998049b253a59c98')
+sha256sums=('9389806ffda4ed5aa47f39fc71ac2a19be59cc28aab93bfb32bb514ed7165f75')
+b2sums=('ad282650e97135d00ee39ded79c9b7a5c37c9e7c1c05fc4c02e3167cd4ad085119e3e4a394c066870f716f20a30272d6eace07b2298cd1d3bf5a041e15eba346')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
