@@ -5,7 +5,7 @@
 
 pkgname=catch2
 pkgver=3.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Modern, C++-native, header-only, test framework for unit-tests, TDD and BDD"
 arch=('x86_64')
 url="https://github.com/catchorg/catch2"
@@ -26,7 +26,7 @@ validpgpkeys=(
 
 build() {
   # our recent default flags break test 1 (ApprovalTests)
-  # unset CXXFLAGS
+  unset CXXFLAGS
 
   cmake -B "${pkgname}"/build \
     -S "${pkgname}" \
