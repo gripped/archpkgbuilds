@@ -1,12 +1,13 @@
 pkgbase = nginx-prometheus-exporter
 	pkgdesc = NGINX Prometheus Exporter for NGINX and NGINX Plus
 	pkgver = 0.11.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/nginxinc/nginx-prometheus-exporter
 	arch = x86_64
 	license = Apache
 	makedepends = go
 	depends = glibc
+	backup = etc/conf.d/nginx-prometheus-exporter
 	source = nginx-prometheus-exporter-0.11.0.tar.gz::https://github.com/nginxinc/nginx-prometheus-exporter/archive/v0.11.0.tar.gz
 	source = nginx-prometheus-exporter.service
 	source = nginx-prometheus-exporter.conf
