@@ -1,0 +1,56 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=zizmor
+pkgver=1.0.1
+pkgrel=1
+pkgdesc="A static analysis tool for GitHub Actions"
+url='https://github.com/woodruffw/zizmor'
+arch=('x86_64')
+license=('MIT')
+depends=(
+  'gcc-libs'
+  'glibc'
+)
+makedepends=(
+  'cargo'
+)
+options=(!lto)
+source=(https://github.com/woodruffw/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('ee06e79ad68f304c49762c3edec8dd8f9054b02dea8dab45b05b26c5ff3969b9')
+b2sums=('57bca87bd8b152066cbc0a5102f0d9c92caf707598aa0dcaf15f01e412495c73b4d38c77fb7656930a4133ea7c1176225a98549f20957148ed10318b677a7505')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd ${pkgname}-${pkgver}
+  cargo build --frozen --release
+}
+
+check() {
+  cd ${pkgname}-${pkgver}
+  cargo test --frozen
+  target/release/zizmor --help
+  cat > action.yaml <<YAML
+on: push
+jobs:
+  vulnerable:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+YAML
+  target/release/zizmor --format plain ./action.yaml | grep -q 'does not set persist-credentials: false'
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm 755 -t "${pkgdir}/usr/bin" \
+    target/release/zizmor
+
+  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:
