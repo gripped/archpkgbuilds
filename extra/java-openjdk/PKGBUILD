@@ -13,7 +13,7 @@ _securityver=1
 _updatever=0
 pkgver=${_majorver}.${_minorver}.${_securityver}.u${_updatever}
 # pkgver=${_majorver}.u${_updatever}
-pkgrel=1
+pkgrel=2
 _git_tag=jdk-${_majorver}.${_minorver}.${_securityver}+${_updatever}
 # _git_tag=jdk-${_majorver}+${_updatever}
 arch=('x86_64')
@@ -101,9 +101,7 @@ build() {
 
 
   bash configure \
-    --with-version-build="${_updatever}" \
-    --with-version-pre="" \
-    --with-version-opt="" \
+    --with-version-string="${_majorver}.${_minorver}.${_securityver}" \
     --with-stdc++lib=dynamic \
     --with-extra-cflags="${_CFLAGS}" \
     --with-extra-cxxflags="${_CXXFLAGS}" \
