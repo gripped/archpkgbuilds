@@ -7,8 +7,8 @@
 # Contributor: Ben <ben@benmazer.net>
 
 pkgname=scribus
-pkgver=1.6.2
-pkgrel=8
+pkgver=1.6.3
+pkgrel=1
 pkgdesc="Desktop publishing software"
 arch=(x86_64)
 url="https://www.scribus.net/"
@@ -48,13 +48,9 @@ optdepends=('gdal: enable gdal plugin'
             'tk: scripts based on tkinter')
 options=(!lto)
 _archive="$pkgname-$pkgver"
-source=("https://downloads.sourceforge.net/${pkgname}/$_archive.tar.xz"{,.asc}
-        fix_build_with_poppler_24.12.0.patch
-        fix_build_with_poppler_25.01.0.patch)
-sha256sums=('7eff9b1f47e372e56bb369f1dbe18fe49101789b5e6bcfdb7890e0346b641383'
-            'SKIP'
-            '69b060bb880a9681fe6223fbc9f94f848a7eb71199efcf36dc8974c94fadeb2d'
-            '152265e6d4af88b41552020d273b40947255b0ee13b355c1b4d52922428b06a8')
+source=("https://downloads.sourceforge.net/${pkgname}/$_archive.tar.xz"{,.asc})
+sha256sums=('0ae58ced410101e82655e3b4c20a070cf1767145ada233dcef7c20b8ba6bd487'
+            'SKIP')
 validpgpkeys=(5086B8D68E70FDDF4C40045AEF7B95E7F60166DA  # Peter Linnell <plinnell@scribus.net>
               757F5E9B13DD648887AD50092D47C099E782504E  # The Scribus Team (www.scribus.net) <the_scribus_team@scribus.net>
               6558BE84D27273A438A151198BEA48118AEBEE64) # Craig Bradney <cbradney@zipworld.com.au>
@@ -67,8 +63,8 @@ prepare() {
     # See https://github.com/scribusproject/scribus/commit/c9490423c8d4819ecb35af7b7f2cad581b5219da
     # And https://github.com/scribusproject/scribus/commit/16b660d4d2a7f4cb4cb7775f72ec026197278838
     # And https://github.com/scribusproject/scribus/commit/44745297bd70a25b1d88ed922bdcb2d90a2fb435
-    patch -Np1 < "$srcdir/fix_build_with_poppler_24.12.0.patch"
-    patch -Np1 < "$srcdir/fix_build_with_poppler_25.01.0.patch"
+    # patch -Np1 < "$srcdir/fix_build_with_poppler_24.12.0.patch"
+    # patch -Np1 < "$srcdir/fix_build_with_poppler_25.01.0.patch"
 }
 
 build() {
