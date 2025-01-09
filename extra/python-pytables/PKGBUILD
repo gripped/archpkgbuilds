@@ -5,7 +5,7 @@
 
 pkgname=python-pytables
 _pkgname=PyTables
-pkgver=3.10.1
+pkgver=3.10.2
 pkgrel=2
 pkgdesc="A Python package to manage extremely large amounts of data"
 arch=(x86_64)
@@ -22,7 +22,6 @@ depends=(
   python-numpy
   python-packaging
   python-py-cpuinfo
-  python-typing_extensions
 )
 makedepends=(
   cython
@@ -36,14 +35,17 @@ makedepends=(
 source=(
   "git+https://github.com/PyTables/PyTables.git#tag=v$pkgver"
   "git+https://github.com/Blosc/c-blosc.git"
+  "git+https://github.com/Blosc/hdf5-blosc.git"
 )
-sha256sums=('6cb9e63cdd8acab4fab2526d6e6d525a67324d80c6d18e36101f7cb594066b61'
+sha256sums=('095274ffa1dcc0835c4eb435ddff6e52ed2f8b893db3607390e785a04577fefc'
+            'SKIP'
             'SKIP')
 
 prepare() {
   cd $_pkgname
   git submodule init
   git config submodule.c-blosc.url "$srcdir/c-blosc"
+  git config submodule.hdf5-blosc.url "$srcdir/hdf5-blosc"
   git -c protocol.file.allow=always submodule update
 }
 
@@ -54,10 +56,9 @@ build() {
 
 check() {
   cd $_pkgname
-  mv tables _tables # Required for package installed in tmp_install to take precedence
-  python -m installer --destdir=tmp_install dist/*.whl
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  PYTHONPATH="$PWD/tmp_install/$site_packages" python -m tables.tests.test_all
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -Pm tables.tests.test_all
 }
 
 package() {

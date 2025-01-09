@@ -1,6 +1,6 @@
 pkgbase = python-pytables
 	pkgdesc = A Python package to manage extremely large amounts of data
-	pkgver = 3.10.1
+	pkgver = 3.10.2
 	pkgrel = 2
 	url = https://www.pytables.org
 	arch = x86_64
@@ -22,10 +22,11 @@ pkgbase = python-pytables
 	depends = python-numpy
 	depends = python-packaging
 	depends = python-py-cpuinfo
-	depends = python-typing_extensions
-	source = git+https://github.com/PyTables/PyTables.git#tag=v3.10.1
+	source = git+https://github.com/PyTables/PyTables.git#tag=v3.10.2
 	source = git+https://github.com/Blosc/c-blosc.git
-	sha256sums = 6cb9e63cdd8acab4fab2526d6e6d525a67324d80c6d18e36101f7cb594066b61
+	source = git+https://github.com/Blosc/hdf5-blosc.git
+	sha256sums = 095274ffa1dcc0835c4eb435ddff6e52ed2f8b893db3607390e785a04577fefc
+	sha256sums = SKIP
 	sha256sums = SKIP
 
 pkgname = python-pytables
