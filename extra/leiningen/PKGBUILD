@@ -3,7 +3,7 @@
 
 pkgname=leiningen
 pkgver=2.11.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Automate Clojure projects'
 arch=(any)
 url='https://github.com/technomancy/leiningen'
@@ -12,7 +12,7 @@ depends=(java-environment java-runtime)
 makedepends=(git leiningen)
 optdepends=('rlwrap: for readline support')
 noextract=("$pkgname-$pkgver-standalone.jar")
-source=("git+$url#commit=795c3a5d68de7a2465582da4184c42d7bd065c76") # tag: 2.11.2
+source=("git+$url#tag=$pkgver")
 b2sums=('6f3fbebed78af92df2898162138bc6266b691a1d88188224830af711cc118fcf4ad16a475671cc12e8cf43b6834ccf4b281246a0fc433e62027c67eb1ad77094')
 
 prepare() {
@@ -33,5 +33,5 @@ package() {
   install -Dm755 bin/lein-pkg "$pkgdir/usr/bin/lein"
   install -Dm644 doc/lein.1 "$pkgdir/usr/share/man/man1/lein.1"
   install -Dm644 target/$pkgname-$pkgver-standalone.jar \
-                 "$pkgdir/usr/share/java/$pkgname-$pkgver-standalone.jar"
+    "$pkgdir/usr/share/java/$pkgname-$pkgver-standalone.jar"
 }
