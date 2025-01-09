@@ -1,0 +1,38 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+
+pkgname=spiko
+pkgver=0.1.6
+pkgrel=1
+pkgdesc="A load testing tool with a TUI for real-time insights"
+arch=('x86_64')
+url="https://github.com/trinhminhtriet/spiko"
+license=('MIT')
+depends=('gcc-libs')
+makedepends=('cargo')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('de7021447ff762cb9288e7619fef4f19a4f7d9d4c67293b42010a29c21844dc2c05cc9f0cd3a60fc325a3061238e9f58cfbee052a7c1f0d7cceedd114a5e8549')
+options=('!lto')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release --frozen
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --frozen -- --skip "test_redirect"
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:
