@@ -3,7 +3,7 @@
 # Contributor: Philipp Schrader <philipp.schrader+arch@gmail.com>
 
 pkgname=uboot-tools
-pkgver=2024.10
+pkgver=2025.01
 pkgrel=1
 pkgdesc='U-Boot bootloader utility tools'
 arch=(x86_64)
@@ -14,9 +14,9 @@ makedepends=(python python-setuptools swig)
 source=(https://ftp.denx.de/pub/u-boot/u-boot-$pkgver.tar.bz2{,.sig})
 validpgpkeys=('1A3C7F70E08FAB1707809BBF147C39FF9634B72C')
 options=(!lto)
-sha1sums=('f5998171fd6902d2f29bffc90790b6214cbdf88f'
+sha1sums=('f072610d78a718c451a799342c43c733426f68c7'
           'SKIP')
-sha256sums=('b28daf4ac17e43156363078bf510297584137f6df50fced9b12df34f61a92fb0'
+sha256sums=('cdef7d507c93f1bbd9f015ea9bc21fa074268481405501945abc6f854d5b686f'
             'SKIP')
 
 build() {
