@@ -7,10 +7,10 @@ pkgname=(
   gnome-control-center
   gnome-keybindings
 )
-pkgver=47.2
+pkgver=47.3
 pkgrel=1
 pkgdesc="GNOME's main interface to configure various aspects of the desktop"
-url="https://gitlab.gnome.org/GNOME/gnome-control-center"
+url="https://apps.gnome.org/Settings/"
 license=(GPL-2.0-or-later)
 arch=(x86_64)
 depends=(
@@ -36,6 +36,7 @@ depends=(
   graphene
   gsettings-desktop-schemas
   gsound
+  gst-plugins-good
   gtk4
   hicolor-icon-theme
   json-glib
@@ -84,7 +85,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-control-center.git?signed#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git"
 )
-b2sums=('06a6d955691c752205bbd593ec3ccd8876a23ace2b17642b461fd95887e896ca0ef0304c83b0184ae03b9f53c58d38c0de73e821ca1c6fc70669fb9c98a21d41'
+b2sums=('af11bb5c2132b48edc62e2c58682a60e3f3dbaf963db8be1cec73898352784e4c5ef6f06cc92c60e9493bd7ab389fd0b190e67a33c90ea128a7a7bcc67430200'
         'SKIP')
 validpgpkeys=(
   9B60FE7947F0A3C58136817F2C2A218742E016BE # Felipe Borges (GNOME) <felipeborges@gnome.org>
