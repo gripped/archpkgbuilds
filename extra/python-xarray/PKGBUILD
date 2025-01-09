@@ -2,19 +2,43 @@
 
 _pkg=xarray
 pkgname=python-${_pkg}
-pkgver=2024.11.0
-pkgrel=2
+pkgver=2025.01.0
+pkgrel=1
 pkgdesc="N-D labeled arrays and datasets in Python"
 arch=(any)
 url="https://xarray.pydata.org/"
-license=(Apache)
-depends=(python-numpy python-packaging python-pandas)
+license=(Apache-2.0)
+depends=(
+  python
+  python-numpy
+  python-packaging
+  python-pandas
+)
 makedepends=(
   python-build
   python-installer
   python-setuptools
   python-setuptools-scm
   python-wheel
+)
+checkdepends=(
+  python-aiobotocore
+  python-bottleneck
+  python-cftime
+  python-dask
+  python-dask-expr
+  python-distributed
+  python-fsspec
+  python-h5py
+  python-hypothesis
+  python-matplotlib
+  python-netcdf4
+  python-numexpr
+  python-pint
+  python-pyarrow
+  python-pytest
+  python-scipy
+  python-seaborn
 )
 optdepends=(
   'python-netcdf4: netCDF4 support'
@@ -39,33 +63,8 @@ optdepends=(
 #  'python-sparse: sparse arrays support'
   'python-pint: units of measure support'
 )
-checkdepends=(
-  python-pytest
-  python-pytest-xdist
-  python-aiobotocore
-  python-aiohttp
-  python-bottleneck
-  python-boto3
-  python-cftime
-  python-dask
-  python-dask-expr
-  python-distributed
-  python-fsspec
-  python-h5py
-  python-hypothesis
-  python-lxml
-  python-matplotlib
-  python-netcdf4
-  python-numexpr
-  python-numpy
-  python-pint
-  python-requests
-  python-scipy
-  python-seaborn
-)
-#source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-source=(https://github.com/pydata/xarray/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('81a35500234afcb4410cb92ac1204895da7dc1f345427ed8b1723d09a978e401')
+source=("https://github.com/pydata/xarray/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('a7b3cb0db2468679679fdd99ef091f166887476fc26d89f86ff7ad268e87f81e')
 
 build() {
   cd ${_pkg}-${pkgver}
@@ -74,21 +73,24 @@ build() {
 
 check() {
   cd ${_pkg}-${pkgver}
-  # https://github.com/pydata/xarray/issues/4281
-  # and deselect tests already failing prior to Python 3.12
-  pytest -vv -n 5 --color=yes \
-    --deselect xarray/tests/test_distributed.py::test_serializable_locks \
-    --deselect xarray/tests/test_dataset.py::TestDataset::test_drop_index_labels \
-    --deselect xarray/tests/test_dataset.py::TestDataset::test_rename_multiindex \
-    --deselect xarray/tests/test_backends.py::test_open_mfdataset_manyfiles \
-    --deselect xarray/tests/test_backends.py::TestDask::test_save_mfdataset_compute_false_roundtrip \
-    --deselect xarray/tests/test_dataarray.py::TestDataArray::test_unstack_roundtrip_integer_array \
-    --deselect xarray/tests/test_groupby.py::test_dask_da_groupby_quantile
+  local pytest_args=(
+    # Segfaults with python-h5py installed
+    --deselect=xarray/tests/test_backends.py::TestDask::test_save_mfdataset_compute_false_roundtrip
+    # Fails with:
+    # E   RuntimeError: NetCDF: Filter error: undefined filter encountered: (variable 'var2', group '/')
+    --deselect=xarray/tests/test_backends.py::TestNetCDF4Data::test_compression_encoding
+    --deselect=xarray/tests/test_backends.py::TestNetCDF4ViaDaskData::test_compression_encoding
+    # Fails with:
+    # E       Failed: DID NOT RAISE <class 'ValueError'>
+    --deselect=xarray/tests/test_groupby.py::test_dask_da_groupby_quantile
+  )
+  pytest "${pytest_args[@]}"
 }
 
 package() {
   cd ${_pkg}-${pkgver}
   python -m installer --destdir="$pkgdir" dist/*.whl
   # Remove tests
-  rm -r "${pkgdir}"$(python -c "import site; print(site.getsitepackages()[0])")/xarray/tests
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  rm -r "${pkgdir}/${site_packages}/xarray/tests"
 }
