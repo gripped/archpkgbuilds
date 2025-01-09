@@ -5,7 +5,7 @@
 
 pkgname=python-gnupg
 pkgver=0.5.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A wrapper for the Gnu Privacy Guard (GPG or GnuPG)"
 url="https://docs.red-dove.com/python-gnupg"
 arch=('any')
@@ -13,10 +13,11 @@ license=('BSD-3-Clause')
 depends=('gnupg' 'python')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
-source=("https://github.com/vsajip/python-gnupg/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz"{,.asc})
-sha512sums=('7136c423d388f0b7e77c55272be4b80a273468e02b576753183ae93ebe82182143662ee92c264982c3ad62d8465da49800706af76c400af578341d2b8bc0008f'
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/vsajip/python-gnupg/archive/refs/tags/${pkgver}.tar.gz"
+        "${pkgname}-${pkgver}.tar.gz.asc::https://github.com/vsajip/python-gnupg/releases/download/${pkgver}/source-${pkgver}.tar.gz.asc")
+sha512sums=('4b316ea925ef8892a743e81c907ff0c7f9b639ec2f92e614337765c0ddade80ad6b484ff75e7315bf1b6a71e3bb8e5e384f2b20bec4d27edb246c392ef4e7b94'
             'SKIP')
-b2sums=('bbafc21296e0b16043e470cbee28832ceb403519bdfa3be0c887c2e0fd4ec702ab1ce6ec8e870f5aa25c87191ff8dbccdcfdae129d1aa7a6ea40ae3275699c07'
+b2sums=('55d2089e8e7698d3202ca265eff172d35931df8fcfe32932247ecf246a16c7bfb8006ac7711895c4eda95dbcc45f83e89210608a243b3006c7ffeb0f9d99c77d'
         'SKIP')
 validpgpkeys=('CA749061914EAC138E66EADB9147B477339A9B86') # Vinay Sajip (CODE SIGNING KEY) <vinay_sajip@yahoo.co.uk>
 
