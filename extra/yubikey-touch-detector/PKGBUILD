@@ -2,7 +2,7 @@
 # Contributor: Maxim Baz <archlinux at maximbaz dot com>
 
 pkgname=yubikey-touch-detector
-pkgver=1.12.3
+pkgver=1.12.4
 pkgrel=1
 pkgdesc="A tool that can detect when your YubiKey is waiting for a touch"
 url="https://github.com/maximbaz/yubikey-touch-detector"
@@ -13,7 +13,7 @@ makedepends=('go' 'git' 'scdoc')
 optdepends=('gnupg: for GPG'
             'openssh: for SSH')
 source=("git+${url}.git#tag=${pkgver}?signed")
-b2sums=('4546f4982e2aca8117dabe0429d04b29293743d1f71d66f30224ad38be5aa80736b0a8e0ba2e3fabc7ff8f8d5f8f2fb41478f4ed298b7ececf8b706d3b4eb323')
+b2sums=('7bd226925fb7c70667eb10992b4b111cc15d14cd896178e4bc66f6f9c4671496fbba85acfe5f320088974f8e63e86a7749800ba66070ee8e045713983089d63a')
 validpgpkeys=('56C3E775E72B0C8B1C0C1BD0B5DB77409B11B601')
 
 build() {
