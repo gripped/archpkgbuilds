@@ -1,7 +1,7 @@
 pkgbase = haproxy
 	pkgdesc = Reliable, high performance TCP/HTTP load balancer
-	pkgver = 3.1.1
-	pkgrel = 2
+	pkgver = 3.1.2
+	pkgrel = 1
 	url = https://www.haproxy.org/
 	install = haproxy.install
 	arch = x86_64
@@ -16,13 +16,13 @@ pkgbase = haproxy
 	depends = lua
 	depends = systemd-libs
 	backup = etc/haproxy/haproxy.cfg
-	source = git+https://git.haproxy.org/git/haproxy-3.1.git#tag=v3.1.1?signed
+	source = git+https://git.haproxy.org/git/haproxy-3.1.git#tag=v3.1.2?signed
 	source = haproxy.cfg
 	source = haproxy.sysusers
 	source = 0001-Use-CFLAGS-and-LDFLAGS-when-building-admin.patch
 	validpgpkeys = 0C9568FA554656551590C5E44E386D9C9C61702F
 	validpgpkeys = 07D5F18D201984D7D13FB7AAF5F936267AA4B280
-	sha256sums = 19a34a4fa4a6d5cd49861ffa89aea105505ea17204881db382d73e0b582d9c54
+	sha256sums = 189f77c5a6b09153c221e2c3a4f15594bccb16ae8e2e7aff3709e7a64179e61e
 	sha256sums = f6babef513b99a3fa0e50f2b144c73c980f1b78b119874ffa2580af1e651e7a9
 	sha256sums = c6e716ea59272a8e871af53703726dd2a75b56c82dacf097d4bf08ac5e841a0d
 	sha256sums = a1e3a1c2923465081383eb431bae55ff9841d89909469311cdba4b394ec4a998
