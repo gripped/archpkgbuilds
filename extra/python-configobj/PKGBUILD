@@ -1,18 +1,25 @@
 # Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Angel Velasquez <angvp@archlinux.com.ve>
 # Contributor: Stefan Husmann  <stefan-husmann@t-online.de>
 # Contributor: Manuel C.
 
 pkgname=python-configobj
 pkgver=5.0.9
-pkgrel=4
+pkgrel=5
 pkgdesc='Simple config file reader and writer'
 arch=(any)
 url='https://github.com/DiffSK/configobj'
-license=(BSD)
+license=(BSD-3-Clause)
 depends=(python)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
 checkdepends=(python-pytest)
-makedepends=(git python-setuptools)
 source=("git+$url#tag=v$pkgver")
 b2sums=('a741249a7116b42f099caea58ab4081f38ee34a449d6f082064e379d54b2d394c977a2f5a10d879a19b9717fe1c71afc36b8c4b9467c33e5c643f9556fdc923a')
 
@@ -23,6 +30,14 @@ prepare() {
   sed -i "/from validate/d;s/VERSION/\"$_version\"/" setup_validate.py
 }
 
+build() {
+  cd configobj
+  python -m build --wheel --no-isolation
+  mv setup_validate.py setup.py
+  rm -r build
+  python -m build --wheel --no-isolation
+}
+
 check() {
   cd configobj
   PYTHONPATH=src pytest src/tests
@@ -30,7 +45,7 @@ check() {
 
 package() {
   cd configobj
-  python setup.py install --root="$pkgdir" --optimize=1
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-  python setup_validate.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/configobj*.whl
+  python -m installer --destdir="$pkgdir" dist/validate*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
