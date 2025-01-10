@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=artikulate
-pkgver=24.12.0
+pkgver=24.12.1
 pkgrel=1
 pkgdesc='Improve your pronunciation by listening to native speakers'
 url='https://apps.kde.org/artikulate/'
@@ -15,7 +15,6 @@ depends=(gcc-libs
          kconfig5
          kcoreaddons5
          kcrash5
-         kdeclarative5 # Indirect dep, via knewstuff5
          ki18n5
          kirigami2
          knewstuff5
@@ -28,7 +27,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-education)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('dc0ecc629ea6009272d6ecda12d3ba64a126f4cf305de69505f825eb64715b1b'
+sha256sums=('3c088874d39d5198f64ebb3030135dc5d77d3d2ebcf03bf1b11a1150a2b058a8'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
