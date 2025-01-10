@@ -1,0 +1,56 @@
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
+# Contributor: Mark Wagie <mark dot wagie at proton dot me>
+
+pkgname=cosmic-player
+pkgver=1.0.0.alpha.5
+pkgrel=1
+pkgdesc="WIP COSMIC media player"
+arch=(x86_64)
+url="https://github.com/pop-os/cosmic-player"
+license=(GPL-3.0-or-later)
+depends=(
+  gcc-libs
+  glib2
+  glibc
+  gst-plugins-base
+  gst-plugins-base-libs
+  gst-plugins-good
+  gstreamer
+  libxkbcommon
+)
+makedepends=(
+  cargo
+  clang
+  git
+  just
+  lld
+)
+_tag=4667c03f9255efe9d504b27b96020e9ace968be7
+source=("git+https://github.com/pop-os/cosmic-player.git#tag=${_tag}")
+sha256sums=('f6dbd09b7883ddbdadd6fbae633742bea0d9a23362fda6c0a0c6d784f7f06e5b')
+
+pkgver() {
+  cd "$pkgname"
+  git describe --tags | sed 's/^epoch-//; s/-/./g'
+}
+
+prepare() {
+  cd "$pkgname"
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname"
+  export RUSTUP_TOOLCHAIN=stable
+
+  RUSTFLAGS+=" -C link-arg=-fuse-ld=lld"
+
+  # use nice to build with lower priority
+  nice just build-release --frozen
+}
+
+package() {
+  cd "$pkgname"
+  just rootdir="$pkgdir" install
+}
