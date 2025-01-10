@@ -2,8 +2,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=ruff-lsp
-pkgver=0.0.59
-pkgrel=2
+pkgver=0.0.60
+pkgrel=1
 pkgdesc='Language Server Protocol implementation for Ruff'
 arch=('any')
 url=https://github.com/astral-sh/ruff-lsp
@@ -12,7 +12,7 @@ depends=('python-packaging' 'python-pygls' 'python-typing_extensions' 'ruff')
 makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
 checkdepends=('python-lsp-jsonrpc' 'python-pytest-asyncio')
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('ed97bdc151eb4da201da973e732b46b28c723d051f0e7665682766c7e2155e7137d1b1dd240b82d83812e2c7c0a1500efefa682bbf4b025e28210f778b072c82')
+b2sums=('d6dbb97ad7858226adda1781455e86f6b80ad1ea8bbd46be8f31c5c6bc1525b9bdf30536b4a0e91110f219c545b17566bd1c317099e1601ba672a684d8007da1')
 
 build() {
   cd $pkgname
