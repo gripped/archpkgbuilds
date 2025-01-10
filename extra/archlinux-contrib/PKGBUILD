@@ -2,31 +2,31 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=archlinux-contrib
-pkgver=20241215
-pkgrel=2
-pkgdesc='Collection of contrib scripts used in Arch Linux'
+_pkgname=contrib
+pkgver=20250110
+pkgrel=1
+pkgdesc="Collection of contrib scripts used in Arch Linux"
+url="https://github.com/archlinux/contrib"
 arch=('any')
 license=('GPL-2.0-or-later')
-url='https://github.com/archlinux/contrib'
 depends=('python' 'bash' 'pyalpm')
 optdepends=('python-requests: for security tracker'
             'jq: for rebuild-todo'
-            'devtools: for rebuild-todo (needs pkgctl)'
+            'devtools: for rebuild-todo'
             'pacman-contrib: to enable pacdiff usage in the checkservices script'
             'python-httpx: for check-pkg-urls'
             'python-tqdm: for check-pkg-urls')
-source=("https://github.com/archlinux/contrib/releases/download/${pkgver}/contrib-${pkgver}.tar.gz"{,.sig})
+source=("${_pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz"
+        "${_pkgname}-${pkgver}.tar.gz.asc::${url}/releases/download/${pkgver}/${_pkgname}-${pkgver}.tar.gz.asc")
 validpgpkeys=('C100346676634E80C940FB9E9C02FF419FECBE16'  # Morten Linderud
               '86CFFCA918CF3AF47147588051E8B148A9999C34'  # Evangelos Foutras
               'F00B96D15228013FFC9C9D0393B11DAA4C197E3D'  # Christian Heusel
               'E499C79F53C96A54E572FEE1C06086337C50773E'  # Jelle van der Waa
               '262A58EC6C51F7EA395B2E2DFDC3040B92ACA748') # Robin Candau
-sha256sums=('50ae3aa550a45e8b83456613e98e3bae12490c755ea40c30791dfca4e5996599'
+sha256sums=('bece50da34d791dedcc59e5f32d651f401486487573f723bf272d169648849ab'
             'SKIP')
 
 package() {
-  cd "contrib-${pkgver}"
-  make PREFIX=/usr DESTDIR="${pkgdir}" install
+	cd "${_pkgname}-${pkgver}"
+	make PREFIX=/usr DESTDIR="${pkgdir}" install
 }
-
-# vim: ts=2 sw=2 et:
