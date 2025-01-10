@@ -3,8 +3,8 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-settings-daemon
-pkgver=1.0.0.alpha.4
-pkgrel=2
+pkgver=1.0.0.alpha.5
+pkgrel=1
 pkgdesc='Cosmic settings daemon'
 arch=(x86_64)
 url=https://github.com/pop-os/cosmic-settings-daemon
@@ -29,12 +29,12 @@ makedepends=(
 optdepends=(
   'pulseaudio-alsa: Media keys support'
 )
-_tag=f079ab7f98132787de385934915547f333dfbddc
+_tag=61c76a9d060827402eeb9fe92cae73ce159d66e5
 source=(
   git+https://github.com/pop-os/cosmic-settings-daemon.git#tag=${_tag}
   cosmic-settings-daemon-lto.patch
 )
-b2sums=('71e4d32667cba01270b2ff065a041146795a8416f0096965aae9d0ed6b89de19c9f80bfb581becb6c3a2b3bce80d0aafeeaa51855a338e47c15a45eec4b76c86'
+b2sums=('d035db009fdbc6c697bf6c58754951cd1e82f0b47f39437f5b9ff98eac590e2760528989d36ed4b382682e633c5e59593572aa437b0a5d30793f31057fe00a6e'
         'd08aacbcc5b98304f9a99bc2d6a0072473f4ccd9175dcd558334179561bb2e68c0c339471f6e85b849087108998fb1b17707be9d3c87bd018c75b45b7774e91e')
 
 prepare() {
