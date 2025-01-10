@@ -1,18 +1,21 @@
 pkgbase = yubikey-touch-detector
 	pkgdesc = A tool that can detect when your YubiKey is waiting for a touch
-	pkgver = 1.12.4
+	pkgver = 1.12.5
 	pkgrel = 1
 	url = https://github.com/maximbaz/yubikey-touch-detector
 	arch = x86_64
 	license = ISC
 	makedepends = go
-	makedepends = git
 	makedepends = scdoc
 	depends = glibc
+	depends = gpgme
+	depends = hicolor-icon-theme
 	optdepends = gnupg: for GPG
 	optdepends = openssh: for SSH
-	source = git+https://github.com/maximbaz/yubikey-touch-detector.git#tag=1.12.4?signed
+	source = yubikey-touch-detector-1.12.5.tar.gz::https://github.com/maximbaz/yubikey-touch-detector/archive/refs/tags/1.12.5.tar.gz
+	source = https://github.com/maximbaz/yubikey-touch-detector/releases/download/1.12.5/yubikey-touch-detector-1.12.5.tar.gz.asc
 	validpgpkeys = 56C3E775E72B0C8B1C0C1BD0B5DB77409B11B601
-	b2sums = 7bd226925fb7c70667eb10992b4b111cc15d14cd896178e4bc66f6f9c4671496fbba85acfe5f320088974f8e63e86a7749800ba66070ee8e045713983089d63a
+	b2sums = 4aa21e0f24c2d0d33f110a4fe836af11af7e8f673b09c5a843637638022f34f0e81803689d66e3b63a174f1b95b69623e49900741722602b95f1d8e8c5a71372
+	b2sums = SKIP
 
 pkgname = yubikey-touch-detector
