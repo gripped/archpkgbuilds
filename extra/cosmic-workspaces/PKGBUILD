@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-workspaces
-pkgver=1.0.0alpha4
+pkgver=1.0.0alpha5
 pkgrel=1
 epoch=1
 pkgdesc='Cosmic workspaces'
@@ -25,12 +25,12 @@ makedepends=(
   git
   lld
 )
-_tag=70d6c415a1cd931f575c3e18274c3fecc7cc9a03
+_tag=e0c0f27f6722e2a91084594c4c815f6af3de27c8
 source=(
   git+https://github.com/pop-os/cosmic-workspaces-epoch.git#tag=${_tag}
   cosmic-workspaces-lto.patch
 )
-b2sums=('06c1eeb25d12287c0c9865543a5bf8bf1fd01d338edea07b2d20ef3783f77ffb43fcfd1550786f2703ffdcdd833a60c39f8beaa4dc59792ca4d825e6b5ac0b88'
+b2sums=('a03e43647d5cd888257acec77a113300e442b680870bdbfc47030d80d62f1060e008510878ff44bc1cc8c3d119efc4cb88e86046278b2c48b06706783f330c3d'
         'e8581fbd229f4cec60e0a03986c5adc6273a704ee44129dfc01731aa0c4f2d800b2971103e005f9d5fe853facae8db2e707d27af0e7a1d3577962aa1eb80d2b0')
 
 prepare() {
@@ -39,10 +39,10 @@ prepare() {
   cargo fetch --locked
 }
 
-#pkgver() {
-#  cd cosmic-workspaces-epoch
-#  git describe --tags | sed 's/^epoch-//; s/-alpha./alpha/'
-#}
+pkgver() {
+  cd cosmic-workspaces-epoch
+  git describe --tags | sed 's/^epoch-//; s/-alpha./alpha/'
+}
 
 build() {
   cd cosmic-workspaces-epoch
