@@ -2,9 +2,9 @@
 # Contributor: Enlightenment Developers <enlightenment-devel@enlightenment.org>
 
 pkgbase=efl
-pkgname=('efl')
+pkgname=('efl' 'efl-docs')
 pkgver=1.27.0
-pkgrel=5
+pkgrel=4
 pkgdesc="Enlightenment Foundation Libraries"
 arch=('x86_64')
 url="https://www.enlightenment.org"
@@ -59,8 +59,8 @@ build() {
 
   ninja -C build
 
-#  cd build/doc
-#  doxygen -w html ../../doc/head.html ../../doc/foot.html ../../doc/e.css Doxyfile
+  cd build/doc
+  doxygen
 }
 
 package_efl(){
@@ -76,16 +76,14 @@ package_efl(){
     "${pkgdir}/usr/share/licenses/${pkgname}/COPYING.SMALL"
 }
 
-# doxygen is broken - it just hangs for no apparent reason, but works
-# outside of docker conrainers, so disable docs.
-#package_efl-docs() {
-#  pkgdesc="Documentation for the Enlightenment Foundation Libraries"
-#  depends=()
-#
-#  cd "${srcdir}/${pkgbase}-${pkgver}/build"
-#  install -d "${pkgdir}/usr/share/doc/${pkgbase}"
-#  cp -a html "${pkgdir}/usr/share/doc/${pkgbase}/html"
-#  cp -a latex "${pkgdir}/usr/share/doc/${pkgbase}/latex"
-#  #cp -a man "${pkgdir}/usr/share"
-#
-#}
+package_efl-docs() {
+  pkgdesc="Documentation for the Enlightenment Foundation Libraries"
+  depends=()
+
+  cd "${srcdir}/${pkgbase}-${pkgver}/build"
+  install -d "${pkgdir}/usr/share/doc/${pkgbase}"
+  cp -a html "${pkgdir}/usr/share/doc/${pkgbase}/html"
+  cp -a latex "${pkgdir}/usr/share/doc/${pkgbase}/latex"
+  #cp -a man "${pkgdir}/usr/share"
+  
+}
