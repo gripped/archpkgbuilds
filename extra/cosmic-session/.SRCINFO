@@ -1,6 +1,6 @@
 pkgbase = cosmic-session
 	pkgdesc = Session manager for the COSMIC desktop environment
-	pkgver = 1.0.0.alpha.4
+	pkgver = 1.0.0.alpha.5
 	pkgrel = 1
 	url = https://github.com/pop-os/cosmic-session
 	arch = x86_64
@@ -37,13 +37,15 @@ pkgbase = cosmic-session
 	depends = xdg-desktop-portal-cosmic
 	depends = xorg-xwayland
 	optdepends = cosmic-files: COSMIC file manager
+	optdepends = cosmic-player: COSMIC media player
 	optdepends = cosmic-store: COSMIC store
 	optdepends = cosmic-terminal: COSMIC terminal
 	optdepends = cosmic-text-editor: COSMIC text editor
 	optdepends = cosmic-wallpapers: COSMIC wallpapers
-	source = git+https://github.com/pop-os/cosmic-session.git#tag=87a0644435145b009ea4c159d3992ff279292424
+	optdepends = dconf: Apply COSMIC settings to GTK applications
+	source = git+https://github.com/pop-os/cosmic-session.git#tag=998cf3fba71d8f1cef3507577d2c27ad2c22b740
 	source = cosmic-session-lto.patch
-	b2sums = 0ede78197c6a2bd4664632273fb9467f0c5b25540b36811441bc412c7fa3b39012f56e788f26bfc1036469ccab3284e754e9c96619516325f5bcd126f5e4a6e5
+	b2sums = 46a4a361db9d2e7b13a15e3e40c5b13d6ff6577ae3f3cbb24ca4c0499a7fc824d84ad443372f9d0d7c6ba29853a3522bcd40e40a910897bd47b2e4ffc51ec110
 	b2sums = 9265d8218817b047b9d645b78abd1ad8e9cc30ae2c84a041058c2457b631bb9d4b4068144c019536cadfea6aa301ec72166a4bf4029305c1f6e67f05bed99882
 
 pkgname = cosmic-session
