@@ -5,7 +5,7 @@
 
 pkgname=hyprland
 pkgver=0.46.2
-pkgrel=5
+pkgrel=6
 pkgdesc='a highly customizable dynamic tiling Wayland compositor'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/${pkgname^}"
