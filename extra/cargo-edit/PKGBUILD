@@ -4,26 +4,26 @@
 
 pkgname=cargo-edit
 pkgver=0.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Managing cargo dependencies from the command line'
 url='https://github.com/killercup/cargo-edit/releases'
 arch=('x86_64')
 license=('MIT' 'Apache-2.0')
-depends=('cargo' 'libgit2' 'libssh2' 'openssl')
+depends=('cargo' 'libssh2' 'openssl')
 source=(https://github.com/killercup/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
 sha512sums=('abb4b0e1fb9e60aa54555a857514798b5f5bb85d4b21a6fd5d829e9cb04e723244d64fa13bf6b5e585a3fe2e9d091d3307d9fe1a6b3674601a7158a3cd6267d0')
 b2sums=('71f1e280a08de1a3b69f38083de205872b5d5f635660601dda2db03a0c789f2dd9717ab4fc16812ccfea6d69a1e701abf138bb1bdf49e27d1bcb4e956d354a16')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  sed -i '/\"vendored-libgit2\"/d' Cargo.toml
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
   cd ${pkgname}-${pkgver}
   CFLAGS+=' -ffat-lto-objects'
-  LIBSSH2_SYS_USE_PKG_CONFIG=1 cargo build --frozen --release
+  export LIBSSH2_SYS_USE_PKG_CONFIG=1
+  cargo build --frozen --release
 }
 
 check() {
@@ -36,13 +36,20 @@ check() {
     # Rust changed some error messages
     'invalid_manifest::case'
     'invalid_workspace_root_manifest::case'
+    # Rust 1.85 changed manifest versions
+    # as of this pgkver 0.13.0 these tests assume older Rust
+    lockfile::case
+    upgrade_all::case
+    upgrade_workspace::case
+    virtual_manifest::case
+    workspace_inheritance::case
+    workspace_member_cwd::case
   )
-  # tests depend on target/debug/
-  LIBSSH2_SYS_USE_PKG_CONFIG=1 cargo test --frozen -- ${skipped[@]/#/--skip }
+  export LIBSSH2_SYS_USE_PKG_CONFIG=1
+  cargo test --frozen -- ${skipped[@]/#/--skip }
 }
 
 package() {
-  depends+=(libgit2.so)
   cd ${pkgname}-${pkgver}
   install -Dm 755 \
     target/release/cargo-upgrade \
