@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kparts
-pkgver=6.9.0
+pkgver=6.10.0
 pkgrel=1
 pkgdesc='Document centric plugin system'
 arch=(x86_64)
@@ -24,7 +24,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('afc9c4e897b371a51589342ed0573889bf4fab79b81b9a6950a45cd9faedd788'
+sha256sums=('a3c460f635f32e254093da3d46d53fe9a4a7cca5987149047981b477c50a060c'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
