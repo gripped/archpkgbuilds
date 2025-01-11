@@ -2,30 +2,32 @@
 # Contributor: John K. Luebs <jkluebs@luebsphoto.com>
 
 pkgname=xiccd
-pkgver=0.3.0
-pkgrel=2
+pkgver=0.4.1
+pkgrel=1
 pkgdesc="X color profile daemon"
 url="https://github.com/agalakhov/xiccd"
 arch=('x86_64')
 license=('GPL-3.0-only')
 depends=('colord' 'libxrandr')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('94dbe352ad3043079fa5edd8150318ec88f1dc87b75f69b1fced8ce2981c36a9')
+makedepends=('git')
+source=("git+${url}.git#tag=v${pkgver}")
+sha256sums=('5867be4d97ed8bdcf8fc308cb0ee0f4b83bc4c0a95067ff1959d4ca846403f23')
 
 prepare() {
-	cd "${pkgname}-${pkgver}"
+	cd "${pkgname}"
 	aclocal
 	autoconf
 	automake --add-missing --foreign --force --copy
+
 }
 
 build() {
-	cd "${pkgname}-${pkgver}"
+	cd "${pkgname}"
 	./configure --prefix=/usr --sysconfdir=/etc
 	make
 }
 
 package() {
-	cd "${pkgname}-${pkgver}"
+	cd "${pkgname}"
 	make DESTDIR="${pkgdir}" install
 }

@@ -1,13 +1,14 @@
 pkgbase = xiccd
 	pkgdesc = X color profile daemon
-	pkgver = 0.3.0
-	pkgrel = 2
+	pkgver = 0.4.1
+	pkgrel = 1
 	url = https://github.com/agalakhov/xiccd
 	arch = x86_64
 	license = GPL-3.0-only
+	makedepends = git
 	depends = colord
 	depends = libxrandr
-	source = xiccd-0.3.0.tar.gz::https://github.com/agalakhov/xiccd/archive/v0.3.0.tar.gz
-	sha256sums = 94dbe352ad3043079fa5edd8150318ec88f1dc87b75f69b1fced8ce2981c36a9
+	source = git+https://github.com/agalakhov/xiccd.git#tag=v0.4.1
+	sha256sums = 5867be4d97ed8bdcf8fc308cb0ee0f4b83bc4c0a95067ff1959d4ca846403f23
 
 pkgname = xiccd
