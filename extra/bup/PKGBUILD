@@ -10,8 +10,8 @@
 # Contributor: SanskritFritz (gmail)
 
 pkgname=bup
-pkgver=0.33.6
-pkgrel=2
+pkgver=0.33.7
+pkgrel=1
 pkgdesc='Efficient backup system based on the git packfile format'
 arch=(x86_64)
 url='https://bup.github.io/'
@@ -28,7 +28,7 @@ optdepends=('python-tornado: for bup web')
 makedepends=(git
              pandoc)
 source=(git+https://github.com/bup/bup#tag=$pkgver)
-sha256sums=('19121cddb6ae701f9b416f61be12887b75f291c27e91c6c5637abc4f5af35c2b')
+sha256sums=('dd41444d01f46e9842e01b4c06b53a08ddab114b60a6842790eafe387049e172')
 
 prepare() {
   cd $pkgname
