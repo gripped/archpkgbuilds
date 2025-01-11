@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-app-library
-pkgver=1.0.0.alpha.4
+pkgver=1.0.0.alpha.5
 pkgrel=1
 pkgdesc='Cosmic App Library'
 arch=(x86_64)
@@ -32,10 +32,10 @@ prepare() {
   cargo fetch --locked
 }
 
-pkgver() {
-  cd cosmic-applibrary
-  git describe --tags | sed 's/^epoch-//; s/-/./g'
-}
+#pkgver() {
+#  cd cosmic-applibrary
+#  git describe --tags | sed 's/^epoch-//; s/-/./g'
+#}
 
 build() {
   cd cosmic-applibrary
