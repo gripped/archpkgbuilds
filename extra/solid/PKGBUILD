@@ -3,8 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=solid
-pkgver=6.9.1
-pkgrel=2
+pkgver=6.10.0
+pkgrel=1
 pkgdesc='Hardware integration and detection'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -27,7 +27,7 @@ makedepends=(doxygen
 optdepends=('qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('254d562da6611a15f1f617e7afb78d4702455b89ca95de1dba9f6b9928320367'
+sha256sums=('24892e81a3047f753519dbd384b47635c5a2543d8ee0bf3c299b0fcfef318e8c'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
