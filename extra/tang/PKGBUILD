@@ -1,12 +1,12 @@
 # Maintainer: Jonas Witschel <diabonas@archlinux.org>
 pkgname=tang
 pkgver=15
-pkgrel=1
+pkgrel=2
 pkgdesc='Server for binding data to network presence'
 arch=('x86_64')
 url='https://github.com/latchset/tang'
 license=('GPL3')
-depends=('http-parser' 'jose')
+depends=('llhttp' 'jose')
 makedepends=('git' 'asciidoc' 'meson')
 checkdepends=('systemd')
 source=("git+$url.git#tag=v$pkgver"
