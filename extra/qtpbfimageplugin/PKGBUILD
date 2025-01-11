@@ -4,12 +4,11 @@
 pkgbase=qtpbfimageplugin
 pkgname=(qtpbfimageplugin-qt5 qtpbfimageplugin-qt6)
 pkgver=4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Qt image plugin for displaying Mapbox vector tiles'
 arch=(x86_64)
 url='https://github.com/tumic0/QtPBFImagePlugin'
-license=('LGPL3')
-depends=('protobuf' 'zlib')
+license=('LGPL-3.0-only')
 makedepends=('qt5-base' 'qt6-base')
 source=("${pkgbase}-${pkgver}.tar.gz::https://github.com/tumic0/QtPBFImagePlugin/archive/refs/tags/${pkgver}.tar.gz")
 sha256sums=('f2d5c0e74f99a4e5a103dcede8c7fb129afe366bc8a4d055044770458d4280d9')
@@ -31,7 +30,7 @@ build() {
 }
 
 package_qtpbfimageplugin-qt5() {
-  depends+=(qt5-base)
+  depends=(qt5-base)
   cd build5
 
   make install INSTALL_ROOT="$pkgdir"
@@ -40,7 +39,7 @@ package_qtpbfimageplugin-qt5() {
 }
 
 package_qtpbfimageplugin-qt6() {
-  depends+=(qt6-base)
+  depends=(qt6-base)
   cd build6
 
   make install INSTALL_ROOT="$pkgdir"
