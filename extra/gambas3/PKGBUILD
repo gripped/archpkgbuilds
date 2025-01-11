@@ -3,9 +3,10 @@
 
 pkgbase=gambas3
 pkgname=('gambas3-gb-args'
-         'gambas3-gb-cairo' 'gambas3-gb-chart' 'gambas3-gb-clipper' 'gambas3-gb-complex' 'gambas3-gb-compress' 'gambas3-gb-crypt'
+         'gambas3-gb-cairo' 'gambas3-gb-chart' 'gambas3-gb-clipper' 'gambas3-gb-clipper2' 'gambas3-gb-complex' 'gambas3-gb-compress' 'gambas3-gb-crypt'
          'gambas3-gb-dbus' 'gambas3-gb-data'
          'gambas3-gb-db-form' 'gambas3-gb-db-mysql' 'gambas3-gb-db-odbc' 'gambas3-gb-db-postgresql' 'gambas3-gb-db-sqlite3' 'gambas3-gb-db'
+         'gambas3-gb-db2-form' 'gambas3-gb-db2-mysql' 'gambas3-gb-db2-odbc' 'gambas3-gb-db2-postgresql' 'gambas3-gb-db2-sqlite3' 'gambas3-gb-db2'
          'gambas3-gb-desktop-gnome' 'gambas3-gb-desktop-x11' 'gambas3-gb-desktop'
          'gambas3-gb-eval-highlight'
          'gambas3-gb-form-dialog' 'gambas3-gb-form-mdi' 'gambas3-gb-form-terminal' 'gambas3-gb-form-stock' 'gambas3-gb-form-editor' 'gambas3-gb-form-htmlview' 'gambas3-gb-form'
@@ -13,11 +14,12 @@ pkgname=('gambas3-gb-args'
          'gambas3-gb-hash' 'gambas3-gb-highlight' 'gambas3-gb-httpd'
          'gambas3-gb-image-effect' 'gambas3-gb-image-imlib' 'gambas3-gb-image-io' 'gambas3-gb-image' 'gambas3-gb-inotify'
          'gambas3-gb-libxml' 'gambas3-gb-logging'
-         'gambas3-gb-map' 'gambas3-gb-markdown' 'gambas3-gb-media-form' 'gambas3-gb-media' 'gambas3-gb-memcached' 'gambas3-gb-mime' 'gambas3-gb-mysql'
+         'gambas3-gb-map' 'gambas3-gb-markdown' 'gambas3-gb-media-form' 'gambas3-gb-media' 'gambas3-gb-memcached' 'gambas3-gb-mime' 'gambas3-gb-mongodb' 'gambas3-gb-mysql'
          'gambas3-gb-ncurses' 'gambas3-gb-net-curl' 'gambas3-gb-net-pop3' 'gambas3-gb-net-smtp' 'gambas3-gb-net'
          'gambas3-gb-openal' 'gambas3-gb-opengl-glu' 'gambas3-gb-opengl-glsl' 'gambas3-gb-opengl-sge' 'gambas3-gb-opengl' 'gambas3-gb-option'
          'gambas3-gb-pcre' 'gambas3-gb-poppler'
          'gambas3-gb-qt5-opengl' 'gambas3-gb-qt5'
+         'gambas3-gb-qt6-opengl' 'gambas3-gb-qt6'
          'gambas3-gb-openssl'
          'gambas3-gb-report'
          'gambas3-gb-scanner' 'gambas3-gb-sdl2-audio' 'gambas3-gb-sdl2' 'gambas3-gb-settings' 'gambas3-gb-signal'
@@ -27,8 +29,8 @@ pkgname=('gambas3-gb-args'
          'gambas3-gb-xml-html' 'gambas3-gb-xml-rpc' 'gambas3-gb-xml-xslt' 'gambas3-gb-xml'
          'gambas3-gb-web-feed' 'gambas3-gb-web-form' 'gambas3-gb-web-gui' 'gambas3-gb-web'
          'gambas3-runtime' 'gambas3-dev-tools' 'gambas3-ide' 'gambas3-script')
-pkgver=3.19.5
-pkgrel=5
+pkgver=3.20.0
+pkgrel=2
 pkgdesc="A free development environment based on a Basic interpreter."
 arch=('x86_64')
 url="http://gambas.sourceforge.net/"
@@ -36,14 +38,14 @@ license=('GPL-2.0-or-later')
 groups=('gambas3')
 makedepends=('intltool' 'postgresql' 'libffi' 'bzip2' 'glib2' 'v4l-utils'
          'zlib' 'mesa' 'glew' 'xdg-utils' 'imlib2' 'gdk-pixbuf2' 'gtk3' 'webkit2gtk'
-         'postgresql-libs' 'mariadb-libs' 'unixodbc' 'sqlite' 'librsvg'
+         'postgresql-libs' 'mariadb-libs' 'unixodbc' 'mongo-c-driver' 'sqlite' 'librsvg'
          'curl' 'poppler-glib' 'sdl2' 'sdl2_mixer' 'sdl2_image' 'sdl2_ttf' 'libxtst'
-         'pcre2' 'qt5-webengine' 'qt5-x11extras' 'qt5-svg' 'libxcursor' 'libsm' 'dbus' 'libxml2'
-         'libxslt' 'libgnome-keyring' 'gsl' 'gst-plugins-base-libs' 'alure' 'ncurses'
+         'pcre2' 'qt5-webengine' 'qt5-x11extras' 'qt5-svg' 'qt6-webengine' 'qt6-svg' 'qt6-wayland' 'libxcursor'
+         'libsm' 'dbus' 'libxml2' 'libxslt' 'libgnome-keyring' 'gsl' 'gst-plugins-base-libs' 'alure' 'ncurses'
          'gmime3' 'libxcrypt')
 options=('!emptydirs' 'libtool')
 source=("https://gitlab.com/gambas/gambas/-/archive/${pkgver}/gambas-${pkgver}.tar.bz2")
-sha512sums=('5cafa1cdd297277d3344cb86edbd586de80b521cd2a410b2b01164301c0afb53ff2291a2bc763f84582f9af164ccb626aa43d9473ae34ba642ec7e917cf6a205')
+sha512sums=('91e61e2de6bb67544aa91db5b73658525df60d983ff613e1ebb79e476fcfa1d876e2e7c70a55f1ee51728cb2869fde7413e795d32e4844587486df41e3d52260')
 
 prepare() {
   cd ${srcdir}/gambas-${pkgver}
@@ -105,6 +107,14 @@ package_gambas3-gb-chart() {
 }
 
 package_gambas3-gb-clipper() {
+  depends=('gambas3-runtime')
+  pkgdesc="Polygon clipping component"
+
+  _install fakeinstall/usr/lib/gambas3/gb.clipper2.*
+  _install fakeinstall/usr/share/gambas3/info/gb.clipper2.*
+}
+
+package_gambas3-gb-clipper2() {
   depends=('gambas3-runtime')
   pkgdesc="Polygon clipping component"
 
@@ -192,6 +202,55 @@ package_gambas3-gb-db() {
 
   _install fakeinstall/usr/lib/gambas3/gb.db.*
   _install fakeinstall/usr/share/gambas3/info/gb.db.*
+}
+
+package_gambas3-gb-db2-form() {
+  depends=('gambas3-gb-db2' 'gambas3-gb-form')
+  pkgdesc="Database form component"
+
+  _install fakeinstall/usr/lib/gambas3/gb.db2.form.*
+  _install fakeinstall/usr/share/gambas3/info/gb.db2.form.*
+  _install fakeinstall/usr/share/gambas3/control/gb.db2.form/*
+}
+
+package_gambas3-gb-db2-mysql() {
+  depends=('gambas3-gb-db2' 'mariadb-libs')
+  pkgdesc="MySQL database access component"
+
+  _install fakeinstall/usr/lib/gambas3/gb.db2.mysql.*
+  _install fakeinstall/usr/share/gambas3/info/gb.db2.mysql.*
+}
+
+package_gambas3-gb-db2-odbc() {
+  depends=('gambas3-gb-db2' 'unixodbc')
+  pkgdesc="ODBC database access component"
+
+  _install fakeinstall/usr/lib/gambas3/gb.db2.odbc.*
+  _install fakeinstall/usr/share/gambas3/info/gb.db2.odbc.*
+}
+
+package_gambas3-gb-db2-postgresql() {
+  depends=('gambas3-gb-db2' 'postgresql-libs')
+  pkgdesc="PostgreSQL database access component"
+
+  _install fakeinstall/usr/lib/gambas3/gb.db2.postgresql.*
+  _install fakeinstall/usr/share/gambas3/info/gb.db2.postgresql.*
+}
+
+package_gambas3-gb-db2-sqlite3() {
+  depends=('gambas3-gb-db2' 'sqlite' 'gcc-libs')
+  pkgdesc="Sqlite3 database access component"
+
+  _install fakeinstall/usr/lib/gambas3/gb.db2.sqlite3.*
+  _install fakeinstall/usr/share/gambas3/info/gb.db2.sqlite3.*
+}
+
+package_gambas3-gb-db2() {
+  depends=('gambas3-runtime')
+  pkgdesc="Database access component"
+
+  _install fakeinstall/usr/lib/gambas3/gb.db2.*
+  _install fakeinstall/usr/share/gambas3/info/gb.db2.*
 }
 
 package_gambas3-gb-dbus() {
@@ -461,6 +520,14 @@ package_gambas3-gb-mime() {
   _install fakeinstall/usr/share/gambas3/info/gb.mime.*
 }
 
+package_gambas3-gb-mongodb() {
+  depends=('gambas3-runtime' 'mongo-c-driver')
+  pkgdesc="MongoDB database access component"
+
+  _install fakeinstall/usr/lib/gambas3/gb.mongodb.*
+  _install fakeinstall/usr/share/gambas3/info/gb.mongodb.*
+}
+
 package_gambas3-gb-mysql() {
   depends=('gambas3-runtime' 'gambas3-gb-db-mysql')
   pkgdesc="Mysql extra component"
@@ -599,6 +666,23 @@ package_gambas3-gb-qt5() {
 
   _install fakeinstall/usr/lib/gambas3/gb.qt5.*
   _install fakeinstall/usr/share/gambas3/info/gb.qt5.*
+}
+
+package_gambas3-gb-qt6-opengl() {
+  depends=('gambas3-gb-qt6' 'gambas3-gb-opengl')
+  pkgdesc="Qt6 toolkit OpenGL component"
+
+  _install fakeinstall/usr/lib/gambas3/gb.qt6.opengl.*
+  _install fakeinstall/usr/share/gambas3/info/gb.qt6.opengl.*
+}
+
+package_gambas3-gb-qt6() {
+  depends=('gambas3-gb-image' 'qt6-base' 'qt5-svg' 'qt6-webengine' 'qt6-wayland')
+  pkgdesc="Qt6 toolkit component"
+  provides=('gambas3-gui')
+
+  _install fakeinstall/usr/lib/gambas3/gb.qt6.*
+  _install fakeinstall/usr/share/gambas3/info/gb.qt6.*
 }
 
 package_gambas3-gb-report() {
@@ -784,7 +868,7 @@ package_gambas3-dev-tools() {
 }
 
 package_gambas3-ide() {
-  depends=('gambas3-dev-tools' 'gambas3-gb-clipper' 'gambas3-gb-db-form' 'gambas3-gb-desktop' 'gambas3-gb-desktop-x11'
+  depends=('gambas3-dev-tools' 'gambas3-gb-clipper' 'gambas3-gb-db2-form' 'gambas3-gb-desktop' 'gambas3-gb-desktop-x11'
            'gambas3-gb-highlight' 'gambas3-gb-form-dialog' 'gambas3-gb-form-editor' 'gambas3-gb-form-stock'
            'gambas3-gb-markdown' 'gambas3-gb-settings' 'gambas3-gb-form-mdi' 'gambas3-gb-image-effect' 'gambas3-gb-qt5'
            'gambas3-gb-net-curl' 'gambas3-gb-form-terminal' 'gambas3-gb-form-htmlview' 'gambas3-gb-signal'

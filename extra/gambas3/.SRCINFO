@@ -1,7 +1,7 @@
 pkgbase = gambas3
 	pkgdesc = A free development environment based on a Basic interpreter.
-	pkgver = 3.19.5
-	pkgrel = 5
+	pkgver = 3.20.0
+	pkgrel = 2
 	url = http://gambas.sourceforge.net/
 	arch = x86_64
 	groups = gambas3
@@ -23,6 +23,7 @@ pkgbase = gambas3
 	makedepends = postgresql-libs
 	makedepends = mariadb-libs
 	makedepends = unixodbc
+	makedepends = mongo-c-driver
 	makedepends = sqlite
 	makedepends = librsvg
 	makedepends = curl
@@ -36,6 +37,9 @@ pkgbase = gambas3
 	makedepends = qt5-webengine
 	makedepends = qt5-x11extras
 	makedepends = qt5-svg
+	makedepends = qt6-webengine
+	makedepends = qt6-svg
+	makedepends = qt6-wayland
 	makedepends = libxcursor
 	makedepends = libsm
 	makedepends = dbus
@@ -50,8 +54,8 @@ pkgbase = gambas3
 	makedepends = libxcrypt
 	options = !emptydirs
 	options = libtool
-	source = https://gitlab.com/gambas/gambas/-/archive/3.19.5/gambas-3.19.5.tar.bz2
-	sha512sums = 5cafa1cdd297277d3344cb86edbd586de80b521cd2a410b2b01164301c0afb53ff2291a2bc763f84582f9af164ccb626aa43d9473ae34ba642ec7e917cf6a205
+	source = https://gitlab.com/gambas/gambas/-/archive/3.20.0/gambas-3.20.0.tar.bz2
+	sha512sums = 91e61e2de6bb67544aa91db5b73658525df60d983ff613e1ebb79e476fcfa1d876e2e7c70a55f1ee51728cb2869fde7413e795d32e4844587486df41e3d52260
 
 pkgname = gambas3-gb-args
 	pkgdesc = Command-line options analyzer component
@@ -67,6 +71,10 @@ pkgname = gambas3-gb-chart
 	depends = gambas3-gb-form
 
 pkgname = gambas3-gb-clipper
+	pkgdesc = Polygon clipping component
+	depends = gambas3-runtime
+
+pkgname = gambas3-gb-clipper2
 	pkgdesc = Polygon clipping component
 	depends = gambas3-runtime
 
@@ -126,6 +134,36 @@ pkgname = gambas3-gb-db-sqlite3
 	depends = gcc-libs
 
 pkgname = gambas3-gb-db
+	pkgdesc = Database access component
+	depends = gambas3-runtime
+
+pkgname = gambas3-gb-db2-form
+	pkgdesc = Database form component
+	depends = gambas3-gb-db2
+	depends = gambas3-gb-form
+
+pkgname = gambas3-gb-db2-mysql
+	pkgdesc = MySQL database access component
+	depends = gambas3-gb-db2
+	depends = mariadb-libs
+
+pkgname = gambas3-gb-db2-odbc
+	pkgdesc = ODBC database access component
+	depends = gambas3-gb-db2
+	depends = unixodbc
+
+pkgname = gambas3-gb-db2-postgresql
+	pkgdesc = PostgreSQL database access component
+	depends = gambas3-gb-db2
+	depends = postgresql-libs
+
+pkgname = gambas3-gb-db2-sqlite3
+	pkgdesc = Sqlite3 database access component
+	depends = gambas3-gb-db2
+	depends = sqlite
+	depends = gcc-libs
+
+pkgname = gambas3-gb-db2
 	pkgdesc = Database access component
 	depends = gambas3-runtime
 
@@ -277,6 +315,11 @@ pkgname = gambas3-gb-mime
 	depends = gambas3-runtime
 	depends = gmime3
 
+pkgname = gambas3-gb-mongodb
+	pkgdesc = MongoDB database access component
+	depends = gambas3-runtime
+	depends = mongo-c-driver
+
 pkgname = gambas3-gb-mysql
 	pkgdesc = Mysql extra component
 	depends = gambas3-runtime
@@ -357,6 +400,20 @@ pkgname = gambas3-gb-qt5
 	depends = qt5-x11extras
 	provides = gambas3-gui
 
+pkgname = gambas3-gb-qt6-opengl
+	pkgdesc = Qt6 toolkit OpenGL component
+	depends = gambas3-gb-qt6
+	depends = gambas3-gb-opengl
+
+pkgname = gambas3-gb-qt6
+	pkgdesc = Qt6 toolkit component
+	depends = gambas3-gb-image
+	depends = qt6-base
+	depends = qt5-svg
+	depends = qt6-webengine
+	depends = qt6-wayland
+	provides = gambas3-gui
+
 pkgname = gambas3-gb-openssl
 	pkgdesc = Openssl component
 	depends = gambas3-runtime
@@ -366,7 +423,7 @@ pkgname = gambas3-gb-report
 	pkgdesc = Report component
 	depends = gambas3-gb-form
 	depends = gambas3-gb-image-io
-	provides = gambas3-gb-report2=3.19.5
+	provides = gambas3-gb-report2=3.20.0
 
 pkgname = gambas3-gb-scanner
 	pkgdesc = Scanimage frontend component
@@ -397,7 +454,7 @@ pkgname = gambas3-gb-signal
 pkgname = gambas3-gb-term
 	pkgdesc = Terminal management component
 	depends = gambas3-runtime
-	provides = gambas3-gb-term-form=3.19.5
+	provides = gambas3-gb-term-form=3.20.0
 
 pkgname = gambas3-gb-util-web
 	pkgdesc = Miscellaneous web utility functions component
@@ -473,7 +530,7 @@ pkgname = gambas3-ide
 	pkgdesc = Integrated Development Environment
 	depends = gambas3-dev-tools
 	depends = gambas3-gb-clipper
-	depends = gambas3-gb-db-form
+	depends = gambas3-gb-db2-form
 	depends = gambas3-gb-desktop
 	depends = gambas3-gb-desktop-x11
 	depends = gambas3-gb-highlight
