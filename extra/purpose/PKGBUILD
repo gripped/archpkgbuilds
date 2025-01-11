@@ -1,7 +1,7 @@
 # Maintainer:Antonio Rojas <arojas@archlinux.org>
 
 pkgname=purpose
-pkgver=6.9.0
+pkgver=6.10.0
 pkgrel=1
 pkgdesc='Framework for providing abstractions to get the developers purposes fulfilled'
 arch=(x86_64)
@@ -32,7 +32,7 @@ optdepends=('bluedevil: sharing via Bluetooth'
 conflicts=('purpose5<5.114.0-2')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('1709a31d446e7be432179b7fcd2ee26e8e3b9fde0a39ab3557835643873ae558'
+sha256sums=('19de7943df772c1b5ce2771099a17536e97e7ff6c5a5411c1346c25b24e51a57'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
