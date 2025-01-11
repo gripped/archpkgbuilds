@@ -5,34 +5,31 @@
 # Contributor: neuromante <lorenzo.nizzi.grifi@gmail.com>
 
 pkgname=skrooge
-pkgver=2.33.0
-pkgrel=4
+pkgver=25.1.0
+pkgrel=1
 pkgdesc="A personal finances manager for KDE"
 arch=('x86_64')
 url="https://skrooge.org/"
 license=('GPL')
-depends=('qt5-base' 'qt5-script' 'qt5-webengine' 'qt5-xmlpatterns' 'libofx'
-         'grantlee' 'knewstuff5' 'knotifyconfig5' 'kparts5'
-         'sqlcipher' 'python' 'hicolor-icon-theme' 'qt5-quickcontrols2')
-makedepends=('cmake' 'kdoctools5' 'extra-cmake-modules' 'qt5-tools')
+depends=('qt6-base' 'qt6-webengine' 'libofx'
+         'knewstuff' 'knotifyconfig' 'kparts' 'ktexttemplate'
+         'sqlcipher' 'python' 'hicolor-icon-theme' 'qt6-declarative')
+makedepends=('cmake' 'kdoctools' 'extra-cmake-modules' 'qt6-tools' 'kstatusnotifieritem' 'krunner' 'plasma-activities')
 options=('!emptydirs')
 changelog=$pkgname.changelog
 source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
-validpgpkeys=('103DC6D087B3A4A2ED975D7EF0C8CED3382A5C4D') #Stephane MANKOWSKI (Perso) <stephane@mankowski.fr>
-sha256sums=('f4ae3faf723d54d7542878b8142a344b147e4337b0bc42863907af44cfebf465'
+validpgpkeys=('103DC6D087B3A4A2ED975D7EF0C8CED3382A5C4D'  #Stephane MANKOWSKI (Perso) <stephane@mankowski.fr>
+              'F1955ED9D1C2D10D80B31B3B14EE37CD15C53BDD') 
+sha256sums=('b7c03d7a0a2d4765e8301a39ba81f64413c4a371fa9cf4894b93a2e0c912570c'
             'SKIP')
 
 build() {
-  cd $pkgname-$pkgver
-
-  cmake . -DSKG_WEBENGINE=ON \
-          -DSKG_DESIGNER=OFF \
-          -DSKG_BUILD_TEST=OFF
-  make
+  cmake -B build -S $pkgname-$pkgver \
+    -DSKG_BUILD_TEST=OFF \
+    -DQT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd $pkgname-$pkgver
-
-  make DESTDIR="${pkgdir}" install
+  DESTDIR="${pkgdir}" cmake --install build
 }
