@@ -6,8 +6,8 @@
 # Contributor: Larry Hajali <larryhaja [at] gmail [dot] com>
 
 pkgname=sigil
-pkgver=2.3.1
-pkgrel=2
+pkgver=2.4.0
+pkgrel=1
 pkgdesc='multi-platform EPUB2/EPUB3 ebook editor'
 arch=('x86_64')
 url=https://sigil-ebook.com
@@ -37,21 +37,14 @@ optdepends=('hunspell-en_US: for English dictionary support'
             'tk: recommended for plugins')
 _archive="${pkgname^}-$pkgver"
 source=("$_url/archive/$pkgver/$_archive.tar.gz"
-        "$_url/releases/download/${pkgver}/$_archive.tar.gz.sig"
-         https://github.com/Sigil-Ebook/Sigil/commit/08ed327c.patch
-         https://github.com/Sigil-Ebook/Sigil/commit/9b2773e0.patch)
-sha256sums=('12e84d9a1fc41e60903557ea03801cd0004d8b75dfcebeb44c3a9b1fd8fa97ea'
-            'SKIP'
-            'f26caf4362a8c336216b9448c958e6ad82ef56acb617e75e33cb2656e1bf5b42'
-            'f9c408f486baad1d9f0349699ec04364762fb2cef9eff4703b4a374e03456c58')
+        "$_url/releases/download/${pkgver}/$_archive.tar.gz.sig")
+sha256sums=('200152fcda1d72b547e8981047c51415f1bcd3b8c28b463ffd1263438391f322'
+            'SKIP')
 validpgpkeys=('B5A56206AB0FBC1A24EFAB8AA166D29A8FCDAC63') # Doug Massay <douglaslmassay@gmail.com>
 
 prepare() {
 	cd "$_archive"
 	mkdir -p build
-        # Fix build with Qt 6.8
-        patch -p1 -i ../08ed327c.patch
-        patch -p1 -i ../9b2773e0.patch
 }
 
 build() {
