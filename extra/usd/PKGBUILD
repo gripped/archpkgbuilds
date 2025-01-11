@@ -4,17 +4,15 @@
 # Contributor: Adrià Cabello <adro.cc79 at protonmail dot com>
 # Contributor: Started by https://github.com/qumaciel at https://github.com/PixarAnimationStudios/USD/issues/2000
 
-pkgname=('usd' 'usd-extras')
-_pkgname='OpenUSD'
+pkgname='usd'
 pkgbase=usd
 pkgver=24.11
-pkgrel=1
+pkgrel=5
 arch=(x86_64)
 url='https://openusd.org'
 pkgdesc='3D VFX pipeline interchange file format'
 license=(Apache-2.0)
 depends=(alembic # libAlembic.so
-         dos2unix
          draco # libdraco.so
          embree # libembree4.so
          glew
@@ -33,34 +31,37 @@ depends=(alembic # libAlembic.so
          opensubdiv # libosdCPU.so libosdGPU.so
          openvdb # libopenvdb.so
          pyside6
-         python # libpython3.11.so
+         python
          python-jinja
          python-numpy
          python-opengl)
 makedepends=(cmake help2man boost git)
-source=("git+https://github.com/PixarAnimationStudios/$_pkgname.git#tag=v$pkgver"
+source=("git+https://github.com/PixarAnimationStudios/OpenUSD.git#tag=v$pkgver"
         https://openusd.org/images/USDLogoUnsized.svg
         usd-3392.patch::https://patch-diff.githubusercontent.com/raw/PixarAnimationStudios/OpenUSD/pull/3392.patch
         usd-embree42.patch::https://patch-diff.githubusercontent.com/raw/PixarAnimationStudios/OpenUSD/pull/2266.patch
-        "usd-defaultfonts.patch"
+        cmake-find-dependency.patch::https://patch-diff.githubusercontent.com/raw/PixarAnimationStudios/OpenUSD/pull/3205.patch
+        usd-find-dependency-OpenGL.patch
         "org.openusd.usdview.desktop")
 sha256sums=('0b8147dada1807e7574f4a76030b475be4a9fe2d5a38c078b1f174d9b1932aa6'
             '529dea685836be7de95800d9688db4e1df6a8a3f341130069abdd2b5b1572128'
             '5bcfb527940b957f5c7831c8b626f9c018b575a730fc2967dd869e678492fa42'
             '4f5e6d3a4346d2ff67cca42d89e14850d57b0c475a52004f1af297a699e4a891'
-            '3408ad2877d547f60d2db6b28983837119b8800b62ae1cdc23b37dbe31e17f1c'
+            '112a2735309ba5d39e016c41e164e0e4a0ba5d11a967d462689a5f318649d63b'
+            '1cf9b9e4d902cecce278457af3092e8a180438388044939d3ab89e3a4520efc5'
             '6b880a1dc44ee3286a19b3347f65be5337192d00bccd55fa549598db90a887da')
-
-_extra=("Abc" "OpenVDB" "Draco" "Osl")
+replaces=('usd-extras')
+provides=('usd-extras')
 
 prepare() {
-  cd $_pkgname
+  cd OpenUSD
 
   _pyver=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
 
-  patch -Np1 -i "$srcdir/usd-defaultfonts.patch"
   patch -Np1 -i "$srcdir/usd-embree42.patch"
   patch -Np1 -i "$srcdir/usd-3392.patch"
+  patch -Np1 -i "$srcdir/cmake-find-dependency.patch"
+  patch -Np1 -i "$srcdir/usd-find-dependency-OpenGL.patch"
 
   # Change directories to standard
   sed -i 's|plugin/usd|lib/usd/plugin|g' \
@@ -70,20 +71,16 @@ prepare() {
   sed -i 's|lib/python/pxr|/usr/lib/python'$_pyver'/site-packages/pxr|' \
         cmake/macros/{Private,Public}.cmake pxr/usdImaging/usdviewq/CMakeLists.txt
 
-  sed -i 's|/pxrConfig.cmake|/lib/cmake/pxr/pxrConfig.cmake|g' \
+  sed -i \
+    -e 's|/pxrConfig.cmake|/lib/cmake/pxr/pxrConfig.cmake|g' \
+    -e 's|${CMAKE_INSTALL_PREFIX}|${CMAKE_INSTALL_PREFIX}/lib/cmake/pxr|g' \
+    -e 's|"cmake"|"lib/cmake/pxr"|g' \
         pxr/CMakeLists.txt
-  sed -i 's|${CMAKE_INSTALL_PREFIX}|${CMAKE_INSTALL_PREFIX}/lib/cmake/pxr|g' \
-        pxr/CMakeLists.txt
-  sed -i 's|"cmake"|"lib/cmake/pxr"|g' \
-        pxr/CMakeLists.txt
-  sed -i 's|${PXR_CMAKE_DIR}/cmake|${PXR_CMAKE_DIR}|g' \
+  sed -i \
+    -e 's|${PXR_CMAKE_DIR}/cmake|${PXR_CMAKE_DIR}|g' \
+    -e 's|${PXR_CMAKE_DIR}/include|/usr/include|g' \
+    -e 's|EXACT COMPONENTS|COMPONENTS|g' \
         pxr/pxrConfig.cmake.in
-  sed -i 's|${PXR_CMAKE_DIR}/include|/usr/include|g' \
-        pxr/pxrConfig.cmake.in
-  sed -i 's|EXACT COMPONENTS|COMPONENTS|g' \
-        pxr/pxrConfig.cmake.in
-
-  dos2unix NOTICE.txt
 
   # Further drop shebangs line for some py files
   sed -r -i '1{/^#!/d}' \
@@ -91,15 +88,7 @@ prepare() {
         pxr/usd/usdUtils/updateSchemaWithSdrNode.py \
         pxr/usdImaging/usdviewq/usdviewApi.py
 
-  # Remove Google Roboto fonts
-  rm -rf pxr/usdImaging/usdviewq/fonts
-
-  rm -rf docs/doxygen/doxygen-awesome-css/
-
-  # Support Embree4
-  find . -type f -exec gawk '/embree3/ { print FILENAME }' '{}' '+' |
-  xargs -r sed -r -i 's/(embree)3/\14/'
-
+  rm -r docs/doxygen/doxygen-awesome-css/
 }
 
 build() {
@@ -144,12 +133,10 @@ build() {
 
   cmake -S OpenUSD -B build -G Ninja "${_CMAKE_FLAGS[@]}"
   cmake --build build
-
-  DESTDIR="$srcdir/usd-fakeinstall" cmake --install build
 }
 
-package_usd() {
-  pkgdesc='3D VFX pipeline interchange file format'
+package() {
+  _pyver=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
 
   DESTDIR="$pkgdir" ninja -C build install
 
@@ -158,16 +145,11 @@ package_usd() {
     sed -r -i '1 s|(#!)(.*python.*)|\1/usr/bin/env -S LD_PRELOAD=/usr/lib/libjemalloc.so \2|' "$cmd"
   done
 
-  rm -vrf "$pkgdir/usr/share/usd"
+  # Remove Google Roboto fonts
+  rm -r "$pkgdir"/usr/lib/python$_pyver/site-packages/pxr/Usdviewq/fonts
 
   install -Dm644 "$srcdir/USDLogoUnsized.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/openusd.svg"
   install -Dm755 "$srcdir/org.openusd.usdview.desktop" "$pkgdir/usr/share/applications/org.openusd.usdview.desktop"
-
-  # Delete extra components in base package
-  for name in "${_extra[@]}"; do
-    find "$pkgdir" -type d -name "*$name*" -exec rm -rf {} \; || true
-    find "$pkgdir" -type f -name "*$name*" -exec rm -f {} \; || true
-  done
 
   # Man Generation
   mkdir -p "$pkgdir/usr/share/man/man1"
@@ -185,20 +167,6 @@ package_usd() {
   sed -i 's/_IMPORT_PREFIX ""/_IMPORT_PREFIX "\/usr"/' \
         "$pkgdir/usr/lib/cmake/pxr/pxrTargets.cmake"
 
-  install -Dm644 -t "$pkgdir/usr/share/doc/usd" "$srcdir/$_pkgname/NOTICE.txt"
-  install -Dm644 -t "$pkgdir/usr/share/doc/usd" "$srcdir/$_pkgname/README.md"
-  install -Dm644 -t "$pkgdir/usr/share/licenses/usd" "$srcdir/$_pkgname/LICENSE.txt"
-}
-
-package_usd-extras() {
-  pkgdesc='Extra components for USD'
-  depends=(usd=$pkgver)
-
-  for name in "${_extra[@]}"; do
-    find usd-fakeinstall -type d -name "*$name*" -exec cp --parents -r {} "$pkgdir/" \; || true
-    find usd-fakeinstall -type f -name "*$name*" -exec cp --parents {} "$pkgdir/" \; || true
-  done
-
-  mv "$pkgdir/usd-fakeinstall/"* "$pkgdir/usr"
-  rmdir "$pkgdir/usd-fakeinstall"
+  install -Dm644 -t "$pkgdir/usr/share/doc/usd" "$srcdir"/OpenUSD/{NOTICE.txt,README.md}
+  install -Dm644 -t "$pkgdir/usr/share/licenses/usd" "$srcdir/OpenUSD/LICENSE.txt"
 }
