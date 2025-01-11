@@ -1,0 +1,38 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Sat, 11 Jan 2025 20:38:04 +0100
+Subject: [PATCH] Add support for zstd compression
+
+---
+ pkgdiff.pl | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/pkgdiff.pl b/pkgdiff.pl
+index 58cf54c5db02..111b78cae57a 100644
+--- a/pkgdiff.pl
++++ b/pkgdiff.pl
+@@ -496,11 +496,14 @@ my %ArchiveFormats = (
+ 
+     "TAR.LZ"   => ["tar.lz", "tlz"],
+ 
++    "TAR.ZST"  => ["tar.zst", "tzst"],
++
+     "ZIP"      => ["zip", "zae"],
+     "TAR"      => ["tar"],
+     "LZMA"     => ["lzma"],
+     "GZ"       => ["gz"],
+     "XZ"       => ["xz"],
++    "ZST"      => ["zst"],
+ 
+     "JAR"      => ["jar", "war",
+                    "ear", "aar"],
+@@ -3102,6 +3105,9 @@ sub unpackArchive($$)
+     elsif($Format eq "XZ") {
+         $Cmd = "cp -f \"$Pkg\" \"$OutDir\" && cd \"$OutDir\" && unxz \"".getFilename($Pkg)."\"";
+     }
++    elsif($Format eq "ZST") {
++        $Cmd = "cp -f \"$Pkg\" \"$OutDir\" && cd \"$OutDir\" && unzstd --rm \"".getFilename($Pkg)."\"";
++    }
+     elsif($Format eq "ZIP") {
+         $Cmd = "unzip -o \"$Pkg\" -d \"$OutDir\"";
+     }

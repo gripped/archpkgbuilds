@@ -1,18 +1,21 @@
 pkgbase = pkgdiff
 	pkgdesc = A tool for analyzing changes in Linux software packages
-	pkgver = 1.7.2
-	pkgrel = 5
+	pkgver = 1.8
+	pkgrel = 1
 	url = https://lvc.github.io/pkgdiff
 	arch = any
-	license = GPL2
+	license = GPL-2.0-only
 	makedepends = git
-	depends = perl
+	depends = abi-compliance-checker
+	depends = bash
 	depends = diffutils
 	depends = gawk
+	depends = perl
+	depends = perl-file-libmagic
 	depends = wdiff
-	source = pkgdiff-1.7.2.tar.gz::https://github.com/lvc/pkgdiff/archive/1.7.2.tar.gz
-	source = zstd.diff
-	sha512sums = 2369488e9705280be9b326b07aa9ef0e211440921b9cce5c35560a14d1ad4ac0040eb54024a88a4a5f8f831208b43124c17a817a44840500b490c89bf877b904
-	sha512sums = 652bce3b278da6e592204ea360cdd3a389f8bf7cd6b25c20ada0140c06d67c45aa4473a1c4b0859f2f6f63893717eab7baa52fec4b47b335694cc7b51088fb2b
+	source = git+https://github.com/lvc/pkgdiff#tag=1.8
+	source = 0001-Add-support-for-zstd-compression.patch
+	b2sums = cb2731f99eae265ea7869302f523af695a3353d022a7d1e871bfb040fc3d6cb554e6ce74893139c12061f6909f6f3f0a77bad03757e7418c216da1c75561c27b
+	b2sums = 29c596d0be99ef9122a6dd3cad28dc542675df58422f5405a3fba848ff3826f2866e95a9b3d14ac31c04a6cdfa49d0318116ebcc7a142f94fd3fbedffdd6b2c9
 
 pkgname = pkgdiff
