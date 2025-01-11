@@ -13,21 +13,28 @@ pkgname=(blas
          lapack64
          lapacke64
          lapack-doc)
-pkgver=3.12.0
-pkgrel=5
+pkgver=3.12.1
+pkgrel=1
 url='https://www.netlib.org/lapack'
 pkgdesc='Linear Algebra PACKage'
 makedepends=(cmake
+             git
              doxygen
              gcc-fortran
              python)
 arch=(x86_64)
 license=(custom)
-source=(https://github.com/Reference-LAPACK/lapack/archive/v$pkgver/$pkgbase-$pkgver.tar.gz)
-sha256sums=('eac9570f8e0ad6f30ce4b963f4f033f0f643e7c3912fc9ee6cd99120675ad48b')
+source=(git+https://github.com/Reference-LAPACK/lapack#tag=v$pkgver)
+sha256sums=('becc909c9de915016625746eead3024ac77d462d8fde26d0c18db2ca57146067')
+
+prepare() {
+  cd $pkgbase
+# Fix build  
+  git cherry-pick -n f5103fc3b42fcff40e70b1fa4b5567df01dae9bc 3aa877584bcc96e1a0ee37742628946c56afc15f
+}
 
 build() {
-  cmake -B build -S $pkgbase-$pkgver \
+  cmake -B build -S $pkgbase \
     -DCMAKE_SKIP_RPATH=ON \
     -DBUILD_SHARED_LIBS=ON \
     -DBUILD_TESTING=OFF \
@@ -40,7 +47,7 @@ build() {
   cmake --build build
   cmake --build build --target man
 
-  cmake -B build64 -S $pkgbase-$pkgver \
+  cmake -B build64 -S $pkgbase \
     -DCMAKE_SKIP_RPATH=ON \
     -DBUILD_SHARED_LIBS=ON \
     -DBUILD_TESTING=OFF \
@@ -59,7 +66,7 @@ package_lapack() {
            glibc)
   
   DESTDIR="$pkgdir" cmake --install build
-  install -Dm644 $pkgbase-$pkgver/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -Dm644 $pkgbase/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 
   rm -r "$pkgdir"/usr/lib/{libblas.*,libcblas.*,liblapacke.*}
   rm -r "$pkgdir"/usr/lib/pkgconfig/{blas.*,cblas.*,lapacke.*}
@@ -73,7 +80,7 @@ package_blas() {
            glibc)
 
   DESTDIR="$pkgdir" cmake --install build/BLAS
-  install -Dm644 $pkgbase-$pkgver/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -Dm644 $pkgbase/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
 package_cblas() {
@@ -82,7 +89,7 @@ package_cblas() {
            glibc)
 
   DESTDIR="$pkgdir" cmake --install build/CBLAS
-  install -Dm644 $pkgbase-$pkgver/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -Dm644 $pkgbase/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
 package_lapacke() {
@@ -91,7 +98,7 @@ package_lapacke() {
            lapack)
 
   DESTDIR="$pkgdir" cmake --install build/LAPACKE
-  install -Dm644 $pkgbase-$pkgver/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -Dm644 $pkgbase/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
 package_lapack64() {
@@ -101,7 +108,7 @@ package_lapack64() {
            glibc)
 
   DESTDIR="$pkgdir" cmake --install build64
-  install -Dm644 $pkgbase-$pkgver/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -Dm644 $pkgbase/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 
   rm -r "$pkgdir"/usr/lib/{libblas64.*,libcblas64.*,liblapacke64.*}
   rm -r "$pkgdir"/usr/lib/pkgconfig/{blas64.*,cblas64.*,lapacke64.*}
@@ -115,7 +122,7 @@ package_blas64() {
            glibc)
 
   DESTDIR="$pkgdir" cmake --install build64/BLAS
-  install -Dm644 $pkgbase-$pkgver/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -Dm644 $pkgbase/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
 package_cblas64() {
@@ -125,7 +132,7 @@ package_cblas64() {
   optdepends=('cblas: development headers')
 
   DESTDIR="$pkgdir" cmake --install build64/CBLAS
-  install -Dm644 $pkgbase-$pkgver/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -Dm644 $pkgbase/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
   rm -r "$pkgdir"/usr/include # Provided by cblas
 }
 
@@ -136,7 +143,7 @@ package_lapacke64() {
   optdepends=('lapacke: development headers')
  
   DESTDIR="$pkgdir" cmake --install build64/LAPACKE
-  install -Dm644 $pkgbase-$pkgver/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -Dm644 $pkgbase/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
   rm -r "$pkgdir"/usr/include # Provided by lapacke
 }
 
