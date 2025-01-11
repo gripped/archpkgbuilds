@@ -2,7 +2,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kquickcharts
-pkgver=6.9.0
+pkgver=6.10.0
 pkgrel=1
 pkgdesc='A QtQuick plugin providing high-performance charts'
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(extra-cmake-modules
              qt6-shadertools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('df17c336aeb885e0d533916bf5211910e4f0844f8bcc8b45423dd9a0a02839ef'
+sha256sums=('a2036f7b1ee7abb9c278c7822fc18723d661d856da9dbf9f006ceebed731598f'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
