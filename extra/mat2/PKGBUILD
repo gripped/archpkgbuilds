@@ -2,12 +2,12 @@
 # Contributor: Francois Boulogne <devel at sciunto dot org>
 
 pkgname=mat2
-pkgver=0.13.4
-pkgrel=7
+pkgver=0.13.5
+pkgrel=1
 pkgdesc='Metadata removal tool, supporting a wide range of commonly used file formats'
 url='https://0xacab.org/jvoisin/mat2'
 arch=('any')
-license=('LGPL3')
+license=('LGPL-3.0-or-later')
 depends=(
   'gdk-pixbuf2'
   'hicolor-icon-theme'
@@ -33,29 +33,13 @@ optdepends=(
 )
 checkdepends=('ffmpeg')
 source=(https://0xacab.org/jvoisin/mat2/-/archive/${pkgver}/mat2-${pkgver}.tar.gz
-        https://0xacab.org/jvoisin/mat2/uploads/95d1f3782dfc731545fd9b467c594cb2/mat2-0.13.4.tar.gz.asc
-        tests-VideoFullRangeFlag.patch::https://0xacab.org/jvoisin/mat2/-/commit/bbd5b2817c9d64013e2f5ed670aca8d4738bb484.patch
-        manpage-location.patch::https://0xacab.org/jvoisin/mat2/-/commit/a3081bce47bc475a7afaa25e834e8afe399dc350.patch
-        fix-mp4-test.patch)
-sha512sums=('75c08c9c52a82f9983e799c2aeef0da8324d1c92ac32fb748a68063ec7b28569692082aceacf7161d24db0e8a988357c423b6e17ca5c0f934309c9791c41ab18'
-            'SKIP'
-            'f0b0a61e38825e64aaea268d440727140e782b9ebf32b0618185750eb8309fe0b09d24a0798c61a7053edf101c07d5838f88c46aea1b2da272584ec0a22f5407'
-            '64e8bf0faeb7bf205d74607bab452474b2b496f8e1335dce1423e4d558827279ce6946d2c50d910b9dbbbb81e9c93baf90ae53c31024fd1fdbe2e0b9d88b6f86'
-            '698aff1d5da3e2a11543651c2067b8d9fa368c92d6bdb493fe204f0b0388968f3573950c86296f7e7d42cd064791e3d7c656b6f6518a7b7cde69aeae12ba8f93')
-b2sums=('cab400479bbf312979e11f00bccf02e0e330455651dcdef239507c511b4101cb8b39af5f9dfdc1df9f1bcedc3dda3276c7cf598491c0ff0fc1f365f540fdb7a6'
-        'SKIP'
-        'b4812de051961aec68ce95f5fe1237d52e55320e30fe94ebe4c5652f2dd6b7ae0277e6d213c1dd8265699cbad7f77dff5fff1e14dfb9d3f6c1de3bea75695e11'
-        'dee99f816e44b0b1276b589488eff9f3e1adc02f607c3eab81a06736eb3d8fe77108e80c71c3d2f445c4abe0367950c1371a93d7c2867f6ddbcb17f5388b3618'
-        'c665047170fc87b977e45e0e8ddc1226d543c3e60a0a5bf26137e0a20bcb1468093fcf5e2b826ad02e2d95d5239515471157abefa5c612135067d668c53e741d')
+        https://0xacab.org/-/project/1139/uploads/060efa77668fa7f6d9baeb8a327857af/mat2-0.13.5.tar.gz.asc)
+sha512sums=('a700f5c136b20203b5173c685b49d589f75082a067b9a6059766dd3d78d7cf2988080c5e523e0d35e6aced79790e9a322c3b0d4a8364bb83af6ce2490acb6abb'
+            'SKIP')
+b2sums=('d8fd5007c65ac6eab4c493f5f71e9c5dbc56f4f89f04546ed861aed6142026cf3a013fcfe130dcf3879d45ffbe4144d51930cfc320d9f31479b3bee5fc5a103f'
+        'SKIP')
 
 validpgpkeys=('9FCDEE9E1A381F311EA62A7404D041E8171901CC') # Julien (jvoisin) Voisin
-
-prepare() {
-  cd ${pkgname}-${pkgver}
-  patch -Np1 -i ../tests-VideoFullRangeFlag.patch
-  patch -Np1 -i ../manpage-location.patch
-  patch -Np1 -i ../fix-mp4-test.patch
-}
 
 build() {
   cd ${pkgname}-${pkgver}
