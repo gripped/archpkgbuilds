@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=frameworkintegration
-pkgver=6.9.0
+pkgver=6.10.0
 pkgrel=1
 pkgdesc='Framework providing components to allow applications to integrate with a KDE Workspace'
 arch=(x86_64)
@@ -26,7 +26,7 @@ optdepends=('appstream-qt: dependency resolving via AppStream'
             'packagekit-qt6: dependency resolving via AppStream')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('b9afb3d94dca1a9e404cb19c99bacae7e4da687e0f154b9e3969f2f9c38e9db8'
+sha256sums=('61fc35cffb0863517fa2072b96476bf109499d58fb3264062b40be528dd3af82'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
