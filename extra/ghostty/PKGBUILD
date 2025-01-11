@@ -4,7 +4,7 @@
 pkgbase=ghostty
 pkgname=(ghostty ghostty-shell-integration ghostty-terminfo)
 pkgver=1.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Fast, native, feature-rich terminal emulator pushing modern features'
 arch=(x86_64 aarch64 i686)
 url="https://github.com/ghostty-org/$pkgbase"
@@ -16,6 +16,7 @@ depends=(bzip2
          glibc # libc.so libm.so
          glib2 libglib-2.0.so libgio-2.0.so libgobject-2.0.so
          gtk4 libgtk-4.so
+         libx11 # libX11.so
          harfbuzz libharfbuzz.so
          libadwaita libadwaita-1.so
          libpng
@@ -35,15 +36,16 @@ prepare() {
 
 build() {
 	cd "$_archive"
-	DESTDIR="build" zig build \
+	DESTDIR=build zig build \
 		--summary all \
 		--prefix "/usr" \
 		--system "$srcdir/zig-global-cache/p" \
 		-Doptimize=ReleaseFast \
+		-Dgtk-x11=true \
 		-Dcpu=baseline \
 		-Dpie=true \
 		-Demit-docs \
-		-Dversion-string="$pkgver"
+		-Dversion-string="$pkgver-arch"
 }
 
 package_ghostty() {
