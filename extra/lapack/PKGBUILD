@@ -14,7 +14,7 @@ pkgname=(blas
          lapacke64
          lapack-doc)
 pkgver=3.12.1
-pkgrel=1
+pkgrel=2
 url='https://www.netlib.org/lapack'
 pkgdesc='Linear Algebra PACKage'
 makedepends=(cmake
@@ -27,12 +27,6 @@ license=(custom)
 source=(git+https://github.com/Reference-LAPACK/lapack#tag=v$pkgver)
 sha256sums=('becc909c9de915016625746eead3024ac77d462d8fde26d0c18db2ca57146067')
 
-prepare() {
-  cd $pkgbase
-# Fix build  
-  git cherry-pick -n f5103fc3b42fcff40e70b1fa4b5567df01dae9bc 3aa877584bcc96e1a0ee37742628946c56afc15f
-}
-
 build() {
   cmake -B build -S $pkgbase \
     -DCMAKE_SKIP_RPATH=ON \
@@ -42,7 +36,6 @@ build() {
     -DCMAKE_Fortran_COMPILER=gfortran \
     -DLAPACKE_WITH_TMG=ON \
     -DCBLAS=ON \
-    -DBUILD_DEPRECATED=ON \
     -DBUILD_MAN_DOCUMENTATION=ON
   cmake --build build
   cmake --build build --target man
@@ -55,7 +48,6 @@ build() {
     -DCMAKE_Fortran_COMPILER=gfortran \
     -DLAPACKE_WITH_TMG=ON \
     -DCBLAS=ON \
-    -DBUILD_DEPRECATED=ON \
     -DBUILD_INDEX64=ON
   cmake --build build64
 }
