@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-idle
-pkgver=1.0.0.alpha.4
+pkgver=1.0.0.alpha.5
 pkgrel=1
 pkgdesc='Cosmic idle daemon'
 arch=(x86_64)
@@ -23,11 +23,11 @@ makedepends=(
   just
   lld
 )
-_tag=eaa09a6fef304ddc236709c111bb7b0c16883f7d
+_tag=7899fccbbe3d6746982178d3eff48ce8943b0f71
 source=(
   git+https://github.com/pop-os/cosmic-idle.git#tag=${_tag}
 )
-b2sums=('fb6ce8d25a82be0a13e68d522406706df6ed11832c052d17110a600c82a9fa1a5e0e78c2f8db1425e5e2b11ef6fa8e19d3591d314ecc3e52196cf88659daa036')
+b2sums=('0a18612ba46dcaf0930765bef6606b4a6e8f7456beab138f609263bf311ef2b5fd6eb191a93c80aee9043ab00edb874c5db85417dbb0f206ca012592ac08cffc')
 
 prepare() {
   cd $pkgname
