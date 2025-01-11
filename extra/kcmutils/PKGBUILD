@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kcmutils
-pkgver=6.9.0
+pkgver=6.10.0
 pkgrel=1
 pkgdesc='Utilities for interacting with KCModules'
 arch=(x86_64)
@@ -30,7 +30,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('79bf2a18ab4ea8e1752b14f5964ce44907b51e1c5fc8dcb620c66fd5fdb36a27'
+sha256sums=('a4bcb4b04ee4a03a9a9fdbb96c2736021d94b22c22f8d5d5d157b9ce982eb001'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
