@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kdeclarative
-pkgver=6.9.0
+pkgver=6.10.0
 pkgrel=1
 pkgdesc='Provides integration of QML and KDE Frameworks'
 arch=(x86_64)
@@ -26,7 +26,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('1a266dd2a2912ffe632e455d823a76c9dbfb44977c07838bc44e457e5bec98eb'
+sha256sums=('db9eb2b5e615b484949e41ac5a05c5cea136e231d15a3de203902cedcdfd9e73'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
