@@ -3,28 +3,27 @@
 # Contributor: Douglas Soares de Andrade <dsa@aur.archlinux.org>
 
 pkgname=libfbclient
-pkgver=4.0.5.3140
+pkgver=5.0.1.1469
 pkgrel=1
 pkgdesc="Client library for Firebird"
 arch=('x86_64')
 url="https://www.firebirdsql.org/"
 license=('custom')
 depends=('gcc-libs' 'libtommath')
-makedepends=('editline' 'libtomcrypt' 're2' 'unzip')
-source=(https://github.com/FirebirdSQL/firebird/releases/download/v${pkgver%.*}/Firebird-$pkgver-0.tar.xz
+makedepends=('editline' 'libtomcrypt' 'unzip' 'cmake')
+source=(https://github.com/FirebirdSQL/firebird/releases/download/v${pkgver%.*}/Firebird-$pkgver-0-source.tar.xz
         LICENSE)
-sha512sums=('716cd8ed7412b02e9a926e2314c0a3a67df946b85d879160710e6f2dc7fa78dcec7b9e514bd7ff653994bcfc3f353f25b5ac158e24c6c1399181aca34c0f2967'
+sha512sums=('8738a2321e42412f0c6d7ec53cb9a65a4f23e788058fb713f9958b4915f738bad88040f49daafad5679b505c39296b0c9d5bb97bb8c8c0af8995399f726fe93d'
             '1e4c24f60d2cdc1a89b52b45f778ed264ae14428a940b0509ca5c50182aed6149b7a6a546e7d08b0f264bafde81a210abe20db204c20db596f5fc2ec205ac37e')
 options=(!lto) # Segfaults with LTO
 
 prepare() {
   # Ensure system libs are used
-  rm -r Firebird-$pkgver-0/extern/{editline,libtommath,libtomcrypt,zlib}
-  find -type f -exec sed -e 's|c++11|c++17|g' -i {} \;
+  rm -r Firebird-$pkgver-0-source/extern/{editline,libtommath,libtomcrypt,zlib}
 }
 
 build() {
-  cd Firebird-$pkgver-0
+  cd Firebird-$pkgver-0-source
 
   ./configure --prefix=/usr \
     --without-fbsbin --without-fbconf --without-fbdoc --without-fbsample \
@@ -36,7 +35,7 @@ build() {
 }
 
 package() {
-  cd Firebird-$pkgver-0
+  cd Firebird-$pkgver-0-source
 
   mkdir -p "$pkgdir"/usr/{bin,share/{firebird,licenses/$pkgname}}
 
@@ -46,9 +45,4 @@ package() {
   install -m644 gen/Release/firebird/*.msg "$pkgdir"/usr/share/firebird
   install -m755 gen/Release/firebird/bin/fb_config "$pkgdir"/usr/bin
   install -m644 "$srcdir"/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
-
-  # Add libgds support FS#30062 FS#30282
-  cd "$pkgdir"/usr/lib
-  ln -s libfbclient.so libgds.so.0
-  ln -s libfbclient.so libgds.so
 }
