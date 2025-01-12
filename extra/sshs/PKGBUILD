@@ -1,0 +1,40 @@
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: Hossam Mostafa <hossamdash2@gmail.com>
+# Contributor: Nathanael Demacon <nathanael.dmc[at]outlook[dot]fr>
+
+pkgname=sshs
+pkgver=4.5.1
+pkgrel=2
+pkgdesc="Terminal user interface for SSH"
+url="https://github.com/quantumsheep/sshs"
+arch=('x86_64')
+license=('MIT')
+depends=('openssh')
+makedepends=('cargo')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
+sha256sums=('c5383138114262fd49ac91c77830f9c6a09f02c5650e5e5cfa8ede1fa3383d96')
+
+prepare() {
+	cd "${pkgname}-${pkgver}"
+	export RUSTUP_TOOLCHAIN=stable
+	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+	cd "${pkgname}-${pkgver}"
+	export RUSTUP_TOOLCHAIN=stable
+	export CARGO_TARGET_DIR=target
+	cargo build --frozen --release --all-features
+}
+
+check() {
+	cd "${pkgname}-${pkgver}"
+	export RUSTUP_TOOLCHAIN=stable
+	cargo test --frozen --all-features
+}
+
+package() {
+	cd "${pkgname}-${pkgver}"
+	install -Dm 755 "target/release/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+	install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
