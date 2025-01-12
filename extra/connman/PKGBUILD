@@ -5,7 +5,7 @@
 
 pkgname=connman
 pkgver=1.43
-pkgrel=1
+pkgrel=3
 pkgdesc="Intel's modular network connection manager"
 url="https://01.org/connman"
 arch=('x86_64')
@@ -58,9 +58,11 @@ build() {
     --prefix=/usr \
     --sysconfdir=/etc \
     --localstatedir=/var \
+    --runstatedir=/run \
     --bindir=/usr/bin \
     --sbindir=/usr/bin \
     --with-systemdunitdir=/usr/lib/systemd/system \
+    --with-tmpfilesdir=/usr/lib/tmpfiles.d \
     --enable-pptp \
     --enable-openconnect \
     --enable-vpnc \
