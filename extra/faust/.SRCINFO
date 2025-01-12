@@ -1,7 +1,7 @@
 pkgbase = faust
 	pkgdesc = A functional programming language for realtime audio signal processing.
 	pkgver = 2.75.7
-	pkgrel = 2
+	pkgrel = 3
 	url = https://faust.grame.fr/
 	arch = x86_64
 	groups = pro-audio
@@ -44,9 +44,12 @@ pkgbase = faust
 	options = staticlibs
 	source = https://github.com/grame-cncm/faust/releases/download/2.75.7/faust-2.75.7.tar.gz
 	source = faust-2.75.7-link-llvm-dynamically.patch::https://github.com/grame-cncm/faust/commit/b09e2a49f50d0834546b39890e08252dbbf47d18.patch
+	source = llvm-19.patch::https://github.com/grame-cncm/faust/commit/5b275806093fb2e3348043de1150f01ff892d232.patch
 	sha512sums = 2bcf28f445e3582e43a52d38d9a3b1f79f7dc0ec21ea28d215ba87bbcfa42a2f57a7c75a91becf9ab390b1fbd2e42ae828c21f2774433a2eeea9951aef88e52f
 	sha512sums = 4f38bc7561fc3add25136fea6beae2500d7492e2f144d3484e731565068db3f6b3660d5d80a51bfbe7e65a40fbf0019464464fc72e186ddf0a5b484a85321636
+	sha512sums = f42ec31c76e981e1d1b3b91037a5f8bad13f8606bdd3ff37a6e4a26086025a9be81efabdb0749342e6f9b18067572913931d5f00cc2a69c81367203f4fc7cc63
 	b2sums = fa5cb3a5412135d72fd252e721cc093d41db52f678a4a08e3ba902ae389ca92d8da55524de3ee911ba5bec8f5b1badf680d2fae3f3059a63c0b0cf7cad44ce84
 	b2sums = 4d89dd3b3d35cd38d24bdd55fb312f5ca50f2b166c011b447d80719102dcf4da8b2e264464a4d4451238db9721a9ecfd15f4802ade1ad03ac698c016163b11c4
+	b2sums = 68d26c9b8a45b9e749903d66fd0378f8610d94a346231b544306a34617925198752dc8954f92b495aeed37bdae931e6b50ea57e61bab9dc82dd084b1802a33d1
 
 pkgname = faust
