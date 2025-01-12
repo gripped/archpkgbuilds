@@ -3,8 +3,8 @@
 # Contributor: Patrick Griffis <tingping@tingping.se>
 
 pkgname=xdg-desktop-portal-gtk
-pkgver=1.15.1
-pkgrel=2
+pkgver=1.15.2
+pkgrel=1
 pkgdesc="A backend implementation for xdg-desktop-portal using GTK"
 url="https://github.com/flatpak/xdg-desktop-portal-gtk"
 arch=(x86_64)
@@ -21,6 +21,7 @@ depends=(
 )
 makedepends=(
   git
+  glib2-devel
   meson
   python
   python-packaging
@@ -28,7 +29,7 @@ makedepends=(
 optdepends=("evince: Print preview")
 provides=(xdg-desktop-portal-impl)
 source=("git+$url#tag=$pkgver")
-b2sums=('417e43bb375c15bb351dd5434fdbc1665a22cc409d839408d99d29b7a2747f54c8440d9dc3087ac0246ff3e332d5a86f10025c48ec45f12894d26a0074111ec9')
+b2sums=('d9797bd5f513782ad0f874005fec3fc044d4248b8ed30a3e6bc59281a0dd64541ba51c118452cef5c81a1aaca885b51a769d7a00f3f5812739fe9acc3f4a951e')
 
 prepare() {
   cd $pkgname
