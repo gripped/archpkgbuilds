@@ -5,7 +5,7 @@
 pkgname=qt6-declarative
 _pkgver=6.8.1
 pkgver=6.8.1
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -21,7 +21,9 @@ makedepends=(cmake
              ninja
              python
              qt6-languageserver
-             qt6-shadertools)
+             qt6-shadertools
+             qt6-svg)
+optdepends=('qt6-svg: for QtQuickVectorImage and svgtoqml')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
