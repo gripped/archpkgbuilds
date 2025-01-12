@@ -4,19 +4,24 @@
 # Contributor: fabien Cellier <fabien.cellier@gmail.com>
 
 pkgname=pocl
-pkgver=6.0
-pkgrel=2
+pkgver=6.0.r322.gf0e12ad
+pkgrel=1
 pkgdesc="Portable OpenCL is an open-source implementation of OpenCL which can be easily adapted for new targets"
 arch=('x86_64')
 url="http://portablecl.org/"
 license=('MIT')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/$pkgname/$pkgname/archive/v$pkgver.tar.gz")
+source=("git+https://github.com/pocl/pocl#commit=f0e12ada3320885cdba6e181d324a9e9f547b9fc")
 depends=('clang' 'hwloc' 'opencl-icd-loader')
-makedepends=('llvm' 'cmake' 'opencl-headers' 'ocl-icd' 'ninja' 'python')
-sha512sums=('a24efadbbb81c810cd5c4bbb8abfa75b9bbdfeca786e8471dd75d40a78024d04c1b5c5a7114e75e1eb70a1b6a3756bb47ba741de0f1c4d1416fbce4688d62cc0')
+makedepends=('llvm' 'cmake' 'opencl-headers' 'ocl-icd' 'ninja' 'python' 'git')
+sha512sums=('4b069296d0d83630dc364c12bc729e4599a50c78b38f718786a7fea87b8e034ebba1c4ca441f7d11465e4dd5b962c77ee524f433b8ffba67684eb3c9d0637674')
+
+pkgver() {
+  cd "$pkgname"
+  git describe --long --tags --abbrev=7 | sed 's/^v//;s/RC[0-9]*//;s/\([^-]*-g\)/r\1/;s/-/./g;s/\.\././g'
+}
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   cmake \
       -GNinja \
       -Bbuild \
@@ -28,12 +33,12 @@ build() {
 }
 
 check() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   ninja -C build check
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   DESTDIR="$pkgdir"/ ninja -C build install
   install -v -Dm 644 -t "$pkgdir"/usr/share/licenses/"$pkgname" LICENSE
 }
