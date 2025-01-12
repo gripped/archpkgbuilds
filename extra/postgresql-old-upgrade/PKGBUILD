@@ -2,23 +2,44 @@
 # Maintainer: Dan McGee <dan@archlinux.org>
 
 pkgname=postgresql-old-upgrade
-pkgver=15.7
+pkgver=16.6
 _majorver=${pkgver%.*}
-pkgrel=4
+pkgrel=1
 pkgdesc='PostgreSQL build for migrating between major versions with pg_upgrade'
 url='https://www.postgresql.org/'
 arch=('x86_64')
-license=('custom:PostgreSQL')
-depends=("postgresql-libs>=${_majorver}" 'libxml2' 'openssl' 'pam' 'zlib' 'icu'
-         'systemd-libs' 'libldap' 'krb5' 'llvm-libs')
-makedepends=('python' 'perl' 'tcl' 'systemd' 'llvm' 'clang')
-optdepends=('python: for PL/Python 3 support'
-            'perl: for PL/Perl support'
-            'tcl: for PL/Tcl support')
-source=(https://ftp.postgresql.org/pub/source/v${pkgver}/postgresql-${pkgver}.tar.bz2)
-md5sums=('d0a59b6d7a64075deca08dbf44f58d35')
-sha256sums=('a46fe49485ab6385e39dabbbb654f5d3049206f76cd695e224268729520998f7')
-b2sums=('6a31ca8b833caf9400ce176211005c2b522e3f431717ad6b73c0df842121d3898dcfddce4626f961539a80b09960fb7659703e6f82d5eadff7217789893b9279')
+license=('PostgreSQL')
+depends=(
+  "postgresql-libs>=${_majorver}"
+  'bash'
+  'gcc-libs'
+  'glibc'
+  'icu'
+  'krb5'
+  'libldap'
+  'libxml2'
+  'llvm-libs'
+  'lz4'
+  'openssl'
+  'pam'
+  'systemd-libs'
+  'zlib'
+  'zstd'
+)
+makedepends=(
+  'clang'
+  'llvm'
+  'perl'
+  'python'
+  'systemd'
+  'tcl'
+)
+source=(
+  https://ftp.postgresql.org/pub/source/v${pkgver}/postgresql-${pkgver}.tar.bz2
+)
+md5sums=('1dce19ac968da51c99e8fc22c01c0269')
+sha256sums=('23369cdaccd45270ac5dcc30fa9da205d5be33fa505e1f17a0418d2caeca477b')
+b2sums=('2d6d6efcc4cb0027c03422c839856ac024d3824a7e7da42cafbb961616cdd078064e78b6eb1c98565240ab1f78eb52582f38c9ce80b3a98f9e65568b2c14e40c')
 
 # Upstream provides md5 and sha256
 
@@ -26,26 +47,27 @@ build() {
   cd postgresql-${pkgver}
   local configure_options=(
     --prefix=/opt/pgsql-${_majorver}
+    --disable-rpath
+    --disable-nls
+    --disable-tap-tests
+    --enable-thread-safety
     --with-gssapi
+    --with-icu
+    --with-ldap
     --with-libxml
+    --without-libxslt
+    --with-llvm
+    --with-lz4
     --with-openssl
+    --with-pam
     --with-perl
     --with-python
-    --with-tcl
-    --with-pam
     --without-readline
     --with-system-tzdata=/usr/share/zoneinfo
-    --with-uuid=e2fs
-    --with-icu
     --with-systemd
-    --with-ldap
-    --with-llvm
-    --without-libxslt
-    --with-lz4
+    --with-tcl
+    --with-uuid=e2fs
     --with-zstd
-    --disable-nls
-    --enable-thread-safety
-    --disable-rpath
   )
 
   # Fix static libs
@@ -57,6 +79,12 @@ build() {
 }
 
 package() {
+  optdepends=(
+    'perl: for PL/Perl support'
+    'python: for PL/Python 3 support'
+    'tcl: for PL/Tcl support'
+  )
+
   cd postgresql-${pkgver}
 
   # install
