@@ -2,7 +2,7 @@
 # Contributor: Enlightenment Developers <enlightenment-devel@enlightenment.org>>
 
 pkgname=enlightenment
-pkgver=0.26.0
+pkgver=0.27.0
 pkgrel=1
 pkgdesc="Enlightenment window manager"
 arch=('x86_64')
@@ -11,8 +11,7 @@ license=('BSD')
 depends=('alsa-lib' 'bc' 'bluez-libs' 'efl' 'hicolor-icon-theme' 'libexif' 'librsvg' 'libpulse'
          'libxkbcommon' 'pam' 'pulse-native-provider' 'ttf-font' 'udisks2' 'util-linux-libs'
          'wayland' 'xorg-server-xwayland')
-optdepends=('acpid: power events on laptop lid close'
-            'bluez: Bluetooth control module'
+optdepends=('bluez: Bluetooth control module'
             'connman: network connection manager module'
             'fprintd: fingerprint password settings'
             'geoclue: geolocation module'
@@ -22,7 +21,7 @@ backup=('etc/enlightenment/sysactions.conf'
         'etc/enlightenment/system.conf'
         'etc/xdg/menus/e-applications.menu')
 source=("https://download.enlightenment.org/rel/apps/${pkgname}/$pkgname-$pkgver.tar.xz")
-sha256sums=('11b6ef0671be5fead688bf554c30a2a1c683493ad10c5fe3115ffb4655424e84')
+sha256sums=('5b66b914c6d90a916b3fe66b5ff70a9fd912088aa6399bdde1b3a505aae50331')
 
 
 build() {
@@ -41,13 +40,13 @@ build() {
     . build
 
   ninja -C build
-  }
+}
 
 
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   DESTDIR="$pkgdir" ninja -C build install
-  
+
   # install LICENSE
   install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
 }
