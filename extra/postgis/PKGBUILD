@@ -4,19 +4,35 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=postgis
-pkgver=3.5.0
+pkgver=3.5.1
 pkgrel=1
 pkgdesc="A spatial database extender for PostgreSQL"
 arch=(x86_64)
 url="https://postgis.net/"
-license=(GPL)
-depends=(postgresql gdal geos json-c libxml2 proj protobuf-c pcre2)
-optdepends=('perl: for contrib script postgis_restore.pl')
-makedepends=(clang llvm)
+license=(GPL-2.0-or-later)
+depends=(
+  bash
+  gcc-libs
+  gdal
+  geos
+  glibc
+  json-c
+  libxml2
+  pcre2
+  perl
+  postgresql
+  postgresql-libs
+  proj
+  protobuf-c
+)
+makedepends=(
+  clang
+  llvm
+)
 changelog=$pkgname.changelog
 source=(https://download.osgeo.org/postgis/source/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('ca698a22cc2b2b3467ac4e063b43a28413f3004ddd505bdccdd74c56a647f510')
-b2sums=('a641eaa7b0407108e332bf6f244fef0d22d21ed34c16c2f3cb718f49acf9a0bb3b1bf8b1ec3d7eb4f731beeb652f37f666ff4b8d44c5a66db7da4a9a555caa38')
+sha256sums=('23706abc117fb1bab45a27a263b589f52fc08ebaff318c0bc0bdc940905306b5')
+b2sums=('98c56eaab63f000bc74500c36b923196d54183237b726117add1f13f0aec37926506bcdc5233d87427d948a3edea081e84327ad9eeec3e6b87d5b5bbb20359b2')
 
 prepare() {
   cd ${pkgname}-${pkgver}
