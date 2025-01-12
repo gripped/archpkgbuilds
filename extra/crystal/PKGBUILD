@@ -3,11 +3,11 @@
 
 pkgname=crystal
 pkgver=1.14.0
-pkgrel=1
+pkgrel=2
 pkgdesc='The Crystal Programming Language'
 arch=(x86_64)
 url='https://crystal-lang.org'
-license=(Apache)
+license=(Apache-2.0)
 depends=(gc pcre2 libevent llvm-libs)
 makedepends=(libxml2 llvm crystal) # to compile version N we need crystal compiler of N-1 version
 checkdepends=(libyaml libxml2 gmp inetutils git)
@@ -22,7 +22,7 @@ build() {
   cd $pkgname-$pkgver
 
   make release=1 interpreter=1 \
-       FLAGS="--release --no-debug" \
+       FLAGS="--release --no-debug -Dpreview_mt" \
        CRYSTAL_CONFIG_PATH="lib:/usr/lib/crystal" \
        CRYSTAL_CACHE_DIR="/tmp/crystal"
   make docs CRYSTAL_CACHE_DIR="/tmp/crystal"
