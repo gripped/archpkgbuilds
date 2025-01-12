@@ -6,18 +6,16 @@
 # we can rebuild for PG17.
 
 pkgname=timescaledb
-_current_pg_version=16
+_current_pg_version=17
 _next_pg_version=$(( _current_pg_version + 1 ))
 # limit to last 5 releases
 declare -gA _commits=(
-  [2.16.0]=4fd2a878df1dbb807a9e99d01cf5614ebddc02b4
-  [2.16.1]=7c78574c4d42ec7ceb840bd9d55652182221f251
   [2.17.0]=43ef9b7bda813c10f845fe55f7fc6113bbd47b07
   [2.17.1]=beb03d6d4c61dbd02291ef2c661c00155ddb79c9
   [2.17.2]=b359d26de186ea43f93c28c08cd1b8c6449c91bd
 )
 pkgver=2.17.2
-pkgrel=1
+pkgrel=2
 pkgdesc='An open-source time-series database optimized for fast ingest and complex queries'
 arch=('x86_64')
 url='https://www.timescale.com/'
