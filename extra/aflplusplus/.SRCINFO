@@ -1,6 +1,6 @@
 pkgbase = afl++
 	pkgdesc = instrumentation-driven fuzzer for binary format
-	pkgver = 4.21c
+	pkgver = 4.30c
 	pkgrel = 1
 	url = https://aflplus.plus/
 	arch = x86_64
@@ -26,8 +26,14 @@ pkgbase = afl++
 	conflicts = aflplusplus
 	replaces = afl
 	replaces = aflplusplus
-	source = https://github.com/AFLplusplus/AFLplusplus/archive/refs/tags/v4.21c/afl++-4.21c.tar.gz
-	sha256sums = 11f7c77d37cff6e7f65ac7cc55bab7901e0c6208e845a38764394d04ed567b30
-	b2sums = c182260ba25a8a7a87b91ece5b3ea6aafba09b3361259361d9be24b7c5dd90430403a3170ed9397edaa714a45f62de26f324aab005a27a44fffce2708bb366e5
+	source = https://github.com/AFLplusplus/AFLplusplus/archive/refs/tags/v4.30c/afl++-4.30c.tar.gz
+	source = 0001-fix-gcc-plugin-test.patch
+	source = 0002-unbreak-mutators-with-python-3.13.patch
+	sha256sums = 7c08c81f59b6c1f0bc2428fdee9fb880520e72c50be0683072e66bcde662b480
+	sha256sums = 752b45f0eb74d4618b5c11ab8885bd6ea2eaa51fdbda3347d4bbd6cb912aa2e6
+	sha256sums = 5ed97cdd9a8016b3eee3bc4c1145c002028f4ae0575c803852b4580f083b91ac
+	b2sums = 7f9c7d32afc5316cef460a72e7603aee36161559c2bb5c03edc408c16e8ba8bf96ced2c90e5578caa401ace37caf3ff7bba72ab58b7070c7c5b69004dc2d4da7
+	b2sums = d6893b5f8a0559ba4702f16e3d5f203c2557b5f1ee84e280cb8b054643f6eb5842a04f1e4be5903b8e793d1fd7f9dfb6e87c939d14e604ddd7e33f530592390c
+	b2sums = 7ea7d31670fd3097e95e47c05b94ac355370ad8e85bd76d61f73fd87b8a8b04af9101cdbbaa29115dc342116e08366ed31cb01269b22ebcc4cd1f154e127fc15
 
 pkgname = afl++
