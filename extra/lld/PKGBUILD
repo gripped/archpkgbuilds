@@ -2,7 +2,7 @@
 # Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
 
 pkgname=lld
-pkgver=18.1.8
+pkgver=19.1.6
 pkgrel=1
 pkgdesc="Linker from the LLVM project"
 arch=('x86_64')
@@ -15,15 +15,16 @@ source=($_source_base/lld-$pkgver.src.tar.xz{,.sig}
         $_source_base/llvm-$pkgver.src.tar.xz{,.sig}
         $_source_base/libunwind-$pkgver.src.tar.xz{,.sig}
         $_source_base/cmake-$pkgver.src.tar.xz{,.sig})
-sha256sums=('800e6805fb613eb8428f7a199f6d06c4c19f78f2db69157a129bb04fc1c99769'
+sha256sums=('44fa50556cefbe3796e8256536267ee2f34ced5f3c1492473bccd75449cadbe6'
             'SKIP'
-            'f68cf90f369bc7d0158ba70d860b0cb34dbc163d6ff0ebc6cfa5e515b9b2e28d'
+            'ad1a3b125ff014ded290094088de40efb9193ce81a24278184230b7d401f8a3e'
             'SKIP'
-            'c31577d16978b0da0e472ef751f74893a5b459a7ea4a383b75f7ab93cf1e6877'
+            '34eab971069837be770e44f3543f1eb50f385575e8f29d1b5e1a67e7c482f680'
             'SKIP'
-            '59badef592dd34893cd319d42b323aaa990b452d05c7180ff20f23ab1b41e837'
+            '9c7ec82d9a240dc2287b8de89d6881bb64ceea0dcd6ce133c34ef65bda22d99e'
             'SKIP')
-validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A') # Tom Stellard <tstellar@redhat.com>
+validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstellar@redhat.com>
+              'D574BD5D1D0E98895E3BF90044F2485E45D59042') # Tobias Hieta <tobias@hieta.se>
 
 prepare() {
   # https://bugs.llvm.org/show_bug.cgi?id=49228
@@ -42,7 +43,7 @@ build() {
     -DCMAKE_BUILD_TYPE=Release
     -DCMAKE_INSTALL_PREFIX=/usr
     -DCMAKE_INSTALL_DOCDIR=share/doc
-    -DCMAKE_SKIP_RPATH=ON
+    -DCMAKE_SKIP_INSTALL_RPATH=ON
     -DBUILD_SHARED_LIBS=ON
     -DLLVM_BUILD_DOCS=ON
     -DLLVM_ENABLE_SPHINX=ON
