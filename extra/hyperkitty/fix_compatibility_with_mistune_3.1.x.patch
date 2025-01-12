@@ -1,0 +1,39 @@
+From 2d69f420c603356a639a6b6243e1059a0089b7eb Mon Sep 17 00:00:00 2001
+From: Mark Sapiro <mark@msapiro.net>
+Date: Sat, 11 Jan 2025 10:42:53 -0800
+Subject: [PATCH] Changes to support mistune >=3.1.
+
+---
+ hyperkitty/templatetags/decorate.py   | 2 +-
+ hyperkitty/tests/test_templatetags.py | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/hyperkitty/templatetags/decorate.py b/hyperkitty/templatetags/decorate.py
+index c66066b3..b548d416 100644
+--- a/hyperkitty/templatetags/decorate.py
++++ b/hyperkitty/templatetags/decorate.py
+@@ -40,5 +40,5 @@ def render(email, mlist):
+             return mark_safe(markdown_renderer(content))
+     try:
+         return mark_safe(text_renderer(content))
+-    except (KeyError, ValueError):
++    except (AssertionError, KeyError, ValueError):
+         return mark_safe('<pre>' + content + '</pre>')
+diff --git a/hyperkitty/tests/test_templatetags.py b/hyperkitty/tests/test_templatetags.py
+index 9570ff9d..063e6a79 100644
+--- a/hyperkitty/tests/test_templatetags.py
++++ b/hyperkitty/tests/test_templatetags.py
+@@ -217,9 +217,9 @@ https://some.url/example
+ # This is another sample text.
+ """
+         result = markdown_renderer(contents)
+-        self.assertEqual(
++        self.assertRegex(
+             result.strip(),
+-            '<p># This is another sample text.</p>')
++            '^(<p># |<h1>)This is another sample text.(</p>|</h1>)$')
+ 
+     def test_outlook_style_reply_blockquote(self):
+         contents = """\
+-- 
+GitLab
