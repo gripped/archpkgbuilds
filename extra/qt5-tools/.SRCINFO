@@ -1,7 +1,7 @@
 pkgbase = qt5-tools
 	pkgdesc = A cross-platform application and UI framework (Development Tools, QtHelp)
 	pkgver = 5.15.16+kde+r3
-	pkgrel = 3
+	pkgrel = 4
 	url = https://www.qt.io
 	arch = x86_64
 	groups = qt5
@@ -17,6 +17,7 @@ pkgbase = qt5-tools
 	depends = qt5-base
 	depends = hicolor-icon-theme
 	optdepends = clang: for qdoc
+	optdepends = qt5-declarative: for qdistancefieldgenerator
 	conflicts = qtchooser
 	source = kde-qttools::git+https://invent.kde.org/qt/qt/qttools#commit=15deb8f202b838b4dd1b2ff84e852171e8587881
 	source = assistant.desktop

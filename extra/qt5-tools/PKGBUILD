@@ -4,7 +4,7 @@
 pkgname=qt5-tools
 _basever=5.15.16
 pkgver=5.15.16+kde+r3
-pkgrel=3
+pkgrel=4
 _commit=15deb8f202b838b4dd1b2ff84e852171e8587881
 arch=('x86_64')
 url='https://www.qt.io'
@@ -12,7 +12,8 @@ license=('GPL3' 'LGPL3' 'FDL' 'custom')
 pkgdesc='A cross-platform application and UI framework (Development Tools, QtHelp)'
 depends=('qt5-base' 'hicolor-icon-theme')
 makedepends=('qt5-declarative' 'vulkan-headers' 'llvm' 'clang' 'git')
-optdepends=('clang: for qdoc')
+optdepends=('clang: for qdoc'
+            'qt5-declarative: for qdistancefieldgenerator')
 groups=('qt5')
 conflicts=('qtchooser')
 _pkgfqn=${pkgname/5-/}
