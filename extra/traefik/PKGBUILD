@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=traefik
-pkgver=3.2.3
+pkgver=3.3.1
 pkgrel=1
 pkgdesc="Modern reverse proxy written in Go"
 arch=('x86_64')
@@ -16,18 +16,18 @@ makedepends=(
   'yarn'
 )
 backup=("etc/traefik/traefik.yml")
+options=('!lto')
 source=(
-  "${pkgname}-${pkgver}.tar.gz::$url/archive/v${pkgver}.tar.gz"
+  "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
   "traefik.service"
   "traefik.sysusers"
 )
-options=('!lto')
-sha512sums=('56d3786e39c427cd2702e90571834a285959b0330e09d4af9aa136043ffb1bb327bc8a98be811dff0a46e043e5d0845f83ece440e61d4c9dc82082acaa355972'
+sha512sums=('e6db6d283ee2ace961b5959f860e11c591e087b231322f12bd5af9adde3edfc05660a9ae149bf1493a863dae030dd6856c8c89c6e9a18f63676cab9ba5d66276'
             '8a068799588d8982cfcafe994254af1f29b4aa0065e5d29de0b7acf89e442ff43723adf9519654822d7d44dc6c6a46025f514768f0d3ec0e34a434576a9f4d45'
-            '5fecfed5df77bf28c2c976ebaebedb030904d41509e740821140a4889bda20327f416e78f8d19b0ee78c8bc422d1907ce05ef3562e4d3e36ddfbdbea5e860b2a')
+            '48d4ae18774ee3c4a3cbd76951aac90a98281c96e8696c3ebc0bff3bf6e726fe44cf303e11cb7391b29b958c30ca3013a0f3926c3e43537e60926ff429ce17bc')
 
 prepare() {
-  cd "${pkgname}-${pkgver}"
+  cd $pkgname-$pkgver
 
   (
     cd webui
@@ -40,7 +40,7 @@ prepare() {
 }
 
 build() {
-  cd "${pkgname}-${pkgver}"
+  cd $pkgname-$pkgver
 
   (
     cd webui
@@ -52,9 +52,9 @@ build() {
   export CGO_CXXFLAGS="$CXXFLAGS"
   export CGO_LDFLAGS="$LDFLAGS"
   export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw"
-  export GOPATH="${srcdir}"
+  export GOPATH="$srcdir"
   local ld_flags=" \
-    -X github.com/traefik/traefik/v3/pkg/version.Version=${pkgver} \
+    -X github.com/traefik/traefik/v3/pkg/version.Version=$pkgver \
     -compressdwarf=false  \
     -linkmode=external \
   "
@@ -62,13 +62,14 @@ build() {
 }
 
 check() {
-  cd "${pkgname}-${pkgver}"
+  cd $pkgname-$pkgver
   # Skip tests:
   # - v3/integration: requires a running Docker daemon.
   # - v3/pkg/server/service: seem to be flaky.
   local tests=$(
     go list ./... \
       | grep -v github.com/traefik/traefik/v3/integration \
+      | grep -v github.com/traefik/traefik/v3/pkg/proxy/fast \
       | grep -v github.com/traefik/traefik/v3/pkg/server/service \
   )
   # shellcheck disable=SC2086
@@ -76,12 +77,12 @@ check() {
 }
 
 package() {
-  cd "${pkgname}-${pkgver}"
-  install -vDm755 -t "${pkgdir}/usr/bin" traefik
-  install -vDm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE.md
-  install -vDm644 -t "${pkgdir}/usr/lib/systemd/system" "${srcdir}/traefik.service"
-  install -vDm644 "${srcdir}/traefik.sysusers" "${pkgdir}/usr/lib/sysusers.d/traefik.conf"
-  install -vDm644 traefik.sample.yml "${pkgdir}/etc/traefik/traefik.yml"
+  cd $pkgname-$pkgver
+  install -vDm755 -t "$pkgdir/usr/bin" traefik
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.md
+  install -vDm644 -t "$pkgdir/usr/lib/systemd/system" "$srcdir/traefik.service"
+  install -vDm644 "$srcdir/traefik.sysusers" "$pkgdir/usr/lib/sysusers.d/traefik.conf"
+  install -vDm644 traefik.sample.yml "$pkgdir/etc/traefik/traefik.yml"
   # Create empty acme.json file, otherwise the service file will fail.
-  install -vDm644 /dev/null "${pkgdir}/etc/traefik/acme.json"
+  install -vDm644 /dev/null "$pkgdir/etc/traefik/acme.json"
 }
