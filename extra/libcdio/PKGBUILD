@@ -2,41 +2,48 @@
 # Contributor: damir <damir@archlinux.org>
 
 pkgname=libcdio
-pkgver=2.1.0
-pkgrel=4
+pkgver=2.2.0
+pkgrel=1
 pkgdesc="GNU Compact Disc Input and Control Library"
 url="https://www.gnu.org/software/libcdio/"
 arch=(x86_64)
-license=(GPL3)
-depends=(ncurses gcc-libs)
-makedepends=(git help2man)
-_commit=9c7a2779846da161279bc1501e83c849cf89a594  # tags/release-2.1.0
-source=("git+https://git.savannah.gnu.org/git/libcdio.git#commit=$_commit")
-sha256sums=('SKIP')
-validpgpkeys=('DAA63BC2582034A02B923D521A8DE5008275EC21') # R. Bernstein
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/^release-//;s/[^-]*-g/r&/;s/-/+/g'
-}
+license=(GPL-3.0-or-later)
+depends=(
+  gcc-libs
+  glibc
+  ncurses
+)
+makedepends=(
+  git
+  help2man
+)
+source=(
+  "git+https://github.com/libcdio/libcdio#tag=$pkgver"
+)
+b2sums=('f7a71168f5957f073bf95d0fe68a69a6129f0c11410a1fa4927b41ccfc3f3828f2801e5e91597b6bab33523be4995b9a548d04a1c42463ed96367fb9c56780f5')
+validpgpkeys=(
+  DAA63BC2582034A02B923D521A8DE5008275EC21 # R. Bernstein <rocky@panix.com>
+)
 
 prepare() {
   cd $pkgname
-
-  # Format security
-  git cherry-pick -n 2adb43c60afc6e98e94d86dad9f93d3df52862b1
-
-  # realpath test failure
-  git cherry-pick -n 56335fff0f21d294cd0e478d49542a43e9495ed0
-
   autoreconf -fvi
 }
 
 build() {
-  cd $pkgname
-  ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
-    --disable-vcd-info --disable-cddb --enable-cpp-progs --disable-static \
+  local configure_options=(
+    --prefix=/usr
+    --sysconfdir=/etc
+    --localstatedir=/var
+    --disable-cddb
+    --enable-cpp-progs
     --enable-maintainer-mode
+    --disable-static
+    --disable-vcd-info
+  )
+
+  cd $pkgname
+  ./configure "${configure_options[@]}"
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
@@ -49,7 +56,6 @@ check() {
 package() {
   cd $pkgname
   make DESTDIR="$pkgdir" install
-
-  sed -e "/define CDIO_LIBCDIO_SOURCE_PATH/s|.*|/* #undef CDIO_LIBCDIO_SOURCE_PATH */|" \
-      -i "$pkgdir/usr/include/cdio/cdio_config.h"
 }
+
+# vim:set sw=2 sts=-1 et:
