@@ -1,0 +1,12 @@
+diff -upr bpftrace-0.21.3.orig/CMakeLists.txt bpftrace-0.21.3/CMakeLists.txt
+--- bpftrace-0.21.3.orig/CMakeLists.txt	2024-12-17 01:25:48.000000000 +0200
++++ bpftrace-0.21.3/CMakeLists.txt	2025-01-05 14:53:20.328365470 +0200
+@@ -149,7 +149,7 @@ else()
+ endif()
+ 
+ set(MIN_LLVM_MAJOR 6)
+-set(MAX_LLVM_MAJOR 18)
++set(MAX_LLVM_MAJOR 19)
+ 
+ if((${LLVM_VERSION_MAJOR} VERSION_LESS ${MIN_LLVM_MAJOR}) OR (${LLVM_VERSION_MAJOR} VERSION_GREATER ${MAX_LLVM_MAJOR}))
+   message(SEND_ERROR "Unsupported LLVM version found via ${LLVM_INCLUDE_DIRS}: ${LLVM_VERSION_MAJOR}")
