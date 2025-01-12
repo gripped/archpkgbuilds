@@ -3,14 +3,14 @@
 
 pkgname=zig
 pkgver=0.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc='a general-purpose programming language and toolchain for maintaining robust, optimal, and reusable software'
 arch=('x86_64')
 url='https://ziglang.org/'
 license=('MIT')
 options=('!lto')
-depends=('clang' 'lld' 'llvm-libs')
-makedepends=('cmake' 'llvm')
+depends=('clang18' 'lld18' 'llvm18-libs')
+makedepends=('cmake' 'llvm18')
 checkdepends=('lib32-glibc')
 source=("https://ziglang.org/download/$pkgver/zig-$pkgver.tar.xz"
         "fix-pie-support-detection.patch"
@@ -33,6 +33,7 @@ build() {
 
     local cmake_vars=(
         CMAKE_INSTALL_PREFIX=/usr
+        CMAKE_PREFIX_PATH=/usr/lib/llvm18
 
         # The zig CMakeLists uses build type Debug if not set
         # override it back to None so makepkg env vars are respected
