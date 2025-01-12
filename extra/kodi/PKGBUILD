@@ -10,7 +10,8 @@
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 # Contributor: Brad Fanella <bradfanella@archlinux.us>
 # Contributor: [vEX] <niechift.dot.vex.at.gmail.dot.com>
-# Contributor: Zeqadious <zeqadious.at.gmail.dot.com> Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
+# Contributor: Zeqadious <zeqadious.at.gmail.dot.com>
+# Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 # Contributor: Maxime Gauduin <alucryd@gmail.com>
 #
 # Original credits go to Edgar Hucek <gimli at dark-green dot com>
@@ -19,7 +20,7 @@
 pkgbase=kodi
 pkgname=('kodi' 'kodi-gles' 'kodi-eventclients' 'kodi-tools-texturepacker' 'kodi-dev')
 pkgver=21.1
-pkgrel=5
+pkgrel=9
 arch=('x86_64')
 url="https://kodi.tv"
 license=('GPL2')
@@ -66,6 +67,7 @@ source=(
   "$pkgbase-libudfread-$_libudfread_version.tar.gz::https://mirrors.kodi.tv/build-deps/sources/libudfread-$_libudfread_version.tar.gz"
   "fix-swig-4.3-compatibility.patch::https://github.com/xbmc/xbmc/commit/4ff0ba903bed472cddb0d6e5c53c8176cded6b09.patch"
   "fix-python-3.13-compatibility.patch::https://github.com/xbmc/xbmc/commit/67a08669d583d1e275774b2312614becbe7dad25.patch"
+  "fix-libnfs-6-compatibility.patch"
 )
 noextract=(
   "$pkgbase-libdvdcss-$_libdvdcss_version.tar.gz"
@@ -87,7 +89,8 @@ sha512sums=('8458447c2a6d7ce0fdcfc7ec9b4ff1f8be0abf18a16804d245c3cef99408fcfb4b1
             '4066c94f2473c7ea16917d29a613e16f840a329089c88e0bdbdb999aef3442ba00abfd2aa92266fa9c067e399dc88e6f0ccac40dc151378857e665638e78bbf0'
             '3069feb5db40288beb5b112b285186162a704f0fdd3cf67a17fd4eeea015f2cfcfbb455b7aa7c3d79d00fd095a3fd11cffc7b121dce94d99c3b06a509a8977d2'
             'd7b45b7f91d780727c8882905378795e55402fc7a129ec023250f62bc508d229e28569d9715be492d3ed1f3ab0fd86eb17cad59781c962b4bbc7a5bea0bf55ed'
-            'b9b6ca7b236fdf3a6bcc8b27f630e471bd71e716ce88ad63023ddb5d10c5f34dde2e97ccaaa642ba952fdacdefaa9a8ad5d099efca7b1cf5b3d761a269769149')
+            'b9b6ca7b236fdf3a6bcc8b27f630e471bd71e716ce88ad63023ddb5d10c5f34dde2e97ccaaa642ba952fdacdefaa9a8ad5d099efca7b1cf5b3d761a269769149'
+            '8b690003b3b3947dac0fb5684dcea157de8c4817930ab12d037da5de94a5c657ad8ecc305590175832ce339edc65a98b3cf7c1500f878a7d72e7b45b71b05321')
 
 prepare() {
   [[ -d "$srcdir/kodi-build" ]] && rm -rf "$srcdir/kodi-build"
@@ -99,8 +102,9 @@ prepare() {
 
   rm -rf system/certs # remove not needed cacert
 
-  patch -Np1 -i ../fix-swig-4.3-compatibility.patch
-  patch -Np1 -i ../fix-python-3.13-compatibility.patch
+  patch -p1 -i "$srcdir/fix-swig-4.3-compatibility.patch"
+  patch -p1 -i "$srcdir/fix-python-3.13-compatibility.patch"
+  patch -p1 -i "$srcdir/fix-libnfs-6-compatibility.patch"
 }
 
 build() {
