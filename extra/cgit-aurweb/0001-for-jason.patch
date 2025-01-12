@@ -1,7 +1,7 @@
 From 87fdb57d6040a71f261b2e87112492c281cd5246 Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Sat, 14 Sep 2024 21:51:14 +0200
-Subject: [PATCH 1/4] git: update to v2.46.1
+Subject: [PATCH 1/5] git: update to v2.46.1
 
 Update to git version v2.46.1, no additional changes required.
 
@@ -35,7 +35,7 @@ index 39bf06a..a731929 160000
 From 1cb701a9b615acf2d4a9f5c6c2668cd11343e124 Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Tue, 24 Sep 2024 07:49:00 +0200
-Subject: [PATCH 2/4] git: update to v2.46.2
+Subject: [PATCH 2/5] git: update to v2.46.2
 
 Update to git version v2.46.2, no additional changes required.
 
@@ -69,7 +69,7 @@ index a731929..4f71522 160000
 From c1733e28d91bea5647e11fe099751fbc839669d7 Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Thu, 26 Sep 2024 19:41:29 +0200
-Subject: [PATCH 3/4] git: update to v2.47.0
+Subject: [PATCH 3/5] git: update to v2.47.0
 
 Update to git version v2.47.0, this requires changes for these
 upstream commits:
@@ -187,7 +187,7 @@ index 6fae72d..4250b89 100644
 From 99a2f47c96b1d01c642d4bad0f7e2a6d27f5df99 Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Mon, 25 Nov 2024 10:04:00 +0100
-Subject: [PATCH 4/4] git: update to v2.47.1
+Subject: [PATCH 4/5] git: update to v2.47.1
 
 Update to git version v2.47.1, no additional changes required.
 
@@ -217,3 +217,37 @@ index 777489f..92999a4 160000
 @@ -1 +1 @@
 -Subproject commit 777489f9e09c8d0dd6b12f9d90de6376330577a2
 +Subproject commit 92999a42db1c5f43f330e4f2bca4026b5b81576f
+
+From be06bedb037982608171b6646d7c951a957c70c7 Mon Sep 17 00:00:00 2001
+From: Christian Hesse <mail@eworm.de>
+Date: Mon, 16 Dec 2024 22:37:25 +0100
+Subject: [PATCH 5/5] git: update to v2.48.0
+
+Update to git version v2.48.0, no additional changes required.
+
+Signed-off-by: Christian Hesse <mail@eworm.de>
+---
+ Makefile | 2 +-
+ git      | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 1cc9b86..ea9ef8a 100644
+--- a/Makefile
++++ b/Makefile
+@@ -14,7 +14,7 @@ htmldir = $(docdir)
+ pdfdir = $(docdir)
+ mandir = $(prefix)/share/man
+ SHA1_HEADER = <openssl/sha.h>
+-GIT_VER = 2.47.1
++GIT_VER = 2.48.0
+ GIT_URL = https://www.kernel.org/pub/software/scm/git/git-$(GIT_VER).tar.xz
+ INSTALL = install
+ COPYTREE = cp -r
+diff --git a/git b/git
+index 92999a4..fbe8d30 160000
+--- a/git
++++ b/git
+@@ -1 +1 @@
+-Subproject commit 92999a42db1c5f43f330e4f2bca4026b5b81576f
++Subproject commit fbe8d3079d4a96aeb4e4529cc93cc0043b759a05
