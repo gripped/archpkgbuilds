@@ -2,7 +2,7 @@
 # Contributor: Fangrui Song <i at maskray.me>
 
 pkgname=ccls
-pkgver=0.20240202
+pkgver=0.20241108
 pkgrel=1
 pkgdesc='C/C++/ObjC language server supporting cross references, hierarchies, completion and semantic highlighting'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('clang' 'gcc-libs' 'glibc' 'llvm-libs')
 makedepends=('cmake' 'ninja' 'llvm' 'rapidjson')
 conflicts=('ccls-git')
 source=("https://github.com/MaskRay/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('bf30c869b985d7d6c0ecabfcc563b4983616c4f47ba743586a23441575695d87557113cdfd2603185adc454940d9244c331d9dc16444564358c910e2d61e9281')
+sha512sums=('b271b175ea64eb10a052789c5527135b5aff7f9088aa20158895263262c1c93541cc4f987e7d7a73b702db0b85f9366ed57a9b38bf1e245e50f3c4e3eeed7277')
 
 build() {
   cd $pkgname-$pkgver
