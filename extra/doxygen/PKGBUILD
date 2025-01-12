@@ -4,7 +4,7 @@
 
 pkgbase=doxygen
 pkgname=(doxygen doxygen-docs)
-pkgver=1.13.1
+pkgver=1.13.2
 pkgrel=1
 pkgdesc='Documentation system for C++, C, Java, IDL and PHP'
 url='http://www.doxygen.nl'
@@ -32,8 +32,8 @@ makedepends=(
 source=(
   ${pkgbase}-${pkgver}.tar.gz::https://github.com/doxygen/doxygen/archive/Release_${pkgver//./_}.tar.gz
 )
-sha512sums=('9688958a3104a73b13c23ec44359647b366a1721134361b19518650cb9cb814e32507b472f5f0b37ac7107e667b891193744ae64d5f27e4cd84c099878750514')
-b2sums=('c73fa721cb9de860e2797bfcee8858056472698d88040f153e71572b82f708b035b3e66594e76ed58b8bcb8f7ede1cd0525ea704f35c0de9f5b93cf72f7f2b1d')
+sha512sums=('ec9e0c40c87a2a9477203b6df66323ca221468013094980e17965fa5a631d97af6286a66d7010c5ed94b825dd4e7bc8db18a48f30aa48b9a2e4f0ca6d9a5ddf0')
+b2sums=('d2e0eac7fbd650ac39cc4018692488570eb579418af17e34edbdfa9f283968082695f99c9095ff49e178b090d6c87c7abe4bcc80077d397d7198b9a1430cf972')
 
 _pick() {
   local p="$1" f d; shift
