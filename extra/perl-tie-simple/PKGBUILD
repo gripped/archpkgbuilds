@@ -1,27 +1,32 @@
-# Maintainer: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=perl-tie-simple
-_realname=Tie-Simple
+_dist=Tie-Simple
 pkgver=1.04
-pkgrel=13
-pkgdesc="Variable ties made easier: much, much, much easier..."
+pkgrel=14
+pkgdesc="Variable ties made easier"
+url="https://metacpan.org/dist/$_dist"
 arch=(any)
-license=(PerlArtistic GPL)
+license=('Artistic-1.0-Perl OR GPL-1.0-or-later')
 depends=(perl)
-url="https://metacpan.org/release/$_realname"
 options=('!emptydirs')
-source=("https://cpan.metacpan.org/authors/id/H/HA/HANENKAMP/$_realname-$pkgver.tar.gz")
-sha256sums=('29e9e2133951046c78f205f1b3e8df62c90e114f0e08fa06b817766a0f808b12')
+source=("https://cpan.metacpan.org/authors/id/H/HA/HANENKAMP/$_dist-$pkgver.tar.gz")
+b2sums=('66a1090e76c6302f1ea2ab24ff349807db588a2f5f8837fb892cadd82ecf9c32d82f96d8caab0c95054d8763dc25d92db17e160e0f4ad93aa8b906fa29f48293')
 
 build() {
-  cd $_realname-$pkgver
-  PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
+  cd $_dist-$pkgver
+  perl Makefile.PL INSTALLDIRS=vendor
   make
 }
 
+check() {
+  cd $_dist-$pkgver
+  make test
+}
+
 package() {
-  cd $_realname-$pkgver
+  cd $_dist-$pkgver
   make DESTDIR="$pkgdir" install
 }
 
-# vim:set sw=2 et:
+# vim:set sw=2 sts=-1 et:
