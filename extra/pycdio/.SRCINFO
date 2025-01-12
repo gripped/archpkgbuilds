@@ -1,7 +1,7 @@
 pkgbase = pycdio
 	pkgdesc = Python OO interface to libcdio (CD Input and Control library)
 	pkgver = 2.1.1
-	pkgrel = 6
+	pkgrel = 7
 	url = https://github.com/rocky/pycdio
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -11,6 +11,7 @@ pkgbase = pycdio
 	makedepends = python-setuptools
 	makedepends = python-wheel
 	makedepends = swig
+	depends = glibc
 	depends = libcdio
 	depends = python
 	source = git+https://github.com/rocky/pycdio#tag=2.1.1
