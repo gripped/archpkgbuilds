@@ -1,6 +1,6 @@
 pkgbase = gnome-initial-setup
 	pkgdesc = Helps you to set up your OS when you boot for the first time
-	pkgver = 47.2
+	pkgver = 47.3
 	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/gnome-initial-setup
 	arch = x86_64
@@ -37,8 +37,10 @@ pkgbase = gnome-initial-setup
 	depends = pango
 	depends = polkit
 	depends = tecla
-	source = git+https://gitlab.gnome.org/GNOME/gnome-initial-setup.git?signed#tag=47.2
+	source = git+https://gitlab.gnome.org/GNOME/gnome-initial-setup.git?signed#tag=47.3
+	source = 0001-Use-fully-locked-system-account.patch
 	validpgpkeys = 1E68E58CF255888301645B563422DC0D7AD482A7
-	b2sums = ecc0d0346e00b25f52a3082da5d31a18397b2ffec27c1fc253913206783596ab8f6bd6344150897c5f3d47beb8bdf8e54992cfa84731a74405e6e7f7de4b5f0c
+	b2sums = 28d08288abb1c4a122387fd18d2c2a76bd0a1e0ebbf5b4a8e561149136600f0f73f79ab02192ec8f45db970f16fdf1978c30434d3e84b4bcb9c43b251eda05c0
+	b2sums = 30e7c97efc1e92e6a3a4f9f077a2d9ecad158d4b7dac7792f0ae57e1c974f051c3a077089403eb7dde0ff52409ddaf36865c9039db7af21589c6e6fc1fa891bb
 
 pkgname = gnome-initial-setup
