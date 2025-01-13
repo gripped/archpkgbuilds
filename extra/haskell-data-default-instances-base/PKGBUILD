@@ -2,8 +2,8 @@
 
 _hkgname=data-default-instances-base
 pkgname=haskell-data-default-instances-base
-pkgver=0.1.0.1
-pkgrel=25
+pkgver=0.1.0.2
+pkgrel=1
 pkgdesc="Default instances for types in base"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-data-default-class')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('32d25a84dc22be5fc0145a32eb4bb8879c4ab43ec08cba9a6e48084e668ca704b1fa69b82f756759a467c23958878c0dfe00620a6a8763e95e319ef71dcbb46d')
+sha512sums=('a96608d64c845547b419fdfec7bad3591202e44bd0bdfff0d33f080c5fa54f0c8862d98b1a9e3244886316909570c92a62fd597c085aba863fda45f8954f484c')
 
 build() {
     cd ${srcdir}/${_hkgname}-${pkgver}
