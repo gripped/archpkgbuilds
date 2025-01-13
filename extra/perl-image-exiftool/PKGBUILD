@@ -5,7 +5,7 @@
 # Contributor: Firmicus <francois.archlinux.org>
 
 pkgname=perl-image-exiftool
-pkgver=13.11
+pkgver=13.12
 pkgrel=1
 pkgdesc="Reader and rewriter of EXIF information that supports raw files"
 arch=('any')
@@ -19,7 +19,7 @@ provides=("perl-exiftool=${pkgver}")
 replaces=("perl-exiftool")
 options=('!emptydirs')
 source=("git+https://github.com/exiftool/exiftool.git#tag=${pkgver}")
-sha256sums=('0fb0a86004c4ff15aca0821860a26b24b50ac8f16e21b0f9a192a427a5a5bc16')
+sha256sums=('b5e0e65c01449dabc0aadcf25a00c4f5c977980870164c2dc0d417ba710e12cd')
 
 build() {
   cd exiftool
