@@ -1,19 +1,19 @@
 pkgbase = iotop-c
-	pkgdesc = simple top-like I/O monitor (implemented in C)
-	pkgver = 1.26
-	pkgrel = 2
+	pkgdesc = A top utility for IO
+	pkgver = 1.27
+	pkgrel = 1
 	url = https://github.com/Tomas-M/iotop
 	arch = x86_64
 	license = GPL-2.0-or-later
-	makedepends = pkgconf
+	makedepends = git
 	depends = glibc
 	depends = ncurses
 	provides = iotop
 	conflicts = iotop
-	source = https://github.com/Tomas-M/iotop/releases/download/v1.26/iotop-1.26.tar.xz
-	source = https://github.com/Tomas-M/iotop/releases/download/v1.26/iotop-1.26.tar.xz.asc
+	source = git+https://github.com/Tomas-M/iotop.git#tag=v1.27?signed
+	source = Makefile.patch
 	validpgpkeys = BA60BC20F37E59444D6D25001365720913D2F22D
-	sha256sums = 8739dc429c9c07f51955cb01ccfba081c9776f63134d24a2454e2598873fcd1e
-	sha256sums = SKIP
+	sha256sums = 252b6be613dd0d5c6167cafdb74f07b960442665c083ee01e755bf0b908d709c
+	sha256sums = 53765edb625d544728fdd1dbefb58915b99f6e06827e0e29c3e76bc9393a4a2f
 
 pkgname = iotop-c

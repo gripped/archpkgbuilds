@@ -1,0 +1,30 @@
+diff --git a/Makefile b/Makefile
+index bffac53..89abe01 100644
+--- a/Makefile
++++ b/Makefile
+@@ -37,7 +37,6 @@ endif
+ 
+ PREFIX?=$(DESTDIR)/usr
+ INSTALL?=install
+-STRIP?=strip
+ 
+ PKG_CONFIG?=pkg-config
+ NCCC?=$(shell $(PKG_CONFIG) --cflags ncursesw)
+@@ -142,15 +141,13 @@ clean:
+ 	$(Q)rm -rf ./bld $(TARGET)
+ 
+ install: $(TARGET)
+-	$(E) STRIP $(TARGET)
+-	$(Q)$(STRIP) $(TARGET)
+ 	$(E) INSTALL $(TARGET)
+-	$(Q)$(INSTALL) -D -m 0755 $(TARGET) $(PREFIX)/sbin/$(TARGET)
++	$(Q)$(INSTALL) -D -m 0755 $(TARGET) $(PREFIX)/bin/$(TARGET)
+ 	$(Q)$(INSTALL) -D -m 0644 iotop.8 $(PREFIX)/share/man/man8/iotop.8
+ 
+ uninstall:
+ 	$(E) UNINSTALL $(TARGET)
+-	$(Q)rm -f $(PREFIX)/sbin/$(TARGET)
++	$(Q)rm -f $(PREFIX)/bin/$(TARGET)
+ 	$(Q)rm -f $(PREFIX)/share/man/man8/iotop.8
+ 
+ bld/.mkdir:

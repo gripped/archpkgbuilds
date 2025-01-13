@@ -1,35 +1,39 @@
 # Maintainer: Chistian Heusel <gromit@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 # Contributor: Rumen Jekov <rvjekov@gmail.com>
 # Contributor: Boian Bonev <bbonev@ipacct.com>
 
 pkgname=iotop-c
-pkgver=1.26
-pkgrel=2
-pkgdesc="simple top-like I/O monitor (implemented in C)"
-arch=('x86_64')
+_pkgname=iotop
+pkgver=1.27
+pkgrel=1
+pkgdesc="A top utility for IO"
 url="https://github.com/Tomas-M/iotop"
+arch=('x86_64')
 license=('GPL-2.0-or-later')
 depends=('glibc' 'ncurses')
-makedepends=('pkgconf')
+makedepends=('git')
 conflicts=('iotop')
 provides=('iotop')
-source=(${url}/releases/download/v${pkgver}/iotop-${pkgver}.tar.xz{,.asc})
+source=("git+${url}.git#tag=v${pkgver}?signed"
+        'Makefile.patch')
 validpgpkeys=('BA60BC20F37E59444D6D25001365720913D2F22D')
-sha256sums=('8739dc429c9c07f51955cb01ccfba081c9776f63134d24a2454e2598873fcd1e'
-            'SKIP')
+sha256sums=('252b6be613dd0d5c6167cafdb74f07b960442665c083ee01e755bf0b908d709c'
+            '53765edb625d544728fdd1dbefb58915b99f6e06827e0e29c3e76bc9393a4a2f')
 
 prepare() {
-	cd iotop-${pkgver}
-	sed -i 's/sbin/bin/g' Makefile
-	sed -i '/STRIP/d' Makefile
+	cd "${_pkgname}"
+	# Use $(PREFIX)/bin rather than $(PREFIX)/sbin
+	# and do not strip binary in Makefile
+	patch -Np1 -i "${srcdir}/Makefile.patch"
 }
 
 build() {
-	cd iotop-${pkgver}
-	make DESTDIR="${pkgdir}" V=1
+	cd "${_pkgname}"
+	make
 }
 
 package() {
-	cd iotop-${pkgver}
+	cd "${_pkgname}"
 	make DESTDIR="${pkgdir}" install
 }
