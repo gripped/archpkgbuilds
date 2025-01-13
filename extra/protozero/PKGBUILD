@@ -4,15 +4,15 @@
 
 pkgbase=protozero
 pkgname=(protozero protozero-docs)
-pkgver=1.7.1
-pkgrel=5
+pkgver=1.8.0
+pkgrel=1
 pkgdesc="Minimalist protocol buffer decoder and encoder in C++"
 url="https://github.com/mapbox/protozero"
 arch=('any')
 license=('custom')
 makedepends=('clang' 'cmake' 'cppcheck' 'protobuf' 'doxygen' 'graphviz')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mapbox/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('27e0017d5b3ba06d646a3ec6391d5ccc8500db821be480aefd2e4ddc3de5ff99')
+sha256sums=('d95ca543fc42bd22b8c4bce1e6d691ce1711eda4b4910f7863449e6517fade6b')
 
 build() {
   mkdir -p "${pkgname}-${pkgver}/build"
