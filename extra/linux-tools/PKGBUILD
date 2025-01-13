@@ -6,16 +6,17 @@ pkgname=(
   'bpf'
   'cpupower'
   'hyperv'
+  'intel-speed-select'
+  'kcpuid'
   'linux-tools-meta'
   'perf'
   'tmon'
   'turbostat'
   'usbip'
   'x86_energy_perf_policy'
-  'intel-speed-select'
 )
 pkgver=6.12
-pkgrel=10
+pkgrel=11
 license=('GPL-2.0-only')
 arch=('x86_64')
 url='https://www.kernel.org'
@@ -154,6 +155,11 @@ build() {
   pushd linux/tools/power/x86/intel-speed-select
   make
   popd
+
+  echo ':: kcpuid'
+  pushd linux/tools/arch/x86/kcpuid
+  make
+  popd
 }
 
 package_linux-tools-meta() {
@@ -164,12 +170,13 @@ package_linux-tools-meta() {
     'bpf'
     'cpupower'
     'hyperv'
+    'intel-speed-select'
+    'kcpuid'
     'perf'
     'tmon'
     'turbostat'
     'usbip'
     'x86_energy_perf_policy'
-    'intel-speed-select'
   )
   conflicts=(
     'acpidump'
@@ -309,6 +316,13 @@ package_intel-speed-select() {
 
   cd linux/tools/power/x86/intel-speed-select
   make install DESTDIR="$pkgdir"
+}
+
+package_kcpuid() {
+  pkgdesc='Kernel tool for various cpu debug outputs'
+  depends=('glibc')
+
+  make BINDIR=/usr/bin HWDATADIR="/usr/share/misc" DESTDIR="$pkgdir" -C linux/tools/arch/x86/kcpuid install
 }
 
 # vim:set ts=2 sw=2 et:
