@@ -2,7 +2,7 @@
 
 pkgname=rsop
 pkgver=0.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Stateless OpenPGP (SOP) based on rpgp"
 arch=(x86_64)
 url="https://codeberg.org/heiko/rsop"
@@ -12,12 +12,10 @@ license=(
 )
 groups=(stateless-openpgp)
 depends=(
-  dbus
   gcc-libs
   glibc
 )
 makedepends=(
-  pcsclite
   rust
 )
 source=(
@@ -36,21 +34,17 @@ build() {
   cd $pkgname
   export RUSTUP_TOOLCHAIN=stable
   export CARGO_TARGET_DIR=target
-  cargo build --frozen --release --all-features
+  cargo build -p $pkgname --frozen --release --all-features
 }
 
 check() {
   cd $pkgname
   export RUSTUP_TOOLCHAIN=stable
-  cargo test --frozen --all-features
+  cargo test -p $pkgname --frozen --all-features
 }
 
 package() {
-  depends+=(
-    pcsclite libpcsclite.so
-  )
-
   cd $pkgname
-  install -vDm 0755 "target/release/$pkgname" -t "$pkgdir/usr/bin/"
+  install -vDm 0755 "target/release/$pkgname"{,v} -t "$pkgdir/usr/bin/"
   install -vDm 0644 LICENSES/MIT.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
