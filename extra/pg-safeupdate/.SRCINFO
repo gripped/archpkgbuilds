@@ -1,14 +1,15 @@
 pkgbase = pg-safeupdate
 	pkgdesc = A simple extension to PostgreSQL that requires criteria for UPDATE and DELETE
-	pkgver = 1.4
-	pkgrel = 5
+	pkgver = 1.5
+	pkgrel = 1
 	url = https://github.com/eradman/pg-safeupdate
 	arch = x86_64
 	license = ISC
 	checkdepends = pifpaf
 	checkdepends = ruby
+	makedepends = git
 	depends = postgresql
-	source = https://github.com/eradman/pg-safeupdate/archive/1.4/pg-safeupdate-1.4.tar.gz
-	sha512sums = a2aed61f995df5e6bd182213abcd95541ceafa07756c3fa5f012f910643c00c0ada2c1ea04a4d6c70c7e0bacd23ba022aca03c7e88dd7ad05bf816b4c1a36037
+	source = git+https://github.com/eradman/pg-safeupdate#tag=1.5
+	sha512sums = daa6d60a3d72d27d5e00383dcf23c220155ef2452eae7b8f00a093828d5d989c364670d48af70c70485b489a6ec07d3e5d770ece908712394d8264e8b46c16f5
 
 pkgname = pg-safeupdate
