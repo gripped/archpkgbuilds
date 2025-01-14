@@ -2,7 +2,7 @@
 _pkgname='bigarray-compat'
 pkgname="ocaml-${_pkgname}"
 pkgver=1.1.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Compatibility library to use Stdlib.Bigarray when possible"
 arch=(x86_64)
 url="https://github.com/mirage/bigarray-compat"
