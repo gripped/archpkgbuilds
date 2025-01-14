@@ -1,10 +1,11 @@
 pkgbase = networkmanager-pptp
 	pkgdesc = NetworkManager VPN plugin for PPTP
 	pkgver = 1.2.12
-	pkgrel = 4
+	pkgrel = 6
 	url = https://wiki.gnome.org/Projects/NetworkManager
 	arch = x86_64
 	license = GPL
+	makedepends = expac
 	makedepends = git
 	makedepends = glib2-devel
 	makedepends = libnma
@@ -12,7 +13,7 @@ pkgbase = networkmanager-pptp
 	makedepends = python
 	depends = libnm
 	depends = libsecret
-	depends = ppp=2.5.1
+	depends = ppp
 	depends = pptpclient
 	optdepends = libnma-gtk4: GUI support (GTK 4)
 	optdepends = libnma: GUI support (GTK 3)
