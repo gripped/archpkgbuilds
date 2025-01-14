@@ -1,7 +1,7 @@
 pkgbase = networkmanager-l2tp
 	pkgdesc = L2TP support for NetworkManager
 	pkgver = 1.20.20
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/nm-l2tp/NetworkManager-l2tp
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -10,7 +10,8 @@ pkgbase = networkmanager-l2tp
 	makedepends = libnma-gtk4
 	makedepends = python-packaging
 	makedepends = glib2-devel
-	depends = ppp=2.5.1
+	makedepends = expac
+	depends = ppp
 	depends = xl2tpd
 	optdepends = libnma: GUI support (GTK 3)
 	optdepends = libnma-gtk4: GUI support (GTK 4)
