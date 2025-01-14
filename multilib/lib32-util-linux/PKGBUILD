@@ -3,8 +3,7 @@
 
 _pkgbasename=util-linux
 pkgname=lib32-${_pkgbasename}
-_tag='2.40.3'
-pkgver="${_tag/-/}"
+pkgver='2.40.4'
 pkgrel=1
 pkgdesc='Miscellaneous system utilities for Linux (32-bit)'
 url='https://github.com/util-linux/util-linux'
@@ -15,8 +14,8 @@ provides=('libuuid.so' 'libblkid.so' 'libfdisk.so' 'libmount.so' 'libsmartcols.s
 license=('GPL2')
 options=('!emptydirs')
 validpgpkeys=('B0C64D14301CC6EFAEDF60E4E4B71D5EEC39C284')  # Karel Zak
-source=("git+https://github.com/util-linux/util-linux#tag=v${_tag}?signed")
-sha256sums=('47f46d24d67f42a7a1e2ae1ff8f4175307426cfcd70c544484ec5a235a77311f')
+source=("git+https://github.com/util-linux/util-linux#tag=v${pkgver/rc/-rc}?signed")
+sha256sums=('32b88bea337aa283e4a84a20eb70fe8df5db6c09cfd99bc133e2503e2e6b53d6')
 
 _backports=(
 )
