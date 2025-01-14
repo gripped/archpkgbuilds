@@ -1,7 +1,7 @@
 # Maintainer:  Jürgen Hötzel <juergen@archlinux.org>
 pkgname=ocaml-topkg
 pkgver=1.0.7
-pkgrel=4
+pkgrel=5
 pkgdesc="A packager for distributing OCaml software"
 arch=('x86_64')
 url="https://erratique.ch/software/topkg"
