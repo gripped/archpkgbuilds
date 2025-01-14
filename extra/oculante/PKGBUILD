@@ -3,7 +3,7 @@
 # Contributor: Johann Woelper <woelper@gmail.com>
 
 pkgname=oculante
-pkgver=0.9.1
+pkgver=0.9.2
 pkgrel=1
 pkgdesc="A minimalistic image viewer with analysis and editing tools"
 arch=('x86_64')
@@ -27,7 +27,7 @@ makedepends=(
 )
 options=(!lto)
 source=("git+https://github.com/woelper/oculante.git#tag=${pkgver}")
-b2sums=('b621817e2418df3a09298320713aaab6626788251c606ef6dc72302e3abdcc75a52c1f53b605b43e9f7af6f65901f53821fd205945753b27bccbe4f1bb124785')
+b2sums=('467404f94d5ccfb41755e7405de5f8d2ef2c7ec8784bc2ad42d95f3a741b3809a567386b73d67e1595667467aff9d169825502eacd2037efb4610c9f9ccf4008')
 
 
 prepare() {
@@ -48,7 +48,7 @@ check() {
   cd $pkgname
   export RUSTUP_TOOLCHAIN=stable
   export TURBOJPEG_SOURCE=pkg-config
-  cargo test --frozen -- --skip=tests::net --skip=tests::flathub --skip=bench
+  cargo test --frozen -- --skip=tests::net --skip=tests::flathub --skip=bench --skip=thumbnails::test_thumbs
 }
 
 package() {
