@@ -3,7 +3,7 @@
 
 pkgname=ocamlbuild
 pkgver=0.15.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Build tool that has built-in rules for building OCaml libraries and programs'
 arch=(x86_64)
 license=(GPL-2.0-only)
