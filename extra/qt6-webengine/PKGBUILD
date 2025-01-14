@@ -4,7 +4,7 @@
 pkgname=qt6-webengine
 _pkgver=6.8.1
 pkgver=6.8.1
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -77,19 +77,23 @@ optdepends=('pipewire: WebRTC desktop sharing under Wayland')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
-        git+https://code.qt.io/qt/qtwebengine-chromium)
+        git+https://code.qt.io/qt/qtwebengine-chromium
+        disable-ffmpeg-allow-lists.patch)
 sha256sums=('44c5f3bfe85551a81e733283782f2bd4050e35bde2aeb34fc0cb4d2bb0526fd1'
-            'SKIP')
+            'SKIP'
+            'e6c5ea6e10c032ed36090433c7c8c41ac0dd301c798d5877301d69469d43f1ec')
 
 prepare() {
   cd $_pkgfn
   git submodule init
   git submodule set-url src/3rdparty "$srcdir"/qtwebengine-chromium
   git -c protocol.file.allow=always submodule update
+
+# Disable FFmpeg allow lists https://bugreports.qt.io/browse/QTBUG-132762
+  patch -d src/3rdparty -p1 < ../disable-ffmpeg-allow-lists.patch
 }
 
 build() {
-# system ffmpeg disabled https://gitlab.archlinux.org/archlinux/packaging/packages/qt6-webengine/-/issues/2
   cmake -B build -S $_pkgfn -G Ninja \
     -DCMAKE_MESSAGE_LOG_LEVEL=STATUS \
     -DCMAKE_TOOLCHAIN_FILE=/usr/lib/cmake/Qt6/qt.toolchain.cmake \
