@@ -2,7 +2,7 @@
 pkgname="camlp-streams"
 pkgver=5.0.1
 _relname=v5.0.1
-pkgrel=7
+pkgrel=8
 pkgdesc="The Stream and Genlex libraries for use with Camlp4 and Camlp5."
 arch=('x86_64')
 url="https://github.com/ocaml/camlp-streams"
