@@ -3,7 +3,7 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-compute-runtime
-pkgver=24.48.31907.7
+pkgver=24.52.32224.5
 pkgrel=1
 pkgdesc="Intel(R) Graphics Compute Runtime for oneAPI Level Zero and OpenCL(TM) Driver"
 arch=(x86_64)
@@ -18,8 +18,8 @@ provides=(opencl-driver level-zero-driver)
 options=(!lto)
 source=(https://github.com/intel/compute-runtime/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         010-intel-compute-runtime-disable-werror.patch)
-sha256sums=('ed80ecc5092e12d71fe5616f27b2f3af9a9f720a7868387d5de6cb48def3de0c'
-            'd90898aa3fa44f393b424491231b0178d5f6096a4559d57d00a57c9432b410d4')
+sha256sums=('f7f0f827d4028d808bc2723b2240f53ea29b9f29d66321b99c3010f8d11008b6'
+            '3d34056b24726d651d2f0d7e208db395e8b2c8ca236cf046e8c1afdd69e42058')
 
 prepare() {
   patch -d compute-runtime-${pkgver} -Np1 -i "${srcdir}/010-intel-compute-runtime-disable-werror.patch"
@@ -37,7 +37,7 @@ build() {
   export CXXFLAGS="${CXXFLAGS/-Wp,-D_FORTIFY_SOURCE=?/}"
   
   # opencl-headers supported by upstream is already in the source tree
-  # https://github.com/intel/compute-runtime/blob/24.48.31907.7/third_party/opencl_headers/.version
+  # https://github.com/intel/compute-runtime/blob/24.52.32224.5/third_party/opencl_headers/.version#L2
   local _opencl_headers_dir="${srcdir}/compute-runtime-${pkgver}/third_party/opencl_headers"
   export CXXFLAGS+=" -isystem${_opencl_headers_dir}"
   
