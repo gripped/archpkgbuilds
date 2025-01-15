@@ -3,7 +3,7 @@
 
 pkgname=rsync
 pkgver=3.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A fast and versatile file copying tool for remote and local files'
 arch=('x86_64')
 url='https://rsync.samba.org/'
@@ -21,6 +21,14 @@ sha256sums=('f14621c42d88d42bc020a1cadfa82c4fa2a842df92caa4e41ca33d996f9bf23c'
             '733ccb571721433c3a6262c58b658253ca6553bec79c2bdd0011810bb4f2156b')
 
 _backports=(
+
+  # Fix use-after-free in generator
+  '81ead9e70c7b9ee1bf3d1df09ace7df95934c5b8'
+
+  # Fix -H option
+  '996af4a79f9afe4d7158ecdd87c78cee382c6b39'
+  'dc34990b2ef475280b899abead0ef4a809d0175a'
+
 )
 
 _reverts=(
