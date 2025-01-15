@@ -1,59 +1,49 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=xdg-user-dirs-gtk
-pkgver=0.11
-pkgrel=3
+pkgver=0.12
+pkgrel=1
 pkgdesc="Creates user dirs and asks to relocalize them"
 url="https://gitlab.gnome.org/GNOME/xdg-user-dirs-gtk"
 arch=(x86_64)
-license=(GPL)
+license=(GPL-2.0-or-later)
 depends=(
+  glib2
+  glibc
   gtk3
   xdg-user-dirs
 )
 makedepends=(
   git
-  intltool
+  meson
 )
 groups=(gnome)
-_commit=cf2a85fa5370aa7cdf36d1c8259ca89d3d737ef9  # tags/0.11^0
 source=(
-  "git+https://gitlab.gnome.org/GNOME/xdg-user-dirs-gtk.git#commit=$_commit"
-  show-in-more.diff
+  "git+https://gitlab.gnome.org/GNOME/xdg-user-dirs-gtk.git#tag=$pkgver"
+  show-in-more-environments.diff
+  fix-datadir.diff
 )
-b2sums=('SKIP'
-        '13c74b98253791c248f4250d2a080160076ca1008a6747c3247121fcb8ec07bb3fd420356b7177a3865d50f675bc07ee4d1d327d4b2d920b1dd51d1bce6775a3')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+b2sums=('d66bdb51ec45f4fae6c53d0f8a6a578da2b70d88687a74f358b685fc4506a1c8a3fd318a90e9aa897b721f768139a286ae2478c202b80b56ab4cce2786b13be0'
+        'e87d05df82613fd03b3c5e8cbce1f5202d903a1d52cd5f38f04a69af45ca8d39a87b09a38212302814d9e40625aa2b6cbbc9d1629fc55fa8f50c459ef558dac2'
+        'c05d0d869611ee21aaf9297bfc48be3d97db29d50bf1e6d1f9670ef4378b89948b860b46d710dd7edc21851d7acfe0f91f3956a35b432f1a0819cd08dc9a5431')
 
 prepare() {
   cd $pkgname
-
-  # Show in more environments
-  git apply -3 ../show-in-more.diff
-
-  autoreconf -fvi
+  git apply -3 ../show-in-more-environments.diff
+  git apply -3 ../fix-datadir.diff
 }
 
 build() {
-  local configure_options=(
-    --prefix=/usr
-    --sysconfdir=/etc
-    --localstatedir=/var
-    --disable-more-warnings
-  )
+  arch-meson $pkgname build
+  meson compile -C build
+}
 
-  cd $pkgname
-  ./configure "${configure_options[@]}"
-  make
+check() {
+  meson test -C build --print-errorlogs
 }
 
 package() {
-  cd $pkgname
-  make DESTDIR="$pkgdir" install
+  meson install -C build --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
