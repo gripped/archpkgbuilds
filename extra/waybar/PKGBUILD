@@ -5,7 +5,7 @@
 
 pkgname=waybar
 pkgver=0.11.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Highly customizable Wayland bar for Sway and Wlroots based compositors'
 arch=('x86_64')
 url="https://github.com/Alexays/Waybar/"
@@ -58,15 +58,23 @@ optdepends=(
 source=(
     "$pkgname-$pkgver.tar.gz::https://github.com/Alexays/Waybar/archive/$pkgver.tar.gz"
     "fix-systray.patch::https://github.com/Alexays/Waybar/commit/0d02f6877d88551ea2be0cd151c1e6354e208b1c.patch"
+    "fix-data-race-at-startup.patch::https://github.com/Alexays/Waybar/commit/92242f0b9d7f37f4ccf87f03b0c0ce30255d2d54.patch"
 )
 b2sums=('f2407335e00f02cbf946d95cfcd409dd148917839fd73d52bec1a0c77e041022e81ad7efcde2bd4394356d92686a25b2ca345319fee5ac393202a483db339f93'
-        'e99cdecc0736ba8e424caa70aca552acb34cec38b3be0952d73b6cd6b04b3b8161387d9798b088440a9effc0ae059fbbd310b372f3bfccb197f8c5888c550367')
+        'e99cdecc0736ba8e424caa70aca552acb34cec38b3be0952d73b6cd6b04b3b8161387d9798b088440a9effc0ae059fbbd310b372f3bfccb197f8c5888c550367'
+        '00cf889db78f141c41f966fcdc78b1043402121b113c6dceb4c6ec6ef71fb39d6c34fb0c0cacffc322945dd1648984ab42755c0f33794d223f74cfe3d937672d')
 
 prepare() {
     cd "Waybar-$pkgver"
+
     # Temporary patch to fix system tray
     # See https://github.com/Alexays/Waybar/issues/3597
     patch -p1 < "${srcdir}/fix-systray.patch"
+
+
+    # Temporary patch to data race at startup
+    # See https://github.com/Alexays/Waybar/issues/3884 & https://gitlab.archlinux.org/archlinux/packaging/packages/waybar/-/issues/4
+    patch -p1 < "${srcdir}/fix-data-race-at-startup.patch"
 }
 
 build() {
