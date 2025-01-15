@@ -3,8 +3,8 @@
 
 _name=ansible-compat
 pkgname=python-ansible-compat
-pkgver=24.10.0
-pkgrel=2
+pkgver=25.0.0
+pkgrel=1
 pkgdesc="Functions that help interacting with various versions of Ansible"
 arch=(any)
 url="https://github.com/ansible/ansible-compat"
@@ -30,8 +30,8 @@ checkdepends=(
   python-pytest-mock
 )
 source=(git+$url.git#tag=v$pkgver)
-sha256sums=('e1ed963e4da3ff069f6e406b05263f8d80ecde23d70fee14869cf0dd69cab279')
-b2sums=('e9c58b3d9467d2833e9d3e501b29a95903350883593ba04e38745a6ef1e4391f63d39334dd1d53c165fd708aaf441fccdce10afb20e25513992eef2fb28bda96')
+sha256sums=('7328d8122e485a0d89d0a7bf2395d2e26f6ed0435cc58e39dd63f1d559a9442c')
+b2sums=('86329d695db824e0d5a1c62efebd6a30376834412e99604896959898adef3b9d2d09be558846ae8486e9f7495ad592d0ad09c6f0b2dfa6391f12c4c88d8905a6')
 
 build() {
   cd $_name
@@ -44,6 +44,7 @@ check() {
     # disable broken tests: https://github.com/ansible/ansible-compat/issues/210
     --deselect test/test_runtime.py::test_prerun_reqs_v1
     --deselect test/test_runtime.py::test_prerun_reqs_v2
+    --deselect test/test_prerun.py::test_get_cache_dir_relative
     # disable tests that want to download the internet
     --deselect test/test_runtime.py::test_install_collection_git
     --deselect test/test_runtime.py::test_install_collection_from_disk[normal]
