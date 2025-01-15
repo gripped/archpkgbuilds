@@ -3,21 +3,26 @@
 
 pkgname=asar
 pkgver=3.2.18
-pkgrel=1
+pkgrel=2
 pkgdesc='Creating Electron app packages'
 arch=('any')
 url='https://github.com/electron/asar'
 license=('MIT')
 depends=('nodejs')
-makedepends=('npm')
+makedepends=('npm' 'typescript')
 options=(!emptydirs)
-noextract=("${_pkgname}-${pkgver}.tgz")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/electron/asar/archive/refs/tags/v${pkgver}.tar.gz")
 sha512sums=('340d61d3d86e6b9b8c16fc3c223f4bde967815119de7934944a1047abd16324ac733f2f6fcbf4b4196cf4f1d64dc4efa71d6cac9689e1f1cecdce67d36e17ea1')
 
-package() {
-    npm install -g --prefix "${pkgdir}/usr" "${srcdir}/${pkgname}-${pkgver}.tar.gz"
-    chown -R root:root "${pkgdir}"
+build() {
+  cd asar-$pkgver
+  npm i
+  npm run build
+}
 
-    install -Dm644 "${pkgdir}/usr/lib/node_modules/@electron/asar/LICENSE.md" "${pkgdir}/usr/share/licenses/asar/LICENSE.md"
+package() {
+  npm install --install-links -g --prefix "${pkgdir}/usr" ./asar-${pkgver}
+  chown -R root:root "${pkgdir}"
+
+  install -Dm644 "${pkgdir}/usr/lib/node_modules/@electron/asar/LICENSE.md" "${pkgdir}/usr/share/licenses/asar/LICENSE.md"
 }
