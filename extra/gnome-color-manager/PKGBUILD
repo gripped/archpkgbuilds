@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-color-manager
-pkgver=3.36.0+r74+g19b6f67d
+pkgver=3.36.2
 pkgrel=1
 pkgdesc="GNOME Color Profile Tools"
 url="https://gitlab.gnome.org/GNOME/gnome-color-manager"
@@ -31,14 +31,8 @@ makedepends=(
 )
 checkdepends=(xorg-server-xvfb)
 groups=(gnome)
-_commit=19b6f67dcd5f937747524d7b742c58edebb1d9a2  # master
-source=("git+$url.git#commit=$_commit")
-b2sums=('a3e8bb6ec44c7680584c4346c0f0725705cb701b3c40930b1f5dbcdc7583d40d12e06a78b15de8a177099fa90d62ccaaf377f76157b7080c2325a1bd2a71ae7d')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/^GNOME_COLOR_MANAGER_//;s/_/./g;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+$url.git#tag=$pkgver")
+b2sums=('a9f5ddc1ce5fc17227cf9a05677aa21ffd89b45e58e4e1ba37d5e57cd9736b89e28b046d2a66ceff02d93652ccfbee8903fd5be035420be6fe56b789936df412')
 
 prepare() {
   cd $pkgname
