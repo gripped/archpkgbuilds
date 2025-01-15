@@ -4,15 +4,22 @@
 
 pkgname=python-coloredlogs
 pkgver=15.0.1
-pkgrel=6
+pkgrel=7
 pkgdesc="Colored terminal output for Python's logging module"
 arch=('any')
 url="https://github.com/xolox/python-coloredlogs"
 license=('MIT')
 depends=('python' 'python-humanfriendly')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('e8161222671bb129f7936cd220c275a3cbc0a6c22313bd4483114b9526e5695f')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
+        "pipes-removal-python3-13.patch")
+sha256sums=('e8161222671bb129f7936cd220c275a3cbc0a6c22313bd4483114b9526e5695f'
+            '13064e300c7c6c05f9e20b95e729650e48648fec7962ad516f20b39cfc0843a6')
+
+prepare() {
+  cd "python-coloredlogs-${pkgver}"
+  patch -Np1 -i ../pipes-removal-python3-13.patch
+}
 
 build() {
   cd "python-coloredlogs-${pkgver}"
