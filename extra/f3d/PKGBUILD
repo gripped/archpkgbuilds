@@ -5,7 +5,7 @@
 
 pkgname=f3d
 pkgver=2.5.1
-pkgrel=3
+pkgrel=5
 pkgdesc='A fast and minimalist 3D viewer'
 arch=('x86_64')
 url="https://github.com/${pkgname}-app/${pkgname}"
@@ -37,8 +37,15 @@ makedepends=('cmake'
              'pybind11'
              'python'
              'utf8cpp')
-source=("https://github.com/$pkgname-app/$pkgname/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('55ea01931f90f066df1abc0ae4e9575672e80b83b241f51884224baa8dccac24')
+source=("https://github.com/$pkgname-app/$pkgname/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz"
+         f3d-2.5.4-vtk9.4-compat.patch)
+sha256sums=('55ea01931f90f066df1abc0ae4e9575672e80b83b241f51884224baa8dccac24'
+            '937d1b5bd922dc226340b6480dd51df5ad37ad66f6683121e4aa7b82737179b5')
+
+prepare() {
+  # Minimal backport of https://github.com/f3d-app/f3d/commit/d9fa161e99817028a16b9db371c0369d44b8022e for vtk 9.4 compatibility
+  patch -Np1 -i ../f3d-2.5.4-vtk9.4-compat.patch -d "$pkgname-$pkgver"
+}
 
 build() {
   cd "$pkgname-$pkgver"
