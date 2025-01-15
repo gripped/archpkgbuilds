@@ -4,22 +4,25 @@
 
 pkgname=viewnior
 pkgver=1.8
-pkgrel=5
+pkgrel=6
 pkgdesc="A simple, fast and elegant image viewer program"
 arch=('x86_64')
 url="https://siyanpanayotov.com/project/viewnior"
 license=('GPL3')
-depends=('gtk2' 'exiv2')
-makedepends=('meson')
+depends=('gtk3' 'exiv2')
+makedepends=('meson' 'glib2-devel')
 optdepends=('webp-pixbuf-loader')
 source=(https://github.com/hellosiyan/Viewnior/archive/viewnior-$pkgver.tar.gz
+        viewnior-gtk3.patch::https://github.com/BwackNinja/Viewnior/commit/420f08a5f47a2fc1ae476615bab93df3478ba078.patch
         exiv2-0.28.patch)
 sha256sums=('b9319171ebca23929e6ea8039c194b1595d92e764db5e3890836fb5c36e233b0'
+            '36986570e2d48d0609550aba852707b8453d25bcf811dbb43056e9440a65434b'
             '307550f68decc1d2bd67bb0c5ec52205c654446fcd06c6ea14973406790535c3')
 
 prepare() {
-# Fix build with exiv2 0.28
-  patch -d Viewnior-viewnior-$pkgver -p1 < exiv2-0.28.patch
+  cd Viewnior-viewnior-$pkgver
+  patch -p1 <../exiv2-0.28.patch
+  patch -p1 <../viewnior-gtk3.patch || true # ignore 1 failed chunk
 }
 
 build() {
