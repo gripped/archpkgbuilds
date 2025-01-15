@@ -4,20 +4,22 @@
 
 pkgname=firefoxpwa
 _pkgname=PWAsForFirefox
-pkgver=2.13.2
+pkgver=2.13.3
 pkgrel=2
 pkgdesc="A tool to install, manage and use Progressive Web Apps (PWAs) in Mozilla Firefox (native component)"
 url="https://pwasforfirefox.filips.si"
 arch=('x86_64')
 license=('MPL-2.0')
-depends=('gcc-libs' 'glibc' 'hicolor-icon-theme' 'openssl')
+depends=('bzip2' 'gcc-libs' 'glibc' 'hicolor-icon-theme' 'openssl' 'xz')
 makedepends=('cargo')
 optdepends=('firefox: Support for browser extension')
 provides=('firefox-pwa')
 replaces=('firefox-pwa')
 install="${pkgname}.install"
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/filips123/PWAsForFirefox/archive/refs/tags/v${pkgver}.tar.gz")
-b2sums=('10f0567891d33d712a06542cfbc8a4e44291fffbb6e79da3f46837aaf5279746e7ff26e602042da91c2848e287abf263d063246cbe08be0ab92b5eb7ddddc9f3')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/filips123/PWAsForFirefox/archive/refs/tags/v${pkgver}.tar.gz"
+        'no_libexec.patch')
+b2sums=('bc91b20d29575904f4ab20f0a62bd270fff195c88042e75f86d782d915cdbc0adb19fc45d7cdf912c16f111548ebc555e3ae723580aba377912a8d27fa304543'
+        '4502cf881be1682b835d8b9cac6e9884c12e7212a681dd6820a4bbee331eda183c4475be60ed0152964750c59da3cdca005e4ef760fa6e3ce68835c885ddc617')
 
 prepare() {
 	cd "${_pkgname}-${pkgver}/native"
@@ -27,7 +29,7 @@ prepare() {
 	sed -i "s/DISTRIBUTION_VERSION = '0.0.0'/DISTRIBUTION_VERSION = '${pkgver}'/g" userchrome/profile/chrome/pwa/chrome.jsm
 
 	# We don't use libexec in Arch
-	sed -i "s|/usr/libexec/firefoxpwa-connector|/usr/lib/firefoxpwa/firefoxpwa-connector|g" manifests/linux.json
+	patch -Np1 -i "${srcdir}/no_libexec.patch"
 
 	export RUSTUP_TOOLCHAIN=stable
 	cargo update
@@ -37,7 +39,7 @@ prepare() {
 build() {
 	cd "${_pkgname}-${pkgver}/native"
 
-	# Required to make LTO work with GCC
+	# Required for LTO
 	export CFLAGS+=" -ffat-lto-objects"
 	
 	export RUSTUP_TOOLCHAIN=stable
@@ -48,13 +50,28 @@ build() {
 check() {
 	cd "${_pkgname}-${pkgver}/native"
 
-	# Verify that the version has been set correctly in prepare()
-	echo "Verify version..."
+	# Check that the version has been set correctly in prepare()
+	echo "Check version..."
 
 	if [ "$(./target/release/firefoxpwa --version)" == "${pkgname} ${pkgver}" ]; then
 		echo "Passed"
 	else
 		echo "Failed"
+		version_check_fail="true"
+	fi
+
+	# Check that the distribution version has been set correctly in prepare()
+	echo "Check distribution version..."
+
+	if [ "$(awk -F "'" '/DISTRIBUTION_VERSION/ {print $2}' userchrome/profile/chrome/pwa/chrome.jsm)" == "${pkgver}" ]; then
+		echo "Passed"
+	else
+		echo "Failed"
+		distribution_version_check_fail="true"
+	fi
+
+	# Exit if any of the checks failed
+	if [ -n "${version_check_fail}" ] || [ -n "${distribution_version_check_fail}" ]; then
 		exit 1
 	fi
 }
