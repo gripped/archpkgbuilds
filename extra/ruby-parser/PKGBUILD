@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-parser
-pkgver=3.3.4.0
-pkgrel=2
+pkgver=3.3.4.1
+pkgrel=1
 pkgdesc='A production-ready Ruby parser written in pure Ruby'
 arch=(any)
 url='https://github.com/whitequark/parser'
@@ -13,6 +13,7 @@ depends=(
   ruby-racc
 )
 makedepends=(
+  git
   ragel
   ruby-bundler
   ruby-rake
@@ -24,19 +25,19 @@ checkdepends=(
   ruby-simplecov
 )
 options=(!emptydirs)
-source=(https://github.com/whitequark/parser/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('882330a6e0de62f19a452e587a32eb16732ffb4233e6664d5c90e3030857d4baab33b838489b4a3d122b48b21849ccf2ab291b0cafea6b728423f328a4ec9fe2')
-b2sums=('fbac9486cdf08701a0fba0f24f35c42347e29d74ea203764445fe973e65c93ea801fd986a28e448c080c92a1b104e2692f3d5ed21d76543423cb0fbe5726a6bf')
+source=(git+https://github.com/whitequark/parser.git#tag=v$pkgver)
+sha512sums=('3c050e2bf9a53f583ed77955a1f7ac9aa33c85a2618a39ed8b9f080332c76b3b817eca90ac5bcd41eaaeb749b6c6671431f5c9b748d61a57045131cce9c7a101')
+b2sums=('55d5112c825cf00bbab9212eb1954a20e34540ebd83e3898b04b2a36e51a94559f78660d012c0d83cc7aee4c617a713096fc837e7a0a407edfd73477d28d991c')
 
 prepare() {
-  cd parser-$pkgver
+  cd parser
   sed 's/~>/>=/' -i parser.gemspec
   sed -i '/[cC]liver/d' Rakefile
 }
 
 build() {
   local _gemdir="$(gem env gemdir)"
-  cd parser-$pkgver
+  cd parser
   rake generate
   gem build parser.gemspec
   gem install \
@@ -63,12 +64,12 @@ build() {
 
 check() {
   local _gemdir="$(gem env gemdir)"
-  cd parser-$pkgver
+  cd parser
   GEM_HOME="tmp_install/$_gemdir" rake
 }
 
 package() {
-  cd parser-$pkgver
+  cd parser
   cp -a tmp_install/* "$pkgdir"/
   install -Dm644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
