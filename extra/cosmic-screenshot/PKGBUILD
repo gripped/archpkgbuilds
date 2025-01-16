@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-screenshot
-pkgver=1.0.0.alpha.5
+pkgver=1.0.0.alpha.5.1
 pkgrel=1
 pkgdesc='Utility for capturing screenshots via XDG Desktop Portal'
 arch=(x86_64)
@@ -21,17 +21,14 @@ makedepends=(
   just
   lld
 )
-_tag=d920352253cbc7e0861cfca3e7e70a407231d5a8
+_tag=10a564d9db675b2a0a5c58a3055b0ac578ae9f22
 source=(
   git+https://github.com/pop-os/cosmic-screenshot.git#tag=${_tag}
-  cosmic-screenshot-lto.patch
 )
-b2sums=('340a73f33fa05601cacf666be6ab11abd641ea6e1214fd685e3c4ba85d1732fa16cac3685d55cdb57f479c443b4cc81a656a439c9c58f873cb5dbf9ab51bcc61'
-        'cd1479de7cac5d58fd085ab4a9d694dfdee4cf7577ca531bbbb978cff512f52fec0cb9505a3e51075a0b741a7b3cb1cf88ff6725242d0e220135ef4d9e10b83b')
+b2sums=('41f1daddede460f0df543b1a618aead0cec115b1cfed9981be407120388d7cf87e93810135ded4ce3547c365b0ac1d43178de346d6e412a5ecec2e5536f25326')
 
 prepare() {
   cd cosmic-screenshot
-  patch -Np1 -i ../cosmic-screenshot-lto.patch
   cargo fetch --locked
 }
 
