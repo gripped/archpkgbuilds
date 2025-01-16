@@ -3,8 +3,8 @@
 # Contributor: Florijan Hamzic <florijanh at gmail dot com>
 
 pkgname=python-weasyprint
-pkgver=62.3
-pkgrel=3
+pkgver=63.1
+pkgrel=1
 pkgdesc='Utility to render HTML and CSS to PDF'
 arch=(any)
 url='https://weasyprint.org/'
@@ -18,7 +18,8 @@ _pydeps=(brotli
          pillow
          pydyf
          pyphen
-         'tinycss2>=1.3' # so this doesn't leave testing out of order
+         tinycss2
+         tinyhtml5
          zopfli)
 depends=(pango
          python
@@ -31,7 +32,7 @@ checkdepends=(python-pytest
               ghostscript
               ttf-dejavu)
 source=("$pkgname::git+$_url.git#tag=v$pkgver")
-sha256sums=('3b5d9010e02dba707553b6271cd13f6d57acfa8531c8cac5e57733c998fffd6b')
+sha256sums=('3b961b9409ac1dbe96f6ff5a21cfe817f6fc6e75a41f1fe1cc600d8107cedc5f')
 
 prepare() {
 	cd "$pkgname"
