@@ -6,7 +6,7 @@
 pkgname=pymol
 _project=pymol-open-source
 pkgver=3.0.0
-pkgrel=7
+pkgrel=8
 pkgdesc='Molecular visualization system on an Open Source foundation'
 arch=(x86_64)
 url=https://pymol.org
@@ -15,7 +15,7 @@ depends=(freetype2
          gcc-libs
          glew
          glm
-         glut
+         python-pyqt5
          netcdf
          netcdf-cxx
          python
@@ -27,7 +27,6 @@ makedepends=(desktop-file-utils
              msgpack-c
              python-{build,installer,wheel}
              python-setuptools)
-optdepends=('python-pyqt5: Qt5 based UI')
 _archive="$_project-$pkgver"
 source=("https://github.com/schrodinger/pymol-open-source/archive/v$pkgver/$_archive.tar.gz"
         "$pkgname.png::https://c.fsdn.com/allura/p/pymol/icon")
