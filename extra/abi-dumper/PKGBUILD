@@ -2,7 +2,7 @@
 # Contributor: Mikael Blomstrand <gmail: kmbloms>
 
 pkgname=abi-dumper
-pkgver=1.2+r8+g9ed6415
+pkgver=1.4
 pkgrel=1
 pkgdesc="Dump ABI of an ELF object containing DWARF debug info"
 url="https://github.com/lvc/abi-dumper"
@@ -16,13 +16,11 @@ depends=(
   vtable-dumper
 )
 makedepends=(git)
-_commit=9ed641529d411ca0f824175489c1f67ec924edae  # master
-source=("git+$url#commit=$_commit")
+source=("git+$url#tag=$pkgver")
 b2sums=('0e882cb94fc4e1592deaa9bfbbf04f72a08f29c9df1a144162309a5f495c54d7e8c164ca1794aaf524608b72dcb19ff5115b0793064df6ae223c3f8518612160')
 
-pkgver() {
+prepare() {
   cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
 }
 
 package() {
