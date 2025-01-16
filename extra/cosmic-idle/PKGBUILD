@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-idle
-pkgver=1.0.0.alpha.5
+pkgver=1.0.0.alpha.5.1
 pkgrel=1
 pkgdesc='Cosmic idle daemon'
 arch=(x86_64)
@@ -34,10 +34,10 @@ prepare() {
   cargo fetch --locked
 }
 
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/^epoch-//; s/-/./g'
-}
+#pkgver() {
+#  cd $pkgname
+#  git describe --tags | sed 's/^epoch-//; s/-/./g'
+#}
 
 build() {
   cd $pkgname
