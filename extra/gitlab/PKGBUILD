@@ -9,7 +9,7 @@
 # Contributor: loqs <bugs-archlinux@entropy-collector.net>
 
 pkgname=gitlab
-pkgver=17.7.1
+pkgver=17.7.2
 pkgrel=1
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
@@ -68,7 +68,7 @@ provides=(gitlab-workhorse) # FS78036
 conflicts=(gitlab-workhorse)
 replaces=(gitlab-workhorse)
 install=gitlab.install
-sha256sums=('04b948b1a661f6b1c767068f46b04de9565cc01752fde65a77b8944fd21f76e6'
+sha256sums=('6d29c73264b07ed0c30400830cb65c99d3bc41f763ff6f3ba947fa46f4beb8c4'
             'dfbafb383942f0e6088f49c49a40c59994e1af57c6197e9443f9839e145154e3'
             '8cc4d933743906b4213b8ea8d8c5a62535e27e4073f73581a5dad40078dde000'
             'f99499116f5d7cf59ccb7bfabd2d1ba68fbf83040571c607f7b0b50e6f50cbcf'
@@ -127,6 +127,8 @@ build() {
 	# Remove -Werror=format-security from the CFLAGS used by the C extension of the google-protobuf gem
 	# Disable LTO which breaks the C extension of the google-protobuf gem https://github.com/protocolbuffers/protobuf/issues/11935
 	bundle config --local build.google-protobuf "-- --with-cflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CFLAGS"]' | sed -e 's/-Werror=format-security//' -e 's/-flto=auto/-fno-lto/')' --with-ldflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["LDFLAGS"]' | sed -e 's/-flto=auto/-fno-lto/')'"
+	# Avoid build errors that started with clang 19
+	CXXFLAGS+=' -Wno-missing-template-arg-list-after-template-kw'
 	# Avoid build errors due to -Werror=incompatible-pointer-types enabled by default in GCC 14
 	bundle config --local build.grpc "-- --with-cflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CFLAGS"]') -Wno-incompatible-pointer-types'"
 	# ICU 75 requires C++17
