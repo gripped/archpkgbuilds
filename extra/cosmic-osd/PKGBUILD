@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-osd
-pkgver=1.0.0.alpha.5
+pkgver=1.0.0.alpha.5.1
 pkgrel=1
 pkgdesc='COSMIC On-Screen Display'
 arch=(x86_64)
@@ -23,17 +23,14 @@ makedepends=(
   git
   lld
 )
-_tag=86b2e152a64cea5d6bef22b04b8c2677ca88acef
+_tag=9dd146bb50a5dc4c6ce4b31736df087c4d1a2a76
 source=(
   git+https://github.com/pop-os/cosmic-osd.git#tag=${_tag}
-  cosmic-osd-lto.patch
 )
-b2sums=('222fc558a78f4d3d8b8ed4f06ae42ea626baba8f194ccaf5231683155162c2a60bd8c5754d5d157977e61d7dc75d50334f7e2b7708c58e6538fb5acdda1e1cd7'
-        '85c53fa0409511b863b11bd7cf28fa253890e00872a84e3c358299ea92a18e4a9e1844c676dba9c2118ff5555900d1043465b61d7768afbf82811cb4b7b58563')
+b2sums=('291eb6128772db6677d86bc627b1d643a61bcc84c9581f81b5e47d800db8c765a9c9dfa7fd6299dbf0e13d904adbbdec49e96ef98be351e864ec883929a4d5ef')
 
 prepare() {
   cd cosmic-osd
-  patch -Np1 -i ../cosmic-osd-lto.patch
   cargo fetch --locked
   sed 's|libexec|lib/polkit-1|g' -i Makefile src/subscriptions/polkit_agent_helper.rs
 }
