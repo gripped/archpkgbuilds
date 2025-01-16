@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-editor
-pkgver=6.0.18
+pkgver=6.5.0
 pkgrel=1
 pkgdesc='Simple editor for Deepin'
 arch=('x86_64')
@@ -12,27 +12,27 @@ depends=('deepin-qt5integration' 'dtkcore' 'dtkgui' 'dtkwidget' 'deepin-qt-dbus-
          'kcodecs5' 'syntax-highlighting5' 'libchardet' 'uchardet')
 makedepends=('git' 'cmake' 'gmock' 'gtest' 'ninja' 'qt5-tools')
 groups=('deepin-extra')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/linuxdeepin/deepin-editor/archive/refs/tags/$pkgver.tar.gz")
-sha512sums=('cedab0a8d3a4362469b8c77b89821b89aa9c891f638c96813c867c35c2e69855104e972648eadffbdcc9b7dc4a66b0da35e484b691f6ffe28d4ec37c17460ae7')
+source=("git+https://github.com/linuxdeepin/deepin-editor.git#tag=$pkgver")
+sha512sums=('7c431d8b97c632dd6b2e76f84ad52749f1fe7f5c9b229b08299e3a39f5cbbe59ea52c9b78f6ad7b3471b61b4889d7fbe308f464a0d7d07f24f13e294fbd079b2')
 
 prepare() {
-  cd deepin-editor-$pkgver
+  cd deepin-editor
   sed -e 's|CMAKE_CXX_STANDARD 11|CMAKE_CXX_STANDARD 17|' -i CMakeLists.txt # Fix build with ICU 75
 }
 
 build() {
-  cd deepin-editor-$pkgver
+  cd deepin-editor
   cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DVERSION=$pkgver .
   ninja
 }
 
 check() {
-  cd deepin-editor-$pkgver
+  cd deepin-editor
   # Tests not available unless in debug mode
   #ninja test || echo "Tests failed"
 }
 
 package() {
-  cd deepin-editor-$pkgver
+  cd deepin-editor
   DESTDIR="$pkgdir" ninja install
 }
