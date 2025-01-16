@@ -2,7 +2,7 @@
 
 pkgname=deepin-session
 pkgver=1.2.14
-pkgrel=1
+pkgrel=2
 pkgdesc='New deepin session, based on systemd and existing projects'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-session"
@@ -17,14 +17,18 @@ depends=('glibc' 'gcc-libs' 'glib2' 'libx11' 'libsecret' 'qt5-base' 'gsettings-q
          'deepin-qt6platform-plugins' 'deepin-qt6integration')
 makedepends=('git' 'cmake' 'ninja')
 groups=('deepin')
-source=("git+https://github.com/linuxdeepin/dde-session.git#tag=$pkgver")
-sha512sums=('85c3be2dda660ed291cac91d057b5c920436f2ccd8fd194ab1b285888c3956263dc57bc0c6019e8c16a6b2ccbfb56647e0c894388115cb0aca12fcf1358e7910')
+source=("git+https://github.com/linuxdeepin/dde-session.git#tag=$pkgver"
+        servicename.patch)
+sha512sums=('85c3be2dda660ed291cac91d057b5c920436f2ccd8fd194ab1b285888c3956263dc57bc0c6019e8c16a6b2ccbfb56647e0c894388115cb0aca12fcf1358e7910'
+            '1f638203915b142e6a68c7e709ceda15cb2892e5f9fc6ea81d69fcfb1934092f48aa5a1cbbcf7e776e1f17a47af4468b499135fdd873c18c88bbad60e33445c8')
 
 prepare(){
   cd dde-session
   # DDE sets these envvars in /etc/X11/Xsession.d, which is Debian-specific
   # Patch from openSUSE
   git cherry-pick -n 26f7836591cbd9992526b24d42d6198a20c153a7
+  # servicename was added in dde-shell 1.99.3+, let's revert the change before upstream fix it
+  patch -Rp1 -i ../servicename.patch
   sed -i 's|/etc/os-version|/etc/uos-version|' misc/Xsession.d/00deepin-dde-env
 }
 

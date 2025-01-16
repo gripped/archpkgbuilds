@@ -1,0 +1,13 @@
+diff --git a/systemd/dde-session-initialized.target.wants/dde-shell@DDE.service b/systemd/dde-session-initialized.target.wants/dde-shell@DDE.service
+index a2b6bbd..3274fba 100644
+--- a/systemd/dde-session-initialized.target.wants/dde-shell@DDE.service
++++ b/systemd/dde-session-initialized.target.wants/dde-shell@DDE.service
+@@ -29,7 +29,7 @@ After=org.desktopspec.ApplicationManager1.service
+ 
+ [Service]
+ Type=simple
+-ExecStart=/usr/bin/dde-shell -C %I
++ExecStart=/usr/bin/dde-shell -C %I --serviceName=org.deepin.dde.shell
+ TimeoutStartSec=infinity
+ Slice=session.slice
+ Restart=on-failure
