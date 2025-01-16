@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=xdg-desktop-portal-cosmic
-pkgver=1.0.0.alpha.5
+pkgver=1.0.0.alpha.5.1
 pkgrel=1
 pkgdesc='A backend implementation for xdg-desktop-portal for the COSMIC desktop environment'
 arch=(x86_64)
@@ -27,12 +27,12 @@ makedepends=(
   mold
 )
 provides=(xdg-desktop-portal-impl)
-_tag=e7c92a7316ad5c6e0ccfa08adaae118ee8f2738f
+_tag=93997f83a5b4178ce3d6bf8aec2f8114be10d381
 source=(
   git+https://github.com/pop-os/xdg-desktop-portal-cosmic.git#tag=${_tag}
   xdg-desktop-portal-cosmic-lto.patch
 )
-b2sums=('905c492b3988336691841cd4f13c63ca400522bb95c5f4b4b68d8826415d64e50551ece41cb1901689a597409664b1e31f71739a1f7531022f4388b4013be802'
+b2sums=('a048c28bb19cc39f5475e3c7ee290f7ab44200bed3d7d6f4bc616af00df68604b936aa58d23973cd7dbb67f078c37c436eb805a8ed5b6f13d5fd8970fd254dde'
         'dec9ed0a2913843e4d88dece0be9b8ac6f1f8fbc601b3b6ff3158f8b80604e9edc28951fe42005cef0d5d23dc4efca9836022bae4f031b38c63aad1f654154a8')
 
 prepare() {
@@ -41,10 +41,10 @@ prepare() {
   cargo fetch --locked
 }
 
-#pkgver() {
-#  cd xdg-desktop-portal-cosmic
-#  git describe --tags | sed 's/^epoch-//; s/-/./g'
-#}
+pkgver() {
+  cd xdg-desktop-portal-cosmic
+  git describe --tags | sed 's/^epoch-//; s/-/./g'
+}
 
 build() {
   cd xdg-desktop-portal-cosmic
