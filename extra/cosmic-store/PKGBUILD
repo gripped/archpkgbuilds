@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-store
-pkgver=1.0.0.alpha.5
+pkgver=1.0.0.alpha.5.1
 pkgrel=1
 pkgdesc='Cosmic App Store'
 arch=(x86_64)
@@ -29,12 +29,12 @@ makedepends=(
   packagekit
 )
 optdepends=('packagekit: Native packages support')
-_tag=5481346caa696b416f990f8229d17a85b03d33f0
+_tag=64736365de62be4817b12abf353949fe823a0ea3
 source=(
   git+https://github.com/pop-os/cosmic-store.git#tag=${_tag}
   cosmic-store-lto.patch
 )
-b2sums=('b412f74f5dc1aa12c89bead6b49e2ee85449717fa88652727afe90033762419f4fe771a1806fa08d817d567aea08a6c9079f2b627ce49e7f21cf3940d746105d'
+b2sums=('8b1aac1ca232a3a5b2d73270be4ee43ba01b87040e65edcd7af90e5a0a1a710a54d7f032c254be2c2d757d2faef540bd6b915db2c97a9bed03989b7c8dea2f29'
         'ed4089dd1ded4a87307c50f38af03ff3742bfc54053a668416f713c9b27eb591e608166ce14f2f50f8303aaf06533963fd821d00522b77e7f965827035a7ff11')
 
 prepare() {
