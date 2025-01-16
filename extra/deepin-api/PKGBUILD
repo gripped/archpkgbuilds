@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-api
-pkgver=6.0.14
+pkgver=6.0.15
 pkgrel=1
 pkgdesc='Dbus interfaces for miscellaneous desktop services'
 arch=('x86_64')
@@ -24,8 +24,13 @@ groups=('deepin')
 install=deepin-api.install
 source=("git+https://github.com/linuxdeepin/dde-api#tag=$pkgver"
         deepin-api.sysusers)
-sha512sums=('eb58b88d00f177a2c98d4a58d755f1a4d60c2ec8ea23c7209775e355cb3c81f18fed7b2a6caaec78061286477a90af4a7bdd6c27bccfc26bd53ba50524840a85'
+sha512sums=('2434ee92f9c6d289c083febb54d75cf787b5e00f1c9c309aa23e4a13bb025dedcfb706aba4cc323f6a42afeef212af0f6cb8d010691c9259b028e67512a163bd'
             'e894eb3928af9e244fa78010fdf16c8abb6ce18df114cf05327d02b18774d6ba5b023e4dfa0d07042f4e44a5c6e2ddb55b07f3e0db466a0e6169b52465fdefd6')
+
+prepare() {
+  cd dde-api
+  sed -i "s|/etc/os-version|/etc/uos-version|" adjust-grub-theme/main.go
+}
 
 build(){
   export CGO_CPPFLAGS="${CPPFLAGS}"
