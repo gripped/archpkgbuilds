@@ -6,7 +6,7 @@
 
 pkgname=pam-u2f
 _name="${pkgname/-/_}"
-pkgver=1.3.1
+pkgver=1.3.2
 pkgrel=1
 pkgdesc="Universal 2nd Factor (U2F) PAM authentication module from Yubico"
 url="https://developers.yubico.com/pam-u2f"
@@ -16,7 +16,7 @@ replaces=("${_name}")
 depends=('libfido2' 'openssl' 'pam')
 makedepends=('asciidoc' 'git')
 source=("git+https://github.com/Yubico/pam-u2f.git#tag=${_name}-${pkgver}?signed")
-b2sums=('204f189a2b61ae61a15ab73b0dbf1dfdd97e8a88310273acecd99d015199b18ac6886619b3fcb5fcd6798f8935324d5955c430860a59eba4ba35c916951fec90')
+b2sums=('0def50826827165f948552162ed401ca1fc9e12cee7a9d758f95d55e71ddb9b126c5632ad7325ae447a393ec24e02f852d9dc166e1f35de528b1e78a3ffd4a39')
 validpgpkeys=('B70D62AA6A31AD6B9E4F9F4BDC8888925D25CA7A' # Alessio Di Mauro <alessio@yubico.com>
               '78D997D53E9C0A2A205392ED14A19784723C9988') # Ludvig Michaelsson <ludvig.michaelsson@yubico.com>
 
