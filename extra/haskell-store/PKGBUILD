@@ -2,8 +2,8 @@
 
 _hkgname=store
 pkgname=haskell-store
-pkgver=0.7.18
-pkgrel=34
+pkgver=0.7.19
+pkgrel=1
 pkgdesc="Fast binary serialization"
 url="https://github.com/mgsloan/store"
 license=('BSD')
@@ -18,7 +18,7 @@ depends=('ghc-libs' 'haskell-async' 'haskell-base-orphans' 'haskell-base64-bytes
          'haskell-vector' 'haskell-void')
 makedepends=('ghc' 'uusi' 'haskell-clock' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('84a7b4590c6934d988afa8d67b6362015b14145c6365861cb40a96c57e65382289190a73072f199ce58f961b0df6f5e186ca3cae35a4b3dfb2bdc3940117c8cc')
+sha512sums=('bf3ce45dbf1d52cd1429f30cc54a605a9666aad8c4665f5e3573bd9e6f6484468a30ae23635a707e75d1167df5e11e940a4f04ce0c787b6ff43802e20f321675')
 
 prepare() {
     cd $_hkgname-$pkgver
