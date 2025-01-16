@@ -1,13 +1,11 @@
-diff '--color=auto' -rupN cosmic-workspaces-epoch.orig/Cargo.toml cosmic-workspaces-epoch/Cargo.toml
---- cosmic-workspaces-epoch.orig/Cargo.toml	2024-09-26 19:47:43.512077237 +0200
-+++ cosmic-workspaces-epoch/Cargo.toml	2024-09-26 19:48:00.248931877 +0200
-@@ -46,6 +46,9 @@ mock-backend = []
+diff --git a/Cargo.toml b/Cargo.toml
+index 57224a8..67becea 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -45,3 +45,6 @@ mock-backend = []
+ [profile.dev]
  # Not usable at opt-level 0, at least with software renderer
  opt-level = 1
- 
++
 +[profile.release]
 +lto = "thin"
-+
- # [patch."https://github.com/pop-os/libcosmic"]
- # libcosmic = { path = "../libcosmic" }
- # cosmic-config = { path = "../libcosmic/cosmic-config" }
