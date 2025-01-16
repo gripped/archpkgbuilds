@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-album
-pkgver=6.0.4
-pkgrel=10
+pkgver=6.0.5
+pkgrel=1
 pkgdesc='A fashion photo manager for viewing and organizing pictures'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-album"
@@ -11,20 +11,19 @@ license=('GPL3')
 depends=('deepin-qt5integration' 'dtkdeclarative' 'dtkcore' 'dtkgui' 'dtkwidget' 'qt5-base'
          'qt5-svg' 'qt5-declarative' 'ffmpeg4.4' 'ffmpegthumbnailer' 'freeimage' 'gio-qt'
          'udisks2-qt5' 'gcc-libs' 'startdde')
-makedepends=('cmake' 'ninja' 'qt5-tools')
+makedepends=('git' 'cmake' 'ninja' 'qt5-tools')
 groups=('deepin-extra')
-source=("https://github.com/linuxdeepin/deepin-album/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('2da352cf860ef33b9982d4aae2f7ccbbea41269b12360545828d04211d112ace16bf5908ac8f9cb34f3c6311c0a27fd6a9c958709cfcb84d9afb60eb82b11fa0')
-options=(!lto)
+source=("git+https://github.com/linuxdeepin/deepin-album.git#tag=$pkgver")
+sha512sums=('aedec43da88968202b597904914d5c10cbdb506f3f3957e1cc130c1d5f3341e37dc9a84e4468eb3279534a6c202ac011c85c61fd94ca1c20fbb9aa01166dcf3a')
 
 build() {
-  cd deepin-album-$pkgver
+  cd deepin-album
   export PKG_CONFIG_PATH='/usr/lib/ffmpeg4.4/pkgconfig'
   cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DVERSION=$pkgver
   ninja
 }
 
 package() {
-  cd deepin-album-$pkgver
+  cd deepin-album
   DESTDIR="$pkgdir" ninja install
 }

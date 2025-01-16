@@ -1,11 +1,12 @@
 pkgbase = deepin-album
 	pkgdesc = A fashion photo manager for viewing and organizing pictures
-	pkgver = 6.0.4
-	pkgrel = 10
+	pkgver = 6.0.5
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-album
 	arch = x86_64
 	groups = deepin-extra
 	license = GPL3
+	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
 	makedepends = qt5-tools
@@ -24,8 +25,7 @@ pkgbase = deepin-album
 	depends = udisks2-qt5
 	depends = gcc-libs
 	depends = startdde
-	options = !lto
-	source = https://github.com/linuxdeepin/deepin-album/archive/6.0.4/deepin-album-6.0.4.tar.gz
-	sha512sums = 2da352cf860ef33b9982d4aae2f7ccbbea41269b12360545828d04211d112ace16bf5908ac8f9cb34f3c6311c0a27fd6a9c958709cfcb84d9afb60eb82b11fa0
+	source = git+https://github.com/linuxdeepin/deepin-album.git#tag=6.0.5
+	sha512sums = aedec43da88968202b597904914d5c10cbdb506f3f3957e1cc130c1d5f3341e37dc9a84e4468eb3279534a6c202ac011c85c61fd94ca1c20fbb9aa01166dcf3a
 
 pkgname = deepin-album
