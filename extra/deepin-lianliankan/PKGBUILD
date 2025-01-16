@@ -1,0 +1,33 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=deepin-lianliankan
+pkgver=1.0.12
+pkgrel=1
+pkgdesc='Lianliankan is an easy-to-play puzzle game with cute interface and countdown timer'
+arch=('x86_64')
+url="https://github.com/linuxdeepin/deepin-lianliankan"
+license=('GPL3')
+depends=('dtkcore' 'dtkgui' 'dtkwidget' 'glibc' 'gcc-libs' 'hicolor-icon-theme' 'qt5-base'
+         'qt5-multimedia')
+makedepends=('git' 'cmake' 'gtest' 'ninja' 'qt5-tools')
+groups=('deepin-extra')
+source=("git+https://github.com/linuxdeepin/deepin-lianliankan.git#tag=$pkgver")
+sha512sums=('f501ca28f8528d03340100f84acdc07bf17a5065f5cfa70723617f137935a84ba80b3c9a850875c4555a4233e531076625bdf2b58840790d0c20475c6cef0c4e')
+
+prepare() {
+  cd deepin-lianliankan
+  # Don't override our LDFLAGS
+  sed -i '/CMAKE_EXE_LINKER_FLAGS/d' CMakeLists.txt
+}
+
+build() {
+  cd deepin-lianliankan
+  cmake -GNinja . \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  ninja
+}
+
+package() {
+  cd deepin-lianliankan
+  DESTDIR="$pkgdir" ninja install
+}
