@@ -1,8 +1,9 @@
 [Unit]
 Description=Alertmanager for prometheus
-Documentation=https://prometheus.io/docs/alerting/alertmanager/
+Documentation=https://prometheus.io/docs/alerting/alertmanager
 Requires=network-online.target
-After=network-online.target
+After=network-online.target nss-lookup.target
+Wants=network-online.target nss-lookup.target
 
 [Service]
 User=alertmanager
