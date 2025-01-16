@@ -1,0 +1,53 @@
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
+# Contributor: UnicornDarkness
+
+pkgname=cpu-x
+pkgver=5.1.1
+pkgrel=2
+pkgdesc="A Free software that gathers information on CPU, motherboard and more"
+arch=(x86_64)
+url="https://thetumultuousunicornofdarkness.github.io/CPU-X"
+license=(GPL-3.0-only)
+depends=(
+  glibc
+  libsigc++
+  glib2
+  dconf
+  glibmm
+  pangomm
+  gcc-libs
+  cairomm
+  gtkmm3
+  ncurses
+  libcpuid
+  pciutils
+  libglvnd
+  glfw
+  vulkan-icd-loader
+  procps-ng
+)
+makedepends=(
+  git
+  cmake
+  ninja
+  nasm
+  vulkan-headers
+  polkit
+)
+optdepends=('opengl-driver: packaged openGL driver'
+            'vulkan-driver: packaged Vulkan driver')
+source=("cpu-x::git+https://github.com/TheTumultuousUnicornOfDarkness/CPU-X.git#tag=v${pkgver}")
+sha512sums=('9ebffa980b36f253ba68425efa9e4fbe098042d6d565d937c49b8d8147b775fecdd8605f66ab5cea0bc0a777770dfb8d48e7346bf7cd3e27dbc9ab6b5697605b')
+
+build() {
+	cmake -S "$pkgname" -B build -GNinja -DCMAKE_BUILD_TYPE=None -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR="lib/cpu-x"
+	cmake --build build
+}
+
+check() {
+	ninja -C build test
+}
+
+package() {
+	DESTDIR="$pkgdir" cmake --install build
+}
