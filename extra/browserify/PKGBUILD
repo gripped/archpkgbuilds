@@ -2,8 +2,8 @@
 
 pkgname=browserify
 pkgdesc='browser-side require() the node way'
-pkgver=17.0.0
-pkgrel=3
+pkgver=17.0.1
+pkgrel=1
 arch=('any')
 url='http://browserify.org/'
 license=('MIT' 'BSD')
@@ -12,7 +12,7 @@ makedepends=('npm' 'git')
 source=(https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz)
 noextract=($pkgname-$pkgver.tgz)
 install=browserify.install
-sha512sums=('49a1eace192ef6ffe3e97b10311c4fc81ad23f7827c26136ee02c961980c4f619e2b7274fb4b6837e327b8d6037c7c151907cb88c67b2923522171de9b2f74e7')
+sha512sums=('a71853d345b7ca5321087c06e727eab598cd9c5b97e61d8825d6817d2a380a169a06c229f552eb10c4356c757e5ebd6e2cf5ee3430ccd46949923962d2a911b3')
 
 package() {
   npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
