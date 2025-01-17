@@ -2,8 +2,8 @@
 
 _hkgname=data-default-instances-containers
 pkgname=haskell-data-default-instances-containers
-pkgver=0.0.1
-pkgrel=37
+pkgver=0.1.0.2
+pkgrel=1
 pkgdesc="Default instances for types in containers"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD')
@@ -11,11 +11,11 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-data-default-class')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('a12352eb0484ad772b16674b2ef8145b3733473f716c182841d6378d8a2d3b196e8fc966afd7c335e81e924ea83088a9c67c4aaddb14a87a7a816cbe27236bfd')
+sha512sums=('a79fa5dbb4d904b0ba08e8de2aafa71ff0219582492bf3f33b07bfc967acb9cddc134812f98e74f2d94b671a264f10676d1aa081d9bd4a337ca5d2e872e53602')
 
 build() {
     cd ${srcdir}/${_hkgname}-${pkgver}
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid -fnetwork-uri
     runhaskell Setup build $MAKEFLAGS
