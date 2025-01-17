@@ -1,0 +1,43 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: zccrs <zhangjide@deepin.org>
+
+pkgname=ddm
+pkgver=0.1.9
+pkgrel=1
+pkgdesc='New Display Manager for DDE'
+arch=('x86_64')
+url="https://github.com/linuxdeepin/ddm"
+license=('LGPL3')
+depends=(bash
+         gcc-libs
+         glibc
+         libxau
+         pam
+         qt6-base
+         qt6-declarative
+         systemd-libs
+         ttf-font
+         xorg-server
+         xorg-xauth)
+makedepends=(git
+             extra-cmake-modules
+             python-docutils
+             qt6-tools
+             ninja)
+source=("git+https://github.com/linuxdeepin/ddm.git#tag=$pkgver")
+sha512sums=('4d1c64650c73ea65b92ba183e6ddf3e791b2774b8ae19863bea3b2fefeb02adf94211d15736ceaa5e72e959ddd50744928f9cf5208de7173bf31f6f0abcac1e1')
+
+build() {
+  cd ddm
+  cmake . -GNinja \
+      -DCMAKE_INSTALL_LIBDIR=lib \
+      -DCMAKE_INSTALL_LIBEXECDIR=lib \
+      -DCMAKE_INSTALL_PREFIX=/usr
+
+  cmake --build .
+}
+
+package() {
+  cd ddm
+  DESTDIR="$pkgdir" ninja install
+}
