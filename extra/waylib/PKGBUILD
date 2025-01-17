@@ -1,0 +1,27 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: justforlxz <justforlxz@gmail.com>
+
+pkgname=waylib
+pkgver=0.6.10alpha
+_tag=0.6.10-alpha
+pkgrel=1
+pkgdesc='A wrapper for wlroots based on Qt'
+arch=('x86_64')
+url="https://github.com/vioken/waylib"
+license=('CC0-1.0' 'Apache-2.0' 'LGPL-3.0-only' 'GPL-2.0-only' 'GPL-3.0-only')
+depends=('glibc' 'gcc-libs' 'libdrm' 'libEGL.so' 'libOpenGL.so' 'libxcb' 'libxkbcommon' 'pixman'
+         'qt6-base' 'qt6-declarative' 'qwlroots' 'wayland' 'wlroots')
+makedepends=('git' 'cmake' 'ninja')
+source=("git+https://github.com/vioken/waylib.git#tag=$_tag")
+sha256sums=('5f84c5ea1660d60c859fb872be3f0d2ba91988366f9fbb7184623a3caa87db0a')
+
+build() {
+  cd waylib
+  cmake -B . -G Ninja -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build .
+}
+
+package() {
+  cd waylib
+  DESTDIR="$pkgdir" ninja install
+}
