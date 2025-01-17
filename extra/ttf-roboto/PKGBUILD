@@ -1,16 +1,24 @@
 # Maintainer: Johannes Löthberg <johannes@kyriasis.com>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Daniel Greve <greve.daniel.l@gmail.com>
 
 pkgname=ttf-roboto
-pkgver=2.138
-pkgrel=5
+pkgver=3.010
+pkgrel=1
 pkgdesc="Google's signature family of fonts"
-url='https://material.google.com/style/typography.html'
+url='https://github.com/googlefonts/roboto-3-classic'
 arch=('any')
-license=('Apache')
-source=(https://sources.archlinux.org/other/packages/ttf-roboto/ttf-roboto-hinted-$pkgver.zip)
-sha256sums=('07450a24476bced534a8afbd89595302a532e9348ca6c82f4b13c437a309a34c')
+license=('OFL-1.1')
+source=(
+  "$url/releases/download/v$pkgver/Roboto_v$pkgver.zip"
+  "$pkgname-$pkgver-OFL.txt::https://raw.githubusercontent.com/googlefonts/roboto-3-classic/v$pkgver/OFL.txt"
+)
+sha256sums=('173f6d2fdd7e523f189ccf04507f72d900e88cd18332a86f4e33afb3bd78dc30'
+            '061402327a96aadb0bfb694a960ed289ecd38d383e396243831ab81feb109c41')
 
 package() {
-  install -Dm644 *.ttf -t "$pkgdir"/usr/share/fonts/TTF
+  install -vDm644 -t "$pkgdir/usr/share/fonts/TTF" \
+    Roboto_v$pkgver/hinted/static/*.ttf
+  install -vDm644 $pkgname-$pkgver-OFL.txt \
+    "$pkgdir/usr/share/licenses/$pkgname/OFL.txt"
 }
