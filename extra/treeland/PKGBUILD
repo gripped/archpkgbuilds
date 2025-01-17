@@ -1,0 +1,33 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: zccrs <zhangjide@deepin.org>
+
+pkgname=treeland
+pkgver=0.5.17
+pkgrel=1
+pkgdesc='New wayland compositer for DDE'
+arch=('x86_64')
+url="https://github.com/linuxdeepin/treeland"
+license=('LGPL3')
+depends=('ddm' 'dtk6core' 'dtk6declarative' 'dtk6systemsettings' 'gcc-libs' 'glibc' 'jemalloc'
+         'libinput' 'pam' 'qt6-base' 'qt6-declarative' 'qt6-wayland' 'qwlroots' 'systemd-libs'
+         'wayland' 'waylib' 'wlroots')
+makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'treeland-protocols')
+source=("git+https://github.com/linuxdeepin/treeland.git#tag=$pkgver")
+sha256sums=('c8c85b32874a98caf458d6970a60a8e9af1a79f9b7518cd0c8c7d531cbe2faae')
+
+build() {
+	cd treeland
+    # TODO: Fix RUNPATH issue
+	cmake . -GNinja \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+        -DCMAKE_INSTALL_LIBEXECDIR=lib \
+        -DCMAKE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_INSTALL_PREFIX=/usr
+        # -DCMAKE_SKIP_RPATH=ON
+	cmake --build .
+}
+
+package() {
+	cd treeland
+	DESTDIR="$pkgdir" ninja install
+}
