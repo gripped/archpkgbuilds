@@ -2,7 +2,7 @@
 # Contributor: kevku <kevku@gmx.com>
 
 pkgname=kodi-addon-inputstream-rtmp
-pkgver=21.1.0
+pkgver=21.1.1
 _codename=Omega
 pkgrel=2
 pkgdesc="RTMP input stream add-on for Kodi"
@@ -13,7 +13,7 @@ groups=('kodi-addons' 'kodi-addons-inputstream')
 makedepends=('cmake' 'rtmpdump' 'p8-platform' 'kodi-dev')
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/xbmc/inputstream.rtmp/archive/$pkgver-$_codename.tar.gz")
-sha512sums=('a386974b2efbded5f17837aa78cbc8d7b8c8a4073099ab99567d6af121f0f193331af8d671fb24edfd156106b65f0f9e983bac5dd93b360cb8d4eb4b1e179e16')
+sha512sums=('7b9872884e59bf0b1ff1221b0f4b3df52d6536c0189d18367494061678df76c444fb53489598de57ca9b72a6b82dd9182cc38b7cc96110b9fc9f74d607a9fd15')
 
 build() {
     cd "inputstream.rtmp-$pkgver-$_codename"
