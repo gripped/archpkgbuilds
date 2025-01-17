@@ -1,0 +1,36 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Contributor: justforlxz <justforlxz@gmail.com>
+
+pkgname=qwlroots
+pkgver=0.5.2
+pkgrel=2
+pkgdesc='Qt and QML bindings for wlroots'
+arch=('x86_64')
+url="https://github.com/vioken/qwlroots"
+license=('Apache-2.0' 'CC-BY-4.0' 'CC0-1.0' 'GPL-2.0-only' 'GPL-3.0-only' 'LGPL-3.0-only')
+depends=('glibc' 'gcc-libs' 'libxkbcommon' 'pixman' 'qt6-base' 'wayland' 'wayland-protocols'
+         'wlroots' 'wlr-protocols')
+makedepends=('git' 'cmake' 'ninja')
+source=("git+https://github.com/vioken/qwlroots.git#tag=$pkgver")
+sha512sums=('ca1985dbdf54b564f86574cbd72b6117abd784f6bdc36f1ef1740f5703b6975c7de41303dfc938657273301853de809f5ccb495348683a79c7c4e91a045cbac3')
+
+prepare() {
+  cd qwlroots
+  # build qwlroots as a shared library
+  # https://github.com/vioken/qwlroots/pull/293
+  git cherry-pick -n 9b926f17603b02f1e5f89882b224cedf08baedf9
+}
+
+build() {
+  cd qwlroots
+  cmake -B . \
+        -G Ninja \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DBUILD_SHARED_LIBS=ON
+  cmake --build .
+}
+
+package() {
+  cd qwlroots
+  DESTDIR="$pkgdir" ninja install
+}
