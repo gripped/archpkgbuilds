@@ -1,7 +1,7 @@
 pkgbase = usd
 	pkgdesc = 3D VFX pipeline interchange file format
 	pkgver = 24.11
-	pkgrel = 5
+	pkgrel = 1
 	url = https://openusd.org
 	arch = x86_64
 	license = Apache-2.0
@@ -10,6 +10,7 @@ pkgbase = usd
 	makedepends = boost
 	makedepends = git
 	depends = alembic
+	depends = dos2unix
 	depends = draco
 	depends = embree
 	depends = glew
@@ -34,21 +35,22 @@ pkgbase = usd
 	depends = python-jinja
 	depends = python-numpy
 	depends = python-opengl
-	provides = usd-extras
-	replaces = usd-extras
 	source = git+https://github.com/PixarAnimationStudios/OpenUSD.git#tag=v24.11
 	source = https://openusd.org/images/USDLogoUnsized.svg
 	source = usd-3392.patch::https://patch-diff.githubusercontent.com/raw/PixarAnimationStudios/OpenUSD/pull/3392.patch
 	source = usd-embree42.patch::https://patch-diff.githubusercontent.com/raw/PixarAnimationStudios/OpenUSD/pull/2266.patch
-	source = cmake-find-dependency.patch::https://patch-diff.githubusercontent.com/raw/PixarAnimationStudios/OpenUSD/pull/3205.patch
-	source = usd-find-dependency-OpenGL.patch
+	source = usd-defaultfonts.patch
 	source = org.openusd.usdview.desktop
 	sha256sums = 0b8147dada1807e7574f4a76030b475be4a9fe2d5a38c078b1f174d9b1932aa6
 	sha256sums = 529dea685836be7de95800d9688db4e1df6a8a3f341130069abdd2b5b1572128
 	sha256sums = 5bcfb527940b957f5c7831c8b626f9c018b575a730fc2967dd869e678492fa42
 	sha256sums = 4f5e6d3a4346d2ff67cca42d89e14850d57b0c475a52004f1af297a699e4a891
-	sha256sums = 112a2735309ba5d39e016c41e164e0e4a0ba5d11a967d462689a5f318649d63b
-	sha256sums = 1cf9b9e4d902cecce278457af3092e8a180438388044939d3ab89e3a4520efc5
+	sha256sums = 3408ad2877d547f60d2db6b28983837119b8800b62ae1cdc23b37dbe31e17f1c
 	sha256sums = 6b880a1dc44ee3286a19b3347f65be5337192d00bccd55fa549598db90a887da
 
 pkgname = usd
+	pkgdesc = 3D VFX pipeline interchange file format
+
+pkgname = usd-extras
+	pkgdesc = Extra components for USD
+	depends = usd=24.11
