@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dtk6gui
-pkgver=6.0.22
+pkgver=6.0.23
 pkgrel=1
 epoch=1
 pkgdesc='Deepin Toolkit, gui module for DDE look and feel'
@@ -9,16 +9,17 @@ arch=('x86_64')
 url="https://github.com/linuxdeepin/dtk6gui"
 license=('LGPL3')
 # libqtxdg: doesn't compile yet
-depends=('glibc' 'dtk6core' 'freeimage' 'libraw' 'librsvg' 'qt6-base' 'qt6-wayland' 'glib2' 'libx11' 'gcc-libs')
+depends=('glibc' 'dtk6core' 'librsvg' 'qt6-base' 'qt6-wayland' 'glib2' 'libx11' 'gcc-libs')
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'gtest' 'doxygen' 'treeland-protocols')
 source=("git+https://github.com/linuxdeepin/dtk6gui.git#tag=$pkgver")
-sha512sums=('c752fe67674ff52fcfd3ef5863129bfa3d90daaf79bf3b915c19774e9016fc5b0e02856f38176ad7078c6cdea5cc968a0d1a2562c2f421a904af6d060580dfaa')
+sha512sums=('c4e5512e29ba743a39a68eefe47ae8c9a4dae3eba7cb691a5952d1f3716bde7872b07958b3e87816a7491e81810e826bcecd28989f5160c3c761595b7d725dce')
 
 build() {
   cd dtk6gui
   cmake . -GNinja \
     -DBUILD_DOCS=ON \
     -DBUILD_TESTING=ON \
+    -DDTK_DISABLE_EX_IMAGE_FORMAT=ON \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_INSTALL_PREFIX=/usr \
