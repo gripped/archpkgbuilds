@@ -3,7 +3,7 @@
 # Contributor: Laurent Carlier <lordheavym@gmail.com>
 
 pkgname=lib32-spirv-tools
-pkgver=2024.4.rc1
+pkgver=2024.4.rc2
 pkgrel=1
 pkgdesc="API and commands for processing SPIR-V modules (32-bit)"
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('Apache-2.0')
 depends=('lib32-gcc-libs' 'spirv-tools')
 makedepends=('cmake' 'python' 'ninja' 'spirv-headers')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/KhronosGroup/SPIRV-Tools/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('7f44b9bc780a5b8c54637b722e4f9f2a2b7dd04840a79890dd4bcf615faf6b0c')
+sha256sums=('b63b0ceda2350a4d097f41d52e929eddeadb8cae05b979989da364f1012727b0')
 
 build() {
   cd "SPIRV-Tools-${pkgver}"
