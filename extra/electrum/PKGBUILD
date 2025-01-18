@@ -6,7 +6,7 @@
 
 pkgname=electrum
 pkgver=4.5.8
-pkgrel=3
+pkgrel=5
 pkgdesc="Lightweight Bitcoin wallet"
 arch=('any')
 url="https://electrum.org"
@@ -58,10 +58,12 @@ source=(
   "git+https://github.com/spesmilo/electrum.git#tag=$pkgver?signed"
   "git+https://github.com/spesmilo/electrum-locale.git"
   "git+https://github.com/spesmilo/electrum-http.git"
+  "remove-runtime-check-for-aiorpcx-version.patch"
 )
 sha512sums=('874a9cfc117103fdccce0b2658201e8cad9705705daa45bae27881bf775c51dae26466f3d7411573182d3919aaa1d53f93c1418813c4e733fd04ee322a8039e0'
             'SKIP'
-            'SKIP')
+            'SKIP'
+            '80a95cac2759b3fbbd8e4a38870858193d26fef88b87e704b14582a55a9de5918f7da37aba543ced459635d211fdc3bdd613a97f60cc15bcefba6725ef6bd1c7')
 validpgpkeys=(
   '6694D8DE7BE8EE5631BED9502BD5824B7F9470E6' # Thomas Voegtlin (https://electrum.org) <thomasv@electrum.org>
   '4AD64339DFA05E20B3F6AD51E7B748CDAF5E5ED9' # SomberNight <somber.night@protonmail.com>
@@ -74,6 +76,8 @@ prepare() {
     "$srcdir/electrum-locale"
   git config submodule.electrum/plugins/payserver/www.url "$srcdir/electrum-http"
   git -c protocol.file.allow=always submodule update
+
+  patch -Np1 -i ../remove-runtime-check-for-aiorpcx-version.patch
 }
 
 build() {
