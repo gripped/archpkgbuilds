@@ -4,7 +4,7 @@
 _hkgname=pureMD5
 pkgname=haskell-puremd5 
 pkgver=2.1.4
-pkgrel=8
+pkgrel=9
 pkgdesc="A Haskell-only implementation of the MD5 digest (hash) algorithm"
 url="https://hackage.haskell.org/package/pureMD5"
 license=('BSD')
@@ -17,7 +17,7 @@ sha512sums=('2cc6e6d362476d3d9c5650cabc4005d2e4899c8d95639af91030241250a912d3bcd
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-test
