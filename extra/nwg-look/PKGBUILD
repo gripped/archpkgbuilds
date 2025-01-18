@@ -1,9 +1,9 @@
-# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 # Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: kpcyrd <kpcyrd[at]archlinux[dot]org>
 # Contributor: Piotr Miller <nwg.piotr@gmail.com>
 
 pkgname=nwg-look
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 pkgdesc="GTK settings editor adapted to work on wlroots-based compositors"
 url="https://github.com/nwg-piotr/nwg-look"
@@ -34,8 +34,8 @@ makedepends=(
   'go'
 )
 source=(https://github.com/nwg-piotr/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('69c95a2354f5e1dcc8caedeacd65170adbb804c74515d30919e014a0481c33a9')
-b2sums=('7ce4d377fa8481e9ee071b62aada36494f158584772cbdadf727174765bfc8cba368c05ec857611d11dec4ea2b56ea60eae1f27864f25a3279a3c68476b4408f')
+sha256sums=('2cff0b3b3a0d5c750db7bc5534e2dd433376754ee2d50c04d3d1d49a4b3ea644')
+b2sums=('1e8bdc511644490d8b219f6ba50688411e7facfbe0ead84f4199775973982745cf4cf60e55cff256948c2deb23fa4601168de73251aadfe5841294cfb7a258a5')
 
 build() {
   cd ${pkgname}-${pkgver}
