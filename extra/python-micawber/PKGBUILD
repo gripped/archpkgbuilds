@@ -2,8 +2,8 @@
 
 _name=micawber
 pkgname=python-micawber
-pkgver=0.5.5
-pkgrel=5
+pkgver=0.5.6
+pkgrel=1
 pkgdesc="A small library for extracting rich content from urls"
 arch=(any)
 url="https://github.com/coleifer/micawber"
@@ -27,8 +27,8 @@ optdepends=(
   'python-redis: redis caching support'
 )
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('9fe25e346c37939c2fd45239b774d827bb5f8b32b8a1ca04c000fcd83a4a55f03cc09141ef863cfdcb2e7baf02018022c6163dabe7e4750412ced9f5f833917d')
-b2sums=('25a17316988c529c1a85458744054aafc913fc724fcc57a207ac1b18d9c05f59015ae508ea22861706e014fe986cb5d31d25f9a7f22130fd21044292ff05e551')
+sha512sums=('a9f5eea1fd137a8088f796a54b8a318efac27ced05c98ef2dbb8059ddd1b48c92e1c82f72d9dd6ac4024a72f04fcf3940a6d82219439da67c22e263ea14aa716')
+b2sums=('b89dca369c1f35fd56a3475ca091c4e2b5a848942cb6b4f81be7e30b15b2ad63bc281df92b16fc80ecc4db2e2975dd66eb8f18fe562023c141f00eb39d302461')
 
 build() {
   cd $_name-$pkgver
