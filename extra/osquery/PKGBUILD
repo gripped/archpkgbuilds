@@ -2,8 +2,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=osquery
-pkgver=5.14.1
-pkgrel=4
+pkgver=5.15.0
+pkgrel=1
 pkgdesc="SQL powered operating system instrumentation, monitoring, and analytics"
 arch=(x86_64)
 url="https://osquery.io"
@@ -81,8 +81,6 @@ source=(
   "0001-Use-system-libraries-where-possible.patch::$_url/commit/dd08b4e2f1db5d19003e1728ed6122474060ef91.patch"
   "0002-Disable-submodule-fetching.patch::$_url/commit/e6e3b683fe8ae9131bcbeb4aeb4ae0a4549a4aeb.patch"
   "0003-Remove-include-of-non-existing-header-xlocale.h.patch::$_url/commit/6528b181ebdf75316d145a2819cffa8dcb3a4ec9.patch"
-  # https://github.com/osquery/osquery/pull/8401
-  "0004-Replace-usage-of-libaudit-function-removed-in-v3.0.7.patch::$_url/commit/8c6c589a2e966f8e231f866cb152bd15832abf22.patch"
   "0005-Fix-remaining-compilation-issues.patch::$_url/commit/a0d28a211afb7291c2ebed321cd91e2c7a686a21.patch"
   "0006-Do-not-build-system_controls-tables.patch::$_url/commit/c52b0ae5a9717ef1da45c05f91f8af4884e6aecd.patch"
   "0007-Do-not-build-block_devices-tables.patch::$_url/commit/c80a3a215eb155c570e76888e74bc81e17ccbeb1.patch"
@@ -90,13 +88,12 @@ source=(
   "0009-Fix-systemd-service-and-systemctl-script.patch::$_url/commit/d792974525c271cfb9984f42d0ee157ed6444705.patch"
   "0010-Adapt-installation-to-using-system-packages.patch::$_url/commit/63d89a012efcd9b4e773abbc63be0e445a58675d.patch"
 )
-sha256sums=('66eb91a24f544cd13e8053afb1e0dcbd74814dc949270aba184ece6d78fcf53e'
+sha256sums=('e960e673b2d6b31a55cef662d598d1c09ab049c7d69c342a28edea5674a8c462'
             'SKIP'
             'SKIP'
             'e9f39c6e9a0279311b0034656126141d0ce82d93c02e3f9f98d652ae022f044e'
             'db1bb8553cfae7ef95100950192dd346511fcd3c32b6b60e122c8d56e4e1afe2'
             'b7c4833b19d367a56e3c1dfb6928dbc175d59b22cf0e03f7251907358f9329e7'
-            '14440ac27b84daa539f0a3bf88a7d5d195217f8627f113703e25508acb6433e2'
             '6c1f7dbc3139200933991059eda9d1a13cf3e953143d673b3a32b0f916fdedf1'
             '55797a7612ddf1f651c851733ca3cebc76a8047306cf85644f8e809dd566251d'
             'f59ab7a52e6c6ffbf278ca202544f2ab74d02515412f17f9d9e82368c2fa1d72'
