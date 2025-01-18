@@ -2,7 +2,7 @@
 # Contributor: Tiago de Paula Peixoto <tiago@skewed.de>
 
 pkgname=python-graph-tool
-pkgver=2.85
+pkgver=2.86
 pkgrel=1
 pkgdesc='A Python module for manipulation and statistical analysis of graphs'
 arch=(x86_64)
@@ -34,7 +34,7 @@ optdepends=(
   'python-matplotlib: graph drawing'
 )
 source=("https://downloads.skewed.de/graph-tool/graph-tool-$pkgver.tar.bz2")
-b2sums=('ae6a7630dea03c70c0feb651f4e9a2140cba5316b376e13df1a8456f41e40d08e8652068aa9dd0dd7111fd9a94c02a76df3bbb401d58ca58f7eb5a2f0e16bc57')
+b2sums=('03d5e5c47ba157652e2b1d63e5b0a5cc8f873472e79fc1ccd3f1c0e64dfb56e9a03c581a5de34d5cea457f242a05cbfee4463681834e349f1ef1e2b423da92b8')
 
 # -flto needs to be set via MOD_CXXFLAGS below, not globally, since it must be
 # overridden in specific compilation units to prevent performance degradation
@@ -53,7 +53,9 @@ build() {
     MOD_CXXFLAGS="-flto=auto"
   # prevent excessive overlinking due to libtool
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-  make
+
+  # building graph-tool requires a lot of memory per thread, so do not use all available cores
+  make -j$(( $(nproc) / 2 ))
 }
 
 check() {
