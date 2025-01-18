@@ -1,20 +1,20 @@
 --- a/src/ft2_about.c
 +++ b/src/ft2_about.c
-@@ -244,7 +244,7 @@ void showAboutScreen(void) // called once when about screen is opened
+@@ -450,7 +450,7 @@ void showAboutScreen(void) // called once when about screen is opened
+ 		logoAlpha16 = (65535 * LOGO_ALPHA_PERCENTAGE) / 100;
+ 		starShineAlpha16 = (65535 * STARSHINE_ALPHA_PERCENTAGE) / 100;
  
- 	showPushButton(PB_EXIT_ABOUT);
- 
--	sprintf(customText3, "v%s (%s)", PROG_VER_STR, __DATE__);
-+	sprintf(customText3, "v%s (%s)", PROG_VER_STR, PROG_VER_DATE);
- 	customText0X = (SCREEN_W    - textWidth(customText0)) / 2;
- 	customText1X = (SCREEN_W    - textWidth(customText1)) / 2;
- 	customText2X = (SCREEN_W-8) - textWidth(customText2);
+-		sprintf(customText3, "v%s (%s)", PROG_VER_STR, __DATE__);
++		sprintf(customText3, "v%s (%s)", PROG_VER_STR, PROG_VER_DATE);
+ 		customText0X = (SCREEN_W    - textWidth(customText0)) / 2;
+ 		customText1X = (SCREEN_W    - textWidth(customText1)) / 2;
+ 		customText2X = (SCREEN_W-8) - textWidth(customText2);
 --- a/src/ft2_header.h
 +++ b/src/ft2_header.h
 @@ -13,6 +13,7 @@
  #include "ft2_replayer.h"
  
- #define PROG_VER_STR "1.88"
+ #define PROG_VER_STR "1.93"
 +#define PROG_VER_DATE "@DATE@"
  
  // do NOT change these! It will only mess things up...
