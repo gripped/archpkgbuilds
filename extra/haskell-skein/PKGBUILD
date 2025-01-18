@@ -4,7 +4,7 @@
 _hkgname=skein
 pkgname=haskell-skein
 pkgver=1.0.9.4
-pkgrel=52
+pkgrel=53
 pkgdesc="Skein, a family of cryptographic hash functions.  Includes Skein-MAC as well."
 url="https://github.com/meteficha/skein"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('4f449de2db0c9f6a22e3f7375999029c1ab9139ae2e678e5582d5ad05dc8b3c12c9
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-big-endian -f-force-endianness -f-reference
