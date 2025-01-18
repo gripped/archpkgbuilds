@@ -8,7 +8,7 @@
 pkgbase=root
 pkgname=(root root-cuda)
 pkgver=6.34.02
-pkgrel=1
+pkgrel=3
 pkgdesc='C++ data analysis framework and interpreter from CERN'
 arch=(x86_64)
 url='https://root.cern'
@@ -102,6 +102,21 @@ optdepends=(
   'vc: Add types for portable and intuitive SIMD programming'
   'xrootd>5: Support remote file server and client'
   'z3: Suuport the Z3 theorem prover'
+)
+# cppyy and ROOT have a weird relationship: Cling is developed as part of ROOT without
+# separate releases, so it is basically forked and patched in the cppyy-backend project.
+# On the other hand, ROOT has PyROOT which uses cppyy, so it forks it back to build it
+# against the ROOT-provided Cling. There are also some licensing reasons...
+# See details: https://github.com/wlav/cppyy-backend/issues/33#issuecomment-2598877502
+provides=(
+  python-cppyy
+  python-cppyy-backend
+  python-cpycppyy
+)
+conflicts=(
+  python-cppyy
+  python-cppyy-backend
+  python-cpycppyy
 )
 source=(
   "https://root.cern.ch/download/root_v${pkgver}.source.tar.gz"
