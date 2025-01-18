@@ -3,8 +3,8 @@
 
 pkgname=handlr-regex
 _pkgname=handlr
-pkgver=0.12.0
-pkgrel=2
+pkgver=0.12.1
+pkgrel=1
 pkgdesc="Powerful alternative to xdg-utils written in Rust"
 arch=('x86_64')
 url="https://github.com/Anomalocaridid/handlr-regex"
@@ -15,7 +15,7 @@ conflicts=('handlr')
 depends=('shared-mime-info')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('640438fe11550cc2050ca6a2e4559ef5681588c1fad0479a4e1b9c74755f2f806a9cc2bdc36bf0f40a6a18f2157c3c7b3281d03305f9bbe4e3d2c54de4164581')
+sha512sums=('14131059a0ae32a0907a626dc1ba5c36c44ccbc66dec3c116c490308468baf9535857032ef240afaf73e15ff4484fe615e11747fdb75d62660958deeb3df185e')
 
 prepare() {
   cd "$pkgname-$pkgver"
