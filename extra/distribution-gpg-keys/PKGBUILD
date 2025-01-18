@@ -1,7 +1,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=distribution-gpg-keys
-pkgver=1.106
+pkgver=1.107
 _rpmrel=1
 _pkgtag=$pkgname-$pkgver-$_rpmrel
 pkgrel=1
@@ -10,7 +10,7 @@ arch=('any')
 url="https://github.com/rpm-software-management/$pkgname"
 license=('CC0-1.0')
 source=("$url/archive/$_pkgtag.tar.gz")
-sha256sums=('68cddf9959f546b25ff383b22d6fd9ccd9287bf54ddb17df19502e00d61717ee')
+sha256sums=('ae1dd8e95b51c6a4c259552db6387a0fe10714e687a90f7fe66da18791a518e4')
 
 package() {
 	cd "$pkgname-$_pkgtag"
