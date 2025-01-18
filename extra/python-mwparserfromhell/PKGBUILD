@@ -1,0 +1,44 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
+_name=mwparserfromhell
+pkgname=python-$_name
+pkgver=0.6.6
+pkgrel=2
+pkgdesc="A Python parser for MediaWiki wikicode"
+arch=(x86_64)
+url="https://github.com/earwig/mwparserfromhell"
+license=(MIT)
+depends=(
+  glibc
+  python
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-pytest
+)
+source=(
+  $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
+)
+b2sums=('a8dc2b23edd1d0ebcde3ac1fbc052669e650ab39791e5f63542e7aacc6e2ecc7424fca39a9949612810159f44c86fb08b63b81e0c87bec8a64bfab572984305e')
+
+build() {
+  cd $_name-$pkgver
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd $_name-$pkgver
+  local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
+  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$python_version" pytest
+}
+
+package() {
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
