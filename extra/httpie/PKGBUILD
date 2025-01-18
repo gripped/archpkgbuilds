@@ -4,8 +4,8 @@
 # Contributor: Thomas Weißschuh <thomas_weissschuh lavabit com>
 
 pkgname=httpie
-pkgver=3.2.3
-pkgrel=3
+pkgver=3.2.4
+pkgrel=1
 pkgdesc="human-friendly CLI HTTP client for the API era"
 url="https://github.com/httpie/cli"
 depends=('python-charset-normalizer'
@@ -31,7 +31,7 @@ replaces=(python-httpie python2-httpie)
 license=('BSD-3-Clause')
 arch=('any')
 source=($pkgname-$pkgver.tar.gz::"https://github.com/httpie/cli/archive/$pkgver.tar.gz")
-sha256sums=('91cb6cbd1f9e6115ffc13824e87b2a4d903d76c769859e81924913adbf609c1b')
+sha256sums=('b185cd8d81325f97c773582e50f1c5e047c2d8575b53d676469c9daf2a52f341')
 
 build() {
   cd cli-$pkgver
