@@ -1,0 +1,52 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+# Congributor: Butui Hu <hot123tea123@gmail.com>
+
+_name=huggingface_hub
+pkgname=python-huggingface-hub
+pkgver=0.27.1
+pkgrel=3
+epoch=1
+pkgdesc='All the open source things related to the Hugging Face Hub'
+arch=(any)
+url='https://github.com/huggingface/huggingface_hub'
+license=(Apache-2.0)
+depends=(
+  python
+  python-aiohttp
+  python-filelock
+  python-fsspec
+  python-numpy
+  python-packaging
+  python-pydantic
+  python-requests
+  python-tqdm
+  python-yaml
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+optdepends=(
+  python-gradio
+  python-graphviz
+  python-hf-transfer
+  python-inquirerpy
+  python-pydot
+  python-pytorch
+  python-safetensors
+  python-tensorflow
+)
+source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
+sha512sums=('64d435a08765c67e3046370a4bc701da136570f3b23cdf1b5d35c679331694c8cb35ece72417f34f4288d035695d39e4ab6e1e1dce2fb33db42b3664258186cd')
+
+build() {
+  cd $_name-$pkgver
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd $_name-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
