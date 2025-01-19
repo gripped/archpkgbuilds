@@ -7,8 +7,8 @@ pkgbase=gdb
 # gdb-common is a package that contains files common for all cross compiled versions
 # of gdb (for arm/avr/...)
 pkgname=(gdb gdb-common)
-pkgver=15.2
-pkgrel=4
+pkgver=16.1
+pkgrel=1
 pkgdesc='The GNU Debugger'
 arch=(x86_64)
 url='https://www.gnu.org/software/gdb/'
@@ -32,9 +32,9 @@ makedepends=(
   zstd
 )
 source=(https://ftp.gnu.org/gnu/gdb/${pkgname}-${pkgver}.tar.xz{,.sig})
-sha1sums=('f06b8694d2019e03f55560059aac4a5b70a32677'
+sha1sums=('e619781131eb79fad764a02cfc0ebe886fd76fcd'
           'SKIP')
-b2sums=('073668c21b41f12bf40160c6d3df808056453cc9df3b5b86374abe38e955d208f86467458b7e64b3c3e93d70b7f87425619778173fdb375256cd85be15419f14'
+b2sums=('d1907a4abffda663e3d383959ee18e1ef91fe913c378cf9681bdf5810bf7e7f065236f722564fd77eebf15700751fed1cef58c25cd0c0c44d1d9a416809f6a66'
         'SKIP')
 validpgpkeys=('F40ADB902B24264AA42E50BF92EDB04BFF325CF3') # Joel Brobecker
 
