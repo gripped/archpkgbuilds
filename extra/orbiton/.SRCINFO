@@ -1,6 +1,6 @@
 pkgbase = orbiton
 	pkgdesc = Fast and configuration-free text editor and IDE limited by VT100
-	pkgver = 2.68.6
+	pkgver = 2.68.7
 	pkgrel = 1
 	url = https://roboticoverlords.org/orbiton/
 	arch = x86_64
@@ -9,10 +9,11 @@ pkgbase = orbiton
 	makedepends = go
 	makedepends = vte3
 	options = !lto
-	source = git+https://github.com/xyproto/orbiton#tag=v2.68.6
-	b2sums = fe6010f36d12fbc77c7a9eb4ec1b5e62ae5d1aad60d82f54269ec38de7bb9eb9f6fe2fd94fa88ecb189c50272c308593ac6cd42517c81b9b6199b115a6805c06
+	source = git+https://github.com/xyproto/orbiton#tag=v2.68.7
+	b2sums = 3bc2ac54bda684f79a0906c7975f49d72da6aba99f4f05e90af9ce6d2301843a2fcc665b25b2cec93b92e29c9819bd9e1392cc1bf097204c4c258f5754c09a86
 
 pkgname = orbiton
+	optdepends = abcmidi: for writing music in the ABC notation
 	optdepends = asciidoctor: for writing man pages
 	optdepends = agda: for compiling Agda
 	optdepends = astyle: for formatting C#
@@ -47,6 +48,7 @@ pkgname = orbiton
 	optdepends = scdoc: for writing man pages
 	optdepends = shfmt: for formattig Shell scripts
 	optdepends = tidy: for formatting HTML
+	optdepends = timidity: for playing music in the ABC notation
 	optdepends = yasm: for compiling Assembly
 	optdepends = zig: for compiling and formatting Zig
 
