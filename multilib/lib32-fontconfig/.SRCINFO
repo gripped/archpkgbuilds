@@ -1,28 +1,30 @@
 pkgbase = lib32-fontconfig
 	pkgdesc = Library for configuring and customizing font access
-	pkgver = 2.15.0
+	pkgver = 2.16.0
 	pkgrel = 1
 	epoch = 2
 	url = https://www.freedesktop.org/wiki/Software/fontconfig/
 	install = fontconfig-32.install
 	arch = x86_64
-	license = custom
+	license = HPND AND Unicode-DFS-2016
 	makedepends = git
 	makedepends = gperf
 	makedepends = meson
 	depends = fontconfig
-	depends = lib32-expat
 	depends = lib32-freetype2
-	source = git+https://gitlab.freedesktop.org/fontconfig/fontconfig.git#commit=72b9a48f57de6204d99ce1c217b5609ee92ece9b
+	depends = lib32-glibc
+	depends = lib32-libxml2
+	source = git+https://gitlab.freedesktop.org/fontconfig/fontconfig.git#tag=2.16.0
 	source = fontconfig-32.hook
 	validpgpkeys = F77A64C4B5B45FF8763A278F65755979B34E1294
-	b2sums = SKIP
+	b2sums = 839b16dbb95da285518bbbe303e2acdf3537be96bd161e20501409cb9891d824c65e9f98ee038310b7ab3857745993138f21a91f193120d782e289ec3206d94e
 	b2sums = 1cba71810c9bde6ecb6fac124e458fb7260be3ea72ade82b836e0e8e1eaa7c7df31e6e92e405fa420325cec0ce14d0f19630e777308032b0c26ec96a3d668d93
 
 pkgname = lib32-fontconfig
 	depends = fontconfig
-	depends = lib32-expat
 	depends = lib32-freetype2
-	depends = libexpat.so
+	depends = lib32-glibc
+	depends = lib32-libxml2
 	depends = libfreetype.so
+	depends = libxml2.so
 	provides = libfontconfig.so
