@@ -3,14 +3,14 @@
 pkgname=ruby-unicode-display_width
 _pkgname="${pkgname#ruby-}"
 pkgver=3.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Determines the monospace display width of a string in Ruby'
 arch=('any')
 url='https://github.com/janlelis/unicode-display_width'
 license=('MIT')
-depends=('ruby')
+depends=('ruby' 'ruby-unicode-emoji')
 makedepends=('git' 'ruby-rdoc')
-checkdepends=('ruby-rake' 'ruby-rspec' 'ruby-unicode-emoji')
+checkdepends=('ruby-rake' 'ruby-rspec')
 options=('!emptydirs')
 source=("$pkgname::git+$url#tag=v$pkgver")
 sha512sums=('2bdd522acd82d78eea0f5f69f7e07602231b7902c6294cf75d9cb7a40e6d2358408c4d9c6a22523291e396aa42ba7c8e93b6db450a97e7e7fa4e985846c32f30')
@@ -19,7 +19,7 @@ b2sums=('0ca3fc354bc3d7a0cbb79f503c563e5328ef796d0451b24f7f0176727fdb1a7ed1b908a
 build() {
   cd "$pkgname"
 
-  gem build "$_pkgname.gemspec" 
+  gem build "$_pkgname.gemspec"
 }
 
 check() {
