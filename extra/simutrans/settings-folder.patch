@@ -1,15 +1,17 @@
 --- sys/simsys.cc.orig	2011-10-28 20:32:25.000000000 +0200
 +++ sys/simsys.cc	2011-11-10 23:09:10.380031846 +0100
-@@ -554,9 +554,9 @@
- 	}
- #else
+@@ -554,10 +554,10 @@
+ 	int maxlen = PATH_MAX + 22;
+ 	unsigned n;
  	if( getenv("XDG_DATA_HOME") == NULL ) {
--		sprintf(buffer, "%s/simutrans", getenv("HOME"));
-+		sprintf(buffer, "%s/.simutrans", getenv("HOME"));
- 	} else {
--		sprintf(buffer, "%s/simutrans", getenv("XDG_DATA_HOME"));
-+		sprintf(buffer, "%s/.simutrans", getenv("XDG_DATA_HOME"));
+-		n = snprintf(buffer, maxlen, "%s/simutrans", getenv("HOME"));
++		n = snprintf(buffer, maxlen, "%s/.simutrans", getenv("HOME"));
  	}
- #endif
- 
+ 	else {
+-		n = snprintf(buffer, maxlen, "%s/simutrans", getenv("XDG_DATA_HOME"));
++		n = snprintf(buffer, maxlen, "%s/.simutrans", getenv("XDG_DATA_HOME"));
+ 	}
+ 	if (n >= maxlen) {
+ 		return NULL;
+
 

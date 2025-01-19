@@ -5,7 +5,7 @@
 # Contributor: JD Steffen <jd at steffennet dot org>
 
 pkgname=simutrans
-pkgver=124.2.1
+pkgver=124.3
 pkgrel=1
 pkgdesc="Transportation simulation game"
 arch=('x86_64')
@@ -19,15 +19,13 @@ source=(https://downloads.sourceforge.net/$pkgname/$pkgname-src-${pkgver//./-}.z
         settings-folder.patch
         simutrans.desktop
         simutrans.appdata.xml)
-sha256sums=('03765ec46e76af91a20bd1ca5d6850beaeb64ef1a8f11bf3a1ee68d34f8dd49a'
+sha256sums=('e6980878eb725f2db070f121751141184a217be32df7f1ea02d962b6c6bc506a'
             'c0c2dd5da146f64901b00c6ee67e0818a166b983a81cee7897c4843aa9f21c81'
-            'bb5edb37fde3be23f9bbdcac2b43d91187868ddfded40f262709144f4b633581'
+            'c38efe293ab3e6439a204545b0102abbb6db04c72a11486bdd391bc4d5cf3d2a'
             '99545152f5e739b7eb028152383fa10d3e3d303c99167e1c6e5a6bd7dcd00fa3'
             'f3d2416de0f725d15b18482c20231228791e65ceeeb7305115a8ea6a2e591dd6')
 
 prepare() {
-  cd trunk
-
   # Some files are distributed in DOS format
   find . -type f -exec dos2unix -q '{}' \;
 
@@ -35,19 +33,16 @@ prepare() {
   patch -d src/$pkgname -Np0 -i "$srcdir"/settings-folder.patch
 
   # Configure the build process
-  cp "$srcdir"/trunk/config.template config.default
+  cp "$srcdir"/config.template config.default
 
   sed -e 's|\\#define|#define|' -i Makefile
 }
 
 build() {
-  cd trunk
   make VERBOSE=1 BACKEND=sdl2 OSTYPE=linux
 }
 
 package() {
-  cd trunk
-
   #binary
   install -Dm755 build/default/sim "$pkgdir/usr/bin/simutrans"
 
@@ -56,11 +51,10 @@ package() {
   cp -r $pkgname "$pkgdir/usr/share/games/"
 
   #desktop file and icon
-  install -Dm644 ../simutrans.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/simutrans.svg"
-  install -Dm644 ../simutrans.desktop "$pkgdir/usr/share/applications/simutrans.desktop"
-  install -Dm644 ../simutrans.appdata.xml "$pkgdir/usr/share/metainfo/simutrans.appdata.xml"
+  install -Dm644 simutrans.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/simutrans.svg"
+  install -Dm644 simutrans.desktop "$pkgdir/usr/share/applications/simutrans.desktop"
+  install -Dm644 simutrans.appdata.xml "$pkgdir/usr/share/metainfo/simutrans.appdata.xml"
 
   #license
   install -Dm644 simutrans/license.txt "$pkgdir/usr/share/licenses/simutrans/license.txt"
 }
-
