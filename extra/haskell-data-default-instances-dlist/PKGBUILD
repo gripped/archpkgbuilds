@@ -2,8 +2,8 @@
 
 _hkgname=data-default-instances-dlist
 pkgname=haskell-data-default-instances-dlist
-pkgver=0.0.1.1
-pkgrel=6
+pkgver=0.0.1.2
+pkgrel=1
 pkgdesc="Default instances for types in dlist"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-data-default-class' 'haskell-dlist')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('9d5819ef3b607b7f2868dc95f2a94890e3d2062879072bd6290b64972474d64b3fb14ff988388dc6ebfe83002b2b7dbb69dba6696e7c477b9d3f8383fe591561')
+sha512sums=('692d2f370759af46f0a95c49526712fd4b86b115796e7bca03b814a3a27014b1802ca456979a4e9852cb4f0a0d3f9956d77a888bc2e892fa76a339e737e09698')
 
 build() {
     cd ${srcdir}/${_hkgname}-${pkgver}
