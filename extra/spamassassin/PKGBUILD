@@ -3,14 +3,14 @@
 # Contributor: Manolis Tzanidakis
 pkgname=spamassassin
 pkgver=4.0.1
-pkgrel=2
+pkgrel=4
 pkgdesc="A mail filter to identify spam."
 arch=('x86_64')
 license=('APACHE')
 url="https://spamassassin.apache.org"
 depends=('openssl' 'zlib' 're2c' 'perl-net-dns' 'perl-io-socket-ssl'
          'perl-libwww' 'perl-mail-spf' 'perl-http-message' 'perl-net-http'
-         'perl-io-socket-inet6' 'perl-mail-dkim' 'perl-crypt-ssleay')
+         'perl-io-socket-inet6' 'perl-mail-dkim')
 makedepends=('razor' 'perl-dbi')
 checkdepends=('perl-text-diff')
 optdepends=('razor: to identify collaborately-flagged spam'
