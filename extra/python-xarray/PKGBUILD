@@ -3,7 +3,7 @@
 _pkg=xarray
 pkgname=python-${_pkg}
 pkgver=2025.01.1
-pkgrel=1
+pkgrel=2
 pkgdesc="N-D labeled arrays and datasets in Python"
 arch=(any)
 url="https://xarray.pydata.org/"
@@ -26,7 +26,6 @@ checkdepends=(
   python-bottleneck
   python-cftime
   python-dask
-  python-dask-expr
   python-distributed
   python-fsspec
   python-h5py
@@ -74,6 +73,7 @@ build() {
 check() {
   cd ${_pkg}-${pkgver}
   local pytest_args=(
+    -W ignore::pytest.PytestDeprecationWarning
     # Segfaults with python-h5py installed
     --deselect=xarray/tests/test_backends.py::TestDask::test_save_mfdataset_compute_false_roundtrip
     # Fails with:
