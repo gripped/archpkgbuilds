@@ -4,8 +4,8 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=gpsbabel
-pkgver=1.9.0
-pkgrel=2
+pkgver=1.10.0
+pkgrel=1
 pkgdesc="Read, write and manipulate GPS waypoints in a variety of formats"
 arch=(x86_64)
 url="https://www.gpsbabel.org/"
@@ -14,7 +14,7 @@ depends=(hicolor-icon-theme libusb shapelib qt6-serialport qt6-5compat)
 makedepends=(cmake libicns qt6-tools)
 source=(https://github.com/gpsbabel/$pkgname/archive/${pkgname}_${pkgver//./_}.tar.gz
         gpsbabel.appdata.xml)
-sha256sums=('7801d30553bbc25d0b0e8186f2f5a1ec41397e51a26b92cc8ad1aeaa77c9beb6'
+sha256sums=('a89756fb988a54f5c5f371413845b9aecb66628a594cd83bd529c0f18382c968'
             '5eb52ab0c4bdde61c747856e849f9bce9ca660e942c15f730a4330a38fd6a39a')
 
 prepare() {
