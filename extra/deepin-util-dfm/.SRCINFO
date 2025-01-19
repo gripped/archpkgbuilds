@@ -1,10 +1,11 @@
 pkgbase = deepin-util-dfm
 	pkgdesc = Utilities of deepin file manager
-	pkgver = 1.2.27
+	pkgver = 1.2.28
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/util-dfm
 	arch = x86_64
 	license = LGPL
+	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
 	depends = libisoburn
@@ -15,7 +16,7 @@ pkgbase = deepin-util-dfm
 	depends = gcc-libs
 	depends = util-linux-libs
 	depends = libsecret
-	source = https://github.com/linuxdeepin/util-dfm/archive/1.2.27/deepin-util-dfm-1.2.27.tar.gz
-	sha512sums = 9852200a2f9da30835465adc4a4c5cd89294c2ca48e3925bd5cdc4a53587a22c8c77f370e604b80745796db4f91bc04aebed86c329a2aa7c37aff38e95412683
+	source = git+https://github.com/linuxdeepin/util-dfm.git#tag=1.2.28
+	sha512sums = 08764d825d3b38a76d0287e9290969149c0c3f4ce804d06b03a83a0139596b733649fe4aa1fcd7dc65f8b13c373ac21785c372d8954a5a439a2cec8f3a892c3c
 
 pkgname = deepin-util-dfm
