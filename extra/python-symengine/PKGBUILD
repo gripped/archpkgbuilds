@@ -4,7 +4,7 @@
 pkgname=python-symengine
 _pkgname=symengine.py
 pkgver=0.13.0
-pkgrel=3
+pkgrel=4
 arch=(x86_64)
 pkgdesc='Python wrappers for SymEngine'
 url='https://github.com/symengine/symengine.py'
@@ -26,8 +26,16 @@ makedepends=(boost
              python-installer
              python-setuptools)
 license=(MIT)
-source=(git+https://github.com/symengine/symengine.py#tag=v$pkgver)
-sha256sums=('56c6c675d85c2b8448b4eb1e21c46b7dbc5d2fa3dcd26921a37a5ba64d95b821')
+source=(git+https://github.com/symengine/symengine.py#tag=v$pkgver
+        no-tcmalloc.patch)
+sha256sums=('56c6c675d85c2b8448b4eb1e21c46b7dbc5d2fa3dcd26921a37a5ba64d95b821'
+            '4f733b108ec21897b55b69476961d178f3bb02cc54c8b86e440b16ef7370927a')
+
+prepare() {
+  cd $_pkgname
+# https://github.com/symengine/symengine.py/issues/475
+  patch -p1 -i ../no-tcmalloc.patch
+}
 
 build() {
   cd $_pkgname

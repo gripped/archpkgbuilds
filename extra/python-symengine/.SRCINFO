@@ -1,7 +1,7 @@
 pkgbase = python-symengine
 	pkgdesc = Python wrappers for SymEngine
 	pkgver = 0.13.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/symengine/symengine.py
 	arch = x86_64
 	license = MIT
@@ -23,6 +23,8 @@ pkgbase = python-symengine
 	depends = python
 	depends = symengine
 	source = git+https://github.com/symengine/symengine.py#tag=v0.13.0
+	source = no-tcmalloc.patch
 	sha256sums = 56c6c675d85c2b8448b4eb1e21c46b7dbc5d2fa3dcd26921a37a5ba64d95b821
+	sha256sums = 4f733b108ec21897b55b69476961d178f3bb02cc54c8b86e440b16ef7370927a
 
 pkgname = python-symengine
