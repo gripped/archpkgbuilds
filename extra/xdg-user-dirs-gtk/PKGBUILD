@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=xdg-user-dirs-gtk
-pkgver=0.12
+pkgver=0.14
 pkgrel=1
 pkgdesc="Creates user dirs and asks to relocalize them"
 url="https://gitlab.gnome.org/GNOME/xdg-user-dirs-gtk"
@@ -20,17 +20,14 @@ makedepends=(
 groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/xdg-user-dirs-gtk.git#tag=$pkgver"
-  show-in-more-environments.diff
-  fix-datadir.diff
+  0001-desktop-Show-in-more-environments.patch
 )
-b2sums=('d66bdb51ec45f4fae6c53d0f8a6a578da2b70d88687a74f358b685fc4506a1c8a3fd318a90e9aa897b721f768139a286ae2478c202b80b56ab4cce2786b13be0'
-        'e87d05df82613fd03b3c5e8cbce1f5202d903a1d52cd5f38f04a69af45ca8d39a87b09a38212302814d9e40625aa2b6cbbc9d1629fc55fa8f50c459ef558dac2'
-        'c05d0d869611ee21aaf9297bfc48be3d97db29d50bf1e6d1f9670ef4378b89948b860b46d710dd7edc21851d7acfe0f91f3956a35b432f1a0819cd08dc9a5431')
+b2sums=('6d773bfdb7775df3716a13020d539e2aae3f5b131ca0d066c3ccabbf32f55d4deb8ea7746dee323dcdaa55196c5322549bb95e3edadc79bbbe62f7fe37f25994'
+        '594de76b08508a177cb473b474ade75bd2646509c8782321f2fa2197cf208ceb16e414cd37cb47e7821d17b22a7cbb3714f86fbf802bb33dd76abc50822a05e6')
 
 prepare() {
   cd $pkgname
-  git apply -3 ../show-in-more-environments.diff
-  git apply -3 ../fix-datadir.diff
+  git apply -3 ../0001-desktop-Show-in-more-environments.patch
 }
 
 build() {
