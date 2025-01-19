@@ -5,8 +5,8 @@
 # Contributor: Payn <ivanttt54@gmail.com>
 
 pkgname=odin
-pkgver=dev_2024_12 # using dev tags until the next release is tagged, to make it build
-pkgrel=3
+pkgver=dev_2025_01 # using dev tags until the next release is tagged, to make it build
+pkgrel=1
 pkgdesc='Data-oriented programming language'
 arch=(x86_64)
 url='https://odin-lang.org/'
@@ -15,7 +15,7 @@ depends=(clang llvm-libs python)
 makedepends=(git llvm)
 options=(staticlibs)
 source=("git+https://github.com/odin-lang/Odin#tag=${pkgver//_/-}")
-b2sums=('1f8339404eb260eda0d813af50056435d2b1687b762495b8564ae15c6b8bc1a0a7ec83c3b3d07579e57801dfb8732f1c6ff62b821d8743690cebf30f980f7fb6')
+b2sums=('ff1cfc9fe1cabada679fd80c64a9eb4f3750a04d0a1c8963a8f14cb1306f3cf61c48e442ebcba6a125ed7038f95cc4b427c70205910b2dcb14f7ea9159664e53')
 
 build() {
   cd Odin
