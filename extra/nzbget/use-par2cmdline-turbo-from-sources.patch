@@ -1,0 +1,12 @@
+diff --unified --recursive --text --new-file nzbget-24.5.orig/cmake/par2-turbo.cmake nzbget-24.5/cmake/par2-turbo.cmake
+--- nzbget-24.5.orig/cmake/par2-turbo.cmake	2025-01-18 11:25:01.094124010 +0100
++++ nzbget-24.5/cmake/par2-turbo.cmake	2025-01-18 11:28:22.475188374 +0100
+@@ -27,7 +27,7 @@
+ ExternalProject_add(
+ 	par2-turbo
+ 	PREFIX			par2-turbo
+-	GIT_REPOSITORY	https://github.com/nzbgetcom/par2cmdline-turbo.git
++	GIT_REPOSITORY	file://${CMAKE_SOURCE_DIR}/../par2cmdline-turbo
+ 	GIT_TAG			v1.1.1-nzbget-20241128
+ 	TLS_VERIFY		TRUE
+ 	GIT_SHALLOW		TRUE

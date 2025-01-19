@@ -1,41 +1,65 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 
 pkgname=nzbget
-pkgver=21.1
-pkgrel=3
-pkgdesc="Download from Usenet using .nzb files"
+pkgver=24.5
+pkgrel=1
+pkgdesc="Efficient usenet downloader"
 arch=('x86_64')
-url="https://nzbget.net/"
-license=('GPL')
-depends=('libxml2')
-optdepends=('python: to run included scripts'
-            'unrar: unpacking archives'
-            'p7zip: unpacking archives')
+url="https://nzbget.com"
+license=('GPL-2.0-or-later')
+depends=(
+  'boost-libs'
+  'gcc-libs'
+  'glibc'
+  'libxml2'
+  'ncurses'
+  'openssl'
+  'zlib'
+)
+makedepends=(
+  'boost'
+  'cmake'
+  'git'
+)
+optdepends=(
+  'python: to run included scripts'
+  'unrar: unpacking archives'
+  '7zip: unpacking archives'
+)
 changelog=$pkgname.changelog
-source=(https://github.com/nzbget/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver-src.tar.gz
-        nzbget_21.1_openssl3_update.patch)
-sha256sums=('4e8fc1beb80dc2af2d6a36a33a33f44dedddd4486002c644f4c4793043072025'
-            '98a3c9c4206e3797b30d4fea71b3350586bfe0d96ffc5d9ac3de0a86662b06dc')
+source=(
+  "https://github.com/nzbgetcom/nzbget/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+  "git+https://github.com/nzbgetcom/par2cmdline-turbo.git"
+  "use-par2cmdline-turbo-from-sources.patch"
+)
+sha256sums=('d8a26fef9f92d63258251c69af01f39073a479e48c14114dc96d285470312c83'
+            'SKIP'
+            '862cf5a0e04274f141d308a5ce3c8c52baff3804e7d34f153202e7d3fc5a32e4')
 
 prepare() {
   cd $pkgname-$pkgver
-  # https://github.com/nzbget/nzbget/pull/793
-  patch -Np1 -i ../nzbget_21.1_openssl3_update.patch
+  patch -Np1 -i ../use-par2cmdline-turbo-from-sources.patch
 }
 
 build() {
   cd $pkgname-$pkgver
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Wno-dev \
+    -DENABLE_TESTS=ON
+  cmake --build build
+}
 
-  ./configure --prefix='/usr' --sbindir='/usr/bin' --enable-parcheck --with-tlslib=OpenSSL
-  make
+check() {
+  cd $pkgname-$pkgver
+  ctest --test-dir build --output-on-failure
 }
 
 package() {
   cd $pkgname-$pkgver
-
-  make DESTDIR="${pkgdir}" install
-
-  install -d "${pkgdir}"/usr/share/$pkgname
-  install -m644 -t "${pkgdir}"/usr/share/$pkgname ChangeLog README
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
 }
