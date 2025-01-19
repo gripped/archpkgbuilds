@@ -6,7 +6,7 @@
 
 pkgname=vokoscreen
 _pkgname=vokoscreenNG
-pkgver=4.3.0
+pkgver=4.4.2
 pkgrel=1
 pkgdesc='Easy to use screencast creator'
 arch=('x86_64')
@@ -18,7 +18,7 @@ optdepends=('gst-plugins-bad: record audio into AAC format'
 makedepends=('qt6-tools')
 source=("https://github.com/vkohaupt/$_pkgname/archive/$pkgver/$_pkgname-$pkgver.tar.gz"
         '0001-Add-better-integration-for-Linux.patch')
-sha256sums=('a668350240ff038fc57f5f2c8701ec0f4545f76440b123270d3ccc5008657a3c'
+sha256sums=('3d0617f8058839ebfd588546f45db05fc058907bbcaea30b60a160cb97e41a70'
             '422d0cd05d2fe1a1973f8eb50e95c7e4898ce3afeae97b7e67ab384f3958ffa2')
 
 prepare() {
