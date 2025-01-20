@@ -5,7 +5,7 @@
 
 _gemname=ffi
 pkgname=ruby-$_gemname
-pkgver=1.17.0
+pkgver=1.17.1
 pkgrel=1
 pkgdesc='Ruby FFI'
 arch=('x86_64')
@@ -16,8 +16,8 @@ makedepends=('ruby-rdoc')
 options=('!emptydirs')
 source=("https://rubygems.org/downloads/$_gemname-$pkgver.gem")
 noextract=("$_gemname-$pkgver.gem")
-sha512sums=('5cdaf19eaa499127607de7389f69b4927c7bd8a154a53071c53906050bc712b67c1fbc7b4b37fcf9a82fa6c79d705796032cd7ab61755646cfed0c2d279940a1')
-b2sums=('b34c26059e1649313c4d1fa158f13e24a48d1a739d2aa85c4a6f176072ef5606c192bc5ee8a63ce249461878be93fbd7045cb567cccb877fc500adaa1be1440d')
+sha512sums=('b467ef8bcd0f3877705b352502489d4918113fed741a44e1e954bfa921a6b5620730829e677c739c356473e8b4d4c7a57e302439b06d06bf46e36c09b17b78f7')
+b2sums=('2d96b4bc2a4e46e4de6b13ad20bec05f33f8651c4d8fc91bf927459e65526f514395242cdabbeede370c5132e27119d345579ebf38a20df0f7554608940fc067')
 
 package() {
   local _gemdir="$(ruby -e'puts Gem.default_dir')"
