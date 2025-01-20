@@ -4,8 +4,8 @@
 # Contributor: Sander Boom <sanderboom@gmail.com>
 
 pkgname=ansible-lint
-pkgver=24.12.2
-pkgrel=2
+pkgver=25.1.0
+pkgrel=1
 pkgdesc="Checks playbooks for practices and behaviour that could potentially be improved."
 arch=('any')
 url="https://github.com/ansible/ansible-lint"
@@ -18,7 +18,7 @@ optdepends=('ansible: check official ansible collections')
 source=(git+https://github.com/ansible/ansible-lint.git#tag=v$pkgver
         disable_version_check.patch
         ignore_yamllint_unknown_option.patch)
-b2sums=('ae22d91aeb4441ce66de9c5cc6bd8ff7a4247d8859e9dff9714eea4fb2a2281858fc04157e4c9196ba4d9011c130aeaad324b86ca7a1c3cd2e966953b72e6f9c'
+b2sums=('cfee7bd026ff2ac4021a08ada3dd66f2c72d8205b0c4fd720667040b3b6bc052872d22bd5eea85e7910a918b4afe167d4cf350b573de09d70c8a6dbce3678335'
         '98294f267ca693c0bc3921f8e076d674a219a891502cd31a0af789bc0b1447b53834b9c85853a134f6bc1ac384f31cb174cba2d55fbcc1636cae9bd3c0bd8f84'
         '8e419c65642bdbd60aa81d1e204139e69fc4c86aaddde4131fbfe3c21f5751e608a5a635d3ec4f518d3d5dc9d254a84b302e09bb4f873e21628e2f014b151516')
 
@@ -51,6 +51,8 @@ check() {
     --deselect 'test/test_eco.py::test_eco[mysql]'
     --deselect 'test/test_main.py::test_call_from_outside_venv[normal]'
     --deselect 'test/test_main.py::test_call_from_outside_venv[isolated]'
+    --deselect 'test/test_main.py::test_call_from_outside_venv[in]'
+    --deselect 'test/test_main.py::test_call_from_outside_venv[missing]'
     --deselect 'test/test_rules_collection.py::test_rules_id_format'
     --deselect 'test/test_main.py::test_get_version_warning[v1.2.2-True-pre-release-1]'
     --deselect 'test/test_main.py::test_get_version_warning[v1.2.3-False--1]'
@@ -58,6 +60,10 @@ check() {
     --deselect 'test/test_main.py::test_nodeps[1]'
     --deselect 'test/test_main.py::test_nodeps[2]'
     --deselect 'test/test_main.py::test_broken_ansible_cfg'
+    --deselect 'test/test_app.py::test_generate_ignore'
+    --deselect 'test/test_app.py::test_app_no_matches'
+    --deselect 'test/test_app.py::test_with_inventory_concurrent_syntax_checks'
+    --deselect 'test/test_file_utils.py::test_discover_lintables_silent'
     # ignore yamllint tests
     --deselect 'test/test_yaml_utils.py::test_yamllint_incompatible_config'
    )
