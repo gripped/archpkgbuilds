@@ -3,8 +3,8 @@
 
 _hkgname=mono-traversable
 pkgname=haskell-mono-traversable
-pkgver=1.0.20.0
-pkgrel=13
+pkgver=1.0.21.0
+pkgrel=1
 pkgdesc="Type classes for mapping, folding, and traversing monomorphic containers"
 url="https://github.com/snoyberg/mono-traversable"
 license=("MIT")
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-hashable' 'haskell-split' 'haskell-unordered-contai
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-foldl' 'haskell-hspec'
              'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('67d625abf6899729c51042b4d446e444fd24af203e1a127a94c9b8139cc1218e4736af3bb475ea867ac47f5290e0a6455cc136e108e67f7d9b4dee6f5e11cdbf')
+sha512sums=('d73bdefc0312b4692d4d371728dfaf69c6d786eb97b0851b283bfb036e3741d9ecc8ccbf3977ec31542171e03bd983bb39a00abb66cbca094c9db48bcb9b93cf')
 
 build() {
     cd $_hkgname-$pkgver
