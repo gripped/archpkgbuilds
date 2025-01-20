@@ -3,8 +3,8 @@
 
 _hkgname=tagged
 pkgname=haskell-tagged
-pkgver=0.8.8
-pkgrel=2
+pkgver=0.8.9
+pkgrel=1
 pkgdesc="Haskell 98 phantom types to avoid unsafely passing dummy arguments"
 url="https://github.com/ekmett/tagged"
 license=("BSD")
@@ -12,12 +12,12 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('f90706e142e0332a37dff8dc53a174067cbc0f7c245fa61fcba2acad6c214f1d707e05223c1319f90a33ffac961d5a90b2bab3811ea638b05d869599cfed221b')
+sha512sums=('b763a95c84242197af4bd215213c74acbe6108d4a295afe5d179def1f92639df25a78cd8a339a80d8e03628362889b77e65ab666ce61bd617eb8b1517bfd3d98')
 
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fdeepseq -ftransformers
