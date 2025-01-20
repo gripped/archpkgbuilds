@@ -1,0 +1,39 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Contributor: Sanpi <sanpi+aur@homecomputing.fr>
+
+pkgname=trunk
+pkgver=0.21.6
+pkgrel=2
+pkgdesc='Build, bundle & ship your Rust WASM application to the web'
+arch=('x86_64')
+url="https://github.com/thedodd/trunk"
+license=('Apache-2.0' 'MIT')
+depends=('gcc-libs' 'openssl' 'bzip2')
+makedepends=('cargo')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('2a444fa4df07d3d14e95c44ca25e467c24ee774394136a5bd6b285a26a0e6a30')
+options=('!lto')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release --no-default-features --features native-tls
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --release --no-default-features --features native-tls
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  install -Dm 644 LICENSE-MIT -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:
