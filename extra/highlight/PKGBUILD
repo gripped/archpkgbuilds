@@ -2,16 +2,16 @@
 # Contributor: Jan Fader <jan.fader@web.de>
 pkgbase=highlight
 pkgname=(highlight highlight-gui)
-pkgver=4.14
+pkgver=4.15
 pkgrel=1
 url="http://www.andre-simon.de/doku/highlight/highlight.html"
 license=('GPL')
 arch=('x86_64')
 makedepends=(qt5-base lua boost)
 source=(http://www.andre-simon.de/zip/$pkgname-$pkgver.tar.bz2{,.asc})
-md5sums=('82f788661e4c6aa5467d90b8add68c9f'
+md5sums=('fd16041ffc8945ef6c4c07dbf83c541c'
          'SKIP')
-sha256sums=('099e0eaf38709fe430108125ad9d35f7aacfa05d5d41ad20f405593b575627c5'
+sha256sums=('68b3f8178c5c9d4b0a03f6948635cef1c8d06244f6b438eebf3a190c588337e9'
             'SKIP')
 validpgpkeys=(B8C55574187F49180EDC763750FE0279D805A7C7)
 
