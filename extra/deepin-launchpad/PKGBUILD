@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-launchpad
-pkgver=0.6.6
+pkgver=0.6.7
 pkgrel=1
 pkgdesc='The "launcher" or "start menu" component for DDE - next generation'
 arch=('x86_64')
@@ -15,7 +15,7 @@ provides=('deepin-launcher')
 conflicts=('deepin-launcher')
 replaces=('deepin-launcher')
 source=("git+https://github.com/linuxdeepin/dde-launchpad.git#tag=$pkgver")
-sha512sums=('3191562c53f5c0014b599e0c405258d737077f07496b99b48ac4eb570d03bd307fba8e9a19e6decea83f15dff23420bf50f1452aad240478086a53562d31b6ca')
+sha512sums=('b2d2c80a166576aa5fee29ebda6078a406f10c71e76bb6ad0eca1e56b05d6403a26ea5420706c83581d3cd3c46020c9042c27fd62c1768b30aea843a0dd48d71')
 
 prepare() {
   cd dde-launchpad
