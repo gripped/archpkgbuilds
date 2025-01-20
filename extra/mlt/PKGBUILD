@@ -7,8 +7,8 @@
 # Contributor: Gustavo Alvarez <sl1pkn07@gmail.com>
 
 pkgname=mlt
-pkgver=7.28.0
-pkgrel=5
+pkgver=7.30.0
+pkgrel=1
 pkgdesc='An open source multimedia framework'
 arch=(x86_64)
 url='https://www.mltframework.org'
@@ -75,7 +75,7 @@ makedepends=(cmake
              vid.stab)
 source=(git+https://github.com/mltframework/mlt#tag=v$pkgver
         git+https://gitlab.com/mattbas/glaxnimate.git)
-sha256sums=('b1723017d5b122542d2abad6eda156c567ebe2963a8007dfabba8657f7a732f3'
+sha256sums=('c56e36bb6311dace74f8051e3c6ee9a0b494ca4a8cffcf16a399312c4d23a1b1'
             'SKIP')
 
 prepare() {
