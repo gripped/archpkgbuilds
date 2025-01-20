@@ -4,8 +4,8 @@
 # Contributor: Mathieu Wespthal <mathieu.westphal+aur@gmail.com>
 
 pkgname=f3d
-pkgver=2.5.1
-pkgrel=5
+pkgver=3.0.0
+pkgrel=1
 pkgdesc='A fast and minimalist 3D viewer'
 arch=('x86_64')
 url="https://github.com/${pkgname}-app/${pkgname}"
@@ -37,36 +37,29 @@ makedepends=('cmake'
              'pybind11'
              'python'
              'utf8cpp')
-source=("https://github.com/$pkgname-app/$pkgname/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz"
-         f3d-2.5.4-vtk9.4-compat.patch)
-sha256sums=('55ea01931f90f066df1abc0ae4e9575672e80b83b241f51884224baa8dccac24'
-            '937d1b5bd922dc226340b6480dd51df5ad37ad66f6683121e4aa7b82737179b5')
-
-prepare() {
-  # Minimal backport of https://github.com/f3d-app/f3d/commit/d9fa161e99817028a16b9db371c0369d44b8022e for vtk 9.4 compatibility
-  patch -Np1 -i ../f3d-2.5.4-vtk9.4-compat.patch -d "$pkgname-$pkgver"
-}
+source=("https://github.com/$pkgname-app/$pkgname/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('7ea83830d1c8158a1f01e5ac9edd00b81de3e0b4cbdbc4a4bb60a113728b7b7a')
 
 build() {
   cd "$pkgname-$pkgver"
-  export CXXFLAGS+=" -ffat-lto-objects"
+  export CXXFLAGS+=' -ffat-lto-objects'
   cmake \
-    -GNinja \
-    -Bbuild \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=None \
-    -DF3D_BINDINGS_JAVA=ON \
-    -DF3D_BINDINGS_PYTHON=ON \
-    -DF3D_LINUX_GENERATE_MAN=ON \
-    -DF3D_MODULE_EXTERNAL_RENDERING=ON \
-    -DF3D_MODULE_RAYTRACING=ON \
-    -DF3D_MODULE_EXR=ON \
-    -DF3D_PLUGINS_STATIC_BUILD=ON \
-    -DF3D_PLUGIN_BUILD_ALEMBIC=ON \
-    -DF3D_PLUGIN_BUILD_ASSIMP=ON \
-    -DF3D_PLUGIN_BUILD_DRACO=ON \
-    -DF3D_PLUGIN_BUILD_OCCT=ON \
-    -DF3D_PLUGIN_BUILD_USD=ON
+    -G Ninja \
+    -B build \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_BUILD_TYPE=None \
+    -D F3D_BINDINGS_JAVA=ON \
+    -D F3D_BINDINGS_PYTHON=ON \
+    -D F3D_LINUX_GENERATE_MAN=ON \
+    -D F3D_MODULE_EXTERNAL_RENDERING=ON \
+    -D F3D_MODULE_RAYTRACING=ON \
+    -D F3D_MODULE_EXR=ON \
+    -D F3D_PLUGINS_STATIC_BUILD=ON \
+    -D F3D_PLUGIN_BUILD_ALEMBIC=ON \
+    -D F3D_PLUGIN_BUILD_ASSIMP=ON \
+    -D F3D_PLUGIN_BUILD_DRACO=ON \
+    -D F3D_PLUGIN_BUILD_OCCT=ON \
+    -D F3D_PLUGIN_BUILD_USD=ON
   ninja -C build
 }
 
