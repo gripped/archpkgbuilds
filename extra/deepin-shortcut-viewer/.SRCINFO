@@ -1,15 +1,20 @@
 pkgbase = deepin-shortcut-viewer
 	pkgdesc = Deepin Shortcut Viewer
-	pkgver = 5.0.9
+	pkgver = 5.5.0
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-shortcut-viewer
 	arch = x86_64
-	groups = deepin
 	license = GPL3
 	makedepends = git
-	makedepends = qt5-tools
-	depends = deepin-qt5integration
-	source = git+https://github.com/linuxdeepin/deepin-shortcut-viewer.git#tag=5.0.9
-	sha512sums = 41b764599ea382835a7e0f2d981cbfecae1c6013231830a9922d0f716d69aba572a8b3e81c0bb14f8c448356fc48c0296a819f4168c23149e90719f1800ecdf1
+	makedepends = cmake
+	makedepends = ninja
+	depends = dtk6core
+	depends = dtk6gui
+	depends = dtk6widget
+	depends = gcc-libs
+	depends = glibc
+	depends = qt6-base
+	source = git+https://github.com/linuxdeepin/deepin-shortcut-viewer.git#tag=5.5.0
+	sha512sums = 7f0e8a101f4fe70766f5317d39a49cae2505f03564780b194d6d337b45b65fbd830e5c427aa7d3eebe872de5512b102db628982a61104dcb835d1c8533d39e60
 
 pkgname = deepin-shortcut-viewer
