@@ -1,7 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=wkd-exporter
-pkgver=0.2.0
+pkgver=0.2.1
 pkgrel=1
 pkgdesc="Exports an OpenPGP keyring into an advanced WKD directory path"
 arch=(x86_64)
@@ -18,7 +19,7 @@ makedepends=(
   rust-script
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha256sums=('e75ca3b86fb133a17ec44fbced2f26a3a4a3e4ebd4d9e83d3eb135f0441a1001')
+sha256sums=('909d5df93dc5a055efbf04afc3e4db74f81ab200bd478605c82c4f1ceacb4b89')
 
 prepare() {
   cd $pkgname-$pkgver
