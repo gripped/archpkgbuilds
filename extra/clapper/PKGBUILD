@@ -7,8 +7,8 @@ pkgname=(
   libclapper-gtk
   libclapper
 )
-pkgver=0.6.1
-pkgrel=4
+pkgver=0.8.0
+pkgrel=1
 pkgdesc="Modern and user-friendly media player"
 arch=(x86_64)
 url="https://rafostar.github.io/clapper"
@@ -27,6 +27,7 @@ makedepends=(
   hicolor-icon-theme
   libadwaita
   libmicrodns
+  libpeas-2
   libsoup3
   pango
 
@@ -39,7 +40,7 @@ makedepends=(
   vala
 )
 source=("git+https://github.com/Rafostar/clapper.git?signed#tag=$pkgver")
-b2sums=('767e4ee42fb17fc7d90a9e0efd621e6f1bed121c6d72764a5297fd1bc203d5fcd42b4dcf493eabbff8b0561b721a6582f48e2549fbadb55856e686e73eaf0fb0')
+b2sums=('805ffa7c4ba6b8422b7261c97fee45e129d561765997fa335b35afc9ed29a862b81a8bc7bbd9e745b17b16a311813145179d4caad9e525b6541d1faea4e0c5df')
 validpgpkeys=(
   'D3B89B4D49ABFABA6A3EF1B9228FF576F6E2EC17'    # Rafał Dzięgiel <rafostar.github@gmail.com>
 )
@@ -54,10 +55,13 @@ build() {
     -D introspection=enabled
     -D vapi=enabled
     -D doc=true
+
     # Features
+    -D enhancers-loader=enabled
     -D discoverer=enabled
     -D mpris=enabled
     -D server=enabled
+
     # GStreamer plugin options
     -D glimporter=enabled
     -D gluploader=enabled
@@ -158,6 +162,7 @@ package_libclapper() {
     gst-plugins-good
     gstreamer
     libmicrodns
+    libpeas-2
     libsoup3
   )
   optdepends=(
@@ -165,7 +170,6 @@ package_libclapper() {
     "gst-plugins-bad: Extra media decoders"
     "gst-plugins-ugly: Extra media decoders"
     "gst-plugin-va: Hardware-accelerated video decode (via VA-API)"
-    "gst-plugins-gtuber: Streaming service support"
   )
   provides=(libclapper-0.0.so)
   mv libclapper/* $pkgdir/
