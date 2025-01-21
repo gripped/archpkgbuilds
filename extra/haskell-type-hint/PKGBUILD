@@ -3,7 +3,7 @@
 _hkgname=type-hint
 pkgname=haskell-type-hint
 pkgver=0.1
-pkgrel=29
+pkgrel=30
 pkgdesc="Guide type inference with proxy values"
 url="https://github.com/mvv/type-hint"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('4f84031298612bfe5f64eb26ce876078bc54b5f8ab672c7760483bcec338455a1e7
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
