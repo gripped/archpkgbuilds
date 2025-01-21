@@ -2,8 +2,8 @@
 
 _pkgname=re
 pkgname=ocaml-${_pkgname}
-pkgver=1.11.0
-pkgrel=6
+pkgver=1.13.2
+pkgrel=1
 pkgdesc="A regular expression library for OCaml"
 arch=('x86_64')
 url="https://github.com/ocaml/ocaml-re"
@@ -12,8 +12,8 @@ depends=('ocaml')
 makedepends=('dune')
 options=('!strip')
 source=("${url}/archive/${pkgver}/${_pkgname}-${pkgver}.tar.gz" "${pkgname}-remove-seq.patch")
-sha256sums=('e32660b6068b78a8588ca065a6a2b01ae7339584d8261356beac0e26dbc5f854'
-            '0ce7abf08c22c3bb23ee78ec57a65ef53875c325a3c16db0dd506cd572e12bba')
+sha256sums=('2e37b01b9bda0e39f0fd3913c0ec81237ed2d04c6bbe23f48b102de83ba47454'
+            'bc074a19437db2010aa187d25350070239fba52e52331249ab96e3df05c1c415')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
