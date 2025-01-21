@@ -3,8 +3,8 @@
 pkgbase=avogadrolibs
 pkgname=(avogadrolibs
          avogadrolibs-qt5)
-pkgver=1.99.0
-pkgrel=8
+pkgver=1.100.0
+pkgrel=1
 pkgdesc='Libraries that provide 3D rendering, visualization, analysis and data processing useful in computational chemistry, molecular modeling, bioinformatics, materials science, and related areas'
 arch=(x86_64)
 url='https://www.openchemistry.org/'
@@ -32,13 +32,10 @@ makedepends=(boost
              verdict
              vtk)
 source=(git+https://github.com/OpenChemistry/avogadrolibs#tag=$pkgver)
-sha256sums=('ad26ef7d887924a867c5aba68ecc3803b2684652d65a442516903c9343a332ff')
+sha256sums=('468e577097cd30f1f5c7339ece95278fe7d890f4eba440688d2b5953214de685')
 
 prepare() {
   mkdir crystals fragments molecules # Dummy dirs to trick cmake, actually provided by avogadro-{crystals,fragments,molecules}
-  cd $pkgname
-  git cherry-pick -n 6e2e84dbb088a40d69117c1836f4306792f57acd # Fix wrong cmake variable name
-  git cherry-pick -n d66a526472c60a960ff22f74fc2a76f23e3a6c97 # Fix build with VTK 9.4
 }
 
 build() {
