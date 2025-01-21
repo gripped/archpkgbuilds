@@ -6,8 +6,8 @@
 
 _hkgname=libmpd
 pkgname=haskell-libmpd
-pkgver=0.10.0.0
-pkgrel=163
+pkgver=0.10.0.1
+pkgrel=1
 pkgdesc='Client library for MPD, the Music Player Daemon'
 url='https://hackage.haskell.org/package/libmpd'
 license=('MIT')
@@ -17,7 +17,7 @@ depends=('ghc-libs' 'haskell-attoparsec' 'haskell-data-default-class' 'haskell-n
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-discover')
 #source=(${pkgname}-${pkgver}.tar.gz::https://github.com/vimus/libmpd-haskell/archive/v${pkgver}.tar.gz)
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('33b2af4cbbcc2c6bb2f05ada685d8870ca5132559f8f0505da39f0deb290f1e15028d783c9b28fc51f785ed86878fbf40bb0be0487612cc2b600eaf619114c11')
+sha512sums=('60642a7e37b584b9a061c802867ecebe80ccbb1804c47971d5fca36a892b952e7e3a0e6d71db82a992510f6fc127e8de79393cf92b7e0b45bbd54fd193d438a5')
 
 build() {
   cd ${_hkgname}-${pkgver}
