@@ -2,7 +2,7 @@
 _pkgname='csexp'
 pkgname="ocaml-${_pkgname}"
 pkgver=1.5.2
-pkgrel=6
+pkgrel=7
 pkgdesc="OCaml canonical S-expressions"
 arch=(x86_64)
 url="https://github.com/ocaml-dune/csexp"
