@@ -2,13 +2,13 @@
 
 pkgname=gping
 pkgver=1.18.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Ping, but with a graph"
 arch=('x86_64')
 url="https://github.com/orf/gping"
 license=('MIT')
 depends=('iputils')
-makedepends=('cargo' 'libgit2')
+makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgname-v$pkgver.tar.gz")
 sha512sums=('bcac4454e5f8f757bba5244abbeec42f2bf88ad6a62435b20572d11eaf77c988873687bcb7fca860fd873dbdaf05b04f6a4b8a42550eda26bc908c4663e1ae28')
 options=('!lto')
