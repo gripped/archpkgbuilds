@@ -3,14 +3,13 @@
 
 pkgname=cargo-clone
 pkgver=1.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A cargo subcommand to fetch the source code of a Rust crate"
 arch=('x86_64')
 url="https://github.com/JanLikar/cargo-clone"
 license=('Apache' 'MIT')
-depends=('libgit2' 'curl')
-checkdepends=('cargo' 'git')
-makedepends=('libssh2')
+depends=('cargo' 'curl' 'libssh2' 'openssl' 'zlib')
+checkdepends=('git')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('b1df67690ac60ea184c54ffdf1bcf7ab8e3ab9dd9552ad70b4723109cf340718')
 
@@ -21,6 +20,7 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
+  depends+=('libcrypto.so' 'libcurl.so' 'libssh2.so' 'libssl.so')
   export LIBSSH2_SYS_USE_PKG_CONFIG=1
   CFLAGS+=' -ffat-lto-objects'
   cargo build --release --frozen
@@ -28,6 +28,7 @@ build() {
 
 check() {
   cd "$pkgname-$pkgver"
+  export LIBSSH2_SYS_USE_PKG_CONFIG=1
   cargo test --frozen
 }
 
