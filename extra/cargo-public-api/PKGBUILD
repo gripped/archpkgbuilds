@@ -2,12 +2,12 @@
 
 pkgname=cargo-public-api
 pkgver=0.42.0
-pkgrel=1
+pkgrel=2
 pkgdesc="List and diff the public API of Rust library crates"
 arch=('x86_64')
 url="https://github.com/cargo-public-api/cargo-public-api"
 license=('MIT')
-depends=('gcc-libs' 'libgit2')
+depends=('curl' 'gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('37ad22b6bffe693110a4406dc37140ab8d2b0380e162b3ee784624463c7cab9794f57fdd281b991070c5a64f0d04219ed40e0ff74fb585163466cc975a68f559')
@@ -21,6 +21,7 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
+  depends+=('libcurl.so')
   cargo build --release --frozen
   local compgen="target/release/$pkgname completions"
   $compgen bash > "completions/$pkgname"
