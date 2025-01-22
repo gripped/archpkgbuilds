@@ -3,7 +3,7 @@
 pkgbase=cysignals
 pkgname=python-cysignals
 pkgver=1.12.2
-pkgrel=3
+pkgrel=4
 pkgdesc='Interrupt and signal handling for Cython'
 arch=(x86_64)
 url='https://www.sagemath.org'
@@ -16,13 +16,14 @@ makedepends=(cython
              python-build
              python-installer)
 checkdepends=(python-pytest)
-source=(git+https://github.com/sagemath/cysignals#tag=$pkgver
-        fix-pari-signal-handling.patch)
-sha256sums=('5872e1cfb1151b6c6ea4376f4bfac6910b2d5ff33e906f78baf9e24e3a73f34a'
-            'f892b76ab5f403842950b2d3dcca4402430282358aa679123b72e30f3724f035')
+source=(git+https://github.com/sagemath/cysignals#tag=$pkgver)
+sha256sums=('5872e1cfb1151b6c6ea4376f4bfac6910b2d5ff33e906f78baf9e24e3a73f34a')
 
 prepare() {
-  patch -d $pkgbase -p1 < fix-pari-signal-handling.patch
+  cd $pkgbase
+# Fix PARI signal handling
+  git cherry-pick -n db7ad339bf34dcc56845217dd6ee24dd552396ac
+  git cherry-pick -n 2d37d973741c54a5886e154ac67a3a6451483d3c
 }
 
 build() {
