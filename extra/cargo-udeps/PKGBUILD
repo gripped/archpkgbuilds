@@ -3,12 +3,12 @@
 
 pkgname=cargo-udeps
 pkgver=0.1.54
-pkgrel=1
+pkgrel=2
 pkgdesc="Find unused dependencies in Cargo.toml"
 arch=('x86_64')
 url="https://github.com/est31/cargo-udeps"
 license=('MIT' 'Apache-2.0')
-depends=('curl' 'libgit2')
+depends=('curl' 'libgit2' 'libssh2' 'openssl' 'zlib')
 makedepends=('cargo' 'libssh2')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('52fcea433a514bf85493432c94704c790ae1a86d3c01fe5670ddd1000ed0a206')
@@ -20,6 +20,8 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
+  depends+=('libcurl.so' 'libgit2.so' 'libssh2.so' 'libssl.so' 'libz.so')
+  export LIBGIT2_NO_VENDOR=1
   export LIBSSH2_SYS_USE_PKG_CONFIG=1
   CFLAGS+=" -ffat-lto-objects"
   cargo build --release --frozen
