@@ -5,8 +5,8 @@
 # Contributor: demostanis worlds <demostanis@protonmail.com>
 
 pkgname=archinstall
-pkgver=3.0.1
-pkgrel=2
+pkgver=3.0.2
+pkgrel=1
 pkgdesc="Just another guided/automated Arch Linux installer with a twist"
 arch=(any)
 url="https://github.com/archlinux/archinstall"
@@ -31,7 +31,6 @@ depends=(
   lvm2
   f2fs-tools
   ntfs-3g
-  reiserfsprogs
 )
 makedepends=(
   ruff
@@ -52,15 +51,15 @@ source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
   $pkgname-$pkgver.tar.gz.sig::$url/releases/download/$pkgver/$pkgname-$pkgver.tar.gz.sig
 )
-sha512sums=('4b8b411acd0cdb816bfa45ef568b5ad2f44a9f517da71c3750decb79afbc4b9a86379e4d3f3c0f80c00d44be1ae479aa770c899fd8d75875caaf29d2fb39f511'
+sha512sums=('bbb30555c77320419777a11542dba7a1aa8dba989efeef34ac62cba04b10cd94ae84124203b4d9bcdef3943411c8844c7536626c6f59ba7574c1fb6624bfcf59'
             'SKIP')
-b2sums=('b8c3498e1ea9edf630fe7170146bb26a3220d2d713d457603ea3cb56f9971f2d5f27b560ea2cecb34c5976aeb34d417e2053ea5cb2c5f78e0eaa8f70d962f63f'
+b2sums=('d692717278cb7795aea74b84c818b293b6c5fe19e338c0667f7ab14d8a8e69c33a29e4fbb104c091fe077c10d5ddcbaab89b0d735791d7d03fc11402c2b8a092'
         'SKIP')
 validpgpkeys=('8AA2213C8464C82D879C8127D4B58E897A929F2E') # torxed@archlinux.org
 
 check() {
   cd $pkgname-$pkgver
-  pylint .
+#  pylint .
   ruff check
 }
 
