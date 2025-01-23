@@ -5,8 +5,8 @@ pkgname=(
   libwpe
   libwpe-docs
 )
-pkgver=1.16.0
-pkgrel=3
+pkgver=1.16.1
+pkgrel=1
 pkgdesc="General-purpose library for WPE WebKit"
 url="https://wpewebkit.org"
 arch=(x86_64)
@@ -26,7 +26,7 @@ makedepends=(
   meson
 )
 source=("git+https://github.com/WebPlatformForEmbedded/libwpe?signed#tag=$pkgver")
-b2sums=('51a8265ad9f3a025973d256d66a3fb572f180f7adcfb2b1d931ee3630803c3fd9e8dab32f06e93544a468721ab147bb6d39e35ff654b5c96ccd3557400222bde')
+b2sums=('c1bb09bff31a75034028758292c879f1a3a457aa3b6382e30b13904488304cf08087654ded25e395840da64a52507ae109a59a6b004eb07c5294958342c6e7f3')
 validpgpkeys=(
   5AA3BC334FD7E3369E7C77B291C559DBE4C9123B  # Adrián Pérez de Castro <aperez@igalia.com>
 )
