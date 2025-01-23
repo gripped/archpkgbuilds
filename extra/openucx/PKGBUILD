@@ -2,14 +2,15 @@
 
 _name=ucx
 pkgname=openucx
-pkgver=1.17.0
-pkgrel=3
+pkgver=1.18.0
+pkgrel=1
 pkgdesc="Communication framework for data-centric and high-performance applications"
 arch=(x86_64)
-url="http://www.openucx.org"
+url="https://openucx.org/"
 license=(BSD-3-Clause)
 depends=(
   binutils
+  gcc-libs
   glibc
   zlib
   zstd
@@ -32,7 +33,7 @@ provides=(
   libuct.so
 )
 source=("$pkgname-$pkgver.tar.gz::https://github.com/openucx/$_name/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('36db6b00b0939d746e86f9e0d32dc445faaa109e46dc643fb5ad779492abfaef')
+b2sums=('54df4a27d279be1627f10f7b4295d979b5247e430f76958349ab96f4f77cd349b2f0f19f44f25102bc6712ea654a6983b8299eed63c3f9127d1f24509934663c')
 
 build() {
   local configure_options=(
