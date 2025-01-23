@@ -4,8 +4,8 @@
 pkgbase=lua-compat53
 _rockname=${pkgbase##lua-}
 pkgname=(lua52-$_rockname lua51-$_rockname)
-pkgver=0.14.3
-pkgrel=3
+pkgver=0.14.4
+pkgrel=1
 _rockrel=1
 pkgdesc='Compatibility module providing Lua-5.3-style APIs'
 arch=(x86_64)
@@ -19,7 +19,7 @@ _archive="${url##*/}-$pkgver"
 _rockspec="$_rockname-$pkgver-$_rockrel"
 _rock="$_rockspec.linux-$CARCH.rock"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('db8ffa2c5562fac4fce5e5f48fd25763e79190af5e3d3d91f0699e4711cfbf10')
+sha256sums=('a9afa2eb812996039a05c5101067e6a31af9a75eded998937a1ce814afe1b150')
 
 build() {
 	cd "$_archive"
