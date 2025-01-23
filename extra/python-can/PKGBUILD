@@ -2,15 +2,16 @@
 # Contributor: Kyle Manna <kyle[at]kylemanna[d0t]com>
 
 pkgname=python-can
-pkgver=4.4.2
-pkgrel=2
+pkgver=4.5.0
+pkgrel=1
 pkgdesc='Controller Area Network support for Python'
 arch=(any)
 url=https://github.com/hardbyte/python-can
 license=(LGPL-3.0-only)
 depends=(
   python
-  python-setuptools
+  python-msgpack
+  python-packaging
   python-typing_extensions
   python-wrapt
 )
@@ -18,11 +19,12 @@ makedepends=(
   git
   python-build
   python-installer
+  python-setuptools-scm
   python-wheel
 )
-_tag=478f8b8749ce08906b0386d13db289cf98e3246e
+_tag=654a02ae24bfc50bf1bb1fad7aab4aa88763d302
 source=(git+https://github.com/hardbyte/python-can.git#tag=${_tag})
-b2sums=('SKIP')
+b2sums=('205c1578f46f2145da94c34c6f2b4bdad172e23fd813a3db83b357024f053752467906d2b1cc13b30b591d059d87de66363cade5009331b05cb5dedf00d4d00d')
 
 pkgver() {
   cd python-can
