@@ -2,12 +2,12 @@
 
 pkgname=perl-crypt-random-seed
 pkgver=0.03
-pkgrel=10
+pkgrel=11
 pkgdesc='Provide strong randomness for seeding'
 arch=(any)
-license=(PerlArtistic GPL)
+license=('Artistic-1.0-Perl')
 options=(!emptydirs)
-depends=('perl>=5.6.2' perl-crypt-random-tesha2)
+depends=('perl>=5.6.2')
 url=https://metacpan.org/release/Crypt-Random-Seed
 source=("https://cpan.metacpan.org/authors/id/D/DA/DANAJ/Crypt-Random-Seed-$pkgver.tar.gz")
 md5sums=(9bc5a69a8f1964065da7823e19b98da2)
