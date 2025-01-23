@@ -1,21 +1,39 @@
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 # Contributor: dorphell <dorphell@archlinux.org>
 
 pkgname=dillo
-pkgver=3.1.1
-pkgrel=2
+pkgver=3.2.0
+pkgrel=1
 pkgdesc="A small, fast graphical web browser built on FLTK"
 arch=(x86_64)
 url="https://www.dillo.org"
 license=('GPL-3.0-or-later')
-depends=('fltk' 'libjpeg-turbo' 'libpng' 'openssl' 'perl' 'zlib')
-backup=(etc/dillo/{dillorc,domainrc,dpidrc,keysrc})
-validpgpkeys=('32E65EC501A1B6FDF8190D293EE6BA977EB2A253') # Rodrigo Arias Mallo <rodarima@gmail.com>
-source=(https://github.com/dillo-browser/dillo/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz{,.asc}
-        dillo.desktop)
-sha256sums=('4e8c6d1846113a0106860c2b98740331ee7cc3ae7a0e83e240d542a3b66c184a'
+depends=(
+  'fltk'
+  'gcc-libs'
+  'glibc'
+  'libjpeg-turbo'
+  'libpng'
+  'libx11'
+  'openssl'
+  'perl'
+  'zlib'
+)
+backup=(
+  etc/dillo/dillorc
+  etc/dillo/domainrc
+  etc/dillo/dpidrc
+  etc/dillo/keysrc
+)
+source=(
+  "https://github.com/dillo-browser/dillo/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz"{,.asc}
+  dillo.desktop
+)
+sha256sums=('ed685168397c7b333d25c21208fcf1313ffede59b44f526b7c9b6ee41ebccabd'
             'SKIP'
             'e94ead3a359c2eceb934b07af0fac4864251b9721fa7f4855331daa017b66202')
+validpgpkeys=('32E65EC501A1B6FDF8190D293EE6BA977EB2A253') # Rodrigo Arias Mallo <rodarima@gmail.com>
 
 build() {
   cd $pkgname-$pkgver
@@ -23,10 +41,14 @@ build() {
   make
 }
 
+check() {
+  cd $pkgname-$pkgver
+  make check
+}
+
 package() {
   cd $pkgname-$pkgver
   make DESTDIR="$pkgdir" install
-
-  install -Dm644 ../dillo.desktop "$pkgdir/usr/share/applications/dillo.desktop"
-#  install -Dm644 ../ProgramIcon128.png "$pkgdir/usr/share/pixmaps/dillo.png"
+  install -vDm644 -t "$pkgdir/usr/share/pixmaps" icons/128x128/dillo.png
+  install -vDm644 -t "$pkgdir/usr/share/applications" ../dillo.desktop
 }
