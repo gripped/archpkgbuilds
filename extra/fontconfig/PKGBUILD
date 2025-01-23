@@ -3,7 +3,7 @@
 
 pkgname=fontconfig
 pkgver=2.16.0
-pkgrel=1
+pkgrel=2
 epoch=2
 pkgdesc="Library for configuring and customizing font access"
 url=https://www.freedesktop.org/wiki/Software/fontconfig/
@@ -11,9 +11,9 @@ arch=(x86_64)
 license=('HPND AND Unicode-DFS-2016')
 depends=(
   bash
+  expat
   freetype2
   glibc
-  libxml2
 )
 makedepends=(
   docbook-sgml
@@ -29,8 +29,7 @@ replaces=('fontconfig-docs<2:2.13.93-1')
 backup=(etc/fonts/fonts.conf)
 install=fontconfig.install
 source=(
-  # Signed with a newer key (ECFFBC3A6B365E721E5BD79830757AA21971A672) that cannot be found
-  "git+https://gitlab.freedesktop.org/fontconfig/fontconfig.git#tag=$pkgver"
+  "git+https://gitlab.freedesktop.org/fontconfig/fontconfig.git?signed#tag=$pkgver"
   40-fontconfig-config.script
   40-fontconfig-config.hook
   fontconfig.hook
@@ -41,6 +40,7 @@ b2sums=('839b16dbb95da285518bbbe303e2acdf3537be96bd161e20501409cb9891d824c65e9f9
         'dfbf47c069c88da7687511356cef5bb94b7190e558a6f08390d6976fa7065ba7137ccb0a5ca1defdef655091afe74eb8a3d33fb9f3e0633409aa79f753ad276d')
 validpgpkeys=(
   F77A64C4B5B45FF8763A278F65755979B34E1294 # Akira TAGOH <akira@tagoh.org>
+  ECFFBC3A6B365E721E5BD79830757AA21971A672 # Akira TAGOH <akira@tagoh.org>
 )
 
 prepare() {
@@ -54,7 +54,6 @@ build() {
     -D doc-html=enabled
     -D doc-pdf=disabled
     -D doc-txt=disabled
-    -D xml-backend=libxml2
   )
 
   arch-meson fontconfig build "${meson_options[@]}"
@@ -67,8 +66,8 @@ check() {
 
 package() {
   depends+=(
+    libexpat.so
     libfreetype.so
-    libxml2.so
   )
   provides+=(libfontconfig.so)
 
