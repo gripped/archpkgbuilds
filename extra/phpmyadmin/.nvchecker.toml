@@ -1,3 +1,7 @@
 [phpmyadmin]
-source = "github"
+source = "git"
 git = "https://github.com/phpmyadmin/phpmyadmin.git"
+prefix = "RELEASE_"
+exclude_regex = "4.*"
+from_pattern = "_"
+to_pattern = "."
