@@ -2,7 +2,7 @@
 # Contributor: Adam Perkowski <adas1per@protonmail.com>
 
 pkgname=tukai
-pkgver=0.1.5
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="Interactive typing tool with switchable templates"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('libx11' 'gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('e93fc9138766e420e329dc8f3bbb32d0710e9bc11878d2b91c615cf3d337ba65')
+sha256sums=('767f00ca30d6e449b3343858487a06149825812f40aebd8927e0f4524668422e')
 
 prepare() {
   cd "$pkgname-$pkgver"
