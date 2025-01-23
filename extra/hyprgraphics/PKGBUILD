@@ -2,7 +2,7 @@
 
 pkgname=hyprgraphics
 pkgver=0.1.1
-pkgrel=3
+pkgrel=5
 pkgdesc='hyprland graphics resources and utilities'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
