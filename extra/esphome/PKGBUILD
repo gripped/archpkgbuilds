@@ -2,7 +2,7 @@
 # Contributor: sgar < swhaat at github >
 
 pkgname=esphome
-pkgver=2024.12.2
+pkgver=2024.12.4
 pkgrel=1
 pkgdesc='Solution for your ESP8266/ESP32 projects with Home Assistant'
 url='https://github.com/esphome/ESPHome'
@@ -38,7 +38,7 @@ makedepends=(python-build python-installer python-wheel)
 license=('MIT AND GPL-3.0-only')
 arch=(any)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-b2sums=('f071d358a6474e7a62a6f001b8826172d81123b8aa9feafeb5808a0a5baf8a168085cd8b851f8b732175f38c4ba5431ebd24d99a0274cf5b064b045faa69cbbc')
+b2sums=('ddf92b185520d1adec26e37062f2d3270e29b3b8d31d821d5161d0505731c75c59d58698fdd53437f156ff335d639dd992e43295df4c75c2de1f73feedc59ca4')
 
 prepare() {
 	cd $pkgname-$pkgver
