@@ -1,42 +1,48 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
+# Contributor: Daniel Martí <mvdan@mvdan.cc>
 
 pkgname=cue
-pkgver=0.9.2
+pkgver=0.11.2
 pkgrel=1
 pkgdesc="Validate and define text-based and dynamic configuration"
 arch=('x86_64')
 url="https://cuelang.org/"
-license=('Apache')
+license=('Apache-2.0')
 makedepends=('go')
+checkdepends=('git')
 depends=('glibc')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/cue-lang/cue/archive/v${pkgver}.tar.gz")
-sha512sums=('051a4d15d74123f52f692e8b2f2e311b6356d617e4b22fa9b5d702640fcaafaf1342eb25997ffc4fe32936a61afda9929558c53878e51d2cb38e13bc471d3769')
+sha512sums=('2cc94185c51561f1f45352aa5a50e60397bd6eb7396029e8e2e1fa36cc660d81c021c2e46270bb9fd53461d922894bcdd2aa056b5e2eaa70cf25a5ad188ba014')
+
+prepare(){
+  cd "${pkgname}-${pkgver}"
+  mkdir -p build/
+}
 
 build() {
-  cd "${pkgname}-${pkgver}/cmd/cue/"
+  cd "${pkgname}-${pkgver}"
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
-  go build -ldflags "-s -w -linkmode=external -X cuelang.org/go/cmd/cue/cmd.version=${pkgver}" -v .
-  chmod +x cue
+  export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
+  go build -o build -ldflags "-X cuelang.org/go/cmd/cue/cmd.version=${pkgver}" ./cmd/...
 }
 
-# check() {
-#   cd "${pkgname}-${pkgver}"
-#   go test -v ./...
-# }
+check() {
+  cd "${pkgname}-${pkgver}"
+  go test ./...
+}
 
 package() {
-  cd "${pkgname}-${pkgver}/cmd/cue/"
-  install -Dsm755 ./cue "${pkgdir}/usr/bin/cue"
+  cd "${pkgname}-${pkgver}"
+  install -Dsm755 build/cue "${pkgdir}/usr/bin/cue"
 
   # build bash completions
   mkdir -p "${pkgdir}/usr/share/bash-completion/completions"
-  ./cue completion bash  > "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
+  ./build/cue completion bash  > "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
 
   # build zsh completions
   mkdir -p "${pkgdir}/usr/share/zsh/site-functions"
-  ./cue completion zsh > "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
+  ./build/cue completion zsh > "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
 }
