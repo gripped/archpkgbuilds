@@ -2,7 +2,7 @@
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
 pkgname=hotdoc
-pkgver=0.17.2
+pkgver=0.17.3
 pkgrel=1
 pkgdesc="The tastiest API documentation system"
 url="https://github.com/hotdoc/hotdoc"
@@ -47,7 +47,7 @@ source=(
   "git+https://github.com/hotdoc/hotdoc_bootstrap_theme"
   "0001-Simplify-deps-for-Python-3.11.patch"
 )
-sha256sums=('4a68c434e2f23ef116ded13d98dc9ba9afa70dadf63b002b88b42d2071650c5a'
+sha256sums=('42118485164a4ebf5c9c6d43dcff40a6b798743a6edf4f579a4e697aa0e7a14a'
             'SKIP'
             'SKIP'
             'SKIP'
