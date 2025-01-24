@@ -3,7 +3,7 @@
 
 pkgname=ruby-fakefs
 _pkgname=${pkgname#ruby-}
-pkgver=2.8.0
+pkgver=3.0.0
 pkgrel=1
 pkgdesc='A fake filesystem. Use it in your tests.'
 arch=(any)
@@ -25,7 +25,7 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("git+$url.git#tag=v$pkgver")
-sha256sums=('602b65020c15b1e0e00a255b620e6a437e9a7c7a7200f617a3339a2bc85fe0d3')
+sha256sums=('2c3085636563a1e6a24596eeef05549049e38a674e007d291348faaf9cd6402e')
 
 prepare() {
   cd "$_pkgname"
