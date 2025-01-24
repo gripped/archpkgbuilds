@@ -1,10 +1,11 @@
 # Maintainer: Konstantin Gizdov <arch at kge dot pw>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgbase=cascadia-code
 pkgname=("ttf-${pkgbase}" "otf-${pkgbase}" "woff2-${pkgbase}")
 pkgver=2407.24
-pkgrel=1
+pkgrel=2
 pkgdesc="A monospaced font by Microsoft that includes programming ligatures"
 arch=("any")
 url="https://github.com/microsoft/cascadia-code"
@@ -27,6 +28,8 @@ function _package() {
     local ext="${1%%-*}"
     local installdir="${ext^^}"
     local fonts=("${srcdir}/${ext}"/*."${ext}")
+
+    [[ $ext == ttf ]] && provides+=(ttf-font-nerd)
 
     # Install fonts
     install -d "${pkgdir}/usr/share/fonts/${installdir}"
