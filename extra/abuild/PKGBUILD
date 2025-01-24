@@ -4,12 +4,12 @@
 
 pkgname=abuild
 pkgver=3.14.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Alpine build tools"
-url="https://git.alpinelinux.org/abuild"
+url="https://gitlab.alpinelinux.org/alpine/abuild"
 arch=('x86_64')
 license=('GPL-2.0-or-later')
-depends=('alpine-keyring' 'busybox' 'glibc' 'pax-utils' 'openssl' 'apk-tools' 'attr' 'tar' 'pkgconf' 'lzip' 'curl' 'bubblewrap' 'gettext' 'git')
+depends=('alpine-keyring' 'busybox' 'glibc' 'pax-utils' 'openssl' 'apk-tools' 'attr' 'tar' 'pkgconf' 'lzip' 'curl' 'bubblewrap' 'gettext' 'git' 'fakeroot')
 makedepends=('zlib' 'scdoc')
 optdepends=('atools: additional scripts to maintain Alpine packages'
             'perl: for cpan resolver'
@@ -21,7 +21,7 @@ optdepends=('atools: additional scripts to maintain Alpine packages'
             'ruby-augeas: for gem resolver')
 backup=("etc/${pkgname}.conf")
 install="${pkgname}.install"
-source=("https://gitlab.alpinelinux.org/alpine/${pkgname}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+source=("${url}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "${pkgname}.sysusers"
         "${pkgname}.tmpfiles"
         'allow_running_abuild_rootbld.patch')
@@ -32,7 +32,7 @@ sha512sums=('49e243114933f3013884f0014fc8e5f142ff146de3d9ddb62e5ad98689cb1bf2bc8
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
-	patch -Np1 < "${srcdir}/allow_running_abuild_rootbld.patch"
+	patch -Np1 -i "${srcdir}/allow_running_abuild_rootbld.patch"
 }
 
 build() {
