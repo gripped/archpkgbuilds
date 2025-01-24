@@ -1,0 +1,24 @@
+--- a/contrib/default.sndiod
++++ b/contrib/default.sndiod
+@@ -1,2 +1,2 @@
+-# Options that are passed to sndiod
++# Options that are passed to sndiod32
+ DAEMON_OPTS=""
+--- a/contrib/sndiod.service.in
++++ b/contrib/sndiod.service.in
+@@ -1,12 +1,12 @@
+ [Unit]
+-Description=sndio audio and MIDI server
++Description=sndio audio and MIDI server (32-bit)
+ After=network.target
+ 
+ [Service]
+ Type=forking
+ Restart=on-abort
+-EnvironmentFile=-/etc/default/sndiod
+-ExecStart=@bindir@/sndiod $DAEMON_OPTS
++EnvironmentFile=-/etc/default/sndiod32
++ExecStart=@bindir@/sndiod32 $DAEMON_OPTS
+ 
+ [Install]
+ WantedBy=multi-user.target
