@@ -5,7 +5,7 @@
 
 pkgname=hyprland
 pkgver=0.46.2
-pkgrel=8
+pkgrel=9
 pkgdesc='a highly customizable dynamic tiling Wayland compositor'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/${pkgname^}"
@@ -61,6 +61,7 @@ makedepends=(cmake
              xorgproto)
 optdepends=('cmake: to build and install plugins using hyprpm'
             'cpio: to build and install plugins using hyprpm'
+            'glaze: to build and install plugins using hyprpm'
             'meson: to build and install plugins using hyprpm')
 provides=(wayland-compositor)
 _archive="${pkgname^}-$pkgver"
