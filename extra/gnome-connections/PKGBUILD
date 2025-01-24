@@ -2,7 +2,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=gnome-connections
-pkgver=47.0
+pkgver=47.2.1
 pkgrel=1
 pkgdesc='Remote desktop client for the GNOME desktop environment'
 arch=(x86_64)
@@ -36,7 +36,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/connections.git?signed#tag=${pkgver/[a-z]/.&}"
   git+https://gitlab.gnome.org/GNOME/gtk-frdp.git
 )
-b2sums=('8e9779827d6039d50ec7f3d43b8e3a2d1ab0bded137bbcadaa8a1ddfefcf66669f691a7a4d94a9d721b420d51fa6be0d09d0d6454edc41c9b4ff4c911a706d7f'
+b2sums=('fc98cf431945229c302de6162680ac6816c0079022a51c17207d07847e1cbf1efc79c8f5150ea1ac3e268b765f8b283e37625a70f3bd901fd93b1ce6835dfbf1'
         'SKIP')
 validpgpkeys=(F55CDAB508C3ACBCB1C8B930C910F152653B1688) # Marek Kasik <mkasik@redhat.com>
 
