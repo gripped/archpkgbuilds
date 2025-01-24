@@ -2,8 +2,8 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=xdg-desktop-portal-gnome
-pkgver=47.1
-pkgrel=2
+pkgver=47.2
+pkgrel=1
 pkgdesc="Backend implementation for xdg-desktop-portal for the GNOME desktop environment"
 url="https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome"
 arch=(x86_64)
@@ -36,8 +36,11 @@ provides=(xdg-desktop-portal-impl)
 conflicts=('xdg-desktop-portal-gtk<1.10.0-2')
 replaces=('xdg-desktop-portal-gtk<1.10.0-2')
 groups=(gnome)
-source=("git+https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('46c3ebd0016eae9067332f242bb90de08a461a7624edb3ce3c7743894da8b06ee127159a4cfb36477b97a4b2963d5a334208a3825530c03d0f9269787ec385cc')
+source=("git+https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome.git?signed#tag=${pkgver/[a-z]/.&}")
+b2sums=('3dd0d2dddaffb027b94583c9c70aeb00e2e0705d4640a8eeb83a470fbfc07bf15941a58063e7ac1399549e7f633a229b868019498387503bf35e0c4efb37c800')
+validpgpkeys=(
+  9038F70CA72FAC9D10C6327B89AFE307C861D158 # Georges Basile Stavracas Neto (Primary Key) <georges.stavracas@gmail.com>
+)
 
 prepare() {
   cd $pkgname
