@@ -1,4 +1,5 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Kyle Keen <keenerd@gmail.com>
 # Contributor: Chirantan Ekbote <chirantan.ekbote at gmail.com>
 # Contributor: Eric Anderson <ejona86 at gmail.com>
@@ -6,7 +7,7 @@
 
 pkgname=openscad
 pkgver=2021.01
-pkgrel=12
+pkgrel=13
 pkgdesc='The programmers solid 3D CAD modeller'
 arch=('x86_64')
 url='https://openscad.org'
@@ -88,6 +89,9 @@ prepare() {
 
   # boost 1.86 compatibility
   patch -Np1 -i "$srcdir/boost-1.86.patch"
+
+  # Upstream can't be built using newer C++ std libs
+  echo 'CONFIG += c++17' >> defaults.pri
 
   # prepare git submodule(s) - required for running tests
   git submodule init libraries/MCAD
