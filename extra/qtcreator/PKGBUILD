@@ -9,8 +9,8 @@
 pkgbase=qtcreator
 pkgname=(qtcreator
          qtcreator-devel)
-pkgver=15.0.0
-pkgrel=2
+pkgver=15.0.1
+pkgrel=1
 pkgdesc='Lightweight, cross-platform integrated development environment'
 arch=(x86_64)
 url='https://www.qt.io'
@@ -56,7 +56,7 @@ source=(git+https://code.qt.io/qt-creator/qt-creator#tag=v$pkgver
         git+https://code.qt.io/qt-creator/perfparser
         git+https://code.qt.io/playground/qlitehtml
         git+https://github.com/litehtml/litehtml)
-sha256sums=('0ad3d240b490035857fd7899c283987a73dc61d77232dd536ceeae89dae55713'
+sha256sums=('db55f8784e644eb1e475de3ad500a975cf40b3dd10988ca7a17b7f3ddbb84c69'
             'SKIP'
             'SKIP'
             'SKIP')
