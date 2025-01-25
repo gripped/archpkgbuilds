@@ -1,0 +1,59 @@
+commit 2a942f5f58a77dd4350b1f46d63a0946d4fe2d51
+Author: Omair Majid <omajid@redhat.com>
+Date:   Wed Mar 27 15:53:19 2024 -0400
+
+    Support building against clang 18 (#100258)
+    
+    This is a targeted backport from a few other PRs that makes it possible
+    to build dotnet/runtme's 8.0 branch on Fedora 40 which includes clang
+    18.
+    
+    - https://github.com/dotnet/arcade/pull/14572
+    - https://github.com/dotnet/runtime/pull/94782
+    - https://github.com/dotnet/runtime/pull/99811
+    
+    (cherry picked from commit ab416e9ef39c6709b815e6ca31753a4c6e44ed58)
+    
+     Conflicts:
+            eng/common/native/init-compiler.sh
+            eng/native/configurecompiler.cmake
+
+diff --git a/eng/common/native/init-compiler.sh b/eng/common/native/init-compiler.sh
+index 81ea061512b..de93165b672 100644
+--- a/eng/common/native/init-compiler.sh
++++ b/eng/common/native/init-compiler.sh
+@@ -71,7 +71,7 @@ if [[ -z "$CLR_CC" ]]; then
+     # Set default versions
+     if [[ -z "$majorVersion" ]]; then
+         # note: gcc (all versions) and clang versions higher than 6 do not have minor version in file name, if it is zero.
+-        if [[ "$compiler" == "clang" ]]; then versions=( 17 16 15 14 13 12 11 10 9 8 7 6.0 5.0 4.0 3.9 3.8 3.7 3.6 3.5 )
++        if [[ "$compiler" == "clang" ]]; then versions=( 18 17 16 15 14 13 12 11 10 9 8 7 6.0 5.0 4.0 3.9 3.8 3.7 3.6 3.5 )
+         elif [[ "$compiler" == "gcc" ]]; then versions=( 12 11 10 9 8 7 6 5 4.9 ); fi
+ 
+         for version in "${versions[@]}"; do
+diff --git a/eng/native/configurecompiler.cmake b/eng/native/configurecompiler.cmake
+index b3238be0d8a..cfafeb758d3 100644
+--- a/eng/native/configurecompiler.cmake
++++ b/eng/native/configurecompiler.cmake
+@@ -469,6 +469,9 @@ if (CLR_CMAKE_HOST_UNIX)
+     add_compile_options(-Wno-single-bit-bitfield-constant-conversion)
+     add_compile_options(-Wno-cast-function-type-strict)
+     add_compile_options(-Wno-incompatible-function-pointer-types-strict)
++
++    # clang 18.1 supressions
++    add_compile_options(-Wno-switch-default)
+   else()
+     add_compile_options(-Wno-uninitialized)
+     add_compile_options(-Wno-strict-aliasing)
+diff --git a/src/coreclr/pal/src/include/pal/palinternal.h b/src/coreclr/pal/src/include/pal/palinternal.h
+index dc39af8f4d4..ce34c032cc6 100644
+--- a/src/coreclr/pal/src/include/pal/palinternal.h
++++ b/src/coreclr/pal/src/include/pal/palinternal.h
+@@ -425,6 +425,7 @@ function_name() to call the system's implementation
+ #undef va_start
+ #undef va_end
+ #undef va_copy
++#undef va_arg
+ #undef stdin
+ #undef stdout
+ #undef stderr

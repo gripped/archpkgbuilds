@@ -13,25 +13,24 @@ pkgname=(
  dotnet-source-built-artifacts-7.0
 )
 pkgver=7.0.20.sdk120
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url=https://www.microsoft.com/net/core
 license=(MIT)
 makedepends=(
   bash
-  clang
+  clang18
   cmake
   dotnet-sdk-7.0
   dotnet-source-built-artifacts-7.0
   git
   icu
-  inetutils
   krb5
   libgit2
   libunwind
   libxml2
   lldb
-  llvm
+  llvm18
   lttng-ust2.12
   nodejs
   openssl
@@ -47,10 +46,12 @@ _tag=25b977658c06fd0217ec0bc0714398bb9d0a7bb0
 source=(
   dotnet-installer::git+https://github.com/dotnet/installer.git#tag=${_tag}
   https://github.com/dotnet/runtime/commit/31e4f404c218eae7ba999c4df5346d30f971451c.patch
+  dotnet-core-7.0-clang-18.patch
   dotnet.sh
 )
 b2sums=('92cd97e5d42b46247ee441f7f3d8858a7f484d39a5b82d8598d72ddb9d552e3e018f1eb80d6ad581a08567748e2af3b1d56b6895a5809a74b04fb80b5b3ac881'
-        '70b4b8f70ed66c7b6cd761856b830945e8d5e79bda12735a0544e5b662fdd2455245d881b2480e5fcb9a631be007db439a8ce73f4b1f2ada23999828d14c9d76'
+        '36e3dcba3be4d6c3a77cdb92287acaaae681078730d9e94dce3025e926b9691c4439a8b790ca4ece643b8162bdcd7d93d2a3860610841f0b282e8e21c0873446'
+        '1bbe5838d0ebe2f513cc5defaf1695822e6b8ce3f13a3b65e581579666c6723e1a8da792f5aa8933a1af5a665a6c9feefd95fe8c248e730d8751863907af522e'
         '4a64e3ee550e296bdde894f9202c6f372934cc29154f47d302599b4c368825a96a7b786faa6109a24a1101ff130fd9e4d0ccba094ec91e7f2ca645725bf71b34')
 
 prepare() {
@@ -85,6 +86,8 @@ build() {
   export VERBOSE=1
   export OPENSSL_ENABLE_SHA1_SIGNATURES=1
 
+  export PATH="/usr/lib/llvm18/bin:$PATH"
+
   # this uses malloc_usable_size, which is incompatible with fortification level 3
   CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
   CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
@@ -114,6 +117,8 @@ build() {
   sed -i -E 's|( /p:BuildDebPackage=false)|\1 --cmakeargs -DCLR_CMAKE_USE_SYSTEM_LIBUNWIND=TRUE|' eng/SourceBuild.props
   # https://github.com/dotnet/runtime/issues/79196
   patch -Np1 -i "${srcdir}"/31e4f404c218eae7ba999c4df5346d30f971451c.patch
+  # https://github.com/dotnet/runtime/commit/ab416e9ef39c6709b815e6ca31753a4c6e44ed58
+  patch -Np1 -i "${srcdir}"/dotnet-core-7.0-clang-18.patch
   popd
 
   if [[ $_bootstrapver != $_previousver ]]; then
