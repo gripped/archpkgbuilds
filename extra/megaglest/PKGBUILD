@@ -3,7 +3,7 @@
 
 pkgname=megaglest
 pkgver=3.13.0
-pkgrel=9
+pkgrel=10
 pkgdesc="Fork of Glest, a 3D real-time strategy game in a fantastic world"
 arch=('x86_64')
 url="https://megaglest.org"
@@ -16,6 +16,7 @@ source=(https://github.com/MegaGlest/megaglest-source/releases/download/${pkgver
         https://github.com/MegaGlest/megaglest-source/commit/5801b1fa.patch
         https://github.com/MegaGlest/megaglest-source/commit/412b37d0.patch
         https://github.com/MegaGlest/megaglest-source/commit/e09ba53c.patch
+        https://github.com/MegaGlest/megaglest-source/commit/5a352054.patch
         fbd0cfb1.patch)
 sha256sums=('09fef67bc6878b1afbb0b403fec9fcf7dc270d500fdc62ed98e5f210e398ccb9'
             'SKIP'
@@ -23,6 +24,7 @@ sha256sums=('09fef67bc6878b1afbb0b403fec9fcf7dc270d500fdc62ed98e5f210e398ccb9'
             'f3e12b58b39f97109d5d077b7ea7b31a5f21355c55f837584aa2ea62030889c6'
             '2acda6052ccedd7d0f77067c9b5f01a3a1c5f2ed6b46dc962b18dfdac9515906'
             '1a01f115bc9653c151fed83b1e6c0b71a4508083777158934be975f8b5b089ff'
+            'b8104c81839e8282f624891b3e102f27de0852950e13f52b938a7c65d54bb357'
             '5dc0096ea581ca9436b2de528f913ac99de7a1a5d00bc7e8d52117298fd1eeb5')
 validpgpkeys=('0DA321A44B30EF477E9A6DB8DE45EB9E71EEB59B')
 
@@ -33,6 +35,7 @@ prepare() {
   patch -p1 < ../5801b1fa.patch
   patch -p1 < ../412b37d0.patch
   patch -p1 < ../e09ba53c.patch
+  patch -p1 < ../5a352054.patch
   patch -p1 < ../fbd0cfb1.patch
 }
 
@@ -45,8 +48,8 @@ build() {
   cmake .. \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_C_FLAGS="${CXXFLAGS} -fcommon" \
-    -DCMAKE_CXX_FLAGS="-lX11 ${CXXFLAGS} -fcommon" \
+    -DCMAKE_C_FLAGS="${CXXFLAGS}" \
+    -DCMAKE_CXX_FLAGS="-lX11 ${CXXFLAGS}" \
     -DWANT_GIT_STAMP=0
   make VERBOSE=1
 }
