@@ -7,7 +7,7 @@
 pkgname=jujutsu
 _pkgname=jj
 pkgver=0.25.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Git-compatible VCS that is both simple and powerful'
 arch=(x86_64)
 url="https://github.com/jj-vcs/$_pkgname"
@@ -21,6 +21,7 @@ depends=(gcc-libs # libgcc_s.so ld-linux-x86-64.so
          zstd)
 replaces=("$pkgname-bin")
 makedepends=(cargo
+             cargo-edit
              cmake) # builds vendored libz-ng
 _archive="$_pkgname-$pkgver"
 source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
@@ -28,6 +29,9 @@ sha256sums=('3a99528539e414a3373f24eb46a0f153d4e52f7035bb06df47bd317a19912ea3')
 
 prepare() {
 	cd "$_archive"
+	# for libgit2-1.9 compatibility, remove when upstream does
+	# https://github.com/jj-vcs/jj/pull/5315
+	cargo upgrade -p git2@0.20.0
 	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 	mkdir -p completions
 }
