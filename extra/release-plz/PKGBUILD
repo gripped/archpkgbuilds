@@ -3,7 +3,7 @@
 
 pkgname=release-plz
 pkgver=0.3.114
-pkgrel=1
+pkgrel=3
 pkgdesc="Release Rust packages without using the command line"
 arch=('x86_64')
 url="https://github.com/MarcoIeni/release-plz"
@@ -29,7 +29,6 @@ _force_libgit19() {
 
 build() {
   cd "$pkgname-$pkgver"
-  depends+=('libgit2.so')
   _force_libgit19
   export LIBGIT2_NO_VENDOR=1
   cargo build --release --frozen --no-default-features
@@ -48,6 +47,7 @@ check() {
 
 package() {
   cd "$pkgname-$pkgver"
+  depends+=('libgit2.so')
   install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm 644 LICENSE-MIT -t "$pkgdir/usr/share/licenses/$pkgname"
