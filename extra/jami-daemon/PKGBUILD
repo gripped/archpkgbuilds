@@ -3,7 +3,7 @@
 
 pkgname=jami-daemon
 pkgver=20240812
-pkgrel=2
+pkgrel=3
 pkgdesc="Free and universal communication platform which preserves the users’ privacy and freedoms (daemon component)"
 arch=(x86_64)
 url="https://jami.net"
@@ -45,6 +45,8 @@ prepare() {
 
   patch -p1 -i ../ffmpeg-7.patch # Fix build with ffmpeg 7
   patch -p1 -i ../fmt-v11.patch # Fix build with fmt v11
+
+  git cherry-pick -n 58758918d31b440671b78fbb1e8aa80260bf587a
 }
 
 build() {
