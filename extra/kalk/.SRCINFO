@@ -1,7 +1,7 @@
 pkgbase = kalk
 	pkgdesc = A powerful cross-platform calculator application built with the Kirigami framework
 	pkgver = 24.12.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://apps.kde.org/kalk/
 	arch = x86_64
 	groups = kde-applications
@@ -22,10 +22,12 @@ pkgbase = kalk
 	depends = qt6-declarative
 	source = https://download.kde.org/stable/release-service/24.12.1/src/kalk-24.12.1.tar.xz
 	source = https://download.kde.org/stable/release-service/24.12.1/src/kalk-24.12.1.tar.xz.sig
+	source = kalk-fix-history.patch::https://invent.kde.org/utilities/kalk/-/merge_requests/111.patch
 	validpgpkeys = CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7
 	validpgpkeys = F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87
 	validpgpkeys = D81C0CB38EB725EF6691C385BB463350D6EF31EF
 	sha256sums = f329050da30a35816928d90a9b505742989b23713a6b37cadcdc886401edc05c
 	sha256sums = SKIP
+	sha256sums = a3e5e3bb837e0e4b0211eb9216860f8361ae58c064eac8194d660beb6bb8e638
 
 pkgname = kalk
