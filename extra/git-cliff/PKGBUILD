@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=git-cliff
-pkgver=2.7.0
+pkgver=2.8.0
 pkgrel=2
 pkgdesc="A highly customizable changelog generator"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT' 'Apache-2.0')
 depends=('gcc-libs' 'glibc' 'zlib' 'libgit2')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('e5cc6e410aee3c7c960563a4d227efd32628c52d07d33acd6b65c5f6d42659f42d6dc12eb0e6c0d3dbba9926d9d1b263f0d3566911ad83f116a2a53bae529856')
+sha512sums=('66b162fc08b4b6a470f47c002ee2f69d30c6380baf51dfe199d2a429ea6f8ced682a1f5af9e60a7aded80ebeeffd52a9f663324646c28260832d92ba1856fa40')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -23,6 +23,7 @@ prepare() {
 build() {
   cd "$pkgname-$pkgver"
   CFLAGS+=' -ffat-lto-objects'
+  export LIBGIT2_NO_VENDOR=1
   local _features="--no-default-features \
     --features github --features gitlab --features bitbucket --features gitea"
   cargo build --release --frozen $_features
