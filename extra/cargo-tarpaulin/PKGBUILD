@@ -1,10 +1,9 @@
-# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Contributor: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=cargo-tarpaulin
-_tag=bfe1b05ed0613cbe49d1f41520def912671c65e0
 pkgver=0.31.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Tool to analyse test coverage of cargo projects"
 arch=('x86_64')
 url=https://github.com/xd009642/tarpaulin
@@ -30,6 +29,7 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
+  export LIBGIT2_NO_VENDOR=1
   export LIBSSH2_SYS_USE_PKG_CONFIG=1
   CFLAGS+=" -ffat-lto-objects"
   cargo build --release --frozen 
