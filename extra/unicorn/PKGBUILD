@@ -3,8 +3,8 @@
 
 pkgbase=unicorn
 pkgname=(unicorn python-unicorn ruby-unicorn-engine)
-pkgver=2.0.1.post1
-pkgrel=4
+pkgver=2.1.1
+pkgrel=1
 pkgdesc='Lightweight, multi-platform, multi-architecture CPU emulator framework based on QEMU'
 url='https://www.unicorn-engine.org'
 arch=(x86_64)
@@ -24,9 +24,9 @@ source=(
   https://github.com/unicorn-engine/unicorn/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz
   bindings-ruby-fix-unexpected-uc_query-result-pointer.patch
 )
-sha512sums=('8694d6bc92e3424a8ad050316413d53e56e0f55e7cad7517fb3e98e670a0f1768b060ead8f195da13607cec89a964364f05a8b9d0dc074f4ac5e51026f8343ad'
+sha512sums=('d6184b87a0fb729397ec2ac2cb8bfd9d10c9d4276e49efa681c66c7c54d1a325305a920332a708e68989cc299d0d1a543a1ceeaf552a9b44ec93084f7bf85ef2'
             '579700f4aad9c964c038f2ad77c8e26d0339dbfb96665f933d538a1f66e97486c02d671a41d996ab024ade2c8fdfc9c52c42e75fe368943fcbcac50019178ed2')
-b2sums=('45ec43f84bd9c206820c012c1302fc107c25349ec41363669f5ba8adddf0c1ebdc6b9956249f1aba25fe05a75e9f66d671c3e8f6d017ad8e21c9cf1f30776f02'
+b2sums=('3dd434121418b9a4eb69683cfca6ec0cd019b632492fbfff421eaf26f4907a2f30bf78699b3afe28df624037e3973a5110a6ea21bd233e66a04a689d3e3e5d1c'
         '2b501cbe3ea0228b2727342c549bf54f01a72385f51e753c4ec03a2af223b19e729942ef9a5272c2677c11958b45fcd52022e84fae23599536d2d1288b290206')
 
 prepare() {
