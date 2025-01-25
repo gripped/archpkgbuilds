@@ -5,7 +5,7 @@
 pkgbase=flatbuffers
 pkgname=(flatbuffers python-flatbuffers)
 # https://github.com/google/flatbuffers/blob/master/CHANGELOG.md
-pkgver=25.1.21
+pkgver=25.1.24
 pkgrel=1
 pkgdesc='An efficient cross platform serialization library for C++, with support for Java, C# and Go'
 arch=(x86_64)
@@ -15,7 +15,7 @@ depends=(gcc-libs)
 makedepends=(cmake python-setuptools python-numpy)
 source=(https://github.com/google/$pkgbase/archive/v$pkgver/$pkgbase-$pkgver.tar.gz
         "$pkgname-numpy2.patch::https://github.com/google/flatbuffers/pull/8346.patch")
-sha256sums=('7ab210001df1cd6234d0263801eeed3b941098bc9d6b41331832dd29cea4b555'
+sha256sums=('0b9f8d2bb1d22d553c93cd7e3ecf3eb725469980a58a98db6e21574341b4ed63'
             '2a33fba91f2b131384af1fd57bb0efe6e706121f681cda9392414f9b2b80f6c6')
 
 prepare() {
