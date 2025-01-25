@@ -4,8 +4,8 @@
 # Contributor: Daniel Micay <danielmicay@gmail.com>
 
 pkgname=python-pygit2
-pkgver=1.16.0
-pkgrel=3
+pkgver=1.17.0
+pkgrel=1
 pkgdesc='Python bindings for libgit2'
 arch=('x86_64')
 url="https://github.com/libgit2/pygit2"
@@ -13,16 +13,11 @@ license=('LicenseRef-GPL-2.0-only-with-linking-exception')
 depends=('glibc' 'libgit2' 'python' 'python-cffi')
 makedepends=('cython' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
-source=(
-  "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
-  "fix-libgit2-compatibility.patch::$url/commit/eba710e45bb40e18641c6531394bb46631e7f295.patch"
-)
-sha256sums=('72584d3bc24eb783229e5475eed41078815e90b03254451f3918bc80bba10513'
-            'e6d6c2cde580c163159bba8263c0fba4bc18af79781a6834e297cc2da242cbe9')
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('1cab19baf62d53c5be24d307b3cd4c189af8303302df3af14a0544c7642ddfd2')
 
 prepare() {
 	cd "pygit2-$pkgver"
-  patch -Np1 -i ../fix-libgit2-compatibility.patch
 	# Disable tests that do stuff online
 	sed -e '/has_network/s/True/False/' -i test/utils.py
 }
