@@ -3,7 +3,7 @@
 
 pkgname=cargo-cache
 pkgver=0.8.3
-pkgrel=3
+pkgrel=4
 pkgdesc="Display info and prune cargo cache"
 arch=('x86_64')
 url="https://github.com/matthiaskrgr/cargo-cache"
@@ -23,7 +23,7 @@ prepare() {
 
 build() {
     cd "$pkgname-$pkgver"
-    cargo build --release --locked
+    LIBGIT2_NO_VENDOR=1 cargo build --release --locked
 }
 
 package() {
