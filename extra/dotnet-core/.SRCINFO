@@ -1,11 +1,11 @@
 pkgbase = dotnet-core
-	pkgver = 8.0.11.sdk111
+	pkgver = 9.0.1.sdk102
 	pkgrel = 1
 	url = https://dotnet.microsoft.com
 	arch = x86_64
 	license = MIT
 	makedepends = bash
-	makedepends = clang
+	makedepends = clang18
 	makedepends = cmake
 	makedepends = dotnet-sdk
 	makedepends = dotnet-source-built-artifacts
@@ -16,7 +16,7 @@ pkgbase = dotnet-core
 	makedepends = libunwind
 	makedepends = libxml2
 	makedepends = lldb
-	makedepends = llvm
+	makedepends = llvm18
 	makedepends = lttng-ust2.12
 	makedepends = nodejs
 	makedepends = openssl
@@ -25,8 +25,8 @@ pkgbase = dotnet-core
 	optdepends = bash-completion: Bash completion support
 	options = !lto
 	options = staticlibs
-	source = git+https://github.com/dotnet/dotnet.git#tag=d5f3d652f9266d600777f626a9650a273419859b
-	b2sums = ecf35a9c05b86bce31e2fcdbfefec31a2e433ec8a8e47687753b2e02d1ba3734bded81221aff5e2a457a1856c9447d436dd1ab2f72f11dc37c9438bd7cf8ce87
+	source = git+https://github.com/dotnet/dotnet.git#tag=1cf154a56d078c531cc830e95a7cfdbc4fe1113c
+	b2sums = a0e57d8c2686eb47d7ef3676667b97e86660bfdfec87834ab757ed295d3d2766d0a27338971e8c0949ef2b37b94a0b5aae3190b5128864ccb9eb2624847a764a
 
 pkgname = dotnet-host
 	pkgdesc = A generic driver for the .NET Core Command Line Interface
@@ -45,14 +45,14 @@ pkgname = dotnet-runtime
 	depends = zlib
 	depends = openssl
 	optdepends = lttng-ust2.12: CoreCLR tracing
-	provides = dotnet-runtime-8.0
-	conflicts = dotnet-runtime-8.0
+	provides = dotnet-runtime-9.0
+	conflicts = dotnet-runtime-9.0
 
 pkgname = aspnet-runtime
 	pkgdesc = The ASP.NET Core runtime
 	depends = dotnet-runtime
-	provides = aspnet-runtime-8.0
-	conflicts = aspnet-runtime-8.0
+	provides = aspnet-runtime-9.0
+	conflicts = aspnet-runtime-9.0
 
 pkgname = dotnet-sdk
 	pkgdesc = The .NET Core SDK
@@ -62,8 +62,8 @@ pkgname = dotnet-sdk
 	depends = gcc-libs
 	depends = netstandard-targeting-pack
 	optdepends = aspnet-targeting-pack: Build ASP.NET Core applications
-	provides = dotnet-sdk-8.0
-	conflicts = dotnet-sdk-8.0
+	provides = dotnet-sdk-9.0
+	conflicts = dotnet-sdk-9.0
 
 pkgname = netstandard-targeting-pack
 	pkgdesc = The .NET Standard targeting pack
@@ -73,14 +73,16 @@ pkgname = netstandard-targeting-pack
 pkgname = dotnet-targeting-pack
 	pkgdesc = The .NET Core targeting pack
 	depends = netstandard-targeting-pack
-	provides = dotnet-targeting-pack-8.0
-	conflicts = dotnet-targeting-pack-8.0
+	provides = dotnet-targeting-pack-9.0
+	conflicts = dotnet-targeting-pack-9.0
 
 pkgname = aspnet-targeting-pack
 	pkgdesc = The ASP.NET Core targeting pack
 	depends = dotnet-targeting-pack
-	provides = aspnet-targeting-pack-8.0
-	conflicts = aspnet-targeting-pack-8.0
+	provides = aspnet-targeting-pack-9.0
+	conflicts = aspnet-targeting-pack-9.0
 
 pkgname = dotnet-source-built-artifacts
 	pkgdesc = Internal package for building the .NET Core SDK
+	provides = dotnet-source-built-artifacts-9.0
+	conflicts = dotnet-source-built-artifacts-9.0
