@@ -2,7 +2,7 @@
 
 pkgname=kommit
 pkgver=1.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Git gui client'
 arch=(x86_64)
 url='https://apps.kde.org/kommit'
