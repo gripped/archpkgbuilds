@@ -1,12 +1,13 @@
 pkgbase = ripasso
 	pkgdesc = A simple password manager written in Rust
 	pkgver = 0.7.0
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/cortex/ripasso
 	arch = x86_64
 	license = GPL3
 	makedepends = gettext
 	makedepends = cargo
+	makedepends = cargo-edit
 	makedepends = clang
 	makedepends = python
 	makedepends = gtk4
@@ -22,3 +23,10 @@ pkgbase = ripasso
 	sha512sums = 64a0a8fa0debbf16e6df41f26eec99f9cdb351305fb24ca1073f5c97d255ace15d4019de0bdd353cc396efc3ca7e7667da55d2eab9c37313d60b47533ea8352c
 
 pkgname = ripasso
+	depends = openssl
+	depends = libxcb
+	depends = libgpg-error
+	depends = zlib
+	depends = gpgme
+	depends = libgit2
+	depends = libgit2.so
