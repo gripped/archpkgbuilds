@@ -4,26 +4,27 @@
 
 pkgname=git-absorb
 pkgver=0.6.17
-pkgrel=1
+pkgrel=4
 pkgdesc="git commit --fixup, but automatic"
 arch=('x86_64')
 url="https://github.com/tummychow/git-absorb"
 license=('BSD')
-depends=('libgit2')
+depends=('gcc-libs' 'glibc' 'libgit2')
 makedepends=('cargo')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/tummychow/git-absorb/archive/${pkgver}.tar.gz")
 sha256sums=('512ef2bf0e642f8c34eb56aad657413bd9e04595e3bc4650ecf1c0799f148ca4')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  LIBGIT2_SYS_USE_PKG_CONFIG=1 cargo fetch --locked
+  cargo fetch --locked
   mkdir completions/
 }
 
 build() {
   cd "${pkgname}-${pkgver}"
-  CFLAGS+=" -ffat-lto-objects"
-  LIBGIT2_SYS_USE_PKG_CONFIG=1 cargo build --release --frozen
+  CFLAGS+=' -ffat-lto-objects'
+  export LIBGIT2_NO_VENDOR=1
+  cargo build --release --frozen
   "target/release/$pkgname" --gen-completions bash > "completions/$pkgname.bash"
   "target/release/$pkgname" --gen-completions fish > "completions/$pkgname.fish"
   "target/release/$pkgname" --gen-completions zsh > "completions/_$pkgname"
@@ -31,11 +32,13 @@ build() {
 
 check() {
   cd "${pkgname}-${pkgver}"
-  LIBGIT2_SYS_USE_PKG_CONFIG=1 cargo test --frozen
+  export LIBGIT2_NO_VENDOR=1
+  cargo test --frozen
 }
 
 package() {
   cd "${pkgname}-${pkgver}"
+  depends+=('libgit2.so')
   install -Dm 755 target/release/"${pkgname}" -t "${pkgdir}/usr/bin/"
   install -Dm 644 "README.md" "${pkgdir}/usr/share/doc/${pkgname}/README.md"
   install -Dm 644 "LICENSE.md" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
