@@ -2,7 +2,7 @@
 # Contributor: Sematre <sematre at gmx dot de>
 
 pkgname=cargo-deb
-pkgver=2.10.0
+pkgver=2.11.0
 pkgrel=1
 pkgdesc="Cargo subcommand that generates Debian packages"
 arch=('x86_64')
@@ -15,7 +15,7 @@ depends=(
   'xz' 'liblzma.so'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('09d4d1ef37cc504275e8e06be55ca31874ca9a79782b7b3b90e5bd6365acbeae')
+sha256sums=('67da7d2280cf4504e6df4fa0e201f72cce629bd1f2881e4a4d75f3099005e523')
 
 prepare() {
   cd "$pkgname-$pkgver"
