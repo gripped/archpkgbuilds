@@ -1,7 +1,7 @@
 pkgbase = dillo
 	pkgdesc = A small, fast graphical web browser built on FLTK
 	pkgver = 3.2.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.dillo.org
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -10,6 +10,7 @@ pkgbase = dillo
 	depends = glibc
 	depends = libjpeg-turbo
 	depends = libpng
+	depends = libwebp
 	depends = libx11
 	depends = openssl
 	depends = perl
@@ -20,10 +21,8 @@ pkgbase = dillo
 	backup = etc/dillo/keysrc
 	source = https://github.com/dillo-browser/dillo/releases/download/v3.2.0/dillo-3.2.0.tar.gz
 	source = https://github.com/dillo-browser/dillo/releases/download/v3.2.0/dillo-3.2.0.tar.gz.asc
-	source = dillo.desktop
 	validpgpkeys = 32E65EC501A1B6FDF8190D293EE6BA977EB2A253
 	sha256sums = ed685168397c7b333d25c21208fcf1313ffede59b44f526b7c9b6ee41ebccabd
 	sha256sums = SKIP
-	sha256sums = e94ead3a359c2eceb934b07af0fac4864251b9721fa7f4855331daa017b66202
 
 pkgname = dillo

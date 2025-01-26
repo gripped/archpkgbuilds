@@ -4,7 +4,7 @@
 
 pkgname=dillo
 pkgver=3.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A small, fast graphical web browser built on FLTK"
 arch=(x86_64)
 url="https://www.dillo.org"
@@ -15,6 +15,7 @@ depends=(
   'glibc'
   'libjpeg-turbo'
   'libpng'
+  'libwebp'
   'libx11'
   'openssl'
   'perl'
@@ -26,13 +27,9 @@ backup=(
   etc/dillo/dpidrc
   etc/dillo/keysrc
 )
-source=(
-  "https://github.com/dillo-browser/dillo/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz"{,.asc}
-  dillo.desktop
-)
+source=("https://github.com/dillo-browser/dillo/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz"{,.asc})
 sha256sums=('ed685168397c7b333d25c21208fcf1313ffede59b44f526b7c9b6ee41ebccabd'
-            'SKIP'
-            'e94ead3a359c2eceb934b07af0fac4864251b9721fa7f4855331daa017b66202')
+            'SKIP')
 validpgpkeys=('32E65EC501A1B6FDF8190D293EE6BA977EB2A253') # Rodrigo Arias Mallo <rodarima@gmail.com>
 
 build() {
@@ -50,5 +47,5 @@ package() {
   cd $pkgname-$pkgver
   make DESTDIR="$pkgdir" install
   install -vDm644 -t "$pkgdir/usr/share/pixmaps" icons/128x128/dillo.png
-  install -vDm644 -t "$pkgdir/usr/share/applications" ../dillo.desktop
+  install -vDm644 -t "$pkgdir/usr/share/applications" dillo.desktop
 }
