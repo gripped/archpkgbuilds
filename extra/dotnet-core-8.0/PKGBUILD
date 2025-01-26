@@ -13,7 +13,7 @@ pkgname=(
  dotnet-source-built-artifacts-8.0
 )
 pkgver=8.0.12.sdk112
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url=https://dotnet.microsoft.com
 license=(MIT)
@@ -22,7 +22,7 @@ makedepends=(
   clang18
   cmake
   dotnet-sdk-8.0
-  dotnet-source-built-artifacts
+  dotnet-source-built-artifacts-8.0
   git
   icu
   krb5
@@ -54,7 +54,7 @@ prepare() {
   git remote set-url origin https://github.com/dotnet/dotnet.git
 
   local _bootstrapver=$(xmllint --xpath "//*[local-name()='PrivateSourceBuiltArtifactsPackageVersion']/text()" src/installer/eng/Versions.props)
-  local _previousver=$(pacman -Q dotnet-source-built-artifacts | sed -r 's/.*([0-9]+\.[0-9]+)\.[0-9]+\.sdk([0-9]+)-.*/\1.\2/')
+  local _previousver=$(pacman -Q dotnet-source-built-artifacts-8.0 | sed -r 's/.*([0-9]+\.[0-9]+)\.[0-9]+\.sdk([0-9]+)-.*/\1.\2/')
 
   if [[ $_bootstrapver == $_previousver ]]; then
     cp -r /usr/share/dotnet .dotnet
@@ -143,7 +143,7 @@ package_dotnet-runtime-8.0() {
 
   install -dm 755 "${pkgdir}"/usr/share/{dotnet,licenses}
   bsdtar -xf dotnet/artifacts/x64/Release/dotnet-sdk-${pkgver%.*.sdk*}.${pkgver#*sdk}-arch-x64.tar.gz -C "${pkgdir}"/usr/share/dotnet/ --no-same-owner shared/Microsoft.NETCore.App
-  ln -s dotnet-host "${pkgdir}"/usr/share/licenses/dotnet-runtime
+  ln -s dotnet-host "${pkgdir}"/usr/share/licenses/dotnet-runtime-8.0
 }
 
 package_aspnet-runtime-8.0() {
@@ -152,7 +152,7 @@ package_aspnet-runtime-8.0() {
 
   install -dm 755 "${pkgdir}"/usr/share/{dotnet,licenses}
   bsdtar -xf dotnet/artifacts/x64/Release/dotnet-sdk-${pkgver%.*.sdk*}.${pkgver#*sdk}-arch-x64.tar.gz -C "${pkgdir}"/usr/share/dotnet/ --no-same-owner shared/Microsoft.AspNetCore.App
-  ln -s dotnet-host "${pkgdir}"/usr/share/licenses/aspnet-runtime
+  ln -s dotnet-host "${pkgdir}"/usr/share/licenses/aspnet-runtime-8.0
 }
 
 package_dotnet-sdk-8.0() {
@@ -168,7 +168,7 @@ package_dotnet-sdk-8.0() {
 
   install -dm 755 "${pkgdir}"/usr/share/{dotnet,licenses}
   bsdtar -xf dotnet/artifacts/x64/Release/dotnet-sdk-${pkgver%.*.sdk*}.${pkgver#*sdk}-arch-x64.tar.gz -C "${pkgdir}"/usr/share/dotnet/ --no-same-owner sdk sdk-manifests templates
-  ln -s dotnet-host "${pkgdir}"/usr/share/licenses/dotnet-sdk
+  ln -s dotnet-host "${pkgdir}"/usr/share/licenses/dotnet-sdk-8.0
 }
 
 package_dotnet-targeting-pack-8.0() {
@@ -177,7 +177,7 @@ package_dotnet-targeting-pack-8.0() {
 
   install -dm 755 "${pkgdir}"/usr/share/{dotnet,licenses}
   bsdtar -xf dotnet/artifacts/x64/Release/dotnet-sdk-${pkgver%.*.sdk*}.${pkgver#*sdk}-arch-x64.tar.gz -C "${pkgdir}"/usr/share/dotnet/ --no-same-owner packs/Microsoft.NETCore.App.{Host.arch-x64,Ref}
-  ln -s dotnet-host "${pkgdir}"/usr/share/licenses/dotnet-targeting-pack
+  ln -s dotnet-host "${pkgdir}"/usr/share/licenses/dotnet-targeting-pack-8.0
 }
 
 package_aspnet-targeting-pack-8.0() {
@@ -186,7 +186,7 @@ package_aspnet-targeting-pack-8.0() {
 
   install -dm 755 "${pkgdir}"/usr/share/{dotnet,licenses}
   bsdtar -xf dotnet/artifacts/x64/Release/dotnet-sdk-${pkgver%.*.sdk*}.${pkgver#*sdk}-arch-x64.tar.gz -C "${pkgdir}"/usr/share/dotnet/ --no-same-owner packs/Microsoft.AspNetCore.App.Ref
-  ln -s dotnet-host "${pkgdir}"/usr/share/licenses/aspnet-targeting-pack
+  ln -s dotnet-host "${pkgdir}"/usr/share/licenses/aspnet-targeting-pack-8.0
 }
 
 package_dotnet-source-built-artifacts-8.0() {
