@@ -2,8 +2,8 @@
 # Contributor: Philippe Proulx <eeppeliteloop@gmail.com>
 _pkgname=barectf
 pkgname=python-barectf
-pkgver=3.1.1
-pkgrel=5
+pkgver=3.1.2
+pkgrel=1
 pkgdesc='Generator of ANSI C tracers which output CTF'
 arch=('any')
 url='http://barectf.org'
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('python-termcolor' 'python-yaml' 'python-jsonschema' 'python-jinja' 'python-setuptools')
 makedepends=('python-poetry-core' 'python-build' 'python-installer' 'python-wheel')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/efficios/barectf/archive/v$pkgver.tar.gz")
-sha256sums=('42b93222ee12dc25b012a374c40020f5817e0e71c50118814a956737297195d7')
+sha256sums=('bad30bee4370408a101e6cca7af325cf9875e1a1a0fd712219603f44ac2e7ec8')
 
 build() {
     cd "$_pkgname-$pkgver"
