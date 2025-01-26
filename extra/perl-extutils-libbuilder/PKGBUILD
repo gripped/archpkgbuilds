@@ -2,8 +2,8 @@
 
 pkgname='perl-extutils-libbuilder'
 _dist="ExtUtils-LibBuilder"
-pkgver=0.08
-pkgrel=13
+pkgver=0.09
+pkgrel=1
 pkgdesc="A tools to build C libraries"
 arch=('any')
 license=('PerlArtistic' 'GPL')
@@ -12,7 +12,7 @@ depends=('perl')
 makedepends=('perl-module-build')
 url="https://metacpan.org/release/${_dist}"
 source=("https://search.cpan.org/CPAN/authors/id/A/AM/AMBS/${_dist}-${pkgver}.tar.gz")
-sha256sums=('c51171e06de53039f0bca1d97a6471ec37941ff59e8a3d1cb170ebdd2573b5d2')
+sha256sums=('dbfac85d015874189a704fa0a2f001d13b5a0c7d89f36c06ff32d569720a6cfb')
 
 build() {
     cd "${srcdir}/${_dist}-${pkgver}"
