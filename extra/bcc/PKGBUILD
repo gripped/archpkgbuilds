@@ -4,8 +4,8 @@
 
 pkgbase=bcc
 pkgname=('bcc' 'bcc-tools' 'python-bcc')
-pkgver=0.32.0
-pkgrel=3
+pkgver=0.33.0
+pkgrel=1
 pkgdesc='BPF Compiler Collection'
 arch=('x86_64')
 url='https://github.com/iovisor/bcc'
@@ -13,7 +13,7 @@ license=('Apache-2.0')
 makedepends=('cmake' 'clang' 'llvm' 'flex' 'bison' 'libbpf' 'python' 'python-setuptools')
 # checkdepends=('netperf' 'iperf')
 source=("bcc-$pkgver.tar.gz"::"https://github.com/iovisor/bcc/releases/download/v$pkgver/bcc-src-with-submodule.tar.gz")
-sha512sums=('0a7fd90789e9474b00051cea71450ee3d9ada0a19fd7b9e48bd9c1f8ea0e9a0f99b7d01a3e4dbf4bbc881af76df0e5946c9548a7e3568381b648c60e80885040')
+sha512sums=('cf387d58fba47e907309c64c818598d394080207d22219336d30e29e620cb644a9fd03f1a58ca0eb0775c5fd1bfeb4b4207514435ee6c1a8ed2178df90cf89a9')
 
 _pick() {
   local p="$1" f d; shift
