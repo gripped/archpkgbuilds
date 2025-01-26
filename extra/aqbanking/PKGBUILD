@@ -4,7 +4,7 @@
 
 pkgname=aqbanking
 pkgver=6.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A library for online banking and financial applications"
 arch=('x86_64')
 url="https://www.aquamaniac.de/rdm/projects/aqbanking"
@@ -20,11 +20,11 @@ sha256sums=('37634487b95bad72b1b21397bce08cb4b15e13cb253886767c98f31712e40bfb'
 build() {
   cd "${srcdir}"/$pkgname-$pkgver
 
-  BUILD_DATE="$(date --utc --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y-%m-%d)"
+  BUILD_DATE="$(date --utc --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m%d%H%M%S)"
 
   export PKG_CONFIG=/usr/bin/pkg-config
   ./configure --prefix=/usr --enable-gwenhywfar \
-              --with-build-datetime=$(BUILD_DATE) \
+              --with-build-datetime=${BUILD_DATE} \
               --with-backends="aqhbci aqofxconnect aqpaypal aqnone" # aqnone https://www.aquamaniac.de/rdm/issues/258
   make
 }
