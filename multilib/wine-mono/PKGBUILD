@@ -12,15 +12,15 @@
 # https://gitlab.winehq.org/wine/wine/-/blob/wine-9.12/dlls/appwiz.cpl/addons.c#L59
 
 pkgname=wine-mono
-pkgver=9.3.0
+pkgver=9.4.0
 pkgrel=1
 pkgdesc="Wine's built-in replacement for Microsoft's .NET Framework"
 arch=('x86_64')
-url="https://wiki.winehq.org/Mono"
+url='https://gitlab.winehq.org/wine/wine/-/wikis/Wine-Mono'
 license=('GPL-2.0-or-later' 'LGPL-2.1-only' 'MPL-1.1')
 depends=('wine')
 source=("https://dl.winehq.org/wine/${pkgname}/${pkgver}/${pkgname}-${pkgver}-x86.tar.xz")
-sha512sums=('094113aad504fa46d9f3b0ca6f7926c14fbda3edbbbc5dab307f19114fec0173a451a604b2083f399e61d5c6704971a0d602930cc9ba11502c863ec67318c480')
+sha512sums=('2ea3fa22f64019ff71b4c368e3b83608c2b0cf4ffb63fc349b29e41ddc17d015bf431d41788ce3139ddc19336690b9460c983d18eea514351f069671012895f2')
 
 package() {
   install -d -m755 "${pkgdir}/usr/share/wine/mono"
