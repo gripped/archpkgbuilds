@@ -4,13 +4,13 @@
 # Contributor: Jokler <aur@jokler.xyz>
 
 pkgname=bacon
-pkgver=3.8.0
-pkgrel=1
+pkgver=3.9.0
+pkgrel=2
 pkgdesc='A background rust code checker'
 arch=('x86_64')
 url='https://dystroy.org/bacon'
 license=('AGPL-3.0-only')
-depends=('glibc' 'gcc-libs')
+depends=('alsa-lib' 'glibc' 'gcc-libs')
 makedepends=('git' 'rust')
 optdepends=('cargo: for use with Rust'
             'clang: for use with C++ via clang'
@@ -20,8 +20,8 @@ optdepends=('cargo: for use with Rust'
             'python-pytest: for use with Python via pytest')
 options=('!lto')
 source=("$pkgname::git+https://github.com/Canop/bacon#tag=v$pkgver")
-sha512sums=('949cc31d2892c0f7c7c1646445fcc6f0ebc95dad319caaa7b3b4d1248188c935fdfaf5f48f7bbd12db45cc6ec7f7daa0ca5d3a739d39c83f8d2100d0d49d6af5')
-b2sums=('08bd87f3e16aaca056cbe461bebaf8b083e6e62313d9ae125679e10d6c2b2f0bc7a5e47346749e2183f1961530bb733abda486a949c92efdfb1bed7f6cc0cbf0')
+sha512sums=('054fbd080188286b10d004effaa7b33ee269e2e56bad9672170ca80c9102859363563246a87b96aa73cb837472e8f36a0f6766198806a99e6f3058679da3be7b')
+b2sums=('c5d73be035435bb138a1927343025956dd4975e0e0eac3dd6f11b2fa8aa6be425ae19871aa6015f18da8bed0608fefa498a53246e154d6c3fd03b4e107a8153e')
 
 prepare() {
   cd "$pkgname"
@@ -44,6 +44,7 @@ check() {
 
 package() {
   cd "$pkgname"
+  depends+=(libasound.so)
 
   # binary
   install -vDm755 -t "$pkgdir/usr/bin" "target/release/$pkgname"
