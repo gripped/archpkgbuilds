@@ -4,8 +4,8 @@
 # Contributor: Anton Bazhenov <anton.bazhenov at gmail>
 
 pkgname=bpython
-pkgver=0.24
-pkgrel=6
+pkgver=0.25
+pkgrel=1
 pkgdesc='Fancy ncurses interface to the Python interpreter'
 arch=('any')
 url='https://bpython-interpreter.org/'
@@ -35,14 +35,8 @@ optdepends=(
 #source=("https://github.com/bpython/bpython/archive/$pkgver-release.tar.gz")  # missing version data
 source=(
     "https://files.pythonhosted.org/packages/source/b/bpython/bpython-$pkgver.tar.gz"
-    "bpython-python-3.13-fix-tests.patch::https://github.com/bpython/bpython/commit/45f4117b534d6827279f7b9e633f3cabe0fb37e6.patch"
 )
-sha256sums=('98736ffd7a8c48fd2bfb53d898a475f4241bde0b672125706af04d9d08fd3dbd'
-            'd9784f4b4d30504124491ddf62eedae4ad3bc789b6a8d2aeadc905f9d97bee57')
-
-prepare() {
-  patch -Np1 -d bpython-$pkgver -i ../bpython-python-3.13-fix-tests.patch
-}
+sha256sums=('c246fc909ef6dcc26e9d8cb4615b0e6b1613f3543d12269b19ffd0782166c65b')
 
 build() {
   cd bpython-$pkgver
