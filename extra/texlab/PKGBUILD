@@ -1,9 +1,10 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot com>
 # Maintainer: Konstantin Gizdov <arch at kge dot pw>
 # Contributor: Eric Förster <eric DOT foerster AT outlook DOT com>
 # Contributor: Patrick Förster <patrick DOT foerster AT outlook DOT de>
 
 pkgname=texlab
-pkgver=5.21.0
+pkgver=5.22.0
 pkgrel=1
 pkgdesc="A cross-platform implementation of the Language Server Protocol for LaTeX."
 arch=('x86_64')
@@ -12,7 +13,7 @@ license=('MIT')
 depends=('glibc' 'gcc-libs')
 makedepends=('cargo' 'npm')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/latex-lsp/texlab/archive/v${pkgver}.tar.gz")
-b2sums=('2a7fb0f66d83907674e67fe664057fa164c81d4506716898035987fa3e385c19f05da83fe692d1a308a4efe440fd00390200accc9379728cfcdb8a65c7e9504d')
+b2sums=('df9a785146c6466335b009db67df6f17b4aa4e1873101f3a196dd8a51b6bdce04d39eea3a4f3ed26c304ca8358a82f87f53f619ea057e2fd119bf7de9cf5a63c')
 options=('!lto')
 
 prepare() {
