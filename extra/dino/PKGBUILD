@@ -3,14 +3,14 @@
 
 pkgname=dino
 pkgver=0.4.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Modern XMPP (Jabber) chat client written in Vala"
 url="https://dino.im"
 arch=('x86_64')
 license=('GPL-3.0-only')
 depends=(glib2 glib-networking gtk4 libadwaita gpgme libgee libgcrypt libsignal-protocol-c
          libsoup3 sqlite qrencode gspell libnice gstreamer gst-plugin-gtk
-         gst-plugins-base gst-plugins-good libsrtp webrtc-audio-processing gdk-pixbuf2)
+         gst-plugins-base gst-plugins-good libsrtp webrtc-audio-processing-0.3 gdk-pixbuf2)
 makedepends=(git cmake vala ninja)
 source=(https://github.com/dino/dino/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz{,.asc})
 sha256sums=('31894ce7fa9aa8bfa7c43986a5369f384801f336e89fc0e2e2ab2443f1f67dff'
