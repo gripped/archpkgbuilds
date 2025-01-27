@@ -5,7 +5,7 @@
 
 pkgname=pass
 pkgver=1.7.4
-pkgrel=6
+pkgrel=7
 pkgdesc='Stores, retrieves, generates, and synchronizes passwords securely'
 arch=('any')
 url='https://www.passwordstore.org/'
@@ -22,7 +22,7 @@ optdepends=('git: for Git support'
             'xclip: for clipboard support on X11'
             'wl-clipboard: for clipboard support on Wayland'
             'pinentry'
-            'gtk3: pinentry backend (gtk2)'
+            'gtk3: pinentry backend (gtk3)'
             'gcr: pinentry backend (gnome3)'
             'qt5-x11extras: pinentry backend (qt)'
             'kwayland5: pinentry backend (qt)'
