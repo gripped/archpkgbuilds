@@ -2,41 +2,47 @@
 
 pkgname=cargo-tauri
 _pkgname=tauri
-pkgver=1.5.11
-pkgrel=2
+pkgver=2.2.5
+pkgrel=1
 pkgdesc="Command line interface for building Tauri apps"
 arch=('x86_64')
 url="https://github.com/tauri-apps/tauri"
 license=('MIT' 'Apache-2.0')
-depends=('cargo' 'gcc-libs' 'bzip2')
+depends=(
+  'bzip2' 'libbz2.so'
+  'cargo'
+  'gcc-libs'
+  'glibc'
+  'xz' 'liblzma.so'
+)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/tauri-cli-v$pkgver.tar.gz")
-sha512sums=('5333eb2d0be492d4837e1d92715aafbaadc0480564a9568b0be28cb3fd60f498cea5517c0a604663e91edacaa6cfa57006466be4ef08a213039ed6cdece6e38d')
+sha512sums=('338da5347fe48fa904cb64dd72f632bae31afb4e4a01daf735929fa2b8e47faf0c855edddd20d024147274362697507663ca10341c87d0ec2fd60254b5863a57')
 options=('!lto')
 
 prepare() {
   mv "$_pkgname-tauri-cli-v$pkgver" "$pkgname-$pkgver"
-  cd "$pkgname-$pkgver/tooling/cli"
+  cd "$pkgname-$pkgver/crates/tauri-cli"
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
   mkdir -p completions
 }
 
 build() {
-  cd "$pkgname-$pkgver/tooling/cli"
+  cd "$pkgname-$pkgver/crates/tauri-cli"
   cargo build --release --frozen
-  local _completion="target/release/$pkgname completions --shell"
+  local _completion="../../target/release/$pkgname completions --shell"
   # $_completion bash > "completions/$pkgname"
   $_completion fish > "completions/$pkgname.fish"
   $_completion zsh  > "completions/_$pkgname"
 }
 
 check() {
-  cd "$pkgname-$pkgver/tooling/cli"
+  cd "$pkgname-$pkgver/crates/tauri-cli"
   cargo test --frozen
 }
 
 package() {
-  cd "$pkgname-$pkgver/tooling/cli"
-  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  cd "$pkgname-$pkgver/crates/tauri-cli"
+  install -Dm 755 "../../target/release/$pkgname" -t "$pkgdir/usr/bin"
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm 644 LICENSE_MIT -t "$pkgdir/usr/share/licenses/$pkgname"
   # install -Dm664 "completions/$pkgname" -t "$pkgdir/usr/share/bash-completion/completions/"
