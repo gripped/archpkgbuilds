@@ -3,16 +3,17 @@
 # Contributor: feschber
 
 pkgname=lan-mouse
-pkgver=0.9.1
+pkgver=0.10.0
+_commit=4703a4c9479dc787ee0555d35a79b757391ae0f9
 pkgrel=1
 pkgdesc="Software KVM Switch / mouse & keyboard sharing software for Local Area Networks"
 arch=('x86_64')
 url="https://github.com/feschber/lan-mouse"
 license=("GPL-3.0-only")
 depends=('libadwaita' 'gtk4' 'libx11' 'libxtst' 'glib2' 'gcc-libs' 'hicolor-icon-theme')
-makedepends=('cargo' 'desktop-file-utils')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('5d75e32bef5e391e145624f8093782291aaa70266f5b97f85090a2514c140917')
+makedepends=('cargo' 'desktop-file-utils' 'git')
+source=("$pkgname-$pkgver::git+$url.git#commit=$_commit")
+sha256sums=('SKIP')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -34,7 +35,7 @@ package() {
 
   desktop-file-install -m 644 --dir "$pkgdir/usr/share/applications/" "de.feschber.LanMouse.desktop"
 
-  install -Dm0644 -t "$pkgdir/usr/share/icons/hicolor/scalable/apps" "resources/de.feschber.LanMouse.svg"
+  install -Dm0644 -t "$pkgdir/usr/share/icons/hicolor/scalable/apps" "$pkgname-gtk/resources/de.feschber.LanMouse.svg"
   install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
 }
 
