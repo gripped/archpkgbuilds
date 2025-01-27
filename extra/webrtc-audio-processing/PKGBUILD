@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=webrtc-audio-processing
-pkgver=2.0
+pkgver=2.1
 pkgrel=1
 pkgdesc="AudioProcessing library based on Google's implementation of WebRTC"
 url="https://freedesktop.org/software/pulseaudio/webrtc-audio-processing/"
@@ -20,7 +20,7 @@ provides=(
   libwebrtc-audio-processing-2.so
 )
 source=("git+https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing.git?signed#tag=v$pkgver")
-b2sums=('89d43217948cfccfa146337828c40d51d500bcc252757956c296a188ae7fc91bfe7b7d37ac0a817dbc8bbcfbf605adbb0e68dcb5889775a7f3c0ef70d14c7783')
+b2sums=('835d68d138f6081eee657d7d454c0c3fbb6389638da5d011020a25a20002ec6e1bc8a3fd756bdfd24c0060323cd52e99e9fece4f069852139aa2d2f274f93689')
 validpgpkeys=(
   52DFA7B8BAC74687C8A88EF48165E3D1987E2132 # Arun Raghavan <arun@asymptotic.io>
 )
