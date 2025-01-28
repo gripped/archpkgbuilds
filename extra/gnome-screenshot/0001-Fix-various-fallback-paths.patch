@@ -1,4 +1,4 @@
-From 10e956fd84c63bb61b1092465d24ca2b9cce472a Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Wed, 26 Jun 2024 18:56:57 +0200
 Subject: [PATCH] Fix various fallback paths
@@ -10,12 +10,12 @@ Subject: [PATCH] Fix various fallback paths
 ---
  src/screenshot-application.c    |  2 ++
  src/screenshot-area-selection.c | 20 +++++++++++++++++---
- src/screenshot-backend-shell.c  | 17 +++++++++++++----
+ src/screenshot-backend-shell.c  | 19 ++++++++++++++-----
  src/screenshot-utils.c          | 10 ++++------
- 4 files changed, 36 insertions(+), 13 deletions(-)
+ 4 files changed, 37 insertions(+), 14 deletions(-)
 
 diff --git a/src/screenshot-application.c b/src/screenshot-application.c
-index f7f5022..8c438ed 100644
+index f7f5022f8602..8c438ed2ead9 100644
 --- a/src/screenshot-application.c
 +++ b/src/screenshot-application.c
 @@ -498,6 +498,8 @@ finish_take_screenshot (ScreenshotApplication *self)
@@ -28,7 +28,7 @@ index f7f5022..8c438ed 100644
        return;
      }
 diff --git a/src/screenshot-area-selection.c b/src/screenshot-area-selection.c
-index 224d93d..d6c8244 100644
+index 224d93d452ab..d6c824410483 100644
 --- a/src/screenshot-area-selection.c
 +++ b/src/screenshot-area-selection.c
 @@ -24,6 +24,9 @@
@@ -41,7 +41,7 @@ index 224d93d..d6c8244 100644
  typedef struct {
    GdkRectangle  rect;
    gboolean      button_pressed;
-@@ -200,6 +203,7 @@ create_select_window (void)
+@@ -200,29 +203,31 @@ create_select_window (void)
  
    return window;
  }
@@ -49,7 +49,23 @@ index 224d93d..d6c8244 100644
  
  typedef struct {
    GdkRectangle rectangle;
-@@ -223,6 +227,7 @@ emit_select_callback_in_idle (gpointer user_data)
+   SelectAreaCallback callback;
+   gpointer callback_data;
+   gboolean aborted;
+ } CallbackData;
+ 
+ static gboolean
+ emit_select_callback_in_idle (gpointer user_data)
+ {
+   CallbackData *data = user_data;
+ 
+   if (!data->aborted)
+     data->callback (&data->rectangle, data->callback_data);
+   else
+     data->callback (NULL, data->callback_data);
+ 
+   g_slice_free (CallbackData, data);
+ 
    return FALSE;
  }
  
@@ -57,7 +73,7 @@ index 224d93d..d6c8244 100644
  static void
  screenshot_select_area_x11_async (CallbackData *cb_data)
  {
-@@ -272,6 +277,7 @@ screenshot_select_area_x11_async (CallbackData *cb_data)
+@@ -272,30 +277,39 @@ screenshot_select_area_x11_async (CallbackData *cb_data)
     */
    g_timeout_add (200, emit_select_callback_in_idle, cb_data);
  }
@@ -65,7 +81,20 @@ index 224d93d..d6c8244 100644
  
  static void
  select_area_done (GObject *source_object,
-@@ -292,10 +298,18 @@ select_area_done (GObject *source_object,
+                   GAsyncResult *res,
+                   gpointer user_data)
+ {
+   CallbackData *cb_data = user_data;
+   g_autoptr(GError) error = NULL;
+   g_autoptr(GVariant) ret = NULL;
+ 
+   ret = g_dbus_connection_call_finish (G_DBUS_CONNECTION (source_object), res, &error);
+   if (error != NULL)
+     {
+       if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+         {
+           cb_data->aborted = TRUE;
+           g_idle_add (emit_select_callback_in_idle, cb_data);
            return;
          }
  
@@ -88,7 +117,7 @@ index 224d93d..d6c8244 100644
      }
  
 diff --git a/src/screenshot-backend-shell.c b/src/screenshot-backend-shell.c
-index 84c5ead..1e34408 100644
+index 84c5eadc639d..1e344085ebcd 100644
 --- a/src/screenshot-backend-shell.c
 +++ b/src/screenshot-backend-shell.c
 @@ -94,14 +94,23 @@ screenshot_backend_shell_get_pixbuf (ScreenshotBackend *backend,
@@ -99,20 +128,21 @@ index 84c5ead..1e34408 100644
 +  if (error != NULL)
      {
 -      screenshot = gdk_pixbuf_new_from_file (filename, &error);
-+      g_warning ("Unable to use GNOME Shell's builtin screenshot interface: %s", error->message);
-+      return NULL;
-+    }
-+
-+  screenshot = gdk_pixbuf_new_from_file (filename, &error);
- 
+-
 -      /* remove the temporary file created by the shell */
 -      g_unlink (filename);
++      g_warning ("Unable to use GNOME Shell's builtin screenshot interface: %s", error->message);
++      return NULL;
+     }
+ 
++  screenshot = gdk_pixbuf_new_from_file (filename, &error);
++
 +  if (!screenshot && screenshot_config->take_window_shot)
 +    {
 +      screenshot_config->take_window_shot = FALSE;
 +      return screenshot_backend_shell_get_pixbuf (backend, NULL);
-     }
- 
++    }
++
 +  /* remove the temporary file created by the shell */
 +  g_unlink (filename);
 +
@@ -120,10 +150,10 @@ index 84c5ead..1e34408 100644
  }
  
 diff --git a/src/screenshot-utils.c b/src/screenshot-utils.c
-index df0b6e9..bab7f7d 100644
+index df0b6e98ddf9..bab7f7d4d692 100644
 --- a/src/screenshot-utils.c
 +++ b/src/screenshot-utils.c
-@@ -29,6 +29,7 @@
+@@ -29,37 +29,35 @@
  #include "screenshot-backend-shell.h"
  
  #ifdef HAVE_X11
@@ -131,7 +161,18 @@ index df0b6e9..bab7f7d 100644
  #include "screenshot-backend-x11.h"
  #endif
  
-@@ -47,19 +48,16 @@ screenshot_get_pixbuf (GdkRectangle *rectangle)
+ GdkPixbuf *
+ screenshot_get_pixbuf (GdkRectangle *rectangle)
+ {
+   GdkPixbuf *screenshot = NULL;
+   gboolean force_fallback = FALSE;
+   g_autoptr (ScreenshotBackend) backend = NULL;
+ 
+ #ifdef HAVE_X11
+   force_fallback = g_getenv ("GNOME_SCREENSHOT_FORCE_FALLBACK") != NULL;
+ #endif
+ 
+   if (!force_fallback)
      {
        backend = screenshot_backend_shell_new ();
        screenshot = screenshot_backend_get_pixbuf (backend, rectangle);
@@ -154,6 +195,3 @@ index df0b6e9..bab7f7d 100644
      {
        g_clear_object (&backend);
        backend = screenshot_backend_x11_new ();
--- 
-2.45.2
-

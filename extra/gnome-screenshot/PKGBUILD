@@ -3,18 +3,35 @@
 
 pkgname=gnome-screenshot
 pkgver=41.0+r39+ga362197
-pkgrel=2
+pkgrel=3
 pkgdesc="Take pictures of your screen"
 url="https://gitlab.gnome.org/GNOME/gnome-screenshot"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
-depends=(gtk3 libhandy)
-makedepends=(git meson appstream-glib)
+depends=(
+  cairo
+  dconf
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  libhandy
+  libx11
+  libxext
+)
+makedepends=(
+  git
+  meson
+)
 _commit=a36219781bd08201d0454bc6101ff9502430aea3  # master
-source=("git+https://gitlab.gnome.org/GNOME/gnome-screenshot.git#commit=$_commit"
-        0001-Fix-various-fallback-paths.patch)
-b2sums=('5c388fc96c2a153877d1824308f792861f6f3488c983b7ef14651cf265adf838eafb6a92a06f1a30b0fd70d8e83483a26c827dcd9085a93f37026ac03099e34b'
-        'b13dc278bf0d69d9bd450d43584dd7d7e4e3a34460f1cac0d33b0a497a1f12561b579842fa49767562a7ac245d9d3d58a15d837e80ba262e1fceaa4f4788e49f')
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-screenshot.git#commit=$_commit"
+  0001-Fix-various-fallback-paths.patch
+)
+b2sums=('83f2327f72e839f1fa8c50787c1709407150bcceb67418ad719ba48fbf91a09dfb9040961fe10406459ab1138a28ea1a0f5f91523e029a0cd3e7b25f1c88ff78'
+        '543ba200a41eb5948c40dadf0ffa2c2c484f6e83f10ea0d9a4c3bb8c91a7b27e0ea14d9f4cee8c85355f981a7fa87b3ba04dad16251d396c65011967a53da9aa')
 
 pkgver() {
   cd $pkgname
@@ -42,4 +59,4 @@ package() {
   meson install -C build --destdir "$pkgdir"
 }
 
-# vim:set sw=2 et:
+# vim:set sw=2 sts=-1 et:
