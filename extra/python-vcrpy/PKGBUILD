@@ -2,8 +2,8 @@
 
 pkgname=python-vcrpy
 _name="${pkgname#python-}"
-pkgver=6.0.1
-pkgrel=4
+pkgver=7.0.0
+pkgrel=1
 pkgdesc='Automatically mock your HTTP interactions to simplify and speed up testing'
 arch=('any')
 license=('MIT')
@@ -12,7 +12,7 @@ depends=('python' 'python-pyyaml' 'python-wrapt' 'python-yarl')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-aiohttp' 'python-boto3' 'python-httpx' 'python-pytest' 'python-pytest-aiohttp' 'python-pytest-asyncio' 'python-pytest-httpbin' 'python-requests' 'python-tornado')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('79ba9ea29db20ddc3db5676d7bdb05da17848eb126ed63d813a1d2b0de80573fff3afaec2ffe1af491a0310ce922c7545c4569035d0f5868f171db25965c217f')
+sha512sums=('6e82f56adddc5b5e3d56c261e612af5a66daed6a3485dfc082be235e95901ceaae9aa83bab96cef19d8fbe35c27953b4b101fea702fd3a44cbe578c926990d87')
 
 build() {
   cd $_name-$pkgver
