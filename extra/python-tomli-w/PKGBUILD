@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-tomli-w
-pkgver=1.1.0
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="A lil' TOML writer"
 url=https://github.com/hukkin/tomli-w
@@ -18,9 +18,9 @@ checkdepends=(
   python-pytest
   python-tomli
 )
-_tag=179105660c367874818f2cdd1e06ed98eea668f1
+_tag=a8f80172ba16fe694e37f6e07e6352ecee384c58
 source=(git+https://github.com/hukkin/tomli-w.git#tag=${_tag})
-b2sums=('e466f80759c30cd0e3a08c680f78f7bf1a52166555b43b6c0d62686bbb9dcbf4cba1b987d6815910c2fa1da96fd497fb5037f5351f7eda7fd6db981f04afab95')
+b2sums=('35efac07d67e55eec96447167d5788eadf968f00b130123d2a31c8f0964d57e7b8edbd4b5c848d7eef95d177457f6037b93f40c27d5c9da6c9ebaf354fece4e5')
 
 pkgver() {
   cd tomli-w
