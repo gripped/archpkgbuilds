@@ -9,9 +9,9 @@ pkgname=(
   gtk-vnc-docs
 )
 pkgver=1.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="VNC viewer widget for GTK"
-url="https://wiki.gnome.org/Projects/gtk(2d)vnc"
+url="https://gitlab.gnome.org/GNOME/gtk-vnc"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
@@ -37,7 +37,7 @@ makedepends=(
   vala
 )
 source=(
-  "git+https://gitlab.gnome.org/GNOME/gtk-vnc.git?signed#tag=$pkgver"
+  "git+$url.git?signed#tag=$pkgver"
   "git+https://gitlab.com/keycodemap/keycodemapdb.git"
 )
 b2sums=('93ba28b6ed76c00c6bd10ef1e2b113270a71fd8870b367e8da2b11a1a7564b99649262329f66b5fa2b3fc61dac7b81bba805f5cf8db9fc2a72e24f5625f1be18'
