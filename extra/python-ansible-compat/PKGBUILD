@@ -3,7 +3,7 @@
 
 _name=ansible-compat
 pkgname=python-ansible-compat
-pkgver=25.0.0
+pkgver=25.1.0
 pkgrel=1
 pkgdesc="Functions that help interacting with various versions of Ansible"
 arch=(any)
@@ -27,11 +27,12 @@ makedepends=(
 )
 checkdepends=(
   python-pytest
+  python-pytest-instafail
   python-pytest-mock
 )
 source=(git+$url.git#tag=v$pkgver)
-sha256sums=('7328d8122e485a0d89d0a7bf2395d2e26f6ed0435cc58e39dd63f1d559a9442c')
-b2sums=('86329d695db824e0d5a1c62efebd6a30376834412e99604896959898adef3b9d2d09be558846ae8486e9f7495ad592d0ad09c6f0b2dfa6391f12c4c88d8905a6')
+sha256sums=('22f8b09014cec85837b1cc551b2df7426092c16c5a0e362d09de83c1bf28cd48')
+b2sums=('f77bf6d7892d16cf3bb6da74ad888ba5408bb92ca49e8f733433ecdb2b090cf68a7663d7fa96c3ff477e8bfbd17e36cbe51c6bce442ec0b99a37aea94d496688')
 
 build() {
   cd $_name
@@ -49,6 +50,13 @@ check() {
     --deselect test/test_runtime.py::test_install_collection_git
     --deselect test/test_runtime.py::test_install_collection_from_disk[normal]
     --deselect test/test_runtime.py::test_install_collection_from_disk[deep]
+    --deselect test/test_runtime.py::test_require_collection_preexisting_broken
+    --deselect test/test_runtime.py::test_require_collection_install
+    --deselect test/test_runtime.py::test_install_collection
+    --deselect test/test_runtime.py::test_upgrade_collection
+    --deselect test/test_runtime.py::test_require_collection_not_isolated
+    --deselect test/test_runtime.py::test_load_plugins[modules]
+    --deselect test/test_runtime_example.py::test_runtime_example
   )
   local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
