@@ -1,18 +1,18 @@
 pkgbase = xtrlock
 	pkgdesc = Minimal X display lock program
-	pkgver = 2.15
-	pkgrel = 2
+	pkgver = 2.16
+	pkgrel = 1
 	url = https://packages.debian.org/sid/xtrlock
 	arch = x86_64
-	license = GPL3
+	license = GPL-2.0-or-later
 	depends = glibc
+	depends = libcrypt.so
 	depends = libx11
 	depends = libxcrypt
-	depends = libcrypt.so
-	depends = libxi
 	depends = libxfixes
-	source = https://ftp.debian.org/debian/pool/main/x/xtrlock/xtrlock_2.15.tar.xz
-	sha512sums = 3047ca57f04c58426c55c68cf711dffe124ba6c221a3659112339b01ec0f1a411d965277bb366bd39d8155fd82f8e49cb00e728a911aa67b4e46fcfcc489f0b1
-	b2sums = 05a97caf2c712a2efbcd80b8a39592a37f0200145f1b1ce966ba6dd1b7ceec41d981b1cf3d92a172a6ee2e5b018e9f261fc7f09840e5db58b3caeb0936455035
+	depends = libxi
+	source = https://ftp.debian.org/debian/pool/main/x/xtrlock/xtrlock_2.16.tar.xz
+	sha512sums = 69142f39f4f2268724b75a80f1c995fc05556fec79633c941b0bceb5f1e2bc1dcac3ad0b4b1a5d922032ab8a41f5186d40622db0afe74a654e7ea6f978b673c9
+	b2sums = cbab2e98b194fad77c31879a95d0ddf90a67b0f38b79b16fc353801977950dd91810111d6a1a2535a7703863d871c261e97eab7623677768aa789dc5d2f523b7
 
 pkgname = xtrlock
