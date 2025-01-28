@@ -3,7 +3,7 @@
 
 pkgname=jupyter-nbconvert
 _name=nbconvert
-pkgver=7.16.5
+pkgver=7.16.6
 pkgrel=1
 pkgdesc='Jupyter Notebook Conversion'
 arch=(any)
@@ -46,7 +46,7 @@ checkdepends=(inkscape
 optdepends=('pandoc: non-html conversion output'
             'python-playwright: for webPDF conversion support')
 source=(git+https://github.com/jupyter/nbconvert#tag=v$pkgver)
-sha256sums=('874b243fed2eb41fe69f4ec6c1dab109bfe037fce7cb62f53c6b357a11b29c63')
+sha256sums=('81dfead8fb51a748ee31477d14d26b787463222aae174f7e47708efc65fa5a06')
 
 build() {
   cd nbconvert
