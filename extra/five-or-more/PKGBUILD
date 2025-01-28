@@ -1,27 +1,44 @@
-# # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=five-or-more
 pkgver=3.32.3
-pkgrel=3
+pkgrel=4
 pkgdesc="Remove colored balls from the board by forming lines"
-url="https://wiki.gnome.org/Apps/Five(20)or(20)more"
+url="https://gitlab.gnome.org/GNOME/five-or-more"
 arch=(x86_64)
-license=(GPL)
-depends=(gtk3 librsvg libgnome-games-support)
-makedepends=(gobject-introspection yelp-tools appstream-glib git meson vala)
-groups=(gnome-extra)
-source=("git+https://gitlab.gnome.org/GNOME/five-or-more.git#tag=$pkgver"
-        five-or-more-new-game.patch)
+license=(GPL-2.0-or-later)
+depends=(
+  cairo
+  dconf
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  libgee
+  libgnome-games-support
+  librsvg
+)
+makedepends=(
+  git
+  gobject-introspection
+  meson
+  vala
+  yelp-tools
+)
+source=(
+  "git+$url.git#tag=${pkgver/[a-z]/.&}"
+  0001-Reset-positions-when-the-board-is-changed.patch
+)
 b2sums=('4fa1320ffcc5fc8ca30d1bc81af90a4047805c368281b2d52ad4f63bed56bbeec338bc12ddbe73fa95739bfcc2a415bbca3ba43a3f9d493b0989d349786b34b6'
-        '9242a23b7a5e84a06d803f190f6e3471fb4ce4022c851418bd18d6ca0f5f89942f6a767a629c58f2408d5ee046f3c0b69fd41858d044c23dbe554c44f8a6e0ff')
+        '44e296624f17ac9069dc4bd87b99bac4b37c5c1390c5bcbc6d665e3316291de783dcb417a4b02c6dd8517ce15e96cce81b670fee7b62d0f22c30f8b3fb5ca58f')
 
 prepare() {
   cd $pkgname
 
   # Reset positions when the board is changed
   # https://gitlab.gnome.org/GNOME/five-or-more/-/merge_requests/29
-  git apply -3 ../five-or-more-new-game.patch
+  git apply -3 ../0001-Reset-positions-when-the-board-is-changed.patch
 }
 
 build() {
@@ -36,3 +53,5 @@ check() {
 package() {
   meson install -C build --destdir "$pkgdir"
 }
+
+# vim:set sw=2 sts=-1 et

@@ -1,23 +1,27 @@
 pkgbase = five-or-more
 	pkgdesc = Remove colored balls from the board by forming lines
 	pkgver = 3.32.3
-	pkgrel = 3
-	url = https://wiki.gnome.org/Apps/Five(20)or(20)more
+	pkgrel = 4
+	url = https://gitlab.gnome.org/GNOME/five-or-more
 	arch = x86_64
-	groups = gnome-extra
-	license = GPL
-	makedepends = gobject-introspection
-	makedepends = yelp-tools
-	makedepends = appstream-glib
+	license = GPL-2.0-or-later
 	makedepends = git
+	makedepends = gobject-introspection
 	makedepends = meson
 	makedepends = vala
+	makedepends = yelp-tools
+	depends = cairo
+	depends = dconf
+	depends = glib2
+	depends = glibc
 	depends = gtk3
-	depends = librsvg
+	depends = hicolor-icon-theme
+	depends = libgee
 	depends = libgnome-games-support
+	depends = librsvg
 	source = git+https://gitlab.gnome.org/GNOME/five-or-more.git#tag=3.32.3
-	source = five-or-more-new-game.patch
+	source = 0001-Reset-positions-when-the-board-is-changed.patch
 	b2sums = 4fa1320ffcc5fc8ca30d1bc81af90a4047805c368281b2d52ad4f63bed56bbeec338bc12ddbe73fa95739bfcc2a415bbca3ba43a3f9d493b0989d349786b34b6
-	b2sums = 9242a23b7a5e84a06d803f190f6e3471fb4ce4022c851418bd18d6ca0f5f89942f6a767a629c58f2408d5ee046f3c0b69fd41858d044c23dbe554c44f8a6e0ff
+	b2sums = 44e296624f17ac9069dc4bd87b99bac4b37c5c1390c5bcbc6d665e3316291de783dcb417a4b02c6dd8517ce15e96cce81b670fee7b62d0f22c30f8b3fb5ca58f
 
 pkgname = five-or-more
