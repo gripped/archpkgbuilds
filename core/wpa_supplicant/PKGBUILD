@@ -1,11 +1,11 @@
-# Maintainer:
+# Maintainer: Morten Linderud <foxboron@archlinux.org>
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 # Contributor: Thomas Bächler <thomas@archlinux.org>
 # Contributor: loqs
 
 pkgname=wpa_supplicant
 pkgver=2.11
-pkgrel=2
+pkgrel=3
 epoch=2
 pkgdesc='A utility providing key negotiation for WPA wireless networks'
 url='https://w1.fi/wpa_supplicant/'
@@ -72,6 +72,9 @@ prepare() {
     echo "Applying patch $src..."
     patch -Np1 < "../$src"
   done
+
+  # Cherry-pick a nullptr crash fix.
+  git cherry-pick -n 015f6a5a0cd1c8b0d40441b9fd9e4c8658bc9493
 
   cp ../wpa_supplicant_config $pkgname/.config
 }
