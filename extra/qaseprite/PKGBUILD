@@ -1,15 +1,15 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=qaseprite
-pkgver=1.0
-pkgrel=1
+pkgver=1.0.1
+pkgrel=2
 pkgdesc="A Qt image format plugin for loading Aseprite files"
 arch=('x86_64')
 url="https://github.com/mapeditor/qaseprite"
 license=('MIT')
-depends=('glibc' 'qt6-base' 'zlib' 'libpng' 'pixman' 'freetype2' 'harfbuzz' 'libxcursor' 'xorg-xinput')
-makedepends=('cmake' 'ninja')
+depends=('glibc' 'qt6-base' 'zlib' 'pixman')
+makedepends=('cmake' 'ninja' 'libxcursor' 'xorg-xinput')
 source=("https://github.com/mapeditor/qaseprite/releases/download/$pkgver/$pkgname-$pkgver-source.tar.gz")
-sha256sums=('f43f9313854c25228d8a6565a67e2220440a85c3aff526aef2948ac0cee710d2')
+sha256sums=('47e331b1efad2b88c832445597f948a1762a798de1d085a7e2b95e1f0aa5763b')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
