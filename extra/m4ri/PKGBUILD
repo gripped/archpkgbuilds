@@ -2,8 +2,8 @@
 # Contributor: Rémy Oudompheng <oudomphe@clipper.ens.fr>
 
 pkgname=m4ri
-pkgver=20240729
-pkgrel=6
+pkgver=20250128
+pkgrel=1
 pkgdesc='Algorithms for linear algebra over F_2'
 arch=(x86_64)
 url='https://bitbucket.org/malb/m4ri'
@@ -12,14 +12,12 @@ depends=(gcc-libs
          glibc
          libpng)
 makedepends=(git)
-source=(git+https://github.com/malb/m4ri#tag=release-$pkgver)
-sha256sums=('3e1224490cb5c93e5ed18f89ae3345f710787d246c096b989583fa340e573b2a')
+source=(git+https://github.com/malb/m4ri#tag=$pkgver)
+sha256sums=('fc9c7378343c24a0dcbbdd3f41a8c52737677d954e998d6b6f94fcc714f62939')
 
 prepare() {
   cd $pkgname
-  git cherry-pick -n 3197be5f7d3c67e8f13e32516557f35cbf4ff6ce # Fix CFLAGS in pc file
   sed -e '/AX_EXT/d' -i configure.ac # Disable CPU autodetection
-  sed -e 's|\@SIMD_FLAGS\@||' -i m4ri.pc.in -i m4ri/m4ri_config.h.in
   autoreconf -vi
 }
 
@@ -35,7 +33,7 @@ build() {
 
 check() {
   cd $pkgname
-  make check -j1
+  make check
 }
 
 package() {
