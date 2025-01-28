@@ -3,25 +3,42 @@
 
 pkgname=four-in-a-row
 pkgver=3.38.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Make lines of the same color to win"
-url="https://wiki.gnome.org/Apps/Four(2d)in(2d)a(2d)row"
+url="https://gitlab.gnome.org/GNOME/four-in-a-row"
 arch=(x86_64)
-license=(GPL3)
-depends=(gtk3 gsound librsvg)
-makedepends=(meson gobject-introspection yelp-tools appstream-glib vala git)
-groups=(gnome-extra)
-source=("git+https://gitlab.gnome.org/GNOME/four-in-a-row.git#tag=$pkgver"
-        four-in-a-row-undo-drawn.patch)
+license=(GPL-3.0-or-later)
+depends=(
+  cairo
+  dconf
+  gdk-pixbuf2
+  glib2
+  glibc
+  gsound
+  gtk3
+  hicolor-icon-theme
+  librsvg
+)
+makedepends=(
+  git
+  gobject-introspection
+  meson
+  vala
+  yelp-tools
+)
+source=(
+  "git+$url.git#tag=$pkgver"
+  0001-Don-t-assert-when-the-last-winner-is-nobody.patch
+)
 b2sums=('e44d55f543a1944bb5c9a5d473b41f25877cac7071060b794a5cb825fe53097347e3ee2a8b5dc05ded922fe8a6829982d0718c12256a244e31725446b282e7b5'
-        '8ce13c9a3ca9f298d5228642a72d04bb241deeac52bc676233c1ebb0be06639b7983b766ed11311816dbe13f2b96d151ee70be6e778a98a88bf3a4d835d48158')
+        'bde0095f79e15e2c09cd436d69e3cf5e5d429ee89f2c90d415ada0e277cc491d6aa0a365e90e3eaa3011976dbc01e10fc40cc4954f5b8f2a6d5b44dbd6948ad3')
 
 prepare() {
   cd $pkgname
 
   # Don't assert when the last winner is nobody
   # https://gitlab.gnome.org/GNOME/four-in-a-row/-/merge_requests/34
-  git apply -3 ../four-in-a-row-undo-drawn.patch
+  git apply -3 ../0001-Don-t-assert-when-the-last-winner-is-nobody.patch
 }
 
 build() {
@@ -34,5 +51,7 @@ check() {
 }
 
 package() {
-  DESTDIR="$pkgdir" meson install -C build
+  meson install -C build --destdir "$pkgdir"
 }
+
+# vim:set sw=2 sts=-1 et:

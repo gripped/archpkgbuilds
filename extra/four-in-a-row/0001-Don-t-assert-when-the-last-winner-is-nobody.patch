@@ -1,4 +1,4 @@
-From 2fa3e000a68fc170b6209f818b4b2f308763eaa4 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Sun, 5 Jan 2025 16:52:57 +0100
 Subject: [PATCH] Don't assert when the last winner is nobody
@@ -11,7 +11,7 @@ Closes: https://gitlab.gnome.org/GNOME/four-in-a-row/-/issues/30
  1 file changed, 2 deletions(-)
 
 diff --git a/src/scorebox.vala b/src/scorebox.vala
-index 7077dcb9..2f0a3182 100644
+index 7077dcb91cc6..2f0a3182aa41 100644
 --- a/src/scorebox.vala
 +++ b/src/scorebox.vala
 @@ -174,8 +174,6 @@ private class Scorebox : Dialog
@@ -23,6 +23,3 @@ index 7077dcb9..2f0a3182 100644
          scores [last_winner]--;
          last_winner = Player.NOBODY;
          update ();
--- 
-GitLab
-
