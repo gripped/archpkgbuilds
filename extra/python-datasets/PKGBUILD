@@ -1,0 +1,152 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+# Contributor: daskol (Daniel Bershatsky) < bepshatsky at yandex dot ru >
+# Contributor: trougnouf (Benoit Brummer) < trougnouf at gmail dot com >
+
+_name=datasets
+pkgname=python-$_name
+pkgver=3.2.0
+pkgrel=2
+pkgdesc="Ready-to-use datasets for ML models with fast, easy-to-use and efficient data manipulation tools"
+arch=(any)
+url="https://github.com/huggingface/datasets"
+license=(Apache-2.0)
+groups=(huggingface)
+depends=(
+  python
+  python-aiohttp
+  python-dill
+  python-filelock
+  python-fsspec
+  python-huggingface-hub
+  python-multiprocess
+  python-numpy
+  python-packaging
+  python-pandas
+  python-pyarrow
+  python-requests
+  python-tqdm
+  python-xxhash
+  python-yaml
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-pytest
+  python-absl
+  python-decorator
+  python-librosa
+  python-pytorch
+  python-soundfile
+  python-soxr
+  python-sqlalchemy
+  python-zstandard
+)
+optdepends=(
+  'python-librosa: Audio datasets'
+  'python-soundfile: Audio datasets'
+  'python-soxr: Audio datasets'
+  'python-pillow: Vision datasets'
+  'python-tensorflow: TensorFlow support'
+  'python-pytorch: PyTorch support'
+)
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
+b2sums=('0169ee27e1128f8b64fda0e3a4dd63d5d603874cdbf703cd73f100ad1ea69294c300b93cddaa4f2dd8c795570b76adb34e40475d38730f4733679008fb593d84')
+
+build() {
+  cd $_name-$pkgver
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  local pytest_options=(
+    -vv
+    -W ignore::DeprecationWarning
+    # python-pyspark is not packaged, causes error when collecting tests
+    --ignore tests/packaged_modules/test_spark.py
+    # ModuleNotFoundError: No module named 'aifc'
+    --deselect tests/packaged_modules/test_audiofolder.py::test_data_files_with_metadata_and_archives
+    # unspecified errors
+    --deselect tests/features/test_audio.py::test_audio_feature_encode_example
+    --deselect tests/features/test_audio.py::test_audio_feature_encode_example_pcm
+    --deselect tests/features/test_audio.py::test_audio_decode_example
+    --deselect tests/features/test_audio.py::test_audio_resampling
+    --deselect tests/features/test_audio.py::test_audio_decode_example_mp3
+    --deselect tests/features/test_audio.py::test_audio_decode_example_opus
+    --deselect tests/features/test_audio.py::test_audio_decode_example_pcm
+    --deselect tests/features/test_audio.py::test_audio_decode_example_pcm
+    --deselect tests/features/test_audio.py::test_audio_resampling_mp3_different_sampling_rates
+    --deselect tests/features/test_audio.py::test_dataset_with_audio_feature
+    --deselect tests/features/test_audio.py::test_dataset_with_audio_feature_tar_wav
+    --deselect tests/features/test_audio.py::test_dataset_with_audio_feature_tar_mp3
+    --deselect tests/features/test_audio.py::test_resampling_at_loading_dataset_with_audio_feature
+    --deselect tests/features/test_audio.py::test_resampling_at_loading_dataset_with_audio_feature_mp3
+    --deselect tests/features/test_audio.py::test_resampling_after_loading_dataset_with_audio_feature
+    --deselect tests/features/test_audio.py::test_resampling_after_loading_dataset_with_audio_feature_mp3
+    --deselect tests/features/test_audio.py::test_dataset_cast_to_audio_features
+    --deselect tests/features/test_audio.py::test_dataset_concatenate_audio_features
+    --deselect tests/features/test_audio.py::test_dataset_concatenate_nested_audio_features
+    --deselect tests/features/test_audio.py::test_dataset_with_audio_feature_map_is_not_decoded
+    --deselect tests/features/test_audio.py::test_dataset_with_audio_feature_map_is_decoded
+    --deselect tests/features/test_audio.py::test_formatted_dataset_with_audio_feature
+    --deselect tests/features/test_audio.py::test_load_dataset_with_audio_feature
+    --deselect tests/features/test_audio.py::test_dataset_with_audio_feature_undecoded
+    --deselect tests/features/test_audio.py::test_formatted_dataset_with_audio_feature_undecoded
+    --deselect tests/features/test_audio.py::test_dataset_with_audio_feature_map_undecoded
+    --deselect tests/features/test_audio.py::test_audio_embed_storage
+    --deselect tests/features/test_image.py::test_image_feature_encode_example
+    --deselect tests/features/test_image.py::test_image_decode_example
+    --deselect tests/features/test_image.py::test_image_decode_example_with_exif_orientation_tag
+    --deselect tests/features/test_image.py::test_image_change_mode
+    --deselect tests/features/test_image.py::test_dataset_with_image_feature
+    --deselect tests/features/test_image.py::test_dataset_with_image_feature_from_pil_image
+    --deselect tests/features/test_image.py::test_dataset_with_image_feature_tar_jpg
+    --deselect tests/features/test_image.py::test_dataset_cast_to_image_features
+    --deselect tests/features/test_image.py::test_dataset_concatenate_image_features
+    --deselect tests/features/test_image.py::test_dataset_concatenate_nested_image_features
+    --deselect tests/features/test_image.py::test_dataset_with_image_feature_map
+    --deselect tests/features/test_image.py::test_formatted_dataset_with_image_feature_map
+    --deselect tests/features/test_image.py::test_dataset_with_image_feature_map_change_image
+    --deselect tests/features/test_image.py::test_formatted_dataset_with_image_feature
+    --deselect tests/features/test_image.py::test_load_dataset_with_image_feature
+    --deselect tests/features/test_image.py::test_dataset_with_image_feature_undecoded
+    --deselect tests/features/test_image.py::test_formatted_dataset_with_image_feature_undecoded
+    --deselect tests/features/test_image.py::test_dataset_with_image_feature_map_undecoded
+    --deselect tests/features/test_image.py::test_image_embed_storage
+    --deselect tests/features/test_video.py::test_video_feature_encode_example
+    --deselect tests/features/test_video.py::test_dataset_with_video_feature
+    --deselect tests/features/test_video.py::test_dataset_with_video_map_and_formatted
+    --deselect tests/io/test_json.py::TestJsonDatasetWriter::test_dataset_to_json_compression
+    --deselect tests/io/test_parquet.py::test_dataset_to_parquet_keeps_features
+    # AssertionError failures
+    --deselect tests/test_arrow_dataset.py::BaseDatasetTest::test_filter_caching_on_disk
+    --deselect tests/test_arrow_dataset.py::BaseDatasetTest::test_map_caching_on_disk
+    --deselect tests/test_file_utils.py::TestxPath::test_xpath_glob
+    --deselect tests/test_file_utils.py::TestxPath::test_xpath_rglob
+    --deselect tests/test_fingerprint.py::RecurseHashTest
+    # NameError: name 'log' is not defined
+    --deselect tests/test_fingerprint.py::HashingTest
+    --deselect tests/test_iterable_dataset.py::test_iterable_dataset_from_file
+    # subprocess.CalledProcessError
+    --deselect tests/test_fingerprint.py::test_move_script_doesnt_change_hash
+    # ImportError: Install s3fs to access S3
+    --deselect tests/test_arrow_dataset.py::test_build_local_temp_path[s3://bucket/relative/path]
+    # TypeError: Passing coroutines is forbidden, use tasks explicitly.
+    --deselect tests/test_distributed.py::test_torch_distributed_run
+    --deselect tests/test_distributed.py::test_torch_distributed_run_streaming_with_num_workers
+  )
+
+  cd $_name-$pkgver
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest "${pytest_options[@]}" tests
+}
+
+package() {
+  cd $_name-$pkgver
+  python -m installer --compile-bytecode 1 --destdir $pkgdir dist/*.whl
+  install -vDm 644 README.md -t "$pkgdir"/usr/share/doc/$pkgname
+}
