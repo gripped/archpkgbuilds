@@ -4,7 +4,7 @@
 # Contributor: Sander Boom <sanderboom@gmail.com>
 
 pkgname=ansible-lint
-pkgver=25.1.0
+pkgver=25.1.1
 pkgrel=1
 pkgdesc="Checks playbooks for practices and behaviour that could potentially be improved."
 arch=('any')
@@ -18,7 +18,7 @@ optdepends=('ansible: check official ansible collections')
 source=(git+https://github.com/ansible/ansible-lint.git#tag=v$pkgver
         disable_version_check.patch
         ignore_yamllint_unknown_option.patch)
-b2sums=('cfee7bd026ff2ac4021a08ada3dd66f2c72d8205b0c4fd720667040b3b6bc052872d22bd5eea85e7910a918b4afe167d4cf350b573de09d70c8a6dbce3678335'
+b2sums=('efe9b0cca940e832baafdba606ba1cbf0d67b6883c20f0d738ad4f6d02533d2ef258c5a0a8d3d5188484e4b31c10e63c9a77360f21f7d1e8bdd1ab20a051ef9a'
         '98294f267ca693c0bc3921f8e076d674a219a891502cd31a0af789bc0b1447b53834b9c85853a134f6bc1ac384f31cb174cba2d55fbcc1636cae9bd3c0bd8f84'
         '8e419c65642bdbd60aa81d1e204139e69fc4c86aaddde4131fbfe3c21f5751e608a5a635d3ec4f518d3d5dc9d254a84b302e09bb4f873e21628e2f014b151516')
 
@@ -66,6 +66,19 @@ check() {
     --deselect 'test/test_file_utils.py::test_discover_lintables_silent'
     # ignore yamllint tests
     --deselect 'test/test_yaml_utils.py::test_yamllint_incompatible_config'
+    --deselect 'test/rules/test_syntax_check.py::test_syntax_check_role'
+    # ignore tests that wants to pull stuff from ansible-galaxy
+    --deselect 'test/test_transformer.py::test_pruned_err_after_fix'
+    --deselect 'test/test_dependencies_in_meta.py::test_external_dependency_is_ok'
+    --deselect 'test/test_file_utils.py::test_kinds[3]'
+    --deselect 'test/test_file_utils.py::test_kinds[9]'
+    --deselect 'test/test_file_utils.py::test_kinds[10]'
+    --deselect 'test/test_file_utils.py::test_kinds[11]'
+    --deselect 'test/test_file_utils.py::test_kinds[15]'
+    --deselect 'test/test_file_utils.py::test_kinds[23]'
+    --deselect 'test/test_include_miss_file_with_role.py::test_cases_warning_message'
+    --deselect 'test/test_include_miss_file_with_role.py::test_cases_that_do_not_report[inplace]'
+    --deselect 'test/test_include_miss_file_with_role.py::test_cases_that_do_not_report[relative]'
    )
 
   # install to temporary location, as importlib is used
