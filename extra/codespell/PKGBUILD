@@ -2,7 +2,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=codespell
-pkgver=2.4.0
+pkgver=2.4.1
 pkgrel=1
 pkgdesc='check code for common misspellings'
 arch=('any')
@@ -13,7 +13,7 @@ makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools
 checkdepends=('python-pytest-dependency')
 source=("https://pypi.io/packages/source/c/codespell/${pkgname}-${pkgver}.tar.gz"
 	"remove-check-test_command.patch")
-sha256sums=('587d45b14707fb8ce51339ba4cce50ae0e98ce228ef61f3c5e160e34f681be58'
+sha256sums=('299fcdcb09d23e81e35a671bbe746d5ad7e8385972e65dbb833a2eaac33c01e5'
             '17a5390c0123480c794d293e0a6b95a9f941ea9d5d9168649746dd55faf0b833')
 
 prepare() {
