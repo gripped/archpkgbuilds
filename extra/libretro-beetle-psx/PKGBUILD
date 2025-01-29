@@ -5,7 +5,7 @@ pkgname=(
   libretro-beetle-psx
   libretro-beetle-psx-hw
 )
-pkgver=2747
+pkgver=2751
 pkgrel=1
 pkgdesc='Sony PlayStation core'
 arch=(x86_64)
@@ -22,9 +22,9 @@ makedepends=(
   mesa
   vulkan-icd-loader
 )
-_commit=80d3eba272cf6efab6b76e4dc44ea2834c6f910d
+_commit=80b11737290d7ff4f2d9fcc2c79a8853fc158d13
 source=(libretro-beetle-psx::git+https://github.com/libretro/beetle-psx-libretro.git#commit=${_commit})
-sha256sums=('11e0fc5ffc31f909b1c799be63915fdca5db5c2698f005c8f7247b72e84e7445')
+sha256sums=('88a8ddcd29b71c8525cd1f8cadcc0f0d40470306da88ee51f7f7d81bfecd6016')
 
 pkgver() {
   cd libretro-beetle-psx
