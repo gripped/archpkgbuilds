@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-yabause
-pkgver=3342
-pkgrel=2
+pkgver=3344
+pkgrel=1
 pkgdesc='Sega Saturn core'
 arch=(x86_64)
 url=https://github.com/libretro/yabause
@@ -14,9 +14,9 @@ depends=(
   libretro-core-info
 )
 makedepends=(git)
-_commit=4c96b96f7fbe07223627c469ff33376b2a634748
+_commit=c35712c5ed33e18d77097f2059a036e19d1d66f2
 source=(libretro-yabause::git+https://github.com/libretro/yabause.git#commit=${_commit})
-sha256sums=(SKIP)
+sha256sums=('034c40986a1471744ed19a4668ffc6ff6a2da22a36874f5e58ff0bef48f93c4f')
 
 pkgver() {
   cd libretro-yabause
