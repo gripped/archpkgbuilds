@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-melonds
-pkgver=2014
-pkgrel=2
+pkgver=2016
+pkgrel=1
 pkgdesc='Nintendo DS core'
 arch=(x86_64)
 url=https://github.com/libretro/melonDS
@@ -16,9 +16,9 @@ makedepends=(
   git
   libglvnd
 )
-_commit=c6488c88cb4c7583dbcd61609e0eef441572fae8
+_commit=7a3c11ff970cd36ca806961fae6db94b30dd5401
 source=(libretro-melonds::git+https://github.com/libretro/melonDS.git#commit=${_commit})
-sha256sums=(SKIP)
+sha256sums=('b3a7f9cb0a4626b2f9ecd9bf50e814373e82ce14f6c0cf4a4b9a0c7e47c4e170')
 
 pkgver() {
   cd libretro-melonds
