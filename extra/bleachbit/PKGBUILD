@@ -8,14 +8,15 @@
 
 pkgname=bleachbit
 pkgver=4.6.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Deletes unneeded files to free disk space and maintain privacy'
 arch=(any)
 url='https://www.bleachbit.org/'
 license=(GPL3)
 depends=(gtk3
          python
-         python-gobject)
+         python-gobject
+         python-psutil)
 makedepends=(git)
 source=(git+https://github.com/bleachbit/bleachbit.git#tag=v${pkgver}?signed)
 validpgpkeys=(A9E582E4054A159315EDC943D6D447B02B4D4C9D) # Andrew Ziem <ahz001@gmail.com>
