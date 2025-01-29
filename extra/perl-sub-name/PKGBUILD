@@ -4,8 +4,8 @@
 
 pkgname=perl-sub-name
 _cpanname=Sub-Name
-pkgver=0.27
-pkgrel=4
+pkgver=0.28
+pkgrel=1
 pkgdesc="(re)name a sub"
 arch=('x86_64')
 license=('PerlArtistic' 'GPL')
@@ -13,7 +13,7 @@ depends=('perl')
 options=('!emptydirs')
 url="https://search.cpan.org/dist/$_cpanname"
 source=("https://search.cpan.org/CPAN/authors/id/E/ET/ETHER/$_cpanname-$pkgver.tar.gz")
-sha256sums=('ecf36fba1c47ca93e1daa394968ed39c4186867459d9cd173c421e2b972043e8')
+sha256sums=('39c53f6b3b02cbc73176564413b51d3c0f375f9760983fd579c27f558b169cfc')
 
 build() {
   cd "$srcdir/$_cpanname-$pkgver"
