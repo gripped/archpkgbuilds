@@ -3,7 +3,7 @@
 
 pkgname=osquery
 pkgver=5.15.0
-pkgrel=1
+pkgrel=3
 pkgdesc="SQL powered operating system instrumentation, monitoring, and analytics"
 arch=(x86_64)
 url="https://osquery.io"
@@ -87,6 +87,7 @@ source=(
   "0008-Do-not-build-utils-requiring-libdpkg.patch::$_url/commit/8ae3260cd2bfc7fa108c5bb345a3227b58ba5d7e.patch"
   "0009-Fix-systemd-service-and-systemctl-script.patch::$_url/commit/d792974525c271cfb9984f42d0ee157ed6444705.patch"
   "0010-Adapt-installation-to-using-system-packages.patch::$_url/commit/63d89a012efcd9b4e773abbc63be0e445a58675d.patch"
+  "0011-Booost-1.87-compatibility.patch::$_url/commit/884ffa75b0ce78aac02a2a23d91ddde0bdb7f3ad.patch"
 )
 sha256sums=('e960e673b2d6b31a55cef662d598d1c09ab049c7d69c342a28edea5674a8c462'
             'SKIP'
@@ -99,7 +100,8 @@ sha256sums=('e960e673b2d6b31a55cef662d598d1c09ab049c7d69c342a28edea5674a8c462'
             'f59ab7a52e6c6ffbf278ca202544f2ab74d02515412f17f9d9e82368c2fa1d72'
             '925be32deb7261c28b03436c3acc0220e1d461291c85e25df58bcc643ec3f46d'
             '79516bce1332b5513687eef3137445d66118f27e79db36be76b86c80c850ac1a'
-            '0b4ed3b0c69275a040e2c17b1f25e112da6b7b18c3a48c849bfcabf8e66f422c')
+            '0b4ed3b0c69275a040e2c17b1f25e112da6b7b18c3a48c849bfcabf8e66f422c'
+            '407f026eb402da202abc8594b0b2caf6007e43f6e98be0b178cfa79638a0f3b8')
 
 prepare() {
   cd $pkgname
