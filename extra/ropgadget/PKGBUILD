@@ -3,8 +3,8 @@
 
 pkgname=ropgadget
 _pkgname=ROPgadget
-pkgver=7.4
-pkgrel=3
+pkgver=7.6
+pkgrel=1
 pkgdesc='Search gadgets in binaries to facilitate ROP exploitation for several file formats and architectures'
 url='https://github.com/JonathanSalwan/ROPgadget'
 arch=(any)
@@ -20,8 +20,8 @@ makedepends=(
   python-wheel
 )
 source=(https://github.com/JonathanSalwan/${_pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('0906cf7e916967ac5f446778ddc4ffdca78b8cf23c584968c116fdd43bc8488624104fbb78380516a54356dc4c4d50c5d10cc462bdd507435d5f70f8b9d51fa7')
-b2sums=('1c5dc52d377b4b580aa72351ce7863c9f819b39cbf0732b33eb8330d0229166250978fde123f8bf1e3a45d5fe791b17da1a93a49c8c45755d5dc1b7f8e05bf52')
+sha512sums=('1eae4021e40e805c3a8e41a5dbca54a8cf0712d72ba189fc18f8f02ddc855c0828d0efe86e07d1c2faafc639dc10a78d5d2fadd3fb8510d50f8ea06c0d89c1d2')
+b2sums=('237b0cee0b2496959648862543611078a75fae65f6e2b163f213299745b11688cae72d5390960d41a390a060533969c987e10976c4a896e10e8c792e85175138')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
