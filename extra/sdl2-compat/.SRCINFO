@@ -1,7 +1,7 @@
 pkgbase = sdl2-compat
 	pkgdesc = An SDL2 compatibility layer that uses SDL3 behind the scenes
 	pkgver = 2.30.50
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/libsdl-org/sdl2-compat
 	arch = x86_64
 	license = Zlib
@@ -9,7 +9,7 @@ pkgbase = sdl2-compat
 	makedepends = ninja
 	depends = sdl3
 	depends = glibc
-	provides = sdl2
+	provides = sdl2=2.30.50
 	conflicts = sdl2
 	replaces = sdl2
 	source = https://github.com/libsdl-org/sdl2-compat/releases/download/release-2.30.50/sdl2-compat-2.30.50.tar.gz
