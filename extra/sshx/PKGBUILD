@@ -2,13 +2,9 @@
 # Contributor: Hoream <hoream@qq.com>
 # Contributor: Asuka Minato
 
-# Switched to crates source since repo still not tagged even after raising
-# upstream issue: https://github.com/ekzhang/sshx/issues/50
-_sha=7393800564e87ba8cfd80a42d51eba199c0a391d
-
 pkgname=sshx
 pkgver=0.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A secure web-based, collaborative terminal'
 url="https://github.com/ekzhang/$pkgname"
 license=(MIT)
@@ -18,12 +14,11 @@ depends=(gcc-libs
 makedepends=(cargo
              protobuf)
 options=(!lto) # https://github.com/briansmith/ring/issues/1444
-_archive="$pkgname-$_sha"
-source=("$url/archive/$_sha/$_archive.tar.gz")
-# _archive="$pkgname-$pkgver"
+_archive="$pkgname-$pkgver"
+source=("$url/archive/v$pkgver/$_archive.tar.gz")
 # source=("$_archive.tar.gz::https://static.crates.io/crates/$pkgname/$_archive.crate"
-        # "$pkgname-LICENSE::$url/raw/$_sha/LICENSE")
-sha256sums=('73555ab4544fec7214da6a2b35f4b2412688e0a0e5c372cd663bee7934404982')
+        # "$pkgname-LICENSE::$url/raw/$pkgver/LICENSE")
+sha256sums=('3bc2abc59be26c9eefaf7fc999aa4a3723d2916414c319fd06555415278acb64')
 
 prepare() {
 	cd "$_archive"
@@ -32,7 +27,6 @@ prepare() {
 
 build() {
 	cd "$_archive"
-	# export CFLAGS+=" -ffat-lto-objects"
 	cargo build --frozen --release
 }
 
