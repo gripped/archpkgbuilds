@@ -3,7 +3,7 @@
 # Contributor: Duck Hunt <vaporeon@tfwno.gf>
 
 pkgname=libretro-ppsspp
-pkgver=40927
+pkgver=42066
 pkgrel=1
 pkgdesc='Sony PlayStation Portable core'
 arch=(x86_64)
@@ -31,7 +31,7 @@ makedepends=(
   ninja
   python
 )
-_commit=62d9abf71d3c868f40a98b24da5773e160981bf5
+_commit=41b93c895c48308822a8f38bbfc6808621b69dae
 source=(
   libretro-ppsspp::git+https://github.com/hrydgard/ppsspp.git#commit=${_commit}
   git+https://github.com/Kingcom/armips.git
@@ -41,6 +41,7 @@ source=(
   git+https://github.com/KhronosGroup/glslang.git
   git+https://github.com/hrydgard/ppsspp-lang.git
   git+https://github.com/rtissera/libchdr.git
+  git+https://github.com/hrydgard/ppsspp-lua.git
   git+https://github.com/miniupnp/miniupnp.git
   git+https://github.com/KhronosGroup/OpenXR-SDK.git
   git+https://github.com/Tencent/rapidjson.git
@@ -48,7 +49,8 @@ source=(
   git+https://github.com/KhronosGroup/SPIRV-Cross.git
   libretro-ppsspp-assets-path.patch
 )
-b2sums=('c697bdf910bfe7a937ab45c7267ce428347766ab04125bdd09337ed37c202bf9f17100786f95fcf4027bf8347e9276c75437d58a2e022287edb4049167ba595a'
+b2sums=('95f31e70ee30200204fd13fbcef103056804512e633ec2f07d6eea981cbf69b27e2b20dac9eb861a192e3bd6fc057d5e1ce6b193090ffd6a8dc43582d2344b9f'
+        'SKIP'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -75,7 +77,7 @@ prepare() {
 
   git config --global protocol.file.allow always
 
-  for submodule in ffmpeg assets/lang; do
+  for submodule in ffmpeg assets/lang ext/lua; do
     git submodule init ${submodule}
     git config submodule.${submodule}.url ../ppsspp-${submodule#*/}
     git submodule update ${submodule}
