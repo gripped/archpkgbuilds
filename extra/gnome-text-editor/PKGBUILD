@@ -2,10 +2,10 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-text-editor
-pkgver=47.2
+pkgver=47.3
 pkgrel=1
 pkgdesc="A simple text editor for the GNOME desktop"
-url="https://gitlab.gnome.org/GNOME/gnome-text-editor"
+url="https://apps.gnome.org/TextEditor/"
 arch=(x86_64)
 license=(GPL-3.0-or-later)
 depends=(
@@ -30,8 +30,8 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome)
-source=("git+$url.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('a70ceafcca9f8932aebef4c3439fb443de89d0144d7e4788979a09b9c8e17557752e01e94ed0b8f35b9fbc4333d61f4cab64fe28710899ffc95927641164cdb9')
+source=("git+https://gitlab.gnome.org/GNOME/gnome-text-editor.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('cff775d9c725380f48914163b374e661e3e4368544d7617c2d9d658735cbcd09ac3d8cd6ebb425c82ba96c4021060219c5c4bbe0e12d6c7495b72d62b63cc1f6')
 
 prepare() {
   cd $pkgname
