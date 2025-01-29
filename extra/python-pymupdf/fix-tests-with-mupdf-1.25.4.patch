@@ -1,0 +1,92 @@
+From f42ef85058fee087d3f5e565f34a7657aad11240 Mon Sep 17 00:00:00 2001
+From: Julian Smith <julian.smith@artifex.com>
+Date: Wed, 22 Jan 2025 17:30:30 +0000
+Subject: [PATCH] src/__init__.py: fix for calling pdf_rearrange_pages2() with
+ mupdf >= 1.25.3.
+
+---
+ src/__init__.py | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/src/__init__.py b/src/__init__.py
+index 5d330e032..0fc6dfe63 100644
+--- a/src/__init__.py
++++ b/src/__init__.py
+@@ -5642,7 +5642,12 @@ def select(self, pyliste):
+         pdf = _as_pdf_document(self)
+         # create page sub-pdf via pdf_rearrange_pages2().
+         #
+-        mupdf.pdf_rearrange_pages2(pdf, pyliste)
++        if mupdf_version_tuple >= (1, 25, 3):
++            # We use PDF_CLEAN_STRUCTURE_KEEP otherwise we lose structure tree
++            # which, for example, breaks test_3705.
++            mupdf.pdf_rearrange_pages2(pdf, pyliste, mupdf.PDF_CLEAN_STRUCTURE_KEEP)
++        else:
++            mupdf.pdf_rearrange_pages2(pdf, pyliste)
+ 
+         # remove any existing pages with their kids
+         self._reset_page_refs()
+
+From a5fa4a86caf2ef691e14de401ae98885c58b14ba Mon Sep 17 00:00:00 2001
+From: Sebastian Rasmussen <sebras@gmail.com>
+Date: Fri, 24 Jan 2025 19:42:07 +0100
+Subject: [PATCH] tests/: Updated tests to take mupdf 1.25.4 into account.
+
+---
+ ...ected_1.26.pdf => test_1645_expected_1.25.4.pdf} | Bin
+ tests/test_annots.py                                |   4 ++--
+ tests/test_tesseract.py                             |   6 +++---
+ 3 files changed, 5 insertions(+), 5 deletions(-)
+ rename tests/resources/{test_1645_expected_1.26.pdf => test_1645_expected_1.25.4.pdf} (100%)
+
+diff --git a/tests/resources/test_1645_expected_1.26.pdf b/tests/resources/test_1645_expected_1.25.4.pdf
+similarity index 100%
+rename from tests/resources/test_1645_expected_1.26.pdf
+rename to tests/resources/test_1645_expected_1.25.4.pdf
+diff --git a/tests/test_annots.py b/tests/test_annots.py
+index 882b26692..35e92c48b 100644
+--- a/tests/test_annots.py
++++ b/tests/test_annots.py
+@@ -231,8 +231,8 @@ def test_1645():
+     try:
+         path_in = os.path.abspath( f'{__file__}/../resources/symbol-list.pdf')
+
+-        if pymupdf.mupdf_version_tuple >= (1, 26):
+-            path_expected = os.path.abspath( f'{__file__}/../../tests/resources/test_1645_expected_1.26.pdf')
++        if pymupdf.mupdf_version_tuple >= (1, 25, 4):
++            path_expected = os.path.abspath( f'{__file__}/../../tests/resources/test_1645_expected_1.25.4.pdf')
+         elif pymupdf.mupdf_version_tuple >= (1, 25):
+             path_expected = os.path.abspath( f'{__file__}/../../tests/resources/test_1645_expected_1.25.pdf')
+         elif pymupdf.mupdf_version_tuple >= (1, 24, 2):
+diff --git a/tests/test_tesseract.py b/tests/test_tesseract.py
+index f5f6d0df3..c3c9f7283 100644
+--- a/tests/test_tesseract.py
++++ b/tests/test_tesseract.py
+@@ -20,7 +20,7 @@ def test_tesseract():
+     page = doc[5]
+     if hasattr(pymupdf, 'mupdf'):
+         # rebased.
+-        if pymupdf.mupdf_version_tuple < (1, 26):
++        if pymupdf.mupdf_version_tuple < (1, 25, 4):
+             tail = 'OCR initialisation failed'
+         else:
+             tail = 'Tesseract language initialisation failed'
+@@ -57,7 +57,7 @@ def test_tesseract():
+         rebased = hasattr(pymupdf, 'mupdf')
+         if rebased:
+             wt = pymupdf.TOOLS.mupdf_warnings()
+-            if pymupdf.mupdf_version_tuple < (1, 26):
++            if pymupdf.mupdf_version_tuple < (1, 25, 4):
+                 assert wt == (
+                         'UNHANDLED EXCEPTION!\n'
+                         'library error: Tesseract initialisation failed'
+@@ -81,7 +81,7 @@ def test_3842b():
+             if 'No tessdata specified and Tesseract is not installed' in str(e):
+                 pass
+             else:
+-                if pymupdf.mupdf_version_tuple < (1, 26):
++                if pymupdf.mupdf_version_tuple < (1, 25, 4):
+                     assert 'OCR initialisation failed' in str(e)
+                     wt = pymupdf.TOOLS.mupdf_warnings()
+                     assert wt == 'UNHANDLED EXCEPTION!\nlibrary error: Tesseract initialisation failed\nUNHANDLED EXCEPTION!\nlibrary error: Tesseract initialisation failed', \
+
