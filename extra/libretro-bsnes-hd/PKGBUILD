@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-bsnes-hd
-pkgver=53
-pkgrel=2
+pkgver=55
+pkgrel=1
 pkgdesc='Super Nintendo Entertainment System core'
 arch=(x86_64)
 url=https://github.com/DerKoun/bsnes-hd
@@ -13,15 +13,13 @@ depends=(
   libretro-core-info
 )
 makedepends=(git)
-_commit=f46b6d6368ea93943a30b5d4e79e8ed51c2da5e8
+_commit=0bb7b8645e22ea2476cabd58f32e987b14686601
 source=(
   libretro-bsnes-hd::git+https://github.com/DerKoun/bsnes-hd.git#commit=${_commit}
   libretro-bsnes-hd-flags.patch
 )
-sha256sums=(
-  SKIP
-  8108ce3da95d9a7fd9fae00d2db042f1053e60d19fe87813b7ddf0aa5313cdd8
-)
+sha256sums=('e56a2feabe25ac9f1cf3edb587897100e148747a5c06ef7a80d1f3d3ea72ca43'
+            '8108ce3da95d9a7fd9fae00d2db042f1053e60d19fe87813b7ddf0aa5313cdd8')
 
 prepare() {
   cd libretro-bsnes-hd
