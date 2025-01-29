@@ -2,18 +2,30 @@
 # Contributor: Matt Harrison <matt@mistbyte.com>
 
 pkgname=mediaelch
-pkgver=2.10.6
+pkgver=2.12.0
 pkgrel=1
 pkgdesc='Media Manager for handling Movies, TV Shows and Concerts/Music Videos for Kodi'
 url='https://www.mediaelch.de/mediaelch/'
 arch=('x86_64')
-license=('LGPL3')
-depends=('glibc' 'gcc-libs' 'libmediainfo' 'qt5-declarative' 'qt5-multimedia'
-         'qt5-svg' 'quazip-qt5')
-makedepends=('cmake' 'ninja' 'qt5-tools')
+license=(LGPL-3.0-only)
+depends=(
+  gcc-libs
+  glibc
+  libmediainfo
+  qt6-base
+  qt6-multimedia
+  qt6-svg
+  quazip-qt6
+)
+makedepends=(
+  cmake
+  ninja
+  qt6-tools
+  qt6-declarative
+)
 source=(https://github.com/Komet/MediaElch/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('c37464e4cf956e9abec14126eb681633988f31ba2b0f937817c7829c25737e22')
-b2sums=('f0db7f9c8bd4b88664180024ed9e64c56218c8c975c6f35c1031434958f0ddf0654116e463d5f3d927087a42a06279dd0d77de3220ef6d9460db9f277efc6fe5')
+sha256sums=('ffa6f19dbc7760cb3762d02c24392d5e2015dfa8890fc3c69d172b0930dbbb89')
+b2sums=('6847290c64eeba74cdf2d60e8cc2ccb0c819bdee11aaaf7477a914f5ca1526dd303be50593191b77d6130bbe3b0f07d54c9f4c5d9e848628574bcfc9fb850af1')
 
 build() {
   cd MediaElch-${pkgver}
@@ -22,6 +34,8 @@ build() {
     -DCMAKE_BUILD_TYPE=None \
     -DDISABLE_UPDATER=ON \
     -DUSE_EXTERN_QUAZIP=ON \
+    -DMEDIAELCH_FORCE_QT6=ON \
+    -DENABLE_TESTS=ON \
     -Wno-dev \
     -G Ninja
   ninja -C build
@@ -29,7 +43,7 @@ build() {
 
 package() {
   cd MediaElch-${pkgver}
-  DESTDIR="${pkgdir}" ninja -C build install
+  DESTDIR="${pkgdir}" cmake --install build
 }
 
 # vim: ts=2 sw=2 et:
