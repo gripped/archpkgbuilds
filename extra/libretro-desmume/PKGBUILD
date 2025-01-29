@@ -4,7 +4,7 @@
 # Contributor: almostalive <almostalive2003@gmail.com>
 
 pkgname=libretro-desmume
-pkgver=6359
+pkgver=6361
 pkgrel=1
 pkgdesc='Nintendo DS core'
 arch=(x86_64)
@@ -20,9 +20,9 @@ makedepends=(
   libpcap
   mesa
 )
-_commit=b518fec54b79f2f71a7536715efcdcd7f60638a8
+_commit=7f05a8d447b00acd9e0798aee97b4f72eb505ef9
 source=(libretro-desmume::git+https://github.com/libretro/desmume.git#commit=${_commit})
-sha256sums=(SKIP)
+sha256sums=('9b3e33569e3943b01f441fbcc3ca45e29c8d49b5893985479ae8868d425bceb2')
 
 pkgver() {
   cd libretro-desmume
