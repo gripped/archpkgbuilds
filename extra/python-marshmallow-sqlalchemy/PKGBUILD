@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-marshmallow-sqlalchemy
-pkgver=1.1.0
-pkgrel=2
+pkgver=1.4.0
+pkgrel=1
 pkgdesc='SQLAlchemy integration with marshmallow'
 url=https://marshmallow-sqlalchemy.readthedocs.io/
 arch=(any)
@@ -17,9 +17,9 @@ makedepends=(
   python-flit-core
   python-installer
 )
-_tag=7ce0b0aadc30244cde2170b05f98a60ac246ab6d
+_tag=263197855ccf6e0e6fb6f04b8011d0b7e22cb12f
 source=(git+https://github.com/marshmallow-code/marshmallow-sqlalchemy.git#tag=${_tag})
-sha256sums=('478ab49688e3462469d0ac39e0c60628240a061db6ef488f8eca1fcc9d6c8785')
+sha256sums=('625e1991dd23cfa6164069f56aa07034ac166a968af0268f33db917c202966fb')
 
 pkgver() {
   cd marshmallow-sqlalchemy
