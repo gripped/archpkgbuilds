@@ -6,7 +6,7 @@ pkgbase=musl
 pkgname=(musl musl-aarch64 musl-riscv64)
 _archs=("aarch64" "riscv64")
 pkgver=1.2.5
-pkgrel=2
+pkgrel=3
 pkgdesc='Lightweight implementation of C standard library'
 arch=('x86_64')
 url='https://www.musl-libc.org/'
@@ -64,6 +64,9 @@ package_musl-aarch64() {
   cd "$pkgbase-$pkgver-aarch64"
   make DESTDIR="$pkgdir" install
 
+  install -d "$pkgdir"/usr/bin
+  ln -s ../aarch64-linux-musl/bin/musl-gcc "$pkgdir"/usr/bin/aarch64-linux-musl-gcc
+
   # configure syslibdir with /lib for PT_INTERP compat, but install to /usr/lib
   mv "$pkgdir"/lib/ld-musl*.so* "$pkgdir"/usr/aarch64-linux-musl/lib/
   rmdir "$pkgdir"/lib
@@ -75,6 +78,9 @@ package_musl-aarch64() {
 package_musl-riscv64() {
   cd "$pkgbase-$pkgver-riscv64"
   make DESTDIR="$pkgdir" install
+
+  install -d "$pkgdir"/usr/bin
+  ln -s ../riscv64-linux-musl/bin/musl-gcc "$pkgdir"/usr/bin/riscv64-linux-musl-gcc
 
   # configure syslibdir with /lib for PT_INTERP compat, but install to /usr/lib
   mv "$pkgdir"/lib/ld-musl*.so* "$pkgdir"/usr/riscv64-linux-musl/lib/
