@@ -2,7 +2,7 @@
 
 pkgname=perl-text-bibtex
 _dist=Text-BibTeX
-pkgver=0.90
+pkgver=0.91
 pkgrel=1
 pkgdesc="Perl interface to read and parse BibTeX files"
 arch=('x86_64')
@@ -15,8 +15,8 @@ makedepends=('perl-module-build'
 options=('!emptydirs')
 source=(https://search.cpan.org/CPAN/authors/id/A/AM/AMBS/${_dist}-${pkgver}.tar.gz)
 # Checksums from http://search.cpan.org/CPAN/authors/id/A/AM/AMBS/CHECKSUMS
-md5sums=('4139e6cf3316e4c1a2385afb5fcc0662')
-sha256sums=('5d5d3b69b91c7d00ca6d969269bfefa148211f4effc62bee72bd1375d57b0fc7')
+md5sums=('437862f801cfb7598dff52aa4ff7d888')
+sha256sums=('3f0113cf8fe71dc7484636dc8e2a581637ecbcc82d0be29bbd46d0bf3f8cdb37')
 
 prepare() {
     cd "${srcdir}/${_dist}-${pkgver}"
