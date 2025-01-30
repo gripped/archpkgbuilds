@@ -5,12 +5,13 @@
 
 pkgname=lite-xl
 pkgver=2.1.7
-pkgrel=2
+pkgrel=3
 pkgdesc='A lightweight text editor written in Lua'
 arch=(x86_64 aarch64)
 url="https://$pkgname.com"
 license=(MIT)
 depends=(freetype2
+         glibc # libc.so
          lua
          pcre2
          sdl2)
@@ -18,18 +19,19 @@ makedepends=(git # used by Meson to fetch submodule, TODO: move to source()
              meson)
 conflicts=(lite)
 provides=(lite)
-replaces=("$pkgname-bin")
 _archive="$pkgname-$pkgver"
 source=("https://github.com/$pkgname/$pkgname/archive/v$pkgver/$_archive.tar.gz")
 sha256sums=('69d1ce4c1d148d382ccb06f45feca2565c5c8fe9d0b1b9bc1cbe014f6826ce6b')
 
 build() {
-        arch-meson "$_archive" build -D use_system_lua=true
-        meson compile -C build
+	local meson_opts=(
+		use_system_lua=true
+	)
+	arch-meson "$_archive" ${meson_opts[@]/#/-D } build
+	meson compile -C build
 }
 
 package() {
-        meson install --skip-subprojects -C build --destdir "$pkgdir"
-        cd "$_archive"
-        install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+	meson install -C build --destdir "$pkgdir" --skip-subprojects
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" "$_archive/LICENSE"
 }
