@@ -9,38 +9,48 @@
 
 pkgname=font-manager
 pkgver=0.9.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A simple font management application for GTK+ Desktop Environments'
 url=https://fontmanager.github.io
+_url="https://github.com/FontManager/$pkgname"
 arch=(x86_64 i686)
 license=(GPL-3.0-only)
-depends=(gtk4
+depends=(cairo libcairo.so
+         fontconfig libfontconfig.so
+         freetype2 libfreetype.so
+         gcc-libs # libgcc_s.so
+         glibc # libc.so
+         glib2 libgio-2.0.so libglib-2.0.so libgobject-2.0.so
+         graphene libgraphene-1.0.so
+         gtk4
+         harfbuzz libharfbuzz.so
          json-glib
-         libsoup3
-         libxml2
-         sqlite
-         webkitgtk-6.0)
+         libsoup3 libsoup-3.0.so
+         libxml2 libxml2.so
+         pango libpango-1.0.so libpangoft2-1.0.so
+         sqlite libsqlite3.so
+         webkitgtk-6.0 libwebkitgtk-6.0.so)
 optdepends=(file-roller
             libnautilus-extension)
 makedepends=(gobject-introspection
              intltool
              meson
              nautilus
-             ninja
              vala
              yelp-tools)
 _archive="$pkgname-$pkgver"
-_url="https://github.com/FontManager/font-manager"
 source=("$_url/releases/download/$pkgver/$_archive.tar.xz")
 sha256sums=('5a6ef285f6011b4661fec8561c72515b7b2dfeaebbc7e944f7f6385ce89497a6')
 
 build() {
-	arch-meson "$_archive" build \
-		-Dnautilus=true \
-		-Dreproducible=true
-	ninja -C build
+	local meson_opts=(
+		nautilus=true
+		reproducible=true
+	)
+	arch-meson "$_archive" build ${meson_opts[@]/#/-D }
+	meson compile -C build
 }
 
 package() {
-	DESTDIR="$pkgdir" ninja -C build install
+	meson install -C build --destdir "$pkgdir"
 }
