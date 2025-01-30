@@ -2,7 +2,7 @@
 # Contributor: Brody <archfan at brodix dot de>
 
 pkgname=markdownlint-cli2
-pkgver=0.17.1
+pkgver=0.17.2
 pkgrel=1
 pkgdesc='Fast, flexible, configuration-based command-line interface for linting Markdown/CommonMark files with the markdownlint library'
 arch=(any)
@@ -16,7 +16,7 @@ makedepends=(
 )
 options=(!emptydirs)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('a157fd46715f48cac2dfc43e09e4a4b46eff00dbd4ac8f64f3c5abbd668190714c67d70bbdd0ac284ddeab3397f383a3f324aec8c7bd1c9911d167d42a2b0bcb')
+b2sums=('6eb086ec887ba53b5f4a39935e8b7f30bb6217e2bc67ee5aa636b1aa0ce3d7fd0e81972b7551cdbaa87ae305c62c00e5c336c488a330cff8a2fc6de20fbe73ce')
 
 prepare() {
   cd $pkgname
