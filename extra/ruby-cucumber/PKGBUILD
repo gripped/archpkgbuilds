@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-cucumber
-pkgver=9.2.0
-pkgrel=2
+pkgver=9.2.1
+pkgrel=1
 pkgdesc="Behaviour Driven Development with elegance and joy"
 arch=(any)
 url='https://github.com/cucumber/cucumber-ruby'
@@ -36,8 +36,8 @@ options=(!emptydirs)
 source=(
   "https://github.com/cucumber/cucumber-ruby/archive/v$pkgver/cucumber-cucumber-ruby-$pkgver.tar.gz"
 )
-sha512sums=('4685647167268621488fc0144f24f44cc4dd684206298cd20b9a2efbbbcc43f5b05223e4d1e9c8b6b29c552eac31d8471c12c59d5fec7463a28c8f8ebd20159a')
-b2sums=('4bbd9b0ecf2d3e3a06d9ca36f512b67b7f776185c1888987cd247fdf457150f96a30b1d33d2b76605efe71a51e1866ae595b77458dcf63eabac2974db0932027')
+sha512sums=('9278a0c1b747a580445d2ac0fab1c451c6745d653aa91d050ac4a055b569d0281a25df287141f7a56dc97c13e6721ffa84875244d78e41deb8002dba59279d32')
+b2sums=('f573c9731cb155daf7c5aecb0b86fe57273b607846006949b76e78e16a96d4a9bd44fc702c070ac35441f0c4913f55c77a77c098532042122ff955ea77d68abd')
 
 prepare() {
   cd cucumber-ruby-$pkgver
