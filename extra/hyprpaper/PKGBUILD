@@ -3,13 +3,12 @@
 
 pkgname=hyprpaper
 pkgver=0.7.4
-pkgrel=3
+pkgrel=4
 pkgdesc='a blazing fast wayland wallpaper utility with IPC controls'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
 license=(BSD-3-Clause)
 depends=(cairo libcairo.so
-         file libmagic.so
          gcc-libs
          glibc
          hyprgraphics libhyprgraphics.so
@@ -17,8 +16,6 @@ depends=(cairo libcairo.so
          hyprutils libhyprutils.so
          hyprwayland-scanner
          libglvnd
-         libjpeg-turbo libjpeg.so
-         libwebp libwebp.so
          pango
          wayland) # libwayland-cursor.so libwayland-client.so
 makedepends=(cmake
