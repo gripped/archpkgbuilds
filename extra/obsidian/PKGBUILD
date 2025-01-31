@@ -3,14 +3,13 @@
 # Contributor: Xuanwo <xuanwo@archlinuxcn.org>
 
 pkgname=obsidian
-pkgver=1.7.7
+pkgver=1.8.3
 pkgrel=1
 pkgdesc="A powerful knowledge base that works on top of a local folder of plain text Markdown files"
 arch=('x86_64')
 url="https://obsidian.md/"
 license=('custom:Commercial')
 depends=('zlib' 'hicolor-icon-theme' 'fuse' 'electron32')
-makedepends=('asar')
 install=obsidian.install
 options=(!strip)
 source=("obsidian.sh"
@@ -19,12 +18,7 @@ source=("obsidian.sh"
 )
 sha256sums=('aaf46c3c8a510aa63b81e87da37364829613335c54673a9c8fbc1f183ac84f68'
             'be67713e873a5935d910efc6f6005c104b35c7b3a002dfcb5643fd185d1b0056'
-            'e881ea06f671db2c5002f0038b73a4e4b7b78a9dbf73aa9a7d0dc54a93d3d29a')
-
-prepare() {
-    cd "$srcdir"
-    asar ef "${pkgname}-${pkgver}"/resources/obsidian.asar icon.png
-}
+            'b79899380fdc149a67f4eb5bbad43a809e925641b44258e7259f77d589c6739e')
 
 package() {
     cd "$srcdir"
@@ -34,12 +28,13 @@ package() {
 
     # Install desktop file
     install -Dm644 "$pkgname".desktop -t "$pkgdir"/usr/share/applications/
-    install -Dm644 icon.png "$pkgdir"/usr/share/pixmaps/obsidian.png
 
     # Most of the release package is electron, but we use system's default one
     # So strip away asar packages and put them to /usr/lib/
     cd "${pkgname}-${pkgver}"/resources/
     install -dm0755 "$pkgdir"/usr/lib/obsidian
+    # install icon
+    install -Dm644 icon.png "$pkgdir"/usr/share/pixmaps/obsidian.png
     find . -type d -exec install -d {,"$pkgdir"/usr/lib/obsidian/}{} \;
     find . -type f -exec install -D {,"$pkgdir"/usr/lib/obsidian/}{} \;
 }
