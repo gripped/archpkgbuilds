@@ -2,7 +2,7 @@
 
 pkgname=python-sphinx-notfound-page
 _pyname=${pkgname/python-/}
-pkgver=1.0.4
+pkgver=1.1.0
 pkgrel=1
 pkgdesc='Create a custom 404 page with absolute URLs hardcoded'
 url='https://github.com/readthedocs/sphinx-notfound-page'
@@ -17,7 +17,7 @@ makedepends=(git
              python-installer)
 checkdepends=(python-pytest)
 source=(git+https://github.com/readthedocs/sphinx-notfound-page#tag=$pkgver)
-sha512sums=('48931e50d9f73d690f9ddd01a546de9ddd87e6ffe924e5c4cd739f577c548c377940269d21bf1cdb4669ae0c332f23f3b669d8ca11525626c5c78850b4c03399')
+sha512sums=('09275ace82f302748fe1d264601c6f1ac78b8447e50c28930902dc795fc37a88ac3f8ee4304024285e20af881e0ded6bd730b432650dfcf16ab0618ec5dfb72f')
 
 prepare() {
   cd $_pyname
