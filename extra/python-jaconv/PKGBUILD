@@ -3,7 +3,7 @@
 _pyname=jaconv
 pkgname=python-$_pyname
 pkgver=0.3.4
-pkgrel=2
+pkgrel=3
 pkgdesc='Pure-Python Japanese character interconverter for Hiragana, Katakana, Hankaku, and Zenkaku'
 url='https://ikegami-yukino.github.io/jaconv/jaconv.html'
 license=(MIT)
@@ -17,6 +17,13 @@ checkdepends=(python-nose
               python-pytest)
 source=(git+https://github.com/ikegami-yukino/jaconv#tag=v$pkgver)
 sha256sums=('08e0c00dd152bc3e6e0537cc1ed04b669ce7cdf855bbc83cca556b808f951642')
+
+prepare() {
+  cd $_pyname
+  # Don't install {CHANGES,README}.rst to /usr
+  # Upstream bug report: https://github.com/ikegami-yukino/jaconv/issues/28
+  git cherry-pick -n 6a1c0fc05f1eac50d5a47d83e988efa1f9a84cf7
+}
 
 build() {
   cd $_pyname
