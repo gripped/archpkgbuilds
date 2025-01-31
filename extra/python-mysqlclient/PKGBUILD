@@ -3,24 +3,27 @@
 
 pkgname=python-mysqlclient
 _libname=${pkgname/python-/}
-pkgver=2.2.4
-pkgrel=2
+pkgver=2.2.7
+pkgrel=1
 pkgdesc="Fork of MySQL-python with support for Python 3"
 arch=('x86_64')
 url="https://github.com/PyMySQL/mysqlclient-python"
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('python' 'mariadb-libs')
-makedepends=('mariadb' 'python-setuptools')
+makedepends=('mariadb' 'python-setuptools' 'python-installer' 'python-wheel' 'python-build')
 source=("https://files.pythonhosted.org/packages/source/${_libname:0:1}/$_libname/$_libname-$pkgver.tar.gz")
 
 build() {
     cd "$srcdir"/$_libname-$pkgver
-    python setup.py build
+    python -m build --wheel --no-isolation
 }
+
+# No check(); this requires spinning up a database service in the background
 
 package() {
     cd "$srcdir"/$_libname-$pkgver
+    python -m installer --destdir="$pkgdir" dist/*.whl
     python setup.py install -O1 --skip-build --root="$pkgdir"
 }
 
-sha256sums=('33bc9fb3464e7d7c10b1eaf7336c5ff8f2a3d3b88bab432116ad2490beb3bf41')
+sha256sums=('24ae22b59416d5fcce7e99c9d37548350b4565baac82f95e149cac6ce4163845')
