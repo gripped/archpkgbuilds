@@ -25,7 +25,7 @@ pkgname=('man-pages-cs'
          'man-pages-sr'
          'man-pages-uk'
          'man-pages-vi')
-pkgver=4.24.0
+pkgver=4.25.1
 pkgrel=1
 pkgdesc="Translation of man pages"
 arch=('any')
@@ -36,7 +36,7 @@ makedepends=('po4a')
 changelog=$pkgbase.changelog
 options=('!emptydirs')
 source=("$url/-/archive/$pkgver/manpages-l10n-$pkgver.tar.bz2")
-sha256sums=('f04b6aa42f11970d108bfbdf988fdaa5b7264b2f6e54cbbd5e1ab9300e18b4ed')
+sha256sums=('750f2399ee32a28afd0454c50034d68d6f68a572b1432bed071a4934e98d61ff')
 
 build() {
   cd manpages-l10n-$pkgver
