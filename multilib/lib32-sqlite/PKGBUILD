@@ -6,19 +6,19 @@
 
 pkgbase="lib32-sqlite"
 pkgname=('lib32-sqlite')
-_srcver=3470200
-pkgver=3.47.2
-pkgrel=1
+_srcver=3480000
+pkgver=3.48.0
+pkgrel=2
 pkgdesc="A C library that implements an SQL database engine (32-bit)"
 arch=('x86_64')
 license=('custom:Public Domain')
 url="https://www.sqlite.org/"
 makedepends=('tcl' 'lib32-readline' 'sqlite')
 options=('!emptydirs')
-source=(https://www.sqlite.org/2024/sqlite-src-${_srcver}.zip
+source=(https://www.sqlite.org/2025/sqlite-src-${_srcver}.zip
         license.txt)
 # upstream now switched to sha3sums - currently not supported by makepkg
-sha256sums=('e6a471f1238225f34c2c48c5601b54024cc538044368230f59ff0672be1fc623'
+sha256sums=('2d7b032b6fdfe8c442aa809f850687a81d06381deecd7be3312601d28612e640'
             '4e57d9ac979f1c9872e69799c2597eeef4c6ce7224f3ede0bf9dc8d217b1e65d')
 
 prepare() {
@@ -54,13 +54,13 @@ build() {
   ./configure --prefix=/usr \
 	--libdir=/usr/lib32 \
 	--disable-static \
-	--enable-fts3 \
-	--enable-fts4 \
-	--enable-fts5 \
-	--enable-rtree \
+	--fts4 \
+	--fts5 \
+	--rtree \
 	--disable-tcl \
+	--soname=legacy
 	TCLLIBDIR=/usr/lib/sqlite$pkgver
-  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  sed -i -e 's/$(LDFLAGS.libsqlite3)/ -Wl,-O1,--as-needed \0/g' main.mk
   make
 }
 
@@ -73,7 +73,7 @@ package_lib32-sqlite() {
   cd sqlite-src-$_srcver
   make DESTDIR="${pkgdir}" install
 
-  rm -r "${pkgdir}"/usr/{bin,include}
+  rm -r "${pkgdir}"/usr/{bin,include,share/man}
 
   # license - no linking required because pkgbase=pkgname
   install -D -m644 "${srcdir}"/license.txt "${pkgdir}"/usr/share/licenses/${pkgbase}/license.txt
