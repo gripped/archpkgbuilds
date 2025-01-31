@@ -5,8 +5,8 @@ pkgname=(
   papers
   papers-lib-docs
 )
-pkgver=47.0
-pkgrel=2
+pkgver=47.3
+pkgrel=1
 pkgdesc='Document viewer for PDF and other document formats aimed at the GNOME desktop'
 arch=(x86_64)
 url='https://apps.gnome.org/Papers/'
@@ -41,7 +41,7 @@ makedepends=(
   rust
 )
 source=("git+https://gitlab.gnome.org/GNOME/Incubator/papers.git#tag=$pkgver")
-b2sums=(1604832180bdb94ca1b621192ac69d86e3eee2de95aed0e907a1d42f5ccbefa718406b41d1168d8dd0b463b23eb0bea33adc2160b724d2f47609a89406d37077)
+b2sums=('8b204e0197dc264669847328928a41bf45975acf87bad8ba53559626839ea75c0a9b42d8658ad2e20e0a29275fde2b21bf9ddec99f3f57b2d7ce1cb04e93555d')
 
 prepare() {
   cd $pkgbase
@@ -49,9 +49,6 @@ prepare() {
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')" \
       --manifest-path=shell-rs/Cargo.toml
-
-  # https://gitlab.gnome.org/GNOME/Incubator/papers/-/merge_requests/333
-  git cherry-pick -n 455ad2aebe5e5d5a57a2f4defc6af054927eac73
 
   # https://gitlab.gnome.org/GNOME/Incubator/papers/-/merge_requests/337
   git cherry-pick -n 13dcf088b201ca3446feefe92aee3aec653cb4c5
