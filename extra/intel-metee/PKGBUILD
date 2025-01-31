@@ -3,7 +3,7 @@
 
 pkgbase=intel-metee
 pkgname=(intel-metee intel-metee-doc)
-pkgver=4.3.0
+pkgver=4.3.1
 pkgrel=1
 pkgdesc="Access library for Intel CSME HECI interface"
 arch=(x86_64)
@@ -11,7 +11,7 @@ url="https://github.com/intel/metee/"
 license=(Apache-2.0)
 makedepends=(cmake doxygen graphviz)
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('6652c3a1a3877a5912096a6e137a9c93230704132e17d31a3a91a730c8fda8fd')
+sha256sums=('21c31c754421b0beb71e8f6a88fa4829c0c6d530f14c39f4a30d37cc216340b7')
 
 prepare() {
     # remove obselete doxygen tags
