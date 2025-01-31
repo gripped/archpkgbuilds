@@ -8,7 +8,7 @@ pkgname=(
   lib32-gst-plugins-base
   lib32-gst-plugins-good
 )
-pkgver=1.24.11
+pkgver=1.24.12
 pkgrel=1
 pkgdesc="Multimedia graph framework (32-bit)"
 url="https://gstreamer.freedesktop.org/"
@@ -80,7 +80,7 @@ source=(
   "git+https://gitlab.freedesktop.org/gstreamer/gstreamer.git?signed#tag=$pkgver"
   0001-HACK-meson-Disable-broken-tests.patch
 )
-b2sums=('e13c86390af5950e0cc8565b7282977c4832e64972d5436ae05db4b8eabe7a3866029592868a01fb3c62526d825a5d41714f26e5f9d71f474f10f62ec9102984'
+b2sums=('e11c560e33db0292075a8c3043eef959c6b68c2c54e55a62d41acbfce544b198ff0a948682ff2e9d90ec2773674e614378399b1411588eae7757176ce157dd4e'
         'ffa84decda2494fd6ad504f05d70c20d72ada43f50c17118ed56a2779101d919a355263a9275b923d2651f032780ad717c8de1b8c3d9359e4cce0ea82b74922d')
 validpgpkeys=(
   D637032E45B8C6585B9456565D2EEE6F6F349D7C # Tim Müller <tim@gstreamer-foundation.org>
