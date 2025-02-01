@@ -1,10 +1,11 @@
 pkgbase = b3sum
 	pkgdesc = Command line implementation of the BLAKE3 hash function
 	pkgver = 1.5.5
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/BLAKE3-team/BLAKE3
 	arch = x86_64
 	license = CC0-1.0 OR Apache-2.0 OR Apache-2.0 WITH LLVM-exception
+	makedepends = cmake
 	makedepends = git
 	makedepends = rust
 	depends = gcc-libs
@@ -12,3 +13,6 @@ pkgbase = b3sum
 	b2sums = 9bbb2e15cec7c188af6ee5e24661d987424f6fd92769e6d5d4c7fd216d7494515b999845433fbe211d7569fa157a6c3216b69fe70e2f3dc2aa4fd2e1535d21cb
 
 pkgname = b3sum
+
+pkgname = libblake3
+	pkgdesc = The official C implementation of BLAKE3
