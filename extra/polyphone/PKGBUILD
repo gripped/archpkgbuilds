@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=polyphone
-pkgver=2.4.1
+pkgver=2.5.1
 pkgrel=1
 pkgdesc="A soundfont editor for quickly designing musical instruments"
 arch=(x86_64)
@@ -20,10 +20,10 @@ depends=(
   zlib
 )
 makedepends=(
-  flac
   jack
   libogg
   libvorbis
+  libsndfile
   rtaudio
   rtmidi
   qt5-tools
@@ -32,8 +32,8 @@ makedepends=(
 source=(
   $pkgname-$pkgver.tar.gz::https://github.com/davy7125/$pkgname/archive/$pkgver.tar.gz
 )
-sha512sums=('e706c6c39ab619a520721f052557c497fef086af0fb4e4e0e906678b9c8d120c0ec267e7f0e6b44001c2e7123b2869a4bd7975b92003c009fb0d8784f0a0d101')
-b2sums=('50376bd4e852fb6ca009c7d090548d80be48a79ffc6dc4f3a93a458a843fe870bbc88ec8c0c0c5d891eb6d225a4b04a8238d4fba09be1b9b12ba0562d6933d46')
+sha512sums=('745709b625e7f013fd185168deda274a0bca3236fc08e921689c830c0186fa99bae7c8db02be48425aea2f9b0330b2da8b55e2af8a430d1aac02118fb83511e4')
+b2sums=('7a962e25040caf3902257a4167565ac79302da9b69d60ca998e88bd8fee24b20e4ab5eb206cb27b93b7a8beb2a0a6b890e9038186cb106322fd3834b2883e927')
 
 build() {
   cd $pkgname-$pkgver/sources
@@ -43,9 +43,9 @@ build() {
 
 package() {
   depends+=(
-    flac libFLAC.so
     jack libjack.so
     libogg libogg.so
+    libsndfile libsndfile.so
     libvorbis libvorbis.so libvorbisenc.so libvorbisfile.so
     stk libstk-5.0.0.so
   )
@@ -56,7 +56,6 @@ package() {
   install -vDm 644 resources/$pkgname.png -t "$pkgdir/usr/share/icons/hicolor/512x512/apps"
   install -vDm 644 contrib/man/fr/man1/$pkgname.*1 -t "$pkgdir/usr/share/man/fr/man1/"
   install -vDm 644 contrib/man/man1/$pkgname.*1 -t "$pkgdir/usr/share/man/man1/"
-  install -vDm 644 contrib/man/ru/man1/$pkgname.*1 -t "$pkgdir/usr/share/man/ru/man1/"
   install -vDm 644 contrib/*.desktop -t "$pkgdir/usr/share/applications/"
   install -vDm 644 contrib/*.xml -t "$pkgdir/usr/share/metainfo/"
   install -vDm 644 contrib/$pkgname.xml -t "$pkgdir/usr/share/mime/packages/"
