@@ -3,7 +3,7 @@
 
 pkgname=python-proxy.py
 _name=${pkgname#python-}
-pkgver=2.4.4
+pkgver=2.4.9
 pkgrel=1
 pkgdesc='Lightweight HTTP, HTTPS, HTTP2 and WebSockets proxy server'
 arch=(any)
@@ -34,8 +34,8 @@ source=(
   # may have unreproducible tarballs until issue is solved: https://github.com/abhinavsingh/proxy.py/issues/1394
   "$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
 )
-sha512sums=('217f96408ae86e9772b39e5aac8dbe7ff2844012c2c0a74d7a095aeacddb2b8990df9bca8375bfc22bc3cee5bd93564462d41b07d211fcefaa657ff202eda2ff')
-b2sums=('640e25f92ec55b66f9215014fd035edcae4037d05b0f230c47a3b6cf86c088e11a27326d157cf847cc10d34859fdcfdf77502352547bd41d48d4f290aa7da903')
+sha512sums=('ff3806598534b4ca8fbf0c13e2ab6a917bd3b2b6b2392642bfd775ce9c49d1437e2871848133f15f9f80686fa91e5032be2926c747c33efe584704b78c0a34d2')
+b2sums=('a0c7474cf6007b5171c9129af483ce785c1bcb1b76aedd448e697b38ffb4b7d84e096a1d8c44624c5bc9b2c1f513ee48b96adfc7399e24b549c310f0d24c9106')
 
 build() {
   cd "$_name"-$pkgver
