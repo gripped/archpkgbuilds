@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-event-stream
-pkgver=0.5.0
+pkgver=0.5.1
 pkgrel=1
 pkgdesc='C99 implementation of the vnd.amazon.eventstream content-type'
 arch=(x86_64)
@@ -16,7 +16,7 @@ depends=(
 )
 makedepends=(cmake)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('3a53a9d05f9e2fd06036a12854a8b4f05a0c4858bb5b8df8a30edba9de8532b5')
+sha256sums=('22ce7a695b82debe118c9ecc641ea8bc7e59c9843f92d5acf8401fc86cac847a')
 
 build() {
   cd $pkgname-$pkgver
