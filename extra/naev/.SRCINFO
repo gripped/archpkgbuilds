@@ -1,6 +1,6 @@
 pkgbase = naev
 	pkgdesc = 2D action/rpg space game
-	pkgver = 0.12.1
+	pkgver = 0.12.3
 	pkgrel = 1
 	url = https://github.com/naev/naev
 	arch = x86_64
@@ -27,7 +27,13 @@ pkgbase = naev
 	depends = libunibreak
 	depends = suitesparse
 	depends = cblas
-	source = https://github.com/naev/naev/releases/download/v0.12.1/naev-0.12.1-source.tar.xz
-	sha512sums = d6bbe25d930723fec1786f7160ef72091d1480714bdec2032a8d194aec281ca352eaab0a4b8af538b79068be972cf28fc81d681ff5659733cdc2044ad250a9df
+	depends = cmark
+	depends = enet
+	source = https://github.com/naev/naev/releases/download/v0.12.3/naev-0.12.3-source.tar.xz
+	source = https://github.com/naev/naev/commit/eb11709e3a38da52f93e5415cc7fc9152a081fef.patch
+	source = https://github.com/naev/naev/commit/8cd181e8666e1250f39766dda742f00206f1edbf.patch
+	sha512sums = 6ae2701d66a198f128e8f2d87a5f6177ef8dcba64ef5ac1110e0af94bd74a46b3183f1a6771d632e9da79e29fc8ee502cfaa36ab7a8e259e681efe9946a9d239
+	sha512sums = 364d9831563bfa5c4fb8ad103066909a8d0eab294f2f9513443ae7a72026b385104195ebaa439386f8e2a9ac94b6d1893f1c6b3568e0430e8d5394eb348a1fac
+	sha512sums = 8adc86c0b7c1a2d13752e3060854c52262fcee88f81b8cf6dcd9d58d5364ab7f01a0f671149453f9305fa78ae4aa45e69affe3b02d39bb9994331f59f88c6e84
 
 pkgname = naev
