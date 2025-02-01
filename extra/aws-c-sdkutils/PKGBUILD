@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-sdkutils
-pkgver=0.2.2
+pkgver=0.2.3
 pkgrel=1
 pkgdesc='AWS SDK utility library'
 arch=(x86_64)
@@ -14,7 +14,7 @@ depends=(
 )
 makedepends=(cmake)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('75defbfd4d896b8bdc0790bd25d854218acae61b9409d1956d33832924b82045')
+sha256sums=('5a0489d508341b84eea556e351717bc33524d3dfd6207ee3aba6068994ea6018')
 
 build() {
   cd $pkgname-$pkgver
