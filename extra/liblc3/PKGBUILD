@@ -3,7 +3,7 @@
 # Contributor: Florian Hülsmann <fh@cbix.de>
 
 pkgname=liblc3
-pkgver=1.1.1
+pkgver=1.1.2
 pkgrel=1
 pkgdesc="Low Complexity Communication Codec library and tools"
 url="https://github.com/google/liblc3"
@@ -13,17 +13,24 @@ depends=(glibc)
 makedepends=(
   git
   meson
+  python
 )
+optdepends=('python: Python bindings')
 provides=(liblc3.so)
 source=("git+$url#tag=v$pkgver")
-b2sums=('e6492333659b7560104a09917704222e427667dd88d7c87f3ac5b70e67292deede8fa03db870033363e0e4518e3ac2c3fb2a934aa4e5dfcca2140e4301d84944')
+b2sums=('4cab5ee8e0b01b7ad05ee0f933c48bb1de8619644405a03e77d243b5fc5a9f81d4df1da4a3c189a37d17afcc066c14c85016fa2d358055558c1f59d5058268d1')
 
 prepare() {
   cd liblc3
 }
 
 build() {
-  arch-meson liblc3 build -D tools=true
+  local meson_options=(
+    -D python=true
+    -D tools=true
+  )
+
+  arch-meson liblc3 build "${meson_options[@]}"
   meson compile -C build
 }
 
