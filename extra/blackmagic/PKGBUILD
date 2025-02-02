@@ -2,7 +2,7 @@
 
 pkgname=blackmagic
 pkgver=1.10.2
-pkgrel=1
+pkgrel=2
 pkgdesc='In application debugger for ARM Cortex microcontrollers'
 arch=('x86_64')
 url='https://github.com/blacksphere/blackmagic'
@@ -37,6 +37,5 @@ package() {
 
   install -Dm 755 src/blackmagic "$pkgdir"/usr/bin/blackmagic
 
-  install -Dm 644 driver/*.rules -t "$pkgdir"/usr/share/solaar/udev-rules.d/
+  install -Dm 644 driver/99-blackmagic-uucp.rules -t "$pkgdir"/usr/lib/udev/rules.d/
 }
-
