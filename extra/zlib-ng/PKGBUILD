@@ -5,7 +5,7 @@
 pkgbase=zlib-ng
 pkgname=(zlib-ng zlib-ng-compat)
 pkgver=2.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc='zlib replacement with optimizations for next generation systems'
 url='https://github.com/zlib-ng/zlib-ng'
 arch=('x86_64')
@@ -25,8 +25,6 @@ b2sums=('65cd976d559dcc31f34861a01b2eb0ce0439dd6412553a5a9842d2d937d4a0d1194aec9
 build() {
   cd "${pkgbase}-${pkgver}"
 
-	# WITH_UNALIGNED - unaligned access invokes undefined behaviour,
-	#   see https://github.com/gentoo/gentoo/pull/17167 for more info.
   local _options=(
     -G Ninja
     -DCMAKE_BUILD_TYPE=None
@@ -34,7 +32,7 @@ build() {
     -DCMAKE_INSTALL_LIBDIR=lib
     -Wno-dev
     -DWITH_GTEST=OFF
-    -DWITH_UNALIGNED=OFF
+    -DBUILD_SHARED_LIBS=ON
   )
 
   echo "Building zlib-ng"
