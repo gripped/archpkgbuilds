@@ -3,8 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-quicktimeline
-_pkgver=6.8.1
-pkgver=6.8.1
+_pkgver=6.8.2
+pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -23,7 +23,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('6b820641e00ca87b6b5a4eff0861eddf98001a7f7eff3bb16cd2f374d0be64f5')
+sha256sums=('9c57f158f8fd5c53da62fd79216ab3f41b57adc87423080e5a6a0a78fad31da1')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
