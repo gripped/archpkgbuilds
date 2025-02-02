@@ -2,7 +2,7 @@
 
 pkgname=paperwork
 pkgver=2.2.5
-pkgrel=2
+pkgrel=3
 pkgdesc='Personal document manager to manage scanned documents and PDFs'
 arch=(any)
 url='https://openpaper.work/'
@@ -46,10 +46,12 @@ makedepends=(
 source=(
   "git+https://gitlab.gnome.org/World/OpenPaperwork/paperwork.git#tag=$pkgver"
   paperwork-l10n-compile.patch
+  paperwork-check-path.patch
 )
 b2sums=(
   f2a01e06382aee7d9dd4f1b2d53e4b5ad0ec5e29d074078c84a7fdbcccf8c33d8b4e51caea2cfea8b222fd93bb709b77ed495307c51c182c59bea73f94974e90
   2489e31ea97f971dd89218f0b2496d3ea1ea9ac6114532e30022cbdcc194fad2091047731538352f53f4a81680e561e91b74953381ad2e0904434dcb071e9c5d
+  91256d006e850cb4405d3a6934177242f708c491200bcec69fa91387deb581a4913ed84e1bdb5545a9ccba915a185ec6a8c25bbfe068bfc6e144e2f0bffd54ad
 )
 
 prepare() {
@@ -58,6 +60,9 @@ prepare() {
 
   # https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/merge_requests/862
   git apply -3 ../paperwork-l10n-compile.patch
+
+  # https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/merge_requests/867
+  git apply -3 ../paperwork-check-path.patch
 }
 
 build() {
