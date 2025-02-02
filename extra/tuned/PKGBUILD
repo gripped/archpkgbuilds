@@ -7,7 +7,7 @@
 pkgbase=tuned
 pkgname=("${pkgbase}" "${pkgbase}-ppd")
 pkgver=2.25.0
-pkgrel=1
+pkgrel=3
 pkgdesc='Daemon that performs monitoring and adaptive configuration of devices in the system'
 arch=('any')
 url="https://github.com/redhat-performance/${pkgbase}"
@@ -15,15 +15,16 @@ license=('GPL-2.0-or-later')
 depends=('ethtool' 'gawk' 'hdparm' 'polkit' 'perf' 'python-configobj'
          'python-dbus' 'python-gobject' 'python-linux-procfs' 'python-pyudev')
 makedepends=('desktop-file-utils')
-source=("https://github.com/redhat-performance/${pkgbase}/archive/v${pkgver}/${pkgbase}-${pkgver}.tar.gz")
-sha512sums=('dcec874faacdeb4f8bfb0b81a789cc8b0e88c19a8c091d2bd0609a18f70560d33c7917c4eb76532e9991e30a5721ad9949d013e36048a3282c82d218d961ddaf')
+source=("https://github.com/redhat-performance/${pkgbase}/archive/v${pkgver}/${pkgbase}-${pkgver}.tar.gz"
+	"libexecdir-support.patch::https://github.com/redhat-performance/${pkgbase}/commit/410344b8dbc64bada45be2c3ad78ab5e3ba1c0a1.patch")
+sha512sums=('dcec874faacdeb4f8bfb0b81a789cc8b0e88c19a8c091d2bd0609a18f70560d33c7917c4eb76532e9991e30a5721ad9949d013e36048a3282c82d218d961ddaf'
+            '8f5f51497fedecfbef141f3679cb5bfba36e1116956358f5e3ad505b7ff8d3ff469631ab77fa0c3f183377943666b2b166a4cc71bc31485340d2c8293e05d925')
 
 prepare() {
   cd "${pkgbase}-${pkgver}"
-  mv libexec lib
 
-  sed -i 's|/libexec/|/lib/|g' Makefile
-  sed -i 's|/sbin/|/bin/|g' Makefile tuned.service tuned-gui.py tuned-gui.desktop tuned/ppd/tuned-ppd.service
+  patch -Np1 < '../libexecdir-support.patch'
+  sed -i 's|/sbin/|/bin/|g' tuned.service tuned-gui.py tuned-gui.desktop tuned/ppd/tuned-ppd.service
 }
 
 package_tuned() {
@@ -47,7 +48,7 @@ package_tuned() {
 
   cd "${pkgbase}-${pkgver}"
 
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR="${pkgdir}" SBINDIR="/usr/bin" LIBEXECDIR="/usr/lib" install
   rm -rv "${pkgdir}"/{run,var}
 
   python -m compileall -d /usr/lib "${pkgdir}/usr/lib"
@@ -56,12 +57,12 @@ package_tuned() {
 
 package_tuned-ppd() {
   pkgdesc='Daemon that allows applications to easily transition to TuneD from power-profiles-daemon (PPD)'
-  depends=('tuned')
+  depends=('tuned' 'python-pyinotify')
   provides=('power-profiles-daemon')
   conflicts=('power-profiles-daemon')
   backup=('etc/tuned/ppd.conf')
 
   cd "${pkgbase}-${pkgver}"
 
-  make DESTDIR="${pkgdir}" install-ppd
+  make DESTDIR="${pkgdir}" SBINDIR="/usr/bin" LIBEXECDIR="/usr/lib" install-ppd
 }
