@@ -1,7 +1,7 @@
 pkgbase = intel-media-driver
 	pkgdesc = Intel Media Driver for VAAPI — Broadwell+ iGPUs
 	pkgver = 24.4.4
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/intel/media-driver/
 	arch = x86_64
 	license = MIT
@@ -11,6 +11,8 @@ pkgbase = intel-media-driver
 	depends = intel-gmmlib
 	depends = libva
 	source = https://github.com/intel/media-driver//archive/intel-media-24.4.4.tar.gz
+	source = 010-intel-media-driver-fix-segfault-in-newer-gpus.patch::https://github.com/intel/media-driver/commit/7faa3bfe1a4cb79180eae64ccb426af5102f11e3.patch
 	sha256sums = 3000723faf4dc56eb8276f402c4aa798459bbce860b408a0c480d863b28130ed
+	sha256sums = fec5c3b6671c4345b6c280b02851bd3ba1e35321e87673b305e9a1afff5f3b6a
 
 pkgname = intel-media-driver
