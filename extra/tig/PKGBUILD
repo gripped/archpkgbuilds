@@ -4,18 +4,21 @@
 # Contributor: Nathan Jones <nathanj@insightbb.com>
 
 pkgname=tig
-pkgver=2.5.10
-pkgrel=1
+pkgver=2.5.11
+pkgrel=2
 pkgdesc='Text-mode interface for Git.'
-depends=('git' 'ncurses')
+depends=('git'
+         'ncurses' 'libncursesw.so'
+         'pcre2' 'libpcre2-posix.so' 'libpcre2-8.so'
+         'readline' 'libreadline.so')
 makedepends=('asciidoc' 'xmlto')
 url='https://jonas.github.io/tig/'
 license=('GPL')
 arch=('x86_64')
 backup=('etc/tigrc')
 source=("https://github.com/jonas/$pkgname/releases/download/$pkgname-$pkgver/$pkgname-$pkgver.tar.gz")
-md5sums=('80822a6ed9f2accf13154a482ce72a05')
-sha256sums=('f655cc1366fc10058a2bd505bb88ca78e653ff7526c1b81774c44b9d841210e3')
+md5sums=('ebbc17e3a7d511e959a4969a32265063')
+sha256sums=('b36ef52b1a19d87257adfa9047cc3e21d6bd528bbd28458fe49003eb3e374aa7')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
