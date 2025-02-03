@@ -2,8 +2,8 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=libxfce4windowing
-pkgver=4.20.0
-pkgrel=3
+pkgver=4.20.2
+pkgrel=1
 pkgdesc="Windowing concept abstraction library for X11 and Wayland"
 arch=('x86_64')
 url="https://docs.xfce.org/xfce/libxfce4windowing/start"
@@ -12,7 +12,7 @@ depends=('gdk-pixbuf2' 'glib2' 'gtk3' 'libwnck3' 'libdisplay-info' 'libx11' 'way
 makedepends=('git' 'glib2-devel' 'gobject-introspection' 'gtk-doc' 'wayland-protocols' 'xfce4-dev-tools')
 source=("git+https://gitlab.xfce.org/xfce/libxfce4windowing.git#tag=$pkgname-$pkgver"
         git+https://gitlab.freedesktop.org/wlroots/wlr-protocols.git)
-sha256sums=('0bc7718c7eb665c29564aeb5a9bd0254a66300f4fc1a35b7c5723018f213b3d8'
+sha256sums=('f7101514fde303d039befc118857286e29a46010607ac1868c693890c169f7fc'
             'SKIP')
 
 prepare() {
