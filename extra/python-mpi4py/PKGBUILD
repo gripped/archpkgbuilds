@@ -7,7 +7,7 @@
 
 _pkg=mpi4py
 pkgname=python-${_pkg}
-pkgver=4.0.1
+pkgver=4.0.2
 pkgrel=1
 pkgdesc="Python bindings for the Message Passing Interface (MPI) standard"
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(
     python-wheel
 )
 source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
-sha256sums=('f3174b245775d556f4fddb32519a2066ef0592edc810c5b5a59238f9a0a40c89')
+sha256sums=('86085436d3ea3587323321b9e661e4df60eabbcf11c2c9cf63d0873ca111cc8b')
 
 build() {
     cd ${_pkg}-${pkgver}
