@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=pyqt-builder
-pkgver=1.17.2
+pkgver=1.18.0
 pkgrel=1
 pkgdesc='The PEP 517 compliant PyQt build system'
 arch=(any)
@@ -16,7 +16,7 @@ makedepends=(git
              python-setuptools-scm
              python-wheel)
 source=(git+https://github.com/Python-PyQt/PyQt-builder#tag=$pkgver)
-sha256sums=('bee7803c457a5b0e6dd034d47ea0efedc47a5c8adfe258cdf4c6df0a83a5c8c6')
+sha256sums=('95c22662ad253291dacf55536245c8b06b820d6cae19f8182e8177a41e4b788d')
 
 build() {
   cd PyQt-builder
