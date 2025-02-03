@@ -6,7 +6,7 @@
 pkgbase=cockpit
 pkgname=(cockpit cockpit-packagekit cockpit-storaged)
 pkgver=332
-pkgrel=1
+pkgrel=2
 pkgdesc='A systemd web based user interface for Linux servers'
 arch=('x86_64')
 url='https://cockpit-project.org/'
@@ -69,8 +69,6 @@ package_cockpit() {
   make DESTDIR="$pkgdir" install
   rm -rf "$pkgdir"/usr/{src,lib/firewalld}
   install -Dm644 "$srcdir"/cockpit.pam "$pkgdir"/etc/pam.d/cockpit
-
-  echo "z /usr/lib/cockpit/cockpit-session - - cockpit-wsinstance -" >> "$pkgdir"/usr/lib/tmpfiles.d/cockpit-tempfiles.conf
 
   install -Dm644 cockpit.desktop "$pkgdir"/usr/share/applications/org.cockpit_project.CockpitClient.desktop
 
