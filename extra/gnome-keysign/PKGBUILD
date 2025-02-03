@@ -2,7 +2,7 @@
 
 pkgname=gnome-keysign
 pkgver=1.3.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Tool for signing OpenPGP keys'
 arch=(any)
 url='https://wiki.gnome.org/Apps/Keysign'
@@ -45,12 +45,14 @@ source=(
   gnome-keysign-fix-fullscreen.patch
   gnome-keysign-window-icon.patch
   gnome-keysign-symbolic-icon.patch
+  gnome-keysign-python-3.13.patch
 )
 b2sums=(
   75f6cd660b5f5fb02312a25f0a4f0b15d9e26e9368d657fad5c17ba07af2bcd0c8bad14b9b3fd7140d34b3399eabe03fc719efaaef1b0d50c6d9472bb077ab76
   dc0effc5e15cedf597c2a633e40a84745aa6f0fc085da2b997494cf3b0d694462b1467dfe25bb8cd75bcd7d17519282f9927365cf408b5e86cf73df1e88a801e
   bd1b4d72bd5d88335aca5d50c29680cd8f78f7d9f70cb1a2955f133a3e3dd10d5a231b915d309a73fd0dbc57f8034f952108733d448aaa2d86ef6473bda7f387
   23d1681db96980e5b82028354f4fb6978c68decfb17d1e8d3471e05f185edb55ed0a27134d75c4aad7a5867700986b06b49d4f847fca172ad2f235cf7d269ab8
+  942f4aaa7278c97d584bde3ecbc47c7edae0b9e1c6b432400b88a96eeb12d150703710f810fddecc3018486c99e0ff849b985d798be125fe6e208600d000ae3d
 )
 validpgpkeys=(F98D03D7DC630399AAA6F43826B3F39189C397F6) # Tobias Mueller <tobiasmue@gnome.org>
 
@@ -65,6 +67,9 @@ prepare() {
 
   # https://gitlab.gnome.org/GNOME/gnome-keysign/-/merge_requests/29
   git apply -3 ../gnome-keysign-symbolic-icon.patch
+
+  # https://gitlab.gnome.org/GNOME/gnome-keysign/-/merge_requests/30
+  git apply -3 ../gnome-keysign-python-3.13.patch
 }
 
 build() {

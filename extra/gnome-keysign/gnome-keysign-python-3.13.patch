@@ -1,0 +1,25 @@
+From 1c8a5eb28932c2c3200195431b29262e29f3c353 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 3 Feb 2025 01:35:27 +0000
+Subject: [PATCH] Fix for Python 3.13
+
+---
+ keysign/gpgkey.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/keysign/gpgkey.py b/keysign/gpgkey.py
+index 3b5f068..4533792 100755
+--- a/keysign/gpgkey.py
++++ b/keysign/gpgkey.py
+@@ -27,7 +27,7 @@ def to_valid_utf8_string(s, errors='replace', replacement='?'):
+     """Takes a string and returns a valid utf8 encodable string
+ 
+     Not every Python string is utf-8 encodable.
+-    Take 'fo\udcf6e\udce9ba <foo@bma.d>' for example.
++    Take 'fo\\udcf6e\\udce9ba <foo@bma.d>' for example.
+     This function replaces undecodable characters with a '?'
+     """
+     try:
+-- 
+GitLab
+
