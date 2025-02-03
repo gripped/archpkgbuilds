@@ -2,18 +2,33 @@
 
 _pkgname=yarl
 pkgname=python-yarl
-pkgver=1.9.4
-pkgrel=4
+pkgver=1.13.1
+pkgrel=1
 pkgdesc='Yet another URL library'
 url='https://github.com/aio-libs/yarl/'
 arch=('x86_64')
 license=('Apache-2.0')
-depends=('glibc' 'python' 'python-multidict' 'python-idna')
-makedepends=('cython' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel' 'python-expandvars')
-checkdepends=('python-pytest' 'python-pytest-xdist')
+depends=(
+  'glibc'
+  'python'
+  'python-multidict'
+  'python-idna'
+)
+makedepends=(
+  'cython'
+  'python-setuptools'
+  'python-build'
+  'python-installer'
+  'python-wheel'
+  'python-expandvars'
+)
+checkdepends=(
+  'python-pytest'
+  'python-pytest-xdist'
+)
 source=(https://github.com/aio-libs/yarl/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('e31a36539166034f3b231e1f9fc47b7d0d1aea0424b6054e1858eefa9f290350ee8b1c74bb90a120d6b9f3c13fe7b675d6e0676272b3222b788d479ae9fd3ff5')
-b2sums=('c0022b32b41c1125d788c656883b3552314b138601fef72cc55ce90fc9986f44912395977ba6ac27d344c0a3593172265fb664eb6a696de9787a2474f61d14ce')
+sha512sums=('1609e60b34b4e02c187761e1d24d6a5873873b3ad94683b8e6107be5314676e98ed972eb3aa864ef0cb8312e0d526790da1cba995a4d3996df84c81be62564b7')
+b2sums=('cc1e1ea527c718a7395e9acc52b8bcc2855eaa52a75bcfb160986773d1d616d938a0fcf16c6f89ec7374ffbdf54956c5b294a613481e0327e94e9444719b3cd7')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
@@ -21,9 +36,10 @@ prepare() {
 }
 
 build() {
+  export LANG=en_US.UTF-8
+
   cd ${_pkgname}-${pkgver}
   make cythonize
-  export LANG=en_US.UTF-8
   python -m build --wheel --no-isolation
 }
 
@@ -36,9 +52,9 @@ check() {
 }
 
 package() {
-  cd ${_pkgname}-${pkgver}
-  #LANG=en_US.UTF-8 python setup.py install --root="${pkgdir}" -O1 --skip-build
   export LANG=en_US.UTF-8
+
+  cd ${_pkgname}-${pkgver}
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
