@@ -1,0 +1,40 @@
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+
+pkgname=python-narwhals
+_name=${pkgname#python-}
+pkgver=1.25.0
+pkgrel=1
+pkgdesc="Extremely lightweight and extensible compatibility layer between dataframe libraries"
+arch=('any')
+url="https://narwhals-dev.github.io/narwhals/"
+license=('MIT')
+depends=(python)
+makedepends=(python-build python-installer python-wheel python-hatchling)
+# Not included, as it's not currently packaged for [extra]: duckdb
+optdepends=('python-pandas: for Pandas support'
+            'python-pyarrow: for PyArrows support'
+            'python-polars: for Polars support')
+checkdepends=(
+	python-pytest{,-env}
+	python-hypothesis
+	python-pandas
+	python-pyarrow
+	python-polars
+)
+source=($pkgname-$pkgver.tar.gz::https://github.com/narwhals-dev/narwhals/archive/refs/tags/v$pkgver.tar.gz)
+sha256sums=('ce836b4d36ba6521688f6b8e6cdcabec78c4fdae35e9059a1e0123575a730110')
+
+build() {
+    cd "$_name-$pkgver"
+    python -m build --wheel --no-isolation
+}
+
+check() {
+    cd "$_name-$pkgver"
+    pytest
+}
+
+package() {
+    cd "$_name-$pkgver"
+    python -m installer --destdir="$pkgdir" dist/*.whl
+}
