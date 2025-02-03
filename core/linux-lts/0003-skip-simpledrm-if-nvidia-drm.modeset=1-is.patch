@@ -1,4 +1,4 @@
-From 768a5cf69b200e3990fbe0bb7e9017a50036844f Mon Sep 17 00:00:00 2001
+From 64f338eada5d6c6a11af92993e611fb849f0f5fc Mon Sep 17 00:00:00 2001
 From: Javier Martinez Canillas <javierm@redhat.com>
 Date: Thu, 19 May 2022 14:40:07 +0200
 Subject: [PATCH] drivers/firmware: skip simpledrm if nvidia-drm.modeset=1 is
@@ -44,15 +44,16 @@ be enabled besides CONFIG_DRM_SIMPLEDRM.
 
 Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
 Cherry-picked-for: https://bugs.archlinux.org/task/73720
+Cherry-picked-for: https://gitlab.archlinux.org/archlinux/packaging/packages/linux/-/issues/94
 ---
  drivers/firmware/sysfb.c | 18 +++++++++++++++++-
  1 file changed, 17 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c
-index 82fcfd29bc4d29..17b7e096b6828b 100644
+index a3df782fa687b0..940d8f51434176 100644
 --- a/drivers/firmware/sysfb.c
 +++ b/drivers/firmware/sysfb.c
-@@ -34,6 +34,22 @@
+@@ -35,6 +35,22 @@
  #include <linux/screen_info.h>
  #include <linux/sysfb.h>
  
@@ -75,12 +76,12 @@ index 82fcfd29bc4d29..17b7e096b6828b 100644
  static struct platform_device *pd;
  static DEFINE_MUTEX(disable_lock);
  static bool disabled;
-@@ -85,7 +101,7 @@ static __init int sysfb_init(void)
+@@ -145,7 +161,7 @@ static __init int sysfb_init(void)
  
  	/* try to create a simple-framebuffer device */
  	compatible = sysfb_parse_mode(si, &mode);
 -	if (compatible) {
 +	if (compatible && !skip_simpledrm) {
- 		pd = sysfb_create_simplefb(si, &mode);
+ 		pd = sysfb_create_simplefb(si, &mode, parent);
  		if (!IS_ERR(pd))
- 			goto unlock_mutex;
+ 			goto put_device;
