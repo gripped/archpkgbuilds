@@ -2,8 +2,8 @@
 
 _hkgname=heaps
 pkgname=haskell-heaps
-pkgver=0.4
-pkgrel=5
+pkgver=0.4.1
+pkgrel=1
 pkgdesc="Asymptotically optimal Brodal/Okasaki heaps"
 url="https://github.com/ekmett/heaps"
 license=('BSD')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('d99ee37d884010e266c05bd7de3a14f494f3dfa3f4801dfa97ce82f7b80304ad349aee407b4a8a4d3d3f46a3fab40f86377061a046e1d507969a911132625454')
+sha512sums=('4fb9dea585faf15aa9c8a76a388930dd9a10dc8fb9480ec587d6eeb33d56f7167421d7b83f36c63bbe0ac1d289a2319e579b8981b0770eabd8108ddc9bbaa244')
 
 prepare() {
     cd $_hkgname-$pkgver
@@ -21,7 +21,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
