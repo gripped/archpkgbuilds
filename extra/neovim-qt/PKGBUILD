@@ -4,8 +4,8 @@
 # Contributor: Ian Ker-Seymer <i.kerseymer@gmail.com>
 
 pkgname=neovim-qt
-pkgver=0.2.18
-pkgrel=6
+pkgver=0.2.19
+pkgrel=1
 pkgdesc='GUI for Neovim'
 arch=(x86_64)
 url='https://github.com/equalsraf/neovim-qt'
@@ -13,7 +13,7 @@ license=(ISC)
 depends=(hicolor-icon-theme neovim qt6-svg)
 makedepends=(cmake git)
 source=("git+$url#tag=v$pkgver")
-b2sums=('08aba78fd332819d771fd4ddc2303f97db63affec400595a27fed91cd8408d743953bfefafc22aa3c873eabfac4565a57c719c95c9c5b11df1acca8b83740dbf')
+b2sums=('a67493143f809bfa698595483ceb025863b3412affed0f7847e01c608577e8740df1355390c8092144165c5e329eb19762a0ecef89effb827f5594b0e8d33992')
 
 build() {
   cmake \
