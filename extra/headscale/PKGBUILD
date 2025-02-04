@@ -1,12 +1,12 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Matt Harrison <matt@harrison.us.com>
 pkgname=headscale
-pkgver=0.24.0
+pkgver=0.24.2
 pkgrel=1
 pkgdesc="An open source, self-hosted implementation of the Tailscale coordination server."
 arch=('x86_64')
 url="https://github.com/juanfont/headscale"
-license=('BSD')
+license=('BSD-3-Clause')
 depends=('glibc')
 makedepends=('go')
 optdepends=('wireguard-tools: CLI tools for generating keys'
@@ -16,7 +16,7 @@ backup=("etc/${pkgname}/config.yaml"
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/juanfont/headscale/archive/refs/tags/v${pkgver}.tar.gz"
     	'headscale.sysusers'
     	'headscale.tmpfiles')
-sha256sums=('737bee03391e56785fd08f8638261b1702366fae0a1dbf407e083b1526ac9b40'
+sha256sums=('92a0854681d6c0e20d7abb2a574c4b73d6be2707e66692c0608515441998ce85'
             'bf1c06c16e8c92f1fc46cf7e3ea297e9a36833e372606185a9b1d4ce5c877564'
             '8a22d7193ceeac0be32725cf8108f963be3a21855e6099de964f810094d0adc7')
 
