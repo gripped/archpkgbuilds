@@ -2,8 +2,8 @@
 # Contributor: Stijn Seghers <stijnseghers at gmail dot com>
 
 pkgname=cargo-shuttle
-_commit=c6e13689f4452435fac91b8e8e3bebb6a12cc12b
-pkgver=0.51.0
+_commit=b5157d852f150b6a7169d447b04c4460c7179fe8
+pkgver=0.52.0
 pkgrel=1
 pkgdesc='Cargo command for the shuttle platform'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('cargo' 'gcc-libs' 'zlib' 'curl')
 makedepends=('git')
 source=("$pkgname::git+$url.git#commit=$_commit"
   "$pkgname-examples::git+https://github.com/shuttle-hq/examples.git")
-sha512sums=('cb1f076d3b90b625bbae392c680ef79126ed14b8c066f190d853f317c4fe8935830aea94dd482a142efbf54448c489d9e7b41dbbc042232d483b07296d443a7b'
+sha512sums=('f92a7d9156da9498bc3cd59a5d429dc51761e2878c6f0d883ed95922c9811808eea58bcd2bebcc27e8bde7ff8bb31a4f40a316ecbcf017d52e0274d023a6f6f3'
             'SKIP')
 options=('!lto')
 
