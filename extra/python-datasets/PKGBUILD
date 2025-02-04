@@ -5,7 +5,7 @@
 _name=datasets
 pkgname=python-$_name
 pkgver=3.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Ready-to-use datasets for ML models with fast, easy-to-use and efficient data manipulation tools"
 arch=(any)
 url="https://github.com/huggingface/datasets"
@@ -147,6 +147,6 @@ check() {
 
 package() {
   cd $_name-$pkgver
-  python -m installer --compile-bytecode 1 --destdir $pkgdir dist/*.whl
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 README.md -t "$pkgdir"/usr/share/doc/$pkgname
 }
