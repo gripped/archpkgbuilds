@@ -6,7 +6,7 @@
 
 pkgname=python-botocore
 # https://raw.githubusercontent.com/boto/botocore/develop/CHANGELOG.rst
-pkgver=1.35.93
+pkgver=1.36.1
 pkgrel=1
 pkgdesc='A low-level interface to a growing number of Amazon Web Services'
 arch=('any')
@@ -21,7 +21,7 @@ optdepends=(
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz
         tests-keep-env.diff)
-sha256sums=('4036c5b7eef73785fce2c5eadcbd9244389f103838c378b68dedb5bd22ae446c'
+sha256sums=('9cf363c0ddaa1c9f1fbb68835998442f8d2e16a9ba97938b4ff752eea611db1f'
             '15c588d3f4cfcc0ef26fc4ff367eb6dc12dc2f303e299cbe397288089ee52a11')
 
 prepare() {
