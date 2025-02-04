@@ -4,8 +4,8 @@
 # Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=blueman
-pkgver=2.4.3
-pkgrel=2
+pkgver=2.4.4
+pkgrel=1
 pkgdesc="GTK+ Bluetooth Manager"
 url="https://github.com/blueman-project/blueman"
 arch=('x86_64')
@@ -17,23 +17,21 @@ optdepends=('dnsmasq: Network Access Point (NAP) support'
             'networkmanager: Dial Up Networking (DUN) and Personal Area Networking (PAN) support'
             'pulseaudio-bluetooth: audio devices support')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('e7d4775593fd882a2cb424058c5917d9b0f56579110bcce8ece3ea9ee84e75a0')
+sha256sums=('08443ad0d2fc6fca0a23b492bd476861163b0c174b44cd3e45ee7977a00dbf90')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
 	./autogen.sh
-	# Use correct D-Bus config location
-	sed -i '/^dbusdir =/ s/sysconfdir/datadir/' data/configs/Makefile.{am,in}
 }
 
 build() {
 	cd "${pkgname}-${pkgver}"
 	./configure \
-	  --prefix=/usr \
-	  --sysconfdir=/etc \
-	  --libexecdir=/usr/lib/"${pkgname}" \
-	  --disable-schemas-compile \
-	  --with-dhcp-config='/etc/dhcpd.conf'
+	  --prefix='/usr' \
+	  --sysconfdir='/etc' \
+	  --libexecdir="/usr/lib/${pkgname}" \
+	  --with-dhcp-config='/etc/dhcpd.conf' \
+	  --disable-schemas-compile
 	make
 }
 
