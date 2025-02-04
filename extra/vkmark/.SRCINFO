@@ -1,11 +1,11 @@
 pkgbase = vkmark
 	pkgdesc = Vulkan benchmark
-	pkgver = 20230412
+	pkgver = 2025.01
 	pkgrel = 1
+	epoch = 1
 	url = https://github.com/vkmark/vkmark
 	arch = x86_64
-	license = LGPL
-	makedepends = git
+	license = LGPL-2.1-only
 	makedepends = vulkan-headers
 	makedepends = meson
 	makedepends = ninja
@@ -18,7 +18,7 @@ pkgbase = vkmark
 	depends = assimp
 	optdepends = xcb-util-wm: for X11 support
 	optdepends = wayland: for Wayland support
-	source = git+https://github.com/vkmark/vkmark.git#commit=ab6e6f3
-	sha256sums = e3a97e56b54398c7204951b30877e24a65c7a8de4eecbb21de9b1d975b10a0ee
+	source = vkmark-2025.01.tar.gz::https://github.com/vkmark/vkmark/archive/refs/tags/2025.01.tar.gz
+	sha256sums = 1ae362844344d0f9878b7a3f13005f77eae705108892a4e8abf237d452d37edc
 
 pkgname = vkmark
