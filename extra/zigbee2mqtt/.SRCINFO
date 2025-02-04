@@ -1,10 +1,10 @@
 pkgbase = zigbee2mqtt
 	pkgdesc = A Zigbee to MQTT bridge
-	pkgver = 1.42.0
+	pkgver = 2.1.0
 	pkgrel = 1
 	url = https://www.zigbee2mqtt.io
 	arch = x86_64
-	license = GPL3
+	license = GPL-3.0-only
 	makedepends = git
 	makedepends = typescript
 	makedepends = npm
@@ -12,13 +12,17 @@ pkgbase = zigbee2mqtt
 	optdepends = mosquitto: MQTT broker
 	options = !emptydirs
 	backup = etc/zigbee2mqtt/configuration.yaml
-	source = zigbee2mqtt::git+https://github.com/Koenkk/zigbee2mqtt#tag=1.42.0
+	source = zigbee2mqtt::git+https://github.com/Koenkk/zigbee2mqtt#tag=2.1.0
 	source = zigbee2mqtt.service
 	source = zigbee2mqtt.sysusers
 	source = zigbee2mqtt.tmpfiles
-	sha256sums = 3f432756617e73b8b76502c965851ae6c1bd9887d9ef488f62757ed22c7498a2
-	sha256sums = 04d58763942cc598ac858f003b174316b695c2a542b2788e50751c3077adf106
-	sha256sums = 3a86716e9036e97d885e9b5f37c7f87d9c2872435e4acf9fc4c9157264cf387b
-	sha256sums = b8cb53b06176abb09e74e68daee702263f3d471b249c51b1b32d693fc7354fd8
+	sha512sums = 228197cd46de2f29fd4a17f6d30a41eba019ee29d85297184f3369e101eb32d8209e5efcb79e3f9487365b43d44554b7802bc8907d15f897b7bc864bab905ca0
+	sha512sums = d573c1be013a05274cca25975bca86d37cfb64836ee449d246547f5a64866914e31826a2d1b61e174b870c3a8e512903a3774f7d3ad048cf9b4d81b99cb07ffc
+	sha512sums = d365763e488239a549239c1c251af6b517d3a8d9873e3824c204a1c9704f780e085b3d9002d8b8fb0db71ee0a6f6a31abc14a8b4f5dd05833a665cf3a14fea2f
+	sha512sums = 0ca8af5bcc870c475f004b4d5a8b747daf80915e54c0c123c0464aaf568f81afdddbdce13828e8d6c631c8d50f05a86be8abb615a0e26b27f004ea92eb9507bf
+	b2sums = 657c0e8720cf9e7e050d217fb214f13ed922c33934de122fb216459be6f4078d444c71ac70f1c3358d359af1ffdaec49dc7084cbbd53e5d81835688ddd873416
+	b2sums = 039afafe704b379738b026df2a619fe044f19e1389ff49a2efe79779214676f69f6d9cdcb9964c85296c839d624df5b46a3c9af887942b11152df8584da77572
+	b2sums = 41bad759487b13707d4bc1ffa799e0728d862375637789b0dd9f04ed6a8aca72441613163d3f845de453d64f0cd2f63d5b7039234cd80d9b8195fb1b37086ef3
+	b2sums = 7320d598f4b2ed42391fcfa64981fe76027326bb268962061467a1f6212944f2c0e9f4a626254b600af788d8fe25142bd2eb85836af99ec8a783ae8a79fa512f
 
 pkgname = zigbee2mqtt
