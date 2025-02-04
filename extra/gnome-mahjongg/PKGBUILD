@@ -2,8 +2,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-mahjongg
-pkgver=47.0
-pkgrel=2
+pkgver=47.1
+pkgrel=1
 pkgdesc="Disassemble a pile of tiles by removing matching pairs"
 url="https://wiki.gnome.org/Apps/Mahjongg"
 arch=(x86_64)
@@ -19,7 +19,7 @@ depends=(
   librsvg
 )
 makedepends=(
-  appstream-glib
+  appstream
   git
   gobject-introspection
   meson
@@ -27,17 +27,14 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome-extra)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-mahjongg.git?signed#tag=$pkgver")
-b2sums=('bb22efa2e3d0d8b3ced38eb538623c92c627dc80f54f8a01111c50a726c4c0f609b7484452bdc030391781854a8f37a8611e8b7217050330594575eaf71fbafb')
+source=("git+https://gitlab.gnome.org/GNOME/gnome-mahjongg.git?signed#tag=${pkgver/[a-z]/.&}")
+b2sums=('7bfaf0a80fa8bc7ac25e528b7be723977358f382f17d86445174b4eef9090416dba128dcc826d7f09054a1c934ffe32b38b91d827828a9db5367f00911411561')
 validpgpkeys=(
   FAE80BEA85C476AF1BACC2A77B274B850A9296D4 # Mat <mail@mathias.is>
 )
 
 prepare() {
   cd $pkgname
-
-  # Don't create new game when activating existing instance
-  git cherry-pick -n 74d35400bcf98d50646d67f737389859fbf1204d
 }
 
 build() {
@@ -46,9 +43,7 @@ build() {
 }
 
 check() {
-  # NOTE: appstreamcli validate fails due to duplicated tags caused by a regression in gettext 0.23
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/gettext/-/issues/4
-  meson test -C build --print-errorlogs || :
+  meson test -C build --print-errorlogs
 }
 
 package() {
