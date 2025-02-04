@@ -1,7 +1,7 @@
 # Maintainer: Andreas Radke <andyrtr@archlinux.org>
 
 pkgname=libx11
-pkgver=1.8.10
+pkgver=1.8.11
 pkgrel=1
 pkgdesc="X11 client-side library"
 arch=(x86_64)
@@ -12,7 +12,7 @@ depends=('libxcb' 'glibc' 'xorgproto')
 makedepends=('xorg-util-macros' 'xtrans')
 license=('MIT AND X11')
 source=(https://xorg.freedesktop.org//releases/individual/lib/libX11-${pkgver}.tar.xz{,.sig})
-sha512sums=('f801f5b77cbc55074f73dc95b29fff7b5e1b13b99641f6e397788ad9f31a29793ed4e8e5bd373122c790ef90627e8f9d6d5e271051c1767a479a85c55cd82bc1'
+sha512sums=('4e2191258039ad0ea7fe5d22b8b0ab5e1d101b20fa4cd0fb44c5e1ac8b2ffbb3a0ad80ac3a67a3803ca30b972476b739a0c244b2ac8b7de6a32b06dc4e2c674b'
             'SKIP')
 validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alanc@freedesktop.org>
 #validpgpkeys=('C41C985FDCF1E5364576638B687393EE37D128F8') # Matthieu Herrb <matthieu.herrb@laas.fr>
