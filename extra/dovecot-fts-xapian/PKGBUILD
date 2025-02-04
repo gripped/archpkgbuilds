@@ -10,7 +10,7 @@ _dcpkgver=2.3.21.1
 pkgname=dovecot-fts-xapian
 _pkgname="${pkgname#dovecot-}"
 _pkgver=1.7.17 # pacman's vercmp does not like alphabet characters without a dot prefix
-pkgver=1.8.6
+pkgver=1.9
 pkgrel=1
 pkgdesc="Dovecot FTS plugin based on Xapian"
 arch=('x86_64')
@@ -20,8 +20,8 @@ depends=("dovecot=${_dcpkgver}" 'icu' 'xapian-core')
 makedepends=('git')
 install="$pkgname.install"
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('0a253a045cf38fa69aa2a8fd44f7107a81528236d4682ccb40a93d9e4430d84e5a35031394ffb0cfdb8b733dea461473d4453384bbe63966bd8e7dd3c871c6cf')
-b2sums=('ff1ef734356a6f75cc76f139dd1b1360870def1d5d5880b1c668c3a3e8b3b6334f96beb78a4bc7a477fb1d1950bdf2ce1e375e2aabfea77bb9cea538d153ed5c')
+sha512sums=('33268d10ddbd12142d9ca7854018aeaaecce0e734b34e29e2539bbc81b66369bab61ccd4b667008c6e67427350ff4e121fdd56c29d4e4cc71a461c1550cdadb8')
+b2sums=('80e5eba68907fbb3717bc33e57ea6ff5bd935df5430ed5a60eca44554ce49cebf85e1186c8b0578662c8149aa7f09c394dc7ef925b88d8ac3dd8bfd43f70ea32')
 
 build() {
   cd "$pkgname"
