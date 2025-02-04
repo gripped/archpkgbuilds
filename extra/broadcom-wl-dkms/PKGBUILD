@@ -6,7 +6,7 @@
 
 pkgname=broadcom-wl-dkms
 pkgver=6.30.223.271
-pkgrel=39
+pkgrel=41
 pkgdesc='Broadcom 802.11 Linux STA wireless driver'
 arch=(x86_64)
 url='https://www.broadcom.com/site-search?filters[pages][content_type][values][]=Downloads&q=802.11%20linux%20sta%20wireless%20driver'
@@ -36,7 +36,7 @@ source=(broadcom-wl-dkms.conf
         018-linux613.patch
         "https://docs.broadcom.com/docs-and-downloads/docs/linux_sta/hybrid-v35_64-nodebug-pcoem-${pkgver//./_}.tar.gz")
 b2sums=('7c4eaa825a37358509a08e5105665eeabc9f097945b6fa163cd5722b00638da5889f5466bd2c5f1b01172f2d0c9fb195f6e18329f2880adb2774406684cbc4c0'
-        '5a692428b82b6229c3c4384d226bbe4f45774709ea8a36f2b416c82fe0a0a8a486f89622de6123861b0e665217e10c79a03e745b2c5cc7c132e49278f872f528'
+        '2d9d5cf410b74c9eb9238a469ff04cd3c4223716c51fa6431abb36c3d31e13ce2bea7179df392e92c23e615ee9d4f34ff156aefa2ea9bf6a2754b2079fcad5db'
         '038150b9a50025dbd3c81d09755956216b83c0b54db29dc4bfbc3b46bd67cf4640ad643d69ba7f8d486f52cedeb00929b97e02152e72404e6126a05855f97d6f'
         'bbc80e1ac01683ccc2d940212347fc11c74bdc252d492ca79a292015ac25df6a153ac97cb6c0f0a8d51c1c33d5dc0de4fdd61b1958499b946dc817d29646b72f'
         'ecf3eb75f8eb3331b0a36b39851536de43cffd3b303db9e9f4fe6fe55d463c3343aba17a99668448427764a719e15e3e862d6a3dc0bc61cb68da9934fb427c6f'
@@ -58,6 +58,16 @@ b2sums=('7c4eaa825a37358509a08e5105665eeabc9f097945b6fa163cd5722b00638da5889f546
         'e9d01c1a1a63c07f720e3ee53ee3ef634ab12694135300cb0ce47ade0e9e0084967a0b6df64d983e8184240eb3defb128f650bddb7727e901d50315307f3398a')
 
 prepare() {
+  # apply patch from the source array (should be a pacman feature)
+  local src
+  for src in "${source[@]}"; do
+    src="${src%%::*}"
+    src="${src##*/}"
+    [[ $src = *.patch ]] || continue
+    msg2 "Applying patch $src..."
+    patch -Np1 --no-backup-if-mismatch < "./$src"
+  done
+
   sed -e "s/@PACKAGE_VERSION@/$pkgver/" dkms.conf.in > dkms.conf
   sed -i -e '/BRCM_WLAN_IFNAME/s/eth/wlan/' src/wl/sys/wl_linux.c
   sed -i -e "/EXTRA_LDFLAGS/s|\$(src)/lib|/usr/lib/$pkgname|;/GE_49 :=/s|:= .*|:= 1|" Makefile
@@ -67,7 +77,6 @@ package() {
   local dest="$pkgdir/usr/src/${pkgname/-dkms/}-$pkgver"
   install -Dm644 Makefile "$dest/Makefile"
   install -Dm644 dkms.conf "$dest/dkms.conf"
-  install -Dm644 -t "$dest/patches" *.patch
   cp -a src "$dest"
   install -Dm644 lib/wlc_hybrid.o_shipped \
     "$pkgdir/usr/lib/$pkgname/wlc_hybrid.o_shipped"
