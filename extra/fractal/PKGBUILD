@@ -1,8 +1,8 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=fractal
-pkgver=9
-pkgrel=2
+pkgver=10
+pkgrel=1
 pkgdesc="Matrix group messaging app"
 arch=(x86_64)
 url="https://gitlab.gnome.org/World/fractal"
@@ -28,23 +28,24 @@ depends=(
   libseccomp
   libshumate
   openssl
+  org.freedesktop.secrets
   pango
   sqlite
 )
 makedepends=(
   clang
   cmake
+  dart-sass
   libwebp
   meson
   rust
   xdg-desktop-portal
 )
-optdepends=('org.freedesktop.secrets: password storage')
 source=(
   $url/-/archive/$pkgver/$pkgname-$pkgver.tar.gz
 )
-sha512sums=('8b861083d985e15d19bf25418e4e5441cdb86afc26f899229ed7986b3d4014d2e326a885645873ea072513af08ccecce870c2b219afe59d93026cfa9c1141618')
-b2sums=('020fa266e8811d43d3641d925747afd17ad4b2d4081caeebe1136a4fbdcc9d45b9d739f23d370e36c618f4a869625aee4876a1dd1f1ce8082ab1d4ce16f2fa57')
+sha512sums=('c4f9a24c6cbd8f109c107185703301219f2d2a9749b4c7efd0994bd8e8d3054f4f643496c7caa7d8069776d523ced295df9f1d1f74cea663c6361007c1536dd0')
+b2sums=('19fd65aa7696e3ad1ad8f551171d6e1d534f7a3a47d3121da8184b1ae015e6540f274102a397771c2d9bb959d4d61c5d9a1fa42d140cfeed46cddf96f97c117f')
 
 prepare() {
   # NOTE: usptream uses a custom CARGO_HOME from within meson
