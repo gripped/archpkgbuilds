@@ -1,0 +1,99 @@
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+
+_name=ethon
+pkgname=ruby-${_name}
+pkgver=0.16.0
+pkgrel=4
+pkgdesc="Libcurl wrapper"
+arch=('x86_64')
+url="https://github.com/typhoeus/ethon"
+license=('MIT')
+depends=('ruby' 'ruby-ffi' 'curl')
+makedepends=('ruby-rdoc')
+checkdepends=(
+  'ruby-rspec'
+  'ruby-bundler'
+  'ruby-rake'
+  'ruby-sinatra'
+  'ruby-mime-types'
+  'ruby-webrick'
+  'ruby-mustermann'
+  'ruby-rack'
+  'ruby-rackup'
+)
+options=(!emptydirs)
+noextract=(${_name}-${pkgver}.gem)
+source=(
+  ${pkgname}-${pkgver}.tar.gz::https://github.com/typhoeus/$_name/archive/v${pkgver}.tar.gz
+  overrides.patch
+)
+sha256sums=('d1d6f75238ddd09edb42f5bc65788e28c84cd09dedfc3dd519889efc7187780f'
+            '9d17253e918e93c19fe4b6dbb1c92749178ead80435b3333c23c0dd24b4a660f')
+
+prepare() {
+  cd "${_name}-${pkgver}"
+
+  patch -p1 < "$srcdir/overrides.patch"
+}
+
+build() {
+  cd "${_name}-${pkgver}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  gem build "${_name}.gemspec"
+
+  gem install \
+    --local \
+    --verbose \
+    --ignore-dependencies \
+    --build-root "tmp_install" \
+    "${_name}-${pkgver}.gem"
+
+  rm "${_name}-${pkgver}.gem"
+
+  # remove unrepreducible files
+  rm --force --recursive --verbose \
+    "tmp_install/${_gemdir}/cache/" \
+    "tmp_install/${_gemdir}/gems/${_name}-${pkgver}/vendor/" \
+    "tmp_install/${_gemdir}/doc/${_name}-${pkgver}/ri/ext/"
+
+  find "tmp_install/${_gemdir}/gems/" \
+    -type f \
+    \( \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
+    \) \
+    -delete
+
+  find "tmp_install/${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
+}
+
+check() {
+  cd "${_name}-${pkgver}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  GEM_HOME="tmp_install/${_gemdir}" rake spec
+}
+
+package() {
+  cd "${_name}-${pkgver}"
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
+
+  install --verbose -D --mode=0644 LICENSE --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
+}
+
+# vim: tabstop=2 shiftwidth=2 expandtab:
