@@ -1,23 +1,18 @@
 # Maintainer: Jan de Groot <jgc@archlinux.org>
 
-_pkgbasename=libx11
-pkgname=lib32-$_pkgbasename
-pkgver=1.8.10
+pkgname=lib32-libx11
+pkgver=1.8.11
 pkgrel=1
 pkgdesc="X11 client-side library (32-bit)"
 arch=(x86_64)
-url="https://xorg.freedesktop.org/"
-depends=('lib32-libxcb' $_pkgbasename)
+url="https://gitlab.freedesktop.org/xorg/lib/libx11"
+depends=('lib32-libxcb' 'libx11')
 makedepends=('xorg-util-macros' 'xorgproto' 'xtrans' 'gcc-multilib')
-license=('custom:XFREE86')
-source=(${url}/releases/individual/lib/libX11-${pkgver}.tar.xz{,.sig})
-sha512sums=('f801f5b77cbc55074f73dc95b29fff7b5e1b13b99641f6e397788ad9f31a29793ed4e8e5bd373122c790ef90627e8f9d6d5e271051c1767a479a85c55cd82bc1'
+license=('MIT AND X11')
+source=(https://xorg.freedesktop.org/releases/individual/lib/libX11-${pkgver}.tar.xz{,.sig})
+sha512sums=('4e2191258039ad0ea7fe5d22b8b0ab5e1d101b20fa4cd0fb44c5e1ac8b2ffbb3a0ad80ac3a67a3803ca30b972476b739a0c244b2ac8b7de6a32b06dc4e2c674b'
             'SKIP')
 validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alanc@freedesktop.org>
-validpgpkeys+=('C41C985FDCF1E5364576638B687393EE37D128F8') # Matthieu Herrb <matthieu.herrb@laas.fr>
-validpgpkeys+=('3BB639E56F861FA2E86505690FDD682D974CA72A') # Matt Turner <mattst88@gmail.com>
-validpgpkeys+=('995ED5C8A6138EB0961F18474C09DD83CAAA50B2') # Adam Jackson <ajax@nwnk.net>
-#validpgpkeys+=('C383B778255613DFDB409D91DB221A6900000011') # "Keith Packard <keithp@keithp.com>"
 
 build() {
   export CC="gcc -m32"
@@ -42,6 +37,6 @@ package() {
 
   rm -rf "${pkgdir}"/usr/{include,share}
 
-  mkdir -p "$pkgdir/usr/share/licenses"
-  ln -s $_pkgbasename "$pkgdir/usr/share/licenses/$pkgname"
+  install -d -m755 "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -m644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
