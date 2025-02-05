@@ -2,8 +2,8 @@
 # Contributor: TZ86
 
 pkgname=vivaldi
-_rpmversion=7.1.3570.42-1
-pkgver=7.1.3570.42
+_rpmversion=7.1.3570.47-1
+pkgver=7.1.3570.47
 pkgrel=1
 pkgdesc='An advanced browser made with the power user in mind.'
 url="https://vivaldi.com"
@@ -22,8 +22,8 @@ optdepends=(
 )
 source=("https://downloads.vivaldi.com/stable/vivaldi-stable-${_rpmversion}.x86_64.rpm"
         '0001-add-support-for-user-flags.patch')
-sha512sums=('ae5d1f1d5c1cce156043e369db373414ff5d249f8991c04ad5c01480d0659692aa11d490df0c5105ee1f2bb0bc4cd3c89e0b96cbfe05b537174e79d1a4149bb9'
-            '334db2056114fdbf07407b1cee24284f019df7a15acd711ed016bab1a1ab211abf3884ed848f3496486e7c78056108ccf1e88547e22b787bc4f548c6785f64d2')
+sha512sums=('6e776e3bda7855e02d4e1ebbe6177618de30f8ec9d371f8a3043675cadf5b6aac4f53235cb1f542193d2284ebc07efa915f4555c79d97b34fc1a4a31b86f26af'
+            '73745f1739ed638f8c7f61493d61a6c7f07dc30de7f23aeea79ffeaa75a2d9ec5a0b46f7be645ed4414294b4ce93960df808e85db4689c9b8b1ab4e63528ad49')
 
 package() {
     cp --parents -a {opt,usr/bin,usr/share} "$pkgdir"
