@@ -1,0 +1,80 @@
+diff --unified --recursive --text --new-file uTox.orig/CMakeLists.txt uTox/CMakeLists.txt
+--- uTox.orig/CMakeLists.txt	2025-02-02 16:09:30.398209934 +0100
++++ uTox/CMakeLists.txt	2025-02-02 16:09:23.288902379 +0100
+@@ -158,22 +158,22 @@
+ # Warn on non-ISO C.
+ #add_cflag("-pedantic") # throws a lot of warning, quite sure we do not want this at current state.
+ ## Add all warning flags we can.
+-add_cflag("-Wall")
+-add_cflag("-Wextra")
+-add_cflag("-Wpointer-arith")
+-add_cflag("-Wimplicit-fallthrough=5")
++#add_cflag("-Wall")
++#add_cflag("-Wextra")
++#add_cflag("-Wpointer-arith")
++#add_cflag("-Wimplicit-fallthrough=5")
+ 
+ ## Warnings we don't tolerate
+-add_cflag("-Werror=implicit-function-declaration")
++#add_cflag("-Werror=implicit-function-declaration")
+ 
+ ## Warnings we don't care about
+-add_cflag("-Wformat=0")
+-add_cflag("-Wno-misleading-indentation")
++#add_cflag("-Wformat=0")
++#add_cflag("-Wno-misleading-indentation")
+ 
+ ## Everything Else
+-add_cflag("-fno-strict-aliasing")
+-add_cflag("-fPIC")
+-add_cflag("-fno-common")
++#add_cflag("-fno-strict-aliasing")
++#add_cflag("-fPIC")
++#add_cflag("-fno-common")
+ 
+ ## Optimization Flags
+ 
+@@ -191,7 +191,7 @@
+             #  so we use some hacky save/restore to help cmake.
+             set(SAVE_CMAKE_REQUIRED_LIBRARIES "${CMAKE_REQUIRED_LIBRARIES}")
+             set(CMAKE_REQUIRED_LIBRARIES "-flto")
+-            add_cflag("-flto")
++            #add_cflag("-flto")
+             set(CMAKE_REQUIRED_LIBRARIES "${SAVE_CMAKE_REQUIRED_LIBRARIES}")
+         endif()
+ 
+@@ -203,7 +203,7 @@
+ elseif(CMAKE_C_COMPILER_ID MATCHES "Clang")
+     # Disable warning for `= { 0 }` in Clang.
+     # Remove once they've resolved https://bugs.llvm.org//show_bug.cgi?id=21689
+-    add_cflag("-Wno-missing-field-initializers")
++    #add_cflag("-Wno-missing-field-initializers")
+ 
+     # Enable Link Time Optimization on Clang
+     if(ENABLE_LTO)
+@@ -211,7 +211,7 @@
+         #  so we use some hacky save/restore to help cmake.
+         set(SAVE_CMAKE_REQUIRED_LIBRARIES "${CMAKE_REQUIRED_LIBRARIES}")
+         set(CMAKE_REQUIRED_LIBRARIES "-flto")
+-        add_cflag("-flto")
++        #add_cflag("-flto")
+         set(CMAKE_REQUIRED_LIBRARIES "${SAVE_CMAKE_REQUIRED_LIBRARIES}")
+     endif()
+ 
+@@ -223,11 +223,11 @@
+         set(LIBRARIES ${LIBRARIES} "cxxrt")
+     endif()
+ 
+-    if(NOT ENABLE_ASAN)
+-        if(NOT APPLE)
+-            add_cflag("-fsanitize=safe-stack")
+-        endif()
+-    endif()
++    #if(NOT ENABLE_ASAN)
++    #    if(NOT APPLE)
++    #        add_cflag("-fsanitize=safe-stack")
++    #    endif()
++    #endif()
+ else()
+     message(STATUS "Unknown compiler name: You may have to set up your compiler flags yourself.")
+ endif()
