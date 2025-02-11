@@ -2,7 +2,7 @@
 
 pkgname=polymake
 pkgver=4.13
-pkgrel=5
+pkgrel=6
 _perlver=`perl -e '$v = $^V->{version}; print $v->[0].".".($v->[1]).".".($v->[2]);'`
 pkgdesc='Open source software for research in polyhedral geometry'
 arch=(x86_64)
@@ -36,7 +36,8 @@ makedepends=(ant
              libnsl
              ninja
              permlib
-             soplex)
+             soplex
+             strip-nondeterminism)
 optdepends=('java-runtime: java module')
 source=(https://polymake.org/lib/exe/fetch.php/download/polymake-${pkgver/.r/r}-minimal.tar.bz2)
 sha256sums=('f3adacd063b9ea60d5e9c37c6183f5dbb7458b0cb3491eba3efc38f20c565ceb')
@@ -57,6 +58,8 @@ build() {
     --with-soplex=/usr \
     --with-sympol=/usr
   make
+
+  find . -name 'polymake_java.jar' -exec strip-nondeterminism {} +
 }
 
 package() {
