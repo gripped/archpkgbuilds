@@ -1,6 +1,6 @@
 pkgbase = curl
 	pkgdesc = command line tool and library for transferring data with URLs
-	pkgver = 8.11.1
+	pkgver = 8.12.0
 	pkgrel = 3
 	url = https://curl.se/
 	arch = x86_64
@@ -27,9 +27,11 @@ pkgbase = curl
 	depends = libz.so
 	depends = zstd
 	depends = libzstd.so
-	source = git+https://github.com/curl/curl.git#tag=curl-8_11_1?signed
+	source = git+https://github.com/curl/curl.git#tag=curl-8_12_0?signed
+	source = 16236.patch
 	validpgpkeys = 27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2
-	sha512sums = 3ed91b678e318a62bbde32b986ebddb8c3ec2e5932462c9c368437414eaed85b4ecd5ae2d8d35c31c90a3a435d4cd9d26e1b91265e1b4396b6868641c629bd81
+	sha512sums = 40862a8065fa6dba931eb0adbd737934da402f9d906f1933edc143fb472867b1391fc3b044d22e08d7e5f175b305f67215ab977fec0df5c2f0a9442c2bf1dbfd
+	sha512sums = 0e2b5f95ec81b3bbeed853a817b86f5e172fd4d67bcfb41b5bf6d61b4df4426a691cc6da604f67114c576627201c3e9762583357cfb1002defbc517a14543d52
 
 pkgname = curl
 	depends = ca-certificates

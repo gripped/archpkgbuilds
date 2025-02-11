@@ -6,7 +6,7 @@
 
 pkgbase=curl
 pkgname=(curl libcurl-compat libcurl-gnutls)
-pkgver=8.11.1
+pkgver=8.12.0
 pkgrel=3
 pkgdesc='command line tool and library for transferring data with URLs'
 arch=('x86_64')
@@ -25,12 +25,12 @@ depends=('ca-certificates'
 makedepends=('git' 'patchelf')
 checkdepends=('valgrind')
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
-source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed")
-sha512sums=('3ed91b678e318a62bbde32b986ebddb8c3ec2e5932462c9c368437414eaed85b4ecd5ae2d8d35c31c90a3a435d4cd9d26e1b91265e1b4396b6868641c629bd81')
+source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed"
+        '16236.patch')
+sha512sums=('40862a8065fa6dba931eb0adbd737934da402f9d906f1933edc143fb472867b1391fc3b044d22e08d7e5f175b305f67215ab977fec0df5c2f0a9442c2bf1dbfd'
+            '0e2b5f95ec81b3bbeed853a817b86f5e172fd4d67bcfb41b5bf6d61b4df4426a691cc6da604f67114c576627201c3e9762583357cfb1002defbc517a14543d52')
 
 _backports=(
-  # async-thread: avoid closing eventfd twice
-  'ff5091aa9f73802e894b1cbdf24ab84e103200e2'
 )
 
 _reverts=(
@@ -53,6 +53,9 @@ prepare() {
     git revert -n "${_c}"
   done
 
+  # https://github.com/curl/curl/issues/16236
+  patch -Np1 < "${srcdir}/16236.patch"
+
   # no '-DEV' in version, release date from tagged commit...
   sed -i \
     -e "/\WLIBCURL_VERSION\W/c #define LIBCURL_VERSION \"${pkgver}\"" \
@@ -63,6 +66,9 @@ prepare() {
 }
 
 build() {
+    # make curl --help deterministic
+  # https://github.com/curl/curl/issues/16072
+  export COLUMNS=80
   local _configure_options=(
     --prefix='/usr'
     --mandir='/usr/share/man'
@@ -119,6 +125,9 @@ build() {
 }
 
 check() {
+  # make curl --help deterministic
+  # https://github.com/curl/curl/issues/16072
+  export COLUMNS=80 
   cd build-curl
   # -v: verbose
   # -a: keep going on failure (so we see everything which breaks, not just the first failing test)
