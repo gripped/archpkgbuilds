@@ -2,8 +2,8 @@
 
 _pkg=xarray
 pkgname=python-${_pkg}
-pkgver=2025.01.1
-pkgrel=2
+pkgver=2025.01.2
+pkgrel=1
 pkgdesc="N-D labeled arrays and datasets in Python"
 arch=(any)
 url="https://xarray.pydata.org/"
@@ -63,7 +63,7 @@ optdepends=(
   'python-pint: units of measure support'
 )
 source=("https://github.com/pydata/xarray/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('eb2874604883f3eca5122a59975a9bbdb4529594440a504e8dc6191f3075eef6')
+sha256sums=('e9c06c7d2c34ca9e8d73972a11aefe56b8ff7f94edb087c4c8989f9848421982')
 
 build() {
   cd ${_pkg}-${pkgver}
