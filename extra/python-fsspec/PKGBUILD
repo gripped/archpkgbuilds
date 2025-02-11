@@ -3,7 +3,7 @@
 
 _pkgname=filesystem_spec
 pkgname=python-fsspec
-pkgver=2024.12.0
+pkgver=2025.2.0
 pkgrel=1
 pkgdesc="Specification that python filesystems should adhere to"
 arch=(any)
@@ -58,10 +58,11 @@ optdepends=(
   'python-requests: web protocols support'
   'python-smbprotocol: SMB support'
   'python-snappy: snappy compression support'
+  'python-tqdm: progress bar support'
   'python-zstandard: zstandard (zstd) compression support'
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('098d11c431f85b3b016e1eadb36f590bfbc4f8771c55386f0bcb191ce213bad7')
+sha256sums=('4cbeea0a3537bc15318b71d163014b3de952456d2b9f58c572ee98f66357118b')
 
 build() {
   cd $_pkgname-$pkgver
