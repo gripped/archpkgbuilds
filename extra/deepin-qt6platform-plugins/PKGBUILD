@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-qt6platform-plugins
-pkgver=6.0.23
-pkgrel=2
+pkgver=6.0.25
+pkgrel=1
 pkgdesc='Qt 6 platform plugins for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/qt6platform-plugins"
@@ -12,7 +12,7 @@ makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'libglvnd' 'gtest' 'qt6-xcb-priva
              'extra-cmake-modules' 'dtkcommon' 'cairo')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/qt6platform-plugins.git#tag=$pkgver")
-sha512sums=('81c5b18d2006e23eca0db1bd67c56dff93e7f3026c0dcfcfad5b5f5d52699801c6985cc592c7bd1078ee4940437835089f55a4232a6653898d71470cced76f16')
+sha512sums=('678fe0362fa8812b190eede8b3b8fd7de6fdd00982c9049a2b53a37259a265729ac6c4a3106016db253fcafb76777630ce2fb0bafb812201cdb3a9ebe597208e')
 
 build() {
   cd qt6platform-plugins
