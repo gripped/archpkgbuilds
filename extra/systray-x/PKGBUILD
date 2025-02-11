@@ -4,33 +4,35 @@ pkgbase=systray-x
 _pkgbase=SysTray-X
 pkgname=('systray-x-common' 'systray-x-kde')
 pkgver=0.9.10
-pkgrel=2
+pkgrel=3
 pkgdesc="A system tray extension for Thunderbird"
 url="https://github.com/Ximi1970/systray-x"
 arch=('x86_64')
 license=('MPL-2.0')
 depends=('qt6-base' 'qt6-wayland' 'thunderbird')
-makedepends=('git' 'zip' 'unzip' 'libx11' 'kstatusnotifieritem')
+makedepends=('git' 'zip' 'unzip' 'libx11' 'kstatusnotifieritem' 'strip-nondeterminism')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-	"Makefile.patch")
+	'Makefile.patch'
+	'binary_path.patch')
 sha256sums=('7a9bc146f341288b0b41e65d56190dcead694681b1bed25ad36a35768abf3029'
-            'dac5b7a4a1ad38ed9429d40636b59cb6932d6c7afd20e50609a73e2ff260316a')
+            '62affd86e6dbad6e9cf851768d99fd79f76f65ac2fd5e45ef5e89c5dcb63dbab'
+            'aa0a5a7e8b062452416ec9b4472ee4d1a9d7d17fd5ecf94698c557cd504514da')
 
 prepare() {
 	cd "${pkgbase}-${pkgver}"
-	
-	# Add the correct path to the binary in the json file
-	sed -i 's/\/path\/to\/native-messaging\/app/\/usr\/bin/g' "app/${_pkgbase//-/_}.json"
 
-	# Patch the Makefile to build both binaries into separate directories
-	patch -Np1 < "${srcdir}"/Makefile.patch
+	# Add the correct path to the binary in the json file
+	patch -Np1 -i "${srcdir}/binary_path.patch"
+
+	# Patch the Makefile to build both versions of the app into separate directories
+	patch -Np1 -i "${srcdir}/Makefile.patch"
 }
 
 _build() {
 	if [ "${1}" == "systray-x-common" ]; then
-		make OPTIONS="DEFINES+=NO_KDE_INTEGRATION" PREFIX="${1}"
+		make OPTIONS="DEFINES+=NO_KDE_INTEGRATION" APP="${1}"
 	else
-		make PREFIX="${1}"
+		make APP="${1}"
 	fi
 }
 
@@ -38,6 +40,9 @@ build() {
 	cd "${pkgbase}-${pkgver}"
 	_build systray-x-common
 	_build systray-x-kde
+
+	# Strip timestamps for zip archive for reproducibility
+	strip-nondeterminism -t zip systray-x@Ximi1970.xpi
 }
 
 package_systray-x-common() {
