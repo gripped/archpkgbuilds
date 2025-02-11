@@ -3,13 +3,13 @@
 # Contributor: 網軍總司令
 
 pkgname=librime
-pkgver=1.11.2
-_octagramcommit=bd12863f45fbbd5c7db06d5ec8be8987b10253bf
-_luacommit=fa6563cf7b40f3bfbf09e856420bff8de6820558
+pkgver=1.12.0
+_octagramcommit=dfcc15115788c828d9dd7b4bff68067d3ce2ffb8
+_luacommit=e3912a4b3ac2c202d89face3fef3d41eb1d7fcd6
 _charcodecommit=55e7f563e999802d41a13ba02657c1be4b2011b4
 _protocommit=657a923cd4c333e681dc943e6894e6f6d42d25b4
-_predictcommit=591c80a8d0481be99c44d008c15acd55074d8c68
-pkgrel=4
+_predictcommit=920bd41ebf6f9bf6855d14fbe80212e54e749791
+pkgrel=2
 epoch=1
 pkgdesc="Rime input method engine"
 arch=('x86_64')
@@ -23,12 +23,12 @@ source=("git+https://github.com/rime/librime.git#tag=$pkgver"
         "git+https://github.com/rime/librime-charcode.git#commit=$_charcodecommit"
         "git+https://github.com/lotem/librime-proto.git#commit=$_protocommit"
         "git+https://github.com/rime/librime-predict.git#commit=$_predictcommit")
-sha512sums=('c616e7169981cda3ddcd0c8b4473a72da57a530fd83557df8f69dea0719a807d623c06905939a1138c0fd54d0970da9f0e5329b5089bfbc46f8fb8b62b41f418'
-            '3949507608cd0d840560f36fac5b4ed85a9d3f0622f6ccc412111fe0c4448e6a948a134690d75cdae8dd21adae1bc6cbc93f98e8509f524805dcd79593ab4eac'
-            '6e291f2e50034408bfea017a0d9937ad9bc5a193274f05a70c743444f07b5b43de6fcaeb4fba70e57764336e1573bece369829d01101293f59dcbf6b74e87662'
+sha512sums=('3c2ad932f4c87226f11646f6ee3bc4f18387dc776956cdee913feca753f00fa523b32d562020544d8ce0d63bf33fa71d6dacaac4c7628a941878dc27c4c8981b'
+            '1d4c633d15a810b97171f9d44c8474b59e857253310a961a2ab93042bc8bc5c86e549c60816470959c35b68909fcfad14e0661ca28627289f18c1445eb690485'
+            '241475088d11d76f947dfe008d1e7b772014f00520f96f97bd1c98d9c8706180398e7d9f8fe47e1d6ec9963470911ce8825fc8cb23e24eb2ac094f8dcf6241d1'
             'c21a1384f7eba77afdcda4bd0cffcdfa1bc6989e009f02c685160de443f8fc658bee7def57fe93162b3d5f31d366b48271d7204b4f6e7dd057facb2787703a15'
             'e9b2aa47a87f96af97fc55686e85d905bd7bb06b633a9a318aeeea2731d87b38e50f9f821c2e68a30d58f4daaeaff97124247c1028a049ced922c6e7b4cc20ab'
-            '5dd43a59f5c006f89bef90b8708568bc9913d87de9817014997e36634951094f947cbe0995beb3442b3e3e3f1e913c4221b90d09b680b6a27756100ad9dbc100')
+            'cf7062baa8dfe6d97946979545094a1962b73347f233065219b69488f078b6022b46f9bf59d0643de01ef36fe45b2d72375f0578747f85a6d389bdef4acc6967')
 
 prepare() {
   cd librime/plugins
