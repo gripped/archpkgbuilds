@@ -1,26 +1,36 @@
 pkgbase = highlight
+	pkgdesc = Fast and flexible source code highlighter
 	pkgver = 4.15
-	pkgrel = 1
+	pkgrel = 5
 	url = http://www.andre-simon.de/doku/highlight/highlight.html
 	arch = x86_64
-	license = GPL
+	license = GPL-3.0-or-later
 	makedepends = qt5-base
 	makedepends = lua
 	makedepends = boost
+	makedepends = swig
 	source = http://www.andre-simon.de/zip/highlight-4.15.tar.bz2
 	source = http://www.andre-simon.de/zip/highlight-4.15.tar.bz2.asc
+	source = use_gcc.patch
+	source = strip_gzip_timestamps.patch
 	validpgpkeys = B8C55574187F49180EDC763750FE0279D805A7C7
-	md5sums = fd16041ffc8945ef6c4c07dbf83c541c
-	md5sums = SKIP
 	sha256sums = 68b3f8178c5c9d4b0a03f6948635cef1c8d06244f6b438eebf3a190c588337e9
 	sha256sums = SKIP
+	sha256sums = 5aaacca96f1f4307bbe9cfb5b0f67a98edb0b5d653270990176e20840196ab50
+	sha256sums = 8ebc7cfb1a43417ec19c3346b69817b68ac6de9caf4fd46bdeef2b2831900caf
 
 pkgname = highlight
-	pkgdesc = Fast and flexible source code highlighter (CLI version)
+	pkgdesc = Fast and flexible source code highlighter - CLI version
 	depends = lua
 	backup = etc/highlight/filetypes.conf
 
+pkgname = highlight-perl
+	pkgdesc = Fast and flexible source code highlighter - perl module
+	depends = highlight
+	depends = perl
+
 pkgname = highlight-gui
-	pkgdesc = Fast and flexible source code highlighter (Qt version)
+	pkgdesc = Fast and flexible source code highlighter - QT GUI version
 	depends = qt5-base
 	depends = highlight
+	depends = hicolor-icon-theme

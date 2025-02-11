@@ -1,0 +1,15 @@
+diff --git a/src/gui-qt/highlight.pro b/src/gui-qt/highlight.pro
+index c3c12de..8018939 100644
+--- a/src/gui-qt/highlight.pro
++++ b/src/gui-qt/highlight.pro
+@@ -83,8 +83,8 @@ win32 {
+ 
+ 
+ macx-clang|macx-clang-arm64  {
+-    QMAKE_CC = clang
+-    QMAKE_CXX = clang++
++    QMAKE_CC = gcc
++    QMAKE_CXX = g++
+     INCLUDEPATH+=/usr/local/Cellar/lua/5.4.4_1/include/
+     INCLUDEPATH += ../../include
+     INCLUDEPATH+=/usr/local/Cellar/boost/1.85.0/include

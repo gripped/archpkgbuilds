@@ -1,51 +1,73 @@
-# Maintainer: Florian Pritz <flo@xinu.at>
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: Florian Pritz <flo@xinu.at>
 # Contributor: Jan Fader <jan.fader@web.de>
+
 pkgbase=highlight
-pkgname=(highlight highlight-gui)
+pkgname=('highlight' 'highlight-perl' 'highlight-gui')
 pkgver=4.15
-pkgrel=1
+pkgrel=5
+pkgdesc="Fast and flexible source code highlighter"
 url="http://www.andre-simon.de/doku/highlight/highlight.html"
-license=('GPL')
+license=('GPL-3.0-or-later')
 arch=('x86_64')
-makedepends=(qt5-base lua boost)
-source=(http://www.andre-simon.de/zip/$pkgname-$pkgver.tar.bz2{,.asc})
-md5sums=('fd16041ffc8945ef6c4c07dbf83c541c'
-         'SKIP')
+makedepends=('qt5-base' 'lua' 'boost' 'swig')
+source=("http://www.andre-simon.de/zip/${pkgbase}-${pkgver}.tar.bz2"{,.asc}
+        'use_gcc.patch'
+        'strip_gzip_timestamps.patch')
 sha256sums=('68b3f8178c5c9d4b0a03f6948635cef1c8d06244f6b438eebf3a190c588337e9'
-            'SKIP')
-validpgpkeys=(B8C55574187F49180EDC763750FE0279D805A7C7)
+            'SKIP'
+            '5aaacca96f1f4307bbe9cfb5b0f67a98edb0b5d653270990176e20840196ab50'
+            '8ebc7cfb1a43417ec19c3346b69817b68ac6de9caf4fd46bdeef2b2831900caf')
+validpgpkeys=('B8C55574187F49180EDC763750FE0279D805A7C7')
 
 prepare() {
-  cd "$srcdir/$pkgbase-$pkgver"
+	cd "${pkgbase}-${pkgver}"
 
-  sed -i 's/QMAKE=qmake/QMAKE=qmake-qt5/' src/makefile
-  sed -i 's/QMAKE_CC = clang/QMAKE_CC = gcc/' src/gui-qt/highlight.pro
-  sed -i 's/QMAKE_CXX = clang++/QMAKE_CXX = g++/' src/gui-qt/highlight.pro
+	# Use gcc instead of clang
+	patch -Np1 -i "${srcdir}/use_gcc.patch"
+
+	# Strip gzip timestamps for reproducible builds
+	# See https://gitlab.com/saalen/highlight/-/merge_requests/151
+	patch -Np1 -i "${srcdir}/strip_gzip_timestamps.patch"
 }
 
 build() {
-  cd "$srcdir/$pkgbase-$pkgver"
+	cd "${pkgbase}-${pkgver}"
 
-  make QMAKE=qmake-qt5
-  make QMAKE=qmake-qt5 gui
+	make QMAKE=qmake-qt5
+	make QMAKE=qmake-qt5 gui
+	make -C extras/swig perl
 }
 
 package_highlight() {
-  pkgdesc="Fast and flexible source code highlighter (CLI version)"
-  depends=('lua')
-  backup=(etc/highlight/filetypes.conf)
-  cd "$srcdir/$pkgbase-$pkgver"
+	pkgdesc="${pkgdesc} - CLI version"
+	depends=('lua')
+	backup=("etc/${pkgbase}/filetypes.conf")
 
-  make DESTDIR="$pkgdir" QMAKE=qmake-qt5 install
+	cd "${pkgbase}-${pkgver}"
+
+	make DESTDIR="${pkgdir}" QMAKE=qmake-qt5 install
+
+	# Remove extras modules files from doc folder
+	rm -rf "${pkgdir}/usr/share/doc/${pkgbase}/extras"
 }
 
+package_highlight-perl() {
+	pkgdesc="${pkgdesc} - perl module"
+	depends=('highlight' 'perl')
+	_perl_path=$(perl -V:vendorarch | awk -F"'" '{print $2}')
+
+	cd "${pkgbase}-${pkgver}"
+
+	install -Dm 644 "extras/swig/${pkgbase}.pm" "${pkgdir}${_perl_path}/${pkgbase}.pm"
+	install -Dm 755 "extras/swig/${pkgbase}.so" "${pkgdir}${_perl_path}/auto/${pkgbase}/${pkgbase}.so"
+}
 package_highlight-gui() {
-  pkgdesc="Fast and flexible source code highlighter (Qt version)"
-  depends=('qt5-base' 'highlight')
-  cd "$srcdir/$pkgbase-$pkgver"
+	pkgdesc="${pkgdesc} - QT GUI version"
+	depends=('qt5-base' 'highlight' 'hicolor-icon-theme')
 
-  install -dm755 "$pkgdir/usr/bin"
-  make DESTDIR="$pkgdir" QMAKE=qmake-qt5 install-gui
+	cd "${pkgbase}-${pkgver}"
+
+	install -dm 755 "${pkgdir}/usr/bin"
+	make DESTDIR="${pkgdir}" QMAKE=qmake-qt5 install-gui
 }
-
-# vim:set ts=2 sw=2 et:
