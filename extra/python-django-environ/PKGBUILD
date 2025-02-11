@@ -2,8 +2,8 @@
 
 _name=django-environ
 pkgname=python-django-environ
-pkgver=0.11.2
-pkgrel=4
+pkgver=0.12.0
+pkgrel=1
 pkgdesc="Utilize 12factor inspired environment variables to configure your Django application"
 arch=(any)
 url="https://github.com/joke2k/django-environ"
@@ -20,9 +20,9 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 optdepends=('python-simplejson: for an alternative JSON implementation')
-source=($url/releases/download/v$pkgver/$_name-$pkgver.tar.gz)
-sha512sums=('d024858514b2a6edd99a7a2f1ae26e9e7cc007b1454a1c3f2cd2ae061b4e961f16c4acc8c77ee6449e4b11b3d98c72aae849e337339cb5e275b85077a02b59d0')
-b2sums=('bcd53d13b2b936ba499e1481a46101d54b35f79f83584aa447fc222503e19da41545e7281cb6287351350250c4b728d50ef2be797dabf17672799f02976d3e1e')
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
+sha512sums=('299ded59546847e0bfac25dea3c8967685d6e1f35b4aabe27cc7ae7104430bda1b989fd286915428e1dd1c429fd8ed156faaecfc41a2df0d2293d7cd75f9adb8')
+b2sums=('4c930d3ac66bbf9bd629ceee10c0fbeb78073c26e49c910a6300e481488562de97b9074b3da74aa27500b330eb391399922a19edd42aa40f09c8b2b107b0f5e2')
 
 build() {
   cd $_name-$pkgver
