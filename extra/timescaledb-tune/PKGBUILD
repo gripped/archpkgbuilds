@@ -1,24 +1,18 @@
 # Maintainer: George Rawlinson <george@rawlinson.net.nz>
 
 pkgname=timescaledb-tune
-pkgver=0.15.0
+pkgver=0.18.0
 pkgrel=1
 pkgdesc='A tool for tuning TimescaleDB for better performance'
 arch=('x86_64')
 url='https://github.com/timescale/timescaledb-tune'
-license=('Apache')
+license=('Apache-2.0')
 depends=('glibc' 'postgresql')
 makedepends=('git' 'go')
 options=('!lto')
-_commit='218e06507f98173e5e5b88458ed0e98d1830282c'
-source=("$pkgname::git+$url#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('77c2a8fa90ff673c939a42c0c8a5a7688333ab699ab6aee238d24400f74db01a56e0ed4de1f475139d26bb94cfe8dcc6ee29390a128c2eb55e930dd994329cb9')
+b2sums=('f91eb87922adb3d61a5afdd9bc6557b0fb5299bef7554718a8be2708a957fd4da0d20c398df1c42d69b7276fa03a28a0ac13d71ff22c7ab998c84a33bdd028f0')
 
 prepare() {
   cd "$pkgname"
@@ -43,7 +37,7 @@ build() {
     -trimpath \
     -mod=readonly \
     -modcacherw \
-    -ldflags "-linkmode external -extldflags ${LDFLAGS}" \
+    -ldflags "-linkmode external -extldflags '${LDFLAGS}'" \
     -o build \
     ./cmd/...
 }
