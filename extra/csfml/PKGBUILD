@@ -1,15 +1,16 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=csfml
-pkgver=2.6.1
-pkgrel=1
+pkgver=3.0.0.git1
+_gitrev=b607308b3f1e58222e3ba70322f94dfa1ad0ce13
+pkgrel=2
 pkgdesc='C bindings for sfml'
 arch=('x86_64')
 url='http://www.sfml-dev.org/'
-license=('custom:zlib')
+license=('Zlib')
 depends=("sfml")
 makedepends=('cmake' 'doxygen' 'ninja')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/SFML/CSFML/archive/${pkgver}.tar.gz")
-sha512sums=('34c733e0024ffdcbee117fe3d859ab7604cea0241aa56068b86116fe305afec3405ed909b6da96c1cda5660a841abbfd9051b5d3602e36e33085aa52df633561')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/SFML/CSFML/archive/${_gitrev}.tar.gz")
+sha512sums=('ff7b366f46737d85013fbdb81694aba5e628bfb24880eab347761a11ce4ec26212262718b6adb2f3aea14cc3ea0a145c370c95a8a73256c7c2a826bf08792a83')
 
 build() {
   cd CSFML-*
