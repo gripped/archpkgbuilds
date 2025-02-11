@@ -2,20 +2,16 @@
 
 _name=pysequoia
 pkgname=python-pysequoia
-pkgver=0.1.24
-pkgrel=4
+pkgver=0.1.25
+pkgrel=1
 pkgdesc="Provides OpenPGP facilities in Python through the Sequoia PGP library"
 arch=(x86_64)
 url="https://github.com/wiktor-k/pysequoia"
 license=(Apache-2.0)
 groups=(sequoia)
 depends=(
-  bzip2
   gcc-libs
   glibc
-  gmp
-  nettle
-  pcsclite
   python
 )
 makedepends=(
@@ -26,13 +22,12 @@ makedepends=(
   python-wheel
 )
 source=($_name-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('b7726993ef6ba588b8307b9d0cbd99f85f177eaa109c84e46d6e92f056842973edfc00097571ed211aa301671ed19418b86b4a2c718826be48acec2a679c934a')
-b2sums=('4bf72e14d75bd1d2c98d2035d61a8bd3f6e9b9173233d0574ba8fb598f5df9fa7570b528af466f75b9ff6ccb93a73b49c5a2f08a0cd1d79b87c0d24b61bbe106')
+sha512sums=('da9c1b286a1a2864e47641f2d60dc0ec7293ac1a455ae88f8e58b523ff0c110c22fd1d435c0168afd909df8a5b7b47b2c9f99394a8fa104b2efefc6f1bf8a852')
+b2sums=('5a10d8677f900d42a04e448bc8ea6b63b85c86044bb2c21d5d7d18a9db440db5337de14519a102c9d36f0483b310e2678769af9bcc8d3bda615b720173eaeaa4')
 
 build() {
   cd $_name-$pkgver
-  # HACK: pyo3 crate needs a bump
-  PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 python -m build --wheel --no-isolation
+  python -m build --wheel --no-isolation
 }
 
 package() {
