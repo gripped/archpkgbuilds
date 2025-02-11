@@ -1,7 +1,7 @@
-From 3d7f53bd0fd828012a9f1cb6c1706a17116e655d Mon Sep 17 00:00:00 2001
+From 5ec54883cfbdd335f73f7c2e99d03bbaa85fa3b9 Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Wed, 19 Feb 2020 13:10:17 +0100
-Subject: [PATCH 1/3] enable PrivateTmp for a little bit more security
+Subject: [PATCH 1/4] enable PrivateTmp for a little bit more security
 
 ---
  support-files/mariadb.service.in  | 2 +-
@@ -34,14 +34,11 @@ index 31f1586f1bf..b7094662bbd 100644
  
  # Set an explicit Start and Stop timeout of 900 seconds (15 minutes!)
  # this is the same value as used in SysV init scripts in the past
--- 
-2.46.0
 
-
-From 9c7721f5cfd97fd67e7a5103c6610a81440c9a66 Mon Sep 17 00:00:00 2001
+From 51f12223f014ca23bf221d410edf37407f9f042a Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Wed, 19 Feb 2020 13:10:46 +0100
-Subject: [PATCH 2/3] force preloading jemalloc for memory management
+Subject: [PATCH 2/4] force preloading jemalloc for memory management
 
 ---
  support-files/mariadb.service.in  | 1 +
@@ -72,14 +69,11 @@ index b7094662bbd..c6f1605276e 100644
  
  # Flush caches. previously [mysqld_safe] flush-caches=1
  # ExecStartPre=sync
--- 
-2.46.0
 
-
-From dec955730ab4af2f08cee53b59d5fad566125a28 Mon Sep 17 00:00:00 2001
+From 31021e713a0a3b3bb383174fcc4762f66030e56d Mon Sep 17 00:00:00 2001
 From: Christian Hesse <mail@eworm.de>
 Date: Wed, 19 Feb 2020 13:11:31 +0100
-Subject: [PATCH 3/3] Make systemd-tmpfiles create MYSQL_DATADIR
+Subject: [PATCH 3/4] Make systemd-tmpfiles create MYSQL_DATADIR
 
 This is a no-op if the directory exists, but makes sure it is created by
 systemd-tmpfiles with proper permissions otherwise.
@@ -102,6 +96,22 @@ index 70de7a12fdb..101b37f306a 100644
  @DISABLE_TMP@d @MYSQL_UNIX_DIR@ 0755 @MYSQLD_USER@ @MYSQLD_USER@ -
 +d @MYSQL_DATADIR@ 0700 @MYSQLD_USER@ @MYSQLD_USER@ -
 +h @MYSQL_DATADIR@ - - - - +C
--- 
-2.46.0
 
+From 1cb2a45eedc27f57b14f43967e254005125dc960 Mon Sep 17 00:00:00 2001
+From: Christian Hesse <mail@eworm.de>
+Date: Wed, 1 Jan 2025 22:30:45 +0100
+Subject: [PATCH 4/4] create a fully locked system account
+
+https://github.com/systemd/systemd/blob/v257/NEWS#L767-L777
+https://www.freedesktop.org/software/systemd/man/latest/sysusers.d.html#u
+---
+ support-files/sysusers.conf.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/support-files/sysusers.conf.in b/support-files/sysusers.conf.in
+index a975b29476a..e2d1608bc6e 100644
+--- a/support-files/sysusers.conf.in
++++ b/support-files/sysusers.conf.in
+@@ -1 +1 @@
+-u @MYSQLD_USER@ - "MariaDB" @MYSQL_DATADIR@
++u! @MYSQLD_USER@ - "MariaDB" @MYSQL_DATADIR@
