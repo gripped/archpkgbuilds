@@ -1,13 +1,14 @@
 pkgbase = libuhd
 	pkgdesc = Universal Software Radio Peripheral (USRP) userspace driver
 	pkgver = 4.7.0.0
-	pkgrel = 2
-	url = https://files.ettus.com/manual/
+	pkgrel = 3
+	url = https://github.com/EttusResearch/uhd
 	arch = x86_64
 	license = GPL-3.0-or-later
 	checkdepends = python-requests
 	makedepends = boost
 	makedepends = cmake
+	makedepends = git
 	makedepends = python-mako
 	makedepends = python-numpy
 	makedepends = python-setuptools
@@ -20,7 +21,7 @@ pkgbase = libuhd
 	optdepends = python-numpy: for Python bindings
 	optdepends = python: for Python bindings and USRP utils
 	provides = libuhd.so
-	source = libuhd-4.7.0.0.tar.gz::https://github.com/EttusResearch/uhd/archive/v4.7.0.0.tar.gz
-	sha256sums = afe56842587ce72d6a57535a2b15c061905f0a039abcc9d79f0106f072a00d10
+	source = git+https://github.com/EttusResearch/uhd.git#tag=v4.7.0.0
+	sha256sums = 92d1957424aaddd476f22b2663bcf751793d68232292480593f8a57afbe12d5b
 
 pkgname = libuhd

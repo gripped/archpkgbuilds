@@ -3,12 +3,11 @@
 # Contributor: Dominik Heidler <dheidler@gmail.com>
 
 pkgname=libuhd
-_pkgname=uhd
 pkgver=4.7.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Universal Software Radio Peripheral (USRP) userspace driver"
 arch=(x86_64)
-url="https://files.ettus.com/manual/"
+url="https://github.com/EttusResearch/uhd"
 license=(GPL-3.0-or-later)
 depends=(
   boost-libs
@@ -20,6 +19,7 @@ depends=(
 makedepends=(
   boost
   cmake
+  git
   python-mako
   python-numpy
   python-setuptools
@@ -31,11 +31,18 @@ optdepends=(
   'python: for Python bindings and USRP utils'
 )
 provides=(libuhd.so)
-source=("$pkgname-$pkgver.tar.gz::https://github.com/EttusResearch/uhd/archive/v$pkgver.tar.gz")
-sha256sums=('afe56842587ce72d6a57535a2b15c061905f0a039abcc9d79f0106f072a00d10')
+source=("git+$url.git#tag=v$pkgver")
+sha256sums=('92d1957424aaddd476f22b2663bcf751793d68232292480593f8a57afbe12d5b')
+
+prepare() {
+  cd uhd
+  # Boost 1.87 compatibility
+  git cherry-pick -n 2dc7b3e572830c71d49ee0648eef445e7f3abfd6
+  git cherry-pick -n adfe953d965e58b5931c1b1968899492c8087cf6
+}
 
 build() {
-  cd $_pkgname-$pkgver
+  cd uhd
   cmake -S host -B build \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -49,12 +56,12 @@ build() {
 }
 
 check() {
-  cd $_pkgname-$pkgver
+  cd uhd
   ctest --test-dir build --output-on-failure
 }
 
 package() {
-  cd $_pkgname-$pkgver
+  cd uhd
   DESTDIR="$pkgdir" cmake --install build
   install -vDm644 host/utils/uhd-usrp.rules \
     "$pkgdir/usr/lib/udev/rules.d/10-uhd-usrp.rules"
