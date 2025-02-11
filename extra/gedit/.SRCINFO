@@ -1,8 +1,8 @@
 pkgbase = gedit
 	pkgdesc = Easy-to-use general-purpose text editor
 	pkgver = 48.1
-	pkgrel = 2
-	url = https://gedit-technology.github.io/apps/gedit/
+	pkgrel = 3
+	url = https://gedit-text-editor.org/
 	arch = x86_64
 	license = GPL-2.0-or-later
 	makedepends = appstream
@@ -13,6 +13,7 @@ pkgbase = gedit
 	makedepends = gobject-introspection
 	makedepends = gtk-doc
 	makedepends = meson
+	makedepends = python-gobject
 	makedepends = vala
 	makedepends = yelp-tools
 	depends = bash
@@ -34,9 +35,8 @@ pkgbase = gedit
 	depends = libgirepository
 	depends = libpeas
 	depends = pango
-	depends = python
-	depends = python-gobject
 	optdepends = gedit-plugins: Additional features
+	optdepends = python-gobject: Python extension support
 	conflicts = gedit-code-assistance<=3.16.0+4+gd19b879-1
 	source = git+https://gitlab.gnome.org/GNOME/gedit.git#tag=48.1
 	source = git+https://gitlab.gnome.org/GNOME/libgd.git
