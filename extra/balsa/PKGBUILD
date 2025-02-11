@@ -5,7 +5,7 @@
 
 pkgname=balsa
 pkgver=2.6.4
-pkgrel=3
+pkgrel=4
 pkgdesc="An e-mail client for GNOME"
 arch=('x86_64')
 url='https://pawsa.fedorapeople.org/balsa/'
@@ -15,10 +15,12 @@ makedepends=('meson' 'yelp-tools')
 changelog=$pkgname.changelog
 source=(https://pawsa.fedorapeople.org/balsa/$pkgname-$pkgver.tar.xz
         balsa-webkit2gtk-4.1.patch
-        balsa-i18n.patch)
+        balsa-i18n.patch
+        balsa-gettext.patch)
 sha256sums=('befa5984511db33d41f2b1ecbfc99e22a15d45d08efe5d737b5174a1a6ac8fc1'
             'd4442696152979a13a93a5c8e4d54bda2f2f2e796a749e759b279d05809a307b'
-            'a319211f4b3da8368b6f4a629a158716d43f7142c81325d052709e37bb11c25d')
+            'a319211f4b3da8368b6f4a629a158716d43f7142c81325d052709e37bb11c25d'
+            'cd08d6b5bd442a4d75200f4bda93f0644f85119290a3f4911fd838ba1d0eb8bf')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -28,6 +30,9 @@ prepare() {
 
   # Fix native language support
   patch -Np1 -i ../balsa-i18n.patch
+
+  # Migrate from Intltool to Gettext (fixes metainfo file)
+  patch -Np1 -i ../balsa-gettext.patch
 
   # Add missing file
   echo 'cs de el es fr sl' > doc/LINGUAS
