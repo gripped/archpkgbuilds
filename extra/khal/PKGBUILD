@@ -8,84 +8,93 @@
 
 pkgname=khal
 pkgver=0.11.3
-pkgrel=4
+pkgrel=5
 pkgdesc='CLI calendar application built around CalDAV'
-arch=('any')
-url="https://lostpackets.de/khal/"
-license=('MIT')
+arch=(any)
+url=https://lostpackets.de/khal/
+license=(MIT)
 depends=(
-  'python'
-  'python-atomicwrites'
-  'python-click'
-  'python-click-log'
-  'python-configobj'
-  'python-dateutil'
-  'python-icalendar'
-  'python-pytz'
-  'python-pyxdg'
-  'python-tzlocal'
-  'python-urwid'
+  python
+  python-atomicwrites
+  python-click
+  python-click-log
+  python-configobj
+  python-dateutil
+  python-icalendar
+  python-pytz
+  python-pyxdg
+  python-tzlocal
+  python-urwid
 )
 makedepends=(
-  'python-build'
-  'python-installer'
-  'python-setuptools-scm'
-  'python-sphinxcontrib-newsfeed'
-  'python-wheel'
+  git
+  python-build
+  python-installer
+  python-setuptools-scm
+  python-sphinxcontrib-newsfeed
+  python-wheel
 )
 checkdepends=(
-  'python-pytest'
-  'python-freezegun'
-  'python-hypothesis'
-  'python-packaging'
-  'vdirsyncer'
+  python-pytest
+  python-freezegun
+  python-hypothesis
+  python-packaging
+  vdirsyncer
 )
 optdepends=(
   'gawk: for mutt2khal'
   'python-setproctitle: to set process name'
   'vdirsyncer: to synchronize CalDAV calendars'
 )
-source=($pkgname-$pkgver.tar.gz::https://github.com/pimutils/$pkgname/archive/refs/tags/v$pkgver.tar.gz)
-sha256sums=('e6aeb486c024c19ad3f33dfd305ea7d52dfd1f8ea5d6d85bf2aec531f0ce3d63')
-b2sums=('0785e5e1572c7c00d4094f4d84615f775acf1ae076ad3b6ed1e153677d13c26b4fe6b5066679fafad679a98e16dd65f89ceea0e5b81a43ab976263740bb1a9fe')
+source=(
+  "git+https://github.com/pimutils/khal.git#tag=v$pkgver"
+  0001-support-icalendar-6.0.0.patch
+)
+sha256sums=('d08f2e7d69fe566e604a6236750568919b875c50c67fdf7babf152623524e37c'
+            '2dd3970689b8ea0bb206734292059ac984f6c500443ab794d1aa4798221da484')
+b2sums=('dd40821de4b63e90d315888c18bca4aaee5cda7b42925173f59602aae9e2e3513dbf7e3a623a82f562040fae2559eec642704d57f8f8b161c9979577fe068723'
+        'e3d35421e504b50e8e36e16e3e61fbbaa2672596be00b7435feedab66b844987086a7fc1ec45f7aef806b0465b6242d22786cec9a716b8e3a51fe3eeb9845a1f')
 
 prepare() {
+  cd $pkgname
   # fix issue with python-sphinx > 8: https://github.com/pimutils/khal/issues/1356
-  sed -i '/intersphinx_mapping/d' -i $pkgname-$pkgver/doc/source/conf.py
+  sed -i '/intersphinx_mapping/d' -i doc/source/conf.py
+
+  git apply ../0001-support-icalendar-6.0.0.patch
 }
 
 build() {
-  cd $pkgname-$pkgver
-  SETUPTOOLS_SCM_PRETEND_VERSION="$pkgver" python -m build --wheel --skip-dependency-check --no-isolation
+  cd $pkgname
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --skip-dependency-check --no-isolation
   make -C doc man PYTHONPATH="$PWD"
 }
 
 check() {
-  cd $pkgname-$pkgver
-  LC_ALL="C" PYTHONPATH="build:$PYTHONPATH" pytest -v
+  cd $pkgname
+  LC_ALL=C PYTHONPATH=build pytest -v
 }
 
 package() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
   # executables
-  install -vDm 755 bin/{i,}"$pkgname" misc/mutt2khal -t "$pkgdir/usr/bin/"
+  install -vDm 755 bin/{i,}$pkgname misc/mutt2khal -t "$pkgdir"/usr/bin/
   # configuration
-  install -vDm 644 "$pkgname.conf.sample" "$pkgdir/usr/share/doc/$pkgname/examples/$pkgname.conf"
+  install -vDm 644 $pkgname.conf.sample "$pkgdir"/usr/share/doc/$pkgname/examples/$pkgname.conf
   # man page
-  install -vDm 644 doc/build/man/${pkgname}.1 -t "$pkgdir/usr/share/man/man1/"
+  install -vDm 644 doc/build/man/$pkgname.1 -t "$pkgdir"/usr/share/man/man1/
   # completions
-  install -vd "$pkgdir/usr/share/"{bash-completion/completions,fish/vendor_completions.d,zsh/site-functions}
-  PYTHONPATH="$pkgdir/$site_packages:$PYTHONPATH" _KHAL_COMPLETE=bash_source "$pkgdir"/usr/bin/khal > "$pkgdir/usr/share/bash-completion/completions/$pkgname"
-  PYTHONPATH="$pkgdir/$site_packages:$PYTHONPATH" _KHAL_COMPLETE=fish_source "$pkgdir"/usr/bin/khal > "$pkgdir/usr/share/fish/vendor_completions.d/$pkgname.fish"
-  PYTHONPATH="$pkgdir/$site_packages:$PYTHONPATH" _KHAL_COMPLETE=zsh_source "$pkgdir"/usr/bin/khal > "$pkgdir/usr/share/zsh/site-functions/_$pkgname"
+  install -vd "$pkgdir"/usr/share/{bash-completion/completions,fish/vendor_completions.d,zsh/site-functions}
+  PYTHONPATH="$pkgdir/$site_packages:$PYTHONPATH" _KHAL_COMPLETE=bash_source "$pkgdir"/usr/bin/khal > "$pkgdir"/usr/share/bash-completion/completions/$pkgname
+  PYTHONPATH="$pkgdir/$site_packages:$PYTHONPATH" _KHAL_COMPLETE=fish_source "$pkgdir"/usr/bin/khal > "$pkgdir"/usr/share/fish/vendor_completions.d/$pkgname.fish
+  PYTHONPATH="$pkgdir/$site_packages:$PYTHONPATH" _KHAL_COMPLETE=zsh_source "$pkgdir"/usr/bin/khal > "$pkgdir"/usr/share/zsh/site-functions/_$pkgname
   # desktop file
-  install -vDm 644 misc/khal.desktop -t "$pkgdir/usr/share/applications/"
+  install -vDm 644 misc/khal.desktop -t "$pkgdir"/usr/share/applications/
   # docs
-  install -vDm 644 {AUTHORS.txt,{CHANGELOG,CONTRIBUTING,README}.rst} -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 {AUTHORS.txt,{CHANGELOG,CONTRIBUTING,README}.rst} -t "$pkgdir"/usr/share/doc/$pkgname/
   # symlink license file
   install -d "$pkgdir"/usr/share/licenses/$pkgname
-  ln -s "$site_packages"/${pkgname}-${pkgver}.dist-info/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
+  ln -s "$site_packages"/$pkgname-$pkgver.dist-info/COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
 }
