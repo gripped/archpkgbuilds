@@ -7,7 +7,7 @@
 # Contributor: Jack Lloyd <jack@randombit.net>
 
 pkgname=botan
-pkgver=3.7.0
+pkgver=3.7.1
 pkgrel=1
 pkgdesc='Crypto library written in C++'
 arch=(x86_64)
@@ -24,7 +24,7 @@ makedepends=(boost
 optdepends=('boost-libs: for the botan executable'
             'python: for using botan2.py')
 source=(https://botan.randombit.net/releases/Botan-${pkgver}.tar.xz{,.asc})
-sha256sums=('240849b7330308e095d99d71b5b3c6b2b2448e362c3cb5a664a43fffc650ec0a'
+sha256sums=('fc0620463461caaea8e60f06711d7e437a3ad1eebd6de4ac29c14bbd901ccd1b'
             'SKIP')
 validpgpkeys=('621DAF6411E1851C4CF9A2E16211EBF1EFBADFBC') # Botan Distribution Key
 
