@@ -3,8 +3,8 @@
 # Contributor: Daniel Isenmann <daniel@archlinux.org>
 
 pkgname=gegl
-pkgver=0.4.52
-pkgrel=2
+pkgver=0.4.54
+pkgrel=1
 pkgdesc='Graph based image processing framework'
 arch=('x86_64')
 url='https://www.gegl.org/'
@@ -17,19 +17,12 @@ makedepends=('ffmpeg' 'git' 'gobject-introspection' 'libgexiv2' 'meson' 'python-
 optdepends=('ffmpeg: FFmpeg Frame Loader and FFmpeg Frame Saver plugins'
             'graphviz: for gegl-introspect'
             'sdl2: SDL2 Display plugin')
-source=("git+https://gitlab.gnome.org/GNOME/gegl.git#tag=GEGL_${pkgver//./_}"
-gegl-0.4.52-fix-sdl2compat-compilation.patch)
-sha256sums=('a59f046433a459f6d0d674dd4cf6f897086cfd359db0cb6519a7abddd140859b'
-            'b5c1690ff1be6581d0c320cf8859ff5121f6cdf3871ff313494c0af0a78ed49d')
+source=("git+https://gitlab.gnome.org/GNOME/gegl.git#tag=GEGL_${pkgver//./_}")
+sha256sums=('e0f0d15a33d399f1d3b17d791ac38d91ecd3c28fc66139d26950847b8cdd0374')
 
 pkgver() {
   cd "${pkgname}"
   git describe --tags | sed 's/^GEGL_//;s/_$//;s/_/./g;s/-/+/g'
-}
-
-prepare() {
-  cd "${pkgname}"
-  patch -Np1 < ../gegl-0.4.52-fix-sdl2compat-compilation.patch
 }
 
 build() {
