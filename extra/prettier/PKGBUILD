@@ -3,8 +3,8 @@
 # Contributor: Maxim Baz <archlinux at maximbaz dot com>
 
 pkgname=prettier
-pkgver=3.4.2
-pkgrel=2
+pkgver=3.5.0
+pkgrel=1
 pkgdesc='An opinionated code formatter'
 arch=(any)
 url=https://prettier.io
@@ -19,13 +19,10 @@ makedepends=(
 )
 checkdepends=(npm)
 source=("git+https://github.com/$pkgname/$pkgname.git#tag=$pkgver")
-b2sums=('74c125d02f75a5e253f10b3aa64e23cbdfe8a3dab812ca727d7bf19e5fa02ab2ace5d10630d9e87ceb227ee2a562286544922b2d41d21538a0e172c98c8e986d')
+b2sums=('7009f8c64ea96a7bb4fee747e185eefd6d498a98319c62ab1ec5521d7c84a12e0691a079450f0bd850a6fd0b5c33ed1674bdd3947934684703425399432d9956')
 
 prepare() {
   cd $pkgname
-  # https://github.com/prettier/prettier/issues/16930
-  git cherry-pick --no-commit c450b6ad8e5e18d8e60182057b76cc728ffc9425
-
   yarn install --immutable
 }
 
