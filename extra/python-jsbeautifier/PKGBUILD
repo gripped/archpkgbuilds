@@ -3,8 +3,8 @@
 
 pkgname=('python-jsbeautifier' 'python-cssbeautifier')
 pkgbase=python-jsbeautifier
-pkgver=1.15.1
-pkgrel=3
+pkgver=1.15.2
+pkgrel=1
 arch=('any')
 license=('MIT')
 url='https://github.com/beautify-web/js-beautify'
@@ -17,7 +17,7 @@ makedepends=(
   'python-wheel'
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('3b450fcea9cdf47fa0e7613002fb95ab2a9c7f3f51daf0cea53e7955db25c971ac02c046cb36b554735d216db88d488df2740ffc56e3658532a51d4babafc68d')
+b2sums=('eea2b1f42363def917de102da3c84997191dcdcf123f71e7cc85213ee507a67e37a1610639b765960be231c16cd142c8863dffab1cdf5cb5fc5d6c9533eb6cc5')
 
 prepare() {
   cd js-beautify
