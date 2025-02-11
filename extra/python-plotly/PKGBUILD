@@ -2,30 +2,31 @@
 # Contributor: Grey Christoforo <first name at last name dot net>
 
 pkgname=python-plotly
-pkgver=5.24.1
-pkgrel=2
+pkgver=6.0.0
+pkgrel=3
 pkgdesc="An open-source, interactive graphing library"
 arch=('any')
 url="https://github.com/plotly/plotly.py"
 license=('MIT')
 depends=(
     python
-    python-tenacity
+    python-narwhals
 )
-# optdepends based on optional_requirements.txt
+# optdepends based on requires-optional.txt
 optdepends=(
-    ipython
     jupyterlab
-    python-ipywidgets
+    python-anywidget
     python-numpy
     python-matplotlib
     python-pillow
     python-scipy
-    python-ipykernel
     python-pandas
     python-colorcet
     python-inflect
     python-psutil
+    python-pyshp
+    python-geopandas
+    python-shapely
 )
 makedepends=(
     git
@@ -36,16 +37,16 @@ makedepends=(
     python-setuptools
     python-jupyter_core
     python-tornado
-    'jupyterlab<4.0'
+    jupyterlab
 )
 checkdepends=(
-     python-requests
-     python-pytest
+    python-requests
+    python-pytest
 )
 source=(
      "${pkgname}::git+https://github.com/plotly/plotly.py#tag=v$pkgver"
 )
-sha256sums=('495e0bc42ea89db4b92c78d4e153a55864546d2561ea9a257d911c7514517c3a')
+sha256sums=('0c2465660369eb087064c0a64f894363194cc69904060ccff9722ed0f2636714')
 options=(!strip !debug) # strip and debug aren't useful for python files and take forever
 
 prepare() {
@@ -57,25 +58,20 @@ prepare() {
 build() {
   cd python-plotly/packages/python/plotly
 
-  # Skip the dependency check as the version bounds on jupyterlab are too tight
-  # and don't allow 4.x, which Arch currently ships.
   python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
   cd python-plotly/packages/python/plotly
-  pytest plotly/tests/test_core
+  local pytest_options=(
+    -vv
+    -W ignore::DeprecationWarning
+  )
+  pytest "${pytest_options[@]}" plotly/tests/test_core
 }
 
 package() {
   cd python-plotly/packages/python/plotly
   python -m installer --destdir="$pkgdir"/ dist/*.whl
-  mv "${pkgdir}/usr/etc" "${pkgdir}"
-
-  # symlink the path where static assets are installed, otherwise jupyterlab
-  # will not be able to load the extension properly
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  ln -s "$site_packages/jupyterlab_plotly/labextension/static" "$pkgdir/usr/share/jupyter/labextensions/jupyterlab-plotly/"
-
   install -Dm644 LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
