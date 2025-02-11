@@ -8,7 +8,7 @@
 pkgbase=root
 pkgname=(root root-cuda)
 pkgver=6.34.02
-pkgrel=3
+pkgrel=4
 pkgdesc='C++ data analysis framework and interpreter from CERN'
 arch=(x86_64)
 url='https://root.cern'
@@ -164,7 +164,7 @@ build() {
 
   # In general, we want to list all real archs (sm_XX) and the latest virtual arch (compute_XX) for future PTX compatibility.
   # Valid values can be discovered from nvcc --help
-  local cuda_archs="50;52;53;60;61;62;70;72;75;80;86;87;89;90;90a;90a-virtual"
+  local cuda_archs="50;52;53;60;61;62;70;72;75;80;86;87;89;90;90a;100;101;120;120-virtual"
 
   local cuda_cmake_options=(
     -Dcuda=ON
