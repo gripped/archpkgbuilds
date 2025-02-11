@@ -1,8 +1,9 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=tinymist
-pkgver=0.12.19
+pkgver=0.12.18
 pkgrel=1
+epoch=1
 pkgdesc='an integrated language service for Typst'
 arch=(i686 x86_64)
 url="https://github.com/Myriad-Dreamin/$pkgname"
@@ -14,11 +15,21 @@ makedepends=(cargo)
 replaces=("$pkgname-bin")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('09f6a239f334bfd9a1900ea59ed39a265e409c5e23efa2584949d5226eb67762')
+sha256sums=('2b31e22fa67a253ebb06526018c890b2b2f03b45d0870a142d4b98a56ecdefb5')
 
 prepare() {
 	cd "$_archive"
 	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+pkgver() {
+	# https://github.com/Myriad-Dreamin/tinymist#versioning-and-release-cycle
+	if [[ $pkgver =~ ^.*[13579]$ ]]; then
+		echo 'Odd-numbered releases target nightly typst, not stable.' >&2
+		exit 1
+	else
+		echo "$pkgver"
+	fi
 }
 
 _srcenv() {
