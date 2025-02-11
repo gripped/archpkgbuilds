@@ -2,7 +2,7 @@
 
 pkgname=monero-gui
 pkgver=0.18.3.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Qt GUI wallet for Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD-3-Clause')
 arch=('x86_64')
@@ -11,7 +11,6 @@ depends=(
   'gcc-libs'
   'glibc'
   'hicolor-icon-theme'
-  'libboost_program_options.so'
   'libgcrypt'
   'libhidapi-libusb.so'
   'libsodium.so'
@@ -90,7 +89,8 @@ build() {
   cd "${pkgname}"
   mkdir -p build && cd build
   CFLAGS+=" -Wno-implicit-function-declaration -Wno-int-conversion" \
-  cmake -D CMAKE_BUILD_TYPE=Release -D ARCH=default -D WITH_DESKTOP_ENTRY=OFF -D WITH_UPDATER=OFF ../
+  # temporarily switch to static binaries until next monero release supports latest boost
+  cmake -D CMAKE_BUILD_TYPE=Release -D ARCH=default -D WITH_DESKTOP_ENTRY=OFF -D WITH_UPDATER=OFF ../ -DBoost_USE_STATIC_LIBS=ON -DBoost_USE_STATIC_RUNTIME=ON
   make
 }
 
