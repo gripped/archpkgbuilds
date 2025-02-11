@@ -3,7 +3,7 @@
 
 pkgname=libixion
 pkgver=0.19.0
-pkgrel=6
+pkgrel=7
 pkgdesc="A general purpose formula parser & interpreter"
 arch=('x86_64')
 url="https://gitlab.com/ixion/ixion/blob/master/README.md"
