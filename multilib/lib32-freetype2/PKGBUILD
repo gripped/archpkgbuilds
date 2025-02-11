@@ -7,7 +7,7 @@ pkgname=(
   lib32-freetype2
 )
 pkgver=2.13.3
-pkgrel=2
+pkgrel=3
 epoch=
 pkgdesc="Font rasterization library (32-bit)"
 url="https://www.freetype.org/"
@@ -17,6 +17,7 @@ depends=(
   freetype2
   lib32-brotli
   lib32-bzip2
+  lib32-glibc
   lib32-libpng
   lib32-zlib
 
@@ -34,18 +35,17 @@ source=(
 )
 b2sums=('f9591c6998df02b072adaf38a968e91deae8ed4d53ea0cb74d08982c4f0e48b1a98c1378a698164e4f730f07a3b0bea308a94fcc2e2b8ce9967dbf9478b599bd'
         'SKIP'
-        'b7e3b72e2d6aed548c1762a16ee08ac47a05caf29c5d37ef03c6791e6dbd109fdfef0b246540c35e968d54f2103b70e80eccff72ac54d34224c6d064aa53d720'
-        'd2b507830adf1bb9db619cd2e0bbb0dfe5b16ba7d4467ad503e954cf91715c5aa5b52b1d3865abc9841990cda56f223eb6f282d4baf7f31fd525cc90aa96b884'
-        'b83a599da8eef1c39a268482db8e82f03a2c9b68850a0ec782e9839e7b45a3b0f989d997647eb55e5b18f2fe0c988e73f0ec6c4eb4c0787689f9e0213faa4320')
+        '7ddac82b202db33450af3c8ba59f932206c998fa4706369fb6c536d9b7af5100db03b2d8c1ac5de98d54e3ef3b1262f494437c041f3343f6c9e3ed112d2d1098'
+        '24af9fd7e64d4e95e0438bbc96529c6e37d8407188f3df63ecd36b1270ccd6a196545e60276207fefeb5ea786ad15712004313cbd7e11f31368fe7b930d84bbc'
+        'b3946946c5f46e17339d5c24b2e54d985c410355df8dac8b35c90cef59e7fe0ed8bcac4e27f32bda9f5943495adbb25510dc22c3970c0734f408e9bf2e0aaa5b')
 validpgpkeys=(
   E30674707856409FF1948010BE6C3AAC63AD8E3F # Werner Lemberg <wl@gnu.org>
 )
 
 prepare() {
-  cd freetype-$pkgver
-  patch -Np1 -i ../0001-Enable-table-validation-modules.patch
-  patch -Np1 -i ../0002-Enable-subpixel-rendering.patch
-  patch -Np1 -i ../0003-Enable-long-PCF-family-names.patch
+  patch -d freetype-$pkgver -Np1 < 0001-Enable-table-validation-modules.patch
+  patch -d freetype-$pkgver -Np1 < 0002-Enable-subpixel-rendering.patch
+  patch -d freetype-$pkgver -Np1 < 0003-Enable-long-PCF-family-names.patch
 }
 
 build() {
@@ -63,7 +63,9 @@ check() {
 }
 
 package_lib32-freetype2() {
-  provides=(libfreetype.so)
+  provides=(
+    libfreetype.so
+  )
 
   meson install -C build --destdir="$pkgdir"
 
