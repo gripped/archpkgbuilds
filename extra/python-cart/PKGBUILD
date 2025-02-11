@@ -2,8 +2,8 @@
 
 pkgname=python-cart
 _name="${pkgname#python-}"
-pkgver=1.2.2
-pkgrel=2
+pkgver=1.2.3
+pkgrel=1
 pkgdesc="Python implementation of the CaRT library for (un)inerting files"
 url="https://github.com/CybercentreCanada/cart"
 arch=('any')
@@ -12,8 +12,8 @@ depends=('python' 'python-pycryptodome')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 checkdepends=('python-pytest')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha512sums=('38a71caa4e78a754ef24f47a75048bc5d22d64aa886edd38a3931834838f1386ec2d977c4cb456912ffd879dbe99f649d40f35a30acdd8165d49fbcff700bf08')
-b2sums=('cd3aa384532e026589063453c1db94eb9e2fab072935d27c261b35641dfde0a894c17cfb2728b8713564c03f58ebc60b85b3cf086c4f57f474c9075e8a2de510')
+sha512sums=('bdbafb82bcf5401a39153f29d1aa766d71c76bdb83c76316ec6c808b49c5cb767e37e04afbd7e0d94698d76b577b293d482f03b7651dc7c95ceb2e1a32fb60ed')
+b2sums=('3ceedcd618882e4e1d04fba6f737d9ca30804b15d646e198910c2661722aefebdbf2b8624b8bbe79bc5251c7d0003fb98b44426a1301604b8093bfd8290de1a0')
 
 build() {
 	cd "${_name}-${pkgver}"
