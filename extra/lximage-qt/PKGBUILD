@@ -2,7 +2,7 @@
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=lximage-qt
-pkgver=2.1.0
+pkgver=2.1.1
 pkgrel=1
 pkgdesc="The LXQt image viewer and screenshot tool"
 arch=("x86_64")
@@ -22,7 +22,7 @@ source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz.asc"
 )
-sha256sums=('fbf600305ec3a0b725df2bdc82ae8a87c060ea5ddad0e87efa79c3c44bf7f6fc'
+sha256sums=('985f709e91976b29102170b6e015c1517a418908efec8d0700daab06ee2e1b06'
             'SKIP')
 validpgpkeys=(
 	"169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>
