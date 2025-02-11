@@ -4,7 +4,7 @@
 
 pkgname=netcdf-cxx
 pkgver=4.3.1
-pkgrel=4
+pkgrel=5
 pkgdesc="NetCDF C++ bindings"
 arch=(x86_64)
 url="https://github.com/Unidata/netcdf-cxx4/"
@@ -19,6 +19,7 @@ sha256sums=('e3fe3d2ec06c1c2772555bf1208d220aab5fee186d04bd265219b0bc7a978edc'
 prepare() {
     cd ${pkgname}4-${pkgver}
     patch -p1 -i ../netcdf-cxx-fix-debug-flags.patch
+    autoreconf -vif
 }
 
 build() {
