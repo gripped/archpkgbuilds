@@ -4,7 +4,7 @@
 
 pkgname=gajim
 pkgver=1.9.5
-pkgrel=2
+pkgrel=3
 pkgdesc="Full featured and easy to use XMPP (Jabber) client"
 url="https://gajim.org/"
 arch=('any')
@@ -29,9 +29,20 @@ optdepends=('python-dbus: to have gajim-remote working'
             'libxss: for idle time checking on X11'
             'python-gnupg: encrypting chat messages with OpenPGP'
             'emoji-font: for emojis support')
-source=("https://dev.gajim.org/gajim/gajim/-/archive/${pkgver}/gajim-${pkgver}.tar.gz")
-sha512sums=('63138537a384d0914c05ad42d1fa2b4e06805c59180a286fca91fd57ab78ed04f6deaef74ba7285a63c91c750bc94e66c39dfe7f33f3a48f9637aae5428cd3a4')
-b2sums=('35d46dac13f71fc2f07a098ff041e6d785742c569448606f0021fca3e3c1607fd911079873dfb0bd58dd300239ee19569ae36aa3c11ca25f8b97c6ef7f5d3b6b')
+source=("https://dev.gajim.org/gajim/gajim/-/archive/${pkgver}/gajim-${pkgver}.tar.gz"
+        'strip_gzip_timestamps.patch')
+sha512sums=('63138537a384d0914c05ad42d1fa2b4e06805c59180a286fca91fd57ab78ed04f6deaef74ba7285a63c91c750bc94e66c39dfe7f33f3a48f9637aae5428cd3a4'
+            '053f1a209c71da9cc14634b53aaba1f866d66d7290f6a01216b7006b6b7d2bbc44418a2de747af411092003e1b4493003c2f9e3f782e24ebee2ea0db8540705a')
+b2sums=('35d46dac13f71fc2f07a098ff041e6d785742c569448606f0021fca3e3c1607fd911079873dfb0bd58dd300239ee19569ae36aa3c11ca25f8b97c6ef7f5d3b6b'
+        'c5a65f74dbb905eb349934ec5e90186bae323d77b1b328bdeecbad928b53ade7189414f3a026a63cff67270d107512fbb494bcc1c8f153a58997308eefbe12f9')
+
+
+prepare() {
+	cd "${pkgname}-${pkgver}"
+	# Strip gzip timestamps for reproducibility
+	# See https://dev.gajim.org/gajim/gajim/-/issues/12140
+	patch -Np1 -i "${srcdir}/strip_gzip_timestamps.patch"
+}
 
 build() {
 	cd "${pkgname}-${pkgver}"
