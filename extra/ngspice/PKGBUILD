@@ -5,7 +5,8 @@
 # Contributor: Luis Henrique <lmello.009@gmail.com>
 
 pkgname=ngspice
-pkgver=43
+pkgver=44.2
+_manual_pkgver=44 # manual seems to lag a bit behind
 pkgrel=1
 pkgdesc='Mixed-level/Mixed-signal circuit simulator based on Spice3f5, Ciber1b1, and Xspice'
 arch=('x86_64')
@@ -18,12 +19,12 @@ depends=(
 )
 source=(
   "$pkgname-$pkgver.tar.gz::https://downloads.sourceforge.net/project/$pkgname/ng-spice-rework/$pkgver/$pkgname-$pkgver.tar.gz"
-  "https://ngspice.sourceforge.net/docs/ngspice-$pkgver-manual.pdf"
+  "https://sourceforge.net/projects/ngspice/files/ng-spice-rework/$pkgver/ngspice-$_manual_pkgver-manual.pdf"
 )
-sha512sums=('ad938e6ea8f9874c04d1033599bf39d3728e763fbd42ba77bd036b6c00271600695b3656f3f34547c39153382f55e7d7d5d6cb732f272d149cdbe21988c0d636'
-            '01bd68983c10ca8ef2a399354290032a0e9a9881159a3781459c576e662efa91af403ef191e846694ef418a8aec3e867d8e916d8a41a6d616d3169daf22be444')
-b2sums=('a866866dfe6dec238241406fe323baa22fd4145e7bda9e234cee507690fe224938663423ffc3fc37bf86093a982151ad96a5ba53fe292161f901297eef1cf892'
-        '71c86d4325025900db0d7ae961134111f1004490f827be64322cf1109e3781630f4ad7f70006a5e086914b6ec1b8a82bfc013219237d52838cb9dcbd4ece52bb')
+sha512sums=('b6cccf38d460f9aace5379db3b75c247b3aed04b902a2355e27b4ee3a64206b0ac8828c8685da3bf8e57c0746c10f39418849a4f31563e9f5ff7c05de0eb3ae2'
+            '544d33ef43e0856a156e3b55e1fc68559aa99d36e857d8a0036963ca26ed4c56da9fc7bf6616fae8e75bec399aa2c848872b883bf1bb671995fb82c565e3ff8b')
+b2sums=('ec9fe4365f05ef3736f7102099e9f80afe12f9d22a3fd02cb57d45d8613e7bb618a525f7beeba65f0f109b53e4a99f0e197ac65b4ff25af25385944d27a8f824'
+        'b7e74c9545f61fafa61cee5b5085a8f47478a17b89fc5172de121da95db1f8f6f5ed2740705adbf6b82f93b0504e63a8e40e361f63db5623300e1d61b9b8ac29')
 
 build() {
   cd "$pkgname-$pkgver"
@@ -56,13 +57,13 @@ package() {
   make DESTDIR="$pkgdir" install
 
   # license
-  install -vDm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" COPYING
 
   # documentation
-  install -vDm644  "$srcdir/ngspice-$pkgver-manual.pdf" "$pkgdir/usr/share/doc/$pkgname/manual.pdf"
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" "$srcdir/ngspice-$_manual_pkgver-manual.pdf"
 
   # shared library
-  local _sover="0.0.10"
+  local _sover="0.0.12"
   install -vDm755 "src/.libs/libngspice.so.$_sover" "$pkgdir/usr/lib/libngspice.so.$_sover"
   ln -s "libngspice.so.$_sover" "$pkgdir/usr/lib/libngspice.so.0"
   ln -s "libngspice.so.$_sover" "$pkgdir/usr/lib/libngspice.so"
