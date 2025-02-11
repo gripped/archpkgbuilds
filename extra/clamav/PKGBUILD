@@ -5,7 +5,7 @@
 # Contributor: Gaetan Bisson <bisson@archlinux.org>
 
 pkgname=clamav
-pkgver=1.4.1
+pkgver=1.4.2
 pkgrel=1
 pkgdesc='Anti-virus toolkit for Unix'
 url='https://www.clamav.net/'
@@ -56,7 +56,7 @@ source=(
   clamav.tmpfiles
   clamav.sysusers
 )
-sha512sums=('89b1f7a9388082066365a3ea474c0a91b02539edee58ce716de4fe7f6046aa0309137cc9b8198148089fde0ca9e6dec33971e48efe28202bf93f1520dadaab26'
+sha512sums=('9764d85f8ea72f41b398509bd3893c845541643fe6a4f19c1c222554fb49d9609c20f1c0353ebeceb2c65734024b35bdbaf00f550713e5d7aee30b0d0e280710'
             'SKIP'
             '9cb168c1c16bb43c99900d7ef34456e3f3b593d4d1943c875a0306bc86fd3872cb78e9e1413dcba93579e01b96d466c9eea1975e24190193663b7986c4525d48'
             'c5443634399bd87fe0d0192518538ffdb7296a8437b5b0160a0fbd58696b01285de3237e3feb552c0095c49e576832dec2e2b2107eef2be42424ed7edd13cd19'
