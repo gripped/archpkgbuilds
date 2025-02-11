@@ -7,7 +7,7 @@ pkgbase=tensorflow
 pkgname=(tensorflow tensorflow-opt tensorflow-cuda tensorflow-opt-cuda python-tensorflow python-tensorflow-opt python-tensorflow-cuda python-tensorflow-opt-cuda)
 pkgver=2.18.0
 _pkgver=2.18.0
-pkgrel=7
+pkgrel=8
 pkgdesc="Library for computation using data flow graphs for scalable machine learning"
 url="https://www.tensorflow.org/"
 license=('APACHE')
@@ -25,6 +25,7 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/tensorflow/tensorflow/archi
         https://github.com/tensorflow/tensorflow/commit/8a0fbdaebc6209f6b90a8d9cfc83055253d69d1e.patch
         https://github.com/tensorflow/tensorflow/commit/3f4b2fda6ffe7dfe03c1663ef37f54fc4432cc8b.patch
         https://github.com/tensorflow/tensorflow/commit/846468dd25153e9a41f0a9da1ba1604ce819628d.patch
+        tensorflow-fix-cuda-path.patch
         tensorflow-2.16.1-python-distutils-removal.patch
         tensorflow-2.18.0-cuda-12.8.patch
         tensorflow-2.18.0-clang19-compat.patch
@@ -39,6 +40,7 @@ sha512sums=('177decaafcdef27afee84a17268f473141d2d0c092d5f3fe33c9cdd3ce4fd52f6b4
             '8902529804e83b2c26f0b0b6c94a66c59b6e7db52e2aaaf0c718783625a243fb913436921718d2328cf2c8b9bd348bfc0dfebe58e6731f5e51b49986f4cbb157'
             '03e8d7188a81cc237899f4f287f129e7759d268f604252636e007e1ffe71b6a07926c219f79b5bf1f8c088345e292eff461d2375ca1a73af435cdca182e9c26c'
             '9fb2afd75da422a930ccd10d17c3230485fb877800ea1ca246cba76bc1a70d8a196ca4361557fb4a41c12fd844fa31dd761db14ba45f400b0bb3d4d2d70d3bec'
+            '3d3c7aa4faa963594b71935dbd292a872a2958ffeaa6d3d84bc95d262f345c9af95d360b671a445e97bee9d163555d0d68fdb81830eca9ba7da2b40746f5813f'
             'e4c44d2f5314b83d8ed404e5ec14960ef8b7df0c1a2a3e826f913a02c901f9fd0326f9014a602121e0fdb2f928d1459f8b8180455491a1f937ce84e12f6a7d3e'
             'e561bd4198658a2c8b33ef59992d5d78838e2d5b937e4e49eca836d26e0d243fad42dfc9f5b106cb39ce9945e7afa23589f0d93ec002c79ce887ad2b3c473ebc'
             'd17893b4fc56960d7d4a6a8cd906186018045f103a6712b45a0cdb238ec3e5c9c51e233db24d79918f5991884858f4ac5feabd55c6e7279047afe10549b8d09f'
@@ -97,6 +99,9 @@ prepare() {
 
   # PR #16882: Symlink hermetic cuda headers to permit clang cuda version detection
   patch -Np1 -i ../3f4b2fda6ffe7dfe03c1663ef37f54fc4432cc8b.patch -d tensorflow-${_pkgver}
+
+  # Fix https://gitlab.archlinux.org/archlinux/packaging/packages/tensorflow/-/issues/18
+  patch -Np1 -i ../tensorflow-fix-cuda-path.patch -d tensorflow-${_pkgver}
 
   # Python 3.12 removed the distutils module
   # https://gitlab.archlinux.org/archlinux/packaging/packages/tensorflow/-/issues/7
