@@ -2,7 +2,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=sentry-native
-pkgver=0.7.19
+pkgver=0.7.20
 pkgrel=1
 pkgdesc="Sentry SDK for C, C++ and native applications"
 arch=(x86_64)
@@ -27,14 +27,14 @@ checkdepends=(
 provides=(libsentry.so)
 source=(
   "git+$url.git#tag=$pkgver"
-  "git+https://github.com/getsentry/libunwindstack-ndk.git"
-  "git+https://github.com/getsentry/breakpad.git"
-  "git+https://chromium.googlesource.com/linux-syscall-support.git"
-  "git+https://github.com/getsentry/crashpad.git"
-  "git+https://github.com/getsentry/mini_chromium.git"
-  "git+https://chromium.googlesource.com/chromium/src/third_party/zlib.git"
+  "$pkgname-libunwindstack-ndk::git+https://github.com/getsentry/libunwindstack-ndk.git"
+  "$pkgname-breakpad::git+https://github.com/getsentry/breakpad.git"
+  "$pkgname-linux-syscall-support::git+https://chromium.googlesource.com/linux-syscall-support.git"
+  "$pkgname-crashpad::git+https://github.com/getsentry/crashpad.git"
+  "$pkgname-mini_chromium::git+https://github.com/getsentry/mini_chromium.git"
+  "$pkgname-zlib::git+https://chromium.googlesource.com/chromium/src/third_party/zlib.git"
 )
-sha256sums=('8b12db1c514adb68a303895c85c16e54e5f88ad53bbfc47f22944b2bcfdc3183'
+sha256sums=('8c3dccfb87d44a42147d527921381aa8c5537e76d50626a101f7afe991059a4d'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -45,17 +45,17 @@ sha256sums=('8b12db1c514adb68a303895c85c16e54e5f88ad53bbfc47f22944b2bcfdc3183'
 prepare() {
   cd $pkgname
   git submodule init
-  git config submodule.external/libunwindstack-ndk.url "$srcdir/libunwindstack-ndk"
-  git config submodule.external/breakpad.url "$srcdir/breakpad"
-  git config submodule.external/third_party/lss.url "$srcdir/linux-syscall-support"
-  git config submodule.external/crashpad.url "$srcdir/crashpad"
+  git config submodule.external/libunwindstack-ndk.url "$srcdir/$pkgname-libunwindstack-ndk"
+  git config submodule.external/breakpad.url "$srcdir/$pkgname-breakpad"
+  git config submodule.external/third_party/lss.url "$srcdir/$pkgname-linux-syscall-support"
+  git config submodule.external/crashpad.url "$srcdir/$pkgname-crashpad"
   git -c protocol.file.allow=always submodule update
 
   cd external/crashpad
   git submodule init
-  git config submodule.third_party/mini_chromium/mini_chromium.url "$srcdir/mini_chromium"
-  git config submodule.third_party/zlib/zlib.url "$srcdir/zlib"
-  git config submodule.third_party/lss/lss.url "$srcdir/linux-syscall-support"
+  git config submodule.third_party/mini_chromium/mini_chromium.url "$srcdir/$pkgname-mini_chromium"
+  git config submodule.third_party/zlib/zlib.url "$srcdir/$pkgname-zlib"
+  git config submodule.third_party/lss/lss.url "$srcdir/$pkgname-linux-syscall-support"
   git -c protocol.file.allow=always submodule update
 }
 
@@ -70,8 +70,9 @@ build() {
 
 check() {
   cd $pkgname
-  # Ignore Windows tests.
+  # Ignore Windows tests & deselect test requiring .NET 8.0.
   pytest \
+    --deselect tests/test_dotnet_signals.py::test_dotnet_signals_inproc \
     --ignore external/crashpad/snapshot/win \
     --ignore external/crashpad/test/win
 }
