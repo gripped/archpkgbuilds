@@ -1,17 +1,18 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
+# Contributor: txtsd <code@ihavea.quest>
 # Contributor: Sandy Carter <bwrsandman@gmail.com>
 
 pkgname=openmw
 pkgver=0.48.0
-pkgrel=9
+pkgrel=10
 pkgdesc="Open-source engine reimplementation for the role-playing game Morrowind"
 arch=('x86_64')
 url="http://www.openmw.org"
-license=('GPL3' 'MIT' 'custom')
+license=('GPL-3.0-or-later' 'OFL-1.1' 'LicenseRef-DejaVuLGCSansMono')
 depends=('openal' 'openscenegraph' 'mygui' 'qt5-base' 'ffmpeg4.4' 'sdl2' 'unshield'
          'libxt' 'boost-libs' 'bullet-dp' 'yaml-cpp' 'luajit')
 makedepends=('cmake' 'boost' 'doxygen' 'ninja')
-source=("https://github.com/OpenMW/openmw/archive/refs/tags/openmw-${pkgver}.tar.gz"
+source=("https://gitlab.com/OpenMW/openmw/-/archive/openmw-${pkgver}/openmw-openmw-${pkgver}.tar.gz"
          gcc14.patch)
 sha512sums=('6f2429253b44a232fc69db7f04a873f7328a5e95d810c36768311bdc23064a96c9963caa7d64a906bd67509e3a2f8d142db005ce093fc2764dd672ae6a617414'
             '552ec48c2b1821229fc81bcaf7f01174b24ffd6ae80d1e59c927a422d8c17eeb435f1501a05c1f105ab87342ad91d89fab0f7e8eb06d5552bb3d8d8675577a11')
