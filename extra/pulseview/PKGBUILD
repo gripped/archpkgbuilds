@@ -5,7 +5,7 @@
 
 pkgname=pulseview
 pkgver=0.4.2
-pkgrel=13
+pkgrel=15
 pkgdesc='A Qt based logic analyzer GUI for sigrok'
 arch=('x86_64')
 url='https://sigrok.org/wiki/Main_Page'
@@ -32,32 +32,36 @@ sha512sums=('c74329f4ae5486b70f757664f305b699bf9dc14a3d71e241f5c15ad12f6d9549944
 
 prepare() {
   cd $pkgname
-  git config user.name builduser
-  git config user.email builduser@archlinux
+
   # Replace obsolete/deprecated Qt methods
-  git cherry-pick ae726b70a7ada9a4be5808e00f0c951318479684
+  git cherry-pick -n ae726b70a7ada9a4be5808e00f0c951318479684
   # Fix broken build due to C++ template behind C linkage
-  git cherry-pick ed643f0b4ac587204a5243451cda181ee1405d62
+  git cherry-pick -n ed643f0b4ac587204a5243451cda181ee1405d62
 }
 
 build() {
-  cd $pkgname
-  cmake -S . -B build \
-  	-DCMAKE_INSTALL_PREFIX=/usr \
+  local cmake_options=(
+    -S $pkgname \
+    -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=None \
     -Wno-dev \
-  	-DCMAKE_CXX_FLAGS=-fext-numeric-literals \
-  	-DDISABLE_WERROR=ON \
-    -DENABLE_TESTS=ON
+    -DCMAKE_CXX_FLAGS=-fext-numeric-literals \
+    -DDISABLE_WERROR=ON \
+    -DENABLE_TESTS=ON \
+  )
+
+  # remove hardedcoded c++11 reference which breaks boost 1.87.0
+  sed -i "s/-std=c++11/-std=c++17/" "$pkgname/CMakeLists.txt"
+
+  cmake "${cmake_options[@]}"
   cmake --build build
 }
 
 check() {
-  cd $pkgname
   ctest --test-dir build --output-on-failure
 }
 
 package() {
-  cd $pkgname
   DESTDIR="$pkgdir" cmake --install build
 }
