@@ -7,7 +7,7 @@
 
 pkgname=libguestfs
 pkgver=1.54.0
-pkgrel=2
+pkgrel=4
 pkgdesc="Access and modify virtual machine disk images"
 arch=(x86_64)
 url="https://libguestfs.org/"
@@ -78,7 +78,7 @@ makedepends=(
   bash-completion
   cdrtools
   cpio
-  erlang-nox
+  erlang-erl_interface
   # ghc  # TODO: build haskell bindings
   go
   gobject-introspection
@@ -120,15 +120,18 @@ source=(
   https://download.libguestfs.org/${pkgver%.*}-stable/$pkgname-$pkgver.tar.gz{,.sig}
   $pkgname-1.54.0-disable-expand-gpt-test.patch::https://github.com/libguestfs/libguestfs/commit/c25ff1a8022cf345d3ce29682207ed3732a4244a.patch
   $pkgname-1.48.1-disable_php_tests.patch
+  $pkgname-1.54.0-file-5.46.patch::https://github.com/libguestfs/libguestfs/pull/164/commits/ed21af3b0a01c11402b481c109f15279b958b3bd.patch
 )
 sha512sums=('45fd91a36384c15737820c9157d4a8a670c94177ab917a2600fef04ecbc8d6531ef04a4a86bea6540e04a550de7dfacbef9645f2869e7c5eab6cb63058ff2d86'
             'SKIP'
             '9169fdca63ea429e822719b0246fd5d40c7bcf8254a2d07aeb969ba5482608d7a60735270294492c4ef36f0179f692611461df7c90999b30841cb447b7e0f4d1'
-            'd59cad07e275f1fa5e82448993db5b3a6dc8cdd1fc97a8839ef0403ad3f1753a5d13df27b184d6c73fa8dda8bd75e63ad68aaad26001986682d5bc7eeb58273a')
+            'd59cad07e275f1fa5e82448993db5b3a6dc8cdd1fc97a8839ef0403ad3f1753a5d13df27b184d6c73fa8dda8bd75e63ad68aaad26001986682d5bc7eeb58273a'
+            '3d23c980eecc2e77df696644ddd860823b8163ebfe04aa6a51ef44b0a4cb72c54801409eff86bf9eae65db77d6437e8dc17d6cc54061750a46847aed2cfedb40')
 b2sums=('a55237f9c08e48502e95a25ed9ce98ff6ebe08ea074cb55f6f9d97f4fb79cc9c43b9c3459c122fb2a53c81d5987b5765656846d0785cb68ba06cd584b5cd26ee'
         'SKIP'
         'b786f1ece3c27581d31d454ec77c56df38f91d86b53bbb4fb12db6c223836c204be86184dc2a16f27cedd408911ab1775b92f672f37d88fa1075ebd4b5b35fee'
-        '2f7c429875d80b2b3a70286f83764ce6ed8be86055232fc059ab55ebf8393f9d29a2241401c7ab55af7ba9180ea85909647fe06ca51880f93bc66b488bcec78c')
+        '2f7c429875d80b2b3a70286f83764ce6ed8be86055232fc059ab55ebf8393f9d29a2241401c7ab55af7ba9180ea85909647fe06ca51880f93bc66b488bcec78c'
+        '43e80b839608054880f87204cd163b5a769eb2bd9ece3b3047b6227ba21684ced58e54bc5e6d0c1927ff6094cf7d67ffd5fa2106f77d38dbbbdaf2059ec4b04c')
 validpgpkeys=('F7774FB1AD074A7E8C8767EA91738F73E1B768A0') # Richard W.M. Jones <rjones@redhat.com>
 
 prepare() {
@@ -137,6 +140,9 @@ prepare() {
 
   # disable gdisk/test-expand-gpt.pl: https://github.com/libguestfs/libguestfs/issues/155
   patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-1.54.0-disable-expand-gpt-test.patch
+
+  # Fix build with file: https://github.com/libguestfs/libguestfs/issues/162
+  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-1.54.0-file-5.46.patch
 
   cd $pkgname-$pkgver
   autoreconf -fiv
