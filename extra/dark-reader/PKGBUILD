@@ -8,8 +8,8 @@ pkgname=(
 )
 pkgbase=dark-reader
 _name=${pkgbase/-}
-pkgver=4.9.100
-pkgrel=1
+pkgver=4.9.102
+pkgrel=2
 pkgdesc='Inverts brightness of web pages and aims to reduce eyestrain while browsing the web'
 arch=(any)
 url=https://darkreader.org/
@@ -19,7 +19,7 @@ makedepends=(
   npm
 )
 source=("git+https://github.com/$_name/$_name.git#tag=v$pkgver")
-b2sums=('cc72cc851593f06c74ea805c3192d4cb728cdb163d5c0efbe94d31f51ad94aab0c6456c6a6e5504cc6fecf3de015dfe81fcfa083bbb7da26156cba9644c332a9')
+b2sums=('4c677ad5de3b1550f69a8a7f0ee9599beef5212659d5f3f3fdef613e4fea7aa9377b8fac8e78aa22115a715c6fc73b40e53cd257815e3818a930f7df861f5187')
 
 prepare() {
   cd "$_name"
@@ -39,7 +39,7 @@ check() {
 package_dark-reader() {
   pkgdesc+=' (unpacked webextension)'
 
-  cd "$_name"/build/release/chrome
+  cd "$_name"/build/release/chrome-mv3
   install -d "$pkgdir"/usr/lib/$pkgbase
   cp -r -- * "$pkgdir"/usr/lib/$pkgbase
 }
