@@ -1,15 +1,12 @@
 diff --git a/setup.py b/setup.py
-index 7efce8106..5e7ca68ff 100644
+index d6859b6c5..51edc6daa 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -58,49 +58,12 @@ def gen_modules(version):
- 
-     modules = Extension(
-         name = "pycryptosat",
--        include_dirs = ["src/"],
-+        include_dirs = ["src/", "./"],
+@@ -61,55 +61,12 @@ def gen_modules(version):
+         include_dirs = ["src/", "./"],
          sources = ["python/src/pycryptosat.cpp",
                     "python/src/GitSHA1.cpp",
+-                   "src/backbone.cpp",
 -                   "src/cardfinder.cpp",
 -                   "src/ccnr_cms.cpp",
 -                   "src/ccnr.cpp",
@@ -29,6 +26,7 @@ index 7efce8106..5e7ca68ff 100644
 -                   "src/gaussian.cpp",
 -                   "src/get_clause_query.cpp",
 -                   "src/hyperengine.cpp",
+-                   "src/idrup.cpp",
 -                   "src/intree.cpp",
 -                   "src/lucky.cpp",
 -                   "src/matrixfinder.cpp",
@@ -46,12 +44,19 @@ index 7efce8106..5e7ca68ff 100644
 -                   "src/str_impl_w_impl.cpp",
 -                   "src/subsumeimplicit.cpp",
 -                   "src/subsumestrengthen.cpp",
+-                   "src/vardistgen.cpp",
 -                   "src/varreplacer.cpp",
 -                   "src/xorfinder.cpp",
 -                   "src/oracle/oracle.cpp",
+-                   "src/oracle_use.cpp",
+-                   "src/probe.cpp",
                 ],
 +        library_dirs = ["../build/lib"],
-+        libraries = ['cryptominisat5'],
+         depends = [
+             "python/cadiback/cadiback.h",
+         ],
+-        libraries = ['/usr/lib/libcadiback.so'], #, 'libgmpxx.so', 'libgmp.so'
++        libraries = ['cryptominisat5', '/usr/lib/libcadiback.so'], #, 'libgmpxx.so', 'libgmp.so'
          extra_compile_args = extra_compile_args_val,
          define_macros=define_macros_val,
          language = "c++",
