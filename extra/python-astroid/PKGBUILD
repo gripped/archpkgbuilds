@@ -7,7 +7,7 @@
 _pyname=astroid
 pkgname=python-$_pyname
 pkgver=3.3.8
-pkgrel=1
+pkgrel=2
 pkgdesc='A common base representation of python source code'
 arch=(any)
 url="https://github.com/pylint-dev/$_pyname"
@@ -19,7 +19,6 @@ checkdepends=(python-attrs
               python-dateutil
               python-pyqt6
               python-regex
-              python-six
               python-urllib3
               python-pip
               python-pytest)
