@@ -2,7 +2,7 @@
 
 pkgname=monero
 pkgver=0.18.3.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD-3-Clause')
 arch=('x86_64')
@@ -10,7 +10,6 @@ url="https://getmonero.org/"
 depends=(
   'gcc-libs'
   'glibc'
-  'libboost_program_options.so'
   'libhidapi-libusb.so'
   'libreadline.so'
   'libsodium.so'
@@ -81,7 +80,8 @@ prepare() {
 build() {
   cd "${pkgname}"
   CFLAGS+=" -Wno-implicit-function-declaration -Wno-int-conversion" \
-  cmake -B build -D ARCH="default" -D CMAKE_BUILD_TYPE=Release
+  # temporarily switch to static binaries until next monero release supports latest boost
+  cmake -B build -D ARCH="default" -D CMAKE_BUILD_TYPE=Release -D STATIC=ON
   make -C build
 }
 
