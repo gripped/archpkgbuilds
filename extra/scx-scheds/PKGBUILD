@@ -4,7 +4,7 @@
 
 pkgname=scx-scheds
 _gitname=scx
-pkgver=1.0.8
+pkgver=1.0.9
 pkgrel=1
 pkgdesc='sched_ext schedulers and tools'
 url='https://github.com/sched-ext/scx'
@@ -32,11 +32,16 @@ makedepends=(
 )
 options=(!lto)
 source=("git+https://github.com/sched-ext/scx#tag=v${pkgver}")
-sha256sums=('0971802cf9648267554de6ccc82a3479c6cc7fe37bb55021ad93838441ece58e')
+sha256sums=('4c1c8ef253c49939e0e69bcc27747098425f4cfc3e2f551a29a9bf5559226b50')
 
 build() {
   cd $_gitname
-  arch-meson . build -D openrc=disabled -D libbpf_a=disabled -D cargo_home="$srcdir"/scx
+  arch-meson . build -D openrc=disabled \
+    -D libbpf_a=disabled \
+    -D bpftool=disabled \
+    -D b_lto=true \
+    -D b_lto_mode=full \
+    -D cargo_home="$srcdir"/scx
   meson compile -C build
 }
 
