@@ -4,23 +4,16 @@
 # Contributor: Black_Mage <vleon1 at gmail dot com>
 
 pkgname=astromenace
-pkgver=1.4.2
-pkgrel=3
+pkgver=1.4.3
+pkgrel=1
 pkgdesc="Hardcore 3D space shooter with spaceship upgrade possibilities"
 arch=('x86_64')
 url="http://www.viewizard.com/astromenace/index_linux.php"
 license=('GPL-3.0-only')
 depends=('sdl2' 'freealut' 'libjpeg-turbo' 'libvorbis' 'glu' 'freetype2' 'libxinerama')
 makedepends=('cmake' 'mesa' 'ninja')
-source=("$pkgname-$pkgver".tar.gz::https://github.com/viewizard/astromenace/archive/v${pkgver}.tar.gz
-         https://github.com/viewizard/astromenace/commit/d5e007cf.patch)
-sha512sums=('6a41c987295ff7201b2a9fa748b2b246c5d61bf4ae39668e614fbec377abfe08387a66182059c0e87d1c8395aa224ae396535b0f41a0be720fc57d319249e8b0'
-            '391ea09ca2ace8f52cf6417d26429556c7e725456d0b86c840fd467dfb3e1cc889ceadaf2c09ad9fecee5afa2686a2271ca0480f0893b043ff8f067e97584e6d')
-
-prepare() {
-# Fix build with GCC 13
-  patch -d $pkgname-$pkgver -p1 < d5e007cf.patch
-}
+source=("$pkgname-$pkgver".tar.gz::https://github.com/viewizard/astromenace/archive/v${pkgver}.tar.gz)
+sha512sums=('10c1bbd330ee76dfa3c340582b5462bcb03b4c73732ae73af9b2126ddff7de85bfe9320d7fdd1cd9ec2e27f27d2664a63ed3db5424a9841c5d954b4a50a4be9a')
 
 build() {
   cd astromenace-$pkgver
