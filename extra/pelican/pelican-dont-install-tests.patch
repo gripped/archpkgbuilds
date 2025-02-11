@@ -1,0 +1,11 @@
+diff --unified --recursive --text --new-file pelican-4.11.0.orig/pyproject.toml pelican-4.11.0/pyproject.toml
+--- pelican-4.11.0.orig/pyproject.toml	2025-02-02 16:56:19.270115816 +0100
++++ pelican-4.11.0/pyproject.toml	2025-02-02 16:56:05.822821309 +0100
+@@ -107,6 +107,7 @@
+     "docs/changelog.rst",
+     "samples/",
+ ]
++excludes = [ "pelican/tests/" ]
+ 
+ [build-system]
+ requires = ["pdm-backend"]
