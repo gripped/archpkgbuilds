@@ -4,7 +4,7 @@
 
 pkgname=node-gyp
 pkgver=11.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Node.js native addon build tool'
 arch=('any')
 url='https://github.com/nodejs/node-gyp'
@@ -33,7 +33,7 @@ package() {
   local mod_dir=/usr/lib/node_modules/$pkgname
 
   install -d "$pkgdir"/{usr/{bin,share/licenses/$pkgname},$mod_dir}
-  ln -s $mod_dir/$pkgname.js "$pkgdir"/usr/bin/$pkgname
+  ln -s $mod_dir/bin/$pkgname.js "$pkgdir"/usr/bin/$pkgname
   ln -s $mod_dir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname
 
   cd $pkgname
