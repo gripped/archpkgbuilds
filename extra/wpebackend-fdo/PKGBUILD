@@ -6,7 +6,7 @@ pkgname=(
   wpebackend-fdo-docs
 )
 pkgver=1.14.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Freedesktop.org backend for WPE WebKit"
 url="https://wpewebkit.org"
 arch=(x86_64)
