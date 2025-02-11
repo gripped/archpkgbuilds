@@ -4,7 +4,7 @@
 # Contributor: Jokler <aur@jokler.xyz>
 
 pkgname=bacon
-pkgver=3.9.1
+pkgver=3.10.0
 pkgrel=1
 pkgdesc='A background rust code checker'
 arch=('x86_64')
@@ -20,8 +20,8 @@ optdepends=('cargo: for use with Rust'
             'python-pytest: for use with Python via pytest')
 options=('!lto')
 source=("$pkgname::git+https://github.com/Canop/bacon#tag=v$pkgver")
-sha512sums=('a7474c58b2211d727f9e6a852a19a194faf39da316c72eb0d89e59fede03ff74961b7ee3fc9bb2056cc44de13c239ce3979df0571764ea5eea296a0334a28e49')
-b2sums=('a46cf441ffc53c0adca224a511498091afbb388422d40caa2a47ab38fe6dfc4698b58d5333f4891317676e066249a3dd1aac59b3149cf931f13562cac17cb848')
+sha512sums=('29a440c542fe6a8c08d7132691850d89c6de5fe7cd84cd2f01a5cb4c654c8f0a1f47c829384e46e489dee9d0e0624f10f290c3d23d49363708a8591231752ff1')
+b2sums=('2b864d9bb1684f632a1ceb0206ffd5560ac10dbe2c7f30316b69a678eb891d8a9a99d47f8c3e3bd0402df23751f9a71759e36e7b3931b5cde1179a630d4ea926')
 
 prepare() {
   cd "$pkgname"
