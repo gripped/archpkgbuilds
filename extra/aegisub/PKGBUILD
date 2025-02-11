@@ -3,8 +3,8 @@
 # Contributor: Limao Luo <luolimao+AUR@gmail.com>
 
 pkgname=aegisub
-pkgver=3.4.1
-pkgrel=1
+pkgver=3.4.2
+pkgrel=2
 pkgdesc='A general-purpose subtitle editor with ASS/SSA support'
 arch=(x86_64)
 url=http://www.aegisub.org
@@ -36,16 +36,21 @@ makedepends=(
   mesa
   meson
 )
-_tag=a81794872968ee25ad46a5eebdfe1ce297668a4d
+_tag=f437ba4f547fdb0e02432f1c45a4da25e51035f8
 source=(git+https://github.com/TypesettingTools/Aegisub.git#tag=${_tag})
 #validpgpkeys=(6DD9508BCB1CE31AF295FF9B6A889F50A8B00C08) # Thomas Goyne <plorkyeran@aegisub.org>
-b2sums=('cd1ad877f36a9b1a403f1c8d789a60aaef9d719e160c0aa40c9cc9b29bbaa7e84e8bdd4264bceae342c2b7fc41005007315cb04302d31322da4c4c084e2ac988')
+b2sums=('9d46d4c296e1d52ffb1abbd2e3ac48b3329618706fad4e76928e733b15d61e3d352b50d0514426b0ab62dadc5ceaf234028a31dec65e10e5b41b0086882ca25b')
 
 prepare() {
   cd Aegisub
   meson subprojects download luajit
   meson subprojects packagefiles --apply luajit
   sed "/subdir('tests')/d" -i meson.build
+  echo "#define BUILD_GIT_VERSION_NUMBER ${pkgver/./}" >> git_version.h
+  echo "#define BUILD_GIT_VERSION_STRING \"${pkgver}\"" >> git_version.h
+  echo '#define TAGGED_RELEASE 0' >> git_version.h
+  echo '#define INSTALLER_VERSION "0.0.0"' >> git_version.h
+  echo '#define RESOURCE_BASE_VERSION 0, 0, 0' >> git_version.h
 }
 
 pkgver() {
