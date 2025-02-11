@@ -3,8 +3,8 @@
 
 pkgname=python-zope-location
 _pkgname=zope.location
-pkgver=5.0
-pkgrel=4
+pkgver=5.1
+pkgrel=1
 pkgdesc="Special objects that have a structural location"
 arch=('any')
 url="https://github.com/zopefoundation/zope.location"
@@ -28,7 +28,7 @@ checkdepends=(
   'python-zope-testrunner'
 )
 source=("$pkgname-$pkgver.tar.gz::https://github.com/zopefoundation/zope.location/archive/$pkgver.tar.gz")
-sha512sums=('4a3f41d4170730295b7b303eb9ca15304c35c05ed5fa62de8c92479011a82fe003d863d27136287394c0a04d7bb7959940fe605db5123d6c4953dada2d8ea92b')
+sha512sums=('8591c946ca0304ff0229c741f38713664152bbc669b83174b8941d03aecbe42025b74cf45613e8f8ff3a2c9e06d3def3f29068c55ef077723c94de7667572aca')
 
 build() {
   cd $_pkgname-$pkgver
