@@ -1,0 +1,190 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgbase=maelstrom
+pkgname=(
+  cargo-maelstrom
+  maelstrom-broker
+  maelstrom-client
+  maelstrom-go-test
+  maelstrom-pytest
+  maelstrom-run
+  maelstrom-worker
+)
+pkgver=0.12.0
+pkgrel=1
+pkgdesc="A fast Rust, Go, and Python test runner that runs every test in its own container"
+arch=(x86_64)
+url="https://maelstrom-software.com/"
+_url="https://github.com/maelstrom-software/maelstrom"
+license=('Apache-2.0 OR MIT')
+makedepends=(
+  gcc-libs
+  glibc
+  git
+  openssl
+  rust
+)
+options=(!lto)  # the project uses ring
+source=(
+  $pkgbase::git+$_url#tag=v$pkgver
+  $pkgbase-0.12.0-maelstrom-web-feature.patch  # backport of https://github.com/maelstrom-software/maelstrom/commit/8ec4e39db5ab17f51d9c642869ae6d8b53a019b6
+)
+sha512sums=('eb569ffa9819279447595f48bfd0724281cd194091138314ea07164fcc13776582cc8d62d9bbeeb5d04d37ef100fcac22c828d12aec3f3e585f2e39937440780'
+            '983214fed3d8593803cce27122015b205cc5a01b9bdd6f21c52c4435d6d05637454de800d43161197c5cf8718ccd8b5c718c6528d543b8f0d4f5bcf734b38022')
+b2sums=('7395cb36c742538607635e26a12e2fad79831930673b4940f825ac57b0975f14e5d7d150d3fd9e2485402e8795362d362cff0cfa0509e6c65cbe1a8150a2f00b'
+        'e9ec66900a265e832f5d172b511083a60c35e3d152d0b387d99943e735cab1569b3c687f3ac6218781dfc68643573e85fe248aecc0d9500114f63cafb3d55c30')
+
+prepare() {
+  cd $pkgbase
+  # add web-ui feature for maelstrom-broker due to issues with wasm target in maelstrom-web: https://github.com/maelstrom-software/maelstrom/issues/468
+  patch -Np1 -i ../$pkgbase-0.12.0-maelstrom-web-feature.patch
+
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $pkgbase
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  for pkg in ${pkgname[@]}; do
+    local cargo_build_options=(
+      --frozen
+      --release
+    )
+
+    # the wasm setup for maelstrom-web is broken: https://github.com/maelstrom-software/maelstrom/issues/468
+    if [[ "$pkg" == maelstrom-broker ]]; then
+      cargo_build_options+=(--no-default-features --package)
+    else
+      cargo_build_options+=(--all-features --package)
+    fi
+
+    printf "Building package %s\n" "$pkg"
+    cargo build "${cargo_build_options[@]}" "$pkg"
+  done
+}
+
+# tests are currently broken
+# check() {
+#   cd $pkgbase
+#   export RUSTUP_TOOLCHAIN=stable
+
+#   for pkg in ${pkgname[@]}; do
+#     local cargo_test_options=(
+#       --frozen
+#     )
+
+#     # the wasm setup for maelstrom-web is broken: https://github.com/maelstrom-software/maelstrom/issues/468
+#     if [[ "$pkg" == maelstrom-broker ]] || [[ "$pkg" == cargo-maelstrom ]]; then
+#       cargo_test_options+=(--no-default-features --package)
+#     else
+#       cargo_test_options+=(--all-features --package)
+#     fi
+
+#     printf "Testing package %s\n" "$pkg"
+#     cargo test "${cargo_test_options[@]}" "$pkg"
+#   done
+# }
+
+package_cargo-maelstrom() {
+  pkgdesc="Cargo test runner for Maelstrom"
+  depends=(
+    cargo
+    gcc-libs
+    glibc
+    openssl libcrypto.so libssl.so
+  )
+
+  cd $pkgbase
+  install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 LICENSE-APACHE "$pkgdir/usr/share/licenses/$pkgname/Apache-2.0.txt"
+  install -vDm 644 LICENSE-MIT "$pkgdir/usr/share/licenses/$pkgname/MIT.txt"
+}
+
+package_maelstrom-broker() {
+  pkgdesc="Maelstrom broker, coordinating between clients and workers"
+  depends=(
+    gcc-libs
+    glibc
+  )
+  groups=(maelstrom-cluster)
+
+  cd $pkgbase
+  install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 LICENSE-APACHE "$pkgdir/usr/share/licenses/$pkgname/Apache-2.0.txt"
+  install -vDm 644 LICENSE-MIT "$pkgdir/usr/share/licenses/$pkgname/MIT.txt"
+}
+
+package_maelstrom-client() {
+  pkgdesc="Maelstrom client for creating and submitting jobs on a Maelstrom cluster"
+  depends=(
+    gcc-libs
+    glibc
+    openssl libcrypto.so libssl.so
+  )
+
+  cd $pkgbase
+  install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 LICENSE-APACHE "$pkgdir/usr/share/licenses/$pkgname/Apache-2.0.txt"
+  install -vDm 644 LICENSE-MIT "$pkgdir/usr/share/licenses/$pkgname/MIT.txt"
+}
+
+package_maelstrom-go-test() {
+  pkgdesc="Go test runner for Maelstrom"
+  depends=(
+    gcc-libs
+    glibc
+    go
+    openssl libcrypto.so libssl.so
+  )
+
+  cd $pkgbase
+  install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 LICENSE-APACHE "$pkgdir/usr/share/licenses/$pkgname/Apache-2.0.txt"
+  install -vDm 644 LICENSE-MIT "$pkgdir/usr/share/licenses/$pkgname/MIT.txt"
+}
+
+package_maelstrom-pytest() {
+  pkgdesc="Python test runner for Maelstrom"
+  depends=(
+    gcc-libs
+    glibc
+    openssl libcrypto.so libssl.so
+    python
+    python-pytest
+  )
+
+  cd $pkgbase
+  install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 LICENSE-APACHE "$pkgdir/usr/share/licenses/$pkgname/Apache-2.0.txt"
+  install -vDm 644 LICENSE-MIT "$pkgdir/usr/share/licenses/$pkgname/MIT.txt"
+}
+
+package_maelstrom-run() {
+  pkgdesc="Program for submitting jobs to Maelstrom clusters"
+  depends=(
+    gcc-libs
+    glibc
+    openssl libcrypto.so libssl.so
+  )
+
+  cd $pkgbase
+  install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 LICENSE-APACHE "$pkgdir/usr/share/licenses/$pkgname/Apache-2.0.txt"
+  install -vDm 644 LICENSE-MIT "$pkgdir/usr/share/licenses/$pkgname/MIT.txt"
+}
+
+package_maelstrom-worker() {
+  pkgdesc="Maelstrom worker, executing jobs as directed by maelstrom-broker"
+  depends=(
+    gcc-libs
+    glibc
+  )
+  groups=(maelstrom-cluster)
+
+  cd $pkgbase
+  install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 LICENSE-APACHE "$pkgdir/usr/share/licenses/$pkgname/Apache-2.0.txt"
+  install -vDm 644 LICENSE-MIT "$pkgdir/usr/share/licenses/$pkgname/MIT.txt"
+}

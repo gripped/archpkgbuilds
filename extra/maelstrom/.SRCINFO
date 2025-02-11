@@ -1,0 +1,75 @@
+pkgbase = maelstrom
+	pkgdesc = A fast Rust, Go, and Python test runner that runs every test in its own container
+	pkgver = 0.12.0
+	pkgrel = 1
+	url = https://maelstrom-software.com/
+	arch = x86_64
+	license = Apache-2.0 OR MIT
+	makedepends = gcc-libs
+	makedepends = glibc
+	makedepends = git
+	makedepends = openssl
+	makedepends = rust
+	options = !lto
+	source = maelstrom::git+https://github.com/maelstrom-software/maelstrom#tag=v0.12.0
+	source = maelstrom-0.12.0-maelstrom-web-feature.patch
+	sha512sums = eb569ffa9819279447595f48bfd0724281cd194091138314ea07164fcc13776582cc8d62d9bbeeb5d04d37ef100fcac22c828d12aec3f3e585f2e39937440780
+	sha512sums = 983214fed3d8593803cce27122015b205cc5a01b9bdd6f21c52c4435d6d05637454de800d43161197c5cf8718ccd8b5c718c6528d543b8f0d4f5bcf734b38022
+	b2sums = 7395cb36c742538607635e26a12e2fad79831930673b4940f825ac57b0975f14e5d7d150d3fd9e2485402e8795362d362cff0cfa0509e6c65cbe1a8150a2f00b
+	b2sums = e9ec66900a265e832f5d172b511083a60c35e3d152d0b387d99943e735cab1569b3c687f3ac6218781dfc68643573e85fe248aecc0d9500114f63cafb3d55c30
+
+pkgname = cargo-maelstrom
+	pkgdesc = Cargo test runner for Maelstrom
+	depends = cargo
+	depends = gcc-libs
+	depends = glibc
+	depends = openssl
+	depends = libcrypto.so
+	depends = libssl.so
+
+pkgname = maelstrom-broker
+	pkgdesc = Maelstrom broker, coordinating between clients and workers
+	groups = maelstrom-cluster
+	depends = gcc-libs
+	depends = glibc
+
+pkgname = maelstrom-client
+	pkgdesc = Maelstrom client for creating and submitting jobs on a Maelstrom cluster
+	depends = gcc-libs
+	depends = glibc
+	depends = openssl
+	depends = libcrypto.so
+	depends = libssl.so
+
+pkgname = maelstrom-go-test
+	pkgdesc = Go test runner for Maelstrom
+	depends = gcc-libs
+	depends = glibc
+	depends = go
+	depends = openssl
+	depends = libcrypto.so
+	depends = libssl.so
+
+pkgname = maelstrom-pytest
+	pkgdesc = Python test runner for Maelstrom
+	depends = gcc-libs
+	depends = glibc
+	depends = openssl
+	depends = libcrypto.so
+	depends = libssl.so
+	depends = python
+	depends = python-pytest
+
+pkgname = maelstrom-run
+	pkgdesc = Program for submitting jobs to Maelstrom clusters
+	depends = gcc-libs
+	depends = glibc
+	depends = openssl
+	depends = libcrypto.so
+	depends = libssl.so
+
+pkgname = maelstrom-worker
+	pkgdesc = Maelstrom worker, executing jobs as directed by maelstrom-broker
+	groups = maelstrom-cluster
+	depends = gcc-libs
+	depends = glibc
