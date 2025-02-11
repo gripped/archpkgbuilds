@@ -14,7 +14,7 @@
 
 pkgname=valgrind
 pkgver=3.24.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Tool to help find memory-management problems in programs'
 arch=('x86_64')
 license=('GPL-2.0-or-later')
