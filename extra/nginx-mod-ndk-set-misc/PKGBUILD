@@ -6,7 +6,7 @@ _ndkver=0.3.3
 pkgbase=nginx-mod-ndk-set-misc
 pkgname=(nginx-mod-ndk nginx-mod-set-misc)
 pkgver=$_setmiscver+$_ndkver
-pkgrel=10
+pkgrel=11
 
 pkgdesc="Nginx module that adds additional generic tools that module developers can use in their own modules"
 arch=('x86_64')
@@ -39,9 +39,12 @@ build() {
 
 package_nginx-mod-ndk() {
 	pkgdesc="Nginx module that adds additional generic tools that module developers can use in their own modules"
-	local _nginx_version=$(nginx -v 2>&1)
-	_nginx_version=${_nginx_version/* nginx\/}
-	depends+=("nginx=${_nginx_version}")
+	if [[ "$BUILDTOOL" == devtools ]]; then
+		local nginx_dep="nginx=$(nginx -v 2>&1 | sed 's|.*/||')"
+		depends+=($nginx_dep)
+	else
+		depends+=(nginx)
+	fi
 
 	cd build/objs
 	install -Dm755 ndk_http_module.so "$pkgdir"/usr/lib/nginx/modules/ndk_http_module.so
@@ -53,9 +56,12 @@ package_nginx-mod-ndk() {
 package_nginx-mod-set-misc() {
 	pkgdesc="Nginx module that adds various set_xxx directives"
 	depends=('nginx-mod-ndk')
-	local _nginx_version=$(nginx -v 2>&1)
-	_nginx_version=${_nginx_version/* nginx\/}
-	depends+=("nginx=${_nginx_version}")
+	if [[ "$BUILDTOOL" == devtools ]]; then
+		local nginx_dep="nginx=$(nginx -v 2>&1 | sed 's|.*/||')"
+		depends+=($nginx_dep)
+	else
+		depends+=(nginx)
+	fi
 
 	cd build/objs
 	install -Dm755 ngx_http_set_misc_module.so "$pkgdir"/usr/lib/nginx/modules/ngx_http_set_misc_module.so
