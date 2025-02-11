@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=erofs-utils
-pkgver=1.8.4
+pkgver=1.8.5
 pkgrel=1
 pkgdesc="Userspace utilities for linux-erofs file system"
 arch=(x86_64)
@@ -27,8 +27,8 @@ optdepends=(
   'fuse2: for erofsfuse'
 )
 source=($url/snapshot/$pkgname-$pkgver.tar.gz)
-sha512sums=('c941b0a2ab6c650a9aa4c9cadeb277ebc87007dc51354ff013c7cb763e6e8c9d44ed9e4791730ed05088faaba8c612198b924e70f5e52019382cfdf6d2e6b677')
-b2sums=('da0d80abbfd9b2d547c30bad7647165a3500f20e5de0b5db4c54efb27ec895fd069be983193b06d35728f5a8e1490e6cd255207c76135d8978d86e1512430755')
+sha512sums=('c5c3a71494113ad69c5b9278ef682250b3a5eca7e6f6e92a68800f7c7ba7e69f1dbf65f877c856c619dc2276f9d3b1c82fc89853ae7938a63b390c0cb246a0da')
+b2sums=('ec0b514fa56c6aea960c32c2def00ee3f5681fb4c2060974928efe77d3ab8c6622f4a2676171976817e3911685e7d1e0c7cc7504d38965b5f84d4255ba82f3e1')
 
 prepare() {
   cd $pkgname-$pkgver
