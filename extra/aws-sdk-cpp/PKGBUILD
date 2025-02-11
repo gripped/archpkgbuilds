@@ -11,7 +11,7 @@ pkgname=(
   aws-sdk-cpp-kinesis
   aws-sdk-cpp-s3
 )
-pkgver=1.11.497
+pkgver=1.11.502
 pkgrel=1
 pkgdesc='AWS SDK for C++'
 arch=(x86_64)
@@ -32,19 +32,13 @@ makedepends=(
   libpulse
   zlib
 )
-source=(
-  "$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
-  "aws-sdk-cpp-crt-0.30.1-compatibility.patch"
-)
-sha256sums=('42628355b34ec44d4186f42e0f1777c1253b862f0e82df208d4d2da6bdb42257'
-            '15bf61b2fff3c41505bfc60e9c648ee6a6ff7f823b8cbdffaafd605ecb21a910')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
+sha256sums=('eee0bd270865f09fb591e363ce7c0f0126c54654f0c930a9da7d244515cfe275')
 
 prepare() {
   cd $pkgbase-$pkgver
   # Remove failing test - unsure why it fails.
   rm tests/aws-cpp-sdk-core-tests/aws/auth/AWSAuthSignerTest.cpp
-
-  patch -Np1 -i ../aws-sdk-cpp-crt-0.30.1-compatibility.patch
 }
 
 build() {
