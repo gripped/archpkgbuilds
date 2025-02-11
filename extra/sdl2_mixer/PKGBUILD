@@ -1,6 +1,6 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=sdl2_mixer
-pkgver=2.8.0
+pkgver=2.8.1
 pkgrel=1
 pkgdesc="A simple multi-channel audio mixer (Version 2)"
 arch=('x86_64')
@@ -10,7 +10,7 @@ depends=('sdl2' 'libvorbis' 'libmodplug' 'mpg123' 'flac' 'opusfile')
 makedepends=('fluidsynth')
 optdepends=('fluidsynth: MIDI software synth, replaces built-in timidity')
 source=("https://github.com/libsdl-org/SDL_mixer/releases/download/release-${pkgver}/SDL2_mixer-${pkgver}.tar.gz"{,.sig})
-sha512sums=('5ddbc4b0b5fad2e0844a503daa79564b912654192599ef8fa7698531f08323ce01801f6bb17b2b3905020a3df362a967b7566ae725eb085da991578cc0807aad'
+sha512sums=('6148591404b2113bcdb54391821658548acfe380a9cba660113e55e6f2fb7da2a5a59a99fefe51a0d7f8b91160648f11f72750353da88d285a962e3a410aecd7'
             'SKIP')
 validpgpkeys=('1528635D8053A57F77D1E08630A59377A7763BE6')
 
