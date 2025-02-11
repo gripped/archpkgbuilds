@@ -2,7 +2,7 @@
 # Contributor: Jonas Witschel <diabonas@archlinux.org>
 
 pkgname=python-python-socks
-pkgver=2.7.0
+pkgver=2.7.1
 pkgrel=1
 pkgdesc='Core proxy client (SOCKS4, SOCKS5, HTTP) functionality for Python'
 arch=('any')
@@ -37,7 +37,7 @@ optdepends=(
 provides=('python-python_socks')
 replaces=('python-python_socks')
 source=("git+$url.git?signed#tag=v$pkgver")
-sha512sums=('26748559e7c06915c0b4b746302e70d546b477dbfd06fbb8f5a0e7be8358b05c08cbbdf0344f64f03631a2168595eb235c6127625448fe8a8110ecdb197d17c6')
+sha512sums=('421cec65779bdb2a62c86133e81f390516cd6c938c9b186eade3d21fd700565554eed31ca72c64a1d58de2a38350dac74d069cb61aada0a5e0dcea299ed88029')
 validpgpkeys=('706A8935FED55F3BFB7C188B5EEAD7400A5D80ED') # Roman Snegirev <rsng@mail.ru>
 
 build() {
