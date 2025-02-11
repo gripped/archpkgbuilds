@@ -2,7 +2,7 @@
 
 pkgname=nginx-mod-cache_purge
 pkgver=2.5.3
-pkgrel=7
+pkgrel=8
 
 _modname="${pkgname#nginx-mod-}"
 
@@ -39,9 +39,12 @@ build() {
 }
 
 package() {
-	local _nginx_version=$(nginx -v 2>&1)
-	_nginx_version=${_nginx_version/* nginx\/}
-	depends+=("nginx=${_nginx_version}")
+	if [[ "$BUILDTOOL" == devtools ]]; then
+		local nginx_dep="nginx=$(nginx -v 2>&1 | sed 's|.*/||')"
+		depends+=($nginx_dep)
+	else
+		depends+=(nginx)
+	fi
 
 	install -Dm644 "$srcdir"/ngx_cache_purge-$pkgver/LICENSE \
 	               "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
