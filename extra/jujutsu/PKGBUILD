@@ -6,8 +6,8 @@
 
 pkgname=jujutsu
 _pkgname=jj
-pkgver=0.25.0
-pkgrel=2
+pkgver=0.26.0
+pkgrel=1
 pkgdesc='Git-compatible VCS that is both simple and powerful'
 arch=(x86_64)
 url="https://github.com/jj-vcs/$_pkgname"
@@ -20,12 +20,14 @@ depends=(gcc-libs # libgcc_s.so ld-linux-x86-64.so
          # zlib-ng # https://github.com/rust-lang/libz-sys/issues/83
          zstd)
 replaces=("$pkgname-bin")
+optdepends=('git: for push/clone/fetch actions when using git.subprocess = true')
 makedepends=(cargo
              cargo-edit
              cmake) # builds vendored libz-ng
+checkdepends=(git)
 _archive="$_pkgname-$pkgver"
 source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
-sha256sums=('3a99528539e414a3373f24eb46a0f153d4e52f7035bb06df47bd317a19912ea3')
+sha256sums=('099eeb346f32a4968ebb8273566321eff2e6ca6a7de0c9dcfd7eee016b37cba1')
 
 prepare() {
 	cd "$_archive"
@@ -34,6 +36,7 @@ prepare() {
 	cargo upgrade -p git2@0.20.0
 	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 	mkdir -p completions
+	mkdir -p manpages
 }
 
 build() {
@@ -47,7 +50,7 @@ build() {
 	$jj util completion elvish > completions/jj.elv
 	$jj util completion fish > completions/jj.fish
 	$jj util completion zsh > completions/_jj
-	$jj util mangen > jj.1
+	$jj util install-man-pages manpages
 }
 
 check() {
@@ -70,7 +73,7 @@ package() {
 	install -Dm0644 -t "$pkgdir/usr/share/elvish/lib/" completions/jj.elv
 	install -Dm0644 -t "$pkgdir/usr/share/fish/vendor_completions.d/" completions/jj.fish
 	install -Dm0644 -t "$pkgdir/usr/share/zsh/site-functions/" completions/_jj
-	install -Dm0644 -t "$pkgdir/usr/share/man/man1/" jj.1
+	install -Dm0644 -t "$pkgdir/usr/share/man/man1/" manpages/man1/*
 	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
 	cp -at "$pkgdir/usr/share/doc/$pkgname" docs
 	# Avoid namcap warning for dead symlink
