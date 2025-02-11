@@ -2,7 +2,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=entr
-pkgver=5.6
+pkgver=5.7
 pkgrel=1
 pkgdesc="Run arbitrary commands when files change"
 url="http://eradman.com/entrproject"
@@ -10,8 +10,8 @@ arch=('x86_64')
 license=('MIT')
 depends=('glibc')
 checkdepends=('procps-ng' 'git' 'vim' 'tmux')
-source=("${pkgname}-${pkgver}::https://github.com/eradman/entr/archive/refs/tags/${pkgver}.tar.gz")
-sha512sums=('9c65449b6fd7e172fde23a6d4d776b6fdbcec210ef54234db0af056e481acd11f53f9b25432a278435943bd998be734fcd997b5debdcace58112ac99d103f653')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/eradman/entr/archive/refs/tags/${pkgver}.tar.gz")
+sha512sums=('a267fdc3a9aeb84823e14167a7aed32d682d200e72409f896e95aea3cb22e5185e1ee1c49726435d66953baae6444d49111e0c6a0af66895bdef0fccd3320446')
 
 build() {
 	cd "${pkgname}-${pkgver}"
