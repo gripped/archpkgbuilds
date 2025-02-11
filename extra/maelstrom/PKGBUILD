@@ -11,7 +11,7 @@ pkgname=(
   maelstrom-worker
 )
 pkgver=0.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast Rust, Go, and Python test runner that runs every test in its own container"
 arch=(x86_64)
 url="https://maelstrom-software.com/"
@@ -22,6 +22,7 @@ makedepends=(
   glibc
   git
   openssl
+  protobuf
   rust
 )
 options=(!lto)  # the project uses ring

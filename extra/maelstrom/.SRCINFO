@@ -1,7 +1,7 @@
 pkgbase = maelstrom
 	pkgdesc = A fast Rust, Go, and Python test runner that runs every test in its own container
 	pkgver = 0.12.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://maelstrom-software.com/
 	arch = x86_64
 	license = Apache-2.0 OR MIT
@@ -9,6 +9,7 @@ pkgbase = maelstrom
 	makedepends = glibc
 	makedepends = git
 	makedepends = openssl
+	makedepends = protobuf
 	makedepends = rust
 	options = !lto
 	source = maelstrom::git+https://github.com/maelstrom-software/maelstrom#tag=v0.12.0
