@@ -4,7 +4,7 @@
 # Contributor: Tobias Veit - nIcE <m.on.key.tobi[at]gmail[dot]com>
 
 pkgname=metasploit
-pkgver=6.4.46
+pkgver=6.4.48
 pkgrel=1
 pkgdesc='Advanced open-source platform for developing, testing, and using exploit code'
 url='https://www.metasploit.com/'
@@ -24,8 +24,8 @@ depends=(
 )
 options=('!strip' '!debug' '!emptydirs')
 source=(git+https://github.com/rapid7/metasploit-framework.git?signed#tag=${pkgver})
-sha256sums=('df7f470c1efe109b4c9ca2ba4eea61cc40169938c497ac554abc40e214d77436')
-b2sums=('d5e6947cb546083168c3a60983c16200a42373a222fcf668de47609ba28394f3d8c866935bcf12b5a5b5941c40447f3fc2de3fff70de19c5dffe81c15c1ae2cd')
+sha256sums=('1b69e13fde3ce0785ae7e59c89145b4adc048d44db12db690c71dc20a045f11d')
+b2sums=('6e5c58afb19f7daec8db6c53331fc30088c580286ae9164570369d601614babc164ad2e5502e4ac522c81471691a863f8e2ef7980ca203c5634ef0903fa646f2')
 validpgpkeys=('09E55FAF4F7862CD6D558997CDFB5FA52007B954') # Metasploit <metasploit@rapid7.com>
 
 prepare() {
