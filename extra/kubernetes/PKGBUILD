@@ -18,7 +18,7 @@ pkgname=(
   kubernetes-control-plane-common
 )
 pkgver=1.32.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Production-Grade Container Scheduling and Management"
 arch=(x86_64)
 url="https://kubernetes.io/"
@@ -189,7 +189,7 @@ package_kubelet() {
   # modules
   install -vDm 644 $pkgname-modules.conf "$pkgdir/usr/lib/modules-load.d/$pkgname.conf"
   # sysctl
-  install -vDm 644 50-$pkgname-sysctl.conf "$pkgdir/etc/sysctl.d/50-$pkgname.conf"
+  install -vDm 644 50-$pkgname-sysctl.conf "$pkgdir/usr/lib/sysctl.d/50-$pkgname.conf"
   # NOTE: without this directory a node worker will emit error messages upon joining a cluster
   install -vdm 700 "$pkgdir/etc/kubernetes/manifests"
 }
