@@ -3,7 +3,7 @@
 _project_name=zbus
 _name=zbus-xmlgen
 pkgname=zbus_xmlgen
-pkgver=5.0.2
+pkgver=5.1.0
 pkgrel=1
 pkgdesc="D-Bus XML interface code generator"
 arch=(x86_64)
@@ -17,8 +17,8 @@ makedepends=(rust)
 source=(
   $url/archive/refs/tags/$pkgname-$pkgver.tar.gz
 )
-sha512sums=('21ee111946c52dd13f8a479b4ecaaf0a70c8fa80ee62f7d3b184a54d1b9766c0525cb8c54fa57ad638f6e3b490712c1b7c407a12d43d454a4025f75f78ebc00b')
-b2sums=('26a4c2db2cd3de771b58a79fffecbe00e3e44014347ea85123db95f4c1e539c1320b2d20a9362ed472cbc6771fd7b23afdd3029c2d508f472216f0500b1a1b02')
+sha512sums=('1332378bd3d5c46d6b6d1b5c472cea9140a1c99c1dbe82795cf15d85ba8f2838f470f8c5badbb991f2a6e75b803838e754ef1f621a0674046406ab89a2661985')
+b2sums=('cab1144e949fc070dd5bc9b7354463b35143957dc69f20921cba2cb6d853f38af0315c26840a3a867b0ba4a792b566b6c55020c3bd113ab034cfa7e498daf741')
 
 prepare() {
   cd $_project_name-$pkgname-$pkgver
