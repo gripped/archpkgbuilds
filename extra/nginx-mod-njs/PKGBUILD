@@ -2,7 +2,7 @@
 
 pkgname=nginx-mod-njs
 pkgver=0.8.9
-pkgrel=1
+pkgrel=2
 
 _modname="${pkgname#nginx-mod-}"
 
@@ -43,9 +43,12 @@ build() {
 }
 
 package() {
-  local _nginx_version=$(nginx -v 2>&1)
-  _nginx_version=${_nginx_version/* nginx\/}
-  depends+=("nginx=${_nginx_version}")
+  if [[ "$BUILDTOOL" == devtools ]]; then
+    local nginx_dep="nginx=$(nginx -v 2>&1 | sed 's|.*/||')"
+    depends+=($nginx_dep)
+  else
+    depends+=(nginx)
+  fi
 
   install -Dm644 "$srcdir"/njs-$pkgver/LICENSE \
               "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
