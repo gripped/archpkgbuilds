@@ -1,7 +1,7 @@
 pkgbase = lucene++
 	pkgdesc = C++ port of the popular Java Lucene library
 	pkgver = 3.0.9
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/luceneplusplus/LucenePlusPlus
 	arch = x86_64
 	license = GPL
@@ -12,7 +12,9 @@ pkgbase = lucene++
 	depends = boost-libs
 	source = https://github.com/luceneplusplus/LucenePlusPlus/archive/b545dba.tar.gz
 	source = https://github.com/luceneplusplus/LucenePlusPlus/commit/76dc90f2.patch
+	source = lucene-fix-boost-asio-io_service-deprecation.patch
 	sha512sums = 25b40e0d24d70a07f6976f340faeba0eabe6279fa2a5d8e8484210f6b9faa4f3d3a69bb149c233320b74b7c4fa4be155d5575512f7e032d1e99f46cdb8ca2953
 	sha512sums = 0af65afca3b0725a78774d9e443efdf6ef1463f9388c98f13f3823dfd3677cd7f3a82c8e9a8e20ec3322624cc85c0ec2b91ec668f1a822462ae9beda0d8ab44d
+	sha512sums = 50fed61c82c366a428576c0e2e241a1795b8d54cc22d1a7d430d55b70ef5ed8c1ec248882935108638ed7e1daa1fa83d2bdc9e0497a1918cb22f0fd42627db58
 
 pkgname = lucene++

@@ -4,7 +4,7 @@
 pkgname=lucene++
 pkgver=3.0.9
 _githash='b545dba'
-pkgrel=2
+pkgrel=3
 pkgdesc='C++ port of the popular Java Lucene library'
 arch=(x86_64)
 url='https://github.com/luceneplusplus/LucenePlusPlus'
@@ -13,9 +13,11 @@ depends=('boost-libs')
 makedepends=('boost' 'cmake' 'subversion')
 #source=(https://github.com/luceneplusplus/LucenePlusPlus/archive/rel_$pkgver.tar.gz)
 source=("https://github.com/luceneplusplus/LucenePlusPlus/archive/${_githash}.tar.gz"
-         https://github.com/luceneplusplus/LucenePlusPlus/commit/76dc90f2.patch)
+         https://github.com/luceneplusplus/LucenePlusPlus/commit/76dc90f2.patch
+         lucene-fix-boost-asio-io_service-deprecation.patch)
 sha512sums=('25b40e0d24d70a07f6976f340faeba0eabe6279fa2a5d8e8484210f6b9faa4f3d3a69bb149c233320b74b7c4fa4be155d5575512f7e032d1e99f46cdb8ca2953'
-            '0af65afca3b0725a78774d9e443efdf6ef1463f9388c98f13f3823dfd3677cd7f3a82c8e9a8e20ec3322624cc85c0ec2b91ec668f1a822462ae9beda0d8ab44d')
+            '0af65afca3b0725a78774d9e443efdf6ef1463f9388c98f13f3823dfd3677cd7f3a82c8e9a8e20ec3322624cc85c0ec2b91ec668f1a822462ae9beda0d8ab44d'
+            '50fed61c82c366a428576c0e2e241a1795b8d54cc22d1a7d430d55b70ef5ed8c1ec248882935108638ed7e1daa1fa83d2bdc9e0497a1918cb22f0fd42627db58')
 
 prepare() {
   mkdir build
@@ -26,7 +28,10 @@ prepare() {
     -e 's#SET(LUCENE++_VERSION_REVISION.*#SET(LUCENE++_VERSION_REVISION "5")#' \
     -e 's#SET(LUCENE++_VERSION_PATCH.*#SET(LUCENE++_VERSION_PATCH "0")#' \
     "$srcdir"/LucenePlusPlus-$pkgver/CMakeLists.txt
-  patch -p1 -d LucenePlusPlus-$pkgver < 76dc90f2.patch # Fix build with boost 1.85
+  # Fix build with boost 1.85
+  patch -p1 -d LucenePlusPlus-$pkgver < 76dc90f2.patch
+  # Fix build with boost 1.87
+  patch -p1 -d LucenePlusPlus-$pkgver < lucene-fix-boost-asio-io_service-deprecation.patch
 }
 
 build() {
@@ -39,7 +44,7 @@ build() {
     -DBUILD_GMOCK=OFF \
     -DINSTALL_GTEST=OFF \
     -DENABLE_CUSTOM_ALLOCATOR='FALSE' \
-    -DCMAKE_CXX_FLAGS='-DBOOST_VARIANT_USE_RELAXED_GET_BY_DEFAULT'
+    -DCMAKE_CXX_FLAGS='-std=c++20 -DBOOST_VARIANT_USE_RELAXED_GET_BY_DEFAULT'
     # RELAXED for boost 1.58 breakage, remove when lucene++ updates
 
   make
