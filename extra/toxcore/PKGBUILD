@@ -1,5 +1,6 @@
 # Maintainer: Jiachen Yang <farseerfc@gmail.com>
-# Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Felix Yan <felixonmars@archlinux.org>
 # Contributor: Håvard Pettersson <mail@haavard.me>
 # Contributor: naxuroqa <naxuroqa at gmail.com>
 # Contributor: Boohbah <boohbah at gmail.com>
@@ -8,38 +9,46 @@
 pkgname=toxcore
 _pkgname=c-toxcore
 epoch=1
-pkgver=0.2.19
-pkgrel=1
+pkgver=0.2.20
+pkgrel=2
 pkgdesc='Secure, configuration-free, P2P Skype replacement backend'
 arch=('x86_64')
 url='https://tox.chat'
-license=('GPL3')
-depends=('systemd' 'libconfig' 'libsodium' 'libvpx' 'opus')
-makedepends=('check' 'cmake')
-conflicts=("tox")
+license=('GPL-3.0-or-later')
+depends=(
+  'glibc'
+  'libconfig'
+  'libsodium'
+  'libvpx'
+  'opus'
+)
+makedepends=(
+  'cmake'
+  'gtest'
+)
 provides=("tox")
+conflicts=("tox")
 backup=('etc/tox-bootstrapd.conf')
 source=(
-	"${_pkgname}-v${pkgver}.tar.gz::https://github.com/TokTok/${_pkgname}/releases/download/v${pkgver}/${_pkgname}-${pkgver}.tar.gz"
-	"${_pkgname}-v${pkgver}.tar.gz.asc::https://github.com/TokTok/${_pkgname}/releases/download/v${pkgver}/${_pkgname}-${pkgver}.tar.gz.asc"
-	#"${_pkgname}-v${pkgver}.tar.lz::https://github.com/TokTok/${_pkgname}/releases/download/v${pkgver}/${_pkgname}-v${pkgver}.tar.lz"
-	#"${_pkgname}-v${pkgver}.tar.lz.asc::https://github.com/TokTok/${_pkgname}/releases/download/v${pkgver}/${_pkgname}-v${pkgver}.tar.lz.asc"
-        'toxcore.conf'
-        'toxcore.tmpfiles')
-sha512sums=('793070e2f53e9736e23803d5e60dab8997b2e1f0b0655807b32667d660ee240b1904842aee1910f508ef26f0d4af8ca003fe384e6c59f26787a1059f5d5a5b22'
+  "https://github.com/TokTok/c-toxcore/releases/download/v$pkgver/$_pkgname-$pkgver.tar.gz"
+  "https://github.com/TokTok/c-toxcore/releases/download/v$pkgver/$_pkgname-$pkgver.tar.gz.asc"
+  'toxcore.sysusers'
+  'toxcore.tmpfiles'
+)
+sha512sums=('84497bd8d542d8ccb4d77d9210852a0e73a0f2c4885b8282c39263042555495c37196b5f2ddf37f393bcc2b84d839bba3506da2c68440e4d5329d086b2ebefb6'
             'SKIP'
-            'aa1dcfbdf9b613f5d89e238ff5d01e0ea150ad3162792acb806f51ce07fd9ade1270b310b1285a828dcdf578549b95a89fd9bd198fb205c83f5a5be2c969ea63'
+            '06d5f7b26e2e10edeb96dfd961b400eacad12df4cd227d0fccc0b1436cc37e9141d712a37eae9ead370c49126758546941f43208d377b7ecdd57f53ee20170a3'
             'f1534f5f46d0b8e2f21b2bce802f48a8bd45ba6beca34112d44e27b6033352867cd9d25f1c3c35c59faf6e6d727793f3d552d0d9b724c9d09cb83075ca196743')
 validpgpkeys=(
-'15D3B9A6B3951DF9854FCA93E786548AE0A0B56B'  # RobinLindén<mail+gitlab@robinlinden.eu>
-'B7008FF12C079BF6E6EA19D1601A604B7E605776'  # Robin Lindén <mail@robinlinden.eu>
-# GPG key fingerprints taken from https://github.com/qTox/qTox/blob/$_gitver/README.md
-'DA262CC93C0E1E525AD21C8596775D454B8EBF44'  # sudden6 <sudden6@gmx.at>
-'BA7883E22F9D35945BA3376053137C3033F09008'  # Zetok Zalbavar <zetok@openmailbox.org>
-'1157616BBD860C539926F8139591A163FF9BE04C'  # - antis81
-'31039166FA902CA50D05D6085AF9F2E29107C727'  # - Diadlo
-'C7A2552D0B250F983827742C133203A3AC399151'  # - initramfs
-'2880C860D95C909D3DA45C687E086DD661263264'  # - tux3
+  '15D3B9A6B3951DF9854FCA93E786548AE0A0B56B' # RobinLindén<mail+gitlab@robinlinden.eu>
+  'B7008FF12C079BF6E6EA19D1601A604B7E605776' # Robin Lindén <mail@robinlinden.eu>
+  # GPG key fingerprints taken from https://github.com/qTox/qTox/blob/$_gitver/README.md
+  'DA262CC93C0E1E525AD21C8596775D454B8EBF44' # sudden6 <sudden6@gmx.at>
+  'BA7883E22F9D35945BA3376053137C3033F09008' # Zetok Zalbavar <zetok@openmailbox.org>
+  '1157616BBD860C539926F8139591A163FF9BE04C' # - antis81
+  '31039166FA902CA50D05D6085AF9F2E29107C727' # - Diadlo
+  'C7A2552D0B250F983827742C133203A3AC399151' # - initramfs
+  '2880C860D95C909D3DA45C687E086DD661263264' # - tux3
 )
 
 prepare() {
@@ -49,26 +58,29 @@ prepare() {
 }
 
 build() {
-  cd $_pkgname-$pkgver/build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_INSTALL_LIBDIR=/usr/lib \
-        -DDHT_BOOTSTRAP=on \
-        -DBOOTSTRAP_DAEMON=on \
-        -DBUILD_TOXAV=on \
-        -DBUILD_AV_TEST=on ..
-  make
+  cd $_pkgname-$pkgver
+  cmake -S . -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=None \
+    -Wno-dev \
+    -DDHT_BOOTSTRAP=ON \
+    -DBOOTSTRAP_DAEMON=ON \
+    -DMUST_BUILD_TOXAV=ON \
+    -DBUILD_MISC_TESTS=ON
+  cmake --build build
 }
 
 check() {
-  cd $_pkgname-$pkgver/build
-  make test 
+  cd $_pkgname-$pkgver
+  cmake --build build --target test
 }
 
 package() {
-  cd $_pkgname-$pkgver/build
-  make DESTDIR="$pkgdir" install
-  install -Dm644 "$srcdir/toxcore.conf" "$pkgdir/usr/lib/sysusers.d/toxcore.conf"
-  install -Dm644 "$srcdir/toxcore.tmpfiles" "$pkgdir/usr/lib/tmpfiles.d/toxcore.conf"
-  install -Dm644 ../other/bootstrap_daemon/tox-bootstrapd.service "$pkgdir/usr/lib/systemd/system/tox-bootstrapd.service"
-  install -Dm644 ../other/bootstrap_daemon/tox-bootstrapd.conf "$pkgdir/etc/tox-bootstrapd.conf"
+  cd $_pkgname-$pkgver
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm644 -t "$pkgdir/etc" other/bootstrap_daemon/tox-bootstrapd.conf
+  install -vDm644 -t "$pkgdir/usr/lib/systemd/system" \
+    other/bootstrap_daemon/tox-bootstrapd.service
+  install -vDm644 ../toxcore.sysusers "$pkgdir/usr/lib/sysusers.d/toxcore.conf"
+  install -vDm644 ../toxcore.tmpfiles "$pkgdir/usr/lib/tmpfiles.d/toxcore.conf"
 }
