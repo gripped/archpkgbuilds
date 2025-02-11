@@ -2,7 +2,7 @@
 
 pkgbase=sheldon
 pkgname=('sheldon' 'sheldon-docs')
-pkgver=0.8.0
+pkgver=0.8.1
 pkgrel=1
 pkgdesc='A fast and configurable shell plugin manager'
 arch=('x86_64')
@@ -16,14 +16,14 @@ makedepends=(
 )
 options=('!lto')
 source=("git+https://github.com/rossmacarthur/sheldon.git#tag=$pkgver")
-sha512sums=('20237eec192695c5b66c593a9327d2c5cbc3eeb859159d84a883bd74429dafd454635736eebb19a3841bcc83479e9cff2190d877e898dbce0e74864d85dc533b')
-b2sums=('e16780fe79abb007d34f38b59a4d4c0d3306e2139f2067b5cac38882bac7531ea380273d3009a6b5a34f9975297033d1571db77b3a28c0edf85b3444949880be')
+sha512sums=('ee7f24cab813fca55c915b339a88bb8ec7488d7b4bb6e9a94f9638aec2aadf42297781b7c1df96fd0c00ad47e7849ff266054771e1a4161443122d7e96cd4ced')
+b2sums=('4f8e28b77e334f02a9d6191814e0032a8e5b2454a2362d0b71297297e8e07712e050fd12678021d62ed1ef35cc1523b79f7b3b1e0dea02bf8a47e01e9c68eab3')
 
 prepare() {
   cd "$pkgbase"
 
   # download dependencies
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
