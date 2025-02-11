@@ -9,7 +9,7 @@ pkgbase=nginx-mainline
 pkgname=(nginx-mainline nginx-mainline-src nginx-mainline-mod-geoip nginx-mainline-mod-image-filter
          nginx-mainline-mod-mail nginx-mainline-mod-perl nginx-mainline-mod-stream
          nginx-mainline-mod-xslt)
-pkgver=1.27.3
+pkgver=1.27.4
 pkgrel=1
 _tests_commit=898407c62387
 arch=('x86_64')
@@ -30,12 +30,12 @@ validpgpkeys=(
   '13C82A63B603576156E30A4EA0EA981B66B0D967' # Konstantin Pavlov <thresh@nginx.com>
   '43387825DDB1BB97EC36BA5D007C8D7C15D87369' # Roman Arutyunyan <r.arutyunyan@f5.com>
 )
-sha512sums=('5536d41ead0da71b6593cb361fd3da79707362919e6b6e71ec64816b5c2205903af0cd151796c942b32dfca0f8e8e3ffd9dcb3acf993144342ca671330b1a0dc'
+sha512sums=('3785797d3c8f96b930c11a445c68ce88b584af9645f41b8929a779ef1507b74831fa91e9144f3a56599737517cbf1864954d91e312d12cc59e23e4db72c2c716'
             'SKIP'
             'a83dfb5d8ac130338ab6f3d6e1b41ff80a222ccec319abb5322b3a03cdd3308ed15ed1c44ba64e8f4fb32d91a72a85abbd17a5b8a0e06e3c580caf035c1faaba'
             'f469b3b14def666e955abf6f2d3c68a47631cad7bee90c92039ffe5bf629aa7e32bb4250844d52c0f963740fb07bf7fea5f8887cc1d5199403f07be6214fcb8d'
             '2f4dfcfa711b8bcbc5918ba635f5e430ef7132e66276261ade62bb1cba016967432c8dce7f84352cb8b07dc7c6b18f09177aa3eb92c8e358b2a106c8ca142fe9')
-b2sums=('283f90d9c935650085e028f6cb41bf2db6a04ea6e8f50b9b0b3f157326ee370f503fa84aeef1230b3501432a9e64be5462065ec6877024bb8f49376643959e54'
+b2sums=('d51999a56a1c3ea04d7f052f7d4b196b8f00afa0d00986c0601ff429b65c57a3842e821ccdb9c5b61973e172eade8c6c40c00ded7999dbfba6640ee086f6a945'
         'SKIP'
         'd0c10634ee7b9e0bcda7b2c904a3ba71ee5508cae2b0024321527ca328c8f28627baca011a4221e6b3e7ea358d9fb5401de1cba26c9b5bcd9fdbfb31b745914c'
         '6600d4f603f8f20a5694402df57d1281a81ec469e48fb0d1f2fa555e6aed9976470a4d15b9e9fdcf6aaabef5c76a34695f0ab15d724533dbafddb80ba6e25d97'
@@ -184,7 +184,7 @@ package_nginx-mainline() {
   sed -e 's|\<user\s\+\w\+;|user http;|g' \
     -e '44s|html|/usr/share/nginx/html|' \
     -e '54s|html|/usr/share/nginx/html|' \
-    -e '/^events {/ i # Load all installed modules\n#include modules.d/*.conf;\n' \
+    -e '/^events {/ i # Load all installed modules\ninclude modules.d/*.conf;\n' \
     -i "$pkgdir"/etc/nginx/nginx.conf
 
   rm "$pkgdir"/etc/nginx/*.default
