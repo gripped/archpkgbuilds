@@ -1,23 +1,23 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-lianliankan
-pkgver=1.0.12
+pkgver=6.0.1
 pkgrel=1
-pkgdesc='Lianliankan is an easy-to-play puzzle game with cute interface and countdown timer'
+pkgdesc='An easy-to-play puzzle game with cute interface and countdown timer'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-lianliankan"
 license=('GPL3')
-depends=('dtkcore' 'dtkgui' 'dtkwidget' 'glibc' 'gcc-libs' 'hicolor-icon-theme' 'qt5-base'
-         'qt5-multimedia')
-makedepends=('git' 'cmake' 'gtest' 'ninja' 'qt5-tools')
+depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'glibc' 'gcc-libs' 'hicolor-icon-theme' 'qt6-base'
+         'qt6-multimedia')
+makedepends=('git' 'cmake' 'gtest' 'ninja' 'qt6-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-lianliankan.git#tag=$pkgver")
-sha512sums=('f501ca28f8528d03340100f84acdc07bf17a5065f5cfa70723617f137935a84ba80b3c9a850875c4555a4233e531076625bdf2b58840790d0c20475c6cef0c4e')
+sha512sums=('c17a59b5088084c89e0209051395ec2396534c244b7db19c9b196eaa9dead5a09cc80bffaa3182d7f60ecf64c35fa984f4ed5bb3ca57ab2948714d0d8649255a')
 
 prepare() {
   cd deepin-lianliankan
-  # Don't override our LDFLAGS
-  sed -i '/CMAKE_EXE_LINKER_FLAGS/d' CMakeLists.txt
+  git cherry-pick -n b3511ad56a158cfaacbc4199848960936ecead08
+  git cherry-pick -n b87f506434199ecf198d28aff4022ccb7b8ff082
 }
 
 build() {
