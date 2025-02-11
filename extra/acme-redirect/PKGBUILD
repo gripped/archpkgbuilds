@@ -2,7 +2,7 @@
 # Contributor: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=acme-redirect
-pkgver=0.7.0
+pkgver=0.7.1
 pkgrel=1
 pkgdesc='Tiny http daemon that answers acme challenges and redirects everything else to https'
 url='https://github.com/kpcyrd/acme-redirect'
@@ -20,16 +20,16 @@ makedepends=(
 backup=('etc/acme-redirect.conf')
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
-sha256sums=('ea088a27ecbb964b01f0c6baf899692564dd7301f7f8eca79e229f8dbf451b30'
+sha256sums=('d473bf773d1fd5b454212203c4c90ddc81742f21063c82b8a9afdc24339c4a79'
             'SKIP')
-b2sums=('5803eea933e407e51d93e86efe493006aac9483af2d7d44763ba62a5281c9a08db8898770b87d6d986efd4ea56d8e6c6f6f0000c76c49d7c978c3968988409fd'
+b2sums=('7854bf00763932a30a689c185aafac5a607556abed6963df66921a772569432590917de990a0ac1693892a0fc3d9eb7ad2d98d59e34d28d28311251399ad9946'
         'SKIP')
 
 validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
