@@ -2,8 +2,8 @@
 
 _name=click-aliases
 pkgname=python-click-aliases
-pkgver=1.0.1
-pkgrel=6
+pkgver=1.0.5
+pkgrel=1
 pkgdesc="Enable aliases for click"
 arch=(any)
 url="https://github.com/click-contrib/click-aliases"
@@ -13,20 +13,22 @@ depends=(
   python-click
 )
 makedepends=(
+  git
   python-build
   python-installer
+  python-poetry
   python-setuptools
   python-wheel
 )
 checkdepends=(
   python-pytest
 )
-source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha512sums=('b575a735089f039aa9d9196023a63a78b355001cb7a911f0a9774a662b140bb1658b01990b76ea072f7e4257a6c104f91cb38034c44850f64f8f2a6007c0fd2e')
-b2sums=('79e39ce57111cea831d7486f6ec6bfe687fd15cbd595d5e3ad82673c1113bd3a1f06971c490110a002ded9b2a41bae65985bc166e6fdc4a95e9281b74e2201ae')
+source=(git+https://github.com/click-contrib/click-aliases.git#tag=v$pkgver)
+sha512sums=('389246e5cb8d07af6b6379d8d585cfdf127dc4aeba67882cfe30b338459296a2d943be09c2d0bcdf3a0a7658391b6b07724a37e46f71f30c0871873e889a6486')
+b2sums=('47ece35e62a391996a9847abe3cf4cd225fd999a610802aff96e8e4dad7b5a4c28f4e93b7f6dd60597f854c536968d354839e69306745008c302ae2ccca3a7cd')
 
 build() {
-  cd $_name-$pkgver
+  cd $_name
   python -m build --wheel --no-isolation
 }
 
@@ -39,7 +41,7 @@ check() {
   )
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
-  cd $_name-$pkgver
+  cd $_name
   # install to temporary location, as importlib is used
   python -m installer --destdir=test_dir dist/*.whl
   export PYTHONPATH="$PWD/test_dir/$site_packages:$PYTHONPATH"
@@ -47,7 +49,7 @@ check() {
 }
 
 package() {
-  cd $_name-$pkgver
+  cd $_name
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
