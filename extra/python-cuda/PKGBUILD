@@ -1,11 +1,10 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 # Maintainer: Konstantin Gizdov <arch at kge dot pw>
 
-_pkgname=cuda
-pkgbase="python-${_pkgname}"
-pkgname=("python-${_pkgname}" "python-${_pkgname}-docs")
-pkgver=12.4.0
-pkgrel=3
+pkgbase=python-cuda
+pkgname=(python-cuda python-cuda-core python-cuda-bindings)
+pkgver=12.8.0
+pkgrel=1
 pkgdesc="Python interface for CUDA provided by NVIDIA"
 arch=(x86_64)
 url="https://nvidia.github.io/cuda-python"
@@ -29,41 +28,74 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("$pkgbase::git+https://github.com/NVIDIA/cuda-python#tag=v$pkgver")
-sha256sums=('1e30ea4dc7c047f48e3a12a74f3b1ce4a6d5ca089652fbd9c0ce63c4ae53f0c5')
+sha256sums=('dfa527112f5f356558481e339e354b51734a8cffa24962df65edb10102395c20')
 
 build() {
   cd $pkgbase
+
+  pushd cuda_bindings
   python -m build --wheel --no-isolation
+  popd
+
+  pushd cuda_core
+  python -m build --wheel --no-isolation
+  popd
+
+  pushd cuda_python
+  python -m build --wheel --no-isolation
+  popd
 }
 
 check() {
   cd $pkgbase
   # cannot run tests in chroot
   #python -m venv --system-site-packages test-env
-  #test-env/bin/python -m installer dist/*.whl
-  #test-env/bin/python -m pytest
+  #test-env/bin/python -m installer cuda_bindings/dist/*.whl
+  #test-env/bin/python -m installer cuda_core/dist/*.whl
+  #test-env/bin/python -m installer cuda_python/dist/*.whl
+  #test-env/bin/python -m pytest */tests
+}
+
+package_python-cuda-bindings() {
+  depends=(
+    cuda
+    gcc-libs
+    glibc
+    python
+  )
+
+  cd $pkgbase/cuda_bindings
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 ../LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -vDm 644 ../README.md -t "$pkgdir"/usr/share/doc/$pkgname/
+}
+
+package_python-cuda-core() {
+  depends=(
+    gcc-libs
+    glibc
+    python
+    python-cuda-bindings
+    python-numpy
+  )
+
+  cd $pkgbase/cuda_core
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 ../LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -vDm 644 ../README.md -t "$pkgdir"/usr/share/doc/$pkgname/
 }
 
 package_python-cuda() {
   depends=(
-    cuda
-    cython
-    python-pyclibrary
-    NVIDIA-MODULE
+    python-cuda-bindings
+    python-cuda-core
   )
 
-  cd $pkgbase
+  cd $pkgbase/cuda_python
 
-  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
   python -m installer --destdir="$pkgdir" dist/*.whl
-}
-
-package_python-cuda-docs() {
-  pkgdesc+=" - documentation"
-
-  cd $pkgbase
-
-  install -vdm 755 "${pkgdir}/usr/share/doc/$pkgname"
-  cp -va docs/* "$pkgdir/usr/share/doc/$pkgname"
-  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+  install -vDm 644 ../LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -vDm 644 ../README.md -t "$pkgdir"/usr/share/doc/$pkgname/
 }

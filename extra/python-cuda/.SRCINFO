@@ -1,7 +1,7 @@
 pkgbase = python-cuda
 	pkgdesc = Python interface for CUDA provided by NVIDIA
-	pkgver = 12.4.0
-	pkgrel = 3
+	pkgver = 12.8.0
+	pkgrel = 1
 	url = https://nvidia.github.io/cuda-python
 	arch = x86_64
 	license = LicenseRef-NVIDIA
@@ -19,14 +19,22 @@ pkgbase = python-cuda
 	makedepends = python-versioneer
 	makedepends = python-pyclibrary
 	options = !emptydirs
-	source = python-cuda::git+https://github.com/NVIDIA/cuda-python#tag=v12.4.0
-	sha256sums = 1e30ea4dc7c047f48e3a12a74f3b1ce4a6d5ca089652fbd9c0ce63c4ae53f0c5
+	source = python-cuda::git+https://github.com/NVIDIA/cuda-python#tag=v12.8.0
+	sha256sums = dfa527112f5f356558481e339e354b51734a8cffa24962df65edb10102395c20
 
 pkgname = python-cuda
-	depends = cuda
-	depends = cython
-	depends = python-pyclibrary
-	depends = NVIDIA-MODULE
+	depends = python-cuda-bindings
+	depends = python-cuda-core
 
-pkgname = python-cuda-docs
-	pkgdesc = Python interface for CUDA provided by NVIDIA - documentation
+pkgname = python-cuda-core
+	depends = gcc-libs
+	depends = glibc
+	depends = python
+	depends = python-cuda-bindings
+	depends = python-numpy
+
+pkgname = python-cuda-bindings
+	depends = cuda
+	depends = gcc-libs
+	depends = glibc
+	depends = python
