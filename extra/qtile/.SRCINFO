@@ -1,7 +1,7 @@
 pkgbase = qtile
 	pkgdesc = A full-featured, pure-Python tiling window manager
-	pkgver = 0.29.0
-	pkgrel = 2
+	pkgver = 0.30.0
+	pkgrel = 1
 	url = http://www.qtile.org
 	install = qtile.install
 	arch = x86_64
@@ -12,7 +12,7 @@ pkgbase = qtile
 	checkdepends = lm_sensors
 	checkdepends = procps-ng
 	checkdepends = python-bowler
-	checkdepends = python-dbus-next
+	checkdepends = python-dbus-fast
 	checkdepends = python-gobject
 	checkdepends = python-isort
 	checkdepends = python-libcst
@@ -50,7 +50,7 @@ pkgbase = qtile
 	optdepends = lm_sensors: for sensors widget
 	optdepends = moc: for moc widget
 	optdepends = python-bowler: for migrating configuration files
-	optdepends = python-dbus-next: for utils, notifications and several widgets
+	optdepends = python-dbus-fast: for utils, notifications and several widgets
 	optdepends = python-iwlib: for wlan widget
 	optdepends = python-keyring: for imapwidget widget
 	optdepends = python-libcst: for migrations
@@ -62,12 +62,12 @@ pkgbase = qtile
 	optdepends = python-xdg: launchbar widget
 	optdepends = python-xkbcommon: for Wayland backend
 	optdepends = xorg-xwayland: for XWayland support
-	source = git+https://github.com/qtile/qtile?signed#tag=v0.29.0
+	source = git+https://github.com/qtile/qtile?signed#tag=v0.30.0
 	validpgpkeys = 3CCAB226289DE0160C61BDB418D18F1BC464DCA3
 	validpgpkeys = 35D92E7CC7357A81173EA1C974F9FDD20984FBEC
 	validpgpkeys = A6BAA1E17D2664ADB97B2C6F58A9AA7C86727DF7
-	sha512sums = 8ca81604212ed9275b9e03cfe9c5d40aee970f99cc888a1e01ff280fabb44f5eaa521c5b8529fd994bf67364f9221ac04bfeab05a832c6a2cf287fc074dd5077
-	b2sums = aaf80a6ad3159b7351349872e82985012006e1afa638623a61fa14f1be571b3896b037b0ea1d475e67278497da069cbb9d2313058f703d3e65c2cfff77853bf8
+	sha512sums = 5c03940108b7d36d1b7432400d51a753204f13b9096da0261fa7ee9a513997d944029960ca16231f7dbde99f84de66509a722a57102a206eace331c12abc8d2d
+	b2sums = a6157b18dc50e32707ae3b32d1262ffd934786f6862da37b703ae5ffbf3147367e0cd7d941e6918fddb8a5ff8c79f38e580d4ecda88f3cd344697f5083708d9d
 
 pkgname = qtile
 	depends = gdk-pixbuf2
