@@ -4,8 +4,8 @@
 
 pkgname=firefoxpwa
 _pkgname=PWAsForFirefox
-pkgver=2.13.3
-pkgrel=2
+pkgver=2.14.0
+pkgrel=1
 pkgdesc="A tool to install, manage and use Progressive Web Apps (PWAs) in Mozilla Firefox (native component)"
 url="https://pwasforfirefox.filips.si"
 arch=('x86_64')
@@ -18,7 +18,7 @@ replaces=('firefox-pwa')
 install="${pkgname}.install"
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/filips123/PWAsForFirefox/archive/refs/tags/v${pkgver}.tar.gz"
         'no_libexec.patch')
-b2sums=('bc91b20d29575904f4ab20f0a62bd270fff195c88042e75f86d782d915cdbc0adb19fc45d7cdf912c16f111548ebc555e3ae723580aba377912a8d27fa304543'
+b2sums=('976673bdd08625d751499b1addde397965af74113abcd12893cb7f43b6abfae7f9e70d4cfeb653163c1ff2c731e1a8bdb5dd619551d64b2060bf9bc9f9504a81'
         '4502cf881be1682b835d8b9cac6e9884c12e7212a681dd6820a4bbee331eda183c4475be60ed0152964750c59da3cdca005e4ef760fa6e3ce68835c885ddc617')
 
 prepare() {
@@ -26,7 +26,7 @@ prepare() {
 	
 	# Set the correct version in source files
 	sed -i "s/version = \"0.0.0\"/version = \"${pkgver}\"/g" Cargo.toml
-	sed -i "s/DISTRIBUTION_VERSION = '0.0.0'/DISTRIBUTION_VERSION = '${pkgver}'/g" userchrome/profile/chrome/pwa/chrome.jsm
+	sed -i "s/DISTRIBUTION_VERSION = '0.0.0'/DISTRIBUTION_VERSION = '${pkgver}'/g" userchrome/profile/chrome/pwa/chrome.sys.mjs
 
 	# We don't use libexec in Arch
 	patch -Np1 -i "${srcdir}/no_libexec.patch"
@@ -63,7 +63,7 @@ check() {
 	# Check that the distribution version has been set correctly in prepare()
 	echo "Check distribution version..."
 
-	if [ "$(awk -F "'" '/DISTRIBUTION_VERSION/ {print $2}' userchrome/profile/chrome/pwa/chrome.jsm)" == "${pkgver}" ]; then
+	if [ "$(awk -F "'" '/DISTRIBUTION_VERSION/ {print $2}' userchrome/profile/chrome/pwa/chrome.sys.mjs)" == "${pkgver}" ]; then
 		echo "Passed"
 	else
 		echo "Failed"
