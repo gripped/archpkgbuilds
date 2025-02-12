@@ -3,11 +3,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
-_name=hypothesis
-_alt_name=$_name-python
 pkgname=python-hypothesis
-pkgver=6.124.7
-_version=$_alt_name-$pkgver
+pkgver=6.125.2
 pkgrel=1
 pkgdesc="Advanced Quickcheck style testing library for Python"
 arch=(any)
@@ -20,6 +17,7 @@ depends=(
   python-sortedcontainers
 )
 makedepends=(
+  git
   python-build
   python-installer
   python-setuptools
@@ -57,13 +55,19 @@ optdepends=(
   'python-redis: for redis support'
   'python-rich: for CLI'
 )
-source=("$_name-$_version.tar.gz::$_url/archive/$_version.tar.gz")
-sha512sums=('c9c699d830082ccfb056c42817592ad3736b3e1c2294bed889d9e581dc8d4b093a86a949b24e3fa842941daf18933c55c6a479cd6768c30cde0cecb94777a620')
-b2sums=('d0160dedfd78443724a7388020fa093ba95e8621403f4fa69f04c324a5be8d49b51c3cae4cca488a86046818b6762a3f9703b1963186ae82daed2c8cdf0f8f70')
+source=("$pkgname::git+$_url#tag=hypothesis-python-$pkgver")
+sha512sums=('13d09f623d33eab3446c5804b2e6f687999ac52aed326abf2cc968f69328d882cd186f468eff129b323eec215780ab0bc32fa4ee6ab0f6698c85a471622eab21')
+b2sums=('70543e237eb885475822d50e8b0e6b768087f13467259eeac600b7e717e00174abd916a136707dee94d6cab99098448fc5e0a61a9b2fc0c7a4b23bb079017cf2')
+
+prepare() {
+  cd $pkgname/hypothesis-python
+  # Fix test failing due to trailing space diff
+  sed -i 's/def      /def/' tests/cover/test_reflection.py
+}
 
 build() {
-  cd $_name-$_version/$_alt_name
-  python -m build -nw
+  cd $pkgname/hypothesis-python
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -75,7 +79,7 @@ check() {
   )
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
-  cd $_name-$_version/$_alt_name
+  cd $pkgname/hypothesis-python
   # install to temporary location, as importlib is used
   python -m installer --destdir=test_dir dist/*.whl
   export PYTHONPATH="$PWD/test_dir/$site_packages"
@@ -84,6 +88,6 @@ check() {
 }
 
 package() {
-  cd $_name-$_version/$_alt_name
+  cd $pkgname/hypothesis-python
   python -m installer --destdir="$pkgdir" dist/*.whl
 }

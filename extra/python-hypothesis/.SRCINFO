@@ -1,6 +1,6 @@
 pkgbase = python-hypothesis
 	pkgdesc = Advanced Quickcheck style testing library for Python
-	pkgver = 6.124.7
+	pkgver = 6.125.2
 	pkgrel = 1
 	url = https://hypothesis.readthedocs.org
 	arch = any
@@ -19,6 +19,7 @@ pkgbase = python-hypothesis
 	checkdepends = python-pytest
 	checkdepends = python-pytest-xdist
 	checkdepends = python-pytz
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -40,8 +41,8 @@ pkgbase = python-hypothesis
 	optdepends = python-pytz: for datetime and django module
 	optdepends = python-redis: for redis support
 	optdepends = python-rich: for CLI
-	source = hypothesis-hypothesis-python-6.124.7.tar.gz::https://github.com/HypothesisWorks/hypothesis/archive/hypothesis-python-6.124.7.tar.gz
-	sha512sums = c9c699d830082ccfb056c42817592ad3736b3e1c2294bed889d9e581dc8d4b093a86a949b24e3fa842941daf18933c55c6a479cd6768c30cde0cecb94777a620
-	b2sums = d0160dedfd78443724a7388020fa093ba95e8621403f4fa69f04c324a5be8d49b51c3cae4cca488a86046818b6762a3f9703b1963186ae82daed2c8cdf0f8f70
+	source = python-hypothesis::git+https://github.com/HypothesisWorks/hypothesis#tag=hypothesis-python-6.125.2
+	sha512sums = 13d09f623d33eab3446c5804b2e6f687999ac52aed326abf2cc968f69328d882cd186f468eff129b323eec215780ab0bc32fa4ee6ab0f6698c85a471622eab21
+	b2sums = 70543e237eb885475822d50e8b0e6b768087f13467259eeac600b7e717e00174abd916a136707dee94d6cab99098448fc5e0a61a9b2fc0c7a4b23bb079017cf2
 
 pkgname = python-hypothesis
