@@ -1,7 +1,7 @@
 pkgbase = nvidia-open
 	pkgdesc = NVIDIA open kernel modules
 	pkgver = 570.86.16
-	pkgrel = 5
+	pkgrel = 6
 	url = https://github.com/NVIDIA/open-gpu-kernel-modules
 	arch = x86_64
 	license = MIT AND GPL-2.0-only
@@ -12,6 +12,7 @@ pkgbase = nvidia-open
 	provides = NVIDIA-MODULE
 	conflicts = NVIDIA-MODULE
 	options = !strip
+	options = !debug
 
 pkgname = nvidia-open
 	depends = linux
