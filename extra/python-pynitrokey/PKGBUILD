@@ -3,36 +3,31 @@
 
 _name=pynitrokey
 pkgname=python-pynitrokey
-pkgver=0.6.0
-pkgrel=2
+pkgver=0.7.3
+pkgrel=1
 pkgdesc="A command line interface for the Nitrokey FIDO2 and Nitrokey Start"
 arch=(any)
 url="https://github.com/Nitrokey/pynitrokey"
 license=('Apache-2.0 OR MIT')
 depends=(
-  libnitrokey  # NOTE: libnitrokey is required for udev rules
+  nitrokey-udev-rules
   python
-  python-asn1crypto
-  python-certifi
   python-cffi
   python-click
   python-click-aliases
   python-cryptography
-  python-dateutil
   python-ecdsa
   python-fido2
   python-intelhex
   python-nethsm
   python-nitrokey
   python-nkdfu
-  python-pyscard
   python-pyserial  # implicit via python-nitrokey
   python-pyusb
   python-requests
-  python-semver  # implicit via python-nitrokey
+  python-semver
   python-tlv8
   python-tqdm
-  python-typing_extensions
 )
 makedepends=(
   git
@@ -44,12 +39,13 @@ makedepends=(
 # NOTE: there are no tests to run
 optdepends=(
   'python-libusb1: for pro and storage subcommands'
+  'python-pyscard: for PC/SC support'
 )
 source=(
   "$_name::git+$url.git?signed#tag=v$pkgver"
 )
-sha512sums=('759f41ac8b7599b4e623713da4f99fc0d821dae1d641c1159802cc5523467845660c17bbbb0dc8551fff4d4b64a785674fab357186fe527c6e3da17c883f2343')
-b2sums=('d3e5a7c3642c7e84f2fb09b0c3300d02a29adca7cad6f2c339d9be8902596670bf27efe0559e96c6eaf45731c4537adf282b50c0743113ca8dfd80bda01a6ffb')
+sha512sums=('3e5b6fd42ba0aaf88dfb1bcf91b76fb0984a3d174417afb803244abf5df352f48d41b9c2208ae401e38f5f4a1d080bc798c6ff57c0007f77916dd6d0873468bc')
+b2sums=('b0e2c34a3f6cef5109918e5d30f53dc115d497997778247152562b08d7107c287149468c15faa8214eb33059c9b876c9e54fa6325c2298cb7fcb5fe6e3781394')
 validpgpkeys=(
   868184069239FF65DE0BCD7DD9BAE35991DE5B22  # Szczepan Zalega <szczepan@nitrokey.com> (@szszszsz)
   CC74B7120BFAA36FF42868724C1449F1C9804176  # Markus Meissner <meissner@nitrokey.com> (@daringer)
