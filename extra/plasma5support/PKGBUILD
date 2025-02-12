@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma5support
-pkgver=6.2.5
+pkgver=6.3.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Support components for porting from KF5/Qt5 to KF6/Qt6'
@@ -12,23 +12,29 @@ depends=(gcc-libs
          glibc
          kconfig
          kcoreaddons
+         kguiaddons
          ki18n
+         kidletime
          kio
          kjobwidgets
+         knotifications
          kservice
+         libksysguard
+         libx11
+         libxfixes
          qt6-base
          qt6-declarative
-         solid
-         kguiaddons
-         knotifications
-         libksysguard
-         )
+         solid)
 makedepends=(doxygen
              extra-cmake-modules
+             networkmanager-qt
+             plasma-activities
              qt6-tools)
+optdepends=('networkmanager-qt: geolocation dataengine'
+            'plasma-activities: activities dataengine')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('cac5244aa2961ad020ed2c43427389e0823482ecb179948b5fd6b221606e8b04'
+sha256sums=('b952016957b3f8033d81fc58f90bf13f02f97eecd66ca4e6b6b0805074ca6283'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
