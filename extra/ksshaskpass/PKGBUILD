@@ -4,7 +4,7 @@
 # Contributor: schuay <jakob.gruber@gmail.com>
 
 pkgname=ksshaskpass
-pkgver=6.2.5
+pkgver=6.3.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='ssh-add helper that uses kwallet and kpassworddialog'
@@ -24,7 +24,7 @@ provides=(x11-ssh-askpass)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
 install=$pkgname.install
-sha256sums=('85e71c8037d5d2199f861ae707189f42a7caed2f03743ea83b7570c34a11eb72'
+sha256sums=('11793796c5c4f6eb7b0601bc003d84ce8e42147bf05212c2a6bd20dfc74a3622'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
