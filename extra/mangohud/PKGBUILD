@@ -4,9 +4,9 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 _pkgname=MangoHud
 pkgname=mangohud
-_pkgver=0.7.2
+_pkgver=0.8.0
 pkgver="${_pkgver%-*}"
-pkgrel=2
+pkgrel=1
 pkgdesc="A Vulkan overlay layer for monitoring FPS, temperatures, CPU/GPU load and more."
 arch=('x86_64')
 url="https://github.com/flightlessmango/MangoHud"
@@ -18,7 +18,7 @@ optdepends=('libxnvctrl: NVIDIA GPU stats by XNVCtrl'
 replaces=("$pkgname-common" "$pkgname-common-wayland" "$pkgname-common-x11" "mangoapp" "$pkgname-x11" "$pkgname-wayland")
 conflicts=("$pkgname-common" "$pkgname-common-wayland" "$pkgname-common-x11" "mangoapp" "$pkgname-x11" "$pkgname-wayland")
 source=("$pkgname-$pkgver.tar.xz::https://github.com/flightlessmango/MangoHud/releases/download/v$pkgver/$_pkgname-v$_pkgver-Source.tar.xz")
-b2sums=('774bdc33a7d58fadf1323da16c81f22eea39c1f101a6753be3cbf888e18b45fc1060e39c3f5191f5a3e71aa8ad11cde3f0c86eed50d7164afa518c282701996d')
+b2sums=('915842a43100167913ad1a2210f3e37116c8ffcbd0fe9ce5eab2bda01a5e1475d3e396d8ff3491336f25b4a79502a27d6b432e5d0520549f189d0de048eade27')
 
 prepare() {
     cd "$_pkgname-v$pkgver"
@@ -31,8 +31,7 @@ prepare() {
 build() {
     arch-meson "$_pkgname-v$pkgver" build \
         -Dmangoapp=true \
-        -Dmangohudctl=true \
-        -Dmangoapp_layer=true
+        -Dmangohudctl=true
 
     meson compile -C build
 }
