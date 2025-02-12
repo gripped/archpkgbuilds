@@ -1,7 +1,7 @@
 pkgbase = archlinux-contrib
 	pkgdesc = Collection of contrib scripts used in Arch Linux
 	pkgver = 20250110
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/archlinux/contrib
 	arch = any
 	license = GPL-2.0-or-later
@@ -14,6 +14,8 @@ pkgbase = archlinux-contrib
 	optdepends = pacman-contrib: to enable pacdiff usage in the checkservices script
 	optdepends = python-httpx: for check-pkg-urls
 	optdepends = python-tqdm: for check-pkg-urls
+	optdepends = parallel: for pkggrep
+	optdepends = ripgrep: for pkggrep
 	source = contrib-20250110.tar.gz::https://github.com/archlinux/contrib/archive/refs/tags/20250110.tar.gz
 	source = contrib-20250110.tar.gz.asc::https://github.com/archlinux/contrib/releases/download/20250110/contrib-20250110.tar.gz.asc
 	validpgpkeys = C100346676634E80C940FB9E9C02FF419FECBE16
