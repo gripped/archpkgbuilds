@@ -2,7 +2,7 @@
 
 pkgname=plasma-applet-window-buttons
 pkgver=0.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Plasma applet in order to show window buttons in your panels'
 arch=(x86_64)
 url='https://github.com/moodyhunter/applet-window-buttons6'
@@ -28,6 +28,12 @@ conflicts=(plasma5-applets-window-buttons)
 replaces=(plasma5-applets-window-buttons)
 source=(git+https://github.com/moodyhunter/applet-window-buttons6#tag=v$pkgver)
 sha256sums=('36ebca156e36b1a25ec8bb80d4a50afc0ccd738f43ca62c9e1b9eda4a004d1c8')
+
+prepare() {
+  cd applet-window-buttons6
+  git cherry-pick -n 326382805641d340c9902689b549e4488682f553 \
+                     e27cd7559581e84b559a5da2c7bc6ea5a3f5bf15 # Port to kdecoration3
+}
 
 build() {
   cmake -B build -S applet-window-buttons6
