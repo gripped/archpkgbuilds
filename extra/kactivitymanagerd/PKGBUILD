@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=kactivitymanagerd
-pkgver=6.2.5
+pkgver=6.3.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='System service to manage user activities and track the usage patterns'
@@ -25,7 +25,7 @@ makedepends=(boost
              extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('f36e1bbc5c100f4c39d1af007a03c474ea3dd1584592029fe24fbbdb1cf9dad6'
+sha256sums=('225f64e568e559e3e6ec8e9a052d84fb3c557e16e9d4f81b5671990811a755ee'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
