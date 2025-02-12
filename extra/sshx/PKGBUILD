@@ -3,8 +3,8 @@
 # Contributor: Asuka Minato
 
 pkgname=sshx
-pkgver=0.3.1
-pkgrel=2
+pkgver=0.4.0
+pkgrel=1
 pkgdesc='A secure web-based, collaborative terminal'
 url="https://github.com/ekzhang/$pkgname"
 license=(MIT)
@@ -18,7 +18,7 @@ _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
 # source=("$_archive.tar.gz::https://static.crates.io/crates/$pkgname/$_archive.crate"
         # "$pkgname-LICENSE::$url/raw/$pkgver/LICENSE")
-sha256sums=('3bc2abc59be26c9eefaf7fc999aa4a3723d2916414c319fd06555415278acb64')
+sha256sums=('b92370d5d66266e2ea234d6be9515afeebf7d4b594b12035c19f13409a469531')
 
 prepare() {
 	cd "$_archive"
