@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kinfocenter
-pkgver=6.2.5
+pkgver=6.3.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='A utility that provides information about a computer system'
@@ -26,6 +26,8 @@ depends=(aha
          kio
          kirigami
          kservice
+         libdisplay-info
+         libdrm
          libpulse # pactl
          libusb
          mesa-utils
@@ -43,7 +45,7 @@ makedepends=(extra-cmake-modules
 optdepends=('fwupd: firmware security module')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('9ed87edb3a24256189f8dc79c821b8f45589aab7032d8dde78d5d94cf0639ff9'
+sha256sums=('20fb607366d166390dc18beca8f9321813924305a0adfee91f795e4e05ead311'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
