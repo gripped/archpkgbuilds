@@ -5,7 +5,7 @@
 pkgbase=breeze
 pkgname=(breeze
          breeze5)
-pkgver=6.2.5
+pkgver=6.3.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 arch=(x86_64)
@@ -28,7 +28,8 @@ depends=(breeze-icons
          kwidgetsaddons
          kwindowsystem
          qt6-base
-         qt6-declarative)
+         qt6-declarative
+         qt6-svg)
 makedepends=(extra-cmake-modules
              frameworkintegration5
              kconfigwidgets5
@@ -39,7 +40,7 @@ optdepends=('breeze-gtk: Breeze widget style for GTK applications'
             'breeze5: Breeze widget style for Qt5 applications')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('1d3bd4481bb7cd274a13ac5d5852be51ff2975e620872dfc22fbd531bad04e25'
+sha256sums=('7bb50dd662e35dfdaeec958fad4214e6c3c14484919ab12a545a1109fbe08995'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
