@@ -2,8 +2,8 @@
 # Contributor: Emil Lundberg <emil@emlun.se> <emil@yubico.com>
 
 pkgname=python-fido2
-pkgver=1.1.3
-pkgrel=3
+pkgver=1.2.0
+pkgrel=1
 pkgdesc='Library for FIDO 2.0, including communication with a device over USBA'
 url='https://github.com/Yubico/python-fido2'
 license=('custom:BSD-2-clause')
@@ -13,7 +13,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core')
 checkdepends=('python-cryptography')
 validpgpkeys=('20EE325B86A81BCBD3E56798F04367096FBA95E8') # Dain Nilsson <dain@yubico.com>
 source=("git+https://github.com/Yubico/${pkgname}.git#tag=${pkgver}?signed")
-sha256sums=('3565e65834ec2bfebed7120454d5b54fd5bd83805882f7646eb7c742acbbad86')
+sha256sums=('a66c23c828fd16fb061a5513ce21f0716c425db8fc2f5b39ae9e44b357265fe8')
 
 build() {
   cd "${srcdir}/${pkgname}"
