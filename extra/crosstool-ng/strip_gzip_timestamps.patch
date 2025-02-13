@@ -1,0 +1,25 @@
+From f81829db00b45d4192a033998feb18a437009a96 Mon Sep 17 00:00:00 2001
+From: DarkDampSquib <me@darkdampsquib.com>
+Date: Mon, 25 Mar 2024 09:03:22 +0100
+Subject: [PATCH] Use no-name flag for gzip
+
+Don't save the timestamp in the gzip header to ensure reproducibility.
+
+Signed-off-by: andrin-geiger <me@darkdampsquib.com>
+---
+ Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 6f21739d63..caf266792d 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -65,7 +65,7 @@ bash-completion/ct-ng: bash-completion/ct-ng.in Makefile
+ # Also, lintian is picky about execute-bit on the scripts
+ install-data-hook:
+ 	rm -f $(DESTDIR)$(man1dir)/$(ctng_progname).1.gz
+-	gzip -9 $(DESTDIR)$(man1dir)/$(ctng_progname).1
++	gzip -n -9 $(DESTDIR)$(man1dir)/$(ctng_progname).1
+ 	chmod a+x $(DESTDIR)$(pkgdatadir)/scripts/config.guess
+ 	chmod a+x $(DESTDIR)$(pkgdatadir)/scripts/config.sub
+ 	rm -f $(DESTDIR)$(pkgdatadir)/LICENSE
