@@ -7,13 +7,13 @@
 
 pkgname=dvdstyler
 pkgver=3.2.1
-pkgrel=3
+pkgrel=4
 pkgdesc='DVD authoring application for the creation of professional-looking DVDs'
 arch=('x86_64')
 url='https://www.dvdstyler.org/'
 license=('GPL2')
 depends=('cdrtools' 'dvdauthor' 'dvd+rw-tools' 'ffmpeg4.4' 'wxsvg')
-makedepends=('docbook-xsl' 'xmlto' 'zip' 'ffmpeg')
+makedepends=('docbook-xsl' 'xmlto' 'zip' 'ffmpeg' 'strip-nondeterminism')
 source=("https://downloads.sourceforge.net/$pkgname/DVDStyler-$pkgver.tar.bz2"
         'dvdstyler.appdata.xml')
 sha256sums=('0bb3348739f4c93097454b814ecb3a58f6bace8f030f41619a9feeafb4747558'
@@ -29,6 +29,10 @@ build() {
   export PKG_CONFIG_PATH='/usr/lib/ffmpeg4.4/pkgconfig'
   ./configure --prefix=/usr
   make
+
+  # Strip non-deterministic information from zip files (e.g. timestamps)
+  # This is required for reproducible builds
+  find . -name "*.zip" -exec strip-nondeterminism {} +
 }
 
 package() {
