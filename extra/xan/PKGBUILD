@@ -1,0 +1,39 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Contributor: Adam Perkowski <adas1per@protonmail.com>
+
+pkgname=xan
+pkgver=0.45.0
+pkgrel=1
+pkgdesc="The CSV magician"
+arch=('x86_64')
+url="https://github.com/medialab/xan"
+depends=('gcc-libs')
+makedepends=('cargo')
+license=('Unlicense' 'MIT')
+source=("$pkgbase-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
+sha256sums=('d79f530fa14cd020a974cec1145076e95ade05bbc926b0d3b5a6d1d8461f5ec8')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release --frozen
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --frozen
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/$pkgname" "${pkgdir}/usr/bin/${pkgname}"
+  install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}/"
+  install -Dm 644 LICENSE-MIT -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -Dm 644 UNLICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:
