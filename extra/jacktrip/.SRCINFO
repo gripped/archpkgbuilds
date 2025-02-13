@@ -1,7 +1,7 @@
 pkgbase = jacktrip
 	pkgdesc = Multi-machine audio network performance over the Internet
 	pkgver = 2.4.1
-	pkgrel = 1
+	pkgrel = 2
 	epoch = 1
 	url = https://github.com/jacktrip/jacktrip
 	arch = x86_64
@@ -29,8 +29,11 @@ pkgbase = jacktrip
 	depends = qt6-websockets
 	depends = qt6-webview
 	source = https://github.com/jacktrip/jacktrip/archive/v2.4.1/jacktrip-v2.4.1.tar.gz
+	source = ignore_gzip_timestamps.patch
 	sha512sums = a95f78d23a944aeade885634abbb8396ca2280d2487a5b7cd2a0614de1761c029164541841184f4933775f4b020b9f1facd0c20fecceb94bc2c0a762b93c7de6
+	sha512sums = 1361f2dd0ca374b68c62340867d2fcff75a142b9b4d1e9e23c46a68dd2aadcccba59b6ecda769f8fc89634439228515ffcef8189042b18d123054f97522acdff
 	b2sums = cf3749b785f390f7f12bfff36a52536962a0aac62a8f67fc071430222313882ce9f73ec506bb2f1a162b2b0a910f89190aed80deeb60e10ec870a189c5562699
+	b2sums = 8a764c0af74abf6e1340d2fd1f82f7d354ed38ed90a36c4fd57b69eff2332c60a56e6eba95714dc640d945ca7e005d5fda54f82cea9f44ea849aaf02048b6b82
 
 pkgname = jacktrip
 	depends = gcc-libs
