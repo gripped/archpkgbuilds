@@ -2,7 +2,7 @@
 
 pkgname=epubcheck
 pkgver=5.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="The conformance checker for EPUB publications"
 arch=(any)
 url="https://github.com/w3c/epubcheck"
@@ -12,7 +12,10 @@ depends=(
   bash
   java-runtime=$_java_version
 )
-makedepends=(maven)
+makedepends=(
+  maven
+  strip-nondeterminism
+)
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
   $pkgname.sh
@@ -36,6 +39,10 @@ build() {
 
   cd $pkgname-$pkgver
   mvn "${maven_options[@]}"
+
+  # Strip non-deterministic information from the jar file (e.g. timestamps and filesystem ordering)
+  # Required for reproducible builds
+  find . -name "$pkgname.jar" -exec strip-nondeterminism {} +
 }
 
 package() {

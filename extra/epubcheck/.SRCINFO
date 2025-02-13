@@ -1,11 +1,12 @@
 pkgbase = epubcheck
 	pkgdesc = The conformance checker for EPUB publications
 	pkgver = 5.2.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/w3c/epubcheck
 	arch = any
 	license = BSD-3-Clause
 	makedepends = maven
+	makedepends = strip-nondeterminism
 	depends = bash
 	depends = java-runtime=21
 	source = epubcheck-5.2.1.tar.gz::https://github.com/w3c/epubcheck/archive/refs/tags/v5.2.1.tar.gz
