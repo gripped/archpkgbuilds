@@ -5,13 +5,13 @@ pkgname=nextcloud
 # NOTE: always check first whether the version is supposed to be packaged:
 # https://github.com/nextcloud/server/wiki/Maintenance-and-Release-Schedule
 pkgver=30.0.5
-pkgrel=2
+pkgrel=3
 pkgdesc="A cloud server to store your files centrally on a hardware controlled by you"
 arch=(any)
 url="https://nextcloud.com"
 license=(AGPL-3.0-or-later)
 depends=(
-  php-gd
+  php-legacy-gd
   php-legacy
 )
 optdepends=(

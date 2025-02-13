@@ -1,12 +1,12 @@
 pkgbase = nextcloud
 	pkgdesc = A cloud server to store your files centrally on a hardware controlled by you
 	pkgver = 30.0.5
-	pkgrel = 2
+	pkgrel = 3
 	url = https://nextcloud.com
 	install = nextcloud.install
 	arch = any
 	license = AGPL-3.0-or-later
-	depends = php-gd
+	depends = php-legacy-gd
 	depends = php-legacy
 	optdepends = curl: for webcron jobs from within uwsgi
 	optdepends = ffmpeg: for preview generation
