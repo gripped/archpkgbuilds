@@ -1,0 +1,83 @@
+# Maintainer: Christian Heusel <gromit@archlinux.org>
+
+pkgname=libzypp
+pkgver=17.36.1
+pkgrel=1
+pkgdesc="ZYpp Package Management library"
+arch=(x86_64)
+url="https://github.com/openSUSE/libzypp"
+license=('GPL-2.0-or-later')
+depends=(
+    boost-libs
+    curl
+    gcc-libs
+    glib2
+    glibc
+    gpgme
+    libsigc++
+    libsolv
+    libxml2
+    openssl
+    rpm-tools
+    systemd-libs
+    yaml-cpp
+    zlib
+)
+makedepends=(
+    asciidoctor
+    boost
+    cmake
+    doxygen
+    fcgi
+    git
+    libproxy
+    nginx
+    vsftpd
+)
+checkdepends=(
+    nginx
+    vsftpd
+)
+optdepends=()
+source=("git+https://github.com/openSUSE/libzypp.git#tag=${pkgver}")
+sha256sums=('1c2f75214203ecb8dd4c0e741f09d31cb9afb312ae818c1fb181c4cb5c83ec95')
+
+build() {
+    local cmake_options=(
+        -B build
+        -S $pkgname
+        -W no-dev
+        -D CMAKE_BUILD_TYPE=None
+        -D CMAKE_INSTALL_PREFIX=/usr
+        -D ENABLE_BUILD_TESTS=ON
+        -D ENABLE_BUILD_DOCS=ON
+        -D ENABLE_BUILD_TRANS=ON
+        -D ENABLE_ZSTD_COMPRESSION=ON
+        -D DISABLE_MEDIABACKEND_TESTS=ON
+        -D ZYPP_LIBEXEC_INSTALL_DIR=/usr/lib/zypp
+    )
+    cmake "${cmake_options[@]}"
+    cmake --build build
+}
+
+# check() {
+#     local excluded_tests=""
+#     local ctest_flags=(
+#         --test-dir build
+#         # show the stdout and stderr when the test fails
+#         --output-on-failure
+#         # execute tests in parallel
+#         --parallel $(nproc)
+#         # exclude problematic tests
+#         --exclude-regex "$excluded_tests"
+#     )
+#     ctest "${ctest_flags[@]}"
+# }
+
+package() {
+    DESTDIR="$pkgdir" cmake --install build
+
+    # remove reference to /usr/libexec
+    mv -v "$pkgdir/usr/libexec/zypp/" "$pkgdir/usr/lib/"
+    rm -vr "$pkgdir/usr/libexec/"
+}
