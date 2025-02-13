@@ -5,25 +5,29 @@
 # Contributor: Denis Zheleztsov <difrex.punk@gmail.com>
 
 pkgname=wlr-randr
-pkgver=0.4.1
-pkgrel=4
+pkgver=0.5.0
+pkgrel=1
 pkgdesc="Utility to manage outputs of a Wayland compositor"
-url='https://git.sr.ht/~emersion/wlr-randr'
+url="https://gitlab.freedesktop.org/emersion/wlr-randr"
 arch=('x86_64')
 license=('MIT')
 depends=('wayland' 'glibc')
-makedepends=('meson')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('8af085aeed3132f7442a05bafeadfd0ea30e9a4818af1a91e161f7d560f2cd93')
+makedepends=('meson' 'scdoc')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
+sha256sums=('c566d94fddb84f801c733f1415a4ad5b75870305346363074cbdf468d4ac263a')
 
 build() {
 	cd "${pkgname}-v${pkgver}"
 	arch-meson build
 	meson compile -C build
+
+	scdoc < "${pkgname}.1.scd" > "${pkgname}.1"
 }
 
 package() {
 	cd "${pkgname}-v${pkgver}"
 	meson install -C build --destdir "${pkgdir}"
+
+	install -Dm 644 "${pkgname}.1" "${pkgdir}/usr/share/man/man1/${pkgname}.1"
 	install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
