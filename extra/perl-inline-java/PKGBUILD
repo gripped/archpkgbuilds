@@ -3,11 +3,11 @@
 
 pkgname=perl-inline-java
 pkgver=0.67
-pkgrel=4
+pkgrel=5
 pkgdesc="The Inline::Java module allows you to put Java source code directly inline in a Perl script or module."
 arch=('x86_64')
 depends=('perl' 'perl-inline' 'java-runtime')
-makedepends=('java-environment=11' 'perl-file-which')
+makedepends=('java-environment=11' 'perl-file-which' 'strip-nondeterminism')
 license=("GPL" "PerlArtistic")
 url="https://search.cpan.org/dist/Inline-Java"
 options=('!emptydirs')
@@ -20,6 +20,10 @@ build() {
   PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor J2SDK=/usr/lib/jvm/java-11-openjdk
 #  make java
   make
+
+  # Strip non-deterministic information from jar files (e.g. timestamps)
+  # This is required for reproducible builds
+  find . -name "*.jar" -exec strip-nondeterminism {} +
 }
 package() {
   cd "$srcdir"/Inline-Java-$pkgver
