@@ -4,7 +4,7 @@
 
 pkgname=link-grammar
 pkgver=5.12.5
-pkgrel=4
+pkgrel=5
 pkgdesc='Grammar checking library'
 arch=(x86_64)
 url='https://opencog.github.io/link-grammar-website/'
@@ -20,6 +20,7 @@ makedepends=(
   ant
   autoconf-archive
   git
+  strip-nondeterminism
   swig
 )
 checkdepends=(hunspell-en_us)
@@ -47,6 +48,10 @@ build() {
     --localstatedir=/var
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
+
+  # Strip non-deterministic information from the jar file (e.g. timestamps)
+  # This is required for reproducible builds
+  find . -name "linkgrammar-${pkgver}.jar" -exec strip-nondeterminism {} +
 }
 
 check() {
