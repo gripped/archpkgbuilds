@@ -3,13 +3,13 @@
 # Contributor: Maxim Baz <archlinux at maximbaz dot com>
 
 pkgname=prettier
-pkgver=3.5.0
+pkgver=3.5.1
 pkgrel=1
 pkgdesc='An opinionated code formatter'
 arch=(any)
 url=https://prettier.io
 license=(MIT)
-depends=(nodejs-lts-jod)
+depends=(nodejs-lts)
 makedepends=(
   gcc
   git
@@ -19,7 +19,7 @@ makedepends=(
 )
 checkdepends=(npm)
 source=("git+https://github.com/$pkgname/$pkgname.git#tag=$pkgver")
-b2sums=('7009f8c64ea96a7bb4fee747e185eefd6d498a98319c62ab1ec5521d7c84a12e0691a079450f0bd850a6fd0b5c33ed1674bdd3947934684703425399432d9956')
+b2sums=('fa6b913c631950c542fdd00d725d74bb428f859c46a509ea1fba02254459bf1281c8988b6c8b224b955ff651498856aea4ce1abb3643209777f765d253f2e1e5')
 
 prepare() {
   cd $pkgname
