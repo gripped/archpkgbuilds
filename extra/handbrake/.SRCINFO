@@ -1,6 +1,6 @@
 pkgbase = handbrake
 	pkgver = 1.9.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://handbrake.fr/
 	arch = x86_64
 	license = GPL-2.0-only
@@ -31,11 +31,10 @@ pkgbase = handbrake
 	makedepends = gtk4
 	makedepends = librsvg
 	options = !lto
-	source = https://github.com/HandBrake/HandBrake/releases/download/1.9.1/HandBrake-1.9.1-source.tar.bz2
-	source = https://github.com/HandBrake/HandBrake/releases/download/1.9.1/HandBrake-1.9.1-source.tar.bz2.sig
+	source = git+https://github.com/HandBrake/HandBrake.git?signed#tag=1.9.1
 	validpgpkeys = 1629C061B3DDE7EB4AE34B81021DB8B44E4A8645
-	sha256sums = d7678a38664f00f2fe03679b15f70ecca15a44da858aa04c0fcf1d20266fe694
-	sha256sums = SKIP
+	validpgpkeys = D57F6026431D68DFFB942F0D5759C8A0D1C34D47
+	sha256sums = c4e64c993d592b6ca1abcfa5932bfe8ab61548e1bddb32182d58fbbda79f4b49
 
 pkgname = handbrake
 	pkgdesc = Multithreaded video transcoder

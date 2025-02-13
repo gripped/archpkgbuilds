@@ -4,7 +4,7 @@
 
 pkgname=('handbrake' 'handbrake-cli')
 pkgver=1.9.1
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="https://handbrake.fr/"
 license=('GPL-2.0-only')
@@ -17,17 +17,18 @@ _guideps=('gst-plugins-base' 'gtk4' 'librsvg')
 makedepends=('python' 'nasm' 'wget' 'cmake' 'meson' 'git'
              "${_commondeps[@]}" "${_guideps[@]}")
 options=('!lto') # https://bugs.archlinux.org/task/72600
-source=(https://github.com/HandBrake/HandBrake/releases/download/$pkgver/HandBrake-$pkgver-source.tar.bz2{,.sig})
-sha256sums=('d7678a38664f00f2fe03679b15f70ecca15a44da858aa04c0fcf1d20266fe694'
-            'SKIP')
-validpgpkeys=('1629C061B3DDE7EB4AE34B81021DB8B44E4A8645') # HandBrake Team <developers@handbrake.fr>
+source=("git+https://github.com/HandBrake/HandBrake.git?signed#tag=${pkgver}")
+sha256sums=('c4e64c993d592b6ca1abcfa5932bfe8ab61548e1bddb32182d58fbbda79f4b49')
+validpgpkeys=('1629C061B3DDE7EB4AE34B81021DB8B44E4A8645' # HandBrake Team <developers@handbrake.fr>
+              'D57F6026431D68DFFB942F0D5759C8A0D1C34D47' # Damiano Galassi <damiog@gmail.com>
+)
 
 prepare() {
-  cd HandBrake-$pkgver
+  cd HandBrake
 }
 
 build() {
-  cd HandBrake-$pkgver
+  cd HandBrake
 
   ./configure \
     --prefix=/usr \
@@ -44,7 +45,7 @@ package_handbrake() {
               'intel-media-sdk: Intel QuickSync support'
               'libdvdcss: for decoding encrypted DVDs')
 
-  cd HandBrake-$pkgver/build
+  cd HandBrake/build
 
   make DESTDIR="$pkgdir" install
   rm "$pkgdir/usr/bin/HandBrakeCLI"
@@ -56,7 +57,7 @@ package_handbrake-cli() {
   optdepends=('intel-media-sdk: Intel QuickSync support'
               'libdvdcss: for decoding encrypted DVDs')
 
-  cd HandBrake-$pkgver/build
+  cd HandBrake/build
   install -D HandBrakeCLI "$pkgdir/usr/bin/HandBrakeCLI"
 }
 
