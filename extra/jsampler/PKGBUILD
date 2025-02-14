@@ -5,14 +5,14 @@
 pkgname=jsampler
 _name=JSampler
 pkgver=0.9
-pkgrel=9
+pkgrel=10
 pkgdesc="LinuxSampler Java GUI"
 arch=('any')
 url="http://jsampler.sourceforge.net/"
 license=('LGPL2.1')
 groups=('pro-audio')
 depends=('java-runtime=8' 'linuxsampler')
-makedepends=('gendesk' 'java-environment=8' 'apache-ant')
+makedepends=('gendesk' 'java-environment=8' 'apache-ant' 'strip-nondeterminism')
 source=("https://downloads.sourceforge.net/${pkgname}/${_name}-${pkgver}.tar.bz2"
         "${pkgname}.sh")
 sha512sums=('cbb1d476b1f3882592cc0fb7a61348802c0c399dfc3fcc35f4a8ec3396e8417754cafc3e1a14a90b0014bebd29d28b9d3771dcbb772df40d241eaadedad5299f'
@@ -48,6 +48,11 @@ build() {
   cd "${pkgname}-${pkgver}"
   ant build-fantasia
   ant build-jsclassic
+
+  # Strip non-deterministic information from jar files (e.g. timestamps)
+  # This is required for reproducible builds
+  find . -name "*.jar" -exec strip-nondeterminism {} +
+
 }
 
 package() {
