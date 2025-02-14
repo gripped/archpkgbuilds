@@ -4,8 +4,8 @@
 # Contributor: Jonas Heinrich <onny@project-insanity.org>
 
 pkgname=double-conversion
-pkgver=3.3.0
-pkgrel=2
+pkgver=3.3.1
+pkgrel=1
 pkgdesc='Binary-decimal and decimal-binary routines for IEEE doubles'
 arch=(x86_64)
 url='https://github.com/google/double-conversion'
@@ -15,7 +15,7 @@ depends=(gcc-libs
 makedepends=(cmake
              git)
 source=(git+https://github.com/google/double-conversion#tag=v$pkgver)
-sha256sums=('51285c0fb05d70a26f067110bec37e47d4b7705730b5c679d536baf95d5bb175')
+sha256sums=('6009d129b305b65819cf37cd8cd8f07557a461d141a91f6e3afd553c4a384d59')
 
 build() {
   cmake -B build -S $pkgname \
