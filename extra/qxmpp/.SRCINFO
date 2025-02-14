@@ -1,35 +1,24 @@
 pkgbase = qxmpp
 	pkgdesc = Cross-platform C++ XMPP client and server library
 	pkgver = 1.9.4
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/qxmpp-project/qxmpp
 	arch = x86_64
 	license = LGPL-2.1-or-later
 	makedepends = cmake
 	makedepends = git
 	makedepends = libomemo-c
-	makedepends = qca-qt5
-	makedepends = qca-qt6
 	depends = gcc-libs
 	depends = glib2
 	depends = glibc
 	depends = gstreamer
+	depends = qca-qt6
+	depends = qt6-base
 	optdepends = libomemo-c: OMEMO support
+	provides = qxmpp-qt6
+	conflicts = qxmpp-qt6
+	replaces = qxmpp-qt6
 	source = git+https://github.com/qxmpp-project/qxmpp#tag=v1.9.4
 	sha256sums = 1db655910dfd51b621b9f3c04e399dedfe3d53b90a7ad9bcb565713dd31df58c
 
-pkgname = qxmpp-qt5
-	depends = gcc-libs
-	depends = glib2
-	depends = glibc
-	depends = gstreamer
-	depends = qt5-base
-	depends = qca-qt5
-
-pkgname = qxmpp-qt6
-	depends = gcc-libs
-	depends = glib2
-	depends = glibc
-	depends = gstreamer
-	depends = qt6-base
-	depends = qca-qt6
+pkgname = qxmpp
