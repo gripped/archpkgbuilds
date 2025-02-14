@@ -2,8 +2,8 @@
 
 _name=vimrunner
 pkgname=ruby-vimrunner
-pkgver=0.3.5
-pkgrel=3
+pkgver=0.3.6
+pkgrel=1
 pkgdesc="Spawn a Vim instance and control it programatically"
 arch=(any)
 url="https://github.com/AndrewRadev/vimrunner"
@@ -19,8 +19,8 @@ makedepends=(
   ruby-rspec
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('dff20bcf7765d27f65d8f6e3f9ed521d2bb20d488a34b11bb1527a1b104bc4a9446a2f4a8ad1e36bb80bd899256c66dfc84779cd51b0d7821aa482b28f4b4085')
-b2sums=('896a69087e453683518e3b43bd24c9b7af4335bee19a4387d248b854fc305b78a4b6ba838c8f36979e172445bbd8c771bb20fd392646099562412ad8aedc5518')
+sha512sums=('6b8af32f8c086ceae7e9e7f5536803931099fcdcb9099e70a5f60613f6d3ddf24b54bf95ac74aa73d322b6d71a532859c36b07e255b21f0ecf54d18b16eff3d7')
+b2sums=('474716b55e0c424c9ce3029e79e42f2a3462d0f3e6530dbb5a4f45c3a7323c036b3ef0bbdd3126427c0398ce3a926672288d26b64f8cbdf896d6cbe21a3e457e')
 
 prepare() {
   cd $_name-$pkgver
