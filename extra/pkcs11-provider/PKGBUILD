@@ -2,7 +2,7 @@
 # Contributor: grawity <grawity@gmail.com>
 
 pkgname=pkcs11-provider
-pkgver=0.6
+pkgver=1.0
 pkgrel=1
 pkgdesc="A pkcs#11 provider for OpenSSL 3.0+"
 url="https://github.com/latchset/pkcs11-provider"
@@ -12,7 +12,7 @@ depends=('glibc' 'openssl>=3.0.7' 'p11-kit')
 makedepends=('git' 'meson')
 checkdepends=('expect' 'gnutls' 'nss' 'opensc' 'softhsm')
 source=("git+${url}.git#tag=v${pkgver}?signed")
-sha256sums=('e0e5bc7634c903e61ac6819c86933b8f8ff0c1bf28fcda2079d83ed3f2cf9f93')
+sha256sums=('a8e75d2c1bf68d016f7b8a2c4d745016844c48728268d4167e365b26f454f1f3')
 validpgpkeys=('7C7BD146943B206BB645B64594EAD67E004B65AB')
 
 build() {
