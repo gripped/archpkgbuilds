@@ -5,9 +5,8 @@
 # Contributor: juantascon
 
 pkgname=python-peewee
-_pkgname=${pkgname#python-}
-pkgver=3.17.8
-pkgrel=4
+pkgver=3.17.9
+pkgrel=1
 pkgdesc="A small, expressive orm"
 arch=('x86_64')
 url="https://github.com/coleifer/peewee"
@@ -35,20 +34,20 @@ optdepends=(
   'python-pymysql: for MySQL database support'
 )
 source=("$url/archive/$pkgver/$_pkgname-$pkgver.tar.gz")
-sha512sums=('47101679b3624c167c82240b2d9fcd60db362e6960cc1852bc5042022fb1250cf4e58050b39ca309cd0a66019cbcf1c8a8e8b8619e0958f8ec37d7222bfe243f')
+sha512sums=('7082b0abcdaf47ee7b50066773c8491bebc94502b875a0f2a01f6d8d251fd147c738362021ab1d45dbc8ddc73fd7a37c0bc2732623d0f4b3e5d314caea7da510')
 
 build() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   python -m unittest discover -v
 }
 
 package() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
