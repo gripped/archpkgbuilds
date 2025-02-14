@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kaidan
-pkgver=0.10.1
+pkgver=0.11.0
 pkgrel=1
 pkgdesc='A user-friendly XMPP client for every device'
 arch=(x86_64)
@@ -10,28 +10,29 @@ license=(GPL-3.0-or-later
          MIT)
 depends=(gcc-libs
          glibc
-         kcoreaddons5
-         kio5
-         kirigami-addons5
-         kirigami2
-         kitemviews5
-         knotifications5
-         kquickimageeditor5
+         icu
+         kcoreaddons
+         kcrash
+         kio
+         kirigami-addons
+         kirigami
+         knotifications
+         kquickimageeditor
          libomemo-c
-         qqc2-desktop-style5
-         qt5-base
-         qt5-declarative
-         qt5-location
-         qt5-multimedia
-         qt5-quickcontrols2
-         qt5-svg
-         qxmpp-qt5
-         zxing-cpp)
+         prison
+         qqc2-desktop-style
+         qt6-base
+         qt6-declarative
+         qt6-location
+         qt6-multimedia
+         qt6-positioning
+         qt6-svg
+         qxmpp-qt6)
 makedepends=(extra-cmake-modules
              git
-             qt5-tools)
+             qt6-tools)
 source=(git+https://invent.kde.org/network/kaidan#tag=v$pkgver)
-sha256sums=('d70bf11fbe98c025b37f6dc4cbf5683f047e83886f39d319a72f94a2f022fb8a')
+sha256sums=('562d6ced023beea94307fb94239950bcb89937a0152a0df197c1431b5a132710')
 validpgpkeys=(03C2D10DC97E5B0BEBB8F3B44663231A91A1E27B) # Linus Jahn <lnj@kaidan.im>
 
 build() {
