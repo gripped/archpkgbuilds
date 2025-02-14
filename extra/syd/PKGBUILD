@@ -3,13 +3,14 @@
 pkgname=syd
 _pkgname=sydbox
 pkgver=3.32.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Seccomp and landlock based application sandbox with support for namespaces"
 url="https://lib.rs/crates/syd"
 arch=('x86_64')
 license=('GPL-3.0-only')
 depends=('bash' 'gcc-libs' 'glibc' 'libseccomp')
 makedepends=('cargo' 'scdoc')
+provides=("${_pkgname}")
 source=("${pkgname}-${pkgver}.tar.gz::https://gitlab.exherbo.org/${_pkgname}/${_pkgname}/-/archive/v${pkgver}/${_pkgname}-v${pkgver}.tar.gz")
 sha256sums=('d84089e48fa7f5e1c9d895d448b3bf932832427445c6c2fed741789b5780b8ed')
 
@@ -26,6 +27,23 @@ build() {
 	cargo build --frozen --release
 
 	find man -type f -name "*.scd" -exec sh -c 'scdoc < "${1}" > "${1%.scd}"' _ {} \;
+}
+
+check() {
+	cd "${_pkgname}-v${pkgver}"
+	export RUSTUP_TOOLCHAIN=stable
+	# "syd_test" and "fs" tests fail with sandbox
+	# "hash" tests seems flaky (they fail on the build server for some reason)
+	cargo test --frozen -- \
+		--skip=syd_test \
+		--skip=fs::tests::test_canonicalize_non_directory_with_slash \
+		--skip=fs::tests::test_canonicalize_self_referential_symlink \
+		--skip=fs::tests::test_canonicalize_symlink_loop \
+		--skip=hash::tests::test_aes_ctr_enc_and_dec \
+		--skip=hash::tests::test_aes_ctr_enc_and_dec_tmp \
+		--skip=hash::tests::test_aes_ctr_enc_with_more_flag \
+		--skip=hash::tests::test_aes_ctr_init \
+		--skip=hash::tests::test_aes_ctr_setup
 }
 
 package() {
