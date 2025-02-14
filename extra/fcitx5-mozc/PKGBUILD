@@ -49,7 +49,7 @@ _pkgbase=mozc
 pkgname=fcitx5-mozc
 pkgdesc="Fcitx5 Module of A Japanese Input Method for Chromium OS, Windows, Mac and Linux (the Open Source Edition of Google Japanese Input)"
 pkgver=2.31.5712.102.g9dc8247
-pkgrel=1
+pkgrel=3
 arch=('x86_64')
 url="https://github.com/google/mozc"
 license=('BSD-3-Clause AND Apache-2.0 AND LGPL-2.0-or-later AND LicenseRef-Unicode-DFS-2015 AND LicenseRef-NAIST-2003')
@@ -139,9 +139,12 @@ build() {
   # Use srcdir for pre-download files and override registry with local mirror.
   # bazel only respects CC from environment, not CXXFLAGS and LDFLAGS.
   # Pass them with --cxxopt, and --linkopt.
-  bazel build --config oss_linux \
+  bazel build \
+      --config oss_linux \
       --distdir="${srcdir}" \
       --registry="file://${srcdir}/bazel-central-registry" \
+      --copt=-DNDEBUG \
+      $(echo "${CFLAGS}"|xargs -n1 echo "--conlyopt") \
       $(echo "${CXXFLAGS}"|xargs -n1 echo "--cxxopt") \
       --nostart_end_lib \
       --linkopt=-fuse-ld=bfd \
