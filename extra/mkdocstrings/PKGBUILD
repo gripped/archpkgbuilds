@@ -1,8 +1,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=mkdocstrings
-pkgver=0.27.0
-pkgrel=2
+pkgver=0.28.0
+pkgrel=1
 pkgdesc="Automatic documentation from sources, for MkDocs"
 arch=(any)
 url="https://github.com/mkdocstrings/mkdocstrings"
@@ -10,12 +10,11 @@ license=(ISC)
 depends=(
   mkdocs
   mkdocs-autorefs
+  mkdocs-get-deps
   python
-  python-click
   python-jinja
   python-markdown
   python-markupsafe
-  python-platformdirs
   python-pymdown-extensions
   python-yaml
 )
@@ -31,7 +30,7 @@ checkdepends=(
   python-pytest
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('b0092b9fde1161df831775c686d3bd20c950e0a7025dbad7b16a88abd29a91bf')
+sha256sums=('9288f7dd3b4e36fa744a8cda60acdd72119678a98480f54a757caea77437d5b8')
 
 build() {
   cd $pkgname-$pkgver
@@ -41,14 +40,14 @@ build() {
 
 check() {
   cd $pkgname-$pkgver
-  python -m installer --destdir=tmp_install dist/*.whl
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  export PYTHONPATH="$PWD/tmp_install/$site_packages"
-  # Deselected tests requires handlers, which are not yet pacakged.
-  pytest \
-    --deselect tests/test_extension.py \
-    --deselect tests/test_handlers.py::test_extended_templates\
-    --deselect tests/test_plugin.py::test_disabling_plugin
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  # Deselected tests requires handlers, which are not yet packaged.
+  test-env/bin/python -m pytest \
+    --deselect 'tests/test_extension.py' \
+    --deselect 'tests/test_handlers.py::test_extended_templates' \
+    --deselect 'tests/test_handlers.py::test_nested_autodoc[ext_markdown0]' \
+    --deselect 'tests/test_plugin.py::test_disabling_plugin'
 }
 
 package() {
