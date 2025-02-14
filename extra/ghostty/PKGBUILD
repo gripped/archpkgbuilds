@@ -3,7 +3,7 @@
 
 pkgbase=ghostty
 pkgname=(ghostty ghostty-shell-integration ghostty-terminfo)
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc='Fast, native, feature-rich terminal emulator pushing modern features'
 arch=(x86_64 aarch64 i686)
@@ -27,11 +27,12 @@ makedepends=(pandoc-cli
              zig)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('b499f3811416b9bdea0b26599f8147955ffa1da468129eb44bc45609c2775fb7')
+sha256sums=('28f5b5c8724b302698cb36bb0c83dd2fdc45fd0f2bbddf51d51c44fd4fcd27e9')
 
 prepare() {
 	cd "$_archive"
-	ZIG_GLOBAL_CACHE_DIR="$srcdir/zig-global-cache/" ./nix/build-support/fetch-zig-cache.sh
+	export ZIG_GLOBAL_CACHE_DIR="$srcdir/zig-global-cache/"
+	zig build --fetch
 }
 
 build() {
