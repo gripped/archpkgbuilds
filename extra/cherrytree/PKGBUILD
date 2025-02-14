@@ -3,8 +3,8 @@
 # Contributor: Morgenstern <charles [at] charlesbwise [dot] com>
 
 pkgname=cherrytree
-pkgver=1.2.0
-pkgrel=2
+pkgver=1.3.0
+pkgrel=1
 pkgdesc="Hierarchical note-taking application"
 arch=('x86_64')
 url="https://www.giuspen.com/cherrytree/"
@@ -50,7 +50,7 @@ checkdepends=(
   'xorg-server-xvfb'
 )
 source=("https://github.com/giuspen/cherrytree/releases/download/v${pkgver}/${pkgname}_${pkgver}.tar.xz"{,.asc})
-sha512sums=('729e8227eb1f0616e110153ac2139cc7019ed5e1a949c8be40fd2235ee5d2e0f0b1925c57d72c9b443852e5b80a50793e4e903b7df41da8e95a172210f7ec035'
+sha512sums=('e7b061aed33ad55c1fc7f7dd43b01db6c36ba414c32f996c86c9a64899e6d0cf7825637350c8dcf252d5495b8d956a675b34607854177d6f01615ad9d4953c78'
             'SKIP')
 validpgpkeys=('C7BF38CE0BD442C2369AA984049128A20CE0648D') # Giuseppe Penone <giuspen [at] gmail [dot] com>
 
