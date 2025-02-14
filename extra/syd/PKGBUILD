@@ -1,0 +1,48 @@
+# Maintainer: Robin Candau <antiz@archlinux.org>
+
+pkgname=syd
+_pkgname=sydbox
+pkgver=3.32.2
+pkgrel=1
+pkgdesc="Seccomp and landlock based application sandbox with support for namespaces"
+url="https://lib.rs/crates/syd"
+arch=('x86_64')
+license=('GPL-3.0-only')
+depends=('bash' 'gcc-libs' 'glibc' 'libseccomp')
+makedepends=('cargo' 'scdoc')
+source=("${pkgname}-${pkgver}.tar.gz::https://gitlab.exherbo.org/${_pkgname}/${_pkgname}/-/archive/v${pkgver}/${_pkgname}-v${pkgver}.tar.gz")
+sha256sums=('d84089e48fa7f5e1c9d895d448b3bf932832427445c6c2fed741789b5780b8ed')
+
+prepare() {
+	cd "${_pkgname}-v${pkgver}"
+	export RUSTUP_TOOLCHAIN=stable
+	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+	cd "${_pkgname}-v${pkgver}"
+	export RUSTUP_TOOLCHAIN=stable
+	export CARGO_TARGET_DIR=target
+	cargo build --frozen --release
+
+	find man -type f -name "*.scd" -exec sh -c 'scdoc < "${1}" > "${1%.scd}"' _ {} \;
+}
+
+package() {
+	cd "${_pkgname}-v${pkgver}"
+	install -Dm 755 "target/release/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+
+	install -Dm 755 src/esyd.sh "${pkgdir}/usr/lib/${pkgname}/esyd.sh"
+
+	install -Dm 644 "data/user.${pkgname}-3" "${pkgdir}/etc/user.${pkgname}-3.example"
+
+	install -Dm 644 "vim/ftdetect/${pkgname}.vim" "${pkgdir}/usr/share/vim/vimfiles/ftdetect/${pkgname}.vim"
+	install -Dm 644 "vim/syntax/${pkgname}-3.vim" "${pkgdir}/usr/share/vim/vimfiles/syntax/${pkgname}-3.vim"
+
+	install -Dm 644 man/*.1 -t "${pkgdir}/usr/share/man/man1/"
+	install -Dm 644 man/*.2 -t "${pkgdir}/usr/share/man/man2/"
+	install -Dm 644 man/*.5 -t "${pkgdir}/usr/share/man/man5/"
+	install -Dm 644 man/*.7 -t "${pkgdir}/usr/share/man/man7/"
+
+	install -Dm 644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+}
