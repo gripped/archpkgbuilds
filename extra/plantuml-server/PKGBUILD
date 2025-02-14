@@ -2,14 +2,14 @@
 
 pkgname=plantuml-server
 pkgver=1.2024.6
-pkgrel=1
+pkgrel=2
 pkgdesc="PlantUML Online Server"
 arch=(any)
 url="https://plantuml.com/"
 license=('GPL-3.0-only')
 backup=("etc/conf.d/plantuml-server")
 depends=("java-runtime>=11" "bash")
-makedepends=("maven" "java-environment>=11")
+makedepends=("maven" "java-environment>=11" "strip-nondeterminism")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/plantuml/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz"
         "${pkgname}.run"
         "${pkgname}.conf"
@@ -25,6 +25,10 @@ optdepends=('plantuml-ascii-math: AsciiMath or JLaTeXMath notation'
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   mvn package
+
+  # Strip non-deterministic information from the war file (e.g. timestamps)
+  # This is required for reproducible builds
+  find . -name "plantuml.war" -exec strip-nondeterminism {} +
 }
 
 package() {
