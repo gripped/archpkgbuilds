@@ -2,63 +2,66 @@
 
 _pkg=spyder-kernels
 pkgname=python-${_pkg}
-pkgver=3.0.2
-pkgrel=2
+pkgver=3.0.3
+pkgrel=1
 pkgdesc="Jupyter Kernels for the Spyder console"
 arch=(any)
 url="https://github.com/spyder-ide/spyder-kernels/"
 license=(MIT)
-makedepends=(python python-setuptools)
 depends=(
-    cython
-    ipython
-    python-cloudpickle
-    python-ipykernel
-    python-jupyter_client
-    python-matplotlib
-    python-pandas
-    python-pyzmq
-    python-wurlitzer
+  cython
+  ipython
+  python
+  python-cloudpickle
+  python-dateutil
+  python-ipykernel
+  python-jupyter-client
+  python-matplotlib
+  python-matplotlib-inline
+  python-numpy
+  python-pandas
+  python-pillow
+  python-pygments
+  python-pyzmq
+  python-traitlets
+  python-wurlitzer
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
 )
 checkdepends=(
-    python-dask
-    python-pydicom
-    python-distributed
-    python-django
-    python-flaky
-    python-h5py
-    python-numpy
-    python-pillow
-    python-pytest
-    python-scipy
-    python-xarray
+  python-dask
+  python-distributed
+  python-django
+  python-flaky
+  python-h5py
+  python-numpy
+  python-pillow
+  python-pydicom
+  python-pydicom
+  python-pytest
+  python-scipy
+  python-xarray
 )
 optdepends=('python-pydicom: DICOM format import')
-# No tests in pypi tarballs
-#source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('4620b8724fc83c7c99f5cb923f0b58fbb2f08d52bdf9dce3d6bdd84be4e8540b')
-
-prepare() {
-  cd ${_pkg}-${pkgver}
-  sed -i 's|ipykernel>=6.16.1,<7|ipykernel>=6.16.1|' setup.py
-  sed -i 's|ipython>=7.31.1,<9|ipython>=7.31.1|' setup.py
-  sed -i 's|jupyter-client>=7.4.9,<8|jupyter-client>=7.4.9|' setup.py
-}
+sha256sums=('12fb50a7d4dd9b17831cbae06f8419701aa7b825b990b0155c06717cbd78e4b0')
 
 build() {
   cd ${_pkg}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
   cd ${_pkg}-${pkgver}
-  pytest -vv --color=yes spyder_kernels \
-    -k 'not test_load_dicom_files' # required many optional dependencies
+  pytest -vv --color=yes
 }
 
 package() {
   cd ${_pkg}-${pkgver}
-  python setup.py install --prefix=/usr --root="${pkgdir}" --optimize=1 --skip-build
-  install -Dm644 LICENSE.txt -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE.txt
 }
