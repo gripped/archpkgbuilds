@@ -1,6 +1,6 @@
 pkgbase = tgpt
 	pkgdesc = AI Chatbots in terminal without needing API keys
-	pkgver = 2.8.3
+	pkgver = 2.9.1
 	pkgrel = 1
 	url = https://github.com/aandrew-me/tgpt
 	arch = x86_64
@@ -8,7 +8,9 @@ pkgbase = tgpt
 	makedepends = go
 	depends = glibc
 	options = !lto
-	source = tgpt-2.8.3.tar.gz::https://github.com/aandrew-me/tgpt/archive/v2.8.3.tar.gz
-	sha256sums = f4aa107f71b9973fd105b263a60d8c26512deaf4bc3609f2b2d4219d33d9af32
+	source = tgpt-2.9.1.tar.gz::https://github.com/aandrew-me/tgpt/archive/v2.9.1.tar.gz
+	source = tgpt-fix-fmt-typo.patch::https://github.com/aandrew-me/tgpt/commit/4d8377123442a4550907c3de53a0b1ab4fa90388.patch
+	sha256sums = 05c2d2009789679fe1d744474783a853abc79d3dad6d14871402ee933397fe00
+	sha256sums = 1b49dee6b37feebaa9d9ead9778dfa50ad96ca8c3e692367f2bd7536ea44f050
 
 pkgname = tgpt
