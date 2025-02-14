@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=psalm
-pkgver=6.4.0
+pkgver=6.5.1
 pkgrel=1
 pkgdesc='A static analysis tool for finding errors in PHP applications'
 url="https://psalm.dev/"
@@ -11,8 +11,8 @@ depends=('php')
 makedepends=('composer' 'git')
 source=("git+https://github.com/vimeo/psalm.git#tag=${pkgver}"
         "composer.lock")
-b2sums=('592c211bf1d7866b47413bf69e08a623835a698cfd30433d22f7c430cafb98726d26ef9811dbb819abf223f9d32653a8078141d5fc79bf72764672c058b4ae39'
-        '79a12c26e08d6dd8146d56c9ca4c36cc64ee27df2aacd32c52aea51fe2386ff4eec58907759d10d08c12a1b9570fc6f1f791b6319543632eb3eb1da7be64e442')
+b2sums=('73d1c617532fde9135523df6b25f49689de786307626166b7fd4058534f6b6ab8e997bef09d3e7d68feabbdd1b458220b51d985917c20eba4254b3517fb22c66'
+        'decb648c314a41d6fa9bda6046f6e4ad045504c78106da596dc9f0ce4273cfe80da88b724e5e92ffc95dcac059b7e4a829914d39b4b7ac61858a99f1a74a293a')
 
 prepare() {
   cd ${pkgname}
@@ -41,6 +41,7 @@ check() {
   cd testing/
 
   composer init -n --name test/test
+  composer update
   composer install
   ../${pkgname}/build/psalm.phar --init
   ../${pkgname}/build/psalm.phar
