@@ -13,8 +13,8 @@ pkgname=(
   rabbitmq
   rabbitmqadmin
 )
-pkgver=4.0.5
-pkgrel=3
+pkgver=4.0.6
+pkgrel=1
 pkgdesc='Highly reliable and performant enterprise messaging implementation of AMQP written in Erlang/OTP'
 url='https://rabbitmq.com'
 arch=('any')
@@ -49,8 +49,9 @@ makedepends=(
   'xmlto'
   'zip'
 )
+_commit=293a4f665ac59c6d53732a18340a76e69c257ea8
 source=(
-  "git+https://github.com/rabbitmq/rabbitmq-server.git#tag=v${pkgver}"
+  "git+https://github.com/rabbitmq/rabbitmq-server.git#commit=${_commit}?signed"
   rabbitmq-customize-systemd-service.patch
   rabbitmq-devendor-rebar3.patch
   rabbitmq-env.conf
@@ -65,7 +66,11 @@ sha512sums=('ac6e468bb4e6324b9531a382f9cd67371df297954d935d89d24b3ea702d08eea165
             '33c6af8810d8cbc479c63ed535de0a27b2e90eeed8fc9b39255683028478529a7e8953aa992f615d4101c6aefdc066f95c98fb9fb5bf1faf0ea327364101914c'
             '5cbef5497029ff227050c6f18c4fcc35b3922747408d01b7590f096253af82a8a8f16008efcc8ea21f970ce87244de62e2e375f65c49e407e53440eada5d7114'
             'f2a6aaa38e575e7c947191a7c67add1434beb768c50acb16d5faa5dd83d390a9a5ec7c153487add4ac26de058a02bbb5c3a7d6377e91a1d0cbcca3c1d6797b02')
-validpgpkeys=('0A9AF2115F4687BD29803A206B73A36E6026DFCA') # RabbitMQ Release Signing Key <info@rabbitmq.com>
+validpgpkeys=(
+  '0A9AF2115F4687BD29803A206B73A36E6026DFCA' # RabbitMQ Release Signing Key <info@rabbitmq.com>
+  '968479A1AFF927E37D1A566BB5690EEEBB952194' # GitHub <noreply@github.com>
+  '1CD01B692130F8E525601C8A44BF2725475205B2' # Michael Klishin <michaelklishin@icloud.com>
+)
 
 prepare() {
   cd ${pkgbase}-server

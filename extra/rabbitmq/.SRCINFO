@@ -1,7 +1,7 @@
 pkgbase = rabbitmq
 	pkgdesc = Highly reliable and performant enterprise messaging implementation of AMQP written in Erlang/OTP
-	pkgver = 4.0.5
-	pkgrel = 3
+	pkgver = 4.0.6
+	pkgrel = 1
 	url = https://rabbitmq.com
 	arch = any
 	license = MPL-2.0
@@ -33,7 +33,7 @@ pkgbase = rabbitmq
 	makedepends = util-linux
 	makedepends = xmlto
 	makedepends = zip
-	source = git+https://github.com/rabbitmq/rabbitmq-server.git#tag=v4.0.5
+	source = git+https://github.com/rabbitmq/rabbitmq-server.git#commit=293a4f665ac59c6d53732a18340a76e69c257ea8?signed
 	source = rabbitmq-customize-systemd-service.patch
 	source = rabbitmq-devendor-rebar3.patch
 	source = rabbitmq-env.conf
@@ -41,6 +41,8 @@ pkgbase = rabbitmq
 	source = rabbitmq.tmpfiles
 	source = rabbitmq.logrotate
 	validpgpkeys = 0A9AF2115F4687BD29803A206B73A36E6026DFCA
+	validpgpkeys = 968479A1AFF927E37D1A566BB5690EEEBB952194
+	validpgpkeys = 1CD01B692130F8E525601C8A44BF2725475205B2
 	sha512sums = ac6e468bb4e6324b9531a382f9cd67371df297954d935d89d24b3ea702d08eea1658646582d516d522ef6a815d33236fa5437df1f00d36dad9d5307567ad57b3
 	sha512sums = 81d74e006dcf6641b5fd00aba098423809b3d0e36fcfaa2467b54ed08ebd2b666b4cfb06a3e41c31fe41bf8e51df3581ef6b5e0a0bdf9f90b6ef60d5ba913e6a
 	sha512sums = 67eca945ac5c5acf5f64f52ec65803a7b2ea098e6b38a685a0d85b8a91db907782dffb2e1facff6fa5dbf21d6b71fae6eced13ea9c714a27d167259080523d34
