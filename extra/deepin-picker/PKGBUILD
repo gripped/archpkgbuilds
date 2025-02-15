@@ -3,21 +3,21 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-picker
-pkgver=6.0.3
+pkgver=6.0.4
 pkgrel=1
 pkgdesc='Color picker tool for deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-picker"
 license=('GPL3')
-depends=('deepin-qt5integration' 'qt5-base' 'dtkcore' 'dtkgui' 'dtkwidget' 'gcc-libs')
-makedepends=('git' 'qt5-tools' 'deepin-gettext-tools')
+depends=('dtk6gui' 'dtk6widget' 'qt6-base' 'gcc-libs')
+makedepends=('git' 'qt6-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-picker.git#tag=$pkgver")
-sha512sums=('86641f2050855e9c564fe9a87b3e502f58a8e1084b81a44e0aedcdcb0d4e33b7df603c21105db3500eb1569da1bae4bf1c7ba166d0f6a9148d8c07fd55d7634a')
+sha512sums=('6ccdafb614b6838c16a0b3d8208f73f7f62e00629b6678f9a9288a4faa39a9d558308e425d00f5c5643e2527429b67096f1c97ec09c1a293a666a8e5f8b4ccfb')
 
 build() {
   cd deepin-picker
-  qmake-qt5 PREFIX=/usr
+  qmake6 PREFIX=/usr
   make
 }
 
