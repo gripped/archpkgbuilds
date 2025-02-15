@@ -2,8 +2,8 @@
 # Contributor: loathingkernel <loathingkernel _a_ gmail _d_ com>
 
 pkgname=umu-launcher
-pkgver=1.1.4
-pkgrel=2
+pkgver=1.2.3
+pkgrel=1
 pkgdesc="This is the Unified Launcher for Windows Games on Linux, to run Proton with fixes outside of Steam"
 arch=('x86_64')
 url="https://github.com/Open-Wine-Components/umu-launcher"
@@ -33,7 +33,12 @@ depends=(
   libxcrypt-compat
   gcc-libs
   python-xlib
-  python-filelock
+  python-xxhash
+  python-pyzstd
+  python-cbor2
+  python-urllib3
+)
+depends_x86_64=(
   lib32-glibc
   lib32-libxcrypt
   lib32-libxcrypt-compat
@@ -48,18 +53,31 @@ depends=(
   lib32-vulkan-icd-loader
 )
 makedepends=(
+  cargo
   git
   scdoc
   python-build
   python-installer
   python-hatchling
+  python-maturin
+  python-pip
 )
 source=("git+https://github.com/Open-Wine-Components/umu-launcher.git#tag=$pkgver")
-sha256sums=('a141fd52efe5ee906c75da6dfbbc780e1e5219be187c3c603e01f22e9e0bd970')
+sha256sums=('d6a4d460b162cb8d0db0a10e362fd8286480a6c06bebb2c8ee747ea23cee3406')
+
+prepare() {
+  cd "$srcdir"/umu-launcher
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_HOME="${srcdir}"/umu-cargo
+  cargo update
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
 
 build() {
   cd "$srcdir"/umu-launcher
-  ./configure.sh --prefix=/usr
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_HOME="${srcdir}"/umu-cargo
+  ./configure.sh --prefix=/usr --use-system-pyzstd --use-system-urllib
   make
 }
 
