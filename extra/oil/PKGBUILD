@@ -5,21 +5,20 @@
 # Contributor: andychu <andy@oilshell.org>
 
 pkgname=oil
-pkgver=0.24.0
+pkgver=0.26.0
 pkgrel=1
 pkgdesc='A new Unix shell'
 arch=('x86_64')
-url='https://www.oilshell.org'
+url='https://oils.pub/'
 license=('Apache-2.0')
 depends=('glibc' 'gcc-libs' 'readline')
 makedepends=('bash')
 replaces=('osh')
 install=oil.install
 source=("$url/download/oils-for-unix-$pkgver.tar.gz")
-sha256sums=('df4afed94d53b303a782ce0380c393d60f6d21921ef2a25922b400828add98f3')
-b2sums=('d9c65be8494956afb0f838890b7ebc7f755d5f71bddd110688a0f015e13f648dfda3d4bdaf6ba845c22556a90af578a701872fbd249c335f225bcf9c732afcce')
+sha256sums=('2b5b295a577a2763814203b4a34880ca03067a29eeb80af4857b6092314d6eed')
+b2sums=('a46db9dc75603b12b8acd2e5b1636dad880184861b8708a9c8b3cbf248bb670df37018e72845ecea526943f6ec6f8daf27d21b25b4bc344f743d7f23f4774ce6')
 noextract=("oils-for-unix-$pkgver.tar.gz")
-# https://www.oilshell.org/release/latest/
 
 prepare() {
   # fix: LTO + strip
