@@ -1,0 +1,31 @@
+# Maintainer: Jelle van der Waa <jelle@archlinux.org>
+
+pkgname=libcall-ui
+pkgver=0.2.1
+pkgrel=1
+pkgdesc='Libcall-ui carries common user interface parts for call handling'
+arch=(x86_64 aarch64)
+url='https://gitlab.gnome.org/World/Phosh/libcall-ui'
+license=(GPL3)
+depends=(gtk3 libhandy callaudiod libadwaita)
+makedepends=(meson git wayland-protocols python-docutils python-packaging glib2-devel)
+checkdepends=(xorg-server-xvfb xorg-xauth)
+source=("git+${url}.git#tag=v${pkgver}")
+validpgpkeys=("0DB3932762F78E592F6522AFBB5A2C77584122D3")
+sha256sums=('e1e7d623e7a6929564ba68394b417aecf9688dacc01aefd050753a1f9471114c')
+
+prepare() {
+  cd libcall-ui
+}
+
+build() {
+  arch-meson --libexecdir=/usr/lib/phosh  \
+    -D tests=true -D \
+    gtk_doc=false \
+    libcall-ui build
+  meson compile -C build
+}
+
+package() {
+  DESTDIR="${pkgdir}" meson install -C build
+}
