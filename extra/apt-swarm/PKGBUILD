@@ -1,0 +1,56 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=apt-swarm
+pkgver=0.4.0
+pkgrel=1
+pkgdesc="Experimental p2p gossip network for OpenPGP signature transparency 🥸"
+url='https://github.com/kpcyrd/apt-swarm'
+arch=('x86_64')
+license=('GPL-3.0-or-later')
+depends=(
+  'gcc-libs'
+  'glibc'
+)
+makedepends=(
+  'cargo'
+)
+backup=("etc/$pkgname.conf")
+options=(!lto)
+source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('563a53ac0e20a1f8b3ead1cde22b01771899d2fde35e59702c56ba2dc33ac72e')
+b2sums=('a6651339ab8924e188cb9134dbb20a993ed560cf1b3061377e22bc056704e741ec10bcea770a1a149d746ee83fd330c7b984e6e31a8033fde514f636ec070452')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd ${pkgname}-${pkgver}
+  cargo build --frozen --release
+}
+
+check() {
+  cd ${pkgname}-${pkgver}
+  cargo test --frozen
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm 755 -t "${pkgdir}/usr/bin" \
+    target/release/apt-swarm
+
+  # example config
+  install -Dm 644 -t "${pkgdir}/etc" \
+    contrib/apt-swarm.conf
+
+  # install completions
+  install -d "${pkgdir}/usr/share/bash-completion/completions" \
+             "${pkgdir}/usr/share/zsh/site-functions" \
+             "${pkgdir}/usr/share/fish/vendor_completions.d"
+  "${pkgdir}/usr/bin/${pkgname}" plumbing completions bash > "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
+  "${pkgdir}/usr/bin/${pkgname}" plumbing completions zsh > "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
+  "${pkgdir}/usr/bin/${pkgname}" plumbing completions fish > "${pkgdir}/usr/share/fish/vendor_completions.d/${pkgname}.fish"
+}
+
+# vim: ts=2 sw=2 et:
