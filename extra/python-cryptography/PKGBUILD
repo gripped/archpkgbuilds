@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-cryptography
-pkgver=44.0.0
+pkgver=44.0.1
 pkgrel=1
 pkgdesc="A package designed to expose cryptographic recipes and primitives to Python developers"
 arch=('x86_64')
@@ -33,7 +33,7 @@ checkdepends=(
   'python-pytest'
 )
 source=("git+https://github.com/pyca/cryptography.git#tag=$pkgver")
-sha512sums=('0cafd1b68e731e6960fc394940f57d9437a19ea6cd715d10e1ca2c74df27e9e00a4ee677d50a75649c8f7aefd0930080c0983ca1429d5aea8698f28953f77c95')
+sha512sums=('c73ed551a959a5b6ee227017ef21bd4d4d9f00b94e77246dccc74768fd529bf478539cb104f2f94aaba3d21762609f000bd3972cb4479a2f30ba121fb8ba2edb')
 
 prepare() {
   cd cryptography
