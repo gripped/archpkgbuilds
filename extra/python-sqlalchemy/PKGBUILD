@@ -4,21 +4,22 @@
 
 pkgname=python-sqlalchemy
 _name="${pkgname#python-}"
-pkgver=2.0.36
+pkgver=2.0.38
 _ver="rel_${pkgver//./_}"
-pkgrel=2
+pkgrel=1
 arch=('x86_64')
 url="https://www.sqlalchemy.org/"
 license=('MIT')
 pkgdesc='Python SQL toolkit and Object Relational Mapper'
 depends=('glibc' 'python' 'python-greenlet' 'python-typing_extensions')  # HACK: typing_extensions is not required but upstream unconditionally imports it
-optdepends=('python-psycopg2: connect to PostgreSQL database')
+optdepends=('python-psycopg: connect to PostgreSQL database'
+            'python-psycopg2: connect to PostgreSQL database')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel' 'cython')
 checkdepends=('python-pytest' 'python-pytest-xdist' 'mypy')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/sqlalchemy/sqlalchemy/archive/refs/tags/${_ver}.tar.gz")
 # https://github.com/sqlalchemy/sqlalchemy/discussions/11138
 #validpgpkeys=('83AF7ACE251C13E6BB7DEFBD330239C1C4DAFEE1')
-sha512sums=('ba8e3b199928fa0b28447132630337b5d1e0c7dfc890f2968e47250a4b10e9b70f043c139faef75b99de5d19c452920260914fb039328d73c44939227474c239')
+sha512sums=('d82ddaa516ef717236d3878ca9782c685d9d8aeff982530b9eb70bc716783e586e4186e2f8e0944ef555b3eae27a35c2170610a15d5df44afb320dfc4c82e6cd')
 
 prepare() {
   cd $_name-$_ver
