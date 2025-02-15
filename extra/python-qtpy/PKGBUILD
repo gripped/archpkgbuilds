@@ -3,7 +3,7 @@
 
 _pkgname=qtpy
 pkgname=python-qtpy
-pkgver=2.4.2
+pkgver=2.4.3
 pkgrel=1
 pkgdesc="Provides an uniform layer to support PyQt5 and PySide2 with a single codebase"
 arch=(any)
@@ -53,7 +53,7 @@ checkdepends=(
     xorg-server-xvfb
 )   
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('0b94653368151f7a71efdf73de49daea848948f331eef082e322c4e8ab4c7e30')
+sha256sums=('f5885e74adacc5b39a2da5f568d313d1770c6aa5c51b241c10e8d0233e23df15')
 
 build() {
   cd ${_pkgname}-${pkgver}
