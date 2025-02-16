@@ -15,7 +15,7 @@ pkgname=rofi-wayland
 _pkgname=rofi
 pkgver=1.7.8.1
 _pkgver="${pkgver%.*}+wayland${pkgver##*.}"
-pkgrel=1
+pkgrel=2
 pkgdesc="A window switcher, run dialog and dmenu replacement - fork with wayland support"
 url="https://github.com/lbonn/rofi"
 arch=('x86_64')
@@ -36,6 +36,12 @@ sha256sums=('50a56e7a29140bdb6baf4f86233974691c4dec3e0300ccd58330933db8a102da'
 
 prepare() {
 	cd "${_pkgname}"
+
+	# Backported patch to fix "Alt" keybinding with libxkbcommon >= 1.8.0
+	# See https://github.com/davatorium/rofi/issues/2095
+	# and https://github.com/lbonn/rofi/commit/f2f22e7edc635f7e4022afcf81a411776268c1c3
+	git cherry-pick -n f2f22e7edc635f7e4022afcf81a411776268c1c3
+
 	git submodule init
 	git config submodule.subprojects/libgwater.url "${srcdir}/libgwater"
 	git config submodule.subprojects/libnkutils.url "${srcdir}/libnkutils"
