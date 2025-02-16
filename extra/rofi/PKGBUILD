@@ -10,7 +10,7 @@
 
 pkgname=rofi
 pkgver=1.7.8
-pkgrel=1
+pkgrel=2
 pkgdesc="A window switcher, application launcher and dmenu replacement"
 url="https://davatorium.github.io/rofi"
 arch=('x86_64')
@@ -29,6 +29,12 @@ sha256sums=('8684b59ebc0046823ef89f1ef3636aa3fbd7e1c10e202433ca483cb2032bf947'
 
 prepare() {
 	cd "${pkgname}"
+
+	# Backported patch to fix "Alt" keybinding with libxkbcommon >= 1.8.0
+	# See https://github.com/davatorium/rofi/issues/2095
+	# and https://github.com/davatorium/rofi/commit/f2f22e7edc635f7e4022afcf81a411776268c1c3
+	git cherry-pick -n f2f22e7edc635f7e4022afcf81a411776268c1c3
+
 	git submodule init
 	git config submodule.subprojects/libgwater.url "${srcdir}/libgwater"
 	git config submodule.subprojects/libnkutils.url "${srcdir}/libnkutils"
