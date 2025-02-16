@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=railway
-pkgver=2.7.1
+pkgver=2.7.3
 pkgrel=1
 pkgdesc='Look up travel information for many different railways'
 arch=(x86_64)
@@ -26,7 +26,7 @@ makedepends=(
 )
 options=(!lto)
 source=("git+https://gitlab.com/schmiddi-on-mobile/railway.git#tag=$pkgver")
-b2sums=(671d369533469a2c1b9e2dcac88a85be7a15bb181c330c43dd5956690c70becec2054c178f2735e6404f5a87967d836012042e0e74d477f91ee7a58e7c3fb20f)
+b2sums=('558a3f2d7ae5bf44e718d489613a64723e7abab436363bea629df8209bd895a015d124a92dc515b7aa560c187f4db40bb70147c18bd9558890c0bcd013787320')
 
 prepare() {
   cd $pkgname
