@@ -3,7 +3,7 @@
 pkgname=discover
 pkgver=6.3.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE and Plasma resources management GUI'
 arch=(x86_64)
 url='https://apps.kde.org/discover/'
@@ -36,6 +36,7 @@ depends=(appstream-qt
          kwindowsystem
          purpose
          qcoro
+         qqc2-desktop-style
          qt6-base
          qt6-declarative
          qt6-webview)
