@@ -4,7 +4,7 @@
 pkgname=simutrans-pak128
 pkgver=2.10.0
 _pkgver='2-10-for124-3up'
-pkgrel=1
+pkgrel=2
 pkgdesc="High resolution graphics set for Simutrans"
 arch=('any')
 url="https://128.simutrans.com/"
@@ -16,6 +16,6 @@ sha256sums=('8e6a32a3a8b7a9df96aaaf6ace888e9e501445ceca67810059fb797d82468ad2')
 
 package() {
   #data
-  mkdir -p "$pkgdir/usr/share/games"
-  cp -r simutrans "$pkgdir/usr/share/games"
+  mkdir -p "$pkgdir/usr/share"
+  cp -r simutrans "$pkgdir/usr/share"
 }
