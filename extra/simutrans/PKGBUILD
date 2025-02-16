@@ -6,55 +6,36 @@
 
 pkgname=simutrans
 pkgver=124.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Transportation simulation game"
 arch=('x86_64')
 url="https://www.simutrans.com/"
 license=('custom:Artistic')
 depends=('gcc-libs' 'zlib' 'sdl2' 'libpng' 'bzip2' 'freetype2' 'fontconfig' 'simutrans-pak64' 'hicolor-icon-theme')
-makedepends=('dos2unix')
+makedepends=('dos2unix' 'cmake' 'git')
 optdepends=('timidity++: play MIDI music')
-source=(https://downloads.sourceforge.net/$pkgname/$pkgname-src-${pkgver//./-}.zip
-        https://raw.githubusercontent.com/aburch/simutrans/8593f5b1248d03f907a149f7abc41ae6512009e1/simutrans.svg
-        settings-folder.patch
-        simutrans.desktop
-        simutrans.appdata.xml)
-sha256sums=('e6980878eb725f2db070f121751141184a217be32df7f1ea02d962b6c6bc506a'
-            'c0c2dd5da146f64901b00c6ee67e0818a166b983a81cee7897c4843aa9f21c81'
-            'c38efe293ab3e6439a204545b0102abbb6db04c72a11486bdd391bc4d5cf3d2a'
-            '99545152f5e739b7eb028152383fa10d3e3d303c99167e1c6e5a6bd7dcd00fa3'
-            'f3d2416de0f725d15b18482c20231228791e65ceeeb7305115a8ea6a2e591dd6')
+source=(git+https://github.com/simutrans/simutrans#tag=$pkgver
+        settings-folder.patch)
+sha256sums=('2e3f0d0b94cc504918a1d92e7d2e068ebd5add1df8864c6046c8311c4259ed25'
+            'c38efe293ab3e6439a204545b0102abbb6db04c72a11486bdd391bc4d5cf3d2a')
 
 prepare() {
   # Some files are distributed in DOS format
   find . -type f -exec dos2unix -q '{}' \;
 
   # Adjust paths
-  patch -d src/$pkgname -Np0 -i "$srcdir"/settings-folder.patch
-
-  # Configure the build process
-  cp "$srcdir"/config.template config.default
-
-  sed -e 's|\\#define|#define|' -i Makefile
+  patch -d simutrans/src/simutrans -Np0 -i "$srcdir"/settings-folder.patch
 }
 
 build() {
-  make VERBOSE=1 BACKEND=sdl2 OSTYPE=linux
+  cmake -B build -S $pkgname \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
 }
 
 package() {
-  #binary
-  install -Dm755 build/default/sim "$pkgdir/usr/bin/simutrans"
+  DESTDIR="$pkgdir" cmake --install build
 
-  #data
-  mkdir -p "$pkgdir/usr/share/games"
-  cp -r $pkgname "$pkgdir/usr/share/games/"
-
-  #desktop file and icon
-  install -Dm644 simutrans.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/simutrans.svg"
-  install -Dm644 simutrans.desktop "$pkgdir/usr/share/applications/simutrans.desktop"
-  install -Dm644 simutrans.appdata.xml "$pkgdir/usr/share/metainfo/simutrans.appdata.xml"
-
-  #license
-  install -Dm644 simutrans/license.txt "$pkgdir/usr/share/licenses/simutrans/license.txt"
+  # license
+  install -Dm644 simutrans/simutrans/license.txt "$pkgdir/usr/share/licenses/simutrans/license.txt"
 }
