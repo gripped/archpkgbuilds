@@ -2,7 +2,7 @@
 # Contributor: Sergey A. <murlakatamenka@disroot.org>
 
 pkgname=rmpc
-pkgver=0.7.0
+pkgver=0.8.0
 pkgrel=1
 pkgdesc='A beautiful and configurable TUI client for MPD'
 url='https://mierak.github.io/rmpc/'
@@ -16,7 +16,7 @@ optdepends=(
   'ueberzugpp: for alternative album art method')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/mierak/rmpc/archive/v$pkgver.tar.gz")
-sha256sums=('8ea6d5a61d3ca5d5b8a6fb694ab2646b2be702bec308e70e0fd67618ad67c086')
+sha256sums=('f2ff534ad662d6bb033f1715c27406718eb7025655f5c30c94a6b051e3a1c371')
 
 prepare() {
   cd "$pkgname-$pkgver"
