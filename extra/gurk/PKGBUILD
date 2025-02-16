@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=gurk
-pkgver=0.6.1
+pkgver=0.6.2
 pkgrel=1
 pkgdesc="Signal Messenger client for terminal"
 url='https://github.com/boxdot/gurk-rs'
@@ -18,8 +18,8 @@ makedepends=(
 )
 options=(!lto)
 source=(https://github.com/boxdot/${pkgname}-rs/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('c6e972ae1c40ebc0cc245dd88b3dbbfb0e8afe5bc2cfcb7c7318790a1cc7038f')
-b2sums=('720c467f731dfdebbd26d30457840f85c683683c314c3ca9b3f878b00991b6cf4b8f9a79dd645331e917a803d7702241acd4b00fc0da593a18f74d2af574303d')
+sha256sums=('515b14272b21d83a040310e1aee008b64c6f549215fc2a819a2e87bd8fa1fec3')
+b2sums=('4071f141f9caf64c8442517fe4f11636d9e88cb7e876b7f2716594623e0bad29953c1a5bc866fc8bda85e3e06e78f100fc8d077dc280038f6f4bbaaf4dca7985')
 
 prepare() {
   cd "${pkgname}-rs-${pkgver}"
