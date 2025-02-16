@@ -4,7 +4,7 @@
 
 pkgname=simutrans-pak64
 pkgver=124.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Low resolution graphics set for Simutrans"
 arch=('any')
 url="https://www.simutrans.com/"
@@ -19,8 +19,8 @@ package() {
   chmod -R 644 simutrans
 
   #data
-  mkdir -p "$pkgdir/usr/share/games/simutrans"
-  cp -r simutrans/pak "$pkgdir/usr/share/games/simutrans"
+  mkdir -p "$pkgdir/usr/share/simutrans"
+  cp -r simutrans/pak "$pkgdir/usr/share/simutrans"
 
   find "$pkgdir" -type f -exec chmod 644 {} \;
   find "$pkgdir" -type d -exec chmod 755 {} \;
