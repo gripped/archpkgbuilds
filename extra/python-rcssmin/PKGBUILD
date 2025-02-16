@@ -2,8 +2,8 @@
 
 _name=rcssmin
 pkgname=python-rcssmin
-pkgver=1.1.3
-pkgrel=2
+pkgver=1.2.1
+pkgrel=1
 pkgdesc="Fast CSS minifier for Python"
 arch=(x86_64)
 url="https://github.com/ndparker/rcssmin"
@@ -20,8 +20,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('8d78bb46b6a409fdfa78f167c0338b3d584d05e7e0fe5269ce95af5949b205d2f9c1fb88a16f08a5f5e02fa18415dea445414ffe41d33fd815759632e3515ef5')
-b2sums=('67073bba60f624a928ec7103e99677c0bd95642bba80b3a20f9b975eac16f0665d201d26f1b986460a8653686e5c64b269ce853eb23b0606560fb05e11def8de')
+sha512sums=('1fd4f28a0a371b81b0a047de227ab4d7a45803dbc1daa4ae8ba07477d8fbfebe2b313e17f14437ec4e64ab87aa4b3637e99e176974425f829937cc9c49cd228a')
+b2sums=('b07f41d60b553fbf1fcdf43c4557feadb4e4eb4a6d7a1c8c1b376ab7e7ae23bea3f9a6836c9a75c0be632449f48d98950d9139beac9a7374e284d41b64813488')
 
 build() {
   cd $_name-$pkgver
