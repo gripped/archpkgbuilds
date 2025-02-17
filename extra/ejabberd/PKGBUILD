@@ -4,15 +4,16 @@
 
 pkgname=ejabberd
 pkgver=24.12
-pkgrel=3
+pkgrel=4
 pkgdesc="Jabber server written in Erlang"
 arch=('x86_64')
 url="https://www.ejabberd.im/"
 license=("GPL-2.0-or-later")
 depends=('expat' 'openssl' 'zlib' 'erlang-core' 'pam' 'iproute2'
-	 'libyaml' 'sqlite' 'gd' 'elixir')
+	 'libyaml' 'sqlite' 'gd' 'elixir'
+	 'erlang-mnesia' 'erlang-os_mon' 'erlang-odbc' 'erlang-syntax_tools' 'erlang-xmerl')
 makedepends=('erlang-compiler' 'erlang-asn1' 'erlang-public_key' 'erlang-ssl' 'erlang-parsetools'
-	     'erlang-erl_interface' 'erlang-eunit' 'erlang-syntax_tools' 'erlang-odbc' 'erlang-eldap'
+	     'erlang-erl_interface' 'erlang-eunit' 'erlang-eldap'
 	     'git' 'rebar3' 'hevea' 'texlive-bin' 'texlive-basic' 'texlive-latexextra' 'elixir')
 optdepends=('gsfonts: for captcha'
 	    'imagemagick: for captcha')
@@ -21,6 +22,7 @@ backup=('etc/ejabberd/ejabberd.yml'
 	'etc/logrotate.d/ejabberd')
 options=(emptydirs)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/processone/ejabberd/archive/$pkgver.tar.gz"
+	"ejabberd.patch"
 	"erlang-idna::git+https://github.com/benoitc/erlang-idna"
 	"jiffy::git+https://github.com/davisp/jiffy"
 	"base64url::git+https://github.com/dvv/base64url"
@@ -52,6 +54,7 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/processone/ejabberd/archive
 	"$pkgname.logrotate"
 	"sysuser.conf")
 sha256sums=('22b15ab9be8f0ac4b7a5a7a48cd59c282c87f17b038017b960c15cfd314689f2'
+            'a8e1be2d9daf8dd2dfedc11736a9677f3ed5c520c0f2ddf183689d2182b9151a'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -85,7 +88,10 @@ sha256sums=('22b15ab9be8f0ac4b7a5a7a48cd59c282c87f17b038017b960c15cfd314689f2'
 
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
+  patch -p1 <../ejabberd.patch
+
   return 0 # just put repos to src-pkg
+
   mkdir -p "$srcdir/$pkgname-$pkgver/deps"
   for i in \
     base64url cache_tab eimp ejabberd_po elixir epam eredis esip ezlib fast_tls fast_xml fast_yaml idna jiffy jose luerl mqtree p1_acme p1_mysql p1_oauth2 p1_pgsql p1_utils pkix rebar_elixir_plugin sqlite3 stringprep stun unicode_util_compat xmpp yconf \
@@ -104,7 +110,20 @@ build() {
     --sysconfdir=/etc \
     --sbindir=/usr/bin \
     --localstatedir=/var \
-    --enable-all
+    --enable-odbc \
+    --enable-mssql \
+    --enable-mysql \
+    --enable-pgsql \
+    --enable-sqlite \
+    --enable-pam \
+    --enable-zlib \
+    --enable-redis \
+    --enable-elixir \
+    --enable-stun \
+    --enable-sip \
+    --disable-debug \
+    --enable-lua \
+    --disable-tools
   make -j1
 }
 
