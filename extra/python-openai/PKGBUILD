@@ -5,7 +5,7 @@
 
 pkgname=python-openai
 _name=openai-python
-pkgver=1.63.0
+pkgver=1.63.1
 pkgrel=1
 pkgdesc="Python client library for the OpenAI API"
 arch=('any')
@@ -53,7 +53,7 @@ source=(
   "${_name}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
   "https://storage.googleapis.com/stainless-sdk-openapi-specs/openai-${_openai_openapi_spec}.yml"
 )
-sha256sums=('0608c4e3958634835971e671a00ade9099008303f5b2b33872f13d4c3e9ee7bd'
+sha256sums=('5659e067f8ed4bcb07a1836c455699e9b174515c033b4afe317daa911eab7ac1'
             '4aa6ee65ba9efc789e05e6a5ef0883b2cadf06def8efd863dbf75e9e233067e1')
 
 prepare() {
