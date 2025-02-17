@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kcompletion
-pkgver=6.10.0
+pkgver=6.11.0
 pkgrel=1
 pkgdesc='Text completion helpers and widgets'
 arch=(x86_64)
@@ -21,7 +21,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('b56e925bbe881c89fce9c80441e1565ad1adfcb16f1cac5bb08a281fb9334bc9'
+sha256sums=('c812b60de4530de3003916e45fbab121c5f9f576e2430ab2cdf0e3e4c9041852'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
