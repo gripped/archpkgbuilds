@@ -7,7 +7,7 @@
 
 pkgname='alacritty'
 pkgdesc="A cross-platform, GPU-accelerated terminal emulator"
-pkgver=0.15.0
+pkgver=0.15.1
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/alacritty/alacritty"
@@ -19,7 +19,7 @@ optdepends=('ncurses: for alacritty terminfo database')
 source=("git+$url.git#tag=v$pkgver?signed")
 validpgpkeys=('4DAA67A9EA8B91FCC15B699C85CDAE3C164BA7B4'  # Christian Dürr <contact@christianduerr.com>
               'A56EF308A9F1256C25ACA3807EA8F8B94622A6A9') # Kirill Chibisov <contact@kchibisov.com>
-sha256sums=('a7c39caf7487f19e94cd55a7437c6b8aa5f6118e576b2a2c0cac3526abb226a3')
+sha256sums=('62d9c823b34aab1153a952ba84f206ff3951078c1b96b947b4d872c9fb9a0fe3')
 
 prepare() {
   cd "$pkgname"
@@ -52,5 +52,5 @@ package() {
   install -D -m644 "extra/completions/alacritty.bash" "$pkgdir/usr/share/bash-completion/completions/alacritty"
   install -D -m644 "extra/completions/_alacritty" "$pkgdir/usr/share/zsh/site-functions/_alacritty"
   install -D -m644 "extra/completions/alacritty.fish" "$pkgdir/usr/share/fish/vendor_completions.d/alacritty.fish"
-  install -D -m644 "extra/logo/alacritty-term.svg" "$pkgdir/usr/share/pixmaps/Alacritty.svg"
+  install -D -m644 "extra/logo/compat/alacritty-term.svg" "$pkgdir/usr/share/pixmaps/Alacritty.svg"
 }
