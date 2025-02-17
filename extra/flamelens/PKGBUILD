@@ -1,0 +1,37 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+
+pkgname=flamelens
+pkgver=0.3.1
+pkgrel=1
+pkgdesc="Flamegraph viewer in the terminal "
+arch=('x86_64')
+url="https://github.com/YS-L/flamelens"
+license=('MIT')
+depends=('gcc-libs')
+makedepends=('cargo')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('758570322f6e20ac3c9b8d23ccc48ca2804e68808f32fb2aa1a6f631d4a9e2d4548981df61e412331bff5f12a65a2ee0760d307c57c85c69523e3bd8f40c3cb3')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release --frozen --no-default-features
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --frozen
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:
