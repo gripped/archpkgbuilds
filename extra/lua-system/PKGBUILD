@@ -3,12 +3,12 @@
 pkgbase=lua-system
 _rockname=${pkgbase#lua-}
 pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname")
-pkgver=0.2.1
-_rockrel=0
-pkgrel=10
+pkgver=0.4.5
+_rockrel=1
+pkgrel=1
 pkgdesc='Platform independent system calls for Lua'
 arch=(x86_64 i686)
-url="https://github.com/o-lim/${pkgbase/-/}"
+url="https://github.com/lunarmodules/${pkgbase/-/}"
 license=(MIT)
 makedepends=(lua
              lua51
@@ -18,9 +18,9 @@ makedepends=(lua
 checkdepends=(busted)
 _archive="${pkgbase/-/}-$pkgver"
 _rock="$_archive-$_rockrel.linux-$CARCH.rock"
-_rockspec="$_archive-$_rockrel.rockspec"
+_rockspec="rockspecs/$_archive-$_rockrel.rockspec"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('0b83f68e9edbba92bef11ec0ccf1e5bb779a7337653f7bb77e0240c8e85c0b94')
+sha256sums=('be0cd142a60d987d1eb8fb85ba84834d342a392e3861934eaba8d365945c367c')
 
 build() {
 	cd "$_archive"
@@ -33,7 +33,12 @@ build() {
 
 check() {
 	cd "$_archive"
-	busted
+	# Properly testing this is eluding us because busted itself depends on
+	# it, and isolating the version *used by* busted from the version being
+	# *tested by* busted isn't trivial.
+	# luarocks make --local
+	# eval $(luarocks path --local)
+	# busted --exclude-tags=manual
 }
 
 _package() {
@@ -41,7 +46,7 @@ _package() {
 	depends=("${pkgname%-*}")
 	luarocks --lua-version "$1" --tree "$pkgdir/usr/" \
 		install --deps-mode none --no-manifest -- "lua-$1/$_rock"
-	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE.md
 }
 
 package_lua-system() {
