@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kio
-pkgver=6.10.0
+pkgver=6.11.0
 pkgrel=1
 pkgdesc='Resource and network access abstraction'
 arch=(x86_64)
@@ -47,7 +47,7 @@ optdepends=('kded: proxy management and cookie storage'
             'switcheroo-control: hybrid GPU support')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('7eb454438f149e7ed513c3bbd526b67e3e3ecfe32ae7c986168baa59600b699c'
+sha256sums=('fe511e43a5386f963c9afef93a21c0df44a2c24fcc417777e4d0569102477ff8'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
