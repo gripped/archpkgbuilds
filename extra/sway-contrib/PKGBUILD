@@ -5,8 +5,10 @@ pkgname=sway-contrib
 # Upstream versions with <current_sway_version>-contrib.<version>. Since that
 # is illegal in PKGBUILD-land, let's just remove the "-contrib" portion
 # entirely.
-pkgver=1.10.0
-_upstream_pkgver="$(echo "$pkgver" | sed -E 's/^([0-9]+\.[0-9]+)\.(.*)$/\1-contrib.\2/')"
+# EDIT: Seems like they stopped doing that?
+# At least, latest tag doesn't have the "-contrib" suffix.
+pkgver=1.10.1
+#_upstream_pkgver="$(echo "$pkgver" | sed -E 's/^([0-9]+\.[0-9]+)\.(.*)$/\1-contrib.\2/')"
 pkgrel=1
 pkgdesc="A collection of user-contributed scripts for sway"
 arch=('any')
@@ -22,17 +24,18 @@ depends=(
     "sway"
     "wl-clipboard"
 )
-source=("$pkgname-$pkgver::https://github.com/OctopusET/$pkgname/archive/refs/tags/$_upstream_pkgver.tar.gz")
-sha256sums=('d81a6eee472d9b8dedd0ac9badc6fb88504c19b9dcf873f18d24378eab3f0995')
+source=("$pkgname-$pkgver::https://github.com/OctopusET/$pkgname/archive/refs/tags/$pkgver.tar.gz")
+sha256sums=('92d936dce14b36eec55b63efdebe83ee6128d9b7474827a830b163a33f3b6956')
 
 package() {
-    cd "$pkgname-$_upstream_pkgver"
+    cd "$pkgname-$pkgver"
 
     install -dm755 "$pkgdir/usr/share/$pkgname"
     for util in autoname-workspaces.py \
                 firefox-focus-monitor.py \
                 grimpicker/grimpicker \
                 grimshot/grimshot \
+                float-window-manager/float-window-managerd.sh \
                 inactive-windows-transparency.py \
                 layout-per-window.py \
                 switch-top-level.py; do
@@ -45,6 +48,7 @@ package() {
 
     install -dm755 "$pkgdir/usr/share/doc/$pkgname"
     install -Dm644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+    install -Dm644 float-window-manager/float-window-managerd-readme.txt -t "$pkgdir/usr/share/doc/$pkgname"
 
     install -dm755 "$pkgdir/usr/share/man/man1"
     install -Dm644 grimshot/grimshot.1 -t "$pkgdir/usr/share/man/man1"
