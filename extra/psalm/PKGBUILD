@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=psalm
-pkgver=6.5.1
+pkgver=6.6.1
 pkgrel=1
 pkgdesc='A static analysis tool for finding errors in PHP applications'
 url="https://psalm.dev/"
@@ -11,15 +11,15 @@ depends=('php')
 makedepends=('composer' 'git')
 source=("git+https://github.com/vimeo/psalm.git#tag=${pkgver}"
         "composer.lock")
-b2sums=('73d1c617532fde9135523df6b25f49689de786307626166b7fd4058534f6b6ab8e997bef09d3e7d68feabbdd1b458220b51d985917c20eba4254b3517fb22c66'
-        'decb648c314a41d6fa9bda6046f6e4ad045504c78106da596dc9f0ce4273cfe80da88b724e5e92ffc95dcac059b7e4a829914d39b4b7ac61858a99f1a74a293a')
+b2sums=('1fb840364f8619ec08c0594a2482bb2a62961813e36e31defba305c152ad7ccbe0dd0b2dea9832ea2ba4002e155206579bc79fc952bd87db3d511cfa23d21f08'
+        'ec6687bf4f0ff01ffee492ec740bee7448eb4fcbe085afa80d07a72abfdd715a4167a2c48b80e6e9221a0034023b196f35d6c0e88f8cec4147a92add2e09315b')
 
 prepare() {
   cd ${pkgname}
   cp ../composer.lock .
   composer install
   composer bin box install
-  php bin/improve_class_alias.php
+  php bin/ci/improve_class_alias.php
   php -r 'require "vendor/autoload.php"; Psalm\Internal\VersionUtils::dump();'
 }
 
