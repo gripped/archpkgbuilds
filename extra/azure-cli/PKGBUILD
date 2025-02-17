@@ -2,19 +2,24 @@
 # Contributor: pallxk <aur@pallxk.com>
 # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux
 pkgname=azure-cli
-pkgver=2.68.0
+pkgver=2.69.0
 pkgrel=1
 pkgdesc="Command-line tools for Microsoft Azure"
 arch=('any')
 url="https://github.com/Azure/azure-cli"
 license=('MIT')
-depends=("python")
+depends=(
+  "gcc-libs"
+  "glibc"
+  "libsecret"
+  "python"
+)
 makedepends=("git")
 options=('!debug' '!strip')
 source=("git+https://github.com/Azure/azure-cli.git#tag=azure-cli-${pkgver}"
         "az"
         "python-3.13-compat-update-cffi.patch")
-sha256sums=('d026250e2cc64e2bcf3950ad3273f840f2a0bfb50e3bde65b18b8014486d3746'
+sha256sums=('f1113219259356e5f4fa59d1573f20e75430512731b4c9a03d6f29cf3359f00a'
             '990f70efec828c1e1f3f57748fc6e40f9705f2223dc96683e8e29d118daac116'
             'bae8e3fc18eafa94a68f84cd7b9a2252adee095647a8da28e8aabe64515c973a')
 
