@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kdnssd
-pkgver=6.10.0
+pkgver=6.11.0
 pkgrel=1
 pkgdesc='Abstraction to system DNSSD features'
 arch=(x86_64)
@@ -18,7 +18,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('fd8f08501fc40b9a29fc370f7f7871083f2489922e1bd50bc5b0fd78017daa27'
+sha256sums=('69db354bb2a6faac16ec1eb77e6f71308f8ebd9205967c75db5bac937e799bd9'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
