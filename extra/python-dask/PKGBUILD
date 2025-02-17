@@ -3,8 +3,8 @@
 
 _name=dask
 pkgname=python-$_name
-pkgver=2025.1.0
-pkgrel=2
+pkgver=2025.2.0
+pkgrel=1
 pkgdesc="Parallel computing with task scheduling"
 arch=(any)
 url="https://dask.org"
@@ -86,7 +86,7 @@ checkdepends=(
 source=(
   https://github.com/dask/dask/archive/$pkgver/$pkgname-$pkgver.tar.gz
 )
-b2sums=('f3e16895564bba801830052b3cac46b360b2a988a17791f7a54a07be3800a243e6396d9a471569dfa0a16cf9ce08ba1f301780ae072dc188947353d11f1470dc')
+b2sums=('6a1d3557f8124890d3f9689e963b959f0e976a8b47983171282ee903958be8ad99906fa258b153460b18c2b399125eebe15a00a667eaef5f24736aa1e3eeddb8')
 
 prepare() {
   cd $_name-$pkgver
