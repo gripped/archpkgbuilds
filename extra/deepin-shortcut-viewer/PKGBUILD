@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-shortcut-viewer
-pkgver=5.5.0
+pkgver=5.5.2
 pkgrel=1
 pkgdesc='Deepin Shortcut Viewer'
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('GPL3')
 depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'gcc-libs' 'glibc' 'qt6-base')
 makedepends=('git' 'cmake' 'ninja')
 source=("git+https://github.com/linuxdeepin/deepin-shortcut-viewer.git#tag=$pkgver")
-sha512sums=('7f0e8a101f4fe70766f5317d39a49cae2505f03564780b194d6d337b45b65fbd830e5c427aa7d3eebe872de5512b102db628982a61104dcb835d1c8533d39e60')
+sha512sums=('fa6294eb60f53a7285b730f74d834f0d445a371c2555479e5d873cd49682c8a6a3d3c7f7f46db6208d17242549703dadd0b71bd75c2f7cc40d533db1922ea7e9')
 
 build(){
   cmake -B build -S deepin-shortcut-viewer -GNinja -DCMAKE_INSTALL_PREFIX=/usr
