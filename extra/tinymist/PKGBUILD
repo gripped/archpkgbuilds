@@ -2,7 +2,7 @@
 
 pkgname=tinymist
 pkgver=0.12.18
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='an integrated language service for Typst'
 arch=(i686 x86_64)
@@ -34,8 +34,6 @@ pkgver() {
 
 _srcenv() {
 	cd "$_archive"
-	export RUSTUP_TOOLCHAIN=stable
-	export CARGO_TARGET_DIR=target
 	export OPENSSL_NO_VENDOR=true
 }
 
