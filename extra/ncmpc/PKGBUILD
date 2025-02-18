@@ -6,7 +6,7 @@
 # Contributor: Daniel Bainton <dpb [at] backarrow.org>
 
 pkgname=ncmpc
-pkgver=0.51
+pkgver=0.52
 pkgrel=1
 pkgdesc="Fully featured MPD client which runs in a terminal"
 arch=(x86_64)
@@ -33,8 +33,8 @@ optdepends=(
   'python-requests: for lyrics scripts'
 )
 source=(git+$_url.git?signed#tag=v$pkgver)
-sha512sums=('555a7f2d1eb5bd14bf3e82f83f2da6766a0c9ea1c2ff6200d66d384bd176c83b7eccb968ac35acc84898dd4a7711ed0e07bca31b5d2c5461f74f46985fbe424e')
-b2sums=('c18ba31da7a1dba59785032bb5d041eb06a562f1176f68bf0b4dff75464c6c392133c6db94da62b54101145186f5694823c839ce7c99cc60b2b62557877a91bc')
+sha512sums=('73f9f97e49dd59a72d8603d9d562465da5846549e3eb519adf4272166eb04395c21e2a787a9c9a2f06a1632589f9474d982440c0b4617fafd3edffbd3d257670')
+b2sums=('1809cd9f9c24371b225cc4fcaddf08e045bb3d2b2875a9edeb07a1f91e5891289edd5d6eb40404a1a3b81cc29d51f6f58f4fa59e50018d8bc0d48b4bb7b5456c')
 validpgpkeys=('0392335A78083894A4301C43236E8A58C6DB4512') # Max Kellermann <max@blarg.de>
 
 build() {
