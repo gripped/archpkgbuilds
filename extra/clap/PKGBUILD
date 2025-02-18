@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=clap
-pkgver=1.2.3
+pkgver=1.2.5
 pkgrel=1
 pkgdesc="CLever Audio Plugin API"
 arch=(any)
@@ -9,8 +9,8 @@ url="https://github.com/free-audio/clap"
 license=(MIT)
 makedepends=(cmake)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('867585d86a8a5a5b758aca1d78f73c0af098b61c5d57fab61674e4afed8bd80aa03bb435223f6cd1d152820f33112006e40c26210e9f012a4c28645a1a0a4297')
-b2sums=('371bb5bfff5992e20874fb854fdbe47c85451c7a0ce69ba598496b6cd0374bc83cd7a6ab314a9f941250db89b8866e59ffc608cc9fe3b164b283e04cfcae2c28')
+sha512sums=('275142d95dcb62ce2b3f96c7ee9c325e126b521b8edd25ae52fc3e5a3916c4f1b6a1ac1ace8c3ae79d4e7ea0df35df064d080f782abcc317a7dd1e267098a501')
+b2sums=('47880b22c3f03d7a61e149c8a9fa6cb0b869a770aff66620c73252ab5b9d206e8a057c9b7ce5615cfce1e3348d74083d9be33b87efa94fd381aa8bf59ab6747c')
 
 build() {
   local cmake_options=(
