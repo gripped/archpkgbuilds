@@ -3,7 +3,7 @@
 
 pkgname=python-sphinx-autoapi
 _name=${pkgname#python-}
-pkgver=3.5.0
+pkgver=3.6.0
 pkgrel=1
 pkgdesc='Sphinx API documentation generator'
 arch=(any)
@@ -28,7 +28,7 @@ checkdepends=(
   python-pytest
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('217ea7c411d56a4f70c125e5019b49d22f7bc4a777a5310ab522d7281f2c54e1612464a5114ae7fd7f83d9850215191a3f50f3f27f2a521d1244332d9dca7492')
+b2sums=('224ef0d8ed13a4493ecc29a62eee067d36dda43c2699c0d3912947ebba83115d631f97091116fc53b9e441a076b53f9405cc5767afd3c811c56b8f3e52a2bf86')
 
 build() {
   cd "$_name"
