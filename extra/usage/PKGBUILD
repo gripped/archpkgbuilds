@@ -1,0 +1,51 @@
+# Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
+
+pkgname='usage'
+pkgver=2.0.5
+pkgrel=1
+pkgdesc='A specification for CLIs'
+arch=('x86_64')
+url='https://github.com/jdx/usage'
+license=('MIT')
+makedepends=(
+  cargo
+)
+options=(
+  '!emptydirs'
+)
+source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('1a9cd9d5c86226e52004931400cb704361e57aec9803632e26f9842f2d306d76b42247b00208604dcc3c21ae37eb31c3313f43ff051ce3cae775edb00cd424a3')
+b2sums=('cea8b52f690acd145cd124d4a3da3fae38893525f4b9c3a239b05648ec19f1edbd7c07403ab7a4d709347aa0ef5fe291bccff3cb4de8b63258428672aadfea9b')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "${pkgname}-${pkgver}"
+
+  cargo build --frozen --release --all-features
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+
+  cargo test --frozen --all-features
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+
+  # package
+  install --verbose -D --mode=0755 "target/release/${pkgname}" --target-directory "${pkgdir}/usr/bin/"
+
+  # license
+  install --verbose -D --mode=0644 LICENSE --target-directory "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+
+  # docs
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
+}
+
+# vim: tabstop=2 shiftwidth=2 expandtab:
