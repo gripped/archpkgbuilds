@@ -2,7 +2,7 @@
 # Maintainer: Stefan Kirrmann <stefan.kirrmann at gmail dot com>
 
 pkgname=open-iscsi
-pkgver=2.1.10
+pkgver=2.1.11
 pkgrel=1
 pkgdesc='iSCSI userland tools'
 arch=('x86_64')
@@ -15,7 +15,7 @@ backup=('etc/iscsi/iscsid.conf'
 	'etc/iscsi/initiatorname.iscsi')
 options=('docs')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/open-iscsi/open-iscsi/archive/$pkgver.tar.gz")
-sha256sums=('12c19f65f9136b87ac11bf5bbe5eb3e23de4e7f1ee07eecda830da53a2316113')
+sha256sums=('f288d1823b15782432608e5f53723159562e2c44e9a72b40fe15a5ca064ac86a')
 
 build() {
   local _meson_options=(
