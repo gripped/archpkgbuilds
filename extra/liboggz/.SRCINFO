@@ -1,15 +1,18 @@
 pkgbase = liboggz
 	pkgdesc = A simple programming interface for reading and writing Ogg files and streams
-	pkgver = 1.1.1
-	pkgrel = 8
+	pkgver = 1.1.2
+	pkgrel = 1
 	url = https://www.xiph.org/oggz/
 	arch = x86_64
-	license = BSD
+	license = BSD-3-Clause
 	makedepends = doxygen
+	makedepends = git
 	depends = bash
+	depends = glibc
 	depends = libogg
 	provides = liboggz.so
-	source = https://downloads.xiph.org/releases/liboggz/liboggz-1.1.1.tar.gz
-	sha512sums = 8f5fc8ca49cb6f7a1160a9c1932876b771d55985d59ddc1f48497dfc08641414a58244d7a7e52bfcecdb69f52913d0123efd8f92513f8b9064e4abe1442f2cba
+	source = git+https://gitlab.xiph.org/xiph/liboggz#tag=1.1.2
+	sha512sums = 659e713c3b3e955c5783bb01fb641df7b8170e8e5919d74b4ccc4075fece736031f2fa8775be93f4811395c75914386bd2fc8612b2f765c6d352972e65ccb819
+	b2sums = 43c81bca21407575afedec5b3857936c0cdc1bb2db5d812899d8a76808fadc1424d6aece267783f335307702f588f14cbff92f8bf408ef5de7d30873fc267952
 
 pkgname = liboggz

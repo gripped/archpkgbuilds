@@ -5,34 +5,44 @@
 # Contributor: SpepS <dreamspepser at yahoo dot it>
 
 pkgname=liboggz
-pkgver=1.1.1
-pkgrel=8
+pkgver=1.1.2
+pkgrel=1
 pkgdesc="A simple programming interface for reading and writing Ogg files and streams"
-arch=('x86_64')
+arch=(x86_64)
 url="https://www.xiph.org/oggz/"
-license=('BSD')
-depends=('bash' 'libogg')
-makedepends=('doxygen')
-provides=('liboggz.so')
-source=("https://downloads.xiph.org/releases/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('8f5fc8ca49cb6f7a1160a9c1932876b771d55985d59ddc1f48497dfc08641414a58244d7a7e52bfcecdb69f52913d0123efd8f92513f8b9064e4abe1442f2cba')
+license=(BSD-3-Clause)
+depends=(
+  bash
+  glibc
+  libogg
+)
+makedepends=(
+  doxygen
+  git
+)
+provides=(liboggz.so)
+source=(git+https://gitlab.xiph.org/xiph/liboggz#tag=$pkgver)
+sha512sums=('659e713c3b3e955c5783bb01fb641df7b8170e8e5919d74b4ccc4075fece736031f2fa8775be93f4811395c75914386bd2fc8612b2f765c6d352972e65ccb819')
+b2sums=('43c81bca21407575afedec5b3857936c0cdc1bb2db5d812899d8a76808fadc1424d6aece267783f335307702f588f14cbff92f8bf408ef5de7d30873fc267952')
+
+prepare() {
+  cd $pkgname
+  ./autogen.sh
+}
 
 build() {
-  cd "${pkgname}-${pkgver}"
-  ./configure --prefix=/usr \
-              --enable-static=no
+  cd $pkgname
+  ./configure --prefix=/usr --enable-static=no
   make
 }
 
 package() {
-  cd "${pkgname}-${pkgver}"
-  make DESTDIR="${pkgdir}" install
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
   # license
-  install -vDm 644 COPYING -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -vDm 644 COPYING -t "$pkgdir/usr/share/licenses/$pkgname/"
   # bash completion
-  install -vDm 644 bash-completion/oggz \
-    -t "${pkgdir}/usr/share/bash-completion/completions/"
+  install -vDm 644 bash-completion/oggz -t "$pkgdir/usr/share/bash-completion/completions/"
   # docs
-  install -vDm 644 {AUTHORS,ChangeLog,NEWS,README,TODO} \
-    -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -vDm 644 {AUTHORS,ChangeLog,NEWS,README,TODO} -t "$pkgdir/usr/share/doc/$pkgname/"
 }
