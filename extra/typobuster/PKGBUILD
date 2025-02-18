@@ -1,7 +1,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=typobuster
-pkgver=0.1.0
+pkgver=0.1.1
 pkgrel=1
 pkgdesc="Lightweight editor with text transformations and auto-correction"
 url="https://github.com/nwg-piotr/typobuster"
@@ -12,7 +12,7 @@ makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools
 optdepends=('gspell: for spell checking plugin'
             'hunspell-en_us: for spell checking, American English')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('34b1900b211753267705c5cbc9e4d2d35fd9b7a55bc3151316976a3d684924d1')
+sha256sums=('76046a86445d602417aa2f8698f50a5195c98ce0d2c6fd815a1f823451189002')
 
 build() {
         cd "${pkgname}-${pkgver}"
