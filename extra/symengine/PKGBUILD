@@ -2,7 +2,7 @@
 # Contributor: Michael Schubert <mschu.dev at gmail>
 
 pkgname=symengine
-pkgver=0.13.0
+pkgver=0.14.0
 pkgrel=2
 pkgdesc='Fast symbolic manipulation library, written in C++'
 url='http://sympy.org/'
@@ -25,11 +25,11 @@ makedepends=(boost
              llvm)
 source=(git+https://github.com/symengine/symengine#tag=v$pkgver
         llvm-shared.patch)
-sha256sums=('fe1d7e48184aed73a55896effb426f5136de492c6ee0d2478c60d15a6dda436b'
-            'ef05a806139b35e0336f00cb6960ef6cf483f11b0041e436a99ab1f46bdcb11c')
+sha256sums=('fc1e0aa9f3cbcfdadcf18e69117869c2062302b94931781b53d85866cb1a4df4'
+            '3b2eb5bad4c2a2dc4f3a32e56c40df86c009bf9c1005759e0cb349f5256ee947')
 
 prepare() {
-  patch -d $pkgname -p1 < llvm-shared.patch # Use shared LLVM (Gentoo)
+  patch -d $pkgname -p1 < llvm-shared.patch
 }
 
 build() {
