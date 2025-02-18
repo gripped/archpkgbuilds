@@ -5,9 +5,9 @@
 pkgbase=breeze
 pkgname=(breeze
          breeze5)
-pkgver=6.3.0
+pkgver=6.3.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=2
+pkgrel=1
 arch=(x86_64)
 pkgdesc='Artwork, styles and assets for the Breeze visual style for the Plasma Desktop'
 url='https://kde.org/plasma-desktop/'
@@ -39,19 +39,13 @@ makedepends=(extra-cmake-modules
 optdepends=('breeze-gtk: Breeze widget style for GTK applications'
             'breeze5: Breeze widget style for Qt5 applications')
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/plasma/breeze/-/commit/184e332f.patch)
-sha256sums=('7bb50dd662e35dfdaeec958fad4214e6c3c14484919ab12a545a1109fbe08995'
-            'SKIP'
-            '7e82af735df9fc8e940e445ef7b720def9fa2a6fa108f7fdccc1cc1760852a84')
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('2c73f5593c97661fc25fb1af7aa029cdbbf9374cb842b036b553c0bcc499951c'
+            'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < 184e332f.patch # Fix crash in qmmp
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
