@@ -5,21 +5,21 @@
 # Contributor: GazJ Gary James <garyjames82 at gmail dot com> (CADuntu PKGBUILD)
 
 pkgname=librecad
-pkgver=2.2.1
-pkgrel=3
+pkgver=2.2.1.1
+pkgrel=1
 pkgdesc='A 2D CAD drawing tool based on the community edition of QCad'
 arch=('x86_64')
 url='https://www.librecad.org/'
 license=('GPL')
 depends=('qt5-base' 'qt5-svg' 'libxcb' 'muparser')
-makedepends=('qt5-tools' 'boost' 'imagemagick' 'librsvg')
+makedepends=('git' 'qt5-tools' 'boost' 'imagemagick' 'librsvg')
 conflicts=('librecad-git')
 replaces=('librecad-svn' 'caduntu' 'caduntu-svn')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/LibreCAD/LibreCAD/archive/${pkgver}.tar.gz")
-sha256sums=('5f63661811d97560a3ab3e2d7252de8f1836af2e5197c8a96fdf07581d6e2c3b')
+source=("git+https://github.com/LibreCAD/LibreCAD.git#tag=v${pkgver}")
+sha256sums=('0676e7f035e985bee015369785e55ab3e3fdadc442fd79cb030d33a706032136')
 
 build() {
-	cd "${srcdir}/LibreCAD-${pkgver}"
+	cd "${srcdir}/LibreCAD"
 
 	# fix version string
 	sed -i "/^SCMREVISION/c SCMREVISION=\"${pkgver}\"" librecad/src/src.pro
@@ -34,7 +34,7 @@ build() {
 }
 
 package() {
-	cd "${srcdir}/LibreCAD-${pkgver}"
+	cd "${srcdir}/LibreCAD"
 
 	# executables
 	install -D -m0755 unix/librecad "${pkgdir}/usr/bin/librecad"
