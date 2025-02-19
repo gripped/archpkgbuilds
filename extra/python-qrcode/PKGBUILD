@@ -6,41 +6,43 @@
 
 pkgname=python-qrcode
 _pkgname=${pkgname#python-}
-pkgver=7.4.2
-pkgrel=6
+pkgver=8.0
+pkgrel=1
 pkgdesc='Python library to generate QR codes'
-arch=('any')
-url='https://github.com/lincolnloop/python-qrcode'
-license=('BSD')
-depends=('python'
-         'python-setuptools' # runtime dependency on pkg_resources
-         'python-typing_extensions'
-         'python-pypng')
-optdepends=('python-pillow: faster but not python native backend')
-makedepends=('python-'{build,installer,wheel})
-checkdepends=('python-pytest')
+arch=(any)
+url="https://github.com/lincolnloop/$pkgname"
+license=(BSD-3-Clause)
+depends=(python)
+optdepends=('python-pillow: faster but not python native backend'
+            'python-pypng: png support')
+makedepends=(python-{build,installer,wheel}
+             python-poetry-core)
+checkdepends=(python-importlib-metadata
+              python-pillow
+              python-pypng
+              python-pytest
+              python-pytest-mock)
 _archive="$_pkgname-$pkgver"
-source=("https://files.pythonhosted.org/packages/source/${_pkgname::1}/$_pkgname/$_archive.tar.gz"
-         https://github.com/lincolnloop/python-qrcode/commit/1009adc1.patch)
-sha512sums=('a8642845990341034e39c43ef674f5b4ce8d3175a44d6062f711af2c24ffd45bda5f3ecf8a7825b7ebafe734b6396d52a37bb59177c544f921e43eaa9f1f5405'
-            'a6c6b1f4795dc9ab7fd1207002a7ccdf1fdf194323d9b063d91df9df388281d4e2a9d2ca081dd40517508430cf42e7823a47f16760200e611fc501a01ec7150e')
-
-prepare() {
-  patch -d $_archive -p1 < 1009adc1.patch # Fix tests with Python 3.12
-}
+source=("https://files.pythonhosted.org/packages/source/${_pkgname::1}/$_pkgname/$_archive.tar.gz")
+sha512sums=('14d37ef4fe0fca3253c92f39db7948f9d804f600ee3bf9ba053baf4e01488f340cb4977b94a338f448dd4f9007f9f0cb7c5cf1db5405d98a9b38a809c8ed8650')
 
 build() {
-  cd "$_archive"
-  python -m build -wn
+	cd "$_archive"
+	python -m build -wn
 }
 
 check() {
-  cd "$_archive"
-  pytest
+	cd "$_archive"
+	export PYTHONPATH="$PWD"
+	local deselected=(
+		# assumes access to dev tooling
+		qrcode/tests/test_script.py
+	)
+	pytest ${deselected[@]/#/--deselect }
 }
 
 package() {
-  cd "$_archive"
-  python -m installer -d "$pkgdir" dist/*.whl
-  install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+	cd "$_archive"
+	python -m installer -d "$pkgdir" dist/*.whl
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
