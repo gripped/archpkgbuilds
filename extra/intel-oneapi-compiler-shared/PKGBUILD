@@ -2,16 +2,16 @@
 # Contributor: Konstantin Gizdov <arch at kge dot pw>
 
 pkgname=intel-oneapi-compiler-shared
-_pkgver=2024.1
-pkgver=2024.1.0
-_debpkgrel=963
+_pkgver=2025.0
+pkgver=2025.0.4
+_debpkgrel=1519
 pkgrel=1
 pkgdesc='Intel oneAPI compiler runtime libraries'
 arch=('x86_64')
 url='https://software.intel.com/content/www/us/en/develop/tools/oneapi.html'
 license=("LicenseRef-Intel-EULA-Developer-Tools")
 source=("https://apt.repos.intel.com/oneapi/pool/main/${pkgname}-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb")
-b2sums=('9d0c250eee38f42edaf60b624f7dfccae32179609f12c7a2014376350d6742d8ff2a760b6c539c724aa0c0a3c32fab4b4205704acb676aed984cba9313479393')
+sha256sums=('8c33df8f47f9e7f31b9ff76cd290e9ca3cf7942468235e361f92227a459b1595')
 depends=('intel-oneapi-compiler-shared-common' 'intel-oneapi-compiler-shared-runtime'
          'intel-oneapi-dpcpp-debugger' 'intel-oneapi-common' 'intel-oneapi-compiler-shared-runtime-libs'
          'level-zero-loader' 'glibc' 'gcc-libs' 'zlib')
