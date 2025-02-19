@@ -5,11 +5,14 @@
 
 pkgname=elixir
 pkgver=1.18.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A dynamic, functional language for building scalable and maintainable applications"
 url="https://elixir-lang.org"
 license=('Apache-2.0')
 arch=('any')
+depends=(
+  'erlang-core'
+)
 makedepends=(
   'erlang-compiler'
   'erlang-crypto'
