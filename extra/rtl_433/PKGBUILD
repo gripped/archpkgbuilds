@@ -2,8 +2,8 @@
 # Contributor: BrainDamage
 
 pkgname=rtl_433
-pkgver=24.10
-pkgrel=2
+pkgver=25.02
+pkgrel=1
 pkgdesc="Program to decode radio transmissions from devices on the ISM bands (and other frequencies)"
 arch=(x86_64)
 license=(GPL-2.0-only)
@@ -11,7 +11,7 @@ depends=(rtl-sdr soapysdr glibc openssl libusb)
 makedepends=(gcc cmake doxygen)
 url='https://github.com/merbanan/rtl_433'
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-b2sums=('69b961f48b84c280cdae28ad47d30cddd90f0f77c7214eeb5f3e351569474cc0a2759f28036aa8b06b8a4282adb5228d05704fab430c29232aae8472a373f1fd')
+b2sums=('5aaffbf892fbd1215464ecf0cdda4b55c8ea6c15a502faa8bae5ca7b2fb68ae552df2419a43dd02998b597d4ecf49a1da0348509aa3f29803ea93839ae9fef0c')
 
 build() {
   cmake -B build -S "$pkgname-$pkgver" \
