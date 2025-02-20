@@ -2,8 +2,8 @@
 # Contributor: Jonathan Liu <net147@gmail.com>
 
 pkgname=python-pyicu
-pkgver=2.12
-pkgrel=6
+pkgver=2.14
+pkgrel=1
 pkgdesc="Python binding for ICU"
 arch=('x86_64')
 license=('MIT')
@@ -12,21 +12,21 @@ depends=('python' 'icu')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-fonttools' 'python-pytest' 'python-six')
 source=("https://pypi.io/packages/source/P/PyICU/PyICU-$pkgver.tar.gz")
-sha512sums=('75b799df40c43e0f607e3d90b07e0277dd2f37541b671bd24fdc81044facd2ad89ede991becc256d0761a7627afa3a70dd9e9681cef9eaa8e660f021450eb522')
+sha512sums=('b237e90d542baba916c7eddb3d19ae5d7d42ad228d7a4a0a3df05edc21fe9fa3e0c52055b617b34db6eab14d649877a14a7c7cabea2e88bc85c724ccd8db41be')
 
 build() {
-  cd PyICU-$pkgver
+  cd pyicu-$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd PyICU-$pkgver
+  cd pyicu-$pkgver
   local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
   PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$python_version" pytest
 }
 
 package() {
-  cd PyICU-$pkgver
+  cd pyicu-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -D -m644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
