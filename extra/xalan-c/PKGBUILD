@@ -4,7 +4,7 @@
 pkgname=xalan-c
 epoch=1
 pkgver=1.12
-pkgrel=10
+pkgrel=11
 pkgdesc="A XSLT processor for transforming XML documents"
 arch=('x86_64')
 url="https://xalan.apache.org/"
