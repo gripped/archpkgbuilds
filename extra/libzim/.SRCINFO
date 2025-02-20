@@ -1,10 +1,10 @@
 pkgbase = libzim
 	pkgdesc = Reference implementation of the ZIM specification by the openZIM project
 	pkgver = 9.1.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/openzim/libzim
 	arch = x86_64
-	license = GPL2
+	license = GPL-2.0-or-later
 	makedepends = meson
 	makedepends = gtest
 	makedepends = git
@@ -14,7 +14,9 @@ pkgbase = libzim
 	depends = zstd
 	source = libzim-9.1.0.tar.gz::https://github.com/openzim/libzim/archive/9.1.0.tar.gz
 	source = git+https://github.com/openzim/zim-testing-suite#commit=31ffbefd6699384d80e1f584b69b4321c843bc0c
+	source = 0001-Fix-build-with-ICU-76.patch
 	sha256sums = faf19a35882415212d46a51aab45692ccfa1e2e36beb7261eec1ec53e29b9e6a
-	sha256sums = SKIP
+	sha256sums = 116e9c7bed3b40403c91199e55eab74499d72445cfb8cad07877455985d3f16e
+	sha256sums = b5debe254aba94b1b8fd6658aaab1331ef6784cba265f83100cee8160c16afc6
 
 pkgname = libzim

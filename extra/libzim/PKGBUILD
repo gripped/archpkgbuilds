@@ -3,17 +3,24 @@ pkgname=libzim
 pkgver=9.1.0
 # https://github.com/openzim/zim-testing-suite/releases
 _testing_suite_commit=31ffbefd6699384d80e1f584b69b4321c843bc0c # v0.4
-pkgrel=3
+pkgrel=4
 pkgdesc="Reference implementation of the ZIM specification by the openZIM project"
-license=('GPL2')
+license=('GPL-2.0-or-later')
 arch=('x86_64')
 depends=('xapian-core' 'xz' 'icu' 'zstd')
 makedepends=('meson' 'gtest' 'git')
 url='https://github.com/openzim/libzim'
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-        "git+https://github.com/openzim/zim-testing-suite#commit=${_testing_suite_commit}")
+	"git+https://github.com/openzim/zim-testing-suite#commit=${_testing_suite_commit}"
+	# https://github.com/openzim/libzim/pull/936
+	"0001-Fix-build-with-ICU-76.patch")
 sha256sums=('faf19a35882415212d46a51aab45692ccfa1e2e36beb7261eec1ec53e29b9e6a'
-            'SKIP')
+            '116e9c7bed3b40403c91199e55eab74499d72445cfb8cad07877455985d3f16e'
+            'b5debe254aba94b1b8fd6658aaab1331ef6784cba265f83100cee8160c16afc6')
+
+prepare() {
+	patch -Np1 -d "${pkgname}-${pkgver}" -i ../0001-Fix-build-with-ICU-76.patch
+}
 
 build() {
 	cd "${pkgname}-${pkgver}"
@@ -26,7 +33,7 @@ build() {
 
 check() {
 	cd "${pkgname}-${pkgver}/build"
-	SKIP_BIG_MEMORY_TEST=1 meson test
+	SKIP_BIG_MEMORY_TEST=1 meson test --verbose
 }
 
 package() {
