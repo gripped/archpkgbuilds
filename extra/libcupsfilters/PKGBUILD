@@ -1,8 +1,8 @@
 # Maintainer: Andreas Radke <andyrtr@archlinux.org>
 
 pkgname=libcupsfilters
-pkgver=2.1.0
-pkgrel=3
+pkgver=2.1.1
+pkgrel=1
 pkgdesc="OpenPrinting CUPS Filters - contains all the code of the filters of the former cups-filters package as library functions"
 arch=('x86_64')
 url="https://github.com/OpenPrinting/libcupsfilters"
@@ -16,7 +16,7 @@ makedepends=(
 )
 checkdepends=('ttf-dejavu') # ttf-dejavu for make check
 source=("https://github.com/OpenPrinting/libcupsfilters/releases/download/$pkgver/$pkgname-$pkgver.tar.xz")
-sha256sums=('cbe900c7783e4aab0b1681629fad7322d82d082a51e8bae7e1c741d26bdcd294')
+sha256sums=('6c303e36cfde05a6c88fb940c62b6a18e7cdbfb91f077733ebc98f104925ce36')
 
 build() {
   cd "$pkgname"-$pkgver
