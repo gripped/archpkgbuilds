@@ -1,49 +1,42 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
-_name=lazr.delegates
 pkgname=python-lazr.delegates
-pkgver=2.1.0
-pkgrel=4
+_name="${pkgname#python-}"
+pkgver=2.1.1
+pkgrel=1
 pkgdesc="Easily write objects that delegate behavior"
 arch=(any)
 url="https://launchpad.net/lazr.delegates"
 license=(LGPL-3.0-only)
 depends=(
   python
+  python-importlib-metadata
   python-setuptools  # pkg_resources is used to declare namespaces
   python-zope-interface
 )
 makedepends=(
+  git
   python-build
   python-installer
   python-wheel
 )
 checkdepends=(python-pytest)
-# https://archlinux.org/todo/fix-reproducibility-of-packages-broken-by-pypi-removing-signature-files/
-# https://bugs.launchpad.net/lazr.config/+bug/2028762
-#   https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz
-source=(https://files.pythonhosted.org/packages/d4/4e/d9cd054b93aaf0585a21a9e201840db7c0eabc43fa326d7ce6986e5b691a/$_name-$pkgver.tar.gz{,.asc})
-sha512sums=('e8e081d71afed32aa8b8e898268d1e4a33be6bbdcad7778dfb000b9ad600ae9922032b6d13d066c55106ea403a5a25340fb9f8e1fe3ee246732247cbb3fd108b'
-            'SKIP')
-b2sums=('b8c9a1f0b473162560a21fc4ea7553786cb38f94ed7da63ccd740f5cd49b566ad5a0ba86270d062aed08dfe67dfc33708252a7761783bdeadb99a6ca1452a0c0'
-        'SKIP')
-validpgpkeys=(
-  'AC0A4FF12611B6FCCF01C111393587D97D86500B'  # Colin Watson <cjwatson@chiark.greenend.org.uk>
-  '760D8F2C93E9CA8562E4A00E75D673C2DD1FB761'  # Jürgen Gmach <juergen.gmach@canonical.com>
-)
+source=(git+https://git.launchpad.net/lazr.delegates#tag=$pkgver)
+sha512sums=('6c9aad011b6a7c6d338543a4c710eb82a5907785c4e059c6b1235b52a0ca6437d1b0bda6dc15e3895516bbb0b0cdea0978c5307a140c08e12bfbdcd19e487aea')
+b2sums=('580c3bba7805a1a79b8ee0a632d845aeaa35c0744217d75f184e8b80cd7323c38be79fe25b690594f582200d244f56daf8977b4859e377e358f4341708fcd00d')
 
 build() {
-  cd $_name-$pkgver
+  cd $_name
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $_name-$pkgver
+  cd $_name
   pytest -v
 }
 
 package() {
-  cd $_name-$pkgver
+  cd $_name
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 {CONTRIBUTING,NEWS,README}.rst -t "$pkgdir/usr/share/doc/$pkgname/"
 }
