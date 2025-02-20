@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=dtk6widget
-pkgver=6.0.25
+pkgver=6.0.26
 pkgrel=1
 pkgdesc='Deepin base graphical widgets library'
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('dtk6core' 'dtk6gui' 'gcc-libs' 'glibc' 'libx11' 'libxcb' 'libxext' 'li
          'qt6-base' 'qt6-imageformats' 'qt6-svg' 'startup-notification' 'xcb-util')
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'gtest' 'doxygen')
 source=("git+https://github.com/linuxdeepin/dtk6widget.git#tag=$pkgver")
-sha512sums=('ebc3642e861127284afdc890b48673d9f196060a2918588339e61f4cd9d2743dfec9263807dadd00eaa5329688dfc758056c56975b2331234b0a68b16bc1b4a2')
+sha512sums=('af263bd4c1520384d6afe1d8cdb6fe40c827cb0bea0d48268a28828f51705bb717a2fae9bf0bc50284fae3194caef960e4cd34ea8e0bb8b1c1e8ea30da461bf1')
 
 build() {
   cd dtk6widget
