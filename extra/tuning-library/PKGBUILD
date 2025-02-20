@@ -2,18 +2,17 @@
 
 pkgname=tuning-library
 pkgver=1.1.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Micro-tuning format parsing and frequency finding as a header-only C+ library"
 arch=(any)
-url="https://surge-synth-team.org/tuning-library/"
-_url="https://github.com/surge-synthesizer/tuning-library"
+url="https://github.com/surge-synthesizer/tuning-library"
 license=(MIT)
 makedepends=(
   catch2
   cmake
 )
 source=(
-  $_url/archive/release_${pkgver}/$pkgname-release_$pkgver.tar.gz
+  $url/archive/refs/tags/release_$pkgver.tar.gz
   $pkgname-1.1.0-fix_missing_include.patch
   $pkgname-1.1.0-use_system_catch2.patch
 )
