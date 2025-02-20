@@ -6,7 +6,7 @@
 
 pkgname=libgcrypt
 pkgver=1.11.0
-pkgrel=2
+pkgrel=3
 pkgdesc="General purpose cryptographic library based on the code from GnuPG"
 arch=(x86_64)
 url="https://www.gnupg.org"
@@ -39,6 +39,10 @@ prepare() {
   #  FAIL: t-sexp
   sed -i "s:t-secmem::" tests/Makefile.am
   sed -i "s:t-sexp::" tests/Makefile.am
+
+  # fix version - due to autoreconf
+  sed -i 's/beta=yes/beta=no/; s/tmp="-unknown"/tmp=""/' autogen.sh
+
   autoreconf -vfi
 }
 
