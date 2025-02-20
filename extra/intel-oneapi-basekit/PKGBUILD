@@ -1,20 +1,20 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 
 pkgname=intel-oneapi-basekit
-_major_ver=2024
-_minor_ver=1
-_patch_ver=0
+_major_ver=2025
+_minor_ver=0
+_patch_ver=1
 _pkgver=$_major_ver.$_minor_ver.$_patch_ver
-# https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=linux&distributions=offline&version=2024.1.0
-pkgver=$_pkgver.596
-_urlver=fdc7a2bc-b7a8-47eb-8876-de6201297144
-pkgrel=4
+# https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=linux&distributions=offline&version=2025.1.0
+pkgver=$_pkgver.46
+_urlver=dfc4a434-838c-4450-a6fe-2fa903b75aa7
+pkgrel=1
 pkgdesc="Intel oneAPI Base Toolkit for Linux"
 arch=('x86_64')
 url='https://software.intel.com/content/www/us/en/develop/tools/oneapi.html'
 license=('LicenseRef-Intel-EULA-Developer-Tools AND LicenseRef-Intel-Simplified')
-source=("https://registrationcenter-download.intel.com/akdlm/IRC_NAS/${_urlver}/l_BaseKit_p_${pkgver}_offline.sh")
-b2sums=('4e90774fc476d7054a0dfef4683b7dc524c8bd62c9c7884245971a2eb4b28e23d4df20d6109b875d7ab31c2c8f0154b9e8031c818e1dd959adf9c35cbef05c35')
+source=("https://registrationcenter-download.intel.com/akdlm/IRC_NAS/${_urlver}/intel-oneapi-base-toolkit-${pkgver}_offline.sh")
+sha256sums=('094a7872bbdb1c1e1d0e65da553497de819132b298b0ddf624b45003cda82844')
 depends=(level-zero-loader)
 options=(!strip staticlibs)
 install="$pkgname.install"
@@ -40,7 +40,7 @@ provides=('intel-oneapi-mkl' 'intel-oneapi-dnnl' 'intel-oneapi-tbb' 'intel-oneap
 build() {
   cd "${srcdir}"
 
-  sh "l_BaseKit_p_${pkgver}_offline.sh" \
+  sh "intel-oneapi-base-toolkit-${pkgver}_offline.sh" \
     --extract-folder "${srcdir}" --extract-only \
     --remove-extracted-files no --log "${srcdir}"/extract.log
 }
@@ -51,7 +51,7 @@ package() {
   # we have to run as a user different from root
   # otherwise the installer wants to write to /opt, /var
   # which is not possible in fakeroot
-  runuser -u builduser -- "${srcdir}/l_BaseKit_p_${pkgver}_offline"/install.sh \
+  runuser -u builduser -- "${srcdir}/intel-oneapi-base-toolkit-${pkgver}_offline"/install.sh \
     --silent --eula accept \
     --components all \
     --install-dir "${pkgdir}"/opt/intel/oneapi \
