@@ -2,9 +2,8 @@
 
 _name=libtmux
 pkgname=python-libtmux
-pkgver=0.37.0
-_pkgver=${pkgver/.post0/post0}
-pkgrel=3
+pkgver=0.44.2
+pkgrel=1
 pkgdesc="Python api for tmux"
 arch=(any)
 url="https://libtmux.git-pull.com/"
@@ -18,7 +17,7 @@ depends=(
 makedepends=(
   python-build
   python-installer
-  python-poetry-core
+  python-hatchling
   python-wheel
 )
 checkdepends=(
@@ -28,12 +27,12 @@ checkdepends=(
   procps-ng
 )
 optdepends=('python-pytest: for pytest plugin')
-source=($_name-$_pkgver.tar.gz::$_url/archive/refs/tags/v$_pkgver.tar.gz)
-sha512sums=('8876ad13613d367d6a6ea5945b5a0a495460b5ad68a14d89d20a41f0e5b421e0007041e4e8356e88a8eefb2b2422be306aebd2452e3be556f1cc4fd232327499')
-b2sums=('ef8c9c05cc20f549fc13ffb05276e1ba5b24c366c9cf44eb5ffe609cfe0e603ab7a90747b5df03afa62a6a9d8c81904e7fa7e4598092d3b11c0e9295e413d88d')
+source=($_name-$pkgver.tar.gz::$_url/archive/refs/tags/v$pkgver.tar.gz)
+sha512sums=('383784bb335c0f6e8200e20e8afd5b643658ee081a2c07cb9df2ee682d4b411b3ea17c7607587b8855f7d6571f5db7dd75318eefdd8946e6e38560309b5fa35f')
+b2sums=('ac2441ac13157bdce2465b1388f3e1570eb48193f26a37cfe6d68e56e93f659410af2851be20cd2f94011298c2b93a54eee20f5d07b4fbff15d26e00bbae6c0c')
 
 build() {
-  cd $_name-$_pkgver
+  cd $_name-$pkgver
   python -m build --wheel --skip-dependency-check --no-isolation
 }
 
@@ -46,14 +45,14 @@ check() {
   )
   local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
-  cd $_name-$_pkgver
+  cd $_name-$pkgver
   python -m installer --destdir=test_dir dist/*.whl
   export PYTHONPATH="$PWD/test_dir/$_site_packages"
   pytest "${pytest_options[@]}" tests
 }
 
 package() {
-  cd $_name-$_pkgver
+  cd $_name-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
   install -vDm 644 {CHANGES,README.md} -t "$pkgdir/usr/share/doc/$pkgname"
