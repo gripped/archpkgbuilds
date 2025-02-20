@@ -4,13 +4,14 @@
 
 pkgname=gnustep-base
 pkgver=1.30.0
-pkgrel=1
+pkgrel=2
 pkgdesc="The GNUstep base package"
 arch=('x86_64')
 url="http://www.gnustep.org/"
 license=("GPL" "LGPL")
 depends=(libxslt avahi gmp gcc-libs openssl libffi gnutls icu)
 makedepends=(gcc-objc gnustep-make)
+provides=('libgnustep-base.so')
 groups=('gnustep-core')
 options=('!emptydirs' '!makeflags')
 source=(https://github.com/gnustep/libs-base/releases/download/base-${pkgver//./_}/gnustep-base-${pkgver}.tar.gz{,.sig})
