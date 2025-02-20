@@ -1,8 +1,8 @@
 # Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
 
 pkgname='mise'
-pkgver=2025.2.6
-pkgrel=3
+pkgver=2025.2.7
+pkgrel=1
 pkgdesc='The front-end to your dev env'
 arch=('x86_64')
 url='https://github.com/jdx/mise'
@@ -28,8 +28,8 @@ options=(
   '!lto'
 )
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('f140038637e009ff1f6e9f0b476aaaa244d7cd7f42f82d0bbb658cb21df36f6e562237087c1f3b09be91645dcd4d902f3d9c0a22cf67e03422917577d8bfa0dd')
-b2sums=('a6afe074bce79d12fb0cbc67e60cb5de7f2891a34ce85133e5702fcb83a82fd7ac41332159777dda9f6d6aa1043e24a5cd053602030b324dc6df6af8eb02267d')
+sha512sums=('454ad85c7d7e18abdf4d31205f95cb1cb87a093b5e07b1fb105ddcc3e7f08a36b460a56de9a89549d3f93e399cbd54f53b3f1aa6ce05535e8a103dcf13130827')
+b2sums=('f4e89a96872195ae2311d7776348f1f4d53e19328d656e980fdf3f9e179838cd57934d2cb19b27d3e314bb89c3ffd88930fe1e1f4c84e1a5b76437f8bab512c6')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
