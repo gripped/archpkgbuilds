@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=tmuxp
-pkgver=1.47.0
-pkgrel=3
+pkgver=1.53.0
+pkgrel=1
 pkgdesc="Tmux session manager built on libtmux"
 arch=(any)
 url="https://tmuxp.git-pull.com/en/latest/"
@@ -18,7 +18,7 @@ depends=(
 makedepends=(
   python-build
   python-installer
-  python-poetry-core
+  python-hatchling
   python-shtab
   python-wheel
 )
@@ -35,8 +35,8 @@ optdepends=(
   # TODO: package ptpython for additional alternative CLI
 )
 source=($pkgname-$pkgver.tar.gz::$_url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('c85af95d65cb00bfc1f1551bd779bf4ee8bc2de286d7c2a0dc9988290c73b76c6c5beb30310659e16a798e1960b0e56dc93b89d2062839c45d759c11f4635782')
-b2sums=('1cafd0e82f4d330080bf3bf431d641f0e807034cc80c4e9f72eea22ddcc9de784034ebb85cf8886077f9fa57cf38b2452f70df54a11b2b0a2e75c62f3b59e209')
+sha512sums=('9907786fd051440356a182669bc20b34b37bd86a8efd35417b9170cf3ba66af44d1981dca1735b1e9695c9572d3455a99b199f7d1a9c00c0ad2f61694cb24db1')
+b2sums=('0cc4e09a06265a150c237540a5e7678a53872cb78bae1ebf746a1fe6bc0c411f8bf2279d516c29c4aac5bc01e0aaa424c292b74e5ad8d96e0cafa0b5b152d230')
 
 build() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
@@ -56,6 +56,9 @@ check() {
     -vv
     # https://github.com/tmux-python/tmuxp/issues/855
     --deselect tests/workspace/test_builder.py::test_window_shell
+    # https://github.com/tmux-python/tmuxp/issues/961
+    --deselect tests/workspace/test_builder.py::test_global_options
+    --deselect tests/workspace/test_builder.py::test_global_session_env_options
   )
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
