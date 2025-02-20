@@ -1,11 +1,12 @@
 pkgbase = python-lazr.config
 	pkgdesc = Create configuration schemas, and process and validate configurations
-	pkgver = 3.0
-	pkgrel = 4
+	pkgver = 3.1
+	pkgrel = 2
 	url = https://launchpad.net/lazr.config
 	arch = any
 	license = LGPL-3.0-only
 	checkdepends = python-zope-testrunner
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
@@ -15,13 +16,8 @@ pkgbase = python-lazr.config
 	depends = python-zope-interface
 	provides = python-lazr-config
 	replaces = python-lazr-config
-	source = https://files.pythonhosted.org/packages/ac/53/7b09f9feed3bf68b8b6827d44aaab8143e3aa9e26680b9501433d59474c4/lazr.config-3.0.tar.gz
-	source = https://files.pythonhosted.org/packages/ac/53/7b09f9feed3bf68b8b6827d44aaab8143e3aa9e26680b9501433d59474c4/lazr.config-3.0.tar.gz.asc
-	validpgpkeys = AC0A4FF12611B6FCCF01C111393587D97D86500B
-	validpgpkeys = 760D8F2C93E9CA8562E4A00E75D673C2DD1FB761
-	sha512sums = 15f61ca9e53e0677e228365318b99c1a65f674bf82dc1f8210335f93f4c74da2e9b09d8f8650506a133db85c45bfba12ff28ad3bc7c56edcf8c6e19c152f13f9
-	sha512sums = SKIP
-	b2sums = 538ab2e5f45c062dce8a53554eb646909940b41f8f5ae74038771a0cbb35b93878672b06bf967ecfc23232278aa86521def56dd1dfcab32668adb1fb73a72eee
-	b2sums = SKIP
+	source = git+https://git.launchpad.net/lazr.config#tag=3.1
+	sha512sums = ee5e10ac0be62bedfd69d01dfa364b0eb75e6ad7d291d096d13d15b902cac33310d5a8c1812656b04edcb3f5489e164fa0cbac1cf42aa00ab85b69762ccc85eb
+	b2sums = 2b49fadf20e0066e2a25a783b60f25e59730e00411c1f25f3d7596a0061664b44b90fb6dd8aeaaf77809fece70ee7f34f2207d3255c0c521b5be60f0c44a685a
 
 pkgname = python-lazr.config

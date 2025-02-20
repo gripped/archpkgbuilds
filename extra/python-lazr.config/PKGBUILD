@@ -1,9 +1,9 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
-_name=lazr.config
 pkgname=python-lazr.config
-pkgver=3.0
-pkgrel=4
+_name="${pkgname#python-}"
+pkgver=3.1
+pkgrel=2
 pkgdesc="Create configuration schemas, and process and validate configurations"
 arch=(any)
 url="https://launchpad.net/lazr.config"
@@ -11,10 +11,11 @@ license=(LGPL-3.0-only)
 depends=(
   python
   python-lazr.delegates
-  python-setuptools
+  python-setuptools  # pkg_resources is used to declare namespaces
   python-zope-interface
 )
 makedepends=(
+  git
   python-build
   python-installer
   python-wheel
@@ -24,28 +25,19 @@ checkdepends=(
 )
 provides=(python-lazr-config)
 replaces=(python-lazr-config)
-# https://archlinux.org/todo/fix-reproducibility-of-packages-broken-by-pypi-removing-signature-files/
-# https://bugs.launchpad.net/lazr.config/+bug/2028762
-# https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz
-source=(https://files.pythonhosted.org/packages/ac/53/7b09f9feed3bf68b8b6827d44aaab8143e3aa9e26680b9501433d59474c4/$_name-$pkgver.tar.gz{,.asc})
-sha512sums=('15f61ca9e53e0677e228365318b99c1a65f674bf82dc1f8210335f93f4c74da2e9b09d8f8650506a133db85c45bfba12ff28ad3bc7c56edcf8c6e19c152f13f9'
-            'SKIP')
-b2sums=('538ab2e5f45c062dce8a53554eb646909940b41f8f5ae74038771a0cbb35b93878672b06bf967ecfc23232278aa86521def56dd1dfcab32668adb1fb73a72eee'
-        'SKIP')
-validpgpkeys=(
-  AC0A4FF12611B6FCCF01C111393587D97D86500B  # Colin Watson <cjwatson@chiark.greenend.org.uk>
-  760D8F2C93E9CA8562E4A00E75D673C2DD1FB761  # Jürgen Gmach <juergen.gmach@canonical.com>
-)
+source=(git+https://git.launchpad.net/lazr.config#tag=$pkgver)
+sha512sums=('ee5e10ac0be62bedfd69d01dfa364b0eb75e6ad7d291d096d13d15b902cac33310d5a8c1812656b04edcb3f5489e164fa0cbac1cf42aa00ab85b69762ccc85eb')
+b2sums=('2b49fadf20e0066e2a25a783b60f25e59730e00411c1f25f3d7596a0061664b44b90fb6dd8aeaaf77809fece70ee7f34f2207d3255c0c521b5be60f0c44a685a')
 
 build() {
-  cd $_name-$pkgver
+  cd $_name
   python -m build --wheel --no-isolation
 }
 
 check() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
-  cd $_name-$pkgver
+  cd $_name
   python -m installer --destdir=test_dir dist/*.whl
   export PYTHONPATH="$PWD/test_dir/$site_packages:$PYTHONPATH"
   python -m zope.testrunner --test-path src --tests-pattern ^tests
@@ -54,7 +46,7 @@ check() {
 package() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
-  cd $_name-$pkgver
+  cd $_name
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 {NEWS,README}.rst -t "$pkgdir/usr/share/doc/$pkgname/"
   rm -frv "$pkgdir/$site_packages/lazr/config/tests"
