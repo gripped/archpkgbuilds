@@ -7,10 +7,10 @@
 _name=ladspa
 pkgname=swh-plugins
 pkgver=0.4.17
-pkgrel=6
+pkgrel=7
 pkgdesc="Steve Harris' LADSPA plug-ins suite"
 arch=(x86_64)
-url="http://plugin.org.uk/"
+url="https://github.com/swh/ladspa"
 license=(GPL-2.0-or-later)
 depends=(
   fftw
@@ -28,7 +28,7 @@ groups=(
   pro-audio
 )
 source=(
-  $pkgname-$pkgver.tar.gz::https://github.com/swh/$_name/archive/v$pkgver.tar.gz
+  $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
   $pkgname-0.4.17-use_system_gsm.patch
 )
 sha512sums=('6b566030b43c3929ce8938648abd458efa0fea0b4916410a34b4f4fa788c45e4a6ec3f46ca435f8546179ff0c4674303db22314e1c1f1d09e5f2b71e6c5aecc7'
