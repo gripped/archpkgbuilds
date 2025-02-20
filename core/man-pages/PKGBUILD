@@ -1,7 +1,7 @@
 # Maintainer: Andreas Radke <andyrtr@archlinux.org>
 
 pkgname=man-pages
-pkgver=6.10
+pkgver=6.11
 _posixver=2017-a
 pkgrel=1
 pkgdesc="Linux man pages"
@@ -31,7 +31,7 @@ makedepends=('man2html' 'git')
 source=(https://www.kernel.org/pub/linux/docs/man-pages/$pkgname-$pkgver.tar.{xz,sign}
         https://www.kernel.org/pub/linux/docs/man-pages/man-pages-posix/$pkgname-posix-${_posixver}.tar.{xz,sign})
 # https://www.kernel.org/pub/linux/docs/man-pages/sha256sums.asc
-sha256sums=('db49503ad4da07633fa28012a278915f0f0178ad6c33346e59b7ada731925709'
+sha256sums=('ddaa2eda2e8d286fbec221d115f12d3fff5d36cc5066cdfecc8d24a258d58b19'
             'SKIP'
             'ce67bb25b5048b20dad772e405a83f4bc70faf051afa289361c81f9660318bc3'
             'SKIP')
@@ -53,15 +53,17 @@ prepare() {
   rm man5/nscd.conf.5 man8/nscd.8
 }
 
+# make -R is required until gnu_make 4.5.x will be released
+
 package() {
   cd "${srcdir}"/$pkgname-$pkgver
 
   # install man-pages
-  make DESTDIR="${pkgdir}" prefix=/usr install 
+  make DESTDIR="${pkgdir}" prefix=/usr install -R
 
   # install posix pages
   pushd "${srcdir}"/$pkgname-posix-${_posixver%-*}
-  make DESTDIR="${pkgdir}" install 
+  make DESTDIR="${pkgdir}" install -R
   popd
   
   # posix pages have a custom license
