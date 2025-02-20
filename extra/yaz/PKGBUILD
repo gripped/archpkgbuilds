@@ -7,7 +7,7 @@
 
 pkgname=yaz
 pkgver=5.34.0
-pkgrel=4
+pkgrel=5
 pkgdesc="A toolkit supporting the development of Z39.50/SRW/SRU clients and servers"
 arch=('x86_64')
 url="https://www.indexdata.dk/yaz"
@@ -16,12 +16,17 @@ depends=('gnutls' 'libxslt' 'icu')
 makedepends=('zsh')
 changelog=$pkgname.changelog
 source=(http://ftp.indexdata.dk/pub/$pkgname/$pkgname-$pkgver.tar.gz
-        https://github.com/indexdata/yaz/commit/3c61afce.patch)
+        https://github.com/indexdata/yaz/commit/3c61afce.patch
+        https://github.com/indexdata/m4/commit/7e90a54e.patch)
 sha256sums=('bcbea894599a13342910003401c17576f0fb910092aecb51cb54065d0cd2d613'
-            'c3f560c7adf30e61f5aab7daf2f60392b087d8ac461d248dda928b8d85a5ae12')
+            'c3f560c7adf30e61f5aab7daf2f60392b087d8ac461d248dda928b8d85a5ae12'
+            '3813ae7ba156174ba3fad372f419741f845407ad1c2f99ae4aa28a7eaf6f6829')
 
 prepare() {
   patch -d $pkgname-$pkgver -p1 < 3c61afce.patch # Fix build with glibc 2.39
+  patch -d $pkgname-$pkgver/m4 -p1 < 7e90a54e.patch # Fix build with ICU 76
+  cd $pkgname-$pkgver
+  autoreconf -vif
 }
 
 build() {
