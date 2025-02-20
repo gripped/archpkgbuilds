@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=cargo-bundle-licenses
-pkgver=3.0.0
+pkgver=3.1.0
 pkgrel=1
 pkgdesc="Bundle licensing of Rust dependencies"
 url="https://github.com/sstadick/cargo-bundle-licenses"
@@ -9,8 +9,8 @@ arch=('x86_64')
 license=('Apache-2.0' 'MIT')
 depends=('cargo' 'gcc-libs')
 source=("${pkgname}-${pkgver}.tar.gz::https://crates.io/api/v1/crates/${pkgname}/${pkgver}/download")
-sha256sums=('e973b611f81202b067c892d7b18dab29a043fe498c8268d7266675b5175878fb')
-b2sums=('0afe211162a85a7cda603113b60a9f84f3994f779fe50ce18d88a796030dd285a0c8ce1e16d528e4927f02075e83e4a20e45c57bb0ebb4ee2f21923b00f3a069')
+sha256sums=('9ed13e50168a00baab1580f751028c4da24bd6ab661625532467a286c1ce0d1d')
+b2sums=('ef4724caecfb62f9e7c63c6090c9c28dd36247e4bb2466337376e454ece6758138a4161ba99fa38831a745fca1d66b7309fbd962fdf3708bcc3f8654e614264e')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
