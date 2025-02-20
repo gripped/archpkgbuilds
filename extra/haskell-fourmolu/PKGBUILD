@@ -3,7 +3,7 @@
 _hkgname=fourmolu
 pkgname=haskell-fourmolu
 pkgver=0.9.0.0
-pkgrel=45
+pkgrel=46
 pkgdesc="A formatter for Haskell source code"
 url="https://github.com/parsonsmatt/fourmolu"
 license=("BSD")
@@ -18,7 +18,7 @@ sha256sums=('3440cf67fd333a2bb5d6a67ce80e7a348807297948f297238ba77eedcb76097f')
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u aeson -u optparse-applicative $_hkgname.cabal
+  uusi -u aeson -u ansi-terminal -u optparse-applicative $_hkgname.cabal
 }
 
 build() {
