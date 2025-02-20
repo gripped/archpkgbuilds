@@ -1,13 +1,12 @@
 pkgbase = kaidan
 	pkgdesc = A user-friendly XMPP client for every device
 	pkgver = 0.11.0
-	pkgrel = 1
+	pkgrel = 3
 	url = https://www.kaidan.im/
 	arch = x86_64
 	license = GPL-3.0-or-later
 	license = MIT
 	makedepends = extra-cmake-modules
-	makedepends = git
 	makedepends = qt6-tools
 	depends = gcc-libs
 	depends = glibc
@@ -28,9 +27,11 @@ pkgbase = kaidan
 	depends = qt6-multimedia
 	depends = qt6-positioning
 	depends = qt6-svg
-	depends = qxmpp-qt6
-	source = git+https://invent.kde.org/network/kaidan#tag=v0.11.0
-	validpgpkeys = 03C2D10DC97E5B0BEBB8F3B44663231A91A1E27B
-	sha256sums = 562d6ced023beea94307fb94239950bcb89937a0152a0df197c1431b5a132710
+	depends = qxmpp
+	source = https://download.kde.org/unstable/kaidan/0.11.0/kaidan-0.11.0.tar.xz
+	source = https://download.kde.org/unstable/kaidan/0.11.0/kaidan-0.11.0.tar.xz.sig
+	validpgpkeys = AE08C590A7D112C1979D068B04EFAD0F7A4D9724
+	sha256sums = 3feef43d66ff5c30ae81894a7343da1856ca84b0177b8a07922f193ca33776a2
+	sha256sums = SKIP
 
 pkgname = kaidan
