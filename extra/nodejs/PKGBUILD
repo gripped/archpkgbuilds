@@ -10,22 +10,27 @@
 
 pkgname=nodejs
 pkgver=23.8.0
-pkgrel=1
+pkgrel=4
 pkgdesc='Evented I/O for V8 javascript ("Current" release)'
 arch=('x86_64')
 url='https://nodejs.org/'
 license=('MIT')
 depends=(
+#  'ada'
   'brotli'
   'c-ares'
+#  'http-parser'
   'icu'
   'libnghttp2'
   'libnghttp3'
   'libngtcp2'
   'libuv'
   'openssl'
+  'simdjson'
+#  'simdutf'
+#  'v8'
   'zlib'
-) # 'http-parser' 'v8')
+)
 makedepends=(
   'git'
   'procps-ng'
@@ -52,16 +57,19 @@ build() {
     --prefix=/usr \
     --without-npm \
     --with-intl=system-icu \
+    --shared-brotli \
+    --shared-cares \
     --shared-libuv \
     --shared-nghttp2 \
     --shared-nghttp3 \
     --shared-ngtcp2 \
     --shared-openssl \
-    --shared-zlib \
-    --shared-brotli \
-    --shared-cares
-    # --shared-v8
+    --shared-simdjson \
+    --shared-zlib
+    # --shared-ada
     # --shared-http-parser
+    # --shared-simdutf
+    # --shared-v8
 
   make
 }
