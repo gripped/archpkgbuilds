@@ -7,7 +7,7 @@ pkgname=(
   gspell-docs
 )
 pkgver=1.14.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Spell-checking library for GTK applications"
 url="https://gitlab.gnome.org/GNOME/gspell"
 arch=(x86_64)
