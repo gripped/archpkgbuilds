@@ -1,0 +1,26 @@
+--- a/base/containers/id_map.h
++++ b/base/containers/id_map.h
+@@ -179,6 +179,6 @@
+ 
+     const Iterator& operator=(const Iterator& iter) {
+-      map_ = iter.map;
+-      iter_ = iter.iter;
++      map_ = iter.map_;
++      iter_ = iter.iter_;
+       Init();
+       return *this;
+--- a/net/third_party/quiche/src/quiche/quic/core/quic_interval_deque.h
++++ b/net/third_party/quiche/src/quiche/quic/core/quic_interval_deque.h
+@@ -199,10 +199,10 @@
+       Iterator copy = *this;
+       copy.index_ += amount;
+-      QUICHE_DCHECK(copy.index_ < copy.deque_->size());
++      QUICHE_DCHECK(copy.index_ < copy.deque_->Size());
+       return copy;
+     }
+     Iterator& operator+=(difference_type amount) {
+       index_ += amount;
+-      QUICHE_DCHECK(index_ < deque_->size());
++      QUICHE_DCHECK(index_ < deque_->Size());
+       return *this;
+     }
