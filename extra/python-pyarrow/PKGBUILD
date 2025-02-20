@@ -7,7 +7,7 @@
 _pkg=arrow
 _pkgname=pyarrow
 pkgname=python-$_pkgname
-pkgver=19.0.0
+pkgver=19.0.1
 pkgrel=1
 pkgdesc="Columnar in-memory analytics layer for big data — Python module."
 arch=(x86_64)
@@ -47,7 +47,7 @@ source=(
   git+https://github.com/apache/parquet-testing.git
   git+https://github.com/apache/arrow-testing.git
 )
-sha512sums=('6820de33a5d5b0922ea64dd8ff55d186ef02596ad0415578067aaf3e5cf7d3eead473bc3a5f92d6d3f19b97d153fe1c901359008d922d1ffb0fc2a65dc860c79'
+sha512sums=('524187c6f12bbb677b5d4a53e1608c69b56c83a5c8667bfe82d5a10232c33f151a8a7b5e6e26af48d1e0ca25a5d3dc885b27d9b5e798c7e07f115df8f0779516'
             'SKIP'
             'SKIP'
             'SKIP')
