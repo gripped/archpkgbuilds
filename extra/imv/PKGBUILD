@@ -3,7 +3,7 @@
 
 pkgname=imv
 pkgver=4.5.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Image viewer for Wayland and X11'
 url='https://sr.ht/~exec64/imv/'
 arch=(x86_64)
@@ -11,8 +11,14 @@ license=(GPL)
 depends=(glu libheif libinih libjxl librsvg libxkbcommon libxkbcommon-x11 pango)
 makedepends=(asciidoc cmake cmocka meson)
 conflicts=(renameutils)
-source=("$pkgname-$pkgver.tar.gz::https://git.sr.ht/~exec64/$pkgname/archive/v$pkgver.tar.gz")
-b2sums=('100174071049ee711a868832ea297cc7fd43450145db9e71a631afb97d7d77574f37501b749734f47b3f2699d159ed05e5159fd9060c6f0a5de18b92708d9e9c')
+source=("$pkgname-$pkgver.tar.gz::https://git.sr.ht/~exec64/$pkgname/archive/v$pkgver.tar.gz"
+        imv-4.5.0-Link-to-the-common-ICU-library.patch)
+b2sums=('100174071049ee711a868832ea297cc7fd43450145db9e71a631afb97d7d77574f37501b749734f47b3f2699d159ed05e5159fd9060c6f0a5de18b92708d9e9c'
+        'c1e0b3e8fe4ffd8e1d930720a0f034cfb724e82cdd690eb917737345c86c45335fd82f6f7cbf93e49938f43f06746368d711a8adc4339ea9b90dbfa184254637')
+
+prepare() {
+  patch -Np1 -d $pkgname-v$pkgver -i ../imv-4.5.0-Link-to-the-common-ICU-library.patch
+}
 
 build() {
   export CFLAGS+=' -w'
