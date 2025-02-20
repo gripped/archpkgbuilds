@@ -30,7 +30,7 @@ pkgname=('gambas3-gb-args'
          'gambas3-gb-web-feed' 'gambas3-gb-web-form' 'gambas3-gb-web-gui' 'gambas3-gb-web'
          'gambas3-runtime' 'gambas3-dev-tools' 'gambas3-ide' 'gambas3-script')
 pkgver=3.20.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A free development environment based on a Basic interpreter."
 arch=('x86_64')
 url="http://gambas.sourceforge.net/"
@@ -878,7 +878,6 @@ package_gambas3-ide() {
   replaces=('gambas3-examples')
 
   _install fakeinstall/usr/bin/gambas3*
-  _install fakeinstall/usr/share/appdata
   _install fakeinstall/usr/share/metainfo
   _install fakeinstall/usr/share/gambas3/template
   _install fakeinstall/usr/share/man/man1/gambas3.1
@@ -888,7 +887,6 @@ package_gambas3-ide() {
 
   install -m644 ${srcdir}/gambas-${pkgver}/app/desktop/gambas3.desktop ${pkgdir}/usr/share/applications/
   install -m644 ${srcdir}/gambas-${pkgver}/app/desktop/gambas3.png ${pkgdir}/usr/share/pixmaps/
-  mv "$pkgdir"/usr/share/{appdata,metainfo}
 }
 
 package_gambas3-script() {
