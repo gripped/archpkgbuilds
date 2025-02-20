@@ -1,5 +1,6 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 # Contributor: bartus <arch-user-repoᘓbartus.33mail.com>
 # Contributor: pingplug <pingplug@foxmail.com>
 # Contributor: cornholio <vigo.the.unholy.carpathian@gmail.com>
@@ -7,8 +8,8 @@
 _pkgname=magma
 pkgbase=$_pkgname
 pkgname=(magma-cuda magma-hip)
-pkgver=2.8.0
-pkgrel=3
+pkgver=2.9.0
+pkgrel=1
 _pkgdesc="Matrix Algebra on GPU and Multicore Architectures"
 arch=('x86_64')
 url="https://icl.utk.edu/magma/"
@@ -19,18 +20,14 @@ makedepends=('git' 'cmake' 'ninja' 'python' 'gcc-fortran'
              'rocm-core' 'hip-runtime-amd' 'hipblas' 'hipsparse')
 optdepends=('python: for examples and tests'
             'gcc-fortran: Fortran interface')
-source=("${_pkgname}::git+https://github.com/icl-utk-edu/magma.git#tag=v${pkgver}"
-        'add_cuda_archs.patch'
-        'hip_device.patch'
-        'min_max_macros.patch')
-sha256sums=('781bafd605579512b441664f76c9ba5559268f95f9357247cb8e04b76a72061e'
-            'e3909f60ef1fbfa889d8aff5c50eac2aab9e21748968e06147d5bbf44d0c7afd'
-            '86739e85b015f8919e404ad32f5f57a446be86d2b728dba4eff17c536fbaef62'
-            '6f7a08ada14a1f0956a445e82eb263090e9165d2adcc35a08bbffe379cd3a46f')
+source=("${_pkgname}::git+https://github.com/icl-utk-edu/magma.git#tag=v${pkgver}")
+sha256sums=('bd18fbfd1b36dbcfd604b22f2fdfaf0a18c5dcfbe09fe1f1b2f2fe3e365bc304')
 options=(!lto)
 
 _valid_sm() {
-  echo "sm_52 sm_53 sm_60 sm_61 sm_62 sm_70 sm_72 sm_75 sm_80 sm_86 sm_87 sm_89 sm_90"
+  # NOTE: magma is too big to build for all supported architectures, so instead we build
+  # only for the "major" architectures (but magma should still work on all architectures)
+  echo "sm_50 sm_60 sm_70 sm_80 sm_90 sm_100 sm_120"
 }
 
 _valid_gfx() {
@@ -39,14 +36,9 @@ _valid_gfx() {
 }
 
 prepare() {
-  # apply all patches before copying the sources for -cuda and -hip and running make generate
-  cd "${_pkgname}"
-  # https://github.com/icl-utk-edu/magma/pull/14
-  patch -Np1 -i "${srcdir}/add_cuda_archs.patch"
-  # https://github.com/icl-utk-edu/magma/pull/15
-  patch -Np1 -i "${srcdir}/hip_device.patch"
-  # https://github.com/icl-utk-edu/magma/pull/8
-  patch -Np1 -i "${srcdir}/min_max_macros.patch"
+  # NOTE: all patches must be applied before copying the sources for -cuda and -hip and running make generate
+  #cd "${_pkgname}"
+  #patch -Np1 ...
 
   cd "${srcdir}"
 
