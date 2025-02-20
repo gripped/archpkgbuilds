@@ -4,7 +4,7 @@
 
 pkgname=enchant
 pkgver=2.8.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A wrapper library for generic spell checking"
 url="https://rrthomas.github.io/enchant/"
 arch=('x86_64')
