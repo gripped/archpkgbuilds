@@ -6,7 +6,7 @@
 
 pkgname=minidlna
 pkgver=1.3.3
-pkgrel=4
+pkgrel=5
 pkgdesc="A DLNA/UPnP-AV Media server (aka ReadyDLNA)"
 arch=('x86_64')
 url="https://sourceforge.net/projects/minidlna/"
