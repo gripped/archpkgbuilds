@@ -4,31 +4,50 @@
 # Contributor: fabien Cellier <fabien.cellier@gmail.com>
 
 pkgname=pocl
-pkgver=6.0.r322.gf0e12ad
-pkgrel=1
+pkgver=6.0.r843.g3b6e5c4
+pkgrel=2
 pkgdesc="Portable OpenCL is an open-source implementation of OpenCL which can be easily adapted for new targets"
 arch=('x86_64')
 url="http://portablecl.org/"
 license=('MIT')
-source=("git+https://github.com/pocl/pocl#commit=f0e12ada3320885cdba6e181d324a9e9f547b9fc")
+source=("git+https://github.com/pocl/pocl#commit=3b6e5c4b47187d8a954194d673a47e6721e45719"
+        "pocl-link-cudart.patch::https://github.com/pocl/pocl/pull/1804.patch")
 depends=('clang' 'hwloc' 'opencl-icd-loader')
-makedepends=('llvm' 'cmake' 'opencl-headers' 'ocl-icd' 'ninja' 'python' 'git')
-sha512sums=('4b069296d0d83630dc364c12bc729e4599a50c78b38f718786a7fea87b8e034ebba1c4ca441f7d11465e4dd5b962c77ee524f433b8ffba67684eb3c9d0637674')
+makedepends=('llvm' 'cmake' 'opencl-headers' 'ocl-icd' 'ninja' 'python' 'git' 'nvidia-utils' 'cuda' 'cudnn')
+optdepends=(
+  'cuda: CUDA driver'
+  'cudnn: CUDA driver'
+)
+sha512sums=('a05426f0e89f424ffa1b403eaf658af29302314c6f20de26316f854b6d8a03dc2823999ea2974358bc54a760073d169beefeb833b72715797682b08960c2a1a7'
+            '33ea8a57617674466f6a6f0e5d1b5d902b818450ed8fd471043b7bab27c13fc8757e7d188ef7e695ce47f256e33ffd7d422bf52e4bb0fe65682fbee54b25bb06')
 
 pkgver() {
   cd "$pkgname"
   git describe --long --tags --abbrev=7 | sed 's/^v//;s/RC[0-9]*//;s/\([^-]*-g\)/r\1/;s/-/./g;s/\.\././g'
 }
 
+prepare() {
+  cd "$pkgname"
+  # https://github.com/pocl/pocl/pull/1804
+  patch -Np1 -i ../pocl-link-cudart.patch
+}
+
 build() {
   cd "$pkgname"
-  cmake \
-      -GNinja \
-      -Bbuild \
-      -DCMAKE_INSTALL_PREFIX=/usr \
-      -DCMAKE_INSTALL_LIBDIR=lib \
-      -DCMAKE_BUILD_TYPE=Release \
+  local cmake_options=(
+      -GNinja
+      -Bbuild
+      -DCMAKE_INSTALL_PREFIX=/usr
+      -DCMAKE_INSTALL_LIBDIR=lib
+      -DCMAKE_BUILD_TYPE=Release
       -DKERNELLIB_HOST_CPU_VARIANTS=distro
+      # Should be provided by opencl-headers, avoid conflict
+      -DINSTALL_OPENCL_HEADERS=OFF
+      -DENABLE_CUDA=ON
+      -DENABLE_CUDNN=ON
+      -DCUDA_TOOLKIT_ROOT_DIR=/opt/cuda
+  )
+  cmake "${cmake_options[@]}"
   ninja -C build
 }
 
