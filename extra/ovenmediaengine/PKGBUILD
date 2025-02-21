@@ -2,7 +2,7 @@
 # Contributor: genofire
 
 pkgname=ovenmediaengine
-pkgver=0.17.3
+pkgver=0.18.0
 pkgrel=1
 pkgdesc='Open-source streaming video service with sub-second latency'
 arch=('x86_64')
@@ -29,6 +29,7 @@ optdepends=(
 	'openh264: For h264 encoding, also needs a ffmpeg build with --enable-libopenh264'
 )
 makedepends=(
+	'cmake'
 	'bc'
 	'nasm'
 	'x264'
@@ -41,9 +42,9 @@ source=(
 	"ovenmediaengine-ffmpeg44.patch"
 	"ovenmediaengine.service"
 )
-sha512sums=('39c2d8234637ff6daa1bfcae13d8822007985e8cf9bd232f348f4f073583810aaba3892282b6cbc00e7fe28a96ba11cf5d8706e7a3057a6abc54dd4ff94d1c27'
-            '1a4c59f49d4135a2e20c4c869f6bb3e213027992ce4d9e932712db6809ab9f97e3f2d79d7b1717574c410f46ca3ce15d2f854bbf0ef2af5a85e348ca7bb9e257'
-            'c5c4615d4c50a55c6fea177a1bc73b13d1365224c4e102067e45ce956741cb95366ec3b16cdec8932083c923910794e9164b0f9a25a6b0e2f186557fac3e42f1')
+sha512sums=('28011f7317f19b7d0ec957b23c21195fb581eaf6167e9cb6ff54ac822133e0cf6be06555b799554d13fd1cb6cff7e4ac5e5c52cb9e13737d160a8c23a7035ef5'
+	'1a4c59f49d4135a2e20c4c869f6bb3e213027992ce4d9e932712db6809ab9f97e3f2d79d7b1717574c410f46ca3ce15d2f854bbf0ef2af5a85e348ca7bb9e257'
+	'c5c4615d4c50a55c6fea177a1bc73b13d1365224c4e102067e45ce956741cb95366ec3b16cdec8932083c923910794e9164b0f9a25a6b0e2f186557fac3e42f1')
 
 backup=(
 	'etc/ovenmediaengine/Server.xml'
@@ -66,10 +67,10 @@ build() {
 	export CXXFLAGS="${CXXFLAGS} -I/usr/include/ffmpeg4.4"
 
 	DISABLE_CUSTOM_LIBRARY_PATHS=true \
-	make release
+		make release
 }
 
-package()  {
+package() {
 	install -D -m0644 "ovenmediaengine.service" "${pkgdir}/usr/lib/systemd/system/ovenmediaengine.service"
 
 	cd "OvenMediaEngine-${pkgver}"
