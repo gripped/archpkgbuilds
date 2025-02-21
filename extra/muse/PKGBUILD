@@ -2,7 +2,7 @@
 
 pkgname=muse
 pkgver=4.2.1
-pkgrel=4
+pkgrel=5
 pkgdesc="A digital audio workstation with support for both Audio and MIDI"
 arch=(x86_64)
 url="https://github.com/muse-sequencer/muse"
@@ -15,7 +15,6 @@ depends=(
   python
   python-pyqt5
   python-pyro
-  python-six
   qt5-base
   qt5-svg
 )
@@ -47,11 +46,18 @@ provides=(
 )
 source=(
   $url/archive/$pkgver/$pkgname-$pkgver.tar.gz
+  $pkgname-4.2.1-remove-python-six.patch
 )
-sha512sums=('cf033cf77cb328a2aa704bf04d69dd515108e9c789e2ec9321a577b5b3b3bb73ce738142903b69b2c9c3ec5c27e921adc52511932f48809149f5a5cf5fd7deb2')
-b2sums=('09edaed143d689ec909829b586c5edd57488e4d70c091f75c952a79cdfeefd6adaa0f3eb408898a6de506f916d3a7c2853e20d24619df151f4f880814d454921')
+sha512sums=('cf033cf77cb328a2aa704bf04d69dd515108e9c789e2ec9321a577b5b3b3bb73ce738142903b69b2c9c3ec5c27e921adc52511932f48809149f5a5cf5fd7deb2'
+            'a59af9d0eed5d3e8ea02c6f402bb9c8cf3fb02df27e377ba84a3d4b8d447fa81aeaf1453979fa73977e39e01ff89e2eaf0a8a6d53970d6a89867dd116dd70384')
+b2sums=('09edaed143d689ec909829b586c5edd57488e4d70c091f75c952a79cdfeefd6adaa0f3eb408898a6de506f916d3a7c2853e20d24619df151f4f880814d454921'
+        'd0b951dc0628e491e419929d536a13992be861df2a81aec143ad21ecd7a217b710eae0f6708483a687166d36aba5561a2626d2312fcd6408edf68fc8a68214c5')
 
 prepare() {
+  # remove the use of python-six: https://github.com/muse-sequencer/muse/issues/1296
+  # backport of https://github.com/muse-sequencer/muse/commit/fdfaabcc858e33582b2605cb5c7dbf24ffff9335
+  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-4.2.1-remove-python-six.patch
+
   # rename MusE-INSTALL_NAME to muse, because this reflects the package name
   sed -e 's/muse-4.2/muse/g' -i $pkgname-$pkgver/src/CMakeLists.txt
 }
