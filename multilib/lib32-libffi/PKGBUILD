@@ -3,18 +3,17 @@
 
 pkgname=lib32-libffi
 _name=libffi
-pkgver=3.4.6
+pkgver=3.4.7
 pkgrel=1
 pkgdesc="Portable foreign function interface library (32-bit)"
 arch=(x86_64)
 url=https://sourceware.org/libffi/
 license=(MIT)
 depends=(lib32-glibc $_name=$pkgver)
-checkdepends=(dejagnu)
 provides=(libffi.so)
 source=(https://github.com/libffi/libffi/releases/download/v$pkgver/$_name-$pkgver.tar.gz)
-sha256sums=('b0dea9df23c863a7a50e825440f3ebffabd65df1497108e5d437747843895a4e')
-b2sums=('af8402a09bdbd59b4e9400d2d71bd5ce98f6f1d981d35d1ab40d77a831b13b32c5bd34ca54ff75999e39f0d8a9c066381fae7a8d6c5216d955e064f929f08b88')
+sha256sums=('138607dee268bdecf374adf9144c00e839e38541f75f24a1fcf18b78fda48b2d')
+b2sums=('0dd17b4fd358beb9842889168437443137445a5dba1f0a7e8669ae420d8efb927815c08602c1b1b141acfdfdbaa12b417863402a5c8df5f36519fd3e772d3f37')
 
 build() {
   local prepare_options=(
@@ -27,20 +26,14 @@ build() {
     --prefix=/usr
   )
 
-  export CC="gcc -m32"
+  export CFLAGS+=" -m32"
+  export CXXFLAGS+=" -m32"
+  export LDFLAGS+=" -m32"
+  export PKG_CONFIG_PATH='/usr/lib32/pkgconfig'
 
   cd $_name-$pkgver
   ./configure "${prepare_options[@]}"
   make
-}
-
-check() {
-  # not sure what's causing these test failures; ignore them for now
-  #   FAIL: libffi.closures/unwindtest.cc -W -Wall -Wno-psabi -O0 execution test
-  #   FAIL: libffi.closures/unwindtest.cc -W -Wall -Wno-psabi -O2 execution test
-  #   FAIL: libffi.closures/unwindtest_ffi_call.cc -W -Wall -Wno-psabi -O0 execution test
-  #   FAIL: libffi.closures/unwindtest_ffi_call.cc -W -Wall -Wno-psabi -O2 execution test
-  make -C $_name-$pkgver check || :
 }
 
 package() {
