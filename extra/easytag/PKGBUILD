@@ -7,7 +7,7 @@
 
 pkgname=easytag
 pkgver=2.4.3
-pkgrel=13
+pkgrel=14
 pkgdesc='Simple application for viewing and editing tags in audio files'
 arch=(x86_64)
 url='https://wiki.gnome.org/Apps/EasyTAG'
