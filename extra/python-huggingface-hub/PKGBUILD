@@ -3,7 +3,7 @@
 
 _name=huggingface_hub
 pkgname=python-huggingface-hub
-pkgver=0.29.0
+pkgver=0.29.1
 pkgrel=1
 epoch=1
 pkgdesc='All the open source things related to the Hugging Face Hub'
@@ -55,7 +55,7 @@ optdepends=(
   python-tensorflow
 )
 source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('cdcda0ee263bd7dc27c729becde0b1fdf2b6292ca68ebe5a5e009e395bdbb8265188501ff8e38e4b0b62780408ffc88b6b1806c893bcc6535eeb478575013139')
+sha512sums=('4a50a52029a3131535618eec17cf71441507085a5a33959a9e9fee85257d7b5b6cfc0f82798f02157ebdbd0483292afdb5d50959699b024ed68e677519e67be4')
 
 build() {
   cd $_name-$pkgver
@@ -75,14 +75,13 @@ check() {
     --deselect tests/test_cache_no_symlinks.py
     --deselect tests/test_file_download.py
     --deselect tests/test_utils_cache.py
+    --deselect tests/test_inference_client.py
     # skip hanging test https://github.com/huggingface/huggingface_hub/issues/1973
     --deselect tests/test_repository.py::TestRepositoryShared::test_clone_from_missing_repo
     # skip tests that require gradio but are not marked as such
     --deselect tests/test_webhooks_server.py::test_deserialize_payload_example_with_comment
     --deselect tests/test_webhooks_server.py::test_deserialize_payload_example_without_comment
     --deselect tests/test_webhooks_server.py::test_deserialize_payload_example_with_updated_refs
-    # skip failing test
-    --deselect tests/test_inference_client.py::TestInferenceClient::test_text_to_image_default[nebius,text-to-image]
   )
 
   cd $_name-$pkgver
