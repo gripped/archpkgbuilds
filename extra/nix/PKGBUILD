@@ -8,78 +8,151 @@
 # c.f. https://github.com/NixOS/nix/pull/9512/files
 
 pkgbase=nix
-pkgname=(nix perl-nix)
-pkgver=2.26.2
-pkgrel=1
+pkgname=('nix' 'nix-docs')
+pkgver=2.24.11
+pkgrel=11
 pkgdesc='A purely functional package manager'
-arch=(x86_64)
-url="https://nixos.org/$pkgname"
-license=(LGPL-2.1-only)
-depends=(boost-libs libboost_context.so
-         brotli libbrotlienc.so libbrotlidec.so
-         curl libcurl.so
-         editline libeditline.so
-         gcc-libs
-         glibc
-         libarchive libarchive.so
-         libcpuid libcpuid.so
-         libgit2 libgit2.so
-         libseccomp libseccomp.so
-         libsodium
-         lowdown liblowdown.so
-         nix-busybox
-         openssl libcrypto.so libsodium.so
-         sqlite libsqlite3.so)
-makedepends=(boost
-             bzip2
-             cmake
-             gc
-             git
-             graphviz
-             gtest
-             jq
-             meson
-             nlohmann-json
-             perl
-             perl-dbd-sqlite
-             rapidcheck librapidcheck.so
-             toml11)
-source=("$pkgbase::git+https://github.com/NixOS/nix.git#tag=${pkgver}?signed"
-        nix.conf
-        sysusers.conf
-        tmpfiles.conf
-        user.tmpfiles.conf)
-sha512sums=('dac7f9f4299a8f37377cdec4a531d651a4a9940a15329d614a43651bfed02474adb4a31385a60697426552a2545590d3a0d3cfe71e738d1e817479ac9ef3f8fa'
+arch=('x86_64')
+url='https://nixos.org/nix'
+license=('LGPL-2.1-only')
+makedepends=(
+  'aws-sdk-cpp-core'
+  'aws-sdk-cpp-s3'
+  'autoconf-archive'
+  'boost'
+  'brotli'
+  'bzip2'
+  'curl'
+  'editline'
+  'gc'
+  'git'
+  'graphviz'
+  'gtest'
+  'jq'
+  'libcpuid'
+  'libgit2'
+  'libseccomp'
+  'libsodium'
+  'lowdown'
+  'mdbook'
+  'mdbook-linkcheck'
+  'nix-busybox'
+  'nlohmann-json'
+  'openssl'
+  'rapidcheck' 'librapidcheck.so'
+  'sqlite'
+  'toml11'
+)
+source=(
+  "$pkgbase::git+https://github.com/NixOS/nix.git#tag=${pkgver}?signed"
+  'nix.conf'
+  'sysusers.conf'
+  'tmpfiles.conf'
+  'user.tmpfiles.conf'
+)
+sha512sums=('f94198e1fde6f1f0422b0913e0e7ea9a423d09321a8ee225437ac33909a662ed864f6b85e89306fc7daadb27a5115fbed4909b59e4e5487355a9fb84b77be8fb'
             '9e5305680feac56c207a63d3db8dcac2eb8b7d82499e864ce618bbd4be09862b267965fc1378e30426fdcecc1e55b5b65d780355778e0d851a77e6d56a11679c'
             '6511badd6e4c71d9b7f6e6a87ea521a9727a5569ecf48dca11ee0d04151adf083453dcf7e05eadd5c28278fd8aee9fe44bbb90067f5fc8067c99c5e9665affd9'
             '879bc28faf877a560ac67500388d9774ec890391ef08d367a18f98ef17faeef8c7d208e747fed1fd501b07c3a3b2286af436eb1bd137de2d8ea9a9c32b48088a'
             'da5b6d449f8e69c9211e6bd97b1ce4c6e398da5a34fea9a8a89a28084489a1549188e52f66ce7536903afeb75e690e764188daac20a16227b66cc14a72b7311a')
-b2sums=('8a888092aee2ec4dae6877cbd15de991ac9994fbc91465dd049d6771396f2d5050d3fad166869e29aaaa02fc50b5523890a3e26a0a2caa18994a9c446369f0b3'
+b2sums=('4282426db82741d79c92d514f41d9311db3cb04cdb9d3c863cc305f14de32808f8ca8a4055be256f8861d1392e83dcc857bcefc07397b0324688b84c2a0a0641'
         'da4733fa3b5bf20e7be59a260f8dc0ddfd52ad610e312d792e11d729a2c20834b34fbbfc8f0a56128b0cc15035c06d244be93174b7264e132c66f18ec63d048b'
         'e92b8192bae89f0bc8c62371fbe63b4bfd68352699e5ea6900bf4313fd573322a06cb85074b292a005cbf644a50abbb67694f9458f071b0fd223d220494f6b6c'
         'bffaabbe8c9efee79c7761e72a189796f35c0a40805b53fe954c10590ab9bfd0a321b45c7050ddf30810e36fa4431768f36f19fdc55085c0396ac5338b88f839'
         '57610fc5fa370f9c3df50ab411dfe154b273349b3b321ad01768cacdf371e27603e8446a4e4269ccf4ca6cdb59b4a70fdcac59cda29c47eb7e7224555ec7e2e2')
-validpgpkeys=('B541D55301270E0BCF15CA5D8170B4726D7198DE') # Eelco Dolstra <edolstra@gmail.com>
+validpgpkeys=('B541D55301270E0BCF15CA5D8170B4726D7198DE') #Eelco Dolstra <edolstra@gmail.com>
+
+prepare() {
+  cd "$pkgbase"
+
+  # fix lowdown 1.4 compatibility
+  git cherry-pick -n bead70acc207e065606f1989697d1b13722d02ae
+
+  sed -i "s:\$(bindir):src/nix:g" doc/manual/local.mk
+}
 
 build() {
-	local meson_opts=(
-		bindings=true
-		doc-gen=false
-		unit-tests=false
-	)
-	arch-meson "$pkgbase" build ${meson_opts[@]/#/-D }
+  cd "$pkgbase"
+
+  autoreconf -vfi
+
+  # fix lowdown 1.4 compatibility, upstream fix only works for the meson
+  # build system
+  export CXXFLAGS="$CXXFLAGS -DHAVE_LOWDOWN_1_4"
+
+  ./configure \
+    --prefix=/usr \
+    --libexecdir="/usr/lib/$pkgname" \
+    --sysconfdir=/etc \
+    --localstatedir=/nix/var \
+    --with-sandbox-shell=/usr/lib/nix/busybox \
+    --enable-static=rapidcheck \
+    --disable-gc \
+    --enable-lto
+
+  make
 }
+
+# tests implemented in package.nix
+#check() {
+#  cd "$pkgbase"
+#
+#  make check
+#}
 
 package_nix() {
-	backup=("etc/$pkgname/$pkgname.conf")
-	install="$pkgname.install"
-	DESTDIR="$pkgdir" meson install -C build
-	mv "$pkgdir/usr/lib/perl5" perl-nix
-	install -Dm644 "$pkgbase/COPYING" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  depends=(
+    'aws-sdk-cpp-core'
+    'aws-sdk-cpp-s3'
+    'boost-libs' 'libboost_context.so'
+    'brotli' 'libbrotlienc.so' 'libbrotlidec.so'
+    'curl' 'libcurl.so'
+    'editline' 'libeditline.so'
+    'gc'
+    'gcc-libs'
+    'glibc'
+    'libarchive' 'libarchive.so'
+    'libcpuid' 'libcpuid.so'
+    'libgit2' 'libgit2.so'
+    'libseccomp' 'libseccomp.so'
+    'libsodium' 'libsodium.so'
+    'lowdown' 'liblowdown.so'
+    'nix-busybox'
+    'openssl' 'libcrypto.so'
+    'sqlite' 'libsqlite3.so'
+  )
+  backup=("etc/$pkgname/$pkgname.conf")
+  install="$pkgname.install"
+
+  # package
+  cd "$pkgbase"
+  make DESTDIR="$pkgdir" install
+
+  # remove unused files - FS#73120
+  rm -rf \
+    "$pkgdir/etc/init" \
+    "$pkgdir/etc/profile.d/nix.sh" \
+    "$pkgdir/etc/profile.d/nix.fish"
+
+  # systemd integration - FS#79747
+  install -vDm644 "$srcdir/tmpfiles.conf" "$pkgdir/usr/lib/tmpfiles.d/$pkgname-daemon.conf"
+  install -vDm644 "$srcdir/sysusers.conf" "$pkgdir/usr/lib/sysusers.d/$pkgname-daemon.conf"
+  install -vDm644 "$srcdir/user.tmpfiles.conf" "$pkgdir/usr/share/user-tmpfiles.d/$pkgname-daemon.conf"
+
+  # configuration
+  install -vDm644 "$srcdir/nix.conf" -t "$pkgdir/etc/$pkgname"
+
+  # move docs out for nix-docs split-package
+  mv "$pkgdir/usr/share/doc" nix-docs
+
+  # license
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 
-package_perl-nix() {
-	depends=(nix)
-	install -d "$pkgdir/usr/lib/perl5"
-	mv perl-nix "$pkgdir/usr/lib/perl5/"
+package_nix-docs() {
+  pkgdesc+=" (documentation)"
+
+  cd "$pkgbase"
+  install -vd "$pkgdir/usr/share/doc"
+  mv nix-docs/nix "$pkgdir/usr/share/doc"
 }
