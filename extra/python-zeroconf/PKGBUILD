@@ -3,12 +3,12 @@
 
 pkgname=python-zeroconf
 pkgver=0.141.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A pure python implementation of multicast DNS service discovery"
 arch=('any')
 url="https://github.com/jstasiak/python-zeroconf"
 license=('LGPL-2.1-or-later')
-depends=('python' 'python-ifaddr' 'python-async-timeout')
+depends=('python' 'python-ifaddr')
 makedepends=('python-setuptools' 'python-build' 'python-installer'
              'python-wheel' 'python-poetry-core' 'cython')
 checkdepends=('python-pytest')
