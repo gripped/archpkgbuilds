@@ -1,0 +1,41 @@
+From fde62484e0e1724569ecc86df8e1ffbe2bc3510a Mon Sep 17 00:00:00 2001
+From: flightlessmango <flightlessmangoyt@gmail.com>
+Date: Wed, 19 Feb 2025 13:02:59 +0100
+Subject: [PATCH] nvidia: fix crash when nvctrl is not loaded
+
+---
+ src/nvidia.cpp | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/src/nvidia.cpp b/src/nvidia.cpp
+index 0b0b48d9a3..ee05183b3c 100644
+--- a/src/nvidia.cpp
++++ b/src/nvidia.cpp
+@@ -52,13 +52,14 @@ NVIDIA::NVIDIA(const char* pciBusId) {
+         SPDLOG_DEBUG("XNVCtrl: X11 not loaded");
+ 
+     auto& nvctrl = get_libnvctrl_loader();
+-    if (!nvctrl.IsLoaded())
++    if (!nvctrl.IsLoaded()) {
+         SPDLOG_DEBUG("XNVCtrl loader failed to load");
++        nvctrl_available = false;
++    } else {
++        nvctrl_available = find_nv_x11(nvctrl, display);
++    }
+ 
+-    nvctrl_available = find_nv_x11(nvctrl, display);
+-    if (!nvctrl_available)
+-        SPDLOG_DEBUG("XNVCtrl didn't find the correct display");
+-    else {
++    if (nvctrl_available) {
+         nvctrl.XNVCTRLQueryTargetCount(display,
+             NV_CTRL_TARGET_TYPE_COOLER,
+             &num_coolers);
+@@ -298,6 +299,7 @@ bool NVIDIA::find_nv_x11(libnvctrl_loader& nvctrl, Display*& dpy)
+             libx11->XCloseDisplay(d);
+         }
+     }
++    SPDLOG_DEBUG("XNVCtrl didn't find the correct display");
+     return false;
+ }
+ #endif
