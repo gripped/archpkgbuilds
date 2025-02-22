@@ -4,7 +4,7 @@
 _pkgname=aws-crt-python
 pkgname=python-awscrt
 # https://github.com/awslabs/aws-crt-python/releases
-pkgver=0.23.4
+pkgver=0.23.8
 pkgrel=1
 pkgdesc='A common runtime for AWS Python projects'
 arch=(x86_64)
@@ -28,7 +28,7 @@ source=("git+https://github.com/awslabs/aws-crt-python.git#tag=v$pkgver"
         "git+https://github.com/awslabs/aws-c-sdkutils"
         "git+https://github.com/awslabs/aws-checksums"
         "git+https://github.com/awslabs/s2n")
-sha256sums=('55c90a09567d3ef1c4ce99bd90c1387a4331690edb6b8380a5340b4b92ad5f5b'
+sha256sums=('f3797e11683dc81999713c0e7bd870649131f552e6388662afddb82a0f007f3e'
             '2a76a90dfa59b2fadf25f6e74cd7ff516a50d6b4005f185b9fa2df48ece86d79'
             'SKIP'
             'SKIP'
