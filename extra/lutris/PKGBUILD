@@ -5,7 +5,7 @@
 
 pkgname=lutris
 pkgver=0.5.18
-pkgrel=2
+pkgrel=3
 pkgdesc='Open Gaming Platform'
 arch=(any)
 url=https://lutris.net
@@ -84,6 +84,11 @@ prepare() {
   # And https://github.com/lutris/lutris/issues/5659
   protoc --proto_path=galaxy_blizzard_plugin/src --python_out=. product_db.proto
   cp -vf product_db_pb2.py lutris/lutris/util/battlenet/product_db_pb2.py
+
+  cd "${pkgname}"
+  # Backported patch to provide compatibility with evdev 1.9.0
+  # See https://github.com/lutris/lutris/issues/5939
+  git cherry-pick -n 63de766a30b271a003fcc01da545f602c3053a17
 }
 
 build() {
