@@ -5,7 +5,7 @@
 pkgname=sox
 # using a git snapshot as 14.4.2 has many unfixed security vulns
 pkgver=14.4.2+r184+gf3094754
-pkgrel=1
+pkgrel=7
 pkgdesc="The Swiss Army knife of sound processing tools"
 arch=('x86_64')
 url="https://sox.sourceforge.net/"
