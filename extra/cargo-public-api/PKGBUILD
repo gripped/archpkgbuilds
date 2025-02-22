@@ -1,7 +1,8 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=cargo-public-api
-pkgver=0.44.0
+pkgver=0.44.1
 pkgrel=1
 pkgdesc="List and diff the public API of Rust library crates"
 arch=('x86_64')
@@ -10,13 +11,13 @@ license=('MIT')
 depends=('curl' 'gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('6a5df890de52b9b057e9cb6040a8cf944907537a5864c7717dc9b9a73a4727de2467e511d26097bcbb8ac75fbee27b54f129fc9493fec9984e2d4dd562dd4c61')
+sha512sums=('9db9490c8b88268e708cf9ca5443731fdabc7c422bd65eeffc3319a054b477fa026cdfb614fff98a8935bfe0659d8e9469907f19997994e8325af746bfb7d84f')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-  mkdir completions
+  mkdir -p completions
 }
 
 build() {
