@@ -4,26 +4,26 @@
 # Contributor: Juan Miguel Cejuela <juanmi@jmcejuela.net>
 
 pkgname=python-apsw
-pkgver=3.47.1.0
+pkgver=3.49.1.0
 pkgrel=1
 pkgdesc="Python wrapper for SQLite"
 arch=('x86_64')
 url="https://github.com/rogerbinns/apsw"
 license=('MIT')
-makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools' 'git')
 depends=('python' 'sqlite')
-source=("apsw-$pkgver.tar.gz::https://github.com/rogerbinns/apsw/archive/$pkgver.tar.gz")
-sha512sums=('520434f89cf3ea317ed2cb9d1746f358d9da4cf136ffe3c8fbf19e27698f8a01ad3d56a90c758c5d7d77e7662fe44898d63f6b2f1c438861054d141dff12128f')
-b2sums=('b40fe83b86ce618234876eb5fad4ae7558d9d360913b7eada60e7ddb2057882cca1c491d8f5893727186b9efe27217f160d0ddf49cda7e547f223fbe63092720')
+source=("git+https://github.com/rogerbinns/apsw.git#tag=${pkgver}")
+sha512sums=('b44b242658323c0926f7d53aca89e6e60d44a802efc13d3058071ab94bba0ac87117d1faf6b6e670ebba5ea22553f8dec6ed7bba98c201afae0647227fa5c3f9')
+b2sums=('9cda75195060595039719a35f101dd9e7186be40e67e143a7941d5ea9ea617c48ab954d8ed03ada60f1c95eb983714633310cca64b4b1eb36403b64c521d5a55')
 
 build() {
-  cd apsw-${pkgver}
+  cd apsw
 
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$srcdir"/apsw-${pkgver}
+  cd apsw
 
   gcc ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -fPIC -shared -o testextension.sqlext src/testextension.c
   # do glob expansion in variable assignment
@@ -32,7 +32,7 @@ check() {
 }
 
 package() {
-  cd "$srcdir"/apsw-${pkgver}
+  cd apsw
 
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -D -m644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
