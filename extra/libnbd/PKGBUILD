@@ -1,8 +1,8 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Thomas Weißschuh <thomas t-8ch de>
 pkgname=libnbd
-pkgver=1.20.3
-pkgrel=4
+pkgver=1.22.0
+pkgrel=1
 pkgdesc="NBD client library in userspace"
 arch=('x86_64')
 url="https://gitlab.com/nbdkit/libnbd"
@@ -16,18 +16,14 @@ optdepends=(
 )
 source=(
   "https://download.libguestfs.org/libnbd/${pkgver%.*}-stable/libnbd-${pkgver}.tar.gz"{,.sig}
-  libnbd-mr11.patch::https://gitlab.com/nbdkit/libnbd/-/merge_requests/11.patch
 )
-sha256sums=('1b1d3ee680c496d7ce79875a2b136b8c2dcc62bc5dada3ee61cb4729d2879c77'
-            'SKIP'
-            '73f27a4d07b7c3fb53a7b4be70e3bd0accfbc50f5adcabcc08eec894b6fe11d9')
+sha256sums=('9a1eb4ee9dd6f9932a127ccddcbeffcd7a01e93547da6298ef99eb36bce9c638'
+            'SKIP')
 validpgpkeys=('F7774FB1AD074A7E8C8767EA91738F73E1B768A0')  # Richard W.M. Jones <rjones@redhat.com>
 
 prepare() {
   cd "${pkgname}-${pkgver}"
   autoreconf -fiv
-
-  patch -Np1 -i "$srcdir"/libnbd-mr11.patch
 }
 
 build() {
