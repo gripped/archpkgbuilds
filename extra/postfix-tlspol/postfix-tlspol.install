@@ -1,0 +1,9 @@
+post_install() {
+	cat <<EOM
+
+:: Note that postfix-tlspol requires a DNSSEC-validating DNS server.
+
+   See https://wiki.archlinux.org/title/Domain_name_resolution#DNS_servers for a list of options.
+
+EOM
+}
