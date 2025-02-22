@@ -4,7 +4,7 @@
 _name=libsndfile
 pkgname=lib32-$_name
 pkgver=1.2.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A C library for reading and writing files containing sampled audio data (32-bit)"
 arch=(x86_64)
 url="https://libsndfile.github.io/libsndfile/"
