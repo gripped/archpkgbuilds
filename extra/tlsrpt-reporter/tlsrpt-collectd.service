@@ -1,0 +1,18 @@
+[Unit]
+Description=tlsrpt-collectd agent to collect TLSRPT reports
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/tlsrpt-collectd
+PrivateDevices=true
+PrivateTmp=true
+ProtectSystem=true
+Restart=always
+User=tlsrpt
+LogsDirectory=tlsrpt
+StateDirectory=tlsrpt
+RuntimeDirectory=tlsrpt
+ConfigurationDirectory=tlsrpt
+
+[Install]
+WantedBy=multi-user.target
