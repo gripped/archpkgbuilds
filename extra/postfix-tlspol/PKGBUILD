@@ -1,0 +1,50 @@
+# Maintainer: Robin Candau <antiz@archlinux.org>
+
+pkgname=postfix-tlspol
+pkgver=1.7.1
+pkgrel=1
+pkgdesc="Lightweight MTA-STS + DANE/TLSA resolver and TLS policy server for Postfix, prioritizing DANE"
+url="https://github.com/Zuplu/postfix-tlspol"
+arch=('x86_64')
+license=('MIT')
+depends=('glibc' 'postfix')
+makedepends=('go')
+optdepends=('valkey: database option for caching support'
+            'redis: databse option for caching support')
+backup=("etc/${pkgname}/config.yaml")
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz"
+        'systemd-service.patch')
+sha256sums=('b49709f0c37d27ea0c54b5ae183e14d543deeafb9c5ac4f7a370731c22d343c3'
+            '949d6ef0b843b3e40db26fc0a7c48454b623aa782bf132c8d5276c0338f2b768')
+
+prepare(){
+	cd "${pkgname}-${pkgver}"
+	mkdir -p build/
+
+	# Remove superfluous options from the systemd service and adjust it for System-Wide usage 
+	patch -Np1 -i "${srcdir}/systemd-service.patch"
+}
+
+build() {
+	cd "${pkgname}-${pkgver}"
+	export CGO_CPPFLAGS="${CPPFLAGS}"
+	export CGO_CFLAGS="${CFLAGS}"
+	export CGO_CXXFLAGS="${CXXFLAGS}"
+	export CGO_LDFLAGS="${LDFLAGS}"
+	export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
+	go build -o "build/${pkgname}" *.go
+}
+
+check() {
+	cd "${pkgname}-${pkgver}"
+	go test ./...
+}
+
+package() {
+	cd "${pkgname}-${pkgver}"
+	install -Dm 755 "build/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+	install -Dm 644 "init/${pkgname}.service.template" "${pkgdir}/usr/lib/systemd/system/${pkgname}.service"
+	install -Dm 644 configs/config.default.yaml "${pkgdir}/etc/${pkgname}/config.yaml"
+	install -Dm 644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+	install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
