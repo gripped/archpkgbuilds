@@ -1,7 +1,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=libzypp
-pkgver=17.36.1
+pkgver=17.36.2
 pkgrel=1
 pkgdesc="ZYpp Package Management library"
 arch=(x86_64)
@@ -34,13 +34,14 @@ makedepends=(
     nginx
     vsftpd
 )
-checkdepends=(
-    nginx
-    vsftpd
-)
+# just needed for the mediabackend tests which don't seem to work in nspawn
+# checkdepends=(
+#     nginx
+#     vsftpd
+# )
 optdepends=()
 source=("git+https://github.com/openSUSE/libzypp.git#tag=${pkgver}")
-sha256sums=('1c2f75214203ecb8dd4c0e741f09d31cb9afb312ae818c1fb181c4cb5c83ec95')
+sha256sums=('e129f01404753d857b24aac22f61348882c4c9eea025a009131a92d2dc8959b3')
 
 build() {
     local cmake_options=(
@@ -60,19 +61,20 @@ build() {
     cmake --build build
 }
 
-# check() {
-#     local excluded_tests=""
-#     local ctest_flags=(
-#         --test-dir build
-#         # show the stdout and stderr when the test fails
-#         --output-on-failure
-#         # execute tests in parallel
-#         --parallel $(nproc)
-#         # exclude problematic tests
-#         --exclude-regex "$excluded_tests"
-#     )
-#     ctest "${ctest_flags[@]}"
-# }
+check() {
+    # https://github.com/openSUSE/libzypp/issues/622
+    local excluded_tests="RpmPkgSigCheck_test"
+    local ctest_flags=(
+        --test-dir build
+        # show the stdout and stderr when the test fails
+        --output-on-failure
+        # execute tests in parallel
+        --parallel $(nproc)
+        # exclude problematic tests
+        --exclude-regex "${excluded_tests[@]}"
+    )
+    ctest "${ctest_flags[@]}"
+}
 
 package() {
     DESTDIR="$pkgdir" cmake --install build
