@@ -4,9 +4,9 @@
 
 _name=FreeRDP
 pkgname=freerdp
-pkgver=3.11.1
+pkgver=3.12.0
 _libver=${pkgver/.*/}
-pkgrel=2
+pkgrel=1
 epoch=2
 pkgdesc="Free implementation of the Remote Desktop Protocol (RDP)"
 arch=(x86_64)
@@ -66,8 +66,8 @@ provides=(
 source=(
   https://github.com/$pkgname/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz
 )
-sha512sums=('c0f6988ba1236060d906177948ab568428193f6e42d08d0e57ea5dc908b86441710961a4b3762f331ab9855c49577dffbd9a4c110a16943ce6bdda9642c549cf')
-b2sums=('8596ea065defaa4d4b1d75ba6268de83e7ce7e25dae3e40b178ece3a33a415fe28515e4e3a5228dcae18c0f7d931b9031a6492bf3957c02c714cc29d41b8de99')
+sha512sums=('030963dc9ba4c4ae5be95b15d19105bc9c023ac71beb54ffdb3c3ede85270fcc01275126f8b6899fe7c0ab22697ea38d51c9ea1ee2a12fb41eb4732bb965689a')
+b2sums=('0c9ac99ed867bc86a0f0cab25ed79f4982e133a624b426390b30643afaa60d35703368a8b38eda1fa0c9c3d124dac9ff21674a4258cf16a718d4ada583740981')
 
 build() {
   # gcc14 buildfix
