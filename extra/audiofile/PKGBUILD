@@ -4,7 +4,7 @@
 
 pkgname=audiofile
 pkgver=0.3.6
-pkgrel=9
+pkgrel=10
 pkgdesc="Silicon Graphics Audio File Library"
 arch=('x86_64')
 url="https://audiofile.68k.org/"
