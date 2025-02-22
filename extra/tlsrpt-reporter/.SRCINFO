@@ -1,7 +1,7 @@
 pkgbase = tlsrpt-reporter
 	pkgdesc = An application suite to receive TLSRPT datagrams and to generate and deliver TLSRPT reports
 	pkgver = 0.5.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/sys4/tlsrpt-reporter
 	arch = any
 	license = GPL-3.0-or-later
@@ -14,6 +14,7 @@ pkgbase = tlsrpt-reporter
 	depends = python
 	depends = curl
 	depends = sqlite
+	depends = libtlsrpt
 	backup = etc/tlsrpt/reportd.cfg
 	backup = etc/tlsrpt/collectd.cfg
 	backup = etc/tlsrpt/fetcher.cfg
