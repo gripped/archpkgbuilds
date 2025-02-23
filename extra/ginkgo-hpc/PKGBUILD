@@ -4,7 +4,7 @@ _pkgname=ginkgo
 pkgbase=ginkgo-hpc
 pkgname=(ginkgo-hpc ginkgo-hpc-docs ginkgo-hpc-cuda ginkgo-hpc-hip)
 pkgver=1.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Numerical linear algebra software package"
 arch=(x86_64)
 url=https://ginkgo-project.github.io/
@@ -53,8 +53,10 @@ prepare() {
 }
 
 build() {
-  local common_cmake_flags=(
-    -S $_pkgname-$pkgver -G Ninja
+  local common_cmake_options=(
+    -S $_pkgname-$pkgver
+    -G Ninja
+    -W no-dev
     -DCMAKE_BUILD_TYPE=None
     -DCMAKE_INSTALL_PREFIX=/usr
     -DGINKGO_BUILD_REFERENCE=ON
@@ -68,12 +70,12 @@ build() {
   )
   # In general, we want to list all real archs (sm_XX) and the latest virtual arch (compute_XX) for future PTX compatibility.
   # Valid values can be discovered from nvcc --help
-  local _cuda_archs="50;52;53;60;61;62;70;72;75;80;86;87;89;90;90a;90a-virtual"
+  local cuda_archs="50;52;53;60;61;62;70;72;75;80;86;87;89;90;90a;100;100a;101;101a;120;120a;120-virtual"
   # archs gfx1010;gfx1012;gfx1030;gfx1100;gfx1101;gfx1102 are not supported: https://github.com/ginkgo-project/ginkgo/issues/1429
-  local _amdgpu_archs="gfx906;gfx908;gfx90a;gfx940;gfx941;gfx942"
+  local amdgpu_archs="gfx906;gfx908;gfx90a;gfx940;gfx941;gfx942"
 
   # base package
-  cmake -B build "${common_cmake_flags[@]}" \
+  cmake -B build "${common_cmake_options[@]}" \
     -DGINKGO_BUILD_CUDA=OFF \
     -DGINKGO_BUILD_HIP=OFF \
     -DGINKGO_BUILD_SYCL=OFF
@@ -82,8 +84,8 @@ build() {
   # -cuda package
   # Compile source code for supported GPU archs in parallel
   export CUDAFLAGS="--threads $(nproc)"
-  cmake -B build-cuda "${common_cmake_flags[@]}" \
-    -DCMAKE_CUDA_ARCHITECTURES="$_cuda_archs" \
+  cmake -B build-cuda "${common_cmake_options[@]}" \
+    -DCMAKE_CUDA_ARCHITECTURES="$cuda_archs" \
     -DGINKGO_BUILD_CUDA=ON \
     -DGINKGO_BUILD_HIP=OFF \
     -DGINKGO_BUILD_SYCL=OFF
@@ -99,9 +101,9 @@ build() {
   export HIPFLAGS="${HIPFLAGS/-Wp,-D_GLIBCXX_ASSERTIONS/}"
   # Compile source code for supported GPU archs in parallel
   export HIPFLAGS="$HIPFLAGS -parallel-jobs=$(nproc)"
-  cmake -B build-hip "${common_cmake_flags[@]}" \
+  cmake -B build-hip "${common_cmake_options[@]}" \
     -DCMAKE_CXX_COMPILER=/opt/rocm/lib/llvm/bin/amdclang++ \
-    -DCMAKE_HIP_ARCHITECTURES="$_amdgpu_archs" \
+    -DCMAKE_HIP_ARCHITECTURES="$amdgpu_archs" \
     -DGINKGO_BUILD_CUDA=OFF \
     -DGINKGO_BUILD_HIP=ON \
     -DGINKGO_BUILD_SYCL=OFF
@@ -129,6 +131,10 @@ check() {
 _package() {
   DESTDIR="$pkgdir" cmake --install build"$1"
 
+  # move gdb script to the right location (/usr/lib is not in the default safe-path)
+  install -vdm 755 "$pkgdir"/usr/share/gdb/auto-load/usr/lib/
+  mv -v "$pkgdir"/usr/lib/*-gdb.py "$pkgdir"/usr/share/gdb/auto-load/usr/lib/
+
   # install the license
   install -vDm 644 $_pkgname-$pkgver/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 
@@ -148,7 +154,7 @@ package_ginkgo-hpc-docs() {
   depends=()
 
   # install the documentation
-  install -vdm755 "$pkgdir/usr/share/doc/$pkgbase"
+  install -vdm 755 "$pkgdir/usr/share/doc/$pkgbase"
   cp -r build/doc/usr "$pkgdir/usr/share/doc/$pkgbase/html"
 
   # install the license
