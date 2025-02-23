@@ -1,12 +1,12 @@
 # Maintainer: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
 _setmiscver=0.33
-_ndkver=0.3.3
+_ndkver=0.3.4
 
 pkgbase=nginx-mod-ndk-set-misc
 pkgname=(nginx-mod-ndk nginx-mod-set-misc)
 pkgver=$_setmiscver+$_ndkver
-pkgrel=11
+pkgrel=1
 
 pkgdesc="Nginx module that adds additional generic tools that module developers can use in their own modules"
 arch=('x86_64')
@@ -20,7 +20,7 @@ source=(
 )
 validpgpkeys=(B0F4253373F8F6F510D42178520A9993A1C052F8) # Maxim Dounin <mdounin@mdounin.ru>
 sha256sums=('cd5e2cc834bcfa30149e7511f2b5a2183baf0b70dc091af717a89a64e44a2985'
-            'faa2fcd5168b10764d35081356511d5f84db5c526a1aa4b6add2db94b6853b2b')
+            '14a28063294f645d457b1eb10e3c23bbba44398f1c5f021421b58b6f8ab31662')
 
 prepare() {
 	mkdir -p build
