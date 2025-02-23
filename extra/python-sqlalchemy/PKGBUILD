@@ -6,7 +6,7 @@ pkgname=python-sqlalchemy
 _name="${pkgname#python-}"
 pkgver=2.0.38
 _ver="rel_${pkgver//./_}"
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="https://www.sqlalchemy.org/"
 license=('MIT')
@@ -25,6 +25,10 @@ prepare() {
   cd $_name-$_ver
   sed -i '/warnings.filterwarnings("error", category=DeprecationWarning)/a \    warnings.filterwarnings("ignore", category=DeprecationWarning, message="Creating a LegacyVersion has been deprecated and will be removed in the next major release")' \
       lib/sqlalchemy/testing/warnings.py
+
+  # strip dev for https://gitlab.archlinux.org/archlinux/packaging/packages/python-sqlalchemy/-/issues/1
+  sed -i '/tag-build = "dev"/d' pyproject.toml
+  sed -i '/tag_build = dev/d' setup.cfg
 }
 
 build() {
