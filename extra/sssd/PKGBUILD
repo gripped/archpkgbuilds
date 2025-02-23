@@ -2,8 +2,8 @@
 # Maintainer: Mantas M. <grawity@gmail.com>
 
 pkgname=sssd
-pkgver=2.10.1
-pkgrel=5
+pkgver=2.10.2
+pkgrel=1
 pkgdesc="System Security Services Daemon"
 arch=('x86_64')
 url="https://github.com/SSSD/sssd"
@@ -44,13 +44,12 @@ checkdepends=(
   'valgrind'
 )
 options=('!lto')
+install=sssd.install
 backup=('etc/logrotate.d/sssd')
 source=("https://github.com/SSSD/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.gz"{,.asc}
-        "sssd-perms.service"
         "sssd-perms.tmpfile")
-sha512sums=('001ff9cd60aa510ead11e418a1b96714136cc270b29551027cb12c340744890b358da5900a10863d4df649ad073f14f6f26c28e3f973b1cd5c2ab61f2a2a045b'
+sha512sums=('14ad222802e5426b0959ee32602e04ce24b3eb8d3bdd5e188cf29e3c7d32e0631b41c386fdbd129acf281317538460015d35410a688ea48dd546f9ae28522eac'
             'SKIP'
-            'aec6bac39318db2b66ebdbae5fb78db758951f53f0f3385b33b4a6d16341f11296faed147520b2d60f1b25e0cb7ca78565ffbdc27b2102f1f28c2250f1b63582'
             '21646ea5900340c1b0a69c79fc72b0d3e360d56e04dc0daf7947024a420d214a931365e684e8f7cfd37c959327e6909ad4c0d6c3a8186153bca870f508dad486')
 validpgpkeys=('C13CD07FFB2DB1408E457A3CD3D21B2910CF6759')
 
@@ -125,7 +124,6 @@ package() {
   install -Dm0644 src/examples/logrotate "$pkgdir"/etc/logrotate.d/sssd
   install -Dm0644 contrib/sssd.sysusers "$pkgdir"/usr/lib/sysusers.d/sssd.conf
   install -Dm0644 "$srcdir"/sssd-perms.tmpfile "$pkgdir"/usr/lib/tmpfiles.d/sssd-perms.conf
-  install -Dm0644 "$srcdir"/sssd-perms.service "$pkgdir"/usr/lib/systemd/system/sssd.service.d/10-perms.conf
 
   setcap cap_dac_read_search,cap_setgid,cap_setuid=p "$pkgdir"/usr/lib/sssd/sssd/krb5_child
   setcap cap_dac_read_search=p "$pkgdir"/usr/lib/sssd/sssd/ldap_child
