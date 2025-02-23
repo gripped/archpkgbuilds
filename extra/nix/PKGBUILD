@@ -10,7 +10,7 @@
 pkgbase=nix
 pkgname=(nix perl-nix)
 pkgver=2.26.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A purely functional package manager'
 arch=(x86_64)
 url="https://nixos.org/$pkgname"
@@ -63,6 +63,7 @@ validpgpkeys=('B541D55301270E0BCF15CA5D8170B4726D7198DE') # Eelco Dolstra <edols
 
 build() {
 	local meson_opts=(
+		libstore:sandbox-shell=/usr/lib/nix/busybox
 		bindings=true
 		doc-gen=false
 		unit-tests=false
