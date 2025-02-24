@@ -6,8 +6,8 @@
 
 pkgname=python-sphinx
 _name=${pkgname#python-}
-pkgver=8.1.3
-pkgrel=2
+pkgver=8.2.1
+pkgrel=1
 pkgdesc='Python documentation generator'
 arch=(any)
 url=http://www.sphinx-doc.org/
@@ -20,6 +20,7 @@ depends=(
   python-packaging
   python-pygments
   python-requests
+  python-roman-numerals-py
   python-snowballstemmer
   python-sphinx-alabaster-theme
   python-sphinxcontrib-{{apple,dev,html}help,jsmath,qthelp,serializinghtml}
@@ -35,7 +36,9 @@ checkdepends=(
   imagemagick
   librsvg
   python-defusedxml
+  python-psutil
   python-pytest
+  python-pytest-xdist
   python-setuptools
   python-typing_extensions
   texlive-{fontsextra,fontsrecommended,latexextra,luatex,xetex}
@@ -46,7 +49,7 @@ optdepends=(
   'texlive-latexextra: for generation of PDF documentation'
 )
 source=("git+https://github.com/$_name-doc/$_name.git#tag=v$pkgver")
-b2sums=('cc33c2f250a57325563eabe5dcc0b686d4a552af7af80131a7702ef7a12182540736a8c406daf98d0fdb6b7cbd56eed1da8263c423e9df6b8727e7a23d633064')
+b2sums=('b9e19c7d0d77375f8060ec30130aba0d55d2da78a6cbe54c13d101e7827e0b0ce3e75009633018162091e218ef6688c454dbc98def5b5e29958c31e88c3a0584')
 
 build() {
   cd "$_name"
@@ -65,7 +68,7 @@ check() {
 package() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
-  ln -s "$site_packages"/"$_name"-$pkgver.dist-info/LICENSE.rst \
+  ln -s "$site_packages"/"$_name"-$pkgver.dist-info/licenses/LICENSE.rst \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.rst
 
   cd "$_name"
