@@ -2,8 +2,8 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=libqalculate
-pkgver=5.5.0
-pkgrel=2
+pkgver=5.5.1
+pkgrel=1
 pkgdesc='Multi-purpose desktop calculator'
 arch=(x86_64)
 url='https://qalculate.github.io/'
@@ -21,7 +21,7 @@ makedepends=(doxygen
              intltool)
 optdepends=('gnuplot: for plotting support')
 source=(git+https://github.com/Qalculate/libqalculate#tag=v$pkgver)
-sha256sums=('9f0ca82ba2578641ffe473655f7be8367ed2cebe619b6853e5635d00ce40934b')
+sha256sums=('1354fdc746029b58ab3964fe51405854f4bb11834240586d757da0d9f00b76eb')
 
 prepare() {
   cd $pkgname
