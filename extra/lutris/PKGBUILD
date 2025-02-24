@@ -4,8 +4,8 @@
 # Contributor: Frederik “Freso” S. Olesen <freso.dk@gmail.com>
 
 pkgname=lutris
-pkgver=0.5.18
-pkgrel=3
+pkgver=0.5.19
+pkgrel=1
 pkgdesc='Open Gaming Platform'
 arch=(any)
 url=https://lutris.net
@@ -75,7 +75,7 @@ optdepends=(
 )
 source=("git+https://github.com/lutris/lutris.git#tag=v${pkgver}"
         "git+https://github.com/bartok765/galaxy_blizzard_plugin.git")
-sha256sums=('8ef52446984b43fbd52378aeb21828f7763193553a25b8d8631e8b147dfb4dda'
+sha256sums=('e0349f6c127e9da4a935d84fa73370c353cd08e513160e28b1da13db94cc9d8c'
             'SKIP')
 
 prepare() {
@@ -84,11 +84,6 @@ prepare() {
   # And https://github.com/lutris/lutris/issues/5659
   protoc --proto_path=galaxy_blizzard_plugin/src --python_out=. product_db.proto
   cp -vf product_db_pb2.py lutris/lutris/util/battlenet/product_db_pb2.py
-
-  cd "${pkgname}"
-  # Backported patch to provide compatibility with evdev 1.9.0
-  # See https://github.com/lutris/lutris/issues/5939
-  git cherry-pick -n 63de766a30b271a003fcc01da545f602c3053a17
 }
 
 build() {
