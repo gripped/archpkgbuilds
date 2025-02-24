@@ -1,8 +1,8 @@
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=perl-specio
-pkgver=0.49
-pkgrel=2
+pkgver=0.50
+pkgrel=1
 pkgdesc="Type constraints and coercions for Perl"
 arch=('any')
 url="https://search.cpan.org/dist/Specio"
@@ -11,7 +11,7 @@ depends=('perl-role-tiny' 'perl-test-fatal' 'perl-mro-compat' 'perl-devel-stackt
 	 'perl-clone' 'perl-eval-closure')
 options=('!emptydirs')
 source=(https://search.cpan.org/CPAN/authors/id/D/DR/DROLSKY/Specio-$pkgver.tar.gz)
-sha256sums=('e85766262b3738efc8dcbeb039b0d632d0aa393a55a33c36df5b21b4d44dc7af')
+sha256sums=('467baf0582681626266318e3154727497d7205996fbd76674ba58ed79e10640e')
 
 build() {
   cd  "$srcdir"/Specio-$pkgver
