@@ -2,63 +2,87 @@
 
 pkgname=lib32-pcre2
 _name="${pkgname#lib32-}"
-pkgver=10.44
+pkgver=10.45
 pkgrel=1
 pkgdesc='A library that implements Perl 5-style regular expressions. 2nd version (32-bit)'
 arch=(x86_64)
-url='https://github.com/PhilipHazel/pcre2'
-license=(BSD-3-Clause)
-depends=(lib32-glibc "$_name=$pkgver")
+url='https://github.com/PCRE2Project/pcre2'
+license=(
+  BSD-2-Clause
+  'BSD-3-Clause WITH PCRE2-exception'
+)
+depends=(
+  lib32-glibc
+  "$_name=$pkgver"
+)
+makedepends=(
+  git
+  lib32-bzip2
+  lib32-readline
+  lib32-zlib
+)
 provides=(libpcre2-{8,16,32,posix}.so)
 source=(
-  $url/releases/download/$_name-$pkgver/$_name-$pkgver.tar.bz2{,.sig}
-  $pkgname-10.44-32bit_test_offset.patch
+  $_name::git+$url?signed#tag=$_name-$pkgver
+  sljit::git+https://github.com/zherczeg/sljit.git
 )
-sha512sums=('ee91cc10a2962bc7818b03d368df3dd31f42ea9a7260ae51483ea8cd331b7431e36e63256b0adc213cc6d6741e7c90414fd420622308c0ae3fcb5dd878591be2'
-            'SKIP'
-            '3a19133506efaa6c22973a42d5499ecb5f8250bd422044a7d55ce39ec9b2b337c9d7fe0cb39d4735d9be1e8f46bb2ef96b25988284d6b3e9f5b2609f8f7affd4')
-b2sums=('fb06228f8bdc5906ef4f19d7d677f1009070855149d9ad3f807cfcd164f5cb6165f96e074fedc3942226d4b29edf4b29fab6cde2f2ba58bf6da282730941412b'
-        'SKIP'
-        '062bd941334ab4a3649080646966912d7fb1271ce167cf1edc01dfa7adae9c20c26c610a56561c3907fdc2da6ab809a2e6f09a37757f1a5cf39549a0a6062de4')
-validpgpkeys=(45F68D54BBE23FB3039B46E59766E084FB0F43D8)  # Philip Hazel <ph10@hermes.cam.ac.uk>
+sha512sums=('02e1b9972c00e3eae7d07ddf0519f19b5291c979fa316453d24fea41adce3e3213f484049091df448765b799b66556901c24a6238fd48a1eef79614319a1c68e'
+            'SKIP')
+b2sums=('196dfcbf6f096b91cb2b72cd1eab53e42a72435f27224fb02fb846f52939d2ae44f1d3ef6d59c024919be9dc00774e13e1bf3c82bec2acb1ac1cf64d66a721cc'
+        'SKIP')
+validpgpkeys=(
+  45F68D54BBE23FB3039B46E59766E084FB0F43D8  # Philip Hazel <ph10@hermes.cam.ac.uk>
+  A95536204A3BB489715231282A98E77EB6F24CA8  # Nicholas Wilson <nicholas@nicholaswilson.me.uk>
+)
 
 prepare() {
-  # fix issues with offset in tests (i686 specific): https://github.com/PCRE2Project/pcre2/issues/415
-  patch -Np1 -d $_name-$pkgver -i ../$pkgname-10.44-32bit_test_offset.patch
+  cd $_name
+
+  git submodule init
+  git config submodule."deps/sljit".url ../sljit
+  git -c protocol.file.allow=always submodule update
+
+  ./autogen.sh
+
+  # extract licenses
+  cp -v deps/sljit/LICENSE ../BSD-2-Clause.txt
+  sed -n '70,94p' LICENCE.md > ../BSD-3-Clause.txt
+  sed -n '100,104p' LICENCE.md > ../PCRE2-exception.txt
 }
 
 build() {
   local configure_options=(
-    --disable-pcre2grep-libbz2
-    --disable-pcre2grep-libz
-    --disable-pcre2test-libreadline
     --enable-jit
     --enable-pcre2-16
     --enable-pcre2-32
+    --enable-pcre2grep-libbz2
+    --enable-pcre2grep-libz
+    --enable-pcre2test-libreadline
     --libdir=/usr/lib32
     --prefix=/usr
   )
 
-  cd $_name-$pkgver
+  cd $_name
 
-  export CC="gcc -m32"
-  export CXX="g++ -m32"
-  export PKG_CONFIG="i686-pc-linux-gnu-pkg-config"
+  export CFLAGS+=" -m32"
+  export CXXFLAGS+=" -m32"
+  export LDFLAGS+=" -m32"
+  export PKG_CONFIG_PATH='/usr/lib32/pkgconfig'
 
   ./configure "${configure_options[@]}"
   make
 }
 
 check() {
-  make -j1 check -C $_name-$pkgver
+  make -j1 check -C $_name
 }
 
 package() {
-  make DESTDIR="$pkgdir" install -C $_name-$pkgver
+  make DESTDIR="$pkgdir" install -C $_name
 
   rm -rv "$pkgdir"/usr/{bin,share,include}
 
-  install -vDm644 $_name-$pkgver/LICENCE -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -Dm644 ./*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
 
 # vim:set sw=2 sts=-1 et:
