@@ -1,0 +1,45 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Vincent Bernardoff <vb AT luminar.eu.org>
+
+pkgname=nng
+pkgver=1.10.1
+pkgrel=1
+pkgdesc='A lightweight, broker-less library'
+arch=('x86_64')
+url='https://nng.nanomsg.org/'
+license=('MIT')
+depends=('wolfssl')
+makedepends=(
+  'git'
+  'cmake'
+  'ninja'
+)
+source=("$pkgname::git+https://github.com/nanomsg/nng#tag=v$pkgver")
+sha512sums=('477f10a8a5c3c6f057225ad32b9cf434b130851ed491589ffafe2991eabff91cc0bd0f9cd49f5c120ce26af66e4a1a6ec3b322a7d9c001c730f9400665323c19')
+b2sums=('c7b0c8e644c3e53a7ce08a3f124522eefb53a84ac0bdde516c82f1221fe7b5655fc5a3f309cf0d4ffb1fd9c31de29718e94b4995fa5749e1b4770c92df2d7800')
+
+build() {
+  local cmake_options=(
+    -B build
+    -S "$pkgname"
+    -G Ninja
+    -W no-dev
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D BUILD_SHARED_LIBS=ON
+    -D NNG_ENABLE_TLS=ON
+    -D NNG_TLS_ENGINE=wolf
+    -D NNG_ENABLE_DOC=OFF
+    -D NNG_TESTS=OFF
+  )
+  cmake "${cmake_options[@]}"
+
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" "$pkgname/LICENSE.txt"
+}
