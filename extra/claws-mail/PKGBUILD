@@ -1,8 +1,8 @@
 # Maintainer: Andreas Radke <andyrtr@archlinux.org>
 
 pkgname=claws-mail
-pkgver=4.3.0
-pkgrel=2
+pkgver=4.3.1
+pkgrel=1
 pkgdesc="A GTK+ based e-mail client"
 arch=('x86_64')
 license=('GPL-3.0-or-later')
@@ -36,7 +36,7 @@ provides=('claws')
 install=$pkgname.install
 source=(https://www.claws-mail.org/download.php?file=releases/claws-mail-$pkgver.tar.xz{,.asc}
         bash_completion)
-sha256sums=('95dc1d888eb916f028467fa0c3cbf45baff6678793b7bfb35fabba029d581ce1'
+sha256sums=('d8adf210c767ab58252dfc5ab3c69e603d7ffdb7281a1e3340d2d86062f468a6'
             'SKIP'
             '3f6c248b8658cd7a62186bff572cce2525712a498f363cbbda1ed459021c28cb')
 validpgpkeys=('D04526CE8C87436EBBC51588E0E355F76BE234CA') # Paul <paul@claws-mail.org>
