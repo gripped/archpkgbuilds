@@ -6,16 +6,16 @@
 # Contributor: Tobias T. <OldShatterhand at gmx-topmail dot de>
 
 pkgname=bibletime
-pkgver=3.0.3
-pkgrel=3
+pkgver=3.1.0
+pkgrel=1
 pkgdesc='Bible study tool'
 arch=('x86_64')
 url='https://www.bibletime.info/'
-license=('GPL2')
-depends=('sword' 'clucene' 'qt5-webengine' 'qt5-svg')
-makedepends=('cmake' 'docbook-xsl' 'expac' 'fop' 'git' 'ninja' 'po4a' 'qt5-tools')
+license=('GPL-2.0-only')
+depends=('sword' 'clucene' 'qt6-webengine' 'qt6-svg')
+makedepends=('cmake' 'docbook-xsl' 'expac' 'fop' 'git' 'ninja' 'po4a' 'qt6-tools')
 source=("git+https://github.com/bibletime/bibletime.git?signed#tag=v${pkgver}")
-sha256sums=('a4332cc4e6221f1a514200174a091a3eb55e63afdfa432e8410ccf08e67a95d2')
+sha256sums=('2fc113b694f5edd04c8455e5dc336bc06390a2fb54a55edcfbd2c6684ca614b8')
 validpgpkeys=('6C0462117260CA4934F7B3E049D76194699FD9A4') # Jaak Ristioja
 
 build() {
