@@ -2,30 +2,39 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=libavif
-pkgver=1.1.1
-pkgrel=2
+pkgver=1.2.0
+pkgrel=1
 pkgdesc="Library for encoding and decoding .avif files"
 arch=(x86_64)
 url="https://github.com/AOMediaCodec/libavif"
 license=(LicenseRef-libavif)
-depends=(glibc aom dav1d librav1e.so svt-av1 libpng libjpeg-turbo libyuv libwebp)
+depends=(aom
+         dav1d
+         gcc-libs
+         glibc
+         libjpeg-turbo
+         libpng
+         libwebp
+         libyuv
+         rav1e
+         svt-av1)
 makedepends=(cmake
              gdk-pixbuf2
              git
              nasm
              pandoc-cli)
 source=(git+https://github.com/AOMediaCodec/libavif#tag=v$pkgver)
-sha256sums=('2868a336117886bd3b4094e8c48589e67152ae8f39b06c067f8c51ec2709f577')
+sha256sums=('c017ff5f47eca5f43259ca169db7a54ac2a2a4664c785911f9add257355849f6')
 
 build() {
   cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DAVIF_BUILD_APPS=ON \
     -DAVIF_BUILD_MAN_PAGES=ON \
-    -DAVIF_CODEC_AOM=ON \
-    -DAVIF_CODEC_DAV1D=ON \
-    -DAVIF_CODEC_RAV1E=ON \
-    -DAVIF_CODEC_SVT=ON \
+    -DAVIF_CODEC_AOM=SYSTEM \
+    -DAVIF_CODEC_DAV1D=SYSTEM \
+    -DAVIF_CODEC_RAV1E=SYSTEM \
+    -DAVIF_CODEC_SVT=SYSTEM \
     -DAVIF_LIBSHARPYUV=SYSTEM \
     -DAVIF_BUILD_GDK_PIXBUF=ON
   make -C build
