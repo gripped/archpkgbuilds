@@ -3,17 +3,20 @@
 # Contributor: Andreas Radke <andyrtr@archlinux.org>
 
 pkgname=which
-pkgver=2.22
+pkgver=2.23
 pkgrel=1
 pkgdesc='A utility to show the full path of commands'
 arch=('x86_64')
 url='https://savannah.gnu.org/projects/which/'
 license=('GPL-3.0-or-later')
-depends=('glibc' 'bash')
+depends=(
+  bash
+  glibc
+)
 # gpg key is using deprecated md5 algo, do not use
 # check if a new one is issued in the next release
 source=("https://ftp.gnu.org/gnu/$pkgname/$pkgname-$pkgver.tar.gz")
-sha256sums=('9f85cde3f2c257021b8508f756704bee6002fa8f5680297d30f186cc1f342af5')
+b2sums=('64a3ae1f23a4c389f945f6c0985e6f6062b46785125a0d0659ff160560a4a473633d38af71b1505beeabba8336f5a9906f1ba58ab3494635e970bd5529b3936f')
 
 build() {
   cd $pkgname-$pkgver
