@@ -2,7 +2,7 @@
 
 pkgname=ruby-async-process
 pkgver=1.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Asynchronous process spawning'
 arch=(any)
 url='https://github.com/socketry/async-process'
@@ -10,13 +10,15 @@ license=(MIT)
 depends=(
   ruby
   ruby-async
-  ruby-async-io
 )
 checkdepends=(
-  ruby-async-rspec
+  ruby-bake
+  ruby-bake-test
+  ruby-bake-test-external
   ruby-bundler
   ruby-covered
-  ruby-rspec
+  ruby-decode
+  ruby-sus-fixtures-async
 )
 options=(!emptydirs)
 source=(https://github.com/socketry/async-process/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
@@ -65,7 +67,7 @@ build() {
 check() {
   local _gemdir="$(gem env gemdir)"
   cd async-process-$pkgver
-  GEM_HOME="tmp_install/$_gemdir" rspec
+  GEM_HOME="tmp_install/$_gemdir" bake test
 }
 
 package() {
