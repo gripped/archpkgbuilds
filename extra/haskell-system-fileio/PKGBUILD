@@ -3,8 +3,8 @@
 
 _hkgname=system-fileio
 pkgname=haskell-system-fileio
-pkgver=0.3.16.5
-pkgrel=6
+pkgver=0.3.16.6
+pkgrel=1
 pkgdesc="Consistent filesystem interaction across GHC versions"
 url="https://github.com/fpco/haskell-filesystem"
 license=("MIT")
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-system-filepath')
 makedepends=('ghc' 'haskell-chell' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('fa10fb53e949f90d13434fb9ba50b04d9fc32963ce89b19a1d1e6345b015c5421255d661e01927bbe20e7801e94c18ca2072d722a9cf61764d2a0a7a7792e2b8')
+sha512sums=('7eac27ded5634eaa396999b458d4e4230ddac694bb5ae276a22e3e8acef8028ed547c789e67504f76a649b0dd6baa3c6c010f0e76278de7571bc38a7a403adcf')
 
 build() {
     cd $_hkgname-$pkgver
