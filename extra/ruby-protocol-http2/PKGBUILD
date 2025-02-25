@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-protocol-http2
-pkgver=0.19.3
+pkgver=0.22.1
 pkgrel=1
 pkgdesc='A low level implementation of the HTTP/2 protocol'
 arch=(any)
@@ -27,7 +27,7 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("git+${url}.git#tag=v${pkgver}")
-sha256sums=('91f942a5f1a37368b995eff25507e0d666c4f5888578fd93e43d2e984f2f59c5')
+sha256sums=('bcf90f566772b1e51d5ba80c22ce1e7f9067a014c150bc5f3b8866334c8ecf7f')
 
 prepare() {
   cd protocol-http2
@@ -38,7 +38,7 @@ prepare() {
     -i protocol-http2.gemspec
 
   sed -i \
-    -e '/bake-gem/d;/bake-github-pages/d;/utopia-project/d' \
+    -e '/group :maintenance/,/end/d' \
     -e '/rubocop/d' \
     gems.rb
 }
