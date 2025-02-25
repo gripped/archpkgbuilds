@@ -1,0 +1,78 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
+pkgname=rdkit
+pkgver=2024.09.5
+pkgrel=1
+pkgdesc="Open-source toolkit for cheminformatics"
+arch=(x86_64)
+url="https://github.com/rdkit/rdkit"
+license=(BSD-3-Clause)
+depends=(
+  boost-libs
+  cairo
+  freetype2
+  gcc-libs
+  glibc
+  python
+  python-numpy
+  python-pillow
+)
+makedepends=(
+  boost
+  catch2
+  cmake
+  eigen
+  ninja
+)
+source=($pkgname-$pkgver.tar.gz::$url/archive/Release_${pkgver//./_}.tar.gz)
+b2sums=('414c1d53c066147a3b0120fd0b522adf75e04a01b212134923337321fc554119cee10880ff90bd6fdcc0b39531f80fc41fbc23a30fe4110887917714960bd705')
+
+build() {
+  local cmake_options=(
+    -B build
+    -S $pkgname-Release_${pkgver//./_}
+    -G Ninja
+    -W no-dev
+    -DCMAKE_BUILD_TYPE=None
+    -DCMAKE_INSTALL_PREFIX=/usr
+    -DRDK_BUILD_CAIRO_SUPPORT=ON
+    -DRDK_INSTALL_INTREE=OFF
+    -DRDK_INSTALL_STATIC_LIBS=OFF
+    # TODO: the test suite has too many failures, even due to bad input files
+    -DRDK_BUILD_CPP_TESTS=OFF
+  )
+  cmake "${cmake_options[@]}"
+  cmake --build build
+}
+
+#check() {
+#  local excluded_tests=""
+#  # skip tests that take too long
+#  excluded_tests+="cxsmilesTest"
+#  excluded_tests+="|testGrid"
+#  excluded_tests+="|testMultithreadedMolSupplier"
+#  excluded_tests+="|v2MolSuppliers"
+#
+#  local ctest_flags=(
+#    --test-dir build
+#    # show the stdout and stderr when the test fails
+#    --output-on-failure
+#    # execute tests in parallel
+#    --parallel $(nproc)
+#    # exclude problematic tests
+#    --exclude-regex "$excluded_tests"
+#  )
+#  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+#
+#  # rdkit must be installed "in-tree" before running the test suite
+#  # https://github.com/rdkit/rdkit/blob/master/Docs/Book/Install.md#linux-x86_64-python-3-environment
+#  DESTDIR=test-install cmake --install build
+#  local RDBASE=$pkgname-Release_${pkgver//./_}
+#  mv test-install/usr/lib $RDBASE
+#  RDBASE=$RDBASE LD_LIBRARY_PATH=$RDBASE/lib PYTHONPATH=test-install/"$site_packages" ctest "${ctest_flags[@]}"
+#}
+
+package_rdkit() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -vDm 644 $pkgname-Release_${pkgver//./_}/license.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
