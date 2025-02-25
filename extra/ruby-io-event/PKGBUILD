@@ -2,8 +2,8 @@
 
 _gemname='io-event'
 pkgname="ruby-${_gemname}"
-pkgver=1.6.5
-pkgrel=4
+pkgver=1.9.0
+pkgrel=2
 pkgdesc='An event loop'
 arch=('x86_64')
 url="https://github.com/socketry/${_gemname}"
@@ -11,19 +11,20 @@ license=('MIT')
 depends=(
   ruby
 )
-# checkdepends=(
-#   ruby-async
-#   ruby-bake
-#   ruby-bake-test
-#   ruby-bake-test-external
-#   ruby-bundler
-#   ruby-covered
-#   ruby-sus
-# )
+checkdepends=(
+  ruby-async
+  ruby-bake
+  ruby-bake-test
+  ruby-bake-test-external
+  ruby-bundler
+  ruby-covered
+  ruby-decode
+  ruby-sus
+)
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('fd8a6b9a8a2952a2114a325a630b8cc0455679c4538901573be8dd0d342389872d5ec613c70138155f996c11d550b58003a71bee75cfec599db51812e03ec042')
-b2sums=('72720b03c87afd220c083098114f45dd4a523bfd3145e8988644ad1112c52ba0eafc8082c3ca23f54253921ceb96d544097722c3585390f7793fb2bb58ead20b')
+sha512sums=('7e32b8c83bc7025d2d174cfeda8a56dd564ca59158a9dab4ffc2cabd0341e9d2794247d983bcc0c3cccdb85d677b6c548aa2e41ac6e0ff8d3e899d2d7e824862')
+b2sums=('438f40ef70076bfaef7a3d18bdac080547c2932f44655905f9f84b35f6cd16f20a8346ea7561dd4d3a2b95b0bf5631a94dadc1fb147d374dab23b97a3565f6b2')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
@@ -33,8 +34,12 @@ prepare() {
 
   sed --in-place '/release\.pem/d' "${_gemname}.gemspec"
 
-  # Remove maintenance gems
-  sed --in-place --expression '/group :maintenance/,/end/d' gems.rb
+  sed --in-place \
+    --expression '/group :maintenance/,/end/d' \
+    --expression '/rubocop/d' \
+    gems.rb
+
+  rm --verbose test/io/event/profiler.rb
 }
 
 build() {
@@ -81,13 +86,13 @@ build() {
 }
 
 # no tests until ruby-sus gets updated
-# check() {
-#   cd "${_gemname}-${pkgver}"
+check() {
+  cd "${_gemname}-${pkgver}"
 
-#   local _gemdir="$(gem env gemdir)"
+  local _gemdir="$(gem env gemdir)"
 
-#   GEM_HOME="tmp_install${_gemdir}" bake test
-# }
+  GEM_HOME="tmp_install${_gemdir}" bake test
+}
 
 package() {
   cd "${_gemname}-${pkgver}"
