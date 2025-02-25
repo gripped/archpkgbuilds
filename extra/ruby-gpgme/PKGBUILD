@@ -3,8 +3,8 @@
 
 _gemname='gpgme'
 pkgname="ruby-${_gemname}"
-pkgver=2.0.23
-pkgrel=3
+pkgver=2.0.24
+pkgrel=1
 pkgdesc='Ruby interface to GnuPG Made Easy (GPGME)'
 url='https://github.com/ueno/ruby-gpgme'
 arch=('x86_64')
@@ -14,8 +14,8 @@ makedepends=('ruby-rdoc' 'ruby-rake' 'ruby-bundler' 'ruby-yard')
 #checkdepends=('ruby-mocha')
 options=('!emptydirs')
 source=("https://github.com/ueno/ruby-gpgme/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('13d9b383ba638ef1cc21870159b4e7bf3e4aa70097649da185ccd3c159247c657eae651c0fc29c2fcd1b1d2965b432b82461a2f2d85f687787f78d34ddce6da9')
-b2sums=('2057a6917aac14bfc82c5e718498d5dce507a4c9de4da2e0973eefee76339066c54ebf57201f739faaab118e624416d7b30d24fb4409b37d53f80dd92c2aa825')
+sha512sums=('d906cc669b4e55facd13838c711601ce587e197d44cdc614c4972b2fe411c6259fa236d9713e0ff716ab97fa34840feb0b503db298e6b7a3125d3bcce12d7835')
+b2sums=('69de16ca15088025c8aa5e8a7910d99df11df1e8ba522d16f9b23a89960683555dbdfe238c351532ffb57283c99b4b4c06c570e6c7755e21a40c67d9f9e00214')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
