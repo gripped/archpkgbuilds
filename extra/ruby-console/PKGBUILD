@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-console
-pkgver=1.27.0
+pkgver=1.29.3
 pkgrel=1
 pkgdesc='Beautiful logging for Ruby'
 arch=(any)
@@ -25,21 +25,15 @@ checkdepends=(
   ruby-covered
   ruby-decode
   ruby-sus
+  ruby-sus-fixtures-console
 )
 options=(!emptydirs)
-source=(
-  "git+${url}.git#tag=v$pkgver"
-  "${url}/commit/039d7f01a1264897255b02b59941857103891088.patch"
-)
-sha512sums=('791c40c0d570b6e8ed0dfdc5c531f5cc8566463d2434e47ed1487f90987c76dc35d5a3272f5604e2212e090798050ee8172e5062f1c21c6e2d0fd19794c6b40a'
-            '6e493031b804d9f0adf29dff78552277ccd2ee6509482a28353fcea61fb57d82a1bbfade77569a984af7b7145bfb292c5fb83af1aebba9f32827275933b943e3')
-b2sums=('b2502f648b50f237de88224f92bb0436bd84d02120afc2bc482543fcc56915bed2ace2a87e0b051754f3d25a761f61423c1f7f50519a9e042f752408a6cf9ccc'
-        '8b7c6a1cd3782127db6c3b843f47327e0eb96212ebbc0ac047e084542b6fe59411587ce09b1347ddb98537a4fb33a93d010b23deb970fba36df577324e702d00')
+source=("git+${url}.git#tag=v$pkgver")
+sha512sums=('450e97ec0c4a6577d77bdcdbc7c28ffc0cccd1585d24382870a92b80e041e0d6c5bc16655aee3caf02e01cccad51f392ed046a5799a268df682563ca7565a3d6')
+b2sums=('690383877dd9679b2d0c0609ad7e96b1b8d3b5eef9ee7e0dd22c8a91fed983d7e787f6043a6010ad56dee4f0088efa58086922d5a7597868fb8c3fd23cfda501')
 
 prepare() {
   cd console
-
-  patch --verbose --strip=1 --input="../039d7f01a1264897255b02b59941857103891088.patch"
 
   sed -r -e 's|~>|>=|g' -e '/signing_key/d' -i console.gemspec
   sed -i \
