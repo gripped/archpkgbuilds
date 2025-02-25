@@ -1,7 +1,7 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=step-ca
-pkgver=0.28.1
+pkgver=0.28.2
 pkgrel=1
 pkgdesc="A private certificate authority (X.509 & SSH) & ACME server for secure automated certificate management, so you can use TLS everywhere & SSO for SSH."
 url="https://github.com/smallstep/certificates"
@@ -10,7 +10,7 @@ license=(Apache)
 depends=(glibc pcsclite)
 makedepends=(go)
 source=("$url/releases/download/v${pkgver}/step-ca_${pkgver}.tar.gz")
-sha512sums=('e06863bfec5370f4bd1a50c2269d5e7b0a5009aac2b837d43fbdfb401037c2f3721da7e3d8510aa831939f25218366112cf151700f8950440801053708055642')
+sha512sums=('4d383c6cbd66c55546e1673344e3a15395f9ef4feedabe95c75a3bcc3daab1493c6d3e8160b7f9830d3a48a21665788a7408fa19f8277cfd9f78be6c825a1091')
 
 prepare(){
   mkdir -p bin
