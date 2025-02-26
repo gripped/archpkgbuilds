@@ -2,16 +2,16 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3 orbiton-nano)
-pkgver=2.68.7
+pkgver=2.68.8
 pkgrel=1
-pkgdesc='Fast and configuration-free text editor and IDE limited by VT100'
+pkgdesc='Configuration-free text editor and IDE'
 arch=(x86_64)
 url='https://roboticoverlords.org/orbiton/'
 license=(BSD-3-Clause)
 makedepends=(git go vte3)
 options=(!lto)
 source=("git+https://github.com/xyproto/orbiton#tag=v$pkgver")
-b2sums=('3bc2ac54bda684f79a0906c7975f49d72da6aba99f4f05e90af9ce6d2301843a2fcc665b25b2cec93b92e29c9819bd9e1392cc1bf097204c4c258f5754c09a86')
+b2sums=('30a1b115f848efce469764a96d178cea119aff7feb27f65130ef27a7b012685fdedc9c00f9c7b50e5528fa85ba5e52004bd5e324401ee50fd301c7253323ffc4')
 
 build() {
   export LDFLAGS="$(echo $LDFLAGS | sed 's/ -Wl//g;s/,--sort-common//')"
@@ -69,13 +69,13 @@ package_orbiton() {
 }
 
 package_orbiton-gtk3() {
-  pkgdesc='Fast and configuration-free text editor and IDE limited by VT100 (GTK3/VTE3)'
+  pkgdesc='Configuration-free text editor and IDE (GTK3/VTE3)'
   depends=(orbiton vte3)
   DESTDIR="$pkgdir" PROJECT=$pkgname make -C $pkgbase gui-install gui-symlinks license
 }
 
 package_orbiton-nano() {
-  pkgdesc='Fast and configuration-free text editor and IDE limited by VT100 (Nano/Pico Mode)'
+  pkgdesc='Configuration-free text editor and IDE (Nano/Pico Mode)'
   depends=(orbiton)
   conflicts=(nano)
   provides=(nano)

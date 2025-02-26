@@ -1,6 +1,6 @@
 pkgbase = orbiton
-	pkgdesc = Fast and configuration-free text editor and IDE limited by VT100
-	pkgver = 2.68.7
+	pkgdesc = Configuration-free text editor and IDE
+	pkgver = 2.68.8
 	pkgrel = 1
 	url = https://roboticoverlords.org/orbiton/
 	arch = x86_64
@@ -9,8 +9,8 @@ pkgbase = orbiton
 	makedepends = go
 	makedepends = vte3
 	options = !lto
-	source = git+https://github.com/xyproto/orbiton#tag=v2.68.7
-	b2sums = 3bc2ac54bda684f79a0906c7975f49d72da6aba99f4f05e90af9ce6d2301843a2fcc665b25b2cec93b92e29c9819bd9e1392cc1bf097204c4c258f5754c09a86
+	source = git+https://github.com/xyproto/orbiton#tag=v2.68.8
+	b2sums = 30a1b115f848efce469764a96d178cea119aff7feb27f65130ef27a7b012685fdedc9c00f9c7b50e5528fa85ba5e52004bd5e324401ee50fd301c7253323ffc4
 
 pkgname = orbiton
 	optdepends = abcmidi: for writing music in the ABC notation
@@ -53,12 +53,12 @@ pkgname = orbiton
 	optdepends = zig: for compiling and formatting Zig
 
 pkgname = orbiton-gtk3
-	pkgdesc = Fast and configuration-free text editor and IDE limited by VT100 (GTK3/VTE3)
+	pkgdesc = Configuration-free text editor and IDE (GTK3/VTE3)
 	depends = orbiton
 	depends = vte3
 
 pkgname = orbiton-nano
-	pkgdesc = Fast and configuration-free text editor and IDE limited by VT100 (Nano/Pico Mode)
+	pkgdesc = Configuration-free text editor and IDE (Nano/Pico Mode)
 	depends = orbiton
 	provides = nano
 	conflicts = nano
