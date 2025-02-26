@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=zizmor
-pkgver=1.3.1
+pkgver=1.4.1
 pkgrel=1
 pkgdesc="A static analysis tool for GitHub Actions"
 url='https://github.com/woodruffw/zizmor'
@@ -16,8 +16,8 @@ makedepends=(
 )
 options=(!lto)
 source=(https://github.com/woodruffw/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('a8ed1b318de38ffa2e1847ae4b66cd44324030cd0fe7239e82430341b39c16ee')
-b2sums=('f32f5676a9420b6ed7cba64d6e75f2c0eebb2d24830e18960d914800443db10fca5133c0b36f776363bb5fd2bca5192d99371809c9857d0a43eb53608189c1a7')
+sha256sums=('4f881c11a15a465fa12a83faa48e4549db2c8b487b66a44dda93d4614572a79b')
+b2sums=('3501272446e4620075920543c492aef5bda3392e4869c363ac7772525a375e2cb49f91ef35c5c941bcccdbe33c2ba40ef095200b83ae8e9b6a670a96edcf72b6')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
