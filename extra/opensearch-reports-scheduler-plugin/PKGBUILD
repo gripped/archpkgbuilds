@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-reports-scheduler-plugin
-pkgver=2.18.0.0
+pkgver=2.19.0.0
 pkgrel=1
-_opensearchver=2.18.0
+_opensearchver=2.19.0
 _jdkver=11
 pkgdesc="OpenSearch Reports Scheduler Plugin"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=("java-environment=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/reporting/archive/${pkgver}.tar.gz"
 )
-sha256sums=('f2d7717d81b5bb1c88780f9f63a915db8ca44157f585da3bd78b194714ead654')
+sha256sums=('e2a5d182d59147d0d383d8570473d85e3585def134c4b31498f841b5550000ca')
 
 build() {
   cd "reporting-${pkgver}"
