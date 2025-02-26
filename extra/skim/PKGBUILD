@@ -3,7 +3,7 @@
 # Contributor: fenuks
 
 pkgname=skim
-pkgver=0.15.5
+pkgver=0.16.0
 pkgrel=1
 pkgdesc='Fuzzy Finder in Rust!'
 arch=('x86_64')
@@ -19,14 +19,14 @@ optdepends=(
   'zsh: for resp. completions and key bindings'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('cbcf7eeb3bc9cb49f1888ffd1978c6f5478242e7f3a375818f4154f42b367acbbaa91205d08cd32c4b20fc971c41d5b014ec3dc96b4849eea6dd9f14e399ca44')
-b2sums=('e95f171d3b49ab3121d2f805fc647c76fcdf532ceaaf757adbd41f6b5647f8b3b48844bb6dbf9313bfb5525cdf14618aae632482c639c24f905df9e20aae82e9')
+sha512sums=('c9845940b82b5f6523410ff3b63ebe57424fbdef15de1e3263c7ac0100541168e63553c2c1797ea12adf8eb3f9ecbfde6e96f855c65b2244d648da8d1fb76727')
+b2sums=('bbb8e9529cce2f112ecded2068a550f4a5a7b3527a4d600c975b1b706d7f7421be73a01297134c88560d3776246a50d0f92f92f3c4f19862863368d7fb4e2b25')
 
 prepare() {
   cd "$pkgname"
 
   # download dependencies
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
