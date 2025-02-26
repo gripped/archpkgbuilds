@@ -3,7 +3,7 @@
 
 pkgname=adios2
 pkgver=2.10.2
-pkgrel=6
+pkgrel=7
 pkgdesc="The Adaptable Input/Output System version 2"
 arch=(x86_64)
 url="https://adios2.readthedocs.io/en/latest/"
@@ -58,13 +58,14 @@ prepare() {
 build() {
   # In general, we want to list all real archs (sm_XX) and the latest virtual arch (compute_XX) for future PTX compatibility.
   # Valid values can be discovered from nvcc --help
-  local cuda_archs="50;52;53;60;61;62;70;72;75;80;86;87;89;90;90a;90a-virtual"
+  local cuda_archs="50;52;53;60;61;62;70;72;75;80;86;87;89;90;90a;100;100a;101;101a;120;120a;120-virtual"
 
   local cmake_options=(
     -B build
     -S ${pkgname^^}-${pkgver}
     -G Ninja
     -W no-dev
+    -DCMAKE_BUILD_TYPE=None
     -DCMAKE_INSTALL_PREFIX=/usr
     -DCMAKE_CUDA_ARCHITECTURES="$cuda_archs"
     # Compile source code for supported GPU archs in parallel
