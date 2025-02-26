@@ -5,7 +5,7 @@
 
 pkgname=ccache
 pkgver=4.10.2
-pkgrel=3
+pkgrel=4
 pkgdesc='Compiler cache that speeds up recompilation by caching previous compilations'
 url='https://ccache.dev/'
 arch=('x86_64')
