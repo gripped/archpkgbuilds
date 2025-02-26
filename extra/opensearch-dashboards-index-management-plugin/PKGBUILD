@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-index-management-plugin'
 _pluginname='index-management-dashboards-plugin'
-pkgver=2.18.0.0
-_dashboardsver=2.18.0
+pkgver=2.19.0.0
+_dashboardsver=2.19.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Index Management Plugin'
 url='https://opensearch.org/docs/latest/im-plugin/index/'
@@ -15,16 +15,25 @@ options=('!strip' 'emptydirs')
 source=(
   "git+https://github.com/opensearch-project/${_pluginname}.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
+  # Switch to NodeJS LTS 22 "Jod"
+  "https://github.com/hashworks/OpenSearch-Dashboards/commit/1a602a8e117f735154230cc5199153a57ec5bbb6.patch"
 )
-sha256sums=('f01ec4aec67bac73b258dc57c13bc2507a1e868df4807823c00390db9ca17a27'
-            '047ea8d8669958d1cd16ee4c6c417088b7295dcf83a7efe855e9b32903eb02e1')
+sha256sums=('5b4ca3a9f8c36cc2c4e080e09b50e1de90ee74d8ddeccc6b1069f94874e4ba2c'
+            '9cc3248ad281286e74699e7c9ebd5855cf0dae4c5ffcf6b4d789596b01cda4e4'
+            'c7eab88eb06f034b0e57348d4615c86c87ea8e55da06d9ac839452317299304e')
 
 prepare() {
   nodeVersion="$(node -v)"
   # Yes, you support this version. You just don't know it yet.
   sed -i "s/    \"node\": \"[0-9\.]*\",/    \"node\": \"${nodeVersion:1}\",/" \
-    "${_pluginname}/package.json" \
-    "OpenSearch-Dashboards/package.json"
+    "${_pluginname}/package.json"
+  cd "OpenSearch-Dashboards"
+  local filename
+  for filename in "${source[@]}"; do
+    if [[ "$filename" =~ \.patch$ ]]; then
+      patch -p1 -N -l -i "$srcdir/${filename##*/}"
+    fi
+  done
 }
 
 build() {
