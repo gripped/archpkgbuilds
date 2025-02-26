@@ -1,7 +1,7 @@
 # Maintainer: Andreas Radke <andyrtr@archlinux.org>
 
 pkgname=man-pages
-pkgver=6.11
+pkgver=6.12
 _posixver=2017-a
 pkgrel=1
 pkgdesc="Linux man pages"
@@ -31,7 +31,7 @@ makedepends=('man2html' 'git')
 source=(https://www.kernel.org/pub/linux/docs/man-pages/$pkgname-$pkgver.tar.{xz,sign}
         https://www.kernel.org/pub/linux/docs/man-pages/man-pages-posix/$pkgname-posix-${_posixver}.tar.{xz,sign})
 # https://www.kernel.org/pub/linux/docs/man-pages/sha256sums.asc
-sha256sums=('ddaa2eda2e8d286fbec221d115f12d3fff5d36cc5066cdfecc8d24a258d58b19'
+sha256sums=('b6cb5d67e0bb00a3b3f3d1bcb3fe06c26b045ba63923ed7ae79412350c5e1cb5'
             'SKIP'
             'ce67bb25b5048b20dad772e405a83f4bc70faf051afa289361c81f9660318bc3'
             'SKIP')
