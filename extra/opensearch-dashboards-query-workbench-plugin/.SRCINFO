@@ -1,6 +1,6 @@
 pkgbase = opensearch-dashboards-query-workbench-plugin
 	pkgdesc = OpenSearch Dashboards Query Workbench Plugin
-	pkgver = 2.18.0.0
+	pkgver = 2.19.0.0
 	pkgrel = 1
 	url = https://opensearch.org/docs/latest/query-workbench/index/
 	arch = x86_64
@@ -9,12 +9,14 @@ pkgbase = opensearch-dashboards-query-workbench-plugin
 	makedepends = npm
 	makedepends = python
 	makedepends = git
-	depends = opensearch-dashboards=2.18.0
+	depends = opensearch-dashboards=2.19.0
 	options = !strip
 	options = emptydirs
-	source = git+https://github.com/opensearch-project/dashboards-query-workbench.git#tag=2.18.0.0
-	source = git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=2.18.0
-	sha256sums = 6cdc916618fbb7d7b8f757ed09c9197299427c87c633dfcc5ba89367843adac0
-	sha256sums = 047ea8d8669958d1cd16ee4c6c417088b7295dcf83a7efe855e9b32903eb02e1
+	source = git+https://github.com/opensearch-project/dashboards-query-workbench.git#tag=2.19.0.0
+	source = git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=2.19.0
+	source = https://github.com/hashworks/OpenSearch-Dashboards/commit/1a602a8e117f735154230cc5199153a57ec5bbb6.patch
+	sha256sums = b35b1bcbd057a80bae7dd7d97fe5795d19bcca2746bec778d08ca3c31d4fe0f6
+	sha256sums = 9cc3248ad281286e74699e7c9ebd5855cf0dae4c5ffcf6b4d789596b01cda4e4
+	sha256sums = c7eab88eb06f034b0e57348d4615c86c87ea8e55da06d9ac839452317299304e
 
 pkgname = opensearch-dashboards-query-workbench-plugin

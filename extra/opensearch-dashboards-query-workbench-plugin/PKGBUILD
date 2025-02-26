@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-query-workbench-plugin'
 _pluginname='query-workbench-dashboards-plugin'
-pkgver=2.18.0.0
-_dashboardsver=2.18.0
+pkgver=2.19.0.0
+_dashboardsver=2.19.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Query Workbench Plugin'
 url='https://opensearch.org/docs/latest/query-workbench/index/'
@@ -15,16 +15,25 @@ options=('!strip' 'emptydirs')
 source=(
   "git+https://github.com/opensearch-project/dashboards-query-workbench.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
+  # Switch to NodeJS LTS 22 "Jod"
+  "https://github.com/hashworks/OpenSearch-Dashboards/commit/1a602a8e117f735154230cc5199153a57ec5bbb6.patch"
 )
-sha256sums=('6cdc916618fbb7d7b8f757ed09c9197299427c87c633dfcc5ba89367843adac0'
-            '047ea8d8669958d1cd16ee4c6c417088b7295dcf83a7efe855e9b32903eb02e1')
+sha256sums=('b35b1bcbd057a80bae7dd7d97fe5795d19bcca2746bec778d08ca3c31d4fe0f6'
+            '9cc3248ad281286e74699e7c9ebd5855cf0dae4c5ffcf6b4d789596b01cda4e4'
+            'c7eab88eb06f034b0e57348d4615c86c87ea8e55da06d9ac839452317299304e')
 
 prepare() {
   nodeVersion="$(node -v)"
   # Yes, you support this version. You just don't know it yet.
   sed -i "s/    \"node\": \"[0-9\.]*\",/    \"node\": \"${nodeVersion:1}\",/" \
-    "OpenSearch-Dashboards/package.json" \
     "dashboards-query-workbench/package.json"
+  cd "OpenSearch-Dashboards"
+  local filename
+  for filename in "${source[@]}"; do
+    if [[ "$filename" =~ \.patch$ ]]; then
+      patch -p1 -N -l -i "$srcdir/${filename##*/}"
+    fi
+  done
 }
 
 build() {
