@@ -1,6 +1,6 @@
 pkgbase = opensearch-dashboards-observability-plugin
 	pkgdesc = OpenSearch Dashboards Observability Plugin
-	pkgver = 2.18.0.0
+	pkgver = 2.19.0.0
 	pkgrel = 1
 	url = https://opensearch.org/docs/latest/observability/index/
 	arch = x86_64
@@ -9,13 +9,15 @@ pkgbase = opensearch-dashboards-observability-plugin
 	makedepends = npm
 	makedepends = python
 	makedepends = git
-	depends = opensearch-dashboards=2.18.0
+	depends = opensearch-dashboards=2.19.0
 	depends = gnuplot
 	options = !strip
 	options = emptydirs
-	source = git+https://github.com/opensearch-project/dashboards-observability.git#tag=2.18.0.0
-	source = git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=2.18.0
-	sha256sums = 8db3af44965fdc6cc93fac9f9805b63479e3573e7d7b3a226d6ccfe9cdd2c473
-	sha256sums = 047ea8d8669958d1cd16ee4c6c417088b7295dcf83a7efe855e9b32903eb02e1
+	source = git+https://github.com/opensearch-project/dashboards-observability.git#tag=2.19.0.0
+	source = git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=2.19.0
+	source = https://github.com/hashworks/OpenSearch-Dashboards/commit/1a602a8e117f735154230cc5199153a57ec5bbb6.patch
+	sha256sums = 79ccd34b39ab4e7663981efe6194dfd77b71b219fee31a7182ea0049e88c1c02
+	sha256sums = 9cc3248ad281286e74699e7c9ebd5855cf0dae4c5ffcf6b4d789596b01cda4e4
+	sha256sums = c7eab88eb06f034b0e57348d4615c86c87ea8e55da06d9ac839452317299304e
 
 pkgname = opensearch-dashboards-observability-plugin
