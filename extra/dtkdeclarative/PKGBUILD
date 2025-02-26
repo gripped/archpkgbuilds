@@ -2,7 +2,7 @@
 # Contributor: zccrs <zhangjide@deepin.org>
 
 pkgname=dtkdeclarative
-pkgver=5.7.7
+pkgver=5.7.8
 pkgrel=1
 pkgdesc='Deepin Toolkit, declarative module for DDE look and feel'
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('LGPL3')
 depends=('dtkgui' 'dtkcore' 'qt5-declarative' 'qt5-quickcontrols2' 'qt5-base' 'libgl' 'gcc-libs')
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'doxygen' 'gtest' 'gmock')
 source=("git+https://github.com/linuxdeepin/dtkdeclarative.git#tag=$pkgver")
-sha512sums=('f11b29bfca0b7e863a775a10411684fc34e5a486006dc93cd3344cf16ef35cb1dfa6709f6f61888b5a89d98e8f447edc2ba3c49020f2d9975163027f275f7303')
+sha512sums=('a96fa029f7b40b56a3918f9dd450d523b4bc1df4b003e41ddc4e0dbec6896bfb0458aa43ebec0bcf19e2b021d7b33955158f57b7b77cfe7b114a09f0e53f15bb')
 
 build() {
   cd $pkgname
