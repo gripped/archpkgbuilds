@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-notifications-plugin'
 _pluginname='dashboards-notifications'
-pkgver=2.18.0.0
-_dashboardsver=2.18.0
+pkgver=2.19.0.0
+_dashboardsver=2.19.0
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Notifications Plugin'
 url='https://opensearch.org/docs/latest/notifications-plugin/index/'
@@ -15,17 +15,26 @@ options=('!strip' 'emptydirs')
 source=(
   "git+https://github.com/opensearch-project/${_pluginname}.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
+  # Switch to NodeJS LTS 22 "Jod"
+  "https://github.com/hashworks/OpenSearch-Dashboards/commit/1a602a8e117f735154230cc5199153a57ec5bbb6.patch"
 )
-sha256sums=('8b7dcfa30fd48956ee01da23bc4709a854a299db10d5c93ca7ad79cfd5fc8eef'
-            '047ea8d8669958d1cd16ee4c6c417088b7295dcf83a7efe855e9b32903eb02e1')
+sha256sums=('598d027aadeba166e183ce13ead289f483ff17b47f61cb3db7134ba98ad7c0b1'
+            '9cc3248ad281286e74699e7c9ebd5855cf0dae4c5ffcf6b4d789596b01cda4e4'
+            'c7eab88eb06f034b0e57348d4615c86c87ea8e55da06d9ac839452317299304e')
 
 prepare() {
   nodeVersion="$(node -v)"
   # Yes, you support this version. You just don't know it yet.
   sed -i "s/    \"node\": \"[0-9\.]*\",/    \"node\": \"${nodeVersion:1}\",/" \
     "OpenSearch-Dashboards/package.json"
-
-  cd "${_pluginname}";
+  cd "OpenSearch-Dashboards"
+  local filename
+  for filename in "${source[@]}"; do
+    if [[ "$filename" =~ \.patch$ ]]; then
+      patch -p1 -N -l -i "$srcdir/${filename##*/}"
+    fi
+  done
+  cd ../"${_pluginname}";
 
   # TODO: https://github.com/opensearch-project/dashboards-notifications/issues/128#issuecomment-1971536970
 
