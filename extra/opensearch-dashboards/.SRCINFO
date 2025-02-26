@@ -1,13 +1,13 @@
 pkgbase = opensearch-dashboards
 	pkgdesc = Open source visualization dashboards for OpenSearch
-	pkgver = 2.18.0
+	pkgver = 2.19.0
 	pkgrel = 1
 	url = https://opensearch.org/docs/dashboards/index/
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = yarn
 	makedepends = git
-	depends = nodejs-lts-hydrogen
+	depends = nodejs-lts-iron
 	optdepends = opensearch
 	optdepends = opensearch-dashboards-alerting-plugin
 	optdepends = opensearch-dashboards-anomaly-detection-plugin
@@ -22,19 +22,21 @@ pkgbase = opensearch-dashboards
 	options = !strip
 	options = emptydirs
 	backup = etc/opensearch-dashboards/opensearch_dashboards.yml
-	source = git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=2.18.0
+	source = git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=2.19.0
 	source = opensearch-dashboards
 	source = opensearch-dashboards-keystore
 	source = opensearch-dashboards-plugin
 	source = opensearch-dashboards.service
 	source = tmpfile.conf
 	source = user.conf
-	sha512sums = fbde6e1893b1069e91b3526c6f19ff8f83ccdecd9afc04ccfda66f9aa05bcc5613d4206da62a9e99d387473ded08579dfc4fcdebd41db8b602f4a848f48f624d
+	source = https://github.com/hashworks/OpenSearch-Dashboards/commit/1a602a8e117f735154230cc5199153a57ec5bbb6.patch
+	sha512sums = 37407bc516be9baa7dedde8933ef5ba5779dd69182764f74bd635ce5a2293196640496af18070b991ae2b56362a929c672292b462d82dbef13eed29a7e8132f5
 	sha512sums = c404c8f576ccc5d9202b6808eaf0ec4a1545eec63480ea5189f0f5b66f3e22f431090ece3e7488f6e7d20472e55e784110d4d393bef94ad959c8ee0665290d36
 	sha512sums = 55bb1b7e86bafb9938b787c973aab318848bdb7a498d547948d58ee06fc8b96f9a184d6c00a9f1e7accb5caf64992b0db86cf4b31b0d0eb66c8a88f09b609d3e
 	sha512sums = bd3bb6a1d64b80bc0a5a5d73ccce7689b8aaf035262424414de404083085ae8e482770f62e5d8219313adeecd65003b7ce1bbe8943418dbd6a432e739e124493
 	sha512sums = bec175171d7ce2d9769b4247931f13e73713f6f6f5eba1c1c184c450e694ae52e54d16e79853331df5fa6b50ebc42e1408cf022dbb8e025526c9be783dfca5c2
 	sha512sums = ee7a82eb8b5a719913250159485b144ab94219e64f09a73210bd4cf82345e4f7d1b594e6e8d67aca7faaf6087a672bec478f19ce1493ca64d42e6c39f6b586b8
-	sha512sums = 51cef07f4f4cdd467aa4a2665ee8aaa870ea8f11449f4be1cb239826292ee4044cc656204ab8836730ac1555387ddb20c2cfb9a50ba70f5c5fe59c271a332ab4
+	sha512sums = db097dc6676db6db7d729c956bc8f418e82918987c4979b4d64a7f880ea98d785db1fa968314d3601781095544d418b0583dc9ef502e53ec8a63b6661c2dd7a9
+	sha512sums = fed55a0d9dfe56a7a1e275f17ec2c5a20fdd40cad2ac8a917d2d53402e5f52d3846c9273a23b11631e87c826b5b7fbfd5eff854ff36195ba5da4ea7f7d8b353a
 
 pkgname = opensearch-dashboards
