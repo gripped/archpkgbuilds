@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kscreen
-pkgver=6.3.1
+pkgver=6.3.2
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE screen management software'
@@ -33,7 +33,7 @@ depends=(gcc-libs
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('b07cf8f12bab68d36fbb5612f5e3cffdc9e9a966454b1c47b7b37fb7bcf040b2'
+sha256sums=('b75a3ddc25b287df6f61f5afdfa0c561460f868ba797e2de42332f49bc63831e'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
