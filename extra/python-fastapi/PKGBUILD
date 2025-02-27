@@ -4,7 +4,7 @@
 
 _name=fastapi
 pkgname=python-$_name
-pkgver=0.115.8
+pkgver=0.115.9
 pkgrel=1
 pkgdesc='FastAPI framework, high performance, easy to learn, fast to code, ready for production'
 arch=(any)
@@ -13,7 +13,6 @@ license=(MIT)
 depends=(
   python
   python-anyio  # implicitly required for concurrency
-  python-dirty-equals
   python-pydantic
   python-pydantic-core
   python-pydantic-extra-types
@@ -23,6 +22,7 @@ depends=(
 )
 makedepends=(
   python-build
+  python-dirty-equals
   python-installer
   python-pdm-backend
   python-wheel
@@ -71,9 +71,9 @@ optdepends=(
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz
         0001-Allow-httpx-0.28.x-relax-pins.patch)
-sha512sums=('1973997cbcd494c3ce58f740f11022c63f968f861e27ff076983dd3c307ece94b3eb1e62f5aa291462cd3250a0dfad8238722d39926ca392316678634a75987f'
+sha512sums=('24515979fd9d1da90b1147f5fa386a315c61a41407557ba1f2f00fc611296a81bd090c8f31976d791c02a3942a4e5ba2b4593e9500e5977e4d4201f747241803'
             '2f0ef2997233f5524ef342261f9f3c8da394dd1b0664a45d7b777391387328636d7b527a4cd98db2182c4e10c57caf13e1a66e60404d2b796e5ec5d93efcdd8e')
-b2sums=('4bde901ea268bde82560a5673be898295a80eb72d69a3781247a802a94c80990af265d679ee9aebdd4f60b1f9327576f83f9e69f2972d37e160ffc331810bd70'
+b2sums=('01365566a8faa8bb9cd6ab1253c46590b5c8194b9e0c9d9779424c51a6d1b8683295b4d61f0d7da30e1217fe757c5cf10c0fa94dfcb9374621604dc5fbf7c917'
         'f929b6de37bdf34549b55ad1c8bc36a04de1fa44fe231b7e4dc9beb24c06d74ee0dc115d5e1b29339be41ecbdb2601e1ce050aafb1c41ba5f6f0c5f542b8e859')
 
 prepare() {
