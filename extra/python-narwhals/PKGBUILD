@@ -2,8 +2,8 @@
 
 pkgname=python-narwhals
 _name=${pkgname#python-}
-pkgver=1.25.2
-pkgrel=1
+pkgver=1.27.1
+pkgrel=2
 pkgdesc="Extremely lightweight and extensible compatibility layer between dataframe libraries"
 arch=('any')
 url="https://narwhals-dev.github.io/narwhals/"
@@ -22,7 +22,7 @@ checkdepends=(
 	python-polars
 )
 source=($pkgname-$pkgver.tar.gz::https://github.com/narwhals-dev/narwhals/archive/refs/tags/v$pkgver.tar.gz)
-sha256sums=('e8f936143736d2fb27552aea2e8321452d813e43048a606984f8ddac061f83a7')
+sha256sums=('4d32787219b393128a3028c72488399034fbc2c031e2e73ca48917394c90674d')
 
 build() {
     cd "$_name-$pkgver"
@@ -37,4 +37,5 @@ check() {
 package() {
     cd "$_name-$pkgver"
     python -m installer --destdir="$pkgdir" dist/*.whl
+	install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE.md
 }
