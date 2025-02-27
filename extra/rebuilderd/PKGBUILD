@@ -2,25 +2,33 @@
 
 pkgbase=rebuilderd
 pkgname=(rebuilderd rebuilderd-tools)
-pkgver=0.21.0
+pkgver=0.22.1
 pkgrel=1
 pkgdesc='Independent verification system of binary packages'
 url='https://github.com/kpcyrd/rebuilderd'
 arch=('x86_64')
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=(
+  'libbz2.so'
   'liblzma.so'
+  'libsqlite3.so'
   'libssl.so'
   'libzstd.so'
-  'shared-mime-info'
 )
-makedepends=('cargo' 'sqlite' 'scdoc')
+makedepends=(
+  'bzip2'
+  'cargo'
+  'scdoc'
+  'shared-mime-info'
+  'sqlite'
+  'zstd'
+)
 options=(!lto)
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/kpcyrd/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
-sha512sums=('35f3900154298eafe860a6429ef78760356bf3183f490a59a29a7de630283d2b061bb856693d3cee85060acf0520eb90dccf4a3b1d4f54ce00e25b12341bc6f1'
+sha512sums=('2d49bf837288976ad01c0f1054602e9d880633bc2416709a51843f0a78f65e2e93ca1f582ad2038dfb34ed75958a8a8954b295f9cff8995f11dae4a945889d3d'
             'SKIP')
-b2sums=('3805c4688e12ddbe8eeb3130857364aa907afb2de3cb4ea8b667daadf3eb5a9e7b3ecc910b4f0cddbb4f4ef675b367e9a256cbc69feaeb683868ad40cac82f32'
+b2sums=('a57812bb74eabbe7fc8d219442b8cab061571b5e80014ede4de33a61dd1f1988fa3c4bab8989a727d62f18e54b6e5eb2a5fb2c130cf9c56c4ae9e175043857b6'
         'SKIP')
 
 validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
@@ -43,7 +51,14 @@ check() {
 
 package_rebuilderd() {
   pkgdesc='Independent verification system of binary packages (server package)'
-  depends=('rebuilderd-tools' 'sqlite' 'archlinux-repro')
+  depends=(
+    'archlinux-repro'
+    'gcc-libs'
+    'glibc'
+    'libsqlite3.so'
+    'libzstd.so'
+    'rebuilderd-tools'
+  )
   backup=('etc/rebuilderd.conf'
           'etc/rebuilderd-sync.conf'
           'etc/rebuilderd-worker.conf')
@@ -86,6 +101,14 @@ package_rebuilderd() {
 
 package_rebuilderd-tools() {
   pkgdesc='Independent verification system of binary packages (tools package)'
+  depends=(
+    'gcc-libs'
+    'glibc'
+    'libbz2.so'
+    'liblzma.so'
+    'libzstd.so'
+    'shared-mime-info'
+  )
 
   cd ${pkgbase}-${pkgver}
   install -Dm 755 -t "${pkgdir}/usr/bin" \
