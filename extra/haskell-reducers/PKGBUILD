@@ -3,8 +3,8 @@
 
 _hkgname=reducers
 pkgname=haskell-reducers
-pkgver=3.12.4
-pkgrel=171
+pkgver=3.12.5
+pkgrel=1
 pkgdesc="Semigroups, specialized containers and a general map/reduce framework"
 url="https://github.com/ekmett/reducers/"
 license=("BSD")
@@ -13,7 +13,7 @@ depends=('ghc-libs' "haskell-fingertree" "haskell-hashable" "haskell-semigroupoi
          "haskell-unordered-containers")
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('5640cb567b21e06884d0f8cbdc90530f90ef2bebf783e3d02e0fd5fd7ed2fd24876d612a6e5ece14ccfe80e963f19a2925b2af4c5317c44de75b1b1894457f1f')
+sha512sums=('d6306550e48605074b7dc0308dde0ae1c05a0df7902c0ae2083ea15f0bea9b56355d4587ec360abe402da1da8ec71704307562050005a78af9f22aac5daf55ba')
 
 prepare() {
     cd $_hkgname-$pkgver
