@@ -6,7 +6,7 @@ pkgname=(
   vue-language-server
   vue-typescript-plugin
 )
-pkgver=2.2.0
+pkgver=2.2.4
 pkgrel=1
 pkgdesc='Language server for Vue'
 arch=(any)
@@ -19,7 +19,7 @@ makedepends=(
   pnpm
 )
 source=("$pkgbase::git+https://github.com/vuejs/language-tools.git#tag=v$pkgver")
-b2sums=('8960e5a2455a507f2f3f18bc1a71a14fda4a53aceacaab0ee6a9be3b3b95eb56f9f2c68dd8ad06341865622537a3ce187c060b36e2ec5c3e2e571d7f8afbe421')
+b2sums=('7a96625fb98233b5fce0bd538e101e396651702d3e570a03c531137abf676caf5b5e29815f251b76f34ce7fb6d01198dd4b0c6f69fc4f2839cac1d1249259997')
 
 prepare() {
   cd $pkgbase
@@ -48,11 +48,11 @@ package_vue-language-server() {
   cd $pkgbase/packages/language-server
   # Prune unnecessary packages
   rm -r node_modules
-  npm install --production
+  npm install --omit=dev
 
   shopt -s globstar
   export GLOBIGNORE='node_modules/*'
-  readarray -t mod_files < <(jq -r '.files[]' package.json)
+  mapfile -t mod_files < <(jq -r '.files[]' package.json)
   # shellcheck disable=SC2068
   cp --parents -r ${mod_files[@]} node_modules package.json "$pkgdir"/$mod_dir
   install -Dm644 -t "$pkgdir"/usr/share/licenses/"${pkgname[0]}" LICENSE
@@ -71,11 +71,11 @@ package_vue-typescript-plugin() {
   cd $pkgbase/packages/typescript-plugin
   # Prune unnecessary packages
   rm -r node_modules
-  npm install --production
+  npm install --omit=dev
 
   shopt -s globstar
   export GLOBIGNORE='node_modules/*'
-  readarray -t mod_files < <(jq -r '.files[]' package.json)
+  mapfile -t mod_files < <(jq -r '.files[]' package.json)
   # shellcheck disable=SC2068
   cp --parents -r ${mod_files[@]} node_modules package.json "$pkgdir"/$mod_dir
   install -Dm644 -t "$pkgdir"/usr/share/licenses/"${pkgname[1]}" LICENSE
