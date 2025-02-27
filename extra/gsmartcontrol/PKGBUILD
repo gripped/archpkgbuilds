@@ -2,7 +2,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=gsmartcontrol
-pkgver=2.0.1
+pkgver=2.0.2
 pkgrel=1
 pkgdesc="A graphical user interface for the smartctl hard disk drive health inspection tool."
 arch=('x86_64')
@@ -15,9 +15,9 @@ makedepends=('cmake')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/ashaduri/gsmartcontrol/archive/v$pkgver.tar.gz"
   org.archlinux.pkexec.gsmartcontrol.policy
   gsmartcontrol_polkit)
-sha256sums=('18a5a86d588bcb5e5642a68bb4a5fe07ec18250a8b161129dcbc153dc9b177f5'
-  '98ae73cbe39be31f885d8c4d09cbfac7b454534ea1ba7cb5a8d23365dc22212a'
-  '66f952196db24d6e3ee454b03481d52e0281c3bbf8be180600bf5ba7b39ec0ea')
+sha256sums=('7cebd83fd34883d51e143389aa88f8173ea7b67c760b12b7de847f3c3c8cee34'
+            '98ae73cbe39be31f885d8c4d09cbfac7b454534ea1ba7cb5a8d23365dc22212a'
+            '66f952196db24d6e3ee454b03481d52e0281c3bbf8be180600bf5ba7b39ec0ea')
 
 prepare() {
   cd ${pkgname}-${pkgver}
