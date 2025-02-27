@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org> 
 
 pkgname=discover
-pkgver=6.3.1
+pkgver=6.3.2
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE and Plasma resources management GUI'
@@ -49,7 +49,7 @@ optdepends=('flatpak: Flatpak packages support'
             'packagekit-qt6: to manage packages from Arch Linux repositories (not recommended, use at your own risk)')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('44a8272a3fc912268d8b2461fed6e7193e0e66d27858ed5bbacd0b8e5319a718'
+sha256sums=('f46b33fd917f07368b9b2ace326762888de18fa2fb4516363c2a53cd4c7eab9d'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
