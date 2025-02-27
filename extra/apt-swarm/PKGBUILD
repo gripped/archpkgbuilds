@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=apt-swarm
-pkgver=0.4.0
+pkgver=0.5.0
 pkgrel=1
 pkgdesc="Experimental p2p gossip network for OpenPGP signature transparency 🥸"
 url='https://github.com/kpcyrd/apt-swarm'
@@ -17,8 +17,8 @@ makedepends=(
 backup=("etc/$pkgname.conf")
 options=(!lto)
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('563a53ac0e20a1f8b3ead1cde22b01771899d2fde35e59702c56ba2dc33ac72e')
-b2sums=('a6651339ab8924e188cb9134dbb20a993ed560cf1b3061377e22bc056704e741ec10bcea770a1a149d746ee83fd330c7b984e6e31a8033fde514f636ec070452')
+sha256sums=('82812656e480ecb87d7be2163adee9db1fb5b5ba7589761e1095dcbc16ba9242')
+b2sums=('775d77b09fe3fd495c759359e4cc845353328f5360add7614e2eca29e9cd3fa331489ae540110fefa3ac086aa3e246697486abd4cae1184172a86a7cb181c3a9')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
