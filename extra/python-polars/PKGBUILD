@@ -2,8 +2,8 @@
 # Contributor: Alexandre Bury <alexandre.bury@gmail.com>
 
 pkgname=python-polars
-pkgver=1.21.0
-pkgrel=2
+pkgver=1.23.0
+pkgrel=1
 pkgdesc="Blazingly fast DataFrames library using Apache Arrow Columnar Format as memory model"
 arch=("x86_64")
 url="https://www.pola.rs/"
@@ -26,11 +26,12 @@ checkdepends=('python-pytest'
               'python-sqlalchemy'
               'python-zstandard'
               'python-cloudpickle'
-              'python-aiosqlite')
+              'python-aiosqlite'
+		      'python-orjson')
 _name=${pkgname#python-}
 _tag="py-$pkgver"
 source=("https://github.com/pola-rs/polars/archive/refs/tags/$_tag.tar.gz")
-b2sums=("0747a7ac7322eab2023db2f34e2ce4dc03ae69de5ae14ceded6c4b21e0ff0282bbd683f457248c98ab372306aa88f768da6103cd6bd509b33050e1a78501e0d2")
+b2sums=('536decece0b5eb643be829b91e173d08435c974f1a8fafc3160900ee5d8f1c29d67f1813b03f981318095e65e40e4ee62ddb5a84e7a6c30a0cc4527513e551ca')
 
 prepare() {
     cd polars-$_tag/py-polars
