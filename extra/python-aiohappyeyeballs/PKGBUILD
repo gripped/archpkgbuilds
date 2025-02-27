@@ -3,7 +3,7 @@
 
 pkgname=python-aiohappyeyeballs
 _name=${pkgname#python-}
-pkgver=2.4.4
+pkgver=2.4.6
 pkgrel=1
 pkgdesc='Happy Eyeballs for asyncio'
 arch=(any)
@@ -21,7 +21,7 @@ checkdepends=(
   python-pytest-asyncio
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('0a7e07ea905348f582b58b3fabbab53d07e3e465a2bdb890129c1d706cd7df96d42fad113089b121a88682f893ab2dc45096334dac23131821eb37386b94fc3b')
+b2sums=('4a108626002899f40186d486c0f40a8b531fe9a0d297999995bafb1a65bfe5c74f8c6ed78ff6fa34a542c76d49195af7c8c33ef873302779e2240fff7fbe0e1f')
 
 build() {
   cd "$_name"
