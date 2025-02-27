@@ -1,7 +1,7 @@
 # Maintainer: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
 pkgname=libmodsecurity
-pkgver=3.0.13
+pkgver=3.0.14
 pkgrel=1
 epoch=1
 
@@ -11,9 +11,9 @@ depends=('yajl' 'curl' 'lmdb' 'libxml2' 'pcre2' 'geoip' 'libmaxminddb' 'ssdeep' 
 makedepends=('doxygen')
 url="https://github.com/owasp-modsecurity/ModSecurity/tree/v3/master"
 license=('APACHE')
-source=("https://github.com/owasp-modsecurity/ModSecurity/releases/download/v$pkgver/modsecurity-v$pkgver.tar.gz"{,.asc}
+source=("https://github.com/owasp-modsecurity/ModSecurity/releases/download/v$pkgver/modsecurity-v$pkgver.tar.gz"{,.sig}
         libxml-includes.patch)
-sha256sums=('86b4881164a161b822a49df3501e83b254323206906134bdc34a6f3338f4d3f2'
+sha256sums=('f7599057b35e67ab61764265daddf9ab03c35cee1e55527547afb073ce8f04e8'
             'SKIP'
             '7ee0adbe5b164ca512c49e51e30ffd41e29244156a695e619dcf1d0387e69aef')
 validpgpkeys=('0B2BA1924065B44691202A2AD286E022149F0F6E') # OWASP ModSecurity <modsecurity@owasp.org>
