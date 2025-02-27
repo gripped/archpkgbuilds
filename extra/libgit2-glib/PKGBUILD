@@ -7,8 +7,8 @@ pkgname=(
   libgit2-glib
   libgit2-glib-docs
 )
-pkgver=1.2.0
-pkgrel=6
+pkgver=1.2.1
+pkgrel=1
 pkgdesc="GLib wrapper for libgit2"
 url="https://gitlab.gnome.org/GNOME/libgit2-glib"
 license=(LGPL-2.1-or-later)
@@ -25,14 +25,10 @@ makedepends=(
 )
 source=(
   "git+$url.git#tag=v$pkgver"
-  0001-Unbreak-micro-version.patch
-  0002-build-Fix-build-against-and-require-libgit2-1.8.0.patch
-  0003-Adjust-API-for-libgit2-1.9.0.patch
+  0001-Fix-definition-of-GGIT_VERSION_HEX.patch
 )
-b2sums=('d31e3edff3b663b0ba754868b719afd231067dd55aef05d4deec995dfab7eb7ba45c16ef2094dfa0f0c605731732b78e78bfa283a70fb18ab7d24a6f12fb00a8'
-        '44ea6fb63b10c31042d6cea588c099ff2fe8c3d2bdc7fd1ec2acdd74a07832954cca942de130f4461a124639db4e785362ac188782e2e2d7d22a89dff0442a8d'
-        'b4419fd17c3569e2c2f74febc59fcd1ddcbdbe3186c001f49efbd02de7f744e94b79a4c5b8cf3c747ba1ee61744fed6dd36516d99599ba490d9956cc0af047df'
-        '1b70e9acc922ee65f1a46cd7e4490a9fa5974408f375028c0768ea64350d8cd5444267f3085b7d6bc7092c68b938b5abaffd54d574403b2e8df6522415bae2da')
+b2sums=('2988b0b89c132779c1070887b8c11e004594667d5ec791834d9ab1fe5025260e7a02a6d77bc9e3e24f004dc0a5f614ed771b3b90b896ceeea41282c097ae551f'
+        '254fb23cdc66670582e6cf453bc8b8c7ee1a53a28a23969c5c08f65d83e1d9cbb34b6f3fef10ef010073e012a94faf2ba0561dab88380199ba0756398127515e')
 
 _pick() {
   local p="$1" f d; shift
@@ -45,15 +41,7 @@ _pick() {
 }
 
 prepare() {
-  # fix a micro issue
-  git -C $pkgname apply -3 ../0001-Unbreak-micro-version.patch
-
-  # use libgit2 1.8
-  # https://gitlab.gnome.org/GNOME/libgit2-glib/-/merge_requests/40
-  git -C $pkgname apply -3 ../0002-build-Fix-build-against-and-require-libgit2-1.8.0.patch
-
-  # use libgit2 1.9
-  git -C $pkgname apply -3 ../0003-Adjust-API-for-libgit2-1.9.0.patch
+  git -C $pkgname apply -3 ../0001-Fix-definition-of-GGIT_VERSION_HEX.patch
 }
 
 build() {
