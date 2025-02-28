@@ -3,7 +3,7 @@
 # Contributor: Knut Ahlers <knut at ahlers dot me>
 
 pkgname=dust
-pkgver=1.1.1
+pkgver=1.1.2
 pkgrel=1
 pkgdesc='A more intuitive version of du in rust'
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('Apache-2.0')
 depends=('gcc-libs' 'glibc')
 makedepends=('cargo' 'git')
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha256sums=('66b82996e4906d423b81e6dbe954e989de9dd89760cbf184cf786d3a567fe37a')
+sha256sums=('e4d12cedf52d5dfe467cd57129c429ef5b738c128f5688d7e3c9dc6eaebc22c9')
 
 prepare() {
   cd "$pkgname"
