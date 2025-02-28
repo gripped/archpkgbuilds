@@ -1,7 +1,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=libzypp
-pkgver=17.36.2
+pkgver=17.36.3
 pkgrel=1
 pkgdesc="ZYpp Package Management library"
 arch=(x86_64)
@@ -39,9 +39,13 @@ makedepends=(
 #     nginx
 #     vsftpd
 # )
-optdepends=()
 source=("git+https://github.com/openSUSE/libzypp.git#tag=${pkgver}")
-sha256sums=('e129f01404753d857b24aac22f61348882c4c9eea025a009131a92d2dc8959b3')
+sha256sums=('9569fbcb886b7619da938cf2bf15c71dfe193c735dd327080465309e71200f82')
+
+prepare() {
+    cd $pkgname
+    git cherry-pick -n 35d728621dbea40c481cce5a6c82ce05d383ff3f
+}
 
 build() {
     local cmake_options=(
@@ -63,7 +67,7 @@ build() {
 
 check() {
     # https://github.com/openSUSE/libzypp/issues/622
-    local excluded_tests="RpmPkgSigCheck_test"
+    local excluded_tests=""
     local ctest_flags=(
         --test-dir build
         # show the stdout and stderr when the test fails
