@@ -2,7 +2,7 @@
 # Maintainer: Alexander Epaneshnikov <alex19ep@archlinux.org>
 
 pkgname=repo
-pkgver=2.49.3
+pkgver=2.52
 pkgrel=1
 pkgdesc="The Multiple Git Repository Tool from the Android Open Source Project"
 url="https://android.googlesource.com/tools/repo"
@@ -11,7 +11,7 @@ license=("Apache-2.0")
 depends=("git" "python")
 source=("git+https://android.googlesource.com/tools/repo.git#tag=v$pkgver?signed")
 validpgpkeys=('8BB9AD793E8E6153AF0F9A4416530D5E920F5C65') # Repo Maintainer <repo@android.kernel.org>
-sha256sums=('c398724b8162be5fe9846363e7dc1bdfd7b8d99c8eb37accf6c97625c4f19a37')
+sha256sums=('0160999c0ef617878d30749537eb3e77e0572254305e5a86ebff01224f6223a0')
 
 package() {
   cd repo
