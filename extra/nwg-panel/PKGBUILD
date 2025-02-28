@@ -3,7 +3,7 @@
 
 pkgname=nwg-panel
 pkgver=0.9.62
-pkgrel=1
+pkgrel=2
 pkgdesc="GTK3-based panel for sway and Hyprland Wayland compositors"
 url="https://github.com/nwg-piotr/nwg-panel"
 arch=('any')
@@ -32,6 +32,7 @@ package() {
 	install -Dm 644 nwg-shell.svg "${pkgdir}/usr/share/pixmaps/nwg-shell.svg"
 	install -Dm 644 nwg-processes.svg "${pkgdir}/usr/share/pixmaps/nwg-processes.svg"
 	install -Dm 644 "${pkgname}-config.desktop" "${pkgdir}/usr/share/applications/${pkgname}-config.desktop"
+	install -Dm 644 "${pkgname}.service" "${pkgdir}/usr/lib/systemd/user/${pkgname}.service"
 	install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 	install -Dm 644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
 }
