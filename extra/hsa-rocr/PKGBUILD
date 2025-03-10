@@ -4,19 +4,22 @@
 # Contributor: Bruno Filipe <bmilreu@gmail.com>
 # Contributor: Jakub Okoński <jakub@okonski.org>
 # Contributor: Ranieri Althoff <ranisalt+aur at gmail.com>
+# Contributor: Alexandru M Stan <alex@hypertriangle.com>
 
 pkgname=hsa-rocr
-pkgver=6.2.1
+pkgver=6.3.2
 pkgrel=1
 pkgdesc='HSA Runtime API and runtime for ROCm'
 arch=('x86_64')
 url='https://github.com/ROCm/ROCR-Runtime'
 license=('NCSA')
-depends=('rocm-core' 'glibc' 'gcc-libs' 'libelf' 'libdrm'
-         'hsakmt-roct' 'rocm-device-libs')
+depends=('rocm-core' 'glibc' 'gcc-libs' 'numactl' 'pciutils' 'libelf' 'libdrm'
+         'rocm-device-libs')
+provides=("hsakmt-roct=$pkgver")
+replaces=('hsakmt-roct')
 makedepends=('cmake' 'rocm-llvm' 'xxd')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('dbe477b323df636f5e3221471780da156c938ec00dda4b50639aa8d7fb9248f4')
+sha256sums=('aaecaa7206b6fa1d5d7b8f7c1f7c5057a944327ba4779448980d7e7c7122b074')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
 options=(!lto)
 
@@ -25,12 +28,13 @@ build() {
   # https://github.com/RadeonOpenCompute/ROCR-Runtime/issues/89#issuecomment-613788944
   local cmake_args=(
     -Wno-dev
-    -S "$_dirname/src"
+    -S "$_dirname/"
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D CMAKE_PREFIX_PATH=/opt/rocm
-    -D CMAKE_CXX_FLAGS="$CXXFLAGS -DNDEBUG")
+    -D CMAKE_CXX_FLAGS="$CXXFLAGS -DNDEBUG"
+    -DBUILD_SHARED_LIBS=ON)
   cmake "${cmake_args[@]}"
   cmake --build build
 }
