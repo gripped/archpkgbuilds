@@ -3,16 +3,17 @@
 # Contributor: AsamK <asamk@gmx.de>
 
 pkgname=git-absorb
-pkgver=0.6.17
-pkgrel=4
+pkgver=0.7.0
+pkgrel=1
 pkgdesc="git commit --fixup, but automatic"
 arch=('x86_64')
 url="https://github.com/tummychow/git-absorb"
 license=('BSD')
 depends=('gcc-libs' 'glibc' 'libgit2')
-makedepends=('cargo')
+makedepends=('cargo' 'asciidoc')
+checkdepends=('git')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/tummychow/git-absorb/archive/${pkgver}.tar.gz")
-sha256sums=('512ef2bf0e642f8c34eb56aad657413bd9e04595e3bc4650ecf1c0799f148ca4')
+sha256sums=('65f5b80bcb726a0c40eeda94ccb47fce7f3fc4ed16021465196a37b907083eb8')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
@@ -25,9 +26,11 @@ build() {
   CFLAGS+=' -ffat-lto-objects'
   export LIBGIT2_NO_VENDOR=1
   cargo build --release --frozen
-  "target/release/$pkgname" --gen-completions bash > "completions/$pkgname.bash"
-  "target/release/$pkgname" --gen-completions fish > "completions/$pkgname.fish"
-  "target/release/$pkgname" --gen-completions zsh > "completions/_$pkgname"
+  "target/release/$pkgname" --gen-completions bash >"completions/$pkgname.bash"
+  "target/release/$pkgname" --gen-completions fish >"completions/$pkgname.fish"
+  "target/release/$pkgname" --gen-completions zsh >"completions/_$pkgname"
+  cd "Documentation"
+  make
 }
 
 check() {
