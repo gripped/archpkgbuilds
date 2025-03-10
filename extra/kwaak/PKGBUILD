@@ -1,0 +1,39 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+
+pkgname=kwaak
+pkgver=0.14.0
+pkgrel=1
+pkgdesc="Run a team of autonomous AI agents from your terminal"
+arch=('x86_64')
+url="https://github.com/bosun-ai/kwaak"
+license=('MIT')
+depends=('gcc-libs' 'openssl')
+makedepends=('cargo' 'protobuf')
+checkdepends=('git')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha512sums=('25c4a4e4ca38287a68b035545cbf0d2fa756728185fc70d99959a0b65901d6a73b1c8e32a91f083c3bb9bd6508bc2b44485b63d74c83fb47e524227cee9b4afa')
+options=('!lto')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release --frozen
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --frozen --lib -- --skip "config::defaults"
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:
