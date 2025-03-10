@@ -3,34 +3,52 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=rccl
-pkgver=6.2.4
+pkgver=6.3.2
 pkgrel=1
 pkgdesc="ROCm Communication Collectives Library"
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rccl/en/latest/index.html'
 license=('BSD-3-Clause')
 depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'rocm-smi-lib')
-makedepends=('cmake' 'rocm-cmake' 'hipify-clang' 'python')
-_git='https://github.com/ROCm/rccl'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('12a04743ed89a74b4a08aa046b6a549d385e15d6866042fd41eac8f085f50eea')
+makedepends=('git' 'cmake' 'rocm-cmake' 'hipify-clang' 'python')
+source=(
+  "${pkgname}::git+https://github.com/ROCm/rccl#tag=rocm-$pkgver"
+  "${pkgname}-json::git+https://github.com/nlohmann/json.git"
+  "${pkgname}-mscclpp::git+https://github.com/microsoft/mscclpp.git"
+)
+sha256sums=('91156dfb8f173fde9ba10caf22150017528e3a8f374a4653af0588cae1419fe8'
+            'SKIP'
+            'SKIP')
 options=(!lto)
-_dirname="$(basename $_git)-$(basename ${source[0]} .tar.gz)"
+
+prepare() {
+  cd "$pkgname"
+  git submodule init
+
+  git config submodule."ext-src/json".url "${srcdir}/${pkgname}"-json
+  git config submodule."ext-src/mscclpp".url "${srcdir}/${pkgname}"-mscclpp
+
+  git -c protocol.file.allow=always submodule update --init --recursive
+}
 
 build() {
   # Compile source code for supported GPU archs in parallel
   export HIPCC_COMPILE_FLAGS_APPEND="-parallel-jobs=$(nproc)"
   export HIPCC_LINK_FLAGS_APPEND="-parallel-jobs=$(nproc)"
+  export CXX=/opt/rocm/llvm/bin/amdclang++
+  export CC=/opt/rocm/llvm/bin/amdclang
   # -fcf-protection is not supported by HIP, see
   # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
+  CXXFLAGS+=" -fcf-protection=none"
   local cmake_args=(
     -Wno-dev
-    -S "$_dirname"
+    -S "$pkgname"
     -B build
     -D CMAKE_BUILD_TYPE=None
-    -D CMAKE_CXX_COMPILER=/opt/rocm/bin/hipcc
-    -D CMAKE_CXX_FLAGS="${CXXFLAGS} -fcf-protection=none"
+    -D CMAKE_TOOLCHAIN_FILE="$srcdir/$pkgname"/toolchain-linux.cmake
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
+    -D ENABLE_MSCCL_KERNEL=OFF
+    -D ENABLE_MSCCLPP=OFF
   )
   cmake "${cmake_args[@]}"
   cmake --build build
@@ -39,5 +57,5 @@ build() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  install -Dm644 "$srcdir/$_dirname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$srcdir/$pkgname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
