@@ -1,0 +1,33 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=alpm-docs
+_upstream=alpm
+_upstream_project=alpm-types
+pkgver=0.5.0
+pkgrel=2
+pkgdesc="Specifications for Arch Linux Package Management"
+arch=(any)
+url="https://alpm.archlinux.page/"
+_url="https://gitlab.archlinux.org/archlinux/alpm/alpm.git"
+license=(CC-BY-SA-4.0)
+groups=(alpm)
+makedepends=(
+  git
+  just
+  rust
+  rust-script
+)
+source=($_upstream::git+$_url?signed#tag=$_upstream_project/$pkgver)
+sha512sums=('9dcde3cb6a3d1e3fbea1861fc4304147237118aac3681aee0d12b48caac912fc9eb2eb9539ce78469d5a5e9d2aa2760ce97cbb679fbf3546e20f1eb1d49708fc')
+b2sums=('ba8754f475802286142495f8120ab1c3d7353c72a81459bdeca0e8372f673bc5829f1a62d978f2b2131afa5a14be82a01016fd39725879de9634a42eb3b97fa1')
+validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
+
+build() {
+  cd $_upstream
+  just generate specifications $_upstream_project
+}
+
+package() {
+  install -vDm 644 $_upstream/output/manpages/*.5 -t "$pkgdir/usr/share/man/man5/"
+  install -vDm 644 $_upstream/output/manpages/*.7 -t "$pkgdir/usr/share/man/man7/"
+}
