@@ -1,8 +1,8 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=img2pdf
-pkgver=0.5.1
-pkgrel=3
+pkgver=0.6.0
+pkgrel=1
 pkgdesc="Losslessly convert raster images to PDF"
 arch=(any)
 url="https://gitlab.mister-muffin.de/josch/img2pdf"
@@ -12,7 +12,7 @@ makedepends=(python-build python-installer python-setuptools python-wheel)
 checkdepends=(python-pytest python-numpy python-scipy python-lxml
               colord ghostscript imagemagick mupdf-tools openjpeg2 poppler perl-image-exiftool netpbm)
 source=(https://files.pythonhosted.org/packages/source/i/${pkgname}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('73847e47242f4b5bd113c70049e03e03212936c2727cd2a8bf564229a67d0b95')
+sha256sums=('85a89b8abdeef9ef033508aed0d9f1e84fd6d0130e864e2c523f948ec45365e1')
 
 build() {
     cd ${pkgname}-${pkgver}
