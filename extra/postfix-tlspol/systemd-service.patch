@@ -1,18 +1,10 @@
-diff --git a/init/postfix-tlspol.service.template b/init/postfix-tlspol.service.template
-index 0ca03f2..4ad542f 100644
---- a/init/postfix-tlspol.service.template
-+++ b/init/postfix-tlspol.service.template
-@@ -1,22 +1,15 @@
- [Unit]
--Description=postfix-tlspol
-+Description=postfix-tlspol daemon
- After=nss-lookup.target network-online.target
- Wants=nss-lookup.target
- 
+diff --git a/init/postfix-tlspol.service b/init/postfix-tlspol.service
+index e75f945..68e68f8 100644
+--- a/init/postfix-tlspol.service
++++ b/init/postfix-tlspol.service
+@@ -6,16 +6,10 @@ Wants=nss-lookup.target
  [Service]
--WorkingDirectory=%%BASEDIR%%
--ExecStart=%%BASEDIR%%/build/postfix-tlspol -config %%BASEDIR%%/configs/config.yaml
-+ExecStart=/usr/bin/postfix-tlspol -config /etc/postfix-tlspol/config.yaml
+ ExecStart=/usr/bin/postfix-tlspol -config /etc/postfix-tlspol/config.yaml
  ExecReload=/bin/kill -HUP $MAINPID
 -DynamicUser=yes
  Restart=always
@@ -27,7 +19,7 @@ index 0ca03f2..4ad542f 100644
  ProtectControlGroups=yes
  ProtectKernelLogs=yes
  ProtectKernelModules=yes
-@@ -24,8 +17,6 @@ ProtectKernelTunables=yes
+@@ -23,8 +17,6 @@ ProtectKernelTunables=yes
  ProtectClock=yes
  ProtectSystem=strict
  ProtectHostname=yes
@@ -36,16 +28,16 @@ index 0ca03f2..4ad542f 100644
  RestrictRealtime=yes
  RestrictNamespaces=yes
  RestrictSUIDSGID=yes
-@@ -35,12 +26,6 @@ SystemCallArchitectures=native
+@@ -34,12 +26,7 @@ SystemCallArchitectures=native
  SystemCallFilter=@system-service
  SystemCallFilter=~@privileged @resources
  SystemCallErrorNumber=EPERM
 -CapabilityBoundingSet=
--ReadOnlyPaths=%%BASEDIR%%
+-SecureBits=noroot noroot-locked
+ ReadOnlyPaths=/etc/postfix-tlspol
 -UMask=0111
 -RuntimeDirectory=postfix-tlspol
--RuntimeDirectoryMode=1777
--BindPaths=/run/postfix-tlspol
+-RuntimeDirectoryMode=1755
+ StateDirectory=postfix-tlspol
+ WorkingDirectory=/var/lib/postfix-tlspol
  
- [Install]
- WantedBy=multi-user.target

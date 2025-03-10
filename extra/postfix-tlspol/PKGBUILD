@@ -1,22 +1,20 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=postfix-tlspol
-pkgver=1.7.2
-pkgrel=1
+pkgver=1.8.1
+pkgrel=2
 pkgdesc="Lightweight MTA-STS + DANE/TLSA resolver and TLS policy server for Postfix, prioritizing DANE"
 url="https://github.com/Zuplu/postfix-tlspol"
 arch=('x86_64')
 license=('MIT')
 depends=('glibc' 'postfix')
 makedepends=('go')
-optdepends=('valkey: database option for caching support'
-            'redis: databse option for caching support')
 backup=("etc/${pkgname}/config.yaml")
 install="${pkgname}.install"
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz"
         'systemd-service.patch')
-sha256sums=('1ec59970f4d310bfb5ce3c69ed061ecd825ac9deceb082eb43fb43baeb96cdb6'
-            '949d6ef0b843b3e40db26fc0a7c48454b623aa782bf132c8d5276c0338f2b768')
+sha256sums=('d6ae77db0e4c5e8adf0465e5f40a3a62a560639e29eb56146993379ab9785daf'
+            'c03671af3ab3e41f8c2af0caf519948ffaf1ae2066415228a0ce738841cb6517')
 
 prepare(){
 	cd "${pkgname}-${pkgver}"
@@ -33,7 +31,7 @@ build() {
 	export CGO_CXXFLAGS="${CXXFLAGS}"
 	export CGO_LDFLAGS="${LDFLAGS}"
 	export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
-	go build -o "build/${pkgname}" *.go
+	go build -ldflags "-X main.Version=${pkgver}" -o "build/${pkgname}" *.go
 }
 
 check() {
@@ -44,7 +42,8 @@ check() {
 package() {
 	cd "${pkgname}-${pkgver}"
 	install -Dm 755 "build/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
-	install -Dm 644 "init/${pkgname}.service.template" "${pkgdir}/usr/lib/systemd/system/${pkgname}.service"
+	install -Dm 644 "init/${pkgname}.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}.service"
+	install -dm 755 "${pkgdir}/var/lib/${pkgname}"
 	install -Dm 644 configs/config.default.yaml "${pkgdir}/etc/${pkgname}/config.yaml"
 	install -Dm 644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
 	install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
