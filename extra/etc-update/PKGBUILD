@@ -4,7 +4,7 @@
 
 pkgname='etc-update'
 pkgdesc="CLI to interactively merge .pacnew configuration files"
-pkgver=3.0.39
+pkgver=3.0.67
 pkgrel=1
 arch=('any')
 url="https://wiki.gentoo.org/wiki/Handbook:X86/Portage/Tools#etc-update"
@@ -14,8 +14,8 @@ makedepends=('git')
 optdepends=('dialog: for the menu mode')
 backup=("etc/etc-update.conf")
 source=("https://github.com/gentoo/portage/archive/portage-${pkgver}.tar.gz")
-sha512sums=('1e67eb06e20078f0f4f7e8bd2a46b0120310b05330b4715017f3fb112cb4b0ff583fbe7aaaf87a9f2eea4a0302a59529618b0984964b448bff4fa61edd8c3f36')
-b2sums=('424fbbf0d664d413b140a37d789685597a2f3dcf0d46696a7ce2c784f9bc3fd6c224819b25ed3a8bed6cbd25ee9013075ee9653e7aee3dcd12e3314c08573291')
+sha512sums=('7b75286826e0b13c02d7bdac6e00a904b2127f0406d3bc6c4a4ee97668a13d44315f471606bbfbf6dd2704b161bf346105bb0cc3614dd346a6c7673ede38477e')
+b2sums=('6d67f2a465649bd114af06b65e9f343a79d2a6bb71b6bbe46b594a82d84af2a5594cca1d4287ea56889f7fa114879dadb39396d2baa1e345fc973c9facf63aa6')
 
 package() {
 	cd portage-portage-${pkgver}
