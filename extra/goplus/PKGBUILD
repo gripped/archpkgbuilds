@@ -1,7 +1,7 @@
 # Maintainer: Anatol Pomozov <anatol dot pomozov at gmail>
 
 pkgname=goplus
-pkgver=1.3.0
+pkgver=1.3.2
 pkgrel=1
 pkgdesc='A programming language derived from Go and designed for engineering, STEM education, and data science'
 arch=(x86_64)
@@ -10,7 +10,7 @@ license=(Apache-2.0)
 depends=(glibc)
 makedepends=(go)
 source=(https://github.com/goplus/gop/archive/refs/tags/v$pkgver.tar.gz)
-sha256sums=('d22d4921c0bdc60670aaaf3ea24eae3d3a96580feafb4d75494ef02364ef7480')
+sha256sums=('07deb4a988df8c92340101bcf7aca959f9a48ffba6a0558fc778ceca5edad8fa')
 
 package() {
   export GOPROOT_FINAL=$pkgdir/usr/lib/goplus
