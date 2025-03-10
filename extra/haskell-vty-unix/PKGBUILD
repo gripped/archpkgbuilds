@@ -2,8 +2,8 @@
 
 _hkgname=vty-unix
 pkgname=haskell-vty-unix
-pkgver=0.1.0.0
-pkgrel=1
+pkgver=0.2.0.0
+pkgrel=3
 pkgdesc="Unix backend for Vty"
 url="https://github.com/jtdaugherty/vty-unix.git"
 license=("BSD")
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-blaze-builder' 'haskell-mic
          'haskell-vty')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('7faa08b40b6dae02abe518c87b7003876b2e988b620e0b73877bb506383c1295')
+sha256sums=('c2ab67e09edc4bade04e269adc059320e83f68b31e428d11a69b20c4f161ddc1')
 
 prepare() {
   cd $_hkgname-$pkgver
@@ -23,13 +23,13 @@ prepare() {
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie' 
 
-  runhaskell Setup build
+  runhaskell Setup build $MAKEFLAGS
   runhaskell Setup register --gen-script
   runhaskell Setup unregister --gen-script
   sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
@@ -38,7 +38,7 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  runhaskell Setup test
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
