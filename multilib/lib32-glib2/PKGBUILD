@@ -7,7 +7,7 @@ pkgbase=lib32-glib2
 pkgname=(
   lib32-glib2
 )
-pkgver=2.82.5
+pkgver=2.84.0
 pkgrel=1
 pkgdesc="Low level core library - 32-bit"
 url="https://gitlab.gnome.org/GNOME/glib"
@@ -41,11 +41,15 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/glib.git?signed#tag=$pkgver"
   "git+https://gitlab.gnome.org/GNOME/gvdb.git"
   0001-glib-compile-schemas-Remove-noisy-deprecation-warnin.patch
+  0002-gdesktopappinfo-Add-more-known-terminals.patch
+  0003-tests-Don-t-install-runner-scripts-without-installed.patch
   gio-querymodules-32.hook
 )
-b2sums=('461adb38c260e2d9d7d230af875bafc1d6694e16e160e88551efbe740eb02abbfa60fe52e52b00b55162e50d56982d954675426cab2d5f5a7b0855eea3d8ed35'
+b2sums=('f44b52d787e8ec09d5b21378b1f288400a7b48ebbdf7b93a48db325bb144281ad718b538f02c1384212b1e01e339d10cc61b2031abac44b72a8329645c7aff41'
         'SKIP'
-        '47cd08ba7e4b3ca0cd19f6dc20e4d73e30cf90f2b78c3d620ee0c7a4d8a4b325a5e88ec2dcc3a63402c16cc1ce8061130afc313e3cbfcd220dff3e642b113a69'
+        '4ddbd31f5f466fce99d82890292ff922555a9ab379d22202aeea5127f58798668f871dea0485cc0f458069276ad512412285ede6c8f3e36bea899358f49e931a'
+        'bf57425e3081a8f5d36d6a54eff1bfa93ba6bab8f0a4d3f3bf1e319ebfa71d99ce6a0466166fc694f53c5bd151e9cc65339e222c48e963f0cdc075852d0e1f7c'
+        '165ff1ee935c7ef67622856e842656adaf995dac33782ee1ac85da5228b52e5256d455c92ee67802322dc36bbe2cc5f512e378c1cd66e490c9787ca9c231f657'
         '678ea2d010fd64b6c55106510096363c54c357d65615c666e9cc3a0e280c0878257a45e646dd88f6bdd0623f7268c4afd2d4f98f82a5489bbfc028c5864252f1')
 validpgpkeys=(
   53EF3DC3B63E2899271BD26322E8091EEA11BBB7 # Emmanuele Bassi <ebassi@gnome.org>
@@ -61,6 +65,14 @@ prepare() {
 
   # Suppress noise from glib-compile-schemas.hook
   git apply -3 ../0001-glib-compile-schemas-Remove-noisy-deprecation-warnin.patch
+
+  # Add ghostty and ptyxis to known terminals list
+  # This is a downstream only patch; GNOME will not add new terminal emulators.
+  # https://gitlab.gnome.org/GNOME/glib/-/issues/338#note_1076172
+  git apply -3 ../0002-gdesktopappinfo-Add-more-known-terminals.patch
+
+  # Don't install runner scripts without installed_tests
+  git apply -3 ../0003-tests-Don-t-install-runner-scripts-without-installed.patch
 
   git submodule init
   git submodule set-url subprojects/gvdb "$srcdir/gvdb"
