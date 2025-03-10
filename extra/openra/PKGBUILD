@@ -1,8 +1,8 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Matthew Bowra-Dean <matthew@ijw.co.nz>
 pkgname=openra
-pkgver=20231010
-pkgrel=2
+pkgver=20250303
+pkgrel=1
 pkgdesc="An open-source implementation of the Red Alert engine using .NET/Mono and OpenGL"
 arch=('any')
 url="https://www.openra.net"
@@ -13,7 +13,7 @@ depends=('ttf-dejavu' 'openal' 'libgl' 'freetype2' 'sdl2' 'lua51' 'hicolor-icon-
 makedepends=('git' 'unzip' 'dotnet-sdk-6.0')
 options=(!debug)
 source=("git+https://github.com/OpenRA/OpenRA.git#tag=release-${pkgver}")
-sha512sums=('SKIP')
+sha512sums=('c7f1ca03891a2c4bf40dcc7adb32980e2274981d1e6fcdd99515ccd813bbf11ecea9ad63d25b8e7a7d9027542fb20ce15e8c454cda47aaa099ca4670fd86c057')
 
 prepare() {
   cd OpenRA
