@@ -6,7 +6,7 @@ pkgbase=musl
 pkgname=(musl musl-aarch64 musl-riscv64)
 _archs=("aarch64" "riscv64")
 pkgver=1.2.5
-pkgrel=3
+pkgrel=4
 pkgdesc='Lightweight implementation of C standard library'
 arch=('x86_64')
 url='https://www.musl-libc.org/'
@@ -14,9 +14,13 @@ license=('MIT')
 options=('staticlibs' '!buildflags')
 makedepends=('aarch64-linux-gnu-gcc' 'riscv64-linux-gnu-gcc')
 validpgpkeys=('836489290BB6B70F99FFDA0556BCDB593020450F')
-source=(https://www.musl-libc.org/releases/musl-$pkgver.tar.gz{,.asc})
+source=(https://www.musl-libc.org/releases/musl-$pkgver.tar.gz{,.asc}
+	https://www.openwall.com/lists/musl/2025/02/13/1/1
+	https://www.openwall.com/lists/musl/2025/02/13/1/2)
 sha256sums=('a9a118bbe84d8764da0ea0d28b3ab3fae8477fc7e4085d90102b8596fc7c75e4'
-            'SKIP')
+            'SKIP'
+            '0896fcdb5125d9d0723f4e165f13c209830e7045a75cba4e858060837cb7292e'
+            '0620fcee4e8a4e52ebe1ea75e2b51d2197ebda242489c0586924eafa9e9606a1')
 
 prepare() {
   for _arch in "${_archs[@]}"; do
@@ -24,6 +28,11 @@ prepare() {
     rm -rf "$p"
     mkdir "$p"
     tar -C "$p" -xf "$srcdir/musl-$pkgver.tar.gz" --strip-components=1
+
+    pushd $p
+    patch -p1 -i "$srcdir"/1
+    patch -p1 -i "$srcdir"/2
+    popd
   done
 }
 
