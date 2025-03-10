@@ -2,21 +2,16 @@
 
 _hkgname=haskell-src
 pkgname=haskell-src
-pkgver=1.0.4
-pkgrel=74
+pkgver=1.0.4.1
+pkgrel=2
 pkgdesc="Support for manipulating Haskell source code"
 url="https://github.com/haskell-pkg-janitors/haskell-src.git"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-syb')
-makedepends=('ghc' 'uusi' 'happy')
+makedepends=('ghc' 'happy')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('8bc77695f9cc113933048409d2ed3bf2a3b947e18312a23b0dbb7838d086f3ea')
-
-prepare() {
-  cd $_hkgname-$pkgver
-  uusi -u happy
-}
+sha256sums=('6043be18d3ecc4eb9232224b3d67648d659f2bc2c82a5e9f5bc42a1e333fefb9')
 
 build() {
   cd $_hkgname-$pkgver
