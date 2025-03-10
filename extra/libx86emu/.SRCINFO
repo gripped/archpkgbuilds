@@ -1,13 +1,14 @@
 pkgbase = libx86emu
 	pkgdesc = x86 emulation library
-	pkgver = 3.5
-	pkgrel = 4
+	pkgver = 3.7
+	pkgrel = 1
 	url = https://github.com/wfeldt/libx86emu
 	arch = x86_64
-	license = BSD
+	license = MIT
 	makedepends = git
 	makedepends = setconf
-	source = git+https://github.com/wfeldt/libx86emu#commit=41aaa2f246d362f6d7dea262052a43141743ead2
-	b2sums = SKIP
+	depends = glibc
+	source = git+https://github.com/wfeldt/libx86emu#tag=3.7
+	b2sums = 21931051ab2d1270f77248067cd3e645d3cd2c385320310f5a0f9ad367d1eb54e7130958a3431f45ead6d2257524e6d1f49fd11223fa9ebac1d8c6a41b35e94a
 
 pkgname = libx86emu
