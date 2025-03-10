@@ -1,7 +1,7 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=cozy-stack
-pkgver=1.6.36
+pkgver=1.6.37
 pkgrel=1
 epoch=1
 pkgdesc="Digital home: brings all your web services in the same private space – Stack component"
@@ -20,10 +20,10 @@ source=(https://github.com/cozy/cozy-stack/archive/${pkgver}/${pkgname}-${pkgver
         ${pkgname}.service
         ${pkgname}.sysusers
         ${pkgname}.tmpfiles)
-sha256sums=('7043be1de3ff188443159fd7198f700b7edee0099b20d26aeecfc7145c661bd3'
+sha256sums=('12acf5bf45fda15ec33aac0ea3c4cbc18478c55b4b352c116e25bb3da78bff7f'
             '40218c87cfb9d8acd1d81c9e6d54345b0a3a29d0ca539f2bc114201be22f28d6'
             '4ef3e901725167edd970a7f288e60f3729c12ae8a07289b6bb09bc96d6851b42'
-            'a6bea52350e85163c3141509a52903223fa0f6e7390b1b1f9336c326a8fff984'
+            '3ae9dbcb855c1b78d7ec168e07cf5d5cd3d3837e2822344ac5bdc68284857291'
             '04043ed0b2bf1c811417eec3b89a049f5353ad16f032497ff5c9a610eafa879d')
 
 prepare() {
@@ -37,9 +37,9 @@ build() {
     export CGO_CFLAGS="${CFLAGS}"
     export CGO_CXXFLAGS="${CXXFLAGS}"
     export CGO_LDFLAGS="${LDFLAGS}"
-    export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+    export GOFLAGS="-buildmode=pie -mod=readonly -modcacherw"
     go build -v \
-        -ldflags "-linkmode external
+        -ldflags "-linkmode external -compressdwarf=false
                   -X github.com/cozy/cozy-stack/pkg/config.Version=${pkgver} \
                   -X github.com/cozy/cozy-stack/pkg/config.BuildTime=$(date --utc --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +"%Y-%m-%dT%H:%M:%SZ") \
                   -X github.com/cozy/cozy-stack/pkg/config.BuildMode=production" \
