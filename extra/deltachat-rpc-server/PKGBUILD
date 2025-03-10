@@ -2,8 +2,9 @@
 
 # WARNING: this package needs to be kept in sync with the requirements of deltachat-desktop
 _upstream=deltachat-core-rust
+_name=core
 pkgname=deltachat-rpc-server
-pkgver=1.155.5
+pkgver=1.156.2
 pkgrel=1
 pkgdesc="A JSON-RPC 2.0 interface to DeltaChat over standard I/O"
 arch=(x86_64)
@@ -20,32 +21,32 @@ makedepends=(
 # NOTE: the ring dependency can not be built with LTO
 options=(!lto)
 source=($_upstream-$pkgver.tar.gz::$_url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('1dc409275ebaa3438e931b1c4d8663e8b71e3f7092740be3785bad8e9f6edaf08eaead3c4e3d2b31cf2f41a0b33349cc9c518c797c4e8c6ee32874c454e8d037')
-b2sums=('99869b368ba91eff741b3656fdc190c95011d12d9f8300795c5609d5a740d5a0fed7f9eeab3e863412904dbcb9da7be732ba0b4a2708e44ae062807909af3ba4')
+sha512sums=('c30003d6571169ab0291bc85d5709e5de6e78a34f4738e30cee2dd6aaac16abe0b170c91a2a1c1106b861767e4cd286f7b20a7a128195531567304767ed71214')
+b2sums=('eda589c5b78114a3752694bf0669aeba5bf32916e3ab3df6ccef723ea657aeafe26f2265af538a0ec90d697df92fb7b97b81c6e653d1e9c35e71f672dafc4476')
 
 prepare() {
   export RUSTUP_TOOLCHAIN=stable
-  cd $_upstream-$pkgver
+  cd $_name-$pkgver
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 
 }
 
 build() {
-  cd $_upstream-$pkgver
+  cd $_name-$pkgver
   export RUSTUP_TOOLCHAIN=stable
   export CARGO_TARGET_DIR=target
   cargo build --frozen --release --all-features --package $pkgname
 }
 
 check() {
-  cd $_upstream-$pkgver
+  cd $_name-$pkgver
   export RUSTUP_TOOLCHAIN=stable
   export CARGO_TARGET_DIR=target
   cargo test --frozen --all-features --package $pkgname
 }
 
 package() {
-  cd $_upstream-$pkgver
+  cd $_name-$pkgver
   install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
   install -vDm 644 $pkgname/README.md -t "$pkgdir/usr/share/doc/$pkgname/"
 }
