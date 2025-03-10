@@ -2,9 +2,8 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-heatclient
-pkgver=3.5.0
-_commit=02c82e69e9029411dd88b1c13849241e02598a85
-pkgrel=3
+pkgver=4.0.0
+pkgrel=1
 pkgdesc="OpenStack Orchestration API Client Library"
 arch=('any')
 url="https://docs.openstack.org/python-heatclient/latest/"
@@ -14,8 +13,8 @@ depends=('python-pbr' 'python-cliff' 'python-iso8601' 'python-osc-lib' 'python-p
          'python-swiftclient' 'python-yaml' 'python-requests' 'python-six')
 makedepends=('git')
 checkdepends=('python-stestr' 'python-testscenarios' 'python-requests-mock')
-source=("git+https://github.com/openstack/python-heatclient.git#commit=$_commit")
-sha512sums=('SKIP')
+source=("git+https://github.com/openstack/python-heatclient.git#tag=$pkgver")
+sha512sums=('15c4bc3ed1bb564879a52e57e92561aa53044a88ce5017a9cc0ea8a1b1726071d3da96d827199cd35b1915664fb5a0ccc55df559bbda84afb801f34d88c088b4')
 
 build() {
   cd python-heatclient
