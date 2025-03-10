@@ -1,7 +1,7 @@
 pkgbase = libsigrok
 	pkgdesc = Client software that supports various hardware logic analyzers, core library
 	pkgver = 0.5.2
-	pkgrel = 21
+	pkgrel = 22
 	url = https://www.sigrok.org/wiki/Libsigrok
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -34,8 +34,10 @@ pkgbase = libsigrok
 	optdepends = sigrok-firmware-fx2lafw: Cypress FX2-based device support
 	options = !lto
 	source = git+git://sigrok.org/libsigrok#tag=libsigrok-0.5.2
-	source = libsigrok-0.5.2-swig-4.1.patch
+	source = libsigrok-swig-4.1.patch
+	source = libsigrok-fix-ruby-binding-location.patch
 	sha512sums = 9dc362eb798c7568a87082148e61559b9434864671a1c09a9263b7bb9fe0f1efd96a9a19e69f7e2c9221fbc9cb0df27e6112a2a2451c77c2c4937398f857f434
 	sha512sums = 7a1e35b6b268d117e67dff55c2ff1320257525eedb7454a068732d79074b6d743036ab2c11043952738dd3990ca084782feeb15ad92a306b3b58c73ecc530154
+	sha512sums = 594ad2e8962d1d9a5562d4800d257a0da345b849b4b0732f964a650d131ad23f8b45d188dd0e9d654703b2c2552657ba30ef472863a93299f395a65fddbe2430
 
 pkgname = libsigrok

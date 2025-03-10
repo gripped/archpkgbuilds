@@ -5,7 +5,7 @@
 
 pkgname=libsigrok
 pkgver=0.5.2
-pkgrel=21
+pkgrel=22
 pkgdesc='Client software that supports various hardware logic analyzers, core library'
 arch=('x86_64')
 url='https://www.sigrok.org/wiki/Libsigrok'
@@ -46,10 +46,12 @@ optdepends=(
 options=(!lto) # FS#78381
 source=(
   "git+git://sigrok.org/libsigrok#tag=libsigrok-$pkgver"
-  "libsigrok-0.5.2-swig-4.1.patch"
+  "$pkgname-swig-4.1.patch"
+  "$pkgname-fix-ruby-binding-location.patch"
 )
 sha512sums=('9dc362eb798c7568a87082148e61559b9434864671a1c09a9263b7bb9fe0f1efd96a9a19e69f7e2c9221fbc9cb0df27e6112a2a2451c77c2c4937398f857f434'
-            '7a1e35b6b268d117e67dff55c2ff1320257525eedb7454a068732d79074b6d743036ab2c11043952738dd3990ca084782feeb15ad92a306b3b58c73ecc530154')
+            '7a1e35b6b268d117e67dff55c2ff1320257525eedb7454a068732d79074b6d743036ab2c11043952738dd3990ca084782feeb15ad92a306b3b58c73ecc530154'
+            '594ad2e8962d1d9a5562d4800d257a0da345b849b4b0732f964a650d131ad23f8b45d188dd0e9d654703b2c2552657ba30ef472863a93299f395a65fddbe2430')
 
 prepare() {
   cd $pkgname
@@ -64,10 +66,12 @@ prepare() {
   git cherry-pick 5bc8174531df86991ba8aa6d12942923925d9e72 # Oct 2 18:33:08 2023
 
   # https://sigrok.org/bugzilla/show_bug.cgi?id=1827
-  patch -p1 < ../libsigrok-0.5.2-swig-4.1.patch
+  patch -p1 < ../$pkgname-swig-4.1.patch
+
+  patch -p1 < ../$pkgname-fix-ruby-binding-location.patch
 
   # regenerate ./configure so it can detect Python 3.10
-  autoreconf -vi
+  autoreconf -fiv
 }
 
 build() {
