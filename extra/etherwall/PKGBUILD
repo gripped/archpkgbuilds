@@ -8,7 +8,7 @@ pkgver=3.0.6
 _ewnodecommit=8f12917510c280bdc6680eeebf6092246c2ba7cc
 # https://github.com/almindor/etherwall/tree/v3.0.6/src/trezor
 _trezorcommit=db106e8f2766155bc72802e4dc3f9f59c90d9c3e
-pkgrel=3
+pkgrel=4
 pkgdesc="Ethereum GUI Wallet (Qt5)"
 arch=('x86_64')
 url="https://etherwall.com"
