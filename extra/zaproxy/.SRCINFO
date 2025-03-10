@@ -1,17 +1,18 @@
 pkgbase = zaproxy
 	pkgdesc = Integrated penetration testing tool for finding vulnerabilities in web applications
-	pkgver = 2.15.0
+	pkgver = 2.16.0
 	pkgrel = 1
 	url = https://www.zaproxy.org/
 	arch = any
 	license = Apache
+	makedepends = git
 	makedepends = gradle
-	makedepends = java-environment=11
+	makedepends = java-environment=17
 	depends = bash
 	depends = java-runtime
 	depends = ttf-font
-	source = zaproxy-2.15.0.tar.gz::https://github.com/zaproxy/zaproxy/archive/v2.15.0.tar.gz
-	sha512sums = 9a5d667d0e8a8d19679c8e5395f4038dc5c5ac490b71f60d50803cc811bf1ca5b54ad9ce8c0abef4eafb5a2760bae2892331060794ff18f06903548c0e1d8d9d
-	b2sums = 9d7c0d85af3206680126acfa4ca28e541b313c1ac1fde491d6bf1d63ff11ca3a75ac6cb2b810a3f92a4bc3553304e8c884f7e022a6289d976bf59d3182f66d0a
+	source = git+https://github.com/zaproxy/zaproxy.git#tag=v2.16.0
+	sha512sums = 4351e79851a1aa6b98cf45c7e307102a5f64fa66e3a74bf6db08812937f9f888774ef863d9d075a516002aac32ca97ea88e9855401a59b192121febb6c8f9a32
+	b2sums = a72dff1003c225a5d56f88c9cf6f7023bb4b6e5d5896b06df145061e6e35fc28774dfef82f9b41688c09acc2b629ffaf8ebb7194bc412df6a44935a48b975b2f
 
 pkgname = zaproxy

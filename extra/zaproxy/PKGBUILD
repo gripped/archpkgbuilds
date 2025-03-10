@@ -3,21 +3,40 @@
 # Contributor: fnord0 <fnord0 AT riseup DOT net>
 
 pkgname=zaproxy
-pkgver=2.15.0
+pkgver=2.16.0
 pkgrel=1
 pkgdesc='Integrated penetration testing tool for finding vulnerabilities in web applications'
 url='https://www.zaproxy.org/'
 arch=('any')
 license=('Apache')
 depends=('bash' 'java-runtime' 'ttf-font')
-_java=11
-makedepends=('gradle' "java-environment=${_java}")
-source=(${pkgname}-${pkgver}.tar.gz::"https://github.com/zaproxy/zaproxy/archive/v${pkgver}.tar.gz")
-sha512sums=('9a5d667d0e8a8d19679c8e5395f4038dc5c5ac490b71f60d50803cc811bf1ca5b54ad9ce8c0abef4eafb5a2760bae2892331060794ff18f06903548c0e1d8d9d')
-b2sums=('9d7c0d85af3206680126acfa4ca28e541b313c1ac1fde491d6bf1d63ff11ca3a75ac6cb2b810a3f92a4bc3553304e8c884f7e022a6289d976bf59d3182f66d0a')
+_java=17
+makedepends=('git' 'gradle' "java-environment=${_java}")
+source=("git+https://github.com/zaproxy/zaproxy.git#tag=v${pkgver}")
+sha512sums=('4351e79851a1aa6b98cf45c7e307102a5f64fa66e3a74bf6db08812937f9f888774ef863d9d075a516002aac32ca97ea88e9855401a59b192121febb6c8f9a32')
+b2sums=('a72dff1003c225a5d56f88c9cf6f7023bb4b6e5d5896b06df145061e6e35fc28774dfef82f9b41688c09acc2b629ffaf8ebb7194bc412df6a44935a48b975b2f')
+
+_backports=(
+    'dc25a7002e38c1868e022cc16c1fd6fbb67d15dc'
+)
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd "$pkgname"
+
+  local _c
+  for _c in "${_backports[@]}"; do
+    if [[ $_c == *..* ]]; then
+      git log --oneline --reverse "${_c}"
+    else
+      git log --oneline -1 "${_c}"
+    fi
+    git cherry-pick -n -m1 "${_c}"
+  done
+  for _c in "${_reverts[@]}"; do
+    git log --oneline -1 "${_c}"
+    git revert -n "${_c}"
+  done
+
   cat > ${pkgname} <<EOF
 #!/bin/sh
 cd /usr/share/zaproxy
@@ -27,18 +46,22 @@ EOF
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd "$pkgname"
   export PATH="/usr/lib/jvm/java-${_java}-openjdk/bin:$PATH"
   export JAVA_HOME="/usr/lib/jvm/java-${_java}-openjdk"
   /usr/bin/gradle :zap:distLinux
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd "$pkgname"
   install -d "${pkgdir}/usr/share/${pkgname}"
   tar zxf zap/build/distributions/ZAP_${pkgver}_Linux.tar.gz
   cp -pR ZAP_${pkgver}/. "${pkgdir}/usr/share/${pkgname}"
   install -Dm 755 ${pkgname} "${pkgdir}/usr/bin/${pkgname}"
+  install -Dm 644 'snap/snap/gui/icon.png' -t "${pkgdir}/usr/share/pixmaps/zaproxy.png"
+  install -Dm 644 'snap/snap/gui/zaproxy.desktop' -t "${pkgdir}/usr/share/applications/"
+  # Fixing the path of the icon
+  sed -i 's|^Icon=.*|Icon=/usr/share/pixmaps/zaproxy.png|' "${pkgdir}/usr/share/applications/zaproxy.desktop"
 }
 
 # vim: ts=2 sw=2 et:
