@@ -1,8 +1,9 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Adam Perkowski <adas1per@protonmail.com>
 
 pkgname=xan
-pkgver=0.45.0
+pkgver=0.46.2
 pkgrel=1
 pkgdesc="The CSV magician"
 arch=('x86_64')
@@ -11,7 +12,7 @@ depends=('gcc-libs')
 makedepends=('cargo')
 license=('Unlicense' 'MIT')
 source=("$pkgbase-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('d79f530fa14cd020a974cec1145076e95ade05bbc926b0d3b5a6d1d8461f5ec8')
+sha256sums=('98f40f21f2a3b2bebd9a41ef95898aae7d42fc976861232415a51db6cc982603')
 
 prepare() {
   cd "$pkgname-$pkgver"
