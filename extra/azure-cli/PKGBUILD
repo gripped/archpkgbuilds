@@ -2,7 +2,7 @@
 # Contributor: pallxk <aur@pallxk.com>
 # https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux
 pkgname=azure-cli
-pkgver=2.69.0
+pkgver=2.70.0
 pkgrel=1
 pkgdesc="Command-line tools for Microsoft Azure"
 arch=('any')
@@ -19,7 +19,7 @@ options=('!debug' '!strip')
 source=("git+https://github.com/Azure/azure-cli.git#tag=azure-cli-${pkgver}"
         "az"
         "python-3.13-compat-update-cffi.patch")
-sha256sums=('f1113219259356e5f4fa59d1573f20e75430512731b4c9a03d6f29cf3359f00a'
+sha256sums=('80a00f6871b3ccb0d9f4d5d44273f2dca2e9673a271663d4fdef2afe0f945e1a'
             '990f70efec828c1e1f3f57748fc6e40f9705f2223dc96683e8e29d118daac116'
             'bae8e3fc18eafa94a68f84cd7b9a2252adee095647a8da28e8aabe64515c973a')
 
@@ -30,7 +30,6 @@ prepare() {
 
 package() {
   cd azure-cli
-
   mkdir -v "$pkgdir/opt"
 
   # We're going to just slap all of this junk into /opt because it needs so much stuff
@@ -44,4 +43,6 @@ package() {
 
   install -vDm755 "$srcdir/az" "$pkgdir/usr/bin/az"
   install -vDm644 az.completion "$pkgdir/usr/share/bash-completion/completions/az"
+
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
