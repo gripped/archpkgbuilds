@@ -5,11 +5,11 @@ pkgname=($pkgbase $pkgbase-avx2)
 _pkgname=srsRAN_4G
 pkgver=23.11
 _pkgver=release_${pkgver//./_}
-pkgrel=5
+pkgrel=6
 pkgdesc='Open source SDR LTE software suite from Software Radio Systems (SRS)'
 arch=('x86_64')
 url='https://www.srslte.com'
-license=('AGPL3')
+license=('AGPL-3.0-or-later')
 depends=('fftw' 'mbedtls' 'boost-libs' 'lksctp-tools' 'libconfig'
          'libuhd' 'soapysdr' 'bladerf' 'zeromq' 'pcsclite' 'srsgui')
 makedepends=('cmake' 'boost')
