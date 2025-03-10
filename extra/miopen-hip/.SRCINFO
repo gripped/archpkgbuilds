@@ -1,23 +1,26 @@
 pkgbase = miopen-hip
 	pkgdesc = AMD's Machine Intelligence Library (HIP backend)
-	pkgver = 6.2.4
+	pkgver = 6.3.2
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/MIOpen/en/latest/index.html
 	arch = x86_64
 	license = MIT
 	makedepends = cmake
+	makedepends = git
+	makedepends = git-lfs
 	makedepends = ninja
 	makedepends = rocm-cmake
 	makedepends = boost
 	makedepends = lbzip2
 	makedepends = nlohmann-json
 	makedepends = eigen
-	makedepends = half
 	makedepends = functional-plus
 	makedepends = frugally-deep
 	depends = rocm-core
 	depends = glibc
 	depends = gcc-libs
+	depends = hipblaslt
+	depends = hipblas
 	depends = rocblas
 	depends = rocrand
 	depends = rocm-clang-ocl
@@ -30,9 +33,13 @@ pkgbase = miopen-hip
 	provides = miopen
 	conflicts = miopen
 	options = !lto
-	source = miopen-hip-6.2.4.tar.gz::https://github.com/ROCm/MIOpen/archive/rocm-6.2.4.tar.gz
-	source = miopen-hip-rocmlir-6.2.4.tar.gz::https://github.com/ROCm/rocMLIR/archive/rocm-6.2.4.tar.gz
-	sha256sums = 8e4836e007e5e66fa487288887a098aaeeb95f3c63a19c2b91f6e848c023a040
-	sha256sums = 3283685431fd59e20a6ac5737df22c7c7421901779a2a0b6dbd6c1ab1f1b5adb
+	source = miopen-hip::git+https://github.com/ROCm/MIOpen#tag=rocm-6.3.2
+	source = miopen-hip-MIFin::git+https://github.com/ROCm/MIFin.git
+	source = miopen-hip-rocmlir::git+https://github.com/ROCm/rocMLIR#tag=rocm-6.3.2
+	source = miopen-hip-half::git+https://github.com/ROCm/half#tag=rocm-6.3.2
+	sha256sums = 6010291fbb067b02c5f6b71f7ee0465cbdc07b763bba1c41a23dd9f34331ceb7
+	sha256sums = SKIP
+	sha256sums = 3d36c2b339bb3ef2831cf7ff023416199e349d3f6ad85bac1c39812759bb0173
+	sha256sums = 16e5a6405dd766339a9409665cd1ccdaceed3c0cb7fe12835fa17bd3914aa6cd
 
 pkgname = miopen-hip

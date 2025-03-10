@@ -3,36 +3,47 @@
 # Contributor: JP-Ellis <josh@jpellis.me>
 
 pkgname=miopen-hip
-pkgver=6.2.4
+pkgver=6.3.2
 pkgrel=1
 pkgdesc="AMD's Machine Intelligence Library (HIP backend)"
 arch=('x86_64')
 url="https://rocm.docs.amd.com/projects/MIOpen/en/latest/index.html"
 license=('MIT')
-depends=('rocm-core' 'glibc' 'gcc-libs' 'rocblas' 'rocrand' 'rocm-clang-ocl'
+depends=('rocm-core' 'glibc' 'gcc-libs' 'hipblaslt' 'hipblas' 'rocblas' 'rocrand' 'rocm-clang-ocl'
          'hip-runtime-amd' 'comgr' 'bzip2' 'composable-kernel' 'roctracer' 'sqlite')
-makedepends=('cmake' 'ninja' 'rocm-cmake' 'boost' 'lbzip2'
-             'nlohmann-json' 'eigen' 'half' 'functional-plus' 'frugally-deep')
+makedepends=('cmake' 'git' 'git-lfs' 'ninja' 'rocm-cmake' 'boost' 'lbzip2'
+             'nlohmann-json' 'eigen' 'functional-plus' 'frugally-deep')
 provides=('miopen')
 conflicts=('miopen')
 _git='https://github.com/ROCm/MIOpen'
 _mlir='https://github.com/ROCm/rocMLIR'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
-        "$pkgname-rocmlir-$pkgver.tar.gz::$_mlir/archive/rocm-$pkgver.tar.gz")
-sha256sums=('8e4836e007e5e66fa487288887a098aaeeb95f3c63a19c2b91f6e848c023a040'
-            '3283685431fd59e20a6ac5737df22c7c7421901779a2a0b6dbd6c1ab1f1b5adb')
+source=(
+  "${pkgname}::git+https://github.com/ROCm/MIOpen#tag=rocm-$pkgver"
+  "${pkgname}-MIFin::git+https://github.com/ROCm/MIFin.git"
+  "${pkgname}-rocmlir::git+https://github.com/ROCm/rocMLIR#tag=rocm-$pkgver"
+  "${pkgname}-half::git+https://github.com/ROCm/half#tag=rocm-$pkgver"
+)
+sha256sums=('6010291fbb067b02c5f6b71f7ee0465cbdc07b763bba1c41a23dd9f34331ceb7'
+            'SKIP'
+            '3d36c2b339bb3ef2831cf7ff023416199e349d3f6ad85bac1c39812759bb0173'
+            '16e5a6405dd766339a9409665cd1ccdaceed3c0cb7fe12835fa17bd3914aa6cd')
 options=(!lto)
-_dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
-_mlirname="$(basename "$_mlir")-$(basename "${source[1]}" .tar.gz)"
 
 prepare() {
-    # Disable tests as they require an AMD GPU at build time
-    sed -i '/add_subdirectory(test)/d' "$_dirname/CMakeLists.txt"
+  cd "$pkgname"
+  git submodule init
+
+  git config submodule."fin".url "${srcdir}/${pkgname}"-MIFin
+
+  git -c protocol.file.allow=always submodule update --init --recursive
+
+  # Disable tests as they require an AMD GPU at build time
+  sed -i '/add_subdirectory(test)/d' CMakeLists.txt
 }
 
 build() {
-  export CC=/opt/rocm/llvm/bin/clang
-  export CXX=/opt/rocm/llvm/bin/clang++
+  export CC=/opt/rocm/llvm/bin/amdclang
+  export CXX=/opt/rocm/llvm/bin/amdclang++
   # -fcf-protection is not supported by HIP, see
   # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
   # Set ROCm test chipset to Vega in order to pass the configuration step.
@@ -40,7 +51,7 @@ build() {
     -Wno-dev
     -G Ninja
     -B build-mlir
-    -S "$_mlirname"
+    -S "$pkgname-rocmlir"
     -D CMAKE_CXX_FLAGS="${CXXFLAGS} -fcf-protection=none"
     -D CMAKE_INSTALL_PREFIX=/usr
     -D CMAKE_BUILD_TYPE=Release
@@ -51,18 +62,30 @@ build() {
   cmake --build build-mlir
   DESTDIR="$srcdir/deps" cmake --install build-mlir
 
+  local half_args=(
+    -Wno-dev
+    -G Ninja
+    -B build-half
+    -S "$pkgname-half"
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_BUILD_TYPE=None
+  )
+  cmake "${half_args[@]}"
+  cmake --build build-half
+  DESTDIR="$srcdir/deps" cmake --install build-half
+
   # define NDEBUG to silence internal logging (mimics cmake release build)
   # https://rocmsoftwareplatform.github.io/MIOpen/doc/html/DebugAndLogging.html
   local cmake_args=(
      -Wno-dev
     -G Ninja
     -B build
-    -S "$_dirname"
+    -S "$pkgname"
     -D CMAKE_CXX_FLAGS="${CXXFLAGS} -fcf-protection=none -DNDEBUG"
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D CMAKE_BUILD_TYPE=None
     -D MIOPEN_BACKEND=HIP
-    -D HALF_INCLUDE_DIR=/usr/include/half
+    -D HALF_INCLUDE_DIR="$srcdir/deps/usr/include"
     -D CMAKE_PREFIX_PATH="$srcdir/deps/usr/lib/cmake"
   )
   cmake "${cmake_args[@]}"
@@ -72,5 +95,5 @@ build() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  install -Dm644 "$_dirname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$pkgname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
