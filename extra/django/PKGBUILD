@@ -4,7 +4,7 @@
 
 pkgbase=django
 pkgname=('python-django')
-pkgver=5.1.6
+pkgver=5.1.7
 pkgrel=1
 pkgdesc="A high-level Python Web framework that encourages rapid development and clean design"
 arch=('any')
@@ -17,7 +17,7 @@ depends=('python' 'python-pytz' 'python-sqlparse' 'python-asgiref')
 optdepends=('python-psycopg2: for PostgreSQL backend'
             'python-argon2-cffi: for Argon2 password hashing support')
 source=("Django-$pkgver.tar.gz::https://www.djangoproject.com/download/$pkgver/tarball/")
-sha512sums=('a76a8e523aa90d62ed0fa003bc9117900644d93c62e78bd879b709c107bb18d3e9a5b4fbd475a213398d99f9b9052a31a54cef9c5861a923b66d639c037cc177')
+sha512sums=('8c0d2d79eab1c60f4a50c94e5f584f0ed70835a8b3ac64f4c5c0397fc186cf8e9188926ad08545323a139976efc207c8429faa7f0b5948b21cef98482124980a')
 
 prepare() {
   cd "Django-$pkgver"
