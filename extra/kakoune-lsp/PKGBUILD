@@ -1,7 +1,7 @@
 # Maintainer: Maxim Baz <archlinux at maximbaz dot com>
 
 pkgname=kakoune-lsp
-pkgver=18.1.0
+pkgver=18.1.2
 pkgrel=1
 pkgdesc='Kakoune Language Server Protocol Client'
 arch=('x86_64')
@@ -21,7 +21,7 @@ optdepends=(
     'rust-analyzer: language server for Rust'
 )
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-b2sums=('2c6c8d73cb7b06582df5e345523d7ecabef8ecf19021737c06804fd03969e1f7261509991064d9b534a531dda10c3a1916d7c1b7a1b15bb5a552c8e535c537e3')
+b2sums=('0dc0d0e779b8e1dd0b19608d64d64bf35f709143eef95bb2b0200de2c4d476a4409cf8f28c41cc81852b4f5b8fa4dd1ba1e84f4393f9088fe10fc57475bccfde')
 
 build() {
     cd "${pkgname}-${pkgver}"
