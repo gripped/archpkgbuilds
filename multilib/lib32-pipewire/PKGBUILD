@@ -9,7 +9,7 @@ pkgname=(
   lib32-pipewire-jack
   lib32-pipewire-v4l2
 )
-pkgver=1.2.7
+pkgver=1.4.0
 pkgrel=1
 epoch=1
 pkgdesc="Low-latency audio/video router and processor - 32-bit"
@@ -28,7 +28,7 @@ makedepends=(
 source=(
   "git+https://gitlab.freedesktop.org/pipewire/pipewire.git#tag=$pkgver"
 )
-b2sums=('c2941d8400e5299da86239967179f15ed69cc0142d5cf5adc510585ce85ff2e49b975c7adc39146a16a9bd130b3f4a9db51c6c470c9cc6a05913a5c38f214635')
+b2sums=('4546d0c55dd18a6219730493cefa729d26f1d0760364128e8a942762bb5fbcc8c1962cf0b4bd2a2cf28d50a24381495a187e69f2dce7db2b19027bdf2a199b3d')
 
 prepare() {
   cd pipewire
@@ -45,6 +45,7 @@ build() {
     -D bluez5=disabled
     -D compress-offload=disabled
     -D docs=disabled
+    -D ebur128=disabled
     -D echo-cancel-webrtc=disabled
     -D examples=disabled
     -D gstreamer-device-provider=disabled
@@ -102,14 +103,13 @@ _spaname=spa-0.2
 
 package_lib32-pipewire() {
   depends=(
-    "lib32-libpipewire=$epoch:$pkgver-$pkgrel"
-    lib$_pwname.so
+    "lib32-libpipewire=$epoch:$pkgver-$pkgrel" lib$_pwname.so
+    lib32-alsa-lib libasound.so
+    lib32-dbus libdbus-1.so
     lib32-gcc-libs
+    lib32-glib2 libglib-2.0.so
     lib32-glibc
-    libasound.so
-    libdbus-1.so
-    libglib-2.0.so
-    libsystemd.so
+    lib32-systemd libsystemd.so
     pipewire
   )
   optdepends=(
@@ -122,11 +122,12 @@ package_lib32-pipewire() {
   (
     cd "$pkgdir"
 
+    _pick lib usr/lib32/$_spaname/libspa.so*
     _pick lib usr/lib32/lib$_pwname.so*
     _pick lib usr/lib32/pkgconfig/lib{$_pwname,$_spaname}.pc
 
     _pick jack usr/lib32/libjack*
-    _pick jack usr/lib32/pkgconfig/jack.pc
+    _pick jack usr/lib32/pkgconfig/jack*.pc
 
     _pick v4l2 usr/lib32/$_pwname/v4l2
 
@@ -158,9 +159,9 @@ package_lib32-pipewire-jack() {
     LGPL-2.1-or-later
   )
   depends=(
-    lib$_pwname.so
+    "lib32-libpipewire=$epoch:$pkgver-$pkgrel" lib$_pwname.so
+    "lib32-pipewire=$epoch:$pkgver-$pkgrel"
     lib32-glibc
-    lib32-pipewire
     pipewire-jack
   )
   conflicts=(
@@ -182,9 +183,10 @@ package_lib32-pipewire-jack() {
 package_lib32-pipewire-v4l2() {
   pkgdesc+=" - V4L2 interceptor"
   depends=(
+    "lib32-libpipewire=$epoch:$pkgver-$pkgrel" lib$_pwname.so
+    "lib32-pipewire=$epoch:$pkgver-$pkgrel"
     lib$_pwname.so
     lib32-glibc
-    lib32-pipewire
     pipewire-v4l2
   )
 
