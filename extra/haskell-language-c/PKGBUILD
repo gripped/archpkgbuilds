@@ -3,21 +3,26 @@
 
 _hkgname=language-c
 pkgname=haskell-language-c
-pkgver=0.9.4
+pkgver=0.10.0
 pkgrel=1
 pkgdesc="Analysis and generation of C code"
 url="https://visq.github.io/language-c/"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('alex' 'happy' 'ghc')
+makedepends=('alex' 'happy' 'ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('6681fdf07d13d4e96838fcc61148e4ff60d2632f8e600c9eb2fb5d250e93a327b754d2359cdbd06e8b2d59c5ace67aa5cd2491b010ea5b85c65cc48237861050')
+sha512sums=('a8199066961f196bc1c9730b993338dae735dbd470e10c951c1e99ef6ed9748e34d74990904682557b6db58a95580d96c7cf6b5e75c0acb919c2022045e46c62')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    gen-setup
+}
 
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fusebytestrings -fiecfpextension
