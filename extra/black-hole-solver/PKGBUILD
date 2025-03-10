@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=black-hole-solver
-pkgver=1.12.0
-pkgrel=2
+pkgver=1.14.0
+pkgrel=1
 pkgdesc="Solvers and statistics for 'Golf' solitaire, 'Black Hole' solitaire, 'All in a Row' solitaire and related card patience games"
 arch=(x86_64)
 url='https://www.shlomifish.org/open-source/projects/black-hole-solitaire-solver/'
@@ -13,7 +13,7 @@ makedepends=(cmake
              python
              rinutils)
 source=(https://fc-solve.shlomifish.org/downloads/fc-solve/black-hole-solver-$pkgver.tar.xz)
-sha256sums=('d32f32536f7573292588f41bb0d85ae42d561376c218dc4ab6badfe4904a37a7')
+sha256sums=('5c47bd093dbb160f4b090fd670ab7c12b4371d39b17b3bbd8c6c4a12975557c0')
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
