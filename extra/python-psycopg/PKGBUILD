@@ -2,7 +2,7 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=python-psycopg
-pkgver=3.2.3
+pkgver=3.2.5
 pkgrel=1
 pkgdesc='PostgreSQL database adapter for Python'
 arch=('any')
@@ -22,8 +22,8 @@ makedepends=(
 )
 checkdepends=('python-pytest' 'python-pytest-asyncio')
 source=("$pkgname::git+https://github.com/psycopg/psycopg.git#tag=$pkgver")
-sha512sums=('4202893d0786ba57a77c2717eb5db7ce22c4f9c6c920b2ce7758110c5864e7d4c3978cae7926aa043b0c258faa41986918366fa887389815c5c3dab79a73bc94')
-b2sums=('922f660daffde9f61cfebaef543b34ef4673b5b654b5e7e42e2f0e0871095841bac0ae83cb39f5cb83b69f5b8f975cec8279aaf079074d68eafde37e2e6ffb19')
+sha512sums=('d40a8474b14f4118389a2119f77f3823ffe083f18d1941e568eeb8f27f97fe2924c1b1b3ef51898472fa3cdf3ec1e3bacec85c11377fd6d7e5a93fc1ce0d3db7')
+b2sums=('29fb09e9a79db3e6abdc3ecb8db7e58a342ba96c1c54cea6e65ea1ca1e146653c10280a80b147613ccdaf8d328b831e77b62e2dd548138302dd5d0bdafa9db06')
 
 build(){
   cd "$pkgname/psycopg"
