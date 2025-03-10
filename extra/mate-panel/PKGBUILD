@@ -3,7 +3,7 @@
 # Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-panel
-pkgver=1.28.2
+pkgver=1.28.4
 pkgrel=1
 pkgdesc="The MATE Panel"
 url="https://mate-desktop.org"
@@ -16,7 +16,7 @@ conflicts=('mate-panel-gtk3')
 replaces=('mate-panel-gtk3')
 source=("git+https://github.com/mate-desktop/mate-panel.git#tag=v${pkgver}"
         git+https://github.com/mate-desktop/mate-submodules.git)
-sha256sums=('f6d1678c9a840061bb272f4f940f6bbe7249362ab03c043aa26ff33ed368a844'
+sha256sums=('b40bcf05d57c94d43187a79132baf55ef40e39c5d55920c253b26a1be56ed057'
             'SKIP')
 prepare() {
     cd "${pkgname}"
