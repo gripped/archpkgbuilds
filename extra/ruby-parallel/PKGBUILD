@@ -3,7 +3,7 @@
 _gemname='parallel'
 pkgname="ruby-${_gemname}"
 pkgver=1.26.3
-pkgrel=3
+pkgrel=4
 pkgdesc='Run any kind of code in parallel processes'
 arch=('any')
 url="https://github.com/grosser/${_gemname}"
@@ -31,6 +31,12 @@ b2sums=('bf82ac5620f514d7e5317b95956785d819c5d8ec583761fb7cf04ae56c643fa04cb2e59
 
 prepare() {
   cd "${_gemname}-${pkgver}"
+
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended \
+    --expression 's|~>|>=|g' \
+    "${_gemname}.gemspec" \
+    Gemfile
 
   # we build based on a tar archive, not a git repo
   sed --in-place --regexp-extended 's|git ls-files lib MIT-LICENSE.txt|find lib MIT-LICENSE.txt -type f|' "${_gemname}.gemspec"
