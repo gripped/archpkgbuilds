@@ -3,8 +3,8 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=keepassxc
-pkgver=2.7.9
-pkgrel=6
+pkgver=2.7.10
+pkgrel=1
 pkgdesc="Cross-platform community-driven port of Keepass password manager"
 arch=(x86_64)
 url="https://keepassxc.org/"
@@ -14,16 +14,26 @@ depends=(argon2 botan hicolor-icon-theme libxtst
 makedepends=(asciidoctor cmake qt5-tools)
 optdepends=('xclip: keepassxc-cli clipboard support under X server'
             'wl-clipboard: keepassxc-cli clipboard support under Wayland')
-checkdepends=(xclip xorg-server-xvfb)
+checkdepends=(xclip xorg-server-xvfb xclip)
 provides=(org.freedesktop.secrets)
-source=(https://github.com/keepassxreboot/keepassxc/releases/download/$pkgver/keepassxc-$pkgver-src.tar.xz{,.sig})
-sha256sums=('3c44e45f22c00ddac63d8bc11054b4b0ada0222ffac08d3ed70f196cb9ed46fd'
-            'SKIP')
+source=(https://github.com/keepassxreboot/keepassxc/releases/download/$pkgver/keepassxc-$pkgver-src.tar.xz{,.sig}
+        TestEntryModel.patch)
+sha256sums=('5ce76d6440986c24842585f019d5f3cadc166fa71fc911a4fe97b8bbc4819dfa'
+            'SKIP'
+            '1448fb616c4eaf7b0f9019ee10f813199d7105442e3f61aea31e901139b87f43')
 # List of signing keys can be found at https://keepassxc.org/verifying-signatures/
 validpgpkeys=(BF5A669F2272CF4324C1FDA8CFB4C2166397D0D2
               71D4673D73C7F83C17DAE6A2D8538E98A26FD9C4
               AF0AEA44ABAC8F1047733EA7AFF235EEFB5A2517
               C1E4CBA3AD78D3AFD894F9E0B7A66F03B59076A8)
+
+prepare() {
+  cd keepassxc-$pkgver
+
+  # Work around some test failures with the TestEntryModel test
+  # See https://gitlab.alpinelinux.org/alpine/aports/-/merge_requests/80857/diffs?commit_id=e97b659bb7bec6bb826b86e697b969f834ee2a8c#diff-content-dddba1838a830fbaa247d99a3a528f2f60d9c329
+  patch -Np1 -i "$srcdir"/TestEntryModel.patch
+}
 
 build() {
   cmake -S keepassxc-$pkgver -B build \
