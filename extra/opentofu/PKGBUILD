@@ -3,20 +3,17 @@
 
 pkgname=opentofu
 pkgver=1.9.0
-pkgrel=1
+pkgrel=4
 pkgdesc="Lets you declaratively manage your cloud infrastructure"
 arch=(x86_64)
 url="https://github.com/opentofu/opentofu"
 license=(MPL-2.0)
 depends=(glibc)
 makedepends=(go)
+provides=(terragrunt-iac-provider)
 options=(!lto)
-source=(
-  "$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
-  "tofu.fish"
-)
-sha256sums=('95234f00bb8a6d73bcd3f3920e376a32189004df3aaf26cb95917cec5441f8a8'
-            '312fe00a97ed3098fa141a54dfc0694c13766957acedec19f10347b80f813ce8')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('95234f00bb8a6d73bcd3f3920e376a32189004df3aaf26cb95917cec5441f8a8')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -51,7 +48,6 @@ package() {
 
   echo 'complete -C /usr/bin/tofu tofu' \
     | install -vDm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/tofu"
-  install -vDm644 "$srcdir/tofu.fish" "$pkgdir/usr/share/fish/completions/tofu.fish"
 
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
   cp -a -t "$pkgdir/usr/share/doc/$pkgname" docs
