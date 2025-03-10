@@ -2,18 +2,24 @@
 
 pkgname=zug
 pkgver=0.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Transducers for C++'
 arch=(any)
 url='https://sinusoid.es/zug/'
-license=(Boost)
+license=(BSL-1.0)
 makedepends=(catch2
-             cmake)
-source=(https://github.com/arximboldi/zug/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('1b9c8f962e40baa6f0c6af35f957444850063d550078a3ebd0227727b8ef193c')
+             cmake
+             git)
+source=(git+https://github.com/arximboldi/zug#tag=v$pkgver)
+sha256sums=('8e0347010e7e1a36865e2729f33ece20bae87f8db46ebaf12d16d174d8203392')
+
+prepare() {
+  cd $pkgname
+  git cherry-pick -n c8c74ada30d931e40636c13763b892f20d3ce1ae # Add missing include
+}
 
 build() {
-  cmake -B build -S $pkgname-$pkgver \
+  cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr
   cmake --build build
 }
