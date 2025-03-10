@@ -3,7 +3,7 @@
 
 pkgbase=lvm2
 pkgname=('lvm2' 'device-mapper')
-pkgver=2.03.30
+pkgver=2.03.31
 pkgrel=1
 arch=('x86_64')
 url='https://sourceware.org/lvm2/'
@@ -14,7 +14,7 @@ validpgpkeys=('88437EF5C077BD113D3B7224228191C1567E2C17'  # Alasdair G Kergon <a
 source=("git+https://sourceware.org/git/lvm2.git#tag=v${pkgver//./_}?signed"
         '0001-udev-initcpio.patch'
         '11-dm-initramfs.rules')
-sha256sums=('bdb04e881886e992e4d54036c2c35218b5f2510841f4427a693fd7d34f7a4c5f'
+sha256sums=('02e8387cb73a5582d8bee71676882bafe6724f85cc2187c10d210efb136aa87a'
             '2b3a16ec05e2bc6678e9ebd5ffa8319ebfde29aa260ce004f79f9b8df57d73c9'
             'e10f24b57582d6e2da71f7c80732a62e0ee2e3b867fe84591ccdb53e80fa92e0')
 
