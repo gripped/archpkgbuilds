@@ -1,50 +1,76 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Maintainer: Laurent Carlier <lordheavym@gmail.com>
 
 pkgbase=vulkan-docs
 pkgname=(vulkan-html-docs)
-pkgver=1.4.303
+pkgver=1.4.304
 pkgrel=1
 epoch=1
-_pkgname=Vulkan-Docs
+pkgdesc="Vulkan and Vulkan SC API Documentation"
+url="https://www.vulkan.org/"
 arch=(any)
-url="https://www.khronos.org/vulkan/"
-license=('custom')
-makedepends=(python3 python-pyparsing dblatex source-highlight cmake ghostscript nodejs npm git)
-makedepends+=(rubygems graphicsmagick pango gdk-pixbuf2 jbigkit)
+license=(
+  "Apache-2.0 OR MIT"
+  LicenseRef-KhronosSpecCopyright
+)
+makedepends=(
+  cmake
+  dblatex
+  gdk-pixbuf2
+  ghostscript
+  git
+  graphicsmagick
+  jbigkit
+  ninja
+  nodejs
+  npm
+  pango
+  python-pyparsing
+  python3
+  rubygems
+  source-highlight
+)
 groups=(vulkan-devel)
-source=("https://github.com/KhronosGroup/${_pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('894d9d09b442ed303736376ab7d41003fa987311ae0ccb19a073d8321a478f00')
+source=("git+https://github.com/KhronosGroup/Vulkan-Docs#tag=v$pkgver")
+b2sums=('c1de415af51c528b864261b83ab716cb68068c6c21909219cf03d97184f9e7dbb2c1d92d09d11d152d84011237f34e1695413fb75cd12fb241fd90c72c3f963b')
 
 prepare() {
-  export PATH="${PATH}:/build/.local/share/gem/ruby/3.3.0/bin"
+  local gems=(
+    asciidoctor-diagram
+    asciidoctor-mathematical
+    asciidoctor-pdf
+    asciidoctor:1.5.8
+    coderay
+    i18n
+    json-schema
+    prawn-gmagick
+    pygments.rb
+    rouge
+    text-hyphen
+  )
 
-  gem install -N asciidoctor:1.5.8 asciidoctor-diagram asciidoctor-mathematical \
-     asciidoctor-pdf coderay json-schema i18n prawn-gmagick \
-     pygments.rb rouge text-hyphen
-
+  gem install -N "${gems[@]}"
   npm install escape-string-regexp@2.0.0 he lunr@2.3.6
 }
 
 build() {
-  export PATH="${PATH}:/build/.local/share/gem/ruby/3.3.0/bin"
-  export NODE_PATH="${srcdir}/node_modules"
+  local gemdir=(~/.local/share/gem/ruby/*/bin)
 
-  cd "${srcdir}/${_pkgname}-${pkgver}"
-
-  ./makeAllExts html chunked manhtmlpages styleguide registry
+  cd Vulkan-Docs
+  PATH="$gemdir:$PATH" NODE_PATH="$HOME/node_modules" \
+    ./makeAllExts html chunked manhtmlpages styleguide registry
 }
 
 package_vulkan-html-docs() {
-  pkgdesc="Vulkan html documentation"
-  cd "${_pkgname}-${pkgver}"
+  pkgdesc+=" - HTML"
 
-  install -dm755 "${pkgdir}/usr/share/doc/vulkan"
-  install -dm755 "${pkgdir}/usr/share/licenses/${pkgname}"
+  local docdir="$pkgdir/usr/share/doc/vulkan"
+  mkdir -p "$docdir"
+  cp -a Vulkan-Docs/gen/out/{man,html/*,{registry,styleguide}.html} -t "$docdir"
 
-  mv -v gen/out/man "${pkgdir}/usr/share/doc/vulkan/"
-  mv -v gen/out/html/* "${pkgdir}/usr/share/doc/vulkan/"
-  mv -v gen/out/registry.html "${pkgdir}/usr/share/doc/vulkan/"
-  mv -v gen/out/styleguide.html "${pkgdir}/usr/share/doc/vulkan/"
-
-  install -m644 LICENSE.adoc ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
+  install -Dm644 Vulkan-Docs/LICENSES/MIT.txt \
+    Vulkan-Docs/LICENSES/LicenseRef-KhronosSpecCopyright.adoc \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
 }
+
+# vim:set sw=2 sts=-1 et:
