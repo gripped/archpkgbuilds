@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-designateclient
-pkgver=6.1.0
+pkgver=6.2.0
 pkgrel=1
 pkgdesc="OpenStack DNS-as-a-Service - Client"
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=('git')
 checkdepends=('python-oslo-config' 'python-oslotest' 'python-subunit' 'python-requests-mock'
               'python-stestr')
 source=("git+https://github.com/openstack/python-designateclient.git#tag=$pkgver")
-sha512sums=('d676ac0c1b76a0a2226b5e61e15a95054ddf02e15ad156c15cd4c04c45d311b4a591b3c49e666567ca9ecbb41eb67d559b7b185d606c4389ee6122dc3680f9ef')
+sha512sums=('d6b1e9d2bc92f242f95522e177c4f4ffd68fb05564a8cfe29e70b0754c03386accaae48e672a9e20e0c856fa98708a2eb82bc6e3e080bf0d36e7771d36185798')
 
 build() {
   cd python-designateclient
