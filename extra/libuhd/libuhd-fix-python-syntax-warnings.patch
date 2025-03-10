@@ -1,0 +1,26 @@
+diff --git a/host/python/uhd/rfnoc_utils/image_builder.py b/host/python/uhd/rfnoc_utils/image_builder.py
+index 7c5625821..65b7a8d2e 100644
+--- a/host/python/uhd/rfnoc_utils/image_builder.py
++++ b/host/python/uhd/rfnoc_utils/image_builder.py
+@@ -83,7 +83,7 @@ def get_vivado_path(fpga_top_dir, args):
+     if args.get("vivado_path"):
+         viv_path = args["vivado_path"]
+     else:
+-        get_viv_path_cmd = '. ./setupenv.sh && echo "VIVADO_PATH=\$VIVADO_PATH"'
++        get_viv_path_cmd = r'. ./setupenv.sh && echo "VIVADO_PATH=\$VIVADO_PATH"'
+         try:
+             output = subprocess.check_output(
+                 f'{BASH_EXECUTABLE} -c "{get_viv_path_cmd}"',
+diff --git a/host/utils/usrp2_card_burner.py b/host/utils/usrp2_card_burner.py
+index b17b01549..4c614f444 100755
+--- a/host/utils/usrp2_card_burner.py
++++ b/host/utils/usrp2_card_burner.py
+@@ -123,7 +123,7 @@ def get_raw_device_hints():
+                 if 'internal' in info and info['internal'] == 'yes': return False
+                 if 'ejectable' in info and info['ejectable'] == 'no': return False
+                 if 'total size' in info:
+-                    size_match = re.match('^.*\((\d+)\s*bytes\).*$', info['total size'])
++                    size_match = re.match(r'^.*\((\d+)\s*bytes\).*$', info['total size'])
+                     if size_match and int(size_match.groups()[0]) > MAX_SD_CARD_SIZE: return False
+             except: return False
+             return True

@@ -2,67 +2,111 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 # Contributor: Dominik Heidler <dheidler@gmail.com>
 
-pkgname=libuhd
-pkgver=4.7.0.0
-pkgrel=3
+pkgbase=libuhd
+pkgname=(
+  libuhd
+  libuhd-docs
+  libuhd-utils
+  python-uhd
+)
+pkgver=4.8.0.0
+pkgrel=5
 pkgdesc="Universal Software Radio Peripheral (USRP) userspace driver"
 arch=(x86_64)
 url="https://github.com/EttusResearch/uhd"
 license=(GPL-3.0-or-later)
-depends=(
-  boost-libs
-  gcc-libs
-  glibc
-  libusb
-  orc
-)
 makedepends=(
   boost
   cmake
+  doxygen
+  dpdk
   git
+  pybind11
   python-mako
   python-numpy
+  python-ruamel-yaml
   python-setuptools
 )
 checkdepends=(python-requests)
-optdepends=(
-  'python-mako: for imgbuilder'
-  'python-numpy: for Python bindings'
-  'python: for Python bindings and USRP utils'
+source=(
+  "git+$url.git#tag=v$pkgver"
+  "$pkgname-fix-python-syntax-warnings.patch"
 )
-provides=(libuhd.so)
-source=("git+$url.git#tag=v$pkgver")
-sha256sums=('92d1957424aaddd476f22b2663bcf751793d68232292480593f8a57afbe12d5b')
+sha256sums=('7611ee150deac0d9053d6de662c90767d7edc25319dd23c27ff81ced73aceea5'
+            '70b4406334ecfdd10f7188b3f072d4ef75ee473b3788622ebfc5c569a7127955')
 
 prepare() {
-  cd uhd
-  # Boost 1.87 compatibility
-  git cherry-pick -n 2dc7b3e572830c71d49ee0648eef445e7f3abfd6
-  git cherry-pick -n adfe953d965e58b5931c1b1968899492c8087cf6
+  patch -d uhd -Np1 -i "../$pkgname-fix-python-syntax-warnings.patch"
 }
 
 build() {
-  cd uhd
-  cmake -S host -B build \
+  cmake -S uhd/host -B build \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -Wno-dev \
-    -DENABLE_PYTHON_API=ON \
-    -DENABLE_EXAMPLES=ON \
-    -DENABLE_UTILS=ON \
-    -DENABLE_TESTS=ON \
-    -DENABLE_E300=ON
+    -DUHD_GIT_BRANCH_OVERRIDE=UHD-${pkgver%.*.*}
   cmake --build build
 }
 
 check() {
-  cd uhd
   ctest --test-dir build --output-on-failure
 }
 
-package() {
-  cd uhd
-  DESTDIR="$pkgdir" cmake --install build
-  install -vDm644 host/utils/uhd-usrp.rules \
+package_libuhd() {
+  depends=(
+    boost-libs
+    dpdk
+    gcc-libs
+    glibc
+    libusb
+    python
+  )
+  provides=(libuhd.so)
+
+  DESTDIR="$pkgdir" cmake --install build --component devel
+  DESTDIR="$pkgdir" cmake --install build --component headers
+  DESTDIR="$pkgdir" cmake --install build --component libraries
+  DESTDIR="$pkgdir" cmake --install build --component manpages
+  DESTDIR="$pkgdir" cmake --install build --component readme
+  install -vDm644 uhd/host/utils/uhd-usrp.rules \
     "$pkgdir/usr/lib/udev/rules.d/10-uhd-usrp.rules"
+}
+
+package_libuhd-docs() {
+  pkgdesc+=" (documentation)"
+
+  DESTDIR="$pkgdir" cmake --install build --component doxygen
+  DESTDIR="$pkgdir" cmake --install build --component manual
+}
+
+package_libuhd-utils() {
+  pkgdesc+=" (utilities)"
+  depends=(
+    boost-libs
+    gcc-libs
+    glibc
+    libuhd
+    ncurses
+    python
+    python-uhd
+  )
+
+  DESTDIR="$pkgdir" cmake --install build --component utilities
+  rm -v "$pkgdir/usr/share/uhd/rfnoc-newmod/python/setup.py.in"
+}
+
+package_python-uhd() {
+  pkgdesc+=" (Python API)"
+  depends=(
+    gcc-libs
+    glibc
+    libuhd
+    python
+    python-mako
+    python-numpy
+    python-ruamel-yaml
+  )
+  optdepends=('python-jsonschema: for validating configuration files')
+
+  DESTDIR="$pkgdir" cmake --install build --component pythonapi
 }
