@@ -5,19 +5,21 @@
 
 pkgname=libtorrent-rasterbar
 pkgver=2.0.11
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc='An efficient and feature complete C++ BitTorrent library implementation'
 url='https://www.rasterbar.com/products/libtorrent/'
 arch=('x86_64')
 license=('BSD-3-Clause')
-depends=('openssl')
-optdepends=(
-    'boost-libs: for python bindings'
-    'python: for python bindings')
+depends=(
+    'boost-libs'
+    'gcc-libs'
+    'glibc'
+    'openssl')
 makedepends=(
     'boost'
     'cmake'
+    'python'
     'python-setuptools')
 source=("https://github.com/arvidn/libtorrent/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
         '010-libtorrent-rasterbar-fix-for-fortify-source-3.patch')
