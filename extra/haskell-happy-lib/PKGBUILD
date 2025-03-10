@@ -2,7 +2,7 @@
 
 _hkgname=happy-lib
 pkgname=haskell-happy-lib
-pkgver=2.0.2
+pkgver=2.1.2
 pkgrel=1
 pkgdesc="Happy is a parser generator for Haskell implemented using this library"
 url="https://www.haskell.org/happy/"
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('49a8bfa79efdd535fda044af0fe17cdae8e3af60533bb983d44db95385f5214e')
+sha256sums=('304292342b49d706c2ba7039a1f31016502d60de07420acf44930c0f0e2549da')
 
 prepare() {
   cd $_hkgname-$pkgver
@@ -21,13 +21,13 @@ prepare() {
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie' 
 
-  runhaskell Setup build
+  runhaskell Setup build $MAKEFLAGS
   runhaskell Setup register --gen-script
   runhaskell Setup unregister --gen-script
   sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
@@ -36,7 +36,7 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  runhaskell Setup test
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
