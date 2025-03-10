@@ -4,8 +4,8 @@
 # Contributor: Gilbert Kennen <gilbert firewatcher org>
 
 pkgname=elixir
-pkgver=1.18.2
-pkgrel=3
+pkgver=1.18.3
+pkgrel=1
 pkgdesc="A dynamic, functional language for building scalable and maintainable applications"
 url="https://elixir-lang.org"
 license=('Apache-2.0')
@@ -32,7 +32,7 @@ checkdepends=(
   'git'
 )
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/elixir-lang/elixir/archive/v${pkgver}.tar.gz")
-sha256sums=('efc8d0660b56dd3f0c7536725a95f4d8b6be9f11ca9779d824ad79377753e916')
+sha256sums=('f8d4376311058dd9a78ed365fa1df9fd1b22d2468c587e3f0f4fb320283a1ed7')
 
 build() {
   cd "${pkgname}-${pkgver}"
