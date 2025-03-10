@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=glirc
-pkgver=2.39.0.1
-pkgrel=243
+pkgver=2.40
+pkgrel=7
 pkgdesc="Console IRC client"
 url="https://github.com/glguy/irc-core"
 license=("ISC")
@@ -11,18 +11,16 @@ depends=('ghc-libs' 'haskell-hsopenssl' 'haskell-async' 'haskell-attoparsec'
          'haskell-base64-bytestring' 'haskell-config-schema' 'haskell-config-value'
          'haskell-curve25519' 'haskell-free' 'haskell-githash' 'haskell-hashable' 'haskell-hookup'
          'haskell-irc-core' 'haskell-kan-extensions' 'haskell-lens' 'haskell-network'
-         'haskell-psqueues' 'haskell-random' 'haskell-regex-tdfa' 'haskell-split'
-         'haskell-unordered-containers' 'haskell-vector' 'haskell-vty5')
+         'haskell-psqueues' 'haskell-random' 'haskell-regex-tdfa' 'haskell-semigroupoids'
+         'haskell-split' 'haskell-typed-process' 'haskell-unordered-containers' 'haskell-vector'
+         'haskell-vty' 'haskell-vty-unix')
 makedepends=('ghc' 'uusi' 'haskell-hunit')
-source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz"
-        hookup-0.8.patch)
-sha256sums=('99401ae7d75a5315848af3586818d481bfd6ab001390f2fd9f663b39c8e25e49'
-            '5dc69a80d4aa3ada1cdb1fbfc75d34cbb592f934fabeff539e09fb30b789ab3b')
+source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('704fe9eb07f5d1de73236ecde52544f06a0805a6c3911b2e333e18899814d27f')
 
 prepare() {
   cd $pkgname-$pkgver
-  patch -p1 -i ../hookup-0.8.patch
-  uusi -u config-schema -u hookup -u lens -u vector -u vty $pkgname.cabal
+  uusi -u irc-core
 }
 
 build() {
