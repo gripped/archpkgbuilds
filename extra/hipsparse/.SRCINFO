@@ -1,6 +1,6 @@
 pkgbase = hipsparse
 	pkgdesc = rocSPARSE marshalling library.
-	pkgver = 6.2.4
+	pkgver = 6.3.2
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/hipSPARSE/en/latest/index.html
 	arch = x86_64
@@ -8,13 +8,14 @@ pkgbase = hipsparse
 	makedepends = cmake
 	makedepends = rocm-cmake
 	makedepends = gcc-fortran
+	makedepends = gtest
 	depends = rocm-core
 	depends = glibc
 	depends = gcc-libs
 	depends = hip-runtime-amd
 	depends = rocsparse
 	options = !lto
-	source = hipsparse-6.2.4.tar.gz::https://github.com/ROCm/hipSPARSE/archive/rocm-6.2.4.tar.gz
-	sha256sums = 0ecc0ff1eeb99e9a9ac419e49e9be9ec4cd23a117d819710114ee2f35aefe88b
+	source = hipsparse-6.3.2.tar.gz::https://github.com/ROCm/hipSPARSE/archive/rocm-6.3.2.tar.gz
+	sha256sums = 9fbc3468632fdc828d7bae386c2737eb371d78811f53da7348b417fb00d62808
 
 pkgname = hipsparse
