@@ -1,7 +1,7 @@
 pkgbase = gnome-usage
 	pkgdesc = View information about use of system resources
-	pkgver = 46.0
-	pkgrel = 1
+	pkgver = 46.1
+	pkgrel = 2
 	url = https://wiki.gnome.org/Apps/Usage
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -10,16 +10,22 @@ pkgbase = gnome-usage
 	makedepends = git
 	makedepends = meson
 	makedepends = vala
+	depends = cairo
+	depends = dconf
 	depends = glib2
+	depends = glibc
+	depends = graphene
 	depends = gtk4
+	depends = hicolor-icon-theme
 	depends = libadwaita
 	depends = libgee
 	depends = libgtop
+	depends = pango
 	depends = tracker3
 	depends = xdg-user-dirs
 	optdepends = accountsservice: show user tags for processes
 	optdepends = gamemode: show processes requesting game mode
-	source = git+https://gitlab.gnome.org/GNOME/gnome-usage.git#commit=9ee8603fb8d6a532d0abdff1aba16a00d38d2aba
-	b2sums = 999752b4b4fa091431ce00ed38ebb398dfa09e377dc96259d890a7ca5548d988fa3b159b97001232239e451ce6143057d5f58df69c2361b979034fcc9e66090b
+	source = git+https://gitlab.gnome.org/GNOME/gnome-usage.git#tag=46.1
+	b2sums = f8a29276b6abad862deda88bfa0a8ea33b1a864bb186b5fc6df527952cf2bd1012224767c61a2e3fe6a48822bed3b85a5093ff59f6bb2e9cdf6b0837676287eb
 
 pkgname = gnome-usage
