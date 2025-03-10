@@ -8,12 +8,12 @@
 
 pkgname=hwinfo
 pkgver=23.3
-pkgrel=1
+pkgrel=3
 pkgdesc='Hardware detection tool from openSUSE'
 arch=(x86_64)
 url='https://github.com/openSUSE/hwinfo'
 license=(GPL-2.0-or-later)
-depends=('libx86emu=3.5' perl-xml-parser perl-xml-writer)
+depends=(libx86emu perl-xml-parser perl-xml-writer)
 makedepends=(flex git sysfsutils)
 options=(!emptydirs)
 source=("git+$url#tag=$pkgver"
