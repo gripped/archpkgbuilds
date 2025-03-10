@@ -1,7 +1,7 @@
 pkgbase = sigal
 	pkgdesc = Yet another simple static gallery generator
-	pkgver = 2.4
-	pkgrel = 4
+	pkgver = 2.5
+	pkgrel = 1
 	url = http://sigal.saimon.org/en/latest/
 	arch = any
 	license = MIT
@@ -28,12 +28,10 @@ pkgbase = sigal
 	optdepends = python-cryptography: encrypt plugin
 	optdepends = python-feedgenerator: feed plugin
 	optdepends = python-markupsafe: feed plugin
+	optdepends = python-pillow-heif: for HEIF/HEIC support
 	optdepends = python-zopfli: compress assets plugin
-	source = sigal-2.4.tar.gz::https://github.com/saimn/sigal/archive/refs/tags/2.4.tar.gz
-	source = sigal-2.4-package_data.patch
-	sha512sums = f561d0d5ea32c3f4616db362957083b5fbd8cea86e1c5d8e0df1d0900eac7132351198356c0f2738b89bcbaa265ef248d72d61ca7f53799001a73b24dfba1671
-	sha512sums = 7a2e503c6fc949c7c963a9f66408322a16ff5ecce73902f9ada7c996f05520e62a61c1e040f8bc2806b482c6023fc2729465da166a132464316c0967d8f766a3
-	b2sums = df9dd2cd56e10c117818d2bc1bc9068b0c6b24f6ea1ec9fabbdce471caac327842c81904a5fee6cfbec29d85b59ff094b211ed1ffad16b50cb9a6fccc4a01bf2
-	b2sums = 94c5d6e59c9dd43d71c1316971f453f4678e96e9322656cc2eb30077b2dc065b44f7ee707fd99e55124d5838f0a3a9af113f5b24a7e52dfa80d3a3228fafc907
+	source = sigal-2.5.tar.gz::https://github.com/saimn/sigal/archive/refs/tags/2.5.tar.gz
+	sha512sums = 03bd816316e22543239fb5964e977c2844cb68345b0bc860a2b3c87fa243c6847f556164534442e502b2aecba055b0d34a8578f3a1dfc8748c9cca3a591e970c
+	b2sums = 564d21acf9307ccc587946ed739ef6bca9147171c9a470f91c5a25fecbe2d869ea7535808ff5a05bf6433b936371cd40ff9531790f9b60c6f4586e2452b46785
 
 pkgname = sigal
