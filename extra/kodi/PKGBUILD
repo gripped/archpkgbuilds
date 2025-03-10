@@ -20,7 +20,7 @@
 pkgbase=kodi
 pkgname=('kodi' 'kodi-gles' 'kodi-eventclients' 'kodi-tools-texturepacker' 'kodi-dev')
 pkgver=21.2
-pkgrel=5
+pkgrel=6
 arch=('x86_64')
 url="https://kodi.tv"
 license=('GPL-2.0-or-later')
@@ -81,6 +81,7 @@ source=(
   "$pkgbase-fstrcmp-$_fstrcmp_version.tar.gz::https://mirrors.kodi.tv/build-deps/sources/fstrcmp-$_fstrcmp_version.tar.gz"
   "$pkgbase-flatbuffers-$_flatbuffers_version.tar.gz::https://mirrors.kodi.tv/build-deps/sources/flatbuffers-$_flatbuffers_version.tar.gz"
   "$pkgbase-libudfread-$_libudfread_version.tar.gz::https://mirrors.kodi.tv/build-deps/sources/libudfread-$_libudfread_version.tar.gz"
+  "kodi-21.1-fix-pipewire-1.4-compilation.patch::https://github.com/xbmc/xbmc/commit/269053ebbfd3cc4a3156a511f54ab7f08a09a730.patch"
   "fix-libnfs-6-compatibility.patch"
 )
 noextract=(
@@ -102,6 +103,7 @@ sha512sums=('d49d74240b9c0aded3437dd81bc3324c03bea36834bca3920d5d26b4780275e3fea
             'aaeb0227afd5ada5955cbe6a565254ff88d2028d677d199c00e03b7cb5de1f2c69b18e6e8b032e452350a8eda7081807b01765adbeb8476eaf803d9de6e5509c'
             '4066c94f2473c7ea16917d29a613e16f840a329089c88e0bdbdb999aef3442ba00abfd2aa92266fa9c067e399dc88e6f0ccac40dc151378857e665638e78bbf0'
             '3069feb5db40288beb5b112b285186162a704f0fdd3cf67a17fd4eeea015f2cfcfbb455b7aa7c3d79d00fd095a3fd11cffc7b121dce94d99c3b06a509a8977d2'
+            '4ac551a74407161531e946b45cb6734fa8aa953d2593ec5c9f2207766eaf7e01302a87aaecb60b6febb46cba1ca917fc3c150cd9ceaa26182ec05871ccd7a8ae'
             '8b690003b3b3947dac0fb5684dcea157de8c4817930ab12d037da5de94a5c657ad8ecc305590175832ce339edc65a98b3cf7c1500f878a7d72e7b45b71b05321')
 
 prepare() {
@@ -115,6 +117,7 @@ prepare() {
   rm -rf system/certs # remove not needed cacert
 
   patch -p1 -i "$srcdir/fix-libnfs-6-compatibility.patch"
+  patch -Np1 -i "$srcdir/kodi-21.1-fix-pipewire-1.4-compilation.patch"
 }
 
 build() {
