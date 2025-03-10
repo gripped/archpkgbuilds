@@ -2,8 +2,8 @@
 
 _hkgname=infinite-list
 pkgname=haskell-infinite-list
-pkgver=0.1.1
-pkgrel=23
+pkgver=0.1.2
+pkgrel=2
 pkgdesc="Infinite lists"
 url="https://github.com/Bodigrim/infinite-list"
 license=("BSD")
@@ -12,7 +12,7 @@ depends=('ghc-libs')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-expected-failure'
              'haskell-tasty-inspection-testing' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('be6844861a29100031bc192cb846c403adb2bb1ea0ce0b65c26530671100afa8')
+sha256sums=('6bae26bd8deee7c7f0afa1dc374094eb26546116c24f5bcc47b631e7608bbd6c')
 
 prepare() {
   cd $_hkgname-$pkgver
