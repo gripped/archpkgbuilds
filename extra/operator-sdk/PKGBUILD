@@ -1,7 +1,7 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 
 pkgname=operator-sdk
-pkgver=1.33.0
+pkgver=1.39.1
 pkgrel=1
 pkgdesc="SDK for building Kubernetes applications"
 arch=('x86_64')
@@ -10,8 +10,8 @@ license=('Apache')
 makedepends=('go')
 depends=('glibc')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/operator-framework/operator-sdk/archive/v${pkgver}.tar.gz")
-sha512sums=('c70e40078a125b90246748d507782a4af473d48b4729c63e98fa9262ffa8ec600f02b40b7d4ac0a767493f8618afb2e3702dd764c8494e852248c452e6bc4cb3')
-b2sums=('4bada853457f01bc2c39dcf8e0ceb4b960811e2f90a091178c8c3d02239d13acb78827332cc534ed6e192965bcffaf019205ca3ec3e0cca0e0db15ea752c2a7a')
+sha512sums=('6f6177a9dd7fbf57ab564356d2bc09c36b004b0be0dd5ccfb28f5444b3c4baa99fe1cf8ec1774a470ecd4805da030c1002471a6b280a14700163217d598f6887')
+b2sums=('35f07ec1071e3a8de706542f1b1ec5d51d06baeafa23022d4ab1e7f8550c2258a9b2454698df98a31c09c34a8beb9de768d472001838e58217a9e2a64f711d9f')
 
 prepare() {
   export GOPATH="${srcdir}"
