@@ -1,48 +1,57 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Maintainer: Laurent Carlier <lordheavym@gmail.com>
 
 pkgname=lib32-vulkan-icd-loader
-pkgver=1.4.303
+pkgver=1.4.304.1
 pkgrel=1
-arch=(x86_64)
 pkgdesc="Vulkan Installable Client Driver (ICD) Loader (32-bit)"
-url="https://www.khronos.org/vulkan/"
-license=('custom')
-makedepends=('cmake' 'python' 'lib32-libx11' 'lib32-libxrandr' 'lib32-wayland' 'vulkan-headers')
-depends=('lib32-glibc' 'lib32-gcc-libs')
-optdepends=('lib32-vulkan-driver: packaged vulkan driver')
-provides=('libvulkan.so')
-source=("vulkan-icd-loader-${pkgver}.tar.gz::https://github.com/KhronosGroup/Vulkan-Loader/archive/v${pkgver}.tar.gz")
-sha256sums=('248a5f7dbf990609f61dac34d19e43f441ccc31fd5ec49b64e807740099057a9')
+url="https://www.vulkan.org/"
+arch=(x86_64)
+license=(Apache-2.0)
+depends=(lib32-glibc)
+makedepends=(
+  cmake
+  git
+  lib32-libx11
+  lib32-libxrandr
+  lib32-wayland
+  ninja
+  python-lxml
+  vulkan-headers
+)
+optdepends=(
+  # vulkan-driver: vulkan-intel/vulkan-radeon/nvidia-utils/....
+  'lib32-vulkan-driver: packaged vulkan driver'
+)
+provides=(libvulkan.so)
+groups=()
+source=("git+https://github.com/KhronosGroup/Vulkan-Loader#tag=vulkan-sdk-$pkgver")
+b2sums=('537e5a325d1833aece5ff69af9b8118934581fbb58d5b1885d2b0d3d55f2ff3ef2db6c3a686c40c9e068c9b80194030cf936cba45fee70f55a6185f6c93ffffd')
 
 build() {
-  export ASFLAGS=--32
-  export CFLAGS=-m32
-  export CXXFLAGS=-m32                                                                                                                                                                                                            
-  export PKG_CONFIG_PATH="/usr/lib32/pkgconfig" 
+  local cmake_options=(
+    -D CMAKE_BUILD_TYPE=Release
+    -D CMAKE_INSTALL_LIBDIR=lib32
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_INSTALL_SYSCONFDIR=/etc
+    -D CMAKE_SKIP_INSTALL_RPATH=ON
+  )
 
-  cd "${srcdir}"/Vulkan-Loader*
+  export ASFLAGS+=" --32"
+  export CFLAGS+=" -m32"
+  export CXXFLAGS+=" -m32"
+  export PKG_CONFIG="i686-pc-linux-gnu-pkg-config"
 
-  rm -rf build ; mkdir build ; cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
-    -DVULKAN_HEADERS_INSTALL_DIR=/usr \
-    -DCMAKE_INSTALL_SYSCONFDIR=/etc \
-    -DCMAKE_INSTALL_LIBDIR=lib32 \
-    -DCMAKE_INSTALL_DATADIR=/share \
-    -DCMAKE_SKIP_RPATH=True \
-    -DBUILD_TESTS=Off \
-    -DBUILD_WSI_XCB_SUPPORT=On \
-    -DBUILD_WSI_XLIB_SUPPORT=On \
-    -DBUILD_WSI_WAYLAND_SUPPORT=On \
-    -DCMAKE_BUILD_TYPE=Release \
-    ..
-  make
+  cmake -S Vulkan-Loader -B build -G Ninja "${cmake_options[@]}"
+  cmake --build build
+}
+
+check() {
+  ctest --test-dir build --output-on-failure --stop-on-failure
 }
 
 package() {
-  cd "${srcdir}"/Vulkan-Loader*/build
-  
-  make DESTDIR="${pkgdir}" install
-
-  install -dm755 "${pkgdir}"/usr/share/licenses/${pkgname}
-  install -m644 ../LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
+  DESTDIR="$pkgdir" cmake --install build
 }
+
+# vim:set sw=2 sts=-1 et:
