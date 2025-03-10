@@ -1,27 +1,53 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
-pkgname=ruby-async-rspec
-pkgver=1.17.0
-pkgrel=4
+_gemname=async-rspec
+pkgname="ruby-${_gemname}"
+pkgver=1.17.1
+pkgrel=1
 pkgdesc='Helpers for writing specs against the async gem'
 arch=(any)
 url='https://github.com/socketry/async-rspec'
 license=(MIT)
-depends=(ruby-rspec ruby-rspec-files ruby-rspec-memory)
-checkdepends=(ruby-async ruby-async-io ruby-covered ruby-rugged)
+depends=(
+  ruby
+  ruby-rspec
+  ruby-rspec-files
+  ruby-rspec-memory
+)
+checkdepends=(
+  ruby-async
+  ruby-bake
+  ruby-bake-test
+  ruby-bundler
+  ruby-covered
+)
 options=(!emptydirs)
-source=(https://github.com/socketry/async-rspec/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('627a663a310dcc96893a439ee5c9852bffb5a741df2a62241e87e23a478d0319')
+source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('116e80ce5bb80545f3bc037f0a8bb02c0eb63abba9bbb3f532bfaf1ca27b55f57fc79e39d8ac5d02788a9034e6efc77072034da76ef5597f13a32b91ac602824')
+b2sums=('ab3e34cdbb0309bfc667f1f151f571678a808ab471f1365decb5c7725f43cae0f7023327dc63dc4724eafba6894454cc0103188fd5dd44ea9dab5bbe382e7013')
 
 prepare() {
   cd async-rspec-$pkgver
-  sed -r -e 's|~>|>=|g' -e '/signing_key/d' -i async-rspec.gemspec
+
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended \
+    --expression 's|~>|>=|g' \
+    --expression '/signing_key/d' \
+    "${_gemname}.gemspec"
+
+  sed --in-place \
+    --expression '/group :maintenance/,/end/d' \
+    --expression '/rubocop/d' \
+    gems.rb
 }
 
 build() {
-  local _gemdir="$(gem env gemdir)"
   cd async-rspec-$pkgver
-  gem build async-rspec.gemspec
+
+  local _gemdir="$(gem env gemdir)"
+
+  gem build --verbose async-rspec.gemspec
+
   gem install \
     --local \
     --verbose \
@@ -30,27 +56,47 @@ build() {
     --install-dir "tmp_install/$_gemdir" \
     --bindir "tmp_install/usr/bin" \
     async-rspec-$pkgver.gem
-  find "tmp_install/$_gemdir/gems/" \
+
+  # remove unreproducible files
+  rm --force --recursive --verbose \
+    "tmp_install${_gemdir}/cache/" \
+    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
+    "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
+
+  find "tmp_install${_gemdir}/gems/" \
     -type f \
     \( \
-        -iname "*.o" -o \
-        -iname "*.c" -o \
-        -iname "*.so" -o \
-        -iname "*.time" -o \
-        -iname "gem.build_complete" -o \
-        -iname "Makefile" \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
     \) \
     -delete
-  rm -r tmp_install/$_gemdir/cache
+
+  find "tmp_install${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
 }
 
 check() {
-  local _gemdir="$(gem env gemdir)"
   cd async-rspec-$pkgver
-  GEM_HOME="tmp_install/$_gemdir" rspec
+
+  local _gemdir="$(gem env gemdir)"
+
+  GEM_HOME="tmp_install/$_gemdir" bake test
 }
 
 package() {
   cd async-rspec-$pkgver
-  cp -a tmp_install/* "$pkgdir"/
+
+  cp --archive --verbose tmp_install/* "$pkgdir"/
+
+  install --verbose -D --mode=0644 license* --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
 }
