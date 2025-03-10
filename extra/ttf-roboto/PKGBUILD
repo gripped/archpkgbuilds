@@ -4,11 +4,12 @@
 
 pkgname=ttf-roboto
 pkgver=3.010
-pkgrel=1
+pkgrel=2
 pkgdesc="Google's signature family of fonts"
 url='https://github.com/googlefonts/roboto-3-classic'
 arch=('any')
 license=('OFL-1.1')
+provides=('ttf-font')
 source=(
   "$url/releases/download/v$pkgver/Roboto_v$pkgver.zip"
   "$pkgname-$pkgver-OFL.txt::https://raw.githubusercontent.com/googlefonts/roboto-3-classic/v$pkgver/OFL.txt"
