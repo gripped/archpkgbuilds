@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 pkgname=rocalution
-pkgver=6.2.4
+pkgver=6.3.2
 pkgrel=1
 pkgdesc='Next generation library for iterative sparse solvers for ROCm platform'
 arch=('x86_64')
@@ -14,7 +14,7 @@ optdepends=('openmp: Multithreaded CPU applications'
             'openmpi: Distributed CPU and multi GPU applications')
 _git='https://github.com/ROCm/rocALUTION'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('993c55e732d0ee390746890639486649f36ae806110cf7490b9bb5d49b0663c0')
+sha256sums=('b13118a5c0af08a666d80af78d52bdfba12ed134f6745ab36d8de75ed3bc7584')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
@@ -22,16 +22,17 @@ build() {
   # Compile source code for supported GPU archs in parallel
   export HIPCC_COMPILE_FLAGS_APPEND="-parallel-jobs=$(nproc)"
   export HIPCC_LINK_FLAGS_APPEND="-parallel-jobs=$(nproc)"
-  export ROCM_PATH=/opt/rocm
   # -fcf-protection is not supported by HIP, see
   # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
+  CXXFLAGS+=" -fcf-protection=none"
+  export CC=/opt/rocm/llvm/bin/amdclang
+  export CXX=/opt/rocm/llvm/bin/amdclang++
   local cmake_args=(
     -Wno-dev
     -S "$_dirname"
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_TOOLCHAIN_FILE="$srcdir/$_dirname/toolchain-linux.cmake"
-    -D CMAKE_CXX_FLAGS="${CXXLFLAGS} -fcf-protection=none"
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D ROCM_PATH=/opt/rocm
     -D SUPPORT_HIP=ON
