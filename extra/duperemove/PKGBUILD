@@ -2,7 +2,7 @@
 # Contributor: Robin Broda <coderobe @ archlinux.org>
 
 pkgname=duperemove
-pkgver=0.15
+pkgver=0.15.1
 pkgrel=1
 pkgdesc='Btrfs extent deduplication utility'
 arch=('x86_64')
@@ -10,7 +10,7 @@ url='https://github.com/markfasheh/duperemove'
 license=('GPL-2.0-only')
 depends=('libbsd' 'glib2' 'sqlite')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('e6d6e658c0175e74d706f9d4cbbeaa7bcad1b554eb60805415a948af63c78b6982cea6be6d48c15ddf14595a5b061d7794014eb1e8b71fab2041fc57e676c881')
+sha512sums=('ab8b2e979d590b9a90c2bdb541e50e176979536fb5294204509f3f70f85b6997e579ec0d0f86b7ef719ef53503ff59a2e92d7febaa3f22679b7fcb0a581f3f6c')
 
 build() {
   cd "${pkgname}-${pkgver}"
