@@ -4,7 +4,7 @@
 
 pkgname=protobuf-c
 pkgver=1.5.0
-pkgrel=10
+pkgrel=11
 pkgdesc='Protocol Buffers implementation in C'
 arch=('x86_64')
 url='https://github.com/protobuf-c/protobuf-c'
