@@ -4,8 +4,8 @@
 
 _pkgbase=libtasn1
 pkgname=lib32-${_pkgbase}
-pkgver=4.19.0
-pkgrel=2
+pkgver=4.20.0
+pkgrel=1
 pkgdesc="The ASN.1 library used in GNUTLS (32 bit)"
 arch=('x86_64')
 license=('GPL-3.0-or-later AND LGPL-2.1-or-later')
@@ -14,7 +14,7 @@ depends=('lib32-glibc' ${_pkgbase})
 makedepends=('gcc-multilib')
 provides=('libtasn1.so')
 source=(https://ftp.gnu.org/gnu/libtasn1/${_pkgbase}-${pkgver}.tar.gz{,.sig})
-sha256sums=('1613f0ac1cf484d6ec0ce3b8c06d56263cc7242f1c23b30d82d23de345a63f7a'
+sha256sums=('92e0e3bd4c02d4aeee76036b2ddd83f0c732ba4cda5cb71d583272b23587a76c'
             'SKIP')
 validpgpkeys=('B1D2BD1375BECB784CF4F8C4D73CF638C53C06BE') # "Simon Josefsson <simon@josefsson.org>"
 
