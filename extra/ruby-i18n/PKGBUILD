@@ -2,8 +2,8 @@
 
 _name=i18n
 pkgname=ruby-i18n
-pkgver=1.14.1
-pkgrel=4
+pkgver=1.14.7
+pkgrel=1
 pkgdesc="New wave internationalisation support for Ruby"
 arch=(any)
 url="https://github.com/ruby-i18n/i18n"
@@ -23,19 +23,11 @@ checkdepends=(
   ruby-test_declarative
 )
 options=(!emptydirs)
-source=(
-  $pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz
-  $pkgname-1.14.1-update_mocha.patch::https://github.com/ruby-i18n/i18n/commit/79c85289d06d69171b7f118c7f469c7282b24351.patch
-)
-sha512sums=('89a293c00c7e62e802823d8011142a0786268b4c8341a9e389182988f1372655b4c5410ee10d6632af2fee645fbbf2feda2ccc4669d59d44640d3fa2c34b9e86'
-            '6a692556eb0eded65cc4f6872da13ceb9013c8a9b9a9e0159415b5f99dc9e6245f6537387b5b8d342440d14effd7a3849410635eba372e882110ac6d99745f4c')
-b2sums=('b01b5fefd5033352455110e4fda3d567a5033c6bb732dd11519a3859a3cc4d57bd4229ea3346f2e680575f6ac4d7038d4bcbfd0ea314d2e8b08f26858ffd22f6'
-        '9ed09eb5ac449c90f7d290bcc0d259fd795fedba4278bc8abed3e42653b03c1573eb1e2ecabff41703bda452f55d4af4977239cafa6ec3a8eb4be767e48a732a')
+source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('e647c5a454a3929f62feb9464fe6a44c0cded23eaf48fc827d084a98bca5ca8f312c6f51d5c1241a709263ee6cd47b314c69a8f95db1393136dafd6287586a76')
+b2sums=('2261dfcd9ef68e42ae7a2cf4314a5ff7d9030172bb68b8e10ff1fb6399912054f87ec9f48177a1ae155819edd6a4f89042b62a713cb3d969ecc3cac3d7e22e0d')
 
 prepare() {
-  # update mocha requirement
-  patch -Np1 -d $_name-$pkgver -i ../$pkgname-1.14.1-update_mocha.patch
-
   cd $_name-$pkgver
 
   # update gemspec/Gemfile to allow newer version of the dependencies
