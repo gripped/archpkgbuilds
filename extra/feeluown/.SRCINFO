@@ -1,6 +1,6 @@
 pkgbase = feeluown
 	pkgdesc = FeelUOwn Music Player
-	pkgver = 4.1.8
+	pkgver = 4.1.9
 	pkgrel = 2
 	url = https://github.com/feeluown/FeelUOwn
 	arch = any
@@ -10,7 +10,6 @@ pkgbase = feeluown
 	checkdepends = python-pytest-asyncio
 	checkdepends = python-pytest-mock
 	checkdepends = python-pytest-qt
-	checkdepends = python-pycryptodome
 	checkdepends = xorg-server-xvfb
 	checkdepends = yt-dlp
 	makedepends = git
@@ -25,10 +24,10 @@ pkgbase = feeluown
 	depends = python-packaging
 	depends = python-pydantic
 	depends = python-mutagen
+	depends = python-openai
 	depends = qt5-svg
 	depends = xdg-user-dirs
-	optdepends = python-secretstorage: browser cookie extraction support
-	optdepends = python-pycryptodome: browser cookie extraction support
+	optdepends = yt-dlp: browser cookie extraction support
 	optdepends = dbus-python: mpris2 server support
 	optdepends = python-sanic: webserver support
 	optdepends = python-json-rpc: webserver support
@@ -37,14 +36,13 @@ pkgbase = feeluown
 	optdepends = feeluown-qqmusic
 	optdepends = feeluown-ytmusic
 	optdepends = feeluown-bilibili
-	optdepends = yt-dlp
 	provides = feeluown-local
 	conflicts = feeluown-local
 	replaces = feeluown-local
-	source = git+https://github.com/feeluown/FeelUOwn.git#tag=v4.1.8
+	source = git+https://github.com/feeluown/FeelUOwn.git#tag=v4.1.9
 	source = feeluown.desktop
 	source = pytest-skip-benchmark-cov-plugin.patch
-	sha512sums = 2b84e3a652fd13dbaa0d032a59795f70e11771793102b6728a4a85e33eba663ae8c4406b9d48b8a8df7e35f7d0a6628577ee95c6db4a7207af99b3043a49a1d1
+	sha512sums = a470e980baee819ea3a47f0794fa85a73dc64dc6fb7b7ad8c20cc0d539bfe98d19716179288cefefd6c894e868b3c9b48bb045873ef07f789f4eec0a2af0cec6
 	sha512sums = 48882f7469c22e5db332663bc1aa8b398b0a10a0c929d4d7e3d7b8b91205d7d3070c5fa295cb9a14f8c352bff57978bfaad167343e0ddc51c92417eda07c8087
 	sha512sums = 97e1d3133c921b1071ad1f6966b5175755cde22660bc76d2f107ddea9d3cde6b105636ed39838d4e81bef168b40ade130c09e8f9752bf1ac77d67cff2a42bae1
 
