@@ -1,30 +1,34 @@
 pkgbase = deltachat-desktop
 	pkgdesc = Email-based instant messaging for Desktop
-	pkgver = 1.54.1
+	pkgver = 1.54.2
 	pkgrel = 1
 	url = https://github.com/deltachat/deltachat-desktop
 	arch = any
 	license = GPL-3.0-or-later
-	makedepends = nodejs>=20
+	makedepends = deltachat-rpc-server
 	makedepends = git
 	makedepends = inkscape
 	makedepends = node-gyp
+	makedepends = nodejs>=20
 	makedepends = pnpm
 	depends = electron34
 	depends = bash
-	depends = deltachat-rpc-server
 	depends = hicolor-icon-theme
-	source = git+https://github.com/deltachat/deltachat-desktop.git#tag=v1.54.1
+	source = git+https://github.com/deltachat/deltachat-desktop.git#tag=v1.54.2
 	source = deltachat-desktop.desktop
 	source = deltachat-desktop.sh.in
 	source = deltachat-desktop.xml
-	sha512sums = c081e9866820457f17799b43f29c3a8067343c34f56d227cfe98f7e2bce287fc16e89600ea2db21fc02e56dc1fcbdd1b019ec403c0d5e32b53e571295b2a20f7
+	sha512sums = 85c23995f87fc43ac198d60b48c8056e4ad54de0af5050970c61644941b183899928a1d012c10a0aff58abd741d354e728ddd2ab819656c5a925bac9af4bdad1
 	sha512sums = 15c500b06f28625c65f09f2cbc8fa8c1ce4b7bb5a8e2b6a74136247a29cda5f1f58232b213bfe94700d17190fe4e994b893bd7ebda387942d409b4d000b0577d
 	sha512sums = b535f19762d6f8d3b23a6bfdac191e65b48df2f51e85312ccf62aea4c65252ab9a546296abd70cef6c53fcf9757bbdc1ee9ce73a6c4d6593854b6d3d0e6de5b3
 	sha512sums = d725ac91703cdfc4cb14e73cd786456eb4bfc374a591e9508edc70e59350915c365a367b84c1fafce225da01cfb716c516aa7159ecb484635d58467359fb89d7
-	b2sums = 83e19edceda299b940d9558cddaa9aa99aa5e4672866856ab4779110c54c5a4e6558ad25e4695585c03df587192d520c823f000bf863855c11d2c42c78b2705b
+	b2sums = 8fdf1fa2c0531fbab24c5971704305d6eb89293bae89da7a9b0df7d39889cf0c2051ffa5842d3ff07fcd0e168cf22027822001265ffee3c699b8da9f6a99ab9b
 	b2sums = 9826771b90c460169f1fa5c15cc603e28887d669c0ee3ceed9bf1b027a0df7de4bcdbedf4775e8bd8d5b7692ed084a5837a7bcc6c64bf6acf08e8a44586ccf77
 	b2sums = f1f34820c56196d0b0c630ddad51c2b650a45a2d5dd3025f479a1f72c9d817b7446fd6793a13b72b90f2b81a4f27f9dd5fc61d110725b5502cb1ec298693a113
 	b2sums = 382dd6312e10d1881c39d74179f19d41beccb25a5e25a43aa9721fba30e3138ce521df483beed1b6101e1801233b0d189846b7614652d05c5d41feae03f1c5fe
 
 pkgname = deltachat-desktop
+	depends = electron34
+	depends = bash
+	depends = hicolor-icon-theme
+	depends = deltachat-rpc-server
