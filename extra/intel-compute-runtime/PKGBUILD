@@ -3,7 +3,7 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-compute-runtime
-pkgver=24.52.32224.5
+pkgver=25.05.32567.17
 pkgrel=1
 pkgdesc="Intel(R) Graphics Compute Runtime for oneAPI Level Zero and OpenCL(TM) Driver"
 arch=(x86_64)
@@ -18,8 +18,8 @@ provides=(opencl-driver level-zero-driver)
 options=(!lto)
 source=(https://github.com/intel/compute-runtime/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         010-intel-compute-runtime-disable-werror.patch)
-sha256sums=('f7f0f827d4028d808bc2723b2240f53ea29b9f29d66321b99c3010f8d11008b6'
-            '3d34056b24726d651d2f0d7e208db395e8b2c8ca236cf046e8c1afdd69e42058')
+sha256sums=('aac9555c82b8b0f712dd1a6b5e881c3749e678c2cc90df03abe70edd60ecb9f2'
+            'a29cb7c425db502e193601472b7063083fe335722a9ddb0aabdee3f8ecd788b9')
 
 prepare() {
   patch -d compute-runtime-${pkgver} -Np1 -i "${srcdir}/010-intel-compute-runtime-disable-werror.patch"
@@ -30,23 +30,24 @@ build() {
   # Fix runtime error in blender
   CXXFLAGS+=' -DSANITIZER_BUILD=1'
   CFLAGS+=' -DSANITIZER_BUILD=1'
-  
+
   # fix warning: "_FORTIFY_SOURCE" redefined
   # note: upstream forces _FORTIFY_SOURCE=2
   export CFLAGS="${CFLAGS/-Wp,-D_FORTIFY_SOURCE=?/}"
   export CXXFLAGS="${CXXFLAGS/-Wp,-D_FORTIFY_SOURCE=?/}"
-  
+
   # opencl-headers supported by upstream is already in the source tree
-  # https://github.com/intel/compute-runtime/blob/24.52.32224.5/third_party/opencl_headers/.version#L2
+  # https://github.com/intel/compute-runtime/blob/25.05.32567.17/third_party/opencl_headers/.version#L2
   local _opencl_headers_dir="${srcdir}/compute-runtime-${pkgver}/third_party/opencl_headers"
   export CXXFLAGS+=" -isystem${_opencl_headers_dir}"
-  
+
   # tests currently disabled because of https://github.com/intel/compute-runtime/issues/599
   cmake -B build -S compute-runtime-${pkgver} \
     -G 'Unix Makefiles' \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
+    -DNEO_BUILD_UNVERSIONED_OCLOC=ON \
     -DNEO_DISABLE_LD_GOLD:BOOL=ON \
     -DNEO_OCL_VERSION_MAJOR=${pkgver%%.*} \
     -DNEO_OCL_VERSION_MINOR=$(echo ${pkgver} | cut -d . -f2) \
@@ -63,7 +64,6 @@ build() {
 package() {
   DESTDIR="${pkgdir}" cmake --install build
   install -Dm644 compute-runtime-${pkgver}/LICENSE.md -t "${pkgdir}"/usr/share/licenses/${pkgname}
-  
+
   ln -s $(find "${pkgdir}"/usr/lib -regex '.*libze_intel_gpu.so.[0-9]*' -exec basename {} \;) "${pkgdir}"/usr/lib/libze_intel_gpu.so
-  ln -s $(find "${pkgdir}"/usr/bin -name 'ocloc-*' -exec basename {} \;) "${pkgdir}"/usr/bin/ocloc
 }
