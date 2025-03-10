@@ -1,0 +1,53 @@
+# Contributor: Hendrik Wolff <hendrik.wolff@agdsn.me>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+
+pkgname=shikane
+pkgver=1.0.1
+pkgrel=2
+pkgdesc="Deterministic dynamic output configuration tool for Wayland compositors"
+arch=('x86_64')
+url="https://gitlab.com/w0lff/shikane"
+license=('MIT')
+depends=(
+  'gcc-libs'
+  'glibc'
+)
+makedepends=(
+  'cargo'
+  'pandoc'
+)
+source=("$url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz")
+sha512sums=('0b1472f4930fd03a685e1f941ad175bf2d8b7bd16e27f3b2f10488f11ad7dc6c94b8c77969cd89d67fe6bbaa89cd66dc1b32f017be1d757c14de277f99cbea21')
+
+prepare() {
+  cd $pkgname-v$pkgver
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $pkgname-v$pkgver
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release --all-features
+
+  # Build man pages & docs
+  ./scripts/build-docs.sh man
+  ./scripts/build-docs.sh html
+}
+
+check() {
+  cd $pkgname-v$pkgver
+  cargo test --frozen --all-features
+}
+
+package() {
+  cd $pkgname-v$pkgver
+  install -vDm755 -t "$pkgdir/usr/bin" target/release/shikane
+  install -vDm755 -t "$pkgdir/usr/bin" target/release/shikanectl
+  install -vDm644 -t "$pkgdir/usr/share/man/man1" build/man/shikane.1.gz
+  install -vDm644 -t "$pkgdir/usr/share/man/man1" build/man/shikanectl.1.gz
+  install -vDm644 -t "$pkgdir/usr/share/man/man5" build/man/shikane.5.gz
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname/html" build/html/*
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}
