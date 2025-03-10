@@ -7,7 +7,7 @@ pkgname=(
   fmt
   fmt-docs
 )
-pkgver=11.1.3
+pkgver=11.1.4
 pkgrel=1
 pkgdesc='Open-source formatting library for C++'
 arch=(x86_64)
@@ -25,9 +25,9 @@ makedepends=(
   python-pymdown-extensions
   python-regex
 )
-_tag=9cf9f38eded63e5e0fb95cd536ba51be601d7fa2
+_tag=123913715afeb8a437e6388b4473fcc4753e1c9a
 source=("git+https://github.com/fmtlib/fmt.git#tag=$_tag")
-b2sums=('cab07694562864d5549cffc87ecf3553be7bb8b8a4bc20fe105723b2ac0406aec12167cddc7f9cdbc247d3203cc122cef1b93e3b04efcb6171d5e46e66555fa5')
+b2sums=('e150c93041012709b36cd29ac17b79f988f8ed16f49f6dd900628d42062b753407244eb2a4e8a45c992f0fded8fca19951124bb36f6797b51daa75c9e09843d3')
 
 pkgver() {
   cd fmt
