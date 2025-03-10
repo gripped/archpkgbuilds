@@ -3,7 +3,7 @@
 # Contributor: Kenneth Endfinger <kaendfinger@gmail.com>
 
 pkgname=buildkit
-pkgver=0.20.0
+pkgver=0.20.1
 pkgrel=1
 pkgdesc='A toolkit for converting source code to build artifacts in a repeatable manner'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('runc' 'containerd')
 makedepends=('git' 'go')
 options=('!lto')
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha256sums=('f491f9c072762d669204e40180cfee8d55b406f82d49c821a8d4e922cb3bc534')
+sha256sums=('e6a6ab95eb9ac68a83e49bcb9ebf0f4e54f000bbdd704aa40d49c947cbfea7fe')
 
 prepare() {
   cd "$pkgname"
