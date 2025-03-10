@@ -4,8 +4,8 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=chromium
-pkgver=133.0.6943.141
-pkgrel=1
+pkgver=134.0.6998.35
+pkgrel=2
 _launcher_ver=8
 _manual_clone=0
 _system_clang=1
@@ -26,16 +26,18 @@ optdepends=('pipewire: WebRTC desktop sharing under Wayland'
             'kwallet: support for storing passwords in KWallet on Plasma'
             'upower: Battery Status API support')
 options=('!lto') # Chromium adds its own flags for ThinLTO
-source=(https://commondatastorage.googleapis.com/chromium-browser-official/chromium-$pkgver.tar.xz
+source=(https://commondatastorage.googleapis.com/chromium-browser-official/chromium-$pkgver-lite.tar.xz
         https://github.com/foutrelis/chromium-launcher/archive/v$_launcher_ver/chromium-launcher-$_launcher_ver.tar.gz
+        skia-fix-cfi-icall-failure-with-use_system_libjpeg-true.patch
         compiler-rt-adjust-paths.patch
         increase-fortify-level.patch
         use-oauth2-client-switches-as-default.patch)
-sha256sums=('0b3b15aa03f128a6b3d7ff67a7492bfaa2ffbb4acd80664b9ff320fd470c68be'
+sha256sums=('5f41260448edcaf2586fde025861828aeccacdc62aa72cee2bbfeb03630777d6'
             '213e50f48b67feb4441078d50b0fd431df34323be15be97c55302d3fdac4483a'
+            'e62adff693cac8344a8b7c87b8e5700ab4f9322f742f04f172b09892439225f1'
             'b3de01b7df227478687d7517f61a777450dca765756002c80c4915f271e2d961'
             'd634d2ce1fc63da7ac41f432b1e84c59b7cceabf19d510848a7cff40c8025342'
-            '6de648d449159dd579e42db304aca0a36243f2ac1538f8d030473afbbc8ff475')
+            'e6da901e4d0860058dc2f90c6bbcdc38a0cf4b0a69122000f62204f24fa7e374')
 
 if (( _manual_clone )); then
   source[0]=fetch-chromium-release
@@ -105,6 +107,9 @@ prepare() {
 
   # Upstream fixes
 
+  # Fix a crash in print preview related to libjpeg and CFI
+  patch -Np1 -d third_party/skia <../skia-fix-cfi-icall-failure-with-use_system_libjpeg-true.patch
+
   # Allow libclang_rt.builtins from compiler-rt >= 16 to be used
   patch -Np1 -i ../compiler-rt-adjust-paths.patch
 
@@ -114,7 +119,7 @@ prepare() {
   # Fixes for building with libstdc++ instead of libc++
 
   # Link to system tools required by the build
-  rm third_party/node/linux/node-linux-x64/bin/node
+  mkdir third_party/node/linux/node-linux-x64/bin
   ln -s /usr/bin/node third_party/node/linux/node-linux-x64/bin/
   ln -s /usr/bin/java third_party/jdk/current/bin/
 
@@ -125,6 +130,10 @@ prepare() {
 
     # To link to rust libraries we need to compile with prebuilt clang
     ./tools/clang/scripts/update.py
+  elif ! find /usr/lib/rustlib | grep -q adler2; then
+    # Rust 1.86 ships adler2 but we need to change it to adler when
+    # using older Rust versions (idea for this borrowed from Gentoo)
+    sed -i 's/adler2/adler/' build/rust/std/BUILD.gn
   fi
 
   # Remove bundled libraries for which we will use the system copies; this
@@ -180,6 +189,7 @@ build() {
     'enable_hangout_services_extension=true'
     'enable_widevine=true'
     'enable_nacl=false'
+    'use_qt5=true'
     'use_qt6=true'
     'moc_qt6_path="/usr/lib/qt6"'
     "google_api_key=\"$_google_api_key\""
