@@ -2,16 +2,23 @@
 
 _gemname='parallel_tests'
 pkgname="ruby-${_gemname}"
-pkgver=3.12.1
-pkgrel=3
+pkgver=5.0.1
+pkgrel=1
 pkgdesc='Run Test::Unit / RSpec / Cucumber / Spinach in parallel'
 arch=('any')
 url="https://github.com/grosser/${_gemname}"
 license=('MIT')
-depends=('ruby' 'ruby-parallel')
+depends=(
+  ruby
+  ruby-parallel
+)
+makedepends=(
+  ruby-rdoc
+)
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('cf00de81c500478301b8a462dc6db8745445bda0ba49a70b8afd230db27188304b9c5ef4c9cbfd283a59ccd5055e4a01516e8a94d12be5208649651d2946279b')
+sha512sums=('a4c2ff220ccc4481edbcab4a40c4a6cc8af71bbe4064516dead4cdd14b013c8ac3166c7f02a6676c7933f2d3184488e4433b1c8879bf68a0ea2891b852318878')
+b2sums=('cafc4920c5944d6cee84ca28a12fbc713fa7fe3e16695ae7863719b9ffb31bfae69c4c396e0868139e620555aab4422eff0fb079c74c57f635844b334e3ba74b')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
@@ -23,37 +30,26 @@ prepare() {
 build() {
   cd "${_gemname}-${pkgver}"
 
-  gem build "${_gemname}.gemspec"
-}
-
-# https://github.com/grosser/spinach is not packaged yet
-#check() {
-#  cd "${_gemname}-${pkgver}"
-#
-#  rake --tasks
-#}
-
-package() {
-  cd "${_gemname}-${pkgver}"
-
   local _gemdir="$(gem env gemdir)"
+
+  gem build --verbose "${_gemname}.gemspec"
 
   gem install \
     --local \
     --verbose \
     --ignore-dependencies \
     --no-user-install \
-    --install-dir "${pkgdir}/${_gemdir}" \
-    --bindir "${pkgdir}/usr/bin" \
+    --install-dir "tmp_install${_gemdir}" \
+    --bindir "tmp_install/usr/bin" \
     "${_gemname}-${pkgver}.gem"
 
-  # remove unrepreducible files
+  # remove unreproducible files
   rm --force --recursive --verbose \
-    "${pkgdir}/${_gemdir}/cache/" \
-    "${pkgdir}/${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
-    "${pkgdir}/${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
+    "tmp_install${_gemdir}/cache/" \
+    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
+    "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
 
-  find "${pkgdir}/${_gemdir}/gems/" \
+  find "tmp_install${_gemdir}/gems/" \
     -type f \
     \( \
       -iname "*.o" -o \
@@ -65,14 +61,31 @@ package() {
     \) \
     -delete
 
-  find "${pkgdir}/${_gemdir}/extensions/" \
+  find "tmp_install${_gemdir}/extensions/" \
     -type f \
     \( \
       -iname "mkmf.log" -o \
       -iname "gem_make.out" \
     \) \
     -delete
+}
 
-  install --verbose -D --mode=0644 Readme.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+# https://github.com/grosser/spinach is not packaged yet
+# check() {
+#   cd "${_gemname}-${pkgver}"
+#
+#   local _gemdir="$(gem env gemdir)"
+#
+#   GEM_HOME="tmp_install${_gemdir}" rake test
+# }
+
+package() {
+  cd "${_gemname}-${pkgver}"
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
+
+  install --verbose -D --mode=0644 Readme.md --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
   install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
 }
+
+# vim: tabstop=2 shiftwidth=2 expandtab:
