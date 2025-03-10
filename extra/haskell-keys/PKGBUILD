@@ -3,8 +3,8 @@
 
 _hkgname=keys
 pkgname=haskell-keys
-pkgver=3.12.3
-pkgrel=323
+pkgver=3.12.4
+pkgrel=2
 pkgdesc="Keyed functors and containers"
 url="https://github.com/ekmett/keys/"
 license=("BSD")
@@ -13,11 +13,11 @@ depends=('ghc-libs' 'haskell-comonad' 'haskell-free' 'haskell-hashable' 'haskell
          'haskell-tagged' 'haskell-transformers-compat' 'haskell-unordered-containers')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('e0bab964eb38388dfb2fe7dcb4999da0263a2162f171f7ed629a2e1de33eb1cb99dc37a6fe32045f136466cebb5aed69e533417256877316c81a02abc700c28d')
+sha512sums=('d5d0c1afe3f96f0a04ab9e56267b857c7c168aaafbf274f66ade58677a764d38504d65da3b5753149f966f4463cd38701bba9689e47b7f87f8c5078a34e3b398')
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -d semigroups -u hashable $_hkgname.cabal
+    uusi -d semigroups
 }
 
 build() {
