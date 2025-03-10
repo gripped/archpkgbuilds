@@ -4,8 +4,8 @@
 
 _gemname=rack
 pkgname=ruby-rack
-pkgver=3.0.9.1
-pkgrel=2
+pkgver=3.1.11
+pkgrel=1
 pkgdesc='Minimal, modular, and adaptable interface for developing web applications'
 url='https://rack.github.io/'
 arch=('any')
@@ -25,8 +25,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("https://github.com/rack/rack/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('0aacf814463dc03a95aaa7ec979caf3464d9e19d5ab9c3842978c2c94b81e8b2ed040f3f4028fd046c73e0632ee7754755cd35afc81ca47e22d43d4882086dc0')
-b2sums=('300be59512a1497b832fe553ae9d957e380c5399707c891b67a950db32682ee8e2539dab02e656fdc855a8c821d7a5d8674b9208d4cc701f534eb8f1a8767fcf')
+sha512sums=('e9aa659d2f06c5a1017e3d2eb290e888e08aece057a4b6089a17f9c43b18b14b4854985c5a6c50bdbd8dc028053439e2c4a26da79d6898594de38c029a98d4b4')
+b2sums=('32b2871edd4331b7e34e920d0ec2af4404333459cb4fbd8970a4d5155aab52a5edcde77dbb8fea8c2ea935dc7ae6ceac418403d72cffa63222a7014c44622e03')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
