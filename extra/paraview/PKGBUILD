@@ -6,7 +6,7 @@
 
 pkgname=paraview
 pkgver=5.13.2
-pkgrel=5
+pkgrel=6
 pkgdesc="Parallel Visualization application using VTK"
 arch=(x86_64)
 url="https://www.paraview.org"
@@ -88,6 +88,7 @@ source=(
   fix-vtk-python313-encoding.patch
   fix-pygments-formatters.patch
   netcdf-4.9.3.patch
+  cli11-2.5.0.patch
 )
 sha256sums=('4e116250f8e1a9c480f97c5696c9cd72b4d4998b039ca46da8b224f27445f13e'
             'd1cdb4a81db280d6b21bee3d9e5f8fc3a87f00a909d33850a1964c72091ec138'
@@ -97,7 +98,8 @@ sha256sums=('4e116250f8e1a9c480f97c5696c9cd72b4d4998b039ca46da8b224f27445f13e'
             '83fcd0c7709ccbea87b39a7702d6f777d6a5c4e5dfbb9e5adf066b5fecdfa9d7'
             'ab1b5b0ee08ae7714aa5c4924de0e2997b0feac1d4563ce73ef4b8c8204a4777'
             'fc61d6d62e4e9f2c846d80b786b1e71ae7a14a2a28753868a0bc0018ba5a2278'
-            '87535578bbb0023ede506fd64afae95cdf4fb698c543f9735e6267730634afbc')
+            '87535578bbb0023ede506fd64afae95cdf4fb698c543f9735e6267730634afbc'
+            'dd4053537565d0929ea87caa8f182b5451adb4b9e64f3297a60648c43f27c3f2')
 
 prepare() {
   # Specify python version in wrapper
@@ -130,6 +132,9 @@ prepare() {
 
   # Fix build with netcdf 4.9.3
   patch -Np1 -d VTK -i "$srcdir"/netcdf-4.9.3.patch
+
+  # Fix build with cli11 2.5.0
+  patch -Np1 -i "$srcdir"/cli11-2.5.0.patch
 }
 
 build() {
