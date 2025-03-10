@@ -2,7 +2,7 @@
 # Contributor: zlowly <zlowly@gmail.com>
 
 pkgname=smartdns
-pkgver=46
+pkgver=46.1
 pkgrel=1
 pkgdesc="A local DNS server to obtain the fastest website IP for the best Internet experience"
 arch=('x86_64')
@@ -10,28 +10,28 @@ license=('GPL')
 url="https://github.com/pymumu/smartdns"
 backup=("etc/smartdns/smartdns.conf")
 depends=('gcc-libs' 'openssl')
-makedepends=('systemd')  # systemd.pc
+makedepends=('git' 'systemd')  # systemd.pc
 checkdepends=('gtest' 'bind')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/pymumu/smartdns/archive/Release$pkgver.tar.gz")
-sha512sums=('4798b5d75412864f707a2de5bc72c38fdfdc278156dc00c7f5d0ab3af95d605544a86368b56cc41bc7465fa6c063bc742a0c0e797c266aa472bf9d21398313f7')
+source=("git+https://github.com/pymumu/smartdns.git#tag=Release$pkgver")
+sha512sums=('08fbd0583e03ba40f5f1b72e22b86cb6da5bc7b438f05d66603c503cdf7db5038520e0b357497bdb8d7ce010be7ab75456773d4258bde2f01d5aa23f0700b201')
 
 prepare() {
   # Unfortunately upstream does not provide a way to reuse .o files
-  cp -a smartdns-Release$pkgver smartdns-Release$pkgver-test
+  cp -a smartdns smartdns-test
 }
 
 build() {
-  cd smartdns-Release$pkgver
+  cd smartdns
   make RUNSTATEDIR=/run SBINDIR=/usr/bin
 }
 
 check() {
-  cd smartdns-Release$pkgver-test
+  cd smartdns-test
   make -C test test
 }
 
 package() {
-  cd smartdns-Release$pkgver
+  cd smartdns
   make RUNSTATEDIR=/run SBINDIR=/usr/bin DESTDIR="$pkgdir" install
 
   rm -r "$pkgdir"/etc/init.d
