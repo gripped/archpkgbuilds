@@ -2,7 +2,7 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3 orbiton-nano)
-pkgver=2.68.8
+pkgver=2.68.9
 pkgrel=1
 pkgdesc='Configuration-free text editor and IDE'
 arch=(x86_64)
@@ -11,7 +11,7 @@ license=(BSD-3-Clause)
 makedepends=(git go vte3)
 options=(!lto)
 source=("git+https://github.com/xyproto/orbiton#tag=v$pkgver")
-b2sums=('30a1b115f848efce469764a96d178cea119aff7feb27f65130ef27a7b012685fdedc9c00f9c7b50e5528fa85ba5e52004bd5e324401ee50fd301c7253323ffc4')
+b2sums=('5f2d3dd7fac69af5656b547a9edd9ffc49367a226b451e4999470e6512d08d492d48e7177bea36a06e2d1362ec2973479fca61f54fdd40ffed39aa590cd3eae2')
 
 build() {
   export LDFLAGS="$(echo $LDFLAGS | sed 's/ -Wl//g;s/,--sort-common//')"
@@ -39,7 +39,6 @@ package_orbiton() {
               'gdb: for debugging C'
               'gcc-d: for compiling D'
               'ghc: for compiling Haskell'
-              'godot: for using GDScript'
               'haskell-brittany: for formatting Haskell'
               'jad: for decompiling .class files on the fly'
               'java-environment: for compiling Java'
