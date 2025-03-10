@@ -2,7 +2,7 @@
 
 pkgbase=decasify
 pkgname=("$pkgbase" "lua-$pkgbase" "lua53-$pkgbase" "lua52-$pkgbase" "lua51-$pkgbase" "neovim-$pkgbase" "python-$pkgbase" "sile-$pkgbase")
-pkgver=0.9.0
+pkgver=0.9.1
 _rockrel=1
 pkgrel=1
 pkgdesc='cast strings to title-case according to locale specific style guides including Turkish'
@@ -21,21 +21,13 @@ makedepends=(cargo
              python-maturin
              jq)
 _archive="$pkgbase-$pkgver"
-source=("$url/releases/download/v$pkgver/$_archive.tar.zst"{,.asc}
-        "$pkgname-$pkgver-typst-Cargo.toml::$url/raw/refs/tags/v$pkgver/typst/Cargo.toml"
-        "$pkgname-$pkgver-typst-lib.rs::$url/raw/refs/tags/v$pkgver/typst/src/lib.rs")
-sha256sums=('3bec394fa02877e29b025aa24a9d9cd2087a93119904095c43786c1e4e8f1429'
-            'SKIP'
-            '9c546b09a9a94232e898c424e02fec8918fd14c6609a7f27de1a9a0404ee1886'
-            '2fc534d096616462512db93fa5e4dd3558816235e5cebb5f28f1c17eb8421ebf')
+source=("$url/releases/download/v$pkgver/$_archive.tar.zst"{,.asc})
+sha256sums=('c486b545229f0401693c79d600aa3e38bafdac70cd8c40c44f506c377b742a93'
+            'SKIP')
 validpgpkeys=('9F377DDB6D3153A48EB3EB1E63CC496475267693') # Caleb Maclennan <caleb@alerque.com> (@alerque)
 
 prepare() {
 	cd "$_archive"
-	# v0.9.0 sources are missing a workspace manifest
-	mkdir -p typst/src
-	cp ../${source[2]%::*} typst/Cargo.toml
-	cp ../${source[3]%::*} typst/src/lib.rs
 	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
