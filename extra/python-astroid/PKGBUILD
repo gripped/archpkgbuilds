@@ -6,8 +6,8 @@
 
 _pyname=astroid
 pkgname=python-$_pyname
-pkgver=3.3.8
-pkgrel=2
+pkgver=3.3.9
+pkgrel=1
 pkgdesc='A common base representation of python source code'
 arch=(any)
 url="https://github.com/pylint-dev/$_pyname"
@@ -15,7 +15,8 @@ license=(LGPL-2.1-or-later)
 depends=(python)
 makedepends=(python-{build,installer,wheel}
              python-setuptools)
-checkdepends=(python-attrs
+checkdepends=(mypy
+              python-attrs
               python-dateutil
               python-pyqt6
               python-regex
@@ -26,12 +27,7 @@ replaces=(python-logilab-astng)
 conflicts=(python-logilab-astng)
 _archive="$_pyname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('4fd092083a3cbb72a8e0ddbcb9f9dcd6b2ae068f745cd1c0a6844a6a143ab297')
-
-prepare() {
-	cd "$_archive"
-	sed -i -e '/^requires =/s/~=[0-9.]\+//g' pyproject.toml
-}
+sha256sums=('b4d4e496b955ddf73243f0649e853bd9719f3446edfe15e98a3e537dd3002900')
 
 build() {
 	cd "$_archive"
