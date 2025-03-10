@@ -1,7 +1,7 @@
 pkgbase = nageru
 	pkgdesc = live video mixer, based around the standard M/E workflow.
 	pkgver = 2.3.0
-	pkgrel = 14
+	pkgrel = 15
 	url = https://nageru.sesse.net/
 	arch = x86_64
 	license = GPL3
@@ -21,8 +21,10 @@ pkgbase = nageru
 	depends = luajit
 	depends = cmake
 	source = https://nageru.sesse.net/nageru-2.3.0.tar.gz
+	source = svt-av1-1.6.patch
 	source = ffmpeg-7.patch
 	sha256sums = 3d8d7f089d93eb9f04543bc4839f3bf8f8cd3db73ebacc79f0a7d43e781ab42a
+	sha256sums = a89783ff244786c5be18fc6007bb25a6063c7c4ebb64add8489353601bc31e64
 	sha256sums = 091452a23e1382ce8bdc78a7745e97539343a15d3ba97f52792a1f6a01d16743
 
 pkgname = nageru

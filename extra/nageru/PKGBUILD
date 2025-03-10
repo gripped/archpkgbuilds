@@ -2,7 +2,7 @@
 
 pkgname=nageru
 pkgver=2.3.0
-pkgrel=14
+pkgrel=15
 pkgdesc="live video mixer, based around the standard M/E workflow."
 arch=(x86_64)
 url="https://nageru.sesse.net/"
@@ -12,12 +12,15 @@ depends=('libmicrohttpd' 'ffmpeg' 'libx264' 'protobuf'
          'sqlite3' 'luajit' 'cmake')
 makedepends=('meson' 'eigen' 'qt5-tools')
 source=("https://nageru.sesse.net/nageru-${pkgver}.tar.gz"
+         svt-av1-1.6.patch
          ffmpeg-7.patch)
 sha256sums=('3d8d7f089d93eb9f04543bc4839f3bf8f8cd3db73ebacc79f0a7d43e781ab42a'
+            'a89783ff244786c5be18fc6007bb25a6063c7c4ebb64add8489353601bc31e64'
             '091452a23e1382ce8bdc78a7745e97539343a15d3ba97f52792a1f6a01d16743')
 
 prepare() {
   cd $pkgname-$pkgver
+  patch -p1 -i "$srcdir/svt-av1-1.6.patch"
   patch -p1 -i ../ffmpeg-7.patch
 }
 
