@@ -1,36 +1,43 @@
 # Maintainer: christian rebischke <chris.rebischke@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=git-credential-gopass
-pkgver=1.15.5
-pkgrel=2
+pkgver=1.15.15
+pkgrel=1
 pkgdesc="git-credentials helper for gopass"
 arch=('x86_64')
 url="https://github.com/gopasspw/git-credential-gopass"
 license=('MIT')
 depends=('glibc')
 makedepends=('go')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/gopasspw/git-credential-gopass/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('de67f21b27dc4f8e5437b465a748dabf3563393b09aefff08016fe367ffd847b3ad196d034589a05e1723763abf56395ab08372a05b86005cca11a3cc4cfb91f')
 options=('!lto')
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('6ffa1523b9ba9a00d1ad937f257724d76a0f35b58f9b8f25cdf1d3eb58be2b68943d9dd7eae965be6ae42142f5ae0c09a51aa8a93dbe62c2698b497c240049bc')
 
-prepare(){
-  cd ${pkgname}-${pkgver}
-  sed -i 's|-gcflags="-trimpath=$(GOPATH)" -asmflags="-trimpath=$(GOPATH)"||' Makefile
-  sed -i 's/install-completion//g' Makefile
+prepare() {
+  cd $pkgname-$pkgver
+  GOFLAGS="-mod=readonly" go mod vendor -v
 }
 
 build(){
-  cd ${pkgname}-${pkgver}
-  export CGO_CPPFLAGS="${CPPFLAGS}"
-  export CGO_CFLAGS="${CFLAGS}"
-  export CGO_CXXFLAGS="${CXXFLAGS}"
-  export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
-  make
+  cd $pkgname-$pkgver
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export CGO_LDFLAGS="$LDFLAGS"
+  export GOFLAGS="-buildmode=pie -mod=vendor -modcacherw -buildvcs=false"
+  export GOPATH="$srcdir"
+
+  local ld_flags="
+    -compressdwarf=false
+    -linkmode=external
+    -X main.version=$pkgver
+  "
+  go build -v -ldflags="$ld_flags" -o git-credential-gopass
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  make DESTDIR="${pkgdir}" PREFIX="/usr" install
-  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  cd $pkgname-$pkgver
+  install -vDm755 -t "$pkgdir/usr/bin" git-credential-gopass
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
