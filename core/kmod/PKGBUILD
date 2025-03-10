@@ -1,7 +1,7 @@
 # Maintainer: Dave Reisner <dreisner@archlinux.org>
 
 pkgname=kmod
-pkgver=34
+pkgver=34.1
 pkgrel=1
 pkgdesc="Linux kernel module management tools and library"
 arch=('x86_64')
@@ -17,7 +17,7 @@ source=("git+https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git#tag=v${pk
         'depmod-search.conf'
         'depmod.hook'
         'depmod.script')
-sha256sums=('9956120779aab1bcd40991cdb59843d94a77cae8b911487438640a3ccde197c4'
+sha256sums=('9e6f390b35619d068780a61607024626effedfcc509436cb42fa07153a626c92'
             '1a92bfeae870f61ce814577e69d2a147a9c0caf6aed1131243e4179241fcc4a8'
             'c11c2a0f66ea405493e8617689ca10818dc81dd1dddc19bdb220c8b2917119c1'
             '18661aa40c25580f04d2ac3f32e54c2997c0994d1c829905537b413a9d291ac6')
