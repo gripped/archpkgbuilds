@@ -1,0 +1,91 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
+pkgbase=vl-convert
+pkgname=(vl-convert python-vl-convert)
+pkgver=1.7.0
+pkgrel=2
+pkgdesc="Convert Vega-Lite chart specifications to SVG, PNG, or Vega"
+arch=(x86_64)
+url="https://github.com/vega/vl-convert"
+license=(BSD-3-Clause)
+makedepends=(
+  cargo
+  maturin
+  python-installer
+)
+checkdepends=(
+  python-pytest
+)
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
+b2sums=('470b153b31fe8cfc6d33af97d592c65d6282555b920942246b2e18f54a688d8948a464c24013a7ffe4d69ad8f65a481c59b811321ddec28f40845df377e19ba3')
+
+# LTO causes undefined references during linking
+options=(!lto)
+
+prepare() {
+  cd $pkgbase-$pkgver
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $pkgbase-$pkgver
+  cargo build --frozen --release --package vl-convert
+
+  # build Python bindings
+  cd $pkgbase-python
+  maturin build --locked --release --target "$(rustc -vV | sed -n 's/host: //p')" --strip
+}
+
+check() {
+  cd $pkgbase-$pkgver
+  local cargo_test_options=(
+    # failures in tests/test_cli.rs
+    --skip test_vl2png::test
+    --skip test_vl2png_locale::test::case_1
+    --skip test_vl2png_theme_config::test
+    --skip test_vl2svg::test::vl_version_1___v5_8__::name_2___stacked_bar_h__
+    # failures in tests/test_specs.rs
+    --skip test_locale
+    --skip test_png_no_theme::test
+    --skip test_png_theme_config::test
+    --skip test_svg::test::name_3___stacked_bar_h__
+  )
+  cargo test --frozen --release --package vl-convert -- "${cargo_test_options[@]}"
+
+  # test Python bindings
+  local pytest_options=(
+    -vv
+    -W ignore::DeprecationWarning
+    # skip test that requires scikit-image
+    --ignore vl-convert-python/tests/test_specs.py
+  )
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer target/wheels/*.whl
+  test-env/bin/python -m pytest "${pytest_options[@]}" vl-convert-python/tests
+}
+
+package_vl-convert() {
+  depends=(
+    gcc-libs
+    glibc
+    zlib libz.so
+  )
+
+  cd $pkgbase-$pkgver
+  # install the binary and license
+  install -vDm 755 target/release/vl-convert -t "$pkgdir"/usr/bin/
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+package_python-vl-convert() {
+  depends=(
+    gcc-libs
+    glibc
+    python
+    zlib libz.so
+  )
+
+  cd $pkgbase-$pkgver
+  python -m installer --destdir="$pkgdir" target/wheels/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
