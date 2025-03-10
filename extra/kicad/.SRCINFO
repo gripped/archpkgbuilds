@@ -1,7 +1,7 @@
 pkgbase = kicad
 	pkgdesc = Electronic schematic and printed circuit board (PCB) design tools
 	pkgver = 9.0.0
-	pkgrel = 1
+	pkgrel = 3
 	url = http://kicad.org/
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -11,7 +11,6 @@ pkgbase = kicad
 	makedepends = mesa
 	makedepends = boost
 	makedepends = swig
-	makedepends = protobuf
 	depends = curl
 	depends = glew
 	depends = glm
@@ -23,6 +22,7 @@ pkgbase = kicad
 	depends = unixodbc
 	depends = libgit2
 	depends = nng
+	depends = protobuf
 	optdepends = kicad-library: for footprints, symbols and templates
 	optdepends = kicad-library-3d: for 3D models of components
 	source = kicad::git+https://gitlab.com/kicad/code/kicad.git#tag=9.0.0
