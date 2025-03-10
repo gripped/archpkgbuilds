@@ -7,13 +7,16 @@
 
 pkgname=rbenv
 pkgver=1.3.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Manage your app's Ruby environment"
 arch=('any')
 url="https://github.com/rbenv/rbenv"
 license=('MIT')
 depends=('bash')
-checkdepends=('bats')
+checkdepends=(
+  'bats'
+  'git'
+)
 optdepends=('ruby-build: install Ruby versions')
 install="rbenv.install"
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
