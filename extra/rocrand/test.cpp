@@ -1,4 +1,5 @@
-#include <hiprand/hiprand.hpp>
+#include <hip/hip_runtime.h>
+#include <rocrand/rocrand.hpp>
 #include <vector>
 #include <numeric>
 #include <cmath>
@@ -9,12 +10,12 @@ int main()
     size_t size = 1024 * 1024;
     float mean = -1.24f;
     float std = 0.43f;
-    hiprandGenerator_t gen;
-    hiprandCreateGenerator(&gen, HIPRAND_RNG_PSEUDO_DEFAULT);
+    rocrand_generator gen;
+    rocrand_create_generator(&gen, ROCRAND_RNG_PSEUDO_XORWOW);
 
     float *x;
     hipMalloc((void**)&x, sizeof *x * size);
-    hiprandGenerateNormal(gen, x, size, mean, std);
+    rocrand_generate_normal(gen, x, size, mean, std);
 
     std::vector<float> x_d(size);
     hipMemcpy(x_d.data(), x, sizeof *x * size, hipMemcpyDeviceToHost);
@@ -31,6 +32,6 @@ int main()
     }
     std::cout << "TESTS PASSED!" << std::endl;
 
-    hiprandDestroyGenerator(gen);
+    rocrand_destroy_generator(gen);
     hipFree(x);
 }
