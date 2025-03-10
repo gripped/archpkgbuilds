@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 
 pkgname=hipfft
-pkgver=6.2.4
+pkgver=6.3.2
 pkgrel=1
 pkgdesc='rocFFT marshalling library.'
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'rocfft')
 makedepends=('cmake' 'rocm-cmake' 'git')
 _git='https://github.com/ROCm/hipFFT'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('308b81230498b01046f7fc3299a9e9c2c5456d80fd71a94f490ad97f51ed9de8')
+sha256sums=('5d9e662c7d67f4c814cad70476b57651df5ae6b65f371ca6dbb5aa51d9eeb6f5')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
