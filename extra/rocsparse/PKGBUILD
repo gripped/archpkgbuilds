@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 pkgname=rocsparse
-pkgver=6.2.4
+pkgver=6.3.2
 pkgrel=1
 pkgdesc='BLAS for sparse computation on top of ROCm'
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'rocprim')
 makedepends=('cmake' 'rocm-cmake' 'gcc-fortran')
 _git='https://github.com/ROCmSoftwarePlatform/rocSPARSE'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('1f86c2d439e777cd17724269da66997d351b3a1b83f44143361e9c77d80e2370')
+sha256sums=('665a85517d50e5ef37b1f953ccb17108d6a5cb30db21c5364bd50a41d44c61f2')
 # Disable default build flags and use release mode as otherwise the linker step
 # fails. The symbol offset size reaches the 32 bit integer limits.
 options=(!lto !buildflags)
