@@ -4,7 +4,7 @@
 
 _srcname=SPIRV-LLVM-Translator
 pkgname=lib32-${_srcname,,}
-pkgver=19.1.4
+pkgver=19.1.5
 pkgrel=1
 pkgdesc="Tool and a library for bi-directional translation between SPIR-V and LLVM IR (32-bit)"
 arch=(x86_64)
@@ -13,7 +13,7 @@ license=(LicenseRef-custom)
 depends=(lib32-llvm-libs lib32-spirv-tools ${pkgname#lib32-})
 makedepends=(git cmake llvm lib32-llvm spirv-headers)
 source=(git+${url}.git#tag=v$pkgver)
-sha256sums=('26b279c375e2b5908717cb5adb594198a58ff2197f8f9bf0c3c4f25e73302be3')
+sha256sums=('4ed545646c92358501fd5a616e84f2c5dd905f293a41a58e4bacd6cb1b63e3bc')
 
 pkgver() {
   git -C ${_srcname} describe --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./;s/-/+/'
