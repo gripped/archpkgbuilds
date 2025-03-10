@@ -1,10 +1,10 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 
 pkgname=argocd
-pkgver=2.13.1
+pkgver=2.14.4
 # find matching argo-ui commit via ui/yarn.lock
 # commit id also needs to be updated in argo-ui.patch
-_argoui_commit=4836620cfc729d7c732b9b562fc4c03051e9598a
+_argoui_commit=5cf36101733ce43eed57242a12389f2a7e40bd2b
 pkgrel=1
 pkgdesc="Declarative continuous deployment for Kubernetes"
 arch=('x86_64')
@@ -17,9 +17,9 @@ replaces=('argocd-cli')
 source=("argo-cd-${pkgver}.tar.gz::https://github.com/argoproj/argo-cd/archive/v${pkgver}.tar.gz"
         "argo-ui-${_argoui_commit}.tar.gz::https://github.com/argoproj/argo-ui/archive/${_argoui_commit}.tar.gz"
         "argo-ui.patch")
-sha512sums=('85c4c4059c324960513a52002f6fb3cde8b4b496b34eea8009b6c3d336c93f74985084803bf0fa1a2b1b2fdddd3784acd60a1b8f4b473871a9f80b6de4d4bca7'
-            '5ad27a2f1f460d6cbdf2b6d5fc1c35497951ead5b1251ad1cbad771ab267e09b8815a838fae538f35c5417b3f6b3ac6429cfe2a1fc59d4dfd91b53d6380ce134'
-            '630518871a74b070eacad2401e50f4741b0296237e4b6882d0193b6f44b1a4a0c936934738f66f5a88a488366df5e2ed7283e19f3fcdafc1736b48f8233e9583')
+sha512sums=('b4f37aa7a929215c38462fcb75f629af4136435d837ce49b52e90c572bf7b76dc65cfbf489bd218e0c29227be0653413b53075e2acf28941da1d1ee68f70c36c'
+            '81fa3cca8c20d57330867a3d7ba0fb579a23fb898be53a8947d6466f3aa909579c75b0c70dd0beb21993e2f7ccc05c62248b20a4334111066801ff094742e20d'
+            '4bf8c4b4d7b9b828968cfa501b2ab50747d0aaf9d3909538b25ede0c85d778aa4e8fe06fa12f8b94316fe1161aab531a6b26a2dab249c5cad97737172336a259')
 
 prepare() {
   cd "argo-cd-$pkgver"
