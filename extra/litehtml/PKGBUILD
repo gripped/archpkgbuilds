@@ -2,7 +2,7 @@
 
 pkgname=litehtml
 pkgver=0.9
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast and lightweight HTML/CSS rendering engine'
 url='http://www.litehtml.com/'
 arch=(x86_64)
