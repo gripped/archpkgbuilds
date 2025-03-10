@@ -1,14 +1,16 @@
 pkgbase = tinyxml2
 	pkgdesc = Simple XML parser made for easy integration
-	pkgver = 10.0.0
+	pkgver = 10.1.0
 	pkgrel = 1
 	url = https://github.com/leethomason/tinyxml2
 	arch = x86_64
-	license = custom:zlib
+	license = LicenseRef-zlib
+	makedepends = git
 	makedepends = cmake
 	depends = glibc
 	depends = gcc-libs
-	source = tinyxml2-10.0.0.tar.gz::https://github.com/leethomason/tinyxml2/archive/10.0.0.tar.gz
-	sha256sums = 3bdf15128ba16686e69bce256cc468e76c7b94ff2c7f391cc5ec09e40bff3839
+	source = tinyxml2::git+https://github.com/leethomason/tinyxml2#tag=10.1.0
+	sha512sums = 10f6f0241378746ab00ffaca4edc9c75d3975d57e93fbf1b62b216cd72e5e5ebfcde551155cbcf3e821d685529c958db9d8373b298c1a6de4271b7fb16a61d1a
+	b2sums = 23bb925f6683d54418d81b3aae92af8bdf0fd6f82aadaa3a82ccacf3eb1daa61d2d01cfecad01193307bdded6eb1410ae16712cd609e949eadf722595e95a5f5
 
 pkgname = tinyxml2
