@@ -1,21 +1,22 @@
 pkgbase = pkgfile
-	pkgdesc = alpm .files metadata explorer
-	pkgver = 22
+	pkgdesc = A tool to search for files in official repository packages
+	pkgver = 24
 	pkgrel = 1
-	url = https://github.com/falconindy/pkgfile
+	url = https://github.com/falconindy/pkgfile/
 	install = pkgfile.install
 	arch = x86_64
 	license = MIT
-	makedepends = clang
 	makedepends = git
 	makedepends = meson
-	makedepends = systemd
 	depends = curl
+	depends = gcc-libs
+	depends = glibc
 	depends = libarchive
 	depends = pacman
 	depends = pcre
-	source = git+https://github.com/falconindy/pkgfile.git#tag=v22?signed
+	depends = systemd-libs
+	source = git+https://github.com/falconindy/pkgfile.git#tag=v24?signed
 	validpgpkeys = 487EACC08557AD082088DABA1EB2638FF56C0C53
-	b2sums = 2332b2b7f198f4e0021f24b0f2ad44e253dcf711d97d60e14f246993b42fd38079ba1117bebea2441572379847af0526fdf58ed20cb601f37eea3d4d79734ab1
+	sha256sums = 0a02f98d7b4fd516065757e4942c7d2490104a044e31306f7f4b259db8ba36b3
 
 pkgname = pkgfile
