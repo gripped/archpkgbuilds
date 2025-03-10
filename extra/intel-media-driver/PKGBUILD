@@ -2,22 +2,16 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=intel-media-driver
-pkgver=24.4.4
-pkgrel=2
+pkgver=25.1.2
+pkgrel=1
 pkgdesc="Intel Media Driver for VAAPI — Broadwell+ iGPUs"
 arch=(x86_64)
 url="https://github.com/intel/media-driver/"
 license=(MIT BSD-3-Clause)
 depends=(gcc-libs intel-gmmlib libva)
 makedepends=(cmake)
-source=(${url}/archive/${pkgname%-*}-${pkgver}.tar.gz
-       '010-intel-media-driver-fix-segfault-in-newer-gpus.patch'::'https://github.com/intel/media-driver/commit/7faa3bfe1a4cb79180eae64ccb426af5102f11e3.patch')
-sha256sums=('3000723faf4dc56eb8276f402c4aa798459bbce860b408a0c480d863b28130ed'
-            'fec5c3b6671c4345b6c280b02851bd3ba1e35321e87673b305e9a1afff5f3b6a')
-
-prepare() {
-    patch -d ${pkgname#*-}-${pkgname%-*}-${pkgver} -Np1 -i "${srcdir}/010-intel-media-driver-fix-segfault-in-newer-gpus.patch"
-}
+source=(${url}/archive/${pkgname%-*}-${pkgver}.tar.gz)
+sha256sums=('6c11cfe1b9012011d0354b010d191a527fa3a4086152726ba642ca51808029bb')
 
 build() {
   cmake -B build -S ${pkgname#*-}-${pkgname%-*}-${pkgver} \
