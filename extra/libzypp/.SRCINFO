@@ -1,19 +1,37 @@
 pkgbase = libzypp
 	pkgdesc = ZYpp Package Management library
-	pkgver = 17.36.3
+	pkgver = 17.36.4
 	pkgrel = 1
 	url = https://github.com/openSUSE/libzypp
 	arch = x86_64
 	license = GPL-2.0-or-later
 	makedepends = asciidoctor
 	makedepends = boost
+	makedepends = boost-libs
 	makedepends = cmake
+	makedepends = curl
 	makedepends = doxygen
 	makedepends = fcgi
+	makedepends = gcc-libs
 	makedepends = git
+	makedepends = glib2
+	makedepends = glibc
+	makedepends = gpgme
 	makedepends = libproxy
+	makedepends = libsigc++
+	makedepends = libsolv
+	makedepends = libxml2
 	makedepends = nginx
+	makedepends = openssl
+	makedepends = rpm-tools
+	makedepends = systemd-libs
 	makedepends = vsftpd
+	makedepends = yaml-cpp
+	makedepends = zlib
+	source = git+https://github.com/openSUSE/libzypp.git#tag=17.36.4
+	sha256sums = a8769bea1c8f332b760fa83e14a4f417788235ff2b10a1d6905605559683bbe4
+
+pkgname = libzypp
 	depends = boost-libs
 	depends = curl
 	depends = gcc-libs
@@ -28,7 +46,7 @@ pkgbase = libzypp
 	depends = systemd-libs
 	depends = yaml-cpp
 	depends = zlib
-	source = git+https://github.com/openSUSE/libzypp.git#tag=17.36.3
-	sha256sums = 9569fbcb886b7619da938cf2bf15c71dfe193c735dd327080465309e71200f82
+	optdepends = libzypp-docs: for documentation
 
-pkgname = libzypp
+pkgname = libzypp-docs
+	pkgdesc = ZYpp Package Management library - documentation

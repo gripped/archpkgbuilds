@@ -1,38 +1,40 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
-pkgname=libzypp
-pkgver=17.36.3
+pkgbase=libzypp
+pkgname=(
+    libzypp
+    libzypp-docs
+)
+pkgver=17.36.4
 pkgrel=1
 pkgdesc="ZYpp Package Management library"
 arch=(x86_64)
 url="https://github.com/openSUSE/libzypp"
 license=('GPL-2.0-or-later')
-depends=(
-    boost-libs
-    curl
-    gcc-libs
-    glib2
-    glibc
-    gpgme
-    libsigc++
-    libsolv
-    libxml2
-    openssl
-    rpm-tools
-    systemd-libs
-    yaml-cpp
-    zlib
-)
 makedepends=(
     asciidoctor
     boost
+    boost-libs
     cmake
+    curl
     doxygen
     fcgi
+    gcc-libs
     git
+    glib2
+    glibc
+    gpgme
     libproxy
+    libsigc++
+    libsolv
+    libxml2
     nginx
+    openssl
+    rpm-tools
+    systemd-libs
     vsftpd
+    yaml-cpp
+    zlib
 )
 # just needed for the mediabackend tests which don't seem to work in nspawn
 # checkdepends=(
@@ -40,12 +42,7 @@ makedepends=(
 #     vsftpd
 # )
 source=("git+https://github.com/openSUSE/libzypp.git#tag=${pkgver}")
-sha256sums=('9569fbcb886b7619da938cf2bf15c71dfe193c735dd327080465309e71200f82')
-
-prepare() {
-    cd $pkgname
-    git cherry-pick -n 35d728621dbea40c481cce5a6c82ce05d383ff3f
-}
+sha256sums=('a8769bea1c8f332b760fa83e14a4f417788235ff2b10a1d6905605559683bbe4')
 
 build() {
     local cmake_options=(
@@ -80,10 +77,38 @@ check() {
     ctest "${ctest_flags[@]}"
 }
 
-package() {
+package_libzypp() {
+    depends=(
+        boost-libs
+        curl
+        gcc-libs
+        glib2
+        glibc
+        gpgme
+        libsigc++
+        libsolv
+        libxml2
+        openssl
+        rpm-tools
+        systemd-libs
+        yaml-cpp
+        zlib
+    )
+    optdepends=(
+        'libzypp-docs: for documentation'
+    )
+
+
     DESTDIR="$pkgdir" cmake --install build
 
-    # remove reference to /usr/libexec
+    # remove reference to /usr/libexec and remove docs
     mv -v "$pkgdir/usr/libexec/zypp/" "$pkgdir/usr/lib/"
-    rm -vr "$pkgdir/usr/libexec/"
+    rm -vr "$pkgdir/usr/libexec/" "$pkgdir/usr/share/doc/"
+}
+
+package_libzypp-docs() {
+    pkgdesc+=" - documentation"
+
+    install -vdm 755 "$pkgdir/usr/share/doc/$pkgbase/html/"
+    cp -av build/doc/* "$pkgdir/usr/share/doc/$pkgbase/html/"
 }
