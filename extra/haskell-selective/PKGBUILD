@@ -2,8 +2,8 @@
 
 _hkgname=selective
 pkgname=haskell-selective
-pkgver=0.6
-pkgrel=18
+pkgver=0.7
+pkgrel=1
 pkgdesc="Selective applicative functors"
 url="https://github.com/snowleopard/selective"
 license=('MIT')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('5bdbae8b73fed8a2d4f7bff592a31f3406eed3019910a31ff1f95b01b99e005d5581dfedb9d4fbbc1fcfd40782c50edfb4734dc5774fc9b21da075a0ac406226')
+sha512sums=('ca0a4f6ef2ee45ce915d2a0f258cd5198d5c5ea1d0cde12c95b5fa882c7ffdb6921e7319507e60596d6c169ab2d1166ccbfcc44550f23e79dae379df601508e2')
 
 prepare() {
     cd $_hkgname-$pkgver
