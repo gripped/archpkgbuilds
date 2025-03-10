@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=msolve
-pkgver=0.7.3
+pkgver=0.7.4
 pkgrel=1
 pkgdesc='Library for polynomial system solving through algebraic methods'
 url='https://msolve.lip6.fr/'
@@ -13,7 +13,7 @@ depends=(flint
          gmp)
 makedepends=(git)
 source=(git+https://github.com/algebraic-solving/msolve#tag=v$pkgver)
-sha256sums=('4f9b09817260655dfc08ee5173c548a99dc811dcc254a24442c4afd434c8a02f')
+sha256sums=('ed832f9acae117993d755960472e5322972b97a73e2450957d6c2a97318e5577')
 
 prepare() {
   cd $pkgname
