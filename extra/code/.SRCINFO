@@ -1,6 +1,6 @@
 pkgbase = code
 	pkgdesc = The Open Source build of Visual Studio Code (vscode) editor
-	pkgver = 1.97.2
+	pkgver = 1.98.0
 	pkgrel = 1
 	url = https://github.com/microsoft/vscode
 	arch = x86_64
@@ -13,7 +13,7 @@ pkgbase = code
 	makedepends = desktop-file-utils
 	makedepends = zip
 	makedepends = jq
-	depends = electron32
+	depends = electron34
 	depends = libsecret
 	depends = libx11
 	depends = libxkbfile
@@ -22,12 +22,12 @@ pkgbase = code
 	optdepends = zsh-completions: ZSH completitons
 	optdepends = x11-ssh-askpass: SSH authentication
 	provides = vscode
-	source = vscode::git+https://github.com/microsoft/vscode.git#tag=1.97.2
+	source = vscode::git+https://github.com/microsoft/vscode.git#tag=1.98.0
 	source = code.mjs
 	source = code.sh
 	source = product_json.diff
 	source = clipath.patch
-	sha512sums = 25edb1985d3633f3b71a66e3f534d88ca20fd74aee43602d698307ef5e64cc8db770a5e02cf50078befefbf3208a1ef30e0242dc847d98c96ad5cf72b5ff8b1c
+	sha512sums = 4dd286591e7c0f78762aa9d9fe456218ab46797db1ce2dff7ebd94641d305e01aaaae24ce03685ff6fe1288084a4cd98bcda90ec971457fca48101a75c557158
 	sha512sums = 793f9ff6306e3992ac89802d98110cba288ea1181a901467333293b7d76182ef9792c2a39ff49d9347a18a174b1f42bc58862091dff583f4146c2704eea28033
 	sha512sums = d2b3683085d98744ba4f7d8cb33fa38620b59220797917c3858cac6a0bf7962c2b7e293785a237f178e527384cc04bc19fe71d75f04fbf06be881263d4aa2b35
 	sha512sums = b1aa0d7c5b3e3e8ba1172822d75ea38e90efc431b270e0b4ca9e45bf9c0be0f60922c8618969ef071b5b6dbd9ac9f030294f1bf49bcc28c187b46d113dca63a7
