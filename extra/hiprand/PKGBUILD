@@ -1,6 +1,6 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 pkgname=hiprand
-pkgver=6.2.4
+pkgver=6.3.2
 pkgrel=1
 pkgdesc='rocRAND marshalling library'
 arch=('x86_64')
@@ -12,7 +12,7 @@ optdepends=('gcc-fortran: Use Fortran wrapper')
 _git='https://github.com/ROCm/hipRAND'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
         "$pkgname-rocm-bin-path.patch")
-sha256sums=('b6010f5e0c63a139acd92197cc1c0d64a428f7a0ad661bce0cd1e553ad6fd6eb'
+sha256sums=('0a08ed7554c161b095c866cd5e6f0d63cdf063e5b3c1183afa6ac18bad94a575'
             '144fb5162222d81559e847d31226f7b56215fa558a549c8be534cfba3fbca241')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
