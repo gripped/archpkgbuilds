@@ -1,0 +1,24 @@
+pkgbase = amdsmi
+	pkgdesc = AMD System Management Interface library
+	pkgver = 6.3.2
+	pkgrel = 1
+	url = https://rocm.docs.amd.com/projects/amdsmi/en/latest/
+	arch = x86_64
+	license = MIT
+	license = NCSA
+	makedepends = cmake
+	makedepends = python-wheel
+	makedepends = python-setuptools
+	depends = rocm-core
+	depends = glibc
+	depends = gcc-libs
+	depends = libdrm
+	depends = python
+	depends = python-yaml
+	options = !lto
+	source = amdsmi-6.3.2.tar.gz::https://github.com/ROCm/amdsmi/archive/rocm-6.3.2.tar.gz
+	source = amdsmi-esmi-6.3.2.tar.gz::https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ver-3.0.3.tar.gz
+	sha256sums = 1ed452eedfe51ac6e615d7bfe0bd7a0614f21113874ae3cbea7df72343cc2d13
+	sha256sums = f9467b60d08dcc5ea54b6db425f757e60161a144cf5ba3006d5d50d6a653c039
+
+pkgname = amdsmi

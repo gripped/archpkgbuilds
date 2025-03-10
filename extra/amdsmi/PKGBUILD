@@ -1,0 +1,46 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+
+pkgname=amdsmi
+pkgver=6.3.2
+pkgrel=1
+pkgdesc='AMD System Management Interface library'
+arch=('x86_64')
+url='https://rocm.docs.amd.com/projects/amdsmi/en/latest/'
+license=('MIT' 'NCSA')
+depends=('rocm-core' 'glibc' 'gcc-libs' 'libdrm' 'python' 'python-yaml')
+makedepends=('cmake' 'python-wheel' 'python-setuptools')
+_git='https://github.com/ROCm/amdsmi'
+_esmi='https://github.com/amd/esmi_ib_library'
+_esmi_ver=3.0.3
+source=(
+  "$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
+  "$pkgname-esmi-$pkgver.tar.gz::$_esmi/archive/refs/tags/esmi_pkg_ver-$_esmi_ver.tar.gz"
+)
+sha256sums=('1ed452eedfe51ac6e615d7bfe0bd7a0614f21113874ae3cbea7df72343cc2d13'
+            'f9467b60d08dcc5ea54b6db425f757e60161a144cf5ba3006d5d50d6a653c039')
+options=(!lto)
+_dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
+_esminame="$(basename "$_esmi")-$(basename "${source[1]}" .tar.gz)"
+
+prepare() {
+  mv "$_esminame" "$_dirname/esmi_ib_library"
+}
+
+build() {
+  local cmake_args=(
+    -Wno-dev
+    -S "$_dirname"
+    -B build
+    -D CMAKE_INSTALL_PREFIX=/opt/rocm
+    -D CMAKE_BUILD_TYPE=None
+    -D BUILD_TESTS=OFF
+  )
+  cmake "${cmake_args[@]}"
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 "$srcdir/$_dirname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$srcdir/$_dirname/esmi_ib_library/License.txt" "$pkgdir/usr/share/licenses/$pkgname/esmi_ib_LICENSE"
+}
