@@ -3,8 +3,8 @@
 
 _hkgname=vty
 pkgname=haskell-vty
-pkgver=6.0
-pkgrel=1
+pkgver=6.1
+pkgrel=3
 pkgdesc="A simple terminal UI library"
 url="https://github.com/jtdaugherty/vty"
 license=("BSD")
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-blaze-builder' 'haskell-microlens' 'haskell-microle
          'haskell-microlens-th' 'haskell-utf8-string' 'haskell-vector')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('2183a7a73ddffb37ea4199deebc9c0a646d994d8013095b731959aa8925d243b9303136b2c49477af25268d73737d577e7b0d00a42d54e5daddb2df528a32f56')
+sha512sums=('68e5c2d19354cab8917149f2e0bf6619edb869ccfeaf579aa972e41006e93db2c4c084bcd8f73623b838a97132b8936e4c86eae5f255782ece3cf26e2cfa669a')
 
 build() {
     cd $_hkgname-$pkgver
