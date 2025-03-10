@@ -1,0 +1,28 @@
+pkgbase = sonic
+	pkgdesc = Fast, lightweight & schema-less search backend
+	pkgver = 1.4.9
+	pkgrel = 1
+	url = https://github.com/valeriansaliou/sonic
+	arch = x86_64
+	license = MPL-2.0
+	makedepends = git
+	makedepends = rust
+	makedepends = clang
+	makedepends = llvm
+	depends = gcc-libs
+	options = !lto
+	backup = etc/sonic.cfg
+	source = sonic::git+https://github.com/valeriansaliou/sonic.git#tag=v1.4.9
+	source = systemd.service
+	source = sysusers.conf
+	source = tmpfiles.conf
+	sha512sums = f40cf1e29d8e9f4cc26296b1c20c7a89c1d7e0f393c9ad0e6f75a2e54ac3c5f1f8c2901ef8c5cbed4609ce333cf4107e967b1c3deca3a41c5bcf530e4c2db138
+	sha512sums = f623f4076210f5387d3b3b6e61e0d45323a5d9fbc139a3a658d3f8c317cbf863976e0e9c604eb1f03ca42f2f339d733382961b2b73d33464ec8154d8a9e18475
+	sha512sums = 93ab53db89436c0e2e9550c35872a470e7aa63b3fdbd969f4ecaa7a1c18f5270049165800e770d1db2d34fc729d34af825e7f14e0d6118dfe340c421cc62148f
+	sha512sums = 62b0bb63ba2eda59d530b38aeaf581f5b5fc5187c4615694be9e4a7e38dcb5ed55367b461ac483ab3d6c931d1754b980c8e48b5518388b8476437d988956883b
+	b2sums = 13e2c1480500171f5abb16d8ac61f98eca7d49666312ded07683f5b250f02ea65ff38f85b2e70fcda03dfe3f762d13767d018b254e3eae96ddce468d4b372fea
+	b2sums = f4e605968aa9cc8a5dccf98c60bbce77502e7bcba74f7d3d7ffbe6fedd7e7ac21006837d7c99cba0bf2dfc50a58fc78744861d16aa902dadbbb367ec26d7e0be
+	b2sums = b3b30518c32a0caf2b605595535ab8c39f3077b93525f5db6f17f5d8951bd5d5f088a0bb21bab44891736e17936291d5153a846533a6d65eb34cfd6a24e41c7f
+	b2sums = ea9795c42003660522d89156eced726bc7db686ef8545bc57504e55341982be2e2336e9d872ce17d5c1607e0cd98e9a2f28f5836bd60b56e510ec5fd59c77143
+
+pkgname = sonic
