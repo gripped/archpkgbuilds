@@ -1,17 +1,21 @@
 pkgbase = dconf-editor
 	pkgdesc = GSettings editor for GNOME
 	pkgver = 45.0.1
-	pkgrel = 1
-	url = https://wiki.gnome.org/Apps/DconfEditor
+	pkgrel = 2
+	url = https://apps.gnome.org/DconfEditor/
 	arch = x86_64
 	groups = gnome-extra
-	license = GPL3
+	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = meson
 	makedepends = vala
 	depends = dconf
+	depends = glib2
+	depends = glibc
+	depends = gtk3
+	depends = hicolor-icon-theme
 	depends = libhandy
-	source = git+https://gitlab.gnome.org/GNOME/dconf-editor.git#commit=e9e1b3a8d292e0e49d884f5f498534202306af90
-	b2sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/dconf-editor.git#tag=45.0.1
+	b2sums = cd74f1f5736469c2799b6688fdd4669374354cbceaa25717aa4c4dd98f4c2ab631ff94a82ac2fdac41535372ae85c5fc70498594e44f5ece3830f0faf1e0a888
 
 pkgname = dconf-editor

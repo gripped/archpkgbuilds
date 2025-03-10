@@ -3,13 +3,17 @@
 
 pkgname=dconf-editor
 pkgver=45.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="GSettings editor for GNOME"
-url="https://wiki.gnome.org/Apps/DconfEditor"
+url="https://apps.gnome.org/DconfEditor/"
 arch=(x86_64)
-license=(GPL3)
+license=(GPL-3.0-or-later)
 depends=(
   dconf
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
   libhandy
 )
 makedepends=(
@@ -18,14 +22,8 @@ makedepends=(
   vala
 )
 groups=(gnome-extra)
-_commit=e9e1b3a8d292e0e49d884f5f498534202306af90  # tags/45.0.1^0
-source=("git+https://gitlab.gnome.org/GNOME/dconf-editor.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/dconf-editor.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('cd74f1f5736469c2799b6688fdd4669374354cbceaa25717aa4c4dd98f4c2ab631ff94a82ac2fdac41535372ae85c5fc70498594e44f5ece3830f0faf1e0a888')
 
 prepare() {
   cd $pkgname
