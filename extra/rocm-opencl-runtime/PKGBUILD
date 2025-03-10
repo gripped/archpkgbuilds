@@ -3,19 +3,19 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=rocm-opencl-runtime
-pkgver=6.2.4
+pkgver=6.3.2
 pkgrel=1
 pkgdesc='OpenCL implementation for AMD'
 arch=('x86_64')
 url='https://github.com/ROCm/clr'
 license=('MIT')
-depends=('rocm-core' 'hsakmt-roct' 'hsa-rocr' 'comgr' 'mesa'
+depends=('rocm-core' 'hsa-rocr' 'comgr' 'mesa'
          'glibc' 'gcc-libs' 'numactl'
          'opencl-icd-loader' 'opencl-headers')
 makedepends=('rocm-cmake')
 provides=('opencl-driver')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('0a3164af7f997a4111ade634152957378861b95ee72d7060eb01c86c87208c54')
+sha256sums=('ec13dc4ffe212beee22171cb2825d2b16cdce103c835adddb482b9238cf4f050')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
 
 build() {

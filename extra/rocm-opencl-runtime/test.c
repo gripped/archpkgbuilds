@@ -14,6 +14,7 @@ static const char *kernel_source="\n"
 "   }\n"
 "}\n";
 
+#define MAX_PLATFORMS 256
 int main(int argc, char *argv[])
 {
     size_t n = 1024;
@@ -23,9 +24,9 @@ int main(int argc, char *argv[])
         xin[i] = -1.0f + 2.0f * i / n;
     }
 
-    cl_platform_id platform_id;
+    cl_platform_id platform_id[MAX_PLATFORMS];
     cl_uint n_platforms;
-	cl_int err = clGetPlatformIDs(1,&platform_id, &n_platforms);
+	cl_int err = clGetPlatformIDs(MAX_PLATFORMS, &platform_id[0], &n_platforms);
     if(err != CL_SUCCESS){
         fprintf(stderr, "Unable to get platforms\n");
         return 1;
@@ -33,7 +34,15 @@ int main(int argc, char *argv[])
 
     cl_device_id device_id;
     cl_uint n_devs;
-	err = clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_GPU, 1, &device_id, &n_devs);
+    
+    cl_platform_id gpu;
+    for(int i = 0; i < n_platforms; i++){
+    	err = clGetDeviceIDs(platform_id[i], CL_DEVICE_TYPE_GPU, 1, &device_id, &n_devs);
+    	if(err == CL_SUCCESS){
+    	    gpu = platform_id[i];
+    	    break;
+    	}
+    }
     if(err != CL_SUCCESS){
         fprintf(stderr, "Unable to get device id\n");
         return 1;
@@ -41,7 +50,7 @@ int main(int argc, char *argv[])
 
     cl_context_properties properties[3];
 	properties[0] = CL_CONTEXT_PLATFORM;
-	properties[1] = (cl_context_properties) platform_id;
+	properties[1] = (cl_context_properties) gpu;
 	properties[2] = 0;
 
 	cl_context context = clCreateContext(properties, 1, &device_id, NULL, NULL, &err);
