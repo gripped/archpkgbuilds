@@ -1,11 +1,13 @@
 pkgbase = krita-plugin-gmic
 	pkgdesc = GMic plugin for Krita
-	pkgver = 3.2.4.1
-	pkgrel = 5
-	url = https://github.com/amyspark/gmic
+	pkgver = 3.5.3.0
+	pkgrel = 1
+	url = https://krita.org/
 	arch = x86_64
-	license = custom:CeCILL
+	license = CECILL-2.1
+	license = CECILL-C
 	makedepends = extra-cmake-modules
+	makedepends = git
 	makedepends = qt5-tools
 	depends = fftw
 	depends = gcc-libs
@@ -16,10 +18,7 @@ pkgbase = krita-plugin-gmic
 	depends = libx11
 	depends = qt5-base
 	depends = zlib
-	source = https://github.com/amyspark/gmic/releases/download/v3.2.4.1/gmic-3.2.4.1-patched.tar.xz
-	source = https://github.com/amyspark/gmic/releases/download/v3.2.4.1/gmic-3.2.4.1-patched.tar.xz.asc
-	validpgpkeys = 4894424D2412FEE5176732A3FC00108CFD9DBF1E
-	sha256sums = 06659fe05f7735827a93d637de2267512efb28bb0d55ce573495fecb59172604
-	sha256sums = SKIP
+	source = gmic-krita::git+https://github.com/vanyossi/gmic#tag=v3.5.3.0
+	sha256sums = 36d989d3a42c8a974b856dae7284831047a4ac2d1f42536e4002017e5dfc4f20
 
 pkgname = krita-plugin-gmic
