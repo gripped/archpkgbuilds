@@ -5,8 +5,8 @@
 pkgbase=qca
 pkgname=(qca-qt5
          qca-qt6)
-pkgver=2.3.9
-pkgrel=4
+pkgver=2.3.10
+pkgrel=1
 pkgdesc='Qt Cryptographic Architecture'
 arch=(x86_64)
 url='https://userbase.kde.org/QCA'
@@ -31,7 +31,7 @@ makedepends=(botan
              qt6-base
              qt6-5compat)
 source=(https://download.kde.org/stable/$pkgbase/$pkgver/$pkgbase-$pkgver.tar.xz{,.sig})
-sha256sums=('c555d5298cdd7b6bafe2b1f96106f30cfa543a23d459d50c8a91eac33c476e4e'
+sha256sums=('1c5b722da93d559365719226bb121c726ec3c0dc4c67dea34f1e50e4e0d14a02'
             'SKIP')
 validpgpkeys=(CB9387521E1EE0127DA804843FDBB55084CC5D84) # Harald Sitter <sitter@kde.org>
 
