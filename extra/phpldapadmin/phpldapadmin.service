@@ -1,0 +1,12 @@
+[Unit]
+Description=phpLDAPadmin
+After=network.target
+
+[Service]
+Type=simple
+User=http
+WorkingDirectory=/usr/share/webapps/phpldapadmin
+ExecStart=/usr/share/webapps/phpldapadmin/artisan --host=127.0.0.1 serve
+
+[Install]
+WantedBy=multi-user.target

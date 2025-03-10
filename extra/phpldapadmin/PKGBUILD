@@ -1,40 +1,67 @@
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=phpldapadmin
-pkgver=1.2.6.7
+pkgver=2.0.1
 pkgrel=1
 pkgdesc="A PHP and hence web-based tool to administrate LDAP over the WWW"
 arch=('any')
 url="https://github.com/leenooks/phpLDAPadmin"
 license=('GPL')
 depends=('libldap' 'php')
-makedepends=('optipng')
-backup=("etc/webapps/phpldapadmin/config.php")
-source=($pkgname-$pkgver.tar.gz::https://github.com/leenooks/phpLDAPadmin/archive/$pkgver.tar.gz
-	disable-mcrypt.patch
-	sort-in-templates.patch
-	more-php8-fixes.patch)
-sha256sums=('dde104aca695e18b0615859ae96177cdcb8a3294aee8d1d47a0b828af939679d'
-            'b31774abab4dd603ec9acbeda49adb188890173ee93042a811b5724e01edd837'
-            'fc2d4bdf4d43a90aa541fe20eeed494caa339eacf3f08b06539efcdbacc3578f'
-            '57e52f6a78c13ac231bc667932f2cde3d6d9dfa17b7011fb1ab6ab2ce0b966c1')
+makedepends=('optipng' 'git' 'npm' 'composer')
+backup=("etc/phpldapadmin/env")
+source=("$pkgname-$pkgver.tar.gz::https://github.com/leenooks/phpLDAPadmin/archive/refs/tags/$pkgver.tar.gz"
+	"phpldapadmin.service")
+sha256sums=('1e89969d03f0378eaf2cd0c17dd8192e079ffa62942fcb629517b3f1415641f6'
+            '0887bf62f9b1b59133b12110150e4e9de22253cc3fa0c2a7c3d47b577b866b85')
 
 prepare() {
-  cd "$srcdir"/phpLDAPadmin-${pkgver}/
-  find -type f -name '*.png' -exec optipng -quiet -force -fix {} \;
-  patch -p1 -i "$srcdir"/disable-mcrypt.patch
-  patch -p1 -i "$srcdir"/sort-in-templates.patch
-  patch -p1 -i "$srcdir"/more-php8-fixes.patch
-  find -type f -name '*.orig' -exec rm -f {} \;
+  cd "$srcdir"/phpLDAPadmin-$pkgver/
+  rm -rf \
+    .gitea \
+    .github \
+    docker \
+    tests
+  rm -f \
+    .gitattributes \
+    .dockerignore
+  find . -type f -name .gitignore -delete
+}
+
+build() {
+  cd "$srcdir"/phpLDAPadmin-$pkgver/
+  composer install --ignore-platform-reqs -n
+  npm install
+  npm run prod
+  rm -rf \
+    node_modules
+  rm -f \
+    package.json \
+    package-lock.json \
+    phpunit.xml
 }
 
 package() {
   _instdir="$pkgdir"/usr/share/webapps/phpldapadmin
   mkdir -p ${_instdir} "$pkgdir"/etc/webapps/phpldapadmin
   cd ${_instdir}
+  cp -ra "$srcdir"/phpLDAPadmin-$pkgver/* .
 
-  cp -ra "$srcdir"/phpLDAPadmin-${pkgver}/* .
+  install -Dm0644 "$srcdir"/phpldapadmin.service "$pkgdir"/usr/lib/systemd/system/phpldapadmin.service
 
-  ln -s /etc/webapps/phpldapadmin/config.php ${_instdir}/config/config.php
-  cp ${_instdir}/config/config.php.example "$pkgdir"/etc/webapps/phpldapadmin/config.php
+  # fix dirs
+  install -dm0755 "$pkgdir"/var/{cache,lib} "$pkgdir"/etc/phpldapadmin
+
+  mv ./database "$pkgdir"/var/lib/phpldapadmin
+  ln -s /var/lib/phpldapadmin ./database
+
+  mv ./storage "$pkgdir"/var/cache/phpldapadmin
+  ln -s /var/cache/phpldapadmin ./storage
+
+  mv "$srcdir"/phpLDAPadmin-$pkgver/.env.testing "$pkgdir"/etc/phpldapadmin/env.testing
+  cp "$srcdir"/phpLDAPadmin-$pkgver/.env.example "$pkgdir"/etc/phpldapadmin/env
+  mv "$srcdir"/phpLDAPadmin-$pkgver/.env.example "$pkgdir"/etc/phpldapadmin/env.example
+  ln -s /etc/phpldapadmin/env ./.env
+
+  chown -R http:http "$pkgdir"/var/{cache,lib}/phpldapadmin
 }
