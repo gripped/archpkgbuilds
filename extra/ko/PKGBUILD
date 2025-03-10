@@ -1,7 +1,7 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 
 pkgname=ko
-pkgver=0.15.1
+pkgver=0.17.1
 pkgrel=1
 pkgdesc="Build and deploy Go applications on Kubernetes"
 arch=('x86_64')
@@ -10,8 +10,8 @@ license=('Apache')
 makedepends=('go' 'git')
 depends=('glibc')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/google/ko/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('0fac42224a124b2c86125e2a33e01d2903cc0ec268a5b6814daf0259864fa269f9a1e9fc78ac66b19d20480503b9ae204163737c9030ba9fca7d165ee4b69c9f')
-b2sums=('92170edf3c859ee9a9be365cec25e2ae57a6d4e5bfb779ae5557e872c04e1c606719e6fbd9e2f06dbe43156354ab54cc9564ee6dcb683794cc3fce59ae6963a5')
+sha512sums=('4c11b37301296562e739acc0342d0da5e5882d1c7e607a65f8d1fbf0d24b08e4d0adb287050760be9e9b5ba2687fe819e1d923160886e477cf05510cd0a1c1f1')
+b2sums=('766ed311069684539aa4753bb55c7fff22c23bd14c9d5566391b470b4ff5cbfae4797bf3f8b31193896eeaa5cf714628549b0c500035332f0959997ce8ac9f59')
 
 build() {
   cd "${pkgname}-${pkgver}"
