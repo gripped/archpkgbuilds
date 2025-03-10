@@ -1,0 +1,35 @@
+pkgname=incus-ui
+pkgver=0.15.0
+pkgrel=1
+pkgdesc="incus web interface"
+arch=('i686' 'x86_64')
+url="https://github.com/zabbly/incus-ui-canonical"
+license=('GPL-3.0-only')
+makedepends=('git' 'yarn' 'npm')
+changelog=
+source=("git+https://github.com/zabbly/incus-ui-canonical.git#tag=incus-${pkgver}")
+sha256sums=('92e511325fdbfd140a6035e44f066351e763a49d1fb9524106a1d85f2caa1046')
+
+prepare() {
+  cd "incus-ui-canonical"
+  # See https://github.com/zabbly/incus/blob/2efccf9de6d2245b8c4f2b3203e94613b973cf24/.github/workflows/builds.yml#L366C11-L366C79
+  find -type f -name "*.ts" -o -name "*.tsx" -o -name "*.scss" | xargs sed -i \
+    -e 's/devlxd/guestapi/g' \
+    -e 's/dev\/lxd/dev\/incus/g' \
+    -e 's/LXD/Incus/g' \
+    -e 's/Lxd/Incus/g' \
+    -e 's/lxd/incus/g'
+  yarn install
+}
+
+
+build() {
+  cd "incus-ui-canonical"
+  yarn build
+}
+
+package() {
+  cd "incus-ui-canonical"
+  install -dm755 "${pkgdir}/usr/share/incus-ui"
+  cp -dR --preserve=timestamps "build/ui" -T "${pkgdir}/usr/share/incus-ui"
+}
