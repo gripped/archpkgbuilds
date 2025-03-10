@@ -1,7 +1,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=alertmanager
-pkgver=0.28.0
+pkgver=0.28.1
 pkgrel=1
 pkgdesc="Service which handles alerts sent by client applications such as the Prometheus server"
 url="https://github.com/prometheus/alertmanager"
@@ -15,7 +15,7 @@ source=($pkgname-$pkgver.tar.gz::https://github.com/prometheus/alertmanager/arch
         alertmanager.service
         alertmanager.sysusers
         alertmanager.conf)
-sha512sums=('3da9aa60ff12240113444beaea53bdeee825f049543e26f8bca276e01952ce4cd63f18b893d5bff15af4d8cb86a0820a1f1405ebffc61c2c4dcf0ea019f91859'
+sha512sums=('70b394ba502c1f6bc090328e28e667ec4e54171a3288c32ffa69f8278a6a52540cde9e8a9c53e20f6f1e71fb66ee94e424fb8bcda7d7ccedceedd7805b97b29e'
             'ae19d6c4e76b13489ccc7c9d61258a452209fcecae0a166210105b6385b555c4559cbb3021298fab6fd9a6820b9befec424e836e8f8a6bbad192514645c737e8'
             '469f321f40b0dd6e1cc6d0791032c476449bb2ab2364d57b06d0e0309d09710be8751ded64d84e29dd6e28e96b71ef69e2bee6c71282500a9074a9d7ada8bdf0'
             'dcb3d8a29e705c39b13cc8b876975ff1af88e86ba6d76c524aeba188acd2f97fea0278632bee7fd5f66cc0fe780aa9f4a6a98696025ca84c767eb5eae831de2f')
@@ -47,6 +47,11 @@ build() {
       -X github.com/prometheus/common/version.BuildUser=someone@builder \
       -X github.com/prometheus/common/version.BuildDate=$(date -u '+%Y%m%d-%H:%M:%S' --date=@${SOURCE_DATE_EPOCH})" \
     ./cmd/amtool
+}
+
+check() {
+  cd $pkgname-$pkgver
+  go test ./...
 }
 
 package() {
