@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-lianliankan
-pkgver=6.0.2
+pkgver=6.0.3
 pkgrel=1
 pkgdesc='An easy-to-play puzzle game with cute interface and countdown timer'
 arch=('x86_64')
@@ -12,12 +12,7 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'glibc' 'gcc-libs' 'hicolor-icon-them
 makedepends=('git' 'cmake' 'gtest' 'ninja' 'qt6-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-lianliankan.git#tag=$pkgver")
-sha512sums=('95f48ce838184406a88c0f9872853f6d80dc8af9eb66b577ab3a481aa74eec01770a6433b9dae1a49158bf0cfea6d550710740814c5e2c1dbc62b81cb78b45fc')
-
-prepare() {
-  cd deepin-lianliankan
-  git cherry-pick -n b87f506434199ecf198d28aff4022ccb7b8ff082
-}
+sha512sums=('ead3a38ab4c643dcf92149b693bd1d7cded4b8d1be531fcf863ba29c022b065fe4d659ad2560013706873d7345eae5c6a14179504b223fe1aa50aecc60992b72')
 
 build() {
   cd deepin-lianliankan
