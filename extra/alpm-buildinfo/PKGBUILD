@@ -1,0 +1,67 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=alpm-buildinfo
+_upstream=alpm
+pkgver=0.1.0
+pkgrel=4
+pkgdesc="A CLI for writing and parsing of ALPM BUILDINFO files"
+arch=(x86_64)
+url="https://alpm.archlinux.page/alpm-buildinfo/index.html"
+_url="https://gitlab.archlinux.org/archlinux/alpm/alpm.git"
+license=(
+  'Apache-2.0 OR MIT'
+  CC-BY-SA-4.0
+)
+groups=(alpm)
+depends=(
+  gcc-libs
+  glibc
+)
+makedepends=(
+  git
+  just
+  rust
+  rust-script
+)
+optdepends=(
+  'alpm-docs: for additional specifications'
+)
+source=($_upstream::git+$_url?signed#tag=$pkgname/$pkgver)
+sha512sums=('4cf8a075301086f0977558a8619435376b0e35807e487f2e9373dd6494e169691fa04e05e401b8a76661126839f4b8e07a1d14ce74ab401dd20fa8479f480746')
+b2sums=('2bc5cba64f198fdf60c4874029bcffbfcff4c3fa1b76513f49d3c4be3da93b1932f5b1caa24306c7dd66b139aa9b9f6197c557eb7d3a5f5fcda82996dda35c33')
+validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
+
+prepare() {
+  cd $_upstream
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $_upstream
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release --package $pkgname
+
+  just generate shell_completions $pkgname
+  just generate specifications $pkgname
+  just generate manpages $pkgname
+}
+
+check() {
+  cd $_upstream
+  export RUSTUP_TOOLCHAIN=stable
+  cargo test --frozen --package $pkgname
+}
+
+package() {
+  cd $_upstream
+  install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 output/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
+  # NOTE: for now only install the versioned manpages, because pacman also still provides a BUILDINFO.5
+  install -vDm 644 output/manpages/*v{1,2}.5 -t "$pkgdir/usr/share/man/man5/"
+  install -vDm 644 output/shell_completions/$pkgname.bash "$pkgdir/usr/share/bash-completions/completions/$pkgname"
+  install -vDm 644 output/shell_completions/$pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+  install -vDm 644 output/shell_completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
+  install -vDm 644 LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
