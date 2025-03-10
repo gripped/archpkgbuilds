@@ -3,22 +3,22 @@
 # Contributor: Xuanwo <xuanwo@archlinuxcn.org>
 
 pkgname=obsidian
-pkgver=1.8.7
-pkgrel=1
+pkgver=1.8.9
+pkgrel=2
 pkgdesc="A powerful knowledge base that works on top of a local folder of plain text Markdown files"
 arch=('x86_64')
 url="https://obsidian.md/"
 license=('custom:Commercial')
-depends=('zlib' 'hicolor-icon-theme' 'fuse' 'electron33')
+depends=('zlib' 'hicolor-icon-theme' 'fuse' 'electron34')
 install=obsidian.install
 options=(!strip)
 source=("obsidian.sh"
         "obsidian.desktop"
         "https://github.com/obsidianmd/obsidian-releases/releases/download/v${pkgver}/obsidian-${pkgver}.tar.gz"
 )
-sha256sums=('fb36629e1f1f5a3301d5e361fb58726fa37586269164b740bf72bc1dcf2ba3b4'
+sha256sums=('6ea191df980ca5fc138b307bdc34d535ea32146e07d88e660286506219d5a523'
             'be67713e873a5935d910efc6f6005c104b35c7b3a002dfcb5643fd185d1b0056'
-            'b4e3f791759598bf1a1f940ff04e95b4901fe2c2c481546e5e275153588990cf')
+            '5d5ab49d08b24f61ef290a73248be1821b06820e327bbbaa65cc80d671f83bfa')
 
 package() {
     cd "$srcdir"
