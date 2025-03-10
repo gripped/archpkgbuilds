@@ -1,6 +1,6 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 pkgname=hipblaslt
-pkgver=6.2.4
+pkgver=6.3.2
 pkgrel=1
 pkgdesc='General matrix-matrix operations beyond a traditional BLAS library'
 arch=('x86_64')
@@ -8,26 +8,32 @@ url='https://rocm.docs.amd.com/projects/hipBLASLt/en/latest/index.html'
 license=('MIT')
 depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'hipblas' 'rocblas')
 makedepends=('rocm-cmake' 'python' 'cmake' 'git'
-             'msgpack-cxx' 'python-msgpack' 'python-joblib' 'python-pyaml')
+             'msgpack-cxx' 'python-msgpack' 'python-joblib' 'python-pyaml' 'hipblas-common')
 _git='https://github.com/ROCm/hipBLASLt'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
-        "$pkgname-find-msgpack5.patch")
-sha256sums=('b8a72cb1ed4988b0569817c6387fb2faee4782795a0d8f49b827b32b52572cfd'
-            '8e6d134a1d45de814099dfe591296de5e1d47f9906ccf9c51d7f2228e992c5f4')
+        "$pkgname-find-msgpack5.patch"
+        "$pkgname-fix-wrong-amdclang-path.patch"
+       )
+sha256sums=('cc4875b1a5cf1708a7576c42aff6b4cb790cb7337f5dc2df33119a4aadcef027'
+            '8e6d134a1d45de814099dfe591296de5e1d47f9906ccf9c51d7f2228e992c5f4'
+            '336455e150798d7bbbb54dab6c5dc850e17346ae4bed5500723592633f232993')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 prepare() {
   cd "$_dirname"
   patch -Np1 -i "$srcdir/$pkgname-find-msgpack5.patch"
+  patch -Np1 -i "$srcdir/$pkgname-fix-wrong-amdclang-path.patch"
 }
 
-build() {
+build() {   
+  export PATH="/opt/rocm/lib/llvm/bin:$PATH"
   local cmake_args=(
     -Wno-dev
     -B build
     -S "$_dirname"
     -D CMAKE_BUILD_TYPE=None
-    -D CMAKE_CXX_COMPILER=/opt/rocm/bin/hipcc
+    -D CMAKE_C_COMPILER=/opt/rocm/lib/llvm/bin/amdclang
+    -D CMAKE_CXX_COMPILER=/opt/rocm/lib/llvm/bin/amdclang++
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D Tensile_CODE_OBJECT_VERSION=default
   )
