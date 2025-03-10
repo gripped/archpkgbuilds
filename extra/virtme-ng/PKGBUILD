@@ -2,8 +2,7 @@
 # Contributor: Manuel Wiesinger <m {you know what belongs here} mmap {and here} at>
 
 pkgname=virtme-ng
-_virtme_ng_init_commit=9b1e02a0deb094a36741b6172fb7ea8dc7dd8ddb
-pkgver=1.32
+pkgver=1.33
 pkgrel=1
 pkgdesc="A tool that allows to easily and quickly recompile and test a Linux kernel, starting from the source code."
 arch=('x86_64')
@@ -31,19 +30,8 @@ makedepends=(
   python-wheel
 )
 optdepends=('virtiofsd: better filesystem performance inside the virtme-ng guests')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/arighi/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz"
-       "virtme-init-ng-${_virtme_ng_init_commit}.zip::https://github.com/arighi/virtme-ng-init/archive/${_virtme_ng_init_commit}.zip")
-b2sums=('fe9b197a196e03e8a4e203a875c3541e5d1b4f5d62540795469b8b265caf46b7b9f7766f6c9f4f8a098d72650dcce069a02c8c692cbcc024f7569dad006e0f20'
-        'f78eb6677a9b233097a207f11fed2ab6950a546eed0b5d0d64d2d91ad0f72fc00e58406e93725d2b4af629efc3ee85498d30f6f69cc448c95409977c97f633e5')
-
-prepare() {
-    cd "${srcdir}"
-
-    # When rebuilding this dir is not empty, so rmdir(1) fails
-    rm -rf "${pkgname}-${pkgver}/virtme_ng_init"
-
-    cp -r "virtme-ng-init-${_virtme_ng_init_commit}" "${pkgname}-${pkgver}/virtme_ng_init"
-}
+source=("$pkgname-$pkgver.tar.gz::https://github.com/arighi/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz")
+b2sums=('07bffbd9774d581bc934b1baab24eac5a6527fa683addbc639d57d1ce18cd07fe1794cf0455b63356d07d1bafa798fd6512448a978598706ca5bd1fe9bd6104b')
 
 build() {
     cd "${srcdir}/${pkgname}-${pkgver}"
