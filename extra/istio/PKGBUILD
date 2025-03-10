@@ -4,7 +4,7 @@
 # Contributor: jtagcat <arch-3ff61201@jtag.cat>
 
 pkgname=istio
-pkgver=1.24.2
+pkgver=1.25.0
 pkgrel=1
 pkgdesc="Istio configuration command line utility for service operators to debug and diagnose their Istio mesh"
 arch=(x86_64)
@@ -14,8 +14,8 @@ depends=(glibc)
 makedepends=(go)
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('31e4a34f6bcb77f4562c499632ace3f233ee2da2c45922ecb75442f853253a03b708d8fdfed0740dd7f62db6784547ab3e7473eca2eae3575099b7c9002e325a')
-b2sums=('da667a673670d37cbdba17168f630606a8220cb970a43080c296439ba66be5863f9e65f45d42a235d914be091bfb1efff72a0bb8e8c8937978df7b9d14c60afd')
+sha512sums=('1573ec109175bcd7dc55ac184699710abf3b55ee7894073016b3a407b22fa67af609b03baa650aa15424407f81a2329d21d0841fa6d5cb392234ca6e0898e52d')
+b2sums=('ff6113d343da40b02e9b44de45df4bc6f0cd3b7c353158831f6a2bc0965afdd1fa916f7343685d8b81502272a4ff1c189355d42d648119497902f9372247a9b5')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -34,6 +34,8 @@ build() {
     -compressdwarf=false  \
     -linkmode=external  \
     -X istio.io/istio/pkg/version.buildVersion=$pkgver \
+    -X istio.io/istio/pkg/version.buildTag=$pkgver \
+    -X istio.io/istio/pkg/version.buildHub=docker.io/istio \
   "
   go build -v -buildvcs=false -ldflags="$ld_flags" -o build/istioctl \
     ./istioctl/cmd/istioctl
