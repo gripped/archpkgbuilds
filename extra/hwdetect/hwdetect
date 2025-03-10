@@ -68,6 +68,7 @@ MODULES array options:
     --ati-kms              add ati kernel mode setting
     --amd-kms              add amd kernel mode setting
     --intel-kms            add intel kernel mode setting
+    --intel-xe-kms         add intel xe kernel mode setting
     --nvidia-kms           add nvidia kernel mode setting
 
 HOOKS array options:
@@ -262,6 +263,8 @@ while [ -n "$*"  ]; do
         --amd-kms)      _KMS="amdgpu"
                         _MODULES_INITRAMFS="${_KMS} ${_MODULES_INITRAMFS}" ;;
         --intel-kms)    _KMS="i915"
+                        _MODULES_INITRAMFS="${_KMS} ${_MODULES_INITRAMFS}" ;;
+        -intel-xe-kms)  _KMS="xe"
                         _MODULES_INITRAMFS="${_KMS} ${_MODULES_INITRAMFS}" ;;
         --nvidia-kms)   _KMS="nouveau"
                         _MODULES_INITRAMFS="${_KMS} ${_MODULES_INITRAMFS}" ;;
