@@ -1,7 +1,7 @@
 pkgbase = gitui
 	pkgdesc = Blazing fast terminal-ui for git written in Rust
 	pkgver = 0.27.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/extrawurst/gitui
 	arch = x86_64
 	license = MIT
@@ -12,21 +12,18 @@ pkgbase = gitui
 	depends = gcc-libs
 	depends = glibc
 	depends = libgit2
-	depends = libxcb
+	depends = libssh2
 	depends = openssl
-	depends = zlib
 	optdepends = xclip: for clipboard support on X11 (or xsel)
 	optdepends = xsel: for clipboard support on X11 (or xclip)
 	optdepends = wl-clipboard: for clipboard support on Wayland
-	source = git+https://github.com/extrawurst/gitui.git?tag=0.27.0
+	source = git+https://github.com/extrawurst/gitui.git#tag=v0.27.0
 	sha256sums = SKIP
 
 pkgname = gitui
 	depends = gcc-libs
 	depends = glibc
 	depends = libgit2
-	depends = libxcb
+	depends = libssh2
 	depends = openssl
-	depends = zlib
 	depends = libgit2.so
-	depends = libz.so
