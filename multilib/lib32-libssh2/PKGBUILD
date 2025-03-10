@@ -6,8 +6,8 @@
 
 _pkgbasename=libssh2
 pkgname=lib32-$_pkgbasename
-pkgver=1.11.0
-pkgrel=2
+pkgver=1.11.1
+pkgrel=1
 pkgdesc="A library implementing the SSH2 protocol as defined by Internet Drafts (32-bit)"
 url="https://www.libssh2.org/"
 arch=('x86_64')
@@ -16,7 +16,7 @@ depends=('lib32-openssl' 'lib32-zlib' $_pkgbasename)
 provides=('libssh2.so')
 source=("https://www.libssh2.org/download/${_pkgbasename}-${pkgver}.tar.gz"{,.asc})
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2')   # Daniel Stenberg
-sha512sums=('ef85e152dc252bd9b1c05276972b9c22313f5d492743dde090235742746d67f634f2a419eff9162132e2274c8582113b75279b074e0c7b34b2526b92fd1a1e8e'
+sha512sums=('8703636fc28f0b12c8171712f3d605e0466a5bb9ba06e136c3203548fc3408ab07defd71dc801d7009a337e1e02fd60e8933a2a526d5ef0ce53153058d201233'
             'SKIP')
 
 build() {
