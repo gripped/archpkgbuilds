@@ -2,8 +2,8 @@
 
 _gemname='fiber-storage'
 pkgname="ruby-${_gemname}"
-pkgver=0.1.2
-pkgrel=3
+pkgver=1.0.0
+pkgrel=1
 pkgdesc='Provides a compatibility shim for fiber storage'
 arch=('any')
 url="https://github.com/ioquatix/${_gemname}"
@@ -17,12 +17,13 @@ checkdepends=(
   ruby-bake-test-external
   ruby-bundler
   ruby-covered
+  ruby-decode
   ruby-sus
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('761be842905c4ac6766dc333c82cbcd7f95e442c06b7426f8139910794ea5f779128c64d7fadb306de232f1f527800318deb41a8d0af877fc763ff30fc00b666')
-b2sums=('d052a660b37947b27c924c278330820dd14b041fd1e9a02df74f076467613000b48cb8f4f053702430ad29465577017b027246ef3112e4ef1e4c048f4d84368a')
+sha512sums=('c9f50dd2dda978c7050dab8fe16ee7eabe1b685a52e6a5c09e078d9fd7dceb7842a169b824b968e688c980b15d21f126415a4cbd8d014fe923133c452c090e24')
+b2sums=('0f007d00ae5d7471f1268e42a33c7a6b809df1b188dc40c66576fc5b95d685118ed70f4fba37bfd6c18b28f4b02d27ce6f46fdbc433791411b8663bd14af6990')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
@@ -33,7 +34,10 @@ prepare() {
     --expression '/signing_key/d' \
     "${_gemname}.gemspec"
 
-  sed --in-place --regexp-extended '/group :maintenance/,/end/d' gems.rb
+  sed --in-place \
+    --expression '/group :maintenance/,/end/d' \
+    --expression '/rubocop/d' \
+    gems.rb
 }
 
 build() {
