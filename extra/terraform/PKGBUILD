@@ -4,8 +4,8 @@
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=terraform
-pkgver=1.11.0
-pkgrel=1
+pkgver=1.11.1
+pkgrel=2
 pkgdesc="HashiCorp tool for building and updating infrastructure as code idempotently"
 url="https://github.com/hashicorp/terraform"
 arch=("x86_64")
@@ -13,14 +13,15 @@ license=("BUSL-1.1")
 makedepends=('go')
 depends=('glibc')
 optdepends=('diffutils: for running `terraform fmt -diff`')
+provides=('terragrunt-iac-provider')
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/hashicorp/terraform/archive/v$pkgver.tar.gz"
         "terraform.bash"
         "terraform.zsh")
-sha512sums=('1f2276efd554bcf2188f5038987e08e3f58d0536848daf86648ec7a9f45ca11c9a4ac3050718fdb9372c0c46c16a13ccc3fbfa69f2d35a941448a6eeb33d333e'
+sha512sums=('5f599e83718802e45b1689998afdf1d5a533ffb052036a309458fb27a85200d6613f0ba988b9c7d67e9ac6077d31f1f7b81be487f2e9b5c2eef97e8216f29d41'
             'ea42bfc41288e5ad741fcddfbd5c1f8ba0088be0967b820db1e12e1dc13d1ba242b9cc1c247bf29c36ec59cdce76ff6703cf6b3f76cca5ec441a4927a01afe7d'
             'ad991daf40f68c11fa66256177a04d97bd38d6a89c554d6261489d4de703852628ffc37429d862237ca24e15f6a7c915cfa027731189ac89a27f7b20c72ab4c9')
-b2sums=('329724d2711e05a38716d6ff321f336c7db4a9af5ec6ec81b6bb3a0af3792b052abefdd17a69731039acd428465ea85cd016d005aeaada8051cc4ec5e961d419'
+b2sums=('95066f12160f50ef5d828915aa12ef1fb708ecc5c6c01db2758d3b88dc807e60caaa5bb7711300062a68121eaa90c427af48914cd634d47a2b5a30e502c87416'
         'd047735bbb006e9afbaa4b18af7a7f16a205ec528e91caa61a0b663dd6e24ec1df999216f0b7bd06e3b3c087b37f6ce3aa3cf3a20c892a9cc1962d33ce1b0bcc'
         'd58712c8203e4a58ec68738f3d22457547a55d230018408400fd1ca433346171b72fa4a87f05efc93213c71f9757d3a8072149ca4e6894355e79f8cfae3bd55b')
 
