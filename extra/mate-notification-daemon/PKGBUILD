@@ -3,8 +3,8 @@
 # Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-notification-daemon
-pkgver=1.28.0
-pkgrel=2
+pkgver=1.28.1
+pkgrel=1
 provides=('notification-daemon')
 pkgdesc="Notification daemon for MATE"
 url="https://mate-desktop.org"
@@ -16,7 +16,7 @@ makedepends=('autoconf-archive' 'glib2-devel' 'mate-common' 'python')
 conflicts=('mate-notification-daemon-gtk3')
 replaces=('mate-notification-daemon-gtk3')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-notification-daemon/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('b86fa78d3c34851328c494aa374450ca8fe7a13c22e6f6154c5d503197662545')
+sha256sums=('b532d9562b448286465975b5a6dfeeba60977217ae402bc2f6854650a9a5de33')
 
 prepare() {
     cd "${pkgname}-${pkgver}"
@@ -27,6 +27,7 @@ build() {
     cd "${pkgname}-${pkgver}"
     ./configure \
                 --prefix=/usr \
+                --sysconfdir=/etc \
                 --libexecdir="/usr/lib/${pkgname}"
     make
 }
