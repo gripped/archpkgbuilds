@@ -1,7 +1,7 @@
 pkgbase = f3d
 	pkgdesc = A fast and minimalist 3D viewer
 	pkgver = 3.0.0
-	pkgrel = 2
+	pkgrel = 4
 	url = https://github.com/f3d-app/f3d
 	arch = x86_64
 	license = BSD-3-Clause
@@ -14,6 +14,7 @@ pkgbase = f3d
 	makedepends = openmp
 	makedepends = pybind11
 	makedepends = python
+	makedepends = strip-nondeterminism
 	makedepends = utf8cpp
 	depends = alembic
 	depends = assimp
@@ -33,6 +34,8 @@ pkgbase = f3d
 	depends = verdict
 	depends = vtk
 	source = https://github.com/f3d-app/f3d/archive/refs/tags/v3.0.0/f3d-3.0.0.tar.gz
+	source = ignore_gzip_timestamps.patch
 	sha256sums = 7ea83830d1c8158a1f01e5ac9edd00b81de3e0b4cbdbc4a4bb60a113728b7b7a
+	sha256sums = 8d634d8f9db0d1977e61b3ac296fb8b40485cab7b5c311a717b62c57a7cd528d
 
 pkgname = f3d

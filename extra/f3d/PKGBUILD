@@ -5,7 +5,7 @@
 
 pkgname=f3d
 pkgver=3.0.0
-pkgrel=2
+pkgrel=4
 pkgdesc='A fast and minimalist 3D viewer'
 arch=('x86_64')
 url="https://github.com/${pkgname}-app/${pkgname}"
@@ -36,9 +36,20 @@ makedepends=('cmake'
              'openmp'
              'pybind11'
              'python'
+             'strip-nondeterminism'
              'utf8cpp')
-source=("https://github.com/$pkgname-app/$pkgname/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('7ea83830d1c8158a1f01e5ac9edd00b81de3e0b4cbdbc4a4bb60a113728b7b7a')
+source=("https://github.com/$pkgname-app/$pkgname/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz"
+        ignore_gzip_timestamps.patch)
+sha256sums=('7ea83830d1c8158a1f01e5ac9edd00b81de3e0b4cbdbc4a4bb60a113728b7b7a'
+            '8d634d8f9db0d1977e61b3ac296fb8b40485cab7b5c311a717b62c57a7cd528d')
+
+prepare(){
+  cd "$pkgname-$pkgver"
+  # Patch to ignore timestamps recording in gzip metadata
+  # This is required for reproducible builds
+  # See https://github.com/f3d-app/f3d/pull/1982
+  patch -Np1 -i "$srcdir/ignore_gzip_timestamps.patch"
+}
 
 build() {
   cd "$pkgname-$pkgver"
@@ -61,6 +72,10 @@ build() {
     -D F3D_PLUGIN_BUILD_OCCT=ON \
     -D F3D_PLUGIN_BUILD_USD=ON
   ninja -C build
+
+  # Strip non determinism information from the jar file (e.g. timestamps and filesystem ordering)
+  # Required for reproducible builds
+  find . -name "$pkgname.jar" -exec strip-nondeterminism {} +
 }
 
 package() {
