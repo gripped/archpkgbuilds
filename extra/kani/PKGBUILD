@@ -2,9 +2,9 @@
 # Contributor: SandaruKasa <sandarukasa plus aur at ya dot ru>
 
 pkgname=kani
-pkgver=0.59.0
+pkgver=0.60.0
 pkgrel=1
-_gitcommit=94ed3f71792b0bbf439654eebbcda1a5a7a89765
+_gitcommit=cb01c7b885a47052bff14a8f5af2dde3e184c18d
 pkgdesc='Bit-precise model checker for Rust'
 arch=('x86_64')
 url="https://github.com/model-checking/kani"
@@ -18,10 +18,10 @@ source=(
   "${pkgname}-firecracker::git+https://github.com/firecracker-microvm/firecracker.git"
   "${pkgname}-s2n-quic::git+https://github.com/aws/s2n-quic"
 )
-sha256sums=('001bc9c9192fe764da47624c95b5f1a14f87567f25e6588df6ed06a4ec2ea682'
-  'SKIP'
-  'SKIP'
-  'SKIP')
+sha256sums=('46517b603db9ba177de32b2c0c9e26aa82ffe37e81845fb6054d095c11e00547'
+            'SKIP'
+            'SKIP'
+            'SKIP')
 _src="${pkgname}-${pkgver}"
 
 prepare() {
