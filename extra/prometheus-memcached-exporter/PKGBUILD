@@ -1,7 +1,7 @@
 # Maintainer: Jelle van der Waa <jelle@dwaa.nl>
 
 pkgname=prometheus-memcached-exporter
-pkgver=0.15.0
+pkgver=0.15.1
 pkgrel=1
 pkgdesc="Exports metrics from memcached servers for consumption by Prometheus"
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=(go)
 backup=('etc/conf.d/prometheus-memcached-exporter')
 source=($pkgname-$pkgver.tar.gz::https://github.com/prometheus/memcached_exporter/archive/v${pkgver}.tar.gz prometheus-memcached-exporter.service
         prometheus-memcached-exporter.conf)
-sha512sums=('e6584fcce4f5b78524a44ab6a1bc1626560b80a47ca50c3e8754d1cfbce7ad70e71aaf9dcadef15e284ac45392734e8262204652ce90351931b5499802885020'
+sha512sums=('83aa153aed563f16208fd63b9bf7bef19fd009ce0780df019ba1c963aa049cd1080c6fb11b0fa36d29cefb1cabc08b8053e937e8b6baa7668937d8c45f98959a'
             '13ae8e9cc8445cffab1e51f000fbe5ca0dd2a30532f8303957dc376c8891552e719681e49ffd8a83c4cd01aca897031770c9d96ed92276ff85c2e32c4fa999ee'
             'bc92af08207bee78a48cc764f038d6f5175b0051873f1238d90531f81d9b403085ec7ac62dfe934ee804794426c6bed4c309b374a418c9f7a4dbdbb157d58c23')
 
