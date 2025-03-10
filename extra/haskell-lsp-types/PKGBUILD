@@ -2,8 +2,8 @@
 
 _hkgname=lsp-types
 pkgname=haskell-lsp-types
-pkgver=1.6.0.0
-pkgrel=95
+pkgver=1.6.0.1
+pkgrel=2
 pkgdesc="Haskell library for the Microsoft Language Server Protocol, data types"
 url="https://github.com/haskell/lsp"
 license=("MIT")
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-data-default' 'haskell-diff' 'haske
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-discover'
              'haskell-quickcheck-instances' 'haskell-tuple')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('eeedc906b3711fdb37668b97ff47843272858605c377656c792a224d57925b42028877e1b8edf4781e71aa50d571bef0ecd1c741c80bbd8bb8a3f7f1a175c5b0')
+sha512sums=('236dfb0248e41c12cf8eda332029df56feda7bb30630228511257b684a40220643a3c718b87318c2f825876e98c7e1d6428b43a283add389e76ed83487994894')
 
 prepare() {
   cd $_hkgname-$pkgver
