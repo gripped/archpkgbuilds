@@ -1,16 +1,16 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 
 pkgname=vals
-pkgver=0.37.0
+pkgver=0.39.3
 pkgrel=1
 pkgdesc="Helm-like configuration values loader with support for various sources"
 arch=('x86_64')
 url="https://github.com/variantdev/vals"
-license=('Apache')
+license=('Apache-2.0')
 makedepends=('go')
 depends=('glibc')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/variantdev/vals/archive/v${pkgver}.tar.gz")
-sha512sums=('3fc4416a1da6fe162890e0d4373a6ba3ea93cc9433b7d8ff66eb258a12ea879e59224efe2efbb390f7127d697ca9f8c1c9dd1f556ce5eb8733219725b154a58b')
+sha512sums=('fb4ab38bfa52b5dce64f108266ac254415a72516249c3e6c931c03a3aff397da1c4b67db074cfe25669ef66cb2878969e4f595771ffc033647aafc4232d69226')
 options=(!lto)
 
 prepare() {
