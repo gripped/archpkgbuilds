@@ -2,13 +2,13 @@
 # Contributor: Dmitry Valter <`echo ZHZhbHRlciA8YXQ+IHByb3Rvbm1haWwgPGRvdD4gY29tCg== | base64 -d`>
 
 pkgname=drawio-desktop
-pkgver=26.0.9
+pkgver=26.0.16
 pkgrel=1
 pkgdesc="Official Electron build of draw.io"
 arch=(any)
 url="https://www.drawio.com"
 license=(Apache-2.0)
-_electronver=32
+_electronver=34
 _nodever=20
 depends=(
   "electron$_electronver"
@@ -27,8 +27,8 @@ source=(
   "drawio.sh"
   "drawio.xml"
 )
-sha256sums=('278d74c70738ae9e1fbf82ca6b4fea1f45e240a4f22ae3c3446649a4f5267009'
-            '2f4aa743fa0e4921a038da27066f655e1632667e134d2f96af8c9344f3c47cf9'
+sha256sums=('82d6c243b99e7f6be861630981a43891a054c473c86e4a287f7bec42466f65f5'
+            'e86f30b58df29dc69f671c23ec5ba1ad8db5e4b6381ed5ae6d4d7527bcf6e2bd'
             '1064adf2cb2cd69a95d0f820000f48291a19698df707bef8f1aff0b8d368cf4a'
             '70735625bcb70e9a9e4a56a4723b230946c1d68336dba93864f45aed5c97899a'
             '53fb8df9cd9101d79fd897880dc7c59b3e90cf5d980029a1ecaa5da3031f8606')
@@ -43,7 +43,7 @@ prepare() {
 
   grep -q "\"version\": \"$pkgver\"" package.json \
     || ( echo "Version mismatch in package.json"; exit 1 )
-  grep -q "\"electron\": \"$_electronver\." package.json \
+  grep -qE '"electron": "\^?'$_electronver package.json \
     || ( echo "Electron version mismatch in package.json"; exit 1 )
   grep -q "\"node\": \">=$_nodever\"" package.json \
     || ( echo "Node version mismatch in package.json"; exit 1 )
