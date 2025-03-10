@@ -1,55 +1,62 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Maintainer: Laurent Carlier <lordheavym@gmail.com>
 
 pkgname=lib32-vulkan-validation-layers
-pkgver=1.3.296.0
+pkgver=1.4.304.1
 pkgrel=1
-arch=(x86_64)
 pkgdesc="Vulkan Validation Layers (32-bit)"
-url="https://www.khronos.org/vulkan/"
-license=('custom')
-depends=('lib32-gcc-libs' 'lib32-vulkan-icd-loader' 'vulkan-headers')
-makedepends=('cmake' 'python' 'lib32-libx11' 'lib32-libxrandr' 'lib32-wayland' 'ninja' 'git')
-options=('!lto') # disable LTO (https://github.com/KhronosGroup/Vulkan-ValidationLayers/issues/5994)
-source=("https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/vulkan-sdk-${pkgver}.tar.gz")
-sha256sums=('dea290d614c71eeb512452dff1555f907a405a5a21baefcf41b5548d5d0fe157')
-
-prepare() {
-  cd "${srcdir}"/Vulkan-ValidationLayers*
-
-  rm -rf build && mkdir build
-}
+url="https://www.vulkan.org/"
+arch=(x86_64)
+license=(Apache-2.0)
+depends=(
+  lib32-gcc-libs
+  lib32-glibc
+  lib32-spirv-tools
+)
+makedepends=(
+  cmake
+  git
+  lib32-libxrandr
+  lib32-vulkan-icd-loader
+  lib32-wayland
+  ninja
+  python-lxml
+  spirv-headers
+  vulkan-headers
+  vulkan-utility-libraries
+)
+options=(
+  # https://github.com/KhronosGroup/Vulkan-ValidationLayers/issues/5994
+  !lto
+)
+source=("git+https://github.com/KhronosGroup/Vulkan-ValidationLayers#tag=vulkan-sdk-$pkgver")
+b2sums=('9fde10c02e31e0ed8d7ef90bf3ee6980dc383d9d786a3ce3a6dada1be3f7e777fd166d3522aacc2737f216b9694176ac818f52b6425bf07559cf6372d3940996')
 
 build() {
-  export ASFLAGS=--32
-  export CFLAGS+=" -m32 -ffat-lto-objects"
-  export CXXFLAGS+=" -m32 -ffat-lto-objects -Wno-error=restrict"
-  export PKG_CONFIG_PATH="/usr/lib32/pkgconfig" 
+  local cmake_options=(
+    -D CMAKE_BUILD_TYPE=Release
+    -D CMAKE_INSTALL_LIBDIR=lib32
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_INSTALL_SYSCONFDIR=/etc
+    -D CMAKE_SKIP_INSTALL_RPATH=ON
+  )
 
-  cd "${srcdir}"/Vulkan-ValidationLayers*/build
+  export ASFLAGS+=" --32"
+  export CFLAGS+=" -m32"
+  export CXXFLAGS+=" -m32"
+  export PKG_CONFIG="i686-pc-linux-gnu-pkg-config"
 
-  ../scripts/update_deps.py --config release --generator Ninja
-  cmake -C helper.cmake \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_SYSCONFDIR=/etc \
-    -DCMAKE_INSTALL_LIBDIR=lib32 \
-    -DCMAKE_INSTALL_DATADIR=/share \
-    -DCMAKE_SKIP_RPATH=True \
-    -DBUILD_TESTS=Off \
-    -DBUILD_WSI_XCB_SUPPORT=On \
-    -DBUILD_WSI_XLIB_SUPPORT=On \
-    -DBUILD_WSI_WAYLAND_SUPPORT=On \
-    -DCMAKE_BUILD_TYPE=Release \
-    ..
-  make
+  cmake -S Vulkan-ValidationLayers -B build -G Ninja "${cmake_options[@]}"
+  cmake --build build
+}
+
+check() {
+  ctest --test-dir build --output-on-failure --stop-on-failure
 }
 
 package() {
-  cd "${srcdir}"/Vulkan-ValidationLayers*/build
-  
-  make DESTDIR="${pkgdir}" install
-
-  rm -r "${pkgdir}"/usr/share/vulkan
-
-  install -dm755 "${pkgdir}"/usr/share/licenses/${pkgname}
-  install -m644 ../LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
+  DESTDIR="$pkgdir" cmake --install build
+  rm -r "$pkgdir/usr/share"
 }
+
+# vim:set sw=2 sts=-1 et:
