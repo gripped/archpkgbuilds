@@ -2,8 +2,8 @@
 
 _pkgbasename=libxshmfence
 pkgname=lib32-$_pkgbasename
-pkgver=1.3.2
-pkgrel=2
+pkgver=1.3.3
+pkgrel=1
 pkgdesc="a library that exposes a event API on top of Linux futexes (32-bit)"
 arch=('x86_64')
 url="https://xorg.freedesktop.org/"
@@ -12,7 +12,7 @@ license=('GPL')
 depends=('lib32-glibc' ${_pkgbasename})
 makedepends=('xorg-util-macros' 'xorgproto' 'gcc-multilib')
 source=(${url}/releases/individual/lib/${_pkgbasename}-${pkgver}.tar.xz{,.sig})
-sha512sums=('e20a6827e370726cf50489a69f4a52b897f1c44e3eba8c72a4e626b08724e877d090770b8016765736d887d5d5eaba1fda9c29066e62d259b4d1e2064bc1626c'
+sha512sums=('2261b840ea621cf4ce31961ec9df17aa2e253b268afe289dfb97c240aee27b9f443fe36de5de52a2e1210b69092efde21871e20556bac9b4f1d8a3ead1b4c498'
             'SKIP')
 validpgpkeys=('C383B778255613DFDB409D91DB221A6900000011') # Keith Packard <keithp@keithp.com>
 validpgpkeys+=('3BB639E56F861FA2E86505690FDD682D974CA72A') # "Matt Turner <mattst88@gmail.com>"
