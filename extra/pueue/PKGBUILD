@@ -2,7 +2,7 @@
 # Contributor: Arne Beer <privat@arne.beer>
 
 pkgname=pueue
-pkgver=3.4.1
+pkgver=4.0.0
 pkgrel=1
 pkgdesc="A CLI tool for managing long running shell commands"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('868710de128db49e0a0c4ddee127dfc0e19b20cbdfd4a9d53d5ed792c5538244')
+sha256sums=('b7add2bdd6cdce683eea5b24932ed12534b76c29143d8183216c4afc60beef04')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -49,7 +49,7 @@ package() {
   install -Dm644 "utils/completions/pueue.fish" "$pkgdir/usr/share/fish/completions/pueue.fish"
 
   # Install License
-  install -Dm644 "LICENSE" "$pkgdir/usr/share/licenses/pueue/LICENSE"
+  install -Dm644 "LICENSE.MIT" "$pkgdir/usr/share/licenses/pueue/LICENSE"
 }
 
 # vim: ts=2 sw=2 et:
