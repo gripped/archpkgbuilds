@@ -3,19 +3,31 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=libmediaart
-pkgver=1.9.6
-pkgrel=3
+pkgver=1.9.7
+pkgrel=1
 pkgdesc='Library tasked with managing, extracting and handling media art caches'
-arch=('x86_64')
+arch=(x86_64)
 url='https://gitlab.gnome.org/GNOME/libmediaart'
-license=('LGPL-2.1-or-later')
-depends=('gdk-pixbuf2' 'glib2' 'glibc')
-makedepends=('git' 'glib2-devel' 'gobject-introspection' 'gtk-doc' 'meson' 'vala')
+license=(LGPL-2.1-or-later)
+depends=(
+  gdk-pixbuf2
+  glib2
+  glibc
+)
+makedepends=(
+  git
+  glib2-devel
+  gobject-introspection
+  gtk-doc
+  meson
+  vala
+)
 source=("git+https://gitlab.gnome.org/GNOME/$pkgname.git#tag=$pkgver")
-b2sums=('e5186df01967337cacdefe2e4035145bef47202f6eb58cd03b7fe49f6adcbfc0505c4f1f89305600872e5403cae7a22fdc47c6e3ea246daa0cc25593a5d30fbb')
+b2sums=('f76aef2fa23d091ca6a07908d8bb61a38d04f6d7f9bb02f9d23413e03396f9f834d827b2638eac8974304fdcfe89aa64c69c63c906b74270c4b3b1b76a413853')
 
 build() {
-  arch-meson $pkgname build -D gtk_doc=true
+  arch-meson $pkgname build \
+    -D gtk_doc=true
   meson compile -C build
 }
 
