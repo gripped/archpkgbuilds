@@ -3,9 +3,8 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-rtree
-_pkgname=${pkgname#python-}
-pkgver=1.3.0
-pkgrel=2
+pkgver=1.4.0
+pkgrel=1
 pkgdesc="Rtree: spatial index for Python GIS"
 arch=(any)
 url="https://rtree.readthedocs.io/en/latest/"
@@ -24,21 +23,22 @@ checkdepends=(
   python-numpy
   python-pytest
 )
+optdepends=('python-numpy: array-based bulk insert support')
 source=("https://github.com/Toblerity/rtree/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('8829823d83658cdf5f7f7925107363f1bba31bb6a94e255124c1026c7cbbbfe7')
+sha256sums=('8f1583f6c479cd93c8788ce33d4a822ef83e2d50499f8bdd4457e27179765f57')
 
 build() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   pytest
 }
 
 package() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
 }

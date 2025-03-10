@@ -1,7 +1,7 @@
 pkgbase = python-rtree
 	pkgdesc = Rtree: spatial index for Python GIS
-	pkgver = 1.3.0
-	pkgrel = 2
+	pkgver = 1.4.0
+	pkgrel = 1
 	url = https://rtree.readthedocs.io/en/latest/
 	arch = any
 	license = MIT
@@ -13,7 +13,8 @@ pkgbase = python-rtree
 	makedepends = python-wheel
 	depends = python
 	depends = spatialindex
-	source = https://github.com/Toblerity/rtree/archive/1.3.0/python-rtree-1.3.0.tar.gz
-	sha256sums = 8829823d83658cdf5f7f7925107363f1bba31bb6a94e255124c1026c7cbbbfe7
+	optdepends = python-numpy: array-based bulk insert support
+	source = https://github.com/Toblerity/rtree/archive/1.4.0/python-rtree-1.4.0.tar.gz
+	sha256sums = 8f1583f6c479cd93c8788ce33d4a822ef83e2d50499f8bdd4457e27179765f57
 
 pkgname = python-rtree
