@@ -1,24 +1,25 @@
 pkgbase = nanobind
-	pkgdesc = tiny and efficient C++/Python bindings
-	pkgver = 2.2.0
-	pkgrel = 2
-	url = https://nanobind.readthedocs.io
+	pkgdesc = Tiny and efficient C++/Python bindings
+	pkgver = 2.5.0
+	pkgrel = 1
+	url = https://github.com/wjakob/nanobind
 	arch = any
 	license = BSD-3-Clause
 	checkdepends = python-pytest
-	checkdepends = python-scipy
 	checkdepends = python-pytorch
+	checkdepends = python-scipy
 	checkdepends = python-tensorflow
-	makedepends = python-build
-	makedepends = python-installer
-	makedepends = python-scikit-build-core
 	makedepends = cmake
 	makedepends = eigen
 	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-scikit-build-core
+	makedepends = python-wheel
 	depends = python
-	source = nanobind-2.2.0::git+https://github.com/wjakob/nanobind.git#tag=v2.2.0
+	source = nanobind-2.5.0::git+https://github.com/wjakob/nanobind.git#tag=v2.5.0
 	source = git+https://github.com/Tessil/robin-map.git
-	sha512sums = 5e1e627403399a38eb6e7545d32b0796475b77957ccd1f028f18772e93da2639a371c4e2cad2e612b0a320037d85ceb57889f336dd89ce8ea1904a5337ada5f9
+	sha512sums = 6604647c1e22c2a6b5ae33a92d417768d14021487ba509b526caa8e98021a8104b7f8df76484d646ad6052fda2add4e8d0f9064b0a8f449285f3807f5214f8a9
 	sha512sums = SKIP
 
 pkgname = nanobind

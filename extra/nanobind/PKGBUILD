@@ -1,60 +1,70 @@
-# Maintainer:
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Carlos Aznarán <caznaranl@uni.pe>
-# Based on pybind11, maintained by Daniel Bermond <dbermond@archlinux.org> and et.al.
 
 pkgname=nanobind
-pkgdesc="tiny and efficient C++/Python bindings"
-pkgver=2.2.0
-pkgrel=2
+pkgdesc="Tiny and efficient C++/Python bindings"
+pkgver=2.5.0
+pkgrel=1
 arch=(any)
-url="https://${pkgname}.readthedocs.io"
+url="https://github.com/wjakob/nanobind"
 license=(BSD-3-Clause)
 depends=(python)
-makedepends=(python-build python-installer python-scikit-build-core cmake eigen git)
-checkdepends=(python-pytest python-scipy python-pytorch python-tensorflow)
-source=(${pkgname}-${pkgver}::git+https://github.com/wjakob/${pkgname}.git#tag=v${pkgver}
-        git+https://github.com/Tessil/robin-map.git)
-sha512sums=('5e1e627403399a38eb6e7545d32b0796475b77957ccd1f028f18772e93da2639a371c4e2cad2e612b0a320037d85ceb57889f336dd89ce8ea1904a5337ada5f9'
+makedepends=(
+  cmake
+  eigen
+  git
+  python-build
+  python-installer
+  python-scikit-build-core
+  python-wheel
+)
+checkdepends=(
+  python-pytest
+  python-pytorch
+  python-scipy
+  python-tensorflow
+)
+source=(
+  "$pkgname-$pkgver::git+$url.git#tag=v$pkgver"
+  "git+https://github.com/Tessil/robin-map.git"
+)
+sha512sums=('6604647c1e22c2a6b5ae33a92d417768d14021487ba509b526caa8e98021a8104b7f8df76484d646ad6052fda2add4e8d0f9064b0a8f449285f3807f5214f8a9'
             'SKIP')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd $pkgname-$pkgver
   git submodule init
-  git config submodule.libs/ext/robin_map.url "${srcdir}/robin_map"
+  git config submodule.libs/ext/robin_map.url "$srcdir/robin_map"
   git -c protocol.file.allow=always submodule update
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
-  python -m build --wheel --skip-dependency-check --no-isolation
-
-  cmake \
-    -B build \
+  cd $pkgname-$pkgver
+  python -m build --wheel --no-isolation
+  cmake -S . -B build \
     -DCMAKE_BUILD_TYPE=None \
     -DNB_TEST_STABLE_ABI=ON \
-    -DNB_TEST_SHARED_BUILD="$(python -c 'import sys; print(int(sys.version_info.minor>=11))')" \
+    -DNB_TEST_SHARED_BUILD=ON \
     -Wno-dev
-
-  cmake --build build --target all
+  cmake --build build
 }
 
 check() {
-  cd $pkgname-$pkgver/build
-  python -m pytest \
-    --ignore=tests/test_stl_bind_vector.py \
-    --ignore=tests/test_stl_bind_map.py \
-    --ignore=tests/test_stl.py \
-    --ignore=tests/test_ndarray.py
+  cd $pkgname-$pkgver
+  pytest build
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  PYTHONPYCACHEPREFIX="${PWD}/.cache/cpython/" python -m installer --destdir="${pkgdir}" dist/*.whl
+  cd $pkgname-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
-  local _pyversion=$(python -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
-  install -d -m755 "${pkgdir}/usr"/{include,lib/cmake}
-  ln -s "../lib/python${_pyversion}/site-packages/nanobind/include/nanobind" "${pkgdir}/usr/include/nanobind"
-  ln -s "../../lib/python${_pyversion}/site-packages/nanobind/cmake/" "${pkgdir}/usr/lib/cmake/nanobind"
+  local python_version=$(python -c "import sys; print(sys.version[:4])")
+  install -vdm755 "$pkgdir/usr/include"
+  ln -vs "../lib/python$python_version/site-packages/nanobind/include/nanobind" \
+    "$pkgdir/usr/include/nanobind"
+  install -dm755 "$pkgdir/usr/lib/cmake"
+  ln -vs "../../lib/python$python_version/site-packages/nanobind/cmake" \
+    "$pkgdir/usr/lib/cmake/nanobind"
 
-  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
