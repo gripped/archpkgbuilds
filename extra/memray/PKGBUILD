@@ -1,7 +1,7 @@
 # Maintainer: Leonidas Spyropoulos <artafinde@archlinux.org>
 
 pkgname=memray
-pkgver=1.15.0
+pkgver=1.16.0
 pkgrel=1
 pkgdesc="A memory profiler for Python"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('Apache-2.0')
 depends=('python' 'libunwind' 'python-rich' 'python-jinja' 'lz4' 'ipython' 'python-textual')
 makedepends=('git' 'python-setuptools-scm' 'python-build' 'python-installer' 'python-wheel' 'cython' 'npm' 'python-pkgconfig')
 source=("git+$url.git#tag=v${pkgver}?signed")
-sha512sums=('a576d334f22bd783eba5c876334254af660d7bb198a34790023dcc2b5876e45d7f44da7c7dd09b31b7a31ec79070c62e03ed966c4ecda196fd2086a120a45a03')
+sha512sums=('f6685253ad8336eeaabc6a2adc6e2debec1983c832c404f8aa347409e3fd326078314bc7648d26a4f08807ce3cdbdf0575142de718c3cf3b3b1ac7ea35a0149c')
 validpgpkeys=('A035C8C19219BA821ECEA86B64E628F8D684696D') # Pablo Galindo Salgado <pablogsal@gmail.com>
 
 build() {
