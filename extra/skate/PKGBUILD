@@ -2,7 +2,7 @@
 # Contributor: Christian Muehlhaeuser <muesli at gmail dot com>
 
 pkgname=skate
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 pkgdesc='A personal key value store'
 arch=('x86_64')
@@ -12,8 +12,8 @@ depends=('glibc')
 makedepends=('git' 'go')
 options=('!lto')
 source=("git+$url.git#tag=v$pkgver")
-sha512sums=('7771404017f1db922a83c0e38d834cf5164253a49e59ac8d5a6f7bf6be4e6171190f70b1f2e8094120d6f28c14d8f57b14efdb4ac6ca28fbbc7c5ac5e89e3aff')
-b2sums=('186d1efba22844e29d3ad098ca7328891b48223985242039e59e8842e30ae34d650f110e0575880c7eb9cd6b2e09dede9e225d91b883925dfbacb5fedb63056b')
+sha512sums=('2dd2e16b0853323ff96caa50493a91facd464ad7fb17511d623a156480b5ee9b80a8ff637d8f42057fd812d55058249c0f349290b86ea610dca87d1836f5145f')
+b2sums=('ca9d28d485784eca96fad0ab85e79a2ddc59949f5c579947fa6a321960b182f6d11e7b7c604b349da4f409c40af1efac5889d3809e164fdb9f0245df6c3cff71')
 
 prepare() {
   cd skate
