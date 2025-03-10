@@ -1,7 +1,7 @@
 pkgbase = bacon
 	pkgdesc = A background rust code checker
-	pkgver = 3.10.0
-	pkgrel = 1
+	pkgver = 3.11.0
+	pkgrel = 2
 	url = https://dystroy.org/bacon
 	arch = x86_64
 	license = AGPL-3.0-only
@@ -10,6 +10,7 @@ pkgbase = bacon
 	depends = alsa-lib
 	depends = glibc
 	depends = gcc-libs
+	optdepends = bash-completion: enable bash completions
 	optdepends = cargo: for use with Rust
 	optdepends = clang: for use with C++ via clang
 	optdepends = gcc: for use with C++ via gcc
@@ -17,9 +18,9 @@ pkgbase = bacon
 	optdepends = python: for use with Python via unittest
 	optdepends = python-pytest: for use with Python via pytest
 	options = !lto
-	source = bacon::git+https://github.com/Canop/bacon#tag=v3.10.0
-	sha512sums = 29a440c542fe6a8c08d7132691850d89c6de5fe7cd84cd2f01a5cb4c654c8f0a1f47c829384e46e489dee9d0e0624f10f290c3d23d49363708a8591231752ff1
-	b2sums = 2b864d9bb1684f632a1ceb0206ffd5560ac10dbe2c7f30316b69a678eb891d8a9a99d47f8c3e3bd0402df23751f9a71759e36e7b3931b5cde1179a630d4ea926
+	source = bacon::git+https://github.com/Canop/bacon#tag=v3.11.0
+	sha512sums = 94ce604fc2f0e02ad6b3519da2d6e6f65a83e90d11bf0e1c3dee7e8065fa39ec62466404e0e409b7ee58392df09252381d597296928802316e3494411c2fcf12
+	b2sums = bcbeb6943550c7f6c655d2546e608cb2a61049a36a0dd4f830ac919aea804c59b1af8132434f539a41930039bacc1e4fac623817d587315ed5ab692a88b43f91
 
 pkgname = bacon
 	depends = alsa-lib
