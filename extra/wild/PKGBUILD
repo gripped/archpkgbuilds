@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=wild
-pkgver=0.3.0
+pkgver=0.4.0
 pkgrel=1
 pkgdesc="A very fast linker for Linux written in Rust"
 url='https://github.com/davidlattimore/wild'
@@ -15,13 +15,14 @@ makedepends=(
   'cargo'
 )
 checkdepends=(
+  'aarch64-linux-gnu-binutils'
   'clang'
   'lld'
 )
 options=(!lto)
 source=(https://github.com/davidlattimore/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('ca500e8bf60cfba07ab45f454e451d2d2e10bccd525caabd4291ef9868188c47')
-b2sums=('b19a1d1e8d0144653b4b930daa23d1b6b63edfe48b629cebb57af51a0675ca30e1c57b3beaba33e357df49ebce7ce55496e1fa2b8990456a069a5e0951ffbf7c')
+sha256sums=('0f1f7bc93d5709a04f636311508a32e8a8a08db4333f903ea6ac7ec18d38d0d3')
+b2sums=('00ebdd783e6b706a355ff14a89841affbe421620d47cc6288811e0356f81d27792278441b33547f8bf28a11246d0d2daedbbe96c787d9908d3ae7cf78b1930e2')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
@@ -35,13 +36,11 @@ build() {
 
 check() {
   cd ${pkgname}-${pkgver}
-  # https://github.com/davidlattimore/wild/issues/230
+  # Skip tests requiring nightly compiler
   cargo test --frozen -- \
-    --skip integration_test::program_name_06___weak_vars_c__ \
-    --skip integration_test::program_name_26___libc_integration_c__ \
-    --skip integration_test::program_name_27___rust_integration_rs__ \
-    --skip integration_test::program_name_28___rust_integration_dynamic_rs__ \
-    --skip integration_test::program_name_30___rust_tls_rs__
+    --skip integration_test::program_name_31___rust_integration_rs__ \
+    --skip integration_test::program_name_32___rust_integration_dynamic_rs__ \
+    --skip integration_test::program_name_34___rust_tls_rs__
 }
 
 package() {
