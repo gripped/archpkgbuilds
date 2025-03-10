@@ -4,7 +4,7 @@
 # Contributor: Vesa Kaihlavirta <vegai@iki.fi>
 
 pkgname=happy
-pkgver=2.0.2
+pkgver=2.1.2
 pkgrel=1
 pkgdesc="The Parser Generator for Haskell"
 url="https://hackage.haskell.org/package/happy"
@@ -13,11 +13,11 @@ license=("BSD-2-Clause")
 depends=('ghc-libs' 'haskell-happy-lib')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('8b21121ddc4ba23677ab6a47cf53dc54792ef2aab4d9b96a3b1f0cc75c9ca4c3f94065a61a8097c9f71cfb932dac41c7a006e2a2588998a5603ea1723ba058a7')
+sha512sums=('21f3e42bd40c5aa06b003b78406d69f7d527100cc2d447e0b82494a6bca903a933528a5c55d0417767ae5d3c6cfad3729b853490c4cb008dc05e1fa85b73a12e')
 
 build() {
   cd $pkgname-$pkgver
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
@@ -27,7 +27,7 @@ build() {
 
 check() {
   cd $pkgname-$pkgver
-  PATH="$PWD/dist/build/happy:$PATH" HC="ghc -dynamic" runhaskell Setup test
+  PATH="$PWD/dist/build/happy:$PATH" HC="ghc -dynamic" runhaskell Setup test --show-details=direct
 }
 
 package() {
