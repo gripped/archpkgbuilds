@@ -1,5 +1,5 @@
 pkgbase = hip-runtime
-	pkgver = 6.2.4
+	pkgver = 6.3.2
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/HIP/en/latest/
 	arch = x86_64
@@ -20,15 +20,15 @@ pkgbase = hip-runtime
 	makedepends = libelf
 	makedepends = rocprofiler-register
 	makedepends = cuda
-	source = hip-runtime-6.2.4.tar.gz::https://github.com/ROCm/HIP/archive/rocm-6.2.4.tar.gz
-	source = hip-runtime-hipcc-6.2.4.tar.gz::https://github.com/ROCm/llvm-project/archive/rocm-6.2.4.tar.gz
-	source = hip-runtime-clr-6.2.4.tar.gz::https://github.com/ROCm/clr/archive/rocm-6.2.4.tar.gz
-	source = hip-runtime-hipother-6.2.4.tar.gz::https://github.com/ROcm/hipother/archive/rocm-6.2.4.tar.gz
+	source = hip-runtime-6.3.2.tar.gz::https://github.com/ROCm/HIP/archive/rocm-6.3.2.tar.gz
+	source = hip-runtime-hipcc-6.3.2.tar.gz::https://github.com/ROCm/llvm-project/archive/rocm-6.3.2.tar.gz
+	source = hip-runtime-clr-6.3.2.tar.gz::https://github.com/ROCm/clr/archive/rocm-6.3.2.tar.gz
+	source = hip-runtime-hipother-6.3.2.tar.gz::https://github.com/ROcm/hipother/archive/rocm-6.3.2.tar.gz
 	source = hipcc-amd-fix-include.patch
-	sha256sums = 76e4583ae3d31786270fd92abbb2e3dc5e665b22fdedb5ceff0093131d4dc0ca
-	sha256sums = 7af782bf5835fcd0928047dbf558f5000e7f0207ca39cf04570969343e789528
-	sha256sums = 0a3164af7f997a4111ade634152957378861b95ee72d7060eb01c86c87208c54
-	sha256sums = b7ebcf8a2679e50d27c49ebec0dbea5a67573f8b8c3f4a29108c84b28b5bedee
+	sha256sums = 2832e21d75369f87beee767949177a93ac113710afae6b73da5548c0047962ec
+	sha256sums = 1f52e45660ea508d3fe717a9903fe27020cee96de95a3541434838e0193a4827
+	sha256sums = ec13dc4ffe212beee22171cb2825d2b16cdce103c835adddb482b9238cf4f050
+	sha256sums = 1623d823de49471aae3ecb1fad0e9cdddf9301a4089f1fd44f78ac2ff0c20fb2
 	sha256sums = 9f384e6d43b9fa75d722d1b22cd310667c8569ce7e1c4deefcff3e58875f099a
 
 pkgname = hip-runtime-amd
@@ -47,7 +47,7 @@ pkgname = hip-runtime-amd
 	depends = rocprofiler-register
 	optdepends = inetutils: Print hostname in hipconfig
 	optdepends = cuda: Cross compile for nvidia
-	provides = hip=6.2.4
+	provides = hip=6.3.2
 	replaces = hip
 
 pkgname = hip-runtime-nvidia
