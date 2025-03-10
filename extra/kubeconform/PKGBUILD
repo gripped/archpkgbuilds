@@ -1,7 +1,7 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 
 pkgname=kubeconform
-pkgver=0.6.4
+pkgver=0.6.7
 pkgrel=1
 pkgdesc="FAST Kubernetes manifests validator, with support for Custom Resources!"
 url="https://github.com/yannh/kubeconform"
@@ -10,8 +10,8 @@ license=("Apache")
 depends=('glibc')
 makedepends=("go" "git")
 source=("${pkgname}-${pkgver}::https://github.com/yannh/kubeconform/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('3b5f946b62abbe3f32cbff8b85d973d192894697454b68600f497af323227e29a3a4e2d1d5fbdd202c4aed86b22e4049eb993937064e0554dff0dcf1a43199a7')
-b2sums=('fe17874a4aa9c33b19ed6f28677923273b2ccf4ea971e4c7d17618f4e39be2ad953e24abfcafcec111e0bf9611b97441c1cd1a2080a57d791ff79080390ebf61')
+sha512sums=('f1af113f60ed8888de80417640b9ea6f44fb3ee2e353be7c05ddf08c278c0e703c6ab55a96d7d1d5a2fc011843c167ff91603ffac1c03b06b3cbe628828f39e9')
+b2sums=('334a8210bec59d0fba11644ad0824478a627e245cb61d9b630668cffe432a9b114c245f2c88dfffe1ae080d47b0f5b9636dbc6791173588240f6eb59f972f038')
 options=('!lto')
 
 build() {
