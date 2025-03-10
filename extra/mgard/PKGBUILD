@@ -3,7 +3,7 @@
 
 pkgname=mgard
 pkgver=1.5.2
-pkgrel=4
+pkgrel=5
 pkgdesc="MultiGrid Adaptive Reduction of Data"
 arch=(x86_64)
 url="https://github.com/CODARcode/MGARD"
@@ -31,6 +31,7 @@ build() {
     -S ${pkgname^^}-${pkgver}
     -G Ninja
     -W no-dev
+    -DCMAKE_BUILD_TYPE=None
     -DCMAKE_INSTALL_PREFIX=/usr
     -DMGARD_ENABLE_SERIAL=ON
     -DMGARD_ENABLE_OPENMP=ON
