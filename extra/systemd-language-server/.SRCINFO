@@ -1,0 +1,19 @@
+pkgbase = systemd-language-server
+	pkgdesc = Language Server for Systemd unit files
+	pkgver = 0.3.5
+	pkgrel = 1
+	url = https://github.com/psacawa/systemd-language-server
+	arch = any
+	license = GPL-3.0-or-later
+	checkdepends = python-pytest
+	checkdepends = pandoc
+	makedepends = python-poetry
+	depends = python
+	depends = python-pygls
+	depends = python-lxml
+	depends = python-lsprotocol
+	optdepends = pandoc: Fancy highlighting, falls back to plain text
+	source = systemd-language-server-0.3.5.tar.gz::https://github.com/psacawa/systemd-language-server/archive/refs/tags/0.3.5.tar.gz
+	sha256sums = 89bd2d6db9f582ede4c221e83eec9a8376a8decebdb7177716a462413ce71270
+
+pkgname = systemd-language-server

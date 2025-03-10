@@ -1,0 +1,45 @@
+# Maintainer: Justin Kromlinger <hashworks@archlinux.org>
+
+pkgname=systemd-language-server
+pkgver=0.3.5
+pkgrel=1
+pkgdesc='Language Server for Systemd unit files'
+arch=('any')
+url='https://github.com/psacawa/systemd-language-server'
+license=('GPL-3.0-or-later')
+depends=(
+  python
+  python-pygls
+  python-lxml
+  python-lsprotocol
+)
+optdepends=(
+  'pandoc: Fancy highlighting, falls back to plain text'
+)
+makedepends=(
+  python-poetry
+)
+checkdepends=(
+  python-pytest
+  pandoc
+)
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
+sha256sums=('89bd2d6db9f582ede4c221e83eec9a8376a8decebdb7177716a462413ce71270')
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  pytest
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  python -m installer --destdir="${pkgdir}" dist/*.whl
+  install -Dm644 "LICENSE" -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm644 "README.md" -t "${pkgdir}/usr/share/doc/${pkgname}"
+}
+# vim:set ts=2 sw=2 et:
