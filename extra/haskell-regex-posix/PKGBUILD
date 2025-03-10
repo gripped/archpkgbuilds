@@ -5,7 +5,7 @@
 _hkgname=regex-posix
 pkgname=haskell-regex-posix
 pkgver=0.96.0.1
-pkgrel=4
+pkgrel=5
 pkgdesc='POSIX Backend for Text.Regex (regex-base)'
 url="https://hackage.haskell.org/package/$_hkgname"
 license=('BSD')
@@ -18,7 +18,7 @@ sha512sums=('4d6383e34fd6144af3004caee70bc83c8894c8e78c147c2e829cdbd9c74af3d1807
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
