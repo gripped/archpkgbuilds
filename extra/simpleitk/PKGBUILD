@@ -1,0 +1,171 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
+pkgbase=simpleitk
+pkgname=(
+  simpleitk
+  java-simpleitk
+  lua-simpleitk
+  mono-simpleitk
+  python-simpleitk
+  r-simpleitk
+  ruby-simpleitk
+  tcl-simpleitk
+)
+pkgver=2.4.1
+pkgrel=2
+pkgdesc="A simplified layer built on top of ITK"
+arch=(x86_64)
+url="https://github.com/SimpleITK/SimpleITK"
+license=(Apache-2.0)
+makedepends=(
+  cmake
+  eigen
+  git
+  intel-oneapi-mkl
+  java-environment
+  ninja
+  python-installer
+  python-wheel
+  swig
+  # depends
+  itk
+  java-runtime
+  lua
+  mono
+  python
+  python-numpy
+  r
+  ruby
+  tcl
+  tk
+)
+source=($pkgbase::git+$url.git#tag=v$pkgver)
+b2sums=('4253d506680abb312c406dc345356026dc99fdb2f391a004b055b99b5986b8f798fc3c76698873ec536e65a17001c48e7d4501b09ee5633e8fb57e7bfa04191e')
+
+build() {
+  local cmake_options=(
+    -B build
+    -S $pkgbase
+    -G Ninja
+    -W no-dev
+    -DBUILD_DOXYGEN=OFF
+    -DBUILD_EXAMPLES=OFF
+    -DBUILD_SHARED_LIBS=ON
+    -DBUILD_TESTING=OFF
+    -DCMAKE_BUILD_TYPE=None
+    -DCMAKE_INSTALL_PREFIX=/usr
+    -DWRAP_CSHARP=ON
+    -DWRAP_DEFAULT=ON
+    -DWRAP_JAVA=ON
+    -DWRAP_LUA=ON
+    -DWRAP_PYTHON=ON
+    -DWRAP_R=ON
+    -DWRAP_RUBY=ON
+    -DWRAP_TCL=ON
+  )
+  local java_home=$(find /usr/lib/jvm/ -name "$(archlinux-java get)")
+
+  JAVA_HOME="$java_home" cmake "${cmake_options[@]}"
+  cmake --build build --target all dist
+}
+
+package_simpleitk() {
+  depends=(
+    gcc-libs
+    glibc
+    itk
+  )
+
+  DESTDIR="$pkgdir" cmake --install build
+}
+
+package_java-simpleitk() {
+  pkgdesc+=" - Java bindings"
+  depends=(
+    gcc-libs
+    glibc
+    java-runtime
+    simpleitk
+  )
+
+  install -vdm 755 "$pkgdir"/usr/share/java/SimpleITK/
+  cp -ar build/Wrapping/Java/dist/SimpleITK-$pkgver*/* "$pkgdir"/usr/share/java/SimpleITK/
+}
+
+package_lua-simpleitk() {
+  pkgdesc+=" - Lua bindings"
+  depends=(
+    gcc-libs
+    glibc
+    lua
+    simpleitk
+  )
+
+  local lua_version=$(lua -v | grep -Eo '[0-9]+\.[0-9]+')
+  install -vDm 755 build/Wrapping/Lua/lib/SimpleITK.so -t "$pkgdir"/usr/lib/lua/$lua_version/
+}
+
+package_mono-simpleitk() {
+  pkgdesc+=" - C# bindings"
+  depends=(
+    gcc-libs
+    glibc
+    mono
+    simpleitk
+  )
+
+  install -vDm 755 build/Wrapping/CSharp/CSharpBinaries/libSimpleITKCSharpNative.so -t "$pkgdir"/usr/lib/
+  install -vDm 755 build/Wrapping/CSharp/CSharpBinaries/SimpleITKCSharpManaged.dll -t "$pkgdir"/usr/lib/
+}
+
+package_python-simpleitk() {
+  pkgdesc+=" - Python bindings"
+  depends=(
+    gcc-libs
+    glibc
+    python
+    python-numpy
+    simpleitk
+  )
+
+  python -m installer --destdir="$pkgdir" build/Wrapping/Python/dist/*.whl
+}
+
+package_r-simpleitk() {
+  pkgdesc+=" - R bindings"
+  depends=(
+    gcc-libs
+    glibc
+    r
+    simpleitk
+  )
+
+  install -vdm 755 "$pkgdir"/usr/lib/R/library/
+  cp -ar build/Wrapping/R/Packaging/SimpleITK "$pkgdir"/usr/lib/R/library/
+}
+
+package_ruby-simpleitk() {
+  pkgdesc+=" - Ruby bindings"
+  depends=(
+    gcc-libs
+    glibc
+    ruby
+    simpleitk
+  )
+
+  local ruby_version=$(ruby -v | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
+  install -vDm 755 build/Wrapping/Ruby/lib/simpleitk.so -t "$pkgdir"/usr/lib/ruby/gems/$ruby_version/gems/ruby-simpleitk-$pkgver/lib/
+}
+
+package_tcl-simpleitk() {
+  pkgdesc+=" - TCL bindings"
+  depends=(
+    gcc-libs
+    glibc
+    simpleitk
+    tcl
+    tk
+  )
+
+  install -vDm 755 build/Wrapping/Tcl/bin/SimpleITKTclsh -t "$pkgdir"/usr/bin/
+}

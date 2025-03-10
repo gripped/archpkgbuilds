@@ -1,0 +1,84 @@
+pkgbase = simpleitk
+	pkgdesc = A simplified layer built on top of ITK
+	pkgver = 2.4.1
+	pkgrel = 2
+	url = https://github.com/SimpleITK/SimpleITK
+	arch = x86_64
+	license = Apache-2.0
+	makedepends = cmake
+	makedepends = eigen
+	makedepends = git
+	makedepends = intel-oneapi-mkl
+	makedepends = java-environment
+	makedepends = ninja
+	makedepends = python-installer
+	makedepends = python-wheel
+	makedepends = swig
+	makedepends = itk
+	makedepends = java-runtime
+	makedepends = lua
+	makedepends = mono
+	makedepends = python
+	makedepends = python-numpy
+	makedepends = r
+	makedepends = ruby
+	makedepends = tcl
+	makedepends = tk
+	source = simpleitk::git+https://github.com/SimpleITK/SimpleITK.git#tag=v2.4.1
+	b2sums = 4253d506680abb312c406dc345356026dc99fdb2f391a004b055b99b5986b8f798fc3c76698873ec536e65a17001c48e7d4501b09ee5633e8fb57e7bfa04191e
+
+pkgname = simpleitk
+	depends = gcc-libs
+	depends = glibc
+	depends = itk
+
+pkgname = java-simpleitk
+	pkgdesc = A simplified layer built on top of ITK - Java bindings
+	depends = gcc-libs
+	depends = glibc
+	depends = java-runtime
+	depends = simpleitk
+
+pkgname = lua-simpleitk
+	pkgdesc = A simplified layer built on top of ITK - Lua bindings
+	depends = gcc-libs
+	depends = glibc
+	depends = lua
+	depends = simpleitk
+
+pkgname = mono-simpleitk
+	pkgdesc = A simplified layer built on top of ITK - C# bindings
+	depends = gcc-libs
+	depends = glibc
+	depends = mono
+	depends = simpleitk
+
+pkgname = python-simpleitk
+	pkgdesc = A simplified layer built on top of ITK - Python bindings
+	depends = gcc-libs
+	depends = glibc
+	depends = python
+	depends = python-numpy
+	depends = simpleitk
+
+pkgname = r-simpleitk
+	pkgdesc = A simplified layer built on top of ITK - R bindings
+	depends = gcc-libs
+	depends = glibc
+	depends = r
+	depends = simpleitk
+
+pkgname = ruby-simpleitk
+	pkgdesc = A simplified layer built on top of ITK - Ruby bindings
+	depends = gcc-libs
+	depends = glibc
+	depends = ruby
+	depends = simpleitk
+
+pkgname = tcl-simpleitk
+	pkgdesc = A simplified layer built on top of ITK - TCL bindings
+	depends = gcc-libs
+	depends = glibc
+	depends = simpleitk
+	depends = tcl
+	depends = tk
