@@ -1,6 +1,6 @@
 pkgbase = rocm-hip-sdk
-	pkgver = 6.2.2
-	pkgrel = 1
+	pkgver = 6.3.2
+	pkgrel = 2
 	url = https://rocm.docs.amd.com/en/latest/
 	arch = any
 	license = LicenseRef-None
@@ -50,7 +50,6 @@ pkgname = rocm-opencl-sdk
 	depends = rocm-core
 	depends = hsa-rocr
 	depends = rocm-opencl-runtime
-	depends = hsakmt-roct
 
 pkgname = rocm-hip-runtime
 	pkgdesc = Packages to run HIP applications on the AMD platform
@@ -64,7 +63,6 @@ pkgname = rocm-hip-runtime
 pkgname = rocm-language-runtime
 	pkgdesc = ROCm runtime
 	depends = rocm-core
-	depends = hsakmt-roct
 	depends = hsa-rocr
 	depends = rocm-device-libs
 	depends = comgr
