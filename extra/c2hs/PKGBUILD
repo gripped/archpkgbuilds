@@ -3,7 +3,7 @@
 
 pkgname=c2hs
 pkgver=0.28.8
-pkgrel=223
+pkgrel=225
 pkgdesc="C->Haskell FFI tool that gives some cross-language type safety"
 url="https://github.com/haskell/c2hs"
 license=("GPL2")
@@ -26,7 +26,7 @@ prepare() {
     cp -r c2hs-fbb4c2fa6ec5528aa068512f1b691298db420321/tests/bugs/issue-242 c2hs-$pkgver/tests/bugs/
     cp -r c2hs-fbb4c2fa6ec5528aa068512f1b691298db420321/tests/system/interruptible c2hs-$pkgver/tests/system/
 
-    uusi -u shelly c2hs-$pkgver/c2hs.cabal
+    uusi -u language-c -u shelly c2hs-$pkgver/c2hs.cabal
 }
 
 build() {
