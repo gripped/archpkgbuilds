@@ -2,7 +2,8 @@
 
 ## Always build against latest spirv-headers
 
-To prevent any potential build / compatibility issue, `lib32-spirv-tools` (and `spirv-tools`) should be built against the latest version of `spirv-headers` at the time.
+To prevent any potential build / compatibility issue, `lib32-spirv-tools` (and `spirv-tools`) should be built against the latest version of `spirv-headers` at the time.  
+Note that upstream often lags behind when it comes to `spirv-headers` compatible releases (see <https://github.com/KhronosGroup/SPIRV-Headers/issues/488>).
 
 ## Keep in sync with spirv-tools
 
