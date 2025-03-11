@@ -2,7 +2,7 @@
 # Contributor: Florian Pritz <flo@xinu.at>
 
 pkgname=perl-rename
-pkgver=1.15
+pkgver=1.16
 pkgrel=1
 pkgdesc='Renames multiple files using Perl regular expressions'
 arch=('any')
@@ -16,8 +16,8 @@ options=('!emptydirs')
 source=(
   "$pkgname-$pkgver.tar.gz::https://search.cpan.org/CPAN/authors/id/P/PE/PEDERST/rename-$pkgver.tar.gz"
 )
-sha512sums=('698946cba7106e53667967d27b350256a23930e7f86045ee5f6cd915555b1c2f3137539929dc91282bb3a6ea2628d47321184a8663257c4258406e911cbace79')
-b2sums=('3502ded5f630aea241638259074ec6cc4ccf04b5bb7c18163bf6380917850f7dceda558add456f6d4f83f8a69935ee8cfcc329db8d00ef40d2f6b0f6163b23e5')
+sha512sums=('8be459c0173dd100b13dd3e78b22c0ba78eaac5c464ff493b7e8979d2e132aef12f7e6e861061bef0c034840fdd2b4778afceb448f85eb18f3c5208eb4c898cf')
+b2sums=('3f3bd18bfab5f3758d8b532a54783f1949466dcf9d6b9471e918657681ec2e6af551a2b9be0bb923b16a666cc40008ccbb775a64ad10e9bf305be12eaa913afb')
 
 build() {
   cd "rename-$pkgver"
