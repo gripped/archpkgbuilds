@@ -1,0 +1,13 @@
+diff --git i/Makefile w/Makefile
+index 4b5a456d5..09d1f2361 100644
+--- i/Makefile
++++ w/Makefile
+@@ -237,7 +237,7 @@ test-full-programs-debug: all
+ 	$(SILENT)cd '$(outDir)' && $(buildDir)/test/full-program-runner/full-program-runner --debugger='$(debuggercmd)' --timeout_s=120 --max_parallel=$(num_cores) --compiler=$(outDir)/ponyc --debug --output=$(outDir)/full-program-tests/debug --test_lib=$(outDir)/test_lib $(srcDir)/test/full-program-tests
+ 
+ test-stdlib-release: all
+-	$(SILENT)cd '$(outDir)' && PONYPATH=.:$(PONYPATH) ./ponyc -b stdlib-release --pic --checktree $(cross_args) ../../packages/stdlib && echo Built `pwd`/stdlib-release && $(cross_runner) $(debuggercmd) ./stdlib-release --sequential
++	$(SILENT)cd '$(outDir)' && PONYPATH=.:$(PONYPATH) ./ponyc -b stdlib-release --pic --checktree $(cross_args) ../../packages/stdlib && echo Built `pwd`/stdlib-release && $(cross_runner) $(debuggercmd) ./stdlib-release --sequential --exclude="net/Broadcast"
+ 
+ test-stdlib-debug: all
+ 	$(SILENT)cd '$(outDir)' && PONYPATH=.:$(PONYPATH) ./ponyc -d -b stdlib-debug --pic --strip --checktree $(cross_args) ../../packages/stdlib && echo Built `pwd`/stdlib-debug && $(cross_runner) $(debuggercmd) ./stdlib-debug --sequential

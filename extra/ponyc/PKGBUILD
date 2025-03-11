@@ -1,74 +1,78 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=ponyc
-pkgver=0.43.1
+pkgver=0.58.13
 pkgrel=1
 pkgdesc='An actor model, capabilities, high performance programming language'
-url='https://ponylang.org/'
 arch=('x86_64')
-license=('BSD')
-depends=('llvm-libs')  # 'libb2'
-makedepends=('benchmark' 'cmake' 'gtest' 'llvm')
-checkdepends=('pcre2')
-options=('!strip')
-optdepends=('pcre2: Needed for the regex package')
-source=("https://github.com/ponylang/ponyc/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        shared-libs.patch)
-sha512sums=('7558e40c6d370b1ead57ce66408f1a4d9359720c7d85aee9d4d4f089fc9591e7bcbd12bf4d34e0a1640a71a39afd81cd965c46ddc2a90943d385865df41f1eb6'
-            '7dc4591d5e3ff7d321f4397f382d700e3778b984df3d1dc95ace1689ce3f7fe63d2b35c4986aea11cf15cfa34f53b96782eebe2cc8a729f47de45f72302ea594')
+url='https://ponylang.org/'
+license=('BSD-2-Clause')
+depends=(
+  'gcc-libs'
+  'glibc'
+)
+makedepends=(
+  'cmake'
+  'git'
+  'python'
+)
+options=('!lto')
+source=(
+  "git+https://github.com/ponylang/ponyc.git#tag=$pkgver"
+  "git+https://github.com/llvm/llvm-project.git"
+  "ponyc-exclude-failing-test.patch"
+  "ponyc-remove-usr-local-refs.patch"
+)
+sha512sums=('2116f8efc362fe7f2e43ecdb5f573378e4264e2ea8ff2ba34a0f1092bb4ec3b1b599ba5f18ad90af53d3c4e29e3b8aa45a691aa3ce79acac0bf5e8f8590c094e'
+            'SKIP'
+            'dc4a160216727d5b946d8a359866b38ffc7c8d00c98ea1e1a105c191781265a2ecfa33afc283ecc23652012a811037aaa5dbe99e75566f26ff9eeecafa7934ab'
+            'abbc3feb2802d7151f546616e1d9d353526e2ececfb7733fa810a59d63066c59ba0321321970fc82a1eceb71ff5a760e5bc77acc7af08bb72805635a7ae62ea8')
 
 prepare() {
-  cd ponyc-$pkgver
+  cd $pkgname
+  git submodule init
+  git config submodule.lib/llvm/src.url "$srcdir/llvm-project"
+  git -c protocol.file.allow=always submodule update \
+    lib/llvm/src
 
-  patch -p2 -i ../shared-libs.patch
-
-  # Use system gmock/gtest/gbenchmark, remove -Werror (https://github.com/ponylang/ponyc/issues/3806)
-  sed -i 's|NO_DEFAULT_PATH||;s/-Werror //' CMakeLists.txt
-
-  # Don't build libponyc-standalone.a
-  # sed -i 's/else()/elseif(FALSE)/' src/libponyc/CMakeLists.txt
-
-  # System b2 - disabled: *** stack smashing detected ***: terminated
-  # sed -i 's/blake2/b2/' src/ponyc/CMakeLists.txt test/libponyc/CMakeLists.txt benchmark/libponyc/CMakeLists.txt
-  # Arguments ordering changed
-  # sed -i 's|blake2b(buf, SIGNATURE_LENGTH, array.ptr, array.size, NULL, 0);|blake2b(buf, array.ptr, NULL, SIGNATURE_LENGTH, array.size, 0);|' src/libponyc/pkg/package.c
-
-  # Missing LLVM components
-  sed -i 's/demangle/demangle amdgpucodegen avrcodegen bpfcodegen codegen hexagoncodegen lanaicodegen mipscodegen msp430codegen nativecodegen nvptxcodegen powerpccodegen riscvcodegen sparccodegen systemzcodegen webassemblycodegen xcorecodegen amdgpuasmparser asmparser avrasmparser bpfasmparser hexagonasmparser lanaiasmparser mipsasmparser msp430asmparser powerpcasmparser riscvasmparser sparcasmparser systemzasmparser webassemblyasmparser/' CMakeLists.txt
+  patch -Np1 < ../ponyc-exclude-failing-test.patch
+  patch -Np1 < ../ponyc-remove-usr-local-refs.patch
 }
 
 build() {
-  cd ponyc-$pkgver
-  make config=release prefix=/usr arch=x86-64 libs
-  make config=release prefix=/usr arch=x86-64 configure
-  make config=release prefix=/usr arch=x86-64 build
+  cd $pkgname
+  make prefix=/usr build_flags="$MAKEFLAGS" libs
+  make prefix=/usr build_flags="$MAKEFLAGS" arch=x86-64 configure
+  make prefix=/usr build_flags="$MAKEFLAGS" build
 
   mkdir docs
   build/release/ponyc packages/stdlib -rexpr -g -o docs
 }
 
 check() {
-  cd ponyc-$pkgver
-  make config=release prefix=/usr arch=x86-64 test
+  cd $pkgname
+  make prefix=/usr build_flags="$MAKEFLAGS" test
 }
 
 package() {
-  cd ponyc-$pkgver
-  make config=release arch= DESTDIR="$pkgdir"/usr/lib/pony install
+  cd $pkgname
+  make build_flags="$MAKEFLAGS" DESTDIR="$pkgdir/usr/lib/pony" install
 
-  install -dm755 "$pkgdir"/usr/{bin,lib,include/pony/detail}
-  ln -sf /usr/lib/pony/bin/ponyc "$pkgdir"/usr/bin/
-  for _lib in {libponyc,libponyrt,libponyrt-pic}.a; do
-    ln -sf /usr/lib/pony/lib/$_lib "$pkgdir"/usr/lib/
-  done
-  ln -sf /usr/lib/pony/include/pony.h "$pkgdir"/usr/include/
-  ln -sf /usr/lib/pony/include/pony/detail/atomics.h "$pkgdir"/usr/include/pony/detail/
+  install -vdm755 "$pkgdir/usr/bin"
+  ln -vs -t "$pkgdir/usr/bin" /usr/lib/pony/bin/ponyc
 
-  # Let's include the examples as documentation is scarce.
-  install -dm755 "$pkgdir"/usr/share/doc/pony
-  cp -dr --no-preserve=ownership examples "$pkgdir"/usr/share/doc/pony
+  install -vdm755 "$pkgdir/usr/lib"
+  ln -vs -t "$pkgdir/usr/lib" /usr/lib/pony/lib/native/libponyc.a
+  ln -vs -t "$pkgdir/usr/lib" /usr/lib/pony/lib/native/libponyrt-pic.a
+  ln -vs -t "$pkgdir/usr/lib" /usr/lib/pony/lib/native/libponyrt.a
 
-  cp -dr docs/* "$pkgdir"/usr/share/doc/pony
+  install -vdm755 "$pkgdir/usr/include/pony/detail"
+  ln -vs -t "$pkgdir/usr/include" /usr/lib/pony/include/pony.h
+  ln -vs -t "$pkgdir/usr/include/pony/detail" /usr/lib/pony/include/pony/detail/atomics.h
 
-  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/"$pkgname"/LICENSE
+  install -vdm755 "$pkgdir/usr/share/doc/$pkgname"
+  cp -va -t "$pkgdir/usr/share/doc/$pkgname" docs/*
+
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }

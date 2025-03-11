@@ -1,0 +1,29 @@
+diff --git i/src/libponyc/pkg/package.c w/src/libponyc/pkg/package.c
+index 2ee105ac0..d438cce05 100644
+--- i/src/libponyc/pkg/package.c
++++ w/src/libponyc/pkg/package.c
+@@ -752,10 +752,6 @@ bool package_init(pass_opt_t* opt)
+   package_add_paths(getenv("PONYPATH"), opt);
+ 
+   // Finally we add OS specific paths.
+-#ifdef PLATFORM_IS_POSIX_BASED
+-  add_path("/usr/local/lib", opt);
+-  add_path("/opt/local/lib", opt);
+-#endif
+ #ifdef PLATFORM_IS_DRAGONFLY
+   add_path("/usr/local/cxx_atomics", opt);
+ #endif
+diff --git i/src/libponyrt/CMakeLists.txt w/src/libponyrt/CMakeLists.txt
+index f8f13fd10..78b8d9ca4 100644
+--- i/src/libponyrt/CMakeLists.txt
++++ w/src/libponyrt/CMakeLists.txt
+@@ -116,9 +116,6 @@ if (MSVC)
+         COMMAND $<$<CONFIG:MinSizeRel>:${CMAKE_COMMAND}> ARGS -E copy ${libponyrt_BINARY_DIR}/minsizerel/libponyrt.lib ${CMAKE_BINARY_DIR}/../minsizerel${PONY_OUTPUT_SUFFIX}/libponyrt.lib
+     )
+ else()
+-    target_include_directories(libponyrt
+-        PRIVATE /usr/local/include
+-    )
+ 
+     if(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Darwin")
+         set(LIBPONYRT_ARCHIVE libponyrt.a)
