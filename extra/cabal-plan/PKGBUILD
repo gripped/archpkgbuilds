@@ -2,8 +2,8 @@
 
 _hkgname=cabal-plan
 pkgname=cabal-plan
-pkgver=0.7.2.2
-pkgrel=25
+pkgver=0.7.2.3
+pkgrel=1
 pkgdesc="Library and utility for processing cabal's plan.json file"
 url="https://github.com/hvr/cabal-plan"
 license=("GPL")
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-async' 'has
          'haskell-topograph' 'haskell-vector' 'haskell-zlib')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('6178ff286d4cf4dd203aa85f96712869cfafc6a22bdcee58d29698eefd83a251')
+sha256sums=('6282014e55b690e4d73ffcef9ac36e66fc9fb5512c6c3be89913c813150c337f')
 
 prepare() {
   cd $_hkgname-$pkgver
