@@ -8,8 +8,8 @@
 # Contributor: Ben <ben@benmazer.net>
 
 pkgname=mpd
-pkgver=0.23.17
-pkgrel=3
+pkgver=0.24
+pkgrel=1
 pkgdesc="Flexible, powerful, server-side application for playing music"
 arch=(x86_64)
 url="https://www.musicpd.org/"
@@ -28,7 +28,7 @@ depends=(
   libmms
   libmodplug
   libmpcdec
-  # libnfs
+  libnfs
   libshout
   libsidplayfp
   libsoxr
@@ -42,7 +42,6 @@ depends=(
 makedepends=(
   alsa-lib
   avahi
-  boost
   bzip2
   chromaprint
   curl
@@ -75,6 +74,7 @@ makedepends=(
   opus
   libpipewire
   python-sphinx
+  python-sphinx_rtd_theme
   sqlite
   systemd
   twolame
@@ -89,12 +89,12 @@ source=(
   $pkgname.tmpfiles
   $pkgname.service.override
 )
-sha512sums=('6c156fd543f426dd7927dac4871d0fc00c3766e55447a800c1987a9a0652384bfddad56aaff8c5a4c3c9ac5e537492dbc67b64a7f493f9b85c17145f901f5c1c'
+sha512sums=('3d05984ffe961a0a43a9bf69a276097dc8fd349a5074def62d5232f051cd856de7de628204ca285599bd1baa83ff261c1e8fb8d7bb6b2069d8c9fded3684e330'
             '25a823740d92da8e186916701413114142eb6ad91a172c592e68b569c8e4f50fa99580e555ccf6cd31fc4f55a09bfe0278efa46e4e76ee0fe02846292fadf3c1'
             'd66c1d771160ee1781a05e57f383acc466babb29924c07d83ac0e763c14380dd1f279ba7b4aec508dc70245370d9732b4bc6287df1a2e06a920f3b73551d3032'
             'db473db27cd68994c3ee26e78e0fb34d13126301d8861563dcc12a22d62ecb14c4ffb1e0798c6aaccdff34e73bae3fbeeff7b42606c901a2d35e278865cdf35d'
             'c1782b82f9db1d30aece43a07230c5d57370f2494a16e108af03815d83968805472f10f53ea5495cf0e08ff8f245430c3c3bc44025af43aaf9ecd12fcd6afc6c')
-b2sums=('25365047cd8238fbcd2adc0cf4ae28c1403810b55939bf106f0139e75341c065c788f288eebfffe515264150ba5410bf25cf98ae03514f0d3038ae95fb451e83'
+b2sums=('764c606c26dddf190c7394a08704a470be1d81c9263429917350331a926b5bb93581ae3afb61a0045652c858f335cc297bf19441db24531e2c2143966d088aea'
         '0969a3c477b6a3f34b44e067e515d7f306414dd14e0163584417b9d071e3cc825898219f7ff66ead7905b15429b8411304052d3b2b14a72e560bfabf9bf0adcf'
         '814c2314de6040e895657a8c8d62f11bc38c224a3c0ef5cbf280c0e141c80f04b0ac5026be06fd5dc4a4b764f3d91ab46f365da0a7bd466abc3aed02b0612165'
         'd7b587c25dd5830c27af475a8fdd8102139d7c8fdd6f04fe23b36be030e4411582e289f575c299255ff8183096f7d47247327276f9a24641cbd032d9675b837a'
@@ -106,7 +106,6 @@ build() {
     -D documentation=enabled
     -D adplug=disabled
     -D audiofile=disabled
-    -D nfs=disabled
     -D sndio=disabled
     -D shine=disabled
     -D tremor=disabled
