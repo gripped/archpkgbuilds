@@ -4,7 +4,7 @@
 pkgbase=plasma-integration
 pkgname=(plasma-integration
          plasma5-integration)
-pkgver=6.3.2
+pkgver=6.3.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Qt Platform Theme integration plugins for the Plasma workspaces'
@@ -51,19 +51,13 @@ makedepends=(extra-cmake-modules
              qt5-wayland
              qt5-x11extras)
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/plasma/plasma-integration/-/commit/153da40b.patch)
-sha256sums=('88684d6d4a7fea6500f73b100a08a76571551fe48ac973d040d5e2c211e52860'
-            'SKIP'
-            'f4774cce352bab4b40130a16ba9cdd59bc333dd8293e2317c82e602be64e0c82')
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('37d197b3457c710be14fd2e517986af47b8a652f25d1a62b7857dacc8ea6a9dc'
+            'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
-
-prepare() {
-  patch -d $pkgname-$pkgver -Rp1 < 153da40b.patch # Temporary revert until Qt 6.9 beta 3 is out
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
