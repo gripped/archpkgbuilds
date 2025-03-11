@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=fiery
-pkgver=2.0.0
+pkgver=2.0.1
 pkgrel=1
 pkgdesc='A convergent web browser'
 url='https://mauikit.org/'
@@ -18,11 +18,12 @@ depends=(gcc-libs
          qt6-webengine)
 makedepends=(extra-cmake-modules)
 groups=(maui)
-source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/maui-$pkgname-$pkgver.tar.xz)
-sha256sums=('19b0cd70175296d64fca24df2a85b189ab0459527bd0ffc6e784e4e005524785')
+# source=(https://download.kde.org/stable/maui/$pkgname/$pkgver/maui-$pkgname-$pkgver.tar.xz)
+source=(https://invent.kde.org/maui/maui-fiery/-/archive/v$pkgver/maui-fiery-v$pkgver.tar.gz)
+sha256sums=('b959c5302771cafeec7b4efa6b14f914e6537c8c134bf3b2d376c57e37933f77')
 
 build() {
-  cmake -B build -S maui-$pkgname-$pkgver
+  cmake -B build -S maui-$pkgname-v$pkgver
   cmake --build build
 }
 
