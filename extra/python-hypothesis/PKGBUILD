@@ -4,7 +4,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-hypothesis
-pkgver=6.127.9
+pkgver=6.128.2
 pkgrel=1
 pkgdesc="Advanced Quickcheck style testing library for Python"
 arch=(any)
@@ -38,7 +38,7 @@ checkdepends=(
   python-pytest
   python-pytest-xdist
   python-pytz
-  # python-watchdog
+  python-watchdog
 )
 optdepends=(
   'python-black: for CLI and ghostwriter'
@@ -55,10 +55,11 @@ optdepends=(
   'python-pytz: for datetime and django module'
   'python-redis: for redis support'
   'python-rich: for CLI'
+  'python-watchdog: for tracking file system events'
 )
 source=("$pkgname::git+$_url#tag=hypothesis-python-$pkgver")
-sha512sums=('0f40137bfc6a22af2bf5408616c3f878a646e7ac9e198b1fa1de8cf70caeb5ed1cfba0efb0cd5762fd0b923b508f1c6736e70eb4b4f7661e7e488a33fe7eebbb')
-b2sums=('17518abcafa8685eef42f8484c30406ef7364c623b18a53978789676f92b96c87f13c89315ed1ee376db92f9ca6e805db875d00924c694399d0ae15dc1741972')
+sha512sums=('e8bf303d32dd81667edd57505e21f354612577e5bb1d29ae88c91cf4facc1dd456e48d7416200e13188ae1b581c053a2a7cf3a5ebb3500e738d621233249ca6a')
+b2sums=('2ee4eff5a2c5c690c70a4dce4bf568511c7be0a31d61e80bf1eaa4046cff5699e5bbdc95a186cb3417cb55e626a470e5397b7a8bc21baa27be257d6b2758c799')
 
 prepare() {
   cd $pkgname/hypothesis-python
@@ -80,8 +81,6 @@ check() {
     # Depends on python-hypothesis-crosshair which is not packaged,
     # for some reason --deselect does not work, so ignoring whole file
     --ignore=tests/crosshair/test_crosshair.py
-    # I think these fail due to our python-watchdog package being outdated
-    --ignore=tests/watchdog/test_database.py
   )
   PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest \
     "${pytest_options[@]}" tests/
