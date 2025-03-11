@@ -3,7 +3,7 @@
 
 _name=pydantic-extra-types
 pkgname=python-pydantic-extra-types
-pkgver=2.10.2
+pkgver=2.10.3
 pkgrel=1
 pkgdesc="Extra pydantic types"
 arch=(any)
@@ -24,6 +24,7 @@ checkdepends=(
   python-pendulum
   python-phonenumbers
   python-pycountry
+  python-pymongo
   python-pytest
   python-semver
   python-ulid
@@ -38,8 +39,8 @@ optdepends=(
   'python-ulid: for ULID support'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('79f43144a5e5e58c0ebb8f900e86bc9abd936de1acfb892c07621748d0bb57734c18434074b233daf04a96d35a7fa42a7205fa13e8092bdf6943cf92f61a4142')
-b2sums=('bff43eb41b3e3e7215ce5d4a3f7ed337d12bb858bfb0a1f74e7d377f85fdde4eac37d31171c57f755ae17922766e29972c1da70ce30b573503d89e2c4a691861')
+sha512sums=('8b0a41e9d793bdbffb7aa5e27771b0ffca5d668fe4086b417c13724700de0e408b8b39197641abc6c2ff29af0fc2d6ff5b58e3ac7b30063eddb1462f139c76a6')
+b2sums=('3ec84890eb75687f2fbb43e47f7340ae48881ce2adc74578eb63a13f64ca1469c58c18dc2dfec708dd318b2f868669d1f4d7d902e5662ad7e699ed607eaa7fe8')
 
 build() {
   cd $_name-$pkgver
@@ -48,6 +49,7 @@ build() {
 
 check() {
   cd $_name-$pkgver
+  export TZ=UTC
   pytest -vv
 }
 
