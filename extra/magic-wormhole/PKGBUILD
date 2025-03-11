@@ -3,8 +3,8 @@
 # Contributor: Storm Dragon <stormdragon2976@gmail.com>
 
 pkgname=magic-wormhole
-pkgver=0.17.0
-pkgrel=3
+pkgver=0.18.0
+pkgrel=1
 pkgdesc="Securely transfer data between computers"
 arch=(any)
 url="https://github.com/magic-wormhole/magic-wormhole"
@@ -16,13 +16,15 @@ depends=(python-autobahn
          python-iterable-io
          python-pynacl
          python-pyopenssl
+         python-qrcode
          python-service-identity
          python-spake2
          python-tqdm
          python-txtorcon
          python-zipstream-ng)
 makedepends=(python-{build,installer,wheel}
-             python-setuptools)
+             python-setuptools
+             python-versioneer)
 checkdepends=(python-magic-wormhole-mailbox-server
               python-magic-wormhole-transit-relay
               python-noiseprotocol
@@ -30,7 +32,13 @@ checkdepends=(python-magic-wormhole-mailbox-server
               python-pytest-mock)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha512sums=('098688f42bb16f71c24f3e3aefa39166b3f4250955359cb9c90d125e2e261a95bf180296e00e9d656f43817dc6c9b2e54ce3d2c222fdad4198ac7e005814ecf7')
+sha512sums=('731fc2207db5b3590bd00313d2bf22e68a8db1e0ea094bf47cb3fb48d35662f86c5920be081383fd6e82394f686907b1c8c08642ea6d90b1338f974c2a5ce24c')
+
+prepare() {
+	cd "${pkgname#python-}-$pkgver"
+	# vendored versioneer is too old for Python 3.12
+	rm -f versioneer.py
+}
 
 build() {
 	cd "$_archive"
