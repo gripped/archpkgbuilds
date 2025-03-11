@@ -2,12 +2,12 @@
 
 pkgname=labplot
 pkgver=2.11.1
-pkgrel=4
+pkgrel=5
 arch=(x86_64)
 pkgdesc='KDE Application for interactive graphing and analysis of scientific data'
 url='https://labplot.kde.org/'
 license=(GPL-2.0-or-later)
-depends=(# cantor
+depends=(# cantor - reenable in 2.12
          cblas
          cfitsio
          discount
@@ -57,16 +57,22 @@ makedepends=(boost
 source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz
         kuserfeedback.patch
         qxlsx.patch
-        https://invent.kde.org/education/labplot/-/commit/0edfd286.patch)
+        https://invent.kde.org/education/labplot/-/commit/0edfd286.patch
+        https://invent.kde.org/education/labplot/-/commit/e429dfb3.patch
+        libixion-0.20.patch)
 sha256sums=('53aa6ac8df39324d99463e60d88de25346b3928da5bb0f210b0563489046679d'
             'd964ba68a6f563207e095db07a243a9010adfa7dc0b592d4e2f614419e4171b6'
             '41198660cd4f56a1a8298fc6b8d1247ffacf1e7dc0efe5413dc9eac6e628f217'
-            '998d361b026aa5db9153c73ca930a1843098d8ba4b7b357b1508a6361bb3aa51')
+            '998d361b026aa5db9153c73ca930a1843098d8ba4b7b357b1508a6361bb3aa51'
+            '6a0275df03b49628734050f594fd1fe34366d3d4c8ad901dc9f9f1ea0203e38f'
+            'e33dadf960e1b29f47328ae464f62827cc76429152117663b6946a4612059f09')
 
 prepare() {
   patch -d $pkgname-$pkgver -p1 < kuserfeedback.patch # Fix kuserfeedback detection
   patch -d $pkgname-$pkgver -p1 < qxlsx.patch # Fix qxlsx detection
   patch -d $pkgname-$pkgver -p1 < 0edfd286.patch # Fix build
+  patch -d $pkgname-$pkgver -p1 < e429dfb3.patch # Support liborcus/libixion 0.20 in cmake
+  patch -d $pkgname-$pkgver -p1 < libixion-0.20.patch # Actually support libixion 0.20
 }
 
 build() {
