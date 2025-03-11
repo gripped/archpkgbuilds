@@ -3,12 +3,12 @@
 
 pkgname=yaml-language-server
 pkgver=1.17.0
-pkgrel=1
+pkgrel=2
 pkgdesc='YAML Language Server'
 url=https://github.com/redhat-developer/yaml-language-server
 license=(MIT)
 arch=(any)
-depends=(nodejs-lts)
+depends=(nodejs)
 makedepends=(
   git
   jq
@@ -17,6 +17,12 @@ makedepends=(
 options=(!emptydirs)
 source=("git+$url.git#tag=$pkgver")
 b2sums=('8a4465006c9a130fcd1bdaaec7e82715b19679eef3d52efb63d89db6f41e4ae45150ed6908885d51265215ff348c300c0a2715aeeaf3263974fb0dabe077d8a3')
+
+prepare() {
+  cd $pkgname
+  # https://github.com/redhat-developer/yaml-language-server/issues/1018
+  git cherry-pick --no-commit f6bccf52b204579e2a47647a40868a15644f7d1d
+}
 
 build() {
   cd $pkgname
