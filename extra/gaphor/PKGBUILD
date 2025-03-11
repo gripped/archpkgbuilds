@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=gaphor
-pkgver=2.27.0
+pkgver=3.0.0
 pkgrel=2
 pkgdesc='Simple UML and SysML modeling tool'
 arch=(any)
@@ -35,6 +35,7 @@ makedepends=(
   python-build
   python-installer
   python-poetry-core
+  python-sphinx-intl
   python-wheel
 )
 _flathub_commit=56b092315f04d59cac81e68b876a597f19973c22
@@ -42,10 +43,8 @@ source=(
   "git+https://github.com/gaphor/gaphor.git#tag=$pkgver"
   "git+https://github.com/flathub/org.gaphor.Gaphor.git#commit=$_flathub_commit"
 )
-b2sums=(
-  7adfabbe9a93e3c4a8756445092dd1dabf290e7afddfae3e8bc603e6a02f2991bb1ebaf32ed3f36c37c86e2f78467016d9304c4c502d241da5ece6c0dc3829be
-  46cf548c23bafa34f02dce42eadeccab794435678767eaf68a88a471e7c5172ba7481fdacb4ad8295ba1a7e19cd9cf43596f9553199629482f7c80703c12b82e
-)
+b2sums=('6175cd7de4b854e79c1c29ecf9dca34f5bac75c5caf9787612171400dd12e397d323dfab4466fe8debccaf7984b525e8ab0e93ac82b5dad60a07641c9a53f5ef'
+        '46cf548c23bafa34f02dce42eadeccab794435678767eaf68a88a471e7c5172ba7481fdacb4ad8295ba1a7e19cd9cf43596f9553199629482f7c80703c12b82e')
 
 build() {
   cd $pkgname
@@ -57,6 +56,7 @@ package() {
   cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 -t "$pkgdir/usr/share/glib-2.0/schemas/" gaphor/ui/installschemas/org.gaphor.Gaphor.gschema.xml
+  cp -r gaphor/locale "$pkgdir"/usr/lib/python*/site-packages/gaphor/
 
   cd ../org.gaphor.Gaphor
   install -Dm644 share/org.gaphor.Gaphor.appdata.xml "$pkgdir/usr/share/metainfo/org.gaphor.Gaphor.appdata.xml"
