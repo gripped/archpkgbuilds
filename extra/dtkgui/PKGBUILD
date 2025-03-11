@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dtkgui
-pkgver=5.7.8
+pkgver=5.7.9
 pkgrel=1
 epoch=1
 pkgdesc='Deepin Toolkit, gui module for DDE look and feel'
@@ -11,7 +11,7 @@ license=('LGPL3')
 depends=('dtkcore' 'libqt5xdg' 'librsvg' 'qt5-base' 'qt5-wayland' 'glib2' 'libx11' 'gcc-libs')
 makedepends=('git' 'cmake' 'extra-cmake-modules' 'ninja' 'qt5-tools' 'gtest' 'doxygen' 'treeland-protocols')
 source=("git+https://github.com/linuxdeepin/dtkgui.git#tag=$pkgver")
-sha512sums=('8047a2e6058143f5f5876ea6cb3a38252ec213e3b89b982419f06a305ad23dd0b963a3875fff93cfb230d525ce7484efc9dc0cbf5dbf8522d7c9cfef9916b83c')
+sha512sums=('86b9db384c37e7feadb428014539800cb5a61d897c81184aa7c1b71fee9f6c17d61b99b4d6867471fab4bec5305828281f864b4294a09d576f7bd53b08417230')
 
 build() {
   cd dtkgui
