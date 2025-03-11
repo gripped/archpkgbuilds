@@ -6,7 +6,7 @@
 
 pkgname=spyder
 pkgver=6.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="The Scientific Python Development Environment"
 arch=(any)
 url="https://www.spyder-ide.org/"
@@ -29,6 +29,7 @@ depends=(
   python-diff-match-patch
   python-docutils
   python-intervaltree
+  python-ipython-pygments-lexers
   python-jedi
   python-jellyfish
   python-jinja
@@ -123,6 +124,8 @@ sha256sums=('53c31aea2b789806d750d1e3d3b27881f5929cd54cab3e2df8ec0140be07f1ab'
 prepare() {
   cd $pkgname
   patch -Np1 -i ../remove-module-level-qt-code.patch
+  # Adapt to IPython lexers being split out to a separate package
+  git cherry-pick -n 60fa8e61a5b694d4f90d9da70d1c9b3a971664b8
 }
 
 build() {
