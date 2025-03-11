@@ -1,13 +1,16 @@
 pkgname=bazelisk
 pkgver=1.25.0
-pkgrel=3
-pkgdesc='Go PKGBUILD Example'
+pkgrel=4
+pkgdesc='A user-friendly launcher for Bazel.'
 arch=('x86_64')
-url="https://example.org/$pkgname"
+url="https://github.com/bazelbuild/bazelisk"
 license=('Apache-2.0')
 makedepends=(
     'go'
     'git'
+)
+depends=(
+    'glibc'
 )
 provides=('bazel')
 conflicts=('bazel')

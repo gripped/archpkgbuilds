@@ -1,12 +1,13 @@
 pkgbase = bazelisk
-	pkgdesc = Go PKGBUILD Example
+	pkgdesc = A user-friendly launcher for Bazel.
 	pkgver = 1.25.0
-	pkgrel = 3
-	url = https://example.org/bazelisk
+	pkgrel = 4
+	url = https://github.com/bazelbuild/bazelisk
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = go
 	makedepends = git
+	depends = glibc
 	provides = bazel
 	conflicts = bazel
 	source = git+https://github.com/bazelbuild/bazelisk#tag=v1.25.0
