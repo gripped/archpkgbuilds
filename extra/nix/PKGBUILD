@@ -8,79 +8,117 @@
 # c.f. https://github.com/NixOS/nix/pull/9512/files
 
 pkgbase=nix
-pkgname=(nix perl-nix)
-pkgver=2.26.2
-pkgrel=2
+pkgname=(nix nix-perl)
+pkgver=2.26.3
+pkgrel=1
 pkgdesc='A purely functional package manager'
 arch=(x86_64)
-url="https://nixos.org/$pkgname"
+url='https://nixos.org/nix'
 license=(LGPL-2.1-only)
-depends=(boost-libs libboost_context.so
-         brotli libbrotlienc.so libbrotlidec.so
-         curl libcurl.so
-         editline libeditline.so
-         gcc-libs
-         glibc
-         libarchive libarchive.so
-         libcpuid libcpuid.so
-         libgit2 libgit2.so
-         libseccomp libseccomp.so
-         libsodium
-         lowdown liblowdown.so
-         nix-busybox
-         openssl libcrypto.so libsodium.so
-         sqlite libsqlite3.so)
-makedepends=(boost
-             bzip2
-             cmake
-             gc
-             git
-             graphviz
-             gtest
-             jq
-             meson
-             nlohmann-json
-             perl
-             perl-dbd-sqlite
-             rapidcheck librapidcheck.so
-             toml11)
-source=("$pkgbase::git+https://github.com/NixOS/nix.git#tag=${pkgver}?signed"
-        nix.conf
-        sysusers.conf
-        tmpfiles.conf
-        user.tmpfiles.conf)
-sha512sums=('dac7f9f4299a8f37377cdec4a531d651a4a9940a15329d614a43651bfed02474adb4a31385a60697426552a2545590d3a0d3cfe71e738d1e817479ac9ef3f8fa'
-            '9e5305680feac56c207a63d3db8dcac2eb8b7d82499e864ce618bbd4be09862b267965fc1378e30426fdcecc1e55b5b65d780355778e0d851a77e6d56a11679c'
+makedepends=(
+  boost libboost_context.so
+  brotli libbrotlienc.so libbrotlidec.so
+  bzip2
+  curl libcurl.so
+  cmake
+  editline libeditline.so
+  gc
+  git
+  graphviz
+  gtest
+  jq
+  libsodium libsodium.so
+  libarchive libarchive.so
+  libcpuid libcpuid.so
+  libgit2 libgit2.so
+  libseccomp libseccomp.so
+  lowdown liblowdown.so
+  meson
+  nix-busybox
+  nlohmann-json
+  openssl libcrypto.so
+  perl
+  perl-dbd-sqlite
+  rapidcheck
+  sqlite libsqlite3.so
+  toml11
+)
+source=(
+  "$pkgbase::git+https://github.com/NixOS/nix.git#tag=${pkgver}?signed"
+  sysusers.conf
+  nix.conf
+  skip-functional-tests.patch
+)
+sha512sums=('3e9563727359000b49c4673adc1ac4ea2e7f08c67bfb66b3037bb91ac547e477b337bc80e921ce9641a576c4f2fa833fc027de6e4fa298bcaead3bcdd4e044df'
             '6511badd6e4c71d9b7f6e6a87ea521a9727a5569ecf48dca11ee0d04151adf083453dcf7e05eadd5c28278fd8aee9fe44bbb90067f5fc8067c99c5e9665affd9'
-            '879bc28faf877a560ac67500388d9774ec890391ef08d367a18f98ef17faeef8c7d208e747fed1fd501b07c3a3b2286af436eb1bd137de2d8ea9a9c32b48088a'
-            'da5b6d449f8e69c9211e6bd97b1ce4c6e398da5a34fea9a8a89a28084489a1549188e52f66ce7536903afeb75e690e764188daac20a16227b66cc14a72b7311a')
-b2sums=('8a888092aee2ec4dae6877cbd15de991ac9994fbc91465dd049d6771396f2d5050d3fad166869e29aaaa02fc50b5523890a3e26a0a2caa18994a9c446369f0b3'
-        'da4733fa3b5bf20e7be59a260f8dc0ddfd52ad610e312d792e11d729a2c20834b34fbbfc8f0a56128b0cc15035c06d244be93174b7264e132c66f18ec63d048b'
+            '9e5305680feac56c207a63d3db8dcac2eb8b7d82499e864ce618bbd4be09862b267965fc1378e30426fdcecc1e55b5b65d780355778e0d851a77e6d56a11679c'
+            '740d1f5df55c5760f244bd7da291f1560ca4ae54dee76e863df374996199163dc869e9af1a8b3ddb8f9e23f256671ec5b819a15dd2480bd19474529a3fc121ec')
+b2sums=('531efc48c2d8631ba55affaf08fc8e9ba1b2874912e36573fee83dd316229858bfb8d6a6dcaa879dc7c9a1dd6cb29245ed0604f39ea72f3e0784bc3292219dec'
         'e92b8192bae89f0bc8c62371fbe63b4bfd68352699e5ea6900bf4313fd573322a06cb85074b292a005cbf644a50abbb67694f9458f071b0fd223d220494f6b6c'
-        'bffaabbe8c9efee79c7761e72a189796f35c0a40805b53fe954c10590ab9bfd0a321b45c7050ddf30810e36fa4431768f36f19fdc55085c0396ac5338b88f839'
-        '57610fc5fa370f9c3df50ab411dfe154b273349b3b321ad01768cacdf371e27603e8446a4e4269ccf4ca6cdb59b4a70fdcac59cda29c47eb7e7224555ec7e2e2')
+        'da4733fa3b5bf20e7be59a260f8dc0ddfd52ad610e312d792e11d729a2c20834b34fbbfc8f0a56128b0cc15035c06d244be93174b7264e132c66f18ec63d048b'
+        '17f745339a6f027889c86dd2a315d28f0f13ae7d59b53e0c4a0c6d17a5ca658c442dbe5b3cdae7a1efd83b4ecd7b26e79ac0bf8397518c0a1ba43a971c2aecff')
 validpgpkeys=('B541D55301270E0BCF15CA5D8170B4726D7198DE') # Eelco Dolstra <edolstra@gmail.com>
 
+prepare() {
+  cd "$pkgname"
+
+  patch -p1 -i "$srcdir/skip-functional-tests.patch"
+}
+
 build() {
-	local meson_opts=(
-		libstore:sandbox-shell=/usr/lib/nix/busybox
-		bindings=true
-		doc-gen=false
-		unit-tests=false
-	)
-	arch-meson "$pkgbase" build ${meson_opts[@]/#/-D }
+  local meson_opts=(
+    libstore:sandbox-shell=/usr/lib/nix/busybox
+    nix:profile-dir=/etc/profile.d
+    bindings=true
+    doc-gen=false
+    unit-tests=false
+  )
+
+  arch-meson "$pkgbase" build ${meson_opts[@]/#/-D }
 }
 
 package_nix() {
-	backup=("etc/$pkgname/$pkgname.conf")
-	install="$pkgname.install"
-	DESTDIR="$pkgdir" meson install -C build
-	mv "$pkgdir/usr/lib/perl5" perl-nix
-	install -Dm644 "$pkgbase/COPYING" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  depends=(
+    boost-libs libboost_context.so
+    brotli libbrotlienc.so libbrotlidec.so
+    curl libcurl.so
+    editline libeditline.so
+    gc
+    gcc-libs
+    glibc
+    libarchive libarchive.so
+    libcpuid libcpuid.so
+    libgit2 libgit2.so
+    libseccomp libseccomp.so
+    libsodium libsodium.so
+    lowdown liblowdown.so
+    nix-busybox
+    nlohmann-json
+    openssl libcrypto.so
+    sqlite libsqlite3.so
+  )
+  backup=('etc/nix/nix.conf')
+  install='nix.install'
+
+  DESTDIR="$pkgdir" meson install -C build
+
+  # move perl bindings out for nix-perl split-package
+  mv "$pkgdir/usr/lib/perl5" perl-nix
+
+  # systemd integration
+  install -vDm644 sysusers.conf "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
+  install -vDm644 nix.conf -t "$pkgdir/etc/$pkgname"
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" "$pkgbase/COPYING"
 }
 
-package_perl-nix() {
-	depends=(nix)
-	install -d "$pkgdir/usr/lib/perl5"
-	mv perl-nix "$pkgdir/usr/lib/perl5/"
+package_nix-perl() {
+  pkgdesc+=' (Perl bindings)'
+  depends=(nix perl)
+        
+  install -d "$pkgdir/usr/lib/perl5"
+  mv perl-nix "$pkgdir/usr/lib/perl5/"
 }
+
+# vim:set ts=2 sw=2 et:
