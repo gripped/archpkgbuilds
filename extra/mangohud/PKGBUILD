@@ -4,9 +4,8 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 _pkgname=MangoHud
 pkgname=mangohud
-_pkgver=0.8.0
-pkgver="${_pkgver%-*}"
-pkgrel=3
+pkgver=0.8.1
+pkgrel=1
 pkgdesc="A Vulkan overlay layer for monitoring FPS, temperatures, CPU/GPU load and more."
 arch=('x86_64')
 url="https://github.com/flightlessmango/MangoHud"
@@ -17,10 +16,8 @@ optdepends=('gamescope: Use MangoApp as an overlay within gamescope'
             'libxnvctrl: NVIDIA GPU stats by XNVCtrl')
 replaces=("$pkgname-common" "$pkgname-common-wayland" "$pkgname-common-x11" "mangoapp" "$pkgname-x11" "$pkgname-wayland")
 conflicts=("$pkgname-common" "$pkgname-common-wayland" "$pkgname-common-x11" "mangoapp" "$pkgname-x11" "$pkgname-wayland")
-source=("$pkgname-$pkgver.tar.xz::https://github.com/flightlessmango/MangoHud/releases/download/v$pkgver/$_pkgname-v$_pkgver-Source.tar.xz"
-        "fde62484e0e1724569ecc86df8e1ffbe2bc3510a.patch")
-b2sums=('915842a43100167913ad1a2210f3e37116c8ffcbd0fe9ce5eab2bda01a5e1475d3e396d8ff3491336f25b4a79502a27d6b432e5d0520549f189d0de048eade27'
-        '85b9762cd05485a91deffa337f9d37039881335babac314c57d7e42a70c5d3f5f27ed3e1644aab77e4452e7551aedea45f4ab9f5c04c9064f7d6ead14d49462b')
+source=("$pkgname-$pkgver.tar.xz::https://github.com/flightlessmango/MangoHud/releases/download/v$pkgver/$_pkgname-v$pkgver-Source.tar.xz")
+b2sums=('d817531618d51638adef441c013c02ad0f9b6d5b45d97693e26ce518b3a16c0a096f87add32137b422645993bb0280047f24bec2d998ad4733383008f4f5426b')
 
 prepare() {
     cd "$_pkgname-v$pkgver"
@@ -28,9 +25,6 @@ prepare() {
     # Use system cmocka instead of subproject
     sed -i "s/  cmocka = subproject('cmocka')//g" meson.build
     sed -i "s/cmocka_dep = cmocka.get_variable('cmocka_dep')/cmocka_dep = dependency('cmocka')/g" meson.build
-
-    # Backported commit to fix a crash when libxnvctrl is not present on the system
-    patch -Np1 < "$srcdir/fde62484e0e1724569ecc86df8e1ffbe2bc3510a.patch"    
 }
 
 build() {
