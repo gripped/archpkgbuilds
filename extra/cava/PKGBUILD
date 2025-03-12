@@ -2,7 +2,7 @@
 
 pkgname=cava
 pkgver=0.10.4
-pkgrel=2
+pkgrel=3
 pkgdesc='Console-based Audio Visualizer with support for multiple backends'
 arch=('x86_64')
 url='https://github.com/karlstav/cava'
@@ -16,9 +16,9 @@ depends=(
   'iniparser'
   # Input backends
   'alsa-lib'
+  'jack'
   'libpipewire'
   'libpulse'
-  'pipewire-jack'
   'portaudio'
   'sndio'
   # Output backends
