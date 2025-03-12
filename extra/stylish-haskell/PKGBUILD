@@ -3,7 +3,7 @@
 
 pkgname=stylish-haskell
 pkgver=0.14.3.0
-pkgrel=33
+pkgrel=34
 pkgdesc="Haskell code prettifier"
 url="https://github.com/haskell/stylish-haskell"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('88cf7f419889a459b1e7ffb7b4d5412ac349a56f91efdb9f08ef296421e4ee06f8c
 
 prepare() {
     cd $pkgname-$pkgver
-    uusi -u Cabal -u aeson -u optparse-applicative $pkgname.cabal
+    uusi -u Cabal -u aeson -u optparse-applicative -u strict $pkgname.cabal
 }
 
 build() {
