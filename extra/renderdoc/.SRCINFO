@@ -1,13 +1,14 @@
 pkgbase = renderdoc
 	pkgdesc = OpenGL and Vulkan debugging tool
-	pkgver = 1.36
-	pkgrel = 2
+	pkgver = 1.37
+	pkgrel = 1
 	url = https://github.com/baldurk/renderdoc
 	arch = x86_64
 	license = MIT
 	makedepends = cmake
-	makedepends = pcre
+	makedepends = git
 	makedepends = ninja
+	makedepends = pcre
 	depends = hicolor-icon-theme
 	depends = libgl
 	depends = libx11
@@ -19,12 +20,10 @@ pkgbase = renderdoc
 	depends = qt5-x11extras
 	depends = xcb-util-keysyms
 	options = !lto
-	source = renderdoc-v1.36.tar.gz::https://github.com/baldurk/renderdoc/archive/v1.36.tar.gz
-	source = renderdoc-v1.36.tar.gz.asc::https://github.com/baldurk/renderdoc/releases/download/v1.36/v1.36.tar.gz.asc
+	source = renderdoc::git+https://github.com/baldurk/renderdoc.git#tag=v1.37?signed
 	source = https://github.com/baldurk/swig/archive/renderdoc-modified-7.zip
 	validpgpkeys = 1B039DB9A4718A2D699DE031AC612C3120C34695
-	b2sums = b1e8f0b1991f9ec131e88967725354fa63fbb2b13a06908af9c16c332570290433e43b146b352088fedc40326f2886399ea288bcb8eb0c709dc05b6717d72c49
-	b2sums = SKIP
+	b2sums = 8a87f10c3985ceb4e9386a98a9eb16060192ee61b8b86804e0551a50484aecccb34707b56d6e83d249b38005bae6012796b3b127298ad98504ead670f8af2d4d
 	b2sums = 136b0b48d5bddb2dfe6fffd54220a5b62bb9a725b800f1f7846d03469f0c859d0585a61118f64b2def81ad94ff650bdf82d1db7aeb7608a190792ce8033597dc
 
 pkgname = renderdoc
