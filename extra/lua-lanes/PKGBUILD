@@ -5,7 +5,7 @@ pkgbase=lua-lanes
 _rockname=${pkgbase#lua-}
 pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname")
 pkgname=lua-lanes
-pkgver=3.17.0
+pkgver=3.17.1
 pkgrel=1
 _rockrel=0
 pkgdesc='a lightweight, native, lazy evaluating multithreading library'
@@ -21,7 +21,7 @@ _archive="$_rockname-$pkgver"
 _rock="$_archive-$_rockrel.linux-$CARCH.rock"
 # upstream retagged https://github.com/LuaLanes/lanes/issues/225
 source=("$url/archive/v$pkgver/$_archive-$pkgrel.tar.gz")
-sha256sums=('2dedcbd02afd51a47f0b498efa9087fe2e5808046f927c4d7db11f5d73fa33a7')
+sha256sums=('ac454ef7fe14b1ffe43110b91cebd88d9e502d60733deb694607eb040e1c391a')
 
 build() {
 	cd "$_archive"
@@ -34,7 +34,6 @@ build() {
 
 _package() {
 	cd "$_archive"
-	depends=("${pkgname%-*}")
 	luarocks --lua-version "$1" --tree "$pkgdir/usr/" \
 		install --deps-mode none --no-manifest -- "lua-$1/$_rock"
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" COPYRIGHT
@@ -42,16 +41,20 @@ _package() {
 
 package_lua-lanes() {
 	_package 5.4
+	depends=("${pkgname%-*}")
 }
 
 package_lua53-lanes() {
 	_package 5.3
+	depends=("${pkgname%-*}")
 }
 
 package_lua52-lanes() {
 	_package 5.2
+	depends=("${pkgname%-*}")
 }
 
 package_lua51-lanes() {
 	_package 5.1
+	depends=("${pkgname%-*}")
 }
