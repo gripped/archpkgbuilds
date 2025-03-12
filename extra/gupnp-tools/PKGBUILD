@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=gupnp-tools
-pkgver=0.12.1
-pkgrel=3
+pkgver=0.12.2
+pkgrel=1
 pkgdesc='Utilities and demos to work with UPnP'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/GUPnP'
@@ -27,7 +27,7 @@ makedepends=(
   meson
 )
 source=("git+https://gitlab.gnome.org/GNOME/gupnp-tools.git#tag=$pkgname-$pkgver")
-b2sums=(3f43782e88b9a1ca42c2366a4a3a9eac6c4843f89d6ff88165d980e51244cd94f3df958b0f9b519219e47e69376f8bf52f57fdbcc42432f17c07ab10319c18d8)
+b2sums=('3c3dfa4580a32453f01c0b8ea3408ec25ade8087e0412da5584a647c85a359169f6a33266e34745a84a87fa67e1607de0c2362bd9bd1cfa04436e2640fab932e')
 
 prepare() {
   cd $pkgname
