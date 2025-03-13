@@ -3,32 +3,33 @@
 
 _pkgname=renderdoc
 pkgname=lib32-$_pkgname
-pkgver=1.36
-pkgrel=2
+pkgver=1.37
+pkgrel=1
 pkgdesc="OpenGL and Vulkan debugging tool (capture-only, 32-bit)"
 arch=(x86_64)
 url="https://github.com/baldurk/renderdoc"
 license=("MIT")
-makedepends=("cmake" "python" "ninja")
+makedepends=("cmake" "git" "ninja" "pcre")
 depends=("lib32-libx11" "lib32-libxcb" "lib32-mesa" "lib32-libgl" "lib32-xcb-util-keysyms")
 provides=("lib32-renderdoc-minimal")
 conflicts=("lib32-renderdoc-minimal")
 replaces=("lib32-renderdoc-minimal")
 options=("!lto")
-source=("$pkgname-v${pkgver}.tar.gz::https://github.com/baldurk/$_pkgname/archive/v${pkgver}.tar.gz"
-        "$pkgname-v${pkgver}.tar.gz.asc::https://github.com/baldurk/$_pkgname/releases/download/v${pkgver}/v${pkgver}.tar.gz.asc"
+source=("${pkgname}::git+https://github.com/baldurk/${_pkgname}.git#tag=v${pkgver}?signed"
         "lib32-vulkan-layer.patch")
 validpgpkeys=('1B039DB9A4718A2D699DE031AC612C3120C34695')
-b2sums=('b1e8f0b1991f9ec131e88967725354fa63fbb2b13a06908af9c16c332570290433e43b146b352088fedc40326f2886399ea288bcb8eb0c709dc05b6717d72c49'
-        'SKIP'
+b2sums=('8a87f10c3985ceb4e9386a98a9eb16060192ee61b8b86804e0551a50484aecccb34707b56d6e83d249b38005bae6012796b3b127298ad98504ead670f8af2d4d'
         '1efc51a3e13c12fe4ecee75db8311c5aabd9946123f485f27581a8d584f016492cb82ccbe24a65c259bcafc45fc0a6373d832ecf1039fa29d2d35610133a21db')
 
 prepare() {
-    cd "$srcdir/${_pkgname}-${pkgver}"
+    cd "$pkgname"
+
     patch -p1 < "$srcdir/lib32-vulkan-layer.patch"
 }
 
 build() {
+    cd "$pkgname"
+
     export CC="gcc -m32"
     export CXX="g++ -m32"
     export PKG_CONFIG="${CARCH}-pc-linux-gnu-pkg-config"
@@ -47,14 +48,16 @@ build() {
         -DBUILD_VERSION_DIST_NAME="Arch" \
         -DBUILD_VERSION_DIST_VER="$pkgver" \
         -DVULKAN_LAYER_FOLDER="/etc/vulkan/implicit_layer.d" \
-        -B"${_pkgname}-$pkgver"/build \
-        -H"${_pkgname}-$pkgver"
-    cmake --build "${srcdir}/renderdoc-${pkgver}"/build
+        -B build
+
+    cmake --build build
 }
 
 package() {
-    DESTDIR="$pkgdir" cmake --install "${_pkgname}-$pkgver"/build
-    install -Dm644 "${_pkgname}-$pkgver/LICENSE.md" "$pkgdir/usr/share/licenses/${pkgname}/LICENSE"
+    cd "$pkgname"
+
+    DESTDIR="$pkgdir" cmake --install build
+    install -Dm 0644 "LICENSE.md" "$pkgdir/usr/share/licenses/${pkgname}/LICENSE"
 
     # Remove these or they conflict with the base renderdoc package.
     rm -r "$pkgdir/usr/share/doc"
