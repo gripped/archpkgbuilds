@@ -9,8 +9,8 @@
 pkgbase=qtcreator
 pkgname=(qtcreator
          qtcreator-devel)
-pkgver=15.0.1
-pkgrel=2
+pkgver=16.0.0
+pkgrel=1
 pkgdesc='Lightweight, cross-platform integrated development environment'
 arch=(x86_64)
 url='https://www.qt.io'
@@ -54,10 +54,8 @@ optdepends=('qt6-doc: integrated Qt documentation'
             'mlocate: locator filter')
 source=(git+https://code.qt.io/qt-creator/qt-creator#tag=v$pkgver
         git+https://code.qt.io/qt-creator/perfparser
-        git+https://code.qt.io/playground/qlitehtml
-        git+https://github.com/litehtml/litehtml)
-sha256sums=('db55f8784e644eb1e475de3ad500a975cf40b3dd10988ca7a17b7f3ddbb84c69'
-            'SKIP'
+        git+https://code.qt.io/playground/qlitehtml)
+sha256sums=('bb614404b889fe845b1af5ed04a989136d472332b67b281d5d257a5d00233edc'
             'SKIP'
             'SKIP')
 options=(docs)
@@ -67,9 +65,9 @@ prepare() {
   git submodule set-url src/tools/perfparser "$srcdir"/perfparser
   git submodule set-url src/libs/qlitehtml "$srcdir"/qlitehtml
   git -c protocol.file.allow=always submodule update --init src/libs/qlitehtml src/tools/perfparser
-  cd src/libs/qlitehtml
-  git submodule set-url src/3rdparty/litehtml "$srcdir"/litehtml
-  git -c protocol.file.allow=always submodule update --init src/3rdparty/litehtml
+
+# Fix doc build with system litehtml
+  rm src/libs/qlitehtml/src/3rdparty/qt_attribution.json
 }
 
 build() {
