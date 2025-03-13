@@ -3,7 +3,7 @@
 # Contributor: Caltlgin Stsodaat <contact@fossdaily.xyz>
 
 pkgname=python-rapidfuzz
-pkgver=3.12.1
+pkgver=3.12.2
 pkgrel=1
 pkgdesc='Rapid fuzzy string matching in Python using various string metrics'
 arch=('x86_64')
@@ -28,9 +28,9 @@ source=(
   "$pkgname::git+$url#tag=v$pkgver"
   'github.com-taskflow-taskflow::git+https://github.com/taskflow/taskflow'
 )
-sha512sums=('472804052f06f337fb310b175a61fb1778f4e3085d61da50471902a372d49086383b4b1f71dfd90cebda37471e8003f54b4dca00f6d1f64512ba7eb7e042a17e'
+sha512sums=('f25c0e8a01bb251b930993888eed777d8a8d97cbbc0ca73d99f9010561d94990a724dab6d951ee99a66091cafdc3f9378b7a24401d7677988775e2ee28933682'
             'SKIP')
-b2sums=('243375162f2c9f011682012a2262e85b49ec92575889b9b67639cb13c95968c08fa9b3ba6db03cc7dbf0dd0d6fb21ed2221446bcaf15ac4a2eef5fcd62672d94'
+b2sums=('fcaae6b1ff2879c7875bb4ee29a339f60265f4e72fc342f79cbbb49719154079caff1b5c37d246c719a3c917a29e34e634ffefcf1ed4adde6d26ef5ca46bf190'
         'SKIP')
 
 prepare() {
