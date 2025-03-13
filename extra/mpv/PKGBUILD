@@ -6,7 +6,7 @@
 pkgname=mpv
 epoch=1
 pkgver=0.39.0
-pkgrel=4
+pkgrel=5
 pkgdesc='a free, open source, and cross-platform media player'
 arch=('x86_64')
 license=('GPL-2.0-or-later AND LGPL-2.1-or-later')
@@ -25,9 +25,17 @@ provides=('libmpv.so')
 options=('!emptydirs')
 validpgpkeys=('145077D82501AA20152CACCE8D769208D5E31419') # sfan5 <sfan5@live.de>
 source=("git+https://github.com/mpv-player/mpv.git#tag=v${pkgver}?signed"
-        "dynamically_generate_desktop_file_protocols.patch")
+        'do_not_load_client-rt.conf_properties.patch')
 sha256sums=('51e787dbff240d69227f306685fc962daae215c755689b9de4ef0432ddf4443b'
-            '88acf97cbc8e0fe745f09bd0bd7f65e0437adcb549dadf3588fd0724d01298e9')
+            '349c1feeb6f342c6f7e33e59a315e004d4849465665d75f2e9ff4a89e4b70366')
+
+prepare() {
+  cd "${pkgname}"
+  # Backported patch to don't load client-rt.conf properties
+  # which was deprecated in https://gitlab.freedesktop.org/pipewire/pipewire/-/commit/24bcacc6195ffbf8e40c9ea1374eb6666252eadc
+  # See https://github.com/mpv-player/mpv/issues/15914
+  patch -Np1 -i "${srcdir}/do_not_load_client-rt.conf_properties.patch"
+}
 
 build() {
   local _meson_options=(

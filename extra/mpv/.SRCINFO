@@ -1,7 +1,7 @@
 pkgbase = mpv
 	pkgdesc = a free, open source, and cross-platform media player
 	pkgver = 0.39.0
-	pkgrel = 4
+	pkgrel = 5
 	epoch = 1
 	url = https://mpv.io/
 	arch = x86_64
@@ -59,10 +59,10 @@ pkgbase = mpv
 	provides = libmpv.so
 	options = !emptydirs
 	source = git+https://github.com/mpv-player/mpv.git#tag=v0.39.0?signed
-	source = dynamically_generate_desktop_file_protocols.patch
+	source = do_not_load_client-rt.conf_properties.patch
 	validpgpkeys = 145077D82501AA20152CACCE8D769208D5E31419
 	sha256sums = 51e787dbff240d69227f306685fc962daae215c755689b9de4ef0432ddf4443b
-	sha256sums = 88acf97cbc8e0fe745f09bd0bd7f65e0437adcb549dadf3588fd0724d01298e9
+	sha256sums = 349c1feeb6f342c6f7e33e59a315e004d4849465665d75f2e9ff4a89e4b70366
 
 pkgname = mpv
 	depends = alsa-lib
