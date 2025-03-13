@@ -3,7 +3,7 @@
 # Contributor: Stefan Husmann <stefan-husmann@t-online.de>
 
 pkgname=gotosocial
-pkgver=0.18.1
+pkgver=0.18.2
 pkgrel=1
 pkgdesc='ActivityPub social network server written in Golang'
 arch=('x86_64')
@@ -17,8 +17,8 @@ backup=(
   'etc/gotosocial/template/404.tmpl'
   'etc/gotosocial/template/about.tmpl'
   'etc/gotosocial/template/authorize.tmpl'
-  'etc/gotosocial/template/confirm_email.tmpl'
-  'etc/gotosocial/template/confirmed_email.tmpl'
+  'etc/gotosocial/template/confirm-email.tmpl'
+  'etc/gotosocial/template/confirmed-email.tmpl'
   'etc/gotosocial/template/domain-blocklist.tmpl'
   'etc/gotosocial/template/email_confirm.tmpl'
   'etc/gotosocial/template/email_new_report.tmpl'
@@ -31,9 +31,11 @@ backup=(
   'etc/gotosocial/template/error.tmpl'
   'etc/gotosocial/template/finalize.tmpl'
   'etc/gotosocial/template/index.tmpl'
-  'etc/gotosocial/template/index_apps.tmpl'
   'etc/gotosocial/template/index_register.tmpl'
   'etc/gotosocial/template/index_what_is_this.tmpl'
+  'etc/gotosocial/template/login-info.tmpl'
+  'etc/gotosocial/template/login_button.tmpl'
+  'etc/gotosocial/template/maintenance.tmpl'
   'etc/gotosocial/template/oob.tmpl'
   'etc/gotosocial/template/page.tmpl'
   'etc/gotosocial/template/page_footer.tmpl'
@@ -61,20 +63,14 @@ source=(
   'tmpfiles.conf'
   'use-fhs-directories.patch'
 )
-sha512sums=('74733f80ed011e3a3cad455ae35a931eb93b051cf493e5f87341d8f9a47f416e6886cc769b4ffeb623536466ff72932f3384c62da5348285801ddfe8107fc063'
-            '68890539a1285a819d5a2cd755aeabd59a9872926d9c32e5d54faaf2771414f006e568f2f813f3c6fcd9dbeda7b6e57c924d7490521880cb65632e02fabcbd63'
+sha512sums=('26ab454e2eb6894e4084a1f6a71d14b3279a3ae8456e8bbec48f133b889f5b2f20d8f4bc761bfe7d6c3fa14b49b69c11cb7162187700b527bb96873e89442d0f'
+            '2ff5499a31e12733cb20a9261942ed135fbac327d5a836b8955f3e86c009a603cf965440d9dbe6db64b80d0f652ba56faddb0ef398393b72474d8cf6c438ab80'
             'b89fad3073e140f17167515b38942e5b5e2bc2aee03c484e1bb7cf6444f86cb1e2a13a60b101e04d22633d348be073ca26cd309da4746e5062c12b4f3ce4b38a'
             '913a5209487aba06bf1d8ac7c02506a05d01a8e12f172666c84bf6870d6237640d4745617b0f07ea8c9dcf665f4e0d24a0aabef31611909f7e9384ed6e7b7e77')
-b2sums=('eb0e91b9e7196c93a4e1eddf5eba448951ae9cb38cf599dfe87c182235f666a5f89deb28819ddcaf70c3cb0f0a1ed90ef05dbac4b23972ec05645cd6f23eaf29'
-        '0a5be7ac18af882c0c89d8e930eb76c2e60bc2c1d5a375ab04e987c7de9a7a3175319c4e5fbc818261141daf5f70d583aebcc2dc197fe3a88047fbfe488ccb94'
+b2sums=('3cff26624bd7231018accc002d9292fcde6bb12f91d80faf473fb96fd49248f490f9e62aa724deaab4e22445c4a2865dcc2b38d52f2b5be75feb2c211100689d'
+        'ccf672731b88fc6700b0b81737790365e1eea0066bad1bbf6b13dac1e5b42af69063838efca47a6d9c16ee3f6308e2e23b92cf79d4226cd88f8551fb7361649b'
         '4f65af952441c0f54bb32049a149675e207f8993678423d369c4095c57476464614ac720eccc64d7a93a81268ad7ca41cae75ca7211bd7b78f9035f6e5341f04'
         '9edd4520fb99856feb82d01935588add7f805aa180f2ed0fe169cb26576bc2e1d2c1e6ab11604d977cec6a4ad8f1d5be1413e1a366de59b89c5b869136538f8c')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
 
 prepare() {
   cd "$pkgname"
