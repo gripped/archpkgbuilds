@@ -2,8 +2,8 @@
 
 _pyname=json-stream-rs-tokenizer
 pkgname=python-${_pyname}
-pkgver=0.4.26
-pkgrel=3
+pkgver=0.4.27
+pkgrel=1
 pkgdesc='Faster tokenizer for the json-stream Python library'
 arch=(x86_64)
 url="https://github.com/smheidrich/py-json-stream-rs-tokenizer"
@@ -19,26 +19,26 @@ makedepends=(
   python-setuptools-rust
   python-wheel
 )
-source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/${_pyname}/${_pyname}-${pkgver}.tar.gz")
-sha256sums=('19333ccda9121b1224598d67178665f77e142862800cb1edd7797a62936f7a1c')
-b2sums=('fc81a8764fc525a141aa4b52e239afa7cea8862da74228f48314e8712aad9f70d8632fba0ae1afd3772eed241ad5468799d918ae88e55fa98cdf547295d3ba26')
+source=("https://github.com/smheidrich/py-json-stream-rs-tokenizer/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('b3aff10a52fe64517ef0dd1260f2f31db9ea395cfb05e1b82996bfb087823c7e')
+b2sums=('20af74125da5b69bd703a9e3d5f99401ea29c3abd9407c2161d0250b5d9f827cf92fb33b33d5ab5e4fab1fb82d55ec868ae8c4129b4a85382060f63bf7ac3a8f')
 
 build() {
-  cd "${_pyname}-${pkgver}"
+  cd "py-${_pyname}-${pkgver}"
   python -m build --wheel --no-isolation
 }
 
 check() {
   local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
-  cd ${_pyname}-${pkgver}
+  cd "py-${_pyname}-${pkgver}"
   python -m installer --destdir=test_dir dist/*.whl
 
   PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH" python -c 'import json_stream_rs_tokenizer'
 }
 
 package() {
-  cd "${_pyname}-${pkgver}"
+  cd "py-${_pyname}-${pkgver}"
   python -m installer --destdir="${pkgdir}" dist/*.whl
   install -Dm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
