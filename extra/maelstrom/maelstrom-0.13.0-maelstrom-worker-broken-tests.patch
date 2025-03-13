@@ -1,0 +1,158 @@
+diff --git i/crates/maelstrom-worker/src/dispatcher.rs w/crates/maelstrom-worker/src/dispatcher.rs
+index 998d70d5..ba1359ba 100644
+--- i/crates/maelstrom-worker/src/dispatcher.rs
++++ w/crates/maelstrom-worker/src/dispatcher.rs
+@@ -1056,6 +1056,20 @@ mod tests {
+         };
+     }
+ 
++    macro_rules! script_test_ignore {
++        ($test_name:ident, $fixture:expr, $($in_msg:expr => { $($out_msg:expr),* $(,)? });+ $(;)?) => {
++            #[test]
++            #[ignore = "https://github.com/maelstrom-software/maelstrom/issues/505"]
++            fn $test_name() {
++                let mut fixture = $fixture;
++                $(
++                    fixture.receive_message($in_msg);
++                    fixture.expect_messages_in_any_order(vec![$($out_msg,)*]);
++                )+
++            }
++        };
++    }
++
+     script_test! {
+         enqueue_immediate_artifacts_no_error_slots_available,
+         Fixture::new(1, [
+@@ -2008,7 +2022,7 @@ mod tests {
+         };
+     }
+ 
+-    script_test! {
++    script_test_ignore! {
+         error_cache_responses,
+         Fixture::new(2, [
+             (blob!(41), GetArtifact::Wait),
+diff --git i/crates/maelstrom-worker/src/executor.rs w/crates/maelstrom-worker/src/executor.rs
+index bb8c834f..96702f11 100644
+--- i/crates/maelstrom-worker/src/executor.rs
++++ w/crates/maelstrom-worker/src/executor.rs
+@@ -1935,6 +1935,7 @@ mod tests {
+     }
+ 
+     #[tokio::test]
++    #[ignore = "https://github.com/maelstrom-software/maelstrom/issues/505"]
+     async fn no_loopback() {
+         Test::new(test_spec! {
+             "/bin/cat",
+@@ -1952,6 +1953,7 @@ mod tests {
+     }
+ 
+     #[tokio::test]
++    #[ignore = "https://github.com/maelstrom-software/maelstrom/issues/505"]
+     async fn loopback() {
+         Test::new(test_spec! {
+             "/bin/cat",
+@@ -2037,6 +2039,7 @@ mod tests {
+     }
+ 
+     #[tokio::test]
++    #[ignore = "https://github.com/maelstrom-software/maelstrom/issues/505"]
+     async fn close_range() {
+         // Throw the kitchen sink in the spec: we want an example of anything that opens a file
+         // descriptor.
+@@ -2492,6 +2495,7 @@ mod tests {
+     }
+ 
+     #[tokio::test]
++    #[ignore = "https://github.com/maelstrom-software/maelstrom/issues/505"]
+     async fn no_tmpfs() {
+         Test::new(test_spec! {
+             "/bin/grep",
+@@ -2506,6 +2510,7 @@ mod tests {
+     }
+ 
+     #[tokio::test]
++    #[ignore = "https://github.com/maelstrom-software/maelstrom/issues/505"]
+     async fn tmpfs() {
+         Test::new(test_spec! {
+             "/bin/awk",
+@@ -2528,6 +2533,7 @@ mod tests {
+     }
+ 
+     #[tokio::test]
++    #[ignore = "https://github.com/maelstrom-software/maelstrom/issues/505"]
+     async fn no_sysfs() {
+         Test::new(test_spec! {
+             "/bin/grep",
+@@ -2544,6 +2550,7 @@ mod tests {
+     }
+ 
+     #[tokio::test]
++    #[ignore = "https://github.com/maelstrom-software/maelstrom/issues/505"]
+     async fn sysfs() {
+         Test::new(test_spec! {
+             "/bin/awk",
+@@ -2573,6 +2580,7 @@ mod tests {
+     }
+ 
+     #[tokio::test]
++    #[ignore = "https://github.com/maelstrom-software/maelstrom/issues/505"]
+     async fn procfs() {
+         Test::new(test_spec! {
+             "/bin/grep",
+@@ -2591,6 +2599,7 @@ mod tests {
+     }
+ 
+     #[tokio::test]
++    #[ignore = "https://github.com/maelstrom-software/maelstrom/issues/505"]
+     async fn no_devpts() {
+         Test::new(test_spec! {
+             "/bin/grep",
+@@ -2607,6 +2616,7 @@ mod tests {
+     }
+ 
+     #[tokio::test]
++    #[ignore = "https://github.com/maelstrom-software/maelstrom/issues/505"]
+     async fn devpts() {
+         Test::new(test_spec! {
+             "/bin/awk",
+@@ -2646,6 +2656,7 @@ mod tests {
+     }
+ 
+     #[tokio::test]
++    #[ignore = "https://github.com/maelstrom-software/maelstrom/issues/505"]
+     async fn no_mqueue() {
+         Test::new(test_spec! {
+             "/bin/grep",
+@@ -2662,6 +2673,7 @@ mod tests {
+     }
+ 
+     #[tokio::test]
++    #[ignore = "https://github.com/maelstrom-software/maelstrom/issues/505"]
+     async fn mqueue() {
+         Test::new(test_spec! {
+             "/bin/awk",
+@@ -2710,6 +2722,7 @@ mod tests {
+     }
+ 
+     #[tokio::test]
++    #[ignore = "https://github.com/maelstrom-software/maelstrom/issues/505"]
+     async fn bind_mount_read_only() {
+         let temp_file = NamedTempFile::new().unwrap();
+         let fs = async_fs::Fs::new();
+@@ -2740,6 +2753,7 @@ mod tests {
+     }
+ 
+     #[tokio::test]
++    #[ignore = "https://github.com/maelstrom-software/maelstrom/issues/505"]
+     async fn bind_mount_path_is_relative_to_pwd() {
+         let temp_file = NamedTempFile::new().unwrap();
+         let temp_dir_path = temp_file.path().parent().unwrap();
+@@ -2768,6 +2782,7 @@ mod tests {
+     }
+ 
+     #[tokio::test]
++    #[ignore = "https://github.com/maelstrom-software/maelstrom/issues/505"]
+     async fn old_mounts_are_unmounted() {
+         Test::new(test_spec! {
+             "/bin/wc",

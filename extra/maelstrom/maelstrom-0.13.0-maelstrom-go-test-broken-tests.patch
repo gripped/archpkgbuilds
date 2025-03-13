@@ -1,0 +1,36 @@
+diff --git i/crates/maelstrom-go-test/tests/integration_test.rs w/crates/maelstrom-go-test/tests/integration_test.rs
+index 7efb0306..40a9e80c 100644
+--- i/crates/maelstrom-go-test/tests/integration_test.rs
++++ w/crates/maelstrom-go-test/tests/integration_test.rs
+@@ -63,6 +63,7 @@ fn do_maelstrom_go_test_test(
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/maelstrom-software/maelstrom/issues/503"]
+ fn many_different_tests_success() {
+     let fs = Fs::new();
+     let temp_dir = tempdir().unwrap();
+@@ -158,6 +159,7 @@ fn many_different_tests_success() {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/maelstrom-software/maelstrom/issues/503"]
+ fn single_test_failure() {
+     let fs = Fs::new();
+     let temp_dir = tempdir().unwrap();
+@@ -217,6 +219,7 @@ fn single_test_failure() {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/maelstrom-software/maelstrom/issues/503"]
+ fn single_fuzz_failure() {
+     let fs = Fs::new();
+     let temp_dir = tempdir().unwrap();
+@@ -285,6 +288,7 @@ fn single_fuzz_failure() {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/maelstrom-software/maelstrom/issues/503"]
+ fn single_example_failure() {
+     let fs = Fs::new();
+     let temp_dir = tempdir().unwrap();

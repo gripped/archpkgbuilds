@@ -10,8 +10,8 @@ pkgname=(
   maelstrom-run
   maelstrom-worker
 )
-pkgver=0.12.0
-pkgrel=2
+pkgver=0.13.0
+pkgrel=1
 pkgdesc="A fast Rust, Go, and Python test runner that runs every test in its own container"
 arch=(x86_64)
 url="https://maelstrom-software.com/"
@@ -25,20 +25,40 @@ makedepends=(
   protobuf
   rust
 )
+checkdepends=(
+  go
+  python-pip
+  python-pytest
+)
 options=(!lto)  # the project uses ring
 source=(
   $pkgbase::git+$_url#tag=v$pkgver
-  $pkgbase-0.12.0-maelstrom-web-feature.patch  # backport of https://github.com/maelstrom-software/maelstrom/commit/8ec4e39db5ab17f51d9c642869ae6d8b53a019b6
+  $pkgbase-0.13.0-maelstrom-client-missing-shared-object.patch  # https://github.com/maelstrom-software/maelstrom/issues/501
+  $pkgbase-0.13.0-cargo-maelstrom-broken-tests.patch  # https://github.com/maelstrom-software/maelstrom/issues/502
+  $pkgbase-0.13.0-maelstrom-go-test-broken-tests.patch  # https://github.com/maelstrom-software/maelstrom/issues/503
+  $pkgbase-0.13.0-maelstrom-pytest-broken-tests.patch  # https://github.com/maelstrom-software/maelstrom/issues/504
+  $pkgbase-0.13.0-maelstrom-worker-broken-tests.patch  # https://github.com/maelstrom-software/maelstrom/issues/505
 )
-sha512sums=('eb569ffa9819279447595f48bfd0724281cd194091138314ea07164fcc13776582cc8d62d9bbeeb5d04d37ef100fcac22c828d12aec3f3e585f2e39937440780'
-            '983214fed3d8593803cce27122015b205cc5a01b9bdd6f21c52c4435d6d05637454de800d43161197c5cf8718ccd8b5c718c6528d543b8f0d4f5bcf734b38022')
-b2sums=('7395cb36c742538607635e26a12e2fad79831930673b4940f825ac57b0975f14e5d7d150d3fd9e2485402e8795362d362cff0cfa0509e6c65cbe1a8150a2f00b'
-        'e9ec66900a265e832f5d172b511083a60c35e3d152d0b387d99943e735cab1569b3c687f3ac6218781dfc68643573e85fe248aecc0d9500114f63cafb3d55c30')
+sha512sums=('c083db9fd0f7fab8217db9dc9c04c95d5f001d4f0d94a7e87cc5f94473eb6de3b9760930473466e64443018394ff8daef9d8b49be42133baa28d73fac2182e31'
+            'af9ff61b5384109e35cc7f236552a567433d59ebbb2e23c2253b402e5c7df4f79a337cee914cba8ebf38045b8efe6d8057a65c5b25eb940245cae26f23d0f6f0'
+            '6852d78284b3443cc943d3ce9a21d140ac952c285149e4f9db72b640c470593539d94aa939f3d5dd9aa6b1c1873964a02998dddd9cfc41593c0472989f036ec6'
+            '3ccc2fef34c6a812a78c3ebae115db132179bfe5fdd20235e86fa70f245c7ca3f8b96587eaefaa3c2a63501ab8aed673b6344bd10c32d6be1bbe6bf73dc04af6'
+            'c22ecdc02ad4687da2b93269259f057afd4a7522b63a94dc18077fafbd9090db6c198f6c9f55395387b4871e7e4f1a44d338bcb2a368a7f3f44d9089d41e62f0'
+            'f88e19aaa5e8fa78c314744518dcf821170def602d75b5ca34c9533a34e6bc1f8b65bba9256ef627bf60d28c34e4cc772e8b9ee8e3ef6d90c4b3b12b996ef09e')
+b2sums=('dfd45267bb1fc875ad2df24e99cd413dbe65d80440e45ea6b75b8b6a7f9926958670a5d9a501452359a19b08c937bcf2ad420387261f55f6bcef598d5181a49f'
+        'e89f9d2ee025bb0246ccf8cc86934ab299ac0837848771da2fcaa6a279084a0d9d2d62b60a6570594e45e6b0cf4f2096b479761d4e5444d5a5bfedce6870effc'
+        '7e38ea75641d91688ff2c58c6975d2386a5445905fa614117e6848fdfb5b9caeeb102ccd0aea5d785a1dbe8272239f4b6be14ab547dc73d045050382fd08d9af'
+        '1619c1a19557403e082c8f020b0a82dca936bd0800ffdea43823b935abc564ee99d2dc7de7b635217760cf93b59e83530804afc21c3a7c57d4394ad6e023cd35'
+        'c255c8b864166fee729ddd346aa38dfb3dad429f6543b62f0d09144811358f314dd3bc6af47647fb99b308e9e15e9ec4cdfb7c9d743725d0c697619ec87a56cb'
+        'bd620872a23bc3e329db46c60afb5c130ad74d57cce74fd39cba4748b0935c62676057046a24e6410cfad9b7a1c69105f09239d05dfc2d8cc17fd5a01f93edb7')
 
 prepare() {
   cd $pkgbase
-  # add web-ui feature for maelstrom-broker due to issues with wasm target in maelstrom-web: https://github.com/maelstrom-software/maelstrom/issues/468
-  patch -Np1 -i ../$pkgbase-0.12.0-maelstrom-web-feature.patch
+  patch -Np1 -i ../$pkgbase-0.13.0-maelstrom-client-missing-shared-object.patch
+  patch -Np1 -i ../$pkgbase-0.13.0-cargo-maelstrom-broken-tests.patch
+  patch -Np1 -i ../$pkgbase-0.13.0-maelstrom-go-test-broken-tests.patch
+  patch -Np1 -i ../$pkgbase-0.13.0-maelstrom-pytest-broken-tests.patch
+  patch -Np1 -i ../$pkgbase-0.13.0-maelstrom-worker-broken-tests.patch
 
   export RUSTUP_TOOLCHAIN=stable
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
@@ -67,26 +87,30 @@ build() {
 }
 
 # tests are currently broken
-# check() {
-#   cd $pkgbase
-#   export RUSTUP_TOOLCHAIN=stable
+check() {
+  cd $pkgbase
+  export RUST_BACKTRACE=full
+  export RUSTUP_TOOLCHAIN=stable
+  # NOTE: cargo-maelstrom tests `empty_cargo_project`, `few_tests` and `failed_test` require a higher open file limit
+  ulimit -n 4096
 
-#   for pkg in ${pkgname[@]}; do
-#     local cargo_test_options=(
-#       --frozen
-#     )
+  for pkg in ${pkgname[@]}; do
+    local cargo_test_options=(
+      --frozen
+    )
+    local test_options=()
 
-#     # the wasm setup for maelstrom-web is broken: https://github.com/maelstrom-software/maelstrom/issues/468
-#     if [[ "$pkg" == maelstrom-broker ]] || [[ "$pkg" == cargo-maelstrom ]]; then
-#       cargo_test_options+=(--no-default-features --package)
-#     else
-#       cargo_test_options+=(--all-features --package)
-#     fi
+    # the wasm setup for maelstrom-web is broken: https://github.com/maelstrom-software/maelstrom/issues/468
+    if [[ "$pkg" == maelstrom-broker ]]; then
+      cargo_test_options+=(--no-default-features --package)
+    else
+      cargo_test_options+=(--all-features --package)
+    fi
 
-#     printf "Testing package %s\n" "$pkg"
-#     cargo test "${cargo_test_options[@]}" "$pkg"
-#   done
-# }
+    printf "Testing package %s\n" "$pkg"
+    cargo test "${cargo_test_options[@]}" "$pkg"
+  done
+}
 
 package_cargo-maelstrom() {
   pkgdesc="Cargo test runner for Maelstrom"
@@ -108,6 +132,7 @@ package_maelstrom-broker() {
   depends=(
     gcc-libs
     glibc
+    openssl libcrypto.so libssl.so
   )
   groups=(maelstrom-cluster)
 
@@ -153,6 +178,7 @@ package_maelstrom-pytest() {
     glibc
     openssl libcrypto.so libssl.so
     python
+    python-pip
     python-pytest
   )
 
@@ -181,6 +207,7 @@ package_maelstrom-worker() {
   depends=(
     gcc-libs
     glibc
+    openssl libcrypto.so libssl.so
   )
   groups=(maelstrom-cluster)
 

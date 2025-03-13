@@ -1,0 +1,28 @@
+diff --git i/crates/cargo-maelstrom/tests/integration_test.rs w/crates/cargo-maelstrom/tests/integration_test.rs
+index 2b7c1e5f..3004cc0a 100644
+--- i/crates/cargo-maelstrom/tests/integration_test.rs
++++ w/crates/cargo-maelstrom/tests/integration_test.rs
+@@ -96,6 +96,7 @@ fn do_cargo_maelstrom_test(source_contents: &str) -> String {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/maelstrom-software/maelstrom/issues/502"]
+ fn empty_cargo_project() {
+     let contents = do_cargo_maelstrom_test("");
+     let expected = "\n\
+@@ -107,6 +108,7 @@ fn empty_cargo_project() {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/maelstrom-software/maelstrom/issues/502"]
+ fn few_tests() {
+     let contents = do_cargo_maelstrom_test(
+         "
+@@ -138,6 +140,7 @@ fn few_tests() {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/maelstrom-software/maelstrom/issues/502"]
+ fn failed_test() {
+     let contents = do_cargo_maelstrom_test(
+         "

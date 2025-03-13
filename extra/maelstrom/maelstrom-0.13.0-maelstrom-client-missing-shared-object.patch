@@ -1,0 +1,12 @@
+diff --git i/crates/maelstrom-client/tests/integration_test.rs w/crates/maelstrom-client/tests/integration_test.rs
+index 292f7666..e1809d8c 100644
+--- i/crates/maelstrom-client/tests/integration_test.rs
++++ w/crates/maelstrom-client/tests/integration_test.rs
+@@ -327,6 +327,7 @@ fn panic_test_job() {
+ /// Starting up the local-worker in the dev profile can be slow, so just run all the tests with the
+ /// one local-worker to speed things up.
+ #[test]
++#[ignore = "https://github.com/maelstrom-software/maelstrom/issues/501"]
+ fn single_test() {
+     let mut fix = Fixture::new();
+ 
