@@ -3,8 +3,8 @@
 # Contributor: William Edwards <shadowapex@gmail.com>
 
 pkgname=inputplumber
-pkgver=0.49.2
-pkgrel=2
+pkgver=0.49.4
+pkgrel=1
 pkgdesc="Open source input router and remapper daemon for Linux"
 arch=('x86_64')
 options=(!lto)
@@ -26,7 +26,7 @@ makedepends=(
   rust
 )
 source=("git+https://github.com/ShadowBlip/InputPlumber.git#tag=v${pkgver}")
-sha256sums=('61f0e2f0912ddd7613c5f212df8caa4c9cb2e80029aefc491e3aed1705603cbe')
+sha256sums=('995482a09e733e46bfe73ccf769fc0acc0bea90a871aef9eb2c0ce2a7df97a54')
 
 build() {
   cd "$srcdir/InputPlumber"
