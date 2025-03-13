@@ -6,8 +6,8 @@
 # Contributor: Jan Fader <jan.fader@web.de>
 
 pkgname=fish
-pkgver=4.0.0
-pkgrel=2
+pkgver=4.0.1
+pkgrel=1
 pkgdesc='Smart and user friendly shell intended mostly for interactive use'
 url='https://fishshell.com/'
 arch=('x86_64')
@@ -22,19 +22,19 @@ install=fish.install
 backup=(etc/fish/config.fish)
 source=("${pkgname}::git+https://github.com/fish-shell/fish-shell#tag=${pkgver}?signed")
 validpgpkeys=(003837986104878835FA516D7A67D962D88A709A) # David Adam <zanchey@gmail.com>
-sha256sums=('c74de668e315aeb34b5dc1ec1cb4f9710556114b927223651cbe1e69bdd960b3')
-sha512sums=('c2aebf7443cb5aff351eb13252a666478160bafbd1703f3f2a2a061abe85252bfbf79a07127f86a525905b892e5ed89561abfc90a090070df2db0262850b3051')
+sha256sums=('7766be1ed413428d5a8e48b363301eaf9ce134bdc1c7f0df086ab76c78191187')
+sha512sums=('df2a45a46ed0097333f04a4088895208b3069fe92a39acc0f705444a47564189b220d8549481c5deda144ba473bf52b02bab3c8b02a9d50e7aa288445d610d5b')
 
 build() {
   cd ${pkgname}
   export CXXFLAGS+=" ${CPPFLAGS}"
   cmake \
     -B build \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_SYSCONFDIR=/etc \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DBUILD_DOCS=True \
-    -Wno-dev
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_INSTALL_SYSCONFDIR=/etc \
+    -D CMAKE_BUILD_TYPE=Release \
+    -D BUILD_DOCS=True \
+    -W no-dev
   make -C build VERBOSE=1
 }
 
