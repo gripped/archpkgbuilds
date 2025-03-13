@@ -1,0 +1,9 @@
+--- a/meson.build
++++ b/meson.build
+@@ -52,5 +52,5 @@ if get_option('unit-tests')
+   subproject('libexpr-test-support')
+   subproject('libexpr-tests')
+   subproject('libflake-tests')
++  subproject('nix-functional-tests')
+ endif
+-subproject('nix-functional-tests')
