@@ -3,36 +3,40 @@
 
 pkgbase=python-cheetah3
 pkgname=('python-cheetah3' 'python-cheetah3-docs')
-pkgver=3.3.3
-pkgrel=3
+pkgver=3.4.0
+pkgrel=1
 pkgdesc='A Python powered template engine and code generator'
 arch=('x86_64')
 url='https://cheetahtemplate.org'
-license=('MIT' 'custom:Public') # manpage released by Debian in public domain
-makedepends=('git' 'python' 'python-legacy-cgi' 'python-setuptools' 'python-sphinx')
+license=('MIT' 'LicenseRef-Public') # manpage released by Debian in public domain
+makedepends=(
+  'git'
+  'python'
+  'python-legacy-cgi'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+  'python-sphinx'
+)
 checkdepends=('python-markdown' 'python-pygments')
 optdepends=(
   'python-markdown: for markdown filter'
   'python-pygments: for codehighlight filter'
 )
-_commit='54b30781ec703f63916525c991743706938c8fb7'
 source=(
-  "$pkgbase::git+https://github.com/CheetahTemplate3/cheetah3#commit=$_commit"
+  "$pkgbase::git+https://github.com/CheetahTemplate3/cheetah3#tag=$pkgver"
   'cheetah.1'
 )
-b2sums=('SKIP'
+sha512sums=('0822adf0e3f14e15c768c6a700fd2d7ba23252de7ae67b86659c60aea7bc1e81843901722872128cf8a7fde7ccb96b60dfd3cc41e87ef42fa772d49bdadad1fc'
+            'ae100dee3893c120db8f6544b04db434b412bf0123f7feb40cca15e1866e0e6940a3d74d9baf87b04ebae7314f564929ebc7f34ae5eb72418200f7b01358235e')
+b2sums=('94528d7db791e90a8d4109d32d51963f657efae8b5a6e45885ce0ffc8c86fda6bbd9c7d310438235998a18430144cf238a24f28c64e48a2a9c8dde492d6101f6'
         '59c0689df18640aea8e671cd267741d1bff4b3954147a34ac71c67ec8399c08460976ecabdce7c7b866bd895c8963b6f03059e496eb7dfa2710d99deba78503d')
-
-pkgver() {
-  cd "$pkgbase"
-
-  git describe --tags | sed 's/^v//'
-}
 
 build() {
   cd "$pkgbase"
 
-  python setup.py build
+  python -m build --wheel --no-isolation
 
   # generate documentation
   PYTHONPATH="$PWD:$PYTHONPATH" make -C docs html
@@ -57,7 +61,7 @@ package_python-cheetah3() {
 
   cd "$pkgbase"
 
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
   # man pages
   install -vDm644 -t "$pkgdir/usr/share/man/man1" "$srcdir/cheetah.1"
