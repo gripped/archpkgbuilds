@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=hurl
-pkgver=6.0.0
+pkgver=6.1.0
 pkgrel=1
 pkgdesc="Run and test HTTP requests with plain text"
 url='https://github.com/Orange-OpenSource/hurl'
@@ -18,8 +18,8 @@ makedepends=(
 )
 options=(!lto)
 source=(https://github.com/Orange-OpenSource/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('3f21c9e2a4e86e1a5913e211d890b07e9388871e3d6ed526668487f56b11b925')
-b2sums=('132dccb75f8944c2f7253e8a5e4250a3c2a75b0f75a858fa54df3339de40fd68153448abc0e7c20c8d0d7d96bdbf2b18da4a946484ed91bb696be11aedd5c0c9')
+sha256sums=('7ac2cca05a3a22cd92bd10b46c39a4277fd64d10ab989e46a2e8aca112d842f0')
+b2sums=('bbbc69a6842234bdef78127d773018f0fd3c7602300038889172a9c4215a15af382960ae2d03e46dcfa3acf8fc002c47040d3f0280c29da40f49dca7f1bc6a76')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
