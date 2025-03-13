@@ -2,8 +2,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-nibbles
-pkgver=4.1.0
-pkgrel=2
+pkgver=4.2.0
+pkgrel=1
 pkgdesc="Guide a worm around a maze"
 url="https://wiki.gnome.org/Apps/Nibbles"
 arch=(x86_64)
@@ -13,7 +13,6 @@ depends=(
   dconf
   glib2
   glibc
-  gsound
   gtk4
   hicolor-icon-theme
   libadwaita
@@ -30,24 +29,21 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome-extra)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-nibbles.git?signed#tag=$pkgver"
-        gnome-nibbles-fix-activate.patch)
-b2sums=('6665df0c6b3ded3395374d63c55769a5062feff46caec0c0a5ff69241768f14f58a54398285b9086c67ed74b3645e2d16d974a1c5428d81aecf446849dd7d949'
-        '664e1a30c366062938b6ca3722e9679450f693d5ff5020a1836861a94ebc62e8a3e7602ed371a490f3a4246e83465960c58c6fc8e2da447d9a776c830bde81eb')
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-nibbles.git?signed#tag=$pkgver"
+)
+b2sums=('8c4345648321c9c3298e0c58c1aa4a714d5ef2a337fca987fcaef5663b693db3620e2704cdc4efe589393e80bf7ffc65eec477141d74c0be96c64a79d397c497')
 validpgpkeys=(
   31F449AE968CBE194119A3AD1F1DC770CE79E68B # Ben Corby <bcorby@new-ms.com>
 )
 
 prepare() {
   cd $pkgname
-
-  # Switch to existing window instead of creating new one on second activation
-  # https://gitlab.gnome.org/GNOME/gnome-nibbles/-/merge_requests/79
-  git apply -3 ../gnome-nibbles-fix-activate.patch
 }
 
 build() {
   # Unbreak vala checks in meson.build
+  # Without this, the build fails to link against libadwaita
   export VALAFLAGS="$VALAFLAGS --Xcc=-Wno-error=incompatible-pointer-types"
   CFLAGS+=" -Wno-error=incompatible-pointer-types"
 
@@ -59,9 +55,7 @@ build() {
 }
 
 check() {
-  # NOTE: appstreamcli validate fails due to duplicated tags caused by a regression in gettext 0.23
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/gettext/-/issues/4
-  meson test -C build --print-errorlogs || :
+  meson test -C build --print-errorlogs
 }
 
 package() {
