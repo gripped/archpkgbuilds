@@ -3,7 +3,7 @@
 
 pkgname=pantheon-code
 pkgver=7.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='The Pantheon Text Editor'
 arch=(x86_64)
 url=https://github.com/elementary/code
@@ -32,14 +32,12 @@ makedepends=(
   libsoup
   meson
   vte3
-  webkit2gtk
 )
 optdepends=(
   'gtkspell3: Spell Check plugin'
   'libsoup: Pastebin plugin'
   'vala: Outline plugin'
   'vte3: Terminal plugin'
-  'webkit2gtk: Browser Preview plugin'
 )
 _tag=4ea63087971b859893f87270fad5259ab07df581
 source=(pantheon-code::git+https://github.com/elementary/code.git#tag=${_tag})
