@@ -5,7 +5,7 @@
 # Contributor: snoopy33 <snoopy33@no-log.org>
 
 pkgname=cairo-dock-plug-ins
-pkgver=3.5.1
+pkgver=3.5.2
 pkgrel=1
 pkgdesc='Plugins for Cairo-Dock'
 arch=('x86_64')
@@ -34,7 +34,7 @@ optdepends=('alsa-lib: Sound Control, Sound Effects applets'
             'zeitgeist: Recent Events applet')
 replaces=('cairo-dock-plugins')
 source=("cairo-dock-plug-ins-${pkgver}.tar.gz::https://github.com/Cairo-Dock/cairo-dock-plug-ins/archive/${pkgver}.tar.gz")
-sha256sums=('d776c791daa799c65833e912107a53a95ed80651f8296855ddc7da4215aa72ab')
+sha256sums=('811fb91f1b37f072801616e5489fea1e5817d914c762dd3bde350c16b1d43571')
 
 build() {
   CXXFLAGS="${CXXFLAGS} -Wno-incompatible-pointer-types"
