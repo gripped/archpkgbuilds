@@ -5,8 +5,8 @@ pkgbase=lib32-cairo
 pkgname=(
   lib32-cairo
 )
-pkgver=1.18.2
-pkgrel=2
+pkgver=1.18.4
+pkgrel=1
 pkgdesc="2D graphics library with support for multiple output devices (32-bit)"
 url="https://cairographics.org/"
 arch=(x86_64)
@@ -31,14 +31,10 @@ makedepends=(
   valgrind
 )
 source=("git+https://gitlab.freedesktop.org/cairo/cairo.git#tag=$pkgver")
-b2sums=('ff661ec100a24a457c91b928ad537e783e59ffc56812aa1d1da09bfe425390f8e6df0191a7993aeb56e9b064403a389d252e64f557f09ea6f773f821a021c9ca')
+b2sums=('10dd8012e5a24307aa1c9fc7b2418c4385dceba81e034520e098a5864992cc202c2ff65bd398234d532695a62e5b11da60b071ddf36c547ce064c4cbe4f568b4')
 
 prepare() {
   cd cairo
-
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/cairo/-/issues/2
-  # https://gitlab.freedesktop.org/cairo/cairo/-/issues/870
-  git cherry-pick -n f19e2fe080ddcfce93c8234a919fd882f3d63362
 }
 
 build() {
@@ -46,6 +42,7 @@ build() {
     --cross-file lib32
     -D dwrite=disabled
     -D gtk_doc=false
+    -D lzo=disabled
     -D spectre=disabled
     -D symbol-lookup=disabled
     -D tests=disabled
