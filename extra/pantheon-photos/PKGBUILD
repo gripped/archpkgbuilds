@@ -2,7 +2,7 @@
 
 pkgname=pantheon-photos
 pkgver=8.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='The Pantheon Photos Manager'
 arch=(x86_64)
 url=https://github.com/elementary/photos
@@ -11,7 +11,7 @@ depends=(
   cairo
   dconf
   gdk-pixbuf2
-  geocode-glib
+  geocode-glib-2
   glib2
   glibc
   gst-plugins-base-libs
@@ -37,9 +37,7 @@ makedepends=(
   intltool
   meson
   vala
-  webkit2gtk
 )
-optdepends=('webkit2gtk: Publishing plugins')
 groups=(pantheon)
 _tag=f976b6a2d2f46a68ad989860a338e0d47bdb6801
 source=(pantheon-photos::git+https://github.com/elementary/photos.git#tag=${_tag})

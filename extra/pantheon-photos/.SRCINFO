@@ -1,7 +1,7 @@
 pkgbase = pantheon-photos
 	pkgdesc = The Pantheon Photos Manager
 	pkgver = 8.0.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/elementary/photos
 	arch = x86_64
 	groups = pantheon
@@ -10,11 +10,10 @@ pkgbase = pantheon-photos
 	makedepends = intltool
 	makedepends = meson
 	makedepends = vala
-	makedepends = webkit2gtk
 	depends = cairo
 	depends = dconf
 	depends = gdk-pixbuf2
-	depends = geocode-glib
+	depends = geocode-glib-2
 	depends = glib2
 	depends = glibc
 	depends = gst-plugins-base-libs
@@ -34,7 +33,6 @@ pkgbase = pantheon-photos
 	depends = libwebp
 	depends = pango
 	depends = sqlite
-	optdepends = webkit2gtk: Publishing plugins
 	source = pantheon-photos::git+https://github.com/elementary/photos.git#tag=f976b6a2d2f46a68ad989860a338e0d47bdb6801
 	sha256sums = 446de5fee6d4dfe09d98fe71420b3fc5566268d88472b6d86de89556d699d236
 
