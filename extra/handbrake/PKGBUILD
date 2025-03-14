@@ -1,10 +1,11 @@
 # Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
+# Maintainer: T.J. Townsend <blakkheim@archlinux.org>
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 # Contributor: Sebastien Piccand <sebcactus gmail com>
 
 pkgname=('handbrake' 'handbrake-cli')
-pkgver=1.9.1
-pkgrel=2
+pkgver=1.9.2
+pkgrel=1
 arch=('x86_64')
 url="https://handbrake.fr/"
 license=('GPL-2.0-only')
@@ -18,7 +19,7 @@ makedepends=('python' 'nasm' 'wget' 'cmake' 'meson' 'git'
              "${_commondeps[@]}" "${_guideps[@]}")
 options=('!lto') # https://bugs.archlinux.org/task/72600
 source=("git+https://github.com/HandBrake/HandBrake.git?signed#tag=${pkgver}")
-sha256sums=('c4e64c993d592b6ca1abcfa5932bfe8ab61548e1bddb32182d58fbbda79f4b49')
+sha256sums=('0b9d3a9e8862ec013fe9df1f99e3a7ec8ce75233ddf7a6af1ce620f5baf49c65')
 validpgpkeys=('1629C061B3DDE7EB4AE34B81021DB8B44E4A8645' # HandBrake Team <developers@handbrake.fr>
               'D57F6026431D68DFFB942F0D5759C8A0D1C34D47' # Damiano Galassi <damiog@gmail.com>
 )
@@ -42,6 +43,7 @@ package_handbrake() {
            "${_commondeps[@]}" "${_guideps[@]}")
   optdepends=('gst-plugins-good: for video previews'
               'gst-libav: for video previews'
+              'gvfs: for CD/DVD drive access'
               'intel-media-sdk: Intel QuickSync support'
               'libdvdcss: for decoding encrypted DVDs')
 
