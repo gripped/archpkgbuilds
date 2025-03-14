@@ -3,8 +3,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=lib32-fontconfig
-pkgver=2.16.0
-pkgrel=2
+pkgver=2.16.1
+pkgrel=1
 epoch=2
 pkgdesc="Library for configuring and customizing font access"
 url=https://www.freedesktop.org/wiki/Software/fontconfig/
@@ -23,10 +23,10 @@ makedepends=(
 )
 install=fontconfig-32.install
 source=(
-  "git+https://gitlab.freedesktop.org/fontconfig/fontconfig.git?signed#tag=$pkgver"
+  "git+https://gitlab.freedesktop.org/fontconfig/fontconfig.git#tag=$pkgver"
   fontconfig-32.hook
 )
-b2sums=('839b16dbb95da285518bbbe303e2acdf3537be96bd161e20501409cb9891d824c65e9f98ee038310b7ab3857745993138f21a91f193120d782e289ec3206d94e'
+b2sums=('ace40c14991c4c1e27db77fe633950ab7ae4f8e4a1af4fe21226f52bb7489f366b997ed1de3f21071af347338c85c39358b40f4713158ce2830c9b64fdeb487a'
         '1cba71810c9bde6ecb6fac124e458fb7260be3ea72ade82b836e0e8e1eaa7c7df31e6e92e405fa420325cec0ce14d0f19630e777308032b0c26ec96a3d668d93')
 validpgpkeys=(
   F77A64C4B5B45FF8763A278F65755979B34E1294 # Akira TAGOH <akira@tagoh.org>
@@ -60,7 +60,7 @@ package() {
 
   meson install -C build --destdir "$pkgdir"
 
-  rm -r "$pkgdir"/{etc,usr/{include,share}}
+  rm -r "$pkgdir"/{etc,usr/{include,share},var}
 
   mv "$pkgdir"/usr/bin/fc-cache{,-32}
   find "$pkgdir"/usr/bin -type f -not -name '*-32' -delete
