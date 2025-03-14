@@ -3,15 +3,20 @@
 _hkgname=checkers
 pkgname=haskell-checkers
 pkgver=0.6.0
-pkgrel=139
+pkgrel=140
 pkgdesc="Check properties on standard classes and data structures"
 url="https://github.com/haskell-checkers/checkers"
 license=('BSD')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-random' 'haskell-quickcheck' 'haskell-semigroupoids')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
 sha512sums=('443bd51924ab1b50b25158d0eacb8fec91e57ad49f7543796ad7600e91ad644bf0741f4c3a7fee8e2ce5a23927902d7fb4b66986c70213d454062dd816e1bad9')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u semigroupoids
+}
 
 build() {
     cd $_hkgname-$pkgver
