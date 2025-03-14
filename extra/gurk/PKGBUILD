@@ -3,7 +3,7 @@
 
 pkgname=gurk
 pkgver=0.6.3
-pkgrel=1
+pkgrel=3
 pkgdesc="Signal Messenger client for terminal"
 url='https://github.com/boxdot/gurk-rs'
 arch=('x86_64')
@@ -17,6 +17,7 @@ makedepends=(
   'cargo'
   'protobuf'
 )
+replaces=('gurk-bin')
 options=(!lto)
 source=(https://github.com/boxdot/${pkgname}-rs/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
 sha256sums=('b3d2a3c87e7cb4ceaad42ed329423abd03ef54fb0ca5502f815de0f81c86368b')
