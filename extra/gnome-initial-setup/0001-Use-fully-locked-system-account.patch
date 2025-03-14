@@ -1,4 +1,4 @@
-From e3eda9a6d2cc24ac74af667370e13a6d224a412c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Fabian Bornschein <fabiscafe@mailbox.org>
 Date: Sun, 12 Jan 2025 18:22:24 +0100
 Subject: [PATCH] Use fully locked system account
@@ -9,7 +9,7 @@ https://archlinux.org/todo/change-sysusers-to-fully-locked-system-accounts/
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/data/gnome-initial-setup.conf b/data/gnome-initial-setup.conf
-index 452b2ad2..4ea07c92 100644
+index 452b2ad25eeb..4ea07c9250d0 100644
 --- a/data/gnome-initial-setup.conf
 +++ b/data/gnome-initial-setup.conf
 @@ -1,3 +1,3 @@
@@ -17,6 +17,3 @@ index 452b2ad2..4ea07c92 100644
  # sysusers.d(5) for details.
 -u gnome-initial-setup - "GNOME Initial Setup" /run/gnome-initial-setup
 +u! gnome-initial-setup - "GNOME Initial Setup" /run/gnome-initial-setup
--- 
-2.48.0
-
