@@ -4,17 +4,18 @@
 
 pkgname=cosmic-files
 pkgver=1.0.0.alpha.6
-pkgrel=1
+pkgrel=2
 pkgdesc='File manager for the COSMIC desktop environment'
 arch=(x86_64)
 url=https://github.com/pop-os/cosmic-files
 license=(GPL-3.0-only)
 groups=(cosmic)
 depends=(
+  cosmic-icon-theme
   gcc-libs
   glib2
   glibc
-  cosmic-icon-theme
+  gvfs
   libxkbcommon
   xdg-utils
 )

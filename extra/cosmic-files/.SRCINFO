@@ -1,7 +1,7 @@
 pkgbase = cosmic-files
 	pkgdesc = File manager for the COSMIC desktop environment
 	pkgver = 1.0.0.alpha.6
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/pop-os/cosmic-files
 	arch = x86_64
 	groups = cosmic
@@ -11,10 +11,11 @@ pkgbase = cosmic-files
 	makedepends = git
 	makedepends = just
 	makedepends = lld
+	depends = cosmic-icon-theme
 	depends = gcc-libs
 	depends = glib2
 	depends = glibc
-	depends = cosmic-icon-theme
+	depends = gvfs
 	depends = libxkbcommon
 	depends = xdg-utils
 	source = git+https://github.com/pop-os/cosmic-files.git#tag=cd43d722d643fec6c6bbab67bfdee5df764dbe25
