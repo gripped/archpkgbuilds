@@ -2,7 +2,7 @@
 # Contributor: Vaporeon <vaporeon@vaporeon.io>
 
 pkgname=rgbds
-pkgver=0.9.0
+pkgver=0.9.1
 pkgrel=1
 pkgdesc='Rednex GameBoy Development System'
 arch=(x86_64)
@@ -17,9 +17,9 @@ makedepends=(
   git
   ninja
 )
-_tag=d63955eccd7aa69794960a626144ea247d638957
+_tag=81ea4ee920c67060a230a99138a0db2ec6518dfb
 source=(git+https://github.com/gbdev/rgbds.git#tag=${_tag})
-b2sums=('9113b2ecffeb259d31ab846d4580ecb87552ad8a45563437973b9e12ba325b0975b455b727cbcb608af240f5fbb24b211b3c9c895062db3ffe5218d9ac550968')
+b2sums=('28252cf1aa44b29050304e7937daed79a10a1b9fa443383a4060c68baf177558e554449e51d99cdc99803790691e94b66ebb840c979800c64da0114ea0c7b929')
 
 pkgver() {
   cd rgbds
