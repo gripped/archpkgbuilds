@@ -5,7 +5,7 @@
 # Contributor: Joost Bremmer <toost.b@gmail.com>
 
 pkgname=python-discogs-client
-pkgver=2.7.1
+pkgver=2.8
 pkgrel=1
 pkgdesc='Python Client for the Discogs API'
 arch=(any)
@@ -21,9 +21,9 @@ makedepends=(
   git
   python-setuptools
 )
-_tag=98059c0d00a3c65afa8f1e514d3a6f1327cade3c
+_tag=4320f830f85a66278046b35e65ebc3fa85c7556c
 source=(git+https://github.com/joalla/discogs_client.git#tag=${_tag})
-b2sums=('b8ebff8228c9eecc5f2ed5dff453cd54fd43b1eaf2afff2ecf33032102e272184af666c4b9aa2e903e91b229e2140853dd42e6b942aefc6a41fba8e170b44e3f')
+b2sums=('97934bc915043a73223b6e89cae6c2cbb0d4e43babf8f86015423cd69fbd536f2cb981d7c6b404625cf7482c38fd9a45e4c550795c957901168b026d0cb33cf1')
 
 pkgver() {
   cd discogs_client
