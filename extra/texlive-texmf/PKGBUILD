@@ -9,8 +9,8 @@ _collections=( basic bibtexextra binextra context fontsextra fontsrecommended fo
 for _coll in ${_collections[@]}; do
   pkgname+=(texlive-$_coll)
 done
-_rev=74526
-pkgver=2025.0
+_rev=74612
+pkgver=2025.1
 pkgrel=1
 pkgdesc='TeX Live - '
 license=(GPL)
@@ -277,6 +277,8 @@ package_texlive-doc() {
   rm "$pkgdir"/usr/share/info/asy-faq.info
   rm "$pkgdir"/usr/share/man/man1/{asy,dvisvgm,epsffit,extractres,includeres,psbook,psjoin,psnup,psresize,psselect,pstops,psutils,t1ascii,t1asm,t1binary,t1disasm,t1mac,t1unmac}.1
   rm -f "$pkgdir"/usr/share/man{,/man*}/{Makefile,*.pdf}
+# Fix permissions
+  find "$pkgdir" -type d -exec chmod 755 {} \;
 }
  
 package_texlive-meta() {
