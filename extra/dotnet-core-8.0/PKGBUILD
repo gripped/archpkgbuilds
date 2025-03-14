@@ -12,7 +12,7 @@ pkgname=(
  aspnet-targeting-pack-8.0
  dotnet-source-built-artifacts-8.0
 )
-pkgver=8.0.13.sdk113
+pkgver=8.0.14.sdk114
 pkgrel=1
 arch=(x86_64)
 url=https://dotnet.microsoft.com
@@ -43,9 +43,9 @@ options=(
   !lto
   staticlibs
 )
-_tag=a970a1cfdd960e99b4b8b9bdc3099b943f70adde
+_tag=b5416edd25debe775619037d6348bb672fb5da54
 source=(git+https://github.com/dotnet/dotnet.git#tag=${_tag})
-b2sums=('11deab5528443fd9de1df50e4077166e4f90ad7c4b967368335b5daf3351910d1d6e33e85d8e0e47ec4f3a8929e2044de01be286ff19305f4a51686c35ac3041')
+b2sums=('a1aa4518e5c1e6a9d275c2eb7b3e45d8042120effc15e7f7fec3ad2bec301c2fa5c60f2b37ad2cd42b051a20cb83fe564283be8e30ec616c9df867b1642a912c')
 
 prepare() {
   cd dotnet
