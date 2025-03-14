@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-flask-marshmallow
-pkgver=1.2.1
-pkgrel=4
+pkgver=1.3.0
+pkgrel=1
 pkgdesc='Flask + marshmallow for beautiful APIs'
 url=https://flask-marshmallow.readthedocs.io/
 arch=(any)
@@ -28,9 +28,9 @@ optdepends=(
   'python-flask-sqlalchemy: SQLAlchemy integration'
   'python-marshmallow-sqlalchemy: SQLAlchemy integration'
 )
-_tag=7ea089d21d39f1d4abc549a4e7c8622c872c152b
+_tag=52721ecab6eb9d1775cbb969d90b771e8f1e8a51
 source=(git+https://github.com/marshmallow-code/flask-marshmallow.git#tag=${_tag})
-b2sums=('a650a9002d8e6f862e38fc34d7072cb73043b3110c4eada5029b0f1a5f88278ae1a6abb84844235fd91c41c36d2901358173ca538609bb8d4d1d6258edef9a91')
+b2sums=('791c8271464ce54becd6899421bc5003ca3bc6bc3b6b463546c0c375dde1054c5379f07c85ec625885a41174738910d5f5b17070a699c367a141991130f03997')
 
 pkgver() {
   cd flask-marshmallow
