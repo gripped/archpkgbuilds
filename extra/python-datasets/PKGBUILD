@@ -4,7 +4,7 @@
 
 _name=datasets
 pkgname=python-$_name
-pkgver=3.3.2
+pkgver=3.4.1
 pkgrel=1
 pkgdesc="Ready-to-use datasets for ML models with fast, easy-to-use and efficient data manipulation tools"
 arch=(any)
@@ -35,10 +35,11 @@ makedepends=(
   python-wheel
 )
 checkdepends=(
-  python-pytest
   python-absl
   python-decorator
   python-librosa
+  python-pytest
+  python-pytest-xdist
   python-pytorch
   python-soundfile
   python-soxr
@@ -54,7 +55,7 @@ optdepends=(
   'python-pytorch: PyTorch support'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-b2sums=('bb51d8e929fbadd9d04f7ca6c8894dc06b88940643f02743b10cea3c2dd5b91b720358d2229a2263e236a6b4911d9dc60e8698da4369393a63f2603274a4f599')
+b2sums=('836f0e0bb55cefd5a0616785c87c867292cc46ec609934b4f7688462aa7ec95b248f06018cd99e68a88b4e179e0aa48dd601a2fc74bc1b809c336bd70ae0bd6a')
 
 build() {
   cd $_name-$pkgver
@@ -65,6 +66,8 @@ check() {
   local pytest_options=(
     -vv
     -W ignore::DeprecationWarning
+    # distribute tests across multiple CPUs
+    -n auto
     # python-pyspark is not packaged, causes error when collecting tests
     --ignore tests/packaged_modules/test_spark.py
     # ModuleNotFoundError: No module named 'aifc'
