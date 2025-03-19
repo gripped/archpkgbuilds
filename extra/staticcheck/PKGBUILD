@@ -1,8 +1,8 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=staticcheck
-pkgver=2025.1
-pkgrel=2
+pkgver=2025.1.1
+pkgrel=1
 pkgdesc="The advanced Go linter"
 arch=('x86_64')
 url="https://staticcheck.io"
@@ -11,8 +11,8 @@ depends=('glibc')
 makedepends=('go' 'git')
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/dominikh/go-tools/archive/$pkgver.tar.gz")
-sha512sums=('2dbd2dc1c74b771b6e09b9a8b07c5c48cdd6ca6dc52d99afc3f10fdd5ab94e7aec60f52bb6ee4a44323b3a728de437e4adcc7e607f47939e6e4dec17e0e05281')
-b2sums=('5d5e3a1e24bf1bf6f79a9ce9b4bdc9e88e617c2e8f4c1a37b037ff9a9ded3e8a63f5dead2e41fbcb79c41252d2c1b36e110d47263031fe1a79ad517070e6d2e5')
+sha512sums=('49ec128257070f7b479c97e33cd602767b5b8650ca3fd6461a0634dc26d2f6dc9165bd9938de69e3bc128d7bfed9f4aa2db642c36af52a5382c71041a9c799e9')
+b2sums=('2af49e565da90ceb11f8b15d4047b30f751b4a4a2dc7fe40387d0bebb07013b31538697e0070f3b50d73d929f8205ecebbfaea9ef0a35d5548b369c91e78bc49')
 
 prepare(){
   cd "go-tools-$pkgver"
