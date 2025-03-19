@@ -3,7 +3,7 @@
 
 pkgname=ruby-prawn-svg
 _pkgname=${pkgname#ruby-}
-pkgver=0.36.2
+pkgver=0.37.0
 pkgrel=1
 pkgdesc="SVG renderer for Prawn Ruby PDF library"
 arch=(any)
@@ -26,7 +26,7 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("git+$url.git#tag=v$pkgver")
-sha256sums=('78b7ec7ece6673c49a13b4c75f44c81582a0015b04c909d3d1d4f7979c60e18b')
+sha256sums=('8c7d892db4f28d855ccc6c967cde9f581c5ab4d428133e221c736ac1b8b9f4f6')
 
 prepare() {
   cd "$_pkgname"
