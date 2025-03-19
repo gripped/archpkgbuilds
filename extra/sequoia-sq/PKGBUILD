@@ -2,7 +2,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=sequoia-sq
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 pkgdesc='Command-line frontends for Sequoia'
 url='https://sequoia-pgp.org/'
@@ -27,8 +27,8 @@ makedepends=(
 )
 options=(!lto)
 source=(git+https://gitlab.com/sequoia-pgp/sequoia-sq.git?signed#tag=v$pkgver)
-sha512sums=('a540f7693ff3c668bb6f4de2d66798679e66210947a014e56e1afd6611889a9e6b32dcdd72cd3069a7dd3fcc2c1d9b5902c3c490cbca5f089e5adcfa7623e25c')
-b2sums=('39c4a3aef55465a2e22298c68d8b29650e2fab81b09bd08536a2b45d25179d5610117c011ebe25940530068dab984abac324eb3a95a5956d000adb2d7de35762')
+sha512sums=('c697aff32f76761a5fcc5c0c57af7b4ae9ececd974c733ec2069268db31e0efc184220ca43c6e85c77339a6316fc2c4e9fe142c2d9836dc4ee414c79ef04cca4')
+b2sums=('050c9831dac75c3af6a873995edc75b5c555718d342ae594dd0966527c666f0ddf69d7498b9e0f3882d8d584228d0104e2b2fbec2e30b95184b686e34d0b7510')
 validpgpkeys=(
   CBCD8F030588653EEDD7E2659B7DD433F254904A  # Justus Winter <justus@sequoia-pgp.org>
   8F17777118A33DDA9BA48E62AACB3243630052D9  # Neal H. Walfield <neal@sequoia-pgp.org>
