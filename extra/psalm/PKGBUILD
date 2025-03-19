@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=psalm
-pkgver=6.8.9
+pkgver=6.9.0
 pkgrel=1
 pkgdesc='A static analysis tool for finding errors in PHP applications'
 url="https://psalm.dev/"
@@ -11,8 +11,8 @@ depends=('php')
 makedepends=('composer' 'git')
 source=("git+https://github.com/vimeo/psalm.git#tag=${pkgver}"
         "composer.lock")
-b2sums=('6d18f6b80770beef111f706784d93aab4cace12208b3ad3dcea103bb7da2b20012d56d07e88607297d1cc121560d15b7f33de1ff244c18e7a921f4fb3e78794a'
-        '59deed6987643977644c9c117d645cd1b4242f62bfddb5d8d1b546a6f0c511b7a624c2a325c3af9ab62be93472818744c30935e26d8be3c3a92cf53cbd884c66')
+b2sums=('41c5fe90ca27a72e3f0453b795ca9c5c4927302eb145eba9aae8ddef94421ce70f0abbbcbeae5cb2507923244ae77a7d3acc5466c5b5ef8b3d892de26dc9672b'
+        '99d355b7c6a9f68cf35522c947a38d72100eb1676f1d62b7ef64ee751bb1ddd8250566767bfb0f500f280ebe77b347942ad4ee77e041a5afee09eb4a8013ce49')
 
 prepare() {
   cd ${pkgname}
