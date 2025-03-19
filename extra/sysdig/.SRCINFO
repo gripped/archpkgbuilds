@@ -1,7 +1,7 @@
 pkgbase = sysdig
 	pkgdesc = Open source system-level exploration and troubleshooting tool
 	pkgver = 0.39.0
-	pkgrel = 6
+	pkgrel = 8
 	url = https://www.sysdig.com/
 	arch = x86_64
 	license = Apache-2.0
@@ -24,6 +24,7 @@ pkgbase = sysdig
 	makedepends = clang
 	makedepends = grpc
 	makedepends = libgrpc++.so
+	makedepends = nlohmann-json
 	options = !lto
 	source = https://github.com/draios/sysdig/archive/0.39.0/sysdig-0.39.0.tar.gz
 	source = falcosecurity-libs-0.18.1.tar.gz::https://github.com/falcosecurity/libs/archive/0.18.1.tar.gz
@@ -49,6 +50,7 @@ pkgname = sysdig
 	depends = yaml-cpp
 	depends = zstd
 	depends = libbpf
+	depends = nlohmann-json
 	optdepends = sysdig-dkms: kernel module for live inspection
 
 pkgname = sysdig-dkms
