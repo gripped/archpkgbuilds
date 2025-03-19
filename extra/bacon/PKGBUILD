@@ -2,10 +2,11 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 # Contributor: Jokler <aur@jokler.xyz>
+# Contributor: JisuWoniu <jswn@jswn9945.xyz>
 
 pkgname=bacon
 pkgver=3.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A background rust code checker'
 arch=('x86_64')
 url='https://dystroy.org/bacon'
@@ -57,10 +58,10 @@ package() {
   cp -vr doc img "$pkgdir/usr/share/doc/$pkgname"
 
   # completions
-  install -vDm644 <(COMPLETE=bash   "$_binary") "$pkgdir/usr/share/bash-completion/completions/$pkgname"
-  install -vDm644 <(COMPLETE=zsh    "$_binary") "$pkgdir/usr/share/zsh/site-functions/_$pkgname"
-  install -vDm644 <(COMPLETE=fish   "$_binary") "$pkgdir/usr/share/fish/vendor_completions.d/$pkgname.fish"
-  install -vDm644 <(COMPLETE=elvish "$_binary") "$pkgdir/usr/share/elvish/lib/$pkgname.elv"
+  install -vDm644 <(COMPLETE=bash   exec -a "$pkgname" "$_binary") "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+  install -vDm644 <(COMPLETE=zsh    exec -a "$pkgname" "$_binary") "$pkgdir/usr/share/zsh/site-functions/_$pkgname"
+  install -vDm644 <(COMPLETE=fish   exec -a "$pkgname" "$_binary") "$pkgdir/usr/share/fish/vendor_completions.d/$pkgname.fish"
+  install -vDm644 <(COMPLETE=elvish exec -a "$pkgname" "$_binary") "$pkgdir/usr/share/elvish/lib/$pkgname.elv"
 
   # license
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
