@@ -6,7 +6,7 @@ pkgname=(
   maturin
   python-maturin
 )
-pkgver=1.8.2
+pkgver=1.8.3
 pkgrel=1
 pkgdesc="Build and publish crates with pyo3, rust-cpython and cffi bindings"
 url="https://github.com/PyO3/maturin"
@@ -33,8 +33,8 @@ checkdepends=(
 # https://github.com/briansmith/ring/issues/1444
 options=(!lto)
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('566701306fb863f6a3e2f2ed95032d562aa2dd8cf068ec61b5262484fb92996d7ee5b52e0a8a9377d06320e4e57737bf51777ece4b01869420a9f59653180bf7')
-b2sums=('d0d731c48f304ace6751e4b027b6e9763329871fd80bc0c1a7a743365d7a24813a6cd5b2ee4f280e1dce65f5a7fc8f1551b3b93a67488fbcf30d527c31f8c3cd')
+sha512sums=('508256411357acd32c8dcc11cb3c274b1c8ad0218d2b4c55c72a5b40cb97cbb11f8206a2133b5af1308c12b6110b44b4810a76764cd620f25f02d05bffef0edb')
+b2sums=('4851db537466b5b78ff4c591575b2ae58aa56d37942220b928902c4afeb8c22b777e2cdfb6368ecb4cc05c8de257fbba09ef91c7208d2219c2da3965f2a873f3')
 
 prepare() {
   cd $pkgbase
