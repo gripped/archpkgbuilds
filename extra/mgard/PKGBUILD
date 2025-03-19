@@ -3,7 +3,7 @@
 
 pkgname=mgard
 pkgver=1.5.2
-pkgrel=5
+pkgrel=6
 pkgdesc="MultiGrid Adaptive Reduction of Data"
 arch=(x86_64)
 url="https://github.com/CODARcode/MGARD"
@@ -44,7 +44,8 @@ build() {
 }
 
 check() {
-  ctest --test-dir build --output-on-failure
+  # Upstream is missing the integration with ctest
+  OMP_NUM_THREADS=4 ./build/bin/tests
 }
 
 package() {
