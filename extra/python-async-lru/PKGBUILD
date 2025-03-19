@@ -2,8 +2,8 @@
 
 _pyname=async-lru
 pkgname=python-$_pyname
-pkgver=2.0.4
-pkgrel=4
+pkgver=2.0.5
+pkgrel=1
 pkgdesc='Simple LRU cache for asyncio'
 arch=(any)
 url='https://github.com/aio-libs/async-lru'
@@ -18,7 +18,7 @@ checkdepends=(python-pytest-asyncio
               python-pytest-cov
               python-pytest-timeout)
 source=(git+https://github.com/aio-libs/async-lru#tag=v$pkgver)
-sha256sums=('b20e888a322c68460746a316cb36948dd73bc8bef98e7cc9776f63f2ec3d5170')
+sha256sums=('b4dfdbab0e308ed940f5ad0ebff184f9e2beb0fa1c8fce35c6d71b39fafa7d9d')
 
 build() {
   cd $_pyname
