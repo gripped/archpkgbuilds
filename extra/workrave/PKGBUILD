@@ -3,21 +3,21 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=workrave
-pkgver=1.10.52
-pkgrel=3
+pkgver=1.10.53
+pkgrel=1
 pkgdesc="Assist in the recovery and prevention of Repetitive Strain Injury (RSI)"
 arch=('x86_64')
 url="https://workrave.org/"
 license=('GPL3')
 depends=('gstreamer' 'gtkmm3' 'libsm' 'libxss')
 makedepends=('autoconf-archive' 'boost' 'intltool' 'gobject-introspection' 'libpulse' 'python-jinja'
-             'gnome-panel' 'mate-panel' 'xfce4-panel')
+             'gnome-panel' 'mate-panel' 'xfce4-panel' 'glib2-devel')
 optdepends=('gst-plugins-good: to play sound events'
             'gnome-panel: Applet for GNOME Panel'
             'mate-panel: Applet for MATE Panel'
             'xfce4-panel: Applet for Xfce4 Panel')
 source=("https://github.com/rcaelers/workrave/releases/download/v${pkgver//./_}/$pkgname-v$pkgver.tar.gz")
-sha256sums=('4408269f5cd2b99f727e502e0972dc3e9bcbdeff2e41fe9c1c2da582dd33a7b4')
+sha256sums=('aa1455e50422b5133f464175428f62583bc06778e03c5ab032fddaf80889f2ca')
 
 build() {
   cd $pkgname-$pkgver
