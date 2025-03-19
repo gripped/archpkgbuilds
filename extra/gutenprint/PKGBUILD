@@ -2,19 +2,22 @@
 
 pkgbase=gutenprint
 pkgname=('gutenprint' 'foomatic-db-gutenprint-ppds')
-pkgver=5.3.4
-pkgrel=3
+pkgver=5.3.5
+pkgrel=1
 pkgdesc="Top quality printer drivers for POSIX systems"
 arch=('x86_64')
-license=('GPL')
-url="http://gimp-print.sourceforge.net/" # no https
-makedepends=('gimp' 'gtk2' 'cups' 'ghostscript'
+license=('GPL-2.0-or-later'
+         'LGPL-2.0-or-later'
+         'MIT AND GPL-3.0-or-later'
+         'Bison-exception-2.2')
+url="https://gimp-print.sourceforge.io/"
+makedepends=('cups' 'ghostscript'
             # for the docs
             'dialog' 'doxygen' 'docbook-utils' 'texi2html' 'texlive-bin')
 options=('!emptydirs')
 source=(https://downloads.sourceforge.net/gimp-print/$pkgname-$pkgver.tar.xz)
-sha1sums=('46167d00c2a4fb07c3fd3d62c80cd3fa004629f0')
-sha256sums=('db44a701d2b8e6a8931c83cec06c91226be266d23e5c189d20a39dd175f2023b')
+sha1sums=('65e1ad99e9a3df17d505e719a9123eaa3b50fd67')
+sha256sums=('f5a9f47de28530b1ae2069cfbc647a9a641baeeabe809bb0ef2b3ec5b9668d70')
 
 prepare(){
   cd "${pkgbase}"-${pkgver}
@@ -40,7 +43,8 @@ build() {
     --enable-cups-ppds \
     --enable-simplified-cups-ppds=only \
     --enable-translated-cups-ppds \
-    --enable-globalized-cups-ppds #--help
+    --enable-globalized-cups-ppds \
+    --disable-libgutenprintui2 #--help
 
   # make build reproducible taken from Debian rules
   # Remove timestamp and uname output
@@ -61,8 +65,7 @@ package_gutenprint() {
   install=gutenprint.install
   depends=('cups' 'cups-filters'
            'glib2' 'zlib' 'glibc' 'readline')
-  optdepends=('gimp:	adds gutenprint plugin to gimp'
-            'libusb:	required for drivers that depend on gutenprint52usb backend'
+  optdepends=('libusb:	required for drivers that depend on gutenprint52usb backend'
             'foomatic-db-gutenprint-ppds: prebuilt ppd files'
             'perl:	to run cups-genppdupdate')
   replaces=('gimp-print')
@@ -78,6 +81,10 @@ package_gutenprint() {
   # cleanup
   rm -rf "${pkgdir}"/usr/share/foomatic 
   rm -rf "${pkgdir}"/etc
+
+  # license
+  mkdir -p "${pkgdir}"/usr/share/licenses/${pkgname}
+  install -m644 COPYING "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
 
 package_foomatic-db-gutenprint-ppds() {
@@ -87,4 +94,8 @@ package_foomatic-db-gutenprint-ppds() {
   cd "${pkgbase}"-${pkgver}
   mkdir -p "${pkgdir}"/usr/share/cups
   mv "$srcdir"/tmp_foomatic-db-gutenprint-ppds/* "${pkgdir}"/usr/share/cups/
+
+  # license
+  mkdir -p "${pkgdir}"/usr/share/licenses/${pkgname}
+  install -m644 COPYING "${pkgdir}"/usr/share/licenses/${pkgname}/
 }

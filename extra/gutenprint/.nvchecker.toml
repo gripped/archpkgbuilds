@@ -1,0 +1,10 @@
+[gutenprint]
+source = "git"
+git = "git://git.code.sf.net/p/gimp-print/source"
+use_max_tag = true
+
+exclude_regex = ".*(pre|rc|_b|_a|print1|print-3|print-1|print-4|gimp-print-5).*"
+ignored = "gutenprint-5_3-OPEN"
+
+from_pattern = 'gutenprint-(\d+)_(\d+)_(\d+)'
+to_pattern = '\1.\2.\3'
