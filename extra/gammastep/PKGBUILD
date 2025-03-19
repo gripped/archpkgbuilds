@@ -2,8 +2,8 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=gammastep
-pkgver=2.0.9
-pkgrel=7
+pkgver=2.0.10
+pkgrel=1
 pkgdesc="Adjust the color temperature of your screen according to your surroundings."
 arch=(x86_64)
 url="https://gitlab.com/chinstrap/gammastep"
@@ -31,8 +31,8 @@ optdepends=(
   'libappindicator-gtk3: for gammastep-indicator'
 )
 source=($url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('6bd5e2ee21424af87eafff394c7dbe1db19052fbdac2cadd6fbc2af99839f35743125352655dc7b3beccdaec038b480f66125649b61252826c6cbd663444cda0')
-b2sums=('91e718b21bf73568e121c9245d7b834634928cf2993b65df126ac93e2c53f61650b340eed193daa3f48133131dc4235547f9ee2be9669ac9a6ddf9417fdbf490')
+sha512sums=('a12e38a2c8e6379d8bfef23810428d3389e16d0ec8d9e35819a21129c802347608f1aaac1946e2e44e4fcc96f82d0607d07554fe89832dffdb6e6b98863ebffe')
+b2sums=('df612e87362f3954ca1cafc8521c3be5db0ccf62e801507535ee433cf0d8b61d6f7e2cfc1308f250ba9cce704f946d37e4250574723a491ae6ba2fec3550e227')
 
 prepare() {
   cd $pkgname-v$pkgver
