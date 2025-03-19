@@ -5,7 +5,7 @@
 
 pkgname=tilix
 pkgver=1.9.6
-pkgrel=7
+pkgrel=8
 pkgdesc="A tiling terminal emulator for Linux using GTK+ 3"
 arch=('x86_64')
 url="https://github.com/gnunn1/tilix"
@@ -19,6 +19,12 @@ source=(
   "$url/archive/$pkgver/$pkgname-$pkgver.tar.gz"
 )
 sha256sums=('be389d199a6796bd871fc662f8a37606a1f84e5429f24e912d116f16c5f0a183')
+
+prepare() {
+  # Patch Align to GtkAlign, due to conflicting symbols
+  sed -i 's/(Align\./(GtkAlign./g' $pkgname-$pkgver/source/gx/tilix/prefeditor/prefdialog.d
+  sed -i 's/(Align\./(GtkAlign./g' $pkgname-$pkgver/source/gx/tilix/terminal/terminal.d
+}
 
 build() {
   mkdir build
