@@ -2,8 +2,8 @@
 # Contributor: Marius Lindvall <(firstname) {cat} varden {dog} info>
 
 pkgname=python-jellyfin-apiclient
-pkgver=1.10.0
-pkgrel=2
+pkgver=1.11.0
+pkgrel=1
 pkgdesc='Python API client for Jellyfin'
 arch=(any)
 url=https://github.com/iwalton3/jellyfin-apiclient-python
@@ -11,7 +11,7 @@ license=(GPL-3.0-only)
 depends=(python python-requests python-urllib3 python-websocket-client python-certifi)
 makedepends=(python-build python-installer python-wheel python-setuptools)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-b2sums=('a75d30956fb4d862b9c458d33ac9607d17fb9a1394a81bed2f04f53c9c6a73c5caccdcc3d4c1f6f845260f079ed39697229524de0d96d808c1451ca6406f23df')
+b2sums=('057dacb9640a3cc938ddafc4503b472bc4b690c86c01e706bdf53289d065455ea03d0b4bf37173b5e2195615c79d6a5acc5e8d633c6812f9d9836629d8e8492c')
 
 build() {
 	cd jellyfin-apiclient-python-$pkgver
