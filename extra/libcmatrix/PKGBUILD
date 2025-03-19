@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=libcmatrix
-pkgver=0.0.2
+pkgver=0.0.3
 pkgrel=1
 pkgdesc='Matrix client library written in GObject'
 arch=(x86_64)
@@ -26,8 +26,9 @@ makedepends=(
   meson
 )
 source=("git+https://source.puri.sm/Librem5/libcmatrix.git?signed#tag=v$pkgver")
-b2sums=(d6e7b101685101c32b5e060163559e466d9fcffd0783be3dec52190ec622f218afe5764d0dc645cab8d05beccc383a51a52cd5c4f2eaf7a073dbdb1432218974)
-validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
+b2sums=('d51ae2ef77a727b21ab6a9b9af5093f622a96441dbcce7aef9c9923b73a27f251ec94eddb4e983efb09581d36abea1b483a4842e7f8a30f65468338ab24424a8')
+validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3  # Guido Günther <guido@xcpu.ch>
+              B9386554B7DD266BCB8E29A990F0C9B18A6B4A19) # Evangelos Ribeiro Tzaras <devrtz@fortysixandtwo.eu>
 
 prepare() {
   cd $pkgname
