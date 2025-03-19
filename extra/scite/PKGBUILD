@@ -7,7 +7,7 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=scite
-pkgver=5.5.4
+pkgver=5.5.5
 pkgrel=1
 pkgdesc='Editor with facilities for building and running programs'
 arch=('x86_64')
@@ -17,7 +17,7 @@ depends=('gtk3')
 backup=('usr/share/scite/SciTEGlobal.properties')
 source=("https://www.scintilla.org/${pkgname}${pkgver//./}.tgz"
         'SciTE.appdata.xml')
-sha256sums=('439d033c452bb30bf7952e30390991a6abd022a031e8e74b25717f9e46ae90a8'
+sha256sums=('3e45d2d2a75862e535d2318ee7a4602a4fd1acea3618afbb3d1ec07d266ccce5'
             'cecf3f2f86cd05541e4c87064244f098904d5aed535f77244977e22cede7c842')
 
 prepare() {
