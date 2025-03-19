@@ -6,8 +6,8 @@ pkgname=(
   libpeas-2
   libpeas-2-docs
 )
-pkgver=2.0.5
-pkgrel=2
+pkgver=2.0.7
+pkgrel=1
 pkgdesc="GObject Plugin System"
 url="https://wiki.gnome.org/Projects/Libpeas"
 arch=(x86_64)
@@ -36,7 +36,7 @@ makedepends=(
 )
 checkdepends=(xorg-server-xvfb)
 source=("git+https://gitlab.gnome.org/GNOME/libpeas.git#tag=$pkgver")
-b2sums=('2612ff0d21a48ca61d469293a709e2b453894ede32c8f93eedadc9fa2c9e1973bfa3c94202caa98f83d41795896f3286769cc243637985b7485ad5f75f2b321f')
+b2sums=('b028848f24888551e70ab0517294b1008232040d6f27f71d1896be5bd2fed05b67c1ab4b263607025af0a86a96ce6c6ce29e6e3db2d9b4dba43dac285dd6a86e')
 
 prepare() {
   cd libpeas
