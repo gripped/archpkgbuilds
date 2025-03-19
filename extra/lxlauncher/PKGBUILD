@@ -5,8 +5,8 @@
 
 pkgbase=lxlauncher
 pkgname=(lxlauncher lxlauncher-gtk3)
-pkgver=0.2.5
-pkgrel=5
+pkgver=0.2.7
+pkgrel=1
 pkgdesc='Open source clone of the Asus launcher for EeePC'
 arch=('x86_64')
 license=('GPL2')
@@ -16,10 +16,10 @@ makedepends=('intltool')
 backup=('etc/xdg/lxlauncher/gtk.css'
         'etc/xdg/lxlauncher/gtkrc'
         'etc/xdg/lxlauncher/settings.conf')
-source=(https://downloads.sourceforge.net/lxde/$pkgbase-$pkgver.tar.xz
+source=(https://github.com/lxde/lxlauncher/archive/$pkgver/$pkgname-$pkgver.tar.gz
         0001-Add-CSS-selectors-for-GTK-3.20-and-newer.patch
         fix-invisible-icons.patch)
-sha256sums=('cd14b59cf337e7ba0d67efc95cd79859ab5f0f85af5a84c7aff771f868c3dca7'
+sha256sums=('683254bacd7e6c405247fd5a7fea6efa5806f01c9c7f6a89ab9e07bcb5a5a960'
             '794a92dda67f055a794315af4d1a1b0d3319da836582fbc88bbaa3f737612f70'
             '34fd1774d962965795eac8002d77a17078a967e2812ebae3e71d35533e1b3799')
 
@@ -32,6 +32,8 @@ prepare() {
 
   # Fix invisible icons with GTK+ 3
   patch -Np1 -i ../fix-invisible-icons.patch
+
+  autoreconf -vif
 }
 
 build() {
