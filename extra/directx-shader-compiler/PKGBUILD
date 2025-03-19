@@ -2,7 +2,7 @@
 
 pkgname=directx-shader-compiler
 pkgdesc="A compiler for HLSL to DXIL (DirectX Intermediate Language)."
-pkgver=1.8.2407
+pkgver=1.8.2502
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/microsoft/DirectXShaderCompiler"
@@ -17,7 +17,7 @@ source=("${pkgname}::git+https://github.com/microsoft/DirectXShaderCompiler.git#
         "${pkgname}-effcee::git+https://github.com/google/effcee"
         "${pkgname}-googletest::git+https://github.com/google/googletest"
         "${pkgname}-re2::git+https://github.com/google/re2")
-sha256sums=('36606d88de4b7d278a1387276395aa4ec0e37d539a48072bdf8fd96a5547d296'
+sha256sums=('9b5cc68c2a7df5fc16fac3c2223d18f3bd151f4c75559f58a015a3c63f154a3b'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -60,7 +60,7 @@ package() {
   install -m755 -d "${pkgdir}"/usr/share/licenses/${pkgname}
 
   install build/bin/dxc "${pkgdir}"/usr/bin/
-  cp build/lib/libdxcompiler.so* "${pkgdir}"/usr/lib/
+  cp build/lib/*.so* "${pkgdir}"/usr/lib/
   cp -r include/dxc "${pkgdir}"/usr/include/
 
   install LICENSE.TXT "${pkgdir}"/usr/share/licenses/${pkgname}/
