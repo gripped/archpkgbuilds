@@ -4,7 +4,7 @@
 
 pkgname=cppcheck
 pkgver=2.17.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A tool for static C/C++ code analysis'
 arch=('x86_64')
 url='http://cppcheck.sourceforge.net/'
@@ -89,9 +89,9 @@ package() {
 
   install -vDm644 -t "$pkgdir/usr/share/man/man1" cppcheck.1
   install -vDm755 -t "$pkgdir/usr/bin" htmlreport/cppcheck-htmlreport
-  install -vDm644 -t "$pkgdir/usr/share/doc/" man/manual.html
-  install -vDm644 -t "$pkgdir/usr/share/doc/" man/reference-cfg-format.html
-  install -vDm644 -t "$pkgdir/usr/share/doc/" man/writing-addons.html
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname/" man/manual.html
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname/" man/reference-cfg-format.html
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname/" man/writing-addons.html
 
   # Fix location of language files
   install -d "${pkgdir}"/usr/share/cppcheck/cfg/lang
