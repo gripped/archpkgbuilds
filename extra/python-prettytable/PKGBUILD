@@ -4,18 +4,18 @@
 # Contributor: Emmanuel Gil Peyrot <linkmauve@linkmauve.fr>
 
 pkgname=python-prettytable
-pkgver=3.11.0
-pkgrel=2
+pkgver=3.15.1
+pkgrel=1
 pkgdesc="A simple Python library for easily displaying tabular data"
 url="https://github.com/jazzband/prettytable"
 arch=('any')
 license=('BSD')
 depends=('python-wcwidth')
 makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-hatch-vcs')
-checkdepends=('python-pytest-lazy-fixtures')
+checkdepends=('python-pytest-lazy-fixtures' 'python-coverage')
 conflicts=('python-ptable')
 source=("git+https://github.com/jazzband/prettytable.git#tag=$pkgver")
-sha512sums=('fac6125f7e85eb267597c56d3a255b6f04f1ee99c0f6f19b43cb9d42a88c9f963cc224c2b158bb8984d2551ef79152e80dc13d7c12c33196ea325f9b4ea25178')
+sha512sums=('99f644bae17beeec5e5b448f399a1c87ce316a4a00453e9b1e82dcb139a90cdc9dfbd3d94a7188261b9ed6be745b5009c93bf2863e42c011839b5151f39129f7')
 
 build() {
   cd prettytable
