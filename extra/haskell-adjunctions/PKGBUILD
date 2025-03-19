@@ -4,7 +4,7 @@
 _hkgname=adjunctions
 pkgname=haskell-adjunctions
 pkgver=4.4.2
-pkgrel=115
+pkgrel=117
 pkgdesc="Adjunctions and representable functors"
 url="https://github.com/ekmett/adjunctions/"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('3785268bd3971f16dc0f2517556127590e8fb87f8e2cb8dfc74c356a8496ac1f2a4
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -d semigroups $_hkgname.cabal
+    uusi -d semigroups -u semigroupoids $_hkgname.cabal
 }
 
 build() {
