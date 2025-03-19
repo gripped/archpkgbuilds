@@ -5,7 +5,7 @@ pkgbase=wxwidgets
 pkgname=(wxwidgets-common
          wxwidgets-gtk3
          wxwidgets-qt5)
-pkgver=3.2.6
+pkgver=3.2.7.1
 pkgrel=1
 arch=(x86_64)
 url='https://wxwidgets.org'
@@ -21,13 +21,7 @@ makedepends=(cmake
              sdl2
              webkit2gtk-4.1)
 source=(git+https://github.com/wxWidgets/wxWidgets#tag=v$pkgver)
-sha256sums=('20f6a611ead83b448dc587c3c304e85419a2e8be4d16710f0d46ff71761d1fb1')
-
-prepare() {
-  cd wxWidgets
-  git cherry-pick -n ed510012 # Fix undefined symbols in Qt build
-  git cherry-pick -n 8ea22b5e # Avoid crash with GTK3 if console program is using a GUI wxApp
-}
+sha256sums=('2bc430601c35450e8231dc2f654127dc48851fe98a48f0f062bc7dd67945c1aa')
 
 build() {
   cmake -B build-gtk3 -S wxWidgets \
@@ -88,8 +82,6 @@ package_wxwidgets-common() {
   DESTDIR="$pkgdir" cmake --install build-gtk3
   rm -r "$pkgdir"/usr/{bin/wx-config,lib/{cmake,wx,libwx_gtk*}}
   install -Dm644 wxWidgets/wxwin.m4 -t "$pkgdir"/usr/share/aclocal
-# Install translations
-  make DESTDIR="$pkgdir" -C wxWidgets locale_install  
 
   install -Dm644 wxWidgets/docs/licence.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
@@ -127,7 +119,7 @@ package_wxwidgets-gtk3() {
   replaces=(wxgtk3)
 
   DESTDIR="$pkgdir" cmake --install build-gtk3
-  rm -r "$pkgdir"/usr/{include,lib/libwx_base*,bin/wxrc*}
+  rm -r "$pkgdir"/usr/{include,lib/libwx_base*,bin/wxrc*,share}
   
   install -Dm644 wxWidgets/docs/licence.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
@@ -148,7 +140,7 @@ package_wxwidgets-qt5() {
   provides=(wxwidgets)
 
   DESTDIR="$pkgdir" cmake --install build-qt5
-  rm -r "$pkgdir"/usr/{include,lib/libwx_base*,bin/wxrc*}
+  rm -r "$pkgdir"/usr/{include,lib/libwx_base*,bin/wxrc*,share}
   mv "$pkgdir"/usr/bin/wx-config{,-qt} # Conflicts with wx-gtk3
 # Rename cmake files for coinstallability
   mv "$pkgdir"/usr/lib/cmake/wxWidgets{,Qt}
