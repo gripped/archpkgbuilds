@@ -5,8 +5,7 @@
 # Contributor: zarra <zarraxx@gmail.com>
 
 pkgname=python-pygccxml
-_pkgname=${pkgname#python-}
-pkgver=2.6.1
+pkgver=3.0.0
 pkgrel=1
 pkgdesc="Simple framework to navigate C++ declarations, using Python classes"
 arch=(any)
@@ -23,77 +22,22 @@ makedepends=(
   python-wheel
 )
 checkdepends=(python-pytest)
-source=(
-  "$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
-  "fix-tests.patch"
-)
-sha256sums=('4c0f12a076ee27ff48bdbb73eecaecd8376ac64282fb84685994000f1a0c8c8d'
-            '8d78ed9f7bc66ffae1844953923643b922206423652564c731bd12fb9e4ec451')
-
-prepare() {
-  cd "$_pkgname-$pkgver"
-  # The tests expect the compiler to default to -std=c++11, not -std=c++17,
-  # which breaks some tests.
-  # Some tests "corrected" in this patch might actually be right in the first
-  # place, particularly the ones in test_remove_template_defaults.py. I suspect
-  # the template removal might be actually broken.
-  patch -Np1 -i ../fix-tests.patch
-}
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('fead5bec1a26a1a709e971124be19721240f3f3774f989c3971babe38207b350')
 
 build() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_pkgname-$pkgver"
-  python -m venv venv-test --system-site-packages
-  venv-test/bin/python -m installer dist/*.whl
-  # The default compilation mode, FILE_BY_FILE, is broken, likely due to some
-  # incompatibility. Gentoo seem to have similar issues:
-  # https://bugs.gentoo.org/936005
-  venv-test/bin/python -m pytest \
-    --deselect='tests/test_cached_source_file.py' \
-    --deselect='tests/test_core.py::test_top_parent[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_top_parent[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_core.py::test_nss_join[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_nss_join[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_core.py::test_membership[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_membership[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_core.py::test_mangled_name_namespace[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_mangled_name_namespace[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_core.py::test_mangled_name_functions[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_mangled_name_functions[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_core.py::test_mangled_name_variable[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_mangled_name_variable[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_core.py::test_class_hierarchy[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_class_hierarchy[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_core.py::test_class_join[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_class_join[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_core.py::test_fundamental_types[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_fundamental_types[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_core.py::test_compound_types[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_compound_types[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_core.py::test_free_function_type[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_free_function_type[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_core.py::test_member_variable_type[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_member_variable_type[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_core.py::test_overloading[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_overloading[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_core.py::test_abstract_classes[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_abstract_classes[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_core.py::test_byte_size[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_byte_size[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_core.py::test_byte_align[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_byte_align[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_core.py::test_byte_offset[global_ns_fixture_file_by_file1]' \
-    --deselect='tests/test_core.py::test_byte_offset[global_ns_fixture_file_by_file2]' \
-    --deselect='tests/test_example.py' \
-    --deselect='tests/test_vector_traits.py::test_element_type' \
-    --deselect='tests/test_xmlfile_reader.py::test_read_xml_file'
+  cd ${pkgname#python-}-$pkgver
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  python -m installer --destdir=tmp_install dist/*.whl
+  PYTHONPATH="$PWD/tmp_install/$site_packages" pytest
 }
 
 package() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
