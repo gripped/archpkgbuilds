@@ -1,0 +1,20 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -289,15 +289,8 @@ elseif(UNIX)
+ 			RENAME endless-sky.png)
+ 	endforeach()
+ 
+-	# Gzip and install man file.
+-	add_custom_command(
+-		OUTPUT endless-sky.6.gz
+-		COMMAND gzip -c endless-sky.6 > ${CMAKE_CURRENT_BINARY_DIR}/endless-sky.6.gz
+-		DEPENDS endless-sky.6
+-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+-		VERBATIM)
+-	target_sources(EndlessSky PRIVATE endless-sky.6.gz)
+-	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/endless-sky.6.gz DESTINATION share/man/man6)
++  # Install man file.
++  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/endless-sky.6 DESTINATION share/man/man6)
+ 
+ 	# Install the resource files.
+ 	install(DIRECTORY data DESTINATION share/games/endless-sky)

@@ -4,20 +4,22 @@
 
 pkgname=endless-sky
 pkgver=0.10.12
-pkgrel=1
+pkgrel=2
 pkgdesc='A sandbox-style space exploration and combat game'
 arch=('x86_64')
 url='https://endless-sky.github.io/'
 # licenses obtained via following script:
 # grep "^License:" copyright | sed -e "s/License: //" -e "s/ /-/" | sort | uniq
 license=(
-  'GPL-3.0-only'
+  'CC0-1.0'
+  'CC-BY-2.0'
   'CC-BY-3.0'
   'CC-BY-4.0'
-  'CC-BY-NC-3.0'
   'CC-BY-SA-3.0'
   'CC-BY-SA-4.0'
+  'GPL-3.0-only'
   'LicenseRef-public-domain'
+  'LicenseRef-Unsplash'
 )
 depends=(
   'glibc'
@@ -32,40 +34,56 @@ depends=(
   'util-linux-libs'
   'libglvnd'
 )
-makedepends=('git' 'scons')
+makedepends=('git' 'cmake' 'ninja')
 optdepends=(
   'endless-sky-high-dpi: high resolution graphics assets'
 )
 source=(
   "$pkgname::git+https://github.com/endless-sky/endless-sky#tag=v$pkgver"
   'fix-binary-install.patch'
+  'no-compress-manfile.patch'
 )
 sha512sums=('48761f4e1e6b5db7fe7887338edf4f79634a0783dc1258a668de16f86bdbad777066fb3abfb999a8ee88809a218174b7b46382306ebaa5d382420d662948adde'
-            '974abf4bf60b7db9917c88e540c9b76b93f41f1214c3fad4894ab1a1162c1c5e6f48ad310ae3e7fc44f984e46e9a5d50cc1508ba7a9a6a74934646a8f15aa5c6')
+            '454a48ade614f30469a5d45271fb96b7e9d34cba40a5771e4b170213435cbce2c8aee07aad60ddb0e9b8e8f0c4963469b98a92ce6f1173be8100484ce4fc9252'
+            '3012ffaa0e5f9754518d4620b0bf09de8b205f9e6147625aded8ea5eb58728e135abfa29d9d4660bd6ce11cf8e6366ddebb374b7762a0bc6fb67531b3b2a8414')
 b2sums=('57e78b149fae88836199532ac3415e176e8ba156ec9024280e1cbf4c4b5225e5f6c80089100771d3106ca14290635f0cff18a2483378b27fda99ed84ff8cc3ac'
-        'c32e4962ab7ceff081df54a7a1cf3488f57b87aef4533a18b0a8ecafa7a7bea29babeaec4a44767124716c8194d5088444fe17dc238ea05bb22c40e9d591700b')
+        '551192e7c8b3d90609e1556f91bbb0a5930cd136082051ba0c054b0acb0d77fc3c6aaffc60ab65755345083f5ed5f76013f0cb4abaf720c4cf8da2d213618c7a'
+        'a4b4aececeea00fcf4a18b8bc4e56ba2049f9d8fc7ff4d533daf7e4d2c05f74c7b05eef4bf89046c57aa90532afd74d3f8228b402e1dec66edd8e7df604a6072')
 
 prepare() {
   cd "$pkgname"
 
   # binary is installed to /usr/games instead of /usr/bin
   patch -p1 -i "$srcdir/fix-binary-install.patch"
+
+  # let package manager (pacman) deal with compression of man files
+  patch -p1 -i "$srcdir/no-compress-manfile.patch"
+
+  # fix resource directory issue
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/endless-sky/-/issues/1
+  # https://github.com/endless-sky/endless-sky/pull/11168
+  git cherry-pick --no-commit ca255889f4137a51cd40753802b5a0ecf52f3011
 }
 
 build() {
-  cd "$pkgname"
-
-  scons -j "$(nproc)"
+    local cmake_options=(
+    -B build
+    -S "$pkgname"
+    -G Ninja
+    -D CMAKE_BUILD_TYPE=Release
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D BUILD_TESTING=OFF
+    -D ES_GLES=ON
+    -D ES_USE_SYSTEM_LIBRARIES=ON
+    -W no-dev
+  )
+  cmake "${cmake_options[@]}"
+  cmake --build build
 }
 
 package() {
-  cd "$pkgname"
-
-  scons \
-    DESTDIR="$pkgdir" \
-    PREFIX=/usr \
-    install
+  DESTDIR="$pkgdir" cmake --install build
 
   # license
-  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" copyright
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" "$pkgname/copyright"
 }
