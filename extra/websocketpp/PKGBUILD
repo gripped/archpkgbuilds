@@ -6,7 +6,7 @@
 
 pkgname=websocketpp
 pkgver=0.8.2
-pkgrel=2
+pkgrel=3
 pkgdesc='C++/Boost Asio based websocket client/server library'
 url='https://www.zaphoyd.com/websocketpp/'
 arch=('any')
@@ -18,12 +18,21 @@ optdepends=(
   'boost-libs: non C++11 environments support'
 )
 makedepends=('cmake' 'boost' 'boost-libs' 'boost' 'zlib' 'openssl')
-source=(https://github.com/zaphoyd/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('b2afc63edb69ce81a3a6c06b3d857b3e8820f0e22300ac32bb20ab30ff07bd58bd5ada3e526ed8ab52de934e0e3a26cad2118b0e68ecf3e5e9e8d7101348fd06')
-b2sums=('dacee33832f493d465afe208f9edea1393414a22c8db8f8c86b8f913521d0d8d68b95673a2e82b7479acfbab1ac541eda2d713a55d5de387b3879461d5884df7')
+source=(https://github.com/zaphoyd/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
+        websocketpp-0.8.2-boost-1.87-compat.patch)
+sha512sums=('b2afc63edb69ce81a3a6c06b3d857b3e8820f0e22300ac32bb20ab30ff07bd58bd5ada3e526ed8ab52de934e0e3a26cad2118b0e68ecf3e5e9e8d7101348fd06'
+            '6b64fed053690f1dfd17ba5b33f9e3ba1c0e51a5eb40dc33a4e32ec23a76a33ea3e9ad792d2c4f1b478c1873fd9461db9893475ffc060190836347021f6d1294')
+b2sums=('dacee33832f493d465afe208f9edea1393414a22c8db8f8c86b8f913521d0d8d68b95673a2e82b7479acfbab1ac541eda2d713a55d5de387b3879461d5884df7'
+        'cd472b448382b21dd312c4ee132622c291c50eae05888858e5bdb3e64cf7d27a393514ff4ff780320b76c15ffb70b62b78369df92ed2d82f277378d0f04bf795')
 
 prepare() {
   cd ${pkgname}-${pkgver}
+
+  # Backport of https://github.com/zaphoyd/websocketpp/pull/1164/ to 0.8.2
+  # Fixes compatibility with boost 1.87
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/websocketpp/-/issues/2
+  patch -Np1 -i ../websocketpp-0.8.2-boost-1.87-compat.patch
+
   sed 's|"${WEBSOCKETPP_BOOST_LIBS}"|${WEBSOCKETPP_BOOST_LIBS}|' -i CMakeLists.txt
 }
 
