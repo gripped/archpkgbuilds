@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=aws-c-s3
-pkgver=0.7.12
+pkgver=0.7.13
 pkgrel=1
 pkgdesc='C99 library implementation for communicating with the S3 service, designed for maximizing throughput on high bandwidth EC2 instances'
 arch=(x86_64)
@@ -19,7 +19,7 @@ depends=(
 )
 makedepends=(cmake)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('096ac66bc830c8a29cb12652db095e03a2ed5b15645baa4d7c78de419a0d6a54')
+sha256sums=('b8aeb26072995f2fd4764c788a09a4498002c3e506ef4c2797c559ab018ae0d3')
 
 build() {
   cd $pkgname-$pkgver
@@ -34,7 +34,20 @@ build() {
 
 check() {
   cd $pkgname-$pkgver
-  cmake --build build --target test
+  local skip_tests=(
+    # These requires an AWS account with a specially configure S3 bucket.
+    parallel_read_stream_from_file_sanity_test
+    parallel_read_stream_from_large_file_test
+    test_add_user_agent_header
+    test_s3_client_get_max_active_connections
+    test_s3_client_queue_requests
+    test_s3_client_update_connections_finish_result
+    test_s3_meta_request_body_streaming
+    test_s3_request_create_destroy
+    test_s3_update_meta_requests_trigger_prepare
+  )
+  local skip_tests_pattern="${skip_tests[0]}$(printf '|%s' "${skip_tests[@]:1}")"
+  ctest --test-dir build --output-on-failure -E "$skip_tests_pattern"
 }
 
 package() {
