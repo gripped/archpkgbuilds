@@ -2,7 +2,7 @@
 # Contributor: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=rygel
-pkgver=0.44.1
+pkgver=0.44.2
 pkgrel=1
 epoch=1
 pkgdesc="UPnP AV MediaServer and MediaRenderer"
@@ -50,7 +50,7 @@ provides=(librygel-{core,db,renderer,renderer-gst,ruih,server}-2.8.so)
 backup=(etc/rygel.conf)
 groups=(gnome)
 source=("git+$url.git?signed#tag=rygel-$pkgver")
-b2sums=('d5450851807855e721d3d399483ca999121cf49181719e88f9f1ec4211afabb57347d33374079676f59841d0a33624d7c2d33d510ef794f76cbad1eb1cd6cf6d')
+b2sums=('f85721d7a672fa40bb19541447fa978fb92591315480204790da2701e0045fb1fa1f88301c396e251534a3872387469b09b90b4245da6df308d9164b2b57d3f4')
 validpgpkeys=(
   AC9CD4E32D7C7F6357BA8ADD10F6E970175D29E1 # Jens Georg <mail@jensge.org>
 )
