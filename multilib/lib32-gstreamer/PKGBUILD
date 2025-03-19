@@ -8,8 +8,8 @@ pkgname=(
   lib32-gst-plugins-base
   lib32-gst-plugins-good
 )
-pkgver=1.24.12
-pkgrel=3
+pkgver=1.26.0
+pkgrel=1
 pkgdesc="Multimedia graph framework (32-bit)"
 url="https://gstreamer.freedesktop.org/"
 arch=(x86_64)
@@ -80,8 +80,8 @@ source=(
   "git+https://gitlab.freedesktop.org/gstreamer/gstreamer.git?signed#tag=$pkgver"
   0001-HACK-meson-Disable-broken-tests.patch
 )
-b2sums=('e11c560e33db0292075a8c3043eef959c6b68c2c54e55a62d41acbfce544b198ff0a948682ff2e9d90ec2773674e614378399b1411588eae7757176ce157dd4e'
-        'ffa84decda2494fd6ad504f05d70c20d72ada43f50c17118ed56a2779101d919a355263a9275b923d2651f032780ad717c8de1b8c3d9359e4cce0ea82b74922d')
+b2sums=('8c90fe57ae67c5097cf427bca73cb687bc5087256444ec9227f4a294b2889d2042643ed4230414c151ecbae8490984e2b8c52cfea494e4f10f79866a26326029'
+        '6b4e34286318ca591077779e713ec9a94cb2e5b73a9dd6df35afdefcc709c0f9d1ee4cae6c99d2bbf2e075eda03e94cacb57bfc202fdb8c263b4b0d335541b23')
 validpgpkeys=(
   D637032E45B8C6585B9456565D2EEE6F6F349D7C # Tim Müller <tim@gstreamer-foundation.org>
 )
@@ -98,11 +98,12 @@ build() {
     --cross-file lib32
     --libexecdir lib32
     -D bad=disabled
+    -D benchmarks=disabled
     -D devtools=disabled
     -D doc=disabled
     -D examples=disabled
     -D ges=disabled
-    -D gobject-cast-checks=disabled
+    -D glib_debug=disabled
     -D gpl=enabled
     -D gst-examples=disabled
     -D gst-plugins-base:gl-graphene=disabled
