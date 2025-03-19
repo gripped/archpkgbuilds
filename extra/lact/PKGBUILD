@@ -3,8 +3,8 @@
 
 pkgname=('lact' 'lact-libadwaita')
 pkgbase=lact
-pkgver=0.7.0
-pkgrel=2
+pkgver=0.7.2
+pkgrel=1
 pkgdesc="Linux GPU Configuration Tool"
 arch=('x86_64')
 url="https://github.com/ilya-zlobintsev/LACT"
@@ -14,21 +14,42 @@ depends=(
   gcc-libs
   glibc
   gtk4
+  vulkan-tools
 )
 makedepends=(
-  blueprint-compiler
   cargo
   clang
   libadwaita
   git
 )
+checkdepends=(
+  fuse3
+)
 install="$pkgbase.install"
 source=("git+https://github.com/ilya-zlobintsev/LACT.git#tag=v$pkgver")
-sha256sums=('0a7c90329f574fa5aa65ebb938051fd96fe999c09af6002bdb474b0c35fc265a')
-b2sums=('bd02593293312434be7843e53506171ab1d146eef3986409790f206ef6111fc3127726a7eb88be725a70c885d7c01a02c79c42e109b6c6c146e0433f9f46f206')
+sha256sums=('ff5465440825b944d80f2290f0f074568022d87ddf90680aefb730d6963a1ee1')
+b2sums=('7af0fb4d50f3495af1398fc980d51622fc979ef2eb39fa3d8df670ce3e5e2ff1f8f38aaa9cd26902530108cd00541726ff68a51bf9c856c8b8dc870d18b39ed6')
+
+_backports=()
+
+_reverts=(
+)
 
 prepare() {
   cd "LACT"
+  local _c
+  for _c in "${_backports[@]}"; do
+    if [[ $_c == *..* ]]; then
+      git log --oneline --reverse "${_c}"
+    else
+      git log --oneline -1 "${_c}"
+    fi
+    git cherry-pick -n -m1 "${_c}"
+  done
+  for _c in "${_reverts[@]}"; do
+    git log --oneline -1 "${_c}"
+    git revert -n "${_c}"
+  done
   export RUSTUP_TOOLCHAIN=stable
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
@@ -49,7 +70,7 @@ build() {
 check() {
   cd "LACT"
   export RUSTUP_TOOLCHAIN=stable
-  cargo test --frozen --no-default-features --
+  cargo test --frozen --verbose --
 }
 
 package_lact() {

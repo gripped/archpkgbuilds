@@ -1,12 +1,12 @@
 pkgbase = lact
-	pkgdesc = AMDGPU Controller application
-	pkgver = 0.7.0
-	pkgrel = 2
+	pkgdesc = Linux GPU Configuration Tool
+	pkgver = 0.7.2
+	pkgrel = 1
 	url = https://github.com/ilya-zlobintsev/LACT
 	install = lact.install
 	arch = x86_64
 	license = MIT
-	makedepends = blueprint-compiler
+	checkdepends = fuse3
 	makedepends = cargo
 	makedepends = clang
 	makedepends = libadwaita
@@ -15,18 +15,20 @@ pkgbase = lact
 	depends = gcc-libs
 	depends = glibc
 	depends = gtk4
-	source = git+https://github.com/ilya-zlobintsev/LACT.git#tag=v0.7.0
-	sha256sums = 0a7c90329f574fa5aa65ebb938051fd96fe999c09af6002bdb474b0c35fc265a
-	b2sums = bd02593293312434be7843e53506171ab1d146eef3986409790f206ef6111fc3127726a7eb88be725a70c885d7c01a02c79c42e109b6c6c146e0433f9f46f206
+	depends = vulkan-tools
+	source = git+https://github.com/ilya-zlobintsev/LACT.git#tag=v0.7.2
+	sha256sums = ff5465440825b944d80f2290f0f074568022d87ddf90680aefb730d6963a1ee1
+	b2sums = 7af0fb4d50f3495af1398fc980d51622fc979ef2eb39fa3d8df670ce3e5e2ff1f8f38aaa9cd26902530108cd00541726ff68a51bf9c856c8b8dc870d18b39ed6
 
 pkgname = lact
 
 pkgname = lact-libadwaita
-	pkgdesc = AMDGPU Controller application (libadwaita edition)
+	pkgdesc = Linux GPU Configuration Tool (libadwaita edition)
 	depends = hwdata
 	depends = gcc-libs
 	depends = glibc
 	depends = gtk4
+	depends = vulkan-tools
 	depends = libadwaita
 	provides = lact
 	conflicts = lact
