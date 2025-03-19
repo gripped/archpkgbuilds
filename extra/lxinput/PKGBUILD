@@ -4,8 +4,8 @@
 
 pkgbase=lxinput
 pkgname=(lxinput lxinput-gtk3)
-pkgver=0.3.5
-pkgrel=4
+pkgver=0.3.6
+pkgrel=1
 pkgdesc="Small program to configure keyboard and mouse for LXDE"
 arch=('x86_64')
 url="https://lxde.org/"
@@ -13,8 +13,13 @@ license=('GPL')
 groups=('lxde')
 depends=('gtk2' 'gtk3')
 makedepends=('intltool')
-source=(https://downloads.sourceforge.net/lxde/$pkgbase-$pkgver.tar.xz)
-sha256sums=('4e8f778a65a4afe2365b47e7899358aa4fab535343aa62c72a3cdc4cac1f6e88')
+source=(https://github.com/lxde/lxinput/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('2f15c2a17f970afb152cbd024503da26c1e15135e76e9f516e0ca97e909d6c37')
+
+prepare() {
+  cd $pkgbase-$pkgver
+  autoreconf -vif
+}
 
 build() {
   # GTK+ 2 version
