@@ -1,0 +1,43 @@
+pkgbase = libfm
+	pkgdesc = Library for file management
+	pkgver = 1.4.0
+	pkgrel = 1
+	url = https://lxde.org/
+	arch = x86_64
+	license = GPL
+	makedepends = intltool
+	makedepends = gtk-doc
+	makedepends = vala
+	makedepends = glib2-devel
+	depends = gtk2
+	depends = gtk3
+	depends = libexif
+	depends = menu-cache
+	source = https://github.com/lxde/libfm/archive/1.4.0/libfm-1.4.0.tar.gz
+	sha256sums = 7d7b616411992389a4b7f35796109d605f30bc2ceab84d4081d1665254ebbf82
+
+pkgname = libfm
+	depends = libexif
+	depends = libfm-extra=1.4.0
+	depends = menu-cache
+
+pkgname = libfm-extra
+	pkgdesc = Extra library for file management
+	depends = glib2
+
+pkgname = libfm-gtk2
+	pkgdesc = GTK+ 2 library for file management
+	depends = gtk2
+	depends = menu-cache
+	depends = libfm=1.4.0
+	provides = lxshortcut
+	conflicts = lxshortcut
+	replaces = lxshortcut
+
+pkgname = libfm-gtk3
+	pkgdesc = GTK+ 3 library for file management
+	depends = gtk3
+	depends = menu-cache
+	depends = libfm=1.4.0
+	conflicts = libfm-gtk2
+	conflicts = lxshortcut
