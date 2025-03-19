@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=knewstuff
-pkgver=6.11.0
+pkgver=6.12.0
 pkgrel=1
 pkgdesc='Support for downloading application assets from the network'
 arch=(x86_64)
@@ -29,7 +29,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('8b3802b6b64309ab6709af350f248dc62e3e6d50b0db4ecb0c968acfbfb23520'
+sha256sums=('f0bcca66c267dba335e3df5eb089ae40c56680a7d385176bc44d951defa3d029'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
