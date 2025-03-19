@@ -1,6 +1,6 @@
 pkgbase = wl-mirror
 	pkgdesc = a simple Wayland output mirror client
-	pkgver = 0.17.0
+	pkgver = 0.18.0
 	pkgrel = 1
 	url = https://github.com/Ferdi265/wl-mirror
 	arch = x86_64
@@ -10,14 +10,16 @@ pkgbase = wl-mirror
 	makedepends = scdoc
 	depends = bash
 	depends = glibc
+	depends = libdrm
 	depends = libglvnd
+	depends = mesa
 	depends = wayland
 	optdepends = dmenu: for interactive selection of options and wl-present
 	optdepends = pipectl: for wl-present
 	optdepends = rofi: for interactively selecting options and wl-present
 	optdepends = slurp: for selecting regions and outputs and wl-present
-	source = wl-mirror-0.17.0.tar.gz::https://github.com/Ferdi265/wl-mirror/releases/download/v0.17.0/wl-mirror-0.17.0.tar.gz
-	sha512sums = a0466cefb1c18297076c02e341dc806b9cf48ca01a6a54d75d0048514e0658144f2147540c53a82795dc8f2bc7a802cea09873987f423aa2d8cde0a28c83463b
-	b2sums = d6ba136576b1c02306f4205f38e34b23ea1d07eb407e0a6ba41e66dfa77fed954f8bfbe284b337af5a881f7a9a0a514a276dfa373eafa0efa26108c78f5f2810
+	source = wl-mirror-0.18.0.tar.gz::https://github.com/Ferdi265/wl-mirror/releases/download/v0.18.0/wl-mirror-0.18.0.tar.gz
+	sha512sums = 978e0ceb71be1f83cf769940292c4d45af5dbc7fb7ce334ac09cb4792f85f49446409f388d6e47462105339aa9b19e88f5a88448778ccaa7d27a7488ed05310b
+	b2sums = 78b2c40f1f3cca8855114c68eed97b127e4e6b0b2d50b8c413077be71f7e0f549fbb807fd2f9ff68ba8abbce84ce42b86a68b4c15d0b7d78e04387eab5233976
 
 pkgname = wl-mirror
