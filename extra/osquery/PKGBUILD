@@ -3,7 +3,7 @@
 
 pkgname=osquery
 pkgver=5.16.0
-pkgrel=1
+pkgrel=2
 pkgdesc="SQL powered operating system instrumentation, monitoring, and analytics"
 arch=(x86_64)
 url="https://osquery.io"
@@ -75,7 +75,7 @@ _url=https://github.com/osquery/osquery
 source=(
   "git+$_url.git#tag=$pkgver"
   "git+https://github.com/arangodb/linenoise-ng.git"
-  "git+https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git"
+  "$pkgname-util-linux::git+https://git.kernel.org/pub/scm/utils/util-linux/util-linux.git"
   # Patchset maintained here:
   # https://github.com/carlsmedstad/osquery/tree/build-on-archlinux
   "$pkgname-0001-Use-system-libraries-where-possible.patch::$_url/commit/dd08b4e2f1db5d19003e1728ed6122474060ef91.patch"
@@ -107,7 +107,7 @@ prepare() {
   cd $pkgname
   git submodule init
   git config submodule.libraries/cmake/source/linenoise-ng/src.url "$srcdir/linenoise-ng"
-  git config submodule.libraries/cmake/source/util-linux/src.url "$srcdir/util-linux"
+  git config submodule.libraries/cmake/source/util-linux/src.url "$srcdir/$pkgname-util-linux"
   git -c protocol.file.allow=always submodule update \
     libraries/cmake/source/linenoise-ng \
     libraries/cmake/source/util-linux
