@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Paul <pb.orzel@proton.me>
 pkgname=amdgpu_top
-pkgver=0.10.3
+pkgver=0.10.4
 pkgrel=1
 pkgdesc="Tool that shows AMD GPU utilization"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=("MIT")
 depends=("glibc" "libdrm")
 makedepends=("rust")
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Umio-Yasuno/amdgpu_top/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('b74065ea89fb35a572dddccc22b71e81b7cb1e76b83027704814595e4fcdc6e4')
+sha256sums=('b371e8ef1f7f9352009321f5251dc395dbd870541b8153065b34d7c0603361ac')
 
 prepare() {
 	cd "$srcdir/$pkgname-$pkgver"
