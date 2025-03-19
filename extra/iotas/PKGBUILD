@@ -1,9 +1,9 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=iotas
-pkgver=0.9.5
+pkgver=0.10.3
 _katex_version=0.16.11
-pkgrel=6
+pkgrel=1
 pkgdesc='Simple note taking with Markdown support and optional Nextcloud Notes sync'
 arch=(any)
 url='https://apps.gnome.org/Iotas/'
@@ -36,25 +36,9 @@ makedepends=(
 source=(
   "git+https://gitlab.gnome.org/World/iotas.git#tag=$pkgver"
   "https://github.com/KaTeX/KaTeX/releases/download/v$_katex_version/katex.tar.gz"
-  iotas-no-dicts.patch
-  iotas-builtin-strenum.patch
 )
-b2sums=(
-  1e421ff2dcf6c35d1f1b0a19043d4770c645d56b50ce11c6848dc338aade6f8d80c9b1457ecf83cab43e820d0e964bc4fa36ec2001d13938819a394f0ad4a67d
-  bf574824d35e1c4cbacb0fbcc752934b4b99cec11921f84c3a2eb18941156ebcbc49e3f214c5f58af631cba74115d9c6df6bfc3086ecb4e382d167b637367e0d
-  b9c62696335de60f65e4e5ffff114297874bd89db9d97934202b4a70b101b3a933250f3976df1e092897bf3d0a75314d458f16cf382cfe0cf1fd54aceac35740
-  29475d433aa9811743ce1f8b808c0e22cba29f0c6d22670e9a98f3ca8afbd3fb2457ec19234cc7f129953817d72cf56b646acfdff319a2c0739866b4cbc06de9
-)
-
-prepare() {
-  cd $pkgname
-
-  # https://gitlab.gnome.org/World/iotas/-/merge_requests/272
-  git apply -3 ../iotas-no-dicts.patch
-
-  # Use built-in StrEnum
-  git apply -3 ../iotas-builtin-strenum.patch
-}
+b2sums=('1cecaffcea754bf297e4c849097b59aec6e410ec2db1446cf9bcac7000b5f20b1d5fa5eaf0f2e08c5797209eee77eec4706db7da8b31b72b040d3923c01bc547'
+        'bf574824d35e1c4cbacb0fbcc752934b4b99cec11921f84c3a2eb18941156ebcbc49e3f214c5f58af631cba74115d9c6df6bfc3086ecb4e382d167b637367e0d')
 
 build() {
   arch-meson $pkgname build
