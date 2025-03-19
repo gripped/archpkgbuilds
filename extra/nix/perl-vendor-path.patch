@@ -1,0 +1,13 @@
+--- a/src/perl/meson.build
++++ b/src/perl/meson.build
+@@ -94,8 +94,8 @@ perl_archlibexp = run_command(
+   perl, '-e', 'use Config; print $Config{archlibexp};', check: true).stdout()
+ perl_site_libdir = run_command(
+   perl, '-e', 'use Config; print $Config{installsitearch};', check: true).stdout()
+-nix_perl_install_dir = join_paths(
+-  libdir, 'perl5', 'site_perl', perl_version, perl_archname)
++nix_perl_install_dir = run_command(
++  perl, '-e', 'use Config; print $Config{vendorarch};', check: true).stdout()
+ 
+ 
+ # print perl hints for logs
