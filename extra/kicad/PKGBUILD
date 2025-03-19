@@ -8,7 +8,7 @@
 
 pkgname=kicad
 pkgver=9.0.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Electronic schematic and printed circuit board (PCB) design tools'
 arch=('x86_64')
 url='http://kicad.org/'
@@ -42,16 +42,21 @@ optdepends=(
 source=(
   "$pkgname::git+https://gitlab.com/kicad/code/kicad.git#tag=$pkgver"
   'fix-version-string.patch'
+  'kicad-9.0-fix-compilation-with-protobuf-30.0.patch'
 )
 sha512sums=('6338c13918ec43112b0a91548c26e17d2d0f61ca69a1006d541ac042dc291ad0c7d7e874cecf0cf18cc4ade153fc79dc0809b452c581c36bcf42c2c8df22e77b'
-            '17100967610c85ce2e8a860dcf703a87dc0c20f52d3f056cdb5d16323160e8594698bd51e095aea63c00a75ce8b121be681e93cec1bab72a8d1d4eb8065a91f5')
+            '17100967610c85ce2e8a860dcf703a87dc0c20f52d3f056cdb5d16323160e8594698bd51e095aea63c00a75ce8b121be681e93cec1bab72a8d1d4eb8065a91f5'
+            'a4e8b910c61ec2e372ebfae6006cd04698ca044e5d14d563bc4250ed9839cefe9bb25346f980158753f22345b0709088d90637660407e9b449025dbc9bda4c5d')
 b2sums=('8cf90598b1914512da01f899c83eb95a2f7a63b383de13517aff29eed0311667bb4d1147463624efd2859afa0bf76d786cb66f722d73567aab03bfdce55ffb6b'
-        '7e09300161b2a1d7af56580a195e3b132d7b6ad82f1c9c381e02a25cd2fabd7ed0cd33b99b87ca14f9f77dad26eee1e5ea962b6eca49bacb40567ecfc24c21ff')
+        '7e09300161b2a1d7af56580a195e3b132d7b6ad82f1c9c381e02a25cd2fabd7ed0cd33b99b87ca14f9f77dad26eee1e5ea962b6eca49bacb40567ecfc24c21ff'
+        '55831f28d73d89d1416d3a52b523687cf03705aa4e4097fbfeb50c6a504b41ffc584fbe1416a3903cbb49c4d015b13b8b86fe62db33ecd4834676c45a222d738')
+
 
 prepare() {
   cd "$pkgname"
 
   patch -p1 -i "$srcdir/fix-version-string.patch"
+  patch -p1 -i "$srcdir/kicad-9.0-fix-compilation-with-protobuf-30.0.patch"
 }
 
 build() {
