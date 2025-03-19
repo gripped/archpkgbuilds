@@ -1,9 +1,8 @@
-# Maintainer:
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
 # Contributor: Jonas Witschel <diabonas@archlinux.org>
 
 pkgname=python-proxy.py
-_name=${pkgname#python-}
-pkgver=2.4.9
+pkgver=2.4.10
 pkgrel=1
 pkgdesc='Lightweight HTTP, HTTPS, HTTP2 and WebSockets proxy server'
 arch=(any)
@@ -14,6 +13,7 @@ depends=(
   python-setuptools
 )
 makedepends=(
+  git
   python-build
   python-installer
   python-setuptools-scm
@@ -31,15 +31,25 @@ optdepends=(
   'python-paramiko: proxy over SSH tunnel support'
 )
 source=(
-  # may have unreproducible tarballs until issue is solved: https://github.com/abhinavsingh/proxy.py/issues/1394
-  "$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
+  "$pkgname::git+$url#tag=v$pkgver"
+  remove-entry-points.patch
 )
-sha512sums=('ff3806598534b4ca8fbf0c13e2ab6a917bd3b2b6b2392642bfd775ce9c49d1437e2871848133f15f9f80686fa91e5032be2926c747c33efe584704b78c0a34d2')
-b2sums=('a0c7474cf6007b5171c9129af483ce785c1bcb1b76aedd448e697b38ffb4b7d84e096a1d8c44624c5bc9b2c1f513ee48b96adfc7399e24b549c310f0d24c9106')
+sha512sums=('8434077bf5ebacaf90eafaca88a99cc1cb6c82fbee523af27b402d171b05dd652d1a9db0bf60beac32bcd505da2137e23b311d6f5c8402f4718d42f7f912b793'
+            '06bf77c255981ae6b03c711c03fcf206e605d705ec5005709ecd001befcd84a6569ff2eef7eecc7eacb4e87263d3821cc58088082b57658916f3cfd7db9c0246')
+b2sums=('5928cac0292a985310e4884665c6a0f4985d48e78ac1217d18eebb0ceb6e528b7c61dc9475bfc355340b2c27bd3a86b39b8d40134e637468d65c79e5a3b8e0c3'
+        'e27437a6c507d977c24b81fe9b0f35ee5c5eef5896717bd21ed5faa2e9b03026bc79bfe095291c3a01dfe3b24e1f0ecc4b3fe7d511c5af3f77e2840a97daa353')
+
+prepare() {
+  cd "$pkgname"
+
+  # Remove entry point usr/bin/proxy to avoid conflict with libproxy (FS#73325)
+  patch -p1 -i "$srcdir/remove-entry-points.patch"
+}
 
 build() {
-  cd "$_name"-$pkgver
-  python -m build --wheel --no-isolation
+  cd "$pkgname"
+
+  SETUPTOOLS_SCM_PRETEND_VERSION="$pkgver"  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -83,16 +93,16 @@ check() {
     --deselect tests/plugin/test_http_proxy_plugins_with_tls_interception.py::TestHttpProxyPluginExamplesWithTlsInterception::test_man_in_the_middle_plugin
   )
 
-  cd "$_name"-$pkgver
+  cd "$pkgname"
+
   pytest "${pytest_options[@]}"
 }
 
 package() {
-  cd "$_name"-$pkgver
-  python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+  cd "$pkgname"
 
-  # Remove entry point usr/bin/proxy to avoid conflict with libproxy (FS#73325)
-  cd "$pkgdir"
-  rm -r usr/bin
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
