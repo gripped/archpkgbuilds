@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hyprcursor
-pkgver=0.1.11
-pkgrel=3
+pkgver=0.1.12
+pkgrel=1
 pkgdesc='The hyprland cursor format, library and utilities'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -18,7 +18,7 @@ makedepends=(cmake)
 provides=("lib$pkgname.so")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('17e4576b884e6bdb463b445cffff099ad16647b826a87a67b78d38b8cad4c39e')
+sha256sums=('3200a7a31e28884b9d046f8ec7b0aa67ede9ce0ab0d20193c2b61ee522d6b1f2')
 
 build() {
 	cd "$_archive"
