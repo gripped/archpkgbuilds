@@ -4,7 +4,7 @@
 _hkgname=rebase
 pkgname=haskell-rebase
 pkgver=1.19
-pkgrel=3
+pkgrel=5
 pkgdesc='A more progressive alternative to the "base" package'
 url="https://github.com/nikita-volkov/rebase"
 license=("MIT")
@@ -21,7 +21,7 @@ sha512sums=('d95036bb1728a6eea0e747cc7c3394962c535d70d8856c863081f52196a54df7752
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
-    uusi -u bifunctors $_hkgname.cabal
+    uusi -u bifunctors -u semigroupoids
 }
 
 build() {
