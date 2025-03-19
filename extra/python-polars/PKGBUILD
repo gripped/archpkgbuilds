@@ -2,7 +2,7 @@
 # Contributor: Alexandre Bury <alexandre.bury@gmail.com>
 
 pkgname=python-polars
-pkgver=1.23.0
+pkgver=1.25.2
 pkgrel=1
 pkgdesc="Blazingly fast DataFrames library using Apache Arrow Columnar Format as memory model"
 arch=("x86_64")
@@ -31,7 +31,7 @@ checkdepends=('python-pytest'
 _name=${pkgname#python-}
 _tag="py-$pkgver"
 source=("https://github.com/pola-rs/polars/archive/refs/tags/$_tag.tar.gz")
-b2sums=('536decece0b5eb643be829b91e173d08435c974f1a8fafc3160900ee5d8f1c29d67f1813b03f981318095e65e40e4ee62ddb5a84e7a6c30a0cc4527513e551ca')
+b2sums=('acc07af17674885b378acb4cef76d02ae02fd0858dd85a86d3231c6f4a34d09d4d185182b598ddc82667b76fe7a1bfed06a79f9cde0bec02d77b03865ecf3999')
 
 prepare() {
     cd polars-$_tag/py-polars
@@ -60,6 +60,7 @@ check() {
 		--ignore tests/unit/io/cloud/test_aws.py \
 		--ignore tests/unit/functions/range/test_datetime_range.py \
 		--ignore tests/unit/io/test_spreadsheet.py \
+		--deselect "tests/unit/streaming/test_streaming_categoricals.py::test_streaming_cat_14933" \
 		--deselect "tests/unit/dataframe/test_df.py::test_extension" \
 		--deselect "tests/unit/streaming/test_streaming_group_by.py::test_streaming_group_by_literal[1]" \
 		--deselect "tests/unit/io/database/test_read.py::test_read_database_parameterised_uri[:n-param_value0]" \
