@@ -1,0 +1,21 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Sun, 16 Mar 2025 18:50:21 +0100
+Subject: [PATCH] Suppress incomplete info error
+
+---
+ abi-dumper.pl | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/abi-dumper.pl b/abi-dumper.pl
+index 335e60fa37df..85658f0220b2 100755
+--- a/abi-dumper.pl
++++ b/abi-dumper.pl
+@@ -5166,7 +5166,6 @@ sub getSymbolInfo($)
+         
+         if(not defined $DWARF_Info{$ParamId})
+         { # this is probably a lexical block
+-            printMsg("ERROR", "incomplete info for symbol $ID");
+             return;
+         }
+         
