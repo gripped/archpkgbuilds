@@ -3,7 +3,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=buildah
-pkgver=1.39.2
+pkgver=1.39.3
 pkgrel=1
 pkgdesc="A tool which facilitates building OCI images"
 arch=(x86_64)
@@ -14,7 +14,7 @@ makedepends=(go git bats btrfs-progs device-mapper gpgme libassuan
              bzip2 go-md2man skopeo systemd)
 options=(!lto !debug)
 source=(git+https://github.com/containers/buildah.git#tag=v$pkgver)
-sha512sums=('8d362fe812c23ad7f04c8287eb6bc57c326e8fefe7e7642651530f09b9da447ee46e7d8570b8dfbc0c1e9293a46405b41e1af3364c61eb9bc1324107f7ad7ab3')
+sha512sums=('d1c7545b4f9ebe481471e8206e6b6314e99833450489d3880c2de63cb8b42fb2befd0ec966ad26785095051c4ab8e26307431bca6c1586eeb7df43876edf6f5b')
 
 build() {
   cd $pkgname
