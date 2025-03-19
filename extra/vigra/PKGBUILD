@@ -5,8 +5,8 @@
 
 pkgbase=vigra
 pkgname=(vigra python-vigra)
-pkgver=1.12.1
-pkgrel=4
+pkgver=1.12.2
+pkgrel=1
 pkgdesc='Computer vision library'
 arch=(x86_64)
 url="https://ukoethe.github.io/$pkgname"
@@ -33,7 +33,7 @@ _pkgver="Version-${pkgver//./-}"
 _archive="$pkgname-$_pkgver"
 source=("$_url/archive/$_pkgver/$_archive.tar.gz"
         vigra-openexr3.patch)
-sha256sums=('8836a40a340f96ed2abf53780e883c5bf58002eb182cfccb4255b553ca48db33'
+sha256sums=('e927477a8a0bcdabcaab914e425782f7eba82711dbaca02538dfda79476f6b7e'
             '2572717e39f916c7c463b8f49306b683c5923906be2721f7da181c58b3a2b34b')
 
 prepare() {
