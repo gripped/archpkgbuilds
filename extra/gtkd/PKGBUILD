@@ -5,8 +5,8 @@
 # Contributorr: dsboger <https://github.com/dsboger>
 
 pkgname=gtkd
-pkgver=3.10.0
-pkgrel=15
+pkgver=3.11.0
+pkgrel=1
 pkgdesc='D bindings for GTK+ and related libraries.'
 arch=('x86_64')
 url='https://gtkd.org'
@@ -15,7 +15,7 @@ depends=('liblphobos' 'gtk3')
 makedepends=('ldc')
 optdepends=('pango' 'atk' 'gdk-pixbuf2' 'gtksourceview3' 'gstreamer' 'vte3' 'libpeas')
 source=("GtkD-$pkgver.tar.gz::https://github.com/gtkd-developers/GtkD/archive/v$pkgver.tar.gz")
-sha512sums=('1e75d6cbd278a065ce26b33320fe06cc7a30af8bd884c3c87abe799afaf9da8339d3c4470163b62ec8b70e8c540285b8c2c409c7b77423142a301f23ba37ff2e')
+sha512sums=('8c2a19fa7d71b0b9341d22e45d8c8804d84db25842b30affaaf62672d93a9173551e420103c30887cd111301999ca12b4148ddf270cb27bf67f4e1e51ea144a9')
 
 build() {
     cd GtkD-$pkgver
