@@ -1,6 +1,6 @@
 pkgbase = emacs
 	pkgver = 30.1
-	pkgrel = 3
+	pkgrel = 4
 	url = https://www.gnu.org/software/emacs/emacs.html
 	arch = x86_64
 	license = GPL3
@@ -44,10 +44,12 @@ pkgbase = emacs
 	depends = zlib
 	source = https://ftp.gnu.org/gnu/emacs/emacs-30.1.tar.xz
 	source = https://ftp.gnu.org/gnu/emacs/emacs-30.1.tar.xz.sig
+	source = fix-compile.patch::https://github.com/emacs-mirror/emacs/commit/53a5dada413662389a17c551a00d215e51f5049f.patch
 	validpgpkeys = 17E90D521672C04631B1183EE78DAE0F3115E06B
 	validpgpkeys = CEA1DE21AB108493CC9C65742E82323B8F4353EE
 	b2sums = ad502a2e15a04618f4766ec6e285739cb5bb6f19c5065c3aed03b3e50df590cee382a0331f382de6f13523f1362a4355f65961ce45504f7d33419ea6d04e326f
 	b2sums = SKIP
+	b2sums = b38ad198ed8975963a05201e2124b8cf2947c6ddb792aaef618d1968d7b0329241235f4ccc69ac62ee43189e20aa70a28254f6c787fa38359c1aae22286df9d1
 
 pkgname = emacs
 	pkgdesc = The extensible, customizable, self-documenting real-time display editor
