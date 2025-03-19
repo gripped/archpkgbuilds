@@ -3,19 +3,19 @@
 
 _name=fuo-ytmusic
 pkgname=feeluown-ytmusic
-pkgver=0.4.7
+pkgver=0.4.8
 pkgrel=1
 pkgdesc="YouTube Music for FeelUOwn music player"
 arch=('any')
 url="https://github.com/feeluown/feeluown-ytmusic"
 license=('GPL-3.0-or-later')
-depends=('feeluown' 'python' 'python-pydantic' 'python-cachetools' 'python-pyqt5' 'python-pytube' 'python-requests' 'python-ytmusicapi')
+depends=('feeluown' 'python' 'python-pydantic' 'python-cachetools' 'python-pyqt5' 'python-pytube' 'python-requests' 'python-ytmusicapi' 'yt-dlp')
 makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core' 'python-wheel')
 checkdepends=('python-pytest')
 optdepends=('feeluown-netease: Lyric source')
 source=("git+https://github.com/feeluown/feeluown-ytmusic.git#tag=v$pkgver"
 		$pkgname-fix-test_stream_url.patch::https://github.com/feeluown/feeluown-ytmusic/pull/9.patch)
-sha256sums=('216a9f820db5140e95b922e76e5bee42cfd464d03fcd0994baf9b7b2a30b704b'
+sha256sums=('777ded12fcfeab7e92505f106a66226855f46bf54f008676ce8a1b0250c8b4cc'
             '1261f7a31798e6a088ce6b58cafe19f7bd460f140e7ee0257e1c15dd237d0bce')
 
 prepare() {
