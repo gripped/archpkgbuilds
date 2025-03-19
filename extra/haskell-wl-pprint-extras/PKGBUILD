@@ -3,19 +3,19 @@
 _hkgname=wl-pprint-extras
 pkgname=haskell-wl-pprint-extras
 pkgver=3.5.0.5
-pkgrel=442
+pkgrel=444
 pkgdesc="A free monad based on the Wadler/Leijen pretty printer"
 url="https://github.com/ekmett/wl-pprint-extras/"
 license=('BSD')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-semigroupoids' 'haskell-utf8-string')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
 sha512sums=('705107842ccbf4eb23d0b9e8069fd4d5bb1b03ffecbf9efaa8a579fd977380913d590fa370cc42476d5b28fde98fc44e7879fe343f761cd1751ebeb0b8c0e242')
 
 prepare() {
     cd $_hkgname-$pkgver
-    sed -e '/nats/d' -e '/semigroups/d' -e 's/< *0.6/<1/' -i $_hkgname.cabal
+    uusi -u containers -d nats -d semigroups -u semigroupoids -u text
     sed -i -e '/fail _ = empty/d' src/Text/PrettyPrint/Free/Internal.hs
 }
 
