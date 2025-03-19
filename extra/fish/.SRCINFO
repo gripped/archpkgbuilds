@@ -1,7 +1,7 @@
 pkgbase = fish
 	pkgdesc = Smart and user friendly shell intended mostly for interactive use
 	pkgver = 4.0.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://fishshell.com/
 	install = fish.install
 	arch = x86_64
@@ -19,6 +19,11 @@ pkgbase = fish
 	depends = pcre2
 	optdepends = python: man page completion parser / web config tool
 	optdepends = pkgfile: command-not-found hook
+	optdepends = nroff: --help for built-in commmands
+	optdepends = mandoc: --help for built-in commmands (alternative)
+	optdepends = xsel: X11 clipboard integration
+	optdepends = xclip: X11 clipboard integration (alternative)
+	optdepends = wl-clipboard: Wayland clipboard integration
 	options = !lto
 	backup = etc/fish/config.fish
 	source = fish::git+https://github.com/fish-shell/fish-shell#tag=4.0.1?signed
