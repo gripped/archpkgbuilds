@@ -1,0 +1,192 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Wed, 12 Mar 2025 10:37:19 +0100
+Subject: [PATCH] Use epoll
+
+For: https://gitlab.archlinux.org/archlinux/packaging/packages/ghostty/-/issues/2
+See: https://github.com/ghostty-org/ghostty/discussions/3224
+---
+ src/cli/version.zig           | 2 +-
+ src/global.zig                | 2 +-
+ src/main_ghostty.zig          | 2 +-
+ src/os/cf_release_thread.zig  | 2 +-
+ src/renderer/Metal.zig        | 2 +-
+ src/renderer/Thread.zig       | 2 +-
+ src/termio/Exec.zig           | 2 +-
+ src/termio/Options.zig        | 2 +-
+ src/termio/Termio.zig         | 2 +-
+ src/termio/Thread.zig         | 2 +-
+ src/termio/backend.zig        | 2 +-
+ src/termio/mailbox.zig        | 2 +-
+ src/termio/stream_handler.zig | 2 +-
+ 13 files changed, 13 insertions(+), 13 deletions(-)
+
+diff --git a/src/cli/version.zig b/src/cli/version.zig
+index 4a6af242c3e8..7edb206f09f5 100644
+--- a/src/cli/version.zig
++++ b/src/cli/version.zig
+@@ -4,7 +4,7 @@ const Allocator = std.mem.Allocator;
+ const builtin = @import("builtin");
+ const build_config = @import("../build_config.zig");
+ const internal_os = @import("../os/main.zig");
+-const xev = @import("xev");
++const xev = @import("xev").Epoll;
+ const renderer = @import("../renderer.zig");
+ const gtk = if (build_config.app_runtime == .gtk) @import("../apprt/gtk/c.zig").c else void;
+ 
+diff --git a/src/global.zig b/src/global.zig
+index d5a7af630eb7..a8e9f801758a 100644
+--- a/src/global.zig
++++ b/src/global.zig
+@@ -9,7 +9,7 @@ const harfbuzz = @import("harfbuzz");
+ const oni = @import("oniguruma");
+ const crash = @import("crash/main.zig");
+ const renderer = @import("renderer.zig");
+-const xev = @import("xev");
++const xev = @import("xev").Epoll;
+ 
+ /// Global process state. This is initialized in main() for exe artifacts
+ /// and by ghostty_init() for lib artifacts. This should ONLY be used by
+diff --git a/src/main_ghostty.zig b/src/main_ghostty.zig
+index 9efe8d9b0931..43f5eba1ea7f 100644
+--- a/src/main_ghostty.zig
++++ b/src/main_ghostty.zig
+@@ -13,7 +13,7 @@ const macos = @import("macos");
+ const oni = @import("oniguruma");
+ const cli = @import("cli.zig");
+ const internal_os = @import("os/main.zig");
+-const xev = @import("xev");
++const xev = @import("xev").Epoll;
+ const fontconfig = @import("fontconfig");
+ const harfbuzz = @import("harfbuzz");
+ const renderer = @import("renderer.zig");
+diff --git a/src/os/cf_release_thread.zig b/src/os/cf_release_thread.zig
+index 5001441e015a..4a61dfe7f1d1 100644
+--- a/src/os/cf_release_thread.zig
++++ b/src/os/cf_release_thread.zig
+@@ -6,7 +6,7 @@ pub const Thread = @This();
+ 
+ const std = @import("std");
+ const builtin = @import("builtin");
+-const xev = @import("xev");
++const xev = @import("xev").Epoll;
+ const macos = @import("macos");
+ 
+ const BlockingQueue = @import("../datastruct/main.zig").BlockingQueue;
+diff --git a/src/renderer/Metal.zig b/src/renderer/Metal.zig
+index ca13f87debf0..fea7f1519b95 100644
+--- a/src/renderer/Metal.zig
++++ b/src/renderer/Metal.zig
+@@ -11,7 +11,7 @@ const objc = @import("objc");
+ const macos = @import("macos");
+ const imgui = @import("imgui");
+ const glslang = @import("glslang");
+-const xev = @import("xev");
++const xev = @import("xev").Epoll;
+ const apprt = @import("../apprt.zig");
+ const configpkg = @import("../config.zig");
+ const font = @import("../font/main.zig");
+diff --git a/src/renderer/Thread.zig b/src/renderer/Thread.zig
+index cc63889fa376..ac914b4e168e 100644
+--- a/src/renderer/Thread.zig
++++ b/src/renderer/Thread.zig
+@@ -5,7 +5,7 @@ pub const Thread = @This();
+ const std = @import("std");
+ const builtin = @import("builtin");
+ const assert = std.debug.assert;
+-const xev = @import("xev");
++const xev = @import("xev").Epoll;
+ const crash = @import("../crash/main.zig");
+ const internal_os = @import("../os/main.zig");
+ const renderer = @import("../renderer.zig");
+diff --git a/src/termio/Exec.zig b/src/termio/Exec.zig
+index 864f2e21c09e..64e6c278f835 100644
+--- a/src/termio/Exec.zig
++++ b/src/termio/Exec.zig
+@@ -9,7 +9,7 @@ const assert = std.debug.assert;
+ const Allocator = std.mem.Allocator;
+ const ArenaAllocator = std.heap.ArenaAllocator;
+ const posix = std.posix;
+-const xev = @import("xev");
++const xev = @import("xev").Epoll;
+ const build_config = @import("../build_config.zig");
+ const configpkg = @import("../config.zig");
+ const crash = @import("../crash/main.zig");
+diff --git a/src/termio/Options.zig b/src/termio/Options.zig
+index 023423c95d99..31d2cf23498b 100644
+--- a/src/termio/Options.zig
++++ b/src/termio/Options.zig
+@@ -1,7 +1,7 @@
+ //! The options that are used to configure a terminal IO implementation.
+ 
+ const builtin = @import("builtin");
+-const xev = @import("xev");
++const xev = @import("xev").Epoll;
+ const apprt = @import("../apprt.zig");
+ const renderer = @import("../renderer.zig");
+ const Command = @import("../Command.zig");
+diff --git a/src/termio/Termio.zig b/src/termio/Termio.zig
+index ab61ae4ca768..4c06622da2a3 100644
+--- a/src/termio/Termio.zig
++++ b/src/termio/Termio.zig
+@@ -18,7 +18,7 @@ const Pty = @import("../pty.zig").Pty;
+ const StreamHandler = @import("stream_handler.zig").StreamHandler;
+ const terminal = @import("../terminal/main.zig");
+ const terminfo = @import("../terminfo/main.zig");
+-const xev = @import("xev");
++const xev = @import("xev").Epoll;
+ const renderer = @import("../renderer.zig");
+ const apprt = @import("../apprt.zig");
+ const fastmem = @import("../fastmem.zig");
+diff --git a/src/termio/Thread.zig b/src/termio/Thread.zig
+index d80046737ad0..862880713995 100644
+--- a/src/termio/Thread.zig
++++ b/src/termio/Thread.zig
+@@ -14,7 +14,7 @@ pub const Thread = @This();
+ const std = @import("std");
+ const ArenaAllocator = std.heap.ArenaAllocator;
+ const builtin = @import("builtin");
+-const xev = @import("xev");
++const xev = @import("xev").Epoll;
+ const crash = @import("../crash/main.zig");
+ const termio = @import("../termio.zig");
+ const renderer = @import("../renderer.zig");
+diff --git a/src/termio/backend.zig b/src/termio/backend.zig
+index 68b283a005cb..316131c3e2f8 100644
+--- a/src/termio/backend.zig
++++ b/src/termio/backend.zig
+@@ -3,7 +3,7 @@ const builtin = @import("builtin");
+ const assert = std.debug.assert;
+ const Allocator = std.mem.Allocator;
+ const posix = std.posix;
+-const xev = @import("xev");
++const xev = @import("xev").Epoll;
+ const build_config = @import("../build_config.zig");
+ const configpkg = @import("../config.zig");
+ const internal_os = @import("../os/main.zig");
+diff --git a/src/termio/mailbox.zig b/src/termio/mailbox.zig
+index cac453a1cf9a..967600b26f35 100644
+--- a/src/termio/mailbox.zig
++++ b/src/termio/mailbox.zig
+@@ -2,7 +2,7 @@ const std = @import("std");
+ const builtin = @import("builtin");
+ const assert = std.debug.assert;
+ const Allocator = std.mem.Allocator;
+-const xev = @import("xev");
++const xev = @import("xev").Epoll;
+ const renderer = @import("../renderer.zig");
+ const termio = @import("../termio.zig");
+ const BlockingQueue = @import("../datastruct/main.zig").BlockingQueue;
+diff --git a/src/termio/stream_handler.zig b/src/termio/stream_handler.zig
+index 849e5c107f21..098f9cf55cfe 100644
+--- a/src/termio/stream_handler.zig
++++ b/src/termio/stream_handler.zig
+@@ -2,7 +2,7 @@ const std = @import("std");
+ const builtin = @import("builtin");
+ const assert = std.debug.assert;
+ const Allocator = std.mem.Allocator;
+-const xev = @import("xev");
++const xev = @import("xev").Epoll;
+ const apprt = @import("../apprt.zig");
+ const build_config = @import("../build_config.zig");
+ const configpkg = @import("../config.zig");

@@ -1,7 +1,7 @@
 pkgbase = ghostty
 	pkgdesc = Fast, native, feature-rich terminal emulator pushing modern features
 	pkgver = 1.1.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/ghostty-org/ghostty
 	arch = x86_64
 	arch = aarch64
@@ -32,7 +32,9 @@ pkgbase = ghostty
 	depends = pixman
 	depends = zlib
 	source = https://github.com/ghostty-org/ghostty/archive/v1.1.2/ghostty-1.1.2.tar.gz
+	source = 0001-Use-epoll.patch
 	sha256sums = 54d74a49df9f2e4b9a8b7c88372bdb78f4e3c4f072f6cee197c873e90ba27d19
+	sha256sums = c2de4d291fa600c0a6173c6ed0a5c9312e09df89b9ffec64f271420345aa534c
 
 pkgname = ghostty
 	depends = bzip2

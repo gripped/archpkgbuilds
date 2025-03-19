@@ -4,7 +4,7 @@
 pkgbase=ghostty
 pkgname=(ghostty ghostty-shell-integration ghostty-terminfo)
 pkgver=1.1.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast, native, feature-rich terminal emulator pushing modern features'
 arch=(x86_64 aarch64 i686)
 url="https://github.com/ghostty-org/$pkgbase"
@@ -26,11 +26,18 @@ depends=(bzip2
 makedepends=(pandoc-cli
              zig)
 _archive="$pkgname-$pkgver"
-source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('54d74a49df9f2e4b9a8b7c88372bdb78f4e3c4f072f6cee197c873e90ba27d19')
+source=("$url/archive/v$pkgver/$_archive.tar.gz"
+        0001-Use-epoll.patch)
+sha256sums=('54d74a49df9f2e4b9a8b7c88372bdb78f4e3c4f072f6cee197c873e90ba27d19'
+            'c2de4d291fa600c0a6173c6ed0a5c9312e09df89b9ffec64f271420345aa534c')
 
 prepare() {
 	cd "$_archive"
+
+	# Use epoll instead of io_uring
+	# https://gitlab.archlinux.org/archlinux/packaging/packages/ghostty/-/issues/2
+	patch -Np1 -i ../0001-Use-epoll.patch
+
 	export ZIG_GLOBAL_CACHE_DIR="$srcdir/zig-global-cache/"
 	zig build --fetch
 }
@@ -46,7 +53,7 @@ build() {
 		-Dcpu=baseline \
 		-Dpie=true \
 		-Demit-docs \
-		-Dversion-string="$pkgver-arch"
+		-Dversion-string="$pkgver-arch$pkgrel"
 }
 
 package_ghostty() {
