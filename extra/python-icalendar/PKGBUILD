@@ -5,7 +5,7 @@
 
 pkgname=python-icalendar
 _name=${pkgname#python-}
-pkgver=6.1.1
+pkgver=6.1.2
 pkgrel=1
 pkgdesc='A parser/generator of iCalendar files (RFC 2445)'
 arch=(any)
@@ -28,7 +28,7 @@ checkdepends=(
   python-pytz
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('b8964c9ce9e19c6a6f461f603d7f2d5cba743b27d2efc8b6871b10e7c6d9c72fbdf49ae546a185d144cba91d3aacc29e08976e8d1219248851af0bc4ff573e48')
+b2sums=('c76e77fe423d2d83c365d857d9e83b3386466cc7fd9578a801335e817f1128529dd71f8f38583dae7054c72ffe34a66b24e8eec0237278c9d06061b1a59906f1')
 
 build() {
   cd "$_name"
