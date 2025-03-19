@@ -3,7 +3,7 @@
 # Contributor: Tomasz Jakub Rup <tomasz.rup@gmail.com>
 
 pkgname=pnpm
-pkgver=10.6.3
+pkgver=10.6.4
 pkgrel=1
 pkgdesc='Fast, disk space efficient package manager'
 arch=(any)
@@ -13,9 +13,10 @@ depends=(node-gyp)
 makedepends=(
   git
   pnpm
+  python
 )
 source=("git+https://github.com/$pkgname/$pkgname.git#tag=v$pkgver?signed")
-b2sums=('785460552864d86963c61fdd71af16748bc2c806f1dcafe37b53d52ea056da4120d95eb52544c71cfee0141c454f2e14d051fa673316551a31ce3564eaf78b6d')
+b2sums=('85db3d1a49498620f474f78ab49626ec10e2e9a1e916847a829aef19d01d3fd5628a5c2f793d070f350691ca4004eb79f7243ba0cfda1371f090348c39a2a89e')
 validpgpkeys=(7B74D1299568B586BA9962B5649E4D4AF74E7DEC) # Zoltan Kochan <z@kochan.io>
 
 prepare() {
