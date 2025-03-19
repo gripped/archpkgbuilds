@@ -6,8 +6,8 @@ pkgname=(
   libspelling
   libspelling-docs
 )
-pkgver=0.4.6
-pkgrel=2
+pkgver=0.4.7
+pkgrel=1
 pkgdesc="Spellcheck library for GTK 4"
 url="https://gitlab.gnome.org/GNOME/libspelling"
 arch=(x86_64)
@@ -42,7 +42,7 @@ source=(
   # libspelling tags use SSH signatures that makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/libspelling.git#tag=$pkgver"
 )
-b2sums=('13d8181b47cd416dd98223406a9f398b26a065a3ee5fb1f741886bc4adca701e4e6c031dff2cc1cb5b8841c568ea13c847cec229e3f22caf20c7a42db787af07')
+b2sums=('0786bf4a32886bbac98e3f26c1d40026f33ec51a79b56585498c82dadfa84a42b19f252e74651db5c35f0531aad53efddb399b3c6cce99c250255239cd96e50e')
 
 build() {
   arch-meson $pkgname build
