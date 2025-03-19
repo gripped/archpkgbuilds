@@ -9,7 +9,7 @@ pkgname=(
   libportal-qt5
   libportal-qt6
 )
-pkgver=0.9.0
+pkgver=0.9.1
 pkgrel=1
 pkgdesc="GIO-style async APIs for most Flatpak portals"
 url="https://github.com/flatpak/libportal"
@@ -40,7 +40,7 @@ checkdepends=(
   xorg-server-xvfb
 )
 source=("git+https://github.com/flatpak/libportal#tag=$pkgver")
-b2sums=('e2205f676f5267808ca3ff5650d6d5f23b2ff35a5cc2ec8223076c59261234247158f0118731dd6ed3114bb1f26bb5aff06650ceaf38c579eb35efdc5a8dc4cb')
+b2sums=('076e4fac57e34c96f59a3530855d4f1e29fa82ac9a66a42d97a66e51fe42233cefffe903b539cee5c6e7ff2cf661d40cd512ff0c93f5be5d9436d72cfcbe6420')
 
 prepare() {
   cd libportal
