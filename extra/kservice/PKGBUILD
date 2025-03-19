@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kservice
-pkgver=6.11.0
+pkgver=6.12.0
 pkgrel=1
 pkgdesc='Advanced plugin and service introspection'
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(doxygen
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('161cd296577ff9802b088b06866ec5ab4c1c1a6fe19f76bb5134cdf8a6ab4005'
+sha256sums=('9533b93a9504ddf2f1e8e696bcfada0c3791019ee8e8cfbee04d9d1d14b6b964'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
