@@ -3,8 +3,8 @@
 # Contributor: Geoffroy Carrier <geoffroy.carrier@koon.fr>
 
 pkgname=sleuthkit
-pkgver=4.12.1
-pkgrel=3
+pkgver=4.13.0
+pkgrel=1
 pkgdesc='File system and media management forensic analysis tools'
 arch=('x86_64')
 url="https://www.sleuthkit.org/sleuthkit"
@@ -17,6 +17,7 @@ depends=(
   'gcc-libs'
   'glibc'
   'libewf'
+  'openssl'
   'perl'
   'sqlite'
   'zlib'
@@ -24,7 +25,7 @@ depends=(
 provides=('libtsk.so')
 changelog=$pkgname.changelog
 source=("https://github.com/$pkgname/$pkgname/releases/download/$pkgname-$pkgver/$pkgname-$pkgver.tar.gz"{,.asc})
-sha256sums=('6b2de0baabc6a38429a33993114ca3820329b477d5038cbf45fcf69fca8addfd'
+sha256sums=('f1490de8487df8708a4287c0d03bf0cb2153a799db98c584ab60def5c55c68f2'
             'SKIP')
 validpgpkeys=('0917A7EE58A9308B13D3963338AD602EC7454C8B') # Brian Carrier <carrier@sleuthkit.org>
 
