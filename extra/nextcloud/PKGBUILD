@@ -4,8 +4,8 @@
 pkgname=nextcloud
 # NOTE: always check first whether the version is supposed to be packaged:
 # https://github.com/nextcloud/server/wiki/Maintenance-and-Release-Schedule
-pkgver=30.0.6
-pkgrel=1
+pkgver=31.0.1
+pkgrel=2
 pkgdesc="A cloud server to store your files centrally on a hardware controlled by you"
 arch=(any)
 url="https://nextcloud.com"
@@ -56,7 +56,7 @@ source=(
   $pkgname-cron.service
   $pkgname-cron.timer
 )
-sha512sums=('5eb98bf8badcf9a1e0b0482c230dae573a7e577281502dd7ac46804bec2a1bb5aa82dd5e5dc800380a9852e8d076432a819032fdabbf39c09bc902c257aeffa3'
+sha512sums=('e254378676c2d9b25bbb68587ee85f7e9878f5bb96578a3d13d3a17e524e74b4114065828c10348b3615e224758a211db417f95d4f88fdb9c77b89df31f5bd03'
             'SKIP'
             '5f9be223225e6ad2772989c440df8585a852ea0be697274384064ec73df47dab2f5d0847c275732fab26c419a713911d8f77ebc2b639bf6e8ede76272b752cde'
             '92592f9a76ee534d0ae6d3aedf2257c147337debe7e2d6dbec1daff66a682e3abc74611e08662058de314bf3ea6ff1c85efd678674b782d71251c38786e446f9'
@@ -67,7 +67,7 @@ sha512sums=('5eb98bf8badcf9a1e0b0482c230dae573a7e577281502dd7ac46804bec2a1bb5aa8
             '702bc3d36068df95a7f9960633fb8036e83c8c9c24f93ebdb75b241220773bbf75c10ce4dba0aeb97b3cf5ab3f0b09adcf1e045b0ca51089682ff9fdf91d04f4'
             '3d3e22841bbae0b910c1d1dc9cccfff1182f5fd569c39ae76ca7f3828de31d5d91bf0d28524dd397171f027046bfb193845ecfc06bd0abbbc79899acb26306bb'
             'eb69785a5b0df0e2a11f53f9c2e2dbf75681d7c698e88cbcc5ceed713a558d528511cc576813cc083cbaa28a2c83d543a39436ad4805670348ef22634305b1c8')
-b2sums=('300d872399e630de633a066625a7f21d982537ed1c394c3912449ec57c07661ee2db2022f5d9bd3b0cba443372ae5483b56064d4e8a4aaa2ddc416ef8355feec'
+b2sums=('3d90847af79cbbd8ec54ab0f7e8867d041296ea1899bba43d8bc45176ea9e4d9d633f9df08d83a5f06bbaa025cc65ab990a0f2216776314b9235253bd8085b82'
         'SKIP'
         '7d40d120c28291f1a7537f3e1b5049fa83c9c0af949371345ea9ccdf3de4a0f3a3a06edbc52d9254dba483e4d11acf562cf679b9e379c5dfc2f61dfbfc2e4cef'
         '4ad061efbc20b4d0e9f8cfd01c5e8e612fa5af29bce754b77f90c1835b98ee445ef4de3d8c83da91461053622620af14d880eb9014b51f2383c75f1860d479f4'
@@ -121,7 +121,7 @@ package() {
   rm -rf config .htaccess
 
   # webapp
-  find . -type f -not -iname "*.orig" -exec install -vDm 644 {} "$pkgdir/usr/share/webapps/$pkgname/"{} \;
+  find . \( -type f -or -type l \) -not -iname "*.orig" -exec install -vDm 644 {} "$pkgdir/usr/share/webapps/$pkgname/"{} \;
 
   # symlink config directory into place
   ln -sv /etc/webapps/$pkgname/config "$pkgdir/usr/share/webapps/$pkgname/"
