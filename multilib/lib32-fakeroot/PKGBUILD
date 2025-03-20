@@ -5,7 +5,7 @@
 
 _pkgbasename=fakeroot
 pkgname=lib32-${_pkgbasename}
-pkgver=1.37
+pkgver=1.37.1
 pkgrel=1
 pkgdesc='Tool for simulating superuser privileges (32-bit)'
 arch=('x86_64')
@@ -15,7 +15,7 @@ install=fakeroot.install
 depends=('lib32-glibc' "$_pkgbasename")
 makedepends=('git' 'po4a')
 source=("git+https://salsa.debian.org/clint/fakeroot.git#tag=upstream/${pkgver}")
-sha512sums=('5a873b2e5c94466ce70d6e1af49e76c4b348c9c5e0b2fb40fbabb061e31d349494db5af19c0d00248a69f0747dd763b1dd260d5f8d64575e8fedc29ef931ae9c')
+sha512sums=('2c6ef978cc6a10703e1d4320c1a72eb03dfd3b408fe3e7a9ae95f403d758b2becaa6ac6ddfcf5533bbaac86e16dea681a7f9d405485ac7d59a6f94d38e061c40')
 prepare() {
   cd "${_pkgbasename}"
 
