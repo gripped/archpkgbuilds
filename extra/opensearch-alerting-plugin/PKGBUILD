@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-alerting-plugin
-pkgver=2.19.0.0
+pkgver=2.19.1.0
 pkgrel=1
-_opensearchver=2.19.0
+_opensearchver=2.19.1
 _jdkver=11
 pkgdesc="OpenSearch Alerting Plugin"
 arch=('x86_64')
@@ -15,7 +15,7 @@ source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/alerting/archive/${pkgver}.tar.gz"
   "remove-empty-file-without-headers.patch"
 )
-sha256sums=('826773d84b76279d5eab6643c6ea875e2824359389198813d3b87bf6ef463684'
+sha256sums=('768bd2ada52495e375bd228036486f641521f05a89483621181ed0d2845f51b5'
             '5bebae69c5b4074b6bf985546dec6fc418e1e7936051ac848d1e5bf47256de0e')
 
 prepare() {
