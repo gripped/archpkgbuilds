@@ -3,15 +3,15 @@
 
 pkgname=jitterentropy
 _pkgname=$pkgname-library
-pkgver=3.6.1
+pkgver=3.6.2
 pkgrel=1
 pkgdesc='Hardware RNG based on CPU timing jitter'
 arch=('x86_64')
-url='https://www.chronox.de/jent.html'
+url='https://www.chronox.de/jent/'
 license=('BSD-3-Clause' 'GPL-2.0-only')
 depends=('glibc')
 source=(https://www.chronox.de/jent/releases/$pkgver/$_pkgname-$pkgver.tar.xz{,.asc})
-sha256sums=('ddd23429cb6bdabbfeafd2b6aaabfbf1959dd7288887334dfec5ff099a2e9f3e'
+sha256sums=('25610ea16f3e490017bf658297f27e83d2962bd7ac6bbde23dacd65914ad5822'
             'SKIP')
 validpgpkeys=(3BCC43D4D2C87D1784B69EE4421EE936326AC15B
               342C4E3A39EA5F19909BE38AAE5D0DA3FD092353)
