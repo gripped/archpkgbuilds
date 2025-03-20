@@ -4,18 +4,18 @@ Date: Sat, 14 Oct 2023 03:13:07 +0200
 Subject: [PATCH] Fix crash on doubletapping close button in window preview
 
 ---
- windowPreview.js | 1 +
+ src/windowPreview.js | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/windowPreview.js b/windowPreview.js
+diff --git a/src/windowPreview.js b/src/windowPreview.js
 index d9c1d670..6dcff6dd 100644
---- a/windowPreview.js
-+++ b/windowPreview.js
+--- a/src/windowPreview.js
++++ b/src/windowPreview.js
 @@ -877,6 +877,7 @@ export const Preview = GObject.registerClass({
      }
  
      _onCloseBtnClick() {
-+        if(!this.reactive) return;
-         this._hideOrShowCloseButton(true);
-         this.reactive = false;
- 
++      if(!this.reactive) return
+       this._hideOrShowCloseButton(true)
+       this.reactive = false
+
