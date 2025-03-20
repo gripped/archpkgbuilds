@@ -1,49 +1,58 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Sam L. Yes <samlukeyes123 at gmail dot com>
 # Contributor: Andre Klitzing <aklitzing () gmail () com>
 
 pkgname=msitools
-pkgver=0.103
-pkgrel=2
-pkgdesc='Set of programs to inspect and build Windows Installer (.MSI) files'
-arch=('x86_64')
-url='https://wiki.gnome.org/msitools'
-license=('LGPL' 'GPL')
-depends=('libgsf' 'gcab' 'libxml2')
-makedepends=('git' 'intltool' 'vala' 'meson' 'gobject-introspection' 'bats')
-provides=('libmsi-1.0.so')
-_commit=4f36db7ba241fc8503fa85039b6d34280b126764  # tags/v0.103^0
-source=(
-  "$pkgname::git+https://gitlab.gnome.org/GNOME/msitools.git#commit=$_commit"
-  'skip-failing-test.patch'
-  'remove-git-dirty-suffix.patch'
-  'use-system-bats.patch'
+pkgver=0.106
+pkgrel=1
+pkgdesc="Set of programs to inspect and build Windows Installer (.MSI) files"
+url="https://wiki.gnome.org/msitools"
+arch=(x86_64)
+license=(
+  GPL-2.0-or-later  # utilities
+  LGPL-2.1-or-later # library
 )
-b2sums=('SKIP'
-        '7c688138af873eed0bb1ddefe2910d9bdedb9174cc38464685c4c3c84f0c07b8aaa687093e694a4fafb952c1c010fbc7f0d62f69104d4557f13b9124f93d4209'
-        'c30a2302e8cd202ecd084aa3d371d73021bc4fa5af4f3591f70362a1be41c738cf148a552f46f729bd8fade3d0b81a57eafbfa9d1c980e2ab5eed6f57f65a0ac'
-        '1b24539e489d0be894d0a9e59cb4d91bda3f4ece566d015cfbdb4fb32cfd2f91845caf1787312cb7ca010942d10f61e91b44957da1f50184205f58e5a954b342')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//;s/[^-]*-g/r&/;s/-/+/g'
-}
+depends=(
+  bash
+  gcab
+  gcc-libs
+  glib2
+  glibc
+  libgsf
+  libxml2
+)
+makedepends=(
+  bats
+  git
+  glib2-devel
+  gobject-introspection
+  meson
+  vala
+)
+provides=(libmsi-1.0.so)
+source=(
+  "git+https://gitlab.gnome.org/GNOME/msitools.git?signed#tag=v$pkgver"
+  0001-Use-system-bats.patch
+)
+b2sums=('91b9a76cd34d1de541fad46e242de52ad2ba01a40f5f8b79f27c857150ba8edd2fa87a74659274f1581103f1050a928c9e084bbd9a72f89decd5a8d9bb282666'
+        '79ce5a1f856b6163a000938d9c140962b8a68a52cfede41b6ca10e1379e9aa0b870d647f450a1b2dad98f60920a173e0ad3f28844a5de039274db47bf080e11e')
+validpgpkeys=(
+  87A9BD933F87C606D276F62DDAE8E10975969CE5 # Marc-André Lureau <marcandre.lureau@redhat.com>
+)
 
 prepare() {
-  cd "$pkgname"
+  cd msitools
 
-  # skip failing test
-  git apply -3 "$srcdir/skip-failing-test.patch"
+  # Fixate version
+  local v="$(build-aux/git-version-gen .tarball-version)"
+  echo "$v" > .tarball-version
 
-  # remove -dirty suffix from pkgver
-  git apply -3 "$srcdir/remove-git-dirty-suffix.patch"
-
-  # use system bats (bash-bats)
-  git apply -3 "$srcdir/use-system-bats.patch"
+  # Use system bats (bash-bats)
+  git apply -3 ../0001-Use-system-bats.patch
 }
 
 build() {
-  arch-meson "$pkgname" build
+  arch-meson msitools build
   meson compile -C build
 }
 
@@ -53,7 +62,7 @@ check() {
 
 package() {
   meson install -C build --destdir "$pkgdir"
-
-  # license
-  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" "$pkgname/copyright"
+  install -Dm644 msitools/copyright -t "$pkgdir/usr/share/licenses/$pkgname"
 }
+
+# vim:set sw=2 sts=-1 et:
