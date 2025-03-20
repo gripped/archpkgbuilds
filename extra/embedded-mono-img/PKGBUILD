@@ -1,0 +1,45 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=embedded-mono-img
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Convert .png images to raw binary for embedded_graphics"
+url='https://github.com/kpcyrd/embedded-mono-img'
+arch=('x86_64')
+license=('MIT OR Apache-2.0')
+depends=(
+  gcc-libs
+  glibc
+)
+makedepends=(
+  cargo
+)
+source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
+sha256sums=('d44b2658a6effcf7cb9b91022655c095df50502002ee9e4a1abc800c02b79b89')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd ${pkgname}-${pkgver}
+  cargo build --frozen --release
+}
+
+check() {
+  cd ${pkgname}-${pkgver}
+  cargo test --frozen
+  target/release/embedded-mono-img --help
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  install -Dm 755 -t "${pkgdir}/usr/bin" \
+    target/release/embedded-mono-img
+
+  install -Dm 644 LICENSE-* -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:
+
