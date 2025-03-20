@@ -1,4 +1,4 @@
-From 56a879eff2ecf5172314802e9fc216d40a5ac7b6 Mon Sep 17 00:00:00 2001
+From eb95331cf042ac847cbf9d28cf3fd4dc7759a4a0 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Thu, 13 Jun 2024 16:55:25 +0200
 Subject: [PATCH] Various improvements for dialog handling
@@ -74,20 +74,20 @@ index 9a1550ade..3bbcf9417 100755
  
  var desktopManager = null;
 diff --git a/app/fileItemMenu.js b/app/fileItemMenu.js
-index 8a383eb71..95fca5028 100644
+index 4fae9efbb..214d03e99 100644
 --- a/app/fileItemMenu.js
 +++ b/app/fileItemMenu.js
-@@ -409,6 +409,9 @@ var FileItemMenu = class {
+@@ -418,6 +418,9 @@ var FileItemMenu = class {
              let chooser = Gtk.AppChooserDialog.new_for_content_type(null,
                  Gtk.DialogFlags.MODAL + Gtk.DialogFlags.USE_HEADER_BAR,
                  mimetype);
 +            chooser.set_type_hint(Gdk.WindowTypeHint.NORMAL);
 +            const windowGroup = new Gtk.WindowGroup();
 +            windowGroup.add_window(chooser);
+             let signals = new SignalManager.SignalManager();
              chooser.show_all();
-             chooser.connect('close', () => {
-                 chooser.response(Gtk.ResponseType.CANCEL);
-@@ -454,13 +457,18 @@ var FileItemMenu = class {
+             signals.connectSignal(chooser, 'close', () => {
+@@ -467,13 +470,18 @@ var FileItemMenu = class {
              return;
          }
  
