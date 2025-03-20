@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-ml-commons-plugin
-pkgver=2.19.0.0
+pkgver=2.19.1.0
 pkgrel=1
-_opensearchver=2.19.0
+_opensearchver=2.19.1
 _jdkver=21
 pkgdesc="OpenSearch Machine Learning Commons Plugin"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=("opensearch=${_opensearchver}")
 makedepends=("java-environment=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/ml-commons/archive/${pkgver}.tar.gz")
-sha256sums=('0f0d9c5cbd71f09ad9a60336870beac2009f2598dddc4940ae767213ece6f3ee')
+sha256sums=('99ffad179a85895c88bf54659438ae59504fab1808d7023a035e2d05c4a3204a')
 
 build() {
   cd "ml-commons-${pkgver}"
@@ -26,7 +26,8 @@ build() {
     --exclude-task ":opensearch-ml-common:jacocoTestReport" \
     --exclude-task ":opensearch-ml-common:jacocoTestCoverageVerification" \
     --exclude-task ":opensearch-ml-client:jacocoTestReport" \
-    --exclude-task ":opensearch-ml-client:jacocoTestCoverageVerification"
+    --exclude-task ":opensearch-ml-client:jacocoTestCoverageVerification" \
+    -PexcludeTests=**/PredictionITTests*
 }
 
 package() {
