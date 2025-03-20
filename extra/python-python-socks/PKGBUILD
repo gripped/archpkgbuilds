@@ -3,7 +3,7 @@
 
 pkgname=python-python-socks
 pkgver=2.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Core proxy client (SOCKS4, SOCKS5, HTTP) functionality for Python'
 arch=('any')
 url='https://github.com/romis2012/python-socks'
@@ -30,7 +30,6 @@ checkdepends=(
 )
 optdepends=(
   'python-anyio: anyio support'
-  'python-async-timeout: asyncio support'
   'python-curio: curio support'
   'python-trio: trio support'
 )
