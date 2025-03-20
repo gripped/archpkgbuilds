@@ -2,8 +2,8 @@
 
 pkgname='opensearch-dashboards-security-plugin'
 _pluginname='security-dashboards-plugin'
-pkgver=2.19.0.0
-_dashboardsver=2.19.0
+pkgver=2.19.1.0
+_dashboardsver=2.19.1
 pkgrel=1
 pkgdesc='OpenSearch Dashboards Security Plugin'
 url='https://opensearch.org/docs/latest/security-plugin'
@@ -18,9 +18,9 @@ source=(
   # Switch to NodeJS LTS 22 "Jod"
   "https://github.com/hashworks/OpenSearch-Dashboards/commit/1a602a8e117f735154230cc5199153a57ec5bbb6.patch"
 )
-sha256sums=('eb87a435a793acf12dc3023fe1fb4e922ba5543f86b00dfa851578c97c803e19'
-            '9cc3248ad281286e74699e7c9ebd5855cf0dae4c5ffcf6b4d789596b01cda4e4'
-            'c7eab88eb06f034b0e57348d4615c86c87ea8e55da06d9ac839452317299304e')
+sha256sums=('af50e2a5a03e818ec1f191a76aed927c5b1064b98b5e217d3804572872c7a888'
+            'd9e3acfeb25ce8c021c20d55f25d1f20fd5f524de81147f4154ab9fad7a8b786'
+            'e916c1dd34871372ff4e7ca71e66cb14c472ca94c9143e6b6da28dbef1b25738')
 
 prepare() {
   nodeVersion="$(node -v)"
