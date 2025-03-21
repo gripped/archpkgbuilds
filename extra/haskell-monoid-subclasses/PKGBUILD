@@ -3,8 +3,8 @@
 
 _hkgname=monoid-subclasses
 pkgname=haskell-monoid-subclasses
-pkgver=1.2.5.1
-pkgrel=18
+pkgver=1.2.6
+pkgrel=1
 pkgdesc="Subclasses of Monoid"
 url="https://github.com/blamario/monoid-subclasses/"
 license=('BSD')
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-commutative-semigroups' 'haskell-primes' 'haskell-v
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-tasty'
              'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('f8eb5f8b2af86dd858f2a607bc9b8ff2f239cc96b0e524c00a9ecfb3be3ae679bba7f389dac9098c7b0902f2c3dad5189cae533574e6372b3021021b3abd22d1')
+sha512sums=('34481265471775c567371598cc9ef9a88531ad641331da201f9e14b872dcf5c909655c5d6820a7f03e5c2391790afffb2218c63f4275c76bd4fd35ca3924ab0d')
 
 build() {
     cd $_hkgname-$pkgver
