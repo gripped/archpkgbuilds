@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=pm2
-pkgver=5.4.3
+pkgver=6.0.5
 pkgrel=1
 pkgdesc='Production process manager for Node.JS applications with a built-in load balancer'
 arch=('any')
@@ -13,7 +13,7 @@ install=pm2.install
 source=(https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz
         pm2.service)
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('e3f23586d207cd993563aed480e0a8e05d5c26d6acd6449db37d4df333743f26cedb7d227759e28328c6b861735271a65053e6ac9d0e9f6d9f3b50a1165a7b55'
+sha512sums=('f8ee3758f6848b061b9bafd74a900e3b546dc9afd4a1fd27ef1f2125919fc08b9ea5eb0d4c8540ae9661e0aa857f37b472fbea64caf499a4d6de27e1be6c9e31'
             '0d80c16d4694511cc19970a3eb4a2e10f706a58c5cdc554809e12a12093a5b29ff6d30027cbe8646f837a42e40f7d9b7fe2853f96a76a38f47ddc14833f141ef')
 
 package() {
