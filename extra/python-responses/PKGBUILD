@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-responses
-pkgver=0.25.5
+pkgver=0.25.6
 pkgrel=1
 pkgdesc='A utility library for mocking out the `requests` Python library.'
 arch=('any')
@@ -12,7 +12,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-setuptools')
 checkdepends=('python-pytest' 'python-pytest-asyncio' 'python-pytest-httpserver'
               'python-tomli-w')
 source=("git+https://github.com/getsentry/responses.git#tag=$pkgver")
-sha512sums=('2a6bf1cb62d3f99261ec945d89833ef3006e926782f6350c1757e3fe9fbe5a878876eb9b55b8eba5547bebc6997f9e5467efe92b1979b4ec88bd3923b7d89aad')
+sha512sums=('8a6308a81ea8b67058841016fff75d0f42a48689abb5683b297aafbafa8c3714869b1cdf25bd9ba97f4c8a439b5de2b284a92eadb856ee71f8a81c0572b379b1')
 
 build() {
   cd responses
