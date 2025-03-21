@@ -6,7 +6,7 @@
 
 pkgname=rtorrent
 pkgver=0.15.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Ncurses BitTorrent client based on libTorrent'
 url='https://rakshasa.github.io/rtorrent/'
 license=('GPL-2.0-only')
