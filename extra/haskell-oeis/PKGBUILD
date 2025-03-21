@@ -2,21 +2,17 @@
 
 _hkgname=oeis
 pkgname=haskell-oeis
-pkgver=0.3.10
-pkgrel=215
+pkgver=0.3.10.1
+pkgrel=1
 pkgdesc="Interface to the Online Encyclopedia of Integer Sequences (OEIS)"
 url="https://github.com/niteria/oeis.git"
 license=("BSD")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-http' 'haskell-network' 'haskell-network-uri')
-makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-test-framework' 'haskell-test-framework-hunit')
+depends=('ghc-libs' 'haskell-http-client' 'haskell-http-client-tls' 'haskell-http-types'
+         'haskell-network' 'haskell-network-uri' 'haskell-utf8-string')
+makedepends=('ghc' 'haskell-hunit' 'haskell-test-framework' 'haskell-test-framework-hunit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('bbfa724d9f69f14bcc95a5ecbd94a3e0ec1b072b69a5413c70174d2406884529')
-
-prepare() {
-  cd $_hkgname-$pkgver
-  uusi -u HTTP $_hkgname.cabal
-}
+sha256sums=('84573e3e3d057a4233ba4b084150feaf39b53352e6eaf7f653b70b1fd70df054')
 
 build() {
   cd $_hkgname-$pkgver
