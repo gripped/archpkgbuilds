@@ -2,19 +2,24 @@
 # Contributor: Jonas Witschel <diabonas@archlinux.org>
 
 pkgname=shim
-pkgver=15.8
+pkgver=16.0
 pkgrel=1
 pkgdesc="EFI preloader (unsigned EFI binaries)"
 arch=(any)
 url="https://github.com/rhboot/shim"
 license=(BSD-3-Clause)
-checkdepends=(efivar xxd)
-source=(
-  $url/releases/download/$pkgver/$pkgname-$pkgver.tar.bz2{,.asc}
+makedepends=(git)
+checkdepends=(
+  efivar
+  xxd
 )
-sha512sums=('30b3390ae935121ea6fe728d8f59d37ded7b918ad81bea06e213464298b4bdabbca881b30817965bd397facc596db1ad0b8462a84c87896ce6c1204b19371cd1'
+source=(
+  git+$url?signed#tag=$pkgver
+  gnu-efi::git+https://github.com/rhboot/gnu-efi.git
+)
+sha512sums=('d9d03a39da1e93fe3443eae9e3aafd2b4cfd19d82172186ede27f1c80bbf8a83b40ca5e449fd517372326eb3d8fc093f7c8b4de3fb697e441fce6acbfe6df9f7'
             'SKIP')
-b2sums=('24da29cf45a08bceffc15682fcdd16e34e42d3b33f2a0b2e528193d8e3455a034b6242c13cebf43db481f73a83329effd9812f0d1e04861ecf7329e54f9059b9'
+b2sums=('c59b35b3fa2cd79e869ee075af462fbd56229b0da9a1fa33799220e73daf22f7b6e7437ff60012cf43b917176a7f424d578463fa93da090f3b600936c0b6c4c6'
         'SKIP')
 validpgpkeys=(
   B00B48BC731AA8840FED9FB0EED266B70F4FEF10  # Peter Jones <pjones@redhat.com>
@@ -22,7 +27,12 @@ validpgpkeys=(
 )
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname
+
+  git submodule init
+  git config submodule."gnu-efi".url ../gnu-efi
+  git -c protocol.file.allow=always submodule update
+
   # -Werror, not even once
   sed -e 's/-Werror\b//g' -i Makefile Make.defaults
 }
@@ -30,15 +40,15 @@ prepare() {
 build() {
   # TODO: evaluate setting DEFAULT_LOADER to e.g. loader.efi:
   # this would require changing grub's default, but would allow us to unify
-  make EFIDIR=ARCH -C $pkgname-$pkgver
+  make EFIDIR=ARCH -C $pkgname
 }
 
 check() {
-  make test -C $pkgname-$pkgver
+  make test -C $pkgname
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DATATARGETDIR="/usr/share/$pkgname" DESTDIR="$pkgdir/" install-as-data
   install -vDm 644 COPYRIGHT -t "$pkgdir/usr/share/licenses/$pkgname/"
   install -vDm 644 {BUILDING,README.{md,fallback,tpm},TODO} -t "$pkgdir/usr/share/doc/$pkgname/"
