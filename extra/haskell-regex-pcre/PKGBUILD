@@ -3,8 +3,8 @@
 
 _hkgname=regex-pcre
 pkgname=haskell-regex-pcre
-pkgver=0.95.0.0
-pkgrel=15
+pkgver=0.95.0.1
+pkgrel=1
 pkgdesc="PCRE Backend for Text.Regex (regex-base)"
 url="https://hackage.haskell.org/package/regex-pcre"
 license=("BSD")
@@ -12,24 +12,29 @@ arch=('x86_64')
 depends=('ghc-libs' "haskell-regex-base" "pcre")
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('7c9ed0edd0c44d7118313c298c2658858117dd89eb7956566f5bb2fb75f2aaed70d201fda4102c46206b9951013bafee654ff39ed3c4bf9c5086f6c0cc217bdb')
+sha512sums=('20e9bfbc81961b7348522637bc73fea932fdfd3e43f6a6702c644b92ec274ef77a1de29bc0835f4abf4ca6f6bc224ecf4005ba088937617bd28040875c4e8766')
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u base -u bytestring $_hkgname.cabal
+    gen-setup
 }
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
