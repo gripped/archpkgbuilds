@@ -1,6 +1,6 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 pkgname=cifs-utils
-pkgver=7.2
+pkgver=7.3
 pkgrel=1
 pkgdesc="CIFS filesystem user-space tools"
 arch=(x86_64)
@@ -23,8 +23,9 @@ source=("git+https://git.samba.org/cifs-utils.git?signed#tag=${pkgname}-${pkgver
 validpgpkeys=(
     C699981A31F338706C817650DF5BA9D30642D5A0 #cifs-utils Distribution Verification Key <cifs-utils@samba.org>
     E9FB2EF297488ED584FC3A4B8A2CBD7007724F51 # Steve French <smfrench@gmail.com 
+    F2D066D1E8C2D888248F7A7C627A8E85F6858D07 # Pavel Shilovsky <pshilovsky@samba.org>
 )
-b2sums=('960f8dbe7745d333e964a98c28be74cdc03cf0e41c245234a8076fe61bd728c37a21bc220e6fd17ad0195ae1a28dc4dcc7cccdb7273329d813b06606ffc430ee')
+b2sums=('f78ab0c122031056fba78334ee7428bc7be3aa0588bd8556ab83ba5981d857d72e7ba23e6112aa93215e2e6c4335c878cbbd9b1d0ed07bdc650b234fc5631918')
 
 prepare() {
   cd "${srcdir}/${pkgname}"
