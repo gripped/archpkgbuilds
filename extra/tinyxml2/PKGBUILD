@@ -4,7 +4,7 @@
 # Contributor: dhead666 <myfoolishgames@gmail.com>
 
 pkgname=tinyxml2
-pkgver=10.1.0
+pkgver=11.0.0
 pkgrel=1
 pkgdesc='Simple XML parser made for easy integration'
 arch=('x86_64')
@@ -13,8 +13,8 @@ license=('LicenseRef-zlib')
 depends=('glibc' 'gcc-libs')
 makedepends=('git' 'cmake')
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('10f6f0241378746ab00ffaca4edc9c75d3975d57e93fbf1b62b216cd72e5e5ebfcde551155cbcf3e821d685529c958db9d8373b298c1a6de4271b7fb16a61d1a')
-b2sums=('23bb925f6683d54418d81b3aae92af8bdf0fd6f82aadaa3a82ccacf3eb1daa61d2d01cfecad01193307bdded6eb1410ae16712cd609e949eadf722595e95a5f5')
+sha512sums=('f13b0fa564bce8c6cd7940c69e65472f23164d2815c4f81c6aefe6527e861468fe089fb9e86f93bdbd3b6007db63d2888508ce13ed840c51a3f72a323a20ec8b')
+b2sums=('8c20892fdd705b4ed0acffb2729ffa9bb77c96e4af07a7108abea4374fa47fde3465798d60c7f0582bd056cdd083dcf61ba5a4301aeb9b385f93a0bd77ab5bfd')
 
 build() {
   local cmake_options=(
