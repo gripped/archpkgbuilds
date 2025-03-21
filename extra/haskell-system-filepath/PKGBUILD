@@ -3,22 +3,20 @@
 
 _hkgname=system-filepath
 pkgname=haskell-system-filepath
-pkgver=0.4.14
-pkgrel=262
+pkgver=0.4.14.1
+pkgrel=1
 pkgdesc="High-level, byte-based file and directory path manipulations"
-url="https://hackage.haskell.org/package/${_hkgname}"
-license=("BSD")
+url="https://github.com/fpco/haskell-filesystem"
+license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'haskell-chell' 'haskell-chell-quickcheck')
+makedepends=('ghc' 'uusi' 'haskell-chell' 'haskell-chell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('d858b077516ecb76e27d032fd123aadbbbb154afea87fab93f148aa8a0007587c1fb04d87217cf0b51a80e9a81ab20357dcc5e345899e1c2b6513900da1e6768')
-
-export LC_ALL=en_US.UTF-8
+sha512sums=('3b04ff1d7b4d6e08724f791aeb5733f8d5a5e102518250bcc2a0558aee191ed972dab3604b400375bb4f4e2e3b290f281e51b7e8b94d355387e599cdf399d531')
 
 prepare() {
     cd $_hkgname-$pkgver
-    sed -i 's/< *0.5/<1/' $_hkgname.cabal
+    gen-setup
 }
 
 build() {
@@ -36,7 +34,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test || echo "Tests failed"
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
