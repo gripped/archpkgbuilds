@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-dunamai
-pkgver=1.23.0
+pkgver=1.23.1
 pkgrel=1
 pkgdesc='A library for producing dynamic version strings, derived from VCS tags'
 arch=('any')
@@ -19,8 +19,8 @@ makedepends=(
 )
 checkdepends=('python-pytest' 'python-setuptools')
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('7b1aab135004053f03d53f2197d0b0752446bf424e1746ff7ed6def0cae9463847284586f25a0afb40f7195ad7f8c5a9698c169a986d7f33e6b0d341ffd64bd9')
-b2sums=('5f7dbaf61fb73ee324d9d6b1fdc64040d56d4a848e66cbbba2bf86d79eba6ea3f83474c5a4c5266aa82e2cfc696c00ee177e816b58395c9517c13109548dfb44')
+sha512sums=('170b93cea2ab4d487e9fd979831a60e182eede283d446eebc1483ce1575fdfa6f4e33b82bf2d52de2956a312a6ad4c7ff343c801df6aa20a81788380a6152b6d')
+b2sums=('f5c2b5695e452443b9e6348458a78f7b6db4baa4567d4dbd35763d47bf8c67057938a36a737a728695ca150b706cf376f09b46bb180ae6bd74fc669bbacc3873')
 
 build() {
   cd "$pkgname"
@@ -55,9 +55,6 @@ package() {
 
   python -m installer --destdir="$pkgdir" dist/*.whl
 
-  # symlink license file
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  install -d "$pkgdir/usr/share/licenses/$pkgname"
-  ln -s "$site_packages/${pkgname#python-}-$pkgver.dist-info/LICENSE" \
-    "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
