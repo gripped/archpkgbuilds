@@ -1,23 +1,26 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 # Maintainer: T.J. Townsend <blakkheim@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=wget
 pkgver=1.25.0
-pkgrel=1
-pkgdesc='Network utility to retrieve files from the Web'
+pkgrel=2
+pkgdesc='Network utility to retrieve files from the web'
 url='https://www.gnu.org/software/wget/wget.html'
 arch=('x86_64')
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('glibc' 'zlib' 'gnutls' 'libidn2' 'libidn2.so' 'util-linux-libs' 'libuuid.so'
          'libpsl' 'libpsl.so' 'pcre2' 'nettle' 'libnettle.so')
 checkdepends=('perl-http-daemon' 'perl-io-socket-ssl' 'python')
+makedepends=('autoconf-archive' 'git' 'gperf' 'wget' 'perl')
 optdepends=('ca-certificates: HTTPS downloads')
 backup=('etc/wgetrc')
-source=(https://ftp.gnu.org/gnu/${pkgname}/${pkgname}-${pkgver}.tar.lz{,.sig})
-sha256sums=('19225cc756b0a088fc81148dc6a40a0c8f329af7fd8483f1c7b2fe50f4e08a1f'
+source=("git+https://git.savannah.gnu.org/git/wget.git?signed#tag=v${pkgver}"
+        "git+https://git.savannah.gnu.org/git/gnulib.git")
+sha256sums=('c63fd5c082a3a7ecf9309c2334df95e61abfc413cbefe81e5ed5d40a4301344e'
             'SKIP')
-b2sums=('58edd7393b5109804d7a6ce77466d30e1fba3c5ae4b5b8634758c9ebd7fa95cf106d35ad0b4f9151833d88b0221fc488a1005ec0b98417766bf2092309744954'
+b2sums=('d4f747bd505a5b482013dfc20c307a34ce505833120ff2b77ba4d94b7476d1407e64eab862d6fd5490e96e5e9b8a7e3cf742404634a287996a7a702c8efd6304'
         'SKIP')
 validpgpkeys=(
   'AC404C1C0BF735C63FF4D562263D6DF2E163E1EA' # Giuseppe Scrivano <gscrivano@gnu.org>
@@ -26,7 +29,15 @@ validpgpkeys=(
 )
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
+
+  git submodule init
+  git config submodule.libs/gnulib.url "${srcdir}/gnulib"
+  git -c protocol.file.allow=always submodule update
+
+  sh bootstrap
+  autoreconf -fiv
+
   cat >> doc/sample.wgetrc <<EOF
 
 # default root certs location
@@ -35,7 +46,7 @@ EOF
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
@@ -46,12 +57,12 @@ build() {
 }
 
 check() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   make check < /dev/null
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   make DESTDIR="${pkgdir}" install
 }
 
