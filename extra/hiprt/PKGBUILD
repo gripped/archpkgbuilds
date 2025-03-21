@@ -1,23 +1,20 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 # Contributor: HurricanePootis <hurricanepootis@protonmail.com>
 pkgname=hiprt
-pkgver=2.3.bd75b7c.rc7
-_libver=02003
-pkgrel=3
+pkgver=2.5.a21e075
+_libver=02005
+pkgrel=1
 pkgdesc="Ray Tracing Library for HIP"
 arch=('x86_64')
 url="https://gpuopen.com/hiprt/"
 license=('MIT')
 depends=('rocm-core' 'hip-runtime-amd' 'glibc' 'gcc-libs')
 makedepends=('git' 'python' 'cmake')
-source=("$pkgname-$pkgver::git+https://github.com/GPUOpen-LibrariesAndSDKs/HIPRT#tag=$pkgver"
-		"disable-cuda.patch")
-sha256sums=('a8906e845346f93902f7d1cafb170816c399222113cdb1500a4b6b3255895ebd'
-            '6e80236b57577e7e8455feb7eb103a184058d7279c2c69a5d513b7341fd57dec')
+source=("$pkgname-$pkgver::git+https://github.com/GPUOpen-LibrariesAndSDKs/HIPRT#tag=$pkgver")
+sha256sums=('4b5641ca6fcc90cb453d4857305530cee66bf77795720d7b33c4ea35c0513799')
 
 prepare() {
 	cd "$pkgname-$pkgver"
-	patch -Np1 -i ../disable-cuda.patch
 	chmod 755 contrib/easy-encryption/bin/linux/ee64
 }
 
@@ -33,6 +30,7 @@ build() {
 		-D BITCODE=ON
 		-D PRECOMPILE=ON
 		-D NO_UNITTEST=ON
+		-D FORCE_DISABLE_CUDA=ON
 		-D CMAKE_INSTALL_PREFIX=/opt/rocm
 	)
 	cmake "${cmake_args[@]}"
