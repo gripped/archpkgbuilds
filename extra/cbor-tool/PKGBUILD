@@ -1,22 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=cbor-tool
-pkgver=0.2.2.0
-pkgrel=108
+pkgver=0.2.3.0
+pkgrel=1
 pkgdesc="A tool for manipulating CBOR"
 url="https://github.com/well-typed/cborg"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-cborg' 'haskell-cborg-json'
          'haskell-scientific' 'haskell-unordered-containers' 'haskell-vector')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('d720f1caa98153bebea7ade4a0f1f53010a5febd2d53925c945e26f8c3b75667')
-
-prepare() {
-  cd $pkgname-$pkgver
-  uusi -u aeson -u bytestring -u vector $pkgname.cabal
-}
+sha256sums=('4c5988c5d67e6425055a010967005342628bae5eec7ffa32903fa54fab0ba03c')
 
 build() {
   cd $pkgname-$pkgver
