@@ -8,14 +8,17 @@
 # Contributor: Ben <ben@benmazer.net>
 
 pkgname=mpd
-pkgver=0.24
+pkgver=0.24.1
 pkgrel=1
 pkgdesc="Flexible, powerful, server-side application for playing music"
 arch=(x86_64)
 url="https://www.musicpd.org/"
+_url="https://github.com/MusicPlayerDaemon/MPD"
 license=(
   BSD-2-Clause
   GPL-2.0-or-later
+  ISC
+  LGPL-2.1-only
 )
 depends=(
   gcc-libs
@@ -83,18 +86,18 @@ makedepends=(
 checkdepends=(gtest)
 backup=(etc/$pkgname.conf)
 source=(
-  $pkgname::git+https://github.com/MusicPlayerDaemon/MPD.git#tag=v${pkgver}?signed
+  $pkgname::git+$_url?signed#tag=v${pkgver}
   $pkgname.conf
   $pkgname.sysusers
   $pkgname.tmpfiles
   $pkgname.service.override
 )
-sha512sums=('3d05984ffe961a0a43a9bf69a276097dc8fd349a5074def62d5232f051cd856de7de628204ca285599bd1baa83ff261c1e8fb8d7bb6b2069d8c9fded3684e330'
+sha512sums=('0eb42f960ac2642075c25a217698122fd81dff0cadd84a340b1e5ccd722ee74bfe3944c0f3a0c7e188ca017b624d85a9e0cae06c104c2c02e29b5482585ce764'
             '25a823740d92da8e186916701413114142eb6ad91a172c592e68b569c8e4f50fa99580e555ccf6cd31fc4f55a09bfe0278efa46e4e76ee0fe02846292fadf3c1'
             'd66c1d771160ee1781a05e57f383acc466babb29924c07d83ac0e763c14380dd1f279ba7b4aec508dc70245370d9732b4bc6287df1a2e06a920f3b73551d3032'
             'db473db27cd68994c3ee26e78e0fb34d13126301d8861563dcc12a22d62ecb14c4ffb1e0798c6aaccdff34e73bae3fbeeff7b42606c901a2d35e278865cdf35d'
             'c1782b82f9db1d30aece43a07230c5d57370f2494a16e108af03815d83968805472f10f53ea5495cf0e08ff8f245430c3c3bc44025af43aaf9ecd12fcd6afc6c')
-b2sums=('764c606c26dddf190c7394a08704a470be1d81c9263429917350331a926b5bb93581ae3afb61a0045652c858f335cc297bf19441db24531e2c2143966d088aea'
+b2sums=('6aef2488d56d0d740c9994ff04729209eea46e020c58ad0e5fe6338cc20f6c7e258920b09389e8b7192c890303020ec15dec0619c282053d132555aa0a7a8fdb'
         '0969a3c477b6a3f34b44e067e515d7f306414dd14e0163584417b9d071e3cc825898219f7ff66ead7905b15429b8411304052d3b2b14a72e560bfabf9bf0adcf'
         '814c2314de6040e895657a8c8d62f11bc38c224a3c0ef5cbf280c0e141c80f04b0ac5026be06fd5dc4a4b764f3d91ab46f365da0a7bd466abc3aed02b0612165'
         'd7b587c25dd5830c27af475a8fdd8102139d7c8fdd6f04fe23b36be030e4411582e289f575c299255ff8183096f7d47247327276f9a24641cbd032d9675b837a'
@@ -165,8 +168,7 @@ package() {
 
   meson install -C build --destdir "$pkgdir"
   install -vDm 644 $pkgname/doc/${pkgname}conf.example -t "$pkgdir/usr/share/doc/$pkgname/"
-  # NOTE: BSD-2-Clause license file currently missing: https://github.com/MusicPlayerDaemon/MPD/issues/1877
-  # install -vDm 644 $pkgname-$pkgver/LICENSES/BSD-2-Clause -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 $pkgname/LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
   install -vDm 644 $pkgname.service.override "$pkgdir/usr/lib/systemd/system/mpd.service.d/00-arch.conf"
   install -vDm 644 $pkgname.conf -t "$pkgdir/etc/"
   install -vDm 644 $pkgname.sysusers "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
