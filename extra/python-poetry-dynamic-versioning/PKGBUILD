@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-poetry-dynamic-versioning
-pkgver=1.4.1
-pkgrel=2
+pkgver=1.8.0
+pkgrel=1
 pkgdesc='Plugin for Poetry to enable dynamic versioning based on VCS tags'
 arch=('any')
 url='https://github.com/mtkennerly/poetry-dynamic-versioning'
@@ -27,8 +27,8 @@ checkdepends=(
   'python-pytest'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('4bed9c7a9ef8fe57a1cc7760ffb8da7c4d501a0db8bfbd88bc05f96c1670eebb2dc061ed479b19fd5c6522e3efff87dc609b0e220f2079531033fdb45c3fc6dc')
-b2sums=('eb8098c2732d7db85bc33bb3e336e0f4f1f0960da7a143ac715a1bc6a8c20eab4341e615942b7c72b7907299344723ac278e5ea1f7f57296dfca959799063724')
+sha512sums=('1d8b89bb5257971c9b0947583c1ed573dd34c0ba5f6d521e7c8c63c64f519dcdf0755e8552797a3acbb1df7baa1122344f976b9763c93dfc49aa96f182993ae4')
+b2sums=('192f43cefc8088311a2795b42cb84ef5b5cdecad039955c689d3a97bdb291001f8267ca2a0358facc34c9290758df424742cb5e33dab4ce778754f6ae52ec40e')
 
 build() {
   cd "$pkgname"
