@@ -5,16 +5,21 @@
 
 pkgbase=lxtask
 pkgname=(lxtask lxtask-gtk3)
-pkgver=0.1.10
-pkgrel=3
+pkgver=0.1.11
+pkgrel=1
 pkgdesc='Task manager of the LXDE Desktop'
 arch=('x86_64')
 license=('GPL2')
 url='https://lxde.org/'
 depends=('gtk2' 'gtk3')
 makedepends=('intltool')
-source=(https://downloads.sourceforge.net/lxde/$pkgbase-$pkgver.tar.xz)
-sha256sums=('2216df9bc4bb2d80733e788966512ac58c421e0a0a1ff85210f34a29d1eb4e2c')
+source=(https://github.com/lxde/lxtask/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('a28e1804f4d68e8698c012a4a7b30f5a18dfa4c3d54f4f667793af7d2ac27408')
+
+prepare() {
+  cd $pkgbase-$pkgver
+  autoreconf -vif
+}
 
 build() {
   # GTK+ 2 version
