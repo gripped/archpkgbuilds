@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-openstackclient
-pkgver=7.3.0
+pkgver=7.3.1
 pkgrel=1
 pkgdesc="OpenStack Command-line Client"
 arch=('any')
@@ -14,7 +14,7 @@ depends=('python-pbr' 'python-cryptography' 'python-cliff' 'python-iso8601' 'pyt
 makedepends=('git')
 checkdepends=('python-requests-mock' 'python-stestr' 'python-testtools' 'python-wrapt' 'python-ddt')
 source=("git+https://github.com/openstack/python-openstackclient.git#tag=$pkgver")
-sha512sums=('38e8a9f4bfe2936396f5f30e40dd779fecc844648603612b3ddd4a836ff080c5c9840bca99d7c391052000196ef72f6c5b527590ec94a7c70e86e15b361e87a4')
+sha512sums=('9ec58a3efcce35d6759516f424b3243b2363ad87348aadbd96aa0dc50d18a3c3aa101d3c593307ed1b7ebb99c7446df7d38c8eb81112b12b9ea0b8e0c8dbf28e')
 
 build() {
   cd python-openstackclient
