@@ -2,8 +2,8 @@
 
 _pkgname=libusb1
 pkgname=python-$_pkgname
-pkgver=3.1.0
-pkgrel=4
+pkgver=3.3.0
+pkgrel=1
 pkgdesc='Python ctype-based wrapper around libusb1'
 arch=('any')
 url='https://github.com/vpelletier/python-libusb1'
@@ -11,7 +11,7 @@ license=('LGPL2.1')
 depends=('python' 'libusb')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('590929bbef2fac8f9bfcac7efde0670787aeb27952b5cfc370bbcb8df67fb002774853f1fd5794f73b2396636d647919731cb6ec92b5b99b87265c24b04a5c97')
+sha512sums=('1c911d67a209052f682f329119149a4d92afc4aefef70d6bb80d90384a8294ade153bacc9f656ba05710b34c20c6929184187ee881e910271182ae917e1f3c62')
 
 build() {
   cd $pkgname-$pkgver
