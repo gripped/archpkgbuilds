@@ -1,10 +1,11 @@
 pkgbase = privoxy
 	pkgdesc = A web proxy with advanced filtering capabilities.
-	pkgver = 3.0.34
-	pkgrel = 3
+	pkgver = 4.0.0
+	pkgrel = 1
 	url = https://www.privoxy.org
 	arch = x86_64
 	license = GPL2
+	makedepends = git
 	depends = pcre2
 	depends = zlib
 	backup = etc/privoxy/config
@@ -15,13 +16,11 @@ pkgbase = privoxy
 	backup = etc/privoxy/user.action
 	backup = etc/privoxy/user.filter
 	backup = etc/logrotate.d/privoxy
-	source = https://downloads.sourceforge.net/ijbswa/privoxy-3.0.34-stable-src.tar.gz
-	source = 53748ca8ca3c893025be34dd4f104546fcbd0602.patch::https://www.privoxy.org/gitweb/?p=privoxy.git;a=patch;h=53748ca8ca3c893025be34dd4f104546fcbd0602
+	source = git+https://www.privoxy.org/git/privoxy.git#tag=v_4_0_0
 	source = privoxy.logrotate.d
 	source = privoxy.sysusers
 	source = privoxy.service
-	sha256sums = e6ccbca1656f4e616b4657f8514e33a70f6697e9d7294356577839322a3c5d2c
-	sha256sums = 61861bc3809f06eb77129d466c6e27f35972fa4aef8be2db2b6a789a3700fee8
+	sha256sums = f2621a95a004f2869ed57053e11c0875ce930f152049fd0aed008a13c5b326fc
 	sha256sums = 769740ea3c15228f24b559192e7b3f45b95dcf9040e2b25f15bfdfae8af86ce3
 	sha256sums = 6681231552f431962dda2ac49187df833b2b57544eac97ca94d1f4207b27b04c
 	sha256sums = 30237681b6b117ce0d21efb3eeb896202744a32f9740fede1011b5dc84ff9f23
