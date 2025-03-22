@@ -3,7 +3,7 @@
 
 pkgname=mgard
 pkgver=1.5.2
-pkgrel=6
+pkgrel=7
 pkgdesc="MultiGrid Adaptive Reduction of Data"
 arch=(x86_64)
 url="https://github.com/CODARcode/MGARD"
