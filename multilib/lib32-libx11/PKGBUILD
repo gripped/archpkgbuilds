@@ -1,7 +1,7 @@
 # Maintainer: Jan de Groot <jgc@archlinux.org>
 
 pkgname=lib32-libx11
-pkgver=1.8.11
+pkgver=1.8.12
 pkgrel=1
 pkgdesc="X11 client-side library (32-bit)"
 arch=(x86_64)
@@ -10,7 +10,7 @@ depends=('lib32-libxcb' 'libx11')
 makedepends=('xorg-util-macros' 'xorgproto' 'xtrans' 'gcc-multilib')
 license=('MIT AND X11')
 source=(https://xorg.freedesktop.org/releases/individual/lib/libX11-${pkgver}.tar.xz{,.sig})
-sha512sums=('4e2191258039ad0ea7fe5d22b8b0ab5e1d101b20fa4cd0fb44c5e1ac8b2ffbb3a0ad80ac3a67a3803ca30b972476b739a0c244b2ac8b7de6a32b06dc4e2c674b'
+sha512sums=('cb7a284d9081a8b67f7d8568d56dc403a4b787e46ac497b07768d236084c01f80f4ea2ebd814f950ac9738adc3baea3912932fc333858195c4f8217744b6f730'
             'SKIP')
 validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alanc@freedesktop.org>
 
