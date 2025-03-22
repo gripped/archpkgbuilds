@@ -1,0 +1,20 @@
+pkgbase = sudo-rs
+	pkgdesc = A memory safe implementation of sudo and su.
+	pkgver = 0.2.4
+	pkgrel = 4
+	url = https://github.com/trifectatechfoundation/sudo-rs
+	arch = x86_64
+	license = Apache-2.0 AND MIT
+	checkdepends = procps-ng
+	makedepends = cargo
+	makedepends = pandoc
+	depends = gcc-libs
+	depends = glibc
+	depends = pam
+	backup = etc/pam.d/sudo-i
+	source = sudo-rs-0.2.4.tar.gz::https://github.com/trifectatechfoundation/sudo-rs/archive/refs/tags/v0.2.4.tar.gz
+	source = sudo-i.pam
+	sha256sums = c2c1f4c8087134a90df47a8bee76746c4ab24dd7d12f3b26a74d1560ea3ee68c
+	sha256sums = d1738818070684a5d2c9b26224906aad69a4fea77aabd960fc2675aee2df1fa2
+
+pkgname = sudo-rs
