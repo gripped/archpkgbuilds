@@ -3,7 +3,7 @@
 
 _name=distributed
 pkgname=python-$_name
-pkgver=2025.2.0
+pkgver=2025.3.0
 pkgrel=1
 pkgdesc="Distributed task scheduler for Dask"
 arch=(any)
@@ -60,7 +60,7 @@ checkdepends=(
   python-zstandard
 )
 source=(https://github.com/dask/distributed/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-b2sums=('e5496e820205ad86c35923fdbaf7f17cf1d68daf397704eec9963e0aa2798b5ce5ed1c8225c2525d151c3fc250434730fb2719e0a105cc96c143b3b566eecdfd')
+b2sums=('25f3fab39db6e2e13470f4336037d7ce788812bbfc1670bac4c5c7e2b9a8866ea628e1b1c1f3db52e00ebd74225f51615371337fa55187b1ffb300818e804825')
 
 prepare() {
   sed -i 's/, "versioneer\[toml\].*"//' $_name-$pkgver/pyproject.toml
