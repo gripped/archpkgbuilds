@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-terminal
-pkgver=3.54.4
+pkgver=3.56.0
 pkgrel=1
 pkgdesc="The GNOME Terminal Emulator"
 url="https://wiki.gnome.org/Apps/Terminal"
@@ -20,6 +20,7 @@ license=(
   GFDL-1.3-only
 )
 depends=(
+  cairo
   dconf
   gcc-libs
   glib2
@@ -47,7 +48,7 @@ optdepends=(
 )
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-terminal.git#tag=$pkgver")
-b2sums=('56f17df03bb2e7b7a189a56bdb43ad432dda621c6531fd23dffe02c640e18b3bae094babb9ab7deaa4a39284e2a451097dfe90358a3aa07d2523138f8a05ee0c')
+b2sums=('539f32b5f48309e0749bd9c083ac9577a4e65b90c12c37f0bc84167d63d7c83d50130f57f36914785417b6a18ccb2ab286df7e3bbce0585a1bbfa35b0c835bc4')
 
 prepare() {
   cd $pkgname
