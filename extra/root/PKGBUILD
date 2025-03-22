@@ -8,7 +8,7 @@
 pkgbase=root
 pkgname=(root root-cuda)
 pkgver=6.34.04
-pkgrel=1
+pkgrel=2
 pkgdesc='C++ data analysis framework and interpreter from CERN'
 arch=(x86_64)
 url='https://root.cern'
@@ -160,6 +160,8 @@ build() {
     -C settings.cmake
     # needed by vc to link properly
     -DTARGET_ARCHITECTURE:STRING=generic
+    # skip internet connection check (but cmake still git pulls clad)
+    -DNO_CONNECTION:BOOL=FALSE
   )
 
   # In general, we want to list all real archs (sm_XX) and the latest virtual arch (compute_XX) for future PTX compatibility.
