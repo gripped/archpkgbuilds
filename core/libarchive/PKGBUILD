@@ -3,7 +3,7 @@
 
 pkgname=libarchive
 pkgver=3.7.7
-pkgrel=3
+pkgrel=4
 pkgdesc='Multi-format archive and compression library'
 arch=('x86_64')
 url='https://libarchive.org/'
@@ -24,11 +24,15 @@ source=("git+https://github.com/${pkgname}/${pkgname}.git?signed#tag=v${pkgver}"
 sha256sums=('5f34ae74d1a780a7147f255903a04b475f674ea48252f3a059fb27d67eb083a9')
 
 _backports=(
-  # fix CVE-2025-1632 and CVE-2025-25724 (#2532)
-  'c9bc934e7e91d302e0feca6e713ccc38d6d01532'
+  # https://github.com/libarchive/libarchive/issues/2547
+  # fast-forward to v3.7.8, as that is not signed
+  "v${pkgver}..e31747775b9182d7e08c0ab5115c6861703a5efa"
 )
 
 _reverts=(
+  # https://github.com/libarchive/libarchive/issues/2548
+  # Ignore ustar size when pax size is present (#2405)
+  'eddb9fcf93974f1ecca14fcfa4f67992f25bb790'
 )
 
 prepare() {
