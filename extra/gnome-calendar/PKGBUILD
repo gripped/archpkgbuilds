@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-calendar
-pkgver=47.0
+pkgver=48.1
 pkgrel=1
 pkgdesc="Simple and beautiful calendar application designed to perfectly fit the GNOME desktop"
 url="https://apps.gnome.org/Calendar"
@@ -14,7 +14,6 @@ depends=(
   evolution-data-server
   gcc-libs
   geoclue
-  geocode-glib-2
   glib2
   glibc
   graphene
@@ -39,7 +38,7 @@ optdepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-calendar.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('a57675325b33c6babfb4d551b396f7403a77910f7e70ab338f68085925aaddb7c03011381d94b162e08df383509034764d9522cac5818493913698053f65922b')
+b2sums=('95e45753f2d573719eacc785f673ba56166f062e3d93366d706ca32c8fa6ea422851476f52db2bc1bcfacd24d3be8ad1568fce905d84286318f5b2d664445eb6')
 
 prepare() {
   cd $pkgname
