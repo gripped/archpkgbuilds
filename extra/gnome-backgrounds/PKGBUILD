@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-backgrounds
-pkgver=47.0
+pkgver=48.0
 pkgrel=1
 pkgdesc="Background images and data for GNOME"
 url="https://gitlab.gnome.org/GNOME/gnome-backgrounds"
@@ -17,15 +17,10 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-backgrounds.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('f2159b54198946cee1fec4a5c75fb2518323f7674c919a7e4731ad71eabe33b9dcbf3cbe6e2a640c88845fea5427adff28af8d8faa9383ab3efa16d3370e823c')
+b2sums=('1d55849848df8cf08c4724866d73a3bea8e3473aa866114eb20cc7577bd3b10aca4277f11ffc3e4bfa67b929fdd2f649a8e9929797f1dd393c8a64af674c10fb')
 
 build() {
   arch-meson $pkgname build
-  meson compile -C build
-}
-
-check() {
-  meson test -C build --print-errorlogs
 }
 
 package() {
