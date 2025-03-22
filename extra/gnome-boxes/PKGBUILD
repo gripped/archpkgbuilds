@@ -1,9 +1,11 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Maintainer: Jelle van der Waa <jelle@archlinux.org>
 # Contributor: Balló György <ballogyor+arch at gmail dot com>
-# Contributor: Fabian Bornschein <fabiscafe-cat-mailbox-dog-org>
+# Contributor: Fabian Bornschein <fabiscafe@archlinux.org>
 # Contributor: Stefano Facchini <stefano.facchini@gmail.com>
 
 pkgname=gnome-boxes
-pkgver=47.0
+pkgver=48.0
 pkgrel=1
 pkgdesc='Simple GNOME application to access virtual systems'
 arch=(x86_64)
@@ -45,12 +47,12 @@ makedepends=(
 )
 groups=(gnome-extra)
 source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-boxes.git?signed#tag=${pkgver/[a-z]/.&}"
-  git+https://gitlab.gnome.org/felipeborges/libovf-glib.git
+  # GNOME Boxes tags use SSH signatures which makepkg doesn't understand
+  "git+https://gitlab.gnome.org/GNOME/gnome-boxes.git#tag=${pkgver/[a-z]/.&}"
+  "git+https://gitlab.gnome.org/felipeborges/libovf-glib.git"
 )
-b2sums=('648e339060355fe755fcee1b1156836706b1304e9261e1e89d281b421e19c43232a3eece524fb6dee4393327f4dd871d246d2eb6e047c468a26b32e9c2d58a4b'
+b2sums=('38dca4d850d3d7d54d05c46e281a5fad7da6d89b24d63be05ea467b81644e5a140600a7e019841eb6978bbb76707ca340ac6b99e24f41395851114e45e4fea03'
         'SKIP')
-validpgpkeys=(9B60FE7947F0A3C58136817F2C2A218742E016BE) # Felipe Borges <felipeborges@gnome.org>
 
 prepare() {
   cd $pkgname
@@ -72,3 +74,5 @@ check() {
 package() {
   meson install -C build --destdir "$pkgdir"
 }
+
+# vim:set sw=2 sts=-1 et:
