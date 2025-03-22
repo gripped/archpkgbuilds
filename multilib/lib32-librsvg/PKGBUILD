@@ -7,7 +7,7 @@ pkgbase=lib32-librsvg
 pkgname=(
   lib32-librsvg
 )
-pkgver=2.59.2
+pkgver=2.60.0
 pkgrel=1
 epoch=2
 pkgdesc="SVG rendering library (32-bit)"
@@ -40,7 +40,7 @@ source=(
   # librsvg tags use SSH signatures which makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/librsvg.git#tag=$pkgver"
 )
-b2sums=('d806f7336282eb5a935c5c91b340ed5d9dcb6556f105138948f9f83774edc9de6bc9fd8591617b55e591d644c62ad09f8eccf092707ef11dcf1f93c513b86fbf')
+b2sums=('031ba234890844b059715e782c5d65a4261891964fb60ffec21d9fac312a734c4a5758f4b8a485dbd9de6b690906b3aa4505887e4717733c34aea9e9c6f2c1bb')
 
 # Use LTO
 export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
