@@ -1,5 +1,6 @@
 # Maintainer: Konstantin Gizdov <arch at kge dot pw>
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Contributor: Martin Rodriguez Reboredo <yakoyoku@gmail.com>
 # Contributor: huyz
 # Contributor: Jingbei Li <i@jingbei.li>
 pkgbase=intel-oneapi-mkl
@@ -7,11 +8,12 @@ pkgname=("${pkgbase}" "${pkgbase}-sycl")
 _pkgver=2025.0
 _debpkgrel=14
 pkgver=2025.0.1
-pkgrel=1
+pkgrel=2
 _pkgdesc="Intel oneAPI Math Kernel Library"
 arch=('x86_64')
 url='https://software.intel.com/content/www/us/en/develop/tools/oneapi.html'
 license=("LicenseRef-Intel-Simplified")
+makedepends=('dpkg')
 source=(
         "https://apt.repos.intel.com/oneapi/pool/main/${pkgname}-classic-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb"
         "https://apt.repos.intel.com/oneapi/pool/main/${pkgname}-classic-include-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb"
@@ -27,7 +29,7 @@ source=(
         "https://apt.repos.intel.com/oneapi/pool/main/${pkgname}-sycl-data-fitting-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb"
         "${pkgname}.conf"
         "${pkgname}.sh")
-options=('staticlibs')
+options=('staticlibs' '!debug')
 noextract=(
 		   "${pkgbase}-classic-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb"
 		   "${pkgbase}-classic-include-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb"
@@ -65,86 +67,54 @@ package_intel-oneapi-mkl() {
     provides=('intel-mkl' 'intel-mkl-static')
     conflicts=('intel-mkl' 'intel-mkl-static' 'intel-oneapi-basekit')
 
-    ar x ${pkgname}-classic-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb
-    tar vxf data.tar.xz -C "${pkgdir}"
-    rm data.tar.xz
-
-    ar x ${pkgname}-classic-include-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb
-    tar vxf data.tar.xz -C "${pkgdir}"
-    rm data.tar.xz
-
-    ar x ${pkgname}-core-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb
-    tar vxf data.tar.xz -C "${pkgdir}"
-    rm data.tar.xz
-
-    ar x ${pkgname}-core-devel-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb
-    tar vxf data.tar.xz -C "${pkgdir}"
-    rm data.tar.xz
-
-    ar x ${pkgname}-cluster-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb
-    tar vxf data.tar.xz -C "${pkgdir}"
-    rm data.tar.xz
-
-    ar x ${pkgname}-cluster-devel-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb
-    tar vxf data.tar.xz -C "${pkgdir}"
-    rm data.tar.xz
+    dpkg-deb -X ${pkgbase}-classic-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb "${pkgdir}"
+    dpkg-deb -X ${pkgbase}-core-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb "${pkgdir}"
+    dpkg-deb -X ${pkgbase}-cluster-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb "${pkgdir}"
+    dpkg-deb -X ${pkgbase}-classic-include-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb "${pkgdir}"
+    dpkg-deb -X ${pkgbase}-core-devel-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb "${pkgdir}"
+    dpkg-deb -X ${pkgbase}-cluster-devel-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb "${pkgdir}"
 
     # symlink mkl version
-    ln -s "$_pkgver" ${pkgdir}/opt/intel/oneapi/mkl/latest
+    ln -s "$_pkgver" "${pkgdir}"/opt/intel/oneapi/mkl/latest
 
-    install -Dm644 ${pkgname}.conf ${pkgdir}/etc/ld.so.conf.d/${pkgname}.conf
-    install -Dm644 ${pkgname}.sh ${pkgdir}/etc/profile.d/${pkgname}.sh
+    install -Dm644 ${pkgbase}.conf "${pkgdir}"/etc/ld.so.conf.d/${pkgbase}.conf
+    install -Dm644 ${pkgbase}.sh "${pkgdir}"/etc/profile.d/${pkgbase}.sh
 
     install -d "${pkgdir}"/usr/share/licenses/"${pkgname}"
     ln -s /usr/share/licenses/intel-oneapi "${pkgdir}"/usr/share/licenses/"${pkgname}"/oneapi
+    ln -s /opt/intel/oneapi/mkl/latest/licensing "${pkgdir}"/usr/share/licenses/"${pkgname}"/mkl
 
     # pkgconfig
-    cd ${pkgdir}/opt/intel/oneapi/mkl/latest/lib/pkgconfig
-    install -d ${pkgdir}/usr/share/pkgconfig
+    cd "${pkgdir}"/opt/intel/oneapi/mkl/"${_pkgver}"/lib/pkgconfig
+    install -d "${pkgdir}"/usr/share/pkgconfig
     for _file in *.pc; do
-        ln -s /opt/intel/oneapi/mkl/latest/lib/pkgconfig/${_file} ${pkgdir}/usr/share/pkgconfig/${_file}
-        sed -e 's@prefix=.*@prefix=/opt/intel/oneapi/mkl/latest@g' -i ${_file}
+        __file="$(basename ${_file})"
+        ln -s /opt/intel/oneapi/mkl/"${_pkgver}"/lib/pkgconfig/${__file} "${pkgdir}"/usr/share/pkgconfig/${__file}
+        sed -e 's@prefix=.*@prefix=/opt/intel/oneapi/mkl/latest@g' -i ${__file}
     done
 
     # provide old intel-mkl
-    install -d ${pkgdir}/usr/bin
-    install -d ${pkgdir}/opt/intel/mkl
-    install -d ${pkgdir}/opt/intel/mkl/lib
-    ln -sf /opt/intel/oneapi/mkl/latest/bin/intel64 ${pkgdir}/opt/intel/mkl/bin
-    ln -sf /opt/intel/oneapi/mkl/latest/lib/intel64 ${pkgdir}/opt/intel/mkl/lib/intel64
-    ln -sf /opt/intel/oneapi/mkl/latest/lib/intel64 ${pkgdir}/opt/intel/mkl/lib/intel64_lin
-    ln -sf /opt/intel/oneapi/mkl/latest/include ${pkgdir}/opt/intel/mkl/include
-    ln -sf /opt/intel/mkl/bin/mkl_link_tool ${pkgdir}/usr/bin/mkl_link_tool
+    install -d "${pkgdir}"/usr/bin
+    install -d "${pkgdir}"/opt/intel/mkl
+    install -d "${pkgdir}"/opt/intel/mkl/lib
+    ln -sf /opt/intel/oneapi/mkl/latest/bin/intel64 "${pkgdir}"/opt/intel/mkl/bin
+    ln -sf /opt/intel/oneapi/mkl/latest/lib/intel64 "${pkgdir}"/opt/intel/mkl/lib/intel64
+    ln -sf /opt/intel/oneapi/mkl/latest/lib/intel64 "${pkgdir}"/opt/intel/mkl/lib/intel64_lin
+    ln -sf /opt/intel/oneapi/mkl/latest/include "${pkgdir}"/opt/intel/mkl/include
+    ln -sf /opt/intel/mkl/bin/mkl_link_tool "${pkgdir}"/usr/bin/mkl_link_tool
 }
 
 package_intel-oneapi-mkl-sycl() {
     pkgdesc="$_pkgdesc (GPU offloading)"
-    depends=('intel-oneapi-mkl' 'intel-oneapi-compiler-dpcpp-cpp-runtime'
-             'intel-oneapi-common' 'intel-oneapi-compiler-shared-runtime'
+    depends=('intel-oneapi-mkl-libs' 'intel-oneapi-compiler-dpcpp-cpp-runtime-libs'
+             'intel-oneapi-common' 'intel-oneapi-compiler-shared-runtime-libs'
              'glibc' 'gcc-libs' 'bash')
     conflicts=('intel-oneapi-basekit')
 
-    ar x ${pkgname}-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb
-    tar vxf data.tar.xz -C "${pkgdir}"
-    rm data.tar.xz
-
-    ar x ${pkgname}-blas-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb
-    tar vxf data.tar.xz -C "${pkgdir}"
-    rm data.tar.xz
-
-    ar x ${pkgname}-lapack-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb
-    tar vxf data.tar.xz -C "${pkgdir}"
-    rm data.tar.xz
-
-    ar x ${pkgname}-dft-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb
-    tar vxf data.tar.xz -C "${pkgdir}"
-    rm data.tar.xz
-
-    ar x ${pkgname}-sparse-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb
-    tar vxf data.tar.xz -C "${pkgdir}"
-    rm data.tar.xz
-
-    ar x ${pkgname}-data-fitting-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb
-    tar vxf data.tar.xz -C "${pkgdir}"
-    rm data.tar.xz
+    dpkg-deb -X ${pkgbase}-sycl-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb "${pkgdir}"
+    dpkg-deb -X ${pkgbase}-sycl-blas-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb "${pkgdir}"
+    dpkg-deb -X ${pkgbase}-sycl-lapack-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb "${pkgdir}"
+    dpkg-deb -X ${pkgbase}-sycl-dft-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb "${pkgdir}"
+    dpkg-deb -X ${pkgbase}-sycl-sparse-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb "${pkgdir}"
+    dpkg-deb -X ${pkgbase}-sycl-data-fitting-${_pkgver}-${pkgver}-${_debpkgrel}_amd64.deb "${pkgdir}"
 }
