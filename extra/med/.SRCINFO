@@ -1,0 +1,26 @@
+pkgbase = med
+	pkgdesc = Library for reading and writing MED files
+	pkgver = 5.0.0
+	pkgrel = 1
+	url = https://github.com/chennes/med
+	arch = x86_64
+	license = LGPL
+	makedepends = cmake
+	makedepends = gcc-fortran
+	makedepends = git
+	makedepends = ninja
+	makedepends = openmpi
+	makedepends = swig
+	depends = hdf5
+	depends = python
+	depends = tk
+	source = git+https://github.com/chennes/med#tag=v5.0.0
+	source = https://src.fedoraproject.org/rpms/med/raw/rawhide/f/hdf5-1.14.patch
+	source = https://src.fedoraproject.org/rpms/med/raw/rawhide/f/med-swig-4.3.0.patch
+	source = https://src.fedoraproject.org/rpms/med/raw/rawhide/f/med-py3.13.patch
+	b2sums = 4e37307328cb65124f78566364847d15a2a925cc3aab79d9d269bd2dde9e6b49e1fa30aea8ccf4a36d7307ba61536858a64b7df4827a7f7f9407547cacc394e6
+	b2sums = 9b4604f62a73e3b70734dbafe21f74f67c9c86da394ed4341b364a703637a2a3c846f35e8c7794bf42378e00ab4f96cdde183d763168cbb7d6d97ca10213a61c
+	b2sums = 4af313c4b9e867f67c2cb4a91c48922fdf9c678158dd815f76232076c519783f3960e88d44a1f47e3b452b08e897da085813354b94400bfbc4052d29bee09c61
+	b2sums = d9f156d822a4ff07d1634cb03dd88ae12d3c174903babdf190f6ccaed6252aeab905df1689351dc2ec8d7e9b04b3974dd05b00b6ea83ffb8396fb5766a33152e
+
+pkgname = med
