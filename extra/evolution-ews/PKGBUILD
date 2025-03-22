@@ -3,7 +3,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=evolution-ews
-pkgver=3.54.3
+pkgver=3.56.0
 pkgrel=1
 pkgdesc="MS Exchange integration through Exchange Web Services"
 url="https://gitlab.gnome.org/GNOME/evolution/-/wikis/home"
@@ -33,7 +33,7 @@ makedepends=(
   systemd
 )
 source=("git+https://gitlab.gnome.org/GNOME/evolution-ews.git#tag=$pkgver")
-b2sums=('522190678975deb545e851edc0ac83a7ae8b131a1bbd4ad1289a51763e38a403b5ae8767cf977df193f966e2a5f61c4c787699ca43e6006769fb53c4c3695941')
+b2sums=('fc3ebfc28f75bec8874eab7ec2028def145e442401d826c7ea94730770b0d050d102c451c5825eb5b12c09b4fd18f2182d37cb4dc5155413170e4d6393a85ea4')
 
 prepare() {
   cd $pkgname
