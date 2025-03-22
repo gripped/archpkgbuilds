@@ -6,8 +6,8 @@ pkgname=(
   msgraph
   msgraph-docs
 )
-pkgver=0.2.3
-pkgrel=2
+pkgver=0.3.3
+pkgrel=1
 pkgdesc="A shared library for accessing MS Graph API"
 url="https://gitlab.gnome.org/GNOME/msgraph"
 arch=(x86_64)
@@ -28,7 +28,7 @@ makedepends=(
   uhttpmock
 )
 source=("git+https://gitlab.gnome.org/GNOME/msgraph.git#tag=$pkgver")
-b2sums=('594de2a5b1773c2f6962adb5e66d17caae31110919eb5071b7a9a3d50f37b58534ca1cb5e90cbe1166c74e1c3a99b1687f15460f801cb51d27a1f8365ad74f0a')
+b2sums=('a800b4bdf8425aa8bfad65d217702ab6cf880a6a58b7ca632e9a6737f1e5bbeab45b14e1697f5cb727d8f9c5fb33fdbfa03188bc3ff736c08365b07f64efbabd')
 
 prepare() {
   cd msgraph
@@ -45,7 +45,8 @@ check() {
 
 package_msgraph() {
   meson install -C build --destdir "$pkgdir"
-  
+  provides=('libmsgraph-1.so')
+
   mkdir -p doc/usr/share
   mv {"$pkgdir",doc}/usr/share/doc
 }
