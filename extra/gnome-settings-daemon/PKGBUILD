@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-settings-daemon
-pkgver=47.2
+pkgver=48.0
 pkgrel=1
 pkgdesc="GNOME Settings Daemon"
 url="https://gitlab.gnome.org/GNOME/gnome-settings-daemon"
@@ -71,16 +71,12 @@ backup=(etc/xdg/Xwayland-session.d/00-xrdb)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-settings-daemon.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git"
-  0001-subprojects-Update-gvc-to-latest-commit.patch
 )
-b2sums=('a962e60e7a68991ac08552d770bb53b5df15025f04bd24ed5fb04bd17d8ffc40974e044d63891559d1332ea127c974b33e5d4cd8b66102f87b15c4e6bc42571c'
-        'SKIP'
-        'ca4bdec5aed515e4e2a15c32302ea08b951e24a94a6f8cc72c0f46846a32fda89d26c65da2d64d4df96f7151703f0c9b8b9ceab33cdd29ac384e711885f76416')
+b2sums=('e9e1606bf9db61f6a67830c262d8629e53fc75ae7dacde59aa67f45db86bb42e330f676faea817719f05322ed313089737aaf92791df7c672c8d475f1341d828'
+        'SKIP')
 
 prepare() {
   cd $pkgname
-
-  git apply -3 ../0001-subprojects-Update-gvc-to-latest-commit.patch
 
   git submodule init
   git submodule set-url subprojects/gvc "$srcdir/libgnome-volume-control"
