@@ -6,7 +6,7 @@ pkgname=(
   localsearch
   localsearch-testutils
 )
-pkgver=3.8.2
+pkgver=3.9.0
 pkgrel=2
 pkgdesc="Filesystem indexer and metadata extractor"
 url="https://gnome.pages.gitlab.gnome.org/localsearch/"
@@ -15,12 +15,14 @@ license=(GPL-2.0-or-later)
 depends=(
   dconf
   exempi
+  ffmpeg
   gcc-libs
   giflib
   glib2
   glibc
   gst-plugins-base-libs
   gstreamer
+  gupnp-dlna
   icu
   libcue
   libexif
@@ -51,7 +53,7 @@ makedepends=(
   python-gobject
 )
 source=("git+https://gitlab.gnome.org/GNOME/localsearch.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('5ae69fe879346da3a659330372c49a412ef0da67a815999c3303cc55d11a2a3f84480ab382a7568eb359f00910aa14a276d15b65e29f7fda1ff3446ac93cf62c')
+b2sums=('17ede26f72d60ab46f48b1bf2e944c8ab812be5a084ce9f21f0c25ff8ec32ea551f33f449473fedc12b1be5a14b214c82cb1405b3ae9eede36e6e662397d09af')
 
 prepare() {
   cd localsearch
@@ -60,7 +62,6 @@ prepare() {
 build() {
   local meson_options=(
     -D landlock=enabled
-    -D network_manager=disabled # Used only if miner_rss enabled
     -D tests_tap_protocol=true
   )
 
