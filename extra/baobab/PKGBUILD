@@ -1,9 +1,9 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=baobab
-pkgver=47.0
+pkgver=48.0
 pkgrel=1
 pkgdesc="A graphical directory tree analyzer"
 url="https://apps.gnome.org/Baobab"
@@ -23,7 +23,7 @@ depends=(
   pango
 )
 makedepends=(
-  appstream-glib
+  appstream
   git
   gobject-introspection
   meson
@@ -33,16 +33,17 @@ makedepends=(
 groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/baobab.git#tag=${pkgver/[a-z]/.&}"
-  no-mimetype.diff
+  0001-HACK-Remove-inode-directory-association.patch
 )
-b2sums=('535dd3e3e3c8f5c7a9018785bac4e956223a601620c70e724312c1166c4bb510c2d209ec0bf4ede822030eba0b22bcbcf2d0c8ea18ca44ab2e47db3949f7cece'
-        '71e04f307e842fa0676f5b64f55e8be908e3075a9b948a6ab3979b51a8db08fdd07c0f214adb74d5461b4f175a14a7bf9867cf2c9b044660a5b46bc8ea296a22')
+b2sums=('cf8b24c1e603e5f5916fb1a8b7ca5ac6b0a8f5e06d83a2f297b0e94adef1ff0f7b19c57ce45442e29cc061814f8deadd41a7438e2ed61b312dde96a82dfcd541'
+        '5fb7118c8f992e8e956ec839ff0774e62caa8ad3e46a484cf6cacad0b9f5de712452c71be20988475776e668d6fa48d4155537f7d5282069274f0409d8244658')
 
 prepare() {
   cd baobab
 
+  # Prevent Baobab becoming the default app for directories
   # https://bugs.archlinux.org/task/31861
-  git apply -3 ../no-mimetype.diff
+  git apply -3 ../0001-HACK-Remove-inode-directory-association.patch
 }
 
 build() {
