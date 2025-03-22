@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=embedded-mono-img
-pkgver=0.1.0
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="Convert .png images to raw binary for embedded_graphics"
 url='https://github.com/kpcyrd/embedded-mono-img'
@@ -15,7 +15,7 @@ makedepends=(
   cargo
 )
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('d44b2658a6effcf7cb9b91022655c095df50502002ee9e4a1abc800c02b79b89')
+sha256sums=('c783d3a51ba0e41c5256497937ca2216ee5e5903940edb4885bc95fe4f2b86ef')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
