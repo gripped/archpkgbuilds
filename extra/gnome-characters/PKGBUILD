@@ -1,12 +1,12 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-characters
-pkgver=47.0
+pkgver=48.0
 pkgrel=1
 pkgdesc="A character map application"
-url="https://gitlab.gnome.org/GNOME/gnome-characters"
+url="https://apps.gnome.org/Characters/"
 arch=(x86_64)
 license=("BSD-3-Clause AND GPL-2.0-or-later")
 depends=(
@@ -31,7 +31,7 @@ makedepends=(
 checkdepends=(weston)
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-characters.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('43eb6241afe5f021f21b9faad6c05863a0b58f8bf2eba16a06868c398b99b33081599328625c161fb224a325225269564010a058b087ad04f70312667b4fb080')
+b2sums=('c44bd88c42ee00cdd0191eca6ed3572016dd91b2b6ad78c620761be2c596b9c6ff36b83fdfc205c28536e9fef187ac976baf6d8ac55c5303818adec836b0e753')
 
 prepare() {
   cd $pkgname
