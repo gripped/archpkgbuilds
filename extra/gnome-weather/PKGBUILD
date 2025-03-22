@@ -1,8 +1,8 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-weather
-pkgver=47.0
+pkgver=48.0
 pkgrel=1
 pkgdesc="Access current weather conditions and forecasts"
 url="https://apps.gnome.org/Weather"
@@ -18,14 +18,14 @@ depends=(
   libgweather-4
 )
 makedepends=(
-  appstream-glib
+  appstream
   git
   gobject-introspection
   meson
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-weather.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('2fc6461adb0e7df81e270ce17395cc5aebdff8a7ec51894f1f5e1e439a888de71f1a07cde1643636b2bcd9f6a6e32f32b57b5d1845e11ee7abba2e679f91d998')
+b2sums=('75d89eb1e4c95548301c6ca679b8f53283742b3bec5a11821838eb2725c40f2233c8acace03cc5fa88b8d904b416de3e0a0f07038bafae1ba31c160bc9dcb3ea')
 
 prepare() {
   cd $pkgname
