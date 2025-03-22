@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-text-editor
-pkgver=47.3
+pkgver=48.1
 pkgrel=1
 pkgdesc="A simple text editor for the GNOME desktop"
 url="https://apps.gnome.org/TextEditor/"
@@ -23,7 +23,7 @@ depends=(
   pango
 )
 makedepends=(
-  appstream-glib
+  appstream
   git
   glib2-devel
   meson
@@ -31,7 +31,7 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-text-editor.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('cff775d9c725380f48914163b374e661e3e4368544d7617c2d9d658735cbcd09ac3d8cd6ebb425c82ba96c4021060219c5c4bbe0e12d6c7495b72d62b63cc1f6')
+b2sums=('b011ac04a174e72d9a7ba1b44f2946d91039a077be47e3102b76102001efa66d79ee792151a551400e3f9be275242a3821782599f3b9a06be374651a3f6a9b04')
 
 prepare() {
   cd $pkgname
