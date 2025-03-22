@@ -2,8 +2,8 @@
 # Contributor: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=gnome-tour
-pkgver=47.0
-pkgrel=2
+pkgver=48.1
+pkgrel=1
 pkgdesc="Guided tour and greeter for GNOME"
 url="https://apps.gnome.org/Tour/"
 arch=(x86_64)
@@ -24,7 +24,7 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-tour.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('7553c065d4a74e2587be2d6e11256f8dd779c11e6bb663570b98b551fd013da99ad23e767e2373189139d4a348177fcd07c1c4836a654ed0ea1e75b378741350')
+b2sums=('c45c7f8275cd4e0cde30dc9eb82f4e9222dd3bcb28781c5a0696d9b6b71f0304f2276c7533602f6bc8a86905996e35ce724a175fded581b1cdf0a5b0fd0d2ae8')
 
 # Use LTO
 export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
@@ -38,10 +38,6 @@ prepare() {
   # Match CARGO_HOME in src/meson.build
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-
-  # Fix crash on second activation
-  # https://gitlab.gnome.org/GNOME/gnome-tour/-/merge_requests/79
-  git cherry-pick -n 6e4e8a7d90c76cd1aaa8efa8eb676f68e53c84b9
 }
 
 build() {
