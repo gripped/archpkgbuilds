@@ -1,10 +1,11 @@
 pkgbase = swell-foop
 	pkgdesc = Clear the screen by removing groups of colored and shaped tiles
-	pkgver = 46.0
-	pkgrel = 2
+	pkgver = 48.0
+	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/swell-foop
 	arch = x86_64
 	license = GPL-2.0-or-later
+	makedepends = appstream
 	makedepends = git
 	makedepends = meson
 	makedepends = vala
@@ -15,11 +16,12 @@ pkgbase = swell-foop
 	depends = glibc
 	depends = gtk4
 	depends = hicolor-icon-theme
+	depends = libadwaita
 	depends = libgee
 	depends = libgnome-games-support-2
 	depends = librsvg
 	depends = pango
-	source = git+https://gitlab.gnome.org/GNOME/swell-foop.git#tag=46.0
-	b2sums = b455f01a5dd00d2a59bf4b617cf4fdc9af439efe761e7287ac079003d3ac6a98e77d0de98b0358c0b41a1e046857da6e09e46fb7aea6d4a0e25406fd580dc3be
+	source = git+https://gitlab.gnome.org/GNOME/swell-foop.git#tag=48.0
+	b2sums = e02c1a081338dee07e6ce3858e20a7047b5aa3daef3e7216f35504a9ce933c24d262c6ec5dd4ba89627adfdd0cca0fe688590794e579c9ed975862dbb3dc9ddc
 
 pkgname = swell-foop
