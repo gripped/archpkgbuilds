@@ -2,7 +2,7 @@
 # Maintainer: Laurent Carlier <lordheavym@gmail.com>
 
 pkgname=lib32-vulkan-validation-layers
-pkgver=1.4.304.1
+pkgver=1.4.309.0
 pkgrel=1
 pkgdesc="Vulkan Validation Layers (32-bit)"
 url="https://www.vulkan.org/"
@@ -18,19 +18,19 @@ makedepends=(
   git
   lib32-libxrandr
   lib32-vulkan-icd-loader
+  lib32-vulkan-utility-libraries
   lib32-wayland
   ninja
   python-lxml
   spirv-headers
   vulkan-headers
-  vulkan-utility-libraries
 )
 options=(
   # https://github.com/KhronosGroup/Vulkan-ValidationLayers/issues/5994
   !lto
 )
 source=("git+https://github.com/KhronosGroup/Vulkan-ValidationLayers#tag=vulkan-sdk-$pkgver")
-b2sums=('9fde10c02e31e0ed8d7ef90bf3ee6980dc383d9d786a3ce3a6dada1be3f7e777fd166d3522aacc2737f216b9694176ac818f52b6425bf07559cf6372d3940996')
+b2sums=('d37ed99b0028d59d2b5567cd3feac23831bef7f38b6414d22496ad1405b42c33a86493ec5695c2b3f1c16030bd4b7ebfce0fc68ae7ae82e7a8ffec02b0a1438e')
 
 build() {
   local cmake_options=(
