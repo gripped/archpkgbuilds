@@ -1,7 +1,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=snapshot
-pkgver=47.1
+pkgver=48.0.1
 pkgrel=1
 pkgdesc="Take pictures and videos"
 arch=(x86_64)
@@ -10,6 +10,7 @@ license=(GPL-3.0-or-later)
 groups=(gnome)
 depends=(
   dconf
+  fontconfig
   gcc-libs
   glib2
   glibc
@@ -27,6 +28,7 @@ depends=(
   lcms2
   libadwaita
   libseccomp
+  pango
 )
 makedepends=(
   git
@@ -36,7 +38,7 @@ makedepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/snapshot.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('59d14993723a3926ac316601c60cbb48a4909d8aa96aef55ce9093c04f2f8a6d6c8c8640570219a9fdcf728bf6f4acdc9e8caac73bb142863289f9ac2eb0c083')
+b2sums=('d76dcdb503f4bcace2b854faf90e7fed4b7899b56d7bc65df8f3f75f5400bb2b3d2da7ad76451ce06a9bf7f08c18bae6364ab4ad7ce1809db69ab9ad8959caec')
 validpgpkeys=(
   3475CBA8D3483594C889B470D64A8D747F6FE706 # Maximiliano Sandoval <msandova@gnome.org>
   D25626D42D675B9C5EAF57DF7F3B4AADE28427AE # Jamie Murphy <hello@itsjamie.dev>
