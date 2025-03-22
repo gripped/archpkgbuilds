@@ -1,6 +1,6 @@
 pkgbase = gnome-control-center
 	pkgdesc = GNOME's main interface to configure various aspects of the desktop
-	pkgver = 47.4
+	pkgver = 48.0
 	pkgrel = 1
 	url = https://apps.gnome.org/Settings/
 	arch = x86_64
@@ -67,11 +67,14 @@ pkgbase = gnome-control-center
 	depends = tecla
 	depends = udisks2
 	depends = upower
-	source = git+https://gitlab.gnome.org/GNOME/gnome-control-center.git?signed#tag=47.4
+	depends = wayland
+	source = git+https://gitlab.gnome.org/GNOME/gnome-control-center.git#tag=48.0
 	source = git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git
+	source = git+https://gitlab.gnome.org/GNOME/libgxdp.git#commit=e68375c7aced97705953b8e3b30af9f17991153b
 	validpgpkeys = 9B60FE7947F0A3C58136817F2C2A218742E016BE
-	b2sums = 9a7c967798bbaeb02216908f12bccb6855b0dabde69bcb34ca8a1f002aaccddf4b8d967d829d7e1e581470666b52508e76b593e3c00a35ef13d7a3be33c945dc
+	b2sums = 47752f5a016cb60db862f704bd6e328f794927fcd78899bcb1a4aea0c4927826949246786eeca9e9367b8a5cc7531fe676a0550c05955233f278a35eafbd591e
 	b2sums = SKIP
+	b2sums = 09bd02a627afffa49c11e4baec961878060d7710e852628c0e0d009d5bdc37eaa3cd1d5bbeea316f197197b9d88436ecf157ebaef41e01b66ad102e1f1c69fb2
 
 pkgname = gnome-control-center
 	groups = gnome
@@ -129,6 +132,7 @@ pkgname = gnome-control-center
 	depends = tecla
 	depends = udisks2
 	depends = upower
+	depends = wayland
 	depends = gnome-keybindings
 	optdepends = fwupd: device security panel
 	optdepends = gnome-remote-desktop: screen sharing
