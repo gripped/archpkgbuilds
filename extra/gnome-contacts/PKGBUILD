@@ -3,7 +3,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-contacts
-pkgver=47.1.1
+pkgver=48.0
 pkgrel=1
 pkgdesc="Contacts Manager for GNOME"
 url="https://apps.gnome.org/Contacts"
@@ -34,7 +34,7 @@ depends=(
   qrencode
 )
 makedepends=(
-  appstream-glib
+  appstream
   git
   gobject-introspection
   meson
@@ -44,7 +44,7 @@ groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-contacts.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('a470ad97ce7049adb077bd40a67ca15a169cfb6390a3f58fe717ea9d574fb513382b0597db8475bf84163781072ca0c1b90130a30042432d3d6e6e4e61c6f49c')
+b2sums=('44a3b2c98a61e2adf6f8ae4c9f612bf5f082c14647c534b20f53684c507542c5f0e2a89017f59c3df66ec564c2c9064bae197121b00ba0814e5a6215bf7903d3')
 validpgpkeys=(
   A7C626E13F9AD776776BD9CA1D8A57CF2E8D36A3 # Niels De Graef (nielsdg) <nielsdegraef@gmail.com>
 )
