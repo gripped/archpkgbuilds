@@ -2,7 +2,7 @@
 
 pkgname=gpaste
 pkgver=45.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Clipboard management system"
 url="https://www.imagination-land.org/tags/GPaste.html"
 license=(BSD-2-Clause)
@@ -37,6 +37,9 @@ b2sums=('1a93cf1ee4d9b31d1da74229c29afb2b6e1d628df959c06e177e008b56bb20f17428112
 
 prepare() {
   cd gpaste
+
+  # GNOME Shell 48
+  git cherry-pick -n 693a0d715c409b7be7f1cd3663219c7a8b10aae4
 }
 
 build() {
