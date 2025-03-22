@@ -7,8 +7,8 @@ pkgname=(
   gdm
   libgdm
 )
-pkgver=47.0
-pkgrel=2
+pkgver=48.0
+pkgrel=1
 pkgdesc="Display manager and login screen"
 url="https://gitlab.gnome.org/GNOME/gdm"
 arch=(x86_64)
@@ -60,7 +60,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gdm.git#tag=${pkgver/[a-z]/.&}"
   0001-Xsession-Don-t-start-ssh-agent-by-default.patch
 )
-b2sums=('68e4833abdeb0c1f6bf64ddf35b725b06d379e26e7c4f757e5a958786803605bc072e1a224d7249f00bdf752e7db91bb95f81ca792f5a71f428a906a09457d12'
+b2sums=('d08d2137f630999b2f36bd8b798805e145fd7350fc4a092056cfdddd2170ae57b3b17a3a8f44f4c08a7e527a165fdce0dfa7a934188bc487d2a6d5bd848497b0'
         'f7e868fdd7cc121433de1572583eb728f4d186cd4f52c6d6c8f2ccf4a3cf781144ff71f704f13571ddb97a1ff4ec55cfa3df25d38737ad19da21e84ddc2d3ee4')
 
 prepare() {
@@ -114,7 +114,6 @@ package_gdm() {
     etc/pam.d/gdm-smartcard
   )
   groups=(gnome)
-  install=gdm.install
 
   meson install -C build --destdir "$pkgdir"
 
