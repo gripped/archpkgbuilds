@@ -1,7 +1,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=gnome-app-list
-pkgver=1.0
+pkgver=3.0
 pkgrel=1
 pkgdesc="Provides app recommendation data for the GNOME project"
 arch=(any)
@@ -17,7 +17,7 @@ checkdepends=(
   python-black
 )
 source=("git+$url.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('2b8c547ea959cef1065c3f6254cdf7273140c32996615a3eedf6c3bc1b0eb35b5d675ab1c3e4a39b97c76bf7036ed00f2536692a6d727d43b10659693fb1474b')
+b2sums=('4d6c22ed348112e72476a53260ba28fb7f1cbb167d59f9ff164b45dd7e65eb4478114c3ff5ae4b9d946a05bfc882a14b4b94489d9860c9e2adee20fc9acbd148')
 
 prepare() {
   cd $pkgname
