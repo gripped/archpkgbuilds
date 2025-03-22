@@ -2,8 +2,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=five-or-more
-pkgver=3.32.3
-pkgrel=4
+pkgver=48.0
+pkgrel=1
 pkgdesc="Remove colored balls from the board by forming lines"
 url="https://gitlab.gnome.org/GNOME/five-or-more"
 arch=(x86_64)
@@ -28,17 +28,11 @@ makedepends=(
 )
 source=(
   "git+$url.git#tag=${pkgver/[a-z]/.&}"
-  0001-Reset-positions-when-the-board-is-changed.patch
 )
-b2sums=('4fa1320ffcc5fc8ca30d1bc81af90a4047805c368281b2d52ad4f63bed56bbeec338bc12ddbe73fa95739bfcc2a415bbca3ba43a3f9d493b0989d349786b34b6'
-        '44e296624f17ac9069dc4bd87b99bac4b37c5c1390c5bcbc6d665e3316291de783dcb417a4b02c6dd8517ce15e96cce81b670fee7b62d0f22c30f8b3fb5ca58f')
+b2sums=('df04fcb0a67ff9cf70b618bcdfcb2d028e47aa85d2022c9b6a74ffb79913499e631ab668f4636361eb0094e29b54a6c1713d4607a86d2f87c942aac804aa9620')
 
 prepare() {
   cd $pkgname
-
-  # Reset positions when the board is changed
-  # https://gitlab.gnome.org/GNOME/five-or-more/-/merge_requests/29
-  git apply -3 ../0001-Reset-positions-when-the-board-is-changed.patch
 }
 
 build() {
