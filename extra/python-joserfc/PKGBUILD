@@ -2,7 +2,7 @@
 
 pkgname=python-joserfc
 # https://github.com/authlib/joserfc/releases
-pkgver=1.0.1
+pkgver=1.0.4
 pkgrel=1
 pkgdesc='Implementations of JOSE RFCs in Python'
 arch=(any)
@@ -19,7 +19,7 @@ optdepends=(
 # HACK: commit=$pkgver works during fetching sources as upstream repo uses non-annotated tags,
 # and we want to PGP verify commits, not tags
 source=("git+$url?signed#commit=$pkgver")
-sha256sums=('16785c7712c64f73dcd340563eac758a22825ab77ed22082e9ca737ec0867bf7')
+sha256sums=('751e70c631110f18fcddd696b48fe0dcc7a6c540e2752a76ffa4b52827e8815f')
 validpgpkeys=(
   # A key in https://github.com/lepture.gpg
   '72F8E895A70CEBDF4F2ADFE07E55E3E0118B2B4C'
