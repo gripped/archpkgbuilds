@@ -2,7 +2,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=gnome-shell-extensions
-pkgver=47.4
+pkgver=48.0
 pkgrel=1
 pkgdesc="Extensions for GNOME shell, including classic mode"
 url="https://gitlab.gnome.org/GNOME/gnome-shell-extensions"
@@ -25,7 +25,7 @@ source=(
   # GSE tags use SSH signatures which makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/gnome-shell-extensions.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('258b7da32bb0294e552a8f7e900221535101a1bcf316c843e4c7a494c5936665c3c4e34d12aed0166f2497b53311093f810d8517249b4842c7a0362265b511b6')
+b2sums=('a6f07c70812a2ca3215d3504ea053c9fb3ee3a3faaf2215e1f2eb400a68219d73f8e5a4f30983265b98b36f7ab0214abd6f43af331ac78367c2af485178a3eae')
 
 prepare() {
   cd $pkgname
