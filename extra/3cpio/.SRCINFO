@@ -1,18 +1,18 @@
 pkgbase = 3cpio
 	pkgdesc = Manage Linux kernel initramfs cpio files written in Rust
-	pkgver = 0.3.2
+	pkgver = 0.4.0
 	pkgrel = 1
 	url = https://github.com/bdrung/3cpio
 	arch = x86_64
 	license = ISC
+	checkdepends = bzip2
+	checkdepends = gzip
+	checkdepends = lz4
+	checkdepends = lzop
+	checkdepends = xz
+	checkdepends = zstd
 	makedepends = git
 	makedepends = rust
-	makedepends = bzip2
-	makedepends = gzip
-	makedepends = lz4
-	makedepends = lzop
-	makedepends = xz
-	makedepends = zstd
 	depends = glibc
 	depends = gcc-libs
 	optdepends = bzip2: Support for bzip2 compressed initramfs image
@@ -20,8 +20,8 @@ pkgbase = 3cpio
 	optdepends = lzop: Support for lzo compressed initramfs image
 	optdepends = xz: Support for lzma or xz compressed initramfs image
 	optdepends = zstd: Support for zstd compressed initramfs image
-	source = git+https://github.com/bdrung/3cpio.git#tag=0.3.2?signed
+	source = git+https://github.com/bdrung/3cpio.git#commit=213416e787f147c2c5066ef45b83fa58aa0d30db?signed
 	validpgpkeys = A62D2CFBD50B9B5BF360D54B159EB5C4EFC8774C
-	b2sums = 9158ab77e8634393095ec96741c91bd9bf3e1bb10c1cdb539c7e45314e5bd248a2b3e9469fb3e86d6f6b1b1e4dcaf0ef9b6c9bdc40dab5f6382a834dc90a75e8
+	b2sums = fb22dbe2afa0783c10c1ff23031dcf081ee6bb7b5500c506451f0894b8e7dcbaacb9e0b32bce10dac983477076ae587c25e7c0a1f63724171b416174775e3071
 
 pkgname = 3cpio
