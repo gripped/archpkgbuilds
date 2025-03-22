@@ -4,8 +4,8 @@
 # Contributor: Geoffroy Carrier <geoffroy.carrier@koon.fr>
 
 pkgname=gpicview
-pkgver=0.2.5
-pkgrel=8
+pkgver=0.2.6
+pkgrel=1
 pkgdesc='Lightweight image viewer'
 arch=('x86_64')
 url='https://www.lxde.org/'
@@ -14,22 +14,18 @@ groups=('lxde')
 depends=('gtk3')
 makedepends=('intltool')
 replaces=('gpicview-gtk3')
-source=("https://downloads.sourceforge.net/lxde/$pkgname-$pkgver.tar.xz"
-        'gpicview.appdata.xml'
-        '0001-Fix-displaying-images-with-GTK3.patch')
-sha256sums=('38466058e53702450e5899193c4b264339959b563dd5cd81f6f690de32d82942'
-            'dab79b2be536005044cc5edcc4f47e9f407a5fcf3126110a1ef2ab65c873dbf7'
-            'f597fa7d5e8537665ea7bdf7bfffebaa32046e8feb4866866bfb64c219d8ea6d')
+source=("https://github.com/lxde/gpicview/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+        'gpicview.appdata.xml')
+sha256sums=('1b7be0045b82592cf79c7a7761d4f905d36c7c36b480d39219fe0bdb960a4a58'
+            'dab79b2be536005044cc5edcc4f47e9f407a5fcf3126110a1ef2ab65c873dbf7')
 
 prepare() {
   cd $pkgname-$pkgver
 
-  # Fix displaying images with GTK3
-  # https://sourceforge.net/p/lxde/patches/542/
-  patch -Np1 -i ../0001-Fix-displaying-images-with-GTK3.patch
-
   # Apply only one main category
   sed -i '/^Categories=/ s/Utility;//' gpicview.desktop.in
+
+  autoreconf -vif
 }
 
 build() {
