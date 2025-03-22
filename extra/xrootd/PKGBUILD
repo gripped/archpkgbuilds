@@ -4,9 +4,9 @@
 # Contributor: Alex Pearce < alex at alexpearce dot me >
 
 pkgname=xrootd
-pkgdesc="Software framework for fast, low latency, scalable and fault tolerant data access."
-pkgver=5.7.3
+pkgver=5.8.0
 pkgrel=1
+pkgdesc="Software framework for fast, low latency, scalable and fault tolerant data access."
 arch=(x86_64)
 url="https://xrootd.slac.stanford.edu/"
 license=(LGPL-3.0-or-later)
@@ -43,7 +43,7 @@ checkdepends=(
   procps-ng  # some tests use ps
 )
 source=("$pkgname::git+https://github.com/$pkgname/$pkgname.git#tag=v$pkgver")
-b2sums=('74d56265ec46ba3b8048c2dc20ea8a12dd426353eea1bda3f1277e2d794900befc83b2e229d86a14dc07fb327132affd31c83d80ace3a6a62840f7a221187c94')
+b2sums=('2c0bf06a3422b43b3880885741266f8260288afc92992b6f4937ae211873876d46896978ef94a171bf2ecb69a0b5478fb80f108bcfecc7ffb6a0339941c3000d')
 
 build() {
   local cmake_options=(
@@ -61,7 +61,7 @@ build() {
     -D ENABLE_MACAROONS=OFF
     -D ENABLE_SCITOKENS=OFF
     -D ENABLE_VOMS=OFF
-    -D USE_SYSTEM_ISAL=OFF
+    -D ENABLE_XRDEC=OFF
   )
   cmake "${cmake_options[@]}"
   cmake --build build
