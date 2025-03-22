@@ -1,4 +1,4 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
@@ -7,8 +7,8 @@ pkgname=(
   evince
   evince-lib-docs
 )
-pkgver=46.3.1
-pkgrel=2
+pkgver=48.0
+pkgrel=1
 pkgdesc="Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)"
 url="https://apps.gnome.org/Evince"
 arch=(x86_64)
@@ -18,6 +18,7 @@ depends=(
   cairo
   dconf
   djvulibre
+  exempi
   gcc-libs
   gdk-pixbuf2
   glib2
@@ -43,7 +44,7 @@ depends=(
   poppler-glib
 )
 makedepends=(
-  appstream-glib
+  appstream
   gi-docgen
   git
   glib2-devel
@@ -53,9 +54,9 @@ makedepends=(
   yelp-tools
 )
 source=("git+https://gitlab.gnome.org/GNOME/evince.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('740a48206a435bd50cd22a8afad308075a84b223d17b0f48bc38f38926645ab0428fb1cd07169e07cc9ac04b97b502126121e17331e785e758172c9c6d862633')
+b2sums=('01e7c46f617012fc267a215464773c9c804ea87681237747a3a4581728b2e29bf2a5478cb93ace64b318be6473088020094a5339be24e08c5862272d2f269d47')
 validpgpkeys=(
-  6F3E1831D69760DC3FCE7873D6197451C129658C # Germán Poo-Caamaño <gpoo@gnome.org>
+  3289FDCF12AC2321BB41E9EF342B349ED9FE78F0 # Germán Poo-Caamaño <gpoo@gnome.org>
 )
 
 prepare() {
