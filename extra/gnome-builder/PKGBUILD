@@ -2,8 +2,8 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-builder
-pkgver=47.2
-pkgrel=4
+pkgver=48.0
+pkgrel=1
 pkgdesc="An IDE for writing GNOME-based software"
 url="https://apps.gnome.org/Builder/"
 arch=(x86_64)
@@ -14,7 +14,6 @@ depends=(
   clang
   cmark
   ctags
-  d-spy
   dconf
   desktop-file-utils
   devhelp
@@ -55,7 +54,7 @@ depends=(
   webkitgtk-6.0
 )
 makedepends=(
-  appstream-glib
+  appstream
   git
   glib2-devel
   gobject-introspection
@@ -80,7 +79,7 @@ replaces=(
 )
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-builder.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('57ce8187399405832868ea274326bc11b7379fb150685330e9ee47e342365c21a9e4f1bd4b64b74a393128cafaab3a3f853ceab13d2ac7058b466eb8c43888a0')
+b2sums=('70456f50412de189ffa87f84c71ddf7148132d47914be595e323e75fbe25e691400f4dc6eb43464dd6f679feff98e9ae6f39dcd300f4c3fd5cea3687075d8b36')
 
 prepare() {
   cd $pkgname
