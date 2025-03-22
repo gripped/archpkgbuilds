@@ -3,7 +3,7 @@
 
 pkgname=fcitx5-configtool
 pkgver=5.1.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Configuration Tool for Fcitx5"
 arch=('x86_64')
 url="https://github.com/fcitx/fcitx5-configtool"
@@ -12,7 +12,7 @@ groups=('fcitx5-im')
 provides=('fcitx5-config-qt' 'kcm-fcitx5')
 conflicts=('kcm-fcitx5')
 replaces=('kcm-fcitx5')
-depends=('fcitx5' 'fcitx5-qt' 'kdbusaddons' 'kwidgetsaddons' 'kitemviews')
+depends=('fcitx5' 'fcitx5-qt' 'kdbusaddons' 'kwidgetsaddons' 'kitemviews' 'kwindowsystem')
 optdepends=('kcmutils: for KCM support'
             'kdeclarative: for KCM support'
             'kirigami: for KCM support'
