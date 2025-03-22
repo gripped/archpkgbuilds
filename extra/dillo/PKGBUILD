@@ -4,7 +4,7 @@
 
 pkgname=dillo
 pkgver=3.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A small, fast graphical web browser built on FLTK"
 arch=(x86_64)
 url="https://www.dillo.org"
@@ -34,7 +34,10 @@ validpgpkeys=('32E65EC501A1B6FDF8190D293EE6BA977EB2A253') # Rodrigo Arias Mallo 
 
 build() {
   cd $pkgname-$pkgver
-  ./configure --prefix=/usr --sysconfdir=/etc --enable-cookies --enable-tls
+  ./configure --prefix=/usr --sysconfdir=/etc \
+    --enable-cookies \
+    --enable-tls \
+    --enable-ipv6
   make
 }
 
