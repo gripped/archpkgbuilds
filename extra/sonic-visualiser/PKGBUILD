@@ -3,7 +3,7 @@
 # Contributor: Orivej Desh <masecretaire@gmx.fr>
 
 pkgname=sonic-visualiser
-pkgver=5.2
+pkgver=5.2.1
 pkgrel=1
 pkgdesc="A viewer and analyser of music audio files."
 arch=(x86_64)
@@ -41,8 +41,8 @@ makedepends=(
 )
 provides=(vamp-host)
 source=(https://github.com/$pkgname/$pkgname/releases/download/sv_v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('31296b0876d4aa5082526244f1dfd1debf9feaf4ca1dfa4dc3eeca68ce43e7292b2cff2f2edb31aebc60c2f10f97ff5cd0dc4e88ca440f1187e7ee5e4714036b')
-b2sums=('0a3bafa362b9b6284defbfb41f9f72e984182075aea962a1072fb7148cac3137dfd881d2e65be0d51a11c5863bb9a842355d949c74c101f9526bacf7769474c6')
+sha512sums=('27bd8528a9b75b0bc11ead82447b2ce48c6ea8cfc527df6b3d057792a40b78e7bd29d895e30782016385a98bec5c2d976d08d24bb79898ba6732248c2c49601c')
+b2sums=('3176d336d7aeaab98c7bae4783e8b8ade6bcbf4a13242843a8b271a7b285bc2a961806dff448fe0de301bd1a1b5bef4c0aa8cade1dc01dc1761bf3c56f0e3623')
 
 build() {
   arch-meson build $pkgname-$pkgver
