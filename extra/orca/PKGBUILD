@@ -4,7 +4,7 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=orca
-pkgver=47.3
+pkgver=48.0
 pkgrel=1
 pkgdesc="Screen reader for individuals who are blind or visually impaired"
 url="https://orca.gnome.org/"
@@ -26,6 +26,7 @@ depends=(
   pango
   python
   python-cairo
+  python-dbus
   python-gobject
   python-psutil
   python-setproctitle
@@ -40,8 +41,12 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome)
-source=("git+https://gitlab.gnome.org/GNOME/orca.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('1110c90c8000989c426cd8ae5ebe8ea60b5938476f4eb83aca29ead4da3ef306d765e5e25976d224725a20613a4f8bda1e9ae6d51dd762b67bab1af31407b78a')
+source=("git+https://gitlab.gnome.org/GNOME/orca.git?signed#tag=${pkgver/[a-z]/.&}")
+b2sums=('f3afa0354519fd6333266de51f823bc4e2517bd0336b3133a001de5ce70ee7b32b93ebc4883202619e37b81aed146db60b7e59ffaad21a34684fc82ca990a89b')
+validpgpkeys=(
+  DBDB67681333AA61BBCB97140A042BFD3DA3816C # Joanmarie Diggs <jdiggs@igalia.com>, older
+  85D0D0B3FB02946101A46295E7A697B5609D4701 # Joanmarie Diggs <jdiggs@igalia.com>, newer
+)
 
 prepare() {
   cd orca
