@@ -1,0 +1,44 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=just-lsp
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="A language server for just"
+arch=(x86_64)
+url="https://github.com/terror/just-lsp"
+license=(CC0-1.0)
+depends=(
+  gcc-libs
+  glibc
+)
+makedepends=(rust)
+options=(!lto)  # LTO does not work as the sources include C-code from tree-sitter
+source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
+sha512sums=('e2e21c79d7d5404feeb6affba4c5f347679e0848f2e5b5fa5769ce1ed8930c887f690e4a61acc7f477c8cba5b6818486c50f51793a0776405fe50ad4a0e7a6c1')
+b2sums=('dca33398cc3fc799d76326860e5f5468fc4b05e355b710fa0eaf9a4523910109eb353499d50fd7f4319761a18c28fc590b9b52d2ccf64d42e418e897d8bd6170')
+
+prepare() {
+  cd $pkgname-$pkgver
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $pkgname-$pkgver
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release --all-features
+}
+
+check() {
+  cd $pkgname-$pkgver
+  export RUSTUP_TOOLCHAIN=stable
+  cargo test --frozen --all-features
+}
+
+package() {
+  cd $pkgname-$pkgver
+  install -vDm 755 target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
