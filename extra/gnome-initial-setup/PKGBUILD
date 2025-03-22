@@ -2,7 +2,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=gnome-initial-setup
-pkgver=47.5
+pkgver=48.0
 pkgrel=1
 pkgdesc='Helps you to set up your OS when you boot for the first time'
 url='https://gitlab.gnome.org/GNOME/gnome-initial-setup'
@@ -44,9 +44,11 @@ makedepends=(
   glib2-devel
   meson
 )
-source=("git+https://gitlab.gnome.org/GNOME/gnome-initial-setup.git?signed#tag=${pkgver/[a-z]/.&}"
-        "0001-Use-fully-locked-system-account.patch")
-b2sums=('1751abdb0fb2105244e256e74deb58dadeb5f1e712e5b1df9e379b24e5cd940f28b4a0a0b6225e6167e0f49428ce4eea2812d5d8b0032244ab4a948d1679265f'
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-initial-setup.git?signed#tag=${pkgver/[a-z]/.&}"
+  0001-Use-fully-locked-system-account.patch
+)
+b2sums=('36fc132aeef3232e0fc74a47da6c75110f1c89f79840b2964a7e55103fd1c297c86068c7568dc91d1e10ab1d3b0741e1ea11679f712422c271b7441d76f29d29'
         'c808d63cc575d994db46e0e67a1c8e745215a6782604574c3a825cdd43110fb33276487adeb52df1791274c35e497110922dc09c4ba08fb5fcb5c85dd5a1039e')
 validpgpkeys=(1E68E58CF255888301645B563422DC0D7AD482A7) # Will Thompson <will@willthompson.co.uk>
 
@@ -54,7 +56,7 @@ prepare() {
   cd $pkgname
 
   # Use fully locked system account
-  ## https://archlinux.org/todo/change-sysusers-to-fully-locked-system-accounts/
+  # https://archlinux.org/todo/change-sysusers-to-fully-locked-system-accounts/
   git apply -3 ../0001-Use-fully-locked-system-account.patch
 }
 
