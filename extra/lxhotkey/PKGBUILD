@@ -2,16 +2,16 @@
 
 pkgbase=lxhotkey
 pkgname=(lxhotkey lxhotkey-gtk3)
-pkgver=0.1.1
-pkgrel=3
+pkgver=0.1.2
+pkgrel=1
 pkgdesc='Keyboard shortcuts configurator (part of LXDE)'
 arch=('x86_64')
 license=('GPL2')
 url='https://lxde.org/'
 depends=('gtk2' 'gtk3' 'libfm')
 makedepends=('intltool')
-source=(https://downloads.sourceforge.net/lxde/$pkgbase-$pkgver.tar.xz)
-sha256sums=('e065ce42996ce96dec3f28b6d8c5eecb9d183bebb355367ef3eae6db261026e5')
+source=(https://github.com/lxde/lxhotkey/archive/$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('f32686d298d86ae1e97c9e3d27ba1f01b6a0f17dbbbbd67dfbf82e7c0080c592')
 
 prepare() {
   cd $pkgbase-$pkgver
