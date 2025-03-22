@@ -5,7 +5,7 @@
 # Contributor: zarra <zarraxx@gmail.com>
 
 pkgname=python-pygccxml
-pkgver=3.0.0
+pkgver=3.0.2
 pkgrel=1
 pkgdesc="Simple framework to navigate C++ declarations, using Python classes"
 arch=(any)
@@ -23,7 +23,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('fead5bec1a26a1a709e971124be19721240f3f3774f989c3971babe38207b350')
+sha256sums=('ed245663f0d4056d68b42983cdcfe8822b8167aa5f9f265928432c70cf46cf1d')
 
 build() {
   cd ${pkgname#python-}-$pkgver
