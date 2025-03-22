@@ -5,7 +5,7 @@ pkgname=(
   papers
   papers-lib-docs
 )
-pkgver=47.4
+pkgver=48.0
 pkgrel=1
 pkgdesc='Document viewer for PDF and other document formats aimed at the GNOME desktop'
 arch=(x86_64)
@@ -22,10 +22,12 @@ depends=(
   glibc
   graphene
   gtk4
+  gtksourceview5
   hicolor-icon-theme
   libadwaita
   libarchive
   libnautilus-extension
+  libspelling
   libtiff
   pango
   poppler-glib
@@ -37,23 +39,22 @@ makedepends=(
   glib2-devel
   gobject-introspection
   itstool
+  libsysprof-capture
   meson
   rust
 )
 source=("git+https://gitlab.gnome.org/GNOME/Incubator/papers.git#tag=$pkgver")
-b2sums=('b76baddcbe4d5405e04660fcbb74e52935efa8417bd1f5084bbf2d109961556850e9e4017de85cffdebe24460bcad7b5dbeb47709f4e9c7af2ba050bbad61195')
+b2sums=('cb4b202e8d384fa19f9084a3f884987d99594328b3e2523282fa47257e0345974675a1b32d8ba6bb49d216c32bceeb305e68fd6781925df802926661812f82e1')
 
 prepare() {
   cd $pkgbase
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')" \
-      --manifest-path=shell-rs/Cargo.toml
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
-  arch-meson $pkgbase build \
-    -D xps=disabled
+  arch-meson $pkgbase build
 
   CARGO_PROFILE_RELEASE_LTO=true \
     CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
