@@ -2,7 +2,7 @@
 
 _name=anywidget
 pkgname=python-$_name
-pkgver=0.9.16
+pkgver=0.9.18
 pkgrel=1
 pkgdesc="Reusable widgets made easy"
 arch=(any)
@@ -32,7 +32,7 @@ optdepends=(
   'python-watchfiles: for live reloading during development'
 )
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name//-/_}/${_name//-/_}-$pkgver.tar.gz")
-b2sums=('ca7b67429c1519a14534392eee6dea8e8bd423e5baf3b55aab78db117359c0ce48488a412625bee3923af6c28bf8b3bc86793bf657c604949bdde0920758bec8')
+b2sums=('f3e99e72e60cc040c6b948c77b46fabe573fd2399e70bfba4fc9da799ecd0d20bf30cfcc6c83e67fe039adea62e8c3dde6f03c1cf87f59fd56af5f7dad67948b')
 
 build() {
   cd $_name-$pkgver
