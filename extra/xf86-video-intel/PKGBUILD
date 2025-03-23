@@ -4,12 +4,12 @@
 pkgname=xf86-video-intel
 # https://cgit.freedesktop.org/xorg/driver/xf86-video-intel/log/
 # https://gitlab.freedesktop.org/xorg/driver/xf86-video-intel/commits/master
-_commit=b74b67f0f321875492968f7097b9d6e82a66d7df # master 2023-02-01
-pkgver=2.99.917+923+gb74b67f0
-pkgrel=2
+_commit=4a64400ec6a7d8c0aba0e6a39b16a5e86d0af843 # master 2025-03-21
+pkgver=2.99.917+939+g4a64400e
+pkgrel=1
 epoch=1
 arch=(x86_64)
-url="https://01.org/linuxgraphics"
+url="https://gitlab.freedesktop.org/xorg/driver/xf86-video-intel"
 license=('MIT')
 install=$pkgname.install
 pkgdesc="X.org Intel i810/i830/i915/945G/G965+ video drivers"
@@ -60,6 +60,7 @@ build() {
   ./configure --prefix=/usr \
     --libexecdir=/usr/lib \
     --with-default-dri=3
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 #  cd build
 #  arch-meson $pkgname build \
