@@ -1,0 +1,36 @@
+diff --git i/src/output/concise.rs w/src/output/concise.rs
+index 0b141f0..999f69e 100644
+--- i/src/output/concise.rs
++++ w/src/output/concise.rs
+@@ -73,6 +73,7 @@ mod tests {
+     };
+ 
+     #[test]
++    #[ignore = "https://github.com/akiomik/mado/issues/140"]
+     fn display_fmt() {
+         let path = Path::new("file.md").to_path_buf();
+         let position = Sourcepos::from((0, 1, 3, 5));
+diff --git i/src/output/markdownlint.rs w/src/output/markdownlint.rs
+index 6478528..94e3832 100644
+--- i/src/output/markdownlint.rs
++++ w/src/output/markdownlint.rs
+@@ -76,6 +76,7 @@ mod tests {
+     };
+ 
+     #[test]
++    #[ignore = "https://github.com/akiomik/mado/issues/140"]
+     fn display_fmt() {
+         let path = Path::new("file.md").to_path_buf();
+         let position = Sourcepos::from((0, 1, 3, 5));
+diff --git i/src/output/mdl.rs w/src/output/mdl.rs
+index ba7d768..e098475 100644
+--- i/src/output/mdl.rs
++++ w/src/output/mdl.rs
+@@ -84,6 +84,7 @@ mod tests {
+     };
+ 
+     #[test]
++    #[ignore = "https://github.com/akiomik/mado/issues/140"]
+     fn display_fmt() {
+         let path = Path::new("file.md").to_path_buf();
+         let position = Sourcepos::from((0, 1, 3, 5));

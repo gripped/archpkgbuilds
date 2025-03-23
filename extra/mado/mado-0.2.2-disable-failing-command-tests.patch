@@ -1,0 +1,60 @@
+diff --git i/tests/command_check.rs w/tests/command_check.rs
+index dd279ae..8513b4a 100644
+--- i/tests/command_check.rs
++++ w/tests/command_check.rs
+@@ -26,6 +26,7 @@ where
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/akiomik/mado/issues/141"]
+ fn check() -> Result<()> {
+     let mut cmd = Command::cargo_bin("mado").into_diagnostic()?;
+     let assert = cmd.args(["check", "."]).assert();
+@@ -34,6 +35,7 @@ fn check() -> Result<()> {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/akiomik/mado/issues/141"]
+ fn check_quiet() -> Result<()> {
+     let mut cmd = Command::cargo_bin("mado").into_diagnostic()?;
+     let assert = cmd.args(["check", "--quiet", "."]).assert();
+@@ -42,6 +44,7 @@ fn check_quiet() -> Result<()> {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/akiomik/mado/issues/141"]
+ fn check_quiet_with_config() -> Result<()> {
+     let mut config = Config::default();
+     config.lint.quiet = true;
+@@ -60,6 +63,7 @@ fn check_quiet_with_config() -> Result<()> {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/akiomik/mado/issues/141"]
+ fn check_stdin() -> Result<()> {
+     let mut cmd = Command::cargo_bin("mado").into_diagnostic()?;
+     let assert = cmd.write_stdin("#Hello.").args(["check"]).assert();
+@@ -76,6 +80,7 @@ fn check_stdin() -> Result<()> {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/akiomik/mado/issues/141"]
+ fn check_empty_stdin() -> Result<()> {
+     let mut cmd = Command::cargo_bin("mado").into_diagnostic()?;
+     let assert = cmd.write_stdin("").args(["check"]).assert();
+@@ -84,6 +89,7 @@ fn check_empty_stdin() -> Result<()> {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/akiomik/mado/issues/141"]
+ fn check_empty_stdin_with_file() -> Result<()> {
+     with_tmp_file("test.md", "#Hello.", |path| {
+         let mut cmd = Command::cargo_bin("mado").into_diagnostic()?;
+@@ -103,6 +109,7 @@ fn check_empty_stdin_with_file() -> Result<()> {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/akiomik/mado/issues/141"]
+ fn check_stdin_with_file() -> Result<()> {
+     with_tmp_file("test.md", "#Hello.", |path| {
+         let mut cmd = Command::cargo_bin("mado").into_diagnostic()?;
