@@ -2,7 +2,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=yamllint
-pkgver=1.36.2
+pkgver=1.37.0
 pkgrel=1
 pkgdesc='Linter for YAML files'
 arch=('any')
@@ -17,7 +17,7 @@ makedepends=(
   'python-wheel'
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('39692e3eaf8aecf769f1f730abd08e45151736b0f1883ec28dab6330ab38b9663b220d6d3dece2407054daabe62077f6a094e8f6ce198c3a732a9d0aa948fcf8')
+b2sums=('72144280d203db4930de92e44d738053ba641082dea0a245887ec24dbd2ae4c54f60020427c54337f17c8e1aafd19790932e6954146eebef330c91106cbb26e2')
 
 build() {
   cd $pkgname
