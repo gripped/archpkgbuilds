@@ -7,7 +7,7 @@
 
 pkgname=cinnamon
 pkgver=6.4.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Linux desktop which provides advanced innovative features and a traditional user experience"
 arch=(x86_64)
 url="https://github.com/linuxmint/cinnamon"
@@ -31,13 +31,16 @@ makedepends=(meson samurai gobject-introspection intltool glib2-devel python-lib
 options=('!emptydirs')
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         set_wheel.diff
-        default-theme.patch)
+        default-theme.patch
+        pygobject-3.52.patch)
 sha512sums=('11e929ca17a80c9aeaf92138333a717f8702cc27669a03d4a95cb8b4154b65869ed102a91a303ce80901667a343e5ed5647a7eff216f630dcd6ff44a5101fa26'
             'fd7e117054996ed1c3dfd0f968c2bf98ca4fcee9a100221f8839a232147745ec0140e1f68eeffba58a3c44f66f26e05d433648a7a28858ec669524f7266ba04c'
-            'ee7dedd59ea370cf81d75def49060f9a29b22e7b025ca7d5db87a0102d50f138c79aa562b0d36a748c4b1c59a37f600ba1f60ff6caf303cf5b6fc4d110d051b4')
+            'ee7dedd59ea370cf81d75def49060f9a29b22e7b025ca7d5db87a0102d50f138c79aa562b0d36a748c4b1c59a37f600ba1f60ff6caf303cf5b6fc4d110d051b4'
+            'bfd56fce62ec5bfbad841d80bfcb487c0180197cbd3442cff773683d5af05998fae0726230e9451bc05e7c24b6263cadb12f33ec81f546a9945089a0323b0604')
 b2sums=('165f4e89844af4c58d85d8341542c86891c2f7f3bd56bc1a6f6b14bd2357bb8f3884452defdd99202e5f63efb817ca3b9737d884c40ee87912b0cd82898fb1db'
         '3becf1f40068fc629109e6e7d464c3c484296afacc9ab6328b2ccbb3c9735bcbfa9550f9f73b430ede178ae668e37c660ce322b5b4d1873526de3d3d41185160'
-        '86c3a29acd132ca321f08fd81dd5a45707accdc035b2aeec95bf358b29072ff1eedb77b2566cf48d7253d1d791599f0f44938c4600761d711cb18b59019f1c62')
+        '86c3a29acd132ca321f08fd81dd5a45707accdc035b2aeec95bf358b29072ff1eedb77b2566cf48d7253d1d791599f0f44938c4600761d711cb18b59019f1c62'
+        'fdba7464e149b8385a97ad6db84a1364a73795b9f497462d6a5530f6b5b041b6650db64adbf2fc639c6fa7e7b2863b640ce79c4b7d5acad2f19e33b339039c73')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -59,6 +62,8 @@ prepare() {
   # Cinnamon has no upstream backgrounds, use GNOME backgrounds instead
   sed -i 's|/usr/share/cinnamon-background-properties|/usr/share/gnome-background-properties|' \
       files/usr/share/cinnamon/cinnamon-settings/modules/cs_backgrounds.py
+
+  patch -p1 < ../pygobject-3.52.patch # https://github.com/linuxmint/cinnamon/issues/12799
 }
 
 build() {
