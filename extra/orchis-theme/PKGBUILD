@@ -5,7 +5,7 @@ pkgname=orchis-theme
 _pkgname="${pkgname^}"
 pkgver=2024_11_03
 _pkgver="${pkgver//_/-}"
-pkgrel=3
+pkgrel=4
 pkgdesc="A Material Design theme for GNOME/GTK based desktop environments"
 url="https://github.com/vinceliuice/orchis-theme"
 arch=('any')
@@ -22,5 +22,5 @@ package() {
 	cd "${_pkgname}-${_pkgver}"
 	
 	install -dm 755 "${pkgdir}/usr/share/themes"
-	./install.sh --dest "${pkgdir}/usr/share/themes"
+	./install.sh --tweaks submenu --dest "${pkgdir}/usr/share/themes"
 }
