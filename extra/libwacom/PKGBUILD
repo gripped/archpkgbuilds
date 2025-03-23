@@ -1,7 +1,7 @@
 # Maintainer: Andreas Radke <andyrtr@archlinux.org>
 
 pkgname=libwacom
-pkgver=2.14.0
+pkgver=2.15.0
 pkgrel=1
 pkgdesc="Library to identify Wacom tablets and their features"
 arch=('x86_64')
@@ -14,7 +14,7 @@ optdepends=('python-libevdev: for libwacom-show-stylus'
             'python-pyudev: for libwacom-show-stylus')
 source=(https://github.com/linuxwacom/libwacom/releases/download/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz{,.sig})
 # https://github.com/linuxwacom/libwacom/releases
-sha256sums=('5900b3ad3d780e1b864103ace99cace9470db727a162517e1648c86a1bdec0e3'
+sha256sums=('20cd65b1693129c3a6c003db0fe7fff7eccaf19fb04e89aaad9c20eb2151515a'
             'SKIP')
 validpgpkeys=('3C2C43D9447D5938EF4551EBE23B7E70B467F0BF') # "Peter Hutterer (Who-T) <office@who-t.net>"
 #validpgpkeys=('594ABBA066118C7A02D10A80A8AF906D9307FBAD') # "Joshua Dickens <Joshua@Joshua-Dickens.com>"
