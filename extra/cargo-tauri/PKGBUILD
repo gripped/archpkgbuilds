@@ -2,7 +2,7 @@
 
 pkgname=cargo-tauri
 _pkgname=tauri
-pkgver=2.2.5
+pkgver=2.4.0
 pkgrel=1
 pkgdesc="Command line interface for building Tauri apps"
 arch=('x86_64')
@@ -16,7 +16,7 @@ depends=(
   'xz' 'liblzma.so'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/tauri-cli-v$pkgver.tar.gz")
-sha512sums=('338da5347fe48fa904cb64dd72f632bae31afb4e4a01daf735929fa2b8e47faf0c855edddd20d024147274362697507663ca10341c87d0ec2fd60254b5863a57')
+sha512sums=('6c0d623c8526f03d6dee9975175d238e6ffd601850f17dc79fa6cb5b8fbbc956d4022f9c6c32b7b44a513c554ef39f3e28b069b8e6d10c430f73aa47c19dc84e')
 options=('!lto')
 
 prepare() {
@@ -31,8 +31,8 @@ build() {
   cargo build --release --frozen
   local _completion="../../target/release/$pkgname completions --shell"
   # $_completion bash > "completions/$pkgname"
-  $_completion fish > "completions/$pkgname.fish"
-  $_completion zsh  > "completions/_$pkgname"
+  $_completion fish >"completions/$pkgname.fish"
+  $_completion zsh >"completions/_$pkgname"
 }
 
 check() {
