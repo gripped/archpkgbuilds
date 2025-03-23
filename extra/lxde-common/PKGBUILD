@@ -4,8 +4,8 @@
 # Contributor: Juergen Hoetzel <juergen@archlinux.org>
 
 pkgname=lxde-common
-pkgver=0.99.2
-pkgrel=4
+pkgver=0.99.3
+pkgrel=1
 pkgdesc='Common files of the LXDE Desktop'
 arch=('any')
 url='https://lxde.org/'
@@ -16,10 +16,10 @@ backup=(etc/xdg/lxsession/LXDE/desktop.conf
 makedepends=('intltool')
 optdepends=('gnome-themes-standard: default GTK+ theme'
             'lxde-icon-theme: default icon theme')
-source=(https://downloads.sourceforge.net/lxde/$pkgname-$pkgver.tar.xz
+source=(https://github.com/lxde/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz
         dbus-update-environment.patch
         default-config.patch)
-sha256sums=('1cd9bc900960c995d48ffbbdc86ecffda7c806168c67aaa50c53113794234856'
+sha256sums=('e55ac4b4406f7538ed5994677c6488c6a0dd9a4b34a0969402aaa4f04b52b26f'
             '87f1413f5bb371de45451fc7f82f9f80a23c90f5799bed173ec31589824c03bb'
             '6a31a706d0fd1cb168b495806bb4a646c019e3b9c4f6bc13aae9edb8b0372d9d')
 
@@ -27,6 +27,7 @@ prepare() {
     cd $pkgname-$pkgver
     patch -Np1 -i ../dbus-update-environment.patch
     patch -Np1 -i ../default-config.patch
+    autoreconf -vif
 }
 
 build() {
