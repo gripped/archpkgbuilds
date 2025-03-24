@@ -1,6 +1,6 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 pkgname=hipblas-common
-pkgver=6.3.2
+pkgver=6.3.3
 pkgrel=1
 pkgdesc='Common files shared by hipBLAS and hipBLASLt'
 arch=('any')
@@ -10,7 +10,7 @@ depends=('rocm-core')
 makedepends=('rocm-cmake' 'cmake' 'hip-runtime-amd')
 _git='https://github.com/ROCm/hipBLAS-common'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('29aa1ac1a0f684a09fe2ea8a34ae8af3622c27708c7df403a7481e75174e1984')
+sha256sums=('b2b77abb5c851674839b583dc313684b5f6aa676e8186ff0a5696b6962c2b4da')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 build() {
