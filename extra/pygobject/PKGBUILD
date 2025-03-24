@@ -8,7 +8,7 @@ pkgname=(
   python-gobject-docs
 )
 pkgver=3.52.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Python bindings for GLib/GObject/GIO/GTK"
 url="https://pygobject.gnome.org/"
 arch=(x86_64)
@@ -18,7 +18,6 @@ depends=(
   glibc
   gobject-introspection-runtime
   libffi
-  libgirepository
   python
 )
 makedepends=(
