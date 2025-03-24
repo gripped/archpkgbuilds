@@ -1,6 +1,6 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 pkgname=hipblaslt
-pkgver=6.3.2
+pkgver=6.3.3
 pkgrel=1
 pkgdesc='General matrix-matrix operations beyond a traditional BLAS library'
 arch=('x86_64')
@@ -14,7 +14,7 @@ source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
         "$pkgname-find-msgpack5.patch"
         "$pkgname-fix-wrong-amdclang-path.patch"
        )
-sha256sums=('cc4875b1a5cf1708a7576c42aff6b4cb790cb7337f5dc2df33119a4aadcef027'
+sha256sums=('f32d666b37bdbecbf924cc98653fa3d30a0de629039d4dad44d35a2082e39e5a'
             '8e6d134a1d45de814099dfe591296de5e1d47f9906ccf9c51d7f2228e992c5f4'
             '336455e150798d7bbbb54dab6c5dc850e17346ae4bed5500723592633f232993')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
