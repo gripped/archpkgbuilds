@@ -2,8 +2,8 @@
 # Contributor: Jürgen Hötzel <juergen@hoetzel.info>
 
 pkgname=ocamlbuild
-pkgver=0.15.0
-pkgrel=3
+pkgver=0.16.1
+pkgrel=1
 pkgdesc='Build tool that has built-in rules for building OCaml libraries and programs'
 arch=(x86_64)
 license=(GPL-2.0-only)
@@ -11,7 +11,7 @@ url='https://github.com/ocaml/ocamlbuild'
 depends=(ocaml zstd)
 options=(!makeflags)
 source=($pkgname-$pkgver.tar.gz::"$url/archive/$pkgver.tar.gz")
-b2sums=('34c35c48d446d9c5297a9eabf6d4f134fbfdf01aad4eff15804ad7ecd9068527a70c2d9820ce3f7dba41aa88dda215e82074ad0c66df048c512afd60884ec7fd')
+b2sums=('ffd0dbe8421e3ec5eabb3e6ee3844c3ad22d77d4eb0d5e34dd7a8be722b78c146fc5762c16047b7050d9ce547815a58cec6091a15e783e157b1d38c2c3787b5f')
 
 build() {
   cd $pkgname-$pkgver
