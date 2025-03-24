@@ -6,7 +6,7 @@ pkgname=(wxwidgets-common
          wxwidgets-gtk3
          wxwidgets-qt5)
 pkgver=3.2.7.1
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://wxwidgets.org'
 license=(custom:wxWindows)
@@ -20,8 +20,15 @@ makedepends=(cmake
              qt5-base
              sdl2
              webkit2gtk-4.1)
-source=(git+https://github.com/wxWidgets/wxWidgets#tag=v$pkgver)
-sha256sums=('2bc430601c35450e8231dc2f654127dc48851fe98a48f0f062bc7dd67945c1aa')
+source=(git+https://github.com/wxWidgets/wxWidgets#tag=v$pkgver
+        1709b226.patch)
+sha256sums=('2bc430601c35450e8231dc2f654127dc48851fe98a48f0f062bc7dd67945c1aa'
+            'c32579d654130eab0f6cc43f71ef823b4a56396be92d1e279fc643e5cd404946')
+
+prepare() {
+  cd wxWidgets
+  patch -p1 -i ../1709b226.patch # Fix missing headers
+}
 
 build() {
   cmake -B build-gtk3 -S wxWidgets \
