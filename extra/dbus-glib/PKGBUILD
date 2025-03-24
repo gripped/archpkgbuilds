@@ -2,8 +2,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=dbus-glib
-pkgver=0.112
-pkgrel=4
+pkgver=0.114
+pkgrel=1
 pkgdesc='GLib bindings for D-Bus (deprecated)'
 arch=(x86_64)
 url='https://www.freedesktop.org/wiki/Software/dbus/'
@@ -24,7 +24,7 @@ source=(
   dbus-glib-bash-completion.patch
 )
 sha256sums=(
-  00d56564489516f1cb4a9d0cbaff88e38321fae6c08ecc8858cefe012e312d41
+  b613546d2bfbeb21cbacc11c536e17afa01b69c2a8353ccc8eb3910dad9095ca
   edbdd4fb5fce358b427da1a1c68347ce09ca444da6ac67ff1fcd6cc67fc92f99
 )
 validpgpkeys=(DA98F25C0871C49A59EAFF2C4DE8FF2A63C7CC90) # Simon McVittie
