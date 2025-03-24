@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 pkgname=hipcub
-pkgver=6.3.2
+pkgver=6.3.3
 pkgrel=1
 pkgdesc='Header-only library on top of rocPRIM or CUB'
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('rocm-core' 'rocprim' 'hip-runtime-amd')
 makedepends=('cmake' 'rocm-cmake')
 _git='https://github.com/ROCm/hipCUB'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('4a1443c2ea12c3aa05fb65703eb309ccf8b893f9e6cbebec4ccf5502ba54b940')
+sha256sums=('4ce22aba007c6c8a8b2231adefa7785b1869e5fdd4af29b0371a499a523c2dc6')
 _dirname="$(basename $_git)-$(basename "${source[0]}" ".tar.gz")"
 
 build() {
