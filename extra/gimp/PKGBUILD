@@ -4,9 +4,8 @@
 # Contributor: Daniel Isenmann <daniel@archlinux.org>
 
 pkgname=gimp
-_pkgver=3.0.0
-pkgver=3.0.0
-pkgrel=1
+pkgver=3.0.2
+pkgrel=2
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
 arch=('x86_64')
@@ -68,6 +67,7 @@ makedepends=(
   'cfitsio'
   'ghostscript'
   'gi-docgen'
+  'git'
   'gjs'
   'glib2-devel'
   'gobject-introspection'
@@ -87,24 +87,19 @@ optdepends=(
 )
 install=gimp.install
 source=(
-  # https://download.gimp.org/pub/gimp/v${pkgver%.*}/${pkgname}-${pkgver}.tar.bz2
-  https://download.gimp.org/gimp/v${pkgver%.*}/${pkgname}-${_pkgver}.tar.xz
-  0001-no-check-update.patch
-  0002-fix-detection-of-libheif-1.15.0.patch
+  git+https://gitlab.gnome.org/GNOME/gimp.git#tag=GIMP_${pkgver//./_}
+  git+https://gitlab.gnome.org/GNOME/gimp-data.git
   linux.gpl
 )
-sha256sums=('93f1ca3d9d1bd8cac0e52c49fb886cbbe4b28222ee835bf1319e3287901d2d20'
-            'ac3e8b44cf391f4ab3050652f2cc1f146f451fb25178d5a596d905f5bad13fcf'
-            '24814e981121830242f0a9b7d1da99e7282b247b87b482e2b394cff75b4675ef'
+sha256sums=('b9c26ac302dcf483753c574fd612fa49ab4bdc5008f32fb9c530309a861e041a'
+            'SKIP'
             '1003bbf5fc292d0d63be44562f46506f7b2ca5729770da9d38d3bb2e8a2f36b3')
 
 prepare() {
-  cd ${pkgname}-${_pkgver}
-
-  # TODO: check if those patches are still needed
-  # if yes they need to be rebased
-  # patch -Np1 < ../0001-no-check-update.patch
-  # patch -Np1 < ../0002-fix-detection-of-libheif-1.15.0.patch
+  cd $pkgname
+  git submodule init
+  git config submodule.gimp-data.url "$srcdir/gimp-data"
+  git -c protocol.file.allow=always submodule update
 }
 
 build() {
@@ -121,7 +116,7 @@ build() {
     -Dheadless-tests=disabled # enabled by default, depends on xorg-server-xvfb
   )
 
-  arch-meson ${pkgname}-${_pkgver} build "${meson_options[@]}"
+  arch-meson ${pkgname} build "${meson_options[@]}"
   meson compile -C build
 }
 
