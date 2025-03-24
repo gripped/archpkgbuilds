@@ -3,7 +3,7 @@
 # Contributor: Patrick Griffis <tingping@tingping.se>
 
 pkgname=xdg-desktop-portal-gtk
-pkgver=1.15.2
+pkgver=1.15.3
 pkgrel=1
 pkgdesc="A backend implementation for xdg-desktop-portal using GTK"
 url="https://github.com/flatpak/xdg-desktop-portal-gtk"
@@ -29,7 +29,7 @@ makedepends=(
 optdepends=("evince: Print preview")
 provides=(xdg-desktop-portal-impl)
 source=("git+$url#tag=$pkgver")
-b2sums=('d9797bd5f513782ad0f874005fec3fc044d4248b8ed30a3e6bc59281a0dd64541ba51c118452cef5c81a1aaca885b51a769d7a00f3f5812739fe9acc3f4a951e')
+b2sums=('5acf381c294f59542268b888f543871e178679604ca5d22aa7b60882916ee0b274b5374d99910341aef27e2e9dfc8c1f047505bae2acd7c238ab9f0abf553a5a')
 
 prepare() {
   cd $pkgname
