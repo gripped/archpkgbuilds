@@ -8,7 +8,7 @@ pkgname=(
   libpeas-docs
 )
 pkgver=1.36.0
-pkgrel=6
+pkgrel=7
 pkgdesc="GObject Plugin System"
 url="https://wiki.gnome.org/Projects/Libpeas"
 arch=(x86_64)
@@ -30,9 +30,6 @@ makedepends=(
   lua51-lgi
   luajit
   meson
-  python
-  python-gobject
-  python-setuptools
   vala
 )
 checkdepends=(xorg-server-xvfb)
@@ -46,6 +43,7 @@ prepare() {
 build() {
   local meson_options=(
     -D gtk_doc=true
+    -D python3=false
     -D vapi=true
   )
 
@@ -71,7 +69,6 @@ _pick() {
 package_libpeas() {
   optdepends=(
     'lua51-lgi: Lua loader'
-    'python-gobject: Python loader'
   )
   provides=(libpeas{,-gtk}-1.0.so)
 
@@ -93,7 +90,6 @@ package_libpeas-demos() {
     gtk3
     libgirepository
     libpeas
-    python-gobject
   )
   mv demo/* "$pkgdir"
 }
