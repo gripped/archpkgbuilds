@@ -1,9 +1,10 @@
 pkgbase = hip-runtime
-	pkgver = 6.3.2
+	pkgver = 6.3.3
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/HIP/en/latest/
 	arch = x86_64
 	license = MIT
+	makedepends = git
 	makedepends = cmake
 	makedepends = python
 	makedepends = python-cppheaderparser
@@ -20,16 +21,14 @@ pkgbase = hip-runtime
 	makedepends = libelf
 	makedepends = rocprofiler-register
 	makedepends = cuda
-	source = hip-runtime-6.3.2.tar.gz::https://github.com/ROCm/HIP/archive/rocm-6.3.2.tar.gz
-	source = hip-runtime-hipcc-6.3.2.tar.gz::https://github.com/ROCm/llvm-project/archive/rocm-6.3.2.tar.gz
-	source = hip-runtime-clr-6.3.2.tar.gz::https://github.com/ROCm/clr/archive/rocm-6.3.2.tar.gz
-	source = hip-runtime-hipother-6.3.2.tar.gz::https://github.com/ROcm/hipother/archive/rocm-6.3.2.tar.gz
-	source = hipcc-amd-fix-include.patch
-	sha256sums = 2832e21d75369f87beee767949177a93ac113710afae6b73da5548c0047962ec
-	sha256sums = 1f52e45660ea508d3fe717a9903fe27020cee96de95a3541434838e0193a4827
-	sha256sums = ec13dc4ffe212beee22171cb2825d2b16cdce103c835adddb482b9238cf4f050
-	sha256sums = 1623d823de49471aae3ecb1fad0e9cdddf9301a4089f1fd44f78ac2ff0c20fb2
-	sha256sums = 9f384e6d43b9fa75d722d1b22cd310667c8569ce7e1c4deefcff3e58875f099a
+	source = hip-runtime::git+https://github.com/ROCm/HIP#tag=rocm-6.3.3
+	source = hip-runtime-hipcc::git+https://github.com/ROCm/llvm-project#tag=rocm-6.3.3
+	source = hip-runtime-clr::git+https://github.com/ROCm/clr#tag=rocm-6.3.3
+	source = hip-runtime-hipother::git+https://github.com/ROcm/hipother#tag=rocm-6.3.3
+	sha256sums = dcf2775d69ba69f95dd994d377a9f234ed59154a22114251bc8a9afadf66fe6b
+	sha256sums = c64fd724503b9c10381f350eea38fadb622ea86067839d45cd0efc0058621153
+	sha256sums = cb0dc592635c647a6edee70377f70b573927e8491fd3341c67bce77d9b0b23a9
+	sha256sums = 69c85a155706a50239355c4d3adecfed61e5a75f774c6fe8cc2188d33e39fcd2
 
 pkgname = hip-runtime-amd
 	pkgdesc = Heterogeneous Interface for Portability (AMD runtime)
@@ -47,7 +46,7 @@ pkgname = hip-runtime-amd
 	depends = rocprofiler-register
 	optdepends = inetutils: Print hostname in hipconfig
 	optdepends = cuda: Cross compile for nvidia
-	provides = hip=6.3.2
+	provides = hip=6.3.3
 	replaces = hip
 
 pkgname = hip-runtime-nvidia

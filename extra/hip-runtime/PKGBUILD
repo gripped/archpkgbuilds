@@ -2,7 +2,7 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 pkgbase=hip-runtime
 pkgname=(hip-runtime-amd hip-runtime-nvidia)
-pkgver=6.3.2
+pkgver=6.3.3
 pkgrel=1
 _pkgdesc="Heterogeneous Interface for Portability"
 arch=('x86_64')
@@ -11,8 +11,9 @@ license=('MIT')
 _amd_depends=('rocm-core' 'bash' 'perl' 'glibc' 'gcc-libs' 'numactl'
          'mesa' 'comgr' 'rocminfo' 'rocm-llvm' 'libelf' 'rocprofiler-register')
 _nvidia_depends=('cuda')
-makedepends=('cmake' 'python' 'python-cppheaderparser'
+makedepends=('git' 'cmake' 'python' 'python-cppheaderparser'
              "${_amd_depends[@]}" "${_nvidia_depends[@]}")
+_tag="tag=rocm-$pkgver"
 # Common HIP dir (AMD or nVidia)
 _hip='https://github.com/ROCm/HIP'
 # HIPCC compiler wrapper
@@ -21,30 +22,19 @@ _hipcc='https://github.com/ROCm/llvm-project'
 _clr='https://github.com/ROCm/clr'
 # Cross compilation
 _hipother='https://github.com/ROcm/hipother'
-source=("$pkgbase-$pkgver.tar.gz::$_hip/archive/rocm-$pkgver.tar.gz"
-        "$pkgbase-hipcc-$pkgver.tar.gz::$_hipcc/archive/rocm-$pkgver.tar.gz"
-        "$pkgbase-clr-$pkgver.tar.gz::$_clr/archive/rocm-$pkgver.tar.gz"
-        "$pkgbase-hipother-$pkgver.tar.gz::$_hipother/archive/rocm-$pkgver.tar.gz"
-        "hipcc-amd-fix-include.patch")
-sha256sums=('2832e21d75369f87beee767949177a93ac113710afae6b73da5548c0047962ec'
-            '1f52e45660ea508d3fe717a9903fe27020cee96de95a3541434838e0193a4827'
-            'ec13dc4ffe212beee22171cb2825d2b16cdce103c835adddb482b9238cf4f050'
-            '1623d823de49471aae3ecb1fad0e9cdddf9301a4089f1fd44f78ac2ff0c20fb2'
-            '9f384e6d43b9fa75d722d1b22cd310667c8569ce7e1c4deefcff3e58875f099a')
-_dirhip="$(basename "$_hip")-$(basename "${source[0]}" ".tar.gz")"
-_dirhipcc="$(basename "$_hipcc")-$(basename "${source[1]}" ".tar.gz")"
-_dirclr="$(basename "$_clr")-$(basename "${source[2]}" ".tar.gz")"
-_dirhipother="$(basename "$_hipother")-$(basename "${source[3]}" ".tar.gz")"
-
-prepare() {
-  cd "$_dirhipcc"
-  patch -Np1 -i "$srcdir/hipcc-amd-fix-include.patch"
-}
+source=("$pkgbase::git+$_hip#$_tag"
+        "$pkgbase-hipcc::git+$_hipcc#$_tag"
+        "$pkgbase-clr::git+$_clr#$_tag"
+        "$pkgbase-hipother::git+$_hipother#$_tag")
+sha256sums=('dcf2775d69ba69f95dd994d377a9f234ed59154a22114251bc8a9afadf66fe6b'
+            'c64fd724503b9c10381f350eea38fadb622ea86067839d45cd0efc0058621153'
+            'cb0dc592635c647a6edee70377f70b573927e8491fd3341c67bce77d9b0b23a9'
+            '69c85a155706a50239355c4d3adecfed61e5a75f774c6fe8cc2188d33e39fcd2')
 
 build() {
   local hipcc_common_args=(
     -Wno-dev
-    -S "$srcdir/$_dirhipcc/amd/hipcc"
+    -S "$srcdir/$pkgbase-hipcc/amd/hipcc"
     -D CMAKE_BUILD_TYPE=None
   )
 
@@ -58,14 +48,14 @@ build() {
   
   local hip_amd_args=(
     -Wno-dev
-    -S "$srcdir/$_dirclr"
+    -S "$srcdir/$pkgbase-clr"
     -B build-amd
     -DCMAKE_BUILD_TYPE=None
     -DCMAKE_INSTALL_PREFIX=/opt/rocm/
     -DHIP_PLATFORM=amd
-    -DHIP_COMMON_DIR="$srcdir/$_dirhip"
+    -DHIP_COMMON_DIR="$srcdir/$pkgbase"
     -DHIPCC_BIN_DIR="$srcdir/build-amd-hipcc"
-    -DHIPNV_DIR="$srcdir/$_dirhipother/hipnv"
+    -DHIPNV_DIR="$srcdir/$pkgbase-hipother/hipnv"
     -DHIP_CATCH_TEST=0
     -DCLR_BUILD_HIP=ON
     -DCLR_BUILD_OCL=OFF
@@ -83,14 +73,14 @@ build() {
 
   local hip_nvidia_args=(
     -Wno-dev
-    -S "$srcdir/$_dirclr"
+    -S "$srcdir/$pkgbase-clr"
     -B build-nvidia
     -DCMAKE_BUILD_TYPE=None
     -DCMAKE_INSTALL_PREFIX=/usr
     -DHIP_PLATFORM=nvidia
-    -DHIP_COMMON_DIR="$srcdir/$_dirhip"
+    -DHIP_COMMON_DIR="$srcdir/$pkgbase"
     -DHIPCC_BIN_DIR="$srcdir/build-nvidia-hipcc"
-    -DHIPNV_DIR="$srcdir/$_dirhipother/hipnv"
+    -DHIPNV_DIR="$srcdir/$pkgbase-hipother/hipnv"
     -DHIP_CATCH_TEST=0
     -DCLR_BUILD_HIP=ON
     -DCLR_BUILD_OCL=OFF
@@ -107,12 +97,12 @@ package_hip-runtime-amd() {
   replaces=("hip")
   provides=("hip=${pkgver}")
   DESTDIR="$pkgdir" cmake --install build-amd
-  install -Dm644 "$srcdir/$_dirhip/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$srcdir/$pkgbase/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 
 package_hip-runtime-nvidia() {
   pkgdesc="$_pkgdesc (Nvidia runtime)"
   depends=("${_nvidia_depends[@]}")
   DESTDIR="$pkgdir" cmake --install build-nvidia
-  install -Dm644 "$srcdir/$_dirhip/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$srcdir/$pkgbase/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
