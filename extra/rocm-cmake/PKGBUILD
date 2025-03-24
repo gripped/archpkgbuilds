@@ -4,8 +4,8 @@
 # Contributor: Ranieri Althoff <ranisalt+aur at gmail.com>
 
 pkgname=rocm-cmake
-pkgver=6.3.2
-pkgrel=2
+pkgver=6.3.3
+pkgrel=1
 pkgdesc='CMake modules for common build tasks needed for the ROCm software stack'
 arch=('any')
 url='https://github.com/ROCm/rocm-cmake'
@@ -15,7 +15,7 @@ checkdepends=('git' 'rocm-llvm')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz"
         "${pkgname}-old-policy-cmp0079.patch"
         "cmake-deprecation.patch")
-sha256sums=('f5104c2289da99a70d8c4c1befbca4f8efa7c89711eaac7b6b63592cd4bd99a8'
+sha256sums=('4238cccc22226ba9487185fc2faa66b11c0cb8e7982240332e1b919cec8d909e'
             '7c8d8351a8e85a0d122421d02ad967c75d4dd8442192662c1a1a68bacdfad67d'
             'dc95d690751af7c65c875c50f5d0cea594e50e618e24b33bafc77cced29fec1e')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
