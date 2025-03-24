@@ -7,7 +7,7 @@ pkgname=(
   gtkmm-4.0-docs
 )
 pkgver=4.18.0
-pkgrel=1
+pkgrel=2
 pkgdesc="C++ bindings for GTK 4"
 url="https://www.gtkmm.org/"
 arch=(x86_64)
@@ -22,6 +22,7 @@ depends=(
   glibmm-2.68
   graphene
   gtk4
+  libsigc++-3.0
   pangomm-2.48
   vulkan-icd-loader
 )
@@ -29,6 +30,7 @@ makedepends=(
   cairomm-1.16-docs
   git
   glibmm-2.68-docs
+  libsigc++-3.0-docs
   meson
   mm-common
   pangomm-2.48-docs
