@@ -5,7 +5,7 @@
 # Contributor: John Jenkins <twodopeshaggy@gmail.com>
 
 pkgname=nnn
-pkgver=5.0
+pkgver=5.1
 pkgrel=1
 pkgdesc="The fastest terminal file manager ever written."
 arch=('x86_64')
@@ -23,9 +23,9 @@ optdepends=(
 )
 url="https://github.com/jarun/${pkgname}"
 license=('BSD')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/jarun/nnn/releases/download/v$pkgver/nnn-v$pkgver.tar.gz"
         "${pkgname}-${pkgver}.tar.gz.sig::${url}/releases/download/v${pkgver}/nnn-${pkgver}.tar.gz.sig")
-sha512sums=('648889de4e636882bf92d45a9fe273288858d76a28e34c6fcb27fc3d1e1b576eaec7e611f55a7f809a067ebf5a09c3a209ad84f44e2da528cfce71ed98a7a999'
+sha512sums=('b72775ef39dc483f5ec038cbc262e1dfc5fedd5db261cf146c38ea8a9951a9f54fe171e0e4b1089c50a6c32748ab691dd010c10c44baa22b5e7f39b4538cc27b'
             'SKIP')
 validpgpkeys=('BBAD0B2F3093A7C3377A8F6BA75979F35C080412'
               'E0B84447CD884CBB13E3266E4A865183AF6C5631')
