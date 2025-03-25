@@ -5,7 +5,7 @@
 pkgbase=unrar
 pkgname=(libunrar
          unrar)
-pkgver=7.1.5
+pkgver=7.1.6
 pkgrel=1
 epoch=1
 arch=(x86_64)
@@ -14,7 +14,7 @@ depends=(gcc-libs
          glibc)
 license=(LicenseRef-UnRAR)
 source=(https://www.rarlab.com/rar/unrarsrc-$pkgver.tar.gz)
-sha256sums=('d1acac7ed5b45db587294b357fdd6e74982ce21f5edfcb113c4ca263bc0c666d')
+sha256sums=('ca5e1da37dd6fa1b78bb5ed675486413f79e4a917709744aa04b6f93dfd914f0')
 
 prepare() {
   sed -e '/CXXFLAGS=/d' -e '/LDFLAGS=/d' -i unrar/makefile # Use system build flags
