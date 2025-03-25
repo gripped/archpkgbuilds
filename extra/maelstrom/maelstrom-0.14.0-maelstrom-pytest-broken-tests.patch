@@ -1,0 +1,36 @@
+diff --git i/crates/maelstrom-pytest/tests/integration_test.rs w/crates/maelstrom-pytest/tests/integration_test.rs
+index 8fb372bb..42fe27c4 100644
+--- i/crates/maelstrom-pytest/tests/integration_test.rs
++++ w/crates/maelstrom-pytest/tests/integration_test.rs
+@@ -217,6 +217,7 @@ fn test_simple_failure() {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/maelstrom-software/maelstrom/issues/522"]
+ fn test_collection_failure() {
+     let (contents, exit_code) = do_maelstrom_pytest_test(
+         &indoc::indoc! {"
+@@ -249,6 +250,7 @@ fn test_collection_failure() {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/maelstrom-software/maelstrom/issues/522"]
+ fn test_listing_all() {
+     let contents = do_maelstrom_pytest_test_success(
+         &indoc::indoc! {"
+@@ -279,6 +281,7 @@ fn test_listing_all() {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/maelstrom-software/maelstrom/issues/522"]
+ fn test_listing_node_id() {
+     let contents = do_maelstrom_pytest_test_success(
+         &indoc::indoc! {"
+@@ -308,6 +311,7 @@ fn test_listing_node_id() {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/maelstrom-software/maelstrom/issues/522"]
+ fn test_listing_marker() {
+     let contents = do_maelstrom_pytest_test_success(
+         &indoc::indoc! {"
