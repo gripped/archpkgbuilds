@@ -2,7 +2,7 @@
 # Contributor: Piotr Miller <nwg.piotr@gmail.com>
 
 pkgname=azote
-pkgver=1.14.1
+pkgver=1.14.2
 pkgrel=1
 pkgdesc="Wallpaper & color manager for wlroots-based compositors and some X11 WMs"
 url="https://github.com/nwg-piotr/azote"
@@ -21,7 +21,7 @@ optdepends=('imagemagick: for screen color picker'
             'python-xlib: for checking outputs on X11-based WMs'
             'wlr-randr: for checking outputs on wlroots-based compositors other than Sway and Hyprland')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('37cce05ca30627100804fa28c532ad88627a4644c90b34ec4b59571537a84c0c')
+sha256sums=('cb15e024e8030c252b1d3a1e5f4e50ed8245bdd82b4631c042f67aabf18284b3')
 
 build() {
 	cd "${pkgname}-${pkgver}"
