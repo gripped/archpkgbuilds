@@ -1,7 +1,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 pkgname=sudo-rs
 pkgver=0.2.4
-pkgrel=4
+pkgrel=5
 pkgdesc="A memory safe implementation of sudo and su."
 arch=('x86_64')
 url="https://github.com/trifectatechfoundation/sudo-rs"
@@ -19,15 +19,13 @@ checkdepends=(
   # Not really needed directly, but the tests assume it exists
   procps-ng
 )
-backup=(
-  etc/pam.d/sudo-i
+optdepends=(
+  "sudo: default configuration files"
 )
 source=(
   "${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz"
-  "sudo-i.pam"
 )
-sha256sums=('c2c1f4c8087134a90df47a8bee76746c4ab24dd7d12f3b26a74d1560ea3ee68c'
-            'd1738818070684a5d2c9b26224906aad69a4fea77aabd960fc2675aee2df1fa2')
+sha256sums=('c2c1f4c8087134a90df47a8bee76746c4ab24dd7d12f3b26a74d1560ea3ee68c')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -38,7 +36,7 @@ build() {
   local man_file out_dir target_file section
 
   cd "$pkgname-$pkgver"
-  cargo build --features pam-login --release --frozen
+  cargo build --release --frozen
 
   # upstream uses a docker container to build man pages, this is roughly what
   # it tries to do.
@@ -60,7 +58,7 @@ build() {
 check() {
   cd "$pkgname-$pkgver"
   # https://github.com/trifectatechfoundation/sudo-rs/issues/708
-  cargo test --features pam-login --frozen -- --exact \
+  cargo test --frozen -- --exact \
     --skip system::interface::test::test_unix_group \
     --skip system::interface::test::test_unix_user
 }
@@ -73,10 +71,6 @@ package() {
   install -vDm4755 target/release/sudo "$pkgdir/usr/bin/sudo-rs"
   install -vDm4755 target/release/su "$pkgdir/usr/bin/su-rs"
   install -vDm0755 target/release/visudo "$pkgdir/usr/bin/visudo-rs"
-
-  # install custom sudo-i file, otherwise sudo -i won't work
-  # this doesn't conflict with sudo as it doesn't have it
-  install -vDm644 "$srcdir/sudo-i.pam" "$pkgdir/etc/pam.d/sudo-i"
 
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE-*
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" CHANGELOG.md README.md SECURITY.md
