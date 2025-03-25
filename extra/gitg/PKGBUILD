@@ -2,7 +2,7 @@
 
 pkgname=gitg
 pkgver=44
-pkgrel=4
+pkgrel=5
 epoch=2
 pkgdesc="GNOME GUI client to view git repositories"
 url="https://wiki.gnome.org/Apps/Gitg"
@@ -15,7 +15,6 @@ depends=(
   gdk-pixbuf2
   glibc
   glib2
-  gobject-introspection-runtime
   gpgme
   gsettings-desktop-schemas
   gspell
@@ -32,29 +31,32 @@ depends=(
   libsecret
   libxml2
   pango
-  python-gobject
 )
 makedepends=(
   git
   gobject-introspection
   meson
+  python-gobject
   vala
 )
+optdepends=('python-gobject: Python extension support')
 groups=(gnome-extra)
-_commit=f41b818a9aeceb69480b8098109fa2c449e24879
-source=("git+https://gitlab.gnome.org/GNOME/gitg.git#commit=$_commit")
+source=("git+https://gitlab.gnome.org/GNOME/gitg.git#tag=v$pkgver")
 b2sums=('2db182b0762cef301354397ee40eae3d79697ce80499707aeda9b62f5044074dce527216e6a4032f19564e15d994ea52475f5218738dd15c11732c041cfeb660')
-
-pkgver() {
-  cd gitg
-  git describe --tags | sed 's/^v//;s/[^-]*-g/r&/;s/-/+/g'
-}
 
 prepare() {
   cd gitg
 
   # remove illegal positional argument to i18n.merge_file()
   git cherry-pick -n 1978973b12848741b08695ec2020bac98584d636
+
+  # Fix icon name
+  # https://gitlab.gnome.org/GNOME/gitg/-/merge_requests/257
+  git cherry-pick -n cf646c22bde86b4ecbeafd2ebc3c1be8ad3bc8ba
+
+  # Set icon for the window
+  # https://gitlab.gnome.org/GNOME/gitg/-/merge_requests/258
+  git cherry-pick -n 71e494c96544c56a379678e8a86754a68cdbfb8b
 }
 
 build() {

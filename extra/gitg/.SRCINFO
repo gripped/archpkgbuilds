@@ -1,7 +1,7 @@
 pkgbase = gitg
 	pkgdesc = GNOME GUI client to view git repositories
 	pkgver = 44
-	pkgrel = 4
+	pkgrel = 5
 	epoch = 2
 	url = https://wiki.gnome.org/Apps/Gitg
 	arch = x86_64
@@ -10,6 +10,7 @@ pkgbase = gitg
 	makedepends = git
 	makedepends = gobject-introspection
 	makedepends = meson
+	makedepends = python-gobject
 	makedepends = vala
 	depends = cairo
 	depends = dconf
@@ -17,7 +18,6 @@ pkgbase = gitg
 	depends = gdk-pixbuf2
 	depends = glibc
 	depends = glib2
-	depends = gobject-introspection-runtime
 	depends = gpgme
 	depends = gsettings-desktop-schemas
 	depends = gspell
@@ -34,8 +34,8 @@ pkgbase = gitg
 	depends = libsecret
 	depends = libxml2
 	depends = pango
-	depends = python-gobject
-	source = git+https://gitlab.gnome.org/GNOME/gitg.git#commit=f41b818a9aeceb69480b8098109fa2c449e24879
+	optdepends = python-gobject: Python extension support
+	source = git+https://gitlab.gnome.org/GNOME/gitg.git#tag=v44
 	b2sums = 2db182b0762cef301354397ee40eae3d79697ce80499707aeda9b62f5044074dce527216e6a4032f19564e15d994ea52475f5218738dd15c11732c041cfeb660
 
 pkgname = gitg
