@@ -2,7 +2,7 @@
 
 _pkg=xarray
 pkgname=python-${_pkg}
-pkgver=2025.01.2
+pkgver=2025.03.0
 pkgrel=1
 pkgdesc="N-D labeled arrays and datasets in Python"
 arch=(any)
@@ -63,7 +63,7 @@ optdepends=(
   'python-pint: units of measure support'
 )
 source=("https://github.com/pydata/xarray/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('e9c06c7d2c34ca9e8d73972a11aefe56b8ff7f94edb087c4c8989f9848421982')
+sha256sums=('d5e3bb7e087feaa86f98f0a6bccb40e29205f2f9d6a8329741c2c843ab0f624c')
 
 build() {
   cd ${_pkg}-${pkgver}
@@ -73,6 +73,7 @@ build() {
 check() {
   cd ${_pkg}-${pkgver}
   local pytest_args=(
+    --override-ini "addopts="
     -W ignore::pytest.PytestDeprecationWarning
     # Segfaults with python-h5py installed
     --deselect=xarray/tests/test_backends.py::TestDask::test_save_mfdataset_compute_false_roundtrip
