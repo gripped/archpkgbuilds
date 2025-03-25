@@ -2,7 +2,7 @@
 
 pkgname=junction
 pkgver=1.8
-pkgrel=3
+pkgrel=4
 pkgdesc='Application chooser to open files and links'
 arch=(any)
 url='https://apps.gnome.org/Junction/'
@@ -26,10 +26,12 @@ makedepends=(
 source=(
   "git+https://github.com/sonnyp/Junction.git#tag=v$pkgver"
   git+https://github.com/sonnyp/troll.git
+  junction-gtk-init.patch
 )
 b2sums=(
   3112b4ef690933fc57260554fe3d406aab56fdbe9f46f5be5affaebce71cc7a5d3eebb6ba6badf81f23680c1579e6ccd054a03a0f4b2fbaca93941ddd24bcc57
   SKIP
+  64eaed94c4b158c8ba37ee982112fe384840b43dae9697d89e142a6c3b08695a5258e9a618e8a9d2055fb530eb8a23c6ed8679b208fa27fadeeea508f18d2ef4
 )
 
 prepare() {
@@ -38,6 +40,9 @@ prepare() {
   git submodule init
   git submodule set-url troll "$srcdir/troll"
   git -c protocol.file.allow=always submodule update
+
+  # Fix initialization with GTK 4.18
+  git apply -3 ../junction-gtk-init.patch
 }
 
 build() {
