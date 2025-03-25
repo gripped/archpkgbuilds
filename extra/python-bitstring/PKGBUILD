@@ -5,7 +5,7 @@
 
 pkgname=python-bitstring
 _pkgname=${pkgname#python-}
-pkgver=4.3.0
+pkgver=4.3.1
 pkgrel=1
 pkgdesc='A Python module to help you manage your bits'
 arch=('any')
@@ -26,7 +26,7 @@ checkdepends=(
   'python-pytest'
 )
 source=("$url/archive/$_pkgname-$pkgver.tar.gz")
-sha256sums=('d9c3785ffa2c270e90ed9b896ed728630c5830c29356276fb39dd09fbeb17517')
+sha256sums=('49e0fa2d0f174ca1e40711f8b443e6ba2a2e939f13cfefab508bb4ef4257aff3')
 
 build() {
   cd "$_pkgname-$_pkgname-$pkgver"
