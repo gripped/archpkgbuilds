@@ -3,8 +3,8 @@
 # Contributor: David Runge <dave@sleepmap.de>
 
 pkgname=python-dotenv
-pkgver=1.0.1
-pkgrel=3
+pkgver=1.1.0
+pkgrel=1
 pkgdesc="Get and set values in your .env file in local and production servers"
 arch=('any')
 url="https://github.com/theskumar/python-dotenv/"
@@ -13,7 +13,7 @@ depends=('python-click')
 makedepends=('python-setuptools')
 optdepends=('ipython: ipython support')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/theskumar/python-dotenv/archive/v${pkgver}.tar.gz")
-b2sums=('98d38adf2bf8ad70f2bcc182ba0cdfd08b40500cc6209a5a529a3933b060a196bb5fbc2099bc8f498f5c9e1dc6db27510d8bac891b28509241ed0a8742b8da51')
+b2sums=('165a8684ba8894c0a50dd5809e608a88808e3c2f2adf7adf5d6e6e6c89a9be7df82198211b8604b5f408aac64686184fe58c03fa904ea3fd4aa66a72f0ea1c59')
 
 build() {
     cd "${pkgname}-${pkgver}"
