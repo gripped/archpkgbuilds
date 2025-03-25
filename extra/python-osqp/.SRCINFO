@@ -1,29 +1,31 @@
 pkgbase = python-osqp
 	pkgdesc = Python wrapper for OSQP: the Operator Splitting QP Solver
-	pkgver = 0.6.7.post3
-	pkgrel = 2
+	pkgver = 1.0.0
+	pkgrel = 1
 	url = https://osqp.org/
 	arch = x86_64
 	license = Apache-2.0
 	checkdepends = intel-oneapi-mkl
+	checkdepends = python-joblib
 	checkdepends = python-pytest
+	checkdepends = python-pytorch
 	makedepends = cmake
 	makedepends = git
+	makedepends = pybind11
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = python-setuptools
+	makedepends = python-scikit-build-core
 	makedepends = python-setuptools-scm
-	makedepends = python-wheel
+	depends = gcc-libs
 	depends = glibc
+	depends = osqp
 	depends = python
+	depends = python-jinja
 	depends = python-numpy
-	depends = python-qdldl
 	depends = python-scipy
-	source = git+https://github.com/osqp/osqp-python#tag=v0.6.7.post3
-	source = git+https://github.com/osqp/osqp
-	source = osqp-qdldl::git+https://github.com/osqp/qdldl
-	sha256sums = f2474a484a5dcadfcdb0f765791b848455c08614eea484ee21db1c1524bd712c
-	sha256sums = SKIP
-	sha256sums = SKIP
+	source = git+https://github.com/osqp/osqp-python#tag=v1.0.0
+	source = system-osqp.patch
+	sha256sums = b93bc41e17a5e8f3a4ce3632fa2e469136422610c4bdacebbf9453977b01075a
+	sha256sums = 3897db4e1b5243b5255e527bdcd95c0a444ea7baf403ac1584ec92fcb1486946
 
 pkgname = python-osqp
