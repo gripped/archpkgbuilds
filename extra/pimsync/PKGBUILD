@@ -1,0 +1,41 @@
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+
+pkgname=pimsync
+pkgver=0.4.1
+pkgrel=1
+pkgdesc='Synchronize calendars and contacts'
+arch=(x86_64)
+url=https://pimsync.whynothugo.nl/
+license=(EUPL-1.2)
+depends=(
+  gcc-libs
+  sqlite
+)
+makedepends=(
+  git
+  rust
+  scdoc
+)
+options=(!lto)
+source=("git+https://git.sr.ht/~whynothugo/pimsync#tag=v$pkgver")
+b2sums=('415c345f36e1b24e40ce3337022e6bbb4295e9b1c83cb549b315e21f50a897e7c037d0e541620d89430fe2415bba27f00c316634db41bb457f2b8ebf244884ab')
+
+prepare() {
+  cd $pkgname
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $pkgname
+  cargo build -p $pkgname --release --locked --offline
+  make man
+}
+
+package() {
+  cd $pkgname
+  install -Dt "$pkgdir"/usr/bin target/release/$pkgname
+  install -Dm644 -t "$pkgdir"/usr/share/man/man1 target/pimsync.1
+  install -Dm644 -t "$pkgdir"/usr/share/man/man5 target/pimsync.conf.5
+  install -Dm644 -t "$pkgdir"/usr/share/man/man7 target/pimsync-migration.7
+  install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENCE
+}
