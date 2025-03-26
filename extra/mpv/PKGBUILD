@@ -5,15 +5,15 @@
 
 pkgname=mpv
 epoch=1
-pkgver=0.39.0
-pkgrel=5
+pkgver=0.40.0
+pkgrel=1
 pkgdesc='a free, open source, and cross-platform media player'
 arch=('x86_64')
 license=('GPL-2.0-or-later AND LGPL-2.1-or-later')
 url='https://mpv.io/'
 depends=('alsa-lib' 'desktop-file-utils' 'ffmpeg' 'glibc' 'hicolor-icon-theme'
          'jack' 'lcms2' 'libarchive' 'libass' 'libbluray' 'libcdio'
-         'libcdio-paranoia' 'libdrm' 'libdvdnav' 'libdvdread' 'libegl' 'libgl'
+         'libcdio-paranoia' 'libdisplay-info' 'libdrm' 'libdvdnav' 'libdvdread' 'libegl' 'libgl'
          'libglvnd' 'libjpeg-turbo' 'libplacebo' 'libpulse' 'libsixel' 'libva'
          'libvdpau' 'libx11' 'libxext' 'libxkbcommon' 'libxpresent' 'libxrandr'
          'libxss' 'libxv' 'luajit' 'mesa' 'mujs' 'libpipewire' 'rubberband'
@@ -24,18 +24,8 @@ optdepends=('yt-dlp: for video-sharing websites playback')
 provides=('libmpv.so')
 options=('!emptydirs')
 validpgpkeys=('145077D82501AA20152CACCE8D769208D5E31419') # sfan5 <sfan5@live.de>
-source=("git+https://github.com/mpv-player/mpv.git#tag=v${pkgver}?signed"
-        'do_not_load_client-rt.conf_properties.patch')
-sha256sums=('51e787dbff240d69227f306685fc962daae215c755689b9de4ef0432ddf4443b'
-            '349c1feeb6f342c6f7e33e59a315e004d4849465665d75f2e9ff4a89e4b70366')
-
-prepare() {
-  cd "${pkgname}"
-  # Backported patch to don't load client-rt.conf properties
-  # which was deprecated in https://gitlab.freedesktop.org/pipewire/pipewire/-/commit/24bcacc6195ffbf8e40c9ea1374eb6666252eadc
-  # See https://github.com/mpv-player/mpv/issues/15914
-  patch -Np1 -i "${srcdir}/do_not_load_client-rt.conf_properties.patch"
-}
+source=("git+https://github.com/mpv-player/mpv.git#tag=v${pkgver}?signed")
+sha256sums=('754d045dba7143b51dd6eb2d32ab3a9a483e6a337e685b581a876bc2e20eddf1')
 
 build() {
   local _meson_options=(
@@ -45,6 +35,7 @@ build() {
     -Dgl-x11=enabled
     -Dcaca=disabled
     -Dcdda=enabled
+    -Ddrm=enabled
     -Ddvbin=enabled
     -Ddvdnav=enabled
     -Dlibarchive=enabled
@@ -62,7 +53,7 @@ check() {
 
 package() {
   depends+=('libasound.so' 'libavcodec.so' 'libavdevice.so' 'libavfilter.so'
-            'libavformat.so' 'libavutil.so' 'libswresample.so' 'libswscale.so'
+            'libavformat.so' 'libavutil.so' 'libdisplay-info.so' 'libswresample.so' 'libswscale.so'
             'libjack.so' 'liblcms2.so' 'libarchive.so' 'libass.so' 'libbluray.so'
             'libjpeg.so' 'libplacebo.so' 'libpulse.so' 'libva.so' 'libva-drm.so'
             'libva-wayland.so' 'libva-x11.so' 'libxkbcommon.so' 'librubberband.so')

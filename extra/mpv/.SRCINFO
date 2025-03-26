@@ -1,7 +1,7 @@
 pkgbase = mpv
 	pkgdesc = a free, open source, and cross-platform media player
-	pkgver = 0.39.0
-	pkgrel = 5
+	pkgver = 0.40.0
+	pkgrel = 1
 	epoch = 1
 	url = https://mpv.io/
 	arch = x86_64
@@ -25,6 +25,7 @@ pkgbase = mpv
 	depends = libbluray
 	depends = libcdio
 	depends = libcdio-paranoia
+	depends = libdisplay-info
 	depends = libdrm
 	depends = libdvdnav
 	depends = libdvdread
@@ -58,11 +59,9 @@ pkgbase = mpv
 	optdepends = yt-dlp: for video-sharing websites playback
 	provides = libmpv.so
 	options = !emptydirs
-	source = git+https://github.com/mpv-player/mpv.git#tag=v0.39.0?signed
-	source = do_not_load_client-rt.conf_properties.patch
+	source = git+https://github.com/mpv-player/mpv.git#tag=v0.40.0?signed
 	validpgpkeys = 145077D82501AA20152CACCE8D769208D5E31419
-	sha256sums = 51e787dbff240d69227f306685fc962daae215c755689b9de4ef0432ddf4443b
-	sha256sums = 349c1feeb6f342c6f7e33e59a315e004d4849465665d75f2e9ff4a89e4b70366
+	sha256sums = 754d045dba7143b51dd6eb2d32ab3a9a483e6a337e685b581a876bc2e20eddf1
 
 pkgname = mpv
 	depends = alsa-lib
@@ -77,6 +76,7 @@ pkgname = mpv
 	depends = libbluray
 	depends = libcdio
 	depends = libcdio-paranoia
+	depends = libdisplay-info
 	depends = libdrm
 	depends = libdvdnav
 	depends = libdvdread
@@ -113,6 +113,7 @@ pkgname = mpv
 	depends = libavfilter.so
 	depends = libavformat.so
 	depends = libavutil.so
+	depends = libdisplay-info.so
 	depends = libswresample.so
 	depends = libswscale.so
 	depends = libjack.so
