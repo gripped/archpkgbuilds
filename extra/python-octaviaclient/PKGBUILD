@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-octaviaclient
-pkgver=3.9.0
+pkgver=3.10.0
 pkgrel=1
 pkgdesc="Octavia client for OpenStack Load Balancing"
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=('git')
 checkdepends=('python-hacking' 'python-requests-mock' 'python-pygments' 'python-subunit'
               'python-oslotest' 'python-stestr' 'python-testscenarios')
 source=("git+https://github.com/openstack/python-octaviaclient.git#tag=$pkgver")
-sha512sums=('a962ba1048021f99de325321183bcfe97b489a97d283e8b07c1cbfa4f6c9ae84cc692f4dc2158ad90ce08eb75e032151d56863104b2c27c36f9e50550c190035')
+sha512sums=('d17fd4781917118e67dd421700cb7714b56ee35727f07994ab1270b124ab75846dccbdbcddd49384a6ea073193e36b86881cc32777c98a90407c98741c6d794e')
 
 build() {
   cd python-octaviaclient
