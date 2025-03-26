@@ -2,7 +2,7 @@
 
 pkgname=gnome-notes
 pkgver=40.1
-pkgrel=5
+pkgrel=6
 pkgdesc="Write out notes, every detail matters"
 url="https://wiki.gnome.org/Apps/Notes"
 arch=(x86_64)
@@ -21,6 +21,7 @@ depends=(
 )
 makedepends=(
   git
+  glib2-devel
   meson
   yelp-tools
 )
@@ -28,14 +29,12 @@ provides=("bijiben=$pkgver")
 conflicts=(bijiben)
 replaces=(bijiben)
 groups=(gnome-extra)
-_commit=b5189e213b50cac50f5602945836dc4d85b17959  # tags/BIJIBEN_40_1^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-notes.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/^BIJIBEN_//;s/_/./g;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-notes.git#tag=BIJIBEN_${pkgver//./_}"
+        gnome-notes-invalid-open.patch
+        gnome-notes-invalid-search.patch)
+b2sums=('794f39b637b48a8a64a0fdb98fbd1d346f0a22dc2c752dfbba97f3ffe1c3c6b5d44cd3bbe64fdcc4877065140d6e7b3d3f3961ca872df05c4df22b617729a83d'
+        '8a7289336a0bdc71c260582b74bbf7bfeebf3aaec1746c4623dee92102cafc46eb171b96f2533b21c12e4ded2a53d277502f4857126dcef426ec9b9bc4c90145'
+        '350a5d7efaab372d792d15f676238f6c3310a1f56af3b74093eb58ea932e1956b34b6def52f591d6c20b429188d01835e3e82021347fd2457aa9eefd605d3d4d')
 
 prepare() {
   cd $pkgname
@@ -48,6 +47,22 @@ prepare() {
 
   # Soup 3
   git cherry-pick -n 8471369c54f9aa777857e2a42d82ab502c071520
+
+  # Fix crash in shell search provider
+  # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/193
+  git cherry-pick -n 438678f007f129b6ed636a577917223a503a484b
+
+  # Pass open uri to the primary application instance
+  # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/194
+  git cherry-pick -n 747ff6119895c2e9bc6560414d8b8091e2d03ee1
+
+  # Don't try to open an invalid note
+  # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/195
+  git apply -3 ../gnome-notes-invalid-open.patch
+
+  # Don't build result when invalid ID specified
+  # https://gitlab.gnome.org/GNOME/gnome-notes/-/merge_requests/196
+  git apply -3 ../gnome-notes-invalid-search.patch
 }
 
 build() {

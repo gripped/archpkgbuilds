@@ -1,0 +1,45 @@
+From 22e9665d8d3ad5e35522a97d711e2db29b30a626 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 26 Mar 2025 12:01:40 +0000
+Subject: [PATCH] application: Don't try to open an invalid note
+
+Otherwise the UI enters into a broken state.
+Also, don't open new window for a note if already opened.
+---
+ src/bjb-application.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/src/bjb-application.c b/src/bjb-application.c
+index ba96c5e4..b7d4082b 100644
+--- a/src/bjb-application.c
++++ b/src/bjb-application.c
+@@ -133,6 +133,14 @@ bijiben_new_window_internal (BjbApplication *self,
+   windows = gtk_application_get_windows (GTK_APPLICATION (self));
+   not_first_window = (gboolean) g_list_length (windows);
+ 
++  for (GList *l = windows; l != NULL; l = l->next) {
++      BjbWindowBase *window = BJB_WINDOW_BASE (l->data);
++      if (bjb_window_base_get_note (window) == note) {
++          gtk_window_present (GTK_WINDOW (window));
++          return;
++      }
++  }
++
+   window = BJB_WINDOW_BASE (bjb_window_base_new (note));
+   g_signal_connect (window, "activated",
+                     G_CALLBACK (on_window_activated_cb), self);
+@@ -163,7 +171,10 @@ bijiben_open_path (BjbApplication *self,
+ 
+   item = biji_manager_get_item_at_path (self->manager, path);
+ 
+-  if (BIJI_IS_NOTE_OBJ (item) || !window)
++  if (!BIJI_IS_NOTE_OBJ (item))
++    return TRUE;
++
++  if (!window)
+     bijiben_new_window_internal (self, BIJI_NOTE_OBJ (item));
+   else
+     bjb_window_base_switch_to_item (window, item);
+-- 
+GitLab
+
