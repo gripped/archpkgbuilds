@@ -3,13 +3,13 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-compute-runtime
-pkgver=25.09.32961.5
+pkgver=25.09.32961.7
 pkgrel=1
 pkgdesc="Intel(R) Graphics Compute Runtime for oneAPI Level Zero and OpenCL(TM) Driver"
 arch=(x86_64)
 url="https://01.org/compute-runtime"
 license=(MIT)
-depends=(gcc-libs intel-gmmlib intel-graphics-compiler)
+depends=(gcc-libs glibc intel-gmmlib intel-graphics-compiler)
 makedepends=(cmake igsc libva level-zero-headers)
 optdepends=('libva: for cl_intel_va_api_media_sharing'
             'libdrm: for cl_intel_va_api_media_sharing')
@@ -18,7 +18,7 @@ provides=(opencl-driver level-zero-driver)
 options=(!lto)
 source=(https://github.com/intel/compute-runtime/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         010-intel-compute-runtime-disable-werror.patch)
-sha256sums=('85e694b407316120c2aa26e6a46b8f23705616404b1398663f0988161ce6bb1b'
+sha256sums=('2fb19f7662bd624ab4a8a2ad6f5cb480a58be9fb98ec5091a9d5ecb9338bb692'
             '84c340119a77571a7779a8c21245db62255b0ec28f325a6f250526bd47dd367f')
 
 prepare() {
