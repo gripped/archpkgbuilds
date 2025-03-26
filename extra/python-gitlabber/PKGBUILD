@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=python-gitlabber
-pkgver=1.2.6
-_commit=661774337fc61a71b9af2d1f7563c89173f254fb
-pkgrel=3
+pkgver=1.2.8
+_commit=1ee3667638e65374e9ae6404019a37d0de2f08a2
+pkgrel=1
 pkgdesc='Clones or pulls entire groups tree from GitLab'
 arch=('any')
 license=('MIT')
@@ -26,7 +26,7 @@ checkdepends=(
   'python-pytest-integration'
 )
 source=("$pkgname::git+${url}#commit=$_commit")
-sha256sums=('c7bcfaac9a7dc50120c199ed58e2088898243db72bbcffdefa170dcede44e935')
+sha256sums=('7d877b57f1ab2ee014e06378bc95ef7332e91fd585086d5a135d1f3f3ad1217c')
 
 pkgver() {
   cd "$pkgname"
