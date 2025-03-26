@@ -2,19 +2,19 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=python-psycopg
-pkgver=3.2.5
+pkgver=3.2.6
 pkgrel=1
 pkgdesc='PostgreSQL database adapter for Python'
-arch=('any')
+arch=('x86_64')
 url='https://www.psycopg.org/psycopg3/'
 license=('LGPL-3.0-only')
 depends=(
   'python'
-  'python-typing_extensions' # remove once we get python 3.13
   'postgresql-libs'
 )
 makedepends=(
   'git'
+  'cython'
   'python-build'
   'python-installer'
   'python-wheel'
@@ -22,17 +22,25 @@ makedepends=(
 )
 checkdepends=('python-pytest' 'python-pytest-asyncio')
 source=("$pkgname::git+https://github.com/psycopg/psycopg.git#tag=$pkgver")
-sha512sums=('d40a8474b14f4118389a2119f77f3823ffe083f18d1941e568eeb8f27f97fe2924c1b1b3ef51898472fa3cdf3ec1e3bacec85c11377fd6d7e5a93fc1ce0d3db7')
-b2sums=('29fb09e9a79db3e6abdc3ecb8db7e58a342ba96c1c54cea6e65ea1ca1e146653c10280a80b147613ccdaf8d328b831e77b62e2dd548138302dd5d0bdafa9db06')
+sha512sums=('cf23618e5ee1374b7087a1405ae68edfc1fe04acd068061adaf76ad68451d740d08bbe9d6503c666a663640b1bd612d270506c76a8cf726981194a9710af7767')
+b2sums=('a3f36499a14e24f96023e831e4ae41d1b6064dd4b7a51a319ca95ef7bc8d785666f1d1674aab923bd73693cf71a613170d4de3968ee60725fd0e3f13eb119456')
 
 build(){
-  cd "$pkgname/psycopg"
+  cd "$pkgname"
 
-  python -m build --wheel --no-isolation
+  for pkg in psycopg psycopg_c; do
+    pushd "$pkg"
+    python -m build --wheel --no-isolation
+    popd
+  done
 }
 
 package(){
-  cd "$pkgname/psycopg"
+  cd "$pkgname"
 
-  python -m installer --destdir="$pkgdir" dist/*.whl 
+  for pkg in psycopg psycopg_c; do
+    pushd "$pkg"
+    python -m installer --destdir="$pkgdir" dist/*.whl
+    popd
+  done
 }
