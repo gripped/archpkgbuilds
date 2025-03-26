@@ -2,7 +2,7 @@
 
 pkgbase=firecracker
 pkgname=('firecracker' 'firecracker-docs')
-pkgver=1.10.1
+pkgver=1.11.0
 pkgrel=1
 pkgdesc='Secure and fast microVMs for serverless computing'
 arch=('x86_64')
@@ -11,8 +11,8 @@ license=('Apache-2.0' 'BSD-3-Clause') # firecracker is Apache, Chromium componen
 makedepends=('git' 'rust' 'clang' 'cmake')
 options=('!lto' '!buildflags')
 source=("$pkgname::git+https://github.com/firecracker-microvm/firecracker.git#tag=v$pkgver")
-sha512sums=('24b754f1b3fb4f2292f387e29c1c56293a7f859ec042e39e17fa5492a16c9e7b4f80f1c5707cc8fb319bc9aa6da65d7b65bd4898cd2e3ff62ebe62cd8c444bcf')
-b2sums=('7e45ae6317bb1d75461b402a04e1344e8e7be281a6f5a40a89525b43f57560345667d13cb35c88a27501aa79a054dcc2a491767deb771e12edbb7c3358bf08af')
+sha512sums=('1b3e310e6396e3ceaf5cb78f003ab40932cec8a46196dde9c1e5450981e525dd6bd387d2993610aaa741b01f33b92ef7f356ec4c96e9f0f820a73def9d5c852a')
+b2sums=('0255a240d2b429566cfd363c01eb52abbb159104e11b96df70e3e070cbef9b4db5b3ec527f1ead9b9acdb627f9363bb7cbd6771ca8c11a6a306bf7bf17c3175d')
 
 _cargo_target="$CARCH-unknown-linux-gnu"
 
