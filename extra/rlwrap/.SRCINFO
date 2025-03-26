@@ -1,17 +1,19 @@
 pkgbase = rlwrap
 	pkgdesc = Adds readline-style editing and history to programs
 	pkgver = 0.46.1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/hanslub42/rlwrap
 	arch = x86_64
-	license = GPL
+	license = GPL-2.0-only
 	makedepends = git
 	depends = glibc
 	depends = readline
 	depends = ncurses
 	depends = perl
-	optdepends = python: filters
-	source = rlwrap::git+https://github.com/hanslub42/rlwrap#commit=8c7086dd2385bb307cdadb893f2566b4e8da8ad9
-	b2sums = SKIP
+	depends = python
+	depends = python-pexpect
+	source = rlwrap::git+https://github.com/hanslub42/rlwrap#tag=0.46.1
+	sha512sums = 1ef45e99c7847741fdc5feede731888c2b141e53f8f84ca2f05caea89a3cf2bb34831b1e16eb6801181ee21d2e9e0ba2cf709c318ade9f3da893fd4783fa8dcb
+	b2sums = faad5651e8a1c52f401cd6d7868bb1962f850a7c4dbe6423a2e9b03a0c2262e8d16f71b38a38cc33490d60ba76b3ea210a64b140ef85466670cf9d2603aa8d7b
 
 pkgname = rlwrap
