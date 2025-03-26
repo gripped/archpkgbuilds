@@ -5,7 +5,7 @@
 
 pkgname=accerciser
 pkgver=3.46.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Interactive Python accessibility explorer for the GNOME desktop"
 url="https://wiki.gnome.org/Apps/Accerciser"
 arch=(any)
@@ -15,7 +15,6 @@ depends=(
   dconf
   gdk-pixbuf2
   glib2
-  gobject-introspection-runtime
   gtk3
   hicolor-icon-theme
   ipython
@@ -43,6 +42,11 @@ b2sums=('87cbc2086e9cb37f786d79abd7d95f80b5f8e27c2ccae93a2e58ab950fdcf41e9f936f9
 
 prepare() {
   cd $pkgname
+
+  # Fix compatibility with ipython 9
+  git cherry-pick -n ea5b2dfedcbf79ba1492f7cd0bd3c0a53ebec733
+  git cherry-pick -n 55462e60b520746e4265c9165164cbb467ec3162
+  git cherry-pick -n eebe0199de8120c3383730a398a544d5d2839f7c
 }
 
 build() {
