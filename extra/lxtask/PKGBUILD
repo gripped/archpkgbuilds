@@ -5,32 +5,32 @@
 
 pkgbase=lxtask
 pkgname=(lxtask lxtask-gtk3)
-pkgver=0.1.11
+pkgver=0.1.12
 pkgrel=1
 pkgdesc='Task manager of the LXDE Desktop'
 arch=('x86_64')
 license=('GPL2')
 url='https://lxde.org/'
 depends=('gtk2' 'gtk3')
-makedepends=('intltool')
-source=(https://github.com/lxde/lxtask/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('a28e1804f4d68e8698c012a4a7b30f5a18dfa4c3d54f4f667793af7d2ac27408')
+makedepends=('git' 'intltool')
+source=(git+https://github.com/lxde/lxtask.git#tag=${pkgver})
+sha256sums=('43f8cc6619407111b430ade797a03fcae73b47455feeb5c5388b122814d62b15')
 
 prepare() {
-  cd $pkgbase-$pkgver
+  cd $pkgbase
   autoreconf -vif
 }
 
 build() {
   # GTK+ 2 version
-  [ -d gtk2 ] || cp -r $pkgbase-$pkgver gtk2
+  [ -d gtk2 ] || cp -r $pkgbase gtk2
   cd gtk2
   ./configure --sysconfdir=/etc --prefix=/usr
   make
 
   cd "$srcdir"
   # GTK+ 3 version
-  [ -d gtk3 ] || cp -r $pkgbase-$pkgver gtk3
+  [ -d gtk3 ] || cp -r $pkgbase gtk3
   cd gtk3
   ./configure --sysconfdir=/etc --prefix=/usr --enable-gtk3
   make

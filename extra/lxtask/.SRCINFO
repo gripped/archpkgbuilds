@@ -1,15 +1,16 @@
 pkgbase = lxtask
 	pkgdesc = Task manager of the LXDE Desktop
-	pkgver = 0.1.11
+	pkgver = 0.1.12
 	pkgrel = 1
 	url = https://lxde.org/
 	arch = x86_64
 	license = GPL2
+	makedepends = git
 	makedepends = intltool
 	depends = gtk2
 	depends = gtk3
-	source = https://github.com/lxde/lxtask/archive/0.1.11/lxtask-0.1.11.tar.gz
-	sha256sums = a28e1804f4d68e8698c012a4a7b30f5a18dfa4c3d54f4f667793af7d2ac27408
+	source = git+https://github.com/lxde/lxtask.git#tag=0.1.12
+	sha256sums = 43f8cc6619407111b430ade797a03fcae73b47455feeb5c5388b122814d62b15
 
 pkgname = lxtask
 	groups = lxde
