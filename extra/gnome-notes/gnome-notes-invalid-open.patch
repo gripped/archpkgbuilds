@@ -1,19 +1,29 @@
-From 22e9665d8d3ad5e35522a97d711e2db29b30a626 Mon Sep 17 00:00:00 2001
+From 8c96101e4c5294a09cc826a70fd20c497ace6cfd Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Wed, 26 Mar 2025 12:01:40 +0000
-Subject: [PATCH] application: Don't try to open an invalid note
+Subject: [PATCH] application: Fix activate
 
-Otherwise the UI enters into a broken state.
+This ensures that the main window is always present on launch.
 Also, don't open new window for a note if already opened.
 ---
- src/bjb-application.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ src/bjb-application.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
 diff --git a/src/bjb-application.c b/src/bjb-application.c
-index ba96c5e4..b7d4082b 100644
+index ba96c5e4..f3c941e4 100644
 --- a/src/bjb-application.c
 +++ b/src/bjb-application.c
-@@ -133,6 +133,14 @@ bijiben_new_window_internal (BjbApplication *self,
+@@ -127,13 +127,27 @@ bijiben_new_window_internal (BjbApplication *self,
+                              BijiNoteObj    *note)
+ {
+   BjbWindowBase *window;
++  BjbController *controller;
+   GList         *windows;
+   gboolean       not_first_window;
+ 
++  if (!self->manager)
++      return;
++
    windows = gtk_application_get_windows (GTK_APPLICATION (self));
    not_first_window = (gboolean) g_list_length (windows);
  
@@ -26,20 +36,32 @@ index ba96c5e4..b7d4082b 100644
 +  }
 +
    window = BJB_WINDOW_BASE (bjb_window_base_new (note));
++  controller = bjb_window_base_get_controller (window);
++  bjb_controller_apply_needle (controller);
    g_signal_connect (window, "activated",
                      G_CALLBACK (on_window_activated_cb), self);
-@@ -163,7 +171,10 @@ bijiben_open_path (BjbApplication *self,
  
-   item = biji_manager_get_item_at_path (self->manager, path);
+@@ -181,10 +195,7 @@ bijiben_new_window_for_note (GApplication *app,
+ static void
+ bijiben_activate (GApplication *app)
+ {
+-  GList *windows = gtk_application_get_windows (GTK_APPLICATION (app));
+-
+-  // ensure the last used window is raised
+-  gtk_window_present (g_list_nth_data (windows, 0));
++  bijiben_new_window_internal (BJB_APPLICATION (app), NULL);
+ }
  
--  if (BIJI_IS_NOTE_OBJ (item) || !window)
-+  if (!BIJI_IS_NOTE_OBJ (item))
-+    return TRUE;
-+
-+  if (!window)
-     bijiben_new_window_internal (self, BIJI_NOTE_OBJ (item));
-   else
-     bjb_window_base_switch_to_item (window, item);
+ 
+@@ -499,6 +510,8 @@ bijiben_application_local_command_line (GApplication *application,
+     for (args = remaining; *args; args++)
+       g_ptr_array_add (files, g_file_new_for_commandline_arg (*args));
+     g_application_open (application, (GFile **)files->pdata, files->len, "");
++  } else {
++    g_application_activate (application);
+   }
+   g_ptr_array_free (files, TRUE);
+ 
 -- 
 GitLab
 
