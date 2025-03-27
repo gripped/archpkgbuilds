@@ -8,15 +8,15 @@
 
 pkgbase=notmuch
 pkgname=('notmuch' 'notmuch-vim' 'notmuch-mutt' 'notmuch-runtime')
-pkgver=0.38.3
-pkgrel=5
+pkgver=0.39
+pkgrel=1
 arch=('x86_64')
 url="https://notmuchmail.org/"
 license=('GPL3')
 makedepends=('python' 'python-build' 'python-cffi' 'python-installer' 'python-setuptools' 'python-sphinx' 'python-wheel' 'doxygen' 'emacs' 'gnupg' 'ruby' 'pkgconfig' 'xapian-core' 'gmime3' 'talloc' 'sfsexp')
 options=(!distcc !makeflags)
 source=("https://notmuchmail.org/releases/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha512sums=('247f8b365a75b29df719403bc2c9645eb669a7ee6eb4c1e0047dcf55fea4d66c8dcb4899162b952643aa6148ec6e1538ebe3e7e8408376153165e394084aed19'
+sha512sums=('a9864a6a8423c723d36df269dcc73c2987be63c6e328b818235d0604cb594e0e91ee7639ee99a4b867be4387a605abc187a3b458aa7b0e4fc3a1744c0c2daa69'
             'SKIP')
 validpgpkeys=('7A18807F100A4570C59684207E4E65C8720B706B') # David Bremner <bremner@debian.org>
 
@@ -29,9 +29,6 @@ build() {
     make -C "contrib/${pkgbase}-mutt"
 
     make ruby-bindings
-
-    cd "$srcdir/$pkgbase-$pkgver/bindings/python"
-    python -m build --wheel --skip-dependency-check --no-isolation
 
     cd "$srcdir/$pkgbase-$pkgver/bindings/python-cffi"
     python -m build --wheel --skip-dependency-check --no-isolation
@@ -85,9 +82,6 @@ package_notmuch(){
     make -C bindings/ruby exec_prefix="$pkgdir"/usr install
 
     # Install python bindings
-    cd "$srcdir/$pkgbase-$pkgver/bindings/python"
-    python -m installer --destdir="$pkgdir" dist/*.whl
-
     cd "$srcdir/$pkgbase-$pkgver/bindings/python-cffi"
     python -m installer --destdir="$pkgdir" dist/*.whl
 
