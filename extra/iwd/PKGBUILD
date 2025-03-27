@@ -3,7 +3,7 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=iwd
-pkgver=3.4
+pkgver=3.5
 pkgrel=1
 pkgdesc='Internet Wireless Daemon'
 arch=('x86_64')
@@ -15,7 +15,7 @@ optdepends=('qrencode: for displaying QR code after DPP is started')
 source=(https://www.kernel.org/pub/linux/network/wireless/iwd-${pkgver}.tar{.xz,.sign}
         0001-use-network-group-for-unprivileged-access.diff)
 # https://mirrors.edge.kernel.org/pub/linux/network/wireless/sha256sums.asc
-sha256sums=('0e7b99390fc971b85b25c4eb4ffeee082717123cb9726d51cec9481b621f6723'
+sha256sums=('19f128d924b206f5fcaac34b41f4a001f6e21caa356179321ebe01849790e134'
             'SKIP'
             'd5fb4fb864b7a0632117aa2039df535ab5c1d024ae618a1f09e34dfab8ee0cc7')
 validpgpkeys=('E932D120BC2AEC444E558F0106CA9F5D1DCF2659')
