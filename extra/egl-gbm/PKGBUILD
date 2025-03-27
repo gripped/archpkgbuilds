@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Mark Wagie
 pkgname=egl-gbm
-pkgver=1.1.2
+pkgver=1.1.2.1
 pkgrel=1
 pkgdesc="The GBM EGL external platform library"
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('meson')
 provides=('libnvidia-egl-gbm.so=1')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz"
         '15_nvidia_gbm.json')
-sha256sums=('40c8a1a3df0639ea83031a92e9adcbef92ed696445307aa23cfc5895e63d11f0'
+sha256sums=('7485553525b4212842230098b12671469bddb3c37063a89383f31865aea63aef'
             'b22cd47d1a11a6c1324cff07f62f4695522ac41f945cfeb83fe484c6c56ff297')
 
 build() {
