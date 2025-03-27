@@ -2,7 +2,7 @@
 
 pkgname=prometheus-systemd-exporter
 _pkgname=systemd_exporter
-pkgver=0.6.0
+pkgver=0.7.0
 pkgrel=1
 pkgdesc="Application-level metrics for systemd units"
 url="https://github.com/prometheus-community/systemd_exporter"
@@ -15,10 +15,10 @@ source=("${pkgname}-${pkgver}.tar.gz::https://github.com/prometheus-community/sy
         prometheus-systemd-exporter.conf
         prometheus-systemd-exporter.service
         prometheus-systemd-exporter.sysusers)
-sha256sums=('6593a6894121a9b9a3016fc2bc67dfd801b45aeb5a4099a69bc79b71c9b4839f'
+sha256sums=('666a26db03844f11504d36ff08526b25155c5239beed9fabd0d9cc96433ea89a'
             '24c91b7bb90cb65bf5edddc93cce810f57f2e06f265cef955303325526508f23'
             '9230d7a3092418da27e0690387700a8d1c143bcc1f1666657c62548be5bd169a'
-            '3deec7e797e31ad3b3149efbbef529e7bd2b7072268d948ae2e299790a46613b')
+            'e6a79e1d65cb2b4512c4bbe341a7455111fc585d6f329bff48d97a1ca3d3df59')
 
 build() {
   cd "${_pkgname}-${pkgver}"
@@ -28,12 +28,12 @@ build() {
     -buildmode=pie \
     -mod=readonly \
     -modcacherw \
-    -ldflags "-linkmode external -extldflags ${LDFLAGS} \
+    -ldflags "-linkmode external -extldflags \"${LDFLAGS}\" \
       -X github.com/prometheus/common/version.Version=$pkgver \
       -X github.com/prometheus/common/version.Revision=$pkgver \
       -X github.com/prometheus/common/version.Branch=tarball \
       -X github.com/prometheus/common/version.BuildUser=someone@builder \
-      -X github.com/prometheus/common/version.BuildDate=$(date -d=@"$SOURCE_DATE_EPOCH" +%Y%m%d-%H:%M:%S)" \
+      -X github.com/prometheus/common/version.BuildDate=$(date --date "@${SOURCE_DATE_EPOCH}" "+%Y%m%d%H%M%S")" \
     .
 }
 
