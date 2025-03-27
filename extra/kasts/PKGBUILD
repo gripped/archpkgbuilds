@@ -2,7 +2,7 @@
 
 pkgname=kasts
 pkgver=24.12.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Kirigami-based podcast player'
 url='https://apps.kde.org/kasts/'
 arch=(x86_64)
@@ -29,12 +29,18 @@ makedepends=(extra-cmake-modules
              python)
 groups=(kde-applications
         kde-multimedia)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
+        https://invent.kde.org/multimedia/kasts/-/commit/39340fc3.patch)
 sha256sums=('45351ce35d2188e732544cc14b48d3589dfe5e5206884502e9695f5bdee37570'
-            'SKIP')
+            'SKIP'
+            'bc0ece75a7bef0d542b6b4abbbcbbd583bc119d453739408154745818f4a6d49')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < 39340fc3.patch # Backport kirigami 6.12 fixes
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
