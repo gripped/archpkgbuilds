@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=morphosis
-pkgver=1.4.1
-pkgrel=3
+pkgver=48.1
+pkgrel=1
 pkgdesc='Document conversion app using Pandoc and WebKitGTK'
 arch=(any)
 url='https://gitlab.gnome.org/World/morphosis'
@@ -16,7 +16,7 @@ depends=(
   pandoc-cli
   python
   python-gobject
-  webkitgtk-6.0
+  python-weasyprint
 )
 makedepends=(
   appstream
@@ -24,19 +24,8 @@ makedepends=(
   git
   meson
 )
-source=("git+https://gitlab.gnome.org/World/morphosis.git#tag=v$pkgver")
-b2sums=(15e40e1ae622642c757d1085e8551d1e400cc5815d219808819ef08f27017cabe61f88a4d0ba58e93aeaf5aa5d2747bb9f16c138a30198371aa7cd235a5ff042)
-
-prepare() {
-  cd $pkgname
-
-  # https://gitlab.gnome.org/World/morphosis/-/merge_requests/8
-  git cherry-pick -n 5c3a7bd90a3dd9cbc30c0e8304ff3444327fc772
-
-  # https://gitlab.gnome.org/World/morphosis/-/merge_requests/9
-  git cherry-pick -n 70faf64542a7fa740439af1dd4f217bc11fecad1
-  git cherry-pick -n 3d6813f3380d08153d411226c101fbb13dfd1e67
-}
+source=("git+https://gitlab.gnome.org/World/morphosis.git#tag=$pkgver")
+b2sums=(4514c5d7459e9dfc54ca48c33b6cff1d58b8869ab4d7a513d554f3e85be9838ee8a354bd559831e5e76c20ee160769c0d1653ed712f7a1c14da941b8c52f4f1a)
 
 build() {
   arch-meson $pkgname build
