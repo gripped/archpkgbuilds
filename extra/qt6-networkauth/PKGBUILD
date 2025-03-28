@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-networkauth
-_pkgver=6.8.2
+_pkgver=6.8.3
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('bbc2d7f6265812078110a9b44ba0acc1d700711e940d2e05c9192959140d466d')
+sha256sums=('8a918e6f70a6291307f4fb2f16b986807aa7576a2f6909471adb7cd738eb808b')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
