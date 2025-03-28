@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=qt6-mqtt
-_pkgver=6.8.2
+_pkgver=6.8.3
 pkgver=${_pkgver/-/}
 pkgrel=1
 pkgdesc="Module to implement MQTT protocol v3.1/3.1.1/5.0"
@@ -18,7 +18,7 @@ makedepends=(cmake
              git
              ninja)
 source=("git+https://code.qt.io/qt/qtmqtt.git#tag=v$_pkgver")
-sha512sums=('83243a4f89a049b180d619571b319dc6e80f8ef44ba2eda4f51ba087d7a3ec38a0c18096ce8e368629bcef9a9d67ceb8067efd1502878ca4e4aa04562137b56a')
+sha512sums=('d4aa8c7ce018fc7f0a4b330d135bc2e56536696d95c8e60912289b9e6da45e6c39c975103db66dad234dda28cf51ff05406bebe422e4b6c30b0a84d5be80cb49')
 _pkgfn=${pkgname/6-/}
 
 build() {
