@@ -5,7 +5,7 @@ pkgbase=qt6-multimedia
 pkgname=(qt6-multimedia
          qt6-multimedia-ffmpeg
          qt6-multimedia-gstreamer)
-_pkgver=6.8.2
+_pkgver=6.8.3
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -33,7 +33,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('8988215581220de3d2c5c89af7e434f7e30d1fc6e7aead48d3e7b0059159cf37')
+sha256sums=('70c5592cd29049bf86032f55ea2f5d096c481cad71aa834a862674683d0868c6')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
@@ -51,12 +51,12 @@ package_qt6-multimedia() {
 # Split plugins
   rm -r "$pkgdir"/usr/lib/qt6/plugins/
   rm "$pkgdir"/usr/lib/cmake/Qt6Multimedia/Qt6Q{FFmpeg,Gstreamer}*
-  rm -r "$pkgdir"/usr/include/qt6/QtQGstreamerMediaPluginImpl \
-        "$pkgdir"/usr/lib/cmake/Qt6QGstreamerMediaPluginImplPrivate \
-        "$pkgdir"/usr/lib/libQt6QGstreamerMediaPluginImpl.a \
-        "$pkgdir"/usr/lib/qt6/metatypes/qt6qgstreamermediapluginimplprivate_relwithdebinfo_metatypes.json \
-        "$pkgdir"/usr/lib/qt6/mkspecs/modules/qt_lib_qgstreamermediapluginimpl_private.pri \
-        "$pkgdir"/usr/lib/qt6/modules/QGstreamerMediaPluginImplPrivate.json
+  rm -r "$pkgdir"/usr/include/qt6/Qt{FFmpeg,Gstreamer}MediaPluginImpl \
+        "$pkgdir"/usr/lib/cmake/Qt6{FFmpeg,Gstreamer}MediaPluginImplPrivate \
+        "$pkgdir"/usr/lib/libQt6{FFmpeg,Gstreamer}MediaPluginImpl.a \
+        "$pkgdir"/usr/lib/qt6/metatypes/qt6{ffmpeg,gstreamer}mediapluginimplprivate_relwithdebinfo_metatypes.json \
+        "$pkgdir"/usr/lib/qt6/mkspecs/modules/qt_lib_{ffmpeg,gstreamer}mediapluginimpl_private.pri \
+        "$pkgdir"/usr/lib/qt6/modules/{FFmpeg,Gstreamer}MediaPluginImplPrivate.json
 
   install -d "$pkgdir"/usr/share/licenses
   ln -s /usr/share/licenses/qt6-base "$pkgdir"/usr/share/licenses/$pkgname
