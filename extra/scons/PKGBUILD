@@ -6,7 +6,7 @@
 
 _name=SCons
 pkgname=scons
-pkgver=4.9.0
+pkgver=4.9.1
 pkgrel=1
 pkgdesc="Extensible Python-based build utility"
 arch=(any)
@@ -33,10 +33,10 @@ source=(
   $pkgname::git+https://github.com/$pkgname/$pkgname.git#tag=$pkgver
   https://downloads.sourceforge.net/project/scons/scons/$pkgver/$_name-$pkgver.tar.gz
 )
-sha512sums=('483112afe1f41fb4240139543c7904df82513cb88adcd3dd85c48b978a86981be61eeede22e1fa471b854ee99d0fcaa29c1590393f81061be50a59c5b9cedafb'
-            '74d3d782433394fbdd1010c2a6c4a4026431753f72be1e6f61c7c00ad37ff1cb4c5e149c4418a7d7325b5553e3f827b32bf0f8f1727b08def5a8f90e54ff3439')
-b2sums=('1d241a73e448219db8f0641b4fa5228080aaf1e25f97144544fa135098ccfb4401be689e3e60cbbfe6f25ab4563fa8f13bcb559bbab25e04b19f8c9edb0df065'
-        'fafce07d3e6f946344298f66d8530f79dce08e221ccd9957d29fbea9f23c7048f651c1c6735ac3dd51dd2c07f1540d77f16301e9c253a9f3087446a2a4856666')
+sha512sums=('831c0e9f03ab8b7bad09ae27e8e9553ff4da35e4d01abfb65d16140ae43a0b3a59e8af2a237bce82a6722f3d0459ec39de7636291c75f9edf92a8ef02ffac730'
+            '8d881179a99a1c429ae76fbc01f0bfd606686c89b999687c0a2ec33126f7c71d1efc7c61666165981f752b8c52e40103fe08aadf07ea9337fe4fd3a8d3a94eb1')
+b2sums=('311d167c4575d5212ac4334f114d8a6096141d0bd41732b8b02c9cd30cb1fef2f106d9c51b74b5c62132f60d8d36ca7470a4c72bf8165a01e1040b1ebaf53bdc'
+        '5ac153cc2b6a9569765eb4f8d01e900cf6bba1be333f68358aaa1ecd395ab9b7faf6a1da7b56d5080962d5bb078c16fa362487aedbb8417792a4a12f2ac8d95b')
 
 build() {
   cd $pkgname
