@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-3d
-_pkgver=6.8.2
+_pkgver=6.8.3
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -28,7 +28,7 @@ optdepends=('assimp: assimp importer plugin'
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('93fe0c7b0f69e21964ab039cae22bc8c0abafaed7da98833d76824b3b20aa41a')
+sha256sums=('dec55a5fabcdd80d63679a2160c25d099e94df9332d1ad2282638c871e1605ac')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
