@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-virtualkeyboard
-_pkgver=6.8.2
+_pkgver=6.8.3
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -25,7 +25,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('7208d3fa13297ad33aee0b51be9520eb53147752082265b801581a97bb2cc9f7')
+sha256sums=('5beea020f1237d766fd1ee0f72f33327e62c4eb5186dc905e637e7842e6bef83')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
