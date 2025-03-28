@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-wayland
-_pkgver=6.8.2
+_pkgver=6.8.3
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -27,7 +27,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('ae10dbefe617502169ad006c39e0aadb1c2095a8a8248d1533fc566ba125f542')
+sha256sums=('4c8ea709f36fb7b548f1cb971a659d7efcb3ca380be1655fac6b309957f87c3f')
 
 prepare() {
   cd $_pkgfn
