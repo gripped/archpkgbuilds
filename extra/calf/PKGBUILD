@@ -3,32 +3,64 @@
 # Contributor: Ray Rashif <schiv@archlinux.org>
 
 pkgname=calf
-pkgver=0.90.4
+pkgver=0.90.5
 pkgrel=1
 pkgdesc='LV2 plug-in suite and standalone Jack host'
 arch=(x86_64)
 url='https://calf-studio-gear.org'
-groups=(lv2-plugins pro-audio)
-license=(LGPL2.1)
-depends=(cairo expat fluidsynth gcc-libs gdk-pixbuf2 glib2 glibc gtk2 hicolor-icon-theme jack)
-makedepends=(git lv2)
-source=("git+https://github.com/calf-studio-gear/calf#tag=$pkgver")
-b2sums=('a5d2ccca675c21e807b4851d26e519beafce5ce159be8e5c711d1dd1febbf17f164dd9e6bc4e776295bfc2132c6ccb67bf4dc0a975acf49f6094bd0ef8f914b1')
+_url="https://github.com/calf-studio-gear/calf"
+groups=(
+  lv2-plugins
+  pro-audio
+)
+license=(
+  GPL-2.0-or-later
+  LGPL-2.0-or-later
+)
+depends=(
+  cairo
+  expat
+  fluidsynth
+  gcc-libs
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk2
+  hicolor-icon-theme
+  jack)
+makedepends=(
+  cmake
+  git
+  lv2
+)
+source=("git+$_url#tag=$pkgver")
+b2sums=('1eba51349947153206d53786caad6216d7700c0d9555db31316d961f884eaeb95fef51658a1f3ac03483e63fd2080aaba7ed1d907de434afeb23633ec7bed91e')
 
 prepare() {
-  cd $pkgname
-  autoreconf -fiv
+  sed -i "s/@VERSION@/$pkgver/" $pkgname/$pkgname.desktop.in > $pkgname.desktop
 }
 
 build() {
-  cd $pkgname
-  ./configure --enable-experimental --enable-sse --prefix=/usr --with-lv2
-  # prevent libtool from overlinking
-  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-  make
+  local cmake_options=(
+    -B build
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -S $pkgname
+    -W no-dev
+  )
+
+  cmake "${cmake_options[@]}"
+  cmake --build build --verbose
 }
 
 package() {
-  make DESTDIR="$pkgdir" install -C $pkgname
-  install -Dm644 $pkgname/{AUTHORS,ChangeLog,README} -t "$pkgdir/usr/share/doc/$pkgname"
+  DESTDIR="$pkgdir" cmake --install build
+
+  # NOTE: install some files manually because upstream dropped the ball
+  install -vDm 644 $pkgname.desktop -t "$pkgdir/usr/share/applications/"
+  install -vDm 644 $pkgname/$pkgname*.1 -t "$pkgdir/usr/share/man/man1/"
+  install -vDm 644 $pkgname/$pkgname.7 -t "$pkgdir/usr/share/man/man7/"
+  install -vDm 644 $pkgname/$pkgname -t "$pkgdir/usr/share/bash-completion/completions/"
+
+  install -Dm644 $pkgname/{AUTHORS,ChangeLog,README.md} -t "$pkgdir/usr/share/doc/$pkgname"
 }
