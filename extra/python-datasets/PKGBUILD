@@ -4,7 +4,7 @@
 
 _name=datasets
 pkgname=python-$_name
-pkgver=3.4.1
+pkgver=3.5.0
 pkgrel=1
 pkgdesc="Ready-to-use datasets for ML models with fast, easy-to-use and efficient data manipulation tools"
 arch=(any)
@@ -39,6 +39,7 @@ checkdepends=(
   python-decorator
   python-librosa
   python-pytest
+  python-pytest-datadir
   python-pytest-xdist
   python-pytorch
   python-soundfile
@@ -55,7 +56,7 @@ optdepends=(
   'python-pytorch: PyTorch support'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-b2sums=('836f0e0bb55cefd5a0616785c87c867292cc46ec609934b4f7688462aa7ec95b248f06018cd99e68a88b4e179e0aa48dd601a2fc74bc1b809c336bd70ae0bd6a')
+b2sums=('2c26b907230eb9256a6056878dc80eae3296869f24597298f262d49a5fc0a31dbcd6ebb8dfaca9cf27faece019a4f39ab0dd07db772659d414e1d3f5ecfe2258')
 
 build() {
   cd $_name-$pkgver
@@ -72,58 +73,6 @@ check() {
     --ignore tests/packaged_modules/test_spark.py
     # ModuleNotFoundError: No module named 'aifc'
     --deselect tests/packaged_modules/test_audiofolder.py::test_data_files_with_metadata_and_archives
-    # unspecified errors
-    --deselect tests/features/test_audio.py::test_audio_feature_encode_example
-    --deselect tests/features/test_audio.py::test_audio_feature_encode_example_pcm
-    --deselect tests/features/test_audio.py::test_audio_decode_example
-    --deselect tests/features/test_audio.py::test_audio_resampling
-    --deselect tests/features/test_audio.py::test_audio_decode_example_mp3
-    --deselect tests/features/test_audio.py::test_audio_decode_example_opus
-    --deselect tests/features/test_audio.py::test_audio_decode_example_pcm
-    --deselect tests/features/test_audio.py::test_audio_decode_example_pcm
-    --deselect tests/features/test_audio.py::test_audio_resampling_mp3_different_sampling_rates
-    --deselect tests/features/test_audio.py::test_dataset_with_audio_feature
-    --deselect tests/features/test_audio.py::test_dataset_with_audio_feature_tar_wav
-    --deselect tests/features/test_audio.py::test_dataset_with_audio_feature_tar_mp3
-    --deselect tests/features/test_audio.py::test_resampling_at_loading_dataset_with_audio_feature
-    --deselect tests/features/test_audio.py::test_resampling_at_loading_dataset_with_audio_feature_mp3
-    --deselect tests/features/test_audio.py::test_resampling_after_loading_dataset_with_audio_feature
-    --deselect tests/features/test_audio.py::test_resampling_after_loading_dataset_with_audio_feature_mp3
-    --deselect tests/features/test_audio.py::test_dataset_cast_to_audio_features
-    --deselect tests/features/test_audio.py::test_dataset_concatenate_audio_features
-    --deselect tests/features/test_audio.py::test_dataset_concatenate_nested_audio_features
-    --deselect tests/features/test_audio.py::test_dataset_with_audio_feature_map_is_not_decoded
-    --deselect tests/features/test_audio.py::test_dataset_with_audio_feature_map_is_decoded
-    --deselect tests/features/test_audio.py::test_formatted_dataset_with_audio_feature
-    --deselect tests/features/test_audio.py::test_load_dataset_with_audio_feature
-    --deselect tests/features/test_audio.py::test_dataset_with_audio_feature_undecoded
-    --deselect tests/features/test_audio.py::test_formatted_dataset_with_audio_feature_undecoded
-    --deselect tests/features/test_audio.py::test_dataset_with_audio_feature_map_undecoded
-    --deselect tests/features/test_audio.py::test_audio_embed_storage
-    --deselect tests/features/test_image.py::test_image_feature_encode_example
-    --deselect tests/features/test_image.py::test_image_decode_example
-    --deselect tests/features/test_image.py::test_image_decode_example_with_exif_orientation_tag
-    --deselect tests/features/test_image.py::test_image_change_mode
-    --deselect tests/features/test_image.py::test_dataset_with_image_feature
-    --deselect tests/features/test_image.py::test_dataset_with_image_feature_from_pil_image
-    --deselect tests/features/test_image.py::test_dataset_with_image_feature_tar_jpg
-    --deselect tests/features/test_image.py::test_dataset_cast_to_image_features
-    --deselect tests/features/test_image.py::test_dataset_concatenate_image_features
-    --deselect tests/features/test_image.py::test_dataset_concatenate_nested_image_features
-    --deselect tests/features/test_image.py::test_dataset_with_image_feature_map
-    --deselect tests/features/test_image.py::test_formatted_dataset_with_image_feature_map
-    --deselect tests/features/test_image.py::test_dataset_with_image_feature_map_change_image
-    --deselect tests/features/test_image.py::test_formatted_dataset_with_image_feature
-    --deselect tests/features/test_image.py::test_load_dataset_with_image_feature
-    --deselect tests/features/test_image.py::test_dataset_with_image_feature_undecoded
-    --deselect tests/features/test_image.py::test_formatted_dataset_with_image_feature_undecoded
-    --deselect tests/features/test_image.py::test_dataset_with_image_feature_map_undecoded
-    --deselect tests/features/test_image.py::test_image_embed_storage
-    --deselect tests/features/test_video.py::test_video_feature_encode_example
-    --deselect tests/features/test_video.py::test_dataset_with_video_feature
-    --deselect tests/features/test_video.py::test_dataset_with_video_map_and_formatted
-    --deselect tests/io/test_json.py::TestJsonDatasetWriter::test_dataset_to_json_compression
-    --deselect tests/io/test_parquet.py::test_dataset_to_parquet_keeps_features
     # AssertionError failures
     --deselect tests/test_arrow_dataset.py::BaseDatasetTest::test_filter_caching_on_disk
     --deselect tests/test_arrow_dataset.py::BaseDatasetTest::test_map_caching_on_disk
@@ -140,6 +89,13 @@ check() {
     # TypeError: Passing coroutines is forbidden, use tasks explicitly.
     --deselect tests/test_distributed.py::test_torch_distributed_run
     --deselect tests/test_distributed.py::test_torch_distributed_run_streaming_with_num_workers
+    # FileNotFoundError: Couldn't find a dataset script at
+    # /build/python-datasets/src/datasets-3.5.0/patrickvonplaten/librispeech_asr_dummy/librispeech_asr_dummy.py
+    # or any data file in the same directory. Couldn't find
+    # 'patrickvonplaten/librispeech_asr_dummy' on the Hugging Face Hub either
+    --deselect tests/features/test_audio.py::test_dataset_with_audio_feature_loaded_from_cache
+    # often fails due to 429 Client Error: Too Many Requests
+    --deselect tests/test_inspect.py::test_get_dataset_split_names
   )
 
   cd $_name-$pkgver
