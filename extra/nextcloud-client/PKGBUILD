@@ -16,25 +16,39 @@
 pkgname=nextcloud-client
 pkgdesc='Nextcloud desktop client'
 epoch=2
-pkgver=3.15.3
+pkgver=3.16.2
 pkgrel=1
 arch=(x86_64)
 url='https://nextcloud.com/'
 _url=https://github.com/nextcloud/desktop
 license=(GPL-2.0-or-later)
-depends=(hicolor-icon-theme
-         karchive
-         kguiaddons
-         libcloudproviders
-         openssl
-         qt6-declarative
-         qt6-svg
-         qt6-webengine
-         qt6-websockets
-         qt6-5compat
-         qtkeychain-qt6
-         sqlite
-         xdg-utils)
+depends=(
+    hicolor-icon-theme
+    karchive
+    kguiaddons
+    libcloudproviders
+    libp11
+    openssl
+    qt6-5compat
+    qt6-declarative
+    qt6-svg
+    qt6-webengine
+    qt6-websockets
+    qtkeychain-qt6
+    sqlite
+    xcb-util-cursor
+    xdg-utils
+ )
+makedepends=(
+    cmocka
+    doxygen
+    extra-cmake-modules
+    git
+    kio
+    librsvg
+    python-sphinx
+    qt6-tools
+)
 replaces=(nextcloud-client-cloudproviders)
 conflicts=(nextcloud-client-cloudproviders)
 provides=(nextcloud-client-cloudproviders)
@@ -43,14 +57,6 @@ optdepends=('kio: integration with Dolphin'
             'nautilus-python: integration with Nautilus'
             'python-caja: integration with Caja')
 backup=('etc/Nextcloud/sync-exclude.lst')
-makedepends=(cmocka
-             doxygen
-             extra-cmake-modules
-             git
-             kio
-             librsvg
-             python-sphinx
-             qt6-tools)
 source=("$pkgname::git+$_url.git?signed#tag=v$pkgver")
 validpgpkeys=(A26B951528EA1BA1678C7AE5D406C75CEE1A36D6  # https://github.com/camilasan
               42E775EAA3E47F9E0D5CDB0E00819E3BF4177B28  # https://github.com/misch7
@@ -58,7 +64,7 @@ validpgpkeys=(A26B951528EA1BA1678C7AE5D406C75CEE1A36D6  # https://github.com/cam
               0739B11EDA696A3616666F6AE04221E85C5BB816  # https://github.com/allexzander
               267BF70F7905C2723B0243267D0F74F05C22F553  # https://github.com/mgallien
               3A877D9A896A057948059DEDAD2C27357B2CB11D) # https://github.com/FlexW
-sha256sums=('2fcaf3d419d4e4a237be0440dd7beb22c7d1f63db8b205cc61b6ab3be678d578')
+sha256sums=('46beee62bb4c5b57f723a295630ccdb36ea667a733c24c143b1242a6846d348b')
 
 prepare() {
 	# tmpdir for check()
@@ -81,11 +87,10 @@ prepare() {
 }
 
 build() {
-	cd $pkgname
 	# bundled breakpad in libcrashreporter-qt submodule is too old and does not build with glibc >= 2.26
 	# Upstream fix: https://github.com/google/breakpad/commit/bddcc58860f522a0d4cbaa7e9d04058caee0db9d
-	cmake -B build -S . \
-		-D CMAKE_BUILD_TYPE=None \
+	cmake -B build -S $pkgname \
+		-D CMAKE_BUILD_TYPE=Debug \
 		-D CMAKE_INSTALL_PREFIX=/usr \
 		-D WITH_CRASHREPORTER=OFF \
 		-D BUILD_UPDATER=OFF \
@@ -97,7 +102,7 @@ build() {
 }
 
 check() {
-	cd $pkgname/build
+	cd build
 	# Tests fail if $TMPDIR is too small; specify an alternative for machines
 	# with a small /tmp partition.
 	# Use UTC as TestCookies is sensitive to the timezone
@@ -111,7 +116,7 @@ check() {
 }
 
 package() {
-	cd $pkgname/build
+	cd build
 	make DESTDIR="$pkgdir" install
 }
 
