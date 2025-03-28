@@ -5,8 +5,8 @@
 # Contributor: sh__
 
 pkgname=rtorrent
-pkgver=0.15.1
-pkgrel=4
+pkgver=0.15.2
+pkgrel=1
 pkgdesc='Ncurses BitTorrent client based on libTorrent'
 url='https://rakshasa.github.io/rtorrent/'
 license=('GPL-2.0-only')
@@ -14,7 +14,7 @@ arch=('x86_64')
 makedepends=('git')
 depends=("libtorrent=0.15.${pkgver##*.}" 'curl' 'tinyxml2')
 source=("git+https://github.com/rakshasa/rtorrent.git#tag=v${pkgver}")
-sha256sums=('6d09484a12dc8699749daf29e2461990e0a1134e41e741e90aca39ed720cad3f')
+sha256sums=('cee4221c4c14cfcc5943745dd5e7d68d6fc69fe0209acec29ffc0f318f015a6d')
 
 prepare() {
   cd ${pkgname}
@@ -23,7 +23,6 @@ prepare() {
 
 build() {
   cd ${pkgname}
-  export CXXFLAGS+=' -fno-strict-aliasing'
   ./configure \
   --prefix=/usr \
   --disable-debug \
