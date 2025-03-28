@@ -3,7 +3,7 @@
 pkgbase=hyperqueue
 pkgname=(hyperqueue python-hyperqueue)
 pkgver=0.22.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Scheduler for sub-node tasks for HPC systems with batch scheduling"
 arch=(x86_64)
 url="https://github.com/It4innovations/hyperqueue/"
@@ -43,6 +43,9 @@ prepare() {
 build() {
   # fix building with LTO
   CFLAGS+=' -ffat-lto-objects'
+
+  # prevent HyperQueue from adding '-dev' suffix to the version string
+  export HQ_BUILD_VERSION=$pkgver
 
   cd $pkgbase-$pkgver
   cargo build --frozen --release --all-features
