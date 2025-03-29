@@ -6,9 +6,9 @@
 
 pkgname=simple-scan
 pkgver=46.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Simple scanning utility"
-url="https://gitlab.gnome.org/GNOME/simple-scan"
+url="https://apps.gnome.org/SimpleScan/"
 arch=(x86_64)
 license=(GPL-3.0-or-later)
 depends=(
@@ -34,8 +34,10 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome)
-source=("git+https://gitlab.gnome.org/GNOME/simple-scan.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('1d600197fb1b858759063bd1897f9d3fe0d6a5c7ab2088cba64154ef0f1e9d1b09269f9fbb09b776a08147c0ad932a9dbd9a75ec03167650cadbc95fe666fe34')
+source=("git+https://gitlab.gnome.org/GNOME/simple-scan.git?signed#tag=${pkgver/[a-z]/.&}"
+        simple-scan-activate.patch)
+b2sums=('1d600197fb1b858759063bd1897f9d3fe0d6a5c7ab2088cba64154ef0f1e9d1b09269f9fbb09b776a08147c0ad932a9dbd9a75ec03167650cadbc95fe666fe34'
+        'b397e232e1c6b9688dfc5dbb94b050c73110be141cef55911e02366177995123d41747a98b51e4936863451c7694accb5185cc5fe5d377be231e0cefec0e117d')
 validpgpkeys=(
   4D0BE12F0E4776D8AACE9696E66C775AEBFE6C7D # Jeremy Bicha <jeremy.bicha@canonical.com>
 )
@@ -43,9 +45,22 @@ validpgpkeys=(
 prepare() {
   cd $pkgname
 
-  # Fix icons
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/simple-scan/-/issues/1
+  # Use RDNN app ID to fix icons
+  # https://gitlab.gnome.org/GNOME/simple-scan/-/merge_requests/269
   git cherry-pick -n c09a6def153e52494072a36233c7e7b3307b67bf
+
+  # Add a test if the post-processing script path is empty
+  # https://gitlab.gnome.org/GNOME/simple-scan/-/merge_requests/257
+  git cherry-pick -n 0df23e446b366d35e418094dcbf6228cdaf96e80
+
+  # Fix application activate
+  # https://gitlab.gnome.org/GNOME/simple-scan/-/merge_requests/284
+  git apply -3 ../simple-scan-activate.patch
+
+  # Rename desktop file to match with the application ID
+  # https://gitlab.gnome.org/GNOME/simple-scan/-/merge_requests/285
+  mv data/simple-scan.desktop.in data/org.gnome.SimpleScan.desktop.in
+  sed -i 's/simple-scan.desktop/org.gnome.SimpleScan.desktop/' data/meson.build data/org.gnome.SimpleScan.appdata.xml.in
 }
 
 build() {
