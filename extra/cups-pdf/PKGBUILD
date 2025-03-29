@@ -2,28 +2,19 @@
 # Contributor: Thomas Baechler <thomas.baechler@rwth-aachen.de>
 
 pkgname=cups-pdf
-pkgver=3.0.1
-pkgrel=8
+pkgver=3.0.2
+pkgrel=1
 pkgdesc="PDF printer for cups"
 arch=(x86_64)
 depends=('cups' 'libcups' 'ghostscript' 'glibc')
 install=cups-pdf.install
 url="https://www.cups-pdf.de/welcome.shtml"
 license=('GPL-2.0-or-later')
-source=(https://www.cups-pdf.de/src/cups-pdf_$pkgver.tar.gz
-        remove-deprecated-ghostscript-setpdfwrite-operator.diff)
+source=(https://www.cups-pdf.de/src/cups-pdf_$pkgver.tar.gz)
 backup=(etc/cups/cups-pdf.conf)
-# http://www.cups-pdf.de/src/cups-pdf_3.0.1.tar.gz.md5 - no other checksums
-md5sums=('5071bf192b9c6eb5ada4337b6917b939'
-         '08eb1f7037ec8c6197437204d533db22')
-sha256sums=('738669edff7f1469fe5e411202d87f93ba25b45f332a623fb607d49c59aa9531'
-            '8429e8329ac8b10dd28bd1f5693cf3b0eb7461a62183440c319430c999ab8cbd')
-
-prepare() {
-  cd "$pkgname-$pkgver"
-  # remove unsupported ghostscript operator - FS#70313
-  patch -Np1 -i ../remove-deprecated-ghostscript-setpdfwrite-operator.diff
-}  
+# http://www.cups-pdf.de/src/cups-pdf_3.0.2.tar.gz.md5 - no other checksums
+md5sums=('276402ca8d7ac1f249cdaf3c34bdfc51')
+sha256sums=('56284001f40da9854e56215527e292de4811ce349e27d7a3e8add35c72da2f95')
 
 build() {
   cd "$pkgname-$pkgver"/src
