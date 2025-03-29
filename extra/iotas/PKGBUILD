@@ -3,7 +3,7 @@
 pkgname=iotas
 pkgver=0.11.0
 _katex_version=0.16.21
-pkgrel=1
+pkgrel=3
 pkgdesc='Simple note taking with Markdown support and optional Nextcloud Notes sync'
 arch=(any)
 url='https://apps.gnome.org/Iotas/'
@@ -35,23 +35,23 @@ makedepends=(
 )
 source=(
   "git+https://gitlab.gnome.org/World/iotas.git#tag=$pkgver"
-  "https://github.com/KaTeX/KaTeX/releases/download/v$_katex_version/katex.tar.gz"
-  iotas-search-provider-fixes.patch
+  "katex-v$_katex_version.tar.gz::https://github.com/KaTeX/KaTeX/releases/download/v$_katex_version/katex.tar.gz"
 )
-b2sums=('394edb381de1bb53a4c8b0dab33a964abf01a83fb417101ad572c26bcf1ed00df563e4d489799bbdf155882d669aaa91094258203b47f638cbc52a3313d18847'
-        'bf574824d35e1c4cbacb0fbcc752934b4b99cec11921f84c3a2eb18941156ebcbc49e3f214c5f58af631cba74115d9c6df6bfc3086ecb4e382d167b637367e0d'
-        'eeff948e1beaeac03141c6ed91e79daf841d94b8fd0618c5b2f42de019c0022a3ec6240487b9fc055a12e255dda4e0f01064dcfd9f0d5b07b7585d219e28d1f1')
+b2sums=(
+  394edb381de1bb53a4c8b0dab33a964abf01a83fb417101ad572c26bcf1ed00df563e4d489799bbdf155882d669aaa91094258203b47f638cbc52a3313d18847
+  8427954e659536ac022eafd0b70a090f07485404708734ce5aa55a240eb609ea3c10431bd6811e7e03e14a76d61a05e61ae03182636a41e596b233bff4186eb9
+)
 
 prepare() {
   cd $pkgname
 
   # Better error handling in search provider
   # https://gitlab.gnome.org/World/iotas/-/merge_requests/284
-  git apply -3 ../iotas-search-provider-fixes.patch
+  git cherry-pick -n 5e60f5f67255259a681c6862a639bc2c14c14da9
 
-  # Don't hide end title buttons
-  # https://gitlab.gnome.org/World/iotas/-/merge_requests/285
-  sed -i '/show-end-title-buttons/d' data/ui/*.ui
+  # Hide start title buttons
+  # https://gitlab.gnome.org/World/iotas/-/merge_requests/286
+  git cherry-pick -n f235ac908a837fe548573f7a596d36d73d83f1b5
 }
 
 build() {
