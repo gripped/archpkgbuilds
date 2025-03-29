@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-qt5integration
-pkgver=5.7.8
+pkgver=5.7.9
 pkgrel=1
 pkgdesc='Qt platform theme integration plugins for DDE'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('dtkcore' 'dtkgui' 'dtkwidget' 'libqt5xdg' 'qt5-x11extras' 'qt5-base' '
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'xcb-util-renderutil' 'gtest')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/qt5integration.git#tag=$pkgver")
-sha512sums=('d07960725a3c4a7f5e71e0e5b882b0ddda0a760349b3bab7d20da39a6a2806048537b350e6dad5d2dc4c751c936da8d772d2e431ead5fdb45ac39875ceed822d')
+sha512sums=('5a636cbd7342278d311bf26d3113fbafd4f6cf779f28207d8865665f7392c2a0df836c1d1388792222309834bd73604c342a9a62c0442ea5e4e2da8bb5c2325f')
 
 build() {
   cd qt5integration
