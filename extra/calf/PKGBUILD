@@ -3,7 +3,7 @@
 # Contributor: Ray Rashif <schiv@archlinux.org>
 
 pkgname=calf
-pkgver=0.90.5
+pkgver=0.90.5.2
 pkgrel=1
 pkgdesc='LV2 plug-in suite and standalone Jack host'
 arch=(x86_64)
@@ -34,10 +34,10 @@ makedepends=(
   lv2
 )
 source=("git+$_url#tag=$pkgver")
-b2sums=('1eba51349947153206d53786caad6216d7700c0d9555db31316d961f884eaeb95fef51658a1f3ac03483e63fd2080aaba7ed1d907de434afeb23633ec7bed91e')
+b2sums=('1a04be3a801697d12023c481fc799400de9708db68cf2db82102e3333de1c17143c5016725cdc610abc15141849f581b950c51a2fc84c48c6e0a97c2898e568c')
 
 prepare() {
-  sed -i "s/@VERSION@/$pkgver/" $pkgname/$pkgname.desktop.in > $pkgname.desktop
+  sed "s/@VERSION@/$pkgver/" $pkgname/$pkgname.desktop.in > $pkgname.desktop
 }
 
 build() {
@@ -45,6 +45,7 @@ build() {
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
+    -D WANT_EXPERIMENTAL=ON
     -S $pkgname
     -W no-dev
   )
