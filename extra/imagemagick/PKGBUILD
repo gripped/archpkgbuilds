@@ -3,7 +3,7 @@
 
 pkgname=imagemagick
 pkgver=7.1.1.46
-pkgrel=1
+pkgrel=2
 _relname=ImageMagick-${pkgver%%.*}
 _tarname=ImageMagick-${pkgver%.*}-${pkgver##*.}
 pkgdesc='An image viewing/manipulation program'
@@ -49,9 +49,7 @@ backup=(etc/$_relname/{colors,delegates,log,mime,policy,quantization-table,thres
 provides=(libmagick)
 makedepends=(chrpath
              djvulibre
-             ghostpcl
              ghostscript
-             ghostxps
              glu
              jbigkit
              libheif
