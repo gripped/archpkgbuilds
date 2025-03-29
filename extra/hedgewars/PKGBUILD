@@ -4,7 +4,7 @@
 
 pkgname=hedgewars
 pkgver=1.0.2
-pkgrel=122
+pkgrel=123
 pkgdesc="Turn-based strategy artillery game similiar to Worms"
 arch=('x86_64')
 url="https://hedgewars.org"
@@ -20,6 +20,10 @@ sha512sums=('dc79cc48eee305d8dd2b64fcbfe598d48f8aec918d9065a6af4aef9be4e4940ad85
 
 prepare() {
   cd hedgewars-src-$pkgver
+  sed -e 's|cmake_minimum_required(VERSION 2.6.4)|cmake_minimum_required(VERSION 3.12.0)|' \
+      -e 's/CMP0026//' \
+      -i CMakeLists.txt
+  sed -i '/physlayer_fullpath/d' misc/libphyslayer/CMakeLists.txt
   sed -i 's|set(ghc_flags|set(ghc_flags -dynamic|' gameServer/CMakeLists.txt
 }
 
