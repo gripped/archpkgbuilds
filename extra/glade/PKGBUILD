@@ -3,7 +3,7 @@
 
 pkgname=glade
 pkgver=3.40.0+r14+g1fbca367
-pkgrel=6
+pkgrel=7
 pkgdesc="User Interface Builder for GTK applications"
 url="https://glade.gnome.org/"
 arch=(x86_64)
@@ -20,9 +20,11 @@ provides=(libgladeui-2.so)
 groups=(gnome-extra)
 _commit=1fbca367cf33991f1d8d20a256ca704eb778fca9  # master
 source=("git+https://gitlab.gnome.org/GNOME/glade.git#commit=$_commit"
-        fix-build.diff)
+        fix-build.diff
+        0001-Raise-existing-window-instead-of-opening-new-one-on-.patch)
 sha256sums=('f5ed9cf6de49449307b6099271caf6357f0a3c26374764667efd415f78764921'
-            '0dd99583c4b7b6327e84a909614f46ec0062dbc9f67be733ea97dc294e40317b')
+            '0dd99583c4b7b6327e84a909614f46ec0062dbc9f67be733ea97dc294e40317b'
+            '8551b481c57ace84df08ead3e72f7f69a8db392802a5a0657a3ff8409007ff87')
 
 pkgver() {
   cd glade
@@ -38,10 +40,11 @@ prepare() {
   # build with webkit2gtk-4.1
   sed -i 's/webkit2gtk-4.0/webkit2gtk-4.1/' meson.build
 
-  # Fix window icon name
-  # https://gitlab.gnome.org/GNOME/glade/-/merge_requests/122
-  sed -i '/gtk_window_set_default_icon_name/ s/glade/org.gnome.Glade/' src/main.c
+  # Raise existing window instead of opening new one on activation
+  patch -Np1 -i ../0001-Raise-existing-window-instead-of-opening-new-one-on-.patch
 
+  # Fix window icon name
+  sed -i '/gtk_window_set_default_icon_name/ s/glade/org.gnome.Glade/' src/main.c
 }
 
 build() {
