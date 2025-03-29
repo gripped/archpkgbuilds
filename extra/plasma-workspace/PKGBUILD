@@ -6,7 +6,7 @@
 pkgname=plasma-workspace
 pkgver=6.3.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=3
 pkgdesc='KDE Plasma Workspace'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -131,13 +131,20 @@ optdepends=('appmenu-gtk-module: global menu support for GTK2 and some GTK3 appl
 conflicts=(plasma-wayland-session)
 replaces=(plasma-wayland-session)
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
+        0001-sync-window-on-creation-5348.patch)
 sha256sums=('3bd723882c108ab3a1e4f41e1f60c3a554ebd59bdac071d63e3ce1e93c609542'
-            'SKIP')
+            'SKIP'
+            'ecaf4204a6de3f85f28810e3a1b3360cb3518cf435d72644a921d3d6fb2165ff')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
+
+prepare() {
+  cd $pkgname-$pkgver
+  patch -p1 -i ../0001-sync-window-on-creation-5348.patch
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
