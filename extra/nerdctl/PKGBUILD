@@ -3,11 +3,11 @@
 
 pkgname=nerdctl
 pkgver=2.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Docker-compatible CLI for containerd'
 arch=('x86_64')
 url='https://github.com/containerd/nerdctl'
-license=('Apache')
+license=('Apache-2.0')
 depends=('containerd')
 makedepends=('git' 'go')
 optdepends=(
@@ -49,7 +49,7 @@ build() {
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export GOPATH="${srcdir}"
 
-  local _commit="$(git rev-list -1 HEAD)"
+  local _commit="$(git rev-parse HEAD)"
 
   go build -v \
     -buildmode=pie \
@@ -58,8 +58,8 @@ build() {
     -ldflags "-compressdwarf=false \
     -linkmode external \
     -extldflags \"${LDFLAGS}\" \
-    -X github.com/containerd/nerdctl/pkg/version.Version=$pkgver \
-    -X github.com/containerd/nerdctl/pkg/version.Revision=$_commit" \
+    -X github.com/containerd/nerdctl/v2/pkg/version.Version=$pkgver \
+    -X github.com/containerd/nerdctl/v2/pkg/version.Revision=$_commit" \
     -o build \
     ./cmd/...
 
