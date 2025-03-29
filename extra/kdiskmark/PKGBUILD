@@ -1,16 +1,17 @@
-# Maintainer: Jiachen YANG <farseerfc@gmail.com>
-# AUR Maintainer: Gabriel Rauter <rauter.gabriel@gmail.com>
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+# Contributor: Jiachen YANG <farseerfc@gmail.com>
+# Contributor: Gabriel Rauter <rauter.gabriel@gmail.com>
 
 arch=('x86_64')
 _pkgname=KDiskMark
 _singleapplication_commit=f1e1508
 pkgname=kdiskmark
 pkgver=3.1.4
-pkgrel=1
+pkgrel=2
 pkgdesc="HDD and SSD benchmark tool with a very friendly graphical user interface"
 url="https://github.com/JonMagon/${_pkgname}"
-license=(GPL3)
-depends=(qt5-base fio libaio hicolor-icon-theme kauth5 glibc gcc-libs polkit-qt5)
+license=(GPL-3.0-or-later)
+depends=(qt5-base fio libaio hicolor-icon-theme glibc gcc-libs polkit-qt5)
 makedepends=(git cmake extra-cmake-modules qt5-tools)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/JonMagon/${_pkgname}/archive/${pkgver}.tar.gz"
         "git+https://github.com/itay-grudev/SingleApplication.git#commit=${_singleapplication_commit}")
