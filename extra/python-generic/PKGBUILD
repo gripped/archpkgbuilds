@@ -2,7 +2,7 @@
 
 pkgname=python-generic
 pkgver=1.1.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Generic programming library for Python'
 arch=(any)
 url='https://github.com/gaphor/generic'
@@ -44,6 +44,6 @@ package() {
 
   PYTHONPATH="$PWD/dist/generic-$pkgver-py3-none-any.whl" \
     python -m sphinx -b html docs "$pkgdir/usr/share/doc/$pkgname/html"
-
+  rm -r "$pkgdir/usr/share/doc/$pkgname/html/.doctrees"
   install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSES/BSD-3-Clause.txt
 }
