@@ -2,23 +2,17 @@
 # Contributor: Marco44 (Marc Cousin) <cousinmarc at gmail dot com>
 
 pkgname=pgformatter
-pkgver=5.5
-pkgrel=2
+pkgver=5.6
+pkgrel=1
 pkgdesc='A PostgreSQL SQL syntax beautifier'
 arch=('any')
 url='https://github.com/darold/pgformatter'
-license=('BSD')
+license=('PostgreSQL')
 depends=('perl')
 makedepends=('git')
-_commit='bacb8bb61df81846ae9d6b624a4c87454dc96bec'
-source=("$pkgname::git+$url#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('49ab930e3e4a771c046f7164b5f4072c1e9889c82a4f1e74da88c2bbe9d3b4b71eb05a58f74e0ff910a685e832fb967f9457f2aecef77c3b9c0f89dcaabc0e3a')
+b2sums=('0f6d70b26ab9683e0ae0af9d40713e1a808279a81fc679af2c69781347d84c16fb3e237fde455c4ca5e17f56e4d2487450364c4ecfd48997a040df4b4569d454')
 
 build() {
   cd "$pkgname"
