@@ -7,7 +7,8 @@
 
 pkgbase=incus
 pkgname=(incus incus-tools)
-pkgver=6.10.1
+pkgver=6.11.0
+_pkgver="${pkgver/.0/}"
 pkgrel=1
 pkgdesc="Powerful system container and virtual machine manager"
 arch=('x86_64')
@@ -32,7 +33,7 @@ optdepends=(
     'skopeo: OCI support'
     'umoci: OCI support'
 )
-source=("https://linuxcontainers.org/downloads/incus/incus-$pkgver.tar.xz"{,.asc}
+source=("https://github.com/lxc/incus/releases/download/v$pkgver/incus-$_pkgver.tar.xz"{,.asc}
         "incus.socket"
         "incus.service"
         "incus-user.socket"
@@ -41,7 +42,7 @@ source=("https://linuxcontainers.org/downloads/incus/incus-$pkgver.tar.xz"{,.asc
         )
 validpgpkeys=('602F567663E593BCBD14F338C638974D64792D67'  # Stéphane Graber <stgraber@stgraber.org>
              )
-sha256sums=('ef6bf3adce9064b92a6412d66d8a04f7d8012d21689cbdf24b659349c4ec4036'
+sha256sums=('17af66935bfbbf01c4a8975d80e706d79744d907aa8bda75a96a34bbe64dbc06'
             'SKIP'
             '602a8035cc51b8e0c4ca265e31ebf96c7977db4239d384d8f60fed0d2d0317c4'
             'e0a1061fc4e3c68f48c50e46c5e738ecfffb60c6a6a733ec9aade1ecbc2bb486'
@@ -50,14 +51,14 @@ sha256sums=('ef6bf3adce9064b92a6412d66d8a04f7d8012d21689cbdf24b659349c4ec4036'
             '90beead5dbde947936a58df8773519c49d92a2028881ae0ec81ee5402510e39a')
 
 prepare() {
-  cd "$pkgbase-${pkgver}"
+  cd "$pkgbase-${_pkgver}"
 
   mkdir bin
   go mod verify
 }
 
 build() {
-  cd "$pkgbase-${pkgver}"
+  cd "$pkgbase-${_pkgver}"
 
   export GOFLAGS="-buildmode=pie -modcacherw"
   export CGO_LDFLAGS_ALLOW="-Wl,-z,now"
@@ -77,7 +78,7 @@ build() {
 }
 
 package_incus() {
-  cd "$pkgbase-${pkgver}"
+  cd "$pkgbase-${_pkgver}"
 
   for tool in incus incusd incus-agent incus-user lxd-to-incus; do
     install -v -p -Dm755 "bin/$tool" "${pkgdir}/usr/bin/$tool"
@@ -107,7 +108,7 @@ package_incus() {
 
 package_incus-tools() {
   conflicts=('lxd')
-  cd "$pkgbase-${pkgver}"
+  cd "$pkgbase-${_pkgver}"
   for tool in fuidshift lxc-to-incus incus-benchmark incus-simplestreams; do
     install -v -p -Dm755 "bin/$tool" "${pkgdir}/usr/bin/$tool"
   done
