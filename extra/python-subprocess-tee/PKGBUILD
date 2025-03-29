@@ -1,12 +1,12 @@
-# Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: David Runge <dvzrv@archlinux.org>
 
-_name=subprocess-tee
 pkgname=python-subprocess-tee
-pkgver=0.4.1
-pkgrel=5
-pkgdesc="A subprocess.run that works like tee"
+pkgver=0.4.2
+pkgrel=1
+pkgdesc='A subprocess.run that works like tee'
 arch=(any)
-url="https://github.com/pycontribs/subprocess-tee"
+url='https://github.com/pycontribs/subprocess-tee'
 license=(MIT)
 depends=(python)
 makedepends=(
@@ -23,34 +23,40 @@ checkdepends=(
   python-pytest
   python-pytest-xdist
 )
-optdepends=('python-enrich: for rich text rendering')
-source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('e8ae073d9f9e0198e55bbdd4cc12babfc7cc2bb13f13bbd07a107452efdf78cbf1a544739381d4e98e55d6a4d1e4de3405b6258fcaa4fcfb871485085a2e8a5b')
-b2sums=('06278caf928da5ddc90803cfe5bcffb3e9d1e3c93653de34c2ceca523d9d1e04e33ad53cf2c173e0120d134308b56c52d957ee6611a7808b1aa3e46acefee6a1')
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('efd727261c8fffc6f11f55d5e0a976c5204caac774d32cc009660721ab047883fb74634269e3d9c329d6d59835e01f1d118892aefbd24a2fd7d53ba943034d9a')
+b2sums=('5d2acf66d6edaf8934f07883574006af70688e8da97563af29759e4be55916155f999ae527ba51e15154154fedff292a9fad5588992dad02cf8bdc4060f9a037')
 
 build() {
-  cd $_name-$pkgver
+  cd "$pkgname"
+
   SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --no-isolation
 }
 
 check() {
+  cd "$pkgname"
+
   local pytest_options=(
     -vv
     --ignore test/test_func.py
   )
 
-  cd $_name-$pkgver
   export PYTHONPATH="src:$PYTHONPATH"
   pytest "${pytest_options[@]}"
 }
 
 package() {
-  local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  cd "$pkgname"
 
-  cd $_name-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
-  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+
   # remove tests: https://github.com/pycontribs/subprocess-tee/issues/61
+  local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   rm -frv "$pkgdir/$_site_packages/subprocess_tee/test/"
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
