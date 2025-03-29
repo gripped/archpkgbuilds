@@ -1,0 +1,30 @@
+diff --git a/source/glest_game/network/network_message.cpp b/source/glest_game/network/network_message.cpp
+index e0b1c9a88..4c70ddfac 100644
+--- a/source/glest_game/network/network_message.cpp
++++ b/source/glest_game/network/network_message.cpp
+@@ -1884,12 +1884,23 @@ bool NetworkMessageCommandList::receive(Socket* socket) {
+ unsigned char * NetworkMessageCommandList::getData() {
+ 	int headerSize = sizeof(data.header);
+ 	uint16 totalCommand = data.header.commandCount;
+-	int detailSize = (sizeof(NetworkCommand) * totalCommand);
++
++	if (totalCommand > data.commands.size()) {
++		throw std::runtime_error(
++		"NetworkMessageCommandList::getData - commandCount exceeds vector "
++		"size");
++	}
++
++	int detailSize = sizeof(NetworkCommand) * totalCommand;
+ 	int fullBufferSize = headerSize + detailSize;
+ 
+ 	unsigned char *buffer = new unsigned char[fullBufferSize];
+ 	memcpy(buffer,&data.header,headerSize);
+-	memcpy(&buffer[headerSize],&data.commands[0],detailSize);
++
++	if (totalCommand > 0) {
++		memcpy(&buffer[headerSize], data.commands.data(), detailSize);
++	}
++
+ 	return buffer;
+ }
+ 
