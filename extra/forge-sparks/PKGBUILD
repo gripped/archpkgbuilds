@@ -2,7 +2,7 @@
 
 pkgname=forge-sparks
 pkgver=0.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple notifier app with support for Github, GitLab, Gitea and Forgejo'
 arch=(any)
 url='https://apps.gnome.org/ForgeSparks/'
@@ -28,12 +28,10 @@ makedepends=(
 source=(
   "git+https://github.com/rafaelmardojai/forge-sparks.git#tag=$pkgver"
   git+https://github.com/sonnyp/troll.git
-  forge-sparks-background-status.patch
 )
 b2sums=(
   7854c572ecea01c35a374f42126cf178b3de24029a03653b4f6e5a8483e3c81f055d0b649ce06644c4822c8e846a355efca6a5af63f43f6393c95ff88184c67e
   SKIP
-  c4d7dd1a4ec9a9381fa312670366d3f44ccb6f133c4957b0eccdcbce0b2b614a91beac6182809e0da9c34dd9895c95cb07627d42eab0f316f10868f5cbc96961
 )
 
 prepare() {
@@ -44,7 +42,10 @@ prepare() {
   git -c protocol.file.allow=always submodule update
 
   # https://github.com/rafaelmardojai/forge-sparks/pull/45
-  git apply -3 ../forge-sparks-background-status.patch
+  git cherry-pick -n baf3cf8bf083c647072ed8f7844f6c9556dba1b5
+
+  # https://github.com/rafaelmardojai/forge-sparks/pull/48
+  git cherry-pick -n 0883de3bf3706d67307e4ff9aec100166c8ebac5
 }
 
 build() {
