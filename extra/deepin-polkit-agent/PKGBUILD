@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-polkit-agent
-pkgver=6.0.11
+pkgver=6.0.12
 pkgrel=1
 pkgdesc='Deepin Polkit Agent'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('deepin-shell' 'dtk6core' 'dtk6widget' 'polkit-qt6' 'qt6-base' 'gcc-lib
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-polkit-agent.git#tag=$pkgver")
-sha512sums=('96519c2ed223282c8ef426a30baecac09cc52517932ef92fc7a7edd349836c26f9e7c88e1504cbf68f5629e21bb5676fb9559fc6db1122224dfaeef1fdfe3830')
+sha512sums=('e812b1ce7d8c1e1ad1b04bd4e04a112075cd2cdd5159e919177b9285718c8d81c5925c25129f7282241364b391bc680a1bdffef4b8547e3055370e774c7b641d')
 
 build() {
   cd dde-polkit-agent
