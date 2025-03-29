@@ -2,7 +2,7 @@
 
 pkgname=gaphor
 pkgver=3.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Simple UML and SysML modeling tool'
 arch=(any)
 url='https://apps.gnome.org/Gaphor/'
@@ -42,9 +42,25 @@ _flathub_commit=56b092315f04d59cac81e68b876a597f19973c22
 source=(
   "git+https://github.com/gaphor/gaphor.git#tag=$pkgver"
   "git+https://github.com/flathub/org.gaphor.Gaphor.git#commit=$_flathub_commit"
+  gaphor-activate.patch
+  gaphor-new-window.patch
 )
-b2sums=('6175cd7de4b854e79c1c29ecf9dca34f5bac75c5caf9787612171400dd12e397d323dfab4466fe8debccaf7984b525e8ab0e93ac82b5dad60a07641c9a53f5ef'
-        '46cf548c23bafa34f02dce42eadeccab794435678767eaf68a88a471e7c5172ba7481fdacb4ad8295ba1a7e19cd9cf43596f9553199629482f7c80703c12b82e')
+b2sums=(
+  6175cd7de4b854e79c1c29ecf9dca34f5bac75c5caf9787612171400dd12e397d323dfab4466fe8debccaf7984b525e8ab0e93ac82b5dad60a07641c9a53f5ef
+  46cf548c23bafa34f02dce42eadeccab794435678767eaf68a88a471e7c5172ba7481fdacb4ad8295ba1a7e19cd9cf43596f9553199629482f7c80703c12b82e
+  284838ed7d9b98d850b0010cf927088c42db148bb31d01f89284f1398da9e1fc5a889c278def02ba4a98b9aa86b8dfaee13154610712287de626130599395dcd
+  ad6bc84cdfc75a538cd07fd4b258df821360e75e12f6495abfc036bf2fa13a36e0b6f0987a78f79cb39ec1385660362ebeb35137ca0ecb92ce6a90d34cb793a0
+)
+
+prepare() {
+  cd $pkgname
+
+  # https://github.com/gaphor/gaphor/pull/3810
+  git apply -3 ../gaphor-activate.patch
+
+  # https://github.com/gaphor/gaphor/pull/3811
+  git apply -3 ../gaphor-new-window.patch
+}
 
 build() {
   cd $pkgname

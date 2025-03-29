@@ -1,0 +1,27 @@
+From 7aa287fa42c05e3b93011fcd2038a52e6515c7df Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 29 Mar 2025 02:37:53 +0100
+Subject: [PATCH] Present existing window on activation
+
+This raises the window when the user launches the application and the main window is already open.
+---
+ gaphor/ui/__init__.py | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/gaphor/ui/__init__.py b/gaphor/ui/__init__.py
+index dbe1ca1a88..edd4a24ea1 100644
+--- a/gaphor/ui/__init__.py
++++ b/gaphor/ui/__init__.py
+@@ -72,6 +72,12 @@ def app_activate(gtk_app):
+         assert application
+         if not application.sessions:
+             application.get_service(launch_service).open()
++        else:
++            for session in application.sessions:
++                main_window = session.get_service("main_window")
++                if main_window.window:
++                    main_window.window.present()
++                    break
+ 
+     def app_open(gtk_app, files, n_files, hint):
+         # appfilemanager should take care of this:
