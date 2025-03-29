@@ -4,7 +4,7 @@
 
 
 pkgname=libgedit-amtk
-pkgver=5.9.0
+pkgver=5.9.1
 pkgrel=1
 pkgdesc="Actions, Menus and Toolbars Kit for GTK applications'"
 arch=("x86_64")
@@ -27,7 +27,7 @@ replaces=(amtk)
 provides=(libgedit-amtk-5.so)
 conflicts=(amtk)
 source=("git+https://gitlab.gnome.org/World/gedit/libgedit-amtk.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('b67cdd23b6390dec5ba6e77ad59c66ee4a3489510da6c1d0adbdd015a356571d81768aa32779682a283c199b11a0946a32e1f7868345c1a03aa6489ebeab03ee')
+b2sums=('76f991d178890994fc41711afb75853b6e79025905bb435000ca32341f83beb2184e37c910315ed4ffbee47c869348e883d980b986caa25cebb5c3b1c157cdbb')
 
 prepare() {
   cd $pkgname
