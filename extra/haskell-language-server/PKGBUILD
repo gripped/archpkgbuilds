@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=haskell-language-server
-pkgver=1.10.0.0
-pkgrel=49
+pkgver=2.0.0.0
+pkgrel=2
 pkgdesc="LSP server for GHC"
 url="https://github.com/haskell/haskell-language-server#readme"
 license=("Apache")
@@ -31,12 +31,11 @@ makedepends=('ghc' 'uusi' 'haskell-ghcide-test-utils' 'haskell-hls-test-utils'
              'haskell-hspec-expectations' 'haskell-lsp-test')
 checkdepends=('cabal-install')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('37768d6c0c29ed0f9811c1b5c9dbbae013251363439ccb62ed49d057ea1c6d6b6e1fba0a1b875ccaf2b90d9e4807c42fd09525f68c15251b1ec07de92969bd49')
+sha512sums=('ea20189a2734c1328be9638bfed376df4039d5079615e2b3e995e7819a50c0b22a548438e043afb3377344e0b75bf1a60f21723d1d5b34c733a8a109b2f7d6d2')
 
 prepare() {
   cd $pkgname-$pkgver
   find test/testdata -name \*.cabal -exec uusi --add-options-all=-dynamic {} \;
-  uusi -u hls-test-utils
 }
 
 build() {
