@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=kwaak
-pkgver=0.15.0
+pkgver=0.16.0
 pkgrel=1
 pkgdesc="Run a team of autonomous AI agents from your terminal"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('gcc-libs' 'openssl')
 makedepends=('cargo' 'protobuf')
 checkdepends=('git')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('570b05d90c9d88825f2cf2fc062273e71048a19a94d6861afeb74b9d75c482c96efe9c7fb2478d667ffeac32cc090bf186c96767b8d41d44d12459ea1c8ea063')
+sha512sums=('55770f5f34d52617ad51b5d6058e2f0b6359748158e126eed5639638b7ffecdf21353751b1add35d0feac6c8636e0d66c237aea4bda263c9c1cc672c3c0119c2')
 options=('!lto')
 
 prepare() {
