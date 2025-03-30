@@ -2,8 +2,8 @@
 
 _hkgname=hls-gadt-plugin
 pkgname=haskell-hls-gadt-plugin
-pkgver=1.0.2.0
-pkgrel=45
+pkgver=2.0.0.0
+pkgrel=1
 pkgdesc="Convert to GADT syntax plugin"
 url="https://github.com/haskell/haskell-language-server.git"
 license=("Apache")
@@ -14,12 +14,11 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-extra' 'haskell-ghc' 'haskell-ghc-e
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils' 'haskell-lsp-test')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('30e5d78d8eaaae2af55d79bb723c27ab47f2c2b4a019ddcaca9f6ddeb2b7d645')
+sha256sums=('235426c1d90d1bb2dcbc93dcb7f59042ad558f22d6f17b16718c8a9ebe2fa429')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u hls-test-utils
 }
 
 build() {
@@ -40,7 +39,6 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  # TODO
   runhaskell Setup test || echo "Tests failed"
 }
 
