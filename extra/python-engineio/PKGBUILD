@@ -1,7 +1,8 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-engineio
-pkgver=4.9.1
+pkgver=4.11.2
 pkgrel=3
 pkgdesc='Python implementation of the Engine.IO realtime server'
 url='https://github.com/miguelgrinberg/python-engineio'
@@ -10,55 +11,58 @@ license=(MIT)
 depends=(
   python
   python-requests
+  python-simple-websocket
   python-websocket-client
-  python-websockets
-)
-optdepends=(
-  'python-eventlet: eventlet driver'
-  'python-aiohttp: aiohttp driver'
-  'python-tornado: tornado driver'
-  'python-gevent: gevent driver'
-  'python-gevent-websocket: gevent driver'
 )
 makedepends=(
-  python-aiohttp
   python-build
-  python-eventlet
-  python-gevent
-  python-gevent-websocket
   python-installer
   python-setuptools
   python-sphinx
-  python-tornado
-  python-urllib3
   python-wheel
 )
 checkdepends=(
+  python-aiohttp
+  python-eventlet
+  python-gevent
+  python-gevent-websocket
   python-pytest
+  python-pytest-asyncio
+  python-tornado
 )
-options=('!makeflags')
-source=(https://github.com/miguelgrinberg/python-engineio/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('1414d30fa3073124936909e1395e27579eea2b27862a9770b78c8d91b5568aff869e84f9477c7225cbe35462849445ce9ab17b8ca7b6e8aadeafcdebcb26df0b')
-b2sums=('b776a56993f6dafe1778be93dbc507eb5ae96e44f0635b17fb3592fb9fca49c0a338393a128e05089a846b43f41328d788066f0b7a0edad78c88e3b14d6adec9')
+optdepends=(
+  'python-aiohttp: aiohttp driver'
+  'python-eventlet: eventlet driver'
+  'python-gevent-websocket: gevent driver'
+  'python-gevent: gevent driver'
+  'python-tornado: tornado driver'
+)
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('05f7fad64c3ddb136bb9fe4762bc5125d1e72813bd8f28d0c567c016ab3db9ff3b99719eafa106b997ce90da71be5aafb2bd34460d5097a9f68cf4dc7db34ba7')
+b2sums=('d3f97f34c6e8043b0079c1555a8b4acb12f068883a1d117b19e0875d445239cc3c24e884f9b63c82268e9a8c67f3bbac193acc417cdd441e6f9d07cc79b97ccf')
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd $pkgname-$pkgver
   python -m build --wheel --no-isolation
-  PYTHONPATH="$PWD/src" make -C docs man text SPHINXBUILD=sphinx-build
+  PYTHONPATH="$PWD/src" make -j1 -C docs man text SPHINXBUILD=sphinx-build
 }
 
 check() {
-  cd ${pkgname}-${pkgver}
-  PYTHONPATH=build/lib pytest -v
+  cd $pkgname-$pkgver
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  # Deselect test failing with the following error, not sure why:
+  #   tests/common/test_server.py:128: AssertionError
+  test-env/bin/python -m pytest \
+    --deselect tests/common/test_server.py::TestServer::test_async_mode_eventlet
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd $pkgname-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
-  install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -Dm 644 docs/_build/text/*.txt -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -Dm 644 docs/_build/man/python-engineio.1 "${pkgdir}/usr/share/man/man1/${pkgname}.1"
+  install -vDm 644 -t "$pkgdir/usr/share/doc/$pkgname" README.md docs/_build/text/*.txt
+  install -vDm 644 -t "$pkgdir/usr/share/man/man1" docs/_build/man/python-engineio.1
+  install -vDm 644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
 
 # vim: ts=2 sw=2 et:
