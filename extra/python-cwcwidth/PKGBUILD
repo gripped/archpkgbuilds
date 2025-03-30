@@ -1,25 +1,40 @@
-# Maintainer: Kyle Keen <keenerd@gmail.com>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=python-cwcwidth
-_pkgname=cwcwidth
-pkgver=0.1.9
-pkgrel=3
-pkgdesc="Bindings for wcwidth and wcswidth functions defined in POSIX.1-2001 and POSIX.1-2008"
+pkgver=0.1.10
+pkgrel=1
+pkgdesc="Python bindings for wc(s)width"
 arch=('x86_64')
-url="https://pypi.org/project/cwcwidth/"
+url="https://github.com/sebastinas/cwcwidth"
 license=('MIT')
 depends=('glibc')
-makedepends=('python-build' 'python-installer' 'cython' 'python-setuptools' 'python-wheel')
-source=("$_pkgname-$pkgver.tgz::https://github.com/sebastinas/cwcwidth/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('a4c4f86de13c1a004dd96329ed7a5b17927789b6dc8164d971c4e8635bd5a8ec')
+makedepends=(
+  'cython'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+checkdepends=('python-pytest')
+source=("$url/archive/v$pkgver/${pkgname#python-}-$pkgver.tar.gz")
+sha256sums=('e397913df5eb7902488f609161584c51f3f545336d59d141007a9c2a23be520c')
 
 build() {
-  cd $_pkgname-$pkgver
-  python3 -m build --wheel --no-isolation
+  cd ${pkgname#python-}-$pkgver
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd ${pkgname#python-}-$pkgver
+  python -m installer --destdir=tmp_install dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  cp -r tests "$PWD/tmp_install/$site_packages"
+  (cd "$PWD/tmp_install/$site_packages" && pytest)
 }
 
 package() {
-  cd $_pkgname-$pkgver
-  python3 -m installer --destdir="$pkgdir/" dist/*.whl
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  cd ${pkgname#python-}-$pkgver
+  python -m installer --destdir="$pkgdir/" dist/*.whl
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }

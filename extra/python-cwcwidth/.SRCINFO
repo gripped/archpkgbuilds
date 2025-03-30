@@ -1,17 +1,18 @@
 pkgbase = python-cwcwidth
-	pkgdesc = Bindings for wcwidth and wcswidth functions defined in POSIX.1-2001 and POSIX.1-2008
-	pkgver = 0.1.9
-	pkgrel = 3
-	url = https://pypi.org/project/cwcwidth/
+	pkgdesc = Python bindings for wc(s)width
+	pkgver = 0.1.10
+	pkgrel = 1
+	url = https://github.com/sebastinas/cwcwidth
 	arch = x86_64
 	license = MIT
+	checkdepends = python-pytest
+	makedepends = cython
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = cython
 	makedepends = python-setuptools
 	makedepends = python-wheel
 	depends = glibc
-	source = cwcwidth-0.1.9.tgz::https://github.com/sebastinas/cwcwidth/archive/refs/tags/v0.1.9.tar.gz
-	sha256sums = a4c4f86de13c1a004dd96329ed7a5b17927789b6dc8164d971c4e8635bd5a8ec
+	source = https://github.com/sebastinas/cwcwidth/archive/v0.1.10/cwcwidth-0.1.10.tar.gz
+	sha256sums = e397913df5eb7902488f609161584c51f3f545336d59d141007a9c2a23be520c
 
 pkgname = python-cwcwidth
