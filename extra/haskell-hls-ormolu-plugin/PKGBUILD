@@ -2,8 +2,8 @@
 
 _hkgname=hls-ormolu-plugin
 pkgname=haskell-hls-ormolu-plugin
-pkgver=1.0.4.0
-pkgrel=141
+pkgver=2.0.0.0
+pkgrel=1
 pkgdesc="Integration with the Ormolu code formatter"
 url="https://hackage.haskell.org/package/hls-ormolu-plugin"
 license=("Apache")
@@ -13,12 +13,11 @@ depends=('ghc-libs' 'haskell-ghc' 'haskell-ghcide' 'haskell-hls-plugin-api' 'has
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils' 'haskell-lsp-types')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('865fb6f305e86b7517ba4462b0cc6a9c6a46c24859bca7335cbbd069c79b22a4ff0adb55984539f07cf1c075643cfecb3d32c673f17a793ce81b6dc4a3681a68')
+sha512sums=('aa3a2083775257cf1c934bd5c0036371857db3788da03531e9dbe6cc23ed6e3e512f3b0b00ac550f23613e8e4690ab0247c94e4562dd2b61df4dc3a05653d3a6')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u hls-test-utils
 }
 
 build() {
