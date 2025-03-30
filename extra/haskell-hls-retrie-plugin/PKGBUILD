@@ -2,8 +2,8 @@
 
 _hkgname=hls-retrie-plugin
 pkgname=haskell-hls-retrie-plugin
-pkgver=1.0.4.0
-pkgrel=45
+pkgver=2.0.0.0
+pkgrel=1
 pkgdesc="Retrie integration plugin for Haskell Language Server"
 url="https://hackage.haskell.org/package/hls-retrie-plugin"
 license=("Apache")
@@ -14,12 +14,11 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-extra' 'haskell-ghc' 'haskell-ghcid
          'haskell-unordered-containers')
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('33aa088d6ec747dbb595e7790640730e6b4496224018db628613104b92728bec6c50c68ac009c0abe8e0148d02b784cce5fbc384edc763403d4a1a943fa97d8f')
+sha512sums=('dbb5cc70b4861221578253b0291139b8ca85adc709482a5f64e171f0234f9fbece6aae8072e2fdf1b9e323ae27626945d8eefbd35964a7ef621aaf8797265f71')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u hls-test-utils
 }
 
 build() {
@@ -40,7 +39,6 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  # As of 1.0.4.0, testdata is missing from the tarball
   runhaskell Setup test --show-details=direct || echo "Tests failed"
 }
 
