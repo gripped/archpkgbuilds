@@ -2,7 +2,7 @@
 
 _hkgname=template-haskell-compat-v0208
 pkgname=haskell-template-haskell-compat-v0208
-pkgver=0.1.9.4
+pkgver=0.1.9.5
 pkgrel=1
 pkgdesc="Backward-compatibility layer for Template Haskell newer than 2.8"
 url="https://github.com/nikita-volkov/template-haskell-compat-v0208"
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('8b84ec76956802628e44559861a74919254daf111ce7383c6d1482073e24ebf45dd67566c244d8a8bcd6966f7c73511750414d4115751f5d3c91c3420b908969')
+sha512sums=('e61176fbdf81124f3e5c1d3b0b998ea1c63d12124f782dfeacfff5ade86bfd0f3c5b62f41b966c288c5309736087295866c3484137be8f88a69624ad076c2e06')
 
 prepare() {
     cd $_hkgname-$pkgver
@@ -21,7 +21,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
