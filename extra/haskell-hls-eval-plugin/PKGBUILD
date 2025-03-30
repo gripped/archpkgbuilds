@@ -2,8 +2,8 @@
 
 _hkgname=hls-eval-plugin
 pkgname=haskell-hls-eval-plugin
-pkgver=1.5.0.0
-pkgrel=44
+pkgver=2.0.0.0
+pkgrel=1
 pkgdesc="Eval plugin for Haskell Language Server"
 url="https://github.com/haskell/haskell-language-server"
 license=("Apache")
@@ -17,12 +17,11 @@ depends=('ghc-libs' 'haskell-diff' 'haskell-quickcheck' 'haskell-aeson' 'haskell
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('ea5482873bc1623d45d551f93875abf4c6b82ff44093ac26014ce579ee1c0d2c6c770ff4a0e150284c75c5a1805e669a8bb50de8154e2d428beac6c309bad68d')
+sha512sums=('12660d144ce521edfa1121e70ca88733e0c1a5ae665560db4ce83275ccdf1ae43808a1a604c646bddd0e1a0a36f18d597b589ae5ab8ff09db9502a3289918769')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u hls-test-utils
 }
 
 build() {
@@ -43,7 +42,6 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  # https://github.com/haskell/haskell-language-server/issues/1809
   runhaskell Setup test --show-details=direct || echo "Tests failed"
 }
 
