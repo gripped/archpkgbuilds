@@ -11,7 +11,7 @@ pkgname=(
   aws-sdk-cpp-kinesis
   aws-sdk-cpp-s3
 )
-pkgver=1.11.531
+pkgver=1.11.536
 pkgrel=1
 pkgdesc='AWS SDK for C++'
 arch=(x86_64)
@@ -33,7 +33,7 @@ makedepends=(
   zlib
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('6e792bb4e8b20448e1ee4f2bc1a69af7696c046ad523d50b83e6f89888a40d42')
+sha256sums=('f00abba2072d3b168280f59302e25b111c27863496f6f2700b5bc59d5ccd54b6')
 
 prepare() {
   cd $pkgbase-$pkgver
