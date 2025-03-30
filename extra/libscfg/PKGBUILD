@@ -2,15 +2,15 @@
 
 pkgname=libscfg
 pkgver=0.1.1
-pkgrel=2
+pkgrel=4
 pkgdesc="A C library for scfg"
 arch=(x86_64)
-url="https://git.sr.ht/~emersion/libscfg"
+url="https://codeberg.org/emersion/libscfg"
 license=('MIT')
 makedepends=(meson)
 provides=(libscfg.so)
-source=("https://git.sr.ht/~emersion/libscfg/refs/download/v$pkgver/libscfg-$pkgver.tar.gz"
-        "https://git.sr.ht/~emersion/libscfg/refs/download/v$pkgver/libscfg-$pkgver.tar.gz.sig")
+source=("https://codeberg.org/emersion/libscfg/releases/download/v$pkgver/libscfg-$pkgver.tar.gz"
+        "https://codeberg.org/emersion/libscfg/releases/download/v$pkgver/libscfg-$pkgver.tar.gz.sig")
 sha256sums=('8276cbca1de5350f534325e38d08ca71bcbb8041a1fa5174521f4ea17eba1039'
             'SKIP')
 validpgpkeys=('34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48')  # Simon Ser
