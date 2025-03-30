@@ -2,8 +2,8 @@
 
 _hkgname=hls-call-hierarchy-plugin
 pkgname=haskell-hls-call-hierarchy-plugin
-pkgver=1.2.0.0
-pkgrel=247
+pkgver=2.0.0.0
+pkgrel=1
 pkgdesc="Call hierarchy plugin for Haskell Language Server"
 url="https://hackage.haskell.org/package/hls-call-hierarchy-plugin"
 license=("Apache")
@@ -13,12 +13,11 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-extra' 'haskell-ghcide' 'haskell-hi
          'haskell-unordered-containers')
 makedepends=('ghc' 'uusi' 'haskell-ghcide-test-utils' 'haskell-hls-test-utils' 'haskell-lsp-test')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('81f8718c353c48f7cacba068bcb073e5dda5d867ba8a30ed3eb9215b2832a574')
+sha256sums=('bab3f8c05bb15af4ad5349b60ba9aaa1fb9887d7e9b9197243b75942c2cc50eb')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u ghcide -u hls-test-utils
 }
 
 build() {
@@ -39,8 +38,7 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  # TODO
-  runhaskell Setup test --show-details=direct || echo "Tests failed"
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
