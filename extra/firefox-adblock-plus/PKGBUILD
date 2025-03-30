@@ -2,9 +2,9 @@
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
 pkgname=firefox-adblock-plus
-pkgver=4.7
+pkgver=4.18.0
 pkgrel=1
-_file=4351045
+_file=4461810
 pkgdesc="Extension for firefox which blocks ads and banners"
 arch=('any')
 url="https://adblockplus.org/"
@@ -15,7 +15,7 @@ groups=('firefox-addons')
 # wget -qO- https://addons.mozilla.org/en-US/firefox/addon/adblock-plus/versions/ | grep -oP '/\d+/adblock_plus-\S+.xpi'
 source=("https://addons.mozilla.org/firefox/downloads/file/${_file}/adblock-plus-${pkgver}.xpi")
 noextract=("adblock-plus-$pkgver.xpi")
-sha256sums=('c3595d3503d20709c9e1c624812432c0bce80aa715f1e8df42bebe1c4d656434')
+sha256sums=('99ea26ba5e86757425287604d59c0d03c4aae174dd38a47275b9baa96cddf803')
 
 check() {
   bsdtar xf adblock-plus-$pkgver.xpi manifest.json
