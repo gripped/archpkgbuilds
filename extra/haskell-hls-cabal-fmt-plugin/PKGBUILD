@@ -2,8 +2,8 @@
 
 _hkgname=hls-cabal-fmt-plugin
 pkgname=haskell-hls-cabal-fmt-plugin
-pkgver=0.1.0.0
-pkgrel=246
+pkgver=2.0.0.0
+pkgrel=1
 pkgdesc="Integration with the cabal-fmt code formatter"
 url="https://hackage.haskell.org/package/hls-cabal-fmt-plugin"
 license=("Apache")
@@ -12,12 +12,11 @@ depends=('ghc-libs' 'cabal-fmt' 'haskell-ghcide' 'haskell-hls-plugin-api' 'haske
          'haskell-lsp-types')
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('b71ae62ebe3dd35a19f6571fd3c8f17654c80c4b36607e39347516677606defe')
+sha256sums=('86c8c61497be90d8863fa2a61fff1e847c2b64040e88e5f8e6a7a50bb9104c48')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u ghcide -u hls-test-utils
 }
 
 build() {
@@ -39,7 +38,6 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  # missing testdata files
   runhaskell Setup test || echo "Tests failed"
 }
 
