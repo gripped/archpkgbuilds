@@ -2,8 +2,8 @@
 
 _hkgname=hls-splice-plugin
 pkgname=haskell-hls-splice-plugin
-pkgver=1.1.0.0
-pkgrel=45
+pkgver=2.0.0.0
+pkgrel=1
 pkgdesc="HLS Plugin to expand TemplateHaskell Splices and QuasiQuotes"
 url="https://hackage.haskell.org/package/hls-splice-plugin"
 license=("Apache")
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-dlist' 'haskell-extra' 'haskell-fol
 makedepends=('ghc' 'uusi' 'haskell-hls-test-utils')
 checkdepends=('git')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('74288f3eb8f0610f8fe9af8a0da390bc137fad62f29793f90d05ac8081b371ccd63ab932aea2147ebd34710cfb0645de43c8577721b0eaf2f1044b3b4390ea56')
+sha512sums=('00b2d9d3ba76f6610d6b326fefd41b8e8a6bb039529e38fc263e9e377aea8be8ecd60314713720b6b2b3638987454ac466d707e6b05e585319de5ae36d73fd67')
 
 prepare() {
   cd $_hkgname-$pkgver
