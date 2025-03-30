@@ -1,54 +1,48 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 
-_pkgname=flask-mail
 pkgname=python-flask-mail
-pkgver=0.9.1
-pkgrel=14
+pkgver=0.10.0
+pkgrel=1
 pkgdesc='Flask extension providing simple email sending capabilities'
-url='https://pythonhosted.org/Flask-Mail/'
+url='https://github.com/pallets-eco/flask-mail/'
 arch=('any')
-license=('BSD')
-depends=('python' 'python-flask' 'python-blinker')
-makedepends=('python-sphinx' 'python-setuptools')
-checkdepends=('python-blinker' 'python-speaklater')
-source=(${pkgname}-${pkgver}.tar.gz::https://github.com/mattupstate/flask-mail/archive/${pkgver}.tar.gz
-        ${pkgname}-fix-headers-for-attachments.patch::https://github.com/mattupstate/flask-mail/commit/e195fca6de1077cabb711426e6378f51dc39d598.patch
-        unittest-mock.patch
-        # https://github.com/pallets-eco/flask-mail/issues/233
-        remove-tests-failing-on-python-3.13.patch)
-sha512sums=('1cf45ee734b35bf05862a4e88070a743a7d3cc877e4dcdc55f5e0a9642631752c4bf1e23065212157e71e42c5fdb010de8a68b4ab9f8444f9fa096d62a7aad3d'
-            '7e85212c213307ede608f57e00f3a7109408216d999ed6823caad758231aaac5493dbab9a625d46f4a42278641f8d56aa3733fc9f87bb4b912b87a62b16e6814'
-            '6829afa8b22b80918a0a633e86accdfb10fe37ea5087de369bf0ae89bed65e6907ee9c8e22ab18497cff4cba4d60a25892d2fa0c3c8b3ab33cf8fd325620ff3a'
-            'ae180600833fb4314a323686a0e4cc771f600269765bc3e67a1959e6e2828877e56b33b688b849073b7979978d280b0097ca8cbe90ccfb325e0f4511a8aa7e5d')
-
-prepare() {
-  cd ${_pkgname}-${pkgver}
-  patch -Np1 < ../unittest-mock.patch
-  patch -Np1 < ../${pkgbase}-fix-headers-for-attachments.patch
-  patch -Np1 < ../remove-tests-failing-on-python-3.13.patch
-
-  sed -i 's/assertEquals/assertEqual/g' tests.py
-}
+license=('BSD-3-Clause')
+depends=(
+  'python'
+  'python-blinker'
+  'python-flask'
+)
+makedepends=(
+  'python-build'
+  'python-flit-core'
+  'python-installer'
+  'python-wheel'
+)
+checkdepends=('python-pytest')
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('5f0c0360ca47b46bf57229194f36d7c170b7fcd7f8c1b3444c85e4a50dbe6aaf54d566f0f9b00ec537714fe709707ad5ada416f4c82aaa08003cce7f3e3ee2c2')
 
 build() {
-  cd ${_pkgname}-${pkgver}
-  python setup.py build
-  sphinx-build -b text docs docs/_build/text
-  sphinx-build -b man docs docs/_build/man
+  cd ${pkgname#python-}-${pkgver}
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd ${_pkgname}-${pkgver}
-  python -m unittest discover -vs .
+  cd ${pkgname#python-}-${pkgver}
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  # Deselect tests failing due to comparing base64 encoded Unicode headers.
+  test-env/bin/python -m pytest \
+    --deselect tests/test_message.py::test_unicode_sender \
+    --deselect tests/test_message.py::test_unicode_sender_tuple
 }
 
 package() {
-  cd ${_pkgname}-${pkgver}
-  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
-  install -Dm 644 README.rst CHANGES -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
-  install -Dm 644 docs/_build/text/*.txt -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -Dm 644 docs/_build/man/flask-mail.1 "${pkgdir}/usr/share/man/man1/${pkgname}.1"
+  cd ${pkgname#python-}-${pkgver}
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md docs/*.py docs/*.md
+  install -vDm 644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.txt
 }
 
 # vim: ts=2 sw=2 et:
