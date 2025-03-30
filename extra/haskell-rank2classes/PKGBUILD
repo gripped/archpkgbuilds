@@ -2,17 +2,17 @@
 
 _hkgname=rank2classes
 pkgname=haskell-rank2classes
-pkgver=1.5.3.1
-pkgrel=14
+pkgver=1.5.4
+pkgrel=1
 pkgdesc="Standard type constructor class hierarchy, only with methods of rank 2 types"
 url="https://github.com/blamario/grampa/tree/master/rank2classes"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-data-functor-logistic' 'haskell-distributive')
 makedepends=('ghc' 'haskell-cabal-doctest' 'haskell-doctest' 'haskell-markdown-unlit'
              'haskell-tasty' 'haskell-tasty-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('0cb36002ebe114607d62b722f24aba5f88f64acad0c4e7185a3edaac874cf105fcee630c352fd9e026e0dd21fd8e283eea5c4e33398a55e1b5c0f8298c3c7742')
+sha512sums=('2a75d466337ab0d5b35904f09067011fa7b73991438b2aa5556c06e27eb53c72a9c0674227744370fa80c04f6d9fa3f8bbdb78dda7c4f59b375d1a39d0a5120e')
 
 build() {
     cd $_hkgname-$pkgver
