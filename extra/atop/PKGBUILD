@@ -3,7 +3,7 @@
 # Contributor: John Gerritse <john.gerritse@gmail.com>
 
 pkgname=atop
-pkgver=2.11.0
+pkgver=2.11.1
 pkgrel=1
 pkgdesc='A system and process level monitor'
 arch=('x86_64')
@@ -16,7 +16,7 @@ optdepends=(
 backup=('etc/default/atop')
 source=("https://www.atoptool.nl/download/atop-${pkgver/_/-}.tar.gz"
         'atop.default')
-sha512sums=('f43881fcc9fa8bfe6837bd8228b9fc7fc7679f84e51af80ab5e9f89915e254fbf6e24c7bf78c22814d8d9db5b012d46ca75ff5abe1dfde3b51d94fa29fed077a'
+sha512sums=('6c3301ecc7fa261bc9f9a9d285315b048aa56fdf94629b1e4ad2634b0cf048d70afe7813b1a44506756d6af05b8b78df76df995aa6f4c404bf01fd6225839a3d'
             '3583738b48d9b5ed1ada323a753cd30bfd41a118d7f96ab9f536858ac356cdd5dd2acf30de5c000745c0b817e9e0ee115731fbe9828086488c3c9df773a05d08')
 
 #prepare() {
