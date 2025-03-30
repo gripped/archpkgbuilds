@@ -1,7 +1,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 pkgname=sudo-rs
 pkgver=0.2.4
-pkgrel=5
+pkgrel=6
 pkgdesc="A memory safe implementation of sudo and su."
 arch=('x86_64')
 url="https://github.com/trifectatechfoundation/sudo-rs"
@@ -45,12 +45,11 @@ build() {
   for man_file in docs/man/*.md; do
     target_file="$out_dir/$(basename "$man_file" .md)"
     pandoc --standalone --to man "$man_file" -o "$target_file"
-    gzip --verbose --force "$target_file"
   done
 
   # Rename man files with a suffix -rs so we don't conflict with the sudo
   # package
-  for man_file in "$out_dir/"*.gz; do
+  for man_file in "$out_dir/"*.{1,5,8}; do
     mv --verbose "$man_file" "${man_file%%.*}-rs.${man_file#*.}"
   done
 }
@@ -76,7 +75,7 @@ package() {
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" CHANGELOG.md README.md SECURITY.md
 
   for section in 1 5 8; do
-    install -vDm644 -t "$pkgdir/usr/share/man/man$section" target/docs/man/*.$section.gz
+    install -vDm644 -t "$pkgdir/usr/share/man/man$section" target/docs/man/*.$section
   done
 }
 
