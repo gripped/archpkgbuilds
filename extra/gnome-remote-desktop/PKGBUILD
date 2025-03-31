@@ -3,7 +3,7 @@
 
 pkgname=gnome-remote-desktop
 pkgver=48.0
-pkgrel=1
+pkgrel=2
 pkgdesc="GNOME Remote Desktop server"
 url="https://gitlab.gnome.org/GNOME/gnome-remote-desktop"
 arch=(x86_64)
