@@ -3,18 +3,18 @@
 
 _hkgname=mwc-random
 pkgname=haskell-mwc-random
-pkgver=0.15.1.0
-pkgrel=13
+pkgver=0.15.2.0
+pkgrel=1
 pkgdesc="Fast, high quality pseudo random number generation"
 url="https://github.com/haskell/mwc-random"
-license=("BSD")
+license=('BSD-2-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-math-functions' 'haskell-primitive' 'haskell-random' 'haskell-vector')
 makedepends=('ghc')
 checkdepends=('haskell-doctest' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
               'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('48b941a9ef544796896feec7d4caf4c9e6ba05e7deaac27f80025af1a7d06ec1acce61af8f062c7a426b5e878fc7cc493946ff5c08866366878bc16d581c101b')
+sha512sums=('d20687aaa34084587e5e294505dcb7ce3d12da1ce09a6e70b7d1f6070298da956aedb56419ab83d0539be2946d79cf0ea0389d6c7610640e75cbbe84f214e92b')
 
 build() {
     cd $_hkgname-$pkgver
