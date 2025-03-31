@@ -1,30 +1,30 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-transaction
-pkgver=4.0
-pkgrel=3
+pkgver=5.0
+pkgrel=1
 pkgdesc='Transaction management for Python'
 arch=('any')
 license=('ZPL')
 url='https://github.com/zopefoundation/transaction'
 depends=('python-zope-interface')
-makedepends=('python-setuptools')
+makedepends=('git' 'python-setuptools')
 checkdepends=('python-zope-testrunner')
-source=("https://github.com/zopefoundation/transaction/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('4713f0caec822543e8b67778a968706d4e495dba4d1741ac7480b67f2659caf6cee67d161755b60130d6a04aa6e5a31973a41a1a4aa95254fdfc49c5af0d14ba')
+source=("git+https://github.com/zopefoundation/transaction.git#tag=$pkgver")
+sha512sums=('929577f6ec5f912979a13f7b5ef071c7bb837d95102ec215a4792e06196214c9a89146d1cc12a20794c0bf1398d2220aa53fe680a6ca96f41d3892d9b62f57e5')
 
 build() {
-  cd transaction-$pkgver
+  cd transaction
   python setup.py build
 }
 
 check() {
-  cd transaction-$pkgver
+  cd transaction
   PYTHONPATH="$PWD"/build/lib zope-testrunner --test-path=src
 }
 
 package() {
-  cd transaction-$pkgver
+  cd transaction
   python setup.py install --root="$pkgdir" --optimize=1
 }
 
