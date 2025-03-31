@@ -3,7 +3,7 @@
 
 pkgname=gnome-connections
 pkgver=48.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Remote desktop client for the GNOME desktop environment'
 arch=(x86_64)
 url='https://apps.gnome.org/Connections/'
