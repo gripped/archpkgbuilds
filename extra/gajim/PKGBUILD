@@ -4,7 +4,7 @@
 
 pkgname=gajim
 pkgver=2.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Full featured and easy to use XMPP (Jabber) client"
 url="https://gajim.org/"
 arch=('any')
@@ -19,6 +19,7 @@ optdepends=('python-dbus: to have gajim-remote working'
             'networkmanager: for network lose detection'
             'geoclue2: share current location'
             'gsound: Notification Sounds'
+            'gsound: Notification Sounds'
             'libayatana-appindicator: for App Indicator on Wayland'
             'farstream: for video and audio calls'
             'gstreamer: for video and audio calls'
@@ -28,7 +29,8 @@ optdepends=('python-dbus: to have gajim-remote working'
             'gst-plugin-gtk4: for video and audio calls'
             'libxss: for idle time checking on X11'
             'python-gnupg: encrypting chat messages with OpenPGP'
-            'emoji-font: for emojis support')
+            'emoji-font: for emojis support'
+            'webp-pixbuf-loader: for WebP images support')
 source=("https://dev.gajim.org/gajim/gajim/-/archive/${pkgver}/gajim-${pkgver}.tar.gz")
 sha512sums=('7a3369b7df5efa784775916950013cffcc15e3e49f97549e3ba42a3dc41744684051e58a3d4e5d29ad9bb025d3c2a6db11b5df414397ca83879a24ef000ab6f4')
 b2sums=('ee022ded422ba396e94660d7d5f588bbf2cce5bfd371834f776a919af4de2279bed6818a86d60635080ba08eee79092508474cda4417182e54694e7b35dd4afa')
