@@ -1,12 +1,12 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=furnace
-pkgver=0.6.7
-pkgrel=2
+pkgver=0.6.8
+pkgrel=1
 pkgdesc='A multi-system chiptune tracker compatible with DefleMask modules'
 arch=('x86_64')
 url='https://github.com/tildearrow/furnace'
-license=('GPL-2.0-or-later')
+license=('GPL-2.0-or-later' 'LicenseRef-OriginalAuthors')
 groups=('pro-audio')
 depends=(
   'fftw'
@@ -32,9 +32,9 @@ source=(
   "$pkgname::git+$url#tag=v$pkgver"
   'github.com-superctr-adpcm::git+https://github.com/superctr/adpcm'
 )
-sha512sums=('43167c7a036607a051734c13cc3f8b3924fb1795989aefa7377483daeb0b5d49833533d420d160375884fd2b2f457aa069af31bc8120ceaa344e4f46660f8b44'
+sha512sums=('10a3feefa3f5f85ee2bf5161f4dae60e62d60b71db749472eda34dca17ebbb6727b192620baf103e44b2c4c96181b38970ce2c12cb1e792e08c1d57c3523bebb'
             'SKIP')
-b2sums=('953a199c028a4f8893b181d22b45f6badf2d10fb34f145119480925f031c89b4883fd538eb637cd9adb9470fae0a7d019119df88fad2d10177bfe29a2fb800c9'
+b2sums=('1ab2d64a82d89d836b25983ff607ebf3b7f142c9089bfb96fa3af278fa6c324b0fd0409751a40835d91483b0f44969d517bbf06b43965d79d0d6a25873cb6ddb'
         'SKIP')
 
 prepare() {
@@ -61,6 +61,7 @@ build() {
     -D SYSTEM_SDL2=ON
     -D SYSTEM_ZLIB=ON
     -D WITH_JACK=ON
+    -D WITH_DEMOS=ON
     -S "$pkgname"
     -W no-dev
   )
@@ -70,5 +71,8 @@ build() {
 }
 
 package() {
-  DESTDIR="$pkgdir" cmake --install build  
+  DESTDIR="$pkgdir" cmake --install build
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" "$pkgname/demos/README.md"
 }
