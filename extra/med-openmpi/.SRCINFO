@@ -1,14 +1,13 @@
 pkgbase = med-openmpi
 	pkgdesc = Library for reading and writing MED files
 	pkgver = 5.0.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/chennes/med
 	arch = x86_64
 	license = LGPL
 	makedepends = cmake
 	makedepends = gcc-fortran
 	makedepends = git
-	makedepends = ninja
 	makedepends = openmpi
 	makedepends = swig
 	depends = hdf5-openmpi
@@ -16,7 +15,6 @@ pkgbase = med-openmpi
 	depends = tk
 	provides = med
 	conflicts = med
-	replaces = med
 	source = git+https://github.com/chennes/med#tag=v5.0.0
 	source = https://src.fedoraproject.org/rpms/med/raw/rawhide/f/hdf5-1.14.patch
 	source = https://src.fedoraproject.org/rpms/med/raw/rawhide/f/med-swig-4.3.0.patch

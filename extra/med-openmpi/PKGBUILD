@@ -12,14 +12,13 @@
 
 pkgname=med-openmpi
 pkgver=5.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Library for reading and writing MED files'
 url='https://github.com/chennes/med'
 license=(LGPL)
 arch=(x86_64)
 provides=(med)
 conflicts=(med)
-replaces=(med)
 depends=(hdf5-openmpi python tk)
 makedepends=(cmake gcc-fortran git openmpi swig)
 source=(git+https://github.com/chennes/med#tag=v$pkgver
