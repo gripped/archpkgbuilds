@@ -1,10 +1,11 @@
 pkgbase = lxlauncher
 	pkgdesc = Open source clone of the Asus launcher for EeePC
-	pkgver = 0.2.7
+	pkgver = 0.2.8
 	pkgrel = 1
 	url = https://lxde.org/
 	arch = x86_64
 	license = GPL2
+	makedepends = git
 	makedepends = intltool
 	depends = gtk2
 	depends = gtk3
@@ -14,11 +15,9 @@ pkgbase = lxlauncher
 	backup = etc/xdg/lxlauncher/gtk.css
 	backup = etc/xdg/lxlauncher/gtkrc
 	backup = etc/xdg/lxlauncher/settings.conf
-	source = https://github.com/lxde/lxlauncher/archive/0.2.7/lxlauncher-0.2.7.tar.gz
-	source = 0001-Add-CSS-selectors-for-GTK-3.20-and-newer.patch
+	source = git+https://github.com/lxde/lxlauncher.git#tag=0.2.8
 	source = fix-invisible-icons.patch
-	sha256sums = 683254bacd7e6c405247fd5a7fea6efa5806f01c9c7f6a89ab9e07bcb5a5a960
-	sha256sums = 794a92dda67f055a794315af4d1a1b0d3319da836582fbc88bbaa3f737612f70
+	sha256sums = 3d8b998cc318bdf77c64df6f52e7f4cfb909de30ca2b3170dbb5ac1ffd450e37
 	sha256sums = 34fd1774d962965795eac8002d77a17078a967e2812ebae3e71d35533e1b3799
 
 pkgname = lxlauncher
