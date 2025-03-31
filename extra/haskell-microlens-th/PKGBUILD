@@ -2,7 +2,7 @@
 
 _hkgname=microlens-th
 pkgname=haskell-microlens-th
-pkgver=0.4.3.16
+pkgver=0.4.3.17
 pkgrel=1
 pkgdesc="Automatic generation of record lenses for microlens"
 url="https://github.com/stevenfontanella/microlens"
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-microlens' 'haskell-th-abstraction')
 makedepends=('ghc' 'haskell-tagged')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('80740b4eb7d4c0d2f0c061d7b22bc7e4e234e2c67443abed64ed6186955932b760889f09ebc25ed83deccaf50f8cb9ad398fcd8784b73e357cef4f1b17e4fa8c')
+sha512sums=('609f8f737f770ea824a39ef1cc417055dbfaeda9be3436d91ba15dd850642e0482f64b4b51911478b94bbdffddf2ed4186cef14c1607537bbb459cba5b832113')
 
 build() {
     cd $_hkgname-$pkgver
