@@ -3,7 +3,7 @@
 # Contributor: Michael Beaumont <mjboamail@gmail.com>
 
 pkgname=sops
-pkgver=3.9.4
+pkgver=3.10.0
 pkgrel=1
 pkgdesc='Editor of encrypted files that supports YAML, JSON, ENV, INI and BINARY formats'
 arch=('x86_64')
@@ -15,9 +15,12 @@ options=('!lto')
 source=("git+https://github.com/getsops/sops.git?signed#tag=v${pkgver}"
         'bash_autocomplete'
         'zsh_autocomplete')
-sha256sums=('d8911ee8090a2fd0947ee319857e2cb4a9e39fe518c933a01b7d7b68f2eeb176'
-            '761c67ffd48431e60ea5dc48e5656b4480eca7534d4b715eb65bd75680f5e975'
-            'd98d34aeaa7b0f98220bcb21fc9f2bb58efaed45478a7229eb58e5795b57b5a7')
+sha512sums=('a231a8d01b698822394850d028d3f240016027d10f1be6c564a5ac916028a5719991c4e8b99b9d6434c4a61488e47a2a2276c8606f4b33960a0eb95272ad8e5e'
+            '95d62564dc6ceb449b0b498a40e383bc15b342856ee6862bb4424f4aa6a168fe797d9c5cafb945a8111ac97958f03c6033dccd1fda49efeecb5ab46d22ae9be0'
+            'ce945bdab2232c331cbaa45f2afbd940980925cb87717e375a4a6801207f4617ac8903835d0da993bced542d623a71c430e3d89b2ec010731ab3930b4e4608b6')
+b2sums=('774a06038cbbb5bb90547e3963a2433e8f3817ecbb1f2bb87e917dbe743e6a70f4554deba66d151bdc1a66390dd2a8f777e985486a39bcbdfe4c1c402be1bec5'
+        'b0bbd3a5ffa49c4383b5c3a9fa7c911051735ef828452727dfd970e020a47d999a2dbfe8311547812587a56490a3f3bd1ec022c52ed2753acf3282924f47d37f'
+        '115f01ef87c4227f3ef07e55c5865e1ccb253af5fa85c2d445d938331228f12b5fd948138975f5dc4abc70aaeef6d661382ccef539ec7c293ab85705419dc1e1')
 validpgpkeys=('1CBD23A64DD703A808AF66E71E60B8598833B166') # Felix Fontein
 
 prepare() {
