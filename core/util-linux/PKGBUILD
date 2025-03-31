@@ -13,7 +13,7 @@
 pkgbase=util-linux
 pkgname=(util-linux util-linux-libs)
 pkgver='2.41'
-pkgrel=3
+pkgrel=4
 pkgdesc='Miscellaneous system utilities for Linux'
 url='https://github.com/util-linux/util-linux'
 arch=('x86_64')
@@ -62,6 +62,9 @@ sha256sums=('bf69afb12389883698078d47ea5ef299d34346ab1c38a885573833ae4b43e5ec'
 _backports=(
   # meson: fix po-man installation
   '56b97db03a56d90f0480885a35b0383afabc2e18'
+
+  # libmount: fix --no-canonicalize regression
+  '77723beaaaca654f72ac9538772e69fbafa8835d'
 )
 
 _reverts=(
