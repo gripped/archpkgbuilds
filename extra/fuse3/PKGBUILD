@@ -4,7 +4,7 @@
 
 pkgbase=fuse3
 pkgname=(fuse-common fuse3)
-pkgver=3.16.2
+pkgver=3.17.1
 pkgrel=1
 pkgdesc='Interface for userspace programs to export a filesystem to the Linux kernel'
 url='https://github.com/libfuse/libfuse'
@@ -13,7 +13,7 @@ license=('GPL2')
 makedepends=('pkg-config' 'meson' 'udev')
 options=('!emptydirs')
 source=(https://github.com/libfuse/libfuse/releases/download/fuse-$pkgver/fuse-$pkgver.tar.gz)
-sha256sums=('f797055d9296b275e981f5f62d4e32e089614fc253d1ef2985851025b8a0ce87')
+sha256sums=('2d8ae87a4525fbfa1db5e5eb010ff6f38140627a7004554ed88411c1843d51b2')
 validpgpkeys=(ED31791B2C5C1613AF388B8AD113FCAC3C4E599F) # Nikolaus Rath <Nikolaus@rath.org>
 
 build() {
