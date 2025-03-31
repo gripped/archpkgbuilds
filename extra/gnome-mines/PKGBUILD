@@ -2,24 +2,36 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-mines
-pkgver=40.1
-pkgrel=3
+pkgver=48.0
+pkgrel=1
 pkgdesc="Clear hidden mines from a minefield"
 url="https://wiki.gnome.org/Apps/Mines"
 arch=(x86_64)
-license=(GPL)
-depends=(gtk3 librsvg libgnome-games-support)
-makedepends=(yelp-tools appstream-glib vala git meson)
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  glib2
+  glibc
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libgnome-games-support-2
+  librsvg
+)
+makedepends=(
+  appstream
+  git
+  libgee
+  meson
+  vala
+  yelp-tools
+)
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-mines.git#tag=$pkgver")
-b2sums=('f3980321785e4f734f00f64aa64722ddb5420a7b6843c8dce9196c3288f364d26bd9b23bf1fb8440eecdc6bbc0bd335bd9f4b35dbf05b2b0e88642f827c39ed6')
+b2sums=('8b32a1eec2d8159a542a71579e24dc03dcc5b492f4e7962908162f66f399405a0d421db08c405c1b50cd865cdccb65fec556d0a8dc2e6797e2a4a51ea859d24c')
 
 prepare() {
   cd $pkgname
-
-  # Fix window icon name
-  # https://gitlab.gnome.org/GNOME/gnome-mines/-/merge_requests/40
-  sed -i '/icon_name/ s/gnome-mines/org.gnome.Mines/' src/interface.ui
 }
 
 build() {
@@ -34,3 +46,5 @@ check() {
 package() {
   meson install -C build --destdir "$pkgdir"
 }
+
+# vim:set sw=2 sts=-1 et:
