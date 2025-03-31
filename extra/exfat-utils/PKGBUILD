@@ -6,7 +6,7 @@
 pkgname=exfat-utils
 _pkgname=${pkgname%-utils}
 pkgver=1.4.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Utilities for exFAT file system'
 url="https://github.com/relan/$_pkgname"
 arch=(x86_64)
