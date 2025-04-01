@@ -2,7 +2,7 @@
 # Contributor: Ovi Chis ovi@ovios.org
 
 pkgname=tgt
-pkgver=1.0.95
+pkgver=1.0.96
 pkgrel=1
 pkgdesc="iSCSI Target STGT for Arch Linux"
 arch=('x86_64')
@@ -28,7 +28,7 @@ backup=(
   'etc/tgt/targets.conf'
 )
 source=(git+https://github.com/fujita/tgt.git#tag=v${pkgver})
-b2sums=('d9046363d78b5b486eec0f3b16a5f98fcd614ade47c06085525d53b88c317fc309571a4db727514f3e6167d301d7efd73df31dc2ff8fcc0c2a192c32833d342b')
+b2sums=('a2e31a4f15e067ab94d17345659faf0c5390304aae8b54d2732b8b33e65b7bfc3915186eab9cfc5250ab521c32ce25c0a725b0fd34d67f08d6891c211d60df73')
 
 prepare() {
   cd ${pkgname}
