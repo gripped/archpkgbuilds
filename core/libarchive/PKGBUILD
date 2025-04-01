@@ -2,8 +2,8 @@
 # Maintainer: Dan McGee <dan@archlinux.org>
 
 pkgname=libarchive
-pkgver=3.7.7
-pkgrel=4
+pkgver=3.7.9
+pkgrel=1
 pkgdesc='Multi-format archive and compression library'
 arch=('x86_64')
 url='https://libarchive.org/'
@@ -21,18 +21,12 @@ provides=('libarchive.so')
 validpgpkeys=('A5A45B12AD92D964B89EEE2DEC560C81CEC2276E'  # Martin Matuska <mm@FreeBSD.org>
               'DB2C7CF1B4C265FAEF56E3FC5848A18B8F14184B') # Martin Matuska <martin@matuska.org>
 source=("git+https://github.com/${pkgname}/${pkgname}.git?signed#tag=v${pkgver}")
-sha256sums=('5f34ae74d1a780a7147f255903a04b475f674ea48252f3a059fb27d67eb083a9')
+sha256sums=('564839b9c4ecae3d87ea0e3b6a9af1e5e26774c8d5dbb2f465480873a7dc0ef8')
 
 _backports=(
-  # https://github.com/libarchive/libarchive/issues/2547
-  # fast-forward to v3.7.8, as that is not signed
-  "v${pkgver}..e31747775b9182d7e08c0ab5115c6861703a5efa"
 )
 
 _reverts=(
-  # https://github.com/libarchive/libarchive/issues/2548
-  # Ignore ustar size when pax size is present (#2405)
-  'eddb9fcf93974f1ecca14fcfa4f67992f25bb790'
 )
 
 prepare() {
