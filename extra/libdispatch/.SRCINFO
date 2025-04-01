@@ -1,21 +1,19 @@
 pkgbase = libdispatch
 	pkgdesc = Comprehensive support for concurrent code execution on multicore hardware
-	pkgver = 5.10
+	pkgver = 6.1
 	pkgrel = 1
 	url = https://apple.github.io/swift-corelibs-libdispatch
 	arch = x86_64
-	license = Apache
+	license = Apache-2.0
 	makedepends = git
 	makedepends = clang
 	makedepends = cmake
 	makedepends = ninja
 	depends = glibc
 	provides = libblocksruntime
-	source = libdispatch::git+https://github.com/apple/swift-corelibs-libdispatch.git#tag=swift-5.10-RELEASE
+	source = libdispatch::git+https://github.com/apple/swift-corelibs-libdispatch.git#tag=swift-6.1-RELEASE
 	source = remove-werror.patch
-	source = avoid-libkqueue.patch
-	sha512sums = c83e7e227a8f4f76ba4274ad292177ffd357b79f7afd94060804427b0ab2dfe86d77414b33b567b114b80934d4c1d9664e59d154d40752c2219548f9c91c7241
+	sha512sums = 56c6599dfd10f919ab0e6c7152f32d54b2f95b972acd39d2a5355e63d6b9e5d532d0fa987f62f4c6aee37f414ad395f5aec1d06a4a288e475e1bd8b3186ac699
 	sha512sums = d7d05ff6fa2ece40fea51e97f1af04e25ae9c2b55246fa2d753c446cff380262e611f9abb5112b7c7c94730362f0d06e0ccd867477c9470d1154e9c65e540529
-	sha512sums = 9f954538eee6ca63170c9fcf28cbcc090392360157c03bb33783789182102854ab344b432ff9f5603b873cb2540ffecf83458be559757eb094286cb41d9ba9ea
 
 pkgname = libdispatch
