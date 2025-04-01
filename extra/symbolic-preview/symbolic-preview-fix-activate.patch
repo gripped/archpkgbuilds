@@ -1,0 +1,35 @@
+From 8f8b9a67e57fb080544587e2690bab851d7566fb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 31 Mar 2025 03:14:03 +0000
+Subject: [PATCH] application: Present active window if available
+
+Instead of creating new one, raise the existing one on activation.
+---
+ src/application.rs | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/src/application.rs b/src/application.rs
+index 1d30499..449fa17 100644
+--- a/src/application.rs
++++ b/src/application.rs
+@@ -31,8 +31,16 @@ mod imp {
+ 
+     impl ApplicationImpl for Application {
+         fn activate(&self) {
++            self.parent_activate();
++            let app = self.obj();
+             tracing::debug!("Application::activate");
+-            let window = self.obj().create_window();
++
++            if let Some(window) = app.active_window() {
++                window.present();
++                return;
++            }
++
++            let window = app.create_window();
+             window.present();
+         }
+ 
+-- 
+GitLab
+

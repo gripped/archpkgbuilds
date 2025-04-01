@@ -2,7 +2,7 @@
 
 pkgname=symbolic-preview
 pkgver=0.0.9
-pkgrel=2
+pkgrel=3
 pkgdesc='Utility to create, preview and export symbolic icons'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/design/symbolic-preview'
@@ -28,10 +28,12 @@ makedepends=(
 )
 source=(
   "git+https://gitlab.gnome.org/World/design/symbolic-preview.git#tag=$pkgver"
+  symbolic-preview-fix-activate.patch
   symbolic-preview-filedialog.patch
 )
 b2sums=(
   291520a94fd3c9a6e878f43997b8ae23c0aa2b26a36ef9bb147cf4e79fe094751a1e627b3e2457e706473c254367ef37420448ce31fa7a4e1fd068442c8f7e7e
+  bd3077ae95c8f4f313bc049b901d175850667791735f354845159c331784dec3b244d4dfed281d8fec123c0d65c42d321409aae7260b1b53e3f3d458b9f4df7e
   c987cb9bf823239ec885ce3a9dcdfba882a11f80cb843012b3eadbd601913d0310506472efad8287d4e6f0da19b250a2c397c79f125259219eaca014d35218c8
 )
 
@@ -43,6 +45,9 @@ prepare() {
 
   # https://gitlab.gnome.org/World/design/symbolic-preview/-/issues/46
   git cherry-pick -n 75e47ee4811dc466e9a5ece21e73f56a42866009
+
+  # https://gitlab.gnome.org/World/design/symbolic-preview/-/merge_requests/17
+  git apply -3 ../symbolic-preview-fix-activate.patch
 
   # Fix some file dialogs
   git apply -3 ../symbolic-preview-filedialog.patch
