@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=sagemath-doc
-pkgver=10.5
+pkgver=10.6
 pkgrel=1
 pkgdesc='HTML documentation for SageMath'
 arch=(any)
@@ -20,12 +20,16 @@ makedepends=(cython
              python-sphinx-furo
              python-sphinx-inline-tabs
              sagemath)
-source=(git+https://github.com/sagemath/sage#tag=$pkgver)
-sha256sums=('dc62465ae2d07cde84176979a2211a4a72966827c98f82d3b238c2d94c7f433f')
+source=(git+https://github.com/sagemath/sage#tag=$pkgver
+        sphinx-8.2.patch)
+sha256sums=('0990685793b8c8fa19016a130baddc0c611a352992283c43eee376b480d2bf70'
+            'a7056b285bb31697219c015e417b4720f6265f6e38f4d185f6fa8522899b121d')
 options=(!strip) # nothing to strip, save packaging time
 
 prepare() {
   cd sage
+
+  patch -p1 -i ../sphinx-8.2.patch # Fix build with sphinx 8.2
 
   SAGE_ROOT="$PWD" PATH="$PWD/build/bin:$PATH" src/doc/bootstrap
   make -C src/doc doc-src
