@@ -2,7 +2,7 @@
 
 pkgname=postorius
 pkgver=1.3.13
-pkgrel=2
+pkgrel=3
 pkgdesc="The New Mailman Web UI"
 arch=(any)
 url="https://gitlab.com/mailman/postorius"
@@ -85,92 +85,6 @@ build() {
 check() {
   local pytest_options=(
     -vv
-    # hang forever: https://gitlab.com/mailman/postorius/-/issues/613
-    --deselect src/postorius/tests/mailman_api_tests/test_list_moderation.py::HeldMessageTest::test_accept_held_messages
-    --deselect src/postorius/tests/mailman_api_tests/test_list_moderation.py::HeldMessageTest::test_moderate_held_message_set_moderation_for_nonmember
-    --deselect src/postorius/tests/mailman_api_tests/test_list_moderation.py::HeldMessageTest::test_reject_held_message_with_reason
-    --deselect src/postorius/tests/mailman_api_tests/test_nav_helpers.py::TestNavigationHelpers::test_held_message_count
-    # broken with Python 3.13: https://gitlab.com/mailman/postorius/-/issues/614
-    --deselect src/postorius/tests/mailman_api_tests/test_anonymous_subscribe.py::AnonymousSubscribeTest::test_anonymous_subscribe
-    --deselect src/postorius/tests/mailman_api_tests/test_auth_utils.py::AuthTestCase::test_user_in_roster_case_sensitivity
-    --deselect src/postorius/tests/mailman_api_tests/test_list_index.py::ListIndexPageTest::test_list_index_all_lists
-    --deselect src/postorius/tests/mailman_api_tests/test_list_index.py::ListIndexPageTest::test_list_index_multiple_addresses
-    --deselect src/postorius/tests/mailman_api_tests/test_list_index.py::ListIndexPageTest::test_list_index_multiple_roles
-    --deselect src/postorius/tests/mailman_api_tests/test_list_index.py::ListIndexPageTest::test_list_index_subscriber_only
-    --deselect src/postorius/tests/mailman_api_tests/test_list_index.py::DomainFilteringListIndexPageTest::test_domain2_list_index_all_lists
-    --deselect src/postorius/tests/mailman_api_tests/test_list_index.py::DomainFilteringListIndexPageTest::test_list_index_all_lists
-    --deselect src/postorius/tests/mailman_api_tests/test_list_index.py::DomainFilteringListIndexPageTest::test_list_index_multiple_addresses
-    --deselect src/postorius/tests/mailman_api_tests/test_list_index.py::DomainFilteringListIndexPageTest::test_list_index_multiple_roles
-    --deselect src/postorius/tests/mailman_api_tests/test_list_index.py::DomainFilteringListIndexPageTest::test_list_index_subscriber_only
-    --deselect src/postorius/tests/mailman_api_tests/test_list_joinleave.py::TestListJoinLeave::test_subscribe_to_lists
-    --deselect src/postorius/tests/mailman_api_tests/test_list_joinleave.py::TestListJoinLeave::test_unsubscribe_pending_verification
-    --deselect src/postorius/tests/mailman_api_tests/test_list_joinleave.py::TestListJoinLeave::test_unsubscribe_self_only
-    --deselect src/postorius/tests/mailman_api_tests/test_list_member_options.py::ListMembersOptionsTest::test_get_nonmember_options
-    --deselect src/postorius/tests/mailman_api_tests/test_list_member_options.py::ListMembersOptionsTest::test_moderation_action
-    --deselect src/postorius/tests/mailman_api_tests/test_list_member_options.py::ListMembersOptionsTest::test_nonexistent_member_returns_404
-    --deselect src/postorius/tests/mailman_api_tests/test_list_member_options.py::ListMembersOptionsTest::test_nonmember_and_owner_with_same_email_action
-    --deselect src/postorius/tests/mailman_api_tests/test_list_member_options.py::ListMembersOptionsTest::test_nonmember_moderation_action
-    --deselect src/postorius/tests/mailman_api_tests/test_list_member_options.py::ListMembersOptionsTest::test_not_accessible_for_moderator
-    --deselect src/postorius/tests/mailman_api_tests/test_list_member_options.py::ListMembersOptionsTest::test_page_accessible_for_owner
-    --deselect src/postorius/tests/mailman_api_tests/test_list_member_options.py::ListMembersOptionsTest::test_page_accessible_for_superuser
-    --deselect src/postorius/tests/mailman_api_tests/test_list_member_options.py::ListMembersOptionsTest::test_page_not_accessible_for_unprivileged_users
-    --deselect src/postorius/tests/mailman_api_tests/test_list_member_options.py::ListMembersOptionsTest::test_page_not_accessible_if_not_logged_in
-    --deselect src/postorius/tests/mailman_api_tests/test_list_members.py::ListMembersTest::test_search_members_1
-    --deselect src/postorius/tests/mailman_api_tests/test_list_members.py::ListMembersTest::test_show_members_details
-    --deselect src/postorius/tests/mailman_api_tests/test_list_members.py::ListMembersTest::test_show_members_page
-    --deselect src/postorius/tests/mailman_api_tests/test_list_members.py::TestMassRemoval::test_mass_removal
-    --deselect src/postorius/tests/mailman_api_tests/test_list_settings.py::ListSettingsTest::test_mass_subscribe_options
-    --deselect src/postorius/tests/mailman_api_tests/test_list_moderation.py::HeldMessageTest::test_accept_held_message_moderate_member
-    --deselect src/postorius/tests/mailman_api_tests/test_list_moderation.py::HeldMessageTest::test_moderate_held_message_set_moderation_for_member
-    --deselect src/postorius/tests/mailman_api_tests/test_list_moderation.py::TestConfirmToken::test_confirm_token
-    --deselect src/postorius/tests/mailman_api_tests/test_list_moderation.py::TestConfirmToken::test_moderator_token
-    --deselect src/postorius/tests/mailman_api_tests/test_list_settings.py::ListSettingsTest::test_handle_subscription_request
-    --deselect src/postorius/tests/mailman_api_tests/test_list_settings.py::ListSettingsTest::test_handle_subscription_request_with_reason
-    --deselect src/postorius/tests/mailman_api_tests/test_list_settings.py::ListSettingsTest::test_handle_unsubscription_requests
-    --deselect src/postorius/tests/mailman_api_tests/test_list_settings.py::ListSettingsTest::test_list_subscription_requests
-    --deselect src/postorius/tests/mailman_api_tests/test_list_settings.py::ListSettingsTest::test_list_unsubscription_requests
-    --deselect src/postorius/tests/mailman_api_tests/test_list_settings.py::ListSettingsTest::test_mass_subscribe_form_removes_succeeded_emails
-    --deselect src/postorius/tests/mailman_api_tests/test_list_settings.py::ListSettingsTest::test_remove_all_subscribers
-    --deselect src/postorius/tests/mailman_api_tests/test_list_summary.py::ListSummaryPageTest::test_list_summary_already_subscribed
-    --deselect src/postorius/tests/mailman_api_tests/test_list_summary.py::ListSummaryPageTest::test_list_summary_already_subscribed_user
-    --deselect src/postorius/tests/mailman_api_tests/test_list_summary.py::ListSummaryPageTest::test_list_summary_multiple_addresses
-    --deselect src/postorius/tests/mailman_api_tests/test_list_summary.py::ListSummaryPageTest::test_pending_subscription_request
-    --deselect src/postorius/tests/mailman_api_tests/test_list_summary.py::ListSummaryPageTest::test_pending_subscription_request_with_subscription
-    --deselect src/postorius/tests/mailman_api_tests/test_list_summary.py::ListSummaryPageTest::test_unsubscribe_button_is_available
-    --deselect src/postorius/tests/mailman_api_tests/test_nav_helpers.py::TestNavigationHelpers::test_subscription_request_count
-    --deselect src/postorius/tests/mailman_api_tests/test_rest.py::TestGetHeldMessage::test_get_attachments_for_held_message
-    --deselect src/postorius/tests/mailman_api_tests/test_rest.py::TestGetHeldMessage::test_get_held_message
-    --deselect src/postorius/tests/mailman_api_tests/test_rest.py::TestGetHeldMessage::test_get_raw_held_message
-    --deselect src/postorius/tests/mailman_api_tests/test_subscriptions.py::TestSubscription::test_change_subscription_confirm
-    --deselect src/postorius/tests/mailman_api_tests/test_subscriptions.py::TestSubscription::test_change_subscription_open
-    --deselect src/postorius/tests/mailman_api_tests/test_subscriptions.py::TestSubscription::test_mass_subscribe_send_welcome_message
-    --deselect src/postorius/tests/mailman_api_tests/test_subscriptions.py::TestSubscription::test_secondary_mod
-    --deselect src/postorius/tests/mailman_api_tests/test_subscriptions.py::TestSubscription::test_secondary_open
-    --deselect src/postorius/tests/mailman_api_tests/test_subscriptions.py::TestSubscription::test_subscribe_already_pending
-    --deselect src/postorius/tests/mailman_api_tests/test_subscriptions.py::TestSubscription::test_subscribe_mod
-    --deselect src/postorius/tests/mailman_api_tests/test_subscriptions.py::TestSubscription::test_subscribe_open
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::MailmanUserTest::test_access_list_options_other_member
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::MailmanUserTest::test_already_subscribed
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::MailmanUserTest::test_already_subscribed_with_primary_address
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::MailmanUserTest::test_change_subscription_to_from_primary_address
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::MailmanUserTest::test_change_subscription_to_new_email
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::MailmanUserTest::test_list_options_sets_preferred_address
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::MailmanUserTest::test_list_options_shows_all_addresses
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::MailmanUserTest::test_presence_of_form_in_user_list_options
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::MailmanUserTest::test_presence_of_form_in_user_subscription_preferences
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::TestManageUser::test_delete_user
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::TestManageUser::test_delete_user_multiple_emails
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::TestManageUser::test_get_all_users_forbidden
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::TestManageUser::test_get_manage_user
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::TestManageUser::test_get_manage_user_with_django_user
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::TestManageUser::test_get_ownerships_on_manage_user
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::TestManageUser::test_update_display_name
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::TestManageUser::test_update_user_address
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::TestManageUser::test_update_user_password
-    --deselect src/postorius/tests/mailman_api_tests/test_user.py::TestManageUser::test_update_user_subscriptions
-    --deselect src/postorius/tests/mailman_api_tests/test_user_forms.py::ManageMemberFormTest::test_manage_member_form_basic
-    --deselect src/postorius/tests/mailman_api_tests/test_user_forms.py::ManageMemberFormTest::test_manage_member_form_updates
-    --deselect src/postorius/tests/mailman_api_tests/test_user_forms.py::ManageMemberFormTest::test_manage_member_formset
   )
 
   cd $pkgname
