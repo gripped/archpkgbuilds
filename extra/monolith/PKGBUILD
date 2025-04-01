@@ -4,7 +4,7 @@
 # Contributor: Jean Lucas <jean@4ray.co>
 
 pkgname=monolith
-pkgver=2.8.3
+pkgver=2.10.1
 pkgrel=1
 pkgdesc="CLI to save web pages as single HTML files"
 arch=('x86_64')
@@ -13,7 +13,7 @@ license=('CC0-1.0')
 depends=('openssl' 'gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('51769e6505d5708ac296e5d93e280c9fefa7873452d471c5106aaeb7c3667f9f')
+sha256sums=('1afafc94ba693597f591206938e998fcf2c78fd6695e7dfd8c19e91061f7b44a')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -22,7 +22,9 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --frozen --no-default-features
+  cargo build --release --frozen --no-default-features --features cli --bin "$pkgname"
+  mkdir "target/debug"
+  cp "target/release/$pkgname" "target/debug"
 }
 
 check() {
