@@ -3,7 +3,7 @@
 pkgbase=vl-convert
 pkgname=(vl-convert python-vl-convert)
 pkgver=1.7.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Convert Vega-Lite chart specifications to SVG, PNG, or Vega"
 arch=(x86_64)
 url="https://github.com/vega/vl-convert"
@@ -19,15 +19,15 @@ checkdepends=(
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
 b2sums=('470b153b31fe8cfc6d33af97d592c65d6282555b920942246b2e18f54a688d8948a464c24013a7ffe4d69ad8f65a481c59b811321ddec28f40845df377e19ba3')
 
-# LTO causes undefined references during linking
-options=(!lto)
-
 prepare() {
   cd $pkgbase-$pkgver
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
+  # fix building with LTO
+  CFLAGS+=' -ffat-lto-objects'
+
   cd $pkgbase-$pkgver
   cargo build --frozen --release --package vl-convert
 
