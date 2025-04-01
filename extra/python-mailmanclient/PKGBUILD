@@ -3,7 +3,7 @@
 _name=mailmanclient
 pkgname=python-mailmanclient
 pkgver=3.3.5
-pkgrel=7
+pkgrel=8
 pkgdesc="Official Python bindings for the GNU Mailman 3 REST API"
 arch=(any)
 url="https://gitlab.com/mailman/mailmanclient"
@@ -38,21 +38,14 @@ build() {
 }
 
 check() {
+  local pytest_options=(
+    -vv
+    # https://gitlab.com/mailman/mailmanclient/-/issues/79
+    --deselect src/mailmanclient/docs/using.rst::using.rst
+  )
+
   cd $_name
-  # test_held_message_moderation hangs https://gitlab.com/mailman/mailmanclient/-/issues/77
-  # https://gitlab.com/mailman/mailmanclient/-/issues/78
-  # FAILED src/mailmanclient/tests/test_client.py::TestUrlencodedPaths::test_member_paths_are_urlencoded
-  # FAILED src/mailmanclient/tests/test_list.py::TestMailingListMembershipTests::test_list_is_member
-  # FAILED src/mailmanclient/tests/test_list.py::TestMailingListMembershipTests::test_list_is_moderator
-  # FAILED src/mailmanclient/tests/test_list.py::TestMailingListMembershipTests::test_list_is_owner
-  # FAILED src/mailmanclient/tests/test_list.py::TestMailingListMembershipTests::test_list_is_owner_or_mod
-  # FAILED src/mailmanclient/tests/test_list.py::TestMailingListMembershipTests::test_list_unsubscribe
-  # FAILED src/mailmanclient/tests/test_list.py::TestMailingList::test_get_individual_pending_request
-  # FAILED src/mailmanclient/tests/test_list.py::TestMailingList::test_get_unsubscription_requests
-  # FAILED src/mailmanclient/tests/test_list.py::TestMailingList::test_invite - u...
-  # FAILED src/mailmanclient/tests/test_list.py::TestMailingList::test_subscribe_with_display_name
-  # FAILED src/mailmanclient/tests/test_list.py::TestMailingList::test_subscribe_without_display_name
-  pytest -v -k 'not using.rst and not test_find_user_page and not test_find_users and not test_invite and not test_held_message_moderation and not test_member_paths_are_urlencoded and not test_list_ and not test_subscribe_with and not test_get_'
+  pytest "${pytest_options[@]}"
 }
 
 package() {
