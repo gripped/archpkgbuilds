@@ -2,7 +2,7 @@
 
 pkgname=almanah
 pkgver=0.12.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Small GTK application to allow you to keep a diary of your life'
 arch=(x86_64)
 url='https://wiki.gnome.org/Apps/Almanah_Diary'
@@ -12,6 +12,7 @@ depends=(
   cairo
   dconf
   evolution-data-server
+  gcc-libs
   gcr-4
   glib2
   glibc
@@ -26,20 +27,27 @@ depends=(
   sqlite
 )
 makedepends=(
-  appstream-glib
+  appstream
   git
   glib2-devel
   meson
 )
+# Jan Tojnar uses SSH signatures which makepkg doesn't understand
 source=(
-  # Jan Tojnar uses SSH signatures which makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/almanah.git#tag=$pkgver"
+  almanah-no-appmenu.patch
 )
-b2sums=('b2903482386f19664534bb0d2827a60c60d398478a6ccd858107330625fb1b8ddf54e0479ca49fc6669f588ff6fd79bd2fba837d2ed887fa28b650ce76950a40')
+b2sums=(
+  b2903482386f19664534bb0d2827a60c60d398478a6ccd858107330625fb1b8ddf54e0479ca49fc6669f588ff6fd79bd2fba837d2ed887fa28b650ce76950a40
+  959f039b4c3231313eefe2c47a4e838e6eb3fc1b960e9c0e497bebfdf107d8d1fedec4b83ad5ee8c353565a1a832a056a466a4c0c0733d15f0a75a39da060f9e
+)
 validpgpkeys=(923B7025EE03C1C59F42684CF0942E894B2EAFA0) # Philip Withnall
 
 prepare() {
   cd $pkgname
+
+  # https://gitlab.gnome.org/GNOME/almanah/-/merge_requests/38
+  git apply -3 ../almanah-no-appmenu.patch
 }
 
 build() {
