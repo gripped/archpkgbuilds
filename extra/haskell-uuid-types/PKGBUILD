@@ -3,17 +3,17 @@
 
 _hkgname=uuid-types
 pkgname=haskell-uuid-types
-pkgver=1.0.5.1
-pkgrel=29
+pkgver=1.0.6
+pkgrel=1
 pkgdesc="Type definitions for Universally Unique Identifiers"
 url="https://github.com/aslatter/uuid"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-random')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('36f6c1a1723680ef426d15f492f59f8f5350ec967496b373caee1e32305b44078807b5dad1e935dc59ad7bf285c29f1e42f844833c3013c3302d94636c2dc60f')
+sha512sums=('9d5cd688cee15f8210aeaceb8884144bbd679e9556ca43e4c61a9ce4115809dbc30aaace013daa8f1bc6774a07e70e9d478c4f7c5599724ac5ee1ae0cae013da')
 
 build() {
     cd $_hkgname-$pkgver
