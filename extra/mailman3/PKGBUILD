@@ -3,7 +3,7 @@
 _name=mailman
 pkgname=mailman3
 pkgver=3.3.10
-pkgrel=3
+pkgrel=4
 pkgdesc="The GNU mailing list manager"
 arch=(any)
 url="https://www.list.org/"
@@ -98,6 +98,8 @@ prepare() {
   printf "[mailman]\nlayout: fhs\n" >> ../$_name.cfg
   # set /var/lib/mailman instead of /var/tmp/mailman as default var_dir:
   sed -e 's|/var/tmp/mailman|/var/lib/mailman|g' -i src/$_name/config/schema.cfg
+  # fix use of PosixPath with >= Python 3.13: https://gitlab.com/mailman/mailman/-/merge_requests/1309
+  git cherry-pick -n 685d9a7bdbd382d9e8d4a2da74bd973e93356e05
 }
 
 build() {
