@@ -5,10 +5,10 @@
 # Contributor: judd <jvinet@zeroflux.org>
 
 pkgname=gdbm
-pkgver=1.24
+pkgver=1.25
 # latest, versioned translation from https://translationproject.org/domain/gdbm.html
 _translation_version=1.23.90
-pkgrel=2
+pkgrel=1
 pkgdesc="GNU database library"
 arch=(x86_64)
 url="https://www.gnu.org/software/gdbm/gdbm.html"
@@ -44,7 +44,7 @@ source=(
   https://translationproject.org/PO-files/uk/$pkgname-$_translation_version.uk.po
   https://translationproject.org/PO-files/vi/$pkgname-$_translation_version.vi.po
 )
-sha512sums=('6763173ed38c1c61a85926d57f09f2664acf72315bf7ea4d4d038987c622cacf106dbc0fdd5a4b198ff8a96125eadcf93cdffbbe3f7ecc535e6f59579048f152'
+sha512sums=('9fc34a92acbc089f2ef22c726c7c659ca45fdfe075b68a2265fa417a725fdaea645863f8f98fe0c24e02bd1bd96d1f6c08fa32e8dd18127c3e6b8edb1c9febda'
             'e5c46a6cdcf9f8af4ea9de8ece93fb7b995ad9d62a0f1cb46386a0b5dc3b5d281812e9d900929cc9e1dd65bd78467a343d6539b750b43d10bda48974137bf540'
             '455e46f44b4b21e053b4a9f58a8c1e13b6da230cc950ad182938baf81662884127ebeaede3ee7507210af8aa4b8b7f92b167af78a030b9b0cca849df8a9722c6'
             '82fb3182e29d94c32e079693eb8d1bcf43ba853260fb11fd56a2ef5a9be30c4d9f7280e36a2222c42abca3ab1c863354c8ca258c0e09991e7f5cfb54615ddf6f'
@@ -61,7 +61,7 @@ sha512sums=('6763173ed38c1c61a85926d57f09f2664acf72315bf7ea4d4d038987c622cacf106
             '6168015b9e711ec04fe07cf2e70088aaa1907723d96aefaea98918220baf6bc3dba5b2ef741b8cfa1bd94172e24d38d488b97e64cce6fdea2307597dd189ce22'
             '7e9cb0304cb9ed4c16ecdffab5c7999f371d459510ce17762ab9fb05f78b138fababe46083a8ca2f8a941e23ca58dcd1e4914fc4bb285cb5ab603ca674a22c4e'
             'af607dd5cc3423996eb92ede2392115e7b92cc26683825ca522e133fa2a7a2f66fa68f961ca0639dca91ae4a899c4e86eb4cc1cfb3a68aefcb1d0e2b968fb1e1')
-b2sums=('ee6002080a96cbea157ca127b96ad583609f1dca65e911ae9ab3624bc0b47f12cc4081da977ddc9061d0bc05f09ba69d4dd40389aff7d02f104a1a2df3542e88'
+b2sums=('a2a5d9a4f9c3789726936167b86bf989b2fb14c8ab9a28367331340392f80ebc30c690092585f95a468f0cf8bc5fb9310b6e87e5606723e358cd0f48195c5343'
         '1785df235ef1a70fb2097117243dafed1e6b211ae675d3a36c391627d7a26eab71ac5e24300edcf32c9c43f9d172bbe54013320f090f912036f7137be5263ad5'
         '3ba3526ee677023fab4cb493a80f9cde2cfa92a9ea19b5896f01664647b77d389c6796dfa5d894a358951c1a77353d070ec74c61eaabb2b7d5fb81354cb07535'
         '181fbe787fb00e83e25806ad9afe28615faa9cae520f338f35a677918005cb7579802eb68fd6c331afb322e1ab3f1b354c4f2fdda23fe5ddc103d0065b381b38'
@@ -78,7 +78,9 @@ b2sums=('ee6002080a96cbea157ca127b96ad583609f1dca65e911ae9ab3624bc0b47f12cc4081d
         'e960e620d789af38282c586bc2e60f60cb4f6ab47631c4c82314654d3486c6a5167256e3f346f3251348c4f20fa5530508e14eadb6d1d4cf43829d968dcb4633'
         '26014f9c3968e6562b9c4faf608db5af452b75ded76fd6323f2ad84a2808871c9000ad6a44ffdaf3f2499162ca0ea25b37dd0fdd2c9e8f88f1830f7148e7f7a5'
         '4feaf9371c77136cd67dc15a2deafefbb7b46019b554aa6815a763efe70212489c55050da2264d59df980de3a33abeceabc90ad4cb7068db84005df988e4c4b8')
-validpgpkeys=('325F650C4C2B6AD58807327A3602B07F55D0C732') # Sergey Poznyakoff <gray@gnu.org>
+validpgpkeys=(
+  4BE4E62655488EB92ABB468F79FFD94BFCE230B1  # Sergey Poznyakoff <gray@gnu.org>
+)
 
 prepare() {
   local po_file new_po
