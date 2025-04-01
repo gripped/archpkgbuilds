@@ -5,8 +5,8 @@
 # Contributor: <xantares09@hotmail.com>
 
 pkgname=paraview
-pkgver=5.13.2
-pkgrel=8
+pkgver=5.13.3
+pkgrel=1
 pkgdesc="Parallel Visualization application using VTK"
 arch=(x86_64)
 url="https://www.paraview.org"
@@ -86,18 +86,16 @@ source=(
   fix-fmt-11.patch
   fix-vtk-python313-dict.patch
   fix-vtk-python313-encoding.patch
-  fix-pygments-formatters.patch
   netcdf-4.9.3.patch
   cli11-2.5.0.patch
 )
-sha256sums=('4e116250f8e1a9c480f97c5696c9cd72b4d4998b039ca46da8b224f27445f13e'
+sha256sums=('3bd31bb56e07aa2af2a379895745bbc430c565518a363d935f2efc35b076df09'
             'd1cdb4a81db280d6b21bee3d9e5f8fc3a87f00a909d33850a1964c72091ec138'
             '844d44a14817c656ba8d6998298785125a98f03f7b5ece58d966c226db1e0d83'
             '71b3e049f4086ad570c0ffe3d9625ce63ee8abbf42017837495145e43d6aceab'
             '8768d0b68fc1a29eb8ca973dada61338390d7a956051773c7852f7cb76a8fef4'
             '83fcd0c7709ccbea87b39a7702d6f777d6a5c4e5dfbb9e5adf066b5fecdfa9d7'
             'ab1b5b0ee08ae7714aa5c4924de0e2997b0feac1d4563ce73ef4b8c8204a4777'
-            'fc61d6d62e4e9f2c846d80b786b1e71ae7a14a2a28753868a0bc0018ba5a2278'
             '87535578bbb0023ede506fd64afae95cdf4fb698c543f9735e6267730634afbc'
             'dd4053537565d0929ea87caa8f182b5451adb4b9e64f3297a60648c43f27c3f2')
 
@@ -125,10 +123,8 @@ prepare() {
   # Backport fixes for Python 3.13
   # https://gitlab.kitware.com/vtk/vtk/-/merge_requests/11486
   # https://gitlab.kitware.com/vtk/vtk/-/merge_requests/11494
-  # https://gitlab.kitware.com/paraview/paraview/-/merge_requests/7174
   patch -Np1 -d VTK -i "$srcdir"/fix-vtk-python313-dict.patch
   patch -Np1 -d VTK -i "$srcdir"/fix-vtk-python313-encoding.patch
-  patch -Np1 -i "$srcdir"/fix-pygments-formatters.patch
 
   # Fix build with netcdf 4.9.3
   patch -Np1 -d VTK -i "$srcdir"/netcdf-4.9.3.patch
