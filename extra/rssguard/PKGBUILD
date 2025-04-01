@@ -6,7 +6,7 @@
 
 pkgbase=rssguard
 pkgname=(rssguard{,-lite})
-pkgver=4.8.1
+pkgver=4.8.2
 pkgrel=1
 pkgdesc='Simple (yet powerful) Qt feed reader'
 arch=(x86_64)
@@ -28,7 +28,7 @@ makedepends=(cmake
 optdepends=('clang: Support for beautification of message filter scripts'
             'mariadb-libs: Support for MariaDB-based data storage')
 source=(git+https://github.com/martinrotter/rssguard#tag=$pkgver)
-sha256sums=('cdae38f6f890806f759f7781e66db332fcfe36dbd70c2f5b43064227420b949f')
+sha256sums=('d5e98def0a072055fa8a3b26cf6b0f7df7e7e92015cd5cc30e3086e5eaa18b20')
 
 build() {
   cmake -B build -S $pkgname \
