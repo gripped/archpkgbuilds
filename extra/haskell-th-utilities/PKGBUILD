@@ -2,8 +2,8 @@
 
 _hkgname=th-utilities
 pkgname=haskell-th-utilities
-pkgver=0.2.5.1
-pkgrel=5
+pkgver=0.2.5.2
+pkgrel=1
 pkgdesc="Collection of useful functions for use with Template Haskell"
 url="https://github.com/fpco/th-utilities"
 license=('MIT')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-primitive' 'haskell-syb' 'haskell-th-abstraction' 'haskell-th-orphans')
 makedepends=('ghc' 'haskell-hspec' 'haskell-th-lift' 'haskell-vector')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('994aabd7ba0c808d3335955eb8283bda17c029a5b6e2042a1d63d07f04a767f335c0952bfe0d94489b0657217d382525ec3e045fe293e198117b023af4bb9f2d')
+sha512sums=('a2cf4728885d9e46e51ecd5010626f9ab19190582c97586baecfb00c2724301affdf38b2b3a444c7e5e7284423b85b5f0bae59d4f968ce3941ca502eca50bce5')
 
 build() {
     cd $_hkgname-$pkgver
