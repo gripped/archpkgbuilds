@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=upower
-pkgver=1.90.7
+pkgver=1.90.8
 pkgrel=1
 pkgdesc="Abstraction for enumerating power devices, listening to device events and querying history and statistics"
 url="https://upower.freedesktop.org"
@@ -17,9 +17,6 @@ depends=(
   libplist
   polkit
 )
-optdepends=(
-  'usbmuxd: Read charge status of iOS devices'
-)
 makedepends=(
   docbook-xsl
   git
@@ -31,6 +28,7 @@ makedepends=(
   systemd
   usbmuxd
 )
+optdepends=('usbmuxd: Read charge status of iOS devices')
 checkdepends=(
   python-dbus
   python-dbusmock
@@ -39,10 +37,8 @@ checkdepends=(
   umockdev
 )
 backup=(etc/UPower/UPower.conf)
-source=(
-  "git+https://gitlab.freedesktop.org/upower/upower.git#tag=v$pkgver"
-)
-b2sums=('9d973b3d6ae9546a798464499f0dfe6aec769c51e00725956f1df5fc06a6fd7370b8dbe2bf020df18962f10cc2be6fdddb833ab1a679cb70298ad60a5fbc225b')
+source=("git+https://gitlab.freedesktop.org/upower/upower.git#tag=v$pkgver")
+b2sums=('39d6a6c66ba3dcb3ed826e793399748ef86af98ad4b723b09feb2c4ef92fb8d6100ed11de0d37c6b6a4daf45e650386c57f95a071e29d63f849146e25f611a13')
 
 prepare() {
   cd upower
