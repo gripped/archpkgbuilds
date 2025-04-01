@@ -2,7 +2,7 @@
 
 pkgname=share-preview
 pkgver=0.5.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Preview and debug websites metadata tags for social media share'
 arch=(x86_64)
 url='https://apps.gnome.org/SharePreview/'
@@ -23,7 +23,7 @@ makedepends=(
   meson
   rust
 )
-source=("git+https://github.com/rafaelmardojai/share-preview#tag=$pkgver")
+source=("git+https://github.com/rafaelmardojai/share-preview.git#tag=$pkgver")
 b2sums=(1da089664a3716622531fb8e1847f3f025f7a698c9980ecbb5ad8fcae6e54d4ef487d59c0cb424c16c301904167bcb2dc9968aa40009edf032a7a2054723c882)
 
 prepare() {
@@ -31,6 +31,13 @@ prepare() {
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://github.com/rafaelmardojai/share-preview/pull/92
+  git cherry-pick -n e00ada302d4993f54fcc6113e75e9a69b4d3ac18
+  git cherry-pick -n b87536e831a65e95c7804de22175eee4698f2352
+
+  # https://github.com/rafaelmardojai/share-preview/pull/93
+  git cherry-pick -n 2eaf2cff6555632f9ebe098b99de7a3f7dae40d0
 }
 
 build() {
@@ -39,6 +46,7 @@ build() {
   CARGO_PROFILE_RELEASE_LTO=true \
     CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
     CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
     meson compile -C build
 }
 
