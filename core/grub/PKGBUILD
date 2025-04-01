@@ -22,7 +22,8 @@ _pkgver=2.12
 _unifont_ver='16.0.02'
 #pkgver=${_pkgver/-/}
 pkgver='2.12.r226.g56ccc5ed'
-pkgrel=2
+pkgver='2.12.r260.gaae2ea61'
+pkgrel=1
 url='https://www.gnu.org/software/grub/'
 arch=('x86_64')
 license=('GPL-3.0-or-later')
@@ -121,7 +122,7 @@ b2sums=('a6cec7271c3ea54a99f02ee6bc0a5825c8be657af68ba9a32b39a5fe8bcb571fb1ba392
 _backports=(
   # current git master for loads of security fixes
   # https://lists.gnu.org/archive/html/grub-devel/2025-02/msg00024.html
-  "grub-${_pkgver}..56ccc5ed569869fd735074ccebeaa7aab058342d"
+  "grub-${_pkgver}..aae2ea619e0f09c353fd6929910f925c92a412c0"
 )
 
 _reverts=(
