@@ -2,7 +2,7 @@
 
 pkgname=bustle
 pkgver=0.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Draw sequence diagrams of D-Bus traffic'
 arch=(x86_64)
 url='https://apps.gnome.org/Bustle/'
@@ -33,9 +33,9 @@ prepare() {
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 
-  # note: test did not panic as expected
-  # https://gitlab.gnome.org/World/bustle/-/issues/36
-  sed -i '/#\[should_panic/d' src/i18n.rs
+  # Fix new-window action
+  # https://gitlab.gnome.org/World/bustle/-/merge_requests/149
+  git cherry-pick -n 970db29f959b7b81b6d091bc84cc2d0429cbed75
 }
 
 build() {
