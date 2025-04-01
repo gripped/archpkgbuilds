@@ -2,40 +2,52 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=frescobaldi
-pkgver=3.3.0
-pkgrel=4
+pkgver=4.0.0
+pkgrel=2
 pkgdesc="A LilyPond sheet music text editor"
 arch=(any)
 url="https://www.frescobaldi.org/"
-license=(GPL)
-depends=(
-  python python-pyqt5 python-pyqt5-webengine python-ly poppler
-  python-poppler-qt5 python-qpageview qt5-base qt5-svg
-)
+_url="https://github.com/frescobaldi/frescobaldi"
+license=(GPL-2.0-only)
+depends=(poppler
+         python
+         python-ly
+         python-pygame
+         python-pyqt6
+         python-pyqt6-sip
+         python-pyqt6-webengine
+         python-qpageview
+         qt6-base
+         qt6-svg)
 makedepends=(python-{build,installer,wheel}
              python-setuptools)
-optdepends=(
-  'lilypond: music engraving'
-  'python-pygame: MIDI input and playback'
-  'python-pycups: printing to a CUPS server'
-  'hyphen-lang: hyphenation patterns for desired languages'
-)
-source=(https://github.com/frescobaldi/frescobaldi/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('9fb90934fbc08f6c7df0a4d999e89a9a82fe9b4a0f21c0d40a1474e3ac7bc0d8')
+optdepends=('lilypond: music engraving'
+            'python-pygame: MIDI input and playback'
+            'python-pycups: printing to a CUPS server'
+            'hyphen-de: hyphenation patterns for German'
+            'hyphen-en: hyphenation patterns for English'
+            'hyphen-es: hyphenation patterns for Spanish'
+            'hyphen-fr: hyphenation patterns for French'
+            'hyphen-hu: hyphenation patterns for Hungarian'
+            'hyphen-it: hyphenation patterns for Italian'
+            'hyphen-nl: hyphenation patterns for Dutch')
+_archive="$pkgname-$pkgver"
+source=("$_url/archive/v$pkgver/$_archive.tar.gz")
+sha256sums=('dce8aca1b45090526d5bd8182519f5399c7956b90402207bb7aa4f338edfe98e')
 
 prepare() {
-  cd ${pkgname}-${pkgver}
-  # Provided by hyphen-*
-  rm -f frescobaldi_app/hyphdicts/hyph_*.dic
-  rm -f frescobaldi_app/hyphdicts/README*
+	cd "$_archive"
+	# Provided by hyphen-*
+	rm -f frescobaldi/hyphdicts/hyph_*.dic
+	rm -f frescobaldi/hyphdicts/README*
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
-  python -m build -wn
+	cd "$_archive"
+	python -m build -wn
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  python -m installer -d "${pkgdir}" dist/*.whl
+	cd "$_archive"
+	python -m installer -d "$pkgdir" dist/*.whl
 }
