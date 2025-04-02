@@ -1,14 +1,13 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=sh4d0wup
-pkgver=0.10.0
+pkgver=0.11.0
 pkgrel=1
 pkgdesc="Signing-key abuse and update exploitation framework"
 url='https://github.com/kpcyrd/sh4d0wup'
 arch=('x86_64')
 license=('GPL-3.0-or-later')
 depends=(
-  'bzip2' 'libbz2.so'
   'gcc'
   'gcc-libs'
   'glibc'
@@ -26,8 +25,8 @@ makedepends=(
 )
 options=(!lto)
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('63662f386302ceb06470cab62a36924a1a2efcb51602913f8cf6e2a5a2a34acc')
-b2sums=('7109e4523a61478a7f51e28f1a850071c3c9b966e47a5ef4e59c9e62b5267ae255b1d6be16a1d7ba9f965795d181297c7779a375f7f24c0592586298f7a1539d')
+sha256sums=('cfc1c38f89d35de6a1822469679a73e5bcb7d5b9f6f8519bee1c3f2948c227f3')
+b2sums=('f9157464596d606caf294b026f793ab43041da8f95e95764eead83424a55840a289bc5851c4bf2f86ed139f4f4c4d10fc425188009ad6f2706e8925e792e96a1')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
