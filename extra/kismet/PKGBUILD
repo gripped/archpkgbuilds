@@ -4,9 +4,9 @@
 # Contributor: Jason Chu <jason@archlinux.org>
 
 pkgname=kismet
-pkgver=2023_07_R1
+pkgver=2023_07_R2
 _realver="${pkgver//_/-}"
-pkgrel=20
+pkgrel=1
 pkgdesc="802.11 layer2 wireless network detector, sniffer, and intrusion detection system"
 url="https://www.kismetwireless.net/"
 arch=('x86_64')
@@ -37,7 +37,7 @@ install=kismet.install
 source=(https://www.kismetwireless.net/code/${pkgname}-${_realver}.tar.xz
         kismet.sysusers
         python-install-flags.patch)
-sha512sums=('b8b320b8e09be5be582848ce8a1a66f71a96eccc3c78f52d3f1f18122abbe614ff3b5a55b5fcedf3e6a1fc959a72838adc0d7278ffd6c25a1c179a1caf5584ce'
+sha512sums=('50ee0386e6876cc586034570ea817004be7c1ff28bfd7425188573db8dcc139ba92cbd1464d00b918576241ced73d2e3666b628246782bbc6699a24f3581dfc6'
             '452b728c30c9932bdb91741af425267da87a66962ea9b736751948881f5477dee0bff8e2eeca2befdea2920da6d7d9e198bde69cef8c48bb49a0093a7f0ef897'
             'fbf487148e50b6e3ec60fd0490ccfef1249fdb6b974d6fa25ae1e04101cd62f3c2737d81554b8f1229cd89b177f46f0ea2e853d066fe434a1bd988407809b067')
 validpgpkeys=('354689DF3C9DED803381A661D7B28822738BBDB1') # Michael Kershaw
