@@ -5,7 +5,7 @@
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 
 pkgname=scrot
-pkgver=1.12
+pkgver=1.12.1
 pkgrel=1
 pkgdesc='Simple command-line screenshot utility for X'
 url='https://github.com/resurrecting-open-source-projects/scrot'
@@ -14,8 +14,8 @@ license=('MIT')
 depends=('imlib2' 'libxext' 'libxinerama' 'libxfixes' 'libxcomposite' 'libbsd')
 makedepends=('autoconf-archive' 'git')
 source=("git+https://github.com/resurrecting-open-source-projects/scrot.git#tag=${pkgver}")
-sha512sums=('1e3fbe080eaad31e33959ebd9475cf72f17bbc7db86664d768c93dff138bf53ccd2cd76725c57afcc3de817583f0e52ce763a69b2a184639d6e18d260fe99872')
-b2sums=('7b874d2cfee6d8c7ebaccaae9ed0a5f8713a5211e2ad37f33c77b0356f85c7ad10af118355afb5043f0ee2c2f89b3bff9ac691bd12bc0447f71064d7b734b6a2')
+sha512sums=('fdda244965347c3e760b95799f800ac67f18de434205d8d762ff61a08c3f9c8033e2d704d443f0b95b72c0b3e1beb6a342107eb5fe86405d2356289bcf0a93ee')
+b2sums=('e453888c8c337d11686697e87e759f54bbe8854035298a6d1a4f404d7f9bba6f27f47764cb5d311e6e8854a41d5c9cbe5be260ccadc0cbd1ad4235d86fbcf7e2')
 
 prepare(){
   cd ${pkgname}
