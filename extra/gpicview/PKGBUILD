@@ -4,7 +4,7 @@
 # Contributor: Geoffroy Carrier <geoffroy.carrier@koon.fr>
 
 pkgname=gpicview
-pkgver=0.2.6
+pkgver=0.3.1
 pkgrel=1
 pkgdesc='Lightweight image viewer'
 arch=('x86_64')
@@ -12,30 +12,30 @@ url='https://www.lxde.org/'
 license=('GPL2')
 groups=('lxde')
 depends=('gtk3')
-makedepends=('intltool')
+makedepends=('git' 'intltool')
 replaces=('gpicview-gtk3')
-source=("https://github.com/lxde/gpicview/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+source=("git+https://github.com/lxde/gpicview.git#tag=${pkgver}"
         'gpicview.appdata.xml')
-sha256sums=('1b7be0045b82592cf79c7a7761d4f905d36c7c36b480d39219fe0bdb960a4a58'
+sha256sums=('e56e90600bb2b0151269be015998c4e2cbc764b54640a6347ebb219c8e57f8d4'
             'dab79b2be536005044cc5edcc4f47e9f407a5fcf3126110a1ef2ab65c873dbf7')
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname
 
   # Apply only one main category
   sed -i '/^Categories=/ s/Utility;//' gpicview.desktop.in
 
-  autoreconf -vif
+  autoreconf -fiv
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   ./configure --prefix=/usr --enable-gtk3
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
   install -Dm644 ../$pkgname.appdata.xml "$pkgdir/usr/share/metainfo/$pkgname.appdata.xml"
 }

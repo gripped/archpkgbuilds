@@ -1,17 +1,18 @@
 pkgbase = gpicview
 	pkgdesc = Lightweight image viewer
-	pkgver = 0.2.6
+	pkgver = 0.3.1
 	pkgrel = 1
 	url = https://www.lxde.org/
 	arch = x86_64
 	groups = lxde
 	license = GPL2
+	makedepends = git
 	makedepends = intltool
 	depends = gtk3
 	replaces = gpicview-gtk3
-	source = https://github.com/lxde/gpicview/archive/0.2.6/gpicview-0.2.6.tar.gz
+	source = git+https://github.com/lxde/gpicview.git#tag=0.3.1
 	source = gpicview.appdata.xml
-	sha256sums = 1b7be0045b82592cf79c7a7761d4f905d36c7c36b480d39219fe0bdb960a4a58
+	sha256sums = e56e90600bb2b0151269be015998c4e2cbc764b54640a6347ebb219c8e57f8d4
 	sha256sums = dab79b2be536005044cc5edcc4f47e9f407a5fcf3126110a1ef2ab65c873dbf7
 
 pkgname = gpicview
