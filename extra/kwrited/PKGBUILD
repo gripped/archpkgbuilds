@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kwrited
-pkgver=6.3.3
+pkgver=6.3.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE daemon listening for wall and write messages'
@@ -21,7 +21,7 @@ makedepends=(extra-cmake-modules
              kdoctools)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('80967fc896ce82b66f1b5223cd3008f348229eda7ee98f76275affd646cd954b'
+sha256sums=('f7b2cbe4bb7f795511a1f79727b0853395f20345faea2e4dafd34ab441c975b6'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
