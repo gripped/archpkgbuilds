@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=libksysguard
-pkgver=6.3.3
+pkgver=6.3.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Library to retrieve information on the current status of computer hardware'
@@ -36,7 +36,7 @@ makedepends=(extra-cmake-modules
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
 install=libksysguard.install
-sha256sums=('74d1f4ba8b0929cb4b257d679718825c6d501f071ded0a51b506ea467b1d07bd'
+sha256sums=('04c1ee8b1a174ad5f8d6f1e2d42eeb93079b2f3856badcb8cb53e1f9d7cb15dc'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
