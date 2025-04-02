@@ -2,7 +2,7 @@
 
 pkgname=citations
 pkgver=0.8.0
-pkgrel=1
+pkgrel=3
 pkgdesc='Manage your bibliographies using the BibTeX format'
 arch=(x86_64)
 url='https://apps.gnome.org/Citations/'
@@ -34,6 +34,16 @@ prepare() {
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/World/citations/-/merge_requests/95
+  git cherry-pick -n 72da3b63293fc97634219b407747d3044dba933b
+
+  # https://gitlab.gnome.org/World/citations/-/merge_requests/94
+  git cherry-pick -n 0cdb618d3114d6527e4cb86ac119b0fca672c952
+
+  # https://gitlab.gnome.org/World/citations/-/merge_requests/96
+  git cherry-pick -n 4b02a7aa5a610ddf2cfbb0cb15ba4d8a5a2b12f8
+  git cherry-pick -n e1e55aa8200c2d7dd90e943e33dfb200333a6269
 }
 
 build() {
