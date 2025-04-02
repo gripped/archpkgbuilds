@@ -2,7 +2,7 @@
 
 _pyname=osqp
 pkgname=python-$_pyname
-pkgver=1.0.1
+pkgver=1.0.2
 pkgrel=1
 pkgdesc='Python wrapper for OSQP: the Operator Splitting QP Solver'
 url='https://osqp.org/'
@@ -28,7 +28,7 @@ checkdepends=(intel-oneapi-mkl
               python-pytorch)
 source=(git+https://github.com/osqp/osqp-python#tag=v$pkgver
         system-osqp.patch)
-sha256sums=('f5bea24660cb60bfc400f9f8643a0ca844f40bf6c27bfe0cb260d464be1d77f3'
+sha256sums=('92d0da25fe0bfb5adaa2b4b42af936a6388eebb59dd85ff2e562b2dffd19bbe4'
             '3897db4e1b5243b5255e527bdcd95c0a444ea7baf403ac1584ec92fcb1486946')
 
 prepare() {
