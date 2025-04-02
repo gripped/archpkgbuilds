@@ -2,8 +2,8 @@
 # Contributor: Nicola Squartini <tensor5@gmail.com>
 
 pkgname=asar
-pkgver=3.3.1
-pkgrel=2
+pkgver=3.4.0
+pkgrel=1
 pkgdesc='Creating Electron app packages'
 arch=('any')
 url='https://github.com/electron/asar'
@@ -12,7 +12,7 @@ depends=('nodejs')
 makedepends=('npm' 'typescript')
 options=(!emptydirs)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/electron/asar/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('b7c14bf2ef429acdf2304271428082d7e35235a5d9e5c6b025bd82fa57da1e46bdb2b794b5bd984c9b1b211e9976296e3f278aed39146a1c0f011d7aa036a873')
+sha512sums=('6d1ed1590ddbf359a194d63c0f4cd3ad64c4f9e0e13808624276d2fbe9bb7f9ef03f8c13c2d0c3ea07219b76e7819816158318d28c75ed65a957e41d0e61458c')
 
 build() {
   cd asar-$pkgver
