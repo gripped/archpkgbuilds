@@ -2,12 +2,12 @@
 
 pkgname=vmexec
 pkgver=0.1.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Run a single command in a speedy virtual machine with zero-setup"
 arch=('x86_64')
 url="https://github.com/svenstaro/vmexec"
 license=('MIT')
-depends=('gcc-libs')
+depends=('gcc-libs' 'libguestfs')
 makedepends=('rust')
 source=(vmexec-$pkgver.tar.gz::https://github.com/svenstaro/vmexec/archive/v${pkgver}.tar.gz)
 sha512sums=('6792f6397838101952117245d714ba8b0c57170fe38a6b2c80c60b412dd85673c3feddde3862e3f8b0043d1444b4bda497104fa8629121b5718578f3176968e1')
