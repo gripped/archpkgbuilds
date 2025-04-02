@@ -2,7 +2,7 @@
 
 pkgname=systemd-language-server
 pkgver=0.3.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Language Server for Systemd unit files'
 arch=('any')
 url='https://github.com/psacawa/systemd-language-server'
@@ -17,7 +17,9 @@ optdepends=(
   'pandoc: Fancy highlighting, falls back to plain text'
 )
 makedepends=(
-  python-poetry
+  python-poetry-core
+  python-build
+  python-installer
 )
 checkdepends=(
   python-pytest

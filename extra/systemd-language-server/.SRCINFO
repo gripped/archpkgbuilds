@@ -1,13 +1,15 @@
 pkgbase = systemd-language-server
 	pkgdesc = Language Server for Systemd unit files
 	pkgver = 0.3.5
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/psacawa/systemd-language-server
 	arch = any
 	license = GPL-3.0-or-later
 	checkdepends = python-pytest
 	checkdepends = pandoc
-	makedepends = python-poetry
+	makedepends = python-poetry-core
+	makedepends = python-build
+	makedepends = python-installer
 	depends = python
 	depends = python-pygls
 	depends = python-lxml
