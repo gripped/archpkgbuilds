@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=qmidictl
-pkgver=1.0.1
+pkgver=1.0.2
 pkgrel=1
 pkgdesc="MIDI remote control application sending MIDI data over network using UDP/IP multicast"
 arch=(x86_64)
@@ -23,8 +23,8 @@ optdepends=(
   'qt6-wayland: for native wayland support'
 )
 source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
-sha512sums=('ebf6dd398e61ea7ee263813cf064aca8cc658ac37204234f42186c0fc08e82abd0559bd2e6677c1a53cc318b64d928df9abf856cbd30d4dce6e3f5a57bb5c8f0')
-b2sums=('55e6482e898ec58651ca9b109af9e9ab0ba363562f6e46719c059cd183db1bffcfad6280a7f726407252c61aa40cc993f0151f51b44d3185ae31f7d125c11a81')
+sha512sums=('f17f6b9552ea0446ac9b6d7118a64051166381bf574fd00ad045e0dbe2fa130bf4f045d0ce789df372de4ba8843916d784e17d2e5491eca0dea67160fbbfdd18')
+b2sums=('128316eb115098f10470a927d1e3d675a8dc981d4fe0db97510512f3ed1fa145bec630bfab8a5d93e4f362f426b5b7abcc95a4891360dd9324e3f94cf79b3f9b')
 
 build() {
   local cmake_options=(
