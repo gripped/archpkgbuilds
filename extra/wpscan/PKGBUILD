@@ -3,7 +3,7 @@
 # Contributor: alexiobash < me (at) alexiobash (dot) com >
 
 pkgname=wpscan
-pkgver=3.8.26
+pkgver=3.8.28
 pkgrel=1
 epoch=1
 pkgdesc='Black box WordPress vulnerability scanner'
@@ -19,14 +19,18 @@ depends=(
   ruby-bundler
   ruby-erb
 )
+makedepends=(
+  findutils
+  coreutils
+)
 optdepends=(
   metasploit
 )
 options=('!strip' '!emptydirs')
 install=wpscan.install
 source=(https://github.com/wpscanteam/wpscan/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('c2f0edabe1e2d11f59c8723fe209df71d511c3782b88088aeecc37b8bb4d8c57636dba96b7df5099b71194d325b90701adec1f8c72cb266259e59b0aca3b23f7')
-b2sums=('cc575eb22918380fc6d912c0a3a0190cb0fc6e7be5218eb32511b41f421a7ad9a11f6fcd207b85680762b1390f47ee8ed755456bfe286b0ccb5df5125cb836b3')
+sha512sums=('66e2406182755bd5c10cee29bfbe73203f246f86acbd9061c9fa66ef0a6e9ff97a5d10a01ede9a7cd3146a85ee78e7178918e54ecc0b8640bd3fd94f73b26c78')
+b2sums=('49731e8dfca95f7d1ffca901621b6ea072cc854eb1678624c748a4d8995a0c1125a5f0f198072ae545c0b327f268460af49f245e97dcf8ed034f274e71ca6175')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -34,6 +38,7 @@ prepare() {
   bundle config build.nokogiri --use-system-libraries
   bundle config set --local path vendor/bundle
   bundle config set --local without development test
+  bundle config set --local force_ruby_platform true
 }
 
 build() {
@@ -64,6 +69,8 @@ EOF
   cd "${pkgdir}"/opt/wpscan/vendor/bundle/ruby/*
   rm -rf cache gems/*/{ext,lib/*/*.so} \
     extensions/*/*/*/{mkmf.log,gem_make.out}
+  # there are some insane world writable 777 dirs in sys-proctable
+  find . -type d -exec chmod 755 {} \;
 }
 
 # vim: ts=2 sw=2 et:
