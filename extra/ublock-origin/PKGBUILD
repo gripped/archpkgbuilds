@@ -7,7 +7,7 @@ pkgname=(
 )
 pkgbase=ublock-origin
 pkgver=1.63.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Efficient blocker add-on for various browsers. Fast, potent, and lean'
 arch=(any)
 url=https://github.com/gorhill/uBlock
@@ -64,5 +64,5 @@ package_thunderbird-ublock-origin() {
 
   cd uBlock/dist/build
   install -Dm644 uBlock0.thunderbird.xpi \
-    "$pkgdir"/usr/lib/thunderbird/browser/extensions/uBlock0@raymondhill.net.xpi
+    "$pkgdir"/usr/lib/thunderbird/extensions/uBlock0@raymondhill.net.xpi
 }
