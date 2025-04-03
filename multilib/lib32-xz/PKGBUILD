@@ -2,19 +2,19 @@
 # Contributor: François Charette <firmicus@gmx.net>
 
 pkgname=lib32-xz
-pkgver=5.8.0
+pkgver=5.8.1
 pkgrel=1
 pkgdesc='Library and command line tools for XZ and LZMA compressed files (32-bit)'
 arch=('x86_64')
 url='https://tukaani.org/xz/'
-license=('GPL' 'LGPL' 'custom')
+license=("GPL-2.0-or-later AND 0BSD AND LicenseRef-Public-Domain AND LGPL-2.1-or-later")
 depends=('lib32-glibc' 'xz')
 makedepends=('git' 'po4a' 'doxygen')
 provides=('liblzma.so')
 validpgpkeys=('3690C240CE51B4670D30AD1C38EE757D69184620') # Lasse Collin <lasse.collin@tukaani.org>
 source=("git+https://github.com/tukaani-project/xz#tag=v${pkgver}?signed")
-sha256sums=('57caa7cf1678e8442e5979831a3caaedbbee707ff67f462280c918277fd6eca0')
-sha512sums=('40e5639dc024d9c40ac71c649a6b0408e15b02535763b1cdaa3e326fc14e5728918c5570454135f4ee7145a18da0a0a93d23f650b9653d939b2652ca0eed9961')
+sha256sums=('cb78e69a09fd5002bc4ab31ca2665a1d20003c2f3ab39bfe081043f086bd8728')
+sha512sums=('b9a0f746215cd93c04fecd390ca44fc281d892b989e740ec6abbaa6a1eb457bbef40a33596dfe6e2285a319f2b09ae1994d778f0cf61114cbee9454a0eaa754b')
 
 prepare() {
   cd xz
