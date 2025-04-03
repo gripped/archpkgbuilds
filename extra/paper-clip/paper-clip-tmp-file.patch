@@ -1,0 +1,73 @@
+From 98fdbef4ff865f5eea3407f95f41924896bda859 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 2 Apr 2025 11:26:35 +0200
+Subject: [PATCH] document: Simplify temporary file handling
+
+Instead of spawning subprocess, use GIO for the copy operation, and use a
+unique file name for the temporary file. Also, delete the temporary file
+when the document is closed.
+---
+ src/Document.vala | 39 ++++++++++++++++++++-------------------
+ 1 file changed, 20 insertions(+), 19 deletions(-)
+
+diff --git a/src/Document.vala b/src/Document.vala
+index 6a8199b..1d72e38 100644
+--- a/src/Document.vala
++++ b/src/Document.vala
+@@ -187,6 +187,14 @@ public class PaperClip.Document : Object {
+         }
+     }
+ 
++    ~Document () {
++        try {
++            cached_file.delete ();
++        } catch (Error e) {
++            warning (e.message);
++        }
++     }
++
+     // This function is intended to be run from a background thread
+     private bool load_xmp () throws Error {
+         bool success = false;
+@@ -466,29 +474,22 @@ public class PaperClip.Document : Object {
+     }
+ 
+     private async File create_copy_from_original () throws Error {
+-        var launcher = new SubprocessLauncher (NONE);
+-        unowned string tmp_dir = Environment.get_tmp_dir ();
+-        string destination_path = Path.build_path (Path.DIR_SEPARATOR_S,
+-                                                   tmp_dir,
+-                                                   "copies");
+-        int res = DirUtils.create_with_parents (destination_path, 0777);
+-        if (res < 0) {
+-            throw new IOError.FAILED (@"Could not create $destination_path");
+-        }
+-
+-        string destination_file = Path.build_filename (destination_path,
+-                                                       "%s".printf (original_file.get_basename ()));
++        GLib.File tmp_file;
++        GLib.FileIOStream stream;
+ 
+-        Subprocess copy_process = launcher.spawn("cp", original_file.get_path(), destination_path);
+-        bool success = yield copy_process.wait_async ();
+-        if (!success) {
+-            critical ("Processed failed");
++        try {
++            tmp_file = GLib.File.new_tmp ("pdf-metadata-editor-XXXXXX.pdf", out stream);
++        } catch (Error e) {
++            throw new IOError.FAILED (@"Failed to create temporary file: %s", e.message);
+         }
+ 
++        try {
++           yield original_file.copy_async (tmp_file, FileCopyFlags.OVERWRITE);
++        } catch (Error e) {
++            throw new IOError.FAILED (@"Failed to copy file to temporary location: %s", e.message);
++        }
+ 
+-        var copy_file = File.new_for_path (destination_file);
+-
+-        return copy_file;
++        return tmp_file;
+     }
+ }
+ 
