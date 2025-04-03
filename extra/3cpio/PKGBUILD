@@ -1,8 +1,8 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=3cpio
-pkgver=0.4.0
-_commit=213416e787f147c2c5066ef45b83fa58aa0d30db
+pkgver=0.5.0
+#_commit=213416e787f147c2c5066ef45b83fa58aa0d30db
 pkgrel=1
 pkgdesc='Manage Linux kernel initramfs cpio files written in Rust'
 arch=('x86_64')
@@ -32,12 +32,12 @@ optdepends=(
   'zstd: Support for zstd compressed initramfs image'
 )
 source=(
-  git+https://github.com/bdrung/3cpio.git#commit=${_commit}?signed
+  git+https://github.com/bdrung/3cpio.git#tag=${pkgver}?signed
 )
 validpgpkeys=(
   A62D2CFBD50B9B5BF360D54B159EB5C4EFC8774C # Benjamin Drung bdrung@debian.de
 )
-b2sums=('fb22dbe2afa0783c10c1ff23031dcf081ee6bb7b5500c506451f0894b8e7dcbaacb9e0b32bce10dac983477076ae587c25e7c0a1f63724171b416174775e3071')
+b2sums=('412038256afc9591ea2df484725aa5741f04f13f674156e80a6ea076a91a41cdb99959e9c772c056832a27494a0536729d6b685f429d51d231c3f2276df96634')
 
 build() {
   cd "${pkgname}"
