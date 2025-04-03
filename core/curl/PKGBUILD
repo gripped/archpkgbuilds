@@ -6,7 +6,7 @@
 
 pkgbase=curl
 pkgname=(curl libcurl-compat libcurl-gnutls)
-pkgver=8.12.1
+pkgver=8.13.0
 pkgrel=1
 pkgdesc='command line tool and library for transferring data with URLs'
 arch=('x86_64')
@@ -26,7 +26,7 @@ makedepends=('git' 'patchelf')
 checkdepends=('valgrind')
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
 source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed")
-sha512sums=('2c19680c2f9f21f0474ae3513d86c2bbd1d8e8f393116190a449c4d4512b3f833f67d1248b8bd96fd088bb30203575952d9c6b1052ee5c6ebb3e76c32cd7018a')
+sha512sums=('e7b52e5e534e786d2af4630809a3a02980b321e41e5ad26ec4c8c1bf840a9898ae8e67bda504437a30439584e5d668d57c7772ea5b2cfe093510d6bf34113f2e')
 
 _backports=(
 )
@@ -75,7 +75,6 @@ build() {
     --enable-websockets
     --with-gssapi
     --with-libssh2
-    --with-random='/dev/urandom'
     --with-ca-bundle='/etc/ssl/certs/ca-certificates.crt'
   )
 
