@@ -2,30 +2,30 @@
 # Contributor: Bence Balint <balintbence1337@gmail.com>
 
 pkgname=python-w3lib
-pkgver=2.1.2
-pkgrel=4
+pkgver=2.2.0
+pkgrel=1
 pkgdesc="Library of web-related functions"
 arch=('any')
-license=('BSD')
+license=('BSD-3-Clause')
 url="https://github.com/scrapy/w3lib"
 depends=('python')
-makedepends=('python-setuptools')
+makedepends=('git' 'python-setuptools')
 checkdepends=('python-pytest')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/scrapy/w3lib/archive/v$pkgver.tar.gz")
-sha512sums=('ed951a78233065e70b45d52401be14723e92a69ce34756afa74fc0a75f170239f69dfd35d1819b91eeaea74d6748f7893b303cc9d321a6b6dae6cd8a672353e9')
+source=("git+https://github.com/scrapy/w3lib.git#tag=v$pkgver")
+sha512sums=('cf5b4597c53c9003bf9e7ffb5f4412adf624aba59f984b56e99a6fed47b7619f5ad4c39ba45aa62d396fa79bb1360aa3fa646641a9052d21a6bd4b53815da851')
 
 build() {
-  cd w3lib-$pkgver
+  cd w3lib
   python setup.py build
 }
 
 check() {
-  cd w3lib-$pkgver
+  cd w3lib
   pytest
 }
 
 package() {
-  cd w3lib-$pkgver
+  cd w3lib
   python setup.py install --root="$pkgdir" --optimize=1
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
