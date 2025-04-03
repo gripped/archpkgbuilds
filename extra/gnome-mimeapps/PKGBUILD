@@ -1,0 +1,65 @@
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+
+pkgname=gnome-mimeapps
+pkgver=0.1
+pkgrel=1
+pkgdesc="Default MIME associations for GNOME"
+url="https://gitlab.gnome.org/heftig/gnome-mimeapps"
+arch=(any)
+license=(CC0-1.0)
+depends=()
+makedepends=(
+  baobab
+  decibels
+  epiphany
+  evince
+  evolution
+  file-roller
+  git
+  gnome-boxes
+  gnome-builder
+  gnome-calendar
+  gnome-color-manager
+  gnome-connections
+  gnome-disk-utility
+  gnome-font-viewer
+  gnome-maps
+  gnome-notes
+  gnome-software
+  gnome-text-editor
+  gthumb
+  loupe
+  meld
+  meson
+  nautilus
+  papers
+  python
+  seahorse
+  sysprof
+  totem
+  yelp
+)
+source=("git+$url.git?signed#tag=$pkgver")
+b2sums=('5cf798b688eaa55eeac5bdafab820932a7189d4170ce08eaf6e3e89dae7d55f59e8c24e4f7a1390da8d18762b098938018e7fa57389c8d5881a2c49ff0697e3d')
+validpgpkeys=(
+  83BC8889351B5DEBBB68416EB8AC08600F108CDF # Jan Alexander Steffens (heftig)
+)
+
+prepare() {
+  cd $pkgname
+}
+
+build() {
+  arch-meson $pkgname build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+}
+
+# vim:set sw=2 sts=-1 et:
