@@ -1,7 +1,7 @@
 # Maintainer : Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=openvdb
-pkgver=12.0.0
-pkgrel=2
+pkgver=12.0.1
+pkgrel=1
 pkgdesc='A large suite of tools for the efficient storage and manipulation of sparse volumetric data discretized on three-dimensional grids'
 url='https://github.com/AcademySoftwareFoundation/openvdb'
 arch=('x86_64')
@@ -13,7 +13,7 @@ optdepends=('glfw: for tools'
             'glu: for tools'
             'python-numpy: python module')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/AcademySoftwareFoundation/openvdb/archive/v${pkgver}.tar.gz")
-sha512sums=('7ea2997afa99ed1ed23422eb8b8420c7127c913432f94043ccf559b6720bba2f6e19376e955d8d9055ab765a821749936966f6e5925b9d36febaa724d866b90a')
+sha512sums=('67b859bf77c53e68116faa7915bb6a5a50a8cff10435762890e13348625e8aebdb6661b722017632471648afe31e2f9d4cd2e18456c728192bfd0accd70a40ef')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
