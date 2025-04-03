@@ -3,7 +3,7 @@
 
 pkgname=docker
 pkgver=28.0.4
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='Pack, ship and run any application as a lightweight container'
 arch=('x86_64' 'aarch64')
@@ -94,7 +94,7 @@ build() {
   ### docker-init
   echo 'Building docker-init'
   _fake_gopath_pushd tini github.com/krallin/tini
-  cmake .
+  cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 .
   # we must use the static binary because it's started in a foreign os
   make tini-static
   _fake_gopath_popd
