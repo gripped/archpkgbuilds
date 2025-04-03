@@ -3,7 +3,7 @@
 
 pkgname=frescobaldi
 pkgver=4.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A LilyPond sheet music text editor"
 arch=(any)
 url="https://www.frescobaldi.org/"
@@ -32,11 +32,15 @@ optdepends=('lilypond: music engraving'
             'hyphen-it: hyphenation patterns for Italian'
             'hyphen-nl: hyphenation patterns for Dutch')
 _archive="$pkgname-$pkgver"
-source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('dce8aca1b45090526d5bd8182519f5399c7956b90402207bb7aa4f338edfe98e')
+source=("$_url/archive/v$pkgver/$_archive.tar.gz"
+        "$_url/pull/1901.patch"
+        )
+sha256sums=('dce8aca1b45090526d5bd8182519f5399c7956b90402207bb7aa4f338edfe98e'
+            '1e13c7168e4176d2546dcc53b523b33e47817283d39d295f327ab84697167872')
 
 prepare() {
 	cd "$_archive"
+	patch -p1 -i ../1901.patch
 	# Provided by hyphen-*
 	rm -f frescobaldi/hyphdicts/hyph_*.dic
 	rm -f frescobaldi/hyphdicts/README*
