@@ -6,7 +6,7 @@
 
 pkgname=python-qrcode
 _pkgname=${pkgname#python-}
-pkgver=8.0
+pkgver=8.1
 pkgrel=1
 pkgdesc='Python library to generate QR codes'
 arch=(any)
@@ -24,7 +24,7 @@ checkdepends=(python-importlib-metadata
               python-pytest-mock)
 _archive="$_pkgname-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pkgname::1}/$_pkgname/$_archive.tar.gz")
-sha512sums=('14d37ef4fe0fca3253c92f39db7948f9d804f600ee3bf9ba053baf4e01488f340cb4977b94a338f448dd4f9007f9f0cb7c5cf1db5405d98a9b38a809c8ed8650')
+sha512sums=('e0cfde2e81329e49e74a0e9d953e12656e92f7a920beb5c7ebbc8e3737dbb345f83f3326d69f0addffef3506acaeb180ff22b9fe6b81f987e8fe26d223257d7c')
 
 build() {
 	cd "$_archive"
