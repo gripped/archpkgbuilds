@@ -2,7 +2,7 @@
 
 _pyname=archinfo
 pkgname=python-${_pyname}
-pkgver=9.2.134
+pkgver=9.2.148
 pkgrel=1
 pkgdesc='Classes with architecture-specific information useful to other projects'
 url='https://github.com/angr/archinfo'
@@ -24,8 +24,8 @@ optdepends=(
   python-pyvex
 )
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('d722b7b51d5c9aa1751ad581cccdde82c1c5ad7096fdb9be87055346909c8a50bf1a2aa3b2d989377a83e00e4ba96da532f4e738ae3a8299d176172bd1a9fb85')
-b2sums=('9c94bd96cb88cd40d2cdc0632de477c31e180ef34bfc7623b7fc6391da78297d4c75348b9fe1178f13635be90d152160bdf68961304fcf4f0e5a241c750674c3')
+sha512sums=('a3c92f0ec1284a937a7ba274cf00a859bc915964797a8d97a09130109972bcf031bb0164fede624ce22d11b428405a5518e02376e413a96a80eda20157200d77')
+b2sums=('75b3d42dfd027ef0077cbca86c7597832b8ac20a806dcf8520be04626cc060307021213fc01d625554f61a74d4f0559a32f76b144040722cccd2dcb5f2340614')
 
 build() {
   cd "${_pyname}-${pkgver}"
