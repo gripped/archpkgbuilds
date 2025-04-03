@@ -3,7 +3,7 @@
 _name=click-aliases
 pkgname=python-click-aliases
 pkgver=1.0.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Enable aliases for click"
 arch=(any)
 url="https://github.com/click-contrib/click-aliases"
@@ -16,8 +16,7 @@ makedepends=(
   git
   python-build
   python-installer
-  python-poetry
-  python-setuptools
+  python-poetry-core
   python-wheel
 )
 checkdepends=(
