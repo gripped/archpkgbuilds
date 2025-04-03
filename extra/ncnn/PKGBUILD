@@ -5,7 +5,7 @@
 
 pkgname=ncnn
 pkgver=20241226
-pkgrel=4
+pkgrel=5
 pkgdesc='High-performance neural network inference framework optimized for the mobile platform'
 url='https://github.com/Tencent/ncnn'
 arch=('x86_64')
@@ -24,6 +24,7 @@ prepare() {
 build() {
     cmake -B build -S $pkgname \
         -GNinja \
+	-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
         -DCMAKE_BUILD_TYPE='None' \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DNCNN_SHARED_LIB=ON \
