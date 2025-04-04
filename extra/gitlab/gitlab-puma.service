@@ -1,8 +1,8 @@
 [Unit]
 Description=GitLab Puma Server
-Requires=redis.service
+Requires=valkey.service
 Wants=postgresql.service
-After=redis.service postgresql.service network.target
+After=valkey.service postgresql.service network.target
 StartLimitIntervalSec=100s
 
 [Service]
