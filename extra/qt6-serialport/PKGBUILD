@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-serialport
-_pkgver=6.8.3
+_pkgver=6.9.0
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('2d354afc9dff186838e24867e0a008c8cdd498397ac8e8f2636e880a8121da07')
+sha256sums=('359c21702d695023049f51eb14fbb614bc54ace0b68bb0ed99d98a1cd62a8f04')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
