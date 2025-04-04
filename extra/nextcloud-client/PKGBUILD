@@ -17,7 +17,7 @@ pkgname=nextcloud-client
 pkgdesc='Nextcloud desktop client'
 epoch=2
 pkgver=3.16.2
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://nextcloud.com/'
 _url=https://github.com/nextcloud/desktop
@@ -84,13 +84,16 @@ prepare() {
 		-e '/Capabilities/s/^/#/' \
 		-e '/SecureFileDrop/s/^/#/' \
 		test/CMakeLists.txt
+
+	# https://github.com/nextcloud/desktop/issues/8020
+	git cherry-pick -n 3000ca0db2914605e6e939e82732e90073d2a1de
 }
 
 build() {
 	# bundled breakpad in libcrashreporter-qt submodule is too old and does not build with glibc >= 2.26
 	# Upstream fix: https://github.com/google/breakpad/commit/bddcc58860f522a0d4cbaa7e9d04058caee0db9d
 	cmake -B build -S $pkgname \
-		-D CMAKE_BUILD_TYPE=Debug \
+		-D CMAKE_BUILD_TYPE=None \
 		-D CMAKE_INSTALL_PREFIX=/usr \
 		-D WITH_CRASHREPORTER=OFF \
 		-D BUILD_UPDATER=OFF \
