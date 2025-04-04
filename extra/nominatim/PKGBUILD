@@ -9,17 +9,19 @@ pkgname="nominatim"
 pkgdesc="Geocoding tool using OpenStreetmap data"
 url="https://nominatim.org"
 
-pkgver=4.5.0
-pkgrel=2
+pkgver=5.1.0
+pkgrel=1
 
 arch=("any")
 license=("GPL-2.0-only")
 
 makedepends=(
-    "clang"
-    "cmake"
     "git"
-    "php"
+    "python-build"
+    "python-installer"
+    "python-hatchling" # build backend
+    "python-argparse-manpage"
+    "python-psycopg" # manpage only
 )
 #checkdepends=(
 #    "python-behave"
@@ -27,16 +29,11 @@ makedepends=(
 #    "python-pytest-asyncio"
 #)
 depends=(
-    "expat"
-    "proj"
-    "boost"
-    "boost-libs"
     "libosmium"
     "osm2pgsql"
-    "postgresql"
     "postgis"
     "python-asyncpg"
-    "python-psycopg2"
+    "python-psycopg"
     "python-dotenv"
     "python-psutil"
     "python-jinja"
@@ -47,19 +44,13 @@ depends=(
     "python-ujson"
     "python-falcon"
     "python-sqlalchemy"
-    "python-datrie"
+    "python-pygments"
     "uvicorn"
     "gunicorn"
-    "libdatrie"
-    "perl" # /usr/share/munin/plugins/nominatim_query_speed
 )
 optdepends=(
-    "nginx: http server for python or php frontends"
-    "apache: http server for python or php frontends"
-    "php: Legacy PHP frontend"
-    "php-cgi: Legacy PHP frontend"
-    "php-intl: Legacy PHP frontend"
-    "php-pgsql: Legacy PHP frontend"
+    "nginx: http server for python frontend"
+    "apache: http server for python frontend"
     "python-starlette: Alternative Python frontend using Starlette ASGI framework"
     "nominatim-data-wikipedia: optional auxiliary data source to help indicate the importance of OSM features"
     "nominatim-data-postcodes-gb: improve searches that involve a UK postcode"
@@ -77,28 +68,22 @@ source=(
     "nominatim-updates.service"
     "nominatim-updates.timer"
     "nginx-python.conf"
-    "apache-php.conf"
-    "nginx-php.conf"
-    "php.ini"
-    "php-fpm.conf"
     "0001-Fix-configuration-to-point-to-installed-files.patch"
     "0002-Set-default-project-directory-to-package-provided-di.patch"
+    "0003-Exclude-force-includes-in-wheel-builds-to-fix-duplic.patch"
 )
-sha256sums=('4ee67baa5abd69cd81ac1cf4f176b8768c0db4b865932736195e5f93dd0defc7'
+sha256sums=('e1c279b306837a4146194afc791bee776eeff96919f515e7da622ddf25ba4b2c'
             '09d85801a625079b7007fda0f2fb880db62dcea09f17f8e12e5c1b485e60794e'
             '7f71b5217cbe0713fa5f8baa138348c9cd49f42c2b6025c059076042e0c04c6d'
             '964e7d8bde044dee0b69002959bcdd5d469f83d85f166ddd5fb178954bc84999'
-            '2aba4e4c3bcc1b7e7b96bd53fd25d51c718c3ac5c76350500073ad9e8ee2902b'
+            'b42c196b6e1e4b26fa658ee801c93850b0dc7e0c67162a809cbd20a71b3b8adf'
             '20aac7e4ec92fe89b8b53b0bfdb1c546c39b3db0f0969aeb2ff376d67f4918ba'
             'a3f0a194b9c26202eff3e3c1dbebde405dc8caab0fff86163fe3664ae05cdcc4'
             '4f4c14000d2dd56271377a543dbebaf547fc543a9f610570a740e03c196b1947'
             '5131a42f62d83bd68089769badd29bdd07e08263a336212d7f337e3f5b273fb0'
-            '3c4d5fbb1299aff5d4efa855c8b278f2e19c47104982f3488c2c545a40f75ac8'
-            '2f8e550a8bc89de96d29bc61c96cc6cc6007a516f72fc6f125ba30e779a7e64a'
-            '37c4b17463f8317d39bb741b07bbb693afc0bbf584eec590f89b849542b98b7d'
-            'c2d5391160704bc636fde73c0e92346529ae1698f1cc909a8341271e0e4967d4'
-            'ed051533ad83fb93e458e31d4e116ad9717ff8d4edc7af0dec2b2a3bb61c7172'
-            '7029a9da86edaeb8375e9bc2fc999d64fa974b689fdd0827e1a7df92010d1674')
+            'eadc799564daeb16aa01af8507f31ddd4c6fe429ac847e8b2b3f436e5b95ddac'
+            '7029a9da86edaeb8375e9bc2fc999d64fa974b689fdd0827e1a7df92010d1674'
+            'adc9d325fe0e0c6995fde3f7b13350d8606227476cc86b2bb1106bbf5073c551')
 noextract=(
 )
 
@@ -109,23 +94,20 @@ prepare() {
 
     patch -p1 < "$srcdir/0001-Fix-configuration-to-point-to-installed-files.patch"
     patch -p1 < "$srcdir/0002-Set-default-project-directory-to-package-provided-di.patch"
+    patch -p1 < "$srcdir/0003-Exclude-force-includes-in-wheel-builds-to-fix-duplic.patch"
 
-    mv ../country_grid.sql.gz data/country_osm_grid.sql.gz
+    # Need to copy here since it might be a link
+    cp ../country_grid.sql.gz data/country_osm_grid.sql.gz
 }
 
 build() {
-    # The postgres module is built using postgres' module makefiles, which set CFLAGS to the ones
-    # used during postgres' compilation. This includes -ffile-prefix-map, which breaks debug packages.
-    # Add our $DEBUG_CFLAGS to CUSTOM_COPT, which is appended to CFLAGS in
-    # /usr/lib/postgresql/pgxs/src/Makefile.global.
-    export CUSTOM_COPT=$DEBUG_CFLAGS
+    cd "Nominatim-${pkgver}"
 
-    cmake -S "Nominatim-$pkgver" -B build \
-        -DCMAKE_BUILD_TYPE="None" \
-        -DCMAKE_INSTALL_PREFIX="/usr" \
-        -DBUILD_OSM2PGSQL=off
+    python -m build --wheel --no-isolation --verbose --outdir dist/ packaging/nominatim-db
+    python -m build --wheel --no-isolation --outdir dist/ packaging/nominatim-api
 
-    make -C build VERBOSE=1
+    make manpage
+    gzip man/nominatim.1
 }
 
 # https://github.com/osm-search/Nominatim/blob/master/.github/workflows/ci-tests.yml#L132
@@ -134,16 +116,21 @@ build() {
 #    cd "Nominatim-${pkgver}"
 #    python -m pytest test/python
 
-#    cd "test/bdd"    
+#    cd "test/bdd"
 #    python -m behave -DREMOVE_TEMPLATE=1 -DBUILDDIR=$GITHUB_WORKSPACE/build --format=progress3
 #}
 
 package() {
-    cd "${srcdir}/build/"
-    make DESTDIR="${pkgdir}/" install
+    cd "Nominatim-${pkgver}"
+    echo "Installing db"
+    python -m installer --destdir="$pkgdir" dist/nominatim_db-*.whl
+    echo "Installing api"
+    python -m installer --destdir="$pkgdir" dist/nominatim_api-*.whl
 
-    rm "${pkgdir}/usr/share/nominatim/country_osm_grid.sql.gz" # link to /startdir, drop it
     install -Dm644 "${srcdir}/Nominatim-${pkgver}/data/country_osm_grid.sql.gz" -t "${pkgdir}/usr/share/nominatim/"
+
+    # manpage
+    install -Dm644 "man/nominatim.1.gz" "$pkgdir/usr/share/man/man1/nominatim.1.gz"
 
     # install python gunicorn and update service files
     install -Dm644 "${srcdir}/nominatim.service" -t "${pkgdir}/usr/lib/systemd/system/"
@@ -151,12 +138,8 @@ package() {
     install -Dm644 "${srcdir}/nominatim-updates.service" -t "${pkgdir}/usr/lib/systemd/system/"
     install -Dm644 "${srcdir}/nominatim-updates.timer" -t "${pkgdir}/usr/lib/systemd/system/"
 
-    # install apache, nginx and PHP example configs
+    # install nginx example configs
     install -Dm644 "${srcdir}/nginx-python.conf" -t "${pkgdir}/usr/share/doc/$pkgname/examples/"
-    install -Dm644 "${srcdir}/apache-php.conf" -t "${pkgdir}/usr/share/doc/$pkgname/examples/php/"
-    install -Dm644 "${srcdir}/nginx-php.conf" -t "${pkgdir}/usr/share/doc/$pkgname/examples/php/"
-    install -Dm644 "${srcdir}/php-fpm.conf" -t "${pkgdir}/usr/share/doc/${pkgname}/examples/php/"
-    install -Dm644 "${srcdir}/php.ini" -t "${pkgdir}/usr/share/doc/${pkgname}/example/php/"
 
     # create users and directories
     install -Dm 644 "${srcdir}/${pkgname}.sysusers" "${pkgdir}/usr/lib/sysusers.d/${pkgname}.conf"

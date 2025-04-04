@@ -1,0 +1,82 @@
+From d08ce16d8cd187bf4005b7089aa3de0c100c095f Mon Sep 17 00:00:00 2001
+From: Justin Kromlinger <hashworks@archlinux.org>
+Date: Wed, 2 Apr 2025 18:04:56 +0200
+Subject: [PATCH] Exclude force-includes in wheel builds to fix duplicate file
+ errors
+
+Building the wheel file without this causes warnings:
+```
+* Getting build dependencies for wheel...
+* Building wheel...
+/usr/lib/python3.13/zipfile/__init__.py:1643: UserWarning: Duplicate name: 'nominatim_db/paths.py'
+  return self._open_to_write(zinfo, force_zip64=force_zip64)
+Successfully built nominatim_db-5.1.0-py3-none-any.whl
+* Getting build dependencies for wheel...
+* Building wheel...
+/usr/lib/python3.13/zipfile/__init__.py:1643: UserWarning: Duplicate name: 'nominatim_api/config.py'
+  return self._open_to_write(zinfo, force_zip64=force_zip64)
+Successfully built nominatim_api-5.1.0-py3-none-any.whl
+```
+
+Installing them then results in errors:
+```
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/usr/lib/python3.13/site-packages/installer/__main__.py", line 98, in <module>
+    _main(sys.argv[1:], "python -m installer")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/site-packages/installer/__main__.py", line 94, in _main
+    installer.install(source, destination, {})
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/site-packages/installer/_core.py", line 109, in install
+    record = destination.write_file(
+        scheme=scheme,
+    ...<2 lines>...
+        is_executable=is_executable,
+    )
+  File "/usr/lib/python3.13/site-packages/installer/destinations.py", line 207, in write_file
+    return self.write_to_fs(scheme, path_, stream, is_executable)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/site-packages/installer/destinations.py", line 167, in write_to_fs
+    raise FileExistsError(message)
+FileExistsError: File already exists: /build/nominatim/pkg/nominatim/usr/lib/python3.13/site-packages/nominatim_db/paths.py
+```
+---
+ packaging/nominatim-api/pyproject.toml | 4 ++++
+ packaging/nominatim-db/pyproject.toml  | 4 ++++
+ 2 files changed, 8 insertions(+)
+
+diff --git a/packaging/nominatim-api/pyproject.toml b/packaging/nominatim-api/pyproject.toml
+index ca86f8a7..4502951d 100644
+--- a/packaging/nominatim-api/pyproject.toml
++++ b/packaging/nominatim-api/pyproject.toml
+@@ -52,6 +52,10 @@ exclude = [
+ [tool.hatch.build.targets.wheel]
+ packages = ["src/nominatim_api"]
+ 
++exclude = [
++  "src/nominatim_api/config.py"
++]
++
+ [tool.hatch.build.targets.wheel.force-include]
+ "src/nominatim_db/config.py" = "nominatim_api/config.py"
+ "extra_src/paths.py" = "nominatim_api/paths.py"
+diff --git a/packaging/nominatim-db/pyproject.toml b/packaging/nominatim-db/pyproject.toml
+index 3c99fd2a..bdf5b1cd 100644
+--- a/packaging/nominatim-db/pyproject.toml
++++ b/packaging/nominatim-db/pyproject.toml
+@@ -60,6 +60,10 @@ exclude = [
+ [tool.hatch.build.targets.wheel]
+ packages = ["src/nominatim_db"]
+ 
++exclude = [
++  "src/nominatim_db/paths.py"
++]
++
+ [tool.hatch.build.targets.wheel.shared-scripts]
+ "scripts" = "/"
+ 
+-- 
+2.49.0
+
