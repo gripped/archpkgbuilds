@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-sensors
-_pkgver=6.8.3
+_pkgver=6.9.0
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -24,7 +24,7 @@ optdepends=('qt6-declarative: QML bindings'
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('6a96766bfc13da2d0e638589765e6e5305e9db4799c569c8c82e745f7c597dd1')
+sha256sums=('7976c03ca4655934795c67a92682494186490895e4dc0843b5dcc698eafe547f')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
