@@ -5,7 +5,7 @@ pkgbase=qt6-multimedia
 pkgname=(qt6-multimedia
          qt6-multimedia-ffmpeg
          qt6-multimedia-gstreamer)
-_pkgver=6.8.3
+_pkgver=6.9.0
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -29,11 +29,12 @@ makedepends=(cmake
              pipewire
              qt6-declarative
              qt6-quick3d
-             qt6-shadertools)
+             qt6-shadertools
+             vulkan-headers)
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('70c5592cd29049bf86032f55ea2f5d096c481cad71aa834a862674683d0868c6')
+sha256sums=('09a193888fa11765b69def48ee620bca423338feccc7b5bcb81b63fff40ab3d9')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
