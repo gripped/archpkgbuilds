@@ -5,7 +5,7 @@
 _name=pydantic
 pkgname=python-$_name
 # WARNING: upstream pins pydantic-core down to the patch-level and using other versions breaks tests! only update in lock-step with python-pydantic-core!
-pkgver=2.10.6
+pkgver=2.11.2
 pkgrel=1
 pkgdesc='Data parsing and validation using Python type hints'
 arch=(any)
@@ -16,6 +16,7 @@ depends=(
   python-annotated-types
   python-pydantic-core
   python-typing_extensions
+  python-typing-inspection
 )
 makedepends=(
   cython
@@ -41,6 +42,7 @@ checkdepends=(
   python-pytest-examples
   python-pytest-mock
   python-pytest-pretty
+  python-pytest-run-parallel
   python-pytz
   python-sqlalchemy
 )
@@ -51,8 +53,8 @@ optdepends=(
   'python-hypothesis: for hypothesis plugin when using legacy v1'
 )
 source=($url/archive/v$pkgver/$_name-v$pkgver.tar.gz)
-sha512sums=('d40930469774a83a40ecdcbc89056b413894363c7c271291b3262ae66628f925f2a4f4a6afabc4b152dde571898bc6c2df9dbffba524e13cbd7165d0b93744e7')
-b2sums=('8035667f97c927dd14598e019f399f5338afb8b0547435e0f3b803e508bdc437d5132032fb9abb149461056f4aa21edf2446258de96a0d9799dc32e6d4525e4e')
+sha512sums=('83ca3e7b5b57fb1fecd2bb9af0eaa347e9b144af8d8aeaccb0cf45b162ea6e41bf895e480308156d3d9c709d9a4e117120c84e773505881d84da41622cb1afb6')
+b2sums=('148767107046b49cf6caf4d624908d9fda99aedf8636b6ab2061888942f874ce841bb3a594146fab97f1d633dfe05b4b1f397dd0cc432dcc43d1ddd35280dcee')
 
 build() {
   cd $_name-$pkgver
