@@ -5,7 +5,7 @@ pkgbase=pyside6
 pkgname=(pyside6
          pyside6-tools
          shiboken6)
-pkgver=6.8.3
+pkgver=6.9.0
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -42,7 +42,7 @@ makedepends=(clang
              qt6-websockets)
 source=(git+https://code.qt.io/pyside/pyside-setup#tag=v$pkgver
         fix-build.patch)
-sha256sums=('2e33c45561e3f0b80a592222bca21b406c2fa846bdd4eb60e02680b9600f559e'
+sha256sums=('a71ba1fe1e54b4819782ddddebf4a3e94c862b6e32d30be4e466fdc25365f90a'
             '77b83cb164ea87d826259864f6a81fb33199510e1948d6daaf5c8d5ab55735a7')
 
 prepare() {
@@ -135,7 +135,6 @@ package_pyside6-tools() {
   pkgdesc='Tools for pyside6'
   depends=(pyside6
            python)
-  optdepends=('nuitka: for deploy.py')
 
   DESTDIR="$pkgdir" cmake --install build/sources/pyside-tools
 
