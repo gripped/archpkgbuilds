@@ -4,7 +4,7 @@ pkgbase=systray-x
 _pkgbase=SysTray-X
 pkgname=('systray-x-common' 'systray-x-kde')
 pkgver=0.9.11
-pkgrel=1
+pkgrel=2
 pkgdesc="A system tray extension for Thunderbird"
 url="https://github.com/Ximi1970/systray-x"
 arch=('x86_64')
@@ -12,11 +12,13 @@ license=('MPL-2.0')
 depends=('qt6-base' 'qt6-wayland' 'thunderbird')
 makedepends=('git' 'zip' 'unzip' 'libx11' 'kstatusnotifieritem' 'strip-nondeterminism')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
-	'Makefile.patch'
-	'binary_path.patch')
+        'Makefile.patch'
+        'binary_path.patch'
+        'tb_137_compat.patch')
 sha256sums=('1aebd2ad17ec5b05aff0b680257f170729ebaa57db2ba1de6c1687e9291be7f8'
             '62affd86e6dbad6e9cf851768d99fd79f76f65ac2fd5e45ef5e89c5dcb63dbab'
-            'aa0a5a7e8b062452416ec9b4472ee4d1a9d7d17fd5ecf94698c557cd504514da')
+            'aa0a5a7e8b062452416ec9b4472ee4d1a9d7d17fd5ecf94698c557cd504514da'
+            '41f9b8dd6f4d15818781cfb03053e0e2243bcf6cb400d60912b53df833405f94')
 
 prepare() {
 	cd "${pkgbase}-${pkgver}"
@@ -26,6 +28,10 @@ prepare() {
 
 	# Patch the Makefile to build both versions of the app into separate directories
 	patch -Np1 -i "${srcdir}/Makefile.patch"
+
+	# Backport Thunderbird 137 compatibility patch
+	# See https://github.com/Ximi1970/systray-x/commit/391e44537a19a5253298bc3f96a0be7dac7aeb9c
+	patch -Np1 -i "${srcdir}/tb_137_compat.patch"
 }
 
 _build() {
