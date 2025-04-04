@@ -4,10 +4,10 @@
 
 pkgbase=qt6-doc
 pkgname=(qt6-doc qt6-examples)
-_pkgver=6.8.3
+_pkgver=6.9.0
 pkgver=${_pkgver/-/}
 # Account for Qt special naming of -rc1 tarballs
-_pkgver=6.8.3
+_pkgver=6.9.0
 pkgrel=1
 arch=('any')
 url='https://www.qt.io'
@@ -38,7 +38,7 @@ makedepends=(alsa-lib
 groups=(qt6)
 _pkgfn=qt-everywhere-src-$_pkgver
 source=(https://download.qt.io/official_releases/qt/${_pkgver%.*}/${_pkgver}/single/$_pkgfn.tar.xz)
-sha256sums=('cdd3a69967208276bb01af7ace7dba0ba53e679f886a4cbe624225c60fb73f2c')
+sha256sums=('4f61e50551d0004a513fefbdb0a410595d94812a48600646fb7341ea0d17e1cb')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
