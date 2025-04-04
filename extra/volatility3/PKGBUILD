@@ -3,8 +3,8 @@
 # Contributor: Wes Brown <wesbrown18@gmail.com>
 
 pkgname=volatility3
-pkgver=2.7.0
-pkgrel=2
+pkgver=2.11.0
+pkgrel=1
 pkgdesc='Advanced memory forensics framework'
 url='https://github.com/volatilityfoundation/volatility3/wiki'
 arch=(any)
@@ -27,8 +27,8 @@ makedepends=(
 provides=(volatility)
 replaces=(volatility)
 source=(https://github.com/volatilityfoundation/volatility3/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('bb9f79604ce2e647d42a1003941802a69ecdf845c1400b1d3f67e13494a228c99269478d635fbcdcde8ae67b792b73e07e7e26ce9a8e2e7b80185af7cc7ac3c0')
-b2sums=('aa7209be5a3cb33b2f5b9fac52e3098407926b8135d2d5566746e0156d3873195ce9161e5652c2abf80e9bfd2955e7d02985ce75ac7fca3559d821866d0302cf')
+sha512sums=('6cb02e2db34a64e26115883c7ac545c25effcc5600ec075c7d115c4ec825350788957bc8798370753fb5872467d4438cc45d11f40e8b772dac9ded3ac0148831')
+b2sums=('e32a7b804e0cec74d093e56ce5b448ad8f51d268880c103e68a6ab24341492d4acd66eab98bc9afd70ec8df4bb3191620f27f0d71be06cf70669bca114e6d1c1')
 
 build() {
   cd ${pkgname}-${pkgver}
