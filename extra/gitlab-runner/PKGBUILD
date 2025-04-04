@@ -5,7 +5,7 @@
 
 pkgname=gitlab-runner
 pkgver=17.10.1
-pkgrel=1
+pkgrel=2
 pkgdesc="The official GitLab CI runner written in Go"
 arch=('x86_64')
 url='https://gitlab.com/gitlab-org/gitlab-runner'
@@ -57,18 +57,6 @@ sha512sums=('0df59b843949fe5c2a1c54e88ed379b2825c9c0752472e6d31d8324e44ee6112304
             '6751d9fa0b27172d1b419c4138f5ac15cbc7c9147653a7258cf1470216142c637210bb60608c7ed0974e0e4057e5ddeae32225df1bb36e7dd1f20fec71e33cc3'
             '9718b94bd0ddb09095ffb8c1e60ca1e9649dabb1747e7fc95e58e404b2f9effdeb4cfd759f5b904443dc53a4e18c02003c38f85584713deb49f6a6d1007503de')
 
-prepare() {
-  cd gitlab-runner
-
-  local version=$(make version | grep "Current version:" | sed -n "s/.*: \(.*\)/\1/p")
-  local revision=$(make version | grep "Current revision:" | sed -n "s/.*: \(.*\)/\1/p")
-  local branch=$(make version | grep "Current branch:" | sed -n "s/.*: \(.*\)/\1/p")
-
-  sed -i "s/var VERSION.*/var VERSION = \"$version\"/" common/version.go
-  sed -i "s/var REVISION.*/var REVISION = \"$revision\"/" common/version.go
-  sed -i "s/var BRANCH.*/var BRANCH = \"$branch\"/" common/version.go
-}
-
 build() {
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
@@ -77,7 +65,7 @@ build() {
   export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
 
   cd gitlab-runner
-  go build -o gitlab-runner .
+  make out/binaries/gitlab-runner-linux-amd64
 }
 
 package() {
@@ -87,7 +75,7 @@ package() {
   install -Dm644 "${srcdir}/gitlab-runner.service" "${pkgdir}/usr/lib/systemd/system/gitlab-runner.service"
   install -Dm644 "${srcdir}/gitlab-runner.sysusers" "${pkgdir}/usr/lib/sysusers.d/gitlab-runner.conf"
   install -Dm644 "${srcdir}/gitlab-runner.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/gitlab-runner.conf"
-  install -Dm755 gitlab-runner "${pkgdir}/usr/bin/gitlab-runner"
+  install -Dm755 out/binaries/gitlab-runner-linux-amd64 "${pkgdir}/usr/bin/gitlab-runner"
   install -Dm755 packaging/root/usr/share/gitlab-runner/clear-docker-cache "${pkgdir}/usr/share/gitlab-runner/clear-docker-cache"
 
   # Move prebuilt Docker images to hard-coded canonical location
