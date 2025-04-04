@@ -2,7 +2,7 @@
 # Contributor: l0gic <l0gic@invalid.invalid>
 
 pkgname=hyprland-protocols
-pkgver=0.6.3
+pkgver=0.6.4
 pkgrel=1
 pkgdesc='Wayland protocol extensions for Hyprland'
 arch=(x86_64 aarch64)
@@ -11,7 +11,7 @@ license=(BSD-3-Clause)
 makedepends=(meson)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('7ddadfe117f5f314c7f73937a56cdbd65c42fb8fb90054201944c1ec8dae53a8')
+sha256sums=('0d4f99abc21b04fc126dd754e306bb84cd334131d542ff2e0c172190c6570384')
 
 build() {
 	arch-meson "$_archive" build
