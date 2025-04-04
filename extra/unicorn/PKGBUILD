@@ -3,7 +3,7 @@
 
 pkgbase=unicorn
 pkgname=(unicorn python-unicorn ruby-unicorn-engine)
-pkgver=2.1.2
+pkgver=2.1.3
 pkgrel=1
 pkgdesc='Lightweight, multi-platform, multi-architecture CPU emulator framework based on QEMU'
 url='https://www.unicorn-engine.org'
@@ -11,11 +11,13 @@ arch=(x86_64)
 license=(GPL-2.0-only)
 makedepends=(
   cmake
+  git
   python
-  python-setuptools
   python-build
   python-installer
+  python-setuptools
   python-setuptools-scm
+  python-versioningit
   python-wheel
   ruby
   ruby-rdoc
@@ -26,27 +28,24 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=(
-  https://github.com/unicorn-engine/unicorn/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz
+  git+https://github.com/unicorn-engine/unicorn.git#tag=v${pkgver}
   bindings-ruby-fix-unexpected-uc_query-result-pointer.patch
-  unicorn-${pkgver}-python-setuptools.patch::https://github.com/unicorn-engine/unicorn/commit/0f45f15e303b4a7b15eb4ca61860452f0a071a3e.patch
 )
-sha512sums=('f05e16f02fbf527875f7246811307b8b224cecd4d305dd59490a2a51444672c7ec769153545c857b5425111c19b8c0c33abbb51fcc8d49c0777771d31cf32630'
-            '579700f4aad9c964c038f2ad77c8e26d0339dbfb96665f933d538a1f66e97486c02d671a41d996ab024ade2c8fdfc9c52c42e75fe368943fcbcac50019178ed2'
-            'b616f81b4352d5e50279da4c588400c76360958fc14fdb69ac376ed663197c480aa45b2c93d597b21ca8622716f86f1ad8de34c047951830f98c4c3f1f1e3afa')
-b2sums=('3e97c0f0b6dccd157222d473ef51f28fbcaf72eda056713fe1463a3f741f1abe6fbf73d770f391c3730c02e94ede2de4f25c0bf460c80dcc560a79258a7338b2'
-        '2b501cbe3ea0228b2727342c549bf54f01a72385f51e753c4ec03a2af223b19e729942ef9a5272c2677c11958b45fcd52022e84fae23599536d2d1288b290206'
-        '9b5c1ca49409862b0fb5d4aa78cd1d57682538c04ebe7341238c7f54f18f0e99f3983fefec2a64819471a58376137843dcadb7e835c0b67096e2cf47a285e236')
+sha512sums=('7b877178bdb0c620cfa629ea1f8983d67e8d006a3a0d36280ebdefbf7bc73f4ee7a0f7cda57ceb8be821dd7c294d999320acdfd44e2ea29d9840a55b85a6522e'
+            '579700f4aad9c964c038f2ad77c8e26d0339dbfb96665f933d538a1f66e97486c02d671a41d996ab024ade2c8fdfc9c52c42e75fe368943fcbcac50019178ed2')
+b2sums=('6ce4c68abeae5ff57f59541c10817d5e5746b31b8108d74be259cf8688e45d5ce281a27486f5a847c8a02522323d181abde73eb6359501228ac13a236fdcd191'
+        '2b501cbe3ea0228b2727342c549bf54f01a72385f51e753c4ec03a2af223b19e729942ef9a5272c2677c11958b45fcd52022e84fae23599536d2d1288b290206')
 
 export SETUPTOOLS_SCM_PRETEND_VERSION=${pkgver}
 
 prepare() {
-  cd ${pkgbase}-${pkgver}
+  cd ${pkgbase}
   patch -Np1 < ../bindings-ruby-fix-unexpected-uc_query-result-pointer.patch
-  patch -Np1 < ../unicorn-${pkgver}-python-setuptools.patch
+  sed 's/VERSION =.*/VERSION = "'"${pkgver}"'"/' -i bindings/ruby/unicorn_gem/lib/unicorn_engine/version.rb
 }
 
 build() {
-  cd ${pkgbase}-${pkgver}
+  cd ${pkgbase}
   export UNICORN_CFLAGS="${CFLAGS} -ffat-lto-objects"
   export UNICORN_QEMU_FLAGS="--extra-ldflags=\"$LDFLAGS\""
   export QEMU_CXXFLAGS="${CXXFLAGS}"
@@ -72,7 +71,7 @@ build() {
 }
 
 check() {
-  cd ${pkgbase}-${pkgver}
+  cd ${pkgbase}
   ctest --test-dir build --output-on-failure
   cd bindings/python
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
@@ -88,7 +87,7 @@ package_unicorn() {
     glibc
   )
   provides=(libunicorn.so)
-  cd ${pkgbase}-${pkgver}
+  cd ${pkgbase}
   DESTDIR="${pkgdir}" cmake --install build
   install -Dm 644 samples/*.c -t "${pkgdir}/usr/share/doc/${pkgname}/samples"
 }
@@ -99,7 +98,7 @@ package_python-unicorn() {
     python
     python-setuptools
   )
-  cd ${pkgbase}-${pkgver}/bindings/python
+  cd ${pkgbase}/bindings/python
   python -m installer --destdir="${pkgdir}" dist/*.whl
 }
 
@@ -110,7 +109,7 @@ package_ruby-unicorn-engine() {
     ruby
   )
   replaces=('ruby-unicorn')
-  cd ${pkgbase}-${pkgver}/bindings/ruby/unicorn_gem
+  cd ${pkgbase}/bindings/ruby/unicorn_gem
 
   local _gemdir="$(gem env gemdir)"
   gem install \
@@ -121,8 +120,8 @@ package_ruby-unicorn-engine() {
     --install-dir "${pkgdir}${_gemdir}" \
     --bindir "${pkgdir}/usr/bin" \
     ${pkgbase}-*.gem -- \
-    --with-opt-include="${srcdir}/${pkgbase}-${pkgver}/include" \
-    --with-opt-lib="${srcdir}/${pkgbase}-${pkgver}/build"
+    --with-opt-include="${srcdir}/${pkgbase}/include" \
+    --with-opt-lib="${srcdir}/${pkgbase}/build"
 
   install -Dm 644 ../sample* -t "${pkgdir}/usr/share/doc/${pkgname}/samples"
 
