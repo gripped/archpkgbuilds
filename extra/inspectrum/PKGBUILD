@@ -2,7 +2,7 @@
 
 pkgname=inspectrum
 pkgver=0.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Tool for analysing captured signals, primarily from software-defined radio receivers'
 arch=('x86_64')
 url='https://github.com/miek/inspectrum'
@@ -16,7 +16,9 @@ build() {
   mkdir -p $pkgname-$pkgver/build
   cd $pkgname-$pkgver/build
 
-  cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+  cmake .. \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
   make
 }
