@@ -10,13 +10,13 @@
 
 pkgname=gitlab-shell
 pkgver=14.41.0
-pkgrel=1
+pkgrel=2
 epoch=3
 pkgdesc="Git management software"
 arch=('x86_64')
 url="https://gitlab.com/gitlab-org/gitlab-shell/"
 license=('MIT')
-depends=('redis' 'git')
+depends=('valkey' 'git')
 makedepends=('go')
 options=('!strip' '!lto')
 install=gitlab-shell.install

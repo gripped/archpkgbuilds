@@ -1,14 +1,14 @@
 pkgbase = gitlab-shell
 	pkgdesc = Git management software
 	pkgver = 14.41.0
-	pkgrel = 1
+	pkgrel = 2
 	epoch = 3
 	url = https://gitlab.com/gitlab-org/gitlab-shell/
 	install = gitlab-shell.install
 	arch = x86_64
 	license = MIT
 	makedepends = go
-	depends = redis
+	depends = valkey
 	depends = git
 	options = !strip
 	options = !lto
