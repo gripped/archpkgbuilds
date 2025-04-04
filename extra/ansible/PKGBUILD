@@ -3,7 +3,7 @@
 
 pkgname=ansible
 pkgver=11.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Official assortment of Ansible collections'
 arch=('any')
 url='https://pypi.org/project/ansible/'
@@ -24,6 +24,7 @@ optdepends=('python-argcomplete: shell completions'
             'python-keyring: Keyring module'
             'python-github3py: GitHub module'
             'python-lxc: LXC module'
+            'python-fqdn: fqdn_valid module'
             'acme-tiny: openssl_certificate module')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 source=("https://pypi.python.org/packages/source/a/ansible/ansible-${pkgver}.tar.gz")
