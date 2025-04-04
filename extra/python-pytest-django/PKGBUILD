@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-django
-pkgver=4.10.0
+pkgver=4.11.0
 pkgrel=1
 pkgdesc="A Django plugin for py.test"
 arch=('any')
@@ -12,7 +12,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python
              'python-wheel')
 checkdepends=('python-django' 'python-pytest-xdist')
 source=("git+https://github.com/pytest-dev/pytest-django.git#tag=v$pkgver")
-sha512sums=('d13bc81867a575bd0cbfc40a8c0ad150f273401dabaddba3723f60237ef4bdc3cf59b7e2abd511e456b6e37788602d5f573b184d5e468d02a021172800cc8c7a')
+sha512sums=('1583c5a1f05493abe6aea02a5322c3581872802ef090e6aa0ffd66f04c95b01c9480c0ec34fc9aa658f3d84687e423373f4e1d950d16c67697a97e7a9bb4afa5')
 
 build() {
   cd pytest-django
