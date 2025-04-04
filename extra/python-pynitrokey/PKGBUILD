@@ -1,9 +1,10 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
 
 _name=pynitrokey
 pkgname=python-pynitrokey
-pkgver=0.7.4
+pkgver=0.8.1
 pkgrel=1
 pkgdesc="A command line interface for the Nitrokey FIDO2 and Nitrokey Start"
 arch=(any)
@@ -44,8 +45,8 @@ optdepends=(
 source=(
   "$_name::git+$url.git?signed#tag=v$pkgver"
 )
-sha512sums=('dd760394495e601d6953c84c7114bf76c44e2d514dd5581bf2fbb0f264c78145a2912cbaca59071623afb295dd1f3f135e0254c174c291fb532cdbb829f550d2')
-b2sums=('0a6151d48d20192e584f35ffea446d14287f806ff4a496666e6fc76b1b1de7436cc52f35d20e1c75898079fe57493cac1dd67ae89ca2bd6d726f7b42ed7ed35c')
+sha512sums=('102534cb1feaefa47dc4424d6da611577736637a55788fed104c76a5746a218b6da561084a04e6c570f59df155f4873e3f6e7ddfddf819faf341e3914982f7b7')
+b2sums=('86d3c0b4dc2b263b7b13eba07e33c28606e7501c77c905627efb457e50e98153427ae832c9cbe51488c4ae20cb6c4bea25ad7fdcbcf1d0d45acd82c9e6c0a36f')
 validpgpkeys=(
   868184069239FF65DE0BCD7DD9BAE35991DE5B22  # Szczepan Zalega <szczepan@nitrokey.com> (@szszszsz)
   CC74B7120BFAA36FF42868724C1449F1C9804176  # Markus Meissner <meissner@nitrokey.com> (@daringer)
