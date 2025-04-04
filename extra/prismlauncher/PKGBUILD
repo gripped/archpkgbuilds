@@ -10,7 +10,7 @@
 
 pkgname=prismlauncher
 pkgver=9.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Minecraft launcher with ability to manage multiple instances"
 arch=(x86_64)
 url='https://prismlauncher.org'
@@ -36,6 +36,7 @@ optdepends=('glfw: to use system GLFW libraries'
             'openal: to use system OpenAL libraries'
             'visualvm: Profiling support'
             'xorg-xrandr: for older minecraft versions'
+            'orca: minecraft screen reader'
             'flite: minecraft voice narration')
 source=("https://github.com/PrismLauncher/PrismLauncher/releases/download/$pkgver/PrismLauncher-$pkgver.tar.gz"
         {lionshead,batch,mdi}.license)
