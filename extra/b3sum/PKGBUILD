@@ -5,7 +5,7 @@ pkgname=(
   b3sum
   libblake3
 )
-pkgver=1.8.0
+pkgver=1.8.1
 pkgrel=1
 pkgdesc='Command line implementation of the BLAKE3 hash function'
 arch=(x86_64)
@@ -19,7 +19,7 @@ makedepends=(
   rust
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('a27b3adc8f804e2a17a3f8a027a3587aec7811a3bb3e81b867e36a5373b2eaa4907c67ee88fca37b23453e12933362bf2fd791bd68303f1344bde089f663ecb1')
+b2sums=('73846ef16241d81c87caef57c9ac30fe1b18f2c1dbf048a19df61839900e382a561da74d54ebd7266e57e005ec850a3b34957ad88e26883be08b519acc8b2822')
 
 prepare() {
   cd $_name/"${pkgname[0]}"
