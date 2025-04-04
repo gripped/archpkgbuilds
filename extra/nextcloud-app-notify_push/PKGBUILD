@@ -3,7 +3,7 @@
 
 pkgname=nextcloud-app-notify_push
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Update notifications for nextcloud clients'
 arch=(x86_64)
 url="https://github.com/nextcloud/${pkgname##*-}"
@@ -12,7 +12,7 @@ makedepends=(cargo
              nextcloud
              rsync
              yq)
-optdepends=('redis: use a local redis instance')
+optdepends=('valkey: use a local valkey instance')
 install="$pkgname.install"
 groups=(nextcloud-apps)
 _archive="${pkgname##*-}-$pkgver"
