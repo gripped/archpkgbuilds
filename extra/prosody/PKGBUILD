@@ -8,7 +8,7 @@
 
 pkgname=prosody
 epoch=1
-pkgver=13.0.0
+pkgver=13.0.1
 pkgrel=1
 pkgdesc="Lightweight and extensible Jabber/XMPP server written in Lua"
 arch=('x86_64')
@@ -21,8 +21,7 @@ depends=('lua'
          'lua-filesystem'
          'libidn'
          'openssl')
-optdepends=('lua-sec: TLS encryption support'
-#            'lua-event: libevent support'
+optdepends=(#'lua-event: libevent support'
             'lua-dbi: SQL storage support'
             'luarocks: plugin manager')
 install=prosody.install
@@ -35,7 +34,7 @@ source=("https://prosody.im/downloads/source/prosody-$pkgver.tar.gz"{,.asc}
         'prosody.logrotated'
         'sysuser.conf'
         'prosody.service')
-sha256sums=('4309c5cfeb1a74d3f97185f6243a0c1068eb39fa7e91abc42cf2194bf067fc54'
+sha256sums=('7bde8a5bf3cce195fd454970001b9faeac1a4601bcaa5c74eed7c6b74e48d806'
             'SKIP'
             '0753bd9260f1cfdce6e18e01a61e320b396acfe9fca8ccf3250653bfa6af997e'
             '5a2466b73bd069fb73be97a4e23b24e4c8dd1adb7db871cb8f5ab4094c1f967f'
