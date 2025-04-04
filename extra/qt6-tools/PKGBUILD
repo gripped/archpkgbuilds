@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-tools
-_pkgver=6.8.3
+_pkgver=6.9.0
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -23,7 +23,8 @@ makedepends=(clang
              litehtml
              llvm
              ninja
-             qt6-declarative)
+             qt6-declarative
+             vulkan-headers)
 optdepends=('clang: for qdoc and lupdate'
             'litehtml: for assistant'
             'qt6-declarative: for qdistancefieldgenerator, qdoc and lupdate')
@@ -31,7 +32,7 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
         git+https://code.qt.io/playground/qlitehtml)
-sha256sums=('c30d0051c83663f95ce07e28c77416f8fc06ad5aed8fe329f83e5cb01a075a50'
+sha256sums=('3b3d81423f2f15a95834d77c17cab5c02ff4abed642ba79112f986ee2846c081'
             'SKIP')
 
 prepare() {
@@ -39,13 +40,10 @@ prepare() {
   git submodule init
   git submodule set-url src/assistant/qlitehtml "$srcdir"/qlitehtml
   git -c protocol.file.allow=always submodule update
-
-  git cherry-pick -n 9cbd235f7e9dd5baea2f55a6fe1c29a7abd7255b # Add desktop and metainfo files for GUI tools
 }
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
-    -DINSTALL_PUBLICBINDIR=usr/bin \
     -DQT_INSTALL_XDG_DESKTOP_ENTRIES=ON \
     -DCMAKE_MESSAGE_LOG_LEVEL=STATUS
   cmake --build build
