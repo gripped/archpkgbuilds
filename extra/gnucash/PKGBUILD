@@ -4,8 +4,8 @@
 # Contributor: Mark Schneider <queueRAM@gmail.com>
 
 pkgname=gnucash
-pkgver=5.10
-pkgrel=3
+pkgver=5.11
+pkgrel=1
 pkgdesc='Personal and small-business financial-accounting application'
 arch=(x86_64)
 url='https://gnucash.org/'
@@ -19,15 +19,8 @@ optdepends=('gnucash-docs: documentation'
 options=(!emptydirs)
 source=(
   https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2
-  https://src.fedoraproject.org/rpms/gnucash/raw/rawhide/f/gnucash-5.9-swig-4.3.patch
 )
-sha256sums=('789d9f3698ee5b86720279a3a3e10e7744210e12c525ae7f03d32fa70407ad93'
-            '6c64008e8e94957a46ae7882891d7245e3d4ce7eee470934769ee18496cb1075')
-
-prepare() {
-  cd $pkgname-$pkgver
-  patch -Np1 -i ../gnucash-5.9-swig-4.3.patch
-}
+sha256sums=('6ba42313aaaa99b5f07ff6e4dbc58b33fbf5f4be6e911376701d65c26fd4debe')
 
 build() {
   cd $pkgname-$pkgver
@@ -36,7 +29,6 @@ build() {
   sed -e 's|-Werror||g' -i CMakeLists.txt
 
   cmake	-DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_INSTALL_LIBDIR=/usr/lib \
         -DWITH_PYTHON=ON \
         -DCOMPILE_GSCHEMAS=OFF
   make
