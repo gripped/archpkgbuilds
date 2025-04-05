@@ -2,8 +2,8 @@
 
 pkgname=python-stone
 _name=${pkgname#python-}
-pkgver=3.3.8
-pkgrel=2
+pkgver=3.3.9
+pkgrel=1
 pkgdesc='The Official API Spec Language for Dropbox API V2'
 arch=(any)
 url='https://github.com/dropbox/stone'
@@ -23,7 +23,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("git+$url#tag=v$pkgver")
-sha256sums=('2a8c1d53f9bc1feaeafc5aa3e2992d6f8062b4f49773aedb795cb46bfd3fb427')
+sha256sums=('c964f72c4a4da6c88924cadc864121422eeb9a676e72c14d87c4ba1948e5a915')
 
 # Remove pytest-runner from setup_requires
 prepare() {
