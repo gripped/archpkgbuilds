@@ -1,0 +1,55 @@
+From 347e2ad129e0d1d904f8d12276da9621ea534633 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 5 Apr 2025 14:29:59 +0200
+Subject: [PATCH] Add "new-window" command-line option
+
+And specify the action in the desktop file. This allows application
+launchers to provide direct access to this action.
+---
+ apostrophe/application.py                            | 9 +++++++++
+ data/org.gnome.gitlab.somas.Apostrophe.desktop.in.in | 5 +++++
+ 2 files changed, 14 insertions(+)
+
+diff --git a/apostrophe/application.py b/apostrophe/application.py
+index 43f76eb..c82fff6 100644
+--- a/apostrophe/application.py
++++ b/apostrophe/application.py
+@@ -36,6 +36,9 @@ class Application(Adw.Application):
+                          flags=Gio.ApplicationFlags.HANDLES_OPEN,
+                          **kwargs)
+ 
++        self.add_main_option("new-window", b"w", GLib.OptionFlags.NONE,
++                             GLib.OptionArg.NONE, "Open a new window", None)
++
+         self.add_main_option("verbose", b"v", GLib.OptionFlags.NONE,
+                              GLib.OptionArg.NONE, "Verbose output", None)
+ 
+@@ -137,6 +140,12 @@ class Application(Adw.Application):
+         self.get_windows()[-1].present()
+ 
+     def do_handle_local_options(self, options):
++        if options.contains("new-window"):
++            self.register()
++            if self.get_property("is-remote"):
++                self.activate_action("new-window")
++                return 0
++
+         if options.contains("verbose") or self._application_id \
+                 == 'org.gnome.gitlab.somas.Apostrophe.Devel':
+             set_up_logging(1)
+diff --git a/data/org.gnome.gitlab.somas.Apostrophe.desktop.in.in b/data/org.gnome.gitlab.somas.Apostrophe.desktop.in.in
+index 1221422..8efa148 100644
+--- a/data/org.gnome.gitlab.somas.Apostrophe.desktop.in.in
++++ b/data/org.gnome.gitlab.somas.Apostrophe.desktop.in.in
+@@ -11,3 +11,8 @@ Terminal=false
+ Type=Application
+ StartupNotify=true
+ MimeType=text/x-markdown;text/plain;
++Actions=new-window;
++
++[Desktop Action new-window]
++Name=New Window
++Exec=apostrophe --new-window
+-- 
+GitLab
+
