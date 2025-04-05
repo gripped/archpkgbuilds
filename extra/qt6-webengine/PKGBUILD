@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-webengine
-_pkgver=6.8.3
+_pkgver=6.9.0
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -56,8 +56,8 @@ depends=(alsa-lib
          snappy
          ttf-font
          zlib)
-       # system libvpx disabled since https://codereview.qt-project.org/c/qt/qtwebengine/+/454908
-       # libvpx pciutils
+       # pciutils
+       # libvpx disabled if VA-API is used
 makedepends=(cmake
              git
              gperf
@@ -77,9 +77,11 @@ optdepends=('pipewire: WebRTC desktop sharing under Wayland')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
-        git+https://code.qt.io/qt/qtwebengine-chromium)
-sha256sums=('032e30f7bff59eaaa95b52b55defd5ee793ece98bfc78b8414ea65f770b26fd1'
-            'SKIP')
+        git+https://code.qt.io/qt/qtwebengine-chromium
+        pipewire-1.4.patch)
+sha256sums=('b241666ad58bc6c30bd9e0e89cb6f7ba2df57be0c51faabe75c858972fa8367e'
+            'SKIP'
+            '6a441e426ea993e0abefcb3a92adb5fe3a328974eca6de94087cd597a4315f7a')
 
 prepare() {
   cd $_pkgfn
@@ -87,8 +89,7 @@ prepare() {
   git submodule set-url src/3rdparty "$srcdir"/qtwebengine-chromium
   git -c protocol.file.allow=always submodule update
 
-  cd src/3rdparty
-  git cherry-pick -n 24e9ff7caa6aa78c1c73e7329cf1230a455d0c1b # Fix playback issues with system ffmpeg
+  patch -d src/3rdparty/chromium/third_party/webrtc -p1 < ../pipewire-1.4.patch
 }
 
 build() {
