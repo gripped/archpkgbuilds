@@ -2,7 +2,7 @@
 
 pkgname=gammaray
 pkgver=3.1.0
-pkgrel=6
+pkgrel=7
 pkgdesc='A tool for examining the internals of a Qt application and to some extent also manipulate it'
 arch=(x86_64)
 url='https://www.kdab.com/gammaray/'
@@ -16,6 +16,7 @@ depends=(gcc-libs
          syntax-highlighting)
 makedepends=(cmake
              doxygen
+             git
              qt5-connectivity
              qt5-location
              qt5-script
@@ -44,18 +45,20 @@ optdepends=('qt5-base: Qt5 applications support'
             'qt6-wayland: Wayland compositor inspector plugin'
             'qt6-webengine: web inspector plugin'
             'qt6-connectivity: bluetooth plugin')
-source=(https://github.com/KDAB/GammaRay/releases/download/v$pkgver/gammaray-$pkgver.tar.gz{,.asc})
-sha256sums=('93b52d5318374896621e1d8b5dd03379c53e0458b1633b539d18737fe8c300cf'
-            'SKIP')
+source=(git+https://github.com/KDAB/GammaRay#tag=v$pkgver)
+sha256sums=('dbee96f2e1c6b821cb2b797257f6060df085ee8588e44432333df1b927a35214')
 validpgpkeys=(E86C000370B1B9E2A9191AD53DBFB6882C9358FB) # KDAB Products <info@kdab.com>
 
 prepare() {
 # Fix plugin install dir
-  sed -e 's|plugins/gammaray|lib/qt6/plugins/gammaray|' -i $pkgname-$pkgver/CMakeLists.txt
+  sed -e 's|plugins/gammaray|lib/qt6/plugins/gammaray|' -i GammaRay/CMakeLists.txt
+
+  cd GammaRay
+  git cherry-pick -n 73a102f50f0c4f9482f90b84814aa9cd812c3136 # Qt 6.9 support
 }
 
 build() {
-  cmake -B build5 -S $pkgname-$pkgver \
+  cmake -B build5 -S GammaRay \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DQT_VERSION_MAJOR=5 \
     -DGAMMARAY_INSTALL_QT_LAYOUT=ON \
@@ -63,7 +66,7 @@ build() {
     -DPLUGIN_INSTALL_DIR=/usr/lib/qt/plugins/gammaray
   cmake --build build5
 
-  cmake -B build6 -S $pkgname-$pkgver \
+  cmake -B build6 -S GammaRay \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DQT_VERSION_MAJOR=6 \
     -DGAMMARAY_INSTALL_QT_LAYOUT=ON \

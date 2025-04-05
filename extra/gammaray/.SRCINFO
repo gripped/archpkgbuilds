@@ -1,12 +1,13 @@
 pkgbase = gammaray
 	pkgdesc = A tool for examining the internals of a Qt application and to some extent also manipulate it
 	pkgver = 3.1.0
-	pkgrel = 6
+	pkgrel = 7
 	url = https://www.kdab.com/gammaray/
 	arch = x86_64
 	license = GPL-2.0-or-later
 	makedepends = cmake
 	makedepends = doxygen
+	makedepends = git
 	makedepends = qt5-connectivity
 	makedepends = qt5-location
 	makedepends = qt5-script
@@ -42,10 +43,8 @@ pkgbase = gammaray
 	optdepends = qt6-wayland: Wayland compositor inspector plugin
 	optdepends = qt6-webengine: web inspector plugin
 	optdepends = qt6-connectivity: bluetooth plugin
-	source = https://github.com/KDAB/GammaRay/releases/download/v3.1.0/gammaray-3.1.0.tar.gz
-	source = https://github.com/KDAB/GammaRay/releases/download/v3.1.0/gammaray-3.1.0.tar.gz.asc
+	source = git+https://github.com/KDAB/GammaRay#tag=v3.1.0
 	validpgpkeys = E86C000370B1B9E2A9191AD53DBFB6882C9358FB
-	sha256sums = 93b52d5318374896621e1d8b5dd03379c53e0458b1633b539d18737fe8c300cf
-	sha256sums = SKIP
+	sha256sums = dbee96f2e1c6b821cb2b797257f6060df085ee8588e44432333df1b927a35214
 
 pkgname = gammaray
