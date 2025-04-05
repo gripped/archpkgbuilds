@@ -1,0 +1,63 @@
+diff --git a/src/widgets/dlabel.cpp b/src/widgets/dlabel.cpp
+index 5b5310f9..6341077c 100644
+--- a/src/widgets/dlabel.cpp
++++ b/src/widgets/dlabel.cpp
+@@ -257,11 +257,11 @@ void DLabel::paintEvent(QPaintEvent *event)
+         }
+     } else
+ #endif
+-    if (d->pixmap && !d->pixmap->isNull()) {
+-        QPixmap pix;
++    if (d->icon && !d->icon->isNull()) {
++        QPixmap pix = d->icon->pixmap(d->pixmapSize);
+         if (d->scaledcontents) {
+             QSize scaledSize = cr.size() * devicePixelRatioF();
+-            if (!d->scaledpixmap || d->scaledpixmap->size() != scaledSize) {
++            if (!pix || d->pixmapSize != scaledSize) {
+ #if QT_VERSION < QT_VERSION_CHECK(6, 8, 0)
+                 if (!d->cachedimage)
+ #endif
+@@ -272,14 +272,13 @@ void DLabel::paintEvent(QPaintEvent *event)
+ #if QT_VERSION < QT_VERSION_CHECK(6, 8, 0)
+                     d->cachedimage = QImage(d->pixmap->toImage());
+ #endif
+-                d->scaledpixmap.reset();
+ #endif
+ #if QT_VERSION < QT_VERSION_CHECK(6, 8, 0)
+                 QImage scaledImage =
+                     d->cachedimage->scaled(scaledSize,
+                                            Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+ #else
+-                    d->scaledpixmap = d->pixmap->scaled(scaledSize,
++                    pix = pix.scaled(scaledSize,
+                                             Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+ #endif
+ #if QT_VERSION < QT_VERSION_CHECK(6, 4, 2)
+@@ -289,11 +288,10 @@ void DLabel::paintEvent(QPaintEvent *event)
+                 d->scaledpixmap = QPixmap(QPixmap::fromImage(scaledImage));
+ #endif
+ #endif
+-                d->scaledpixmap->setDevicePixelRatio(devicePixelRatioF());
++                pix.setDevicePixelRatio(devicePixelRatioF());
+             }
+-            pix = *d->scaledpixmap;
+         } else
+-            pix = *d->pixmap;
++            pix = d->icon->pixmap(d->pixmapSize);
+         QStyleOption opt;
+         opt.initFrom(this);
+         if (!isEnabled())
+diff --git a/src/widgets/dtitlebarsettings.cpp b/src/widgets/dtitlebarsettings.cpp
+index f0e59edf..a5d4f952 100644
+--- a/src/widgets/dtitlebarsettings.cpp
++++ b/src/widgets/dtitlebarsettings.cpp
+@@ -60,6 +60,8 @@ DTitlebarSettingsImpl *DTitlebarSettings::impl()
+     return d->impl;
+ }
+ 
++DWIDGET_END_NAMESPACE
++
+ #include "moc_dtitlebarsettings.cpp"
+ 
+-DWIDGET_END_NAMESPACE
++

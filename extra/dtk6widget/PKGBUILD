@@ -3,8 +3,8 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=dtk6widget
-pkgver=6.0.28
-pkgrel=2
+pkgver=6.0.29
+pkgrel=1
 pkgdesc='Deepin base graphical widgets library'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtk6widget"
@@ -13,8 +13,14 @@ license=('LGPL3')
 depends=('dtk6core' 'dtk6gui' 'gcc-libs' 'glibc' 'libx11' 'libxcb' 'libxext' 'libxi'
          'qt6-base' 'qt6-imageformats' 'qt6-svg' 'startup-notification' 'xcb-util')
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'gtest' 'doxygen')
-source=("git+https://github.com/linuxdeepin/dtk6widget.git#tag=$pkgver")
-sha512sums=('48c415f5d2a091ea9bd7fd7d5ae6a89d286f2c4caea7f26a3dfd8808507d9568eb511c455aac1fde6c221ddc1ef1b916c9b4b1e0d75987c8520a45e68e90760d')
+source=("git+https://github.com/linuxdeepin/dtk6widget.git#tag=$pkgver"
+         qt-6.9.patch)
+sha512sums=('d4a9368b87056bc09cefcd37502b2b4395ba75d067009614ed90ee719a8d9bea170a927c6fc8ca7170954267e094dc605df2b65812408e447876ec54a2accb3c'
+            '04824cbb6ae5b996661a5976e529785535d352d3f69ae8d0d0ca371c889db8af0679dcb905be104ea508da1819714174cf910639cec37bff8838eb2b62109611')
+
+prepare() {
+  patch -d $pkgname -p1 < qt-6.9.patch
+}
 
 build() {
   cd dtk6widget
