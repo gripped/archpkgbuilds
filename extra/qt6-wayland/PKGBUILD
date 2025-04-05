@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-wayland
-_pkgver=6.8.3
+_pkgver=6.9.0
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -23,18 +23,12 @@ depends=(gcc-libs
          wayland)
 makedepends=(cmake
              git
-             ninja)
+             ninja
+             vulkan-headers)
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('4c8ea709f36fb7b548f1cb971a659d7efcb3ca380be1655fac6b309957f87c3f')
-
-prepare() {
-  cd $_pkgfn
-  # Cherry picks for DDE
-  git cherry-pick -n 67f121cc4c3865aa3a93cf563caa1d9da3c92695
-  git cherry-pick -n 070414dd4155e13583e5e8b16bed1a5b68d32910
-}
+sha256sums=('b5507dcbd923b70e5e4b0b866f422070c51e1fc0a25972ca7af38bf3660870b7')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
