@@ -6,7 +6,7 @@ pkgbase=musl
 pkgname=(musl musl-aarch64 musl-riscv64)
 _archs=("aarch64" "riscv64")
 pkgver=1.2.5
-pkgrel=4
+pkgrel=5
 pkgdesc='Lightweight implementation of C standard library'
 arch=('x86_64')
 url='https://www.musl-libc.org/'
@@ -60,6 +60,8 @@ build() {
 package_musl() {
   cd $pkgname-$pkgver
   make DESTDIR="$pkgdir" install
+
+  ln -s ./musl-gcc "$pkgdir"/usr/bin/x86_64-linux-musl-gcc
 
   # configure syslibdir with /lib for PT_INTERP compat, but install to /usr/lib
   mv "$pkgdir"/lib/ld-musl*.so* "$pkgdir"/usr/lib/
