@@ -1,9 +1,13 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 # Contributor: Tiago de Paula Peixoto <tiago@skewed.de>
 
-pkgname=python-graph-tool
+pkgbase=python-graph-tool
+pkgname=(
+  python-graph-tool
+  python-graph-tool-opt
+)
 pkgver=2.96
-pkgrel=1
+pkgrel=2
 pkgdesc='A Python module for manipulation and statistical analysis of graphs'
 arch=(x86_64)
 url='https://graph-tool.skewed.de'
@@ -41,19 +45,38 @@ b2sums=('ee199cbb35fea9134f9f1a5e656f041ad5853a1f87c84e1e7a6e74dc0e2050afaea16a1
 # (due to unwanted mixture of optimization flags during link time).
 options=(!lto)
 
-build() {
-  cd graph-tool-$pkgver
+prepare() {
+  # copy the source tree for -opt build
+  cp -ar graph-tool-$pkgver graph-tool-$pkgver-opt
+}
 
+build() {
   # disable assertions which lead to runtime performance degradation
   CXXFLAGS=${CXXFLAGS/-Wp,-D_GLIBCXX_ASSERTIONS/}
   # the package benefits from -O3 (due to -funswitch-loops and others)
   export CXXFLAGS=${CXXFLAGS/-O2/-O3}
 
-  ./configure --enable-openmp --prefix=/usr --docdir=/usr/share/doc/$pkgname \
+  local configure_options=(
+    --prefix=/usr
+    --docdir=/usr/share/doc/$pkgbase
+    --enable-openmp
     MOD_CXXFLAGS="-flto=auto"
+  )
+
+  # build the base package
+  cd "$srcdir"/graph-tool-$pkgver
+  ./configure "${configure_options[@]}"
   # prevent excessive overlinking due to libtool
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  # building graph-tool requires a lot of memory per thread, so do not use all available cores
+  make -j$(( $(nproc) / 2 ))
 
+  # build the -opt package
+  cd "$srcdir"/graph-tool-$pkgver-opt
+  export CXXFLAGS=${CXXFLAGS/-march=x86-64/-march=x86-64-v3}
+  ./configure "${configure_options[@]}"
+  # prevent excessive overlinking due to libtool
+  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   # building graph-tool requires a lot of memory per thread, so do not use all available cores
   make -j$(( $(nproc) / 2 ))
 }
@@ -63,10 +86,22 @@ check() {
   make check
 }
 
-package() {
+package_python-graph-tool() {
   cd graph-tool-$pkgver
   make DESTDIR="$pkgdir" install
 
   # remove doc subdirectory with unbuilt sphinx sources
-  rm -frv "$pkgdir"/usr/share/doc/$pkgname/doc/
+  rm -frv "$pkgdir"/usr/share/doc/$pkgbase/doc/
+}
+
+package_python-graph-tool-opt() {
+  pkgdesc+=" (with AVX2 CPU optimizations)"
+  conflicts=(python-graph-tool)
+  provides=(python-graph-tool=$pkgver)
+
+  cd graph-tool-$pkgver-opt
+  make DESTDIR="$pkgdir" install
+
+  # remove doc subdirectory with unbuilt sphinx sources
+  rm -frv "$pkgdir"/usr/share/doc/$pkgbase/doc/
 }
