@@ -1,0 +1,52 @@
+From c72451f3f9e4eda3a7c227a5cd021e3a60b6c821 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 2 Apr 2025 12:15:34 +0200
+Subject: [PATCH] application: Present active window if available
+
+Instead of creating new one, raise the existing one on activation.
+---
+ data/io.gitlab.liferooter.TextPieces.desktop.in.in |  5 -----
+ src/application.rs                                 | 10 +++++++---
+ 2 files changed, 7 insertions(+), 8 deletions(-)
+
+diff --git a/data/io.gitlab.liferooter.TextPieces.desktop.in.in b/data/io.gitlab.liferooter.TextPieces.desktop.in.in
+index fa4299d..22d4d2d 100644
+--- a/data/io.gitlab.liferooter.TextPieces.desktop.in.in
++++ b/data/io.gitlab.liferooter.TextPieces.desktop.in.in
+@@ -14,12 +14,7 @@ Categories=Utility;TextTools;GNOME;GTK;
+ Icon=@icon@
+ Type=Application
+ Exec=textpieces %U
+-Actions=new-window;
+ 
+ Terminal=false
+ StartupNotify=true
+ MimeType=text/plain;
+-
+-[Desktop Action new-window]
+-Name=New Window
+-Exec=textpieces
+diff --git a/src/application.rs b/src/application.rs
+index e24037a..d10cd45 100644
+--- a/src/application.rs
++++ b/src/application.rs
+@@ -110,9 +110,13 @@ mod imp {
+         fn activate(&self) {
+             self.parent_activate();
+ 
+-            // Open new window when user
+-            // start the application
+-            self.new_window();
++            // Open new window when user start the
++            // application or raise the existing one
++            if let Some(window) = self.obj().active_window() {
++                window.present();
++            } else {
++                self.new_window();
++            }
+         }
+ 
+         /// Startup method.
+-- 
+GitLab
+
