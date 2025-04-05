@@ -1,0 +1,33 @@
+diff -ru pyqt6-6.8.1.orig/qpy/QtCore/qpycore_enums_flags_metatype.cpp pyqt6-6.8.1/qpy/QtCore/qpycore_enums_flags_metatype.cpp
+--- pyqt6-6.8.1.orig/qpy/QtCore/qpycore_enums_flags_metatype.cpp	2025-04-02 15:13:54.530496572 +0200
++++ pyqt6-6.8.1/qpy/QtCore/qpycore_enums_flags_metatype.cpp	2025-04-02 15:15:05.759112741 +0200
+@@ -45,7 +45,7 @@
+     {
+         mti->alignment = alignof(unsigned);
+         mti->size = sizeof(unsigned);
+-        mti->flags = QtPrivate::QMetaTypeForType<unsigned>::Flags | QMetaType::IsEnumeration | QMetaType::IsUnsignedEnumeration;
++        mti->flags = QtPrivate::QMetaTypeForType<unsigned>::flags() | QMetaType::IsEnumeration | QMetaType::IsUnsignedEnumeration;
+         mti->defaultCtr = QtPrivate::QMetaTypeForType<unsigned>::getDefaultCtr();
+         mti->copyCtr = QtPrivate::QMetaTypeForType<unsigned>::getCopyCtr();
+         mti->moveCtr = QtPrivate::QMetaTypeForType<unsigned>::getMoveCtr();
+@@ -61,7 +61,7 @@
+     {
+         mti->alignment = alignof(int);
+         mti->size = sizeof(int);
+-        mti->flags = QtPrivate::QMetaTypeForType<int>::Flags | QMetaType::IsEnumeration;
++        mti->flags = QtPrivate::QMetaTypeForType<int>::flags() | QMetaType::IsEnumeration;
+         mti->defaultCtr = QtPrivate::QMetaTypeForType<int>::getDefaultCtr();
+         mti->copyCtr = QtPrivate::QMetaTypeForType<int>::getCopyCtr();
+         mti->moveCtr = QtPrivate::QMetaTypeForType<int>::getMoveCtr();
+diff -ru pyqt6-6.8.1.orig/sip/QtXml/qdom.sip pyqt6-6.8.1/sip/QtXml/qdom.sip
+--- pyqt6-6.8.1.orig/sip/QtXml/qdom.sip	2025-04-02 15:13:54.561104890 +0200
++++ pyqt6-6.8.1/sip/QtXml/qdom.sip	2025-04-02 15:25:52.174269085 +0200
+@@ -158,8 +158,6 @@
+     QDomNodeList();
+     QDomNodeList(const QDomNodeList &);
+     ~QDomNodeList();
+-    bool operator==(const QDomNodeList &) const;
+-    bool operator!=(const QDomNodeList &) const;
+     QDomNode item(int index) const;
+     QDomNode at(int index) const;
+     int length() const;
