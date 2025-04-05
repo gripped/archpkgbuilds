@@ -1,7 +1,7 @@
 pkgbase = jellyfin-server
 	pkgdesc = Jellyfin server backend
-	pkgver = 10.10.6
-	pkgrel = 2
+	pkgver = 10.10.7
+	pkgrel = 1
 	url = https://jellyfin.org
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -13,20 +13,21 @@ pkgbase = jellyfin-server
 	depends = fontconfig
 	depends = jellyfin-ffmpeg
 	optdepends = jellyfin-web: to run web-app on the same machine
+	optdepends = noto-fonts: for text titles in library folders
 	options = !debug
 	backup = etc/jellyfin/logging.json
 	backup = etc/jellyfin/jellyfin.env
-	source = jellyfin-server::git+https://github.com/jellyfin/jellyfin#tag=v10.10.6
+	source = jellyfin-server::git+https://github.com/jellyfin/jellyfin#tag=v10.10.7
 	source = jellyfin-packaging::git+https://github.com/jellyfin/jellyfin-packaging
 	source = sysusers.conf
 	source = tmpfiles.conf
 	source = fix-envfile-path.patch
-	sha512sums = d03ab5f144a640bf1369db2ae7d5cef163d23f679e1a2eea70ae259b0c3976cf13fc0f4d412e218da9b2c01139261427fbc969eb146cdde6da0d4620198afc7f
+	sha512sums = 5da3c59c2544f4a2028dde3fb0ea76500d591cfbe7551ac7bb680c718db9c2ed074493c605b432b53f8b0ec66436b5da632578a6f16f1a14712aa51a77366e2e
 	sha512sums = SKIP
 	sha512sums = 3d2699174fe8719536e4f3ad98bac609a959815e38491f166257d248c195f007745634fa1907557d55c814bb06235130e9cea2d226770956004650d7d9b2b564
 	sha512sums = 3e12ec3d3fcb15975d5f86bc3ce3363ae89b0e9e0b2580c29fc8a612c0220a74a067138b15c48ae27bb3c5777eca33055f10651949678a1ee7bd094293f6abb6
 	sha512sums = 26d4a2c081c5a2563863fb21a427e6b5ff0f551549b7ba77075054e81fbda064991e3443ec3f11f42ffdcc8adef0e20363f00d248d7967d327656280db919672
-	b2sums = acb386e0c2ca909a1d68c5bb89632f1226033e0eb127a418f745995d24ded83c9ad6446cd5d7cd639cef8b7fb0d208f1d01519a0e71f11a9688c7b719cf282ff
+	b2sums = c1be3bbe2b9352c002b560b4a6727630fdfbb9a86552fcad333fb7f05c5bd804e919c194197e8315b2e87a2191f8bd3f67ee70585162b98bdbf7ce57b3355fca
 	b2sums = SKIP
 	b2sums = 5aa5e041513db1cd58e4b0dd91b712931be956d0c4e240c92f5183260a55ad48b6d34612b9a22bf49eb9c80418b2437b01f2cfef200f035a3475a0737d6871ea
 	b2sums = bc8001cf28ebf76a125e7ab0d9d5a8fcf35e0def5b907dc5fe90e16cdbb3fdf8b7f098779ced9a44e7a3918ee605058b379d445a224178456a32a6a99cd084b4
