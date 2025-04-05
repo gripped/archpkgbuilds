@@ -1,0 +1,46 @@
+diff --git a/src/FileAppender.cpp b/src/FileAppender.cpp
+index 6f19248..705601c 100644
+--- a/src/FileAppender.cpp
++++ b/src/FileAppender.cpp
+@@ -76,8 +76,8 @@ void FileAppender::setFileName(const QString &s)
+ 
+     m_logFile.setFileName(s);
+ 
+-    if (!spdlog::get(loggerName(s)))
+-        rolling_logger_mt(loggerName(s),
++    if (!spdlog::get(loggerName(QFile(s))))
++        rolling_logger_mt(loggerName(QFile(s)),
+                           m_logFile.fileName().toStdString(),
+                           1024 * 1024 * 20, 0);
+ }
+diff --git a/src/RollingFileAppender.cpp b/src/RollingFileAppender.cpp
+index 605e724..af65dc5 100644
+--- a/src/RollingFileAppender.cpp
++++ b/src/RollingFileAppender.cpp
+@@ -88,7 +88,7 @@ void RollingFileAppender::removeOldFiles()
+ 
+ void RollingFileAppender::computeRollOverTime()
+ {
+-    if (auto *fs = get_sink<rolling_file_sink_mt>(loggerName(fileName())))
++    if (auto *fs = get_sink<rolling_file_sink_mt>(loggerName(QFile(fileName()))))
+     {
+         return fs->set_interval(RollingInterval(m_frequency));
+     }
+@@ -103,7 +103,7 @@ void RollingFileAppender::setLogFilesLimit(int limit)
+     QMutexLocker locker(&m_rollingMutex);
+     m_logFilesLimit = limit;
+ 
+-    if (auto *fs = get_sink<rolling_file_sink_mt>(loggerName(fileName())))
++    if (auto *fs = get_sink<rolling_file_sink_mt>(loggerName(QFile(fileName()))))
+     {
+         return fs->set_max_files(std::size_t(limit));
+     }
+@@ -120,7 +120,7 @@ void RollingFileAppender::setLogSizeLimit(int limit)
+     QMutexLocker locker(&m_rollingMutex);
+     m_logSizeLimit = limit;
+ 
+-    if (auto *fs = get_sink<rolling_file_sink_mt>(loggerName(fileName())))
++    if (auto *fs = get_sink<rolling_file_sink_mt>(loggerName(QFile(fileName()))))
+     {
+         return fs->set_max_size(std::size_t(limit));
+     }
