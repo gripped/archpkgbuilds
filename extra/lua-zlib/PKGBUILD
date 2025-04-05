@@ -6,9 +6,9 @@ pkgbase=lua-zlib
 _rockname=${pkgbase##lua-}
 pkgname=(lua-$_rockname lua53-$_rockname lua52-$_rockname lua51-$_rockname)
 epoch=1
-pkgver=1.2
-pkgrel=6
-_rockrel=2
+pkgver=1.3
+pkgrel=1
+_rockrel=0
 url="https://github.com/brimworks/$pkgbase"
 pkgdesc='Simple streaming interface to zlib'
 arch=(x86_64)
@@ -24,8 +24,8 @@ _archive="$pkgbase-$pkgver"
 _rock="$_archive-$_rockrel.linux-$CARCH.rock"
 source=("$url/archive/v$pkgver/$_archive.tar.gz"
         "https://luarocks.org/manifests/brimworks/$_archive-$_rockrel.rockspec")
-sha256sums=('26b813ad39c94fc930b168c3418e2e746af3b2e80b92f94f306f6f954cc31e7d'
-            'adc3e279ce67fb477ce7bf88cfb87607491d1c50d9c785b1567066c353f192f9')
+sha256sums=('d026eda33b7c3456696bcecdc0b26d7bd779de4f5a4d4215ebe3897095c6c9c8'
+            '8806be122f5621a657078e8038c7c4ff58720aedcb21da8fdd2b01304981b31a')
 
 build() {
 	cd "$_archive"
