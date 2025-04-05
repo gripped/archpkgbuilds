@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-websockets
-_pkgver=6.8.3
+_pkgver=6.9.0
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -23,7 +23,7 @@ optdepends=('qt6-declarative: QML bindings')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('cc1653ff65d15a07359f47818b6b417b1f9568ac1a98881875ffb78cdcce9818')
+sha256sums=('1cb07e71253e735f71e32eccc2834da392a0b32af5cba1d1ef0136581abba7e4')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
