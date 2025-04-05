@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-declarative
-_pkgver=6.8.3
+_pkgver=6.9.0
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -22,16 +22,16 @@ makedepends=(cmake
              python
              qt6-languageserver
              qt6-shadertools
-             qt6-svg)
+             qt6-svg
+             vulkan-headers)
 optdepends=('qt6-svg: for QtQuickVectorImage and svgtoqml')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('19df09f3bd3ba68412d250c86959067b7d3980283b0c44b53c976d299d0c4bb2')
+sha256sums=('6b669a71f0e92bb63af1684d14af39559419c78f6931162b1a49c7c1d1f39a5d')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
-    -DINSTALL_PUBLICBINDIR=usr/bin \
     -DCMAKE_MESSAGE_LOG_LEVEL=STATUS \
     -DCMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects"
   cmake --build build
