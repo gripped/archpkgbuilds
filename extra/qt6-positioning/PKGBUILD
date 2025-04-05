@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-positioning
-_pkgver=6.8.3
+_pkgver=6.9.0
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -26,7 +26,7 @@ optdepends=('geoclue: geoclue2 plugin'
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('4ca6e066a1082212da53f3f0b9ce170a16a53636e92d33cf412b81ffa6880a3c')
+sha256sums=('219c4d10809b9b46ac34388f10a0e071a9bb90314ff904119590e3978b3f02ad')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
