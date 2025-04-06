@@ -1,7 +1,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 pkgname=sudo-rs
-pkgver=0.2.4
-pkgrel=6
+pkgver=0.2.5
+pkgrel=1
 pkgdesc="A memory safe implementation of sudo and su."
 arch=('x86_64')
 url="https://github.com/trifectatechfoundation/sudo-rs"
@@ -25,7 +25,7 @@ optdepends=(
 source=(
   "${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz"
 )
-sha256sums=('c2c1f4c8087134a90df47a8bee76746c4ab24dd7d12f3b26a74d1560ea3ee68c')
+sha256sums=('9ee73883ba0792361d86d6e2da2e1af7e4e469da1597f1cced3b961a8fdb0cf6')
 
 prepare() {
   cd "$pkgname-$pkgver"
