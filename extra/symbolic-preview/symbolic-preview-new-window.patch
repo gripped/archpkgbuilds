@@ -1,0 +1,77 @@
+From 4a2942bc96af54bf4796cf36278b394b2f1ed505 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 6 Apr 2025 14:52:54 +0200
+Subject: [PATCH] Add "new-window" command-line option
+
+And specify the action in the desktop file. This allows application
+launchers to provide direct access to this action.
+---
+ ...gnome.design.SymbolicPreview.desktop.in.in |  6 ++++
+ src/application.rs                            | 34 ++++++++++++++++++-
+ 2 files changed, 39 insertions(+), 1 deletion(-)
+
+diff --git a/data/org.gnome.design.SymbolicPreview.desktop.in.in b/data/org.gnome.design.SymbolicPreview.desktop.in.in
+index 5798d07..b437f76 100644
+--- a/data/org.gnome.design.SymbolicPreview.desktop.in.in
++++ b/data/org.gnome.design.SymbolicPreview.desktop.in.in
+@@ -10,4 +10,10 @@ Keywords=Gnome;GTK;Symbolics;Icon;
+ Icon=@icon@
+ StartupNotify=true
+ MimeType=image/svg+xml;
++Actions=new-window;
+ 
++[Desktop Action new-window]
++Exec=symbolic-preview --new-window
++Name=New Window
++# Translators: Do NOT translate or transliterate this text (this is an icon file name)!
++Icon=window-new
+diff --git a/src/application.rs b/src/application.rs
+index 449fa17..5534033 100644
+--- a/src/application.rs
++++ b/src/application.rs
+@@ -27,9 +27,41 @@ mod imp {
+         type ParentType = adw::Application;
+     }
+ 
+-    impl ObjectImpl for Application {}
++    impl ObjectImpl for Application {
++        fn constructed(&self) {
++            self.parent_constructed();
++            tracing::debug!("Application::constructed");
++
++            self.obj().add_main_option(
++                "new-window",
++                glib::Char::from(b'w'),
++                glib::OptionFlags::NONE,
++                glib::OptionArg::None,
++                &gettext("Open a new window"),
++                None,
++            );
++        }
++    }
+ 
+     impl ApplicationImpl for Application {
++        fn handle_local_options(&self, options: &glib::VariantDict) -> glib::ExitCode {
++            let app = self.obj();
++
++            if options.contains("new-window") {
++                if let Err(err) = app.register(None::<&gio::Cancellable>) {
++                    tracing::error!("Failed to register the application: {err}");
++                }
++
++                if app.is_remote() {
++                    app.activate_action("new-window", None);
++                    return glib::ExitCode::SUCCESS;
++                }
++            }
++
++            tracing::debug!("Application::handle_local_options");
++            self.parent_handle_local_options(options)
++        }
++
+         fn activate(&self) {
+             self.parent_activate();
+             let app = self.obj();
+-- 
+GitLab
+
