@@ -4,7 +4,7 @@
 
 pkgname=ly
 pkgver=1.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc="TUI display manager"
 arch=(x86_64)
 url="https://github.com/fairyglade/ly"
@@ -13,7 +13,10 @@ depends=(pam glibc libxcb)
 makedepends=(git zig)
 optdepends=('xorg-xauth: for X server sessions'
             'libxcb: for X server sessions')
-backup=(etc/$pkgname/{config.ini,wsetup.sh,xsetup.sh})
+backup=(
+    etc/$pkgname/{config.ini,wsetup.sh,xsetup.sh}
+    etc/pam.d/ly
+)
 source=("git+$url.git#tag=v${pkgver}")
 b2sums=('f5ac7d949487d70e0102b595f5d8b31615071f3edcc90e1d15285ad46843147bcda2510e4c946dbe123c326f3d1ed407d2ed4e7adac0370a7af2750a757c61f8')
 
