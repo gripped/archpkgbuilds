@@ -1,0 +1,64 @@
+From a1fa233ce935a29f63a0d8bd84a63b87236d6782 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 6 Apr 2025 09:50:18 +0200
+Subject: [PATCH] Add "new-window" and "version" command-line options
+
+And specify the "new-window" action in the desktop file. This allows
+application launchers to provide direct access to this action.
+---
+ ...b.diegoivan.pdf_metadata_editor.desktop.in |  5 ++++
+ src/application.vala                          | 28 +++++++++++++++++++
+ 2 files changed, 33 insertions(+)
+
+diff --git a/data/io.github.diegoivan.pdf_metadata_editor.desktop.in b/data/io.github.diegoivan.pdf_metadata_editor.desktop.in
+index 193d4e0..f3f0216 100644
+--- a/data/io.github.diegoivan.pdf_metadata_editor.desktop.in
++++ b/data/io.github.diegoivan.pdf_metadata_editor.desktop.in
+@@ -8,3 +8,8 @@ Keywords=PDF;Metadata;Editor;
+ Categories=GTK;Utility;Office;
+ MimeType=application/pdf;
+ StartupNotify=true
++Actions=new-window;
++
++[Desktop Action new-window]
++Name=New Window
++Exec=pdf-metadata-editor --new-window
+diff --git a/src/application.vala b/src/application.vala
+index 95032a1..f937f1d 100644
+--- a/src/application.vala
++++ b/src/application.vala
+@@ -41,6 +41,34 @@ public class PaperClip.Application : Adw.Application {
+         set_accels_for_action ("app.shortcuts", { "<Ctrl>question" });
+         set_accels_for_action ("app.query-quit", { "<Ctrl>q" });
+         set_accels_for_action ("app.new-window", { "<Ctrl>n" });
++
++        OptionEntry[] option_entries = {
++            { "new-window", 'w', OptionFlags.NONE, OptionArg.NONE, null, N_("Open a new window"), null },
++            { "version", 'v', OptionFlags.NONE, OptionArg.NONE, null, N_("Print version information and exit"), null },
++            {}
++        };
++        this.add_main_option_entries (option_entries);
++    }
++
++    public override int handle_local_options (GLib.VariantDict options)
++    {
++        if (options.contains ("new-window")) {
++            try {
++                this.register ();
++            } catch (Error e) {
++                critical (e.message);
++            }
++
++            if (this.get_is_remote ()) {
++                this.activate_action ("new-window", null);
++                return 0;
++            }
++        }
++        if (options.contains ("version")) {
++            stderr.printf (@"Paper Clip $(Config.VERSION)\n");
++            return 0;
++        }
++        return -1;
+     }
+ 
+     public override void activate () {
