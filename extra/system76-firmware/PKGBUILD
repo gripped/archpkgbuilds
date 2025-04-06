@@ -3,7 +3,7 @@
 # Contributor: Corey Hinshaw <corey@electrickite.org>
 
 pkgname=system76-firmware
-pkgver=1.0.70
+pkgver=1.0.71
 pkgrel=1
 pkgdesc='System76 Firmware Tool and Daemon'
 arch=(x86_64)
@@ -25,9 +25,9 @@ makedepends=(
 )
 provides=(system76-firmware-daemon)
 conflicts=(system76-firmware-daemon)
-_tag=367fbbd82a5cf4e5ea3245b4aecf90f10d91c504
+_tag=5a35c6c06602d402ecf367b6d7aa156eaa83bb02
 source=(git+https://github.com/pop-os/system76-firmware.git#tag=${_tag})
-b2sums=('f0d2fb49b0e23f87f248b51c9968231451b5ec0d289e951a15fc6be66af460617946c56deed3f636ef00715c0207a049c2d6e5e604da29d99fd92e7bfb78d02b')
+b2sums=('53d3fe9708c94b007b189e93eb41b4ec500c7799c5db6a39f56cfec96ee4124c3eaafeb76a37e061f1d15458e1cf4ebbaa2731ddde996b53a0438189ce16f64f')
 
 pkgver() {
   cd system76-firmware
