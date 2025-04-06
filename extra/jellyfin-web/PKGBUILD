@@ -2,7 +2,7 @@
 # Maintainer: Giovanni Harting <anonfunc@archlinux.org>
 
 pkgname=jellyfin-web
-pkgver=10.10.6
+pkgver=10.10.7
 pkgrel=1
 pkgdesc='Web client for Jellyfin'
 arch=('any')
@@ -11,8 +11,8 @@ _url='https://github.com/jellyfin/jellyfin-web'
 license=('GPL-2.0-or-later')
 makedepends=('git' 'nodejs' 'npm')
 source=("$pkgname::git+$_url#tag=v$pkgver")
-sha512sums=('fa0619547e132ff9d1bd57ffafc4064cbc4c565fbb87e66d3058a672026711415eed65709625e4723471af50cad2d9f2d2d329554578d97b3166129d4b00fb01')
-b2sums=('8dc9e2e75245accf028c0bc63aba6e497ae391b4d8fcd9dcba6b64a9ed02ae5a35b91c7e39e74c7bea7b4740ff0d0817a1f17f5173d18f186df4ed1145a0c5c1')
+sha512sums=('823f3193428b0f134a677157c4ec6b31af49b3878aed69671494fe63a71dc67b6cd413f841c3f1f0fcdbeefbd30edf62ac0f7afaafd411ea159c43097b2aee2a')
+b2sums=('4211e0f3dc9d9fa26afc6bb9d0d40d6bf6ca70c3addf7313fe2bdf34477e473a4dc001ae5a4e9b681fcf498c9e32b2eeae93e7f9b7408d722821c88788c4c76d')
 
 prepare() {
   cd "$pkgname"
