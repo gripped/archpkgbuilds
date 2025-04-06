@@ -3,32 +3,30 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-terminal
-pkgver=6.0.17
+pkgver=6.5.0
 pkgrel=1
 pkgdesc='Default terminal emulation application for Deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-terminal"
 license=('GPL3')
-depends=('dtkcore' 'dtkgui' 'dtkwidget' 'glib2' 'qt5-base' 'qt5-x11extras' 'libsecret' 'glibc'
-         'gcc-libs' 'libxcb' 'fontconfig' 'hicolor-icon-theme')
-makedepends=('git' 'cmake' 'lxqt-build-tools-qt5' 'ninja' 'qt5-tools')
+depends=('deepin-qt-dbus-factory' 'dtk6core' 'dtk6gui' 'dtk6widget' 'fontconfig' 'gcc-libs' 'glib2'
+         'glibc' 'hicolor-icon-theme' 'icu' 'qt6-5compat' 'qt6-base' 'libchardet' 'libsecret'
+         'libxcb')
+makedepends=('git' 'cmake' 'lxqt-build-tools-qt5' 'ninja' 'qt6-tools')
 #checkdepends=('xorg-server-xvfb')
 optdepends=('zssh: for remote management support')
 groups=('deepin-extra')
-source=("git+https://github.com/linuxdeepin/deepin-terminal.git#tag=$pkgver"
-        $pkgname-break-non-dde.patch::https://github.com/linuxdeepin/deepin-terminal/commit/0df1446c1af214ffb568e7b956edbed7e656abf3.patch)
-sha512sums=('0bae0d8a4c6660ffc452ed90edab487b9dc015849e65bfb82f5707b391f46abc5ee4f9318487026097cf3e444a879f90269de42fe64585f50024404ebd4c2554'
-            '58e0fed2031678a6e38e14908301ed0cceb9ff9a7b0142e1afa409210865416f4f06dd11cd162011597b5468e12effe91dce99bce9bfa1757ef2846f64489b0b')
+source=("git+https://github.com/linuxdeepin/deepin-terminal.git#tag=$pkgver")
+sha512sums=('394a524269cead8ccd63b9d6ab8433d5b35c867d1b15745cb99c6c9db8665a6dfeefc8c68cfa2f4362aa629b337681d0da5510f8ef3effa9b3de3aa15f1aceca')
 
 prepare() {
   cd deepin-terminal
-  # https://github.com/linuxdeepin/developer-center/issues/5723
-  patch -Rp1 -i ../$pkgname-break-non-dde.patch
+  sed -i 's/QT NAMES Qt6 Qt5/QT NAMES Qt6/' CMakeLists.txt 3rdparty/terminalwidget/CMakeLists.txt
 }
 
 build(){
   cd deepin-terminal
-  cmake . -GNinja -DVERSION=$pkgver -DCMAKE_INSTALL_PREFIX=/usr
+  cmake . -GNinja -DVERSION=$pkgver -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   ninja
 }
 
