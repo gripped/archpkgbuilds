@@ -2,7 +2,7 @@
 
 pkgname=citations
 pkgver=0.8.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Manage your bibliographies using the BibTeX format'
 arch=(x86_64)
 url='https://apps.gnome.org/Citations/'
@@ -26,8 +26,14 @@ makedepends=(
   meson
   rust
 )
-source=("git+https://gitlab.gnome.org/World/citations.git#tag=$pkgver")
-b2sums=(b199b9d882881ea2a13884b3842f2a5147875e35381190a4f110c8f2854fca31ec4232ee91b7d620dd3c74a1d8375d62c4e266a352c1299adc0d102dea314674)
+source=(
+  "git+https://gitlab.gnome.org/World/citations.git#tag=$pkgver"
+  citations-new-window.patch
+)
+b2sums=(
+  b199b9d882881ea2a13884b3842f2a5147875e35381190a4f110c8f2854fca31ec4232ee91b7d620dd3c74a1d8375d62c4e266a352c1299adc0d102dea314674
+  c0c05cda03e0fbd31cd3775fc09a062eb896b375366ad0879ce22e330f462cb8d7803cb812a83e7233f89788d49414b8cd50110485eba825b9f3f14dfbe1570a
+)
 
 prepare() {
   cd $pkgname
@@ -44,6 +50,9 @@ prepare() {
   # https://gitlab.gnome.org/World/citations/-/merge_requests/96
   git cherry-pick -n 4b02a7aa5a610ddf2cfbb0cb15ba4d8a5a2b12f8
   git cherry-pick -n e1e55aa8200c2d7dd90e943e33dfb200333a6269
+
+  # https://gitlab.gnome.org/World/citations/-/merge_requests/97
+  git apply -3 ../citations-new-window.patch
 }
 
 build() {

@@ -1,0 +1,70 @@
+From 4c50b4bf145a862f3c49a4775c50a0f8786e95f4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 6 Apr 2025 12:45:09 +0200
+Subject: [PATCH] Add "new-window" command-line option
+
+And specify the action in the desktop file. This allows application
+launchers to provide direct access to this action.
+---
+ data/org.gnome.World.Citations.desktop.in.in |  7 +++++++
+ src/application.rs                           | 22 ++++++++++++++++++++
+ 2 files changed, 29 insertions(+)
+
+diff --git a/data/org.gnome.World.Citations.desktop.in.in b/data/org.gnome.World.Citations.desktop.in.in
+index 7d9eabc..f7bc272 100644
+--- a/data/org.gnome.World.Citations.desktop.in.in
++++ b/data/org.gnome.World.Citations.desktop.in.in
+@@ -11,3 +11,10 @@ Keywords=bibliography;citing;literature;BibTeX;LaTeX;TeX;
+ Icon=@icon@
+ StartupNotify=true
+ MimeType=text/x-bibtex;
++Actions=new-window;
++
++[Desktop Action new-window]
++Exec=citations --new-window
++Name=New Window
++# TRANSLATORS: Do NOT translate or transliterate this text (this is an icon file name)!
++Icon=window-new
+diff --git a/src/application.rs b/src/application.rs
+index 0281ca6..b2af6b0 100644
+--- a/src/application.rs
++++ b/src/application.rs
+@@ -29,6 +29,15 @@ mod imp {
+             log::debug!("Application::constructed");
+             self.parent_constructed();
+ 
++            self.obj().add_main_option(
++                "new-window",
++                glib::Char::from(b'w'),
++                glib::OptionFlags::NONE,
++                glib::OptionArg::None,
++                &gettext("Open a new window"),
++                None,
++            );
++
+             self.obj().add_main_option(
+                 "debug",
+                 glib::Char::from(b'd'),
+@@ -42,6 +51,19 @@ mod imp {
+ 
+     impl ApplicationImpl for Application {
+         fn handle_local_options(&self, options: &glib::VariantDict) -> glib::ExitCode {
++            let app = self.obj();
++
++            if options.contains("new-window") {
++                if let Err(err) = app.register(None::<&gio::Cancellable>) {
++                    log::error!("Failed to register the application: {err}");
++                }
++
++                if app.is_remote() {
++                    app.activate_action("new-window", None);
++                    return glib::ExitCode::SUCCESS;
++                }
++            }
++
+             let is_debug = options.lookup::<bool>("debug").unwrap().unwrap_or_default()
+                 || !glib::log_writer_default_would_drop(glib::LogLevel::Debug, Some("citations"));
+             if is_debug {
+-- 
+GitLab
+
