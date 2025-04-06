@@ -2,8 +2,8 @@
 # Contributor: Kasei Wang <cnsdwpc at gmail.com>
 
 pkgname=brook
-pkgver=20221010
-pkgrel=2
+pkgver=20221212
+pkgrel=1
 pkgdesc="A cross-platform proxy/vpn software"
 arch=('x86_64')
 url="https://github.com/txthinking/brook"
@@ -11,8 +11,8 @@ license=('GPL')
 options=('!lto')
 depends=('glibc')
 makedepends=('go' 'git')
-source=("https://github.com/txthinking/brook/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('f9d5c82cdc1f7db223915bf223452e6e696ce6cf6476f36974e341b47eaa713e239f06181b316b5c7f90850464addfa96ce6bcac8470f850d406782d7046c068')
+source=("git+https://github.com/txthinking/brook.git#tag=v$pkgver")
+sha512sums=('d5984696fe5fe612dd2ab541018e4957f1afbb545b7760a2a850a98a0253a30d4355597a10ab1071cc70d2bfcb386ae538363e7bb4bebe7d5712588cb709882e')
 
 build() {
   export CGO_CPPFLAGS="${CPPFLAGS}"
@@ -21,11 +21,11 @@ build() {
   export CGO_LDFLAGS="${LDFLAGS}"
   export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
 
-  cd brook-$pkgver/cli/brook
+  cd brook/cli/brook
   go build -o brook
 }
 
 package() {
-  cd brook-$pkgver/cli/brook
+  cd brook/cli/brook
   install -Dm755 brook -t "$pkgdir"/usr/bin/
 }
