@@ -2,7 +2,7 @@
 
 pkgname=share-preview
 pkgver=0.5.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Preview and debug websites metadata tags for social media share'
 arch=(x86_64)
 url='https://apps.gnome.org/SharePreview/'
@@ -38,6 +38,11 @@ prepare() {
 
   # https://github.com/rafaelmardojai/share-preview/pull/93
   git cherry-pick -n 2eaf2cff6555632f9ebe098b99de7a3f7dae40d0
+
+  # https://github.com/rafaelmardojai/share-preview/pull/94
+  git cherry-pick -n 84dc8e76f651bb8ac9c9dc4ffc10880f203fe95c
+  git cherry-pick -n 2b5cb6f3ce569b3afa54ff676e6aa39844a884b6
+  git cherry-pick -n c299f65fd6d882588f8ba1fda0ab2e8ecedd80b8
 }
 
 build() {
