@@ -5,8 +5,8 @@
 # Contributor: Joeny Ang <ang(dot)joeny(at)gmail(dot)com>
 
 pkgname=simple-scan
-pkgver=46.0
-pkgrel=3
+pkgver=48.1
+pkgrel=1
 pkgdesc="Simple scanning utility"
 url="https://apps.gnome.org/SimpleScan/"
 arch=(x86_64)
@@ -34,10 +34,14 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome)
-source=("git+https://gitlab.gnome.org/GNOME/simple-scan.git?signed#tag=${pkgver/[a-z]/.&}"
-        simple-scan-activate.patch)
-b2sums=('1d600197fb1b858759063bd1897f9d3fe0d6a5c7ab2088cba64154ef0f1e9d1b09269f9fbb09b776a08147c0ad932a9dbd9a75ec03167650cadbc95fe666fe34'
-        'b397e232e1c6b9688dfc5dbb94b050c73110be141cef55911e02366177995123d41747a98b51e4936863451c7694accb5185cc5fe5d377be231e0cefec0e117d')
+source=(
+  "git+https://gitlab.gnome.org/GNOME/simple-scan.git#tag=${pkgver/[a-z]/.&}"
+  0001-Fix-application-activate.patch
+  0002-Rename-desktop-file-to-match-with-the-application-ID.patch
+)
+b2sums=('3fdcb48949a8a3d3b230e02bc8647ab04fe56eb4ca36e4f05089f920a7f5e1018c687750aa9b9987baf7fd3349b492503c926f5ebc3834ebd3768d588d502707'
+        'ed6449989fc2afc5260c1453e29051294f184638ded10eb5b30ef7c171de947dbec857e979a519497a52353a0823f281e6a6fe9b056f989c72c67afa55fab765'
+        '261d0af6487e31ab9d86403b714cfa2e45b018b5503df33d96eb37fe73ca418ca77531b0f0b1e32dfd6b84d0455fed1f9eaa60489f56ffa6b5ebe98d57de243f')
 validpgpkeys=(
   4D0BE12F0E4776D8AACE9696E66C775AEBFE6C7D # Jeremy Bicha <jeremy.bicha@canonical.com>
 )
@@ -45,22 +49,13 @@ validpgpkeys=(
 prepare() {
   cd $pkgname
 
-  # Use RDNN app ID to fix icons
-  # https://gitlab.gnome.org/GNOME/simple-scan/-/merge_requests/269
-  git cherry-pick -n c09a6def153e52494072a36233c7e7b3307b67bf
-
-  # Add a test if the post-processing script path is empty
-  # https://gitlab.gnome.org/GNOME/simple-scan/-/merge_requests/257
-  git cherry-pick -n 0df23e446b366d35e418094dcbf6228cdaf96e80
-
   # Fix application activate
   # https://gitlab.gnome.org/GNOME/simple-scan/-/merge_requests/284
-  git apply -3 ../simple-scan-activate.patch
+  git apply -3 ../0001-Fix-application-activate.patch
 
   # Rename desktop file to match with the application ID
   # https://gitlab.gnome.org/GNOME/simple-scan/-/merge_requests/285
-  mv data/simple-scan.desktop.in data/org.gnome.SimpleScan.desktop.in
-  sed -i 's/simple-scan.desktop/org.gnome.SimpleScan.desktop/' data/meson.build data/org.gnome.SimpleScan.appdata.xml.in
+  git apply -3 ../0002-Rename-desktop-file-to-match-with-the-application-ID.patch
 }
 
 build() {

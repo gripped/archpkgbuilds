@@ -1,4 +1,4 @@
-From 5fdf788289c65c3c4cee4ad179143672f4498008 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Thu, 27 Mar 2025 16:00:11 +0000
 Subject: [PATCH] Fix application activate
@@ -11,10 +11,10 @@ application is launched second time.
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/src/simple-scan.vala b/src/simple-scan.vala
-index 100823ed..d2ffce41 100644
+index cedbe060c80c..6e4a8f1a8c17 100644
 --- a/src/simple-scan.vala
 +++ b/src/simple-scan.vala
-@@ -90,13 +90,15 @@ public class SimpleScan : Adw.Application
+@@ -86,13 +86,15 @@ public class SimpleScan : Adw.Application
              app.set_scan_devices (device_list);
              app.set_selected_device (default_device.name);
          }
@@ -32,6 +32,3 @@ index 100823ed..d2ffce41 100644
      }
  
      public override void shutdown ()
--- 
-GitLab
-
