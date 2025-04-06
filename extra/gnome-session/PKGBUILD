@@ -3,7 +3,7 @@
 
 pkgname=gnome-session
 pkgver=47.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="The GNOME Session Handler"
 url="https://gitlab.gnome.org/GNOME/gnome-session"
 arch=(x86_64)
@@ -16,6 +16,7 @@ depends=(
   glibc
   gnome-desktop
   gnome-keyring
+  gnome-mimeapps
   gsettings-desktop-schemas
   gtk3
   json-glib
