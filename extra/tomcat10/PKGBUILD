@@ -2,7 +2,7 @@
 # Contributor: Olli <olli@suruatoel.xyz>
 
 pkgname=tomcat10
-pkgver=10.1.36
+pkgver=10.1.40
 pkgrel=1
 pkgdesc='Open source implementation of the Java Servlet 5.0 and JavaServer Pages 3.0 technologies'
 arch=(any)
@@ -30,14 +30,14 @@ backup=(
   etc/tomcat10/web.xml
 )
 install=tomcat10.install
-_tag=23f54e56911d0f4ecfbd3b8c2dab5f170c675dc4
+_tag=1ee4bc9109d48cd062d1bc1a4c002358e03455e9
 source=(
   git+https://github.com/apache/tomcat.git#tag=${_tag}
   tomcat10.service
   tomcat10.sysusers
   tomcat10.tmpfiles
 )
-b2sums=('3cc7e626ab2fb5ecdb8dbfcf130c7b5d1b2a401293cf43d73b78039b83481c1bc3b98c9057a9dfc0d1642b04d4c622a336c50978d17eb2d138b2ef3c24076174'
+b2sums=('306cf8e5da75512757afb98c3da860cbc8e17bbaf9be0362e0e80df54d97afa57b576fdb194c5dd40628650faec41ccc48d278c605e546d122c3d5cf95aacb77'
         '2bdf5f9e0ff8766363b2f0ac636415ee416bcfc3f4cc2859e1917d5352da827d0d25dc1c81260c38c1cf3e149d3701931b5a6bd0f32daeed9af4612dbc0b1f72'
         'ab6584d66e0e2e4d094a54d658af6e6397cbfee56ed211a6add84763d3b89c9e260127387a318c531f23182abde59c2289986773658f45e1c877687e1233b477'
         '79ef7469fd113253479e212ed5faf9ec7e0e55b4eba25a120d1e3814b35241b6f8f2e78b1b36554088c8944b2652b8e304fd16615132db057e76a32a7778a39d')
