@@ -2,15 +2,27 @@
 
 _name='libvcs'
 pkgname="python-${_name}"
-pkgver=0.30.1
-pkgrel=2
+pkgver=0.35.0
+pkgrel=1
 pkgdesc='Lite, typed, pythonic utilities for git, svn, mercurial, etc'
 arch=('any')
 url='https://libvcs.git-pull.com/'
 license=('MIT')
-depends=('python')
-makedepends=('python-build' 'python-installer' 'python-poetry-core')
-checkdepends=('git' 'mercurial' 'python-pytest' 'python-pytest-mock' 'subversion')
+depends=(
+  python
+)
+makedepends=(
+  python-build
+  python-installer
+)
+checkdepends=(
+  git
+  mercurial
+  python-hatchling
+  python-pytest
+  python-pytest-mock
+  subversion
+)
 optdepends=(
   'git: for git repository support'
   'mercurial: for mercurial repository support'
@@ -18,8 +30,8 @@ optdepends=(
   'python-pytest: for pytest plugin'
 )
 source=("https://github.com/vcs-python/libvcs/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('85551a182c4f85afcb7049a599547c0643751eb953d689edea6dde3ac6b2db20f9a8734807139944c3fe127a3d37acf02f606a2751b95981fcfe5899a97809cd')
-b2sums=('5d920a924292e68ae7ac1a2377421844855b1aa2fb83a32256e3fd3e8911b140bd24bee2deca903b9b802c252893227838fa2761fefcb6ce73f5ba10bbe41fd0')
+sha512sums=('62c96bf65e9cbdbe62469c6625612c0868f0cda4a6f9dcd71c23ae0053083edc29dfa415c9b4b8e0226b4e1a7c66201cd0e8fc069f8c1ce0e592d5778b9994cf')
+b2sums=('e498956744b066c555f80d375fabf90f10893fc58dc3915bb452c33aa153560384cba2e396bad06ae1039bef9d10e5f0fb5afb5e8b31e04ab98d448eaa86ae9e')
 
 build() {
   cd  "${_name}-${pkgver}"
