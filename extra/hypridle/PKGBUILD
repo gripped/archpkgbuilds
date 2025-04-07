@@ -2,7 +2,7 @@
 
 pkgname=hypridle
 pkgver=0.1.6
-pkgrel=2
+pkgrel=3
 pkgdesc='hyprland’s idle daemon'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
