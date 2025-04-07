@@ -5,7 +5,7 @@ pkgname=nextcloud
 # NOTE: always check first whether the version is supposed to be packaged:
 # https://github.com/nextcloud/server/wiki/Maintenance-and-Release-Schedule
 pkgver=31.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A cloud server to store your files centrally on a hardware controlled by you"
 arch=(any)
 url="https://nextcloud.com"
@@ -31,7 +31,7 @@ optdepends=(
   'php-legacy-sodium: for Argon2 password hashing'
   'php-legacy-sqlite: to use the SQLite database backend'
   'postgresql: to use a local PostgreSQL server'
-  'redis: to use a local Redis server'
+  'valkey: to use a local Redis server'
   'smbclient: for SMB/CIFS integration'
   'sudo: for privilege elevation in occ command when not run as root'
   'uwsgi-plugin-php-legacy: run as application container'

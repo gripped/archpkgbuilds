@@ -1,7 +1,7 @@
 pkgbase = nextcloud
 	pkgdesc = A cloud server to store your files centrally on a hardware controlled by you
 	pkgver = 31.0.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://nextcloud.com
 	install = nextcloud.install
 	arch = any
@@ -24,7 +24,7 @@ pkgbase = nextcloud
 	optdepends = php-legacy-sodium: for Argon2 password hashing
 	optdepends = php-legacy-sqlite: to use the SQLite database backend
 	optdepends = postgresql: to use a local PostgreSQL server
-	optdepends = redis: to use a local Redis server
+	optdepends = valkey: to use a local Redis server
 	optdepends = smbclient: for SMB/CIFS integration
 	optdepends = sudo: for privilege elevation in occ command when not run as root
 	optdepends = uwsgi-plugin-php-legacy: run as application container
