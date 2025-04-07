@@ -5,7 +5,7 @@
 _name=beaker
 pkgname=python-beaker
 pkgver=1.13.0
-pkgrel=3
+pkgrel=4
 arch=('any')
 license=('BSD-3-Clause')
 pkgdesc="Caching and sessions WSGI middleware for use with web applications and stand-alone Python scripts and applications"
@@ -14,7 +14,7 @@ depends=('python')
 makedepends=('python-setuptools')
 checkdepends=('python-pytest' 'python-sqlalchemy'
               'python-pycryptodome' 'python-coverage' 'python-webtest' 'python-redis'
-              'python-pymongo' 'python-pylibmc' 'redis' 'python-cryptography'
+              'python-pymongo' 'python-pylibmc' 'valkey' 'python-cryptography'
               'python-memcached' 'memcached' 'pifpaf' 'python-mongomock')
 source=(
   "$pkgname-$pkgver.tar.gz::https://github.com/bbangert/beaker/archive/$pkgver.tar.gz"
