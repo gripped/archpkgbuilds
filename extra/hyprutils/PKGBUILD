@@ -3,7 +3,7 @@
 # Contributor: alba4k <blaskoazzolaaaron@gmail.com>
 
 pkgname=hyprutils
-pkgver=0.5.2
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="Hyprland utilities library used across the ecosystem"
 arch=(x86_64)
@@ -13,7 +13,7 @@ depends=(pixman)
 makedepends=(git cmake)
 provides=(libhyprutils.so)
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('b30b93be9597489bd5a29c8cd91d60ea0fcaea08fd03cca1368e101c4ae19d3d')
+sha256sums=('1c113058881121fdb2575573ed9a59d78dbdf1ae2ae95c6dac647e608548263b')
 
 build() {
 	cd "${pkgname}-${pkgver}"
