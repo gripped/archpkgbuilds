@@ -8,7 +8,7 @@ pkgname=(
   php-legacy-redis
 )
 pkgver=6.2.0
-pkgrel=1
+pkgrel=3
 pkgdesc="An API for communicating with the Redis key-value store"
 arch=(x86_64)
 url="https://github.com/phpredis/phpredis/"
@@ -22,9 +22,9 @@ makedepends=(
 )
 checkdepends=(
   lsof
-  redis
+  valkey
 )
-optdepends=('redis: use a local redis instance')
+optdepends=('valkey: use a local redis instance')
 source=($pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
 sha512sums=('11e0799aaa125b61bcb45dd105990bd0a41ba10bc6e129eaf59a9bc6862eab1f823a263a8dd2a69c6eca9e53d3bcf70df7f8e77d8e68fc84c7adae26a8d94882')
 b2sums=('399e635a5af417ad559d5821cadaa04fc3996f1202d4a1b4af403878cd0638603fd561499da3fae21cd2e836106732756ed84f90be0c8abcb68e63ef669f76a9')
