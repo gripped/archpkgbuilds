@@ -5,7 +5,7 @@
 pkgname=python-aiogram
 _pkgname=${pkgname#python-}
 pkgver=3.19.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A modern and fully asynchronous framework for Telegram Bot API"
 arch=('any')
 url="https://github.com/aiogram/aiogram"
@@ -37,7 +37,7 @@ checkdepends=(
   'python-pytest-lazy-fixture'
   'python-pytz'
   'python-redis'
-  'redis'
+  'valkey'
 )
 optdepends=(
   'python-uvloop: fast, drop-in replacement of the built-in asyncio event loop'
