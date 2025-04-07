@@ -1,10 +1,10 @@
 pkgbase = python-logbook
 	pkgdesc = Logging sytem for Python that replaces the standard library’s logging module
-	pkgver = 1.8.0
-	pkgrel = 3
+	pkgver = 1.8.1
+	pkgrel = 1
 	url = https://logbook.readthedocs.io/en/stable/
 	arch = x86_64
-	license = BSD
+	license = BSD-3-Clause
 	checkdepends = valkey
 	checkdepends = python-pytest
 	checkdepends = python-sqlalchemy
@@ -14,13 +14,14 @@ pkgbase = python-logbook
 	checkdepends = python-jinja
 	checkdepends = python-brotli
 	checkdepends = pifpaf
+	makedepends = git
 	makedepends = python-setuptools
 	makedepends = cython
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
 	depends = python
-	source = python-logbook-1.8.0.tar.gz::https://github.com/mitsuhiko/logbook/archive/1.8.0.tar.gz
-	sha512sums = 73e4d9170af6c4db6eadf27e84419927136658c786b173e5eae91dc9499d3c374fe5a4a7e8f7bc463194b19648aee23aceba0cce9a63fd25a6ee0a53b1dbe8f9
+	source = git+https://github.com/mitsuhiko/logbook.git#tag=1.8.1
+	sha512sums = a3f45347d4f228d019f7bc8077524e1ab20eb83165be5ee4ce655e2ccfbe50331fad235175124d1993212e00c6f8620cb8d8dba9adac6d5b2e25fa27e0f183b8
 
 pkgname = python-logbook

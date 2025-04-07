@@ -2,37 +2,35 @@
 # Contributor: Tomas Schertel<tschertel@gmail.com>
 
 pkgname=python-logbook
-pkgver=1.8.0
-pkgrel=3
+pkgver=1.8.1
+pkgrel=1
 pkgdesc="Logging sytem for Python that replaces the standard library’s logging module"
 arch=('x86_64')
 url="https://logbook.readthedocs.io/en/stable/"
-license=('BSD')
+license=('BSD-3-Clause')
 depends=('python')
-makedepends=('python-setuptools' 'cython' 'python-build' 'python-installer' 'python-wheel')
-checkdepends=('valkey' 'python-pytest' 'python-sqlalchemy'
-              'python-redis' 'python-pyzmq'
-              'python-execnet' 'python-jinja' 'python-brotli' 
-              'pifpaf')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/mitsuhiko/logbook/archive/$pkgver.tar.gz")
-sha512sums=('73e4d9170af6c4db6eadf27e84419927136658c786b173e5eae91dc9499d3c374fe5a4a7e8f7bc463194b19648aee23aceba0cce9a63fd25a6ee0a53b1dbe8f9')
+makedepends=('git' 'python-setuptools' 'cython' 'python-build' 'python-installer' 'python-wheel')
+checkdepends=('valkey' 'python-pytest' 'python-sqlalchemy' 'python-redis' 'python-pyzmq'
+              'python-execnet' 'python-jinja' 'python-brotli' 'pifpaf')
+source=("git+https://github.com/mitsuhiko/logbook.git#tag=$pkgver")
+sha512sums=('a3f45347d4f228d019f7bc8077524e1ab20eb83165be5ee4ce655e2ccfbe50331fad235175124d1993212e00c6f8620cb8d8dba9adac6d5b2e25fa27e0f183b8')
 
 prepare() {
-  cd "$srcdir"/logbook-$pkgver
+  cd logbook
   python -m build --wheel --no-isolation
 }
 
 build() {
-  cd "$srcdir"/logbook-$pkgver
+  cd logbook
 }
 
 check() {
-  cd "$srcdir"/logbook-$pkgver
+  cd logbook
   LC_CTYPE=en_US.UTF-8 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src pifpaf run redis py.test tests
 }
 
 package() {
-  cd logbook-$pkgver
+  cd logbook
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm664 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  install -Dm664 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
