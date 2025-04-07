@@ -3,8 +3,8 @@
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 
 pkgname=ejabberd
-pkgver=24.12
-pkgrel=4
+pkgver=25.03
+pkgrel=1
 pkgdesc="Jabber server written in Erlang"
 arch=('x86_64')
 url="https://www.ejabberd.im/"
@@ -53,7 +53,7 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/processone/ejabberd/archive
 	"luerl::git+https://github.com/rvirding/luerl"
 	"$pkgname.logrotate"
 	"sysuser.conf")
-sha256sums=('22b15ab9be8f0ac4b7a5a7a48cd59c282c87f17b038017b960c15cfd314689f2'
+sha256sums=('27df1ed8123ecc3139a573ee254e8a584392f759f5c23a0825662ca1df0cb62c'
             'a8e1be2d9daf8dd2dfedc11736a9677f3ed5c520c0f2ddf183689d2182b9151a'
             'SKIP'
             'SKIP'
@@ -88,7 +88,7 @@ sha256sums=('22b15ab9be8f0ac4b7a5a7a48cd59c282c87f17b038017b960c15cfd314689f2'
 
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
-  patch -p1 <../ejabberd.patch
+#  patch -p1 <../ejabberd.patch
 
   return 0 # just put repos to src-pkg
 
