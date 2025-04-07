@@ -2,7 +2,7 @@
 # Contributor: Kasei Wang <cnsdwpc at gmail.com>
 
 pkgname=brook
-pkgver=20221212
+pkgver=20230101
 pkgrel=1
 pkgdesc="A cross-platform proxy/vpn software"
 arch=('x86_64')
@@ -12,7 +12,7 @@ options=('!lto')
 depends=('glibc')
 makedepends=('go' 'git')
 source=("git+https://github.com/txthinking/brook.git#tag=v$pkgver")
-sha512sums=('d5984696fe5fe612dd2ab541018e4957f1afbb545b7760a2a850a98a0253a30d4355597a10ab1071cc70d2bfcb386ae538363e7bb4bebe7d5712588cb709882e')
+sha512sums=('85845ae440ea5d97370ac85ff0e30d137873dba83724cdb7b929a9520b4fb529a1a71e107a58d1e67355ee62d059c9407010ec0953aa7cccade5982f4ebbcf26')
 
 build() {
   export CGO_CPPFLAGS="${CPPFLAGS}"
