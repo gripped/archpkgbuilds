@@ -3,7 +3,7 @@
 
 _name=huggingface_hub
 pkgname=python-huggingface-hub
-pkgver=0.29.3
+pkgver=0.30.1
 pkgrel=1
 epoch=1
 pkgdesc='All the open source things related to the Hugging Face Hub'
@@ -33,6 +33,7 @@ checkdepends=(
   git
   git-lfs
   python-fastapi
+  python-hf-xet
   python-jedi
   python-jinja
   python-pillow
@@ -41,11 +42,13 @@ checkdepends=(
   python-pytest-env
   python-pytest-mock
   python-pytest-vcr
+  python-pytest-xdist
 )
 optdepends=(
   python-gradio
   python-graphviz
   python-hf-transfer
+  python-hf-xet
   python-inquirerpy
   python-jinja
   python-pillow
@@ -55,7 +58,7 @@ optdepends=(
   python-tensorflow
 )
 source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('22bdf8de5db80fb4242f9d5ddc2256ac0e894727b03614f54500f01bfe1df109e92307356e6e1007d3dd7f8b5dcb3902aa41ac59cc59d769c454bd3ded0213d0')
+sha512sums=('084a57c26abee598bdc073d19f9818cf4f98ee7d94c6d04cfc2f1839b18271b933615cb1792fd21e260d09d96420e051de1608b4486539a01ae14579e1022462')
 
 build() {
   cd $_name-$pkgver
@@ -67,15 +70,21 @@ check() {
     -vv
     --override-ini="addopts="
     -W ignore::DeprecationWarning
+    # distribute tests across multiple CPUs
+    -n auto
     # ignore test which requires python-inquirerpy which is not packaged
     --ignore tests/test_command_delete_cache.py
     # skip tests that connect to the real HuggingFace Hub
     # https://github.com/huggingface/huggingface_hub/issues/2820
-    --deselect tests/test_hf_api.py
     --deselect tests/test_cache_no_symlinks.py
     --deselect tests/test_file_download.py
-    --deselect tests/test_utils_cache.py
+    --deselect tests/test_hf_api.py
+    --deselect tests/test_hf_file_system.py
     --deselect tests/test_inference_client.py
+    --deselect tests/test_repocard.py
+    --deselect tests/test_repository.py
+    --deselect tests/test_snapshot_download.py
+    --deselect tests/test_utils_cache.py
     # skip hanging test https://github.com/huggingface/huggingface_hub/issues/1973
     --deselect tests/test_repository.py::TestRepositoryShared::test_clone_from_missing_repo
     # skip tests that require gradio but are not marked as such
