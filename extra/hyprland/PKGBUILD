@@ -5,7 +5,7 @@
 
 pkgname=hyprland
 pkgver=0.48.1
-pkgrel=1
+pkgrel=3
 pkgdesc='a highly customizable dynamic tiling Wayland compositor'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/${pkgname^}"
@@ -74,7 +74,6 @@ prepare() {
 	ln -sf hyprland-source "$_archive"
 	cd "$_archive"
 	sed -i -e '/^release:/{n;s/-D/-DCMAKE_SKIP_RPATH=ON -D/}' Makefile
-
 	# Workaround for https://gitlab.archlinux.org/archlinux/packaging/packages/hyprland/-/issues/15
 	rm -fv scripts/generateVersion.sh
 }
@@ -88,7 +87,5 @@ package() {
 	cd "$_archive"
 	make DESTDIR="$pkgdir" install
 	rm -fv "$pkgdir/usr/include/hyprland/src/version.h.in"
-	# Drop this line when hyprland-portals.conf is removed from xdg-desktop-portal-hyprland
-	rm -frv "$pkgdir/usr/share/xdg-desktop-portal"
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }
