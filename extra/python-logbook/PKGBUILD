@@ -3,14 +3,14 @@
 
 pkgname=python-logbook
 pkgver=1.8.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Logging sytem for Python that replaces the standard library’s logging module"
 arch=('x86_64')
 url="https://logbook.readthedocs.io/en/stable/"
 license=('BSD')
 depends=('python')
 makedepends=('python-setuptools' 'cython' 'python-build' 'python-installer' 'python-wheel')
-checkdepends=('redis' 'python-pytest' 'python-sqlalchemy'
+checkdepends=('valkey' 'python-pytest' 'python-sqlalchemy'
               'python-redis' 'python-pyzmq'
               'python-execnet' 'python-jinja' 'python-brotli' 
               'pifpaf')
