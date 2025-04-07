@@ -2,7 +2,7 @@
 
 pkgname=biblioteca
 pkgver=1.5
-pkgrel=2
+pkgrel=3
 pkgdesc='API documentation viewer for GNOME'
 arch=(any)
 url='https://apps.gnome.org/Biblioteca/'
@@ -30,6 +30,7 @@ source=(
   git+https://github.com/sonnyp/troll.git
   biblioteca-gtk-init.patch
   troll-gtk-init.patch
+  biblioteca-command-line-arguments.patch
   biblioteca-no-flatpak.patch
   biblioteca-build-index.hook
 )
@@ -38,6 +39,7 @@ b2sums=(
   SKIP
   609e6716b1a918ba6120bfdbf745165d66565193b2909c4399acaf80d1148038846215cb15ec7c433da51ee1211b18b9aff37c0ca73cf11f251b8be01c27bddf
   7190a1851b490e1e429de5f571f6acdf7e2254c30d5368acbed270bac9d09e9e4d33ac5479d8f2b813a4178d2c3b3d82d49e82b76111530b05c36fe89d407338
+  83f0c4825a04eb1ad5b6bb9397cc4c2b7f57a17dd58a913b289230875f179cb1e6912f357491d15d537df249729fa227a195e63254186fe67f7c1953a20dd9a9
   f034f380cddd13538ec2e09085fa58112b79d9ec9474939e6dc8e19df642fb07181ed710df24b18b6612e7ae734ada054fb0306a1d56159fa2f48640cccf3e00
   defc3485c5e0e80322b8782e1706ea9d26e66c2cd766cfc2ae93d60593e502b8ad20c2583c24fbd7e9ef0e964d41a503f80e37f334024c7fc000f6111e69df90
 )
@@ -54,6 +56,9 @@ prepare() {
 
   # Fix initialization with GTK 4.18
   git apply -3 ../biblioteca-gtk-init.patch
+
+  # Fix passing command-line arguments
+  git apply -3 ../biblioteca-command-line-arguments.patch
 
   # Don't check if running under Flatpak
   git apply -3 ../biblioteca-no-flatpak.patch

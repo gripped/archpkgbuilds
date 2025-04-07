@@ -1,0 +1,40 @@
+From e2eb7c1195d778cd403195dcafc609a200f42629 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 7 Apr 2025 16:24:07 +0200
+Subject: [PATCH] Fix passing command-line arguments
+
+The first argument must be the program name.
+---
+ src/biblioteca | 2 +-
+ src/bin.js     | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/biblioteca b/src/biblioteca
+index 5b41a2c..72a8c33 100755
+--- a/src/biblioteca
++++ b/src/biblioteca
+@@ -6,4 +6,4 @@
+ # force app in English see https://github.com/workbenchdev/Biblioteca/pull/40#issuecomment-1811380922
+ LANG=en_US.UTF-8
+ 
+-@app_id@
++@app_id@ "$@"
+diff --git a/src/bin.js b/src/bin.js
+index 5dcc3eb..37387b6 100755
+--- a/src/bin.js
++++ b/src/bin.js
+@@ -1,6 +1,6 @@
+ #!@GJS@ -m
+ 
+-import { exit, programArgs } from "system";
++import { exit, programArgs, programInvocationName } from "system";
+ import GLib from "gi://GLib";
+ import { setConsoleLogDomain } from "console";
+ import Xdp from "gi://Xdp";
+@@ -29,5 +29,5 @@ if (__DEV__) {
+ }
+ 
+ const module = await import("resource:///app/drey/Biblioteca/main.js");
+-const exit_code = await module.main(programArgs);
++const exit_code = await module.main([programInvocationName, ...programArgs]);
+ exit(exit_code);
