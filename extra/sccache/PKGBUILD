@@ -4,7 +4,7 @@
 
 pkgname=sccache
 pkgver=0.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Shared compilation cache'
 arch=(x86_64)
 url=https://github.com/mozilla/sccache
@@ -20,7 +20,7 @@ makedepends=(
 )
 optdepends=(
   'memcached: Memcached support'
-  'redis: Redis support'
+  'valkey: Redis support'
 )
 options=(!lto)
 _tag=e3d1ed560a28d114bd26299b0f717b372e7fc3d2
