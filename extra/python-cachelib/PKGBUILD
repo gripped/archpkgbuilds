@@ -5,7 +5,7 @@
 pkgname=python-cachelib
 _pkgname=${pkgname#python-}
 pkgver=0.13.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A collection of cache libraries in the same API interface. Extracted from werkzeug"
 arch=(any)
 url="https://github.com/pallets/cachelib"
@@ -23,7 +23,7 @@ checkdepends=(
   python-pylibmc
   python-pytest-xprocess
   python-redis
-  redis
+  valkey
 )
 optdepends=(
   'python-boto3: for S3 backend'
