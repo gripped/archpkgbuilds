@@ -2,7 +2,7 @@
 
 pkgname=gaphor
 pkgver=3.0.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Simple UML and SysML modeling tool'
 arch=(any)
 url='https://apps.gnome.org/Gaphor/'
@@ -38,14 +38,13 @@ makedepends=(
   python-sphinx-intl
   python-wheel
 )
-_flathub_commit=ff89a70181966cd832f73cec3c4246cce5064dad
 source=(
   "git+https://github.com/gaphor/gaphor.git#tag=$pkgver"
-  "git+https://github.com/flathub/org.gaphor.Gaphor.git#commit=$_flathub_commit"
+  gaphor-greeter-option.patch
 )
 b2sums=(
   6175cd7de4b854e79c1c29ecf9dca34f5bac75c5caf9787612171400dd12e397d323dfab4466fe8debccaf7984b525e8ab0e93ac82b5dad60a07641c9a53f5ef
-  1d601413b6dab879449cfb42c2b649d299494396845f8714d23e45b4b99d0d3337ff11886b8520dc8ed70947cae5b4395b362e33f0f76ce7c222ac40e9324a9a
+  f029aacd69028b433f679c94f05d3ba799f6559b7c6ee7ad01a6b081266f01b08360d40a35312ee3323391c96feae606591e26b59daeb56687d8975d3eebcef7
 )
 
 prepare() {
@@ -56,6 +55,12 @@ prepare() {
 
   # https://github.com/gaphor/gaphor/pull/3810
   git cherry-pick -n 0532e0e9116531e56aaca9d0e67dabe518744231
+
+  # https://github.com/gaphor/gaphor/pull/3816
+  git cherry-pick -n 08864864064ecfc770921aaa684747bebbae2696
+
+  # https://github.com/gaphor/gaphor/pull/3820
+  git apply -3 ../gaphor-greeter-option.patch
 }
 
 build() {
@@ -70,14 +75,11 @@ package() {
   install -Dm644 -t "$pkgdir/usr/share/glib-2.0/schemas/" gaphor/ui/installschemas/org.gaphor.Gaphor.gschema.xml
   cp -r gaphor/locale "$pkgdir"/usr/lib/python*/site-packages/gaphor/
 
-  cd ../org.gaphor.Gaphor
-  install -Dm644 share/org.gaphor.Gaphor.appdata.xml "$pkgdir/usr/share/metainfo/org.gaphor.Gaphor.appdata.xml"
-  install -Dm644 share/org.gaphor.Gaphor.desktop "$pkgdir/usr/share/applications/org.gaphor.Gaphor.desktop"
-  install -Dm644 share/org.gaphor.Gaphor.xml "$pkgdir/usr/share/mime/packages/org.gaphor.Gaphor.xml"
-  install -Dm644 logos/gaphor-24x24.png "$pkgdir/usr/share/icons/hicolor/24x24/apps/org.gaphor.Gaphor.png"
-  install -Dm644 logos/gaphor-48x48.png "$pkgdir/usr/share/icons/hicolor/48x48/apps/org.gaphor.Gaphor.png"
-  install -Dm644 logos/gaphor-96x96.png "$pkgdir/usr/share/icons/hicolor/96x96/apps/org.gaphor.Gaphor.png"
-  install -Dm644 logos/gaphor-256x256.png "$pkgdir/usr/share/icons/hicolor/256x256/apps/org.gaphor.Gaphor.png"
-  install -Dm644 logos/org.gaphor.Gaphor.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/org.gaphor.Gaphor.svg"
-  install -Dm644 logos/org.gaphor.Gaphor-symbolic.svg "$pkgdir/usr/share/icons/hicolor/symbolic/apps/org.gaphor.Gaphor-symbolic.svg"
+  install -Dm644 data/org.gaphor.Gaphor.appdata.xml "$pkgdir/usr/share/metainfo/org.gaphor.Gaphor.appdata.xml"
+  install -Dm644 data/org.gaphor.Gaphor.desktop "$pkgdir/usr/share/applications/org.gaphor.Gaphor.desktop"
+  install -Dm644 data/org.gaphor.Gaphor.xml "$pkgdir/usr/share/mime/packages/org.gaphor.Gaphor.xml"
+  install -Dm644 data/logos/gaphor-24x24.png "$pkgdir/usr/share/icons/hicolor/24x24/apps/org.gaphor.Gaphor.png"
+  install -Dm644 data/logos/gaphor-48x48.png "$pkgdir/usr/share/icons/hicolor/48x48/apps/org.gaphor.Gaphor.png"
+  install -Dm644 data/logos/org.gaphor.Gaphor.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/org.gaphor.Gaphor.svg"
+  install -Dm644 data/logos/org.gaphor.Gaphor-symbolic.svg "$pkgdir/usr/share/icons/hicolor/symbolic/apps/org.gaphor.Gaphor-symbolic.svg"
 }

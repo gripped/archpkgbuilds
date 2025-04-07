@@ -1,0 +1,100 @@
+From 549af4b2c0aa6f914227036457f091864bb3f25c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 6 Apr 2025 06:28:46 +0200
+Subject: [PATCH] Add "greeter" command-line option
+
+And specify the "new-window" action in the desktop file. This allows
+application launchers to provide direct access to this action.
+---
+ data/org.gaphor.Gaphor.desktop |  5 +++++
+ gaphor/main.py                 |  5 +++++
+ gaphor/ui/__init__.py          | 24 ++++++++++++++++++++++--
+ 3 files changed, 32 insertions(+), 2 deletions(-)
+
+diff --git a/data/org.gaphor.Gaphor.desktop b/data/org.gaphor.Gaphor.desktop
+index 65f7e6c0e4..263847720a 100644
+--- a/data/org.gaphor.Gaphor.desktop
++++ b/data/org.gaphor.Gaphor.desktop
+@@ -16,3 +16,8 @@ Type=Application
+ Categories=GTK;GNOME;Development;ProjectManagement;
+ MimeType=application/x-gaphor
+ Keywords=UML;RAAML;C4;SysML;Design;Graph;
++Actions=new-window;
++
++[Desktop Action new-window]
++Exec=gaphor --greeter
++Name=New Model
+diff --git a/gaphor/main.py b/gaphor/main.py
+index 8d27652e56..f542a68221 100644
+--- a/gaphor/main.py
++++ b/gaphor/main.py
+@@ -110,6 +110,8 @@ def run(args) -> int:
+ 
+         # Recreate a command line for our GTK gui
+         run_argv = [sys.argv[0]]
++        if args.greeter:
++            run_argv += ["--greeter"]
+         if args.gapplication_service:
+             run_argv += ["--gapplication-service"]
+         run_argv.extend(args.model)
+@@ -121,6 +123,9 @@ def run(args) -> int:
+     )
+ 
+     group = parser.add_argument_group("options (no command provided)")
++    group.add_argument(
++        "-g", "--greeter", help="create a new model", action="store_true"
++    )
+     group.add_argument("--gapplication-service", action="store_true")
+     group.add_argument("model", nargs="*", help="model file(s) to load")
+     parser.set_defaults(command=run)
+diff --git a/gaphor/ui/__init__.py b/gaphor/ui/__init__.py
+index 415eaedd5f..bc8dc9ddb5 100644
+--- a/gaphor/ui/__init__.py
++++ b/gaphor/ui/__init__.py
+@@ -16,7 +16,7 @@
+ gi.require_version("GtkSource", "5")
+ gi.require_version("Adw", "1")
+ 
+-from gi.repository import Adw, Gio, GtkSource
++from gi.repository import Adw, Gio, GLib, Gtk, GtkSource
+ 
+ import gaphor.asyncio
+ import gaphor.ui.diagramview  # noqa: F401
+@@ -38,9 +38,18 @@
+ GtkSource.init()
+ 
+ 
+-def run(argv: list[str], *, launch_service="greeter", recover=False) -> int:
++def run(argv: list[str], *, launch_service="greeter", recover=False) -> int:  # noqa: C901
+     application: Application | None = None
+ 
++    def app_handle_local_options(gtk_app, options):
++        if options.contains("greeter"):
++            gtk_app.register()
++            if gtk_app.get_property("is-remote"):
++                gtk_app.activate_action("new-window")
++                return 0
++
++        return -1
++
+     def app_startup(gtk_app):
+         nonlocal application
+ 
+@@ -109,6 +118,17 @@ def update_color_scheme(style_variant: StyleVariant):
+ 
+     settings.style_variant_changed(update_color_scheme)
+     gtk_app.exit_code = 0
++
++    gtk_app.add_main_option(
++        "greeter",
++        b"g",
++        GLib.OptionFlags.NONE,
++        GLib.OptionArg.NONE,
++        "Create a new model",
++        None,
++    )
++
++    gtk_app.connect("handle-local-options", app_handle_local_options)
+     gtk_app.connect("startup", app_startup)
+     gtk_app.connect("activate", app_activate)
+     gtk_app.connect("open", app_open)
