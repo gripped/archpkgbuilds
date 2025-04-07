@@ -1,7 +1,7 @@
 # Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
 
 pkgname='usage'
-pkgver=2.0.6
+pkgver=2.0.7
 pkgrel=1
 pkgdesc='A specification for CLIs'
 arch=('x86_64')
@@ -14,8 +14,8 @@ options=(
   '!emptydirs'
 )
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('058bf86c24f38dd15bf979b50b2a9a2a1dedc76d61c1ba6ec80f5e804d4c771f8131ae944d4d64046fb6fbb393db034bca40691fdcbb2e6c7bc24925f3d1294b')
-b2sums=('c55b5dfcc4d11d04571c892c974c5cb244bc9e9f10ae499dfe8c3694be2bf1806074b69bd52a8f7b36a047c36361245b0c7c6516ca6d1a01710343e82879c208')
+sha512sums=('5e79922b999e588394ccc8017c8a9dc2d98e091a7cf5321f78f9ea1879b142af8ca197aabc406509e7f6ea18d92be2194dc99ccfab4546ff5519e208bc7e0389')
+b2sums=('457a9bab58172aa6b8bb4a92a38cbd66a40a0d3a2ba364652d09a580db84f03370056f5c910cbaab5fd5ec316fa4a70c35f99f437c0d39b2d2ede2882a08a69e')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
