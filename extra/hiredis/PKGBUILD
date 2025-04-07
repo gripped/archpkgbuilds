@@ -3,13 +3,13 @@
 
 pkgname=hiredis
 pkgver=1.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Minimalistic C client library for Redis'
 arch=('x86_64')
 url="https://github.com/redis/hiredis/"
 license=('BSD')
 depends=('glibc')
-checkdepends=('redis')
+checkdepends=('valkey')
 source=(https://github.com/redis/$pkgname/archive/v$pkgver/hiredis-$pkgver.tar.gz)
 sha256sums=('82ad632d31ee05da13b537c124f819eb88e18851d9cb0c30ae0552084811588c')
 
