@@ -4,7 +4,7 @@ _gemname='llhttp-ffi'
 pkgname="ruby-${_gemname}"
 _tag="2025-03-11"
 pkgver=0.5.1
-pkgrel=1
+pkgrel=4
 pkgdesc='Ruby FFI bindings for llhttp'
 arch=(x86_64)
 url='https://github.com/bryanp/llhttp'
@@ -62,7 +62,6 @@ build() {
     \( \
       -iname "*.o" -o \
       -iname "*.c" -o \
-      -iname "*.so" -o \
       -iname "*.time" -o \
       -iname "gem.build_complete" -o \
       -iname "Makefile" \
