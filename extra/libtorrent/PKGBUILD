@@ -1,4 +1,5 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+# Maintainer: T.J. Townsend <blakkheim@archlinux.org>
 # Contributor: Gaetan Bisson <bisson@archlinux.org>
 # Contributor: Daenyth <Daenyth+Arch [at] gmail [dot] com>
 # Contributor: Jeff Mickey <jeff@archlinux.org>
@@ -6,21 +7,20 @@
 
 pkgname=libtorrent
 pkgver=0.15.2
-pkgrel=1
+_commit=215547d9e361f9932752af54fb9cf66dc3cd6ced
+pkgrel=2
 pkgdesc='BitTorrent library with a focus on high performance and good code'
 url='https://rakshasa.github.io/rtorrent/'
 arch=('x86_64')
 license=('GPL-2.0-only')
 makedepends=('git')
 depends=('openssl')
-source=("git+https://github.com/rakshasa/libtorrent.git#tag=v${pkgver}"
-        "fix-build.patch")
-sha256sums=('44718dd21427a6000a10e2ba7052e41f37da46bcc10bbd0ff8731419a71c5ddf'
-            'ddcea9a8ee76068aabc896e867a89c4d98b4cae99455ad0343ab7c0f3c935b4d')
+#source=("git+https://github.com/rakshasa/libtorrent.git#tag=v${pkgver}")
+source=("git+https://github.com/rakshasa/libtorrent.git#commit=${_commit}")
+sha256sums=('fc9dda567236408f104d9dd29032a5e3ff5f4d94dcc2abf526fa68b858fe9b85')
 
 prepare() {
   cd ${pkgname}
-  patch -Np1 < ../fix-build.patch
   autoreconf -fiv
 }
 
