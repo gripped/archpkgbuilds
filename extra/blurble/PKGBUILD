@@ -2,7 +2,7 @@
 
 pkgname=blurble
 pkgver=0.4.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Word guessing game'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/Blurble'
@@ -26,15 +26,15 @@ source=(
   "git+https://gitlab.gnome.org/World/Blurble.git#tag=v$pkgver"
   blurble-metainfo.patch
   blurble-window-title.patch
-  blurble-window-icon.patch
+  blurble-dbus-activatable.patch
   blurble-keyboard-hu.patch
 )
 b2sums=(
   0a72995850b1ef6149b628ed1606320a4a56844dca0e153c7492c6dc32a2255bacdef6b8584bffcc0d513e05f408c030dc7e480d02944d0fbf36c18590d49636
   e487ebbe22b1e61839b04d3701fb9e7a6fb5b77f8af9889736a3892086631a395afec0c4ff4afd9a28b7f2544773f36bf4a016f58d9a8b83409934fa227c45b8
   9d9f8f23d4d66f62b7013fc1f3c0f5466fb5eb1043fb917d03b7201bf28c9e25a3f1eb3a583effcfe5b22a9b7c79ea6215d771414aeee8f32d83aed7d6fab33a
-  21ebfa87faf71c66ccb06892b2042677ec31cf1a71485e876bc01796da2598f1efeb273bc0569cdfe2aa244ab7623d77f7311783a1884b084b58b9b9c2996036
-  f1eb00dce5f18de590f7f5046a7c9543ecd11d5cd8ee84f9dc1f8ee4775e5957af8d7baf5880675fa63735102fdbf7d0002d57a81f5cbb0aef7101889230e138
+  7b6c37c4d128e5f2e976e034d88d56bd5a716f54b190eef6f6d5ab98bb59b3cb401a66352e820b1f5541354865fc73d1a5d8513bc720f66f001e35352da196b3
+  de7143e26a945c2b68e794d561bb668e53461d8181916a2b38c6f7d0c6d21ee7e31e6b20110b262cd415fd610849e0ef7cf6ee116c3b78b622bef7130de07fcc
 )
 
 prepare() {
@@ -46,8 +46,8 @@ prepare() {
   # https://gitlab.gnome.org/World/Blurble/-/merge_requests/24
   git apply -3 ../blurble-window-title.patch
 
-  # https://gitlab.gnome.org/World/Blurble/-/merge_requests/25
-  git apply -3 ../blurble-window-icon.patch
+  # https://gitlab.gnome.org/World/Blurble/-/merge_requests/26
+  git apply -3 ../blurble-dbus-activatable.patch
 
   # Fix Hungarian translation
   # https://gitlab.gnome.org/Teams/Translation/hu/-/issues/7
