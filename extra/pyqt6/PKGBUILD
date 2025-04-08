@@ -3,13 +3,15 @@
 pkgbase=pyqt6
 pkgname=python-pyqt6
 pkgdesc='A set of Python bindings for the Qt6 toolkit'
-pkgver=6.8.1
-pkgrel=3
+pkgver=6.9.0
+pkgrel=1
 arch=(x86_64)
 url='https://riverbankcomputing.com/software/pyqt/intro'
 license=(GPL)
 groups=(pyqt6)
-depends=(python-pyqt6-sip
+depends=(gcc-libs
+         glibc
+         python-pyqt6-sip
          qt6-base)
 optdepends=('qt6-tools: QtHelp, QtDesigner bindings'
             'qt6-svg: QtSvg bindings'
@@ -19,6 +21,7 @@ optdepends=('qt6-tools: QtHelp, QtDesigner bindings'
             'qt6-multimedia: QtMultimedia, QtSpatialAudio bindings'
             'qt6-positioning: QtPositioning bindings'
             'qt6-remoteobjects: QtRemoteObjects bindings'
+            'qt6-scxml: QtStateMachine bindings'
             'qt6-sensors: QtSensors bindings'
             'qt6-serialport: QtSerialPort bindings'
             'qt6-speech: QtTextToSpeech bindings'
@@ -35,6 +38,7 @@ makedepends=(dbus-python
              qt6-positioning
              qt6-quick3d
              qt6-remoteobjects
+             qt6-scxml
              qt6-sensors
              qt6-serialport
              qt6-shadertools
@@ -46,14 +50,8 @@ makedepends=(dbus-python
              qt6-websockets
              sip)
 provides=(qt6-python-bindings)
-source=(https://pypi.python.org/packages/source/P/PyQt6/pyqt6-$pkgver.tar.gz
-        qt-6.9.patch)
-sha256sums=('91d937d6166274fafd70f4dee11a8da6dbfdb0da53de05f5d62361ddf775e256'
-            'f69d5c5e6b1bc1eaa3aa08f205b55ac38bc38b9326b6875c77de65b5e58d05d9')
-
-prepare() {
-  patch -d pyqt6-$pkgver -p1 < qt-6.9.patch
-}
+source=(https://pypi.python.org/packages/source/P/PyQt6/pyqt6-$pkgver.tar.gz)
+sha256sums=('6a8ff8e3cd18311bb7d937f7d741e787040ae7ff47ce751c28a94c5cddc1b4e6')
 
 build() {
   cd pyqt6-$pkgver
