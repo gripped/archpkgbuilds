@@ -1,7 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
-pkgname=erofs-utils
-pkgver=1.8.5
+pkgbase=erofs-utils
+pkgname=(erofs-utils erofsfuse)
+pkgver=1.8.6
 pkgrel=1
 pkgdesc="Userspace utilities for linux-erofs file system"
 arch=(x86_64)
@@ -10,25 +11,20 @@ license=(
   Apache-2.0
   GPL-2.0-or-later
 )
-depends=(
+makedepends=(
+  fuse2
   glibc
   libdeflate
   lz4
-  zlib
-)
-makedepends=(
-  fuse2
   util-linux
   xxhash
   xz
+  zlib
   zstd
 )
-optdepends=(
-  'fuse2: for erofsfuse'
-)
 source=($url/snapshot/$pkgname-$pkgver.tar.gz)
-sha512sums=('c5c3a71494113ad69c5b9278ef682250b3a5eca7e6f6e92a68800f7c7ba7e69f1dbf65f877c856c619dc2276f9d3b1c82fc89853ae7938a63b390c0cb246a0da')
-b2sums=('ec0b514fa56c6aea960c32c2def00ee3f5681fb4c2060974928efe77d3ab8c6622f4a2676171976817e3911685e7d1e0c7cc7504d38965b5f84d4255ba82f3e1')
+sha512sums=('07c9c30f6fb0b889b8c664f233e7510a15aba46f097a4bd40fb6f8c379f578bba14694f6fa4d12099816d1c7944beaedafa687795e5c08f69cb916119cfd446f')
+b2sums=('cdbcda78ee6b5a91d1c1f3455e16eff377facbd0f562f58dd0ecd00ff361a20474e124d1f1906a0f10f77946a690c9f14a823ccda036af2649bc572858a071d8')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -55,14 +51,51 @@ check() {
   make -k check -C $pkgname-$pkgver
 }
 
-package() {
+_pick() {
+  local p="$1" f d; shift
+  for f; do
+    d="$srcdir/$p/${f#$pkgdir/}"
+    mkdir -vp "$(dirname "$d")"
+    mv -v "$f" "$d"
+    rmdir -vp --ignore-fail-on-non-empty "$(dirname "$f")"
+  done
+}
+
+package_erofs-utils() {
   depends+=(
+    glibc
+    libdeflate libdeflate.so
+    lz4 liblz4.so
     util-linux libuuid.so
+    xxhash libxxhash.so
+    xz liblzma.so
+    zstd libzstd.so
+    zlib libz.so
+  )
+  optdepends=(
+    'erofsfuse: for FUSE file system client'
+  )
+
+  make DESTDIR="$pkgdir/" install -C $pkgname-$pkgver
+  install -vDm 644 $pkgname-$pkgver/{AUTHORS,ChangeLog,README} -t "$pkgdir/usr/share/doc/$pkgname/"
+
+  cd "$pkgdir"
+  _pick erofsfuse usr/bin/erofsfuse
+  _pick erofsfuse usr/share/man/man1/erofsfuse*
+}
+
+package_erofsfuse() {
+  pkgdesc="FUSE file system client for erofs file system"
+  depends+=(
+    fuse2
+    glibc
+    libdeflate libdeflate.so
+    lz4 liblz4.so
     xxhash libxxhash.so
     xz liblzma.so
     zstd libzstd.so
   )
 
-  make DESTDIR="$pkgdir/" install -C $pkgname-$pkgver
-  install -vDm 644 $pkgname-$pkgver/{AUTHORS,ChangeLog,README} -t "$pkgdir/usr/share/doc/$pkgname/"
+  mv -v $pkgname/* "$pkgdir"
+  install -vDm 644 $pkgbase-$pkgver/{AUTHORS,ChangeLog,README} -t "$pkgdir/usr/share/doc/$pkgname/"
 }
