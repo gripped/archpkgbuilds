@@ -2,7 +2,7 @@
 # Contributor: Elmar Klausmeier <Elmar.Klausmeier@gmail.com>
 
 pkgname=sundials
-pkgver=7.2.1
+pkgver=7.3.0
 pkgrel=1
 pkgdesc='Suite of nonlinear differential/algebraic equation solvers'
 arch=(x86_64)
@@ -19,7 +19,7 @@ makedepends=(cmake
 optdepends=('python-matplotlib: for some examples'
             'python-numpy: for some examples')
 source=(git+https://github.com/LLNL/sundials#tag=v$pkgver)
-sha256sums=('fb80715c652f10e14971613d56b08d7abd6f5ae44bbb5aecad78a675fb2094e1')
+sha256sums=('26b19f5ef695bf3d324ad7f01d1b6de7cf984d73440c47645cdbb74ecaebcbac')
 
 build() {
   cmake -B build -S $pkgname \
