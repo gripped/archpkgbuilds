@@ -2,8 +2,8 @@
 
 _name=jaraco.itertools
 pkgname=python-jaraco.itertools
-pkgver=6.4.1
-pkgrel=3
+pkgver=6.4.2
+pkgrel=1
 pkgdesc="Itertools for Python"
 arch=(any)
 url="https://github.com/jaraco/jaraco.itertools"
@@ -27,12 +27,13 @@ checkdepends=(
 )
 conflicts=(python-jaraco)
 replaces=(python-jaraco)
-source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
-sha256sums=('314fce562ebb45ea4822a98bbd7b22e5feac7d5118dbc1a4f1eb2cd046bffa47')
-b2sums=('f384e7bdbe6068ed85a19e12aeae2ac0ca4bea52a4c3f4840a7ce258440c0a73c0f9f6928be59a1db2f2bef887710a95c423cbf1854bd0e58f068bd4fd833d08')
+source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
+sha256sums=('c7c4616cfaeeb02b62cb27477df75f8327dc532003394d12b89df26b53fc6f00')
+b2sums=('7ea8d920e31cf46d24ee68989a30adfdfcdfcfd4cbb15853de1d2960a505cf54b8d41689e8ea36bcc850b5c718522afbffc763daceb4b0a16110049fa6a31063')
 
 build() {
   cd $_name-$pkgver
+  export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
   python -m build --wheel --no-isolation
 }
 
