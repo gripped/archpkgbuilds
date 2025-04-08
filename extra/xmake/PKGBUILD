@@ -3,7 +3,7 @@
 # Contributor: lumpyzhu <lumpy.zhu@gmail.com>
 
 pkgname=xmake
-pkgver=2.9.8
+pkgver=2.9.9
 pkgrel=1
 pkgdesc='A cross-platform build utility based on Lua'
 arch=(x86_64 i686 aarch64)
@@ -13,7 +13,7 @@ makedepends=(ncurses
              readline)
 _archive="$pkgname-$pkgver"
 source=("$url/releases/download/v$pkgver/${_archive/-/-v}.tar.gz")
-sha256sums=('e797636aadf072c9b0851dba39b121e93c739d12d78398c91f12e8ed355d6a95')
+sha256sums=('e92505b83bc9776286eae719d58bcea7ff2577afe12cb5ccb279c81e7dbc702d')
 
 # Upstream botched their tarball and double wrapped it. Also they keep
 # switching up where they use what version tag format. Bah.
