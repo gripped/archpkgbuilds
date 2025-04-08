@@ -3,7 +3,7 @@
 # Contributor: Johannes Heinz <heinzeljo@web.de>
 pkgname=astroid
 pkgver=0.16
-pkgrel=25
+pkgrel=26
 pkgdesc="A graphical threads-with-tags style, lightweight and fast, e-mail client for Notmuch"
 arch=('x86_64')
 url="https://github.com/astroidmail/astroid"
@@ -17,7 +17,7 @@ depends=('boost-libs'
          'notmuch'
          'protobuf'
          'vte3'
-         'webkit2gtk')
+         'webkit2gtk-4.1')
 makedepends=('boost'
              'cmake'
              'cmark'
@@ -32,11 +32,17 @@ optdepends=('cmark: for markdown to html composition'
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/astroidmail/astroid/archive/v${pkgver}.tar.gz"
          protobuf-23.patch
          protobuf-30.patch
-         https://github.com/astroidmail/astroid/commit/abd84171.patch)
+         https://github.com/astroidmail/astroid/commit/abd84171.patch
+         https://github.com/astroidmail/astroid/commit/a98affc8.patch
+         https://github.com/astroidmail/astroid/commit/53f3a1e4.patch
+         https://github.com/astroidmail/astroid/commit/327d107b.patch)
 sha256sums=('32ecb8c2fafe67f70c7d5f2bc60bda1796d98a56a75f7868c7c1ca50cd7baf5e'
             '53bfd2814aa57475b284a518c368c7a27453e11d9442695d05ce3fbb86bbbc73'
             '164f1350e925a4bf405c3ccaa3ee6b455931194b95aca1ca1cf18237cfe0f757'
-            '9b8e12d43de25a51539ff81b3c261ebdb4278cce47a52a767b25c1ced41392d1')
+            '9b8e12d43de25a51539ff81b3c261ebdb4278cce47a52a767b25c1ced41392d1'
+            '29f5cc7c84c00ed1b92fa7635426f5b8d931738d6d10a84ea4c8ec0b2c8542a3'
+            '197de84748cbc6f4ac81d080976bf51d34846d50be4fb88a4336958e462c5837'
+            'ec66d833103069d1350846da0441c926ae0b8036c445341e89b023c2d4e4a29b')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -45,6 +51,9 @@ prepare() {
   # Fix build with protobuf 23
   patch -p1 < ../protobuf-30.patch
   patch -p1 < ../abd84171.patch # Fix build with boost 1.85
+  patch -p1 < ../a98affc8.patch # fix typo in CMakeLists.txt
+  patch -p1 < ../53f3a1e4.patch # improve mailto uri handling
+  patch -p1 < ../327d107b.patch # use webkit2gtk-4.1 when available and 4.0 as fallback
 }
 
 build() {
