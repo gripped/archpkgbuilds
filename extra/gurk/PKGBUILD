@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=gurk
-pkgver=0.7.0
+pkgver=0.7.1
 pkgrel=1
 pkgdesc="Signal Messenger client for terminal"
 url='https://github.com/boxdot/gurk-rs'
@@ -20,8 +20,8 @@ makedepends=(
 replaces=('gurk-bin')
 options=(!lto)
 source=(https://github.com/boxdot/${pkgname}-rs/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('55cdac0b67db51f6257d2f04d5513ed5c79bb70752dc219fb38b80ff73d9d346')
-b2sums=('55a407597cb291ab362590f02d0017aa678206ebd91301ba1b2c696e5fd38d7b1c2be7af4b5f8cfcd0ede2f38c1c1432bc20864970015ae12d64dcc9d4fdba4b')
+sha256sums=('e86e6e0938439ac84af5b1f08a99810f0e632c60c63ba58e566181ffd2578874')
+b2sums=('c9cee9dcf8efbc877f6f30ca3471c65f79bae6ce7b95108d1422d74567190831ec8885c304564c95923119e347659084c028295ad16df379936cb6edc765b9ff')
 
 prepare() {
   cd "${pkgname}-rs-${pkgver}"
