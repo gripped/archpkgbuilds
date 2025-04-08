@@ -1,8 +1,8 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=monero
-pkgver=0.18.3.4
-pkgrel=3
+pkgver=0.18.4.0
+pkgrel=1
 pkgdesc="Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD-3-Clause')
 arch=('x86_64')
@@ -10,6 +10,7 @@ url="https://getmonero.org/"
 depends=(
   'gcc-libs'
   'glibc'
+  'libboost_program_options.so'
   'libhidapi-libusb.so'
   'libreadline.so'
   'libsodium.so'
@@ -37,9 +38,9 @@ source=(
   "fortify-source.patch"
   "monero.sysusers"
   "monero.tmpfiles"
-   boost-1.85.patch
+  "cmake-4.patch"
 )
-sha512sums=('SKIP'
+sha512sums=('5a57901085345852c7c59f22ea07f90095f392330972f7c33821bc3c118b40c787a9fddce4d4585675dd067eae281babe7f6202436edfbbe42925d2ddf9ce7b8'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -48,7 +49,7 @@ sha512sums=('SKIP'
             'cbb67fee67d053bbc929ad0eeaad6421fae43acf5f1ae4df346333362da7f50adc985a63c27bc4ac2a7c1f226d27162a6cad9908b53866180153a5422038e3db'
             '2e4ecf3f305dab46e166f50c0451dd969927b485df544aebcf8115a65444573e6d57a8ac6bea64ce5ab4b5cce2c70f913d9ac3bce561c59acf89851edc76a22c'
             'ae3c300548e6ba5fdf6a203146e5dcaf1955c3e19820c0bb3a73bb70ec5629a3af00d43dac95b6f3832ded5c480e872d829981a63206016d4a64f3940b713357'
-            '70777bdcb3e461d2939598248cfd3c893ca18cf4530c0adb589ed46dc92d51ae6dfec8bf4d8e95a01dc791dfcb51d99b47a191b34cd70ee8d0d9f58c0820013d')
+            '62d4a176543609dcd515899db2078443dc24994bda7ce7426e68585ec017fa53cdd7a5e0dbe1b60f757d1e0051be7a1626e914fb9716f9a1b324be94be9bbf3f')
 validpgpkeys=(
   '8777AB8F778EE89487A2F8E7F4ACA0183641E010' # luigi1111 <luigi1111w@gmail.com>
   'BDA6BD7042B721C467A9759D7455C5E3C0CDCEB9' # Riccardo Spagni <ric@spagni.net>
@@ -65,23 +66,17 @@ prepare() {
   git config submodule.external/supercop.url "$srcdir/supercop"
   git -c protocol.file.allow=always submodule update
 
-# Fix build with GCC 13
-  git cherry-pick -n c32befe4f8385f5f893c0db611060bc7c7b425f3
-# Fix build with protobuf 23
-  sed -e 's|CMAKE_CXX_STANDARD 14|CMAKE_CXX_STANDARD 17|' -e 's|CMAKE_CXX_STANDARD=11|CMAKE_CXX_STANDARD=17|' -i CMakeLists.txt -i cmake/CheckTrezor.cmake
-
   patch -Np1 -i ../fortify-source.patch
   sed -e 's|std=c++11|std=c++17|g' -i contrib/depends/protobuf.mk
-# Fix build with boost 1.85
-  git cherry-pick -n 304dcf85701e5d57b9420722c772ce4c5a51394f
-  patch -p1 -i ../boost-1.85.patch
+
+  # cmake compatibility
+  patch -Np1 -i ../cmake-4.patch
 }
 
 build() {
   cd "${pkgname}"
   CFLAGS+=" -Wno-implicit-function-declaration -Wno-int-conversion" \
-  # temporarily switch to static binaries until next monero release supports latest boost
-  cmake -B build -D ARCH="default" -D CMAKE_BUILD_TYPE=Release -D STATIC=ON
+  cmake -B build -D ARCH="default" -D CMAKE_BUILD_TYPE=Release
   make -C build
 }
 
