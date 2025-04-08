@@ -2,8 +2,8 @@
 
 pkgbase=pyqt6-charts
 pkgname=(python-pyqt6-charts)
-pkgver=6.8.0
-pkgrel=2
+pkgver=6.9.0
+pkgrel=1
 pkgdesc='Python bindings for QtChart'
 arch=(x86_64)
 url='https://www.riverbankcomputing.com/software/pyqtchart/intro'
@@ -17,11 +17,11 @@ depends=(gcc-libs
          qt6-charts)
 makedepends=(pyqt-builder
              sip)
-source=(https://pypi.python.org/packages/source/P/PyQt6-Charts/PyQt6_Charts-$pkgver.tar.gz)
-sha256sums=('f86705b8740e3041667ce211aeaa205b750eb6baf4c908f4e3f6dc8c720d10f1')
+source=(https://pypi.python.org/packages/source/P/PyQt6-Charts/pyqt6_charts-$pkgver.tar.gz)
+sha256sums=('7efbe9bb7e6ad4f9845211a0efe0f91ca5e14f9362ed1ba84d55f2b8515091f7')
 
 build() {
-  cd PyQt6_Charts-$pkgver
+  cd pyqt6_charts-$pkgver
   sip-build \
     --no-make \
     --qmake=/usr/bin/qmake6 \
@@ -31,6 +31,6 @@ build() {
 }
 
 package_python-pyqt6-charts(){
-  cd PyQt6_Charts-$pkgver/build
+  cd pyqt6_charts-$pkgver/build
   make INSTALL_ROOT="$pkgdir" install
 }
