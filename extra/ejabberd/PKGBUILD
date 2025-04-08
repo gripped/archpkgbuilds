@@ -4,7 +4,7 @@
 
 pkgname=ejabberd
 pkgver=25.03
-pkgrel=1
+pkgrel=2
 pkgdesc="Jabber server written in Erlang"
 arch=('x86_64')
 url="https://www.ejabberd.im/"
@@ -88,7 +88,7 @@ sha256sums=('27df1ed8123ecc3139a573ee254e8a584392f759f5c23a0825662ca1df0cb62c'
 
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
-#  patch -p1 <../ejabberd.patch
+  patch -p1 <../ejabberd.patch
 
   return 0 # just put repos to src-pkg
 
