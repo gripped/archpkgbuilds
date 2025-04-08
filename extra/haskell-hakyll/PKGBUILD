@@ -4,8 +4,8 @@
 
 _hkgname=hakyll
 pkgname=haskell-hakyll
-pkgver=4.16.1.0
-pkgrel=69
+pkgver=4.16.2.0
+pkgrel=1
 pkgdesc="A static website compiler library"
 url="https://jaspervdj.be/hakyll"
 license=("BSD")
@@ -20,7 +20,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-blaze-html' 'haskell-blaze-markup'
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-golden'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('21e02f40e9ef33ada4343136048d5d1507e99e07a90aa9e386d3f5c095d89985d2983f954d527f58ca74fc4eae68590120d447d65e014298e70f5cd215603aaa')
+sha512sums=('6b0a689fd244dcf9ef9ffb40bd1db1a16c296c0b4e06f21ff08179025c3b91f759ac45424ae72c01100d4aac1a63ccbc0af13aad1fe748a23e6a5b483b4d69d9')
 
 build() {
     cd $_hkgname-$pkgver
