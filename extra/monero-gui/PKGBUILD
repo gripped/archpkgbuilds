@@ -1,8 +1,8 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=monero-gui
-pkgver=0.18.3.4
-pkgrel=3
+pkgver=0.18.4.0
+pkgrel=1
 pkgdesc="Qt GUI wallet for Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD-3-Clause')
 arch=('x86_64')
@@ -11,6 +11,7 @@ depends=(
   'gcc-libs'
   'glibc'
   'hicolor-icon-theme'
+  'libboost_program_options.so'
   'libgcrypt'
   'libhidapi-libusb.so'
   'libsodium.so'
@@ -46,9 +47,9 @@ source=(
   "git+https://github.com/tevador/RandomX.git"
   "git+https://github.com/monero-project/supercop.git"
   "monero-gui.desktop"
-   boost-1.85.patch
+  "cmake-4.patch"
 )
-sha512sums=('b2f791f9e56d3834ec90463ecbb0c82b36c0647a42a0581f7ba23dbc56b2f00dbdfc3232c45746141934efe69532cbfab1e846f8a0fa5a8270e9774db268eb23'
+sha512sums=('e7f5dab77d351be3d99777d75612cc916517795471f883846b74c32c71aac321a2ccb81ccfcb4f14729a217dd7bade67472e728dbf2d1b105879a02780cf6091'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -57,7 +58,7 @@ sha512sums=('b2f791f9e56d3834ec90463ecbb0c82b36c0647a42a0581f7ba23dbc56b2f00dbdf
             'SKIP'
             'SKIP'
             '98b67aec60e492f0a220a156a110baf96862343d3802ec34347c70c7af671a1ae49ccaec218f2e8f81e153c433e9145ad2f55b8613ce6999fc2c87fbd81fd8e1'
-            '70777bdcb3e461d2939598248cfd3c893ca18cf4530c0adb589ed46dc92d51ae6dfec8bf4d8e95a01dc791dfcb51d99b47a191b34cd70ee8d0d9f58c0820013d')
+            '62d4a176543609dcd515899db2078443dc24994bda7ce7426e68585ec017fa53cdd7a5e0dbe1b60f757d1e0051be7a1626e914fb9716f9a1b324be94be9bbf3f')
 validpgpkeys=(
   '8777AB8F778EE89487A2F8E7F4ACA0183641E010' # luigi1111 <luigi1111w@gmail.com>
   '487277A8BD0A209C16B700F3C64552D877C32479' # Alexander Blair (Snipa / Snipa22) <snipa@jagtech.io>
@@ -77,20 +78,15 @@ prepare() {
   git config submodule.external/supercop.url "$srcdir/supercop"
   git -c protocol.file.allow=always submodule update
 
-# Fix build with GCC 13
-  git cherry-pick -n c32befe4f8385f5f893c0db611060bc7c7b425f3
-# Fix build with protobuf 23
-  sed -e 's|CMAKE_CXX_STANDARD 14|CMAKE_CXX_STANDARD 17|' -e 's|CMAKE_CXX_STANDARD=11|CMAKE_CXX_STANDARD=17|' -i CMakeLists.txt -i cmake/CheckTrezor.cmake
-# Fix build with boost 1.85
-  patch -p1 < "$srcdir"/boost-1.85.patch
+  # cmake compatibility
+  patch -Np1 -i ../../cmake-4.patch
 }
 
 build() {
   cd "${pkgname}"
   mkdir -p build && cd build
   CFLAGS+=" -Wno-implicit-function-declaration -Wno-int-conversion" \
-  # temporarily switch to static binaries until next monero release supports latest boost
-  cmake -D CMAKE_BUILD_TYPE=Release -D ARCH=default -D WITH_DESKTOP_ENTRY=OFF -D WITH_UPDATER=OFF ../ -DBoost_USE_STATIC_LIBS=ON -DBoost_USE_STATIC_RUNTIME=ON
+  cmake -D CMAKE_BUILD_TYPE=Release -D ARCH=default -D WITH_DESKTOP_ENTRY=OFF -D WITH_UPDATER=OFF ../
   make
 }
 
