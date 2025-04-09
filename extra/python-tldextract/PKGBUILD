@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-tldextract
-pkgver=5.1.3
-pkgrel=2
+pkgver=5.2.0
+pkgrel=1
 pkgdesc="Accurately separate the TLD from the registered domain and subdomains of a URL, using the Public Suffix List"
 arch=('any')
 url="https://github.com/john-kurkowski/tldextract"
@@ -13,7 +13,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python
 checkdepends=('python-pytest' 'python-pytest-mock' 'python-responses'
               'python-isort' 'python-syrupy')
 source=("git+https://github.com/john-kurkowski/tldextract.git#tag=$pkgver")
-sha512sums=('f4e2fcdff1707d645d8ace07d739dc441807f238c815459172b09189e00ae892b56576e3117ef46422d5e5d3e5fdd68e604454ae6905cf89378246a0c0769696')
+sha512sums=('62593d423a321944c0db064b3d589bdab92d10d9cfdb767bdc94656890d2bbf57ff26ca06d0b742f7f27c9c80152a0e7ec76e169ec8d13d5ec6bf8662cb4445a')
 
 build() {
   cd tldextract
