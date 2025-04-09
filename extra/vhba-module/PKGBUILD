@@ -8,8 +8,8 @@ pkgname=(
   vhba-module
   vhba-module-dkms
 )
-pkgver=20240917
-pkgrel=37
+pkgver=20250329
+pkgrel=2
 pkgdesc="Kernel module that emulates SCSI devices"
 url="https://cdemu.sourceforge.io/"
 arch=(x86_64)
@@ -21,15 +21,12 @@ makedepends=(
 source=(
   "cdemu-code::git+https://git.code.sf.net/p/cdemu/code#tag=$pkgbase-$pkgver"
   dkms.conf
-  0001-VHBA-fix-building-with-kernel-6.14-rc1.patch
 )
-b2sums=('b5ba434ce50dfb747b8a84e81ddc72d3478215156d104d698179169d57c4fbfc673756304d104406ec57642cec7219a0f79e1765a076dcb56b4b8338ba5f585d'
-        'f1f3d97fc450de4a0257fa4c864eb7245f6c9657472eec67949b1335681ba86a40273b7fb11d023e406f792709252d80e635791674bdf79153f53161b4c5d871'
-        'f1555f60ee656a22694606e298d35d84bb2a3ccce878697501d6e0b763f28a4499a58e3e7dc08ed9bc0762a527d924e636540bab0b42221fbb105031a47d5c99')
+b2sums=('14276567e02f0d832fbf7fa5d337a74ece381812b11f89fb72346bb33a8ad19b463142fc7495f3485cd65490a5b42c8dcadce3c21e0f1f07259fb2a1f917604c'
+        'f1f3d97fc450de4a0257fa4c864eb7245f6c9657472eec67949b1335681ba86a40273b7fb11d023e406f792709252d80e635791674bdf79153f53161b4c5d871')
 
 prepare() {
   cd cdemu-code
-  git apply -3 ../0001-VHBA-fix-building-with-kernel-6.14-rc1.patch
 }
 
 build() {
