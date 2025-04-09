@@ -6,15 +6,14 @@
 # Contributor: nofxx <x@<nick>.com>
 
 pkgname=valkey
-pkgver=8.0.2
-pkgrel=1
+pkgver=8.1.0
+pkgrel=3
 pkgdesc='An in-memory database that persists on disk'
 arch=('x86_64')
 url='https://valkey.io/'
 license=('BSD')
 depends=(
   'grep'
-  'jemalloc'
   'shadow'
   'systemd-libs'
 )
@@ -42,19 +41,24 @@ source=(
   valkey.tmpfiles
   valkey.conf-sane-defaults.patch
   valkey-5.0-use-system-jemalloc.patch
+  remove-deprecated-use-of-je_calloc.patch
 )
-sha512sums=('432e9b869234b784edcf644b1062bbc0ff1eb79e49c6fb7e66d5db9ddf0e089dfdccf5e5d5201119976699d4dab1b5ddb865767a8087551e9c8f2eff5d157df9'
+sha512sums=('54559ad697992611245aa92e33f976a609c44d7e3f97f4773a09a53cb55226367ac5a47a68c49f1d824b0327850f66ce3ff32e5fe42321c896ed3e33c5bcfe70'
             '286ce5be525166814f8ffce64fdb8ddc3abbaefe75bfc3044e8a4ee2111359fda3b35b3e548538bc05e4393bb4f5c716f549a23d069e5c1f4327b9a60594fbb9'
             'f1f8265106604c068e1d1ef4bb5755ff85af7965b40b2515adcbe65780a4b45ca9fcdda3c4e6cab52bf9483e0a1d95d11c18a15eb6e504c22591c88c71fd3039'
             'd47185f700293304b5c23caf59999fecda2d1485a28a5eeff3a2922906f0184794d3eeeeeaac2ca415b865d7c4b5d74f88e694d34eeb6d1ee3a6bedbcd6edfdd'
             '11cf6d6999329af7a9fa4bcbbcf22242b461cec0c16ad949cc6b0383703f19417092782569bf6224f94167a560de0b4ba53ec0d8522683736a14f01bc5986b28'
-            '5ec15f8380c9e0515f120288ea8b53e62c754054e5c51c30ca7e60f0293b36c82ab3e3c5f8373b3eff9d98378849a6fba0d12b7088c7c63ca46464410a645dc8'
-            '0acb08a6e0eaba239db7461bcfeddfbe0c1aaa517dc33c3918c9e991a1d5067cfe135b7f75085caade8c3ababd51ec9cefcc4120f57818bea1f7029a548a7732')
+            '032b19af22dd96c7898aa3dcae76d63fd8566c1d35ccb069e22fd0b76612d3285cd318f26ad5994b4f761f44a23c091d5322dec975b9a5a8cc65455399576045'
+            'c6972be1a89bb19d8bae4a92b6549dfb16f1779bd9e3d8f018d62fa388f52022adf347665080879745e5a9571db5461fd59d4383857031ecd74937f3d20566d4'
+            'c656904ade64b2498766a420dab8e72795bb96bf23cb04e408e011197c755648a3c155e699821347f4ca9e207031493df50b4474c41534e50ec4fb0d4817c45c')
 
 prepare() {
   cd $pkgname-$pkgver
   patch -Np1 < ../valkey.conf-sane-defaults.patch
-  patch -Np1 < ../valkey-5.0-use-system-jemalloc.patch
+# Until this is fixed, use bundled jemalloc:
+# https://github.com/valkey-io/valkey/issues/1882
+#  patch -Np1 < ../valkey-5.0-use-system-jemalloc.patch
+  patch -Np1 < ../remove-deprecated-use-of-je_calloc.patch
 }
 
 build() {
