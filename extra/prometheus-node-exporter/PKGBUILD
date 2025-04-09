@@ -2,7 +2,7 @@
 
 pkgname=prometheus-node-exporter
 pkgver=1.9.1
-pkgrel=1
+pkgrel=2
 
 pkgdesc='Exporter for machine metrics'
 url='https://github.com/prometheus/node_exporter'
@@ -23,7 +23,7 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/prometheus/node_exporter/ar
 sha256sums=('ac80b13ced462e88f243ad5e98c12bbcee2628bf552c0d19bb5ae125ce09730d'
             'ce93e2b95bfc86a8a046e2f9175408e1cbffa784fd3b65dd141fde70b5bb2585'
             'b1f4d3afde5d062cbb0d750f5c71a3f76b9666a92c3c3cb2b6faa4c8bbe8c9cb'
-            'c7fd0b1793dfe7a354a28e978d3c79e7195eaf43376b9eece37e996fe0772c5c')
+            'faa07af3dc481c3865cf45db2e79ac7153fa5d4ee5fa5196fa7c806339749802')
 
 build() {
   cd node_exporter-$pkgver
