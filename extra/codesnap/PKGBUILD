@@ -2,7 +2,7 @@
 # Contributor: Adam Perkowski <adas1per@protonmail.com>
 
 pkgname=codesnap
-pkgver=0.10.7
+pkgver=0.10.8
 pkgrel=1
 pkgdesc="Pure Rust tool for generating beautiful code snapshots"
 arch=('x86_64')
@@ -10,14 +10,11 @@ url="https://github.com/codesnap-rs/codesnap"
 license=('MIT')
 depends=('oniguruma' 'gcc-libs')
 makedepends=('cargo')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
-  "$pkgname-$pkgver-cargo-lock.patch::https://github.com/codesnap-rs/codesnap/commit/9e692408b183e8347568d460aaf28738ea3ea1cb.patch")
-sha256sums=('ec7839c074f11f5c8895a97c50c529bddf411c66a5dd92625fa874fd89c9cccf'
-  'f85299aef2072c37503984f282191abfd8f7c09d8c264955cf806414842b5425')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('b5acb52f9c4d395d815ce61bccb835ee87e971ad72192c070e8ed565ae8fcb98')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  patch -Np1 -i "$srcdir/$pkgname-$pkgver-cargo-lock.patch"
   cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')" --locked
 }
 
