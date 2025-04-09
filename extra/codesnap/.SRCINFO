@@ -1,14 +1,16 @@
 pkgbase = codesnap
 	pkgdesc = Pure Rust tool for generating beautiful code snapshots
-	pkgver = 0.10.5
+	pkgver = 0.10.7
 	pkgrel = 1
-	url = https://github.com/mistricky/CodeSnap
+	url = https://github.com/codesnap-rs/codesnap
 	arch = x86_64
 	license = MIT
 	makedepends = cargo
 	depends = oniguruma
 	depends = gcc-libs
-	source = CodeSnap-0.10.5.tar.gz::https://github.com/mistricky/CodeSnap/archive/v0.10.5.tar.gz
-	sha256sums = f9ba0e36aab5c671f8068ca0d7bbd3cab4432f72096dbc6c425f4aaf9bc1b780
+	source = codesnap-0.10.7.tar.gz::https://github.com/codesnap-rs/codesnap/archive/v0.10.7.tar.gz
+	source = codesnap-0.10.7-cargo-lock.patch::https://github.com/codesnap-rs/codesnap/commit/9e692408b183e8347568d460aaf28738ea3ea1cb.patch
+	sha256sums = ec7839c074f11f5c8895a97c50c529bddf411c66a5dd92625fa874fd89c9cccf
+	sha256sums = f85299aef2072c37503984f282191abfd8f7c09d8c264955cf806414842b5425
 
 pkgname = codesnap

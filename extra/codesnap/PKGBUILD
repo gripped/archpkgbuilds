@@ -1,37 +1,39 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 # Contributor: Adam Perkowski <adas1per@protonmail.com>
 
-_pkgname=CodeSnap
 pkgname=codesnap
-pkgver=0.10.5
+pkgver=0.10.7
 pkgrel=1
 pkgdesc="Pure Rust tool for generating beautiful code snapshots"
 arch=('x86_64')
-url="https://github.com/mistricky/$_pkgname"
+url="https://github.com/codesnap-rs/codesnap"
 license=('MIT')
 depends=('oniguruma' 'gcc-libs')
 makedepends=('cargo')
-source=("$_pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('f9ba0e36aab5c671f8068ca0d7bbd3cab4432f72096dbc6c425f4aaf9bc1b780')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
+  "$pkgname-$pkgver-cargo-lock.patch::https://github.com/codesnap-rs/codesnap/commit/9e692408b183e8347568d460aaf28738ea3ea1cb.patch")
+sha256sums=('ec7839c074f11f5c8895a97c50c529bddf411c66a5dd92625fa874fd89c9cccf'
+  'f85299aef2072c37503984f282191abfd8f7c09d8c264955cf806414842b5425')
 
 prepare() {
-  cd "$_pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cd "$pkgname-$pkgver"
+  patch -Np1 -i "$srcdir/$pkgname-$pkgver-cargo-lock.patch"
+  cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')" --locked
 }
 
 build() {
   export RUSTFLAGS="-C link-arg=/usr/lib/libonig.so"
-  cd "$_pkgname-$pkgver"
+  cd "$pkgname-$pkgver"
   cargo build --frozen --release
 }
 
 # check() {
-#   cd "$_pkgname-$pkgver"
+#   cd "$pkgname-$pkgver"
 #   cargo test --frozen
 # }
 
 package() {
-  cd "$_pkgname-$pkgver"
+  cd "$pkgname-$pkgver"
   install -Dm0755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
   install -Dm644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
