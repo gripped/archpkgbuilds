@@ -9,8 +9,8 @@
 # Contributor: loqs <bugs-archlinux@entropy-collector.net>
 
 pkgname=gitlab
-pkgver=17.10.3
-pkgrel=3
+pkgver=17.10.4
+pkgrel=1
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
 url='https://gitlab.com/gitlab-org/gitlab-foss'
@@ -67,7 +67,7 @@ provides=(gitlab-workhorse) # FS78036
 conflicts=(gitlab-workhorse)
 replaces=(gitlab-workhorse)
 install=gitlab.install
-sha256sums=('5568aa5ebfba41972d16d3d0fc79062db614429cffb3980136c957890fea39e8'
+sha256sums=('6daa124c515ba0a4c56cfcb7112ccdb3cb40362da4c0fc5986861b86c2a40197'
             '49120ae3adab1f554a995e705eb9fa3ce435006785af53eee3f21568a047873e'
             '8cc4d933743906b4213b8ea8d8c5a62535e27e4073f73581a5dad40078dde000'
             '37b6fed60f169441ed1578324a91f65bed96dd086c09e73bdb15a8ccecd5d219'
@@ -120,6 +120,10 @@ build() {
 
 	# https://github.com/nodejs/node/issues/48444
 	export UV_USE_IO_URING=0
+
+	# Enable build on Ruby newer than what the Gemfile.lock was created with
+	# TODO: remove thin when possible
+	bundle config set frozen false
 
 	echo "Fetching bundled gems..."
 	# Gems will be installed into vendor/bundle
