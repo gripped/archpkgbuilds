@@ -4,7 +4,7 @@
 _hkgname=base-compat
 pkgname=haskell-base-compat
 pkgver=0.12.2
-pkgrel=2
+pkgrel=3
 pkgdesc="A compatibility layer for base"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("MIT")
@@ -17,7 +17,7 @@ sha512sums=('8fc3f6835c2d9951a7e9ba8837952fb39dbaf9a8c77d11c941efd352e018ebe8813
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
