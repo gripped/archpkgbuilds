@@ -4,7 +4,7 @@
 _hkgname=data-hash
 pkgname=haskell-data-hash
 pkgver=0.2.0.1
-pkgrel=25
+pkgrel=26
 pkgdesc="Combinators for building fast hashing functions."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('daea098b9c808396606d90ae70e5156c492463db929b563a6195ee648ad72fc2949
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
