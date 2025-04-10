@@ -4,7 +4,7 @@
 _hkgname=appar
 pkgname=haskell-appar
 pkgver=0.1.8
-pkgrel=14
+pkgrel=15
 pkgdesc="A simple applicative parser"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('6954f4e966685fc47d91b34c527c524bdea29d2c8eba14f4c4ed1d268ee812926d2
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
