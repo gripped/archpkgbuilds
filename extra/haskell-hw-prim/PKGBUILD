@@ -3,16 +3,21 @@
 _hkgname=hw-prim
 pkgname=haskell-hw-prim
 pkgver=0.6.3.2
-pkgrel=98
+pkgrel=109
 pkgdesc="Primitive functions and data types"
 url="http://github.com/haskell-works/hw-prim#readme"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-mmap' 'haskell-unliftio-core' 'haskell-vector')
-makedepends=('ghc' 'haskell-quickcheck' 'haskell-doctest' 'haskell-doctest-discover'
+makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-doctest' 'haskell-doctest-discover'
              'haskell-hedgehog' 'haskell-hspec' 'haskell-hspec-discover' 'haskell-hw-hspec-hedgehog')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('1fa05fdc46c72ed4b28aabcee69695ce810d451bbd263fbe75f94b179e20441d')
+
+prepare() {
+  cd $_hkgname-$pkgver
+  uusi -u doctest -u hedgehog
+}
 
 build() {
   cd $_hkgname-$pkgver
