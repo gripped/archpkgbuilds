@@ -4,7 +4,7 @@
 _hkgname=patience
 pkgname=haskell-patience
 pkgver=0.3
-pkgrel=10
+pkgrel=11
 pkgdesc="Patience diff and longest increasing subsequence"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('12bc0005d6ca47ac9954aee8950d00f5c6af133958015fe791d2e100295660bebe9
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
