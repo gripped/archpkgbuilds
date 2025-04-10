@@ -4,7 +4,7 @@
 _hkgname=smtLib
 pkgname=haskell-smtlib
 pkgver=1.1
-pkgrel=15
+pkgrel=16
 pkgdesc="A library for working with the SMTLIB format"
 url="https://github.com/yav/smtLib"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('11a550ec03a0c59b2f7a0f24b325cdb4c981d75b1d25785a76ba644e7c75ca843e8
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
