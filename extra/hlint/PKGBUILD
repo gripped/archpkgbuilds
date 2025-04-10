@@ -2,8 +2,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hlint
-pkgver=3.4.1
-pkgrel=52
+pkgver=3.5
+pkgrel=11
 pkgdesc="Source code suggestions"
 url="http://community.haskell.org/~ndm/hlint/"
 license=("BSD")
@@ -17,7 +17,7 @@ conflicts=('haskell-hlint')
 replaces=('haskell-hlint')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('6c41235c9c36588d2760af84a251b078ebc31762e8ad91c817a500c787866d34a0eae92298ebad7ed57ac9df678018c52cce990e767ea64ffebc3a6ff68b51d1')
+sha512sums=('a66503787ac78383d6e5566be3f32c19ab51408ebc2bcc0499d101be67fd0699e6ac9c90efaa142ecdb0216bc2a74d2a120e5ba5861c3d22087b0f5931090bd5')
 
 prepare() {
     cd "${srcdir}/${pkgname}-${pkgver}"
