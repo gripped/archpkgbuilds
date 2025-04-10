@@ -3,15 +3,20 @@
 _hkgname=html-entity-map
 pkgname=haskell-html-entity-map
 pkgver=0.1.0.0
-pkgrel=188
+pkgrel=194
 pkgdesc="Map from HTML5 entity names to the corresponding Unicode text"
 url="https://github.com/mrkkrp/html-entity-map"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-unordered-containers')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('983600c33e8515e6ca31742d25490fb5a7be02503331963621b0ba5cd70d344c')
+
+prepare(){
+  cd $_hkgname-$pkgver
+  uusi -u text
+}
 
 build() {
   cd $_hkgname-$pkgver
