@@ -5,7 +5,7 @@
 _hkgname=X11
 pkgname=haskell-x11
 pkgver=1.10.3
-pkgrel=2
+pkgrel=3
 pkgdesc="A Haskell binding to the X11 graphics library."
 arch=(x86_64)
 url="https://hackage.haskell.org/cgi-bin/hackage-scripts/package/X11"
@@ -18,7 +18,8 @@ sha512sums=('5ce575568ec8db465f57d5e2901edf93b1f123f2a8828d397fbf20f4a46189b4c61
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    LDFLAGS="${LDFLAGS/-Wl,-z,pack-relative-relocs/}" \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
