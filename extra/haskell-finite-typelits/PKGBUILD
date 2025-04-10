@@ -2,8 +2,8 @@
 
 _hkgname=finite-typelits
 pkgname=haskell-finite-typelits
-pkgver=0.2.0.0
-pkgrel=10
+pkgver=0.2.0.1
+pkgrel=1
 pkgdesc="A type inhabited by finitely many values, indexed by type-level naturals."
 url="https://github.com/mniip/finite-typelits"
 license=("BSD")
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-tagged')
 makedepends=('ghc' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('88d695a60a4b41862794862aeea79bdb8fbdacb642050f62197f6e0cbe020e11')
+sha256sums=('20b6648ac4d5399a02d42acd2d06d77b59185cb10dbb08d8f28640c1836f03ff')
 
 build() {
   cd $_hkgname-$pkgver
