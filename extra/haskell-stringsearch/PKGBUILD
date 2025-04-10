@@ -4,7 +4,7 @@
 _hkgname=stringsearch
 pkgname=haskell-stringsearch
 pkgver=0.3.6.6
-pkgrel=25
+pkgrel=26
 pkgdesc="Fast searching, splitting and replacing of ByteStrings"
 url="https://bitbucket.org/dafis/stringsearch"
 license=("BSD")
@@ -22,7 +22,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-base3 -fbase4
