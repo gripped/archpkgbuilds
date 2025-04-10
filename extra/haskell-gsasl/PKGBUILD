@@ -4,7 +4,7 @@
 _hkgname=gsasl
 pkgname=haskell-gsasl
 pkgver=0.3.7
-pkgrel=12
+pkgrel=13
 pkgdesc="Bindings for GNU libgsasl"
 url="https://git.sr.ht/~singpolyma/gsasl-haskell"
 license=("GPL3")
@@ -17,7 +17,7 @@ sha512sums=('7a3eb2919aee0df650cfeec62fb6cafd4cc49a9af59c54878a737816b6369cf6d63
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
