@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dtk6gui
-pkgver=6.0.29
+pkgver=6.0.30
 pkgrel=1
 epoch=1
 pkgdesc='Deepin Toolkit, gui module for DDE look and feel'
@@ -13,7 +13,7 @@ depends=('glibc' 'dtk6core' 'librsvg' 'qt6-base' 'qt6-wayland' 'glib2' 'libx11' 
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'gtest' 'doxygen' 'treeland-protocols')
 source=("git+https://github.com/linuxdeepin/dtk6gui.git#tag=$pkgver"
          qt-6.9.patch)
-sha512sums=('adab6c3249e50f5d16ea8e3898c9724687d78d597901be18b181917f4bda00840ba58477bf2adc7c498d397161f769175d1c71a01db349dbd1e3196870feb7b0'
+sha512sums=('87deed16ace1542212b3ec158b80448ea0399db739ca4beda4d3b534f7b91ebab3060a236c9748eee652a2143ef5b3fcae38c6ac9b380d79cd1b514ab5dcf481'
             'df65da2c85a4ffb1c7ba251aab2da8792bde7a64ec05160b19d835b0a85a89230241c5e3daa8ddc3fedf868cf37351c4661e7446479d0769357fa8d49f633d81')
 
 prepare() {
