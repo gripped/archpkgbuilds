@@ -3,8 +3,8 @@
 
 _hkgname=semigroupoids
 pkgname=haskell-semigroupoids
-pkgver=6.0.0.1
-pkgrel=7
+pkgver=6.0.1
+pkgrel=2
 pkgdesc="Semigroupoids: Category sans id"
 url="https://github.com/ekmett/semigroupoids"
 license=("BSD")
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-base-orphans' 'haskell-bifunctors' 'haskell-comonad
          'haskell-transformers-compat' 'haskell-unordered-containers')
 makedepends=('ghc' 'haskell-cabal-doctest' 'haskell-doctest')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('471a2830f5225f456c25da0217e4f0059200a1912c36a73bcb903f542546190f58bac8174a76fc1fa4b82ec0ac49890ddf9f867e96cd7d41770def6e290ef286')
+sha512sums=('0d0e3b5dca7680b39385b80f6a216696274e617a34d25ab49f2cb4671042024b5cb2f6f0c17c0f03a2e19871a60524b10147174f276d89a8ab3751a899727544')
 
 build() {
     cd $_hkgname-$pkgver
