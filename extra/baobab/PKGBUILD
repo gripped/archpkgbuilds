@@ -4,7 +4,7 @@
 
 pkgname=baobab
 pkgver=48.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A graphical directory tree analyzer"
 url="https://apps.gnome.org/Baobab"
 arch=(x86_64)
@@ -33,17 +33,11 @@ makedepends=(
 groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/baobab.git#tag=${pkgver/[a-z]/.&}"
-  0001-HACK-Remove-inode-directory-association.patch
 )
-b2sums=('cf8b24c1e603e5f5916fb1a8b7ca5ac6b0a8f5e06d83a2f297b0e94adef1ff0f7b19c57ce45442e29cc061814f8deadd41a7438e2ed61b312dde96a82dfcd541'
-        '5fb7118c8f992e8e956ec839ff0774e62caa8ad3e46a484cf6cacad0b9f5de712452c71be20988475776e668d6fa48d4155537f7d5282069274f0409d8244658')
+b2sums=('cf8b24c1e603e5f5916fb1a8b7ca5ac6b0a8f5e06d83a2f297b0e94adef1ff0f7b19c57ce45442e29cc061814f8deadd41a7438e2ed61b312dde96a82dfcd541')
 
 prepare() {
   cd baobab
-
-  # Prevent Baobab becoming the default app for directories
-  # https://bugs.archlinux.org/task/31861
-  git apply -3 ../0001-HACK-Remove-inode-directory-association.patch
 }
 
 build() {
