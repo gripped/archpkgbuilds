@@ -3,7 +3,7 @@
 _hkgname=wl-pprint-terminfo
 pkgname=haskell-wl-pprint-terminfo
 pkgver=3.7.1.4
-pkgrel=449
+pkgrel=460
 pkgdesc="A color pretty printer with terminfo support"
 url="https://github.com/ekmett/wl-pprint-terminfo/"
 license=('BSD')
@@ -15,7 +15,7 @@ sha512sums=('1f2a7bd195732fe297c49c50b59812190d5698efa7c2e9b2fbcfbbae71523c25dfc
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -d nats -d semigroups -u bytestring -u containers
+    uusi -d nats -d semigroups -u bytestring -u containers -u text
 }
 
 build() {
