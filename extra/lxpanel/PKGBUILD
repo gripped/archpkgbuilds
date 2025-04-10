@@ -4,7 +4,7 @@
 # Contributor: Juergen Hoetzel <juergen@archlinux.org>
 
 pkgname=lxpanel
-pkgver=0.11.0
+pkgver=0.11.1
 pkgrel=1
 pkgdesc='Lightweight X11 desktop panel for LXDE'
 arch=('x86_64')
@@ -15,7 +15,7 @@ depends=('alsa-lib' 'curl' 'menu-cache' 'lxmenu-data' 'libwnck' 'libfm-gtk2' 'li
 makedepends=('git' 'intltool' 'docbook-xml' 'docbook-xsl' 'wireless_tools')
 optdepends=('wireless_tools: netstat plugin')
 source=(git+https://github.com/lxde/lxpanel.git#tag=${pkgver})
-sha256sums=('a92ea26e08083e1db249db60595ab36b80d79962741028a299300a9c72d73139')
+sha256sums=('262d261e14a13e6df1bb1a0406afee1e69f6da0891269a3e0a865507d04d5a95')
 
 prepare() {
   cd $pkgname
