@@ -2,8 +2,8 @@
 
 _hkgname=emojis
 pkgname=haskell-emojis
-pkgver=0.1.4
-pkgrel=11
+pkgver=0.1.4.1
+pkgrel=1
 pkgdesc="Conversion between emoji characters and their names"
 url="https://github.com/jgm/emojis"
 license=('BSD')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'uusi' 'haskell-hunit')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('60167131af469ea2abcc6e42a6fabdf31bfa42536516ed7f4f3c242ac683324a779168126e6a3b696cac8e5db278e8ad4171a40aeb4b03cba9ee6c1c55bbddb5')
+sha512sums=('5b420ea2f91416790d1a9b11396dd30e841413ed211a0bdff70dd190eee3cd9a21b693d82055ec285a379dff6fd1d1b856159e21a9e76a72730d5a17064f0ab0')
 
 prepare() {
     cd $_hkgname-$pkgver
