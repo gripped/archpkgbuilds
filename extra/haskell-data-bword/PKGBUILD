@@ -3,7 +3,7 @@
 _hkgname=data-bword
 pkgname=haskell-data-bword
 pkgver=0.1.0.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Extra operations on binary words of fixed length"
 url="https://github.com/mvv/data-bword"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('9275c80477362d415cb9d25616ca2f670e27c4e54d45fa345788173d74ade4b7ad4
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
