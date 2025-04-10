@@ -4,20 +4,25 @@
 _hkgname=unliftio-core
 pkgname=haskell-unliftio-core
 pkgver=0.2.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="The MonadUnliftIO typeclass for unlifting monads to IO"
 url="https://github.com/fpco/monad-unlift"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('dfc32895bc4410f017d86570c574fc9fbcf68434e4dc240904034c6e932051ee8015fba6a972ea8f0dc47ea5afb0d234208d5c66c21d40710b8bc469578cf976')
+
+prepare(){
+  cd $_hkgname-$pkgver
+  uusi -u base
+}
 
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
