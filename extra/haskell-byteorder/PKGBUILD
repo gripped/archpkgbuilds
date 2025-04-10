@@ -4,7 +4,7 @@
 _hkgname=byteorder
 pkgname=haskell-byteorder
 pkgver=1.0.4
-pkgrel=25
+pkgrel=26
 pkgdesc="Exposes the native endianness or byte ordering of the system."
 url="http://community.haskell.org/~aslatter/code/byteorder"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('970f74a394947b023ab88fa7bc713478b50565e3e9535479ec641283f18e04cb952
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
