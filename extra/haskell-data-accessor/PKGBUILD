@@ -4,7 +4,7 @@
 _hkgname=data-accessor
 pkgname=haskell-data-accessor
 pkgver=0.2.3.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Utilities for accessing and manipulating fields of records"
 url="http://www.haskell.org/haskellwiki/Record_access"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('bd487d74fa7c3d208519eb13b7d2abaa5e27ccccd154b5073580579dafc62b74bbb
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fsplitbase -fcategory
