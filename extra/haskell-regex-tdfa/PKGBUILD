@@ -3,8 +3,8 @@
 
 _hkgname=regex-tdfa
 pkgname=haskell-regex-tdfa
-pkgver=1.3.2.2
-pkgrel=62
+pkgver=1.3.2.3
+pkgrel=1
 pkgdesc="Pure Haskell Tagged DFA Backend for Text.Regex (regex-base)"
 url="https://wiki.haskell.org/Regular_expressions"
 license=("BSD")
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-regex-base')
 makedepends=('ghc' 'uusi' 'haskell-doctest-parallel' 'haskell-utf8-string')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('be5d93b0e989a3232f9d0e37f002085d500d334ec554ade30177b22dd0d873321aa2a4f8b3cacb4156d002659f67b6d6f50d5f8c8b2da513a43be49572dc9c6c')
+sha512sums=('ba64b2cae13bc1998d9b9fb0949ca40107bd694708297de8ee27d8ac74cc97febf6696112b9a88c35423a85bf86fb0c15de1d327408599de93dbe1502aff3de5')
 
 prepare() {
     cd $_hkgname-$pkgver
