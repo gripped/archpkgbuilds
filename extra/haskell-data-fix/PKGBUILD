@@ -2,21 +2,16 @@
 
 _hkgname=data-fix
 pkgname=haskell-data-fix
-pkgver=0.3.2
-pkgrel=117
+pkgver=0.3.3
+pkgrel=1
 pkgdesc="Fixpoint data types"
 url="https://github.com/spell-music/data-fix"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hashable')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('70b0c15522ea1fa623397bd399d83cc0921736012e6daaad21a9940ec9f447373f7e0e3915369127c7c54def7cb1d066c4641e676fa5f444f3d5dd761c258b63')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u base -u hashable $_hkgname.cabal
-}
+sha512sums=('fb441b7ad52a676adf503198112d18ae8afeb6d130e4b6e1f92a7dbd15d75cb4108d77c8f8752ab0ddefe19e1e8790ed18332bdb54595749c1b23f1425c232a7')
 
 build() {
     cd $_hkgname-$pkgver
