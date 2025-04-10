@@ -3,8 +3,8 @@
 
 pkgname=python-ipywidgets
 _pipname=ipywidgets
-pkgver=8.1.5
-pkgrel=2
+pkgver=8.1.6
+pkgrel=1
 pkgdesc='IPython HTML widgets for Jupyter'
 arch=(any)
 url='https://github.com/ipython/ipywidgets'
@@ -13,6 +13,7 @@ depends=(ipython
          python
          python-comm
          python-ipykernel
+         python-matplotlib-inline
          python-traitlets)
 makedepends=(git
              python-build
@@ -25,7 +26,7 @@ checkdepends=(python-ipykernel
               python-pytest
               python-pytz)
 source=(git+https://github.com/jupyter-widgets/ipywidgets#tag=$pkgver)
-sha256sums=('d604e88681644839dbf8cd45f93db05b0a346b5f3dcb0c7193ab0a0cecd190b9')
+sha256sums=('fc4843d7b9f1f819f2d245e1abc003b907479b6a9b5febe247937bcf08af0c60')
 
 build() {
   cd ipywidgets/python/ipywidgets
