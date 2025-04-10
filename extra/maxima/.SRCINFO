@@ -1,16 +1,14 @@
 pkgbase = maxima
 	pkgdesc = A sophisticated computer algebra system
 	pkgver = 5.47.0
-	pkgrel = 19
+	pkgrel = 21
 	url = http://maxima.sourceforge.net
 	arch = x86_64
-	license = GPL
-	makedepends = python
-	makedepends = emacs
+	license = GPL-2.0-only
 	makedepends = ecl
+	makedepends = emacs
+	makedepends = python
 	makedepends = sbcl
-	depends = texinfo
-	depends = shared-mime-info
 	options = !zipman
 	source = https://downloads.sourceforge.net/sourceforge/maxima/maxima-5.47.0.tar.gz
 	source = matrixexp.patch
@@ -22,9 +20,8 @@ pkgbase = maxima
 	sha256sums = 05f6f82550e03af3927379d71a4e2a762ea523fa0c0ea1021741c7dd51414c32
 
 pkgname = maxima
-	depends = texinfo
-	depends = shared-mime-info
 	depends = maxima-backend
+	depends = texinfo
 	optdepends = gnuplot: plotting capabilities
 	optdepends = rlwrap: readline support via /usr/bin/rmaxima
 	optdepends = tk: graphical xmaxima interface
@@ -32,16 +29,16 @@ pkgname = maxima
 
 pkgname = maxima-sbcl
 	pkgdesc = SBCL backend for Maxima
-	depends = gmp
 	depends = sbcl=2.5.3
 	provides = maxima-backend
 
 pkgname = maxima-ecl
 	pkgdesc = ECL backend for Maxima
-	depends = ecl=23.9.9
+	depends = ecl=24.5.10
+	depends = glibc
 	provides = maxima-backend
 
 pkgname = maxima-fas
 	pkgdesc = Maxima FAS module for ECL
-	depends = ecl=23.9.9
+	depends = ecl=24.5.10
 	depends = maxima

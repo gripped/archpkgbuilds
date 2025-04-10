@@ -6,14 +6,16 @@ pkgbase=maxima
 pkgname=($pkgbase{,-sbcl,-ecl,-fas})
 pkgver=5.47.0
 _sbclver=2.5.3
-_eclver=23.9.9
-pkgrel=19
+_eclver=24.5.10
+pkgrel=21
 pkgdesc='A sophisticated computer algebra system'
 arch=(x86_64)
-license=(GPL)
+license=(GPL-2.0-only)
 url='http://maxima.sourceforge.net'
-depends=(texinfo shared-mime-info)
-makedepends=(python emacs ecl sbcl)
+makedepends=(ecl
+             emacs
+             python
+             sbcl)
 # needs rebuild when bash changes version
 # needs a rebuild when ecl or sbcl changes version
 options=(!zipman) # don't zip info pages or they won't work inside maxima
@@ -55,7 +57,8 @@ build() {
 #}
 
 package_maxima() {
-  depends+=(maxima-backend)
+  depends=(maxima-backend
+           texinfo)
   replaces=('maxima-ecl<5.45.1-9')
   optdepends=('gnuplot: plotting capabilities'
               'rlwrap: readline support via /usr/bin/rmaxima'
@@ -70,7 +73,7 @@ package_maxima() {
 
 package_maxima-sbcl() {
   pkgdesc='SBCL backend for Maxima'
-  depends=(gmp sbcl=$_sbclver)
+  depends=(sbcl=$_sbclver)
   provides=(maxima-backend)
 
   install -Dm755 $pkgbase-$pkgver/src/binary-sbcl/maxima.core -t "$pkgdir"/usr/lib/maxima/$pkgver/binary-sbcl
@@ -78,7 +81,8 @@ package_maxima-sbcl() {
 
 package_maxima-ecl() {
   pkgdesc='ECL backend for Maxima'
-  depends=(ecl=$_eclver)
+  depends=(ecl=$_eclver
+           glibc)
   provides=(maxima-backend)
 
   install -Dm755 $pkgbase-$pkgver/src/binary-ecl/maxima -t "$pkgdir"/usr/lib/maxima/$pkgver/binary-ecl
@@ -86,7 +90,8 @@ package_maxima-ecl() {
 
 package_maxima-fas() {
   pkgdesc='Maxima FAS module for ECL'
-  depends=(ecl=$_eclver maxima)
+  depends+=(ecl=$_eclver
+            maxima)
 
   install -Dm644 $pkgbase-$pkgver/src/binary-ecl/maxima.fas -t "$pkgdir"/usr/lib/ecl-$_eclver
 }
