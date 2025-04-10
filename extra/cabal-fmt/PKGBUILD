@@ -1,27 +1,21 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=cabal-fmt
-pkgver=0.1.5.1
-pkgrel=133
+pkgver=0.1.6
+pkgrel=5
 pkgdesc="Format .cabal files"
 url="https://github.com/phadej/cabal-fmt.git"
 license=("GPL" "BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-optparse-applicative')
-makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-golden')
-source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz"
-        cabal-fmt-cabal-3.4.patch
-        cabal-fmt-cabal-3.6.patch)
-sha256sums=('a7fc6f0ff8b36ddd329b01237c0e9a6eda835be9439e434470d69a4511611f7d'
-            'fb74dd7cfc650ed09f763bd11e929a9bd192447df9b55f2b13fd5c3f2a5fa102'
-            '8ed2cb994465516720d4e4f99abe8de5549566a2e42c2ecbb52f98ad3b303828')
+makedepends=('ghc' 'uusi' 'haskell-integer-logarithms' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-golden'
+             'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
+source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('d9e5ecb29bdacecb5a22c4e6b31ac03c56508478a99eb2e8e2b1509910636d6d')
 
 prepare() {
   cd $pkgname-$pkgver
-  patch -p1 -i ../cabal-fmt-cabal-3.4.patch
-  patch -p1 -i ../cabal-fmt-cabal-3.6.patch
   gen-setup
-  uusi -u base -u bytestring -u optparse-applicative $pkgname.cabal
 }
 
 build() {
