@@ -4,16 +4,21 @@
 _hkgname=attoparsec
 pkgname=haskell-attoparsec
 pkgver=0.14.4
-pkgrel=89
+pkgrel=93
 pkgdesc="Fast combinator parsing for bytestrings and text"
 url="https://github.com/bos/attoparsec"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-scientific')
-makedepends=('ghc' 'haskell-quickcheck' 'haskell-quickcheck-unicode' 'haskell-tasty'
+makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-unicode' 'haskell-tasty'
              'haskell-tasty-quickcheck' 'haskell-vector')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('48aa7743b24def2db7041e3e0189d9844194c42b5d216ff5060806a80eb550200ddcb11e9321a910ac4881ffdd7381d80a4b88a73acfb29209c650eababb925b')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u ghc-prim $_hkgname.cabal
+}
 
 build() {
     cd $_hkgname-$pkgver
