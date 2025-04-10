@@ -3,15 +3,20 @@
 _hkgname=newtype-generics
 pkgname=haskell-newtype-generics
 pkgver=0.6.2
-pkgrel=71
+pkgrel=75
 pkgdesc="A typeclass and set of functions for working with newtypes"
 url="https://github.com/sjakobi/newtype-generics"
 license=('BSD')
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'haskell-hspec')
+makedepends=('ghc' 'uusi' 'haskell-hspec')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
 sha512sums=('31525fe18aa97ff34d9d18f385ec427b577051b583a649d52f6df01634e93fe594fe90a13263a9b25961ab0b49b8023eab48bf80d25cb550e11f3b065a3d878b')
+
+prepare(){
+  cd $_hkgname-$pkgver
+  uusi -u base
+}
 
 build() {
     cd $_hkgname-$pkgver
