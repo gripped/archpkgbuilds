@@ -3,7 +3,7 @@
 _hkgname=readable
 pkgname=haskell-readable
 pkgver=0.3.1
-pkgrel=20
+pkgrel=21
 pkgdesc="Reading from Text and ByteString"
 url="https://github.com/mightybyte/readable"
 license=('BSD')
@@ -15,13 +15,13 @@ sha512sums=('237467c4b6dfef9fe090c53e45a1f4261e34fc947b16878575c2b1d2b93400a6767
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u bytestring $_hkgname.cabal
+    uusi -u bytestring -u text $_hkgname.cabal
 }
 
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
