@@ -4,7 +4,7 @@
 _hkgname=errors
 pkgname=haskell-errors
 pkgver=2.3.0
-pkgrel=89
+pkgrel=93
 pkgdesc="Simplified error-handling"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -16,7 +16,7 @@ sha512sums=('dddfc63505fd7023c4a669b3cc3d736cf7ecb774b53dcdfeee2d203dcdf4684f5d1
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u transformers-compat $_hkgname.cabal
+    uusi -u text -u transformers-compat $_hkgname.cabal
 }
 
 build() {
