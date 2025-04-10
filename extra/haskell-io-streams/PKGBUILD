@@ -3,17 +3,22 @@
 _hkgname=io-streams
 pkgname=haskell-io-streams
 pkgver=1.5.2.2
-pkgrel=65
+pkgrel=69
 pkgdesc="Simple, composable, and easy-to-use stream I/O"
 url="https://github.com/snapframework/io-streams"
 license=('BSD')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-attoparsec' 'haskell-network' 'haskell-primitive' 'haskell-vector'
          'haskell-zlib-bindings')
-makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-test-framework'
+makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-quickcheck' 'haskell-test-framework'
              'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
 sha512sums=('ba94eb8d8bed29870469666696fdc984f0abacadc71cc7b26e0aa747ffa88500946f09c37803df598476727286689f807959440ff2b1f312ab6a9d8beb248865')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u primitive
+}
 
 build() {
     cd $_hkgname-$pkgver
