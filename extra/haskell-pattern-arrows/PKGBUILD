@@ -4,7 +4,7 @@
 _hkgname=pattern-arrows
 pkgname=haskell-pattern-arrows
 pkgver=0.0.2
-pkgrel=26
+pkgrel=27
 pkgdesc="Arrows for Pretty Printing"
 url="https://blog.functorial.com/posts/2013-10-27-Pretty-Printing-Arrows.html"
 license=("MIT")
@@ -17,7 +17,7 @@ sha512sums=('085d4c2e023a4762af885ec9043ca5b16fae3de4b9ecca879d8a4415d027febeef6
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
