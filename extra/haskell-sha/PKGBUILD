@@ -4,7 +4,7 @@
 
 pkgname=haskell-sha
 pkgver=1.6.4.4
-pkgrel=20
+pkgrel=21
 pkgdesc="Implementations of the SHA suite of message digest functions"
 url="https://hackage.haskell.org/package/SHA"
 license=('BSD3')
@@ -17,7 +17,7 @@ sha512sums=('77a525cb9ef45a410595a2f9c11a848a3aaeb6c7cb9b0ff11395326a259c0bea0e7
 build() {
     cd "${srcdir}/SHA-${pkgver}"
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
