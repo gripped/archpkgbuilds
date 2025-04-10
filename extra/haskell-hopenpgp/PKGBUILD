@@ -2,25 +2,24 @@
 
 _hkgname=hOpenPGP
 pkgname=haskell-hopenpgp
-pkgver=2.9.8
-pkgrel=236
+pkgver=2.10.0
+pkgrel=4
 pkgdesc="Native Haskell implementation of OpenPGP (RFC4880)"
 url="http://floss.scru.org/hOpenPGP/"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-asn1-encoding' 'haskell-attoparsec'
          'haskell-base16-bytestring' 'haskell-bifunctors' 'haskell-bz2' 'haskell-binary-conduit'
-         'haskell-conduit' 'haskell-conduit-extra' 'haskell-cryptonite'
-         'haskell-crypto-cipher-types' 'haskell-errors' 'haskell-hashable'
-         'haskell-incremental-parser' 'haskell-ixset-typed' 'haskell-lens' 'haskell-memory'
-         'haskell-monad-loops' 'haskell-nettle' 'haskell-network-uri'
-         'haskell-openpgp-asciiarmor' 'haskell-prettyprinter' 'haskell-resourcet' 'haskell-split'
-         'haskell-time-locale-compat' 'haskell-unliftio-core' 'haskell-unordered-containers'
-         'haskell-zlib')
+         'haskell-conduit' 'haskell-conduit-extra' 'haskell-crypton' 'haskell-crypto-cipher-types'
+         'haskell-errors' 'haskell-hashable' 'haskell-incremental-parser' 'haskell-ixset-typed'
+         'haskell-lens' 'haskell-memory' 'haskell-monad-loops' 'haskell-nettle'
+         'haskell-network-uri' 'haskell-openpgp-asciiarmor' 'haskell-prettyprinter'
+         'haskell-resourcet' 'haskell-split' 'haskell-time-locale-compat' 'haskell-unliftio-core'
+         'haskell-unordered-containers' 'haskell-zlib')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-tasty'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('2d4ccf9af498b0ec33d353fa891b555109318dc5f0c5be5eb4165ff88115efcd79d4d28a89909cd224abfd64ddc3e332c07b59e3202c9dbccabd70405c78edfa')
+sha512sums=('df53987b622abda47ae351bcf936116ed98bbae3f96223036e966a008c5f0826b22589e1978586e7c474f43f1ebcba87469da5e93f1193cac9a01f23eb2a07a6')
 
 build() {
     cd $_hkgname-$pkgver
