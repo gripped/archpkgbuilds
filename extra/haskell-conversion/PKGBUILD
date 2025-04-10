@@ -3,7 +3,7 @@
 _hkgname=conversion
 pkgname=haskell-conversion
 pkgver=1.2.1
-pkgrel=25
+pkgrel=26
 pkgdesc="Universal converter between values of different types"
 url="https://github.com/nikita-volkov/conversion"
 license=('MIT')
@@ -16,7 +16,7 @@ sha512sums=('f4cc84d1d1bba63b0191d2c98caa14d67ff6601eb2a0d95aebf88116e80adefe84d
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
