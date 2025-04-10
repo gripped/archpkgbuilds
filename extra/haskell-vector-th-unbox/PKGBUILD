@@ -4,7 +4,7 @@
 _hkgname=vector-th-unbox
 pkgname=haskell-vector-th-unbox
 pkgver=0.2.2
-pkgrel=295
+pkgrel=308
 pkgdesc="Deriver for Data.Vector.Unboxed using Template Haskell"
 url="https://github.com/tsurucapital/vector-th-unbox"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('55af4bcced3a39464aca6dca95a8148498a698d9402a583b916aa178d58d3895cc6
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u vector $_hkgname.cabal
+  uusi -u base -u vector -u template-haskell $_hkgname.cabal
 }
 
 build() {
