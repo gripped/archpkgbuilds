@@ -3,7 +3,7 @@
 _hkgname=extensible-exceptions
 pkgname=haskell-${_hkgname}
 pkgver=0.1.1.4
-pkgrel=37
+pkgrel=38
 pkgdesc="extensible exceptions for both new and old versions of GHC"
 url="https://hackage.haskell.org/package/extensible-exceptions"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('b63bb6b8bc846571db37c23801b711748a10a27a6a6b25035e992013f6705ad9b3a
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
