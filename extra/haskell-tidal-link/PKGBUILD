@@ -3,7 +3,7 @@
 _hkgname=tidal-link
 pkgname=haskell-tidal-link
 pkgver=1.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Ableton Link integration for Tidal"
 url="http://tidalcycles.org/"
 license=(GPL-3.0-only)
@@ -38,7 +38,7 @@ build() {
     -O
     --datasubdir=$pkgname
     --disable-library-vanilla
-    --docdir=/usr/share/doc/$pkgname
+    --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname
     --dynlibdir=/usr/lib
     --enable-executable-dynamic
     --enable-shared
