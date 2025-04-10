@@ -4,7 +4,7 @@
 _hkgname=wl-pprint-text
 pkgname=haskell-wl-pprint-text
 pkgver=1.2.0.2
-pkgrel=6
+pkgrel=7
 pkgdesc="A Wadler/Leijen Pretty Printer for Text values"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('842b3b539d393d536d05933b53738daa325c6e14fcbf877adef90b1c1dde402cd11
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
