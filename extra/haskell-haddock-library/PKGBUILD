@@ -3,7 +3,7 @@
 _hkgname=haddock-library
 pkgname=haskell-haddock-library
 pkgver=1.11.0
-pkgrel=53
+pkgrel=64
 pkgdesc="A documentation-generation tool for Haskell libraries"
 url="https://www.haskell.org/haddock/"
 license=("BSD")
@@ -16,7 +16,7 @@ sha512sums=('85d34d60545fb01e9be1c74f47ec8e250337a283406120f7a47cb0f0c2dd339a0ab
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u tree-diff -u QuickCheck -u hspec -u optparse-applicative $_hkgname.cabal
+    uusi -u base -u tree-diff -u QuickCheck -u hspec -u optparse-applicative $_hkgname.cabal
 }
 
 build() {
