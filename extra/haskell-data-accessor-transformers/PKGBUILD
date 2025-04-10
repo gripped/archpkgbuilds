@@ -4,7 +4,7 @@
 _hkgname=data-accessor-transformers
 pkgname=haskell-data-accessor-transformers
 pkgver=0.2.1.8
-pkgrel=2
+pkgrel=3
 pkgdesc="Use Accessor to access state in transformers State monad"
 url="https://www.haskell.org/haskellwiki/Record_access"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('5208ffb4580721870524cc0e88faa1f477b961287b854a945ed9e9beef88e40ac78
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
