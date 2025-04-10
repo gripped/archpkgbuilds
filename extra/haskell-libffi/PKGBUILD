@@ -4,7 +4,7 @@
 _hkgname=libffi
 pkgname=haskell-libffi
 pkgver=0.2.1
-pkgrel=2
+pkgrel=3
 pkgdesc="A binding to libffi"
 url="http://haskell.org/haskellwiki/Library/libffi"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('f549d47f5267f7ec2cc6dca72631bfb5a591b1eb815c50107e327dc7c5e373db767
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
         -f-ghc-bundled-libffi
