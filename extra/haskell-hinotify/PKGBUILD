@@ -3,8 +3,8 @@
 
 _hkgname=hinotify
 pkgname=haskell-hinotify
-pkgver=0.4.1
-pkgrel=186
+pkgver=0.4.2
+pkgrel=1
 pkgdesc="Haskell binding to inotify"
 url="https://github.com/kolmodin/hinotify"
 license=("BSD")
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' "haskell-async")
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('2f4627a3604ac6ec5d745ba6f4fd11e39a094ad54a5ab4d5040fe6c7c2a8823e42be575b9be95dc6848db99b421bac70798f8eb5f9ba6841f06f6156afe8797b')
+sha512sums=('bcd609e04e2fffe7fe1c906efa316475097006ca2a3f9bd28ebd1064cf7391893bd019822fa3fb523abb5b2a64ebf98c5b33454cf1972fd3c758c6721b8bb0cd')
 
 build() {
     cd $_hkgname-$pkgver
