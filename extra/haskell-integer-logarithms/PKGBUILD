@@ -3,7 +3,7 @@
 _hkgname=integer-logarithms
 pkgname=haskell-integer-logarithms 
 pkgver=1.0.3.1
-pkgrel=7
+pkgrel=8
 pkgdesc="Integer logarithms"
 url="https://github.com/Bodigrim/integer-logarithms"
 license=('MIT')
@@ -21,7 +21,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -finteger-gmp -f-check-bounds
