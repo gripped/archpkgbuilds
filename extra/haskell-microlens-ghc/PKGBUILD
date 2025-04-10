@@ -5,7 +5,7 @@
 _hkgname=microlens-ghc
 pkgname=haskell-microlens-ghc
 pkgver=0.4.14.3
-pkgrel=1
+pkgrel=2
 pkgdesc="microlens + array, bytestring, containers, transformers"
 url="https://github.com/stevenfontanella/microlens"
 license=("BSD")
@@ -18,7 +18,7 @@ sha512sums=('ce5a650977c573b489c651fd288a9e7c7183ca3e1c8246de87c2a12da66748c5177
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
