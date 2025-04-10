@@ -4,7 +4,7 @@
 _hkgname=mintty
 pkgname=haskell-mintty
 pkgver=0.1.4
-pkgrel=2
+pkgrel=3
 pkgdesc="A reliable way to detect the presence of a MinTTY console on Windows"
 url="https://github.com/RyanGlScott/mintty/"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('f5c3231f342d24d7dc38b0281579aa6f272767451412ea84e1c248f77331d674018
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
