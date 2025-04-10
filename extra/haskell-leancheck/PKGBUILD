@@ -3,7 +3,7 @@
 _hkgname=leancheck
 pkgname=haskell-leancheck
 pkgver=1.0.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Enumerative property-based testing"
 url="https://github.com/rudymatela/leancheck"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('2879c59d8000eca23beb9eed96ad017bb2e3d8b54adc07e98f5c0af612af3ebc1b8
 build() {
     cd $_hkgname-$pkgver    
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
