@@ -3,7 +3,7 @@
 _hkgname=ghc-trace-events
 pkgname=haskell-ghc-trace-events
 pkgver=0.1.2.9
-pkgrel=1
+pkgrel=2
 pkgdesc="Faster traceEvent and traceMarker, and binary object logging for eventlog"
 url="https://github.com/maoe/ghc-trace-events"
 license=("BSD")
@@ -16,7 +16,7 @@ sha512sums=('6e88b5ad2886957e5e20598d3a631d1e6e9769b697e9afae38158ab3c6c4111929d
 build() {
   cd $_hkgname-$pkgver
 
-  runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+  runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
     --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
