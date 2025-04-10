@@ -4,7 +4,7 @@
 _hkgname=timeit
 pkgname=haskell-timeit
 pkgver=2.0
-pkgrel=20
+pkgrel=21
 pkgdesc="Time monadic computations with an IO base"
 url="https://hackage.haskell.org/package/timeit"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('3cbe554ddb17fbeb5f8be1f6459144921f8be4db0fa9571678980251ca397fca070
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
