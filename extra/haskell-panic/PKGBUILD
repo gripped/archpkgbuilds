@@ -3,7 +3,7 @@
 _hkgname=panic
 pkgname=haskell-panic
 pkgver=0.4.0.1
-pkgrel=25
+pkgrel=26
 pkgdesc="A convenient way to panic"
 url="https://github.com/yav/panic"
 license=('ISC')
@@ -16,7 +16,7 @@ sha512sums=('7df11c15414c1513f86a236b1bb549c5cf8795e9f5120580ce5e05b2bd423914df3
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
