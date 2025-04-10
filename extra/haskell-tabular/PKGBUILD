@@ -4,7 +4,7 @@
 _hkgname=tabular
 pkgname=haskell-tabular
 pkgver=0.2.2.8
-pkgrel=7
+pkgrel=8
 pkgdesc="Two-dimensional data tables with rendering functions"
 url="https://github.com/bgamari/tabular"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('7bff6bfc7f23919a05817140cfc37d9f52626e7f26137d70f9c7b6b83df17eb6d19
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
