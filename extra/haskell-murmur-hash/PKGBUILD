@@ -4,7 +4,7 @@
 _hkgname=murmur-hash
 pkgname=haskell-murmur-hash
 pkgver=0.1.0.11
-pkgrel=1
+pkgrel=2
 pkgdesc="MurmurHash2 implementation for Haskell."
 url="https://github.com/nominolo/murmur-hash"
 license=('BSD')
@@ -17,7 +17,7 @@ sha512sums=('9ff9ac2c749cc590bcb195f873d6319abaaea1e728423b95fa281a9b21da6a1257e
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
