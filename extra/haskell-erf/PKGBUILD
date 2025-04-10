@@ -4,7 +4,7 @@
 _hkgname=erf
 pkgname=haskell-erf
 pkgver=2.0.0.0
-pkgrel=25
+pkgrel=26
 pkgdesc="The error function, erf, and related functions."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('0803d78cbb4324c06174ec2162fb8408120acd7c644889fef51089de51c8165b075
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
