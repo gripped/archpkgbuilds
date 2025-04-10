@@ -3,7 +3,7 @@
 _hkgname=conversion-text
 pkgname=haskell-conversion-text
 pkgver=1.0.1.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Conversion instances for the text library"
 url="https://github.com/nikita-volkov/conversion-text"
 license=('MIT')
@@ -21,7 +21,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
