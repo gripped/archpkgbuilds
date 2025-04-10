@@ -3,8 +3,8 @@
 
 _hkgname=rebase
 pkgname=haskell-rebase
-pkgver=1.19
-pkgrel=10
+pkgver=1.20
+pkgrel=6
 pkgdesc='A more progressive alternative to the "base" package'
 url="https://github.com/nikita-volkov/rebase"
 license=("MIT")
@@ -16,12 +16,11 @@ depends=('ghc-libs' 'haskell-bifunctors' 'haskell-contravariant' 'haskell-comona
          'haskell-vector-instances' 'haskell-void')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('d95036bb1728a6eea0e747cc7c3394962c535d70d8856c863081f52196a54df77521c40ec9ba93fd47ea6365f4b69d520a4943447c5948c354a923c093bc809d')
+sha512sums=('2762b00322c5d167b1a8cf44c667bae37d92658caaf705f8c9a9d9796abeefbe0c7c561211fd20c0954d888aecddeaf39ed30e7c9f794015c60333bf38d93fc4')
 
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
-    uusi -u bifunctors -u semigroupoids
 }
 
 build() {
