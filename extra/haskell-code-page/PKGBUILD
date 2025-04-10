@@ -4,7 +4,7 @@
 _hkgname=code-page
 pkgname=haskell-code-page
 pkgver=0.2.1
-pkgrel=6
+pkgrel=7
 pkgdesc="Windows code page library for Haskell"
 url="https://github.com/RyanGlScott/code-page"
 license=('BSD')
@@ -17,7 +17,7 @@ sha512sums=('5a1ff550892bb315d2c0645d325e8b8914342d0da9726dd3798eba9655bd79cca7a
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
