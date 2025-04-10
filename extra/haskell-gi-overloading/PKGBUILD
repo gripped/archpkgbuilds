@@ -4,7 +4,7 @@
 _hkgname=haskell-gi-overloading
 pkgname=haskell-gi-overloading
 pkgver=1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Overloading support for haskell-gi"
 url="https://github.com/haskell-gi/haskell-gi-overloading"
 license=("BSD")
@@ -17,10 +17,10 @@ sha512sums=('8e303e0a360133ecaa238352d410cc63e29584933b5449478bac743e0a5af678c9b
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --enable-tests \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
-    runhaskell Setup build
+    runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
@@ -29,7 +29,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
