@@ -3,7 +3,7 @@
 
 pkgname=postgrest
 pkgver=10.0.0
-pkgrel=312
+pkgrel=332
 pkgdesc="REST API for any Postgres database"
 url="https://github.com/begriffs/postgrest"
 license=("MIT")
@@ -33,6 +33,8 @@ prepare() {
     cd $pkgname-$pkgver
     patch -p1 -i ../postgresql-15.patch
     uusi -u aeson -u hspec -u HTTP -u jose -u lens -u lens-aeson -u optparse-applicative -u vector $pkgname.cabal
+    # GHC 9.4
+    uusi -u base -u text -u time
 
     # Hack LD_LIBRARY_PATH
     sed -e "/^    env\[\"HPCTIXFILE/a \    env[\"LD_LIBRARY_PATH\"] = \"$PWD/dist/build\"" \
