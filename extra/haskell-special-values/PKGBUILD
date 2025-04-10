@@ -3,7 +3,7 @@
 _hkgname=special-values
 pkgname=haskell-special-values
 pkgver=0.1.0.0
-pkgrel=217
+pkgrel=221
 pkgdesc="Typeclass providing special values"
 url="https://github.com/minad/special-values"
 license=('MIT')
@@ -15,7 +15,7 @@ sha512sums=('e45d4f04b3c50261077d084f9525677739543cad624870c4a28c5c6630a355d7c5d
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u bytestring
+    uusi -u bytestring -u text
 }
 
 build() {
