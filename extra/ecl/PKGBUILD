@@ -2,19 +2,19 @@
 # Maintainer: juergen <juergen@archlinux.org>
 
 pkgname=ecl
-pkgver=23.9.9
+pkgver=24.5.10
 # Remember to rebuild sagemath when the soname changes
 pkgrel=2
 pkgdesc="Embeddable Common Lisp"
 arch=('x86_64')
 url="https://common-lisp.net/project/ecl/"
 license=('LGPL')
-depends=('bash' 'gmp')
+depends=('bash' 'gmp' 'libffi')
 makedepends=('texinfo')
 provides=('common-lisp' 'cl-asdf')
 options=('!makeflags')
 source=("https://common-lisp.net/project/ecl/static/files/release/${pkgname}-${pkgver}.tgz")
-sha256sums=('c51bdab4ca6c1173dd3fe9cfe9727bcefb97bb0a3d6434b627ca6bdaeb33f880')
+sha256sums=('e4ea65bb1861e0e495386bfa8bc673bd014e96d3cf9d91e9038f91435cbe622b')
 
 build() {
   cd $pkgname-$pkgver
