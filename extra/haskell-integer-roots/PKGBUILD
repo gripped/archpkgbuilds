@@ -3,7 +3,7 @@
 _hkgname=integer-roots
 pkgname=haskell-integer-roots
 pkgver=1.0.2.0
-pkgrel=87
+pkgrel=91
 pkgdesc="Integer roots and perfect powers"
 url="https://github.com/Bodigrim/integer-roots"
 license=("MIT")
@@ -17,6 +17,7 @@ sha512sums=('291683e7b1229f5930827ff02ae279387cc520c24bb4ebc7870bd7284afcbd0daa7
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u ghc-bignum
 }
 
 build() {
