@@ -2,8 +2,8 @@
 
 _hkgname=quic
 pkgname=haskell-quic
-pkgver=0.1.7
-pkgrel=6
+pkgver=0.1.8
+pkgrel=11
 pkgdesc="QUIC"
 url="https://github.com/kazu-yamamoto/quic"
 license=("BSD")
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-base16-bytestring' 'haskell-crypto-token' 'haskell-
          'haskell-tls' 'haskell-unix-time' 'haskell-unliftio' 'haskell-unliftio-core')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-async' 'haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('ccad212744cc794f5c1691881bb0e48ff1a9aa9d01330db565a6f498c8a5ed26')
+sha256sums=('09efcddf916d17d631de16881409a3b692b77f3568f9d05f322d88f73ab30bee')
 
 build() {
   cd $_hkgname-$pkgver
