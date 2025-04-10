@@ -3,7 +3,7 @@
 _hkgname=options
 pkgname=haskell-options
 pkgver=1.2.1.1
-pkgrel=20
+pkgrel=21
 pkgdesc="A powerful and easy-to-use command-line option parser"
 url="https://john-millikin.com/software/haskell-options/"
 license=('MIT')
@@ -16,7 +16,7 @@ sha512sums=('615a3767b74ca0ba2eae993f6e475963df2a0933f1e6c9bbfe35144c4dc6018af27
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
