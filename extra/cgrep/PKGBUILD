@@ -2,20 +2,22 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=cgrep
-pkgver=6.6.32
-pkgrel=476
+pkgver=8.0.0
+pkgrel=8
 pkgdesc="A context-aware grep for source codes"
 url="https://awgn.github.io/cgrep/"
 license=("GPL2")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-async' 'haskell-cmdargs'
-         'haskell-dlist' 'haskell-either' 'haskell-extra' 'haskell-regex-base'
+depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-async' 'haskell-bitarray'
+         'haskell-bitwise' 'haskell-bytestring-strict-builder' 'haskell-cmdargs' 'haskell-dlist'
+         'haskell-either' 'haskell-extra' 'haskell-mmap' 'haskell-monad-loops'
+         'haskell-mono-traversable' 'haskell-posix-paths' 'haskell-rawfilepath' 'haskell-regex-base'
          'haskell-regex-pcre' 'haskell-regex-posix' 'haskell-safe' 'haskell-split'
-         'haskell-stringsearch' 'haskell-unix-compat' 'haskell-unicode-show'
-         'haskell-unordered-containers' 'haskell-utf8-string' 'haskell-yaml')
+         'haskell-stringsearch' 'haskell-unagi-chan' 'haskell-unicode-show' 'haskell-unix-compat'
+         'haskell-unordered-containers' 'haskell-utf8-string' 'haskell-vector' 'haskell-yaml')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('401ca49fbd2903b810c1873a3c52c3863a42b431d1a905a781636386c3ac0aac4e2ed9934fb24f1e9996629a2b578483a7c3a7a8a4d61ecb7ac7cfc9152f43ba')
+sha512sums=('4bab8ba6d7e20b2ff294a8919d4e3a63c4ddc5871a6c82c071502eb7130daaddacda2a650e0f1649ac6b437dc88c56fac1dbb39f934021be04b3b33e0d59155d')
 
 build() {
     cd $pkgname-$pkgver
