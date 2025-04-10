@@ -3,7 +3,7 @@
 _hkgname=HStringTemplate
 pkgname=haskell-hstringtemplate
 pkgver=0.8.8
-pkgrel=62
+pkgrel=66
 pkgdesc="StringTemplate implementation in Haskell."
 url="http://hub.darcs.net/sterlingclover/hstringtemplate"
 license=("BSD")
@@ -15,7 +15,7 @@ sha256sums=('717df416550bdc62f2070c1a86238efe535b0fa41c5fd708c4f631f927880cd9')
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -d semigroups -u bytestring -u template-haskell -u time $_hkgname.cabal
+  uusi -d semigroups -u bytestring -u template-haskell -u text -u time $_hkgname.cabal
 }
 
 build() {
