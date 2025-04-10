@@ -4,7 +4,7 @@
 _hkgname=placeholders
 pkgname=haskell-placeholders
 pkgver=0.1
-pkgrel=25
+pkgrel=26
 pkgdesc="Placeholders for use while developing Haskell code"
 url="https://github.com/ahammar/placeholders"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('29248b791853ab28e79238f454754ab8a87364c46387a2c026f5cad315bf2678292
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
