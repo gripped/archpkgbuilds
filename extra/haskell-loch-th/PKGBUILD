@@ -4,7 +4,7 @@
 _hkgname=loch-th
 pkgname=haskell-loch-th
 pkgver=0.2.2
-pkgrel=20
+pkgrel=21
 pkgdesc="Support for precise error locations in source files (Template Haskell version)"
 url="https://github.com/liskin/loch-th"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('e2bbad416b1628563913bd192191aff019c1b99a991f5c5b3006c05888cc2f5eead
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
