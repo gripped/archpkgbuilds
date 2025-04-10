@@ -3,8 +3,8 @@
 
 _hkgname=xcb-types
 pkgname=haskell-xcb-types
-pkgver=0.13.0
-pkgrel=2
+pkgver=0.14.0
+pkgrel=1
 pkgdesc="Parses XML files used by the XCB project"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -12,12 +12,12 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-xml')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('efb7bc3cebfe5dc934c80cc64d57f744bb36e32a1c41c977e9511fe0c5ecc59eda4c7df726da8dcc27ff98dbb535c8e6703541e59ff5c6d0197deadc80dee10f')
+sha512sums=('2e5addc0ca33c5103a0cc59a1c7e8a212f150f07e86539b2c89228570885b8c868f391db13bd8d56f9dedbf5aa78398a21190c0c554be697a7dda03d36d51719')
 
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fsplit-base
