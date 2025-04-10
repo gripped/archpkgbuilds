@@ -5,8 +5,8 @@ pkgname=(
   libqmi
   libqmi-docs
 )
-pkgver=1.34.0
-pkgrel=2
+pkgver=1.36.0
+pkgrel=1
 pkgdesc="QMI modem protocol helper library"
 url="https://www.freedesktop.org/wiki/Software/libqmi/"
 arch=(x86_64)
@@ -29,9 +29,10 @@ makedepends=(
   meson
 )
 source=("git+https://gitlab.freedesktop.org/mobile-broadband/libqmi.git?signed#tag=${pkgver/[a-z]/-&}")
-b2sums=('4f86ffd67bd969440db12a2f15eb562fe5b54e2e403f1e8c717a45fe4cf1814d4d78350d9bb2cb0eeaf6c356638e34cf0e4aa844bddb7bf2b8b424feac91e87b')
+b2sums=('66df45a4b1775d72f78c8ba4539e2bc97a514aa00df55f5cfd23c9ed85f1ccd612642b34671f136103b018f2dc8e320e503734ed25a1e2b972769fb030a0bb3c')
 validpgpkeys=(
   A814D09B9C5BC01945A64308AECE0239C6606AD5 # Aleksander Morgado <aleksandermj@chromium.org>
+  3A948E16E8860C68CD68441D734614319E26A433 # Dan Williams <dan@ioncontrol.co>
 )
 
 prepare() {
@@ -48,13 +49,13 @@ build() {
 }
 
 check() {
-  meson test -C build --print-errorlogs --no-rebuild
+  meson test -C build --print-errorlogs
 }
 
 package_libqmi() {
   provides=(libqmi-glib.so)
 
-  meson install -C build --destdir "$pkgdir" --no-rebuild
+  meson install -C build --destdir "$pkgdir"
 
   mkdir -p doc/usr/share
   mv {"$pkgdir",doc}/usr/share/gtk-doc
