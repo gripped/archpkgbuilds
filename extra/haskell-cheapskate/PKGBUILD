@@ -4,7 +4,7 @@
 _hkgname=cheapskate
 pkgname=haskell-cheapskate
 pkgver=0.1.1.2
-pkgrel=694
+pkgrel=709
 pkgdesc="Experimental markdown processor."
 url="https://github.com/jgm/cheapskate"
 license=("BSD")
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' "haskell-aeson" "haskell-blaze-html" "haskell-data-default" "haskell-http-types"
          "haskell-syb" "haskell-uniplate" "haskell-wai"
          "haskell-wai-extra" "haskell-xss-sanitize")
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('b671ada413b8bd90f28b008c7bada4b744dedac2c7711090f1148dfa1643f7843f44e56c9a5a99fd0f71ded8393a0095b04fbdf73f70a707698dc9fb76ed1b45')
 
@@ -23,6 +23,7 @@ prepare() {
         -e 's/T.pack "html"/fromText(T.pack "html")/' \
         -e 's/T.pack "version"/fromText(T.pack "version")/' \
         -i bin/cheapskate-dingus.hs
+    uusi -u text
 }
 
 build() {
