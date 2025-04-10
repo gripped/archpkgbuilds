@@ -3,7 +3,7 @@
 _hkgname=fmlist
 pkgname=haskell-fmlist
 pkgver=0.9.4
-pkgrel=8
+pkgrel=9
 pkgdesc="FoldMap lists"
 url="https://github.com/sjoerdvisscher/fmlist"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('68b36503cd895bff5f25f2d24422972537b5ba68439714de257441c14194656b0b8
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
