@@ -3,21 +3,26 @@
 
 _hkgname=statistics
 pkgname=haskell-statistics
-pkgver=0.16.2.1
-pkgrel=64
+pkgver=0.16.3.0
+pkgrel=9
 pkgdesc="A library of statistical types, data, and functions"
 url="https://github.com/haskell/statistics"
-license=("BSD")
+license=('BSD-2-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-async' 'haskell-data-default-class'
          'haskell-dense-linear-algebra' 'haskell-math-functions' 'haskell-mwc-random'
          'haskell-parallel' 'haskell-primitive' 'haskell-random' 'haskell-vector'
          'haskell-vector-algorithms' 'haskell-vector-binary-instances' 'haskell-vector-th-unbox')
-makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-erf' 'haskell-ieee754'
-             'haskell-tasty' 'haskell-tasty-expected-failure' 'haskell-tasty-hunit'
-             'haskell-tasty-quickcheck')
+makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-quickcheck' 'haskell-doctest' 'haskell-erf'
+             'haskell-ieee754' 'haskell-tasty' 'haskell-tasty-expected-failure'
+             'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('cfc7a0ae07ffa5a41a5887db970719c5bc76391a31bf0942e6a4facb1a8092903dab2d16df8f408f1fd712a54dbc260fdde1155c84b9823ffc8034eae68d4cad')
+sha512sums=('0e066d5dd2cf621c69bd3a50477f6a1c8bcd57f527e89d55d4a9e12ee6c586bd70049e0745423fb7d170e85ed521678e8c79b214c7a360b9039e1812f93781dc')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    gen-setup
+}
 
 build() {
     cd $_hkgname-$pkgver
