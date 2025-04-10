@@ -4,7 +4,7 @@
 _hkgname=pretty-show
 pkgname=haskell-pretty-show
 pkgver=1.10
-pkgrel=16
+pkgrel=17
 pkgdesc='Tools for working with derived `Show` instances and generic inspection of values.'
 url="https://github.com/yav/pretty-show"
 license=('MIT')
@@ -17,7 +17,7 @@ sha512sums=('90ecf41790246c85ee7c738de2bb1a23a56a0a1d547cee627cb0a5f6c2691adfc73
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
