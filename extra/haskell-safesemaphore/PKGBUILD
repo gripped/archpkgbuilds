@@ -4,7 +4,7 @@
 _hkgname=SafeSemaphore
 pkgname=haskell-safesemaphore
 pkgver=0.10.1
-pkgrel=28
+pkgrel=29
 pkgdesc="Much safer replacement for QSemN, QSem, and SampleVar"
 url="https://github.com/ChrisKuklewicz/SafeSemaphore"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('877731622e1942f45fcc43e2ed8ba7ddfa2c1f4a7ea4f36cdf425a98acc9c2f54c7
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
