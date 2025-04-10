@@ -3,7 +3,7 @@
 
 pkgname=haskell-ghc-paths
 pkgver=0.1.0.12
-pkgrel=13
+pkgrel=14
 pkgdesc="Knowledge of GHC's installation directories"
 url='https://hackage.haskell.org/package/ghc-paths'
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('1c66caf459f5783bde38a47ce1292bf5c47fef21e3f69d7f6c052b4eb39f446ed5d
 build() {
     cd "${srcdir}/ghc-paths-${pkgver}"
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
