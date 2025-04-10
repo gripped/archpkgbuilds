@@ -3,7 +3,7 @@
 _hkgname=ghc-tcplugins-extra
 pkgname=haskell-ghc-tcplugins-extra
 pkgver=0.4.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Utilities for writing GHC type-checker plugins"
 url="https://github.com/clash-lang/ghc-tcplugins-extra"
 license=('custom:BSD2')
@@ -16,7 +16,7 @@ sha512sums=('498a12f9ffad2c5a39b5421edc95a3e6b85eaa28ef6d1ca0699de313d3d608fd2a9
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
