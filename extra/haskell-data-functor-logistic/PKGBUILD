@@ -3,7 +3,7 @@
 _hkgname=data-functor-logistic
 pkgname=haskell-data-functor-logistic
 pkgver=0.0
-pkgrel=56
+pkgrel=60
 pkgdesc="Updatable analogue of Distributive functors"
 url="https://github.com/fumieval/data-functor-logistic"
 license=("BSD")
@@ -16,6 +16,7 @@ sha256sums=('15f794f13d4b0c7e7f89aa7c42fa7ff3cbb77a7a1a8168da8343e953af24594c')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u base
 }
 
 build() {
