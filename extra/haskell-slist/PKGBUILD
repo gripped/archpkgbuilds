@@ -3,7 +3,7 @@
 _hkgname=slist
 pkgname=haskell-slist
 pkgver=0.2.1.0
-pkgrel=55
+pkgrel=61
 pkgdesc="Sized list"
 url="https://github.com/kowainik/slist"
 license=("MPL2")
@@ -17,6 +17,7 @@ sha256sums=('4b11f09ee92ca1c60cd69e708bcd933a5b8cd252bf5f80e5f1037441f07ea2c8')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u hedgehog
 }
 
 build() {
