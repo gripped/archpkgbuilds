@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=haskell-src-exts-simple
-pkgver=1.23.0.0
-pkgrel=68
+pkgver=1.23.1.0
+pkgrel=1
 pkgdesc="A simplified view on the haskell-src-exts AST"
 url="https://github.com/int-e/haskell-src-exts-simple"
 license=("MIT")
@@ -10,7 +10,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-src-exts')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('f57029fa5b81ddd604027e909739dc85c3bf819592dc1c95d3a9cb3aa392cdc9')
+sha256sums=('275c86fde39ed9dad0719534d435e0f076c853e6c6dfedf6716190aa22493bd2')
 
 build() {
   cd $pkgname-$pkgver
