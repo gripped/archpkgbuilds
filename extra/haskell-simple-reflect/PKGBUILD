@@ -3,7 +3,7 @@
 _hkgname=simple-reflect
 pkgname=haskell-simple-reflect
 pkgver=0.3.3
-pkgrel=10
+pkgrel=11
 pkgdesc="Simple reflection of expressions containing variables"
 url="https://github.com/twanvl/simple-reflect"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('5a10c7696a6d92e5881b88d92427d5f62bb319cff69a093aa72404dd68d9bddcc2b
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
