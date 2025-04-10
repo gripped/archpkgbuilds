@@ -4,7 +4,7 @@
 _hkgname=silently
 pkgname=haskell-silently
 pkgver=1.2.5.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Prevent or capture writing to stdout and other handles."
 url="https://github.com/hspec/silently"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('1b05420e363ec763c08fb3767cde9b8c701a418ccdfba9b19731d87650f180955ae
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
