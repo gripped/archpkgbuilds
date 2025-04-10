@@ -3,15 +3,20 @@
 _hkgname=bytestring-progress
 pkgname=haskell-bytestring-progress
 pkgver=1.4
-pkgrel=63
+pkgrel=67
 pkgdesc="A library for tracking the consumption of a lazy ByteString"
 url="https://github.com/acw/bytestring-progress"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-terminal-progress-bar')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('9aafe45a7bb9bb1b4b1b9333aef20fc5345e07fbdf34dee5466a06e6bfb10d90')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u text
+}
 
 build() {
   cd $_hkgname-$pkgver
