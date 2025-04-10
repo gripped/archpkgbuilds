@@ -4,7 +4,7 @@
 _hkgname=contravariant
 pkgname=haskell-contravariant
 pkgver=1.5.5
-pkgrel=4
+pkgrel=5
 pkgdesc="Contravariant functors"
 url="https://github.com/ekmett/contravariant/"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('c5e14525cb44fe24ddaa8b1b2b5eb983e602513887119a9fb9eaed3ec1d5af28b9e
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -fstatevar -fsemigroups -ftagged -f-safe
