@@ -4,15 +4,16 @@
 _hkgname=test-framework
 pkgname=haskell-test-framework
 pkgver=0.8.2.1
-pkgrel=5
+pkgrel=20
 pkgdesc="Framework for running and organising tests, with HUnit and QuickCheck support"
 url="https://github.com/haskell/test-framework"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-ansi-wl-pprint' 'haskell-hostname'
          'haskell-old-locale' 'haskell-random' 'haskell-regex-posix' 'haskell-xml')
-makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-quickcheck' 'haskell-libxml'
-             'haskell-utf8-string')
+makedepends=('ghc' 'uusi')
+checkdepends=('haskell-hunit' 'haskell-quickcheck' 'haskell-libxml'
+              'haskell-utf8-string')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('2d52b78271aabe089963804d8927c7164a62dc7ab869ba50dc98c140cfcb2019078dc679cd6370edbb019e04c8ce957569f31de3903c3438ec4fc5e39e6e851b')
 
@@ -25,8 +26,14 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
 
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
+
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
