@@ -2,8 +2,8 @@
 
 _hkgname=postgresql-simple
 pkgname=haskell-postgresql-simple
-pkgver=0.6.5
-pkgrel=101
+pkgver=0.6.5.1
+pkgrel=6
 pkgdesc="Mid-Level PostgreSQL client library"
 url="https://github.com/haskellari/postgresql-simple"
 license=("BSD")
@@ -15,7 +15,7 @@ makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-base16-bytestring' 'haskell-c
              'haskell-inspection-testing' 'haskell-tasty' 'haskell-tasty-golden'
              'haskell-tasty-hunit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('fda53ab2a72bbe402947526ccb02f9928563eae03e0832bb871c00912e455e96')
+sha256sums=('c861410b73d279c6d1b712dc20632c37612a1098f23593f6475a995b14191b6c')
 
 prepare() {
   cd $_hkgname-$pkgver
