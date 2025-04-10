@@ -4,7 +4,7 @@
 _hkgname=scientific
 pkgname=haskell-scientific
 pkgver=0.3.7.0
-pkgrel=128
+pkgrel=132
 pkgdesc="Numbers represented using scientific notation"
 url="https://github.com/basvandijk/scientific"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('dbd13060a6d1d101138715b4106382a78d115cff247859cb6f83aca3cdb6f6caf8a
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u base -u hashable -u template-haskell $_hkgname.cabal
+    uusi -u base -u hashable -u primitive -u template-haskell -u text
 }
 
 build() {
