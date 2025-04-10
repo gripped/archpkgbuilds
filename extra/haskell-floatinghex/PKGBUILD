@@ -4,7 +4,7 @@
 _hkgname=FloatingHex
 pkgname=haskell-floatinghex
 pkgver=0.5
-pkgrel=7
+pkgrel=8
 pkgdesc="Read and write hexadecimal floating point numbers"
 url="https://github.com/LeventErkok/FloatingHex"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('aabac5a89a3d90828396fa9f7704d49367e2257635731e53975519c049eb39edfcd
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
