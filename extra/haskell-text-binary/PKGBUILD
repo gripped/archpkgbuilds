@@ -4,7 +4,7 @@
 _hkgname=text-binary
 pkgname=haskell-text-binary
 pkgver=0.2.1.1
-pkgrel=27
+pkgrel=28
 pkgdesc="Binary instances for text types"
 url="https://github.com/kawu/text-binary"
 license=("custom:BSD2")
@@ -17,7 +17,7 @@ sha512sums=('eea91648ddc63f2997432abd2cc3d78efa27e3745c199eeccd01114df6a67dae948
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
