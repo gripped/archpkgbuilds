@@ -3,7 +3,7 @@
 _hkgname=FindBin
 pkgname=haskell-findbin
 pkgver=0.0.5
-pkgrel=20
+pkgrel=21
 pkgdesc="Locate directory of original program"
 url="https://github.com/hspec/findbin"
 license=('BSD')
@@ -16,7 +16,7 @@ sha512sums=('427eff520ea9b88bc928d4330d4550d1d7d2254512e63cc8afad5f45b94a58cf475
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
