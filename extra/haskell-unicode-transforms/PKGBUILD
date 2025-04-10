@@ -3,7 +3,7 @@
 _hkgname=unicode-transforms
 pkgname=haskell-unicode-transforms
 pkgver=0.4.0.1
-pkgrel=89
+pkgrel=93
 pkgdesc="Unicode transforms (normalization NFC/NFD/NFKC/NFKD)"
 url="https://github.com/composewell/unicode-transforms/"
 license=('BSD')
@@ -15,7 +15,7 @@ sha512sums=('3d1347209d2b50fefac1b8bef3a4a82ab8e5f2addc361a338399225e37c933c1e54
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u unicode-data $_hkgname.cabal
+    uusi -u base -u ghc-prim -u unicode-data $_hkgname.cabal
 }
 
 build() {
