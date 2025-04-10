@@ -5,7 +5,7 @@
 _hkgname=pandoc
 pkgname=haskell-pandoc
 pkgver=3.1.12.1
-pkgrel=25
+pkgrel=44
 pkgdesc='Conversion between markup formats'
 url='https://pandoc.org'
 license=('GPL')
@@ -21,10 +21,10 @@ depends=('ghc-libs' 'haskell-glob' 'haskell-juicypixels' 'haskell-sha' 'haskell-
          'haskell-network' 'haskell-network-uri' 'haskell-pandoc-types' 'haskell-pretty-show'
          'haskell-random' 'haskell-safe' 'haskell-scientific' 'haskell-skylighting'
          'haskell-skylighting-core' 'haskell-split' 'haskell-syb' 'haskell-tagsoup'
-         'haskell-temporary' 'haskell-texmath' 'haskell-text-conversions' 'haskell-typst'
-         'haskell-unicode-collation' 'haskell-unicode-transforms' 'haskell-vector' 'haskell-xml'
-         'haskell-xml-conduit' 'haskell-xml-types' 'haskell-yaml' 'haskell-zip-archive'
-         'haskell-zlib')
+         'haskell-temporary' 'haskell-texmath' 'haskell-text-conversions' 'haskell-tls'
+         'haskell-typst' 'haskell-unicode-collation' 'haskell-unicode-transforms' 'haskell-vector'
+         'haskell-xml' 'haskell-xml-conduit' 'haskell-xml-types' 'haskell-yaml'
+         'haskell-zip-archive' 'haskell-zlib')
 optdepends=('pandoc-crossref: for numbering figures, equations, tables and cross-references to them with pandoc-crossref filter'
             'texlive-context: for pdf output using context engine'
             'groff: for pdf output using pdfroff engine'
@@ -42,6 +42,10 @@ sha512sums=('965c8d864ff331161f6bdb54275d06e752c9d3b7d9c23f3f4d2578d3e4c7219b496
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
+    uusi -u crypton-connection -r djot:djot,tls
+    sed -e 's/TLSSettingsSimple disableCertificateValidation False False/TLSSettingsSimple disableCertificateValidation False False def { TLS.supportedCiphers = TLS.ciphersuite_default }/' \
+        -e '/import qualified Text.Pandoc.UTF8 as UTF8/a import qualified Network.TLS as TLS\nimport qualified Network.TLS.Extra as TLS\nimport Data.Default (def)' \
+        -i src/Text/Pandoc/Class/IO.hs
     # TODO: find a better solution
     sed -i "s|let env' = dynlibEnv ++ |let env' = dynlibEnv ++ [(\"LD_LIBRARY_PATH\", \"$PWD/dist/build\")] ++ |" test/Tests/Command.hs
 }
