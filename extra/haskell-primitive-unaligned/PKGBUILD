@@ -3,15 +3,20 @@
 _hkgname=primitive-unaligned
 pkgname=haskell-primitive-unaligned
 pkgver=0.1.1.2
-pkgrel=57
+pkgrel=61
 pkgdesc="Unaligned access to primitive arrays"
 url="https://github.com/haskell-primitive/primitive-unaligned"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-primitive')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('ea123532a46d24925e7364470ac899d521a9d6a00bb80c505b3696b0e21354cf')
+
+prepare() {
+  cd $_hkgname-$pkgver
+  uusi -u primitive
+}
 
 build() {
   cd $_hkgname-$pkgver
