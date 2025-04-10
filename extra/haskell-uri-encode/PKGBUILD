@@ -4,7 +4,7 @@
 _hkgname=uri-encode
 pkgname=haskell-uri-encode
 pkgver=1.5.0.7
-pkgrel=228
+pkgrel=232
 pkgdesc="Unicode aware uri-encoding"
 url="https://github.com/silkapp/uri-encode"
 license=("BSD")
@@ -16,7 +16,7 @@ sha512sums=('da8d816a2c9586bd09762b914a6c4da2c3688fd1d1b31aa34bfae0291db9e0f639c
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u bytestring
+    uusi -u bytestring -u text
 }
 
 build() {
