@@ -11,7 +11,7 @@ shopt -s extglob
 
 pkgbase=ghc
 pkgname=(ghc-libs ghc ghc-static)
-pkgver=9.2.8
+pkgver=9.4.8
 pkgrel=1
 pkgdesc='The Glasgow Haskell Compiler'
 arch=('x86_64')
@@ -21,17 +21,14 @@ makedepends=('ghc-static' 'perl' 'libxslt' 'docbook-xsl' 'python-sphinx' 'haskel
              'haskell-hscolour' 'texlive-fontsrecommended' 'texlive-latexextra' 'texlive-xetex'
              'ttf-dejavu' 'alex' 'happy' 'time' 'numactl' 'python-sphinx_rtd_theme')
 source=("https://downloads.haskell.org/~ghc/$pkgver/$pkgbase-${pkgver}-src.tar.xz"
-        ghc-sphinx-6.patch::https://gitlab.haskell.org/ghc/ghc/-/commit/00dc51060881df81258ba3b3bdf447294618a4de.patch
         ghc-rebuild-doc-index.hook ghc-register.hook ghc-unregister.hook)
-sha512sums=('c1159741725deaa00be7c230b38d43aed0fd456621fb4bc434434f13b03b74da1f91c09ce5dad553cf535f14038d8568fce7f21ea068680211b8bd35eafacf49'
-            '7a79a5e9591b1ddd78fa349526a85cf9fee64db80639dcf1f3d6edef422fd4454222aedf5581e21489a20d748656265a40e7645004e4d5220280f6214c568e64'
-            '940e58508a34bd5ec6a58dba2e60dd28be78138b2e820fc45b115879335d4a160dafcac5c68bf5d19300d6d403f80a0a8c783a6dd187fb690c6608888c21effe'
+sha512sums=('e5cfb30adc73dc0054f5db2921e5f255c8a980e005798882a2e9daa8df2409ddbe1ec6403e1f6862efc9e4700db4b68d5cae36999d77c7d3fd2fe0ab51cb9923'
+            'd69e5222d1169c4224a2b69a13e57fdd574cb1b5932b15f4bc6c7d269a9658dd87acb1be81f52fbcf3cb64f96978b9943d10cee2c21bff0565aaa93a5d35fcae'
             '5f659651d8e562a4dcaae0f821d272d6e9c648b645b1d6ab1af61e4dd690dc5a4b9c6846753b7f935963f001bb1ae1f40cd77731b71ef5a8dbc079a360aa3f8f'
             '3bdbd05c4a2c4fce4adf6802ff99b1088bdfad63da9ebfc470af9e271c3dd796f86fba1cf319d8f4078054d85c6d9e6a01f79994559f24cc77ee1a25724af2e6')
 
 prepare() {
   cd ghc-$pkgver
-  patch -p1 -i ../ghc-sphinx-6.patch
 
   # devendor rtd-theme for sphinx compatibility
   rm -r docs/users_guide/rtd-theme
@@ -39,11 +36,6 @@ prepare() {
 
   # detects GCC correctly
   sed -i 's/grep -q gcc/grep -qi gcc/' m4/fp_gcc_version.m4
-
-  cp mk/build.mk{.sample,}
-  sed -i '1iBuildFlavour = perf' mk/build.mk
-
-  ./boot
 }
 
 build() {
@@ -67,14 +59,15 @@ package_ghc-static() {
 
   cd ghc-$pkgver
 
-  DESTDIR="$pkgdir" hadrian install --flavour=perf --prefix=/usr
+  DESTDIR="$pkgdir" LDFLAGS="${LDFLAGS/-Wl,-z,pack-relative-relocs/}" hadrian install --flavour=perf --prefix=/usr
 
   mv "$pkgdir"/usr/lib/ghc-$pkgver/lib/package.conf.d "$srcdir"/static-package.conf.d
   find "$pkgdir"/usr/lib ! \( -name "*.a" -o -name "*.o" -o -name "*.p_o" -o -name "*.p_hi" -o -name "*.hi" \) -type f -delete
   find "$pkgdir"/usr/lib -type d -empty -delete
   mv "$srcdir"/static-package.conf.d "$pkgdir"/usr/lib/ghc-$pkgver/lib/
   rm "$pkgdir"/usr/lib/ghc-$pkgver/lib/static-package.conf.d/*.copy
-  rm -r "$pkgdir"/usr/bin "$pkgdir"/usr/include "$pkgdir"/usr/lib/ghc-$pkgver/bin "$pkgdir"/usr/lib/ghc-$pkgver/lib/$CARCH-linux-ghc-$pkgver/*.so
+  rm -r "$pkgdir"/usr/bin "$pkgdir"/usr/share/man "$pkgdir"/usr/lib/ghc-$pkgver/bin
+  mv "$pkgdir"/usr/share/doc/ghc{-$pkgver,}
 
   install -Dm755 libraries/{gen_contents_index,prologue.txt} -t "$pkgdir"/usr/share/doc/ghc-$pkgver/html/libraries/
   install -Dm644 "$srcdir"/ghc-rebuild-doc-index.hook -t "$pkgdir"/usr/share/libalpm/hooks/
@@ -83,7 +76,7 @@ package_ghc-static() {
 package_ghc() {
   pkgdesc='The Glasgow Haskell Compiler'
   depends=('gcc' 'ghc-libs')
-  provides=('haskell-haddock=2.26.0'
+  provides=('haskell-haddock=2.27.0'
             'haskell-hp2ps=0.1'
             'haskell-hpc-bin=0.68'
             'haskell-hsc2hs=0.68.8')
@@ -96,7 +89,7 @@ package_ghc() {
   replaces+=("haskell-ghc")
 
   cd ghc-$pkgver
-  DESTDIR="$pkgdir" hadrian install --flavour=perf --prefix=/usr
+  DESTDIR="$pkgdir" LDFLAGS="${LDFLAGS/-Wl,-z,pack-relative-relocs/}" hadrian install --flavour=perf --prefix=/usr
 
   # Remove static libs
   find "$pkgdir"/usr/lib \( -name "*.a" -o -name "*.o" -o -name "*.p_o" -o -name "*.p_hi" -o -name "*.hi" \) -delete
@@ -110,8 +103,6 @@ package_ghc() {
   # docs moved to ghc-static
   rm -r "$pkgdir"/usr/share/doc
 
-  install -Dm644 _build/docs/users_guide/build-man/*.1 -t "$pkgdir"/usr/share/man/man1/
-
   install -Dm644 utils/completion/ghc.bash \
     "$pkgdir/usr/share/bash-completion/completions/ghc"
 }
@@ -121,44 +112,45 @@ package_ghc-libs() {
   install='ghc.install'
   depends=('gmp' 'libffi' 'numactl' 'perl')
   provides=('haskell-array=0.5.4.0'
-            'haskell-base=4.16.4.0'
-            'haskell-binary=0.8.9.0'
-            'haskell-bytestring=0.11.4.0'
-            'haskell-cabal=3.6.3.0'
-            'haskell-containers=0.6.5.1'
-            'haskell-deepseq=1.4.6.1'
-            'haskell-directory=1.3.6.2'
-            'haskell-exceptions=0.10.4'
+            'haskell-base=4.17.2.1'
+            'haskell-binary=0.8.9.1'
+            'haskell-bytestring=0.11.5.3'
+            'haskell-cabal=3.8.1.0'
+            'haskell-cabal-syntax=3.8.1.0'
+            'haskell-containers=0.6.7'
+            'haskell-deepseq=1.4.8.0'
+            'haskell-directory=1.3.7.1'
+            'haskell-exceptions=0.10.5'
             'haskell-filepath=1.4.2.2'
-            'haskell-ghc-bignum=1.2'
-            'haskell-ghc-boot=9.2.8'
-            'haskell-ghc-boot-th=9.2.8'
+            'haskell-ghc-bignum=1.3'
+            'haskell-ghc-boot=9.4.8'
+            'haskell-ghc-boot-th=9.4.8'
             'haskell-ghc-compact=0.1.0.0'
-            'haskell-ghc-heap=9.2.8'
-            'haskell-ghci=9.2.8'
-            'haskell-ghc-prim=0.8.0'
+            'haskell-ghc-heap=9.4.8'
+            'haskell-ghc-prim=0.9.1'
             'haskell-haskeline=0.8.2'
             'haskell-hpc=0.6.1.0'
             'haskell-integer-gmp=1.1'
-            'haskell-libiserv=9.2.8'
+            'haskell-libiserv=9.4.8'
             'haskell-mtl=2.2.2'
-            'haskell-parsec=3.1.15.0'
+            'haskell-parsec=3.1.16.1'
             'haskell-pretty=1.1.3.6'
-            'haskell-process=1.6.16.0'
-            'haskell-stm=2.5.0.2'
-            'haskell-template-haskell=2.18.0.0'
+            'haskell-process=1.6.18.0'
+            'haskell-stm=2.5.1.0'
+            'haskell-template-haskell=2.19.0.0'
             'haskell-terminfo=0.4.1.5'
-            'haskell-text=1.2.5.0'
-            'haskell-time=1.11.1.1'
+            'haskell-text=2.0.2'
+            'haskell-time=1.12.2'
             'haskell-transformers=0.5.6.2'
-            'haskell-unix=2.7.2.2'
+            'haskell-unix=2.7.3'
             'haskell-xhtml=3000.2.2.1'
-            'haskell-ghc-pkg=9.2.8')
+            'haskell-ghc-pkg=9.4.8')
   replaces=('haskell-array'
             'haskell-base'
             'haskell-binary'
             'haskell-bytestring'
             'haskell-cabal'
+            'haskell-cabal-syntax'
             'haskell-containers'
             'haskell-deepseq'
             'haskell-directory'
@@ -194,7 +186,7 @@ package_ghc-libs() {
 
   cd ghc-$pkgver
 
-  DESTDIR="$pkgdir" hadrian install --flavour=perf --prefix=/usr
+  DESTDIR="$pkgdir" LDFLAGS="${LDFLAGS/-Wl,-z,pack-relative-relocs/}" hadrian install --flavour=perf --prefix=/usr
 
   # Remove static libs
   find "$pkgdir"/usr/lib \( -name "*.a" -o -name "*.o" -o -name "*.p_o" -o -name "*.p_hi" -o -name "*.hi" \) -delete
@@ -205,10 +197,9 @@ package_ghc-libs() {
   (cd "$pkgdir"/usr/lib/ghc-$pkgver/lib; rm -r !(package.conf.d|$CARCH-linux-ghc-$pkgver))
   rm "$pkgdir"/usr/lib/ghc-$pkgver/lib/package.conf.d/*.copy
   (cd "$pkgdir"/usr/bin; rm !(ghc-pkg*))
-  rm -r "$pkgdir"/usr/include
 
-  # docs moved to ghc-static
-  rm -r "$pkgdir"/usr/share/doc
+  # docs moved to ghc-static, man pages moved to ghc
+  rm -r "$pkgdir"/usr/share/{man,doc}
 
   install -Dm644 "$srcdir"/ghc-register.hook "$pkgdir"/usr/share/libalpm/hooks/ghc-register.hook
   install -Dm644 "$srcdir"/ghc-unregister.hook "$pkgdir"/usr/share/libalpm/hooks/ghc-unregister.hook

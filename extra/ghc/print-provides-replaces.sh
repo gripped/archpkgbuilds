@@ -12,10 +12,8 @@ declare -A exclude
 exclude['Win32']=1
 # no integer-simple because we use integer-gmp
 exclude['integer-simple']=1
-# extract excluded libraries from ghc.mk
-for exclude_pkg in $(sed 's/PKGS_THAT_ARE_INTREE_ONLY := //p' -n src/ghc-${pkgver}/ghc.mk); do
-  exclude[${exclude_pkg}]=1
-done
+# no ghci because it only conflicts, not replaces
+exclude['ghci']=1
 
 cd src/ghc-${pkgver}
 
@@ -47,8 +45,8 @@ print_var() {
 }
 
 # For ghc-libs
-print_var 'provides' '=' libraries/*/*.cabal{,.in} libraries/{containers/containers,Cabal/Cabal}/*.cabal utils/ghc-pkg/*.cabal.in
-print_var 'replaces' '' libraries/*/*.cabal{,.in} libraries/{containers/containers,Cabal/Cabal}/*.cabal utils/ghc-pkg/*.cabal.in
+print_var 'provides' '=' libraries/*/*.cabal{,.in} libraries/{containers/containers,Cabal/Cabal,Cabal/Cabal-syntax}/*.cabal utils/ghc-pkg/*.cabal.in
+print_var 'replaces' '' libraries/*/*.cabal{,.in} libraries/{containers/containers,Cabal/Cabal,Cabal/Cabal-syntax}/*.cabal utils/ghc-pkg/*.cabal.in
 
 # For ghc
 print_var 'provides' '=' utils/{hpc,hsc2hs,haddock*,hp2ps}/*.cabal
