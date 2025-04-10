@@ -4,7 +4,7 @@
 _hkgname=bloomfilter
 pkgname=haskell-bloomfilter
 pkgver=2.0.1.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Pure and impure Bloom Filter implementations"
 url="https://github.com/haskell-pkg-janitors/bloomfilter"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('1fd0733231c413aff693194639dc49d27dc2fce669a38a838815e180b8cb45bf98b
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
