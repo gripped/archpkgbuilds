@@ -4,7 +4,7 @@
 _hkgname=IfElse
 pkgname=haskell-ifelse
 pkgver=0.85
-pkgrel=27
+pkgrel=28
 pkgdesc="Anaphoric and miscellaneous useful control-flow"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('5378b0f98d3a14dbc5b297a01a5c48aed4825f4ab2192e35b3a6aee932cce5b740e
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
