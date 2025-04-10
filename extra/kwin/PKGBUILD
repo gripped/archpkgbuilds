@@ -5,7 +5,7 @@
 pkgname=kwin
 pkgver=6.3.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=3
+pkgrel=4
 pkgdesc='An easy to use, but flexible, composited Window Manager'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -82,15 +82,21 @@ makedepends=(extra-cmake-modules
              xorg-xwayland)
 optdepends=('maliit-keyboard: virtual keyboard for kwin-wayland')
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
+        https://invent.kde.org/plasma/kwin/-/commit/93bf2f98.patch)
 install=$pkgname.install
 sha256sums=('e74a61eccc5d3248dbd620b6c2c7b175013b15ff59e17af70f88aefc082445a5'
-            'SKIP')
+            'SKIP'
+            'd66a820893c40ec6db2838ef29ac25ec9c7517aadb69c10c7921c504fcafeb6f')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1'  # Nicolas Fella <nicolas.fella@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < 93bf2f98.patch # Backport crash fix
+}
 
 build() {
   cmake -B build  -S $pkgname-$pkgver \
