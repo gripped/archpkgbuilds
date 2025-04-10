@@ -5,7 +5,7 @@
 
 _base=textual
 pkgname=python-${_base}
-pkgver=2.1.2
+pkgver=3.0.1
 pkgrel=1
 pkgdesc="Modern Text User Interface framework"
 arch=(any)
@@ -17,8 +17,18 @@ checkdepends=(python-pytest-asyncio python-time-machine python-linkify-it-py)
 optdepends=('python-tree-sitter: for syntax highlighting support'
             'python-tree-sitter-languages: for custom languages support'
             'python-textual-dev: tools for developers')
-source=(${_base}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz)
-sha512sums=('d10dbe260fe2b6fc588c1dbf9bf8091bacc79df0647d9a3577d4396de024f78a7283a0c0ac55a436dc845b1dff263e4aa6ee12fe2a566bc4e09379b83c0e7372')
+source=(${_base}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz
+        fix_tests_with_pytest-asyncio_0.25.0.patch)
+sha512sums=('ac2169fe200fc501ce7f2ddb48ef5a009afb66b1ddb0337b79c57742a55a9fd1defd824ec793b0b197e985640dbeea4926593bfcda03dc276c230825a1ef79ae'
+            'cf87b017605cfddcfe99010bf6d02139188892d5a4099fcdddf36b5c4c78aecf993d78b17ccd26399a8943b33d07fb402edb27323609ce7ca22c226dddff333d')
+
+prepare() {
+  cd ${_base}-${pkgver}
+  # Backported patch to fix tests with pytest-asyncio >= 0.25.0
+  # See https://github.com/Textualize/textual/issues/5511
+  # and https://github.com/Textualize/textual/pull/5687
+  patch -Np1 -i "${srcdir}/fix_tests_with_pytest-asyncio_0.25.0.patch"
+}
 
 build() {
   cd ${_base}-${pkgver}
