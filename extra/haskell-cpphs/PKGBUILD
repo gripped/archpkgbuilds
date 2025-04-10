@@ -4,7 +4,7 @@
 _hkgname=cpphs
 pkgname=haskell-cpphs
 pkgver=1.20.9.1
-pkgrel=13
+pkgrel=14
 pkgdesc="A liberalised re-implementation of cpp, the C pre-processor."
 url="https://projects.haskell.org/cpphs/"
 license=("LGPL")
@@ -22,7 +22,7 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
