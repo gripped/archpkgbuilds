@@ -2,15 +2,15 @@
 # Contributor: Piotr Rogoża <rogoza dot piotr at gmail dot com>
 
 pkgbase=gimp-help
-pkgver=2.10.34
+pkgver=3.0.0
 pkgrel=1
 arch=('any')
 url='https://docs.gimp.org/'
 license=('GPL' 'LGPL')
 makedepends=('python' 'docbook-xsl')
 options=(!strip !zipman)
-source=("https://ftp.gimp.org/pub/gimp/help/${pkgbase}-${pkgver}.tar.bz2")
-sha256sums=('cae0adea6ffe47776f42dfc3a38f35d28e31893004e01812117af6f7fc897dc8')
+source=("https://download.gimp.org/gimp/help/${pkgbase}-${pkgver}.tar.bz2")
+sha256sums=('9adf5aa0f1fa424a9cc2d3c30e40154cb37ccc2602f66c7ec7141a7b7ee87342')
 
 _languages=(
   'ca     "Catalan"'
@@ -46,9 +46,9 @@ _package() {
   _locale="$1"
   _language="$2"
   pkgdesc="${_language} help files for Gimp"
-  install -dm755 "${pkgdir}/usr/share/gimp/2.0/help/${_locale}"
+  install -dm755 "${pkgdir}/usr/share/gimp/3.0/help/${_locale}"
   cp -rL "${srcdir}/${pkgbase}-${pkgver}/html/${_locale}" \
-    "${pkgdir}/usr/share/gimp/2.0/help"
+    "${pkgdir}/usr/share/gimp/3.0/help"
 }
 
 build(){
