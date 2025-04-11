@@ -5,17 +5,17 @@
 # Contributor: Payn <ivanttt54@gmail.com>
 
 pkgname=odin
-pkgver=dev_2025_03 # using dev tags until the next release is tagged, to make it build
+pkgver=dev_2025_04 # using dev tags until the next release is tagged, to make it build
 pkgrel=1
 pkgdesc='Data-oriented programming language'
 arch=(x86_64)
 url='https://odin-lang.org/'
 license=(BSD-3-Clause)
 depends=(clang llvm-libs python)
-makedepends=(git llvm)
+makedepends=(git llvm stb)
 options=(staticlibs)
 source=("git+https://github.com/odin-lang/Odin#tag=${pkgver//_/-}")
-b2sums=('9743d9b4627cbdb0aefa77a007346b7bb968f714eefd4c308970c7a9d02bd259a3c25fe2c2270270f947a0489f446555e12f7e0e63be4040d75fd00975311612')
+b2sums=('c403a5429c15f048801b7aea7efc76c6096f3402ab2957fbef2fd5df19356889adfdcf4aac4905f178b14e9ad67f8d7a7add172ca294d17ca9545e8d6e43e7ac')
 
 build() {
   cd Odin
@@ -25,9 +25,9 @@ build() {
   make release
 
   # TODO: unbundle third-party dependencies
-  make -C vendor/stb/src
   make -C vendor/cgltf/src
   make -C vendor/miniaudio/src
+  make -C vendor/stb/src
 }
 
 check() {
