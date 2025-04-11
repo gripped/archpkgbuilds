@@ -2,8 +2,8 @@
 
 _hkgname=deque
 pkgname=haskell-deque
-pkgver=0.4.4.1
-pkgrel=66
+pkgver=0.4.4.2
+pkgrel=3
 pkgdesc="Double-ended queues"
 url="https://github.com/nikita-volkov/deque"
 license=("MIT")
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-strict-list')
 makedepends=('ghc' 'uusi' 'haskell-rerebase' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('27b126ffe3f1615e13036cb3c487eeaa82f2aaee5c91c70e8fbf516515c993456a487c69f8f1247004bff55581938af41a28e62b77f2011992ccdd417ba4384f')
+sha512sums=('6a67594fc45ca1156b072322cf44ebe3a0cef2f9f1b6877148a981e6626f6ac6bf43621a91192124ad62f3ed1693cfe87690f0d32c4745c636e5cc2ccbb477bd')
 
 prepare() {
   cd $_hkgname-$pkgver
