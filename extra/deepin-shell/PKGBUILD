@@ -3,7 +3,7 @@
 
 pkgname=deepin-shell
 pkgver=1.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc='New DDE shell'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-shell"
@@ -25,6 +25,8 @@ prepare() {
   git cherry-pick -n 46871c83cf8ecfcf83bf2fb49e1f09af997eca96
   # treeland fix
   sed -i 's/TreeLandProtocols/TreelandProtocols/' panels/dock/taskmanager/CMakeLists.txt
+  # qt 6.9 fix
+  git cherry-pick -n 936d62a2c20398b9ca6ae28f9101dd288c8b1678
 }
 
 build() {
