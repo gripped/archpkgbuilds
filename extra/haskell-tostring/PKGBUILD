@@ -3,15 +3,20 @@
 _hkgname=tostring
 pkgname=haskell-tostring
 pkgver=0.2.1.1
-pkgrel=86
+pkgrel=90
 pkgdesc="The ToString class"
 url="https://github.com/silkapp/tostring.git"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-case-insensitive' 'haskell-utf8-string')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('efa700d44aec57c82be60c0eabd610f62f2df0d9b06cf41b5fc35a2b77502531')
+
+prepare(){
+  cd $_hkgname-$pkgver
+  uusi -u text
+}
 
 build() {
   cd $_hkgname-$pkgver
