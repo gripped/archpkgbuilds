@@ -4,7 +4,7 @@
 _hkgname=base-unicode-symbols
 pkgname=haskell-base-unicode-symbols
 pkgver=0.2.4.2
-pkgrel=14
+pkgrel=15
 pkgdesc="Unicode alternatives for common functions and operators"
 url="https://haskell.org/haskellwiki/Unicode-symbols"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('127ba0a6c6f50e16c0bb0634bc7ee84d3596e541ccfd1be1ad261e85fab695613fd
 build() {
     cd $_hkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-old-base
