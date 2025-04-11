@@ -3,8 +3,8 @@
 
 pkgname=agda-stdlib
 pkgver=1.7.3
-_agdaver=2.6.4.1
-pkgrel=3
+_agdaver=2.6.4.3
+pkgrel=4
 pkgdesc="Agda standard libraries"
 url="https://github.com/agda/agda-stdlib"
 license=("MIT")
@@ -25,7 +25,7 @@ prepare() {
 build() {
     cd $pkgname-$pkgver
 
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla
     runhaskell Setup build $MAKEFLAGS
 
     dist/build/GenerateEverything/GenerateEverything
