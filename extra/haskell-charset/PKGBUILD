@@ -3,8 +3,8 @@
 
 _hkgname=charset
 pkgname=haskell-charset
-pkgver=0.3.11
-pkgrel=19
+pkgver=0.3.12
+pkgrel=1
 pkgdesc="A compatibility layer for base"
 url="https://github.com/ekmett/charset"
 license=("BSD")
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-unordered-containers')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('193b30ed21f0fd30fb229e76850f186c26c10b9c068aac57687d5f18706559c8e8d396c0cb0cfa8ab226ddf0128fef71b0f5ac485a1ce2f9e8ba0f8d7382d466')
+sha512sums=('5cc90a4f6e44bfc8da860b87a153d388deec001b7606d5ea1f2c2fa4dd78e33fb2393b9f53834a3a23071b6967f21726bee5bcb841b4e4b6a73f42b037e0c74f')
 
 build() {
     cd $_hkgname-$pkgver
