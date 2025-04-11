@@ -8,7 +8,7 @@
 
 pkgname=khal
 pkgver=0.11.4
-pkgrel=1
+pkgrel=2
 pkgdesc='CLI calendar application built around CalDAV'
 arch=(any)
 url=https://lostpackets.de/khal/
@@ -58,6 +58,9 @@ prepare() {
   cd $pkgname
   # fix issue with python-sphinx > 8: https://github.com/pimutils/khal/issues/1356
   sed -i '/intersphinx_mapping/d' -i doc/source/conf.py
+
+  # Do not install superfluous files
+  git cherry-pick --no-commit f66784cb8d17b5ea1f4737c9bef073e3de890b19
 
   git apply ../0001-support-icalendar-6.0.0.patch
 }
