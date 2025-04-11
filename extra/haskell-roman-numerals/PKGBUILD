@@ -4,7 +4,7 @@
 _hkgname=roman-numerals
 pkgname=haskell-roman-numerals
 pkgver=0.5.1.5
-pkgrel=31
+pkgrel=32
 pkgdesc="Parsing and pretty printing of Roman numerals"
 url="https://github.com/roelvandijk/roman-numerals"
 license=("BSD")
@@ -16,13 +16,13 @@ sha512sums=('9c202664f9d4f1afecc439a4b7d348a0d1cf5b97494e1e345e56818056605678cd4
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u bytestring
+    uusi -u bytestring -u text
 }
 
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
