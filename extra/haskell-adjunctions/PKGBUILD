@@ -3,22 +3,22 @@
 
 _hkgname=adjunctions
 pkgname=haskell-adjunctions
-pkgver=4.4.2
-pkgrel=133
+pkgver=4.4.3
+pkgrel=1
 pkgdesc="Adjunctions and representable functors"
 url="https://github.com/ekmett/adjunctions/"
-license=("BSD")
+license=('BSD-2-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-comonad' 'haskell-contravariant' 'haskell-distributive' 'haskell-free'
          'haskell-profunctors' 'haskell-semigroupoids' 'haskell-tagged'
          'haskell-transformers-compat' 'haskell-void')
-makedepends=('ghc' 'uusi' 'haskell-generic-deriving' 'haskell-hspec')
+makedepends=('ghc' 'uusi' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('3785268bd3971f16dc0f2517556127590e8fb87f8e2cb8dfc74c356a8496ac1f2a46115097c4750d1d92eb21f25e0beec0a248d3442da2c8f6eb9da8cc4c51e3')
+sha512sums=('24f3b26b063b3f99d1c31532abba168383c47179360af4f14ccc81b0bd5e08585a16d377f58788e79d3cf4a3df8a0f73c19cd898b3d705cba694f8f1a1499ca7')
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -d semigroups -u semigroupoids $_hkgname.cabal
+    uusi -d semigroups
 }
 
 build() {
