@@ -7,8 +7,8 @@ pkgname=(
   libadwaita-demos
   libadwaita-docs
 )
-pkgver=1.7.0
-pkgrel=2
+pkgver=1.7.1
+pkgrel=1
 epoch=1
 pkgdesc="Building blocks for modern adaptive GNOME applications"
 url="https://gnome.pages.gitlab.gnome.org/libadwaita/"
@@ -35,16 +35,11 @@ makedepends=(
 checkdepends=(weston)
 source=(
   "git+https://gitlab.gnome.org/GNOME/libadwaita.git#tag=${pkgver/[a-z]/.&}"
-  0001-meson-Don-t-install-internal-static-library.patch
 )
-b2sums=('b935b005d5f6237cfb033286723ec9be47096ed4daf6b3a95c2caf3b873758aaaa073b7f6abdf9d13933139bb7e2c57e5a2b943560b6760c1dc8c1b85cc85e11'
-        '7f4a6b9d5089d98ce3fa2de3891ecbb0bca95e3e6a7e23bb4b8588fd66ebc9ec41fc9ce61780c9d2e70a2b947600e3ef9152d5298740535b011abf2d2668b76e')
+b2sums=('791723afd68a2e1b04df36466ec62851e28698e2f815fcd19f5347f306dbfbccdd9755fc5d26724d0eea2ff73aafee05bd747c8566f4b134c8b295fea7c58505')
 
 prepare() {
   cd $pkgname
-
-  # https://gitlab.gnome.org/GNOME/libadwaita/-/merge_requests/1439
-  git apply -3 ../0001-meson-Don-t-install-internal-static-library.patch
 }
 
 build() {
