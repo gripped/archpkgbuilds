@@ -3,12 +3,12 @@
 # Contributor: Simon Legner <Simon.Legner@gmail.com>
 
 pkgname=libosmium
-pkgver=2.21.0
-pkgrel=1
+pkgver=2.22.0
+pkgrel=2
 pkgdesc="Fast and flexible C++ library for working with OpenStreetMap data."
 url="https://osmcode.org/libosmium/"
 arch=('any')
-license=('Boost')
+license=('BSL-1.0')
 makedepends=('cmake' 'cppcheck' 'clang' 'protozero')
 depends=('expat' 'zlib' 'bzip2' 'boost' 'boost-libs')
 optdepends=('sparsehash: sparse-mem-table index map'
@@ -17,16 +17,18 @@ optdepends=('sparsehash: sparse-mem-table index map'
             'proj: project OSM coordinates into spatial reference systems'
             'lz4: use LZ4 compression in PBF files')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/osmcode/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('5a222e555865f742102d2802a7ad7ef91d6e1c8944c097c70a924214e079c858')
+sha256sums=('8f74e3f6ba295baa7325ae5606e8f74ad9056f1d6ab4555c50bff6aa8246f366')
 
 build() {
   mkdir -p "${pkgname}-${pkgver}/build"
   cd "${pkgname}-${pkgver}/build"
+
+  export CMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake \
     -DINSTALL_GDALCPP=ON \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX:PATH=/usr \
-	  ..
+    ..
   make
 }
 
