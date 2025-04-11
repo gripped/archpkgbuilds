@@ -2,8 +2,8 @@
 
 _hkgname=dec
 pkgname=haskell-dec
-pkgver=0.0.5
-pkgrel=8
+pkgver=0.0.6
+pkgrel=1
 pkgdesc="Decidable propositions"
 url="https://github.com/phadej/dec"
 license=('BSD')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-boring')
 makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('895085bb95bd8cec482f771d37f75221c12b50326bfeadeb6466d365c69756fef2faffcb557e0fee3861ec5318d8d27ad140ef6296217a80dda9a121f1be931a')
+sha512sums=('9d1997ac90b590d17c8530affe10310dd4d0a4049cb041a5e9b429f8a0e576ec607f4b6dd96c4a43c645b8413169aab3c8e974d620b6b2bf30fd8825f3178b15')
 
 prepare() {
     cd $_hkgname-$pkgver
