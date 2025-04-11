@@ -3,8 +3,8 @@
 
 _hkgname=typed-process
 pkgname=haskell-typed-process
-pkgver=0.2.11.1
-pkgrel=30
+pkgver=0.2.12.0
+pkgrel=1
 pkgdesc="Run external processes, with strong typing of streams"
 url="https://github.com/fpco/typed-process"
 license=("MIT")
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-async' 'haskell-unliftio-core')
 makedepends=('ghc' 'haskell-base64-bytestring' 'haskell-hspec' 'haskell-hspec-discover'
              'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('034f5930c9f36e259f06420b0671922e18de04f0babbd107175c2f83f75ff1fed2c0211490efbce644f6decece9089ba18e3a3576b628fd244c64ffbf7b1d5df')
+sha512sums=('92c47157e19be03ccd82db5553e3f53ba75d80177e9fa59104a2e723fecf19018253d859554d9e23dbe9120d557135bfad63a757ca3487aaf62038a8b1dc3fd9')
 
 build() {
     cd $_hkgname-$pkgver
