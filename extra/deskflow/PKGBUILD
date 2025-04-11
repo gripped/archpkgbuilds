@@ -1,5 +1,5 @@
 pkgname=deskflow
-pkgver=1.21.1
+pkgver=1.21.2
 pkgrel=1
 pkgdesc='Share one mouse and keyboard between multiple computers'
 url='https://deskflow.org/'
@@ -39,14 +39,8 @@ makedepends=(
   xorgproto
 )
 source=("git+https://github.com/deskflow/deskflow.git#tag=v${pkgver}")
-sha256sums=('5afdc2a2580ee0261d350581dc6a9f20a759111218fd877bc97ebcc747dfd58f')
-b2sums=('66278f4726d9f2951a2aab4a7b020bc5e190dc50195343fa2fe8e0a16af2b1349ca2c36de1cead6f06c880f21de09d64ad289b52ef29be0720debd6796eb58ae')
-
-prepare() {
-  cd "${pkgname}"
-  # backport test settings fixes
-  git cherry-pick -n 6bbebe75f9f9d2cdc10b454ec5ec9d7ee21b4b03
-}
+sha256sums=('e5fe94158fbaedbe397e077d2af680a2a6fd358ae0ed79575388acba79931773')
+b2sums=('e5c539a4bccaf4f8635cf010e941e940a8b287d292bc31fe64d99494c73b782274d10b037b2f5e7815f08b24631dcad00618a3d3f54867c7d36adba61d1f5e3f')
 
 build() {
   cd "${pkgname}"
