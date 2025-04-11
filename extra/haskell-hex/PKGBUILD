@@ -4,7 +4,7 @@
 _hkgname=hex
 pkgname=haskell-hex
 pkgver=0.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Convert strings into hexadecimal and back."
 url="https://github.com/taruti/haskell-hex"
 license=("BSD")
@@ -17,7 +17,7 @@ sha512sums=('7edbeabbc028d328b86b89f992fcf7bd0a3aaa8e02a2a04b0c470387f2b299dc8c1
 build() {
     cd $_hkgname-$pkgver
     
-    runhaskell Setup configure -O --enable-shared --enable-executable-dynamic --disable-library-vanilla \
+    runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
