@@ -2,19 +2,19 @@
 
 _hkgname=fourmolu
 pkgname=haskell-fourmolu
-pkgver=0.9.0.0
-pkgrel=60
+pkgver=0.10.0.0
+pkgrel=11
 pkgdesc="A formatter for Haskell source code"
 url="https://github.com/parsonsmatt/fourmolu"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-diff' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-dlist'
-         'haskell-ghc-lib-parser' 'haskell-gitrev' 'haskell-megaparsec' 'haskell-memotrie'
-         'haskell-optparse-applicative' 'haskell-syb' 'haskell-th-lift-instances' 'haskell-yaml')
+         'haskell-file-embed' 'haskell-ghc-lib-parser' 'haskell-gitrev' 'haskell-megaparsec' 'haskell-memotrie'
+         'haskell-optparse-applicative' 'haskell-syb' 'haskell-th-env' 'haskell-th-lift-instances' 'haskell-yaml')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-discover'
              'haskell-hspec-megaparsec' 'haskell-path' 'haskell-path-io' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('3440cf67fd333a2bb5d6a67ce80e7a348807297948f297238ba77eedcb76097f')
+sha256sums=('8ac5e6524615c58e9ed1922c56a5281e8b4deadd4885679403e0df3e4cfad717')
 
 prepare() {
   cd $_hkgname-$pkgver
