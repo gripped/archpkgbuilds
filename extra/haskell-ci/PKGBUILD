@@ -3,8 +3,8 @@
 
 _hkgname=haskell-ci
 pkgname=haskell-ci
-pkgver=0.14.3
-pkgrel=56
+pkgver=0.16.2
+pkgrel=9
 pkgdesc="Cabal package script generator for Travis-CI"
 url="https://haskell-ci.rtfd.org/"
 license=("GPL")
@@ -17,11 +17,11 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-base-compat'
          'haskell-unordered-containers' 'haskell-zinza')
 makedepends=('ghc' 'uusi' 'haskell-diff' 'haskell-ansi-terminal0.11' 'haskell-tasty' 'haskell-tasty-golden')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('16a75acb1c3979c4a22cb2631b89bd2035b2d6917c59a87c1e08fe1ade960f6531e2ff7574048a584c49a55d9441d0b13e3e47c2e758b6e454721015c5e44f51')
+sha512sums=('833ad7af20c11f1e7bae78de69286c6aa67cb3c97e5a5992ab9dda04bf6568fd61184323767f1d15009722d9698fc66e38c01c5caecdc9a42a60732e2bd1e66d')
 
 prepare(){
   cd $_hkgname-$pkgver
-  uusi -u aeson -u lattices -u optparse-applicative -u ShellCheck $_hkgname.cabal
+  uusi -u aeson -u Cabal-syntax -u lattices -u optparse-applicative -u ShellCheck $_hkgname.cabal
 }
 
 build() {
@@ -38,6 +38,11 @@ build() {
   runhaskell Setup unregister --gen-script
   sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
   sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
