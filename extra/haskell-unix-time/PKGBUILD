@@ -3,8 +3,8 @@
 
 _hkgname=unix-time
 pkgname=haskell-unix-time
-pkgver=0.4.15
-pkgrel=10
+pkgver=0.4.16
+pkgrel=1
 pkgdesc="Unix time parser/formatter and utilities"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-old-time')
 makedepends=('ghc' 'haskell-cabal-doctest' 'haskell-doctest' 'haskell-hspec' 'haskell-old-locale'
              'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('18e73257c935124700771035f0616083272af8713db8256243378af15555657a23383e63fa8adf08e059b47181cf808b9679bd4e59461b3e9d4b75fc9d020378')
+sha512sums=('1fc6119d095c87621eeb4eb9fc6e5cf16c0071680b089c487f9e0a6cb8f74afeaa1c372f9a2615b7eb5fe18af341b95475266c3e74c75e4d1e98cb472d711766')
 
 build() {
     cd $_hkgname-$pkgver
