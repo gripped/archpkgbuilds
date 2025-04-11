@@ -15,7 +15,7 @@ pkgname=(
 )
 pkgver=1.20.2
 _pkgdesc='Cross-platform, high performance scoring engine for ML models'
-pkgrel=7
+pkgrel=8
 arch=('x86_64')
 url='https://github.com/microsoft/onnxruntime'
 license=('MIT')
@@ -100,6 +100,7 @@ build() {
     -B build
     -Wno-dev
     -G Ninja
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     -DCMAKE_BUILD_TYPE=None
     -DCMAKE_INSTALL_PREFIX=/usr
     -Donnxruntime_ENABLE_PYTHON=ON
