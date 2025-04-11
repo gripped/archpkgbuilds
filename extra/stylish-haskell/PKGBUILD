@@ -2,8 +2,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=stylish-haskell
-pkgver=0.14.3.0
-pkgrel=41
+pkgver=0.14.4.0
+pkgrel=12
 pkgdesc="Haskell code prettifier"
 url="https://github.com/haskell/stylish-haskell"
 license=("BSD")
@@ -14,11 +14,11 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-file-embed' 'haskell-ghc' 'haskell-
 makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-random' 'haskell-test-framework'
              'haskell-test-framework-hunit')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('88cf7f419889a459b1e7ffb7b4d5412ac349a56f91efdb9f08ef296421e4ee06f8cd2e6b51f11c4fcb759ee3ecc90546e409fef12d9a5ac5fc88a4c56b6507e5')
+sha512sums=('942d8e801f85ce28e4d4bfe467ab0577d0d7b4f3bedd411c29afb692ed0c170db209a403ea087f692c005cdf6dc3b16cc9c71f95bedb342ea2d3e5ca8c712a9f')
 
 prepare() {
     cd $pkgname-$pkgver
-    uusi -u Cabal -u aeson -u optparse-applicative -u strict $pkgname.cabal
+    uusi -u strict
 }
 
 build() {
