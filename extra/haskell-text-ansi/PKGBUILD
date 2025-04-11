@@ -2,16 +2,16 @@
 
 _hkgname=text-ansi
 pkgname=haskell-text-ansi
-pkgver=0.2.1.1
-pkgrel=105
+pkgver=0.3.0
+pkgrel=1
 pkgdesc="Text styling for ANSI terminals."
 url="https://github.com/mitchellwrosen/text-ansi"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-text-builder')
+depends=('ghc-libs' 'haskell-text-builder-linear')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('593da9413b77fbccdd0b1b6c767ec054c4c630a83d06b2da3d9e6213a26797d1')
+sha256sums=('35b383ae4b803971026e183dc670c5bc484271f39871a1a3e0b15e28731a4550')
 
 prepare() {
   cd $_hkgname-$pkgver
