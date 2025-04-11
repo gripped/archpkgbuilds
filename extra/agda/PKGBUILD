@@ -3,8 +3,8 @@
 
 _hkgname=Agda
 pkgname=agda
-pkgver=2.6.4.1
-pkgrel=43
+pkgver=2.6.4.3
+pkgrel=2
 pkgdesc="A dependently typed functional programming language and proof assistant"
 url="https://wiki.portal.chalmers.se/agda/"
 license=("custom")
@@ -20,7 +20,7 @@ depends=('ghc-libs' 'ghc' 'haskell-stmonadtrans' 'haskell-aeson' 'haskell-ansi-t
 optdepends=('agda-stdlib: for standard library')
 makedepends=('alex' 'happy' 'ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('b26819c0f08e9db10bc50cec3bffb322cb6b106f4661c57132948ae2f8b8378520ab475173ae56c5e6876ef08ca4e3806960bc7dc69ddf99bca041f44c653f1e')
+sha512sums=('d6246d1550b535a3f299cbbf8e38b5b44ee469cce089bbec1d6a62a2518bca2d2900a456d6df10a179d7064982ccdc5f38a1ffc53e327c0c4c060c09f8280488')
 
 prepare() {
     cd $_hkgname-$pkgver
