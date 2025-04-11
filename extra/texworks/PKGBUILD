@@ -1,9 +1,9 @@
-# Maintainer:
+# Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 # Contributor Jonas Witschel <diabonas@archlinux.org>
 
 pkgname=texworks
-pkgver=0.6.9
-pkgrel=4
+pkgver=0.6.10
+pkgrel=1
 pkgdesc='Unicode-based, TeX-aware editor with integrated PDF viewer'
 arch=('x86_64')
 url='https://www.tug.org/texworks/'
@@ -16,19 +16,10 @@ optdepends=('gsfonts: correctly display PDF files without embedded fonts'
             'poppler-data: correctly display certain CJK documents'
             'python: Python scripts support'
             'texlive-basic: typeset TeX documents')
-source=("https://github.com/TeXworks/texworks/archive/release-$pkgver/$pkgname-$pkgver.tar.gz"
-         https://github.com/TeXworks/texworks/commit/dae1586a.patch
-         https://github.com/TeXworks/texworks/commit/f8962bca.patch)
-sha512sums=('54677205e7767f377fa66be6b2c43bec2d3c3981ea1a24eb11f45608c1cb3ddc98852c43611680273601eb8e8ae4a6095c9b9a9338ee69ef0475a43f2191551e'
-            'a9d6d16ffc234337ed3a09b52792bedb1aeeac5f1dc3bd293548aa595904176d946b4566e2007a2f25d3efdcd2452f80080bd9ac1972d256d3f1b0665293a937'
-            '74004758c45226f76c9eba8d702d8473f650ef74f9df3cb5a2b8bccfe30f06f1aac4b65acf2e14038818332e0955bf111d974ea0e684ac74ef42a2412f91cfda')
+source=("https://github.com/TeXworks/texworks/archive/release-$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('3f8ec187b8d6dd5f62c84cb93ac6b8d9369a8b53525518c47504fba0d1353af90d02a4b68eb38e8f623dce2f2cceae33b20917be7793f0e058864ccea7a2f8b6')
 validpgpkeys=('8740ED04AF6A4FCC6BC51C426806F10000582F84'
               '21BC42D38D1B03BE59F7A8F15016D150EA64A3D9') # Stefan Löffler (TeXworks) <st.loeffler@gmail.com>
-
-prepare() {
-  patch -d $pkgname-release-$pkgver -p1 < dae1586a.patch # Fix finding Python
-  patch -d $pkgname-release-$pkgver -p1 < f8962bca.patch # Fix build of Python plugin
-}
 
 build() {
 	cmake -B build \
