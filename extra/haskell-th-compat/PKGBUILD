@@ -2,16 +2,16 @@
 
 _hkgname=th-compat
 pkgname=haskell-th-compat
-pkgver=0.1.5
-pkgrel=21
+pkgver=0.1.6
+pkgrel=1
 pkgdesc="Backward- (and forward-)compatible Quote and Code types"
 url="https://github.com/haskell-compat/th-compat"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'haskell-base-compat' 'haskell-hspec' 'haskell-hspec-discover')
+makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('0bc94d25310a022dc94fa9ef96f5b5864b162c9a190dbd42d8e6a2e4377a38859fedfda68790a2a50a1831797ee0eeffd37f45eb9c3dd687f025400ca67ff817')
+sha512sums=('a86fce5880de94cb3c4fe2684cd7611cea356f5525e99610fd2fddaa530e9ffb1f8dc471291573158d70ec43ec35b408d5b8b0a31325b353b5254289c578bf2f')
 
 build() {
   cd $_hkgname-$pkgver
