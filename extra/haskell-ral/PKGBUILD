@@ -3,7 +3,7 @@
 _hkgname=ral
 pkgname=haskell-ral
 pkgver=0.2.1
-pkgrel=184
+pkgrel=196
 pkgdesc="Random access lists"
 url="https://github.com/phadej/vec"
 license=("GPL")
@@ -18,7 +18,7 @@ sha512sums=('142edccb920b30ea7a98f45b326818e18b3f6e223d980c82f972f882e580aff8c1f
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u fin -u semigroupoids
+  uusi -u base -u fin -u semigroupoids
 }
 
 build() {
