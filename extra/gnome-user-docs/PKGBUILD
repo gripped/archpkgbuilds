@@ -3,7 +3,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-user-docs
-pkgver=48.0
+pkgver=48.1
 pkgrel=1
 pkgdesc="User documentation for GNOME"
 url="https://gitlab.gnome.org/GNOME/gnome-user-docs"
@@ -16,7 +16,7 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+$url.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('1fa6dfb0741bb0891add2a207a6fcceb1df292300a16bdce46b5108f04ca28ce193c2a5e5c59dceaf61e98f542cc4425d9da45eea9026d90b254aba660c51ad2')
+b2sums=('59795c7764d465e39cd1608d407bbbae55be00c990231da1810fcd3fba544f03fe5e7d85ff7d1ea8cdbcc797519070ebdfe41275356559388a7a1e5872cd66b3')
 
 prepare() {
   cd $pkgname
