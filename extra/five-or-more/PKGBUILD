@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=five-or-more
-pkgver=48.0
+pkgver=48.1
 pkgrel=1
 pkgdesc="Remove colored balls from the board by forming lines"
 url="https://gitlab.gnome.org/GNOME/five-or-more"
@@ -29,7 +29,7 @@ makedepends=(
 source=(
   "git+$url.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('df04fcb0a67ff9cf70b618bcdfcb2d028e47aa85d2022c9b6a74ffb79913499e631ab668f4636361eb0094e29b54a6c1713d4607a86d2f87c942aac804aa9620')
+b2sums=('ee37da668f7411c2f31efb38d9735fb71c53364eac7f6e2741d07b9891259de725d0f47f0020680eaadc38044aae83a420da9c9ff7f1c03ce163edca78d48eb3')
 
 prepare() {
   cd $pkgname
