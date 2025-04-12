@@ -5,7 +5,7 @@
 pkgname=haskell-aeson
 _hkgname=aeson
 pkgver=2.1.2.1
-pkgrel=88
+pkgrel=89
 pkgdesc="A JSON parsing and encoding library optimized for ease of use and high performance"
 url="https://github.com/haskell/aeson"
 license=("GPL")
@@ -28,7 +28,7 @@ sha512sums=('c7e3c5d61ac99b7e66a468cdcd0a20c9d0f42142b2398086aa1a3a992c60814c9d7
 prepare() {
   cd $_hkgname-$pkgver
   patch -Np1 -i ../$pkgname-quickcheck-2.14.3.patch
-  uusi -u OneTuple -u semialign -u strict -u these
+  uusi -u OneTuple -u base-orphans -u semialign -u strict -u these
 }
 
 build() {
