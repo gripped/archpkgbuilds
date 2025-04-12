@@ -3,7 +3,7 @@
 _hkgname=topograph
 pkgname=haskell-topograph
 pkgver=1.0.0.2
-pkgrel=67
+pkgrel=68
 pkgdesc="Directed acyclic graphs"
 url="https://github.com/phadej/topograph"
 license=("BSD")
@@ -16,6 +16,7 @@ sha256sums=('d19e45680a8b6938e91f641096ddb6c879473f025af3688f532f90619ce2d721')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u base-orphans
 }
 
 build() {
