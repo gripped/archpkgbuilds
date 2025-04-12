@@ -4,15 +4,20 @@
 _hkgname=microstache
 pkgname=haskell-microstache
 pkgver=1.0.2.3
-pkgrel=109
+pkgrel=110
 pkgdesc="Mustache templates for Haskell"
 url="https://github.com/phadej/microstache"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-unordered-containers' 'haskell-vector')
-makedepends=('ghc' 'haskell-base-orphans' 'haskell-tasty' 'haskell-tasty-hunit')
+makedepends=('ghc' 'uusi' 'haskell-base-orphans' 'haskell-tasty' 'haskell-tasty-hunit')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('c50fa66a019116ca81e63de59951df29316c39c50d3672197353987ac431f63cc97ee26adb1f8f31ffdad7409f58e2a369502da0e0484af0b0632b6ac8deac4d')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    uusi -u base-orphans
+}
 
 build() {
     cd $_hkgname-$pkgver
