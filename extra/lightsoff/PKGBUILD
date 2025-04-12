@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=lightsoff
-pkgver=48.0
+pkgver=48.1
 pkgrel=1
 pkgdesc="Turn off all the lights"
 url="https://wiki.gnome.org/Apps/Lightsoff"
@@ -24,7 +24,7 @@ makedepends=(
 )
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/lightsoff.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('4e89c25d7dd616121861bd02760f029a0649345bbe3b236e09cb6c78cc2b62764c30a69e0c7777c3da492ff1670b009106c289418be370c91ba03ec88e7f398b')
+b2sums=('a9e03de805a546f3e8ec6b505dae0acd05fe7f60619f271594fa95eac577d17369a30b0428fb5aef301820f804c0772a60491aece9ef7b43000589a0acaad717')
 
 prepare() {
   cd $pkgname
