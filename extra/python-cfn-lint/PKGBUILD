@@ -2,7 +2,7 @@
 
 pkgname=python-cfn-lint
 # https://github.com/aws-cloudformation/cfn-lint/blob/main/CHANGELOG.md
-pkgver=1.25.1
+pkgver=1.33.2
 pkgrel=1
 pkgdesc='CloudFormation Linter'
 arch=(any)
@@ -26,7 +26,16 @@ optdepends=(
   'python-sarif-om: for sarif formatter'
 )
 source=("git+https://github.com/aws-cloudformation/cfn-lint.git#tag=v$pkgver")
-sha256sums=('71cea6d182b4962ea1c3958c060534937e1d51a6731ea7f9047ee8f3923fd9c7')
+sha256sums=('95497b4b7c1ad8e52e15c4195b8fec26788da042b069f92f0c2732bc53a54e90')
+
+prepare() {
+  cd cfn-lint
+  # The latest cfn-lint uses PEP 639, while a setuptools newer than the one in Arch Linux is needed [2][3]
+  # [1] https://github.com/aws-cloudformation/cfn-lint/pull/4067
+  # [2] https://github.com/pypa/setuptools/pull/4706
+  # [3] https://archlinux.org/packages/extra/any/python-setuptools/
+  git revert -n dc591808548fcc586668687225342bd5fb68dbd3
+}
 
 build() {
   cd cfn-lint
