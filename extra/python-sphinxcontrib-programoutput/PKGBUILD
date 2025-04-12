@@ -2,8 +2,8 @@
 
 pkgname=python-sphinxcontrib-programoutput
 _name="${pkgname#python-}"
-pkgver=0.17
-pkgrel=6
+pkgver=0.18
+pkgrel=1
 pkgdesc="Sphinx extension for capturing program output"
 arch=(any)
 url="https://github.com/OpenNTI/sphinxcontrib-programoutput/"
@@ -21,8 +21,13 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha256sums=('1406c26380d6ce26e4db65b89ae21d25b5bdf022d91f290522d19f95123aec51')
-b2sums=('896988b32a1973874d9a0b2045f511014dddf3feec6d79923fd9698200f94f409e007401888bfc65616690d665b24791b555cc76185e1fe19ee83734b86c2fcc')
+sha512sums=('a4d5d146c8f83b4f72c4359b8980866134720288f13d4fe6f029b8fddac1d05c9f9fe777d0bef1aa0bebc17b540b2e19bef21ddc3e08af373d204fe8b50ec904')
+b2sums=('2afba65e7d3be13585372ff7cb3eff68fa5161383e48b55c153844fb88d63f0578a3f4b98835f4a0df2acdcba3565e793c51428d23f44199652deaaacdbaca68')
+
+prepare() {
+  # remove problematic __init__.py: https://github.com/OpenNTI/sphinxcontrib-programoutput/issues/65
+  rm -v $_name-$pkgver/src/sphinxcontrib/__init__.py
+}
 
 build() {
   cd $_name-$pkgver
@@ -30,18 +35,12 @@ build() {
 }
 
 check() {
-  local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   local pytest_options=(
     -vv
-    --deselect test_dir/usr/lib/python3.13/site-packages/sphinxcontrib/programoutput/tests/test_directive.py::TestDirective::test_shell_with_unexpected_return_code
-    --deselect test_dir/usr/lib/python3.13/site-packages/sphinxcontrib/programoutput/tests/test_directive.py::TestDirective::test_unexpected_return_code
   )
 
   cd $_name-$pkgver
-  python -m installer --destdir=test_dir dist/*.whl
-  export PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH"
-
-  pytest "${pytest_options[@]}" test_dir/$_site_packages
+  PYTHONPATH=src pytest "${pytest_options[@]}" src/sphinxcontrib/programoutput
 }
 
 package() {
