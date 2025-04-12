@@ -2,8 +2,8 @@
 
 _hkgname=atomic-write
 pkgname=haskell-atomic-write
-pkgver=0.2.1.0
-pkgrel=28
+pkgver=0.2.1.1
+pkgrel=1
 pkgdesc="Atomically write to a file"
 url="https://github.com/stackbuilders/atomic-write"
 license=('MIT')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-temporary' 'haskell-unix-compat')
 makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('5ff555fd3d72de2b613ecd0445e5ec5f45c1ca722947c67709e6c622a52522d05d6b3f54d02b5f3f4babf1864aa7735a6bee7634453c71942cd76f107a8e1a89')
+sha512sums=('54b1758fc528fc6c1e82d71e892cc12ce1992291fd1afd0577c35abbe76ad6c12249aabb0fc611d121ae29302841bc3297ef3a073f203172744deb43be4388fd')
 
 build() {
     cd $_hkgname-$pkgver
