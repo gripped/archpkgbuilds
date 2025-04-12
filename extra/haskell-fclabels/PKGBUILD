@@ -4,7 +4,7 @@
 _hkgname=fclabels
 pkgname=haskell-fclabels
 pkgver=2.0.5.1
-pkgrel=133
+pkgrel=134
 pkgdesc="First class accessor labels implemented as lenses."
 url="https://github.com/sebastiaanvisser/fclabels"
 license=("BSD")
@@ -16,7 +16,7 @@ sha512sums=('a5f65a821e946381769bc98df2e78625820e99acf151886b9360e2327b589ac5bb2
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u base -u template-haskell
+    uusi -u base -u base-orphans -u template-haskell
 }
 
 build() {
