@@ -7,7 +7,7 @@
 pkgbase=curl
 pkgname=(curl libcurl-compat libcurl-gnutls)
 pkgver=8.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc='command line tool and library for transferring data with URLs'
 arch=('x86_64')
 url='https://curl.se/'
@@ -29,6 +29,7 @@ source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed")
 sha512sums=('e7b52e5e534e786d2af4630809a3a02980b321e41e5ad26ec4c8c1bf840a9898ae8e67bda504437a30439584e5d668d57c7772ea5b2cfe093510d6bf34113f2e')
 
 _backports=(
+  '2f5e4e0db464acff921901b7bf98dd94f8a73745' # https://github.com/curl/curl/pull/16985
 )
 
 _reverts=(
@@ -61,9 +62,6 @@ prepare() {
 }
 
 build() {
-    # make curl --help deterministic
-  # https://github.com/curl/curl/issues/16072
-  export COLUMNS=80
   local _configure_options=(
     --prefix='/usr'
     --mandir='/usr/share/man'
@@ -119,9 +117,6 @@ build() {
 }
 
 check() {
-  # make curl --help deterministic
-  # https://github.com/curl/curl/issues/16072
-  export COLUMNS=80 
   cd build-curl
   # -v: verbose
   # -a: keep going on failure (so we see everything which breaks, not just the first failing test)
