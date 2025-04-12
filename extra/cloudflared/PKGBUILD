@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <george@rawlinson.net.nz>
 
 pkgname=cloudflared
-pkgver=2025.2.1
+pkgver=2025.4.0
 pkgrel=1
 pkgdesc='Command-line client for Cloudflare Tunnel'
 arch=('x86_64')
@@ -11,8 +11,8 @@ depends=('glibc')
 makedepends=('git' 'go')
 options=('!lto')
 source=("$pkgname::git+$url.git#tag=$pkgver")
-sha512sums=('ad419ed7384208f031970cd98908ae48bfa90191ea9eac0ba5f027e3dc52f17e233075cac2b09fe9eb8d9ae0c098f71cd4e81261a127e26031ce7937b41507d5')
-b2sums=('3f9f33c5ec217fe44432476502db2086ccf02bd36a89e0e1519779b57a379c9cc5676168e5df7e56c81712e4b040959755d93edc038661cdbfaf163fff7b6f96')
+sha512sums=('71b24698cd640d17375a5ff1a071fe00c2eb445c4d934a619faa6e8feb084680b3126d018f90949e7b615b48ecb849ed2659ec0a0155ec95e4bc9ba13d840633')
+b2sums=('f5d3bd759af2884ae5ec5b9c0955ee4efe7672f7e0e276df05894e18648c37fe7d2e78765101b236921e38ae7212535f83694400d4db1132e6032c7cf26b1953')
 
 prepare() {
   cd "$pkgname"
