@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-mines
-pkgver=48.0
+pkgver=48.1
 pkgrel=1
 pkgdesc="Clear hidden mines from a minefield"
 url="https://wiki.gnome.org/Apps/Mines"
@@ -28,7 +28,7 @@ makedepends=(
 )
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-mines.git#tag=$pkgver")
-b2sums=('8b32a1eec2d8159a542a71579e24dc03dcc5b492f4e7962908162f66f399405a0d421db08c405c1b50cd865cdccb65fec556d0a8dc2e6797e2a4a51ea859d24c')
+b2sums=('58a08aca3e0bc88ead587763f2fe7d0f4e534b95510b3255b6ca1cc3a372d623694dfb104c589c93a4c5ba4e09e01fb83d03a91b2045ef3f6e86eabaefdf55e6')
 
 prepare() {
   cd $pkgname
