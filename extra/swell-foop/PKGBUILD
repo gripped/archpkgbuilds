@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=swell-foop
-pkgver=48.0
+pkgver=48.1
 pkgrel=1
 pkgdesc="Clear the screen by removing groups of colored and shaped tiles"
 url="https://gitlab.gnome.org/GNOME/swell-foop"
@@ -30,7 +30,7 @@ makedepends=(
   yelp-tools
 )
 source=("git+$url.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('e02c1a081338dee07e6ce3858e20a7047b5aa3daef3e7216f35504a9ce933c24d262c6ec5dd4ba89627adfdd0cca0fe688590794e579c9ed975862dbb3dc9ddc')
+b2sums=('2a5d99370352e19a01b7ee69888490a4549bd237c90697f84be26eba531d160bc47d06f4e911c1eaa6bb5d88acd5ed44f33d8fced3f85a03f0a4ad0782af2390')
 
 prepare() {
   cd $pkgname
