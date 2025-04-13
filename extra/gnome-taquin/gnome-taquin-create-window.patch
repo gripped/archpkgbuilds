@@ -1,0 +1,139 @@
+From d05589075e1da1b1bf5ff5539b7449f8a5ad3d88 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 7 Apr 2025 21:16:04 +0200
+Subject: [PATCH] Don't create window in startup phase
+
+This fixes the problem that the process does not exit after timeout when
+running as GApplication service.
+---
+ src/taquin-main.vala | 72 ++++++++++++++++++++++++++------------------
+ 1 file changed, 43 insertions(+), 29 deletions(-)
+
+diff --git a/src/taquin-main.vala b/src/taquin-main.vala
+index 894c368..ceab377 100644
+--- a/src/taquin-main.vala
++++ b/src/taquin-main.vala
+@@ -153,6 +153,36 @@ private class Taquin : Gtk.Application, BaseApplication
+             settings.apply ();
+         }
+ 
++        set_accels_for_action ("base.copy",             {        "<Primary>c"       });
++        set_accels_for_action ("base.copy-alt",         { "<Shift><Primary>c"       });
++        set_accels_for_action ("ui.new-game",           {        "<Primary>n"       });
++        set_accels_for_action ("ui.start-or-restart",   { "<Shift><Primary>n"       });
++        set_accels_for_action ("app.quit",              {        "<Primary>q",
++                                                          "<Shift><Primary>q"       });
++        set_accels_for_action ("base.paste",            {        "<Primary>v"       });
++        set_accels_for_action ("base.paste-alt",        { "<Shift><Primary>v"       });
++        set_accels_for_action ("ui.undo",               {        "<Primary>z"       });
++     // set_accels_for_action ("ui.restart" // TODO
++     // set_accels_for_action ("ui.redo",               { "<Shift><Primary>z"       });
++        set_accels_for_action ("base.escape",           {                 "Escape"  });
++        set_accels_for_action ("base.toggle-hamburger", {                 "F10",
++                                                                          "Menu"    });
++//        set_accels_for_action ("app.help",              {                 "F1"      });
++//        set_accels_for_action ("base.about",            {          "<Shift>F1"      });
++        set_accels_for_action ("win.show-help-overlay", {                 "F1", // TODO test: if showing Yelp fails, should fallback there
++                                                                 "<Primary>F1",
++                                                          "<Shift><Primary>F1",
++                                                                 "<Primary>question",
++                                                          "<Shift><Primary>question"});
++
++        add_action_entries (action_entries, this);
++        add_action (settings.create_action ("sound"));
++        add_action (settings.create_action ("type"));        // TODO window action?
++        // TODO window.add_action (settings.create_action ("size"));        // Problem: cannot use this way for an integer from a menu; works for radiobuttons in Iagno
++        // TODO window.add_action (settings.create_action ("theme"));
++    }
++
++    private void create_window () {
+         /* UI parts */
+         view = new TaquinView ();
+ 
+@@ -232,28 +262,6 @@ private class Taquin : Gtk.Application, BaseApplication
+         window.undo.connect (undo_cb);
+         window.restart.connect (restart_cb);
+ 
+-        set_accels_for_action ("base.copy",             {        "<Primary>c"       });
+-        set_accels_for_action ("base.copy-alt",         { "<Shift><Primary>c"       });
+-        set_accels_for_action ("ui.new-game",           {        "<Primary>n"       });
+-        set_accels_for_action ("ui.start-or-restart",   { "<Shift><Primary>n"       });
+-        set_accels_for_action ("app.quit",              {        "<Primary>q",
+-                                                          "<Shift><Primary>q"       });
+-        set_accels_for_action ("base.paste",            {        "<Primary>v"       });
+-        set_accels_for_action ("base.paste-alt",        { "<Shift><Primary>v"       });
+-        set_accels_for_action ("ui.undo",               {        "<Primary>z"       });
+-     // set_accels_for_action ("ui.restart" // TODO
+-     // set_accels_for_action ("ui.redo",               { "<Shift><Primary>z"       });
+-        set_accels_for_action ("base.escape",           {                 "Escape"  });
+-        set_accels_for_action ("base.toggle-hamburger", {                 "F10",
+-                                                                          "Menu"    });
+-//        set_accels_for_action ("app.help",              {                 "F1"      });
+-//        set_accels_for_action ("base.about",            {          "<Shift>F1"      });
+-        set_accels_for_action ("win.show-help-overlay", {                 "F1", // TODO test: if showing Yelp fails, should fallback there
+-                                                                 "<Primary>F1",
+-                                                          "<Shift><Primary>F1",
+-                                                                 "<Primary>question",
+-                                                          "<Shift><Primary>question"});
+-
+         /* New-game screen signals */
+         settings.changed ["size"].connect (() => {
+             if (!size_changed)
+@@ -269,12 +277,6 @@ private class Taquin : Gtk.Application, BaseApplication
+         });
+         update_theme (settings.get_string ("theme"));
+ 
+-        add_action_entries (action_entries, this);
+-        add_action (settings.create_action ("sound"));
+-        add_action (settings.create_action ("type"));        // TODO window action?
+-        // TODO window.add_action (settings.create_action ("size"));        // Problem: cannot use this way for an integer from a menu; works for radiobuttons in Iagno
+-        // TODO window.add_action (settings.create_action ("theme"));
+-
+         if (settings.get_boolean ("sound"))
+             init_sound ();
+ 
+@@ -283,13 +285,20 @@ private class Taquin : Gtk.Application, BaseApplication
+ 
+     protected override void activate ()
+     {
++        if (get_active_window () == null)
++            create_window ();
++
+         if (game == null)
+             start_game ();
++
+         window.present ();
+     }
+ 
+     private void play_fifteen_game ()
+     {
++        if (get_active_window () == null)
++            create_window ();
++
+         if (game == null)
+         {
+             settings.set_string ("type", "fifteen");
+@@ -300,6 +309,9 @@ private class Taquin : Gtk.Application, BaseApplication
+ 
+     private void play_sixteen_game ()
+     {
++        if (get_active_window () == null)
++            create_window ();
++
+         if (game == null)
+         {
+             settings.set_string ("type", "sixteen");
+@@ -310,7 +322,9 @@ private class Taquin : Gtk.Application, BaseApplication
+ 
+     protected override void shutdown ()
+     {
+-        window.destroy ();
++        if (get_active_window () != null)
++            window.destroy ();
++
+         base.shutdown ();
+     }
+ 
+-- 
+GitLab
+

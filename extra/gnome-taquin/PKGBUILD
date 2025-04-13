@@ -2,8 +2,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-taquin
-pkgver=3.38.1+r35+g35edb95
-pkgrel=2
+pkgver=3.38.1+r43+g33ad61e
+pkgrel=1
 pkgdesc="Move tiles so that they reach their places"
 url="https://wiki.gnome.org/Apps/Taquin"
 arch=(x86_64)
@@ -11,9 +11,13 @@ license=(GPL3)
 depends=(gtk3 librsvg gsound)
 makedepends=(meson vala yelp-tools appstream-glib git)
 groups=(gnome-extra)
-_commit=35edb95303b75559607d0599c4424c6cbc661648  # master
-source=("git+https://gitlab.gnome.org/GNOME/gnome-taquin.git#commit=$_commit")
-sha256sums=('SKIP')
+_commit=33ad61ea2aa838da2cd5efaba39494b71696289d  # master
+source=("git+https://gitlab.gnome.org/GNOME/gnome-taquin.git#commit=$_commit"
+        gnome-taquin-prgname.patch
+        gnome-taquin-create-window.patch)
+sha256sums=('5c2f0c0cde9c19103fbaa7c31829fc2b25b1f95cdf9f941446547068c35ca90f'
+            '56ff72909591d3407f1c83cd0c74b5001982efc34aea5e3aeece43dedd2be2aa'
+            'b74e0aeef8c8ba9bfd2e74c0aded0d791a8b95902a825f000151bdfde37a5904')
 
 pkgver() {
   cd $pkgname
@@ -22,6 +26,14 @@ pkgver() {
 
 prepare() {
   cd $pkgname
+
+  # Set prgname to application ID
+  # https://gitlab.gnome.org/GNOME/gnome-taquin/-/merge_requests/26
+  git apply -3 ../gnome-taquin-prgname.patch
+
+  # Don't create window in startup phase
+  # https://gitlab.gnome.org/GNOME/gnome-taquin/-/merge_requests/27
+  git apply -3 ../gnome-taquin-create-window.patch
 }
 
 build() {

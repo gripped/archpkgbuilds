@@ -1,7 +1,7 @@
 pkgbase = gnome-taquin
 	pkgdesc = Move tiles so that they reach their places
-	pkgver = 3.38.1+r35+g35edb95
-	pkgrel = 2
+	pkgver = 3.38.1+r43+g33ad61e
+	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Taquin
 	arch = x86_64
 	groups = gnome-extra
@@ -14,7 +14,11 @@ pkgbase = gnome-taquin
 	depends = gtk3
 	depends = librsvg
 	depends = gsound
-	source = git+https://gitlab.gnome.org/GNOME/gnome-taquin.git#commit=35edb95303b75559607d0599c4424c6cbc661648
-	sha256sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/gnome-taquin.git#commit=33ad61ea2aa838da2cd5efaba39494b71696289d
+	source = gnome-taquin-prgname.patch
+	source = gnome-taquin-create-window.patch
+	sha256sums = 5c2f0c0cde9c19103fbaa7c31829fc2b25b1f95cdf9f941446547068c35ca90f
+	sha256sums = 56ff72909591d3407f1c83cd0c74b5001982efc34aea5e3aeece43dedd2be2aa
+	sha256sums = b74e0aeef8c8ba9bfd2e74c0aded0d791a8b95902a825f000151bdfde37a5904
 
 pkgname = gnome-taquin
