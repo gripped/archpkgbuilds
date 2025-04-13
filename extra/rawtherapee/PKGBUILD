@@ -6,7 +6,7 @@
 pkgname=rawtherapee
 epoch=1
 pkgver=5.11
-pkgrel=2
+pkgrel=3
 pkgdesc='A powerful cross-platform raw image processing program'
 arch=('x86_64')
 url='https://www.rawtherapee.com/'
@@ -24,9 +24,6 @@ depends=('exiv2'
          'libiptcdata'
          'libjxl')
 makedepends=('cmake')
-# Build without LTO for now...
-# https://github.com/Beep6581/RawTherapee/issues/7203
-options=('!lto')
 source=("https://github.com/Beep6581/RawTherapee/releases/download/${pkgver}/rawtherapee-$pkgver.tar.xz")
 sha1sums=('2cb2932a904660158ee9ae8eafd8c07de77ed195')
 sha256sums=('e584c18dec112de29954b2b6471449a302a85e5cca4e42ede75fa333a36de724')
