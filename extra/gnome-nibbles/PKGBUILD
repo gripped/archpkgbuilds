@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-nibbles
-pkgver=4.2.0
+pkgver=4.2.1
 pkgrel=1
 pkgdesc="Guide a worm around a maze"
 url="https://wiki.gnome.org/Apps/Nibbles"
@@ -13,6 +13,7 @@ depends=(
   dconf
   glib2
   glibc
+  gsound
   gtk4
   hicolor-icon-theme
   libadwaita
@@ -32,9 +33,9 @@ groups=(gnome-extra)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-nibbles.git?signed#tag=$pkgver"
 )
-b2sums=('8c4345648321c9c3298e0c58c1aa4a714d5ef2a337fca987fcaef5663b693db3620e2704cdc4efe589393e80bf7ffc65eec477141d74c0be96c64a79d397c497')
+b2sums=('25418d6f99cf35713b8e5bebe70757070c32bbdc12a751a361b02e4160b1f35d546c5c0b9a55452a3284de6d3f8a26f866f3e94a250b0d54b02606af1536bc15')
 validpgpkeys=(
-  31F449AE968CBE194119A3AD1F1DC770CE79E68B # Ben Corby <bcorby@new-ms.com>
+  9CE6D700965C6A1D6F7B4A1C18B04BB8340E3EC5 # Ben Corby <bcorby@new-ms.com>
 )
 
 prepare() {
