@@ -1,0 +1,77 @@
+From 222cac9f4366353995ae345327ab04dfa84a69b7 Mon Sep 17 00:00:00 2001
+From: Simon McVittie <smcv@debian.org>
+Date: Tue, 14 Jan 2025 09:40:58 +0000
+Subject: [PATCH] game-board-view: Don't assume the current event is a button
+ press
+
+When using a touchscreen, the current event will be of type TOUCH_BEGIN
+rather than BUTTON_PRESS, and this populates different fields in the
+GdkEvent union.
+
+The GtkGestureMultiPress has already processed the click/touch/etc.
+event and derived x and y coordinates from the raw data, so all we
+need to do is to round them to an integer.
+
+Resolves: https://gitlab.gnome.org/GNOME/four-in-a-row/-/issues/27
+Bug-Debian: https://bugs.debian.org/1009749
+Signed-off-by: Simon McVittie <smcv@debian.org>
+---
+ meson.build              |  1 +
+ src/game-board-view.vala | 13 +------------
+ src/meson.build          |  3 ++-
+ 3 files changed, 4 insertions(+), 13 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index f49be767..56a3943e 100644
+--- a/meson.build
++++ b/meson.build
+@@ -23,6 +23,7 @@ gsound_dependency   = dependency('gsound',      version: '>= 1.0.2')
+ gtk_dependency      = dependency('gtk+-3.0',    version: '>= 3.24.0')
+ posix_dependency    = valac.find_library('posix')
+ rsvg_dependency     = dependency('librsvg-2.0', version: '>= 2.32.0')
++math_dependency     = meson.get_compiler('c').find_library('m')
+ 
+ appstream_util          = find_program('appstream-util',        required: false)
+ desktop_file_validate   = find_program('desktop-file-validate', required: false)
+diff --git a/src/game-board-view.vala b/src/game-board-view.vala
+index fa8d5ec6..8c6c54d1 100644
+--- a/src/game-board-view.vala
++++ b/src/game-board-view.vala
+@@ -239,19 +239,8 @@ private class GameBoardView : Gtk.DrawingArea
+         if (button != Gdk.BUTTON_PRIMARY && button != Gdk.BUTTON_SECONDARY)
+             return;
+ 
+-        Gdk.Event? event = Gtk.get_current_event ();
+-        if (event == null && ((!) event).type != Gdk.EventType.BUTTON_PRESS)
+-            assert_not_reached ();
+-
+-        int x;
+-        int y;
+-        Gdk.Window? window = get_window ();
+-        if (window == null)
+-            assert_not_reached ();
+-        ((!) window).get_device_position (((Gdk.EventButton) (!) event).device, out x, out y, null);
+-
+         uint8 col;
+-        if (get_column (x, y, out col))
++        if (get_column ((int) Math.round(event_x), (int) Math.round(event_y), out col))
+             column_clicked (col);
+     }
+ 
+diff --git a/src/meson.build b/src/meson.build
+index f0084caf..6e58fcb5 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -42,7 +42,8 @@ executable(
+         gsound_dependency,
+         gtk_dependency,
+         posix_dependency,
+-        rsvg_dependency
++        rsvg_dependency,
++        math_dependency,
+     ],
+     c_args: [
+         '-include', 'config.h'
+-- 
+GitLab
+

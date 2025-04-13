@@ -1,0 +1,68 @@
+From 2fc33e12d2a355c182199a6c91daeb68550fb0d5 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 7 Apr 2025 18:23:36 +0200
+Subject: [PATCH] Don't create window in startup phase
+
+This fixes the problem that the process does not exit after timeout when
+running as GApplication service.
+---
+ src/four-in-a-row.vala | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/src/four-in-a-row.vala b/src/four-in-a-row.vala
+index cd527f0a..f30f3384 100644
+--- a/src/four-in-a-row.vala
++++ b/src/four-in-a-row.vala
+@@ -233,6 +233,11 @@ private class FourInARow : Gtk.Application
+             settings.apply ();
+         }
+ 
++        add_actions ();
++    }
++
++    private void create_window ()
++    {
+         game_board = new Board ((uint8) size, (uint8) target);
+         clear_board ();
+ 
+@@ -307,7 +312,7 @@ private class FourInARow : Gtk.Application
+ 
+         settings.changed ["theme-id"].connect (prompt_player);
+ 
+-        add_actions ();
++        monitor_settings ();
+ 
+         /* various */
+         game_board_view.column_clicked.connect (column_clicked_cb);
+@@ -325,6 +330,7 @@ private class FourInARow : Gtk.Application
+ 
+         add_window (window);
+     }
++
+     private inline void add_actions ()
+     {
+         add_action (settings.create_action ("sound"));
+@@ -350,7 +356,10 @@ private class FourInARow : Gtk.Application
+         game_type_action  = (SimpleAction) lookup_action ("game-type");
+         next_round_action = (SimpleAction) lookup_action ("next-round");
+         next_round_action.set_enabled (false);
++    }
+ 
++    private inline void monitor_settings ()
++    {
+         settings.changed ["first-player"].connect (() => {
+                 if (settings.get_int ("num-players") == 2)
+                     return;
+@@ -410,6 +419,9 @@ private class FourInARow : Gtk.Application
+ 
+     protected override void activate ()
+     {
++        if (get_active_window () == null)
++            create_window ();
++
+         window.present ();
+     }
+ 
+-- 
+GitLab
+

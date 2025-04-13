@@ -1,0 +1,26 @@
+From a89921b399c6c8f8e3cee2d592a7393d7b60cc0b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 26 Aug 2024 14:03:06 +0000
+Subject: [PATCH] Set prgname to application ID
+
+Using the application ID ensures that Wayland compositors could match the
+window with the application and show the appropriate icon for them.
+---
+ src/four-in-a-row.vala | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/four-in-a-row.vala b/src/four-in-a-row.vala
+index cd527f0a..dca251ac 100644
+--- a/src/four-in-a-row.vala
++++ b/src/four-in-a-row.vala
+@@ -140,6 +140,7 @@ private class FourInARow : Gtk.Application
+         Intl.textdomain (GETTEXT_PACKAGE);
+ 
+         Environment.set_application_name (PROGRAM_NAME);
++        Environment.set_prgname ("org.gnome.Four-in-a-row");
+         Window.set_default_icon_name ("org.gnome.Four-in-a-row");
+ 
+         return new FourInARow ().run (args);
+-- 
+GitLab
+
