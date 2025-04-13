@@ -1,0 +1,86 @@
+From 4d81c493f83d3cd08e66774fc7fc3e451c3b5f89 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 13 Apr 2025 19:38:48 +0200
+Subject: [PATCH] Don't create window in startup phase
+
+This fixes the problem that the process does not exit after timeout when
+running as GApplication service.
+---
+ src/gnome-sudoku.vala | 48 +++++++++++++++++++++++++------------------
+ 1 file changed, 28 insertions(+), 20 deletions(-)
+
+diff --git a/src/gnome-sudoku.vala b/src/gnome-sudoku.vala
+index ed17d16..9d4529c 100644
+--- a/src/gnome-sudoku.vala
++++ b/src/gnome-sudoku.vala
+@@ -151,39 +151,47 @@ public class Sudoku : Adw.Application
+ 
+         Window.set_default_icon_name (APP_ID);
+ 
+-        window = new SudokuWindow (settings);
+-        add_window (window);
+-
+-        saver = new SudokuSaver ();
+-        var savegame = saver.get_savedgame ();
+-        if (savegame != null)
+-        {
+-            var mode = savegame.board.fixed == 0 ? GameMode.CREATE : GameMode.PLAY;
+-            start_game (savegame.board, mode);
+-        }
+-        else
+-            show_menu_screen ();
+     }
+ 
+     protected override void activate ()
+     {
++        if (window == null)
++        {
++            window = new SudokuWindow (settings);
++            add_window (window);
++
++            saver = new SudokuSaver ();
++            var savegame = saver.get_savedgame ();
++            if (savegame != null)
++            {
++                var mode = savegame.board.fixed == 0 ? GameMode.CREATE : GameMode.PLAY;
++                start_game (savegame.board, mode);
++            }
++            else
++                show_menu_screen ();
++        }
++
+         window.present ();
+     }
+ 
+     protected override void shutdown ()
+     {
+-        if (game != null)
++        if (window != null)
+         {
+-            //Source timer holds a game ref
+-            game.stop_clock ();
++            if (game != null)
++            {
++                //Source timer holds a game ref
++                game.stop_clock ();
+ 
+-            if (!game.is_empty () && !game.board.complete)
+-                saver.save_game (game);
+-            else
+-                saver.delete_save ();
++                if (!game.is_empty () && !game.board.complete)
++                    saver.save_game (game);
++                else
++                    saver.delete_save ();
++            }
++
++            window.close ();
+         }
+ 
+-        window.close ();
+         base.shutdown ();
+     }
+ 
+-- 
+2.49.0
+
