@@ -1,0 +1,49 @@
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
+
+pkgname=ptyxis
+pkgver=48.1
+pkgrel=2
+pkgdesc="A container oriented terminal"
+url="https://gitlab.gnome.org/chergert/ptyxis"
+arch=(x86_64)
+license=(GPL-3.0-only)
+depends=(
+  cairo
+  dconf
+  gcc-libs
+  glib2
+  glibc
+  gtk4
+  hicolor-icon-theme
+  json-glib
+  libadwaita
+  libportal
+  libportal-gtk4
+  pango
+  vte4
+)
+makedepends=(
+  appstream
+  git
+  glib2-devel
+  meson
+)
+source=("git+https://gitlab.gnome.org/chergert/ptyxis.git#tag=${pkgver/[a-z]/.&}")
+b2sums=('4f6f579830fb9e3686f14b30dc41ae38e3fb2655c990b344c3c58791ff081cf9a763d612241a94cb561cbfa2ccf53417849ba73770de9f7800ca95d2d89e64d6')
+
+prepare() {
+  cd $pkgname
+}
+
+build() {
+  arch-meson $pkgname build
+  meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+}
