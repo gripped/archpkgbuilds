@@ -1,0 +1,49 @@
+From 78f1b989acebac8b0b281ffb8042e8e5032ce4a4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 7 Apr 2025 22:15:26 +0200
+Subject: [PATCH] Don't create window in startup phase
+
+This fixes the problem that the process does not exit after timeout when
+running as GApplication service.
+---
+ src/gnome-klotski.vala | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/src/gnome-klotski.vala b/src/gnome-klotski.vala
+index 4fcf7a5..d93abae 100644
+--- a/src/gnome-klotski.vala
++++ b/src/gnome-klotski.vala
+@@ -80,9 +80,6 @@ private class Klotski : Gtk.Application
+ 
+         add_action_entries (action_entries, this);
+ 
+-        window = new KlotskiWindow ();
+-        add_window (window);
+-
+         set_accels_for_action ("win.prev-puzzle",   {"Up"});        // TODO
+         set_accels_for_action ("win.next-puzzle",   {"Down"});      // TODO a weird behaviour exists when you first change puzzle pack, then go to
+         set_accels_for_action ("win.prev-pack",     {"Page_Up"});   // TODO the first/last one, click on a puzzle, and immediately hit Up or Down arrows.
+@@ -101,12 +98,19 @@ private class Klotski : Gtk.Application
+ 
+     protected override void activate ()
+     {
++        if (get_active_window () == null) {
++            window = new KlotskiWindow ();
++            add_window (window);
++        }
++
+         window.present ();
+     }
+ 
+     protected override void shutdown ()
+     {
+-        window.destroy ();
++        if (get_active_window () != null)
++            window.destroy ();
++
+         base.shutdown ();
+     }
+ }
+-- 
+GitLab
+

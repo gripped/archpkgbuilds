@@ -1,7 +1,7 @@
 pkgbase = gnome-klotski
 	pkgdesc = Slide blocks to solve the puzzle
 	pkgver = 3.38.2
-	pkgrel = 2
+	pkgrel = 3
 	url = https://wiki.gnome.org/Apps/Klotski
 	arch = x86_64
 	groups = gnome-extra
@@ -15,7 +15,13 @@ pkgbase = gnome-klotski
 	depends = gtk3
 	depends = librsvg
 	depends = libgnome-games-support
-	source = git+https://gitlab.gnome.org/GNOME/gnome-klotski.git#commit=32d1c953fa49a6b0281b00ea449020027f3f2659
-	sha256sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/gnome-klotski.git#tag=3.38.2
+	source = gnome-klotski-prgname.patch
+	source = gnome-klotski-appname.patch
+	source = gnome-klotski-create-window.patch
+	sha256sums = 41db5c3125d224e1f49e2bcb2606a0b5a86068cc8676224f52c5c3999b171f17
+	sha256sums = 750bdddc28a7bf81e7f7cae77f24fd40f18e42ba57232cb037f813292daa04be
+	sha256sums = 99270c091aab76389429af3e7177422ceb090e06ce298dc1195d3dfc6e9b30ac
+	sha256sums = bbf2cc40c0b5dccdea311825ca3816049b14b29655798ba740289f1df705ce9d
 
 pkgname = gnome-klotski

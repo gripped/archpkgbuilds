@@ -3,7 +3,7 @@
 
 pkgname=gnome-klotski
 pkgver=3.38.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Slide blocks to solve the puzzle"
 url="https://wiki.gnome.org/Apps/Klotski"
 arch=(x86_64)
@@ -11,17 +11,29 @@ license=(GPL)
 depends=(gtk3 librsvg libgnome-games-support)
 makedepends=(meson gobject-introspection yelp-tools appstream-glib vala git)
 groups=(gnome-extra)
-_commit=32d1c953fa49a6b0281b00ea449020027f3f2659  # tags/3.38.2^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-klotski.git#commit=$_commit")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-klotski.git#tag=$pkgver"
+        gnome-klotski-prgname.patch
+        gnome-klotski-appname.patch
+        gnome-klotski-create-window.patch)
+sha256sums=('41db5c3125d224e1f49e2bcb2606a0b5a86068cc8676224f52c5c3999b171f17'
+            '750bdddc28a7bf81e7f7cae77f24fd40f18e42ba57232cb037f813292daa04be'
+            '99270c091aab76389429af3e7177422ceb090e06ce298dc1195d3dfc6e9b30ac'
+            'bbf2cc40c0b5dccdea311825ca3816049b14b29655798ba740289f1df705ce9d')
 
 prepare() {
   cd $pkgname
+
+  # Set prgname to application ID
+  # https://gitlab.gnome.org/GNOME/gnome-klotski/-/merge_requests/20
+  git apply -3 ../gnome-klotski-prgname.patch
+
+  # Fix setting application name
+  # https://gitlab.gnome.org/GNOME/gnome-klotski/-/merge_requests/21
+  git apply -3 ../gnome-klotski-appname.patch
+
+  # Don't create window in startup phase
+  # https://gitlab.gnome.org/GNOME/gnome-klotski/-/merge_requests/22
+  git apply -3 ../gnome-klotski-create-window.patch
 }
 
 build() {

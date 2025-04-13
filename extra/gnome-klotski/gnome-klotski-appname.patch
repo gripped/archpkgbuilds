@@ -1,0 +1,26 @@
+From 6c4ca71b94ee7cf527be9fa0e5ff2ee3707724cb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 29 Dec 2024 09:13:30 +0000
+Subject: [PATCH] Fix setting application name
+
+Static variables cannot be accessed within the main function.
+---
+ src/gnome-klotski.vala | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/gnome-klotski.vala b/src/gnome-klotski.vala
+index 4fcf7a5..18f763f 100644
+--- a/src/gnome-klotski.vala
++++ b/src/gnome-klotski.vala
+@@ -22,7 +22,7 @@ using Gtk;
+ private class Klotski : Gtk.Application
+ {
+     /* Translators: application name, as used in the window manager, the window title, the about dialog... */
+-    internal static string PROGRAM_NAME = _("Klotski");
++    internal const string PROGRAM_NAME = _("Klotski");
+ 
+     private KlotskiWindow window;
+ 
+-- 
+GitLab
+
