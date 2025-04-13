@@ -5,7 +5,7 @@
 
 pkgname=bazel
 pkgver=8.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Correct, reproducible, and fast builds for everyone'
 arch=('x86_64')
 license=('Apache-2.0')
@@ -30,6 +30,8 @@ build() {
 package() {
   install -Dm755 "${srcdir}/scripts/packages/bazel.sh" "${pkgdir}/usr/bin/bazel"
   install -Dm755 "${srcdir}/output/bazel" "${pkgdir}/usr/bin/bazel-real"
+  local _bazel_major=${pkgver%%.*}
+  ln -s bazel-real "${pkgdir}/usr/bin/bazel-$_bazel_major.x-linux-$CARCH"
   install -Dm644 "${srcdir}/bazel-bin/scripts/bazel-complete.bash" "${pkgdir}/usr/share/bash-completion/completions/bazel"
   install -Dm644 "${srcdir}/scripts/zsh_completion/_bazel" "${pkgdir}/usr/share/zsh/site-functions/_bazel"
   mkdir -p "${pkgdir}/usr/share/bazel"
