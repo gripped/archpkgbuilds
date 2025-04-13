@@ -3,7 +3,7 @@
 
 pkgname=felix-rs
 _pkgname=felix
-pkgver=2.14.0
+pkgver=2.16.1
 pkgrel=1
 pkgdesc="A TUI file manager with Vim-like key mapping"
 arch=('x86_64')
@@ -17,7 +17,7 @@ optdepends=('chafa: preview images'
 checkdepends=('zoxide')
 install="$pkgname.install"
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('49f11468ae28a23ac71c0f6aec226764fd2c05804deed9d43ca0cdedd14aa221ddea7f2d8a7a5b86d1c3a8ae77c1fef13e91ba043f87b3d6cc5d3091ab137481')
+sha512sums=('ba93e0b61fd6e783ef433c21189c29128389a930b799aa357d405da2950a21419882cf861abfaff188d42c5e5d2b729e1fdbed86d3c247c44347cdb046836f38')
 options=('!lto')
 
 prepare() {
@@ -32,9 +32,6 @@ build() {
 
 check() {
   cd "$_pkgname-$pkgver"
-  # https://github.com/kyoheiu/felix/issues/200
-  touch testfiles/permission_test
-  chmod 444 testfiles/permission_test
   cargo test --frozen
 }
 
