@@ -1,7 +1,7 @@
 pkgbase = hitori
-	pkgdesc = GTK+ application to generate and let you play games of Hitori
+	pkgdesc = GTK application to generate and let you play games of Hitori
 	pkgver = 44.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://wiki.gnome.org/Apps/Hitori
 	arch = x86_64
 	groups = gnome-extra
@@ -11,7 +11,10 @@ pkgbase = hitori
 	makedepends = meson
 	makedepends = yelp-tools
 	depends = gtk3
-	source = git+https://gitlab.gnome.org/GNOME/hitori.git#commit=53db1397d6a711862023d7a3070e785235a98c87
-	sha256sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/hitori.git?signed#tag=44.0
+	source = hitori-dbus-activatable.patch
+	validpgpkeys = 923B7025EE03C1C59F42684CF0942E894B2EAFA0
+	sha256sums = 0ee9c2bb31698e3e974705d96943a178843881017e4c91d8b7f3bd1a864618ad
+	sha256sums = 8695a3358c15b905423be0461783a7690a075f0ae132a1b1793652eee9160969
 
 pkgname = hitori

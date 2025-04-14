@@ -3,8 +3,8 @@
 
 pkgname=hitori
 pkgver=44.0
-pkgrel=2
-pkgdesc="GTK+ application to generate and let you play games of Hitori"
+pkgrel=3
+pkgdesc="GTK application to generate and let you play games of Hitori"
 url="https://wiki.gnome.org/Apps/Hitori"
 arch=(x86_64)
 license=(GPL)
@@ -16,17 +16,26 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome-extra)
-_commit=53db1397d6a711862023d7a3070e785235a98c87  # tags/44.0^0
-source=("git+https://gitlab.gnome.org/GNOME/hitori.git#commit=$_commit")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd hitori
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/hitori.git?signed#tag=$pkgver"
+        hitori-dbus-activatable.patch)
+sha256sums=('0ee9c2bb31698e3e974705d96943a178843881017e4c91d8b7f3bd1a864618ad'
+            '8695a3358c15b905423be0461783a7690a075f0ae132a1b1793652eee9160969')
+validpgpkeys=(923B7025EE03C1C59F42684CF0942E894B2EAFA0) # Philip Withnall <philip@tecnocode.co.uk>
 
 prepare() {
   cd hitori
+
+  # Set prgname to application ID
+  # https://gitlab.gnome.org/GNOME/hitori/-/merge_requests/47
+  git cherry-pick -n e1231f826f32e169f81a2cdb60e809c3e5519d28
+
+  # Use GApplication to parse command line options
+  # https://gitlab.gnome.org/GNOME/hitori/-/merge_requests/49
+  git cherry-pick -n e76f20ebc3fdf361a2d775fe66c1b787dcf8a6a9
+
+  # Add D-Bus service file
+  # https://gitlab.gnome.org/GNOME/hitori/-/merge_requests/48
+  git apply -3 ../hitori-dbus-activatable.patch
 }
 
 build() {
