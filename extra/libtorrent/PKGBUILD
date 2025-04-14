@@ -7,17 +7,17 @@
 
 pkgname=libtorrent
 pkgver=0.15.2
-_commit=215547d9e361f9932752af54fb9cf66dc3cd6ced
-pkgrel=2
-pkgdesc='BitTorrent library with a focus on high performance and good code'
+_commit=61644e9f58905683702b36ff69cee9219dded512
+pkgrel=3
+pkgdesc='BitTorrent library with a focus on high performance'
 url='https://rakshasa.github.io/rtorrent/'
 arch=('x86_64')
-license=('GPL-2.0-only')
+license=('GPL-2.0-or-later')
 makedepends=('git')
 depends=('openssl')
 #source=("git+https://github.com/rakshasa/libtorrent.git#tag=v${pkgver}")
 source=("git+https://github.com/rakshasa/libtorrent.git#commit=${_commit}")
-sha256sums=('fc9dda567236408f104d9dd29032a5e3ff5f4d94dcc2abf526fa68b858fe9b85')
+sha256sums=('d027007c05c52edc31bd522e93e2fdb6c6f91dce6a3c32cf3e34cd20ebd1092e')
 
 prepare() {
   cd ${pkgname}
