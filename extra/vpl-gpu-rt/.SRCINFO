@@ -1,11 +1,13 @@
 pkgbase = vpl-gpu-rt
 	pkgdesc = Intel VPL runtime implementation for Intel GPUs (Tiger Lake and newer)
-	pkgver = 25.1.4
+	pkgver = 25.2.0
 	pkgrel = 1
 	url = https://github.com/intel/vpl-gpu-rt/
 	arch = x86_64
 	license = MIT
 	makedepends = cmake
+	depends = gcc-libs
+	depends = glibc
 	depends = intel-media-driver
 	depends = libdrm
 	depends = libva
@@ -13,9 +15,9 @@ pkgbase = vpl-gpu-rt
 	provides = vpl-runtime
 	conflicts = onevpl-intel-gpu
 	replaces = onevpl-intel-gpu
-	source = https://github.com/intel/vpl-gpu-rt/archive/intel-onevpl-25.1.4/vpl-gpu-rt-25.1.4.tar.gz
+	source = https://github.com/intel/vpl-gpu-rt/archive/intel-onevpl-25.2.0/vpl-gpu-rt-25.2.0.tar.gz
 	source = 010-vpl-gpu-rt-disable-verbose-makefile.patch
-	sha256sums = 2ee59a47c281f402cd77118eed1ec7cef703d25432e9a71b4be6b91e8c304d72
+	sha256sums = b7b2f243d12e6747a1b47f4dc556c922a90c758a213215c2beb2935343ff3abf
 	sha256sums = c6b17b7026d16d02c3cab7b5081366c24021a86fa173eaee5db310691ce76879
 
 pkgname = vpl-gpu-rt
