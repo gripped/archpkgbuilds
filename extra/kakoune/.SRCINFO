@@ -1,10 +1,11 @@
 pkgbase = kakoune
 	pkgdesc = Multiple-selection, UNIX-flavored modal editor
 	pkgver = 2024.05.18
-	pkgrel = 2
+	pkgrel = 3
 	url = https://kakoune.org/
 	arch = x86_64
 	license = custom:unlicense
+	makedepends = git
 	depends = gcc-libs
 	optdepends = aspell: spell check, correct text
 	optdepends = clang: error reporting and diagnostics, completion
@@ -15,6 +16,8 @@ pkgbase = kakoune
 	optdepends = xdotool: X11 window management
 	optdepends = xorg-xmessage: print detailed crash information in a separate window
 	source = https://github.com/mawww/kakoune/releases/download/v2024.05.18/kakoune-2024.05.18.tar.bz2
+	source = custom-libexecdir.patch
 	b2sums = 3c551d1ccdccbfcc64e52d5e4b32e37f2d4f68188ac3aedd651bfc0af9324c458992eff79d37c2f5ec58135b0923aecfb8d1308be3d6878fe15c8b44fcbd6472
+	b2sums = 2c97785427851a01503bb99e2d0b725e4c11a42411669454f8bdfece00196d63c8dcd84e978840a2a83deed594b0c198e76d964fe8adcf21b6fe4eedb9c987e2
 
 pkgname = kakoune
