@@ -1,15 +1,16 @@
 pkgbase = rime-pinyin-simp
 	pkgdesc = Simple pinyin input for rime
-	pkgver = 0.0.0.20230104
-	pkgrel = 2
+	pkgver = 0.0.0.20240217
+	pkgrel = 1
 	url = https://github.com/rime/rime-pinyin-simp
 	arch = x86_64
 	license = LGPL
+	makedepends = git
 	makedepends = librime
 	makedepends = rime-prelude
 	makedepends = rime-essay
 	depends = rime-stroke
-	source = https://github.com/rime/rime-pinyin-simp/archive/52b9c75f085479799553f2499c4f4c611d618cdf/rime-pinyin-simp-52b9c75f085479799553f2499c4f4c611d618cdf.tar.gz
-	sha512sums = 4b89f9f3edd79b1220b77731eac99cf90c3496a8a09bc816ba0a40eaaae8743bd817d908492aa9ffde768b65d24a488cda558a8c8c7aa355754909420be2eead
+	source = git+https://github.com/rime/rime-pinyin-simp.git#commit=321630658d12beee8320af93cf6e4ca6f3042211
+	sha512sums = dc7a2feb298115ca185de6ff029d8978042a3a66272663601fda7f9110d89be929f6c44abc54c22b3bd5aaa75162356d42b6df406d305b7ca24ea1d5cf20d229
 
 pkgname = rime-pinyin-simp
