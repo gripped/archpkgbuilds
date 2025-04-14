@@ -7,17 +7,17 @@
 
 pkgname=rtorrent
 pkgver=0.15.2
-_commit=2ab7460cbca4a0e8d5c33e71610de2e620eecc8c
-pkgrel=2
+_commit=316b0b51d52154af629f0dc39253c61f5456dcb6
+pkgrel=3
 pkgdesc='Ncurses BitTorrent client based on libTorrent'
 url='https://rakshasa.github.io/rtorrent/'
-license=('GPL-2.0-only')
+license=('GPL-2.0-or-later')
 arch=('x86_64')
 makedepends=('git')
 depends=("libtorrent=${pkgver}" 'curl' 'tinyxml2')
 #source=("git+https://github.com/rakshasa/rtorrent.git#tag=v${pkgver}")
 source=("git+https://github.com/rakshasa/rtorrent.git#commit=${_commit}")
-sha256sums=('b464e955b864c39fef1514a16f94fb84e0ba26a6cb638af8dce027284d2ef01d')
+sha256sums=('4b4602fe60094a25cfd820bdb190eeca52f5a35e94c106243d9e7cb505185849')
 
 prepare() {
   cd ${pkgname}
