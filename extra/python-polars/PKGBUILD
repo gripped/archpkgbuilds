@@ -2,7 +2,7 @@
 # Contributor: Alexandre Bury <alexandre.bury@gmail.com>
 
 pkgname=python-polars
-pkgver=1.26.0
+pkgver=1.27.1
 pkgrel=1
 pkgdesc="Blazingly fast DataFrames library using Apache Arrow Columnar Format as memory model"
 arch=("x86_64")
@@ -27,11 +27,11 @@ checkdepends=('python-pytest'
               'python-zstandard'
               'python-cloudpickle'
               'python-aiosqlite'
-		      'python-orjson')
+              'python-orjson')
 _name=${pkgname#python-}
 _tag="py-$pkgver"
 source=("https://github.com/pola-rs/polars/archive/refs/tags/$_tag.tar.gz")
-b2sums=('cb134ab718dce11dd147c71060755d1d14ea14c3e442233c67503fc629b63db3aabe912a690e33f4a8b74e49994449590207d1ef05aa41efb2b26fe360968014')
+b2sums=('d772656308b8ce8ea891e09420e43e97e4f6c225da2347747554208f0f31a362fc952b771e5cee34f06c2b0da5aa8758fec655c1bc050c7b95655f0eb2115483')
 
 prepare() {
     cd polars-$_tag/py-polars
@@ -40,36 +40,36 @@ prepare() {
 
 build() {
     cd polars-$_tag/py-polars
-    maturin build -o dist --release
+    maturin build -o dist --release --locked --strip --compatibility linux
 }
 
 check() {
     cd polars-$_tag/py-polars
 
     # Package needs to be installed to run the tests, use a venv
-	python -m venv --system-site-packages test-env
-	test-env/bin/python -m installer dist/*.whl
-	# Existence of polars module causes issues, even with safe mode -P
-	rm -rv polars
+    python -m venv --system-site-packages test-env
+    test-env/bin/python -m installer dist/*.whl
+    # Existence of polars module causes issues, even with safe mode -P
+    rm -rv polars
 
-	# Ignore several test files as they either use unpackaged dependencies, or
-	# contain direct errors
-	test-env/bin/python -P -m pytest tests/unit \
-		-W ignore::pydantic.warnings.PydanticDeprecatedSince211 \
-		--ignore tests/unit/io/test_delta.py \
-		--ignore tests/unit/operations/namespaces/test_plot.py \
-		--ignore tests/unit/io/cloud/test_aws.py \
-		--ignore tests/unit/functions/range/test_datetime_range.py \
-		--ignore tests/unit/io/test_spreadsheet.py \
-		--deselect "tests/unit/streaming/test_streaming_categoricals.py::test_streaming_cat_14933" \
-		--deselect "tests/unit/dataframe/test_df.py::test_extension" \
-		--deselect "tests/unit/streaming/test_streaming_group_by.py::test_streaming_group_by_literal[1]" \
-		--deselect "tests/unit/io/database/test_read.py::test_read_database_parameterised_uri[:n-param_value0]" \
-		--deselect "tests/unit/io/database/test_read.py::test_read_database_parameterised_uri[?-param_value1]" \
-		--deselect "tests/unit/io/database/test_read.py::test_read_database_parameterised_uri[?-param_value2]" \
-		--deselect "tests/unit/io/database/test_read.py::test_read_database_cx_credentials[fakedb://123:456@account/database/schema?warehouse=warehouse&role=role]" \
-		--deselect "tests/unit/io/database/test_read.py::test_read_database_cx_credentials[fakedb://my#%us3r:p433w0rd@not_a_real_host:9999/database]" \
-		--deselect "tests/unit/io/database/test_write.py::test_write_database_adbc_temporary_table"
+    # Ignore several test files as they either use unpackaged dependencies, or
+    # contain direct errors
+    test-env/bin/python -P -m pytest tests/unit \
+        -W ignore::pydantic.warnings.PydanticDeprecatedSince211 \
+        --ignore tests/unit/io/test_delta.py \
+        --ignore tests/unit/operations/namespaces/test_plot.py \
+        --ignore tests/unit/io/cloud/test_aws.py \
+        --ignore tests/unit/functions/range/test_datetime_range.py \
+        --ignore tests/unit/io/test_spreadsheet.py \
+        --deselect "tests/unit/streaming/test_streaming_categoricals.py::test_streaming_cat_14933" \
+        --deselect "tests/unit/dataframe/test_df.py::test_extension" \
+        --deselect "tests/unit/streaming/test_streaming_group_by.py::test_streaming_group_by_literal[1]" \
+        --deselect "tests/unit/io/database/test_read.py::test_read_database_parameterised_uri[:n-param_value0]" \
+        --deselect "tests/unit/io/database/test_read.py::test_read_database_parameterised_uri[?-param_value1]" \
+        --deselect "tests/unit/io/database/test_read.py::test_read_database_parameterised_uri[?-param_value2]" \
+        --deselect "tests/unit/io/database/test_read.py::test_read_database_cx_credentials[fakedb://123:456@account/database/schema?warehouse=warehouse&role=role]" \
+        --deselect "tests/unit/io/database/test_read.py::test_read_database_cx_credentials[fakedb://my#%us3r:p433w0rd@not_a_real_host:9999/database]" \
+        --deselect "tests/unit/io/database/test_write.py::test_write_database_adbc_temporary_table"
 }
 
 package() {
