@@ -1,95 +1,195 @@
 # Maintainer: Konstantin Gizdov <arch at kge dot pw>
-# Maintainer: T.J. Townsend <blakkheim@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: T.J. Townsend <blakkheim@archlinux.org>
 # Contributor: Markus Weimar <mail@markusweimar.de>
 
-_pkgbase='iosevka'
-_type='ttc'
-pkgbase="${_type}-${_pkgbase}"
+pkgbase=ttc-iosevka
 pkgname=(
-    "${pkgbase}" "${pkgbase}-aile" "${pkgbase}-curly" "${pkgbase}-curly-slab" "${pkgbase}-etoile" "${pkgbase}-slab"
-    "${pkgbase}-ss01" "${pkgbase}-ss02" "${pkgbase}-ss03" "${pkgbase}-ss04" "${pkgbase}-ss05" "${pkgbase}-ss06"
-    "${pkgbase}-ss07" "${pkgbase}-ss08" "${pkgbase}-ss09" "${pkgbase}-ss10" "${pkgbase}-ss11" "${pkgbase}-ss12"
-    "${pkgbase}-ss13" "${pkgbase}-ss14" "${pkgbase}-ss15" "${pkgbase}-ss16" "${pkgbase}-ss17" "${pkgbase}-ss18"
-    )
-pkgver=32.4.0
+  "$pkgbase"
+  "$pkgbase-aile"
+  "$pkgbase-curly"
+  "$pkgbase-curly-slab"
+  "$pkgbase-etoile"
+  "$pkgbase-slab"
+  "$pkgbase-ss01"
+  "$pkgbase-ss02"
+  "$pkgbase-ss03"
+  "$pkgbase-ss04"
+  "$pkgbase-ss05"
+  "$pkgbase-ss06"
+  "$pkgbase-ss07"
+  "$pkgbase-ss08"
+  "$pkgbase-ss09"
+  "$pkgbase-ss10"
+  "$pkgbase-ss11"
+  "$pkgbase-ss12"
+  "$pkgbase-ss13"
+  "$pkgbase-ss14"
+  "$pkgbase-ss15"
+  "$pkgbase-ss16"
+  "$pkgbase-ss17"
+  "$pkgbase-ss18"
+)
+pkgver=33.2.0
 pkgrel=1
-pkgdesc='Typeface family designed for coding, terminal use and technical documents.'
+pkgdesc='Typeface family designed for coding, terminal use and technical documents'
 arch=('any')
 url='https://typeof.net/Iosevka/'
 license=('OFL-1.1-RFN')
-source=("${pkgbase}-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-Iosevka-${pkgver}.zip"
-        "${pkgbase}-aile-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaAile-${pkgver}.zip"
-        "${pkgbase}-curly-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaCurly-${pkgver}.zip"
-        "${pkgbase}-curly-slab-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaCurlySlab-${pkgver}.zip"
-        "${pkgbase}-etoile-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaEtoile-${pkgver}.zip"
-        "${pkgbase}-slab-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSlab-${pkgver}.zip"
-        "${pkgbase}-ss01-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS01-${pkgver}.zip"
-        "${pkgbase}-ss02-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS02-${pkgver}.zip"
-        "${pkgbase}-ss03-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS03-${pkgver}.zip"
-        "${pkgbase}-ss04-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS04-${pkgver}.zip"
-        "${pkgbase}-ss05-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS05-${pkgver}.zip"
-        "${pkgbase}-ss06-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS06-${pkgver}.zip"
-        "${pkgbase}-ss07-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS07-${pkgver}.zip"
-        "${pkgbase}-ss08-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS08-${pkgver}.zip"
-        "${pkgbase}-ss09-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS09-${pkgver}.zip"
-        "${pkgbase}-ss10-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS10-${pkgver}.zip"
-        "${pkgbase}-ss11-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS11-${pkgver}.zip"
-        "${pkgbase}-ss12-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS12-${pkgver}.zip"
-        "${pkgbase}-ss13-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS13-${pkgver}.zip"
-        "${pkgbase}-ss14-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS14-${pkgver}.zip"
-        "${pkgbase}-ss15-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS15-${pkgver}.zip"
-        "${pkgbase}-ss16-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS16-${pkgver}.zip"
-        "${pkgbase}-ss17-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS17-${pkgver}.zip"
-        "${pkgbase}-ss18-${pkgver}.zip::https://github.com/be5invis/Iosevka/releases/download/v${pkgver}/PkgTTC-IosevkaSS18-${pkgver}.zip"
-        "${pkgbase}-${pkgver}-${pkgrel}-LICENSE.md::https://raw.githubusercontent.com/be5invis/Iosevka/v${pkgver}/LICENSE.md")
-b2sums=('63b9b40f0fa9154b3b93be398cbbea5ab5abd9cac9dd166bf196d920573046a7e5da961b84c943500917bef52eb62136bbee439ebc39320568e2e9bb1c936035'
-        '5d0a088fb898f70c8bf1d744ff4b294e3d8b1b2c5835b17d8719067ea49a7bec912d908d1832e983f9bf337953914e5661b8b748d5d2ae56ff109c78b7de2af0'
-        '8ec45a554d438cd63b2349944c4438535216e067e336668edf46d2678112c944fe331c20ffbfe99098eb5968373866799e18350090f7fdba5115ce0adf6bc95e'
-        '747f70767fcd272f9a7117daca37462c24deea57ac463bb37589c0930b042c547d5a13aa8e6550ec80ad37205ea67f5d1c35a8a282390bc6eaed2e2a86469ac7'
-        '77ea48dfa4b9a6796bf0ab664efc8ed286afb7148f4092922a009771f56cbe286ae75259e1a14c27bfa876ef7c4697610b6528d9967c31ec433a9a74770a5b2f'
-        'c27f1eec65238d06426c20f539c9082e2265cba27bf52b798d899c6282bffd4b35534338c90f74b9c6ed31ac02bc40362cc1d398def858d4e9dc2b7243a80566'
-        'c40446d9a33a603aab85cf560b2f27bbcca6a4251ca6c4a6ba7a446950d7874431b29fc44db0d9eac386f559b288f1d2485019546a2ddea43def71f7072e4863'
-        'c2056cb3f07521a8786b73ade1837062eca16621f2b997f7e15340f0d31cd797df66783a036177675846c33affbb52a79f02a2a2dfe67db41fb74a44ede4f5ac'
-        '22d3e77b4a2c348d204d9140597ff73b2bc9dbba6b773ed7b91980bf52af2b443eac92068b0a19f35af75b2ad23a7f65351c328cdef1ecc32fdefaa0378c5fb8'
-        '278f19e78062ee017b19d163a25261600ccf738db184c4d722e7e3adaa01fb4e3a61c39b914b05eb83799bfaab55389ee13fad8b6b1fa86cb29bf419c0a84a42'
-        'ffaa7bb1a08136b18acb40a3526210e4b2a06be29c70d05dc1174e956544b474df83ff915d4d6326af98839046e61e72d54445574c1fad9be4459d6ba69df745'
-        '34b57604d39aeff0500ae568a517becbab6d63f435b873d5ff9ba1c26a8f5f7bb1a21a365623fd1026b821569615e10bad78a0be08be6682ce70ecbe8ea7e57e'
-        '6a44e8cb2fe597eccd93b65e15e39ec9932f402f7763b44417361ae8ff3a19bdcc8ec17ca108d718b967a36474b6541af6d266aea17f72a85b0be0df1d001cd0'
-        'c1e2011365e846ff437ef5e87ece4c6fc2f6f57200c8b75336e3d4251df6831493ad76e541478ab7e0495ca77bf9b1c2c5efef1db96eb7d39b18b29adc241645'
-        'b373c3bbc1d3dea15902a0854c0957b74b1928adffcb6106ea10d841fad0bdf7648a213125b2a4aba2818faa48f965832f39169521b1996638bdc5d49cb9d63e'
-        '384a78440657884703479f34d736e7f3fc8afe402ae3c0b3913b4fe038698302b4b3f6ca4062f1921594993b70e76308e6bd16d59da3a88f0b58396566df2496'
-        '6af62c56d08f6e92fefd11e1335c9f7083bb9456fa37fde8c3bab235436f7e0ad1bbdeb9512efbb50a9164927c8d47f28d3e5c8fc7d85f99a5bff93eca04ff65'
-        '3244ecd5d2330e51b8a5e8dc95d57aacab64cc1c5f7c8b0078efb3694d59deb8e5a5e9cb040a6542b21b7fb1f8531de17267e0b830d2e397bcd5561f5a3f1e62'
-        'ff7239657916a7761af09b374e544d2e82359de24013eb0340aa462ffce9b6863b122fc0c6a5563b41c69c1f2c7f049ace13520de21820db56b04a8500271993'
-        '1d24685ffd2f921a32784f3c50457ddbbd84df978c885e87f64583a605f1631d408041328f2560f2c75428b0f2986bd3c6d007661360a50245f14e31e3a127fe'
-        '1732e11ec2be4188ee3ebd65019452ddcac8fa8461b8ca7463e5341a3d55cb396f5c4c132b55751bcee26ee4861a8e2016d70d46b8e74f8c15cc6191382b3346'
-        'fb77eae66651bcab203193c1436efc1ff4381050d1d20b32b8f15c8c47918ddc8c752f98370c134b7e660348a1d41a7e4fbc4e79e018c7a02651a7541fc498f7'
-        '31c8ae2fedb494f3d36c3fe3d8075bd725db9b8bc31cc294268494f5bac7bdc50ebe0ed9347fbd8ea478adb3d50d2d78ac3618c92b8cd50d9553bdb913e70655'
-        '4d73f6a93984d9235706bb016e82bfedd77d9bf01817259286f36dfa897e670d2345540156759df1f3e4a04e91be821a57c0f483a9e4edeffcf3cfbaacdec4f1'
+_url=https://github.com/be5invis/Iosevka
+source=(
+  "$pkgbase-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-Iosevka-$pkgver.zip"
+  "$pkgbase-aile-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaAile-$pkgver.zip"
+  "$pkgbase-curly-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaCurly-$pkgver.zip"
+  "$pkgbase-curly-slab-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaCurlySlab-$pkgver.zip"
+  "$pkgbase-etoile-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaEtoile-$pkgver.zip"
+  "$pkgbase-slab-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSlab-$pkgver.zip"
+  "$pkgbase-ss01-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS01-$pkgver.zip"
+  "$pkgbase-ss02-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS02-$pkgver.zip"
+  "$pkgbase-ss03-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS03-$pkgver.zip"
+  "$pkgbase-ss04-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS04-$pkgver.zip"
+  "$pkgbase-ss05-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS05-$pkgver.zip"
+  "$pkgbase-ss06-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS06-$pkgver.zip"
+  "$pkgbase-ss07-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS07-$pkgver.zip"
+  "$pkgbase-ss08-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS08-$pkgver.zip"
+  "$pkgbase-ss09-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS09-$pkgver.zip"
+  "$pkgbase-ss10-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS10-$pkgver.zip"
+  "$pkgbase-ss11-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS11-$pkgver.zip"
+  "$pkgbase-ss12-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS12-$pkgver.zip"
+  "$pkgbase-ss13-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS13-$pkgver.zip"
+  "$pkgbase-ss14-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS14-$pkgver.zip"
+  "$pkgbase-ss15-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS15-$pkgver.zip"
+  "$pkgbase-ss16-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS16-$pkgver.zip"
+  "$pkgbase-ss17-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS17-$pkgver.zip"
+  "$pkgbase-ss18-$pkgver.zip::$_url/releases/download/v$pkgver/PkgTTC-IosevkaSS18-$pkgver.zip"
+  "$pkgbase-$pkgver-$pkgrel-LICENSE.md::https://raw.githubusercontent.com/be5invis/Iosevka/v$pkgver/LICENSE.md"
+)
+b2sums=('65f6806822a425b1eb1147ea8f52510572dd4c1654e2d07c217d1f7921018a6934dcc16cc93a52813c11aba6268707492a1836a2354928b2ca1912be661f45c2'
+        '9fc1d44fb5a1b7372009ce052c8cf250ea8e97fd23c93858f208273a771a118a8a6d5ac7022e83003fb1c9a5931ead1a1f6d75aa633439a7e9d7c0c41c5422ec'
+        'c8e239f28970819aa16acec9916035444b5e667a31b0f0f126ecb7cdd5a61e33636b4a3db9f060331cc625084873b1110b5599d032ac533bcffcc03853b07128'
+        'e02e39034bfce0f7dba12a26c9380e1bfe74a6915eeb5dc3a6a94360bb0f5dbef68703ef7d3ffa89e1e3a670a9a74dd6f841a81e2f0135d5f60e3b077723e550'
+        '4a545e46c1ad7b4208382f2f7e5b0ab36fef6775749783663df0f6e659e2ecf50ab7d8cbeb879dc6cbadd7f437e3602ac0e1f70f441d65497aaac1b298f1ff02'
+        '85204773e31f7c3f79cbee7c941d3aa3b010567388b62c95db269b5e9134e9c9fd10ec56ba3bee6bc5a307dacfd0003eefc89df9be7df9a3d58b945e4f1cdc01'
+        '8becdc01c8d704532233af8560843e2c79422d7bca1e58385f39345507e8aad9de64dc9db469e0ceb8387c07eca0e520cde154fbecd6dc3fc452f5ee288ffbc8'
+        'b11a14e0874a75c7034f0da48e772243b0c5abdb500eedda27c29f6f078f953724a2677cb3f895e6384e8a3d5d723e67d5806faba9c45bf4acdb31c16dc4ade3'
+        '5e0f491150395dfa544fcf04371ea0d115d5045912ed4a41d835b5c88807a82e4c91d24fe46834a3d9062b1754f33b527c32024808acc1dffbc4ca13a0415760'
+        'd14ff795e64623b8ffd8bbd3217c5fe0b3e4b3867eabc08fb0a526906dce7102f1aba2a302239b1720b2dadc30050c4b765ba96b0db77af51426965545c8bc20'
+        '4a0948be35a5177a56ff52b33fa6a107479924212c184de0460c6ec6a1c81a031abbd36682d31402924b538112b43ebdd34a40d7d0bedee0a03e8045851e3f3f'
+        '01c6f1fecc241c6f653105039dada266bb82e52f3c3b2b896d1b8030032183b4724b64040f004e050ebff2cf73abede956d9cce2d8c8cb8f117bc6c966e20f67'
+        '26f8afe1802ef547143b1cc12e10391e418c78f1ff6c6b5b49ad0e69e9c8e3c894401a3332a8f04c500b936f27555af484b71ca67c021387a12e4e96cb572388'
+        '046bcb680dc7b39f2b98f8deb573024aec3600918bbd4834c1ff9d54d9a7dc703224a9438ece43799b1446a1d71758f956329a668d2627c9f9d79837c87f4f0e'
+        'db4999308296bfedf0130adbbf05813a45848963dc1a2c2db492c63a0cc41942805e5330edd900ed2473ac167bcf0d120ee707cf8f974b1d132edb8b88c72be7'
+        '383636be367f277eefac4a678025d97c49889f1f694f5dcebc769ca5af1c2707bb211372529dafbb4c68e5b2932dc578cb895c3858f0db007ff5349f19b371aa'
+        '888efa2d8f8587304cb4e44a230278807e99a1ae95fe02d0610eff67ca2e8dc91bbf8176ac3c5bd12151089b7da1de442cbe2512e757ddf113737ecf681788dd'
+        'a1a9d6c99e515edf3c12a21767bf657d6e6a808791615e7ee9750a224c62e9d43debb5df748f31c86eb83113693e8015caf2abbc7489223a85ed0e1d0a23a1ec'
+        '4a60d748bf886f7bf51412321ca0df1d3e79a1d7d9790a02fa79574d1cdedf847dd4527c47d05957368ff5fc3a9ef8e09bffbbe0cf84a4f1e1fd0d9fea3d1eb8'
+        'c406ee5b1d3119dcfafcb1c9b6b07d9a5a9c0cdc18dd34eee21b192f74eba66a61880e85ca83ecb4983d10e140f568b6fa681b8ce413daa0362ef062b630ce89'
+        '829253c908b097ace153c8825fddc57f0b83497c17b8cdbf1b648b3ffc336ac4677051de1779b3d63d4f1c618706232884721d7e45dc44f89012a3cacd3a23ec'
+        'f5cb3473989749c6f1bca038196dd8907a8debe0d8279b6055da1209c456c350d1804b93ada283015c8da086b8712554b440cb3e836aa61465e2a2c71af60743'
+        'f15ef40cc1341d5746a3a17d4795acd74a6a63e06cdab12dd0fc63512a50cfe092f673370de6b5240acefc938c209edd0501258018b9ff0c20f64cd4b1d3bed9'
+        'f941f4e948300f9e925ebb1738012fead78188d9de5903a6c40568a230bc392bde247f80850de5d57b47e0111ee84fc32046fdd2657b2722012b40e9b330a1f1'
         '37ed212509a603eeac62d9bb601fc2a0ff105f3679841e2fbbb35395cb2418ac9b04be7933744ba2e03962472edbc34e9e4baa8c3a6516b42f0eac6f128b7611')
 
-
-
 function _package() {
-    cd "${srcdir}/"
-    local pkgnm="${1}"
-    local fontname="${pkgnm#${_type}-}"
-    fontname=$(echo $fontname | sed -e 's|iosevka|Iosevka|' -e 's|-aile|Aile|' -e 's|-curly|Curly|' -e 's|-slab|Slab|' -e 's|-etoile|Etoile|' -e 's|-ss|SS|')
-    local fontvar="${pkgnm#${pkgbase}-}"
-    fontvar="${fontvar^}"
-    install -d "${pkgdir}"/usr/share/fonts/TTF
-    install -m644 "${fontname}"-*.ttc "${pkgdir}"/usr/share/fonts/TTF/
-    install -d "${pkgdir}"/usr/share/licenses
-    if [[ "${pkgnm}" != "${pkgbase}" ]]; then
-        if [[ "${pkgnm}" == "${pkgbase}-curly-slab" ]]; then
-            pkgdesc+=" (Curly Slab variant)"
-        else
-            pkgdesc+=" (${fontvar} variant)"
-        fi
-    fi
-    install -D -m644 "${pkgbase}-${pkgver}-${pkgrel}-LICENSE.md" "${pkgdir}/usr/share/licenses/${pkgnm}/LICENSE.md"
+  local fontname=${1:-}
+  install -vDm644 -t "$pkgdir/usr/share/fonts/TTF" "Iosevka$fontname"-*.ttc
+  [ -n "$fontname" ] && pkgdesc+=" ($fontname variant)"
+  install -vDm644 "$pkgbase-$pkgver-$pkgrel-LICENSE.md" \
+    "$pkgdir/usr/share/licenses/$pkgname/LICENSE.md"
 }
 
-for _pkgname in ${pkgname[@]}; do
-    eval "function package_$_pkgname() { _package $_pkgname; }"
-done
+function package_ttc-iosevka() {
+  _package
+}
+
+function package_ttc-iosevka-aile() {
+  _package Aile
+}
+
+function package_ttc-iosevka-curly() {
+  _package Curly
+}
+
+function package_ttc-iosevka-curly-slab() {
+  _package CurlySlab
+}
+
+function package_ttc-iosevka-etoile() {
+  _package Etoile
+}
+
+function package_ttc-iosevka-slab() {
+  _package Slab
+}
+
+function package_ttc-iosevka-ss01() {
+  _package SS01
+}
+
+function package_ttc-iosevka-ss02() {
+  _package SS02
+}
+
+function package_ttc-iosevka-ss03() {
+  _package SS03
+}
+
+function package_ttc-iosevka-ss04() {
+  _package SS04
+}
+
+function package_ttc-iosevka-ss05() {
+  _package SS05
+}
+
+function package_ttc-iosevka-ss06() {
+  _package SS06
+}
+
+function package_ttc-iosevka-ss07() {
+  _package SS07
+}
+
+function package_ttc-iosevka-ss08() {
+  _package SS08
+}
+
+function package_ttc-iosevka-ss09() {
+  _package SS09
+}
+
+function package_ttc-iosevka-ss10() {
+  _package SS10
+}
+
+function package_ttc-iosevka-ss11() {
+  _package SS11
+}
+
+function package_ttc-iosevka-ss12() {
+  _package SS12
+}
+
+function package_ttc-iosevka-ss13() {
+  _package SS13
+}
+
+function package_ttc-iosevka-ss14() {
+  _package SS14
+}
+
+function package_ttc-iosevka-ss15() {
+  _package SS15
+}
+
+function package_ttc-iosevka-ss16() {
+  _package SS16
+}
+
+function package_ttc-iosevka-ss17() {
+  _package SS17
+}
+
+function package_ttc-iosevka-ss18() {
+  _package SS18
+}
