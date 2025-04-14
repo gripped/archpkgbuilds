@@ -4,7 +4,7 @@
 # Contributor: antermin <github dot com slash antermin>
 
 pkgname=python-proton-vpn-local-agent
-pkgver=1.4.4
+pkgver=1.4.5
 pkgrel=1
 _pyver=3.13
 pkgdesc="Proton VPN local agent written in Rust"
@@ -22,7 +22,7 @@ makedepends=(
   cargo
 )
 source=("git+https://github.com/ProtonVPN/local-agent-rs.git#tag=${pkgver}")
-sha256sums=('bb49436879abcea4479ebaa50c719ada34ce8ed1623753956c62bef9c362b13c')
+sha256sums=('504e2f9e34b4bc8f5a11a169cb084340508aa9d8d722c2e5db3b8ca49e81d9b2')
 
 prepare() {
     cd "${srcdir}"/local-agent-rs/python-proton-vpn-local-agent
