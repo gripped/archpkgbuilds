@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-ziamath
-pkgver=0.10
-pkgrel=2
+pkgver=0.11
+pkgrel=1
 pkgdesc="Render MathML and LaTeX Math to SVG without Latex installation"
 url="https://ziamath.readthedocs.io/"
 license=('MIT')
@@ -10,7 +10,7 @@ arch=('any')
 depends=('python-ziafont' 'python-latex2mathml')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("git+https://github.com/cdelker/ziamath.git#tag=$pkgver")
-sha512sums=('85505a9c910856764b783354f81e2bf3c2d3cf9e5b64e0bb844208b2552a310e230229cc1d3e63aeea284b3498c593d53ef3be7bbff0ff321cd9319f93af9b9f')
+sha512sums=('b7fcaa3fa58f85405ec5606f839748497a23b1a5e884c305c879ed3d40c55fa0f36b374f76bc0a1256551228ae203714ecf1f90264e48bab3cbbf4e32ba8b2c8')
 
 build() {
   cd ziamath
