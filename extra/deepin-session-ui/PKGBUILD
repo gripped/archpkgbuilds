@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-session-ui
-pkgver=6.0.25
+pkgver=6.0.26
 pkgrel=1
 pkgdesc='Deepin desktop-environment - Session UI module'
 arch=('x86_64')
@@ -17,13 +17,10 @@ depends=('deepin-daemon' 'deepin-wallpapers' 'deepin-pw-check' 'dtk6core'
          'libxcrypt' 'glibc' 'gcc-libs' 'hicolor-icon-theme' 'startdde')
 makedepends=('git' 'cmake' 'deepin-tray-loader' 'deepin-gettext-tools' 'qt6-tools' 'gtest' 'ninja')
 source=("git+https://github.com/linuxdeepin/dde-session-ui.git#tag=$pkgver")
-sha512sums=('3ef313f27077f286e83c12bc660eb7b41c62c77e50e9720fa28023f0e935b64ffe0cb0e59f86be027ed6cece451718edbd6cd2a9a275dfdedd389194074612b4')
+sha512sums=('61798e30cee83e887babd718bc89dfc752d641ac729a134a095750ad4eb46ff2e2000cce3ec0fab7287cfba1c4f9b81efd019ad3957c8cdacb4b49cea4242ce3')
 
 build() {
   cd dde-session-ui
-  # For lrelease
-  export PATH="/usr/lib/qt6/bin:$PATH"
-
   cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr .
   ninja
 }
