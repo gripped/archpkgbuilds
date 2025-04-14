@@ -3,17 +3,27 @@
 
 pkgname=lib32-libffi
 _name=libffi
-pkgver=3.4.7
+pkgver=3.4.8
 pkgrel=1
 pkgdesc="Portable foreign function interface library (32-bit)"
 arch=(x86_64)
 url=https://sourceware.org/libffi/
+_url="https://github.com/libffi/libffi"
 license=(MIT)
 depends=(lib32-glibc $_name=$pkgver)
 provides=(libffi.so)
-source=(https://github.com/libffi/libffi/releases/download/v$pkgver/$_name-$pkgver.tar.gz)
-sha256sums=('138607dee268bdecf374adf9144c00e839e38541f75f24a1fcf18b78fda48b2d')
-b2sums=('0dd17b4fd358beb9842889168437443137445a5dba1f0a7e8669ae420d8efb927815c08602c1b1b141acfdfdbaa12b417863402a5c8df5f36519fd3e772d3f37')
+source=($_name-$pkgver.tar.gz::$_url/archive/refs/tags/v$pkgver.tar.gz)
+sha256sums=('cbb7f0b3b095dc506387ec1e35b891bfb4891d05b90a495bc69a10f2293f80ff')
+b2sums=('e01f46e0048c1805dd8a7c293c482aaa2906c0c94b76f3624ebbdccd3a7775f322c832329d270c0aaf620b5a3d7f12b498864af478955cdcbf079fc5d31443a7')
+
+prepare() {
+  # remove broken m4 stuff: https://github.com/libffi/libffi/issues/853
+  rm -v $_name-$pkgver/m4/ax_enable_builddir.m4
+
+  cd $_name-$pkgver
+  autoreconf -fiv
+
+}
 
 build() {
   local prepare_options=(
