@@ -9,7 +9,7 @@
 
 pkgname=mpd
 pkgver=0.24.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Flexible, powerful, server-side application for playing music"
 arch=(x86_64)
 url="https://www.musicpd.org/"
@@ -69,7 +69,6 @@ makedepends=(
   libsamplerate
   libsndfile
   libupnp
-  liburing
   libvorbis
   meson
   mpg123
@@ -109,6 +108,7 @@ build() {
     -D documentation=enabled
     -D adplug=disabled
     -D audiofile=disabled
+    -D io_uring=disabled  # liburing support broken: https://github.com/MusicPlayerDaemon/MPD/issues/2241
     -D sndio=disabled
     -D shine=disabled
     -D tremor=disabled
@@ -155,7 +155,6 @@ package() {
     libsamplerate libsamplerate.so
     libsndfile libsndfile.so
     libupnp libixml.so libupnp.so
-    liburing liburing.so
     libvorbis libvorbis{,enc}.so
     mpg123 libmpg123.so
     openal libopenal.so
