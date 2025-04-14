@@ -2,7 +2,7 @@
 
 _name=pdm
 pkgname=python-pdm
-pkgver=2.23.0
+pkgver=2.23.1
 pkgrel=1
 pkgdesc="A modern Python package and dependency manager supporting the latest PEP standards"
 arch=(any)
@@ -11,14 +11,15 @@ license=(MIT)
 depends=(
   python
   python-blinker
-  python-certifi  # implicitly pulled in by python-httpx and python-httpcore
+  python-certifi
   python-dep-logic
   python-dotenv
   python-filelock
   python-findpython
   python-hishel
-  python-httpcore  # implicitly pulled in by python-httpx and python-hishel
+  python-httpcore
   python-httpx
+  python-id
   python-installer
   python-msgpack
   python-packaging
@@ -44,6 +45,7 @@ checkdepends=(
   git
   python-pytest
   python-pytest-httpserver
+  python-pytest-httpx
   python-pytest-mock
   python-pytest-rerunfailures
   python-pytest-xdist
@@ -59,8 +61,8 @@ optdepends=(
   'python-uv: use uv as installer and resolver'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('0898639f39192b37ce308996525e1dfa8f6e56ff0774f736689c588793696d7045e909a9c16456aea2658c471debc17f8cb11d6824860b3c127eefff0cd11100')
-b2sums=('6edcd3b124e852c3ee6b790f82882bf2aa7acfd62856d6be4ac75c7dc6387702f0188f13a0bf3c0c07f07a0a1ec0ce4324ce3033d1df5135bbe014e7dc9d06f3')
+sha512sums=('2d13fc83d3c866083a064a00964ec51b041bd168286d2b65c22be63118e848bc415ea348277bb04665019a6f8a95fc943387a616e48e1ddc09eda0231a310c95')
+b2sums=('7306d3229e20911aa15648a0d79df07dc4dc8899ffbb95d5bb4549a159c605e94c178d320c239b02d63486095bfdafa2f9f7d2e997511b1639f9519eec0efcc7')
 
 build() {
   cd $_name-$pkgver
