@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=sdl2-compat
 pkgver=2.32.54
-pkgrel=1
+pkgrel=2
 pkgdesc="An SDL2 compatibility layer that uses SDL3 behind the scenes"
 url="https://github.com/libsdl-org/sdl2-compat"
 depends=('sdl3' 'glibc')
@@ -26,7 +26,7 @@ build() {
 
 package() {
   DESTDIR="${pkgdir}" cmake --install build
-  ln -s sdl2_compat.pc "${pkgdir}/usr/lib/pkgconfig/sdl2.pc"
+  ln -s sdl2-compat.pc "${pkgdir}/usr/lib/pkgconfig/sdl2.pc"
 
   install -Dm644 "sdl2-compat-$pkgver/LICENSE.txt" "${pkgdir}/usr/share/licenses/$pkgname/LICENSE"
 }
