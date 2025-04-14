@@ -2,8 +2,8 @@
 # Contributor: justforlxz <justforlxz@gmail.com>
 
 pkgname=waylib
-pkgver=0.6.13
-pkgrel=2
+pkgver=0.6.14
+pkgrel=1
 pkgdesc='A wrapper for wlroots based on Qt'
 arch=('x86_64')
 url="https://github.com/vioken/waylib"
@@ -12,13 +12,7 @@ depends=('glibc' 'gcc-libs' 'libdrm' 'libEGL.so' 'libOpenGL.so' 'libxcb' 'libxkb
          'qt6-base' 'qt6-declarative' 'qwlroots' 'wayland' 'wlroots')
 makedepends=('git' 'cmake' 'ninja' 'vulkan-headers')
 source=("git+https://github.com/vioken/waylib.git#tag=$pkgver")
-sha256sums=('4aef5b90ec6b0a4be7389722f0ac032333a1dfdd084d5df924fb7bdce1f6e07d')
-
-prepare() {
-  cd waylib
-  # Fix Qt 6.9 compatibility
-  git cherry-pick -n 0fe25f241ce845ad5c1b46659d02c02ed70bda67
-}
+sha256sums=('cfd4b00db1397a3b494c67d1f3bb8f911f865389ee9488e149346560ffd99296')
 
 build() {
   cd waylib
