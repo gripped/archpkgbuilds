@@ -1,0 +1,228 @@
+From 934c27c4307f322f11490740c2ca139676eedece Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 9 Apr 2025 13:49:12 +0200
+Subject: [PATCH] Don't create window in startup phase
+
+This fixes the problem that the process does not exit after timeout when
+running as GApplication service. Initialize the settings and the actions
+in the startup pharse instead.
+---
+ src/gyahtzee.c | 167 +++++++++++++++++++++++++------------------------
+ 1 file changed, 86 insertions(+), 81 deletions(-)
+
+diff --git a/src/gyahtzee.c b/src/gyahtzee.c
+index 42a99bb..e9754b9 100644
+--- a/src/gyahtzee.c
++++ b/src/gyahtzee.c
+@@ -733,6 +733,87 @@ static const GActionEntry app_entries[] = {
+ };
+ 
+ 
++static void
++GyahtzeeStartup (GApplication *app, gpointer user_data)
++{
++  char **player_names;
++  gsize n_player_names;
++  guint i;
++
++  if (NumberOfComputers == 0)	/* Not set on the command-line. */
++    NumberOfComputers = g_settings_get_int (settings, "number-of-computer-opponents");
++
++  if (NumberOfHumans == 0)	/* Not set on the command-line. */
++    NumberOfHumans = g_settings_get_int (settings, "number-of-human-opponents");
++
++  if (NumberOfHumans < 1)
++    NumberOfHumans = 1;
++  if (NumberOfComputers < 0)
++    NumberOfComputers = 0;
++
++  if (NumberOfHumans > MAX_NUMBER_OF_PLAYERS)
++    NumberOfHumans = MAX_NUMBER_OF_PLAYERS;
++  if ((NumberOfHumans + NumberOfComputers) > MAX_NUMBER_OF_PLAYERS)
++    NumberOfComputers = MAX_NUMBER_OF_PLAYERS - NumberOfHumans;
++
++  if (game_type_string)
++    game_type = game_type_from_string (game_type_string);
++  else {
++    char *type;
++
++    type = g_settings_get_string (settings, "game-type");
++    game_type = game_type_from_string (type);
++  }
++
++  set_new_game_type (game_type);
++
++  if (NUM_TRIALS <= 0)
++      NUM_TRIALS = g_settings_get_int (settings, "monte-carlo-trials");
++
++  if (DoDelay == 0)		/* Not set on the command-line */
++    DoDelay = g_settings_get_boolean (settings, "delay-between-rolls");
++  if (DisplayComputerThoughts == 0)	/* Not set on the command-line */
++    DisplayComputerThoughts = g_settings_get_boolean (settings, "display-computer-thoughts");
++
++  /* Read in new player names */
++  player_names = g_settings_get_strv (settings, "player-names");
++  n_player_names = g_strv_length (player_names);
++  if (player_names) {
++    n_player_names = MIN (n_player_names, MAX_NUMBER_OF_PLAYERS);
++
++    for (i = 0; i < n_player_names; ++i) {
++      if (i == 0 && strcasecmp (player_names[i], _("Human")) == 0) {
++	const char *realname;
++
++	realname = g_get_real_name ();
++        if (realname && realname[0] && strcmp (realname, "Unknown") != 0) {
++          players[i].name = g_locale_to_utf8 (realname, -1, NULL, NULL, NULL);
++        }
++        if (!players[i].name) {
++	  players[i].name = g_strdup (player_names[i]);
++	}
++      } else {
++        players[i].name = g_strdup (player_names[i]);
++      }
++    }
++
++    g_strfreev (player_names);
++  }
++
++  g_action_map_add_action_entries (G_ACTION_MAP (application), app_entries, G_N_ELEMENTS (app_entries), application);
++  const gchar *vaccels_help[] = {"F1", NULL};
++  const gchar *vaccels_new[] = {"<Primary>n", NULL};
++  const gchar *vaccels_roll[] = {"<Primary>r", NULL};
++  const gchar *vaccels_undo[] = {"<Primary>z", NULL};
++  const gchar *vaccels_quit[] = {"<Primary>q", NULL};
++
++  gtk_application_set_accels_for_action (application, "app.help", vaccels_help);
++  gtk_application_set_accels_for_action (application, "app.new-game", vaccels_new);
++  gtk_application_set_accels_for_action (application, "app.roll", vaccels_roll);
++  gtk_application_set_accels_for_action (application, "app.undo", vaccels_undo);
++  gtk_application_set_accels_for_action (application, "app.quit", vaccels_quit);
++}
++
+ static void
+ GyahtzeeCreateMainWindow (GApplication *app, gpointer user_data)
+ {
+@@ -766,19 +847,6 @@ GyahtzeeCreateMainWindow (GApplication *app, gpointer user_data)
+   g_signal_connect (GTK_WIDGET (window), "key_press_event",
+ 		    G_CALLBACK (key_press), NULL);
+ 
+-  g_action_map_add_action_entries (G_ACTION_MAP (application), app_entries, G_N_ELEMENTS (app_entries), application);
+-  const gchar *vaccels_help[] = {"F1", NULL};
+-  const gchar *vaccels_new[] = {"<Primary>n", NULL};
+-  const gchar *vaccels_roll[] = {"<Primary>r", NULL};
+-  const gchar *vaccels_undo[] = {"<Primary>z", NULL};
+-  const gchar *vaccels_quit[] = {"<Primary>q", NULL};
+-
+-  gtk_application_set_accels_for_action (application, "app.help", vaccels_help);
+-  gtk_application_set_accels_for_action (application, "app.new-game", vaccels_new);
+-  gtk_application_set_accels_for_action (application, "app.roll", vaccels_roll);
+-  gtk_application_set_accels_for_action (application, "app.undo", vaccels_undo);
+-  gtk_application_set_accels_for_action (application, "app.quit", vaccels_quit);
+-
+   scores_action = g_action_map_lookup_action (G_ACTION_MAP (application), "scores");
+   undo_action   = g_action_map_lookup_action (G_ACTION_MAP (application), "undo");
+   update_undo_sensitivity ();
+@@ -880,20 +948,17 @@ GyahtzeeCreateMainWindow (GApplication *app, gpointer user_data)
+ static void
+ GyahtzeeActivateGame (GApplication *app, gpointer user_data)
+ {
+-  if (!gtk_widget_is_visible (window)) {
+-    gtk_widget_show (window);
++  if (window == NULL) {
++    GyahtzeeCreateMainWindow (app, user_data);
+     GyahtzeeNewGame ();
+-  } else {
+-    gtk_window_present (GTK_WINDOW (window));
+   }
++
++  gtk_window_present (GTK_WINDOW (window));
+ }
+ 
+ int
+ main (int argc, char *argv[])
+ {
+-  char **player_names;
+-  gsize n_player_names;
+-  guint i;
+   GOptionContext *context;
+   gboolean retval;
+   GError *error = NULL;
+@@ -904,7 +969,7 @@ main (int argc, char *argv[])
+   textdomain (GETTEXT_PACKAGE);
+ 
+   application = gtk_application_new ("org.gnome.Tali", 0);
+-  g_signal_connect (application, "startup", G_CALLBACK (GyahtzeeCreateMainWindow), NULL);
++  g_signal_connect (application, "startup", G_CALLBACK (GyahtzeeStartup), NULL);
+   g_signal_connect (application, "activate", G_CALLBACK (GyahtzeeActivateGame), NULL);
+ 
+   /* Reset all yahtzee variables before parsing args */
+@@ -967,66 +1032,6 @@ main (int argc, char *argv[])
+ 
+   gtk_window_set_default_icon_name ("org.gnome.Tali");
+ 
+-  if (NumberOfComputers == 0)	/* Not set on the command-line. */
+-    NumberOfComputers = g_settings_get_int (settings, "number-of-computer-opponents");
+-
+-  if (NumberOfHumans == 0)	/* Not set on the command-line. */
+-    NumberOfHumans = g_settings_get_int (settings, "number-of-human-opponents");
+-
+-  if (NumberOfHumans < 1)
+-    NumberOfHumans = 1;
+-  if (NumberOfComputers < 0)
+-    NumberOfComputers = 0;
+-
+-  if (NumberOfHumans > MAX_NUMBER_OF_PLAYERS)
+-    NumberOfHumans = MAX_NUMBER_OF_PLAYERS;
+-  if ((NumberOfHumans + NumberOfComputers) > MAX_NUMBER_OF_PLAYERS)
+-    NumberOfComputers = MAX_NUMBER_OF_PLAYERS - NumberOfHumans;
+-
+-  if (game_type_string)
+-    game_type = game_type_from_string (game_type_string);
+-  else {
+-    char *type;
+-
+-    type = g_settings_get_string (settings, "game-type");
+-    game_type = game_type_from_string (type);
+-  }
+-
+-  set_new_game_type (game_type);
+-
+-  if (NUM_TRIALS <= 0)
+-      NUM_TRIALS = g_settings_get_int (settings, "monte-carlo-trials");
+-
+-  if (DoDelay == 0)		/* Not set on the command-line */
+-    DoDelay = g_settings_get_boolean (settings, "delay-between-rolls");
+-  if (DisplayComputerThoughts == 0)	/* Not set on the command-line */
+-    DisplayComputerThoughts = g_settings_get_boolean (settings, "display-computer-thoughts");
+-  
+-  /* Read in new player names */
+-  player_names = g_settings_get_strv (settings, "player-names");
+-  n_player_names = g_strv_length (player_names);
+-  if (player_names) {
+-    n_player_names = MIN (n_player_names, MAX_NUMBER_OF_PLAYERS);
+-
+-    for (i = 0; i < n_player_names; ++i) {
+-      if (i == 0 && strcasecmp (player_names[i], _("Human")) == 0) {
+-	const char *realname;
+-
+-	realname = g_get_real_name ();
+-        if (realname && realname[0] && strcmp (realname, "Unknown") != 0) {
+-          players[i].name = g_locale_to_utf8 (realname, -1, NULL, NULL, NULL);
+-        }
+-        if (!players[i].name) {
+-	  players[i].name = g_strdup (player_names[i]);
+-	}
+-      } else {
+-        players[i].name = g_strdup (player_names[i]);
+-      }
+-    }
+-
+-    g_strfreev (player_names);
+-  }
+-
+   g_application_run (G_APPLICATION (application), argc, argv);
+ 
+   exit (0);
+-- 
+GitLab
+

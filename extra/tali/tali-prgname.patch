@@ -1,0 +1,26 @@
+From 9fdd151cfc7a7fd57163b3f9ce927aef944353a2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 27 Aug 2024 00:05:37 +0000
+Subject: [PATCH] Set prgname to application ID
+
+Using the application ID ensures that Wayland compositors could match the
+window with the application and show the appropriate icon for them.
+---
+ src/gyahtzee.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/gyahtzee.c b/src/gyahtzee.c
+index 753bfdf..fe4f62d 100644
+--- a/src/gyahtzee.c
++++ b/src/gyahtzee.c
+@@ -926,6 +926,7 @@ main (int argc, char *argv[])
+   settings = g_settings_new ("org.gnome.Tali");
+ 
+   g_set_application_name (_(appName));
++  g_set_prgname ("org.gnome.Tali");
+ 
+   /* If we're in computer test mode, just run some tests, no GUI */
+   if (test_computer_play > 0) {
+-- 
+GitLab
+

@@ -3,7 +3,7 @@
 
 pkgname=tali
 pkgver=40.9
-pkgrel=3
+pkgrel=4
 pkgdesc="Beat the odds in a poker-style dice game"
 url="https://wiki.gnome.org/Apps/Tali"
 arch=(x86_64)
@@ -12,17 +12,38 @@ depends=(gtk3 librsvg libgnome-games-support)
 makedepends=(meson gobject-introspection yelp-tools appstream-glib git)
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/tali.git?signed#tag=$pkgver"
-        tali-fix-activate.patch)
+        tali-prgname.patch
+        tali-fix-activate.patch
+        tali-create-window.patch
+        tali-command-line.patch
+        tali-dbus-activatable.patch)
 b2sums=('bca079d586d79bcdc905660b2a721f711b51d568b19a369b1834c6c9fac615774915aaa7765e5b26609dc86c38c1439941b9f0260727a78c2b56ac3637c0722c'
-        'b9263f00bee8cb4aecdbda7e17fab57167e31237bd1ec91eb76c530feca73a8a621793b8ca9aa1163d2be536cb5b2d84f92c80fe2da61fdc6655a7368044ed70')
+        '313e8ff97b333a7ed931b014b8d61692e419ed07027ae56d29739c92df0c308037499c12aee717d6cd2afabf10732bf57b187bc5aab88d0da4131962f1abf807'
+        'b9263f00bee8cb4aecdbda7e17fab57167e31237bd1ec91eb76c530feca73a8a621793b8ca9aa1163d2be536cb5b2d84f92c80fe2da61fdc6655a7368044ed70'
+        '792fb476493093e4ab3bfd4dba1291cfff1c8a3cb8f1ac2913df86f0db3c9dc187851300d83c7088f05b3265af66040f94272f01ea73b2d00f91fb56eba6b1b5'
+        '8cf154de081faa300462b1612cafe8a46cf990ed46b7f359b6fec12dc28e3b44b1a13edc2a96fc5785d59fee5d33f2e4973f02f2dd281c4b08daeaaeeb33282e'
+        '9f69a2c01d532cfbde95230c238b22fd8659de6bc73b43dd98830a13da02577add516b41c62c31c7db8aaa24e514c41fc61c15c498da8a0c0bdcaea9309d32b6')
 validpgpkeys=(93A56F193C261368CD7F056904DA8079BE94C646) # Mart Raudsepp <leio@gentoo.org>
 
 prepare() {
   cd tali
 
+  # Set prgname to application ID
+  # https://gitlab.gnome.org/GNOME/tali/-/merge_requests/20
+  git apply -3 ../tali-prgname.patch
+
   # Fix crash on second activation
   # https://gitlab.gnome.org/GNOME/tali/-/merge_requests/21
   git apply -3 ../tali-fix-activate.patch
+  git apply -3 ../tali-create-window.patch
+
+  # Use GApplication to parse command line options
+  # https://gitlab.gnome.org/GNOME/tali/-/merge_requests/23
+  git apply -3 ../tali-command-line.patch
+
+  # Add D-Bus service file
+  # https://gitlab.gnome.org/GNOME/tali/-/merge_requests/24
+  git apply -3 ../tali-dbus-activatable.patch
 }
 
 build() {
