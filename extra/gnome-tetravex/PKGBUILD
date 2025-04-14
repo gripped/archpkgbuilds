@@ -3,7 +3,7 @@
 
 pkgname=gnome-tetravex
 pkgver=3.38.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Complete the puzzle by matching numbered tiles"
 url="https://wiki.gnome.org/Apps/Tetravex"
 arch=(x86_64)
@@ -12,9 +12,13 @@ depends=(gtk3)
 makedepends=(meson gobject-introspection vala yelp-tools appstream-glib git)
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-tetravex.git#tag=$pkgver"
-        gnome-tetravex-highscore.patch)
+        gnome-tetravex-highscore.patch
+        gnome-tetravex-prgname.patch
+        gnome-tetravex-create-window.patch)
 b2sums=('0860c8a161d4f948fe726b7ece46740571ceaa9f60dc069522853a6b5846d16ab6fc6c098131351eb7abf45ced868ae72319e8a042ea5e687c457c98963db378'
-        '4434e031aa2817579f9c6a1395fafc1446e2c9ea5f17a57a5886c8a47f1e67635f3ce7be1012920f8313ae5aed85f8b5c8cb3daee01d5fe2ece441de6a7a6dc2')
+        '4434e031aa2817579f9c6a1395fafc1446e2c9ea5f17a57a5886c8a47f1e67635f3ce7be1012920f8313ae5aed85f8b5c8cb3daee01d5fe2ece441de6a7a6dc2'
+        '3c92575284e6f9ed593cab81449b5d3e855f6f318b2962a26d96220d81ba3aae10450255d5aef1f7ff3fa8ce4e0b69d266c9f6c1812001f314b59c421d65e2dc'
+        '376b55bdb3f53963e01293e6e87ee4dfc06d5041505591795da19128228eb1cdfbf7d8d14b5e4638ff4e5033cd9cf1efa8cce9fe63c135ff2a41c088214c3187')
 
 prepare() {
   cd $pkgname
@@ -25,6 +29,14 @@ prepare() {
   # Fix off by one error in history object
   # https://gitlab.gnome.org/GNOME/gnome-tetravex/-/merge_requests/26
   git apply -3 ../gnome-tetravex-highscore.patch
+
+  # Set prgname to application ID
+  # https://gitlab.gnome.org/GNOME/gnome-tetravex/-/merge_requests/28
+  git apply -3 ../gnome-tetravex-prgname.patch
+
+  # Don't create window in startup phase
+  # https://gitlab.gnome.org/GNOME/gnome-tetravex/-/merge_requests/29
+  git apply -3 ../gnome-tetravex-create-window.patch
 }
 
 build() {

@@ -1,0 +1,26 @@
+From aab1f2376ba1a7778ebd3375d0217de2485dfea6 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 26 Aug 2024 20:32:10 +0000
+Subject: [PATCH] Set prgname to application ID
+
+Using the application ID ensures that Wayland compositors could match the
+window with the application and show the appropriate icon for them.
+---
+ src/gnome-tetravex.vala | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/gnome-tetravex.vala b/src/gnome-tetravex.vala
+index fbbe097..66bb7a3 100644
+--- a/src/gnome-tetravex.vala
++++ b/src/gnome-tetravex.vala
+@@ -138,6 +138,7 @@ private class Tetravex : Gtk.Application
+         Intl.textdomain (GETTEXT_PACKAGE);
+ 
+         Environment.set_application_name (PROGRAM_NAME);
++        Environment.set_prgname ("org.gnome.Tetravex");
+         Window.set_default_icon_name ("org.gnome.Tetravex");
+ 
+         Tetravex app = new Tetravex ();
+-- 
+GitLab
+

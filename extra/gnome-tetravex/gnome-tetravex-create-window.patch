@@ -1,0 +1,61 @@
+From 38680bff22fa7321b34e908d92944d089024b683 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 7 Apr 2025 22:07:35 +0200
+Subject: [PATCH] Don't create window in startup phase
+
+This fixes the problem that the process does not exit after timeout when
+running as GApplication service.
+---
+ src/gnome-tetravex.vala | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/src/gnome-tetravex.vala b/src/gnome-tetravex.vala
+index fbbe097..9cf2e09 100644
+--- a/src/gnome-tetravex.vala
++++ b/src/gnome-tetravex.vala
+@@ -288,7 +288,9 @@ private class Tetravex : Gtk.Application
+         set_accels_for_action ("app.reload",        { "<Shift><Primary>r"       });
+         set_accels_for_action ("app.hamburger",     {                 "F10"     });
+         // F1 and friends are managed manually
++    }
+ 
++    private void create_window () {
+         Builder builder = new Builder.from_resource ("/org/gnome/Tetravex/gnome-tetravex.ui");
+ 
+         string history_path;
+@@ -504,6 +506,7 @@ private class Tetravex : Gtk.Application
+         else
+             new_game ();
+     }
++
+     private class BottomButton : Button
+     {
+         construct
+@@ -571,15 +574,20 @@ private class Tetravex : Gtk.Application
+         settings.set_int ("window-width", window_width);
+         settings.set_int ("window-height", window_height);
+         settings.set_boolean ("window-is-maximized", window_is_maximized || window_is_fullscreen);
+-        if (puzzle.game_in_progress)
+-            settings.set_value ("saved-game", puzzle.to_variant (/* save time */ !puzzle.tainted_by_command_line));
+-        else if (!can_restore)
+-            settings.@set ("saved-game", "m(yyda(yyyyyyyy)ua(yyyyu))", null);
++        if (puzzle_init_done) {
++            if (puzzle.game_in_progress)
++                settings.set_value ("saved-game", puzzle.to_variant (/* save time */ !puzzle.tainted_by_command_line));
++            else if (!can_restore)
++                settings.@set ("saved-game", "m(yyda(yyyyyyyy)ua(yyyyu))", null);
++        }
+         settings.apply ();
+     }
+ 
+     protected override void activate ()
+     {
++        if (get_active_window () == null)
++            create_window ();
++
+         window.present ();
+     }
+ 
+-- 
+GitLab
+
