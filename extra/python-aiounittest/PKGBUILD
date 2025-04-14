@@ -1,31 +1,30 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-aiounittest
-pkgver=1.4.2
-pkgrel=4
+pkgver=1.4.3
+pkgrel=1
 pkgdesc="Test asyncio code more easily"
 url="https://github.com/kwarunek/aiounittest"
 license=('MIT')
 arch=('any')
 depends=('python-wrapt')
-makedepends=('python-setuptools')
+makedepends=('git' 'python-setuptools')
 checkdepends=('python-pytest')
-source=("https://github.com/kwarunek/aiounittest/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('358b7c412f90eb7afc7ed7058e8e2d4426a6c57379d341d997658859ba6054a9a1337d0b05e63a825e28023f02550bd72d65bdb3feab4503c763c98f8c0d19c6')
+source=("git+https://github.com/kwarunek/aiounittest.git#tag=$pkgver")
+sha512sums=('a3e9b2c14cd2f859cca4952ee40a3e4479a1177b0553199f6ece387c909bc97889557c7d54f921b21c282f67aafcc39831d906d6d90db93542da4910d8037604')
 
 build() {
-  cd aiounittest-$pkgver
+  cd aiounittest
   python setup.py build
 }
 
 check() {
-  cd aiounittest-$pkgver
+  cd aiounittest
   PYTHONPATH=. pytest
 }
 
 package() {
-  cd aiounittest-$pkgver
+  cd aiounittest
   python setup.py install --root="$pkgdir" --optimize=1
-
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
