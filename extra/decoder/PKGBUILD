@@ -2,7 +2,7 @@
 
 pkgname=decoder
 pkgver=0.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='QR code scanner and generator'
 arch=(x86_64)
 url='https://apps.gnome.org/Decoder/'
@@ -33,14 +33,23 @@ makedepends=(
   rust
 )
 options=(!lto)
-source=("git+https://gitlab.gnome.org/World/decoder.git#tag=$pkgver")
-b2sums=(45674e4f46caa3567ada857006e1e38256cc1b6f17158753b57ba1aab448951713aa878985dd79a8fd3e800fbbb053030fec5d32e51c3e935fb362ce1b9cecb5)
+source=(
+  "git+https://gitlab.gnome.org/World/decoder.git#tag=$pkgver"
+  decoder-dbus-activatable.patch
+)
+b2sums=(
+  45674e4f46caa3567ada857006e1e38256cc1b6f17158753b57ba1aab448951713aa878985dd79a8fd3e800fbbb053030fec5d32e51c3e935fb362ce1b9cecb5
+  047324cfc82f824ebf96d29458af4adb0c7889101b1ebb56979646c85d8277259150f76dc5e6293e4bdeffebcfb50bf497ad7a986a9ae2e9f68bcb978abae397
+)
 
 prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/World/decoder/-/merge_requests/149
+  git apply -3 ../decoder-dbus-activatable.patch
 }
 
 build() {
