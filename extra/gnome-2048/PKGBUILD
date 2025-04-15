@@ -2,7 +2,7 @@
 
 pkgname=gnome-2048
 pkgver=3.38.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Obtain the 2048 tile"
 url="https://wiki.gnome.org/Apps/2048"
 arch=(x86_64)
@@ -20,20 +20,32 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome-extra)
-_commit=82f155f326a9e1973d7283bfa3f7cbb756a9984a  # tags/3.38.2^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-2048.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-2048.git#tag=$pkgver"
+        gnome-2048-command-line.patch
+        gnome-2048-create-window.patch
+        gnome-2048-dbus-activatable.patch)
+b2sums=('5a970692c0c3281c99a83cbf0810a09c1743308253d571f81d2c2029f4f8e0f589112c283f9e4e0f432792c36099be8a80ed11fd4c4b18ae1abed94c8fbc5352'
+        'e924c5ea1c64fbfda6a756f4f303016daa184bbfba8d4c64fdcf624f383109086dc4741c2a80571f4b68d34c65d098c4491a9b432d80b3e0f570de3bbe55ebc4'
+        '41f89042dc996188178ff2c4a5d9b7db85c7449be705e3d97ffd77554f68db246ebe9f2aab9623cfd21520e5e661a14447fe357763b4668b3d97247311439e76'
+        'eca64434e49cc8b8af86df0a70264e3ed3012749b8f7e23426d38ba242039f8921cb918435ac11714f9b960df431f3ac427f15300c8e39fe15b918142446db4a')
 
 prepare() {
   cd $pkgname
 
   # Fix build with newer meson
   git cherry-pick -n 194e22699f7166a016cd39ba26dd719aeecfc868
+
+  # Use GApplication to parse command line options
+  # https://gitlab.gnome.org/GNOME/gnome-2048/-/merge_requests/38
+  git apply -3 ../gnome-2048-command-line.patch
+
+  # Don't create window in startup phase
+  # https://gitlab.gnome.org/GNOME/gnome-2048/-/merge_requests/39
+  git apply -3 ../gnome-2048-create-window.patch
+
+  # Add D-Bus service file
+  # https://gitlab.gnome.org/GNOME/gnome-2048/-/merge_requests/40
+  git apply -3 ../gnome-2048-dbus-activatable.patch
 }
 
 build() {

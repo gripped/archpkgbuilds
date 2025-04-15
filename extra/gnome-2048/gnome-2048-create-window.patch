@@ -1,0 +1,44 @@
+From 7be2351b5855faba05ca5c2a4b00d31a45b39aa6 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 9 Apr 2025 18:44:06 +0200
+Subject: [PATCH] Don't create window in startup phase
+
+Without this change, a window is opened even if the application is running
+as GApplication service.
+---
+ src/application.vala | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/src/application.vala b/src/application.vala
+index ba02501..3311efa 100644
+--- a/src/application.vala
++++ b/src/application.vala
+@@ -154,8 +154,6 @@ private class TwentyFortyEight : Gtk.Application
+ 
+         add_action_entries (action_entries, this);
+ 
+-        _window = new GameWindow (this, cols, rows);
+-
+         set_accels_for_action ("ui.toggle-new-game",    {        "<Primary>n"       });
+         set_accels_for_action ("ui.new-game",           { "<Shift><Primary>n"       });
+         set_accels_for_action ("app.quit",              {        "<Primary>q"       });
+@@ -172,11 +170,15 @@ private class TwentyFortyEight : Gtk.Application
+ 
+     protected override void activate ()
+     {
++        if (get_active_window () == null)
++            _window = new GameWindow (this, cols, rows);
++
+         _window.present ();
+     }
+ 
+     private void quit_cb (/* SimpleAction action, Variant? variant */)
+     {
+-        _window.destroy ();
++        if (get_active_window () != null)
++            _window.destroy ();
+     }
+ }
+-- 
+GitLab
+

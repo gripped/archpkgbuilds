@@ -1,0 +1,70 @@
+From 96d9333db4709d921b837a230b4ca37bfc7ebe25 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 9 Apr 2025 18:52:50 +0200
+Subject: [PATCH] Add D-Bus service file
+
+And mark the application as D-Bus activatable. This allows application
+launchers to activate it via D-Bus.
+---
+ data/meson.build                           | 11 +++++++++++
+ data/org.gnome.TwentyFortyEight.desktop.in |  1 +
+ data/org.gnome.TwentyFortyEight.service.in |  3 +++
+ meson.build                                |  1 +
+ 4 files changed, 16 insertions(+)
+ create mode 100644 data/org.gnome.TwentyFortyEight.service.in
+
+diff --git a/data/meson.build b/data/meson.build
+index 9e01ce5..bf0ee56 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -15,6 +15,17 @@ install_data(
+   install_dir: schemadir,
+ )
+ 
++# D-Bus service file
++service_conf = configuration_data()
++service_conf.set('bindir', bindir)
++configure_file(
++  input: 'org.gnome.TwentyFortyEight.service.in',
++  output: 'org.gnome.TwentyFortyEight.service',
++  install: true,
++  install_dir: join_paths(datadir, 'dbus-1', 'services'),
++  configuration: service_conf
++)
++
+ # Desktop file
+ desktop_file = i18n.merge_file(
+   input: 'org.gnome.TwentyFortyEight.desktop.in',
+diff --git a/data/org.gnome.TwentyFortyEight.desktop.in b/data/org.gnome.TwentyFortyEight.desktop.in
+index 87feb95..dfddc7c 100644
+--- a/data/org.gnome.TwentyFortyEight.desktop.in
++++ b/data/org.gnome.TwentyFortyEight.desktop.in
+@@ -13,3 +13,4 @@ Categories=GNOME;GTK;Game;
+ Keywords=puzzle;
+ # Translators: Do NOT translate or transliterate this text (these are enum types)!
+ X-Purism-FormFactor=Workstation;Mobile;
++DBusActivatable=true
+diff --git a/data/org.gnome.TwentyFortyEight.service.in b/data/org.gnome.TwentyFortyEight.service.in
+new file mode 100644
+index 0000000..1469889
+--- /dev/null
++++ b/data/org.gnome.TwentyFortyEight.service.in
+@@ -0,0 +1,3 @@
++[D-BUS Service]
++Name=org.gnome.TwentyFortyEight
++Exec=@bindir@/gnome-2048 --gapplication-service
+diff --git a/meson.build b/meson.build
+index 929e832..45f19c1 100644
+--- a/meson.build
++++ b/meson.build
+@@ -17,6 +17,7 @@ valac = meson.get_compiler('vala')
+ # Paths
+ localedir = join_paths(get_option('prefix'), get_option('localedir'))
+ datadir = join_paths(get_option('prefix'), get_option('datadir'))
++bindir = join_paths (get_option ('prefix'), get_option ('bindir'))
+ icondir = join_paths(datadir, 'icons', 'hicolor')
+ pkgdatadir = join_paths(datadir, 'gnome-2048')
+ schemadir = join_paths(datadir, 'glib-2.0', 'schemas')
+-- 
+GitLab
+
