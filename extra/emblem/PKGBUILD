@@ -2,7 +2,7 @@
 
 pkgname=emblem
 pkgver=1.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Generate projects avatars for your Matrix rooms and git forges from a symbolic icon'
 arch=(x86_64)
 url='https://apps.gnome.org/Emblem/'
@@ -25,14 +25,23 @@ makedepends=(
   meson
   rust
 )
-source=("git+https://gitlab.gnome.org/World/design/emblem.git#tag=$pkgver")
-b2sums=(50b2951d174388b0e7af7081b5de4baf7ddb81d3cb427cc5240b7d8d1ccc5eb1464dae903b8e24b9922518df8d521684366a5d9c0a06d0b8b0b286b75e1c9601)
+source=(
+  "git+https://gitlab.gnome.org/World/design/emblem.git#tag=$pkgver"
+  emblem-dbus-activatable.patch
+)
+b2sums=(
+  50b2951d174388b0e7af7081b5de4baf7ddb81d3cb427cc5240b7d8d1ccc5eb1464dae903b8e24b9922518df8d521684366a5d9c0a06d0b8b0b286b75e1c9601
+  90c7cb9ee7daae03b0bf05fb22ed95b968c4c5b3c59ed7bcfee3723d2302a99dc767ffbfc132bf74ec8c9910262f300aeb65d3629b42fad69827791181c69535
+)
 
 prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/World/design/emblem/-/merge_requests/61
+  git apply -3 ../emblem-dbus-activatable.patch
 }
 
 build() {
