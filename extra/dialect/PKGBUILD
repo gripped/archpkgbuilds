@@ -2,7 +2,7 @@
 
 pkgname=dialect
 pkgver=2.5.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Translation app for GNOME based on Google Translate and other online services'
 arch=(any)
 url='https://apps.gnome.org/Dialect/'
@@ -33,10 +33,12 @@ makedepends=(
 source=(
   "git+https://github.com/dialect-app/dialect.git#tag=$pkgver"
   dialect-po::git+https://github.com/dialect-app/po
+  dialect-dbus-activatable.patch
 )
 b2sums=(
   80bf66868466ea4e23d73734bff48b655be8a9e5f78f359f3c08e3da24d42c02d94fdbeff30f557c251ad723ac323ea19a52098ca705ac48d5bde08c30383902
   SKIP
+  24dd584e65474dcee062b3bcef06141288f6d85e8951f6fafa1f2fadd895b477ce94b1f59b8abcbd0ece1b0c0c8407b6bf8e557f338587bb223163deccd165c5
 )
 
 prepare() {
@@ -45,6 +47,9 @@ prepare() {
   git submodule init
   git submodule set-url po "$srcdir/dialect-po"
   git -c protocol.file.allow=always submodule update
+
+  # https://github.com/dialect-app/dialect/pull/431
+  git apply -3 ../dialect-dbus-activatable.patch
 }
 
 build() {
