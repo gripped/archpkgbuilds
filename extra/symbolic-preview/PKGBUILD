@@ -2,7 +2,7 @@
 
 pkgname=symbolic-preview
 pkgver=0.0.9
-pkgrel=5
+pkgrel=6
 pkgdesc='Utility to create, preview and export symbolic icons'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/design/symbolic-preview'
@@ -28,13 +28,11 @@ makedepends=(
 )
 source=(
   "git+https://gitlab.gnome.org/World/design/symbolic-preview.git#tag=$pkgver"
-  symbolic-preview-fix-open.patch
   symbolic-preview-new-window.patch
   symbolic-preview-filedialog.patch
 )
 b2sums=(
   291520a94fd3c9a6e878f43997b8ae23c0aa2b26a36ef9bb147cf4e79fe094751a1e627b3e2457e706473c254367ef37420448ce31fa7a4e1fd068442c8f7e7e
-  dd8308d3481c126b63b8553cc6df5a4f366befc7eee6cd184d7a8fb26465f46a25253c55d706758102df693d5b304b7a04b08235ea0a32e5ef87ab647e41e19e
   ab835aa8c81cf201ec4ad46b37a5e84dbb6b6b22df60c2515ce3475ba2c8082b433314abd845eedc01692e25d9f3606bd40f04343ad3240637abddfb6a907430
   c987cb9bf823239ec885ce3a9dcdfba882a11f80cb843012b3eadbd601913d0310506472efad8287d4e6f0da19b250a2c397c79f125259219eaca014d35218c8
 )
@@ -51,8 +49,11 @@ prepare() {
   # https://gitlab.gnome.org/World/design/symbolic-preview/-/merge_requests/17
   git cherry-pick -n 8f8b9a67e57fb080544587e2690bab851d7566fb
 
+  # https://gitlab.gnome.org/World/design/symbolic-preview/-/merge_requests/20
+  git cherry-pick -n f804f3ce8e76b13977589ef7724e02ef3c592788
+
   # https://gitlab.gnome.org/World/design/symbolic-preview/-/merge_requests/18
-  git apply -3 ../symbolic-preview-fix-open.patch
+  git cherry-pick -n e40eeee2f1e9311b1581a5bbf42adb28fd816c51
 
   # https://gitlab.gnome.org/World/design/symbolic-preview/-/merge_requests/19
   git apply -3 ../symbolic-preview-new-window.patch
