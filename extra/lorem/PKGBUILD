@@ -2,7 +2,7 @@
 
 pkgname=lorem
 pkgver=1.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple app to generate the Lorem Ipsum placeholder text'
 arch=(x86_64)
 url='https://apps.gnome.org/Lorem/'
@@ -22,14 +22,23 @@ makedepends=(
   meson
   rust
 )
-source=("git+https://gitlab.gnome.org/World/design/lorem.git#tag=$pkgver")
-b2sums=(54b9f3d2359496aba7ed8c7e9e9508e97dd436b6b68240f116d238f931e7513af11d6b26d39c481aa335c13830d02f6dfdc1cbdd6bf71be4b23e138bbdb802f1)
+source=(
+  "git+https://gitlab.gnome.org/World/design/lorem.git#tag=$pkgver"
+  lorem-dbus-activatable.patch
+)
+b2sums=(
+  54b9f3d2359496aba7ed8c7e9e9508e97dd436b6b68240f116d238f931e7513af11d6b26d39c481aa335c13830d02f6dfdc1cbdd6bf71be4b23e138bbdb802f1
+  3167cd4f482cb205162435d4b4f7e274e09d7e430b4f5c4e43471c0ba4cb362474e2b441841ced68876ebe92466374ba76adc4ffb81f0f9ed296c86571516042
+)
 
 prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/World/design/lorem/-/merge_requests/45
+  git apply -3 ../lorem-dbus-activatable.patch
 }
 
 build() {
