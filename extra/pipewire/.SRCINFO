@@ -1,7 +1,7 @@
 pkgbase = pipewire
 	pkgdesc = Low-latency audio/video router and processor
-	pkgver = 1.4.1
-	pkgrel = 2
+	pkgver = 1.4.2
+	pkgrel = 1
 	epoch = 1
 	url = https://pipewire.org
 	arch = x86_64
@@ -46,14 +46,14 @@ pkgbase = pipewire
 	makedepends = systemd
 	makedepends = valgrind
 	makedepends = webrtc-audio-processing-1
-	source = git+https://gitlab.freedesktop.org/pipewire/pipewire.git#tag=1.4.1
-	b2sums = 17b46b195ab0b11902488710a0788172b46209f8b49d4e6eb57d6300d42f14d6ca1578ac85c3c789de7bc348dc8f45ee9010e01ea8eced2071aa961e5ea1b7a0
+	source = git+https://gitlab.freedesktop.org/pipewire/pipewire.git#tag=1.4.2
+	b2sums = acbbeb884ae9c1b6f9740429523207b7ce05ebab72624370fcfbe37fdea27618a04fa895700144f213efa038462992296791da62060e3d25e56375ced2746d4c
 
 pkgname = pipewire
 	install = pipewire.install
 	license = MIT
 	license = LGPL-2.1-or-later
-	depends = libpipewire=1:1.4.1-2
+	depends = libpipewire=1:1.4.2-1
 	depends = libpipewire-0.3.so
 	depends = dbus
 	depends = libdbus-1.so
@@ -109,9 +109,9 @@ pkgname = pipewire-libcamera
 
 pkgname = pipewire-audio
 	pkgdesc = Low-latency audio/video router and processor - Audio support
-	depends = libpipewire=1:1.4.1-2
+	depends = libpipewire=1:1.4.2-1
 	depends = libpipewire-0.3.so
-	depends = pipewire=1:1.4.1-2
+	depends = pipewire=1:1.4.2-1
 	depends = alsa-card-profiles
 	depends = alsa-lib
 	depends = libasound.so
@@ -152,26 +152,26 @@ pkgname = pipewire-audio
 
 pkgname = pipewire-alsa
 	pkgdesc = Low-latency audio/video router and processor - ALSA configuration
-	depends = pipewire-audio=1:1.4.1-2
-	depends = pipewire=1:1.4.1-2
+	depends = pipewire-audio=1:1.4.2-1
+	depends = pipewire=1:1.4.2-1
 	depends = pipewire-session-manager
 
 pkgname = pipewire-ffado
 	pkgdesc = Low-latency audio/video router and processor - FireWire support
-	depends = libpipewire=1:1.4.1-2
+	depends = libpipewire=1:1.4.2-1
 	depends = libpipewire-0.3.so
-	depends = pipewire-audio=1:1.4.1-2
-	depends = pipewire=1:1.4.1-2
+	depends = pipewire-audio=1:1.4.2-1
+	depends = pipewire=1:1.4.2-1
 	depends = glibc
 	depends = libffado
 	depends = libffado.so
 
 pkgname = pipewire-jack-client
 	pkgdesc = Low-latency audio/video router and processor - PipeWire as JACK client
-	depends = libpipewire=1:1.4.1-2
+	depends = libpipewire=1:1.4.2-1
 	depends = libpipewire-0.3.so
-	depends = pipewire-audio=1:1.4.1-2
-	depends = pipewire=1:1.4.1-2
+	depends = pipewire-audio=1:1.4.2-1
+	depends = pipewire=1:1.4.2-1
 	depends = dbus
 	depends = libdbus-1.so
 	depends = gcc-libs
@@ -185,10 +185,10 @@ pkgname = pipewire-jack
 	license = MIT
 	license = GPL-2.0-only
 	license = LGPL-2.1-or-later
-	depends = libpipewire=1:1.4.1-2
+	depends = libpipewire=1:1.4.2-1
 	depends = libpipewire-0.3.so
-	depends = pipewire-audio=1:1.4.1-2
-	depends = pipewire=1:1.4.1-2
+	depends = pipewire-audio=1:1.4.2-1
+	depends = pipewire=1:1.4.2-1
 	depends = glibc
 	depends = pipewire-session-manager
 	depends = sh
@@ -204,10 +204,10 @@ pkgname = pipewire-jack
 pkgname = pipewire-pulse
 	pkgdesc = Low-latency audio/video router and processor - PulseAudio replacement
 	install = pipewire-pulse.install
-	depends = libpipewire=1:1.4.1-2
+	depends = libpipewire=1:1.4.2-1
 	depends = libpipewire-0.3.so
-	depends = pipewire-audio=1:1.4.1-2
-	depends = pipewire=1:1.4.1-2
+	depends = pipewire-audio=1:1.4.2-1
+	depends = pipewire=1:1.4.2-1
 	depends = avahi
 	depends = libavahi-client.so
 	depends = libavahi-common.so
@@ -230,10 +230,10 @@ pkgname = pipewire-pulse
 
 pkgname = pipewire-roc
 	pkgdesc = Low-latency audio/video router and processor - ROC streaming support
-	depends = libpipewire=1:1.4.1-2
+	depends = libpipewire=1:1.4.2-1
 	depends = libpipewire-0.3.so
-	depends = pipewire-audio=1:1.4.1-2
-	depends = pipewire=1:1.4.1-2
+	depends = pipewire-audio=1:1.4.2-1
+	depends = pipewire=1:1.4.2-1
 	depends = gcc-libs
 	depends = glibc
 	depends = roc-toolkit
@@ -241,10 +241,10 @@ pkgname = pipewire-roc
 
 pkgname = gst-plugin-pipewire
 	pkgdesc = Multimedia graph framework - pipewire plugin
-	depends = libpipewire=1:1.4.1-2
+	depends = libpipewire=1:1.4.2-1
 	depends = libpipewire-0.3.so
-	depends = pipewire-audio=1:1.4.1-2
-	depends = pipewire=1:1.4.1-2
+	depends = pipewire-audio=1:1.4.2-1
+	depends = pipewire=1:1.4.2-1
 	depends = gcc-libs
 	depends = glib2
 	depends = libglib-2.0.so
@@ -256,10 +256,10 @@ pkgname = gst-plugin-pipewire
 
 pkgname = pipewire-zeroconf
 	pkgdesc = Low-latency audio/video router and processor - Zeroconf support
-	depends = libpipewire=1:1.4.1-2
+	depends = libpipewire=1:1.4.2-1
 	depends = libpipewire-0.3.so
-	depends = pipewire-audio=1:1.4.1-2
-	depends = pipewire=1:1.4.1-2
+	depends = pipewire-audio=1:1.4.2-1
+	depends = pipewire=1:1.4.2-1
 	depends = avahi
 	depends = libavahi-client.so
 	depends = libavahi-common.so
@@ -272,19 +272,19 @@ pkgname = pipewire-zeroconf
 
 pkgname = pipewire-v4l2
 	pkgdesc = Low-latency audio/video router and processor - V4L2 interceptor
-	depends = libpipewire=1:1.4.1-2
+	depends = libpipewire=1:1.4.2-1
 	depends = libpipewire-0.3.so
-	depends = pipewire=1:1.4.1-2
+	depends = pipewire=1:1.4.2-1
 	depends = glibc
 	depends = pipewire-session-manager
 	depends = sh
 
 pkgname = pipewire-x11-bell
 	pkgdesc = Low-latency audio/video router and processor - X11 bell
-	depends = libpipewire=1:1.4.1-2
+	depends = libpipewire=1:1.4.2-1
 	depends = libpipewire-0.3.so
-	depends = pipewire-audio=1:1.4.1-2
-	depends = pipewire=1:1.4.1-2
+	depends = pipewire-audio=1:1.4.2-1
+	depends = pipewire=1:1.4.2-1
 	depends = glibc
 	depends = libcanberra
 	depends = libcanberra.so
