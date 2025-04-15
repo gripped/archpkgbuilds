@@ -7,20 +7,18 @@
 pkgbase=irrlicht
 pkgname=('irrlicht' 'irrlicht-docs')
 pkgver=1.8.5
-pkgrel=4
+pkgrel=5
 pkgdesc="An open source high performance realtime 3D graphics engine."
 arch=('x86_64')
 url="http://irrlicht.sourceforge.net/"
 license=('ZLIB')
 depends=('libgl' 'libjpeg-turbo' 'bzip2' 'libpng')
-makedepends=('mesa' 'unzip' 'libxcursor')
+makedepends=('mesa' 'libxcursor')
 optdepends=('libxcursor: run examples')
 source=("https://downloads.sourceforge.net/irrlicht/$pkgname-$pkgver.zip")
-noextract=($pkgname-$pkgver.zip)
 sha512sums=('d11c7a056bfb8c9737ed583c5bc5794223bc59fb4620411b63bc4d1eedc41db2ed1cab5cb7a37fee42a7f38c0e0645f5fc53fd329fff0f2aa78e0df6804c47c9')
 
 prepare() {
-  unzip $pkgbase-$pkgver.zip
   cd $pkgbase-$pkgver
 
   sed -r '/^#define _IRR_USE_NON_SYSTEM_(JPEG_LIB|LIB_PNG|ZLIB|BZLIB)_/d' -i include/IrrCompileConfig.h
