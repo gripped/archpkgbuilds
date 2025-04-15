@@ -2,7 +2,7 @@
 
 pkgname=webfont-kit-generator
 pkgver=1.2.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Utility to generate WOFF, WOFF2 and the necessary CSS boilerplate from non-web font formats (OTF & TTF)'
 arch=(any)
 url='https://apps.gnome.org/WebfontKitGenerator/'
@@ -26,20 +26,17 @@ makedepends=(
   git
   meson
 )
-source=(
-  "git+https://github.com/rafaelmardojai/webfont-kit-generator.git#tag=$pkgver"
-  webfont-kit-generator-get-phrase.patch
-)
-b2sums=(
-  3267ebabe18f2399db2d994f0da65f682cf68852ddb7d8c0b32a2185d848ccc3fd757fbdac96fcd906f9ef0d952ecf29ff5a59d2088709ccbaeb6ffc2d5937b1
-  2144b11f1e5d81de6f701c67bf98583caa55622ab69ecc6d0771d1af12c01e2aa190cfa05bfbf91fd6f41d1302646639d25062e0f4ca85c132d041e7661fc52b
-)
+source=("git+https://github.com/rafaelmardojai/webfont-kit-generator.git#tag=$pkgver")
+b2sums=(3267ebabe18f2399db2d994f0da65f682cf68852ddb7d8c0b32a2185d848ccc3fd757fbdac96fcd906f9ef0d952ecf29ff5a59d2088709ccbaeb6ffc2d5937b1)
 
 prepare() {
   cd $pkgname
 
   # https://github.com/rafaelmardojai/webfont-kit-generator/pull/56
-  git apply -3 ../webfont-kit-generator-get-phrase.patch
+  git cherry-pick -n e02be3954d922f80739ee9751bb16948cc33acb6
+
+  # https://github.com/rafaelmardojai/webfont-kit-generator/pull/58
+  git cherry-pick -n e64a75526506689005106817d8d6356b83df3881
 }
 
 build() {
