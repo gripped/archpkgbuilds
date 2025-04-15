@@ -2,8 +2,8 @@
 # Contributor: Blair Noctis <ncts@nightsail.net>
 
 pkgname=heretek
-pkgver=0.5.0
-pkgrel=3
+pkgver=0.5.1
+pkgrel=1
 pkgdesc='A GDB TUI Dashboard'
 arch=('x86_64')
 url='https://github.com/wcampbell0x2a/heretek'
@@ -12,8 +12,8 @@ depends=('gdb')
 makedepends=('cargo' 'openssl')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/wcampbell0x2a/heretek/archive/refs/tags/v${pkgver}.tar.gz"
   ${pkgname}.fish)
-sha256sums=('36684533a39b2b9f3d0e292efa8fcb385603bdcd5ddc9038365280e4f0708a53'
-  '27a10d33e845830df96a9c5041e05a1ee8500c9ab42f27c24a760e1365dba002')
+sha256sums=('c51cd55767407738e22b7701ecb1465c5fd39fb14cfc2d8332a8f15f05ff477c'
+            '27a10d33e845830df96a9c5041e05a1ee8500c9ab42f27c24a760e1365dba002')
 options=('!lto')
 
 prepare() {
