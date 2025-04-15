@@ -1,7 +1,7 @@
 pkgbase = iotas
 	pkgdesc = Simple note taking with Markdown support and optional Nextcloud Notes sync
 	pkgver = 0.11.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://apps.gnome.org/Iotas/
 	arch = any
 	license = GPL-3.0-or-later
@@ -23,12 +23,18 @@ pkgbase = iotas
 	depends = python-markdown-it-py
 	depends = python-mdit_py_plugins
 	depends = python-packaging
-	depends = python-pypandoc
 	depends = python-requests
 	depends = webkitgtk-6.0
+	optdepends = python-pypandoc: Export to ODT and custom formats
 	source = git+https://gitlab.gnome.org/World/iotas.git#tag=0.11.0
 	source = katex-v0.16.21.tar.gz::https://github.com/KaTeX/KaTeX/releases/download/v0.16.21/katex.tar.gz
+	source = iotas-dbus-activatable.patch
+	source = iotas-actions.patch
+	source = iotas-optional-pandoc.patch
 	b2sums = 394edb381de1bb53a4c8b0dab33a964abf01a83fb417101ad572c26bcf1ed00df563e4d489799bbdf155882d669aaa91094258203b47f638cbc52a3313d18847
 	b2sums = 8427954e659536ac022eafd0b70a090f07485404708734ce5aa55a240eb609ea3c10431bd6811e7e03e14a76d61a05e61ae03182636a41e596b233bff4186eb9
+	b2sums = b4bf6b7ce8f06b317eff0d8ca429195711ebd8690a259c86cdae2714dd8201ff4536671ccdb2f37c69fef623e47e0e62a21a116506c82b37e0503dfd8d02dde9
+	b2sums = 1f3b83f5358cc7c55a67355e27efa1a04c2cc41ab2d7ade8df7863ff716832bfd64a22cef522c6fb690cbf62ff9908ebf5265637ec531bbfbb252de54c3d3be9
+	b2sums = 2ca2d821440f02b7b9476115bc16b2029debb399d2203d97536631c5c1d627a542c9d8cf354fefd7908d169045fce274539e4424e68f4b2678621f2b8f34f478
 
 pkgname = iotas

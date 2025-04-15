@@ -1,0 +1,158 @@
+From 5e9445ee8bc2bc0f1595750726a00a31178a5ccc Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 14 Apr 2025 10:12:24 +0200
+Subject: [PATCH] fix: Simplify and fix action handling
+
+This ensures that the window is always created when an action is triggered.
+This also allows to add a "New Note" action to the desktop file, which will
+work consistently when it's triggered from command line or via D-Bus.
+---
+ data/org.gnome.World.Iotas.desktop.in.in |  5 ++
+ iotas/application.py                     | 70 +++++++++++++-----------
+ 2 files changed, 42 insertions(+), 33 deletions(-)
+
+diff --git a/data/org.gnome.World.Iotas.desktop.in.in b/data/org.gnome.World.Iotas.desktop.in.in
+index c6b18f6..e6e1ce2 100644
+--- a/data/org.gnome.World.Iotas.desktop.in.in
++++ b/data/org.gnome.World.Iotas.desktop.in.in
+@@ -15,3 +15,8 @@ StartupNotify=true
+ MimeType=x-scheme-handler/iotas-notes
+ # Translators: Do NOT translate or transliterate this text (these are enum types)!
+ X-Purism-FormFactor=Workstation;Mobile;
++Actions=create-note;
++
++[Desktop Action create-note]
++Name=New Note
++Exec=iotas --new-note
+diff --git a/iotas/application.py b/iotas/application.py
+index 1cbc78d..026ded4 100644
+--- a/iotas/application.py
++++ b/iotas/application.py
+@@ -100,11 +100,7 @@ class Application(Adw.Application):
+             return
+         file = files[0]
+         uri = GLib.Variant("s", file.get_uri())
+-        if self.get_property("is-remote"):
+-            self.activate_action("create-note-from-uri-wrapper", uri)
+-        else:
+-            self.activate()
+-            self.__window.activate_action("win.create-note-from-uri", uri)
++        self.activate_action("create-note-from-uri", uri)
+ 
+     def reset_sync_marker(self) -> None:
+         """Resets the timestamp for transfer with Nextcloud Notes."""
+@@ -208,7 +204,7 @@ class Application(Adw.Application):
+         elif "quit-running" in options:
+             self.register()
+             if self.get_property("is-remote"):
+-                self.activate_action("quit-running")
++                self.activate_action("quit")
+             else:
+                 logging.warning("No running instance found")
+             self.quit()
+@@ -216,29 +212,17 @@ class Application(Adw.Application):
+         elif "new-note" in options:
+             # Application needs to be registered to send action if remote instance
+             self.register()
+-            self.activate()
+-            if self.get_property("is-remote"):
+-                self.activate_action("create-note-wrapper")
+-            else:
+-                self.__window.activate_action("win.create-note-from-cli")
++            self.activate_action("create-note")
+         elif "open-note" in options:
+             # Application needs to be registered to send action if remote instance
+             self.register()
+-            self.activate()
+             note_id = GLib.Variant("u", options["open-note"])
+-            if self.get_property("is-remote"):
+-                self.activate_action("open-note-wrapper", note_id)
+-            else:
+-                self.__window.activate_action("win.open-note", note_id)
++            self.activate_action("open-note", note_id)
+         elif "search" in options:
+             # Application needs to be registered to send action if remote instance
+             self.register()
+-            self.activate()
+             term = GLib.Variant("s", options["search"])
+-            if self.get_property("is-remote"):
+-                self.activate_action("search-from-cli-wrapper", term)
+-            else:
+-                self.__window.activate_action("win.search-from-cli", term)
++            self.activate_action("search-from-cli", term)
+         elif "toggle-extended-preferences" in options:
+             self.register()
+             if iotas.config_manager.get_show_extended_preferences():
+@@ -371,37 +355,57 @@ class Application(Adw.Application):
+             if shortcut is not None:
+                 self.set_accels_for_action(f"app.{name}", [shortcut])
+ 
++        def on_create_note(action: Gio.SimpleAction, param: GLib.Variant) -> None:
++            self.activate()
++            if self.__window:
++                self.__window.activate_action("win.create-note-from-cli")
++
++        def on_create_note_from_uri(action: Gio.SimpleAction, param: GLib.Variant) -> None:
++            self.activate()
++            if self.__window:
++                self.__window.activate_action("win.create-note-from-uri", param),
++
++        def on_open_note(action: Gio.SimpleAction, param: GLib.Variant) -> None:
++            self.activate()
++            if self.__window:
++                self.__window.activate_action("win.open-note", param),
++
++        def on_search_from_cli(action: Gio.SimpleAction, param: GLib.Variant) -> None:
++            self.activate()
++            if self.__window:
++                self.__window.activate_action("win.search-from-cli", param),
++
+         add_action("about", lambda _o, _p: self.__show_about_dialog())
+-        add_action("quit", lambda _o, _p: self.__window.close(), "<Control>q")
++        add_action(
++            "quit",
++            lambda _o, _p: self.__window.close() if self.__window else None,
++            "<Control>q",
++        )
+         add_action("settings", lambda _o, _p: self.__show_preferences_dialog(), "<Control>comma")
+         add_action(
+             "shortcuts",
+             lambda _o, _p: KeyboardShortcutsWindow(self.__window).present(),
+             "<Control>question",
+         )
++        add_action("create-note", on_create_note)
+         add_action(
+-            "create-note-wrapper",
+-            lambda _o, _p: self.__window.activate_action("win.create-note-from-cli"),
+-        )
+-        add_action(
+-            "create-note-from-uri-wrapper",
+-            lambda _o, param: self.__window.activate_action("win.create-note-from-uri", param),
++            "create-note-from-uri",
++            on_create_note_from_uri,
+             None,
+             GLib.VariantType("s"),
+         )
+         add_action(
+-            "open-note-wrapper",
+-            lambda _o, param: self.__window.activate_action("win.open-note", param),
++            "open-note",
++            on_open_note,
+             None,
+             GLib.VariantType("u"),
+         )
+         add_action(
+-            "search-from-cli-wrapper",
+-            lambda _o, param: self.__window.activate_action("win.search-from-cli", param),
++            "search-from-cli",
++            on_search_from_cli,
+             None,
+             GLib.VariantType("s"),
+         )
+-        add_action("quit-running", lambda _o, _v: self.quit())
+         add_action("create-backup", lambda _o, _p: self.__create_backup())
+ 
+     def __create_window(self) -> None:
+-- 
+GitLab
+
