@@ -1,7 +1,7 @@
 pkgbase = twine
 	pkgdesc = Collection of utilities for interacting with PyPI
-	pkgver = 6.0.1
-	pkgrel = 2
+	pkgver = 6.1.0
+	pkgrel = 1
 	url = https://github.com/pypa/twine/
 	arch = any
 	license = Apache-2.0
@@ -17,7 +17,8 @@ pkgbase = twine
 	makedepends = python-installer
 	makedepends = python-setuptools-scm
 	makedepends = python-wheel
-	depends = python-pkginfo
+	depends = python
+	depends = python-packaging
 	depends = python-readme-renderer
 	depends = python-requests
 	depends = python-requests-toolbelt
@@ -26,10 +27,12 @@ pkgbase = twine
 	depends = python-keyring
 	depends = python-rfc3986
 	depends = python-rich
+	depends = python-id
 	provides = python-twine
 	conflicts = python-twine
 	replaces = python-twine
-	source = git+https://github.com/pypa/twine.git#tag=6.0.1
-	sha512sums = 7acd424550a9c078435d5c43b20d9d36b2fcc539ee064a6dcf47f06ac9ec1aa7d7b9e1035fe14ef821341b03468db7e4558e15e46fe58b4041c6e6aabf90338d
+	source = twine::git+https://github.com/pypa/twine.git#tag=6.1.0
+	sha512sums = 61160460877d0d5f464d42f8fa6cf643498421b73a0183bc3febc809b15bcf428a682303f48d62f320575db607eb2c516f333c45756e15dcf65c672c490690ca
+	b2sums = 02e50e2656a4e5b0127365ec0437eba953e620c12d148759858e7d3742211e292cb19c6b69b60a406c0860a5e2eecdb4801afa2c261476cff8fe74646cd426ed
 
 pkgname = twine
