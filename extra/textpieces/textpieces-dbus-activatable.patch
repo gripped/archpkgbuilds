@@ -1,0 +1,60 @@
+From 0eb6f9658335124c733f9e6bcee0dc29f156d6ca Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 13 Apr 2025 09:36:39 +0200
+Subject: [PATCH] Add D-Bus service file
+
+And mark the application as D-Bus activatable. This allows application
+launchers to activate it via D-Bus.
+---
+ data/io.gitlab.liferooter.TextPieces.desktop.in.in |  1 +
+ data/io.gitlab.liferooter.TextPieces.service.in    |  3 +++
+ data/meson.build                                   | 11 +++++++++++
+ 3 files changed, 15 insertions(+)
+ create mode 100644 data/io.gitlab.liferooter.TextPieces.service.in
+
+diff --git a/data/io.gitlab.liferooter.TextPieces.desktop.in.in b/data/io.gitlab.liferooter.TextPieces.desktop.in.in
+index fa4299d..17a43dc 100644
+--- a/data/io.gitlab.liferooter.TextPieces.desktop.in.in
++++ b/data/io.gitlab.liferooter.TextPieces.desktop.in.in
+@@ -18,6 +18,7 @@ Actions=new-window;
+ 
+ Terminal=false
+ StartupNotify=true
++DBusActivatable=true
+ MimeType=text/plain;
+ 
+ [Desktop Action new-window]
+diff --git a/data/io.gitlab.liferooter.TextPieces.service.in b/data/io.gitlab.liferooter.TextPieces.service.in
+new file mode 100644
+index 0000000..8286e4a
+--- /dev/null
++++ b/data/io.gitlab.liferooter.TextPieces.service.in
+@@ -0,0 +1,3 @@
++[D-BUS Service]
++Name=@app-id@
++Exec=@bindir@/textpieces --gapplication-service
+diff --git a/data/meson.build b/data/meson.build
+index 787a9eb..63cdb31 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -79,6 +79,17 @@ if glib_compile_schemas.found()
+   )
+ endif
+ 
++# D-Bus service file
++service_conf = configuration_data()
++service_conf.set('app-id', application_id)
++service_conf.set('bindir', bindir)
++configure_file(
++  input: '@0@.service.in'.format(base_id),
++  output: '@0@.service'.format(application_id),
++  configuration: service_conf,
++  install_dir: datadir / 'dbus-1' / 'services'
++)
++
+ # Custom action template
+ install_data(
+   'action_template',
+-- 
+GitLab
+

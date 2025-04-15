@@ -2,7 +2,7 @@
 
 pkgname=textpieces
 pkgver=4.2.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Powerful scratchpad with ability to perform a lot of text transformations'
 arch=(x86_64)
 url='https://apps.gnome.org/TextPieces/'
@@ -28,24 +28,31 @@ makedepends=(
 )
 source=(
   "git+https://gitlab.com/liferooter/textpieces.git#tag=v${pkgver//_/-}"
+  textpieces-cargo-update.patch
   textpieces-activate.patch
+  textpieces-dbus-activatable.patch
 )
 b2sums=(
   07ddadfc8ad92e68799a4e4c59b383baebc87b31edfbf52d106053eb4c49d9fcb68e551337b841a30dd44df200f8a2d4919d22c061a18de24fabf16a6b93620e
+  614e6c960c38c55bb72cbace511d2fcac3cc3c79c9c79bb249c2ea196dfc7466c40f1cf032e272e561e833f5683d2ad43b30eff51a0d9c889d5271db9c071eb1
   9b8f7b821e1c900509eb7942e185e7d227603813ff23a46fd125bb7d3ac36fdba9e694526261d71b4f89b856e12594ad9e1ff9d44a8d7ff91ceaf5e0bf19620c
+  003bf73e507eae62ab1342739581c77f2ba3224ebcfe07b39e7a43e10a06ad12cc0ed0043acf6fc9b5721db3e546c959ca8c118a1a27486f983d13385f582174
 )
 
 prepare() {
   cd $pkgname
 
-  # Cargo.lock needs to be updated
-  cargo update
+  # Update Cargo.lock
+  git apply -3 ../textpieces-cargo-update.patch
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 
   # https://gitlab.com/liferooter/textpieces/-/merge_requests/10
   git apply -3 ../textpieces-activate.patch
+
+  # https://gitlab.com/liferooter/textpieces/-/merge_requests/11
+  git apply -3 ../textpieces-dbus-activatable.patch
 }
 
 build() {

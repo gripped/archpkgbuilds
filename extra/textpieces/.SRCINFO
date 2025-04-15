@@ -1,7 +1,7 @@
 pkgbase = textpieces
 	pkgdesc = Powerful scratchpad with ability to perform a lot of text transformations
 	pkgver = 4.2.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://apps.gnome.org/TextPieces/
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -21,8 +21,12 @@ pkgbase = textpieces
 	depends = libadwaita
 	depends = pango
 	source = git+https://gitlab.com/liferooter/textpieces.git#tag=v4.2.0
+	source = textpieces-cargo-update.patch
 	source = textpieces-activate.patch
+	source = textpieces-dbus-activatable.patch
 	b2sums = 07ddadfc8ad92e68799a4e4c59b383baebc87b31edfbf52d106053eb4c49d9fcb68e551337b841a30dd44df200f8a2d4919d22c061a18de24fabf16a6b93620e
+	b2sums = 614e6c960c38c55bb72cbace511d2fcac3cc3c79c9c79bb249c2ea196dfc7466c40f1cf032e272e561e833f5683d2ad43b30eff51a0d9c889d5271db9c071eb1
 	b2sums = 9b8f7b821e1c900509eb7942e185e7d227603813ff23a46fd125bb7d3ac36fdba9e694526261d71b4f89b856e12594ad9e1ff9d44a8d7ff91ceaf5e0bf19620c
+	b2sums = 003bf73e507eae62ab1342739581c77f2ba3224ebcfe07b39e7a43e10a06ad12cc0ed0043acf6fc9b5721db3e546c959ca8c118a1a27486f983d13385f582174
 
 pkgname = textpieces
