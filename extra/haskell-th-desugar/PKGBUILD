@@ -2,17 +2,17 @@
 
 _hkgname=th-desugar
 pkgname=haskell-th-desugar
-pkgver=1.14
-pkgrel=78
+pkgver=1.15
+pkgrel=1
 pkgdesc="Functions to desugar Template Haskell"
 url="https://github.com/goldfirere/th-desugar"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-ordered-containers' 'haskell-syb' 'haskell-th-abstraction'
-         'haskell-th-lift' 'haskell-th-orphans' 'haskell-transformers-compat')
+         'haskell-th-orphans' 'haskell-transformers-compat')
 makedepends=('ghc' 'haskell-hunit' 'haskell-hspec')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('fd2948c1d48f39db0231c72178e4867f866502c42812ca1ccb820e82b21f6fd6784df84219bc514e3d80a7fcc6878b685f04aed7c9f55174be1f52246630ba68')
+sha512sums=('893b73b341fee047d12a84d7d3a7e1c8e2e718c82d00029b1c00a890358d7045213c70532f770159e0174ce5e5bea3724fe0545df6513f7854e91342ca17d585')
 
 build() {
     cd $_hkgname-$pkgver
