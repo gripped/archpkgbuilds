@@ -1,0 +1,55 @@
+From 6e5439c7dbee0716728b101bc826759a3c2d69ea Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 12 Apr 2025 19:00:03 +0200
+Subject: [PATCH] Add D-Bus service file
+
+And mark the application as D-Bus activatable. This allows application
+launchers to activate it via D-Bus.
+---
+ data/meson.build                  | 12 ++++++++++++
+ data/org.gnome.Almanah.desktop.in |  1 +
+ data/org.gnome.Almanah.service.in |  3 +++
+ 3 files changed, 16 insertions(+)
+ create mode 100644 data/org.gnome.Almanah.service.in
+
+diff --git a/data/meson.build b/data/meson.build
+index a439ced..623766d 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -1,3 +1,15 @@
++service_conf = configuration_data()
++service_conf.set('bindir', join_paths(get_option('prefix'), get_option('bindir')))
++
++service = 'org.gnome.Almanah.service'
++configure_file(
++  input: service + '.in',
++  output: service,
++  install: true,
++  install_dir: join_paths(datadir, 'dbus-1', 'services'),
++  configuration: service_conf
++)
++
+ desktop = 'org.gnome.Almanah.desktop'
+ i18n.merge_file(
+   type: 'desktop',
+diff --git a/data/org.gnome.Almanah.desktop.in b/data/org.gnome.Almanah.desktop.in
+index 140648a..73de541 100644
+--- a/data/org.gnome.Almanah.desktop.in
++++ b/data/org.gnome.Almanah.desktop.in
+@@ -11,3 +11,4 @@ Terminal=false
+ Type=Application
+ Categories=GTK;Utility;
+ StartupNotify=true
++DBusActivatable=true
+diff --git a/data/org.gnome.Almanah.service.in b/data/org.gnome.Almanah.service.in
+new file mode 100644
+index 0000000..6f7b66b
+--- /dev/null
++++ b/data/org.gnome.Almanah.service.in
+@@ -0,0 +1,3 @@
++[D-BUS Service]
++Name=org.gnome.Almanah
++Exec=@bindir@/almanah --gapplication-service
+-- 
+GitLab
+

@@ -1,0 +1,121 @@
+From b7399bf3bb008d11b43792e1b229b4abc0167fd7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 12 Apr 2025 18:58:28 +0200
+Subject: [PATCH] Use GApplication to parse command line options
+
+It already supports adding and parsing option entries, so it's not
+necessary to process them manually.
+---
+ src/application.c | 66 ++++++++---------------------------------------
+ 1 file changed, 11 insertions(+), 55 deletions(-)
+
+diff --git a/src/application.c b/src/application.c
+index 57986a2..100114f 100644
+--- a/src/application.c
++++ b/src/application.c
+@@ -43,7 +43,6 @@ static void set_property (GObject *object, guint property_id, const GValue *valu
+ 
+ static void startup (GApplication *application);
+ static void activate (GApplication *application);
+-static gint handle_command_line (GApplication *application, GApplicationCommandLine *command_line);
+ static void window_removed (GtkApplication *application, GtkWindow *window);
+ 
+ /* Application actions */
+@@ -103,7 +102,6 @@ almanah_application_class_init (AlmanahApplicationClass *klass)
+ 
+ 	gapplication_class->startup = startup;
+ 	gapplication_class->activate = activate;
+-	gapplication_class->command_line = handle_command_line;
+ 
+ 	gtkapplication_class->window_removed = window_removed;
+ 
+@@ -124,9 +122,10 @@ almanah_application_init (AlmanahApplication *self)
+ static void
+ constructed (GObject *object)
+ {
++	AlmanahApplicationPrivate *priv = ALMANAH_APPLICATION (object)->priv;
++
+ 	/* Set various properties up */
+ 	g_application_set_application_id (G_APPLICATION (object), "org.gnome.Almanah");
+-	g_application_set_flags (G_APPLICATION (object), G_APPLICATION_HANDLES_COMMAND_LINE);
+ 
+ 	/* Localisation */
+ 	setlocale (LC_ALL, "");
+@@ -134,6 +133,15 @@ constructed (GObject *object)
+ 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+ 	textdomain (GETTEXT_PACKAGE);
+ 
++	const GOptionEntry options[] = {
++		{ "debug", 0, 0, G_OPTION_ARG_NONE, &(priv->debug), N_("Enable debug mode"), NULL },
++		{ NULL }
++	};
++
++	g_application_add_main_option_entries (G_APPLICATION (object), options);
++	g_application_set_option_context_summary (G_APPLICATION (object),
++	                                          _("Manage your diary. Only one instance of the program may be open at any time."));
++
+ 	g_set_application_name (_("Almanah Diary"));
+ 	g_set_prgname ("org.gnome.Almanah");
+ 	gtk_window_set_default_icon_name ("org.gnome.Almanah");
+@@ -328,58 +336,6 @@ activate (GApplication *application)
+ 	gtk_window_present (GTK_WINDOW (priv->main_window));
+ }
+ 
+-static gint
+-handle_command_line (GApplication *application, GApplicationCommandLine *command_line)
+-{
+-	AlmanahApplicationPrivate *priv = ALMANAH_APPLICATION (application)->priv;
+-	GOptionContext *context;
+-	GError *error = NULL;
+-	gchar **args, **argv;
+-	gint argc, i, status = 0;
+-
+-	const GOptionEntry options[] = {
+-		{ "debug", 0, 0, G_OPTION_ARG_NONE, &(priv->debug), N_("Enable debug mode"), NULL },
+-		{ NULL }
+-	};
+-
+-	args = g_application_command_line_get_arguments (command_line, &argc);
+-
+-	/* We have to make an extra copy of the array, since g_option_context_parse() assumes that it can remove strings from the array without
+-	 * freeing them. */
+-	argv = g_new (gchar*, argc + 1);
+-	for (i = 0; i <= argc; i++) {
+-		argv[i] = args[i];
+-	}
+-
+-	/* Options */
+-	context = g_option_context_new (NULL);
+-	g_option_context_set_translation_domain (context, GETTEXT_PACKAGE);
+-
+-	g_option_context_set_summary (context, _("Manage your diary. Only one instance of the program may be open at any time."));
+-
+-	g_option_context_add_main_entries (context, options, GETTEXT_PACKAGE);
+-	g_option_context_add_group (context, gtk_get_option_group (TRUE));
+-
+-	if (g_option_context_parse (context, &argc, &argv, &error) == TRUE) {
+-		/* Activate the remote instance */
+-		g_application_activate (application);
+-		status = 0;
+-	} else {
+-		/* Print an error */
+-		g_application_command_line_printerr (command_line, _("Command line options could not be parsed: %s\n"), error->message);
+-		g_error_free (error);
+-
+-		status = 1;
+-	}
+-
+-	g_option_context_free (context);
+-
+-	g_free (argv);
+-	g_strfreev (args);
+-
+-	return status;
+-}
+-
+ static void
+ storage_manager_disconnected_cb (__attribute__ ((unused)) AlmanahStorageManager *storage_manager, const gchar *gpgme_error_message, const gchar *warning_message, GtkApplication *self)
+ {
+-- 
+2.49.0
+

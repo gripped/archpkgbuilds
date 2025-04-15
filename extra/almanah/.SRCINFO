@@ -1,7 +1,7 @@
 pkgbase = almanah
 	pkgdesc = Small GTK application to allow you to keep a diary of your life
 	pkgver = 0.12.4
-	pkgrel = 2
+	pkgrel = 3
 	url = https://wiki.gnome.org/Apps/Almanah_Diary
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -28,8 +28,12 @@ pkgbase = almanah
 	depends = sqlite
 	source = git+https://gitlab.gnome.org/GNOME/almanah.git#tag=0.12.4
 	source = almanah-no-appmenu.patch
+	source = almanah-command-line.patch
+	source = almanah-dbus-activatable.patch
 	validpgpkeys = 923B7025EE03C1C59F42684CF0942E894B2EAFA0
 	b2sums = b2903482386f19664534bb0d2827a60c60d398478a6ccd858107330625fb1b8ddf54e0479ca49fc6669f588ff6fd79bd2fba837d2ed887fa28b650ce76950a40
 	b2sums = 959f039b4c3231313eefe2c47a4e838e6eb3fc1b960e9c0e497bebfdf107d8d1fedec4b83ad5ee8c353565a1a832a056a466a4c0c0733d15f0a75a39da060f9e
+	b2sums = 47809176067eca273c587b46a147ede09e72051eef5597e2663b228caa6780ccd6cccc8f03733bcda1340e1962371e3ea55bd27487f1d47da6447085c630c515
+	b2sums = 3ef13f2795c5e8690ebbe9fb1d1de3b52d9f42d8d2e4a4642ac5c93d614977149124231cf2a198591ee3357cce3d360929a6e2d23d8c575aaf0b9d5a353da333
 
 pkgname = almanah
