@@ -5,7 +5,7 @@
 # Contributor: Jochen Immendœrfer <jochen.immendoerfer@gmail.com>
 
 pkgname=alsa-tools
-pkgver=1.2.11
+pkgver=1.2.14
 pkgrel=1
 pkgdesc="Advanced tools for certain sound cards"
 arch=(x86_64)
@@ -31,9 +31,9 @@ optdepends=(
 )
 provides=($pkgname-emu10k1 $pkgname-ice1712 liblo10k1.so)
 source=($url/files/pub/tools/$pkgname-$pkgver.tar.bz2{,.sig})
-sha512sums=('b5a29a83121a637eaa16d225875feeabaea893eabc61b97d0c18a5852d851ff2e6932bd732786bb43525b410c2bb9185261cc4509fd3ee5fd8536557f12b2154'
+sha512sums=('36996eb19c590f3f8deb5831ef4e4a9016578e42172901dd97ebe78a4c6fc14e8d84d8f6639cc37d2db91c1d73727226cf1a5d952c586cfc909768377b04e8c7'
             'SKIP')
-b2sums=('2c429cb0dceb1dcb186578e2109a1b3b6eece7ba5e8e1c6de14cc5e2f37ecc947469247e95fb894bb1171fa490deb000405135ec82e822d0fc24bf5c920ec724'
+b2sums=('e1afda4a4b6f6b1b3c0ab27e7f7bb211f85036c8f874c3f627e7454a7f52777aae68cb07ca05c62c5a12488eeedc062a11290786ee2bfcfe62d72f4ff5f87f51'
         'SKIP')
 validpgpkeys=('F04DF50737AC1A884C4B3D718380596DA6E59C91') # ALSA Release Team (Package Signing Key v1) <release@alsa-project.org>
 
