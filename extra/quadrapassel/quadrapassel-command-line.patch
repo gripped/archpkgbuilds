@@ -1,0 +1,56 @@
+From 29b5ea3c6ba05187b4c63f0b0c30b49cb7050139 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 9 Apr 2025 17:27:13 +0200
+Subject: [PATCH] Use GApplication to parse command line options
+
+This gives access to the --gapplication-service option, while Clutter
+options are still processed and listed on the --help output.
+---
+ src/quadrapassel.vala | 18 ++----------------
+ 1 file changed, 2 insertions(+), 16 deletions(-)
+
+diff --git a/src/quadrapassel.vala b/src/quadrapassel.vala
+index 7523fc1..240a732 100644
+--- a/src/quadrapassel.vala
++++ b/src/quadrapassel.vala
+@@ -75,6 +75,7 @@ public class Quadrapassel : Gtk.Application
+     public Quadrapassel ()
+     {
+         Object (application_id: "org.gnome.Quadrapassel", flags: ApplicationFlags.FLAGS_NONE);
++        add_option_group (Clutter.get_option_group_without_init ());
+     }
+ 
+     protected override void startup ()
+@@ -895,28 +896,13 @@ public class Quadrapassel : Gtk.Application
+         Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+         Intl.textdomain (GETTEXT_PACKAGE);
+ 
+-        var context = new OptionContext ("");
+-
+-        context.add_group (Gtk.get_option_group (true));
+-        context.add_group (Clutter.get_option_group_without_init ());
+-
+-        try
+-        {
+-            context.parse (ref args);
+-        }
+-        catch (Error e)
+-        {
+-            stderr.printf ("%s\n", e.message);
+-            return Posix.EXIT_FAILURE;
+-        }
+-
+         Environment.set_application_name (_("Quadrapassel"));
+ 
+         Gtk.Window.set_default_icon_name ("quadrapassel");
+ 
+         try
+         {
+-            GtkClutter.init_with_args (ref args, "", new OptionEntry[0], null);
++            GtkClutter.init (ref args);
+         }
+         catch (Error e)
+         {
+-- 
+GitLab
+

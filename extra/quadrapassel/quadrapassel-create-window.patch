@@ -1,0 +1,38 @@
+From 26428c1ae7249732b863f9812f7122089319de47 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 9 Apr 2025 17:42:48 +0200
+Subject: [PATCH] Don't create window in startup phase
+
+This fixes the problem that the process does not exit after timeout when
+running as GApplication service.
+---
+ src/quadrapassel.vala | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/quadrapassel.vala b/src/quadrapassel.vala
+index 7523fc1..3896358 100644
+--- a/src/quadrapassel.vala
++++ b/src/quadrapassel.vala
+@@ -92,7 +92,9 @@ public class Quadrapassel : Gtk.Application
+         pause_action = lookup_action ("pause") as SimpleAction;
+ 
+         settings = new Settings ("org.gnome.Quadrapassel");
++    }
+ 
++    private void create_window () {
+         window = new Gtk.ApplicationWindow (this);
+         window.icon_name = "org.gnome.Quadrapassel";
+         window.set_events (window.get_events () | Gdk.EventMask.KEY_PRESS_MASK | Gdk.EventMask.KEY_RELEASE_MASK);
+@@ -251,6 +253,9 @@ public class Quadrapassel : Gtk.Application
+ 
+     protected override void activate ()
+     {
++        if (window == null)
++            create_window ();
++
+         window.present ();
+     }
+ 
+-- 
+GitLab
+

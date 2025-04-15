@@ -1,0 +1,72 @@
+From 32db54cd7772d460c538f888102d2381b0be343b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 9 Apr 2025 17:57:09 +0200
+Subject: [PATCH] Add D-Bus service file
+
+And mark the application as D-Bus activatable. This allows application
+launchers to activate it via D-Bus.
+---
+ data/meson.build                       | 13 +++++++++++++
+ data/org.gnome.Quadrapassel.desktop.in |  1 +
+ data/org.gnome.Quadrapassel.service.in |  3 +++
+ meson.build                            |  1 +
+ 4 files changed, 18 insertions(+)
+ create mode 100644 data/org.gnome.Quadrapassel.service.in
+
+diff --git a/data/meson.build b/data/meson.build
+index 83bf626..34e2848 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -16,6 +16,19 @@ install_data(
+ )
+ 
+ 
++# D-Bus service file
++service_conf = configuration_data()
++service_conf.set('bindir', bindir)
++
++configure_file(
++    input: '@0@.service.in'.format(project_id),
++    output: '@0@.service'.format(project_id),
++    install: true,
++    install_dir: join_paths(get_option('datadir'), 'dbus-1', 'services'),
++    configuration: service_conf
++)
++
++
+ # Desktop file
+ desktop_file = i18n.merge_file(
+     input: '@0@.desktop.in'.format(project_id),
+diff --git a/data/org.gnome.Quadrapassel.desktop.in b/data/org.gnome.Quadrapassel.desktop.in
+index 5ac575b..acf6be1 100644
+--- a/data/org.gnome.Quadrapassel.desktop.in
++++ b/data/org.gnome.Quadrapassel.desktop.in
+@@ -10,3 +10,4 @@ Categories=GNOME;GTK;Game;BlocksGame;
+ # Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+ Keywords=tetris;
+ StartupNotify=true
++DBusActivatable=true
+diff --git a/data/org.gnome.Quadrapassel.service.in b/data/org.gnome.Quadrapassel.service.in
+new file mode 100644
+index 0000000..861a401
+--- /dev/null
++++ b/data/org.gnome.Quadrapassel.service.in
+@@ -0,0 +1,3 @@
++[D-BUS Service]
++Name=org.gnome.Quadrapassel
++Exec=@bindir@/quadrapassel --gapplication-service
+diff --git a/meson.build b/meson.build
+index cc92ed6..4d2c566 100644
+--- a/meson.build
++++ b/meson.build
+@@ -30,6 +30,7 @@ add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), la
+ localedir = join_paths(get_option('prefix'), get_option('localedir'))
+ datadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
+ soundsdir = join_paths(datadir, 'sounds')
++bindir = join_paths (get_option ('prefix'), get_option ('bindir'))
+ 
+ conf = configuration_data ()
+ conf.set_quoted ('VERSION', meson.project_version())
+-- 
+GitLab
+

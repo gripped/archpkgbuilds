@@ -1,7 +1,7 @@
 pkgbase = quadrapassel
 	pkgdesc = Fit falling blocks together (Tetris-like game for GNOME)
 	pkgver = 40.2
-	pkgrel = 3
+	pkgrel = 4
 	url = https://wiki.gnome.org/Apps/Quadrapassel
 	arch = x86_64
 	groups = gnome-extra
@@ -16,7 +16,16 @@ pkgbase = quadrapassel
 	depends = gsound
 	depends = librsvg
 	depends = libmanette
-	source = git+https://gitlab.gnome.org/GNOME/quadrapassel.git#tag=40.2
+	source = git+https://gitlab.gnome.org/GNOME/quadrapassel.git?signed#tag=40.2
+	source = quadrapassel-prgname.patch
+	source = quadrapassel-command-line.patch
+	source = quadrapassel-create-window.patch
+	source = quadrapassel-dbus-activatable.patch
+	validpgpkeys = 161DEEB19F942B2CE00B67ADC1C19D5530553963
 	b2sums = 9a3e80d1cc1e973e068a547e86fa6b572554dfb5274e8d932305b7d797f8175db35a3dbf45fcba11545e6b17002e8d18ddad44eabc3cc41196bbc68313303b28
+	b2sums = 60bd2b998f134f427a542f5fd6205556322392eef8f4764bedb8b8395b5f18c8f83a7ea90c6d93158f89ef79a7b0165960c2ce58008fc812c783df17540ffe24
+	b2sums = cbbe8d81677e58a6600d481b360440a2079bf963278a5128546b9727f450c61cc6595a4e538f84f086e54ef7e2a69747501a8627955682a3f0c568d7948009f8
+	b2sums = cc0bfaa94229c081b7d09751e6c14f9bfc6690edcee40aa53a1528d0a283689e667a398e4a88909ec81eff31abe1e982935a8d2e8829d6f06a081e36f3cb70f3
+	b2sums = 7b98aad9a5f14acec3a7fde81199b6b736abc5f05fd88ae29634b9c7d7fbff34460e889be25b5158692302a2e8540b24d34044b5e0fb5ba0600e762a5059a148
 
 pkgname = quadrapassel

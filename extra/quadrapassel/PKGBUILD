@@ -3,7 +3,7 @@
 
 pkgname=quadrapassel
 pkgver=40.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Fit falling blocks together (Tetris-like game for GNOME)"
 url="https://wiki.gnome.org/Apps/Quadrapassel"
 arch=(x86_64)
@@ -11,14 +11,39 @@ license=(GPL)
 depends=(clutter-gtk gsound librsvg libmanette)
 makedepends=(meson gobject-introspection yelp-tools appstream-glib git vala)
 groups=(gnome-extra)
-source=("git+https://gitlab.gnome.org/GNOME/quadrapassel.git#tag=$pkgver")
-b2sums=('9a3e80d1cc1e973e068a547e86fa6b572554dfb5274e8d932305b7d797f8175db35a3dbf45fcba11545e6b17002e8d18ddad44eabc3cc41196bbc68313303b28')
+source=("git+https://gitlab.gnome.org/GNOME/quadrapassel.git?signed#tag=$pkgver"
+        quadrapassel-prgname.patch
+        quadrapassel-command-line.patch
+        quadrapassel-create-window.patch
+        quadrapassel-dbus-activatable.patch)
+b2sums=('9a3e80d1cc1e973e068a547e86fa6b572554dfb5274e8d932305b7d797f8175db35a3dbf45fcba11545e6b17002e8d18ddad44eabc3cc41196bbc68313303b28'
+        '60bd2b998f134f427a542f5fd6205556322392eef8f4764bedb8b8395b5f18c8f83a7ea90c6d93158f89ef79a7b0165960c2ce58008fc812c783df17540ffe24'
+        'cbbe8d81677e58a6600d481b360440a2079bf963278a5128546b9727f450c61cc6595a4e538f84f086e54ef7e2a69747501a8627955682a3f0c568d7948009f8'
+        'cc0bfaa94229c081b7d09751e6c14f9bfc6690edcee40aa53a1528d0a283689e667a398e4a88909ec81eff31abe1e982935a8d2e8829d6f06a081e36f3cb70f3'
+        '7b98aad9a5f14acec3a7fde81199b6b736abc5f05fd88ae29634b9c7d7fbff34460e889be25b5158692302a2e8540b24d34044b5e0fb5ba0600e762a5059a148')
+validpgpkeys=(161DEEB19F942B2CE00B67ADC1C19D5530553963) # John Ward <john@johnward.net>
 
 prepare() {
   cd $pkgname
 
   # Fix segmentation fault when press any key just after application started
   git cherry-pick -n 8704e0fbcd994df45f2492c58f6ac261bfeb382f
+
+  # Fix default icon name
+  # https://gitlab.gnome.org/GNOME/quadrapassel/-/merge_requests/41
+  git apply -3 ../quadrapassel-prgname.patch
+
+  # Use GApplication to parse command line options
+  # https://gitlab.gnome.org/GNOME/quadrapassel/-/merge_requests/42
+  git apply -3 ../quadrapassel-command-line.patch
+
+  # Don't create window in startup phase
+  # https://gitlab.gnome.org/GNOME/quadrapassel/-/merge_requests/43
+  git apply -3 ../quadrapassel-create-window.patch
+
+  # Add D-Bus service file
+  # https://gitlab.gnome.org/GNOME/quadrapassel/-/merge_requests/44
+  git apply -3 ../quadrapassel-dbus-activatable.patch
 }
 
 build() {

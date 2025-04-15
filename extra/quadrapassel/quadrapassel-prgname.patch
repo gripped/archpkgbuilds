@@ -1,0 +1,30 @@
+From 4138d014731f9e0d71d2cb2579d8716639e6b02c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 26 Aug 2024 23:47:35 +0000
+Subject: [PATCH] Fix default icon name
+
+The icon is called 'org.gnome.Quadrapassel', not 'quadrapassel'. Also set the application
+ID for prgname to ensure that Wayland compositors could match the window with
+the application and show the appropriate icon for them.
+---
+ src/quadrapassel.vala | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/quadrapassel.vala b/src/quadrapassel.vala
+index 7523fc1..6c6d699 100644
+--- a/src/quadrapassel.vala
++++ b/src/quadrapassel.vala
+@@ -911,8 +911,8 @@ public class Quadrapassel : Gtk.Application
+         }
+ 
+         Environment.set_application_name (_("Quadrapassel"));
+-
+-        Gtk.Window.set_default_icon_name ("quadrapassel");
++        Environment.set_prgname ("org.gnome.Quadrapassel");
++        Gtk.Window.set_default_icon_name ("org.gnome.Quadrapassel");
+ 
+         try
+         {
+-- 
+GitLab
+
