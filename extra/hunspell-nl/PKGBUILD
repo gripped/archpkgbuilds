@@ -3,14 +3,14 @@
 
 pkgname=hunspell-nl
 pkgver=2.20.19
-pkgrel=4
+pkgrel=5
 pkgdesc="Dutch hunspell dictionaries"
 arch=('any')
 url="https://www.opentaal.org/"
 license=('BSD' 'custom:Creative Commons, Attribution 3.0 Unported')
 depends=('hunspell')
 optdepends=('hunspell:  the spell checking libraries and apps')
-makedepends=('unzip' 'qt6-webengine')
+makedepends=('qt6-webengine')
 provides=('hunspell-dictionary')
 # Upstream source http://opentaal.org/bestanden/license_result/20-woordenlijst-v-210g-voor-openofficeorg-3?bid=20&agree=1
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/OpenTaal/opentaal-hunspell/archive/${pkgver}.tar.gz)
