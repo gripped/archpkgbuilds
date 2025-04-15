@@ -2,7 +2,7 @@
 
 pkgname=icon-library
 pkgver=0.0.20
-pkgrel=1
+pkgrel=2
 pkgdesc='Find the right icon to use on your GNOME application'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/design/icon-library'
@@ -31,6 +31,9 @@ prepare() {
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/World/design/icon-library/-/merge_requests/100
+  git cherry-pick -n 3e59835ac30e0af92945fa8b1b5c5df212b6bd82
 }
 
 build() {
