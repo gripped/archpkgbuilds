@@ -1,7 +1,7 @@
 pkgbase = gnome-dictionary
 	pkgdesc = Look up words in dictionary sources
 	pkgver = 40.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://wiki.gnome.org/Apps/Dictionary
 	arch = x86_64
 	groups = gnome-extra
@@ -12,7 +12,14 @@ pkgbase = gnome-dictionary
 	makedepends = meson
 	makedepends = yelp-tools
 	depends = gtk3
-	source = git+https://gitlab.gnome.org/GNOME/gnome-dictionary.git#commit=c37edfc2cbf91d6bae6d5264d0dcfcb5dd34b313
-	b2sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/gnome-dictionary.git?signed#tag=40.0
+	source = 0001-metainfo-Fix-screenshots.patch
+	source = 0001-Fix-crash-in-strv_concat.patch
+	source = 0001-Add-new-window-command-line-option.patch
+	validpgpkeys = 53EF3DC3B63E2899271BD26322E8091EEA11BBB7
+	b2sums = 1f5b9b325fbccba988a207006392550cc84da5eb7835478e49c0a13db0eda5d1f9e6111718e1d9089a2c6a47921bfa432be10a74aef13172b16e1ed3f6d0c7d2
+	b2sums = 4b72082bc0c13719672ae8419b335ad280e9e71f201a2cd2af3168a02141adcc914be465151557e57220182017d50eccf637ab46ca947691208e7d1dc8df89f3
+	b2sums = c9ec79e65aabb7168c211fcda619fc9453d47e5eaadd218779a1f5cef42fc466b9d6a683f75127373c8b1b3dd61323e6ade61994768ce801c3a348943a4a109f
+	b2sums = 5acb1a23f1b57520f938ce4b5c126a42681cc9cba64ae8483bc5034c3e006d5e144cd0fb82c5a3fd8db78a392e663c692b7d9503e334b0ffe702f71065c49c39
 
 pkgname = gnome-dictionary

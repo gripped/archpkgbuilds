@@ -3,7 +3,7 @@
 
 pkgname=gnome-dictionary
 pkgver=40.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Look up words in dictionary sources"
 url="https://wiki.gnome.org/Apps/Dictionary"
 arch=(x86_64)
@@ -17,14 +17,15 @@ makedepends=(
   yelp-tools
 )
 groups=(gnome-extra)
-_commit=c37edfc2cbf91d6bae6d5264d0dcfcb5dd34b313  # tags/40.0^0
-source=("git+https://gitlab.gnome.org/GNOME/gnome-dictionary.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gnome-dictionary.git?signed#tag=$pkgver"
+        0001-metainfo-Fix-screenshots.patch
+        0001-Fix-crash-in-strv_concat.patch
+        0001-Add-new-window-command-line-option.patch)
+b2sums=('1f5b9b325fbccba988a207006392550cc84da5eb7835478e49c0a13db0eda5d1f9e6111718e1d9089a2c6a47921bfa432be10a74aef13172b16e1ed3f6d0c7d2'
+        '4b72082bc0c13719672ae8419b335ad280e9e71f201a2cd2af3168a02141adcc914be465151557e57220182017d50eccf637ab46ca947691208e7d1dc8df89f3'
+        'c9ec79e65aabb7168c211fcda619fc9453d47e5eaadd218779a1f5cef42fc466b9d6a683f75127373c8b1b3dd61323e6ade61994768ce801c3a348943a4a109f'
+        '5acb1a23f1b57520f938ce4b5c126a42681cc9cba64ae8483bc5034c3e006d5e144cd0fb82c5a3fd8db78a392e663c692b7d9503e334b0ffe702f71065c49c39')
+validpgpkeys=(53EF3DC3B63E2899271BD26322E8091EEA11BBB7) # Emmanuele Bassi (GNOME) <ebassi@gnome.org>
 
 prepare() {
   cd $pkgname
@@ -35,6 +36,16 @@ prepare() {
 
   # Fix screenshot URLs
   git cherry-pick -n 29a5f8f5244eacc4b37e3588ab28c3de6601d74f
+  git apply -3 ../0001-metainfo-Fix-screenshots.patch
+
+  # Fix crash in strv_concat
+  git apply -3 ../0001-Fix-crash-in-strv_concat.patch
+
+  # Add "new-window" command-line option
+  git apply -3 ../0001-Add-new-window-command-line-option.patch
+
+  # Don't hide in KDE
+  sed -i '/^NotShowIn=KDE/d' data/org.gnome.Dictionary.desktop.in.in
 }
 
 build() {

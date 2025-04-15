@@ -1,0 +1,150 @@
+From f6a85e0e5e15732f74b582e52363761700c775cb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 15 Apr 2025 22:38:46 +0200
+Subject: [PATCH] Add "new-window" command-line option
+
+And specify the action in the desktop file.
+---
+ data/org.gnome.Dictionary.desktop.in.in |  5 +++
+ src/gdict-app-menus.ui                  |  2 +-
+ src/gdict-app.c                         | 55 ++++++++++++++++++-------
+ 3 files changed, 45 insertions(+), 17 deletions(-)
+
+diff --git a/data/org.gnome.Dictionary.desktop.in.in b/data/org.gnome.Dictionary.desktop.in.in
+index d1c97ae..c6a2fc0 100644
+--- a/data/org.gnome.Dictionary.desktop.in.in
++++ b/data/org.gnome.Dictionary.desktop.in.in
+@@ -13,3 +13,8 @@ Categories=GNOME;GTK;Office;Dictionary;
+ NotShowIn=KDE;
+ X-GNOME-DocPath=gnome-dictionary/gnome-dictionary.xml
+ DBusActivatable=true
++Actions=new-window;
++
++[Desktop Action new-window]
++Exec=gnome-dictionary --new-window
++Name=New Window
+diff --git a/src/gdict-app-menus.ui b/src/gdict-app-menus.ui
+index 5c045d5..5ae6fae 100644
+--- a/src/gdict-app-menus.ui
++++ b/src/gdict-app-menus.ui
+@@ -3,7 +3,7 @@
+     <section>
+       <item>
+         <attribute name="label" translatable="yes">_New Window</attribute>
+-        <attribute name="action">app.new</attribute>
++        <attribute name="action">app.new-window</attribute>
+         <attribute name="accel">&lt;Primary&gt;n</attribute>
+       </item>
+     </section>
+diff --git a/src/gdict-app.c b/src/gdict-app.c
+index 86af0d7..548b0ca 100644
+--- a/src/gdict-app.c
++++ b/src/gdict-app.c
+@@ -38,6 +38,12 @@
+ G_DEFINE_TYPE (GdictApp, gdict_app, GTK_TYPE_APPLICATION)
+ 
+ static GOptionEntry gdict_app_goptions[] = {
++  {
++    "new-window", 'n',
++    0,
++    G_OPTION_ARG_NONE, NULL,
++    N_("Open a new window"), NULL
++  },
+   {
+     "look-up", 0,
+     0,
+@@ -184,7 +190,7 @@ gdict_app_cmd_close (GSimpleAction *action,
+ 
+ static const GActionEntry app_entries[] =
+ {
+-  { "new", gdict_app_cmd_new, NULL, NULL, NULL },
++  { "new-window", gdict_app_cmd_new, NULL, NULL, NULL },
+   { "preferences", gdict_app_cmd_preferences, NULL, NULL, NULL },
+   { "help", gdict_app_cmd_help, NULL, NULL, NULL },
+   { "about", gdict_app_cmd_about, NULL, NULL, NULL },
+@@ -226,6 +232,7 @@ gdict_app_command_line (GApplication            *application,
+   GdictApp *app = GDICT_APP (application);
+   gsize words_len, i;
+   GVariantDict *options;
++  gboolean new_window = FALSE;
+   gchar **gdict_lookup_words = NULL;
+   gchar **gdict_match_words = NULL;
+   gchar **remaining = NULL;
+@@ -235,6 +242,7 @@ gdict_app_command_line (GApplication            *application,
+ 
+   options = g_application_command_line_get_options_dict (cmd_line);
+ 
++  g_variant_dict_lookup (options, "new-window", "b", &new_window);
+   g_variant_dict_lookup (options, "look-up", "^as", &gdict_lookup_words);
+   g_variant_dict_lookup (options, "match", "^as", &gdict_match_words);
+   g_variant_dict_lookup (options, "source", "&s", &gdict_source_name);
+@@ -262,14 +270,25 @@ gdict_app_command_line (GApplication            *application,
+   if (gdict_lookup_words == NULL &&
+       gdict_match_words == NULL)
+     {
+-      GtkWidget *window = gdict_window_new (GDICT_WINDOW_ACTION_CLEAR,
+-                                            GTK_APPLICATION (application),
+-                                            app->loader,
+-                                            gdict_source_name,
+-                                            gdict_database_name,
+-                                            gdict_strategy_name,
+-                                            NULL);
+-      gtk_widget_show (window);
++      GtkWidget *window;
++
++      window = GTK_WIDGET (gtk_application_get_active_window (GTK_APPLICATION (application)));
++
++      if (window == NULL || new_window)
++        {
++          window = gdict_window_new (GDICT_WINDOW_ACTION_CLEAR,
++                                     GTK_APPLICATION (application),
++                                     app->loader,
++                                     gdict_source_name,
++                                     gdict_database_name,
++                                     gdict_strategy_name,
++                                     NULL);
++          gtk_widget_show (window);
++        }
++      else
++        {
++          gtk_window_present (GTK_WINDOW (window));
++        }
+ 
+       goto out;
+     }
+@@ -327,13 +346,17 @@ static void
+ gdict_app_activate (GApplication *application)
+ {
+   GdictApp *app = GDICT_APP (application);
+-  GtkWidget *window = gdict_window_new (GDICT_WINDOW_ACTION_CLEAR,
+-                                        GTK_APPLICATION (application),
+-                                        app->loader,
+-                                        NULL, NULL, NULL,
+-                                        NULL);
++  GtkWidget *window;
+ 
+-  gtk_widget_show (window);
++  window = GTK_WIDGET (gtk_application_get_active_window (GTK_APPLICATION (application)));
++  if (window == NULL)
++    window = gdict_window_new (GDICT_WINDOW_ACTION_CLEAR,
++                               GTK_APPLICATION (application),
++                               app->loader,
++                               NULL, NULL, NULL,
++                               NULL);
++
++  gtk_window_present (GTK_WINDOW (window));
+ }
+ 
+ static void
+@@ -358,7 +381,7 @@ gdict_app_startup (GApplication *application)
+     "win.escape",           "Escape", NULL,
+     "win.help-overlay-ui",  "<Primary>question", NULL,
+     /* App shortcuts */
+-    "app.new",              "<Primary>n", NULL,
++    "app.new-window",       "<Primary>n", NULL,
+     "app.preferences",      "<Primary>comma", NULL,
+     "app.help",             "F1", NULL,
+     "app.close",            "<Primary>w", NULL,
+-- 
+2.49.0
+

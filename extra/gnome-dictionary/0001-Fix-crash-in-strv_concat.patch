@@ -1,0 +1,41 @@
+From b01ea9848778218dd9a858327057884d119f0312 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 15 Apr 2025 22:47:44 +0200
+Subject: [PATCH] Fix crash in strv_concat
+
+Crash happened when the --match command-line option was combined with other
+words
+---
+ src/gdict-app.c | 15 ++++++---------
+ 1 file changed, 6 insertions(+), 9 deletions(-)
+
+diff --git a/src/gdict-app.c b/src/gdict-app.c
+index 86af0d7..e849387 100644
+--- a/src/gdict-app.c
++++ b/src/gdict-app.c
+@@ -205,16 +205,13 @@ gdict_app_dispose (GObject *object)
+ static gchar **
+ strv_concat (gchar **strv1, gchar **strv2)
+ {
++  GStrvBuilder *builder;
+   gchar **tmp;
+-  guint len1, len2;
+-  gint i;
+-
+-  len1 = g_strv_length (strv1);
+-  len2 = g_strv_length (strv2);
+-  tmp = g_realloc (strv1, len1 + len2 + 1);
+-  for (i = 0; i < len2; i++)
+-    tmp[len1 + i] = (gchar *)strv2[i];
+-  tmp[len1 + len2] = NULL;
++
++  builder = g_strv_builder_new ();
++  g_strv_builder_addv (builder, (const char **)strv1);
++  g_strv_builder_addv (builder, (const char **)strv2);
++  tmp = g_strv_builder_end (builder);
+ 
+   return tmp;
+ }
+-- 
+2.49.0
+
