@@ -5,7 +5,7 @@
 
 pkgname=accerciser
 pkgver=3.46.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Interactive Python accessibility explorer for the GNOME desktop"
 url="https://wiki.gnome.org/Apps/Accerciser"
 arch=(any)
@@ -47,6 +47,14 @@ prepare() {
   git cherry-pick -n ea5b2dfedcbf79ba1492f7cd0bd3c0a53ebec733
   git cherry-pick -n 55462e60b520746e4265c9165164cbb467ec3162
   git cherry-pick -n eebe0199de8120c3383730a398a544d5d2839f7c
+
+  # Pass command-line arguments to the application
+  # https://gitlab.gnome.org/GNOME/accerciser/-/merge_requests/93
+  git cherry-pick -n 261dbba5fdff391bac8f929c56ee6a8b27e99a08
+
+  # Set application ID
+  # https://gitlab.gnome.org/GNOME/accerciser/-/merge_requests/94
+  git cherry-pick -n f34d59f814ed600a1a50ad9b188e6895e2915073
 }
 
 build() {
