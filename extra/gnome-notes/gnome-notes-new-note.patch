@@ -1,0 +1,67 @@
+From fb8934e73518cb6273c74f8488ed27db3b2f9674 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 13 Apr 2025 01:27:55 +0200
+Subject: [PATCH] application: Fix creating new note from remote instance
+
+This fixes the problem that the --new-note command line option was ignored
+if the application is already run.
+---
+ src/bjb-application.c | 28 +++++++++++++++++++++++++++-
+ 1 file changed, 27 insertions(+), 1 deletion(-)
+
+diff --git a/src/bjb-application.c b/src/bjb-application.c
+index ba96c5e4..411bad7e 100644
+--- a/src/bjb-application.c
++++ b/src/bjb-application.c
+@@ -233,6 +233,27 @@ bijiben_import_notes (BjbApplication *self, gchar *uri)
+                            uri);
+ }
+ 
++void
++on_new_note_cb (GSimpleAction *action,
++                GVariant      *parameter,
++                gpointer       user_data)
++{
++  BjbApplication *self;
++  BijiItem *item;
++
++  self = BJB_APPLICATION (user_data);
++
++  if (!self->is_loaded)
++      return;
++
++  self->new_note = FALSE;
++  item = BIJI_ITEM (biji_manager_note_new (
++                      self->manager,
++                      NULL,
++                      bjb_settings_get_default_location (self->settings)));
++  bijiben_new_window_internal (self, BIJI_NOTE_OBJ (item));
++}
++
+ void
+ on_import_notes_cb (GSimpleAction *action,
+                     GVariant      *parameter,
+@@ -349,6 +370,7 @@ manager_ready_cb (GObject *source,
+ }
+ 
+ static GActionEntry app_entries[] = {
++  { "new-note", on_new_note_cb, NULL, NULL, NULL },
+   { "import-notes", on_import_notes_cb, NULL, NULL, NULL },
+   { "view-trash", on_view_trash_cb, NULL, NULL, NULL },
+   { "text-size", NULL, "s", "'medium'", NULL },
+@@ -492,7 +514,11 @@ bijiben_application_local_command_line (GApplication *application,
+ 
+   files = g_ptr_array_new_with_free_func (g_object_unref);
+ 
+-  if (!self->new_note && remaining != NULL)
++  if (self->new_note && g_application_get_is_remote (application))
++  {
++    g_action_group_activate_action (G_ACTION_GROUP(application), "new-note", NULL);
++  }
++  else if (remaining != NULL)
+   {
+     gchar **args;
+ 
+-- 
+GitLab
+

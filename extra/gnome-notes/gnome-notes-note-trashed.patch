@@ -1,0 +1,30 @@
+From 840b3658f210b9703c0d2a2c18ba5b61af1b9f99 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 15 Apr 2025 16:38:05 +0200
+Subject: [PATCH] note-view: Don't try to switch to main view if detached
+
+It leads to a crash.
+---
+ src/bjb-note-view.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/src/bjb-note-view.c b/src/bjb-note-view.c
+index 732170c9..09ad2ce9 100644
+--- a/src/bjb-note-view.c
++++ b/src/bjb-note-view.c
+@@ -147,8 +147,10 @@ just_switch_to_main_view(BjbNoteView *self)
+   bjb_note_view_disconnect (self);
+ 
+   window = GTK_WINDOW(self->window);
+-  bjb_window_base_switch_to (BJB_WINDOW_BASE (window),
+-                             BJB_WINDOW_BASE_MAIN_VIEW);
++
++  if (!bjb_window_base_is_detached (BJB_WINDOW_BASE (window)))
++    bjb_window_base_switch_to (BJB_WINDOW_BASE (window),
++                               BJB_WINDOW_BASE_MAIN_VIEW);
+ }
+ 
+ static gboolean
+-- 
+GitLab
+

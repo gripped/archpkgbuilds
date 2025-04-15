@@ -1,0 +1,26 @@
+From abd7bf0e4c4ca648022fdb0992a48dd3212ffa3d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 4 Apr 2025 20:51:01 +0000
+Subject: [PATCH] application: Set prgname to application ID
+
+Using the application ID ensures that Wayland compositors could match the
+window with the application and show the appropriate icon for them.
+---
+ src/bjb-application.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/bjb-application.c b/src/bjb-application.c
+index ba96c5e4..fe3896f2 100644
+--- a/src/bjb-application.c
++++ b/src/bjb-application.c
+@@ -219,6 +219,7 @@ bjb_application_init (BjbApplication *self)
+   self->settings = bjb_settings_new ();
+   g_queue_init (&self->files_to_open);
+ 
++  g_set_prgname ("org.gnome.Notes");
+   gtk_window_set_default_icon_name ("org.gnome.Notes");
+ }
+ 
+-- 
+GitLab
+

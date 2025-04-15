@@ -1,4 +1,4 @@
-From 8d8f2ac0e4774c65813639bb8d334bd84ed6bb56 Mon Sep 17 00:00:00 2001
+From 46e2b38f17535fdc31cfdc8bdc994dd8ca9d8722 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Wed, 26 Mar 2025 14:03:32 +0000
 Subject: [PATCH] shell-search-provider: Don't build result when invalid ID
@@ -6,14 +6,14 @@ Subject: [PATCH] shell-search-provider: Don't build result when invalid ID
 
 This fixes an error when invalid IDs are passed to the GetResultMetas D-Bus interface.
 ---
- src/bijiben-shell-search-provider.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ src/bijiben-shell-search-provider.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/src/bijiben-shell-search-provider.c b/src/bijiben-shell-search-provider.c
-index bcf5c07c..f45d39f1 100644
+index bcf5c07c..c9939c45 100644
 --- a/src/bijiben-shell-search-provider.c
 +++ b/src/bijiben-shell-search-provider.c
-@@ -260,10 +260,13 @@ add_single_note_meta (BijibenShellSearchProviderApp *self,
+@@ -260,10 +260,14 @@ add_single_note_meta (BijibenShellSearchProviderApp *self,
  
    if (tracker_sparql_cursor_next (cursor, NULL, NULL))
    {
@@ -21,7 +21,8 @@ index bcf5c07c..f45d39f1 100644
 -
      /* NIE:URL (id) */
      url = tracker_sparql_cursor_get_string (cursor, 0, 0);
-+    if (url == NULL) {
++    if (url == NULL)
++    {
 +      g_object_unref (cursor);
 +      return;
 +    }
