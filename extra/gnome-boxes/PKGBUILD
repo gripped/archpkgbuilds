@@ -6,7 +6,7 @@
 
 pkgname=gnome-boxes
 pkgver=48.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple GNOME application to access virtual systems'
 arch=(x86_64)
 url='https://apps.gnome.org/Boxes/'
@@ -36,6 +36,7 @@ depends=(
   spice-gtk
   webkit2gtk-4.1
   xdg-user-dirs
+  xdg-user-dirs-gtk
 )
 makedepends=(
   appstream
