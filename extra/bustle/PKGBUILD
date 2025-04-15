@@ -2,7 +2,7 @@
 
 pkgname=bustle
 pkgver=0.11.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Draw sequence diagrams of D-Bus traffic'
 arch=(x86_64)
 url='https://apps.gnome.org/Bustle/'
@@ -33,9 +33,17 @@ prepare() {
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 
-  # Fix new-window action
+  # Remove new-window action entry
   # https://gitlab.gnome.org/World/bustle/-/merge_requests/149
   git cherry-pick -n 970db29f959b7b81b6d091bc84cc2d0429cbed75
+
+  # Add D-Bus service file
+  # https://gitlab.gnome.org/World/bustle/-/merge_requests/151
+  git cherry-pick -n fefded8ae1c80b861fadaf801b2c14945335a2d6
+
+  # Add "new-window" command-line option
+  # https://gitlab.gnome.org/World/bustle/-/merge_requests/150
+  git cherry-pick -n 93b0beee8e7a3576ce01ca6626900a677da901ea
 }
 
 build() {
