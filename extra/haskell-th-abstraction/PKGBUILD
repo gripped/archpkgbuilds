@@ -3,16 +3,16 @@
 
 _hkgname=th-abstraction
 pkgname=haskell-th-abstraction
-pkgver=0.4.5.0
-pkgrel=3
+pkgver=0.5.0.0
+pkgrel=1
 pkgdesc="Nicer interface for reified information about data types"
 url="https://github.com/glguy/th-abstraction/"
-license=("custom:ISC")
+license=("ISC")
 arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('eaea551b54d40bbd6056e6f7b14e662e7302cb016fe082b9715e248e05988197deebe6108e2adcb7709046a8a326e417fddd1899af3f810c2faa444da5cf4a41')
+sha512sums=('e58336d392fa6f1fb9a39c79c1f62e24a8d0610dc0d5d9266a3e3d7fb607284143aa7aef13aa94b0fc28fdcd57e1092098d72970b49c9e9ee64d72bd0596f407')
 
 build() {
     cd $_hkgname-$pkgver
