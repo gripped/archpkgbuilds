@@ -1,0 +1,27 @@
+From eb883d7b29a1dd886ef40b9cc0f8ecf46bfcc0f2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 5 Apr 2025 22:07:46 +0000
+Subject: [PATCH] application: Raise last active window on activate
+
+This fixes the problem that not the last active window get the focus
+when activation requested.
+---
+ apostrophe/application.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/apostrophe/application.py b/apostrophe/application.py
+index 43f76eb..ba902f6 100644
+--- a/apostrophe/application.py
++++ b/apostrophe/application.py
+@@ -134,7 +134,7 @@ class Application(Adw.Application):
+ 
+         self._set_color_scheme()
+ 
+-        self.get_windows()[-1].present()
++        self.get_active_window().present()
+ 
+     def do_handle_local_options(self, options):
+         if options.contains("verbose") or self._application_id \
+-- 
+GitLab
+

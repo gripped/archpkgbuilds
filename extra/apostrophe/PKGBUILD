@@ -2,7 +2,7 @@
 
 pkgname=apostrophe
 pkgver=3.2
-pkgrel=6
+pkgrel=7
 pkgdesc='Distraction free Markdown editor'
 arch=(any)
 url='https://apps.gnome.org/Apostrophe/'
@@ -40,12 +40,18 @@ source=(
   apostrophe-decoding-error.patch
   apostrophe-advanced-export-path.patch
   apostrophe-new-window.patch
+  apostrophe-raise-window.patch
+  apostrophe-dbus-activatable.patch
 )
-b2sums=('cdc29505c886181ca7ae8c66559a17ceec2884a6a656819930015fc8ba210bdab71d7f216cd9bac580710559c7d74d010f84a9a9e9ed0fb50c8b1f41be1c9178'
-        '1c0be37bbf09e908e69095226978c3fc2725cb687f689fe14f097c81cf87a40754804f9dad368caefa71571d21e37d79f3f339e5058da159e7fd0d36f4c9abbb'
-        'f8250671e7fa53869a13baf9714cbb2a9bfb25a73aace53eb063e0fd0d4e8c8bab7e4c251481e0ab985c402efce9eeb109a2206f436d2b1f659b7b0755e490f3'
-        'eb029ce12fb96a9379e9c68993921122a9e3935f4223dbac5b19039394917f8a83c0412fa8a8b7778e8f54ae406b6f728651426340d32a838eaffc3add8bf095'
-        'bce511eedc9f8106279c95fc34771282f14f6f906ad09dec8bf7fd7fa453c622ac8c820a50fdd08e3e3b0b63c88ca0e0ecce2397324075bb4e9ac4f3017d6e8d')
+b2sums=(
+  cdc29505c886181ca7ae8c66559a17ceec2884a6a656819930015fc8ba210bdab71d7f216cd9bac580710559c7d74d010f84a9a9e9ed0fb50c8b1f41be1c9178
+  1c0be37bbf09e908e69095226978c3fc2725cb687f689fe14f097c81cf87a40754804f9dad368caefa71571d21e37d79f3f339e5058da159e7fd0d36f4c9abbb
+  f8250671e7fa53869a13baf9714cbb2a9bfb25a73aace53eb063e0fd0d4e8c8bab7e4c251481e0ab985c402efce9eeb109a2206f436d2b1f659b7b0755e490f3
+  eb029ce12fb96a9379e9c68993921122a9e3935f4223dbac5b19039394917f8a83c0412fa8a8b7778e8f54ae406b6f728651426340d32a838eaffc3add8bf095
+  bce511eedc9f8106279c95fc34771282f14f6f906ad09dec8bf7fd7fa453c622ac8c820a50fdd08e3e3b0b63c88ca0e0ecce2397324075bb4e9ac4f3017d6e8d
+  a7bd40ba97eca5d1881c85d144208be3bc00738e2adfff2609052966c5cedbaa4814db3d95938ecee1fc22e095a69ffe3f23ae7e140b50e5c6ed7b1471868690
+  a605c247da00c0173314d6af6584ba26b858a477118f3c6e5ef998cfc562e192dd55f24dba03241c849e30adc3fb9abb6b03798d98670c9066ec428ef068e03d
+)
 
 prepare() {
   cd $pkgname
@@ -110,6 +116,13 @@ prepare() {
 
   # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/328
   git apply -3 ../apostrophe-new-window.patch
+
+  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/329
+  git apply -3 ../apostrophe-raise-window.patch
+
+  # https://gitlab.gnome.org/World/apostrophe/-/merge_requests/330
+  git cherry-pick -n d72f5f3dd2c5c07be4742a990ec1cabf1b863b4e
+  git apply -3 ../apostrophe-dbus-activatable.patch
 }
 
 build() {
