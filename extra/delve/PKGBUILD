@@ -1,7 +1,7 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=delve
-pkgver=1.24.1
+pkgver=1.24.2
 pkgrel=1
 pkgdesc="A debugger for the Go programming language."
 arch=('x86_64')
@@ -11,7 +11,7 @@ makedepends=('go' 'git')
 optdepends=('debuginfod: debuginfod support')
 options=(!lto strip)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/go-delve/delve/archive/v${pkgver}.tar.gz")
-sha256sums=('1bc657e7e429c4917b6cae562356bf6da6cebcd4fde35f236e8174743d9e1eb8')
+sha256sums=('c26cce64c4cbef25b7652708cda198e9c081ea3abfbe411ed8048e131dba6275')
 
 build(){
   cd "${pkgname}-${pkgver}"
