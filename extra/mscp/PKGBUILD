@@ -1,7 +1,7 @@
 # Maintainer: T.J. Townsend <blakkheim@archlinux.org>
 
 pkgname=mscp
-pkgver=0.2.1
+pkgver=0.2.2
 pkgrel=1
 pkgdesc='transfer files over multiple SSH (SFTP) connections'
 url='https://github.com/upa/mscp'
@@ -11,7 +11,7 @@ depends=('gcc-libs' 'glibc' 'krb5' 'openssl' 'zlib')
 makedepends=('cmake' 'git')
 source=(git+https://github.com/upa/mscp.git#tag=v${pkgver}
         git+https://git.libssh.org/projects/libssh.git)
-sha256sums=('753f395dd35da25f610fb07ffe75eadac239ba3dd3458fd0dd85a99f605db968'
+sha256sums=('f3203a5622eee2b2045a9f7a31c14a81a66edf6da07a99367ffdaafa3d539d7e'
             'SKIP')
 
 prepare() {
