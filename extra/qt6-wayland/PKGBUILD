@@ -5,7 +5,7 @@
 pkgname=qt6-wayland
 _pkgver=6.9.0
 pkgver=${_pkgver/-/}
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -29,6 +29,12 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
 sha256sums=('b5507dcbd923b70e5e4b0b866f422070c51e1fc0a25972ca7af38bf3660870b7')
+
+prepare() {
+  cd $_pkgfn
+  # upstream suggested backport to fix a bug where applet popups don't appear when clicking their icons in the panel.
+  git cherry-pick -n e4556c59f0c8250da7c16759432b2ac0a5ac9d9f
+}
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
