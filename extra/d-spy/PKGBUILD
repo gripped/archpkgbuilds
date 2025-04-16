@@ -3,7 +3,7 @@
 
 pkgname=d-spy
 pkgver=48.0
-pkgrel=1
+pkgrel=2
 pkgdesc="D-Bus debugger for GNOME"
 url="https://apps.gnome.org/Dspy/"
 arch=(x86_64)
@@ -27,6 +27,22 @@ makedepends=(
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/d-spy.git#tag=${pkgver/[a-z]/.&}")
 b2sums=('12fa78ff8371098baf18244c493108cd3048cad6b5655a567bbe866794ece855e116a65b3c5c92f38eaafbd782104448faa64ee51178f4823d0bd81373f8f7b0')
+
+prepare() {
+  cd d-spy
+
+  # Remove WindowHandler behavior from DspyView bottom
+  # https://gitlab.gnome.org/GNOME/d-spy/-/merge_requests/32
+  git cherry-pick -n 8fc6ce1d2e52bb78e02888625ca431226af351d8
+
+  # Add "new-window" and "version" command-line options
+  # https://gitlab.gnome.org/GNOME/d-spy/-/merge_requests/31
+  git cherry-pick -n bfc1a4ee0568262b26ff2ac86d2589dcd5431f40
+
+  # Add D-Bus service file
+  # https://gitlab.gnome.org/GNOME/d-spy/-/merge_requests/33
+  git cherry-pick -n 84c6327289b69fabe9ce0c91e54f8910a82ff72c
+}
 
 build() {
   arch-meson d-spy build
