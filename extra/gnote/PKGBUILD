@@ -5,7 +5,7 @@
 
 pkgname=gnote
 pkgver=48.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A note taking application"
 url="https://wiki.gnome.org/Apps/Gnote"
 arch=(x86_64)
@@ -39,6 +39,11 @@ b2sums=('6ffde8bc49ff294453471de2de81286747da9d4abee466fc962ead6b35146c06ccf0681
 
 prepare() {
   cd gnote
+
+  # Add "new-window" command-line option
+  # https://gitlab.gnome.org/GNOME/gnote/-/merge_requests/37
+  git cherry-pick -n 37f1c993236ba07128b1a34a6e419f6e6d5ef551
+  git cherry-pick -n a5c7ce44cc56ea5a12153a0cd51dfddf22472413
 }
 
 build() {
