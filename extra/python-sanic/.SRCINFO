@@ -1,10 +1,11 @@
 pkgbase = python-sanic
 	pkgdesc = Async Python 3.8+ web server/framework | Build fast. Run fast.
-	pkgver = 24.6.0
-	pkgrel = 4
+	pkgver = 24.12.0
+	pkgrel = 1
 	url = https://sanic.dev/
 	arch = any
 	license = MIT
+	makedepends = git
 	makedepends = python-setuptools
 	depends = python-sanic-routing
 	depends = python-httptools
@@ -15,7 +16,7 @@ pkgbase = python-sanic
 	depends = python-multidict
 	depends = python-tracerite
 	depends = python-html5tagger
-	source = https://github.com/sanic-org/sanic/archive/v24.6.0/python-sanic-24.6.0.tar.gz
-	sha256sums = 7d92b5a8169308d544fb2e19cdd9cee395c2fefa68a054e8025e070d44519065
+	source = git+https://github.com/sanic-org/sanic.git#tag=v24.12.0
+	sha256sums = 1cd54cf69752808c3a6fb93d1f3fee63ea6223e7a38b3eaf0f8fa61a965831a3
 
 pkgname = python-sanic
