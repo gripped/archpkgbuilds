@@ -3,7 +3,7 @@
 
 pkgname=apparmor
 pkgver=4.1.0
-pkgrel=1
+pkgrel=3
 pkgdesc="Mandatory Access Control (MAC) using Linux Security Module (LSM)"
 arch=(x86_64)
 url="https://gitlab.com/apparmor/apparmor"
@@ -36,13 +36,17 @@ checkdepends=(
   python-gobject
   python-notify2
   python-psutil
+  sqlite
   tk
 )
 optdepends=(
   'perl: for perl bindings'
+  'python-gobject: for aa-notify'
   'python-notify2: for aa-notify'
   'python-psutil: for aa-notify'
   'ruby: for ruby bindings'
+  'sqlite: for aa-notify'
+  'tk: for aa-notify'
 )
 provides=(libapparmor.so)
 backup=(
