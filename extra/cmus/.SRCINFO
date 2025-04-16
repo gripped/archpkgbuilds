@@ -1,10 +1,11 @@
 pkgbase = cmus
 	pkgdesc = Feature-rich ncurses-based music player
 	pkgver = 2.12.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://cmus.github.io/
 	arch = x86_64
-	license = GPL
+	license = GPL-2.0-only
+	makedepends = git
 	makedepends = faad2
 	makedepends = ffmpeg
 	makedepends = flac
@@ -20,8 +21,10 @@ pkgbase = cmus
 	makedepends = libvorbis
 	makedepends = opusfile>=0.12
 	makedepends = wavpack
+	depends = glibc
 	depends = libdiscid
 	depends = ncurses
+	depends = systemd-libs
 	optdepends = alsa-lib: for ALSA output plugin support
 	optdepends = libao: for AO output plugin support
 	optdepends = libpulse: for PulseAudio output plugin support
@@ -38,7 +41,8 @@ pkgbase = cmus
 	optdepends = libcdio-paranoia: for cdio support
 	optdepends = opusfile: for opus input plugin support
 	optdepends = wavpack: for wavpack input plugin support
-	source = cmus-2.12.0.tar.gz::https://github.com/cmus/cmus/archive/v2.12.0.tar.gz
-	sha256sums = 44b96cd5f84b0d84c33097c48454232d5e6a19cd33b9b6503ba9c13b6686bfc7
+	source = cmus::git+https://github.com/cmus/cmus#tag=v2.12.0
+	sha512sums = 03e660ab7f6aabf86cfdcce3f6d277463eba4502b8c967df968af3e3062e596c07fb21287801c390e76ea73d4f7a19dffc8dd84a7253806a6a376b9d89496e93
+	b2sums = 3839d1c30429b261c814f89f3e758204d983ab491f3f7cb1f7e83173394f7625661d6a8d44f759987edd11f53bbca2b3100b82bf5ff4a3229526082a06f8aa98
 
 pkgname = cmus

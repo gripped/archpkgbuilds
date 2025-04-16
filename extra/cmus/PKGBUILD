@@ -6,13 +6,19 @@
 
 pkgname=cmus
 pkgver=2.12.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Feature-rich ncurses-based music player'
 arch=('x86_64')
 url='https://cmus.github.io/'
-license=('GPL')
-depends=('libdiscid' 'ncurses')
+license=('GPL-2.0-only')
+depends=(
+  'glibc'
+  'libdiscid'
+  'ncurses'
+  'systemd-libs'
+)
 makedepends=(
+  'git'
   'faad2'
   'ffmpeg'
   'flac'
@@ -29,33 +35,42 @@ makedepends=(
   'opusfile>=0.12'
   'wavpack'
 )
-optdepends=('alsa-lib: for ALSA output plugin support'
-            'libao: for AO output plugin support'
-            'libpulse: for PulseAudio output plugin support'
-            'faad2: for AAC input plugin support'
-            'ffmpeg: for ffmpeg input plugin support'
-            'flac: for flac input plugin support'
-            'jack: for jack plugin support'
-            'libmad: for mp3 input plugin support'
-            'libmodplug: for modplug input plugin support'
-            'libmp4v2: for mp4 input plugin support'
-            'libmpcdec: for musepack input plugin support'
-            'libsamplerate: for sampe rate converter support'
-            'libvorbis: for vorbis input plugin support'
-            'libcdio-paranoia: for cdio support'
-            'opusfile: for opus input plugin support'
-            'wavpack: for wavpack input plugin support')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/cmus/cmus/archive/v${pkgver}.tar.gz")
-sha256sums=('44b96cd5f84b0d84c33097c48454232d5e6a19cd33b9b6503ba9c13b6686bfc7')
+optdepends=(
+  'alsa-lib: for ALSA output plugin support'
+  'libao: for AO output plugin support'
+  'libpulse: for PulseAudio output plugin support'
+  'faad2: for AAC input plugin support'
+  'ffmpeg: for ffmpeg input plugin support'
+  'flac: for flac input plugin support'
+  'jack: for jack plugin support'
+  'libmad: for mp3 input plugin support'
+  'libmodplug: for modplug input plugin support'
+  'libmp4v2: for mp4 input plugin support'
+  'libmpcdec: for musepack input plugin support'
+  'libsamplerate: for sampe rate converter support'
+  'libvorbis: for vorbis input plugin support'
+  'libcdio-paranoia: for cdio support'
+  'opusfile: for opus input plugin support'
+  'wavpack: for wavpack input plugin support'
+)
+source=("$pkgname::git+https://github.com/cmus/cmus#tag=v$pkgver")
+sha512sums=('03e660ab7f6aabf86cfdcce3f6d277463eba4502b8c967df968af3e3062e596c07fb21287801c390e76ea73d4f7a19dffc8dd84a7253806a6a376b9d89496e93')
+b2sums=('3839d1c30429b261c814f89f3e758204d983ab491f3f7cb1f7e83173394f7625661d6a8d44f759987edd11f53bbca2b3100b82bf5ff4a3229526082a06f8aa98')
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
+
   ./configure prefix=/usr
+
   make
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
+
   make DESTDIR="$pkgdir" install
-  install -Dm644 contrib/_cmus "$pkgdir"/usr/share/zsh/site-functions/_cmus
+
+  # shell completions
+  install -vDm644 contrib/_cmus "$pkgdir/usr/share/zsh/site-functions/_cmus"
+  install -vDm644 contrib/cmus.bash-completion "$pkgdir/usr/share/bash-completion/completions/cmus"
 }
