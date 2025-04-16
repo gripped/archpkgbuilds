@@ -1,0 +1,41 @@
+From 125619c26864b82e1e4ebc217c9fe1ba9ef719e2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 4 Apr 2025 18:50:13 +0000
+Subject: [PATCH] desktop: Specify new-window action
+
+This allows application launchers to provide a New Window entry for the
+users.
+---
+ data/org.gnome.Devhelp.desktop.in.in | 5 +++++
+ src/dh-app.c                         | 2 +-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/data/org.gnome.Devhelp.desktop.in.in b/data/org.gnome.Devhelp.desktop.in.in
+index fdd7bc07..c9cb9853 100644
+--- a/data/org.gnome.Devhelp.desktop.in.in
++++ b/data/org.gnome.Devhelp.desktop.in.in
+@@ -12,3 +12,8 @@ Icon=@application_id@
+ Categories=GNOME;GTK;Development;
+ StartupNotify=true
+ DBusActivatable=true
++Actions=new-window;
++
++[Desktop Action new-window]
++Name=New Window
++Exec=devhelp --new-window
+diff --git a/src/dh-app.c b/src/dh-app.c
+index 71183073..c9619320 100644
+--- a/src/dh-app.c
++++ b/src/dh-app.c
+@@ -364,7 +364,7 @@ dh_app_startup (GApplication *application)
+ static void
+ dh_app_activate (GApplication *app)
+ {
+-        g_action_group_activate_action (G_ACTION_GROUP (app), "new-window", NULL);
++        g_action_group_activate_action (G_ACTION_GROUP (app), "raise", NULL);
+ }
+ 
+ static gboolean option_version;
+-- 
+GitLab
+

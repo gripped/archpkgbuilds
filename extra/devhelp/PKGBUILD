@@ -5,7 +5,7 @@
 pkgbase=devhelp
 pkgname=(devhelp devhelp-docs)
 pkgver=43.0
-pkgrel=2
+pkgrel=3
 pkgdesc="API documentation browser for GNOME"
 url="https://apps.gnome.org/Devhelp/"
 arch=(x86_64)
@@ -13,12 +13,24 @@ license=(GPL)
 depends=(webkit2gtk-4.1)
 makedepends=(git appstream-glib gobject-introspection meson yelp-tools
              gi-docgen glib2-devel)
-source=("git+https://gitlab.gnome.org/GNOME/devhelp.git?signed#tag=$pkgver")
-sha256sums=('e7d1fac86c028c08418e70364615a0170c012f1a999a537bff574a3120e75bf2')
+source=("git+https://gitlab.gnome.org/GNOME/devhelp.git?signed#tag=$pkgver"
+        devhelp-prgname.patch
+        devhelp-new-window.patch)
+sha256sums=('e7d1fac86c028c08418e70364615a0170c012f1a999a537bff574a3120e75bf2'
+            '14df513d3973603554179541e015440f0faca732e9d0511f4885b83363b346f4'
+            '8b567bff36e35061322b3e13799063496600da412cc1ef192546ef52b523384b')
 validpgpkeys=(53EF3DC3B63E2899271BD26322E8091EEA11BBB7) # Emmanuele Bassi (GNOME) <ebassi@gnome.org>
 
 prepare() {
   cd devhelp
+
+  # Set prgname to application ID
+  # https://gitlab.gnome.org/GNOME/devhelp/-/merge_requests/60
+  git apply -3 ../devhelp-prgname.patch
+
+  # Specify new-window action
+  # https://gitlab.gnome.org/GNOME/devhelp/-/merge_requests/65
+  git apply -3 ../devhelp-new-window.patch
 }
 
 build() {
