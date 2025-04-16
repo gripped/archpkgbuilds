@@ -4,25 +4,30 @@ _pkgname='keras'
 pkgname=("python-${_pkgname}")
 pkgdesc='Deep Learning for humans'
 url='https://keras.io/'
-license=('Apache')
-pkgver=3.4.1
-pkgrel=2
+license=('Apache-2.0')
+pkgver=3.9.2
+pkgrel=1
 arch=('any')
-source=("https://files.pythonhosted.org/packages/py3/${_pkgname::1}/$_pkgname/${_pkgname//-/_}-$pkgver-py3-none-any.whl"
-        "${_pkgname}-${pkgver}-LICENSE::https://raw.githubusercontent.com/keras-team/${_pkgname}/v${pkgver}/LICENSE")
-makedepends=('python-build' 'python-installer' 'python-wheel')
-depends=('absl-py' 'python' 'python-h5py' 'python-optree' 'python-rich'
-         'python-ml-dtypes' 'python-packaging' 'python-numpy' 'python-pandas'
-         'python-pillow' 'python-pydot' 'python-scipy' 'python-tensorflow' 'python-yaml'
+source=("https://files.pythonhosted.org/packages/source/${_pkgname::1}/${_pkgname//-/_}/${_pkgname//-/_}-$pkgver.tar.gz")
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+depends=('absl-py' 'python' 'python-h5py' 'python-ml-dtypes' 'python-optree'
+         'python-numpy' 'python-packaging' 'python-pandas' 'python-pillow'
+         'python-pydot' 'python-rich' 'python-scipy' 'python-tensorflow'
          'tensorboard')
-optdepends=('python-pytorch')
-conflicts=('python-keras-preprocessing')
-provides=('python-keras-preprocessing')
-replaces=('python-keras-preprocessing')
-b2sums=('ae807d9dbf3956ed9f2faa5fb829175635b7745e95b4d6b0a896362007b6ca9f3798430bc6a5f7d9485e504da081ee2f9f4e63dc5cbf86cf2bfa67a1af624257'
-        'a7012f8ac44cd4cc809a89967060560383ac20c7e66f13e30dbd2e28ed0c60a78a84ee4f58baf21f7f5ef63cefe5b6bb4b65d2046e1cc98049218040b06b104d')
+optdepends=('python-pytorch'
+            'python-requests: for RemoteMonitor'
+            'python-scikit-learn: wrappers for scikit-learn')
+conflicts=('python-keras-applications' 'python-keras-preprocessing')
+provides=('python-keras-applications' 'python-keras-preprocessing')
+replaces=('python-keras-applications' 'python-keras-preprocessing')
+b2sums=('020906f884663d9fc226ff0443ce53c2b72246ce706679074b385ce25bfafd7c8d4ff62eb2c661be0f0cbfe98e52fdeada86bea77d5fee85740bb2742d87e264')
+
+build() {
+  cd $_pkgname-$pkgver
+  python -m build --wheel --no-isolation
+}
 
 package () {
-  python -m installer --destdir="$pkgdir" *.whl
-  install -Dm 644 "${_pkgname}-${pkgver}-LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  cd $_pkgname-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
