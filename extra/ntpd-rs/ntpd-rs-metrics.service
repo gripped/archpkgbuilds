@@ -1,0 +1,38 @@
+[Unit]
+Description=Prometheus metrics exporter for ntpd-rs Network Time Service
+Documentation=man:ntp.toml(5) man:ntp-metrics-exporter(8) https://docs.ntpd-rs.pendulum-project.org
+After=network-online.target ntpd-rs.service
+Wants=network-online.target ntpd-rs.service
+
+[Service]
+CapabilityBoundingSet=~CAP_AUDIT_CONTROL CAP_AUDIT_READ CAP_AUDIT_WRITE CAP_BLOCK_SUSPEND CAP_BPF CAP_CHOWN CAP_DAC_OVERRIDE CAP_DAC_READ_SEARCH CAP_FOWNER CAP_FSETID CAP_IPC_LOCK CAP_IPC_OWNER CAP_KILL CAP_LEASE CAP_LINUX_IMMUTABLE CAP_MAC_OVERRIDE CAP_MAC_ADMIN CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_BROADCAST CAP_NET_RAW CAP_SETFCAP CAP_SETGID CAP_SETPCAP CAP_SETUID CAP_SYS_ADMIN CAP_SYS_BOOT CAP_SYS_CHROOT CAP_SYS_NICE CAP_SYS_RESOURCE CAP_SYS_PACCT CAP_SYS_PTRACE CAP_SYS_TIME CAP_SYS_TTY_CONFIG CAP_WAKE_ALARM
+DynamicUser=yes
+Environment="RUST_LOG=info"
+ExecStartPre=/usr/bin/ntp-ctl validate
+ExecStart=/usr/bin/ntp-metrics-exporter
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+NoNewPrivileges=yes
+PrivateDevices=yes
+PrivateUsers=self
+ProtectClock=yes
+ProtectControlGroups=yes
+ProtectHome=yes
+ProtectHostname=yes
+ProtectKernelLogs=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+ProtectProc=invisible
+Restart=on-failure
+RestartSec=5
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+RuntimeDirectory=ntpd-rs
+SystemCallArchitectures=native
+SystemCallFilter=~@clock @cpu-emulation @module @mount @obsolete @privileged @raw-io @reboot @resources @swap
+
+[Install]
+WantedBy=multi-user.target
+

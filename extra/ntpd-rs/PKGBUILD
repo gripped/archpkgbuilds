@@ -1,0 +1,67 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=ntpd-rs
+pkgver=1.5.0
+pkgrel=2
+pkgdesc="Full-featured implementation of NTP with NTS support"
+arch=(x86_64)
+url="https://docs.ntpd-rs.pendulum-project.org"
+_url="https://github.com/pendulum-project/ntpd-rs"
+license=('Apache-2.0 OR MIT')
+depends=(
+  gcc-libs
+  glibc
+)
+makedepends=(
+  pandoc
+  rust
+)
+backup=(etc/$pkgname/ntp.toml)
+source=(
+  $pkgname-$pkgver.tar.gz::$_url/archive/refs/tags/v$pkgver.tar.gz
+  50-$pkgname.list
+  $pkgname.service
+  $pkgname-metrics.service
+)
+sha512sums=('0374bb7bbc10b21adc376d108bead441a3955aa5164ca6a855e750673dda511ed10feeac8a0c010acaca09a40454d91823aeb3430027a3871787717380aa8f36'
+            'e5dae786b999383980dc1d9aaee125ee18c52651abf163a3c38a2fdaa97b9de8940052af5a4e8ce1826444fc3f246740b1a95aa35f96c8484ccb683b0f638783'
+            '04e46533dcbeb97ae5e04f0f714ee4a7feae66fa5dc7bc894d7996bcab58ece661abe790ff48416599ddad6dfed4a10e7e895903072d6a70a0b29ec9c98feb63'
+            '00ac29201d87e745ff1c46032f32cb21b0c20e7e56cbfad1bc34fb68c26383706a31615e52db4baecb6442687e8921003361f8d8be5eeae4358830c8756bbe17')
+b2sums=('79e0fe70ef7bfc69f4230618dc9c04582f42a6bdf6efb42fe187f99b32c904317ef6a4a1ec320635786a8b62de709a78d45ca77fadf61130e03b4c020702c192'
+        '8013fe6de65a093366d79e09b9d5ed9975cf707cfa282b9abe8e5f3be5885ec668c598cba2d2b204388b291fbe2ef249f091bd5a480d1c3d951b1ffe34cae831'
+        '5d392c85742722d8850a96122ca380e2b45bda7c958df5f81d8f3f390525f76dbcf2dcb837b2f02624bb51a766ccd78c68c33b379990749b5a298fa9875b4a6c'
+        'b409414cb467c9e17d5711f75b528853d193f9a48acf1c9fe2ae47eb4d8e6a69f5223e176267aa1dff33c97c41b2cbcd3d9e12d9d2dd04f3a8d1f07b0f69f679')
+
+prepare() {
+  cd $pkgname-$pkgver
+  RUSTUP_TOOLCHAIN=stable cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  local man_page
+
+  cd $pkgname-$pkgver
+
+  # create man pages
+  for man_page in docs/man/*.md; do
+    sed 's/<!-- //;s/ -->//' "$man_page" | pandoc --standalone --to man --output "${man_page%.md}"
+  done
+
+  RUSTUP_TOOLCHAIN=stable CFLAGS+=" -ffat-lto-objects" cargo build --all-features --frozen --release --target-dir=target
+}
+
+check() {
+  cd $pkgname-$pkgver
+  RUSTUP_TOOLCHAIN=stable CFLAGS+=" -ffat-lto-objects" cargo test --frozen --all-features
+}
+
+package() {
+  cd $pkgname-$pkgver
+  install -vDm 755 target/release/ntp-{ctl,daemon,metrics-exporter} -t "$pkgdir/usr/bin/"
+  install -vDm 644 docs/examples/conf/ntp.toml.default "$pkgdir/etc/$pkgname/ntp.toml"
+  install -vDm 644 ../*.service -t "$pkgdir/usr/lib/systemd/system/"
+  install -vDm 644 ../50-$pkgname.list -t "$pkgdir/usr/lib/systemd/ntp-units.d/"
+  install -vDm 644 docs/man/*.5 -t "$pkgdir/usr/share/man/man5/"
+  install -vDm 644 docs/man/*.8 -t "$pkgdir/usr/share/man/man8/"
+  install -vDm 644 LICENSE* -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
