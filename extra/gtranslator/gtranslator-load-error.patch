@@ -1,0 +1,32 @@
+From a8ea63af7a41c811dd2da41f3723d3c991b897fa Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 2 Apr 2025 15:41:34 +0000
+Subject: [PATCH] po: Pass error when fails to load
+
+This fixes the problem that no error message is shown when the file
+cannot be read.
+---
+ src/gtr-po.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/src/gtr-po.c b/src/gtr-po.c
+index 567e504d0..fd1c412f1 100644
+--- a/src/gtr-po.c
++++ b/src/gtr-po.c
+@@ -531,11 +531,10 @@ _gtr_po_load_ensure_utf8 (GtrPo * po, GError ** error)
+   g_autofree gchar *content = NULL;
+   gboolean utf8_valid;
+   gsize size;
+-  g_autoptr (GError) err = NULL;
+   GtrPoPrivate *priv = gtr_po_get_instance_private (po);
+ 
+-  g_file_load_contents (priv->location, NULL, &content, &size, NULL, &err);
+-  if (err != NULL)
++  g_file_load_contents (priv->location, NULL, &content, &size, NULL, error);
++  if (*error != NULL)
+     return FALSE;
+ 
+   utf8_valid = g_utf8_validate (content, size, NULL);
+-- 
+GitLab
+

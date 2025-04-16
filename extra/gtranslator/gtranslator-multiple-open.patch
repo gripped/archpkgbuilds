@@ -1,0 +1,41 @@
+From b00c3b09439f465890aff36f00fde16d5b1f675b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 1 Apr 2025 23:27:15 +0200
+Subject: [PATCH] actions-file: Fix opening multiple files
+
+Currently Gtranslator supports only one tab per window, so if multiple
+files are opened, we need to create new window for each one.
+---
+ src/gtr-actions-file.c | 3 +++
+ src/gtr-application.h  | 1 +
+ 2 files changed, 4 insertions(+)
+
+diff --git a/src/gtr-actions-file.c b/src/gtr-actions-file.c
+index 07c9cdaa9..556554742 100644
+--- a/src/gtr-actions-file.c
++++ b/src/gtr-actions-file.c
+@@ -521,6 +521,9 @@ load_file_list (GtrWindow * window, const GSList * locations)
+     {
+       g_return_if_fail (locations_to_load->data != NULL);
+ 
++      if (gtr_window_get_active_tab (window) != NULL)
++        window = gtr_application_create_window (GTR_APP);
++
+       if (!gtr_open (locations_to_load->data, window, &error))
+         break;
+ 
+diff --git a/src/gtr-application.h b/src/gtr-application.h
+index 4477bdd6a..cb491628c 100644
+--- a/src/gtr-application.h
++++ b/src/gtr-application.h
+@@ -39,6 +39,7 @@ G_DECLARE_FINAL_TYPE (GtrApplication, gtr_application, GTR, APPLICATION, AdwAppl
+ #define GTR_APP                         (GTR_APPLICATION (g_application_get_default ()))
+ 
+ GtrApplication  * gtr_application_new                    (void);
++GtrWindow *gtr_application_create_window (GtrApplication *app);
+ GList *           gtr_application_get_views              (GtrApplication *app,
+                                                           gboolean        original,
+                                                           gboolean        translated);
+-- 
+GitLab
+

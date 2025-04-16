@@ -1,7 +1,7 @@
 pkgbase = gtranslator
 	pkgdesc = An enhanced gettext po file editor for the GNOME desktop environment
 	pkgver = 48.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://wiki.gnome.org/Apps/Gtranslator
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -29,6 +29,16 @@ pkgbase = gtranslator
 	depends = libxml2
 	depends = pango
 	source = git+https://gitlab.gnome.org/GNOME/gtranslator.git#tag=48.0
+	source = gtranslator-double-free.patch
+	source = gtranslator-multiple-open.patch
+	source = gtranslator-load-error.patch
+	source = gtranslator-new-window.patch
+	source = gtranslator-dbus-activatable.patch
 	b2sums = e9aa64fb21d7fd741cccef9b97315f532db140085192fc38c37d8fc2f774d0ea2b97478a8ee538a6965b0424b9980f3f7c3713eb76f4b6c4493447acd73f7c60
+	b2sums = 7388f467117f0f184e2da60e0b2f35869e3efbf4e8231619c3bde367fde17df32983f470941e808309b82754ddfbb52e9cec2fab85b72a76f42886b147d8561e
+	b2sums = 187d5ff8e86fd59b09224fc95a44f92a854b056898929466664e99ed06245f05bf3bd37026b618b69152b8481d13eaad18782f02f17ecb435895ace14a55a6ba
+	b2sums = a4abc028f9048697c7ec6b1f652ca92834ebc62b17ae0e20777508d070d3c094d4766eb20790e5c410647873a03c53521cf6c24b0ead90bd937e3bf407f1c163
+	b2sums = 0fc0ab4593b0415d3929dd934273b3fb5f5705a5c70692fba9999da83a9e5df898793f03cceca3da7d1586e4add426910499b59860c16661102831d3cd72473a
+	b2sums = 1854822d41c164be62c89e4ecf3eb39c5536ddc833e1b3fdc110e528657e5cfff65d282b2f393233d3e5b5f6f6ab1afb37412973230069f8807a3a33a352bd5c
 
 pkgname = gtranslator

@@ -6,40 +6,78 @@
 
 pkgname=gtranslator
 pkgver=48.0
-pkgrel=1
+pkgrel=2
 pkgdesc='An enhanced gettext po file editor for the GNOME desktop environment'
-arch=('x86_64')
+arch=(x86_64)
 url='https://wiki.gnome.org/Apps/Gtranslator'
-license=('GPL-3.0-or-later')
+license=(GPL-3.0-or-later)
 depends=(
-  'cairo'
-  'dconf'
-  'gcc-libs'
-  'gettext'
-  'glib2'
-  'glibc'
-  'gtk4'
-  'gtksourceview5'
-  'hicolor-icon-theme'
-  'iso-codes'
-  'json-glib'
-  'libadwaita'
-  'libgda6'
-  'libsoup3'
-  'libspelling'
-  'libxml2'
-  'pango'
+  cairo
+  dconf
+  gcc-libs
+  gettext
+  glib2
+  glibc
+  gtk4
+  gtksourceview5
+  hicolor-icon-theme
+  iso-codes
+  json-glib
+  libadwaita
+  libgda6
+  libsoup3
+  libspelling
+  libxml2
+  pango
 )
 makedepends=(
-  'appstream'
-  'git'
-  'glib2-devel'
-  'gobject-introspection'
-  'meson'
-  'yelp-tools'
+  appstream
+  git
+  glib2-devel
+  gobject-introspection
+  meson
+  yelp-tools
 )
-source=("git+https://gitlab.gnome.org/GNOME/$pkgname.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('e9aa64fb21d7fd741cccef9b97315f532db140085192fc38c37d8fc2f774d0ea2b97478a8ee538a6965b0424b9980f3f7c3713eb76f4b6c4493447acd73f7c60')
+source=("git+https://gitlab.gnome.org/GNOME/$pkgname.git#tag=${pkgver/[a-z]/.&}"
+        gtranslator-double-free.patch
+        gtranslator-multiple-open.patch
+        gtranslator-load-error.patch
+        gtranslator-new-window.patch
+        gtranslator-dbus-activatable.patch)
+b2sums=('e9aa64fb21d7fd741cccef9b97315f532db140085192fc38c37d8fc2f774d0ea2b97478a8ee538a6965b0424b9980f3f7c3713eb76f4b6c4493447acd73f7c60'
+        '7388f467117f0f184e2da60e0b2f35869e3efbf4e8231619c3bde367fde17df32983f470941e808309b82754ddfbb52e9cec2fab85b72a76f42886b147d8561e'
+        '187d5ff8e86fd59b09224fc95a44f92a854b056898929466664e99ed06245f05bf3bd37026b618b69152b8481d13eaad18782f02f17ecb435895ace14a55a6ba'
+        'a4abc028f9048697c7ec6b1f652ca92834ebc62b17ae0e20777508d070d3c094d4766eb20790e5c410647873a03c53521cf6c24b0ead90bd937e3bf407f1c163'
+        '0fc0ab4593b0415d3929dd934273b3fb5f5705a5c70692fba9999da83a9e5df898793f03cceca3da7d1586e4add426910499b59860c16661102831d3cd72473a'
+        '1854822d41c164be62c89e4ecf3eb39c5536ddc833e1b3fdc110e528657e5cfff65d282b2f393233d3e5b5f6f6ab1afb37412973230069f8807a3a33a352bd5c')
+
+prepare() {
+  cd $pkgname
+
+  # Simplify opening multiple windows
+  # https://gitlab.gnome.org/GNOME/gtranslator/-/merge_requests/259
+  git cherry-pick -n 7cdee53fd65c9d6d0750c858c27871751c430b42
+
+  # Don't free file_list
+  # https://gitlab.gnome.org/GNOME/gtranslator/-/merge_requests/260
+  git apply -3 ../gtranslator-double-free.patch
+
+  # Fix opening multiple files
+  # https://gitlab.gnome.org/GNOME/gtranslator/-/merge_requests/261
+  git apply -3 ../gtranslator-multiple-open.patch
+
+  # Pass error when fails to load
+  # https://gitlab.gnome.org/GNOME/gtranslator/-/merge_requests/262
+  git apply -3 ../gtranslator-load-error.patch
+
+  # Add "new-window" command-line option
+  # https://gitlab.gnome.org/GNOME/gtranslator/-/merge_requests/263
+  git apply -3 ../gtranslator-new-window.patch
+
+  # Add D-Bus service file
+  # https://gitlab.gnome.org/GNOME/gtranslator/-/merge_requests/264
+  git apply -3 ../gtranslator-dbus-activatable.patch
+}
 
 build() {
   arch-meson $pkgname build
