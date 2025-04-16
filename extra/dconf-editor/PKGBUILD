@@ -3,7 +3,7 @@
 
 pkgname=dconf-editor
 pkgver=45.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc="GSettings editor for GNOME"
 url="https://apps.gnome.org/DconfEditor/"
 arch=(x86_64)
@@ -22,11 +22,17 @@ makedepends=(
   vala
 )
 groups=(gnome-extra)
-source=("git+https://gitlab.gnome.org/GNOME/dconf-editor.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('cd74f1f5736469c2799b6688fdd4669374354cbceaa25717aa4c4dd98f4c2ab631ff94a82ac2fdac41535372ae85c5fc70498594e44f5ece3830f0faf1e0a888')
+source=("git+https://gitlab.gnome.org/GNOME/dconf-editor.git#tag=${pkgver/[a-z]/.&}"
+        dconf-editor-prgname.patch)
+b2sums=('cd74f1f5736469c2799b6688fdd4669374354cbceaa25717aa4c4dd98f4c2ab631ff94a82ac2fdac41535372ae85c5fc70498594e44f5ece3830f0faf1e0a888'
+        'a6fef3b6723d0dc2d6295acf7882b1d06fc9d7f2e56e69b9cd41fdaf8b898bfd92ceaca977e972c71026a31afc1e64c8fe3975d0a59fb12b2f30bde61b049239')
 
 prepare() {
   cd $pkgname
+
+  # Set prgname to application ID
+  # https://gitlab.gnome.org/GNOME/dconf-editor/-/merge_requests/38
+  git apply -3 ../dconf-editor-prgname.patch
 }
 
 build() {
