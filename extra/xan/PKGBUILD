@@ -3,7 +3,7 @@
 # Contributor: Adam Perkowski <adas1per@protonmail.com>
 
 pkgname=xan
-pkgver=0.48.0
+pkgver=0.49.0
 pkgrel=1
 pkgdesc="The CSV magician"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('gcc-libs')
 makedepends=('cargo')
 license=('Unlicense' 'MIT')
 source=("$pkgbase-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('6b59b653b36a42c57a24eea48a977a0302d6e03e11058996cb3ec86fc6f3405f')
+sha256sums=('46e73d305a9982eb219e45399590be02a24a03d97e91aa4adc080303dcaff87d')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -21,6 +21,7 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
+  CFLAGS+=' -ffat-lto-objects'
   cargo build --release --frozen
 }
 
