@@ -2,7 +2,7 @@
 # Contributor: Sebastian Faltoni <sebastian.faltoni@gmail.com>
 
 pkgname=dbmail
-pkgver=3.5
+pkgver=3.5.2
 pkgrel=1
 pkgdesc="Fast and scalable sql based mail services"
 arch=('x86_64')
@@ -37,7 +37,7 @@ optdepends=(
   'libsieve: for dbmail-sieve'
 )
 source=("$pkgname-$pkgver.tar.gz::https://github.com/dbmail/dbmail/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('d7bc133536453f6be573533b6468eb1e6043e69737e26d715cd6b04c99626213')
+sha256sums=('8ac55ed88d642e20900561a3bb273c880937d13cffa6f2a6dfeae05759b69905')
 
 prepare() {
   cd $pkgname-$pkgver
