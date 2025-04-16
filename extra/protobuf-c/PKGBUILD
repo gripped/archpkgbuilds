@@ -3,8 +3,8 @@
 # Contributor: Aurélien Wailly <aurelien.wailly@gmail.com>
 
 pkgname=protobuf-c
-pkgver=1.5.1
-pkgrel=2
+pkgver=1.5.2
+pkgrel=1
 pkgdesc='Protocol Buffers implementation in C'
 arch=('x86_64')
 url='https://github.com/protobuf-c/protobuf-c'
@@ -12,15 +12,8 @@ license=('BSD')
 depends=('protobuf')
 provides=('libprotobuf-c.so')
 options=('!lto') # https://github.com/protobuf-c/protobuf-c/issues/488
-source=("$url/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz"
-        "protobuf-30.patch")
-sha256sums=('20d1dc257da96f8ddff8be4dd9779215bbd0a6069ed53bbe9de38fa7629be06b'
-            '23c54e2c3385b62420961a1e572706f446a1d25e84a3b3bd32109617d06cd321')
-
-prepare() {
-  cd "$pkgname-$pkgver"
-  patch -Np1 < ../protobuf-30.patch
-}
+source=("$url/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('e2c86271873a79c92b58fef7ebf8de1aa0df4738347a8bd5d4e65a80a16d0d24')
 
 build() {
   cd "$pkgname-$pkgver"
