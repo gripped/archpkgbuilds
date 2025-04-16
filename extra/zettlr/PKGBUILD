@@ -4,7 +4,7 @@
 
 pkgname=zettlr
 _pkgname=${pkgname^}
-pkgver=3.4.3
+pkgver=3.4.4
 pkgrel=1
 pkgdesc='A Markdown Editor for the 21st century'
 arch=(x86_64)
@@ -19,7 +19,7 @@ depends=(crimson-font
          ttf-liberation)
 makedepends=(gendesk
              git
-             nodejs-lts-iron # grep NODE_VERSION: .github/workflows/build.yml
+             nodejs-lts-jod # grep NODE_VERSION: .github/workflows/build.yml
              node-gyp
              patchutils
              yarn
@@ -29,7 +29,7 @@ _archive="$_pkgname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz"
         "$pkgname.sh"
         "$pkgname.xml")
-sha256sums=('7b6890c413addca49b2499a8bfe795a832bd1daf16b2e94a500df10231724033'
+sha256sums=('4d2a5bf6dac0405ada4acaef18c9fdf7d0dd7ba4afe43ac1d8ffcb7e24b6618e'
             'e300f2cac217f98ab5c365dccc7581410bc296f2842d52f7f1520dd6679d20cf'
             'c3ecbb490a1d4fa5bc42f7166cc375e5629a452d25bb1d4facb5541938681292')
 
