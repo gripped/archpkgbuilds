@@ -2,23 +2,18 @@
 
 _hkgname=lattices
 pkgname=haskell-lattices
-pkgver=2.2
-pkgrel=24
+pkgver=2.2.1
+pkgrel=1
 pkgdesc="Fine-grained library for constructing and manipulating lattices"
 url="https://github.com/phadej/lattices/"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-quickcheck' 'haskell-base-compat' 'haskell-hashable'
-         'haskell-integer-logarithms' 'haskell-semigroupoids' 'haskell-tagged'
-         'haskell-universe-base' 'haskell-universe-reverse-instances' 'haskell-unordered-containers')
-makedepends=('ghc' 'uusi' 'haskell-quickcheck-instances' 'haskell-tasty' 'haskell-tasty-quickcheck')
+depends=('ghc-libs' 'haskell-quickcheck' 'haskell-hashable' 'haskell-integer-logarithms'
+        'haskell-semigroupoids' 'haskell-tagged' 'haskell-universe-base'
+        'haskell-universe-reverse-instances' 'haskell-unordered-containers')
+makedepends=('ghc' 'haskell-quickcheck-instances' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('feec74b5e0b693f782f935912b43a68e12d3f5ab93165de1403bd6bf401295c3')
-
-prepare() {
-  cd $_hkgname-$pkgver
-  uusi -u base-compat
-}
+sha256sums=('27063f2343b1547033cd59f61b27f797041ed0c25c921f253ce82dc6fffa7666')
 
 build() {
   cd $_hkgname-$pkgver    
