@@ -1,7 +1,7 @@
 pkgbase = ghex
 	pkgdesc = A simple binary editor for the Gnome desktop
 	pkgver = 46.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://wiki.gnome.org/Apps/Ghex
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -20,7 +20,13 @@ pkgbase = ghex
 	depends = libadwaita
 	depends = pango
 	source = git+https://gitlab.gnome.org/GNOME/ghex.git#tag=46.2
+	source = ghex-dbus-activatable.patch
+	source = ghex-window-group.patch
+	source = ghex-modal-dialog.patch
 	b2sums = 21f4608873e948b4464b9bfcd2308b39e48d05ba362fd8d56a4d09a2ae87642c042397adb6e9e9d3223aa0412b4522cfa47637ac419dc1b181ee200ff47e76ae
+	b2sums = a3e271eb15f72691696e16b41f9d636b17d24f2a7b999229b31777934527d955cb6e29943dfa4af80dde15a3533c8e6390048730b72a3afa5f2fae5d6cfd7000
+	b2sums = abe440a2ed1430a45f1697969850463dc6a10c14fa53cdd139d74d53d5d3eeb42fb9b2fc7f48fcc684c185b2ee99651e7735295c2b0e2b83a7867c9afd570f8c
+	b2sums = 33406fc2102803224b5b82733262ba6fc0052f2aa051f4dfd6f7120c63ad082ceb79a781d36a9e94b2cd9c9ae004afa9c1b698e84a320d8a6c46c81f50a03b73
 
 pkgname = ghex
 	groups = gnome-extra

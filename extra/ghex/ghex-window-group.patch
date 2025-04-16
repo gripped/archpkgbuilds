@@ -1,0 +1,39 @@
+From 92c53c4c744a195faf3cddb32ef374446d5eff44 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 11 Apr 2025 13:46:10 +0200
+Subject: [PATCH] Put each main window into its own group
+
+This fixes the problem that a main window cannot be used if the preferences
+or the about dialog is opened in another main window.
+---
+ src/ghex-application-window.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/src/ghex-application-window.c b/src/ghex-application-window.c
+index 13e4b1e..a7e6981 100644
+--- a/src/ghex-application-window.c
++++ b/src/ghex-application-window.c
+@@ -2327,9 +2327,19 @@ ghex_application_window_class_init (GHexApplicationWindowClass *klass)
+ GtkWidget *
+ ghex_application_window_new (AdwApplication *app)
+ {
+-	return g_object_new (GHEX_TYPE_APPLICATION_WINDOW,
++	GtkWidget *window;
++	GtkWindowGroup *group;
++
++	group = gtk_window_group_new ();
++
++	window = g_object_new (GHEX_TYPE_APPLICATION_WINDOW,
+ 			"application", app,
+ 			NULL);
++
++	gtk_window_group_add_window (group, GTK_WINDOW(window));
++	g_object_unref (group);
++
++	return window;
+ }
+ 
+ void
+-- 
+GitLab
+

@@ -1,0 +1,36 @@
+From 985be1f4082d3f9524a1920d4718559c8bfdb2b8 Mon Sep 17 00:00:00 2001
+From: Dilnavas Roshan <dilnavasroshan@gmail.com>
+Date: Mon, 14 Apr 2025 13:37:54 +0530
+Subject: [PATCH] Setting file selection dialog for 'Open' and 'Save As' as
+ modal dialog.
+
+Currently, if you press the open file button multiple times, multiple open dialog boxes will be shown. The same thing happens with the Save As dialog also. This can be fixed by setting the file selection dialog as a modal dialog.
+
+Fixes #80
+---
+ src/ghex-application-window.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/ghex-application-window.c b/src/ghex-application-window.c
+index 13e4b1e..e337dcb 100644
+--- a/src/ghex-application-window.c
++++ b/src/ghex-application-window.c
+@@ -1136,6 +1136,7 @@ save_as (GtkWidget *widget,
+ 	g_signal_connect (file_sel, "response",
+ 			G_CALLBACK(save_as_response_cb), self);
+ 
++	gtk_native_dialog_set_modal (GTK_NATIVE_DIALOG (file_sel), TRUE);
+ 	gtk_native_dialog_show (GTK_NATIVE_DIALOG(file_sel));
+ }
+ G_GNUC_END_IGNORE_DEPRECATIONS
+@@ -1288,6 +1289,7 @@ open_file_action (GtkWidget *widget,
+ 	g_signal_connect (file_sel, "response",
+ 			G_CALLBACK(open_response_cb), self);
+ 
++	gtk_native_dialog_set_modal (GTK_NATIVE_DIALOG (file_sel), TRUE);
+ 	gtk_native_dialog_show (GTK_NATIVE_DIALOG(file_sel));
+ }
+ G_GNUC_END_IGNORE_DEPRECATIONS
+-- 
+GitLab
+
