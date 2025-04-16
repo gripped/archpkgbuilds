@@ -3,8 +3,8 @@
 # Contributor: Balwinder S "bsd" Dheeman (bdheeman AT gmail.com)
 
 pkgname=dkms
-pkgver=3.1.7
-pkgrel=2
+pkgver=3.1.8
+pkgrel=1
 pkgdesc='Dynamic Kernel Modules System'
 arch=('any')
 url='https://github.com/dell/dkms'
@@ -33,18 +33,11 @@ source=("git+https://github.com/dell/dkms.git#tag=v$pkgver"
         'hook.remove'
         'hook.upgrade'
         'hook.sh')
-sha256sums=('0f7b0a644c135426e74856bfd32f095185590178db90ba2d5064660ce9ee763a'
+sha256sums=('322be2381d36fbfe28f86ea3b3460692df3487ce020d39f0768f3b1ff02292df'
             'da2dd53bdb427c3ffbe793fd05f898d8a0545e6dbd346c85fad1717b0f838c62'
             '497422e72b2f10a71caae40c44a07b215425d393acb365700e38944e09f9a554'
             'cc04280e8eb095f4950f5e3c6b2997fbc8d5862d79c5ae29d5943b8ac204d0d4'
             'c1b4a4e2e4e0e0e59ee0887403e79d60b209f3878dbbec6612573f13b90cce01')
-
-prepare() {
-  cd $pkgname
-
-  # https://github.com/dell/dkms/issues/510
-  git cherry-pick -n 3c9fb67fda3ed400b2dcb28e559856ad1e858576
-}
 
 package() {
   # alpm hooks
