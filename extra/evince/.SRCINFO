@@ -1,7 +1,7 @@
 pkgbase = evince
 	pkgdesc = Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)
 	pkgver = 48.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://apps.gnome.org/Evince
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -42,8 +42,10 @@ pkgbase = evince
 	depends = pango
 	depends = poppler-glib
 	source = git+https://gitlab.gnome.org/GNOME/evince.git?signed#tag=48.0
+	source = evince-prgname.patch
 	validpgpkeys = 3289FDCF12AC2321BB41E9EF342B349ED9FE78F0
 	b2sums = 01e7c46f617012fc267a215464773c9c804ea87681237747a3a4581728b2e29bf2a5478cb93ace64b318be6473088020094a5339be24e08c5862272d2f269d47
+	b2sums = bd126def7c4f94a0f0278ed712fc995bc8dc2a8644dae54ad931a2daccd2feace6e586dc8377f38ae5c1575764cbd0992f472e71e791bbab65fb5a13cb8f3c66
 
 pkgname = evince
 	groups = gnome

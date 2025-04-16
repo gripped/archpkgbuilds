@@ -8,7 +8,7 @@ pkgname=(
   evince-lib-docs
 )
 pkgver=48.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)"
 url="https://apps.gnome.org/Evince"
 arch=(x86_64)
@@ -53,14 +53,20 @@ makedepends=(
   texlive-bin
   yelp-tools
 )
-source=("git+https://gitlab.gnome.org/GNOME/evince.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('01e7c46f617012fc267a215464773c9c804ea87681237747a3a4581728b2e29bf2a5478cb93ace64b318be6473088020094a5339be24e08c5862272d2f269d47')
+source=("git+https://gitlab.gnome.org/GNOME/evince.git?signed#tag=${pkgver/[a-z]/.&}"
+        evince-prgname.patch)
+b2sums=('01e7c46f617012fc267a215464773c9c804ea87681237747a3a4581728b2e29bf2a5478cb93ace64b318be6473088020094a5339be24e08c5862272d2f269d47'
+        'bd126def7c4f94a0f0278ed712fc995bc8dc2a8644dae54ad931a2daccd2feace6e586dc8377f38ae5c1575764cbd0992f472e71e791bbab65fb5a13cb8f3c66')
 validpgpkeys=(
   3289FDCF12AC2321BB41E9EF342B349ED9FE78F0 # Germán Poo-Caamaño <gpoo@gnome.org>
 )
 
 prepare() {
   cd evince
+
+  # Set application ID to match with .desktop
+  # https://gitlab.gnome.org/GNOME/evince/-/merge_requests/725
+  git apply -3 ../evince-prgname.patch
 }
   
 build() {
