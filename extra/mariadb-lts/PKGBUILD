@@ -12,7 +12,7 @@ pkgbase=mariadb-lts
 pkgname=('mariadb-lts-libs' 'mariadb-lts-clients' 'mariadb-lts')
 pkgdesc='Fast SQL database server, derived from MySQL (LTS)'
 pkgver=11.4.5
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 license=('GPL-2.0-only')
 url='https://mariadb.org/'
@@ -58,6 +58,14 @@ prepare() {
   # MDEV-36229: Remove CAP_DAC_OVERRIDE CAP_AUDIT_WRITE from AmbientCapabilities
   git cherry-pick -n \
     '85ecb80fa3192035b3beff9578dc254a857175dc'
+
+  # MDEV-20912 Add support for utf8mb4_0900_* collations in MariaDB Server
+  # MDEV-36361 Wrong utf8mb4_0900_bin alias for utf8mb4_bin (should be utf8mb4_nopad_bin)
+  # MDEV-36213 Doubled memory usage (11.4.4 <-> 11.4.5)
+  git cherry-pick -n \
+    '3bbe11acd93ad63ed1d90656e11a665d6326996f' \
+    '8a05f45bc36f962a813f5a0f99172c386bd2eebe' \
+    '10c063f9f07d6ab8f18b4b7b88da75d5bb2eae55'
 
   # Arch Linux specific patches:
   #  * enable PrivateTmp for a little bit more security
@@ -120,6 +128,9 @@ build() {
     -DWITH_SYSTEMD=yes
     -DWITH_UNIT_TESTS=OFF
     -DWITH_ZLIB=system
+
+    # fix build with cmake 4.0
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   )
 
   # this uses malloc_usable_size, which is incompatible with fortification level 3
