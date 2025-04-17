@@ -3,32 +3,47 @@
 # Contributor: André Klitzing <aklitzing@online.de>
 
 pkgname=exempi
-pkgver=2.6.5
+pkgver=2.6.6
 pkgrel=1
 pkgdesc='Library to parse XMP metadata'
-arch=('x86_64')
+arch=(x86_64)
 url='https://libopenraw.freedesktop.org/exempi/'
-license=('BSD')
-depends=('expat' 'gcc-libs' 'glibc' 'zlib')
-makedepends=('boost')
-source=("https://libopenraw.freedesktop.org/download/$pkgname-$pkgver.tar.xz"{,.asc})
-sha256sums=('ff538114e82c51e5287064dfbec7d9790ac91479bf2390bcc6408fad4d77fb12'
-            'SKIP')
-validpgpkeys=('6C44DB3E0BF3EAF5B433239A5FEE05E6A56E15A3') # Hubert Figuiere
+license=(BSD-3-Clause)
+depends=(
+  expat
+  gcc-libs
+  glibc
+  zlib
+)
+makedepends=(
+  boost
+  git
+)
+source=("git+https://gitlab.freedesktop.org/libopenraw/$pkgname.git#tag=$pkgver")
+b2sums=(aeaded22cfd41a51eebd6575cf3b701f78c883b06b060117734b51e1b23191a1a04e6a71858787b57ca841a82750394709159d44faa40a8a09f39b50414ff071)
+validpgpkeys=(6C44DB3E0BF3EAF5B433239A5FEE05E6A56E15A3) # Hubert Figuiere
+
+prepare() {
+  cd $pkgname
+  autoreconf -fi
+}
 
 build() {
-  cd $pkgname-$pkgver
-  ./configure --prefix=/usr
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
   make
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make check
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
-  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" COPYING
 }
