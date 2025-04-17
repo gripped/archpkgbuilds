@@ -3,7 +3,7 @@
 
 pkgname=gnome-text-editor
 pkgver=48.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple text editor for the GNOME desktop"
 url="https://apps.gnome.org/TextEditor/"
 arch=(x86_64)
@@ -35,6 +35,12 @@ b2sums=('ba1d0ac98358664093a5c3e7e1d53882da6592aafbb812002c325d32e0d3e0b9efca46a
 
 prepare() {
   cd $pkgname
+
+  # Activate the application if no window present
+  # https://gitlab.gnome.org/GNOME/gnome-text-editor/-/merge_requests/219
+  git cherry-pick -n 926ff29b2eac70639e909e4fc8146f2d8a997e75
+  # https://gitlab.gnome.org/GNOME/gnome-text-editor/-/merge_requests/221
+  git cherry-pick -n 6baf599d0cf4d9daf395c5db326679151f711688
 }
 
 build() {
