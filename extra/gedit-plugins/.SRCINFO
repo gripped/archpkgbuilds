@@ -1,17 +1,13 @@
 pkgbase = gedit-plugins
 	pkgdesc = Collection of plugins for the gedit Text Editor
-	pkgver = 48.1
-	pkgrel = 2
+	pkgver = 48.2
+	pkgrel = 1
 	url = https://gitlab.gnome.org/World/gedit/gedit-plugins
 	arch = x86_64
 	license = GPL-2.0-or-later
-	makedepends = appstream-glib
 	makedepends = git
-	makedepends = gobject-introspection
-	makedepends = gucharmap
+	makedepends = itstool
 	makedepends = meson
-	makedepends = vte3
-	makedepends = yelp-tools
 	depends = dconf
 	depends = gedit
 	depends = glib2
@@ -20,13 +16,8 @@ pkgbase = gedit-plugins
 	depends = libgedit-gtksourceview
 	depends = libgedit-tepl
 	depends = libpeas
-	depends = pango
-	depends = python
-	depends = python-cairo
-	depends = python-gobject
-	optdepends = gucharmap: for charmap plugin
-	optdepends = vte3: for embedded terminal
-	source = git+https://gitlab.gnome.org/World/gedit/gedit-plugins.git#tag=48.1
-	b2sums = 7bf54d4f84f3a0a1f6946c4bf02d666e105d41ae019d5e5aa18447c2b65ce534c89aebe94c7d41edf6d6c35c0dc9fa44b2886ec879014ffb61d02c4f07feda4e
+	source = git+https://gitlab.gnome.org/World/gedit/gedit-plugins.git?signed#tag=48.2
+	validpgpkeys = 08C0A6B1A08310A45363B328426F014A261FD87F
+	b2sums = f132f079700f2e09d2718f3802036a53ca94831b1d9da1ceb7f94e60687aca9748384392c2aa3cdcc70377ec801fb1146f90e66b5d8af5b394607a9057a21e43
 
 pkgname = gedit-plugins

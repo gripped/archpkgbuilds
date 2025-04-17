@@ -1,5 +1,6 @@
-# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
-# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Contributor: Fabian Bornschein <fabiscafe@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 # Contributor: Hugo Doria <hugo@archlinux.org>
@@ -7,11 +8,11 @@
 # Contributor: zhuqin <zhuqin83@gmail.com>
 
 pkgname=gedit-plugins
-pkgver=48.1
-pkgrel=2
-pkgdesc="Collection of plugins for the gedit Text Editor"
-url="https://gitlab.gnome.org/World/gedit/gedit-plugins"
+pkgver=48.2
+pkgrel=1
+pkgdesc='Collection of plugins for the gedit Text Editor'
 arch=(x86_64)
+url='https://gitlab.gnome.org/World/gedit/gedit-plugins'
 license=(GPL-2.0-or-later)
 depends=(
   dconf
@@ -22,31 +23,15 @@ depends=(
   libgedit-gtksourceview
   libgedit-tepl
   libpeas
-  pango
-  python
-  python-cairo
-  python-gobject
 )
 makedepends=(
-  appstream-glib
   git
-  gobject-introspection
-  gucharmap
+  itstool
   meson
-  vte3
-  yelp-tools
 )
-optdepends=(
-  'gucharmap: for charmap plugin'
-  'vte3: for embedded terminal'
-)
-source=("git+https://gitlab.gnome.org/World/gedit/gedit-plugins.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('7bf54d4f84f3a0a1f6946c4bf02d666e105d41ae019d5e5aa18447c2b65ce534c89aebe94c7d41edf6d6c35c0dc9fa44b2886ec879014ffb61d02c4f07feda4e')
-
-
-prepare() {
-  cd $pkgname
-}
+source=("git+https://gitlab.gnome.org/World/gedit/gedit-plugins.git?signed#tag=${pkgver/[a-z]/.&}")
+b2sums=(f132f079700f2e09d2718f3802036a53ca94831b1d9da1ceb7f94e60687aca9748384392c2aa3cdcc70377ec801fb1146f90e66b5d8af5b394607a9057a21e43)
+validpgpkeys=(08C0A6B1A08310A45363B328426F014A261FD87F) # Sébastien Wilmet <swilmet@mailfence.com>
 
 build() {
   arch-meson $pkgname build
@@ -59,10 +44,6 @@ check() {
 
 package() {
   meson install -C build --destdir "$pkgdir"
-
-  # Plugins not handled by meson's python.bytecompile
-  python -m compileall -d "/usr/lib/gedit" "$pkgdir/usr/lib/gedit"
-  python -O -m compileall -d "/usr/lib/gedit" "$pkgdir/usr/lib/gedit"
 }
 
 # vim:set sw=2 sts=-1 et:
