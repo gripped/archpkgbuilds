@@ -1,7 +1,7 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=pwndbg
-pkgver=2025.02.19
+pkgver=2025.04.13
 pkgrel=1
 pkgdesc='Makes debugging with GDB suck less'
 url='https://github.com/pwndbg/pwndbg'
@@ -45,8 +45,8 @@ optdepends=(
 source=(
   https://github.com/pwndbg/pwndbg/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
 )
-sha512sums=('18ec21a1b978ef9edefb6f979d1330a6e2f48d6a005b391ebac5aaf7b9e866de7bd497b983bb9eef52e50b4fe82ea901036ca86c308e8962413a17d5733e7efe')
-b2sums=('7774c86b9e00186c39db29090c39bbbfa6ce1b0ab565de8a524687afccfdb1ceab829503ac6340f0f32d74ed95020bcd136b1e0e2d3f256a15e5e3ffe17a963b')
+sha512sums=('eea54571e34eeb7bed0678c28f1887a13ae36af4db63c90a725ab150201a40ae3fe81e8136f32e0952bc2fff630c92ae2d5fb4ea2e5011df54e4efd6ac2a98d7')
+b2sums=('95030b08a749efc55d13a87fa99b9f855d8f426974ff0f6a89e0d23d322762992151d40388a36a4f1df5bb4fdcaee132d1e31c2aff7e22376d93055bbe0c1231')
 
 prepare() {
   cd ${pkgname}-${pkgver}
