@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=warp
-pkgver=0.8.1
+pkgver=0.9.2
 pkgrel=1
 pkgdesc='Securely send files to each other via the internet or local network by exchanging a word-based code'
 arch=(x86_64)
@@ -12,6 +12,7 @@ depends=(
   glib2
   glibc
   graphene
+  gst-plugin-gtk4
   gst-plugin-pipewire
   gst-plugins-bad
   gst-plugins-bad-libs
@@ -31,8 +32,14 @@ makedepends=(
   rust
 )
 options=(!lto)
-source=("git+https://gitlab.gnome.org/World/warp.git?signed#tag=v$pkgver")
-b2sums=('f5d59050b2a1606cf46e747750859f728261bf1b3c88ca45ea9171a3828f962c00b593b1c7ff4e097d0bb85462ad7a7b9222759597443fe248a425164f0d2243')
+source=(
+  "git+https://gitlab.gnome.org/World/warp.git?signed#tag=v$pkgver"
+  warp-dbus-activatable.patch
+)
+b2sums=(
+  fe463e460b88eeec349c71dbd844ca012df2b281ab24ce521be80250364b809c295da5583d15f820b6dbaeb1127382d2d9dfb38c5ee1b7897c6d51230a862c68
+  fe3b785915364291a76b558106ab247e9d173670e797a14742dff2facaef843ddb9d076d83db7de960132a4cc94055a244e63a91847abbb41e5af26f3e5528f7
+)
 validpgpkeys=(FD04DCE1EB3443DE17FB904ECFD6416C8173524E) # Fina Wilke <fina@felinira.net>
 
 prepare() {
@@ -40,6 +47,9 @@ prepare() {
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.gnome.org/World/warp/-/merge_requests/97
+  git apply -3 ../warp-dbus-activatable.patch
 }
 
 build() {
