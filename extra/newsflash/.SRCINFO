@@ -1,10 +1,11 @@
 pkgbase = newsflash
 	pkgdesc = Feed reader application designed to complement an already existing web-based RSS reader account
 	pkgver = 3.3.5
-	pkgrel = 1
+	pkgrel = 2
 	url = https://apps.gnome.org/NewsFlash/
 	arch = x86_64
 	license = GPL-3.0-or-later
+	makedepends = appstream
 	makedepends = blueprint-compiler
 	makedepends = git
 	makedepends = meson
@@ -25,7 +26,9 @@ pkgbase = newsflash
 	depends = webkitgtk-6.0
 	source = git+https://gitlab.com/news-flash/news_flash_gtk.git#tag=v.3.3.5
 	source = newsflash-audio-playback.patch
+	source = newsflash-dbus-activatable.patch
 	b2sums = d38010f3328db2f5a722c1cf064160a14a01b0205a385dc318267645123f0841266106b73ae5757ea12b7519832d9b82a5d9a049534b6482f74ba0a5eb165e7f
 	b2sums = 1cdbaff9c06b7b90289b70906b878d89da53777b4936b0e2825982d5e1ab80c72ab87bd72657dffbb1a1195cf168075a437e0ca55fcab918c5e7b2913596899a
+	b2sums = f921e7a36358ed2980243a621e33cf9cd1be1f8067842a88e75798396f33b35a807677c9d7d2c42166191627345a944acd536d51f6030cc5c4fc1c2b37577db7
 
 pkgname = newsflash
