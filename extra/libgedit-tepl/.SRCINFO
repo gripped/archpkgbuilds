@@ -1,15 +1,15 @@
 pkgbase = libgedit-tepl
 	pkgdesc = Library that eases the development of GtkSourceView-based text editors and IDEs
-	pkgver = 6.12.0
-	pkgrel = 2
+	pkgver = 6.13.0
+	pkgrel = 1
 	url = https://gitlab.gnome.org/World/gedit/libgedit-tepl
 	arch = x86_64
 	license = LGPL-3.0-or-later
 	checkdepends = xorg-server-xvfb
 	makedepends = git
 	makedepends = glib2-devel
-	makedepends = gtk-doc
 	makedepends = gobject-introspection
+	makedepends = gtk-doc
 	makedepends = meson
 	depends = cairo
 	depends = glib2
@@ -25,7 +25,8 @@ pkgbase = libgedit-tepl
 	provides = libgedit-tepl-6.so
 	conflicts = tepl
 	replaces = tepl
-	source = git+https://gitlab.gnome.org/World/gedit/libgedit-tepl.git#tag=6.12.0
-	b2sums = 0b68933a8c485dbfe14d1f4f5504a3abadb005297a0dc85c843c9c9c9f3a128632c89570ee355102ffb84c51da6bdcdbaa56b06c4e4de16f53728d07ca728173
+	source = git+https://gitlab.gnome.org/World/gedit/libgedit-tepl.git?signed#tag=6.13.0
+	validpgpkeys = 08C0A6B1A08310A45363B328426F014A261FD87F
+	b2sums = bfc9d4582727f04e93e206a0f7303ec34d50b54f3435dd372533920b280d037c5b8b25515a86cf090257e9dd4432cc3a7fa67d82be2a44ced6a07d57edee55fb
 
 pkgname = libgedit-tepl
