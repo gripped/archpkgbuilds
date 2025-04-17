@@ -1,0 +1,26 @@
+From 8ba046932b98a1a51c4340ec7250e76d16ea88df Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 6 Sep 2024 16:31:50 +0000
+Subject: [PATCH] Set prgname to application ID
+
+Using the application ID ensures that Wayland compositors could match the
+window with the application and show the appropriate icon for them.
+---
+ src/gtex/gtex-app.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/gtex/gtex-app.c b/src/gtex/gtex-app.c
+index ae922509..41b50cb8 100644
+--- a/src/gtex/gtex-app.c
++++ b/src/gtex/gtex-app.c
+@@ -254,6 +254,7 @@ gtex_app_startup (GApplication *g_app)
+ 		G_APPLICATION_CLASS (gtex_app_parent_class)->startup (g_app);
+ 	}
+ 
++	g_set_prgname ("org.gnome.enter_tex");
+ 	gtex_utils_migrate_settings ();
+ 	add_action_entries (app);
+ 	gtex_latex_commands_add_action_infos (GTK_APPLICATION (app));
+-- 
+GitLab
+

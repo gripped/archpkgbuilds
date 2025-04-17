@@ -1,18 +1,16 @@
 pkgbase = enter-tex
 	pkgdesc = TeX/LaTeX text editor
-	pkgver = 3.47.0
-	pkgrel = 2
-	url = https://gitlab.gnome.org/swilmet/enter-tex
+	pkgver = 3.48.0
+	pkgrel = 1
+	url = https://gitlab.gnome.org/World/gedit/enter-tex
 	arch = x86_64
 	license = GPL-3.0-or-later
-	makedepends = appstream-glib
 	makedepends = git
 	makedepends = glib2-devel
 	makedepends = gobject-introspection
-	makedepends = gtk-doc
+	makedepends = itstool
 	makedepends = meson
 	makedepends = vala
-	makedepends = yelp-tools
 	depends = dconf
 	depends = gdk-pixbuf2
 	depends = glib2
@@ -26,11 +24,15 @@ pkgbase = enter-tex
 	depends = libgedit-tepl
 	depends = libgee
 	depends = pango
-	optdepends = texlive-latex: build LaTeX documents
+	optdepends = texlive-binextra: Build LaTeX documents
+	optdepends = texlive-latex: Build LaTeX documents
 	provides = gnome-latex
 	conflicts = gnome-latex
 	replaces = gnome-latex
-	source = git+https://gitlab.gnome.org/swilmet/enter-tex.git#tag=3.47.0
-	b2sums = 0f50e29d4ef3fff84f05f76248629a8eddc3f498078299e91aacfbd141e0991ffc8c4bcd9a5947cfb046e3305111714bc5b0b16830342ded1cf8c7ef054e1432
+	source = git+https://gitlab.gnome.org/World/gedit/enter-tex.git?signed#tag=3.48.0
+	source = enter-tex-prgname.patch
+	validpgpkeys = 08C0A6B1A08310A45363B328426F014A261FD87F
+	b2sums = f9c5f251cd6fd8e80081edfae8c0832793faf150dc7a44707cb7b9401eacab66751fdd3cc7e47fde7f6566539c162af39fcc27b65a590d2e539242cf1ebb7152
+	b2sums = a749fb7b60d91786911de0e6b210608188d02328990a71327ef18d1b597a1ecca5cd93a9f474691b52783f55ad86ef53f82c98f32ce5768e38b12022784ce6fd
 
 pkgname = enter-tex
