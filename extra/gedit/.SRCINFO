@@ -1,29 +1,23 @@
 pkgbase = gedit
 	pkgdesc = Easy-to-use general-purpose text editor
-	pkgver = 48.1
-	pkgrel = 3
+	pkgver = 48.2
+	pkgrel = 1
 	url = https://gedit-text-editor.org/
 	arch = x86_64
 	license = GPL-2.0-or-later
 	makedepends = appstream
-	makedepends = appstream-glib
-	makedepends = desktop-file-utils
 	makedepends = git
 	makedepends = glib2-devel
 	makedepends = gobject-introspection
 	makedepends = gtk-doc
+	makedepends = itstool
 	makedepends = meson
-	makedepends = python-gobject
-	makedepends = vala
-	makedepends = yelp-tools
-	depends = bash
 	depends = cairo
 	depends = dconf
 	depends = gcc-libs
 	depends = gdk-pixbuf2
 	depends = glib2
 	depends = glibc
-	depends = gobject-introspection-runtime
 	depends = gsettings-desktop-schemas
 	depends = gspell
 	depends = gtk3
@@ -32,15 +26,17 @@ pkgbase = gedit
 	depends = libgedit-gfls
 	depends = libgedit-gtksourceview
 	depends = libgedit-tepl
-	depends = libgirepository
 	depends = libpeas
 	depends = pango
 	optdepends = gedit-plugins: Additional features
-	optdepends = python-gobject: Python extension support
-	conflicts = gedit-code-assistance<=3.16.0+4+gd19b879-1
-	source = git+https://gitlab.gnome.org/GNOME/gedit.git#tag=48.1
+	source = git+https://gitlab.gnome.org/GNOME/gedit.git?signed#tag=48.2
 	source = git+https://gitlab.gnome.org/GNOME/libgd.git
-	b2sums = ed42c57aeac7bfd5d6f3b5ae17af8060698d515c5f2fbfc815a8eb530e27b8bc506e0090025250945aa425b27921a71f7b7635bb09a6d1884287f324c9a0efd4
+	source = gedit-new-tab.patch
+	source = gedit-prgname.patch
+	validpgpkeys = 08C0A6B1A08310A45363B328426F014A261FD87F
+	b2sums = 4a31442beea7d5b21a4ad89295672b8e7839efb27c9d0c72a9177a8baecd849ae0b801e82b748ec2b4e5a947dcbd4f9fa7a3ee1b6383fcd864405e8dbd7db305
 	b2sums = SKIP
+	b2sums = 3f30dde7f7141f2992f750fb01f215823f48c384c2e24d66d94d0471b99362024ed76512092e31e1703890d0e4e94384ab599be042405248807b5183ae1e6c1f
+	b2sums = 7a7a00699f32fdc6f3e7d64411c0e9158ae92cf1874de7d32cff0249e16368282e147a625897ae02f2ecf153db809619a87fa29beb7c0a4e4d16540053e2af80
 
 pkgname = gedit
