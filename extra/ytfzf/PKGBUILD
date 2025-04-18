@@ -4,13 +4,12 @@
 
 pkgname=ytfzf
 pkgver=2.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A POSIX script to find and watch youtube videos from the terminal"
 arch=('any')
 url="https://github.com/pystardust/ytfzf"
-license=('GPL3')
+license=('GPL-3.0-only')
 depends=('jq' 'curl')
-makedepends=('gzip')
 optdepends=(
     'dmenu: Search prompts and results via dmenu'
     'mpv: Default media player'
@@ -31,9 +30,8 @@ package() {
 
     install -Dm644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
     cd docs
-    install -dm0755 "$pkgdir"/usr/share/man/man{1,5}
-    gzip < "man/$pkgname.1" > "$pkgdir/usr/share/man/man1/$pkgname.1.gz"
-    gzip < "man/$pkgname.5" > "$pkgdir/usr/share/man/man5/$pkgname.5.gz"
+    install -Dm0644 "man/$pkgname.1" -t "$pkgdir/usr/share/man/man1"
+    install -Dm0644 "man/$pkgname.5" -t "$pkgdir/usr/share/man/man5"
     install -Dm0644 conf.sh -t "$pkgdir/usr/share/doc/$pkgname"
     install -Dm0644 subscriptions -t "$pkgdir/usr/share/doc/$pkgname"
 }
