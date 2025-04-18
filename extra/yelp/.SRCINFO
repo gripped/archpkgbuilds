@@ -1,0 +1,36 @@
+pkgbase = yelp
+	pkgdesc = Get help with GNOME
+	pkgver = 42.2
+	pkgrel = 3
+	url = https://apps.gnome.org/Yelp
+	arch = x86_64
+	groups = gnome
+	license = GPL-2.0-or-later
+	makedepends = appstream-glib
+	makedepends = autoconf-archive
+	makedepends = git
+	makedepends = glib2-devel
+	makedepends = itstool
+	depends = bzip2
+	depends = dconf
+	depends = glib2
+	depends = glibc
+	depends = gtk3
+	depends = hicolor-icon-theme
+	depends = libhandy
+	depends = libxml2
+	depends = libxslt
+	depends = sqlite
+	depends = webkit2gtk-4.1
+	depends = xz
+	depends = yelp-xsl
+	optdepends = man-db: View manual pages
+	provides = libyelp.so
+	source = git+https://gitlab.gnome.org/GNOME/yelp.git#tag=42.2
+	source = 0001-Remove-gtk-doc.patch
+	source = 0002-CVE-2025-3155.patch
+	b2sums = 16a45eedd3444a9817298ffd63ba0f4ed286b1a21c54bfd51fcab6e253d73b7fbf59e82e833c82e45d7a4189bea97ba7b186844073e2b9d225207aa2faeda6f6
+	b2sums = 5b530dcd424619ca17ff45f5e2ec6140fe998251c0f6bc96aebb22f2b89a076b7f2a38ff9d13cd1512e4c687d5797cead23b65324b083aabda2b4e93a2afa4cf
+	b2sums = e36ea4c361d8968a47343a1b6455f0c036628afeca1e63edbe70337ae8867b82eadca4cf2639e5c09a72f2e5dfe519718baeb251a17b8ddf36f4d1c668c25720
+
+pkgname = yelp
