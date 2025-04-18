@@ -1,7 +1,7 @@
 pkgbase = reproducible-faketools
 	pkgdesc = Fake system tools for reproducible builds
 	pkgver = 0.5.5
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/bmwiedemann/reproducible-faketools
 	arch = any
 	license = MIT
@@ -36,6 +36,7 @@ pkgname = reproducible-faketools-gzip
 
 pkgname = reproducible-faketools-hostname
 	pkgdesc = Fake system tools for reproducible builds (hostname)
+	depends = inetutils
 	depends = reproducible-faketools-lib
 	depends = sh
 

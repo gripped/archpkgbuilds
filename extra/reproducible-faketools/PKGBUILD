@@ -15,7 +15,7 @@ pkgname=(
   reproducible-faketools-zip
 )
 pkgver=0.5.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Fake system tools for reproducible builds"
 url='https://github.com/bmwiedemann/reproducible-faketools'
 arch=('any')
@@ -102,6 +102,7 @@ package_reproducible-faketools-gzip() {
 package_reproducible-faketools-hostname() {
   pkgdesc+=" (hostname)"
   depends=(
+    inetutils
     reproducible-faketools-lib
     sh
   )
