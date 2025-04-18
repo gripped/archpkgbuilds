@@ -1,16 +1,27 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=libvpl-tools
-pkgver=1.3.0
+pkgver=1.4.0
 pkgrel=1
 pkgdesc='Tools for Intel Video Processing Library'
 arch=('x86_64')
 url='https://github.com/intel/libvpl-tools/'
 license=('MIT')
-depends=('libdrm' 'libva' 'libvpl' 'libx11' 'vpl-runtime' 'wayland')
-makedepends=('cmake' 'libpciaccess' 'wayland-protocols')
+depends=(
+    'gcc-libs'
+    'glibc'
+    'libdrm'
+    'libva'
+    'libvpl'
+    'libx11'
+    'vpl-runtime'
+    'wayland')
+makedepends=(
+    'cmake'
+    'libpciaccess'
+    'wayland-protocols')
 source=("https://github.com/intel/libvpl-tools/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('b2f47ac60a41b9a0c0efd0bf1ae6a8aafba6e498624f650027dc0780edad0d01')
+sha256sums=('95d85a2b7cf8f6a3089c048c98c034bc7367925708ca325756b8d5c5c03c4ecf')
 
 build() {
     # fix warning: "_FORTIFY_SOURCE" redefined
