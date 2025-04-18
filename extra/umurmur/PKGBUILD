@@ -5,7 +5,7 @@
 # Contributor: xav <xav at ethertricks dot net>
 
 pkgname=umurmur
-pkgver=0.3.0
+pkgver=0.3.1
 pkgrel=1
 pkgdesc='Minimalistic Mumble server'
 url="https://github.com/umurmur/umurmur"
@@ -22,26 +22,26 @@ makedepends=(
 )
 backup=(etc/umurmur/umurmur.conf)
 source=(
-  $pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz
-  $pkgname-0.3.0-config-namespace.patch::https://github.com/umurmur/umurmur/commit/def963eebc81a977992acb609d6bc4c41ce98ad2.patch
+  $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
+  $pkgname-0.3.1-install-dir.patch
   umurmur.sysusers
   umurmur.service
   umurmur.tmpfiles
 )
-sha512sums=('73ecfe5e1187efb19e09fa1b30de5dd1003e9b97634d0e3d7d02bed5d611c8838d35ad9993d469603fa54e304219baa314a90c7c48dad1004c301284ed3bcabb'
-            'f18b5509e28b79ca7cc81425466fe9a483a3a644109e5bcb4aa01117649a0da355bc34cbf70610914d0b46092e3b0904f3b52a46f7363e51dc68a2a7cf37fef9'
+sha512sums=('f0f38af67442660a45692010232a56c7e9c2bd96908898fe946f70e3f531d3d135059e3a8f88180aef0cef3f4883a591ae922a833652ed221214a12c757bbb42'
+            'f291eff184d58c1648f29e9f4747bc7ae609022667cdf1cfe0cdd52f5ecdd09a22f04b238ae24d7c22eae6d1dc050d978e412de8dbe7510f69f2cf7fce2b8ab5'
             'd84950a32ab8a2e84f5fe333cd2894e52aba624531644d106c982aa4ff04271d318543398fa7f48c719f26338679fa971bb5332472e9040ac9aa8a9b4a1f2832'
             '0d34548ce1d1b3bc240664f5538d8b7dc31969731ef6ce04c99c9fab011e1d946eb5d5e91b14d66242d4a4955936f08752de9dd9ac7244886a53628079e8cfac'
             'b49b65a1e87cba9d8b453dee23f9f1e89d9eeb326e9ce98a32605ac62f72d36c1efbca70ed1a87efe9294ef137d3f673429cd70b5051e03e0e85db310943c39e')
-b2sums=('2aa316670eb91096d5668fc786025752032b9b8618e67a8e566c05d7312976397e2a2b9682dae8739c048db1cb4da0850b13530dcd25a69b19d576de19073194'
-        '77784dbc65eb7b5e238ae0888387f88d5c26d0402e5d6b6fd03e312339d68be05945c9ddf934a15a2c0643f685a01a7bbc12931e574b2adbf3a4422329a18101'
+b2sums=('cd4b715d19463816e886dddbc1520d3d4c050258c249722335f726b32821e145f8883c327b9877512b68aa5b905efb792441f7eff12f872fdde99eabe4905d01'
+        '02a1fa0c77674f3f4707824741a702c59dff0f314f5d9d1b51a4d74a65cfd23d317fe98f33e51c447b3a2d639fbdfd786109eba976c6daa01b1032d72fab7ec0'
         '549dda6277c3758d221a259d08d3f91658d7615b0c06ebf2af6f3966fd798ce6228ff9ccb653daeb1d2b592e029e96e756df779ad0d4a809e224f2071e5d76cc'
         '82783532ec4c21bdd8484175b8eeba53a593c86a92e11d441ee2f92410df90fab132a9bf7d5de24af48ed42eec57ece97b5399545094558d73a370827bbe4118'
         '935f8ea09c8cbb32dc508959181b707bfadd564c038b2c7a4ce213372242cdefaf75c7f3d76644f28246b666c93a0d89c5b4741f12f63261f19b99d8c0603219')
 
 prepare() {
-  # https://github.com/umurmur/umurmur/pull/170
-  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-0.3.0-config-namespace.patch
+  # fix issue with default binary install directory: https://github.com/umurmur/umurmur/issues/212
+  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-0.3.1-install-dir.patch
 }
 
 build() {
@@ -65,7 +65,7 @@ package() {
 
   DESTDIR="$pkgdir" cmake --install build
 
-  install -vdm 750 "$pkgdir/etc/$pkgname/"
+  install -vdm 750 "$pkgdir/etc/$pkgname/"  # ensure the mode matches our tmpfiles.d integration
   install -vDm 644 $pkgname.service -t "$pkgdir/usr/lib/systemd/system/"
   install -vDm 644 $pkgname.sysusers "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
   install -vDm 644 $pkgname.tmpfiles "$pkgdir/usr/lib/tmpfiles.d/$pkgname.conf"
