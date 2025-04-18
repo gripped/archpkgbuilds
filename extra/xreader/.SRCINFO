@@ -1,6 +1,6 @@
 pkgbase = xreader
 	pkgdesc = Document viewer for files like PDF and Postscript. X-Apps Project.
-	pkgver = 4.2.3
+	pkgver = 4.2.5
 	pkgrel = 1
 	url = https://github.com/linuxmint/xreader
 	arch = x86_64
@@ -12,6 +12,7 @@ pkgbase = xreader
 	makedepends = itstool
 	makedepends = gobject-introspection
 	makedepends = djvulibre
+	makedepends = git
 	makedepends = libgxps
 	makedepends = libspectre
 	makedepends = texlive-bin
@@ -24,8 +25,8 @@ pkgbase = xreader
 	optdepends = libspectre: support for dvi and ps files
 	optdepends = mathjax2: support for math in epub files
 	optdepends = texlive-bin: support for dvi files
-	source = https://github.com/linuxmint/xreader/archive/4.2.3/xreader-4.2.3.tar.gz
-	sha256sums = 57d8c20eddcb90ba768f386c444519b5f330c1aacfcaa3deb33db1ad1d7bbd6d
-	b2sums = 5ac1a293ccc02507b8e348e45eb0adbe35a37ac6a0d4525c1bae5960c51aeb5107d4cc713a2875543244b9fa7ef8ca0f527d10dc4cfa17aa420039e8d6bc571d
+	source = git+https://github.com/linuxmint/xreader.git#tag=4.2.5
+	sha256sums = 803b5b5f600e92dee82fcea422d390b780a407cddb5d7ec1be22f04af404bbaf
+	b2sums = e7ab48406dbf205adcaaa703853483900a1f95ad217e234348e53706a00089fc3f195c335fe3fb80c88e97214175426a127956ee965133f4521e911cb5ddca53
 
 pkgname = xreader
