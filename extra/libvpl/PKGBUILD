@@ -1,13 +1,13 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=libvpl
-pkgver=2.14.0
+pkgver=2.15.0
 pkgrel=1
 pkgdesc='Intel Video Processing Library'
 arch=('x86_64')
 url='https://intel.github.io/libvpl/'
 license=('MIT')
-depends=('gcc-libs')
+depends=('gcc-libs' 'glibc')
 optdepends=('intel-media-sdk: runtime implementation for legacy Intel GPUs'
             'vpl-gpu-rt: runtime implementation for Tiger Lake and newer GPUs')
 makedepends=('cmake')
@@ -16,7 +16,7 @@ conflicts=('onevpl')
 replaces=('onevpl')
 options=('!emptydirs')
 source=("https://github.com/intel/libvpl/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('7c6bff1c1708d910032c2e6c44998ffff3f5fdbf06b00972bc48bf2dd9e5ac06')
+sha256sums=('7218c3b8206b123204c3827ce0cf7c008d5c693c1f58ab461958d05fe6f847b3')
 
 build() {
     # fix warning: "_FORTIFY_SOURCE" redefined
@@ -33,6 +33,7 @@ build() {
         -DCMAKE_INSTALL_SYSCONFDIR:PATH='/etc' \
         -DBUILD_EXAMPLES:BOOL='OFF' \
         -DBUILD_TESTS:BOOL='ON' \
+        -DINSTALL_EXAMPLES:BOOL='OFF' \
         -DVPL_INSTALL_LICENSEDIR:PATH="share/licenses/${pkgname}" \
         -Wno-dev
     cmake --build build
@@ -44,6 +45,5 @@ check() {
 
 package() {
     DESTDIR="$pkgdir" cmake --install build
-    rm -r "${pkgdir}/usr/share/vpl/examples"
     rm "${pkgdir}/"{etc/vpl/vars.sh,usr/include/vpl/preview/{,legacy/}README.txt}
 }
