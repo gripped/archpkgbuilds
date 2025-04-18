@@ -2,7 +2,7 @@
 # Contributor: Piotr Miller <nwg.piotr@gmail.com>
 
 pkgname=nwg-shell
-pkgver=0.5.47
+pkgver=0.5.48
 pkgrel=1
 pkgdesc="Installer & meta-package for the nwg-shell project"
 url="https://nwg-piotr.github.io/nwg-shell/"
@@ -25,7 +25,7 @@ optdepends=('hyprland: Supported alternative Wayland compositor'
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 install="${pkgname}.install"
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/nwg-piotr/nwg-shell/archive/v${pkgver}.tar.gz")
-sha256sums=('a385cc16ace84f7dc479658ead1066141589aae5139de13293c93cf37a5898b3')
+sha256sums=('ce1f6a249e86c7a20cadbf07fe3fc7b1ebb87905809ae89aec3941a092bfa124')
 
 build() {
         cd "${pkgname}-${pkgver}"
