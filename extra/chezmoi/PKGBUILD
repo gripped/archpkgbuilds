@@ -4,7 +4,7 @@
 # Contributor:  <godeater@gmail.com>
 
 pkgname=chezmoi
-pkgver=2.62.1
+pkgver=2.62.2
 pkgrel=1
 pkgdesc="Manage your dotfiles across multiple machines"
 arch=('x86_64')
@@ -16,7 +16,7 @@ checkdepends=('zip')
 optdepends=('git: clone remote dotfiles over ssh')
 options=('!lto')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/twpayne/chezmoi/archive/v${pkgver}.tar.gz")
-sha512sums=('078bde23b8e3b9521f364bc30a476abcdd9ff62a63e8b21cf2138f69821b7076c3e74758ee25c2a67146b4430e89bcb5494b58f8a9dbfa770c4684c29a6ad2fc')
+sha512sums=('57f074b9f38874726b3c7177ff08605b7befac857ed3bee1de8185256e3154f4b41d8effdd3b8ec387b637cbf813da886f84029df7de38e66320e448136e88d6')
 
 prepare() {
   cd "$pkgname-$pkgver"
