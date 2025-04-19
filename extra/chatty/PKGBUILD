@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=chatty
-pkgver=0.8.6
-pkgrel=2
+pkgver=0.8.7
+pkgrel=1
 pkgdesc='Simple to use SMS and Matrix messaging application'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/Chatty'
@@ -11,7 +11,6 @@ depends=(
   cairo
   dconf
   evolution-data-server
-  feedbackd
   gcc-libs
   gdk-pixbuf2
   glib2
@@ -32,25 +31,17 @@ depends=(
 makedepends=(
   appstream
   git
+  glib2-devel
   itstool
   meson
 )
 checkdepends=(xorg-server-xvfb)
-source=(
-  "git+https://gitlab.gnome.org/World/Chatty.git?signed#tag=v$pkgver"
-  chatty-window-icon.patch
+source=("git+https://gitlab.gnome.org/World/Chatty.git?signed#tag=v$pkgver")
+b2sums=(5fb5213f9ad664ae4e29993650504cd52ac4bbb26ab7272263e4b87d9bf2ecb4b98e8e234ed237f53632fa84ff3db7d45fc11275ae4a7fd1fec44a973b6e0f58)
+validpgpkeys=(
+  FAA79DE7EBDD0D17A3F218E228319315DD47C33B # Evangelos Ribeiro Tzaras <evangelos.tzaras@puri.sm>
+  B9386554B7DD266BCB8E29A990F0C9B18A6B4A19 # Evangelos Ribeiro Tzaras <devrtz@fortysixandtwo.eu>
 )
-b2sums=('7afbb4179a529020be14e471cd22aa9d96c6e4fd6bb57949d9669488bc3297cfb41cff9c5ede170871f30ed9c6e1bb2934810ce69f10b1b6f9dd16d3e3730b90'
-        '07652619f7e01c441e828cb387cb6731c6d235fd4f7d90b73d6572e63ab8bb53fe2e10813aeba34cc9e0339b1bb9f33dad334011544aba19daad65cab75621f8')
-validpgpkeys=(FAA79DE7EBDD0D17A3F218E228319315DD47C33B  # Evangelos Ribeiro Tzaras <evangelos.tzaras@puri.sm>
-              B9386554B7DD266BCB8E29A990F0C9B18A6B4A19) # Evangelos Ribeiro Tzaras <devrtz@fortysixandtwo.eu>
-
-prepare() {
-  cd Chatty
-
-  # https://gitlab.gnome.org/World/Chatty/-/merge_requests/1435
-  git apply -3 ../chatty-window-icon.patch
-}
 
 build() {
   arch-meson Chatty build \
