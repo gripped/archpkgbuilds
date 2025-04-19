@@ -1,16 +1,18 @@
 pkgbase = ouch
 	pkgdesc = A command line utility for easily compressing and decompressing files and directories
-	pkgver = 0.5.1
+	pkgver = 0.6.0
 	pkgrel = 1
 	url = https://github.com/ouch-org/ouch
 	arch = x86_64
 	license = MIT
+	checkdepends = git
 	makedepends = cargo
+	makedepends = clang
 	depends = xz
 	depends = bzip2
 	depends = zlib
 	options = !lto
-	source = ouch-0.5.1.tar.gz::https://github.com/ouch-org/ouch/archive/refs/tags/0.5.1.tar.gz
-	sha256sums = 46cc2b14f53de2f706436df59300eb90c5a58f08ac8c738fd976fcb8ec0cd335
+	source = ouch-0.6.0.tar.gz::https://github.com/ouch-org/ouch/archive/refs/tags/0.6.0.tar.gz
+	sha256sums = 508f627342e6bcc560e24c2700406b037effbf120510d3d80192cd9acaa588fe
 
 pkgname = ouch

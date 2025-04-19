@@ -2,21 +2,22 @@
 # Contributor: Yigit Sever <yigit at yigitsever dot com>
 
 pkgname=ouch
-pkgver=0.5.1
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="A command line utility for easily compressing and decompressing files and directories"
 arch=('x86_64')
 url="https://github.com/ouch-org/ouch"
 license=('MIT')
 depends=('xz' 'bzip2' 'zlib')
-makedepends=('cargo')
+makedepends=('cargo' 'clang')
+checkdepends=('git')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('46cc2b14f53de2f706436df59300eb90c5a58f08ac8c738fd976fcb8ec0cd335')
+sha256sums=('508f627342e6bcc560e24c2700406b037effbf120510d3d80192cd9acaa588fe')
 options=('!lto')
 
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
