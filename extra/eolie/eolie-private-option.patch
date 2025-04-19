@@ -1,0 +1,45 @@
+From c5aea10fc290d9c59265154410b3e466316231e0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 19 Apr 2025 11:57:33 +0200
+Subject: [PATCH] Fix private command-line option
+
+---
+ eolie/application.py | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/eolie/application.py b/eolie/application.py
+index 9c4db69b..3c78f915 100644
+--- a/eolie/application.py
++++ b/eolie/application.py
+@@ -538,8 +538,7 @@ class Application(Gtk.Application, NightApplication):
+         if options.contains("disable-artwork-cache"):
+             self.art.disable_cache()
+ 
+-        # FIXME
+-        # is_ephemeral = options.contains("private")
++        is_ephemeral = options.contains("private")
+ 
+         # Only restore state on first run
+         if not self.windows:
+@@ -552,6 +551,9 @@ class Application(Gtk.Application, NightApplication):
+         else:
+             active_window = self.windows[0]
+ 
++        if is_ephemeral and len(args) == 1:
++            active_window.container.add_webview_for_uri(self.start_page,
++                                                        LoadingType.FOREGROUND, True)
+         # Open command line args
+         for uri in args[1:]:
+             # Transform path to uri
+@@ -563,7 +565,7 @@ class Application(Gtk.Application, NightApplication):
+                     uri = "http://%s" % uri
+             loading_type = wanted_loading_type(
+                 len(active_window.container.webviews))
+-            active_window.container.add_webview_for_uri(uri, loading_type)
++            active_window.container.add_webview_for_uri(uri, loading_type, is_ephemeral)
+ 
+         # Add default start page
+         if not active_window.container.webviews:
+-- 
+GitLab
+

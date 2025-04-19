@@ -1,0 +1,36 @@
+From 1a237b97d15f3cc2bd1867eae4ee058b2ebccfae Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 19 Apr 2025 13:55:20 +0200
+Subject: [PATCH] Clear temporary directory on quit
+
+---
+ eolie/application.py | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/eolie/application.py b/eolie/application.py
+index 9c4db69b..feea7ffd 100644
+--- a/eolie/application.py
++++ b/eolie/application.py
+@@ -27,6 +27,8 @@ from time import time
+ from getpass import getuser
+ from signal import signal, SIGINT, SIGTERM
+ import gc
++import os
++import shutil
+ 
+ from eolie.application_night import NightApplication
+ from eolie.settings import Settings
+@@ -193,6 +195,10 @@ class Application(Gtk.Application, NightApplication):
+         if self.sync_worker is not None:
+             self.sync_worker.stop()
+             self.sync_worker.save_pendings()
++
++        if os.path.exists(self.favicons_path):
++            shutil.rmtree(self.favicons_path)
++
+         if GLib.environ_getenv(GLib.get_environ(), "DEBUG_LEAK") is not None:
+             gc.collect()
+             for x in gc.garbage:
+-- 
+GitLab
+
