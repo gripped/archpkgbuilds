@@ -1,0 +1,93 @@
+From cad22be7ffcb30075634f75c1ac7e56c3d2baace Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 19 Apr 2025 14:34:55 +0200
+Subject: [PATCH] Use GApplication to parse command line options
+
+It already supports adding and parsing option entries, so it's not
+necessary to parse them manually.
+---
+ src/application.vala | 41 ++++++++++++++---------------------------
+ src/main.vala        |  1 +
+ 2 files changed, 15 insertions(+), 27 deletions(-)
+
+diff --git a/src/application.vala b/src/application.vala
+index b2c02cc..99a273b 100644
+--- a/src/application.vala
++++ b/src/application.vala
+@@ -43,12 +43,26 @@ namespace Connections {
+             model = new GLib.ListStore (typeof (Connections.Connection));
+         }
+ 
++        static bool opt_fullscreen;
++        static string[] opt_uris;
++        static string opt_file_import_uri;
++        const OptionEntry[] options = {
++            { "", 0, 0, GLib.OptionArg.STRING_ARRAY, ref opt_uris, N_ ("URL to connect"), null },
++            { "file", 'F', 0, GLib.OptionArg.FILENAME, ref opt_file_import_uri, N_ ("Open .vnc or .rdp file at the given PATH"), N_ ("PATH") },
++            { "fullscreen", 'f', 0, GLib.OptionArg.NONE, ref opt_fullscreen, N_("Open in full screen"), null },
++            { null }
++        };
++
+         public Application () {
+             application = this;
+ 
+             application_id = Config.APPLICATION_ID;
+             flags |= ApplicationFlags.HANDLES_COMMAND_LINE | ApplicationFlags.HANDLES_OPEN;
+ 
++            var parameter_string = _("A remote desktop client for the GNOME desktop environment");
++            set_option_context_parameter_string ("— " + parameter_string);
++            add_main_option_entries (options);
++
+             settings = new GLib.Settings ("org.gnome.Connections");
+ 
+             var action = new GLib.SimpleAction ("help", null);
+@@ -225,34 +239,7 @@ namespace Connections {
+             quit ();
+         }
+ 
+-        static bool opt_fullscreen;
+-        static string[] opt_uris;
+-        static string opt_file_import_uri;
+-        const OptionEntry[] options = {
+-            { "", 0, 0, GLib.OptionArg.STRING_ARRAY, ref opt_uris, N_ ("URL to connect"), null },
+-            { "file", 'F', 0, GLib.OptionArg.FILENAME, ref opt_file_import_uri, N_ ("Open .vnc or .rdp file at the given PATH"), N_ ("PATH") },
+-            { "fullscreen", 'f', 0, GLib.OptionArg.NONE, ref opt_fullscreen, N_("Open in full screen"), null },
+-            { null }
+-        };
+         public override int command_line (GLib.ApplicationCommandLine cmdline) {
+-            opt_uris = null;
+-            opt_file_import_uri = null;
+-            opt_fullscreen = false;
+-
+-            var parameter_string = _("A remote desktop client for the GNOME desktop environment");
+-            var opt_context = new OptionContext ("— " + parameter_string);
+-            opt_context.add_main_entries (options, null);
+-
+-            try {
+-                string[] args1 = cmdline.get_arguments ();
+-                unowned string[] args2 = args1;
+-                opt_context.parse (ref args2);
+-            } catch (GLib.OptionError error) {
+-                cmdline.printerr ("%s\n", error.message);
+-
+-                return 1;
+-            }
+-
+             if (opt_uris != null && opt_uris.length > 1) {
+                 cmdline.printerr (_("Too many command-line arguments specified.\n"));
+ 
+diff --git a/src/main.vala b/src/main.vala
+index 227ce02..963e21a 100644
+--- a/src/main.vala
++++ b/src/main.vala
+@@ -22,6 +22,7 @@
+ using Config;
+ 
+ int main (string[] args) {
++    Intl.setlocale (LocaleCategory.ALL, "");
+     Intl.bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
+     Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+     Intl.textdomain (GETTEXT_PACKAGE);
+-- 
+GitLab
+

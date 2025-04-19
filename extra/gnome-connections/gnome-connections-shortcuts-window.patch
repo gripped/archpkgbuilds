@@ -1,0 +1,127 @@
+From 9eb2c184e029301ff4d47afb961c180598693239 Mon Sep 17 00:00:00 2001
+From: Marek Kasik <mkasik@redhat.com>
+Date: Fri, 11 Apr 2025 15:05:27 +0200
+Subject: [PATCH] overview: Add shortcuts window
+
+Add shortcuts window since we already have a menu item for it.
+There is not many of them currently but we can add them later.
+
+Setting of application-id was moved to construction time to have
+resource-base-path set correctly.
+
+The window is inspired by the one from Boxes.
+---
+ src/application.vala           |  2 +-
+ src/connections.gresource.xml  |  1 +
+ src/ui/kbd-shortcuts-window.ui | 67 ++++++++++++++++++++++++++++++++++
+ 3 files changed, 69 insertions(+), 1 deletion(-)
+ create mode 100644 src/ui/kbd-shortcuts-window.ui
+
+diff --git a/src/application.vala b/src/application.vala
+index b2c02cc..43b44de 100644
+--- a/src/application.vala
++++ b/src/application.vala
+@@ -39,6 +39,7 @@ namespace Connections {
+         }
+ 
+         construct {
++            application_id = Config.APPLICATION_ID;
+             windows = new List<Connections.Window> ();
+             model = new GLib.ListStore (typeof (Connections.Connection));
+         }
+@@ -46,7 +47,6 @@ namespace Connections {
+         public Application () {
+             application = this;
+ 
+-            application_id = Config.APPLICATION_ID;
+             flags |= ApplicationFlags.HANDLES_COMMAND_LINE | ApplicationFlags.HANDLES_OPEN;
+ 
+             settings = new GLib.Settings ("org.gnome.Connections");
+diff --git a/src/connections.gresource.xml b/src/connections.gresource.xml
+index ed39e3e..31f996f 100644
+--- a/src/connections.gresource.xml
++++ b/src/connections.gresource.xml
+@@ -7,6 +7,7 @@
+     <file>ui/collection-view-child.ui</file>
+     <file>ui/dialog.ui</file>
+     <file>ui/display-view.ui</file>
++    <file alias="gtk/help-overlay.ui">ui/kbd-shortcuts-window.ui</file>
+     <file>ui/notification.ui</file>
+     <file>ui/rdp-preferences.ui</file>
+     <file>ui/vnc-preferences.ui</file>
+diff --git a/src/ui/kbd-shortcuts-window.ui b/src/ui/kbd-shortcuts-window.ui
+new file mode 100644
+index 0000000..38615e9
+--- /dev/null
++++ b/src/ui/kbd-shortcuts-window.ui
+@@ -0,0 +1,67 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<interface>
++  <!-- interface-requires gtk+ 3.17 -->
++
++  <object class="GtkShortcutsWindow" id="help_overlay">
++    <property name="modal">1</property>
++
++    <child>
++      <object class="GtkShortcutsSection">
++        <property name="visible">1</property>
++        <property name="section-name">shortcuts</property>
++        <property name="max-height">12</property>
++
++        <!-- Overview shortcuts -->
++        <child>
++          <object class="GtkShortcutsGroup">
++            <property name="visible">1</property>
++            <property name="title" translatable="yes" context="shortcut window">Overview</property>
++            <property name="view">overview</property>
++
++            <child>
++              <object class="GtkShortcutsShortcut">
++                <property name="visible">1</property>
++                <property name="accelerator">F1</property>
++                <property name="title" translatable="yes" context="shortcut window">Help</property>
++              </object>
++            </child>
++
++            <child>
++              <object class="GtkShortcutsShortcut">
++                <property name="visible">1</property>
++                <property name="accelerator">&lt;Ctrl&gt;f</property>
++                <property name="title" translatable="yes" context="shortcut window">Search</property>
++              </object>
++            </child>
++
++            <child>
++              <object class="GtkShortcutsShortcut">
++                <property name="visible">1</property>
++                <property name="accelerator">F11</property>
++                <property name="title" translatable="yes" context="shortcut window">Toggle full screen</property>
++              </object>
++            </child>
++
++            <child>
++              <object class="GtkShortcutsShortcut">
++                <property name="visible">1</property>
++                <property name="accelerator">&lt;Ctrl&gt;question &lt;Ctrl&gt;F1</property>
++                <property name="title" translatable="yes" context="shortcut window">Keyboard shortcuts</property>
++              </object>
++            </child>
++
++            <child>
++              <object class="GtkShortcutsShortcut">
++                <property name="visible">1</property>
++                <property name="accelerator">&lt;Ctrl&gt;q</property>
++                <property name="title" translatable="yes" context="shortcut window">Close Window/Quit Connections</property>
++              </object>
++            </child>
++          </object>
++        </child>
++
++      </object>
++    </child>
++  </object>
++
++</interface>
+-- 
+GitLab
+

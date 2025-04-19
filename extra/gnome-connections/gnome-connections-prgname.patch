@@ -1,0 +1,30 @@
+From eee702420fb985079adaa019b61a5a55e75baf8d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 21 Jun 2024 00:26:13 +0200
+Subject: [PATCH] application: Set prgname and icon for the window
+
+While the window icon is commonly used by desktop environments on Xorg,
+using the application ID for prgname ensures that Wayland compositors could
+match the window with the application and show the appropriate icon for
+them.
+---
+ src/application.vala | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/application.vala b/src/application.vala
+index b2c02cc..9e75cb2 100644
+--- a/src/application.vala
++++ b/src/application.vala
+@@ -98,6 +98,9 @@ namespace Connections {
+         public override void startup () {
+             base.startup ();
+ 
++            Environment.set_prgname (application_id);
++            Gtk.Window.set_default_icon_name (application_id);
++
+             Hdy.init ();
+             Hdy.StyleManager.get_default ().color_scheme = PREFER_DARK;
+         }
+-- 
+GitLab
+

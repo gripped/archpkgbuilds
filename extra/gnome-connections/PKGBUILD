@@ -3,7 +3,7 @@
 
 pkgname=gnome-connections
 pkgver=48.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Remote desktop client for the GNOME desktop environment'
 arch=(x86_64)
 url='https://apps.gnome.org/Connections/'
@@ -35,9 +35,19 @@ groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-connections.git?signed#tag=${pkgver/[a-z]/.&}"
   git+https://gitlab.gnome.org/GNOME/gtk-frdp.git
+  gnome-connections-prgname.patch
+  gnome-connections-shortcuts-window.patch
+  gnome-connections-activate.patch
+  gnome-connections-option-parse.patch
 )
-b2sums=('c8da8891be51b2dd63bc528da5043f50695add5d478429704041a348ceb75f2022b3b3858b734740440bf1aaf27a8b1890b6a3812d650e2d2af9908ad1bfd7ea'
-        'SKIP')
+b2sums=(
+  c8da8891be51b2dd63bc528da5043f50695add5d478429704041a348ceb75f2022b3b3858b734740440bf1aaf27a8b1890b6a3812d650e2d2af9908ad1bfd7ea
+  SKIP
+  9996a8fb1ba45c128c6c6e922fb4e41a47fe4a073e4ea59ca5e3421b718c3cb38226ec977bb29ddec3ea9f55481e24b97c33caf43740cdfad95b737705794961
+  d01c7214c97739c9a0b61cdea338a25e988f3a094606c68b3e4828f95fc53f0442f11d4c350b20a1791ac0ae2578a877f68537cbde4692d115743f8ffb5a7592
+  ce9657c52de9a6278c40b98a28c1b1f8d26d6afd919cd804fcba8933885885b30ee1dbab7980c717613e4de9b4e6988c391840918d81cd831f75899eb8452c7b
+  5a2c61a3986633324d09b6955c16aaf4a26bf15ec9b6ac37ac3c6fea53cd5238637fd09fde1f6582cc1dec14b45be1554d5cec88e8a6f0fabf4d839e2050c29c
+)
 validpgpkeys=(F55CDAB508C3ACBCB1C8B930C910F152653B1688) # Marek Kasik <mkasik@redhat.com>
 
 prepare() {
@@ -46,6 +56,22 @@ prepare() {
   git submodule init
   git submodule set-url subprojects/gtk-frdp "$srcdir/gtk-frdp"
   git -c protocol.file.allow=always submodule update
+
+  # Set prgname and icon for the window
+  # https://gitlab.gnome.org/GNOME/gnome-connections/-/merge_requests/157
+  git apply -3 ../gnome-connections-prgname.patch
+
+  # Add shortcuts window
+  # https://gitlab.gnome.org/GNOME/gnome-connections/-/merge_requests/165
+  git apply -3 ../gnome-connections-shortcuts-window.patch
+
+  # Present main window on activation
+  # https://gitlab.gnome.org/GNOME/gnome-connections/-/merge_requests/167
+  git apply -3 ../gnome-connections-activate.patch
+
+  # Use GApplication to parse command line options
+  # https://gitlab.gnome.org/GNOME/gnome-connections/-/merge_requests/168
+  git apply -3 ../gnome-connections-option-parse.patch
 }
 
 build() {
