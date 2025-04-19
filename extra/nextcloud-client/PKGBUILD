@@ -16,8 +16,8 @@
 pkgname=nextcloud-client
 pkgdesc='Nextcloud desktop client'
 epoch=2
-pkgver=3.16.2
-pkgrel=3
+pkgver=3.16.3
+pkgrel=2
 arch=(x86_64)
 url='https://nextcloud.com/'
 _url=https://github.com/nextcloud/desktop
@@ -64,7 +64,7 @@ validpgpkeys=(A26B951528EA1BA1678C7AE5D406C75CEE1A36D6  # https://github.com/cam
               0739B11EDA696A3616666F6AE04221E85C5BB816  # https://github.com/allexzander
               267BF70F7905C2723B0243267D0F74F05C22F553  # https://github.com/mgallien
               3A877D9A896A057948059DEDAD2C27357B2CB11D) # https://github.com/FlexW
-sha256sums=('46beee62bb4c5b57f723a295630ccdb36ea667a733c24c143b1242a6846d348b')
+sha256sums=('0565c82a437e1b696948522f8cd5d8da9a28b0bea48533bd06444a86bdeb5ac9')
 
 prepare() {
 	# tmpdir for check()
@@ -84,9 +84,6 @@ prepare() {
 		-e '/Capabilities/s/^/#/' \
 		-e '/SecureFileDrop/s/^/#/' \
 		test/CMakeLists.txt
-
-	# https://github.com/nextcloud/desktop/issues/8020
-	git cherry-pick -n 3000ca0db2914605e6e939e82732e90073d2a1de
 }
 
 build() {
