@@ -2,8 +2,8 @@
 # Contributor: Omar Sandoval <osandov at osandov dot com>
 
 pkgname=drgn
-pkgver=0.0.30
-pkgrel=3
+pkgver=0.0.31
+pkgrel=2
 pkgdesc='Programmable debugger'
 arch=('x86_64')
 url='https://github.com/osandov/drgn'
@@ -16,6 +16,7 @@ depends=(
     'python'
 )
 makedepends=(
+    'git'
     'python-build'
     'python-installer'
     'python-setuptools'
@@ -23,32 +24,26 @@ makedepends=(
 )
 optdepends=(
     'python-prompt_toolkit: enhanced terminal support in contrib/ptdrgn.py'
+    'debuginfod: for libdebuginfod support'
 )
 checkdepends=('check')
-source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$pkgname-$pkgver.tar.gz"
-        drgn-fix-libkdumpfile-0_5_5-memory-leak.patch)
-sha256sums=('3594ca8095c846f7acd9d723a2304f0171fd740250804633b791b15223b44eed'
-            '5473bfcaee6874847d75b7cc7bcec1ad0f4dc156934422c584c406a1af2b9bbd')
-
-prepare() {
-    cd $pkgname-$pkgver
-    patch -Np1 < ../drgn-fix-libkdumpfile-0_5_5-memory-leak.patch
-}
+source=("$pkgname::git+https://github.com/osandov/drgn#tag=v${pkgver}")
+sha256sums=('76fa976c2d5f6a06667845c655d93d8f48b7370b3376fbb7fc318468c3ca538a')
 
 build() {
-    cd $pkgname-$pkgver
+    cd $pkgname
     python -m build --wheel --no-isolation
 }
 
 check() {
-    cd "$pkgname-$pkgver"
+    cd "$pkgname"
     # this is not affected by the setup.py test removal:
     # https://github.com/osandov/drgn/issues/435
     python setup.py test
 }
 
 package() {
-    cd "$pkgname-$pkgver"
+    cd "$pkgname"
     python -m installer --destdir="$pkgdir" dist/*.whl
     install -d "$pkgdir/usr/share/drgn"
     cp -dR --no-preserve=ownership contrib tools "$pkgdir/usr/share/drgn"

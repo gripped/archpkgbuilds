@@ -1,11 +1,12 @@
 pkgbase = drgn
 	pkgdesc = Programmable debugger
-	pkgver = 0.0.30
-	pkgrel = 3
+	pkgver = 0.0.31
+	pkgrel = 2
 	url = https://github.com/osandov/drgn
 	arch = x86_64
 	license = LGPL-2.1-or-later
 	checkdepends = check
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -16,9 +17,8 @@ pkgbase = drgn
 	depends = libkdumpfile
 	depends = python
 	optdepends = python-prompt_toolkit: enhanced terminal support in contrib/ptdrgn.py
-	source = https://files.pythonhosted.org/packages/source/d/drgn/drgn-0.0.30.tar.gz
-	source = drgn-fix-libkdumpfile-0_5_5-memory-leak.patch
-	sha256sums = 3594ca8095c846f7acd9d723a2304f0171fd740250804633b791b15223b44eed
-	sha256sums = 5473bfcaee6874847d75b7cc7bcec1ad0f4dc156934422c584c406a1af2b9bbd
+	optdepends = debuginfod: for libdebuginfod support
+	source = drgn::git+https://github.com/osandov/drgn#tag=v0.0.31
+	sha256sums = 76fa976c2d5f6a06667845c655d93d8f48b7370b3376fbb7fc318468c3ca538a
 
 pkgname = drgn
