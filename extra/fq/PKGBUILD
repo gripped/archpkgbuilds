@@ -3,7 +3,7 @@
 # Contributor: Daniel Milde <daniel at milde dot cz>
 
 pkgname=fq
-pkgver=0.14.0
+pkgver=0.15.0
 pkgrel=1
 pkgdesc="Tool, language and decoders for inspecting binary data"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('glibc')
 checkdepends=('expect')
 makedepends=('go' 'git')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('91ed8693e3bbcd6e953b10627ce97af39baa137ed9deef3a820e839d6a29bf02')
+sha256sums=('1d4856a7dc102f255814b2bff55ac9c92690720097ef44db4c79456fff114b7a')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
