@@ -8,7 +8,7 @@ _bootstrap_version=3.13.0
 pkgname=python-setuptools
 _name=${pkgname#python-}
 pkgver=78.1.0
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Easily download, build, install, upgrade, and uninstall Python packages"
 arch=('any')
@@ -61,7 +61,7 @@ if (( _bootstrap == 0 )); then
   )
 else
   source=(
-    python-bootstrap::git+https://gitlab.archlinux.org/archlinux/python-bootstrap.git#tag=$_bootstrap_version
+    "python-bootstrap::git+https://gitlab.archlinux.org/archlinux/python-bootstrap.git#tag=$_bootstrap_version"
     python-build::git+https://github.com/pypa/build.git
     python-flit::git+https://github.com/pypa/flit.git
     python-installer::git+https://github.com/pypa/installer.git
@@ -86,8 +86,8 @@ prepare() {
   s/^core =/dependencies =/
   }' pyproject.toml
 
-    # Keep validate-pyproject as it also includes the generated validations
-    rm -r "$_name"/_vendor
+    # Revert "Always rewrite a Python shebang to #!python."
+    git revert --no-commit c71266345c64fd662b5f95bbbc6e4536172f496d
 
     # Fix tests invoking python-build
     patch -p1 -i ../build-no-isolation.patch
@@ -96,6 +96,9 @@ prepare() {
     sed -e '/tag_build = .post/d' \
         -e '/tag_date = 1/d' \
         -i setup.cfg
+
+    # validate-pyproject is still vendored for its pregenerated validations
+    rm -r "$_name"/_vendor
   else
     cd python-bootstrap
     git submodule init
@@ -144,7 +147,7 @@ check() { (
     --deselect "$_name"/tests/test_virtualenv.py::test_pip_upgrade_from_source
   )
 
-  PYTHONPATH=$(pwd)/build/lib python -m pytest "${pytest_args[@]}"
+  PYTHONPATH="$PWD/build/lib" python -m pytest "${pytest_args[@]}"
 )}
 
 package() {
@@ -153,11 +156,11 @@ package() {
   if (( _bootstrap == 0 )); then
     cd "$_name"
     python setup.py install --prefix=/usr --root="$pkgdir" --optimize=1 --skip-build
-    install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+    install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
   else
     cd python-bootstrap
-    python -m bootstrap.install dist/$_name-*-py3-none-any.whl -d "$pkgdir"
-    install -vDm 644 external/$_name/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+    python -m bootstrap.install dist/"$_name"-*-py3-none-any.whl -d "$pkgdir"
+    install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname external/"$_name"/LICENSE
   fi
 
   rm "$pkgdir/$site_packages/$_name"/*.exe
