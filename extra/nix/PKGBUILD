@@ -10,12 +10,13 @@
 pkgbase=nix
 pkgname=(nix perl-nix)
 pkgver=2.28.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A purely functional package manager'
 arch=(x86_64)
 url='https://nixos.org/nix'
 license=(LGPL-2.1-only)
 makedepends=(
+  aws-sdk-cpp-core aws-sdk-cpp-s3
   boost libboost_context.so
   brotli libbrotlienc.so libbrotlidec.so
   bzip2
@@ -93,6 +94,7 @@ build() {
 
 package_nix() {
   depends=(
+    aws-sdk-cpp-core aws-sdk-cpp-s3
     boost-libs libboost_context.so
     brotli libbrotlienc.so libbrotlidec.so
     curl libcurl.so

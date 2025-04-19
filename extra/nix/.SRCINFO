@@ -1,10 +1,12 @@
 pkgbase = nix
 	pkgdesc = A purely functional package manager
 	pkgver = 2.28.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://nixos.org/nix
 	arch = x86_64
 	license = LGPL-2.1-only
+	makedepends = aws-sdk-cpp-core
+	makedepends = aws-sdk-cpp-s3
 	makedepends = boost
 	makedepends = libboost_context.so
 	makedepends = brotli
@@ -66,6 +68,8 @@ pkgbase = nix
 	b2sums = 9a6091950e3ed3f9622630e16e5defc84d754562707d4ab8773e7b0cf5b52f2794de1b71cabce5705d140deb7703dc6effa355430b50ce1e397cbeba3ffe86b3
 
 pkgname = nix
+	depends = aws-sdk-cpp-core
+	depends = aws-sdk-cpp-s3
 	depends = boost-libs
 	depends = libboost_context.so
 	depends = brotli
