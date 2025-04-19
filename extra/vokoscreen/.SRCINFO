@@ -1,18 +1,19 @@
 pkgbase = vokoscreen
 	pkgdesc = Easy to use screencast creator
-	pkgver = 4.4.2
+	pkgver = 4.5.0
 	pkgrel = 1
 	url = https://linuxecke.volkoh.de/vokoscreen/vokoscreen.html
 	arch = x86_64
 	license = GPL2
+	makedepends = git
 	makedepends = qt6-tools
 	depends = gst-plugins-good
 	depends = qt6-multimedia
 	optdepends = gst-plugins-bad: record audio into AAC format
 	optdepends = gst-plugins-ugly: record screen into H.264 format
-	source = https://github.com/vkohaupt/vokoscreenNG/archive/4.4.2/vokoscreenNG-4.4.2.tar.gz
+	source = git+https://github.com/vkohaupt/vokoscreenNG.git#tag=4.5.0
 	source = 0001-Add-better-integration-for-Linux.patch
-	sha256sums = 3d0617f8058839ebfd588546f45db05fc058907bbcaea30b60a160cb97e41a70
+	sha256sums = 8e487489fa4c30e9b163fbbd40b19e3b39cc115a5d57a2655b279cb0d668ae82
 	sha256sums = 422d0cd05d2fe1a1973f8eb50e95c7e4898ce3afeae97b7e67ab384f3958ffa2
 
 pkgname = vokoscreen
