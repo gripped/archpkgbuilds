@@ -1,8 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-bitarray
-_pkgname=${pkgname#python-}
-pkgver=3.3.0
+pkgver=3.3.1
 pkgrel=1
 pkgdesc="Efficient arrays of booleans for Python"
 arch=(x86_64)
@@ -19,22 +18,22 @@ makedepends=(
   python-wheel
 )
 checkdepends=(python-pytest)
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('bc0cf50d77cb7c39c97d07ae4df549367dc4a1f18eb3951e1ca9c60d9e969697')
+source=("$url/archive/$pkgver/${pkgname#python-}-$pkgver.tar.gz")
+sha256sums=('3997d05edb177485eee4be516b0f122e8eda508e4e1d85124daea8ae8b4ad1e9')
 
 build() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir=tmp_install dist/*.whl
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   pytest "$PWD/tmp_install/$site_packages"
 }
 
 package() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
