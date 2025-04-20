@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=falkon
-pkgver=24.12.3
-pkgrel=3
+pkgver=25.04.0
+pkgrel=1
 pkgdesc='Cross-platform QtWebEngine browser'
 arch=(x86_64)
 url='https://www.falkon.org/'
@@ -34,18 +34,12 @@ optdepends=('kcoreaddons: KDE integration'
             'pyside6: Python plugins')
 groups=(kde-applications
         kde-network)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/network/falkon/-/commit/902e8c02.patch)
-sha256sums=('8d9d967a0af71901188ab4fc501137a4eb7602ffe5222a3240a38ffa9243b951'
-            'SKIP'
-            '098c195ac19a78d76a62aee398061445c3243b6181096ea11461d6aeeea19e6f')
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('aad010d664227ddfe1fc084bb6fb366aed752340e00c0f37ddfa3aa32362e84c'
+            'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < 902e8c02.patch # Fix GPU acceleration with Qt 6.9
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
