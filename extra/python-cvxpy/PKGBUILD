@@ -2,7 +2,7 @@
 
 _pyname=cvxpy
 pkgname=python-$_pyname
-pkgver=1.6.4
+pkgver=1.6.5
 pkgrel=1
 pkgdesc='A Python-embedded modeling language for convex optimization problems'
 url='https://www.cvxpy.org/'
@@ -32,7 +32,7 @@ checkdepends=(python-cvxopt
               python-pyscipopt
               python-pytest)
 source=(git+https://github.com/cvxpy/cvxpy#tag=v$pkgver)
-sha256sums=('6222bce052ecd1844910b79bd964922705dfc12235c333e80f099c43112b3e2e')
+sha256sums=('0769aea7886222691a866d250f01c667bbfcbaf1a5ba70c363918d3703842706')
 
 prepare() {
   sed -e 's|,<1.24||' -e '/oldest-supported-numpy/d' -i $_pyname/pyproject.toml # Drop version constraints
