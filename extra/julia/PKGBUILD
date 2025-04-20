@@ -8,7 +8,7 @@
 
 pkgname=julia
 epoch=2
-pkgver=1.11.4
+pkgver=1.11.5
 pkgrel=1
 arch=(x86_64)
 pkgdesc='High-level, high-performance, dynamic programming language'
@@ -42,7 +42,7 @@ source=(https://github.com/JuliaLang/julia/releases/download/v$pkgver/$pkgname-$
         julia-metainfo.patch
         julia-curl-1.10.patch)
 backup=(etc/julia/startup.jl)
-sha256sums=('c4936562d05128842d7fe2be30734333519ea94a54861b5d0bfe38d103e96b5b'
+sha256sums=('147626db6b6887bfb6612cb6cd2a48d689806649fae34dc749fddc8375c2c625'
             'SKIP'
             '2cc294b63e601d50341979fb936826bdba59de2165a5929eae927e152652f367'
             'e981ce26bb2394333c83512a607e8aa48ae0d66ec40e0f0b6d97ec70b6baa39f'
@@ -120,6 +120,7 @@ _make() {
     LLVM_CONFIG=/usr/lib/llvm-julia/bin/llvm-config
   )
 
+  export CMAKE_POLICY_VERSION_MINIMUM=3.5 # Fix build with cmake 4
   LD_LIBRARY_PATH="/usr/lib/mbedtls2" make "${make_options[@]}" "$@"
 }
 
