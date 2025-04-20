@@ -5,7 +5,7 @@
 
 pkgname=snappy
 pkgver=1.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A fast compressor/decompressor library'
 arch=('x86_64')
 url="https://github.com/google/snappy"
@@ -23,20 +23,23 @@ checkdepends=('zlib')
 provides=('libsnappy.so')
 source=(
   "$url/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-  snappy.pc.in
-  cmake_add_pkgconfig.patch
-  use_system_gtest.patch
+  "snappy.pc.in"
+  "$pkgname-cmake_add_pkgconfig.patch"
+  "$pkgname-use_system_gtest.patch"
+  "$pkgname-reenable_rtti.patch"
 )
 sha256sums=('90f74bc1fbf78a6c56b3c4a082a05103b3a56bb17bca1a27e052ea11723292dc'
             '134f06ca0584a1026538d0fb972fc141c008390ecae1806184b721eca1abbc75'
             '2a204d7d35509ffc290d80c641fcb7e8488c67ca550aa1695493cff12c53156b'
-            '50b31b45511e8907f1319305c102f37631b0fbe509f862b612e70073383658e4')
+            '50b31b45511e8907f1319305c102f37631b0fbe509f862b612e70073383658e4'
+            '6ff6970d2a1961aed375a8e5098bf3b7340ff86fe60aff4483dec3400f273372')
 
 prepare() {
   cd $pkgname-$pkgver
   cp ../snappy.pc.in .
-  patch -Np1 < ../cmake_add_pkgconfig.patch # https://bugs.archlinux.org/task/71246
-  patch -Np1 < ../use_system_gtest.patch
+  patch -Np1 < ../$pkgname-cmake_add_pkgconfig.patch # https://bugs.archlinux.org/task/71246
+  patch -Np1 < ../$pkgname-use_system_gtest.patch
+  patch -Np1 < ../$pkgname-reenable_rtti.patch
 }
 
 build() {
