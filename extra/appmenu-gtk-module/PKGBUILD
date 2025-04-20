@@ -3,10 +3,13 @@
 # Contributor: Kaizhao Zhang <zhangkaizhao@gmail.com>
 
 pkgname=appmenu-gtk-module
-pkgver=24.05
+pkgver=25.04
 pkgrel=1
 pkgdesc="Application Menu GTK+ Module"
-depends=()
+depends=(gcc-libs
+         gdk-pixbuf2
+         glib2
+         glibc)
 makedepends=(git
              gtk2
              gtk3
@@ -18,7 +21,7 @@ arch=(x86_64)
 license=(LGPL-3.0-only)
 source=(git+https://gitlab.com/vala-panel-project/vala-panel-appmenu#tag=$pkgver
         80-appmenu-gtk-module.sh)
-sha256sums=('f4b3a9faffc374d60180e140686ec8d646c6492cfaebd4cedf35da646ae984e3'
+sha256sums=('843b24f98f02feb8cbfdda26630018ae95f8ac4959de9deb88cf1a13506f845f'
             'e8aff88851145085e24989cc99da9f631c593b506d0224225f3eb347d16c6455')
 
 build() {

@@ -1,6 +1,6 @@
 pkgbase = appmenu-gtk-module
 	pkgdesc = Application Menu GTK+ Module
-	pkgver = 24.05
+	pkgver = 25.04
 	pkgrel = 1
 	url = https://gitlab.com/vala-panel-project/vala-panel-appmenu/
 	arch = x86_64
@@ -9,11 +9,15 @@ pkgbase = appmenu-gtk-module
 	makedepends = gtk2
 	makedepends = gtk3
 	makedepends = meson
+	depends = gcc-libs
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
 	optdepends = gtk2: GTK2 module
 	optdepends = gtk3: GTK3 module
-	source = git+https://gitlab.com/vala-panel-project/vala-panel-appmenu#tag=24.05
+	source = git+https://gitlab.com/vala-panel-project/vala-panel-appmenu#tag=25.04
 	source = 80-appmenu-gtk-module.sh
-	sha256sums = f4b3a9faffc374d60180e140686ec8d646c6492cfaebd4cedf35da646ae984e3
+	sha256sums = 843b24f98f02feb8cbfdda26630018ae95f8ac4959de9deb88cf1a13506f845f
 	sha256sums = e8aff88851145085e24989cc99da9f631c593b506d0224225f3eb347d16c6455
 
 pkgname = appmenu-gtk-module
