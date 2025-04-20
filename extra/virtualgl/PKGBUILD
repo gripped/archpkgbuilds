@@ -3,7 +3,7 @@
 # Contributor: Andres Jimenez
 
 pkgname=virtualgl
-pkgver=3.1.2
+pkgver=3.1.3
 pkgrel=1
 pkgdesc="Redirects 3D commands from an OpenGL application onto a server-side 3D graphics card"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('libxv' 'glu' 'libjpeg-turbo' 'xcb-util-keysyms' 'opencl-driver' 'ocl-i
 makedepends=('cmake' 'mesa' 'libxtst' 'opencl-headers' 'ninja')
 source=("https://github.com/VirtualGL/virtualgl/releases/download/${pkgver}/VirtualGL-${pkgver}.tar.gz"{,.sig}
         "$pkgname.sysusers")
-sha512sums=('5f51691d66645cfca74997b36c442daf4d3fd54ab93b48e501a275a0e8fcc4ecaa71e24665619d40c5561c9598a8d3c224fb3b7ecd3afb56fe0a6ecc350aec5e'
+sha512sums=('43e57626efaa86bd5568c61620db5f915db92d6bda2c16f43c6f5d99e9d093bcface8fd0c043af02c58f5d06e9b5f56bbc3cc9fe9b5ec7201902325d49592a92'
             'SKIP'
             'fa97a6c40a216db1632563187bbc5452025cfb8f93341b84e8d71894113f4236f4c64cb38bdd0c4ac55eececec2aad6f357b8716af08b181d3f1352da34fe799')
 validpgpkeys=('AE1A7BA4EFFF9A9987E1474C4BACCAB36E7FE9A1') # The VirtualGL Project (Signing key for official binaries) <information@VirtualGL.org>
