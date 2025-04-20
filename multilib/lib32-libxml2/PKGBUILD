@@ -8,7 +8,7 @@ pkgbase=lib32-libxml2
 pkgname=(
   lib32-libxml2
 )
-pkgver=2.13.7
+pkgver=2.13.8
 pkgrel=1
 pkgdesc="XML C parser and toolkit (32-bit)"
 url="https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home"
@@ -31,9 +31,9 @@ source=(
   https://www.w3.org/XML/Test/xmlts20130923.tar.gz
   0002-meson-Build-fixes.patch
 )
-b2sums=('fc6186c28db0582fc52a0247e2a333c7030a62005efa6b98eb982acd78a28fc8bf2a542b340f86549cb6ac724d2f9fc94d4d8fdce374847fef61dcadd80132a2'
+b2sums=('81e02da9df8ca795ab48a26e2c3f6e728f6eb0d24431034cedd62b37704b23c5f2691984b0b6b2db0990db76703f4a312226bfcc3a73719d974f2d975b63a018'
         '63a47bc69278ef510cd0b3779aed729e1b309e30efa0015d28ed051cc03f9dfddb447ab57b07b3393e8f47393d15473b0e199c34cb1f5f746b15ddfaa55670be'
-        'a42e284cd50e87a6eb4bd66bc02f968fc9f79922e000295d9778c5f2974985251509d58214203e9f542bad365e85136f7f07672bd4b6e338e89b0bd9b14190f1')
+        '9e8107be0b021f792f95bd6739865016945e42706967d42d0ae52ae5fe7d6ebf6bce65e5f2fcb6b8868508c7d007fff39fb2bf8c221e8685bc1b4b918f6e9736')
 
 prepare() {
   cd libxml2
