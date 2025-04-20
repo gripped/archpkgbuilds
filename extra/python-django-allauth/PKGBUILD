@@ -2,16 +2,17 @@
 
 pkgname=python-django-allauth
 _name=${pkgname#python-}
-pkgver=65.2.0
-pkgrel=2
+pkgver=65.7.0
+pkgrel=1
 pkgdesc="Authentication, registration, account management and 3rd party account authentication"
 arch=(any)
 url="https://codeberg.org/allauth/django-allauth"
 license=(MIT)
 depends=(
   python
-  python-asgiref  # implicitly provided via python-django
+  python-asgiref
   python-django
+  python-pyyaml  # implicitly required but not specified
 )
 makedepends=(
   python-build
@@ -21,6 +22,8 @@ makedepends=(
 )
 checkdepends=(
   python-cryptography
+  python-django-ninja
+  python-django-rest-framework
   python-fido2
   python-openid
   python-pillow
@@ -28,6 +31,7 @@ checkdepends=(
   python-pytest-asyncio
   python-pytest-django
   python-pyjwt
+  python-psycopg2
   python-qrcode
   python-requests
   python-requests-oauthlib
@@ -44,8 +48,8 @@ optdepends=(
   'python-saml: for SAML support'
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('1066bdcefcec544b6c91cec50e97dd142abc514cc1e748d66b37822cca9d6615d8c045fb1e8997ad4f8930a00ecd855ed74a6c7fd5cc73a4c1a61e5ec89c6d5c')
-b2sums=('c3f2bbd4e2c8503770d7056b73e76e35c17b12dd272b4dac09605295fea01ae4ac57e139fd4054459cb86bdb4e8308a611201d9cfddd86def45a48301659554c')
+sha512sums=('6e460779e1227bd127bd05a215c220ebecd74addc8e87f207fd3ee781c8339a7dfcd239649f4c0b1087dd7bd5fbb14da66dbf1a33bc0c8c520423c577b2aa711')
+b2sums=('4744857c22aa44470d70288d6e7d7168742d04bfccbc393ef8991d1c26d5765a2af54ff813bb34e99a10c163c5cce2453e5cf84afc8b01ef8e10ea61912cb4d5')
 
 build() {
   cd $_name
