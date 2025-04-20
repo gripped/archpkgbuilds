@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kget
-pkgver=24.12.3
+pkgver=25.04.0
 pkgrel=1
 pkgdesc='Download Manager'
 url='https://apps.kde.org/kget/'
@@ -33,7 +33,7 @@ depends=(gcc-libs
          kwindowsystem
          kxmlgui
          qt6-base)
-makedepends=(boost
+makedepends=(boost # for libktorrent
              extra-cmake-modules
              kdoctools
              libktorrent
@@ -43,7 +43,7 @@ optdepends=('libktorrent: torrent support'
 groups=(kde-applications
         kde-network)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('00b74499649b996a683b1b3a434ce9f45704dad3470cf860032617f4a473f9f8'
+sha256sums=('560a054d9aadf4f39a58c6daa3094f4b32bb6f3abe6ff86d1bd421b5bfaf30ca'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
