@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=picmi
-pkgver=24.12.3
+pkgver=25.04.0
 pkgrel=1
 pkgdesc='A nonogram logic game for KDE'
 url='https://apps.kde.org/picmi/'
@@ -16,6 +16,7 @@ depends=(gcc-libs
          kcrash
          kdbusaddons
          ki18n
+         kiconthemes
          kwidgetsaddons
          kxmlgui
          libkdegames
@@ -26,7 +27,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('26ccd55a78ece19a1f865c42e2c1c6d8e66c615821c257c9e21bba9718287a6a'
+sha256sums=('6f350921d40f9df73b4f01d397b5fcec2111e9cb07a5f39ad9ed8b18732048e8'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
