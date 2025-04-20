@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=keysmith
-pkgver=24.12.3
+pkgver=25.04.0
 pkgrel=1
 pkgdesc='OTP client for Plasma Mobile and Desktop'
 url='https://apps.kde.org/keysmith/'
@@ -9,6 +9,7 @@ arch=(x86_64)
 license=(GPL-2.0-or-later LGPL-2.0-or-later)
 depends=(gcc-libs
          glibc
+         kconfig
          kcoreaddons
          kdbusaddons
          ki18n
@@ -16,15 +17,18 @@ depends=(gcc-libs
          kirigami-addons
          kwindowsystem
          libsodium
+         openssl
+         prison
          qqc2-desktop-style
          qt6-base
-         qt6-declarative)
+         qt6-declarative
+         qt6-multimedia)
 makedepends=(extra-cmake-modules
              python)
 groups=(kde-applications
         kde-utilities)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('2516e59611e6f2209ff8cae34edacbeb9e1dccb16c3b5afea69c9264c09613c5'
+sha256sums=('0201f1df96af17afa5a9f0ba3fd2e5f581b5e789e634f29875071f0661656f2e'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
