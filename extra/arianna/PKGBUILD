@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=arianna
-pkgver=24.12.3
+pkgver=25.04.0
 pkgrel=1
 pkgdesc='EPub Reader for mobile devices'
 url='https://apps.kde.org/arianna/'
@@ -11,8 +11,10 @@ depends=(baloo
          gcc-libs
          glibc
          karchive
+         kcolorscheme
          kconfig
          kcoreaddons
+         kcrash
          kdbusaddons
          kfilemetadata
          ki18n
@@ -31,7 +33,7 @@ makedepends=(extra-cmake-modules)
 groups=(kde-applications
         kde-graphics)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('494ff3d4bfb9c7b8ee76344b7423c4ccf7da3f9adbf8a899aed46e573a5ef826'
+sha256sums=('cdba56461f1fd5ddf07943e0216b12b10451dd8723a7c08664835ffe2f4af1ba'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
