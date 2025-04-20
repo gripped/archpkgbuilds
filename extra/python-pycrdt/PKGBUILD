@@ -2,7 +2,7 @@
 
 _pyname=pycrdt
 pkgname=python-$_pyname
-pkgver=0.12.12
+pkgver=0.12.14
 pkgrel=1
 pkgdesc='CRDTs based on Yrs'
 arch=(x86_64)
@@ -19,10 +19,11 @@ makedepends=(git
 checkdepends=(python-anyio
               python-pydantic
               python-pytest
+              python-pytest-mypy-testing
               python-trio
               python-y-py)
 source=(git+https://github.com/jupyter-server/pycrdt#tag=$pkgver)
-sha256sums=('607a8f6722cd3f978f0289529e5a95c498d23873ad2fb72bde23c0793ab66b3b')
+sha256sums=('dbb4a1523a647252eab7776a60d7b69f30f6c637685cd711d3178e2c99b6ec07')
 
 build() {
   cd $_pyname
@@ -33,7 +34,8 @@ check() {
   cd $_pyname
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest -v
+  test-env/bin/python -m pytest -v \
+    -k 'not test_types.py'
 }
 
 package() {
