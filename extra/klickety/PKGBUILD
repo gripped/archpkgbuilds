@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=klickety
-pkgver=24.12.3
+pkgver=25.04.0
 pkgrel=1
 pkgdesc='An adaptation of the Clickomania game'
 url='https://apps.kde.org/klickety/'
@@ -17,6 +17,7 @@ depends=(gcc-libs
          kcrash
          kdbusaddons
          ki18n
+         kiconthemes
          kio
          kwidgetsaddons
          kxmlgui
@@ -28,7 +29,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('eb02df2fc9030de99849d24cfa125d5b263e45bacbebc819b84d0c6e73f48426'
+sha256sums=('a6bfaf3a83c029c6eb90bb3cf0e40f97de37d43f3fd43b4e5ce83ede961e4f6b'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
