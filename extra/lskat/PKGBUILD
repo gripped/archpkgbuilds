@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=lskat
-pkgver=24.12.3
+pkgver=25.04.0
 pkgrel=1
 pkgdesc='Lieutenant Skat is a fun and engaging card game for two players'
 url='https://apps.kde.org/lskat/'
@@ -12,11 +12,13 @@ license=(GPL-2.0-or-later LGPL-2.0-or-later)
 depends=(gcc-libs
          glibc
          kconfig
+         kconfigwidgets
          kcoreaddons
          kcrash
          kdbusaddons
          kguiaddons
          ki18n
+         kiconthemes
          kwidgetsaddons
          kxmlgui
          libkdegames
@@ -27,7 +29,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('f7986696630601c4a868688537fe05da545e01008ad3bf66e561dfdc19db5684'
+sha256sums=('4add0b6779e892a8b62ee9ddfdf273427d9fab4a648c174d3f8675a0b6eb4516'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
