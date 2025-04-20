@@ -3,15 +3,15 @@
 
 pkgbase=level-zero
 pkgname=(level-zero-headers level-zero-loader)
-pkgver=1.20.6
+pkgver=1.21.9
 pkgrel=1
 pkgdesc="API for accessing low level interfaces in oneAPI platform devices"
 arch=(x86_64)
 url='https://github.com/oneapi-src/level-zero/'
 license=(MIT)
-makedepends=(git cmake fmt opencl-headers spdlog)
+makedepends=(cmake git opencl-headers spdlog)
 source=(https://github.com/oneapi-src/level-zero/archive/v${pkgver}/${pkgbase}-${pkgver}.tar.gz)
-sha256sums=('3fac6c9efcb013e81c751159e8312302371658ed149e3a1a1a7a80cceea48ce9')
+sha256sums=('ba543a01adbcbd241518c3eee80b75414094d1fd3efcde9ff2693196cea4d057')
 
 prepare() {
   printf '%s\n' ${pkgver##*.} > ${pkgbase}-${pkgver}/VERSION_PATCH
@@ -42,7 +42,7 @@ package_level-zero-headers() {
 
 package_level-zero-loader() {
   pkgdesc+=" (loader)"
-  depends=(fmt spdlog)
+  depends=(gcc-libs glibc spdlog)
   
   mv loader "${pkgdir}"/usr
   install -Dm644 ${pkgbase}-${pkgver}/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}
