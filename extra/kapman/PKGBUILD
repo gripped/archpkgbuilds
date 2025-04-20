@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kapman
-pkgver=24.12.3
+pkgver=25.04.0
 pkgrel=1
 pkgdesc='A clone of the well known game Pac-Man'
 url='https://apps.kde.org/kapman/'
@@ -17,6 +17,7 @@ depends=(gcc-libs
          kcrash 
          kdbusaddons
          ki18n
+         kiconthemes
          kwidgetsaddons
          kxmlgui
          libkdegames
@@ -27,7 +28,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('9bb246a2114be4f28e5bb7191b21f9ebbd2b040104b0ad4a163efadccb8bf211'
+sha256sums=('08040773c710e5d922ca1ac1d57bfaa404a223c9af8e800a345da79635d38ec1'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
