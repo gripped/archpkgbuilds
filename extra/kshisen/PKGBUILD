@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kshisen
-pkgver=24.12.3
+pkgver=25.04.0
 pkgrel=1
 pkgdesc='A solitaire-like game played using the standard set of Mahjong tiles'
 url='https://apps.kde.org/kshisen/'
@@ -17,6 +17,7 @@ depends=(gcc-libs
          kcrash
          kdbusaddons
          ki18n
+         kiconthemes
          kwidgetsaddons
          kxmlgui
          libkdegames
@@ -27,7 +28,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('aab30c11fece1b376b1a24be9bce4db102cdd2134b46b3e40813ee15ba0d4a10'
+sha256sums=('5f835f44204d5788700fc4955e4b87b9fbe7289ca6466f3c9ce2a3fc31073c8b'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
