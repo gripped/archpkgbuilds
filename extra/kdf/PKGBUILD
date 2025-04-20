@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kdf
-pkgver=24.12.3
+pkgver=25.04.0
 pkgrel=1
 url='https://apps.kde.org/kdf/'
 arch=(x86_64)
@@ -22,6 +22,7 @@ depends=(gcc-libs
          kiconthemes
          kio
          kjobwidgets
+         kservice
          kstatusnotifieritem
          kwidgetsaddons
          kxmlgui
@@ -31,7 +32,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-utilities)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('db4f4d7e2a0765ba6fbdddc176ea801ebb1b9653f3129ecaa1223ef0ef12fba9'
+sha256sums=('5c0c49fe2d5f7ca09f05a70edc676019dd1995adb720b0f2d5166c677a012530'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
