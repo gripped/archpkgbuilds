@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=ksnakeduel
-pkgver=24.12.3
+pkgver=25.04.0
 pkgrel=1
 pkgdesc='A simple snake duel game'
 url='https://apps.kde.org/ksnakeduel/'
@@ -19,6 +19,7 @@ depends=(gcc-libs
          kdbusaddons
          kguiaddons
          ki18n
+         kiconthemes
          kwidgetsaddons
          kxmlgui
          libkdegames
@@ -28,7 +29,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('1c999041a74dbf66ab0f5f99207fb2e9cdcaa0cbd61af45f7cefbf875b865138'
+sha256sums=('2097bc7179aa2f1ef1f870f956b7173bc79fae028470e4cd7f821c47bf81f96c'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
