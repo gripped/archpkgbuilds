@@ -1,0 +1,44 @@
+From fe67cd4b00b03cafc362c1377ed6a4ff4b8ede81 Mon Sep 17 00:00:00 2001
+From: Kristian Klausen <kristian@klausen.dk>
+Date: Tue, 20 Sep 2022 18:56:49 +0200
+Subject: [PATCH] Don't modify the CC header when handling duplicates
+
+Modifying breaks the DKIM signature. This reverts the behaviour
+described in [1] ("... we'll also strip their addresses from CC headers
+in the list copy.").
+
+[1] da20177df ("process(): If a member has enabled their DontReceiveDuplicates option, we'll also strip their addresses from CC headers in the list copy. This helps keep the CC lines from growing astronomically.")
+
+Fix #636
+---
+ src/mailman/handlers/avoid_duplicates.py       | 4 ----
+ src/mailman/handlers/docs/avoid-duplicates.rst | 1 +
+ 2 files changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/src/mailman/handlers/avoid_duplicates.py b/src/mailman/handlers/avoid_duplicates.py
+index d7ce9915fc..4ddee5419a 100644
+--- a/src/mailman/handlers/avoid_duplicates.py
++++ b/src/mailman/handlers/avoid_duplicates.py
+@@ -113,7 +113,3 @@ class AvoidDuplicates:
+                 newrecips.add(r)
+         # Set the new list of recipients.  XXX recips should always be a set.
+         msgdata['recipients'] = list(newrecips)
+-        # RFC 2822 specifies zero or one CC header
+-        del msg['cc']
+-        if cc_addresses:
+-            msg['CC'] = COMMASPACE.join(cc_addresses.values())
+diff --git a/src/mailman/handlers/docs/avoid-duplicates.rst b/src/mailman/handlers/docs/avoid-duplicates.rst
+index f74a4e3ab7..b45c78052b 100644
+--- a/src/mailman/handlers/docs/avoid-duplicates.rst
++++ b/src/mailman/handlers/docs/avoid-duplicates.rst
+@@ -96,6 +96,7 @@ be removed from the ``CC``.
+     ['bperson@example.com']
+     >>> print(msg.as_string())
+     From: Claire Person <cperson@example.com>
++    CC: aperson@example.com
+     <BLANKLINE>
+     Something of great import.
+     <BLANKLINE>
+-- 
+GitLab
+
