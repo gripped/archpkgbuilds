@@ -4,7 +4,7 @@
 # Contributor: Pierre Schmitz <pierre@archlinux.de>
 
 pkgname=kdepim-runtime
-pkgver=24.12.3
+pkgver=25.04.0
 pkgrel=1
 pkgdesc='Extends the functionality of kdepim'
 arch=(x86_64)
@@ -45,6 +45,7 @@ depends=(akonadi
          libkgapi
          libkolabxml
          libsasl
+         pimcommon
          qca-qt6
          qt6-base
          qt6-networkauth
@@ -57,7 +58,7 @@ makedepends=(boost
              libetebase)
 optdepends=('libetebase: EteSync resource')
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('a207537bc5f05057bb6fdb0a445fd281d6829370c987e50aa6db67fb51e4892c'
+sha256sums=('92f8759b1f1d3cc5c6681b51a77079d78ac100e1dd9165ce641675d619a42a92'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
