@@ -1,0 +1,37 @@
+From ac05c74e99a66fbf14ddc44346f3f3fd7ce5f471 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 19 Apr 2025 20:29:27 +0200
+Subject: [PATCH] Set prgname to application ID
+
+Using the application ID ensures that Wayland compositors could match the
+window with the application and show the appropriate icon for them.
+---
+ org.gnome.pan.desktop.in | 1 -
+ pan/gui/pan.cc           | 2 ++
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/org.gnome.pan.desktop.in b/org.gnome.pan.desktop.in
+index 66b904b8..063adfc8 100644
+--- a/org.gnome.pan.desktop.in
++++ b/org.gnome.pan.desktop.in
+@@ -12,4 +12,3 @@ Terminal=false
+ Type=Application
+ Categories=GTK;Network;News;
+ StartupNotify=false
+-StartupWMClass=pan
+diff --git a/pan/gui/pan.cc b/pan/gui/pan.cc
+index 392c0579..e46ff265 100644
+--- a/pan/gui/pan.cc
++++ b/pan/gui/pan.cc
+@@ -839,6 +839,8 @@ main (int argc, char *argv[])
+   setlocale(LC_ALL,"C");
+ #endif
+ 
++  g_set_prgname("org.gnome.pan");
++
+   if (verbosed && !gui)
+     _verbose_flag = true;
+ 
+-- 
+GitLab
+

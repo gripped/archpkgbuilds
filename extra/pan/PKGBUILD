@@ -4,7 +4,7 @@
 
 pkgname=pan
 pkgver=0.162
-pkgrel=1
+pkgrel=2
 pkgdesc='Powerful Usenet newsreader'
 arch=(x86_64)
 url='http://pan.rebelbase.com/'
@@ -32,10 +32,20 @@ makedepends=(
   itstool
   ninja
 )
-source=("git+https://gitlab.gnome.org/GNOME/pan.git?signed#tag=v$pkgver")
-b2sums=(4b6ebaac0c1d02e031aa2973c8fd3b06dc26ea7ccc0c0ed06517b7a6683107d4b6675b208fc6235eaceef45de9eb8ce82dc44bf6bf9c6bb5a0f6051269519abc)
+source=(
+  "git+https://gitlab.gnome.org/GNOME/pan.git?signed#tag=v$pkgver"
+  pan-prgname.patch
+)
+b2sums=(
+  4b6ebaac0c1d02e031aa2973c8fd3b06dc26ea7ccc0c0ed06517b7a6683107d4b6675b208fc6235eaceef45de9eb8ce82dc44bf6bf9c6bb5a0f6051269519abc
+  9f85c78deff424fddf40d8961cecc709b765486de5e0f71d14004a3d645e16dd598902267d1b5bf1f65f2e579f4324e974b916fe33eda11b05a6afcb9ab15632
+)
 validpgpkeys=(9F7239FCB664F10B33E9DC03C31F4FD949AB2B6C) # Dominique Dumont <domi.dumont@free.fr>
 
+prepare() {
+  cd $pkgname
+  git apply -3 ../pan-prgname.patch
+}
 build() {
   cmake -S $pkgname -B build -G Ninja \
     -D CMAKE_INSTALL_PREFIX=/usr \
