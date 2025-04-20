@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kclock
-pkgver=24.12.3
-pkgrel=2
+pkgver=25.04.0
+pkgrel=1
 pkgdesc='Clock app for Plasma Mobile'
 url='https://apps.kde.org/kclock/'
 arch=(x86_64)
@@ -29,18 +29,12 @@ depends=(gcc-libs
 makedepends=(extra-cmake-modules)
 groups=(kde-applications
         kde-utilities)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/utilities/kclock/-/commit/7926d90a.patch)
-sha256sums=('43d326dffd1d0ed9b9efad3e7499690c745d486783e0551db6cc3c0952df15ab'
-            'SKIP'
-            'f820d200575ee2c3a19af214d748bfc7e05d1625decb5625d01a2d5c7282f6f2')
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('24895305b1576d80cb65347353eb0a12af287f98efcc46598f1e90cd871a7ccd'
+            'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < 7926d90a.patch # Backport fixes for kirigami 6.12
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
