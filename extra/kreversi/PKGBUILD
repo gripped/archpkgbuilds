@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kreversi
-pkgver=24.12.3
+pkgver=25.04.0
 pkgrel=1
 pkgdesc='A simple one player strategy game played against the computer'
 url='https://apps.kde.org/kreversi/'
@@ -13,6 +13,7 @@ depends=(gcc-libs
          glibc
          kcolorscheme
          kconfig
+         kconfigwidgets
          kcoreaddons
          kcrash
          kdbusaddons
@@ -30,7 +31,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-games)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('0a4b084631ec60deebfe048be87e11935f8eb2bc31f919428696798811cc9597'
+sha256sums=('5ede769f9122483c0dcb7a3ecd4bfc0d6541fd8837d6e648ef761c975ccc9005'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
