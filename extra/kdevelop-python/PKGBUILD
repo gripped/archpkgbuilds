@@ -2,7 +2,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kdevelop-python
-pkgver=24.12.3
+pkgver=25.04.0
 pkgrel=1
 pkgdesc='Python language and documentation plugin for KDevelop'
 arch=(x86_64)
@@ -26,7 +26,7 @@ optdepends=('python-pycodestyle: for Python style checking')
 groups=(kde-applications
         kdevelop)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/kdev-python-$pkgver.tar.xz{,.sig})
-sha256sums=('6dec9931dfdba5a650eb58cb5c6acdcdae787035e6f22ebec800b9e0cb9c46e7'
+sha256sums=('7f628302686f9f51607d39267964b6f99dd6beb7f6a25b97cf134dc316e2c1f6'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
