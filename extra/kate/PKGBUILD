@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kate
-pkgver=24.12.3
+pkgver=25.04.0
 pkgrel=1
 arch=(x86_64)
 license=(GPL-2.0-or-later LGPL-2.0-or-later)
@@ -13,6 +13,7 @@ groups=(kde-applications
 url='https://apps.kde.org/kate/'
 depends=(gcc-libs
          glibc
+         karchive
          kbookmarks
          kcolorscheme
          kcompletion
@@ -50,7 +51,7 @@ conflicts=(kwrite)
 provides=(kwrite)
 replaces=(kwrite)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('c8952fe8730411b301344bcc69c4efcc11e1447c01b99a0916b63d59e5d6357f'
+sha256sums=('f6e0e4da56a4bf0391d88363bebe3f8681ca037e6e29e0951c39627e32992712'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
