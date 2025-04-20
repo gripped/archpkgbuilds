@@ -3,22 +3,22 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=2.8.3
-_llvmmaj=14
-_llvmver="${_llvmmaj}.0.5"
+pkgver=2.10.8
+_llvmmaj=15
+_llvmver="${_llvmmaj}.0.7"
 _vciver=0.22.1
-_spirv_tools_ver=2023.6.rc1
-_spirv_headers_commit=1c6bb2743599e6eb6f37b2969acc0aef812e32e3
-_spirv_llvm_commit=9df26b6af308cb834a4013deb8094f386f29accd
-_opencl_clang_commit=470cf0018e1ef6fc92eda1356f5f31f7da452abc
+_spirv_tools_ver=2025.1.rc1
+_spirv_headers_commit=0e710677989b4326ac974fd80c5308191ed80965
+_spirv_llvm_commit=2d4f2e7a7968392de017fcd3e4b503a75f0c12d2
+_opencl_clang_commit=58242977b4092cf5eb94a10dd144691c12c87001
 pkgrel=1
 epoch=1
 pkgdesc='Intel Graphics Compiler for OpenCL'
 arch=('x86_64')
 url='https://github.com/intel/intel-graphics-compiler/'
 license=('MIT' 'Apache-2.0 WITH LLVM-exception')
-depends=('gcc-libs' 'zlib')
-makedepends=('git' 'cmake' 'python' 'python-mako' 'python-yaml')
+depends=('gcc-libs' 'glibc' 'zlib')
+makedepends=('cmake' 'git' 'python' 'python-mako' 'python-yaml')
 provides=("intel-opencl-clang=${_llvmmaj}")
 conflicts=('intel-opencl-clang')
 replaces=('intel-opencl-clang')
@@ -30,13 +30,13 @@ source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${p
         "git+https://github.com/KhronosGroup/SPIRV-Headers.git#commit=${_spirv_headers_commit}"
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}")
-sha256sums=('a5b913bc1b94e9d5756b031b36b008cdaf7264b768c25bf04d9d74e94adaf2a9'
+sha256sums=('001940364b91b8e156ee1858170143601b0b6162a7d143530dd846c7b83edfe2'
             '11fbabe4654a13a6f1248448e62e12ae28b6605bbf8e444675d6e2f0588d23e7'
-            '131d04391c3533cc65a7a0b17516512b6d1ff2d8a8873b43d75c9a30ef938ff7'
-            'ad11e234110902f42c9e54d2f4bb014b64e280ac9428f4c03a04b8b4571112b8'
-            '86b7a82e8169097bb84741dff6003da85c841f9d3514034b213896c498ae294c'
-            '19214ef9956892960ebd10c91f13cde103ccd270aa4681bdeeb048eb500cd165'
-            'f04acc3523802bc24fef7753c8e4326502b8525cb516705f362972ef5698d6c3')
+            'aefcc9afb7c1475b7131ea3c2d9b0ed8b1813a31f42543fa3ebfe9498c8ce869'
+            '7659e07da76ea409cdf6665c6a28c1b88702c7846062f03c9be7917c9114376e'
+            'c2b9afa462bddbb499642fe69f8f932719ce4bfe866fe107cbec1f816d300b09'
+            'cc4961a1701dc241d9a3c8c7f0d9a1ab8302f6f70b3df036e73313c32bf551f2'
+            '5e0b72ca37446fdf0fa54f1bb4cea6d3a53c19bdf373fa054b6a8ce640519024')
 
 prepare() {
     # rename to prevent SPIRV-LLVM-Translator from being included
@@ -49,9 +49,9 @@ prepare() {
 
 build() {
     # Prevent IGC to load LLVM 15+ symbols
-    CFLAGS+=" -fno-semantic-interposition"
-    CXXFLAGS+=" -fno-semantic-interposition"
-    LDFLAGS+=" -Wl,-Bsymbolic"
+    CFLAGS+=' -fno-semantic-interposition'
+    CXXFLAGS+=' -fno-semantic-interposition'
+    LDFLAGS+=' -Wl,-Bsymbolic'
     
     # fix error: "_FORTIFY_SOURCE" redefined [-Werror]
     # note: upstream forces _FORTIFY_SOURCE=2
@@ -61,20 +61,21 @@ build() {
     EMAIL='builduser@archlinux.org' \
     cmake -B build -S "${pkgname}-${pkgver}" \
         -G 'Unix Makefiles' \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_INSTALL_LIBDIR=lib \
-        -DIGC_OPTION__ARCHITECTURE_TARGET=Linux64 \
-        -DIGC_OPTION__SPIRV_TOOLS_MODE=Source \
-        -DIGC_OPTION__USE_PREINSTALLED_SPIRV_HEADERS=OFF \
-        -DIGC_OPTION__CLANG_MODE=Source \
-        -DIGC_OPTION__LLD_MODE=Source \
-        -DIGC_OPTION__LLVM_PREFERRED_VERSION="${_llvmver}" \
-        -DIGC_OPTION__LLVM_MODE=Source \
-        -DIGC_OPTION__LINK_KHRONOS_SPIRV_TRANSLATOR=ON \
-        -DIGC_OPTION__USE_KHRONOS_SPIRV_TRANSLATOR_IN_SC=ON \
-        -DIGC_OPTION__VC_INTRINSICS_MODE=Source \
         -DCCLANG_FROM_SYSTEM=OFF \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_LIBDIR=lib \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5.0 \
+        -DIGC_OPTION__ARCHITECTURE_TARGET=Linux64 \
+        -DIGC_OPTION__CLANG_MODE=Source \
+        -DIGC_OPTION__LINK_KHRONOS_SPIRV_TRANSLATOR=ON \
+        -DIGC_OPTION__LLD_MODE=Source \
+        -DIGC_OPTION__LLVM_MODE=Source \
+        -DIGC_OPTION__LLVM_PREFERRED_VERSION="${_llvmver}" \
+        -DIGC_OPTION__SPIRV_TOOLS_MODE=Source \
+        -DIGC_OPTION__USE_KHRONOS_SPIRV_TRANSLATOR_IN_SC=ON \
+        -DIGC_OPTION__USE_PREINSTALLED_SPIRV_HEADERS=OFF \
+        -DIGC_OPTION__VC_INTRINSICS_MODE=Source \
         -Wno-dev
     cmake --build build
 }
