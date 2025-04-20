@@ -5,7 +5,7 @@
 
 pkgname=geary
 pkgver=46.0
-pkgrel=3
+pkgrel=4
 epoch=1
 pkgdesc='A lightweight email client for the GNOME desktop'
 arch=(x86_64)
@@ -68,6 +68,10 @@ validpgpkeys=(
 
 prepare() {
   cd geary
+
+  # Set prgname to application ID
+  # https://gitlab.gnome.org/GNOME/geary/-/merge_requests/851
+  git cherry-pick -n e91606b25b052df747d123be11f9ca90a813e4bf
 }
 
 build() {
