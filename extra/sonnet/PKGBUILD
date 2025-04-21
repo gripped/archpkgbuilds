@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=sonnet
-pkgver=6.12.0
+pkgver=6.13.0
 pkgrel=1
 pkgdesc='Spelling framework for Qt'
 arch=(x86_64)
@@ -28,7 +28,7 @@ optdepends=('aspell: spell checking via aspell'
             'qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('beecca52cb95a04a7a04378029659505eb17a0bd4dff0915d7e5e1c8a3b75cd2'
+sha256sums=('d47465a9d623257cfb0192c3a4dc24733490aa8952310422e402d828ad461eee'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
