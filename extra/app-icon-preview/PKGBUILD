@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=app-icon-preview
-pkgver=3.4.0
-pkgrel=4
+pkgver=3.5.0
+pkgrel=1
 pkgdesc='Tool for designing applications icons'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/design/app-icon-preview'
@@ -11,7 +11,6 @@ depends=(
   cairo
   dconf
   gcc-libs
-  gdk-pixbuf2
   glib2
   glibc
   graphene
@@ -27,38 +26,14 @@ makedepends=(
   meson
   rust
 )
-source=(
-  "git+https://gitlab.gnome.org/World/design/app-icon-preview.git#tag=$pkgver"
-  app-icon-preview-close-popup.patch
-  app-icon-preview-about-translate.patch
-  app-icon-preview-fix-activate.patch
-  app-icon-preview-fix-crash.patch
-)
-b2sums=(
-  b4b1f1e800935910e57bf9f0d7c83def4e1c593230c5837662335ac70dc6cd322f0801e00a9c221523f291f13629abaeaad846281509179716b12ae8b23777e1
-  6d4e02a12aa568b255784b4df38609f2ceeed2c59e6c216fbfb7f7efa2924f7e09fc1dbcf70839e8d6fc46dbbeac4c784074814513af3796e5b9cde096e5dea4
-  f6d1b44861b6123219df2742a85a80f7c23de0b9c46244d22566c2f8c073eccc15e44b2f9a2bfdfa5a43bc36f16d6cc4c318a37da84602dee03f664b20e768d6
-  c3122808a6c03fd07e69d255bbdf877ca5deb6d028d026ebf783273b5c631a0abc06448dc7a610817f71bce185fe1cf025a39175d3d0e4cc4bd35ff4f2d84bc9
-  dc040d22cf68e4d1889ebf9ad9e5d4562663ce9d2e856afa5701aed19a0eeeb701965a6d428dddf9f023b98f2068bc2ae53ffca8e79cdb15ba556b19ad35f27b
-)
+source=("git+https://gitlab.gnome.org/World/design/app-icon-preview.git#tag=$pkgver")
+b2sums=(261d4180d2bed244088da98c8a9cc30a4b6f39c9ee450e6f49a210181e025a2c5206e27bb577df5247778f617ba5a94a6dbd918f71a35dcbdf93ba08f945c6a9)
 
 prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-
-  # https://gitlab.gnome.org/World/design/app-icon-preview/-/merge_requests/98
-  git apply -3 ../app-icon-preview-close-popup.patch
-
-  # https://gitlab.gnome.org/World/design/app-icon-preview/-/merge_requests/99
-  git apply -3 ../app-icon-preview-about-translate.patch
-
-  # https://gitlab.gnome.org/World/design/app-icon-preview/-/merge_requests/101
-  git apply -3 ../app-icon-preview-fix-activate.patch
-
-  # Fix crash on second activate of the application
-  git apply -3 ../app-icon-preview-fix-crash.patch
 }
 
 build() {
