@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-shaders-slang
-pkgver=1648
+pkgver=1652
 pkgrel=1
 pkgdesc='Collection of shaders for libretro'
 arch=(any)
@@ -10,9 +10,9 @@ license=(GPL3)
 groups=(libretro)
 provides=(libretro-shaders)
 makedepends=(git)
-_commit=25311dc03332d9ef2dff8d9d06c611d828028fac
+_commit=d3fbce55bdabf738e968d0be200fd456560ae94a
 source=(libretro-shaders-slang::git+https://github.com/libretro/slang-shaders.git#commit=${_commit})
-sha256sums=('0b685979a2d2f357885ef260e5dec0cb6e3d49bd98ed290fc17aedc013f425ec')
+sha256sums=('643515b1112f84d6d68273917df06abe12b34ebf817bf925c1d6e6d0a6445b84')
 
 pkgver() {
   cd libretro-shaders-slang
