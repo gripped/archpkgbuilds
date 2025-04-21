@@ -2,7 +2,7 @@
 # Contributor: judd <jvinet@zeroflux.org>
 
 pkgname=libgpg-error
-pkgver=1.53
+pkgver=1.54
 pkgrel=1
 pkgdesc="Support library for libgcrypt"
 arch=(x86_64)
@@ -15,7 +15,7 @@ depends=('glibc' 'sh')
 # https://git.gnupg.org/cgi-bin/gitweb.cgi?p=libgpg-error.git;a=summary
 source=(https://www.gnupg.org/ftp/gcrypt/libgpg-error/${pkgname}-${pkgver}.tar.bz2{,.sig})
 # https://www.gnupg.org/download/integrity_check.html
-sha256sums=('6a0721b52027415f53abcbf63b5c37776a0f774d9126d560a3ce76c0eb42903f'
+sha256sums=('607dcadfd722120188eca5cd07193158b9dd906b578a557817ec779bd5e16d0e'
             'SKIP')
 validpgpkeys=('6DAA6E64A76D2840571B4902528897B826403ADA') # Werner Koch (dist signing 2020)
 validpgpkeys+=('AC8E115BF73E2D8D47FA9908E98E9B2D19C6C8BD') # Niibe Yutaka (GnuPG Release Key)
