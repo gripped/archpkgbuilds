@@ -3,7 +3,7 @@
 
 pkgname=vapoursynth-plugin-bestsource
 pkgver=R11
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='BestSource plugin for VapourSynth'
 arch=(x86_64)
@@ -46,8 +46,7 @@ pkgver() {
 }
 
 build() {
-  arch-meson bestsource build \
-    --libdir /usr/lib/vapoursynth
+  arch-meson bestsource build
   ninja -C build
 }
 
