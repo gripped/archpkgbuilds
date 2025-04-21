@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=epiphany
-pkgver=48.0
+pkgver=48.1
 pkgrel=1
 pkgdesc="A GNOME web browser based on the WebKit rendering engine"
 url="https://apps.gnome.org/Epiphany"
@@ -55,7 +55,7 @@ checkdepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/epiphany.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('d2d02dcd7679c0f8c6e94ad7a705a3022bf5ffc7b6f78b18fc60bdc30bef9f0edd242f89d4cb6eb698ec7f32916f01e2aec0bb414fe54f5aea4bc4343cbb917c')
+b2sums=('d51cbc50bf33a4d3ca13f07f47eeea5b4cd9ebdab80bf3140cc789deef4a736c751de66cf471ce16f2742de1780d3b0651bca9062f42ebadda231360cf6aae79')
 
 prepare() {
   cd epiphany
@@ -66,36 +66,17 @@ build() {
   meson compile -C build
 }
 
-check() {
-  export \
-    XDG_RUNTIME_DIR="$PWD/runtime-dir" \
-    LIBGL_ALWAYS_SOFTWARE=1 \
-    WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS=1
-    LC_COLLATE=en_US.UTF-8
-
+check() (
+  export XDG_RUNTIME_DIR="$PWD/runtime-dir"
   mkdir -p -m 700 "$XDG_RUNTIME_DIR"
 
-  local meson_tests=(
-    'validate-desktop'
-    'validate-appdata'
-    'Embed shell test'
-    'Embed utils test'
-    'Encodings test'
-    'File helpers test'
-    'History test'
-    'Location entry test'
-    'Migration test'
-    'Search engine manager test'
-    'SQLite test'
-    'String test'
-    'URI helpers test'
-    # 'Web view test'
-    'Web extension test'
-  )
+  export LC_COLLATE=en_US.UTF-8
+  export LIBGL_ALWAYS_SOFTWARE=1
+  export WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS=1
 
   dbus-run-session xvfb-run -s '-nolisten local' \
-    meson test -C build --print-errorlogs "${meson_tests[@]}"
-}
+    meson test -C build --print-errorlogs
+)
 
 package() {
   meson install -C build --destdir "$pkgdir"
