@@ -4,14 +4,14 @@
 
 pkgname=warpinator
 pkgver=1.8.8
-pkgrel=1
+pkgrel=2
 pkgdesc='LAN file sender, send and receive files across the network'
 arch=('any')
 url='https://github.com/linuxmint/warpinator'
 license=('GPL3')
 depends=('gtk3' 'libnm' 'python-cryptography' 'python-gobject' 'python-grpcio'
          'python-protobuf' 'python-pynacl' 'python-setproctitle' 'python-setuptools' 'python-xapp' 'python-zeroconf'
-         'xapp' 'python-cairo' 'python-qrcode' 'python-pillow')
+         'xapp' 'python-cairo' 'python-qrcode' 'python-pillow' 'python-netifaces')
 makedepends=('meson' 'polkit')
 optdepends=('ufw: Open a firewall port for Warpinator')
 source=("https://github.com/linuxmint/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz")
