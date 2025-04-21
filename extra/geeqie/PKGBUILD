@@ -5,7 +5,7 @@
 
 pkgname=geeqie
 pkgver=2.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Lightweight image viewer'
 arch=('x86_64')
 url="http://www.geeqie.org/"
@@ -45,10 +45,12 @@ optdepends=('librsvg: SVG rendering'
             'libwebp: for WebP image format')
 source=(#"http://www.geeqie.org/${pkgname}-${pkgver}.tar.xz"{,.asc}
         https://github.com/BestImageViewer/geeqie/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz{,.asc}
-        Skip-failing-tests.patch)
+        Skip-failing-tests.patch
+        fix_test_with_grep3.12.patch)
 sha256sums=('cc991c9d4c78c58668105a15f7ece953bfc21b6b78cedc26ccbaaee6a12b8952'
             'SKIP'
-            'cfb1ddc810006c26a28a2bc1e35116819e8f191644265c5027b5dfce532aaa2e')
+            'cfb1ddc810006c26a28a2bc1e35116819e8f191644265c5027b5dfce532aaa2e'
+            'fc878f748f7f5b9c78efc4af969640fcde48462d5dff4c9fb3235d3f901e50c3')
 validpgpkeys=('91EC400226201276E2ADCEC7D0DA6F44C936D1DA') # "Colin Clark <colin.clark@cclark.uk>"
 
 # main repo: http://www.geeqie.org/cgi-bin/gitweb.cgi?p=geeqie.git
@@ -59,6 +61,8 @@ prepare() {
   # disable "Ancillary files" test
   # https://github.com/BestImageViewer/geeqie/issues/1274
   patch -Np1 -i $srcdir/Skip-failing-tests.patch
+  # https://github.com/BestImageViewer/geeqie/issues/1722 / #2
+  patch -Np1 -i $srcdir/fix_test_with_grep3.12.patch
 }
 
 build() {

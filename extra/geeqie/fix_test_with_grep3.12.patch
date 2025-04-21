@@ -1,0 +1,38 @@
+From 6ecb813fb8277d8baee7ae6e892a8a45c89f6ee9 Mon Sep 17 00:00:00 2001
+From: Colin Clark <colin.clark@cclark.uk>
+Date: Sun, 20 Apr 2025 10:29:35 +0100
+Subject: [PATCH] Fix #1722: test failure: geeqie:analysis / Untranslated Text_
+ preferences.cc
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+https://github.com/BestImageViewer/geeqie/issues/1722
+
+The problem line is:
+"Néstor Díaz Valencia <nestor@estudionexos.com>"
+which contains accented characters.
+
+I do not expect the grep expression to detect accented characters as
+part of an alpha-numeric string. Why it does so on another system is not
+clear.
+
+Ignore that text line.
+---
+ scripts/untranslated-text.sh | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/scripts/untranslated-text.sh b/scripts/untranslated-text.sh
+index f17f2053..d8eb5122 100755
+--- a/scripts/untranslated-text.sh
++++ b/scripts/untranslated-text.sh
+@@ -184,6 +184,9 @@ write_char_option
+ \"Zoom minimum\",
+ \"Zoom quality\",
+ 
++##preferences.cc
++Valencia
++
+ ##print.cc
+ G_CALLBACK(print_set_font_cb), const_cast<char *>(\"Image text font\"));
+ G_CALLBACK(print_set_font_cb), const_cast<char *>(\"Page text font\"));
