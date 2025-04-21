@@ -6,7 +6,7 @@
 # Contributor: Schnouki <thomas.jost@gmail.com>
 
 pkgname=python-django-extensions
-pkgver=4.0
+pkgver=4.1
 pkgrel=1
 pkgdesc='A collection of custom extensions for the Django Framework'
 arch=(any)
@@ -27,9 +27,9 @@ optdepends=(
   'ipython: shell_plus extension'
   'python-werkzeug: runserver_plus extension'
 )
-_tag=c4577df5b69ec1ebcbe6bc64d7a5c20362f3a8fa
+_tag=ad015513e5d8e8ee6ad748fca5f32ccf3fb3d5c5
 source=(git+https://github.com/django-extensions/django-extensions.git#tag=${_tag})
-sha256sums=('c029b21c6a61847a9347efa1bea9e6775e7a689514f9c1563fc7ba201717f393')
+sha256sums=('ca727cd17d56a70afe8e4e62654069e6ad325922b02c75538796e38ab97a7f75')
 
 pkgver() {
   cd django-extensions
