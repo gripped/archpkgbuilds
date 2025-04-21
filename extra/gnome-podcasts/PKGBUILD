@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=gnome-podcasts
-pkgver=0.7.2
+pkgver=25.2
 pkgrel=1
 pkgdesc='Podcast application for GNOME'
 arch=(x86_64)
@@ -30,18 +30,11 @@ makedepends=(
   rust
 )
 checkdepends=(xorg-server-xvfb)
-source=(
-  "git+https://gitlab.gnome.org/World/podcasts.git#tag=$pkgver"
-  gnome-podcasts-desktop-category.patch
-)
-b2sums=('983c11796641978fb1b840d2cceba89f1cb24e2c8403c617d07b2b5f4ee84806bf62a6d747085fd9788832e8142d921d16f5c8c67a40fea47cceea590eaa8b5f'
-        'bc527c5351b13ee1813f30d7e17b58fa5a521d18d2982553a93f6640966b3440798fa2ae3cd13be969be89976657306985eb09dd62a686b23124906093a772fb')
+source=("git+https://gitlab.gnome.org/World/podcasts.git#tag=$pkgver")
+b2sums=(8beb835f7400d2e5ea7a6a62a9fa18ceb11f2f9a184aad31e582f74b106b682595e66a1b98b28d2fe2061217f16679ce24ebbe3d524f22253bdc92807fc93027)
 
 prepare() {
   cd podcasts
-
-  # https://gitlab.gnome.org/World/podcasts/-/merge_requests/394
-  git apply -3 ../gnome-podcasts-desktop-category.patch
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
