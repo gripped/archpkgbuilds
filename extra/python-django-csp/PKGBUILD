@@ -1,8 +1,8 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=python-django-csp
-pkgver=3.8
-pkgrel=5
+pkgver=4.0
+pkgrel=1
 pkgdesc="Django-CSP adds Content-Security-Policy headers to Django"
 arch=('any')
 url="https://github.com/mozilla/django-csp"
@@ -10,8 +10,8 @@ license=('BSD-3-Clause')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest' 'python-pytest-django')
 depends=('python-django' 'python-jinja')
-source=($pkgname-$pkgver.tar.gz::https://github.com/mozilla/django-csp/archive/refs/tags/${pkgver}.tar.gz)
-sha512sums=('11eb783b2caf41b67e0a00ab4b011c4ead84a142630f511163335be98390ac52fb86960230ff0afd7fc774af11a79e28dcd5b7647d47459ba0cce3a7e26ec082')
+source=($pkgname-$pkgver.tar.gz::https://github.com/mozilla/django-csp/archive/refs/tags/v${pkgver}.tar.gz)
+sha512sums=('f7e99db48562fd9f431aa3aadc76808d398c5be15355c3881e246626d0ad1f2876efa86b3490adfd8c5eeaf0e00389b022c205afe694ce69de95bfa4a5a72692')
 
 prepare() {
   cd "django-csp-$pkgver"
