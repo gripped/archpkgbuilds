@@ -3,7 +3,7 @@
 
 pkgname=python-symengine
 _pkgname=symengine.py
-pkgver=0.14.0
+pkgver=0.14.1
 pkgrel=1
 arch=(x86_64)
 pkgdesc='Python wrappers for SymEngine'
@@ -28,7 +28,7 @@ makedepends=(boost
 license=(MIT)
 source=(git+https://github.com/symengine/symengine.py#tag=v$pkgver
         no-tcmalloc.patch)
-sha256sums=('05995f5a7031600741440b3bbc7a826e483704361eb842a36b1ab216c038d492'
+sha256sums=('898d538937e36e2bb796ef0308cb3dcd4cd07e4e290375ce897623b0f5764871'
             '4f733b108ec21897b55b69476961d178f3bb02cc54c8b86e440b16ef7370927a')
 
 prepare() {
@@ -38,6 +38,7 @@ prepare() {
 }
 
 build() {
+  export CMAKE_POLICY_VERSION_MINIMUM=3.5
   cd $_pkgname
   python -m build --wheel --no-isolation
 }
