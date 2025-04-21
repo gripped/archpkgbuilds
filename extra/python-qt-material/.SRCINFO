@@ -1,18 +1,21 @@
 pkgbase = python-qt-material
 	pkgdesc = Material inspired stylesheet for PySide & PyQt
-	pkgver = 2.14
-	pkgrel = 3
+	pkgver = 2.16
+	pkgrel = 1
 	url = https://qt-material.readthedocs.io/
 	arch = any
-	license = BSD
-	license = Apache
+	license = BSD-2-Clause
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
 	makedepends = python-setuptools
+	depends = python
 	depends = python-jinja
-	source = python-qt-material::git+https://github.com/UN-GCPDS/qt-material#commit=5a99be3d6914cd5570282b29968aa39a7f8d1408
-	b2sums = SKIP
+	optdepends = pyside6: Use PySide for Qt bindings
+	optdepends = python-pyqt6: Use PyQt for Qt bindings
+	source = python-qt-material::git+https://github.com/dunderlab/qt-material#tag=v2.16
+	sha512sums = c68a36ed29b20ce782f7c605d4d476d0ed016beffceb8d8d7e6016fabeec40e9fd55896abd2afeb603af47ba55b5dcb8873028941b3432f8fbc17c86d18d9aed
+	b2sums = 3664ae5507ed3d72a9cc3302d98acb13a5667bf1212bd6565091e0812100b442d9b7d2194e60f3e019a70298921680bf4b83221862a9fa96b523a1ece76b80f7
 
 pkgname = python-qt-material

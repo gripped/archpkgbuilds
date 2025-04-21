@@ -1,13 +1,16 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-qt-material
-pkgver=2.14
-pkgrel=3
+pkgver=2.16
+pkgrel=1
 pkgdesc='Material inspired stylesheet for PySide & PyQt'
 arch=('any')
 url='https://qt-material.readthedocs.io/'
-license=('BSD' 'Apache')
-depends=('python-jinja')
+license=('BSD-2-Clause')
+depends=(
+  'python'
+  'python-jinja'
+)
 makedepends=(
   'git'
   'python-build'
@@ -15,22 +18,13 @@ makedepends=(
   'python-wheel'
   'python-setuptools'
 )
-_commit='5a99be3d6914cd5570282b29968aa39a7f8d1408'
-source=("$pkgname::git+https://github.com/UN-GCPDS/qt-material#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  # first known commit to receive latest version
-  local _pkgver='2.14'
-  local _pkgcommit='5a99be3d6914cd5570282b29968aa39a7f8d1408'
-
-  git tag "$_pkgver" "$_pkgcommit"
-
-  #git describe --tags | sed -e 's/^v//' -e 's/-/.r/' -e 's/-/./g'
-  git describe --tags | sed 's/^v//'
-}
+optdepends=(
+  'pyside6: Use PySide for Qt bindings'
+  'python-pyqt6: Use PyQt for Qt bindings'
+)
+source=("$pkgname::git+https://github.com/dunderlab/qt-material#tag=v$pkgver")
+sha512sums=('c68a36ed29b20ce782f7c605d4d476d0ed016beffceb8d8d7e6016fabeec40e9fd55896abd2afeb603af47ba55b5dcb8873028941b3432f8fbc17c86d18d9aed')
+b2sums=('3664ae5507ed3d72a9cc3302d98acb13a5667bf1212bd6565091e0812100b442d9b7d2194e60f3e019a70298921680bf4b83221862a9fa96b523a1ece76b80f7')
 
 build() {
   cd "$pkgname"
