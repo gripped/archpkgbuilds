@@ -2,11 +2,11 @@
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=lib32-orc
-pkgver=0.4.40
+pkgver=0.4.41
 pkgrel=1
 pkgdesc="Optimized Inner Loop Runtime Compiler (32-bit)"
-url="https://gstreamer.freedesktop.org/modules/orc.html"
 arch=(x86_64)
+url=https://gstreamer.freedesktop.org/modules/orc.html
 license=(BSD-3-Clause)
 depends=(
   lib32-gcc-libs
@@ -20,14 +20,16 @@ makedepends=(
   valgrind
 )
 provides=(liborc{,-test}-${pkgver%.*}.so)
-source=("git+https://gitlab.freedesktop.org/gstreamer/orc.git?signed#tag=$pkgver")
-b2sums=('08cd279d7a572b078b00aac3ced56fc96d7d4472103357e74e86901c5b1edc02df768fe4b862a55faf56b5218b05c71c64d0b378f1b9a1d4c40efcc7c738de4c')
+_tag=df0b576b8d1e4b27425d53e1f8638c8bf34e0d42
+source=(git+https://gitlab.freedesktop.org/gstreamer/orc.git?signed#tag=${_tag})
+b2sums=('eb29733e3033b272c718a622e774379d993aa50ca4f23be0ef1d7dc1e99c267b0c07173f2a79ce47cbf1cb1fecfe2742c48e43994b15308c703aecf8887526e3')
 validpgpkeys=(
   D637032E45B8C6585B9456565D2EEE6F6F349D7C # Tim-Philipp Müller <tim@centricular.com>
 )
 
 prepare() {
   cd orc
+  git describe --tags
 }
 
 build() {
@@ -41,9 +43,7 @@ check() {
 
 package() {
   meson install -C build --destdir "$pkgdir"
-
   rm -r "$pkgdir"/usr/{bin,include,share}
-
   install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 orc/COPYING
 }
 
