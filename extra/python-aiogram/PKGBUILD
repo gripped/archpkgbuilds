@@ -3,9 +3,8 @@
 # Contributor: Evgeniy Filimonov <evgfilim1@gmail.com>
 
 pkgname=python-aiogram
-_pkgname=${pkgname#python-}
-pkgver=3.19.0
-pkgrel=2
+pkgver=3.20.0
+pkgrel=1
 pkgdesc="A modern and fully asynchronous framework for Telegram Bot API"
 arch=('any')
 url="https://github.com/aiogram/aiogram"
@@ -50,21 +49,21 @@ optdepends=(
   'python-babel: i18n support'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('39f59599c15c5fd5dd62e0f2057dc8c2ecd01646c4da939ab2de35fdfc4c2f34')
+sha256sums=('1c6d6da2e334c7b3edd4e024d9cfb1a01e550cd2fd6f17cf25de00fde38845ea')
 
 build() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   # shellcheck disable=2016
   pifpaf run redis -- bash -c 'python -m pytest --redis $PIFPAF_REDIS_URL'
 }
 
 package() {
-  cd "$_pkgname-$pkgver"
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.rst
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
