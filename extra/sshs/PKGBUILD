@@ -3,7 +3,7 @@
 # Contributor: Nathanael Demacon <nathanael.dmc[at]outlook[dot]fr>
 
 pkgname=sshs
-pkgver=4.6.1
+pkgver=4.7.1
 pkgrel=1
 pkgdesc="Terminal user interface for SSH"
 url="https://github.com/quantumsheep/sshs"
@@ -12,7 +12,7 @@ license=('MIT')
 depends=('openssh')
 makedepends=('cargo')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('4a8d96ca607f3d20e641341b82e5d6118fcf5c8fbbab74f114dd9ad4eef6e1c0')
+sha256sums=('6aabddb7ab72406ea68574d374595aae93a290018dde2d6241d6070070c3b1fe')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
