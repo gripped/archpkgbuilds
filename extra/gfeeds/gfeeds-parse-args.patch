@@ -1,0 +1,107 @@
+From 0d18c54951df061a9b5a5b9fa9ebb4ae98ed875b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 20 Apr 2025 14:02:41 +0200
+Subject: [PATCH] Use GApplication to parse command line arguments
+
+It already supports adding and parsing arguments, so it's not
+necessary to parse them manually.
+---
+ gfeeds/__main__.py | 38 +++++++++++++++-----------------------
+ 1 file changed, 15 insertions(+), 23 deletions(-)
+
+diff --git a/gfeeds/__main__.py b/gfeeds/__main__.py
+index 0a22aaa..21b0765 100644
+--- a/gfeeds/__main__.py
++++ b/gfeeds/__main__.py
+@@ -109,6 +109,10 @@ class GFeedsApplication(BaseApp):
+             css_resource='/org/gabmus/gfeeds/ui/gtk_style.css'
+         )
+         self.feedman = FeedsManager()
++        self.add_main_option_entries([])
++        self.set_option_context_parameter_string(
++            _('[URL] – OPML file local URL or RSS remote URL to import')
++        )
+ 
+     def do_startup(self):
+         super().do_startup()
+@@ -214,10 +218,10 @@ class GFeedsApplication(BaseApp):
+         self.window.present()
+         # self.feedman.refresh(get_cached=True)
+         if self.args:
+-            if self.args.argurl:
+-                abspath = self.args.argurl.strip()
++            if self.args[0]:
++                abspath = self.args[0].strip()
+                 if abspath.lower().startswith('file:///'):
+-                    abspath = self.args.argurl.removeprefix('file://')
++                    abspath = self.args[0].removeprefix('file://')
+                 if isfile(expanduser(abspath)):
+                     if abspath.lower().endswith('.opml'):
+                         def on_cancel(_dialog, __):
+@@ -250,12 +254,12 @@ class GFeedsApplication(BaseApp):
+                         # why no check for extension here?
+                         # some websites have feeds without extension
+                         # dumb but that's what it is
+-                        self.args.argurl = get_feed_link_from_file(
++                        self.args[0] = get_feed_link_from_file(
+                             abspath
+                         ) or ''
+                 if (
+-                        self.args.argurl.lower().startswith('http://') or
+-                        self.args.argurl.lower().startswith('https://')
++                        self.args[0].lower().startswith('http://') or
++                        self.args[0].lower().startswith('https://')
+                 ):
+                     def on_import(_dialog, __):
+                         _dialog.close()
+@@ -267,7 +271,7 @@ class GFeedsApplication(BaseApp):
+                     dialog = ScrolledDialog(
+                         parent=self.window,
+                         title=_('Do you want to import this feed?'),
+-                        body=escape(self.args.argurl),
++                        body=escape(self.args[0]),
+                         responses=[
+                             ScrolledDialogResponse(
+                                 'cancel', _('_Cancel'), on_cancel
+@@ -278,34 +282,22 @@ class GFeedsApplication(BaseApp):
+                             )
+                         ]
+                     )
+-                    argurl = self.args.argurl
++                    argurl = self.args[0]
+ 
+                     dialog.present()
+                 else:
+                     print('This file is not supported')
+             self.args = None
+ 
+-    def do_command_line(self, args: Gio.ApplicationCommandLine):
++    def do_command_line(self, app_cmd_line: Gio.ApplicationCommandLine):
+         """
+         GTK.Application command line handler
+         called if Gio.ApplicationFlags.HANDLES_COMMAND_LINE is set.
+         must call the self.do_activate() to get the application up and running.
+         """
+-        # call the default commandline handler
+-        # not required anymore?
+-        # Gtk.Application.do_command_line(self, args)
+-        # make a command line parser
+-        parser = argparse.ArgumentParser()
+-        parser.add_argument(
+-            'argurl',
+-            metavar=_('url'),
+-            type=str,
+-            nargs='?',
+-            help=_('opml file local url or rss remote url to import')
+-        )
+-        # parse the command line stored in args,
++        # get the command line arguments,
+         # but skip the first element (the filename)
+-        self.args = parser.parse_args(args.get_arguments()[1:])
++        self.args = app_cmd_line.get_arguments()[1:]
+         # call the main program do_activate() to start up the app
+         self.do_activate()
+         return 0
+-- 
+GitLab
+

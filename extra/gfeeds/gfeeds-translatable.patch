@@ -1,0 +1,58 @@
+From 6780cf650d6a431dfbc55d3cace75bcfdbb1267f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 20 Apr 2025 14:49:58 +0200
+Subject: [PATCH] Mark the app name as translatable
+
+In the main window title and on the about dialog.
+---
+ data/ui/aboutdialog.ui.in | 2 +-
+ gfeeds/app_window.py      | 3 ++-
+ po/POTFILES.in            | 1 +
+ 3 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/data/ui/aboutdialog.ui.in b/data/ui/aboutdialog.ui.in
+index 482aa48..d656df4 100644
+--- a/data/ui/aboutdialog.ui.in
++++ b/data/ui/aboutdialog.ui.in
+@@ -2,7 +2,7 @@
+ <interface>
+   <requires lib="gtk" version="4.0"/>
+   <object class="AdwAboutWindow" id="aboutdialog">
+-    <property name="application_name">@prettyname@</property>
++    <property name="application_name" translatable="yes">@prettyname@</property>
+     <property name="version">@VERSION@</property>
+     <property name="copyright">@authorfullname@, et al.</property>
+     <property name="website">@PACKAGE_URL@</property>
+diff --git a/gfeeds/app_window.py b/gfeeds/app_window.py
+index 286907b..b669be2 100644
+--- a/gfeeds/app_window.py
++++ b/gfeeds/app_window.py
+@@ -1,3 +1,4 @@
++from gettext import gettext as _
+ from gi.repository import Gio
+ from gfeeds.main_leaflet import MainLeaflet
+ from gfeeds.confManager import ConfManager
+@@ -15,7 +16,7 @@ class GFeedsAppWindow(BaseWindow):
+         self.leaflet = MainLeaflet()
+ 
+         super().__init__(
+-            app_name='Feeds',
++            app_name=_('Feeds'),
+             icon_name='org.gabmus.gfeeds',
+             shortcuts=[
+                 AppShortcut(
+diff --git a/po/POTFILES.in b/po/POTFILES.in
+index 84cfc73..5a1fd77 100644
+--- a/po/POTFILES.in
++++ b/po/POTFILES.in
+@@ -11,6 +11,7 @@ data/ui/right_headerbar.blp
+ data/ui/shortcutsWindow.blp
+ data/ui/sidebar_listbox_row.blp
+ data/ui/webview.blp
++gfeeds/app_window.py
+ gfeeds/feed_item.py
+ gfeeds/feed_parser.py
+ gfeeds/feeds_manager.py
+-- 
+GitLab
+

@@ -1,0 +1,26 @@
+From 0da7b791f273a7c4cc07ec20b9f59466ca09082e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 20 Apr 2025 14:39:52 +0200
+Subject: [PATCH] Mark the desktop file as D-Bus activatable
+
+The D-Bus service file is already there. This allows application
+launchers to activate the app via D-Bus.
+---
+ data/org.gabmus.gfeeds.desktop.in | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/data/org.gabmus.gfeeds.desktop.in b/data/org.gabmus.gfeeds.desktop.in
+index ad0cf66..abb6a60 100644
+--- a/data/org.gabmus.gfeeds.desktop.in
++++ b/data/org.gabmus.gfeeds.desktop.in
+@@ -10,6 +10,7 @@ Icon=@appid@
+ Exec=@bindir@/@projectname@ %u
+ Terminal=false
+ StartupNotify=true
++DBusActivatable=true
+ MimeType=application/xml;text/xml;text/x-opml;
+ # Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+ Keywords=rss;reader;feed;news;
+-- 
+GitLab
+

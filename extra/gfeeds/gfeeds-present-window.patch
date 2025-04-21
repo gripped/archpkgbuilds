@@ -1,0 +1,35 @@
+From 9966182cfb1ff25a4f23984e0d3496d6d2042b36 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 20 Apr 2025 14:35:52 +0200
+Subject: [PATCH] Don't use present_with_time()
+
+It's deprecated, and the timestamp parameter is wrong anyway, causing
+buggy behavior.
+---
+ gfeeds/app_window.py | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/gfeeds/app_window.py b/gfeeds/app_window.py
+index 286907b..0484087 100644
+--- a/gfeeds/app_window.py
++++ b/gfeeds/app_window.py
+@@ -3,7 +3,6 @@ from gfeeds.main_leaflet import MainLeaflet
+ from gfeeds.confManager import ConfManager
+ from gfeeds.feeds_manager import FeedsManager
+ from gfeeds.base_app import BaseWindow, AppShortcut
+-from datetime import datetime
+ 
+ 
+ class GFeedsAppWindow(BaseWindow):
+@@ -64,7 +63,7 @@ class GFeedsAppWindow(BaseWindow):
+         self.dark_mode = self.confman.nconf.dark_mode
+ 
+     def present(self):
+-        super().present_with_time(int(datetime.now().timestamp()))
++        super().present()
+         self.set_default_size(
+             self.confman.nconf.window_width,
+             self.confman.nconf.window_height
+-- 
+GitLab
+
