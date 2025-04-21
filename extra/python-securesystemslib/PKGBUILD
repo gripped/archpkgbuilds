@@ -2,8 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-securesystemslib
-_pkgname=${pkgname#python-}
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 pkgdesc="Cryptographic and general-purpose routines for Secure Systems Lab projects at NYU"
 arch=('any')
@@ -26,7 +25,7 @@ source=(
   "git+$url.git?signed#tag=v$pkgver"
   "skip-failing-test.patch"
 )
-sha256sums=('abf339274ad642ef9bf0306521f45ddbaeaef54ff4e5eae45f489b7d45faeb36'
+sha256sums=('508cca0b5dfceda19b1e4fd324e29b7efb998d0d36e3a5c50cf44b70046653df'
             '62f6c0b8f289795c6938504dd2a4445307edc8ececd47e96d87644e03d74f06f')
 validpgpkeys=(
   "C2FB9C910758B6827BC43233BC0C6DEDD5E5CC03" # Sebastien Awwad (upstream co-maintainer)
@@ -37,23 +36,23 @@ validpgpkeys=(
 )
 
 prepare() {
-  cd "$_pkgname"
+  cd ${pkgname#python-}
   # Test requires python-pyspx which is not packaged.
   patch -Np1 -i ../skip-failing-test.patch
 }
 
 build() {
-  cd "$_pkgname"
+  cd ${pkgname#python-}
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_pkgname"
+  cd ${pkgname#python-}
   python -m unittest discover -vs tests
 }
 
 package() {
-  cd "$_pkgname"
+  cd ${pkgname#python-}
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
