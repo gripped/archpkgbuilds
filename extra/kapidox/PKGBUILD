@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kapidox
-pkgver=6.12.0
+pkgver=6.13.0
 pkgrel=1
 pkgdesc='Frameworks API Documentation Tools'
 arch=(any)
@@ -18,7 +18,7 @@ makedepends=(python-build
              qt6-base)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('37e0637056141cdc3a737e773d2caae3237d131406beb00960c108e8e6160698'
+sha256sums=('f36d07a6131b3947f4c8c5f85daa620e9236b05fd1e64a5eec7af1a392cb3631'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
