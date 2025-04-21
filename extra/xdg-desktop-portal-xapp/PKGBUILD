@@ -3,12 +3,12 @@
 
 pkgname=xdg-desktop-portal-xapp
 pkgver=1.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A backend implementation for xdg-desktop-portal using GTK and various pieces of Cinnamon/MATE/Xfce4 infrastructure'
 arch=(x86_64)
 url='https://github.com/linuxmint/xdg-desktop-portal-xapp'
 license=(LGPL-2.1)
-depends=(xdg-desktop-portal xapp)
+depends=(xdg-desktop-portal xdg-desktop-portal-gtk xapp)
 makedepends=(meson glib2-devel)
 provides=(xdg-desktop-portal-impl)
 source=(https://github.com/linuxmint/xdg-desktop-portal-xapp/archive/$pkgver/$pkgname-$pkgver.tar.gz
