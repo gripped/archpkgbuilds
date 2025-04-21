@@ -3,8 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kwindowsystem
-pkgver=6.12.0
-pkgrel=3
+pkgver=6.13.0
+pkgrel=1
 pkgdesc='Access to the windowing system'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -27,23 +27,13 @@ makedepends=(doxygen
              wayland-protocols)
 optdepends=('qt6-declarative: QML bindings')
 groups=(kf6)
-source=(
-        https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig}
-        0001-avoid-creating-the-platform-window-in-surfacehelper-173.patch
-        )
-sha256sums=('6e7f0ea1bd5b1b0f81f785ff0fddeb943222382f1c11b5201f69b6c62763b6f6'
-            'SKIP'
-            '06e75ec518a973e8032c48a246911205c225406b97f99afce6928cbb8b1c77b8')
+source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('4fa83424f39a97d7fe784533d2ad4d4969ff878d26438dda9dc00e30745959ac'
+            'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
               90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1 # Nicolas Fella <nicolas.fella@kde.org>
               )
-
-prepare() {
-  cd kwindowsystem-$pkgver
-  patch -p1 -i ../0001-avoid-creating-the-platform-window-in-surfacehelper-173.patch
-}
-
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
