@@ -1,4 +1,4 @@
-From 3edfdebab4f78488c46581c0e4fe7a29e0d7f958 Mon Sep 17 00:00:00 2001
+From 12af1b6a4b15bf0a25d8fc48fd48848c13600345 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Sat, 19 Apr 2025 13:06:58 +0200
 Subject: [PATCH] Add D-Bus service file
@@ -6,12 +6,12 @@ Subject: [PATCH] Add D-Bus service file
 And mark the application as D-Bus activatable. This allows application
 launchers to activate it via D-Bus.
 ---
- data/meson.build                |  9 +++++
+ data/meson.build                |  9 ++++
  data/org.gnome.Eolie.desktop.in |  1 +
  data/org.gnome.Eolie.service.in |  3 ++
- eolie/application.py            | 66 ++++++++++++++++++++++++---------
+ eolie/application.py            | 86 +++++++++++++++++++++++++--------
  meson.build                     |  1 +
- 5 files changed, 62 insertions(+), 18 deletions(-)
+ 5 files changed, 81 insertions(+), 19 deletions(-)
  create mode 100644 data/org.gnome.Eolie.service.in
 
 diff --git a/data/meson.build b/data/meson.build
@@ -55,11 +55,23 @@ index 00000000..6c03b66d
 +Name=org.gnome.Eolie
 +Exec=@BIN_DIR@/eolie --gapplication-service
 diff --git a/eolie/application.py b/eolie/application.py
-index 9c4db69b..a9d50946 100644
+index 9c4db69b..7ce2e924 100644
 --- a/eolie/application.py
 +++ b/eolie/application.py
-@@ -119,6 +119,15 @@ class Application(Gtk.Application, NightApplication):
+@@ -84,7 +84,7 @@ class Application(Gtk.Application, NightApplication):
+         Gtk.Application.__init__(
+             self,
+             application_id=app_id,
+-            flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE)
++            flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE | Gio.ApplicationFlags.HANDLES_OPEN)
+         self.set_property("register-session", True)
+         # Fix proxy for python
+         proxy = GLib.environ_getenv(GLib.get_environ(), "all_proxy")
+@@ -117,8 +117,18 @@ class Application(Gtk.Application, NightApplication):
+                              GLib.OptionArg.NONE, "Show TLS info",
+                              None)
          self.connect("activate", self.__on_activate)
++        self.connect("open", self.__on_open)
          self.connect("handle-local-options", self.__on_handle_local_options)
          self.connect("command-line", self.__on_command_line)
 +
@@ -74,7 +86,7 @@ index 9c4db69b..a9d50946 100644
          self.register(None)
          if self.get_is_remote():
              Gdk.notify_startup_complete()
-@@ -354,10 +363,6 @@ class Application(Gtk.Application, NightApplication):
+@@ -354,10 +364,6 @@ class Application(Gtk.Application, NightApplication):
              except:
                  pass
  
@@ -85,7 +97,7 @@ index 9c4db69b..a9d50946 100644
          self.set_accels_for_action("win.shortcut::expose", ["<Alt>e"])
          self.set_accels_for_action("win.shortcut::show_sidebar", ["F9"])
          self.set_accels_for_action("win.shortcut::uri",
-@@ -365,7 +370,7 @@ class Application(Gtk.Application, NightApplication):
+@@ -365,7 +371,7 @@ class Application(Gtk.Application, NightApplication):
          self.set_accels_for_action("win.shortcut::new_page", ["<Control>t"])
          self.set_accels_for_action("win.shortcut::last_page",
                                     ["<Control><Shift>t"])
@@ -94,7 +106,7 @@ index 9c4db69b..a9d50946 100644
          self.set_accels_for_action("win.shortcut::private",
                                     ["<Control><Shift>p"])
          self.set_accels_for_action("win.shortcut::close_page", ["<Control>w"])
-@@ -708,20 +713,45 @@ class Application(Gtk.Application, NightApplication):
+@@ -708,20 +714,62 @@ class Application(Gtk.Application, NightApplication):
              Call default handler, raise last window
              @param application as Gio.Application
          """
@@ -149,6 +161,23 @@ index 9c4db69b..a9d50946 100644
 +            active_window = self.active_window
 +
 +        active_window.container.add_webview_for_uri(self.start_page, LoadingType.FOREGROUND, True)
++        active_window.present()
++
++    def __on_open(self, app, files, _n_files, _hint):
++        if not self.windows:
++            self.__init()
++            self.__restore_state()
++
++        if not self.windows:
++            active_window = self.get_new_window()
++        else:
++            active_window = self.active_window
++
++        for file in files:
++            loading_type = wanted_loading_type(
++                len(active_window.container.webviews))
++            active_window.container.add_webview_for_uri(file.get_uri(), loading_type, False)
++
 +        active_window.present()
  
      def __on_content_blocker_set_filter(self, content_blocker, content_filter):
