@@ -4,7 +4,7 @@
 
 pkgname=libva-intel-driver
 pkgver=2.4.1
-pkgrel=3
+pkgrel=5
 pkgdesc='VA-API implementation for Intel G45 and HD Graphics family'
 arch=(x86_64)
 url=https://01.org/linuxmedia/vaapi
@@ -18,8 +18,9 @@ makedepends=(
   meson
 )
 replaces=(libva-driver-intel)
+_tag=4206d0e15363d188f30f2f3dbcc212fef206fc1d
 source=(git+https://github.com/intel/intel-vaapi-driver.git#tag=9a1f0c64174f970a26380d4957583c71372fbb7c)
-sha256sums=('SKIP')
+b2sums=('524369c3ced5b7d61bb93558bf95d6ef4f7af8c41362b1821f4f9d1c8887eb6bdde5549c98c8419bcd4fc1d5e042e564037f951ce9abaa30871eac7df863458f')
 
 pkgver() {
   cd intel-vaapi-driver
@@ -29,9 +30,8 @@ pkgver() {
 
 prepare() {
   cd intel-vaapi-driver
-
-  # Only relevant if intel-gpu-tools is installed,
-  # since then the shaders will be recompiled
+  git cherry-pick -n 4206d0e15363d188f30f2f3dbcc212fef206fc1d
+  # Only relevant if intel-gpu-tools is installed, since then the shaders will be recompiled
   sed -i '1s/python$/&2/' src/shaders/gpp.py
 }
 
