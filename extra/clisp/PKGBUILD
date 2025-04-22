@@ -1,7 +1,9 @@
 # Maintainer: Juergen Hoetzel <juergen@archlinux.org>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
 pkgname=clisp
 pkgver=2.49.95
-pkgrel=1
+pkgrel=2
 pkgdesc="ANSI Common Lisp interpreter, compiler and debugger"
 arch=('x86_64')
 license=('GPL-2.0-only')
@@ -18,7 +20,7 @@ b2sums=('5a9ed2744db2efebbc63218b6f51ddff7087c985a97f8720d8ec66ba771e86e4c887a99
 build() {
   cd $pkgname
   CFLAGS+=" -ffat-lto-objects" \
-  ./configure --prefix=/usr --with-readline --with-ffcall src
+  ./configure --prefix=/usr --with-readline --with-ffcall --with-threads=POSIX_THREADS src
 
   cd src
   ./makemake --prefix=/usr --with-readline --with-ffcall --with-dynamic-ffi > Makefile
