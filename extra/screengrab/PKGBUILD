@@ -3,7 +3,7 @@
 # Contributor: Beej <beej@beej.us>
 
 pkgname=screengrab
-pkgver=2.9.0
+pkgver=2.10.0
 pkgrel=1
 pkgdesc="Crossplatform tool for grabbing screenshots of your desktop."
 arch=("x86_64")
@@ -15,7 +15,7 @@ makedepends=("cmake" "qt6-tools")
 source=(
   "https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
 )
-sha256sums=('27bce75eea1b964bb1e6514ae5b06fa64a52f04eff4b00eac5604ca9c3f7f6b0'
+sha256sums=('c98de5d4b8b0dac7924855315efaa9183cf637ef553bdcd1a3c64526b4c37e04'
             'SKIP')
 validpgpkeys=(
   '7C733BA5F585AAD669E4D23A42C9C8D3AF5EA5E3'  # Alf Gaida <agaida@siduction.org>
