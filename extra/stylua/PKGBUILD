@@ -3,7 +3,7 @@
 
 _name=StyLua
 pkgname=stylua
-pkgver=2.0.2
+pkgver=2.1.0
 pkgrel=1
 pkgdesc='Deterministic code formatter for Lua'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('gcc-libs' 'glibc')
 makedepends=('git' 'rust')
 replaces=(stylua-bin)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('fc26acae7de6b646a247d0dd426e2b77cde429c68d454cc6f44b2d68d1021fe3eca54dc2fb17b70f03bc82139654612a27fe44d5cc880185199f35b0195be1a6')
+b2sums=('fa3ce80ed2364b3baad4e4237229dc96da0d54af0909bb8788dad2748fc94e04c3c2efa50bcb8a5b6efdb837392a2fdca086c81a752df0cb335bf42f25d1f581')
 
 prepare() {
   cd $_name
