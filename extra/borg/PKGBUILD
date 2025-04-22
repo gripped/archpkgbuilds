@@ -4,8 +4,8 @@
 
 pkgname=borg
 _pkgname=borgbackup
-pkgver=1.4.0
-pkgrel=3
+pkgver=1.4.1
+pkgrel=1
 pkgdesc='Deduplicating backup program with compression and authenticated encryption'
 url='https://borgbackup.github.io/'
 license=('BSD')
@@ -20,7 +20,7 @@ checkdepends=('python-pytest' 'python-dateutil')
 provides=('borgbackup')
 replaces=('borgbackup')
 source=("https://github.com/$_pkgname/$pkgname/releases/download/$pkgver/$_pkgname-$pkgver.tar.gz"{,.asc})
-sha256sums=('c54c45155643fa66fed7f9ff2d134ea0a58d0ac197c18781ddc2fb236bf6ed29'
+sha256sums=('b8fbf8f1c19d900b6b32a5a1dc131c5d8665a7c7eea409e9095209100b903839'
             'SKIP')
 validpgpkeys=('6D5BEF9ADD2075805747B70F9F88FB52FAF7B393') # Thomas Waldmann <tw@waldmann-edv.de>
 
