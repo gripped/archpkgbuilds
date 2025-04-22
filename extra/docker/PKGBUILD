@@ -2,8 +2,8 @@
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=docker
-pkgver=28.0.4
-pkgrel=2
+pkgver=28.1.1
+pkgrel=1
 epoch=1
 pkgdesc='Pack, ship and run any application as a lightweight container'
 arch=('x86_64' 'aarch64')
@@ -21,8 +21,8 @@ source=("git+https://github.com/docker/cli.git#tag=v$pkgver"
         "git+https://github.com/moby/moby.git#tag=v$pkgver"
         "git+https://github.com/krallin/tini.git#commit=$_TINI_COMMIT"
         "$pkgname.sysusers")
-sha256sums=('8c69689fe06539b8f33e6cd370effd63a478caae086aa9f0ea377fd52cc77851'
-            '596b424c56aa1f4e24f93ec49fc69f4b838fa870155628a0d8aeacab5bdcaabe'
+sha256sums=('5c9595e7dac148e00ba44e094c6671c5e0171b43b2e11b69145361202e7f6a6b'
+            '26576f655b0bbe3514abac81deaca20b93c5c636c5a8b3e91d509b1953d78c11'
             '28a6641d508f60d47315efb3c85d97360188750a45bd6d3c8737d3f1a2b44121'
             '541826011a9836d05a2f42293d5f1beadf2ca8d89fb604487d61a013505678eb')
 
