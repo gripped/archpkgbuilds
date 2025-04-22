@@ -1,6 +1,6 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=immich-go
-pkgver=0.25.0
+pkgver=0.25.3
 pkgrel=1
 epoch=1
 pkgdesc="Unofficial immich-cli alternative"
@@ -9,9 +9,9 @@ url="https://github.com/simulot/immich-go"
 license=('AGPL3')
 makedepends=('go')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/simulot/immich-go/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('413225a777fd634b1741de6168e48a92c01c3d61262c8e80dfad38abb4dea800b8019ac1fac613fbca84a8af57a42c4cc75caf0428f96f76549aae0003e18e1f')
+sha512sums=('1650968ee858b8093b16d82d4af6a872f31b3913eec6b2aebbcb9c1546b781b7614213a6701f56362d17252ceb630d994724dde2776246d24403659c627f2edc')
 
-prepare(){
+prepare() {
   cd "$pkgname-$pkgver"
   mkdir -p build
 }
