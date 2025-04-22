@@ -2,7 +2,7 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=lxqt-admin
-pkgver=2.1.0
+pkgver=2.2.0
 pkgrel=1
 pkgdesc="LXQt system administration tool."
 arch=("x86_64")
@@ -15,7 +15,7 @@ source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz.asc"
 )
-sha512sums=('880b12f3545a8bddd6f2e0eeb666a3d04be9021b63d66ded3ca5941a959c189147bee02f23cfd149f5396022a63b4949638f558b3279c8bfcfc40d5455da915a'
+sha512sums=('9596a6868b9db9f4a3848cf459fce3894a75f5f9c438311bae9483892bbe553626ff3f3dbb9bc55f4d0902b6298af0e05e672817280dd941f25e9b90bd56d922'
             'SKIP')
 validpgpkeys=(
 	"169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>
