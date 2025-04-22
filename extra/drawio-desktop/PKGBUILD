@@ -2,13 +2,13 @@
 # Contributor: Dmitry Valter <`echo ZHZhbHRlciA8YXQ+IHByb3Rvbm1haWwgPGRvdD4gY29tCg== | base64 -d`>
 
 pkgname=drawio-desktop
-pkgver=26.1.1
+pkgver=26.2.2
 pkgrel=1
 pkgdesc="Official Electron build of draw.io"
 arch=(any)
 url="https://www.drawio.com"
 license=(Apache-2.0)
-_electronver=34
+_electronver=35
 _nodever=20
 depends=(
   "electron$_electronver"
@@ -18,6 +18,7 @@ depends=(
 makedepends=(
   "nodejs>=$_nodever"
   git
+  npm
   yarn
 )
 source=(
@@ -27,8 +28,8 @@ source=(
   "drawio.sh"
   "drawio.xml"
 )
-sha256sums=('227269bd38c9ffbcfca1682e2557375aff9b9ebb9531842421f0d7b6783fbcb5'
-            'bcf08ed44bef689d6151f5f941c7a1bf8e489af7193590ac52c4476e410ccae6'
+sha256sums=('f8bd323eb036f782518313d956ebbeec96afa21d473fadc85f9ea064a1718ef0'
+            '5cd9bcb258c9f05eb7e7c73554785edc178175695bf30b8e5bb129d9f85f15df'
             '1064adf2cb2cd69a95d0f820000f48291a19698df707bef8f1aff0b8d368cf4a'
             '70735625bcb70e9a9e4a56a4723b230946c1d68336dba93864f45aed5c97899a'
             '53fb8df9cd9101d79fd897880dc7c59b3e90cf5d980029a1ecaa5da3031f8606')
@@ -55,14 +56,14 @@ prepare() {
 }
 
 build() {
-  cd "$srcdir/$pkgname"
+  cd $pkgname
   yarn run electron-builder --linux dir \
     -c.electronDist=/usr/lib/electron$_electronver \
     -c.electronVersion=$_electronver
 }
 
 package() {
-  cd "$srcdir/$pkgname"
+  cd $pkgname
   install -vDm644 -t "$pkgdir/usr/lib/$pkgname" dist/linux-unpacked/resources/app.asar
   install -vDm755 "$srcdir/drawio.sh" "$pkgdir/usr/bin/drawio"
 
