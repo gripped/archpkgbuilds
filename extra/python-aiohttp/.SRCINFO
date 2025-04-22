@@ -1,6 +1,6 @@
 pkgbase = python-aiohttp
 	pkgdesc = HTTP client/server for asyncio
-	pkgver = 3.10.11
+	pkgver = 3.11.18
 	pkgrel = 1
 	url = https://aiohttp.readthedocs.io
 	arch = x86_64
@@ -11,8 +11,8 @@ pkgbase = python-aiohttp
 	checkdepends = python-freezegun
 	checkdepends = python-proxy.py
 	checkdepends = python-pytest
+	checkdepends = python-pytest-codspeed
 	checkdepends = python-pytest-mock
-	checkdepends = python-pytest-xdist
 	checkdepends = python-re-assert
 	checkdepends = python-time-machine
 	checkdepends = python-trustme
@@ -24,19 +24,21 @@ pkgbase = python-aiohttp
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
+	depends = glibc
 	depends = python
 	depends = python-aiohappyeyeballs
 	depends = python-aiosignal
 	depends = python-attrs
 	depends = python-frozenlist
 	depends = python-multidict
+	depends = python-propcache
 	depends = python-yarl
 	optdepends = gunicorn: to deploy using Gunicorn
 	optdepends = python-aiodns: for fast DNS resolving
 	optdepends = python-brotli: for Brotli transfer-encodings support
-	source = python-aiohttp::git+https://github.com/aio-libs/aiohttp#tag=v3.10.11
+	source = python-aiohttp::git+https://github.com/aio-libs/aiohttp#tag=v3.11.18
 	source = git+https://github.com/nodejs/llhttp.git
-	b2sums = 510d512e9ac89ee28cb24ce0992986b5c0a88ad9757b9868f46aa1597bb8bd39a69bc4d9ba5d92319313d21fb398ab92bc0e11c73f407b4937310b0997ce2d70
+	b2sums = 02c8f8a2f20d176d28fc95fcae31652d5dc8c70def8ba77a840a7b71a4db31c4bd550fb721bd2fb5d50878ad25aef2a23bc901c2642c7d02d1546828e7865c00
 	b2sums = SKIP
 
 pkgname = python-aiohttp
