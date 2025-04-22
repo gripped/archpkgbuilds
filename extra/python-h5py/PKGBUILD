@@ -1,33 +1,47 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 # Contributor: Andrzej Giniewicz <gginiu@gmail.com>
 # Contributor: Rich Li <rich@dranek.com>
 # Contributor: Sebastien Binet <binet@lblbox>
 
-_pkg=h5py
-pkgname=python-${_pkg}
-pkgver=3.12.1
-pkgrel=2
+pkgname=python-h5py
+pkgver=3.13.0
+pkgrel=1
 pkgdesc="General-purpose Python bindings for the HDF5 library"
 arch=(x86_64)
 url="https://www.h5py.org/"
 license=(BSD-3-Clause)
-depends=(hdf5 liblzf python-numpy)
-makedepends=(cython python-pkgconfig python-build python-installer python-wheel python-setuptools)
-checkdepends=(python-pytest python-pytest-mpi python-pytables)
+depends=(
+  glibc
+  hdf5
+  liblzf
+  python
+  python-numpy
+)
+makedepends=(
+  cython
+  python-build
+  python-installer
+  python-pkgconfig
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-pytables
+  python-pytest
+  python-pytest-mpi
+)
 conflicts=(hdf5-openmpi)
-source=(https://files.pythonhosted.org/packages/source/h/${_pkg}/${_pkg}-${pkgver}.tar.gz
-        remove-version-check.patch)
-sha256sums=('326d70b53d31baa61f00b8aa5f95c2fcb9621a3ee8365d770c551a13dbbcbfdf'
+source=(
+  "https://github.com/h5py/h5py/archive/$pkgver/${pkgname#python-}-$pkgver.tar.gz"
+  remove-version-check.patch
+)
+sha256sums=('d16d0f02e24aed3ba8eb59e406aa44a24f6295c4ad7d85ad4ec6bc0ea176a24e'
             '621f108e5e95dc250047501447d0dc633fbf3f8bf19e4c4b4c4d5a286864664c')
-validpgpkeys=(AC47F71DB275ECD0B3DA46E857FA4540DD4EFCF7  # Thomas A Caswell (Brookhaven National Lab) <tcaswell@bnl.gov>
-              96B7334D7610EE3E68AFFE589E027116943D6A8B) # Thomas A Caswell <tcaswell@bnl.gov> (new key)
-# See https://github.com/h5py/h5py/issues/1299 about lack of GPG sigs for recent releases
 
 prepare() {
-  cd ${_pkg}-${pkgver}
-  # Allow our numpy version
-  sed -i 's/numpy ==/numpy >=/g' setup.py
+  cd ${pkgname#python-}-$pkgver
   # Remove RPATH
   sed -i "s/settings\\['runtime_library_dirs'\\] = settings\\['library_dirs'\\]/pass/" setup_build.py
   # Drop annoying version check
@@ -35,18 +49,20 @@ prepare() {
 }
 
 build() {
-  cd ${_pkg}-${pkgver}
+  cd ${pkgname#python-}-$pkgver
   H5PY_SYSTEM_LZF=1 python -m build --wheel --no-isolation
 }
 
 check() {
-  local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
-  export H5PY_TEST_CHECK_FILTERS=1
-  PYTHONPATH="${PWD}/${_pkg}-${pkgver}/build/lib.linux-${CARCH}-cpython-${python_version/./}" python -m pytest --pyargs h5py -rxXs --color=yes
+  cd ${pkgname#python-}-$pkgver
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  cd test-env/lib/python*/site-packages
+  H5PY_TEST_CHECK_FILTERS=1 ../../../bin/python -m pytest
 }
 
 package() {
-  cd ${_pkg}-${pkgver}
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 licenses/license.txt -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
