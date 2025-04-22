@@ -7,8 +7,8 @@
 # Contributor: Ben <ben@benmazer.net>
 
 pkgname=scribus
-pkgver=1.6.3
-pkgrel=5
+pkgver=1.6.4
+pkgrel=1
 pkgdesc="Desktop publishing software"
 arch=(x86_64)
 url="https://www.scribus.net/"
@@ -48,11 +48,9 @@ optdepends=('gdal: enable gdal plugin'
             'tk: scripts based on tkinter')
 options=(!lto)
 _archive="$pkgname-$pkgver"
-source=("https://downloads.sourceforge.net/${pkgname}/$_archive.tar.xz"{,.asc}
-        'fix_build_with_poppler_25.02.0.patch')
-sha256sums=('0ae58ced410101e82655e3b4c20a070cf1767145ada233dcef7c20b8ba6bd487'
-            'SKIP'
-            'b812944dd1cd25b9f42132c5f107fa83412ad662c43ca4159ec29c357461ee5e')
+source=("https://downloads.sourceforge.net/${pkgname}/$_archive.tar.xz"{,.asc})
+sha256sums=('533be7af03acfaa736ec5f7a3fc2562abd200fef5ca2a7cdee02b5f44d61829e'
+        'SKIP')
 validpgpkeys=(5086B8D68E70FDDF4C40045AEF7B95E7F60166DA  # Peter Linnell <plinnell@scribus.net>
               757F5E9B13DD648887AD50092D47C099E782504E  # The Scribus Team (www.scribus.net) <the_scribus_team@scribus.net>
               6558BE84D27273A438A151198BEA48118AEBEE64) # Craig Bradney <cbradney@zipworld.com.au>
@@ -60,11 +58,6 @@ validpgpkeys=(5086B8D68E70FDDF4C40045AEF7B95E7F60166DA  # Peter Linnell <plinnel
 prepare() {
     cd "$_archive"
     sed -e 's|WANT_CPP17|WANT_CPP20|g' -e 's|CMAKE_CXX_STANDARD 17|CMAKE_CXX_STANDARD 20|g' -i CMakeLists.txt
-
-    # Temporary patch to fix build with poppler 25.02.0
-    # See https://github.com/scribusproject/scribus/commit/188d030acd0cb71e89dbb57695fe52158b6a0959
-    # and https://gitweb.gentoo.org/repo/gentoo.git/tree/app-office/scribus/files/scribus-1.7.0-poppler-25.02.0.patch
-    patch -Np1 -i "$srcdir/fix_build_with_poppler_25.02.0.patch"
 }
 
 pkgver() {
