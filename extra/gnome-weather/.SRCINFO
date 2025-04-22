@@ -1,7 +1,7 @@
 pkgbase = gnome-weather
 	pkgdesc = Access current weather conditions and forecasts
 	pkgver = 48.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://apps.gnome.org/Weather
 	arch = any
 	groups = gnome
@@ -18,6 +18,12 @@ pkgbase = gnome-weather
 	depends = libadwaita
 	depends = libgweather-4
 	source = git+https://gitlab.gnome.org/GNOME/gnome-weather.git#tag=48.0
+	source = gnome-weather-automatic-location.patch
+	source = gnome-weather-search-provider.patch
+	source = gnome-weather-activate.patch
 	b2sums = 75d89eb1e4c95548301c6ca679b8f53283742b3bec5a11821838eb2725c40f2233c8acace03cc5fa88b8d904b416de3e0a0f07038bafae1ba31c160bc9dcb3ea
+	b2sums = 3fa2330783470a2e6f9f4eef31bad416da48696be67e60e9c2a221363b6aa08d933eb32d1288515fb361b3826c95e0c7bd17648da17bac936a9e591fc8020022
+	b2sums = 9533dd74b60b15225fe3bc29b6f6ad1fd7278a02458b31c58b2e6bd22ff6ac57100eded89ac89b540f04f8861f0b7ba2b6cb7d4f07724fc689e83b7ab6f03108
+	b2sums = 4b86c651e3a06aa7ca292b2e7ccfa1acee64e9e9dc53069272625ac489dad917ff3fbddf401c74a79e5e81a38896bef2c6f39872217c2713c26dbeca0e6bf001
 
 pkgname = gnome-weather

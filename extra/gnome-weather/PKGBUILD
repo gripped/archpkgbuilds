@@ -3,7 +3,7 @@
 
 pkgname=gnome-weather
 pkgver=48.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Access current weather conditions and forecasts"
 url="https://apps.gnome.org/Weather"
 arch=(any)
@@ -24,11 +24,29 @@ makedepends=(
   meson
 )
 groups=(gnome)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-weather.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('75d89eb1e4c95548301c6ca679b8f53283742b3bec5a11821838eb2725c40f2233c8acace03cc5fa88b8d904b416de3e0a0f07038bafae1ba31c160bc9dcb3ea')
+source=("git+https://gitlab.gnome.org/GNOME/gnome-weather.git#tag=${pkgver/[a-z]/.&}"
+        gnome-weather-automatic-location.patch
+        gnome-weather-search-provider.patch
+        gnome-weather-activate.patch)
+b2sums=('75d89eb1e4c95548301c6ca679b8f53283742b3bec5a11821838eb2725c40f2233c8acace03cc5fa88b8d904b416de3e0a0f07038bafae1ba31c160bc9dcb3ea'
+        '3fa2330783470a2e6f9f4eef31bad416da48696be67e60e9c2a221363b6aa08d933eb32d1288515fb361b3826c95e0c7bd17648da17bac936a9e591fc8020022'
+        '9533dd74b60b15225fe3bc29b6f6ad1fd7278a02458b31c58b2e6bd22ff6ac57100eded89ac89b540f04f8861f0b7ba2b6cb7d4f07724fc689e83b7ab6f03108'
+        '4b86c651e3a06aa7ca292b2e7ccfa1acee64e9e9dc53069272625ac489dad917ff3fbddf401c74a79e5e81a38896bef2c6f39872217c2713c26dbeca0e6bf001')
 
 prepare() {
   cd $pkgname
+
+  # Allow to configure automatic location setting
+  # https://gitlab.gnome.org/GNOME/gnome-weather/-/merge_requests/158
+  git apply -3 ../gnome-weather-automatic-location.patch
+
+  # Various fixes for the search provider
+  # https://gitlab.gnome.org/GNOME/gnome-weather/-/merge_requests/189
+  git apply -3 ../gnome-weather-search-provider.patch
+
+  # Raise existing window instead of opening new one on activation
+  # https://gitlab.gnome.org/GNOME/gnome-weather/-/merge_requests/190
+  git apply -3 ../gnome-weather-activate.patch
 }
 
 build() {
