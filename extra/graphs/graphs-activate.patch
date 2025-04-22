@@ -1,0 +1,27 @@
+From 38dfb153dfc84734154b20e09b4c6a43d4d9940d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 22 Apr 2025 17:03:03 +0000
+Subject: [PATCH] application: Raise existing window on activation
+
+Not only when new window is created.
+---
+ graphs/application.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/graphs/application.py b/graphs/application.py
+index e54cc329..d8243281 100644
+--- a/graphs/application.py
++++ b/graphs/application.py
+@@ -174,7 +174,8 @@ class PythonApplication(Graphs.Application):
+                 _param: window.update_view_menu(),
+             )
+             window.update_view_menu()
+-            window.present()
++
++        window.present()
+ 
+     def set_entry_css(
+         self,
+-- 
+GitLab
+

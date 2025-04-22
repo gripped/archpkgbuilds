@@ -1,0 +1,79 @@
+From 14a64b1a593141ebfcc6d431fc13b9a499bf7ef4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 22 Apr 2025 18:47:18 +0200
+Subject: [PATCH] Add D-Bus service file
+
+And mark the application as D-Bus activatable. This allows application
+launchers to activate it via D-Bus.
+---
+ data/meson.build                 | 8 ++++++++
+ data/se.sjoerd.Graphs.desktop.in | 1 +
+ data/se.sjoerd.Graphs.service.in | 3 +++
+ meson.build                      | 3 ++-
+ 4 files changed, 14 insertions(+), 1 deletion(-)
+ create mode 100644 data/se.sjoerd.Graphs.service.in
+
+diff --git a/data/meson.build b/data/meson.build
+index faa76ea7..2150421b 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -42,6 +42,14 @@ if (appstreamcli.found())
+   )
+ endif
+ 
++configure_file(
++        input: application_id + '.service.in',
++       output: application_id + '.service',
++configuration: conf,
++      install: true,
++  install_dir: join_paths(datadir, 'dbus-1', 'services'),
++)
++
+ install_data(application_id + '.gschema.xml',
+   install_dir: join_paths(datadir, 'glib-2.0/schemas'),
+  install_mode: 'rwxrwxrwx',
+diff --git a/data/se.sjoerd.Graphs.desktop.in b/data/se.sjoerd.Graphs.desktop.in
+index 4047fc3e..8d29677f 100644
+--- a/data/se.sjoerd.Graphs.desktop.in
++++ b/data/se.sjoerd.Graphs.desktop.in
+@@ -6,5 +6,6 @@ Terminal=false
+ Type=Application
+ Categories=Education;Science
+ StartupNotify=true
++DBusActivatable=true
+ MimeType=application/graphs;text/plain;text/xy;text/dat;text/csv;text/xrdml;text/xry;text/txt
+ Keywords=Plotting;Graph;Graphing;Science;Mathematics;Math;Equations;Data;Plot;Visualisation;Visualization;Fitting;xrdml;
+\ No newline at end of file
+diff --git a/data/se.sjoerd.Graphs.service.in b/data/se.sjoerd.Graphs.service.in
+new file mode 100644
+index 00000000..a20c2981
+--- /dev/null
++++ b/data/se.sjoerd.Graphs.service.in
+@@ -0,0 +1,3 @@
++[D-BUS Service]
++Name=@APPLICATION_ID@
++Exec=@BINDIR@/@PROJECT_NAME@ --gapplication-service
+diff --git a/meson.build b/meson.build
+index 34140ebb..d99a634f 100644
+--- a/meson.build
++++ b/meson.build
+@@ -33,7 +33,7 @@ python = import('python').find_installation('python3')
+ 
+ prefix = get_option('prefix')
+ datadir = get_option('datadir')
+-bindir = get_option('bindir')
++bindir = join_paths(prefix, get_option('bindir'))
+ version = meson.project_version()
+ pkgdatadir = join_paths(prefix, datadir, meson.project_name())
+ localedir = join_paths(prefix, get_option('localedir'))
+@@ -51,6 +51,7 @@ conf.set('COPYRIGHT', copyright)
+ conf.set('VCS_URL', vcs_url)
+ conf.set('ISSUE_URL', issue_url)
+ conf.set('HELP_URL', help_url)
++conf.set('BINDIR', bindir)
+ conf.set('LOCALEDIR', localedir)
+ conf.set('PKGDATADIR', pkgdatadir)
+ conf.set('PROJECT_NAME', meson.project_name())
+-- 
+GitLab
+
