@@ -4,8 +4,8 @@
 # Contributor: Lucas De Marchi <lucas.de.marchi@gmail.com>
 
 pkgname=connman
-pkgver=1.43
-pkgrel=3
+pkgver=1.44
+pkgrel=1
 pkgdesc="Intel's modular network connection manager"
 url="https://01.org/connman"
 arch=('x86_64')
@@ -42,7 +42,7 @@ source=(
   "$pkgname-$pkgver.tar.sign::https://www.kernel.org/pub/linux/network/$pkgname/$pkgname-$pkgver.tar.sign"
   "allow_group_network.diff"
 )
-sha512sums=('3289525cf764313700c520d3159431cdf719029096a1001d60ebdbda6406888699bc86336e7de890bf2c34a0624f3ba3081b0b57838a962b3c90bb5cd3484b38'
+sha512sums=('b0d817e4b269e1ae484ea69f72995eff0920a5b06244af2649e92d5529e98348e9c3baa020e69af59c569a993f0730ddc6ed1a41485c453d3a46565ba21794db'
             'SKIP'
             '06dd5867d460f1c3cf6c359e650ca2ef24495493a99cd03dbd17f23e587e9066d9bc98758d85d5c690d1ae21fa77ad8da5e2fa83d0b52c95d7a535784c5c4964')
 validpgpkeys=('E932D120BC2AEC444E558F0106CA9F5D1DCF2659') # Marcel Holtmann <marcel@holtmann.org>
