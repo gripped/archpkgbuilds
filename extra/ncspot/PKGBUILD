@@ -4,7 +4,7 @@
 
 pkgname=ncspot
 pkgver=1.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Cross-platform ncurses Spotify client written in Rust, inspired by ncmpc and the likes."
 arch=('x86_64')
 url="https://github.com/hrkfdn/ncspot"
@@ -14,7 +14,6 @@ makedepends=('cargo' 'python' 'pkgconf' 'ueberzug' 'pandoc-cli' 'portaudio')
 optdepends=('ueberzug: display album art in terminal (X11)')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/hrkfdn/ncspot/archive/v${pkgver}.tar.gz")
 b2sums=('d162422256112c1c38aa2f13bab6e56d3141566a4c7657d9d1eda2cc937d4be9c16680c51a589762d9d64c4d4ae6017d8ef9340de39df3ca180010e003374311')
-options=('!lto')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
@@ -26,6 +25,7 @@ build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   export RUSTUP_TOOLCHAIN=stable
   export CARGO_TARGET_DIR=target
+  export CFLAGS="$CFLAGS -ffat-lto-objects"
   cargo build --frozen --release --features cover
   # generate docs
   pandoc README.md -t man -s --columns=500 | grep -vE "\[IMAGE:|Click to show/hide" > ncspot.1
