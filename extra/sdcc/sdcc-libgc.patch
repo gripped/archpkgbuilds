@@ -1,0 +1,946 @@
+--- a/debugger/mcs51/Makefile.in
++++ b/debugger/mcs51/Makefile.in
+@@ -24,7 +24,7 @@ bindir          = @bindir@
+ transform	= @program_transform_name@
+ 
+ STD_INC		= @sdcc_include_dir@
+-CPPFLAGS	= @CPPFLAGS@ -I. -I$(top_builddir) -I$(top_srcdir) -I$(SLIB) -DHAVE_CONFIG_H
++CPPFLAGS	= @CPPFLAGS@ -I. -I$(top_builddir) -I$(top_srcdir) -I$(SLIB) -I$(SDCCLIB) -DHAVE_CONFIG_H -DUTIL_USE_NEWALLOC
+ CFLAGS		= @CFLAGS@ @WALL_FLAG@
+ LDFLAGS		= @LDFLAGS@
+ 
+--- a/debugger/mcs51/cmd.c
++++ b/debugger/mcs51/cmd.c
+@@ -3218,7 +3218,7 @@ int cmdDisplay (char *s, context *cctxt)
+       dsym->dnum = dnum++ ;
+       dsym->name = sym->name;
+       dsym->fmt  = fmt;
+-      dsym->rs   = gc_strdup (rs);
++      dsym->rs   = Safe_strdup (rs);
+       addSetHead (&dispsymbols, dsym);
+     }
+   return 0;
+--- a/debugger/mcs51/configure.ac
++++ b/debugger/mcs51/configure.ac
+@@ -33,6 +33,17 @@ fi
+ 
+ # Checking for functions/libs
+ # ===========================================================================
++AC_ARG_ENABLE(libgc, AS_HELP_STRING([--enable-libgc], [Use the Bohem memory allocator. Lower runtime footprint.]))
++if test "$enable_libgc" = yes; then
++  AC_DEFINE_UNQUOTED(OPT_ENABLE_LIBGC, 1, [XXX])
++  AC_CHECK_LIB(gc, GC_malloc)
++  if test $ac_cv_lib_gc_GC_malloc = no; then
++    AC_MSG_ERROR([Cannot find library libgc with Bohem memory allocator.])
++  fi
++else
++  AC_DEFINE_UNQUOTED(OPT_ENABLE_LIBGC, 0, [XXX])
++fi
++
+ if test $socket_type = winsock2_h; then
+   LIBS="-lws2_32 $LIBS"
+ else
+--- a/debugger/mcs51/sdcdb.c
++++ b/debugger/mcs51/sdcdb.c
+@@ -359,7 +359,7 @@ void **resize (void **array, int newSize)
+   if (array)
+       vptr = Safe_realloc(array, newSize*(sizeof(void **)));
+   else
+-      vptr = calloc(1, sizeof(void **));
++      vptr = Safe_calloc(1, sizeof(void **));
+ 
+   if (!vptr)
+     {
+@@ -444,14 +444,14 @@ char *searchDirsFname (char *fname)
+   if ((rfile = fopen(fname, "r")))
+     {
+       fclose(rfile);
+-      return strdup(fname) ;
++      return Safe_strdup(fname) ;
+     }
+ 
+   if (!ssdirl)
+-      return strdup(fname);
++      return Safe_strdup(fname);
+ 
+   /* make a copy of the source directories */
+-  dirs = sdirs = strdup(ssdirl);
++  dirs = sdirs = Safe_strdup(ssdirl);
+ 
+   /* assume that the separator is ':'
+      and try for each directory in the search list */
+@@ -467,11 +467,11 @@ char *searchDirsFname (char *fname)
+       dirs = strtok(NULL, ":");
+     }
+ 
+-  free(sdirs);
++  Safe_free(sdirs);
+   if (rfile)
+     {
+       fclose(rfile);
+-      return strdup(buffer);
++      return Safe_strdup(buffer);
+     }
+   else //not found
+     {
+@@ -507,7 +507,7 @@ FILE *searchDirsFopen(char *fname)
+       return NULL;
+ 
+   /* make a copy of the source directories */
+-  dirs = sdirs = strdup(ssdirl);
++  dirs = sdirs = Safe_strdup(ssdirl);
+ 
+   /* assume that the separator is ':'
+      and try for each directory in the search list */
+@@ -520,7 +520,7 @@ FILE *searchDirsFopen(char *fname)
+       dirs = strtok(NULL, ":");
+     }
+ 
+-  free(sdirs);
++  Safe_free(sdirs);
+   return rfile ;
+ }
+ 
+@@ -840,7 +840,7 @@ int cmdFile (char *s,context *cctxt)
+   sprintf(buffer, "%s.ihx", s);
+   bp = searchDirsFname(buffer);
+   simLoadFile(bp);
+-  free(bp);
++  Safe_free(bp);
+ 
+   /* set the break points
+      required by the debugger . i.e. the function entry
+@@ -981,13 +981,13 @@ int interpretCmd (char *s)
+     {
+       if (strcmp(pcmd,s))
+         {
+-          free(pcmd);
+-          pcmd = strdup(s);
++          Safe_free(pcmd);
++          pcmd = Safe_strdup(s);
+         }
+     }
+   else
+     {
+-      pcmd = strdup(s);
++      pcmd = Safe_strdup(s);
+     }
+ 
+   /* trim trailing blanks */
+@@ -1161,7 +1161,7 @@ char *completionCompleteFromStrList(const char *text, int state, char *vallist)
+   while (*ptr)
+     {
+       if ( (len < strlen(ptr)) && !strncmp(text, ptr, len) )
+-          return strdup(ptr);
++          return Safe_strdup(ptr);
+ 
+       ptr += strlen(ptr)+1;
+     }
+@@ -1214,7 +1214,7 @@ char *completionCommandsList(const char *text, int state)
+       if (len <= strlen(cmdTab[i].cmd))
+         {
+           if (strncmp(text,cmdTab[i].cmd,len) == 0)
+-              return strdup(cmdTab[i].cmd);
++              return Safe_strdup(cmdTab[i].cmd);
+         }
+     }
+ 
+@@ -1238,7 +1238,7 @@ char *completionSymbolName(const char *text, int state)
+       if (len <= strlen(sy->name))
+         {
+           if (strncmp(text,sy->name,len) == 0)
+-              return strdup(sy->name);
++              return Safe_strdup(sy->name);
+         }
+ 
+       sy = setNextItem(symbols);
+@@ -1268,14 +1268,14 @@ char *completionFunctionName(const char *text, int state, int module_flag)
+           if (text_len <= strlen(f->sym->name) &&
+               !strncmp(text,f->sym->name,text_len))
+             {
+-              return strdup(f->sym->name);
++              return Safe_strdup(f->sym->name);
+             }
+         }
+       else
+         {
+           int modname_len = strlen(f->mod->c_name);
+           int funcname_len = strlen(f->sym->name);
+-          char *functext = malloc(modname_len+funcname_len+2);
++          char *functext = Safe_malloc(modname_len+funcname_len+2);
+           //assert(functext);
+           strcpy(functext,f->mod->c_name);
+           strcat(functext,":");
+@@ -1287,7 +1287,7 @@ char *completionFunctionName(const char *text, int state, int module_flag)
+             }
+           else
+             {
+-              free(functext);
++              Safe_free(functext);
+             }
+         }
+       f = setNextItem(functions);
+@@ -1312,13 +1312,13 @@ char *completionModuleName(const char *text, int state)
+       if ( (len <= strlen(m->c_name)) &&
+            !strncmp(text,m->c_name,len) )
+         {
+-          return strdup(m->c_name);
++          return Safe_strdup(m->c_name);
+         }
+ 
+       if ( (len <= strlen(m->asm_name)) &&
+            (strncmp(text,m->asm_name,len) == 0) )
+         {
+-          return strdup(m->asm_name);
++          return Safe_strdup(m->asm_name);
+         }
+ 
+       m = setNextItem(modules);
+@@ -1428,7 +1428,7 @@ char *completionCmdDelUserBp(const char *text, int state)
+         {
+           char buff[20];
+           sprintf(buff, "%d", bp->bpnum);
+-          return strdup(buff);
++          return Safe_strdup(buff);
+         }
+     }
+ 
+@@ -1452,7 +1452,7 @@ char *completionCmdUnDisplay(const char *text, int state)
+       char buff[30];
+       sprintf(buff, "%d", dsym->dnum);
+       dsym = setNextItem(dispsymbols);
+-      return strdup(buff);
++      return Safe_strdup(buff);
+     }
+   return NULL;
+ }
+@@ -1865,7 +1865,7 @@ static void parseCmdLine (int argc, char **argv)
+     {
+       if (passon_args_flag) /* if true, pass on args to simulator */
+         {
+-          simArgs[nsimArgs++] = strdup(argv[i]);
++          simArgs[nsimArgs++] = Safe_strdup(argv[i]);
+           continue;
+         }
+ 
+@@ -1975,7 +1975,7 @@ static void parseCmdLine (int argc, char **argv)
+               strcmp(argv[i], "-cpu") == 0)
+             {
+               simArgs[nsimArgs++] = "-t";
+-              simArgs[nsimArgs++] = strdup(argv[++i]);
++              simArgs[nsimArgs++] = Safe_strdup(argv[++i]);
+               continue;
+             }
+ 
+@@ -1984,7 +1984,7 @@ static void parseCmdLine (int argc, char **argv)
+               strcmp(argv[i], "-frequency") == 0)
+             {
+               simArgs[nsimArgs++] = "-X";
+-              simArgs[nsimArgs++] = strdup(argv[++i]);
++              simArgs[nsimArgs++] = Safe_strdup(argv[++i]);
+               continue;
+             }
+ 
+@@ -1992,16 +1992,16 @@ static void parseCmdLine (int argc, char **argv)
+           if ((strcmp(argv[i], "-S") == 0) ||
+               (strcmp(argv[i], "-s") == 0))
+             {
+-              simArgs[nsimArgs++] = strdup(argv[i]);
+-              simArgs[nsimArgs++] = strdup(argv[++i]);
++              simArgs[nsimArgs++] = Safe_strdup(argv[i]);
++              simArgs[nsimArgs++] = Safe_strdup(argv[++i]);
+               continue;
+             }
+ 
+           /* network serial port */
+           if ((strcmp(argv[i], "-k") == 0))
+             {
+-              simArgs[nsimArgs++] = strdup(argv[i]);
+-              simArgs[nsimArgs++] = strdup(argv[++i]);
++              simArgs[nsimArgs++] = Safe_strdup(argv[i]);
++              simArgs[nsimArgs++] = Safe_strdup(argv[++i]);
+               continue;
+             }
+ 
+--- a/debugger/mcs51/symtab.c
++++ b/debugger/mcs51/symtab.c
+@@ -222,10 +222,10 @@ static char  *parseTypeInfo (symbol *sym, char *s)
+                 s++;
+                 SPEC_NOUN(type) = V_STRUCT;
+                 {
+-                  char *ss = strtok(strdup(s), ",):");
++                  char *ss = strtok(Safe_strdup(s), ",):");
+ 
+                   SPEC_STRUCT(type) = structWithName(ss);
+-                  free(ss);
++                  Safe_free(ss);
+                 }
+                 break;
+               case 'X':
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -17,7 +17,7 @@ LIBS            = -lm @LIBS@
+ 
+ CFLAGS          = @CFLAGS@ @WALL_FLAG@
+ CXXFLAGS        = @CXXFLAGS@ @WALL_FLAG@
+-CPPFLAGS        += -I$(srcdir)
++CPPFLAGS        += -I$(srcdir) -DUTIL_USE_NEWALLOC
+ LDFLAGS         = @LDFLAGS@
+ 
+ ifdef SDCC_SUB_VERSION
+--- a/src/SDCC.lex
++++ b/src/SDCC.lex
+@@ -85,6 +85,10 @@ UTF8IDF         {UTF8IDF1ST}|\xcc[\x80-\xbf]|\xcd[\x80-\xaf]|\xe2\x83[\x90-\xbf]
+ #define TKEYWORD99(token) return (options.std_c99 ? (token) : check_type())
+ #define TKEYWORD2X(token) return (options.std_c23 ? (token) : check_type())
+ 
++#define YYMALLOC Safe_malloc
++#define YYFREE Safe_free
++#define YYREALLOC Safe_realloc
++
+ int column = 0;         /* current column */
+ 
+ /* global definitions */
+--- a/src/SDCC.y
++++ b/src/SDCC.y
+@@ -72,6 +72,9 @@ value *cenum = NULL;        /* current enumeration  type chain*/
+ bool uselessDecl = true;
+ 
+ #define YYDEBUG 1
++#define YYMALLOC Safe_malloc
++#define YYFREE Safe_free
++#define YYREALLOC Safe_realloc
+ 
+ %}
+ %expect 3
+@@ -3020,7 +3023,7 @@ asm_statement
+ 
+         seqPointNo++;
+         ex = newNode(INLINEASM, NULL, NULL);
+-        ex->values.inlineasm = strdup(copyStr ($3, NULL));
++        ex->values.inlineasm = Safe_strdup(copyStr ($3, NULL));
+         seqPointNo++;
+         $$ = ex;
+      }
+@@ -3030,7 +3033,7 @@ asm_statement
+ 
+         seqPointNo++;
+         ex = newNode(INLINEASM, NULL, NULL);
+-        ex->values.inlineasm = strdup($1);
++        ex->values.inlineasm = Safe_strdup($1);
+         seqPointNo++;
+         $$ = ex;
+       }
+--- a/src/SDCCerr.c
++++ b/src/SDCCerr.c
+@@ -784,7 +784,7 @@ vwerror (int errNum, va_list marker)
+       for (oldmsg = setFirstItem (_SDCCERRG.log); oldmsg; oldmsg = setNextItem (_SDCCERRG.log))
+         if (strcmp (errmsg, oldmsg) == 0)
+           {
+-            free(errmsg);
++            dbuf_free(errmsg);
+             return 0;
+           }
+       addSetHead (&_SDCCERRG.log, errmsg);
+--- a/src/SDCCgen.c
++++ b/src/SDCCgen.c
+@@ -285,7 +285,7 @@ genInline (iCode * ic)
+   Safe_free (buf);
+ 
+   /* consumed; we can free it here */
+-  dbuf_free (IC_INLINE (ic));
++  Safe_free (IC_INLINE (ic));
+ 
+   genLine.lineElement.isInline -= (!options.asmpeep);
+ }
+--- a/src/SDCCglue.c
++++ b/src/SDCCglue.c
+@@ -1177,12 +1177,12 @@ printIvalChar (symbol * sym, sym_link * type, initList * ilist, struct dbuf_s *o
+           if (check && DCL_ELEM (val->type) > size)
+             werror (W_EXCESS_INITIALIZERS, "array of chars", sym->name, sym->lineDef);
+ 
+-          if (size > (asz = DCL_ELEM (val->type)) && !!(p = malloc (size)))
++          if (size > (asz = DCL_ELEM (val->type)) && !!(p = Safe_malloc (size)))
+             {
+               memcpy (p, SPEC_CVAL (val->etype).v_char, asz);
+               memset (p + asz, 0x00, size - asz);
+               printChar (oBuf, p, size);
+-              free (p);
++              Safe_free (p);
+             }
+           else
+             printChar (oBuf, SPEC_CVAL (val->etype).v_char, size);
+@@ -1237,12 +1237,12 @@ printIvalChar16 (symbol * sym, sym_link * type, initList * ilist, struct dbuf_s
+           if (check && DCL_ELEM (val->type) > size)
+             werror (W_EXCESS_INITIALIZERS, "array of chars", sym->name, sym->lineDef);
+ 
+-          if (size > (asz = DCL_ELEM (val->type)) && !!(p = malloc (size * 2)))
++          if (size > (asz = DCL_ELEM (val->type)) && !!(p = Safe_malloc (size * 2)))
+             {
+               memcpy (p, SPEC_CVAL (val->etype).v_char16, asz * 2);
+               memset (p + asz, 0x00, size * 2 - asz * 2);
+               printChar16 (oBuf, p, size);
+-              free (p);
++              Safe_free (p);
+             }
+           else
+             printChar16 (oBuf, SPEC_CVAL (val->etype).v_char16, size);
+@@ -1296,12 +1296,12 @@ printIvalChar32 (symbol * sym, sym_link * type, initList * ilist, struct dbuf_s
+           if (check && DCL_ELEM (val->type) > size)
+             werror (W_EXCESS_INITIALIZERS, "array of chars", sym->name, sym->lineDef);
+ 
+-          if (size > (asz = DCL_ELEM (val->type)) && !!(p = malloc (size * 4)))
++          if (size > (asz = DCL_ELEM (val->type)) && !!(p = Safe_malloc (size * 4)))
+             {
+               memcpy (p, SPEC_CVAL (val->etype).v_char32, asz * 4);
+               memset (p + asz, 0x00, size * 4 - asz * 4);
+               printChar32 (oBuf, p, size);
+-              free (p);
++              Safe_free (p);
+             }
+           else
+             printChar32 (oBuf, SPEC_CVAL (val->etype).v_char32, size);
+@@ -1509,7 +1509,7 @@ printIvalCharPtr (symbol * sym, sym_link * type, value * val, struct dbuf_s *oBu
+   int size = 0;
+   char *p;
+ 
+-  if (val && !!(p = (char *) malloc (strlen (val->name) + 1)))
++  if (val && !!(p = (char *) Safe_malloc (strlen (val->name) + 1)))
+     {
+       strcpy (p, val->name);
+       addSet (&ccpStr, p);
+@@ -2013,7 +2013,7 @@ emitStaticSeg (memmap *map, struct dbuf_s *oBuf)
+       char *p;
+       for (p = setFirstItem (ccpStr); p; p = setNextItem (ccpStr))
+         if (p)
+-          free (p);
++          Safe_free (p);
+       deleteSet (&ccpStr);
+     }
+ }
+--- a/src/SDCCicode.c
++++ b/src/SDCCicode.c
+@@ -606,7 +606,7 @@ newiCode (int op, operand *left, operand *right)
+ {
+   iCode *ic;
+ 
+-  ic = Safe_alloc (sizeof (iCode));
++  ic = Safe_calloc (1, sizeof (iCode));
+ 
+   ic->seqPoint = seqPoint;
+   ic->filename = filename;
+--- a/src/SDCCutil.c
++++ b/src/SDCCutil.c
+@@ -479,7 +479,7 @@ getBinPath (const char *prel)
+       dbuf_init (&path, 128);
+ 
+       dbuf_splitPath (ret_path, &path, NULL);
+-      free ((void *) ret_path);
++      Safe_free ((void *) ret_path);
+       return dbuf_detach_c_str (&path);
+     }
+   else
+--- a/src/SDCCval.c
++++ b/src/SDCCval.c
+@@ -1577,7 +1577,7 @@ static const TYPE_UDWORD *utf_32_from_utf_8 (size_t *utf_32_len, const char *utf
+     {
+       if (allocated == *utf_32_len)
+         {
+-          utf_32 = realloc (utf_32, sizeof(TYPE_UDWORD) * (*utf_32_len + 16));
++          utf_32 = Safe_realloc (utf_32, sizeof(TYPE_UDWORD) * (*utf_32_len + 16));
+           wassert (utf_32);
+           allocated = *utf_32_len + 16;
+         }
+@@ -1621,7 +1621,7 @@ static const TYPE_UWORD *utf_16_from_utf_32 (size_t *utf_16_len, const TYPE_UDWO
+     {
+       if (allocated <= *utf_16_len + 2)
+         {
+-          utf_16 = realloc (utf_16, sizeof(TYPE_UWORD) * (*utf_16_len + 16));
++          utf_16 = Safe_realloc (utf_16, sizeof(TYPE_UWORD) * (*utf_16_len + 16));
+           wassert (utf_16);
+           allocated = *utf_16_len + 16;
+         }
+@@ -1910,7 +1910,7 @@ charVal (const char *s)
+       size_t ulen;
+       const TYPE_UDWORD *ustr = utf_32_from_utf_8 (&ulen, s, strlen(s) - 1);
+       value *val = constCharacterVal (*ustr, type);
+-      free ((void *)ustr);
++      Safe_free ((void *)ustr);
+       return (val);
+     }
+   else // Character constant that is not wide - compatibility with legacy encodings.
+--- a/src/avr/gen.c
++++ b/src/avr/gen.c
+@@ -2978,7 +2978,7 @@ genInline (iCode * ic)
+   Safe_free (buffer);
+ 
+   /* consumed; we can free it here */
+-  dbuf_free (IC_INLINE (ic));
++  Safe_free (IC_INLINE (ic));
+ 
+   _G.inLine -= (!options.asmpeep);
+ }
+--- a/src/ds390/main.c
++++ b/src/ds390/main.c
+@@ -1080,7 +1080,7 @@ initializeAsmLineNode (lineNode *line)
+   else if (line->aln && !((asmLineNode *)line->aln)->initialized)
+     {
+       int currentDPS = ((asmLineNode *)line->aln)->currentDPS;
+-      free(line->aln);
++      Safe_free(line->aln);
+       line->aln = (asmLineNodeBase *) asmLineNodeFromLineNode (line, currentDPS);
+     }
+ }
+--- a/src/hc08/gen.c
++++ b/src/hc08/gen.c
+@@ -7122,7 +7122,7 @@ hc08_genInline (iCode * ic)
+   Safe_free (buf);
+ 
+   /* consumed; we can free it here */
+-  dbuf_free (IC_INLINE (ic));
++  Safe_free (IC_INLINE (ic));
+ 
+   genLine.lineElement.isInline -= (!options.asmpeep);
+ }
+--- a/src/mos6502/gen.c
++++ b/src/mos6502/gen.c
+@@ -7157,7 +7157,7 @@ static void m6502_genInline (iCode * ic)
+   Safe_free (buf);
+ 
+   /* consumed; we can free it here */
+-  dbuf_free (IC_INLINE (ic));
++  Safe_free (IC_INLINE (ic));
+ 
+   genLine.lineElement.isInline -= (!options.asmpeep);
+ }
+--- a/src/pic14/device.c
++++ b/src/pic14/device.c
+@@ -73,7 +73,7 @@ split_words (char **result_word, char *str)
+     {
+       if (result_word[num_words])
+         {
+-          free (result_word[num_words]);
++          Safe_free (result_word[num_words]);
+           result_word[num_words] = NULL;
+         } // if
+     } // for
+@@ -447,7 +447,7 @@ find_device (char *pic_name)
+   fclose (pic_file);
+ 
+   split_words (pic_word, NULL);
+-  free (pic_word);
++  Safe_free (pic_word);
+ 
+   /* if we're in read-the-lot mode then create the final processor definition */
+   if (pic_name == NULL)
+@@ -471,7 +471,7 @@ find_device (char *pic_name)
+       if (found_processor)
+         {
+           split_words (processor_name, NULL);
+-          free (processor_name);
++          Safe_free (processor_name);
+ 
+           /* create a new pic entry */
+           return create_pic (pic_name, pic_maxram, pic_bankmsk,
+@@ -481,7 +481,7 @@ find_device (char *pic_name)
+     } // if
+ 
+   split_words (processor_name, NULL);
+-  free (processor_name);
++  Safe_free (processor_name);
+ 
+   return NULL;
+ }
+--- a/src/pic14/gen.c
++++ b/src/pic14/gen.c
+@@ -2304,7 +2304,7 @@ genPcall (iCode * ic)
+      buffer = Safe_alloc(len);
+      SNPRINTF(buffer, len, "%s_goto_helper", rname);
+      addpCode2pBlock(pb,newpCode(POC_CALL,newpCodeOp(buffer,PO_STR)));
+-     free(buffer);
++     Safe_free(buffer);
+      }
+    */
+   emitpcode (POC_CALL, popGetLabel (albl->key));
+@@ -4929,7 +4929,7 @@ pic14_genInline (iCode * ic)
+   Safe_free (buffer);
+ 
+   /* consumed; we can free it here */
+-  dbuf_free (IC_INLINE (ic));
++  Safe_free (IC_INLINE (ic));
+ 
+   genLine.lineElement.isInline -= (!options.asmpeep);
+ }
+--- a/src/pic14/glue.c
++++ b/src/pic14/glue.c
+@@ -1576,12 +1576,12 @@ pic14_printIvalChar (symbol *sym, sym_link *type, initList *ilist, struct dbuf_s
+           if (check && DCL_ELEM (val->type) > size)
+             werror (W_EXCESS_INITIALIZERS, "array of chars", sym->name, sym->lineDef);
+ 
+-          if (size > (asz = DCL_ELEM (val->type)) && !!(p = malloc (size)))
++          if (size > (asz = DCL_ELEM (val->type)) && !!(p = Safe_malloc (size)))
+             {
+               memcpy (p, SPEC_CVAL (val->etype).v_char, asz);
+               memset (p + asz, 0x00, size - asz);
+               pic14_printChar (oBuf, p, size);
+-              free (p);
++              Safe_free (p);
+             }
+           else
+             pic14_printChar (oBuf, SPEC_CVAL (val->etype).v_char, size);
+@@ -1638,12 +1638,12 @@ pic14_printIvalChar16 (symbol *sym, sym_link *type, initList *ilist, struct dbuf
+           if (check && DCL_ELEM (val->type) > size)
+             werror (W_EXCESS_INITIALIZERS, "array of chars", sym->name, sym->lineDef);
+ 
+-          if (size > (asz = DCL_ELEM (val->type)) && !!(p = malloc (size * 2)))
++          if (size > (asz = DCL_ELEM (val->type)) && !!(p = Safe_malloc (size * 2)))
+             {
+               memcpy (p, SPEC_CVAL (val->etype).v_char16, asz * 2);
+               memset (p + asz, 0x00, size * 2 - asz * 2);
+               pic14_printChar16 (oBuf, p, size);
+-              free (p);
++              Safe_free (p);
+             }
+           else
+             pic14_printChar16 (oBuf, SPEC_CVAL (val->etype).v_char16, size);
+@@ -1698,12 +1698,12 @@ pic14_printIvalChar32 (symbol *sym, sym_link *type, initList *ilist, struct dbuf
+           if (check && DCL_ELEM (val->type) > size)
+             werror (W_EXCESS_INITIALIZERS, "array of chars", sym->name, sym->lineDef);
+ 
+-          if (size > (asz = DCL_ELEM (val->type)) && !!(p = malloc (size * 4)))
++          if (size > (asz = DCL_ELEM (val->type)) && !!(p = Safe_malloc (size * 4)))
+             {
+               memcpy (p, SPEC_CVAL (val->etype).v_char32, asz * 4);
+               memset (p + asz, 0x00, size * 4 - asz * 4);
+               pic14_printChar32 (oBuf, p, size);
+-              free (p);
++              Safe_free (p);
+             }
+           else
+             pic14_printChar32 (oBuf, SPEC_CVAL (val->etype).v_char32, size);
+@@ -1846,7 +1846,7 @@ pic14_printIvalCharPtr (symbol *sym, sym_link *type, value *val, struct dbuf_s *
+   char *p;
+   DBG_MSG ("printIvalCharPtr entry");
+ 
+-  if (val && !!(p = (char *) malloc (strlen (val->name) + 1)))
++  if (val && !!(p = (char *) Safe_malloc (strlen (val->name) + 1)))
+     {
+       strcpy (p, val->name);
+       addSet (&ccpStr, p);
+@@ -2415,7 +2415,7 @@ pic14_emitStaticSeg (memmap *map, struct dbuf_s *oBuf)
+       char *p;
+       for (p = setFirstItem (ccpStr); p; p = setNextItem (ccpStr))
+         if (p)
+-          free (p);
++          Safe_free (p);
+       deleteSet (&ccpStr);
+     }
+ }
+--- a/src/pic14/pcode.c
++++ b/src/pic14/pcode.c
+@@ -2380,7 +2380,7 @@ static void destructpCodeFlow(pCode *pc)
+ 	deleteSet(&PCFL(pc)->registers);
+ 	deleteSet(&PCFL(pc)->from);
+ 	deleteSet(&PCFL(pc)->to);
+-	free(pc);
++	Safe_free(pc);
+ }
+ 
+ static pCode *newpCodeFlow(void )
+@@ -2512,9 +2512,9 @@ static void pCodeLabelDestruct(pCode *pc)
+ 		return;
+ 
+ 	if((pc->type == PC_LABEL) && PCL(pc)->label)
+-		free(PCL(pc)->label);
++		Safe_free(PCL(pc)->label);
+ 
+-	free(pc);
++	Safe_free(pc);
+ }
+ 
+ pCode *newpCodeLabel(const char *name, int key)
+@@ -3062,7 +3062,7 @@ static void genericDestruct(pCode *pc)
+ 
+ 	addpCode2pBlock(pb_dead_pcodes, pc);
+ 
+-	//free(pc);
++	//Safe_free(pc);
+ }
+ 
+ 
+@@ -3739,11 +3739,11 @@ static void unlinkpCodeFromBranch(pCode *pcl , pCode *pc)
+       /* Found a label */
+       if(bprev) {
+         bprev->next = b->next;  /* Not first pCode in chain */
+-        free(b);
++        Safe_free(b);
+       } else {
+         pc->destruct(pc);
+         PCI(pcl)->label = b->next;   /* First pCode in chain */
+-        free(b);
++        Safe_free(b);
+       }
+       return;  /* A label can't occur more than once */
+     }
+@@ -4209,7 +4209,7 @@ static void unBuildFlow(pBlock *pb)
+ 			
+ 			pc->seq = 0;
+ 			if(PCI(pc)->pcflow) {
+-				//free(PCI(pc)->pcflow);
++				//Safe_free(PCI(pc)->pcflow);
+ 				PCI(pc)->pcflow = NULL;
+ 			}
+ 			
+@@ -4629,7 +4629,7 @@ static int insertBankSel(pCodeInstruction  *pci, const char *name)
+ 	pcop = popCopyReg(PCOR(pci->pcop));
+ 	pcop->type = PO_GPR_REGISTER; // Sometimes the type is set to legacy 8051 - so override it
+ 	if (pcop->name == 0)
+-		pcop->name = strdup(name);
++		pcop->name = Safe_strdup(name);
+ 	new_pc = newpCode(POC_BANKSEL, pcop);
+ 	
+ 	insertPCodeInstruction(pci, PCI(new_pc));
+@@ -4891,7 +4891,7 @@ static void exchangeLabels(pCodeLabel *pcl, pCode *pc)
+ 
+ 		//fprintf(stderr,"changing label key from %d to %d\n",pcol->key, pcl->key);
+ 		if(pcol->pcop.name)
+-			free(pcol->pcop.name);
++			Safe_free(pcol->pcop.name);
+ 
+ 		/* If the key is negative, then we (probably) have a label to
+ 		* a function and the name is already defined */
+@@ -4970,7 +4970,7 @@ static void pBlockRemoveUnusedLabels(pBlock *pb)
+ 			} else {
+ 				unlinkpCodeFromBranch(pc, PCODE(pcl));
+ 				/*if(pc->label->next == NULL && pc->label->pc == NULL) {
+-				free(pc->label);
++				Safe_free(pc->label);
+ 			}*/
+ 			}
+ 		}
+@@ -5097,7 +5097,7 @@ static void pBlockDestruct(pBlock *pb)
+ 		return;
+ 	
+ 	
+-	free(pb);
++	Safe_free(pb);
+ 	
+ }
+ 
+@@ -5457,7 +5457,7 @@ register_reassign(pBlock *pb, unsigned startIdx, unsigned level)
+               DFPRINTF((stderr,
+                         "%*s(%u) reassigning register %p \"%s\" to \"%s\"\n",
+                         4 * level, "", level, r, r->name, s));
+-              free(r->name);
++              Safe_free(r->name);
+               r->name = Safe_strdup(s);
+             } // if
+         } // for
+--- a/src/pic16/gen.c
++++ b/src/pic16/gen.c
+@@ -7021,15 +7021,15 @@ pic16_genInline (iCode * ic)
+             {
+               int i = strlen (cbuf);
+               cblen += 50;
+-              cbuf = realloc (cbuf, cblen);
++              cbuf = Safe_realloc (cbuf, cblen);
+               memset (cbuf + i, 0, 50);
+               bp1 = cbuf + i;
+             }
+         }
+ 
+-      free (buffer);
++      Safe_free (buffer);
+       buffer = Safe_strdup (cbuf);
+-      free (cbuf);
++      Safe_free (cbuf);
+ 
+       bp = bp1 = buffer;
+     }
+@@ -7078,7 +7078,7 @@ pic16_genInline (iCode * ic)
+   Safe_free (buffer);
+ 
+   /* consumed; we can free it here */
+-  dbuf_free (IC_INLINE (ic));
++  Safe_free (IC_INLINE (ic));
+ 
+   genLine.lineElement.isInline -= (!options.asmpeep);
+ }
+--- a/src/pic16/main.c
++++ b/src/pic16/main.c
+@@ -520,7 +520,7 @@ do_pragma (int id, const char *name, const char *cp)
+         /* append to the config options list */
+         if (!pic16_config_options)
+           {
+-            pic16_config_options = malloc (sizeof (pic16_config_options_t));
++            pic16_config_options = Safe_malloc (sizeof (pic16_config_options_t));
+             memset (pic16_config_options, 0, sizeof (pic16_config_options_t));
+             pic16_config_options->config_str = dbuf_detach_c_str (&dbuf);
+           }
+@@ -530,7 +530,7 @@ do_pragma (int id, const char *name, const char *cp)
+ 
+             for (p = pic16_config_options; p->next; p = p->next)
+               ;
+-            p->next = malloc (sizeof (pic16_config_options_t));
++            p->next = Safe_malloc (sizeof (pic16_config_options_t));
+             memset (p->next, 0, sizeof (pic16_config_options_t));
+             p->next->config_str = dbuf_detach_c_str (&dbuf);
+           }
+--- a/support/util/NewAlloc.c
++++ b/support/util/NewAlloc.c
+@@ -25,6 +25,8 @@
+ #include <memory.h>
+ #include <assert.h>
+ #include "newalloc.h"
++// for OPT_ENABLE_LIBGC
++#include "SDCCglobl.h"
+ 
+ #if OPT_ENABLE_LIBGC
+ #include <gc/gc.h>
+--- a/support/util/dbuf.c
++++ b/support/util/dbuf.c
+@@ -29,6 +29,18 @@
+ #include <string.h>
+ #include <assert.h>
+ #include "dbuf.h"
++// libgc can't find pointers from libc malloc;
++// its malloc MUST be used everywhere to be safe
++#ifdef UTIL_USE_NEWALLOC
++# include "newalloc.h"
++#else
++# define Safe_malloc malloc
++# define Safe_realloc realloc
++# define Safe_calloc calloc
++# define Safe_strdup strdup
++# define Safe_strndup strndup
++# define Safe_free free
++#endif
+ 
+ 
+ /*
+@@ -51,7 +63,7 @@ int _dbuf_expand(struct dbuf_s *dbuf, size_t size)
+     }
+     while (dbuf->len + size > dbuf->alloc);
+ 
+-    if ((dbuf->buf = realloc(dbuf->buf, dbuf->alloc)) == NULL)
++    if ((dbuf->buf = Safe_realloc(dbuf->buf, dbuf->alloc)) == NULL)
+       return 0;
+   }
+ 
+@@ -73,7 +85,7 @@ int dbuf_init(struct dbuf_s *dbuf, size_t size)
+ 
+   dbuf->len = 0;
+   dbuf->alloc = size;
+-  return ((dbuf->buf = malloc(dbuf->alloc)) != NULL);
++  return ((dbuf->buf = Safe_malloc(dbuf->alloc)) != NULL);
+ }
+ 
+ 
+@@ -111,10 +123,10 @@ struct dbuf_s *dbuf_new(size_t size)
+ {
+   struct dbuf_s *dbuf;
+ 
+-  dbuf = (struct dbuf_s *)malloc(sizeof(struct dbuf_s));
++  dbuf = (struct dbuf_s *)Safe_malloc(sizeof(struct dbuf_s));
+   if (dbuf != NULL) {
+     if (dbuf_init(dbuf, size) == 0) {
+-      free(dbuf);
++      Safe_free(dbuf);
+       return NULL;
+     }
+   }
+@@ -243,7 +255,7 @@ int dbuf_trim(struct dbuf_s *dbuf)
+   assert(dbuf->alloc != 0);
+   assert(dbuf->buf != NULL);
+ 
+-  buf = realloc(dbuf->buf, dbuf->len);
++  buf = Safe_realloc(dbuf->buf, dbuf->len);
+ 
+   if (buf != NULL) {
+     dbuf->alloc = dbuf->len;
+@@ -301,7 +313,7 @@ char *dbuf_detach_c_str(struct dbuf_s *dbuf)
+ 
+ void dbuf_destroy(struct dbuf_s *dbuf)
+ {
+-  free(dbuf_detach(dbuf));
++  Safe_free(dbuf_detach(dbuf));
+ }
+ 
+ 
+@@ -318,7 +330,7 @@ void dbuf_destroy(struct dbuf_s *dbuf)
+ void dbuf_delete(struct dbuf_s *dbuf)
+ {
+   dbuf_destroy(dbuf);
+-  free(dbuf);
++  Safe_free(dbuf);
+ }
+ 
+ 
+@@ -330,5 +342,5 @@ void dbuf_delete(struct dbuf_s *dbuf)
+ 
+ void dbuf_free(const void *buf)
+ {
+-  free((void *)buf);
++  Safe_free((void *)buf);
+ }
+--- a/support/util/findme.c
++++ b/support/util/findme.c
+@@ -10,6 +10,18 @@
+ 
+ #include "system.h"
+ #include "findme.h"
++// libgc can't find pointers from libc malloc;
++// its malloc MUST be used everywhere to be safe
++#ifdef UTIL_USE_NEWALLOC
++# include "newalloc.h"
++#else
++# define Safe_malloc malloc
++# define Safe_realloc realloc
++# define Safe_calloc calloc
++# define Safe_strdup strdup
++# define Safe_strndup strndup
++# define Safe_free free
++#endif
+ 
+ const char * findProgramPath(const char * argv0) {
+     char * path = getenv("PATH");
+@@ -20,15 +32,15 @@ const char * findProgramPath(const char * argv0) {
+     if (argv0 == NULL) return NULL;	/* XXX can't happen */
+     /* If there is a / in the argv[0], it has to be an absolute path */
+     if (strchr(argv0, '/'))
+-	return xstrdup(argv0);
++	return Safe_strdup(argv0);
+ 
+     if (path == NULL) return NULL;
+ 
+-    start = pathbuf = malloc(strlen(path) + 1);
++    start = pathbuf = Safe_malloc(strlen(path) + 1);
+     if (pathbuf == NULL) return NULL;
+-    buf = malloc(strlen(path) + strlen(argv0) + sizeof("/"));
++    buf = Safe_malloc(strlen(path) + strlen(argv0) + sizeof("/"));
+     if (buf == NULL) {  /* XXX can't happen */
+-         free(pathbuf);
++         Safe_free(pathbuf);
+          return NULL;
+     }      
+     strcpy(pathbuf, path);
+@@ -41,7 +53,7 @@ const char * findProgramPath(const char * argv0) {
+ 	sprintf(buf, "%s/%s", start, argv0);
+ 
+ 	if (!access(buf, X_OK)) {
+-            free(pathbuf);
++            Safe_free(pathbuf);
+ 	    return buf;
+         }
+ 
+@@ -52,8 +64,8 @@ const char * findProgramPath(const char * argv0) {
+     } while (start && *start);
+     /*@=branchstate@*/
+ 
+-    free(buf);
+-    free(pathbuf);
++    Safe_free(buf);
++    Safe_free(pathbuf);
+ 
+     return NULL;
+ }

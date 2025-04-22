@@ -5,29 +5,42 @@
 
 pkgname=sdcc
 pkgver=4.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Retargettable ANSI C compiler'
 arch=('x86_64')
 url='https://sdcc.sourceforge.net/'
-license=('GPL')
-depends=('gcc-libs' 'bash')
-makedepends=('gputils' 'boost' 'patchutils')
+license=('GPL-2.0-or-later WITH GCC-exception-2.0')
+depends=('glibc' 'gcc-libs' 'gc' 'zlib' 'readline' 'bash')
+makedepends=('gputils' 'boost' 'patchutils' 'treedec')
 optdepends=('python')
 options=('!strip' 'staticlibs' '!debug')
 source=(
   "$pkgname-$pkgver.tar.bz2::https://sourceforge.net/projects/sdcc/files/sdcc/$pkgver/$pkgname-src-$pkgver.tar.bz2"
   'build-all-mcs51-models.patch'
+  'sdcc-libgc.patch'
 )
 sha512sums=('46edd0456d82ebeacc6e7b2ecf5038aac38ce161dc938662c438cca9c41f73b2004589788c18a0f1dd295033c9c35c202c052b463ec7bd8c605065d440d617f4'
-            '265982849af52f5d84069ef9dd43f6d768eb46b2ff07e1652c3036d69e59fd366481a4447b6c376d2c74123cf6cf5f08afe957fa18a8038a4b0602f4593238f9')
+            'a311117c9dc98eeeada9768e826799b37c603517c779d6b4c5d7ac3c99b0c4dde624d3c1ab972ead070a3b9876da83b705d72f30736f526ee77f0bbbf58048fb'
+            '97a653bf3cacb497874bc2b7694420616e27525b4e36b0b7cf1a4a493a1f70217f9c0b055bfe672c633d5fccd6e10cdf63575a46362c3619eff1e29ec823f40d')
 b2sums=('8f7e79224e8c0692b8bc1377dbeb9c743f959ebb83bc444a215edf20f7d8c9faece7d0898ad130d141e81256cde00a74e1263f2fd9b65df0cca379524af2f93a'
-        '28bca84a8e1c2eda552efb0129941fdf1b17cdc2e888c26bf896295d392fd31f729136e76794913770b052f5171091bddbb944cde7407fd65e0df370654faf29')
+        '2650e9a48562b741718ab19b4623934f937219ef556a271057de3eddc90c5670ec64f9a0bd19c744e7f927f4e8fb81ebdcc55e050950c262dde1041d7cb02715'
+        '29670d6e41f75ac867aae6d703ade8677bb7597e00a95bd7f44e3f9f508c305f334e0b0a1f3db2f25c45c80275c61ca814ef8396c48da0908cd078ff817efb68')
 
 prepare() {
   cd "$pkgname-$pkgver"
 
   # FS#79070: Build all models for mcs51 by default
   patch -p1 -i "$srcdir/build-all-mcs51-models.patch"
+
+  # fix for enabling libgc usage
+  # https://sourceforge.net/p/sdcc/patches/480/
+  patch -p1 -i "$srcdir/sdcc-libgc.patch"
+
+  # extract license exception
+  sed \
+    -n '/Licenses/,/https:\/\/sourceforge/p' \
+    doc/README.txt \
+    >> LICENSE-EXCEPTION
 }
 
 build() {
@@ -39,7 +52,8 @@ build() {
     --includedir=/usr/include/sdcc \
     --libdir=/usr/lib/sdcc \
     --libexecdir=/usr/lib \
-    --disable-werror
+    --disable-werror \
+    --enable-libgc
 
   make
 }
@@ -48,4 +62,7 @@ package() {
   cd "$pkgname-$pkgver"
 
   make DESTDIR="$pkgdir" install
+
+  # licenses
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE*
 }
