@@ -1,0 +1,27 @@
+From 111cc4665d09ff40513e60284564f45cfc36f9fb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 22 Apr 2025 19:34:53 +0200
+Subject: [PATCH] Raise existing window instead of creating new one on
+ activation
+
+Multiple main windows are not supported.
+---
+ src/application.py | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/src/application.py b/src/application.py
+index 1bea3cb..8742e21 100644
+--- a/src/application.py
++++ b/src/application.py
+@@ -47,7 +47,10 @@ def __init__(self):
+                              GLib.OptionArg.STRING, 'Value to convert currencies', None)
+ 
+     def do_activate(self):
+-        create_main_window(self, self.from_currency_value).present()
++        if self.get_active_window() is not None:
++            self.get_active_window().present()
++        else:
++            create_main_window(self, self.from_currency_value).present()
+ 
+     def do_command_line(self, command_line):
+         options = command_line.get_options_dict()
