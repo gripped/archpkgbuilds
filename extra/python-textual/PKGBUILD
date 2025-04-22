@@ -5,8 +5,8 @@
 
 _base=textual
 pkgname=python-${_base}
-pkgver=3.1.0
-pkgrel=2
+pkgver=3.1.1
+pkgrel=1
 pkgdesc="Modern Text User Interface framework"
 arch=(any)
 url="https://github.com/Textualize/${_base}"
@@ -18,7 +18,7 @@ optdepends=('python-tree-sitter: for syntax highlighting support'
             'python-tree-sitter-languages: for custom languages support'
             'python-textual-dev: tools for developers')
 source=(${_base}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz)
-sha512sums=('b6199a3b679576c0f45110e4e88c52befa4bb7c6b3a5ef45f7c76590880f1d374c27eca04bd34a21838678a594acd5054ea011c8da0d8f526c63819052a9267b')
+sha512sums=('88d1d120540588a5326a1f0161bf37a21fb9e4487d73c955bf257a860b010da52883492d7bb188ceeb0c747b7f05f09c7c679e75fda54feee1ed9aee0c69763d')
 
 build() {
   cd ${_base}-${pkgver}
