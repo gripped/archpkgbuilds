@@ -19,6 +19,11 @@ _cli_zsh_autocomplete() {
     _files
   fi
 
+  # A special case - when no options is specified, sops enters editing mode for the given filename
+  if [[ ${#words[@]} == 2 ]]; then
+    _files
+  fi
+
   return
 }
 
