@@ -3,7 +3,7 @@
 
 pkgname=osbuild
 pkgdesc='Build Pipelines for Operating System Artifacts'
-pkgver=146
+pkgver=147
 pkgrel=1
 url="https://www.osbuild.org"
 arch=(any)
@@ -12,8 +12,9 @@ depends=(bubblewrap curl e2fsprogs qemu-img python util-linux python-yaml python
 makedepends=(make python-docutils python-build python-installer python-setuptools python-wheel)
 optdepends=('dnf: build rpm/dnf images'
             'pacman: build pacman images')
-source=($pkgname-$pkgver.tar.gz::https://github.com/osbuild/osbuild/archive/refs/tags/v${pkgver}.tar.gz)
-sha256sums=('badfed508494a9a0d3191bb8abd762e87237c56a497079bd042d5c8650c03a2b')
+source=($pkgname-$pkgver.tar.gz::https://github.com/osbuild/osbuild/archive/refs/tags/v${pkgver}.tar.gz solver.json)
+sha256sums=('22beab210964ace10f37307991af39a8a4b34f93bfd4a1f0a1d5594c7f235dca'
+            '2e2fd516faa92ab7b9b4c093b9a862a454c6def8bc4ea6d6b007d34bd17af7cb')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -37,6 +38,9 @@ package() {
 
   # dnf devsolve script
   install -Dm755 tools/osbuild-depsolve-dnf "$pkgdir/usr/lib/osbuild/osbuild-depsolve-dnf"
+
+  # use dnf5
+  install -Dm755 $srcdir/solver.json "$pkgdir/usr/lib/osbuild/solver.json"
 
   # udev rules
   install -Dm644 data/10-osbuild-inhibitor.rules "$pkgdir"/usr/lib/udev/rules.d/10-osbuild-inhibitor.rules
