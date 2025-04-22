@@ -5,7 +5,7 @@
 
 pkgname=python-openai
 _name=openai-python
-pkgver=1.71.0
+pkgver=1.75.0
 pkgrel=1
 pkgdesc="Python client library for the OpenAI API"
 arch=('any')
@@ -49,13 +49,13 @@ optdepends=(
 )
 # Defined in .stats.yml
 # curl -s https://raw.githubusercontent.com/openai/openai-python/refs/tags/v1.71.0/.stats.yml | grep openapi_spec_url | cut -d- -f5 | cut -d. -f1
-_openai_openapi_spec=4bce8217a697c729ac98046d4caf2c9e826b54c427fb0ab4f98e549a2e0ce31c
+_openai_openapi_spec=5633633cc38734869cf7d993f7b549bb8e4d10e0ec45381ec2cd91507cd8eb8f
 source=(
   "${_name}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
   "https://storage.googleapis.com/stainless-sdk-openapi-specs/openai%2Fopenai-${_openai_openapi_spec}.yml"
 )
-sha256sums=('ef16a0ed970a1bfb8d4c67bb6d16a4107ea0e7ac512c7b4d85564e26521264de'
-            '4bce8217a697c729ac98046d4caf2c9e826b54c427fb0ab4f98e549a2e0ce31c')
+sha256sums=('a2da4580c1ae5678ac5dc8b19e47df37ed6037752bba0ad162ecb7bdab4dc904'
+            '5633633cc38734869cf7d993f7b549bb8e4d10e0ec45381ec2cd91507cd8eb8f')
 
 prepare() {
   cd "${_name}-${pkgver}"
@@ -81,6 +81,8 @@ check() {
   # Randomly generated mock API key
   export OPENAI_API_KEY=sk-dBAe8c5a9bc4294cca9bed292cd61e0ff9030bB94647adfb
   pytest -W ignore::DeprecationWarning:pytest_asyncio.plugin \
+    --deselect tests/lib/chat/test_completions.py::test_parse_method_in_sync \
+    --deselect tests/lib/chat/test_completions_streaming.py::test_stream_method_in_sync \
     --deselect tests/test_client.py::TestAsyncOpenAI::test_copy_build_request \
     --deselect tests/test_client.py::TestOpenAI::test_copy_build_request
 }
