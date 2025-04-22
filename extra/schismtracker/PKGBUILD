@@ -4,7 +4,7 @@
 
 pkgname=schismtracker
 pkgver=20250208
-pkgrel=1
+pkgrel=2
 pkgdesc='An old-school sample-based music composition tool'
 arch=('x86_64')
 url='https://schismtracker.org'
@@ -17,7 +17,7 @@ depends=(
   'sdl2'
   'hicolor-icon-theme'
 )
-makedepends=('git' 'python')
+makedepends=('git' 'python' 'alsa-lib' 'jack2')
 source=("$pkgname::git+https://github.com/schismtracker/schismtracker#tag=$pkgver")
 sha512sums=('ee78f11fbd7d66dfa4218d2bbc1052c4ab6feb68a420fcd01b05e511818bb4ff0aec68b851d832238614903b3b599fb706a7b79ac13240161a3dd1d9455f0834')
 b2sums=('cf560cb115ddb2d40f14e652a9abc00844f869a919ba73ca4bbdb9995da3f07724ce6e851f6c19f79e4dbdf0df58744367d88609865780af91b1202321db0b62')
