@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=resources
-pkgver=1.7.1
+pkgver=1.8.0
 pkgrel=1
 pkgdesc='Monitor for system resources and processes'
 arch=(x86_64)
@@ -26,7 +26,7 @@ makedepends=(
   rust
 )
 source=("git+https://github.com/nokyan/resources.git#tag=v$pkgver")
-b2sums=(a342311b26bd55f56b148f64f8044817cd395cb12e259bd9e5c479b5e7ef4d6161214a128732f735088ccdee9cea92eef6e294cebaf13dde3c3eee07b4a1caf3)
+b2sums=(f5d7d5676747bafd5003dc6428a0fb500d6d16cd3055e02009546072a2ec5ef00724c519ac75a3b29825b950f2762f0fdf95eee276ce91895fa3ab20026b36d6)
 
 prepare() {
   cd $pkgname
