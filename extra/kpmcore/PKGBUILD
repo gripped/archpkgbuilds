@@ -2,7 +2,7 @@
 
 pkgname=kpmcore
 pkgver=25.04.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Library for managing partitions'
 arch=(x86_64)
 url='https://apps.kde.org/partitionmanager/'
@@ -29,12 +29,18 @@ optdepends=('bcachefs-tools: BCacheFS support'
             'ntfs-3g: NTFS support'
             'udftools: UDF support'
             'xfsprogs: XFS support')
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
+        https://invent.kde.org/system/kpmcore/-/commit/98838306.patch)
 sha256sums=('94639afd14693efd3f58fbee5665542b2a2fed40c5efb7cea867ecab4566a11a'
-            'SKIP')
+            'SKIP'
+            '7ac40d2864ec7e0c0af5c82544cbdb6653e48ad8171b9b64a6ffd8caf0fed7c7')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < 98838306.patch # Fix crash
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
