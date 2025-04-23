@@ -3,7 +3,7 @@
 
 pkgname=gnome-usage
 pkgver=46.1
-pkgrel=2
+pkgrel=3
 pkgdesc="View information about use of system resources"
 url="https://wiki.gnome.org/Apps/Usage"
 arch=(x86_64)
@@ -21,7 +21,6 @@ depends=(
   libgtop
   pango
   tracker3
-  xdg-user-dirs
 )
 makedepends=(
   accountsservice
@@ -34,8 +33,28 @@ optdepends=(
   'accountsservice: show user tags for processes'
   'gamemode: show processes requesting game mode'
 )
-source=("git+https://gitlab.gnome.org/GNOME/gnome-usage.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('f8a29276b6abad862deda88bfa0a8ea33b1a864bb186b5fc6df527952cf2bd1012224767c61a2e3fe6a48822bed3b85a5093ff59f6bb2e9cdf6b0837676287eb')
+source=("git+https://gitlab.gnome.org/GNOME/gnome-usage.git#tag=${pkgver/[a-z]/.&}"
+        gnome-usage-activate.patch
+        gnome-usage-dbus-activatable.patch)
+b2sums=('f8a29276b6abad862deda88bfa0a8ea33b1a864bb186b5fc6df527952cf2bd1012224767c61a2e3fe6a48822bed3b85a5093ff59f6bb2e9cdf6b0837676287eb'
+        '3db05a00213acef5592c1aa79b8585acfb5dc9f07892ed76f57196288b9df138a7d5a712730ba22fda07679624a7b68d9fb0c34cf85b191c655c506faa2ecebc'
+        'a523c7cf4ec5ffb96d2d1006d1eeffb750eaf0f68d30d04fefda213de91ab0ccce72aaea477d15e4290b5063b910d0d33e8cf18209e6c88d956777b88ae683e1')
+
+prepare() {
+  cd $pkgname
+
+  # Skip XDG folder if missing
+  # https://gitlab.gnome.org/GNOME/gnome-usage/-/merge_requests/158
+  git cherry-pick -n 79be9db03b452fe85a97e4f23591a6a305996394
+
+  # Present existing window on activation
+  # https://gitlab.gnome.org/GNOME/gnome-usage/-/merge_requests/166
+  git apply -3 ../gnome-usage-activate.patch
+
+  # Add D-Bus service file
+  # https://gitlab.gnome.org/GNOME/gnome-usage/-/merge_requests/167
+  git apply -3 ../gnome-usage-dbus-activatable.patch
+}
 
 build() {
   arch-meson $pkgname build

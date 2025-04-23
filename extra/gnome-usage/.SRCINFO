@@ -1,7 +1,7 @@
 pkgbase = gnome-usage
 	pkgdesc = View information about use of system resources
 	pkgver = 46.1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://wiki.gnome.org/Apps/Usage
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -22,10 +22,13 @@ pkgbase = gnome-usage
 	depends = libgtop
 	depends = pango
 	depends = tracker3
-	depends = xdg-user-dirs
 	optdepends = accountsservice: show user tags for processes
 	optdepends = gamemode: show processes requesting game mode
 	source = git+https://gitlab.gnome.org/GNOME/gnome-usage.git#tag=46.1
+	source = gnome-usage-activate.patch
+	source = gnome-usage-dbus-activatable.patch
 	b2sums = f8a29276b6abad862deda88bfa0a8ea33b1a864bb186b5fc6df527952cf2bd1012224767c61a2e3fe6a48822bed3b85a5093ff59f6bb2e9cdf6b0837676287eb
+	b2sums = 3db05a00213acef5592c1aa79b8585acfb5dc9f07892ed76f57196288b9df138a7d5a712730ba22fda07679624a7b68d9fb0c34cf85b191c655c506faa2ecebc
+	b2sums = a523c7cf4ec5ffb96d2d1006d1eeffb750eaf0f68d30d04fefda213de91ab0ccce72aaea477d15e4290b5063b910d0d33e8cf18209e6c88d956777b88ae683e1
 
 pkgname = gnome-usage

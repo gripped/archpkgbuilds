@@ -1,0 +1,43 @@
+From 7b8585eb21169ae085798900bb698e8c657c382d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 23 Apr 2025 08:59:29 +0000
+Subject: [PATCH] Present existing window on activation
+
+This ensures that the window raises to the front when launched second time.
+Also, move setting accels and the window icon to the startup pharse.
+---
+ src/application.vala | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
+
+diff --git a/src/application.vala b/src/application.vala
+index 1da62bab..2d3979a6 100644
+--- a/src/application.vala
++++ b/src/application.vala
+@@ -39,13 +39,8 @@ public class Usage.Application : Adw.Application {
+     }
+ 
+     public override void activate () {
+-        if (window != null)
+-            return;
+-
+-        window = new Window (this);
+-
+-        set_accels_for_action ("app.quit", {"<Control>q"});
+-        window.set_icon_name ("org.gnome.Usage");
++        if (window == null)
++            window = new Window (this);
+ 
+         window.present ();
+     }
+@@ -55,6 +50,8 @@ public class Usage.Application : Adw.Application {
+ 
+         add_action_entries (app_entries, this);
+         set_accels_for_action ("app.search", {"<Control>f"});
++        set_accels_for_action ("app.quit", {"<Control>q"});
++        Gtk.Window.set_default_icon_name ("org.gnome.Usage");
+     }
+ 
+     private void on_about (GLib.SimpleAction action, GLib.Variant? parameter) {
+-- 
+GitLab
+
