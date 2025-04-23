@@ -18,15 +18,15 @@
 --- a/completion/fish/task.fish
 +++ b/completion/fish/task.fish
 @@ -1,6 +1,6 @@
--set GO_TASK_PROGNAME task
-+set GO_TASK_PROGNAME go-task
+-set -l GO_TASK_PROGNAME task
++set -l GO_TASK_PROGNAME go-task
  
--function __task_get_tasks --description "Prints all available tasks with their description"
-+function __go-task_get_tasks --description "Prints all available tasks with their description"
-   # Read the list of tasks (and potential errors)
-   $GO_TASK_PROGNAME --list-all 2>&1 | read -lz rawOutput
- 
-@@ -17,7 +17,7 @@ function __task_get_tasks --description "Prints all available tasks with their d
+-function __task_get_tasks --description "Prints all available tasks with their description" --inherit-variable GO_TASK_PROGNAME
++function __go-task_get_tasks --description "Prints all available tasks with their description" --inherit-variable GO_TASK_PROGNAME
+   # Check if the global task is requested
+   set -l global_task false
+   commandline --current-process | read --tokenize --list --local cmd_args
+@@ -34,7 +34,7 @@ function __task_get_tasks --description "Prints all available tasks with their d
  end
  
  complete -c $GO_TASK_PROGNAME -d 'Runs the specified task(s). Falls back to the "default" task if no task name was specified, or lists all tasks if an unknown task name was
