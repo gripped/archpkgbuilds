@@ -4,8 +4,8 @@
 
 pkgbase=doublecmd
 pkgname=('doublecmd-qt5' 'doublecmd-qt6')
-pkgver=1.1.23
-pkgrel=1
+pkgver=1.1.24
+pkgrel=2
 url="http://doublecmd.sourceforge.net/"
 arch=('x86_64')
 license=('GPL-2.0-or-later' 'LGPL-2.0-or-later' 'MIT' 'MPL-1.1' 'MPL-2.0' 'Apache-2.0' 'BSD-2-Clause' 'Zlib')
@@ -24,7 +24,7 @@ optdepends=(
 source=(
     "https://downloads.sourceforge.net/project/$pkgbase/Double%20Commander%20Source/$pkgbase-$pkgver-src.tar.gz"
 )
-sha512sums=('92fee7988e91c88d03a3dd3cdfbfc80e36f809c91141eb2b99ea11c216a7f80ed434d6cc27d902c9c325ab1f95c04bac56c4e045ce163f894c8632f21fd28f4f')
+sha512sums=('85e4437adaba4731d91c0b32cebc8210d759ab64709a4109758ec0b04018db0ae4efd818c5b1df31c6efdd80421065ea85a1139089fbaab94a9577e9d404087c')
 
 prepare() {
     cp -a /usr/lib/lazarus ./
