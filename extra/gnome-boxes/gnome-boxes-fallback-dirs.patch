@@ -1,0 +1,127 @@
+From 0a97d32df3a3253f326d79c229006a6422872905 Mon Sep 17 00:00:00 2001
+From: sid <sidtosh4@gmail.com>
+Date: Thu, 28 Dec 2023 09:58:49 +0000
+Subject: [PATCH] Use fallback dirs when user special dirs don't exist
+
+Fallback order: user special dir -> home dir -> current dir
+
+This typically happens in non-GNOME environments, where we should have
+fallback paths.
+
+Fixes https://gitlab.gnome.org/GNOME/gnome-boxes/-/issues/798
+---
+ src/actions-popover.vala                   |  2 +-
+ src/downloader.vala                        |  2 +-
+ src/preferences/shared-folders-widget.vala |  2 +-
+ src/util.vala                              | 58 ++++++++++++++++++++++
+ 4 files changed, 61 insertions(+), 3 deletions(-)
+
+diff --git a/src/actions-popover.vala b/src/actions-popover.vala
+index 9f2ea8dee..80d8b8648 100644
+--- a/src/actions-popover.vala
++++ b/src/actions-popover.vala
+@@ -107,7 +107,7 @@ private void open_in_new_win_activated () {
+     private string get_screenshot_filename () throws GLib.Error {
+         // Translators: name of the folder under ~/Pictures for screenshots. This is the same folder where GNOME Shell saves screenshots.
+         string dir_name = _("Screenshots");
+-        string path = Path.build_filename (GLib.Environment.get_user_special_dir (GLib.UserDirectory.PICTURES),
++        string path = Path.build_filename (get_user_special_dir_with_fallback (GLib.UserDirectory.PICTURES),
+                                            dir_name);
+         var dir = GLib.File.new_for_path (path);
+ 
+diff --git a/src/downloader.vala b/src/downloader.vala
+index 8e606c907..a984a74da 100644
+--- a/src/downloader.vala
++++ b/src/downloader.vala
+@@ -217,7 +217,7 @@ public static async string fetch_media (string           uri,
+         return_val_if_fail (basename != null && basename != "" && basename != "/", null);
+ 
+         var downloader = Downloader.get_default ();
+-        var cache = Path.build_filename (GLib.Environment.get_user_special_dir (GLib.UserDirectory.DOWNLOAD),
++        var cache = Path.build_filename (get_user_special_dir_with_fallback (GLib.UserDirectory.DOWNLOAD),
+                                          basename);
+ 
+         progress.progress = 0;
+diff --git a/src/preferences/shared-folders-widget.vala b/src/preferences/shared-folders-widget.vala
+index 106e5b699..b1b386d6c 100644
+--- a/src/preferences/shared-folders-widget.vala
++++ b/src/preferences/shared-folders-widget.vala
+@@ -90,7 +90,7 @@ private class Boxes.SharedFolderPopover: Gtk.Popover {
+     public unowned Gtk.Entry name_entry;
+ 
+     construct {
+-        var default_path = Environment.get_user_special_dir (UserDirectory.PUBLIC_SHARE);
++        var default_path = get_user_special_dir_with_fallback (UserDirectory.PUBLIC_SHARE);
+         file_chooser_button.set_current_folder (default_path);
+     }
+ 
+diff --git a/src/util.vala b/src/util.vala
+index 00ff156ca..b491aa374 100644
+--- a/src/util.vala
++++ b/src/util.vala
+@@ -433,4 +433,62 @@ public static string canonicalize_for_search (string str) {
+         }
+         return res.str;
+     }
++
++    // Fallback order: user special dir -> home dir -> current dir
++    public static string get_user_special_dir_with_fallback (GLib.UserDirectory id) {
++        string name = null;
++        string dir = GLib.Environment.get_user_special_dir (id);
++        bool use_current_dir = false;
++
++        switch (id) {
++            case GLib.UserDirectory.DOWNLOAD:
++                name = "DOWNLOAD";
++                break;
++            case GLib.UserDirectory.PICTURES:
++                name = "PICTURES";
++                break;
++            case GLib.UserDirectory.PUBLIC_SHARE:
++                name = "PUBLIC_SHARE";
++                break;
++            default:
++                break;
++        }
++
++        // XDG dir doesn't exist
++        if (!is_set (dir)) {
++            warning ("XDG directory '%s' not set. Install 'xdg-user-dirs' package and run 'xdg-user-dirs-update' command.", name);
++
++            // fallback to home dir
++            dir = GLib.Environment.get_home_dir ();
++
++            if (is_set (dir))
++                debug ("Using home directory '%s' as fallback.", dir);
++            else {
++                warning ("Home directory not set. Falling back to current dir.");
++                use_current_dir = true;
++            }
++        }
++
++        // XDG or home dir exists
++        if (is_set (dir)) {
++            ensure_directory (dir);
++
++            var file = File.new_for_path (dir);
++
++            if (!file.query_exists ()) {
++                warning ("Expected directory '%s' doesn't exist. Falling back to current dir.", dir);
++                use_current_dir = true;
++            }
++        }
++
++        // Fallback to current dir when all else fails. This should
++        // atleast give a valid directory, preventing any unexpected
++        // failures.
++        if (use_current_dir) {
++            dir = GLib.Environment.get_current_dir ();
++            debug ("Using current directory '%s' as fallback.", dir);
++        }
++
++        return dir;
++    }
+ }
+-- 
+GitLab
+
