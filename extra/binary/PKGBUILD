@@ -2,7 +2,7 @@
 
 pkgname=binary
 pkgver=5.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Simple app to convert between different hexadecimal and binary numbers'
 arch=(any)
 url='https://apps.gnome.org/Binary/'
@@ -22,8 +22,26 @@ makedepends=(
   git
   meson
 )
-source=("git+https://github.com/fizzyizzy05/binary.git#tag=$pkgver")
-b2sums=(2e4c8611e51d8634eac953183328a65bc689f5111fc158672417df585eb54b267dbf5bb6c13e912ef46f769dd3d70995cffac76e046fea7f6e55c88f70938893)
+source=(
+  "git+https://github.com/fizzyizzy05/binary.git#tag=$pkgver"
+  binary-new-window.patch
+  binary-dbus-activatable.patch
+)
+b2sums=(
+  2e4c8611e51d8634eac953183328a65bc689f5111fc158672417df585eb54b267dbf5bb6c13e912ef46f769dd3d70995cffac76e046fea7f6e55c88f70938893
+  1082148c21a987982e73b0b917d3e9124641dfda87e7bc78765781674b332289efa7a4d82f3fad2a415a79811f2f046a024bd2b57af2b9efcc82a832b9aaa9d9
+  930c34bda404d03135a7101cc711fe6700d0dc5f76eb63763966e3137f47cc765d916653afab3051c829dead46a52dc23250115a592c274804afbd01d8fded50
+)
+
+prepare() {
+  cd $pkgname
+
+  # https://github.com/fizzyizzy05/binary/pull/39
+  git apply -3 ../binary-new-window.patch
+
+  # https://github.com/fizzyizzy05/binary/pull/40
+  git apply -3 ../binary-dbus-activatable.patch
+}
 
 build() {
   arch-meson $pkgname build

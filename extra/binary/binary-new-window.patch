@@ -1,0 +1,73 @@
+From 9f00b5eb59053c9a4567fd8319cd0a3bfdf456e4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 22 Apr 2025 21:35:22 +0200
+Subject: [PATCH] Add "new-window" command-line option
+
+And specify this action in the desktop file this allows the user to choose
+the desired action when the application is launched: when the "new-window"
+option is requested, a new window will be opened, otherwise raise the
+existing window.
+---
+ data/io.github.fizzyizzy05.binary.desktop.in |  5 +++++
+ src/main.py                                  | 20 +++++++++++++++++---
+ 2 files changed, 22 insertions(+), 3 deletions(-)
+
+diff --git a/data/io.github.fizzyizzy05.binary.desktop.in b/data/io.github.fizzyizzy05.binary.desktop.in
+index 7c3f558..52f37cb 100644
+--- a/data/io.github.fizzyizzy05.binary.desktop.in
++++ b/data/io.github.fizzyizzy05.binary.desktop.in
+@@ -9,3 +9,8 @@ Categories=GTK;Utility;
+ # Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+ Keywords=binary;decimal;hexadecimal;base;convert;
+ StartupNotify=true
++Actions=new-window;
++
++[Desktop Action new-window]
++Name=New Window
++Exec=binary --new-window
+diff --git a/src/main.py b/src/main.py
+index 24b67e5..5c68623 100644
+--- a/src/main.py
++++ b/src/main.py
+@@ -23,7 +23,7 @@
+ gi.require_version('Gtk', '4.0')
+ gi.require_version('Adw', '1')
+ 
+-from gi.repository import Gtk, Gio, Adw
++from gi.repository import Gtk, Gio, Adw, GLib
+ from .window import BinaryWindow
+ from .preferences import PrefsWindow
+ 
+@@ -41,16 +41,30 @@ def __init__(self):
+         self.settings = Gio.Settings(schema_id="io.github.fizzyizzy05.binary")
+         Gtk.Window.set_default_icon_name('io.github.fizzyizzy05.binary')
+ 
++        self.add_main_option("new-window", b"w", GLib.OptionFlags.NONE,
++                             GLib.OptionArg.NONE, "Open a new window", None)
++
+     def do_activate(self):
+         """Called when the application is activated.
+ 
+         We raise the application's main window, creating it if
+         necessary.
+         """
+-        self.new_window()
++        if self.props.active_window:
++            self.props.active_window.present()
++        else:
++            self.new_window()
++
++    def do_handle_local_options(self, options):
++        if options.contains("new-window"):
++            self.register()
++            if self.get_property("is-remote"):
++                self.activate_action("new-window")
++                return 0
++
++        return -1
+ 
+     def new_window(self):
+-        win = self.props.active_window
+         win = BinaryWindow(application=self)
+         win.present()
+ 

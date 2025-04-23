@@ -1,0 +1,52 @@
+From 10985541ad5d470aece7c5d0d9792360d48f49db Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 22 Apr 2025 21:43:31 +0200
+Subject: [PATCH] Add D-Bus service file
+
+And mark the application as D-Bus activatable. This allows application
+launchers to activate it via D-Bus.
+---
+ data/io.github.fizzyizzy05.binary.desktop.in |  1 +
+ data/io.github.fizzyizzy05.binary.service.in |  3 +++
+ data/meson.build                             | 10 ++++++++++
+ 3 files changed, 14 insertions(+)
+ create mode 100644 data/io.github.fizzyizzy05.binary.service.in
+
+diff --git a/data/io.github.fizzyizzy05.binary.desktop.in b/data/io.github.fizzyizzy05.binary.desktop.in
+index 7c3f558..b5edc68 100644
+--- a/data/io.github.fizzyizzy05.binary.desktop.in
++++ b/data/io.github.fizzyizzy05.binary.desktop.in
+@@ -8,4 +8,5 @@ Type=Application
+ Categories=GTK;Utility;
+ # Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+ Keywords=binary;decimal;hexadecimal;base;convert;
++DBusActivatable=true
+ StartupNotify=true
+diff --git a/data/io.github.fizzyizzy05.binary.service.in b/data/io.github.fizzyizzy05.binary.service.in
+new file mode 100644
+index 0000000..3bdfdb7
+--- /dev/null
++++ b/data/io.github.fizzyizzy05.binary.service.in
+@@ -0,0 +1,3 @@
++[D-BUS Service]
++Name=io.github.fizzyizzy05.binary
++Exec=@bindir@/binary --gapplication-service
+diff --git a/data/meson.build b/data/meson.build
+index a27bc32..8bc3f83 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -33,4 +33,14 @@ test('Validate schema file',
+      compile_schemas,
+      args: ['--strict', '--dry-run', meson.current_source_dir()])
+ 
++service_conf = configuration_data()
++service_conf.set('bindir', get_option('prefix') / get_option('bindir'))
++configure_file(
++          input: 'io.github.fizzyizzy05.binary.service.in',
++         output: 'io.github.fizzyizzy05.binary.service',
++  configuration: service_conf,
++        install: true,
++    install_dir: get_option('datadir') / 'dbus-1' / 'services'
++)
++
+ subdir('icons')
