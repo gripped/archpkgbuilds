@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=gopass-hibp
-pkgver=1.15.15
+pkgver=1.15.16
 pkgrel=1
 pkgdesc="haveibeenpwnd.com integration for gopass"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('glibc')
 makedepends=('go')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/gopasspw/gopass-hibp/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('214e6f007f4d4f48fa37116da32c751631f8a4f763892324ff2098336927cc4c271d5ae1caec5535d96f09b1525412608b78bc0b9936d7f309d2a07cb65b1663')
+sha512sums=('54ebb7c83fe23d4eff6c8b21c5d7747c24fd38150361d0c2bce5ab09678efa46f360cf46b6f065c84653ef5595084042c0760ecdac2bee427c7861fb24b96cf8')
 options=('!lto')
 
 prepare(){
