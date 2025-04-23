@@ -1,6 +1,6 @@
 pkgname=bazelisk
-pkgver=1.25.0
-pkgrel=5
+pkgver=1.26.0
+pkgrel=1
 pkgdesc='A user-friendly launcher for Bazel.'
 arch=('x86_64')
 url="https://github.com/bazelbuild/bazelisk"
@@ -15,11 +15,15 @@ depends=(
 provides=('bazel')
 conflicts=('bazel')
 source=("git+https://github.com/bazelbuild/bazelisk#tag=v$pkgver")
-sha256sums=('f0244c0b001e8eb629af90e33057c62e65157928a3d7f56cfbbcf4cecb675283')
+sha256sums=('a1695e7444831a9d3a6757fb27d49e97a24b8b5860c3cb3aa2ecfa290ced1b0d')
 options=(!lto)
 
 prepare(){
   cd "$pkgname"
+
+  # https://github.com/bazelbuild/bazelisk/issues/679
+  git cherry-pick -n de10a0b820c7d0cd8d1a4c278646b80794753f94
+
   mkdir -p build/
 }
 
