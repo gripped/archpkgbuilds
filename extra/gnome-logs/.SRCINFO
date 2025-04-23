@@ -1,13 +1,14 @@
 pkgbase = gnome-logs
 	pkgdesc = A log viewer for the systemd journal
 	pkgver = 45.0
-	pkgrel = 1
-	url = https://wiki.gnome.org/Apps/Logs
+	pkgrel = 2
+	url = https://apps.gnome.org/Logs
 	arch = x86_64
 	groups = gnome
 	license = GPL
 	makedepends = appstream
 	makedepends = git
+	makedepends = glib2-devel
 	makedepends = meson
 	makedepends = yelp-tools
 	depends = dconf
@@ -18,7 +19,17 @@ pkgbase = gnome-logs
 	depends = libadwaita
 	depends = pango
 	depends = systemd
-	source = git+https://gitlab.gnome.org/GNOME/gnome-logs.git#commit=83ad0156ed4a80d35babcdd155e217cdea4af597
+	source = git+https://gitlab.gnome.org/GNOME/gnome-logs.git#tag=gnome-logs-45.0
+	source = gnome-logs-window-icon.patch
+	source = gnome-logs-quit.patch
+	source = gnome-logs-info-bar.patch
+	source = gnome-logs-invalid-open.patch
+	source = gnome-logs-new-window.patch
 	b2sums = e6aae0af3137c6c96014b00da25fe27b32d90b0b227fb36c376e583f17ce1e9faebc1baeaa51e7ce62c79620f9c16b1831c9c20be55f09d9de9b700a802c9f35
+	b2sums = 81bb65eda96215d04d5798341c1eca0cdb8ff262c1cf3e2c2f5abae25f8a000bda59015f5314aefce93ac3c47bb58e997b692de5acc1880b9dfbbb919c1165e9
+	b2sums = 809655260a1fca0bb6870c8fd5c05b06b89f518d038bfb2143ee9ee68eb3cb21d5ecb7288e6ba48b3de59b80219c4515f60558afb53cea0660ba3d5f8e02caa1
+	b2sums = 552bf39c8609dcfc9cdc18f113181d315eaecedf14413f696888d9e0e5848e760d299f3f7ea8c91899c302b7368871f2734bad1823bcceca980799bcc082a2e5
+	b2sums = b6f56246b865a6c72a55b7db4a78fb584b3d1b71a67a33c79eb87ebabdd52be0a5bd408cb83d6456227af2b92121a22f6ee971d4c2fe48653f11e04334da84a8
+	b2sums = 2d1d84369c4980c5160108c92e3b7e5dd52492d5c4bfd0a463ee016aac227da467676d8621ffb6b9a53250d3e4c3ef9e0a472ce8534e208c2075811e44d719da
 
 pkgname = gnome-logs
