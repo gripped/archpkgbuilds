@@ -1,0 +1,41 @@
+From c7f361706539c16ab676e4fad68c3116accd1c18 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 22 Apr 2025 23:15:25 +0200
+Subject: [PATCH] fix(main): Raise existing window instead of creating new one
+ on activation
+
+Multiple main windows are not supported.
+---
+ src/main.rs | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/src/main.rs b/src/main.rs
+index 684397f2..43ef6e59 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -1,6 +1,6 @@
+ use gdk::prelude::{ApplicationExt, ApplicationExtManual};
+ use gtk::prelude::IsA;
+-use gtk::prelude::{GtkWindowExt, WidgetExt};
++use gtk::prelude::{GtkApplicationExt, GtkWindowExt, WidgetExt};
+ use once_cell::sync::Lazy;
+ 
+ #[macro_export]
+@@ -69,7 +69,11 @@ fn main() {
+ }
+ 
+ fn build_ui(app: &libadwaita::Application) {
+-    let window = crate::gui::window::Window::new(app);
+-    init_icons(&window.display());
+-    window.present();
++    if let Some(window) = app.active_window() {
++        window.present();
++    } else {
++        let window = crate::gui::window::Window::new(app);
++        init_icons(&window.display());
++        window.present();
++    }
+ }
+-- 
+GitLab
+

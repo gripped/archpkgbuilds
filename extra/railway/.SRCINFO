@@ -1,7 +1,7 @@
 pkgbase = railway
 	pkgdesc = Look up travel information for many different railways
 	pkgver = 2.7.3
-	pkgrel = 1
+	pkgrel = 2
 	url = https://apps.gnome.org/DieBahn/
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -17,9 +17,14 @@ pkgbase = railway
 	depends = gtk4
 	depends = hicolor-icon-theme
 	depends = libadwaita
+	depends = openssl
 	depends = pango
 	options = !lto
 	source = git+https://gitlab.com/schmiddi-on-mobile/railway.git#tag=2.7.3
+	source = railway-activate.patch
+	source = railway-dbus-activatable.patch
 	b2sums = 558a3f2d7ae5bf44e718d489613a64723e7abab436363bea629df8209bd895a015d124a92dc515b7aa560c187f4db40bb70147c18bd9558890c0bcd013787320
+	b2sums = 1a0ba34b55ccd5ef3bf284b33f3d1ade9eadb486c269c9cbee7096af6e3037e87c0ceb3fc62c32ce28f20c96dc1456eb33859c0e32875b0b6474b358c63d54ea
+	b2sums = 0cf840dc462a1a88df95e50a218bf03d0e32efefb22ab8a131e219690c81e3faa251f3d5c5cbc5fa84cda253cfdae404904cdbb412ab009a00d0d1b572f0b393
 
 pkgname = railway
