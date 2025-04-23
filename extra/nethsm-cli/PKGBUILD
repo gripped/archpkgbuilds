@@ -2,7 +2,7 @@
 
 pkgname=nethsm-cli
 _name=signstar
-pkgver=0.6.0
+pkgver=0.7.0
 pkgrel=1
 pkgdesc="A command line interface (CLI) for the Nitrokey NetHSM"
 arch=(x86_64)
@@ -22,28 +22,24 @@ makedepends=(
 )
 options=(!lto)  # ring does not work with LTO
 source=($_name::git+$_url.git?signed#tag=$pkgname/$pkgver)
-sha256sums=('5896e7b749ea82931515cfd04e38803cbbc1374b21ccbb3d0bd89f5a6f13eca4')
+sha256sums=('cf56ec9f51609bc3c0d00f8ec31402eee54e2fc911f7f1afcaa80fe523aae5bb')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
   cd $_name
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  RUSTUP_TOOLCHAIN=stable cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
   cd $_name
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
-  cargo build --frozen --release --all-features --package $pkgname
+  RUSTUP_TOOLCHAIN=stable CARGO_TARGET_DIR=target cargo build --frozen --release --all-features --package $pkgname
   just generate shell_completions $pkgname
   just generate manpages $pkgname
 }
 
 check() {
   cd $_name
-  export RUSTUP_TOOLCHAIN=stable
-  cargo test --frozen --all-features --package $pkgname
+  RUSTUP_TOOLCHAIN=stable cargo test --frozen --all-features --package $pkgname
 }
 
 package() {
@@ -52,8 +48,8 @@ package() {
   install -vDm 755 $_name/target/release/$command -t "$pkgdir/usr/bin/"
   install -vDm 644 $_name/$pkgname/{CHANGELOG,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 $_name/LICENSES/MIT.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
-  install -vDm 644 $_name/target/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
-  install -vDm 644 $_name/target/shell_completions/$command.bash "$pkgdir/usr/share/bash-completion/completions/$command"
-  install -vDm 644 $_name/target/shell_completions/_$command -t "$pkgdir/usr/share/zsh/site-functions/"
-  install -vDm 644 $_name/target/shell_completions/$command.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+  install -vDm 644 $_name/output/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
+  install -vDm 644 $_name/output/shell_completions/$command.bash "$pkgdir/usr/share/bash-completion/completions/$command"
+  install -vDm 644 $_name/output/shell_completions/_$command -t "$pkgdir/usr/share/zsh/site-functions/"
+  install -vDm 644 $_name/output/shell_completions/$command.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
 }
