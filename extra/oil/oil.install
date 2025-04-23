@@ -1,6 +1,7 @@
 post_install() {
-  grep -Fqx /bin/osh /etc/shells || echo /bin/osh >>/etc/shells
-  grep -Fqx /usr/bin/osh /etc/shells || echo /usr/bin/osh >>/etc/shells
+  for _sh in {,/usr}/bin/{o,y}sh; do
+    grep -Fqx $_sh /etc/shells || echo $_sh >>/etc/shells
+  done
 }
 
 post_upgrade() {
@@ -8,5 +9,5 @@ post_upgrade() {
 }
 
 post_remove() {
-  sed -i -r '/^(\/usr)?\/bin\/osh$/d' etc/shells
+  sed -i -r '/^(\/usr)?\/bin\/[oy]sh$/d' etc/shells
 }
