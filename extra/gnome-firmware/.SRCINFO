@@ -1,19 +1,21 @@
 pkgbase = gnome-firmware
 	pkgdesc = Manage firmware on devices supported by fwupd
 	pkgver = 47.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://gitlab.gnome.org/World/gnome-firmware
 	arch = x86_64
 	license = GPL2
 	makedepends = meson
 	makedepends = help2man
+	makedepends = git
 	depends = gtk4
 	depends = glib2
 	depends = fwupd
 	depends = libadwaita
 	depends = libxmlb
 	depends = systemd
-	source = https://people.freedesktop.org/~hughsient/releases/gnome-firmware-47.0.tar.xz
-	sha256sums = 1b13d44034d3d8203c2a7c97bf59eb59e8c220a781309d00028abdb5d75f2026
+	source = git+https://gitlab.gnome.org/World/gnome-firmware.git?signed#tag=47.0
+	validpgpkeys = 163EB50119225DB3DF8F49EA17ACBA8DFA970E17
+	b2sums = d3871c8feab43851d889edc88e373e1b011bfe5ee8b12229abe2d64aa9e5b0daf8abd989a75e638383ebd9529d0bc3770e3f98262b50f0e8f4d2202bc22e2c52
 
 pkgname = gnome-firmware
