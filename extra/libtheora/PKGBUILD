@@ -3,37 +3,48 @@
 # Committer: dorphell <dorphell@archlinux.org>
 
 pkgname=libtheora
-pkgver=1.1.1
-pkgrel=6
+pkgver=1.2.0
+pkgrel=1
 pkgdesc='Standard encoder and decoder library for the Theora video compression format'
-arch=('x86_64')
+arch=(x86_64)
 url='https://www.theora.org/'
-license=('BSD')
-depends=('glibc' 'libogg')
-makedepends=('libpng' 'libvorbis' 'sdl')
-source=("https://downloads.xiph.org/releases/theora/$pkgname-$pkgver.tar.xz"
-        'libtheora-1.1.1-libpng16.patch')
-sha256sums=('f36da409947aa2b3dcc6af0a8c2e3144bc19db2ed547d64e9171c59c66561c61'
-            'e4c9a8dc798c596ed32a2a720020ae27a0e72f5add1a47cb8fadebe0e7180d7e')
+license=(BSD-3-Clause)
+depends=(
+  glibc
+  libogg
+)
+makedepends=(
+  doxygen
+  git
+  libpng
+  libvorbis
+  sdl
+)
+source=("git+https://github.com/xiph/theora.git#tag=v$pkgver")
+b2sums=(50ed821f0a8ee98c95ea638c66740dda5d2346b70742f1834b96f0089d219c9f3b0d0fad539138b7c514f47d968a550fa842bfff22935db748caf6a4c489428c)
+validpgpkeys=(17E78AB6BD65A91EE811D60947000F7BB1441DEF) # Ralph Giles <giles@mozilla.com>
 
 prepare() {
-  cd $pkgname-$pkgver
-  patch -Np0 -i ../libtheora-1.1.1-libpng16.patch
+  cd theora
+  autoreconf -fi
 }
 
 build() {
-  cd $pkgname-$pkgver
-  ./configure --prefix=/usr
+  cd theora
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
   make
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd theora
   make check
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd theora
   make DESTDIR="$pkgdir" install
   install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE COPYING
 }
