@@ -5,7 +5,7 @@
 
 pkgname=('handbrake' 'handbrake-cli')
 pkgver=1.9.2
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="https://handbrake.fr/"
 license=('GPL-2.0-only')
@@ -26,6 +26,15 @@ validpgpkeys=('1629C061B3DDE7EB4AE34B81021DB8B44E4A8645' # HandBrake Team <devel
 
 prepare() {
   cd HandBrake
+
+  # Update bundled svt-av1 to fix build with current cmake
+  git cherry-pick -n 75f9c84c140c8841cfe1324ef59452025899ad8b \
+                     2012ab9e674a744c1366b96b8cf2720e75670248 \
+                     eb3a7e7c01313d687ebd487b59e08c700fe753d1 \
+                     f9e7678bd4e42232188315e842e32387af9ac3ca
+
+  # Update bundled x265 to fix build with current cmake
+  git cherry-pick -n a53d20a48bfca3c7dbf4f50710505c65e4334c89
 }
 
 build() {
