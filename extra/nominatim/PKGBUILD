@@ -10,7 +10,7 @@ pkgdesc="Geocoding tool using OpenStreetmap data"
 url="https://nominatim.org"
 
 pkgver=5.1.0
-pkgrel=1
+pkgrel=2
 
 arch=("any")
 license=("GPL-2.0-only")
@@ -107,7 +107,6 @@ build() {
     python -m build --wheel --no-isolation --outdir dist/ packaging/nominatim-api
 
     make manpage
-    gzip man/nominatim.1
 }
 
 # https://github.com/osm-search/Nominatim/blob/master/.github/workflows/ci-tests.yml#L132
@@ -130,7 +129,7 @@ package() {
     install -Dm644 "${srcdir}/Nominatim-${pkgver}/data/country_osm_grid.sql.gz" -t "${pkgdir}/usr/share/nominatim/"
 
     # manpage
-    install -Dm644 "man/nominatim.1.gz" "$pkgdir/usr/share/man/man1/nominatim.1.gz"
+    install -Dm644 "man/nominatim.1" "$pkgdir/usr/share/man/man1/nominatim.1"
 
     # install python gunicorn and update service files
     install -Dm644 "${srcdir}/nominatim.service" -t "${pkgdir}/usr/lib/systemd/system/"
