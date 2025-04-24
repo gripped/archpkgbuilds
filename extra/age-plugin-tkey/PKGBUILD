@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=age-plugin-tkey
-pkgver=0.0.5
-pkgrel=2
+pkgver=0.0.6
+pkgrel=1
 pkgdesc='Tillitis TKey plugin for age'
 arch=(x86_64)
 url="https://github.com/quite/$pkgname"
@@ -13,7 +13,7 @@ optdepends=('age: for use with age'
             'rage-encryption: for use with rage')
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('570a0ec6b3310a7e209d28551c51ad37870079d3713808fe19278be6dfcaf5fa')
+sha256sums=('d37af3cfcaa2513b7c8f2f8fe66e81c70e15ed3afcd3153fd5196b1d4851a9d9')
 
 build() {
 	cd "$_archive"
