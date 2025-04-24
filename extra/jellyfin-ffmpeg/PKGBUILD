@@ -3,8 +3,8 @@
 
 pkgname=jellyfin-ffmpeg
 epoch=1
-pkgver=7.0.2p9
-pkgrel=2
+pkgver=7.1.1p1
+pkgrel=1
 pkgdesc='Jellyfin fork of ffmpeg'
 arch=('x86_64')
 url='https://github.com/jellyfin/jellyfin-ffmpeg'
@@ -73,17 +73,13 @@ optdepends=(
   'vulkan-intel: for Intel ANV Vulkan support'
 )
 options=('!lto')
-source=("$pkgname::git+$url#tag=v${pkgver/p/-}"
-        "fix_build_with_svt-av1-3.0.patch")
-sha512sums=('aef16c9eb8455bb75fc2cab9f3a709055416a3b0bcae177fc78ef2601e5b7c67668bcc03129f17d862960c71aa26230c9328ac46b5d0a5cbe88b9514ce075a0b'
-            'e11f1ce94faaffa0dde9580d4d9ae74b73330d2e5cefa81e4512230fa7d164572f98af7f6feb96c3e84e3b6896650cdd7c7b659e311a4adc4b31d7000a110e69')
-b2sums=('f940f534cafa035c8af40e3050d65be2af27d38751fa86d333e8a23396529dcb8c8901766c97733b521460e8df25adbaa9032319e1e82fe9bec99172b8d14a64'
-        'a71d0c0092ae64b9cef38efb4a585b415e74842a173796b63778cd2c570c3216179c5ac59346d51388cc874cc37a32adb93f038ab26747d8e3fc0c984ce116ff')
+source=("$pkgname::git+$url#tag=v${pkgver/p/-}")
+sha512sums=('f0a93a15381c4f36d1bed15baf37021f8d0a4bfc368bb639d704d9d08d213a558f2aba331249d446df1053c4a34648653853385bd16011c99814ad32ab1b681e')
+b2sums=('245e3caefabdb64de5352fecadbcce009c4d562ca30580c23181298a50404b23b749aa12fde4592f7ad8684e334e9e0f79c72504d2b659b162a4c1d5d316380c')
 
 prepare() {
   cd "$pkgname"
-  # Fix for svt-av1 3.0
-  patch -Np1 < ../fix_build_with_svt-av1-3.0.patch
+
   # apply jellyfin patches to ffmpeg
   for i in debian/patches/*.patch; do
     patch -p1 -i "$i"
