@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=morphosis
-pkgver=48.1
-pkgrel=2
+pkgver=48.2
+pkgrel=1
 pkgdesc='Document conversion app using Pandoc'
 arch=(any)
 url='https://gitlab.gnome.org/World/morphosis'
@@ -25,13 +25,10 @@ makedepends=(
   meson
 )
 source=("git+https://gitlab.gnome.org/World/morphosis.git#tag=$pkgver")
-b2sums=(4514c5d7459e9dfc54ca48c33b6cff1d58b8869ab4d7a513d554f3e85be9838ee8a354bd559831e5e76c20ee160769c0d1653ed712f7a1c14da941b8c52f4f1a)
+b2sums=(76847341fd85c47aac8585f714f7005c3a7fb659c172bf58edb3ea016fb2eca1c6caaca9582d3cfad48f318c6cc7129466eba99c425c4613ef13f8349147bb99)
 
 prepare() {
   cd $pkgname
-
-  # https://gitlab.gnome.org/World/morphosis/-/merge_requests/10
-  git cherry-pick -n 5e64ec81416c9b4ad76b4691b92c59269b451d09
 }
 
 build() {
