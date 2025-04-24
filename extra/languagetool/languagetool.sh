@@ -60,15 +60,15 @@ if $asked_for_help; then
 else
   if $start_server; then
     if $http_server; then
-      "$JAVA_HOME/bin/java" -cp $CP $NSRV_command "${argv[@]}"
+      exec "$JAVA_HOME/bin/java" -cp $CP $NSRV_command "${argv[@]}"
     else
-      "$JAVA_HOME/bin/java" -cp $CP $SSRV_command "${argv[@]}"
+      exec "$JAVA_HOME/bin/java" -cp $CP $SSRV_command "${argv[@]}"
     fi
   else
     if ( $file_present || $force_cli ); then
-      "$JAVA_HOME/bin/java" -cp $CP $CLI_command "${argv[@]}"
+      exec "$JAVA_HOME/bin/java" -cp $CP $CLI_command "${argv[@]}"
     else
-      "$JAVA_HOME/bin/java" -cp $CP $GUI_command "${argv[@]}"
+      exec "$JAVA_HOME/bin/java" -cp $CP $GUI_command "${argv[@]}"
     fi
   fi
 fi
