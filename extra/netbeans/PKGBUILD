@@ -5,28 +5,28 @@
 # Contributor: Alexander F. Rødseth <xyproto@archlinux.org>
 
 pkgname=netbeans
-pkgver=22
+pkgver=25
 pkgrel=1
 pkgdesc='IDE for Java, HTML5, PHP, Groovy, C and C++'
 arch=('any')
 url='https://netbeans.apache.org/'
 license=('Apache')
 # classpath is not needed, see FS#38567 (Oracle JDK does not need atk either)
-depends=('ttf-font' 'which')
-makedepends=('ant' 'java-environment>=11' 'php' 'groovy' 'imagemagick' 'git')
+# check project readme for JDK requirements (build and run is usually the same)
+depends=('ttf-font' 'which' 'java-environment>=17')
+makedepends=('ant' 'git')
 optdepends=('php: for developing programs in php'
             'groovy: for developing programs in groovy'
             'lib32-glibc')
 options=(!debug)
-urlbase=
-source=("$pkgname.desktop"
-        "git+https://github.com/apache/netbeans.git#tag=${pkgver}"
+source=("netbeans.desktop"
+        "https://archive.apache.org/dist/netbeans/netbeans/${pkgver}/netbeans-${pkgver}-source.zip"{,.asc}
         "netbeans.clusters")
-
 sha256sums=('2b0e1624f3578e47a4357b038832eafa333139654448d931dbc3febd2730befe'
-            'e80353ed62967b5f24526269ef0347f1444920385b2d4c9a1236a7668a03e2b0'
-            'a7849ee0f21acef34a7bbd1216e8f822aba38284e3138ea04532224ad6f227c2')
-
+            'a1828c8bbb2c2c50a9cd6daf9f918678fa7f003ef12b861bf1670a719e948183'
+            'SKIP'
+            '2cbebdf740ee32ccadf87846440636459b41e8651097946231c1b99fa8ee5695')
+# See also https://downloads.apache.org/netbeans/KEYS
 validpgpkeys=("1A83C352499305B6682E3D95CF7BA0AB1CCF4647" # Emilian Marius Bold <emi@apache.org>
               "79C8F02A726E9EF53646D712B2BF814FA145CB2D" # Laszlo Kishalmi <lkishalmi@apache.org>
               "51B0E375B4941714A809F90E13E9F7AE3A4FD551" # Geert Jan <geertjan@apache.org>
@@ -43,12 +43,11 @@ validpgpkeys=("1A83C352499305B6682E3D95CF7BA0AB1CCF4647" # Emilian Marius Bold <
             )
 
 build() {
-  cd netbeans
-
-  # full cluster configuration is not available at this time
   export LDFLAGS_EXTRA=$LDFLAGS CFLAGS_EXTRA=$CFLAGS
-  ant -quiet -Dcluster.config=full
-  #ant -quiet
+
+  # 'release' cluster configuration contains all modules of the Apache releases
+  # 'full' will additionally contain early access/unreleased modules - experience may vary
+  ant -quiet -Dcluster.config=release build
 }
 
 # It appears that they have disabled the CI tests upstream, so I'll disable these for now...
@@ -59,8 +58,6 @@ build() {
 # }
 
 package() {
-  cd netbeans
-
   # install launcher script
   install -Dm755 "nbbuild/${pkgname}/bin/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
 
@@ -83,7 +80,8 @@ package() {
 
   # Desktop shortcut and icon
   install -Dm644 "${srcdir}/$pkgname.desktop" "${pkgdir}/usr/share/applications/${pkgname}.desktop"
-  install -Dm644 "nb/ide.branding/release/netbeans.png" "${pkgdir}/usr/share/pixmaps/${pkgname}.png"
+  install -Dm644 "nb/ide.branding/release/apache-netbeans256.png" "${pkgdir}/usr/share/pixmaps/${pkgname}.png"
+  install -Dm644 "nb/ide.branding/release/apache-netbeans.svg" "${pkgdir}/usr/share/pixmaps/${pkgname}.svg"
 
   # I'm leaving these as they seem to be necessary for building native
   # executables (see bug #66706). I'd like to ideally build them with our

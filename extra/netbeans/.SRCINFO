@@ -1,24 +1,22 @@
 pkgbase = netbeans
 	pkgdesc = IDE for Java, HTML5, PHP, Groovy, C and C++
-	pkgver = 22
+	pkgver = 25
 	pkgrel = 1
 	url = https://netbeans.apache.org/
 	arch = any
 	license = Apache
 	makedepends = ant
-	makedepends = java-environment>=11
-	makedepends = php
-	makedepends = groovy
-	makedepends = imagemagick
 	makedepends = git
 	depends = ttf-font
 	depends = which
+	depends = java-environment>=17
 	optdepends = php: for developing programs in php
 	optdepends = groovy: for developing programs in groovy
 	optdepends = lib32-glibc
 	options = !debug
 	source = netbeans.desktop
-	source = git+https://github.com/apache/netbeans.git#tag=22
+	source = https://archive.apache.org/dist/netbeans/netbeans/25/netbeans-25-source.zip
+	source = https://archive.apache.org/dist/netbeans/netbeans/25/netbeans-25-source.zip.asc
 	source = netbeans.clusters
 	validpgpkeys = 1A83C352499305B6682E3D95CF7BA0AB1CCF4647
 	validpgpkeys = 79C8F02A726E9EF53646D712B2BF814FA145CB2D
@@ -34,7 +32,8 @@ pkgbase = netbeans
 	validpgpkeys = 4F14EF3E48BBEC63608D7EB213548D7CCAFAE80D
 	validpgpkeys = 0EEFAD6B9554FD485FF115477022397A0BFA52E9
 	sha256sums = 2b0e1624f3578e47a4357b038832eafa333139654448d931dbc3febd2730befe
-	sha256sums = e80353ed62967b5f24526269ef0347f1444920385b2d4c9a1236a7668a03e2b0
-	sha256sums = a7849ee0f21acef34a7bbd1216e8f822aba38284e3138ea04532224ad6f227c2
+	sha256sums = a1828c8bbb2c2c50a9cd6daf9f918678fa7f003ef12b861bf1670a719e948183
+	sha256sums = SKIP
+	sha256sums = 2cbebdf740ee32ccadf87846440636459b41e8651097946231c1b99fa8ee5695
 
 pkgname = netbeans
