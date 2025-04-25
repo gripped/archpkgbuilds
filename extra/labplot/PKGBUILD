@@ -1,13 +1,13 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=labplot
-pkgver=2.11.1
-pkgrel=6
+pkgver=2.12.0
+pkgrel=1
 arch=(x86_64)
 pkgdesc='KDE Application for interactive graphing and analysis of scientific data'
 url='https://labplot.kde.org/'
 license=(GPL-2.0-or-later)
-depends=(# cantor - reenable in 2.12
+depends=(cantor
          cblas
          cfitsio
          discount
@@ -26,6 +26,7 @@ depends=(# cantor - reenable in 2.12
          ki18n
          kiconthemes
          kio
+         kparts
          ktextwidgets
          kuserfeedback
          kwidgetsaddons
@@ -35,10 +36,11 @@ depends=(# cantor - reenable in 2.12
          libmatio
          liborcus
          liborigin
-         libxcb
          lz4
          netcdf
+         poppler-qt6
          purpose
+         qt-advanced-docking-system
          qt6-base
          qt6-mqtt
          qt6-serialport
@@ -47,7 +49,8 @@ depends=(# cantor - reenable in 2.12
          readstat
          syntax-highlighting
          vector-blf
-         zlib)
+         zlib
+         zstd)
 makedepends=(boost
              dbc-parser-cpp
              eigen
@@ -55,24 +58,15 @@ makedepends=(boost
              kdoctools
              knewstuff)
 source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz
-        kuserfeedback.patch
-        qxlsx.patch
-        https://invent.kde.org/education/labplot/-/commit/0edfd286.patch
-        https://invent.kde.org/education/labplot/-/commit/e429dfb3.patch
-        libixion-0.20.patch)
-sha256sums=('53aa6ac8df39324d99463e60d88de25346b3928da5bb0f210b0563489046679d'
-            'd964ba68a6f563207e095db07a243a9010adfa7dc0b592d4e2f614419e4171b6'
-            '41198660cd4f56a1a8298fc6b8d1247ffacf1e7dc0efe5413dc9eac6e628f217'
-            '998d361b026aa5db9153c73ca930a1843098d8ba4b7b357b1508a6361bb3aa51'
-            '6a0275df03b49628734050f594fd1fe34366d3d4c8ad901dc9f9f1ea0203e38f'
-            'e33dadf960e1b29f47328ae464f62827cc76429152117663b6946a4612059f09')
+        fix-qxlsx.patch
+        fix-qt-advanced-docking-system.patch)
+sha256sums=('25f1751261ec2d11312f0179049ea1f16db33b3a89800dc572d68ad8d267afe7'
+            'c9bd0853e11133c25c9cb53b6a5c11d7cb174f96811ee877bde1f79d779f6ea0'
+            '5ccef2f374d230d034781022c27764d9d7b12e4da57b7c7fd5496339c509f81d')
 
 prepare() {
-  patch -d $pkgname-$pkgver -p1 < kuserfeedback.patch # Fix kuserfeedback detection
-  patch -d $pkgname-$pkgver -p1 < qxlsx.patch # Fix qxlsx detection
-  patch -d $pkgname-$pkgver -p1 < 0edfd286.patch # Fix build
-  patch -d $pkgname-$pkgver -p1 < e429dfb3.patch # Support liborcus/libixion 0.20 in cmake
-  patch -d $pkgname-$pkgver -p1 < libixion-0.20.patch # Actually support libixion 0.20
+  patch -d $pkgname-$pkgver -p1 < fix-qxlsx.patch
+  patch -d $pkgname-$pkgver -p1 < fix-qt-advanced-docking-system.patch
 }
 
 build() {
