@@ -1,11 +1,11 @@
 diff --git a/Cargo.toml b/Cargo.toml
-index 57224a8..67becea 100644
+index 15b408d..fa5ca92 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -45,3 +45,6 @@ mock-backend = []
- [profile.dev]
- # Not usable at opt-level 0, at least with software renderer
- opt-level = 1
+@@ -56,3 +56,6 @@ opt-level = 1
+ [patch."https://github.com/pop-os/cosmic-protocols"]
+ cosmic-protocols = { git = "https://github.com/pop-os/cosmic-protocols//", branch = "main" }
+ cosmic-client-toolkit = { git = "https://github.com/pop-os/cosmic-protocols//", branch = "main" }
 +
 +[profile.release]
 +lto = "thin"

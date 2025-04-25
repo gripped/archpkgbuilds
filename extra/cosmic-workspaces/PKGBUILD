@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-workspaces
-pkgver=1.0.0alpha6
+pkgver=1.0.0alpha7
 pkgrel=1
 epoch=1
 pkgdesc='Cosmic workspaces'
@@ -25,13 +25,13 @@ makedepends=(
   git
   lld
 )
-_tag=7f877f72a373514d298259ad7c6a6b3a5e10432c
+_tag=e2e0f09311b523c4690e7064dcf7d7a0c9219c10
 source=(
   git+https://github.com/pop-os/cosmic-workspaces-epoch.git#tag=${_tag}
   cosmic-workspaces-lto.patch
 )
-b2sums=('195f565020b56ed2185a08b3c6caa60df58d6e9a2d435b03a72051c3ae9cf7a6e86d1a1de2b1a306b1bffc54825f14736cb24713b1f8d8a0a3ce91b1e1d99e2d'
-        '82495774acf609583991c1cc13376fdfd81107d85030e9fb484cd50336b3f6418b59f5322d85cef83a3d75af42414ea86843bacae39286a643e2a668b15f3048')
+b2sums=('81cdcd36d1ce42c799eee749484a6e36fa133b9ba55cdd57d0109ce6b4d7c8da5fc7e42b14051613238624764d680b9f31141f8533a510098cddd14d19eb9485'
+        '1ea5088acc34078e58a6368976b470080aa8053a97f94a41546dd79a4c7450c419b260d1e17e7c5652bdc2b9f4b2ed547a83c69a2b37dc76ccedf94242a8fba3')
 
 prepare() {
   cd cosmic-workspaces-epoch
