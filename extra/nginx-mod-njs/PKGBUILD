@@ -1,8 +1,9 @@
 # Maintainer: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
-pkgname=nginx-mod-njs
+pkgbase=nginx-mod-njs
+pkgname=(nginx-mod-njs nginx-mod-njs-stream)
 pkgver=0.8.10
-pkgrel=5
+pkgrel=7
 
 _modname="${pkgname#nginx-mod-}"
 
@@ -42,7 +43,9 @@ build() {
   make modules
 }
 
-package() {
+package_nginx-mod-njs() {
+  backup=('etc/nginx/modules.d/20-njs-http.conf')
+
   if [[ "$BUILDTOOL" == devtools ]]; then
     local nginx_dep="nginx=$(nginx -v 2>&1 | sed 's|.*/||')"
     depends+=($nginx_dep)
@@ -54,9 +57,26 @@ package() {
               "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 
   install -Dm755 build/njs "$pkgdir"/usr/bin/njs
+  install -dm0755 "$pkgdir"/etc/nginx/modules.d
+  echo 'load_module "/usr/lib/nginx/modules/ngx_http_js_module.so";' >> "$pkgdir/etc/nginx/modules.d/20-njs-http.conf"
+  install -Dm755 build/objs/ngx_http_js_module.so "$pkgdir"/usr/lib/nginx/modules/ngx_http_js_module.so
+}
 
-  cd build/objs
-  for mod in *.so; do
-      install -Dm755 $mod "$pkgdir"/usr/lib/nginx/modules/$mod
-  done
+package_nginx-mod-njs-stream() {
+  pkgdesc='nginScript module for nginx streams'
+  backup=('etc/nginx/modules.d/20-njs-stream.conf')
+
+  if [[ "$BUILDTOOL" == devtools ]]; then
+    local nginx_ver="$(nginx -v 2>&1 | sed 's|.*/||')"
+    depends+=("nginx=$nginx_ver" "nginx-mod-stream=$nginx_ver")
+  else
+    depends+=(nginx nginx-mod-stream)
+  fi
+
+  install -Dm644 "$srcdir"/njs-$pkgver/LICENSE \
+              "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
+  install -dm0755 "$pkgdir"/etc/nginx/modules.d
+  echo 'load_module "/usr/lib/nginx/modules/ngx_stream_js_module.so";' >> "$pkgdir/etc/nginx/modules.d/20-njs-stream.conf"
+  install -Dm755 build/objs/ngx_stream_js_module.so "$pkgdir"/usr/lib/nginx/modules/ngx_stream_js_module.so
 }
