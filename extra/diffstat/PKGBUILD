@@ -4,8 +4,8 @@
 # Contributor: Matthias-Christian Ott <matthias.christian.at.tiscali.de>
 
 pkgname=diffstat
-pkgver=1.67
-pkgrel=2
+pkgver=1.68
+pkgrel=1
 pkgdesc="Display a histogram of diff changes"
 arch=('x86_64')
 url="https://invisible-island.net/diffstat"
@@ -13,7 +13,7 @@ depends=('glibc')
 makedepends=('git')
 license=('MIT')
 source=(${pkgname}::git+https://github.com/ThomasDickey/diffstat-snapshots.git?signed#tag=v${pkgver//./_})
-sha256sums=('36d0940912b81cf9d308edea64c196d55aa2425c16970b1e8c7cdbf297ac1cd4')
+sha256sums=('af53d5e0c54020ad6670ea61462ab819ee40626dd3a03f18fb777ea25b69e655')
 validpgpkeys=('19882D92DDA4C400C22C0D56CC2AF4472167BE03') # Thomas Dickey <dickey@invisible-island.net>"
 
 build () {
