@@ -2,7 +2,7 @@
 # Contributor: Adria Arrufat <swiftscythe at gmail dot com>
 
 pkgname=ugrep
-pkgver=7.4.0
+pkgver=7.4.1
 pkgrel=1
 pkgdesc='ultra fast grep with interactive TUI, fuzzy search, boolean queries, hexdumps and more'
 arch=(x86_64)
@@ -23,7 +23,7 @@ optdepends=('python-pdftotext: to search pdf'
             'openssl: to search certificates and key files')
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('d4d18db97ba0063dbc0368b30b99a625301bec77c0699bfa096867155c70fb3a')
+sha256sums=('4e263e226dfb768ad82cab95f6fcfee9af41e53004b12023d3c42ce36760a5d8')
 
 build() {
 	cd "$_archive"
