@@ -1,23 +1,23 @@
 pkgbase = gucharmap
 	pkgdesc = Gnome Unicode Charmap
-	pkgver = 15.1.1
+	pkgver = 15.1.5
 	pkgrel = 1
 	url = https://wiki.gnome.org/Apps/Gucharmap
 	arch = x86_64
 	license = GPL3
-	makedepends = appdata-tools
 	makedepends = git
+	makedepends = glib2-devel
 	makedepends = gobject-introspection
 	makedepends = gtk-doc
 	makedepends = meson
 	makedepends = unicode-character-database
-	makedepends = unzip
 	makedepends = vala
 	makedepends = yelp-tools
+	makedepends = unzip
 	depends = gtk3
 	provides = libgucharmap_2_90.so
 	options = !lto
-	source = git+https://gitlab.gnome.org/GNOME/gucharmap.git#commit=a9a153ce73f0bf20d599d733b4a75f3b5e00fa79
-	b2sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/gucharmap.git#tag=15.1.5
+	b2sums = eca34fc506935c480a3cc1cf03c214b38839cb510536852333256b03adc0503e165edc18f409be278f16fbb080ccc8f2a55045bd15f5247b6e766465218bcb08
 
 pkgname = gucharmap

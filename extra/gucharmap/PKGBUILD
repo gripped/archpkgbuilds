@@ -2,7 +2,7 @@
 # Contributor: Jan De Groot <jgc@archlinux.org>
 
 pkgname=gucharmap
-pkgver=15.1.1
+pkgver=15.1.5
 pkgrel=1
 pkgdesc="Gnome Unicode Charmap"
 url="https://wiki.gnome.org/Apps/Gucharmap"
@@ -10,26 +10,20 @@ arch=(x86_64)
 license=(GPL3)
 depends=(gtk3)
 makedepends=(
-  appdata-tools
   git
+  glib2-devel
   gobject-introspection
   gtk-doc
   meson
   unicode-character-database
-  unzip
   vala
   yelp-tools
+  unzip
 )
 provides=(libgucharmap_2_90.so)
 options=(!lto)
-_commit=a9a153ce73f0bf20d599d733b4a75f3b5e00fa79  # tags/15.1.1^0
-source=("git+https://gitlab.gnome.org/GNOME/gucharmap.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/gucharmap.git#tag=$pkgver")
+b2sums=('eca34fc506935c480a3cc1cf03c214b38839cb510536852333256b03adc0503e165edc18f409be278f16fbb080ccc8f2a55045bd15f5247b6e766465218bcb08')
 
 prepare() {
   cd $pkgname
