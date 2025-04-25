@@ -1,14 +1,13 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=impression
-pkgver=3.3.0
-pkgrel=2
+pkgver=3.4.0
+pkgrel=1
 pkgdesc='Application to create bootable drives from disk images'
 arch=(x86_64)
 url='https://apps.gnome.org/Impression/'
 license=(GPL-3.0-only)
 depends=(
-  dbus
   dconf
   gcc-libs
   glib2
@@ -27,13 +26,19 @@ makedepends=(
   rust
 )
 source=("git+https://gitlab.com/adhami3310/Impression.git#tag=v$pkgver")
-b2sums=(1ca5e4e7ec12520338bfea5cf8e67cdada8af783ba690cb2150e71600e422ecc42d478a50e0dd996d9c800a0f41a6c0485e5ae458db93dee0bbb6039929323cf)
+b2sums=(586f0a8db239e43d00e0ec9d90d1f1cda88aac29cf6ad51c603c33d696197bdfb1c686881bfab88421ec9ed2e392260006f5b6f518e89b6ca620fad5a1254546)
 
 prepare() {
   cd Impression
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+
+  # https://gitlab.com/adhami3310/Impression/-/merge_requests/90
+  git cherry-pick -n a19efc547eb78d4b5f959e10079606a5a55cf72f
+
+  # https://gitlab.com/adhami3310/Impression/-/merge_requests/91
+  git cherry-pick -n 5ac98bb2aec7492a8fbf6685b6289d908c890e6d
 }
 
 build() {
