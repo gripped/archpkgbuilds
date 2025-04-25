@@ -3,7 +3,7 @@
 pkgname=nginx-mod-naxsi
 pkgver=1.7
 _injectionver=3.10.0
-pkgrel=4
+pkgrel=5
 _modname=naxsi
 pkgdesc='Nginx Anti XSS & SQL Injection'
 arch=('x86_64')
@@ -11,6 +11,7 @@ makedepends=('nginx' 'nginx-src')
 url="https://github.com/wargio/naxsi/"
 license=('GPL-3.0-or-later')
 backup=(
+  etc/nginx/modules.d/20-naxsi.conf
 	etc/nginx/naxsi/blocking/10000000_scanner.rules
 	etc/nginx/naxsi/blocking/20000000_web_security.rules
 	etc/nginx/naxsi/blocking/30000000_wordpress.rules
@@ -32,7 +33,6 @@ backup=(
 )
 source=(https://github.com/wargio/$_modname/archive/$pkgver/$_modname-$pkgver.tar.gz
         https://github.com/libinjection/libinjection/archive/refs/tags/v3.10.0/libinjection-3.10.0.tar.gz)
-validpgpkeys=(B0F4253373F8F6F510D42178520A9993A1C052F8) # Maxim Dounin <mdounin@mdounin.ru>
 sha256sums=('adee817da71913f64a9fb0fca142d9520bb0e5014b1acc797841cd8e31273f4d'
             '9dd7ae68a21a3c50f705c383b1b714c77fd4093b0a561a5400f0cb0ad79b1ae7')
 
@@ -49,7 +49,7 @@ prepare() {
 
 build() {
 	cd "$srcdir"/build
-	/usr/src/nginx/configure \
+	auto/configure \
 		--with-ld-opt="$LDFLAGS" \
 		--with-compat \
 		--add-dynamic-module=../$_modname-$pkgver/naxsi_src
@@ -61,12 +61,8 @@ package() {
 	_nginx_version=${_nginx_version/* nginx\/}
 	depends+=("nginx=${_nginx_version}")
 
-	cd "$srcdir"/build/objs
-	for mod in *.so; do
-		install -Dm755 "$mod" "$pkgdir/usr/lib/nginx/modules/$mod"
-	done
-
 	cd "$srcdir/naxsi-$pkgver"
+	install -dm0755 "$pkgdir"/etc/nginx/modules.d
 	install -Dm644 distros/nginx/naxsi_block_mode.conf "$pkgdir"/etc/nginx/naxsi/naxsi_block_mode.conf
 	install -Dm644 distros/nginx/naxsi_denied_url.conf "$pkgdir"/etc/nginx/naxsi/naxsi_denied_url.conf
 	install -Dm644 distros/nginx/naxsi_learning_mode.conf "$pkgdir"/etc/nginx/naxsi/naxsi_learning_mode.conf
@@ -75,5 +71,11 @@ package() {
 	cd naxsi_rules
 	for f in {whitelists,blocking}/*.rules; do
 		install -Dm644 "$f" "$pkgdir/etc/nginx/naxsi/$f"
+	done
+
+	cd "$srcdir"/build/objs
+	for mod in *.so; do
+		install -Dm755 "$mod" "$pkgdir/usr/lib/nginx/modules/$mod"
+		echo "load_module \"/usr/lib/nginx/modules/$mod\";" >> "$pkgdir/etc/nginx/modules.d/20-naxsi.conf"
 	done
 }
