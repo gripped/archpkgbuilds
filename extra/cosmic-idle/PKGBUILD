@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-idle
-pkgver=1.0.0.alpha.6
+pkgver=1.0.0.alpha.7
 pkgrel=1
 pkgdesc='Cosmic idle daemon'
 arch=(x86_64)
@@ -23,21 +23,21 @@ makedepends=(
   just
   lld
 )
-_tag=7899fccbbe3d6746982178d3eff48ce8943b0f71
+_tag=267bb837f127eb805a17250ebcad02db57eb72cb
 source=(
   git+https://github.com/pop-os/cosmic-idle.git#tag=${_tag}
 )
-b2sums=('0a18612ba46dcaf0930765bef6606b4a6e8f7456beab138f609263bf311ef2b5fd6eb191a93c80aee9043ab00edb874c5db85417dbb0f206ca012592ac08cffc')
+b2sums=('69c453d8b8b33dee79a5ed5dd6a5e8f23b83a4a3ed73eb103ba1b84865573fd3dedcaba1bfc78c3c463fed9017a757683fb3f56b4e00e5de2d55be12225e0f10')
 
 prepare() {
   cd $pkgname
   cargo fetch --locked
 }
 
-#pkgver() {
-#  cd $pkgname
-#  git describe --tags | sed 's/^epoch-//; s/-/./g'
-#}
+pkgver() {
+  cd $pkgname
+  git describe --tags | sed 's/^epoch-//; s/-/./g'
+}
 
 build() {
   cd $pkgname
