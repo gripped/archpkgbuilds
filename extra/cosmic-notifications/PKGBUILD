@@ -4,7 +4,7 @@
 # Contributor: soloturn <soloturn@gmail.com>
 
 pkgname=cosmic-notifications
-pkgver=1.0.0.alpha.6
+pkgver=1.0.0.alpha.7
 pkgrel=1
 pkgdesc='Layer Shell notifications daemon which integrates with COSMIC'
 arch=(x86_64)
@@ -24,17 +24,14 @@ makedepends=(
   just
   lld
 )
-_tag=ea717d7938ba1b6d2f9c997e5db5eb54f441634f
+_tag=8eae7e0f62437a861cba4baa93b63a956c36756d
 source=(
   git+https://github.com/pop-os/cosmic-notifications.git#tag=${_tag}
-  cosmic-notifications-lto.patch
 )
-b2sums=('ae2bab51a8eb1d04a620c820edd3172dd1738b8692f01ef5f80c6c2272f26e6357b6a3bff6873b99af134114db9e943096a6d93e7258c431b7b099a9cb7781fa'
-        '2c3b1b321c7d86c43806885d9b0cc24485bd0186adebdaf3f511cbd861ead2fd7a1491d5583fb85f686c833c1cb2622ce944781f7b26d5486a86509b79ac636a')
+b2sums=('5ab68ad138c12da036606e0a6968f3a748f1176b0d9c80e5af92a0c62c77f243053ae9dc876f85eb5932d3276cc9a1c3b91e9df5adfd34e84ec50108284020e2')
 
 prepare() {
   cd cosmic-notifications
-  patch -Np1 -i ../cosmic-notifications-lto.patch
   cargo fetch --locked
 }
 
