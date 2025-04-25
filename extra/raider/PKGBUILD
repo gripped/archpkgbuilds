@@ -2,7 +2,7 @@
 
 pkgname=raider
 pkgver=3.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc='File deletion program designed to permanently remove sensitive files from your computer, enhancing data privacy'
 arch=(x86_64)
 url='https://apps.gnome.org/Raider/'
@@ -22,8 +22,25 @@ makedepends=(
   git
   meson
 )
-source=("git+https://github.com/ADBeveridge/raider.git#tag=v$pkgver")
-b2sums=(57a11dc3d5649512e26e546418d77465a8005db4d96eaba6fbff40082225cc2c9e29db7e4b343c4ca8597ed746c00174bc17761228cee2d06d7e1330f4615ceb)
+source=(
+  "git+https://github.com/ADBeveridge/raider.git#tag=v$pkgver"
+  raider-dbus-activatable.patch
+  raider-new-window.patch
+)
+b2sums=('57a11dc3d5649512e26e546418d77465a8005db4d96eaba6fbff40082225cc2c9e29db7e4b343c4ca8597ed746c00174bc17761228cee2d06d7e1330f4615ceb'
+        'ddf3ee7486a0a6d5009dbafecb3c362ab11fa3e137d0c8b7f0b7875f107419aba53bdcfa23f170e3227834d67a3437113f6a4f40fb8d73a8fa60f930147a5cd8'
+        '77e2ca81e620fe6511e66926c36603e4b0390e8c8a3a91691a57bed18e3c599b535bbb74d506a0708078a7be1774b6046e7dda827d0d226d812d4b8a312f63b8')
+
+prepare() {
+  cd $pkgname
+
+  # https://github.com/ADBeveridge/raider/pull/161
+  git apply -3 ../raider-dbus-activatable.patch
+
+  # https://github.com/ADBeveridge/raider/pull/162
+  git cherry-pick -n a7bc3a3c4827319678308e0402131eb7d678acba
+  git apply -3 ../raider-new-window.patch
+}
 
 build() {
   arch-meson $pkgname build

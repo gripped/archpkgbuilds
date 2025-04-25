@@ -1,0 +1,53 @@
+From f658939fe6882d0a9df377997de689254e4e7329 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 25 Apr 2025 10:18:05 +0200
+Subject: [PATCH] Add D-Bus service file
+
+And mark the application as D-Bus activatable. This allows application
+launchers to activate it via D-Bus.
+---
+ data/com.github.ADBeveridge.Raider.desktop.in.in |  1 +
+ data/com.github.ADBeveridge.Raider.service.in    |  3 +++
+ data/meson.build                                 | 10 ++++++++++
+ 3 files changed, 14 insertions(+)
+ create mode 100644 data/com.github.ADBeveridge.Raider.service.in
+
+diff --git a/data/com.github.ADBeveridge.Raider.desktop.in.in b/data/com.github.ADBeveridge.Raider.desktop.in.in
+index 9c41f54..d5393d5 100644
+--- a/data/com.github.ADBeveridge.Raider.desktop.in.in
++++ b/data/com.github.ADBeveridge.Raider.desktop.in.in
+@@ -8,5 +8,6 @@ Terminal=false
+ Type=Application
+ Categories=GTK;Utility;FileTools;Security;
+ StartupNotify=true
++DBusActivatable=true
+ X-GNOME-UsesNotifications=true
+ X-Purism-FormFactor=Workstation;Mobile;
+diff --git a/data/com.github.ADBeveridge.Raider.service.in b/data/com.github.ADBeveridge.Raider.service.in
+new file mode 100644
+index 0000000..af7fd62
+--- /dev/null
++++ b/data/com.github.ADBeveridge.Raider.service.in
+@@ -0,0 +1,3 @@
++[D-BUS Service]
++Name=com.github.ADBeveridge.Raider
++Exec=@bindir@/raider --gapplication-service
+diff --git a/data/meson.build b/data/meson.build
+index e74676b..5b144e5 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -29,4 +29,14 @@ if appstreamcli.found()
+   )
+ endif
+ 
++service_conf = configuration_data()
++service_conf.set('bindir', join_paths(get_option('prefix'), get_option('bindir')))
++configure_file(
++  input: 'com.github.ADBeveridge.Raider.service.in',
++  output: 'com.github.ADBeveridge.Raider.service',
++  configuration: service_conf,
++  install: true,
++  install_dir: join_paths(get_option('datadir'), 'dbus-1', 'services')
++)
++
+ subdir('icons')
