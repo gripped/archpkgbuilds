@@ -2,7 +2,7 @@
 # Contributor: Vaporeon <vaporeon@vaporeon.io>
 
 pkgname=corrosion
-pkgver=0.5.1
+pkgver=0.5.2
 pkgrel=1
 pkgdesc='Tool for integrating Rust into an existing CMake project'
 arch=(any)
@@ -12,7 +12,7 @@ depends=(cmake
          rust)
 makedepends=(git)
 source=(git+https://github.com/corrosion-rs/corrosion#tag=v$pkgver)
-sha256sums=('0397c40ea598a232aba0dfb8ee839591d09926f9ca4dfd176e0f1c6990bad7ba')
+sha256sums=('ff6ed913b26218fdf7f394b3793e08ed9f7b42fe57a2be0e18b7338f2429f13a')
 
 build() {
   cmake -B build -S $pkgname \
