@@ -1,7 +1,7 @@
 pkgbase = hieroglyphic
 	pkgdesc = Search through over 1000 different LaTeX symbols by sketching
 	pkgver = 2.1.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://apps.gnome.org/Hieroglyphic/
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -9,7 +9,6 @@ pkgbase = hieroglyphic
 	makedepends = git
 	makedepends = meson
 	makedepends = rust
-	depends = cairo
 	depends = dconf
 	depends = gcc-libs
 	depends = glib2
@@ -20,6 +19,8 @@ pkgbase = hieroglyphic
 	depends = libadwaita
 	options = !lto
 	source = git+https://github.com/FineFindus/Hieroglyphic.git#tag=v2.1.0
+	source = hieroglyphic-dbus-activatable.patch
 	b2sums = d30a3b29c65531a9a0480de484418df28225000e38db300c924c581142974a596aaa693993ab3fad0ad3577e8596c62ef3319e170c2862bd680f8dc9eae652db
+	b2sums = e6e67ae4a261f749e4ea14dabbf237fe6d7e1f2595526567174505aaf2e90c894960c38d59fd26b31966f71d66572f4400cd653ca7531b0334e4ade4e51dd799
 
 pkgname = hieroglyphic
