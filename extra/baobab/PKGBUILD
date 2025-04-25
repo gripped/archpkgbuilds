@@ -4,7 +4,7 @@
 
 pkgname=baobab
 pkgver=48.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A graphical directory tree analyzer"
 url="https://apps.gnome.org/Baobab"
 arch=(x86_64)
@@ -32,12 +32,31 @@ makedepends=(
 )
 groups=(gnome)
 source=(
-  "git+https://gitlab.gnome.org/GNOME/baobab.git#tag=${pkgver/[a-z]/.&}"
+  "git+https://gitlab.gnome.org/GNOME/baobab.git?signed#tag=${pkgver/[a-z]/.&}"
+  baobab-initialize-results.patch
+  baobab-locations-remove.patch
+  baobab-single-click.patch
 )
-b2sums=('cf8b24c1e603e5f5916fb1a8b7ca5ac6b0a8f5e06d83a2f297b0e94adef1ff0f7b19c57ce45442e29cc061814f8deadd41a7438e2ed61b312dde96a82dfcd541')
+b2sums=('cf8b24c1e603e5f5916fb1a8b7ca5ac6b0a8f5e06d83a2f297b0e94adef1ff0f7b19c57ce45442e29cc061814f8deadd41a7438e2ed61b312dde96a82dfcd541'
+        'fe58077ebaf5e48d0a4c58aa8b30c4b6499e3b3734b99c52f74a4b52e89767dbad25cd9cdf2561e792c973532535bc30dbdea98d8ab9ec96f05540f0a98bcab5'
+        '7b24b0c3f9db668f9557fcd14a73f0c168488af83543662a7bd979bf6731166ab7ff2e3ff6f94c1a605f7105d95b51a9d6b68f821c449c30e4d4247e89014df3'
+        '766abe892e36a3b7241415b1c2b327a27442d09d7f887323514f1ad7ed635a2450cf8bf98328255d3f0f5772df21edc382e5fe5a7b9554e87fdd4bbc670c8f1b')
+validpgpkeys=(3475CBA8D3483594C889B470D64A8D747F6FE706) # Maximiliano Sandoval <msandova@gnome.org>
 
 prepare() {
   cd baobab
+
+  # Initialize root results as empty
+  # https://gitlab.gnome.org/GNOME/baobab/-/merge_requests/96
+  git apply -3 ../baobab-initialize-results.patch
+
+  # Don't try to iterate over a list after a removal
+  # https://gitlab.gnome.org/GNOME/baobab/-/merge_requests/100
+  git apply -3 ../baobab-locations-remove.patch
+
+  # Don't set single-click-activate on columnview
+  # https://gitlab.gnome.org/GNOME/baobab/-/merge_requests/101
+  git apply -3 ../baobab-single-click.patch
 }
 
 build() {

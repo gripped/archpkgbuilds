@@ -1,0 +1,30 @@
+From d36a5500f31175375867e2171b4770f87dea1318 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Luk=C3=A1=C5=A1=20Tyrychtr?= <ltyrycht@redhat.com>
+Date: Wed, 23 Apr 2025 14:28:01 +0200
+Subject: [PATCH] locations-list: Don't try to iterate over a list after a
+ removal
+
+In the volume_changed callback, we might to remove a location from the list.
+Follow the pattern of breaking out of the foreach loop inmediately after,
+otherwise we'll end-up causing a segfault.
+
+Fixes #175.
+---
+ src/baobab-location-list.vala | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/baobab-location-list.vala b/src/baobab-location-list.vala
+index cceacc0a..ff3d8049 100644
+--- a/src/baobab-location-list.vala
++++ b/src/baobab-location-list.vala
+@@ -162,6 +162,7 @@ namespace Baobab {
+                 var same_mount = location.mount != null && location.mount.get_root ().equal (mount.get_root ());
+                 if (same_mount && location.volume != volume) {
+                     locations.remove(location);
++                    break;
+                 }
+             }
+ 
+-- 
+GitLab
+
