@@ -11,8 +11,8 @@ pkgname=(
   ruby-simpleitk
   tcl-simpleitk
 )
-pkgver=2.4.1
-pkgrel=2
+pkgver=2.5.0
+pkgrel=1
 pkgdesc="A simplified layer built on top of ITK"
 arch=(x86_64)
 url="https://github.com/SimpleITK/SimpleITK"
@@ -40,7 +40,7 @@ makedepends=(
   tk
 )
 source=($pkgbase::git+$url.git#tag=v$pkgver)
-b2sums=('4253d506680abb312c406dc345356026dc99fdb2f391a004b055b99b5986b8f798fc3c76698873ec536e65a17001c48e7d4501b09ee5633e8fb57e7bfa04191e')
+b2sums=('b144120c0211160cef997d1211cea580158f35520744c086a02baee93c63f3d75d1a77a8f1d4409036487c25492340f31c1abacd1cdd7786233f0f021290340e')
 
 build() {
   local cmake_options=(
@@ -62,6 +62,9 @@ build() {
     -DWRAP_R=ON
     -DWRAP_RUBY=ON
     -DWRAP_TCL=ON
+    # workaround for broken FindHDF5
+    -DHDF5_C_COMPILER_EXECUTABLE=h5hlcc
+    -DHDF5_CXX_COMPILER_EXECUTABLE=h5hlc++
   )
   local java_home=$(find /usr/lib/jvm/ -name "$(archlinux-java get)")
 
