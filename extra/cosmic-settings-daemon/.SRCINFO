@@ -1,6 +1,6 @@
 pkgbase = cosmic-settings-daemon
 	pkgdesc = Cosmic settings daemon
-	pkgver = 1.0.0.alpha.6
+	pkgver = 1.0.0.alpha.7
 	pkgrel = 1
 	url = https://github.com/pop-os/cosmic-settings-daemon
 	arch = x86_64
@@ -16,12 +16,14 @@ pkgbase = cosmic-settings-daemon
 	depends = geoclue
 	depends = glibc
 	depends = libinput
+	depends = libpulse
 	depends = playerctl
+	depends = pop-sound-theme
 	depends = systemd-libs
 	optdepends = pulseaudio-alsa: Media keys support
-	source = git+https://github.com/pop-os/cosmic-settings-daemon.git#tag=58ff27f9723cd68b6e143b7acadcfe20324ea83c
+	source = git+https://github.com/pop-os/cosmic-settings-daemon.git#tag=bb9eb904e800d09965e33883e4e15dfd011b1d19
 	source = cosmic-settings-daemon-lto.patch
-	b2sums = 4410f740e72a85c6fca3333a7ff94503268cba2eedca6e6b9c41b5e807315689f22a5e8f1b06d941c93c144eeea0b7fdeedef2f66c69a80612db776202e2066a
+	b2sums = d4c09670ad5ba7ac3f29cc7c5f472170ee906c130ff48a035c76e056f64f3182c6ecce1eada685bd44257e37b688da54677f6610bf440957174f1cfcd754a500
 	b2sums = d08aacbcc5b98304f9a99bc2d6a0072473f4ccd9175dcd558334179561bb2e68c0c339471f6e85b849087108998fb1b17707be9d3c87bd018c75b45b7774e91e
 
 pkgname = cosmic-settings-daemon
