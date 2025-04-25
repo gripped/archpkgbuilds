@@ -1,0 +1,193 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
+pkgbase=nvhpc
+pkgname=(nvhpc nvhpc-comm-libs nvhpc-compilers)
+_cuda_ver=12.8
+_hpcx_ver=2.22.1
+_nccl_ver=2.25
+_openmpi_ver=4.1.5
+_rel_year=2025
+pkgver=25.3
+pkgrel=1
+pkgdesc="NVIDIA HPC SDK"
+arch=(x86_64)
+url="https://docs.nvidia.com/hpc-sdk/index.html"
+license=(LicenseRef-NVIDIA-HPC-SDK)
+makedepends=(
+  cuda
+  cuda-tools
+  gcc-fortran
+)
+options=(!strip !debug staticlibs)
+install=nvhpc.install
+_archive=nvhpc_${_rel_year}_${pkgver//.}_Linux_${arch}_cuda_${_cuda_ver}
+source=(
+  https://developer.download.nvidia.com/hpc-sdk/$pkgver/$_archive.tar.gz
+  $pkgname-EULA.pdf::https://docs.nvidia.com/hpc-sdk/archive/$pkgver/pdf/EULA.pdf
+  EULA.txt
+  activate.in
+  nvhpc-compilers.conf.in
+  nvhpc-compilers.sh.in
+)
+b2sums=('aa0e17be6f55026216ec22e6a405d7a4daa65114239ac173ca8e07a7cc44084a3c456a106ae0518438aea7ee1c6d12646e935c6bde849c17933a65da54aa4af9'
+        '505804fa27a3add2beb68011c4baab7ffc1497834fcbf4ac06fce5e07b51b99df1b42203e1126087424fcaea660e752bd24c6ea77e1e3dbad9eeb27d927d4071'
+        '83dbff1adbb72c10300038e816445abbad7d826ffd28c7e61ec3069e2ceb8858e6e180416c268731ea0b7a98bbba26ccd177f0b40d9d131763a7dfa68286e95f'
+        '40546862e00688b8d1e1428260a79b9e6eda38be461db3cab1b30b62abdc1875a332b7d3557b7eb94bfddc79849b95c9e7bd43ad93a20f93548331ec1bb5111c'
+        '4bd2ac804d6d344823078435e30b3a75989db0c752d021de326d972f3efb95d7f3ea02728ae0a4f7f1875ddec7b934ddd0574105c7afe37c1d5372120863a2ca'
+        '246209a817521a0faab024fd601fed97e29e60b925a346d3a6e2d7d235bc9f7339e06f6f622a182bd74269f3b24d1ae4526f8592e58eb51ae3a781618fa7b9b1')
+
+_pick() {
+  local p="$1" f d; shift
+  for f; do
+    d="$srcdir/$p/${f#$pkgdir/}"
+    mkdir -p "$(dirname "$d")"
+    mv "$f" "$d"
+    rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
+  done
+}
+
+_replace_with_symlink() {
+  local source_dir="$1"
+  local target_dir="$2"
+
+  # Check if the source and target directories exist
+  if [[ ! -d "$source_dir" ]]; then
+    echo "Error: Source directory '$source_dir' does not exist."
+    return 1
+  fi
+
+  if [[ ! -d "$target_dir" ]]; then
+    echo "Error: Target directory '$target_dir' does not exist."
+    return 1
+  fi
+
+  # Find all files in the source directory relative to it
+  while IFS= read -r -d '' file; do
+    # Get the relative path of the file
+    relative_path="${file#$source_dir/}"
+
+    # Check if the file exists in the target directory
+    if [[ ! -e "$target_dir/$relative_path" ]]; then
+      echo "Warning: File '$relative_path' is missing in the target directory."
+    fi
+  done < <(find "$source_dir" -type f -print0)
+
+  # Replace the source directory with a symlink to the target directory
+  rm -r "$source_dir"
+  ln --symbolic --no-target-directory "$target_dir" "$source_dir"
+}
+
+prepare() {
+  sed -i "s/en_US\.UTF\-8/C.UTF-8/g" $_archive/install_components/Linux_x86_64/$pkgver/compilers/bin/makelocalrc
+}
+
+build() {
+  local prepdir="$srcdir"/$pkgbase
+
+  NVHPC_SILENT=true \
+  NVHPC_INSTALL_DIR="$prepdir"/opt/nvidia/hpc_sdk \
+  NVHPC_INSTALL_TYPE=single \
+  bash $_archive/install
+
+  # Remove references to $prepdir from module files
+  find "$prepdir"/opt/nvidia/hpc_sdk/modulefiles/ -type f -exec sed -i "s|$prepdir||g" {} \;
+
+  # Move modulefiles to /usr/share/modulefiles
+  install -vdm 755 "$prepdir"/usr/share/
+  mv "$prepdir"/opt/nvidia/hpc_sdk/modulefiles "$prepdir"/usr/share/
+
+  # Rewrite localrc to use gcc-13 as default compiler
+  "$prepdir"/opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/compilers/bin/makelocalrc -x -gcc gcc-13
+
+  # Fix permissions of static library files from 755 to 644
+  find "$prepdir" \( -path '*/lib/*.a' -o -path '*/lib64/*.a' \) -type f -executable -exec chmod 644 {} \;
+
+  # Clean up compilers bindir
+  local compdir="$prepdir"/opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/compilers
+  local f
+  for f in compute-sanitizer cuda-gdb cuda-memcheck cuobjdump ncu nsys nvcc nvprof; do
+    rm $compdir/bin/$f $compdir/bin/.${f}rc
+  done
+  for f in ncu-ui nsys-ui nv-nsight-cu-cli; do
+    rm $compdir/bin/$f
+  done
+
+  # Move components for split packages
+  cd "$prepdir"
+  _pick $pkgbase-comm-libs opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/comm_libs
+  _pick $pkgbase-compilers opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/compilers
+
+  # Replace components provided by cuda and cuda-tools with symlinks
+  _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/cuda/$_cuda_ver /opt/cuda
+  _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/math_libs/$_cuda_ver /opt/cuda
+  _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/profilers/Nsight_Compute /opt/cuda/nsight_compute
+  _replace_with_symlink opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/profilers/Nsight_Systems /opt/cuda/nsight_systems
+
+  # Remove the REDIST directory which is not useful (AFAICT)
+  # (it contains only a subtree of symlinks under the comm_libs/, cuda/ and math_libs/ subtrees,
+  # moreover with a hardcoded CUDA version in the paths)
+  rm -r opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/REDIST/
+}
+
+package_nvhpc() {
+  depends=(
+    cuda
+    cuda-tools
+    nvhpc-comm-libs
+    nvhpc-compilers
+  )
+  optdepends=('env-modules')
+
+  mv -v $pkgname/* "$pkgdir"
+
+  # Install licenses
+  install -vDm 644 EULA.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -vDm 644 $pkgname-EULA.pdf "$pkgdir"/usr/share/licenses/$pkgname/EULA.pdf
+
+  # Install script to activate nvhpc in the environment
+  install -vDm 644 <(sed "s/@version@/$pkgver/" activate.in) "$pkgdir"/opt/nvidia/hpc_sdk/activate
+}
+
+package_nvhpc-comm-libs() {
+  pkgdesc+=" - communication libraries"
+  depends=(
+    cuda
+    gcc-libs
+    glibc
+    numactl
+    zlib
+  )
+
+  mv -v $pkgname/* "$pkgdir"
+
+  # Install licenses
+  local comm_libs_dir=/opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/comm_libs/$_cuda_ver/
+  install -vdm 755 "$pkgdir"/usr/share/licenses/$pkgname/
+  ln -vs --no-target-directory "$comm_libs_dir"/hpcx/hpcx-$_hpcx_ver/sharp/share/doc/sharp/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE_hpcx
+  ln -vs --no-target-directory "$comm_libs_dir"/nccl-$_nccl_ver/LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE_nccl
+  ln -vs --no-target-directory "$comm_libs_dir"/nvshmem/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE_nvshmem
+  ln -vs --no-target-directory "$comm_libs_dir"/openmpi${_openmpi_ver%%.*}/openmpi-$_openmpi_ver/share/doc/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE_openmpi
+}
+
+package_nvhpc-compilers() {
+  pkgdesc+=" - compilers"
+  depends=(
+    gcc13
+    gcc-fortran
+    gcc-libs
+    glibc
+    libxml2
+    zlib
+    zstd
+  )
+
+  mv -v $pkgname/* "$pkgdir"
+
+  # Install licenses
+  install -vdm 755 "$pkgdir"/usr/share/licenses/
+  ln -vs --no-target-directory /opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/compilers/license "$pkgdir"/usr/share/licenses/$pkgname
+
+  # Install profile and ld.so.config files
+  install -vDm 644 <(sed "s/@version@/$pkgver/" $pkgname.sh.in) "$pkgdir"/etc/profile.d/$pkgname.sh
+  install -vDm 644 <(sed "s/@version@/$pkgver/" $pkgname.conf.in) "$pkgdir"/opt/ld.so.conf.d/$pkgname.conf
+}

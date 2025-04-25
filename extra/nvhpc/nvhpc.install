@@ -1,0 +1,9 @@
+post_install() {
+  cat << EOF
+- nvhpc is a meta-package providing the NVIDIA HPC SDK. The cuda, math_libs and
+  profilers components are unbundled and provided by the common cuda and
+  cuda-tools packages. The communication libraries and compilers are split into
+  their own nvhpc-comm-libs and nvhpc-compilers packages that can be used
+  separately from the whole SDK.
+EOF
+}
