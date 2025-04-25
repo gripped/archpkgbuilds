@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-bg
-pkgver=1.0.0.alpha.6
+pkgver=1.0.0.alpha.7
 pkgrel=1
 pkgdesc='COSMIC session service which applies backgrounds to displays'
 arch=(x86_64)
@@ -24,12 +24,12 @@ makedepends=(
   lld
   nasm
 )
-_tag=b6adf25075383c0e606658a7309919a9b092ee54
+_tag=b44439fcd5ba85fec1a5d35cc163877160d31d0d
 source=(
   git+https://github.com/pop-os/cosmic-bg.git#tag=${_tag}
   cosmic-bg-lto.patch
 )
-b2sums=('618d8b3857e889a4eb8b545e0ce787f007da679f7d34c738ab424b59743433d15acb1be26a602edab48e0245eb77996f6369acbe21682c49a516dc4881434568'
+b2sums=('e2454e06eae350a0ef0d7cce198b48501b59e3eb2db9f912b1a170752d019b4c7f825187a70355250749c13f8171bba84a715020e12172d508c16cfbbfbb1d0d'
         'ccf50f22e306236727decc55d6895adeb6d82b8786bd8f14d34c48ecbf857931a52ac4be2a2b5dcb8175d872c2b8e45e056662770414815e436b77594fd25794')
 
 prepare() {
