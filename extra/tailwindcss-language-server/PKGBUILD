@@ -2,7 +2,7 @@
 # Contributor: Agorgianitis Loukas <agorglouk@gmail.com>
 
 pkgname=tailwindcss-language-server
-pkgver=0.14.15
+pkgver=0.14.16
 pkgrel=1
 pkgdesc='Tailwind CSS Language Server'
 arch=(any)
@@ -14,7 +14,7 @@ makedepends=(
   pnpm
 )
 source=("git+https://github.com/tailwindlabs/tailwindcss-intellisense.git#tag=v$pkgver")
-b2sums=('7c67048d17ced16f1d489ac38dca3f7185d9b49546f846d4598de1a407d9d03b8e8a42112c4f8c5dbf3895c1c4ceb98e345803ecacdb68f7de5c925a52cd89bd')
+b2sums=('5fb54e5ec4912132e30443c7a1559693f78cf75514ac320641fe48abf007d6158e01c72cb092b354acc616c1c18f9b94846bb4b73de8227e4e223dabb35d2934')
 
 prepare() {
   cd tailwindcss-intellisense
