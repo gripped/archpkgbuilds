@@ -4,29 +4,28 @@
 _pkg=orc
 pkgname=apache-${_pkg}
 pkgver=2.0.3
-pkgrel=4
+pkgrel=5
 pkgdesc="Columnar storage for Hadoop workloads."
 arch=(x86_64)
 url="https://orc.apache.org"
 license=(Apache)
 depends=(lz4 protobuf snappy zlib zstd)
-makedepends=(cmake)
+makedepends=(cmake git)
 checkdepends=(gtest)
-source=(https://dlcdn.apache.org/${_pkg}/${_pkg}-${pkgver}/${_pkg}-${pkgver}.tar.gz{,.asc})
-sha256sums=('082cba862b5a8a0d14c225404d0b51cd8d1b64ca81b8f1e500322ce8922cb86d'
-            'SKIP')
+source=(${pkgname}::git+https://github.com/apache/orc.git#tag=v${pkgver})
+sha256sums=('fbafce5090b9fe12993b83a7f9f585a501e5ec709d1ec7319acc260ad448d06a')
 validpgpkeys=(F28C9C925C188C35E345614DEDA00CE834F0FC5C  # Dongjoon Hyun (CODE SIGNING KEY) <dongjoon@apache.org>
               AA94E2A8F0A0B7167305C5232D9F6201DECDFA29) # William Hyun (CODE SIGNING KEY) <william@apache.org>
 
 prepare(){
-  cd ${_pkg}-${pkgver}
+  cd ${pkgname}
   sed -i 's/orc STATIC/orc SHARED/' c++/src/CMakeLists.txt
-# Fix build with protobuf 27
+  # Fix build with protobuf 27
   sed -e 's|PROTOBUF_INCLUDE_DIR protobuf::libprotoc|PROTOBUF_INCLUDE_DIR protobuf::libprotobuf|' -i cmake_modules/FindProtobuf.cmake
 }
 
 build(){
-  cmake -B build -S ${_pkg}-${pkgver} \
+  cmake -B build -S ${pkgname} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX="/usr" \
     -DSTOP_BUILD_ON_WARNING=OFF \
@@ -43,8 +42,9 @@ build(){
     -DORC_PREFER_STATIC_ZLIB=OFF \
     -DBUILD_LIBHDFSPP=OFF \
     -DBUILD_JAVA=OFF \
-    -DINSTALL_VENDORED_LIBS=OFF
-  make -C build
+    -DINSTALL_VENDORED_LIBS=OFF \
+    -Wno-dev
+  cmake --build build
 }
 
 check(){
@@ -53,5 +53,5 @@ check(){
 }
 
 package(){
-  make DESTDIR="${pkgdir}" -C build install
+  DESTDIR="${pkgdir}" cmake --install build
 }
