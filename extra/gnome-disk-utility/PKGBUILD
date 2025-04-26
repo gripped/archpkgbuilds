@@ -4,9 +4,9 @@
 
 pkgname=gnome-disk-utility
 pkgver=46.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Disk Management Utility for GNOME"
-url="https://gitlab.gnome.org/GNOME/gnome-disk-utility"
+url="https://apps.gnome.org/DiskUtility/"
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
@@ -40,8 +40,24 @@ makedepends=(
   systemd
 )
 groups=(gnome)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-disk-utility.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('4eabd5a5bfd62289700228ed36b4ee49a73474d307da8f82216c65f4efec9bbc4f0f51abd74a1eacc466ca7488444ffd92fd98523a0631bc800cf4ff40f617ae')
+source=("git+https://gitlab.gnome.org/GNOME/gnome-disk-utility.git#tag=${pkgver/[a-z]/.&}"
+        gnome-disk-utility-raise-window.patch
+        gnome-disk-utility-prgname.patch)
+b2sums=('4eabd5a5bfd62289700228ed36b4ee49a73474d307da8f82216c65f4efec9bbc4f0f51abd74a1eacc466ca7488444ffd92fd98523a0631bc800cf4ff40f617ae'
+        '79055476aa51e2a5ba3e3ab605ff94d6ab3674c4f0a30a0d4f598b1b3720ab89cf8920e2713f2e581f128099dad24166b7c0bdf059c6533ec854876dfed9523e'
+        '92d8a0655ba372bb599fe99e2216e8fe4a2ba73228999d0b6117e658ef94162d7b3134c6fbe68b931316266ceb75db94518e8b18efa27f2a7421b4092f9392d0')
+
+prepare() {
+  cd $pkgname
+
+  # Raise existing window instead of opening new one on activation
+  # https://gitlab.gnome.org/GNOME/gnome-disk-utility/-/merge_requests/215
+  git apply -3 ../gnome-disk-utility-raise-window.patch
+
+  # Set prgname to application ID
+  # https://gitlab.gnome.org/GNOME/gnome-disk-utility/-/merge_requests/216
+  git apply -3 ../gnome-disk-utility-prgname.patch
+}
 
 build() {
   arch-meson $pkgname build

@@ -1,8 +1,8 @@
 pkgbase = gnome-disk-utility
 	pkgdesc = Disk Management Utility for GNOME
 	pkgver = 46.1
-	pkgrel = 1
-	url = https://gitlab.gnome.org/GNOME/gnome-disk-utility
+	pkgrel = 2
+	url = https://apps.gnome.org/DiskUtility/
 	arch = x86_64
 	groups = gnome
 	license = GPL-2.0-or-later
@@ -33,6 +33,10 @@ pkgbase = gnome-disk-utility
 	depends = udisks2
 	depends = xz
 	source = git+https://gitlab.gnome.org/GNOME/gnome-disk-utility.git#tag=46.1
+	source = gnome-disk-utility-raise-window.patch
+	source = gnome-disk-utility-prgname.patch
 	b2sums = 4eabd5a5bfd62289700228ed36b4ee49a73474d307da8f82216c65f4efec9bbc4f0f51abd74a1eacc466ca7488444ffd92fd98523a0631bc800cf4ff40f617ae
+	b2sums = 79055476aa51e2a5ba3e3ab605ff94d6ab3674c4f0a30a0d4f598b1b3720ab89cf8920e2713f2e581f128099dad24166b7c0bdf059c6533ec854876dfed9523e
+	b2sums = 92d8a0655ba372bb599fe99e2216e8fe4a2ba73228999d0b6117e658ef94162d7b3134c6fbe68b931316266ceb75db94518e8b18efa27f2a7421b4092f9392d0
 
 pkgname = gnome-disk-utility
