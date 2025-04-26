@@ -3,7 +3,7 @@
 
 _name=distributed
 pkgname=python-$_name
-pkgver=2025.4.0
+pkgver=2025.4.1
 pkgrel=1
 pkgdesc="Distributed task scheduler for Dask"
 arch=(any)
@@ -39,6 +39,7 @@ checkdepends=(
   python-pytest
   python-pytest-repeat
   python-pytest-timeout
+  python-pytest-xdist
   python-flaky
   python-blosc
   python-cryptography
@@ -60,7 +61,7 @@ checkdepends=(
   python-zstandard
 )
 source=(https://github.com/dask/distributed/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-b2sums=('b5f79016ddaf2a8d092e68f0143c21f2ad4cf52eb1aa5aecd96ac9996526e2d72f45c7b31fb30543d8b213ccaf15e197a4ad8f6642e10c7910cc23aa168d7fcb')
+b2sums=('286713d26ee75b0b8a1057ba6bf8a897fe93c4c3297b78538d129626d531299cdd99e06ebe88bbabd1d048d68d6eb3909faa87c6d93742e1434fb731f9833557')
 
 prepare() {
   sed -i 's/, "versioneer\[toml\].*"//' $_name-$pkgver/pyproject.toml
@@ -75,6 +76,11 @@ check() {
   local pytest_options=(
     -vv
     --override-ini="addopts="
+    -W ignore::DeprecationWarning
+    # distribute tests across multiple CPUs
+    -n auto
+    --dist loadscope
+    -m "not avoid_ci and not gpu and not extra_packages"
     --deselect distributed/cli/tests/test_dask_scheduler.py
     --deselect distributed/cli/tests/test_dask_spec.py
     --deselect distributed/cli/tests/test_dask_worker.py
@@ -98,7 +104,6 @@ check() {
     --deselect distributed/diagnostics/tests/test_progress.py::test_AllProgress_lost_key
     --deselect distributed/tests/test_client.py::test_profile
     --deselect distributed/tests/test_worker.py::test_statistical_profiling
-    -m "not avoid_ci and not gpu and not extra_packages"
   )
 
   cd $_name-$pkgver
