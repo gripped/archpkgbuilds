@@ -1,7 +1,7 @@
 pkgbase = gnome-commander
 	pkgdesc = Graphical two-pane filemanager for GNOME
-	pkgver = 1.18.1
-	pkgrel = 3
+	pkgver = 1.18.2
+	pkgrel = 1
 	url = https://gcmd.github.io/
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -26,8 +26,10 @@ pkgbase = gnome-commander
 	depends = pango
 	depends = poppler-glib
 	depends = taglib
-	source = git+https://gitlab.gnome.org/GNOME/gnome-commander.git?signed#tag=1.18.1
+	source = git+https://gitlab.gnome.org/GNOME/gnome-commander.git?signed#tag=1.18.2
+	source = gnome-commander-prgname.patch
 	validpgpkeys = 7627E6FCECF4FC066A03B673F50A89A3ADE4C6E8
-	b2sums = 573070af651d6acb9b5d7a12987228222f6ec36f1a11e6a755f69fd1c5a30cc5dc15f6c91093d4368515060cc13ef4c2a5e65424ba8372e608b405836539875e
+	b2sums = 9a9ef4ce4ef4152de834bb84a224feef00a89cb648ac433f0ca07339b6c3e7f29001c3adedb15b1a94fd0c01e5634da0f6e457321a02a5cff1d67060eafe4793
+	b2sums = 62e7453c198dcbd7da3d7705bb5284c260de25c2de2f66703b19ffd17cd88116974cf8b236f92d9521f4eae5fa2f5589a4e6d2e425d4b265520af11d0847728a
 
 pkgname = gnome-commander
