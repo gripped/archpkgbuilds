@@ -1,0 +1,66 @@
+diff --git i/routersploit/core/exploit/shell.py w/routersploit/core/exploit/shell.py
+index 6593fc1..f5686ce 100644
+--- i/routersploit/core/exploit/shell.py
++++ w/routersploit/core/exploit/shell.py
+@@ -1,5 +1,5 @@
+ import socket
+-import telnetlib
++# import telnetlib
+ import binascii
+ from http.server import BaseHTTPRequestHandler, HTTPServer
+ import threading
+@@ -358,9 +358,10 @@ class Communication:
+         print_status("Connection from {}:{}".format(addr[0], addr[1]))
+ 
+         print_success("Enjoy your shell")
+-        t = telnetlib.Telnet()
+-        t.sock = client
+-        t.interact()
++        raise NotImplementedError("Telnet patched out for compatibiltiy with Python 3.13")
++        # t = telnetlib.Telnet()
++        # t.sock = client
++        # t.interact()
+ 
+     def bind_tcp(self):
+         # execute binary
+@@ -386,6 +387,7 @@ class Communication:
+             return
+ 
+         print_success("Enjoy your shell")
+-        tn = telnetlib.Telnet()
+-        tn.sock = sock
+-        tn.interact()
++        raise NotImplementedError("Telnet patched out for compatibiltiy with Python 3.13")
++        # tn = telnetlib.Telnet()
++        # tn.sock = sock
++        # tn.interact()
+diff --git i/routersploit/core/telnet/telnet_client.py w/routersploit/core/telnet/telnet_client.py
+index e992dd1..822545d 100644
+--- i/routersploit/core/telnet/telnet_client.py
++++ w/routersploit/core/telnet/telnet_client.py
+@@ -1,4 +1,4 @@
+-import telnetlib
++# import telnetlib
+ 
+ from routersploit.core.exploit.exploit import Exploit
+ from routersploit.core.exploit.exploit import Protocol
+@@ -37,7 +37,8 @@ class TelnetCli:
+         """
+ 
+         try:
+-            self.telnet_client = telnetlib.Telnet(self.telnet_target, self.telnet_port, timeout=TELNET_TIMEOUT)
++            raise NotImplementedError("Telnet patched out for compatibiltiy with Python 3.13")
++            # self.telnet_client = telnetlib.Telnet(self.telnet_target, self.telnet_port, timeout=TELNET_TIMEOUT)
+             return True
+         except Exception as err:
+             print_error(self.peer, "Telnet Error while connecting to the server", err, verbose=self.verbosity)
+@@ -84,7 +85,8 @@ class TelnetCli:
+         """
+ 
+         try:
+-            self.telnet_client = telnetlib.Telnet(self.telnet_target, self.telnet_port, timeout=TELNET_TIMEOUT)
++            raise NotImplementedError("Telnet patched out for compatibiltiy with Python 3.13")
++            # self.telnet_client = telnetlib.Telnet(self.telnet_target, self.telnet_port, timeout=TELNET_TIMEOUT)
+             self.telnet_client.expect([b"Login: ", b"login: ", b"Username: ", b"username: "], 5)
+             self.telnet_client.close()
+ 
