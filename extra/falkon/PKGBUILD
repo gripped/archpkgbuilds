@@ -2,7 +2,7 @@
 
 pkgname=falkon
 pkgver=25.04.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Cross-platform QtWebEngine browser'
 arch=(x86_64)
 url='https://www.falkon.org/'
@@ -34,12 +34,18 @@ optdepends=('kcoreaddons: KDE integration'
             'pyside6: Python plugins')
 groups=(kde-applications
         kde-network)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
+        https://invent.kde.org/network/falkon/-/commit/31ba9472.patch)
 sha256sums=('aad010d664227ddfe1fc084bb6fb366aed752340e00c0f37ddfa3aa32362e84c'
-            'SKIP')
+            'SKIP'
+            'bc0f1a37c7f11f129968b218987ec5996eede4be9408d0ab69ad9b5451b6d0ef')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < 31ba9472.patch # Fix crash in bookmarks toolbar
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
