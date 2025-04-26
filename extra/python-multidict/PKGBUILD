@@ -1,28 +1,43 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: renek <aur@spaceshore.net>
 
-_pkgname=multidict
-pkgname=python-${_pkgname}
-pkgver=6.0.5
-pkgrel=4
+pkgname=python-multidict
+pkgver=6.4.3
+pkgrel=1
 pkgdesc='Asyncio-based multidict implementation for Python'
-url='https://github.com/aio-libs/multidict'
 arch=('x86_64')
+url='https://github.com/aio-libs/multidict'
 license=('Apache-2.0')
-depends=('python' 'glibc')
-makedepends=('cython' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
-checkdepends=('python-pytest' 'python-pytest' 'python-psutil' 'python-perf')
-source=(https://github.com/aio-libs/multidict/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('500d3b2a139d40442462a2b49f9dd0c01631643ef9905367d8b7c472a1030437c26a042a28e11ba94058a17821628d96f19ec6ca479d5831e2f1263ff0069871')
-b2sums=('668b5db8174c0dbc6651eae281f777d5c1dfb59a4f4d9d5301355148bf40063e33e26844d2f8ff543ebe7b9c91cf7fffb4abd57ca6786684757f50af27b7df56')
+depends=(
+  'glibc'
+  'python'
+)
+makedepends=(
+  'cython'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+checkdepends=(
+  'python-objgraph'
+  'python-perf'
+  'python-psutil'
+  'python-pytest'
+  'python-pytest-codspeed'
+)
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('d4c267a58c86f8cc257583dfefab77095b54124d34cea310beddfbbb58a4337154846165bd259884fb22a19ee13e02dbba6e44d5486fc6b9d96415fa582a8f36')
+b2sums=('63ee89cc0dec98cd453aa7323bc7ddd9c705dfabe877c5982fe1ace405f3f2b666e8b668fecafdf83866c797b58e548f7d558f493ba4291e5d857725d4f8b1aa')
 
 build() {
-  cd ${_pkgname}-${pkgver}
+  cd ${pkgname#python-}-$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd ${_pkgname}-${pkgver}
+  cd ${pkgname#python-}-$pkgver
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   cd tests
@@ -30,7 +45,7 @@ check() {
 }
 
 package() {
-  cd ${_pkgname}-${pkgver}
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
