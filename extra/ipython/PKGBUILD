@@ -6,7 +6,7 @@
 # Contributor: Douglas Soares de Andrade <dsa@aur.archlinux.org>
 
 pkgname=ipython
-pkgver=9.1.0
+pkgver=9.2.0
 pkgrel=1
 pkgdesc='Enhanced Interactive Python shell'
 arch=(any)
@@ -55,7 +55,7 @@ source=(
   "git+https://github.com/ipython/ipython.git#tag=$pkgver?signed"
   'IPython-icon.png::https://www.packal.org/sites/default/files/public/styles/icon_large/public/workflow-files/nkeimipynbworkflow/icon/icon.png'
 )
-b2sums=('54fad718607f35cb424a3ac65237fa72c35bd62f97f429887f5eae6365405416ffdf08383098d866ad0b50249cb06a5330222d758e0479d8e8a3845222ec8efb'
+b2sums=('bf31cbbe95730c7dd038995026ba8a33ddd97e27fda7ff58e0c05012f3793a1cc3be33daaad660de48aa123481e21d55461350415a8f6a2ab52243c976dd7b61'
         'd445e2bc7a037db8715ea103611720e965987e155c32e445b0ef783e519fca8a0301b16c5763fd9a5d8d169c3b0d7b4db6c0bd0f9772842258b135dcb1d6d5a2')
 validpgpkeys=(
   99B17F64FD5C94692E9EF8064968B2CC0208DCC8 # Matthias Bussonnier <bussonniermatthias@gmail.com>
