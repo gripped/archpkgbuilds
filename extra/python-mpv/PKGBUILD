@@ -3,8 +3,8 @@
 # Contributor: Ekin Dursun <ekindursun@gmail.com>
 
 pkgname=python-mpv
-pkgver=1.0.7
-pkgrel=3
+pkgver=1.0.8
+pkgrel=1
 pkgdesc='Python interface to the awesome mpv media player'
 arch=(any)
 url=https://github.com/jaseg/python-mpv
@@ -26,17 +26,9 @@ checkdepends=(
   xorg-server-xvfb
 )
 optdepends=('python-pillow: for raw screenshot support')
-source=("git+$url.git#tag=v$pkgver?signed"
-        "https://github.com/jaseg/python-mpv/commit/12850b34bd3b64704f8abd30341a647a73719267.patch")
-b2sums=('4bc613f81853388d8173ff85e0b06dd2832bbac2d56692e86a4afec251f25cfd255e66e5885eaf6b1a8d5bf9ecb500dc5b9f4c97389eeeba84ac1add30b93350'
-        '0624178b6dbda93493f4ab3490f22af91e563dc8f8d7f2f4152317dce2c3ded5c85ec5b670e9e99ac9a2a7c7833af202d7e6165dc93ab10b9cc2904f9798e382')
+source=("git+$url.git#tag=v$pkgver?signed")
+b2sums=('401535f88b7214b6d370d85388f85d95fa4b4d4b72ca772dba94156b1a9dd627a1adb4b3ce657b331ab52de72b41aa83ea7ebe49baa63a63a2b0035d19dffddf')
 validpgpkeys=(E36F75307F0A0EC2D145FF5CED7A208EEEC76F2D) # python-mpv Release Signing Key <python-mpv@jaseg.de>
-
-prepare() {
-  cd $pkgname
-  # patch https://github.com/jaseg/python-mpv/issues/297
-  git apply ../12850b34bd3b64704f8abd30341a647a73719267.patch
-}
 
 build() {
   cd $pkgname
