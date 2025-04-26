@@ -4,7 +4,7 @@
 # Contributor: Kien Dang <mail at kien dot ai>
 
 pkgname=libnvidia-container
-pkgver=1.17.5
+pkgver=1.17.6
 pkgrel=1
 _nvmodver=550.54.14  # check the VERSION in libnvidia-container/mk/nvidia-modprobe.mk
 pkgdesc="NVIDIA container runtime library"
@@ -30,12 +30,10 @@ source=(
   "$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
   "$pkgname-nvidia-modprobe-$_nvmodver.tar.gz::https://github.com/NVIDIA/nvidia-modprobe/archive/$_nvmodver.tar.gz"
   fix-makefile.patch
-  fix-go1.24.patch
 )
-b2sums=('eecefbd6dfdcee5053656cd5961dc9ce6ff6d292f9bd7a46366a65ec4877008094e9af862dbcfc35b99743fd4b66ec4c513e3023480dc7038fba2c47593b446a'
+b2sums=('98840080c08767bcc4aa3179a9f29969060972458d04a31e3224e6592f657614d465fcc0aef79a7379b050f20e09d6acdac5291f2d6a836d723a02bc0d87fc2f'
         '7b334877d98d0c75d5750192dea868436938852443ced14e74e59076ed4d8be9e361cdefbe48295d87bb91ac4565152ec3f3233479b3da19bb8baf8e7ef53cd6'
-        '4938bdd72116a8f9f77e5a13a209e51332611ceb84d7e5e4155658023b6cd17c1a5e96a00c6809417092568c3558f9466c0a39c623cf31ba66351aafd724b5e5'
-        '5b52bdf51e34f4b12b235b5bc52cb968598f4abf83e02c0f72b353dabb8ccb5a223426ca94766f34f1e378a557def03dfc2c1ef33c82c6342c1fe847499c84cc')
+        '4938bdd72116a8f9f77e5a13a209e51332611ceb84d7e5e4155658023b6cd17c1a5e96a00c6809417092568c3558f9466c0a39c623cf31ba66351aafd724b5e5')
 
 _common_make_flags=(
   prefix=/usr
@@ -62,9 +60,6 @@ prepare() {
   # - respect system $CGO_CFLAGS and $CGO_LDFLAGS for nvcgo, pass custom -ldflags to go build
   # - avoid rebuilding nvcgo in the install step
   patch -p1 -i ../fix-makefile.patch
-
-  # Fix building with Go 1.24 https://github.com/NVIDIA/libnvidia-container/pull/297
-  patch -p1 -i ../fix-go1.24.patch
 }
 
 build() {
