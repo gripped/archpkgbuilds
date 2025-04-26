@@ -1,4 +1,5 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 # Contributor: Moritz Lipp <mlq@pwmt.org>
 # Contributor: fordprefect <fordprefect@dukun.de>
 # Contributor: Thor77 <thor77@thor77.org>
@@ -6,7 +7,7 @@
 pkgname=radicale
 _name=Radicale
 pkgver=3.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Simple calendar (CalDAV) and contact (CardDAV) server"
 arch=(any)
 url="https://radicale.org/"
@@ -15,7 +16,6 @@ license=(GPL-3.0-or-later)
 depends=(
   python
   python-bcrypt
-  python-dateutil
   python-defusedxml
   python-passlib
   python-pika
@@ -30,6 +30,11 @@ makedepends=(
 checkdepends=(
   python-pytest
   python-waitress
+)
+optdepends=(
+  'python-ldap3: for LDAP authentication'
+  'python-pam: for PAM authentication'
+  'python-requests: for OAuth2 authentication'
 )
 backup=(
   'etc/radicale/config'
