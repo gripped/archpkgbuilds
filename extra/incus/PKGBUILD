@@ -9,7 +9,7 @@ pkgbase=incus
 pkgname=(incus incus-tools)
 pkgver=6.12.0
 _pkgver="${pkgver/.0/}"
-pkgrel=1
+pkgrel=2
 pkgdesc="Powerful system container and virtual machine manager"
 arch=('x86_64')
 url="https://linuxcontainers.org/incus/"
@@ -34,6 +34,7 @@ optdepends=(
     'umoci: OCI support'
 )
 source=("https://github.com/lxc/incus/releases/download/v$pkgver/incus-$_pkgver.tar.xz"{,.asc}
+        "${pkgname}-fix-nftables.patch::https://github.com/lxc/incus/commit/14e8e33305c434743e642fdb6f9db18f7a49a4b4.patch"
         "incus.socket"
         "incus.service"
         "incus-user.socket"
@@ -44,6 +45,7 @@ validpgpkeys=('602F567663E593BCBD14F338C638974D64792D67'  # Stéphane Graber <st
              )
 sha256sums=('c165077b150d175845199b5763643d1630e9afe9d02fa58be227a1ef00bf4abc'
             'SKIP'
+            '328d820d9efb0193f44a171828aaf0a29a9df8d11000ffefa0ec7d4454f9cc36'
             '602a8035cc51b8e0c4ca265e31ebf96c7977db4239d384d8f60fed0d2d0317c4'
             'e0a1061fc4e3c68f48c50e46c5e738ecfffb60c6a6a733ec9aade1ecbc2bb486'
             '50288528ea910d186157a2515c5200b3b073f645922fb581d1913f236f14667d'
@@ -52,6 +54,8 @@ sha256sums=('c165077b150d175845199b5763643d1630e9afe9d02fa58be227a1ef00bf4abc'
 
 prepare() {
   cd "$pkgbase-${_pkgver}"
+
+  patch -Np1 < "$srcdir/incus-fix-nftables.patch"
 
   mkdir bin
   go mod verify
