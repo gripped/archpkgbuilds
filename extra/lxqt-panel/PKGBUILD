@@ -3,14 +3,14 @@
 
 pkgname=lxqt-panel
 pkgver=2.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="The LXQt desktop panel"
 arch=("x86_64")
 groups=("lxqt")
 url="https://github.com/lxqt/$pkgname"
 license=("LGPL2.1")
 depends=(
-	"libdbusmenu-lxqt" "libxcomposite" "lxqt-menu-data" "libxtst"
+	"libdbusmenu-lxqt" "lxqt-menu-data" "libxtst"
 	"lxqt-globalkeys" "solid" "libxcb" "libQt6Xdg.so" "layer-shell-qt"
 )
 optdepends=(
