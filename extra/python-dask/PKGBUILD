@@ -3,8 +3,8 @@
 
 _name=dask
 pkgname=python-$_name
-pkgver=2025.4.0
-pkgrel=2
+pkgver=2025.4.1
+pkgrel=1
 pkgdesc="Parallel computing with task scheduling"
 arch=(any)
 url="https://dask.org"
@@ -48,6 +48,7 @@ checkdepends=(
   python-pytest
   python-pytest-mock
   python-pytest-rerunfailures
+  python-pytest-xdist
   python-aiohttp
 #  python-bokeh
   python-boto3
@@ -86,7 +87,7 @@ checkdepends=(
 source=(
   https://github.com/dask/dask/archive/$pkgver/$pkgname-$pkgver.tar.gz
 )
-b2sums=('ae4e80dcb42f25a1e54d957cb44a8803344efd48db851063ba162a5bc4adba1fdf664ae4d41559e05db409b95177af93a11fab2bd05fab1d02ac3683a90acb2a')
+b2sums=('bd532fe9ddf304f54d3a38bd69f340a7d54af6366998f7cb5585b86ae9ccdc6b8054f3e458750bbbe0008ff19cc591d98445f5ab02413454587cc334fac641fe')
 
 prepare() {
   cd $_name-$pkgver
@@ -105,6 +106,8 @@ check() {
     -k 'not test_RandomState_only_funcs'
     -m 'not network and not slow and not gpu'
     -W ignore::DeprecationWarning
+    # distribute tests across multiple CPUs
+    -n auto
     --deselect dask/dataframe/dask_expr/tests/test_shuffle.py::test_set_index_head_nlargest_string
     # skip tests that require zarr (not packaged)
     --deselect dask/array/tests/test_xarray.py::test_xarray_blockwise_fusion_store
