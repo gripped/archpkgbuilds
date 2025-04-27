@@ -1,10 +1,9 @@
-# Maintainer: George rawlinson <grawlinson@archlinux.org>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
 # Contributor: fzerorubigd <fzero@rubi.gd>
 
 pkgname=python-cli_helpers
-_name="${pkgname#python-}"
-pkgver=2.3.1
-pkgrel=3
+pkgver=2.4.0
+pkgrel=1
 pkgdesc='Python helpers for common CLI tasks'
 arch=('any')
 url='https://github.com/dbcli/cli_helpers'
@@ -15,6 +14,7 @@ depends=(
   'python-configobj'
 )
 makedepends=(
+  'git'
   'python-build'
   'python-installer'
   'python-wheel'
@@ -22,24 +22,25 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 optdepends=('python-pygments: for styles extras')
-source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-b2sums=('00cafd4d704e2aa8ac68d372505adffd0d6b42b03dcc320c858e2085eb32a11112e0819cbabc4eddd1e8e9f11cb101bb8fc9b87f49c3b7fec289acfca792bb22')
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('94213200f24c098e9d63b86f1b4c1a3ec76523115187d603368e03d0e63584461ef9d6db33222f21647d634ded53ecffbd31fe0a11568ba8f82ea7bd02e14e36')
+b2sums=('17326cf7e76b9a421fd60aa0085b69f626a04d415585e3c514b6c35e8f22defca016cbcb76fae0563be4aec0e175c44b4028e6b438b4e1bc6b1f1f5a03c20636')
 
 build() {
-  cd "$_name-$pkgver"
+  cd "$pkgname"
 
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_name-$pkgver"
+  cd "$pkgname"
 
   pytest -v \
     --deselect tests/tabular_output/test_tabulate_adapter.py::test_tabulate_wrapper
 }
 
 package() {
-  cd "$_name-$pkgver"
+  cd "$pkgname"
 
   python -m installer --destdir="$pkgdir" dist/*.whl
 
