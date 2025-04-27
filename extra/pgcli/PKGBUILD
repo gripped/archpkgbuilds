@@ -4,8 +4,8 @@
 # Contributor: Sven-Hendrik Haase <sh@lutzhaase.com>
 
 pkgname=pgcli
-pkgver=4.1.0
-pkgrel=3
+pkgver=4.3.0
+pkgrel=1
 pkgdesc='A command line interface for PostgreSQL with auto-completion and syntax highlighting'
 url='https://www.pgcli.com/'
 arch=('any')
@@ -21,6 +21,7 @@ depends=(
   'python-pygments'
   'python-setproctitle'
   'python-sqlparse'
+  'python-tzlocal'
 )
 makedepends=(
   'git'
@@ -38,8 +39,8 @@ optdepends=(
   'python-sshtunnel: for accessing remote instances over SSH'
 )
 source=("$pkgname::git+https://github.com/dbcli/pgcli.git#tag=v$pkgver")
-sha512sums=('c1cf4390210b033360a09387a045a4a910b76d66908fca08d90e4422204a61d8490a490282ff519ea501a3da9499e85460ec705c8eba215c3b71df35821d92d8')
-b2sums=('0b2c95a2fc8f2c83e3f898641ac059ed387e1b99029cdd91c4193bee7e05656c068e7417ba2ab4bd27230d5b04ef5588b2b458c9439b0c8a80642e3b3bf11ae3')
+sha512sums=('ab3517e94321c6b638313996a5d55395fe6397e3f8e60619024e4e82427de03e6dda316cebc816f4f9525e776855c18376eaddff7b45c780698ad56fbce6fe9a')
+b2sums=('38c7a01a10ae3a2e54f73d374bb121a3642fa9f286ec0c4f5d482a95379e36a2e35b285f66d2264d862fdc69af548abb495f954fc0e6af77179f4af3c23effc2')
 
 build() {
   cd "$pkgname"
