@@ -3,13 +3,13 @@
 
 pkgname=lxqt-admin
 pkgver=2.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="LXQt system administration tool."
 arch=("x86_64")
 groups=("lxqt")
 url="https://github.com/lxqt/$pkgname"
 license=("LGPL2.1")
-depends=("qt6-base" "liblxqt" "kwindowsystem" "polkit-qt6")
+depends=("qt6-base" "liblxqt" "polkit-qt6")
 makedepends=("cmake" "qt6-tools" "lxqt-build-tools")
 source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
