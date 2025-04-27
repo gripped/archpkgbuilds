@@ -5,7 +5,7 @@ pkgname=(
   pahole
   ostra-cg
 )
-pkgver=1.29
+pkgver=1.30
 pkgrel=1
 epoch=1
 pkgdesc="Pahole and other DWARF utils"
@@ -27,8 +27,8 @@ source=(
   "git+https://github.com/acmel/dwarves?signed#tag=v$pkgver"
   0001-CMakeLists.txt-Install-ostra.py-into-Python3_SITELIB.patch
 )
-b2sums=('94577987142f2c8a7ffe734d8d6ccaa9e381d39c433573ad6877cfd927ab89a2eeb99367904c81a6e3b447d2fa5b683b06d5f99ef5114ea21c1633fc5bb765b0'
-        '34dbdbdd7d159dff935e5a40d11bb33c571933a132e2eef00b91130b208dcc6852d621c21ec566ba33be32fd2e0a42ac6c91170cf428814f5b1e08d19432ae5f')
+b2sums=('69bdc8cbc211a239f5f8e50ad63a8106cc58936ebd9c4c440dbaee7c22190189fa132147e0dd2f5fb81e0f07ca1a1c7e9a0691fe985eef12aeb43ea7d94cf4b4'
+        'f299bb705066a05f5390e07475cec5ab4184aa6d5e1e290c0fb73d50a6e60d5e4729eba59748c1ead388338e2010220a3054db737415f7b2e4bdf7362f4a4745')
 validpgpkeys=(
   2DBF5BAA46FB4DED338A335BD65016F35352AA40  # Arnaldo Carvalho de Melo <acme@kernel.org>
 )
