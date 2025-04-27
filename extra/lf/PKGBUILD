@@ -5,7 +5,7 @@
 # Contributor: Stefan Husmann <stefan-husmann@t-online.de>
 
 pkgname=lf
-pkgver=34
+pkgver=35
 pkgrel=1
 pkgdesc='A terminal file manager inspired by ranger'
 arch=('x86_64')
@@ -15,8 +15,8 @@ depends=('glibc')
 makedepends=('git' 'go')
 options=('!lto')
 source=("$pkgname::git+$url#tag=r$pkgver")
-sha512sums=('0bb26f03d3a85a0de23b78b3e2a0d7ece110957c5434073285e333e1b0a7b9bd7e259a4557b493dcde5b64a5517034ccd87367f77ab80293c8c998a0d7dbf838')
-b2sums=('a1fad87a6dfdd807cf5b593b0f37fd43d98a9283a49429538ca5411d3cd2eb2cc5b6eb88db82c5f6ffe81a80d6ba82061e6b72e6bc1ac796a3acaec9157abdb9')
+sha512sums=('6c32789b0516c430a61a3567a2ea86eabab250104b10a7ee01e228ae99ecdbf748bf3fa787144f8645b087ca0c81fed23ee63eaedeee25dd7adc16f17c621e4e')
+b2sums=('02999399a46106fee921dfb923428d563de5381db1b06d475e09909dc3f41da19ac2378e70d829ea5ae8cfcafe67984fd838813e511289bacd7509656615d336')
 
 prepare() {
   cd "$pkgname"
