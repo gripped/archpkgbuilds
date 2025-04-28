@@ -4,48 +4,47 @@
 
 pkgname=gzip
 pkgver=1.14
-pkgrel=1
+pkgrel=2
 pkgdesc='GNU compression utility'
 arch=('x86_64')
 url='https://www.gnu.org/software/gzip/'
 license=('GPL-3.0-or-later')
 depends=('glibc' 'bash' 'coreutils' 'sed' 'grep')
-makedepends=('less')
+makedepends=('git' 'less' 'python' 'wget')
 optdepends=('less: zless support'
             'util-linux: zmore support'
-            'diffutils: zdiff/zcmp support'
-           )
+            'diffutils: zdiff/zcmp support')
 validpgpkeys=('155D3FC500C834486D1EEA677FD9FCCB000BEEEE') # Jim Meyering
-source=("https://ftp.gnu.org/pub/gnu/gzip/gzip-$pkgver.tar.xz"{,.sig})
-sha256sums=('01a7b881bd220bfdf615f97b8718f80bdfd3f6add385b993dcf6efd14e8c0ac6'
+source=("git+https://git.savannah.gnu.org/git/gzip.git#tag=v${pkgver}?signed"
+        "git+https://git.savannah.gnu.org/git/gnulib.git")
+sha256sums=('b1c2422ee156ef11e9601d2651f8543dd71f941887cd407fe23584ab95417c93'
             'SKIP')
+
 prepare() {
-  cd $pkgname-$pkgver
-  # apply patch from the source array (should be a pacman feature)
-  local filename
-  for filename in "${source[@]}"; do
-    if [[ "$filename" =~ \.patch$ ]]; then
-      echo "Applying patch ${filename##*/}"
-      patch -p1 -N -i "$srcdir/${filename##*/}"
-    fi
-  done
-  :
+  cd $pkgname
+
+  git submodule init
+  git config submodule.gnulib.url "${srcdir}/gnulib"
+  git -c protocol.file.allow=always submodule update
+
+  sh bootstrap
+  autoreconf -fiv
 }
 
 build() {
-  cd $pkgname-$pkgver
-  ./configure --prefix=/usr
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --disable-gcc-warnings
   make
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make check
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make prefix="$pkgdir/usr" install
 }
-
-# vim:set ts=2 sw=2 et:
