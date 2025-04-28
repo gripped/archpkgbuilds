@@ -2,18 +2,27 @@
 
 _gemname='base64'
 pkgname="ruby-${_gemname}"
-pkgver=0.1.1
-pkgrel=5
+pkgver=0.2.0
+pkgrel=1
 pkgdesc='Support for encoding and decoding binary data using a Base64 representation'
 arch=('any')
 url="https://github.com/ruby/${_gemname}"
 license=('BSD' 'RUBY')
-depends=('ruby')
-checkdepends=('ruby-rake')
+depends=(
+  ruby
+)
+makedepends=(
+  ruby-rdoc
+)
+checkdepends=(
+  ruby-bundler
+  ruby-rake
+  ruby-test-unit
+)
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('3ac6dac47deba30002fb19e369fac50c1c3838c7ed8545eff462b7c6402f731d9dd1951f56bb1b2a31bec324c8a28ef94599650129f66bae72dccc72707ff7af')
-b2sums=('c995292e1abd1e9c28db0cf4c6dbdf9b388062bc4f618c6fcf9404faa6516f5e9689965f63edbd44ca91d4c938be72293b3ad3aad87bed8be0c7a5f064cc83fd')
+sha512sums=('e2b8f6b28de6eba1b6fdb6496ded0b37465f848d6b338715c715289a221ea9b2df3bef15f32d686cea53a76443f0ed0a183becdb666f842e54f827e08cf0f474')
+b2sums=('a70b357f4998925dc9c6c365e23f0c45eca100170271d2daf3ead56a3656d0a5cc77f8d4e84796c486a7f96dcf520e0a4ba22d3b880926afe41f0603952a93ef')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
