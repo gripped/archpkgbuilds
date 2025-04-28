@@ -1,8 +1,8 @@
 # Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
 
 pkgname="rubocop"
-pkgver=1.39.0
-pkgrel=7
+pkgver=1.74.0
+pkgrel=2
 pkgdesc='A Ruby code style checking and code formatting tool'
 arch=('any')
 url='https://rubocop.org/'
@@ -10,20 +10,26 @@ license=('MIT')
 provides=('ruby-rubocop')
 depends=(
   ruby
-  ruby-memory_profiler
+  ruby-language_server-protocol
+  ruby-lint_roller
   ruby-parallel
   ruby-parser
   ruby-rainbow
   ruby-regexp_parser
-  ruby-rexml
   ruby-rubocop-ast
   ruby-ruby-progressbar
   ruby-unicode-display_width
+)
+makedepends=(
+  ruby-rdoc
 )
 checkdepends=(
   asciidoctor
   procps-ng
   ruby-bundler
+  ruby-irb
+  ruby-lsp
+  ruby-memory_profiler
   ruby-rake
   ruby-rspec
   ruby-rubocop-performance
@@ -35,27 +41,34 @@ checkdepends=(
   ruby-yard
 )
 options=('!emptydirs')
-source=("https://github.com/rubocop/rubocop/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
-  "${pkgname}_fix_changelog_duplication.patch::https://github.com/rubocop/rubocop/commit/60dbfdb8897c74726a2d9336c1f812dff3a94ea4.patch")
-sha512sums=('0ad3d117907a327035dfbccdc220828d1ab543016c27b837b39a63faa036208c797d26903eb926ff97c7d05838e1f0f530c8f6bd57c807a2911452d1a565f102'
-            '51a811fc31ab1a11de4eb8cd840e67ff879af4973354b5c1bc67ec1d42804de8def426a6906928900b1aea70b15a86dc66ff134ee548a6833e6b4f601782fd3e')
-b2sums=('7a27313959227ab5a74ef42625872daadd95a09b12bb1d080e59b4ae92663d73c0fbd03b067c2c2e77268849221484b653840f7df0f9bf7f7358bea025b11ae0'
-        '07e417229618ec59721622e0f84b8605bcdd39f3de225f22a4272fff4897e9a9702b1b254935f1583dc1eb46ac7816760bd3fa7a043b163f0b52a77b4b12026f')
+source=(
+  "https://github.com/rubocop/rubocop/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+  "${pkgname}_fix_tests.patch::https://github.com/rubocop/rubocop/pull/14004.patch"
+)
+sha512sums=('81cad3d39464d1f9e6d9ff57fa67b5ebe9ed3091c3ff764c3bd131b5aec125b57f3252ce5ee2b02962dded18cf4d5d1ce66b1a7684351a0a0b029feddca3abdc'
+            'a4c4589b966af442935c95196b103f2f540cb4227f99972f40cf34318836dba1567e097f370f577b4cc09c6c630a38553a8ed8ac003b153c4ae11318fc9e3dc8')
+b2sums=('2663d9e46c15496d1e973af0a92c19032a89c68990462bc9f0cc4d1d39bd0c309796be3995b4d5b6766faa8658d68d3d2ba8d3cc09673b74a787ba927dce1bb3'
+        '66860a795f8fd9a67234f27805b3755e14cadddd323d50143175d81e03c66712391b31b9f1912756944e82d4c4418dc65bf8d09b3c51fc0680ee37d5ae538a02')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
 
-  patch --verbose --strip=1 --input="../${pkgname}_fix_changelog_duplication.patch"
+  patch --verbose --strip=1 --input="../${pkgname}_fix_tests.patch"
 
   # update gemspec/Gemfile to allow newer version of the dependencies
   sed --in-place --regexp-extended 's|~>|>=|g' "${pkgname}.gemspec" Gemfile
 
   # we need webmock
-  sed --in-place '/group/d' Gemfile
-  sed --in-place '/end/d' Gemfile
+  sed --in-place \
+    --expression '/group/d' \
+    --expression '/end/d' \
+    Gemfile
 
-  # Remove dependency on bump and simplecov
-  sed --in-place --regexp-extended '/bump|simplecov/d' Gemfile
+  sed --in-place --regexp-extended \
+    --expression '/bump/d' \
+    --expression '/simplecov/d' \
+    Gemfile
+
   rm tasks/cut_release.rake
 }
 
