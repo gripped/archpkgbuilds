@@ -1,12 +1,11 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-pry
-pkgver=0.14.2
-_commit=24f6190e42f24979886cf6d974b70bd7638fda46
-pkgrel=4
+pkgver=0.15.2
+pkgrel=2
 pkgdesc='A runtime developer console and IRB alternative with powerful introspection capabilities'
 arch=(any)
-url='http://pry.github.io/'
+url='https://pry.github.io/'
 license=(MIT)
 depends=(
   ruby
@@ -24,8 +23,9 @@ checkdepends=(
   ruby-yard
 )
 options=(!emptydirs)
-source=(git+https://github.com/pry/pry.git#commit=$_commit)
-sha256sums=('SKIP')
+source=(git+https://github.com/pry/pry.git#tag=v$pkgver)
+sha512sums=('98ce5ba3e6ee720d5d38c95af8f4c211ec6cf97c48383993e1acb9339e1577f8591a4b464a6a46a9425e2fa5aa11a6e8bd28b453786d6d2f8519a885cc0b975a')
+b2sums=('85d84e5fb9feb99b0cf41c5b58846f4d3c4b883a29c57df0896a5688c35d3b17fe20171f878c0792f85193ae18d8ac75a32d17fdff6c7c702b4e7dc3650b3f2e')
 
 prepare() {
   cd pry
