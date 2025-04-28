@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-rack-session
-pkgver=2.0.0
-pkgrel=3
+pkgver=2.1.0
+pkgrel=2
 pkgdesc='Session management implementation for Rack.'
 url="https://github.com/rack/rack-session"
 arch=('any')
@@ -10,6 +10,7 @@ license=('MIT')
 depends=(
   ruby
   ruby-rack
+  ruby-base64
 )
 makedepends=(
   ruby-rdoc
@@ -23,8 +24,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${pkgname}-v${pkgver}.tar.gz::$url/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('3bc3dc599ca781b182afbc1208486e6f268d26d7d1026c73c170a9990b86f5ad')
-sha512sums=('8975a85845fa4dbdf22c10793fb2bb1a69aed3242c70c45b1d436448243e65ad77ecbfb17c8f2ef6f780b81ef480f8a46c5623e36dacc95401cd59a1510748f8')
+sha256sums=('0350a45e47d87a872411eb583e37fc9948059a089cc8622f3e98e14b6106306f')
+sha512sums=('e9f9fa6d5fe0e0f39ecb130c96d98010b03f9d89301424dfda671beaf14e9f3e07f480fa8e638501a53861033f1cce060ecc79548d90bde8ad7d734d1f008a9e')
 
 prepare() {
   cd rack-session-${pkgver}
