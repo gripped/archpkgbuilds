@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Dan Allen <dan.j.allen@gmail.com>
+Date: Thu, 24 Apr 2025 15:43:38 -0600
+Subject: [PATCH 4/6] make assertion for use of dry_run method portable to Ruby
+ 3.4
+
+(cherry picked from commit 561ec9e737012d59ad0ace0c3e0932e008c35b3c)
+---
+ spec/arrange_block_spec.rb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/spec/arrange_block_spec.rb b/spec/arrange_block_spec.rb
+index eb472b46..c10d6c4b 100644
+--- a/spec/arrange_block_spec.rb
++++ b/spec/arrange_block_spec.rb
+@@ -498,7 +498,7 @@ def content
+         (expect (pdf.find_unique_text 'does not fit')[:page_number]).to be 2
+         (expect (pdf.find_unique_text 'paragraph')[:page_number]).to be 2
+         (expect calls).to have_size 1
+-        (expect (calls.join ?\n).scan '`dry_run\'').to have_size 2
++        (expect (calls.join ?\n).scan %r/[`# ]dry_run'/).to have_size 3
+       end
+ 
+       it 'should restart dry run at current position once content exceeds height of first page' do
+-- 
+2.48.1
+

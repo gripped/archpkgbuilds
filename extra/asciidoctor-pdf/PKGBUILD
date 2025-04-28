@@ -4,7 +4,7 @@
 
 pkgname=asciidoctor-pdf
 pkgver=2.3.19
-pkgrel=1
+pkgrel=4
 pkgdesc="A native PDF converter for AsciiDoc based on Asciidoctor and Prawn"
 arch=(any)
 url="https://github.com/asciidoctor/asciidoctor-pdf"
@@ -21,7 +21,10 @@ depends=(
   ruby-prawn-templates
   ruby-treetop
 )
-makedepends=(rubygems)
+makedepends=(
+  git
+  rubygems
+)
 checkdepends=(
   gsfonts
   poppler
@@ -34,15 +37,37 @@ optdepends=('ruby-coderay: for syntax highlighting')
 options=(!emptydirs)
 source=(
   "$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
-  "remove-failing-tests.patch"
+  "0001-update-prawn-svg-to-0.36.2-and-amend-related-asserti.patch"
+  "0002-Update-prawn-icon-to-version-4.1.0.patch"
+  "0003-fix-Vimeo-poster-test-due-to-video-being-removed.patch"
+  "0004-make-assertion-for-use-of-dry_run-method-portable-to.patch"
+  "0005-update-error-message-assertion-to-be-compatible-with.patch"
+  "0006-remove-failing-tests.patch"
 )
 sha256sums=('cf3ce76b021dc5c0a0e350d3482b3d2b4df1b182cc11bbad893257f76ed75054'
-            '40e0aea913c4abc3313b9ae05957e334510899ae64fd882a898144c9ede025d4')
+            '7f8e4d6a7ecdeb870824e28db562dd51a472ff6631ada0629a563216b7146019'
+            '96d5c524dd18731c5c8af5cd2870014a2544fffa93dd1cb68189f7af10f4a109'
+            '7d480fcfbec26e7c16ec7386463c2431848ab1b5a83a4bdfb368fc27660517b6'
+            '4518a854d73a22f67c2b0ce3f5c3ed0fdd68399c1e279a52294b4f25a6048527'
+            '092de2813c02db36f8e3caa34a59a0455db96c495b81f78f80016a5fb6cb0808'
+            '805458bbadc120c8d5db730427441b325a3942511b9c32054c313dee0659871d')
 
 prepare() {
   cd $pkgname-$pkgver
+  # https://github.com/asciidoctor/asciidoctor-pdf/commit/646f52a5a6c90711a2b63624bfb745368e84adcf
+  git apply "$srcdir/0001-update-prawn-svg-to-0.36.2-and-amend-related-asserti.patch"
+  # https://github.com/asciidoctor/asciidoctor-pdf/pull/2550
+  # https://github.com/asciidoctor/asciidoctor-pdf/pull/2550/commits/3240e82402a2c11a9d389fb43070614a9cbdf698
+  patch -Np1 -i "$srcdir/0002-Update-prawn-icon-to-version-4.1.0.patch"
+  # https://github.com/asciidoctor/asciidoctor-pdf/commit/155c6b82fcf0a23f20eb05ee8d3cee6335f9f70e
+  git apply "$srcdir/0003-fix-Vimeo-poster-test-due-to-video-being-removed.patch"
+  # https://github.com/asciidoctor/asciidoctor-pdf/commit/561ec9e737012d59ad0ace0c3e0932e008c35b3c
+  patch -Np1 -i "$srcdir/0004-make-assertion-for-use-of-dry_run-method-portable-to.patch"
+  # https://github.com/asciidoctor/asciidoctor-pdf/commit/69b7aba929c4d42e95c6a999e80ac83fee0068c9
+  patch -Np1 -i "$srcdir/0005-update-error-message-assertion-to-be-compatible-with.patch"
+  patch -Np1 -i "$srcdir/0006-remove-failing-tests.patch"
+
   sed -i -E 's|~>|>=|g' "$pkgname.gemspec"
-  patch -Np1 -i "$srcdir/remove-failing-tests.patch"
 }
 
 build() {

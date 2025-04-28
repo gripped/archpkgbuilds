@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Dan Allen <dan.j.allen@gmail.com>
+Date: Thu, 24 Apr 2025 15:46:09 -0600
+Subject: [PATCH 5/6] update error message assertion to be compatible with Ruby
+ 3.4
+
+(cherry picked from commit 69b7aba929c4d42e95c6a999e80ac83fee0068c9)
+---
+ spec/converter_spec.rb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/spec/converter_spec.rb b/spec/converter_spec.rb
+index 261f3036..0432e7ab 100644
+--- a/spec/converter_spec.rb
++++ b/spec/converter_spec.rb
+@@ -351,7 +351,7 @@
+         (expect do
+           pdf = to_pdf 'content', attribute_overrides: { 'pdf-theme' => (fixture_file 'invalid-theme.yml') }, analyze: true
+           (expect pdf.pages).to have_size 1
+-        end).to log_message severity: :ERROR, message: /because of NoMethodError undefined method `start_with\?' for (?:10:(?:Fixnum|Integer)|an instance of Integer); reverting to default theme/
++        end).to log_message severity: :ERROR, message: /because of NoMethodError undefined method [`']start_with\?' for (?:10:(?:Fixnum|Integer)|an instance of Integer); reverting to default theme/
+       end
+ 
+       it 'should not crash if theme does not specify any keys' do
+-- 
+2.48.1
+

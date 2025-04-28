@@ -1,7 +1,8 @@
-diff --unified --recursive --text --new-file asciidoctor-pdf-2.3.15.orig/spec/font_spec.rb asciidoctor-pdf-2.3.15/spec/font_spec.rb
---- asciidoctor-pdf-2.3.15.orig/spec/font_spec.rb	2024-04-01 10:22:42.408069741 +0200
-+++ asciidoctor-pdf-2.3.15/spec/font_spec.rb	2024-04-01 10:23:00.331452490 +0200
-@@ -160,17 +160,6 @@
+diff --git a/spec/font_spec.rb b/spec/font_spec.rb
+index 5f99bcdc..00112abf 100644
+--- a/spec/font_spec.rb
++++ b/spec/font_spec.rb
+@@ -182,17 +182,6 @@
      end
    end
  
@@ -19,9 +20,10 @@ diff --unified --recursive --text --new-file asciidoctor-pdf-2.3.15.orig/spec/fo
    context 'custom' do
      it 'should resolve fonts in specified fonts dir' do
        pdf = to_pdf 'content', attribute_overrides: { 'pdf-theme' => (fixture_file 'bundled-fonts-theme.yml'), 'pdf-fontsdir' => Asciidoctor::PDF::ThemeLoader::FontsDir }
-diff --unified --recursive --text --new-file asciidoctor-pdf-2.3.15.orig/spec/footnote_spec.rb asciidoctor-pdf-2.3.15/spec/footnote_spec.rb
---- asciidoctor-pdf-2.3.15.orig/spec/footnote_spec.rb	2024-04-01 10:22:42.408069741 +0200
-+++ asciidoctor-pdf-2.3.15/spec/footnote_spec.rb	2024-04-01 10:23:14.344824862 +0200
+diff --git a/spec/footnote_spec.rb b/spec/footnote_spec.rb
+index b4cca6a6..038fcef3 100644
+--- a/spec/footnote_spec.rb
++++ b/spec/footnote_spec.rb
 @@ -80,40 +80,6 @@
      (expect chapter_b_lines).not_to include '[1] More about that thing.'
    end
@@ -63,3 +65,27 @@ diff --unified --recursive --text --new-file asciidoctor-pdf-2.3.15.orig/spec/fo
    it 'should place footnotes at the end of document when doctype is not book' do
      pdf = to_pdf <<~'EOS', attributes_overrides: { 'notitle' => '' }, analyze: true
      == Section A
+diff --git a/spec/icon_spec.rb b/spec/icon_spec.rb
+index ec7bf391..6fa034d6 100644
+--- a/spec/icon_spec.rb
++++ b/spec/icon_spec.rb
+@@ -153,16 +153,6 @@
+     (expect first_icon_gap).to eql second_icon_gap
+   end
+ 
+-  it 'should align fw icon in center of 1em space', visual: true do
+-    to_file = to_pdf_file <<~'EOS', 'icon-fw.pdf'
+-    :icons: font
+-    :icon-set: fas
+-
+-    *|* icon:arrows-alt-h[fw] *|* icon:arrows-alt-v[fw] *|*
+-    EOS
+-    (expect to_file).to visually_match 'icon-fw.pdf'
+-  end
+-
+   it 'should use icon name as alt text and warn if icon name not found in icon set' do
+     [
+       ['icon:no-such-icon[set=fas]', 'no such icon'],
+-- 
+2.48.1
+

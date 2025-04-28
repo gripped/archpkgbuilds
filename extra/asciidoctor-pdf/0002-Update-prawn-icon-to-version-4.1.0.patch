@@ -1,0 +1,240 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Pepijn Van Eeckhoudt <pepijn@vaneeckhoudt.net>
+Date: Sat, 14 Dec 2024 13:17:18 +0100
+Subject: [PATCH 2/6] Update prawn-icon to version 4.1.0
+
+(cherry picked from commit 3240e82402a2c11a9d389fb43070614a9cbdf698)
+
+ Conflicts:
+	asciidoctor-pdf.gemspec
+---
+ asciidoctor-pdf.gemspec          |  2 +-
+ lib/asciidoctor/pdf/converter.rb |  3 ++-
+ spec/admonition_spec.rb          | 16 ++++++++--------
+ spec/audio_spec.rb               |  2 +-
+ spec/icon_spec.rb                | 18 +++++++++---------
+ spec/list_spec.rb                |  6 +++---
+ 6 files changed, 24 insertions(+), 23 deletions(-)
+
+diff --git a/asciidoctor-pdf.gemspec b/asciidoctor-pdf.gemspec
+index 216621be..9667dc2d 100644
+--- a/asciidoctor-pdf.gemspec
++++ b/asciidoctor-pdf.gemspec
+@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
+   s.add_runtime_dependency 'prawn-table', '~> 0.2.0'
+   s.add_runtime_dependency 'prawn-templates', '~> 0.1.0'
+   s.add_runtime_dependency 'prawn-svg', '~> 0.36.2'
+-  s.add_runtime_dependency 'prawn-icon', '~> 3.0.0'
++  s.add_runtime_dependency 'prawn-icon', '~> 4.1.0'
+   s.add_runtime_dependency 'concurrent-ruby', '~> 1.1'
+   s.add_runtime_dependency 'treetop', '~> 1.6.0'
+ 
+diff --git a/lib/asciidoctor/pdf/converter.rb b/lib/asciidoctor/pdf/converter.rb
+index 37cff99e..6bca8d24 100644
+--- a/lib/asciidoctor/pdf/converter.rb
++++ b/lib/asciidoctor/pdf/converter.rb
+@@ -955,7 +955,8 @@ def convert_admonition node
+                       valign: label_valign,
+                       align: label_text_align,
+                       color: (icon_data[:stroke_color] || font_color),
+-                      size: icon_size
++                      size: icon_size,
++                      size_mode: :icon_height
+                   elsif icons
+                     if (::Asciidoctor::Image.format icon_path) == 'svg'
+                       begin
+diff --git a/spec/admonition_spec.rb b/spec/admonition_spec.rb
+index 771a3825..5cf2b498 100644
+--- a/spec/admonition_spec.rb
++++ b/spec/admonition_spec.rb
+@@ -428,7 +428,7 @@
+       (expect text).to have_size 2
+       label_text = text[0]
+       (expect label_text[:string]).to eql ?\uf0eb
+-      (expect label_text[:font_name]).to eql 'FontAwesome5Free-Regular'
++      (expect label_text[:font_name]).to eql 'FontAwesome6Free-Regular'
+       # NOTE: font size is reduced to fit within available space
+       (expect label_text[:font_size]).to be < 24
+       content_text = text[1]
+@@ -448,7 +448,7 @@
+       EOS
+ 
+       label_text = pdf.find_unique_text ?\uf06a
+-      (expect label_text[:font_size]).to eql 50
++      (expect label_text[:font_size]).to be_within(0.0001).of(47.98464)
+     end
+ 
+     it 'should allow the theme to specify a minimum width for the font-based icon label' do
+@@ -509,7 +509,7 @@
+       EOS
+ 
+       icon_text = pdf.text[0]
+-      (expect icon_text[:font_name]).to eql 'FontAwesome5Free-Solid'
++      (expect icon_text[:font_name]).to eql 'FontAwesome6Free-Solid'
+       (expect icon_text[:string]).to eql ?\uf4da
+     end
+ 
+@@ -522,7 +522,7 @@
+         EOS
+ 
+         icon_text = pdf.text[0]
+-        (expect icon_text[:font_name]).to eql 'FontAwesome5Free-Solid'
++        (expect icon_text[:font_name]).to eql 'FontAwesome6Free-Solid'
+         (expect icon_text[:string]).to eql ?\uf4da
+       end).to log_message severity: :INFO, message: 'tip admonition in theme uses icon from deprecated fa icon set; use fas, far, or fab instead', using_log_level: :INFO
+     end
+@@ -547,7 +547,7 @@
+       EOS
+ 
+       icon_text = pdf.text[0]
+-      (expect icon_text[:font_name]).to eql 'FontAwesome5Free-Solid'
++      (expect icon_text[:font_name]).to eql 'FontAwesome6Free-Solid'
+       (expect icon_text[:string]).to eql ?\uf05a
+     end
+ 
+@@ -576,7 +576,7 @@
+       (expect text).to have_size 2
+       label_text = text[0]
+       (expect label_text[:string]).to eql ?\uf3d1
+-      (expect label_text[:font_name]).to eql 'FontAwesome5Free-Regular'
++      (expect label_text[:font_name]).to eql 'FontAwesome6Free-Regular'
+       content_text = text[1]
+       (expect content_text[:string]).to eql 'Look for the warp zone under the bridge.'
+     end
+@@ -1050,8 +1050,8 @@
+ 
+       icon_text = pdf.find_unique_text ?\uf059
+       (expect icon_text).not_to be_nil
+-      (expect icon_text[:font_name]).to eql 'FontAwesome5Free-Solid'
+-      (expect icon_text[:font_size]).to be 24
++      (expect icon_text[:font_name]).to eql 'FontAwesome6Free-Solid'
++      (expect icon_text[:font_size]).to be_within(0.0001).of(23.03263)
+       (expect pdf.find_unique_text 'Are you following along?').not_to be_nil
+       (expect pdf.find_unique_text 'Just checking ;)').not_to be_nil
+     end
+diff --git a/spec/audio_spec.rb b/spec/audio_spec.rb
+index 822842ff..85852b63 100644
+--- a/spec/audio_spec.rb
++++ b/spec/audio_spec.rb
+@@ -42,7 +42,7 @@
+ 
+     icon_text = (pdf.find_text ?\uf04b)[0]
+     (expect icon_text).not_to be_nil
+-    (expect icon_text[:font_name]).to eql 'FontAwesome5Free-Solid'
++    (expect icon_text[:font_name]).to eql 'FontAwesome6Free-Solid'
+   end
+ 
+   it 'should show caption for audio if title is specified' do
+diff --git a/spec/icon_spec.rb b/spec/icon_spec.rb
+index 01682a2f..ec7bf391 100644
+--- a/spec/icon_spec.rb
++++ b/spec/icon_spec.rb
+@@ -54,7 +54,7 @@
+     EOS
+     wink_text = pdf.find_text ?\uf0ad
+     (expect wink_text).to have_size 1
+-    (expect wink_text[0][:font_name]).to eql 'FontAwesome5Free-Solid'
++    (expect wink_text[0][:font_name]).to eql 'FontAwesome6Free-Solid'
+   end
+ 
+   it 'should support icon set as suffix on icon name' do
+@@ -65,7 +65,7 @@
+     EOS
+     wink_text = pdf.find_text ?\uf0ad
+     (expect wink_text).to have_size 1
+-    (expect wink_text[0][:font_name]).to eql 'FontAwesome5Free-Solid'
++    (expect wink_text[0][:font_name]).to eql 'FontAwesome6Free-Solid'
+   end
+ 
+   it 'should support icon set as prefix on icon name' do
+@@ -76,7 +76,7 @@
+     EOS
+     wink_text = pdf.find_text ?\uf0ad
+     (expect wink_text).to have_size 1
+-    (expect wink_text[0][:font_name]).to eql 'FontAwesome5Free-Solid'
++    (expect wink_text[0][:font_name]).to eql 'FontAwesome6Free-Solid'
+   end
+ 
+   it 'should support icon set as prefix on icon name even if icon set is configured globally' do
+@@ -88,7 +88,7 @@
+     EOS
+     wink_text = pdf.find_text ?\uf0ad
+     (expect wink_text).to have_size 1
+-    (expect wink_text[0][:font_name]).to eql 'FontAwesome5Free-Solid'
++    (expect wink_text[0][:font_name]).to eql 'FontAwesome6Free-Solid'
+   end
+ 
+   it 'should not support icon set as prefix on icon name if explicit icon set is specified' do
+@@ -191,7 +191,7 @@
+       EOS
+       hdd_text = pdf.find_text ?\uf0a0
+       (expect hdd_text).to have_size 1
+-      (expect hdd_text[0][:font_name]).to eql 'FontAwesome5Free-Regular'
++      (expect hdd_text[0][:font_name]).to eql 'FontAwesome6Free-Regular'
+     end).to log_message severity: :INFO, message: 'hdd-o icon found in deprecated fa icon set; using hdd from far icon set instead', using_log_level: :INFO
+   end
+ 
+@@ -204,7 +204,7 @@
+       EOS
+       wink_text = pdf.find_text ?\uf4da
+       (expect wink_text).to have_size 1
+-      (expect wink_text[0][:font_name]).to eql 'FontAwesome5Free-Regular'
++      (expect wink_text[0][:font_name]).to eql 'FontAwesome6Free-Regular'
+     end).to log_message severity: :INFO, message: 'smile-wink icon not found in deprecated fa icon set; using match found in far icon set instead', using_log_level: :INFO
+   end
+ 
+@@ -225,7 +225,7 @@
+     pdf = to_pdf input, analyze: true
+     link_text = (pdf.find_text ?\uf019)[0]
+     (expect link_text).not_to be_nil
+-    (expect link_text[:font_name]).to eql 'FontAwesome5Free-Solid'
++    (expect link_text[:font_name]).to eql 'FontAwesome6Free-Solid'
+     (expect link_text[:font_color]).to eql '428BCA'
+     link_text[:font_size] -= 1.5 # box appox is a little off
+     (expect link_annotation).to annotate link_text
+@@ -259,7 +259,7 @@
+ 
+     heart_text = pdf.text[0]
+     (expect heart_text[:string]).to eql ?\uf004
+-    (expect heart_text[:font_name]).to eql 'FontAwesome5Free-Regular'
++    (expect heart_text[:font_name]).to eql 'FontAwesome6Free-Regular'
+     (expect heart_text[:font_color]).to eql 'FF0000'
+   end
+ 
+@@ -278,6 +278,6 @@
+     (expect keyseq_text[0][:font_name]).to eql 'mplus1mn-regular'
+     (expect keyseq_text[1][:string]).to eql %(\u202f+\u202f)
+     (expect keyseq_text[2][:string]).to eql ?\uf062
+-    (expect keyseq_text[2][:font_name]).to eql 'FontAwesome5Free-Solid'
++    (expect keyseq_text[2][:font_name]).to eql 'FontAwesome6Free-Solid'
+   end
+ end
+diff --git a/spec/list_spec.rb b/spec/list_spec.rb
+index fe7f9c32..acd07c50 100644
+--- a/spec/list_spec.rb
++++ b/spec/list_spec.rb
+@@ -302,7 +302,7 @@
+         (expect pdf.lines).to eql [%(\uf192 bullseye!)]
+         marker_text = pdf.find_unique_text ?\uf192
+         (expect marker_text).not_to be_nil
+-        (expect marker_text[:font_name]).to eql 'FontAwesome5Free-Regular'
++        (expect marker_text[:font_name]).to eql 'FontAwesome6Free-Regular'
+       end
+     end
+ 
+@@ -541,10 +541,10 @@
+         (expect pdf.lines).to eql [%(\uf096 todo), %(\uf046 done)]
+         unchecked_marker_text = pdf.find_unique_text ?\uf096
+         (expect unchecked_marker_text).not_to be_nil
+-        (expect unchecked_marker_text[:font_name]).to eql 'FontAwesome5Free-Solid'
++        (expect unchecked_marker_text[:font_name]).to eql 'FontAwesome6Free-Solid'
+         checked_marker_text = pdf.find_unique_text ?\uf046
+         (expect checked_marker_text).not_to be_nil
+-        (expect checked_marker_text[:font_name]).to eql 'FontAwesome5Free-Solid'
++        (expect checked_marker_text[:font_name]).to eql 'FontAwesome6Free-Solid'
+       end
+     end
+   end
+-- 
+2.48.1
+

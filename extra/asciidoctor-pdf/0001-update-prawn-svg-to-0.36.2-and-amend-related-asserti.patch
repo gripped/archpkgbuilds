@@ -1,0 +1,155 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Fethbita <Fethbita@users.noreply.github.com>
+Date: Thu, 6 Feb 2025 02:48:40 +0200
+Subject: [PATCH 1/6] update prawn-svg to 0.36.2 and amend related assertions
+ (PR #2553)
+
+Co-authored-by: Burak Can <burak.can.kus@cyber.ee>
+(cherry picked from commit 646f52a5a6c90711a2b63624bfb745368e84adcf)
+
+ Conflicts:
+	CHANGELOG.adoc
+---
+ CHANGELOG.adoc                             |   6 ++++++
+ asciidoctor-pdf.gemspec                    |   2 +-
+ spec/admonition_spec.rb                    |   4 ++--
+ spec/cover_page_spec.rb                    |   2 +-
+ spec/image_spec.rb                         |   2 +-
+ spec/page_spec.rb                          |   2 +-
+ spec/reference/image-svg-with-gradient.pdf | Bin 2666 -> 2551 bytes
+ spec/running_content_spec.rb               |   2 +-
+ 8 files changed, 13 insertions(+), 7 deletions(-)
+
+diff --git a/CHANGELOG.adoc b/CHANGELOG.adoc
+index e6e051b9..9a5e867c 100644
+--- a/CHANGELOG.adoc
++++ b/CHANGELOG.adoc
+@@ -5,6 +5,12 @@
+ This document provides a high-level view of the changes to the {project-name} by release.
+ For a detailed view of what has changed, refer to the {url-repo}/commits/main[commit history] on GitHub.
+ 
++== Unreleased
++
++Improvements::
++
++* upgrade prawn-svg to 0.36 to fix dependencies, improve gradient support, and support additional properties (visibility, font shorthand)
++
+ == 2.3.19 (2024-10-11) - @mojavelinux
+ 
+ Improvements::
+diff --git a/asciidoctor-pdf.gemspec b/asciidoctor-pdf.gemspec
+index 997e260e..216621be 100644
+--- a/asciidoctor-pdf.gemspec
++++ b/asciidoctor-pdf.gemspec
+@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
+   s.add_runtime_dependency 'matrix', '~> 0.4' # required until prawn >= 2.5.0 is released
+   s.add_runtime_dependency 'prawn-table', '~> 0.2.0'
+   s.add_runtime_dependency 'prawn-templates', '~> 0.1.0'
+-  s.add_runtime_dependency 'prawn-svg', '~> 0.34.0'
++  s.add_runtime_dependency 'prawn-svg', '~> 0.36.2'
+   s.add_runtime_dependency 'prawn-icon', '~> 3.0.0'
+   s.add_runtime_dependency 'concurrent-ruby', '~> 1.1'
+   s.add_runtime_dependency 'treetop', '~> 1.6.0'
+diff --git a/spec/admonition_spec.rb b/spec/admonition_spec.rb
+index 0131a097..771a3825 100644
+--- a/spec/admonition_spec.rb
++++ b/spec/admonition_spec.rb
+@@ -709,7 +709,7 @@
+         label_text = pdf.find_unique_text 'TIP'
+         (expect label_text).not_to be_nil
+         (expect label_text[:font_name]).to include 'Bold'
+-      end).to log_message severity: :WARN, message: %(~could not embed admonition icon image: #{fixture_file 'broken.svg'}; Missing end tag for 'rect')
++      end).to log_message severity: :WARN, message: %(~could not embed admonition icon image: #{fixture_file 'broken.svg'}; The data supplied is not a valid SVG document.\nMissing end tag for 'rect')
+     end
+ 
+     it 'should resize fallback admonition label to fit in available space if icon fails to embed' do
+@@ -726,7 +726,7 @@
+         label_text = pdf.find_unique_text 'WARNING'
+         (expect label_text).not_to be_nil
+         (expect label_text[:font_size]).to be < 10.5
+-      end).to log_message severity: :WARN, message: %(~could not embed admonition icon image: #{fixture_file 'broken.svg'}; Missing end tag for 'rect')
++      end).to log_message severity: :WARN, message: %(~could not embed admonition icon image: #{fixture_file 'broken.svg'}; The data supplied is not a valid SVG document.\nMissing end tag for 'rect')
+     end
+ 
+     # NOTE: this test also verifies the text transform is applied as requested by theme
+diff --git a/spec/cover_page_spec.rb b/spec/cover_page_spec.rb
+index bd487eb1..4e1a088b 100644
+--- a/spec/cover_page_spec.rb
++++ b/spec/cover_page_spec.rb
+@@ -75,7 +75,7 @@
+ 
+       (expect pdf.pages).to have_size 1
+       (expect pdf.lines pdf.find_text page_number: 1).to eql ['content page']
+-    end).to log_message severity: :WARN, message: %(~could not embed front cover image: #{fixture_file 'broken.svg'}; Missing end tag for 'rect')
++    end).to log_message severity: :WARN, message: %(~could not embed front cover image: #{fixture_file 'broken.svg'}; The data supplied is not a valid SVG document.\nMissing end tag for 'rect')
+   end
+ 
+   it 'should not add cover page if value is ~' do
+diff --git a/spec/image_spec.rb b/spec/image_spec.rb
+index c6c83e96..284cfeff 100644
+--- a/spec/image_spec.rb
++++ b/spec/image_spec.rb
+@@ -1084,7 +1084,7 @@ def traverse node
+         (expect do
+           pdf = to_pdf %(image#{macro_delim}broken.svg[Broken SVG]), analyze: true
+           (expect pdf.lines).to eql [alt_text]
+-        end).to log_message severity: :WARN, message: %(~could not embed image: #{fixture_file 'broken.svg'}; Missing end tag for 'rect')
++        end).to log_message severity: :WARN, message: %(~could not embed image: #{fixture_file 'broken.svg'}; The data supplied is not a valid SVG document.\nMissing end tag for 'rect')
+       end
+     end
+ 
+diff --git a/spec/page_spec.rb b/spec/page_spec.rb
+index 261c4ca1..164db961 100644
+--- a/spec/page_spec.rb
++++ b/spec/page_spec.rb
+@@ -1698,7 +1698,7 @@
+         content
+         EOS
+         (expect pdf.images).to be_empty
+-      end).to log_message severity: :WARN, message: %(~Missing end tag for 'rect')
++      end).to log_message severity: :WARN, message: %(~The data supplied is not a valid SVG document.\nMissing end tag for 'rect')
+     end
+ 
+     it 'should only warn once if background image cannot be loaded' do
+diff --git a/spec/reference/image-svg-with-gradient.pdf b/spec/reference/image-svg-with-gradient.pdf
+index 28c37162e7c9c1c8b60f135f20fff4fd17b2afa2..9add6017d78fce630120db6cb688fd97c2686f9a 100644
+GIT binary patch
+delta 712
+zcmZvZPiqrF7{*y*vtg)du|=_J9faWDY~FWv_Ro|OP}25N?P7}_w1+7f+e)*k**#bg
+zdhi2Cc=0BFiCnyheuaJk&*H^{6i<S?sYsgb%p7KZyzlcoFY{ye_sqpw)LO2iBU$a|
+zm(TxCzZ#x*9muxc+uzX+^w->RaQW)PZo8#Z!*8_~1PBih0`y&p?p+Z5uXEKg^8LXq
+zaNv(wBhuSuRd1QSgrlIQm0EHzus&K-LMqm5vLx*p-C?ijLurL{X`X(So>!ywCoA<x
+zr>W`1bsQX=dumOeW?a#qiMMoIo}wB1!h9WtBLgl&M@Sxm=Y(pLHP&}@dpF+Z^roz)
+zC1j-4?daW@KLd{RseGHhl`m0b^XqsLc2y@S$CF2v&BX2Q)=P#+@9g^)(2>1h37V|j
+zvs_Y@JDC;mykK#WH#QFT4R1Ws9g}1>CP}k-y`k!ekVo$;H|E?NZ|1}QGkD!IFIX1I
+zr=toUg5r=b9&<Ll0LVPkIP=2-^RU<(s6sEo8BC%W>K%?4qleiyo;Jpy7!ZRn8)~dh
+jK_MV2?~FR-kM`QRi~vbj*fq;1#cncCA*<Dv)|S~{3{$ZS
+
+delta 780
+zcma)4v2GJV5Y@`WXKxWuh)`sdWQDMz1bo@q+uhp(DTpK_O-QV`pol2WxpgoyhMcV^
+zT?#$`SyR$bAsPx4i9diEQSt#4`~Y;Y7b}u|ZkW|dGjHe3yczB9>%V5FtM$#T8u*e{
+z|2iAoFlFI$cM^LtI0#09w@cH&L1->Og0As!@U4<Z{;bae<7}U<*5f0)6E|(A#~{F6
+z(#PASYv<p|8*()e0bN_8y?$!r7xWlE7Z&GNH|<IL(C%-qvyBFI{n_PhZ0zEz!Zv;>
+zbXFSmh)2Q*nZ%)J87Wn40EFQxPONT5txzeWHJI@H!IdYZ_W$_|IKH2Hjh&(@)Fj7G
+z#pSZ?CNG=Mse4%{RvtE<#Yww+#G>JRkK=yYK4k|Wd>J~3v!N%AFC=q{d=ov*#=NWo
+z__KItMhw|Iaj)+PS%B}nIlS*_0+@RDNPr)`yF}s-Z-pqFDlN|F3(80(jk<KJA~Sfj
+z!)a<;)X4}jEy0;IjAzEWj9xgLOXXzdFvXqtJf<eOCYa!Y;7-Fh7nB-eXCsY4D>rE_
+zG1L=Hz$mxeTwW9ec}(z0fdcqg-p#Cx`>1Yt;{^po_@O*cLi}1@qCy&4tv=e@qW=I7
+C*SO9A
+
+diff --git a/spec/running_content_spec.rb b/spec/running_content_spec.rb
+index 8e1264dd..dec04f95 100644
+--- a/spec/running_content_spec.rb
++++ b/spec/running_content_spec.rb
+@@ -3046,7 +3046,7 @@
+         pdf = to_pdf 'body', analyze: true, pdf_theme: pdf_theme, enable_footer: true
+         footer_text = pdf.find_unique_text font_color: '0000FF'
+         (expect footer_text[:string]).to eql '[no worky]'
+-      end).to log_message severity: :WARN, message: %(~could not embed image in running content: #{fixture_file 'broken.svg'}; Missing end tag for 'rect')
++      end).to log_message severity: :WARN, message: %(~could not embed image in running content: #{fixture_file 'broken.svg'}; The data supplied is not a valid SVG document.\nMissing end tag for 'rect')
+     end
+ 
+     it 'should resolve attribute references in target of inline image' do
+-- 
+2.48.1
+
