@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-pry-byebug
-pkgver=3.10.1
-pkgrel=4
+pkgver=3.11.0
+pkgrel=2
 pkgdesc="Combine 'pry' with 'byebug'. Adds 'step', 'next', 'finish', 'continue' and 'break' commands to control execution."
 arch=(any)
 url='https://github.com/deivid-rodriguez/pry-byebug'
@@ -23,11 +23,18 @@ checkdepends=(
   ruby-rake
 )
 options=(!emptydirs)
-source=(https://github.com/deivid-rodriguez/pry-byebug/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('ae27542b6ee43425462d4f48aa04ae54e81ea462af0dbdc1d27403720d61dee4')
+source=(
+  "${url}/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+  "${pkgname}_fix_tests.patch"
+)
+sha256sums=('2389d5c95eddd687f743ce791a1f9f04db8bc19564c44e9835a81132b7d057d2'
+            '5dabd6fad133ba87e778f5a51a4e9122be83c8ab0959058191f3c964d04669fe')
 
 prepare() {
   cd pry-byebug-$pkgver
+
+  patch --verbose --strip=1 --input="../${pkgname}_fix_tests.patch"
+
   sed -e 's|~>|>=|' -e '/chandler/d;/[rR]ubo[cC]op/d;/minitest-bisect/d' -i Gemfile Rakefile
 }
 
