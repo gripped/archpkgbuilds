@@ -2,19 +2,30 @@
 
 pkgname=ruby-minitest-rg
 pkgver=5.3.0
-pkgrel=3
+pkgrel=6
 pkgdesc='Colored red/green output for Minitest'
 arch=(any)
 url='https://github.com/minitest/minitest-rg'
 license=(MIT)
-depends=(ruby-minitest)
-checkdepends=(ruby-hoe ruby-rake ruby-rubocop)
+depends=(
+  ruby
+  ruby-minitest
+)
+makedepends=(
+  ruby-rdoc
+)
+checkdepends=(
+  ruby-hoe
+  ruby-rake
+)
 options=(!emptydirs)
 source=(https://github.com/minitest/minitest-rg/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('cbc990d9ea8d7917def2efa98140c9c8da2188db9f6dd9707a7855dca1ea9e9a')
+sha512sums=('63fade1ad2fdb838a2b5c4814b18041270d457264c5c55b6d2f6aed690fa14c584fe18fd840870c85e01d94df5c1eeb6419d072b09068a0086f544affda2bc03')
+b2sums=('8d1d8c0b47fedc878f1c15f6f993876c9c718784312e04a8e86d70c3f60eaffe42e76f1782e9a3d533cd16de0ce80556d98831ca5a81461a249daaa83bfa7d9b')
 
 prepare() {
   cd minitest-rg-$pkgver
+
   sed -i "s/s\\.version = .*/s\\.version = \"$pkgver\"/" minitest-rg.gemspec
 }
 
