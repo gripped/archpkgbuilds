@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-bake-test-external
-pkgver=0.4.0
-pkgrel=1
+pkgver=0.6.1
+pkgrel=4
 pkgdesc='Run external test suites to check for breakage'
 arch=(any)
 url='https://github.com/ioquatix/bake-test-external'
@@ -17,20 +17,29 @@ makedepends=(
 )
 checkdepends=(
   git
-  ruby-bake-modernize
   ruby-bake-test
   ruby-bundler
+  ruby-covered
+  ruby-decode
   ruby-rspec
   ruby-sus
 )
 options=(!emptydirs)
 source=(git+https://github.com/ioquatix/bake-test-external.git#tag=v$pkgver)
-sha256sums=('70777470aaf40349aff91bd0a378b8de57a9aab34de0d122170b3e214a7cd3b3')
+sha512sums=('47ab1af74694e2c6805d3a3551d326ca788e6e4773efc64e88b53128c954d31769d72a1d19f7d9c231106e464827a24c1800780507382900cb2c82987f9286f2')
+b2sums=('0dc91b99d6dfd02a101be9981462639bdf506f7fd2ff013c64aa52946635876ab60cdb5bc2c46cc6ab2348179d5ce87dc656579ab7098d0e4c637b4701fe23f4')
 
 prepare() {
   cd bake-test-external
   sed -e '/signing_key/d' -i bake-test-external.gemspec
-  sed -i '/bake-gem/d' gems.rb
+
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended 's|~>|>=|g' "bake-test-external.gemspec"
+
+  sed --in-place \
+    --expression '/group :maintenance/,/end/d' \
+    --expression '/rubocop/d' \
+    gems.rb
 }
 
 build() {
@@ -62,7 +71,10 @@ build() {
 check() {
   local _gemdir="$(gem env gemdir)"
   cd bake-test-external
-  GEM_HOME="tmp_install/$_gemdir" bake test
+  # workaoround to avoid adding gems that get installed during tests to the package
+  # see https://github.com/ioquatix/bake-test-external/issues/8#issuecomment-2806905353
+  cp -r tmp_install check_install
+  GEM_HOME="check_install/$_gemdir" bake test
 }
 
 package() {
