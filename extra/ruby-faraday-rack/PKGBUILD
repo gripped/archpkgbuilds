@@ -2,7 +2,7 @@
 
 _gemname='faraday-rack'
 pkgname="ruby-${_gemname}"
-pkgver=2.0.0
+pkgver=2.1.2
 pkgrel=2
 pkgdesc='About Faraday adapter for Rack'
 arch=('any')
@@ -21,8 +21,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${_gemname}-v${pkgver}.tar.gz")
-sha512sums=('0c657d997401e7f4d5dc6909e35a83ea57ac35da2ffa6f183af8411bf1bdcbd6bab1dde21b0d48595ac227c1dd575044883454376bc9dde2f15d707fc06f4192')
-b2sums=('1e0568a1eeb3b2c05cf9d15db547fca6324a55848fffd2f6838f6f875babcf1c50856d714dafe48dbe7ad71d7d10ee2c4ab34978842e62317ab38d2ef886eb9e')
+sha512sums=('f40baf8082e5b309add843f28f50f4d8762e78c089fcfa3e1ddc2c272dab15976f69bd8a2ec7f307362a6cf749120aae001f3a89318871043bcedaeb9b1b00d3')
+b2sums=('3d57e5a4b01afa88c754446bf82038d301781e3dc42efdc80f17f8059eef4c657ed7b37ed0a9d116ee11b2b0d7256a7d589abdccd172ec1c92cd16aaceec54e2')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
