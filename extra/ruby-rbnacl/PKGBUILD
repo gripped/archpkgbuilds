@@ -1,9 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-rbnacl
-pkgver=7.1.1
-_commit=8794ab08c482e67819958705198df9e866165133
-pkgrel=5
+pkgver=7.1.2
+pkgrel=2
 pkgdesc='Ruby FFI binding to the Networking and Cryptography (NaCl) library (libsodium)'
 arch=(any)
 url='https://github.com/RubyCrypto/rbnacl'
@@ -23,8 +22,8 @@ checkdepends=(
   ruby-rspec
 )
 options=(!emptydirs)
-source=(git+https://github.com/RubyCrypto/rbnacl.git#commit=$_commit)
-sha256sums=('SKIP')
+source=(git+https://github.com/RubyCrypto/rbnacl.git#tag=v$pkgver)
+sha256sums=('4a943573ae3b954c9ec887ea0087a024bd16145a6992706bd257f094853299bb')
 
 prepare() {
   cd rbnacl
