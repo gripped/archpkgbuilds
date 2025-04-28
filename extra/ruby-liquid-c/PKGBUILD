@@ -2,7 +2,7 @@
 _name=liquid-c
 pkgname=ruby-$_name
 pkgver=4.2.0
-pkgrel=2
+pkgrel=5
 pkgdesc='Liquid performance extension in C'
 url='https://github.com/shopify/liquid-c'
 arch=('x86_64')
@@ -67,6 +67,15 @@ build() {
 }
 
 # Tests currently broken due to too old ruby-ruby_memcheck version
+check() {
+  cd "${_name}-${pkgver}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  # The original tests for this project don't work with modern libraries but it
+  # still works, so just verify that the module loads normally.
+  GEM_HOME="tmp_install/${_gemdir}" ruby -e 'require "liquid/c"; puts Liquid::C::VERSION'
+}
 
 package() {
   cd "${_name}-${pkgver}"
@@ -75,3 +84,5 @@ package() {
 
   install --verbose -D --mode=0644 LICENSE.txt --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
 }
+
+# vim: tabstop=2 shiftwidth=2 expandtab:
