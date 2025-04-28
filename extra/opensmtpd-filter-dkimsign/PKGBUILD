@@ -4,7 +4,7 @@
 _pkg=filter-dkimsign
 pkgname=opensmtpd-${_pkg}
 pkgver=0.6
-pkgrel=2
+pkgrel=3
 pkgdesc="OpenSMTPD filter for signing mail with DKIM"
 license=(BSD)
 url="https://imperialat.at/dev/filter-dkimsign/"
@@ -18,7 +18,7 @@ sha512sums=('1efab386a020c6a3cbf6059ce0feea539fa62be0990fd8538c4b152fa0c302d7bff
 
 build() {
   cd ${_pkg}-${pkgver}
-  make -f Makefile.gnu
+  make -f Makefile.gnu HAVE_ED25519=1
 }
 
 package() {
