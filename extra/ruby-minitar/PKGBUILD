@@ -6,13 +6,16 @@
 _gemname='minitar'
 pkgname="ruby-${_gemname}"
 pkgver=0.9
-pkgrel=7
+pkgrel=9
 pkgdesc='A pure-Ruby library that provides the ability to deal with POSIX tar(1) archive files'
 arch=('any')
 url='https://github.com/halostatue/minitar/'
 license=('Ruby' 'BSD-2-Clause')
 makedepends=('ruby-rdoc' 'ruby-rake' 'ruby-hoe' 'ruby-minitest')
-depends=('ruby')
+depends=(
+  ruby
+  ruby-base64
+)
 source=("https://github.com/halostatue/minitar/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz" 'deprecated-gem.patch')
 options=("!emptydirs")
 sha512sums=('e3aaf0e664a985704cf9dccb72250ea2a7ebb2db9b6120590fb8d5525fe2717e0a90b3020f461ae0c4dfb19dc8728b4eeb6ba2e24ab75d12fbd7f5d98b269c79'
