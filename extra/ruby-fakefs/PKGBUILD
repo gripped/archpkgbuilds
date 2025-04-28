@@ -4,7 +4,7 @@
 pkgname=ruby-fakefs
 _pkgname=${pkgname#ruby-}
 pkgver=3.0.0
-pkgrel=1
+pkgrel=3
 pkgdesc='A fake filesystem. Use it in your tests.'
 arch=(any)
 url='https://github.com/fakefs/fakefs'
@@ -17,8 +17,10 @@ makedepends=(
 checkdepends=(
   less
   ruby-bundler
+  ruby-csv
   ruby-irb
   ruby-maxitest
+  ruby-mutex_m
   ruby-pry
   ruby-rake
   ruby-rspec
