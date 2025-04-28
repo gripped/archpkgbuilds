@@ -2,44 +2,102 @@
 
 _gemname='jwt'
 pkgname="ruby-${_gemname}"
-pkgver=2.9.3
-pkgrel=1
+pkgver=2.10.1
+pkgrel=2
 pkgdesc='A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard'
 arch=('any')
 url="https://github.com/jwt/${pkgname}"
 license=('MIT')
-depends=('ruby')
-makedepends=('ruby-rdoc' 'ruby-rake' 'ruby-rspec' 'ruby-bundler')
-checkdepends=('ruby-rubocop' 'ruby-simplecov')
+depends=(
+  ruby
+  ruby-base64
+)
+makedepends=(
+  git
+  ruby-rdoc
+)
+checkdepends=(
+  ruby-bundler
+  ruby-rake
+  ruby-rspec
+  ruby-simplecov
+)
 options=('!emptydirs')
-source=("${url}/archive/v${pkgver}/${_gemname}-v${pkgver}.tar.gz" 'drop-ci-dependencies.patch')
-sha512sums=('56f242a665d997cae4ae5e2ed361fd8b0a3fe181e122f3df61c9ff110104c2f558a8a8e6ee5f0594d8c10fe9823564df295d4045b5f37b857fcb22b9a99685fc'
-            '7b4767085a99dcfc84a875aacfb70dc8bce52ae1ff0f9d4d34cbacb9ff0452f8203dcc528f4a104e506dae9da5526ca92fe60d75246bd306ab2925bc9e46a40d')
+source=("git+${url}#tag=v${pkgver}")
+sha512sums=('7cc18b0e5804deea6c745369c584b457f6f41bf5140c701014a2b16880f457fae46cb42216f9c305d818f665757159f8ce86a7ab43f3409d4a5481009b3591f7')
+b2sums=('b81de4ae5129cb8a9677ae88ad624908aa32a9248c2018eefebcf3593a5334d5227ae509cb6f2e2cbbdf948309a930676c8789479686543fb9148fbcfa0389ce')
 
 prepare() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  rm Gemfile
-  patch -p1 -N -i "${srcdir}/drop-ci-dependencies.patch"
+  cd "${pkgname}"
+
+  # update gemspec/Gemfile to allow newer version of the dep
+  sed --in-place --regexp-extended \
+    --expression 's|~>|>=|g' \
+    --expression '/appraisal/d' \
+    --expression '/rubocop/d' \
+    "${pkgname}.gemspec" \
+    Gemfile \
+    Rakefile
 }
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  gem build "${pkgname}.gemspec"
+  cd "${pkgname}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  gem build --verbose "${pkgname}.gemspec"
+
+  gem install \
+    --local \
+    --verbose \
+    --ignore-dependencies \
+    --no-user-install \
+    --install-dir "tmp_install${_gemdir}" \
+    --bindir "tmp_install/usr/bin" \
+    "${_gemname}-${pkgver}.gem"
+
+  # remove unreproducible files
+  rm --force --recursive --verbose \
+    "tmp_install${_gemdir}/cache/" \
+    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
+    "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
+
+  find "tmp_install${_gemdir}/gems/" \
+    -type f \
+    \( \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
+    \) \
+    -delete
+
+  find "tmp_install${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
 }
 
 check() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  rake test --trace
+  cd "${pkgname}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  GEM_HOME="tmp_install${_gemdir}" rake test
 }
 
 package() {
-cd "${srcdir}/${pkgname}-${pkgver}"
-  local _gemdir="$(gem env gemdir)"
-  gem install --verbose --ignore-dependencies --no-user-install --install-dir "${pkgdir}/${_gemdir}" --bindir "${pkgdir}/usr/bin" "${_gemname}-${pkgver}.gem"
+  cd "${pkgname}"
 
-  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+  cp --archive --verbose tmp_install/* "${pkgdir}"
 
-  install -Dm 644 README.md AUTHORS CHANGELOG.md -t "${pkgdir}/usr/share/doc/${pkgname}"
-
-  rm -rf "${pkgdir}/${_gemdir}/cache"
+  install --verbose -D --mode=0644 LICENSE* --target-directory "${pkgdir}/usr/share/licenses/\${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/\${pkgname}"
 }
+
+# vim: tabstop=2 shiftwidth=2 expandtab:

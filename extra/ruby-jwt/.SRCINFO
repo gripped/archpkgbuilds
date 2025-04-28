@@ -1,21 +1,21 @@
 pkgbase = ruby-jwt
 	pkgdesc = A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard
-	pkgver = 2.9.3
-	pkgrel = 1
+	pkgver = 2.10.1
+	pkgrel = 2
 	url = https://github.com/jwt/ruby-jwt
 	arch = any
 	license = MIT
-	checkdepends = ruby-rubocop
+	checkdepends = ruby-bundler
+	checkdepends = ruby-rake
+	checkdepends = ruby-rspec
 	checkdepends = ruby-simplecov
+	makedepends = git
 	makedepends = ruby-rdoc
-	makedepends = ruby-rake
-	makedepends = ruby-rspec
-	makedepends = ruby-bundler
 	depends = ruby
+	depends = ruby-base64
 	options = !emptydirs
-	source = https://github.com/jwt/ruby-jwt/archive/v2.9.3/jwt-v2.9.3.tar.gz
-	source = drop-ci-dependencies.patch
-	sha512sums = 56f242a665d997cae4ae5e2ed361fd8b0a3fe181e122f3df61c9ff110104c2f558a8a8e6ee5f0594d8c10fe9823564df295d4045b5f37b857fcb22b9a99685fc
-	sha512sums = 7b4767085a99dcfc84a875aacfb70dc8bce52ae1ff0f9d4d34cbacb9ff0452f8203dcc528f4a104e506dae9da5526ca92fe60d75246bd306ab2925bc9e46a40d
+	source = git+https://github.com/jwt/ruby-jwt#tag=v2.10.1
+	sha512sums = 7cc18b0e5804deea6c745369c584b457f6f41bf5140c701014a2b16880f457fae46cb42216f9c305d818f665757159f8ce86a7ab43f3409d4a5481009b3591f7
+	b2sums = b81de4ae5129cb8a9677ae88ad624908aa32a9248c2018eefebcf3593a5334d5227ae509cb6f2e2cbbdf948309a930676c8789479686543fb9148fbcfa0389ce
 
 pkgname = ruby-jwt
