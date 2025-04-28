@@ -4,7 +4,7 @@
 
 pkgname=openmw
 pkgver=0.48.0
-pkgrel=11
+pkgrel=12
 pkgdesc="Open-source engine reimplementation for the role-playing game Morrowind"
 arch=('x86_64')
 url="http://www.openmw.org"
@@ -25,6 +25,7 @@ prepare() {
 build() {
   cd openmw-openmw-$pkgver
 
+  export CMAKE_POLICY_VERSION_MINIMUM=3.5
   PKG_CONFIG_LIBDIR='/usr/lib/ffmpeg4.4/pkgconfig' \
   cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
