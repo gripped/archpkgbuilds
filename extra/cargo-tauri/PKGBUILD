@@ -2,7 +2,7 @@
 
 pkgname=cargo-tauri
 _pkgname=tauri
-pkgver=2.4.1
+pkgver=2.5.1
 pkgrel=1
 pkgdesc="Command line interface for building Tauri apps"
 arch=('x86_64')
@@ -15,12 +15,12 @@ depends=(
   'glibc'
   'xz' 'liblzma.so'
 )
-source=("$pkgname-$pkgver.tar.gz::$url/archive/tauri-cli-v$pkgver.tar.gz")
-sha512sums=('1e1449d1539578481a0b0d2be1df00c9c9c2a5bec6349075c1ab0868284e3b94dca4643d0884a1ecc3b4805cebb70e09621dd89556795a40528228bb83f8b415')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/tauri-v$pkgver.tar.gz")
+sha512sums=('af53159e792577f7cdbcf4bf4c752b73c388a992fe69073e5415b810d711adf77af2a6a12344eae07946d158e62a0c1eb4e5afc87232e08fb9326ddf17b8d0d7')
 options=('!lto')
 
 prepare() {
-  mv "$_pkgname-tauri-cli-v$pkgver" "$pkgname-$pkgver"
+  mv "$_pkgname-tauri-v$pkgver" "$pkgname-$pkgver"
   cd "$pkgname-$pkgver/crates/tauri-cli"
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
   mkdir -p completions
