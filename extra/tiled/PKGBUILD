@@ -2,7 +2,7 @@
 # Collaborator: Jonathan Fine (were.Vire AT gmail DOT com)
 pkgname=tiled
 pkgver=1.11.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A general purpose tile map editor, built to be flexible and easy to use'
 arch=('x86_64')
 url='http://www.mapeditor.org'
@@ -14,8 +14,10 @@ optdepends=('python: Python plugin'
             'qt6-imageformats: Support for additional image formats (including WebP)'
             'qaseprite: Support for the Aseprite image format')
 source=($pkgname-$pkgver.tar.gz::https://github.com/mapeditor/tiled/archive/v${pkgver}.tar.gz
+        tiled-4197.patch::https://patch-diff.githubusercontent.com/raw/mapeditor/tiled/pull/4197.patch
         https://github.com/mapeditor/tiled/commit/60388da00.patch)
 sha512sums=('c8fc3d853b91e1e74bdeb1873912e5dfe6efea49d937803502bac42865b6406adf6845f7f393098dccdf59adba522a5672e48e4a673e22e2fc320fe8c4b43405'
+            '593cff05bf435985f34e37a68c953305f4bda4bb8c2a25515b77409f9ca2a67290434c9a28bf0872dbecc822a8b44d5881b4302613d14634a7f436d251fa9aa7'
             'b44ba445190dffb3975aa0e066d6b6b2fcb840774212dbd54a0fe035d322676faeb84f90e78d1e276fa0e50284ad949d13dd5e11ba46930e083c4f598110ae38')
 
 prepare() {
@@ -24,6 +26,7 @@ prepare() {
   qbs config defaultProfile qt6
 
   cd $pkgname-$pkgver
+  patch -Np1 -i "$srcdir"/tiled-4197.patch
   patch -Np1 -i "$srcdir"/60388da00.patch
 }
 
