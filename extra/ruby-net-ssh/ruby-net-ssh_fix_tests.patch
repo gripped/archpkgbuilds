@@ -1,0 +1,11 @@
+--- a/test/transport/test_algorithms.rb
++++ b/test/transport/test_algorithms.rb
+@@ -242,7 +242,7 @@ module Transport
+       kexinit kex: "diffie-hellman-group14-sha1"
+       transport.expect do |_t, buffer|
+         assert_kexinit(buffer)
+-        install_mock_key_exchange(buffer, kex: Net::SSH::Transport::Kex::DiffieHellmanGroup1SHA1)
++        install_mock_key_exchange(buffer, kex: Net::SSH::Transport::Kex::DiffieHellmanGroup14SHA1)
+       end
+       algorithms.accept_kexinit(kexinit)
+     end

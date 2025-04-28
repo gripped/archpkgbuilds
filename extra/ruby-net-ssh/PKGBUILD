@@ -5,20 +5,42 @@
 _gemname='net-ssh'
 pkgname="ruby-${_gemname}"
 pkgver=7.3.0
-pkgrel=1
+pkgrel=3
 pkgdesc='A pure-Ruby implementation of the SSH2 client protocol.'
 arch=('any')
 url="https://github.com/${_gemname}/${_gemname}"
 license=('MIT')
-depends=('ruby' 'ruby-ed25519' 'ruby-x25519' 'ruby-bcrypt_pbkdf')
-makedepends=('ruby-rake' 'ruby-bundler' 'ruby-rdoc')
-checkdepends=('ruby-minitest' 'ruby-mocha')
+depends=(
+  ruby
+  ruby-bcrypt_pbkdf
+  ruby-ed25519
+  ruby-x25519
+)
+makedepends=(
+  ruby-rdoc
+)
+checkdepends=(
+  ruby-base64
+  ruby-bundler
+  ruby-minitest
+  ruby-mocha
+  ruby-rake
+)
 options=('!emptydirs')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha512sums=('d6278942511d4b5423af6e6f802b7ee20c795c534d0a7b08658d8962b2da49444c545d146851c0d214975fe0f1133b416a9295b9605629edd611160651698673')
+source=(
+  "${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
+  "${pkgname}_fix_tests.patch"
+)
+sha512sums=('d6278942511d4b5423af6e6f802b7ee20c795c534d0a7b08658d8962b2da49444c545d146851c0d214975fe0f1133b416a9295b9605629edd611160651698673'
+            '4a3d9192f189a56d78884be4cfc473506dad3e30bfbac0c3372c8b2576da82e1663b7ef42edb0d683ee55d88bee0b94cabafe9f708bd3a5f4567e3f06ccff8ff')
+b2sums=('70e463207f38a1ca45c3b0218289c99a7d0c212ff09f9178d1f929002d3b99af52d6fe2c397833f7e3c6742bf099b374ce62a51516db0a1620b60286724230a6'
+        '52b4cafc98db82aa5ba24487973d0ba022dfa8d92ec1e1767f00c305fd89835c68947b5b605bcb430c7854c84b374aa143fd6619d203005c2dd8c02d4f775d4a')
 
 prepare() {
   cd "${srcdir}/${_gemname}-${pkgver}"
+
+  patch --verbose --strip=1 --input="../${pkgname}_fix_tests.patch"
+
   sed -E 's|~>|>=|g' -i ${_gemname}.gemspec
   sed --in-place 's|`git ls-files -z`|`find . -print0`|' "${_gemname}.gemspec"
 
