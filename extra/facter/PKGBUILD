@@ -10,26 +10,48 @@
 
 pkgname=facter
 pkgver=4.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Collect and display system facts"
 arch=('x86_64')
 url="https://github.com/puppetlabs/${pkgname}"
 license=('Apache-2.0')
-depends=('dmidecode' 'pciutils' 'ruby-hocon' 'ruby-sys-filesystem' 'ruby-thor' 'virt-what')
-makedepends=('git' 'ruby-rdoc')
-checkdepends=('rubocop' 'ruby-bundler' 'ruby-rake' 'ruby-rubocop-performance' 'ruby-rubocop-rspec' 'ruby-rspec' 'ruby-octokit' 'ruby-webmock' 'ruby-yard' 'systemd')
+depends=(
+  dmidecode
+  pciutils
+  ruby-base64
+  ruby-hocon
+  ruby-sys-filesystem
+  ruby-thor
+  virt-what
+)
+makedepends=(
+  git
+  ruby-rdoc
+)
+checkdepends=(
+  ruby-bundler
+  ruby-rake
+  ruby-rspec
+  ruby-octokit
+  ruby-webmock
+  ruby-yard
+  systemd
+)
 optdepends=('puppet: retrieve puppet facts')
 conflicts=('libwhereami' 'cpp-hocon' 'leatherman')
 replaces=('libwhereami' 'cpp-hocon' 'leatherman')
-source=("https://downloads.puppet.com/$pkgname/$pkgname-$pkgver.gem"{,.asc}
-        "git+https://github.com/puppetlabs/facter.git#tag=$pkgver"
-        'disable-simplecov.patch'
-        )
+source=(
+  "https://downloads.puppet.com/$pkgname/$pkgname-$pkgver.gem"{,.asc}
+  "git+https://github.com/puppetlabs/facter.git#tag=$pkgver"
+  "disable-simplecov.patch"
+  "${pkgname}_fix_tests.patch"
+)
 validpgpkeys=('D6811ED3ADEEB8441AF5AA8F4528B6CD9E61EF26') # "Puppet, Inc. Release Key (Puppet, Inc. Release Key) <release@puppet.com>"
 sha512sums=('2d624aa1b40cf057d36fb52ed884662c306d8e98d9dd00f5f3a4f4e990a1ac2ab54c31b60089c67530f478c4f264444775b15dd0ee6b90f50a5187df3392049e'
             'SKIP'
             '316710cc78935f87758332bbc47333bf2439603f9153e4332a56371ef12f342380e3bae6475bae83d0a16ab2f4e4af834abe86f7791dfc8ef5f5ecde7e89080f'
-            'fd44b3ad3832ee5443733fee3bd2f865c467bae6af6faeac1d1f3671170db83a3f2207a16ba7cd65f10af21b2a9851a9b1d3ccf4d6473fd538ba09414a8cad88')
+            'fd44b3ad3832ee5443733fee3bd2f865c467bae6af6faeac1d1f3671170db83a3f2207a16ba7cd65f10af21b2a9851a9b1d3ccf4d6473fd538ba09414a8cad88'
+            '8924ce1245e04c7c41e4eb400c485b264beb7146e4f69f067cf88da687d0e0693747c69be6f6ee10a61f0f50c5ff67d732447981e4e951e3f92cc9f3081271a8')
 noextract=($pkgname-$pkgver.gem)
 
 prepare() {
@@ -41,6 +63,10 @@ prepare() {
 
   # don't try to load simplecov
   patch --forward --verbose --strip=1 --input='../disable-simplecov.patch'
+
+  rm tasks/rubocop.rake
+
+  patch --verbose --strip=1 --input="../${pkgname}_fix_tests.patch"
 }
 
 build() {

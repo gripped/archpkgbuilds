@@ -1,15 +1,12 @@
 pkgbase = facter
 	pkgdesc = Collect and display system facts
 	pkgver = 4.10.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/puppetlabs/facter
 	arch = x86_64
 	license = Apache-2.0
-	checkdepends = rubocop
 	checkdepends = ruby-bundler
 	checkdepends = ruby-rake
-	checkdepends = ruby-rubocop-performance
-	checkdepends = ruby-rubocop-rspec
 	checkdepends = ruby-rspec
 	checkdepends = ruby-octokit
 	checkdepends = ruby-webmock
@@ -19,6 +16,7 @@ pkgbase = facter
 	makedepends = ruby-rdoc
 	depends = dmidecode
 	depends = pciutils
+	depends = ruby-base64
 	depends = ruby-hocon
 	depends = ruby-sys-filesystem
 	depends = ruby-thor
@@ -35,10 +33,12 @@ pkgbase = facter
 	source = https://downloads.puppet.com/facter/facter-4.10.0.gem.asc
 	source = git+https://github.com/puppetlabs/facter.git#tag=4.10.0
 	source = disable-simplecov.patch
+	source = facter_fix_tests.patch
 	validpgpkeys = D6811ED3ADEEB8441AF5AA8F4528B6CD9E61EF26
 	sha512sums = 2d624aa1b40cf057d36fb52ed884662c306d8e98d9dd00f5f3a4f4e990a1ac2ab54c31b60089c67530f478c4f264444775b15dd0ee6b90f50a5187df3392049e
 	sha512sums = SKIP
 	sha512sums = 316710cc78935f87758332bbc47333bf2439603f9153e4332a56371ef12f342380e3bae6475bae83d0a16ab2f4e4af834abe86f7791dfc8ef5f5ecde7e89080f
 	sha512sums = fd44b3ad3832ee5443733fee3bd2f865c467bae6af6faeac1d1f3671170db83a3f2207a16ba7cd65f10af21b2a9851a9b1d3ccf4d6473fd538ba09414a8cad88
+	sha512sums = 8924ce1245e04c7c41e4eb400c485b264beb7146e4f69f067cf88da687d0e0693747c69be6f6ee10a61f0f50c5ff67d732447981e4e951e3f92cc9f3081271a8
 
 pkgname = facter
