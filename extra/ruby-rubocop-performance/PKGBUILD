@@ -3,8 +3,8 @@
 
 _gemname='rubocop-performance'
 pkgname="ruby-${_gemname}"
-pkgver=1.15.1
-pkgrel=4
+pkgver=1.24.0
+pkgrel=1
 pkgdesc='An extension of RuboCop focused on code performance checks'
 arch=('any')
 url='https://docs.rubocop.org/rubocop-performance/'
@@ -14,6 +14,9 @@ depends=(
   rubocop
   ruby-rubocop-ast
 )
+makedepends=(
+  ruby-rdoc
+)
 checkdepends=(
   ruby-bundler
   ruby-parallel
@@ -22,11 +25,12 @@ checkdepends=(
   ruby-rubocop-rspec
   ruby-rspec
   ruby-test-queue
+  ruby-yard
 )
 options=('!emptydirs')
 source=("https://github.com/rubocop/${_gemname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('6ef0a120ae2b79d6ee35f5b3e1b77fb1d2bab083b9be1fc68022e371613c6c995340fd5cc8206ef611b32f155dd6f3274dbb275c45ef0b5ec28385092206df24')
-b2sums=('0665bc97fd36950f8dfd17dc329ff5cd023825456c33a03239ca0ae92540cc73e68bee0cb70fd5416355237edc969db43d0d5b904f0ff14ee4188b28aec05362')
+sha512sums=('58c251f1d11a057bc397e08835dee3ffe80ac177d073738c7f4d9d8a256a7f2457aa24bcc9cca3ba1021a06b090c097f2ce9abcaf762396c1bed9757a73a1f09')
+b2sums=('8e2db617f52ee7b1986a030a7ad290195d520cf90c2b0ce2c41c31aa4ece54e0fe59df6467efd98c7b3103d1ab1eb8f3512a7e4bb06afd45d85deda23144da59')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
@@ -35,7 +39,7 @@ prepare() {
   sed --in-place --regexp-extended 's|~>|>=|g' "${_gemname}.gemspec" Gemfile
 
   # Remove dependency on bump, simplecov and yard
-  sed --in-place --regexp-extended '/bump|simplecov|yard/d' Gemfile
+  sed --in-place --regexp-extended '/bump|simplecov/d' Gemfile
   rm tasks/{cops_documentation,cut_release}.rake
 
   # we have rubocop as a package so we don't need a git checkout
