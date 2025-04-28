@@ -2,8 +2,8 @@
 
 _hkgname=apply-refact
 pkgname=haskell-apply-refact
-pkgver=0.12.0.0
-pkgrel=7
+pkgver=0.13.0.0
+pkgrel=1
 pkgdesc="Perform refactorings specified by the refact library."
 url="https://github.com/mpickering/apply-refact"
 license=("BSD")
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-extra' 'haskell-filemanip' 'haskell-ghc-exactprint'
 makedepends=('ghc' 'haskell-silently' 'haskell-tasty' 'haskell-tasty-expected-failure'
              'haskell-tasty-golden')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('8bc71bcd3ea965930b6a393f4cf03cce00716112d8b39e7f4d0271aa1d3b8adc237337b71b828d43236632c989ffeb89de058fe983fd563860ae60d0c7882b21')
+sha512sums=('6ccbbbe4cccc95cc4f9ed97218705df5acf6210b3cc86cf5bfcd8d6a2461b3751cc30bd7cd0baa954365fb8a6e808ea587c350df0ed517d0ea36e32bb57b6d2d')
 
 build() {
   cd $_hkgname-$pkgver
