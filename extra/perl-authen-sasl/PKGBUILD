@@ -2,14 +2,14 @@
 # Maintainer: Charles Mauch <cmauch@gmail.com>
 
 pkgname=perl-authen-sasl
-pkgver=2.1700
-pkgrel=3
+pkgver=2.1800
+pkgrel=1
 pkgdesc="Perl/CPAN Module Authen::SASL : SASL authentication framework"
 arch=(any)
 url="https://search.cpan.org/dist/Authen-SASL"
 license=("GPL" "PerlArtistic")
 source=("https://cpan.metacpan.org/authors/id/E/EH/EHUELS/Authen-SASL-$pkgver.tar.gz")
-sha256sums=('b86d5a576b8d387aee24f39f47a54afd14bb66b09003db5065001f1de03a8ece')
+sha256sums=('0b03686bddbbf7d5c6548e468d079a4051c9b73851df740ae28cfd2db234e922')
 
 build() {
   cd "$srcdir"/Authen-SASL-$pkgver
