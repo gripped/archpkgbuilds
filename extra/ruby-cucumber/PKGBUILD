@@ -2,13 +2,14 @@
 
 pkgname=ruby-cucumber
 pkgver=9.2.1
-pkgrel=1
+pkgrel=3
 pkgdesc="Behaviour Driven Development with elegance and joy"
 arch=(any)
 url='https://github.com/cucumber/cucumber-ruby'
 license=(MIT)
 depends=(
   ruby
+  ruby-base64
   ruby-builder
   ruby-cucumber-ci-environment
   ruby-cucumber-core
@@ -23,6 +24,7 @@ depends=(
   ruby-sys-uname
 )
 makedepends=(
+  patchutils
   ruby-rdoc
 )
 checkdepends=(
@@ -35,12 +37,19 @@ checkdepends=(
 options=(!emptydirs)
 source=(
   "https://github.com/cucumber/cucumber-ruby/archive/v$pkgver/cucumber-cucumber-ruby-$pkgver.tar.gz"
+  "$pkgname-ruby-3.4.patch::https://patch-diff.githubusercontent.com/raw/cucumber/cucumber-ruby/pull/1771.patch"
 )
-sha512sums=('9278a0c1b747a580445d2ac0fab1c451c6745d653aa91d050ac4a055b569d0281a25df287141f7a56dc97c13e6721ffa84875244d78e41deb8002dba59279d32')
-b2sums=('f573c9731cb155daf7c5aecb0b86fe57273b607846006949b76e78e16a96d4a9bd44fc702c070ac35441f0c4913f55c77a77c098532042122ff955ea77d68abd')
+sha512sums=('9278a0c1b747a580445d2ac0fab1c451c6745d653aa91d050ac4a055b569d0281a25df287141f7a56dc97c13e6721ffa84875244d78e41deb8002dba59279d32'
+            '4f6a232e213255272e21abf18b0bbe8087b5fbe7f1a55de30bdd0026463980b3ccd78c8928d68181d8a0d90650136d5a26b77547317c66de05ce722394330b30')
+b2sums=('f573c9731cb155daf7c5aecb0b86fe57273b607846006949b76e78e16a96d4a9bd44fc702c070ac35441f0c4913f55c77a77c098532042122ff955ea77d68abd'
+        '2b09aa61a0276d4b242128bdf976de394db8522630caab93fcc5e540a5fbd08cca038909f7bb0655ab764aab4cfb446cba2f7c61ecc8e9be2f1fa477f13af80c')
 
 prepare() {
   cd cucumber-ruby-$pkgver
+
+  filterdiff --strip-match=1 --include="lib/*" --include="features/*" --include="spec/*" \
+    "$srcdir/$pkgname-ruby-3.4.patch" | \
+    patch --strip=1
 
   sed -i \
     -e '/capybara/d' \
