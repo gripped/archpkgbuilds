@@ -3,7 +3,7 @@
 _gemname='simplecov-html'
 pkgname="ruby-${_gemname}"
 pkgver=0.13.1
-pkgrel=3
+pkgrel=5
 pkgdesc='Default HTML formatter for SimpleCov code coverage tool for ruby 2.4+'
 arch=('any')
 url="https://github.com/simplecov-ruby/${_gemname}"
@@ -38,36 +38,24 @@ prepare() {
 build() {
   cd "${_gemname}-${pkgver}"
 
-  gem build "${_gemname}.gemspec"
-}
-
-check() {
-  cd "${_gemname}-${pkgver}"
-
-  rake test
-}
-
-package() {
-  cd "${_gemname}-${pkgver}"
-
   local _gemdir="$(gem env gemdir)"
+
+  gem build "${_gemname}.gemspec"
 
   gem install \
     --local \
     --verbose \
     --ignore-dependencies \
-    --no-user-install \
-    --install-dir "${pkgdir}/${_gemdir}" \
-    --bindir "${pkgdir}/usr/bin" \
+    --build-root "tmp_install" \
     "${_gemname}-${pkgver}.gem"
 
   # remove unrepreducible files
   rm --force --recursive --verbose \
-    "${pkgdir}/${_gemdir}/cache/" \
-    "${pkgdir}/${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
-    "${pkgdir}/${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
+    "tmp_install/${_gemdir}/cache/" \
+    "tmp_install/${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
+    "tmp_install/${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
 
-  find "${pkgdir}/${_gemdir}/gems/" \
+  find "tmp_install/${_gemdir}/gems/" \
     -type f \
     \( \
       -iname "*.o" -o \
@@ -79,14 +67,28 @@ package() {
     \) \
     -delete
 
-  find "${pkgdir}/${_gemdir}/extensions/" \
+  find "tmp_install/${_gemdir}/extensions/" \
     -type f \
     \( \
       -iname "mkmf.log" -o \
       -iname "gem_make.out" \
     \) \
     -delete
+}
 
-  install --verbose -D --mode=644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  install --verbose -D --mode=644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
+check() {
+  cd "${_gemname}-${pkgver}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  GEM_HOME="tmp_install/${_gemdir}" rake test
+}
+
+package() {
+  cd "${_gemname}-${pkgver}"
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
+
+  install --verbose -D --mode=0644 LICENSE --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
 }
