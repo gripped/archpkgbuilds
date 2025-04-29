@@ -3,8 +3,8 @@
 
 _gemname=rack-test
 pkgname=ruby-${_gemname}
-pkgver=2.1.0
-pkgrel=3
+pkgver=2.2.0
+pkgrel=2
 pkgdesc='Small, simple testing API for Rack apps'
 url='https://github.com/rack-test/rack-test'
 arch=('any')
@@ -14,8 +14,8 @@ makedepends=('ruby-rdoc')
 checkdepends=('ruby-rake' 'ruby-rspec' 'ruby-minitest' 'ruby-minitest-global_expectations')
 options=('!emptydirs')
 source=(https://github.com/rack-test/rack-test/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz)
-sha256sums=('95502ef3f636d639091728112978c2aa2bc39a5d5537036044fa8c102e409e81')
-sha512sums=('0d9d1e2b74ff8acca1c97d08c068022345556758c3c0dcf81b87c2f7caa8ca5730af2adc89e5c2bcf8f598f08df056c39f7c348f13a1ce44c4bcf0f84fe2bc11')
+sha256sums=('727719e34ca4c9056ede02abe5efc8ca57d02a6e68a3c5a646e70b63d330bf50')
+sha512sums=('149dd5a1209c2a5a86c83a2b632d1ac046053cc60fbb0ac10dbf44db71e25cce24d4a3f1f43a22a28d91f259d0e599652529ea892fae6fa01ea2711f1d84de96')
 
 prepare() {
   cd ${_gemname}-${pkgver}
