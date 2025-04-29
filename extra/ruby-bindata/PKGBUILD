@@ -2,56 +2,97 @@
 
 _gemname=bindata
 pkgname=ruby-${_gemname}
-pkgver=2.4.14
-pkgrel=3
+pkgver=2.5.1
+pkgrel=2
 pkgdesc='BinData - Parsing Binary Data in Ruby'
 url='https://github.com/dmendel/bindata'
 arch=('any')
 license=('custom:BSDL')
-depends=('ruby')
-makedepends=('ruby-rake' 'ruby-rdoc' 'ruby-bundler')
-checkdepends=('ruby-minitest')
+depends=(
+  ruby
+)
+makedepends=(
+  git
+  ruby-rdoc
+)
+checkdepends=(
+  ruby-bundler
+  ruby-minitest
+  ruby-rake
+  ruby-simplecov
+)
 options=('!emptydirs')
-source=(${url}/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz)
-sha512sums=('ac9d8037c0f1d0f25573085446f3e30426babb90885b9f06f855eaef5dae08e1c15b16e2ca452bac53968e080b21cbd53b78f851b1513e4441604c6a9dddf16f')
-b2sums=('c69f03bbc97f3a6caf084ac4313a15505f48261441125c51168ad6ae5cbd961e14645c9249e47c83c44b3e2235099820f65db4028d830623484111865ce3d4c5')
+source=("git+${url}#tag=v${pkgver}")
+sha512sums=('67fd5a92afcbf00b27b9f45ae0e8befd60db668d36cac3488e6698b542212aa5f0c1ad0ecf0833e96f5c097915e767ed2c7d07695037d21b1b075e673644a02a')
+b2sums=('0ed72706f792a2dfb59060c1514c065b940db27fc6f13a033225f9cb5c7e206d632e56395704a99005cce685ebde3fdb7b18743425b1c519d8b3a3848af26cc3')
 
 prepare() {
-  cd ${_gemname}-${pkgver}
-  sed -r 's|~>|>=|g' -i ${_gemname}.gemspec
-  sed -r 's|, "< .*"||g' -i ${_gemname}.gemspec
-  sed 's|git ls-files|find|' -i ${_gemname}.gemspec
-  sed -e '/coveralls/d' -e '/Coveralls/d' -i ${_gemname}.gemspec test/*.rb
+  cd "${_gemname}"
+
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended \
+    --expression 's|~>|>=|g' \
+    "${_gemname}.gemspec"
 }
 
 build() {
-  cd ${_gemname}-${pkgver}
-  gem build ${_gemname}.gemspec
-}
+  cd "${_gemname}"
 
-check() {
-  cd ${_gemname}-${pkgver}
-  rake test
-}
-
-package() {
-  cd ${_gemname}-${pkgver}
   local _gemdir="$(gem env gemdir)"
+
+  gem build --verbose "${_gemname}.gemspec"
+
   gem install \
     --local \
     --verbose \
     --ignore-dependencies \
     --no-user-install \
-    --install-dir "${pkgdir}${_gemdir}" \
-    --bindir "${pkgdir}/usr/bin" \
-    ${_gemname}-${pkgver}.gem
+    --install-dir "tmp_install${_gemdir}" \
+    --bindir "tmp_install/usr/bin" \
+    "${_gemname}-${pkgver}.gem"
 
-  install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -Dm 644 COPYING -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  # remove unreproducible files
+  rm --force --recursive --verbose \
+    "tmp_install${_gemdir}/cache/" \
+    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
+    "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
 
-  cd "${pkgdir}/${_gemdir}"
-  rm -rf cache gems/${_gemname}-${pkgver}/{ext,lib/*/*.so,man} \
-    extensions/*/*/${_gemname}-${pkgver}/{mkmf.log,gem_make.out}
+  find "tmp_install${_gemdir}/gems/" \
+    -type f \
+    \( \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
+    \) \
+    -delete
+
+  find "tmp_install${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
 }
 
-# vim: ts=2 sw=2 et:
+check() {
+  cd "${_gemname}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  GEM_HOME="tmp_install${_gemdir}" rake test
+}
+
+package() {
+  cd "${_gemname}"
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
+
+  install --verbose -D --mode=0644 LICENSE* --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
+}
+
+# vim: tabstop=2 shiftwidth=2 expandtab:
