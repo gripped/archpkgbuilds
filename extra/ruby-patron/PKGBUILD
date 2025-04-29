@@ -1,9 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-patron
-pkgver=0.13.3
-_commit=6828083e8db2d2c5f7ea1db7143a9e1a9d13ef78
-pkgrel=5
+pkgver=0.13.4
+pkgrel=1
 pkgdesc='Ruby HTTP client library based on libcurl'
 arch=(x86_64)
 url='https://github.com/toland/patron'
@@ -14,6 +13,10 @@ depends=(
 )
 makedepends=(
   git
+  ruby-rdoc
+)
+checkdepends=(
+  ruby-base64
   ruby-bundler
   ruby-rake-compiler
   ruby-rack
@@ -22,9 +25,9 @@ makedepends=(
   ruby-yard
 )
 options=(!emptydirs)
-source=(git+https://github.com/toland/patron.git#commit=$_commit
+source=(git+https://github.com/toland/patron#tag=v$pkgver
         $pkgname-puma-5.patch)
-sha256sums=('SKIP'
+sha256sums=('e9b86510d82b0aed8d57077fdb18fc7557150db24c76f958e510d9fd28562adc'
             '85977d0082234adb7b31308c4338f870a6ae30c3f2182c81d7c1736c33c0dc25')
 
 prepare() {
