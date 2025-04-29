@@ -1,45 +1,52 @@
-# Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Chih-Hsuan Yen <yan12125@archlinux.org>
 # Contributor: Jonathan Steel <jsteel at archlinux.org>
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-boto3
-pkgver=1.37.1
+pkgver=1.38.3
 pkgrel=1
 pkgdesc='The AWS SDK for Python'
 arch=('any')
-license=('Apache')
 url='https://github.com/boto/boto3'
-depends=('python' 'python-botocore' 'python-jmespath' 'python-s3transfer')
-makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-checkdepends=('python-pytest' 'python-pytest-xdist' 'python-awscrt')
-optdepends=(
-  'python-awscrt: AWS CRT S3 transfers'
+license=('Apache-2.0')
+depends=(
+  'python'
+  'python-botocore'
+  'python-jmespath'
+  'python-s3transfer'
 )
-source=("$pkgname-$pkgver.tar.gz::https://github.com/boto/boto3/archive/$pkgver.tar.gz")
-sha512sums=('b57b0ba09bae819ff3d4df721d5fcf89bb7f6cfcfd08d9012e468663941b7d6ea1f6d9f05970db6bc847935a85a72c511402c017a70a8ed7353dadf42ba59fde')
+makedepends=(
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+checkdepends=(
+  'python-awscrt'
+  'python-pytest'
+  'python-pytest-xdist'
+)
+optdepends=('python-awscrt: AWS CRT S3 transfers')
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('8f300e38c7912f5df00431c1b70494521ac49500512b4aba7dc18f6bf0e570508d6a00fe8a98eb3c8607af39744a67e3b47d69507dbaf25d44dd02085f24bf95')
 
 build() {
-  cd boto3-$pkgver
+  cd ${pkgname#python-}-$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd boto3-$pkgver
-
+  cd ${pkgname#python-}-$pkgver
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  # Many integration tests need real credentials
   export AWS_SECRET_ACCESS_KEY=fake_key
   export AWS_ACCESS_KEY_ID=fake_id
-
-  export PYTEST_XDIST_AUTO_NUM_WORKERS=$(echo "$MAKEFLAGS" | grep -oP '\-j\s*\K[0-9]+')
-  pytest_args=()
-  if [ -n "$PYTEST_XDIST_AUTO_NUM_WORKERS" ]; then
-    pytest_args+=(-n auto)
-  fi
-
-  # Many integration tests need real credentials
-  pytest tests "${pytest_args[@]}" --ignore=tests/integration
+  test-env/bin/python -m pytest tests -n auto --ignore=tests/integration
 }
 
 package() {
-  cd boto3-$pkgver
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
