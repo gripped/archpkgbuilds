@@ -3,31 +3,35 @@
 
 pkgname=gufw
 pkgver=24.04
-pkgrel=3
+pkgrel=4
 pkgdesc='Uncomplicated way to manage your Linux firewall'
-url='https://gufw.org/'
+url='https://costales.github.io/projects/gufw/'
 arch=('any')
 license=('GPL3')
-depends=('gtk3' 'polkit' 'python' 'python-gobject' 'ufw' 'webkit2gtk'
+depends=('gtk3' 'polkit' 'python' 'python-gobject' 'ufw' 'webkit2gtk-4.1'
          'desktop-file-utils' 'gtk-update-icon-cache')
-makedepends=('intltool' 'python-distutils-extra' 'python-setuptools')
-source=(https://github.com/costales/gufw/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('c9b9d86c35ab574e6e93f3dc62fc1875c33b371c397ab7032e07935db7d594c7e0af37789678007b848ff83a5d1d69724c728687c0c36a4c890aaf56420c2228')
-b2sums=('0ca73eb49a0b640370c7a5053359d44d4476a9919d7e4a8d15c7950fd92a5dc508c4664c4bc1401f210ced2e999c923132ca5128ae4a5f68f634eb0b614f02f3')
+makedepends=('git' 'intltool' 'python-distutils-extra' 'python-setuptools')
+source=(git+https://github.com/costales/gufw.git#tag=${pkgver})
+sha512sums=('aaf8b173ffb8b9e60afd3e42bbf327606e2cd7c222486e75744cf2df638c609ae86f18a72e7e1c2a78847ad05324028943de63281dd659831aac9119f8187826')
+b2sums=('cc2e61a61808c38350abe109346b8a92319c4ab9407cb65056a7ff9a62cd8403a6b79ce34f0038424a1eccfcb120564da5595745f87bb47e317c7a57f65a429d')
 
 prepare () {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
+
+  # Switch from webkit2gtk 4.0 to 4.1
+  git cherry-pick -n 46b62003dc15dbaba96f3880739ac951145be5a8
+
   local PYTHONVERSION="$(python -c 'import sys; print("{}.{}".format(sys.version_info.major, sys.version_info.minor))')"
   sed 's|/usr/share/gufw/gufw/gufw.py $1|/usr/lib/python'"${PYTHONVERSION}"'/site-packages/gufw/gufw.py "$@"|' -i bin/gufw-pkexec
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   python setup.py build
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   # required so desktop, icon and translation files get installed
   export XDG_RUNTIME_DIR="$(mktemp -d --tmpdir gufw-build-XXXXXXXXX)"
   python setup.py install --prefix=/usr --root="${pkgdir}" -O1

@@ -1,10 +1,11 @@
 pkgbase = gufw
 	pkgdesc = Uncomplicated way to manage your Linux firewall
 	pkgver = 24.04
-	pkgrel = 3
-	url = https://gufw.org/
+	pkgrel = 4
+	url = https://costales.github.io/projects/gufw/
 	arch = any
 	license = GPL3
+	makedepends = git
 	makedepends = intltool
 	makedepends = python-distutils-extra
 	makedepends = python-setuptools
@@ -13,11 +14,11 @@ pkgbase = gufw
 	depends = python
 	depends = python-gobject
 	depends = ufw
-	depends = webkit2gtk
+	depends = webkit2gtk-4.1
 	depends = desktop-file-utils
 	depends = gtk-update-icon-cache
-	source = https://github.com/costales/gufw/archive/24.04/gufw-24.04.tar.gz
-	sha512sums = c9b9d86c35ab574e6e93f3dc62fc1875c33b371c397ab7032e07935db7d594c7e0af37789678007b848ff83a5d1d69724c728687c0c36a4c890aaf56420c2228
-	b2sums = 0ca73eb49a0b640370c7a5053359d44d4476a9919d7e4a8d15c7950fd92a5dc508c4664c4bc1401f210ced2e999c923132ca5128ae4a5f68f634eb0b614f02f3
+	source = git+https://github.com/costales/gufw.git#tag=24.04
+	sha512sums = aaf8b173ffb8b9e60afd3e42bbf327606e2cd7c222486e75744cf2df638c609ae86f18a72e7e1c2a78847ad05324028943de63281dd659831aac9119f8187826
+	b2sums = cc2e61a61808c38350abe109346b8a92319c4ab9407cb65056a7ff9a62cd8403a6b79ce34f0038424a1eccfcb120564da5595745f87bb47e317c7a57f65a429d
 
 pkgname = gufw
