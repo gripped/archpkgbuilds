@@ -1,15 +1,15 @@
 pkgbase = python-cfn-lint
 	pkgdesc = CloudFormation Linter
-	pkgver = 1.33.2
+	pkgver = 1.34.2
 	pkgrel = 1
 	url = https://github.com/aws-cloudformation/cfn-lint
 	arch = any
 	license = MIT-0
-	checkdepends = python-pytest
 	checkdepends = python-defusedxml
-	checkdepends = python-pydot
-	checkdepends = python-junit-xml
 	checkdepends = python-jschema-to-python
+	checkdepends = python-junit-xml
+	checkdepends = python-pydot
+	checkdepends = python-pytest
 	checkdepends = python-sarif-om
 	makedepends = git
 	makedepends = python-build
@@ -17,19 +17,19 @@ pkgbase = python-cfn-lint
 	makedepends = python-setuptools
 	makedepends = python-wheel
 	depends = python
-	depends = python-yaml
 	depends = python-aws-sam-translator
 	depends = python-jsonpatch
-	depends = python-networkx
-	depends = python-sympy
-	depends = python-regex
-	depends = python-typing_extensions
 	depends = python-jsonpointer
+	depends = python-networkx
+	depends = python-regex
+	depends = python-sympy
+	depends = python-typing_extensions
+	depends = python-yaml
 	optdepends = python-pydot: for building graphs from templates
 	optdepends = python-junit-xml: for junit formatter
 	optdepends = python-jschema-to-python: for sarif formatter
 	optdepends = python-sarif-om: for sarif formatter
-	source = git+https://github.com/aws-cloudformation/cfn-lint.git#tag=v1.33.2
-	sha256sums = 95497b4b7c1ad8e52e15c4195b8fec26788da042b069f92f0c2732bc53a54e90
+	source = git+https://github.com/aws-cloudformation/cfn-lint.git#tag=v1.34.2
+	sha256sums = 2e656170d403666458903ba544c31669fbe00a840606d62bbf929dad1a4bdfa9
 
 pkgname = python-cfn-lint
