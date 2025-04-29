@@ -1,58 +1,108 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
-pkgname=ruby-mapping
-pkgver=1.1.1
-_commit=0d98340e0c3af19d3f44e22dbaa63c881e71a8bc
-pkgrel=4
+_gemname=mapping
+pkgname="ruby-${_gemname}"
+pkgver=1.1.2
+pkgrel=2
 pkgdesc='Map model objects based on their class to a given output model'
 arch=(any)
 url='https://github.com/ioquatix/mapping'
 license=(MIT)
-depends=(ruby)
-makedepends=(git ruby-rake ruby-rspec ruby-bundler)
+depends=(
+  ruby
+)
+makedepends=(
+  git
+  ruby-rspec
+)
+checkdepends=(
+  ruby-bake
+  ruby-bake-test
+  ruby-bake-test-external
+  ruby-bundler
+  ruby-covered
+  ruby-decode
+  ruby-sus
+)
 options=(!emptydirs)
-source=(git+https://github.com/ioquatix/mapping.git#commit=$_commit)
-sha256sums=('SKIP')
+source=(git+https://github.com/ioquatix/mapping.git#tag=v$pkgver)
+sha512sums=('e8be39f4c15a27274be35f151c864b27b4ae32076ee4adb17dd6307dafce23d39d05f07cb3b03372059c57336ee4143d9b6ab0ffd4a66e53a4a55310302c4518')
+b2sums=('7e0a4df2c6a46c3a3eb49403467535b2c608a3ac4c94cce31d32cd79dd50041e6c1ceb07775a9570ab7ceaf20c954bb077c4a26c5ba21fe82f308928c508b562')
 
 prepare() {
-  cd mapping
-  # https://github.com/ioquatix/mapping/pull/2
-  git cherry-pick -n 84c20336858d0a8523769e330162ac84a0394cb4
+  cd "${_gemname}"
+
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended \
+    --expression 's|~>|>=|g' \
+    --expression '/signing_key/d' \
+    "${_gemname}.gemspec"
+
+  sed --in-place \
+    --expression '/group :maintenance/,/end/d' \
+    --expression '/bake-release/d' \
+    --expression '/rubocop/d' \
+    gems.rb
 }
 
 build() {
+  cd "${_gemname}"
+
   local _gemdir="$(gem env gemdir)"
-  cd mapping
-  rake build
+
+  gem build --verbose "${_gemname}.gemspec"
+
   gem install \
     --local \
     --verbose \
     --ignore-dependencies \
     --no-user-install \
-    --install-dir "tmp_install/$_gemdir" \
+    --install-dir "tmp_install${_gemdir}" \
     --bindir "tmp_install/usr/bin" \
-    pkg/mapping-$pkgver.gem
-  find "tmp_install/$_gemdir/gems/" \
+    "${_gemname}-${pkgver}.gem"
+
+  # remove unreproducible files
+  rm --force --recursive --verbose \
+    "tmp_install${_gemdir}/cache/" \
+    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
+    "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
+
+  find "tmp_install${_gemdir}/gems/" \
     -type f \
     \( \
-        -iname "*.o" -o \
-        -iname "*.c" -o \
-        -iname "*.so" -o \
-        -iname "*.time" -o \
-        -iname "gem.build_complete" -o \
-        -iname "Makefile" \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
     \) \
     -delete
-  rm -r tmp_install/$_gemdir/cache
+
+  find "tmp_install${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
 }
 
 check() {
+  cd "${_gemname}"
+
   local _gemdir="$(gem env gemdir)"
-  cd mapping
-  GEM_HOME="tmp_install/$_gemdir" rake spec
+
+  GEM_HOME="tmp_install${_gemdir}" bake test
 }
 
 package() {
-  cd mapping
-  cp -a tmp_install/* "$pkgdir"/
+  cd "${_gemname}"
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
+
+  install --verbose -D --mode=0644 license* --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
 }
+
+# vim: tabstop=2 shiftwidth=2 expandtab:
