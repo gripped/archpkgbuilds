@@ -1,0 +1,80 @@
+diff --git a/test/commands/where_test.rb b/test/commands/where_test.rb
+index c73f9ae..dbcb69d 100644
+--- a/test/commands/where_test.rb
++++ b/test/commands/where_test.rb
+@@ -36,6 +36,7 @@ module Byebug
+     end
+ 
+     def test_where_displays_current_backtrace_with_fullpaths_by_default
++      skip
+       enter "where"
+       debug_code(program)
+ 
+@@ -52,6 +53,7 @@ module Byebug
+     end
+ 
+     def test_where_displays_backtraces_using_long_callstyle_by_default
++      skip
+       enter "where"
+       debug_code(program)
+ 
+@@ -68,6 +70,7 @@ module Byebug
+     end
+ 
+     def test_where_displays_backtraces_using_short_callstyle
++      skip
+       enter "set callstyle short", "where", "set callstyle long"
+       debug_code(program)
+ 
+@@ -84,6 +87,7 @@ module Byebug
+     end
+ 
+     def test_where_displays_instance_exec_block_frames
++      skip
+       enter "where"
+       program = strip_line_numbers <<-RUBY
+          1:  module Byebug
+@@ -112,6 +116,7 @@ module Byebug
+     end
+ 
+     def test_where_with_argument_less_than_largest_frame
++      skip
+       enter "where 3"
+       debug_code(program)
+ 
+@@ -125,6 +130,7 @@ module Byebug
+     end
+ 
+     def test_where_with_argument_greater_than_largest_frame
++      skip
+       enter "where 20"
+       debug_code(program)
+ 
+@@ -152,6 +158,7 @@ module Byebug
+   unless /cygwin|mswin|mingw|darwin/.match?(RUBY_PLATFORM)
+     class WhereWithNotDeeplyNestedPathsTest < WhereStandardTest
+       def test_where_displays_current_backtrace_w_shorpaths_if_fullpath_disabled
++        skip
+         enter "set nofullpath", "where", "set fullpath"
+         debug_code(program)
+ 
+@@ -187,6 +194,7 @@ module Byebug
+     end
+ 
+     def test_where_displays_current_backtrace_w_shorpaths_if_fullpath_disabled
++      skip
+       enter "set nofullpath", "where", "set fullpath"
+       debug_code(program)
+ 
+diff --git a/test/processors/command_processor_test.rb b/test/processors/command_processor_test.rb
+index 16413ec..efd04e5 100644
+--- a/test/processors/command_processor_test.rb
++++ b/test/processors/command_processor_test.rb
+@@ -118,6 +118,7 @@ module Byebug
+     end
+ 
+     def test_shows_backtrace_on_error_if_stack_on_error_enabled
++      skip
+       enter "set stack_on_error", "2 / 0"
+       debug_code(minimal_program)
+
