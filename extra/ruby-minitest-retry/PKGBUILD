@@ -2,8 +2,8 @@
 
 _gemname='minitest-retry'
 pkgname="ruby-${_gemname}"
-pkgver=0.2.3
-pkgrel=1
+pkgver=0.2.5
+pkgrel=2
 pkgdesc='re-run the test when the test fails'
 arch=('any')
 url='https://github.com/y-yagi/minitest-retry'
@@ -13,15 +13,19 @@ depends=(
   ruby-minitest
 )
 makedepends=(
-  ruby-rake
+  ruby-rdoc
+)
+checkdepends=(
   ruby-bundler
+  ruby-debug
+  ruby-rake
 )
 options=('!emptydirs')
 source=(
   "${url}/archive/v${pkgver}/${_gemname}-v${pkgver}.tar.gz"
 )
-sha512sums=('830dfbfc920542e8f3e1dab6f50ed74c177b30de12b6a004e826d0da9f209547ec75a51414d4ee3d810260572ed8b75cc44cd7e9f7238a1b5dc105c435884567')
-b2sums=('b006e6b0bb18432d67afae24d691349928cd985b21d8ff9fe8d2a40273fe1acdbcf93024ccb66acfe71b06692f91f4b834e5ebc39953d243608be8a2d6ad7dbf')
+sha512sums=('9777d33e93b629af6f9a77c3c18d15875e80f2a1419936067d7c7c7d36fe61496e756d9c5e249508f57f12073ae5e8c1c1c7c0b4f7bd39dfec844a82366d8330')
+b2sums=('1c752b6bc64674a450434cc87160e473084ac1ddce5a053c8f9b3d77075665bfbb5837e5ab5efe057a19d0d2e331a960be01fd72ac4751834d13e1e737091905')
 
 prepare() {
   cd "${srcdir}/${_gemname}-${pkgver}"
