@@ -1,0 +1,89 @@
+From 55e4f3bb555220cd2d6919f96ba5f2863de364ec Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 28 Apr 2025 23:49:11 +0200
+Subject: [PATCH] Make PluginManager optional
+
+PyGObject 3.52 uses girepository-2.0, but libpeas 1 still requires
+girepository-1.0, so it cannot be used together. Disable PluginManager if
+Peas cannot be imported.
+
+Closes: https://gitlab.gnome.org/GNOME/pitivi/-/issues/2669
+---
+ pitivi/application.py   | 8 ++++++--
+ pitivi/check.py         | 3 ++-
+ pitivi/dialogs/prefs.py | 8 ++++++--
+ 3 files changed, 14 insertions(+), 5 deletions(-)
+
+diff --git a/pitivi/application.py b/pitivi/application.py
+index dc9f6bc47..9188c6756 100644
+--- a/pitivi/application.py
++++ b/pitivi/application.py
+@@ -31,7 +31,10 @@ from pitivi.configure import RELEASES_URL
+ from pitivi.configure import VERSION
+ from pitivi.effects import EffectsManager
+ from pitivi.mainwindow import MainWindow
+-from pitivi.pluginmanager import PluginManager
++try:
++    from pitivi.pluginmanager import PluginManager
++except ImportError:
++    PluginManager = None
+ from pitivi.project import ProjectManager
+ from pitivi.settings import GlobalSettings
+ from pitivi.settings import xdg_cache_home
+@@ -147,7 +150,8 @@ class Pitivi(Gtk.Application, Loggable):
+         self.effects = EffectsManager()
+         self.proxy_manager = ProxyManager(self)
+         self.system = get_system()
+-        self.plugin_manager = PluginManager(self)
++        if PluginManager:
++            self.plugin_manager = PluginManager(self)
+ 
+         self.project_manager.connect("new-project-loaded", self._new_project_loaded_cb)
+         self.project_manager.connect_after("project-closed", self._project_closed_cb)
+diff --git a/pitivi/check.py b/pitivi/check.py
+index 69e74723a..a28942362 100644
+--- a/pitivi/check.py
++++ b/pitivi/check.py
+@@ -476,11 +476,12 @@ HARD_DEPENDENCIES = [GICheck(version_required="3.20.0"),
+                      GstPluginDependency("gtk"),
+                      GstPluginDependency("gdkpixbuf"),
+                      ClassicDependency("matplotlib"),
+-                     GIDependency("Peas", apiversion="1.0"),
+                      GIDependency("PangoCairo", apiversion="1.0"),
+                      ]
+ 
+ SOFT_DEPENDENCIES = (
++    GIDependency("Peas", apiversion="1.0", version_required=None,
++                 additional_message=_("plugins support")),
+     GIDependency("GSound", apiversion="1.0", version_required=None,
+                  additional_message=_("enables sound notifications when rendering is complete")),
+     GIDependency("Notify", apiversion="0.7", version_required=None,
+diff --git a/pitivi/dialogs/prefs.py b/pitivi/dialogs/prefs.py
+index fc228c75f..d0920530c 100644
+--- a/pitivi/dialogs/prefs.py
++++ b/pitivi/dialogs/prefs.py
+@@ -28,7 +28,10 @@ from gi.repository import Gtk
+ 
+ from pitivi.configure import get_ui_dir
+ from pitivi.configure import get_user_plugins_dir
+-from pitivi.pluginmanager import PluginManager
++try:
++    from pitivi.pluginmanager import PluginManager
++except ImportError:
++    PluginManager = None
+ from pitivi.settings import GlobalSettings
+ from pitivi.utils import widgets
+ from pitivi.utils.loggable import Loggable
+@@ -94,7 +97,8 @@ class PreferencesDialog(Loggable):
+         self.add_settings_page('timeline')
+         self.__add_proxies_section()
+         self.__add_shortcuts_section()
+-        self.__add_plugin_manager_section()
++        if PluginManager:
++            self.__add_plugin_manager_section()
+         self.add_settings_page('other')
+         self.__setup_css()
+         self.dialog.set_transient_for(app.gui)
+-- 
+GitLab
+

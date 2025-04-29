@@ -1,11 +1,10 @@
 pkgbase = pitivi
 	pkgdesc = Editor for audio/video projects using the GStreamer framework
 	pkgver = 2023.03
-	pkgrel = 7
+	pkgrel = 9
 	url = https://pitivi.org/
 	arch = x86_64
 	license = LGPL-2.1-or-later
-	makedepends = appstream-glib
 	makedepends = git
 	makedepends = itstool
 	makedepends = meson
@@ -26,7 +25,6 @@ pkgbase = pitivi
 	depends = gtk3
 	depends = hicolor-icon-theme
 	depends = libnotify
-	depends = libpeas
 	depends = pango
 	depends = python
 	depends = python-cairo
@@ -42,8 +40,12 @@ pkgbase = pitivi
 	source = git+https://gitlab.gnome.org/GNOME/pitivi.git#tag=2023.03.0
 	source = pitivi-icon-name.patch
 	source = pitivi-set-prgname.patch
+	source = pitivi-embed-video.patch
+	source = pitivi-no-peas.patch
 	b2sums = d453256e931a8f4b2bf0efae27450c65b9393539ca2aa99ac2b6892aec91b9f3d389ec34cb36fd090cf6841ee228aee564f4fe191cfb01e27717c21f00cef87e
 	b2sums = 5abcf151aa37bb90f30bd7a00c406be494060a867ac45bae43b61cb29d1ee646cfd9e1c6283f5cb93e9f86b70b0ed1fd8d072f8a46f783d9b26f90a414651fca
 	b2sums = c22aa4f32821154a219468b807487de11086501474b6a3033e471af7dbe0d4e84866052492dc7d87583943046c13676137dd7dbae0e48d608e85788e5d283b19
+	b2sums = 5633f9a05e946d71fd852f1ceac0d6fc10fd2b8092e5e3a4311c1d355ae9fb24810dbd254d9fc25fa2d99f03c0db048f6c02f53670aae4afd8f639e6b70b21a9
+	b2sums = 59383317dfc53749fca53d662c1353af514f23bd2b6c2b7ae0101aac9b94e625a53281f4f180a45be5b842d2aa7125c31a0acb4aa7c406459df5939973fa8e9a
 
 pkgname = pitivi
