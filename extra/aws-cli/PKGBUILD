@@ -1,57 +1,59 @@
-# Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Chih-Hsuan Yen <yan12125@archlinux.org>
 # Contributor: Jonathan Steel <jsteel at archlinux.org>
 # Contributor: Chris Severance aur.severach AatT spamgourmet.com
 # Contributor: Alper KANAT <alperkanat@raptiye.org>
 
 pkgname=aws-cli
-pkgver=1.38.1
+pkgver=1.40.2
 pkgrel=1
 pkgdesc='Universal Command Line Interface for Amazon Web Services'
 arch=('any')
 url="https://github.com/aws/aws-cli"
-license=('Apache')
-# Upstream relies on transitive dependencies https://github.com/aws/aws-cli/issues/6556
-depends=('python' 'python-botocore' 'python-dateutil' 'python-jmespath'
-         'python-colorama' 'python-docutils' 'python-pyasn1' 'python-rsa'
-         'python-s3transfer' 'python-yaml')
-makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-checkdepends=('python-pytest' 'python-pytest-xdist' 'python-awscrt')
-source=($pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-md5sums=('7c01f6191b9a7cab968e9e6bade1c123')
-sha256sums=('86894a9ab95b3ac401b461043490e9e2b82e7e1355730d6a83cd3c9095b5ed85')
+license=('Apache-2.0')
+depends=(
+  'python'
+  'python-botocore'
+  'python-colorama'
+  'python-dateutil'
+  'python-docutils'
+  'python-jmespath'
+  'python-pyasn1'
+  'python-rsa'
+  'python-s3transfer'
+  'python-yaml'
+)
+makedepends=(
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+checkdepends=(
+  'python-awscrt'
+  'python-pytest'
+  'python-pytest-xdist'
+)
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('76053536869d5a393a501dc654362061b5df87d8d10aefcae25f8a657cebd1c8')
 
 build() {
   cd $pkgname-$pkgver
-
   python -m build --wheel --no-isolation
 }
 
 check() {
   cd $pkgname-$pkgver
-
-  # Install to a temporary location, as some tests need the 'aws' command
-  python -m installer --destdir="$PWD/tmp_install" dist/*.whl
-
-  export PYTHONPATH="$PWD"
-  export PATH="$PATH:$PWD/tmp_install/usr/bin"
-
-  export PYTEST_XDIST_AUTO_NUM_WORKERS=$(echo "$MAKEFLAGS" | grep -oP '\-j\s*\K[0-9]+')
-  pytest_args=()
-  if [ -n "$PYTEST_XDIST_AUTO_NUM_WORKERS" ]; then
-    pytest_args+=(-n auto)
-  fi
-
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
   # Many integration tests need real credentials
-  pytest tests "${pytest_args[@]}" --ignore=tests/integration
+  PATH=$PWD/test-env/bin:$PATH test-env/bin/python -m pytest tests -n auto \
+    --ignore=tests/integration
 }
 
 package() {
   cd $pkgname-$pkgver
-
   python -m installer --destdir="$pkgdir" dist/*.whl
-
-  install -Dm644 LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
-  install -Dm644 bin/aws_bash_completer "$pkgdir"/usr/share/bash-completion/completions/aws
-
-  rm -f "$pkgdir"/usr/bin/{aws.cmd,aws_bash_completer}
+  install -vDm644 bin/aws_bash_completer "$pkgdir/usr/share/bash-completion/completions/aws"
+  rm -v "$pkgdir/usr/bin/"{aws.cmd,aws_bash_completer}
 }
