@@ -6,14 +6,14 @@
 _gemname='httpclient'
 pkgname="ruby-${_gemname}"
 pkgver=2.8.3
-pkgrel=11
+pkgrel=13
 pkgdesc='gives something like the functionality of libwww-perl (LWP) in Ruby'
 arch=('any')
 url='https://github.com/nahi/httpclient'
 license=('Ruby')
 makedepends=('ruby-rdoc' 'ruby-bundler')
 checkdepends=('ruby-rake' 'ruby-http-cookie' 'ruby-test-unit' 'ruby-rack' 'ruby-webrick')
-depends=('ruby')
+depends=('ruby' 'ruby-mutex_m')
 options=(!emptydirs)
 source=("${url}/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz"
         'disable-broken-TLS-test.patch')

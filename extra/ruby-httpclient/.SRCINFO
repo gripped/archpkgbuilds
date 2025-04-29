@@ -1,7 +1,7 @@
 pkgbase = ruby-httpclient
 	pkgdesc = gives something like the functionality of libwww-perl (LWP) in Ruby
 	pkgver = 2.8.3
-	pkgrel = 11
+	pkgrel = 13
 	url = https://github.com/nahi/httpclient
 	arch = any
 	license = Ruby
@@ -13,6 +13,7 @@ pkgbase = ruby-httpclient
 	makedepends = ruby-rdoc
 	makedepends = ruby-bundler
 	depends = ruby
+	depends = ruby-mutex_m
 	options = !emptydirs
 	source = https://github.com/nahi/httpclient/archive/v2.8.3/ruby-httpclient-v2.8.3.tar.gz
 	source = disable-broken-TLS-test.patch
