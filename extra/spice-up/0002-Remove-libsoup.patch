@@ -1,0 +1,24 @@
+diff --git a/meson.build b/meson.build
+index f1c60da..caca66c 100644
+--- a/meson.build
++++ b/meson.build
+@@ -31,7 +31,6 @@ granite_dep = dependency('granite', version: '>=0.5')
+ gtk_dep = dependency('gtk+-3.0')
+ gudev_dep = dependency('gudev-1.0')
+ json_glib_dep = dependency('json-glib-1.0')
+-soup_dep = dependency('libsoup-2.4')
+ 
+ subdir('data')
+ subdir('po')
+diff --git a/src/meson.build b/src/meson.build
+index c991a5d..912332d 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -77,7 +77,6 @@ deps = [
+     gtk_dep,
+     gudev_dep,
+     json_glib_dep,
+-    soup_dep,
+ ]
+ 
+ executable(
