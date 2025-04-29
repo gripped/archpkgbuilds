@@ -2,8 +2,8 @@
 
 pkgname=python-gherkin
 _pkgname=${pkgname#python-}
-pkgver=30.0.4
-pkgrel=2
+pkgver=32.1.1
+pkgrel=1
 pkgdesc="A parser and compiler for the Gherkin language"
 arch=('any')
 url="https://github.com/cucumber/gherkin"
@@ -20,7 +20,7 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('4a3e87b4aa408ae20ba44e97f6e815ce8576dc43ee544d8dc878399b4f07cedd')
+sha256sums=('97606879d7e2a5acd4a637b514d39717a49292c8b0a2cc61a6eec790cbf0a60c')
 
 build() {
   cd "$_pkgname-$pkgver/python"
