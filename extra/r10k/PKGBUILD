@@ -3,8 +3,8 @@
 # Contributor: arakmar
 
 pkgname=r10k
-pkgver=4.1.0
-pkgrel=5
+pkgver=5.0.0
+pkgrel=1
 pkgdesc='Provides a general purpose toolset for deploying Puppet environments and modules.'
 arch=('any')
 url="https://github.com/puppetlabs/${pkgname}"
@@ -31,8 +31,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('c8c78b013fa75a29b205ae9a6ee24f1369b4ffec2d3d7d9e9b3b5482ffa77c19f360dc8fd8444388dd527cbb31fd9c2aa96201d5f60d53f0b23a55d446d43a8c')
-b2sums=('ba154d8500beef70cb6a8761833b05e0b5a3122b6a4a04dafc7c20ccce76e6fd30dbe0ac0bae667fac7d985ddc2921f43657c0bf2cd0c6d877370b7d2e73e799')
+sha512sums=('c54a213417690483acdac1a7fe2f1a43bda070bc6571ec7922c1ad6e84944aa97d6cca5f3cf7f1a7dfba8ce055cbd656c298758587c3e03ace1a033cfca498bf')
+b2sums=('2177525b9ade8ccbab9e125ba630752a6bf03e0fb378c2929ac984c049a1882186c70bf11215d949f21d2121a58ea9c22d17ff4892202bd422f46f53bc67ec38')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
