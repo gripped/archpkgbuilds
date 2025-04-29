@@ -3,8 +3,8 @@
 
 pkgname=ruby-maxitest
 _pkgname=${pkgname#ruby-}
-pkgver=5.8.0
-pkgrel=1
+pkgver=6.0.0
+pkgrel=2
 pkgdesc='Minitest + all the features you always wanted'
 arch=(any)
 url='https://github.com/grosser/maxitest'
@@ -25,7 +25,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("git+$url.git#tag=v$pkgver")
-sha256sums=('460d3d685c0035caf6c42372ec0f05b895f0b6d6318e58b0d0649dc52b14e117')
+sha512sums=('280ee71fe849b016b97bf93ce545ac5259fdf379882cd6b356dd22e60eb21f2fa7e69265bfcdf74d594c2318d26b3fa5dc541fa7f83d1a7701315c0af637b6bb')
+b2sums=('8e2115b482d3789a731aed99f961f41ab9910b8953f9d78dc54af4afc83d93c246bfe6bac0a4b125f7e05b325bf9044505cea35657a2058025dd0d9c0265a5e0')
 
 prepare() {
   cd "$_pkgname"
