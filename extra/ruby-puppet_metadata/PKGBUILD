@@ -2,45 +2,102 @@
 
 _gemname='puppet_metadata'
 pkgname="ruby-${_gemname}"
-pkgver=4.5.0
-pkgrel=1
+pkgver=5.0.0
+pkgrel=2
 pkgdesc='Data structures for the Puppet Metadata'
 arch=('any')
 url="https://github.com/voxpupuli/${_gemname}"
 license=('Apache-2.0')
-depends=('ruby' 'ruby-metadata-json-lint' 'ruby-semantic_puppet')
-makedepends=('ruby-rdoc' 'ruby-rake' 'ruby-rspec' 'ruby-rspec-its')
+depends=(
+  ruby
+  ruby-metadata-json-lint
+  ruby-semantic_puppet
+)
+makedepends=(
+  ruby-rdoc
+)
+checkdepends=(
+  ruby-rake
+  ruby-rspec
+  ruby-rspec-its
+)
 options=('!emptydirs')
-source=("${url}/archive/${pkgver}/${_gemname}-${pkgver}.tar.gz")
-sha512sums=('0457ddcb4dbdc00dd5f2ad6f6d34701b7f188feca0d96c8f444a564b54717f56c27e29522cbba14a6949b53b1ed7f9c2b56cd380e49cdb9cdf692987cd45e4a5')
+source=(
+  "${url}/archive/${pkgver}/${_gemname}-${pkgver}.tar.gz"
+  "https://github.com/voxpupuli/puppet_metadata/commit/88326a08511318f04db58ad37e0712c25a80384c.patch"
+)
+sha512sums=('219edddfa7fab2bd459eca08f3677efbcdae2925704a88bd81bc8a10336918a63f03ff6afa1ebcfdd3f15d1eb28661ccc5f815e0b02a2122eecbd58f76e6eada'
+            '64f33517914686e0a2517ddddf45e240013372e2c24ba4e21af5c75e3a5c487c045dec71c0c0e7a32df13c37256617f4809eacba7b436f7fb616038dfd18223a')
+b2sums=('6280a4c4da6f929c24d5ff494d4d9e23f7675766d0fda5109ca653ef005743ca7fb3b3eba4e96317098614c1fbbc683165567503c4d33151dc545cf1a08ae7ba'
+        '3a718d79ef873cd8ead61cc239a95ecd01a3e4c3f685d989e46a5938a3429edaca855374ab08a089ba716734f2ca31a1ee08073e7f3f3cc5f361ce575902fbc2')
 
 prepare() {
-  cd "${srcdir}/${_gemname}-${pkgver}"
-  # allow latest dependencies
-  sed --in-place 's|~>|>=|g' "${_gemname}.gemspec"
+  cd "${_gemname}-${pkgver}"
 
-  # drop development deps, they only cause dependency issues and aren't required
-  sed --in-place '/add_development_dependency/d' "${_gemname}.gemspec"
+  patch --verbose --strip=1 --input="../88326a08511318f04db58ad37e0712c25a80384c.patch"
+
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended 's|~>|>=|g' "${_gemname}.gemspec"
 }
 
 build() {
-  cd "${srcdir}/${_gemname}-${pkgver}"
-  gem build "${_gemname}.gemspec"
+  cd "${_gemname}-${pkgver}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  gem build --verbose "${_gemname}.gemspec"
+
+  gem install \
+    --local \
+    --verbose \
+    --ignore-dependencies \
+    --no-user-install \
+    --install-dir "tmp_install${_gemdir}" \
+    --bindir "tmp_install/usr/bin" \
+    "${_gemname}-${pkgver}.gem"
+
+  # remove unreproducible files
+  rm --force --recursive --verbose \
+    "tmp_install${_gemdir}/cache/" \
+    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
+    "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
+
+  find "tmp_install${_gemdir}/gems/" \
+    -type f \
+    \( \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
+    \) \
+    -delete
+
+  find "tmp_install${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
 }
 
 check() {
-  cd "${srcdir}/${_gemname}-${pkgver}"
-  rake
+  cd "${_gemname}-${pkgver}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  GEM_HOME="tmp_install${_gemdir}" rake spec
 }
 
 package() {
-cd "${srcdir}/${_gemname}-${pkgver}"
-  local _gemdir="$(gem env gemdir)"
-  gem install --verbose --ignore-dependencies --no-user-install --install-dir "${pkgdir}/${_gemdir}" --bindir "${pkgdir}/usr/bin" "${_gemname}-${pkgver}.gem"
+  cd "${_gemname}-${pkgver}"
 
-  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+  cp --archive --verbose tmp_install/* "${pkgdir}"
 
-  install -Dm 644 README.md HISTORY.md CHANGELOG.md -t "${pkgdir}/usr/share/doc/${pkgname}"
-
-  rm -rf "${pkgdir}/${_gemdir}/cache"
+  install --verbose -D --mode=0644 LICENSE* --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
 }
+
+# vim: tabstop=2 shiftwidth=2 expandtab:
