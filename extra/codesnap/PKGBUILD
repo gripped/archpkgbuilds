@@ -2,7 +2,7 @@
 # Contributor: Adam Perkowski <adas1per@protonmail.com>
 
 pkgname=codesnap
-pkgver=0.10.9
+pkgver=0.11.2
 pkgrel=1
 pkgdesc="Pure Rust tool for generating beautiful code snapshots"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('oniguruma' 'gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('bf3f040866fbc4b71f9b5722ad01f6e2de29a9c81f0d7ceff03966fa5cab2966')
+sha256sums=('5b1e1352954c1167ff16a9ce28403facd2b47f9c53a9de3cda8068d25cd7a02d')
 
 prepare() {
   cd "$pkgname-$pkgver"
