@@ -1,19 +1,20 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-maxmind-db
-pkgver=1.1.1
+pkgver=1.3.2
 _testdatacommit=507c17e7cf266bb47bca4922aa62071cb21f6d06
-pkgrel=3
+pkgrel=2
 pkgdesc='Generic connection pool for Ruby'
 arch=(any)
 url='https://github.com/maxmind/MaxMind-DB-Reader-ruby'
 license=(Apache MIT)
 depends=(ruby)
 makedepends=(ruby-minitest ruby-rake)
+checkdepends=(ruby-bundler)
 options=(!emptydirs)
 source=(https://github.com/maxmind/MaxMind-DB-Reader-ruby/archive/v$pkgver/$pkgname-$pkgver.tar.gz
         maxmind-db-$_testdatacommit.tar.gz::https://github.com/maxmind/MaxMind-DB/archive/$_testdatacommit.tar.gz)
-sha256sums=('bbf3877a36105f797f01ae2fca0e0a4babc39035358b0f2fb1bbe1b7ae05f1b1'
+sha256sums=('4d3f56b56e5dbcdd3059949764ec615538dd241a0b93735122a5978d4589672f'
             '5e1e04e0e97a9af7ffef42271dd15d8674a99a2a9f23817414f7fe795e81e520')
 
 prepare() {
