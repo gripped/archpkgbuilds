@@ -7,7 +7,7 @@
 
 _name=pip
 pkgname=python-pip
-pkgver=25.0.1
+pkgver=25.1
 pkgrel=1
 pkgdesc="The PyPA recommended tool for installing Python packages"
 url="https://pip.pypa.io/"
@@ -44,8 +44,8 @@ checkdepends=(
   subversion
 )
 source=(https://github.com/pypa/$_name/archive/$pkgver/$_name-$pkgver.tar.gz)
-sha512sums=('a6850c8567082bbf98483a45e523c4de12132136d2b0aa388ac619c02ffd0c8f6aea7d727f7d84167dadec5f1e56dd478b2233b0caa5d9b3e5cadc9e1f3dc12c')
-b2sums=('db729b8c75d8e15c6fed1dbc9e08adc4e82114f2bbd953859ec03c7948e521629afd8cea6adb08110b987d6adf48fd600a59a3bcc27774db61ea92675ad90d42')
+sha512sums=('d6b93aeabe6a4e046caf85c028fca380936ab65cb3c5028a7fa7dbc61cef2cf7d0c46c499fe548dc0af8f7bc30f7ecace8f257b20a60c0cc905b531f193b5a9d')
+b2sums=('3e719b180dd4f039a1bf15cdd2686fdc270e842e4b9ab416306bf9ea40c037541df05af78239fe067dfa3edc27b7370ea04c1d9cec43cc6cfd2f9e8f347f41ee')
 
 prepare() {
   # pip is moving towards a separate sphinx config without towncrier https://github.com/pypa/pip/issues/12881
