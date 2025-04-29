@@ -7,13 +7,18 @@
 pkgname=ruby-pkg-config
 _pkgname="${pkgname#ruby-}"
 pkgver=1.5.7
-pkgrel=1
+pkgrel=4
 pkgdesc='Implementation of pkg-config in Ruby'
 arch=('any')
 url='https://github.com/ruby-gnome/pkg-config'
 license=('LGPL-2.1-only')
-depends=('ruby')
-makedepends=('git')
+depends=(
+  ruby
+)
+makedepends=(
+  git
+  ruby-rdoc
+)
 provides=('ruby-pkgconfig')
 replaces=('ruby-pkgconfig')
 conflicts=('ruby-pkgconfig')
