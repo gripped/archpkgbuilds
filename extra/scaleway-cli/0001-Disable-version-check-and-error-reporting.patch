@@ -8,14 +8,14 @@ We do not want either have errors pushed to Scaleway sentry without proper
 opt-in.
 In order to avoid that we declare ourself has a non official release.
 ---
- internal/core/build_info.go | 7 ++++---
+ core/build_info.go | 7 ++++---
  1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/internal/core/build_info.go b/internal/core/build_info.go
+diff --git a/core/build_info.go b/core/build_info.go
 index ad00e83e..31192891 100644
---- a/internal/core/build_info.go
-+++ b/internal/core/build_info.go
-@@ -43,10 +43,11 @@ const (
+--- a/core/build_info.go
++++ b/core/build_info.go
+@@ -41,10 +41,11 @@ const (
  )
  
  // IsRelease returns true when the version of the CLI is an official release:
