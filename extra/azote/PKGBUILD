@@ -2,7 +2,7 @@
 # Contributor: Piotr Miller <nwg.piotr@gmail.com>
 
 pkgname=azote
-pkgver=1.15.1
+pkgver=1.16.0
 pkgrel=1
 pkgdesc="Wallpaper & color manager for wlroots-based compositors and some X11 WMs"
 url="https://github.com/nwg-piotr/azote"
@@ -19,10 +19,12 @@ optdepends=('imagemagick: for screen color picker'
             'swaybg: for setting background on wlroots-based compositors'
             'feh: for setting background on X11-based WMs'
             'python-xlib: for checking outputs on X11-based WMs'
+            'python-pillow-avif-plugin: for AVIF support in Pillow'
+            'python-pillow-heif: for HEIF support in Pillow'
             'python-pillow-jxl-plugin: for JPEG XL support in Pillow'
             'wlr-randr: for checking outputs on wlroots-based compositors other than Sway and Hyprland')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('e7a64c6c14e1cd52222fdcfb23eef5275925ef68711b094bd5f59cf6a465b043')
+sha256sums=('d07ea0effa770fe796b4e44dd2a5b5e56af31db5500de318638d83ba8e7efe83')
 
 build() {
 	cd "${pkgname}-${pkgver}"
