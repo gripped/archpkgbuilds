@@ -1,0 +1,110 @@
+# Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
+
+_gemname='sorbet-runtime'
+pkgname="ruby-${_gemname}"
+pkgver=0.5.12026
+_version_hash='20250418172456-413f08db1'
+pkgrel=1
+pkgdesc="Sorbet's runtime type checking component"
+arch=('any')
+url="https://github.com/sorbet/sorbet"
+license=('Apache-2.0')
+depends=(
+  ruby
+)
+makedepends=(
+  ruby-rdoc
+)
+checkdepends=(
+  ruby-concurrent
+  ruby-minitest
+  ruby-mocha
+  ruby-parser
+  ruby-rake
+  ruby-subprocess
+)
+options=('!emptydirs')
+source=(
+  "${url}/archive/${pkgver}.${_version_hash}/${pkgname}-${pkgver}.${_version_hash}.tar.gz"
+  "${pkgname}_fix_tests.patch"
+)
+sha512sums=('19e72b4607f03f56bac6466ad3baf875f17363402ebcd3ab788b4c75e733d7311630447b648d63ae40704ff6b7ec4c6b5dd2966b7f121131d31b374b4005a63b'
+            'a39f61f680da5c2d2dc83aec4e5358686eaa3834f76eaa68c85e0f7d7d32ad9bf97953395ab805ca5669e7d98c144469b68e19a9028e5ff90f4c917dd059538b')
+b2sums=('4c8bdc332cf42f38b734426a8579f44bb709837c89900fa7ea53b4c963bd291042cb09b9417dc15d2617755d44038b43fea1f264fc6d27fb98dcd07cb153bb6f'
+        'a9c2e83f4e04509db40b21f827208eb0ec03ebaae7f3971ddd2dcd0253fe00baf74b905a7a81079d23ac6f939a2e092bba3d5db7c415b1f70283ad1b65de715b')
+
+prepare() {
+  cd "sorbet-${pkgver}.${_version_hash}"
+
+  patch --verbose --strip=1 --input="../${pkgname}_fix_tests.patch"
+
+  cd "gems/${_gemname}"
+
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended \
+    --expression 's|~>|>=|g' \
+    --expression "s|s\.version     = '0.0.0'|s.version     = '${pkgver}'|g" \
+    "${_gemname}.gemspec"
+}
+
+build() {
+  cd "sorbet-${pkgver}.${_version_hash}/gems/${_gemname}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  gem build --verbose "${_gemname}.gemspec"
+
+  gem install \
+    --local \
+    --verbose \
+    --ignore-dependencies \
+    --no-user-install \
+    --install-dir "tmp_install${_gemdir}" \
+    --bindir "tmp_install/usr/bin" \
+    "${_gemname}-${pkgver}.gem"
+
+  # remove unreproducible files
+  rm --force --recursive --verbose \
+    "tmp_install${_gemdir}/cache/" \
+    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
+    "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
+
+  find "tmp_install${_gemdir}/gems/" \
+    -type f \
+    \( \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
+    \) \
+    -delete
+
+  find "tmp_install${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
+}
+
+check() {
+  cd "sorbet-${pkgver}.${_version_hash}/gems/${_gemname}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  GEM_HOME="tmp_install${_gemdir}" rake test
+}
+
+package() {
+  cd "sorbet-${pkgver}.${_version_hash}/gems/${_gemname}"
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
+
+  install --verbose -D --mode=0644 ../../LICENSE* --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
+}
+
+# vim: tabstop=2 shiftwidth=2 expandtab:

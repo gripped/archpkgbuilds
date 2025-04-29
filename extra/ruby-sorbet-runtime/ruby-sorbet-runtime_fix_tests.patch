@@ -1,0 +1,94 @@
+diff --git a/gems/sorbet-runtime/test/types/props/serializable.rb b/gems/sorbet-runtime/test/types/props/serializable.rb
+index eb561928b..c1cd1b8d7 100644
+--- a/gems/sorbet-runtime/test/types/props/serializable.rb
++++ b/gems/sorbet-runtime/test/types/props/serializable.rb
+@@ -165,14 +165,14 @@ class ChildWithDefault < ParentWithNoDefault
+     it 'inspects' do
+       obj = a_serializable
+       str = obj.inspect
+-      assert_equal('<Opus::Types::Test::Props::SerializableTest::MySerializable foo={"age"=>7, "color"=>"red"} name="Bob">', str)
++      assert_equal('<Opus::Types::Test::Props::SerializableTest::MySerializable foo={"age" => 7, "color" => "red"} name="Bob">', str)
+     end
+ 
+     it 'inspects with extra props' do
+       obj = a_serializable
+       obj = obj.class.from_hash(obj.serialize.merge('not_a_prop' => 'but_here_anyway'))
+       str = obj.inspect
+-      assert_equal('<Opus::Types::Test::Props::SerializableTest::MySerializable foo={"age"=>7, "color"=>"red"} name="Bob" @_extra_props=<not_a_prop="but_here_anyway">>', str)
++      assert_equal('<Opus::Types::Test::Props::SerializableTest::MySerializable foo={"age" => 7, "color" => "red"} name="Bob" @_extra_props=<not_a_prop="but_here_anyway">>', str)
+     end
+ 
+     it 'inspects with custom extra props' do
+@@ -185,7 +185,7 @@ class ChildWithDefault < ParentWithNoDefault
+     it 'inspects frozen structs' do
+       obj = a_serializable.freeze
+       str = obj.inspect
+-      assert_equal('<Opus::Types::Test::Props::SerializableTest::MySerializable foo={"age"=>7, "color"=>"red"} name="Bob">', str)
++      assert_equal('<Opus::Types::Test::Props::SerializableTest::MySerializable foo={"age" => 7, "color" => "red"} name="Bob">', str)
+     end
+   end
+ 
+@@ -195,7 +195,7 @@ class ChildWithDefault < ParentWithNoDefault
+       obj = obj.class.from_hash(obj.serialize.merge('not_a_prop' => 'but_here_anyway'))
+       expected_result = <<~INSPECT
+         <Opus::Types::Test::Props::SerializableTest::MySerializable
+-         foo={"age"=>7, "color"=>"red"}
++         foo={"age" => 7, "color" => "red"}
+          name="Bob">
+       INSPECT
+       str = obj.pretty_inspect
+@@ -548,13 +548,13 @@ class WithModel2 < T::Struct
+       e = assert_raises(ArgumentError) do
+         a.with(non_bar: 10)
+       end
+-      assert_equal('Unexpected arguments: input({:non_bar=>10}), unexpected({"non_bar"=>10})', e.to_s)
++      assert_equal('Unexpected arguments: input({non_bar: 10}), unexpected({"non_bar" => 10})', e.to_s)
+ 
+       a = WithModel1.from_hash({'foo' => 'foo', 'foo1' => 'foo1'})
+       e = assert_raises(ArgumentError) do
+         a.with(non_bar: 10)
+       end
+-      assert_equal('Unexpected arguments: input({:non_bar=>10}), unexpected({"non_bar"=>10})', e.to_s)
++      assert_equal('Unexpected arguments: input({non_bar: 10}), unexpected({"non_bar" => 10})', e.to_s)
+     end
+ 
+     it 'with overwrite fields' do
+@@ -679,7 +679,7 @@ class StructWithShapes < T::Struct
+           string_key_shape: {not_a_string: 0}
+         )
+       end
+-      assert_includes(exn.message, '.string_key_shape to {:not_a_string=>0} (instance of Hash) - need a {"foo" => Integer}')
++      assert_includes(exn.message, '.string_key_shape to {not_a_string: 0} (instance of Hash) - need a {"foo" => Integer}')
+     end
+ 
+     it 'roundtrips' do
+diff --git a/gems/sorbet-runtime/test/types/struct.rb b/gems/sorbet-runtime/test/types/struct.rb
+index 1d0e210dd..01d269c6b 100644
+--- a/gems/sorbet-runtime/test/types/struct.rb
++++ b/gems/sorbet-runtime/test/types/struct.rb
+@@ -115,8 +115,8 @@ def make_nested_struct
+     it "inspects in a single line" do
+       struct = make_nested_struct
+       expected_result = "<Opus::Types::Test::StructValidationTest::NestedStruct " \
+-      "custom=\"Inspected 'something' (opts: {:multiline=>false})\" data={:one=>\"one\", :two=>\"two\"} " \
+-      "nested=<Opus::Types::Test::StructValidationTest::NestedStruct custom=nil data={:three=>\"three\"} " \
++      "custom=\"Inspected 'something' (opts: {multiline: false})\" data={one: \"one\", two: \"two\"} " \
++      "nested=<Opus::Types::Test::StructValidationTest::NestedStruct custom=nil data={three: \"three\"} " \
+       "nested=nil sensitive=<REDACTED reason>> sensitive=nil>"
+       assert_equal(expected_result, struct.inspect)
+     end
+@@ -125,11 +125,11 @@ def make_nested_struct
+       struct = make_nested_struct
+       expected_result = <<~INSPECT
+         <Opus::Types::Test::StructValidationTest::NestedStruct
+-         custom="Inspected 'something' (opts: {:multiline=>true})"
+-         data={:one=>"one", :two=>"two"}
++         custom="Inspected 'something' (opts: {multiline: true})"
++         data={one: "one", two: "two"}
+          nested=<Opus::Types::Test::StructValidationTest::NestedStruct
+           custom=nil
+-          data={:three=>"three"}
++          data={three: "three"}
+           nested=nil
+           sensitive=<REDACTED reason>>
+          sensitive=nil>
