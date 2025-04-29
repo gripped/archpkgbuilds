@@ -1,17 +1,17 @@
 [Unit]
 Description=Kafka server
-After=network.target zookeeper.service
-Requires=zookeeper.service
+After=network.target
 
 [Service]
 Type=simple
 Environment=KAFKA_PID_DIR=/run/kafka/
 Environment=LOG_DIR=/var/log/kafka
-Environment=KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:/etc/kafka/log4j.properties"
+Environment=KAFKA_LOG4J_OPTS="-Dlog4j2.configurationFile=file:/etc/kafka/log4j.yaml"
 User=kafka
 WorkingDirectory=/var/lib/kafka
 ExecStart=/usr/bin/kafka-server-start.sh /etc/kafka/server.properties
 ReadWritePaths=/var/log/kafka
+ReadWritePaths=/var/lib/kafka
 SuccessExitStatus=143
 PrivateTmp=true
 ProtectSystem=strict

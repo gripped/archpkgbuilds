@@ -1,0 +1,7 @@
+post_install() {
+    if [ ! -f "/var/lib/kafka/meta.properties" ]; then
+        echo "=========="
+        echo "   You should migrate kafka metadata, example command"
+        echo "   sudo -u kafka /usr/bin/kafka-storage.sh format -t \"\$(/usr/bin/kafka-storage.sh random-uuid)\" -c /etc/kafka/server.properties --standalone"
+    fi
+}
