@@ -1,18 +1,19 @@
 pkgbase = ruby-getoptlong
 	pkgdesc = GetoptLong for Ruby
-	pkgver = 0.1.1
-	pkgrel = 4
+	pkgver = 0.2.1
+	pkgrel = 1
 	url = https://github.com/ruby/getoptlong
 	arch = any
 	license = BSD
 	license = RUBY
+	checkdepends = ruby-bundler
+	checkdepends = ruby-rake
+	checkdepends = ruby-test-unit
+	makedepends = ruby-rdoc
 	depends = ruby
 	options = !emptydirs
-	source = https://github.com/ruby/getoptlong/archive/v0.1.1/ruby-getoptlong-0.1.1.tar.gz
-	source = ruby-getoptlong_tests.patch::https://github.com/ruby/getoptlong/commit/18cdb03fd4ac22bb58f7d9db2dcfdacfc32fb920.patch
-	sha512sums = 33d724a8d09b79bcd582cdd88fda90a784f5aba83fc5982bd7b7e51551a35582eb09231b0fb621f83ed347238fb59a99c89182f1280defb0126bb1503177e7e2
-	sha512sums = a6ae675bc025c26e90e7485ea7ff6e50e78bd2ca113d64123b784c0ed839feab64cf4da650c42b344b1bc182dfd24862f61e3e149cc7edf8ba5079abb062eaae
-	b2sums = 7bf9e725285eb44bee43add5a2cb25ba8f518bde3c7f3f4630e72665d1008e9f002d663369f6f680a2f386462ed141d030dfd276fc2845d60aa89c7864ae465a
-	b2sums = 8e0bcfa0d440fccf5f39fe6a0064223162f19ea58e83662cea155d91e3ee6bd2a25f1687088fd638940a86304691f7bbaaae829e761de515e08993c1f2874d4d
+	source = https://github.com/ruby/getoptlong/archive/v0.2.1/ruby-getoptlong-0.2.1.tar.gz
+	sha512sums = 8a2c24ef680d0bbd84f255e69a6da0684199fac01ff24158ad9d28e615f5bc3c139ff0eebd66ab62b11413c85d39b7460b7820e51183eb5c6b75e3f5b61b4a49
+	b2sums = b67b04b6f0952393a4f8e7a0cbeccd1aa78c5580b122f1822e2ffe0fedefa5eb9b77ab7ec8e149099d09a4845673f848e46eb11676b968bdf929ea9f07290162
 
 pkgname = ruby-getoptlong
