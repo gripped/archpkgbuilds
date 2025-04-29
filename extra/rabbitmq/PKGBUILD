@@ -14,7 +14,7 @@ pkgname=(
   rabbitmqadmin
 )
 pkgver=4.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Highly reliable and performant enterprise messaging implementation of AMQP written in Erlang/OTP'
 url='https://rabbitmq.com'
 arch=('any')
@@ -184,7 +184,7 @@ package_rabbitmq() {
     rabbitmqctl
     vmware-rabbitmq
   )
-  for script in ${scripts}; do
+  for script in "${scripts[@]}"; do
     ln -vs /usr/lib/rabbitmq/bin/rabbitmq-script-wrapper "${pkgdir}/usr/bin/${script}"
   done
 
