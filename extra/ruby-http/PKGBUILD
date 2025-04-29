@@ -2,8 +2,7 @@
 
 pkgname=ruby-http
 pkgver=5.2.0
-_commit=bb754c7d85dca26180567b781815e1b84c784d86
-pkgrel=2
+pkgrel=4
 pkgdesc='A fast Ruby HTTP client with a chainable API, streaming support, and timeouts'
 arch=(any)
 url='https://github.com/httprb/http'
@@ -11,27 +10,36 @@ license=(MIT)
 depends=(
   ruby
   ruby-addressable
+  ruby-base64
   ruby-http-cookie
   ruby-http-form_data
   ruby-llhttp-ffi
 )
 makedepends=(
   git
-  ruby-rake
-  ruby-rspec
+  ruby-rdoc
 )
 checkdepends=(
   ruby-certificate_authority
+  ruby-rake
+  ruby-rspec
   ruby-rspec-its
   ruby-simplecov
   ruby-webrick
 )
 options=(!emptydirs)
-source=(git+https://github.com/httprb/http.git#commit=$_commit)
-sha256sums=('SKIP')
+source=(
+  "git+https://github.com/httprb/http.git#tag=v$pkgver"
+  "${pkgname}_fix_tests.patch"
+)
+sha256sums=('e76b8462e6d5e4779d5775e0593f6b16f3b24bd29192bca3193e98444cc413c3'
+            '616c7c4c361b44072aaf518cba82c3d7669634a1c890043a7bc5fb85ab734fcc')
 
 prepare() {
   cd http
+
+  patch --verbose --strip=1 --input="../${pkgname}_fix_tests.patch"
+
   sed -i 's|~>|>=|' http.gemspec
   sed -i '/fuubar/d' spec/spec_helper.rb
 }

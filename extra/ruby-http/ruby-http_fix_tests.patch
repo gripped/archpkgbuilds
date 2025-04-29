@@ -1,0 +1,26 @@
+diff --git a/spec/lib/http/headers_spec.rb b/spec/lib/http/headers_spec.rb
+index abf6226..576652b 100644
+--- a/spec/lib/http/headers_spec.rb
++++ b/spec/lib/http/headers_spec.rb
+@@ -281,7 +281,7 @@ RSpec.describe HTTP::Headers do
+     before  { headers.set :set_cookie, %w[hoo=ray woo=hoo] }
+     subject { headers.inspect }
+ 
+-    it { is_expected.to eq '#<HTTP::Headers {"Set-Cookie"=>["hoo=ray", "woo=hoo"]}>' }
++    it { is_expected.to eq "#<HTTP::Headers #{{ "Set-Cookie" => [ "hoo=ray", "woo=hoo" ] }}>" }
+   end
+ 
+   describe "#keys" do
+diff --git a/spec/lib/http/response_spec.rb b/spec/lib/http/response_spec.rb
+index 873ffd8..53cf9d5 100644
+--- a/spec/lib/http/response_spec.rb
++++ b/spec/lib/http/response_spec.rb
+@@ -135,7 +135,7 @@ RSpec.describe HTTP::Response do
+     let(:headers) { {:content_type => "text/plain"} }
+     let(:body)    { double :to_s => "foobar" }
+ 
+-    it { is_expected.to eq '#<HTTP::Response/1.1 200 OK {"Content-Type"=>"text/plain"}>' }
++    it { is_expected.to eq "#<HTTP::Response/1.1 200 OK #{{"Content-Type" => "text/plain"}}>" }
+   end
+ 
+   describe "#cookies" do
