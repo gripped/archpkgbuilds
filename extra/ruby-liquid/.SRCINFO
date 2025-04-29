@@ -1,6 +1,6 @@
 pkgbase = ruby-liquid
 	pkgdesc = Liquid markup language. Safe, customer facing template language for flexible web apps
-	pkgver = 5.6.0
+	pkgver = 5.8.6
 	pkgrel = 1
 	url = https://shopify.github.io/liquid/
 	arch = any
@@ -11,9 +11,13 @@ pkgbase = ruby-liquid
 	checkdepends = ruby-liquid-c
 	makedepends = ruby-rdoc
 	depends = ruby
+	depends = ruby-base64
+	depends = ruby-bigdecimal
+	depends = ruby-lru_redux
+	depends = ruby-strscan
 	optdepends = ruby-liquid-c: native renderer extension
 	options = !emptydirs
-	source = ruby-liquid-5.6.0.tar.gz::https://github.com/Shopify/liquid/archive/v5.6.0.tar.gz
-	sha512sums = 2c893ae1ce8db0a0ef4485bceba64e3a4ec80bf56666b5bb5e2da1f96477ef58579977aed3e2ae1cdc85886f5c012277414aa2ddf37fa22290b88699b09fc660
+	source = ruby-liquid-5.8.6.tar.gz::https://github.com/Shopify/liquid/archive/v5.8.6.tar.gz
+	sha512sums = 4f40fef12215b54d5ec6bb7245508c10c368d2e0316017b930a5f59f4f56fa5a5eb556e8d877b54b0bc70bbaa54f75547e0367fb3206d830b4f8034bd01a3f00
 
 pkgname = ruby-liquid

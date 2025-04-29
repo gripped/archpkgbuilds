@@ -3,21 +3,31 @@
 
 _name=liquid
 pkgname=ruby-$_name
-pkgver=5.6.0
+pkgver=5.8.6
 pkgrel=1
 pkgdesc='Liquid markup language. Safe, customer facing template language for flexible web apps'
 url='https://shopify.github.io/liquid/'
 arch=('any')
 license=('MIT')
 makedepends=('ruby-rdoc')
-checkdepends=('ruby-rake' 'ruby-minitest' 'ruby-stackprof' 'ruby-liquid-c')
+checkdepends=(
+  ruby-rake
+  ruby-minitest ruby-stackprof
+  ruby-liquid-c
+)
 optdepends=(
   "ruby-liquid-c: native renderer extension"
 )
-depends=('ruby')
+depends=(
+  ruby
+  ruby-base64
+  ruby-bigdecimal
+  ruby-lru_redux
+  ruby-strscan
+)
 options=('!emptydirs')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/Shopify/${_name}/archive/v${pkgver}.tar.gz)
-sha512sums=('2c893ae1ce8db0a0ef4485bceba64e3a4ec80bf56666b5bb5e2da1f96477ef58579977aed3e2ae1cdc85886f5c012277414aa2ddf37fa22290b88699b09fc660')
+sha512sums=('4f40fef12215b54d5ec6bb7245508c10c368d2e0316017b930a5f59f4f56fa5a5eb556e8d877b54b0bc70bbaa54f75547e0367fb3206d830b4f8034bd01a3f00')
 
 prepare() {
   cd "${_name}-${pkgver}"
@@ -75,7 +85,7 @@ check() {
   local _gemdir="$(gem env gemdir)"
 
   # One test currently failing for unknown reasons, pass anyway
-  GEM_HOME="tmp_install/${_gemdir}" rake test || true
+  GEM_HOME="tmp_install/${_gemdir}" rake test
 }
 
 package() {
