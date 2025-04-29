@@ -3,7 +3,7 @@
 _gemname='simplecov_json_formatter'
 pkgname="ruby-${_gemname}"
 pkgver=0.1.4
-pkgrel=5
+pkgrel=7
 pkgdesc='JSON formatter for SimpleCov'
 arch=('any')
 url="https://github.com/codeclimate-community/${_gemname}"
@@ -30,48 +30,29 @@ prepare() {
   sed --in-place --regexp-extended 's|~>|>=|g' "${_gemname}.gemspec"
 
   rm --verbose Gemfile*
-
-  # fix tests
-  local simplecov_version="$(ruby -e 'require("simplecov"); puts SimpleCov::VERSION')"
-
-  sed --in-place '/byebug/d' spec/simplecov_json_formatter_spec.rb
-  sed --in-place --regexp-extended "s/\"simplecov_version\": \"[0-9]+\.[0-9]+\.[0-9]+\"/\"simplecov_version\": \"${simplecov_version}\"/" spec/fixtures/*.json
-  sed --in-place --regexp-extended "s|/gem/|${srcdir}/${_gemname}-${pkgver}/|" spec/fixtures/*.json
 }
 
 build() {
   cd "${_gemname}-${pkgver}"
 
-  gem build "${_gemname}.gemspec"
-}
-
-check() {
-  cd "${_gemname}-${pkgver}"
-
-  rake spec
-}
-
-package() {
-  cd "${_gemname}-${pkgver}"
-
   local _gemdir="$(gem env gemdir)"
+
+  gem build "${_gemname}.gemspec"
 
   gem install \
     --local \
     --verbose \
     --ignore-dependencies \
-    --no-user-install \
-    --install-dir "${pkgdir}/${_gemdir}" \
-    --bindir "${pkgdir}/usr/bin" \
+    --build-root "tmp_install" \
     "${_gemname}-${pkgver}.gem"
 
   # remove unrepreducible files
   rm --force --recursive --verbose \
-    "${pkgdir}/${_gemdir}/cache/" \
-    "${pkgdir}/${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
-    "${pkgdir}/${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
+    "tmp_install/${_gemdir}/cache/" \
+    "tmp_install/${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
+    "tmp_install/${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
 
-  find "${pkgdir}/${_gemdir}/gems/" \
+  find "tmp_install/${_gemdir}/gems/" \
     -type f \
     \( \
       -iname "*.o" -o \
@@ -83,14 +64,37 @@ package() {
     \) \
     -delete
 
-  find "${pkgdir}/${_gemdir}/extensions/" \
+  find "tmp_install/${_gemdir}/extensions/" \
     -type f \
     \( \
       -iname "mkmf.log" -o \
       -iname "gem_make.out" \
     \) \
     -delete
+}
 
-  install --verbose -D --mode=644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  install --verbose -D --mode=644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
+check() {
+  cd "${_gemname}-${pkgver}"
+
+  local _gemdir="$(gem env gemdir)"
+
+  # fix tests
+  # This can't happen in prepare() because of a cyclic dependency on ourselves.
+  local simplecov_version="$(GEM_HOME="tmp_install/${_gemdir}" ruby -e 'require("simplecov"); puts SimpleCov::VERSION')"
+
+  sed --in-place '/byebug/d' spec/simplecov_json_formatter_spec.rb
+  sed --in-place --regexp-extended "s/\"simplecov_version\": \"[0-9]+\.[0-9]+\.[0-9]+\"/\"simplecov_version\": \"${simplecov_version}\"/" spec/fixtures/*.json
+  sed --in-place --regexp-extended "s|/gem/|${srcdir}/${_gemname}-${pkgver}/|" spec/fixtures/*.json
+  
+
+  GEM_HOME="tmp_install/${_gemdir}" rake spec
+}
+
+package() {
+  cd "${_gemname}-${pkgver}"
+
+  cp --archive --verbose tmp_install/* "${pkgdir}"
+
+  install --verbose -D --mode=0644 LICENSE --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
 }
