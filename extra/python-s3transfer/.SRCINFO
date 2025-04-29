@@ -1,20 +1,20 @@
 pkgbase = python-s3transfer
 	pkgdesc = Amazon S3 Transfer Manager for Python
-	pkgver = 0.11.3
+	pkgver = 0.12.0
 	pkgrel = 1
 	url = https://github.com/boto/s3transfer
 	arch = any
-	license = Apache
+	license = Apache-2.0
 	checkdepends = python-pytest
+	makedepends = python-awscrt
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
-	makedepends = python-awscrt
 	depends = python
 	depends = python-botocore
-	optdepends = python-awscrt
-	source = python-s3transfer-0.11.3.tar.gz::https://github.com/boto/s3transfer/archive/0.11.3.tar.gz
-	sha256sums = e72d7da763d9457d858d9488056d2e736bb3cd8188287cbe53bc3c77ef0be25c
+	optdepends = python-awscrt: use AWS Common Runtime
+	source = https://github.com/boto/s3transfer/archive/0.12.0/python-s3transfer-0.12.0.tar.gz
+	sha256sums = d090d03bc9abad5df5201e1ec1a0372965230f4beb9e4b34f69d2e634fde07ea
 
 pkgname = python-s3transfer

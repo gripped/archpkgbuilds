@@ -1,38 +1,43 @@
-# Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Chih-Hsuan Yen <yan12125@archlinux.org>
 # Contributor: Jonathan Steel <jsteel at archlinux.org>
 # Contributor: Chris Severance aur.severach AatT spamgourmet.com
 
 pkgname=python-s3transfer
-# https://github.com/boto/s3transfer/blob/develop/CHANGELOG.rst
-pkgver=0.11.3
+pkgver=0.12.0
 pkgrel=1
 pkgdesc='Amazon S3 Transfer Manager for Python'
 arch=('any')
 url="https://github.com/boto/s3transfer"
-license=('Apache')
-depends=('python' 'python-botocore')
-makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel'
-             'python-awscrt')
-checkdepends=('python-pytest')
-optdepends=(
-  'python-awscrt'
+license=('Apache-2.0')
+depends=(
+  'python'
+  'python-botocore'
 )
-source=($pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha256sums=('e72d7da763d9457d858d9488056d2e736bb3cd8188287cbe53bc3c77ef0be25c')
+makedepends=(
+  'python-awscrt'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-wheel'
+)
+checkdepends=('python-pytest')
+optdepends=('python-awscrt: use AWS Common Runtime')
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('d090d03bc9abad5df5201e1ec1a0372965230f4beb9e4b34f69d2e634fde07ea')
 
 build() {
-  cd s3transfer-$pkgver
+  cd ${pkgname#python-}-$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd s3transfer-$pkgver
+  cd ${pkgname#python-}-$pkgver
   # Many integration tests need real credentials
   pytest tests --ignore=tests/integration
 }
 
 package() {
-  cd s3transfer-$pkgver
+  cd ${pkgname#python-}-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
