@@ -2,7 +2,7 @@
 
 pkgname=ruby-protocol-http2
 pkgver=0.22.1
-pkgrel=1
+pkgrel=3
 pkgdesc='A low level implementation of the HTTP/2 protocol'
 arch=(any)
 url='https://github.com/socketry/protocol-http2'
@@ -17,13 +17,15 @@ makedepends=(
   ruby-rdoc
 )
 checkdepends=(
-  ruby-bake-modernize
+  ruby-bake
   ruby-bake-test
   ruby-bake-test-external
   ruby-bundler
   ruby-covered
   ruby-decode
+  ruby-metrics
   ruby-sus
+  ruby-traces
 )
 options=(!emptydirs)
 source=("git+${url}.git#tag=v${pkgver}")
