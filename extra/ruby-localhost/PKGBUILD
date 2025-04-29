@@ -1,9 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-localhost
-pkgver=1.1.10
-_commit=4d85ada0ce511f8427ad2eba1f6f174f5bf84ef3
-pkgrel=3
+pkgver=1.4.2
+pkgrel=2
 pkgdesc='Manage a local certificate authority for self-signed localhost development servers'
 arch=(any)
 url='https://github.com/socketry/localhost'
@@ -16,22 +15,30 @@ makedepends=(
   ruby-rdoc
 )
 checkdepends=(
-  ruby-async-process
-  ruby-bake-modernize
+  ruby-bake
   ruby-bake-test
   ruby-bake-test-external
   ruby-bundler
   ruby-covered
+  ruby-decode
+  ruby-io-endpoint
+  ruby-sus
   ruby-sus-fixtures-async
+  ruby-sus-fixtures-async-http
 )
 options=(!emptydirs)
-source=(git+https://github.com/socketry/localhost.git#commit=$_commit)
-sha256sums=('SKIP')
+source=(git+https://github.com/socketry/localhost.git#tag=v$pkgver)
+sha512sums=('52994e7c4e50dcf0d70a654ee97c92e160dde1805ddecae8ff0860963fad7309e874873f59f66f6f008565f4fcc00db522f1a32283748b5d426a5763205c415a')
+b2sums=('b5069fd0ec152dc942f036187f59695b828570e7cfa4c63b2ee1cb83e5f0c33c8504a1a5a60045d632676ab60474fec5b1c6448a67c6ad527282ce8f48142b7c')
 
 prepare() {
   cd localhost
   sed -r -e 's|~>|>=|g' -e '/signing_key/d' -i localhost.gemspec
-  sed -i '/bake-gem/d;/utopia-project/d' gems.rb
+
+  sed --in-place \
+    --expression '/group :maintenance/,/end/d' \
+    --expression '/rubocop/d' \
+    gems.rb
 }
 
 build() {
