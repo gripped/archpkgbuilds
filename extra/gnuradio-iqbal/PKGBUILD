@@ -4,9 +4,8 @@
 
 pkgname=gnuradio-iqbal
 _pkgname=gr-iqbal
-pkgver=0.38.2.r9.gfbee239
-_commit=fbee239a6fb36dd2fb564f6e6a0d393c4bc844db
-pkgrel=12
+pkgver=0.38.3
+pkgrel=1
 pkgdesc="Gnuradio I/Q balancing"
 arch=(x86_64)
 url="https://cgit.osmocom.org/gr-iqbal/"
@@ -30,16 +29,11 @@ makedepends=(
 provides=(libgnuradio-iqbalance.so)
 replaces=(gr-iqbal)
 source=(
-  "git+https://gitea.osmocom.org/sdr/gr-iqbal.git#commit=$_commit"
+  "git+https://gitea.osmocom.org/sdr/gr-iqbal.git#tag=v$pkgver"
   "git+https://gitea.osmocom.org/sdr/libosmo-dsp.git"  # TODO: package this instead
 )
-sha256sums=('d26a6f98e2c8ed08282eabf2d7f22ffa71b95077ea39f04fb88f73e20b60a7c9'
+sha256sums=('cd30127783b952545f3ab1f2675fd59ee52c1264769b49838da0f09b4bfb4abe'
             'SKIP')
-
-pkgver() {
-  cd $_pkgname
-  git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/v//g'
-}
 
 prepare() {
   cd $_pkgname
