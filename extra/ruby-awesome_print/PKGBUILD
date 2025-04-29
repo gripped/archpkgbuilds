@@ -2,7 +2,7 @@
 
 pkgname=ruby-awesome_print
 pkgver=1.9.2
-pkgrel=3
+pkgrel=5
 pkgdesc='Pretty print your Ruby objects with style'
 arch=(any)
 url='https://github.com/awesome-print/awesome_print'
@@ -14,6 +14,7 @@ makedepends=(
   ruby-rdoc
 )
 checkdepends=(
+  ruby-bigdecimal
   ruby-bundler
   ruby-fakefs
   ruby-nokogiri
@@ -27,7 +28,11 @@ sha256sums=('70507b7a138bf9b3cfc7150327ff1cf53a75557ed59c4e8b5e0d9692ec0d0a06')
 
 prepare() {
   cd awesome_print-$pkgver
-  sed '/appraisal/d' -i awesome_print.gemspec
+
+  sed --in-place --regexp-extended \
+    --expression 's|~>|>=|g' \
+    --expression 's/appraisal/bigdecimal/' \
+    awesome_print.gemspec
 }
 
 build() {
