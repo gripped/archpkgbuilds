@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=dpdk
-pkgver=24.11.1
+pkgver=24.11.2
 pkgrel=1
 pkgdesc="A set of libraries and drivers for fast packet processing"
 arch=(x86_64)
@@ -33,7 +33,7 @@ makedepends=(
   python-pyelftools
 )
 source=("git+https://dpdk.org/git/dpdk-stable#tag=v$pkgver")
-sha256sums=('5a6b9b38a159e318353b860b35ac709ece9be9fc0d9670da8fcac6a8ed75fdb5')
+sha256sums=('6910e5503cb3b99d9571a9da3ccfbfb1f8014caa79e4f86ac20d191a79524565')
 
 build() {
   cd dpdk-stable
