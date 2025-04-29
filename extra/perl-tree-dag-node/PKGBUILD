@@ -2,7 +2,7 @@
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=perl-tree-dag-node
-pkgver=1.33
+pkgver=1.34
 pkgrel=1
 pkgdesc="base class for trees"
 arch=('any')
@@ -11,7 +11,7 @@ license=('GPL' 'PerlArtistic')
 depends=('perl-file-slurper')
 options=('!emptydirs')
 source=(https://www.cpan.org/authors/id/R/RS/RSAVAGE/Tree-DAG_Node-$pkgver.tgz)
-sha512sums=('9bd7fd1e8c212d44bfd47f8856be171ca2ab93f2e097603b6feab9de4164948f3972d765e93d8126703d505fa33001a47ee0f927f7b43b42ceb051b613ef8a23')
+sha512sums=('b32c7806db3b2dff6625109e1eed24a5324aef67d042a05f1c35429be85ce6e98932e674bb704eed21e83c48417d2f3050c0fc5208ba54b8de884c7dbe8d9cfe')
 
 build() {
   cd  "$srcdir"/Tree-DAG_Node-$pkgver
