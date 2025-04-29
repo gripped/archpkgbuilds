@@ -2,18 +2,27 @@
 
 _gemname='mutex_m'
 pkgname="ruby-${_gemname}"
-pkgver=0.1.1
-pkgrel=4
+pkgver=0.3.0
+pkgrel=2
 pkgdesc='Mixin to extend objects to be handled like a Mutex'
 arch=('any')
 url="https://github.com/ruby/${_gemname}"
 license=('BSD' 'RUBY')
-depends=('ruby')
-checkdepends=('ruby-rake')
+depends=(
+  ruby
+)
+makedepends=(
+  ruby-rdoc
+)
+checkdepends=(
+  ruby-bundler
+  ruby-rake
+  ruby-test-unit
+)
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('859a93e171d47387e777b53c5432d38560053d911d02cb7cd7e66734783eb22880b2094fc0fffadd9f3fe44aeffc55c64be20ee0cd44442b6a0d9009db80d163')
-b2sums=('15079eb75873513c8ecef2f0bf084ed1c523423e83384bfcbebcb0f36cca1e74ff161ead1a4523b2df2919d5404251f56ce0bd09b204358ed6237cf38d717acc')
+sha512sums=('f59a937f09c8f34e741a201fcf5eca0e2c1648df679e38c267267b626288c451df79b530653e1909502e6f6b951e97f62e94c45a70a8a112aad7cedb3ab9fe8a')
+b2sums=('e02ee9b6b91d4c992035b1a21a82db3f14d4790ecee8461d8c04447728353c7ccb711bfa0a5b9057d14a6b8a32f5bcf2c490a818fe7981283e15c1a402b401dd')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
@@ -26,47 +35,43 @@ build() {
   cd "${_gemname}-${pkgver}"
 
   local _gemdir="$(gem env gemdir)"
-  local _platform="$(gem env platform | cut -d':' -f2)"
-  local _extension_api_version="$(ruby -e 'puts Gem.extension_api_version')"
 
-  install --verbose --directory --mode=0755 \
-    "tmp_install_default/gemspec/specifications/gems/${_gemname}-${pkgver}" \
-    "tmp_install/usr/lib/ruby/${_extension_api_version}/${_platform}" \
-    "tmp_install${_gemdir}/specifications/default"
-
-  gem build "${_gemname}.gemspec"
+  gem build --verbose "${_gemname}.gemspec"
 
   gem install \
     --local \
     --verbose \
     --ignore-dependencies \
     --no-user-install \
-    --install-dir "tmp_install/${_gemdir}" \
+    --install-dir "tmp_install${_gemdir}" \
     --bindir "tmp_install/usr/bin" \
     "${_gemname}-${pkgver}.gem"
 
-  gem install \
-    --default \
-    --local \
-    --verbose \
-    --ignore-dependencies \
-    --no-user-install \
-    --install-dir "tmp_install_default/gemspec" \
-    --bindir "tmp_install_default/usr/bin" \
-    "${_gemname}-${pkgver}.gem"
-
-  mv --verbose "tmp_install_default/gemspec/specifications/default/${_gemname}-${pkgver}.gemspec" "tmp_install${_gemdir}/specifications/default/${_gemname}-${pkgver}.gemspec"
-  mv --verbose "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/lib/${_gemname}.rb" "tmp_install/usr/lib/ruby/${_extension_api_version}/${_gemname}.rb"
-
-  # remove unrepreducible files
+  # remove unreproducible files
   rm --force --recursive --verbose \
     "tmp_install${_gemdir}/cache/" \
-    "tmp_install${_gemdir}/build_info/" \
-    "tmp_install${_gemdir}/extensions/" \
-    "tmp_install${_gemdir}/gems/" \
-    "tmp_install${_gemdir}/plugins/" \
-    "tmp_install${_gemdir}/specifications/${_gemname}-${pkgver}.gemspec" \
+    "tmp_install${_gemdir}/gems/${_gemname}-${pkgver}/vendor/" \
     "tmp_install${_gemdir}/doc/${_gemname}-${pkgver}/ri/ext/"
+
+  find "tmp_install${_gemdir}/gems/" \
+    -type f \
+    \( \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
+    \) \
+    -delete
+
+  find "tmp_install${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
 }
 
 check() {
@@ -74,7 +79,7 @@ check() {
 
   local _gemdir="$(gem env gemdir)"
 
-  GEM_HOME="tmp_install/${_gemdir}" rake test
+  GEM_HOME="tmp_install${_gemdir}" rake test
 }
 
 package() {
@@ -82,7 +87,7 @@ package() {
 
   cp --archive --verbose tmp_install/* "${pkgdir}"
 
-  install --verbose -D --mode=0644 LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install --verbose -D --mode=0644 COPYING --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
   install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
 }
 
