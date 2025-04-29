@@ -2,7 +2,7 @@
 
 pkgname=ruby-rspec-memory
 pkgver=1.0.4
-pkgrel=4
+pkgrel=6
 pkgdesc='RSpec helpers for checking memory allocations'
 arch=(any)
 url='https://github.com/socketry/rspec-memory'
@@ -12,7 +12,7 @@ depends=(
   ruby-rspec
 )
 checkdepends=(
-  ruby-bake-modernize
+  ruby-bake
   ruby-bake-test
   ruby-bake-test-external
   ruby-bundler
@@ -25,7 +25,11 @@ sha256sums=('f3b25f8fe54692fe2434da2a01ffed3f4331fbc71dc456b2a2ac0496b2a4be9c')
 prepare() {
   cd rspec-memory-$pkgver
   sed -r -e 's|~>|>=|g' -e '/signing_key/d' -i rspec-memory.gemspec
-  sed -i '/bake-gem/d' gems.rb
+
+  sed --in-place \
+    --expression '/group :maintenance/,/end/d' \
+    --expression '/rubocop/d' \
+    gems.rb
 }
 
 build() {
