@@ -4,7 +4,7 @@
 
 pkgname=sqlmap
 pkgver=1.9.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Automatic SQL injection and database takeover tool'
 url='https://sqlmap.org'
 arch=(any)
@@ -15,6 +15,7 @@ depends=(
 )
 optdepends=(
   'perl: icmpsh extra tool'
+  'python-sqlalchemy: MySQL/MariaDB connection'
 )
 backup=(
   'etc/sqlmap.conf'
