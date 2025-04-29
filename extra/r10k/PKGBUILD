@@ -4,7 +4,7 @@
 
 pkgname=r10k
 pkgver=4.1.0
-pkgrel=3
+pkgrel=5
 pkgdesc='Provides a general purpose toolset for deploying Puppet environments and modules.'
 arch=('any')
 url="https://github.com/puppetlabs/${pkgname}"
@@ -27,6 +27,7 @@ checkdepends=(
   git
   ruby-rspec
   ruby-rugged
+  ruby-syslog
 )
 options=('!emptydirs')
 source=("${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
