@@ -2,7 +2,7 @@
 
 pkgname=osinfo-db-tools
 pkgver=1.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Tools for managing the osinfo database'
 arch=(x86_64)
 url='https://libosinfo.org/'
