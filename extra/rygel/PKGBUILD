@@ -3,7 +3,7 @@
 
 pkgname=rygel
 pkgver=0.44.2
-pkgrel=1
+pkgrel=3
 epoch=1
 pkgdesc="UPnP AV MediaServer and MediaRenderer"
 url="https://gitlab.gnome.org/GNOME/rygel"
