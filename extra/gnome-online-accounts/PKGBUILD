@@ -8,7 +8,7 @@ pkgname=(
   libgoa
 )
 pkgver=3.54.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Single sign-on framework for GNOME"
 url="https://wiki.gnome.org/Projects/GnomeOnlineAccounts"
 arch=(x86_64)
