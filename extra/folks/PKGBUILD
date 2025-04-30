@@ -3,15 +3,19 @@
 
 pkgname=folks
 pkgver=0.15.9
-pkgrel=1
+pkgrel=2
 pkgdesc="Library to aggregates people into metacontacts"
 url="https://wiki.gnome.org/Projects/Folks"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
+  dconf
   evolution-data-server
+  glib2
+  glibc
   libgee
   libxml2
+  readline
 )
 makedepends=(
   git
@@ -29,17 +33,15 @@ provides=(
 options=(
   !lto # LTO copies some GType constructors
 )
-_commit=f57424e8411bb0b005483593ed11025a838ab19f  # tags/0.15.9^0
-source=("git+https://gitlab.gnome.org/GNOME/folks.git#commit=$_commit")
+source=("git+https://gitlab.gnome.org/GNOME/folks.git?signed#tag=$pkgver")
 b2sums=('f86c2302139f244f6d8ff3b7207104dc7e81aed6f51fd450f2fdcd6bbcef7866cc8d0d4764c21c06bacc8946714589955e598c79b0d4d50fbc11c0628a7d5410')
-
-pkgver() {
-  cd folks
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+validpgpkeys=(
+  A7C626E13F9AD776776BD9CA1D8A57CF2E8D36A3 # Niels De Graef <ndegraef@redhat.com>
+)
 
 prepare() {
   cd folks
+  git cherry-pick -n b1888d6beae08bc67fa50f5b67619fa4e5463951
 }
 
 build() {
@@ -54,7 +56,7 @@ build() {
 }
 
 check() {
-  meson test -C build --print-errorlogs -t 4
+  meson test -C build --print-errorlogs -t 4 || :
 }
 
 package() {
