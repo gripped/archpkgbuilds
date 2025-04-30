@@ -4,7 +4,7 @@
 
 pkgname=gpscorrelate
 pkgver=2.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Correlate (geotagging) digital camera photos with GPS data in GPX format'
 arch=('x86_64')
 url='https://dfandrich.github.io/gpscorrelate/'
@@ -26,6 +26,7 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
+  CFLAGS+=' -Wno-implicit-function-declaration' \
   make prefix=/usr
 }
 
