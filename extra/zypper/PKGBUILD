@@ -1,7 +1,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=zypper
-pkgver=1.14.88
+pkgver=1.14.89
 pkgrel=1
 pkgdesc="openSUSE's most powerful command line package manager"
 arch=(x86_64)
@@ -23,7 +23,7 @@ makedepends=(
     git
 )
 source=("git+https://github.com/openSUSE/zypper.git#tag=${pkgver}")
-sha256sums=('dbeb2fd98d764ff620112c8e2e4a1fadbb401d0707d562564e7ea8f46bd23546')
+sha256sums=('e5c24cc352e01ebda5858cc60ebf5eab6f1246b8d2f92d8d60ddececfddf8742')
 
 build() {
     local cmake_options=(
