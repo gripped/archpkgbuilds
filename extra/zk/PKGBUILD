@@ -2,7 +2,7 @@
 # Contributor: Nogweii <me@nogweii.net>
 
 pkgname=zk
-pkgver=0.14.2
+pkgver=0.15.1
 pkgrel=1
 pkgdesc='A command-line tool helping you to maintain a Zettelkasten or personal wiki'
 arch=('x86_64')
@@ -12,8 +12,8 @@ depends=('glibc')
 makedepends=('git' 'go')
 options=('!lto')
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('60596f4db00597406bfd73b4a6fe43e5b7e7cb48a5b25135b8b45cab1e11372475f515260f972c151cc0e77c012fdcf1978da282bcc735a130a39d9353359afe')
-b2sums=('4aa7bc2cdf7d32a68e5e3a8170c54ab9cc64cd383e67a72c0fe08bb74646c2dc3f383f6d471b79230d130d17bab2788ee32606c732227deab747b1feef50a057')
+sha512sums=('6fb0e24d94a78025a881c103033f1704ecaa413641f70e2931a6ca26ac1f697c74bef095c05f8d7eb9450bf06b1c00396953e6884c1ac05d77a379cb9aee6ecb')
+b2sums=('e06e0e9b0f539f4eff7c30c1c9a68c292d02720e268582623d4c540fc0110ce25428ea3f2783572aea5832f67828f304e33c187e9608912870e01d97351290b7')
 
 prepare() {
   cd "$pkgname"
