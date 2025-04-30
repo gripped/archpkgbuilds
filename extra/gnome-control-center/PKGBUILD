@@ -8,7 +8,7 @@ pkgname=(
   gnome-keybindings
 )
 pkgver=48.1
-pkgrel=1
+pkgrel=2
 pkgdesc="GNOME's main interface to configure various aspects of the desktop"
 url="https://apps.gnome.org/Settings/"
 license=(GPL-2.0-or-later)
