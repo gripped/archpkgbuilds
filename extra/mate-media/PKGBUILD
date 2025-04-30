@@ -4,7 +4,7 @@
 
 pkgname=mate-media
 pkgver=1.28.1
-pkgrel=2
+pkgrel=3
 pkgdesc="MATE Media Tools"
 url="https://mate-desktop.org"
 arch=('x86_64')
