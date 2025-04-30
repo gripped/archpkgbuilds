@@ -1,7 +1,7 @@
 pkgbase = lib32-gstreamer
 	pkgdesc = Multimedia graph framework (32-bit)
-	pkgver = 1.26.0
-	pkgrel = 2
+	pkgver = 1.26.1
+	pkgrel = 1
 	url = https://gstreamer.freedesktop.org/
 	arch = x86_64
 	license = LGPL-2.1-or-later
@@ -65,10 +65,10 @@ pkgbase = lib32-gstreamer
 	makedepends = lib32-zlib
 	makedepends = meson
 	makedepends = wayland-protocols
-	source = git+https://gitlab.freedesktop.org/gstreamer/gstreamer.git?signed#tag=1.26.0
+	source = git+https://gitlab.freedesktop.org/gstreamer/gstreamer.git?signed#tag=1.26.1
 	source = 0001-HACK-meson-Disable-broken-tests.patch
 	validpgpkeys = D637032E45B8C6585B9456565D2EEE6F6F349D7C
-	b2sums = 8c90fe57ae67c5097cf427bca73cb687bc5087256444ec9227f4a294b2889d2042643ed4230414c151ecbae8490984e2b8c52cfea494e4f10f79866a26326029
+	b2sums = b744af094589dcd4abcb643784757b1adad721334b91a4fa7f2c828bd2b14d1e3f02fc95ec1527345516a6a4ee683cb4b30841f783971299f1aaada733209a67
 	b2sums = 6b4e34286318ca591077779e713ec9a94cb2e5b73a9dd6df35afdefcc709c0f9d1ee4cae6c99d2bbf2e075eda03e94cacb57bfc202fdb8c263b4b0d335541b23
 
 pkgname = lib32-gstreamer
@@ -85,7 +85,7 @@ pkgname = lib32-gstreamer
 
 pkgname = lib32-gst-plugins-base-libs
 	pkgdesc = Multimedia graph framework (32-bit) - base
-	depends = lib32-gstreamer=1.26.0-2
+	depends = lib32-gstreamer=1.26.1-1
 	depends = gst-plugins-base-libs
 	depends = lib32-gcc-libs
 	depends = lib32-glib2
@@ -93,6 +93,8 @@ pkgname = lib32-gst-plugins-base-libs
 	depends = lib32-libdrm
 	depends = lib32-libglvnd
 	depends = lib32-libgudev
+	depends = lib32-libjpeg-turbo
+	depends = lib32-libpng
 	depends = lib32-libx11
 	depends = lib32-libxcb
 	depends = lib32-libxext
@@ -105,27 +107,24 @@ pkgname = lib32-gst-plugins-base-libs
 
 pkgname = lib32-gst-plugins-base
 	pkgdesc = Multimedia graph framework (32-bit) - base plugins
-	depends = lib32-gst-plugins-base-libs=1.26.0-2
-	depends = lib32-gstreamer=1.26.0-2
+	depends = lib32-gst-plugins-base-libs=1.26.1-1
+	depends = lib32-gstreamer=1.26.1-1
 	depends = gst-plugins-base
 	depends = lib32-alsa-lib
 	depends = lib32-cairo
 	depends = lib32-cdparanoia
 	depends = lib32-glib2
 	depends = lib32-glibc
-	depends = lib32-libjpeg-turbo
 	depends = lib32-libogg
-	depends = lib32-libpng
 	depends = lib32-libtheora
 	depends = lib32-libvorbis
-	depends = lib32-libx11
 	depends = lib32-opus
 	depends = lib32-pango
 
 pkgname = lib32-gst-plugins-good
 	pkgdesc = Multimedia graph framework (32-bit) - good plugins
-	depends = lib32-gst-plugins-base-libs=1.26.0-2
-	depends = lib32-gstreamer=1.26.0-2
+	depends = lib32-gst-plugins-base-libs=1.26.1-1
+	depends = lib32-gstreamer=1.26.1-1
 	depends = gst-plugins-good
 	depends = lib32-aalib
 	depends = lib32-bzip2
