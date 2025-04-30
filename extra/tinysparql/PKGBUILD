@@ -9,7 +9,7 @@ pkgname=(
   tinysparql-docs
 )
 pkgver=3.9.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Low-footprint RDF triple store with SPARQL 1.1 interface"
 url="https://tinysparql.org/"
 arch=(x86_64)
