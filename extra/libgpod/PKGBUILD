@@ -3,7 +3,7 @@
 
 pkgname=libgpod
 pkgver=0.8.3
-pkgrel=16
+pkgrel=17
 pkgdesc="A shared library to access the contents of an iPod"
 url="http://www.gtkpod.org/libgpod/"
 arch=(x86_64)
