@@ -4,7 +4,7 @@
 
 pkgname=('lib32-llvm' 'lib32-llvm-libs')
 pkgver=19.1.7
-pkgrel=1
+pkgrel=2
 epoch=1
 arch=('x86_64')
 url="https://llvm.org/"
