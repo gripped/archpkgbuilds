@@ -4,7 +4,7 @@
 
 pkgname=telepathy-salut
 pkgver=0.8.1
-pkgrel=9
+pkgrel=10
 pkgdesc="A link-local XMPP connection manager for Telepathy"
 arch=('x86_64')
 url="https://telepathy.freedesktop.org"
