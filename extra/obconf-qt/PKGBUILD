@@ -3,7 +3,7 @@
 
 pkgname=obconf-qt
 pkgver=0.16.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Openbox configuration tool. Qt port of ObConf"
 arch=("x86_64")
 groups=("lxqt")
