@@ -1,0 +1,175 @@
+From adrien@ocbase.com Wed Apr 30 16:13:04 2025
+X-Mozilla-Status: 0001
+X-Mozilla-Status2: 00000000
+Return-Path: <adrien@ocbase.com>
+Delivered-To: ptr1337@archlinux.org
+Received: from mail.archlinux.org
+	by mail.archlinux.org with LMTP
+	id KINxKRRMEmgqqTAAK+/4rw
+	(envelope-from <adrien@ocbase.com>)
+	for <ptr1337@archlinux.org>; Wed, 30 Apr 2025 16:13:08 +0000
+Received: from PAUP264CU001.outbound.protection.outlook.com (mail-francecentralazon11021139.outbound.protection.outlook.com [40.107.160.139])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp384r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.archlinux.org (Postfix) with ESMTPS id D2FC739EC1DF
+	for <ptr1337@archlinux.org>; Wed, 30 Apr 2025 16:13:07 +0000 (UTC)
+Authentication-Results: mail.archlinux.org;
+	dkim=pass header.d=ocbase.com header.s=selector1 header.b=RdnDdtU5;
+	spf=pass (mail.archlinux.org: domain of adrien@ocbase.com designates 40.107.160.139 as permitted sender) smtp.mailfrom=adrien@ocbase.com;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1");
+	dmarc=pass (policy=quarantine) header.from=ocbase.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XzutRR4B4gMmxizFE7RwC8NMQYcgJtTldp/5K61QS6jEVEnxwEqQ0z76qh3rrf207OyNtBiDi3COLlZ6aaUaoWqHzwRTvLQIRJGmKqaXdX6FH8gWgZSX/ove9ZFLcyQv0Fn3lDMRmueOkpqOF9bDCQtbsJj6eCaXkv8xd60FaZ268gpH8xksTPsbScxeaVhsnVnOtqcHq6i5Z9XcSzxT7YhvjRDs7wEm2817iHx2MjSwfa5YADhZNEOumPnaYvnp+nDVFpqYItizkYgAcLrmWGu8D7K/8aynVautm7lbm088Wq3867cPDv8fMPFUhHwpHBdI8JDEhU/GEISqlzPwBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2csEHoGlPZNDotML2HsByshPZEptRIhwZxKiJq218Dg=;
+ b=GheePTCOwNz/tQuC2K4dd5lX4yr0CtJJy8enkNGI2PQiwO+IBcrgail/tQIpFS39Ycde9J/0IvxwbwvFdQaP9KI7KYk2QhAcKKP9XCM4RexXe23IYVMZeM+zlBgSrd1YE/D+LKc8wmEY1z7Qifc3uIK1IHXK08bt3I59oe1wGuIIqwvcOgHQkZQoYZ3AD4gV5NmJTxMyZdgzJoHCPtzEtAnz26AVQWbzKx0vKoPdD7Zu5vNT1aiErSSBBXriTFNyV5UuQ0gZYTA76XK+GouwklS/7RjSKoBek1Mojn7QblW8dPr/u1EY6SZ5IDGsJi4HXcJsKGQ7cDoTcZ3ff4a4yw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=ocbase.com; dmarc=pass action=none header.from=ocbase.com;
+ dkim=pass header.d=ocbase.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ocbase.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2csEHoGlPZNDotML2HsByshPZEptRIhwZxKiJq218Dg=;
+ b=RdnDdtU59ZuibCAbKuum+abOkbVaZ6w1638SRFTnCmqVXbTeW4s2IrswFcSBdc7tkaNw8ZAf597R1bwWnFxltoK7nQsFY04jv8IcdtiFgNYTas1zcR9sd7WNM0OkyG8ZABufJYIvpHi5ajyyXMD8FnRqtBpmjwJF2IdilsPJdnNsQPK78jarquymINoBUs9CvA1OGk33wwXfIWPNPaCn9G+17NbSIRPKeG4b5gzLpoMUq3Q0tZboYtWyhhuvdcHsfmHFhPSuS63zOwMov0MEE2LIWH0eCaZZmjBAGucdNjeNuWBcQeYm0sMhEY6Ce0eUhtxVSRxKqzwrv9+Ki6+Qfg==
+Received: from PR1P264MB3693.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:183::6)
+ by PR0P264MB2840.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1d3::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.34; Wed, 30 Apr
+ 2025 16:13:05 +0000
+Received: from PR1P264MB3693.FRAP264.PROD.OUTLOOK.COM
+ ([fe80::80aa:d956:847a:7f0e]) by PR1P264MB3693.FRAP264.PROD.OUTLOOK.COM
+ ([fe80::80aa:d956:847a:7f0e%7]) with mapi id 15.20.8699.019; Wed, 30 Apr 2025
+ 16:13:04 +0000
+From: Adrien Mercier <adrien@ocbase.com>
+To: "ptr1337@archlinux.org" <ptr1337@archlinux.org>
+Subject: Permission to Distribute
+Thread-Topic: Permission to Distribute
+Thread-Index: Adu56rpSnp6TJhOYRbOIT58XurxchA==
+Date: Wed, 30 Apr 2025 16:13:04 +0000
+Message-ID:
+ <PR1P264MB36939F8E533B1DFBAFFE0688B9832@PR1P264MB3693.FRAP264.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PR1P264MB3693:EE_|PR0P264MB2840:EE_
+x-ms-office365-filtering-correlation-id: 92ab20dd-9dfd-4365-373e-08dd8801e32f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|376014|38070700018|8096899003;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?uIlMS8nQl7kNKw3ScseB+0jKWPNKN7wZ7okwR4DA1s5OAyMRRUOfnH93GuEo?=
+ =?us-ascii?Q?sHTvL9+kfBOBZDlNEx3iQPJ44heGLQonZTJHtORShdIIVU4CzfTVTz1Q9RqU?=
+ =?us-ascii?Q?KOE/HGQ3Rx07jucA2/NlanLko5Y3DG0fHF3P8N6QWidPFFmXWPm1BbB4KeTO?=
+ =?us-ascii?Q?FG3IjuTEQQsbEXJM14tU+M9fRD5XZsjH4sflZZdq0RxCxksdZtERCd8aKJ1q?=
+ =?us-ascii?Q?j5Iv8bWZfzBmAiPKr1ViEy5eV0X1FH+uRHFxqQtTG7hdfxpjBGjo50AIMve6?=
+ =?us-ascii?Q?G3bwBydu2CxKfK1m2HCyXuw2GliSgDVbkeu7Nvs50p4bQrT19Vy/jvlajnou?=
+ =?us-ascii?Q?8f67Y/2igaZtLl6qvI74Eyh1Doi3/jBZgRPJTrtxpP1sCo65UPrb1cTE1ObG?=
+ =?us-ascii?Q?OH6LuzQP6CEIm0dfeOPtOgnlh6+QOGUh+CNuNbUGbfPHESzvoAK89GFTwk9k?=
+ =?us-ascii?Q?/igcFLJoKfr4pFw1kr/TXqPoKg2SFHBrFnAAYYziGqwZr5V24AdD6QLuQ10w?=
+ =?us-ascii?Q?f26mBW+t+Ro84eLPCQiBK4X5o9eazdsJw/QZEbavUdQzBc9fB9TzNGm2ezA1?=
+ =?us-ascii?Q?nvX0GClXr4bpvB5m7OfTdqhKxsA74TpoMSso9aOH2akzi1D6z8UR47u4i7Di?=
+ =?us-ascii?Q?5Ce+tgefXe1X/QZf007jfExDyFhiQp9fyV6ZKlyXekAU06klTmmNLZUtz2Rd?=
+ =?us-ascii?Q?/2iwv6e45xIgcGQ9YEMdozd/4HA36GXTq4ywVBMxFLrDXhxW4yTn2IYm9yKx?=
+ =?us-ascii?Q?7G3RBFPbUv5kPgpq10/OgbnSjiPWib12+GID/ggLT1MN8FhHpIioZJJmQwJY?=
+ =?us-ascii?Q?Sm+/cNh1koB9JmnmUVcTT5oJSDWWIrCkQl2kS1aHZ9yEtGaApxplpLJvfzMY?=
+ =?us-ascii?Q?bjwU1jSUZ3Z9yzrz06BTo4v0hD3fzrNeoUBNvEkstYH7QF5Ud4PAWGHmXIgo?=
+ =?us-ascii?Q?g4RQcm8ePOvuWzBSJgDKJuJJYKZYWGK0Rw7Uu7dAOlOkFYP+Bkmek4VMbbGs?=
+ =?us-ascii?Q?utpaYPxonAIEck27ky1/PUR3xwdrpodj8lKgmBKDTUpUcE0azB6X/z9qx/ln?=
+ =?us-ascii?Q?L32BxfJ9DjfNif6+c8GqNq6UphO8e1KzddhLeLEgY2vj/VqenXdJLpI9CUn3?=
+ =?us-ascii?Q?RE12IWLZYixjTwMlnmUMAZKKNIwM9a0KztXq41vccIBjzI0SaoDfOJBVK/Td?=
+ =?us-ascii?Q?xoDYyXNgjbVsqgAWATg1masGgqYRgiQ4GwgrI2TOICBKr1tuzJuhNowJSv3M?=
+ =?us-ascii?Q?VwJElwadmeAmlslOXfShewHFtjshjT6rscSjB3AJaUvUgWb0WJnaeXaora7t?=
+ =?us-ascii?Q?woBv0deMznA3AqhE3GWwlbze/rCxj38SL3K3vEMrNmZXY2X/ya9KmSF8UkwJ?=
+ =?us-ascii?Q?8wXsYCu88ObAOnV1Ul5rfMbwtNye63XrxWdyr6tLoweSFJ2PGE5pBm6NvIhh?=
+ =?us-ascii?Q?zKxVcEqMVuxkEiC8nUaeVBnco7dfq6RnrF7+TVfxLMoOu9Qmnf0v6Q=3D=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR1P264MB3693.FRAP264.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700018)(8096899003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?EsRN1cpqJB1VYoPyBAc+0G11BbFTCQkSEZirPk9lE8gZxbhXpn3FlZcTGEaM?=
+ =?us-ascii?Q?SOjYNGBBtweFBHqHqWdlGYJc5NSQBKrulV8nNHZETDJEbI1ygxBIWwiZF5zy?=
+ =?us-ascii?Q?Alvq52GbS1tVdPRYYZl/THWu9t+vGT+UDSKNpxf+rSNq6fVHe/Veuw7Q396c?=
+ =?us-ascii?Q?UFPIa8A57WVpcu5rwLaTJJGYVEcDsDxf7z2fzKZHpE9a36MLoT/u2Adt/i/F?=
+ =?us-ascii?Q?NCwX6TF1rwGFsPy5bTFZM2PGT5+K45D/DeGYraBx+MIVLE9oTnktvKEz+IAK?=
+ =?us-ascii?Q?dXCB9LIqE89UvuGByQZjk6e6xQh+ii7clG2dPRyPFxsqNtSrxV3Z7+yEQl7m?=
+ =?us-ascii?Q?+7qSxmcaC/X+VkNVV3sTgA19WDkKOuuXNTgAQo5IloY96zL1TQmFUAqlZ2XK?=
+ =?us-ascii?Q?B78YpL/5ytBghiR0AiUY7V/NzM+s1zawbM27RvW/yDBGL6jZ//C4t+dcBr+Y?=
+ =?us-ascii?Q?AtJwWokTLnwyzsKlC9swQ3rtZ8npf7BW7Eb6/qbiDT9tpn3kG8JvdBqCkBn5?=
+ =?us-ascii?Q?aCV6MlL7JhvC226zwv+X0lq2kD2b13pCkUAkRNaAPcdJdg7c/w1JhUK1Os3a?=
+ =?us-ascii?Q?+hytu66u9Z38yUvzWAzo0UgBWH0lPXs0Xg5CTwrWNjHQBTbNVuSUV3qk/k2h?=
+ =?us-ascii?Q?AHpJjvKfd9yigrLgxLdpnjQZXGKzxkOmvifsTfMUkZqNyzpU3KFboGxdCG8P?=
+ =?us-ascii?Q?Y9kC/Iq5fX6+rx/l96jpjueaVFXH8zvGbhKWuHyq38u9nzhXZ23/j0gRtLIg?=
+ =?us-ascii?Q?RCQGHL3q/fVIsmxEVzLlnszdPu32FVC5GDSVKI6oYpwbYsyxNn61SOIJSYJC?=
+ =?us-ascii?Q?MI45qzh0/jXFlO+fmZAYViDkJppMO4scef/C81EXkgeZcK/9mwf7WhGfy3vR?=
+ =?us-ascii?Q?w954r+BB1VLGE+ye+5SuEsadTlb2lDeV0pU7kNGTl3w4GkPR8ag+/Z6ST3M2?=
+ =?us-ascii?Q?7HNyzAvBzNpr465W70HHVnse6GpRGoOSVe93U8PUIMWdbK0QgnDBkGMumKew?=
+ =?us-ascii?Q?cq3qF33h30yGbwOIhZIoOzHKYco2kFEZp1k7a/9tsK4F8cmd1z5/T3bfXfoS?=
+ =?us-ascii?Q?N3CTMqO2aNs0aYlIlqJrZUxya6ScCYeDYVHm1/bRvaS1KK43ljtMflNSAtNc?=
+ =?us-ascii?Q?fzTOjGxp3ZClzpqOA+GbY7hzrBw6hcCKOb1WVKLgiHvKZzFIJ48gybenxL8T?=
+ =?us-ascii?Q?eSJlDmT/40mnPwph/is0OntjI7Q7STKZT3r3dG72ri6pfSq4PTY4P735wWjS?=
+ =?us-ascii?Q?AN3WdBNaYMCcwhpvmQEg6eXH5mjRawg7EKa62Tv4R7YTTbLTRRj7UX3xBQ1F?=
+ =?us-ascii?Q?u0eBtrAzJ3xr2sNgx2jgj/lNJdgPsioAXp+dXzIOTrN/shfDFMGcj8FWF2bu?=
+ =?us-ascii?Q?cJP/rIybNbWBfP6XQbolEVKjcf5N+aRxADoMgh6/QnkZGzm5LUOkBzEFNBmG?=
+ =?us-ascii?Q?1pxtZWMIKzI0h6NPEpYfBOpwxYqP9OeptbxVY8GrUprOvcDtp71Rk1qrqknY?=
+ =?us-ascii?Q?L0hbsHVcosMvQ/jIywyyQ5MRhXQ0s8wFNEGgfPMr2ieNoeIGtJ3ctWIIy6w6?=
+ =?us-ascii?Q?8dOy6c78tG8NP2ImGoA=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_PR1P264MB36939F8E533B1DFBAFFE0688B9832PR1P264MB3693FRAP_"
+MIME-Version: 1.0
+X-OriginatorOrg: ocbase.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PR1P264MB3693.FRAP264.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92ab20dd-9dfd-4365-373e-08dd8801e32f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Apr 2025 16:13:04.4013
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 4de38f8e-43f3-4751-9f31-c5ea0747b154
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VvBbPLVyNImiAKy9SWzsdZtlqH8apKay+SJReFQJEsMG4I2Y/qkqOqkD7B4SqVu9Ab0rwYE3XfPdjGphUsfm8A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR0P264MB2840
+X-Rspamd-Queue-Id: D2FC739EC1DF
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.00 / 15.00];
+	RBL_SENDERSCORE_REPUT_9(-1.00)[40.107.160.139:from];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[ocbase.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+ip4:40.107.0.0/16];
+	R_DKIM_ALLOW(-0.20)[ocbase.com:s=selector1];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	ASN(0.00)[asn:8075, ipnet:40.104.0.0/14, country:US];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_ONE(0.00)[1];
+	RCVD_COUNT_TWO(0.00)[2];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[40.107.160.139:from];
+	NEURAL_HAM(-0.00)[-1.000];
+	TO_DN_EQ_ADDR_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_IN_DNSWL_NONE(0.00)[40.107.160.139:from];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[ocbase.com:+]
+X-Rspamd-Server: mail.archlinux.org
+
+--_000_PR1P264MB36939F8E533B1DFBAFFE0688B9832PR1P264MB3693FRAP_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+This is an official notification granting you permission to distribute OCCT=
+ in the Arch official repositories.
+
+Thank you,
+
+Adrien Mercier
+OCCT/Ocbase
+
+--_000_PR1P264MB36939F8E533B1DFBAFFE0688B9832PR1P264MB3693FRAP_
