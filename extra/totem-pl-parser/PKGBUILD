@@ -3,7 +3,7 @@
 
 pkgname=totem-pl-parser
 pkgver=3.26.6+r30+g51b8439
-pkgrel=1
+pkgrel=2
 pkgdesc="Simple GObject-based library to parse and save a host of playlist formats"
 url="https://gitlab.gnome.org/GNOME/totem-pl-parser"
 license=(LGPL-2.0-or-later)
