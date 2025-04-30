@@ -4,7 +4,7 @@
 pkgbase=rocm-llvm
 pkgname=(rocm-llvm rocm-device-libs comgr)
 pkgver=6.3.3
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://rocm.docs.amd.com/en/latest/reference/rocmcc.html'
 makedepends=('git' 'cmake' 'python' 'ninja' 'rocm-core' 'rocm-cmake' 'perl'
@@ -12,6 +12,13 @@ makedepends=('git' 'cmake' 'python' 'ninja' 'rocm-core' 'rocm-cmake' 'perl'
 source=("$pkgbase::git+https://github.com/ROCm/llvm-project#tag=rocm-$pkgver")
 sha256sums=('c64fd724503b9c10381f350eea38fadb622ea86067839d45cd0efc0058621153')
 options=(staticlibs !lto)
+
+prepare() {
+  cd $pkgbase
+
+  # Fix build with cmake 4.0
+  git cherry-pick -n a18cc4c7cb51f94182b6018c7c73acde1b8ebddb
+}
 
 build() {
     # Build only minimal debug info to reduce size
