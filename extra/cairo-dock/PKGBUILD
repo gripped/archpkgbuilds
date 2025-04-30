@@ -4,7 +4,7 @@
 
 pkgname=cairo-dock
 pkgver=3.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Light eye-candy fully themable animated dock'
 arch=('x86_64')
 url='https://glx-dock.org/'
@@ -24,8 +24,8 @@ build() {
   mkdir build && cd build
 
   cmake .. \
-    -DCMAKE_BUILD_TYPE='Release' \
-    -DCMAKE_INSTALL_PREFIX='/usr'
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   make
 }
 
