@@ -10,7 +10,7 @@
 
 pkgver=27.3.11
 _gcc_patches=118-2
-pkgrel=9
+pkgrel=10
 _major_ver=${pkgver%%.*}
 pkgname="electron${_major_ver}"
 pkgdesc='Build cross platform desktop apps with web technologies'
@@ -31,7 +31,6 @@ makedepends=(clang
              gn
              gperf
              # harfbuzz-icu # disabled because ICU 76 not supported yet
-             http-parser
              java-runtime-headless
              libnotify
              libva
@@ -489,6 +488,9 @@ prepare() {
 
   # Allow libclang_rt.builtins from compiler-rt >= 16 to be used
   patch -Np1 -i ../compiler-rt-adjust-paths.patch
+
+  # Rust replaced libadler with libadler2
+  sed -i 's/"adler"/"adler2"/' build/rust/std/BUILD.gn
 
   # Fixes for building with libstdc++ instead of libc++
   patch -Np1 -i ../chromium-patches-*/chromium-114-maldoca-include.patch
