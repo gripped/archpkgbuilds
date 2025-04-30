@@ -2,8 +2,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-panel
-pkgver=3.54.0
-pkgrel=3
+pkgver=3.56.0
+pkgrel=1
 pkgdesc='Panel of GNOME Flashback'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/GnomePanel'
@@ -51,31 +51,23 @@ source=(
   gnome-panel-79.patch
   gnome-panel-80.patch
 )
-b2sums=('ba7e7fefdf56b6506b2be8804b8b0503752711f9fe8e2ed5de86ee0d5fdcce83141ddabb7e032ffd61050d16a91fa0ec2cc343ce8c349959844f83c6114d1b58'
-        '064b7a94ae38c4c8011b494c0a95cb97c0121945df650790085b07868a52b3e4043579c2229c26f4b9a75d2b0f41eb36d22dca4432f408a4ec92c589daf78d3a'
-        '3a4e857b8c32a717f4c47f3c1f598c32e10e552d5092a7f45304cc0f6a15a6093ec66e237f42ed7815a0ff108224aba9eda37c7d5038a76a21fac385b84a9657'
-        '63d2a15e149cd8745483de3511bb9ebfa085608505ffee9cfd5144316e3f0b2a9406e42c20e4943d30e96441d9bca95a28eb3674c4c9ecc7aac472968f9d7a12'
-        '4f1fcb16b8c770637575ae29277e13c6c7b44636b55dd4dc48a90248936b125a8988332141ec9f90eb1c4754ad676c8f473e6751908d45db88d596705f5700cb'
-        '77a95c896bc541ade2b5118f27c0d2428cd8cd0d70c0b85aec5834035b66ce6f348958f5b928718a3b5b58fd1d8677a76df414141cf7d37116200a40b57e94e4')
+b2sums=(
+  cae7ea813e1220e9c9445f2a755d6d69fb96b6f32db4fd50c18c1001a4bda32436ba6c2d207f16031aa733cc824a4b5e48bec829067c7e2c3361628dbfc8df07
+  064b7a94ae38c4c8011b494c0a95cb97c0121945df650790085b07868a52b3e4043579c2229c26f4b9a75d2b0f41eb36d22dca4432f408a4ec92c589daf78d3a
+  3a4e857b8c32a717f4c47f3c1f598c32e10e552d5092a7f45304cc0f6a15a6093ec66e237f42ed7815a0ff108224aba9eda37c7d5038a76a21fac385b84a9657
+  63d2a15e149cd8745483de3511bb9ebfa085608505ffee9cfd5144316e3f0b2a9406e42c20e4943d30e96441d9bca95a28eb3674c4c9ecc7aac472968f9d7a12
+  4f1fcb16b8c770637575ae29277e13c6c7b44636b55dd4dc48a90248936b125a8988332141ec9f90eb1c4754ad676c8f473e6751908d45db88d596705f5700cb
+  77a95c896bc541ade2b5118f27c0d2428cd8cd0d70c0b85aec5834035b66ce6f348958f5b928718a3b5b58fd1d8677a76df414141cf7d37116200a40b57e94e4
+)
 validpgpkeys=(7B44FD78E49334EC10B3B288A3D013EC303E1894) # Alberts Muktupāvels <alberts.muktupavels@gmail.com>
 
 prepare() {
   cd $pkgname
 
-  # https://gitlab.gnome.org/GNOME/gnome-panel/-/merge_requests/76
-  git cherry-pick -n b80f2846ee53cd6e292bef76c73cb98ab1f4fb7f
-
-  # https://gitlab.gnome.org/GNOME/gnome-panel/-/merge_requests/64
-  git cherry-pick -n f744bb9eeff09fd635c2ebcda14e9a9327647348
-
-  # https://gitlab.gnome.org/GNOME/gnome-panel/-/merge_requests/65
-  git cherry-pick -n 0fd2c32d6c1aabebad1f77388e9c8c419cfba9cc
-
   # https://gitlab.gnome.org/GNOME/gnome-panel/-/merge_requests/60
   git apply -3 ../gnome-panel-60.patch
 
   # https://gitlab.gnome.org/GNOME/gnome-panel/-/merge_requests/75
-  git cherry-pick -n 73f0754e6e8ef8827a5789ef02f43b197b8506eb
   git apply -3 ../gnome-panel-75.patch
 
   # https://gitlab.gnome.org/GNOME/gnome-panel/-/merge_requests/78
