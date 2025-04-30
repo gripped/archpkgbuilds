@@ -5,12 +5,12 @@
 
 pkgname=gnucash
 pkgver=5.11
-pkgrel=1
+pkgrel=3
 pkgdesc='Personal and small-business financial-accounting application'
 arch=(x86_64)
 url='https://gnucash.org/'
 license=(GPL-2.0-or-later)
-depends=(aqbanking gwenhywfar boost-libs guile libdbi webkit2gtk libofx)
+depends=(aqbanking gwenhywfar boost-libs guile libdbi webkit2gtk-4.1 libofx)
 makedepends=(boost cmake gtest libdbi-drivers mariadb-libs postgresql-libs swig python)
 optdepends=('gnucash-docs: documentation'
             'libdbi-drivers: open and save data into SQL database'
