@@ -5,7 +5,7 @@
 
 pkgname=tumbler
 pkgver=4.20.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Thumbnail service implementing the thumbnail management D-Bus specification"
 arch=('x86_64')
 url="https://docs.xfce.org/xfce/tumbler/start"
