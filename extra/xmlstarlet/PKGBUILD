@@ -5,7 +5,7 @@
 
 pkgname=xmlstarlet
 pkgver=1.6.1
-pkgrel=4
+pkgrel=5
 pkgdesc="A set of tools to transform, query, validate, and edit XML documents"
 arch=('x86_64')
 url="http://xmlstar.sourceforge.net/"
@@ -15,6 +15,13 @@ makedepends=('fop' 'ghostscript')
 options=('docs')
 source=("xmlstarlet-$pkgver.tar.gz::http://sourceforge.net/projects/xmlstar/files/xmlstarlet/$pkgver/xmlstarlet-$pkgver.tar.gz/download")
 sha512sums=('4228df812caec7059d7a76986c4d9a4262bd861cc53dca05f341ae6c062be05f1c39fc637918ab00f60f40587c6c556e3c9bfaf8a18b149e3c321a92214dbe8b')
+
+prepare() {
+  cd "$srcdir/$pkgname-$pkgver"
+
+  # Unbreak build with libxml2 2.14
+  sed -i 's/ATTRIBUTE_UNUSED/__attribute__((unused))/g' src/xml_pyx.c
+}
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
