@@ -2,7 +2,7 @@
 
 pkgname=budgie-control-center
 pkgver=1.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Budgie's main interface to configure various aspects of the system"
 arch=(x86_64)
 url="https://github.com/BuddiesOfBudgie/budgie-control-center"
@@ -10,7 +10,7 @@ license=("GPL-2.0-or-later")
 groups=("budgie")
 depends=(accountsservice gcr gnome-bluetooth gnome-settings-daemon ibus libgtop libpwquality smbclient
          libcheese libnma udisks2 libhandy gsound colord-gtk)
-makedepends=(docbook-xsl modemmanager meson)
+makedepends=(docbook-xsl modemmanager meson glib2-devel colord)
 optdepends=("system-config-printer: Printer settings"
             "gnome-user-share: WebDAV file sharing"
             "rygel: Media sharing"
@@ -23,6 +23,7 @@ validpgpkeys=("1E1FB0017C998A8AE2C498A6C2EAA8A26ADC59EE" # David Mohammed <fossf
               "0E0D97562A4EC8BD8E329DCDAA7A2325E04B609B") # Joshua Strobl <me at joshuastrobl dot com>
 
 build() {
+    CFLAGS+=" -Wno-incompatible-pointer-types" \
     arch-meson "$pkgname-$pkgver" build -Ddocumentation=true
     meson compile -C build
 }
