@@ -4,8 +4,8 @@
 
 _name=elfutils
 pkgname=lib32-libelf
-pkgver=0.192
-pkgrel=2
+pkgver=0.193
+pkgrel=1
 pkgdesc="Handle ELF object files and DWARF debugging information (libraries) (32-bit)"
 arch=(x86_64)
 url="https://sourceware.org/elfutils"
@@ -27,9 +27,9 @@ makedepends=(
 options=(staticlibs)
 # NOTE: the shared objects can not be added to provides as they are not versioned
 source=($url/ftp/$pkgver/$_name-$pkgver.tar.bz2{,.sig})
-sha512sums=('543188f5f2cfe5bc7955a878416c5f252edff9926754e5de0c6c57b132f21d9285c9b29e41281e93baad11d4ae7efbbf93580c114579c182103565fe99bd3909'
+sha512sums=('557e328e3de0d2a69d09c15a9333f705f3233584e2c6a7d3ce855d06a12dc129e69168d6be64082803630397bd64e1660a8b5324d4f162d17922e10ddb367d76'
             'SKIP')
-b2sums=('cf9036a1fca416e0d47c76471093609230545aee63e31e30991dc3c88417d7c621c930bb74809374da3bf142501cee91a2b861a5a89efcb5e1ac184df5defce1'
+b2sums=('3ddda695e92c76d0f98432b65d51737bdebf9cad536e0a583d10beb4693d98ce6e47716ff143d82dd3488e59489b03170bd292cb165d44bfb8581ff67dd2b1b9'
         'SKIP')
 validpgpkeys=(
   'EC3CFE88F6CA0788774F5C1D1AA44BE649DE760A'  # Mark Wielaard <mjw@gnu.org>
@@ -71,7 +71,10 @@ build() {
 }
 
 check() {
-  make check -C $_name-$pkgver
+  # The "dwarf_srclang_check" test introduced in 0.193 needs libelf.so to run.
+  # As such, we are passing LD_LIBRARY_PATH so it can find libelf.so from the source built in build()
+  # in order to avoid a self (make)dependency.
+  make LD_LIBRARY_PATH=$srcdir/$_name-$pkgver/libelf check -C $_name-$pkgver
 }
 
 package() {
