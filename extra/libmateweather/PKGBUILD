@@ -4,7 +4,7 @@
 
 pkgname=libmateweather
 pkgver=1.28.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Provides access to weather information from the Internet."
 url="https://mate-desktop.org"
 arch=('x86_64')
