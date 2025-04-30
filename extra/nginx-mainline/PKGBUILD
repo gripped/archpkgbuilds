@@ -9,45 +9,37 @@ pkgbase=nginx-mainline
 pkgname=(nginx-mainline nginx-mainline-src nginx-mainline-mod-geoip nginx-mainline-mod-image-filter
          nginx-mainline-mod-mail nginx-mainline-mod-perl nginx-mainline-mod-stream
          nginx-mainline-mod-xslt)
-pkgver=1.27.4
-pkgrel=1
-_tests_commit=898407c62387
+pkgver=1.27.5
+pkgrel=2
 arch=('x86_64')
 pkgdesc='Lightweight HTTP server and IMAP/POP3 proxy server, mainline release'
 url='https://nginx.org'
 license=(BSD-2-Clause)
-makedepends=(mercurial pcre2 zlib openssl gd geoip mailcap libxcrypt libxslt rsync)
+makedepends=(git pcre2 zlib openssl gd geoip mailcap libxcrypt libxslt rsync)
 checkdepends=(perl perl-gd perl-io-socket-ssl perl-fcgi perl-cache-memcached
               perl-cryptx memcached ffmpeg coreutils)
-source=($url/download/nginx-$pkgver.tar.gz{,.asc}
-        "hg+https://hg.nginx.org/nginx-tests#revision=${_tests_commit}"
+source=("git+https://github.com/nginx/nginx.git#tag=release-${pkgver}"
+        "git+https://github.com/nginx/nginx-tests.git"
         nginx.service
         logrotate)
 # https://nginx.org/en/pgp_keys.html
-validpgpkeys=(
-  'B0F4253373F8F6F510D42178520A9993A1C052F8' # Maxim Dounin <mdounin@mdounin.ru>
-  'D6786CE303D9A9022998DC6CC8464D549AF75C0A' # Sergey Kandaurov <s.kandaurov@f5.com>
-  '13C82A63B603576156E30A4EA0EA981B66B0D967' # Konstantin Pavlov <thresh@nginx.com>
-  '43387825DDB1BB97EC36BA5D007C8D7C15D87369' # Roman Arutyunyan <r.arutyunyan@f5.com>
-)
-sha512sums=('3785797d3c8f96b930c11a445c68ce88b584af9645f41b8929a779ef1507b74831fa91e9144f3a56599737517cbf1864954d91e312d12cc59e23e4db72c2c716'
+validpgpkeys=('B0F4253373F8F6F510D42178520A9993A1C052F8'  # Maxim Dounin <mdounin@mdounin.ru>
+              '43387825DDB1BB97EC36BA5D007C8D7C15D87369'  # Roman Arutyunyan <r.arutyunyan@f5.com>
+              'D6786CE303D9A9022998DC6CC8464D549AF75C0A'  # Sergey Kandaurov <s.kandaurov@f5.com>
+              '13C82A63B603576156E30A4EA0EA981B66B0D967') # Konstantin Pavlov <thresh@nginx.com>
+sha512sums=('d4bd037ee39acf950e0605b195e351e244d6ee85960e1676876dfaa4d7ca4306bf1534b0621df882bca5ce1b27ab3f9b0ce49f2a6308c2f1117c382d3cd41554'
             'SKIP'
-            'a83dfb5d8ac130338ab6f3d6e1b41ff80a222ccec319abb5322b3a03cdd3308ed15ed1c44ba64e8f4fb32d91a72a85abbd17a5b8a0e06e3c580caf035c1faaba'
             'f469b3b14def666e955abf6f2d3c68a47631cad7bee90c92039ffe5bf629aa7e32bb4250844d52c0f963740fb07bf7fea5f8887cc1d5199403f07be6214fcb8d'
             '2f4dfcfa711b8bcbc5918ba635f5e430ef7132e66276261ade62bb1cba016967432c8dce7f84352cb8b07dc7c6b18f09177aa3eb92c8e358b2a106c8ca142fe9')
-b2sums=('d51999a56a1c3ea04d7f052f7d4b196b8f00afa0d00986c0601ff429b65c57a3842e821ccdb9c5b61973e172eade8c6c40c00ded7999dbfba6640ee086f6a945'
-        'SKIP'
-        'd0c10634ee7b9e0bcda7b2c904a3ba71ee5508cae2b0024321527ca328c8f28627baca011a4221e6b3e7ea358d9fb5401de1cba26c9b5bcd9fdbfb31b745914c'
-        '6600d4f603f8f20a5694402df57d1281a81ec469e48fb0d1f2fa555e6aed9976470a4d15b9e9fdcf6aaabef5c76a34695f0ab15d724533dbafddb80ba6e25d97'
-        'e1755f61b4eaece83c6c22e48f9e5e316851d1dc35f8d770f837c7d3c8bdc894af1b697c25f1788ac50cd597085c22fb9bf8096a55ecf7659d63185f68ba2d8a')
 
 prepare() {
-  cp -r $_pkgbase-$pkgver{,-src}
+  cp -r $_pkgbase{,-src}
 }
 
 build() {
-  cd $_pkgbase-$pkgver
-  ./configure \
+  cd $_pkgbase
+
+  auto/configure \
     --prefix=/etc/nginx \
     --conf-path=/etc/nginx/nginx.conf \
     --sbin-path=/usr/bin/nginx \
@@ -153,7 +145,7 @@ check() {
   cd nginx-tests
   local _jobs=$(nproc)
   (( _jobs > 16 )) && _jobs=16
-  TEST_NGINX_BINARY="$srcdir/$_pkgbase-$pkgver/objs/nginx" prove -j "$_jobs" .
+  TEST_NGINX_BINARY="$srcdir/$_pkgbase/objs/nginx" prove -j "$_jobs" .
 }
 
 package_nginx-mainline() {
@@ -178,7 +170,7 @@ package_nginx-mainline() {
   provides=($_pkgbase)
   conflicts=($_pkgbase)
 
-  cd $_pkgbase-$pkgver
+  cd $_pkgbase
   mv "$srcdir"/install/* "$pkgdir/"
 
   sed -e 's|\<user\s\+\w\+;|user http;|g' \
@@ -220,8 +212,10 @@ package_nginx-mainline-src() {
   conflicts=($_pkgbase-src)
 
   install -d "$pkgdir/usr/src"
-  cp -r $_pkgbase-$pkgver-src "$pkgdir/usr/src/nginx"
-  install -Dm644 $_pkgbase-$pkgver/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  cp -r $_pkgbase-src "$pkgdir/usr/src/nginx"
+  rm -rf "$pkgdir/usr/src/nginx/".git*
+  ln -s auto/configure "$pkgdir/usr/src/nginx/configure"
+  install -Dm644 $_pkgbase/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 _package_module() {
@@ -229,10 +223,10 @@ _package_module() {
   priority="${2:-20}"
 
   mv "$srcdir/install-$modname"/* "$pkgdir/"
-  install -Dm644 $_pkgbase-$pkgver/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  install -Dm644 $_pkgbase/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 
   install -dm0755 "$pkgdir"/etc/nginx/modules.d
-  cd $pkgdir
+  cd $_pkgbase
   find usr/lib/nginx/modules -type f -name \*.so \
     | sed -e 's@^@load_module "/@' -e 's@$@";@' \
     >> "$pkgdir/etc/nginx/modules.d/$priority-$modname.conf"
@@ -240,42 +234,48 @@ _package_module() {
 
 package_nginx-mainline-mod-geoip() {
   pkgdesc="GeoIP module for nginx-mainline"
-  depends=($_pkgbase 'geoip')
+  depends=($pkgbase 'geoip')
+  conflicts=($_pkgbase-mod-geoip)
   backup=(etc/nginx/modules.d/20-geoip.conf)
   _package_module geoip
 }
 
 package_nginx-mainline-mod-image-filter() {
   pkgdesc="Module for nginx-mainline that transforms images in JPEG, GIF, PNG, and WebP formats"
-  depends=($_pkgbase 'gd')
+  depends=($pkgbase 'gd')
+  conflicts=($_pkgbase-mod-image-filter)
   backup=(etc/nginx/modules.d/20-image-filter.conf)
   _package_module image-filter
 }
 
 package_nginx-mainline-mod-mail() {
   pkgdesc="Mail module for nginx-mainline to proxy IMAP, POP3 and SMTP protocols"
-  depends=($_pkgbase)
+  depends=($pkgbase)
+  conflicts=($_pkgbase-mod-mail)
   backup=(etc/nginx/modules.d/20-mail.conf)
   _package_module mail
 }
 
 package_nginx-mainline-mod-perl() {
   pkgdesc="Module for nginx-mainline to implement location and variable handlers in Perl"
-  depends=($_pkgbase 'perl')
+  depends=($pkgbase 'perl')
+  conflicts=($_pkgbase-mod-perl)
   backup=(etc/nginx/modules.d/20-perl.conf)
   _package_module perl
 }
 
 package_nginx-mainline-mod-stream() {
   pkgdesc="Module for nginx-mainline to proxy TCP and UDP data streams"
-  depends=($_pkgbase)
+  depends=($pkgbase)
+  conflicts=($_pkgbase-mod-stream)
   backup=(etc/nginx/modules.d/10-stream.conf)
   _package_module stream 10
 }
 
 package_nginx-mainline-mod-xslt() {
   pkgdesc="Module for nginx-mainline to transform XML responses with XSLT stylesheets"
-  depends=($_pkgbase 'libxslt')
+  depends=($pkgbase 'libxslt')
+  conflicts=($_pkgbase-mod-xslt)
   backup=(etc/nginx/modules.d/20-xslt.conf)
   _package_module xslt
 }
