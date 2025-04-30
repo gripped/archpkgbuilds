@@ -3,7 +3,7 @@
 
 pkgname=yelp
 pkgver=42.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Get help with GNOME"
 url="https://apps.gnome.org/Yelp"
 license=(GPL-2.0-or-later)
