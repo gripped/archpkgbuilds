@@ -1,11 +1,10 @@
 pkgbase = flatpak-builder
 	pkgdesc = Tool to build flatpaks from source
 	pkgver = 1.4.4
-	pkgrel = 1
+	pkgrel = 2
 	url = https://flatpak.org
 	arch = x86_64
 	license = LGPL-2.1-or-later
-	checkdepends = valgrind
 	makedepends = docbook-xsl
 	makedepends = git
 	makedepends = gobject-introspection
@@ -36,9 +35,9 @@ pkgbase = flatpak-builder
 	replaces = flatpak<0.9.10
 	source = git+https://github.com/flatpak/flatpak-builder#tag=1.4.4
 	source = git+https://gitlab.gnome.org/GNOME/libglnx.git
-	source = fusermount3.diff
+	source = 0001-Use-fusermount3.patch
 	b2sums = 04a6e52e225ebebeff17e3c7e712f09a926b341bea6051fb819c9d0bfdaecc0e789d0c7770c7ffd562acec8a22cb29f406c28af248f8d11d16b46a2690126b3b
 	b2sums = SKIP
-	b2sums = ef1a73c8e2876a8c0c1401300b4367cfc3e656d2144fb66fbf22a57c178588a42ac842f5d7ccec9fba15084dc8bb6a544b2b77c1877c4c924dbe4ab6cd1962c4
+	b2sums = 3b21365ce64effa5e67c28ebe96ca6105df5e4f54983737b9493c77814e50431e1670521023e75f02c5f8616410ee865747af392fc21683e5c40670f827d05fe
 
 pkgname = flatpak-builder

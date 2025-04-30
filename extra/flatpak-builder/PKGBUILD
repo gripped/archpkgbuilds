@@ -2,7 +2,7 @@
 
 pkgname=flatpak-builder
 pkgver=1.4.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Tool to build flatpaks from source"
 url="https://flatpak.org"
 arch=(x86_64)
@@ -38,39 +38,37 @@ makedepends=(
   meson
   xmlto
 )
-checkdepends=(valgrind)
 replaces=('flatpak<0.9.10')
 source=(
   "git+https://github.com/flatpak/flatpak-builder#tag=$pkgver"
   "git+https://gitlab.gnome.org/GNOME/libglnx.git"
-  fusermount3.diff
+  0001-Use-fusermount3.patch
 )
 b2sums=('04a6e52e225ebebeff17e3c7e712f09a926b341bea6051fb819c9d0bfdaecc0e789d0c7770c7ffd562acec8a22cb29f406c28af248f8d11d16b46a2690126b3b'
         'SKIP'
-        'ef1a73c8e2876a8c0c1401300b4367cfc3e656d2144fb66fbf22a57c178588a42ac842f5d7ccec9fba15084dc8bb6a544b2b77c1877c4c924dbe4ab6cd1962c4')
+        '3b21365ce64effa5e67c28ebe96ca6105df5e4f54983737b9493c77814e50431e1670521023e75f02c5f8616410ee865747af392fc21683e5c40670f827d05fe')
 
 prepare() {
   cd $pkgname
 
   # https://bugs.archlinux.org/task/75649
-  git apply -3 ../fusermount3.diff
+  git apply -3 ../0001-Use-fusermount3.patch
 
+  git submodule init subprojects/libglnx
   git submodule set-url subprojects/libglnx "$srcdir/libglnx"
-  git -c protocol.file.allow=always -c protocol.allow=never \
-    submodule update --init -- subprojects/libglnx
+  git -c protocol.file.allow=always -c protocol.allow=never submodule update subprojects/libglnx
 }
 
 build() {
   local meson_options=(
     -D fuse=3
+
+    # bubblewrap is broken in our build containers
+    -D tests=false
   )
 
   arch-meson $pkgname build "${meson_options[@]}"
   meson compile -C build
-}
-
-check() {
-  meson test -C build --print-errorlogs
 }
 
 package() {
