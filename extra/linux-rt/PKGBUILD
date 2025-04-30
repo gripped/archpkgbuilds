@@ -3,7 +3,7 @@
 
 pkgbase=linux-rt
 pkgver=6.10.2.rt14.arch1
-pkgrel=5
+pkgrel=6
 pkgdesc='Linux RT'
 arch=(x86_64)
 url="https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt"
@@ -36,6 +36,8 @@ source=(
   https://cdn.kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/${_srcname}.tar.{xz,sign}
   https://cdn.kernel.org/pub/linux/kernel/projects/rt/${_upstream_ver%.*}/patch-${_rt_ver}.patch.{xz,sign}
   $url/-/releases/${_srctag}/downloads/$pkgbase-${_srctag}.patch{,.sig}
+  gcc15-firmware.patch
+  gcc15-boot.patch
   config
 )
 sha512sums=('1c121e3c9c8402ec46581b38c736630d25297dc3e981cb69d47b95e2cd3204cd93c6c15c02b81fc53d62c49ded462ab6a0bb4d94b506ec0f9c366e47a1c92606'
@@ -44,6 +46,8 @@ sha512sums=('1c121e3c9c8402ec46581b38c736630d25297dc3e981cb69d47b95e2cd3204cd93c
             'SKIP'
             'cd2614ecb8deb2bdd524dec2278f447daf7135dc03a6af55047c655cd9c8bec2c61d1b4b602277be4ed3d788a6a2f42baf659f7b4d084a240750e8e31d62cf4c'
             'SKIP'
+            'b61fdb37c471b76c6ff98f2758d89ed3b59062a0ae77943810e10db827671ee0ce374a2c4c676f54129129816a494aa60bd16797e841f77d6876dda4229b382c'
+            'f102f780220da16d93751ddfd5881390da2c4678f6ee273bf520e9e484e9c2794c6f9e0ae2995765e3dbaab4bc0478e3a5027cfd117510cfef4e248e520e5ac0'
             '16cc8228d21f7133df80c65b72f9b21840b6a956993daa958ac3c5270625e053ed540a2bd2ea0f70c4ff46d35ec5f90e65b3abdbed951169e3f9f3d5dc1400f5')
 b2sums=('ab1d2e79a1bb8a9b78ab5b1af93db7ef356cb5e14bba1121bbd3ae06b9589c8bfc32bab373acdd0ecf965ac132130e7eb34e70b35a9df1bd85b49dab97e2c02a'
         'SKIP'
@@ -51,6 +55,8 @@ b2sums=('ab1d2e79a1bb8a9b78ab5b1af93db7ef356cb5e14bba1121bbd3ae06b9589c8bfc32bab
         'SKIP'
         '4bdcccb7aa62817c11d8798ed87539368bf103508dba86162a7291d37314e91485ee5c59df3e171598d797395cc7f42239667ef532e45123dc6ee22357adadd1'
         'SKIP'
+        'e2e96bfecf41f99c0376eafa27b00279f34dce786b465518ce7a74d17da5718ca034465a6fdebb66750fbfc2af8704c355064dd118fafcb3d84fbaa53bee410c'
+        'e90f4ad01f5a0374d453c866c82c3b29d99a1c32d330e7b4b0bf1e41b39c4c08202d2899a1d36ab94b4b8983647587fe37598b49692297163a9e446a66c7360a'
         'ad0e2fc43f1060c61381512165409382f5d4d54d40485e10d0da524bc3925857ea4196c588e728d27c2489981daa126fe65d1621af30ece0d7e9369a589688d9')
 validpgpkeys=(
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman <gregkh@kernel.org>
