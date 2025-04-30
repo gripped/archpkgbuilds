@@ -1,4 +1,4 @@
-From c37f570dc25704525f0ca85e9b7edd681464888a Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Miro=20Hron=C4=8Dok?= <miro@hroncok.cz>
 Date: Wed, 11 Dec 2024 12:16:11 +0100
 Subject: [PATCH] Return self from iter(iterator)
@@ -10,7 +10,7 @@ Fixes https://bugzilla.redhat.com/2331665
  2 files changed, 23 insertions(+), 1 deletion(-)
 
 diff --git a/libcomps/src/python/src/pycomps_sequence.c b/libcomps/src/python/src/pycomps_sequence.c
-index 9b42341..17f8f72 100644
+index 9b4234111ade..17f8f7259557 100644
 --- a/libcomps/src/python/src/pycomps_sequence.c
 +++ b/libcomps/src/python/src/pycomps_sequence.c
 @@ -754,7 +754,7 @@ PyTypeObject PyCOMPS_SeqIterType = {
@@ -23,10 +23,10 @@ index 9b42341..17f8f72 100644
      PyCOMPSSeqIter_methods,         /* tp_methods */
      PyCOMPSSeqIter_members,         /* tp_members */
 diff --git a/libcomps/src/python/tests/test_libcomps.py b/libcomps/src/python/tests/test_libcomps.py
-index 64c2b59..b645567 100755
+index 64c2b5938ba1..b645567fa5ba 100755
 --- a/libcomps/src/python/tests/test_libcomps.py
 +++ b/libcomps/src/python/tests/test_libcomps.py
-@@ -139,6 +139,28 @@ def test_iter_environments(self):
+@@ -139,6 +139,28 @@ class TestLibcomps(unittest.TestCase):
          self.comps.xml_str()
          self.comps.xml_f(self.tmp_file)
  
