@@ -5,7 +5,7 @@
 
 pkgname=newsboat
 pkgver=2.39
-pkgrel=1
+pkgrel=2
 pkgdesc="RSS/Atom feed reader for text terminals"
 arch=('x86_64')
 url="https://newsboat.org/"
