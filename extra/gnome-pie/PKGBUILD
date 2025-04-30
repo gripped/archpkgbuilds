@@ -3,7 +3,7 @@
 pkgname=gnome-pie
 _pkgname=Gnome-Pie
 pkgver=0.7.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Circular application launcher for GNOME"
 arch=('x86_64')
 url="https://simmesimme.github.io/gnome-pie.html"
@@ -18,7 +18,7 @@ build() {
   ./resources/locale/compile-po.sh
   [[ -d build ]] || mkdir build
   cd build
-  cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release
+  cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   make
 }
 
