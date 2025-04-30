@@ -2,7 +2,7 @@
 
 pkgname=('llvm18' 'llvm18-libs')
 pkgver=18.1.8
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="https://llvm.org/"
 license=('Apache-2.0 WITH LLVM-exception')
