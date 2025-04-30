@@ -2,8 +2,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-applets
-pkgver=3.54.0
-pkgrel=2
+pkgver=3.56.0
+pkgrel=1
 pkgdesc='Small applications for the GNOME Panel'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/GnomeApplets'
@@ -43,7 +43,7 @@ source=(
   gnome-applets-98.patch
 )
 b2sums=(
-  3338080f7ce02eb6562180adc20151a0859dbe723cd0c843dc4941bef2cd83a2d3c0ddcb286a2b1ecbbb2b29bbd2aaa3af9ea4dc2df6ccf85937ba7f905875c5
+  f50ff0df49b805208dec64480fddc76c0b61e5a981c6e8644cb6cb061de503ffe753b8e3f55a282a185a2c1a8454c7188d6cb2bf7272f1f26b0a71877706a4a2
   d33772454e20dbfcb884e9ccbb4ad8705366c6a0313f94fef3791c90daa4d5daf50b39333b2af89992c37d34fdca99cb42384d479dd07438095ec2f67a214fe1
 )
 validpgpkeys=(7B44FD78E49334EC10B3B288A3D013EC303E1894) # Alberts Muktupāvels <alberts.muktupavels@gmail.com>
