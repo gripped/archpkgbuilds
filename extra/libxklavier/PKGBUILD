@@ -4,13 +4,13 @@
 
 pkgname=libxklavier
 pkgver=5.4
-pkgrel=5
+pkgrel=6
 pkgdesc='High-level API for X Keyboard Extension (deprecated)'
 arch=('x86_64')
 url='https://www.freedesktop.org/wiki/Software/LibXklavier/'
 license=('LGPL')
 depends=('glib2' 'glibc' 'iso-codes' 'libx11' 'libxi' 'libxkbfile' 'libxml2' 'xkeyboard-config' 'xorg-xkbcomp')
-makedepends=('intltool' 'gobject-introspection' 'gtk-doc')
+makedepends=('intltool' 'gobject-introspection' 'gtk-doc' 'glib2-devel')
 source=("https://gitlab.freedesktop.org/archived-projects/$pkgname/-/archive/$pkgname-$pkgver/$pkgname-$pkgname-$pkgver.tar.gz")
 sha256sums=('e1638599e9229e6f6267b70b02e41940b98ba29b3a37e221f6e59ff90100c3da')
 
