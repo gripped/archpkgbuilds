@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=jacktrip
-pkgver=2.5.1
+pkgver=2.6.0
 pkgrel=1
 epoch=1
 pkgdesc="Multi-machine audio network performance over the Internet"
@@ -30,34 +30,18 @@ depends=(
 )
 makedepends=(
   help2man
-  meson
   jack
   libsamplerate
+  meson
   python-jinja
   python-yaml
   rtaudio
 )
 source=(
   $url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz
-  ignore_gzip_timestamps.patch
-  $pkgname-2.4.1-libsamplerate-system-dep.patch::https://github.com/jacktrip/jacktrip/commit/805a3965c164201e501350fbdb32685984e73eb8.patch
 )
-sha512sums=('ee3910c235e2a04580e7adb4f362931eb12bfc64ddab35faa2ac16133750830621d0a17f1ff8497e5dd2ce2888743475cfcd36fbc141e14d3a8ca50545ab2b5f'
-            '1361f2dd0ca374b68c62340867d2fcff75a142b9b4d1e9e23c46a68dd2aadcccba59b6ecda769f8fc89634439228515ffcef8189042b18d123054f97522acdff'
-            'd40decb74864fc94386e9c295ff96a94a196560fb8fdc344d06c5c1f0bfda903953dd15f183c22075918c7742d0cdbd22e3331e3f9b404bdf620a6f26a3ebdee')
-b2sums=('4d48ef1393a88679347ffafe47846465b4dddf18b1abc25709c0078ebbb0429e19aa9e5e8d1975efc632589d8c2a9406b5d00ab5bac77b0e8b7f676537ea3a11'
-        '8a764c0af74abf6e1340d2fd1f82f7d354ed38ed90a36c4fd57b69eff2332c60a56e6eba95714dc640d945ca7e005d5fda54f82cea9f44ea849aaf02048b6b82'
-        '6700168017a4f4d6e30498c9ee14600875a2c5014620c48e87d48c70d08d2479f0ef55b429dbf37e5b439355b317e78aa4053eadeb37b3c8ac3e762ced87b912')
-
-prepare() {
-  # Ignore timestamps recording in gzip metadata
-  # This is required for reproducible builds
-  # See https://github.com/jacktrip/jacktrip/pull/1394
-  patch -Np1 -d $pkgname-$pkgver -i ../ignore_gzip_timestamps.patch
-
-  # allow building against system provided libsamplerate: https://github.com/jacktrip/jacktrip/issues/1380
-  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-2.4.1-libsamplerate-system-dep.patch
-}
+sha512sums=('c45e469641239b8878c8c5427a8873ae38ad1309ec5050d92bb4733e115783f8d350b69f27f01b7058f79aaaf7789829854d3f63108edb5b1b9ca1e45e08177d')
+b2sums=('236eb06edc66260ee468c7f76ecb0edb63b232789be390b7036a52bf1016689d729988d0f5c57954315feb61173c6cf95bad1ca56c4f8da5c24c9ccb052db9c7')
 
 build() {
   local meson_options=(
