@@ -4,7 +4,7 @@
 
 pkgname=python-mysql-connector
 _pkgname=mysql-connector-python
-pkgver=9.2.0
+pkgver=9.3.0
 pkgrel=1
 pkgdesc="A standardized database driver for Python platforms and development"
 arch=('any')
@@ -14,7 +14,7 @@ depends=('python' 'python-dnspython' 'python-typing_extensions')
 makedepends=(python-build python-installer python-wheel python-setuptools)
 source=("https://cdn.mysql.com//Downloads/Connector-Python/${_pkgname}-${pkgver}-src.tar.gz"
 		 "${_pkgname}-${pkgver}-src.tar.gz.asc::https://dev.mysql.com/downloads/gpg/?file=${_pkgname}-${pkgver}-src.tar.gz&p=29")
-sha512sums=('82161b170501076be32ef252288544bc4d510431259e1ea1a9a321f99400eaba26c33818aaa992e5de03a5c45078bf63b3034f8bf3dea6bd6d940bf8bd238ad2'
+sha512sums=('8967adfe2723a64c405ac7f977508cb533686622b3a7b4672efced40c09959cd8e078e2d5c5b6b4d8c472f1cf9b153b8b79e4b1079779282107ed117982f5cbd'
             'SKIP')
 validpgpkeys=('859BE8D7C586F538430B19C2467B942D3A79BD29'
               'BCA43417C3B485DD128EC6D4B7B3B788A8D3785C')  # MySQL Release Engineering <mysql-build@oss.oracle.com>
