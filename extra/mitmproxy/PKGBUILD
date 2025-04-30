@@ -5,8 +5,8 @@
 # Contributor: Dobroslaw Kijowski
 
 pkgname=mitmproxy
-pkgver=11.1.3
-pkgrel=2
+pkgver=12.0.0
+pkgrel=1
 pkgdesc='SSL-capable man-in-the-middle HTTP proxy'
 arch=('any')
 url='https://mitmproxy.org'
@@ -57,8 +57,8 @@ provides=('pathod')
 conflicts=('pathod')
 replaces=('pathod')
 source=("https://github.com/mitmproxy/mitmproxy/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('bb4f6fc8e9ac64b4c725811983e3e3ff6b2b18b2a992d80d816811709e9efde5')
-b2sums=('2d7313de02ee7b9c849b1afbdcf4828c56b6ec6681817a1413cdf7cf2671e759d3de79733ba7d0021bca15cb8d1df4b53821034a7333154ff03c0f22ebc0438e')
+sha256sums=('7dc54278a869894b1f3ac89fcd33e98975cff03cd7e12bdda010f1f95fb6e9a4')
+b2sums=('d3a066fa0ba83e2d3bff5209d0bde24134af69a02a542cdb3c7991df1b2ce5ff0871cf111180946e3c326b04b4dbdea19b14ae6c2ebdb759d21917adf0394d4c')
 
 build() {
   cd $pkgname-$pkgver
