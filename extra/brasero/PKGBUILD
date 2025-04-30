@@ -5,7 +5,7 @@
 
 pkgname=brasero
 pkgver=3.12.3+r41+g98342080
-pkgrel=1
+pkgrel=2
 pkgdesc="CD/DVD mastering tool"
 url="https://wiki.gnome.org/Apps/Brasero"
 arch=(x86_64)
