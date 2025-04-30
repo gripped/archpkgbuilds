@@ -3,7 +3,7 @@
 
 pkgname=gnome-applets
 pkgver=3.54.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Small applications for the GNOME Panel'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/GnomeApplets'
@@ -28,7 +28,7 @@ depends=(
   libxml2
   pango
   polkit
-  tracker3
+  tinysparql
   upower
 )
 makedepends=(
@@ -37,7 +37,7 @@ makedepends=(
   glib2-devel
   yelp-tools
 )
-optdepends=('tracker3-miners: Search bar')
+optdepends=('localsearch: Search bar')
 source=(
   "git+https://gitlab.gnome.org/GNOME/$pkgname.git?signed#tag=$pkgver"
   gnome-applets-98.patch
