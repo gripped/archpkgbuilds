@@ -2,8 +2,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=metacity
-pkgver=3.54.0
-pkgrel=2
+pkgver=3.56.0
+pkgrel=1
 pkgdesc='Window manager of GNOME Flashback'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/Metacity'
@@ -43,21 +43,16 @@ makedepends=(
 )
 source=(
   "git+https://gitlab.gnome.org/GNOME/$pkgname.git?signed#tag=$pkgver"
-  metacity-37.patch
   metacity-38.patch
 )
 b2sums=(
-  dd13996f87d09c654995c48dc19c80651f191197def708eec14fd97daac2ef7006f1d9c0cc78991abe25d79aaae0799d3c064496289aff12c3010fc99bb7654c
-  9dda027e875e6d15050e1f6b3b8cf74c46f006ef307da30fc92c2c3efdbc887feccd061b8ec37da0be2584ccfc476742a3ac3300c663c344ad473bdb855addff
+  c666ccdff6d4b027157d0065a2335376185bed8a2d2e2ad61f3c722540ab864fb0307198463aadc9540f6afd634f7e1f3a640562ffc77d53ea6f30cce4627bf6
   aa75a7b379cc0880a31f4863d6666287da5ff35e9494a7c467fb50f6d649f50b6f256d9c2cc40fb43ea4d28f9b0364e981e0114715f8fd2bc1c42b206cde5a4a
 )
 validpgpkeys=(7B44FD78E49334EC10B3B288A3D013EC303E1894) # Alberts Muktupāvels <alberts.muktupavels@gmail.com>
 
 prepare() {
   cd $pkgname
-
-  # https://gitlab.gnome.org/GNOME/metacity/-/merge_requests/37
-  git apply -3 ../metacity-37.patch
 
   # https://gitlab.gnome.org/GNOME/metacity/-/merge_requests/38
   git apply -3 ../metacity-38.patch
