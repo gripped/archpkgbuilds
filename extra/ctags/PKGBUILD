@@ -5,7 +5,7 @@
 
 pkgname=ctags
 pkgver=6.1.0
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc='Generates an index file of language objects found in source files'
 url='https://ctags.io/'
