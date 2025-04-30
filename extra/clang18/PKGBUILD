@@ -3,7 +3,7 @@
 
 pkgname=clang18
 pkgver=18.1.8
-pkgrel=1
+pkgrel=2
 pkgdesc="C language family frontend for LLVM 18"
 arch=('x86_64')
 url="https://clang.llvm.org/"
@@ -20,7 +20,7 @@ source=($_source_base/clang-$pkgver.src.tar.xz{,.sig}
         $_source_base/llvm-$pkgver.src.tar.xz{,.sig}
         $_source_base/cmake-$pkgver.src.tar.xz{,.sig}
         $_source_base/third-party-$pkgver.src.tar.xz{,.sig}
-        clang-disable-float128-diagnostics-for-device-compilation.patch::https://github.com/llvm/llvm-project/commit/318bff6811e7.patch
+        clang-disable-float128-diagnostics-for-device-compilation.patch
         support-__GCC_-CON-DE-STRUCTIVE_SIZE.patch
         enable-fstack-protector-strong-by-default.patch)
 sha256sums=('5724fe0a13087d5579104cedd2f8b3bc10a212fb79a0fcdac98f4880e19f4519'
