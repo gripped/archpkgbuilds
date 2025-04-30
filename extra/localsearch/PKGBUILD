@@ -7,7 +7,7 @@ pkgname=(
   localsearch-testutils
 )
 pkgver=3.9.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Filesystem indexer and metadata extractor"
 url="https://gnome.pages.gitlab.gnome.org/localsearch/"
 arch=(x86_64)
