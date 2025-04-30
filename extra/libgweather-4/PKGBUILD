@@ -7,7 +7,7 @@ pkgname=(
   libgweather-4-docs
 )
 pkgver=4.4.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Location and timezone database and weather-lookup library"
 url="https://wiki.gnome.org/Projects/LibGWeather"
 arch=(x86_64)
