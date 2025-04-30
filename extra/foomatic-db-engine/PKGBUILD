@@ -3,14 +3,14 @@
 pkgname=foomatic-db-engine
 arch=('x86_64')
 pkgver=20200131
-pkgrel=1
+pkgrel=2
 epoch=5
 url="http://www.linuxprinting.org/foomatic.html"
 pkgdesc="Foomatic - Foomatic's database engine generates PPD files from the data in Foomatic's XML database. It also contains scripts to directly generate print queues and handle jobs."
 license=('GPL-2.0-or-later')
 depends=('perl' 'libxml2' 'cups-filters' 'glibc' 'bash' 'perl-xml-libxml' 'perl-clone' 'perl-dbi')
 makedepends=('cups' 'ghostscript' 'a2ps' 'wget' 'foomatic-db' 'git')
-optdepends=('foomatic-db:	linuxprinting.org xml files database to create ppd driver files')
+optdepends=('foomatic-db: linuxprinting.org xml files database to create ppd driver files')
 backup=('etc/foomatic/defaultspooler')
 
 # check https://github.com/OpenPrinting/foomatic-db-engine
