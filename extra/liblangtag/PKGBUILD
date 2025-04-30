@@ -2,11 +2,11 @@
 
 pkgname=liblangtag
 pkgver=0.6.7
-pkgrel=1
+pkgrel=2
 pkgdesc="interface library to access/deal with tags for identifying languages"
 arch=('x86_64')
 url="https://bitbucket.org/tagoh/liblangtag/wiki/Home"
-license=('LGPL3' 'MPL2')
+license=('LGPL-3.0-or-later' 'MPL-2.0')
 depends=('libxml2' 'glib2' 'glibc')
 makedepends=('gobject-introspection')
 optdepends=('gobject-introspection-runtime: use with liblangtag-gobject')
