@@ -4,7 +4,7 @@
 
 pkgname=openconnect
 pkgver=9.12
-pkgrel=3
+pkgrel=4
 epoch=1
 pkgdesc='Open client for Cisco AnyConnect VPN'
 url='https://www.infradead.org/openconnect/'
