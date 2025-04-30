@@ -5,7 +5,7 @@
 
 pkgname=telepathy-gabble
 pkgver=0.18.4
-pkgrel=5
+pkgrel=6
 pkgdesc="A Jabber/XMPP connection manager for Telepathy"
 arch=(x86_64)
 url="https://telepathy.freedesktop.org"
