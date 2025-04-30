@@ -2,16 +2,15 @@
 # Contributor: Sergey Kostyuchenko <derfenix@gmail.com>
 
 pkgname=corectrl
-pkgver=1.4.3
-pkgrel=4
+pkgver=1.5.1
+pkgrel=1
 pkgdesc="Core control application"
 url="https://gitlab.com/corectrl/corectrl"
 license=('GPL-3.0-or-later')
 arch=('x86_64')
-depends=(procps-ng hwdata quazip-qt5 qt5-charts qt5-quickcontrols2 qt5-base
-         botan qt5-svg qt5-xmlpatterns qt5-base dbus polkit fmt pugixml 
-         hicolor-icon-theme spdlog)
-makedepends=(cmake qt5-tools extra-cmake-modules ninja)
+depends=(procps-ng hwdata quazip-qt6 qt6-charts qt6-base spdlog
+         botan qt6-svg dbus polkit fmt pugixml hicolor-icon-theme)
+makedepends=(cmake qt6-tools extra-cmake-modules ninja)
 checkdepends=(catch2 trompeloeil)
 optdepends=(
 	'vulkan-tools: For vulkaninfo'
@@ -19,8 +18,8 @@ optdepends=(
 	'util-linux: For lscpu'
 )
 source=("https://gitlab.com/corectrl/corectrl/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.bz2")
-sha256sums=('8fbf9bd0b9af661c53740d010656180fb45949d6b05028244ce45a9f10d38278')
-b2sums=('a9400922ed7a07ef247fcfed48f37509bcef7fafeb74f36f8b76d08e773fc07ab15a6cd2b49b38a7d62536752930904f762658427c68794676b1a83246e0408e')
+sha256sums=('643f6c061ce7f73629229ec421a8958873b369bfa40ed83e52a260533c791ba8')
+b2sums=('24669cbe159bcfa3ec8d6d8472c2e0f7144c4b26eae8262179e175d03ec5ab4ce5edc0cc9b602a0ac10ba105680831799452502d2d1c2a40c105ff45b92c00c1')
 
 build() {
   cmake \
