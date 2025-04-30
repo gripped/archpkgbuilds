@@ -2,7 +2,7 @@
 
 pkgname=gnome-epub-thumbnailer
 pkgver=1.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Thumbnailer for EPub and MOBI books"
 url="https://gitlab.gnome.org/GNOME/gnome-epub-thumbnailer"
 license=(GPL-2.0-or-later)
