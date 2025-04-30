@@ -5,7 +5,7 @@
 
 pkgname=virt-viewer
 pkgver=11.0
-pkgrel=3
+pkgrel=4
 pkgdesc='A lightweight interface for interacting with the graphical display of virtualized guest OS.'
 arch=('x86_64')
 url='https://gitlab.com/virt-viewer/virt-viewer'
