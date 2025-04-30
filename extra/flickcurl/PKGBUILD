@@ -3,7 +3,7 @@
 
 pkgname=flickcurl
 pkgver=1.26
-pkgrel=12
+pkgrel=13
 pkgdesc="C library for the Flickr API"
 arch=(x86_64)
 url="http://librdf.org/flickcurl/"
@@ -35,6 +35,7 @@ prepare() {
 
 build() {
   cd ${pkgname}-${pkgver}
+  CFLAGS+=' -Wno-implicit-function-declaration' \
   ./configure --prefix=/usr
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
