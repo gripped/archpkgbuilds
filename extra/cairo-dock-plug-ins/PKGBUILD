@@ -6,7 +6,7 @@
 
 pkgname=cairo-dock-plug-ins
 pkgver=3.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Plugins for Cairo-Dock'
 arch=('x86_64')
 url='https://glx-dock.org'
@@ -40,8 +40,9 @@ build() {
   CXXFLAGS="${CXXFLAGS} -Wno-incompatible-pointer-types"
   CFLAGS="${CFLAGS} -Wno-incompatible-pointer-types"
   cmake -B build -S cairo-dock-plug-ins-${pkgver} \
-    -DCMAKE_INSTALL_PREFIX='/usr' \
-    -DWITH_VALA_SRC='yes'
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DWITH_VALA_SRC=yes \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake --build build
 }
 
