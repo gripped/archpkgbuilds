@@ -9,7 +9,7 @@ pkgname=(
   lib32-harfbuzz-cairo
   lib32-harfbuzz-icu
 )
-pkgver=11.1.0
+pkgver=11.2.0
 pkgrel=1
 pkgdesc="OpenType text shaping engine - 32-bit"
 url="https://harfbuzz.github.io/"
@@ -36,7 +36,7 @@ checkdepends=(
   python-setuptools
 )
 source=("git+https://github.com/harfbuzz/harfbuzz?signed#tag=$pkgver")
-b2sums=('e5c5c95cd35a54091d142715d469c7a5af0ce18cf64bf94fca8ec854cf83de76c378bf12d7c700e8a700faeef02890e989a5d9837db8552bcfca5d4bebf04da7')
+b2sums=('a571d2a6b21f7c03291caba5940db9bfdcd3a23fb7c05db36490da758e4e24e62a0343850557459ff78e708ce3822ad7cdb00890d66d8df64779ad13e3001400')
 validpgpkeys=(
   053D20F17CCCA9651B2C6FCB9AB24930C0B997A2 # Khaled Hosny <khaled@aliftype.com> (@khaledhosny)
   9F377DDB6D3153A48EB3EB1E63CC496475267693 # Caleb Maclennan <caleb@alerque.com> (@alerque)
