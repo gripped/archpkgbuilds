@@ -3,7 +3,7 @@
 
 pkgname=lxappearance-obconf
 pkgver=0.2.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Plugin for LXAppearance to configure Openbox'
 arch=('x86_64')
 license=('GPL2')
@@ -11,7 +11,7 @@ url='https://lxde.org/'
 groups=('lxde')
 depends=('lxappearance' 'openbox' 'libobrender.so')
 makedepends=('git' 'intltool')
-source=(git+https://github.com/lxde/lxappearance-obconf.git?#tag=${pkgver})
+source=(git+https://github.com/lxde/lxappearance-obconf.git#tag=${pkgver})
 sha256sums=('63299027fdce3acfc55eb1ae601f4a0ab4b0be0ebe055f21df46d80ff4d3f437')
 
 prepare() {
