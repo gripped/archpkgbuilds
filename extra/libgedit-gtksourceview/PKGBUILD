@@ -1,16 +1,15 @@
-# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Fabian Bornschein <fabiscafe@archlinux.org>
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
-# Contributor: Balló György <ballogyor+arch at gmail dot com>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
-
 
 pkgname=libgedit-gtksourceview
 pkgver=299.5.0
-pkgrel=1
-pkgdesc="A source code editing widget"
+pkgrel=2
+pkgdesc='Source code editing widget library'
 arch=(x86_64)
-url="https://gedit-technology.github.io"
-license=('LGPL-2.1-or-later')
+url='https://gitlab.gnome.org/World/gedit/libgedit-gtksourceview'
+license=(LGPL-2.1-or-later)
 depends=(
   cairo
   gdk-pixbuf2
@@ -29,19 +28,13 @@ makedepends=(
 )
 checkdepends=(xorg-server-xvfb)
 provides=(libgedit-gtksourceview-300.so)
-source=("git+https://gitlab.gnome.org/World/gedit/libgedit-gtksourceview.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('178820170603e7070ff355ef9d085ea7727f711d5686e4b86a4fe9e95c97383597e4965e1be114282e975a5854e573686e70620822036e5904bfb99339e9d5fb')
-
-prepare() {
-  cd $pkgname
-}
+source=("git+https://gitlab.gnome.org/World/gedit/libgedit-gtksourceview.git?signed#tag=${pkgver/[a-z]/.&}")
+b2sums=(178820170603e7070ff355ef9d085ea7727f711d5686e4b86a4fe9e95c97383597e4965e1be114282e975a5854e573686e70620822036e5904bfb99339e9d5fb)
+validpgpkeys=(08C0A6B1A08310A45363B328426F014A261FD87F) # Sébastien Wilmet <swilmet@mailfence.com>
 
 build() {
-  local meson_options=(
+  arch-meson $pkgname build \
     -D gtk_doc=true
-  )
-
-  arch-meson $pkgname build "${meson_options[@]}"
   meson compile -C build
 }
 
