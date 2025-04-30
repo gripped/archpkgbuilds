@@ -6,7 +6,7 @@
 
 pkgname=gnome-boxes
 pkgver=48.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Simple GNOME application to access virtual systems'
 arch=(x86_64)
 url='https://apps.gnome.org/Boxes/'
