@@ -3,7 +3,7 @@
 
 pkgname=clang
 pkgver=19.1.7
-pkgrel=1
+pkgrel=2
 pkgdesc="C language family frontend for LLVM"
 arch=('x86_64')
 url="https://clang.llvm.org/"
@@ -35,7 +35,7 @@ sha256sums=('11e5e4ecab5338b9914de3b83a4622cb200de466b7c56ba675afb72fa7d64675'
             'SKIP'
             'b96deca1d3097c7ffd4ff2bb904a50bdd56bec7ed1413ffb0d1d01af87b72c12'
             'SKIP'
-            '94a3d4df2443f9dc9e256e6c0c661ff4a4ca4f34a5ca351f065511b9694faf2a'
+            '6a0c72fffeb165ba1ccac62a5265f441c627982f122d92f699dd630eea40fd4b'
             '8832b4ee02fe8a0e57fca608288242f80e348ee9b60be3eb0069c8b91a42fbf4'
             'ef319e65f927718e1d3b1a23c480d686b1d292e2a0bf27229540964f9734117a')
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstellar@redhat.com>
@@ -143,6 +143,11 @@ package() {
 
   # Compile Python scripts
   _python_optimize "$pkgdir/usr/share" "$pkgdir/$site_packages"
+
+  # Move bash completion
+  local bash_completion_destdir="$pkgdir/usr/share/bash-completion/completions"
+  install -d $bash_completion_destdir
+  mv "$pkgdir/usr/share/clang/bash-autocomplete.sh" "$bash_completion_destdir/clang"
 }
 
 # vim:set ts=2 sw=2 et:
