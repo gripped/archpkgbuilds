@@ -4,7 +4,7 @@
 
 pkgname=gupnp-av
 pkgver=0.14.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Library to ease handling and implementation of UPnP A/V profiles"
 url="https://wiki.gnome.org/Projects/GUPnP"
 arch=(x86_64)
