@@ -3,13 +3,14 @@
 
 pkgname=libarchive
 pkgver=3.7.9
-pkgrel=1
+pkgrel=2
 pkgdesc='Multi-format archive and compression library'
 arch=('x86_64')
 url='https://libarchive.org/'
-license=('BSD')
+license=('BSD-2-Clause')
 depends=('acl' 'libacl.so'
          'bzip2' 'libbz2.so'
+         'glibc'
          'libxml2' 'libxml2.so'
          'lz4'
          'openssl' 'libcrypto.so'
