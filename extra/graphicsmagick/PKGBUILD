@@ -6,7 +6,7 @@
 
 pkgname=graphicsmagick
 pkgver=1.3.45
-pkgrel=3
+pkgrel=4
 pkgdesc='Image processing system'
 url='http://www.graphicsmagick.org/'
 arch=(x86_64)
