@@ -1,11 +1,11 @@
 pkgbase = element.io
 	pkgdesc = Glossy Matrix collaboration client —
-	pkgver = 1.11.95
+	pkgver = 1.11.99
 	pkgrel = 1
 	url = https://element.io
 	arch = x86_64
 	license = Apache
-	makedepends = electron34
+	makedepends = electron35
 	makedepends = git
 	makedepends = jq
 	makedepends = libxcrypt-compat
@@ -16,18 +16,14 @@ pkgbase = element.io
 	makedepends = rust
 	makedepends = tcl
 	makedepends = yarn
-	source = element-web-1.11.95.tar.gz::https://github.com/vector-im/element-web/archive/v1.11.95.tar.gz
-	source = element-web-1.11.95.tar.gz.asc::https://github.com/vector-im/element-web/releases/download/v1.11.95/v1.11.95.tar.gz.asc
-	source = element-desktop-1.11.95.tar.gz::https://github.com/vector-im/element-desktop/archive/v1.11.95.tar.gz
-	source = element-desktop-1.11.95.tar.gz.asc::https://github.com/vector-im/element-desktop/releases/download/v1.11.95/v1.11.95.tar.gz.asc
+	source = git+https://github.com/element-hq/element-desktop.git#tag=v1.11.99?signed
+	source = git+https://github.com/element-hq/element-web.git#tag=v1.11.99?signed
 	source = autolaunch.patch
 	source = io.element.Element.desktop
 	source = element-desktop.sh
 	validpgpkeys = 712BFBEE92DCA45252DB17D7C7BE97EFA179B100
-	sha256sums = cccf3d124f5746fc3fa940ce350ef5b31a05fbe7bf77c5d9590c0404e2c2a80f
-	sha256sums = SKIP
-	sha256sums = 789efe10c9d4977cd720dc6b39b7002b1024805fefcdaaa805b135924c93d064
-	sha256sums = SKIP
+	sha256sums = 682fb5f8e2429b2a9da98dceda6781080c5f03ec477acbf3cbb26150a3df4ef1
+	sha256sums = bfc0184f9cc63a5d7910567e4c55a2b1bcb8216be072e399f202ac1f1d39ba97
 	sha256sums = 268485f35103d00a89be7f5c84703e3d393350c71f4f90932f7bcb5ea2fd094f
 	sha256sums = 0103f28a32fe31f698836516783c1c70a76a0117b5df7fd0af5c422c224220f9
 	sha256sums = c1bd9ace215e3ec9af14d7f28b163fc8c8b42e23a2cf04ce6f4ce2fcc465feba
@@ -39,8 +35,8 @@ pkgname = element-web
 
 pkgname = element-desktop
 	pkgdesc = Glossy Matrix collaboration client — desktop version.
-	depends = element-web=1.11.95
-	depends = electron34
+	depends = element-web=1.11.99
+	depends = electron35
 	depends = libsecret
 	replaces = riot-desktop
 	backup = etc/element/config.json
