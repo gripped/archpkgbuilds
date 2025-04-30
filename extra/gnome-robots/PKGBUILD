@@ -3,7 +3,7 @@
 
 pkgname=gnome-robots
 pkgver=41.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Avoid the robots and make them crash into each other"
 url="https://wiki.gnome.org/Apps/Robots"
 arch=(x86_64)
