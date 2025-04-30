@@ -3,7 +3,7 @@
 
 pkgbase=linux-rt-lts
 pkgver=6.6.52.rt43.arch1
-pkgrel=4
+pkgrel=5
 pkgdesc='Linux RT LTS'
 arch=(x86_64)
 url="https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt-lts"
@@ -36,6 +36,9 @@ source=(
   https://cdn.kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/${_srcname}.tar.{xz,sign}
   https://cdn.kernel.org/pub/linux/kernel/projects/rt/${_upstream_ver%.*}/older/patch-${_rt_ver}.patch.{xz,sign}
   $url/-/releases/${_srctag}/downloads/$pkgbase-${_srctag}.patch{,.sig}
+  gcc15-firmware.patch
+  gcc15-boot.patch
+  gcc15-x86.patch
   config
  )
 sha512sums=('3fb7b4e6e19e87c4012037ea32dc4e28a30b75fa4260530edb7686c39b0c6fb6c4e35550a97c0e40c604513a0ba5f26490a6a74da21de08226d54fda73d316a0'
@@ -44,6 +47,9 @@ sha512sums=('3fb7b4e6e19e87c4012037ea32dc4e28a30b75fa4260530edb7686c39b0c6fb6c4e
             'SKIP'
             'c1eadc2c4faf1c56577a2b5462413fbe4d1d7819e4433ce22ece4af0b7c37479cbd79a36f4c2495758e7c5654888ed7c0c0a46612ccaf274858946f9fcd5aaa6'
             'SKIP'
+            'b61fdb37c471b76c6ff98f2758d89ed3b59062a0ae77943810e10db827671ee0ce374a2c4c676f54129129816a494aa60bd16797e841f77d6876dda4229b382c'
+            'f102f780220da16d93751ddfd5881390da2c4678f6ee273bf520e9e484e9c2794c6f9e0ae2995765e3dbaab4bc0478e3a5027cfd117510cfef4e248e520e5ac0'
+            'b7d85508e3eb7f269977e972550e5d0975c8566a85d48b4b1667e5fc580734ef55e8576aa3cbaffcdbc5686965058e8eaecfee623918336a255b6ff3cc85640d'
             '223cc484f4f8902c3afb9abe4facb04debcd9e7716f186a3e980256996d3b062dfbad6ebf2d611d897e47ad1023808c848050842b2afe6d588fdc6e628f3f1cc')
 b2sums=('f42461ea587b2027ce4e096dd7188d4d5bc8aa559eb037afbb2250493900988925d69e2882356739ac3b9d028f833a63578ed9087f7bd9ee44dc096b4608d352'
         'SKIP'
@@ -51,6 +57,9 @@ b2sums=('f42461ea587b2027ce4e096dd7188d4d5bc8aa559eb037afbb2250493900988925d69e2
         'SKIP'
         'a7daf2c72f2ac35fe43ef59019f5c13d3f54b8a87d8aa7b47a58013c2ed947f3d6b415578dfa916c532aec6fff0fd6da4a01bc766989a506729a58a8ce3ce53d'
         'SKIP'
+        'e2e96bfecf41f99c0376eafa27b00279f34dce786b465518ce7a74d17da5718ca034465a6fdebb66750fbfc2af8704c355064dd118fafcb3d84fbaa53bee410c'
+        'e90f4ad01f5a0374d453c866c82c3b29d99a1c32d330e7b4b0bf1e41b39c4c08202d2899a1d36ab94b4b8983647587fe37598b49692297163a9e446a66c7360a'
+        'af0bc4eedb77a7d1d7605c15d040e606ce0534fb56887ba1361d303705b97415a9c38d76a7a87585f41020ffacbe07ef7de1c3a3f3ef7bedacbe6989cd078fe3'
         '3dc361dd1b2922e34f437a2c756a07baeca21bb07cb776e2427f03d2bb02a2c70e5031d38e3bab6e56c099e27c6c9a16ef8acdc0ca393cc1915151dd4afcf030')
 validpgpkeys=(
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman <gregkh@linuxfoundation.org>
