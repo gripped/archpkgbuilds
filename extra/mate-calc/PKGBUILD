@@ -4,7 +4,7 @@
 
 pkgname=mate-calc
 pkgver=1.28.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Calculator for the MATE desktop environment"
 url="https://mate-desktop.org"
 arch=('x86_64')
