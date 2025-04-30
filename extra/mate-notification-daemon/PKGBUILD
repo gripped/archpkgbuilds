@@ -4,7 +4,7 @@
 
 pkgname=mate-notification-daemon
 pkgver=1.28.1
-pkgrel=1
+pkgrel=2
 provides=('notification-daemon')
 pkgdesc="Notification daemon for MATE"
 url="https://mate-desktop.org"
