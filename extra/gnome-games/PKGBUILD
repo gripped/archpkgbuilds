@@ -3,7 +3,7 @@
 
 pkgname=gnome-games
 pkgver=40.0
-pkgrel=7
+pkgrel=8
 pkgdesc='Simple game launcher for GNOME'
 arch=(x86_64)
 url='https://wiki.gnome.org/Apps/Games'
@@ -26,7 +26,7 @@ depends=(
   libxml2
   retro-gtk
   sqlite
-  tracker3
+  tinysparql
 )
 makedepends=(
   appstream-glib
