@@ -3,7 +3,7 @@
 
 pkgname=rnote
 pkgver=0.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple drawing application to create handwritten notes"
 arch=('x86_64')
 url="https://github.com/flxzt/rnote"
