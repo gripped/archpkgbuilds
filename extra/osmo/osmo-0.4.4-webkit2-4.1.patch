@@ -1,0 +1,19 @@
+commit 2dd4439d685b66a4ed711ab9608e5c1b27ef88ce
+Author: Jeremy Bícha <jeremy.bicha@canonical.com>
+Date:   Thu Jan 4 16:26:03 2024 -0500
+
+    Switch to webkit2gtk 4.1
+
+diff --git a/configure.ac b/configure.ac
+index c95a44b..a2ea28b 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -131,7 +131,7 @@ if test "x$tasks" = "xyes"; then
+ fi
+ 
+ # Checks for libwebkit
+-PKG_CHECK_MODULES(LIBWEBKIT, webkit2gtk-4.0 >= 2.8.0, have_libwebkit=true,
++PKG_CHECK_MODULES(LIBWEBKIT, webkit2gtk-4.1 >= 2.8.0, have_libwebkit=true,
+     have_libwebkit=false)
+ if test "x$have_libwebkit" = "xtrue"; then
+     libwebkit="yes"

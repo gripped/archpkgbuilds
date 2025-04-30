@@ -4,26 +4,36 @@
 
 pkgname=osmo
 pkgver=0.4.4
-pkgrel=3
+pkgrel=5
 pkgdesc="A handy personal organizer"
 arch=('x86_64')
 url="https://clayo.org/osmo/"
 license=('GPL')
-depends=('gspell' 'libarchive' 'libgringotts' 'libical' 'libnotify' 'libxml2' 'webkit2gtk')
+depends=('gspell' 'libarchive' 'libgringotts' 'libical' 'libnotify' 'libxml2' 'webkit2gtk-4.1')
 optdepends=('sox: to play sounds')
 changelog=$pkgname.changelog
-source=(https://sourceforge.net/projects/osmo-pim/files/osmo-pim/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('1e8b11bd1baa0f6756326b58f87eb95a56b38a25d7336fdfb65c2dfca46d03a6')
+source=(https://sourceforge.net/projects/osmo-pim/files/osmo-pim/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.gz
+        osmo-0.4.4-webkit2-4.1.patch)
+sha256sums=('1e8b11bd1baa0f6756326b58f87eb95a56b38a25d7336fdfb65c2dfca46d03a6'
+            'c18c93537a149a28d64870a12f9552b3993b7a0804ebdbff8a1447d1f9a5d621')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  # Switch to webkit2gtk 4.1
+  # https://sourceforge.net/p/osmo-pim/osmo/ci/2dd4439d685b66a4ed711ab9608e5c1b27ef88ce/
+  patch -Np1 -i ../osmo-0.4.4-webkit2-4.1.patch
+  autoreconf -fiv
+}
 
 build() {
-  cd "${srcdir}"/${pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}
 
   ./configure --prefix=/usr
   make 
 }
 
 package() {
-  cd "${srcdir}"/${pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}
 
   make DESTDIR="${pkgdir}" install
 }
