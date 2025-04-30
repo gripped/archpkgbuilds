@@ -8,7 +8,7 @@ pkgname=(
   libgsf-docs
 )
 pkgver=1.14.53
-pkgrel=1
+pkgrel=2
 pkgdesc="Extensible I/O abstraction library for dealing with structured file formats"
 url="https://gitlab.gnome.org/GNOME/libgsf"
 arch=(x86_64)
