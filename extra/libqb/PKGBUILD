@@ -5,7 +5,7 @@
 
 pkgname=libqb
 pkgver=2.0.8
-pkgrel=1
+pkgrel=2
 pkgdesc='Library for providing high performance, reusable features for client-server architecture'
 url='https://github.com/ClusterLabs/libqb'
 arch=('x86_64')
