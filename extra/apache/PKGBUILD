@@ -4,7 +4,7 @@
 
 pkgname=apache
 pkgver=2.4.63
-pkgrel=1
+pkgrel=2
 pkgdesc='A high performance Unix-based HTTP server'
 arch=('x86_64')
 url='https://www.apache.org/dist/httpd'
@@ -125,6 +125,10 @@ package() {
       -e 's|#\(Include conf/extra/httpd-default.conf\)|\1|' \
       -e 's|#\(Include conf/extra/httpd-mpm.conf\)|\1|' \
       -i "${pkgdir}/etc/httpd/conf/httpd.conf"
+
+  # allow optional drop-in conf files for local configuration
+  mkdir "${pkgdir}/etc/httpd/conf/conf.d"
+  echo "\nIncludeOptional conf/conf.d/*.conf" >> "${pkgdir}/etc/httpd/conf/httpd.conf"
 
   # cleanup
   rm -r "${pkgdir}/usr/share/httpd/manual"
