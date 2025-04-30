@@ -8,7 +8,7 @@ pkgname=(
   librsvg-docs
 )
 pkgver=2.60.0
-pkgrel=1
+pkgrel=2
 epoch=2
 pkgdesc="SVG rendering library"
 url="https://wiki.gnome.org/Projects/LibRsvg"
