@@ -3,7 +3,7 @@
 
 pkgname=('llvm15' 'llvm15-libs')
 pkgver=15.0.7
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 url="https://llvm.org/"
 license=('custom:Apache 2.0 with LLVM Exception')
@@ -13,11 +13,13 @@ checkdepends=('python-psutil')
 options=('staticlibs' '!lto') # https://github.com/llvm/llvm-project/issues/57740
 _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkgver
 source=($_source_base/llvm-$pkgver.src.tar.xz{,.sig}
-        $_source_base/cmake-$pkgver.src.tar.xz{,.sig})
+        $_source_base/cmake-$pkgver.src.tar.xz{,.sig}
+        nopipes.diff)
 sha256sums=('4ad8b2cc8003c86d0078d15d987d84e3a739f24aae9033865c027abae93ee7a4'
             'SKIP'
             '8986f29b634fdaa9862eedda78513969fe9788301c9f2d938f4c10a3e7a3e7ea'
-            'SKIP')
+            'SKIP'
+            '7064204c3532fab542c765005361c55467359f994fcc556f417dc7250530ac66')
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A') # Tom Stellard <tstellar@redhat.com>
 
 # Utilizing LLVM_DISTRIBUTION_COMPONENTS to avoid
@@ -52,6 +54,9 @@ prepare() {
   mv cmake{-$pkgver.src,}
   cd llvm-$pkgver.src
   mkdir build
+
+  # Unbreak tests with Python 3.13
+  patch -Np1 -i ../nopipes.diff
 }
 
 build() {
