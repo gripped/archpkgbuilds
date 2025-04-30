@@ -12,7 +12,7 @@ pkgbase=mariadb-lts
 pkgname=('mariadb-lts-libs' 'mariadb-lts-clients' 'mariadb-lts')
 pkgdesc='Fast SQL database server, derived from MySQL (LTS)'
 pkgver=11.4.5
-pkgrel=3
+pkgrel=4
 arch=('x86_64')
 license=('GPL-2.0-only')
 url='https://mariadb.org/'
@@ -66,6 +66,10 @@ prepare() {
     '3bbe11acd93ad63ed1d90656e11a665d6326996f' \
     '8a05f45bc36f962a813f5a0f99172c386bd2eebe' \
     '10c063f9f07d6ab8f18b4b7b88da75d5bb2eae55'
+
+  # MDEV-36427 - FTBFS with libxml2 2.14.0
+  git cherry-pick -n \
+    'b02ad4a6f8ea09c5cdf0a44a9ee57a60f2989f48'
 
   # Arch Linux specific patches:
   #  * enable PrivateTmp for a little bit more security
@@ -154,10 +158,22 @@ check() {
 
 package_mariadb-lts-libs() {
   pkgdesc='MariaDB libraries (LTS)'
-  depends=('liburing' 'libxcrypt' 'libcrypt.so' 'openssl' 'pcre2' 'zlib' 'zstd')
+  depends=('liburing' 'liburing.so'
+           'libxcrypt' 'libcrypt.so'
+           'openssl' 'libcrypto.so' 'libssl.so'
+           'pcre2' 'libpcre2-8.so'
+           'zlib' 'libz.so'
+           'zstd' 'libzstd.so')
   optdepends=('krb5: for gssapi authentication')
-  conflicts=('mariadb-libs' 'libmysqlclient' 'libmariadbclient' 'mariadb-connector-c')
-  provides=("mariadb-libs=${pkgver}" 'libmariadbclient' 'mariadb-connector-c' 'libmariadb.so' 'libmariadbd.so')
+  conflicts=('mariadb-libs'
+	     'libmysqlclient'
+	     'libmariadbclient'
+	     'mariadb-connector-c')
+  provides=("mariadb-libs=${pkgver}"
+	    'libmariadbclient'
+	    'mariadb-connector-c'
+	    'libmariadb.so'
+	    'libmariadbd.so')
 
   cd build
 
@@ -183,7 +199,9 @@ package_mariadb-lts-libs() {
 
 package_mariadb-lts-clients() {
   pkgdesc='MariaDB client tools (LTS)'
-  depends=("mariadb-lts-libs=${pkgver}" 'jemalloc' 'ncurses')
+  depends=("mariadb-lts-libs=${pkgver}"
+           'jemalloc'
+           'ncurses' 'libncursesw.so')
   conflicts=('mariadb-clients' 'mysql-clients')
   provides=("mariadb-clients=${pkgver}" "mysql-clients=${pkgver}")
 
@@ -211,8 +229,13 @@ package_mariadb-lts() {
           'etc/my.cnf.d/spider.cnf'
           'etc/security/user_map.conf')
   install=mariadb.install
-  depends=("mariadb-lts-clients=${pkgver}" 'bzip2' 'coreutils' 'libxml2' 'lz4'
-           'systemd-libs' 'zstd')
+  depends=("mariadb-lts-clients=${pkgver}"
+           'bzip2' 'libbz2.so'
+           'coreutils'
+           'libxml2' 'libxml2.so'
+           'lz4' 'liblz4.so'
+           'systemd-libs' 'libsystemd.so'
+           'zstd' 'libzstd.so')
   optdepends=('cracklib: for cracklib plugin'
               'curl: for ha_s3 plugin'
               'galera: for MariaDB cluster with Galera WSREP'
@@ -221,7 +244,9 @@ package_mariadb-lts() {
               'python-mysqlclient: for myrocks_hotbackup'
               'xz: lzma provider')
   conflicts=('mariadb' 'mysql')
-  provides=("mariadb-server=${pkgver}" "mariadb=${pkgver}" "mysql=${pkgver}")
+  provides=("mariadb-server=${pkgver}"
+	    "mariadb=${pkgver}"
+	    "mysql=${pkgver}")
   options=('emptydirs')
 
   cd build
