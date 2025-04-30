@@ -4,7 +4,7 @@
 
 pkgname=augeas
 pkgver=1.14.1
-pkgrel=3
+pkgrel=4
 pkgdesc="A configuration editing tool that parses config files and transforms them into a tree"
 arch=(x86_64)
 url="https://augeas.net"
