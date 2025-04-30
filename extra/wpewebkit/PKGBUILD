@@ -6,7 +6,7 @@ pkgname=(
   wpewebkit-docs
 )
 pkgver=2.48.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Embeddable web content engine"
 url="https://wpewebkit.org"
 arch=(x86_64)
