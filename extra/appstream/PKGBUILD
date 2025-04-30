@@ -7,7 +7,7 @@ pkgname=(appstream
          appstream-qt5
          appstream-qt)
 pkgver=1.0.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Provides a standard for creating app stores across distributions'
 arch=(x86_64)
 url='https://distributions.freedesktop.org/wiki/AppStream'
