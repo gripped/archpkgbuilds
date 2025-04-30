@@ -4,7 +4,7 @@
 
 pkgname=caja
 pkgver=1.28.0
-pkgrel=2
+pkgrel=3
 pkgdesc="File manager for the MATE desktop"
 url="https://mate-desktop.org"
 arch=('x86_64')
