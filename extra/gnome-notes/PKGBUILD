@@ -2,21 +2,29 @@
 
 pkgname=gnome-notes
 pkgver=40.1
-pkgrel=8
+pkgrel=9
 pkgdesc="Write out notes, every detail matters"
 url="https://wiki.gnome.org/Apps/Notes"
 arch=(x86_64)
 license=(GPL-3.0-or-later)
 depends=(
+  cairo
   curl
+  dconf
   evolution-data-server
+  gcc-libs
   glib2
+  glibc
   gnome-online-accounts
   gtk3
+  hicolor-icon-theme
   json-glib
+  libgoa
   libhandy
+  libical
   libxml2
-  tracker3
+  pango
+  tinysparql
   webkit2gtk-4.1
 )
 makedepends=(
@@ -29,12 +37,14 @@ provides=("bijiben=$pkgver")
 conflicts=(bijiben)
 replaces=(bijiben)
 groups=(gnome-extra)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-notes.git#tag=BIJIBEN_${pkgver//./_}"
-        gnome-notes-activate.patch
-        gnome-notes-invalid-search.patch
-        gnome-notes-prgname.patch
-        gnome-notes-new-note.patch
-        gnome-notes-note-trashed.patch)
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-notes.git#tag=BIJIBEN_${pkgver//./_}"
+  gnome-notes-activate.patch
+  gnome-notes-invalid-search.patch
+  gnome-notes-prgname.patch
+  gnome-notes-new-note.patch
+  gnome-notes-note-trashed.patch
+)
 b2sums=('794f39b637b48a8a64a0fdb98fbd1d346f0a22dc2c752dfbba97f3ffe1c3c6b5d44cd3bbe64fdcc4877065140d6e7b3d3f3961ca872df05c4df22b617729a83d'
         'a198a7af2695dafd3cd39987eac066674e42820e7c774296a887c68225262afb6bfa8bd0e97c0935e9d691d5753c8cc3bc2407162fc1cec34775f4dd4846714f'
         '67f9f875c2847dab0b6a9215ab42b65f47744a5a31b9b802371efd4df3e4a44f8a6e2065279f234e26e76d4f9ae9f0a725cb70f66a0ac311eeb93d37139657ec'
