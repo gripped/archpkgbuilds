@@ -3,7 +3,7 @@
 
 pkgname=hotdoc
 pkgver=0.17.4
-pkgrel=1
+pkgrel=2
 pkgdesc="The tastiest API documentation system"
 url="https://github.com/hotdoc/hotdoc"
 arch=(x86_64)
@@ -63,10 +63,13 @@ prepare() {
   git config submodule.hotdoc/extensions/syntax_highlighting/prism.url "$srcdir/prism"
   git config submodule.hotdoc/hotdoc_bootstrap_theme.url "$srcdir/hotdoc_bootstrap_theme"
   git -c protocol.file.allow=always submodule update
+
+  sed -e '/CMP0048/d' -i cmark/CMakeLists.txt # Fix build with cmake 4
 }
 
 build() {
   cd $pkgname
+  export CMAKE_POLICY_VERSION_MINIMUM=3.5
   python -m build --wheel --no-isolation
 }
 
