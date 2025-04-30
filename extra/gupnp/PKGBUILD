@@ -7,7 +7,7 @@ pkgname=(
   gupnp-docs
 )
 pkgver=1.6.8
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="GObject-based UPNP framework"
 url="https://wiki.gnome.org/Projects/GUPnP"
