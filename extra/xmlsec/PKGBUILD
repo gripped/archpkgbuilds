@@ -4,7 +4,7 @@
 
 pkgname=xmlsec
 pkgver=1.3.7
-pkgrel=1
+pkgrel=2
 pkgdesc="XML Security Library is a C library based on LibXML2"
 license=(MIT)
 arch=('x86_64')
