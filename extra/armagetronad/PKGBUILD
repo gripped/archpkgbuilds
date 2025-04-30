@@ -5,7 +5,7 @@
 
 pkgname=armagetronad
 pkgver=0.2.9.2.3
-pkgrel=2
+pkgrel=3
 pkgdesc='A Tron Clone in 3D'
 arch=('x86_64')
 url='http://armagetronad.net/'
