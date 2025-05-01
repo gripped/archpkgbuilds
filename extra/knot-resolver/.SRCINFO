@@ -1,11 +1,12 @@
 pkgbase = knot-resolver
 	pkgdesc = Caching DNSSEC-validating DNS resolver
-	pkgver = 5.7.4
-	pkgrel = 2
+	pkgver = 5.7.5
+	pkgrel = 1
 	url = https://www.knot-resolver.cz/
 	arch = x86_64
 	license = GPL-3.0-or-later
 	makedepends = cmocka
+	makedepends = git
 	makedepends = meson
 	depends = dnssec-anchors
 	depends = gnutls
@@ -22,11 +23,15 @@ pkgbase = knot-resolver
 	optdepends = lua51-http: http and prefill modules, trust_anchors bootstrap
 	optdepends = lua51-psl: policy.slice_randomize_psl() function
 	backup = etc/knot-resolver/kresd.conf
-	source = https://secure.nic.cz/files/knot-resolver/knot-resolver-5.7.4.tar.xz
-	source = https://secure.nic.cz/files/knot-resolver/knot-resolver-5.7.4.tar.xz.asc
+	source = git+https://gitlab.nic.cz/knot/knot-resolver.git#tag=v5.7.5?signed
+	source = git+https://gitlab.nic.cz/knot/deckard.git
+	source = git+https://gitlab.nic.cz/knot/3rdparty/lua-aho-corasick.git
+	source = git+https://gitlab.nic.cz/knot/3rdparty/lua-tapered.git
 	validpgpkeys = 3057EE9A448F362D74205A779AB120DA0A76F6DE
 	validpgpkeys = B6006460B60A80E782062449E747DF1F9575A3AA
-	sha256sums = 6b6da6ecf06828041afad44dfa227781f0ae34ad183a667008509355d18bd9c8
+	sha256sums = 35d8548774b529ab0d89cbe52deaac1f4811dcd8c3f9da390069343ff3eeb32d
+	sha256sums = SKIP
+	sha256sums = SKIP
 	sha256sums = SKIP
 
 pkgname = knot-resolver

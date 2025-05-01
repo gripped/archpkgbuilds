@@ -4,8 +4,8 @@
 # Contributor: Ondřej Surý <ondrej@sury.org>
 
 pkgname=knot-resolver
-pkgver=5.7.4
-pkgrel=2
+pkgver=5.7.5
+pkgrel=1
 arch=('x86_64')
 pkgdesc="Caching DNSSEC-validating DNS resolver"
 url='https://www.knot-resolver.cz/'
@@ -24,6 +24,7 @@ depends=(
 )
 makedepends=(
     'cmocka'
+    'git'
     'meson'
 )
 optdepends=(
@@ -34,14 +35,28 @@ optdepends=(
     'lua51-psl: policy.slice_randomize_psl() function'
 )
 backup=('etc/knot-resolver/kresd.conf')
-source=("https://secure.nic.cz/files/${pkgname}/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha256sums=('6b6da6ecf06828041afad44dfa227781f0ae34ad183a667008509355d18bd9c8'
+source=("git+https://gitlab.nic.cz/knot/knot-resolver.git#tag=v${pkgver}?signed"
+        "git+https://gitlab.nic.cz/knot/deckard.git"
+        "git+https://gitlab.nic.cz/knot/3rdparty/lua-aho-corasick.git"
+        "git+https://gitlab.nic.cz/knot/3rdparty/lua-tapered.git")
+sha256sums=('35d8548774b529ab0d89cbe52deaac1f4811dcd8c3f9da390069343ff3eeb32d'
+            'SKIP'
+            'SKIP'
             'SKIP')
 validpgpkeys=(3057EE9A448F362D74205A779AB120DA0A76F6DE  # Ales Mrazek <ales.mrazek@nic.cz>
               B6006460B60A80E782062449E747DF1F9575A3AA) # Vladimír Čunát (work) <vladimir.cunat@nic.cz>
 
+prepare() {
+    cd ${pkgname}
+    git submodule init
+    git config submodule.tests.integration.deckard.url "${srcdir}/deckard"
+    git config submodule.modules.policy.lua-aho-corasick.url "${srcdir}/lua-aho-corasick"
+    git config submodule.tests.config.tapered.url "${srcdir}/lua-tapered"
+    git -c protocol.file.allow=always submodule update
+}
+
 build() {
-    cd ${pkgname}-${pkgver}
+    cd ${pkgname}
     arch-meson build \
         -D keyfile_default=/etc/trusted-key.key \
         -D systemd_files=enabled \
@@ -52,11 +67,11 @@ build() {
 }
 
 check() {
-    meson test -C ${pkgname}-${pkgver}/build
+    meson test -C ${pkgname}/build
 }
 
 package() {
-    DESTDIR="${pkgdir}" ninja -C ${pkgname}-${pkgver}/build install
+    DESTDIR="${pkgdir}" ninja -C ${pkgname}/build install
 
     # add kresd.target to multi-user.target.wants to support enabling kresd services
     mkdir -p "${pkgdir}/usr/lib/systemd/system/multi-user.target.wants/"
