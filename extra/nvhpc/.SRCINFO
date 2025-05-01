@@ -1,7 +1,7 @@
 pkgbase = nvhpc
 	pkgdesc = NVIDIA HPC SDK
 	pkgver = 25.3
-	pkgrel = 1
+	pkgrel = 2
 	url = https://docs.nvidia.com/hpc-sdk/index.html
 	install = nvhpc.install
 	arch = x86_64
@@ -9,6 +9,7 @@ pkgbase = nvhpc
 	makedepends = cuda
 	makedepends = cuda-tools
 	makedepends = gcc-fortran
+	makedepends = gcc14
 	options = !strip
 	options = !debug
 	options = staticlibs
@@ -42,7 +43,7 @@ pkgname = nvhpc-comm-libs
 
 pkgname = nvhpc-compilers
 	pkgdesc = NVIDIA HPC SDK - compilers
-	depends = gcc13
+	depends = gcc14
 	depends = gcc-fortran
 	depends = gcc-libs
 	depends = glibc

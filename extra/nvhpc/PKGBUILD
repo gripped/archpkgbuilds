@@ -8,7 +8,7 @@ _nccl_ver=2.25
 _openmpi_ver=4.1.5
 _rel_year=2025
 pkgver=25.3
-pkgrel=1
+pkgrel=2
 pkgdesc="NVIDIA HPC SDK"
 arch=(x86_64)
 url="https://docs.nvidia.com/hpc-sdk/index.html"
@@ -17,6 +17,7 @@ makedepends=(
   cuda
   cuda-tools
   gcc-fortran
+  gcc14
 )
 options=(!strip !debug staticlibs)
 install=nvhpc.install
@@ -96,8 +97,8 @@ build() {
   install -vdm 755 "$prepdir"/usr/share/
   mv "$prepdir"/opt/nvidia/hpc_sdk/modulefiles "$prepdir"/usr/share/
 
-  # Rewrite localrc to use gcc-13 as default compiler
-  "$prepdir"/opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/compilers/bin/makelocalrc -x -gcc gcc-13
+  # Rewrite localrc to use gcc-14 as default compiler
+  "$prepdir"/opt/nvidia/hpc_sdk/Linux_x86_64/$pkgver/compilers/bin/makelocalrc -x -gcc gcc-14
 
   # Fix permissions of static library files from 755 to 644
   find "$prepdir" \( -path '*/lib/*.a' -o -path '*/lib64/*.a' \) -type f -executable -exec chmod 644 {} \;
@@ -172,7 +173,7 @@ package_nvhpc-comm-libs() {
 package_nvhpc-compilers() {
   pkgdesc+=" - compilers"
   depends=(
-    gcc13
+    gcc14
     gcc-fortran
     gcc-libs
     glibc
