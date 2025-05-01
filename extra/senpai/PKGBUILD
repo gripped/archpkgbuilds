@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=senpai
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=1
 pkgdesc='A modern terminal IRC client'
 arch=('x86_64')
@@ -10,9 +10,9 @@ license=('ISC')
 depends=('glibc')
 makedepends=('git' 'go' 'scdoc')
 options=('!lto')
-source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('e0ef84cde9beecce10ea14abd8980ea8c1610074507928617060d4db1b8143c01ca65d36aca875416edcea343f28d734ef0d03a951013f5825c2886cde36ef46')
-b2sums=('c1181a6b94afc36de54387b87fb3775ba9701723be2ea20ba97d2857313f6ba5504fbd0826054b98cf50c78cf613c919e304d630ae2aa1fc97fdf7cc477c366f')
+source=("git+$url#tag=v$pkgver")
+sha512sums=('5f2febdce807a32cd5a1cc8c7804965ac3143972bde81d24d05ff09c94c0495026299afaeab3facf1058229883c9171319f718bc43401292f89b4ddc6a6a0324')
+b2sums=('2ee7a0db42b4b5ddeec7a7fa5172b1ef07424106519cb8483a240b132488ced9b3ca05ec32dd51ec24fd945a0aa39f79998de830c3bf6ebaf7ac9381d541d04e')
 
 prepare() {
   cd "$pkgname"
