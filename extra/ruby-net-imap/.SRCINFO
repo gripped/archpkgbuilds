@@ -1,7 +1,7 @@
 pkgbase = ruby-net-imap
 	pkgdesc = Ruby client api for Internet Message Access Protocol
-	pkgver = 0.4.12
-	pkgrel = 5
+	pkgver = 0.5.6
+	pkgrel = 1
 	url = https://github.com/ruby/net-imap
 	arch = any
 	license = RUBY
@@ -13,9 +13,13 @@ pkgbase = ruby-net-imap
 	checkdepends = ruby-test-unit-ruby-core
 	makedepends = ruby-rdoc
 	depends = ruby
+	depends = ruby-net-protocol
 	options = !emptydirs
-	source = https://github.com/ruby/net-imap/archive/v0.4.12/ruby-net-imap-0.4.12.tar.gz
-	sha512sums = ad3b030ba5a7daf8831a34a0e0effe0780134d7c81aeb4025adb39f11dd97ba57bcddd555b9038a34bdcc809ea722d778e0368a26d04739e084f6d4b7714aed8
-	b2sums = d3ccd6f799671f2101c38fcba437ae3962a61a2fe4b73545fbeee5f10ad035c0819afb25e7617fdcfce88337b4c99c3c4d98eeae914a1fc77a90519430b4e889
+	source = https://github.com/ruby/net-imap/archive/v0.5.6/ruby-net-imap-0.5.6.tar.gz
+	source = ruby-net-imap_disable_simplecov.patch
+	sha512sums = 39c10dc8c678383b3ac3d92196d8fe35bba6c766b842602e06bc8d601536c22b1e7d337930299936361b42a6c8223ce5b44c75e4c7b7cc4e42d0dcc447a8faca
+	sha512sums = 59d7e1420ffc554bfeec155fbe1f6c4534fe8b2c92f4a1cb68361f337ddf186c9018fa952ee5b255acd0ce0c5862452c06ab2785ed6cd98b58857c2ab1a9d393
+	b2sums = 4ee63644b38c5e88ab6e901f6b8ee5a0622bcb241415bdcb22bd4436ff32125afe449ecf64fd937ab32cf8d5de536de0b196cc3268c4585dc124f16c059fb3f7
+	b2sums = 7c8a437ab751c48afb441209634bc695e050d7fb7c28038e87a57c1acc73c66136f215c17a1fc6b51d6a54174894e1537eddc5ca80930428e5c62d0ae7548273
 
 pkgname = ruby-net-imap
