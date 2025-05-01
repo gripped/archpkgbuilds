@@ -3,8 +3,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-music
-pkgver=48beta
-pkgrel=2
+pkgver=48.0
+pkgrel=1
 epoch=1
 pkgdesc="Music player and management application"
 url="https://apps.gnome.org/Music/"
@@ -47,14 +47,10 @@ optdepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-music.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('929ca750f1aa8409e5e10c5dc22a140d32460da7c732c354a4d6041988fc911a92653422e733c391283835b7993c653368b81b8dcfcb820bb8118493358ff74e')
+b2sums=('980f1f76ff4508c6fec589d06a448afa03df990fab4151df5b58f6c28873daa266c1d0508156c1c13eb1cf5977e165d9365077f21e88acac0984ec40fc382aa9')
 
 prepare() {
   cd $pkgname
-
-  # build: Detect GIRepository version to use based on glib version
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/gnome-music/-/issues/2
-  git cherry-pick -n 802adb184acc178db145e91a52a6097dc067b271
 }
 
 build() {
