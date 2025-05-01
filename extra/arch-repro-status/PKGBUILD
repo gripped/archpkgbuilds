@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=arch-repro-status
-pkgver=1.4.2
+pkgver=1.4.3
 pkgrel=1
 pkgdesc="Check the reproducibility status of your Arch Linux packages"
 arch=('x86_64')
@@ -16,7 +16,8 @@ depends=(
 makedepends=('cargo')
 groups=('archlinux-tools')
 source=("$pkgname-$pkgver.tar.gz::$url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz")
-sha512sums=('1294617b6de2d580c5cb3fd5ad6ed17794588c39c02c6fcefec9a4e8f6b49b6557cc9352a52b1d03b62c8861f59791383b665703347f40d5a3c9bc5090781c36')
+sha512sums=('257cb28543b6cc4a3c374c1f4e1c03c5070a0fbd2f4d0ab4be80c7ae51da55de48c6c53b50ef58999e4a79cbe235d120084edf4e45f2297e663f418222c0b00f')
+options=('!lto')
 
 prepare() {
   cd "$pkgname-v$pkgver"
