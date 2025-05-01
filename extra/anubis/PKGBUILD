@@ -1,8 +1,8 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=anubis
-pkgver=1.17.0
-pkgrel=1
+pkgver=1.17.1
+pkgrel=3
 pkgdesc="Reverse proxy to protect against scraper bots"
 url="https://anubis.techaro.lol/"
 arch=(x86_64)
@@ -18,11 +18,27 @@ makedepends=(
   zstd
 )
 backup=(etc/anubis/default.env)
-source=("git+https://github.com/TecharoHQ/anubis#tag=v${pkgver/[a-z]/-&}")
-b2sums=('48bb647163efd14776bc480ad3a6b80b7a949059f25fc020443566fb9eb021c40b3ccba1c0bc6ba68a1f239dfe421f8a98a65006a979bc9a2624299070aa520a')
+options=(
+  # Reproducibility fix
+  # https://github.com/golang/go/pull/53528
+  !lto
+)
+source=(
+  "git+https://github.com/TecharoHQ/anubis?signed#tag=v${pkgver/[a-z]/-&}"
+  0001-fix-web-Avoid-timestamping-main.mjs.gz.patch
+)
+b2sums=('723989641b4ab37588e052c6147ce16836211a8a1a170eb89f36504c63bac2ea061ab275f83c75aeef4b1e0949bb5ee35160c7a46f85b0fc957791bbc9f7514f'
+        '00f0e216eb328d9305932a5a96c1542861a59b48fd95e02d1b0f7568f8c5afbdf9f6c44c89c60a83986db47028f00474fccccf2dc366b4c5f5e941804ee89103')
+validpgpkeys=(
+  833F64161167B501058C394756375DA2DF02ABFF # Techaro Packages Signatures <gpg+packages@techaro.lol>
+)
 
 prepare() {
   cd anubis
+
+  # Reproducibility fix
+  git apply -3 ../0001-fix-web-Avoid-timestamping-main.mjs.gz.patch
+
   make deps
 }
 
