@@ -1,12 +1,12 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=sdl2_mixer
 pkgver=2.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple multi-channel audio mixer (Version 2)"
 arch=('x86_64')
 url="https://github.com/libsdl-org/SDL_mixer"
 license=('MIT')
-depends=('sdl2' 'libvorbis' 'libmodplug' 'mpg123' 'flac' 'opusfile')
+depends=('sdl2' 'libvorbis' 'libmodplug' 'mpg123' 'flac' 'opusfile' 'libxmp')
 makedepends=('fluidsynth')
 optdepends=('fluidsynth: MIDI software synth, replaces built-in timidity')
 source=("https://github.com/libsdl-org/SDL_mixer/releases/download/release-${pkgver}/SDL2_mixer-${pkgver}.tar.gz"{,.sig})
@@ -21,6 +21,7 @@ build() {
   sed -i "s|/etc/timidity.cfg|/etc/timidity/timidity.cfg|g" src/codecs/music_timidity.c
 
   ./configure \
+      --enable-music-mod-modplug \
       --enable-music-ogg-vorbis \
       --enable-music-flac-libflac \
       --enable-music-mp3-mpg123 \
