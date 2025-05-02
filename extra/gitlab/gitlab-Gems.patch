@@ -1,0 +1,202 @@
+diff --git a/Gemfile b/Gemfile
+index 940400992ca..bce5068059b 100644
+--- a/Gemfile
++++ b/Gemfile
+@@ -761,3 +761,7 @@ gem 'paper_trail', '~> 15.0', feature_category: :shared
+ gem "i18n_data", "~> 0.13.1", feature_category: :system_access
+ 
+ gem "gitlab-cloud-connector", "~> 1.5", require: 'gitlab/cloud_connector', feature_category: :cloud_connector
++
++gem "erb", "~> 4.0"
++gem "irb", "~> 1.15"
++gem "rdoc", "~> 6.13"
+diff --git a/Gemfile.checksum b/Gemfile.checksum
+index 0a5935fbb7e..6c509191874 100644
+--- a/Gemfile.checksum
++++ b/Gemfile.checksum
+@@ -70,6 +70,8 @@
+ {"name":"capybara-screenshot","version":"1.0.26","platform":"ruby","checksum":"816b9370a07752097c82a05f568aaf5d3b7f45c3db5d3aab2014071e1b3c0c77"},
+ {"name":"carrierwave","version":"1.3.4","platform":"ruby","checksum":"81772dabd1830edbd7f4526d2ae2c79f974f1d48900c3f03f7ecb7c657463a21"},
+ {"name":"cbor","version":"0.5.9.8","platform":"ruby","checksum":"9ee097fc58d9bc5e406d112cd2d4e112c7354ec16f8b6ff34e4732c1e44b4eb7"},
++{"name":"cgi","version":"0.4.2","platform":"java","checksum":"009a20f179f86e5df89771fc079a08dda1d7f891c3b5909f5801834de8965859"},
++{"name":"cgi","version":"0.4.2","platform":"ruby","checksum":"a3cb190d46a820ca01a3e28bd5b64e67003ff99d7884b70512448566f35347e6"},
+ {"name":"character_set","version":"1.8.0","platform":"java","checksum":"2d94ac33d6569434cf1ba464012b5e98010f5dafbd7b750e8d7db79f4c8eb8f7"},
+ {"name":"character_set","version":"1.8.0","platform":"ruby","checksum":"2b7317462adaedff0bd1576ae86d71bc5efe133a5d0b7c257021b00fe3153f51"},
+ {"name":"charlock_holmes","version":"0.7.9","platform":"ruby","checksum":"b49e8a11ce1921e2c5b65511bb864ae51720ce9bd1c336ccf0e89e6c8ae62db0"},
+@@ -150,6 +152,8 @@
+ {"name":"email_spec","version":"2.3.0","platform":"ruby","checksum":"df23be7a131186f7a3d5be3b35eaac9196f9ac13bd26c9c3d59341e13d852d11"},
+ {"name":"email_validator","version":"2.2.4","platform":"ruby","checksum":"5ab238095bec7aef9389f230e9e0c64c5081cdf91f19d6c5cecee0a93af20604"},
+ {"name":"encryptor","version":"3.0.0","platform":"ruby","checksum":"abf23f94ab4d864b8cea85b43f3432044a60001982cda7c33c1cd90da8db1969"},
++{"name":"erb","version":"4.0.4","platform":"java","checksum":"3767088f230194a84316a5879f0c3dc5f2a96fb1c9a198c3e27d3f35d416c597"},
++{"name":"erb","version":"4.0.4","platform":"ruby","checksum":"de116e106205c46bc01918789b611aaad1328dcc6e9f12cf8cd2cc60ef619717"},
+ {"name":"erubi","version":"1.12.0","platform":"ruby","checksum":"27bedb74dfb1e04ff60674975e182d8ca787f2224f2e8143268c7696f42e4723"},
+ {"name":"escape_utils","version":"1.3.0","platform":"ruby","checksum":"dffb7010922880ace6ceed642156c64e2a64620f27e0849f43bc4f68fd3c2c09"},
+ {"name":"et-orbi","version":"1.2.11","platform":"ruby","checksum":"d26e868cc21db88280a9ec1a50aa3da5d267eb9b2037ba7b831d6c2731f5df64"},
+@@ -337,8 +341,11 @@
+ {"name":"imagen","version":"0.2.0","platform":"ruby","checksum":"369fe912078877dba92615ebfc6f35a7d833e31f24f47bdd3ad5371a4139e24b"},
+ {"name":"influxdb-client","version":"3.2.0","platform":"ruby","checksum":"dc1e8ec80542f64c9f31af6d9bfa4c147474bf32b9179a7f0cab970793b8e1f2"},
+ {"name":"invisible_captcha","version":"2.1.0","platform":"ruby","checksum":"02b452f3eb1b691d155ba3e8e97e1be0e6b6be62e8bc94957234b9cde0852b1e"},
++{"name":"io-console","version":"0.8.0","platform":"java","checksum":"3cc6fd5c66e587145c1fdf8dc40c2e3d851e90722a5d0cc3f38da352f06fe1bd"},
++{"name":"io-console","version":"0.8.0","platform":"ruby","checksum":"cd6a9facbc69871d69b2cb8b926fc6ea7ef06f06e505e81a64f14a470fddefa2"},
+ {"name":"io-event","version":"1.9.0","platform":"ruby","checksum":"4c262b6610ad643a2be75e892135aca4fa67edc67d1944c0ae6b6e5dd73f4fc1"},
+ {"name":"ipaddress","version":"0.8.3","platform":"ruby","checksum":"85640c4f9194c26937afc8c78e3074a8e7c97d5d1210358d1440f01034d006f5"},
++{"name":"irb","version":"1.15.2","platform":"ruby","checksum":"222f32952e278da34b58ffe45e8634bf4afc2dc7aa9da23fed67e581aa50fdba"},
+ {"name":"jaeger-client","version":"1.1.0","platform":"ruby","checksum":"cb5e9b9bbee6ee8d6a82d03d947a5b04543d8c0a949c22e484254f18d8a458a8"},
+ {"name":"jaro_winkler","version":"1.5.6","platform":"java","checksum":"3262aea433861fec3179184e9adc1933cca8bc15665957a143b56816f1a22f74"},
+ {"name":"jaro_winkler","version":"1.5.6","platform":"ruby","checksum":"007db7805527ada1cc12f2547676181d63b0a504ec4dd7a9a2eb2424521ccd81"},
+@@ -516,8 +523,10 @@
+ {"name":"pg_query","version":"6.1.0","platform":"ruby","checksum":"8b005229e209f12c5887c34c60d0eb2a241953b9475b53a9840d24578532481e"},
+ {"name":"plist","version":"3.7.0","platform":"ruby","checksum":"703ca90a7cb00e8263edd03da2266627f6741d280c910abbbac07c95ffb2f073"},
+ {"name":"png_quantizator","version":"0.2.1","platform":"ruby","checksum":"6023d4d064125c3a7e02929c95b7320ed6ac0d7341f9e8de0c9ea6576ef3106b"},
++{"name":"pp","version":"0.6.2","platform":"ruby","checksum":"947ec3120c6f92195f8ee8aa25a7b2c5297bb106d83b41baa02983686577b6ff"},
+ {"name":"premailer","version":"1.23.0","platform":"ruby","checksum":"f0d7f6ba299559c96ddf982aa5263f85e5617c86437c8d8ffff120813b2d7efb"},
+ {"name":"premailer-rails","version":"1.12.0","platform":"ruby","checksum":"c13815d161b9bc7f7d3d81396b0bb0a61a90fa9bd89931548bf4e537c7710400"},
++{"name":"prettyprint","version":"0.2.0","platform":"ruby","checksum":"2bc9e15581a94742064a3cc8b0fb9d45aae3d03a1baa6ef80922627a0766f193"},
+ {"name":"prime","version":"0.1.3","platform":"ruby","checksum":"baf031c50d6ce923594913befc8ac86a3251bffb9d6a5e8b03687962054e53e3"},
+ {"name":"prism","version":"1.2.0","platform":"ruby","checksum":"24ff9cd3232346e68052659f14c9a618022ea98935f774df465206aba5c06d2f"},
+ {"name":"proc_to_ast","version":"0.1.0","platform":"ruby","checksum":"92a73fa66e2250a83f8589f818b0751bcf227c68f85916202df7af85082f8691"},
+@@ -533,6 +542,7 @@
+ {"name":"pry-byebug","version":"3.10.1","platform":"ruby","checksum":"c8f975c32255bfdb29e151f5532130be64ff3d0042dc858d0907e849125581f8"},
+ {"name":"pry-rails","version":"0.3.11","platform":"ruby","checksum":"a69e28e24a34d75d1f60bcf241192a54253f8f7ef8a62cba1e75750a9653593d"},
+ {"name":"pry-shell","version":"0.6.4","platform":"ruby","checksum":"ad024882d29912b071a7de65ebea538b242d2dc1498c60c7c2352ef94769f208"},
++{"name":"psych","version":"5.2.4","platform":"ruby","checksum":"f2d9810f7f383a6b0fbc705202851e1a55b236bcb8e168ab5dfa5741842ec7c5"},
+ {"name":"public_suffix","version":"6.0.1","platform":"ruby","checksum":"61d44e1cab5cbbbe5b31068481cf16976dd0dc1b6b07bd95617ef8c5e3e00c6f"},
+ {"name":"puma","version":"6.5.0","platform":"java","checksum":"a58eea585d291aa33796add9884208bc1591da5d8e61886f8ac74d080b298c40"},
+ {"name":"puma","version":"6.5.0","platform":"ruby","checksum":"94d1b75cab7f356d52e4f1b17b9040a090889b341dbeee6ee3703f441dc189f2"},
+@@ -565,6 +575,7 @@
+ {"name":"rbs","version":"3.6.1","platform":"ruby","checksum":"ed7273d018556844583d1785ac54194e67eec594d68e317d57fa90ad035532c0"},
+ {"name":"rbtrace","version":"0.5.1","platform":"ruby","checksum":"e8cba64d462bfb8ba102d7be2ecaacc789247d52ac587d8003549d909cb9c5dc"},
+ {"name":"rchardet","version":"1.8.0","platform":"ruby","checksum":"693acd5253d5ade81a51940697955f6dd4bb2f0d245bda76a8e23deec70a52c7"},
++{"name":"rdoc","version":"6.13.1","platform":"ruby","checksum":"62a0dac99493c94e8eb7a3fb44e55aefcb4cecb119f7991f25bddc5ed8d472f7"},
+ {"name":"re2","version":"2.15.0","platform":"aarch64-linux-gnu","checksum":"ed3fe87adbc637373268d2a1b69f07def5079535dd961db735fdfac8fa63520f"},
+ {"name":"re2","version":"2.15.0","platform":"aarch64-linux-musl","checksum":"edf696d3a4587f580828e99cf36b7e04a86e0ebe103f704955b310a3f61e69de"},
+ {"name":"re2","version":"2.15.0","platform":"arm-linux-gnu","checksum":"dbe53c65859a868b42297939daeb610806ae6b1181ff09d1c454e1cdf86ebbc0"},
+@@ -593,6 +604,7 @@
+ {"name":"regexp_parser","version":"2.10.0","platform":"ruby","checksum":"cb6f0ddde88772cd64bff1dbbf68df66d376043fe2e66a9ef77fcb1b0c548c61"},
+ {"name":"regexp_property_values","version":"1.0.0","platform":"java","checksum":"5e26782b01241616855c4ee7bb8a62fce9387e484f2d3eaf04f2a0633708222e"},
+ {"name":"regexp_property_values","version":"1.0.0","platform":"ruby","checksum":"162499dc0bba1e66d334273a059f207a61981cc8cc69d2ca743594e7886d080f"},
++{"name":"reline","version":"0.6.1","platform":"ruby","checksum":"1afcc9d7cb1029cdbe780d72f2f09251ce46d3780050f3ec39c3ccc6b60675fb"},
+ {"name":"representable","version":"3.2.0","platform":"ruby","checksum":"cc29bf7eebc31653586849371a43ffe36c60b54b0a6365b5f7d95ec34d1ebace"},
+ {"name":"request_store","version":"1.7.0","platform":"ruby","checksum":"e1b75d5346a315f452242a68c937ef8e48b215b9453a77a6c0acdca2934c88cb"},
+ {"name":"responders","version":"3.0.1","platform":"ruby","checksum":"613fe28e498987f4feaa3230aa6313ca4bd5f0563a3da83511b0dd6cd8f47292"},
+@@ -712,6 +724,8 @@
+ {"name":"state_machines","version":"0.5.0","platform":"ruby","checksum":"23e6249d374a920b528dccade403518b4abbd83841a3e2c9ef13e6f1a009b102"},
+ {"name":"state_machines-activemodel","version":"0.8.0","platform":"ruby","checksum":"e932dab190d4be044fb5f9cab01a3ea0b092c5f113d4676c6c0a0d49bf738d2c"},
+ {"name":"state_machines-activerecord","version":"0.8.0","platform":"ruby","checksum":"072fb701b8ab03de0608297f6c55dc34ed096e556fa8f77e556f3c461c71aab6"},
++{"name":"stringio","version":"3.1.7","platform":"java","checksum":"167bdd3d60a002ee94bc289cc3259638aaadc36a47b3086a44a694b5dc72a499"},
++{"name":"stringio","version":"3.1.7","platform":"ruby","checksum":"5b78b7cb242a315fb4fca61a8255d62ec438f58da2b90be66048546ade4507fa"},
+ {"name":"strings","version":"0.2.1","platform":"ruby","checksum":"933293b3c95cf85b81eb44b3cf673e3087661ba739bbadfeadf442083158d6fb"},
+ {"name":"strings-ansi","version":"0.2.0","platform":"ruby","checksum":"90262d760ea4a94cc2ae8d58205277a343409c288cbe7c29416b1826bd511c88"},
+ {"name":"swd","version":"2.0.3","platform":"ruby","checksum":"4cdbe2a4246c19f093fce22e967ec3ebdd4657d37673672e621bf0c7eb770655"},
+diff --git a/Gemfile.lock b/Gemfile.lock
+index 43808aab814..7f55aca879b 100644
+--- a/Gemfile.lock
++++ b/Gemfile.lock
+@@ -428,6 +428,7 @@ GEM
+       mime-types (>= 1.16)
+       ssrf_filter (~> 1.0, < 1.1.0)
+     cbor (0.5.9.8)
++    cgi (0.4.2)
+     character_set (1.8.0)
+     charlock_holmes (0.7.9)
+     chef-config (18.3.0)
+@@ -603,6 +604,8 @@ GEM
+     email_validator (2.2.4)
+       activemodel
+     encryptor (3.0.0)
++    erb (4.0.4)
++      cgi (>= 0.3.3)
+     erubi (1.12.0)
+     escape_utils (1.3.0)
+     et-orbi (1.2.11)
+@@ -1038,8 +1041,13 @@ GEM
+       csv
+     invisible_captcha (2.1.0)
+       rails (>= 5.2)
++    io-console (0.8.0)
+     io-event (1.9.0)
+     ipaddress (0.8.3)
++    irb (1.15.2)
++      pp (>= 0.6.0)
++      rdoc (>= 4.0.0)
++      reline (>= 0.4.2)
+     jaeger-client (1.1.0)
+       opentracing (~> 0.3)
+       thrift
+@@ -1455,6 +1463,8 @@ GEM
+       google-protobuf (>= 3.25.3)
+     plist (3.7.0)
+     png_quantizator (0.2.1)
++    pp (0.6.2)
++      prettyprint
+     premailer (1.23.0)
+       addressable
+       css_parser (>= 1.12.0)
+@@ -1463,6 +1473,7 @@ GEM
+       actionmailer (>= 3)
+       net-smtp
+       premailer (~> 1.7, >= 1.7.9)
++    prettyprint (0.2.0)
+     prime (0.1.3)
+       forwardable
+       singleton
+@@ -1488,6 +1499,9 @@ GEM
+       pry (>= 0.13.0)
+       tty-markdown
+       tty-prompt
++    psych (5.2.4)
++      date
++      stringio
+     public_suffix (6.0.1)
+     puma (6.5.0)
+       nio4r (~> 2.0)
+@@ -1566,6 +1580,8 @@ GEM
+       msgpack (>= 0.4.3)
+       optimist (>= 3.0.0)
+     rchardet (1.8.0)
++    rdoc (6.13.1)
++      psych (>= 4.0.0)
+     re2 (2.15.0)
+       mini_portile2 (~> 2.8.7)
+     recaptcha (5.12.3)
+@@ -1594,6 +1610,8 @@ GEM
+       redis (>= 4, < 6)
+     regexp_parser (2.10.0)
+     regexp_property_values (1.0.0)
++    reline (0.6.1)
++      io-console (~> 0.5)
+     representable (3.2.0)
+       declarative (< 0.1.0)
+       trailblazer-option (>= 0.1.1, < 0.2.0)
+@@ -1827,6 +1845,7 @@ GEM
+     state_machines-activerecord (0.8.0)
+       activerecord (>= 5.1)
+       state_machines-activemodel (>= 0.8.0)
++    stringio (3.1.7)
+     strings (0.2.1)
+       strings-ansi (~> 0.2)
+       unicode-display_width (>= 1.5, < 3.0)
+@@ -2076,6 +2095,7 @@ DEPENDENCIES
+   elasticsearch-rails (~> 7.2)
+   email_reply_trimmer (~> 0.1)
+   email_spec (~> 2.3.0)
++  erb (~> 4.0)
+   error_tracking_open_api!
+   factory_bot_rails (~> 6.4.3)
+   faraday (~> 2)
+@@ -2174,6 +2194,7 @@ DEPENDENCIES
+   invisible_captcha (~> 2.1.0)
+   ipaddress (~> 0.8.3)
+   ipynbdiff!
++  irb (~> 1.15)
+   jira-ruby (~> 2.3.0)
+   js_regex (~> 3.8)
+   json (~> 2.10.0)
+@@ -2282,6 +2303,7 @@ DEPENDENCIES
+   rails-i18n (~> 7.0, >= 7.0.9)
+   rainbow (~> 3.0)
+   rbtrace (~> 0.4)
++  rdoc (~> 6.13)
+   re2 (~> 2.15)
+   recaptcha (~> 5.12)
+   redis (~> 5.4.0)

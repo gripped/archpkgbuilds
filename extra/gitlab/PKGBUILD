@@ -9,7 +9,7 @@
 # Contributor: loqs <bugs-archlinux@entropy-collector.net>
 
 pkgname=gitlab
-pkgver=17.11.0
+pkgver=17.11.1
 pkgrel=2
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
@@ -26,10 +26,7 @@ depends=(git
          re2 libre2.so
          valkey
          ruby
-         ruby-bundler
-         ruby-erb
-         ruby-irb
-         ruby-rdoc)
+         ruby-bundler)
 makedepends=(cargo
              clang
              cmake
@@ -53,6 +50,7 @@ backup=("etc/webapps/$pkgname/database.yml"
 options=(!buildflags !debug !lto)
 source=("git+$url.git#tag=v$pkgver"
         "$pkgname-configs.patch"
+        "$pkgname-Gems.patch"
         "$pkgname-environment"
         "$pkgname-puma.service"
         "$pkgname-sidekiq.service"
@@ -67,8 +65,9 @@ provides=(gitlab-workhorse) # FS78036
 conflicts=(gitlab-workhorse)
 replaces=(gitlab-workhorse)
 install=gitlab.install
-sha256sums=('f73e8e2948c2727553df0629ba725f2a025210e3ee7137d3328daff29fd9b39f'
+sha256sums=('cdd27a2f5908404864428eaf429f6377b9cb1157316a0ad9202a1deada03ac6c'
             '49120ae3adab1f554a995e705eb9fa3ce435006785af53eee3f21568a047873e'
+            '11d1615b12eaf78490f40a586fe313a15132342967cb72b78862c0e85a016060'
             '8cc4d933743906b4213b8ea8d8c5a62535e27e4073f73581a5dad40078dde000'
             '37b6fed60f169441ed1578324a91f65bed96dd086c09e73bdb15a8ccecd5d219'
             '1875d202ccf6133819bf2b7130ca9d887122fdbdc72975466821f5a49858cb4d'
@@ -85,6 +84,16 @@ _etcdir=/etc/webapps/gitlab
 _datadir=/var/lib/gitlab # directory with gitlab data and it also $HOME for 'gitlab' user
 _logdir=/var/log/gitlab
 
+_add_Gems_to_bundle() {
+	bundle add erb irb rdoc
+	bundle exec bundler-checksum init
+	if git diff Gemfile Gemfile.checksum Gemfile.lock | grep -Fq 'BUNDLED WITH'; then
+		git diff Gemfile Gemfile.checksum Gemfile.lock | head -n-6 > $pkgname-Gems.patch
+	else
+		git diff Gemfile Gemfile.checksum Gemfile.lock > $pkgname-Gems.patch
+	fi
+}
+
 prepare() {
 	cd gitlab-foss
 
@@ -92,6 +101,7 @@ prepare() {
 	git rev-parse --short HEAD > REVISION
 
 	patch -p1 -i ../$pkgname-configs.patch
+	patch -p1 -i ../$pkgname-Gems.patch
 
 	# '/home/git' path in the config files indicates a default path that need to be adjusted
 	! grep -FqR '/home/git' config
@@ -138,6 +148,8 @@ build() {
 	bundle config --local build.static_holmes "-- --with-cxxflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CXXFLAGS"]') -std=c++17'"
 	bundle config --local build.gpgme --use-system-libraries # See https://bugs.archlinux.org/task/63654
 	bundle config --local build.re2 --enable-system-libraries # See https://gitlab.archlinux.org/archlinux/packaging/packages/gitlab/-/issues/5
+	# Avoid build errors due to change in C std to gnu23 with GCC 15
+	bundle config --local build.rbtrace "-- --with-cflags='$(ruby -r rbconfig -e 'print RbConfig::CONFIG["CFLAGS"]') -std=gnu17'"
 	bundle config --local force_ruby_platform true # some native gems are not available for newer ruby
 	bundle config --local deployment true
 	bundle config --local without 'development test aws kerberos'
@@ -155,7 +167,7 @@ build() {
 	make -C workhorse
 
 	yarn install --production --pure-lockfile
-	bundle exec rake -r erb -r rdoc gitlab:assets:compile RAILS_ENV=production NODE_ENV=production USE_DB=false SKIP_STORAGE_VALIDATION=true NODE_OPTIONS="--max_old_space_size=8192"
+	bundle exec rake gitlab:assets:compile RAILS_ENV=production NODE_ENV=production USE_DB=false SKIP_STORAGE_VALIDATION=true NODE_OPTIONS="--max_old_space_size=8192"
 }
 
 package() {
