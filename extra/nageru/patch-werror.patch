@@ -1,0 +1,12 @@
+diff --git a/shared/ffmpeg_raii.h b/shared/ffmpeg_raii.h
+index ad4edeae2529..9e8a850873bd 100644
+--- a/shared/ffmpeg_raii.h
++++ b/shared/ffmpeg_raii.h
+@@ -10,6 +10,7 @@
+ // a unique_ptr with no helper functions for deleter.
+
+ #include <memory>
++#include <cstdint>
+
+ struct AVCodec;
+ struct AVCodecContext;
