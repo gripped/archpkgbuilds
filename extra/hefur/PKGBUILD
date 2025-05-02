@@ -4,8 +4,8 @@
 
 pkgname=hefur
 pkgver=1.0
-pkgrel=26
-_protobuf_ver=30.1
+pkgrel=27
+_protobuf_ver=30.2
 pkgdesc='A standalone and lightweight BitTorrent tracker'
 arch=('x86_64')
 url='https://github.com/abique/hefur'
@@ -34,7 +34,7 @@ source=("git+https://github.com/abique/hefur.git#tag=${pkgver}"
         '040-hefur-mimosa-submodule-protobuf30-fix.patch')
 sha256sums=('d6db02ee070102c6da4374edaf50f558e47559268eb4c1491bdc44a7bb4c8e04'
             'SKIP'
-            '1451b03faec83aed17cdc71671d1bbdfd72e54086b827f5f6fd02bf7a4041b68'
+            '07a43d88fe5a38e434c7f94129cad56a4c43a51f99336074d0799c2f7d4e44c5'
             '3d8b0a716f35798f6aa25d6ee6a032d8a142811b920338bcb398c24beb1c8b43'
             '2e87fa1d1662d13103e4b84bc52c4f97507b06cd9982e0e9d1fec24ac495327a'
             '7d39eec7c9f004a8651de95d11d32422f0a506f0fe21d5fdf37a407a05d4de0f'
@@ -66,6 +66,7 @@ build() {
 		-G 'Unix Makefiles' \
 		-DCMAKE_BUILD_TYPE:STRING='None' \
 		-DCMAKE_INSTALL_PREFIX:PATH='/usr' \
+		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
 		-Wno-dev
 	cmake --build build
 }
