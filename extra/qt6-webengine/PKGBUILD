@@ -4,7 +4,8 @@
 pkgname=qt6-webengine
 _pkgver=6.9.0
 pkgver=${_pkgver/-/}
-pkgrel=5
+pkgrel=6
+_chromium=6287641b6a4c06819a3da8c38e088f8f0d6fbc18
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -77,11 +78,9 @@ optdepends=('pipewire: WebRTC desktop sharing under Wayland')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
-        git+https://code.qt.io/qt/qtwebengine-chromium
-        pipewire-1.4.patch)
+        git+https://code.qt.io/qt/qtwebengine-chromium)
 sha256sums=('b241666ad58bc6c30bd9e0e89cb6f7ba2df57be0c51faabe75c858972fa8367e'
-            'SKIP'
-            '6a441e426ea993e0abefcb3a92adb5fe3a328974eca6de94087cd597a4315f7a')
+            'SKIP')
 
 prepare() {
   cd $_pkgfn
@@ -109,12 +108,9 @@ prepare() {
   # https://codereview.qt-project.org/c/qt/qtwebengine/+/638636
   git cherry-pick -n f88fa0c83c7f0c063475539b327065f8615fe9d7
 
-  # Allow MAP_DROPPABLE memory mappings in Linux sandbox
-  # https://bugreports.qt.io/browse/QTBUG-134631
-  # https://codereview.qt-project.org/c/qt/qtwebengine-chromium/+/631750
-  git -C src/3rdparty cherry-pick -n 416c7ff1efbb6565b109ff1462bc84a6870e13b9
-
-  patch -d src/3rdparty/chromium/third_party/webrtc -p1 < ../pipewire-1.4.patch
+  # Bump chromium to head of stable branch
+  cd src/3rdparty
+  [[ -n $_chromium ]] && git checkout $_chromium
 }
 
 build() {
