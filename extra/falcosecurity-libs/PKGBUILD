@@ -1,0 +1,114 @@
+# Maintainer: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
+# Contribuitor: Alfredo Palhares <masterkorp@masterkorp.net>
+# Contribuitor: Christian Babeux <christian.babeux@0x80.ca>
+
+pkgbase=falcosecurity-libs
+pkgname=(falcosecurity-libs scap-dkms)
+pkgver=0.20.0
+_driverver=8.0.0
+pkgrel=1
+
+pkgdesc="libsinsp, libscap, the scap kernel module"
+arch=('x86_64')
+url="https://github.com/falcosecurity/libs"
+license=('Apache-2.0')
+makedepends=('cmake' 'pandoc' 'gtest' 'jsoncpp' 'libjsoncpp.so' 'luajit' 'curl' 'libcurl.so'
+             'jq' 'intel-tbb' 'yaml-cpp' 're2' 'uthash' 'bpf' 'libbpf' 'clang'
+             'grpc' 'libgrpc++.so' 'valijson' 'linux' 'ninja' 'git')
+options=('!lto')
+source=("git+https://github.com/falcosecurity/libs.git#tag=$pkgver"
+        "https://falco-distribution.s3.eu-west-1.amazonaws.com/fixtures/libs/scap_files/kexec_arm64.scap"
+        "https://falco-distribution.s3.eu-west-1.amazonaws.com/fixtures/libs/scap_files/kexec_x86.scap"
+        "https://falco-distribution.s3.eu-west-1.amazonaws.com/fixtures/libs/scap_files/sample.scap"
+        "https://falco-distribution.s3.eu-west-1.amazonaws.com/fixtures/libs/scap_files/scap_2013.scap"
+        "driver-build-fixes.patch")
+sha256sums=('ccd5ccc44c7e1434a1051ac5bbab908efa17f455ed07ef05bbe0df9a9bb26ece'
+            'fdb49126fcf318baa9b0f23243c89d4573dc339f8386171a66ba2a46adacbecd'
+            'e3173873aedbbfab1b078f9ecaa08003a0367d5f46bf1ad88ea5ea35ccb818f6'
+            'ac88f617b9076087ae204f0342b7d5927bd8361cce8729703ea0b3fc5633120f'
+            'a022bddc26c4e971827fd54611817b34df8e8c045f56c92fccd96ccd0dd52d8a'
+            '8751a2233aa2bbce20706a4c9200d90490ec938c21d32f2eadf552c98c3bde95')
+
+prepare() {
+  cd "$srcdir"/libs
+  patch -p1 -i ../driver-build-fixes.patch
+
+  rm -rf build
+  mkdir -p build/scap_files
+  cp -a "$srcdir"/*.scap build/scap_files
+}
+
+build() {
+  cd "$srcdir"/libs/build
+
+  # BUILD_GMOCK:BOOL=ON
+  # CREATE_TEST_TARGETS:BOOL=ON
+  # ENABLE_DKMS:BOOL=ON
+  # ENABLE_ENGINE_BPF:BOOL=ON
+  # ENABLE_ENGINE_KMOD:BOOL=ON
+  # FETCHCONTENT_BASE_DIR:PATH=/home/mtorromeo/build/archlinux-packages/sysdig/src/libs-0.20.0/build/_deps
+  # FETCHCONTENT_FULLY_DISCONNECTED:BOOL=OFF
+  # FETCHCONTENT_QUIET:BOOL=ON
+  # FETCHCONTENT_SOURCE_DIR_LIBELF_ELFTOOLCHAIN:PATH=
+  # FETCHCONTENT_UPDATES_DISCONNECTED:BOOL=OFF
+  # FETCHCONTENT_UPDATES_DISCONNECTED_LIBELF_ELFTOOLCHAIN:BOOL=OFF
+  # MINIMAL_BUILD:BOOL=OFF
+  # USE_SHARED_LIBELF:BOOL=ON
+
+  export LDFLAGS="$LDFLAGS -Wl,--copy-dt-needed-entries"
+  cmake .. \
+    -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_CXX_FLAGS="${CXXFLAGS} ${CPPFLAGS} -Wno-deprecated-declarations" \
+    -DCMAKE_C_FLAGS="${CFLAGS} ${CPPFLAGS} -Wno-deprecated-declarations" \
+    -DCMAKE_CXX_STANDARD=17 \
+    -DCMAKE_CXX_EXTENSIONS=OFF \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DFALCOSECURITY_LIBS_VERSION="$pkgver" \
+    -DDRIVER_VERSION=$_driverver+driver \
+    -DBUILD_SHARED_LIBS=ON \
+    -DBUILD_BPF=OFF \
+    -DBUILD_DRIVER=OFF \
+    -DUSE_BUNDLED_DEPS=OFF \
+    -DUSE_BUNDLED_GTEST=OFF \
+    -DUSE_BUNDLED_JSONCPP=OFF \
+    -DUSE_BUNDLED_LIBELF=OFF \
+    -DUSE_BUNDLED_RE2=OFF \
+    -DUSE_BUNDLED_TBB=OFF \
+    -DUSE_BUNDLED_UTHASH=OFF \
+    -DUSE_BUNDLED_VALIJSON=OFF \
+    -DUSE_BUNDLED_ZLIB=OFF \
+    -DBUILD_LIBSCAP_EXAMPLES=OFF \
+    -DBUILD_LIBSINSP_EXAMPLES=OFF \
+    -DENABLE_LIBSCAP_TESTS=OFF \
+    -GNinja
+  cmake --build .
+}
+
+package_falcosecurity-libs() {
+  pkgdesc='libscap and libsinsp libraries to communicate with the scap kernel driver'
+  depends=('jsoncpp' 'libjsoncpp.so' 'luajit' 'curl' 'libcurl.so' 'jq' 'intel-tbb'
+           'grpc' 'libgrpc++.so' 'uthash' 'yaml-cpp' 'zstd' 'libbpf' 'valijson')
+
+  cd "$srcdir"/libs/build
+  DESTDIR="$pkgdir" cmake --install .
+  rm -rf "$pkgdir"/usr/src
+
+  install -dm755 "$pkgdir"/usr/share/licenses/$pkgname
+  install -m644 "$srcdir"/libs/{NOTICES,COPYING,LICENSE} "$pkgdir"/usr/share/licenses/$pkgname
+}
+
+package_scap-dkms() {
+  pkgdesc="DKMS kernel module for sysdig"
+  depends=('dkms' 'falcosecurity-libs')
+  conflicts=('sysdig-dkms')
+  replaces=('sysdig-dkms')
+
+  cd "$srcdir"/libs/build
+  DESTDIR="$pkgdir" cmake --install .
+  rm -rf "$pkgdir"/usr/{include,lib}
+  mv "$pkgdir"/usr/src/scap-$_driverver{+driver,}
+
+  install -dm755 "$pkgdir"/usr/share/licenses/$pkgname
+  install -m644 "$srcdir"/libs/{NOTICES,COPYING,LICENSE} "$pkgdir"/usr/share/licenses/$pkgname
+}

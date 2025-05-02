@@ -1,0 +1,35 @@
+diff --git a/driver/main.c b/driver/main.c
+index cab5bdefe..f16860168 100644
+--- a/driver/main.c
++++ b/driver/main.c
+@@ -2749,7 +2749,7 @@ static int get_tracepoint_handles(void) {
+ #endif
+ 
+ #if LINUX_VERSION_CODE > KERNEL_VERSION(2, 6, 20)
+-#ifdef HAS_DEVNODE_ARG1_CONST
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 2, 0)
+ static char *ppm_devnode(const struct device *dev, umode_t *mode)
+ #else
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 3, 0)
+@@ -2889,7 +2889,7 @@ static int scap_init(void) {
+ 		goto init_module_err;
+ 	}
+ 
+-#ifndef HAS_CLASS_CREATE_1
++#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 4, 0)
+ 	g_ppm_class = class_create(THIS_MODULE, DRIVER_DEVICE_NAME);
+ #else
+ 	g_ppm_class = class_create(DRIVER_DEVICE_NAME);
+diff --git a/driver/ppm_events.c b/driver/ppm_events.c
+index 23c7ecf1c..572fb8c33 100644
+--- a/driver/ppm_events.c
++++ b/driver/ppm_events.c
+@@ -44,7 +44,7 @@ or GPL2.txt for full copies of the license.
+ #ifdef access_ok_noprefault
+ #define ppm_access_ok access_ok_noprefault
+ #else
+-#ifdef HAS_ACCESS_OK_2
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 0, 0)
+ #define ppm_access_ok(type, addr, size) access_ok(addr, size)
+ #else
+ #define ppm_access_ok(type, addr, size) access_ok(type, addr, size)
