@@ -3,7 +3,7 @@
 
 pkgname=xtrabackup
 pkgver=8.4.0_2
-pkgrel=1
+pkgrel=2
 pkgdesc='Non-blocking backup tool for MySQL'
 arch=('x86_64')
 url='https://www.percona.com/software/mysql-database/percona-xtrabackup'
@@ -21,6 +21,7 @@ build() {
   cd build
   cmake -DBUILD_CONFIG=xtrabackup_release \
         -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
         -DMYSQL_DATADIR=/var/lib/mysql \
         -DMYSQL_UNIX_ADDR=/run/mysqld/mysqld.sock \
         -DWITH_EDITLINE=system \
