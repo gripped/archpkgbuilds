@@ -2,7 +2,7 @@
 
 pkgname=nsjail
 pkgver=3.4
-pkgrel=15
+pkgrel=16
 pkgdesc="Light-weight process isolation tool"
 arch=(x86_64)
 url="https://nsjail.com"
@@ -20,6 +20,7 @@ prepare() {
   mv kafel ${pkgname}-${pkgver}
   # protobuf 23 requires C++17
   sed -e 's|-std=c++14|-std=c++17|' -i $pkgname-$pkgver/Makefile
+  sed -e 's|-Werror||' -i $pkgname-$pkgver/Makefile
   patch -d $pkgname-$pkgver -p1 < protobuf-23.patch
 }
 
