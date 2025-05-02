@@ -3,14 +3,14 @@
 
 pkgname=fastfetch
 pkgver=2.42.0
-pkgrel=1
+pkgrel=3
 pkgdesc="A feature-rich and performance oriented neofetch like system information tool"
 url="https://github.com/fastfetch-cli/fastfetch"
 arch=('x86_64')
 license=('MIT')
 depends=('glibc' 'yyjson')
 makedepends=('chafa' 'cmake' 'dbus' 'dconf' 'ddcutil' 'directx-headers' 'imagemagick' 'libpulse' 'libxcb' 'libxrandr'
-             'ocl-icd' 'opencl-headers' 'vulkan-headers' 'vulkan-icd-loader' 'wayland' 'xfconf' 'zlib')
+             'ocl-icd' 'opencl-headers' 'sqlite' 'vulkan-headers' 'vulkan-icd-loader' 'wayland' 'xfconf' 'zlib')
 optdepends=('chafa: Image output as ascii art'
             'dbus: Bluetooth, Player & Media detection'
             'dconf: Needed for values that are only stored in DConf + Fallback for GSettings'
@@ -25,6 +25,7 @@ optdepends=('chafa: Image output as ascii art'
             'libxrandr: Multi monitor support'
             'ocl-icd: OpenCL module'
             'python: Needed for zsh and fish completions'
+            'sqlite: Needed for Sqlite integration and Soar packages count'
             'vulkan-icd-loader: Vulkan module & fallback for GPU output'
             'xfconf: Needed for XFWM theme and XFCE Terminal font'
             'zlib: Faster image output when using kitty graphics protocol')
@@ -37,7 +38,7 @@ build() {
 		-DCMAKE_INSTALL_PREFIX='/usr' \
 		-DBUILD_FLASHFETCH='OFF' \
 		-DBUILD_TESTS='ON' \
-		-DENABLE_SQLITE3='OFF' \
+		-DENABLE_SQLITE3='ON' \
 		-DENABLE_RPM='OFF' \
 		-DENABLE_IMAGEMAGICK6='OFF' \
 		-DENABLE_SYSTEM_YYJSON='ON' \
