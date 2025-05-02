@@ -4,7 +4,7 @@
 pkgbase=onnx
 pkgname=(onnx python-onnx)
 pkgver=1.17.0
-pkgrel=4
+pkgrel=5
 epoch=1
 pkgdesc='Open standard for machine learning interoperability'
 arch=('x86_64')
