@@ -15,7 +15,7 @@ pkgname=(
 )
 pkgver=1.20.2
 _pkgdesc='Cross-platform, high performance scoring engine for ML models'
-pkgrel=8
+pkgrel=9
 arch=('x86_64')
 url='https://github.com/microsoft/onnxruntime'
 license=('MIT')
@@ -125,7 +125,8 @@ build() {
     -DCMAKE_CUDA_ARCHITECTURES="$(_valid_sm)"
     -DCMAKE_CUDA_STANDARD_REQUIRED=ON
     -DCMAKE_CXX_STANDARD_REQUIRED=ON
-    -Donnxruntime_NVCC_THREADS="$(nproc)"
+    # WARNING: too many threads will eat all your RAM
+    -Donnxruntime_NVCC_THREADS=2
     -Donnxruntime_USE_CUDA=ON
     -Donnxruntime_USE_NCCL=ON
     -Donnxruntime_CUDA_HOME=/opt/cuda
