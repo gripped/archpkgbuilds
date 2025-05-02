@@ -1,26 +1,30 @@
-From 0bd97da93750763ba1dc45f92972d5b7b538ad11 Mon Sep 17 00:00:00 2001
+From ddbc1cb720811f1e99c465026dce9156d5a7db9e Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Tue, 12 Nov 2024 19:00:33 +0000
-Subject: [PATCH] window: Set title
+Subject: [PATCH] window: Set title, don't set default size
 
 This is displayed on the taskbar and on the window switcher.
+
+Also, don't set default window size, which was too large.
 ---
- src/window.blp | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ src/window.blp | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/src/window.blp b/src/window.blp
-index 8857e50..55949cf 100644
+index 8857e50..1e5abf8 100644
 --- a/src/window.blp
 +++ b/src/window.blp
-@@ -20,7 +20,7 @@ using Gtk 4.0;
+@@ -20,9 +20,7 @@ using Gtk 4.0;
  using Adw 1;
  
  template WGWindow : Adw.ApplicationWindow {
 -    title: "";
+-    default-width: 980;
+-    default-height: 640;
 +    title: _("Blurble");
-     default-width: 980;
-     default-height: 640;
  
+     Gtk.WindowHandle {
+         Gtk.Box {
 -- 
 GitLab
 
