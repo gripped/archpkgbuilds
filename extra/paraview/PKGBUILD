@@ -6,7 +6,7 @@
 
 pkgname=paraview
 pkgver=5.13.3
-pkgrel=3
+pkgrel=4
 pkgdesc="Parallel Visualization application using VTK"
 arch=(x86_64)
 url="https://www.paraview.org"
@@ -88,6 +88,7 @@ source=(
   fix-vtk-python313-encoding.patch
   netcdf-4.9.3.patch
   cli11-2.5.0.patch
+  fix-gcc-15.patch
 )
 sha256sums=('3bd31bb56e07aa2af2a379895745bbc430c565518a363d935f2efc35b076df09'
             'd1cdb4a81db280d6b21bee3d9e5f8fc3a87f00a909d33850a1964c72091ec138'
@@ -97,7 +98,8 @@ sha256sums=('3bd31bb56e07aa2af2a379895745bbc430c565518a363d935f2efc35b076df09'
             '83fcd0c7709ccbea87b39a7702d6f777d6a5c4e5dfbb9e5adf066b5fecdfa9d7'
             'ab1b5b0ee08ae7714aa5c4924de0e2997b0feac1d4563ce73ef4b8c8204a4777'
             '87535578bbb0023ede506fd64afae95cdf4fb698c543f9735e6267730634afbc'
-            'dd4053537565d0929ea87caa8f182b5451adb4b9e64f3297a60648c43f27c3f2')
+            'dd4053537565d0929ea87caa8f182b5451adb4b9e64f3297a60648c43f27c3f2'
+            '4af18628972510f8eee139d4dcc6be79223bfec707b3b0523712ce579c01820d')
 
 prepare() {
   # Specify python version in wrapper
@@ -131,6 +133,10 @@ prepare() {
 
   # Fix build with cli11 2.5.0
   patch -Np1 -i "$srcdir"/cli11-2.5.0.patch
+
+  # Fix build with GCC 15
+  # https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=8863f3f1551a8190e34e8b14797d96a1527249ce
+  patch -Np1 -d VTK -i "$srcdir"/fix-gcc-15.patch
 }
 
 build() {
