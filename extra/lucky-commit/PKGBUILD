@@ -2,8 +2,8 @@
 
 pkgname=lucky-commit
 _pkgname=lucky_commit
-pkgver=2.2.3
-pkgrel=2
+pkgver=2.2.5
+pkgrel=1
 pkgdesc="Customize your git commit hashes"
 arch=('x86_64')
 url="https://github.com/not-an-aardvark/lucky-commit"
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('gcc-libs' 'ocl-icd')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('299e66f404a742abed1d11ba104d3bda7c26c3b035c27c8a3e4beb28706a277d2408aae2e45034aa3cffb840e2d51af8dce61369c0164dee81fdc09f22422955')
+sha512sums=('37b3ece8691f4fc99d1af595020f33cbb215a086a16f8357dfd591d36bca7aa2c83344eb483706edfb0e4af31b19acbdf6be76e1cda227c5126154c9bfb83e18')
 
 prepare() {
   cd "$pkgname-$pkgver"
