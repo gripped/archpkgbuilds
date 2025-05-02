@@ -3,7 +3,7 @@
 
 pkgname=bloaty
 pkgver=1.1
-pkgrel=15
+pkgrel=16
 pkgdesc='Size profiler for binaries'
 arch=(x86_64)
 url='https://github.com/google/bloaty'
@@ -39,6 +39,7 @@ build() {
     -D CMAKE_BUILD_TYPE=Release \
     -D CMAKE_EXE_LINKER_FLAGS_RELEASE="$LDFLAGS" \
     -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -G Ninja \
     -S $pkgname \
     -W no-dev
