@@ -1,7 +1,7 @@
 pkgbase = libuhd
 	pkgdesc = Universal Software Radio Peripheral (USRP) userspace driver
 	pkgver = 4.8.0.0
-	pkgrel = 6
+	pkgrel = 7
 	url = https://github.com/EttusResearch/uhd
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -18,8 +18,10 @@ pkgbase = libuhd
 	makedepends = python-setuptools
 	source = git+https://github.com/EttusResearch/uhd.git#tag=v4.8.0.0
 	source = libuhd-fix-python-syntax-warnings.patch
+	source = boost-1.88.patch
 	sha256sums = 7611ee150deac0d9053d6de662c90767d7edc25319dd23c27ff81ced73aceea5
 	sha256sums = 70b4406334ecfdd10f7188b3f072d4ef75ee473b3788622ebfc5c569a7127955
+	sha256sums = c12905a67e10660bdc30535a77ee59f36858c2037c5f20ff6873a545a2261c85
 
 pkgname = libuhd
 	depends = boost-libs

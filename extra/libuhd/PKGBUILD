@@ -10,7 +10,7 @@ pkgname=(
   python-uhd
 )
 pkgver=4.8.0.0
-pkgrel=6
+pkgrel=7
 pkgdesc="Universal Software Radio Peripheral (USRP) userspace driver"
 arch=(x86_64)
 url="https://github.com/EttusResearch/uhd"
@@ -31,12 +31,17 @@ checkdepends=(python-requests)
 source=(
   "git+$url.git#tag=v$pkgver"
   "$pkgname-fix-python-syntax-warnings.patch"
+  "boost-1.88.patch"
 )
 sha256sums=('7611ee150deac0d9053d6de662c90767d7edc25319dd23c27ff81ced73aceea5'
-            '70b4406334ecfdd10f7188b3f072d4ef75ee473b3788622ebfc5c569a7127955')
+            '70b4406334ecfdd10f7188b3f072d4ef75ee473b3788622ebfc5c569a7127955'
+            'c12905a67e10660bdc30535a77ee59f36858c2037c5f20ff6873a545a2261c85')
 
 prepare() {
   patch -d uhd -Np1 -i "../$pkgname-fix-python-syntax-warnings.patch"
+  cd uhd
+  git cherry-pick -n 598c47258d4b32758b1a430b5c7df84ccb5a3cb9 # GCC 15 fixes
+  patch -p1 -i ../boost-1.88.patch # Fix build with boost 1.88
 }
 
 build() {

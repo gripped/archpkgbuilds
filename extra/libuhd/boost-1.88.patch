@@ -1,0 +1,17 @@
+diff --git a/host/examples/rx_samples_to_file.cpp b/host/examples/rx_samples_to_file.cpp
+index c8caeaec4..f4366c492 100644
+--- a/host/examples/rx_samples_to_file.cpp
++++ b/host/examples/rx_samples_to_file.cpp
+@@ -14,8 +14,11 @@
+ #include <boost/format.hpp>
+ #include <boost/program_options.hpp>
+ #ifdef __linux__
++#    define BOOST_PROCESS_VERSION 1
+ #    include <boost/filesystem.hpp>
+-#    include <boost/process.hpp>
++#    include <boost/process/v1/child.hpp>
++#    include <boost/process/v1/io.hpp>
++#    include <boost/process/v1/pipe.hpp>
+ #endif
+ #include <chrono>
+ #include <complex>
