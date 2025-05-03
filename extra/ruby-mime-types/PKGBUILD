@@ -4,8 +4,8 @@
 
 _name=mime-types
 pkgname=ruby-mime-types
-pkgver=3.6.1
-pkgrel=3
+pkgver=3.6.2
+pkgrel=1
 pkgdesc='MIME Content-Type database'
 arch=('any')
 url='https://github.com/mime-types/ruby-mime-types/'
@@ -15,7 +15,7 @@ makedepends=('ruby-rdoc')
 checkdepends=('ruby-rake' 'ruby-hoe' 'ruby-minitest'{,-hooks})
 options=('!emptydirs')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/mime-types/$_name/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('a0150cae4421420dc7ff2c11a830db207301550686dd451b8409f1a8c1305437')
+sha256sums=('76789d0788d8b0850c5bfcfbd79d10bd7a70df45fa217e86f7f31b2e14081de7')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
