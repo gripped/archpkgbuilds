@@ -7,8 +7,8 @@
 
 pkgname=poedit
 epoch=1
-pkgver=3.5.2
-pkgrel=3
+pkgver=3.6
+pkgrel=1
 pkgdesc="Cross-platform gettext catalogs (.po files) editor"
 arch=('x86_64')
 url="https://www.poedit.net/"
@@ -26,7 +26,7 @@ depends=(
 )
 makedepends=('boost')
 source=(https://github.com/vslavik/poedit/releases/download/v$pkgver-oss/poedit-${pkgver}.tar.gz)
-sha256sums=('06c540ab6023a5f6f054e4b44f391c7e339d12a2d1c1a9a9d53bcab298d77835')
+sha256sums=('dfc491ed255c980ae8abdaa52c0a7da116fb641dae5da0fe15b2fe3bd05abdbd')
 
 build() {
   cd ${pkgname}-${pkgver}
