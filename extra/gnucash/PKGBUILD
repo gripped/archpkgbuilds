@@ -5,7 +5,7 @@
 
 pkgname=gnucash
 pkgver=5.11
-pkgrel=3
+pkgrel=4
 pkgdesc='Personal and small-business financial-accounting application'
 arch=(x86_64)
 url='https://gnucash.org/'
@@ -19,8 +19,14 @@ optdepends=('gnucash-docs: documentation'
 options=(!emptydirs)
 source=(
   https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.bz2
+  boost-1.88.patch
 )
-sha256sums=('6ba42313aaaa99b5f07ff6e4dbc58b33fbf5f4be6e911376701d65c26fd4debe')
+sha256sums=('6ba42313aaaa99b5f07ff6e4dbc58b33fbf5f4be6e911376701d65c26fd4debe'
+            '448f4a15715dd74cc085ae9fd63e17ec5bb6fc450292d6be64e5c31da1d01cd7')
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < boost-1.88.patch
+}
 
 build() {
   cd $pkgname-$pkgver
