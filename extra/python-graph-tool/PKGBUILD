@@ -7,7 +7,7 @@ pkgname=(
   python-graph-tool-opt
 )
 pkgver=2.97
-pkgrel=1
+pkgrel=2
 pkgdesc='A Python module for manipulation and statistical analysis of graphs'
 arch=(x86_64)
 url='https://graph-tool.skewed.de'
@@ -55,6 +55,8 @@ build() {
   CXXFLAGS=${CXXFLAGS/-Wp,-D_GLIBCXX_ASSERTIONS/}
   # the package benefits from -O3 (due to -funswitch-loops and others)
   export CXXFLAGS=${CXXFLAGS/-O2/-O3}
+  # disable **very** verbose warnings that pop up since GCC 15 and produce >10GiB build log files
+  CXXFLAGS+=' -Wno-attributes'
 
   local configure_options=(
     --prefix=/usr
