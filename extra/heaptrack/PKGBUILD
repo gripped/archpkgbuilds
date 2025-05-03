@@ -2,7 +2,7 @@
 
 pkgname=heaptrack
 pkgver=1.5.0
-pkgrel=6
+pkgrel=7
 arch=(x86_64)
 pkgdesc='A heap memory profiler for Linux'
 url='https://apps.kde.org/heaptrack/'
@@ -51,7 +51,8 @@ build() {
   cmake -B build -S $pkgname-$pkgver \
    -DCMAKE_INSTALL_PREFIX=/usr \
    -DBUILD_TESTING=OFF \
-   -DHEAPTRACK_USE_QT6=ON
+   -DHEAPTRACK_USE_QT6=ON \
+   -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake --build build
 }
 
