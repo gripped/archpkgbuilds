@@ -4,7 +4,7 @@
 
 pkgname=galera
 pkgver=26.4.21
-pkgrel=4
+pkgrel=5
 pkgdesc='write set replication (WSREP) provider for MariaDB cluster'
 arch=('x86_64')
 license=('GPL-2.0-or-later' 'custom:OpenSSL Linking Exception')
@@ -37,7 +37,8 @@ build(){
   mkdir build
   cd build/
 
-  cmake ../galera/
+  cmake ../galera/ \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   make
 }
 
