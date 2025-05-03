@@ -4,7 +4,7 @@ pkgname=soapyosmo
 _pkgname=SoapyOsmo
 pkgver=0.2.5
 _gitver=soapy-osmo-$pkgver
-pkgrel=21
+pkgrel=22
 pkgdesc='Soapy SDR plugins for OsmoSDR devices'
 arch=('x86_64')
 url='https://github.com/pothosware/SoapyOsmo'
@@ -35,6 +35,7 @@ build() {
   cmake .. \
   	-DCMAKE_INSTALL_PREFIX=/usr \
   	-DCMAKE_BUILD_TYPE=Release \
+  	-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
   	-DUSE_OSMO_RTLSDR=ON \
   	-DUSE_OSMO_HACKRF=ON \
   	-DUSE_OSMO_AIRSPY=ON
