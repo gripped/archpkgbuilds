@@ -2,7 +2,7 @@
 
 pkgname=rdkit
 pkgver=2025.03.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Open-source toolkit for cheminformatics"
 arch=(x86_64)
 url="https://github.com/rdkit/rdkit"
@@ -29,6 +29,9 @@ source=($pkgname-$pkgver.tar.gz::$url/archive/Release_${pkgver//./_}.tar.gz)
 b2sums=('3acb2364e074e73a7ba8907ec62f9370e8deb404af623bc32c3ad527aa70489a1bede7db1a1283809466544e970d5cee63f4b08ab17193f7f659f7f0f2b21059')
 
 build() {
+  # Fix build with GCC 15 https://github.com/rdkit/rdkit/issues/8491
+  CFLAGS+=' -std=gnu17'
+
   local cmake_options=(
     -B build
     -S $pkgname-Release_${pkgver//./_}
