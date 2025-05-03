@@ -4,7 +4,7 @@
 
 pkgname=luminancehdr
 pkgver=2.6.1.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Open source graphical user interface application that aims to provide a workflow for HDR imaging'
 arch=('x86_64')
 url='http://qtpfsgui.sourceforge.net/'
@@ -50,6 +50,7 @@ build() {
     -S luminance-hdr-$pkgver
     -DCMAKE_INSTALL_PREFIX=/usr
     -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   )
 
   export CXXFLAGS="-std=gnu++20 $CXXFLAGS"
