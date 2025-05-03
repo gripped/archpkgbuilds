@@ -8,7 +8,7 @@ pkgname=(
   lib32-libxkbcommon
   lib32-libxkbcommon-x11
 )
-pkgver=1.9.0
+pkgver=1.9.1
 pkgrel=1
 pkgdesc='Keymap handling library for toolkits and window systems (32-bit)'
 url='https://xkbcommon.org/'
@@ -30,7 +30,7 @@ checkdepends=(
   xorg-server-xvfb
 )
 source=("git+https://github.com/xkbcommon/libxkbcommon#tag=xkbcommon-$pkgver")
-b2sums=('974dd98fad6cc068697889e88edba72be0cddfae923e83853a2eff96944b2aeca359498f673e04132ef7408a58941d0889487b5139467c128facc6b23db2c5eb')
+b2sums=('3f8662663178ce479934dd6a17f391a00839429986d48e5ab0b93162f9e2ff85accf2d39df1cf5312fe1340ebd1487f3f22eacedcd3b6d5dcfe4627f9d719eef')
 
 prepare() {
   cd libxkbcommon
