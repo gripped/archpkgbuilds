@@ -1,0 +1,41 @@
+# Maintainer: Giovanni Harting <anonfunc@archlinux.org>
+
+pkgname=swayosd
+_name=SwayOSD
+pkgver=0.2.0
+pkgrel=1
+pkgdesc='A GTK based on screen display for keyboard shortcuts like caps-lock and volume'
+arch=(x86_64)
+url='https://github.com/ErikReider/SwayOSD'
+license=(GPL-3.0-only)
+depends=(glibc gtk4 gtk4-layer-shell libinput gdk-pixbuf2 pango libevdev libpulse systemd-libs glib2 gcc-libs cairo dbus)
+makedepends=(cargo meson ninja sassc)
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
+        "update-swayosd-version-in-cargolock.patch")
+b2sums=('d9e36492403b806fb9cc2fe172006c78859e3d65a45c8b1bfb91ed39ffd247d1e9be4bb04664e32609b8a677e41e880bc3fb318a2bdc26ca201bbcb9a5cb1d50'
+        '3bd7437aff33921ff71f09db3d354b1761010a2f40ec7bcb253204882094adf65348eb4fa276f0678226e5561d15b91cbcf9e35163da19aabb976701e09c53b5')
+
+prepare() {
+  cd $_name-$pkgver
+
+  # patch wrong version in cargo.lock
+  patch -p1 < ../update-swayosd-version-in-cargolock.patch
+
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd $_name-$pkgver
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  arch-meson --buildtype=release build
+	ninja -C build
+}
+
+package() {
+  cd $_name-$pkgver
+  meson install -C build --destdir "$pkgdir"
+}
+
+# vim:set ts=2 sw=2 et:
