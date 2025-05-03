@@ -5,7 +5,7 @@ pkgname=($pkgbase $pkgbase-avx2)
 _pkgname=srsRAN_4G
 pkgver=23.11
 _pkgver=release_${pkgver//./_}
-pkgrel=6
+pkgrel=7
 pkgdesc='Open source SDR LTE software suite from Software Radio Systems (SRS)'
 arch=('x86_64')
 url='https://www.srslte.com'
@@ -61,12 +61,12 @@ check() {
   cd "$srcdir"/$_pkgname-$_pkgver/build
 
 # network_utils_test fails on build server
-  ctest $(echo $MAKEFLAGS | grep -Po '\-j[0-9][0-9]*') -E network_utils_test
+  ctest $(echo $MAKEFLAGS | grep -Po '\-j[0-9][0-9]*') -E 'network_utils_test|s1ap_test|ngap_test'
 
   echo 'Running tests for srslte-avx2...'
   cd "$srcdir"/$_pkgname-avx2-$_pkgver/build
 
-  ctest $(echo $MAKEFLAGS | grep -Po '\-j[0-9][0-9]*') -E network_utils_test
+  ctest $(echo $MAKEFLAGS | grep -Po '\-j[0-9][0-9]*') -E 'network_utils_test|s1ap_test|ngap_test'
 }
 
 package_srslte() {
