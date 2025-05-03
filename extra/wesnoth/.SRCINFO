@@ -1,7 +1,7 @@
 pkgbase = wesnoth
 	pkgdesc = A turn-based strategy game on a fantasy world
 	pkgver = 1.18.4
-	pkgrel = 1
+	pkgrel = 2
 	epoch = 1
 	url = https://www.wesnoth.org/
 	arch = x86_64
@@ -19,6 +19,8 @@ pkgbase = wesnoth
 	depends = lua
 	options = !emptydirs
 	source = git+https://github.com/wesnoth/wesnoth.git#tag=1.18.4
+	source = boost-1.88.patch
 	sha512sums = d617f4bf99875c07c620aab0dc8e953ea301a48e92c1679840b4dde3ca8127eb9c3f265cf5de23e6f1834013ffd884fb3edb8b607d3ba4e42a0aaabd5c36152a
+	sha512sums = 1b66140c9d9cb5bc2f620464cf9da2d35d36a9eeaa2db4ac20b570c28a68691c002e4d9e9545673854342ed5434cb0d3fee0142869ff551a91d709e11d5267ca
 
 pkgname = wesnoth
