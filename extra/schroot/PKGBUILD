@@ -3,7 +3,7 @@
 
 pkgname=schroot
 pkgver=1.6.13
-pkgrel=6
+pkgrel=7
 pkgdesc="Allows users to execute shell commands under different root filesystems. (Successor to dchroot)."
 url="https://packages.qa.debian.org/s/schroot.html"
 license=('GPL-3.0-or-later')
@@ -63,6 +63,7 @@ build() {
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBEXECDIR=/usr/lib \
 		-DCMAKE_INSTALL_SYSCONFDIR=/etc \
+		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
 		..
 	make
 }
