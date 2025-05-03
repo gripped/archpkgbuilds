@@ -9,7 +9,7 @@
 
 pkgname=ledger
 pkgver=3.3.2
-pkgrel=8
+pkgrel=9
 pkgdesc='Double-entry accounting system with a command-line reporting interface'
 arch=(i686 x86_64)
 url='https://ledger-cli.org'
@@ -25,7 +25,7 @@ source=(
 	"boost-1.86.patch"
 )
 sha256sums=('555296ee1e870ff04e2356676977dcf55ebab5ad79126667bc56464cb1142035'
-						'410c2bc68f874386e129d0fa58758013953b134d8e4a11d653443ce08da2ca1e')
+            '410c2bc68f874386e129d0fa58758013953b134d8e4a11d653443ce08da2ca1e')
 
 prepare() {
 	cd "$pkgname-$pkgver"
@@ -39,6 +39,7 @@ build() {
 	cmake -S . -B build \
 		-DCMAKE_BUILD_TYPE=None \
 		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
 		-Wno-dev \
 		-DUSE_PYTHON=ON
 	cmake --build build
