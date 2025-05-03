@@ -5,7 +5,7 @@
 
 pkgname=pulseview
 pkgver=0.4.2
-pkgrel=15
+pkgrel=16
 pkgdesc='A Qt based logic analyzer GUI for sigrok'
 arch=('x86_64')
 url='https://sigrok.org/wiki/Main_Page'
@@ -27,7 +27,9 @@ makedepends=(
   'git'
   'qt5-tools'
 )
-source=("git+git://sigrok.org/pulseview#tag=pulseview-$pkgver")
+#source=("git+git://sigrok.org/pulseview#tag=pulseview-$pkgver")
+# git repo is offline, use mirror
+source=(git+https://github.com/sigrokproject/pulseview#tag=pulseview-$pkgver)
 sha512sums=('c74329f4ae5486b70f757664f305b699bf9dc14a3d71e241f5c15ad12f6d95499443ad70f3a5155262324622a64b1fca7d34caaa49ca5b4366bee9b1dfed6b21')
 
 prepare() {
@@ -49,6 +51,7 @@ build() {
     -DCMAKE_CXX_FLAGS=-fext-numeric-literals \
     -DDISABLE_WERROR=ON \
     -DENABLE_TESTS=ON \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   )
 
   # remove hardedcoded c++11 reference which breaks boost 1.87.0
