@@ -2,21 +2,22 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=xorg-twm
-pkgver=1.0.12
-pkgrel=2
+pkgver=1.0.13
+pkgrel=1
 pkgdesc="Tab Window Manager for the X Window System"
 arch=(x86_64)
 url="https://xorg.freedesktop.org/"
 backup=(usr/share/X11/twm/system.twmrc)
-license=('custom')
-depends=('libxmu')
+license=('LicenseRef-twm')
+depends=('libxmu' 'libxext' 'libxt' 'libx11' 'libsm' 'libice' 'glibc')
 makedepends=('xorg-util-macros')
 options=('!emptydirs')
 source=(${url}/releases/individual/app/twm-${pkgver}.tar.xz{,.sig})
-sha512sums=('f3d68df7e06516f6b74f19181efcfd9db2479c8ea0c72c3a6ed0dc1b222405b40d81a2dea17b662955e0c1783e87d0d3eb067c3b6e7c6eed8c0d38d03d362260'
+sha512sums=('bab61865b798869d64fdf6e65ac9affee7ae0acf5523e4dc36e5fc65664ed83fb6ba8f1f7f495c29340e9e3dd00a386a81dcccfa11fc7adf3edda505db2f52b9'
             'SKIP')
-validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
+# validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
 #validpgpkeys+=('3BB639E56F861FA2E86505690FDD682D974CA72A') # "Matt Turner <mattst88@gmail.com>"
+validpgpkeys=('19882D92DDA4C400C22C0D56CC2AF4472167BE03') # Thomas E. Dickey (use for email)<dickey@his.com>
 
 build() {
   cd twm-${pkgver}
