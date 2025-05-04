@@ -2,24 +2,24 @@
 
 _hkgname=casa-client
 pkgname=haskell-casa-client
-pkgver=0.0.1
-pkgrel=774
+pkgver=0.0.2
+pkgrel=1
 pkgdesc="Content Addressable Storage Archive client"
 url="https://github.com/fpco/casa"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-base16-bytestring'
-         'haskell-casa-types' 'haskell-conduit' 'haskell-conduit-extra' 'haskell-cryptonite'
+         'haskell-casa-types' 'haskell-conduit' 'haskell-conduit-extra' 'haskell-crypton'
          'haskell-http-conduit' 'haskell-http-types' 'haskell-memory'
          'haskell-network-uri' 'haskell-resourcet' 'haskell-th-lift' 'haskell-unliftio-core'
          'haskell-unordered-containers')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('2df03a0b1c2e01f2d24728e96fe446a25b630f5495c4e9995bcbde1ee9da530df1c6b40dde954cfaf6de2af6036fa6cfda7d9957b22106316557cc57d64114fa')
+sha512sums=('885ede1522142cf7b7c4ad2c49506974b349256e3537a3e6d05c45d1ef64f8144538a7bae90ae97fa3d5af4b2f24c5a1bd52dba847c677a0cec486992e5d654a')
 
 prepare() {
     cd $_hkgname-$pkgver
-    echo -e "import Distribution.Simple\nmain = defaultMain" > Setup.hs
+    gen-setup
 }
 
 build() {
