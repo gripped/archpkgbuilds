@@ -8,8 +8,8 @@
 # Contributor: Larry Hajali <larryhaja@gmail.com>
 
 pkgname=calibre
-pkgver=8.0.1
-pkgrel=3
+pkgver=8.3.0
+pkgrel=1
 pkgdesc='Ebook management application'
 arch=(x86_64)
 url=https://calibre-ebook.com
@@ -85,11 +85,9 @@ conflicts=(calibre-common
 replaces=("${conflicts[@]}")
 _archive="$pkgname-$pkgver"
 source=("https://download.calibre-ebook.com/$pkgver/$_archive.tar.xz"
-        "$url/signatures/$_archive.tar.xz.sig"
-         qt-6.9.patch)
-sha256sums=('a2937a9eb0fb394a92db570496b2ea5b38066a01735385e46993bbd121068d2a'
-            'SKIP'
-            'cba6cfc051fd04778f104497d9e9ae235fc5ad6852794e1abc444a036a1d4c5b')
+        "$url/signatures/$_archive.tar.xz.sig")
+sha256sums=('dd1f0d8198a3fc5921eaa3a9da4fcf9ad3ca4fe4baab96c76a06d1508906bcf1'
+            'SKIP')
 validpgpkeys=('3CE1780F78DD88DF45194FD706BC317B515ACE7C') # Kovid Goyal (New longer key) <kovid@kovidgoyal.net>
 
 prepare(){
@@ -102,8 +100,6 @@ prepare(){
 		-i  src/calibre/linux.py
 	# Remove unneeded files
 	rm -f resources/$pkgname-portable.*
-
-        patch -p1 -i ../qt-6.9.patch
 }
 
 build() {
