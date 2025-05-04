@@ -1,0 +1,25 @@
+pkgbase = python-tifffile
+	pkgdesc = Read and write TIFF files
+	pkgver = 2025.3.30
+	pkgrel = 3
+	url = https://github.com/cgohlke/tifffile
+	arch = any
+	license = BSD-3-Clause
+	checkdepends = python-fsspec
+	checkdepends = python-lxml
+	checkdepends = python-pytest
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	depends = python
+	depends = python-numpy
+	optdepends = python-fsspec: for opening ReferenceFileSystem files
+	optdepends = python-imagecodecs: for encoding or decoding LZW, JPEG, etc. compressed segments
+	optdepends = python-lxml: for validating and printing XML
+	optdepends = python-matplotlib: for plotting
+	optdepends = python-zarr: for opening Zarr stores
+	optdepends = tk: for Tkinter file open dialog
+	source = python-tifffile-2025.3.30.tar.gz::https://github.com/cgohlke/tifffile/archive/refs/tags/v2025.3.30.tar.gz
+	b2sums = f388a2db46c53aef7855f57e2e1ee04583c17b9fc5a7ce565ae5b3a2a921f80e1bfd48d03662baed9cfc8504919977748625b72c6b6ba6cc40fb9269d6be4404
+
+pkgname = python-tifffile
