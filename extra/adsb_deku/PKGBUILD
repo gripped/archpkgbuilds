@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=adsb_deku
-pkgver=2024.09.02
+pkgver=2025.05.03
 pkgrel=1
 pkgdesc="TUI radar application"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('gcc-libs' 'dump1090_rs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('e847ac72be9c430156d06760ec18a45e4265548f1e5307b385fe266438a1086054892d3ff041db43eb127bcfb86cc48bf3c58216641c3122d6d07ffed6fa88db')
+sha512sums=('c9ebc7ad3111ac128d7d164adb075570543448a3f9fa030d9240f84341e9f8c2ef833b29e095566e82a117d481161bf71618c3326dacd3c900b3cc1a47162c9e')
 
 prepare() {
   cd "$pkgname-$pkgver"
