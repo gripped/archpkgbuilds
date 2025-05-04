@@ -2,7 +2,7 @@
 # Contributor: lod <aur@cyber-anlage.de>
 
 pkgname=amdvlk
-pkgver=2025.Q1.3
+pkgver=2025.Q2.1
 pkgrel=1
 pkgdesc="AMD's standalone Vulkan driver"
 arch=(x86_64)
@@ -12,8 +12,12 @@ provides=('vulkan-driver')
 makedepends=('perl-xml-xpath' 'python' 'wayland' 'libxrandr' 'xorg-server-devel' 'directx-shader-compiler' 'glslang'
              'python-jinja' 'python-ruamel-yaml' 'cmake' 'ninja' 'git')
 options=('!lto')
-source=("https://github.com/GPUOpen-Drivers/AMDVLK/archive/v-${pkgver}.tar.gz")
-sha256sums=('368f8202610324434a098f743b7307b02221b2a5dbc06094da5777c96708faad')
+source=("https://github.com/GPUOpen-Drivers/AMDVLK/archive/v-${pkgver}.tar.gz"
+        0001-Avoid-inheritance-from-std-iterator.patch
+        0001-Removed-non-compiling-assignment-operator.-Fixed-718.patch)
+sha256sums=('183bcfde8e65ea186ada2490eb308aebe6f8c3ad5e202027d02cd2447f2d1831'
+            'd54b75fa1bcd8f77206b1521843443fffad1b5769866a0cb924ed480a7b31b25'
+            '5cbd148bf05ea4405552efecfe12f82f2d4d19c28319dbe71073172cad99a4c5')
             
 prepare() {
   local nrepos path name revision
@@ -32,6 +36,11 @@ prepare() {
       popd
     (( nrepos-- ))
   done
+
+  # Fix compilation of rapidjason
+  cd ${srcdir}/pal/shared/devdriver/third_party/rapidjson/
+  patch -Np1 -i ${srcdir}/0001-Avoid-inheritance-from-std-iterator.patch
+  patch -Np1 -i ${srcdir}/0001-Removed-non-compiling-assignment-operator.-Fixed-718.patch
 }
 
 build() {
