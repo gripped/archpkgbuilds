@@ -1,0 +1,159 @@
+From d1ecb10e516cc055140af31e6d08afb303b4a449 Mon Sep 17 00:00:00 2001
+From: Ximi1970 <ximi.github@gmail.com>
+Date: Sat, 5 Apr 2025 16:01:57 +0200
+Subject: [PATCH] Update TB nax version to 999
+
+---
+ dist/arch/gnome/PKGBUILD                | 2 +-
+ dist/arch/kde/PKGBUILD                  | 2 +-
+ dist/arch/minimal/PKGBUILD              | 2 +-
+ dist/deb/gnome/debian.control           | 2 +-
+ dist/deb/kde/debian.control             | 2 +-
+ dist/deb/minimal/debian.control         | 2 +-
+ dist/rpm/gnome/systray-x-gnome.spec     | 4 ++--
+ dist/rpm/kde/systray-x.spec             | 4 ++--
+ dist/rpm/minimal/systray-x-minimal.spec | 4 ++--
+ webext/manifest.json                    | 2 +-
+ 10 files changed, 13 insertions(+), 13 deletions(-)
+
+diff --git a/dist/arch/gnome/PKGBUILD b/dist/arch/gnome/PKGBUILD
+index 93393c0..6851959 100644
+--- a/dist/arch/gnome/PKGBUILD
++++ b/dist/arch/gnome/PKGBUILD
+@@ -13,7 +13,7 @@ depends=(
+   'qt6-wayland'
+   'gnome-shell-extension-appindicator'
+   'thunderbird>=91'
+-  'thunderbird<138'
++  'thunderbird<999'
+ )
+ makedepends=(
+   'git'
+diff --git a/dist/arch/kde/PKGBUILD b/dist/arch/kde/PKGBUILD
+index 127b571..183b22f 100644
+--- a/dist/arch/kde/PKGBUILD
++++ b/dist/arch/kde/PKGBUILD
+@@ -13,7 +13,7 @@ depends=(
+   'qt6-wayland'
+   'kstatusnotifieritem'
+   'thunderbird>=91'
+-  'thunderbird<138'
++  'thunderbird<999'
+ )
+ makedepends=(
+   'git'
+diff --git a/dist/arch/minimal/PKGBUILD b/dist/arch/minimal/PKGBUILD
+index cf2ce59..9572444 100644
+--- a/dist/arch/minimal/PKGBUILD
++++ b/dist/arch/minimal/PKGBUILD
+@@ -12,7 +12,7 @@ depends=(
+   'qt6-base'
+   'qt6-wayland'
+   'thunderbird>=91'
+-  'thunderbird<138'
++  'thunderbird<999'
+ )
+ makedepends=(
+   'git'
+diff --git a/dist/deb/gnome/debian.control b/dist/deb/gnome/debian.control
+index 6ca5f73..71a8450 100644
+--- a/dist/deb/gnome/debian.control
++++ b/dist/deb/gnome/debian.control
+@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 4.1.16), zip, g++, libx11-dev, qt5-qmake, qtbase5-d
+ 
+ Package: systray-x-gnome
+ Architecture: any
+-Depends: ${shlibs:Depends}, gnome-shell-extension-appindicator, thunderbird (>= 1:91), thunderbird (< 1:138)
++Depends: ${shlibs:Depends}, gnome-shell-extension-appindicator, thunderbird (>= 1:91), thunderbird (< 1:999)
+ Description: SysTray-X is a system tray extension for Thunderbird (GNOME).
+  This version is optimized for the GNOME desktop.
+  The add-on uses the WebExtension API's to control an external system
+diff --git a/dist/deb/kde/debian.control b/dist/deb/kde/debian.control
+index c6cc538..76aa84b 100644
+--- a/dist/deb/kde/debian.control
++++ b/dist/deb/kde/debian.control
+@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 4.1.16), zip, g++, libx11-dev, qt5-qmake, qtbase5-d
+ 
+ Package: systray-x
+ Architecture: any
+-Depends: ${shlibs:Depends}, thunderbird (>= 1:91), thunderbird (< 1:138)
++Depends: ${shlibs:Depends}, thunderbird (>= 1:91), thunderbird (< 1:999)
+ Description: SysTray-X is a system tray extension for Thunderbird (KDE).
+  This version is optimized for the KDE desktop.
+  The add-on uses the WebExtension API's to control an external system
+diff --git a/dist/deb/minimal/debian.control b/dist/deb/minimal/debian.control
+index bc04687..0b17aba 100644
+--- a/dist/deb/minimal/debian.control
++++ b/dist/deb/minimal/debian.control
+@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 4.1.16), zip, g++, libx11-dev, qt5-qmake, qtbase5-d
+ 
+ Package: systray-x-minimal
+ Architecture: any
+-Depends: ${shlibs:Depends}, thunderbird (>= 1:91), thunderbird (< 1:138)
++Depends: ${shlibs:Depends}, thunderbird (>= 1:91), thunderbird (< 1:999)
+ Description: SysTray-X is a system tray extension for Thunderbird (non-GNOME,non-KDE).
+  This version is for non-KDE and non-GNOME desktops.
+  The add-on uses the WebExtension API's to control an external system
+diff --git a/dist/rpm/gnome/systray-x-gnome.spec b/dist/rpm/gnome/systray-x-gnome.spec
+index 67590ab..b1f0e96 100644
+--- a/dist/rpm/gnome/systray-x-gnome.spec
++++ b/dist/rpm/gnome/systray-x-gnome.spec
+@@ -43,10 +43,10 @@ BuildRequires:  libqt5-qtx11extras-devel
+ BuildRequires:  pkgconfig(x11)
+ %if 0%{?fedora_version}
+ Requires:       thunderbird >= 91
+-Requires:       thunderbird < 138
++Requires:       thunderbird < 999
+ %else
+ Requires:       MozillaThunderbird >= 91
+-Requires:       MozillaThunderbird < 138
++Requires:       MozillaThunderbird < 999
+ %endif
+ %if 0%{?suse_version} > 1600 || 0%{?fedora_version} > 39
+ %if 0%{?fedora_version}
+diff --git a/dist/rpm/kde/systray-x.spec b/dist/rpm/kde/systray-x.spec
+index 646a81b..1213fdc 100644
+--- a/dist/rpm/kde/systray-x.spec
++++ b/dist/rpm/kde/systray-x.spec
+@@ -54,10 +54,10 @@ Requires:       libKF5Notifications5
+ BuildRequires:  pkgconfig(x11)
+ %if 0%{?fedora_version}
+ Requires:       thunderbird >= 91
+-Requires:       thunderbird < 138
++Requires:       thunderbird < 999
+ %else
+ Requires:       MozillaThunderbird >= 91
+-Requires:       MozillaThunderbird < 138
++Requires:       MozillaThunderbird < 999
+ %endif
+ %if 0%{?suse_version} > 1600 || 0%{?fedora_version} > 39
+ %if 0%{?fedora_version}
+diff --git a/dist/rpm/minimal/systray-x-minimal.spec b/dist/rpm/minimal/systray-x-minimal.spec
+index d76bb43..8930ea4 100644
+--- a/dist/rpm/minimal/systray-x-minimal.spec
++++ b/dist/rpm/minimal/systray-x-minimal.spec
+@@ -43,10 +43,10 @@ BuildRequires:  libqt5-qtx11extras-devel
+ BuildRequires:  pkgconfig(x11)
+ %if 0%{?fedora_version} || 0%{?centos_version}
+ Requires:       thunderbird >= 91
+-Requires:       thunderbird < 138
++Requires:       thunderbird < 999
+ %else
+ Requires:       MozillaThunderbird >= 91
+-Requires:       MozillaThunderbird < 138
++Requires:       MozillaThunderbird < 999
+ %endif
+ %if 0%{?suse_version} > 1600 || 0%{?fedora_version} > 39
+ %if 0%{?fedora_version}
+diff --git a/webext/manifest.json b/webext/manifest.json
+index 237352a..dadf57d 100644
+--- a/webext/manifest.json
++++ b/webext/manifest.json
+@@ -10,7 +10,7 @@
+     "gecko": {
+       "id": "systray-x@Ximi1970",
+       "strict_min_version": "91.0",
+-      "strict_max_version": "137.*"
++      "strict_max_version": "998.*"
+     }
+   },
