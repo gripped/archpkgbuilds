@@ -5,7 +5,7 @@
 
 pkgname=iotop-c
 _pkgname=iotop
-pkgver=1.27
+pkgver=1.28
 pkgrel=1
 pkgdesc="A top utility for IO"
 url="https://github.com/Tomas-M/iotop"
@@ -15,18 +15,9 @@ depends=('glibc' 'ncurses')
 makedepends=('git')
 conflicts=('iotop')
 provides=('iotop')
-source=("git+${url}.git#tag=v${pkgver}?signed"
-        'Makefile.patch')
+source=("git+${url}.git#tag=v${pkgver}?signed")
 validpgpkeys=('BA60BC20F37E59444D6D25001365720913D2F22D')
-sha256sums=('252b6be613dd0d5c6167cafdb74f07b960442665c083ee01e755bf0b908d709c'
-            '53765edb625d544728fdd1dbefb58915b99f6e06827e0e29c3e76bc9393a4a2f')
-
-prepare() {
-	cd "${_pkgname}"
-	# Use $(PREFIX)/bin rather than $(PREFIX)/sbin
-	# and do not strip binary in Makefile
-	patch -Np1 -i "${srcdir}/Makefile.patch"
-}
+sha256sums=('56340728bb4930dda41893b5e3641c2a43bcadfbcdbdc7d17333e2f49b2b8aa0')
 
 build() {
 	cd "${_pkgname}"
@@ -35,5 +26,5 @@ build() {
 
 package() {
 	cd "${_pkgname}"
-	make DESTDIR="${pkgdir}" install
+	make STRIP=: DESTDIR="${pkgdir}" BINDIR="${pkgdir}/usr/bin" install
 }
