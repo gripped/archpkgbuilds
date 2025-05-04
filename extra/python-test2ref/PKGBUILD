@@ -1,7 +1,7 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=python-test2ref
-pkgver=0.8.1
+pkgver=0.8.2
 pkgrel=1
 pkgdesc="Testing Against Learned Reference Data"
 arch=('any')
@@ -13,7 +13,7 @@ checkdepends=('python-pytest' 'python-pytest-cov')
 source=(
   "$pkgname::git+https://github.com/nbiotcloud/test2ref#tag=v$pkgver"
 )
-b2sums=('82222b7b682f681e377534c595b6cbe33e38ec9c6628a91cd190cf512daf83bc8ff3a91d2a01cfe9cfa53d1c323592e669658e71ed6df902353337b87f9e645c')
+b2sums=('4ffcb02954c274f99db43e6fa906a6ef69d0751bd4442e8c88d52e870edad9ae2c4b058b132b902cdb3c3cdf8ff1e05c269cbebad1f5c7f0dbb490a75cf8f296')
 
 build() {
   cd "$pkgname"
