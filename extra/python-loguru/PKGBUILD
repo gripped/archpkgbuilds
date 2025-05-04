@@ -2,8 +2,8 @@
 
 _name=loguru
 pkgname=python-loguru
-pkgver=0.7.2
-pkgrel=3
+pkgver=0.7.3
+pkgrel=1
 pkgdesc="Python logging made (stupidly) simple"
 arch=(any)
 url="https://github.com/Delgan/loguru"
@@ -11,25 +11,29 @@ license=(MIT)
 depends=(python)
 makedepends=(
   python-build
+  python-flit-core
   python-installer
-  python-setuptools
-  python-wheel
 )
 checkdepends=(
   python-colorama
   python-freezegun
   python-pytest
 )
-source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
-        https://github.com/Delgan/loguru/commit/9311c763.patch)
-sha256sums=('2b3517ef6941a3bb24ed108074194041b3de429d5d43fe9d51359f4abdd8bad5'
-            'db4b3bf2d687fc65818f769d24a5c501f499644dee7281927a8d03bf7d8eb8a0')
-b2sums=('208c4ad989257e0e0d5cecf41c9722f398e5c73528f8a88c92e28490121723d5c19b4170ff246446e94237e8bb732f83e4b9fcc66c42aa7e3c1ba25aaa069e34'
-        '5ded4b98a519cc8a87fe12d869d23eb98c7c232c3e4ff9e0bca77d24d38ddfdd9a7b7e4057cc64cf5ddedeada4ffd1ae184f6ee96e22a8da3af9093589590d77')
+source=(
+  $_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
+  $_name-0.7.3-update_mypy_deps.patch::https://github.com/Delgan/loguru/commit/8bba363a12483b419a27f17212b9368bc3105677.patch
+  $_name-0.7.3-disable_mypy_tests.patch::https://github.com/Delgan/loguru/commit/e17479bd0701e8fc0b26981339540599dc224d11.patch
+)
+sha256sums=('1cad8860aa0ecf9567125381e4430046526246e075224350a6a624addac05f5e'
+            '620fd00249a6bdee1002ec8683525a13b5cd33fd61989c8f5c976b0565e62810'
+            '0c2724a1435fa393a3202c1b40bf9acdaf97963abb24ca1758f8773684da348d')
+b2sums=('7d7cf167e1350814eea6a358cc00bac217ea6b153ae29ffd70c026f3be63cc126fbc184668ea643ea03416fc8f805bd51502fd8cc9e8d9bcc19099814b8c3fe6'
+        '01e82e4c5c9503ca58e366942622839ba1ec5ce0bc2ce3d598f2583eb047805e189f4d2bef696fbb097ee13f7f3a354911fb4e8d000ae05df78f3bdfd0bfe086'
+        '5101e0d1f5c2ea1f53e1783ec6f239abc35e334b86b7574b68f3da53515a07c0fc0312eb4bca0006f85c88a9a9d6e962e6a42e998eca1670c61575d0180a47ab')
 
 prepare() {
-  cd $_name-$pkgver
-  patch -p1 -i ../9311c763.patch # Fix tests with python 3.13
+  patch -Np1 -d $_name-$pkgver -i ../$_name-0.7.3-update_mypy_deps.patch
+  patch -Np1 -d $_name-$pkgver -i ../$_name-0.7.3-disable_mypy_tests.patch
 }
 
 build() {
