@@ -4,18 +4,42 @@
 # Contributor: Lukas Jirkovsky <l.jirkovsky@gmail.com>
 
 pkgname=geeqie
-pkgver=2.5
-pkgrel=2
+pkgver=2.6
+pkgrel=1
 pkgdesc='Lightweight image viewer'
 arch=('x86_64')
 url="http://www.geeqie.org/"
 license=('GPL-2.0-or-later')
 # https://github.com/BestImageViewer/geeqie#optional-libraries
-depends=('exiv2' 'gtk3' 'ffmpegthumbnailer' 'djvulibre' 'libheif' 'libchamplain'
-         'poppler-glib' 'libarchive' 'libraw' 'lua' 'libjxl' 'gspell'
-         'glib2' 'glibc' 'gcc-libs' 'lcms2' 'openjpeg2' 'clutter-gtk' 'clutter'
-         'gdk-pixbuf2' 'libtiff' 'cairo' 'pango' 'libjpeg-turbo' 'libunwind'
-         'sh' 'hicolor-icon-theme')
+depends=('cairo'
+         'ccfits'
+         'clutter'
+         'clutter-gtk'
+         'djvulibre'
+         'exiv2'
+         'ffmpegthumbnailer'
+         'gcc-libs'
+         'gdk-pixbuf2'
+         'glib2'
+         'glibc'
+         'gspell'
+         'gtk3'
+         'hicolor-icon-theme'
+         'lcms2'
+         'libarchive'
+         'libchamplain'
+         'libheif'
+         'libjpeg-turbo'
+         'libjxl'
+         'libraw'
+         'libtiff'
+         'libunwind'
+         'lua'
+         'openexr'
+         'openjpeg2'
+         'pango'
+         'poppler-glib'
+         'sh')
 makedepends=('evince'
              'fbida'
              'gawk'
@@ -45,12 +69,10 @@ optdepends=('librsvg: SVG rendering'
             'libwebp: for WebP image format')
 source=(#"http://www.geeqie.org/${pkgname}-${pkgver}.tar.xz"{,.asc}
         https://github.com/BestImageViewer/geeqie/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz{,.asc}
-        Skip-failing-tests.patch
-        fix_test_with_grep3.12.patch)
-sha256sums=('cc991c9d4c78c58668105a15f7ece953bfc21b6b78cedc26ccbaaee6a12b8952'
+        Skip-failing-tests.patch)
+sha256sums=('f666ae628f07042c47a8021522d5a38600490b08ad1ffdbd64fabff24d51063d'
             'SKIP'
-            'cfb1ddc810006c26a28a2bc1e35116819e8f191644265c5027b5dfce532aaa2e'
-            'fc878f748f7f5b9c78efc4af969640fcde48462d5dff4c9fb3235d3f901e50c3')
+            'cfb1ddc810006c26a28a2bc1e35116819e8f191644265c5027b5dfce532aaa2e')
 validpgpkeys=('91EC400226201276E2ADCEC7D0DA6F44C936D1DA') # "Colin Clark <colin.clark@cclark.uk>"
 
 # main repo: http://www.geeqie.org/cgi-bin/gitweb.cgi?p=geeqie.git
@@ -61,8 +83,6 @@ prepare() {
   # disable "Ancillary files" test
   # https://github.com/BestImageViewer/geeqie/issues/1274
   patch -Np1 -i $srcdir/Skip-failing-tests.patch
-  # https://github.com/BestImageViewer/geeqie/issues/1722 / #2
-  patch -Np1 -i $srcdir/fix_test_with_grep3.12.patch
 }
 
 build() {
