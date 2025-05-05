@@ -2,41 +2,49 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
 pkgname=mission-center
-pkgver=0.6.2
-pkgrel=3
+pkgver=1.0.0
+pkgrel=1
 pkgdesc="Monitor your CPU, Memory, Disk, Network and GPU usage"
 arch=(x86_64)
 url="https://missioncenter.io"
 license=(GPL-3.0-or-later)
 depends=(
+  dmidecode
   gcc-libs
   glib2
   glibc
   gtk4
   libadwaita
   mesa
+  nvtop
+  protobuf
   systemd
 )
 makedepends=(
   blueprint-compiler
   cargo
+  cmake
   git
   meson
 )
 checkdepends=(
   appstream-glib
 )
-source=("git+https://gitlab.com/mission-center-devs/mission-center.git#tag=v${pkgver}")
-sha256sums=('06ab2e9199dbfe74de5925f6009971ff8c1ad655bc8cd8eedb7e6186e5d661f8')
+source=("git+https://gitlab.com/mission-center-devs/mission-center.git#tag=v${pkgver}"
+        "git+https://gitlab.com/mission-center-devs/gng.git")
+sha256sums=('ce872c97588d6f35122e1e18d1359d45597542fb031128e1243a7a2cdfb9b469'
+            'SKIP')
 
 prepare() {
   cd "$pkgname"
+
+  git submodule init
+  git config submodule.subprojects/magpie.url "${srcdir}/gng"
+  git -c protocol.file.allow=always submodule update
+
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 
-  cd src/sys_info_v2/gatherer
-  CARGO_HOME="$srcdir/build/src/sys_info_v2/gatherer/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
