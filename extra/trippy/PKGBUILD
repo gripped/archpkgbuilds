@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=trippy
-pkgver=0.12.2
+pkgver=0.13.0
 pkgrel=1
 pkgdesc='A network diagnostic tool'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('gcc-libs' 'libcap')
 makedepends=('cargo')
 install=$pkgname.install
 source=("$pkgname-$pkgver.tar.gz::https://github.com/fujiapple852/trippy/archive/$pkgver.tar.gz")
-b2sums=('e78ebdceabf4cbeab886742fa2085e05a01744cb46cc236eca81fd105dd74288a12ddf34b2231fdc238efffe1ac23a442b0ed90f1b6e6b5eebfc2e570574d0ca')
+b2sums=('cab7d88b0c1c83139a80ed8b8f6ebfff3f0ee686740e0176d4607bb488ff94e67d8e5fee4a2e3079044d3401cc54be194054e8e603f3fc76dd279ddd8268995b')
 
 prepare() {
   cd $pkgname-$pkgver
