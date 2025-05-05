@@ -1,8 +1,8 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=gettext
-pkgver=0.24
-pkgrel=3
+pkgver=0.24.1
+pkgrel=1
 pkgdesc="GNU internationalization library"
 url="https://www.gnu.org/software/gettext/"
 arch=(x86_64)
@@ -25,12 +25,13 @@ depends=(
 makedepends=(
   emacs
 )
-optdepends=('git: for autopoint infrastructure updates')
+optdepends=('git: for autopoint infrastructure updates'
+            'appstream-glib: for appstream support')
 options=(!docs)
 source=(
   https://ftp.gnu.org/pub/gnu/gettext/$pkgname-$pkgver.tar.gz{,.sig}
 )
-b2sums=('c318b4f39bd2c3e467029df806fe97f084c22d56b5a77b66cfbafdd7b666bd971625669c26aa3e0aa06dcbf4a6823cc12441c05431d83a215027438848d53fc4'
+b2sums=('83e650c42adb205eb7f73a9de909d2dfda1880538c8331ed43510b4ae49da34fbcd7e7eb6d572a57d3bf7d546ce83dc280bc9c72ec06ce5d492dbce482da98a5'
         'SKIP')
 validpgpkeys=('462225C3B46F34879FC8496CD605848ED7E69871'  # Daiki Ueno
               '68D94D8AAEEAD48AE7DC5B904F494A942E4616C2'
