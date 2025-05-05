@@ -1,7 +1,7 @@
 # Maintainer: Peter Jung <ptr1337@cachyos.org>
 
 pkgname=reflection-cpp
-pkgver=0.1.0
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="C++ static reflection support library"
 arch=('any')
@@ -12,7 +12,7 @@ makedepends=(
   cmake
 )
 source=("git+https://github.com/contour-terminal/reflection-cpp.git#tag=v${pkgver}")
-sha256sums=('e4dc76180b5487fb54ef70522bb9cc738894e12c9b4a6576e5dc7e3ca19a389e')
+sha256sums=('d249f9922c958ef8f6fc9755c152d3e536affcfb5bcb0c02c99928e6a10cbb3b')
 
 build() {
   cmake -B build -S reflection-cpp \
