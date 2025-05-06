@@ -7,7 +7,7 @@
 
 pkgname=libguestfs
 pkgver=1.54.1
-pkgrel=5
+pkgrel=6
 pkgdesc="Access and modify virtual machine disk images"
 arch=(x86_64)
 url="https://libguestfs.org/"
@@ -133,7 +133,7 @@ prepare() {
   patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-1.48.1-disable_php_tests.patch
 
   cd $pkgname-$pkgver
-  autoreconf -fiv
+  autoreconf -fiv -I /usr/share/gettext/m4
 }
 
 build() {
