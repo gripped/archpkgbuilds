@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=xorg-twm
-pkgver=1.0.13
+pkgver=1.0.13.1
 pkgrel=1
 pkgdesc="Tab Window Manager for the X Window System"
 arch=(x86_64)
@@ -13,7 +13,7 @@ depends=('libxmu' 'libxext' 'libxt' 'libx11' 'libsm' 'libice' 'glibc')
 makedepends=('xorg-util-macros')
 options=('!emptydirs')
 source=(${url}/releases/individual/app/twm-${pkgver}.tar.xz{,.sig})
-sha512sums=('bab61865b798869d64fdf6e65ac9affee7ae0acf5523e4dc36e5fc65664ed83fb6ba8f1f7f495c29340e9e3dd00a386a81dcccfa11fc7adf3edda505db2f52b9'
+sha512sums=('6976e62c322d4d7e15501a290b65a771101a23f3ff7733b039215b583f12da9db22048947a4851a88f08c74b72c310891e721291487e63972da23819f8ae9656'
             'SKIP')
 # validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
 #validpgpkeys+=('3BB639E56F861FA2E86505690FDD682D974CA72A') # "Matt Turner <mattst88@gmail.com>"
