@@ -8,7 +8,7 @@ pkgname=("${pkgbase}" "${pkgbase}-sycl")
 _pkgver=2025.0
 _debpkgrel=14
 pkgver=2025.0.1
-pkgrel=2
+pkgrel=3
 _pkgdesc="Intel oneAPI Math Kernel Library"
 arch=('x86_64')
 url='https://software.intel.com/content/www/us/en/develop/tools/oneapi.html'
@@ -106,7 +106,7 @@ package_intel-oneapi-mkl() {
 
 package_intel-oneapi-mkl-sycl() {
     pkgdesc="$_pkgdesc (GPU offloading)"
-    depends=('intel-oneapi-mkl-libs' 'intel-oneapi-compiler-dpcpp-cpp-runtime-libs'
+    depends=('intel-oneapi-mkl' 'intel-oneapi-compiler-dpcpp-cpp-runtime-libs'
              'intel-oneapi-common' 'intel-oneapi-compiler-shared-runtime-libs'
              'glibc' 'gcc-libs' 'bash')
     conflicts=('intel-oneapi-basekit')
