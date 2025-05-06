@@ -1,15 +1,18 @@
 pkgbase = opencsg
-	pkgdesc = Library for image-based CSG rendering using OpenGL.
-	pkgver = 1.6.0
+	pkgdesc = Library for image-based CSG rendering using OpenGL
+	pkgver = 1.8.1
 	pkgrel = 1
 	url = https://www.opencsg.org
 	arch = x86_64
-	license = GPL2
-	makedepends = qt5-base
-	depends = glew
-	depends = glut
-	depends = libgl
-	source = https://www.opencsg.org/OpenCSG-1.6.0.tar.gz
-	sha256sums = bf8fb80e3e0ce11d87dd78dd15a0de872dbb8972d87f5f89cffc461efad47be8
+	license = GPL-2.0-or-later
+	makedepends = git
+	makedepends = cmake
+	makedepends = ninja
+	makedepends = glu
+	depends = glibc
+	depends = gcc-libs
+	source = opencsg::git+https://github.com/floriankirsch/OpenCSG#tag=opencsg-1-8-1-release
+	sha512sums = 21df4710db2c634cff095038e3902880a7b487540d518002916971a3e6cb41c14ee6fa764bca45231d76d6708183d8ca7a5778a531f3c5f721799e54f9b533aa
+	b2sums = 06770b5eeb7706b3ed623441a71992ca67ce1c6d7f5da4fb2468cdc40375061d881680af2488a52b60bce111af055585bf14cef8f86734fc17615239f6dfd723
 
 pkgname = opencsg
