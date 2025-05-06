@@ -6,7 +6,7 @@
 
 pkgname=picom
 pkgver=12.5
-pkgrel=1
+pkgrel=2
 pkgdesc='Lightweight compositor for X11'
 url='https://picom.app'
 arch=(x86_64)
