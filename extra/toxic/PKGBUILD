@@ -4,7 +4,7 @@
 
 pkgname=toxic
 pkgver=0.16.0
-pkgrel=1
+pkgrel=2
 pkgdesc='CLI Tox client'
 arch=('x86_64')
 url='https://github.com/JFreegman/toxic'
