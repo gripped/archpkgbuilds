@@ -2,7 +2,7 @@
 # Contributor:  Vitalii Kuzhdin <vitaliikuzhdin@gmail.com>
 
 pkgname=cyme
-pkgver=2.2.0
+pkgver=2.2.1
 pkgrel=1
 pkgdesc="List system USB buses and devices; a lib and modern cross-platform lsusb"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('gcc-libs' 'libusb')
 makedepends=('cargo')
 _pkgsrc="${pkgname}-${pkgver}"
 source=("${_pkgsrc}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('14bf4adfbc3a50b69d3685dcac87f18c7ace22719e8a797eb96fb12ab8b06e55')
+sha256sums=('c02856a2e360d2ccb05137352a2aad3805a35d32571839d4fb232a2d40c630f8')
 
 prepare() {
   cd "${srcdir}/${_pkgsrc}"
