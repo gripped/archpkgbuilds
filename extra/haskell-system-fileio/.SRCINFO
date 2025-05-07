@@ -1,7 +1,7 @@
 pkgbase = haskell-system-fileio
 	pkgdesc = Consistent filesystem interaction across GHC versions
 	pkgver = 0.3.16.6
-	pkgrel = 16
+	pkgrel = 17
 	url = https://github.com/fpco/haskell-filesystem
 	arch = x86_64
 	license = MIT
@@ -11,6 +11,8 @@ pkgbase = haskell-system-fileio
 	depends = ghc-libs
 	depends = haskell-system-filepath
 	source = https://hackage.haskell.org/packages/archive/system-fileio/0.3.16.6/system-fileio-0.3.16.6.tar.gz
+	source = haskell-system-fileio-c23.patch::https://github.com/fpco/haskell-filesystem/commit/3c5b3dee1810ad25ce7e0c7a52bc4552b7cd9d98.patch
 	sha512sums = 7eac27ded5634eaa396999b458d4e4230ddac694bb5ae276a22e3e8acef8028ed547c789e67504f76a649b0dd6baa3c6c010f0e76278de7571bc38a7a403adcf
+	sha512sums = 5201d838a885107d178cce6feabd9d86a3e809787e860afde6b6a01fea3e471fab151f2c160a3f697fd11faeb550a9beecf574056b52214273d3b552907f031c
 
 pkgname = haskell-system-fileio
