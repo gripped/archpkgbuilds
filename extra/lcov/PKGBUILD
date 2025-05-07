@@ -3,7 +3,7 @@
 # Contributor: Andre Klitzing <aklitzing@gmail.com>
 
 pkgname=lcov
-pkgver=2.3
+pkgver=2.3.1
 pkgrel=1
 pkgdesc='front-end for GCC’s coverage testing tool gcov'
 arch=(any)
@@ -22,7 +22,7 @@ optdepends=('perl-gd: render frames in html output'
 backup=(etc/lcovrc)
 _archive="$pkgname-$pkgver"
 source=("$url/releases/download/v$pkgver/$_archive.tar.gz")
-sha256sums=('9d2b1154e347bd1782f99e5bc022fa25e813262d76278daa5f9a6e657fff62ec')
+sha256sums=('b3017679472d5fcca727254493d0eb44253c564c2c8384f86965ba9c90116704')
 
 package () {
     cd "$_archive"
