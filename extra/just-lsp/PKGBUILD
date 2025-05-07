@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=just-lsp
-pkgver=0.2.0
+pkgver=0.2.1
 pkgrel=1
 pkgdesc="A language server for just"
 arch=(x86_64)
@@ -14,8 +14,8 @@ depends=(
 makedepends=(rust)
 options=(!lto)  # LTO does not work as the sources include C-code from tree-sitter
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('205ab23bf93bad6eea098ae2c3e04c2ca5fd33bde9c98700d1d7336103c1abb08ad54965a7b916c8e695c46b1e278f1e6817903c3b59163de900c1bec41dd505')
-b2sums=('be7aa691f2a0bf9c8b4eeabb39c9ac03d18638371fa2da1fffa11eb90c083bd55ffa392057a5d3ed6f323aa6155a85a43b3261c262085c5c1f0d8b29dd4bb783')
+sha512sums=('78a59e6fe673a15d60138f9e1691e1a1680f151e57fa736dd6e50f709b4aa043aa91eb2a350558d59489489ea0a12377fbf694646b90830b844ca1f4a39c3da6')
+b2sums=('af4dbc44846a8d2c8cfe583a96209fee98ee41ffbc06296f3f8e68baedf9357a9403d9e7e8522ffc4a7fd9378024d50e66729a9e95b03e45f7b0c5399d76cae7')
 
 prepare() {
   cd $pkgname-$pkgver
