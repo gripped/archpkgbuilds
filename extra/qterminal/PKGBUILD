@@ -2,7 +2,7 @@
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=qterminal
-pkgver=2.2.0
+pkgver=2.2.1
 pkgrel=1
 pkgdesc="A lightweight Qt-based terminal emulator"
 arch=("x86_64")
@@ -15,7 +15,7 @@ makedepends=("git" "cmake" "lxqt-build-tools")
 source=(
   "git+https://github.com/lxqt/qterminal.git?signed#tag=$pkgver"
 )
-sha256sums=('55f1b8d17b8e12ce7ad432491451b93b3f4e87747f96c0f76da620a77f2a0b1f')
+sha256sums=('557f260fff85dd277ef340199f6db262bbe1af8e81c7d385ca056e76e71aea1b')
 validpgpkeys=(
   "19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # https://github.com/tsujan.gpg
 )
