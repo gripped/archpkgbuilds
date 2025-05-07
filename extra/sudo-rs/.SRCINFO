@@ -1,18 +1,20 @@
 pkgbase = sudo-rs
-	pkgdesc = A memory safe implementation of sudo and su.
+	pkgdesc = A memory-safe implementation of sudo and su
 	pkgver = 0.2.6
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/trifectatechfoundation/sudo-rs
 	arch = x86_64
 	license = Apache-2.0 AND MIT
 	checkdepends = procps-ng
 	makedepends = cargo
+	makedepends = git
 	makedepends = pandoc
 	depends = gcc-libs
 	depends = glibc
 	depends = pam
 	optdepends = sudo: default configuration files
-	source = sudo-rs-0.2.6.tar.gz::https://github.com/trifectatechfoundation/sudo-rs/archive/refs/tags/v0.2.6.tar.gz
-	sha256sums = 6d993a16882656a15d640ce95a1c7fd2807cf0f63bf13207781c1796279eb311
+	source = git+https://github.com/trifectatechfoundation/sudo-rs.git#tag=v0.2.6?signed
+	validpgpkeys = C2E4CAC4B12225DE1C3BB1C9289D082003D01E95
+	sha256sums = 2a985614e551a99ae62aee4cc2ac4c8d2615f8ab101eb5335a596a786eeacf30
 
 pkgname = sudo-rs

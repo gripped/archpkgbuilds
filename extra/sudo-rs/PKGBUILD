@@ -1,8 +1,10 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
+# Maintainer: T.J. Townsend <blakkheim@archlinux.org>
+
 pkgname=sudo-rs
 pkgver=0.2.6
-pkgrel=1
-pkgdesc="A memory safe implementation of sudo and su."
+pkgrel=2
+pkgdesc="A memory-safe implementation of sudo and su"
 arch=('x86_64')
 url="https://github.com/trifectatechfoundation/sudo-rs"
 license=('Apache-2.0 AND MIT')
@@ -13,6 +15,7 @@ depends=(
 )
 makedepends=(
   cargo
+  git
   pandoc
 )
 checkdepends=(
@@ -22,20 +25,19 @@ checkdepends=(
 optdepends=(
   "sudo: default configuration files"
 )
-source=(
-  "${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz"
-)
-sha256sums=('6d993a16882656a15d640ce95a1c7fd2807cf0f63bf13207781c1796279eb311')
+source=(git+https://github.com/trifectatechfoundation/sudo-rs.git#tag=v${pkgver}?signed)
+sha256sums=('2a985614e551a99ae62aee4cc2ac4c8d2615f8ab101eb5335a596a786eeacf30')
+validpgpkeys=(C2E4CAC4B12225DE1C3BB1C9289D082003D01E95) # Marc Schoolderman
 
 prepare() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
   local man_file out_dir target_file section
 
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
   cargo build --release --frozen
 
   # upstream uses a docker container to build man pages, this is roughly what
@@ -55,17 +57,14 @@ build() {
 }
 
 check() {
-  cd "$pkgname-$pkgver"
-  # https://github.com/trifectatechfoundation/sudo-rs/issues/708
-  cargo test --frozen -- --exact \
-    --skip system::interface::test::test_unix_group \
-    --skip system::interface::test::test_unix_user
+  cd "$pkgname"
+  cargo test --frozen
 }
 
 package() {
   local section
 
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
 
   install -vDm4755 target/release/sudo "$pkgdir/usr/bin/sudo-rs"
   install -vDm4755 target/release/su "$pkgdir/usr/bin/su-rs"
