@@ -5,7 +5,7 @@
 
 pkgname=gimp
 pkgver=3.0.2
-pkgrel=2
+pkgrel=3
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
 arch=('x86_64')
@@ -100,6 +100,9 @@ prepare() {
   git submodule init
   git config submodule.gimp-data.url "$srcdir/gimp-data"
   git -c protocol.file.allow=always submodule update
+
+  # Fix FTBS with GCC 15 https://gitlab.archlinux.org/archlinux/packaging/packages/gimp/-/issues/10
+  git cherry-pick -n 85bdad2b2ca7ba36a01bef945b1c4b193a2fa9d0
 }
 
 build() {
