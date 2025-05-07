@@ -2,15 +2,14 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=frescobaldi
-pkgver=4.0.1
-pkgrel=1
+pkgver=4.0.2
+pkgrel=4
 pkgdesc="A LilyPond sheet music text editor"
 arch=(any)
 url="https://www.frescobaldi.org/"
 _url="https://github.com/frescobaldi/frescobaldi"
 license=(GPL-2.0-only)
-depends=(poppler
-         python
+depends=(python
          python-ly
          python-pygame
          python-pyqt6
@@ -20,7 +19,7 @@ depends=(poppler
          qt6-base
          qt6-svg)
 makedepends=(python-{build,installer,wheel}
-             python-setuptools)
+             python-hatchling)
 optdepends=('lilypond: music engraving'
             'python-pygame: MIDI input and playback'
             'python-pycups: printing to a CUPS server'
@@ -32,8 +31,8 @@ optdepends=('lilypond: music engraving'
             'hyphen-it: hyphenation patterns for Italian'
             'hyphen-nl: hyphenation patterns for Dutch')
 _archive="$pkgname-$pkgver"
-source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('0272b4f87709d78810b1d02e147ee48284283475d527f20d8254b1a642f86aa7')
+source=("$_url/releases/download/v$pkgver/$_archive.tar.gz")
+sha256sums=('3533f5fc610f509ecac38f22c5a301057360239406839a84a553ccefbc68abf9')
 
 prepare() {
 	cd "$_archive"
@@ -50,4 +49,6 @@ build() {
 package() {
 	cd "$_archive"
 	python -m installer -d "$pkgdir" dist/*.whl
+	install -Dm644 -t "$pkgdir/usr/share/applications/" linux/org.frescobaldi.Frescobaldi.desktop
+	install -Dm644 -t "$pkgdir/usr/share/metainfo/" linux/org.frescobaldi.Frescobaldi.metainfo.xml
 }
