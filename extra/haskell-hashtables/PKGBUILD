@@ -4,7 +4,7 @@
 _hkgname=hashtables
 pkgname=haskell-hashtables
 pkgver=1.3.1
-pkgrel=64
+pkgrel=65
 pkgdesc="Mutable hash tables in the ST monad"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD')
@@ -13,8 +13,15 @@ depends=('ghc-libs' 'sh' 'haskell-hashable' 'haskell-primitive' 'haskell-vector'
 makedepends=('ghc' 'haskell-mwc-random' 'haskell-quickcheck' 'haskell-hunit'
              'haskell-test-framework' 'haskell-test-framework-quickcheck2'
              'haskell-test-framework-hunit')
-source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('b6430e092cfa9cde3dbea34cd9e2a10869c41e40e88f79e28aa6aabfdcd359dd74fb87020f8b9e004b817a6e9a8825335fcc91c2b88f7eb93b25758c71c77833')
+source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz"
+        $pkgname-c23.patch::https://github.com/gregorycollins/hashtables/commit/41ae2d28b0948e740bbb064a07097750727c64a8.patch)
+sha512sums=('b6430e092cfa9cde3dbea34cd9e2a10869c41e40e88f79e28aa6aabfdcd359dd74fb87020f8b9e004b817a6e9a8825335fcc91c2b88f7eb93b25758c71c77833'
+            '4dd240b67711e368aaefc54f57433ef5aebe60ed5e8593c57672079622adaf2dda8d6b00e87c7a5f20585ab0e9bf6d071e416ac339d2939a1abae9f408ca7b4d')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    patch -p1 < ../$pkgname-c23.patch
+}
 
 build() {
     cd $_hkgname-$pkgver
