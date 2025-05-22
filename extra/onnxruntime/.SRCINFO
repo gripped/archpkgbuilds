@@ -1,6 +1,6 @@
 pkgbase = onnxruntime
-	pkgver = 1.20.2
-	pkgrel = 9
+	pkgver = 1.22.0
+	pkgrel = 1
 	url = https://github.com/microsoft/onnxruntime
 	arch = x86_64
 	license = MIT
@@ -40,13 +40,11 @@ pkgbase = onnxruntime
 	depends = onednn
 	depends = intel-oneapi-mkl
 	optdepends = openmpi: Distributed memory parallelization
-	source = git+https://github.com/microsoft/onnxruntime#tag=v1.20.2
-	source = https://github.com/microsoft/onnxruntime/commit/704523c2d8a142f723a5cc242c62f5b20afa4944.patch
+	source = git+https://github.com/microsoft/onnxruntime#tag=v1.22.0
 	source = onnxruntime-install-orttraining-files.patch
 	source = onnxruntime-system-dnnl.patch
 	source = onnxruntime-system-flatbuffers.patch
-	b2sums = 3b99c04c8d78c882b824da05d76167a7a9f0a08d64d7ba26f66562ad0ab3264a2c74d617dc8972016b5302304f2234e45b59f4574b567f1685f11d546f9ec7bd
-	b2sums = 543842b2713b854a17bf27d9627331a4902555418eb83bdcc77eaa3af88c2d4ebb642fd49f6347cdc906a189afba450f4a09ab85161ea42bce28f27b50502980
+	b2sums = 45331976d1bead8668099e84c076aa63386f929146f826326aefee8473330f3d1fbf56e0ae49fc7d82b673748181ce692327c734d0f192eccf833eaa794e0cf4
 	b2sums = af5a5524dd9b5fe0052d2d0da232de7f219d4abffb37a7a321145b428d06fcb2901ab4e76b6754440146c223fc761bcbdfeee230167d33aa4434b82a1ebad5c0
 	b2sums = 57c79382537f5bd25a891de3a99415a6dd8f490676df213016e897040c88e28fb5f5a5c3a8a98057e3f6630edb3ddcaeae36dcc47d5354abaafafc36e579f731
 	b2sums = 207f020f310a7b447b4dc2fac74819f80099f088fdad6e42d67d0f01aa35bb5b9475bd006d9bec318127ae2db3d7ae3df33382fa16339d936c1dfb3832010837
@@ -64,7 +62,7 @@ pkgname = onnxruntime-opt
 	optdepends = cuda: nVidia GPU acceleration
 	optdepends = cudnn: nVidia GPU acceleration
 	optdepends = nccl: nVidia GPU acceleration
-	provides = onnxruntime=1.20.2
+	provides = onnxruntime=1.22.0
 	conflicts = onnxruntime
 
 pkgname = onnxruntime-rocm
@@ -77,7 +75,7 @@ pkgname = onnxruntime-rocm
 	depends = rocm-hip-sdk
 	depends = roctracer
 	depends = rccl
-	provides = onnxruntime=1.20.2
+	provides = onnxruntime=1.22.0
 	conflicts = onnxruntime
 
 pkgname = onnxruntime-opt-rocm
@@ -90,7 +88,7 @@ pkgname = onnxruntime-opt-rocm
 	depends = rocm-hip-sdk
 	depends = roctracer
 	depends = rccl
-	provides = onnxruntime=1.20.2
+	provides = onnxruntime=1.22.0
 	conflicts = onnxruntime
 
 pkgname = python-onnxruntime
@@ -138,7 +136,7 @@ pkgname = python-onnxruntime-opt
 	optdepends = cuda: nVidia GPU acceleration
 	optdepends = cudnn: nVidia GPU acceleration
 	optdepends = nccl: nVidia GPU acceleration
-	provides = python-onnxruntime=1.20.2
+	provides = python-onnxruntime=1.22.0
 	conflicts = python-onnxruntime
 
 pkgname = python-onnxruntime-rocm
@@ -159,7 +157,7 @@ pkgname = python-onnxruntime-rocm
 	depends = python-flatbuffers
 	depends = python-protobuf
 	depends = python-packaging
-	provides = python-onnxruntime=1.20.2
+	provides = python-onnxruntime=1.22.0
 	conflicts = python-onnxruntime
 
 pkgname = python-onnxruntime-opt-rocm
@@ -180,5 +178,5 @@ pkgname = python-onnxruntime-opt-rocm
 	depends = python-flatbuffers
 	depends = python-protobuf
 	depends = python-packaging
-	provides = python-onnxruntime=1.20.2
+	provides = python-onnxruntime=1.22.0
 	conflicts = python-onnxruntime
