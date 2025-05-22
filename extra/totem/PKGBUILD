@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=totem
-pkgver=43.1+r37+gea6718427
+pkgver=43.2
 pkgrel=1
 pkgdesc="Movie player for the GNOME desktop based on GStreamer"
 url="https://apps.gnome.org/Totem/"
@@ -59,24 +59,20 @@ provides=(libtotem.so)
 conflicts=(totem-plugin)
 replaces=(totem-plugin)
 groups=(gnome)
-_commit=ea6718427d9e22f7bde432f4d4b4c2dce17234d7  # gnome-43
 source=(
-  "git+https://gitlab.gnome.org/GNOME/totem.git#commit=$_commit"
-  #"git+https://gitlab.gnome.org/GNOME/totem.git#tag=${pkgver/[a-z]/.&}"
+  "git+https://gitlab.gnome.org/GNOME/totem.git?signed#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/GNOME/libgd.git"
 )
-b2sums=('57b81f7dd5242bab5cdd6dabb5184791b126d47eb844da41e38f9eb0ea1856e854b1ec6bf0ebb5950a966b7018db682e8d1c555d753d150666066ad86c33b036'
+b2sums=('c9c3fce36c82b3cc529443b68b37a457d6f07dddb8827042c8e2c3418166f119e8d04be5af895ce71da3a32fd697a6b82a6090a4e7b5220015eeda751d56acdc'
         'SKIP')
-
-pkgver() {
-  cd totem
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+validpgpkeys=(
+  90B845BA6595B902DDC9D4A62541290C393E86DF # Bastien Nocera <hadess@hadess.net>
+)
 
 prepare() {
   cd totem
 
-  git submodule init subprojects/libgd  # Skip flatpak/shared-modules
+  git submodule init subprojects/libgd # Skip flatpak/shared-modules
   git submodule set-url subprojects/libgd "$srcdir/libgd"
   git -c protocol.file.allow=always -c protocol.allow=never submodule update
 }
