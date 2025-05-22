@@ -3,7 +3,7 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=gajim
-pkgver=2.1.1
+pkgver=2.2.0
 pkgrel=1
 pkgdesc="Full featured and easy to use XMPP (Jabber) client"
 url="https://gajim.org/"
@@ -32,8 +32,8 @@ optdepends=('python-dbus: to have gajim-remote working'
             'emoji-font: for emojis support'
             'webp-pixbuf-loader: for WebP images support')
 source=("https://dev.gajim.org/gajim/gajim/-/archive/${pkgver}/gajim-${pkgver}.tar.gz")
-sha512sums=('f317fe826acf01db8eec510158d7d1c27a4c1752e939d09b282498659aa5997a4e4d1983109c0446cbe4b87960d4c54e982ff807abaaeaeaf096ca89e807a39b')
-b2sums=('63f4cd4a0c4b776070e39331cfdab6bacc529c69cb799abc418e13eae47735e293d276e0050ea458dc3d0e06aba24fbb6e4b116432cd764f8af76d6f1109b98a')
+sha512sums=('0613053171d0fc4e00a8497f7331363f34e71530c45b635f9b82f8606f8be9641d004f4599312fe5f88795d2f0c934d0f8a192e008351883a715ba7d5c45810c')
+b2sums=('38af487f17865003f923d740b8fc421eab1f8b7dcf01e7db1c7a1770e6e3b34a4d6bd6c3e4c1d3c434c5297035ee942fe68df57416f0a855dda5d58129c780de')
 
 
 build() {
