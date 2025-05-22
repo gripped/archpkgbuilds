@@ -3,7 +3,7 @@
 
 pkgname=pop-sound-theme
 pkgver=5.5.1.r7.g25ea85d
-pkgrel=1
+pkgrel=2
 pkgdesc="System76 Pop sound theme"
 arch=('any')
 url="https://github.com/pop-os/gtk-theme"
@@ -13,6 +13,7 @@ makedepends=(
   setconf
 )
 _commit=25ea85d97126992024b03bfb4e4c3b0711c749ed
+conflicts=('pop-gtk-theme')
 source=("git+https://github.com/pop-os/gtk-theme.git#commit=${_commit}")
 sha256sums=('43e2044d5c51413e1038068f1a178c6412db1841d52aa304978790782b1b9bbc')
 
