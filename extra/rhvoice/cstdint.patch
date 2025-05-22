@@ -1,0 +1,36 @@
+diff --git c/src/audio/file_playback_stream_impl.cpp i/src/audio/file_playback_stream_impl.cpp
+index d4300672..fb40cb11 100644
+--- c/src/audio/file_playback_stream_impl.cpp
++++ i/src/audio/file_playback_stream_impl.cpp
+@@ -15,6 +15,7 @@
+ 
+ #include <iostream>
+ #include <stdint.h>
++#include <cstdint>
+ #include "core/io.hpp"
+ #include "file_playback_stream_impl.hpp"
+ 
+diff --git c/src/audio/playback_stream_impl.hpp i/src/audio/playback_stream_impl.hpp
+index 37c4de3b..7d420142 100644
+--- c/src/audio/playback_stream_impl.hpp
++++ i/src/audio/playback_stream_impl.hpp
+@@ -16,6 +16,7 @@
+ #ifndef RHVOICE_AUDIO_PLAYBACK_STREAM_IMPL_HPP
+ #define RHVOICE_AUDIO_PLAYBACK_STREAM_IMPL_HPP
+ 
++#include <cstdint>
+ #include "audio.hpp"
+ 
+ namespace RHVoice
+diff --git c/src/audio/portaudio.cpp i/src/audio/portaudio.cpp
+index ada7222e..cf568e25 100644
+--- c/src/audio/portaudio.cpp
++++ i/src/audio/portaudio.cpp
+@@ -14,6 +14,7 @@
+ /* along with this program.  If not, see <https://www.gnu.org/licenses/>. */
+ 
+ #include <portaudio.h>
++#include <cstdint>
+ #include "portaudio.hpp"
+ #include "playback_stream_impl.hpp"
+ 

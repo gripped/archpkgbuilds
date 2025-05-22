@@ -1,0 +1,84 @@
+---
+ SConstruct                 |    7 +++++--
+ src/core/SConscript        |    9 +--------
+ src/third-party/SConscript |    2 --
+ 3 files changed, 6 insertions(+), 12 deletions(-)
+
+--- a/src/third-party/SConscript
++++ b/src/third-party/SConscript
+@@ -19,8 +19,6 @@ import os.path
+ Import("env")
+ 
+ subdirs=[]
+-if env["enable_sonic"]:
+-	subdirs.append("sonic")
+ for subdir in subdirs:
+ 	SConscript(os.path.join(subdir,"SConscript"),
+ 			   exports={"env":env})
+--- a/SConstruct
++++ b/SConstruct
+@@ -26,7 +26,7 @@ if sys.platform=="win32":
+     else:
+         import _winreg as winreg
+ 
+-boost_includedir=Dir("#external").Dir("libs").Dir("boost").Dir("include")
++boost_includedir=Dir("usr").Dir("include").Dir("boost")
+ 
+ def get_version(is_release):
+     next_version="1.14.0"
+@@ -307,6 +307,10 @@ def configure(env):
+     has_giomm=conf.CheckPKG("giomm-2.4")
+     if env["PLATFORM"]=="win32":
+         env.AppendUnique(LIBS="kernel32")
++    conf.CheckLibWithHeader("sonic","sonic.h","C",call='sonicCreateStream(0, 0);',autoadd=0)
++    env.PrependUnique(LIBS="sonic")
++    #conf.CheckLibWithHeader("HTSEngine","HTS_engine.h","C",call='HTS_Engine_initialize(NULL);',autoadd=0)
++    #env.PrependUnique(LIBS="HTSEngine")
+     conf.Finish()
+     env.Prepend(LIBPATH=os.path.join("#"+env["BUILDDIR"],"core"))
+     src_subdirs=["third-party", "pkg", "hts_engine", "core", "lib"]
+@@ -383,7 +387,6 @@ vars=create_user_vars()
+ base_env=create_base_env(vars)
+ display_help(base_env,vars)
+ vars.Save(var_cache,base_env)
+-SConscript(dirs=boost_includedir)
+ if sys.platform=="win32":
+     build_for_windows(base_env,vars)
+ else:
+--- a/src/core/SConscript
++++ b/src/core/SConscript
+@@ -24,16 +24,12 @@
+ except NameError:
+ 	basestring = str
+ 
+-Import("env", "libhts_engine", "boost_headers")
+-if env["enable_sonic"]:
+-	Import("libsonic")
++Import("env", "libhts_engine")
+ if env["enable_pkg"]:
+ 	Import("libpkg")
+ extern_libs_dir=Dir("#external").Dir("libs")
+ local_env=env.Clone()
+ local_env.Prepend(CPPPATH=os.path.join("#src", "hts_engine"))
+-if env["enable_sonic"]:
+-		local_env.Append(CPPPATH=[extern_libs_dir.Dir("sonic")])
+ local_env["libversion"]="10.1.0"
+ local_env["liblevel"]=1
+ 
+@@ -117,8 +113,6 @@ src=["unicode.cpp",
+ 	 "english_id.cpp"]
+ for lib in [libhts_engine]:
+ 	src.extend(lib)
+-if local_env["enable_sonic"]:
+-	src.extend(libsonic)
+ 
+ if local_env["enable_pkg"]:
+ 	src.extend(libpkg)
+@@ -128,7 +122,6 @@ if sys.platform.startswith("linux"):
+     local_env.Append(LIBS=["rt"])
+ 
+ libcore=local_env.BuildLibrary(local_env["libcore"],src)
+-local_env.Depends(src, boost_headers)
+ if env["PLATFORM"]!="win32":
+ 	local_env.InstallLibrary(libcore)
+ Export("libcore")
