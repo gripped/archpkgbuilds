@@ -4,7 +4,7 @@ _pkgname=ginkgo
 pkgbase=ginkgo-hpc
 pkgname=(ginkgo-hpc ginkgo-hpc-docs ginkgo-hpc-cuda ginkgo-hpc-hip)
 pkgver=1.9.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Numerical linear algebra software package"
 arch=(x86_64)
 url=https://ginkgo-project.github.io/
@@ -83,7 +83,7 @@ build() {
 
   # -cuda package
   # Compile source code for supported GPU archs in parallel
-  export CUDAFLAGS="--threads $(nproc)"
+  export CUDAFLAGS="--threads 8"
   cmake -B build-cuda "${common_cmake_options[@]}" \
     -DCMAKE_CUDA_ARCHITECTURES="$cuda_archs" \
     -DGINKGO_BUILD_CUDA=ON \
