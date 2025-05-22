@@ -1,7 +1,7 @@
 pkgbase = scx-scheds
 	pkgdesc = sched_ext schedulers and tools
-	pkgver = 1.0.11
-	pkgrel = 1
+	pkgver = 1.0.12
+	pkgrel = 2
 	url = https://github.com/sched-ext/scx
 	arch = x86_64
 	license = GPL-2.0-only
@@ -17,12 +17,14 @@ pkgbase = scx-scheds
 	depends = gcc-libs
 	depends = glibc
 	depends = jq
+	depends = libseccomp
 	depends = libbpf
 	depends = libelf
+	depends = protobuf
 	depends = zlib
 	options = !lto
 	backup = etc/default/scx
-	source = git+https://github.com/sched-ext/scx#tag=v1.0.11
-	sha256sums = 3111fe5c616cfd72d4eeeceec3dd1e3ce985b22d7ea780224f5ee448b9ae6322
+	source = git+https://github.com/sched-ext/scx#tag=v1.0.12
+	sha256sums = dbf54d82cc1b2130d13f283888e9f4d473dd33d052b5e1d3af763e5711fe0c23
 
 pkgname = scx-scheds
