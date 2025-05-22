@@ -9,8 +9,8 @@
 # Contributor: SanskritFritz (gmail)
 
 pkgname=rofi
-pkgver=1.7.8
-pkgrel=2
+pkgver=1.7.9.1
+pkgrel=1
 pkgdesc="A window switcher, application launcher and dmenu replacement"
 url="https://davatorium.github.io/rofi"
 arch=('x86_64')
@@ -22,18 +22,13 @@ source=("git+https://github.com/davatorium/rofi.git#tag=${pkgver}"
         'git+https://github.com/sardemff7/libgwater.git'
         'git+https://github.com/sardemff7/libnkutils.git'
         'fix_xfce4-terminal_binary_name.patch')
-sha256sums=('8684b59ebc0046823ef89f1ef3636aa3fbd7e1c10e202433ca483cb2032bf947'
+sha256sums=('068f0644da4c9a786ddc318733560c73239db6660d5c0df25f371a12e9ba5ebe'
             'SKIP'
             'SKIP'
-            'aa6c7bc39e4eb936e47a600beeadf0e11ff62bc5ce6e6d954b56439ec9a44543')
+            '2e49b4b5785cc6245c9eb9d8036b166b217051826609350d67fa2deeb5728564')
 
 prepare() {
 	cd "${pkgname}"
-
-	# Backported patch to fix "Alt" keybinding with libxkbcommon >= 1.8.0
-	# See https://github.com/davatorium/rofi/issues/2095
-	# and https://github.com/davatorium/rofi/commit/f2f22e7edc635f7e4022afcf81a411776268c1c3
-	git cherry-pick -n f2f22e7edc635f7e4022afcf81a411776268c1c3
 
 	git submodule init
 	git config submodule.subprojects/libgwater.url "${srcdir}/libgwater"
