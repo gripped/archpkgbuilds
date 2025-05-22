@@ -5,7 +5,7 @@
 
 pkgname=iotop-c
 _pkgname=iotop
-pkgver=1.28
+pkgver=1.29
 pkgrel=1
 pkgdesc="A top utility for IO"
 url="https://github.com/Tomas-M/iotop"
@@ -17,7 +17,7 @@ conflicts=('iotop')
 provides=('iotop')
 source=("git+${url}.git#tag=v${pkgver}?signed")
 validpgpkeys=('BA60BC20F37E59444D6D25001365720913D2F22D')
-sha256sums=('56340728bb4930dda41893b5e3641c2a43bcadfbcdbdc7d17333e2f49b2b8aa0')
+sha256sums=('a6d10560fdae188f29ab7ac81741f72746a5145cb04ed3eb9342e8b2c453cf35')
 
 build() {
 	cd "${_pkgname}"
