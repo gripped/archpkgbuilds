@@ -2,7 +2,7 @@
 
 pkgname=linbox
 pkgver=1.7.0
-pkgrel=3
+pkgrel=4
 pkgdesc='A template library for exact, high-performance linear algebra computation with dense, sparse, and structured matrices over the integers and over finite fields'
 arch=(x86_64)
 url='https://linalg.org/'
@@ -27,6 +27,8 @@ prepare() {
   git cherry-pick -n 79acfcbbd0411b79b94ca1f61fc582bab748316d \
                      b8f2d4ccdc0af4418d14f72caf6c4d01969092a3
   git cherry-pick -n 4a1e1395804d4630ec556c61ba3f2cb67e140248 # GCC 15 fix
+  git show c499d69283888965f24a8921ac246291743c2b5b \
+  -- linbox/blackbox/block-hankel.h | git apply -v # GCC 15 fix
   ./autogen.sh
 }
 
