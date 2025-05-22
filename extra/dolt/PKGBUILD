@@ -4,7 +4,7 @@
 
 pkgname=dolt
 epoch=1
-pkgver=1.53.0
+pkgver=1.53.6
 pkgrel=1
 pkgdesc='Git for data! A version controlled relational database'
 arch=(x86_64)
@@ -15,7 +15,7 @@ depends=(glibc)
 makedepends=(go)
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('1e4fa8fbe7ef443346e47ea843afa2e6e4698cd8e5f8f73f276ea606932b6bea')
+sha256sums=('4d36678ad7e38012498f67a4cedd689adaac3fc9b259f0c594e3ed47eaf7cb77')
 
 prepare() {
 	cd "$_archive"/go
