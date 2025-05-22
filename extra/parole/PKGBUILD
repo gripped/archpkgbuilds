@@ -4,7 +4,7 @@
 # Contributor: TDY <tdy@gmx.com>
 
 pkgname=parole
-pkgver=4.18.2
+pkgver=4.20.0
 pkgrel=1
 pkgdesc="Modern media player based on the GStreamer framework"
 arch=('x86_64')
@@ -12,29 +12,20 @@ url="https://docs.xfce.org/apps/parole/start"
 license=('GPL-2.0-or-later')
 groups=('xfce4-goodies')
 depends=('dbus-glib' 'gst-plugins-base' 'gst-plugins-good' 'libnotify' 'libxfce4ui')
-makedepends=('git' 'glib2-devel' 'python' 'xfce4-dev-tools')
+makedepends=('git' 'meson' 'glib2-devel' 'python' 'xfce4-dev-tools')
 optdepends=('gst-libav: Extra media codecs'
 	    'gst-plugins-bad: Extra media codecs'
 	    'gst-plugins-ugly: Extra media codecs')
 source=("git+https://gitlab.xfce.org/apps/parole.git#tag=$pkgname-$pkgver")
-sha256sums=('c639f4c33bbd6e645fd434fec2f793a25f331c31ef70e8dfd082bc331c2f34c8')
-
-prepare() {
-  cd $pkgname
-  NOCONFIGURE=1 ./autogen.sh
-}
+sha256sums=('676d8c1a98bc9db7d8a69f5abcdd6c8adda950c6415db1bfe5b35c7c948b2574')
 
 build() {
-  cd $pkgname
-  ./configure \
-    --prefix=/usr \
-    --enable-maintainer-mode
-  make
+  arch-meson $pkgname build
+  meson compile -C build
 }
 
 package() {
-  cd $pkgname
-  make DESTDIR="$pkgdir" install
+  meson install -C build --destdir "$pkgdir"
 }
 
 # vim:set ts=2 sw=2 et:
