@@ -5,7 +5,7 @@
 
 pkgname=ncurses
 pkgver=6.5
-pkgrel=3
+pkgrel=4
 pkgdesc='System V Release 4.0 curses emulation library'
 arch=(x86_64)
 url='https://invisible-island.net/ncurses/ncurses.html'
@@ -71,6 +71,9 @@ build() {
     --with-xterm-kbs=del
     --without-ada
   )
+
+  # allow building with gcc >= 15
+  CFLAGS+=' -std=gnu17'
 
   cd $pkgname
   ./configure "${configure_options[@]}"
