@@ -1,0 +1,1182 @@
+From d285e3297d4a06f6979e1ea60f5749629cf64c94 Mon Sep 17 00:00:00 2001
+From: Razvan Becheriu <razvan@isc.org>
+Date: Mon, 5 May 2025 15:52:22 +0300
+Subject: [PATCH] [#3823] backport #3696 to 2.6.3
+
+---
+ AUTHORS                                       |  6 +++
+ ChangeLog                                     | 13 ++++++
+ configure.ac                                  | 12 +++---
+ doc/sphinx/arm/install.rst                    |  4 +-
+ m4macros/ax_boost_for_kea.m4                  |  4 +-
+ m4macros/ax_cpp14.m4                          |  2 +-
+ m4macros/ax_gssapi.m4                         |  2 +-
+ m4macros/ax_gtest.m4                          |  2 +-
+ m4macros/ax_isc_rpath.m4                      |  2 +-
+ src/bin/d2/d2_process.cc                      | 11 +----
+ src/lib/asiodns/tests/io_fetch_unittest.cc    |  2 +-
+ src/lib/asiolink/io_acceptor.h                |  4 --
+ src/lib/asiolink/io_address.cc                |  8 +++-
+ src/lib/asiolink/io_service.cc                | 18 ++++-----
+ src/lib/asiolink/io_service.h                 | 21 ++++------
+ src/lib/asiolink/tcp_endpoint.h               |  2 +-
+ src/lib/asiolink/tcp_socket.h                 |  4 --
+ .../asiolink/tests/tcp_acceptor_unittest.cc   |  4 +-
+ .../asiolink/tests/tls_acceptor_unittest.cc   |  6 +--
+ src/lib/asiolink/tests/tls_unittest.cc        | 40 +++++++++----------
+ .../testutils/botan_boost_sample_client.cc    |  6 +--
+ .../testutils/botan_boost_sample_server.cc    |  4 +-
+ .../testutils/openssl_sample_client.cc        |  6 +--
+ .../testutils/openssl_sample_server.cc        |  8 ++--
+ src/lib/asiolink/tls_socket.h                 |  4 --
+ src/lib/asiolink/udp_endpoint.h               |  2 +-
+ src/lib/asiolink/udp_socket.h                 |  4 --
+ src/lib/asiolink/unix_domain_socket.cc        | 20 ++++------
+ .../tests/cmd_http_listener_unittests.cc      |  2 +-
+ src/lib/d2srv/tests/dns_client_unittests.cc   |  6 +--
+ src/lib/dhcp/iface_mgr.cc                     |  2 +-
+ src/lib/dhcp_ddns/tests/ncr_udp_unittests.cc  |  2 +-
+ src/lib/dns/name.cc                           | 13 +++---
+ src/lib/dns/name.h                            |  2 +-
+ src/lib/http/tests/server_client_unittests.cc |  3 +-
+ src/lib/http/tests/test_http_client.h         |  2 +-
+ src/lib/http/tests/tls_server_unittests.cc    |  6 +--
+ src/lib/mysql/testutils/mysql_schema.cc       |  2 +-
+ src/lib/process/d_process.h                   |  2 +-
+ src/lib/process/testutils/d_test_stubs.h      |  4 +-
+ .../tests/mt_tcp_listener_mgr_unittests.cc    |  2 +-
+ src/lib/tcp/tests/tcp_test_client.h           |  2 +-
+ src/lib/yang/tests/sysrepo_setup.h            |  4 +-
+ 44 files changed, 131 insertions(+), 146 deletions(-)
+
+diff --git a/AUTHORS b/AUTHORS
+index fb2e4e13d41..e749ca6cc94 100644
+--- a/AUTHORS
++++ b/AUTHORS
+@@ -265,3 +265,9 @@ We have received the following contributions:
+ 
+  - Kevin P. Fleming
+    2023-02: Fixed several examples in DHCPv6 section of the ARM.
++
++ - Dimitry Andric
++   2024-09: Added support for libc++ 19 and later.
++
++ - q66
++   2025-01: Added support for building with Boost 1.87.
+diff --git a/ChangeLog b/ChangeLog
+index 1392f6046f7..abbf7897e62 100644
+--- a/ChangeLog
++++ b/ChangeLog
+@@ -1,3 +1,16 @@
++2263.	[build]		fdupont, q66
++	Kea can now build with Boost 1.87. The minimum supported Boost
++	version has been bumped up from 1.57 to 1.66. Thanks to q66
++	for the patch.
++	(Gitlab #3823, #3696)
++
++2262.	[build]		dim
++	Replace ``std::basic_string<uint8_t>`` with equivalent
++	``std::vector<uint8_t>`` constructs, since the former has been
++	deprecated for a while in libc++, and has been completely
++	removed as of libc++ 19.
++	(Gitlab #3823, #3532)
++
+ Kea 2.6.2 (stable) released on March 26, 2025
+ 
+ 2261.	[build]		mgodzina
+diff --git a/configure.ac b/configure.ac
+index 3c4864dc0bc..21f1a2fe9b6 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -21,7 +21,7 @@ m4_define([serial_tests], [
+ ])
+ AM_INIT_AUTOMAKE(foreign serial_tests)
+ 
+-m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])dnl be backward compatible
++AM_SILENT_RULES([yes])
+ AC_CONFIG_HEADERS([config.h])
+ AC_CONFIG_MACRO_DIR([m4macros])
+ 
+@@ -443,7 +443,7 @@ for extra in $werror_extras; do
+                 [AC_MSG_ERROR([$CXX does not support $extra"])])
+ done
+ 
+-fi                              dnl GXX = yes
++fi  # if test "X$GXX" = "Xyes"
+ 
+ # allow building programs with static link.  we need to make it selective
+ # because loadable modules cannot be statically linked.
+@@ -1471,9 +1471,9 @@ AX_GSS_API
+ AC_DEFINE([CONFIG_H_WAS_INCLUDED], [1], [config.h inclusion marker])
+ 
+ # Autoconf 2.70 has runstatedir.
+-m4_version_prereq([2.70], [], [dnl
+-    AC_ARG_VAR(runstatedir, [$localstatedir/run for autoconf < 2.70])dnl
+-    AC_SUBST(runstatedir)dnl
++m4_version_prereq([2.70], [], [
++    AC_ARG_VAR(runstatedir, [$localstatedir/run for autoconf < 2.70])
++    AC_SUBST(runstatedir)
+ ])
+ if test "x$runstatedir" = "x"; then
+     runstatedir="$localstatedir/run"
+diff --git a/doc/sphinx/arm/install.rst b/doc/sphinx/arm/install.rst
+index 9d2cca94d6d..71708b72d29 100644
+--- a/doc/sphinx/arm/install.rst
++++ b/doc/sphinx/arm/install.rst
+@@ -157,8 +157,8 @@ Building from source code requires the following software installed on
+ the system:
+ 
+ -  Boost C++ libraries (https://www.boost.org/). The oldest Boost version
+-   used for testing is 1.57 (although Kea may also work with older
+-   versions). The Boost system library must also be installed.
++   used for testing is 1.67 (although Kea may also work with older
++   versions e.g. 1.66). The Boost system library must also be installed.
+    Installing a header-only version of Boost is not recommended.
+ 
+ -  OpenSSL (at least version 1.0.2) or Botan (at least version 2).
+diff --git a/m4macros/ax_boost_for_kea.m4 b/m4macros/ax_boost_for_kea.m4
+index a284a4de3a3..996413374a6 100644
+--- a/m4macros/ax_boost_for_kea.m4
++++ b/m4macros/ax_boost_for_kea.m4
+@@ -101,6 +101,8 @@ AC_CHECK_HEADERS(boost/asio/coroutine.hpp,,AC_MSG_RESULT(not found, using built-
+ 
+ AC_CHECK_HEADERS(boost/integer/common_factor.hpp)
+ 
++AC_CHECK_HEADERS(boost/asio/io_context.hpp,,AC_MSG_ERROR([Missing boost asio io_context header: boost version must be at least 1.66]))
++
+ # Verify that the path does not include standard headers by mistake.
+ # There are two regex.h headers: one is a standard system header (usually
+ # in /usr/include) and the second one is provided by boost. If you specify the
+@@ -281,4 +283,4 @@ AC_MSG_RESULT([$BOOST_VERSION])
+ 
+ CPPFLAGS="$CPPFLAGS_SAVED"
+ AC_LANG_RESTORE
+-])dnl AX_BOOST_FOR_KEA
++])
+diff --git a/m4macros/ax_cpp14.m4 b/m4macros/ax_cpp14.m4
+index bc445829c20..f061c57bc6e 100644
+--- a/m4macros/ax_cpp14.m4
++++ b/m4macros/ax_cpp14.m4
+@@ -250,4 +250,4 @@ for retry in "none" "--std=c++14" "--std=c++1y" "fail"; do
+         break
+ done
+ 
+-])dnl AX_ISC_CPP14
++])
+diff --git a/m4macros/ax_gssapi.m4 b/m4macros/ax_gssapi.m4
+index 539343edad5..36f851e1a94 100644
+--- a/m4macros/ax_gssapi.m4
++++ b/m4macros/ax_gssapi.m4
+@@ -90,4 +90,4 @@ AC_SUBST(GSSAPI_LIBS)
+ AC_SUBST(DISTCHECK_GSSAPI_CONFIGURE_FLAG)
+ AM_CONDITIONAL([HAVE_GSSAPI], [test $ENABLE_GSSAPI = "yes"])
+ 
+-])dnl AX_GSS_API
++])
+diff --git a/m4macros/ax_gtest.m4 b/m4macros/ax_gtest.m4
+index 138a03f6e0f..479cc1896b9 100644
+--- a/m4macros/ax_gtest.m4
++++ b/m4macros/ax_gtest.m4
+@@ -221,4 +221,4 @@ AC_SUBST(GTEST_LDFLAGS)
+ AC_SUBST(GTEST_LDADD)
+ AC_SUBST(GTEST_SOURCE)
+ 
+-])dnl AX_ISC_GTEST
++])
+diff --git a/m4macros/ax_isc_rpath.m4 b/m4macros/ax_isc_rpath.m4
+index cae89b968e1..07dade90034 100644
+--- a/m4macros/ax_isc_rpath.m4
++++ b/m4macros/ax_isc_rpath.m4
+@@ -61,4 +61,4 @@ if test x$rpath != xno; then
+     CCFLAGS=$CCFLAGS_SAVED
+ fi
+ 
+-])dnl AX_ISC_RPATH
++])
+diff --git a/src/bin/d2/d2_process.cc b/src/bin/d2/d2_process.cc
+index 75d0704551a..b5d727119d1 100644
+--- a/src/bin/d2/d2_process.cc
++++ b/src/bin/d2/d2_process.cc
+@@ -133,16 +133,7 @@ size_t
+ D2Process::runIO() {
+     // Handle events registered by hooks using external IOService objects.
+     IOServiceMgr::instance().pollIOServices();
+-    // We want to block until at least one handler is called.  We'll use
+-    // boost::asio::io_service directly for two reasons. First off
+-    // asiolink::IOService::runOne is a void and boost::asio::io_service::stopped
+-    // is not present in older versions of boost.  We need to know if any
+-    // handlers ran or if the io_service was stopped.  That latter represents
+-    // some form of error and the application cannot proceed with a stopped
+-    // service.  Secondly, asiolink::IOService does not provide the poll
+-    // method.  This is a handy method which runs all ready handlers without
+-    // blocking.
+-
++    // We want to block until at least one handler is called.
+     // Poll runs all that are ready. If none are ready it returns immediately
+     // with a count of zero.
+     size_t cnt = getIOService()->poll();
+diff --git a/src/lib/asiodns/tests/io_fetch_unittest.cc b/src/lib/asiodns/tests/io_fetch_unittest.cc
+index 7db3dc66bc3..a412fec94a2 100644
+--- a/src/lib/asiodns/tests/io_fetch_unittest.cc
++++ b/src/lib/asiodns/tests/io_fetch_unittest.cc
+@@ -44,7 +44,7 @@ namespace ph = std::placeholders;
+ namespace isc {
+ namespace asiodns {
+ 
+-const boost::asio::ip::address TEST_HOST(boost::asio::ip::address::from_string("127.0.0.1"));
++const boost::asio::ip::address TEST_HOST(boost::asio::ip::make_address("127.0.0.1"));
+ const uint16_t TEST_PORT(5301);
+ const int SEND_INTERVAL = 250;      // Interval in ms between TCP sends
+ const size_t MAX_SIZE = 64 * 1024;  // Should be able to take 64kB
+diff --git a/src/lib/asiolink/io_acceptor.h b/src/lib/asiolink/io_acceptor.h
+index 0909048880c..4491f7c3aac 100644
+--- a/src/lib/asiolink/io_acceptor.h
++++ b/src/lib/asiolink/io_acceptor.h
+@@ -47,11 +47,7 @@ public:
+ 
+     /// @brief Returns file descriptor of the underlying socket.
+     virtual int getNative() const {
+-#if BOOST_VERSION < 106600
+-        return (acceptor_->native());
+-#else
+         return (acceptor_->native_handle());
+-#endif
+     }
+ 
+     /// @brief Opens acceptor socket given the endpoint.
+diff --git a/src/lib/asiolink/io_address.cc b/src/lib/asiolink/io_address.cc
+index 43459bfe5ab..a5af5315136 100644
+--- a/src/lib/asiolink/io_address.cc
++++ b/src/lib/asiolink/io_address.cc
+@@ -19,6 +19,10 @@
+ #include <sys/socket.h>
+ #include <netinet/in.h>
+ 
++#if BOOST_VERSION < 106600
++#error "Boost ASIO older than 1.66 are not supported"
++#endif
++
+ using namespace boost::asio;
+ using boost::asio::ip::udp;
+ using boost::asio::ip::tcp;
+@@ -37,7 +41,7 @@ IOAddress::Hash::operator()(const IOAddress &io_address) const {
+ // because we'd like to throw our own exception on failure.
+ IOAddress::IOAddress(const std::string& address_str) {
+     boost::system::error_code err;
+-    asio_address_ = ip::address::from_string(address_str, err);
++    asio_address_ = ip::make_address(address_str, err);
+     if (err) {
+         isc_throw(IOError, "Failed to convert string to address '"
+                   << address_str << "': " << err.message());
+@@ -116,7 +120,7 @@ IOAddress::isV6Multicast() const {
+ uint32_t
+ IOAddress::toUint32() const {
+     if (asio_address_.is_v4()) {
+-        return (asio_address_.to_v4().to_ulong());
++        return (asio_address_.to_v4().to_uint());
+     } else {
+         isc_throw(BadValue, "Can't convert " << toText()
+                   << " address to IPv4.");
+diff --git a/src/lib/asiolink/io_service.cc b/src/lib/asiolink/io_service.cc
+index 411de641915..91af69ade31 100644
+--- a/src/lib/asiolink/io_service.cc
++++ b/src/lib/asiolink/io_service.cc
+@@ -30,7 +30,7 @@ public:
+     /// @brief The constructor.
+     IOServiceImpl() :
+         io_service_(),
+-        work_(new boost::asio::io_service::work(io_service_)) {
++        work_(boost::asio::make_work_guard(io_service_)) {
+     };
+ 
+     /// @brief The destructor.
+@@ -92,7 +92,7 @@ public:
+ 
+     /// @brief Restarts the IOService in preparation for a subsequent @ref run() invocation.
+     void restart() {
+-        io_service_.reset();
++        io_service_.restart();
+     }
+ 
+     /// @brief Removes IO service work object to let it finish running
+@@ -101,13 +101,13 @@ public:
+         work_.reset();
+     }
+ 
+-    /// @brief Return the native @c io_service object used in this wrapper.
++    /// @brief Return the native @c io_context object used in this wrapper.
+     ///
+     /// This is a short term work around to support other Kea modules
+-    /// that share the same @c io_service with the authoritative server.
++    /// that share the same @c io_context with the authoritative server.
+     /// It will eventually be removed once the wrapper interface is
+     /// generalized.
+-    boost::asio::io_service& getInternalIOService() {
++    boost::asio::io_context& getInternalIOService() {
+         return (io_service_);
+     }
+ 
+@@ -115,12 +115,12 @@ public:
+     ///
+     /// @param callback The callback to be run on the IO service.
+     void post(const std::function<void ()>& callback) {
+-        io_service_.post(callback);
++        boost::asio::post(io_service_, callback);
+     }
+ 
+ private:
+-    boost::asio::io_service io_service_;
+-    boost::shared_ptr<boost::asio::io_service::work> work_;
++    boost::asio::io_context io_service_;
++    boost::asio::executor_work_guard<boost::asio::io_context::executor_type> work_;
+ };
+ 
+ IOService::IOService() : io_impl_(new IOServiceImpl()) {
+@@ -169,7 +169,7 @@ IOService::stopWork() {
+     io_impl_->stopWork();
+ }
+ 
+-boost::asio::io_service&
++boost::asio::io_context&
+ IOService::getInternalIOService() {
+     return (io_impl_->getInternalIOService());
+ }
+diff --git a/src/lib/asiolink/io_service.h b/src/lib/asiolink/io_service.h
+index 66dff619b9f..7ffd9297b51 100644
+--- a/src/lib/asiolink/io_service.h
++++ b/src/lib/asiolink/io_service.h
+@@ -12,16 +12,11 @@
+ #include <functional>
+ #include <list>
+ 
+-namespace boost {
+-namespace asio {
+ #if BOOST_VERSION < 106600
+-    class io_service;
+-#else
+-    class io_context;
+-    typedef io_context io_service;
++#error "Boost ASIO older than 1.66 are not supported"
+ #endif
+-}
+-}
++
++#include <boost/asio/io_context.hpp>
+ 
+ namespace isc {
+ namespace asiolink {
+@@ -32,7 +27,7 @@ class IOService;
+ /// @brief Defines a smart pointer to an IOService instance.
+ typedef boost::shared_ptr<IOService> IOServicePtr;
+ 
+-/// @brief The @ref IOService class is a wrapper for the ASIO @c io_service
++/// @brief The @ref IOService class is a wrapper for the ASIO @c io_context
+ /// class.
+ class IOService {
+     /// @brief Constructors and Destructor.
+@@ -99,15 +94,15 @@ public:
+     /// when all handlers have been invoked.
+     void stopWork();
+ 
+-    /// @brief Return the native @c io_service object used in this wrapper.
++    /// @brief Return the native @c io_context object used in this wrapper.
+     ///
+     /// This is a short term work around to support other Kea modules
+-    /// that share the same @c io_service with the authoritative server.
++    /// that share the same @c io_context with the authoritative server.
+     /// It will eventually be removed once the wrapper interface is
+     /// generalized.
+     ///
+-    /// @return The internal io_service object.
+-    boost::asio::io_service& getInternalIOService();
++    /// @return The internal io_context object.
++    boost::asio::io_context& getInternalIOService();
+ 
+     /// @brief Post a callback to the end of the queue.
+     ///
+diff --git a/src/lib/asiolink/tcp_endpoint.h b/src/lib/asiolink/tcp_endpoint.h
+index 8ebd57551db..7c8cb35535d 100644
+--- a/src/lib/asiolink/tcp_endpoint.h
++++ b/src/lib/asiolink/tcp_endpoint.h
+@@ -42,7 +42,7 @@ public:
+     /// \param port The TCP port number of the endpoint.
+     TCPEndpoint(const IOAddress& address, const unsigned short port) :
+         asio_endpoint_placeholder_(
+-            new boost::asio::ip::tcp::endpoint(boost::asio::ip::address::from_string(address.toText()),
++            new boost::asio::ip::tcp::endpoint(boost::asio::ip::make_address(address.toText()),
+                               port)),
+         asio_endpoint_(*asio_endpoint_placeholder_)
+     {}
+diff --git a/src/lib/asiolink/tcp_socket.h b/src/lib/asiolink/tcp_socket.h
+index e56abe412d7..830f1a2a28f 100644
+--- a/src/lib/asiolink/tcp_socket.h
++++ b/src/lib/asiolink/tcp_socket.h
+@@ -73,11 +73,7 @@ public:
+ 
+     /// \brief Return file descriptor of underlying socket
+     virtual int getNative() const {
+-#if BOOST_VERSION < 106600
+-        return (socket_.native());
+-#else
+         return (socket_.native_handle());
+-#endif
+     }
+ 
+     /// \brief Return protocol of socket
+diff --git a/src/lib/asiolink/tests/tcp_acceptor_unittest.cc b/src/lib/asiolink/tests/tcp_acceptor_unittest.cc
+index a9d93876f6f..31a53f6505e 100644
+--- a/src/lib/asiolink/tests/tcp_acceptor_unittest.cc
++++ b/src/lib/asiolink/tests/tcp_acceptor_unittest.cc
+@@ -82,7 +82,7 @@ public:
+     /// connectHandler as a callback function.
+     void connect() {
+         boost::asio::ip::tcp::endpoint
+-            endpoint(boost::asio::ip::address::from_string(SERVER_ADDRESS),
++            endpoint(boost::asio::ip::make_address(SERVER_ADDRESS),
+                      SERVER_PORT);
+         socket_.async_connect(endpoint,
+                               std::bind(&TCPClient::connectHandler, this,
+@@ -208,7 +208,7 @@ public:
+     /// unsuccessful.
+     TCPAcceptorTest()
+         : io_service_(new IOService()), acceptor_(io_service_),
+-          asio_endpoint_(boost::asio::ip::address::from_string(SERVER_ADDRESS),
++          asio_endpoint_(boost::asio::ip::make_address(SERVER_ADDRESS),
+                          SERVER_PORT),
+           endpoint_(asio_endpoint_), test_timer_(io_service_), connections_(),
+           clients_(), connections_num_(0), aborted_connections_num_(0),
+diff --git a/src/lib/asiolink/tests/tls_acceptor_unittest.cc b/src/lib/asiolink/tests/tls_acceptor_unittest.cc
+index 78889cd4ef9..a20fdebc7c3 100644
+--- a/src/lib/asiolink/tests/tls_acceptor_unittest.cc
++++ b/src/lib/asiolink/tests/tls_acceptor_unittest.cc
+@@ -83,8 +83,7 @@ public:
+     /// connectHandler as a callback function.
+     void connect() {
+         ip::tcp::endpoint
+-            endpoint(ip::address::from_string(SERVER_ADDRESS),
+-                     SERVER_PORT);
++            endpoint(ip::make_address(SERVER_ADDRESS), SERVER_PORT);
+         socket_.async_connect(endpoint,
+                               std::bind(&TLSClient::connectHandler, this,
+                                         ph::_1));
+@@ -215,8 +214,7 @@ public:
+     /// unsuccessful.
+     TLSAcceptorTest()
+         : io_service_(new IOService()), acceptor_(io_service_),
+-          asio_endpoint_(ip::address::from_string(SERVER_ADDRESS),
+-                         SERVER_PORT),
++          asio_endpoint_(ip::make_address(SERVER_ADDRESS), SERVER_PORT),
+           endpoint_(asio_endpoint_), test_timer_(io_service_), connections_(),
+           clients_(), connections_num_(0), aborted_connections_num_(0),
+           max_connections_(1), running_(true) {
+diff --git a/src/lib/asiolink/tests/tls_unittest.cc b/src/lib/asiolink/tests/tls_unittest.cc
+index cfebf1345ce..efcf359cb82 100644
+--- a/src/lib/asiolink/tests/tls_unittest.cc
++++ b/src/lib/asiolink/tests/tls_unittest.cc
+@@ -772,7 +772,7 @@ TEST_F(TLSTest, noHandshake) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -877,7 +877,7 @@ TEST_F(TLSTest, serverNotConfigured) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -975,7 +975,7 @@ TEST_F(TLSTest, clientNotConfigured) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -1072,7 +1072,7 @@ TEST_F(TLSTest, clientHTTPnoS) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -1165,7 +1165,7 @@ TEST_F(TLSTest, unknownClient) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -1254,7 +1254,7 @@ TEST_F(TLSTest, anotherClient) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -1353,7 +1353,7 @@ TEST_F(TLSTest, selfSigned) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -1460,7 +1460,7 @@ TEST_F(TLSTest, noHandshakeCloseonError) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -1561,7 +1561,7 @@ TEST_F(TLSTest, serverNotConfiguredCloseonError) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -1658,7 +1658,7 @@ TEST_F(TLSTest, clientNotConfiguredCloseonError) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -1754,7 +1754,7 @@ TEST_F(TLSTest, clientHTTPnoSCloseonError) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -1847,7 +1847,7 @@ TEST_F(TLSTest, anotherClientCloseonError) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -1944,7 +1944,7 @@ TEST_F(TLSTest, selfSignedCloseonError) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -2048,7 +2048,7 @@ TEST_F(TLSTest, anotherClientNoReq) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -2118,7 +2118,7 @@ TEST_F(TLSTest, serverRaw) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -2189,7 +2189,7 @@ TEST_F(TLSTest, trustedSelfSigned) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -2265,7 +2265,7 @@ TEST_F(TLSTest, shutdownInactive) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -2360,7 +2360,7 @@ TEST_F(TLSTest, shutdownActive) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -2469,7 +2469,7 @@ TEST_F(TLSTest, shutdownCloseInactive) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+@@ -2570,7 +2570,7 @@ TEST_F(TLSTest, shutdownCloseActive) {
+     server_.reset(new TlsStream<TestCallback>(io_service_, server_ctx));
+ 
+     // Accept a client.
+-    tcp::endpoint server_ep(tcp::endpoint(address::from_string(SERVER_ADDRESS),
++    tcp::endpoint server_ep(tcp::endpoint(make_address(SERVER_ADDRESS),
+                                           SERVER_PORT));
+     tcp::acceptor acceptor(io_service_->getInternalIOService(), server_ep);
+     acceptor.set_option(tcp::acceptor::reuse_address(true));
+diff --git a/src/lib/asiolink/testutils/botan_boost_sample_client.cc b/src/lib/asiolink/testutils/botan_boost_sample_client.cc
+index 16a83e8d2b8..9ffcde0f326 100644
+--- a/src/lib/asiolink/testutils/botan_boost_sample_client.cc
++++ b/src/lib/asiolink/testutils/botan_boost_sample_client.cc
+@@ -101,7 +101,7 @@ public:
+ class client
+ {
+ public:
+-  client(boost::asio::io_service& io_context,
++  client(boost::asio::io_context& io_context,
+       Botan::TLS::Context& context,
+       const tcp::endpoint& endpoint)
+     : socket_(io_context, context)
+@@ -205,11 +205,11 @@ int main(int argc, char* argv[])
+       return 1;
+     }
+ 
+-    boost::asio::io_service io_context;
++    boost::asio::io_context io_context;
+ 
+     using namespace std; // For atoi.
+     tcp::endpoint endpoint(
+-      boost::asio::ip::address::from_string(argv[1]), atoi(argv[2]));
++      boost::asio::ip::make_address(argv[1]), atoi(argv[2]));
+     Botan::AutoSeeded_RNG rng;
+     Client_Credentials_Manager creds_mgr(rng);
+     Client_Session_Manager sess_mgr;
+diff --git a/src/lib/asiolink/testutils/botan_boost_sample_server.cc b/src/lib/asiolink/testutils/botan_boost_sample_server.cc
+index 9d7e8c55b8b..45ed8cc8fd5 100644
+--- a/src/lib/asiolink/testutils/botan_boost_sample_server.cc
++++ b/src/lib/asiolink/testutils/botan_boost_sample_server.cc
+@@ -160,7 +160,7 @@ private:
+ class server
+ {
+ public:
+-  server(boost::asio::io_service& io_context,
++  server(boost::asio::io_context& io_context,
+          unsigned short port,
+          Botan::Credentials_Manager& creds_mgr,
+          Botan::RandomNumberGenerator& rng,
+@@ -201,7 +201,7 @@ int main(int argc, char* argv[])
+       return 1;
+     }
+ 
+-    boost::asio::io_service io_context;
++    boost::asio::io_context io_context;
+ 
+     Botan::AutoSeeded_RNG rng;
+     Server_Credentials_Manager creds_mgr(rng);
+diff --git a/src/lib/asiolink/testutils/openssl_sample_client.cc b/src/lib/asiolink/testutils/openssl_sample_client.cc
+index d71de4e7f45..1b8ee01f55f 100644
+--- a/src/lib/asiolink/testutils/openssl_sample_client.cc
++++ b/src/lib/asiolink/testutils/openssl_sample_client.cc
+@@ -34,7 +34,7 @@ enum { max_length = 1024 };
+ class client
+ {
+ public:
+-  client(boost::asio::io_service& io_context,
++  client(boost::asio::io_context& io_context,
+       boost::asio::ssl::context& context,
+       const tcp::endpoint& endpoint)
+     : socket_(io_context, context)
+@@ -154,11 +154,11 @@ int main(int argc, char* argv[])
+       return 1;
+     }
+ 
+-    boost::asio::io_service io_context;
++    boost::asio::io_context io_context;
+ 
+     using namespace std; // For atoi.
+     tcp::endpoint endpoint(
+-      boost::asio::ip::address::from_string(argv[1]), atoi(argv[2]));
++      boost::asio::ip::make_address(argv[1]), atoi(argv[2]));
+ 
+     boost::asio::ssl::context ctx(boost::asio::ssl::context::method::tls);
+     ctx.load_verify_file(CA_("kea-ca.crt"));
+diff --git a/src/lib/asiolink/testutils/openssl_sample_server.cc b/src/lib/asiolink/testutils/openssl_sample_server.cc
+index b92e253b057..11c7d8c8016 100644
+--- a/src/lib/asiolink/testutils/openssl_sample_server.cc
++++ b/src/lib/asiolink/testutils/openssl_sample_server.cc
+@@ -32,7 +32,7 @@ typedef boost::asio::ssl::stream<boost::asio::ip::tcp::socket> ssl_socket;
+ class session
+ {
+ public:
+-  session(boost::asio::io_service& io_context,
++  session(boost::asio::io_context& io_context,
+       boost::asio::ssl::context& context)
+     : socket_(io_context, context)
+   {
+@@ -106,7 +106,7 @@ private:
+ class server
+ {
+ public:
+-  server(boost::asio::io_service& io_context, unsigned short port)
++  server(boost::asio::io_context& io_context, unsigned short port)
+     : io_context_(io_context),
+       acceptor_(io_context,
+           boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port)),
+@@ -152,7 +152,7 @@ public:
+   }
+ 
+ private:
+-  boost::asio::io_service& io_context_;
++  boost::asio::io_context& io_context_;
+   boost::asio::ip::tcp::acceptor acceptor_;
+   boost::asio::ssl::context context_;
+ };
+@@ -167,7 +167,7 @@ int main(int argc, char* argv[])
+       return 1;
+     }
+ 
+-    boost::asio::io_service io_context;
++    boost::asio::io_context io_context;
+ 
+     using namespace std; // For atoi.
+     server s(io_context, atoi(argv[1]));
+diff --git a/src/lib/asiolink/tls_socket.h b/src/lib/asiolink/tls_socket.h
+index 80006dc10cc..96382cc77f4 100644
+--- a/src/lib/asiolink/tls_socket.h
++++ b/src/lib/asiolink/tls_socket.h
+@@ -50,11 +50,7 @@ public:
+ 
+     /// @brief Return file descriptor of underlying socket.
+     virtual int getNative() const {
+-#if BOOST_VERSION < 106600
+-        return (socket_.native());
+-#else
+         return (socket_.native_handle());
+-#endif
+     }
+ 
+     /// @brief Return protocol of socket.
+diff --git a/src/lib/asiolink/udp_endpoint.h b/src/lib/asiolink/udp_endpoint.h
+index f960bf3ce9f..2a3da9f0464 100644
+--- a/src/lib/asiolink/udp_endpoint.h
++++ b/src/lib/asiolink/udp_endpoint.h
+@@ -42,7 +42,7 @@ public:
+     /// \param port The UDP port number of the endpoint.
+     UDPEndpoint(const IOAddress& address, const unsigned short port) :
+         asio_endpoint_placeholder_(
+-            new boost::asio::ip::udp::endpoint(boost::asio::ip::address::from_string(address.toText()),
++            new boost::asio::ip::udp::endpoint(boost::asio::ip::make_address(address.toText()),
+                               port)),
+         asio_endpoint_(*asio_endpoint_placeholder_)
+     {}
+diff --git a/src/lib/asiolink/udp_socket.h b/src/lib/asiolink/udp_socket.h
+index 380d344e36a..db6c3a8eb4e 100644
+--- a/src/lib/asiolink/udp_socket.h
++++ b/src/lib/asiolink/udp_socket.h
+@@ -63,11 +63,7 @@ public:
+ 
+     /// \brief Return file descriptor of underlying socket
+     virtual int getNative() const {
+-#if BOOST_VERSION < 106600
+-        return (socket_.native());
+-#else
+         return (socket_.native_handle());
+-#endif
+     }
+ 
+     /// \brief Return protocol of socket
+diff --git a/src/lib/asiolink/unix_domain_socket.cc b/src/lib/asiolink/unix_domain_socket.cc
+index f43e1c9e9bb..88d3dcdc552 100644
+--- a/src/lib/asiolink/unix_domain_socket.cc
++++ b/src/lib/asiolink/unix_domain_socket.cc
+@@ -83,7 +83,7 @@ public:
+     /// @param buffer Buffers holding the data to be sent.
+     /// @param handler User supplied callback to be invoked when data have
+     /// been sent or sending error is signalled.
+-    void doSend(const boost::asio::const_buffers_1& buffer,
++    void doSend(const boost::asio::const_buffer& buffer,
+                 const UnixDomainSocket::Handler& handler);
+ 
+ 
+@@ -103,7 +103,7 @@ public:
+     /// @param ec Error code returned as a result of sending the data.
+     /// @param length Length of the data sent.
+     void sendHandler(const UnixDomainSocket::Handler& remote_handler,
+-                     const boost::asio::const_buffers_1& buffer,
++                     const boost::asio::const_buffer& buffer,
+                      const boost::system::error_code& ec,
+                      size_t length);
+ 
+@@ -127,7 +127,7 @@ public:
+     /// @param buffer A buffer into which the data should be received.
+     /// @param handler User supplied callback invoked when data have been
+     /// received on an error is signalled.
+-    void doReceive(const boost::asio::mutable_buffers_1& buffer,
++    void doReceive(const boost::asio::mutable_buffer& buffer,
+                    const UnixDomainSocket::Handler& handler);
+ 
+     /// @brief Local handler invoked as a result of asynchronous receive.
+@@ -146,7 +146,7 @@ public:
+     /// @param ec Error code returned as a result of asynchronous receive.
+     /// @param length Size of the received data.
+     void receiveHandler(const UnixDomainSocket::Handler& remote_handler,
+-                        const boost::asio::mutable_buffers_1& buffer,
++                        const boost::asio::mutable_buffer& buffer,
+                         const boost::system::error_code& ec,
+                         size_t length);
+ 
+@@ -197,7 +197,7 @@ UnixDomainSocketImpl::asyncSend(const void* data, const size_t length,
+ }
+ 
+ void
+-UnixDomainSocketImpl::doSend(const boost::asio::const_buffers_1& buffer,
++UnixDomainSocketImpl::doSend(const boost::asio::const_buffer& buffer,
+                              const UnixDomainSocket::Handler& handler) {
+     auto local_handler = std::bind(&UnixDomainSocketImpl::sendHandler,
+                                    shared_from_this(),
+@@ -207,7 +207,7 @@ UnixDomainSocketImpl::doSend(const boost::asio::const_buffers_1& buffer,
+ 
+ void
+ UnixDomainSocketImpl::sendHandler(const UnixDomainSocket::Handler& remote_handler,
+-                                  const boost::asio::const_buffers_1& buffer,
++                                  const boost::asio::const_buffer& buffer,
+                                   const boost::system::error_code& ec,
+                                   size_t length) {
+     // The asynchronous send may return EWOULDBLOCK or EAGAIN on some
+@@ -230,7 +230,7 @@ UnixDomainSocketImpl::asyncReceive(void* data, const size_t length,
+ }
+ 
+ void
+-UnixDomainSocketImpl::doReceive(const boost::asio::mutable_buffers_1& buffer,
++UnixDomainSocketImpl::doReceive(const boost::asio::mutable_buffer& buffer,
+                                 const UnixDomainSocket::Handler& handler) {
+     auto local_handler = std::bind(&UnixDomainSocketImpl::receiveHandler,
+                                    shared_from_this(),
+@@ -240,7 +240,7 @@ UnixDomainSocketImpl::doReceive(const boost::asio::mutable_buffers_1& buffer,
+ 
+ void
+ UnixDomainSocketImpl::receiveHandler(const UnixDomainSocket::Handler& remote_handler,
+-                                     const boost::asio::mutable_buffers_1& buffer,
++                                     const boost::asio::mutable_buffer& buffer,
+                                      const boost::system::error_code& ec,
+                                      size_t length) {
+     // The asynchronous receive may return EWOULDBLOCK or EAGAIN on some
+@@ -289,11 +289,7 @@ UnixDomainSocket::UnixDomainSocket(const IOServicePtr& io_service)
+ 
+ int
+ UnixDomainSocket::getNative() const {
+-#if BOOST_VERSION < 106600
+-    return (impl_->socket_.native());
+-#else
+     return (impl_->socket_.native_handle());
+-#endif
+ }
+ 
+ int
+diff --git a/src/lib/config/tests/cmd_http_listener_unittests.cc b/src/lib/config/tests/cmd_http_listener_unittests.cc
+index d878b8e9a44..3c4a45691a9 100644
+--- a/src/lib/config/tests/cmd_http_listener_unittests.cc
++++ b/src/lib/config/tests/cmd_http_listener_unittests.cc
+@@ -179,7 +179,7 @@ public:
+ 
+     /// @brief Runs IO service with optional timeout.
+     ///
+-    /// We iterate over calls to asio::io_service.run(), until
++    /// We iterate over calls to asio::io_context.run(), until
+     /// all the clients have completed their requests.  We do it this way
+     /// because the test clients stop the io_service when they're
+     /// through with a request.
+diff --git a/src/lib/d2srv/tests/dns_client_unittests.cc b/src/lib/d2srv/tests/dns_client_unittests.cc
+index ff96dba4491..da18bccd92f 100644
+--- a/src/lib/d2srv/tests/dns_client_unittests.cc
++++ b/src/lib/d2srv/tests/dns_client_unittests.cc
+@@ -397,8 +397,7 @@ public:
+         socket_.reset(new udp::socket(service_->getInternalIOService(),
+                                       boost::asio::ip::udp::v4()));
+         socket_->set_option(socket_base::reuse_address(true));
+-        socket_->bind(udp::endpoint(address::from_string(TEST_ADDRESS),
+-                                    TEST_PORT));
++        socket_->bind(udp::endpoint(make_address(TEST_ADDRESS), TEST_PORT));
+         // Once socket is created, we can post an IO request to receive some
+         // packet from this socket. This is asynchronous operation and
+         // nothing is received until another IO request to send a query is
+@@ -469,8 +468,7 @@ public:
+         // Setup our "loopback" server.
+         udp::socket udp_socket(service_->getInternalIOService(), boost::asio::ip::udp::v4());
+         udp_socket.set_option(socket_base::reuse_address(true));
+-        udp_socket.bind(udp::endpoint(address::from_string(TEST_ADDRESS),
+-                                      TEST_PORT));
++        udp_socket.bind(udp::endpoint(make_address(TEST_ADDRESS), TEST_PORT));
+         udp::endpoint remote;
+         udp_socket.async_receive_from(boost::asio::buffer(receive_buffer_,
+                                                    sizeof(receive_buffer_)),
+diff --git a/src/lib/dhcp/iface_mgr.cc b/src/lib/dhcp/iface_mgr.cc
+index 01a1d63da5d..419268bfe5c 100644
+--- a/src/lib/dhcp/iface_mgr.cc
++++ b/src/lib/dhcp/iface_mgr.cc
+@@ -1034,7 +1034,7 @@ IfaceMgr::getLocalAddress(const IOAddress& remote_addr, const uint16_t port) {
+     }
+ 
+     // Create socket that will be used to connect to remote endpoint.
+-    boost::asio::io_service io_service;
++    boost::asio::io_context io_service;
+     boost::asio::ip::udp::socket sock(io_service);
+ 
+     boost::system::error_code err_code;
+diff --git a/src/lib/dhcp_ddns/tests/ncr_udp_unittests.cc b/src/lib/dhcp_ddns/tests/ncr_udp_unittests.cc
+index 46023911f31..792aa28acea 100644
+--- a/src/lib/dhcp_ddns/tests/ncr_udp_unittests.cc
++++ b/src/lib/dhcp_ddns/tests/ncr_udp_unittests.cc
+@@ -222,7 +222,7 @@ public:
+ 
+         // Create an endpoint pointed at the listener.
+         boost::asio::ip::udp::endpoint
+-            listener_endpoint(boost::asio::ip::address::from_string(TEST_ADDRESS),
++            listener_endpoint(boost::asio::ip::make_address(TEST_ADDRESS),
+                               LISTENER_PORT);
+ 
+         // A response message is now ready to send. Send it!
+diff --git a/src/lib/dns/name.cc b/src/lib/dns/name.cc
+index ac482059550..47d9b8fa4d8 100644
+--- a/src/lib/dns/name.cc
++++ b/src/lib/dns/name.cc
+@@ -303,7 +303,7 @@ Name::Name(const std::string &namestring, bool downcase) {
+     // And get the output
+     labelcount_ = offsets.size();
+     isc_throw_assert(labelcount_ > 0 && labelcount_ <= Name::MAX_LABELS);
+-    ndata_.assign(ndata.data(), ndata.size());
++    ndata_.assign(ndata.data(), ndata.data() + ndata.size());
+     length_ = ndata_.size();
+     offsets_.assign(offsets.begin(), offsets.end());
+ }
+@@ -336,7 +336,7 @@ Name::Name(const char* namedata, size_t data_len, const Name* origin,
+     // Get the output
+     labelcount_ = offsets.size();
+     isc_throw_assert(labelcount_ > 0 && labelcount_ <= Name::MAX_LABELS);
+-    ndata_.assign(ndata.data(), ndata.size());
++    ndata_.assign(ndata.data(), ndata.data() + ndata.size());
+     length_ = ndata_.size();
+     offsets_.assign(offsets.begin(), offsets.end());
+ 
+@@ -347,7 +347,7 @@ Name::Name(const char* namedata, size_t data_len, const Name* origin,
+         // Drop the last character of the data (the \0) and append a copy of
+         // the origin's data
+         ndata_.erase(ndata_.end() - 1);
+-        ndata_.append(origin->ndata_);
++        ndata_.insert(ndata_.end(), origin->ndata_.begin(), origin->ndata_.end());
+ 
+         // Do a similar thing with offsets. However, we need to move them
+         // so they point after the prefix we parsed before.
+@@ -582,7 +582,7 @@ Name::concatenate(const Name& suffix) const {
+ 
+     Name retname;
+     retname.ndata_.reserve(length);
+-    retname.ndata_.assign(ndata_, 0, length_ - 1);
++    retname.ndata_.assign(ndata_.data(), ndata_.data() + length_ - 1);
+     retname.ndata_.insert(retname.ndata_.end(),
+                           suffix.ndata_.begin(), suffix.ndata_.end());
+     isc_throw_assert(retname.ndata_.size() == length);
+@@ -622,7 +622,7 @@ Name::reverse() const {
+     NameString::const_iterator n0 = ndata_.begin();
+     retname.offsets_.push_back(0);
+     while (rit1 != offsets_.rend()) {
+-        retname.ndata_.append(n0 + *rit1, n0 + *rit0);
++        retname.ndata_.insert(retname.ndata_.end(), n0 + *rit1, n0 + *rit0);
+         retname.offsets_.push_back(retname.ndata_.size());
+         ++rit0;
+         ++rit1;
+@@ -662,7 +662,8 @@ Name::split(const unsigned int first, const unsigned int n) const {
+     // original name, and append the trailing dot explicitly.
+     //
+     retname.ndata_.reserve(retname.offsets_.back() + 1);
+-    retname.ndata_.assign(ndata_, offsets_[first], retname.offsets_.back());
++    auto it = ndata_.data() + offsets_[first];
++    retname.ndata_.assign(it, it + retname.offsets_.back());
+     retname.ndata_.push_back(0);
+ 
+     retname.length_ = retname.ndata_.size();
+diff --git a/src/lib/dns/name.h b/src/lib/dns/name.h
+index 37723e88f75..fac0036ab2f 100644
+--- a/src/lib/dns/name.h
++++ b/src/lib/dns/name.h
+@@ -228,7 +228,7 @@ class Name {
+     //@{
+ private:
+     /// \brief Name data string
+-    typedef std::basic_string<uint8_t> NameString;
++    typedef std::vector<uint8_t> NameString;
+     /// \brief Name offsets type
+     typedef std::vector<uint8_t> NameOffsets;
+ 
+diff --git a/src/lib/http/tests/server_client_unittests.cc b/src/lib/http/tests/server_client_unittests.cc
+index 4b71b259fbe..7eea1187bb8 100644
+--- a/src/lib/http/tests/server_client_unittests.cc
++++ b/src/lib/http/tests/server_client_unittests.cc
+@@ -943,8 +943,7 @@ TEST_F(HttpListenerTest, addressInUse) {
+     tcp::acceptor acceptor(io_service_->getInternalIOService());
+     // Use other port than SERVER_PORT to make sure that this TCP connection
+     // doesn't affect subsequent tests.
+-    tcp::endpoint endpoint(address::from_string(SERVER_ADDRESS),
+-                           SERVER_PORT + 1);
++    tcp::endpoint endpoint(make_address(SERVER_ADDRESS), SERVER_PORT + 1);
+     acceptor.open(endpoint.protocol());
+     acceptor.bind(endpoint);
+ 
+diff --git a/src/lib/http/tests/test_http_client.h b/src/lib/http/tests/test_http_client.h
+index 64db858db3b..e59cab1fc68 100644
+--- a/src/lib/http/tests/test_http_client.h
++++ b/src/lib/http/tests/test_http_client.h
+@@ -50,7 +50,7 @@ public:
+     ///
+     /// @param request HTTP request in the textual format.
+     void startRequest(const std::string& request) {
+-        tcp::endpoint endpoint(address::from_string(server_address_), server_port_);
++        tcp::endpoint endpoint(make_address(server_address_), server_port_);
+         socket_.async_connect(endpoint,
+         [this, request](const boost::system::error_code& ec) {
+             receive_done_ = false;
+diff --git a/src/lib/http/tests/tls_server_unittests.cc b/src/lib/http/tests/tls_server_unittests.cc
+index 18aba1d1555..0db2b5c4a25 100644
+--- a/src/lib/http/tests/tls_server_unittests.cc
++++ b/src/lib/http/tests/tls_server_unittests.cc
+@@ -414,8 +414,7 @@ public:
+     ///
+     /// @param request HTTP request in the textual format.
+     void startRequest(const std::string& request) {
+-        tcp::endpoint endpoint(address::from_string(SERVER_ADDRESS),
+-                               SERVER_PORT);
++        tcp::endpoint endpoint(make_address(SERVER_ADDRESS), SERVER_PORT);
+         stream_.lowest_layer().async_connect(endpoint,
+         [this, request](const boost::system::error_code& ec) {
+             if (ec) {
+@@ -1189,8 +1188,7 @@ TEST_F(HttpsListenerTest, addressInUse) {
+     tcp::acceptor acceptor(io_service_->getInternalIOService());
+     // Use other port than SERVER_PORT to make sure that this TCP connection
+     // doesn't affect subsequent tests.
+-    tcp::endpoint endpoint(address::from_string(SERVER_ADDRESS),
+-                           SERVER_PORT + 1);
++    tcp::endpoint endpoint(make_address(SERVER_ADDRESS), SERVER_PORT + 1);
+     acceptor.open(endpoint.protocol());
+     acceptor.bind(endpoint);
+ 
+diff --git a/src/lib/mysql/testutils/mysql_schema.cc b/src/lib/mysql/testutils/mysql_schema.cc
+index fd4f8b15342..d0247ad591b 100644
+--- a/src/lib/mysql/testutils/mysql_schema.cc
++++ b/src/lib/mysql/testutils/mysql_schema.cc
+@@ -131,8 +131,8 @@ string getMySQLTlsServerVariable(string variable) {
+         if (result) {
+             mysql_free_result(result);
+         }
+-        throw;
+     }
++    return (string());
+ }
+ 
+ bool isMySQLTlsConfigured() {
+diff --git a/src/lib/process/d_process.h b/src/lib/process/d_process.h
+index e8775543157..074a34f48a5 100644
+--- a/src/lib/process/d_process.h
++++ b/src/lib/process/d_process.h
+@@ -83,7 +83,7 @@ public:
+     /// @param cfg_mgr the configuration manager instance that handles
+     /// configuration parsing.
+     ///
+-    /// @throw DProcessBaseError is io_service is NULL.
++    /// @throw DProcessBaseError if io_service is null.
+     DProcessBase(const char* app_name, asiolink::IOServicePtr io_service,
+                  DCfgMgrBasePtr cfg_mgr)
+         : app_name_(app_name), io_service_(io_service), shut_down_flag_(false),
+diff --git a/src/lib/process/testutils/d_test_stubs.h b/src/lib/process/testutils/d_test_stubs.h
+index 9881ee4dca5..159e925ba2b 100644
+--- a/src/lib/process/testutils/d_test_stubs.h
++++ b/src/lib/process/testutils/d_test_stubs.h
+@@ -109,7 +109,7 @@ public:
+     /// @param io_service is the io_service used by the caller for
+     /// asynchronous event handling.
+     ///
+-    /// @throw DProcessBaseError is io_service is NULL.
++    /// @throw DProcessBaseError if io_service is null.
+     DStubProcess(const char* name, asiolink::IOServicePtr io_service);
+ 
+     /// @brief Invoked after process instantiation to perform initialization.
+@@ -237,7 +237,7 @@ protected:
+     /// ftCreateProcessException OR ftCreateProcessNull.
+     ///
+     /// @return returns a pointer to the new process instance (DProcessBase*)
+-    /// or NULL if SimFailure is set to ftCreateProcessNull.
++    /// or null if SimFailure is set to ftCreateProcessNull.
+     /// @throw throws std::runtime_error if SimFailure is set to
+     /// ftCreateProcessException.
+     virtual DProcessBase* createProcess();
+diff --git a/src/lib/tcp/tests/mt_tcp_listener_mgr_unittests.cc b/src/lib/tcp/tests/mt_tcp_listener_mgr_unittests.cc
+index ad8ecea4c9a..d5aeda0d55c 100644
+--- a/src/lib/tcp/tests/mt_tcp_listener_mgr_unittests.cc
++++ b/src/lib/tcp/tests/mt_tcp_listener_mgr_unittests.cc
+@@ -214,7 +214,7 @@ public:
+ 
+     /// @brief Runs IO service with optional timeout.
+     ///
+-    /// We iterate over calls to asio::io_service.run(), until
++    /// We iterate over calls to asio::io_context.run(), until
+     /// all the clients have completed their requests.  We do it this way
+     /// because the test clients stop the io_service when they're
+     /// through with a request.
+diff --git a/src/lib/tcp/tests/tcp_test_client.h b/src/lib/tcp/tests/tcp_test_client.h
+index b453eded08a..e6658be80cf 100644
+--- a/src/lib/tcp/tests/tcp_test_client.h
++++ b/src/lib/tcp/tests/tcp_test_client.h
+@@ -114,7 +114,7 @@ public:
+     /// Upon successful connection, carry out the TLS handshake. If the handshake
+     /// completes successful start sending requests.
+     void start() {
+-        isc::asiolink::TCPEndpoint endpoint(boost::asio::ip::address::from_string(server_address_), server_port_);
++        isc::asiolink::TCPEndpoint endpoint(boost::asio::ip::make_address(server_address_), server_port_);
+         SocketCallback socket_cb(
+             [this](boost::system::error_code ec, size_t /*length */) {
+                 receive_done_ = false;
+diff --git a/src/lib/yang/tests/sysrepo_setup.h b/src/lib/yang/tests/sysrepo_setup.h
+index 4e315dd4026..b5c628b0fb1 100644
+--- a/src/lib/yang/tests/sysrepo_setup.h
++++ b/src/lib/yang/tests/sysrepo_setup.h
+@@ -31,8 +31,8 @@ struct SysrepoSetup {
+     /// is the equivalent of running "make shm_clean" in sysrepo:
+     /// https://github.com/sysrepo/sysrepo/blob/v1.4.140/CMakeLists.txt#L329-L334
+     static void cleanSharedMemory() {
+-        call_system("rm -rf /dev/shm/sr_*");
+-        call_system("rm -rf /dev/shm/srsub_*");
++        call_system("rm -rf /Users/razvan/isc/git/sysrepo/shm/sr_*");
++        call_system("rm -rf /Users/razvan/isc/git/sysrepo/shm/srsub_*");
+     }
+ 
+ private:
+-- 
+GitLab
