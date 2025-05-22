@@ -2,8 +2,8 @@
 
 _gemname='parallel_tests'
 pkgname="ruby-${_gemname}"
-pkgver=5.0.1
-pkgrel=3
+pkgver=5.2.0
+pkgrel=1
 pkgdesc='Run Test::Unit / RSpec / Cucumber / Spinach in parallel'
 arch=('any')
 url="https://github.com/grosser/${_gemname}"
@@ -17,8 +17,8 @@ makedepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('a4c2ff220ccc4481edbcab4a40c4a6cc8af71bbe4064516dead4cdd14b013c8ac3166c7f02a6676c7933f2d3184488e4433b1c8879bf68a0ea2891b852318878')
-b2sums=('cafc4920c5944d6cee84ca28a12fbc713fa7fe3e16695ae7863719b9ffb31bfae69c4c396e0868139e620555aab4422eff0fb079c74c57f635844b334e3ba74b')
+sha512sums=('e03001e3db1bb9df741295d83d83287375de4816366ac90800cce0200d9a0e45f84ac770f54d5fd9c7eded22ef603f29f2f93c77a2ce0bc1bcede9528445f1e2')
+b2sums=('725bd18e6a7ea616d90bb4ff04679d7e5f43a576809a56ecda1121a0c8e8d64cb10e14c52709a7fc5a5889a19ff5e9250181c6be96400ff7421fa26690499360')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
