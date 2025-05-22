@@ -3,7 +3,7 @@
 
 pkgbase=speech-dispatcher
 pkgname=(speech-dispatcher libspeechd)
-pkgver=0.12.0
+pkgver=0.12.1
 pkgrel=1
 arch=('x86_64')
 pkgdesc="High-level device independent layer for speech synthesis interface"
@@ -12,7 +12,7 @@ license=('GPL2' 'FDL')
 makedepends=('glib2' 'intltool' 'espeak-ng' 'libtool' 'python-pyxdg' 'dotconf'
              'libpulse' "libpipewire" 'libao')
 source=("https://github.com/brailcom/speechd/releases/download/${pkgver}/speech-dispatcher-${pkgver}.tar.gz")
-sha512sums=('684472c9410ca42f28873054613934ad93525aa5526b788dc4c2bba861aa6cb675826b9fc5083e013d25e0f23fe113691e11aa7aa9b1cebdca72abfa6119940c')
+sha512sums=('f386bb25d80e85153db4907c5adece519a86084676a39f958a4f56e53bb957cb9b1232c4e648e73ef8dc5d1ab8e0cd64a5e0d151775fdd8f3b175f47f4864422')
 
 build() {
   cd ${pkgname}-${pkgver}
