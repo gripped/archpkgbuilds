@@ -2,7 +2,7 @@
 
 pkgbase=lsp-plugins
 pkgname=(lsp-plugins{,-{clap,docs,gst,ladspa,lv2,standalone,vst,vst3}} liblsp-r3d-glx-lib)
-pkgver=1.2.21
+pkgver=1.2.22
 pkgrel=1
 pkgdesc="Collection of open-source plugins"
 arch=(x86_64)
@@ -29,8 +29,8 @@ checkdepends=(
   lv2lint
 )
 source=(https://github.com/sadko4u/$pkgname/releases/download/$pkgver/$pkgname-src-$pkgver.tar.gz)
-sha512sums=('735bad50ecd7a0627a251933393914228ebe78516776f3e12ec709f73285558d01765bd28b6e66385d623bdabd4ddfc7384f1b8306eb6adfdba4f819c69149ea')
-b2sums=('cd73cfae9b20c0e9141ef545a55cb54483b4d751f7e5014f31a8975621a6fd1fcff8fbc82f3cd3b28f8867ea9f190c14d7f72771489f07dfa5ba12e0bbc499b8')
+sha512sums=('319fb2c6b10c4703ff06194027a3ad026e5206f594c6f2a79cb3fa468c38a8be6eb48158d6c6425416577b9927598594ac5342ac4bafad6f3957544da564d96f')
+b2sums=('ab96258d2174e8e7b6b678edfc56401e759063f13a94d2d74bc376806c90ffca76930aa7154b81434eeac1b958d8aae15ed989e0ed845d59061431a74f2836f8')
 _dir=$pkgbase
 
 _pick() {
@@ -104,7 +104,6 @@ package_lsp-plugins() {
 package_liblsp-r3d-glx-lib() {
   pkgdesc="GLX-based 3D backend library for rendering scenes"
   depends=(
-    gcc-libs
     glibc
     libglvnd libGL.so
     libx11
@@ -124,7 +123,6 @@ package_lsp-plugins-clap() {
     gcc-libs
     glibc
     libglvnd libGL.so
-    liblsp-r3d-glx-lib=$pkgver
     libsndfile libsndfile.so
     libx11
     libxrandr
@@ -148,7 +146,6 @@ package_lsp-plugins-gst() {
     glibc
     gstreamer
     gst-plugins-base-libs
-    liblsp-r3d-glx-lib=$pkgver
     libsndfile libsndfile.so
   )
 
@@ -162,7 +159,6 @@ package_lsp-plugins-ladspa() {
     gcc-libs
     glibc
     ladspa-host
-    liblsp-r3d-glx-lib=$pkgver
     libsndfile libsndfile.so
   )
 
@@ -179,7 +175,6 @@ package_lsp-plugins-lv2() {
     gcc-libs
     glibc
     libglvnd libGL.so
-    liblsp-r3d-glx-lib=$pkgver
     libsndfile libsndfile.so
     libx11
     libxrandr
@@ -201,7 +196,6 @@ package_lsp-plugins-standalone() {
     hicolor-icon-theme
     jack libjack.so
     libglvnd libGL.so
-    liblsp-r3d-glx-lib=$pkgver
     libsndfile libsndfile.so
     libx11
     libxrandr
@@ -220,7 +214,6 @@ package_lsp-plugins-vst() {
     gcc-libs
     glibc
     libglvnd libGL.so
-    liblsp-r3d-glx-lib=$pkgver
     libsndfile libsndfile.so
     libx11
     libxrandr
@@ -240,7 +233,6 @@ package_lsp-plugins-vst3() {
     gcc-libs
     glibc
     libglvnd libGL.so
-    liblsp-r3d-glx-lib=$pkgver
     libsndfile libsndfile.so
     libx11
     libxrandr

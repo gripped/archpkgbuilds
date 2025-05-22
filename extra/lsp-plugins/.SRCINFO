@@ -1,6 +1,6 @@
 pkgbase = lsp-plugins
 	pkgdesc = Collection of open-source plugins
-	pkgver = 1.2.21
+	pkgver = 1.2.22
 	pkgrel = 1
 	url = https://lsp-plug.in
 	arch = x86_64
@@ -21,9 +21,9 @@ pkgbase = lsp-plugins
 	makedepends = libsndfile
 	makedepends = lv2
 	makedepends = php
-	source = https://github.com/sadko4u/lsp-plugins/releases/download/1.2.21/lsp-plugins-src-1.2.21.tar.gz
-	sha512sums = 735bad50ecd7a0627a251933393914228ebe78516776f3e12ec709f73285558d01765bd28b6e66385d623bdabd4ddfc7384f1b8306eb6adfdba4f819c69149ea
-	b2sums = cd73cfae9b20c0e9141ef545a55cb54483b4d751f7e5014f31a8975621a6fd1fcff8fbc82f3cd3b28f8867ea9f190c14d7f72771489f07dfa5ba12e0bbc499b8
+	source = https://github.com/sadko4u/lsp-plugins/releases/download/1.2.22/lsp-plugins-src-1.2.22.tar.gz
+	sha512sums = 319fb2c6b10c4703ff06194027a3ad026e5206f594c6f2a79cb3fa468c38a8be6eb48158d6c6425416577b9927598594ac5342ac4bafad6f3957544da564d96f
+	b2sums = ab96258d2174e8e7b6b678edfc56401e759063f13a94d2d74bc376806c90ffca76930aa7154b81434eeac1b958d8aae15ed989e0ed845d59061431a74f2836f8
 
 pkgname = lsp-plugins
 	depends = lsp-plugins-clap
@@ -46,7 +46,6 @@ pkgname = lsp-plugins-clap
 	depends = glibc
 	depends = libglvnd
 	depends = libGL.so
-	depends = liblsp-r3d-glx-lib=1.2.21
 	depends = libsndfile
 	depends = libsndfile.so
 	depends = libx11
@@ -65,7 +64,6 @@ pkgname = lsp-plugins-gst
 	depends = glibc
 	depends = gstreamer
 	depends = gst-plugins-base-libs
-	depends = liblsp-r3d-glx-lib=1.2.21
 	depends = libsndfile
 	depends = libsndfile.so
 
@@ -75,7 +73,6 @@ pkgname = lsp-plugins-ladspa
 	depends = gcc-libs
 	depends = glibc
 	depends = ladspa-host
-	depends = liblsp-r3d-glx-lib=1.2.21
 	depends = libsndfile
 	depends = libsndfile.so
 
@@ -89,7 +86,6 @@ pkgname = lsp-plugins-lv2
 	depends = glibc
 	depends = libglvnd
 	depends = libGL.so
-	depends = liblsp-r3d-glx-lib=1.2.21
 	depends = libsndfile
 	depends = libsndfile.so
 	depends = libx11
@@ -109,7 +105,6 @@ pkgname = lsp-plugins-standalone
 	depends = libjack.so
 	depends = libglvnd
 	depends = libGL.so
-	depends = liblsp-r3d-glx-lib=1.2.21
 	depends = libsndfile
 	depends = libsndfile.so
 	depends = libx11
@@ -125,7 +120,6 @@ pkgname = lsp-plugins-vst
 	depends = glibc
 	depends = libglvnd
 	depends = libGL.so
-	depends = liblsp-r3d-glx-lib=1.2.21
 	depends = libsndfile
 	depends = libsndfile.so
 	depends = libx11
@@ -142,7 +136,6 @@ pkgname = lsp-plugins-vst3
 	depends = glibc
 	depends = libglvnd
 	depends = libGL.so
-	depends = liblsp-r3d-glx-lib=1.2.21
 	depends = libsndfile
 	depends = libsndfile.so
 	depends = libx11
@@ -151,7 +144,6 @@ pkgname = lsp-plugins-vst3
 
 pkgname = liblsp-r3d-glx-lib
 	pkgdesc = GLX-based 3D backend library for rendering scenes
-	depends = gcc-libs
 	depends = glibc
 	depends = libglvnd
 	depends = libGL.so
