@@ -4,7 +4,7 @@
 # Contributor: Auguste Pop <auguste [at] gmail [dot] com>
 
 pkgname=uncrustify
-pkgver=0.80.1
+pkgver=0.81.0
 pkgrel=1
 pkgdesc="A source code beautifier"
 arch=(x86_64)
@@ -19,7 +19,7 @@ makedepends=(
   python
 )
 source=("$url/archive/$pkgname-$pkgver.tar.gz")
-sha256sums=('0e2616ec2f78e12816388c513f7060072ff7942b42f1175eb28b24cb75aaec48')
+sha256sums=('484623dc16b92206adc6ac0770077c6c67c6e441102148c2a121a19549330ff9')
 
 build() {
   cmake -S $pkgname-$pkgname-$pkgver -B build \
