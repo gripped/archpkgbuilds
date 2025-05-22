@@ -1,12 +1,18 @@
+From ee8f4a33ebb3b3ad15ca54e15f71976f6af5747b Mon Sep 17 00:00:00 2001
 From: NIIBE Yutaka <gniibe@fsij.org>
 Date: Mon, 21 Aug 2023 14:22:50 +0900
-Subject: avoid-systemd-deprecation-warning
+Subject: [PATCH 05/21] avoid-systemd-deprecation-warning
+
+---
+ agent/gpg-agent.c | 3 ---
+ dirmngr/dirmngr.c | 3 ---
+ 2 files changed, 6 deletions(-)
 
 diff --git a/agent/gpg-agent.c b/agent/gpg-agent.c
-index 1db422737..b49c31f83 100644
+index c4b281d63..8bcd496bf 100644
 --- a/agent/gpg-agent.c
 +++ b/agent/gpg-agent.c
-@@ -1395,9 +1395,6 @@ main (int argc, char **argv)
+@@ -1399,9 +1399,6 @@ main (int argc, char **argv)
        agent_exit (0);
      }
  
@@ -17,10 +23,10 @@ index 1db422737..b49c31f83 100644
      ;
    else if (!opt.extra_socket)
 diff --git a/dirmngr/dirmngr.c b/dirmngr/dirmngr.c
-index bb54f4edd..7e965105e 100644
+index 5a9db1491..a8c3d2281 100644
 --- a/dirmngr/dirmngr.c
 +++ b/dirmngr/dirmngr.c
-@@ -1300,9 +1300,6 @@ main (int argc, char **argv)
+@@ -1332,9 +1332,6 @@ main (int argc, char **argv)
      {
        struct stat statbuf;
  
@@ -30,3 +36,6 @@ index bb54f4edd..7e965105e 100644
        /* In supervised mode, we expect file descriptor 3 to be an
           already opened, listening socket.
  
+-- 
+2.49.0
+
