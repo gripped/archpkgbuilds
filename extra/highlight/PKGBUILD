@@ -4,20 +4,18 @@
 
 pkgbase=highlight
 pkgname=('highlight' 'highlight-perl' 'highlight-gui')
-pkgver=4.15
-pkgrel=5
+pkgver=4.16
+pkgrel=1
 pkgdesc="Fast and flexible source code highlighter"
 url="http://www.andre-simon.de/doku/highlight/highlight.html"
 license=('GPL-3.0-or-later')
 arch=('x86_64')
 makedepends=('qt5-base' 'lua' 'boost' 'swig')
 source=("http://www.andre-simon.de/zip/${pkgbase}-${pkgver}.tar.bz2"{,.asc}
-        'use_gcc.patch'
-        'strip_gzip_timestamps.patch')
-sha256sums=('68b3f8178c5c9d4b0a03f6948635cef1c8d06244f6b438eebf3a190c588337e9'
+        'use_gcc.patch')
+sha256sums=('92261ff5c27c73e7a5c85ab65ada2a2edf8aa3dbe9c9c3d8e82e062088e60e5a'
             'SKIP'
-            '5aaacca96f1f4307bbe9cfb5b0f67a98edb0b5d653270990176e20840196ab50'
-            '8ebc7cfb1a43417ec19c3346b69817b68ac6de9caf4fd46bdeef2b2831900caf')
+            '5aaacca96f1f4307bbe9cfb5b0f67a98edb0b5d653270990176e20840196ab50')
 validpgpkeys=('B8C55574187F49180EDC763750FE0279D805A7C7')
 
 prepare() {
@@ -25,10 +23,6 @@ prepare() {
 
 	# Use gcc instead of clang
 	patch -Np1 -i "${srcdir}/use_gcc.patch"
-
-	# Strip gzip timestamps for reproducible builds
-	# See https://gitlab.com/saalen/highlight/-/merge_requests/151
-	patch -Np1 -i "${srcdir}/strip_gzip_timestamps.patch"
 }
 
 build() {
