@@ -47,7 +47,7 @@ pkgname=(
   gst-plugin-togglerecord
   gst-plugin-webrtchttp
 )
-pkgver=0.13.5
+pkgver=0.13.6
 pkgrel=1
 pkgdesc="Multimedia graph framework"
 url="https://gstreamer.freedesktop.org/"
@@ -80,7 +80,7 @@ options=(!lto)
 source=(
   "git+https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs.git?signed#tag=$pkgver"
 )
-b2sums=('19cec72c581f2e2484c110cc429b0775e7036e33bf37033cf27e807c45e799699cf7bbbcdec82b93e6ed5ea17e456b1fbc32e8619f46f82e2067197037f7691e')
+b2sums=('aa42d141a53bd9c6ed4f7e01fdeb2062101a3fcc2fbb0ca578c2ea31a756c514143733beea4215e4f223fe02c84266921a6da4e40947e12387cf15e34099cd9e')
 validpgpkeys=(
   7F4BC7CC3CA06F97336BBFEB0668CC1486C2D7B5 # Sebastian Dröge <sebastian@centricular.com>
 )
@@ -88,7 +88,7 @@ validpgpkeys=(
 _cargo_c_options=(
   --prefix /usr
   --library-type cdylib
-  --features asm,dmabuf,dssim,gtk_v4_16,v1_22,wayland,x11egl,x11glx
+  --features asm,dmabuf,dssim,gtk_v4_16,v1_22,waylandegl,x11egl,x11glx
   --workspace
   --exclude gst-plugin-csound
   --exclude gst-plugin-ndi
@@ -99,7 +99,7 @@ _cargo_c_options=(
 export SODIUM_USE_PKG_CONFIG=1
 
 # Use debug
-export CARGO_PROFILE_RELEASE_DEBUG=2
+export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
 
 # Use LTO
 export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
