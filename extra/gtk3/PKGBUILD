@@ -8,17 +8,17 @@ pkgname=(
   gtk3-docs
 )
 pkgver=3.24.49
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="GObject-based multi-platform GUI toolkit"
 url="https://www.gtk.org/"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
+  adwaita-fonts
   adwaita-icon-theme
   at-spi2-core
   cairo
-  cantarell-fonts
   dconf
   desktop-file-utils
   fontconfig
@@ -52,6 +52,7 @@ depends=(
   wayland
 )
 makedepends=(
+  cantarell-fonts
   git
   glib2-devel
   gobject-introspection
@@ -125,7 +126,7 @@ package_gtk3() {
 [Settings]
 gtk-icon-theme-name = Adwaita
 gtk-theme-name = Adwaita
-gtk-font-name = Cantarell 11
+gtk-font-name = Adwaita Sans 11
 END
 
   install -Dm644 gtk-query-immodules-3.0.hook -t "$pkgdir/usr/share/libalpm/hooks"
@@ -150,6 +151,7 @@ package_gtk3-demos() {
   depends=(
     at-spi2-core
     cairo
+    cantarell-fonts
     dconf
     gdk-pixbuf2
     glib2
