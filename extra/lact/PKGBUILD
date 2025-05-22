@@ -3,7 +3,7 @@
 
 pkgname=('lact' 'lact-libadwaita')
 pkgbase=lact
-pkgver=0.7.3
+pkgver=0.7.4
 pkgrel=1
 pkgdesc="Linux GPU Configuration Tool"
 arch=('x86_64')
@@ -15,6 +15,7 @@ depends=(
   glibc
   gtk4
   vulkan-tools
+  ocl-icd
 )
 makedepends=(
   cargo
@@ -27,8 +28,8 @@ checkdepends=(
 )
 install="$pkgbase.install"
 source=("git+https://github.com/ilya-zlobintsev/LACT.git#tag=v$pkgver")
-sha256sums=('4702737993138fe9beb816338e3477ddcc22e089cea713f090a87b4d3649bfbb')
-b2sums=('a1f341a7d25bf25032d0231e8bfdddaed38030596e4aff39f736c9cd6aa6af4b3a4f29059382bde9a26404b70854fb9bc1c781da563202cbd745c090eb82dcc0')
+sha256sums=('348b3c1f2402c15836384322b2b41540a1ebcb3cfdebbd039419b50264c1d69a')
+b2sums=('118ade61cdd4d020891fd18fb24a3f7f9df6b4ff80b8f3fcd588fb969c6af4f9e1297f3fc9438b2882c9a5f4a37e9970308d5b48758fe1d1d2bfef1e11d3bcc9')
 
 _backports=()
 
