@@ -4,7 +4,7 @@
 # Contributor: Alessio Sergi <asergi at archlinux dot us>
 
 pkgname=xfce4-places-plugin
-pkgver=1.8.4
+pkgver=1.9.0
 pkgrel=1
 pkgdesc="A menu with quick access to folders, documents, and removable media"
 arch=('x86_64')
@@ -12,30 +12,18 @@ url="https://docs.xfce.org/panel-plugins/xfce4-places-plugin/start"
 license=('GPL-2.0-or-later')
 groups=('xfce4-goodies')
 depends=('libnotify' 'xfce4-panel')
-makedepends=('git' 'xfce4-dev-tools')
+makedepends=('git' 'meson' 'xfce4-dev-tools')
 source=("git+https://gitlab.xfce.org/panel-plugins/xfce4-places-plugin.git#tag=$pkgname-$pkgver")
-sha256sums=('3c8a2b772cba501fb68e9151a16bba75a82a35198cb41c4884206520ff862e71')
-
-prepare() {
-  cd $pkgname
-  NOCONFIGURE=1 ./autogen.sh
-}
+sha256sums=('4d17dedc900a642cc5f53917140464abda7d362046e06415557b0b6f3a803f8e')
 
 build() {
-  cd $pkgname
-  ./configure \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --libexecdir=/usr/lib \
-    --localstatedir=/var \
-    --disable-static \
-    --disable-debug
-  make
+  arch-meson $pkgname build \
+    --localstatedir=/var
+  meson compile -C build
 }
 
 package() {
-  cd $pkgname
-  make DESTDIR="$pkgdir" install
+  meson install -C build --destdir "$pkgdir"
 }
 
 # vim:set ts=2 sw=2 et:
