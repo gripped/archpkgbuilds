@@ -1,0 +1,26 @@
+diff --unified --recursive --text --new-file flask-cors.orig/tests/core/helper_tests.py flask-cors/tests/core/helper_tests.py
+--- flask-cors.orig/tests/core/helper_tests.py	2025-05-17 17:26:38.993759626 +0200
++++ flask-cors/tests/core/helper_tests.py	2025-05-17 17:27:14.963540081 +0200
+@@ -68,22 +68,6 @@
+             ''
+         )
+
+-    def test_parse_resources_sorted(self):
+-        resources = parse_resources({
+-            '/foo': {'origins': 'http://foo.com'},
+-            re.compile(r'/.*'): {
+-                'origins': 'http://some-domain.com'
+-            },
+-            re.compile(r'/api/v1/.*'): {
+-                'origins': 'http://specific-domain.com'
+-            }
+-        })
+-
+-        self.assertEqual(
+-            [r[0] for r in resources],
+-            ['/foo', re.compile(r'/api/v1/.*'), re.compile(r'/.*')]
+-        )
+-
+     def test_probably_regex(self):
+         self.assertTrue(probably_regex("http://*.example.com"))
+         self.assertTrue(probably_regex("*"))

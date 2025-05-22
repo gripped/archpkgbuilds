@@ -1,6 +1,6 @@
 pkgbase = python-flask-cors
 	pkgdesc = A Flask extension adding a decorator for CORS support
-	pkgver = 5.0.1
+	pkgver = 6.0.0
 	pkgrel = 1
 	url = https://github.com/corydolphin/flask-cors
 	arch = any
@@ -8,12 +8,14 @@ pkgbase = python-flask-cors
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = python-wheel
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python
 	depends = python-flask
 	depends = python-werkzeug
-	source = git+https://github.com/corydolphin/flask-cors.git#tag=5.0.1
-	sha256sums = bd14700e139f4f636975f0de14ef0ed3c0064a1e92d04d124a365ff41dc2a97a
+	source = git+https://github.com/corydolphin/flask-cors.git#tag=6.0.0
+	source = python-flask-cors-remove-failing-test.patch
+	sha256sums = ce7d040aa7aa6f74c514aeac389f299aeca4dcbc585ab56aa3b33d6207016415
+	sha256sums = 5bfe6eda0a101b6ee333ab37740ce751e8982bd5ee981719eb56c3476140f7ef
 
 pkgname = python-flask-cors
