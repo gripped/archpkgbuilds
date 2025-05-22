@@ -1,8 +1,8 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=anubis
-pkgver=1.17.1
-pkgrel=3
+pkgver=1.18.0
+pkgrel=1
 pkgdesc="Reverse proxy to protect against scraper bots"
 url="https://anubis.techaro.lol/"
 arch=(x86_64)
@@ -27,7 +27,7 @@ source=(
   "git+https://github.com/TecharoHQ/anubis?signed#tag=v${pkgver/[a-z]/-&}"
   0001-fix-web-Avoid-timestamping-main.mjs.gz.patch
 )
-b2sums=('723989641b4ab37588e052c6147ce16836211a8a1a170eb89f36504c63bac2ea061ab275f83c75aeef4b1e0949bb5ee35160c7a46f85b0fc957791bbc9f7514f'
+b2sums=('76e28c8e240bd585a000b6884e117035282417e6771a178cf8ec08f2325bfccc2f53189d5d6c196fad0499dbf4e62375a5ffb81be9243df222e8063036b84d23'
         '00f0e216eb328d9305932a5a96c1542861a59b48fd95e02d1b0f7568f8c5afbdf9f6c44c89c60a83986db47028f00474fccccf2dc366b4c5f5e941804ee89103')
 validpgpkeys=(
   833F64161167B501058C394756375DA2DF02ABFF # Techaro Packages Signatures <gpg+packages@techaro.lol>
