@@ -1,7 +1,7 @@
 pkgbase = haskell-hadrian
 	pkgdesc = GHC build system
 	pkgver = 0.1.0.0+9.4.8
-	pkgrel = 97
+	pkgrel = 102
 	url = https://gitlab.haskell.org/ghc/ghc
 	arch = x86_64
 	license = BSD
@@ -12,6 +12,8 @@ pkgbase = haskell-hadrian
 	depends = haskell-shake
 	depends = haskell-unordered-containers
 	source = https://downloads.haskell.org/~ghc/9.4.8/ghc-9.4.8-src.tar.xz
+	source = ghc-enable-ghci-for-riscv64.patch::https://gitlab.haskell.org/ghc/ghc/-/commit/dd38aca95ac25adc9888083669b32ff551151259.patch
 	sha256sums = 0bf407eb67fe3e3c24b0f4c8dea8cb63e07f63ca0f76cf2058565143507ab85e
+	sha256sums = 705c79d713e7344b5300c1b87eeb7faad31fa6bf65d5c164eb588606d58e803e
 
 pkgname = haskell-hadrian
