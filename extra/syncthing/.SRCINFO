@@ -1,13 +1,14 @@
 pkgbase = syncthing
 	pkgdesc = Open Source Continuous Replication / Cluster Synchronization Thing
 	pkgver = 1.29.6
-	pkgrel = 1
+	pkgrel = 2
 	url = https://syncthing.net/
 	arch = x86_64
 	license = MPL-2.0
 	makedepends = git
 	makedepends = go
 	depends = glibc
+	options = !lto
 	source = https://github.com/syncthing/syncthing/releases/download/v1.29.6/syncthing-source-v1.29.6.tar.gz
 	source = https://github.com/syncthing/syncthing/releases/download/v1.29.6/syncthing-source-v1.29.6.tar.gz.asc
 	source = syncthing-discosrv.sysusers
