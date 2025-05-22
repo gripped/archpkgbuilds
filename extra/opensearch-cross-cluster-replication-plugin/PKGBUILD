@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-cross-cluster-replication-plugin
-pkgver=2.19.1.0
+pkgver=2.19.2.0
 pkgrel=1
-_opensearchver=2.19.1
+_opensearchver=2.19.2
 _jdkver=11
 pkgdesc="OpenSearch Cross-Cluster Replication Plugin"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=("java-environment=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/cross-cluster-replication/archive/${pkgver}.tar.gz"
 )
-sha256sums=('e8ba9ee52bea155572c33c0aa0ec41523d42fba3a4a9514348cd17cf5d869399')
+sha256sums=('a0caba976f5bab76d1476c0946036494f5aa89bb717706645c3ffef5fcfe79e5')
 
 build() {
   cd "cross-cluster-replication-${pkgver}"
