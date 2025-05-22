@@ -1,0 +1,18 @@
+[Unit]
+Description=Prometheus exporter for ValKey & Redis metrics
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+User=redis_exporter
+Group=redis_exporter
+Restart=on-failure
+EnvironmentFile=-/etc/conf.d/prometheus-redis-exporter
+ExecStart=/usr/bin/prometheus-redis-exporter $REDIS_EXPORTER_ARGS
+ExecReload=/bin/kill -HUP $MAINPID
+NoNewPrivileges=true
+ProtectHome=read-only
+ProtectSystem=strict
+
+[Install]
+WantedBy=multi-user.target
