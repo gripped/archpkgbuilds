@@ -2,8 +2,8 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 
 pkgname=fulcio
-pkgver=1.6.6
-pkgrel=2
+pkgver=1.7.1
+pkgrel=1
 pkgdesc='free Root-CA for code signing certs - issuing certificates based on an OIDC email address.'
 arch=('x86_64')
 url="https://github.com/sigstore/fulcio"
@@ -11,8 +11,8 @@ license=('Apache')
 depends=('glibc')
 makedepends=('go' 'git')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/sigstore/fulcio/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('d6b30e80fcb0fe848167e0239e0765042d9b5e0adb83fab98c5abf9f07e28b35e5dec2cc11116e186b13636986045b9d52ea8aa356dfb3e66bb5e08065b144b6')
-b2sums=('29c76493037a4bd7202c158d833638b6896e2862c79320817e33bed2887882a119d38bbc195c1116efe008f584a51d5576e52ea137fe964685a61ccf9fde6ed6')
+sha512sums=('4e90cfacff0f67954cb3f874bc6fd793585db11a56f8bc5c4887ee8800a47d5532cd593090b8e07efb5a6cf6aeeb30145d296188138783da68a4df2e4858f980')
+b2sums=('dfc525b6545a21f30c9d420ced10769d79631098f84b7a76150d2c044967d006d4ecaf5109e47cc90347bac18e92020c9d6edacde179181eab0db9681aea5fe8')
 
 build(){
   cd "${pkgname}-${pkgver}"
