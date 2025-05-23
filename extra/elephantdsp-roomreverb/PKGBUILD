@@ -6,25 +6,28 @@ pkgname=(
   'elephantdsp-roomreverb-lv2'
   'elephantdsp-roomreverb-vst3'
 )
-pkgver=1.1.0
+pkgver=1.3.0
 pkgrel=1
 pkgdesc='A mono and stereo algorithmic room reverb audio effect plugin'
 arch=('x86_64')
 url='https://www.elephantdsp.com/products/room-reverb/'
-license=('GPL3')
+license=('GPL-3.0-only')
 groups=('pro-audio')
 _common_depends=(
   'glibc'
   'gcc-libs'
+  'fontconfig'
   'freetype2'
   'libjpeg-turbo'
   'libpng'
   'zlib'
 )
 makedepends=(
+  "${_common_depends[@]}"
   'git'
   'cmake'
-  'juce'
+  'gtk3'
+  'webkit2gtk-4.1'
   'libx11'
   'libxcursor'
   'libxinerama'
@@ -33,37 +36,36 @@ makedepends=(
   'flac'
   'alsa-lib'
   'libvorbis'
-  'webkit2gtk'
   'zlib'
 )
-_commit='71771462a6d9d3389604e48d9fe9439cf9f831f5'
 source=(
-  "$pkgbase::git+https://github.com/cvde/RoomReverb#commit=$_commit"
+  "$pkgbase::git+https://github.com/cvde/RoomReverb#tag=v$pkgver"
+  'github.com-juce-framework-JUCE::git+https://github.com/juce-framework/JUCE'
   'github.com-free-audio-clap::git+https://github.com/free-audio/clap'
   'github.com-free-audio-clap-helpers::git+https://github.com/free-audio/clap-helpers'
   'github.com-free-audio-clap-juce-extensions::git+https://github.com/free-audio/clap-juce-extensions'
-  'devendor-juce.patch'
   'no-copy-plugin.patch'
 )
-b2sums=('SKIP'
+sha512sums=('35ab7ca953b8f234ec98373edfb63ca929ce63d9f69188fa580d54e1cd0898863d578e1a46bf0b0577a6ad9077873cda71f313b23b72b6306b611f616a46da95'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'e0fa91afe972a886ead1d2060f507a98e24d462d7da938ff5dd98fbd967ffb46d16f2aadbbe38436607908652e9aa045cdd9655252c75d96de278cea47879de0')
+b2sums=('21073949d37fd35476de4ba9bd88e36764964de024aa092741408eb2d5e868b07751efd6a5af5e65a95ac413d948051ac9927e69c9b37304b9d26dc88c6afb32'
         'SKIP'
         'SKIP'
         'SKIP'
-        '1b83f40cf4f8736aad0738e5a0553d55acc2b29eb834ad022b78ab01619d9c69f53d952cb7d53f7369115cc98734989d4ff0fc365afd46ced9101d9ff871866e'
+        'SKIP'
         'cccc8f93cbaee3eac0b7180bde50595a007eac8e22b4ba3d532fe8715a890409e084c2fbf50301a236bfa3c0f336704a53eeaf21d84e04c8f376f9e7f22642a7')
-
-pkgver() {
-  cd "$pkgbase"
-
-  git describe --tags | sed 's/^v//'
-}
 
 prepare() {
   cd "$pkgbase"
 
   # setup git submodules
-  git submodule init Libs/clap-juce-extensions
+  git submodule init
   git config submodule.Libs/clap-juce-extensions.url "$srcdir/github.com-free-audio-clap-juce-extensions"
+  git config submodule.Libs/JUCE.url "$srcdir/github.com-juce-framework-JUCE"
   git -c protocol.file.allow=always submodule update
 
   # setup git submodules for clap-juce-extensions
@@ -76,9 +78,6 @@ prepare() {
 
   # fix for cmake trying to install into ~/.clap, ~/.lv2, and ~/.vst3 during build
   patch -p1 -i "$srcdir/no-copy-plugin.patch"
-
-  # use system JUCE
-  patch -p1 -i "$srcdir/devendor-juce.patch"
 }
 
 build() {
