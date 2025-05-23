@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=git-bug
-pkgver=0.8.1
+pkgver=0.10.1
 pkgrel=1
 pkgdesc='Distributed, offline-first bug tracker embedded in git, with bridges '
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('gcc-libs' 'git')
 makedepends=('go')
 options=('!lto')
 source=("git+$url#tag=v$pkgver")
-sha256sums=('4356f9c49905b1ca587d59366922bb94ba27e9650ff12778e1643c409dba8f67')
+sha256sums=('4bedbb81c1b1f727bc0c62c065a20d60421665b03a4856b5f3a3226e19138d05')
 
 # NOTE: webui assets seem to be pregenerated & committed into the repo
 # so there is very little point in regenerating them
