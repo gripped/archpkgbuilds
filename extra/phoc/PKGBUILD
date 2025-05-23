@@ -1,26 +1,25 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=phoc
-pkgver=0.44.1
+pkgver=0.46.0
 pkgrel=1
 pkgdesc='Display compositor designed for phones'
 arch=(x86_64 aarch64)
 url='https://gitlab.gnome.org/World/Phosh/phoc'
 license=(GPL-3.0-only)
-depends=(gnome-desktop wlroots0.17 gsettings-desktop-schemas pixman libinput libxcb libxkbcommon
+depends=(gnome-desktop wlroots gsettings-desktop-schemas pixman libinput libxcb libxkbcommon
 	 json-glib glib2 dconf cairo wayland libgmobile)
 checkdepends=(xorg-server-xvfb xorg-xauth mutter pixman)
 makedepends=(cmake meson git wayland-protocols python-jinja python-pygments python-typogrify libgirepository libgmobile glib2-devel)
 optdepends=('xorg-wayland: run X clients under phoc')
 source=(https://gitlab.gnome.org/World/Phosh/phoc/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz)
-sha256sums=('4bb77691799265e703b635f91e4223eb1355ae4e332595423562cd3db56dc76b')
+sha256sums=('3eab0c6cb9b2eadf329b3e194e7b0af5d04ae834855e54277ae4b28055b68d93')
 
 prepare() {
   cd "${pkgname}-v${pkgver}"
 }
 
 build() {
-  export PKG_CONFIG_PATH='/usr/lib/wlroots0.17/pkgconfig'
   arch-meson "${pkgname}-v${pkgver}" build -Dembed-wlroots=disabled
   meson compile -C build
 }
@@ -30,6 +29,5 @@ check() {
 }
 
 package() {
-  depends+=(libwlroots.so=12)
   DESTDIR="${pkgdir}" meson install -C build
 }
