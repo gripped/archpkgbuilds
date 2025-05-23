@@ -4,7 +4,7 @@
 # Contributor: Alex Pearce < alex at alexpearce dot me >
 
 pkgname=xrootd
-pkgver=5.8.1
+pkgver=5.8.2
 pkgrel=2
 pkgdesc="Software framework for fast, low latency, scalable and fault tolerant data access."
 arch=(x86_64)
@@ -35,7 +35,8 @@ makedepends=(
   git
   gtest
   ninja
-  python-pip
+  python-build
+  python-installer
   python-setuptools
   yasm
 )
@@ -43,7 +44,7 @@ checkdepends=(
   procps-ng  # some tests use ps
 )
 source=("$pkgname::git+https://github.com/$pkgname/$pkgname.git#tag=v$pkgver")
-b2sums=('e6657fdb12620de4e1de2686011e417a01802a741eccfbdb85a85a0a5f334a3ececf4aee407d40344582a0a62109c2997ea14bff2f8e4222db6eece56d310cc2')
+b2sums=('c3845201263b9e16ecb550ed31488544e61b3b82acc7c93a1fbebaf701e4f30721ff8f21faa538a62ac87f6504c6e9461248e7249dbb48554006c8ffe7cd970d')
 
 build() {
   local cmake_options=(
@@ -62,9 +63,14 @@ build() {
     -D ENABLE_SCITOKENS=OFF
     -D ENABLE_VOMS=OFF
     -D ENABLE_XRDEC=OFF
+    # Python wheel is installed separately from CMake
+    -D INSTALL_PYTHON_BINDINGS=OFF
   )
   cmake "${cmake_options[@]}"
   cmake --build build
+
+  # build the Python wheel separately from CMake to avoid pip warnings
+  python -m build --wheel --no-isolation build/bindings/python
 }
 
 check() {
@@ -83,7 +89,8 @@ check() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-  install -vDm 644 $pkgname/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+  python -m installer --destdir="$pkgdir" build/bindings/python/dist/*.whl
+  install -vDm 644 $pkgname/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
 # vim: ts=2 sw=2 et:
