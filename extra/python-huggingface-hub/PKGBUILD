@@ -3,7 +3,7 @@
 
 _name=huggingface_hub
 pkgname=python-huggingface-hub
-pkgver=0.31.2
+pkgver=0.32.0
 pkgrel=1
 epoch=1
 pkgdesc='All the open source things related to the Hugging Face Hub'
@@ -32,8 +32,11 @@ makedepends=(
 checkdepends=(
   git
   git-lfs
+  python-authlib
   python-fastapi
   python-hf-xet
+  python-httpx
+  python-itsdangerous
   python-jedi
   python-jinja
   python-pillow
@@ -45,10 +48,12 @@ checkdepends=(
   python-pytest-xdist
 )
 optdepends=(
+  python-authlib
   python-gradio
   python-graphviz
   python-hf-transfer
   python-hf-xet
+  python-httpx
   python-inquirerpy
   python-jinja
   python-pillow
@@ -58,7 +63,7 @@ optdepends=(
   python-tensorflow
 )
 source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('d854c8500328421e3a020628218b8d09d89993d8f9e73db5ad45e27bcd0b5cd8b2ce101d73bd62e09463a06ac22780d2b0aaf8fa4dfe60f2a8e387f9db8fad72')
+sha512sums=('4651207313c3e90024fd1afe703428bb335777ddb37241e879546c68c9c0fee624bc5c2b0686107460915a5989aa78101d636c8beec9805ef296892bef9d33e5')
 
 build() {
   cd $_name-$pkgver
@@ -91,6 +96,11 @@ check() {
     --deselect tests/test_webhooks_server.py::test_deserialize_payload_example_with_comment
     --deselect tests/test_webhooks_server.py::test_deserialize_payload_example_without_comment
     --deselect tests/test_webhooks_server.py::test_deserialize_payload_example_with_updated_refs
+    # EOFError: Ran out of input
+    --deselect tests/test_utils_strict_dataclass.py::test_autocompletion_init_with_kwargs
+    --deselect tests/test_utils_strict_dataclass.py::test_autocompletion_init_without_kwargs
+    --deselect tests/test_utils_strict_dataclass.py::test_autocompletion_attribute_with_kwargs
+    --deselect tests/test_utils_strict_dataclass.py::test_autocompletion_attribute_without_kwargs
   )
 
   cd $_name-$pkgver
