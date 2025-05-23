@@ -4,7 +4,7 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
  
 pkgname=psutils
-pkgver=3.3.9
+pkgver=3.3.10
 pkgrel=1
 pkgdesc='A set of postscript utilities'
 arch=(any)
@@ -22,7 +22,7 @@ checkdepends=(ghostscript
               python-wand)
 _archive="$pkgname-$pkgver"
 source=("$url/releases/download/v$pkgver/$_archive.tar.gz")
-sha256sums=('12bfde60145846e6aaae9eead8c5f0c4a959528cd171727b6ff7044da5d7e57c')
+sha256sums=('698a18f291183d48d63cd43b6a2e43d133e89ab438d5aef5baa24374660729f7')
 
 build() {
 	cd "$_archive"
