@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=knotifications
-pkgver=6.13.0
+pkgver=6.14.0
 pkgrel=1
 pkgdesc='Abstraction for system notifications'
 arch=(x86_64)
@@ -26,7 +26,7 @@ optdepends=('pyside6: Python bindings'
             'qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('d2b12f1d4ae80f700bc874112ecee99b1e44438c49bb2a8a77ceb4c70569f9dd'
+sha256sums=('a76e95de74129e12f500b01f8ce2529bc6af93b75ff2cce99c827129523d7517'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D  # Jonathan Esk-Riddell <jr@jriddell.org>
