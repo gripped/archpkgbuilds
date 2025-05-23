@@ -3,8 +3,8 @@
 
 _hkgname=reflection
 pkgname=haskell-reflection
-pkgver=2.1.8
-pkgrel=24
+pkgver=2.1.9
+pkgrel=1
 pkgdesc="Reifies arbitrary terms into types that can be reflected back into terms"
 url="https://github.com/ekmett/reflection"
 license=("BSD")
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-hspec' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('6bd13e435910f591d4c9ad187ebc03978055d8fcaa9ebd075c05a89b22e7f9da86008ba7586f7e10cb8b67aced3adbfb2a9262cbb779fb18348e9b19d3ef17dc')
+sha512sums=('db5f88104437b3a8620c21a140c1dc35a2c51f6695d6274204dc479b02f935b7b8e7e1f1481ca418917c999ae09f5773afa9f294493193c2e7d007a9b7883046')
 
 build() {
     cd $_hkgname-$pkgver
