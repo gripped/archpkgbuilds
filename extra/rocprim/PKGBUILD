@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 pkgname=rocprim
-pkgver=6.3.3
+pkgver=6.4.0
 pkgrel=1
 pkgdesc='Header-only library providing HIP parallel primitives'
 arch=('any')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('rocm-core' 'hip-runtime-amd')
 makedepends=('cmake' 'rocm-cmake')
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('15e4f8dfc71175c568f8afa87e3e0e3c7ad0680c8bca0d9db3a39936ec185813')
+sha256sums=('c35c568b83f8894fc3b9b722343b0ea75c3bd961be24075fb3527d5230788e26')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 build() {
