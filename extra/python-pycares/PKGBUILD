@@ -2,7 +2,7 @@
 
 pkgname=python-pycares
 _name=${pkgname#python-}
-pkgver=4.6.1
+pkgver=4.8.0
 pkgrel=1
 pkgdesc='Python interface for c-ares'
 arch=(x86_64)
@@ -25,7 +25,7 @@ checkdepends=(
 )
 optdepends=(python-idna)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('073f71ef8aa69a779462296af1fb7b54fb4c2aca5684f0e499d2c37add97e7f1b7ec55343ce04d36be05ecf94b25ecb980e4ca043064605baecd18699d4d1f89')
+b2sums=('a2621038ad9e2ba043c7b6082362eb8ac90cbce83ffa783cd208a3a494c4f42283b3a9931a02960241248e7046fdb7e9d03d0a9fd75e307bf3efa80e859fc14d')
 
 build() {
   cd "$_name"
