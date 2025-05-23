@@ -3,27 +3,19 @@
 # Contributor: Lubosz Sarnecki <lubosz0@gmail.com>
 
 pkgname=lib32-lm_sensors
-pkgver=3.6.0.r41.g31d1f125
-_commit=31d1f125d8076f1c8c8f3224b31d240e6e6a1763
-#_pkgver=${pkgver//./-}
-pkgrel=3
+pkgver=3.6.2
+_pkgver=${pkgver//./-}
+pkgrel=2
 epoch=1
 pkgdesc="Collection of user space tools for general SMBus access and hardware monitoring (32-bit)"
 arch=('x86_64')
 url="http://www.lm-sensors.org/"
-license=('GPL' 'LGPL')
-makedepends=('git')
+license=('GPL-2.0-only OR LGPL-2.1-only')
+#makedepends=('git')
 depends=('lm_sensors' 'lib32-glibc')
 provides=('libsensors.so')
-#source=(lm_sensors-${pkgver}.tar.gz::https://github.com/groeck/lm-sensors/archive/V${pkgver//\./-}.tar.gz)
-source=("git+https://github.com/groeck/lm-sensors.git#commit=${_commit}")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd "${srcdir}"/lm-sensors*
-
-  git describe --long --tags | sed 's/V//;s/\([^-]*-g\)/r\1/;s/-/./g'
-}
+source=(lm_sensors-${pkgver}.tar.gz::https://github.com/hramrach/lm-sensors/archive/refs/tags/V${_pkgver}.tar.gz)
+sha256sums=('c6a0587e565778a40d88891928bf8943f27d353f382d5b745a997d635978a8f0')
 
 prepare() {
   cd "${srcdir}"/lm-sensors*
@@ -44,5 +36,6 @@ package() {
   
   rm -r "${pkgdir}"/etc/
   rm -r "${pkgdir}"/usr/{bin,sbin,include,man}
+  rm -r "${pkgdir}"/usr/share/zsh
 }
 
