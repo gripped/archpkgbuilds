@@ -3,7 +3,7 @@
 
 pkgname=python-hiredis
 _pkgname=hiredis-py
-pkgver=3.1.0
+pkgver=3.1.1
 pkgrel=1
 pkgdesc='Non-blocking redis client for python'
 arch=('x86_64')
@@ -25,7 +25,7 @@ source=(
     "git+https://github.com/redis/hiredis-py.git#tag=v$pkgver"
     "git+https://github.com/redis/hiredis.git"
 )
-sha256sums=('e2ce5f597d97d575883085dbe6a5e90109f6b8edc86f56bfc3d3e0335d751df3'
+sha256sums=('5f4023546e08cedf497cea5cb438dad629a7accd9400b7d009927a0d02f329db'
             'SKIP')
 
 prepare() {
