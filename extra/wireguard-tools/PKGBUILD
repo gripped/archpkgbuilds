@@ -2,34 +2,34 @@
 # Contributor: Jason A. Donenfeld <Jason@zx2c4.com>
 
 pkgname=wireguard-tools
-pkgver=1.0.20210914
-pkgrel=2
+pkgver=1.0.20250521
+pkgrel=1
 pkgdesc='next generation secure network tunnel - tools for configuration'
 arch=('x86_64')
 url='https://www.wireguard.com/'
 license=('GPL')
 depends=('bash')
+makedepends=('git')
 optdepends=('openresolv: for DNS functionality'
             'sudo: elevate privileges')
 validpgpkeys=('AB9942E6D4A4CFC3412620A749FC7012A5DE03AE') # Jason A. Donenfeld <Jason@zx2c4.com>
-source=("https://git.zx2c4.com/${pkgname}/snapshot/${pkgname}-${pkgver}.tar"{.xz,.asc})
-sha256sums=('97ff31489217bb265b7ae850d3d0f335ab07d2652ba1feec88b734bc96bd05ac'
-            'SKIP')
+source=("git+https://git.zx2c4.com/${pkgname}#tag=v${pkgver}?signed")
+sha256sums=('d7d5b1ad1931cd472f8db1451f711ca04e0b359cf871a83747fb2a56653f89db')
 
 prepare() {
-	cd ${pkgname}-${pkgver}/
+	cd "${pkgname}/"
 
 	find contrib/ -name '.gitignore' -delete
 }
 
 build() {
-	cd ${pkgname}-${pkgver}/
+	cd "${pkgname}/"
 
 	make -C src/
 }
 
 package() {
-	cd ${pkgname}-${pkgver}/
+	cd "${pkgname}/"
 
 	make -C src/ \
 		DESTDIR="${pkgdir}/" \
