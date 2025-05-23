@@ -5,7 +5,7 @@
 
 pkgname=lutris
 pkgver=0.5.19
-pkgrel=2
+pkgrel=5
 pkgdesc='Open Gaming Platform'
 arch=(any)
 url=https://lutris.net
@@ -63,6 +63,8 @@ optdepends=(
   'innoextract: Extract Inno Setup installers'
   'libayatana-appindicator: tray icon support'
   'lib32-gamemode: Allows games to request a temporary set of optimisations'
+  'lib32-gnutls: Required to login to some game platforms (e.g. Ubisoft Connect, EA Origin and GOG)'
+  'lib32-mesa-libgl: OpenGL support'
   'lib32-vkd3d: DirectX 12 support'
   'lib32-vulkan-icd-loader: Vulkan support'
   'python-pefile: Display icons of Microsoft executable files'
@@ -71,6 +73,7 @@ optdepends=(
   'vulkan-icd-loader: Vulkan support'
   'vulkan-tools: Vulkan support'
   'wine: Windows support'
+  'winetricks: Use system winetricks'
   'xorg-xgamma: Restore gamma on game exit'
   'umu-launcher: For running games through Proton'
 )
