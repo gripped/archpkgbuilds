@@ -3,7 +3,7 @@
 _pkg=Fiona
 pkgname=python-${_pkg,,}
 pkgver=1.10.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Read and write geographic data files"
 arch=(x86_64)
 url="https://github.com/Toblerity/Fiona"
@@ -35,6 +35,7 @@ sha256sums=('308e12c33d34141c2ff2ba94ebcc7c9226f5d17882a5b51ef064f0283d67dc88')
 
 prepare() {
   sed -i '/oldest-supported-numpy/d' ${_pkg}-${pkgver}/pyproject.toml
+  sed -i 's|\~=|>=|' ${_pkg}-${pkgver}/pyproject.toml # Fix build with cython 3.1
 }
 
 build() {
