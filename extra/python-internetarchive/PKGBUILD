@@ -4,7 +4,7 @@
 # Contributor: jyantis <yantis@yantis.net>
 
 pkgname=python-internetarchive
-pkgver=5.3.1
+pkgver=5.4.0
 pkgrel=1
 pkgdesc="A Python and Command-Line Interface to Archive.org"
 arch=(any)
@@ -33,7 +33,7 @@ optdepends=(
   'python-ujson: faster json parsing'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('1e037fab4b72b5c24d987e4a175d9bfe6044367ae5f54ed5085e529f82cc1208')
+sha256sums=('ef03a75564d9514d782dbbc89d1fb923a3b6f5e404250aff3dfbe8a5461619e1')
 
 build() {
   cd ${pkgname#python-}-$pkgver
