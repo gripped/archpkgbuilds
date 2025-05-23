@@ -3,8 +3,8 @@
 
 pkgname=open-vm-tools
 epoch=6
-pkgver=12.5.0
-pkgrel=3
+pkgver=12.5.2
+pkgrel=2
 pkgdesc='The Open Virtual Machine Tools (open-vm-tools) are the open source implementation of VMware Tools'
 arch=('x86_64')
 url='https://github.com/vmware/open-vm-tools'
@@ -12,7 +12,7 @@ license=('LGPL-2.1-only')
 depends=('fuse3' 'icu' 'iproute2' 'libdnet' 'libmspack' 'libsigc++'
          'libxcrypt' 'libcrypt.so' 'libxss' 'lsb-release' 'procps-ng'
          'uriparser' 'which' 'xmlsec')
-makedepends=('chrpath' 'doxygen' 'gtkmm3' 'libxtst' 'python' 'rpcsvc-proto' 'glib2-devel')
+makedepends=('git' 'chrpath' 'doxygen' 'gtkmm3' 'libxtst' 'python' 'rpcsvc-proto' 'glib2-devel')
 checkdepends=('cunit')
 optdepends=('gtkmm3: DnD/CP plugin'
             'libxtst: DnD/CP, resolution set plugins'
@@ -22,23 +22,27 @@ backup=('etc/pam.d/vmtoolsd'
         'etc/vmware-tools/vgauth.conf'
         'etc/xdg/autostart/vmware-user.desktop')
 options=('docs')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/vmware/open-vm-tools/archive/stable-${pkgver/_/-}.tar.gz"
+source=("git+https://github.com/vmware/open-vm-tools#tag=stable-${pkgver}"
         'vmtoolsd.pam'
         'vmtoolsd.service'
         'vmware-vmblock-fuse.service')
-sha256sums=('a52182c7e6b5df41bb317625e9d8592ecdb9db814d1c2c9b7cdb91a77f8c0640'
+sha256sums=('1df706270dde7043308e60521e3bdc8c177fa15d7daa8978d6db6931bfad1ca4'
             '9848f4b621bb1134e463fea099f03933cf3f48f1ac5e580228abef264d26137e'
             '0626cc86232f75a7286c24c52d6b44260bba55e2e96c17fa22ed36decb61a4d9'
             '99e3cc1da20a751049144cc02dec77174a55109b5b5960e1facd78709da7724f')
 
 prepare() {
-  cd "$srcdir/$pkgname-stable-${pkgver}/open-vm-tools/"
+  cd "${srcdir}/${pkgname}/open-vm-tools/"
+
+  # Fix build when compiling with -std=c23
+  git cherry-pick -n \
+    '129d87bd5fd5f2436a467d4b7d43e0d102a867da'
 
   autoreconf -vi
 }
 
 build() {
-  cd "$srcdir/$pkgname-stable-${pkgver}/open-vm-tools/"
+  cd "${srcdir}/${pkgname}/open-vm-tools/"
 
   sh ./configure \
     --prefix=/usr \
@@ -50,24 +54,24 @@ build() {
 }
 
 check() {
-  cd "$srcdir/$pkgname-stable-${pkgver}/open-vm-tools/"
+  cd "${srcdir}/${pkgname}/open-vm-tools/"
 
   make check
 }
 
 package() {
-  cd "$srcdir/$pkgname-stable-${pkgver}/open-vm-tools/"
+  cd "${srcdir}/${pkgname}/open-vm-tools/"
 
-  make install DESTDIR="$pkgdir"
-  chmod 7755 "$pkgdir"/usr/bin/vmware-user-suid-wrapper
+  make install DESTDIR="${pkgdir}"
+  chmod 7755 "${pkgdir}"/usr/bin/vmware-user-suid-wrapper
 
   # install vmware-xdg-detect-de
-  install -D -m0755 scripts/common/vmware-xdg-detect-de "$pkgdir"/usr/bin/vmware-xdg-detect-de
+  install -D -m0755 scripts/common/vmware-xdg-detect-de "${pkgdir}"/usr/bin/vmware-xdg-detect-de
 
   # install pam configuration
-  install -D -m0644 "$srcdir"/vmtoolsd.pam "$pkgdir"/etc/pam.d/vmtoolsd
+  install -D -m0644 "${srcdir}"/vmtoolsd.pam "${pkgdir}"/etc/pam.d/vmtoolsd
 
   # install systemd files
-  install -D -m0644 "$srcdir"/vmtoolsd.service "$pkgdir"/usr/lib/systemd/system/vmtoolsd.service
-  install -D -m0644 "$srcdir"/vmware-vmblock-fuse.service "$pkgdir"/usr/lib/systemd/system/vmware-vmblock-fuse.service
+  install -D -m0644 "${srcdir}"/vmtoolsd.service "${pkgdir}"/usr/lib/systemd/system/vmtoolsd.service
+  install -D -m0644 "${srcdir}"/vmware-vmblock-fuse.service "${pkgdir}"/usr/lib/systemd/system/vmware-vmblock-fuse.service
 }
