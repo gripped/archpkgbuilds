@@ -3,26 +3,29 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-kwin
-pkgver=5.25.27
-pkgrel=1
+pkgver=5.27.2.213
+pkgrel=2
 pkgdesc='DDE window manager forked from KWin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-kwin"
 license=('GPL3')
-depends=(qt5-declarative qt5-x11extras kconfig5 kconfigwidgets5 kcoreaddons5 kdbusaddons5 kdeclarative5
-         kglobalaccel5 ki18n5 kidletime5 knotifications5 kcrash5 kpackage5 plasma-framework5 libepoxy
-         kwidgetsaddons5 kwindowsystem5 kcompletion5 kcmutils5 knewstuff5 kservice5 ktextwidgets5 kxmlgui5
-         breeze dwayland xcb-util-cursor xorg-xwayland libpipewire libkscreen5 kdecoration5 kscreenlocker5 qt5-wayland
-         lcms2 libqaccessibilityclient-qt5 qt5-quickcontrols python fontconfig freetype2 libcap
+depends=(qt5-declarative qt5-x11extras kauth5 kconfig5 kconfigwidgets5 kcoreaddons5 kdbusaddons5 kdeclarative5
+         kglobalaccel5 ki18n5 kidletime5 kitemviews5 knotifications5 kcrash5 kpackage5 plasma-framework5 libepoxy
+         kwidgetsaddons5 kwindowsystem5 kcmutils5 knewstuff5 kservice5 kwayland5 ktextwidgets5 kxmlgui5
+         breeze xcb-util-cursor xorg-xwayland libpipewire libkscreen5 kdecoration5 kscreenlocker5 qt5-wayland
+         lcms2 libqaccessibilityclient-qt5 qt5-quickcontrols python freetype2 gsettings-qt libcap
          systemd-libs kauth5 bash kactivities5 libxkbcommon libxss libxi libinput xcb-util-wm wayland
          perl libxcb xcb-util-keysyms libx11 libxtst libdrm gcc-libs mesa qt5-base deepin-qt5platform-plugins)
 makedepends=(git extra-cmake-modules kdoctools5 ninja qt5-tools wayland-protocols
              deepin-wayland-protocols)
-source=("git+https://github.com/linuxdeepin/deepin-kwin.git#tag=$pkgver")
-sha512sums=('7942121112916006a91f17637ef0e3c5336deb98600d7a607aca211cdc278befed0b5d06174c2fb7bcdffa3ade21bb02d76596723f276b838c367264bf4feeae')
+source=("git+https://github.com/linuxdeepin/deepin-kwin.git#tag=$pkgver"
+        fix-x11-header.patch)
+sha512sums=('e498f5532652c957ba290c5fdfd088ae7e5d1d900442a5df67f54591442caa408abfd1ae606c246413a384433ecca1ee9b3ad744c38c26371c5c35b465528e0f'
+            'f54bbf17500a1ae8a9b3ff78c602f455e1f1d7be9b004c89b7b1f5f805887f543769d41a4a38db811218422c9d4745c06ee66e863abb526ea2ea9f8f9c6bf439')
 
 prepare() {
   cd deepin-kwin
+  patch -Np1 -i ../fix-x11-header.patch
   sed -i 's|/usr/share/backgrounds/default_background.jpg|/usr/share/backgrounds/deepin/desktop.jpg|' src/effects/multitaskview/multitaskview.cpp
   sed -i 's|org.kde.screensaver.xml|org.kde.screensaver5.xml|' src/CMakeLists.txt
 }
