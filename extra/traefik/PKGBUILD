@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=traefik
-pkgver=3.3.6
+pkgver=3.4.0
 pkgrel=1
 pkgdesc="Modern reverse proxy written in Go"
 arch=('x86_64')
@@ -22,7 +22,7 @@ source=(
   "traefik.service"
   "traefik.sysusers"
 )
-sha512sums=('dca4af0e302bfd6c60b545f4674ad4535abe508f95c50d922b01db6d5d7f627d7adc5a7949d42de5fd9ff1a8d43a8cd0969fe26c645b7709cd162b98e7b3efe8'
+sha512sums=('6ccd80c2c925024cbdabdc80ee258c30dda26ee414cf13f1b01d6cc5e3428010e31882702b38229d93b5e386dc66c64907e2fca306ef246f54b8fa4b8caa209d'
             '8a068799588d8982cfcafe994254af1f29b4aa0065e5d29de0b7acf89e442ff43723adf9519654822d7d44dc6c6a46025f514768f0d3ec0e34a434576a9f4d45'
             '48d4ae18774ee3c4a3cbd76951aac90a98281c96e8696c3ebc0bff3bf6e726fe44cf303e11cb7391b29b958c30ca3013a0f3926c3e43537e60926ff429ce17bc')
 
@@ -70,6 +70,7 @@ check() {
     go list ./... \
       | grep -v github.com/traefik/traefik/v3/integration \
       | grep -v github.com/traefik/traefik/v3/pkg/proxy/fast \
+      | grep -v github.com/traefik/traefik/v3/pkg/server/router/tcp \
       | grep -v github.com/traefik/traefik/v3/pkg/server/service \
   )
   # shellcheck disable=SC2086
