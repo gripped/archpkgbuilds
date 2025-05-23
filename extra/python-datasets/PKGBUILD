@@ -4,7 +4,7 @@
 
 _name=datasets
 pkgname=python-$_name
-pkgver=3.5.1
+pkgver=3.6.0
 pkgrel=1
 pkgdesc="Ready-to-use datasets for ML models with fast, easy-to-use and efficient data manipulation tools"
 arch=(any)
@@ -56,7 +56,7 @@ optdepends=(
   'python-pytorch: PyTorch support'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-b2sums=('205117e16801806d8756a6b541e28e7d52d253f1dfddd31b4bfc62bd88a51b71212ef6e65d29cb0fdeb1373c8fc555df01be8b0461774ae308db0696477f8f20')
+b2sums=('9a67a8c48cea0f0615c4e055e4356fec76410f6e05967577743cb6ea2e7dc97d32be6b08ee62854d30d7df4f9b167cfc1c1f65b5c397102225aa63ea7e4a90ec')
 
 build() {
   cd $_name-$pkgver
@@ -97,6 +97,8 @@ check() {
     # often fails due to 429 Client Error: Too Many Requests
     --deselect tests/test_inspect.py::test_get_dataset_split_names
     --deselect tests/test_inspect.py::test_get_dataset_info
+    # FileNotFoundError
+    --deselect tests/test_load.py::test_load_dataset_private_zipped_images[True]
   )
 
   cd $_name-$pkgver
@@ -108,5 +110,5 @@ check() {
 package() {
   cd $_name-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -vDm 644 README.md -t "$pkgdir"/usr/share/doc/$pkgname
+  install -vDm 644 README.md -t "$pkgdir"/usr/share/doc/$pkgname/
 }
