@@ -5,7 +5,7 @@ pkgname=(
     libzypp
     libzypp-docs
 )
-pkgver=17.37.0
+pkgver=17.37.1
 pkgrel=1
 pkgdesc="ZYpp Package Management library"
 arch=(x86_64)
@@ -42,7 +42,7 @@ makedepends=(
 #     vsftpd
 # )
 source=("git+https://github.com/openSUSE/libzypp.git#tag=${pkgver}")
-sha256sums=('0ed7ba5603ec9ca2aeb3431cdf3012cfe7f6053d74f40ba188dc2a69330621ff')
+sha256sums=('e3b7e05325e3ae7cd6dc6af2df48bec831e0a72bb714ad0f68feee19c5b926e5')
 
 prepare() {
   # Fix compat with libxml 2.14
