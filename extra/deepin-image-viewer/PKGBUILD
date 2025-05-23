@@ -2,7 +2,7 @@
 
 pkgname=deepin-image-viewer
 pkgver=5.9.17
-pkgrel=1
+pkgrel=2
 pkgdesc='An image viewing tool with fashion interface and smooth performance'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-image-viewer"
@@ -24,7 +24,7 @@ prepare() {
 
 build() {
   cd deepin-image-viewer
-  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib
+  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   ninja
 }
 
