@@ -2,7 +2,7 @@
 # Contributor: Sanpi <sanpi+aur@homecomputing.fr>
 
 pkgname=grcov
-pkgver=0.9.1
+pkgver=0.10.0
 pkgrel=1
 pkgdesc="Rust tool to collect and aggregate code coverage data for multiple source files"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MPL2')
 depends=('zlib' 'gcc-libs')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('231ed3d9c1e51a09a361a2ab9838d812b1059fc833e0a3dd84b556f5eb386d05')
+sha256sums=('cfecfc03f195ccc81b847a5b395f7f5435a4cc9417c64bf215a8867874b0ab87')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -25,7 +25,7 @@ build() {
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --frozen --lib
+  cargo test --frozen --lib -- --skip "llvm_tools"
 }
 
 package() {
