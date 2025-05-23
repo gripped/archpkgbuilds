@@ -4,7 +4,7 @@
 
 pkgbase=django
 pkgname=('python-django')
-pkgver=5.1.8
+pkgver=5.1.9
 pkgrel=1
 pkgdesc="A high-level Python Web framework that encourages rapid development and clean design"
 arch=('any')
@@ -17,21 +17,21 @@ depends=('python' 'python-pytz' 'python-sqlparse' 'python-asgiref')
 optdepends=('python-psycopg2: for PostgreSQL backend'
             'python-argon2-cffi: for Argon2 password hashing support')
 source=("Django-$pkgver.tar.gz::https://www.djangoproject.com/download/$pkgver/tarball/")
-sha512sums=('d61ee20eaa37da1f172f0e25b3c4a7cfdbc01a1432ae8ae053040db5ca80faf35a7f998dc8a8c67db60eeb4bdec0794a532b7acca4969f3d0713ce6249de1249')
+sha512sums=('f3fe34326e2fa4d35af26198f5839a7ad7bc433a659971528c0d7ba35c5d9e0300c9307114ad1eeaf242f6148ef2dbc48998752a0c68f80f9fbf5b8d32ddca2e')
 
 prepare() {
-  cd "Django-$pkgver"
+  cd "django-$pkgver"
   # Drop versioned setuptools requirement
   sed -i 's/>=61.0.0,<69.3.0//' pyproject.toml
 }
 
 build() {
-  cd "Django-$pkgver"
+  cd "django-$pkgver"
   python -m build --wheel --no-isolation
 }
 
 package_python-django() {
-  cd "Django-$pkgver"
+  cd "django-$pkgver"
   python -m installer --destdir="$pkgdir" dist/*.whl
 
   ln -s django-admin.py "$pkgdir"/usr/bin/django-admin3.py
@@ -47,6 +47,6 @@ package_python-django() {
 }
 
 check() {
-  cd "Django-$pkgver"
+  cd "django-$pkgver"
   PYTHONPATH="$PWD" python tests/runtests.py || echo 'tests failed'
 }
