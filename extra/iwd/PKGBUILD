@@ -3,7 +3,7 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=iwd
-pkgver=3.7
+pkgver=3.8
 pkgrel=1
 pkgdesc='Internet Wireless Daemon'
 arch=('x86_64')
@@ -15,7 +15,7 @@ optdepends=('qrencode: for displaying QR code after DPP is started')
 source=(https://www.kernel.org/pub/linux/network/wireless/iwd-${pkgver}.tar{.xz,.sign}
         0001-use-network-group-for-unprivileged-access.diff)
 # https://mirrors.edge.kernel.org/pub/linux/network/wireless/sha256sums.asc
-sha256sums=('ba3e577a61e78f860f376025c3243bbf19eac7ccbfdfac3aebe566556ace2e08'
+sha256sums=('c556a5a5376270af68940e04e26765026fbbbe4941668317c274c91042611cdf'
             'SKIP'
             'd5fb4fb864b7a0632117aa2039df535ab5c1d024ae618a1f09e34dfab8ee0cc7')
 validpgpkeys=('E932D120BC2AEC444E558F0106CA9F5D1DCF2659')
@@ -34,7 +34,7 @@ prepare() {
   # from inside the chroot
   sed -i "s:unit/test-wsc::" Makefile.am
   # and another failing test that depends on AES_CTR not available
-  sed -i "s:unit/test-storage::" Makefile.am
+  # sed -i "s:unit/test-storage::" Makefile.am
   autoreconf -vfi
 }
 
