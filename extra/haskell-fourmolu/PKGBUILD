@@ -2,8 +2,8 @@
 
 _hkgname=fourmolu
 pkgname=haskell-fourmolu
-pkgver=0.10.0.0
-pkgrel=19
+pkgver=0.10.1.0
+pkgrel=6
 pkgdesc="A formatter for Haskell source code"
 url="https://github.com/parsonsmatt/fourmolu"
 license=("BSD")
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-diff' 'haskell-aeson' 'haskell-ansi-terminal' 'hask
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-discover'
              'haskell-hspec-megaparsec' 'haskell-path' 'haskell-path-io' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('8ac5e6524615c58e9ed1922c56a5281e8b4deadd4885679403e0df3e4cfad717')
+sha256sums=('e442b4aa21c320994c57f0c87bb7e6bf005207a167cb7e812c5142e4b8687f3e')
 
 prepare() {
   cd $_hkgname-$pkgver
