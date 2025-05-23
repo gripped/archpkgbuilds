@@ -4,12 +4,16 @@
 
 _name=pynitrokey
 pkgname=python-pynitrokey
-pkgver=0.8.1
+pkgver=0.8.3
 pkgrel=1
 pkgdesc="A command line interface for the Nitrokey FIDO2 and Nitrokey Start"
 arch=(any)
 url="https://github.com/Nitrokey/pynitrokey"
-license=('Apache-2.0 OR MIT')
+license=(
+  'Apache-2.0 OR MIT'
+  LGPL-3.0-only
+  GPL-3.0-or-later
+)
 depends=(
   nitrokey-udev-rules
   python
@@ -45,8 +49,8 @@ optdepends=(
 source=(
   "$_name::git+$url.git?signed#tag=v$pkgver"
 )
-sha512sums=('102534cb1feaefa47dc4424d6da611577736637a55788fed104c76a5746a218b6da561084a04e6c570f59df155f4873e3f6e7ddfddf819faf341e3914982f7b7')
-b2sums=('86d3c0b4dc2b263b7b13eba07e33c28606e7501c77c905627efb457e50e98153427ae832c9cbe51488c4ae20cb6c4bea25ad7fdcbcf1d0d45acd82c9e6c0a36f')
+sha512sums=('f745fbf331385d74bb134ae287b1f5f687fb1a743206dada785fbe72fc434310844b9f3ee2eb4ff0826cf6b182a368976692636b2180f3f53b7d816b0f59db7d')
+b2sums=('40e778a2ee9ae5d0bb0f686c4b463c4de908536dd5ccdc5232aeb44a7d26acd3253b99d05c4206bb9ad2caf2bb608e5dfd106d8a385ee8b5a21233b8a3911870')
 validpgpkeys=(
   868184069239FF65DE0BCD7DD9BAE35991DE5B22  # Szczepan Zalega <szczepan@nitrokey.com> (@szszszsz)
   CC74B7120BFAA36FF42868724C1449F1C9804176  # Markus Meissner <meissner@nitrokey.com> (@daringer)
@@ -63,5 +67,5 @@ package() {
   cd $_name
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
-  install -vDm 644 LICENSE-MIT -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
