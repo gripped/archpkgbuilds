@@ -2,8 +2,8 @@
 
 _gemname='stackprof'
 pkgname="ruby-${_gemname}"
-pkgver=0.2.26
-pkgrel=5
+pkgver=0.2.27
+pkgrel=1
 pkgdesc='a fast sampling profiler for ruby code, with cpu, wallclock and object allocation samplers'
 arch=('x86_64')
 url="https://github.com/tmm1/${_gemname}"
@@ -22,8 +22,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('486b599b615bcab91376267cc670613c38fb1aed3d751fbc75541925242da95cc1952a2454d9ee907aa45bec4e2a2865f836e2c20541b264b7ef518113cdf2aa')
-b2sums=('3a8c8b32e2017d6d5cc468f336a22142a6919b0f8b08fa4a8eeeeafc2e82bcf42c0dc3200cede46266e9a7758adf96573328b51d20f2885d71d9976c2f4bdc3c')
+sha512sums=('e2fc5f891b2202541d944425ec3238778c62dc654d87931818eb97c55284df2c8ca82505833557600a42b1c90558fa3483e0b1213845a6504f2021651c19eaac')
+b2sums=('61b80b2dc6fca44f84c0f003b0603f619b76c404ab4e7d21e8d1d284153be3be92f3e2de8057c21b2dfb00c21a0ccbfbbc7f4e89d0f6301f00213ff644a6ca58')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
