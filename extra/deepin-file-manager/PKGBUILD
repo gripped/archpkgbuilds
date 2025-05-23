@@ -4,7 +4,7 @@
 
 pkgname=deepin-file-manager
 pkgver=6.0.52
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='Deepin File Manager'
 arch=('x86_64')
@@ -31,15 +31,18 @@ replaces=('deepin-desktop')
 # https://github.com/linuxdeepin/developer-center/issues/5725
 options=('!lto')
 source=("git+https://github.com/linuxdeepin/dde-file-manager.git#tag=$pkgver"
-         taglib-2.patch)
+         taglib-2.patch
+         gcc-15.patch)
 sha512sums=('d807c5fa6f06d6ff4f0d7826b85862d700c14d9f2d7911b05726c25e29b44f4c2d97d025d2412e96bc4f1ccab83b737077a0b89d05ae5d38d261fbeb6820b171'
-            'd010d787b406fc66ccf8aa2f6544dcabf291e21969e94a2b77455084395b8fd1620d7c359bd915518be79fac685791b60d401b0e9e1ff6544a05cdb3e2791fd7')
+            'd010d787b406fc66ccf8aa2f6544dcabf291e21969e94a2b77455084395b8fd1620d7c359bd915518be79fac685791b60d401b0e9e1ff6544a05cdb3e2791fd7'
+            'b2cda989438b90703a5718ac0daf5972f4d70e21ceef5ad9751445178c4299200f8ac3be112e79682bd37b751e6e3fbd3aaef4189adaaf9abe2506132c16ab41')
 
 prepare() {
   cd dde-file-manager
   # New dde-dock interface
   git cherry-pick -n b0125c3a11a7cd7a914473beb85c8e4e5c449906
   patch -p1 -i ../taglib-2.patch
+  patch -p1 -i ../gcc-15.patch
 }
 
 build() {
