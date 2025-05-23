@@ -2,7 +2,7 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 pkgbase=hip-runtime
 pkgname=(hip-runtime-amd hip-runtime-nvidia)
-pkgver=6.3.3
+pkgver=6.4.0
 pkgrel=1
 _pkgdesc="Heterogeneous Interface for Portability"
 arch=('x86_64')
@@ -26,10 +26,10 @@ source=("$pkgbase::git+$_hip#$_tag"
         "$pkgbase-hipcc::git+$_hipcc#$_tag"
         "$pkgbase-clr::git+$_clr#$_tag"
         "$pkgbase-hipother::git+$_hipother#$_tag")
-sha256sums=('dcf2775d69ba69f95dd994d377a9f234ed59154a22114251bc8a9afadf66fe6b'
-            'c64fd724503b9c10381f350eea38fadb622ea86067839d45cd0efc0058621153'
-            'cb0dc592635c647a6edee70377f70b573927e8491fd3341c67bce77d9b0b23a9'
-            '69c85a155706a50239355c4d3adecfed61e5a75f774c6fe8cc2188d33e39fcd2')
+sha256sums=('2044f7736ea777e258c2956c89a65bea62102eb1db94edd9e0414d44a93e3c93'
+            '16f93fda1aa536eded0b903de5e2fa60d9fb9ec43d5a902e7c07d686c711cb30'
+            'b23d1485533028ea7689d76ccb8a7b17b30765a04883e0330af22bc8a8e1acf9'
+            '09f332aa964079647a9407406305f6159937c72c0bc2b675f841ba0ab1b63c43')
 
 build() {
   local hipcc_common_args=(
@@ -45,7 +45,7 @@ build() {
   )
   cmake "${hipcc_amd_args[@]}"
   cmake --build build-amd-hipcc
-  
+
   local hip_amd_args=(
     -Wno-dev
     -S "$srcdir/$pkgbase-clr"
