@@ -1,7 +1,7 @@
 pkgbase = pocl
 	pkgdesc = Portable OpenCL is an open-source implementation of OpenCL which can be easily adapted for new targets
-	pkgver = 6.0.r843.g3b6e5c4
-	pkgrel = 3
+	pkgver = 7.0
+	pkgrel = 1
 	url = http://portablecl.org/
 	arch = x86_64
 	license = MIT
@@ -20,9 +20,9 @@ pkgbase = pocl
 	depends = opencl-icd-loader
 	optdepends = cuda: CUDA driver
 	optdepends = cudnn: CUDA driver
-	source = git+https://github.com/pocl/pocl#commit=3b6e5c4b47187d8a954194d673a47e6721e45719
+	source = git+https://github.com/pocl/pocl#tag=v7.0
 	source = pocl-link-cudart.patch::https://github.com/pocl/pocl/pull/1804.patch
-	sha512sums = a05426f0e89f424ffa1b403eaf658af29302314c6f20de26316f854b6d8a03dc2823999ea2974358bc54a760073d169beefeb833b72715797682b08960c2a1a7
-	sha512sums = 33ea8a57617674466f6a6f0e5d1b5d902b818450ed8fd471043b7bab27c13fc8757e7d188ef7e695ce47f256e33ffd7d422bf52e4bb0fe65682fbee54b25bb06
+	sha512sums = afbb59125990b02339da6f16f0a8989c8ae62ffea7c66a3cd7dafe36212dc33b96967ed682b520dda72f1fc8b4d346dab24a789dc629c0c5a3ebffc156110015
+	sha512sums = 6bc53533ea696a86d24845d0ee1e3c3cdc0910144d986d862a1b87f8400debaa45c88072b3a24acab0b10aaaa44f9f2095a92852f184492d10c244e3cfb85815
 
 pkgname = pocl
