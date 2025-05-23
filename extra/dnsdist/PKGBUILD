@@ -1,6 +1,6 @@
 # Maintainer: Remi Gacogne <rgacogne at archlinux dot org>
 pkgname=dnsdist
-pkgver=1.9.9
+pkgver=1.9.10
 pkgrel=1
 pkgdesc='Highly DNS-, DoS- and abuse-aware loadbalancer'
 arch=('x86_64')
@@ -8,11 +8,10 @@ url='https://dnsdist.org/'
 license=('GPL-2.0-only')
 source=(https://downloads.powerdns.com/releases/${pkgname}-${pkgver}.tar.bz2{,.asc}
         sysusers.conf)
-sha512sums=('addd72f5324d75811601d9efe7af8846a448694172a14066b3ae53c7e53195f6955a038f97411703f66ce6bafd02846bf3c679839c473de6f7fc9ebecb8e6ca9'
+sha512sums=('d7249861bb5454dce3d179701e1c686c5c5ed177ca39b07ca6b1f27d2ab7a014d0d255ee6b70153962dc5d9a84545ae4a4a55c53c8e75f308cda5406eed57e9b'
             'SKIP'
             'd55ccd612cbe08b353815027d30a3b0f0ec7bf6b0d74a0a634939be53ce6e6b41d23e54c2328946f00738c03e9f306ce4f2dabe5e4b11d9fb28d0abf49917893')
-validpgpkeys=('D6300CABCBF469BBE392E503A208ED4F8AF58446'  # Remi Gacogne <remi.gacogne@powerdns.com>
-              '16E12866B7738C73976A57436FFC33439B0D04DF') # Winkels, Erik <erik.winkels@open-xchange.com>
+validpgpkeys=('D6300CABCBF469BBE392E503A208ED4F8AF58446')  # Remi Gacogne <remi.gacogne@powerdns.com>
 makedepends=('boost' 'systemd')
 depends=('fstrm' 'gcc-libs' 'gnutls' 'libbpf' 'libcap' 'libedit' 'libnghttp2' 'libsodium' 'libsystemd' 'libxdp' 'lmdb' 'luajit' 'net-snmp' 'openssl' 'quiche>=0.20.1' 're2' 'tinycdb')
 
