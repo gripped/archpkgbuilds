@@ -1,7 +1,7 @@
 pkgbase = libqb
 	pkgdesc = Library for providing high performance, reusable features for client-server architecture
 	pkgver = 2.0.8
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/ClusterLabs/libqb
 	arch = x86_64
 	license = LGPL-2.1-or-later
@@ -9,6 +9,8 @@ pkgbase = libqb
 	makedepends = doxygen
 	makedepends = splint
 	depends = glibc
+	depends = libxml2
+	depends = systemd-libs
 	provides = libqb.so
 	source = https://github.com/ClusterLabs/libqb/releases/download/v2.0.8/libqb-2.0.8.tar.gz
 	source = https://github.com/ClusterLabs/libqb/releases/download/v2.0.8/libqb-2.0.8.tar.gz.asc
