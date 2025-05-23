@@ -5,7 +5,7 @@
 # Contributor: juantascon
 
 pkgname=python-peewee
-pkgver=3.17.9
+pkgver=3.18.1
 pkgrel=1
 pkgdesc="A small, expressive orm"
 arch=('x86_64')
@@ -33,8 +33,15 @@ optdepends=(
   'python-psycopg2: for PostgreSQL database support'
   'python-pymysql: for MySQL database support'
 )
-source=("$url/archive/$pkgver/$_pkgname-$pkgver.tar.gz")
-sha512sums=('7082b0abcdaf47ee7b50066773c8491bebc94502b875a0f2a01f6d8d251fd147c738362021ab1d45dbc8ddc73fd7a37c0bc2732623d0f4b3e5d314caea7da510')
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('eeef91aa30eea6ea6d4e1a7cdef7e8c207511ae65455cb0b5f84945c38ac6de3c8e218aa24752e3345d1eb4efcbf20ed289cf764c6fbd631b51be3d5075bc8b7')
+
+prepare() {
+  cd ${pkgname#python-}-$pkgver
+  # Python 3.13 compatibility
+  sed -i 's/isinstance(value, (int, long))/isinstance(value, int)/' \
+    playhouse/_sqlite_ext.pyx
+}
 
 build() {
   cd ${pkgname#python-}-$pkgver
