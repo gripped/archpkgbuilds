@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-eventlet
-pkgver=0.39.1
+pkgver=0.40.0
 pkgrel=1
 pkgdesc='Highly concurrent networking library'
 url='https://eventlet.net'
@@ -35,8 +35,8 @@ optdepends=(
   'python-pyzmq: non-blocking ZeroMQ support'
 )
 source=("https://github.com/eventlet/eventlet/archive/$pkgver/${pkgname#python-}-$pkgver.tar.gz")
-sha512sums=('02c364fa867aa21914730e88a2337b581f46bddc7c77472b70047eb8467f5f19223f716ea1a336fd0f03606c6e873e64d22bffbf566fbd591840378c96612bbd')
-b2sums=('1adcbfeeffc45ef283b8245cfbd2e57b4c076ac4409064ac11e45b6cbc0364b1846dc89e17a5a971b8286c6395fb046c02101cf471053fd8e79298ea68837387')
+sha512sums=('10ff32ac22dc75cad58d4b97b8e3f411b49e8c199b1d56c933eb341c49a82845f5dabf75ec39697f0cf0e4867545df91556eb0b20f229aa499bf0418912481c7')
+b2sums=('cc953b557a700628d5aca34ab8ebdd51ca46f891d68a085d06183094e98b9a2ba59280f6bc3b820881b0fdcfc0033e44144b854ced41452502ce8911cc61a19e')
 
 build() {
   cd ${pkgname#python-}-$pkgver
