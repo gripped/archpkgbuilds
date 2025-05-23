@@ -2,14 +2,13 @@
 
 pkgname=libwacom
 pkgver=2.15.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Library to identify Wacom tablets and their features"
 arch=('x86_64')
 url="https://github.com/linuxwacom/libwacom/wiki"
 license=('MIT')
 depends=('glib2' 'libevdev' 'libgudev' 'glibc')
-makedepends=('libxml2' 'meson')
-checkdepends=('python-pytest' 'python-libevdev' 'python-pyudev')
+makedepends=('libxml2' 'meson' 'python-pytest' 'python-libevdev' 'python-pyudev')
 optdepends=('python-libevdev: for libwacom-show-stylus'
             'python-pyudev: for libwacom-show-stylus')
 source=(https://github.com/linuxwacom/libwacom/releases/download/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz{,.sig})
