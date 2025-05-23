@@ -3,7 +3,7 @@
 # Contributor: Piotr Miller <nwg.piotr@gmail.com>
 
 pkgname=nwg-look
-pkgver=1.0.4
+pkgver=1.0.5
 pkgrel=1
 pkgdesc="GTK settings editor adapted to work on wlroots-based compositors"
 url="https://github.com/nwg-piotr/nwg-look"
@@ -34,8 +34,8 @@ makedepends=(
   'go'
 )
 source=(https://github.com/nwg-piotr/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('e75a04e1b51ea9399b508080eead71d5a0ea71abe0b6a66a0c862b599e61248f')
-b2sums=('56621f416a5841e4492a38368fa352108ccbf2aadcd15e36033b520f673d5c52d309cbaf6bee78cb5c2fdcd37e1e60b0b4f3d897f1b4b9063f806c5ba961e6d2')
+sha256sums=('047e70247a7deca0a11c3069a9f970bce1bf98b5cefc2633aba12af722f1e7c0')
+b2sums=('95331640b24d1b3ad8bbd8fc530d80fc52687a9b58be4962d52f0bc1a160c4e010af7b6796ca9d8c526aa9e29766511edbfdbd311524b6555f5b3017d6fcd92f')
 
 build() {
   cd ${pkgname}-${pkgver}
