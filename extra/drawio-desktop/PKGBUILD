@@ -2,8 +2,8 @@
 # Contributor: Dmitry Valter <`echo ZHZhbHRlciA8YXQ+IHByb3Rvbm1haWwgPGRvdD4gY29tCg== | base64 -d`>
 
 pkgname=drawio-desktop
-pkgver=26.2.15
-pkgrel=2
+pkgver=27.0.5
+pkgrel=1
 pkgdesc="Official Electron build of draw.io"
 arch=(any)
 url="https://www.drawio.com"
@@ -28,8 +28,8 @@ source=(
   "drawio.sh"
   "drawio.xml"
 )
-sha256sums=('48a66493d8f029f9b711a33ba0c032cb21ea0ddd565ee41b793b5ae075fa411a'
-            '1c64ed94b6c8a8787fd4017fab1636d01569618a29aed2587597d7960192b002'
+sha256sums=('849cb6100cccdbcbf19249eb96acee78d799159643450b881f7139a7f472c3b3'
+            '569f511c525fbfb490d3d4b8d3d95f36bd27394936206f1586bb0aaced899048'
             '35c39bbe63c4a3cdc76b1f9f1986e691f77ec52e00bbec380248f280e23e5567'
             '70735625bcb70e9a9e4a56a4723b230946c1d68336dba93864f45aed5c97899a'
             '4cae9a09ccf9acdb60e4decdbcbd20bd529c44186c523f217852fb641f484b76')
@@ -51,6 +51,35 @@ prepare() {
 
   # Disable auto-updates
   sed -i 's/return false;/return true;/' src/main/disableUpdate.js
+
+  # Remove unnecessary files from asar
+  local to_remove=(
+    drawio/docs
+    drawio/etc
+    drawio/src/main/java
+    drawio/src/main/webapp/connect
+    drawio/src/main/webapp/js/cryptojs
+    drawio/src/main/webapp/js/deflate
+    drawio/src/main/webapp/js/dropbox
+    drawio/src/main/webapp/js/embed*
+    drawio/src/main/webapp/js/freehand
+    drawio/src/main/webapp/js/integrate.min.js
+    drawio/src/main/webapp/js/jquery
+    drawio/src/main/webapp/js/jszip
+    drawio/src/main/webapp/js/mermaid
+    drawio/src/main/webapp/js/onedrive
+    drawio/src/main/webapp/js/orgchart
+    drawio/src/main/webapp/js/rough
+    drawio/src/main/webapp/js/sanitizer
+    drawio/src/main/webapp/js/shapes.min.js
+    drawio/src/main/webapp/js/simplepeer
+    drawio/src/main/webapp/js/spin
+    drawio/src/main/webapp/js/viewer-static.min.js
+    drawio/src/main/webapp/js/viewer.min.js
+    drawio/src/main/webapp/service-worker*
+    drawio/src/main/webapp/workbox-*
+  )
+  rm -r "${to_remove[@]}"
 
   yarn install --frozen-lockfile
 }
