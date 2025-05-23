@@ -3,8 +3,8 @@
 
 _hkgname=yesod-core
 pkgname=haskell-yesod-core
-pkgver=1.6.26.0
-pkgrel=77
+pkgver=1.6.27.0
+pkgrel=7
 pkgdesc="Creation of type-safe, RESTful web applications."
 url="http://www.yesodweb.com/"
 license=("MIT")
@@ -12,15 +12,15 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec-aeson' 'haskell-auto-update'
          'haskell-blaze-html' 'haskell-blaze-markup' 'haskell-case-insensitive' 'haskell-cereal'
          'haskell-clientsession' 'haskell-conduit' 'haskell-conduit-extra' 'haskell-cookie'
-         'haskell-entropy' 'haskell-fast-logger' 'haskell-http-types' 'haskell-memory'
-         'haskell-monad-logger' 'haskell-old-locale' 'haskell-path-pieces' 'haskell-primitive'
-         'haskell-random' 'haskell-resourcet' 'haskell-shakespeare' 'haskell-unix-compat'
-         'haskell-unliftio' 'haskell-unordered-containers' 'haskell-vector' 'haskell-wai'
-         'haskell-wai-extra' 'haskell-wai-logger' 'haskell-warp' 'haskell-word8')
+         'haskell-data-default' 'haskell-entropy' 'haskell-fast-logger' 'haskell-http-types'
+         'haskell-memory' 'haskell-monad-logger' 'haskell-old-locale' 'haskell-path-pieces'
+         'haskell-primitive' 'haskell-random' 'haskell-resourcet' 'haskell-shakespeare'
+         'haskell-unix-compat' 'haskell-unliftio' 'haskell-unordered-containers' 'haskell-vector'
+         'haskell-wai' 'haskell-wai-extra' 'haskell-wai-logger' 'haskell-warp' 'haskell-word8')
 makedepends=('ghc' 'haskell-hunit' 'haskell-async' 'haskell-hspec'
              'haskell-hspec-expectations' 'haskell-network' 'haskell-streaming-commons')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('090f53c8dadb5674f15d7f7544ee0633e3ba147eb909f5096b47b94697f0f73f42961544893571e65889d8b6e6d77b4f158b89c91b4c2a7c7379775359b42e87')
+sha512sums=('5d8cd5ffcecf016cbb4e7e5b6abd50d1bc3963f5ad8b0012da0655265e20f29afa8b4e358f7176e500cf52b70925b6133b57124e02b48861811d48ce9ee8df54')
 
 build() {
     cd $_hkgname-$pkgver
