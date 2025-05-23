@@ -3,13 +3,14 @@
 
 pkgname=frescobaldi
 pkgver=4.0.2
-pkgrel=4
-pkgdesc="A LilyPond sheet music text editor"
+pkgrel=6
+pkgdesc='A LilyPond sheet music text editor'
 arch=(any)
-url="https://www.frescobaldi.org/"
-_url="https://github.com/frescobaldi/frescobaldi"
+url='https://www.frescobaldi.org/'
+_url='https://github.com/frescobaldi/frescobaldi'
 license=(GPL-2.0-only)
-depends=(python
+depends=(lilypond
+         python
          python-ly
          python-pygame
          python-pyqt6
@@ -20,9 +21,7 @@ depends=(python
          qt6-svg)
 makedepends=(python-{build,installer,wheel}
              python-hatchling)
-optdepends=('lilypond: music engraving'
-            'python-pygame: MIDI input and playback'
-            'python-pycups: printing to a CUPS server'
+optdepends=('python-pycups: printing to a CUPS server'
             'hyphen-de: hyphenation patterns for German'
             'hyphen-en: hyphenation patterns for English'
             'hyphen-es: hyphenation patterns for Spanish'
@@ -33,6 +32,8 @@ optdepends=('lilypond: music engraving'
 _archive="$pkgname-$pkgver"
 source=("$_url/releases/download/v$pkgver/$_archive.tar.gz")
 sha256sums=('3533f5fc610f509ecac38f22c5a301057360239406839a84a553ccefbc68abf9')
+
+_appid=org.frescobaldi.Frescobaldi
 
 prepare() {
 	cd "$_archive"
@@ -49,6 +50,9 @@ build() {
 package() {
 	cd "$_archive"
 	python -m installer -d "$pkgdir" dist/*.whl
-	install -Dm644 -t "$pkgdir/usr/share/applications/" linux/org.frescobaldi.Frescobaldi.desktop
-	install -Dm644 -t "$pkgdir/usr/share/metainfo/" linux/org.frescobaldi.Frescobaldi.metainfo.xml
+	install -Dm0644 -t "$pkgdir/usr/share/applications/" linux/$_appid.desktop
+	install -Dm0644 -t "$pkgdir/usr/share/metainfo/" linux/$_appid.metainfo.xml
+	pushd "$pkgdir/$(python -c "import site; print(site.getsitepackages()[0])")/$pkgname"
+	install -Dm0644 -t "$pkgdir/usr/share/icons/hicolor/scalable/apps/" "icons/$_appid.svg"
+	# rm -rf "icons/Tango"
 }
