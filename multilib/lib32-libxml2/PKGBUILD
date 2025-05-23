@@ -8,8 +8,8 @@ pkgbase=lib32-libxml2
 pkgname=(
   lib32-libxml2
 )
-pkgver=2.14.2
-pkgrel=2
+pkgver=2.14.3
+pkgrel=1
 pkgdesc="XML C parser and toolkit (32-bit)"
 url="https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home"
 arch=(x86_64)
@@ -31,17 +31,11 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/libxml2.git#tag=v$pkgver"
   https://www.w3.org/XML/Test/xmlts20130923.tar.gz
 )
-b2sums=('711b2e11d09bba7d0c17237bdbf951208469ae910c47e8875ef17b03196d8e96595e831849c05c141d708418b8ec2dbe3957365623db25151ee2ca48bc68ce11'
+b2sums=('01264ff759bf30461ac17236765f627f0ec33f4b53c4fd60c46ecfadc7c8f8284dc9ebd81f7eb22aa4a56dbeee9887d1df6624408603a581e70178a640cc2f48'
         '63a47bc69278ef510cd0b3779aed729e1b309e30efa0015d28ed051cc03f9dfddb447ab57b07b3393e8f47393d15473b0e199c34cb1f5f746b15ddfaa55670be')
 
 prepare() {
   cd libxml2
-
-  # Unbreak xmlstarlet tests
-  git cherry-pick -n f34529641978c47ebd778d0e744acd12b3d9a906
-
-  # Unbreak PostgreSQL tests
-  git cherry-pick -n ae299377feff868272693ec4322b9dbfef2f571b
 
   # Use xmlconf from conformance test suite
   ln -s ../xmlconf
