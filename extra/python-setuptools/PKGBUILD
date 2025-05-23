@@ -7,7 +7,7 @@ _bootstrap=0
 _bootstrap_version=3.13.0
 pkgname=python-setuptools
 _name=${pkgname#python-}
-pkgver=80.0.0
+pkgver=80.3.1
 pkgrel=1
 epoch=1
 pkgdesc="Easily download, build, install, upgrade, and uninstall Python packages"
@@ -71,13 +71,16 @@ else
     python-setuptools::git+https://github.com/pypa/setuptools.git
   )
 fi
-b2sums=('a38548e6932b00ef72257c33047986028284dbea6210d41a299e6a172d0b36fdbf94127e7976ef8d5ee3676cdaadb80d5bceaddb512de8f03ca6dc8dc21a8395'
+b2sums=('81e41556e41f4896e848e5af2e2a0a52d0612b76f0c62c9b51dc9c66d9b42881a16cd37c38cfffc1dbcb9f2b766cd817520c7e2eb89a687f1dd0afef9039ca08'
         'ff0caf384def8ba8aa1c7fbb29077f2bc14c42935f7f81b6c4993ebe835053207b6773865158ad3143147234b311b95033b266f9b4c34a78a67f0b7e83bb5537')
 #validpgpkeys=('CE380CF3044959B8F377DA03708E6CB181B4C47E') # Jason R. Coombs <jaraco@jaraco.com>
 
 prepare() {
   if (( _bootstrap == 0 )); then
     cd "$_name"
+    # Revert MIT license deletion
+    git revert --no-commit 9a81db3c77bc106017dcd4b0853a5a94f43ae33c
+
     # Populate dependencies list for devendored deps
     sed '/^core =/,/]/!d' pyproject.toml > ../requirements.txt
     sed -i '1d;$d' ../requirements.txt
@@ -85,9 +88,6 @@ prepare() {
   r ../requirements.txt
   s/^core =/dependencies =/
   }' pyproject.toml
-
-    # Revert "Always rewrite a Python shebang to #!python."
-    git revert --no-commit c71266345c64fd662b5f95bbbc6e4536172f496d
 
     # Fix tests invoking python-build
     patch -p1 -i ../build-no-isolation.patch
