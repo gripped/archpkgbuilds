@@ -2,7 +2,7 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=python-pytest-asyncio
-pkgver=0.25.2
+pkgver=0.25.3
 pkgrel=1
 pkgdesc="Pytest support for asyncio."
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python' 'python-pytest')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
 checkdepends=('python-hypothesis')
 source=("git+https://github.com/pytest-dev/pytest-asyncio.git#tag=v$pkgver?signed")
-b2sums=('5b7ceeab8d5973c3e8fa86e1deb88c8f47769fa1ea2dc72d2d83577cdc23bfaf2025382249dd8f54a40d105c8d02aa874a21d949d137ebfc13c1921775e6e6e4')
+b2sums=('729bd4c31d6cab7359cf3a0f58e7fc505b2e7393074f443b4b3ff8618f8cf129a9670092b07a6a86b7e8909eb95650031392b1d0be85db67bb5ea58296eaddfe')
 validpgpkeys=('856F4E797CAB2AA5A0A967E1F0827C47163A10D6') # Michael Seifert <m.seifert@digitalernachschub.de>
 
 build() {
