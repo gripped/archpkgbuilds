@@ -1,7 +1,7 @@
 # Maintainer: Your Name <youremail@domain.com>
 
 pkgname=rpacket
-pkgver=0.1.2
+pkgver=0.1.4
 pkgrel=1
 pkgdesc="Low-level OpenPGP packet operations based on rPGP"
 arch=(x86_64)
@@ -14,8 +14,8 @@ depends=(
 )
 makedepends=(rust)
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('860c055aa37a2c90970e273695f1064760fb01b9327c506b39a435ae5f1a72596baa1e0d17f3bfa13821b724bc01c69700ac6b0e5ee8f6d610f0d95936f37be3')
-b2sums=('286bcf54792af41994164c236f4c7a448238c099e06d97147ca0a662eabbca0e60074421ed4c46f4a85000879199615f00dac3cda70f7c7a2214831ee1236f51')
+sha512sums=('f7344fcff4c5b2f7cab52dcd858c3ef1ea8d4a1aef02326dc81c20ddfbaca626022d443fe726c5f0d21f426e91e6f95b45b82eac1fd98e9c006b10e2b6152de1')
+b2sums=('f82b49069105ef221f71f7b1bbc6c0c75bf4baea8bc0d4610a7ccdd174c24fa1156cc2c4a4f979e87fb770e058a16cfc51a57e9bad98ab00412bc5f53679bb93')
 
 prepare() {
   cd $pkgname
