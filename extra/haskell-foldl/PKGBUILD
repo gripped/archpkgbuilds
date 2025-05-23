@@ -3,8 +3,8 @@
 
 _hkgname=foldl
 pkgname=haskell-foldl
-pkgver=1.4.17
-pkgrel=43
+pkgver=1.4.18
+pkgrel=1
 pkgdesc="Composable, streaming, and efficient left folds"
 url="https://github.com/Gabriella439/foldl"
 license=("BSD")
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-comonad' 'haskell-contravariant' 'haskell-random'
          'haskell-unordered-containers' 'haskell-vector')
 makedepends=('ghc' 'haskell-doctest')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('86959d166f33aa19b5d4e34bce09913ab5fffdbc26dd8f1e91bfc7ddfcd49124993fe3517b20a17cec3964cb6e62e401a857a4d1908ae1195f4cb1bed5a8c479')
+sha512sums=('5db40f03abd2d576bcd6238bbcd35ba1e876ceb355330c15ebc187dd1510ec40841c285304514bbecb6cc3c26c8985d9239823462b03f5dd7eb5777e85b6c074')
 
 build() {
     cd $_hkgname-$pkgver
