@@ -3,23 +3,16 @@
 
 _hkgname=system-fileio
 pkgname=haskell-system-fileio
-pkgver=0.3.16.6
-pkgrel=17
+pkgver=0.3.16.7
+pkgrel=2
 pkgdesc="Consistent filesystem interaction across GHC versions"
 url="https://github.com/fpco/haskell-filesystem"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-system-filepath')
 makedepends=('ghc' 'haskell-chell' 'haskell-temporary')
-source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz"
-        $pkgname-c23.patch::https://github.com/fpco/haskell-filesystem/commit/3c5b3dee1810ad25ce7e0c7a52bc4552b7cd9d98.patch)
-sha512sums=('7eac27ded5634eaa396999b458d4e4230ddac694bb5ae276a22e3e8acef8028ed547c789e67504f76a649b0dd6baa3c6c010f0e76278de7571bc38a7a403adcf'
-            '5201d838a885107d178cce6feabd9d86a3e809787e860afde6b6a01fea3e471fab151f2c160a3f697fd11faeb550a9beecf574056b52214273d3b552907f031c')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    patch -p2 < ../$pkgname-c23.patch
-}
+source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
+sha512sums=('7e6c4372390a40ea5340a500a7585b1b8290405b6d905a588a83581c002e8f5ef9eea278d156528411d49d305ba188067d34ee56b458982c1d1dc01caa9c1d0b')
 
 build() {
     cd $_hkgname-$pkgver
