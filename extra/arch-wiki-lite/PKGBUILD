@@ -4,7 +4,7 @@
 
 pkgname=arch-wiki-lite
 pkgver=20250402
-pkgrel=1
+pkgrel=2
 pkgdesc='Arch Wiki without HTML. 1/9 as big, easily searched & viewable on console'
 arch=('any')
 url='https://gitlab.archlinux.org/grawlinson/arch-wiki-lite'
@@ -20,9 +20,10 @@ optdepends=(
   'arch-wiki-docs: for wiki-search-html'
   'xdg-utils: for wiki-search-html'
 )
-_commit='a9673ee216ba152377543339e1b26e024975d804'
+_commit='3b8b9c929a529a95ab36281f6c602d75d9a11318'
 source=("$pkgname::git+$url.git#commit=$_commit")
-b2sums=('61b5d76b1bb173b9abe3b88478bedd9112a5df8f14245c1a9286eb442bcd2ccb5a09d4c2b5f6544b8aa5dd17d84cde5b3416f84d6578657c789fc4b2e3c45285')
+sha512sums=('ca447e0a5a1924ad9c9bd1e3cd12dc761f7213b883e137d5e9f2c809af32168e9d7ec61124e8c850b5bc469f6127e6df8ed567fa42f39d5ab7ea8e76172da9c9')
+b2sums=('749766228ecd70b686780a090bf3720949cd0c816fd7c2a259de4e4411583c327c206ba04f209ee36d4ad7fccba603f7cebf7c565b47ebea8927351ed91bc902')
 
 build() {
   cd "$pkgname"
