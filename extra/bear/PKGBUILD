@@ -3,8 +3,8 @@
 # Contributor: Moritz Lipp <mlq@pwmt.org>
 
 pkgname=bear
-pkgver=3.1.5
-pkgrel=13
+pkgver=3.1.6
+pkgrel=1
 pkgdesc='A tool to generate compilation database for clang tooling'
 arch=('x86_64')
 url='https://github.com/rizsotto/Bear'
@@ -16,7 +16,6 @@ depends=(
   'libgrpc++.so'
   'fmt'
   'spdlog'
-  'nlohmann-json'
   'abseil-cpp'
   'protobuf'
   'openssl'
@@ -26,6 +25,7 @@ depends=(
 makedepends=(
   'git'
   'cmake'
+  'nlohmann-json'
   'gtest'
   'python'
   'llvm'
@@ -34,7 +34,9 @@ source=(
   "$pkgname::git+$url.git#tag=$pkgver"
   "disable-lit-tests.patch"
 )
-b2sums=('d9d5ef329df478ea767b3904f1e908315e77231ff98461a4aadf8bfde5522f0fc47625c837ead7cde2c4bcaab9f7d061ef94d5ac13cd51fa0f1b22fade270093'
+sha512sums=('583e9a0f9edc609a17f9697379787b1c359e386d22c25ef0d8cdd756c474672b6476747baef656618ffde453820d4f429203001cacfe220b160192c90e31b6a7'
+            '9cb74c653d514fb0802da1b2cf103fdcf25a8aa314f4e7023ce851044a6232b87c340814d61a24aa5af3f4aecdf7c0560262be2b68f19f3566164f2babb12f87')
+b2sums=('91b75a510a4d2818411854e732c4dd83027a9c34f9a630d7a31901c3c66a4ba88cdbb685c1df36a61b392107f209adcf4a32164a1efdc4c12e2a08b1a117115f'
         '9bc603ac82c4b2c8bf1263e7d24205f7445b265da16c21935f58c651c5ed78fdb81d00565a3f2b81415831564b81384cd71c799f58c85bce0445ecdf67b7c3b8')
 
 # XXX if this is moved to build, tests fail.
@@ -49,9 +51,9 @@ prepare() {
   cmake \
     -B build \
     -S "$pkgname" \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_SYSCONFDIR=/etc \
-    -DCMAKE_INSTALL_LIBEXECDIR="lib/$pkgname"
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_INSTALL_SYSCONFDIR=/etc \
+    -D CMAKE_INSTALL_LIBEXECDIR="lib/$pkgname"
 }
 
 build() {
