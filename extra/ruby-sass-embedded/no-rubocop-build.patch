@@ -1,7 +1,7 @@
-diff --git a/Rakefile b/Rakefile
-index d8782f9..f7c5c96 100644
---- a/Rakefile
-+++ b/Rakefile
+diff --git i/Rakefile w/Rakefile
+index 08dcbf4..f7c5c96 100644
+--- i/Rakefile
++++ w/Rakefile
 @@ -2,9 +2,8 @@
  
  require 'bundler/gem_tasks'
@@ -20,5 +20,5 @@ index d8782f9..f7c5c96 100644
 -
 -RuboCop::RakeTask.new do |task|
 -  task.formatters = ['progress']
--  task.formatters << 'github' if ENV.key?('GITHUB_ACTIONS')
+-  task.formatters << 'github' if ENV['GITHUB_ACTIONS'] == 'true'
 -end
