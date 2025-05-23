@@ -3,32 +3,35 @@
 # Contributor: Matt Armand <marmand68 at gmail dot com>
 
 pkgname=rofi-rbw
-pkgver=1.4.2
-pkgrel=2
+pkgver=1.5.1
+pkgrel=1
 pkgdesc='Rofi frontend for Bitwarden'
-arch=('any')
+arch=(any)
 url=https://github.com/fdw/rofi-rbw
-license=('MIT')
-depends=('python-configargparse' 'rbw')
+license=(MIT)
+depends=(
+  python-configargparse
+  rbw
+)
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-poetry-core'
-  'python-wheel'
+  git
+  python-build
+  python-hatchling
+  python-installer
 )
 optdepends=(
   'rofi: for the X.Org selector'
   'xclip: for one of the X.Org clipboarders'
   'xsel: for one of the X.Org clipboarders'
   'xdotool: for an X.Org typer'
-  'wofi: for the Wayland selector'
+  'fuzzel: for one of the Wayland selectors'
+  'wofi: for one of the Wayland selectors'
   'wl-clipboard: for the Wayland clipboarder'
   'wtype: for a Wayland typer'
   'ydotool: for a generic typer'
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('d8888fe0679576f6b8b3f20d362beb32dfeb2ff35d52c67f254a890122a6d7a3e46e73187a89c315555497e345b09abd30ac4a72d1e0f6026202ceb4047d5263')
+b2sums=('067a294ce0d072ee4be94d05f75195d6afeae12b0f25f7caecde938231860aaf64e339bdba0a307965b4ef13a54fec19e2f4380d3e187e2945d25cd3a57f3847')
 
 build() {
   cd $pkgname
@@ -36,13 +39,12 @@ build() {
 }
 
 package() {
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  install -d "$pkgdir"/usr/share/licenses/$pkgname
+  ln -s "$site_packages"/"${pkgname//-/_}"-$pkgver.dist-info/licenses/LICENSE \
+    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
   cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 -t "$pkgdir"/usr/share/man/man1 docs/$pkgname.1
-
-  # Symlink license file
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  install -d "$pkgdir"/usr/share/licenses/$pkgname
-  ln -s "$site_packages"/"${pkgname//-/_}"-$pkgver.dist-info/LICENSE \
-    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
