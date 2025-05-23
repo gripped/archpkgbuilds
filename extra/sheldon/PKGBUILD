@@ -2,7 +2,7 @@
 
 pkgbase=sheldon
 pkgname=('sheldon' 'sheldon-docs')
-pkgver=0.8.1
+pkgver=0.8.2
 pkgrel=1
 pkgdesc='A fast and configurable shell plugin manager'
 arch=('x86_64')
@@ -16,8 +16,8 @@ makedepends=(
 )
 options=('!lto')
 source=("git+https://github.com/rossmacarthur/sheldon.git#tag=$pkgver")
-sha512sums=('ee7f24cab813fca55c915b339a88bb8ec7488d7b4bb6e9a94f9638aec2aadf42297781b7c1df96fd0c00ad47e7849ff266054771e1a4161443122d7e96cd4ced')
-b2sums=('4f8e28b77e334f02a9d6191814e0032a8e5b2454a2362d0b71297297e8e07712e050fd12678021d62ed1ef35cc1523b79f7b3b1e0dea02bf8a47e01e9c68eab3')
+sha512sums=('2a0a1b4b5005d62241aa27ad0285ce6c64c26d5334832b71e49c03d30cc5ba6aa19696e25e73da7f8c8b3c3e5b7f515dd3030219b81fec0b2fcccc13a0375438')
+b2sums=('ddef8d79d73fb4b7e0286fc9eaa69b6e3c84a956b5a85b0e7fd3cc33e40c99d673e0be874dfcfa3508a203caff3c28173227277705fbd60dc9d196ab68ce7bd1')
 
 prepare() {
   cd "$pkgbase"
@@ -58,7 +58,7 @@ package_sheldon() {
   install -vDm755 -t "$pkgdir/usr/bin" "target/release/$pkgbase"
 
   # license
-  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgbase" LICENSE*
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE*
 
   # completions
   install -vDm644 completions/sheldon.bash "$pkgdir/usr/share/bash-completion/completions/$pkgbase"
@@ -75,4 +75,7 @@ package_sheldon-docs() {
 
   # html manual
   cp -vr docs/book/html "$pkgdir/usr/share/doc/$pkgbase"
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE*
 }
