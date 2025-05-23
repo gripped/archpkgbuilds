@@ -12,10 +12,9 @@
 # Contributor: SanskritFritz (gmail)
 
 pkgname=rofi-wayland
-_pkgname=rofi
-pkgver=1.7.8.1
+pkgver=1.7.9.1
 _pkgver="${pkgver%.*}+wayland${pkgver##*.}"
-pkgrel=2
+pkgrel=1
 pkgdesc="A window switcher, run dialog and dmenu replacement - fork with wayland support"
 url="https://github.com/lbonn/rofi"
 arch=('x86_64')
@@ -25,22 +24,17 @@ depends=('bash' 'cairo' 'gdk-pixbuf2' 'glib2' 'glibc' 'hicolor-icon-theme' 'libx
 makedepends=('check' 'git' 'meson' 'pandoc' 'wayland-protocols')
 provides=('rofi')
 conflicts=('rofi')
-source=("git+${url}.git#tag=${_pkgver}"
+source=("${pkgname}::git+${url}.git#tag=${_pkgver}"
         'git+https://github.com/sardemff7/libgwater.git'
         'git+https://github.com/sardemff7/libnkutils.git'
         'fix_xfce4-terminal_binary_name.patch')
-sha256sums=('50a56e7a29140bdb6baf4f86233974691c4dec3e0300ccd58330933db8a102da'
+sha256sums=('d65e2c45b8d62c0e270de5a9ce34c6cef979f8125f9b5e3f9ef12ed5f524bf19'
             'SKIP'
             'SKIP'
-            'a1305667c93119a916df4b5438b5c7a737b66bf304fff68f038bf6c9ac44651f')
+            '0cd6f1360580f49647ceb7d169ab015f4998e778fd750ce3ad2e861f333824e3')
 
 prepare() {
-	cd "${_pkgname}"
-
-	# Backported patch to fix "Alt" keybinding with libxkbcommon >= 1.8.0
-	# See https://github.com/davatorium/rofi/issues/2095
-	# and https://github.com/lbonn/rofi/commit/f2f22e7edc635f7e4022afcf81a411776268c1c3
-	git cherry-pick -n f2f22e7edc635f7e4022afcf81a411776268c1c3
+	cd "${pkgname}"
 
 	git submodule init
 	git config submodule.subprojects/libgwater.url "${srcdir}/libgwater"
@@ -52,7 +46,7 @@ prepare() {
 }
 
 build() {
-	arch-meson "${_pkgname}" build
+	arch-meson "${pkgname}" build
 	meson compile -C build
 }
 
@@ -63,7 +57,7 @@ check() {
 package() {
 	meson install -C build --destdir "${pkgdir}"
 
-	cd "${_pkgname}"
+	cd "${pkgname}"
 	install -Dm 644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
 	install -Dm 755 Examples/*.sh -t "${pkgdir}/usr/share/doc/${pkgname}/examples"
 }
