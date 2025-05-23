@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-heatclient
-pkgver=4.1.0
+pkgver=4.2.0
 pkgrel=1
 pkgdesc="OpenStack Orchestration API Client Library"
 arch=('any')
@@ -11,14 +11,14 @@ license=('Apache')
 depends=('python-pbr' 'python-cliff' 'python-iso8601' 'python-osc-lib' 'python-prettytable'
          'python-oslo-i18n' 'python-oslo-serialization' 'python-oslo-utils' 'python-keystoneauth1'
          'python-swiftclient' 'python-yaml' 'python-requests' 'python-six')
-makedepends=('git')
+makedepends=('git' 'python-build' 'python-installer')
 checkdepends=('python-stestr' 'python-testscenarios' 'python-requests-mock')
 source=("git+https://github.com/openstack/python-heatclient.git#tag=$pkgver")
-sha512sums=('1563536150cb06738de4d9f660553223c3f657118b041c7ede81403baaebb95ab3d12d81b91ae43361642dc283a541e69834492c5218b08f2589c6762648c2f2')
+sha512sums=('6134f9be995783a6b676ead8842da6cfec59df09cabb5308af8e86f124a08e49c7c8e219db90392f15886a3d30d5aaa84e07c7862a558f905493fcafd5f72355')
 
 build() {
   cd python-heatclient
-  python setup.py build
+  python -m build -nw
 }
 
 check() {
@@ -28,5 +28,5 @@ check() {
 
 package() {
   cd python-heatclient
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
