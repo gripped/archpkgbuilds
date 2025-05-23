@@ -1,21 +1,26 @@
 pkgbase = lib32-libgudev
 	pkgdesc = GObject bindings for libudev
 	pkgver = 238
-	pkgrel = 2
-	url = https://wiki.gnome.org/Projects/libgudev
+	pkgrel = 3
+	url = https://gitlab.gnome.org/GNOME/libgudev
 	arch = x86_64
-	license = LGPL2.1
+	license = LGPL-2.1-or-later
 	makedepends = git
 	makedepends = glib2-devel
 	makedepends = meson
+	makedepends = systemd
+	depends = lib32-gcc-libs
 	depends = lib32-glib2
+	depends = lib32-glibc
 	depends = lib32-systemd
 	depends = libgudev
-	source = git+https://gitlab.gnome.org/GNOME/libgudev.git#commit=df7c9c9940160307aaeb31347f4776a46f8736a9
-	b2sums = SKIP
+	source = git+https://gitlab.gnome.org/GNOME/libgudev.git#tag=238
+	b2sums = 6da9512d87154fbd62aae044a39abd84bee451f5a21203180062c369ebedf2ee1bc7672408cf806918111397bc74be58314e6c3155e638137603d11012a4355f
 
 pkgname = lib32-libgudev
+	depends = lib32-gcc-libs
 	depends = lib32-glib2
+	depends = lib32-glibc
 	depends = lib32-systemd
 	depends = libgudev
 	depends = libglib-2.0.so
