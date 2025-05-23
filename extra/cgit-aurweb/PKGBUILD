@@ -8,13 +8,13 @@
 pkgname=cgit-aurweb
 _commit='09d24d7cd0b7e85633f2f43808b12871bb209d69'
 pkgver=1.2.3.r70.g09d24d7
-pkgrel=7
+pkgrel=8
 pkgdesc='A web interface for git written in plain C (aurweb branch)'
 arch=('x86_64')
 url='https://git.zx2c4.com/cgit/'
 license=('GPL-2.0-only')
-depends=('openssl' 'luajit')
-makedepends=('git' 'zlib' 'curl' 'asciidoc')
+depends=('openssl' 'luajit' 'zlib-ng')
+makedepends=('git' 'curl' 'asciidoc')
 optdepends=('groff: about page using man page syntax'
             'python-pygments: syntax highlighting support'
             'python-docutils: about page formatted with reStructuredText'
@@ -70,7 +70,9 @@ prepare() {
 build() {
   cd cgit/
 
-  make all doc-man
+  make \
+    ZLIB_NG=1 \
+    all doc-man
 }
 
 # The customized output for AUR makes time tests fail, so
