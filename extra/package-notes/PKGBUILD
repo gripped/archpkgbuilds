@@ -1,7 +1,7 @@
 # Maintainer: Christian Hesse <mail@eworm.de>
 
 pkgname=package-notes
-pkgver=0.11
+pkgver=0.12
 pkgrel=1
 pkgdesc='ELF Package Notes Reference Implementation'
 arch=('x86_64')
@@ -11,7 +11,7 @@ makedepends=('git')
 license=('CC0-1.0')
 validpgpkeys=('A9EA9081724FFAE0484C35A1A81CEA22BC8C7E2E') # Luca Boccassi <luca.boccassi@gmail.com>
 source=("git+https://github.com/systemd/package-notes.git#tag=v${pkgver}?signed")
-sha256sums=('e5f0b1aef690077c3ed0660ed57a809c4abbbe22f5aacd1300062b41e9cfcb05')
+sha256sums=('a95848cf4b2c15ad8c84d2e9853a58173fc6813c8c3ea183aac37372653b02bf')
 
 package() {
   cd package-notes
