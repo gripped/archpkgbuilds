@@ -3,7 +3,7 @@
 # Contributor: dnuux <dnuuxx@gmail.com>
 
 pkgname=python-faker
-pkgver=37.1.0
+pkgver=37.1.1
 pkgrel=1
 pkgdesc='Faker generates fake data for you.'
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-pytest' 'python-set
 checkdepends=('python-validators' 'python-ukpostcodeparser' 'python-freezegun' 'python-pillow'
               'python-xmltodict')
 source=("git+https://github.com/joke2k/faker.git#tag=v$pkgver")
-sha512sums=('61496360e5634c83955055c3433a0b7d0b2d55131712a67114079e6e795060b0d8f06ac74a3e3a10a426b2c46d3f83a05ec327309e95a3d3cba1be20a53e09d6')
+sha512sums=('045af65b55f10f2d4df907844fb29122fe3c3d70ef21bd7bcb57b3c96b4a1285a521621bddb49be7938fe9df3bf8bbc81b8a99281faee251018b9f971ee54901')
 
 build() {
   cd faker
