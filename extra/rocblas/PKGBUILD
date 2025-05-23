@@ -2,7 +2,7 @@
 # Contributor: Markus Näther <naether.markus@gmail.com>
 # Contributor: Lubosz Sarnecki <lubosz@gmail.com>
 pkgname=rocblas
-pkgver=6.3.3
+pkgver=6.4.0
 pkgrel=1
 pkgdesc='Next generation BLAS implementation for ROCm platform'
 arch=('x86_64')
@@ -11,6 +11,7 @@ license=('MIT')
 depends=(
   'rocm-core'
   'hip-runtime-amd'
+  'roctracer'
   'glibc'
   'gcc-libs'
   'openmp'
@@ -35,8 +36,8 @@ _rocblas='https://github.com/ROCm/rocBLAS'
 _tensile='https://github.com/ROCm/Tensile'
 source=("$pkgname-$pkgver.tar.gz::$_rocblas/archive/refs/tags/rocm-$pkgver.tar.gz"
         "$pkgname-tensile-$pkgver.tar.gz::$_tensile/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('73e91bd50c920b818742fa5bf9990c0676be5bfbafe321d5781607dc2ce27060'
-            '5849fc3898e9cea05569c0ee102c13043c4df67079119572687bc42f274ae496')
+sha256sums=('ab8e75c9f98d17817a650aa4f06ff1e6c6af92cd143079e361cb6a0c96676aaa'
+            'cfe32aa31aa0dd79018d0cdd36e09df3a548159cb7b8e18d0ef6513d0febce90')
 options=(!lto)
 _dirname="$(basename "$_rocblas")-$(basename "${source[0]}" ".tar.gz")"
 _tensile_dir="$(basename "$_tensile")-$(basename "${source[1]}" ".tar.gz")"
@@ -45,9 +46,6 @@ build() {
   # Compile source code for supported GPU archs in parallel
   export HIPCC_COMPILE_FLAGS_APPEND="-parallel-jobs=$(nproc)"
   export HIPCC_LINK_FLAGS_APPEND="-parallel-jobs=$(nproc)"
-
-  # amdclang and amdclang++ in path
-  export PATH="/opt/rocm/lib/llvm/bin:$PATH"
 
   # -fcf-protection is not supported by HIP, see
   # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
