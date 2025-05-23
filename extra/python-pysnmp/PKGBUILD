@@ -3,7 +3,7 @@
 # Contributor: Karol Babioch <karol@babioch.de>
 
 pkgname=python-pysnmp
-pkgver=7.1.17
+pkgver=7.1.20
 pkgrel=1
 pkgdesc='Open source and free implementation of v1/v2c/v3 SNMP engine'
 arch=('any')
@@ -17,8 +17,8 @@ depends=(
 )
 makedepends=(
   'python-build'
+  'python-flit-core'
   'python-installer'
-  'python-poetry-core'
   'python-wheel'
 )
 checkdepends=(
@@ -26,7 +26,7 @@ checkdepends=(
   'python-pytest-asyncio'
 )
 source=("https://github.com/lextudio/pysnmp/archive/v$pkgver/${pkgname#python-}-v$pkgver.tar.gz")
-sha512sums=('83e1fcbd48d0a3d16ab203a4739c8356e5ff9c33b4bc7129a4e805af79f527a06e35e4b9978317c5f43195b35750e4c9bd1814b5061cca487166e4ed5bc433b0')
+sha512sums=('41024f45f559cf001958f53cb00b1acaf14aba9caaf21cfbab7a3232e349b8c59a2fc4c686fe1429db71fed1dead19f3aaeb6d6550d370f669b910cdfeabd388')
 
 build() {
   cd ${pkgname#python-}-$pkgver
