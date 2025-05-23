@@ -2,8 +2,8 @@
 
 _hkgname=yesod-test
 pkgname=haskell-yesod-test
-pkgver=1.6.16
-pkgrel=141
+pkgver=1.6.19
+pkgrel=4
 pkgdesc="Integration testing for WAI/Yesod Applications"
 url="https://www.yesodweb.com"
 license=('MIT')
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-hunit' 'haskell-aeson' 'haskell-attoparsec' 'haskel
          'haskell-wai-extra' 'haskell-xml-conduit' 'haskell-xml-types' 'haskell-yesod-core')
 makedepends=('ghc' 'haskell-yesod-form' 'haskell-hspec' 'haskell-unliftio' 'haskell-unliftio-core')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('0bf512220604304b906232218d84459d99b8e39b572fbd2e81791e5e4b26caeaadbdc98b72aa2444f90b32a6b6584094174a29ee21ab140664baccd0d14a62ce')
+sha512sums=('ee2322126ba5a4362ababf173a03bbb4586a6d855bbf5aa38b7ecf5bd087e4dff7f161be6755dd0d2f3a7a0054605b17e105b558a4aa31aea4331403aebf171d')
 
 build() {
     cd $_hkgname-$pkgver
