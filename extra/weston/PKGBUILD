@@ -2,8 +2,8 @@
 # Contributor: Joel Teichroeb <joel@teichroeb.net>
 
 pkgname=weston
-pkgver=14.0.0
-pkgrel=2
+pkgver=14.0.2
+pkgrel=1
 pkgdesc='Reference implementation of a Wayland compositor'
 arch=('x86_64')
 url='https://wayland.freedesktop.org/'
@@ -25,12 +25,9 @@ validpgpkeys=('7032877A3EB1EAE3E4DC9DFBF63412E60947D6EF' # Marius Vlad <marius.v
               '34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48' # emersion <contact@emersion.fr>
               'C7223EBE4EF66513B892598911A30156E0E67611' # Bryce Harrington
               'C0066D7DB8E9AC6844D728715E54498E697F11D7') # Derek Foreman
-source=("https://gitlab.freedesktop.org/wayland/weston/-/releases/$pkgver/downloads/weston-$pkgver.tar.xz"{,.sig}
-        # https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1614
-        0001-libweston-noop-renderer-Check-shm_buffer-for-NULL.patch)
-sha256sums=('47fd0325b0b948e9b003a38fdf4eb3a8581f3fdc740b8932b35ae8793bf4e4a5'
-            'SKIP'
-            '1fb79ddf37a917b1787399e9f20b419af99c59d42966ced899ef238ec2b6999a')
+source=("https://gitlab.freedesktop.org/wayland/weston/-/releases/$pkgver/downloads/weston-$pkgver.tar.xz"{,.sig})
+sha256sums=('b47216b3530da76d02a3a1acbf1846a9cd41d24caa86448f9c46f78f20b6e0ac'
+            'SKIP')
 
 prepare() {
   cd $pkgname-$pkgver
