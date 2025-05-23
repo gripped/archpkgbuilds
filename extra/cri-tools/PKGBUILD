@@ -7,7 +7,7 @@ pkgname=(
   crictl
   critest
 )
-pkgver=1.32.0
+pkgver=1.33.0
 pkgrel=1
 pkgdesc="CLI and validation tools for Kubelet Container Runtime Interface (CRI)"
 arch=(x86_64)
@@ -19,8 +19,8 @@ makedepends=(go)
 # with LTO the packages are not reproducible (we want full RELRO and PIE)
 options=(!lto)
 source=($url/archive/v$pkgver/$pkgbase-v$pkgver.tar.gz)
-sha512sums=('654cfd4d546932d48c02e19071e137fa7565a5134ba1845498d61f2dfef45fca722a51dbadb7a467214f7424290c53cb79a2908684d1fbd3820836b55640f66d')
-b2sums=('125fc9014942e681353ef49d4d397af4fc77500c0fb37d2d1be0850839c37f51f2ef41b5c7d9ca422e814d1fe50f985bfd42d2bba11d391cea66b3bec381dc08')
+sha512sums=('0252243147e32e06328c192f77397461a729aec621bee92083dcf3899e9ffbb62386a944795535cc4a0deb5c88d1017082db8bf221f6627feb7dcd100dc70457')
+b2sums=('42011726997a07842fd3c9769335a71e37e1689e443a0d1a99916b5729cc22092593928a6b94bbc3718a0e5f89f3818c3b6d6155970de21e8eee30fc979a294d')
 
 build() {
   local common_ldflags=(
