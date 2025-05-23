@@ -1,41 +1,39 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 pkgname=hipblaslt
-pkgver=6.3.3
+pkgver=6.4.0
 pkgrel=1
 pkgdesc='General matrix-matrix operations beyond a traditional BLAS library'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/hipBLASLt/en/latest/index.html'
 license=('MIT')
 depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'hipblas' 'rocblas')
-makedepends=('rocm-cmake' 'python' 'cmake' 'git'
+makedepends=('rocm-cmake' 'python' 'cmake' 'git' 'ninja'
              'msgpack-cxx' 'python-msgpack' 'python-joblib' 'python-pyaml' 'hipblas-common')
 _git='https://github.com/ROCm/hipBLASLt'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
-        "$pkgname-find-msgpack5.patch"
-        "$pkgname-fix-wrong-amdclang-path.patch"
-       )
-sha256sums=('f32d666b37bdbecbf924cc98653fa3d30a0de629039d4dad44d35a2082e39e5a'
-            '8e6d134a1d45de814099dfe591296de5e1d47f9906ccf9c51d7f2228e992c5f4'
-            '336455e150798d7bbbb54dab6c5dc850e17346ae4bed5500723592633f232993')
+        "$pkgname-find-msgpack5.patch")
+sha256sums=('a4baa0c7336db9d46a0884c8ccfd0fb7e00a502b478aed9f588aa26fa8773353'
+            '8e6d134a1d45de814099dfe591296de5e1d47f9906ccf9c51d7f2228e992c5f4')
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
 prepare() {
   cd "$_dirname"
   patch -Np1 -i "$srcdir/$pkgname-find-msgpack5.patch"
-  patch -Np1 -i "$srcdir/$pkgname-fix-wrong-amdclang-path.patch"
 }
 
-build() {   
-  export PATH="/opt/rocm/lib/llvm/bin:$PATH"
+build() {
+  export PATH="/opt/rocm/bin:$PATH"
   local cmake_args=(
     -Wno-dev
     -B build
     -S "$_dirname"
     -D CMAKE_BUILD_TYPE=None
-    -D CMAKE_C_COMPILER=/opt/rocm/lib/llvm/bin/amdclang
-    -D CMAKE_CXX_COMPILER=/opt/rocm/lib/llvm/bin/amdclang++
+    -D CMAKE_C_COMPILER=/opt/rocm/bin/amdclang
+    -D CMAKE_CXX_COMPILER=/opt/rocm/bin/amdclang++
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D Tensile_CODE_OBJECT_VERSION=default
+    -D AMDGPU_TARGETS="gfx908;gfx908;gfx90a;gfx90a;gfx942;gfx1100;gfx1101"
+    -G Ninja
   )
   # -fcf-protection is not supported by HIP, see
   # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
