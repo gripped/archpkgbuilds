@@ -3,7 +3,7 @@
 # Contributor: JP-Ellis <josh@jpellis.me>
 
 pkgname=miopen-hip
-pkgver=6.3.3
+pkgver=6.4.0
 pkgrel=1
 pkgdesc="AMD's Machine Intelligence Library (HIP backend)"
 arch=('x86_64')
@@ -23,9 +23,9 @@ source=(
   "${pkgname}-rocmlir::git+https://github.com/ROCm/rocMLIR#tag=rocm-$pkgver"
   "${pkgname}-half::git+https://github.com/ROCm/half#tag=rocm-$pkgver"
 )
-sha256sums=('6010291fbb067b02c5f6b71f7ee0465cbdc07b763bba1c41a23dd9f34331ceb7'
+sha256sums=('e41280d1a2e7cead874dd7a43c187d94f75b598fbd8f1995e2bc16b8c30205ab'
             'SKIP'
-            '3d36c2b339bb3ef2831cf7ff023416199e349d3f6ad85bac1c39812759bb0173'
+            '86377bcd3bb5a260a680cf94d6a2335ddcd209609535a1b3fbf1f97f7b5a5f85'
             '16e5a6405dd766339a9409665cd1ccdaceed3c0cb7fe12835fa17bd3914aa6cd')
 options=(!lto)
 
@@ -42,8 +42,8 @@ prepare() {
 }
 
 build() {
-  export CC=/opt/rocm/llvm/bin/amdclang
-  export CXX=/opt/rocm/llvm/bin/amdclang++
+  export CC=/opt/rocm/bin/amdclang
+  export CXX=/opt/rocm/bin/amdclang++
   # -fcf-protection is not supported by HIP, see
   # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
   # Set ROCm test chipset to Vega in order to pass the configuration step.
@@ -57,6 +57,7 @@ build() {
     -D CMAKE_BUILD_TYPE=Release
     -D ROCM_TEST_CHIPSET=gfx900
     -D BUILD_FAT_LIBROCKCOMPILER=ON
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
   )
   cmake "${llvm_args[@]}"
   cmake --build build-mlir
@@ -69,6 +70,7 @@ build() {
     -S "$pkgname-half"
     -D CMAKE_INSTALL_PREFIX=/usr
     -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
   )
   cmake "${half_args[@]}"
   cmake --build build-half
@@ -77,7 +79,7 @@ build() {
   # define NDEBUG to silence internal logging (mimics cmake release build)
   # https://rocmsoftwareplatform.github.io/MIOpen/doc/html/DebugAndLogging.html
   local cmake_args=(
-     -Wno-dev
+    -Wno-dev
     -G Ninja
     -B build
     -S "$pkgname"
@@ -87,6 +89,7 @@ build() {
     -D MIOPEN_BACKEND=HIP
     -D HALF_INCLUDE_DIR="$srcdir/deps/usr/include"
     -D CMAKE_PREFIX_PATH="$srcdir/deps/usr/lib/cmake"
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
   )
   cmake "${cmake_args[@]}"
   cmake --build build
