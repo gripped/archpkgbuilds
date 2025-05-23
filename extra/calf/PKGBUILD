@@ -3,7 +3,7 @@
 # Contributor: Ray Rashif <schiv@archlinux.org>
 
 pkgname=calf
-pkgver=0.90.6
+pkgver=0.90.7
 pkgrel=1
 pkgdesc='LV2 plug-in suite and standalone Jack host'
 arch=(x86_64)
@@ -34,7 +34,7 @@ makedepends=(
   lv2
 )
 source=("git+$_url#tag=$pkgver")
-b2sums=('4354d2a09518563725940d48c581d4e14ccb8fba15e40b615ed25511650f9c41a1c71f942f3861e5eae2d987968f6e8f8f9ae2dfb54753126d3089f725004a7c')
+b2sums=('388ba85a76fc47805c5ad6e3157ef4cb604cf9b634704ba1c9dc9978a40f6f8f38d170a7461fc83b5ce4527e9a0bfb6eb07a8a606cce45dcfa1673032b5345cb')
 
 build() {
   local cmake_options=(
