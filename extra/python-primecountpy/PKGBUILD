@@ -2,31 +2,32 @@
 
 _pyname=primecountpy
 pkgname=python-$_pyname
-pkgver=0.1.0
-pkgrel=6
+pkgver=0.1.1
+pkgrel=1
 pkgdesc='Cython interface to the C++ library primecount'
 arch=(x86_64)
 url='https://github.com/dimpase/primecountpy'
-license=(GPL3)
+license=(GPL-2.0-or-later)
 depends=(gcc-libs
          glibc
          primecount
          python
          python-cysignals)
 makedepends=(cython
+             git
              python-build
              python-installer
              python-setuptools
              python-wheel)
-source=(https://github.com/dimpase/primecountpy/archive/v$pkgver/$_pyname-$pkgver.tar.gz)
-sha256sums=('42835b1ddfc2e95c2a48118c3a871d650146aae92a63dd4564dd1be171d09c15')
+source=(git+https://github.com/dimpase/primecountpy#tag=v$pkgver)
+sha256sums=('4bbdb9e4cff7970634e1d9d565feae387554d6454380c34965a9d59bc6abadbc')
 
 build() {
-  cd $_pyname-$pkgver
+  cd $_pyname
   python -m build --wheel --no-isolation
 }
 
 package() {
-  cd $_pyname-$pkgver 
+  cd $_pyname 
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
