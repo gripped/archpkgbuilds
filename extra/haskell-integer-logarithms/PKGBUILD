@@ -2,27 +2,23 @@
 
 _hkgname=integer-logarithms
 pkgname=haskell-integer-logarithms 
-pkgver=1.0.3.1
-pkgrel=8
+pkgver=1.0.4
+pkgrel=2
 pkgdesc="Integer logarithms"
 url="https://github.com/Bodigrim/integer-logarithms"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc' 'haskell-quickcheck' 'haskell-smallcheck' 'haskell-tasty' 'haskell-tasty-hunit'
+             'haskell-tasty-quickcheck' 'haskell-tasty-smallcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('670aff419de8d6afd1b7e1a40b68290bcf7aefad788c3b08aebfa5ca3e709f5d22543fce82fb75dc18b3ba0ef6d8a8f61735cde647a7a6c9392a60ec365534b3')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u base -u ghc-bignum -u ghc-prim $_hkgname.cabal
-}
+sha512sums=('aa9eddff5bc8db9f1cca8a9250388d6d84498b1d443acecae116ac79ef50c7d5aa0ff3d018e8d999f0990d2862d5de87ec8971339bec571b417db6bbeaca8586')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -finteger-gmp -f-check-bounds
     runhaskell Setup build $MAKEFLAGS
@@ -30,6 +26,11 @@ build() {
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
