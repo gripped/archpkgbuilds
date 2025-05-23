@@ -5,7 +5,7 @@
 
 pkgbase=cockpit
 pkgname=(cockpit cockpit-packagekit cockpit-storaged)
-pkgver=337
+pkgver=339
 pkgrel=1
 pkgdesc='A systemd web based user interface for Linux servers'
 arch=('x86_64')
@@ -16,7 +16,7 @@ makedepends=(krb5 libssh json-glib glib-networking glib2-devel systemd
              gendesk python-installer python-wheel python-build python-pip)
 source=("https://github.com/cockpit-project/cockpit/releases/download/$pkgver/cockpit-$pkgver.tar.xz"
         "cockpit.pam")
-sha256sums=('df51ef5920fae69e1b435f657376aa93772c0c1720b954a3bac10ebba26bfedf'
+sha256sums=('7529f4966b4041fd3556bfcdaaf87ea6dafa3475dfe27302c7cde2ee2e1e1cd0'
             '1257fb3be713ca26831faea6963d292ec2ccd284f3a6be800142fab270c504fc')
 
 prepare() {
