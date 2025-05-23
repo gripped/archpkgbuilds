@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=pixi
-pkgver=0.46.0
+pkgver=0.47.0
 pkgrel=1
 pkgdesc="A package management and workflow tool"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('BSD-3-Clause')
 depends=('gcc-libs' 'openssl' 'bzip2')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('44e646223257f1fbeceaa2096e5a0e1cadbc91fe4f5c87b42d45e0b4287b5526177d3fe6c22b29a09ccca41ec6e50dae7424fda357d85c02f5cab98f6716a685')
+sha512sums=('232bd23c7d301a0087a7f7cc8bc0d5dc4781d6bde49df88e5df9905a92db6cb29d95cfdf5dafe4a405efecb1706cc8d1571fd1e2f899c9590e10f2ef295c6d33')
 options=('!lto')
 
 prepare() {
