@@ -2,8 +2,8 @@
 
 pkgname=python-fastbencode
 _pkgname=fastbencode
-pkgver=0.3.1
-pkgrel=2
+pkgver=0.3.2
+pkgrel=1
 pkgdesc="Implementation of bencode with optional fast C extensions"
 arch=(x86_64)
 url="https://github.com/breezy-team/fastbencode"
@@ -20,7 +20,7 @@ makedepends=(
   python-wheel
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('103c93fe84db0c7088de4e2944c70e619d674e8fe55161130aeb1492eec679f9')
+sha256sums=('98c5152ea30f103fc4b3d7b62a3e510cb87bf899a54775b619719a967749e295')
 
 build() {
   cd $_pkgname-$pkgver
