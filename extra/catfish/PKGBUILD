@@ -7,8 +7,8 @@
 # Contributor: loqs <bugs-archlinux@entropy-collector.net>
 
 pkgname=catfish
-pkgver=4.20.0
-pkgrel=2
+pkgver=4.20.1
+pkgrel=1
 pkgdesc="Versatile file searching tool"
 arch=('any')
 url="https://docs.xfce.org/apps/catfish/start"
@@ -19,7 +19,7 @@ makedepends=('git' 'meson')
 optdepends=('plocate: search in locate index'
             'zeitgeist: search in zeitgeist index')
 source=("git+https://gitlab.xfce.org/apps/catfish.git#tag=$pkgname-$pkgver")
-sha256sums=('0cb9a7c14bab9cf3d16c05b90becb8b76f80bf108b79776af2a2ac235796ff26')
+sha256sums=('265ca6b2c4494b74bb41a2d642860d7f15982171e87a18978f7b2173763fc39d')
 
 build() {
   arch-meson $pkgname build
