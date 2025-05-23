@@ -5,7 +5,7 @@
 # Contributor: Roberto Alsina <ralsina@kde.org>
 
 pkgname=varnish
-pkgver=7.7.0
+pkgver=7.7.1
 _pkg_varnish_cache_commit=7d90347
 pkgrel=1
 pkgdesc="High-performance HTTP accelerator"
@@ -19,7 +19,7 @@ backup=('etc/varnish/default.vcl')
 install=$pkgname.install
 source=("https://varnish-cache.org/_downloads/varnish-$pkgver.tgz"
         "git+https://github.com/varnishcache/pkg-varnish-cache.git#commit=$_pkg_varnish_cache_commit")
-sha512sums=('5c79cae2d20dfe8aa82f0ee7ae40c644cbeba80f8c6506426ccc15de909d88d7a5bb01c6843c0a9ac8e8cdaf1f3b3526cea0b6bf3a15c85924a3f2f6b0d42c47'
+sha512sums=('4a15ff23dc07cb19959031be5070e7da46a2be2d1a1d2e3950966ca593849d3f8be4f41bd35dae75876bbc121bf268345b47aa35764645362aa42b822b634ad9'
             '9265b46a3ccff071acffdbfd26d1f4f1022137017ac3d17e36b1d3c5294a97ac603d60635d5bbc4c23c5e4148f12e582fed897d8bea16bcc4a09df5834c0aaf0')
 
 build() {
