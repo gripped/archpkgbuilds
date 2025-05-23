@@ -5,8 +5,8 @@
 # Contributor: Pierre Schmitz <pierre@archlinux.de>
 
 pkgname=apr
-pkgver=1.7.5
-pkgrel=3
+pkgver=1.7.6
+pkgrel=1
 pkgdesc="The Apache Portable Runtime"
 arch=(x86_64)
 url="https://apr.apache.org/"
@@ -24,7 +24,7 @@ source=(
   "omit_extra_libs.patch"
   "dont_override_external_buildflags"
 )
-sha256sums=('cd0f5d52b9ab1704c72160c5ee3ed5d3d4ca2df4a7f8ab564e3cb352b67232f2'
+sha256sums=('49030d92d2575da735791b496dc322f3ce5cff9494779ba8cc28c7f46c5deb32'
             'SKIP'
             '572efb102d02bb3e85ff08eca6b2ea8ff7936ce5228da7a45c1e639faca36a5c'
             '12595d331b48be9e44bd843635eb4f0f500bd213e197a551a9d383a28a24641f'
@@ -36,6 +36,7 @@ validpgpkeys=(
   'B1B96F45DFBDCCF974019235193F180AB55D9977' # Nick Kew <niq@apache.org>
   '65B2D44FE74BD5E3DE3AC3F082781DE46D5954FA' # "Eric Covener <covener@apache.org>"
   '120A8667241AEDD4A78B46104C042818311A3DE5' # Ruediger Pluem <rpluem@apache.org>
+  'CBA1525BAA7A47BE28FF23DDD3B13FCA2CE60BED' # Graham Leggett <minfrin@redwax.eu>
 )
 
 prepare() {
