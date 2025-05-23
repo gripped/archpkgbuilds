@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=gammaray
-pkgver=3.1.0
-pkgrel=7
+pkgver=3.2.0
+pkgrel=2
 pkgdesc='A tool for examining the internals of a Qt application and to some extent also manipulate it'
 arch=(x86_64)
 url='https://www.kdab.com/gammaray/'
@@ -46,15 +46,12 @@ optdepends=('qt5-base: Qt5 applications support'
             'qt6-webengine: web inspector plugin'
             'qt6-connectivity: bluetooth plugin')
 source=(git+https://github.com/KDAB/GammaRay#tag=v$pkgver)
-sha256sums=('dbee96f2e1c6b821cb2b797257f6060df085ee8588e44432333df1b927a35214')
+sha256sums=('c77dcfcfa23204221beece4580137da54d0adaedffd514ba43142ec496068e9a')
 validpgpkeys=(E86C000370B1B9E2A9191AD53DBFB6882C9358FB) # KDAB Products <info@kdab.com>
 
 prepare() {
 # Fix plugin install dir
   sed -e 's|plugins/gammaray|lib/qt6/plugins/gammaray|' -i GammaRay/CMakeLists.txt
-
-  cd GammaRay
-  git cherry-pick -n 73a102f50f0c4f9482f90b84814aa9cd812c3136 # Qt 6.9 support
 }
 
 build() {
