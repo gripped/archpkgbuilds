@@ -2,35 +2,25 @@
 # Contributor: yokirinjin <aur.country952@passmail.com>
 
 pkgname=xfce4-mixer
-pkgver=4.18.2
-pkgrel=2
+pkgver=4.20.0
+pkgrel=1
 pkgdesc="A volume control application based on GStreamer"
 arch=('x86_64')
 url="https://docs.xfce.org/apps/xfce4-mixer/start"
 license=('GPL-2.0-or-later')
-depends=('xfce4-panel' 'alsa-utils' 'gstreamer')
-makedepends=('git' 'xfce4-dev-tools')
+depends=('xfce4-panel' 'alsa-utils' 'gstreamer' 'libkeybinder3' 'libpulse' 'sndio')
+makedepends=('git' 'meson' 'xfce4-dev-tools')
 source=("git+https://gitlab.xfce.org/apps/xfce4-mixer.git#tag=$pkgname-$pkgver")
-sha256sums=('b9d7f0b4102ecc2a9c718dde782c3d868ee53cf754561533bfdfe442a56199a8')
-
-prepare() {
-  cd $pkgname
-  NOCONFIGURE=1 ./autogen.sh
-}
+sha256sums=('1ac11b9e7ecc3e0994599b669e47fb0de71a541c422fd83dc79446a2633e4076')
 
 build() {
-  cd $pkgname
-  ./configure \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --localstatedir=/var \
-    --disable-debug
-  make
+  arch-meson $pkgname build \
+    --localstatedir=/var
+  meson compile -C build
 }
 
 package() {
-  cd $pkgname
-  make DESTDIR="$pkgdir" install
+  meson install -C build --destdir "$pkgdir"
 }
 
 # vim:set ts=2 sw=2 et:

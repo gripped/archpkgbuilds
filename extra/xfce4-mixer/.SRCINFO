@@ -1,16 +1,20 @@
 pkgbase = xfce4-mixer
 	pkgdesc = A volume control application based on GStreamer
-	pkgver = 4.18.2
-	pkgrel = 2
+	pkgver = 4.20.0
+	pkgrel = 1
 	url = https://docs.xfce.org/apps/xfce4-mixer/start
 	arch = x86_64
 	license = GPL-2.0-or-later
 	makedepends = git
+	makedepends = meson
 	makedepends = xfce4-dev-tools
 	depends = xfce4-panel
 	depends = alsa-utils
 	depends = gstreamer
-	source = git+https://gitlab.xfce.org/apps/xfce4-mixer.git#tag=xfce4-mixer-4.18.2
-	sha256sums = b9d7f0b4102ecc2a9c718dde782c3d868ee53cf754561533bfdfe442a56199a8
+	depends = libkeybinder3
+	depends = libpulse
+	depends = sndio
+	source = git+https://gitlab.xfce.org/apps/xfce4-mixer.git#tag=xfce4-mixer-4.20.0
+	sha256sums = 1ac11b9e7ecc3e0994599b669e47fb0de71a541c422fd83dc79446a2633e4076
 
 pkgname = xfce4-mixer
