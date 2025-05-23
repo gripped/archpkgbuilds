@@ -6,7 +6,7 @@
 
 pkgname=openscenegraph
 pkgver=3.6.5
-pkgrel=26
+pkgrel=27
 pkgdesc='Open Source, high performance real-time graphics toolkit'
 url='http://www.openscenegraph.org'
 arch=('x86_64')
@@ -39,6 +39,7 @@ build() {
   cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
   ..
   VERBOSE=1 make
 }
