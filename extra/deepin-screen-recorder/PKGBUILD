@@ -4,7 +4,7 @@
 
 pkgname=deepin-screen-recorder
 pkgver=5.12.19
-pkgrel=1
+pkgrel=2
 pkgdesc='Deepin Screen Recorder'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-screen-recorder"
@@ -18,9 +18,11 @@ provides=('deepin-screenshot')
 conflicts=('deepin-screenshot')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-screen-recorder.git#tag=$pkgver"
-        "$pkgname-unqualified-id.patch")
+        "$pkgname-unqualified-id.patch"
+         libv4l-1.30.patch)
 sha512sums=('184a6d15f0b0f54b857f050aa1ec8cfae295730f140459e3f819656f20f75d1d1d56fc482720a851811316cca2cab53a9d8b6ecd742026d41c0cc80342e5a94c'
-            '5624a25292b0d4f74aa73c1374c51d9098db8a6984e9586da1f88349c0315e2dde1cb6f3b26ac7db6fd04044b9283238ab93a607be6883f746b0e1a57e8c3ce3')
+            '5624a25292b0d4f74aa73c1374c51d9098db8a6984e9586da1f88349c0315e2dde1cb6f3b26ac7db6fd04044b9283238ab93a607be6883f746b0e1a57e8c3ce3'
+            'b8527bbf18b78b530507ed7725218db88f3ae4ed6abb700f6430903421e188456d7f0695f680461376d403c9227bc0234578d909f29399a4072a13a042d524cb')
 
 prepare() {
   cd deepin-screen-recorder
@@ -34,6 +36,8 @@ prepare() {
 
   # OpenCV missing in pkg-config targets
   sed -i 's/dframeworkdbus/dframeworkdbus opencv4/' src/src.pro
+
+  patch -p1 -i ../libv4l-1.30.patch
 }
 
 build(){

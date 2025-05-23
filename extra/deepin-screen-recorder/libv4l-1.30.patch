@@ -1,0 +1,66 @@
+diff --git a/3rdparty/libcam/libcam/camview.c b/3rdparty/libcam/libcam/camview.c
+index 338ff4d9..d9d54ff4 100644
+--- a/3rdparty/libcam/libcam/camview.c
++++ b/3rdparty/libcam/libcam/camview.c
+@@ -1034,7 +1034,7 @@ void *capture_loop(void *data)
+     if(my_options->photo_timer > 0)
+     {
+         my_photo_timer = NSEC_PER_SEC * my_options->photo_timer;
+-        my_last_photo_time = v4l2core_time_get_timestamp(my_vd); /*timer count*/
++        my_last_photo_time = v4l2core_time_get_timestamp(); /*timer count*/
+     }
+ 
+     if(my_options->photo_npics > 0)
+@@ -1278,29 +1278,6 @@ void *capture_loop(void *data)
+     return ((void *) 0);
+ }
+ 
+-/*
+- * start the encoder thread
+- * args:
+- *   data - pointer to user data
+- *
+- * asserts:
+- *   none
+- *
+- * returns: error code
+- */
+-int start_encoder_thread(void *data)
+-{
+-    int ret = __THREAD_CREATE(&encoder_thread, encoder_loop, data);
+-
+-    if(ret)
+-        fprintf(stderr, "deepin-camera: encoder thread creation failed (%i)\n", ret);
+-    else if(debug_level > 2)
+-        printf("deepin-camera: created encoder thread with tid: %u\n",
+-            (unsigned int) encoder_thread);
+-
+-    return ret;
+-}
+-
+ /*
+  * stop the encoder thread
+  * args:
+diff --git a/3rdparty/libcam/libcam_v4l2core/gviewv4l2core.h b/3rdparty/libcam/libcam_v4l2core/gviewv4l2core.h
+index 7d8c7098..4c8f3b98 100644
+--- a/3rdparty/libcam/libcam_v4l2core/gviewv4l2core.h
++++ b/3rdparty/libcam/libcam_v4l2core/gviewv4l2core.h
+@@ -619,18 +619,6 @@ v4l2_dev_sys_data_t *v4l2core_get_device_sys_data(int index);
+  */
+ int v4l2core_get_device_index(const char *videodevice);
+ 
+-/*
+- * check for new devices
+- * args:
+- *   none
+- *
+- * asserts:
+- *   none
+- *
+- * returns: true(1) if device list was updated, false(0) otherwise
+- */
+-int v4l2core_check_device_list_events();
+-
+ /*
+  * check for control events
+  * args:
