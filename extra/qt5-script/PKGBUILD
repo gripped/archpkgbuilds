@@ -3,8 +3,8 @@
 
 pkgname=qt5-script
 _basever=5.15.16
-pkgver=5.15.18
-pkgrel=4
+pkgver=5.15.19
+pkgrel=1
 arch=('x86_64')
 url='https://www.qt.io'
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
@@ -14,7 +14,7 @@ makedepends=('git')
 groups=('qt5')
 _pkgfqn=${pkgname/5-/}
 source=(kde-$_pkgfqn::git+https://code.qt.io/qt/$_pkgfqn.git#tag=v${pkgver}-lts)
-sha256sums=('cb3384f9a96a73a1fd413ba841b9961430bd818f3990a36a9663e3edecc4aa9f')
+sha256sums=('2430cc89b5dd03128586237635c097fa2640ad8ea484796e6e7da170c0b4d9cc')
 options=(!lto)
 
 prepare() {
