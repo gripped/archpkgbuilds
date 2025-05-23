@@ -7,7 +7,7 @@
 # Contributor: Alexandru M Stan <alex@hypertriangle.com>
 
 pkgname=hsa-rocr
-pkgver=6.3.3
+pkgver=6.4.0
 pkgrel=1
 pkgdesc='HSA Runtime API and runtime for ROCm'
 arch=('x86_64')
@@ -18,10 +18,16 @@ depends=('rocm-core' 'glibc' 'gcc-libs' 'numactl' 'pciutils' 'libelf' 'libdrm'
 provides=("hsakmt-roct=$pkgver")
 replaces=('hsakmt-roct')
 makedepends=('cmake' 'rocm-llvm' 'xxd')
-source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('aa2e30d3d68707d6df4840e954bb08cc13cd312cec1a98a64d97adbe07262f50')
+source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz"
+        hsa-rocr-6.4-fix-missing-include.patch)
+sha256sums=('ff740e8c8f2229c6dc47577363f707b1a44ea4254f8ad74f8f0a669998829535'
+            '6b7c62245fd9021ade8046e6a769e48c8c1868131dbac19531befc5f2a4c25b5')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
 options=(!lto)
+
+prepare() {
+    patch -d "${_dirname}" -Np1 < "${srcdir}/hsa-rocr-6.4-fix-missing-include.patch"
+}
 
 build() {
   # Silence warnings on optional libraries with -DNDEBUG,
