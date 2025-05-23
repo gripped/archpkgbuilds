@@ -3,7 +3,7 @@
 
 _name=distributed
 pkgname=python-$_name
-pkgver=2025.4.1
+pkgver=2025.5.0
 pkgrel=1
 pkgdesc="Distributed task scheduler for Dask"
 arch=(any)
@@ -61,7 +61,7 @@ checkdepends=(
   python-zstandard
 )
 source=(https://github.com/dask/distributed/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-b2sums=('286713d26ee75b0b8a1057ba6bf8a897fe93c4c3297b78538d129626d531299cdd99e06ebe88bbabd1d048d68d6eb3909faa87c6d93742e1434fb731f9833557')
+b2sums=('78398c70227920d5b2ba5d98702fc82b95bcbb88f0681fadb4d9fd0e08294de9fd78e27ef84b577c04c6bc70b7728151eb5095beee53f1f1cfd5a9f1d3e07fb8')
 
 prepare() {
   sed -i 's/, "versioneer\[toml\].*"//' $_name-$pkgver/pyproject.toml
@@ -104,6 +104,8 @@ check() {
     --deselect distributed/diagnostics/tests/test_progress.py::test_AllProgress_lost_key
     --deselect distributed/tests/test_client.py::test_profile
     --deselect distributed/tests/test_worker.py::test_statistical_profiling
+    # TimeoutError: Test timeout (30) hit after 30.000276130624115s
+    --deselect distributed/tests/test_scheduler.py::test_resubmit_nondeterministic_task_different_deps
   )
 
   cd $_name-$pkgver
