@@ -2,7 +2,7 @@
 # Contributor: Bruce Zhang <zttt183525594@gmail.com>
 
 pkgname=feeluown
-pkgver=4.1.10
+pkgver=4.1.11
 pkgrel=1
 pkgdesc="FeelUOwn Music Player"
 arch=('any')
@@ -13,7 +13,7 @@ depends=('python-qasync' 'python-pyqt5' 'mpv' 'python-opengl' 'python-janus' 'py
          'qt5-svg' 'xdg-user-dirs')
 makedepends=('git' 'python-setuptools')
 checkdepends=('python-pytest' 'python-pytest-asyncio' 'python-pytest-mock' 'python-pytest-qt'
-              'xorg-server-xvfb' 'yt-dlp')
+              'python-json-rpc' 'xorg-server-xvfb' 'yt-dlp')
 optdepends=('yt-dlp: browser cookie extraction support'
             'dbus-python: mpris2 server support'
             'python-sanic: webserver support'
@@ -27,7 +27,7 @@ groups=('feeluown-full')
 source=("git+https://github.com/feeluown/FeelUOwn.git#tag=v$pkgver"
         "feeluown.desktop"
 	"pytest-skip-benchmark-cov-plugin.patch")
-sha512sums=('4b9ef61cce4658dc3002a16c9549d79934b020a11a179943e8c9623b2fa16c8c15bfaac54aebc3bc7a11370e5296ca4448a47f998e36cb3289e89e4ff4ea34a1'
+sha512sums=('23a1b76b5266186db57cfe64b4f978537f5c1825b5b474d6710b86fa6bef07799124bc16fdc19da59f3051bea4ad3ff62668977078c4e7897c478a6932ba9ad1'
             '48882f7469c22e5db332663bc1aa8b398b0a10a0c929d4d7e3d7b8b91205d7d3070c5fa295cb9a14f8c352bff57978bfaad167343e0ddc51c92417eda07c8087'
             '97e1d3133c921b1071ad1f6966b5175755cde22660bc76d2f107ddea9d3cde6b105636ed39838d4e81bef168b40ade130c09e8f9752bf1ac77d67cff2a42bae1')
 
