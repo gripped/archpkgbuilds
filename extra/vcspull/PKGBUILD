@@ -1,21 +1,36 @@
 # Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
 
 pkgname='vcspull'
-pkgver=1.31.0
-pkgrel=2
+pkgver=1.34.0
+pkgrel=1
 pkgdesc='Synchronize projects via yaml/json manifest. Built using `libvcs`'
 arch=('any')
 url='https://vcspull.git-pull.com/'
 license=('MIT')
-depends=('python' 'python-colorama' 'python-libvcs' 'python-shtab' 'python-yaml')
-makedepends=('python-build' 'python-installer' 'python-poetry-core')
-checkdepends=('git' 'python-pytest' 'python-pytest-rerunfailures')
+depends=(
+  python
+  python-colorama
+  python-libvcs
+  python-shtab
+  python-yaml
+)
+makedepends=(
+  python-build
+  python-hatchling
+  python-installer
+  python-poetry-core
+)
+checkdepends=(
+  git
+  python-pytest
+  python-pytest-rerunfailures
+)
 optdepends=(
   'bash-completion: for command line completion in bash'
 )
 source=("https://github.com/vcs-python/vcspull/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('3cedb6ec4852c86fc57bd1862bed6867c175e790b3697cbf532cad66750bc3710e22f72a3396cdc09e6abf4c43498e31c95344e9bc501baf0d734797dedf6383')
-b2sums=('bd1613e2cc3d1949d187e16cdba25b7254e9f625b2ffb659d4c4d8144812135c6e377799eab4a6884c1bc39c30789aa6fe3f398b01172b4b55c46944a5102625')
+sha512sums=('7b2a94a769ba33fc5b02b69611a41962498f6db247a9c85847855042c9191b8aadb5eec5ee051ef5519c2230b859fbfd562d3b312395a7795b2f841bc0fbfd05')
+b2sums=('fc438d8d27b5adbb0bcf26a8f96391449235649723211ea2a47e8bbb467e8046a354a39e44a7599c58cdd751da7debfc63638e453262bbd53f1257f2bc8e18fa')
 
 build() {
   cd  "${pkgname}-${pkgver}"
