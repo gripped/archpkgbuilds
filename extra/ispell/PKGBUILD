@@ -2,8 +2,8 @@
 # Maintainer:
 
 pkgname=ispell
-pkgver=3.4.05
-pkgrel=2
+pkgver=3.4.06
+pkgrel=1
 pkgdesc="An interactive spell-checking program for Unix"
 arch=('x86_64')
 url="https://www.cs.hmc.edu/~geoff/ispell.html"
@@ -13,7 +13,7 @@ options=('!makeflags')
 source=(https://www.cs.hmc.edu/~geoff/tars/$pkgname-$pkgver.tar.gz
         cflags-from-environment.patch
         license.txt)
-sha256sums=('cf0c6dede3fd25fada4375d86acafe583cb96d8fe546de746a92ebb6df895602'
+sha256sums=('17c91633d4c8075acc503163a16463fc54ab1c7453280ad39cd3db75c783eba6'
             '280459d2cdb17846aab202d53089fd13469e6e59ae9e6da4a95b475597dd4603'
             '359eca8bfb77db63785c4c304ecd3568b26cdf736946388e509933fc8a3f66bd')
 
@@ -31,6 +31,7 @@ prepare() {
 
 build() {
   cd ${pkgname}-${pkgver}
+  CFLAGS+=" -Wno-compare-distinct-pointer-types -Wno-incompatible-pointer-types -std=gnu17"
   make TMPDIR=/tmp all
 }
 
