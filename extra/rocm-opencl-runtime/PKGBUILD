@@ -3,7 +3,7 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 
 pkgname=rocm-opencl-runtime
-pkgver=6.3.3
+pkgver=6.4.0
 pkgrel=1
 pkgdesc='OpenCL implementation for AMD'
 arch=('x86_64')
@@ -15,7 +15,7 @@ depends=('rocm-core' 'hsa-rocr' 'comgr' 'mesa'
 makedepends=('rocm-cmake')
 provides=('opencl-driver')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('8e5adca8f8c2d99d4a4e49605dd6b56b7881b762ee8ce15b4a7000e3cd982fec')
+sha256sums=('76fd0ad83da0dabf7c91ca4cff6c51f2be8ab259e08ad9743af47d1b3473c2ff')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
 
 build() {
@@ -34,8 +34,7 @@ build() {
 package() {
     DESTDIR="$pkgdir" cmake --install build
 
-    # typo in upstream name
-    install -Dm644 "$_dirname/LICENCE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm644 "$_dirname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 
     echo '/opt/rocm/lib/libamdocl64.so' > 'amdocl64.icd'
     install -Dm644 'amdocl64.icd' "$pkgdir/etc/OpenCL/vendors/amdocl64.icd"
