@@ -10,7 +10,7 @@ pkgname=(
   libportal-qt6
 )
 pkgver=0.9.1
-pkgrel=1
+pkgrel=2
 pkgdesc="GIO-style async APIs for most Flatpak portals"
 url="https://github.com/flatpak/libportal"
 arch=(x86_64)
@@ -44,6 +44,9 @@ b2sums=('076e4fac57e34c96f59a3530855d4f1e29fa82ac9a66a42d97a66e51fe42233cefffe90
 
 prepare() {
   cd libportal
+
+  # Fix build against Qt 6.9
+  git cherry-pick -n 796053d2eebe4532aad6bd3fd80cdf3b197806ec
 }
 
 build() {
