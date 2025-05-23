@@ -1,0 +1,58 @@
+From 1adf2aecb6fedd82227e9c293a77473ad42632be Mon Sep 17 00:00:00 2001
+From: Lisandro Dalcin <dalcinl@gmail.com>
+Date: Mon, 5 May 2025 20:35:59 +0300
+Subject: [PATCH] TOOLS/PERF: Include headers before BEGIN_C_DECLS
+
+Signed-off-by: Lisandro Dalcin <dalcinl@gmail.com>
+---
+ src/tools/perf/api/libperf.h     | 6 +++---
+ src/tools/perf/lib/libperf_int.h | 8 ++++----
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/src/tools/perf/api/libperf.h b/src/tools/perf/api/libperf.h
+index d3d9cceb1cc..9cd69f8b452 100644
+--- a/src/tools/perf/api/libperf.h
++++ b/src/tools/perf/api/libperf.h
+@@ -12,13 +12,13 @@
+ 
+ #include <ucs/sys/compiler.h>
+ 
++#include <uct/api/uct.h>
++#include <ucp/api/ucp.h>
++
+ BEGIN_C_DECLS
+ 
+ /** @file libperf.h */
+ 
+-#include <uct/api/uct.h>
+-#include <ucp/api/ucp.h>
+-
+ 
+ typedef enum {
+     UCX_PERF_API_UCT,
+diff --git a/src/tools/perf/lib/libperf_int.h b/src/tools/perf/lib/libperf_int.h
+index 3e6d9f77f53..4a228fe5127 100644
+--- a/src/tools/perf/lib/libperf_int.h
++++ b/src/tools/perf/lib/libperf_int.h
+@@ -11,10 +11,6 @@
+ 
+ #include <tools/perf/api/libperf.h>
+ 
+-BEGIN_C_DECLS
+-
+-/** @file libperf_int.h */
+-
+ #include <ucs/async/async.h>
+ #include <ucs/time/time.h>
+ #include <ucs/sys/math.h>
+@@ -24,6 +20,10 @@ BEGIN_C_DECLS
+ #include <omp.h>
+ #endif
+ 
++BEGIN_C_DECLS
++
++/** @file libperf_int.h */
++
+ 
+ #define TIMING_QUEUE_SIZE    2048
+ #define UCT_PERF_TEST_AM_ID  5
