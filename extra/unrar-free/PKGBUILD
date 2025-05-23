@@ -4,20 +4,20 @@
 # Contributor: Chris Mann <cshclm[at]gmail[dot]com>
 
 pkgname=unrar-free
-pkgver=0.3.1
+pkgver=0.3.2
 pkgrel=1
 epoch=1
-pkgdesc="Free utility to extract files from RAR archives."
+pkgdesc="Free utility to extract files from RAR archives"
 url="https://gitlab.com/bgermann/unrar-free"
 arch=('x86_64')
 license=('GPL-2.0-or-later')
-depends=('libarchive' 'glibc')
+depends=('glibc' 'libarchive')
 source=("${url}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('16ecd4cf8b236d472413d179721e40b2270262f32844e10435fe45dd68053fb8')
+sha256sums=('1dd3a090d44e4ca8dfb052516fbf05ca613e7223c3645043110dafb01cd68a78')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
-	autoreconf -i
+	autoreconf -fvi
 }
 
 build() {
