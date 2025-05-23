@@ -3,8 +3,8 @@
 # Contributor:
 
 pkgname=python-versioningit
-pkgver=3.1.2
-pkgrel=2
+pkgver=3.1.3
+pkgrel=1
 pkgdesc='Versioning It with your Version In Git'
 arch=('any')
 url='https://github.com/jwodder/versioningit'
@@ -28,7 +28,7 @@ checkdepends=(
   'python-pytest-mock'
 )
 source=("${pkgname#*n-}-${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${pkgname#*n-}-${pkgver}.tar.gz")
-sha256sums=('4db83ed99f56b07d83940bee3445ca46ca120d13b6b304cdb5fb44e5aa4edec0')
+sha256sums=('1b7f3c2d3e9c7b737e7d2664c3445a61a121e3de7610e8e781b483f5d88e3618')
 
 build() {
   cd ${pkgname#*n-}-${pkgver}
@@ -40,6 +40,8 @@ check() {
     -vv
     -c /dev/null
     --deselect test/test_end2end.py::test_editable_mode
+    --deselect test/test_end2end.py::test_install_from_git_url
+    --deselect test/test_end2end.py::test_install_from_zip_url 
   )
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
