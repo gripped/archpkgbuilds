@@ -3,7 +3,7 @@
 # Contributor: Laurent Carlier <lordheavym@gmail.com>
 
 pkgname=lib32-spirv-tools
-pkgver=1.4.309.0
+pkgver=1.4.313.0
 pkgrel=1
 epoch=1
 pkgdesc="API and commands for processing SPIR-V modules (32-bit)"
@@ -23,7 +23,7 @@ makedepends=(
   spirv-headers
 )
 source=("git+https://github.com/KhronosGroup/SPIRV-Tools#tag=vulkan-sdk-$pkgver")
-b2sums=('8fedc0bb7a3799467f94b2619f02ff53e14d18e7bd16c665c41febd80e2523c871d7fed6abf25edb1287da00ba4d556076e1a349bbbacad1903eccd474585bed')
+b2sums=('006afe7e65ccde91a216e51ebb2c2b2f43948f24961c5d8a6949ae33e13dc0f87fc332615b17b28b4be9c179e6e918572457a6189e11335c4cf6b06113f3bfb4')
 
 build() {
   local cmake_options=(
