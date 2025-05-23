@@ -3,8 +3,8 @@
 
 _hkgname=wai-extra
 pkgname=haskell-wai-extra
-pkgver=3.1.16
-pkgrel=17
+pkgver=3.1.17
+pkgrel=5
 pkgdesc="Provides some basic WAI handlers and middleware."
 url="https://github.com/yesodweb/wai"
 license=("MIT")
@@ -16,7 +16,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-base64-byte
          'haskell-warp' 'haskell-word8' 'haskell-hunit' 'haskell-call-stack')
 makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover' 'haskell-temporary' 'haskell-zlib')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('fde12cac91a529d8514472f0b10f1fbda1fe09c25be5649678da3b06478b87f430b82d182be7b67e80dbe328a312b9646a67f95b68525cafdc3a425c4128bbfb')
+sha512sums=('638f278d88b30881c93678ec334c72d035aabaab6485072c2aaaf463d73e6c7ddf3d7cddb958c5930f02ada68b924acb608acca6a5e27d071cfde195ffd7160a')
 
 build() {
     cd $_hkgname-$pkgver
