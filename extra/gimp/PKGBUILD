@@ -4,8 +4,8 @@
 # Contributor: Daniel Isenmann <daniel@archlinux.org>
 
 pkgname=gimp
-pkgver=3.0.2
-pkgrel=3
+pkgver=3.0.4
+pkgrel=2
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
 arch=('x86_64')
@@ -91,7 +91,7 @@ source=(
   git+https://gitlab.gnome.org/GNOME/gimp-data.git
   linux.gpl
 )
-sha256sums=('b9c26ac302dcf483753c574fd612fa49ab4bdc5008f32fb9c530309a861e041a'
+sha256sums=('f4c2c753d4966dceea2136848af2fddd6b2b2fcfc5e36613175b17accbdadce7'
             'SKIP'
             '1003bbf5fc292d0d63be44562f46506f7b2ca5729770da9d38d3bb2e8a2f36b3')
 
@@ -101,8 +101,8 @@ prepare() {
   git config submodule.gimp-data.url "$srcdir/gimp-data"
   git -c protocol.file.allow=always submodule update
 
-  # Fix FTBS with GCC 15 https://gitlab.archlinux.org/archlinux/packaging/packages/gimp/-/issues/10
-  git cherry-pick -n 85bdad2b2ca7ba36a01bef945b1c4b193a2fa9d0
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/gimp/-/issues/12
+  git cherry-pick -n 1685c86af5d6253151d0056a9677ba469ea10164
 }
 
 build() {
