@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=mado
-pkgver=0.2.2
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="A fast Markdown linter written in Rust"
 arch=(x86_64)
@@ -16,20 +16,20 @@ options=(!lto)
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
   $pkgname-0.2.2-disable-failing-unit-tests.patch
-  $pkgname-0.2.2-disable-failing-command-tests.patch
+  $pkgname-0.3.0-disable-failing-command-tests.patch
 )
-sha512sums=('577482c435564a01d5622262a815c1fcb8989942c9c02b54ce5e1539bc8d514978b6fd9d7246b2bfc30a174e1e6e1eae06852d17a531a909c8e583dbf99d4368'
+sha512sums=('65a154cb4bda06731d1d4b37791fbcf68f011362bbe4bb3d2446a3070241c85d2493d686f61a9268f4e913b3dc0b74f169f4a582110f6d07feed38686b9eee62'
             '383fff6c0ab17f3e0c46044316302f9a5ca6ba0545a072331502179d426f05ee4489e49169b6806369c1877e17580d8defbbba4742faa039c1000236633bda40'
-            'bc13b30aa975ad71121b357728960b0a39f16146123b81a020cb753e4aaf24ddc414f34cd0f33a1304c932b0b05ad57c06d6193022096c3e04dbf2565717f0da')
-b2sums=('3ceedaf6383c916462449896f99bc6b8eb837855b7e7f49586ed1b2f161d2733eba73e094dd8abd3d198c3f54e6c663ef34091979d6599ae3bbd8eb4feb42880'
+            'd4ac51c32f45bc8e44a38d7d959ccadcc86e3d25ca21447d234a05eb64bd5ad8eed8ead5ce9b803ea298f2947339392f263531513aa8f475b0749ec02e52a981')
+b2sums=('0473e4376f1a02a5d3a558e66c3e0996fce9985b67fee5d2c11994561330535044afe08816a9926c84dd6d31550be6a4ed8f12b5ea5170e57fbccebea010c436'
         'e16f04efef43fb16caf18d008d4f0376a8ac9279d04cef72cc56c508ed7d4c73dc55bb5dba1174f50b3ca1a50b58b94d29405e3521e33248e93e476d3d0d9ace'
-        '6464261aac9e47826c08aa243fc9278c46e74b73c9a1af54b2f939689314e914fd3dc0c59d83db1558d053ac5747ddcdeaba961f4b2f07b9b804af21cf44957c')
+        '095bce9d717825d386f4aaa48539a4ab88e40de99fae8d74f3580644a80c6ca2535732d39f5422afe25a5d2a44946679232f02114c46c85c0849964509a33d83')
 
 prepare() {
   # Disable failing unit tests: https://github.com/akiomik/mado/issues/140
   patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-0.2.2-disable-failing-unit-tests.patch
   # Disable failing command tests: https://github.com/akiomik/mado/issues/141
-  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-0.2.2-disable-failing-command-tests.patch
+  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-0.3.0-disable-failing-command-tests.patch
 
   cd $pkgname-$pkgver
   export RUSTUP_TOOLCHAIN=stable
@@ -38,6 +38,8 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
+  # Fix issues with onig-sys and gcc >= 15: https://github.com/rust-onig/rust-onig/issues/196
+  CFLAGS+=' -std=gnu17'
   export RUSTUP_TOOLCHAIN=stable
   export CARGO_TARGET_DIR=target
   cargo build --frozen --release --all-features

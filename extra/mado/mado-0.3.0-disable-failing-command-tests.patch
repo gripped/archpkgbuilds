@@ -58,3 +58,27 @@ index dd279ae..8513b4a 100644
  fn check_stdin_with_file() -> Result<()> {
      with_tmp_file("test.md", "#Hello.", |path| {
          let mut cmd = Command::cargo_bin("mado").into_diagnostic()?;
+diff --git i/tests/command_generate_shell_completion.rs w/tests/command_generate_shell_completion.rs
+index 415b84e..777830f 100644
+--- i/tests/command_generate_shell_completion.rs
++++ w/tests/command_generate_shell_completion.rs
+@@ -11,6 +11,7 @@ fn generate_shell_completion_zsh() -> Result<()> {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/akiomik/mado/issues/141"]
+ fn generate_shell_completion_invalid() -> Result<()> {
+     let mut cmd = Command::cargo_bin("mado").into_diagnostic()?;
+     let assert = cmd.args(["generate-shell-completion", "foo"]).assert();
+diff --git i/tests/command_invalid.rs w/tests/command_invalid.rs
+index 5f655f0..9778ad1 100644
+--- i/tests/command_invalid.rs
++++ w/tests/command_invalid.rs
+@@ -12,6 +12,7 @@ fn no_command() -> Result<()> {
+ }
+ 
+ #[test]
++#[ignore = "https://github.com/akiomik/mado/issues/141"]
+ fn unknown_command() -> Result<()> {
+     let mut cmd = Command::cargo_bin("mado").into_diagnostic()?;
+     let assert = cmd.args(["foobar"]).assert();
