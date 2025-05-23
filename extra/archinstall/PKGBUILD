@@ -5,7 +5,7 @@
 # Contributor: demostanis worlds <demostanis@protonmail.com>
 
 pkgname=archinstall
-pkgver=3.0.4
+pkgver=3.0.6
 pkgrel=1
 pkgdesc="Just another guided/automated Arch Linux installer with a twist"
 arch=(any)
@@ -20,6 +20,8 @@ depends=(
   e2fsprogs
   glibc
   kbd
+  libcrypt.so
+  libxcrypt
   pciutils
   procps-ng
   python
@@ -35,6 +37,7 @@ depends=(
 makedepends=(
   ruff
   python-build
+  python-cryptography
   python-installer
   python-setuptools
   python-sphinx
@@ -51,9 +54,9 @@ source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
   $pkgname-$pkgver.tar.gz.sig::$url/releases/download/$pkgver/$pkgname-$pkgver.tar.gz.sig
 )
-sha512sums=('4d2ea2fb39bfd611d0fc018c141eeb5c1d168ed19ec6e987c3958b62237144ef5458312e2de76fd6e59bff8aa31550cb7e07b031825738b200e13000dc51ff10'
+sha512sums=('8d880ee47349dfe1f15f05a3e00d773a316cd299e321212253dd2d6366e09b9bcbb0aeec1288aaee39586c9c9f9c840e3544683c46501d23397a04ca7c4d0268'
             'SKIP')
-b2sums=('559425b9146f7391e382a822b4f8a2e4e11a0477ed6770cc517d536c568ebcc64399320a20ede52305134aedb1a7662219733e328e0c2b5594d909097dab1e3d'
+b2sums=('0a73a8eeb6b192ff568e2551ad711020c7645d2369b7de7091afe936445720b98a3dd888a81cecb17437309ffa3efe773df7ca86195808e86471a22f6a89a368'
         'SKIP')
 validpgpkeys=('8AA2213C8464C82D879C8127D4B58E897A929F2E') # torxed@archlinux.org
 
@@ -61,14 +64,6 @@ check() {
   cd $pkgname-$pkgver
 #  pylint .
   ruff check
-}
-
-prepare() {
-  cd $pkgname-$pkgver
-  # Patching away `wayfire` as it's an AUR package.
-  # Instead of pushing an entire release on github, we patch
-  # here for simplicity until the next version is out.
-  rm archinstall/default_profiles/desktops/wayfire.py
 }
 
 build() {
