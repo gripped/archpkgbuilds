@@ -2,8 +2,8 @@
 # Contributor: Maxim Baz <archlinux at maximbaz dot com>
 
 pkgname=urlscan
-pkgver=1.0.6
-pkgrel=2
+pkgver=1.0.7
+pkgrel=1
 pkgdesc="Mutt and terminal url selector"
 url="https://github.com/firecat53/urlscan"
 arch=('any')
@@ -23,7 +23,7 @@ optdepends=(
 # Use PyPi release tarballs since the GitHub releases don't have version
 # metadata
 source=("$pkgname-$pkgver.tar.gz::https://pypi.io/packages/source/u/urlscan/urlscan-$pkgver.tar.gz")
-sha256sums=('3bbf8900de23913c29aed27702eaba92a871b2fe95920e72c56a19fff7cb4581')
+sha256sums=('041b932f94cb1e2e8dbb20f43322da85cb483be328fa10477c6e5e96a89891c3')
 
 build() {
     cd "$pkgname-$pkgver"
