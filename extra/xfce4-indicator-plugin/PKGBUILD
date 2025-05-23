@@ -2,36 +2,25 @@
 # Contributor:  twa022 <twa022 at gmail dot com>
 
 pkgname=xfce4-indicator-plugin
-pkgver=2.4.3
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="Plugin to display information from applications in the Xfce4 panel"
 arch=('x86_64')
 url="https://docs.xfce.org/panel-plugins/xfce4-indicator-plugin/start"
 license=('GPL-2.0-or-later')
 depends=('hicolor-icon-theme' 'libayatana-indicator' 'xfce4-panel' 'xdg-utils')
-makedepends=('git' 'xfce4-dev-tools')
+makedepends=('git' 'meson' 'xfce4-dev-tools')
 source=("git+https://gitlab.xfce.org/panel-plugins/xfce4-indicator-plugin.git#tag=$pkgname-$pkgver")
-sha256sums=('f76960361a996613b8e841b768199ea6370f73a8afd5b22212b59d54b5eb2e7d')
-
-prepare() {
-  cd $pkgname
-  NOCONFIGURE=1 ./autogen.sh
-}
+sha256sums=('963a9c538883c2917b6e8814b6bb0280cbbf910d6af0e35d45d6f65b8ef8aec1')
 
 build() {
-  cd $pkgname
-  ./configure \
-    --prefix=/usr \
-    --sysconfdir=/etc \
-    --localstatedir=/var \
-    --disable-static \
-    --enable-maintainer-mode
-  make
+  arch-meson $pkgname build \
+    --localstatedir=/var
+  meson compile -C build
 }
 
 package() {
-  cd $pkgname
-  make DESTDIR="$pkgdir" install
+  meson install -C build --destdir "$pkgdir"
 }
 
 # vim:set ts=2 sw=2 et:
