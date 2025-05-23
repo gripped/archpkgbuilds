@@ -2,7 +2,7 @@
 
 pkgname=deepin-album
 pkgver=6.0.6
-pkgrel=1
+pkgrel=2
 pkgdesc='A fashion photo manager for viewing and organizing pictures'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-album"
@@ -19,7 +19,7 @@ sha512sums=('7f3c723737394f00ea1749c1af118085a4710ee0f94509cdc0258ba79eb1a4e77ac
 build() {
   cd deepin-album
   export PKG_CONFIG_PATH='/usr/lib/ffmpeg4.4/pkgconfig'
-  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DVERSION=$pkgver
+  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DVERSION=$pkgver -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   ninja
 }
 
