@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=p2pool
-pkgver=4.4
+pkgver=4.6
 pkgrel=1
 pkgdesc='Decentralized pool for Monero mining'
 arch=('x86_64')
@@ -50,7 +50,7 @@ source=(
   "${pkgname}-xds::git+https://github.com/cncf/xds.git"
   "${pkgname}-zlib::git+https://github.com/madler/zlib"
 )
-b2sums=('784e0d33d83596b02a31bf980db0d49577c9915871fc4d579db4bbe8390db6936d29bed4381e34299818604d0ce7860aa111c88681a67e3ac0abcd56a14cdd5e'
+b2sums=('890a8f045004f7900077eed2a7c5ea5d5c3bb33059e65d2a269e659b068e5a29c0e336b4fa999b6fe43544c35c5153ced2065c5ca723e4047b36c2d10f1544a9'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -121,7 +121,8 @@ prepare() {
 
 build() {
   cd ${pkgname}/build
-  cmake .. -DCMAKE_BUILD_TYPE=Release
+  # -DCMAKE_POLICY_VERSION_MINIMUM=3.5 can be removed as soon as the project builds without
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   make -j$(nproc)
 }
 
