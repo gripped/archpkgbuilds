@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 
 pkgname=amdsmi
-pkgver=6.3.3
+pkgver=6.4.0
 pkgrel=1
 pkgdesc='AMD System Management Interface library'
 arch=('x86_64')
@@ -11,19 +11,28 @@ depends=('rocm-core' 'glibc' 'gcc-libs' 'libdrm' 'python' 'python-yaml')
 makedepends=('cmake' 'python-wheel' 'python-setuptools')
 _git='https://github.com/ROCm/amdsmi'
 _esmi='https://github.com/amd/esmi_ib_library'
-_esmi_ver=3.0.3
+_esmi_ver=4.1.2
 source=(
   "$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
   "$pkgname-esmi-$pkgver.tar.gz::$_esmi/archive/refs/tags/esmi_pkg_ver-$_esmi_ver.tar.gz"
+  "gcc15-missing-include.patch"
 )
-sha256sums=('e23abc65a1cd75764d7da049b91cce2a095b287279efcd4f90b4b9b63b974dd5'
-            'f9467b60d08dcc5ea54b6db425f757e60161a144cf5ba3006d5d50d6a653c039')
+sha256sums=('6f0200ba7305171e9dadbfcd41ff00c194b98d2b88e0555c57739ef01c767233'
+            'd95f12c1500c60dc01b500d8928864a276757bd3bbb4a6daa84fb8c028e2978b'
+            'af704f2d65613e81719fa109488001ab5b2e5e7a529c18c84e695c002c055bce')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
 _esminame="$(basename "$_esmi")-$(basename "${source[1]}" .tar.gz)"
 
 prepare() {
   mv "$_esminame" "$_dirname/esmi_ib_library"
+
+  cd $_dirname
+
+  # HACK from Fedora's spec: Replace git tag with version of our tar archive
+  sed -i "s/NOT latest_esmi_tag/NOT esmi_pkg_ver-$_esmi_ver/" CMakeLists.txt
+
+  patch -Np1 -i "$srcdir"/gcc15-missing-include.patch
 }
 
 build() {

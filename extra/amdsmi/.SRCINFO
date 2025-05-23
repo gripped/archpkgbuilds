@@ -1,6 +1,6 @@
 pkgbase = amdsmi
 	pkgdesc = AMD System Management Interface library
-	pkgver = 6.3.3
+	pkgver = 6.4.0
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/amdsmi/en/latest/
 	arch = x86_64
@@ -16,9 +16,11 @@ pkgbase = amdsmi
 	depends = python
 	depends = python-yaml
 	options = !lto
-	source = amdsmi-6.3.3.tar.gz::https://github.com/ROCm/amdsmi/archive/rocm-6.3.3.tar.gz
-	source = amdsmi-esmi-6.3.3.tar.gz::https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ver-3.0.3.tar.gz
-	sha256sums = e23abc65a1cd75764d7da049b91cce2a095b287279efcd4f90b4b9b63b974dd5
-	sha256sums = f9467b60d08dcc5ea54b6db425f757e60161a144cf5ba3006d5d50d6a653c039
+	source = amdsmi-6.4.0.tar.gz::https://github.com/ROCm/amdsmi/archive/rocm-6.4.0.tar.gz
+	source = amdsmi-esmi-6.4.0.tar.gz::https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ver-4.1.2.tar.gz
+	source = gcc15-missing-include.patch
+	sha256sums = 6f0200ba7305171e9dadbfcd41ff00c194b98d2b88e0555c57739ef01c767233
+	sha256sums = d95f12c1500c60dc01b500d8928864a276757bd3bbb4a6daa84fb8c028e2978b
+	sha256sums = af704f2d65613e81719fa109488001ab5b2e5e7a529c18c84e695c002c055bce
 
 pkgname = amdsmi
