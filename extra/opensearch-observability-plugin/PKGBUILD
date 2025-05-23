@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-observability-plugin
-pkgver=2.19.1.0
+pkgver=2.19.2.0
 pkgrel=1
-_opensearchver=2.19.1
+_opensearchver=2.19.2
 _jdkver=11
 pkgdesc="OpenSearch Observability Plugin"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=("java-environment=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/observability/archive/${pkgver}.tar.gz"
 )
-sha256sums=('a371232438d800d8f56ac0615491198ab67651abd9fb8a87e348f3cfb1ca5c94')
+sha256sums=('5b8fa17c2a95f5c8c3da39b7d06d3e2d7fc1a0b703850ca78452db29ec842f73')
 
 build() {
   cd "observability-${pkgver}"
