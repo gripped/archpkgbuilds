@@ -1,0 +1,141 @@
+diff --git a/.github/workflows/build.yml b/.github/workflows/build.yml
+index cb31a97446..9541bf84d4 100644
+--- a/.github/workflows/build.yml
++++ b/.github/workflows/build.yml
+@@ -111,7 +111,7 @@ jobs:
+       - name: Setup with node and yarn
+         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+         with:
+-          node-version: '18'
++          node-version: '20'
+           cache: 'yarn'
+           cache-dependency-path: 'ui/yarn.lock'
+ 
+@@ -212,7 +212,7 @@ jobs:
+ #      - name: Setup with node and yarn
+ #        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+ #        with:
+-#          node-version: '18'
++#          node-version: '20'
+ #          cache: 'yarn'
+ #          cache-dependency-path: 'ui/yarn.lock'
+ #
+@@ -274,7 +274,7 @@ jobs:
+         run: |
+           echo "full_dev_tag=${{ env.version }}"
+           echo "full_dev_tag=${{ env.version }}" >> $GITHUB_ENV
+-          echo "minor_dev_tag=$(echo ${{ env.version }}| sed -E 's/([0-9]+\.[0-9]+)\.[0-9]+(-[0-9a-zA-Z\+\.]+)?$/\1\2/')" 
++          echo "minor_dev_tag=$(echo ${{ env.version }}| sed -E 's/([0-9]+\.[0-9]+)\.[0-9]+(-[0-9a-zA-Z\+\.]+)?$/\1\2/')"
+           echo "minor_dev_tag=$(echo ${{ env.version }}| sed -E 's/([0-9]+\.[0-9]+)\.[0-9]+(-[0-9a-zA-Z\+\.]+)?$/\1\2/')" >> $GITHUB_ENV
+ 
+       - name: Docker Build (Action)
+@@ -312,7 +312,7 @@ jobs:
+         run: |
+           echo "full_dev_tag=${{ env.version }}"
+           echo "full_dev_tag=${{ env.version }}" >> $GITHUB_ENV
+-          echo "minor_dev_tag=$(echo ${{ env.version }}| sed -E 's/([0-9]+\.[0-9]+)\.[0-9]+(-[0-9a-zA-Z\+\.]+)?$/\1\2/')" 
++          echo "minor_dev_tag=$(echo ${{ env.version }}| sed -E 's/([0-9]+\.[0-9]+)\.[0-9]+(-[0-9a-zA-Z\+\.]+)?$/\1\2/')"
+           echo "minor_dev_tag=$(echo ${{ env.version }}| sed -E 's/([0-9]+\.[0-9]+)\.[0-9]+(-[0-9a-zA-Z\+\.]+)?$/\1\2/')" >> $GITHUB_ENV
+ 
+       - uses: hashicorp/actions-docker-build@v2
+diff --git a/.github/workflows/frontend.yml b/.github/workflows/frontend.yml
+index 93f8ee0bd0..ac523c8aba 100644
+--- a/.github/workflows/frontend.yml
++++ b/.github/workflows/frontend.yml
+@@ -37,7 +37,7 @@ jobs:
+ 
+     - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+       with:
+-        node-version: '18'
++        node-version: '20'
+ 
+     - name: Install Yarn
+       run: corepack enable
+@@ -57,7 +57,7 @@ jobs:
+ 
+     - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+       with:
+-        node-version: '18'
++        node-version: '20'
+ 
+     - name: Install Yarn
+       run: corepack enable
+@@ -87,7 +87,7 @@ jobs:
+ 
+       - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+         with:
+-          node-version: '18'
++          node-version: '20'
+ 
+       - name: Install Yarn
+         run: corepack enable
+@@ -127,7 +127,7 @@ jobs:
+ 
+     - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+       with:
+-        node-version: '18'
++        node-version: '20'
+ 
+     - name: Install Yarn
+       run: corepack enable
+@@ -138,7 +138,7 @@ jobs:
+     - name: Install dependencies
+       working-directory: ui
+       run: make deps
+-    
++
+     - name: Build CI
+       working-directory: ui/packages/consul-ui
+       run: make build-ci
+@@ -159,13 +159,13 @@ jobs:
+   # - be placed after the fanout of a workflow so that everything fans back in
+   #   to this job.
+   # - "need" any job that is part of the fan out / fan in
+-  # - implement the if logic because we have conditional jobs 
+-  #   (go-test-enteprise) that this job needs and this would potentially get 
+-  #   skipped if a previous job got skipped.  So we use the if clause to make 
++  # - implement the if logic because we have conditional jobs
++  #   (go-test-enteprise) that this job needs and this would potentially get
++  #   skipped if a previous job got skipped.  So we use the if clause to make
+   # sure it does not get skipped.
+ 
+   frontend-success:
+-    needs: 
++    needs:
+     - setup
+     - workspace-tests
+     - node-tests
+diff --git a/ui/package.json b/ui/package.json
+index 2fe24dda16..4f4535150a 100644
+--- a/ui/package.json
++++ b/ui/package.json
+@@ -29,6 +29,6 @@
+     "ansi-html": "0.0.8"
+   },
+   "engines": {
+-    "node": "18"
++    "node": "20"
+   }
+ }
+diff --git a/ui/packages/consul-ui/package.json b/ui/packages/consul-ui/package.json
+index 44149453e5..6830778030 100644
+--- a/ui/packages/consul-ui/package.json
++++ b/ui/packages/consul-ui/package.json
+@@ -196,7 +196,7 @@
+     "webpack": "^5.74.0"
+   },
+   "engines": {
+-    "node": "18"
++    "node": "20"
+   },
+   "ember": {
+     "edition": "octane"
+@@ -211,7 +211,7 @@
+     ]
+   },
+   "volta": {
+-    "node": "18"
++    "node": "20"
+   },
+   "dependencies": {
+     "doctoc": "^2.0.0",
