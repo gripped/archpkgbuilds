@@ -1,31 +1,24 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=xfce4-generic-slider
-pkgver=1.0.1
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="Xfce panel plugin for adjusting the value passed to a command"
 arch=('x86_64')
 url="https://docs.xfce.org/panel-plugins/xfce4-generic-slider/start"
 license=('GPL-3.0-only')
 depends=('xfce4-panel')
-makedepends=('git' 'xfce4-dev-tools')
+makedepends=('git' 'meson' 'xfce4-dev-tools')
 source=("git+https://gitlab.xfce.org/panel-plugins/xfce4-generic-slider.git#tag=$pkgname-$pkgver")
-sha256sums=('022f386791ad71b416d20e10405675eca7cfb298fa5d1b17f7dd001625af5cfb')
-
-prepare() {
-  cd $pkgname
-  NOCONFIGURE=1 ./autogen.sh
-}
+sha256sums=('909b51c03c892a6c74389e426022ae3063adc3d59f374e8e0ff2b721571eb5c9')
 
 build() {
-  cd $pkgname
-  ./configure --prefix=/usr
-  make
+  arch-meson $pkgname build
+  meson compile -C build
 }
 
 package() {
-  cd $pkgname
-	make DESTDIR="$pkgdir" install
+  meson install -C build --destdir "$pkgdir"
 }
 
 # vim:set ts=2 sw=2 et:
