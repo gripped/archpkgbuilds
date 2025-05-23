@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 pkgname=rocalution
-pkgver=6.3.3
+pkgver=6.4.0
 pkgrel=1
 pkgdesc='Next generation library for iterative sparse solvers for ROCm platform'
 arch=('x86_64')
@@ -14,7 +14,7 @@ optdepends=('openmp: Multithreaded CPU applications'
             'openmpi: Distributed CPU and multi GPU applications')
 _git='https://github.com/ROCm/rocALUTION'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('bec6388e74b74922c2dc3af0d73ff0e4cafdabad9e8473181079df09de81c11a')
+sha256sums=('dcd6cccb55136362bedb4681f10eb9c9fe7f958f63802f85573732c2cd7a5185')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
