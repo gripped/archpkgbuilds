@@ -8,27 +8,24 @@
 # Contributor: Christian Hesse <arch@eworm.de>
 
 pkgname=neko
-pkgver=2.3.0
-pkgrel=9
+pkgver=2.4.1
+pkgrel=1
 pkgdesc='High-level dynamically typed programming language'
 url='https://nekovm.org/'
-license=(LGPL)
+license=(MIT)
 arch=(x86_64)
 depends=(gc gtk3 mariadb-libs mbedtls2 sqlite)
-makedepends=(apache apr cmake git ninja)
+makedepends=(apache apr cmake git)
 optdepends=('apache: for extending Apache with mod_neko')
 options=(!strip)
-source=(2023-04-10.patch
-        neko-mbedtls2.patch
-        "git+https://github.com/HaxeFoundation/neko#commit=ff67a696a718cba0a6bc0ec583e355272b4a5923") # tag: v2-3-0
-b2sums=('83a08288938a294dbcd2e6c91e7912989332807375173a5f6c11ec818e3e8bad59e0f4826a6743a6a3802b4faa0c85837424a20a314c7cb9a596367283aaf564'
-        'ea9c86b2f6ac8e943f0c70406a73a055468e71de8740adc2116e0cfd9e68d08ac0d071ce94119a52954fed08319176308395ae20715ce7bd0d38fb538c95f765'
-        'SKIP')
+source=(neko-mbedtls2.patch
+        "git+https://github.com/HaxeFoundation/neko#tag=v${pkgver//./-}")
+b2sums=('ea9c86b2f6ac8e943f0c70406a73a055468e71de8740adc2116e0cfd9e68d08ac0d071ce94119a52954fed08319176308395ae20715ce7bd0d38fb538c95f765'
+        '6062a1232314a3de960968618ffb95b69178e0a53d5658ea780afb0ae1289d9bb2b79f080ec46761f9a1317e0a2a9261bdf2e2e7dac33888bb47d585e67a456a')
 
 prepare() {
   cd $pkgname
   sed -i '/xlocale.h/d' libs/std/sys.c
-  patch -p1 -i ../2023-04-10.patch
   patch -p1 -i ../neko-mbedtls2.patch
 }
 
@@ -37,13 +34,11 @@ build() {
     -B build \
     -D CMAKE_INSTALL_PREFIX=/usr \
     -D RUN_LDCONFIG=OFF \
-    -G Ninja \
     -S $pkgname
-  ninja -C build
+  make -C build
 }
 
 package() {
-  DESTDIR="$pkgdir" ninja -C build install
+  DESTDIR="$pkgdir" make -C build install
+  install -Dm644 $pkgname/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
-
-# getver: nekovm.org/download
