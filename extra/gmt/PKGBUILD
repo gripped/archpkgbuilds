@@ -3,7 +3,7 @@
 pkgbase=gmt
 pkgname=(gmt gmt-doc)
 pkgver=6.5.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Generic Mapping Tools for manipulating and plotting geographic and cartesian data"
 arch=(x86_64)
 url="https://www.generic-mapping-tools.org"
@@ -24,7 +24,8 @@ build() {
     -DGSHHG_ROOT=/usr/share/gmt/coast \
     -DDCW_ROOT=/usr/share/gmt/dcw \
     -DCOPY_GSHHG=OFF \
-    -DCOPY_DCW=OFF
+    -DCOPY_DCW=OFF \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   make -C build
 }
 
