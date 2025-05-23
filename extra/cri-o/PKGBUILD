@@ -5,8 +5,8 @@
 # NOTE: When updating major or minor version, make sure to upgrade in tandem
 # with the stability guarantees of kubernetes and cri-tools.
 pkgname=cri-o
-pkgver=1.32.4
-pkgrel=1
+pkgver=1.33.0
+pkgrel=2
 pkgdesc="Open Container Initiative-based implementation of Kubernetes Container Runtime Interface"
 arch=(x86_64)
 url="https://github.com/cri-o/cri-o"
@@ -20,7 +20,7 @@ depends=(
   glibc
   gpgme # NOTE: dlopen'd
   iproute2
-  iptables
+  iptables-nft
   oci-runtime
 )
 makedepends=(
@@ -50,10 +50,10 @@ source=(
   modules-$pkgname.conf
   sysctl-$pkgname.conf
 )
-sha512sums=('cb1bfa35330bf9f021ce12e380b2f47407d08ced2fbba759d5e65c1aeeb05ea9d9a25754ad5b857a07b8185be28e9d51ea6d7af7aa6b667825fe9795d50b1f80'
+sha512sums=('75d635d22c021fcd3b9bf8e0de4bd6aad79fafc7abfd3d43d85c74eb48c8f024b4daada3ea6427f15e1d6c78fae2085bdc2fd92d71a9d4e21b6c5c1cac864f8b'
             '85ee1310cb36c85c42b4068a9549a3ef72b856cd61b2c1036c3e871ef43a69ed80b43599ad94ce5b069ddd823e730596bb3d3875d4ba8cd77c4cc1985335ffff'
             'fbcc3c29d5d3dedf56ea96577dec50cb2656b4a22f5a82bf2d600ae20c6b113d35d5db116bac5520398d47a22d40835f56b86433c5713924060e1a7018d297ec')
-b2sums=('b31d3eb946220370dacdba1a7ef5e538bb4aae67e40da75f41083121214dfe31d9c01a48cfc3cf510e36f5dbd2cb9e67eaad0f571645ed35b8c12d5cf5a413ac'
+b2sums=('e5f140037f949c5079b3a6f71ad5f588419395d4b89ebbfef46fbe0f1898be9752eebb760c317a7c1684f5687acd882a40f754664403180ca385ce71a1d1fec2'
         '2771c64b45876d728fc139aa90754df8aadb07e14a7e1126a1488dfcbad7ebcbca923cb0230c4b87acdc6dad8243af2ad06ef4ce587d5c71fc200e40835d8b8d'
         'c8a2133df6575c54eb9bd0a89a0c6c764c0cd456bff7338c4a2e1ef4f70a5a778d5a05c335fcf2491ed55e15fc36c677853c0bc8ab66d673f1950fa2c7695f6e')
 
