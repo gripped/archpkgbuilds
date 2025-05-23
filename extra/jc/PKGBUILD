@@ -2,7 +2,7 @@
 # Contributor: Jameson Pugh <imntreal@gmail.com>
 
 pkgname=jc
-pkgver=1.25.4
+pkgver=1.25.5
 pkgrel=1
 pkgdesc='Converts the output of popular command-line tools and file-types to JSON'
 arch=('any')
@@ -22,8 +22,8 @@ makedepends=(
   'python-setuptools'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('4427a2ef3663917de082f79ddeef043746bdb66bdf1e31b1651619708f2bba355706cd9040815f9e31a41d5b010c491c3b3cec99466781707fad8aaa2f81c40c')
-b2sums=('1d9058041f0b0432ed1449de7760720c94280e51dfbeb940d0495bc0a9a8dc2af4f535a80c64c993490603ca841c0cc18ac0f20b55df3407faa8cbcb41def2c4')
+sha512sums=('0758610133838abfed0e96790407530c04954790aaa8c32968df7eb4d1051e892a09cf28ff5c1d902f2b9c93aaca2c627b9f2ff36df0bc12d0a26725f988e009')
+b2sums=('c7aba645233c3fdb836407968eeb1a3d57ec8aad61887e64adcc675ad9b8fe5b064b7b399e1f721c565365234fadb3d76c75d53fc7098525833a8baf7a9dee2b')
 
 build(){
   cd "$pkgname"
@@ -50,8 +50,5 @@ package() {
   install -vDm644 -t "$pkgdir/usr/share/man/man1" man/jc.1
 
   # license
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  install -d "$pkgdir/usr/share/licenses/$pkgname"
-  ln -s "$site_packages/$pkgname-$pkgver.dist-info/LICENSE.md" \
-    "$pkgdir/usr/share/licenses/$pkgname/LICENSE.md"
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.md
 }
