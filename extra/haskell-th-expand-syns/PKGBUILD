@@ -2,21 +2,16 @@
 
 _hkgname=th-expand-syns
 pkgname=haskell-th-expand-syns
-pkgver=0.4.11.0
-pkgrel=53
+pkgver=0.4.12.0
+pkgrel=2
 pkgdesc="Expands type synonyms in Template Haskell ASTs"
 url="https://hackage.haskell.org/package/th-expand-syns"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-syb' 'haskell-th-abstraction')
-makedepends=('ghc' 'uusi')
+makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('572d2fd60677a07cad15363e5a6b533632f494f2bc2ef0ed5209e255415f9e5d502935820f4f52adc91309a7ffef3e98e7158d3c84a08d368e1e394c0c7a4a07')
-
-prepare() {
-    cd $_hkgname-$pkgver
-    uusi -u th-abstraction
-}
+sha512sums=('2865c2238069d1a9430f25a6a126e95f43c203cbdefec67d8d9592f8e5cc3a08b5ef1c930f32754c466980e220e1736eae60db9d0682013970a842753adee196')
 
 build() {
     cd $_hkgname-$pkgver
