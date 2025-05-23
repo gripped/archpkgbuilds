@@ -9,8 +9,8 @@
 pkgname=toxcore
 _pkgname=c-toxcore
 epoch=1
-pkgver=0.2.20
-pkgrel=3
+pkgver=0.2.21
+pkgrel=1
 pkgdesc='Secure, configuration-free, P2P Skype replacement backend'
 arch=('x86_64')
 url='https://tox.chat'
@@ -24,18 +24,19 @@ depends=(
 )
 makedepends=(
   'cmake'
+  'git'
   'gtest'
 )
 provides=("tox")
 conflicts=("tox")
 backup=('etc/tox-bootstrapd.conf')
 source=(
-  "https://github.com/TokTok/c-toxcore/releases/download/v$pkgver/$_pkgname-$pkgver.tar.gz"
-  "https://github.com/TokTok/c-toxcore/releases/download/v$pkgver/$_pkgname-$pkgver.tar.gz.asc"
+  "git+https://github.com/TokTok/c-toxcore#tag=v$pkgver?signed"
+  "git+https://github.com/TokTok/cmp.git"
   'toxcore.sysusers'
   'toxcore.tmpfiles'
 )
-sha512sums=('84497bd8d542d8ccb4d77d9210852a0e73a0f2c4885b8282c39263042555495c37196b5f2ddf37f393bcc2b84d839bba3506da2c68440e4d5329d086b2ebefb6'
+sha512sums=('620309a4c23a651fc4f4a01f955f0da6de9748f3930e9a3e1d09c011bed11599f208d389acbfb36c282aeb0953183fb0a9c8ef306c0d8314476607727e4b7936'
             'SKIP'
             '06d5f7b26e2e10edeb96dfd961b400eacad12df4cd227d0fccc0b1436cc37e9141d712a37eae9ead370c49126758546941f43208d377b7ecdd57f53ee20170a3'
             'f1534f5f46d0b8e2f21b2bce802f48a8bd45ba6beca34112d44e27b6033352867cd9d25f1c3c35c59faf6e6d727793f3d552d0d9b724c9d09cb83075ca196743')
@@ -49,16 +50,22 @@ validpgpkeys=(
   '31039166FA902CA50D05D6085AF9F2E29107C727' # - Diadlo
   'C7A2552D0B250F983827742C133203A3AC399151' # - initramfs
   '2880C860D95C909D3DA45C687E086DD661263264' # - tux3
+  '94CB3CD51379B7734C5617D82DEB4706E996351E' # Green-Sky (Dev keys) <Green-Sky@users.noreply.github.com>
 )
 
 prepare() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
+  git submodule init
+  git config submodule.third_party/cmp.url "$srcdir/cmp"
+  git -c protocol.file.allow=always submodule update \
+    third_party/cmp
+
   sed -i "s|/usr/local|/usr|" other/bootstrap_daemon/tox-bootstrapd.service
   sed -i "/Rpath/d;/RPATH/d" CMakeLists.txt
 }
 
 build() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
   cmake -S . -B build \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=None \
@@ -71,12 +78,12 @@ build() {
 }
 
 check() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
   cmake --build build --target test
 }
 
 package() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
   DESTDIR="$pkgdir" cmake --install build
   install -vDm644 -t "$pkgdir/etc" other/bootstrap_daemon/tox-bootstrapd.conf
   install -vDm644 -t "$pkgdir/usr/lib/systemd/system" \
