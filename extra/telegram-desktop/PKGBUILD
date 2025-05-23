@@ -1,43 +1,89 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: hexchain <i@hexchain.org>
+
 pkgname=telegram-desktop
-pkgver=5.13.1
-pkgrel=4
+pkgver=5.14.3
+pkgrel=1
 pkgdesc='Official Telegram Desktop client'
 arch=('x86_64')
 url="https://desktop.telegram.org/"
-license=('GPL3')
-depends=('hunspell' 'ffmpeg' 'hicolor-icon-theme' 'lz4' 'minizip' 'openal'
-         'qt6-imageformats' 'qt6-svg' 'qt6-wayland' 'xxhash' 'ada'
-         'rnnoise' 'pipewire' 'libxtst' 'libxrandr' 'libxcomposite' 'libxdamage' 'abseil-cpp' 'libdispatch'
-         'openssl' 'protobuf' 'glib2' 'kcoreaddons' 'openh264')
-makedepends=('cmake' 'ninja' 'python' 'range-v3' 'tl-expected' 'microsoft-gsl'
-             'libtg_owt' 'gobject-introspection' 'boost' 'glib2-devel')
-optdepends=('geoclue: geoinformation support'
-            'geocode-glib: geocoding support'
-            'geocode-glib-2: geocoding support'
-            'webkit2gtk: embedded browser features provided by webkit2gtk'
-            'webkit2gtk-4.1: embedded browser features provided by webkit2gtk-4.1'
-            'webkitgtk-6.0: embedded browser features provided by webkitgtk-6.0 (Wayland only)'
-            'xdg-desktop-portal: desktop integration')
-source=("https://github.com/telegramdesktop/tdesktop/releases/download/v${pkgver}/tdesktop-${pkgver}-full.tar.gz"
-         qt-6.9.patch)
-sha512sums=('6d15ad0641e0e47e4d48869885c63e6d1ddbfb5461c121cf33ac77d231a6fc77a6eb5333ad7b76d3aa2e1111d9a5f58846fae83cd36886838d6791dbfaa65929'
-            'c9ed195bec0cad9331d3414941402b11d45455d1a947d02eac718ba9809329b26aca7ed7ee7a7224f820ed7239a2a2da375731f04bcba2482021e3ec32612f96')
-
-prepare() {
-  patch -d tdesktop-$pkgver-full/Telegram/lib_base -p1 < qt-6.9.patch
-}
+license=('GPL-3.0-or-later WITH OpenSSL-exception')
+depends=(
+  'abseil-cpp'
+  'ada'
+  'ffmpeg'
+  'glib2'
+  'hicolor-icon-theme'
+  'hunspell'
+  'kcoreaddons'
+  'libdispatch'
+  'libxcomposite'
+  'libxdamage'
+  'libxrandr'
+  'libxtst'
+  'lz4'
+  'minizip'
+  'openal'
+  'openh264'
+  'openssl'
+  'pipewire'
+  'protobuf'
+  'qt6-imageformats'
+  'qt6-svg'
+  'qt6-wayland'
+  'rnnoise'
+  'xxhash'
+)
+makedepends=(
+  'boost'
+  'cmake'
+  'git'
+  'glib2-devel'
+  'gobject-introspection'
+  'gperf'
+  'libtg_owt'
+  'microsoft-gsl'
+  'ninja'
+  'python'
+  'range-v3'
+  'tl-expected'
+)
+optdepends=(
+  'geoclue: geoinformation support'
+  'geocode-glib-2: geocoding support'
+  'geocode-glib: geocoding support'
+  'webkit2gtk-4.1: embedded browser features provided by webkit2gtk-4.1'
+  'webkit2gtk: embedded browser features provided by webkit2gtk'
+  'webkitgtk-6.0: embedded browser features provided by webkitgtk-6.0 (Wayland only)'
+  'xdg-desktop-portal: desktop integration'
+)
+_td_commit=51743dfd01dff6179e2d8f7095729caa4e2222e9
+source=(
+  "https://github.com/telegramdesktop/tdesktop/releases/download/v${pkgver}/tdesktop-${pkgver}-full.tar.gz"
+  "git+https://github.com/tdlib/td.git#tag=${_td_commit}"
+)
+sha512sums=('1c8d6f3f858789c716bdaef8ef00896aac07ef8e6792489b80bf162b40db80dc2cf1831335269c4bc12e11c1b6326cbf8ffd40fc9d847c13196f540e15a1978d'
+            'd622b8f3580ee49415546d025c4ba45f5b2de50b315fc379dc57c0427c5f815c7cc3820cca937c12182ee461641bb61f87ebc99b6c74a1a666cea9a08f0f41a0')
 
 build() {
   CXXFLAGS+=' -ffat-lto-objects'
 
-  # Turns out we're allowed to use the official API key that telegram uses for their snap builds:
+  cmake -S td -B td/build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX="$PWD/td/install" \
+    -Wno-dev \
+    -DTD_E2E_ONLY=ON
+  cmake --build td/build
+  cmake --install td/build
+
+  # Turns out we're allowed to use the official API key that telegram uses for
+  # their snap builds:
   # https://github.com/telegramdesktop/tdesktop/blob/8fab9167beb2407c1153930ed03a4badd0c2b59f/snap/snapcraft.yaml#L87-L88
   # Thanks @primeos!
   cmake -B build -S tdesktop-$pkgver-full -G Ninja \
     -DCMAKE_VERBOSE_MAKEFILE=ON \
     -DCMAKE_INSTALL_PREFIX="/usr" \
+    -Dtde2e_DIR="$PWD/td/install/lib/cmake/tde2e" \
     -DCMAKE_BUILD_TYPE=Release \
     -DTDESKTOP_API_ID=611335 \
     -DTDESKTOP_API_HASH=d524b414d21f4d37f08684c1df41ac9c
