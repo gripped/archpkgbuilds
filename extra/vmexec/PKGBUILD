@@ -1,31 +1,31 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 
 pkgname=vmexec
-pkgver=0.1.4
-pkgrel=3
+pkgver=0.1.5
+pkgrel=1
 pkgdesc="Run a single command in a speedy virtual machine with zero-setup"
 arch=('x86_64')
 url="https://github.com/svenstaro/vmexec"
 license=('MIT')
 depends=('gcc-libs' 'libguestfs')
 makedepends=('rust')
-source=(vmexec-$pkgver.tar.gz::https://github.com/svenstaro/vmexec/archive/v${pkgver}.tar.gz)
-sha512sums=('6792f6397838101952117245d714ba8b0c57170fe38a6b2c80c60b412dd85673c3feddde3862e3f8b0043d1444b4bda497104fa8629121b5718578f3176968e1')
+source=(vmexec-$pkgver.tar.gz::https://gitlab.archlinux.org/archlinux/vmexec/-/archive/v${pkgver}/vmexec-v${pkgver}.tar.gz)
+sha512sums=('4a8374c03ce574f6fe7f8cc699aa628021f2491c9a948c8ccf8f5e8bd8d883369904b4ad0b886914e1e6bfeb1be092edf3acd24dceb497614ccc31cd58acb82a')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd $pkgname-v$pkgver
 
   cargo build --release --locked
 }
 
 check() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd $pkgname-v$pkgver
 
   cargo test --release --locked
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd $pkgname-v$pkgver
 
   install -Dm755 target/release/vmexec "$pkgdir"/usr/bin/vmexec
 
