@@ -1,1 +1,1 @@
-u ircd - "IRC daemon" /var/empty
+u! ircd - "IRC daemon" /var/empty
