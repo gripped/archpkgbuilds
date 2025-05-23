@@ -1,8 +1,9 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=python-pluggy
-pkgver=1.5.0
-pkgrel=3
+pkgver=1.6.0
+pkgrel=1
 pkgdesc="Plugin and hook calling mechanisms for python"
 arch=('any')
 url="https://github.com/pytest-dev/pluggy"
@@ -11,7 +12,7 @@ depends=('python')
 makedepends=('git' 'python-setuptools-scm' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
 source=("git+https://github.com/pytest-dev/pluggy.git#tag=$pkgver")
-sha512sums=('101873bef7d3c7dd76df7007e9d0d536670934ee6037214ccff16e4afc656a54bf77fa5394b75094a59fef0f667155ab5a29e5502bcf09ca116c8f719ed199fe')
+sha512sums=('4164457975bae12c798ba87fca38ef776468cb3b879c95696be8525778b9bc83fe9947f6ec707b478f79e93f6d4ddd9cb669d6bbc59929e107c447c4237f61f5')
 
 build() {
   cd pluggy
