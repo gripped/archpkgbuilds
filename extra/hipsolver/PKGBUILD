@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 
 pkgname=hipsolver
-pkgver=6.3.3
+pkgver=6.4.0
 pkgrel=1
 pkgdesc='rocSOLVER marshalling library.'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('rocm-core' 'glibc' 'gcc-libs' 'hip-runtime-amd' 'rocsolver' 'rocblas'
 makedepends=('cmake' 'rocm-cmake' 'gcc-fortran')
 _git='https://github.com/ROCm/hipSOLVER'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('529263f9abe5b7485bbabedc3993630abaa0d5fd547c4add0993d1cb0d71e226')
+sha256sums=('d6cf798c5f2d1d00a442f7a3f07c6f3a9e4ce5b3be36608aac7c97175dac9eb0')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
