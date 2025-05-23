@@ -9,7 +9,7 @@ pkgname=(opencv
          opencv-cuda
          python-opencv-cuda)
 pkgver=4.11.0
-pkgrel=9
+pkgrel=10
 pkgdesc='Open Source Computer Vision Library'
 arch=(x86_64)
 license=(Apache-2.0)
@@ -29,6 +29,7 @@ depends=(abseil-cpp
          libdc1394
          libglvnd
          libjpeg-turbo
+         libjxl
          libpng
          libtiff
          libwebp
@@ -100,6 +101,7 @@ build() {
     -DWITH_TBB=ON
     -DWITH_VULKAN=ON
     -DWITH_QT=ON
+    -DWITH_JPEGXL=ON
     -DBUILD_TESTS=OFF
     -DBUILD_PERF_TESTS=OFF
     -DBUILD_EXAMPLES=ON
