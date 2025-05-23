@@ -5,7 +5,7 @@
 pkgname=lib32-json-c
 pkgver=0.18
 _tagdate=20240915
-pkgrel=1
+pkgrel=2
 pkgdesc="JSON implementation in C (32-bit)"
 url="https://github.com/json-c/json-c/wiki"
 license=(MIT)
@@ -25,12 +25,13 @@ b2sums=('4abc79ff71b8320022f4385221ff0c7183e2f150c94e3d837369226d26c118a2123823c
 
 build() {
   local cmake_options=(
-    -DCMAKE_BUILD_TYPE=None
-    -DCMAKE_INSTALL_PREFIX=/usr
-    -DCMAKE_INSTALL_LIBDIR=/usr/lib32
-    -DBUILD_STATIC_LIBS=OFF
-    -DENABLE_THREADING=ON
-    -DENABLE_RDRAND=OFF
+    -D BUILD_STATIC_LIBS=OFF
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_LIBDIR=/usr/lib32
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
+    -D ENABLE_RDRAND=OFF
+    -D ENABLE_THREADING=ON
   )
 
   export CC="gcc -m32" CXX="g++ -m32"
