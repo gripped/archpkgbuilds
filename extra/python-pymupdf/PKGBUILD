@@ -3,7 +3,7 @@
 
 _name=PyMuPDF
 pkgname=python-pymupdf
-pkgver=1.25.5
+pkgver=1.26.0
 pkgrel=1
 pkgdesc="Python bindings for MuPDF's rendering library"
 arch=(x86_64)
@@ -41,9 +41,9 @@ source=(
   $_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
   remove-clang-and-swig-dependencies.patch
 )
-sha512sums=('b11541772c0428702d2241443c795543e8cc86c609f225ba32b2c308d46da637aa8004ed168d8fcc9e78ebd4d1640e70b7d358937bbbb5086115e6dadf4256b0'
+sha512sums=('0d69f1f3c6a3fafb50be6b15045568f62cca3b032a49c528cc33326a70d20a6aded3959fde04378df2c569e5b63f093b95e6ffe9c220cda21de2396a6fff3206'
             'e92face12865334f6730438c5d6973583f6fee18714a3e4d3e76ac6717fa1aad3416e400858c8dda319717facbf37b2b22793781342afeff6eb6183d97d9de63')
-b2sums=('6932006a595ce4d307d7fa24d425b8c81caa9896edd2d767c937dcf6c86ec02531bff9f76419597278fc2463284c2df980b1de9710aac5400f65d353f91bde90'
+b2sums=('255d75cf0d64277833f6e663182b4cc8bdd1b3cafca187affe255259c9f9ed3f4ec1f587247d737d8f346e3a2e6a6fee726c31be8d3f93579fb3b1ec07e33835'
         '3aa763d6b203a04eafdfaa0b89d89411af8b9d7b9631f4ad46c6f88a8310b683e8ff20f6c8cd03c2ab42dc3fcc6f21bf937ee0db9037ac54aa2442291e2fe332')
 
 prepare() {
@@ -104,6 +104,11 @@ check() {
     --deselect tests/test_codespell.py::test_codespell
     # some textbox stuff again: https://github.com/pymupdf/PyMuPDF/issues/3398
     --deselect tests/test_textbox.py::test_textbox3
+    # tries to download / install stuff through git and pip
+    --deselect tests/test_barcode.py::test_barcode
+    --deselect tests/test_font.py::test_4457
+    --deselect tests/test_general.py::test_open2
+    --deselect tests/test_pixmap.py::test_4445
   )
   local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
