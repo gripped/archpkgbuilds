@@ -4,7 +4,7 @@
 
 pkgname=viking
 pkgver=1.10
-pkgrel=3
+pkgrel=4
 pkgdesc="GTK application to manage GPS data"
 arch=('x86_64')
 url="https://sourceforge.net/projects/viking/"
@@ -26,7 +26,8 @@ prepare() {
 build() {
   cd "${srcdir}"/$pkgname-$pkgver
 
-  export CXXFLAGS="$CXXFLAGS -I/usr/include/mapnik"
+  export CFLAGS+=" -std=gnu17" # Fix build with GCC 15
+  export CXXFLAGS+=" -I/usr/include/mapnik"
   ./configure \
     --prefix=/usr \
     --disable-mapnik  #https://github.com/viking-gps/viking/issues/297 might be fixed in v1.11
