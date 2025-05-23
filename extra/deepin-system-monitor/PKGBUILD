@@ -4,7 +4,7 @@
 
 pkgname=deepin-system-monitor
 pkgver=6.0.22
-pkgrel=2
+pkgrel=3
 pkgdesc='A more user-friendly system monitor'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-system-monitor"
@@ -26,7 +26,7 @@ prepare() {
 
 build() {
   cd deepin-system-monitor
-  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc \
+  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DCMAKE_C_FLAGS="$CXXFLAGS -Wno-error=implicit-function-declaration -Wno-error=int-conversion" # Fix build with GCC 14
   ninja
 }
