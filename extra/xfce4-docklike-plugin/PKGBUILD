@@ -3,31 +3,24 @@
 # Contributor: nsz32 <nszabo2 at gmail dot com>, bittin
 
 pkgname=xfce4-docklike-plugin
-pkgver=0.4.3
+pkgver=0.5.0
 pkgrel=1
 pkgdesc="A modern, docklike, minimalist taskbar for XFCE"
 arch=('x86_64')
 url="https://docs.xfce.org/panel-plugins/xfce4-docklike-plugin/start"
 license=('GPL-3.0-or-later')
 depends=('xfce4-panel' 'libwnck3' 'libxfce4ui' 'gtk3' 'cairo' 'glib2' 'exo')
-makedepends=('git' 'xfce4-dev-tools')
+makedepends=('git' 'meson' 'xfce4-dev-tools')
 source=("git+https://gitlab.xfce.org/panel-plugins/xfce4-docklike-plugin.git#tag=$pkgname-$pkgver")
-sha256sums=('c02c93be762c00dc90db2d5930ea9104c3434df3695ef6359603394980282a5b')
-
-prepare() {
-	cd $pkgname
-	NOCONFIGURE=1 ./autogen.sh
-}
+sha256sums=('dd1b3d5da92346fcb1705b0e5767e0163e3cdd0ca0b3fc9c736d27f725f237d8')
 
 build() {
-	cd $pkgname
-	./configure --prefix=/usr
-	make
+  arch-meson $pkgname build
+  meson compile -C build
 }
 
 package() {
-	cd $pkgname
-	make DESTDIR="$pkgdir" install
+  meson install -C build --destdir "$pkgdir"
 }
 
 # vim:set ts=2 sw=2 et:
