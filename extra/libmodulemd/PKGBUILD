@@ -2,8 +2,8 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=libmodulemd
-pkgver=2.15.0
-pkgrel=5
+pkgver=2.15.1
+pkgrel=1
 pkgdesc="C Library for manipulating module metadata files"
 arch=('x86_64')
 url="https://github.com/fedora-modularity/$pkgname"
@@ -12,7 +12,7 @@ depends=('file' 'glib2' 'libyaml' 'rpm-tools')
 makedepends=('glib2-devel' 'gobject-introspection' 'help2man' 'meson' 'python-gobject')
 optdepends=('python-gobject: for python bindings')
 source=("$url/releases/download/$pkgver/${pkgname#lib}-$pkgver.tar.xz")
-sha256sums=('15458323d1d1f614f9e706f623794f95d23e59f4c37deeaa16877463aee34af5')
+sha256sums=('f981ff9f580f19736303e035938e94ad886ecc3cdd8c864c138de9b2e35c7ba3')
 
 build() {
   cd ${pkgname#lib}-$pkgver
