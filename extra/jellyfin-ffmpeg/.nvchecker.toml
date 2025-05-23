@@ -1,0 +1,6 @@
+[jellyfin-ffmpeg]
+source = "git"
+git = "https://github.com/jellyfin/jellyfin-ffmpeg.git"
+prefix = "v"
+from_pattern = '(\d+)\.(\d+)\.(\d+)\-(\d+)'
+to_pattern = '\1.\2.\3p\4'
