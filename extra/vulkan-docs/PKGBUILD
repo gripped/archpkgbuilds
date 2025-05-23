@@ -3,7 +3,7 @@
 
 pkgbase=vulkan-docs
 pkgname=(vulkan-html-docs)
-pkgver=1.4.309
+pkgver=1.4.314
 pkgrel=1
 epoch=1
 pkgdesc="Vulkan and Vulkan SC API Documentation"
@@ -32,7 +32,7 @@ makedepends=(
 )
 groups=(vulkan-devel)
 source=("git+https://github.com/KhronosGroup/Vulkan-Docs#tag=v$pkgver")
-b2sums=('a8c697b186f59c49abd9f6d4281b813cabfd7b4c31ed62161df536c726a8a53de8b4f4017a69332294530e51dcf6b9f14341dfb1cbd24c720cdb948eaa35e32e')
+b2sums=('ce5587ff2f9f33fbaae24183c9c362967f0c96760d16fb6f665b09005ae1b7d7baf4cb11be01233679896ab5cbc684849a909b4b8c37b3e5d90114fee3ed8641')
 
 prepare() {
   local gems=(
@@ -49,7 +49,7 @@ prepare() {
     text-hyphen
   )
 
-  gem install -N "${gems[@]}"
+  CMAKE_POLICY_VERSION_MINIMUM=3.5 gem install -N "${gems[@]}"
   npm install escape-string-regexp@2.0.0 he lunr@2.3.6
 }
 
