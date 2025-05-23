@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=e-antic
-pkgver=2.0.2
-pkgrel=3
+pkgver=2.1.0
+pkgrel=1
 pkgdesc='Embedded algebraic number fields (on top of antic)'
 arch=(x86_64)
 url='https://github.com/flatsurf/e-antic/'
@@ -12,17 +12,8 @@ depends=(flint
          glibc
          gmp)
 makedepends=(boost)
-source=(https://github.com/flatsurf/e-antic/releases/download/$pkgver/$pkgname-$pkgver.tar.gz
-        https://github.com/flatsurf/e-antic/commit/66ecdffd.patch
-        flint-3.2-test.patch)
-sha256sums=('8328e6490129dfec7f4aa478ebd54dc07686bd5e5e7f5f30dcf20c0f11b67f60'
-            'fba4a77f9358d8c5dbc06f0cda8c2a97d12a429895d3e44d9786250ccd339871'
-            'a38363e80dc8cf29c438caa1c3bf997184b6ede805cbe621fd8ba8ae6df434ab')
-
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < 66ecdffd.patch # Fix build with flint 3.2
-  patch -d $pkgname-$pkgver -p1 < flint-3.2-test.patch
-}
+source=(https://github.com/flatsurf/e-antic/releases/download/$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('e3e78701d054b441f95d83b6fb55cd84bfd931f5d4a61a2822dc977a20c46f80')
 
 build() {
   cd $pkgname-$pkgver
