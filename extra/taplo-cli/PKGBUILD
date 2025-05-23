@@ -4,7 +4,7 @@
 
 pkgname=taplo-cli
 _name=${pkgname%-cli}
-pkgver=0.9.3
+pkgver=0.10.0
 pkgrel=1
 pkgdesc='TOML toolkit written in Rust'
 arch=(x86_64)
@@ -17,26 +17,30 @@ makedepends=(
 )
 provides=("$_name")
 options=(!lto)
-source=("git+https://github.com/tamasfe/$_name.git#tag=$pkgver"
-  "$pkgname-$pkgver-cargo-lock.patch::https://github.com/tamasfe/taplo/commit/116ec57dddb720ba6474ca5abea6887831936380.patch")
-b2sums=('38c9879cc08bf61c72c20ad3a3aadeee2e8558b0dc5afde637b091ca1d19c1d1da758f5f126253f2c07eb8b6745a9ed4afda8eb44b82e6fa0bd00d767a43731e'
-  '144777a489ebdc325dc2924a91efdbac9dd8dc392a4ebb8b38901ad286580803d43fab36da0dd84c6b99d7b8e06962873a7f42b614eb8bf052106645a5d6087f')
+source=("git+https://github.com/tamasfe/$_name.git#tag=$pkgver")
+b2sums=('feeca936e65be30109cc4fa6fa3eb915082d1b1d2e44ed05ee9d9e20a0151320e850d240d9d9b5caf05562dbff6a87091c0c4b7c58dc0f4d001b40e1d96b17ad')
 
 prepare() {
   cd "$_name"
-  patch -Np1 -i ../$pkgname-$pkgver-cargo-lock.patch
+  mkdir completions/
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
   cd "$_name"
   cargo build --release --frozen --all-features
+  for shell in bash fish zsh; do
+    ./target/release/$_name completions "$shell" >"completions/$_name.$shell"
+  done
 }
 
 package() {
   cd "$_name"
   install -Dt "$pkgdir"/usr/bin target/release/"$_name"
-  install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE.md
+  install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
+  install -Dm 644 "completions/$_name.bash" "$pkgdir/usr/share/bash-completion/completions/$_name"
+  install -Dm 644 "completions/$_name.fish" -t "$pkgdir/usr/share/fish/vendor_completions.d"
+  install -Dm 644 "completions/$_name.zsh" "$pkgdir/usr/share/zsh/site-functions/_$_name"
 }
 
 # vim: ts=2 sw=2 et:
