@@ -11,7 +11,7 @@ pkgname=('virtualbox'
          'virtualbox-ext-vnc')
 pkgver=7.1.8
 _tarver=${pkgver}
-pkgrel=2
+pkgrel=4
 arch=('x86_64')
 url='https://virtualbox.org/'
 license=('GPL' 'custom:CDDL')
@@ -74,7 +74,8 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_tarv
         '013-support-building-from-dkms.patch'
         '018-upate-xclient-script.patch'
         '020-python-3-12.patch'
-        '021-python-3-13.patch')
+        '021-python-3-13.patch'
+        '022-C23.patch')
 sha256sums=('3f7132c55ac6c5f50585bfaa115d29e30b47ccf535cb0a12ff50214ddae2f63d'
             'f753501352054576c510aa81e83f4935079ea620e601057784b02b4d4d1eeb04'
             '07fe5c8b313cd7f01505eb9721357269a288ccd0c04e6467afb954038d6f46df'
@@ -95,9 +96,10 @@ sha256sums=('3f7132c55ac6c5f50585bfaa115d29e30b47ccf535cb0a12ff50214ddae2f63d'
             'd76b52d955215a72c296aa36d173897bcaa357528bf5a73347c52ccec8654ced'
             '8c64b3617e597390dd25cf85c9afac0ebbe369d620349d7f5c8056d834acb6c6'
             '00f68b86d32a1fada900c2da8dad2ab4215106cd58004f049bded99727cda2ff'
-            '73ed7ef243c975227660b9bbe7c576018f2c0216b3a3b5efcc4cc56c44c90914'
+            '2540381de895fabbcc68d820c1f72ba644ef566ff5dab0f60be055c7b45cc06f'
             'ddb2092a5a000aa6ef854796f39dcdf86e72c06d53b24bac3835350571182df6'
-            'a8e53afe996c3de401824261ac4228eb8960af0832de2a8f101e9aa6ddb442f8')
+            'a8e53afe996c3de401824261ac4228eb8960af0832de2a8f101e9aa6ddb442f8'
+            '3e7d779e10f3d58088c3b5fe1b10bfb4505fd07ff4e8f2201b46f280838cce09')
 
 prepare() {
     cd "VirtualBox-${pkgver}"
@@ -291,8 +293,9 @@ package_virtualbox-host-dkms() {
 package_virtualbox-guest-utils() {
     pkgdesc='VirtualBox Guest userspace utilities'
     depends=('glibc' 'pam' 'libx11' 'libxcomposite' 'libxdamage' 'libxext'
-             'libxfixes' 'libxmu' 'libxt' 'xorg-xrandr' 'xf86-video-vmware'
+             'libxfixes' 'libxmu' 'libxt' 'xorg-xrandr'
              'VIRTUALBOX-GUEST-MODULES')
+    optdepends=('xf86-video-vmware: for VMSVGA graphics controller')
     replaces=('virtualbox-archlinux-additions'
               'virtualbox-guest-additions'
               'virtualbox-guest-dkms')
