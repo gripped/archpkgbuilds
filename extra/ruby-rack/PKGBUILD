@@ -4,7 +4,7 @@
 
 _gemname=rack
 pkgname=ruby-rack
-pkgver=3.1.13
+pkgver=3.1.15
 pkgrel=1
 pkgdesc='Minimal, modular, and adaptable interface for developing web applications'
 url='https://rack.github.io/'
@@ -26,18 +26,12 @@ checkdepends=(
 options=('!emptydirs')
 source=(
   "https://github.com/rack/rack/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
-  # see https://github.com/rack/rack/commit/49d4ed033f9c6d0bdba7b2a181437589049dbf7f
-  "${pkgname}_fix_tests.patch"
 )
-sha512sums=('ca6158132a50a3ba383ae9e56b25b605ea1c32591539d511461c1f42882a66922d3fcbb2c466b967207aed306d5fd1b5261f2b9e82d7952d2700ab587c64a59c'
-            '48445af539dca7f46b250e5aa2caba9a70589a93c2904795e4ac8ac8df65deb9b1230654adc3675e96428ce1d8a92d541b10be16f8566ea94a477a9f3e4efb89')
-b2sums=('aff13963cf5cf438d6709f68c961869a78f1222fd105578843ec03ebcb1202047625f6d75214c25565426c2855fafdad622ebfbd84b2a6f23ba7dcfbab1149c8'
-        'b74099bfec91aa24c49729909bcd16446c8d7ea89addce9aad32ea585549c1008a74acb346bdbf46c5fc570f6cedbf77c1f639644f7694e4d05c11efe9bd855b')
+sha512sums=('438a5950ca19b037deb6ec4f1d0ac26f3eb5b6742a8ecce62b2c951cd5290b9c59e75d75d9a7449460827bfc3f7f1797b7b30c13fe24d005b7f623f10af6ec90')
+b2sums=('ec41b41e859e0e387f78a7530e78fda0730a02723e69ec3adbe0bca1c68d97b525c8a3fd49c53ea902eb0c97fd6948a009c5ed90c8226c34945ad4c1f82ec916')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
-
-  patch --verbose --strip=1 --input="../${pkgname}_fix_tests.patch"
 
   # update gemspec/Gemfile to allow newer version of the dependencies
   sed --in-place --regexp-extended 's|~>|>=|g' "${_gemname}.gemspec"
