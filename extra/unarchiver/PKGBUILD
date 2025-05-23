@@ -5,11 +5,11 @@
 pkgname=unarchiver
 pkgver=1.10.8
 _UniversalDetector_pkgver=1.1
-pkgrel=4
+pkgrel=5
 pkgdesc="unar and lsar: Objective-C tools for uncompressing archive files"
 arch=(x86_64)
 url="https://github.com/MacPaw/XADMaster"
-license=('LGPL2.1')
+license=('LGPL-2.1-only')
 depends=(gnustep-base openssl bzip2 icu gcc-libs zlib wavpack)
 makedepends=(gcc-objc gnustep-make)
 source=("XADMaster-${pkgver}.tar.gz::https://github.com/MacPaw/XADMaster/archive/v${pkgver}.tar.gz"
