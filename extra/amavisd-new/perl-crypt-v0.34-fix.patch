@@ -1,0 +1,33 @@
+diff -upr a/amavisd b/amavisd
+--- a/amavisd	2024-03-07 11:58:49.000000000 +0100
++++ b/amavisd	2025-05-11 19:38:41.515412602 +0200
+@@ -3192,7 +3192,7 @@ sub safe_decode($$;$) {
+   my $enc = Encode::find_encoding($encoding);
+   return $str  if !$enc;
+   # if the $check argument in a call to Encode::decode() is present it must be
+-  # defined to avoid warning "Use of uninitialized value in subroutine entry" 
++  # defined to avoid warning "Use of uninitialized value in subroutine entry"
+   return $enc->decode($str, $check||0)  if $enc_taintsafe || !tainted($str);
+   # Work around a taint laundering bug in Encode [rt.cpan.org #84879].
+   # Propagate taintedness across taint-related bugs in module Encode.
+@@ -18811,8 +18811,7 @@ sub fetch_modules_extra() {
+                       auto::Net::SSLeay::ssl_read_until
+                       auto::Net::SSLeay::dump_peer_certificate));
+   }
+-  push(@modules, qw(Net::DNS::RR::TXT Text::ParseWords
+-         auto::Crypt::OpenSSL::RSA::new_public_key))  if $extra_code_dkim;
++  push(@modules, qw(Net::DNS::RR::TXT Text::ParseWords))  if $extra_code_dkim;
+   push(@modules, 'Anomy::Sanitizer')  if $enable_anomy_sanitizer;
+   Amavis::Boot::fetch_modules('REQUIRED ADDITIONAL MODULES', 1, @modules);
+ 
+@@ -30849,10 +30848,6 @@ sub getSAPlugins {
+       $mod_names{'Mail::SpamAssassin::Plugin::DKIM'}) {
+     push(@modules, qw(
+       Crypt::OpenSSL::RSA
+-      auto::Crypt::OpenSSL::RSA::new_public_key
+-      auto::Crypt::OpenSSL::RSA::new_key_from_parameters
+-      auto::Crypt::OpenSSL::RSA::get_key_parameters
+-      auto::Crypt::OpenSSL::RSA::import_random_seed
+       Digest::SHA Error));
+   }
+ # HTML/HeadParser.pm
