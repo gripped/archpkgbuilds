@@ -5,7 +5,7 @@ pkgname=(
   papers
   papers-lib-docs
 )
-pkgver=48.2
+pkgver=48.3
 pkgrel=1
 pkgdesc='Document viewer for PDF and other document formats aimed at the GNOME desktop'
 arch=(x86_64)
@@ -44,7 +44,13 @@ makedepends=(
   rust
 )
 source=("git+https://gitlab.gnome.org/GNOME/Incubator/papers.git#tag=$pkgver")
-b2sums=('a254c6d8d411c4e3d66dc11f74952a5d8a1304a47674b770dab3d97a363066c9107e17902aaca553ddcef06a36822eb7e2edeb4bb579c0f76fdef52dc2aacf62')
+b2sums=('b6ad587839b27f1f99646cdf28e66192bdd709564a61ba9dc7da164a4cea6c815090e1a903b153ea053f2a6d86078b626cfc9a2c2e09de78091390e4173b4277')
+
+# Use debug
+export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
+
+# Use LTO
+export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 prepare() {
   cd $pkgbase
@@ -55,12 +61,7 @@ prepare() {
 
 build() {
   arch-meson $pkgbase build
-
-  CARGO_PROFILE_RELEASE_LTO=true \
-    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
-    CARGO_PROFILE_RELEASE_DEBUG=2 \
-    CARGO_PROFILE_RELEASE_STRIP=false \
-    meson compile -C build
+  meson compile -C build
 }
 
 check() {
