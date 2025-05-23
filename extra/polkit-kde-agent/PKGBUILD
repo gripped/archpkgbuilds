@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=polkit-kde-agent
-pkgver=6.3.4
+pkgver=6.3.5
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Daemon providing a polkit authentication UI for KDE'
@@ -25,7 +25,7 @@ makedepends=(extra-cmake-modules
              kdoctools)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-1-$pkgver.tar.xz{,.sig})
-sha256sums=('a797f6e02491a2fc60eda14a75e5e796b56513303c99b7465fd964227e98c4cf'
+sha256sums=('58071b3529a53b6c99f1a2ab51b452c71bac02d1f4456eb4b0149c9bc9bd5ba0'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
