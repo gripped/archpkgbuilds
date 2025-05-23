@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-uncertainties
-pkgver=3.2.2
-pkgrel=2
+pkgver=3.2.3
+pkgrel=1
 pkgdesc="Transparent calculations with uncertainties on the quantities involved (aka error propagation); fast calculation of derivatives."
 arch=('any')
 license=('BSD')
@@ -12,7 +12,7 @@ optdepends=('python-numpy: additional support for NumPy arrays and matrices')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm' 'python-wheel')
 checkdepends=('python-pytest' 'python-numpy')
 source=("git+https://github.com/lmfit/uncertainties.git#tag=$pkgver")
-sha512sums=('048200d7b7a1f2b78e3c5cdbb8e607f4e6f5c434a9218877edb62dc0cff108010f84b9c29bcc4ec575eade44838690854214374eb070fe5aae869deee9a90de8')
+sha512sums=('85588db20a9a9954bcbc883a39551565821d59c51edee0c41359f9432e9006e5815f53f1d0dbd1576bdfeef7dfb7b80a384c6503cc9ac6daf0c9ae26a5a72a8f')
 
 build() {
   cd uncertainties
