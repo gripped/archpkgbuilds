@@ -3,9 +3,9 @@
 # Contributor: Kevin Piche <kevin@archlinux.org>
 
 pkgname=bigloo
-pkgver=4.5b
+pkgver=4.6a
 _src_ver=${pkgver/_/-}
-pkgrel=6
+pkgrel=1
 pkgdesc="Fast scheme compiler"
 arch=('x86_64')
 url="https://www-sop.inria.fr/mimosa/fp/Bigloo/"
@@ -14,17 +14,27 @@ depends=('gmp' 'openssl' 'libunistring' 'libnsl' 'gc' 'libuv')
 makedepends=('emacs' 'zip' 'sqlite' 'alsa-lib' 'flac' 'avahi' 'libpulse')
 optdepends=('emacs' 'zip' 'sqlite' 'alsa-lib' 'flac' 'avahi')
 options=('!makeflags' '!lto')
-source=("https://www-sop.inria.fr/indes/fp/Bigloo/download/${pkgname}-${_src_ver}.tar.gz")
-sha256sums=('202b0f02479e11995e273572911f032042b81f6dd413faba0ffdbe9392997284')
+source=("https://www-sop.inria.fr/indes/fp/Bigloo/download/${pkgname}-${_src_ver}.tar.gz" "bigloo-gcc15.patch")
+sha256sums=('9705ec3de00cc1c51ee7699894841a3770c06a874215b45635b8844ae6daf0a6'
+            'dfaa8c0709c5274b7805080856f8a4abcff20cd6ca22d77aeafbebd252a56c68')
+
 
 elisp_dir=/usr/share/emacs/site-lisp/bigloo
 
 prepare() {
   sed -i 's/$(GCLIB)/c/' "${srcdir}/${pkgname}-${_src_ver}/configure"
+  patch -p0 -d "${srcdir}/${pkgname}-${_src_ver}"  -i "${srcdir}/${pkgname}-gcc15.patch"
+  # The sources are not ready for C23
+  export CFLAGS+=" -std=gnu17 -D_GNU_SOURCE=1 -fwrapv -Wno-unused"
+  sed -i 's/TLS=thread_local/TLS=_Thread_local/;s/"thread_local"/"_Thread_local"/' "${srcdir}/${pkgname}-${_src_ver}/autoconf/pthreadlocalstorage"
+  # Build blib with the correct flags
+  sed -i "s|^CFLAGS.*|& $CFLAGS|" "${srcdir}/${pkgname}-${_src_ver}/bdb/blib/Makefile"
 }
 
 build() {
   cd "${srcdir}/${pkgname}-${_src_ver}"
+  # Large stack needed to build
+  ulimit -s unlimited
   ./configure --prefix=/usr \
     --docdir=/usr/share/doc/bigloo \
     --mandir=/usr/share/man \
