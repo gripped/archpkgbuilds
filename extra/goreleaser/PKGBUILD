@@ -2,7 +2,7 @@
 # Contributor: Fernandez Ludovic <lfernandez dot dev at gmail dot com>
 
 pkgname='goreleaser'
-pkgver=2.7.0
+pkgver=2.9.0
 pkgrel=1
 pkgdesc='Deliver Go binaries as fast and easily as possible'
 url='https://github.com/goreleaser/goreleaser'
@@ -11,8 +11,8 @@ license=('MIT')
 depends=('glibc')
 makedepends=('git' 'go')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/goreleaser/goreleaser/archive/v${pkgver}.tar.gz")
-sha512sums=('98cc5304ebce153a6a8375015be067b7074206fbd23ba22b390dd7c8fa47ab0f3d91714f39cf539382372e3d353f852bd830bbf7876e6d85e2d3bff43f8e60a2')
-b2sums=('87e1f19ab26dbc6dcbca7ea284561c6c49bc8f1a3ec5b59546fd745e7db237a664a14759c9a8c646733b1a14bbb0fb75320777b02a2db9108dcd3a8cef2276c0')
+sha512sums=('6fabbfd64eb636e0f748efd5f19dc4f830552028b51036bbf1df7309fe1f9c8fe2f175529a475576039e708b4161c890de78249900ada90547885732c31555f2')
+b2sums=('913dd8a4015860a1ded359f5c17c7906c70c6436811cf17523eee3ad3bfac0ce88b4da8c69c2dec37a61da23c9947f0020c042bdc94c0f57334d95fa89360916')
 
 build() {
   cd "${pkgname}-${pkgver}"
