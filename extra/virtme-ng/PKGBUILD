@@ -2,7 +2,7 @@
 # Contributor: Manuel Wiesinger <m {you know what belongs here} mmap {and here} at>
 
 pkgname=virtme-ng
-pkgver=1.35
+pkgver=1.36
 pkgrel=1
 pkgdesc="A tool that allows to easily and quickly recompile and test a Linux kernel, starting from the source code."
 arch=('x86_64')
@@ -31,7 +31,7 @@ makedepends=(
 )
 optdepends=('virtiofsd: better filesystem performance inside the virtme-ng guests')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/arighi/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz")
-b2sums=('c386f93322bc9475857bfb37a3e2c946854f633e42f58467f87d9729dd063c3d6a6ce08d71172cf93d4d438cb565f0878c644e4d74b4332951c84b8db3f8d8c4')
+b2sums=('6e9ef8458649b55b49fc9c948ff780f4c0619736331eb771dba39d8f0e71a55a1b05ceaa1cb52e2e975a17f66d356504858b74fcecb615954882c1d8f267292e')
 
 build() {
     cd "${srcdir}/${pkgname}-${pkgver}"
