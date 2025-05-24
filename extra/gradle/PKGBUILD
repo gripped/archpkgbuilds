@@ -5,7 +5,7 @@
 
 pkgbase=gradle
 pkgname=('gradle' 'gradle-doc' 'gradle-src')
-pkgver=8.13
+pkgver=8.14.1
 pkgrel=1
 pkgdesc='Powerful build system for the JVM'
 url='https://gradle.org/'
@@ -15,7 +15,7 @@ depends=(
   'bash'
   'coreutils'
   'findutils'
-  'java-environment<=21'
+  'java-environment>=21'
   'sed'
   'which'
 )
@@ -23,26 +23,25 @@ makedepends=(
   'asciidoc'
   'git'
   'groovy'
-  'java-environment=8'
+  'java-environment=11'
   'java-environment=17'
+  'java-environment=21'
   'xmlto'
 )
 source=(https://services.gradle.org/distributions/${pkgbase}-${pkgver}-src.zip
         https://services.gradle.org/distributions/${pkgbase}-${pkgver}-all.zip
         ${pkgbase}.sh)
-sha256sums=('21414d6e543139c962ea95a4c61a585eb77b7a8fd45aa16f281234ae4b02c661'
-            'fba8464465835e74f7270bbf43d6d8a8d7709ab0a43ce1aa3323f73e9aa0c612'
-            '6f3472486278252417af49196847ba465b56819d286658fcdf918687f89ee032')
-sha512sums=('f0eeae2ecdafddc170f41ec60d5c2162ab9313a0c5cb473727e29ec410f353e9cb418fcd2d2dede829dda2a85215495c843beb58dc008359190f10c78631010d'
-            '46a581360d36024789eb6f0fd93261abadbd86550f003e7435b8e05c8d1370833ec8e4bcfea9da8e33e24505cf6b836e401a4470fd17bf46237a82e6c312f58e'
-            'a50b6cf8281b56b80f55a20ac9316e1eed6887da1d191ad575dec140c9819711644d7077c4dc693b8cb0f1b08ceba0033ba88b5ad138d33ffb73b786c0d4bf81')
+sha256sums=('488a3181f5f8ee3f16182b59712a5f1139c172b558ff93e665fe7be3ca796621'
+            'd7042b3c11565c192041fc8c4703f541b888286404b4f267138c1d094d8ecdca'
+            '4728dbdbe9fe416b82977cb7e456457e3ff0b88129291ee28e0d874ce8cc4891')
+sha512sums=('8288a48f8afcbbfe56d07a3ce111e1b755cfa12c03e44cf4674dad325aa506cc416cb697c12a6678d2e01340cd665e25a87c55944c4feb710d1f508f020f4805'
+            'a96eb44b3ea6b77397e1f648a3988c79ba04cb8a92c4f29145c5cd2d5ebe86afd31701b425c0ee64b3075ab3b4127abb10bfa74c2535c1dfa06cb2b91f36e47d'
+            '9054a13f13a0d04bffefb2e5c1bcabfcd7b11e4d83d9180f65e0a09eeb8fea407d8c4e1e1e9b79191ba99e4eb372dbbb3189dd30833170c64cdb4484ca559441')
 
 prepare() {
   cd ${pkgbase}-${pkgver}
   # remove adoptium references because we want to use our java implementation
   grep -lr "vendor = JvmVendorSpec.ADOPTIUM" | xargs sed -i "/JvmVendorSpec.ADOPTIUM/d"
-  sed -i '/toolchainVendor=adoptium/d' \
-    gradle/gradle-daemon-jvm.properties
 
   # inhibit automatic download of binary gradle
   sed -i "s#distributionUrl=.*#distributionUrl=file\:${srcdir}/${pkgbase}-${pkgver}-all.zip#" \
@@ -53,7 +52,7 @@ build() {
   cd ${pkgbase}-${pkgver}
   ./gradlew installAll \
     --info \
-    -Porg.gradle.java.installations.paths=/usr/lib/jvm/java-17-openjdk \
+    -Porg.gradle.java.installations.paths=/usr/lib/jvm/java-21-openjdk \
     -Porg.gradle.java.installations.auto-download=false \
     -PfinalRelease=true \
     -Pgradle_installPath="$(pwd)/dist" \
