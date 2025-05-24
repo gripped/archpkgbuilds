@@ -2,7 +2,7 @@
 
 pkgname=python-narwhals
 _name=${pkgname#python-}
-pkgver=1.38.2
+pkgver=1.39.1
 pkgrel=1
 pkgdesc="Extremely lightweight and extensible compatibility layer between dataframe libraries"
 arch=('any')
@@ -22,22 +22,24 @@ checkdepends=(
 	python-polars
 )
 source=($pkgname-$pkgver.tar.gz::https://github.com/narwhals-dev/narwhals/archive/refs/tags/v$pkgver.tar.gz)
-sha256sums=('8dd6a7e370eb3facec3e80d39f26718e7536f866d9caf241370c7f52417627ec')
+sha256sums=('24b8dca4d0e3bf7f3a60fd9e86b862ab9d895a5e8f4ecf04f48fa8365c27e156')
 
 build() {
-    cd "$_name-$pkgver"
-    python -m build --wheel --no-isolation
+  cd "$_name-$pkgver"
+  python -m build --wheel --no-isolation
 }
 
 check() {
-    cd "$_name-$pkgver"
-	# Not all supported data frames are packaged, only run tests for those
-	# that are
-    pytest --constructors "pandas,pandas[pyarrow],polars[eager],pyarrow"
+  cd "$_name-$pkgver"
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  # Not all supported data frames are packaged, only run tests for those
+  # that are
+  test-env/bin/python -P -m pytest --constructors "pandas,pandas[pyarrow],polars[eager],pyarrow"
 }
 
 package() {
-    cd "$_name-$pkgver"
-    python -m installer --destdir="$pkgdir" dist/*.whl
-	install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE.md
+  cd "$_name-$pkgver"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE.md
 }
