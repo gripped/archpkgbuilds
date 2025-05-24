@@ -1,10 +1,11 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
 
 pkgbase=nvidia-settings
 pkgname=('nvidia-settings' 'libxnvctrl')
-pkgver=570.144
+pkgver=570.153.02
 pkgrel=1
 pkgdesc='Tool for configuring the NVIDIA graphics driver'
 url='https://github.com/NVIDIA/nvidia-settings'
@@ -14,7 +15,7 @@ makedepends=('jansson' 'gtk3' 'libxv' 'libvdpau' 'nvidia-utils' 'libxext' 'vulka
 options=('staticlibs')
 source=(${pkgbase}-${pkgver}.tar.gz::https://github.com/NVIDIA/nvidia-settings/archive/${pkgver}.tar.gz
         nvidia-settings-libxnvctrl_so.patch)
-sha512sums=('a628dcc4a7793224d44af670604177d13e7ee8e5f6c00a4f4fbe5915307efd3731ec3193f8fd81af277c6be40f92e2272767a824ae0b800bf702348a3acca01d'
+sha512sums=('039da4b5d2adf4100be47ed20243b36c9ee14889aa5d19b5a0d2ecae520cfbefcb67bc0af5bc8b9bc89016b4b9a7bfcfe334dd87732b1ffedf688459527ea6aa'
             '0303fe615d6ef4e14112998c531a17613b94776f9a6a027ddb81e400fddd5f2ff15583da8b8631c2306aca854edf2f54a8007eb36f1732b4c064c857aaf268ae')
 
 prepare() {
