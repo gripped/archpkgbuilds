@@ -5,7 +5,7 @@
 
 pkgname=libnvidia-container
 pkgver=1.17.7
-pkgrel=1
+pkgrel=2
 _nvmodver=550.54.14  # check the VERSION in libnvidia-container/mk/nvidia-modprobe.mk
 pkgdesc="NVIDIA container runtime library"
 arch=(x86_64)
@@ -30,10 +30,12 @@ source=(
   "$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
   "$pkgname-nvidia-modprobe-$_nvmodver.tar.gz::https://github.com/NVIDIA/nvidia-modprobe/archive/$_nvmodver.tar.gz"
   fix-makefile.patch
+  fix-nvc-ldcache.patch
 )
 b2sums=('2df3a94a3aaafff14225298abe0e5f787056f2d95154fc14ff873be38ba06209fa5a09fb01504c5979012daa1bf49f217b72437e3cf6318b0f6f887bbea342cf'
         '7b334877d98d0c75d5750192dea868436938852443ced14e74e59076ed4d8be9e361cdefbe48295d87bb91ac4565152ec3f3233479b3da19bb8baf8e7ef53cd6'
-        '4938bdd72116a8f9f77e5a13a209e51332611ceb84d7e5e4155658023b6cd17c1a5e96a00c6809417092568c3558f9466c0a39c623cf31ba66351aafd724b5e5')
+        '4938bdd72116a8f9f77e5a13a209e51332611ceb84d7e5e4155658023b6cd17c1a5e96a00c6809417092568c3558f9466c0a39c623cf31ba66351aafd724b5e5'
+        '098dad0de29b2269fe2cf66d0729c43f2a42c7d40ccf1a8a9ba81602c31a09ef755a5336dbacfe292bde63a19d54c9e077680030dcb01021482b4fd32551fb84')
 
 _common_make_flags=(
   prefix=/usr
@@ -60,6 +62,10 @@ prepare() {
   # - respect system $CGO_CFLAGS and $CGO_LDFLAGS for nvcgo, pass custom -ldflags to go build
   # - avoid rebuilding nvcgo in the install step
   patch -p1 -i ../fix-makefile.patch
+
+  # fix segfault caused by undefined behavior in nvc_ldcache.c
+  # https://github.com/NVIDIA/libnvidia-container/issues/316
+  patch -p1 -i ../fix-nvc-ldcache.patch
 }
 
 build() {
