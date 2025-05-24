@@ -1,7 +1,7 @@
 # Maintainer: Johannes Löthberg <johannes@kyriasis.com>
 
 pkgname=python-prometheus_client
-pkgver=0.21.1
+pkgver=0.22.0
 pkgrel=1
 
 pkgdesc="Prometheus instrumentation library for Python applications"
@@ -10,16 +10,16 @@ arch=('any')
 license=('APACHE')
 
 depends=('python')
-makedepends=('python-setuptools')
+makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-twisted' 'python-pytest')
 
 source=(client_python-$pkgver.tar.gz::https://github.com/prometheus/client_python/archive/v${pkgver}.tar.gz)
 
-sha512sums=('7bf09b27048871d27475a99f7991f0908d02900e584a9756695b29d5c339587c2dd3fc59ca091d9ddf8fa2bcb52ca05d66e29889cd9455ff3d76186d72cfccbe')
+sha512sums=('1319dbd7a44551498230a2bf3dcdd89274a94a38af95d7d35f5edfdaf1a9dd8e84affd152ba476467eddb43656301b2b0e9b4ac0be543dd002ab6e26ba514d35')
 
 build() {
   cd client_python-$pkgver
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -30,5 +30,5 @@ check() {
 
 package() {
   cd client_python-$pkgver
-  python setup.py install --root="$pkgdir" --skip-build --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
