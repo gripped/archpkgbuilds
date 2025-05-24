@@ -2,7 +2,7 @@
 # Contributor: Martin Franc <me@martinfranc.eu>
 
 pkgname=wob
-pkgver=0.15.1
+pkgver=0.16
 pkgrel=2
 pkgdesc="A lightweight overlay volume/backlight/progress/anything bar for Wayland"
 arch=(x86_64)
@@ -23,35 +23,24 @@ makedepends=(
 source=(
 	"$pkgname-$pkgver.tar.gz::$url/releases/download/$pkgver/wob-$pkgver.tar.gz"
 	"$pkgname-$pkgver.tar.gz.sig::$url/releases/download/$pkgver/wob-$pkgver.tar.gz.sig"
-	"wob.service"
-	"wob.socket"
 )
-sha256sums=(
-  'b7c8495771139f549752db59f8f52f019d10a2db1e4fa361b4e5c5903df06298'
-  'SKIP'
-  'a51139e1d27833aa7bbf86afda67822cb93a9948e5f0cd4fcc670e49191019e5'
-  '521888b6667bd77eec569d5dce5264d4bb3bc8f9eabdc818b26c2908452b522f'
-)
+sha256sums=('14ef5159b146647bba8f27dab499375e219cc4d2a11c5dd1e656aa5908a0e5a2'
+            'SKIP')
 validpgpkeys=('5C6DA024DDE27178073EA103F4B432D5D67990E3')
 
 build() {
   cd $pkgname-$pkgver
-
 	arch-meson . build
   meson compile -C build
 }
 
 check() {
   cd $pkgname-$pkgver
-
   meson test -C build --print-errorlogs
 }
 
 package() {
   cd $pkgname-$pkgver
-
   meson install -C build --destdir "$pkgdir"
-	install -vDm644 -t "$pkgdir/usr/lib/systemd/user" "$srcdir/wob.service"
-	install -vDm644 -t "$pkgdir/usr/lib/systemd/user" "$srcdir/wob.socket"
 	install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
