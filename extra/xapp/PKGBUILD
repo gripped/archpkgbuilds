@@ -4,7 +4,7 @@
 # Contributor: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=xapp
-pkgver=2.8.8
+pkgver=2.8.9
 pkgrel=1
 pkgdesc="Common library for X-Apps project"
 arch=(x86_64)
@@ -17,8 +17,8 @@ provides=(xapps)
 conflicts=(xapps)
 replaces=(xapps)
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('343cc336dc0fba86f4b27a46125600c2173c6d7ea0bf7df28cf941c42b55a45d')
-b2sums=('ad6d33785a2935777bf1dfa96de22edef676280eb7ac48976889c27351010627805c7ebabfd2f7ba7c16ac71ccc65f7306f40f94a045733ff005a841e8b17676')
+sha256sums=('cc2de98f8b2c73f7611af770d398a05560c4419b9390000464b8bcd517c70375')
+b2sums=('c47ae3a5dd5c61bf6a9d3a02e55f4e5a2883f707d7a28f6a13fb72180a1fa9440d3d95462aa87067b288a42139fd8daf90d7da2c08414e4a16babf81c56f1eae')
 
 build() {
   arch-meson ${pkgname}-${pkgver} build \
