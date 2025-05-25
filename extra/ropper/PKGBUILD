@@ -2,8 +2,8 @@
 
 pkgname=ropper
 _pkgname=Ropper
-pkgver=1.13.10
-pkgrel=2
+pkgver=1.13.13
+pkgrel=1
 pkgdesc='Show information about binary files and find gadgets to build rop chains for different architectures'
 url='https://github.com/sashs/Ropper'
 arch=(any)
@@ -19,8 +19,9 @@ depends=(
 makedepends=(
   python-build
   python-installer
-  python-wheel
+  python-keystone
   python-setuptools
+  python-wheel
 )
 checkdepends=(
   python-pytest
@@ -32,8 +33,8 @@ conflicts=('python-ropper')
 replaces=('python-ropper')
 provides=('python-ropper')
 source=(https://github.com/sashs/${_pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('64afab433a633f10bb964af44e51c5d44885e03c718695284c3cfd73ea3f204561224d26575e1e376ca0c1424fe6ca859c5844a55798375223ea304e455d8c04')
-b2sums=('c7b385fc2cf9f0777394899910d9433c09b9df0b5ba489b4fac71be3fbeeb4c1d68bdace6dcefb114aad3f89452745d04351a85003998bf3f8b148a774ea7a5a')
+sha512sums=('f4a868c90bbae459b85e7d7846b39f0391de68c6fa36c8cf72572f1d420f127a9d052f1cf3560b4150d86064687433aa7a6af2c29bd85b89e5008fa3cd0556ad')
+b2sums=('94e1c25346c219665318cd320cd98762450811cca146dcbc4740eed550f453e10c11d1b85356c8ee06df9a2b798ec93ca831bbe2170d6a73512ecc0cf53b2d2c')
 
 build() {
   cd ${_pkgname}-${pkgver}
@@ -48,6 +49,7 @@ check() {
 package() {
   cd ${_pkgname}-${pkgver}
   python -m installer --destdir="$pkgdir" dist/*.whl
+  rm -rf "${pkgdir}"/usr/lib/python*/site-packages/testcases/
   install -Dm 644 README.md sample.py -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -Dm 644 COPYING -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
