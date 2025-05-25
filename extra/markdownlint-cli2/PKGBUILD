@@ -2,7 +2,7 @@
 # Contributor: Brody <archfan at brodix dot de>
 
 pkgname=markdownlint-cli2
-pkgver=0.17.2
+pkgver=0.18.1
 pkgrel=1
 pkgdesc='Fast, flexible, configuration-based command-line interface for linting Markdown/CommonMark files with the markdownlint library'
 arch=(any)
@@ -16,7 +16,7 @@ makedepends=(
 )
 options=(!emptydirs)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('6eb086ec887ba53b5f4a39935e8b7f30bb6217e2bc67ee5aa636b1aa0ce3d7fd0e81972b7551cdbaa87ae305c62c00e5c336c488a330cff8a2fc6de20fbe73ce')
+b2sums=('ed79dfd540a8fb91e7627e27a901f60db81152e721e70fa64f66c6e6a8cd09808c615d447363fa335d06e904a464eeb647e144cbc87b8f01e39d91750ec83264')
 
 prepare() {
   cd $pkgname
@@ -37,9 +37,9 @@ package() {
   ln -s $mod_dir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname
 
   cd $pkgname
-  npm prune --production
+  npm prune --omit=dev
 
-  readarray -t mod_files < <(jq -r '.files[]' package.json)
+  mapfile -t mod_files < <(jq -r '.files[]' package.json)
   cp --parents -r "${mod_files[@]}" node_modules package.json "$pkgdir"/$mod_dir
   chmod +x "$pkgdir"/$mod_dir/$pkgname-bin.mjs
 }
