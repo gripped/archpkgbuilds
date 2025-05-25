@@ -1,0 +1,82 @@
+pkgbase=ast-grep
+pkgname=(
+  ast-grep
+  python-ast-grep
+)
+pkgver=0.38.2
+pkgrel=1
+pkgdesc='CLI tool for code structural search, lint and rewriting'
+url='https://ast-grep.github.io/'
+arch=(x86_64)
+license=(MIT)
+depends=(
+  gcc-libs
+  glibc
+)
+makedepends=(
+  cargo
+  python-build
+  python-installer
+  python-maturin
+  python-wheel
+)
+options=(!lto)
+source=(https://github.com/ast-grep/ast-grep/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz)
+sha512sums=('0caa0171f5357401f827bef27ee6cb8be64016374b82f909443f761cbb2cf85fe03b11e6a9d6669e53944cd21a711a2c2fe8d1acf2454390001e333acdc95e8c')
+b2sums=('7cef2c9f5edd5239af9dde2211ccd562aa6e2ea8d524782310761071ad378912400e326a6bf606c49b37dff6e9ec111c423b6cc66c42d3122ac353d14ebc46e6')
+
+prepare() {
+  cd ${pkgbase}-${pkgver}
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd ${pkgbase}-${pkgver}
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release --all-features
+
+	local shell; for shell in bash fish zsh; do
+		./target/release/ast-grep completions "${shell}" > target/ast-grep.${shell}
+	done
+
+  cd crates/pyo3
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd ${pkgbase}-${pkgver}
+  cargo test --frozen --all-features --workspace
+}
+
+package_ast-grep() {
+  depends=(
+    gcc-libs
+    glibc
+  )
+
+  cd ${pkgbase}-${pkgver}
+  install -Dm 755 target/release/ast-grep -t "${pkgdir}/usr/bin/"
+  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+
+	install -Dm 644 target/${pkgname}.bash "${pkgdir}"/usr/share/bash-completion/completions/${pkgname}
+	install -Dm 644 target/${pkgname}.fish "${pkgdir}"/usr/share/fish/vendor_completions.d/${pkgname}.fish
+	install -Dm 644 target/${pkgname}.zsh "${pkgdir}"/usr/share/zsh/site-functions/_${pkgname}
+}
+
+package_python-ast-grep() {
+  depends=(
+    gcc-libs
+    glibc
+    python
+  )
+
+  cd ${pkgbase}-${pkgver}
+  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  cd crates/pyo3
+  python -m installer --destdir="${pkgdir}" dist/*.whl
+}
+
+# vim: ts=2 sw=2 et:
