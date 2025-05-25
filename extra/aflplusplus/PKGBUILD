@@ -2,7 +2,7 @@
 # Contributor GI Jack <GI_Jack@hackermail.com>
 
 pkgname=afl++
-pkgver=4.31c
+pkgver=4.32c
 pkgrel=1
 pkgdesc='instrumentation-driven fuzzer for binary format'
 url='https://aflplus.plus/'
@@ -45,8 +45,8 @@ replaces=(
 source=(
   "https://github.com/AFLplusplus/AFLplusplus/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
 )
-sha256sums=('8c6e9bef19b3d43020972701553734d1cb435c39a28b253f0dd6668e6ecb86bb')
-b2sums=('3c0b8cff5fcc5cdd10d29a98f227d9c9bd5fc16bbc08e8e501b385e1473a0e8347a9e5f81513d499725b23329a4cc3907d611597e14c8b312cfcab4a2116d382')
+sha256sums=('dc7f59a11ce8cf67a3ed09a5ac78028c6f793b239b21fd83e5b2370cea166926')
+b2sums=('259edf3fe4405a8703a7452f99406fd390e97763d687445e0a6104f884ba304b3f6755fcdef36f7f8d9743db945ef60791402462cf4599c5a90593ecbb414daf')
 
 build() {
   cd "AFLplusplus-${pkgver}"
