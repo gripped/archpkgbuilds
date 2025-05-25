@@ -15,7 +15,7 @@ pkgname=(
 )
 pkgver=1.22.0
 _pkgdesc='Cross-platform, high performance scoring engine for ML models'
-pkgrel=1
+pkgrel=3
 arch=('x86_64')
 url='https://github.com/microsoft/onnxruntime'
 license=('MIT')
@@ -25,7 +25,7 @@ _pydepends=('python-numpy' 'python-coloredlogs' 'python-psutil'
             'python-py-cpuinfo' 'python-sympy' 'python-scipy' 'python-pillow'
             'python-flatbuffers' 'python-protobuf' 'python-packaging')
 makedepends=('git' 'cmake' 'ninja' 'pybind11' 'nlohmann-json' 'chrono-date' 'cxxopts' 'openmpi'
-             'python-setuptools' 'python-installer' 'python-wheel' 'python-build' 'gcc13'
+             'python-setuptools' 'python-installer' 'python-wheel' 'python-build' 'gcc14'
              'cuda' 'cudnn' 'nccl' 'rocm-hip-sdk' 'hipify-clang' 'rocm-smi-lib' 'roctracer')
 makedepends+=("${_pydepends[@]}")
 #TODO: Add migraphx for ROCm and tensorrt for CUDA.
