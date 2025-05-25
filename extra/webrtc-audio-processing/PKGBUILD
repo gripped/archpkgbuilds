@@ -2,7 +2,7 @@
 
 pkgname=webrtc-audio-processing
 pkgver=2.1
-pkgrel=3
+pkgrel=4
 pkgdesc="AudioProcessing library based on Google's implementation of WebRTC"
 url="https://freedesktop.org/software/pulseaudio/webrtc-audio-processing/"
 arch=(x86_64)
@@ -27,6 +27,9 @@ validpgpkeys=(
 
 prepare() {
   cd webrtc-audio-processing
+
+  # Fix compilation with gcc 15
+  git cherry-pick -n e9c78dc4712fa6362b0c839ad57b6b46dce1ba83
 }
 
 build() {
