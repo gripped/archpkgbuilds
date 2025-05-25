@@ -3,17 +3,32 @@
 
 _pkg=orc
 pkgname=apache-${_pkg}
-pkgver=2.0.3
-pkgrel=6
+pkgver=2.1.2
+pkgrel=2
 pkgdesc="Columnar storage for Hadoop workloads."
 arch=(x86_64)
 url="https://orc.apache.org"
-license=(Apache)
-depends=(lz4 protobuf snappy zlib zstd)
+license=(Apache-2.0)
+depends=(
+  abseil-cpp
+  gcc-libs
+  glibc
+  lz4
+  protobuf
+  snappy
+  zlib
+  zstd
+)
 makedepends=(cmake git)
 checkdepends=(gtest)
-source=(${pkgname}::git+https://github.com/apache/orc.git#tag=v${pkgver})
-sha256sums=('fbafce5090b9fe12993b83a7f9f585a501e5ec709d1ec7319acc260ad448d06a')
+source=(
+  ${pkgname}::git+https://github.com/apache/orc.git#tag=v${pkgver}
+  fix-timezone.patch
+  fix-cmake-modules.patch
+)
+sha256sums=('3b3c68754fe14613842ced24666b0f348b1e2d69a837a8e7f2de4c7cf36c0274'
+            '81873b0f473dc0300f967e04200f488b1f787d2e4222d77812cbe5c3534e3da3'
+            '19134d5ad86dd76c8b65828dda195f113591c944d8be7298fa980e781595e7d9')
 validpgpkeys=(F28C9C925C188C35E345614DEDA00CE834F0FC5C  # Dongjoon Hyun (CODE SIGNING KEY) <dongjoon@apache.org>
               AA94E2A8F0A0B7167305C5232D9F6201DECDFA29) # William Hyun (CODE SIGNING KEY) <william@apache.org>
 
@@ -22,34 +37,47 @@ prepare(){
   sed -i 's/orc STATIC/orc SHARED/' c++/src/CMakeLists.txt
   # Fix build with protobuf 27
   sed -e 's|PROTOBUF_INCLUDE_DIR protobuf::libprotoc|PROTOBUF_INCLUDE_DIR protobuf::libprotobuf|' -i cmake_modules/FindProtobuf.cmake
+  # Fix build with protobuf 31 (the google::protobuf::int64 type is not found without this)
+  echo '#include <google/protobuf/stubs/common.h>' >> c++/src/wrap/coded-stream-wrapper.h
+  echo '#include <google/protobuf/stubs/common.h>' >> c++/src/wrap/zero-copy-stream-wrapper.h
+  # Fix for missing /etc/localtime https://github.com/apache/orc/issues/2225
+  patch -p1 -i ../fix-timezone.patch
+  # Fix the cmake modules https://github.com/apache/orc/pull/2240
+  patch -p1 -i ../fix-cmake-modules.patch
 }
 
 build(){
-  cmake -B build -S ${pkgname} \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX="/usr" \
-    -DSTOP_BUILD_ON_WARNING=OFF \
-    -DLZ4_HOME="/usr" \
-    -DPROTOBUF_HOME="/usr" \
-    -DSNAPPY_HOME="/usr" \
-    -DZLIB_HOME="/usr" \
-    -DZSTD_HOME="/usr" \
-    -DGTEST_HOME="/usr" \
-    -DORC_PREFER_STATIC_PROTOBUF=OFF \
-    -DORC_PREFER_STATIC_SNAPPY=OFF \
-    -DORC_PREFER_STATIC_LZ4=OFF \
-    -DORC_PREFER_STATIC_ZSTD=OFF \
-    -DORC_PREFER_STATIC_ZLIB=OFF \
-    -DBUILD_LIBHDFSPP=OFF \
-    -DBUILD_JAVA=OFF \
-    -DINSTALL_VENDORED_LIBS=OFF \
+  local cmake_options=(
+    -B build
+    -S ${pkgname}
+    -DCMAKE_BUILD_TYPE=None
+    -DCMAKE_INSTALL_PREFIX=/usr
+    -DSTOP_BUILD_ON_WARNING=OFF
+    -DLZ4_HOME=/usr
+    -DPROTOBUF_HOME=/usr
+    -DSNAPPY_HOME=/usr
+    -DZLIB_HOME=/usr
+    -DZSTD_HOME=/usr
+    -DGTEST_HOME=/usr
+    -DORC_PREFER_STATIC_PROTOBUF=OFF
+    -DORC_PREFER_STATIC_SNAPPY=OFF
+    -DORC_PREFER_STATIC_LZ4=OFF
+    -DORC_PREFER_STATIC_ZSTD=OFF
+    -DORC_PREFER_STATIC_ZLIB=OFF
+    -DBUILD_LIBHDFSPP=OFF
+    -DBUILD_JAVA=OFF
+    -DINSTALL_VENDORED_LIBS=OFF
     -Wno-dev
+  )
+  cmake "${cmake_options[@]}"
   cmake --build build
 }
 
 check(){
-  # Some tests failures https://github.com/apache/orc/issues/1068
-  make -C build test-out || echo "Warning: Tests failed"
+  # One test is failing and cannot be skipped
+  # https://github.com/apache/orc/issues/2239
+  # https://github.com/apache/orc/issues/2238
+  ctest --test-dir build --output-on-failure || true
 }
 
 package(){
