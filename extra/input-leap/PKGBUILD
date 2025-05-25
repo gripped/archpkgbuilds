@@ -8,7 +8,7 @@
 
 pkgname=input-leap
 pkgver=3.0.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Open-source KVM software'
 url='https://github.com/input-leap/input-leap'
 arch=(x86_64)
@@ -48,6 +48,14 @@ makedepends=(
 source=("git+${url}.git#tag=v${pkgver}")
 sha512sums=('a26c365b5c1e482d14d9b72e38ae7abfb738e241cfe0bf81806ea9cf5418fc58ad2af8e47fc97b2a537768acfe1b584b409019bf1e3389cfc4d567931e3bbe59')
 b2sums=('053d1e654cb65c18c0c0da7f6724478ece7548d5512664be562cb062f4a65eb4e42493cff6510eeddf371091ddf82feca749989912fdb61c340221b05b25e3b4')
+
+prepare() {
+  cd "${pkgname}"
+  # fix: server config dialog show event
+  git cherry-pick -n 0bae409d577e1efddacec5be7b0c97329eff854f
+  # fix(gui): Adjust KeySequence.cpp for Qt > 6.9 change
+  git cherry-pick -n d5c08a2ac8398f5ee6a1b2032e791d5980c47d60
+}
 
 build() {
   cd "${pkgname}"
