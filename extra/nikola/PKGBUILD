@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=nikola
-pkgver=8.3.1
-pkgrel=2
+pkgver=8.3.3
+pkgrel=1
 pkgdesc="A static site and blog generator"
 arch=(any)
 url="https://getnikola.com/"
@@ -15,7 +15,6 @@ depends=(
   python-doit
   python-dateutil
   python-docutils
-  python-logbook
   python-lxml
   python-mako
   python-markdown
@@ -78,15 +77,9 @@ optdepends=(
 source=(
   git+$_url.git?signed#tag=v$pkgver
 )
-sha512sums=('e41b3d26e2c431b9ed9fa40d6e71f9bd40eb6f8c5c5312133d0f835ddcdac96b0ab3d5b8c3d6dab56bde35717f684b80cdcced7e64c66829de1fe4acf8724eb8')
-b2sums=('a0a6f70e0903442a7611553ba410fadc8724158653f023b1da75aa46c7dadbbd4a5fe19337e33d1b20debbbac57c3391f55d0c8355729895a762c5bebf770029')
+sha512sums=('3b28d4395c170a4d9ae299b3ccedc203ddde656e699ab2726e466f62367d9b0993dd15b90b4ca82628671075dc9c2369fe147a0f5cc2f5865aaab1009dd29432')
+b2sums=('1299774ff370eb3e6c4ced39dbaadf4526b2a81d7999fe99c179159becbdfa7aa692bd07f11e135a555249b6dbf8896c92fc326860ee6dcb78331e967d64e09e')
 validpgpkeys=('DF32C99CFF84282CF9D4CF7171023DBD5EAAEA16') # Chris Warrick <kwpolska@gmail.com>
-
-prepare() {
-  cd $pkgname
-  # fix issue with pytest 8: https://github.com/getnikola/nikola/issues/3753
-  git cherry-pick -n 5f1003f91cd59f62622d379efe9be5fb19a1ed3e
-}
 
 build() {
   cd $pkgname
@@ -103,6 +96,9 @@ check() {
   local pytest_options=(
     -vv
     -o addopts=''
+    # Skip test that fails due to different behavior of python-lxml
+    # https://gitlab.archlinux.org/archlinux/packaging/packages/python-lxml/-/issues/2
+    --deselect tests/test_command_import_wordpress.py::test_write_content_does_not_detroy_text
   )
   cd $pkgname
   pytest "${pytest_options[@]}"
@@ -115,4 +111,7 @@ package() {
   install -vDm 644 {AUTHORS,CHANGES}.txt {CONTRIBUTING,README}.rst -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 ${pkgname}_bash "$pkgdir/usr/share/bash-completion/completions/$pkgname"
   install -vDm 644 ${pkgname}_zsh "$pkgdir/usr/share/zsh/site-functions/_$pkgname"
+
+  # Remove unwanted artifacts https://github.com/getnikola/nikola/issues/3852
+  rm -r "$pkgdir"/usr/lib/python*/site-packages/{docs,logo,npm_assets,scripts,translations}
 }
