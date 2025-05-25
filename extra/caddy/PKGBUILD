@@ -8,14 +8,21 @@
 
 pkgname=caddy
 pkgver=2.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast web server with automatic HTTPS'
 url='https://github.com/caddyserver/caddy'
-arch=('x86_64')
-license=('Apache')
-depends=('glibc')
-makedepends=('go' 'git')
-backup=('etc/caddy/Caddyfile')
+arch=(x86_64)
+license=(Apache-2.0)
+depends=(
+  glibc
+)
+makedepends=(
+  git
+  go
+)
+backup=(
+  etc/caddy/Caddyfile
+)
 source=("git+https://github.com/caddyserver/caddy.git#tag=v${pkgver}?signed"
         caddy-dist::"git+https://github.com/caddyserver/dist.git#tag=v${pkgver}"
         caddy.service
@@ -31,17 +38,12 @@ sha512sums=('7539d0095ae5e18eb58d108970df24137b329b8a7d209a87a378e2dd039afed49e3
             '164037ea69ef02e9fdc55af3760849500fd90aa6d23ca29d55cc29c758041bef7e7cf89b23c7e0870bfbd2ecbb576fa9adf33c7c45bcabe68d15be4d6fc49145'
             '55ee8d3f8b14f9adddc7a1026addcea4f85b4bae4cd512fd4da2a5e8adaae4b6fd0f486d2e3847f75518f4710a897b4fca84e48ee15700b968bad762125c4742'
             'c893d88fec89e37da6596030c8dce7103e7e575371e8542a24d2a0741e877358d85219f2d8ade9d6aa0f515efe1156a4badd9fef5f65f553a5b0c72330c4728f'
-            '716da3f4edeb3561243aeaf5c32b01ff7a4ac810b6deba8364fb12a1f71b6a5278c34a97b289bcfdc48784679b942bf780f1f36d416a575791168c94b0d59fe0'
+            '4be1ed23e6600d8072c7f4fabd2bd926708502a55d84ae4f62aff9885c7b8e45ad0554503d0fc796338577adfca9e467c468a82ba56ffd69e4ec2778d69bc198'
             '563d6b45e91fc584fb5a27caaa382f59c140cb0a1b28b8d8faced4f7c7cad86d8671eb6ac10056f41518a842c8f606130d7e0c71df2b731d5eb0b4c868ea5d41'
             '0fedec714604566fb0da995cdfb2dd2cb8f3995bfa1d6c2e9a38ddd1da11634c3e37f2da381f715df4fc9ebd9653c3aa4806de47ae5094ea1fc19b7f5b795a30')
 validpgpkeys=(
   29D0817A67156E4F25DC24782A349DD577D586A5 # Matthew Holt <mholt@users.noreply.github.com>
 )
-
-#pkgver() {
-#  cd ${pkgname}
-#  git describe --tags --match 'v*' | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
-#}
 
 prepare() {
   cd "${pkgname}"
