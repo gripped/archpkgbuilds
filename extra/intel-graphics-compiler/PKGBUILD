@@ -3,7 +3,7 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=2.10.8
+pkgver=2.11.7
 _llvmmaj=15
 _llvmver="${_llvmmaj}.0.7"
 _vciver=0.22.1
@@ -17,7 +17,7 @@ pkgdesc='Intel Graphics Compiler for OpenCL'
 arch=('x86_64')
 url='https://github.com/intel/intel-graphics-compiler/'
 license=('MIT' 'Apache-2.0 WITH LLVM-exception')
-depends=('gcc-libs' 'glibc' 'zlib')
+depends=('gcc-libs' 'glibc' 'zlib' 'zstd')
 makedepends=('cmake' 'git' 'python' 'python-mako' 'python-yaml')
 provides=("intel-opencl-clang=${_llvmmaj}")
 conflicts=('intel-opencl-clang')
@@ -29,14 +29,16 @@ source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${p
         "git+https://github.com/KhronosGroup/SPIRV-Tools.git#tag=v${_spirv_tools_ver}"
         "git+https://github.com/KhronosGroup/SPIRV-Headers.git#commit=${_spirv_headers_commit}"
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
-        "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}")
-sha256sums=('001940364b91b8e156ee1858170143601b0b6162a7d143530dd846c7b83edfe2'
+        "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}"
+        '010-intel-graphics-compiler-disable-werror.patch')
+sha256sums=('93581fa3f7b469a9c4aafa4e5cad93a51db8948bfa174e2062030dd373f7a839'
             '11fbabe4654a13a6f1248448e62e12ae28b6605bbf8e444675d6e2f0588d23e7'
             'aefcc9afb7c1475b7131ea3c2d9b0ed8b1813a31f42543fa3ebfe9498c8ce869'
             '7659e07da76ea409cdf6665c6a28c1b88702c7846062f03c9be7917c9114376e'
             'c2b9afa462bddbb499642fe69f8f932719ce4bfe866fe107cbec1f816d300b09'
             'cc4961a1701dc241d9a3c8c7f0d9a1ab8302f6f70b3df036e73313c32bf551f2'
-            '5e0b72ca37446fdf0fa54f1bb4cea6d3a53c19bdf373fa054b6a8ce640519024')
+            '5e0b72ca37446fdf0fa54f1bb4cea6d3a53c19bdf373fa054b6a8ce640519024'
+            '186b37a5f4352ea6635aa76b39c86cb5a080b1a9a8711f43d3ccf54a68f73456')
 
 prepare() {
     # rename to prevent SPIRV-LLVM-Translator from being included
@@ -45,6 +47,13 @@ prepare() {
 
     ln -s "${srcdir}/SPIRV-LLVM-Translator-IGC-LLVM"  "${srcdir}/llvm-project/llvm/projects/llvm-spirv"
     ln -s "${srcdir}/opencl-clang" "${srcdir}/llvm-project/llvm/projects/opencl-clang"
+    
+    # llvm: fix build with gcc 15
+    # https://github.com/llvm/llvm-project/commit/7e44305041d96b064c197216b931ae3917a34ac1
+    EMAIL='builduser@archlinux.org' \
+    git -C llvm-project cherry-pick 7e44305041d96b064c197216b931ae3917a34ac1
+    
+    patch -d "intel-graphics-compiler-${pkgver}" -Np1 -i "${srcdir}/010-intel-graphics-compiler-disable-werror.patch"
 }
 
 build() {
