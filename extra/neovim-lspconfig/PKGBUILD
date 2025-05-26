@@ -4,7 +4,7 @@
 _name=lspconfig
 _upstream=nvim-lspconfig
 pkgname=neovim-lspconfig
-pkgver=2.1.0
+pkgver=2.2.0
 pkgrel=1
 pkgdesc='Collection of common configurations for Neovim’s built-in language server client'
 arch=(any)
@@ -15,7 +15,7 @@ depends=(luajit
 groups=(neovim-plugins)
 _archive="$_upstream-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('4289e31774bcd20efa1a40f57313c6cee8d5adb3556299445606b43465dab1f2')
+sha256sums=('f379f149ce425b3f9a630a72d4e1198a617b28729c53a3180a1163fd9b649c1e')
 
 package() {
 	cd "$_archive"
