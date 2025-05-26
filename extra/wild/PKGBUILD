@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=wild
-pkgver=0.4.0
+pkgver=0.5.0
 pkgrel=1
 pkgdesc="A very fast linker for Linux written in Rust"
 url='https://github.com/davidlattimore/wild'
@@ -15,17 +15,23 @@ makedepends=(
   'cargo'
 )
 checkdepends=(
-  'aarch64-linux-gnu-binutils'
   'clang'
   'lld'
+  'rust-musl'
 )
 options=(!lto)
-source=(https://github.com/davidlattimore/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('0f1f7bc93d5709a04f636311508a32e8a8a08db4333f903ea6ac7ec18d38d0d3')
-b2sums=('00ebdd783e6b706a355ff14a89841affbe421620d47cc6288811e0356f81d27792278441b33547f8bf28a11246d0d2daedbbe96c787d9908d3ae7cf78b1930e2')
+source=(
+    https://github.com/davidlattimore/${pkgname}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
+    test-config.toml
+)
+sha256sums=('fccbb88a7a0064fd031e92a50f675260492ec3f3cd116138b0ab7df6aeab5b04'
+            '7ee2471b5796efd6e254b3647b8589137026efabed760c2ac40e444185bfdbda')
+b2sums=('6f87ec4434d1eaf1ae3eb406482b251a41bea298cbfaecfa8a4b3ea333e2671fb7946f476cbb8b5a493816701eba3120fcbf5184ab3873dfa09f767614626aac'
+        '6e9714a0d836a9598d648a8b214bd87be8098eabfc0a92b4c9db06d87c8d44e1c3f4cdc7ab5e9b8fa3425fc7d6e3113b67f3f4572bd956415c47fa3d403f5f09')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
+  cp "${srcdir}/test-config.toml" .
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
@@ -36,11 +42,7 @@ build() {
 
 check() {
   cd ${pkgname}-${pkgver}
-  # Skip tests requiring nightly compiler
-  cargo test --frozen -- \
-    --skip integration_test::program_name_31___rust_integration_rs__ \
-    --skip integration_test::program_name_32___rust_integration_dynamic_rs__ \
-    --skip integration_test::program_name_34___rust_tls_rs__
+  cargo test --frozen
 }
 
 package() {
