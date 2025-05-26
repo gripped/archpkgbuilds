@@ -2,16 +2,16 @@
 
 _hkgname=some
 pkgname=haskell-some
-pkgver=1.0.5
-pkgrel=3
+pkgver=1.0.6
+pkgrel=1
 pkgdesc="Existential type: Some"
 url="https://github.com/haskellari/some"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs')
+depends=('ghc-libs' 'haskell-base-orphans')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('17b316d074c1afb755440c0284bb40e0f2ad9229ff10f991c28259786f97d214d271a05d1b603ccccbaab1e9fe6523091293773d14529bd5622c2f71e30d8763')
+sha512sums=('78e2dbf275a77462b644751cb1e422ac771ba166518a812da9fdc9b621fdaaf9b6c3ed1c655623489e1f997ed67f83fa25aa7e57146513a126f01030ebc12c00')
 
 prepare() {
   cd $_hkgname-$pkgver
