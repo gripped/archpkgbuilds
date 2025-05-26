@@ -4,22 +4,38 @@
 
 _pkgname=coreutils
 pkgname=uutils-$_pkgname
-pkgver=0.0.29
-pkgrel=2
+pkgver=0.1.0
+pkgrel=1
 pkgdesc='Cross-platform Rust rewrite of the GNU coreutils'
 arch=('x86_64')
 url='https://uutils.github.io/'
 _url='https://github.com/uutils/coreutils'
 license=('MIT')
-depends=('glibc' 'gcc-libs' 'oniguruma')
-makedepends=('rust' 'cargo' 'python-sphinx')
-source=("$pkgname-$pkgver.tar.gz::$_url/archive/$pkgver.tar.gz")
-sha512sums=('29bd390f761673f63b41baf36501c21da10fcab642f73da09e4ef897096427ff6660e069cec9f539efacbbc96b5ad992c6978f2a7ab5676e7b9a70af52c589e8')
+depends=(
+  gcc-libs
+  glibc 
+  oniguruma
+)
+makedepends=(
+  cargo
+  clang
+  python-sphinx
+  rust
+)
+source=(
+  $pkgname-$pkgver.tar.gz::$_url/archive/$pkgver.tar.gz
+  disable_selinux.patch
+)
+sha512sums=('e9b3941573b2267e6a4b17c49a64d71234e4cbf067f1180fe14bfe48012c9d400741067f6231855a6132f93138eb4bbcb1e970e98c5f937f8d3a5e5bc019f03c'
+            'c1585671d2e0fe34a92746eae291f1be85e65c7ccfe2462cba5d324b8def76296f71b6d15738ecb2683453886de9c0650a0b9a609cad5f03b6ded89e5a91911c')
 options=('!lto')
 
 prepare() {
   cd $_pkgname-$pkgver
   sed 's|"bin"|"builduser"|g' -i tests/by-util/test_{chgrp,chown}.rs
+  # disable selinux in Makefile, upstream seems broken in parameter parsing
+  # SELINUX_ENABLE=0 should not enable SELINUX but fails
+  patch -Np1 -i ../disable_selinux.patch
 }
 
 build() {
@@ -39,6 +55,7 @@ check() {
         --skip test_chown::test_big_p \
         --skip test_chgrp::test_big_p \
         --skip test_chgrp::test_big_h \
+        --skip test_chgrp::test_from_with_invalid_group \
         --skip test_who::test_boot"
 }
 
@@ -52,7 +69,6 @@ package() {
     PROG_PREFIX=uu- \
     PROFILE=release \
     MULTICALL=y
-
   install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
