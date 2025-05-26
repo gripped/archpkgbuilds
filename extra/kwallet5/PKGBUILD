@@ -5,7 +5,7 @@
 _name=kwallet
 pkgname=${_name}5
 pkgver=5.116.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Secure and unified container for user passwords'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -27,7 +27,8 @@ build() {
   cmake -B build -S $_name-$pkgver \
     -DBUILD_TESTING=OFF \
     -DBUILD_QCH=ON \
-    -DBUILD_KWALLET_QUERY=OFF
+    -DBUILD_KWALLET_QUERY=OFF \
+    -DBUILD_KWALLETD=OFF
   cmake --build build
 }
 
