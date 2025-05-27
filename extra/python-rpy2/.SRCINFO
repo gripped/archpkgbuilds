@@ -1,27 +1,38 @@
 pkgbase = python-rpy2
 	pkgdesc = A very simple, yet robust, Python interface to the R Programming Language
-	pkgver = 3.5.17
+	pkgver = 3.6.0
 	pkgrel = 2
 	url = https://rpy2.github.io/
 	arch = x86_64
-	license = MPL
-	license = GPL
-	license = LGPL
+	license = GPL-2.0-or-later
+	checkdepends = ipython
 	checkdepends = python-pytest
 	makedepends = git
 	makedepends = python-build
+	makedepends = python-cffi
 	makedepends = python-installer
+	makedepends = python-jinja
 	makedepends = python-setuptools
+	makedepends = python-tzlocal
 	makedepends = python-wheel
+	makedepends = r
+	source = git+https://github.com/rpy2/rpy2#tag=RELEASE_3_6_0
+	sha256sums = 05ed3f2444c73b814c20ff3550fdd220f6ff916f34674ac7d5f347d28533da32
+
+pkgname = python-rpy2
+	depends = python-rpy2-rinterface
+	depends = python-rpy2-robjects
+
+pkgname = python-rpy2-rinterface
 	depends = python
 	depends = python-cffi
+	depends = python-numpy
+	depends = r
+
+pkgname = python-rpy2-robjects
+	depends = python
 	depends = python-jinja
 	depends = python-numpy
-	depends = python-pytz
 	depends = python-tzlocal
 	depends = r
 	optdepends = python-pandas: conversion between rpy and pandas
-	source = git+https://github.com/rpy2/rpy2#tag=RELEASE_3_5_17
-	sha256sums = 7945658af4478d744b5d8e4afa60ef7f791fe16055070e5604cebec7f4c80c2c
-
-pkgname = python-rpy2
