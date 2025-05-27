@@ -7,7 +7,7 @@
 
 pkgname=sagemath
 pkgver=10.6
-pkgrel=2
+pkgrel=3
 pkgdesc='Open Source Mathematics Software, free alternative to Magma, Maple, Mathematica, and Matlab'
 arch=(x86_64)
 url='http://www.sagemath.org'
@@ -132,9 +132,13 @@ makedepends=(bliss
              sirocco
              treedec)
 source=(git+https://github.com/sagemath/sage#tag=$pkgver
-        latte-count.patch)
+        latte-count.patch
+        sagemath-10.6-ecl-gcc-15-cython.patch
+        cython-3.1.patch)
 sha256sums=('0990685793b8c8fa19016a130baddc0c611a352992283c43eee376b480d2bf70'
-            'f1dd7fea298f38be0f03f46ed4bc9281267f03ec3eee2582edb385ca4cb5db09')
+            'f1dd7fea298f38be0f03f46ed4bc9281267f03ec3eee2582edb385ca4cb5db09'
+            '49632afef18ae78df3ca94af70ea68076e57a565a09c68339a7b0f30b1ce8935'
+            'fc35f7f2ff9da7b80b7374479bc879e0f524ede253973075adeff60bdd44e895')
 _pkgs=(standard
        bliss
        coxeter3
@@ -148,6 +152,11 @@ prepare(){
 
 # use correct latte-count binary name
   patch -p1 -i ../latte-count.patch
+# remove cython function wrapper incompatible with ecl's gcc 15 fix
+# based on https://github.com/sagemath/sage/pull/40038/commits/6d7fe919fa405cadb973b187d245855dbec1b0bc
+  patch -p1 -i ../sagemath-10.6-ecl-gcc-15-cython.patch
+# support cython 3.1
+  patch -p1 -i ../cython-3.1.patch
 
   ./bootstrap
 }
