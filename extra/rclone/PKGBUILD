@@ -1,8 +1,9 @@
-# Maintainer: Felix Yan <felixonmars@archlinux.org>
 # Maintainer: Morten Linderud <foxboron@archlinux.org>
+# Maintainer: T.J. Townsend <blakkheim@archlinux.org>
+# Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=rclone
-pkgver=1.69.1
+pkgver=1.69.3
 pkgrel=1
 pkgdesc="Sync files to and from Google Drive, S3, Swift, Cloudfiles, Dropbox and Google Cloud Storage"
 arch=('x86_64')
@@ -10,35 +11,31 @@ url="https://github.com/rclone/rclone"
 license=('MIT')
 depends=('glibc')
 optdepends=('fuse3: for rclone mount')
-makedepends=('python' 'pandoc' 'go' 'git' 'fuse3')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/rclone/rclone/archive/v$pkgver.tar.gz")
-sha512sums=('4f9b7b7e4d78fb9f76c498f431e474307f33f8070b35e06f5fd47f2e38946e3f632a02de73d9ffdfe5a28c1580230c3da373b9776ddd09129b72910f82f557b8')
+makedepends=('python' 'go' 'git' 'fuse3')
+source=("git+https://github.com/rclone/rclone.git#tag=v${pkgver}?signed")
+sha512sums=('d5f77769aa88accca716cefbaf570d3cc64cf7e72f0e1019342ae29ab77811fec50db91d9db628416d9c25c71c349dc0e2e887db57ce72cc7b9e3331d6f1b0d8')
+validpgpkeys=(E3B358DC858FB307F48170B9CB0DBEBC5F32C81D) # Nick Craig-Wood
 options=(!lto)
 
-prepare() {
-  cd "rclone-$pkgver"
-  sed -i "1s/python$/&2/" bin/make_manual.py bin/make_backend_docs.py
-}
-
 build() {
-  cd "rclone-$pkgver"
+  cd rclone
   export GOFLAGS="-buildmode=pie -trimpath"
   export CGO_LDFLAGS="${LDFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CPPFLAGS="${CPPFLAGS}"
-  PATH="/build/go/bin:$PATH" make TAG=v$pkgver rclone rclone.1 || true
+  PATH="/build/go/bin:$PATH" make TAG=v$pkgver rclone
   PATH="/build/go/bin:$PATH" rclone genautocomplete bash rclone.bash_completion
   PATH="/build/go/bin:$PATH" rclone genautocomplete zsh rclone.zsh_completion
   PATH="/build/go/bin:$PATH" rclone genautocomplete fish rclone.fish_completion
 }
 
 check() {
-  cd "rclone-$pkgver"
+  cd rclone
   PATH="/build/go/bin:$PATH" make TAG=v$pkgver test || true
 }
 
 package() {
-  cd "rclone-$pkgver"
+  cd rclone
 
   install -Dm755 rclone "$pkgdir"/usr/bin/rclone
 
