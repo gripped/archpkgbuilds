@@ -1,0 +1,39 @@
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+pkgname=ms-edit
+pkgver=1.0.0
+pkgrel=2
+pkgdesc="A simple editor for simple needs (Microsoft Edit)"
+arch=(x86_64)
+url="https://github.com/microsoft/edit"
+license=('MIT')
+depends=(gcc-libs glibc)
+makedepends=(
+  rustup
+  git
+)
+backup=()
+source=("$pkgname::git+$url.git#tag=v$pkgver")
+sha256sums=('8e2b415c6c680e1298c935ee0bc536357fd0b83ab0d58270e9c8810f1d88fb55')
+
+prepare() {
+	cd "$pkgname"
+  # TODO: remove toolchain selection once MS adds rust-toolchain.toml
+  rustup default nightly
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+	cd "$pkgname"
+  cargo build --locked --frozen --release
+}
+
+check() {
+	cd "$pkgname"
+	cargo test --frozen
+}
+
+package() {
+	cd "$pkgname"
+  install -Dm0755 "target/release/edit" "$pkgdir/usr/bin/$pkgname"
+  install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname" "LICENSE"
+}
