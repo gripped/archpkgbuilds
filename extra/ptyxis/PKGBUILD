@@ -1,7 +1,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=ptyxis
-pkgver=48.3
+pkgver=48.4
 pkgrel=1
 pkgdesc="A container oriented terminal"
 url="https://gitlab.gnome.org/chergert/ptyxis"
@@ -29,7 +29,7 @@ makedepends=(
   meson
 )
 source=("git+https://gitlab.gnome.org/chergert/ptyxis.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('e246ca06c3dd33f382d9816452b58ad6ffb748917a8fa4daaba4cdd3fd9aee632db0b451bb4359118fc9e646fd181494b2e20b9bdc5ce43c626d08d12b62aa47')
+b2sums=('703f7a31f2563152d776c6cf3ec1cad3a7abe4fb2a7fd4dea82679c240aea76baf7fdc22b2d4e02d72e194a6959f6c60d66b8706640f05ca5eac584c9b89235b')
 
 prepare() {
   cd $pkgname
