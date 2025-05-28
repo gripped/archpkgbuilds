@@ -2,7 +2,7 @@
 
 pkgname=maui-clip
 _pkgname=clip
-pkgver=4.0.1
+pkgver=4.0.2
 pkgrel=1
 pkgdesc='Video player and video collection manager'
 url='https://mauikit.org/'
@@ -16,14 +16,13 @@ depends=(ffmpeg
          mauikit
          mauikit-filebrowsing
          taglib
-         qt6-5compat
          qt6-base
          qt6-declarative
          qt6-multimedia)
 makedepends=(extra-cmake-modules)
 groups=(maui)
 source=(https://download.kde.org/stable/maui/$_pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('1b1b9d547b0d30d0447c0fb3806765bf4ad3cf68bd85dcfadf73934ccd01a918'
+sha256sums=('e1aec9766dcb4a265e57a5b6140f930222da2eb7740019a4d4a2372b920da182'
             'SKIP')
 validpgpkeys=(023625C8D02C0D8C15C3BABB86C793550794FEB8) # Camilo Higuita <milo.h@aol.com>                                    
 
