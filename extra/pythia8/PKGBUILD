@@ -4,11 +4,11 @@
 
 pkgbase=pythia8
 pkgname=('pythia8' 'python-pythia8')
-pkgver=8.3.10
+pkgver=8.3.14
 _pkgver="${pkgver//./}"
 _pkgid="${pkgbase:0:-1}${_pkgver}"
 _pkgpre="${_pkgver:0:2}"
-pkgrel=6
+pkgrel=1
 pkgdesc="High-energy physics events generator"
 arch=('x86_64')
 url="https://pythia.org"
@@ -17,7 +17,7 @@ makedepends=('fastjet' 'hepmc' 'hepmc2' 'lhapdf' 'openmp' 'python' 'root' 'zlib'
 source=("https://pythia.org/download/pythia${_pkgpre}/${_pkgid}.tgz"
         'pythia8.sh'
         'fix_python_lib_paths.patch')
-b2sums=('ba260e4bc89c0cc16a6dfede8e8877320143ced28e4d9c5566abcb4a0df168d1459d092de4dc90c3a998799ef9e064d3e48eec169a9f701eb807c1dc6dacc02d'
+b2sums=('e953496c67e7678d6bb30660b83eba4928e7696e582924971ffb07aedc76baab5ab9103e720b49eac5d4f8014131926726df322e808e38416f395aa9f9f4776f'
         '133b72411c3e60a6f0165212dadfa457a69706f045c21d217ac0bb78f84133a9daada0836633f62f8bffc7c70cacd86ffe7f34b2b8a444ea24149261852001e0'
         '8c302349e5e834f175cf23885b0d5155bbca756769dc99111398ecabb1fd0df9a6fc02e65f7aafc2baf5b431f10bddf74226930bc204039d7b445a6902f197c3')
 get_pyver () {
