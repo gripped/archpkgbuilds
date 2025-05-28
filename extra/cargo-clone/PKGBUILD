@@ -1,17 +1,18 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Funami
 
 pkgname=cargo-clone
-pkgver=1.2.3
-pkgrel=3
+pkgver=1.2.4
+pkgrel=1
 pkgdesc="A cargo subcommand to fetch the source code of a Rust crate"
 arch=('x86_64')
 url="https://github.com/JanLikar/cargo-clone"
-license=('Apache' 'MIT')
+license=('Apache-2.0' 'MIT')
 depends=('cargo' 'curl' 'libssh2' 'openssl' 'zlib')
 checkdepends=('git')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('b1df67690ac60ea184c54ffdf1bcf7ab8e3ab9dd9552ad70b4723109cf340718')
+sha256sums=('58e86bd3440fc103572f6d8ff20ff1f99cf1e676cddb29975f204a9cb03f5b14')
 
 prepare() {
   cd "$pkgname-$pkgver"
