@@ -3,7 +3,7 @@
 # Contributor: Storm Dragon <stormdragon2976@gmail.com>
 
 pkgname=magic-wormhole
-pkgver=0.18.0
+pkgver=0.19.0
 pkgrel=1
 pkgdesc="Securely transfer data between computers"
 arch=(any)
@@ -29,10 +29,11 @@ checkdepends=(python-magic-wormhole-mailbox-server
               python-magic-wormhole-transit-relay
               python-noiseprotocol
               python-pytest
-              python-pytest-mock)
+              python-pytest-mock
+              python-pytest-twisted)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha512sums=('731fc2207db5b3590bd00313d2bf22e68a8db1e0ea094bf47cb3fb48d35662f86c5920be081383fd6e82394f686907b1c8c08642ea6d90b1338f974c2a5ce24c')
+sha512sums=('7a92785b3e3f782323f1176c1688e796ea390a0f1600d853c510405ae1feca42c90d071c05bdf5a7c1c6d1a845988d7fbca2be89bdc0f0ed14b0b3f7f484a561')
 
 prepare() {
 	cd "${pkgname#python-}-$pkgver"
@@ -49,8 +50,11 @@ check() {
 	cd "$_archive"
 	export PYTHONPATH=src
 	local deselected=(
-		# uses unittest.mock wrong and triggers new Python's errors
+		# uses unittest.mock wrong and triggers Python errors
 		src/wormhole/test/test_tor_manager.py
+		# use network connections via twisted with flakey race conditions
+		src/wormhole/test/test_args.py
+		src/wormhole/test/test_cli.py
 	)
 	pytest ${deselected[@]/#/--deselect }
 }
