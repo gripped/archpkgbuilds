@@ -3,61 +3,50 @@
 # Contributor: Markus Richter <mqus at disroot dot org>
 
 pkgname=vaultwarden-web
-_pkgver=2025.1.1
-pkgver=2025.1.1
-_upstreamver=${_pkgver%[[:lower:]]}
-_patchver=$_upstreamver
+pkgver=2025.5.0.0
 pkgrel=1
 pkgdesc='Bitwarden web vault with the patches to make it work with Vaultwarden'
 arch=(any)
-url=https://github.com/dani-garcia/bw_web_builds
+url=https://github.com/vaultwarden/vw_web_builds
 license=(GPL-3.0-only)
 depends=(vaultwarden)
 makedepends=(
   git
-  nodejs
+  nodejs-lts-iron
   npm
 )
 install=$pkgname.install
-source=(
-  "bitwarden-clients::git+https://github.com/bitwarden/clients.git#tag=web-v$_upstreamver"
-  "git+https://github.com/dani-garcia/bw_web_builds#tag=v$_pkgver"
-)
-b2sums=('ae29d83d9d05d8ba945e53066c12f01556d695b64c16cabfaa395d465b261e9154cab8fd241cfad79b771138d3c96c16ba5a8f44df0ba0755cb28425dc0c0296'
-        '7758c03c100db0a2df07d94ad7c6cd2cc4b77f0e3e5aa1d33dc4cc2728d5322fd066d8c31fa3178a2e1465ad7acc64b88f39a5c2d9820090cce72355e344d4e4')
-
-# Appease vercmp by prepending trailing letter with a period
-# shellcheck disable=SC2001
-pkgver() {
-  echo $_pkgver | sed 's/[[:lower:]]$/.&/'
-}
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('a75635be23c0fd33aee5962a521adc83bfa66be51127c5bc0d41a29a7b09288e3359841052a1182dcb88519b34169cc43f3eb9d54e1dc1f1881f0e2c14f0715f')
+b2sums=('e1af9083b68baaafc33904c3a43575528d31fa113a702a0c395235fce3e89baa3a580a0276c7d4c72caa347d19f3959cd96a0771de5537b90c496d6f740d99de')
 
 prepare() {
-  cd bitwarden-clients
+  cd "$pkgname"
 
-  # Copy Vaultwarden images
-  cp -vr ../bw_web_builds/resources/src/images/{logo-{dark,white}@2x,icon-white}.png \
-    apps/web/src/images
-
-  # Apply Vaultwarden patch
-  patch --forward --strip=1 --input=../bw_web_builds/patches/v"$_patchver".patch
+  export ELECTRON_SKIP_BINARY_DOWNLOAD=1
 
   npm ci
 }
 
 build() {
-  cd bitwarden-clients/apps/web
+  cd "$pkgname/apps/web"
 
   # https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
   # Workaround for "JavaScript heap out of memory" on 32-bit systems
   if [[ $(getconf LONG_BIT) -eq 32 ]]; then
     export NODE_OPTIONS="--max-old-space-size=1536"
   fi
+
   npm run dist:oss:selfhost
+
+  # https://github.com/dani-garcia/bw_web_builds/blob/a84aca58170a60ac04a695851eeb6e70f577de09/scripts/build_web_vault.sh#L30-L33
+  printf '{"version":"%s"}' "$pkgver" > build/vw-version.json
 }
 
 package() {
-  install -d "$pkgdir"/usr/share/webapps/$pkgname
+  cd "$pkgname"
 
-  cp -R bitwarden-clients/apps/web/build/* "$pkgdir"/usr/share/webapps/$pkgname
+  install -d "$pkgdir/usr/share/webapps/$pkgname"
+
+  cp -R ./apps/web/build/* "$pkgdir/usr/share/webapps/$pkgname"
 }

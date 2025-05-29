@@ -1,18 +1,17 @@
 pkgbase = vaultwarden-web
 	pkgdesc = Bitwarden web vault with the patches to make it work with Vaultwarden
-	pkgver = 2025.1.1
+	pkgver = 2025.5.0.0
 	pkgrel = 1
-	url = https://github.com/dani-garcia/bw_web_builds
+	url = https://github.com/vaultwarden/vw_web_builds
 	install = vaultwarden-web.install
 	arch = any
 	license = GPL-3.0-only
 	makedepends = git
-	makedepends = nodejs
+	makedepends = nodejs-lts-iron
 	makedepends = npm
 	depends = vaultwarden
-	source = bitwarden-clients::git+https://github.com/bitwarden/clients.git#tag=web-v2025.1.1
-	source = git+https://github.com/dani-garcia/bw_web_builds#tag=v2025.1.1
-	b2sums = ae29d83d9d05d8ba945e53066c12f01556d695b64c16cabfaa395d465b261e9154cab8fd241cfad79b771138d3c96c16ba5a8f44df0ba0755cb28425dc0c0296
-	b2sums = 7758c03c100db0a2df07d94ad7c6cd2cc4b77f0e3e5aa1d33dc4cc2728d5322fd066d8c31fa3178a2e1465ad7acc64b88f39a5c2d9820090cce72355e344d4e4
+	source = vaultwarden-web::git+https://github.com/vaultwarden/vw_web_builds#tag=v2025.5.0.0
+	sha512sums = a75635be23c0fd33aee5962a521adc83bfa66be51127c5bc0d41a29a7b09288e3359841052a1182dcb88519b34169cc43f3eb9d54e1dc1f1881f0e2c14f0715f
+	b2sums = e1af9083b68baaafc33904c3a43575528d31fa113a702a0c395235fce3e89baa3a580a0276c7d4c72caa347d19f3959cd96a0771de5537b90c496d6f740d99de
 
 pkgname = vaultwarden-web
