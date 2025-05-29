@@ -1,0 +1,42 @@
+# Maintainer: Giovanni Harting <anonfunc@archlinux.org>
+# Contributor: Trần Nam Tuấn <tuantran1632001@gmail.com>
+# Contributor: Jona Miller <miller dot jona at yandex dot com>
+# Contributor: Caltlgin Stsodaat <contact@fossdaily.xyz>
+
+pkgname='headsetcontrol'
+_name='HeadsetControl'
+pkgver=3.1.0
+pkgrel=2
+pkgdesc='Sidetone control and battery readout for gaming headsets'
+arch=(x86_64)
+url='https://github.com/Sapd/HeadsetControl'
+license=(GPL-3.0-only)
+depends=(glibc hidapi)
+makedepends=(cmake)
+source=("$url/releases/download/$pkgver/headsetcontrol-$pkgver.tar.gz"
+        "$pkgname-$pkgver.tar.gz.asc::$url/releases/download/$pkgver/headsetcontrol-$pkgver.asc")
+b2sums=('f5beb65d1d39472266beac0e1dd1d67427bb5a0068d3ac052b3674dde6eaa16488a841c84bbe43a2e95a4353eb822e66a3250e6b68f2e42ea13347dce8ebc994'
+        'SKIP')
+validpgpkeys=('77BEB7E232CF1E5154777D4DD5866C58940197BF') # Denis Arnst <git@sapd.eu>
+
+build() {
+  # set version
+  sed "s/@GIT_VERSION@/$pkgver/g" $_name-$pkgver/src/version.h.in > $_name-$pkgver/src/version.h
+
+  local cmake_options=(
+    -B build
+    -S $_name-$pkgver
+    -W no-dev
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+  )
+  cmake "${cmake_options[@]}"
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 $_name-$pkgver/README.md -t "$pkgdir"/usr/share/doc/$pkgname
+}
+
+# vim: ts=2 sw=2 et:
