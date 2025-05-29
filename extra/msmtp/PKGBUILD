@@ -4,17 +4,18 @@
 
 pkgbase=msmtp
 pkgname=('msmtp' 'msmtp-mta')
-pkgver=1.8.28
+pkgver=1.8.29
 pkgrel=1
-pkgdesc="A mini smtp client"
+pkgdesc="A mini SMTP client"
 arch=('x86_64')
 url="https://marlam.de/msmtp/"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 makedepends=('git' 'libsecret' 'gsasl' 'texlive-plaingeneric')
 optdepends=('libnotify: for msmtpq notifications'
             'netcat: for included msmtpq script')
-source=("git+https://git.marlam.de/git/msmtp.git?signed#tag=${pkgname}-${pkgver}")
-sha512sums=('9ec9521ad858cedf08f7c9c9593264aed9a45bc10a2e18a6bf5f76fdfca49104c08ff1d89acf4a70bccaf43f1e0fbad42fe05bc37441003283a6e6aa39396bd0')
+#source=("git+https://git.marlam.de/git/msmtp.git?signed#tag=${pkgname}-${pkgver}")
+source=("git+https://github.com/marlam/msmtp.git?signed#tag=${pkgname}-${pkgver}")
+sha512sums=('a2afbb2066d05efcff7987109adfd719078c52c2dcde18e9bdc119665d52b100a9df913b99eb9ebd8cca4b8896e75d366e404c4da24766bd5d503bcba729d79e')
 validpgpkeys=('2F61B4828BBA779AECB3F32703A2A4AB1E32FD34')  # Martin Lambers
 
 prepare() {
@@ -50,7 +51,7 @@ package_msmtp() {
 }
 
 package_msmtp-mta() {
-  pkgdesc="A mini smtp client - the regular MTA"
+  pkgdesc="A mini SMTP client - the regular MTA"
   depends=('msmtp')
   provides=('smtp-forwarder')
   conflicts=('smtp-forwarder')
