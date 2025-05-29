@@ -1,8 +1,8 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=dnf5
-pkgver=5.2.12.0
-pkgrel=2
+pkgver=5.2.13.1
+pkgrel=1
 pkgdesc="Next-generation RPM package management system"
 arch=('x86_64')
 url="https://github.com/rpm-software-management/$pkgname"
@@ -22,8 +22,15 @@ backup=('etc/dnf/dnf.conf'
 options=('!emptydirs')
 conflicts=(dnf)
 replaces=(dnf)
-source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('ef53bff2d68024e05f5643485dcd8fe8bade4a3c5aebf43a2a611f12671a9f62')
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+	"allow-absolute-path-exception.patch")
+sha256sums=('7acd19dbb147876bc682889f3fbe7cd457bbfdb467ff5176b62aa35484e92d89'
+            'adbac106f0253622737e0f9647744c7cfa0c76919af8b8f2a94182b191b9f502')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  patch -Np1 -i "${srcdir}/allow-absolute-path-exception.patch"
+}
 
 build() {
   cd "$pkgname-$pkgver"
