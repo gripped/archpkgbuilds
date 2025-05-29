@@ -5,7 +5,7 @@
 
 pkgname=screen
 pkgver=5.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Full-screen window manager that multiplexes a physical terminal'
 url='https://www.gnu.org/software/screen/'
 arch=('x86_64')
@@ -59,6 +59,9 @@ build() {
 package() {
   cd ${pkgname}/src
   make DESTDIR="${pkgdir}" install
+  # Remove setuid bit. Note that this will disable some functionality, such as
+  # multi-user.
+  chmod 755 "${pkgdir}"/usr/bin/screen-${pkgver}
 
   install -Dm644 ../../pam.d "${pkgdir}"/etc/pam.d/screen
   install -Dm644 ../../tmpfiles.d "${pkgdir}"/usr/lib/tmpfiles.d/screen.conf
