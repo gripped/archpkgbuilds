@@ -6,7 +6,7 @@
 pkgbase=mattermost
 pkgname=($pkgbase mmctl)
 pkgver=10.8.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Open source Slack-alternative in Golang and React"
 arch=(x86_64)
 url="https://mattermost.com"
@@ -177,7 +177,8 @@ package_mmctl() {
     cd $_archive
     install -Dm0755 -t "$pkgdir/usr/bin/" "server/bin/$pkgname"
     install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE.txt
+    shopt -s expand_aliases
     alias _compgen="$pkgdir/usr/bin/mmctl completion"
-    _compgen bash | install -Dm0644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/$pkgname"
-    _compgen zsh  | install -Dm0644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_$pkgname"
+    install -Dm0644 <(_compgen bash) "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+    install -Dm0644 <(_compgen zsh) "$pkgdir/usr/share/zsh/site-functions/_$pkgname"
 }
