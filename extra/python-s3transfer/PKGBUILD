@@ -4,7 +4,7 @@
 # Contributor: Chris Severance aur.severach AatT spamgourmet.com
 
 pkgname=python-s3transfer
-pkgver=0.12.0
+pkgver=0.13.0
 pkgrel=1
 pkgdesc='Amazon S3 Transfer Manager for Python'
 arch=('any')
@@ -24,7 +24,7 @@ makedepends=(
 checkdepends=('python-pytest')
 optdepends=('python-awscrt: use AWS Common Runtime')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('d090d03bc9abad5df5201e1ec1a0372965230f4beb9e4b34f69d2e634fde07ea')
+sha256sums=('27b51cd0c8464540ffcfc494eed977f702202f3f44ea5e56204175340a3ac95c')
 
 build() {
   cd ${pkgname#python-}-$pkgver
