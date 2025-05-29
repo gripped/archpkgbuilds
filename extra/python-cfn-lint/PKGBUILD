@@ -2,7 +2,7 @@
 # Contributor: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-cfn-lint
-pkgver=1.35.1
+pkgver=1.35.3
 pkgrel=1
 pkgdesc='CloudFormation Linter'
 arch=(any)
@@ -41,7 +41,7 @@ optdepends=(
   'python-sarif-om: for sarif formatter'
 )
 source=("git+$url.git#tag=v$pkgver")
-sha256sums=('79a8cb63a3a30032fb10f56c5376af4f82de406fcd3055a6b7aa783f8646b3e2')
+sha256sums=('c0a449c15d06f0230db45a2027be2a027401bc92429e4b279bd2173dd565c644')
 
 build() {
   cd ${pkgname#python-}
