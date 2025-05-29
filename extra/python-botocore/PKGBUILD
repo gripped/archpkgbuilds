@@ -6,7 +6,7 @@
 # Contributor: Chris Fordham
 
 pkgname=python-botocore
-pkgver=1.38.18
+pkgver=1.38.23
 pkgrel=1
 pkgdesc='A low-level interface to a growing number of Amazon Web Services'
 arch=('any')
@@ -34,7 +34,7 @@ checkdepends=(
 )
 optdepends=('python-awscrt: use AWS Common Runtime')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('465d17cc50f3586eba208c9212ffd2fde970d70ec83ee778245143f77ca8cff8')
+sha256sums=('5e4b3d435687bf77742495f836b08c398f3dd5f498182f23d5d61fab375cc03c')
 
 build() {
   cd ${pkgname#python-}-$pkgver
