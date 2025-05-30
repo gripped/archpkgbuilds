@@ -7,7 +7,7 @@ pkgname=(
   libadwaita-demos
   libadwaita-docs
 )
-pkgver=1.7.3
+pkgver=1.7.4
 pkgrel=1
 epoch=1
 pkgdesc="Building blocks for modern adaptive GNOME applications"
@@ -36,7 +36,7 @@ checkdepends=(weston)
 source=(
   "git+https://gitlab.gnome.org/GNOME/libadwaita.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('5e0b4dd7bb9b492a97da285d3279b2cf5e575a98b1fc305aa1413c84bd52aa2258d2f49c2fb1eb8b28d3f8180226cfca1e8313875b359fe137e0e27800248d38')
+b2sums=('a287547021669f1ec906f3fcd91723e10c50c2687282afd08f63770bf9c4715ac1a973b8dbf2adea80966e2184cceeddfc50314bd98623eccc5f11c8fb18efb0')
 
 prepare() {
   cd $pkgname
