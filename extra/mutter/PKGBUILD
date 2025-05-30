@@ -9,7 +9,7 @@ pkgname=(
   mutter-docs
 )
 pkgver=48.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Window manager and compositor for GNOME"
 url="https://gitlab.gnome.org/GNOME/mutter"
 arch=(x86_64)
@@ -96,6 +96,11 @@ b2sums=('d8b1d4ff788075c26f25dd40b9f46de640e523ea3acefb2d9d178033d1780ff63d882e7
 
 prepare() {
   cd mutter
+
+  # Avoid some window tracking issues with XWayland
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/mutter/-/issues/12
+  # https://gitlab.gnome.org/GNOME/mutter/-/issues/4133
+  git revert -n 02068a8f97df39055bc5e8d631847f5499a821a0
 }
 
 build() {
