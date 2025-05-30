@@ -6,7 +6,7 @@
 
 pkgbase=curl
 pkgname=(curl libcurl-compat libcurl-gnutls)
-pkgver=8.13.0
+pkgver=8.14.0
 pkgrel=2
 pkgdesc='command line tool and library for transferring data with URLs'
 arch=('x86_64')
@@ -26,10 +26,14 @@ makedepends=('git' 'patchelf')
 checkdepends=('valgrind')
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
 source=("git+https://github.com/curl/curl.git#tag=curl-${pkgver//./_}?signed")
-sha512sums=('e7b52e5e534e786d2af4630809a3a02980b321e41e5ad26ec4c8c1bf840a9898ae8e67bda504437a30439584e5d668d57c7772ea5b2cfe093510d6bf34113f2e')
+sha512sums=('2d1103904a7e876db02fc42591743c9d51eacaf8a66becd612875f8053102ec207456efeab6ff9f0197ccb516423566355115916991e1eff61499d3031763140')
 
 _backports=(
-  '2f5e4e0db464acff921901b7bf98dd94f8a73745' # https://github.com/curl/curl/pull/16985
+  # multi: fix add_handle resizing
+  'd16ccbd55de80c271fe822f4ba8b6271fd9166ff'
+
+  # http: fail early when rewind of input failed when following redirects
+  '71bb004c29631117ab03d90a4214d1515da5a895'
 )
 
 _reverts=(
@@ -131,6 +135,8 @@ check() {
 package_curl() {
   depends+=('openssl' 'libcrypto.so' 'libssl.so')
   provides=('libcurl.so')
+  replaces=('wcurl')
+  conflicts=('wcurl')
 
   cd build-curl
 
