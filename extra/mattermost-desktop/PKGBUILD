@@ -8,7 +8,7 @@
 # Contributor: Matthias Mailänder <matthias@mailaender.name>
 
 pkgname=mattermost-desktop
-pkgver=5.12.0
+pkgver=5.12.1
 pkgrel=1
 pkgdesc='Mattermost Desktop application'
 arch=(x86_64)
@@ -28,7 +28,7 @@ _archive="${pkgname#*-}-$pkgver"
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
         "$pkgname.sh"
         "$pkgname.desktop")
-sha256sums=('20c85a8e523c6a6e63376b8b7bda98fa67fb38b6a47c6b60bd3362bf35eb2692'
+sha256sums=('01785dbbfd0076ebe6f161403f4dc80cb71372e9a4a9ca190c88477a55461279'
             '1c2bf48b6397d04a5a536c5c9f4960db53249c838c380f03f808c612b00ba4c6'
             '27c798af15d6aefbd41da5aacb9f9b15438349c649e9c05658387981760fd3b7')
 
