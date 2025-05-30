@@ -4,7 +4,7 @@
 
 pkgname=shotcut
 pkgdesc='Cross-platform Qt based Video Editor'
-pkgver=25.01.25
+pkgver=25.05.11
 pkgrel=1
 arch=('x86_64')
 url='https://www.shotcut.org'
@@ -15,7 +15,7 @@ optdepends=('swh-plugins: Several audio filters'
             'opencv: For motion tracking')
 makedepends=('qt6-tools' 'git' 'cmake' 'ninja' 'clang')
 source=("git+https://github.com/mltframework/shotcut.git#tag=v${pkgver}")
-sha512sums=('c972afcf4e671b5837bec23d65632dab26ca1aae8a0d82b967ca453146db195d21184aceafac4f91979eb40d0101863a40b644090e7b8decfc54cc79c6d855a0')
+sha512sums=('bae9ef07b77d2d4b77293acbc95fa92b5f38c2d013b6889314b15a6dbc269165b262bc598f323740aa002ef14954ebd1e9e5d5aeb2c2d44c7e25b6820d785c44')
 
 prepare() {
   cd "${pkgname}"
@@ -29,12 +29,11 @@ build() {
   # https://github.com/mltframework/shotcut/issues/1275
   export CXXFLAGS+=" -DSHOTCUT_NOUPGRADE"
 
-  cmake \
-    -Bbuild \
-    -GNinja \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DSHOTCUT_VERSION=${pkgver}
+  cmake -B build -G Ninja \
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
+    -D CMAKE_BUILD_TYPE=Release \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D SHOTCUT_VERSION="$pkgver"
   cmake --build build --verbose
 }
 
