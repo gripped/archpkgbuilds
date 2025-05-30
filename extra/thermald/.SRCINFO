@@ -1,18 +1,19 @@
 pkgbase = thermald
 	pkgdesc = The Linux Thermal Daemon program from 01.org
 	pkgver = 2.5.9
-	pkgrel = 2
-	url = https://01.org/linux-thermal-daemon
+	pkgrel = 3
+	url = https://github.com/intel/thermal_daemon
 	arch = x86_64
 	license = GPL2
 	makedepends = autoconf-archive
-	makedepends = python
+	makedepends = git
 	makedepends = gtk-doc
+	makedepends = python
 	depends = dbus-glib
-	depends = libxml2
 	depends = libevdev
+	depends = libxml2
 	depends = upower
-	source = https://github.com/intel/thermal_daemon/archive/v2.5.9/thermal_daemon-2.5.9.tar.gz
-	b2sums = 6033a4b65a596780656ba585b7581650e2ee72a292985140eecee1abd43c84f098a200ef02f03be342ebe0d1ef746f34a3f731f0931d51c595992d8ae73d1783
+	source = git+https://github.com/intel/thermal_daemon.git#tag=v2.5.9
+	b2sums = bd4bb51710363cb14c8343f26bb895bdd8335fe7bb48b42452d812157e5b08d4ac96e0027ff9d648633d2aa10dd160957cb6fa7a3ca579749b02f533e6be5f44
 
 pkgname = thermald
