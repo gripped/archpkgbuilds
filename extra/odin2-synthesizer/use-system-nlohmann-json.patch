@@ -1,0 +1,44 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -78,7 +78,6 @@ target_include_directories(Odin2
+   PRIVATE 
+     ${CMAKE_BINARY_DIR}/include 
+     libs/tuning-library
+-    libs/json/include
+ )
+ 
+ if(APPLE)
+@@ -213,6 +212,8 @@ add_subdirectory(assets)
+ set_target_properties(Odin2_BinaryData PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
+ 
+ # ==================== Linkage =======================
++find_package(nlohmann_json REQUIRED)
++
+ target_link_libraries(Odin2
+   PUBLIC
+     Odin2_BinaryData
+@@ -233,6 +234,7 @@ target_link_libraries(Odin2
+     juce::juce_opengl
+     juce::juce_recommended_config_flags
+     juce::juce_recommended_lto_flags
++    nlohmann_json::nlohmann_json
+     #juce::juce_recommended_warning_flags
+ )
+ 
+--- a/Source/gui/JsonGuiProvider.h
++++ b/Source/gui/JsonGuiProvider.h
+@@ -1,6 +1,6 @@
+ #pragma once
+ 
+-#include "../../libs/json/include/nlohmann/json.hpp"
++#include <nlohmann/json.hpp>
+ #include "../GlobalIncludes.h"
+ #include "GuiDataEditor.h"
+ 
+@@ -31,4 +31,4 @@ protected:
+ 	juce::AlertWindow m_alert_window;
+ 
+ 	const std::string m_name;
+-};
+\ No newline at end of file
++};

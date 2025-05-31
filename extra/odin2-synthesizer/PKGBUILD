@@ -11,12 +11,12 @@ pkgname=(
   'odin2-synthesizer-lv2'
   'odin2-synthesizer-clap'
 )
-pkgver=2.3.4
-pkgrel=3
+pkgver=2.4.1
+pkgrel=1
 pkgdesc='24 voice polyphonic synthesizer with modulation and FX'
 arch=('x86_64')
 url='https://www.thewavewarden.com/odin2'
-license=('GPL3')
+license=('GPL-3.0-only' 'OFL-1.1')
 groups=('pro-audio')
 _common_depends=(
   'glibc'
@@ -29,21 +29,20 @@ makedepends=(
   "${_common_depends[@]}"
   'git'
   'cmake'
-  'curl'
   'lv2'
-  'mesa'
-  'ttf-font'
-  'jack'
-  'webkit2gtk'
+  'libxrandr'
+  'libxinerama'
+  'libxcursor'
   'libx11'
+  'nlohmann-json'
   'gendesk'
   'hicolor-icon-theme'
 )
-_commit='57272428423eb2655b4d482aeb547bf2fb4d2cbe'
 source=(
-  "$pkgbase::git+https://github.com/TheWaveWarden/odin2#commit=$_commit"
+  "$pkgbase::git+https://github.com/TheWaveWarden/odin2#tag=v$pkgver"
   'add-missing-include.patch'
   'fix-lv2-include.patch'
+  'use-system-nlohmann-json.patch'
   'github.com-surge-synthesizer-tuning-library::git+https://github.com/surge-synthesizer/tuning-library'
   'github.com-juce-framework-JUCE::git+https://github.com/juce-framework/JUCE'
   'github.com-free-audio-clap-juce-extensions::git+https://github.com/free-audio/clap-juce-extensions'
@@ -51,9 +50,10 @@ source=(
   'github.com-free-audio-clap::git+https://github.com/free-audio/clap'
   'github.com-free-audio-clap-helpers::git+https://github.com/free-audio/clap-helpers'
 )
-b2sums=('SKIP'
+b2sums=('47c169af4f2ca0c72d6544748dd1b673cae13ebb3ec050f82e8e9cc5cf2a343cdc568651ffd5a0c0e91b5ce3eda667f7d4d07bc8d213b90a593c3554571cfecd'
         '6025efd0d3b66d7638ea3f9facbc29f9b06f0101dcff317ecab5b6fdea3d31bb48b29b9858d6e0025ae28b72415a7b6e98ab39d097e466b1e5d760743552c55c'
         '3f90bce1520a648ccc0b46b54a7eaebfb6d2e669ffef545df9e80e8f1724a7ae0f1ae15e21c8e5fa29d667a78c8db40774e917ce1049ebcf90dae19f96ce1f24'
+        '892a1a5e5cd56cf5a7c56baf59bc6384ed33f67537244b6ca1ddedc8d61bced3924f26ef3449b4ddf38bcd1eeeec4e0eecade96a6c2f17d9e95a0b4b720f5d7c'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -61,21 +61,15 @@ b2sums=('SKIP'
         'SKIP'
         'SKIP')
 
-pkgver() {
-  cd "$pkgbase"
-
-  git describe --tags | sed 's/^v//'
-}
-
 prepare() {
   cd "$pkgbase"
 
   # setup git submodules
-  git submodule init
-  git config submodule.tuning-library.url "$srcdir/github.com-surge-synthesizer-tuning-library"
+  git submodule init libs/tuning-library libs/JUCE libs/clap-juce-extensions libs/JUCELV2
+  git config submodule.libs/tuning-library.url "$srcdir/github.com-surge-synthesizer-tuning-library"
   git config submodule.libs/JUCE.url "$srcdir/github.com-juce-framework-JUCE"
   git config submodule.libs/clap-juce-extensions.url "$srcdir/github.com-free-audio-clap-juce-extensions"
-  git config submodule.libs/libs/JUCELV2.url "$srcdir/github.com-lv2-porting-project-JUCE"
+  git config submodule.libs/JUCELV2.url "$srcdir/github.com-lv2-porting-project-JUCE"
   git -c protocol.file.allow=always submodule update
 
   # setup git submodules for clap-juce-extensions
@@ -92,6 +86,9 @@ prepare() {
   git apply "$srcdir/fix-lv2-include.patch"
   popd
 
+  # use system nlohmann-json
+  git apply "$srcdir/use-system-nlohmann-json.patch"
+
   # generate desktop file
   gendesk -n \
     --exec odin2 \
@@ -103,10 +100,14 @@ prepare() {
 }
 
 build() {
-  cmake \
-    -S "$pkgbase" \
-    -B build \
-    -DCMAKE_BUILD_TYPE='Release'
+  local cmake_options=(
+    -B build
+    -S "$pkgbase"
+    -D CMAKE_BUILD_TYPE='Release'
+    -W no-dev
+  )
+
+  cmake "${cmake_options[@]}"
 
   cmake --build build
 }
