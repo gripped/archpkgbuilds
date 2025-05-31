@@ -5,7 +5,7 @@ _name=lspconfig
 _upstream=nvim-lspconfig
 pkgname=neovim-lspconfig
 pkgver=2.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Collection of common configurations for Neovim’s built-in language server client'
 arch=(any)
 url="https://github.com/neovim/$_upstream"
@@ -19,7 +19,7 @@ sha256sums=('f379f149ce425b3f9a630a72d4e1198a617b28729c53a3180a1163fd9b649c1e')
 
 package() {
 	cd "$_archive"
-	find doc lua plugin -type f -exec \
+	find doc lsp lua plugin -type f -exec \
 		install -Dm0644 {} "$pkgdir/usr/share/nvim/site/pack/dist/start/$_name/{}" \;
 	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md
 }
