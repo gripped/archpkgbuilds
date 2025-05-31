@@ -2,7 +2,7 @@
 
 pkgname=btop
 pkgver=1.4.3
-pkgrel=2
+pkgrel=3
 pkgdesc='A monitor of system resources, bpytop ported to C++'
 arch=(x86_64)
 url="https://github.com/aristocratos/$pkgname"
@@ -24,5 +24,6 @@ build() {
 package() {
 	cd "$_archive"
 	make DESTDIR="$pkgdir" PREFIX=/usr install
+	make DESTDIR="$pkgdir" PREFIX=/usr setcap
 }
 
