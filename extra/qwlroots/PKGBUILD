@@ -3,13 +3,13 @@
 
 pkgname=qwlroots
 pkgver=0.5.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Qt and QML bindings for wlroots'
 arch=('x86_64')
 url="https://github.com/vioken/qwlroots"
 license=('Apache-2.0' 'CC-BY-4.0' 'CC0-1.0' 'GPL-2.0-only' 'GPL-3.0-only' 'LGPL-3.0-only')
 depends=('glibc' 'gcc-libs' 'libxkbcommon' 'pixman' 'qt6-base' 'wayland' 'wayland-protocols'
-         'wlroots' 'wlr-protocols')
+         'wlroots0.18' 'wlr-protocols')
 makedepends=('git' 'cmake' 'ninja')
 source=("git+https://github.com/vioken/qwlroots.git#tag=$pkgver")
 sha512sums=('a4e1bceff20e0dd8c4b21154e5d6a4c7ce0df44b102bf41c04f0e673847d2eec25b89e3120920e75e199381a141e6ff9ac4823347ab6539114dbcc34ab51c52a')
