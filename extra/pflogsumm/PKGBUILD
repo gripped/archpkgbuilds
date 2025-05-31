@@ -1,21 +1,21 @@
 # Maintainer: Sebastien Luttringer
 
 pkgname=pflogsumm
-pkgver=1.1.5
-pkgrel=2
+pkgver=1.1.6
+pkgrel=1
 pkgdesc='Postfix log entry summarizer'
 url='https://jimsun.linxnet.com/postfix_contrib.html'
-license=('GPL')
+license=('GPL-2.0-or-later')
 arch=('any')
 depends=('perl-date-calc')
-source=("https://jimsun.linxnet.com/downloads/$pkgname-$pkgver.tar.gz")
-# .asc file is 404 as of 2017-01-14
-sha512sums=('994d660692dfea38a1dd9866d15f15035657e85131c1f5a2cd82baa5bd4ad987a00939cb5233f316d2090014c52ae68ef20db0c893f8634969484e0e74678f4d')
+validpgpkeys=('EA9B405D506516A5E05E77FB3889C1A2FE5F530F')
+source=("https://jimsun.linxnet.com/downloads/$pkgname-$pkgver.tar.gz"{,.asc})
+sha256sums=('5ccba9ec765720c79b9d8ae0f02e4c39f042d54e742a238ebb20b51a61915167'
+            'SKIP')
 
 package() {
   cd $pkgname-$pkgver
-
-  install -D -m755 pflogsumm.pl "$pkgdir/usr/bin/pflogsumm"
+  install -D -m755 pflogsumm "$pkgdir/usr/bin/pflogsumm"
   install -D -m644 pflogsumm.1 "$pkgdir/usr/share/man/man1/pflogsumm.1"
   install -D -m644 pflogsumm-faq.txt "$pkgdir/usr/share/doc/$pkgname/FAQ"
 }
