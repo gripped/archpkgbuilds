@@ -7,7 +7,7 @@
 
 pkgname=libguestfs
 pkgver=1.54.1
-pkgrel=6
+pkgrel=7
 pkgdesc="Access and modify virtual machine disk images"
 arch=(x86_64)
 url="https://libguestfs.org/"
