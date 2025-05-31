@@ -1,18 +1,18 @@
-# Maintainer:
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
 # Contributor: Judd Vinet <jvinet@zeroflux.org>
 
 _pkgbasename=libldap
 pkgname=lib32-$_pkgbasename
-pkgver=2.6.9
+pkgver=2.6.10
 pkgrel=1
 pkgdesc="Lightweight Directory Access Protocol (LDAP) client libraries (32-bit)"
 arch=('x86_64')
-license=('custom')
+license=('LicenseRef-OpenLDAP')
 url="https://www.openldap.org/"
 depends=('lib32-openssl' 'lib32-libxcrypt' $_pkgbasename)
 makedepends=(gcc-multilib)
 source=(https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-${pkgver}.tgz{,.asc})
-sha256sums=('2cb7dc73e9c8340dff0d99357fbaa578abf30cc6619f0521972c555681e6b2ff'
+sha256sums=('c065f04aad42737aebd60b2fe4939704ac844266bc0aeaa1609f0cad987be516'
             'SKIP')
 validpgpkeys=('3CE269B5398BC8B785645E987F67D5FD1CE1CBCE') # OpenLDAP Project <project@openldap.org> https://www.openldap.org/software/download/OpenLDAP/gpg-pubkey.txt
 
@@ -33,23 +33,15 @@ build() {
 	      --disable-spasswd --without-cyrus-sasl \
 	      --disable-bdb --disable-hdb --libdir=/usr/lib32
 
-  cd include
-  make
-
-  cd ../libraries
-  make depend
-  make
-
+  make -C include
+  make -C libraries
 }
 
 package() {
   cd openldap-${pkgver}
 
-  cd include
-  make DESTDIR="${pkgdir}" install
-
-  cd ../libraries
-  make DESTDIR="${pkgdir}" install
+  make -C include DESTDIR="${pkgdir}" install
+  make -C libraries DESTDIR="${pkgdir}" install
 
   rm -rf "${pkgdir}"/usr/{include,share,bin} "$pkgdir/etc"
   mkdir -p "$pkgdir/usr/share/licenses"
