@@ -2,7 +2,7 @@
 
 pkgname=python-cattrs
 _pipname=${pkgname#python-}
-pkgver=24.1.3
+pkgver=25.1.0
 pkgrel=1
 pkgdesc='Complex custom class converters for attrs'
 arch=(any)
@@ -19,7 +19,7 @@ makedepends=(python-{build,installer,wheel}
 _archive="$_pipname-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pipname::1}/$_pipname/$_archive.tar.gz")
 # source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('981a6ef05875b5bb0c7fb68885546186d306f10f0f6718fe9b96c226e68821ff')
+sha256sums=('3bf01e9592b38a49bdae47a26385583f000c98862d0efcda2c03a508b02b95b8')
 
 prepare() {
 	cd "$_archive"
