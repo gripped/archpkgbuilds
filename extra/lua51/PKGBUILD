@@ -5,7 +5,7 @@
 
 pkgname=lua51
 pkgver=5.1.5
-pkgrel=12
+pkgrel=13
 pkgdesc='Powerful lightweight programming language designed for extending applications'
 arch=(x86_64)
 url='https://www.lua.org/'
@@ -34,8 +34,7 @@ prepare() {
 build() {
   cd lua-$pkgver
 
-  [[ $CARCH == x86_64 ]] && export CFLAGS="$CFLAGS -fPIC"
-  make MYCFLAGS="$CFLAGS" MYLDFLAGS="$LDFLAGS" linux
+  make MYCFLAGS="$CFLAGS -fPIC" MYLDFLAGS="$LDFLAGS" linux
 }
 
 package() {
