@@ -2,8 +2,8 @@
 # Contributor: Specter119 <spcter119 AT gmail.com>
 
 pkgname=jupyterlab-lsp
-pkgver=5.1.0
-pkgrel=5
+pkgver=5.1.1
+pkgrel=1
 pkgdesc="Coding assistance for JupyterLab with Language Server Protocol."
 arch=(any)
 url="https://github.com/jupyter-lsp/jupyterlab-lsp"
@@ -22,7 +22,7 @@ makedepends=(
   yarn
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-b2sums=('3e4123d61fd4a9526faa597ddebb7b4b5c332a8288b2d0efaa4a28e4a00560f40c6b6e1e4beddafc8e39d4adf1516ae0b583a1b1c5829266f22d02041e9988da')
+b2sums=('be92f103271a030648c39357a93e0a2dd11c28454b06bc55c80d97ea52275d0ffac18e4adf692c266ecaa5d348392ea4c513d90846cfe6b737b9e030f893a6e4')
 
 build() {
   cd $pkgname-$pkgver/python_packages/jupyterlab_lsp
@@ -33,6 +33,6 @@ build() {
 
 package() {
   cd $pkgname-$pkgver/python_packages/jupyterlab_lsp
-  python -m installer --destdir=$pkgdir dist/*.whl
-  install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
