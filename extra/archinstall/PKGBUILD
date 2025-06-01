@@ -6,7 +6,7 @@
 
 pkgname=archinstall
 pkgver=3.0.7
-pkgrel=1
+pkgrel=3
 pkgdesc="Just another guided/automated Arch Linux installer with a twist"
 arch=(any)
 url="https://github.com/archlinux/archinstall"
@@ -25,6 +25,7 @@ depends=(
   pciutils
   procps-ng
   python
+  python-cryptography
   python-pydantic
   python-pyparted
   systemd
@@ -37,7 +38,6 @@ depends=(
 makedepends=(
   ruff
   python-build
-  python-cryptography
   python-installer
   python-setuptools
   python-sphinx
@@ -68,6 +68,12 @@ check() {
 
 build() {
   cd $pkgname-$pkgver
+  
+  # Applying patch https://github.com/archlinux/archinstall/pull/3540/files
+  # This wil be include in the next version, but the next version is blocked
+  # due to breaking backwards compatability, so patching here for now:
+  sed -i 's/grub-btrfs.service/grub-btrfsd.service/g' archinstall/lib/installer.py
+
   python -m build --wheel --no-isolation
   PYTHONDONTWRITEBYTECODE=1 make man -C docs
 }
