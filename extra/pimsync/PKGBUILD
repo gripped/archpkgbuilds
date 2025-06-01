@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=pimsync
-pkgver=0.4.1
+pkgver=0.4.2
 pkgrel=1
 pkgdesc='Synchronize calendars and contacts'
 arch=(x86_64)
@@ -14,11 +14,10 @@ depends=(
 makedepends=(
   git
   rust
-  scdoc
 )
 options=(!lto)
 source=("git+https://git.sr.ht/~whynothugo/pimsync#tag=v$pkgver")
-b2sums=('415c345f36e1b24e40ce3337022e6bbb4295e9b1c83cb549b315e21f50a897e7c037d0e541620d89430fe2415bba27f00c316634db41bb457f2b8ebf244884ab')
+b2sums=('6aa87b68194a9c4556dad44345bb8b572b1b72b204c406a27a396c89f0fbbd2a58ed49acaf7b012ea4ce0442a42d984c7995e6f1e45a22c094b246393b7141db')
 
 prepare() {
   cd $pkgname
@@ -28,14 +27,13 @@ prepare() {
 build() {
   cd $pkgname
   cargo build -p $pkgname --release --locked --offline
-  make man
 }
 
 package() {
   cd $pkgname
   install -Dt "$pkgdir"/usr/bin target/release/$pkgname
-  install -Dm644 -t "$pkgdir"/usr/share/man/man1 target/pimsync.1
-  install -Dm644 -t "$pkgdir"/usr/share/man/man5 target/pimsync.conf.5
-  install -Dm644 -t "$pkgdir"/usr/share/man/man7 target/pimsync-migration.7
+  install -Dm644 -t "$pkgdir"/usr/share/man/man1 pimsync.1
+  install -Dm644 -t "$pkgdir"/usr/share/man/man5 pimsync.conf.5
+  install -Dm644 -t "$pkgdir"/usr/share/man/man7 pimsync-migration.7
   install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENCE
 }
