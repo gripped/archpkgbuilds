@@ -2,7 +2,7 @@
 
 pkgname=stellarsolver
 pkgver=2.7
-pkgrel=1
+pkgrel=2
 pkgdesc='The cross platform Sextractor and Astrometry.net-Based internal astrometric solver'
 arch=(x86_64)
 url='https://github.com/rlancaste/stellarsolver'
@@ -11,18 +11,23 @@ depends=(cfitsio
          gcc-libs
          glibc
          gsl
-         qt5-base
+         qt6-base
          wcslib)
 makedepends=(cmake
              git)
 source=(git+https://github.com/rlancaste/stellarsolver#tag=$pkgver)
-sha256sums=('25d94209c8832409e3d2d0b44485cee494fde6b3a64991c233f4f28cce3a5e78')
+sha256sums=('53ba85b18f1a2c2b87830fa7c6d5acdadc115ae0be70a23ea0bb4aa288114466')
+
+prepare() {
+  cd $pkgname
+  git cherry-pick -n e8d809b183d1f752cd683e1dcad02678cac552f0 # Fix build with Qt 6.9
+}
 
 build() {
-  CFLAGS+=" -Wno-implicit-function-declaration" \
   cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DBUILD_TESTER=ON
+    -DBUILD_TESTER=ON \
+    -DUSE_QT5=OFF
   cmake --build build
 }
 
