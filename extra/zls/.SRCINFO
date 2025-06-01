@@ -1,16 +1,21 @@
 pkgbase = zls
 	pkgdesc = A language server for Zig
-	pkgver = 0.13.0
+	pkgver = 0.14.0
 	pkgrel = 1
 	url = https://github.com/zigtools/zls
 	arch = x86_64
 	license = MIT
 	depends = zig
-	source = zls-0.13.0.tar.gz::https://github.com/zigtools/zls/archive/refs/tags/0.13.0.tar.gz
-	source = known-folders-0ad514dcfb7525e32ae349b9acc0a53976f3a9fa.tar.gz::https://github.com/ziglibs/known-folders/archive/0ad514dcfb7525e32ae349b9acc0a53976f3a9fa.tar.gz
+	noextract = known-folders-aa24df42183ad415d10bc0a33e6238c437fc0f59.tar.gz::https://github.com/ziglibs/known-folders/archive/aa24df42183ad415d10bc0a33e6238c437fc0f59.tar.gz
+	noextract = diffz-ef45c00d655e5e40faf35afbbde81a1fa5ed7ffb.tar.gz::https://github.com/ziglibs/diffz/archive/ef45c00d655e5e40faf35afbbde81a1fa5ed7ffb.tar.gz
+	noextract = zig-lsp-codegen-063a98c13a2293d8654086140813bdd1de6501bc.tar.gz::https://github.com/zigtools/zig-lsp-codegen/archive/063a98c13a2293d8654086140813bdd1de6501bc.tar.gz
+	source = zls-0.14.0.tar.gz::https://github.com/zigtools/zls/archive/refs/tags/0.14.0.tar.gz
+	source = known-folders-aa24df42183ad415d10bc0a33e6238c437fc0f59.tar.gz::https://github.com/ziglibs/known-folders/archive/aa24df42183ad415d10bc0a33e6238c437fc0f59.tar.gz
 	source = diffz-ef45c00d655e5e40faf35afbbde81a1fa5ed7ffb.tar.gz::https://github.com/ziglibs/diffz/archive/ef45c00d655e5e40faf35afbbde81a1fa5ed7ffb.tar.gz
-	sha256sums = 2e8046b6b0de765a4bf4bb828345e2badc8b828bc257dc931d0f56b147684d9f
-	sha256sums = a8457bc9d3ca509a1db8b46a0d402fecae2b17d4fe0f454f5d51a63cc2aa1a7b
+	source = zig-lsp-codegen-063a98c13a2293d8654086140813bdd1de6501bc.tar.gz::https://github.com/zigtools/zig-lsp-codegen/archive/063a98c13a2293d8654086140813bdd1de6501bc.tar.gz
+	sha256sums = 44cae74073b2f75cf627755398afadafaa382cccf7555b5b66b147dcaa6cef0d
+	sha256sums = 500d9df2df8b44060dac523b0402126c0341e01d77f59101e1335654b8ae25a1
 	sha256sums = 1dd8f4678171bfd2476aa74743e48bce10aad2b90c2df038d3ac6b0ef37fc3ba
+	sha256sums = eeb9d02dd9e5b7fae2444444977d5786a4199f81491c601c41acffcdcb251cdb
 
 pkgname = zls
