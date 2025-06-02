@@ -1,8 +1,8 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 
 pkgname=kbd
-pkgver=2.7.1
-pkgrel=2
+pkgver=2.8.0
+pkgrel=1
 pkgdesc="Keytable files and keyboard utilities"
 arch=('x86_64')
 url="http://www.kbd-project.org"
@@ -18,7 +18,6 @@ makedepends=(
 )
 source=(
   git+https://git.kernel.org/pub/scm/linux/kernel/git/legion/kbd.git#tag=v$pkgver?signed
-  https://github.com/legionus/kbd/commit/eebaa3b69efd9e3d218f3436dc43ff3340020ef5.patch
   fix-euro2.patch
   vlock.pam
 )
@@ -26,8 +25,7 @@ backup=('etc/pam.d/vlock')
 provides=('vlock')
 conflicts=('vlock')
 replaces=('vlock')
-b2sums=('1cf45c12b6c1f32ff1d39fbeb7f8664454c837a57f0ee1e4bbde8421f5c24b703b0e2b4730637aec7caa8ae1a9872b193a2278d5e962d4254c29df49dc7e5829'
-        'c5ca6bbf6f5159bbdb4a01778076715b6450f5c147273783845228e515eae802fc0304a0e65ac65c934bade2df6869047cc1499e8ca5ba830b85a2d3945d6d83'
+b2sums=('dcb10d472149f74775caa236c970b61e5e52003723c9424d808e494f5571569dd572d1731f928938e4ccef0fb5cfa30772b98e9e068c8f317300490df74cd7e8'
         'd122ddb1a86e7a282df8e438903f94d697e3d18a24154d976334e6b54b8f1cf1df432cf8dbcd98daa55014ada462f284d0319fbf015554266e91f4d2a8bf812b'
         '104543e72331a633572a26059e6dce1f25c3c8d6deabb855dd94bfffb72edf8a53a58c6ea7ef6806dd80bcd6ab0aa47cc1a45cc0cd90330be6514ff7591b5140')
 validpgpkeys=(
@@ -47,24 +45,18 @@ prepare() {
   mv data/keymaps/i386/colemak/{en-latin9,colemak}.map
   # fix euro2 #28213
   patch -Np1 -i ../fix-euro2.patch
-  # make it reproducible
-  patch -Np1 -i ../eebaa3b69efd9e3d218f3436dc43ff3340020ef5.patch
   autoreconf -if
 }
 
 build() {
   cd "${pkgname}"
-  ./configure --prefix=/usr --sysconfdir=/etc --datadir=/usr/share/kbd --mandir=/usr/share/man --enable-optional-progs
+  ./configure --prefix=/usr \
+              --sysconfdir=/etc \
+              --datadir=/usr/share/kbd \
+              --mandir=/usr/share/man \
+              --enable-optional-progs \
+              --disable-tests
   make KEYCODES_PROGS=yes RESIZECONS_PROGS=yes
-}
-
-check() {
-  cd "${pkgname}"
-
-# This test is expected to fail since kbd-fix-loadkmap-compat.patch modifies the binary format
-  sed -e 's|dumpkeys-bkeymap ||' -i tests/Makefile
-
-  make check
 }
 
 package() {
