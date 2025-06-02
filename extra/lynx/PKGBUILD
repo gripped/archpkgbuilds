@@ -5,7 +5,7 @@
 
 pkgname=lynx
 pkgver=2.9.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A text browser for the World Wide Web'
 url='https://lynx.invisible-island.net/'
 arch=(x86_64)
@@ -31,6 +31,7 @@ build() {
 		--sysconfdir=/etc \
 		--with-ssl=/usr \
 		--enable-externs \
+		--enable-default-colors \
 		--enable-nls \
 		--enable-ipv6 \
 		--mandir=/usr/share/man
