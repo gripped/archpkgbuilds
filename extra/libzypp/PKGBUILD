@@ -5,8 +5,8 @@ pkgname=(
     libzypp
     libzypp-docs
 )
-pkgver=17.37.1
-pkgrel=1
+pkgver=17.37.2
+pkgrel=2
 pkgdesc="ZYpp Package Management library"
 arch=(x86_64)
 url="https://github.com/openSUSE/libzypp"
@@ -42,7 +42,7 @@ makedepends=(
 #     vsftpd
 # )
 source=("git+https://github.com/openSUSE/libzypp.git#tag=${pkgver}")
-sha256sums=('e3b7e05325e3ae7cd6dc6af2df48bec831e0a72bb714ad0f68feee19c5b926e5')
+sha256sums=('94702615eb2b3dde57adbada38ba66df36ddb7b83989103a8a24ea5dcebe4470')
 
 prepare() {
   # Fix compat with libxml 2.14
@@ -57,12 +57,12 @@ build() {
         -W no-dev
         -D CMAKE_BUILD_TYPE=None
         -D CMAKE_INSTALL_PREFIX=/usr
+        -D CMAKE_INSTALL_LIBEXECDIR=/usr/lib
         -D ENABLE_BUILD_TESTS=ON
         -D ENABLE_BUILD_DOCS=ON
         -D ENABLE_BUILD_TRANS=ON
         -D ENABLE_ZSTD_COMPRESSION=ON
         -D DISABLE_MEDIABACKEND_TESTS=ON
-        -D ZYPP_LIBEXEC_INSTALL_DIR=/usr/lib/zypp
     )
     cmake "${cmake_options[@]}"
     cmake --build build
@@ -107,9 +107,8 @@ package_libzypp() {
 
     DESTDIR="$pkgdir" cmake --install build
 
-    # remove reference to /usr/libexec and remove docs
-    mv -v "$pkgdir/usr/libexec/zypp/" "$pkgdir/usr/lib/"
-    rm -vr "$pkgdir/usr/libexec/" "$pkgdir/usr/share/doc/"
+    # remove docs from lib split package
+    rm -vr "$pkgdir/usr/share/doc/"
 }
 
 package_libzypp-docs() {
