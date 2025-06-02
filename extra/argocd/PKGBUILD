@@ -1,7 +1,7 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 
 pkgname=argocd
-pkgver=2.14.4
+pkgver=3.0.5
 # find matching argo-ui commit via ui/yarn.lock
 # commit id also needs to be updated in argo-ui.patch
 _argoui_commit=5cf36101733ce43eed57242a12389f2a7e40bd2b
@@ -17,7 +17,7 @@ replaces=('argocd-cli')
 source=("argo-cd-${pkgver}.tar.gz::https://github.com/argoproj/argo-cd/archive/v${pkgver}.tar.gz"
         "argo-ui-${_argoui_commit}.tar.gz::https://github.com/argoproj/argo-ui/archive/${_argoui_commit}.tar.gz"
         "argo-ui.patch")
-sha512sums=('b4f37aa7a929215c38462fcb75f629af4136435d837ce49b52e90c572bf7b76dc65cfbf489bd218e0c29227be0653413b53075e2acf28941da1d1ee68f70c36c'
+sha512sums=('0bb0636528e8a008f541f0e942d92eb0569842f5a5491873c1eaf6e214086f14bfb1b8d6c85b43a6fb02670728fd820e29656f355aace421e7d53dcd9af6135c'
             '81fa3cca8c20d57330867a3d7ba0fb579a23fb898be53a8947d6466f3aa909579c75b0c70dd0beb21993e2f7ccc05c62248b20a4334111066801ff094742e20d'
             '4bf8c4b4d7b9b828968cfa501b2ab50747d0aaf9d3909538b25ede0c85d778aa4e8fe06fa12f8b94316fe1161aab531a6b26a2dab249c5cad97737172336a259')
 
@@ -34,9 +34,10 @@ build() {
   cd "argo-cd-$pkgver"
 
   (
+    export YARN_CACHE_FOLDER="${srcdir}/yarn-cache"
     cd ui
-    yarn install --cache-folder "${srcdir}/yarn-cache"
-    ARGO_VERSION="$pkgver" NODE_ENV='production' NODE_ONLINE_ENV='online' yarn build
+    yarn install
+    ARGO_VERSION="$pkgver" NODE_ENV='production' NODE_ONLINE_ENV='online' yarn run build
   )
 
   export CGO_CPPFLAGS="${CPPFLAGS}"
@@ -50,9 +51,9 @@ build() {
     -buildmode=pie \
     -mod=readonly \
     -modcacherw \
-    -ldflags "-X github.com/argoproj/argo-cd/v2/common.version=${pkgver} \
-              -X github.com/argoproj/argo-cd/v2/common.buildDate=$(date -u +'%Y-%m-%dT%H:%M:%SZ' --date=@${SOURCE_DATE_EPOCH}) \
-              -X github.com/argoproj/argo-cd/v2/common.gitTag=${pkgver} \
+    -ldflags "-X github.com/argoproj/argo-cd/v3/common.version=${pkgver} \
+              -X github.com/argoproj/argo-cd/v3/common.buildDate=$(date -u +'%Y-%m-%dT%H:%M:%SZ' --date=@${SOURCE_DATE_EPOCH}) \
+              -X github.com/argoproj/argo-cd/v3/common.gitTag=${pkgver} \
               -compressdwarf=false \
               -linkmode=external \
               -extldflags \"${LDFLAGS}\"" \
