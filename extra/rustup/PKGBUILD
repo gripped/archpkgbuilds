@@ -4,12 +4,17 @@
 # Contributor: Jon Gjengset <jon@tsp.io>
 pkgname=rustup
 pkgver=1.28.2
-pkgrel=1
+pkgrel=2
 pkgdesc="The Rust toolchain installer"
 arch=('x86_64')
 url="https://github.com/rust-lang/rustup.rs"
 license=('MIT' 'Apache-2.0')
-depends=('curl' 'xz' 'zstd')
+depends=(
+  'gcc-libs'
+  'glibc'
+  'xz'
+  'zstd'
+)
 makedepends=('cargo')
 optdepends=('lldb: rust-lldb script'
             'gdb: rust-gdb script')
@@ -27,7 +32,7 @@ _binlinks=('cargo' 'rustc' 'rustdoc' 'rust-gdb' 'rust-lldb' 'rustfmt' 'cargo-fmt
 
 build() {
   cd "$pkgname-${pkgver}"
-  cargo build --release --features no-self-update --bin rustup-init
+  cargo build --release --no-default-features --features reqwest-rustls-tls --features no-self-update --bin rustup-init
 }
 
 package() {

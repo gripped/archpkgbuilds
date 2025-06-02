@@ -1,14 +1,15 @@
 pkgbase = rustup
 	pkgdesc = The Rust toolchain installer
 	pkgver = 1.28.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/rust-lang/rustup.rs
 	install = post.install
 	arch = x86_64
 	license = MIT
 	license = Apache-2.0
 	makedepends = cargo
-	depends = curl
+	depends = gcc-libs
+	depends = glibc
 	depends = xz
 	depends = zstd
 	optdepends = lldb: rust-lldb script
