@@ -2,7 +2,7 @@
 
 pkgname=linbox
 pkgver=1.7.0
-pkgrel=4
+pkgrel=5
 pkgdesc='A template library for exact, high-performance linear algebra computation with dense, sparse, and structured matrices over the integers and over finite fields'
 arch=(x86_64)
 url='https://linalg.org/'
@@ -19,17 +19,18 @@ makedepends=(iml
              git
              lapack
              m4rie)
-source=(git+https://github.com/linbox-team/linbox#tag=v$pkgver)
-sha256sums=('e9ffe8860c687e45b3351bf10261e5ba97090b43b5cbd6ee33d9743f39400ed9')
+source=(git+https://github.com/linbox-team/linbox#tag=v$pkgver
+        gcc-15.patch)
+sha256sums=('e9ffe8860c687e45b3351bf10261e5ba97090b43b5cbd6ee33d9743f39400ed9'
+            'abf8d1231e6f797d6a768dc247a056300e9a82edf005eb63db70fcecaeebb229')
 
 prepare() {
   cd $pkgname
   git cherry-pick -n 79acfcbbd0411b79b94ca1f61fc582bab748316d \
                      b8f2d4ccdc0af4418d14f72caf6c4d01969092a3
   git cherry-pick -n 4a1e1395804d4630ec556c61ba3f2cb67e140248 # GCC 15 fix
-  git show c499d69283888965f24a8921ac246291743c2b5b \
-  -- linbox/blackbox/block-hankel.h | git apply -v # GCC 15 fix
-  ./autogen.sh
+  patch -p1 -i ../gcc-15.patch # GCC 15 fix
+  autoreconf -vif
 }
 
 build() {
