@@ -1,12 +1,13 @@
-# Maintainer: Lukas Jirkovsky <l.jirkovsky AT gmail.com>
+# Maintainer: Christian Hesse <mail@eworm.de>
+# Contributor: Lukas Jirkovsky <l.jirkovsky AT gmail.com>
 # Contributor: Bogdan Szczurek <thebodzio(at)gmail.com>
 # Contributor: Vaclav Kramar <vaclav.kramar@tiscali.cz>
 # Contributor: Archie <mymaud@gmail.com>
 
 pkgname=rawtherapee
 epoch=1
-pkgver=5.11
-pkgrel=3
+pkgver=5.12
+pkgrel=1
 pkgdesc='A powerful cross-platform raw image processing program'
 arch=('x86_64')
 url='https://www.rawtherapee.com/'
@@ -23,25 +24,21 @@ depends=('exiv2'
          'libcanberra'
          'libiptcdata'
          'libjxl')
-makedepends=('cmake')
-source=("https://github.com/Beep6581/RawTherapee/releases/download/${pkgver}/rawtherapee-$pkgver.tar.xz")
-sha1sums=('2cb2932a904660158ee9ae8eafd8c07de77ed195')
-sha256sums=('e584c18dec112de29954b2b6471449a302a85e5cca4e42ede75fa333a36de724')
+makedepends=('cmake' 'git')
+source=("git+https://github.com/Beep6581/RawTherapee.git#tag=${pkgver}")
+sha256sums=('4b8ee717fe3ccc29c59a95b1e690617203b2696de517332e0ccc2c43e0c3a604')
 
 build() {
-  mkdir -p "$srcdir/$pkgname-build"
-  cd "$srcdir/$pkgname-build"
-
-  cmake "$srcdir/$pkgname-$pkgver" \
+  cmake -B build -S RawTherapee \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCACHE_NAME_SUFFIX=""
-  make
+    -DCMAKE_BUILD_TYPE=None \
+    -DCACHE_NAME_SUFFIX="" \
+    -Wno-dev
+  cmake --build build
 }
 
 package() {
-  cd "$srcdir/$pkgname-build"
-  make DESTDIR="$pkgdir/" install
+  DESTDIR="$pkgdir" cmake --install build
 }
 
 # vim:set ts=2 sw=2 et:
