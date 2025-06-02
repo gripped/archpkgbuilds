@@ -4,7 +4,7 @@
 
 pkgname=inkscape
 pkgver=1.4.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Professional vector graphics editor'
 url='https://inkscape.org/'
 license=('GPL' 'LGPL')
@@ -72,6 +72,7 @@ depends=(
   'python-pillow'
   'python-pyserial'
   'python-requests'
+  'python-tinycss2'
   'python-urllib3'
   'python-zstandard'
   'readline'
@@ -86,7 +87,6 @@ optdepends=(
   'pstoedit: latex formulas'
   # this pulls in texlive-basic, so should suffice
   'texlive-pstricks: latex formulas'
-  'python-tinycss2: DXF export'
 )
 
 source=("git+https://gitlab.com/inkscape/inkscape.git#tag=INKSCAPE_${pkgver//./_}"
