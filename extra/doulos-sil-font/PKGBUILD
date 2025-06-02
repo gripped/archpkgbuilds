@@ -3,15 +3,15 @@
 pkgbase=doulos-sil-font
 _fname=DoulosSIL
 pkgname=ttf-${pkgbase%-font}
-pkgver=6.200
-pkgrel=3
+pkgver=7.000
+pkgrel=1
 pkgdesc='Complete support for the International Phonetic Alphabet'
 arch=(any)
 url="https://software.sil.org/${pkgbase/-*}"
 license=(OFL-1.1-RFN)
 _archive="$_fname-$pkgver"
 source=("https://software.sil.org/downloads/r/${pkgbase%%-*}/$_archive.zip")
-sha256sums=('a7ad76326c126b2748297b987a634a56f7e42cd45bc3ff2c90a7909cbb164223')
+sha256sums=('3d63296575f1f834f785f4a9426a9da6bc3b9083fcc304a5490704f4398bf639')
 
 package_ttf-doulos-sil() {
 	cd "$_archive"
