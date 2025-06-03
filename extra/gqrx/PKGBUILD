@@ -4,8 +4,8 @@
 # Contributor: Dominik Heidler <dheidler@gmail.com>
 
 pkgname=gqrx
-pkgver=2.17.6
-pkgrel=3
+pkgver=2.17.7
+pkgrel=1
 pkgdesc="Software defined radio receiver powered by GNU Radio and Qt."
 arch=(x86_64)
 url="https://www.gqrx.dk/"
@@ -26,7 +26,7 @@ makedepends=(
   cmake
 )
 source=("https://github.com/gqrx-sdr/$pkgname/archive/v$pkgver/$pkgname-v$pkgver.tar.gz")
-sha256sums=('84bef6f4a55d0259ef9d66c78c0421b325c56bdcd81a0be7ef7a2162d98b7285')
+sha256sums=('4aaab8a3c185cd99d6dda56d95b8f1b20128a6acfd2e86e0349d432a5fdcbce4')
 
 build() {
   cd $pkgname-$pkgver
