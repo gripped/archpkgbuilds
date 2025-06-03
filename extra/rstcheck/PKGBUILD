@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=rstcheck
-pkgver=6.2.4
+pkgver=6.2.5
 pkgrel=1
 pkgdesc='Checks syntax of reStructuredText and code blocks nested within it'
 arch=(any)
@@ -24,7 +24,7 @@ checkdepends=(
 )
 optdepends=('python-sphinx: for Sphinx support')
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('f42683cb93b9ec5034eabd0a9c832aa3cd7fc2244107db6cbc2a3273a375276d5ea8fa5ce6dc471d299a0aaa0f9632556c2eaeb572eb26429c417a7b74987563')
+b2sums=('59cd16429002021b9f711d314b86734b00a636aa012456cbe956ddbe88666e3997e3ffe8a097448c1a6416144485c791b0677e325c4ca60a6dc1c6227d3d051a')
 
 build() {
   cd $pkgname
@@ -41,7 +41,7 @@ check() {
 package() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
-  ln -s "$site_packages"/$pkgname-$pkgver.dist-info/LICENSE \
+  ln -s "$site_packages"/$pkgname-$pkgver.dist-info/licenses/LICENSE \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 
   cd $pkgname
