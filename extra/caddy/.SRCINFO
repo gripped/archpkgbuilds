@@ -1,13 +1,14 @@
 pkgbase = caddy
 	pkgdesc = Fast web server with automatic HTTPS
 	pkgver = 2.10.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/caddyserver/caddy
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = git
 	makedepends = go
 	depends = glibc
+	depends = mailcap
 	backup = etc/caddy/Caddyfile
 	source = git+https://github.com/caddyserver/caddy.git#tag=v2.10.0?signed
 	source = caddy-dist::git+https://github.com/caddyserver/dist.git#tag=v2.10.0
