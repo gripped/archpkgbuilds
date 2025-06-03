@@ -3,7 +3,7 @@
 # Contributor: Muflone http://www.muflone.com/contacts/english/
 
 pkgname=python-pysmi
-pkgver=1.6.1
+pkgver=1.6.2
 pkgrel=1
 pkgdesc='SNMP/SMI MIB parsing and conversion library designed to turn ASN.1 MIBs into various formats'
 arch=('any')
@@ -26,7 +26,7 @@ checkdepends=(
   'python-pytest'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('d3c8fc08e8221910375e6fd68700a96b8ce98d6818ae825a181d6b0c45df745ae268a9dcb3dca9c0c24b973a12c4db090b0aa38b1fd2f6723fb68cbe67ff89c7')
+sha512sums=('adba85c5231d724c1d524be0767260ecc1b1bccfc21c0ee91c9bf988ab50ac2a1cfbe684adbc1d37df959cb15de76a1de3dadb13543b54c54e7b8e8d5c568c70')
 
 build() {
   cd ${pkgname#python-}-$pkgver
