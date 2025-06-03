@@ -3,35 +3,31 @@
 
 pkgname=mm-common
 pkgver=1.0.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Common build files of the C++ bindings"
 url="https://www.gtkmm.org/"
 arch=(any)
 license=(GPL-2.0-or-later)
 depends=(
+  bash
   doxygen
   graphviz
   gtk-doc
   libsigc++-docs
   perl-xml-parser
+  python
 )
 makedepends=(
   git
   libsigc++
   meson
 )
-_commit=7d50a613306499f525033498ea922e3887ed7e9a  # tags/1.0.6^0
 source=(
-  "git+https://gitlab.gnome.org/GNOME/mm-common.git#commit=$_commit"
+  "git+https://gitlab.gnome.org/GNOME/mm-common.git#tag=$pkgver"
   https://gcc.gnu.org/onlinedocs/libstdc++/latest-doxygen/libstdc++.tag
 )
-b2sums=('SKIP'
-        '2d7922774a6eac7b180092a8a23a0c8d8a675cf2e0d698106258c4a9d036fb0eb2cfde9c21df96e1d842a0cbccd01035c83328ff8b06a008253fb8760c9e28a3')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/[^-]*-g/r&/;s/-/+/g'
-}
+b2sums=('e3e6857edcb7a03b3a959a9dfba381b0cd77c06231a1cdd3784f42888e6494321db8a6378c797e87e95a90dcde1350e4c5b3616b91e4d9f02fdddab9b56c4091'
+        '1c532b8369667bbca42b446c757de784d0f06c4987f0174972d98378b2fc38f7877b731c26d0b0fa9858f13ddfcf8331e39fc04f8a957e0c15c6e1a5168cc0e7')
 
 prepare() {
   cd $pkgname
