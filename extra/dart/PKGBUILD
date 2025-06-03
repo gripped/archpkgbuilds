@@ -7,9 +7,10 @@
 # Contributor: siasia <http://pastebin.com/qsBEmNCw>
 # Contributor: Julien Nicoulaud <julien.nicoulaud@gmail.com>
 # Contributor: The one with the braid <info@braid.business>
+# Contributor: Juan Cuevas <juanandrescuevas14@gmail.com>
 
 pkgname=dart
-pkgver=3.7.0
+pkgver=3.8.1
 pkgrel=1
 pkgdesc='The dart programming language SDK'
 arch=('x86_64')
@@ -23,14 +24,13 @@ makedepends=(
   'ninja'
   'python'
   'python-httplib2'
-  'python-six'
 )
 source=(
   "git+https://github.com/dart-lang/sdk.git#tag=$pkgver"
   "git+https://chromium.googlesource.com/chromium/tools/depot_tools.git"
   "DEPS.patch"
 )
-sha256sums=('4c5e5e700788e179aa81253f8ad6d41d2aaee2c494a5b134beb07f19a6235781'
+sha256sums=('d3a30ad8d9073c66d86d43dd43e7394ad748327bf666d2cf1e923b9ef97d8d14'
             'SKIP'
             'db6576a70c6719e26795b9824546058b79fefa64158c1002d36546d826084403')
 
