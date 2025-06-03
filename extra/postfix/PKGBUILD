@@ -10,7 +10,7 @@ pkgname=(
   postfix-{cdb,ldap,lmdb,mongodb,mysql,pcre,pgsql,sqlite}
 )
 pkgver=3.10.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast, easy to administer, secure mail server"
 arch=(x86_64)
 url="https://www.postfix.org/"
@@ -98,6 +98,7 @@ build() {
     '-DDEF_SENDMAIL_PATH=\"/usr/bin/sendmail\"'
     '-DDEF_README_DIR=\"/usr/share/doc/postfix\"'
     '-DDEF_MANPAGE_DIR=\"/usr/share/man\"'
+    '-std=gnu17' # https://gitlab.archlinux.org/archlinux/packaging/packages/postfix/-/issues/10
   )
   # NOTE: descriptions of options in makedefs
   local make_options=(
