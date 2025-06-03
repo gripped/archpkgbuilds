@@ -6,7 +6,7 @@ pkgname=(
   maturin
   python-maturin
 )
-pkgver=1.8.3
+pkgver=1.8.6
 pkgrel=1
 pkgdesc="Build and publish crates with pyo3, rust-cpython and cffi bindings"
 url="https://github.com/PyO3/maturin"
@@ -32,12 +32,22 @@ checkdepends=(
 # Disable LTO until ring can be built with it:
 # https://github.com/briansmith/ring/issues/1444
 options=(!lto)
-source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('508256411357acd32c8dcc11cb3c274b1c8ad0218d2b4c55c72a5b40cb97cbb11f8206a2133b5af1308c12b6110b44b4810a76764cd620f25f02d05bffef0edb')
-b2sums=('4851db537466b5b78ff4c591575b2ae58aa56d37942220b928902c4afeb8c22b777e2cdfb6368ecb4cc05c8de257fbba09ef91c7208d2219c2da3965f2a873f3')
+source=(
+  "$pkgname::git+$url.git#tag=v$pkgver"
+  "https://raw.githubusercontent.com/AerynOS/recipes/aef489e1845f2914d43bfd66cf91c5da0528efee/m/maturin/pkg/0001-Revert-Add-compression-level-option-to-build-command.patch"
+)
+sha512sums=('b2cc87a10606b8f2f69830643713ff94b8893bc1d95087f9760f62bfa623bec22f6d5acb8b220e4a71c8ae04c5dfb30f5eead4860575c669d3ed1f2c0f29acda'
+            'daf095bd9cc5ad84da3d79462b19cf1ce571ee3ff539dd2aa8c20514580ae6d4def7e2e818807d71fcbc90f0c2c36762135bdcfb442b93f873f3952d50ec7336')
+b2sums=('68d2a5fa6105cba121606d2de4da7bfb6c235a2a8d8b51dbb3254d1a41c7fb934d22190cfd5913184b97f3cb70ec5dfd89f7660151a08317c949e0856d47aa51'
+        'fdbf0ef27e25db27f3dfb8d12362a7a861b1ab827aff568ef5ace2f05849bc56a8ec9a6cd0510a2faefa54df998e8903f867a5ede2a0246d86364bfadde0fd91')
 
 prepare() {
   cd $pkgbase
+  # Revert https://github.com/PyO3/maturin/pull/2572/commits
+  # Causes test failures, see:
+  # https://github.com/PyO3/maturin/discussions/2608
+  patch -Np1 < ../0001-Revert-Add-compression-level-option-to-build-command.patch
+
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
@@ -86,6 +96,6 @@ package_python-maturin() {
 
   cd $pkgbase
   python -m installer --destdir="$pkgdir" dist/*.whl
-  rm -vr "$pkgdir/usr/bin"
+  rm -vr "${pkgdir:?}/usr/bin"
   install -vDm 644 -t "$pkgdir/usr/share/licenses/$pkgname/" license-mit
 }
