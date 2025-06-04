@@ -2,7 +2,7 @@
 # Contributor: Sergey Khorev <sergey.khorev@gmail.com>
 
 pkgname=fricas
-pkgver=1.3.11
+pkgver=1.3.12
 pkgrel=1
 pkgdesc='An advanced computer algebra system'
 arch=(x86_64)
@@ -16,9 +16,9 @@ depends=(gawk
          zstd)
 makedepends=(sbcl
              texlive-basic)
-options=(!strip)
+options=(!strip !debug)
 source=(https://github.com/fricas/fricas/releases/download/$pkgver/fricas-$pkgver-full.tar.bz2)
-sha256sums=('32b87461ef079659e97247ad0a771ec8cf0d5a0f934788d67d37fb7acf63f9c4')
+sha256sums=('33201f9f56c20b1266d38f5290efe7486a38422ea90f707f0345f6a589e31c8d')
 
 prepare() {
 # Honor system build flags
