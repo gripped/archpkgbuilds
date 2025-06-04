@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-lottie
-_pkgver=6.9.0
+_pkgver=6.9.1
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -23,7 +23,7 @@ optdepends=('qt6-declarative: QML bindings')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('6338ee3a7b34be66668390412b179e526889999ea7f9ad068eb23183fc69b393')
+sha256sums=('26ef6306a3218fe34d7047f717403fdae852341ccdb347fe8517422d55d1dac6')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
