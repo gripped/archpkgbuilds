@@ -5,8 +5,8 @@
 
 _name=pupnp
 pkgname=libupnp
-pkgver=1.14.20
-pkgrel=2
+pkgver=1.14.22
+pkgrel=1
 pkgdesc='Portable Open Source UPnP Development Kit'
 arch=(x86_64)
 url="https://pupnp.sourceforge.io/"
@@ -18,8 +18,8 @@ provides=(
   libupnp.so
 )
 source=(https://github.com/$_name/$_name/archive/release-$pkgver/$_name-release-$pkgver.tar.gz)
-sha512sums=('8aabd054d3c311abab762d15c739e5e10801e9a6caf09540560be9497cb632fdfc2c86a61522ab0b24e9baf20020ab0dab2a6e8e253c9cc1a1047efc701ba563')
-b2sums=('3d331a28b8f1b6c98d1153c4320b9c5b4191e82858a4874a2ce7fc93eab30c3aed61ebb2982aa6a08037943edf7a2196dc5d2e1103238292c48b119e6a8ed3ea')
+sha512sums=('bcde34311a4fd788d5e232d5852a53927ba2f447acf4f219253e425891c0c266b5b7bde8e6982687169a6932715fd88098329e084cd16fe700fac1679561f834')
+b2sums=('11d75ac9b6c7c4b25152c29e4b994ffb3fe021d686c48db538df4237d047c632a04dfad35eb019551d8a4245437c0b4d08f7a8512bbe15bafbf4841a7d8d1f9a')
 
 build() {
   local cmake_options=(
