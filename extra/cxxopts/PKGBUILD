@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=cxxopts
-pkgver=3.2.1
+pkgver=3.3.1
 pkgrel=1
 pkgdesc="Lightweight C++ command line option parser"
 arch=(any)
@@ -9,8 +9,8 @@ url="https://github.com/jarro2783/cxxopts"
 license=(MIT)
 makedepends=(cmake)
 source=($url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('7841fb3e6c3c2a057917c962e29fc0090e6ed06f5515aaa5e2a868fef59071a9a99b74d81c32cf613ecf10a68a4d96d6ad07805f48c7c3951ded096a2317dc3d')
-b2sums=('891657d5c00213ae79a1f7600627829f114cf17c3f5c332b1a1c2dcdf2ba7c4a46826f5e0bdff2c09803396fdf133c12d35f6d76b01e473c83bc0fc130821ad4')
+sha512sums=('a22da1436a263d51aad2f542c2099f5b4fd1b02674716ff26d2f575786dcec4e97400edebf5577de95f3ae48c7c99be7be17d7a3de3e01a9f3612667e1547908')
+b2sums=('a118788bd3125e423abb8a04711028de4caf15f01c85bde2493586d42c4ef2e0be9e973446ccb8e72f6774551209e50a542aeb1b889811033e2430aa2261e706')
 
 build() {
   local cmake_options=(
