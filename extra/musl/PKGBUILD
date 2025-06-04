@@ -6,7 +6,7 @@ pkgbase=musl
 pkgname=(musl musl-aarch64 musl-riscv64)
 _archs=("aarch64" "riscv64")
 pkgver=1.2.5
-pkgrel=5
+pkgrel=6
 pkgdesc='Lightweight implementation of C standard library'
 arch=('x86_64')
 url='https://www.musl-libc.org/'
@@ -23,16 +23,15 @@ sha256sums=('a9a118bbe84d8764da0ea0d28b3ab3fae8477fc7e4085d90102b8596fc7c75e4'
             '0620fcee4e8a4e52ebe1ea75e2b51d2197ebda242489c0586924eafa9e9606a1')
 
 prepare() {
+  cd $pkgname-$pkgver
+  patch -p1 -i "$srcdir"/1
+  patch -p1 -i "$srcdir"/2
+
+  cd "$srcdir"
   for _arch in "${_archs[@]}"; do
     p="$pkgbase-$pkgver-${_arch}"
     rm -rf "$p"
-    mkdir "$p"
-    tar -C "$p" -xf "$srcdir/musl-$pkgver.tar.gz" --strip-components=1
-
-    pushd $p
-    patch -p1 -i "$srcdir"/1
-    patch -p1 -i "$srcdir"/2
-    popd
+    cp -a $pkgname-$pkgver "$p"
   done
 }
 
