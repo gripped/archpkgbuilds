@@ -5,7 +5,7 @@
 # Contributor: Robert Emil Berge <robert@rebi.no>
 
 pkgname=rosegarden
-pkgver=24.12.1
+pkgver=25.06
 pkgrel=1
 pkgdesc="MIDI/audio sequencer and notation editor"
 arch=(x86_64)
@@ -15,6 +15,7 @@ groups=(pro-audio)
 depends=(
   gcc-libs
   glibc
+  lilv
   lirc
   hicolor-icon-theme
   qt5-base
@@ -25,6 +26,7 @@ makedepends=(
   cmake
   dssi
   fftw
+  git
   jack
   ladspa
   liblrdf
@@ -52,19 +54,21 @@ optdepends=(
 provides=(
   dssi-host
   ladspa-host
+  lv2-host
 )
 source=(
-  https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.xz
+  $pkgname::git+https://git.code.sf.net/p/rosegarden/git#tag=$pkgver
 )
-sha512sums=('f732951162e816a2dde4805e519c9b99598edb543fbe01f819248454c23eb70293a74e92ad11a51ecdd4990bca1f111242f838b2e3259ca09cb4f9bf955b9b6a')
-b2sums=('5202a511c53bae267c347ff9197acfe4283987bbad3764393a0335bd7dad775a2042430d3f8226e24436ce15c03204312ce6dc123938f2cec33960c3eeba707d')
+sha512sums=('b9c565e1681354d570113cc7a619243d918be6fc97a3a9015d6f5080cc4c2e89ce33ba4dab4c28ceb2cd905aeb1ba9c7a90e5bb234a7f3c27d574a38cc9ecb30')
+b2sums=('87ae29785ecabcf295e59cba6a58413d085773b705f5b40dd089fa45dfc52f216a08b6ef1592c911b2ff4df7383c45afd0af2402049093402fdc0dd015976809')
 
 build() {
   local cmake_options=(
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
-    -S $pkgname-$pkgver
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
+    -S $pkgname
     -W no-dev
   )
 
@@ -93,6 +97,6 @@ package() {
   )
 
   DESTDIR="$pkgdir" cmake --install build
-  install -vDm 644 $pkgname-$pkgver/{AUTHORS,CHANGELOG,README.md} -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 $pkgname/{AUTHORS,CHANGELOG,README.md} -t "$pkgdir/usr/share/doc/$pkgname/"
 }
 # vim:set ts=2 sw=2 et:
