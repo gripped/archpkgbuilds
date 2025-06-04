@@ -1,6 +1,6 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=box2d
-pkgver=3.1.0
+pkgver=3.1.1
 pkgrel=1
 pkgdesc="2D rigid body simulation library for games"
 url="http://www.box2d.org/"
@@ -13,7 +13,7 @@ makedepends=('cmake' 'ninja' 'git' 'wayland'
 # We're going to this alternate fork until the patches are upstreamed.
 # See https://github.com/erincatto/box2d/issues/621
 source=("$pkgname-$pkgver.tar.gz::https://github.com/erincatto/Box2D/archive/v${pkgver}.tar.gz")
-sha512sums=('85d67a0de92aecc61692d7a6f1a8c7e878cdd2a6457470f1a9be075dfc27fdcefb951ac689d95bb78a7b791d6586f794720af8417f55d7f66782b4c3c179210a')
+sha512sums=('7367640e7f2ff395b8ca48766c71f57c96e08c298627c996eba76899a149ee28b0e3ecacfa4a224fdb5d160c7e25c6069bb8414fd1575787727d796097aa347b')
 
 build() {
   cd $pkgname-$pkgver
