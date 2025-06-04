@@ -2,7 +2,7 @@
 # Contributor: ObserverOfTime <chronobserver@disroot.org>
 
 pkgname=tree-sitter-lua
-pkgver=0.2.0
+pkgver=0.4.0
 pkgrel=1
 pkgdesc='Lua grammar for tree-sitter'
 arch=(x86_64)
@@ -16,7 +16,7 @@ makedepends=(
 optdepends=('tree-sitter: core library')
 provides=("lib$pkgname.so")
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('0605dd2b26b6bcab3832bb6bb2ff34ed04fcf83f1b39fc9755c021247fe149d8b1188044dd5c367d3856caab869ee2cf70eb46b4881d3577c6c33b2342f3cf96')
+b2sums=('3da021f6da12d4fec4bba516f1a050203f0ba2cb0faed750f5154c17fe99e84c57a2b4ae1d6df35db3a555e81c1ca6572ba84470b712060eed74b8d1d74048b3')
 
 prepare() {
   cd $pkgname
