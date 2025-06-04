@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 
 pkgname=vmexec
-pkgver=0.1.5
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="Run a single command in a speedy virtual machine with zero-setup"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('gcc-libs' 'libguestfs')
 makedepends=('rust')
 source=(vmexec-$pkgver.tar.gz::https://gitlab.archlinux.org/archlinux/vmexec/-/archive/v${pkgver}/vmexec-v${pkgver}.tar.gz)
-sha512sums=('4a8374c03ce574f6fe7f8cc699aa628021f2491c9a948c8ccf8f5e8bd8d883369904b4ad0b886914e1e6bfeb1be092edf3acd24dceb497614ccc31cd58acb82a')
+sha512sums=('c1437887227487c49013e412d79a5e2f67a22f30f1b22d7eb6ca22f272727e828be66e585d20faf201cda5b0e68e6f7527dce3e44b77e78033782052577c9e37')
 
 build() {
   cd $pkgname-v$pkgver
@@ -21,7 +21,9 @@ build() {
 check() {
   cd $pkgname-v$pkgver
 
-  cargo test --release --locked
+  # Only run unittests because the integration tests can't currently work in an
+  # nspawn environment.
+  cargo test --bins --locked
 }
 
 package() {
