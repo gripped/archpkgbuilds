@@ -3,9 +3,9 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-tools
-_pkgver=6.9.0
+_pkgver=6.9.1
 pkgver=${_pkgver/-/}
-pkgrel=2
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -32,7 +32,7 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
         git+https://code.qt.io/playground/qlitehtml)
-sha256sums=('3b3d81423f2f15a95834d77c17cab5c02ff4abed642ba79112f986ee2846c081'
+sha256sums=('7bc25a2a68017566823384df67e1caf1a13c35d2e5ff0801cc9f29bdce096c25'
             'SKIP')
 
 prepare() {
