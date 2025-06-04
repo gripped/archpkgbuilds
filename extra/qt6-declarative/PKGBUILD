@@ -3,9 +3,9 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-declarative
-_pkgver=6.9.0
+_pkgver=6.9.1
 pkgver=${_pkgver/-/}
-pkgrel=2
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -28,12 +28,7 @@ optdepends=('qt6-svg: for QtQuickVectorImage and svgtoqml')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('6b669a71f0e92bb63af1684d14af39559419c78f6931162b1a49c7c1d1f39a5d')
-
-prepare() {
-  cd $_pkgfn
-  git cherry-pick -n d1aa2e8466bab73c3e4d120356238b482b55f02a # Fix qmlcachegen crash
-}
+sha256sums=('407186c6c32798b93d625a6f4cd76e6c82ad2a611fddb0161b4c4febbe4677f2')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
