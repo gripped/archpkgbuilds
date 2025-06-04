@@ -3,7 +3,7 @@
 # Contributor: judd <jvinet@zeroflux.org>
 
 pkgname=automake
-pkgver=1.17
+pkgver=1.18
 pkgrel=1
 pkgdesc="A GNU tool for automatically creating Makefiles"
 arch=('any')
@@ -18,11 +18,12 @@ checkdepends=('dejagnu' 'gcc-fortran' 'java-environment' 'vala' 'emacs' 'cscope'
               #'texlive-bin' 'texinfo'
               'python' 'python-virtualenv')
 source=("https://ftp.gnu.org/gnu/${pkgname}/${pkgname}-${pkgver}.tar.xz"{,.sig})
-sha512sums=('46aba1c9d64a6368b326020803a2999831c1deaf31eaa1c1dfdcfa5138a7f755643294e82a08b6daab3983b31eee725bdb7b9edc4e9a558374c7d1f1b8e854a7'
+sha512sums=('3488d9188a9e11a3e7f911f429ef49d2d92c5ea42262e3e288e1d4de39217facd5a7b7c7ccac06e6fd78a661985af1fe5638353575ebadffb36fc22553e5f782'
             'SKIP')
 validpgpkeys=('E1622F96D2BB4E58018EEF9860F906016E407573'   # Stefano Lattarini
               'F2A38D7EEB2B66405761070D0ADEE10094604D37'   # Mathieu Lirzin
-              '155D3FC500C834486D1EEA677FD9FCCB000BEEEE')  # Jim Meyering
+              '155D3FC500C834486D1EEA677FD9FCCB000BEEEE'   # Jim Meyering
+              '17D3311B14BC0F248267BF020716748A30D155AD')  # Karl Berry
 
 build() {
 	cd "${pkgname}-${pkgver}"
