@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-location
-_pkgver=6.9.0
+_pkgver=6.9.1
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -23,7 +23,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('d467a628de0f91c8a0b4083450f14e57d81648710508ce12ff5a69f26c741499')
+sha256sums=('facd2155e6820d690664cdc0256b69699ba55db6460edfd09cc46962190e4dab')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
