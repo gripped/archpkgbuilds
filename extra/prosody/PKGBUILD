@@ -8,7 +8,7 @@
 
 pkgname=prosody
 epoch=1
-pkgver=13.0.1
+pkgver=13.0.2
 pkgrel=1
 pkgdesc="Lightweight and extensible Jabber/XMPP server written in Lua"
 arch=('x86_64')
@@ -34,7 +34,7 @@ source=("https://prosody.im/downloads/source/prosody-$pkgver.tar.gz"{,.asc}
         'prosody.logrotated'
         'sysuser.conf'
         'prosody.service')
-sha256sums=('7bde8a5bf3cce195fd454970001b9faeac1a4601bcaa5c74eed7c6b74e48d806'
+sha256sums=('3e61bd396f37ca5245debfd6be49a47a6191332f0faa2d4ee5f00fbb040addb0'
             'SKIP'
             '0753bd9260f1cfdce6e18e01a61e320b396acfe9fca8ccf3250653bfa6af997e'
             '5a2466b73bd069fb73be97a4e23b24e4c8dd1adb7db871cb8f5ab4094c1f967f'
@@ -48,20 +48,6 @@ prepare() {
   sed -i s/"info = "/"-- info = "/g prosody.cfg.lua.dist
   sed -i s/"error = "/"-- error = "/g prosody.cfg.lua.dist
   sed -i s/"--\ \"\*syslog\"\;"/"info = \"*syslog\"\;"/g prosody.cfg.lua.dist
-
-  # add pidfile and daemonize
-  # daemonize is important for systemd!
-  mv prosody.cfg.lua.dist prosody.cfg.lua.old
-
-  echo --Important for systemd >> prosody.cfg.lua.dist
-  echo -- daemonize is important for systemd. if you set this to false the systemd startup will freeze. >> prosody.cfg.lua.dist
-  echo daemonize = true >> prosody.cfg.lua.dist
-  echo 'pidfile = "/run/prosody/prosody.pid"'>> prosody.cfg.lua.dist
-  echo "" >> prosody.cfg.lua.dist
-  cat prosody.cfg.lua.old >> prosody.cfg.lua.dist
-  rm prosody.cfg.lua.old
-
-  #sed -i 's|sock, err = socket.udp();|sock, err = (socket.udp4 or socket.udp)();|g' net/dns.lua
 }
 
 build() {
