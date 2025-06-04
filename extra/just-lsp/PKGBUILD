@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=just-lsp
-pkgver=0.2.2
+pkgver=0.2.3
 pkgrel=1
 pkgdesc="A language server for just"
 arch=(x86_64)
@@ -15,8 +15,8 @@ depends=(
 makedepends=(rust)
 options=(!lto) # LTO does not work as the sources include C-code from tree-sitter
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('4c3394a8d717a90d83f084b78ad31cf64f8053fbccac2b6beac64dcfef85735f893761ee5dd56f3b0fe95dd1417feaf9f46a5edb11711964eb2e976eddd04a36')
-b2sums=('4c1d71dbc6e1df004becde5b7538183ecad9c8ee75c05bc6ef43f66fe9625ce240368eb237e2a4ebca592654a3dd8f2de6143b1773d732c4f42add6337f90bc2')
+sha512sums=('9554f365973fb8daaa9c305ed1ba30c9642db0bf404cc7813f3de40d20bd6ad97a5855227b78c99b89bcda6686fe703c8e46857955cdaee698056db8ab287840')
+b2sums=('71b8f676dafd81d5d98b92b5ac680cf075e859c1cde47316bba80d6ccdb34f4262b4f377d0946ca6d5a6aafbdbeb305519d6f043d835679686731455a7085b08')
 
 prepare() {
   cd $pkgname-$pkgver
