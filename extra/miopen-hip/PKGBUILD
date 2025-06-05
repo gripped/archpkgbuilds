@@ -3,13 +3,13 @@
 # Contributor: JP-Ellis <josh@jpellis.me>
 
 pkgname=miopen-hip
-pkgver=6.4.0
+pkgver=6.4.1
 pkgrel=1
 pkgdesc="AMD's Machine Intelligence Library (HIP backend)"
 arch=('x86_64')
 url="https://rocm.docs.amd.com/projects/MIOpen/en/latest/index.html"
 license=('MIT')
-depends=('rocm-core' 'glibc' 'gcc-libs' 'hipblaslt' 'hipblas' 'rocblas' 'rocrand' 'rocm-clang-ocl'
+depends=('rocm-core' 'glibc' 'gcc-libs' 'hipblaslt' 'hipblas' 'rocblas' 'rocrand'
          'hip-runtime-amd' 'comgr' 'bzip2' 'composable-kernel' 'roctracer' 'sqlite')
 makedepends=('cmake' 'git' 'git-lfs' 'ninja' 'rocm-cmake' 'boost' 'lbzip2'
              'nlohmann-json' 'eigen' 'functional-plus' 'frugally-deep')
@@ -23,9 +23,9 @@ source=(
   "${pkgname}-rocmlir::git+https://github.com/ROCm/rocMLIR#tag=rocm-$pkgver"
   "${pkgname}-half::git+https://github.com/ROCm/half#tag=rocm-$pkgver"
 )
-sha256sums=('e41280d1a2e7cead874dd7a43c187d94f75b598fbd8f1995e2bc16b8c30205ab'
+sha256sums=('ccb9d303537b7572196e60c6077965771716f7c2edac0644e5bf4f778bb7763f'
             'SKIP'
-            '86377bcd3bb5a260a680cf94d6a2335ddcd209609535a1b3fbf1f97f7b5a5f85'
+            '91451c3352320d088adaf2c4721ec0d7942248adfd22ad4a981a2f143fbee4fd'
             '16e5a6405dd766339a9409665cd1ccdaceed3c0cb7fe12835fa17bd3914aa6cd')
 options=(!lto)
 
@@ -42,19 +42,19 @@ prepare() {
 }
 
 build() {
-  export CC=/opt/rocm/bin/amdclang
-  export CXX=/opt/rocm/bin/amdclang++
-  # -fcf-protection is not supported by HIP, see
-  # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
-  # Set ROCm test chipset to Vega in order to pass the configuration step.
   local llvm_args=(
     -Wno-dev
     -G Ninja
     -B build-mlir
     -S "$pkgname-rocmlir"
+    # -fcf-protection is not supported by HIP, see
+    # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
     -D CMAKE_CXX_FLAGS="${CXXFLAGS} -fcf-protection=none"
     -D CMAKE_INSTALL_PREFIX=/usr
     -D CMAKE_BUILD_TYPE=Release
+    -D CMAKE_C_COMPILER=amdclang
+    -D CMAKE_CXX_COMPILER=amdclang++
+    # Set ROCm test chipset to Vega in order to pass the configuration step.
     -D ROCM_TEST_CHIPSET=gfx900
     -D BUILD_FAT_LIBROCKCOMPILER=ON
     -D CMAKE_POLICY_VERSION_MINIMUM=3.5
@@ -86,6 +86,8 @@ build() {
     -D CMAKE_CXX_FLAGS="${CXXFLAGS} -fcf-protection=none -DNDEBUG"
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_C_COMPILER=amdclang
+    -D CMAKE_CXX_COMPILER=amdclang++
     -D MIOPEN_BACKEND=HIP
     -D HALF_INCLUDE_DIR="$srcdir/deps/usr/include"
     -D CMAKE_PREFIX_PATH="$srcdir/deps/usr/lib/cmake"
