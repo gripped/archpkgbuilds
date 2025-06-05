@@ -2,7 +2,7 @@
 # Contributor: acxz <akashpatel2008 at yahoo dot com>
 pkgbase=hip-runtime
 pkgname=(hip-runtime-amd hip-runtime-nvidia)
-pkgver=6.4.0
+pkgver=6.4.1
 pkgrel=1
 _pkgdesc="Heterogeneous Interface for Portability"
 arch=('x86_64')
@@ -26,9 +26,9 @@ source=("$pkgbase::git+$_hip#$_tag"
         "$pkgbase-hipcc::git+$_hipcc#$_tag"
         "$pkgbase-clr::git+$_clr#$_tag"
         "$pkgbase-hipother::git+$_hipother#$_tag")
-sha256sums=('2044f7736ea777e258c2956c89a65bea62102eb1db94edd9e0414d44a93e3c93'
-            '16f93fda1aa536eded0b903de5e2fa60d9fb9ec43d5a902e7c07d686c711cb30'
-            'b23d1485533028ea7689d76ccb8a7b17b30765a04883e0330af22bc8a8e1acf9'
+sha256sums=('8ed42c4542756c91136d9308fcc84e4532183de691d9efc9e7ce1e4efc483fae'
+            'edb637d082a0d0a41e50f5128cf5b23226313bbc4f28e888843cde137e2f3594'
+            '634a23d42abaa8b8757360e300b354205bc0bb0612ecc81c715b866347554fe6'
             '09f332aa964079647a9407406305f6159937c72c0bc2b675f841ba0ab1b63c43')
 
 build() {
