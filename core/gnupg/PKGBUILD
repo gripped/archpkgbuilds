@@ -8,7 +8,7 @@
 
 pkgname=gnupg
 pkgver=2.4.7
-pkgrel=2
+pkgrel=3
 pkgdesc='Complete and free implementation of the OpenPGP standard'
 arch=(x86_64)
 url='https://www.gnupg.org/'
@@ -73,7 +73,6 @@ source=(
   0009-gpg-Always-support-and-default-to-using-SHA-512.patch
   0010-gpg-Prefer-SHA-512-and-SHA-384-in-personal-digest-pr.patch
   0011-Avoid-simple-memory-dumps-via-ptrace.patch
-  0012-Disallow-compressed-signatures-and-certificates.patch  # CVE-2022-3219
   0013-ssh-agent-emulation-under-systemd-inject-SSH_AUTH_SO.patch
   0014-gpg-Sync-compliance-mode-cleanup-with-master.patch
   0015-gpg-emit-RSA-pubkey-algorithm-when-in-compatibility-.patch
@@ -115,7 +114,6 @@ sha256sums=('4e946396a8a3cf8e0b997c5ea87e5732efdc7fee2037d96b0eeb911cd350dab0'
             '35bd9dd7a40ad83243a67ec40eace49c2110b255c96684f3b43a2352df36ecdb'
             '98c03e2177bebe3b8a4d6850047e626d1261f37eed9cfb711a53fbaa982de9b3'
             '73a36e34eadf7edf1d8e645cc07c50b8ea708dc33dacc8dcb8a9a55985b94f4f'
-            'f02b9629c03f5b6a56ab5e9a4c3f6a425487fcd34aeccfa6059e1d714422e410'
             'a825ac1a04a20d50ddb4e91ff93a0187a65baa2e54063a292cff4c1ad350c255'
             'fdfb12f1b834b3dd03aff41bb0f394b281abc8379332a3ca71f77c46e55e1566'
             '039c6bc91e63a80af53a5bd3e727d4ac386ce114468074fb2350d71f313df791'
@@ -156,7 +154,6 @@ b2sums=('2c53de51bdde9c7107b6cad253ee552987c43a1f8969e7888fb7017811260b62ad7e06f
         '465c20b1ce65966a63ac60c5178a21424f38da9e8e7a23b377e0be339fb6c00cc41532a84ca57c2823dad00059687d29001cb48448baa2462b13423a466d184b'
         '3c1d1b0eceb2da26f1afb42084b6b6e3932324e91b091b70badbc84422b04f135104e008233389c15d7f38156b1942c2ac1c325e5c0dd9d4a1a591f815869d37'
         '824cd34b6d62b0d75b5ed960adcd8986aeb5a7213cd16942ed1576326352627261bbf3afa0da4e880da5a088cd9ea8a72b9287b4fa2800f2d9bd0f487b24ce79'
-        'ac699ec4fee5fbc79dab9d9cf2f6fe7321cc9f954964c8b0a7b4507fbe3f7271516cbd05c430a37d7f8a0bda86e79ce269e2f7b2ea7a86872ac441a66f1d0ac1'
         '8dceab2e4f3fa1b4dfeacafe238e35fbb09f215f081e46044bf903dfb25bb6f201cb0b74617b1beb682a2be2ea9cf9f04c40e0b36b2dee602233df2b42899056'
         'b5ecf18315d6b491299af999369d3991d4d54f2220ee9728ac877382caffa5b04dabe04a62b0ecfdc4b4add7efe3e97b37a8bb3b6a315fc85fd552e01d708187'
         'a73c9f4fe93afde304760b649ff7fdabcb430ccc34e5446a0cedc93509c61328cf6c8a830d2b351f20401c83a6c03e720147cab81ebf402c2b26127f9b6571c8'
