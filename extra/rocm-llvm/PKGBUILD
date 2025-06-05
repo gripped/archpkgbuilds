@@ -3,8 +3,8 @@
 
 pkgbase=rocm-llvm
 pkgname=(rocm-llvm rocm-device-libs comgr)
-pkgver=6.4.0
-pkgrel=4
+pkgver=6.4.1
+pkgrel=1
 arch=('x86_64')
 url='https://rocm.docs.amd.com/en/latest/reference/rocmcc.html'
 makedepends=('git' 'cmake' 'python' 'ninja' 'rocm-core' 'rocm-cmake' 'perl'
@@ -12,7 +12,7 @@ makedepends=('git' 'cmake' 'python' 'ninja' 'rocm-core' 'rocm-cmake' 'perl'
 source=("$pkgbase::git+https://github.com/ROCm/llvm-project#tag=rocm-$pkgver"
         rocm-llvm-6.4-llvm-gold-plugin-fix-ModuleName.patch
         rocm-llvm-6.4-fix-array-assert.patch)
-sha256sums=('16f93fda1aa536eded0b903de5e2fa60d9fb9ec43d5a902e7c07d686c711cb30'
+sha256sums=('edb637d082a0d0a41e50f5128cf5b23226313bbc4f28e888843cde137e2f3594'
             '0293c307131426a9c031f215045e2f0725677de0aac6dda1729456ac9a444415'
             '6485a06e4f3b85df76110548f428217f86e785ec3dec7b0de0a7a2cf6384f0c0')
 options=(staticlibs !lto)
