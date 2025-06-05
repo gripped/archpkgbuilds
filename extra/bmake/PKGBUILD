@@ -6,7 +6,7 @@
 # Contributor: Imanol Celaya <ilcra1989@gmail.com>
 
 pkgname=bmake
-pkgver=20250414
+pkgver=20250528
 pkgrel=1
 pkgdesc='Portable version of the NetBSD make build tool'
 arch=(x86_64)
@@ -16,7 +16,7 @@ makedepends=(bc)
 optdepends=('python: for meta2deps.py script')
 #source=("https://ftp.netbsd.org/pub/NetBSD/misc/sjg/bmake-$pkgver.tar.gz"{,.asc})
 source=("https://www.crufty.net/ftp/pub/sjg/bmake-$pkgver.tar.gz"{,.asc})
-sha256sums=('43258a0b819f3e362dd66c05b8212ea977606945f3887ba1b6ad612affabc9aa'
+sha256sums=('0dc389a5e0298aa585353b60796d5d632de660dade58d00acd60ad722846c9a3'
             'SKIP')
 validpgpkeys=(7E228507C26D8DC164F531BFBA54C8AF755A2A99)
 
