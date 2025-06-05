@@ -3,17 +3,17 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=xh
-pkgver=0.24.0
+pkgver=0.24.1
 pkgrel=1
 pkgdesc="Friendly and fast tool for sending HTTP requests"
 arch=('x86_64')
 url="https://github.com/ducaale/xh"
 license=('MIT')
-depends=('gcc-libs' 'openssl')
+depends=('gcc-libs' 'openssl' 'oniguruma')
 makedepends=('cargo')
 replaces=('ht-rs' 'ht')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('80ecef9ca262b5564a951f41e11cf6125e5c4a62e66b87b071f6a333b6f40e5a')
+sha256sums=('c5902052c66e20fd2c0b49db14edb027f54500b502108327e17260c64a42edee')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -23,6 +23,7 @@ prepare() {
 build() {
   cd "$pkgname-$pkgver"
   CFLAGS+=' -ffat-lto-objects'
+  export RUSTONIG_DYNAMIC_LIBONIG=1
   cargo build --frozen --release --features native-tls
 }
 
