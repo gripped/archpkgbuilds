@@ -9,25 +9,25 @@
 # Contributor: Stefan Husmann <stefan-husmann@t-online.de>
 
 pkgname=rednotebook
-pkgver=2.35
-pkgrel=3
+pkgver=2.39
+pkgrel=1
 pkgdesc='Modern desktop diary and personal journaling tool that lets you format, tag and search your entries'
 arch=('any')
 url='https://rednotebook.sourceforge.io/'
 license=('GPL')
 depends=('gtksourceview3' 'python-gobject' 'python-pyenchant' 'python-yaml' 'webkit2gtk-4.1')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools')
 source=("https://github.com/jendrikseipp/rednotebook/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('a30ffde30b2bc746e66ac24f580615a78d68c97fa4853d98a55f9344b8b33742')
+sha256sums=('c84a25af4cbbb9db7971fbb0ba0120452f7d779a5cbfd2bcd4dee7e8dcc306ee')
 
 build() {
   cd $pkgname-$pkgver
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd $pkgname-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
   for _res in 16 22 32 48 64 128 192 256; do
     install -Dm644 rednotebook/images/rednotebook-icon/rn-$_res.png \
