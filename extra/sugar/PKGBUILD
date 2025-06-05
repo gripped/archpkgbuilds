@@ -1,20 +1,20 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=sugar
-pkgver=0.120
-pkgrel=3
+pkgver=0.121
+pkgrel=2
 pkgdesc="Sugar GTK shell"
 arch=('any')
 url="https://sugarlabs.org/"
 license=('GPL')
 depends=('gnome-keyring' 'gst-plugins-espeak' 'gtksourceview3' 'gvfs' 'libwnck3'
          'libxklavier' 'metacity' 'mobile-broadband-provider-info' 'openssh' 'python-gwebsockets'
-         'sugar-toolkit-gtk3' 'telepathy-gabble' 'telepathy-salut' 'upower' 'webkit2gtk'
+         'sugar-toolkit-gtk3' 'telepathy-gabble' 'telepathy-salut' 'upower' 'webkit2gtk-4.1'
          'xdg-user-dirs')
 makedepends=('intltool' 'python-empy')
 source=(https://download.sugarlabs.org/sources/sucrose/glucose/$pkgname/$pkgname-$pkgver.tar.xz
         dont-overwrite-settings.patch)
-sha256sums=('c0128fd339baa2b9c22dae16a76d77d24efe0bd62c424987b353d91b390a49e1'
+sha256sums=('10a25b262050ba0c44e551ac52e0297fea34d790d1852247b11cccb920e0a958'
             'a426e295f8810c5b6b1a136338b630c67c5b98c7ca368a261e0390e42b6d1465')
 
 prepare() {
@@ -26,7 +26,7 @@ prepare() {
   # Don't overwrite default GNOME settings
   patch -Np1 -i ../dont-overwrite-settings.patch
 
-  autoreconf -vif
+  autoreconf -vif -I /usr/share/gettext/m4
 }
 
 build() {
