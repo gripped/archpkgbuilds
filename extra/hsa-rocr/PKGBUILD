@@ -7,7 +7,7 @@
 # Contributor: Alexandru M Stan <alex@hypertriangle.com>
 
 pkgname=hsa-rocr
-pkgver=6.4.0
+pkgver=6.4.1
 pkgrel=1
 pkgdesc='HSA Runtime API and runtime for ROCm'
 arch=('x86_64')
@@ -20,7 +20,7 @@ replaces=('hsakmt-roct')
 makedepends=('cmake' 'rocm-llvm' 'xxd')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/rocm-$pkgver.tar.gz"
         hsa-rocr-6.4-fix-missing-include.patch)
-sha256sums=('ff740e8c8f2229c6dc47577363f707b1a44ea4254f8ad74f8f0a669998829535'
+sha256sums=('f72d100a46a2dd9f4c870cef156604777f1bdb1841df039d14bf37b19814b9da'
             '6b7c62245fd9021ade8046e6a769e48c8c1868131dbac19531befc5f2a4c25b5')
 _dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
 options=(!lto)
