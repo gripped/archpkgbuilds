@@ -1,0 +1,42 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Contributor: acxz <akashpatel2008 at yahoo dot com>
+# Contributer: JP-Ellis <josh@jpellis.me>
+
+pkgname=mivisionx
+pkgver=6.4.1
+pkgrel=1
+pkgdesc="Set of comprehensive computer vision and machine intelligence libraries"
+arch=('x86_64')
+url="https://rocm.docs.amd.com/projects/MIVisionX/en/latest/"
+license=('MIT')
+depends=('rocm-core' 'miopen-hip' 'rocblas' 'hip-runtime-amd' 'protobuf' 'opencv' 'ffmpeg' 'rpp')
+makedepends=('cmake' 'rocm-cmake' 'half')
+_git='https://github.com/GPUOpen-ProfessionalCompute-Libraries/MIVisionX'
+source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
+sha256sums=('9f1a1a33dc2770ac014e5ea019ebde6cadcca017840753b9cb8cf1598d2d83c8')
+options=(!lto)
+_dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
+
+build() {
+  # -fcf-protection is not supported by HIP, see
+  # https://docs.amd.com/bundle/ROCm-Compiler-Reference-Guide-v5.3/page/Appendix_A.html
+  CXXFLAGS+=" -fcf-protection=none"
+  local cmake_args=(
+    -Wno-dev
+    -B build
+    -S "$_dirname"
+    -D CMAKE_INSTALL_PREFIX=/opt/rocm
+    -D CMAKE_CXX_COMPILER=amdclang++
+    -D CMAKE_BUILD_TYPE=None
+    # Building migraphx currently fails.
+    # TODO: Revisit migraphx package
+    -D MIGRAPHX=OFF
+  )
+  cmake "${cmake_args[@]}"
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 "$_dirname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
