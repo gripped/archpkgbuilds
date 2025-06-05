@@ -2,8 +2,8 @@
 # Contributor: Tarn Burton <twburton at gmail dot com>
 
 pkgname=normaliz
-pkgver=3.10.4
-pkgrel=2
+pkgver=3.10.5
+pkgrel=1
 pkgdesc='A tool for computations in affine monoids, vector configurations, lattice polytopes, and rational cones'
 arch=(x86_64)
 url='https://www.normaliz.uni-osnabrueck.de/'
@@ -17,7 +17,7 @@ depends=(e-antic
 makedepends=(boost
              git)
 source=(git+https://github.com/Normaliz/Normaliz#tag=v$pkgver)
-sha256sums=('0ec8cc67a947ce2eb74d07cfbe3fcdcef88fb73d7f41fcfaa26dca99a2e5623c')
+sha256sums=('e494103f78d668538d005aa900286336c4ec0b745d6530c120453d74b99f54f6')
 
 prepare() {
   cd Normaliz
