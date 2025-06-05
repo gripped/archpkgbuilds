@@ -2,16 +2,16 @@
 
 pkgname=sugar-activity-read
 _pkgname=Read
-pkgver=123
-pkgrel=4
+pkgver=124
+pkgrel=1
 pkgdesc="Sugar activity to read books"
 arch=('any')
 url="https://wiki.sugarlabs.org/go/Activities/Read"
 license=('GPL')
 groups=('sugar-fructose')
-depends=('evince' 'sugar-toolkit-gtk3' 'webkit2gtk')
+depends=('evince' 'sugar-toolkit-gtk3' 'webkit2gtk-4.1')
 source=(https://download.sugarlabs.org/sources/sucrose/fructose/$_pkgname/$_pkgname-$pkgver.tar.bz2)
-sha256sums=('755be60cfe2dfc495dd50276242836e792c6f82e3e7c58537a707af91afc3d7c')
+sha256sums=('febf9fa1f256914f2300cad07896aa645f9d808dd67994a1fa385fca36408ac2')
 
 package() {
   cd $_pkgname-$pkgver
