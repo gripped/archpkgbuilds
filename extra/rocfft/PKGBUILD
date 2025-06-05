@@ -2,7 +2,7 @@
 # Contributor: Jakub Okoński <jakub@okonski.org>
 # Contributor: Markus Näther <naetherm@cs.uni-freiburg.de>
 pkgname=rocfft
-pkgver=6.4.0
+pkgver=6.4.1
 pkgrel=1
 pkgdesc='Next generation FFT implementation for ROCm'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('rocm-core' 'hip-runtime-amd' 'glibc' 'gcc-libs')
 makedepends=('cmake' 'rocm-cmake')
 _git='https://github.com/ROCmSoftwarePlatform/rocFFT'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('0e9f3f23d8facee65e32baaec7941119b56eb17313b8b514e1c3994c9777c320')
+sha256sums=('66e543990736bc4bf3b27fa085cca3bea0d42252f960be376371549707e35373')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
