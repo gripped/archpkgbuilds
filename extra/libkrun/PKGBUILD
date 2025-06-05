@@ -1,0 +1,38 @@
+# Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
+# Contributor: hexchain <arch at hexchain.org>
+pkgname=libkrun
+pkgver=1.13.0
+pkgrel=2
+pkgdesc="A dynamic library providing Virtualization-based process isolation capabilities"
+url='https://github.com/containers/libkrun'
+arch=('x86_64')
+license=('Apache-2.0')
+makedepends=('cargo' 'patchelf' 'clang')
+depends=('glibc' 'gcc-libs' 'libkrunfw' 'pipewire' 'virglrenderer')
+source=("https://github.com/containers/libkrun/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('f769ba4c4baa29bf3402008a85577dc34489a68d395a7ed6d2d6557f3686280f')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+
+  make GPU=1 BLK=1 NET=1 SND=1 VERBOSE=1
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+
+  make DESTDIR="$pkgdir" PREFIX=/usr LIBDIR_Linux=lib install
+
+  install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
+  # Hack, we shouldn't require this but somehow we do.
+  # It works fine if I build this package outside of a clean chroot but I can't
+  # figure out what build deps the package is missing.
+  patchelf --add-needed libzstd.so "$pkgdir"/usr/lib/libkrun.so.${pkgver}
+}
