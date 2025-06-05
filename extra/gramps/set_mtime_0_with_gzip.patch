@@ -1,0 +1,28 @@
+From 1784f8744c83a21a43c72da73fa4f218bf145e5a Mon Sep 17 00:00:00 2001
+From: Robin Candau <robincandau@protonmail.com>
+Date: Thu, 5 Jun 2025 00:21:05 +0200
+Subject: [PATCH] Ignore timestamps recording in gzip metadata
+
+Store "null" timestamps with gzip when compressing man pages to avoid recording non-deterministic information in gzip metadata across builds.
+
+This is required for [reproducible builds](https://reproducible-builds.org/).
+---
+ setup.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 518a0fa66be..640d4a01bb7 100755
+--- a/setup.py
++++ b/setup.py
+@@ -164,8 +164,8 @@ def build_man(build_cmd):
+
+                 if filename:
+                     # Binary io, so open is OK
+-                    with open(newfile, "rb") as f_in, gzip.open(
+-                        man_file_gz, "wb"
++                    with open(newfile, "rb") as f_in, gzip.GzipFile(
++                        man_file_gz, "wb", mtime=0
+                     ) as f_out:
+                         f_out.writelines(f_in)
+                         _LOG.info("Compiling %s >> %s", filename, man_file_gz)
+

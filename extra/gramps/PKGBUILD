@@ -4,15 +4,15 @@
 # Contributor: Cory Farmer <rbgkofi@ameritech.net>
 
 pkgname=gramps
-pkgver=5.2.4
-pkgrel=1
+pkgver=6.0.1
+pkgrel=2
 epoch=2
 pkgdesc="Genealogy program, which helps you track your family tree"
 arch=('any')
 url="https://gramps-project.org/"
-license=('GPL')
-depends=('gtk3' 'python-bsddb' 'python-cairo' 'python-gobject' 'xdg-utils')
-makedepends=('intltool' 'python-setuptools')
+license=('GPL-2.0-or-later')
+depends=('gtk3' 'python-bsddb' 'python-cairo' 'python-gobject' 'xdg-utils' 'python-pyicu' 'python-orjson')
+makedepends=('intltool' 'python-setuptools' 'python-build' 'python-installer')
 optdepends=('osm-gps-map: show maps in the geography view'
             'graphviz: enable creation of graphs (required for tree reports)'
             'python-pyicu: improves localised sorting'
@@ -22,26 +22,26 @@ optdepends=('osm-gps-map: show maps in the geography view'
             'libgexiv2: manage Exif metadata embedded in your media'
             'geocode-glib: associate a geographical position to a place name')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/gramps-project/$pkgname/archive/v$pkgver.tar.gz"
-	"replace-deprecated-warn-method.patch"
-	"replace-deprecated-makesuite.patch")
-sha256sums=('7d5f22db92c43cb7798b50837e95ee5da56154596d9dea3b96d2c5cd2e5f0cdd'
-            '5b8ebcd419d17011deeffae60a85e02086e4ceb78a050b5481aff63d8a25fa7e'
-            'a33d2afb646af97ea47c3f04f7092cc3a5f2049a904aeec0103fbf5286de335c')
+        set_mtime_0_with_gzip.patch)
+sha256sums=('894d854da32ff51a72dd812e8430dcbaa11757928a018c76120cfbb16686e877'
+            'be3c37e34c874a2d499fd5e21934230f83896db9cedce47c408655ac3ee0a930')
 
 prepare() {
   cd $pkgname-$pkgver
-  patch -Np1 -i "${srcdir}/replace-deprecated-warn-method.patch"
-  patch -Np1 -i "${srcdir}/replace-deprecated-makesuite.patch"
+  # Store "null" timestamps with gzip when compressing man pages to avoid recording non-deterministic
+  # information in gzip metadata across builds. This is required for reproducible builds.
+  # See https://github.com/gramps-project/gramps/pull/2076
+  patch -Np1 -i "$srcdir/set_mtime_0_with_gzip.patch"
 }
 
 build() {
   cd $pkgname-$pkgver
-  python3 setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd $pkgname-$pkgver
-  python3 setup.py install --no-compress-manpages --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   echo -n '/usr/share' >"$pkgdir"${site_packages}/gramps/gen/utils/resource-path
 }
