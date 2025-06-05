@@ -1,0 +1,19 @@
+pkgbase = rocjpeg
+	pkgdesc = A high-performance jpeg decode library for AMD’s GPUs
+	pkgver = 6.4.1
+	pkgrel = 1
+	url = https://rocm.docs.amd.com/projects/rocJPEG/en/latest/
+	arch = x86_64
+	license = MIT
+	makedepends = cmake
+	makedepends = rocm-cmake
+	depends = rocm-core
+	depends = hip-runtime-amd
+	depends = mesa
+	depends = libva
+	depends = glibc
+	depends = gcc-libs
+	source = rocjpeg-6.4.1.tar.gz::https://github.com/ROCm/rocJPEG/archive/refs/tags/rocm-6.4.1.tar.gz
+	sha256sums = 23eed12646409d8f931f6bbdacf68df246c762877a3c0ef723568f89f0f5b40f
+
+pkgname = rocjpeg
