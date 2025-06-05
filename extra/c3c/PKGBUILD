@@ -2,16 +2,16 @@
 # Contributor: Eduardo Jose Gomez Hernandez <eduardo@edujgh.net>
 
 pkgname=c3c
-pkgver=0.7.1
+pkgver=0.7.2
 pkgrel=1
 pkgdesc='Compiler for the C3 language'
 arch=(x86_64)
 url='https://github.com/c3lang/c3c'
 license=(LGPL-3.0-or-later MIT)
-depends=(lld llvm-libs)
+depends=(curl lld llvm-libs)
 makedepends=(clang cmake git libedit llvm)
 source=("git+$url#tag=v$pkgver")
-b2sums=('6e938df254820c1df5154304140389c4d476c286708a7bca427d0848a895effb289f7c29c455113706341069703ffb04dedef8131cfc51ab40724fa794f3f283')
+b2sums=('125ec96cc83551181868dbfd5b6bb47213ad4d9b7f691cb00c127466a4717990f2df031519ac4903e9f274b949bec23feacc50fac8470f41af8e7395d0b0ab81')
 
 prepare() {
   cd $pkgname
