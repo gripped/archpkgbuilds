@@ -6,18 +6,15 @@
 
 pkgname=jujutsu
 _pkgname=jj
-pkgver=0.29.0
-pkgrel=2
+pkgver=0.30.0
+pkgrel=1
 pkgdesc='Git-compatible VCS that is both simple and powerful'
 arch=(x86_64)
 url="https://github.com/jj-vcs/$_pkgname"
 license=(Apache-2.0)
 depends=(gcc-libs # libgcc_s.so ld-linux-x86-64.so
+         git
          glibc # libc.so libm.so
-         libgit2
-         libssh2
-         openssl
-         # zlib-ng # https://github.com/rust-lang/libz-sys/issues/83
          zstd)
 replaces=("$pkgname-bin")
 optdepends=('git: for push/clone/fetch actions when using git.subprocess = true')
@@ -27,13 +24,10 @@ makedepends=(cargo
 checkdepends=(git)
 _archive="$_pkgname-$pkgver"
 source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
-sha256sums=('57df34a06b1d2125ccd6e8383ea08f24160c48e33e9daecd883a2e59567a9fd9')
+sha256sums=('86f8df1e4e76c6a4bcdb728fa74876bacf931641157d16f6e93ebeb5bac0151c')
 
 prepare() {
 	cd "$_archive"
-	# for libgit2-1.9 compatibility, remove when upstream does
-	# https://github.com/jj-vcs/jj/pull/5315
-	cargo upgrade -p git2@0.20.0
 	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 	mkdir -p completions
 	mkdir -p manpages
@@ -42,8 +36,6 @@ prepare() {
 build() {
 	cd "$_archive"
 	CFLAGS+=' -ffat-lto-objects'
-	export LIBGIT2_NO_VENDOR=1
-	export LIBSSH2_SYS_USE_PKG_CONFIG=1
 	cargo build --frozen --release --all-features --package jj-cli
 	local jj=target/release/jj
 	$jj util completion bash > completions/jj
@@ -66,8 +58,6 @@ check() {
 }
 
 package() {
-	depends+=(libgit2.so
-	          libssh2.so)
 	cd "$_archive"
 	install -Dm0755 -t "$pkgdir/usr/bin" target/release/jj
 	install -Dm0644 -t "$pkgdir/usr/share/bash-completion/completions/" completions/jj
