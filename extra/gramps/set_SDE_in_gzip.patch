@@ -1,0 +1,38 @@
+From 71fdbbe3c253e4d16958b40681f666d386906841 Mon Sep 17 00:00:00 2001
+From: Robin Candau <robincandau@protonmail.com>
+Date: Thu, 5 Jun 2025 10:00:18 +0200
+Subject: [PATCH] Default to SOURCE_DATE_EPOCH for timestamps recording in gzip
+ metadata
+
+Default to SOURCE_DATE_EPOCH (if set) as timestamps with gzip when compressing man pages to avoid recording non-deterministic information in gzip metadata across builds.
+
+This is required for [reproducible builds](https://reproducible-builds.org/).
+---
+ setup.py | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 518a0fa66be..a240ba6d85d 100755
+--- a/setup.py
++++ b/setup.py
+@@ -39,6 +39,7 @@
+ except ImportError:
+     from distutils.command.build import build as _build
+ import os
++import time
+ import glob
+ import codecs
+ import subprocess
+@@ -164,8 +165,9 @@ def build_man(build_cmd):
+ 
+                 if filename:
+                     # Binary io, so open is OK
+-                    with open(newfile, "rb") as f_in, gzip.open(
+-                        man_file_gz, "wb"
++                    build_date = int(os.environ.get("SOURCE_DATE_EPOCH", time.time()))
++                    with open(newfile, "rb") as f_in, gzip.GzipFile(
++                        man_file_gz, "wb", mtime=build_date
+                     ) as f_out:
+                         f_out.writelines(f_in)
+                         _LOG.info("Compiling %s >> %s", filename, man_file_gz)
+

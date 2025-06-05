@@ -5,7 +5,7 @@
 
 pkgname=gramps
 pkgver=6.0.1
-pkgrel=2
+pkgrel=3
 epoch=2
 pkgdesc="Genealogy program, which helps you track your family tree"
 arch=('any')
@@ -22,16 +22,17 @@ optdepends=('osm-gps-map: show maps in the geography view'
             'libgexiv2: manage Exif metadata embedded in your media'
             'geocode-glib: associate a geographical position to a place name')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/gramps-project/$pkgname/archive/v$pkgver.tar.gz"
-        set_mtime_0_with_gzip.patch)
+        set_SDE_in_gzip.patch)
 sha256sums=('894d854da32ff51a72dd812e8430dcbaa11757928a018c76120cfbb16686e877'
-            'be3c37e34c874a2d499fd5e21934230f83896db9cedce47c408655ac3ee0a930')
+            'cbeefd3af162b7168a4eb4f118091e3abddb887a2757843c6eaa2dc3f52d2a5a')
 
 prepare() {
   cd $pkgname-$pkgver
-  # Store "null" timestamps with gzip when compressing man pages to avoid recording non-deterministic
-  # information in gzip metadata across builds. This is required for reproducible builds.
+  # Default to SOURCE_DATE_EPOCH (if set) as timestamps with gzip when compressing man pages
+  # to avoid recording non-deterministic information in gzip metadata across builds.
+  # This is required for reproducible builds.
   # See https://github.com/gramps-project/gramps/pull/2076
-  patch -Np1 -i "$srcdir/set_mtime_0_with_gzip.patch"
+  patch -Np1 -i "$srcdir/set_SDE_in_gzip.patch"
 }
 
 build() {
