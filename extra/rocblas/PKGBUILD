@@ -2,7 +2,7 @@
 # Contributor: Markus Näther <naether.markus@gmail.com>
 # Contributor: Lubosz Sarnecki <lubosz@gmail.com>
 pkgname=rocblas
-pkgver=6.4.0
+pkgver=6.4.1
 pkgrel=1
 pkgdesc='Next generation BLAS implementation for ROCm platform'
 arch=('x86_64')
@@ -36,8 +36,8 @@ _rocblas='https://github.com/ROCm/rocBLAS'
 _tensile='https://github.com/ROCm/Tensile'
 source=("$pkgname-$pkgver.tar.gz::$_rocblas/archive/refs/tags/rocm-$pkgver.tar.gz"
         "$pkgname-tensile-$pkgver.tar.gz::$_tensile/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('ab8e75c9f98d17817a650aa4f06ff1e6c6af92cd143079e361cb6a0c96676aaa'
-            'cfe32aa31aa0dd79018d0cdd36e09df3a548159cb7b8e18d0ef6513d0febce90')
+sha256sums=('517950ff6b3715dee8b2bcfbdd3968c65e1910e4b8e353e148574ae08aa6dc73'
+            'f96fe39fbb0d43e39b258b21d66234abf3248f8cfa6954f922618d4bb7d04c74')
 options=(!lto)
 _dirname="$(basename "$_rocblas")-$(basename "${source[0]}" ".tar.gz")"
 _tensile_dir="$(basename "$_tensile")-$(basename "${source[1]}" ".tar.gz")"
