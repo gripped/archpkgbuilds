@@ -3,39 +3,46 @@
 # Contributor: Juliette Cordor 
 
 pkgname=podman-desktop
-pkgver=1.18.0
+pkgver=1.18.1
 pkgrel=1
 pkgdesc="Manage Podman and other container engines from a single UI and tray."
 arch=("x86_64")
 url="https://podman-desktop.io"
 license=('Apache-2.0')
-depends=("electron34" "hicolor-icon-theme")
+_electron=electron35
+depends=(${_electron} "hicolor-icon-theme")
 makedepends=(
-    'pnpm' 'node-gyp' 'npm' 'nodejs-lts-iron' 'libvips' 'lcms2'
+    'pnpm' 'node-gyp' 'npm' 'nodejs' 'libvips' 'lcms2'
     'openjpeg2' 'glib2' 'python-setuptools'
 )
 optdepends=(
     "podman: podman plugin"
     "docker: docker plugin"
 )
-source=(${pkgname}-${pkgver}.tar.gz"::https://github.com/${pkgname}/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz")
-b2sums=('d43ecec051d8a7c167bca080672a938b4fdad810b4560e3f1433c91371c8576171d2a990a17f92b1102956ac6fdb6e8a2e053741f85263057a9795a15666bb70')
+source=(${pkgname}-${pkgver}.tar.gz"::https://github.com/${pkgname}/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz"
+"run.sh.in")
+b2sums=('b77a27e8e46f84830031d55516e46a1c9d94c5a963d0995501f25bd6b5c94cffc864475a3b2d2a23d3dee4a50b81d4c567001a0677f1b1e8d43dcf562c98b59f'
+        '962868734a928753a0855a701fe356511f5066057e642677328ac522429a47d5091a8849d138fb29e06b100e4fe5762eee1f6feab1d9c95b2935794ca31f0016')
 
 prepare(){
     cd "${srcdir}/podman-desktop-$pkgver"
     sed -i 's/run.sh/podman-desktop/' '.flatpak.desktop'
+    _elver=$(cat /usr/lib/${_electron}/version)
+    echo -n Replacing $(cat package.json|grep '"electron":')
+    npm pkg set devDependencies.electron=${_elver}
+    echo with $(cat package.json|grep '"electron":')
     pnpm install --ignore-scripts --no-frozen-lockfile
 }
 
 build(){
     cd "${srcdir}/podman-desktop-$pkgver"
-    pnpm run compile:current --dir
+    pnpm run compile:current --dir -c.electronDist=/usr/lib/${_electron} #full copy happen
 }
 
 package(){
     cd "${srcdir}/podman-desktop-$pkgver"
-    mkdir -p "${pkgdir}/opt" "${pkgdir}/usr/bin"
-    cp -r "dist/linux-unpacked" "${pkgdir}/opt/podman-desktop"
+    mkdir -p "${pkgdir}"/usr/{lib/${pkgname},bin}
+    cp -r --reflink=auto dist/linux-unpacked/resources "${pkgdir}/usr/lib/${pkgname}/resources"
     install -Dm644 ./.flatpak-appdata.xml \
         "${pkgdir}/usr/share/metainfo/io.podman_desktop.PodmanDesktop.xml"
     install -Dm644 ./.flatpak.desktop \
@@ -46,5 +53,6 @@ package(){
         "${pkgdir}/usr/share/icons/hicolor/512x512/apps/io.podman_desktop.PodmanDesktop.png"
     install -Dm644 ./buildResources/icon.png \
         "${pkgdir}/usr/share/icons/hicolor/1024x1024/apps/io.podman_desktop.PodmanDesktop.png"
-    ln -s /opt/podman-desktop/podman-desktop "${pkgdir}/usr/bin/podman-desktop"
+    sed "s/@ELECTRON@/${_electron}/" "${srcdir}"/run.sh.in > "${pkgdir}/usr/bin/${pkgname}"
+    chmod 755 "${pkgdir}/usr/bin/${pkgname}"
 }
