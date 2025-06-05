@@ -4,7 +4,7 @@
 
 pkgname=sbt
 epoch=1
-pkgver=1.10.11
+pkgver=1.11.1
 pkgrel=1
 pkgdesc='The interactive build tool'
 arch=('any')
@@ -16,11 +16,19 @@ makedepends=('sbt' 'git' "jdk${_jdkver}-openjdk")
 optdepends=('rsync: offline installation support')
 install=sbt.install
 options=(!debug)
-source=(git+https://github.com/sbt/sbt.git#tag=v${pkgver})
+source=(git+https://github.com/sbt/sbt.git#tag=v${pkgver}
+        0001-fix-semanticdb-expects-Wildcard-imports-to-be-in-the.patch)
 validpgpkeys=('2EE0EA64E40A89B84B2DF73499E82A75642AC823') # sbt build tool
-sha256sums=('c9d809cc4a7fb6f8df61e47496d6422785bc772fa11b101f85afcb15f9c22f7f')
-b2sums=('dea61133930bf0a915363cc2734105a5ad3180f2d02558dc3d5bf86294b88b9444109067f71de0cb26a7bdb83c91a32b459ca44864550a37083c4509dc80e686')
+sha256sums=('5c0a7143c4c65f48bc56291a851b9c82d93c0c6810bd7ade164f0817776fba60'
+            '0538aef7be7f86cf12166be428ef2fe62b9cfe9ce09f2cf8ff2dbb2469df7099')
+b2sums=('89a89a2eee5f2237e990d02f4ed61094d5a26374990a255e590ad613ab9c71b0794d9d0ed0fec5d89d8ddeb9d501a681b6f08122a064bc849b250ed15728db1d'
+        '9aab56fb69cd92bf0c94e26d02189c3b8a1fc3e2a4ccb5aa61dbfe4dbfd084e916472ff1b4e7621d893d92baa60d638622a6f0902352f0159aea508ff08b14db')
 backup=(etc/${pkgname}/sbtopts)
+
+prepare() {
+  cd "${pkgname}"
+  patch -Np1 -i ../0001-fix-semanticdb-expects-Wildcard-imports-to-be-in-the.patch
+}
 
 build() {
   cd "${pkgname}/launcher-package"
