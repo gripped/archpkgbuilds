@@ -2,8 +2,8 @@
 
 _gemname='falcon'
 pkgname="ruby-${_gemname}"
-pkgver=0.48.4
-pkgrel=3
+pkgver=0.51.1
+pkgrel=1
 pkgdesc='A fast, asynchronous, rack-compatible web server'
 arch=(any)
 url='https://github.com/socketry/falcon'
@@ -12,12 +12,12 @@ depends=(
   ruby
   ruby-async
   ruby-async-container
+  ruby-async-container-supervisor
   ruby-async-http
   ruby-async-http-cache
   ruby-async-service
   ruby-bundler
   ruby-localhost
-  ruby-process-metrics
   ruby-protocol-http
   ruby-protocol-rack
   ruby-samovar
@@ -42,8 +42,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("${url}/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('3c020cc0255781fe524355391b3db792c5984b371379fe92294d395014e1677af19e4bfee9b0e3f8fdb4ddf0787e841ea34f166fc1dea83b75b526133d57f2f9')
-b2sums=('6c8654949b331939ce1c2cecec920cd4852a2c0893348e4eab8d26b5b7e58e94dbbd7e3d94b20d441ffd8717911cc038297c0255f03e6823de67f42d0cfb13f8')
+sha512sums=('2951d3d79819a5cbf04cfe5a540e31a99f8e30fe96f587ac187e689c78cceb934840961d8b18e73774e0cc3ef4998f5e31403eeaf5958eefa2b8ae8754269a7c')
+b2sums=('ed7542908463915682769edc7630ee3bcf69c1dc4205e9b044a10b25624ceab74c13c4d5c99878c477e5441cc9d9b37e60c7c253cb9a56564924f2732f21256b')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
