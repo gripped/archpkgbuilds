@@ -6,7 +6,7 @@
 
 pkgname=broadcom-wl-dkms
 pkgver=6.30.223.271
-pkgrel=42
+pkgrel=43
 pkgdesc='Broadcom 802.11 Linux STA wireless driver'
 arch=(x86_64)
 url='https://www.broadcom.com/site-search?filters[pages][content_type][values][]=Downloads&q=802.11%20linux%20sta%20wireless%20driver'
@@ -35,6 +35,7 @@ source=(broadcom-wl-dkms.conf
         017-linux612.patch
         018-linux613.patch
         019-linux614.patch
+        020-linux615.patch
         "https://docs.broadcom.com/docs-and-downloads/docs/linux_sta/hybrid-v35_64-nodebug-pcoem-${pkgver//./_}.tar.gz")
 b2sums=('7c4eaa825a37358509a08e5105665eeabc9f097945b6fa163cd5722b00638da5889f5466bd2c5f1b01172f2d0c9fb195f6e18329f2880adb2774406684cbc4c0'
         '2d9d5cf410b74c9eb9238a469ff04cd3c4223716c51fa6431abb36c3d31e13ce2bea7179df392e92c23e615ee9d4f34ff156aefa2ea9bf6a2754b2079fcad5db'
@@ -57,6 +58,7 @@ b2sums=('7c4eaa825a37358509a08e5105665eeabc9f097945b6fa163cd5722b00638da5889f546
         '89a234cfbe2ddf3c938fc33b846c29cbf67907919bc3b103405b4e020bbaeb615ad0fc884ec314b17ca9c3ac63256dea2387851383934b7483cfca67dccbed17'
         '03e42e33a1fa2a1b64f36cd38f83ca431aa9d3914d52015bac6e4717071938e05c69c53f644653823a4a2a2278243a4d8564477597e8cae28bdb017615b4b102'
         'bf7b311155338d9bd2ea087aa24b5601f3ca291c2aaf6509ad6c196f956f8d8311487a30965eb1db562f6caa3fddb2537e4246519582ceb0ca4e8d07ac4027ee'
+        '437331014f32b0359f9a2158bbc76f784a5c2ffa1a40896650208ceec59444d806a2b03e9b93b53647dd4898f1f50b3559b05ebda6d1812a2bf032f83d485718'
         'e9d01c1a1a63c07f720e3ee53ee3ef634ab12694135300cb0ce47ade0e9e0084967a0b6df64d983e8184240eb3defb128f650bddb7727e901d50315307f3398a')
 
 prepare() {
