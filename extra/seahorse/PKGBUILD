@@ -4,7 +4,7 @@
 
 pkgname=seahorse
 pkgver=47.0.1
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc="GNOME application for managing PGP keys."
 url="https://wiki.gnome.org/Apps/Seahorse"
@@ -39,8 +39,10 @@ provides=(x11-ssh-askpass)
 groups=(gnome-extra)
 source=(
   "git+https://gitlab.gnome.org/GNOME/seahorse.git?signed#tag=${pkgver/[a-z]/.&}"
+  gpgme-2.0.patch
 )
-b2sums=('e8d8fae487e872c180ee1e8743a95a58445f89b41471067c065745c052703f57b003b49364f350a4fe76fdcdf0ce38b7c8b16baab4a86120dcc90906b5aab390')
+b2sums=('e8d8fae487e872c180ee1e8743a95a58445f89b41471067c065745c052703f57b003b49364f350a4fe76fdcdf0ce38b7c8b16baab4a86120dcc90906b5aab390'
+        '38a4de15a485d12328bcc8645f6c08f3080664e1b699e2acaf21bf06af85af91a734454f542b00b06f6391112d30d1c9eb79544cbc1cf7ece33dd10fd0a83654')
 validpgpkeys=('A7C626E13F9AD776776BD9CA1D8A57CF2E8D36A3') # Niels De Graef (nielsdg) <nielsdegraef@gmail.com>
 
 prepare() {
@@ -49,6 +51,9 @@ prepare() {
   # Fix symbolic icon name
   # https://gitlab.gnome.org/GNOME/seahorse/-/merge_requests/230
   git cherry-pick -n c6fcd381425b638c16eeab7e5858bddf7de76b9f
+
+  # Fix build with gpgme 2.0
+  patch -p1 -i ../gpgme-2.0.patch
 }
 
 build() {
