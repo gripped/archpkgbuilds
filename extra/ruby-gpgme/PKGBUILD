@@ -4,7 +4,7 @@
 _gemname='gpgme'
 pkgname="ruby-${_gemname}"
 pkgver=2.0.24
-pkgrel=3
+pkgrel=4
 pkgdesc='Ruby interface to GnuPG Made Easy (GPGME)'
 url='https://github.com/ueno/ruby-gpgme'
 arch=('x86_64')
@@ -13,15 +13,21 @@ depends=('ruby' 'ruby-mini_portile2' 'gpgme' 'libgpg-error' 'libassuan')
 makedepends=('ruby-rdoc' 'ruby-rake' 'ruby-bundler' 'ruby-yard')
 #checkdepends=('ruby-mocha')
 options=('!emptydirs')
-source=("https://github.com/ueno/ruby-gpgme/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('d906cc669b4e55facd13838c711601ce587e197d44cdc614c4972b2fe411c6259fa236d9713e0ff716ab97fa34840feb0b503db298e6b7a3125d3bcce12d7835')
-b2sums=('69de16ca15088025c8aa5e8a7910d99df11df1e8ba522d16f9b23a89960683555dbdfe238c351532ffb57283c99b4b4c06c570e6c7755e21a40c67d9f9e00214')
+source=("https://github.com/ueno/ruby-gpgme/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+         gpgme-2.0.patch)
+sha512sums=('d906cc669b4e55facd13838c711601ce587e197d44cdc614c4972b2fe411c6259fa236d9713e0ff716ab97fa34840feb0b503db298e6b7a3125d3bcce12d7835'
+            'ee301ffdf89fadedb6f18478e085a0907eb243de49f63720e3b2ba825d23effc3b3ecc6ab423904ef65511169224b594457f47012733f14948593c8099d8fac2')
+b2sums=('69de16ca15088025c8aa5e8a7910d99df11df1e8ba522d16f9b23a89960683555dbdfe238c351532ffb57283c99b4b4c06c570e6c7755e21a40c67d9f9e00214'
+        '458529019206a56aef1d144ccadfaae92b13cf79c65d2b8827da572c249bc1c8f57fc4de907603ca1283087fe1f40c3866146ae785c6b731de85848c8d691f51')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
 
   # update gemspec/Gemfile to allow newer version of the dependencies
   sed --in-place --regexp-extended 's|~>|>=|g' "${_gemname}.gemspec"
+
+  # Drop API removed in gpgme 2.0
+  patch -p1 -i ../gpgme-2.0.patch
 }
 
 build() {
