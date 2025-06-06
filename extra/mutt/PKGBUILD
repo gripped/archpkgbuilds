@@ -5,11 +5,11 @@
 
 pkgname=mutt
 pkgver=2.2.14
-pkgrel=1
+pkgrel=2
 pkgdesc="Small but very powerful text-based mail client"
 arch=(x86_64)
 url="http://www.mutt.org/"
-license=(GPL2)
+license=(GPL-2.0-or-later)
 depends=(
   glibc
   libgpg-error
@@ -38,7 +38,6 @@ optdepends=(
   'smtp-forwarder: to send mail'
 )
 backup=(etc/$pkgname/Muttrc)
-install=$pkgname.install
 source=("git+https://gitlab.com/muttmua/mutt.git#tag=mutt-${pkgver//./-}-rel?signed")
 sha512sums=('e83e8beff1994d1f371a95ca15106060212f6a6e260544a4ef5314532aaac24178250e29f5c6ba220104af1b9c45c2b21bcfee28d946e38b7918bb241e578023')
 b2sums=('628142f0a41a3eb217a0a4c6c1e2ace4682481488fef6f080becbaa8c4c851796c6efa38459ec174ce3033fec07c6d9277553b56a83316addaae10ee5e3c2e22')
