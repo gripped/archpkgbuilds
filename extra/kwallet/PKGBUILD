@@ -4,7 +4,7 @@
 
 pkgname=kwallet
 pkgver=6.14.1
-pkgrel=1
+pkgrel=3
 pkgdesc='Secure and unified container for user passwords'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -12,7 +12,7 @@ license=(LGPL-2.0-only LGPL-3.0-only)
 depends=(gcc-libs
          glib2
          glibc
-         gpgme
+         gpgmepp
          kcolorscheme
          kconfig
          kcoreaddons
