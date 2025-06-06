@@ -2,7 +2,7 @@
 
 pkgname=kleopatra
 pkgver=25.04.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Certificate Manager and Unified Crypto GUI'
 arch=(x86_64)
 url='https://apps.kde.org/kleopatra/'
@@ -10,7 +10,7 @@ license=(GPL-2.0-or-later LGPL-2.0-or-later)
 depends=(akonadi-mime
          gcc-libs
          glibc
-         gpgme
+         gpgmepp
          kcodecs
          kcolorscheme
          kconfig
@@ -32,18 +32,30 @@ depends=(akonadi-mime
          libgpg-error
          libkleo
          mimetreeparser
-         qgpgme-qt6
+         qgpgme
          qt6-base)
 makedepends=(extra-cmake-modules
              kdoctools)
 groups=(kde-applications
         kde-pim)
-source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig}
+        https://invent.kde.org/pim/kleopatra/-/commit/d4f777ff.patch
+        https://invent.kde.org/pim/kleopatra/-/commit/b1f3736d.patch
+        https://invent.kde.org/pim/kleopatra/-/commit/10b61870.patch)
 sha256sums=('61f2c473551eb01cbae2b300e274b562ec19014ee3f74c4ee84f35645446b89b'
-            'SKIP')
+            'SKIP'
+            '0120d812f9a57cbd4a5a2718fbbc9acef090841701cb2c6b4f11a596986840e6'
+            'c2796b58683b07eabeae48a517192460c474a1722d7022e796b94df6553d933d'
+            '75f5c94d85eadad74dcef21f66c019946217a051a9e8b90803d5eceaadb3fcd4')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < d4f777ff.patch # Fix build with Gpgme++ 2.0
+  patch -d $pkgname-$pkgver -p1 < b1f3736d.patch
+  patch -d $pkgname-$pkgver -p1 < 10b61870.patch
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
