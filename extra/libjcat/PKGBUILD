@@ -2,7 +2,7 @@
 
 pkgname=libjcat
 pkgver=0.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for reading and writing Jcat files"
 arch=(x86_64)
 url="https://github.com/hughsie/libjcat"
