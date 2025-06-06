@@ -5,7 +5,7 @@
 
 pkgname=ostree
 pkgver=2025.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Operating system and container binary deployment and upgrades"
 url="https://ostreedev.github.io/ostree/"
 arch=(x86_64)
