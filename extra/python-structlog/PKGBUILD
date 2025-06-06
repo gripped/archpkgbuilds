@@ -3,7 +3,7 @@
 
 pkgname=python-structlog
 # https://github.com/hynek/structlog/blob/main/CHANGELOG.md
-pkgver=25.3.0
+pkgver=25.4.0
 pkgrel=1
 pkgdesc="Structured Logging for Python"
 url="https://www.structlog.org"
@@ -26,7 +26,7 @@ optdepends=(
 # The PyPI tarball is signed, but missing conftest.py
 source=("git+https://github.com/hynek/structlog.git#tag=$pkgver"
         "ssh_allowed_signers")
-sha512sums=('64b0dab6f61df1d97cac63bc1d5e0b18770e8477616a1843f06dd6cd633b8edc09f2616e1f9484b9ce952d400d2e13404ce3aa7332febf1e1d39968190f397ef'
+sha512sums=('a52a7b3af10abe214f16e870a879027185bd919a741209b394d9d156111964a435b4758dd3aeba9c7358789eba58ca8baa858082922d2f6b922f102396a5a957'
             '6ccc3793e6128783b745879785264f66961a6d3aeefd4c39746503490fe0c36c92807f3149ed601fdaaf84be244a6b24882a337025a2dd317a96d75b50f1fabd')
 
 # XXX: move to verify() when devtools supports it
