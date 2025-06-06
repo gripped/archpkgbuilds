@@ -2,14 +2,14 @@
 
 pkgname=libkleo
 pkgver=25.04.1
-pkgrel=1
+pkgrel=2
 pkgdesc='KDE PIM cryptographic library'
 arch=(x86_64)
 url='https://kontact.kde.org'
 license=(LGPL-2.0-or-later)
 depends=(gcc-libs
          glibc
-         gpgme
+         gpgmepp
          kcolorscheme
          kcodecs
          kcompletion
@@ -18,7 +18,7 @@ depends=(gcc-libs
          ki18n
          kitemmodels
          kwidgetsaddons
-         qgpgme-qt6
+         qgpgme
          qt6-base)
 makedepends=(boost
              doxygen
