@@ -6,7 +6,7 @@
 
 pkgname=broadcom-wl-dkms
 pkgver=6.30.223.271
-pkgrel=43
+pkgrel=44
 pkgdesc='Broadcom 802.11 Linux STA wireless driver'
 arch=(x86_64)
 url='https://www.broadcom.com/site-search?filters[pages][content_type][values][]=Downloads&q=802.11%20linux%20sta%20wireless%20driver'
@@ -74,7 +74,7 @@ prepare() {
 
   sed -e "s/@PACKAGE_VERSION@/$pkgver/" dkms.conf.in > dkms.conf
   sed -i -e '/BRCM_WLAN_IFNAME/s/eth/wlan/' src/wl/sys/wl_linux.c
-  sed -i -e "/EXTRA_LDFLAGS/s|\$(src)/lib|/usr/lib/$pkgname|;/GE_49 :=/s|:= .*|:= 1|" Makefile
+  sed -i -e "/ldflags-y/s|\$(src)/lib|/usr/lib/$pkgname|;/GE_49 :=/s|:= .*|:= 1|" Makefile
 }
 
 package() {
