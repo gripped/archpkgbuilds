@@ -2,14 +2,14 @@
 
 pkgname=plasma-pass
 pkgver=1.2.2
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 pkgdesc='Plasma applet for the Pass password manager'
 url='https://www.dvratil.cz/2018/05/plasma-pass/'
 license=(GPL-2.0-or-later)
 depends=(gcc-libs
          glibc
-         gpgme
+         gpgmepp
          kcoreaddons
          ki18n
          kitemmodels
@@ -17,7 +17,7 @@ depends=(gcc-libs
          oath-toolkit
          plasma-workspace
          plasma5support
-         qgpgme-qt6
+         qgpgme
          qt6-base
          qt6-declarative)
 makedepends=(extra-cmake-modules)
