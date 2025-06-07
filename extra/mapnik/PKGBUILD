@@ -5,8 +5,8 @@
 # Contributor: orbisvicis <orbisvicis@gmail.com>
 
 pkgname=mapnik
-pkgver=4.0.7
-pkgrel=4
+pkgver=4.1.0
+pkgrel=1
 pkgdesc="Open source toolkit for developing mapping applications"
 arch=('x86_64')
 url="https://mapnik.org/"
@@ -35,7 +35,7 @@ makedepends=(
   'scons'
 )
 source=("https://github.com/$pkgname/$pkgname/releases/download/v$pkgver/$pkgname-v$pkgver.tar.bz2")
-sha256sums=('8970857ebb0e80f09f7842b85c42da1c75b48510f69185febb21795b9147fa6d')
+sha256sums=('1d4baed88ad0b8e02ba66444ef5851517409f12f35c51447b007c0301d3877ef')
 
 build() {
   cd $pkgname-v$pkgver
