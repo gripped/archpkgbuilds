@@ -3,7 +3,7 @@
 
 pkgname=python-diff-cover
 _pkgname=diff_cover
-pkgver=9.3.1
+pkgver=9.3.2
 pkgrel=1
 pkgdesc="Automatically find diff lines that need test coverage"
 arch=(any)
@@ -33,7 +33,7 @@ checkdepends=(
 )
 optdepends=('python-tomli: for TOML support')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('c25734fedd522900880037a8068cc710f8910a334727ada0f8b48179540055f2')
+sha256sums=('143789c6a317fe25f0ee072154c8ca14b6154ef1380915914352abf75f0bd580')
 
 build() {
   cd $_pkgname-$pkgver
