@@ -6,12 +6,12 @@
 
 pkgname=tcpreplay
 pkgver=4.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Gives the ability to replay previously captured traffic in a libpcap format'
 url='https://tcpreplay.appneta.com'
 arch=('x86_64')
 license=('GPL-3.0-only')
-depends=('glibc' 'libpcap' 'libdnet' 'autogen')
+depends=('glibc' 'libpcap' 'libdnet')
 makedepends=('tcpdump')
 optdepends=('tcpdump: decoding of packets support')
 options=('!emptydirs')
@@ -29,6 +29,7 @@ prepare() {
 
 build() {
   cd ${pkgname}-${pkgver}
+  export CFLAGS="$CFLAGS -std=gnu99"
   ./configure \
     --prefix=/usr \
     --disable-local-libopts \
