@@ -2,7 +2,7 @@
 # Contributor: sxe <sxxe@gmx.de>
 
 pkgname=flowblade
-pkgver=2.18
+pkgver=2.22
 pkgrel=1
 pkgdesc='Multitrack non-linear video editor'
 arch=('any')
@@ -12,7 +12,7 @@ depends=('dbus-python' 'ffmpeg' 'frei0r-plugins' 'gmic' 'gtk3' 'mlt' 'python-cai
          'python-gobject' 'python-numpy' 'python-pillow' 'sdl_image' 'swh-plugins' 'python-libusb1')
 makedepends=('python-setuptools')
 source=("https://github.com/jliljebl/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('6d93a30aa68feabecc18c3c88a0203f3f6bae1e190e16f2814fa316147cf266e')
+sha256sums=('7f9c30712320170bf7e4f8bcc7006f4421f4459a77ef25059412f562ae94823a')
 
 prepare() {
   cd $pkgname-$pkgver/$pkgname-trunk
