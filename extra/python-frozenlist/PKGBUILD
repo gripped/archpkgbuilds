@@ -3,7 +3,7 @@
 # Contributor: Jelle van der Waa <jelle@vdwaa.nl>
 
 pkgname=python-frozenlist
-pkgver=1.6.0
+pkgver=1.6.1
 pkgrel=1
 pkgdesc='FrozenList is a list-like structure which can be made immutable'
 arch=('x86_64')
@@ -23,8 +23,8 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('f7e3d8741335c5ebdb3e78684c6e4a91c2f7f389134f4b869d8ea67d167472814867f14e303211045977f0d409d6b1b9478b7cfa7718af5ae9bacb49d147af58')
-b2sums=('e7f03eb3779e048d921f8383d34d82af82828ac587378c148d9f555cf69aa1324f63fb1a53e42bc3d411a647ccd3eabf5b276a9c2ebd7af14d03245c8f4d4721')
+sha512sums=('63776f6bbbc710d25a47a634df8020c347656d452d1912970ba9e94ffdaba28c999fe12ee6e9dca1622f9e7ab7ce60deda540bc3797f0ca6ec079c0d26b6cc84')
+b2sums=('99e2bf456e9127b79940c53958f8aec377e00788d0778b08a55898f72d1f08ec1646ae7596d650687859d68b502e22360eebc33b82913b57f1877f15ba81bc22')
 
 build() {
   cd ${pkgname#python-}-$pkgver
