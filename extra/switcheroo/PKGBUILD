@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=switcheroo
-pkgver=2.2.0
+pkgver=2.4.0
 pkgrel=1
 pkgdesc='Convert between different image filetypes and resize them easily'
 arch=(x86_64)
@@ -35,7 +35,7 @@ makedepends=(
   rust
 )
 source=("git+https://gitlab.com/adhami3310/Switcheroo.git#tag=v$pkgver")
-b2sums=(f178edd08a20df0e809121a6371fc17ccff06bba7cfa26e75255d15f4dd64a2ef01cb20031e4153d58c597d019b683bec5b93b6d116d384f8a241c0aa034ff0b)
+b2sums=('4444bf56196611fb3dab3ded32c6964008a06618f15c9918bb2a23e0561a46f013cc062a449d7ff8714ad217b4e2445b38b1a4afbef6b78111e29e0fcf56aafd')
 
 prepare() {
   cd Switcheroo
@@ -50,6 +50,7 @@ build() {
   CARGO_PROFILE_RELEASE_LTO=true \
     CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
     CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
     meson compile -C build
 }
 
