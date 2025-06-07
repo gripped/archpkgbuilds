@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=cartridges
-pkgver=2.11
+pkgver=2.12.1
 pkgrel=1
 pkgdesc='Simple game launcher written in Python using GTK4 and Libadwaita'
 arch=(any)
@@ -32,10 +32,8 @@ source=(
   "git+https://github.com/kra-mo/cartridges.git#tag=v$pkgver"
   cartridges-save-cover.patch
 )
-b2sums=(
-  b52db871c404bda813798ce10af1c58263a11eb8eb866b2c0823601d8e11556f57d81f64cbcfa8230ce186c16c894bda86e7e909945cf1ee1c56e53da05fbc56
-  d0f7ec28c561cc3d6b92943884bc6c467fac642d0f4950e0954061f027d4ecac691436dc8e4d9f863fa7318a9007eafda94cde30b72cf8e8871dfa154b97e299
-)
+b2sums=('e15ee8046903a4b0307af88ab79c5dc951bfc69ea8a76109fec4690f95ddf6eec8cef2c2d083444e00520493d7e6d2f4c165e2dafcdaa026b4784cfd7bd1fc90'
+        'd0f7ec28c561cc3d6b92943884bc6c467fac642d0f4950e0954061f027d4ecac691436dc8e4d9f863fa7318a9007eafda94cde30b72cf8e8871dfa154b97e299')
 
 prepare() {
   cd $pkgname
