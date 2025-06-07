@@ -1,6 +1,6 @@
 pkgbase = crawl
 	pkgdesc = Dungeon Crawl Stone Soup: open-source, single-player, role-playing roguelike game of exploration and treasure-hunting
-	pkgver = 0.33.0
+	pkgver = 0.33.1
 	pkgrel = 1
 	url = https://crawl.develz.org/
 	arch = x86_64
@@ -27,8 +27,8 @@ pkgbase = crawl
 	depends = lua51
 	depends = sqlite
 	depends = zlib
-	source = git+https://github.com/crawl/crawl#tag=0.33.0
-	b2sums = 506d6a3f2190173b6e5319684c0731e90624f7147f73168d3cec7b8da75eaf1e36cfc9fb90b4d152d70f3a8012444ed30c695b944e83124354373b2880209cce
+	source = git+https://github.com/crawl/crawl#tag=0.33.1
+	b2sums = 6f665559454f51bb7cc78a145ca817f1515adda7b457fb5fd16c876e60a8bbe27ab22b3d58431a50b55689dcc609db5ca2cae8d0ccacdfa3815793f2057d891e
 
 pkgname = crawl-data
 	pkgdesc = Dungeon Crawl Stone Soup: open-source, single-player, role-playing roguelike game of exploration and treasure-hunting - game data
@@ -44,7 +44,7 @@ pkgname = crawl-ncurses
 	depends = lua51
 	depends = sqlite
 	depends = zlib
-	depends = crawl-data=0.33.0-1
+	depends = crawl-data=0.33.1-1
 	depends = ncurses
 
 pkgname = crawl-tiles
@@ -55,7 +55,7 @@ pkgname = crawl-tiles
 	depends = lua51
 	depends = sqlite
 	depends = zlib
-	depends = crawl-data=0.33.0-1
+	depends = crawl-data=0.33.1-1
 	depends = freetype2
 	depends = glu
 	depends = libglvnd
