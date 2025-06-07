@@ -1,0 +1,34 @@
+# Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
+
+pkgname=cudss
+pkgver=0.5.0.16
+_cudaver=12
+pkgrel=1
+pkgdesc="A high-performance CUDA library for Direct Sparse Solvers"
+arch=(x86_64)
+url="https://docs.nvidia.com/cuda/cudss/"
+license=(LicenseRef-NVIDIA-cuDSS)
+depends=(
+  "cuda>=$_cudaver"
+  gcc-libs
+  glibc
+)
+optdepends=(
+  'nccl: for the NCCL multi-GPU communication layer'
+  'openmpi: for the OpenMPI multi-GPU communication layer'
+)
+options=(!strip staticlibs)
+source=(https://developer.download.nvidia.com/compute/cudss/redist/libcudss/linux-x86_64/libcudss-linux-x86_64-${pkgver}_cuda$_cudaver-archive.tar.xz)
+b2sums=('ea0146a65f2f614083f96d0f361c299affad2f798505a41cde36d0bcae6ca30b61f2107fc098c78acbb8ad440433cd580912da62ee125dda88da8fc5e53aec21')
+
+package() {
+  cd libcudss-linux-x86_64-${pkgver}_cuda${_cudaver}-archive
+
+  install -vdm 755 "$pkgdir"/usr/
+  cp -r lib include "$pkgdir"/usr/
+
+  install -vdm 755 "$pkgdir"/usr/share/doc/$pkgname/
+  cp -r examples src "$pkgdir"/usr/share/doc/$pkgname/
+
+  install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
