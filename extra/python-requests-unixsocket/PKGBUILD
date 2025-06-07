@@ -2,38 +2,40 @@
 # Contributor: Andy Weidenbaum <archbaum@gmail.com>
 
 pkgname=python-requests-unixsocket
-_pkgname="${pkgname#python-}"
-pkgver=0.3.0
-pkgrel=5
+pkgver=0.4.1
+pkgrel=1
 pkgdesc='Use requests to talk HTTP via a UNIX domain socket'
 arch=('any')
 url='https://github.com/msabramo/requests-unixsocket'
-license=('Apache')
+license=('Apache-2.0')
 depends=(
   'python'
   'python-requests'
   'python-urllib3'
 )
 makedepends=(
+  'git'
   'python-build'
   'python-installer'
-  'python-wheel'
   'python-setuptools'
-  'python-pbr'
+  'python-setuptools-scm'
+  'python-wheel'
 )
 options=('!emptydirs')
-source=("$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/${_pkgname::1}/$_pkgname/$_pkgname-$pkgver.tar.gz")
-sha512sums=('21c887b0c3fa526a2debb3960e0ea4dc3b3015cdd517459b6484501176321408d1b4c87dd2840c7d8b71d08fa9114f655ae03f8bc9ff1fca33c914900ef82f5b')
-b2sums=('5b46ea051729326498f50ba7a952429d271deb102060f8e3019d259ddc21dbffdca8960e140c7ccb25898034cf37fb90dd143c970e75bdc6e6442e9515f14d6e')
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('0240a2e4beccef0110b19d7b04a393472da180b2e07c4d7dd2341ba14d405968ff252ece4cc276c38629a1e7c269a3f820bda0969b07b2f12275180c9d68fba7')
+b2sums=('b20ba95f7c08452895583c913e456de06eb950762f32af9f32d208a7f30cb339660e268806f5e127f8fc3b9e8f6cd2dc6e0ce9e4ef472d0b07e8368c5a9f45c1')
 
 build() {
-  cd "$_pkgname-$pkgver"
+  cd "$pkgname"
+
+  export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 
   python -m build --wheel --no-isolation
 }
 
 package() {
-  cd "$_pkgname-$pkgver"
+  cd "$pkgname"
 
   python -m installer --destdir="$pkgdir" dist/*.whl
 
