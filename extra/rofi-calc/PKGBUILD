@@ -1,6 +1,6 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=rofi-calc
-pkgver=2.3.0
+pkgver=2.3.1
 pkgrel=1
 pkgdesc="Do calculations in rofi"
 arch=('x86_64')
@@ -9,7 +9,7 @@ license=(MIT)
 depends=('rofi' 'libqalculate')
 install=$pkgname.install
 source=($pkgname-$pkgver.tar.gz::https://github.com/svenstaro/rofi-calc/archive/v${pkgver}.tar.gz)
-sha512sums=('d770f7db35075c974c344d2fce6dadb0f63e98f7accb1478a710589949f7f5848d0fee21d284dbac894177645b538b91c2d6258fee5e0d2b1d452e75d5f88b39')
+sha512sums=('62adfc420f9e7f5c1c55ffb70e4a11a37b8df7fde5f3f7ce06a9194da686003e42a489ff471c8ff2a3b6ba0c9b7fb9c22ba1a3677cf28f3913f2e48d1612b643')
 
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
