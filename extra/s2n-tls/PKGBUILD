@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=s2n-tls
-pkgver=1.5.19
+pkgver=1.5.20
 pkgrel=1
 pkgdesc='A C99 implementation of the TLS/SSL protocols that is designed to be simple, small, fast, and with security as a priority'
 arch=(x86_64)
@@ -18,7 +18,7 @@ depends=(
 )
 makedepends=(cmake)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('cb67993d43b39f583ea864d29b028bc258cc0866704f45eedc7ca064e48987ac')
+sha256sums=('1d05303ba8383f62273c51b50147391c23375e918d525b7c827f7aeb69e6b102')
 
 build() {
   cd $pkgname-$pkgver
