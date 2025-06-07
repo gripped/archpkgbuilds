@@ -10,13 +10,14 @@
 
 pkgname=gitlab
 pkgver=18.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Project management and code hosting application'
 arch=(x86_64)
 url='https://gitlab.com/gitlab-org/gitlab-foss'
 license=(MIT)
 depends=(git
          gitlab-gitaly
+         gpgme libgpgme.so
          icu libicui18n.so libicuuc.so
          libxslt
          nodejs
@@ -49,6 +50,9 @@ backup=("etc/webapps/$pkgname/database.yml"
         "etc/logrotate.d/$pkgname")
 options=(!buildflags !debug !lto)
 source=("git+$url.git#tag=v$pkgver"
+        "git+https://github.com/ueno/ruby-gpgme.git#tag=v2.0.24"
+        "gpgme-2.0.patch"
+        "$pkgname-Gems-ruby-gpgme-2.0.patch"
         "$pkgname-configs.patch"
         "$pkgname-Gems.patch"
         "$pkgname-environment"
@@ -66,6 +70,9 @@ conflicts=(gitlab-workhorse)
 replaces=(gitlab-workhorse)
 install=gitlab.install
 sha256sums=('b93b49b566d43a33754ae9b1e50751e76fef16de7204ddc0251a5c3770a5e420'
+            '325e8a2a319bf8c5a2f38206b8e09ca2d011667dfceb184496320864fe78cdae'
+            '717a918b3ef3acb5b152ddd13591a97b8b2fb6d50520ffbe97da551c37983c97'
+            'c435553b3dacd67300d81149f6c101e3c60946faf486eb2307dc91604111f8ad'
             '49120ae3adab1f554a995e705eb9fa3ce435006785af53eee3f21568a047873e'
             '9ad5171f223650d34fc0c27ead89a31ce429a45cdae9b92a03220c7877966fde'
             '8cc4d933743906b4213b8ea8d8c5a62535e27e4073f73581a5dad40078dde000'
@@ -95,6 +102,12 @@ _add_Gems_to_bundle() {
 }
 
 prepare() {
+	# Patch bundled gpgme gem -- Drop API removed in gpgme 2.0
+	git -C ruby-gpgme config --local user.email "you@example.com"
+	git -C ruby-gpgme config --local user.name "Your Name"
+	git -C ruby-gpgme apply ../gpgme-2.0.patch
+	git -C ruby-gpgme commit -am 'gpgme-2.0'
+
 	cd gitlab-foss
 
 	# GitLab tries to read its revision information from a file.
@@ -102,6 +115,7 @@ prepare() {
 
 	patch -p1 -i ../$pkgname-configs.patch
 	patch -p1 -i ../$pkgname-Gems.patch
+	patch -p1 -i ../$pkgname-Gems-ruby-gpgme-2.0.patch
 
 	# '/home/git' path in the config files indicates a default path that need to be adjusted
 	! grep -FqR '/home/git' config
