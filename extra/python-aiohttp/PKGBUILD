@@ -7,7 +7,7 @@
 # Check if new updates break python-engineio
 
 pkgname=python-aiohttp
-pkgver=3.12.9
+pkgver=3.12.11
 pkgrel=1
 pkgdesc='HTTP client/server for asyncio'
 arch=(x86_64)
@@ -59,7 +59,7 @@ optdepends=(
   'python-brotli: for Brotli transfer-encodings support'
 )
 source=("$pkgname::git+https://github.com/aio-libs/aiohttp#tag=v$pkgver")
-b2sums=('7b1a977e0ea8dde8d9466d4415fd16e007143e4e579b9048ca8f2144f42eb4c4a96f94722fa85fe97b205eade29b4cefc8bba3a2df0ad74c88831c7df4ce0d2f')
+b2sums=('28309057dd629971798e7b7ead5b20a082ca12e5a331cdda10a7d3aabacc5370f2de7473bfc8f83bd9bf98871d770a9daf88616f9e7a7aa81dd9b8ee8aa1bb53')
 
 prepare() {
   cd $pkgname
