@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=oryx
-pkgver=0.6
+pkgver=0.6.1
 pkgrel=1
 pkgdesc="A TUI for sniffing network traffic using eBPF"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('GPL-3.0-only')
 depends=('gcc-libs')
 makedepends=('cargo-nightly' 'bpf-linker')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('9dfe2f0963c54abfb67910dd013e45ea58cdc9e42045c87f6808c049e716abe0131a7ac9cdd7f6be39e882ac07d789c09efc06121917d621038fd92df6482408')
+sha512sums=('a654140c12410c6e8d9e5bd14016529526c01e04c9a6a3f5ae3fc0501c7bd1a23622e234eb977f8bfd3583c6d44d2fa36b1b0c8228a67c99352c0670d867e6f7')
 options=('!lto')
 
 prepare() {
