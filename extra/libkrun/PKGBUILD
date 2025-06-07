@@ -2,7 +2,7 @@
 # Contributor: hexchain <arch at hexchain.org>
 pkgname=libkrun
 pkgver=1.13.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A dynamic library providing Virtualization-based process isolation capabilities"
 url='https://github.com/containers/libkrun'
 arch=('x86_64')
@@ -21,6 +21,7 @@ prepare() {
 build() {
   cd "$pkgname-$pkgver"
 
+  export ZSTD_SYS_USE_PKG_CONFIG=1
   make GPU=1 BLK=1 NET=1 SND=1 VERBOSE=1
 }
 
@@ -30,9 +31,4 @@ package() {
   make DESTDIR="$pkgdir" PREFIX=/usr LIBDIR_Linux=lib install
 
   install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
-
-  # Hack, we shouldn't require this but somehow we do.
-  # It works fine if I build this package outside of a clean chroot but I can't
-  # figure out what build deps the package is missing.
-  patchelf --add-needed libzstd.so "$pkgdir"/usr/lib/libkrun.so.${pkgver}
 }
