@@ -5,8 +5,8 @@
 # Contributor: JD Steffen <jd at steffennet dot org>
 
 pkgname=simutrans
-pkgver=124.3
-pkgrel=2
+pkgver=124.3.1
+pkgrel=1
 pkgdesc="Transportation simulation game"
 arch=('x86_64')
 url="https://www.simutrans.com/"
@@ -16,7 +16,7 @@ makedepends=('dos2unix' 'cmake' 'git')
 optdepends=('timidity++: play MIDI music')
 source=(git+https://github.com/simutrans/simutrans#tag=$pkgver
         settings-folder.patch)
-sha256sums=('2e3f0d0b94cc504918a1d92e7d2e068ebd5add1df8864c6046c8311c4259ed25'
+sha256sums=('64ba30530ba678d0020e22e9d64ef921171245c45d615ffb3ca50eead1592b77'
             'c38efe293ab3e6439a204545b0102abbb6db04c72a11486bdd391bc4d5cf3d2a')
 
 prepare() {
