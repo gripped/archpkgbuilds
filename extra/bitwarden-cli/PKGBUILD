@@ -3,12 +3,12 @@
 
 pkgname=bitwarden-cli
 pkgver=2025.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="The command line vault"
 arch=('x86_64')
 url="https://github.com/bitwarden/clients"
 license=('GPL3')
-depends=('nodejs-lts-iron' 'argon2')
+depends=('nodejs-lts-iron' 'argon2' 'semver')
 makedepends=('git' 'python' 'python-setuptools' 'npm' 'modclean' 'fdupes')
 options=(!emptydirs)
 source=(bitwarden::git+https://github.com/bitwarden/clients.git#tag=cli-v${pkgver}
