@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=sugar-artwork
-pkgver=0.120
+pkgver=0.121
 pkgrel=1
 pkgdesc="Sugar icons and themes"
 arch=('x86_64')
@@ -10,8 +10,19 @@ license=('LGPL')
 makedepends=('gtk2' 'gtk3' 'icon-naming-utils' 'python-empy' 'xorg-xcursorgen')
 optdepends=('gtk2: GTK+ 2 theme'
             'gtk3: GTK+ 3 theme')
-source=(https://download.sugarlabs.org/sources/sucrose/glucose/$pkgname/$pkgname-$pkgver.tar.xz)
-sha256sums=('6052b4d3488daf78901d2914015e3c67017cb1bb0cf669625b1f1d62921e9afa')
+source=(https://download.sugarlabs.org/sources/sucrose/glucose/$pkgname/$pkgname-$pkgver.tar.xz
+        https://github.com/sugarlabs/sugar-artwork/commit/84a0f2c1.patch
+        https://github.com/sugarlabs/sugar-artwork/commit/14de4382.patch)
+sha256sums=('d28a9b17ec54eab29f39e3dbd490956e9a588357209d523b1978c3df40d7bee2'
+            'a1c7b8be87a5012bffc1dd8f205d08f9c66c977a55f000343ed974ac0971fc46'
+            '7b4641e380323b0fdc5380003dfe940d2d480c8ce200e8352a91921a2cff20e0')
+
+prepare() {
+  cd $pkgname-$pkgver
+# Fix build with python-empy 4.1
+  patch -p1 -i ../84a0f2c1.patch
+  patch -p1 -i ../14de4382.patch
+}
 
 build() {
   cd $pkgname-$pkgver
