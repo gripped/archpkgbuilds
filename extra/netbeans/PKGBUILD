@@ -5,7 +5,7 @@
 # Contributor: Alexander F. Rødseth <xyproto@archlinux.org>
 
 pkgname=netbeans
-pkgver=25
+pkgver=26
 pkgrel=1
 pkgdesc='IDE for Java, HTML5, PHP, Groovy, C and C++'
 arch=('any')
@@ -21,11 +21,11 @@ optdepends=('php: for developing programs in php'
 options=(!debug)
 source=("netbeans.desktop"
         "https://archive.apache.org/dist/netbeans/netbeans/${pkgver}/netbeans-${pkgver}-source.zip"{,.asc}
-        "netbeans.clusters")
+        "netbeans")
 sha256sums=('2b0e1624f3578e47a4357b038832eafa333139654448d931dbc3febd2730befe'
-            'a1828c8bbb2c2c50a9cd6daf9f918678fa7f003ef12b861bf1670a719e948183'
+            '84bd3dbc477ef3c1c01da33f0140dd8b11855d5b0188ea8b650877138782276b'
             'SKIP'
-            '2cbebdf740ee32ccadf87846440636459b41e8651097946231c1b99fa8ee5695')
+            'bf66bbc99d5af44f9ce940332260416042fec7378a3f18c80c4dc144a9cf4d0a')
 # See also https://downloads.apache.org/netbeans/KEYS
 validpgpkeys=("1A83C352499305B6682E3D95CF7BA0AB1CCF4647" # Emilian Marius Bold <emi@apache.org>
               "79C8F02A726E9EF53646D712B2BF814FA145CB2D" # Laszlo Kishalmi <lkishalmi@apache.org>
@@ -59,7 +59,7 @@ build() {
 
 package() {
   # install launcher script
-  install -Dm755 "nbbuild/${pkgname}/bin/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+  install -Dm755 "${srcdir}/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
 
   # Resources for platform config
   mkdir -p "${pkgdir}/usr/lib/${pkgname}"
@@ -72,11 +72,9 @@ package() {
         cp -r "nbbuild/${pkgname}/${plugin}" "${pkgdir}/usr/lib/${pkgname}"
     fi
   done
-  install -Dm644 "nbbuild/netbeans/etc/netbeans.import" -t "${pkgdir}/usr/lib/${pkgname}/etc/"
 
-  # copy cluster configuration
-  install -Dm644 "nbbuild/netbeans/etc/netbeans."* -t "${pkgdir}/usr/etc/"
-  install -Dm644 "${srcdir}/netbeans."* -t "${pkgdir}/usr/etc/"
+  install -Dm644 "nbbuild/netbeans/etc/netbeans."* -t "${pkgdir}/usr/lib/${pkgname}/etc/"
+  install -Dm755 "nbbuild/netbeans/bin/netbeans" -t "${pkgdir}/usr/lib/${pkgname}/bin/"
 
   # Desktop shortcut and icon
   install -Dm644 "${srcdir}/$pkgname.desktop" "${pkgdir}/usr/share/applications/${pkgname}.desktop"
