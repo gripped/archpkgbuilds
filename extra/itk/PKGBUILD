@@ -4,17 +4,18 @@
 pkgbase=itk
 pkgname=(itk python-itk)
 pkgver=5.4.3
-pkgrel=1
+pkgrel=2
 pkgdesc="An open-source toolkit for multidimensional image analysis"
 arch=(x86_64)
 url="https://www.itk.org"
 license=(Apache-2.0)
 makedepends=(
   castxml
+  clang
   cmake
   eigen
-  gcc13
   git   # used for fetching remote modules
+  lld
   ninja
   python
   swig
@@ -32,8 +33,12 @@ makedepends=(
   libtiff
   zlib
 )
-source=(${pkgbase^^}-$pkgver.tar.gz::https://github.com/InsightSoftwareConsortium/ITK/archive/refs/tags/v${pkgver}.tar.gz)
-b2sums=('a360bac255bda6a51930355e1b8e9b9aeca0f6a7404fd43986dbe2d4491d3558b17af89f5961e78754946541900489d5f4346075d7eaf9650f11a1a8be05ea67')
+source=(
+  ${pkgbase^^}-$pkgver.tar.gz::https://github.com/InsightSoftwareConsortium/ITK/archive/refs/tags/v$pkgver.tar.gz
+  fix-cstdint.patch
+)
+b2sums=('a360bac255bda6a51930355e1b8e9b9aeca0f6a7404fd43986dbe2d4491d3558b17af89f5961e78754946541900489d5f4346075d7eaf9650f11a1a8be05ea67'
+        '5c1413b2c0b1c586d930b4803b0dbff881948eb980fad8940d8fe46a0f69177ee42b001d07a988f92227a4e8da8b2c7b4f33b08e50676f191cc5c4b583964fa6')
 
 _pick() {
   local p="$1" f d; shift
@@ -45,6 +50,12 @@ _pick() {
   done
 }
 
+prepare() {
+  cd ${pkgbase^^}-$pkgver
+  # https://github.com/InsightSoftwareConsortium/ITK/pull/5387
+  patch -p1 -i ../fix-cstdint.patch
+}
+
 build() {
   local cmake_options=(
     -B build
@@ -54,8 +65,9 @@ build() {
     -DBUILD_SHARED_LIBS=ON
     -DBUILD_TESTING=OFF
     -DCMAKE_BUILD_TYPE=None
-    -DCMAKE_CXX_COMPILER=g++-13
-    -DCMAKE_C_COMPILER=gcc-13
+    -DCMAKE_CXX_COMPILER=clang++
+    -DCMAKE_C_COMPILER=clang
+    -DCMAKE_LINKER_TYPE=LLD
     -DCMAKE_INSTALL_PREFIX=/usr
     -DCMAKE_SKIP_INSTALL_RPATH=ON
     -DCMAKE_SKIP_RPATH=ON
