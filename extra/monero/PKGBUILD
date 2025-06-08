@@ -2,7 +2,7 @@
 
 pkgname=monero
 pkgver=0.18.4.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD-3-Clause')
 arch=('x86_64')
@@ -76,7 +76,10 @@ prepare() {
 build() {
   cd "${pkgname}"
   CFLAGS+=" -Wno-implicit-function-declaration -Wno-int-conversion" \
-  cmake -B build -D ARCH="default" -D CMAKE_BUILD_TYPE=Release
+  cmake -B build \
+    -D ARCH="default" \
+    -D CMAKE_BUILD_TYPE=Release \
+    -D USE_DEVICE_TREZOR_MANDATORY=ON
   make -C build
 }
 
