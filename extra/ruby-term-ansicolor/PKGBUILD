@@ -3,27 +3,92 @@
 # Contributor: Hyacinthe Cartiaux <hyacinthe.cartiaux@free.fr>
 # Contributor: Hilton Medeiros <medeiros.hilton@gmail.com>
 
-pkgname=ruby-term-ansicolor
+_name=term-ansicolor
+pkgname=ruby-$_name
 pkgver=1.11.2
-pkgrel=3
+pkgrel=4
 pkgdesc='A ruby library that colors strings using ANSI escape sequences'
 arch=('any')
-url='https://rubygems.org/gems/term-ansicolor'
-license=('GPL2')
-depends=('ruby-tins')
+url='https://github.com/flori/term-ansicolor'
+license=('Apache-2.0')
+depends=(
+  'ruby'
+  'ruby-tins'
+  'ruby-bigdecimal' # missing dep of ruby-tins
+)
+makedepends=(git)
+checkdepends=(
+  ruby-test-unit
+)
 options=('!emptydirs')
-source=("https://rubygems.org/downloads/${pkgname#*-}-${pkgver}.gem")
-noextract=("${pkgname#*-}-${pkgver}.gem")
-sha256sums=('4b00c63f21d496055045240907da30de077e8c6502b2ba7e8638509d689e5083')
+source=(
+  $pkgname::git+https://github.com/flori/term-ansicolor#tag=v$pkgver
+)
+sha256sums=('0f7b1f88a174cd89aa163a09f96b224e9a7bf59a030bcd678f76cb071e03911e')
+
+prepare() {
+  cd "$pkgname"
+
+  # update gemspec/Gemfile to allow newer version of the dependencies
+  sed --in-place --regexp-extended 's|~>|>=|g' "${_name}.gemspec"
+}
+
+build() {
+  cd "$pkgname"
+
+  local _gemdir="$(gem env gemdir)"
+
+  gem build "${_name}.gemspec"
+
+  gem install \
+    --local \
+    --verbose \
+    --ignore-dependencies \
+    --build-root "tmp_install" \
+    "${_name}-${pkgver}.gem"
+
+  # remove unrepreducible files
+  rm --force --recursive --verbose \
+    "tmp_install/${_gemdir}/cache/" \
+    "tmp_install/${_gemdir}/gems/${_name}-${pkgver}/vendor/" \
+    "tmp_install/${_gemdir}/doc/${_name}-${pkgver}/ri/ext/"
+
+  find "tmp_install/${_gemdir}/gems/" \
+    -type f \
+    \( \
+      -iname "*.o" -o \
+      -iname "*.c" -o \
+      -iname "*.so" -o \
+      -iname "*.time" -o \
+      -iname "gem.build_complete" -o \
+      -iname "Makefile" \
+    \) \
+    -delete
+
+  find "tmp_install/${_gemdir}/extensions/" \
+    -type f \
+    \( \
+      -iname "mkmf.log" -o \
+      -iname "gem_make.out" \
+    \) \
+    -delete
+}
+
+check() {
+  cd "$pkgname"
+
+  local _gemdir="$(gem env gemdir)"
+
+  GEM_HOME="../tmp_install/${_gemdir}" ruby -Ilib:tests tests/*_test.rb
+}
 
 package() {
-  local _gemdir="$(ruby -e'puts Gem.default_dir')"
+  cd "$pkgname"
 
-  gem install --ignore-dependencies --no-user-install -N -i "${pkgdir}"/${_gemdir} -n "${pkgdir}"/usr/bin ${pkgname#*-}-${pkgver}.gem
-  find "${pkgdir}" -type f -name *.gem -delete
+  cp --archive --verbose tmp_install/* "${pkgdir}"
 
-  install -dm 755 "${pkgdir}"/usr/share/licenses/${pkgname}
-  ln -s ${_gemdir}/gems/${pkgname#*-}-${pkgver}/COPYING "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install --verbose -D --mode=0644 COPYING --target-directory "${pkgdir}/usr/share/licenses/${pkgname}"
+  install --verbose -D --mode=0644 *.md --target-directory "${pkgdir}/usr/share/doc/${pkgname}"
 }
 
 # vim: ts=2 sw=2 et:
