@@ -2,7 +2,7 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3 orbiton-nano)
-pkgver=2.69.0
+pkgver=2.70.0
 pkgrel=1
 pkgdesc='Configuration-free text editor and IDE'
 arch=(x86_64)
@@ -11,7 +11,7 @@ license=(BSD-3-Clause)
 makedepends=(git go vte3)
 options=(!lto)
 source=("git+https://github.com/xyproto/orbiton#tag=v$pkgver")
-b2sums=('5dcdd274f90e851b90c01c2aa1609ad3f80f1b3fab03e0640af2994ee0c134b0b7f4c0c2a1cf76fe9e9be948adfcdce8f3f53685ed0062f1c50487f35383f8b2')
+b2sums=('588ad4c336ceff1abbcfc37faf1772bd3ccf5c76f6969248479a9a38d9c7d343c1bdc0dfa815698ec6180a45dc81d0b881b5144e618c388797fb83140fb16156')
 
 build() {
   export LDFLAGS="$(echo $LDFLAGS | sed 's/ -Wl//g;s/,--sort-common//')"
