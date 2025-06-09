@@ -6,7 +6,7 @@
 # Contributor: shamrok <szamrok@gmail.com>
 
 pkgname=smplayer
-pkgver=24.5.0
+pkgver=25.6.0
 pkgrel=1
 pkgdesc='Media player with built-in codecs that can play virtually all video and audio formats'
 url='https://www.smplayer.info/'
@@ -21,8 +21,8 @@ optdepends=('smplayer-themes: icon themes collection'
             'yt-dlp: youtube videos and streaming'
             'mplayer: alternative multimedia engine')
 source=(https://github.com/smplayer-dev/${pkgname}/releases/download/v$pkgver/${pkgname}-${pkgver}.tar.bz2)
-sha512sums=('0de968babbb99a92ef2721d8b30d336433bb99745212da0d7dadec9ec389da0be6cdc5b461960662b4342f80ee6407a814bc6abc3372c07a75ee6804e705851e')
-b2sums=('6c088b87508ada09fb8712610da76403fbcc9f0d3f2ce1908d99560400aac8351b08453c77f2cf64f13625b09e4d748a7f0a64458e6429aeb29ce1ae49ebcaad')
+sha512sums=('0d40a2baad19f71f61774cdcbbbe243359a1b5ea2ba758f1b7f69f5f7ea7a87480391a109460aadd4473760095ac6d5ac3ade416a8bdba169a2ef7526fea285c')
+b2sums=('78d3696b1589006442f9ec64ec840392fae9c62597289449b7b66dc5867b74a853d0e44ee7fabf56a2559248227aadac1861f325c25d38565549a142cb3dccc8')
 
 prepare() {
   cd ${pkgname}-${pkgver}
