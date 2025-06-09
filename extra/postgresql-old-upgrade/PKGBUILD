@@ -2,9 +2,9 @@
 # Maintainer: Dan McGee <dan@archlinux.org>
 
 pkgname=postgresql-old-upgrade
-pkgver=16.6
+pkgver=16.9
 _majorver=${pkgver%.*}
-pkgrel=3
+pkgrel=1
 pkgdesc='PostgreSQL build for migrating between major versions with pg_upgrade'
 url='https://www.postgresql.org/'
 arch=('x86_64')
@@ -37,9 +37,9 @@ makedepends=(
 source=(
   https://ftp.postgresql.org/pub/source/v${pkgver}/postgresql-${pkgver}.tar.bz2
 )
-md5sums=('1dce19ac968da51c99e8fc22c01c0269')
-sha256sums=('23369cdaccd45270ac5dcc30fa9da205d5be33fa505e1f17a0418d2caeca477b')
-b2sums=('2d6d6efcc4cb0027c03422c839856ac024d3824a7e7da42cafbb961616cdd078064e78b6eb1c98565240ab1f78eb52582f38c9ce80b3a98f9e65568b2c14e40c')
+md5sums=('04502cd79a9e3964b0e9fb6981ce78b6')
+sha256sums=('07c00fb824df0a0c295f249f44691b86e3266753b380c96f633c3311e10bd005')
+b2sums=('1a4e7f2bc4350d579ca900313745a6527a0b2c744ec92b4b57987aa0196210618bcff7406203b8149730b4eab9ce669e190b9e9fad05e34285ba0dfce26bfd06')
 
 # Upstream provides md5 and sha256
 
