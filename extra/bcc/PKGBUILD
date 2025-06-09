@@ -5,7 +5,7 @@
 pkgbase=bcc
 pkgname=('bcc' 'bcc-tools' 'python-bcc')
 pkgver=0.33.0
-pkgrel=1
+pkgrel=3
 pkgdesc='BPF Compiler Collection'
 arch=('x86_64')
 url='https://github.com/iovisor/bcc'
@@ -31,6 +31,7 @@ build() {
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
     -D CMAKE_INSTALL_LIBDIR=/usr/lib
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     -D CMAKE_USE_LIBBPF_PACKAGE=ON
     -D ENABLE_LLVM_SHARED=1  # https://bugs.archlinux.org/task/71163
     -D ENABLE_TESTS=OFF
