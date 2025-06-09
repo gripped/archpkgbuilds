@@ -5,7 +5,7 @@
 # Contributor: Hans-Kristian Arntzen <post at arntzen-software dot no>
 
 pkgname=renderdoc
-pkgver=1.37
+pkgver=1.38
 pkgrel=1
 pkgdesc="OpenGL and Vulkan debugging tool"
 arch=(x86_64)
@@ -17,7 +17,7 @@ options=("!lto")
 source=("${pkgname}::git+https://github.com/baldurk/${pkgname}.git#tag=v${pkgver}?signed"
         "https://github.com/baldurk/swig/archive/${pkgname}-modified-7.zip")
 validpgpkeys=('1B039DB9A4718A2D699DE031AC612C3120C34695')
-b2sums=('8a87f10c3985ceb4e9386a98a9eb16060192ee61b8b86804e0551a50484aecccb34707b56d6e83d249b38005bae6012796b3b127298ad98504ead670f8af2d4d'
+b2sums=('2e3bd501169ac07e146f3cdf97e4a506493399435fe0658dbd80f50e79ff2e82aab5868a24ff698599c17c9c4a0367764f85fbe28b8158ba320676a46d66bcc5'
         '136b0b48d5bddb2dfe6fffd54220a5b62bb9a725b800f1f7846d03469f0c859d0585a61118f64b2def81ad94ff650bdf82d1db7aeb7608a190792ce8033597dc')
 
 build() {
