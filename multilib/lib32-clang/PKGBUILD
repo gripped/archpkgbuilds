@@ -2,7 +2,7 @@
 # Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
 
 pkgname=lib32-clang
-pkgver=19.1.7
+pkgver=20.1.6
 pkgrel=1
 pkgdesc="C language family frontend for LLVM (32-bit)"
 arch=('x86_64')
@@ -16,13 +16,13 @@ source=($_source_base/clang-$pkgver.src.tar.xz{,.sig}
         $_source_base/cmake-$pkgver.src.tar.xz{,.sig}
         $_source_base/third-party-$pkgver.src.tar.xz{,.sig}
         enable-fstack-protector-strong-by-default.patch)
-sha256sums=('11e5e4ecab5338b9914de3b83a4622cb200de466b7c56ba675afb72fa7d64675'
+sha256sums=('49a16d6b6878a6bdd9ead2d31ffb94c792675607471afa40096fbd48b3cbab66'
             'SKIP'
-            '96f833c6ad99a3e8e1d9aca5f439b8fd2c7efdcf83b664e0af1c0712c5315910'
+            'f09e304ca98bb809f492ec34f94f587361b4b0d06ed783fb3a41e7fb218e47a1'
             'SKIP'
-            '11c5a28f90053b0c43d0dec3d0ad579347fc277199c005206b963c19aae514e3'
+            'b4b3efa5d5b01b3f211f1ba326bb6f0c318331f828202d332c95b7f30fca5f8c'
             'SKIP'
-            'b96deca1d3097c7ffd4ff2bb904a50bdd56bec7ed1413ffb0d1d01af87b72c12'
+            '33530189d31b2396b76a7ebac8f938747b3619154cc37015cef9dea29292f7e2'
             'SKIP'
             'ef319e65f927718e1d3b1a23c480d686b1d292e2a0bf27229540964f9734117a')
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstellar@redhat.com>
