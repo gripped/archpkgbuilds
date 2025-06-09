@@ -1,7 +1,7 @@
 # Maintainer: Johannes Löthberg <johannes@kyriasis.com>
 
 pkgname=python-prometheus_client
-pkgver=0.22.0
+pkgver=0.22.1
 pkgrel=1
 
 pkgdesc="Prometheus instrumentation library for Python applications"
@@ -15,7 +15,7 @@ checkdepends=('python-twisted' 'python-pytest')
 
 source=(client_python-$pkgver.tar.gz::https://github.com/prometheus/client_python/archive/v${pkgver}.tar.gz)
 
-sha512sums=('1319dbd7a44551498230a2bf3dcdd89274a94a38af95d7d35f5edfdaf1a9dd8e84affd152ba476467eddb43656301b2b0e9b4ac0be543dd002ab6e26ba514d35')
+sha512sums=('875bb70478e5a01a209c656692298735df21aed18861bd269b40fc70aac1e99843a95a39dc2a8999b0684d15c754d77bd913b409a275ccc2c4007f9128643ed2')
 
 build() {
   cd client_python-$pkgver
