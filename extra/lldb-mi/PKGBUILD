@@ -2,27 +2,30 @@
 
 pkgname=lldb-mi
 pkgver=0.0.1
-pkgrel=4
+pkgrel=5
 pkgdesc="LDB's machine interface driver"
 url='https://lldb.llvm.org/'
 arch=(x86_64)
-license=(Apache)
-depends=(
-        gcc-libs
-        glibc
-        lldb
-        llvm-libs
-        )
-makedepends=(
-            cmake
-            llvm
-            )
-source=(https://github.com/lldb-tools/lldb-mi/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('75f5b2dab1ffa85ced54eb9c856d8e748660425712cc29138f26f13e9d06a8aa')
+license=(Apache-2.0)
+depends=(gcc-libs
+         glibc
+         lldb
+         llvm-libs)
+makedepends=(cmake
+             git
+             llvm)
+source=(git+https://github.com/lldb-tools/lldb-mi#tag=$pkgver)
+sha256sums=('84c1b790bd5ee55ec65d86f067d7ce8a898f8bee60a75bf3ab901d3653bd024b')
+
+prepare() {
+  cd $pkgname
+  git cherry-pick -n f1fea743bf06a99b6e7f74085bd8c8db47999df5 # Fix build with cmake 4
+}
 
 build() {
-  cmake -B build -S $pkgname-$pkgver \
-    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake -B build -S $pkgname \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake --build build
 }
 
