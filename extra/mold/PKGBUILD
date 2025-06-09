@@ -2,7 +2,7 @@
 # Contributor: Adrian Perez de Castro <aperez@igalia.com>
 
 pkgname=mold
-pkgver=2.40.0
+pkgver=2.40.1
 pkgrel=1
 pkgdesc='A Modern Linker'
 arch=('x86_64')
@@ -29,8 +29,8 @@ checkdepends=(
   libdwarf
 )
 source=("${pkgname}::git+${url}.git#tag=v${pkgver}")
-sha512sums=('d842b541cf980f3bc1b3b9b50a3a973e473d760a4cf59b8832ea20846870c9560a179b0c98999fcb03bc96449dc7421ff359e9fb3abaf764f6549dd46800b89a')
-b2sums=('8e82707c3153923eaa18525f63d57dc9e04c71bac55cea169772dcad4993eeb048f0a5f92477ae0457d49a177fb7085b8d09d3b5b50aeb056152776a2d545424')
+sha512sums=('70d4b503b87052b0ca44530731218adbb57e9beaa84ff1972ff996b796dd77842c256b08056332bcf6cd0418b45359fd4eb7a366df0d47f4fae34cdf9ff1a23f')
+b2sums=('fdf9945fd52e23c4bd30dea0dcb11efb70c3a4c2c56e781a0e7f0e66ae7f6b0d4b586c7bc1f4c99a157cd6fff00b58eb47d63cb4aa19b0670b0aac19a17f27f3')
 
 build() {
   cmake \
