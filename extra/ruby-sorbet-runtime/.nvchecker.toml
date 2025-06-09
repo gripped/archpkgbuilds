@@ -1,0 +1,7 @@
+[ruby-sorbet-runtime]
+source = "git"
+git = "https://github.com/sorbet/sorbet.git"
+include_regex = "\\d+\\.\\d+\\.\\d+\\.\\d+-[0-9a-z]+"
+from_pattern = "(\\d+\\.\\d+\\.\\d+)\\.\\d+-[0-9a-z]+"
+to_pattern = "\\1"
+sort_version_key = "vercmp"
