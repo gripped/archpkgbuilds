@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=fretboard
-pkgver=8.0
+pkgver=9.1
 pkgrel=1
 pkgdesc='Look up guitar chords'
 arch=(x86_64)
@@ -28,11 +28,9 @@ source=(
   fretboard-window-icon.patch
   fretboard-metainfo-path.patch
 )
-b2sums=(
-  a0c3346262bbb90557fdc7241eedf5b1ebf29e03d0774d91aef2ab697465a770043c232b4ce635f984e19ef286b25249bf64de9b2fbfa1567a3aed0ba9c19a3b
-  5ec0fe78bf9cb057ee65abf9ca35168a30c85c4fdd5a75af7f44648e8bbfd7f0c654bab0d015663f8790ec261d746b5340c98bd8ffbf430ce92a489db5f36026
-  162f4583bfb3f75b75ccee05fa7dcba030a7f90be805424617f02c412f9fa9725b789c4f442e9abd617875cf982f54595f0412e680294ac01038a8acf3f0a5d1
-)
+b2sums=('3cabacce964d8c657a139bd8acbb86387307c5b32b4fb177bc10d9682c30ade9dded097225dd6eea91c9b4a59b9537829365d883fb8282d796ecfda07927fdcf'
+        '5ec0fe78bf9cb057ee65abf9ca35168a30c85c4fdd5a75af7f44648e8bbfd7f0c654bab0d015663f8790ec261d746b5340c98bd8ffbf430ce92a489db5f36026'
+        '162f4583bfb3f75b75ccee05fa7dcba030a7f90be805424617f02c412f9fa9725b789c4f442e9abd617875cf982f54595f0412e680294ac01038a8acf3f0a5d1')
 
 prepare() {
   cd $pkgname
