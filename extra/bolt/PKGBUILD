@@ -2,17 +2,17 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
 
 pkgname=bolt
-pkgver=0.9.8
+pkgver=0.9.9
 pkgrel=1
 pkgdesc="Thunderbolt 3 device manager"
 arch=('x86_64')
 url="https://gitlab.freedesktop.org/bolt/bolt"
 license=('LGPL-2.1-or-later')
 depends=('polkit' 'systemd')
-makedepends=('asciidoc' 'meson' 'python-setuptools' 'patch')
+makedepends=('asciidoc' 'meson' 'python-setuptools' 'patch' 'glib2-devel')
 checkdepends=('umockdev')
 source=(https://gitlab.freedesktop.org/$pkgname/$pkgname/-/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('5a4306aa21ee398e1e9f2a5072748c9469c9360bf5edc7dcec2f12fc17be122e')
+sha256sums=('d2b05e3ee1ffa9b4fc1c4a11138c69bf1f60acba86f07b1b4b40b4d456048936')
 
 build() {
   cd $pkgname-$pkgver
