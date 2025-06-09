@@ -2,7 +2,7 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 
 pkgname=toolbox
-pkgver=0.1.1
+pkgver=0.1.2
 pkgrel=1
 pkgdesc='Unprivileged development environment'
 arch=(x86_64)
@@ -11,8 +11,8 @@ license=(Apache-2.0)
 depends=(podman bash flatpak)
 makedepends=(go shellcheck go-md2man bash-completion ninja git meson podman fish)
 source=("git+$url#tag=$pkgver")
-sha512sums=('3398901ecd40ad2ee8f203298455d6b6e0b615ca2d4065c091b869fde3169469c328a9c0bd006ff05aa30546a508e9b4b0d162587067c14995a25b9885f9b94f')
-b2sums=('2c24a67d198c8c856aa5df567ff9e804f20df9296ad9ee5b54c5e9d035a54f738cc1ff0aa1d3c1296e84bff16f2201759f4b6e6700afaa4d481b9d916985e702')
+sha512sums=('f8d6c74fc36e7913ef1078f951ddd5bdb831134c3e72ad6d2efd29b9e33ae1a4fc28ae36f2429d5772ddd043f9a20e2207ff6a9828bf691197adf5dcd200c980')
+b2sums=('05b17c9610705d994d0374eebefb9b70fe1ed979b886c123c90c21220d13e2ec4e80a07215bbca8b44ed80af4906f15ba0e67b1a5b1d5b2653dcb9be9b462606')
 
 build() {
   export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
