@@ -1,0 +1,74 @@
+# Maintainer: Bruno Pagani <archange@archlinux.org>
+# Contributor: Carlos Aznarán <caznaranl@uni.pe>
+# Contributor: Antonio Rojas <arojas@archlinux.org>
+# Contributor: Ronald van Haren <ronald.archlinux.org>
+# Contributor: Damir Perisa <damir.perisa@bluewin.ch>
+
+pkgname=stellarium
+pkgver=25.1
+pkgrel=3
+pkgdesc="Software which renders realistic skies in real time with OpenGL"
+arch=(x86_64)
+url="https://stellarium.org"
+license=(GPL-2.0-or-later)
+depends=(
+  calcmysky
+  exiv2
+  gcc-libs
+  gpsd
+  libindi
+  md4c
+  nlopt
+  qt6-base
+  qt6-charts
+  qt6-declarative
+  qt6-multimedia
+  qt6-positioning
+  qt6-serialport
+  qt6-webengine
+  qxlsx
+  zlib
+)
+makedepends=(
+  cmake
+  git
+  mesa
+  qt6-tools
+  vulkan-headers
+)
+optdepends=('man-db: manual pages for stellarium')
+source=(git+https://github.com/Stellarium/stellarium?signed#tag=v$pkgver)
+validpgpkeys=('79151C2E6351E7278DA1A730BF38D4D02A328DFF') # Alexander Wolf <alex.v.wolf@gmail.com>
+sha256sums=('d050cd3b689f469b1cc8846b5f4fa58bbf02f069c5726ef3b1ebfc23c050c53f')
+
+prepare() {
+  cd $pkgname
+  # Fix compilation with Qt6.9
+  git cherry-pick -n bbcd60ae52b6f1395ef2390a2d2ba9d0f98db548
+  # Use systemd md4c
+  git cherry-pick -n 972c6ba72f575964fbf2049a22d51b4d1fd3983c
+}
+
+build() {
+  local cmake_options=(
+    -B build
+    -S $pkgname
+    -W no-dev
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5 # Necessary for CMake 4+
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_C_EXTENSIONS=Yes
+    -D CMAKE_C_STANDARD=17
+    -D CMAKE_CXX_EXTENSIONS=Yes
+    -D CPM_LOCAL_PACKAGES_ONLY=ON
+    -D ENABLE_LTO=1
+    -D ENABLE_QT6=1
+  )
+  cmake "${cmake_options[@]}"
+  cmake --build build --target all
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --build build --target install
+  install -vDm 644 $pkgname/COPYING -t "$pkgdir/usr/share/licenses/$pkgname"
+}
