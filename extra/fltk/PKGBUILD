@@ -2,7 +2,7 @@
 
 pkgbase=fltk
 pkgname=(fltk fltk-docs)
-pkgver=1.3.9
+pkgver=1.3.11
 pkgrel=1
 pkgdesc="Graphical user interface toolkit for X"
 arch=(x86_64)
@@ -25,8 +25,8 @@ makedepends=(
   mesa
 )
 source=(https://github.com/$pkgbase/$pkgbase/archive/release-$pkgver/$pkgbase-release-$pkgver.tar.gz)
-sha512sums=('2dfeeed9fdc6db62a6620e7c846dbe0bf97dacce3077832e314a35bf16ba6a45803373188a7b3954eada5829385b9914241270b71f12aaf3e9e3df45eb2b1b95')
-b2sums=('94914a23b679ac01915686a678b82a91f81ea01a7d1d5a39f2e8b0c0b7f55276dde3e9c4f07e48e752a5cdc3ee2c75ff6591404a3ba5f1f6690f7b2b5786f158')
+sha512sums=('b18ff6322349af4416a37d28c4f42ebe355260786ed42bdd54dcc20dc92db1a38a8db74e6d637fdff8f320bdd51e2515c0fa939d30679c5f22ea99fb32c97204')
+b2sums=('13f5a208f6fe19e4df3184be1143042d6469b5518f2771d60c8bba543129660c9b3d7ed5cb547cf364c91d6abd1d5d4f538dede0bfdf57db26ae9f4a8e4d069a')
 
 _pick() {
   local p="$1" f d; shift
