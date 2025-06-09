@@ -5,7 +5,7 @@
 
 pkgname=gimp
 pkgver=3.0.4
-pkgrel=2
+pkgrel=3
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
 arch=('x86_64')
@@ -75,6 +75,7 @@ makedepends=(
   'gvfs'
   'intltool'
   'meson'
+  'qoi'
   'vala'
 )
 optdepends=(
