@@ -5,19 +5,17 @@
 
 pkgname=pocl
 pkgver=7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Portable OpenCL is an open-source implementation of OpenCL which can be easily adapted for new targets"
 arch=('x86_64')
 url="http://portablecl.org/"
 license=('MIT')
-source=("git+https://github.com/pocl/pocl#tag=v$pkgver"
-        "pocl-link-cudart.patch::https://github.com/pocl/pocl/pull/1804.patch")
+source=("git+https://github.com/pocl/pocl#tag=v$pkgver")
 depends=('clang' 'hwloc' 'opencl-icd-loader')
 makedepends=('llvm' 'cmake' 'opencl-headers' 'ocl-icd' 'ninja' 'python' 'git' 'nvidia-utils' 'cuda' 'cudnn')
 optdepends=('cuda: CUDA driver'
             'cudnn: CUDA driver')
-sha512sums=('afbb59125990b02339da6f16f0a8989c8ae62ffea7c66a3cd7dafe36212dc33b96967ed682b520dda72f1fc8b4d346dab24a789dc629c0c5a3ebffc156110015'
-            '6bc53533ea696a86d24845d0ee1e3c3cdc0910144d986d862a1b87f8400debaa45c88072b3a24acab0b10aaaa44f9f2095a92852f184492d10c244e3cfb85815')
+sha512sums=('afbb59125990b02339da6f16f0a8989c8ae62ffea7c66a3cd7dafe36212dc33b96967ed682b520dda72f1fc8b4d346dab24a789dc629c0c5a3ebffc156110015')
 
 build() {
   cd "$pkgname"
