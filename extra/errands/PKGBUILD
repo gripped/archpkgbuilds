@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=errands
-pkgver=46.2.7
-pkgrel=3
+pkgver=46.2.8
+pkgrel=1
 pkgdesc='Todo application for those who prefer simplicity'
 arch=(any)
 url='https://apps.gnome.org/List/'
@@ -29,7 +29,7 @@ makedepends=(
   meson
 )
 source=("git+https://github.com/mrvladus/Errands.git#tag=$pkgver")
-b2sums=(e71ca0d81de50a2cd9dca3f2062aaf9e399c2806cb90862991378580c5fd24c0076a1f05500b7d828d7844fc94409fe58c7aea3f4985eb47d65762e5bbe6f87b)
+b2sums=('fd4abf8c828fc119f06e732e65ef11d39c8d6dd1640a228c83ecd274839b621781c2905fd60c84271efa77c676ff58a180544f9164208c08ed91b8142654ccaf')
 
 build() {
   arch-meson Errands build
