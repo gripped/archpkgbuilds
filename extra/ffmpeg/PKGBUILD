@@ -6,7 +6,7 @@
 
 pkgname=ffmpeg
 pkgver=7.1.1
-pkgrel=3
+pkgrel=4
 epoch=2
 pkgdesc='Complete solution to record, convert and stream audio and video'
 arch=(x86_64)
@@ -114,9 +114,6 @@ provides=(
   libpostproc.so
   libswresample.so
   libswscale.so
-)
-options=(
-  debug
 )
 _tag=a1328e68877e12ab5a6e5d92a84aefa566783ea5
 source=(
