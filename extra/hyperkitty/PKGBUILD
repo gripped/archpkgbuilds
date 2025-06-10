@@ -3,7 +3,7 @@
 _name=HyperKitty
 pkgname=hyperkitty
 pkgver=1.3.12
-pkgrel=4
+pkgrel=5
 pkgdesc="A web interface to access GNU Mailman v3 archives"
 arch=(any)
 url="https://gitlab.com/mailman/hyperkitty"
@@ -45,12 +45,12 @@ checkdepends=(
   python-whoosh
 )
 optdepends=(
+  'dart-sass: alternative to sassc'
   'python-django-debug-toolbar: for debugging'
   'python-elasticsearch: for using elasticsearch as search backend'
   'python-whoosh: for using whoosh as search backend'
   'python-xapian-haystack: for using xapian as search backend'
   'uwsgi-plugin-python: for running inside uwsgi'
-  'ruby-sassc: alternative to sassc'
 )
 backup=(
   etc/uwsgi/$pkgname.ini
