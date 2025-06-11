@@ -4,7 +4,7 @@
 
 pkgname=sbt
 epoch=1
-pkgver=1.11.1
+pkgver=1.11.2
 pkgrel=1
 pkgdesc='The interactive build tool'
 arch=('any')
@@ -19,9 +19,9 @@ options=(!debug)
 source=(git+https://github.com/sbt/sbt.git#tag=v${pkgver}
         0001-fix-semanticdb-expects-Wildcard-imports-to-be-in-the.patch)
 validpgpkeys=('2EE0EA64E40A89B84B2DF73499E82A75642AC823') # sbt build tool
-sha256sums=('5c0a7143c4c65f48bc56291a851b9c82d93c0c6810bd7ade164f0817776fba60'
+sha256sums=('cddfb55e0f63392511e2f3f557acf5a93f49f2f419693b6216e18a9b7bd6a407'
             '0538aef7be7f86cf12166be428ef2fe62b9cfe9ce09f2cf8ff2dbb2469df7099')
-b2sums=('89a89a2eee5f2237e990d02f4ed61094d5a26374990a255e590ad613ab9c71b0794d9d0ed0fec5d89d8ddeb9d501a681b6f08122a064bc849b250ed15728db1d'
+b2sums=('a04d7d312385962094f553d99035c31cff89b885498975afc9083b5422888e4a270656fa313ae872cae212a6580d5aae76ce8299f7ab05a0dc63789f46c06d89'
         '9aab56fb69cd92bf0c94e26d02189c3b8a1fc3e2a4ccb5aa61dbfe4dbfd084e916472ff1b4e7621d893d92baa60d638622a6f0902352f0159aea508ff08b14db')
 backup=(etc/${pkgname}/sbtopts)
 
