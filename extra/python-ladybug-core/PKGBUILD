@@ -1,0 +1,44 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-ladybug-core
+pkgver=0.44.15
+pkgrel=1
+pkgdesc='Python library to load, analyze and modify EnergyPlus Weather files (epw)'
+arch=(any)
+url='https://github.com/ladybug-tools/ladybug'
+license=(AGPL-3.0-only)
+depends=(
+  python
+  python-ladybug-geometry
+  python-click
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools-scm
+  python-setuptools
+  python-wheel
+)
+checkdepends=(python-pytest)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('47aee5f55b182173d1dec6d427c69ee45d34c38b6753d8d176e8f324f27f79a53feb8ebc93ea0f07ee97e9986a00eaf93de3f8e8e83b16db6b4a9f378e9b5e5a')
+b2sums=('eba312c7f917b124aae54b093bdf6ef222b9f1985609e9382d5f0f7c24e96d8c99fac802a51496df420df13233aff322652105371c8b7e7a181a648c0e2c1e20')
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "$pkgname"
+
+  pytest -v
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
