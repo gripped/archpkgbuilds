@@ -5,14 +5,14 @@
 
 pkgbase=xcursor-vanilla-dmz
 pkgname=('xcursor-vanilla-dmz' 'xcursor-vanilla-dmz-aa')
-pkgver=0.4.5
-pkgrel=3
+pkgver=0.4.5.2
+pkgrel=1
 arch=('any')
 url="http://jimmac.musichall.cz/"
 license=('CCPL:by-nc-sa')
 makedepends=('xorg-xcursorgen')
 source=(https://ftp.debian.org/debian/pool/main/d/dmz-cursor-theme/dmz-cursor-theme_$pkgver.tar.xz)
-sha256sums=('b719a64ed9c51905743105e5a50b15492695929ab2d6fca2cea760d52ccd1f5c')
+sha256sums=('75ecbc5ddb1f8295472ca9f8e048f8d799a3102debc87020009bb11240110e4e')
 
 build() {
   cd dmz-cursor-theme-$pkgver
