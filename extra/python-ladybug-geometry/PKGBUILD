@@ -1,0 +1,40 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-ladybug-geometry
+pkgver=1.34.5
+pkgrel=1
+pkgdesc='Python library housing basic geometry objects and computation methods'
+arch=(any)
+url='https://github.com/ladybug-tools/ladybug-geometry'
+license=(AGPL-3.0-only)
+depends=(python)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools-scm
+  python-setuptools
+  python-wheel
+)
+checkdepends=(python-pytest)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('bdd0899f7b9e3aa0020669c52fff75016965a85eae283f74f3feddd72cc1eaf539e5ce0b3c5e80aef6ea27b4b1746ef8391f85f17784d3df72ed51b50ea9147f')
+b2sums=('7b24e1d77f9de1fc5f8bba59896d317e16fbeb403e6ec77e48ecb3abd05bbdfe1816bbd0b8119b3b11896add796a58da668208fcbf21923862620cbebdc21227')
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "$pkgname"
+
+  pytest -v
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
