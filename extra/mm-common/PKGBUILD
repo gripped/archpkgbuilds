@@ -2,10 +2,10 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=mm-common
-pkgver=1.0.6
-pkgrel=3
+pkgver=1.0.7
+pkgrel=1
 pkgdesc="Common build files of the C++ bindings"
-url="https://www.gtkmm.org/"
+url="https://gtkmm.gnome.org/"
 arch=(any)
 license=(GPL-2.0-or-later)
 depends=(
@@ -22,21 +22,23 @@ makedepends=(
   libsigc++
   meson
 )
-_gccver=15.1.0
+_docver=15.1.0
+_docurl=https://gcc.gnu.org/onlinedocs/gcc-$_docver/libstdc++/api/
 source=(
   "git+https://gitlab.gnome.org/GNOME/mm-common.git#tag=$pkgver"
-  "libstdc++-$_gccver.tag::https://gcc.gnu.org/onlinedocs/gcc-$_gccver/libstdc++/api/libstdc++.tag"
+  "libstdc++-$_docver.tag::${_docurl}libstdc++.tag"
 )
-b2sums=('e3e6857edcb7a03b3a959a9dfba381b0cd77c06231a1cdd3784f42888e6494321db8a6378c797e87e95a90dcde1350e4c5b3616b91e4d9f02fdddab9b56c4091'
+b2sums=('bb7fd67f18006b9c73732adddf0aa118b0e86c4847746693e33007c6afc489ca0d1829b7dda078c8747e8cd98a0e83b5ca554c583ec1364c48845e56ab7ac354'
         '5be30b8ca19464aa11b76bce23e09c28fbf9b949b25b119dc2a6ade69273dcfd9a2bd1e098ab63e7d056e0497e70704b90a2372839b99e3561c506da8aeacdb4')
 
 prepare() {
   cd $pkgname
 
   # Use more stable libstdc++ tags
-  cp ../libstdc++-$_gccver.tag doctags/libstdc++.tag
-  sed -e "/^htmlrefpub=/s|=.*|=https://gcc.gnu.org/onlinedocs/gcc-$_gccver/libstdc++/api/|" \
-      -i doctags/*.pc.in
+  cp ../libstdc++-$_docver.tag doctags/libstdc++.tag
+  local f; git grep -lz latest-doxygen | while read -r -d '' f; do
+    sed -ri 's|https?://gcc\.gnu\.org/onlinedocs/libstdc\+\+/latest-doxygen/|'"$_docurl"'|g' "$f"
+  done
 }
 
 build() {
