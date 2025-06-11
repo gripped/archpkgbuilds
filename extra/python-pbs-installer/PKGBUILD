@@ -2,7 +2,7 @@
 
 pkgname=python-pbs-installer
 _name="${pkgname#python-}"
-pkgver=2025.05.29
+pkgver=2025.06.10
 pkgrel=1
 pkgdesc="Installer for Python Build Standalone"
 arch=(any)
@@ -21,8 +21,8 @@ optdepends=(
   'python-zstandard: for zstd installation support'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('bc508703006ccd6b74a48841ec1b577261bc24c982a5d1194172251f32d468cf010c68d1718f0bc3cc1dafd495e4dea0a1258e1962f68e82515de7ffc398e89a')
-b2sums=('52fc880873594e8ac168cc4a8efda53bad74c0c567e3999e77c36f3efaf6927ffd84b8a1a948d9e1e586244dfd3746b192e058a1e6a5de3ff0ac993ef62b34fb')
+sha512sums=('73997a7f880b0b6f4bef9d119eb48df0b5ab36d365180a9da0fee65fe48ceeacc93fb9707adc95f2c3a5545fbe3360ae24b12ae31631e91c385eb90f11683f86')
+b2sums=('aa1cef6c0aaab68542194c9ba8a22d3e143ffa39242f5aad8a6870e0aeaabfc57f934424154ce56c223444f3c62a6a638275921fd47ab57e78d9041da35ba5fe')
 
 build() {
   cd $_name-$pkgver
