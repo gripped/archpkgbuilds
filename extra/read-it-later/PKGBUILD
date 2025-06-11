@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=read-it-later
-pkgver=0.6.1
+pkgver=0.6.2
 pkgrel=1
 pkgdesc='Simple Wallabag client'
 arch=(x86_64)
@@ -29,21 +29,14 @@ makedepends=(
 options=(!lto)
 source=(
   "git+https://gitlab.gnome.org/World/read-it-later.git#tag=$pkgver"
-  read-it-later-activate-window.patch
 )
-b2sums=(
-  edb87dcdc60b7ade21e8a9747df4fc0960b292ee5929a937aba0b9f17d6bb0dbb77d03e4caea8823730489108fb52805eda5573040e7332ba1a3b40872759a08
-  5e5d0506e2869a0dc966d4a7a6e94fc0593bb1d614d63cdd5a32c9d27d98ee1ec40e94bb9f93387945e387cf79e5d92f851982f82870078b30c4b111a1f1ff32
-)
+b2sums=('62f306e82e4a62d951b41e74a7a9a74fb96cd6bd506ca5d3fbad89a984cc9631e3ffe2db79b8659a5f75144d92145f7bff10ca0d9bc86d0cfd3c8c25c6113066')
 
 prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-
-  # https://gitlab.gnome.org/World/read-it-later/-/merge_requests/130
-  git apply -3 ../read-it-later-activate-window.patch
 }
 
 build() {
