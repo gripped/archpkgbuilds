@@ -4,9 +4,9 @@
 
 pkgname=notion
 epoch=1
-pkgver=4.0.2
-pkgrel=5
-_commit=3c81575d48b2fd1b851536e305961bb199ea36b5
+pkgver=4.0.4
+pkgrel=1
+_commit=3325aa715dcfe27758db82ddc81f6e0d4af1c1a5
 _commit_doc=746225fb6cfc9109663faaabc73e444ea88815bb
 pkgdesc="Tabbed tiling, window manager. Fork of Ion3"
 url="https://notionwm.net"
@@ -63,9 +63,11 @@ backup=("etc/notion/cfg_bindings.lua"
 provides=('libtu' 'libextl')
 changelog=ChangleLog
 source=("notion::git+https://github.com/raboof/notion#commit=${_commit}"
-        "notion-doc::git+https://github.com/raboof/notion-doc.git#commit=${_commit_doc}")
-sha256sums=('SKIP'
-            'SKIP')
+        "notion-doc::git+https://github.com/raboof/notion-doc.git#commit=${_commit_doc}"
+        "build-fix.patch")
+sha256sums=('fcd80598afc6dac155fb93da014c5c4c96d9206fa89d98efb39267c154d8ab58'
+            '7492bdfae572de1130857ba7725912efda4a44cbd65e9d6d2dca6de568c40d73'
+            '1623e36fb0f86db50194f3e186cfedba690696d83a1cf063e136055e551a2d6d')
 
 prepare() {
   cd "$srcdir"
@@ -77,6 +79,8 @@ LUA          := $(which lua)
 LUAC         := $(which luac)
 EOF
   sed -i '/Skipping dvi and ps because/d' notion-doc/Makefile
+  cd notion
+  patch -p1 -i ../build-fix.patch
 }
 
 build() {
