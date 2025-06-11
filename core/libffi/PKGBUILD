@@ -5,7 +5,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=libffi
-pkgver=3.4.8
+pkgver=3.5.0
 pkgrel=1
 pkgdesc='Portable foreign function interface library'
 arch=(x86_64)
@@ -16,13 +16,10 @@ depends=(glibc)
 checkdepends=(dejagnu)
 provides=(libffi.so)
 source=($pkgname-$pkgver.tar.gz::$_url/archive/refs/tags/v$pkgver.tar.gz)
-sha256sums=('cbb7f0b3b095dc506387ec1e35b891bfb4891d05b90a495bc69a10f2293f80ff')
-b2sums=('e01f46e0048c1805dd8a7c293c482aaa2906c0c94b76f3624ebbdccd3a7775f322c832329d270c0aaf620b5a3d7f12b498864af478955cdcbf079fc5d31443a7')
+sha256sums=('ddaac13cdb323cf1fc16934ddda877d51f02871977ab0a94941329c9f04dd53e')
+b2sums=('1d6f4c9344f7cf3f6e7fdaf39cab8da1cfed3bb4de54d5c6b12cae606f249e93ad303c9214b87277f593501e1f19ec81b4176b34965e0b03a55db49cb94b2f3d')
 
 prepare() {
-  # remove broken m4 stuff: https://github.com/libffi/libffi/issues/853
-  rm -v $pkgname-$pkgver/m4/ax_enable_builddir.m4
-
   cd $pkgname-$pkgver
   autoreconf -fiv
 
