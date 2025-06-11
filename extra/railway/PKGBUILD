@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=railway
-pkgver=2.7.3
-pkgrel=2
+pkgver=2.8.1
+pkgrel=1
 pkgdesc='Look up travel information for many different railways'
 arch=(x86_64)
 url='https://apps.gnome.org/DieBahn/'
@@ -28,26 +28,14 @@ makedepends=(
 options=(!lto)
 source=(
   "git+https://gitlab.com/schmiddi-on-mobile/railway.git#tag=$pkgver"
-  railway-activate.patch
-  railway-dbus-activatable.patch
 )
-b2sums=(
-  558a3f2d7ae5bf44e718d489613a64723e7abab436363bea629df8209bd895a015d124a92dc515b7aa560c187f4db40bb70147c18bd9558890c0bcd013787320
-  1a0ba34b55ccd5ef3bf284b33f3d1ade9eadb486c269c9cbee7096af6e3037e87c0ceb3fc62c32ce28f20c96dc1456eb33859c0e32875b0b6474b358c63d54ea
-  0cf840dc462a1a88df95e50a218bf03d0e32efefb22ab8a131e219690c81e3faa251f3d5c5cbc5fa84cda253cfdae404904cdbb412ab009a00d0d1b572f0b393
-)
+b2sums=('127373a2c9f8e9f9cacd9e14269df042382de122049f430fe3756af73cfa4c76e9147c2a092241560ccde66e001284ab18f8c603fbb43cdaa52ff9683317e925')
 
 prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
-
-  # https://gitlab.com/schmiddi-on-mobile/railway/-/merge_requests/181
-  git apply -3 ../railway-activate.patch
-
-  # https://gitlab.com/schmiddi-on-mobile/railway/-/merge_requests/182
-  git apply -3 ../railway-dbus-activatable.patch
 }
 
 build() {
