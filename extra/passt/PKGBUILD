@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <christian@heusel.eu>
 
 pkgname=passt
-pkgver=2025_06_06.754c6d7
+pkgver=2025_06_11.0293c6f
 pkgrel=1
 pkgdesc="Plug A Simple Socket Transport"
 arch=(x86_64)
@@ -16,8 +16,8 @@ optdepends=(
   'sh: for demo script'
 )
 source=(https://passt.top/$pkgname/snapshot/$pkgname-$pkgver.tar.zst)
-sha512sums=('0870b687bdfc30b15d2fdc57d41ad17caca25ceb1fc6ac6d29c6ef4e492be69df439b09089f0e39abfe520f3b8cb9e8d97f7a09d549cdb8a0998effc1f9406b0')
-b2sums=('d8568ea94e691bea25ce446fcac692526501982ccbaeec7dd0e1139bdeb02a1553dfc135ddbb55e0372e3c9d2f96b454eddba7c346c7342c32b90a5a1b29e340')
+sha512sums=('573386775bf8380264f1f91e6c1154d7b61f3e37fd40fe092bc7b0e6aa95921ad4173c0aed854d1db3c0dfbeca81b9dd4fd87bbaa09746c122a9934ebe153447')
+b2sums=('2a754ae172b5a76d5c501573a5d71ce03e5e806e3d9919efb00c1b5736b84f5f804d6e60f4cd1590c4c1e751cc490ec4160f45c050102e7c88efb9f8e2373dbe')
 
 build() {
   make VERSION="$pkgver" -C $pkgname-$pkgver
