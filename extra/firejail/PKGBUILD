@@ -5,7 +5,7 @@
 
 pkgname=firejail
 pkgver=0.9.74
-pkgrel=1
+pkgrel=2
 pkgdesc='Linux namespaces sandbox program'
 arch=('x86_64')
 url=https://github.com/netblue30/firejail
@@ -18,10 +18,16 @@ backup=('etc/apparmor.d/local/firejail-default'
         'etc/firejail/firejail.config'
         'etc/firejail/login.users')
 install=firejail.install
-source=(git+https://github.com/netblue30/firejail.git#tag=${pkgver})
+source=("git+$url.git#tag=$pkgver")
 sha256sums=('5f0c747749d36189973926372220fef2e96b2a496da2f519ba1ad1537157724d')
 b2sums=('c868d381e40637b5794fbead2d504b395c44efd74bf0bd098be25517a406ca5dc2a22a5727a6aee95953aada6140e29d52f9bb918d2a0d1d345064447c08f29a')
 #validpgpkeys=('F951164995F5C4006A73411E2CCB36ADFC5849A7')
+
+prepare() {
+  cd $pkgname
+  # https://github.com/netblue30/firejail/pull/6775
+  git cherry-pick --no-commit 344f8deb33bdba23bff18af498a5440462a42832
+}
 
 build() {
   cd $pkgname
