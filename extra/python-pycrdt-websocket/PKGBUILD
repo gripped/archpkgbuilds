@@ -2,16 +2,16 @@
 
 _pyname=pycrdt-websocket
 pkgname=python-$_pyname
-pkgver=0.15.5
+pkgver=0.16.0
 pkgrel=1
 pkgdesc='CRDTs based on Yrs'
 arch=(any)
-url='https://github.com/jupyter-server/pycrdt-websocket'
+url='https://github.com/y-crdt/pycrdt-websocket'
 license=(MIT)
 depends=(python
          python-anyio
          python-pycrdt
-         python-sqlite-anyio)
+         python-pycrdt-store)
 makedepends=(git
              python-build
              python-hatchling
@@ -23,8 +23,8 @@ checkdepends=(hypercorn
               python-trio
               python-websockets
               uvicorn)
-source=(git+https://github.com/jupyter-server/pycrdt-websocket#tag=v$pkgver)
-sha256sums=('c745eebad84edc39284109c429e8fafa1ee3deb8cda9d022f0521bf38060a731')
+source=(git+https://github.com/y-crdt/pycrdt-websocket#tag=$pkgver)
+sha256sums=('a2edb8e05c5841eb933b78cfd005c3381f96343fcd04c9377ef728ccb64126a2')
 
 build() {
   cd $_pyname
@@ -34,6 +34,8 @@ build() {
 check() {
   cd $_pyname
   python -m venv --system-site-packages test-env
+# hack to allow importing pycrdt/store from the venv
+  cp -r /usr/lib/python*/site-packages/pycrdt/ test-env/lib/python*/site-packages
   test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m pytest -v -k 'not test_pycrdt_yjs.py'
 }
