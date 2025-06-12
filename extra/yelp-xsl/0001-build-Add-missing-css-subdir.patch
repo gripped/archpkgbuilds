@@ -1,0 +1,44 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Thu, 12 Jun 2025 18:19:28 +0200
+Subject: [PATCH] build: Add missing css subdir
+
+Apparently this was missed.
+---
+ xslt/common/css/meson.build | 12 ++++++------
+ xslt/common/meson.build     |  1 +
+ 2 files changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/xslt/common/css/meson.build b/xslt/common/css/meson.build
+index ce620f32498e..b9832c35a9e2 100644
+--- a/xslt/common/css/meson.build
++++ b/xslt/common/css/meson.build
+@@ -1,10 +1,10 @@
+ yelp_xslt_common_css_data = [
+-  'css/core.css.tmpl',
+-  'css/docbook.css.tmpl',
+-  'css/elements.css.tmpl',
+-  'css/mallard.css.tmpl',
+-  'css/mallard-editor.css.tmpl',
+-  'css/syntax.css.tmpl',
++  'core.css.tmpl',
++  'docbook.css.tmpl',
++  'elements.css.tmpl',
++  'mallard.css.tmpl',
++  'mallard-editor.css.tmpl',
++  'syntax.css.tmpl',
+ ]
+ 
+ install_data(
+diff --git a/xslt/common/meson.build b/xslt/common/meson.build
+index 66ccfa558c39..0dd228be9b0b 100644
+--- a/xslt/common/meson.build
++++ b/xslt/common/meson.build
+@@ -17,6 +17,7 @@ install_data(
+   )
+ )
+ 
++subdir('css')
+ subdir('domains')
+ subdir('icons')
+ 
