@@ -2,8 +2,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hslua-cli
-pkgver=1.4.2
-pkgrel=15
+pkgver=1.4.3
+pkgrel=1
 pkgdesc="Command-line interface for Lua"
 url="https://hslua.org/"
 license=("MIT")
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-hslua-core' 'haskell-hslua-marshalling' 'haskell-hs
          'haskell-lua')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('fbd89184ab5d9e3a0179c1500ba63279953c1658c308f5a37368333c8e914642')
+sha256sums=('f573269f33099b1e4c81eb80bb60ad7727728730bae6532f60c8628a02abc8ea')
 
 prepare() {
   cd $pkgname-$pkgver
