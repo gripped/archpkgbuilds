@@ -2,7 +2,7 @@
 
 _pyname=clarabel
 pkgname=python-$_pyname
-pkgver=0.11.0
+pkgver=0.11.1
 pkgrel=1
 pkgdesc='Interior-point solver for convex conic optimisation problems'
 arch=(x86_64)
@@ -16,7 +16,7 @@ makedepends=(git
              python-maturin
              rust)
 source=(git+https://github.com/oxfordcontrol/Clarabel.rs#tag=v$pkgver)
-sha256sums=('6d13cd0eb48e8c8f6ac2a9aefa44507b7456ff4f8943484769626d4911eaad6e')
+sha256sums=('5cffa7d3971db186ae534bd69c2dcb985f74679b7205b1c9361dca41a5806ace')
 
 prepare() {
   cd Clarabel.rs
