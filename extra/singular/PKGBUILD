@@ -6,7 +6,7 @@ _majver=4-4-1
 #_patchver=p7
 _pkgver=${_majver}${_patchver}
 pkgver=${_majver//-/.}${_patchver/p/.p}
-pkgrel=2
+pkgrel=3
 pkgdesc='Computer Algebra System for polynomial computations'
 arch=(x86_64)
 url='https://www.singular.uni-kl.de/'
@@ -29,16 +29,22 @@ makedepends=(4ti2
              texlive-basic
              texlive-bin
              texlive-latex)
+optdepends=('normaliz: Normaliz interface')
 provides=(singular-factory)
-#source=(https://www.singular.uni-kl.de/ftp/pub/Math/Singular/SOURCES/$_majver/singular-${_pkgver//-/.}.tar.gz)
-source=(git+https://github.com/Singular/Singular#tag=Release-$_pkgver)
-sha256sums=('f8a11fb68192bbd4856d59e3967bddcd564b12ddade7c3b752a7aebadf2d9dfb')
+source=(git+https://github.com/Singular/Singular#tag=Release-$_pkgver
+        flint-3.3.patch
+        normaliz-3.10.5.patch)
+sha256sums=('f8a11fb68192bbd4856d59e3967bddcd564b12ddade7c3b752a7aebadf2d9dfb'
+            '183ce2781c19042b9a0f2dbcc1de723b5df67892494f9a0470a793cca963766e'
+            'de297036c840e26ee5031262ef63b8b1b26c8cab7f931cd3cdeb68f6066b172e')
 options=(!zipman)
 #_srcdir=singular-${_majver//-/.}
 _srcdir=Singular
 
 prepare() {
   cd $_srcdir
+  patch -p1 -i ../flint-3.3.patch
+  patch -p1 -i ../normaliz-3.10.5.patch
   ./autogen.sh
 }
 

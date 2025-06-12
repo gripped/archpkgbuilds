@@ -1,7 +1,7 @@
 pkgbase = singular
 	pkgdesc = Computer Algebra System for polynomial computations
 	pkgver = 4.4.1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://www.singular.uni-kl.de/
 	arch = x86_64
 	license = GPL-2.0-only
@@ -26,6 +26,10 @@ pkgbase = singular
 	provides = singular-factory
 	options = !zipman
 	source = git+https://github.com/Singular/Singular#tag=Release-4-4-1
+	source = flint-3.3.patch
+	source = normaliz-3.10.5.patch
 	sha256sums = f8a11fb68192bbd4856d59e3967bddcd564b12ddade7c3b752a7aebadf2d9dfb
+	sha256sums = 183ce2781c19042b9a0f2dbcc1de723b5df67892494f9a0470a793cca963766e
+	sha256sums = de297036c840e26ee5031262ef63b8b1b26c8cab7f931cd3cdeb68f6066b172e
 
 pkgname = singular
