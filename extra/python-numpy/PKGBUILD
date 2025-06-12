@@ -5,7 +5,7 @@
 
 pkgname=python-numpy
 pkgver=2.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Scientific tools for Python"
 arch=('x86_64')
 license=('custom')
@@ -23,7 +23,8 @@ build() {
   CXXFLAGS+=" -ffat-lto-objects" \
   python -m build --wheel --no-isolation \
     -Csetup-args="-Dblas=cblas" \
-    -Csetup-args="-Dlapack=lapack"
+    -Csetup-args="-Dlapack=lapack" \
+    -Csetup-args="-Denable-openmp=true"
 }
 
 check() {
