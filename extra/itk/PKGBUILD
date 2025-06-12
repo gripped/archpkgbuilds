@@ -3,8 +3,8 @@
 
 pkgbase=itk
 pkgname=(itk python-itk)
-pkgver=5.4.3
-pkgrel=2
+pkgver=5.4.4
+pkgrel=1
 pkgdesc="An open-source toolkit for multidimensional image analysis"
 arch=(x86_64)
 url="https://www.itk.org"
@@ -35,10 +35,8 @@ makedepends=(
 )
 source=(
   ${pkgbase^^}-$pkgver.tar.gz::https://github.com/InsightSoftwareConsortium/ITK/archive/refs/tags/v$pkgver.tar.gz
-  fix-cstdint.patch
 )
-b2sums=('a360bac255bda6a51930355e1b8e9b9aeca0f6a7404fd43986dbe2d4491d3558b17af89f5961e78754946541900489d5f4346075d7eaf9650f11a1a8be05ea67'
-        '5c1413b2c0b1c586d930b4803b0dbff881948eb980fad8940d8fe46a0f69177ee42b001d07a988f92227a4e8da8b2c7b4f33b08e50676f191cc5c4b583964fa6')
+b2sums=('7c14332b3efece2fd91853a38bb6ca88994cfb4802e0c6d8ef964b4b5207d9242502dc00b5e3e267546f0c923b62afa4f5be0a5c512c5518de80f08af601e7a7')
 
 _pick() {
   local p="$1" f d; shift
@@ -48,12 +46,6 @@ _pick() {
     mv "$f" "$d"
     rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
   done
-}
-
-prepare() {
-  cd ${pkgbase^^}-$pkgver
-  # https://github.com/InsightSoftwareConsortium/ITK/pull/5387
-  patch -p1 -i ../fix-cstdint.patch
 }
 
 build() {
