@@ -5,8 +5,8 @@
 # Contributor: demostanis worlds <demostanis@protonmail.com>
 
 pkgname=archinstall
-pkgver=3.0.7
-pkgrel=3
+pkgver=3.0.8
+pkgrel=1
 pkgdesc="Just another guided/automated Arch Linux installer with a twist"
 arch=(any)
 url="https://github.com/archlinux/archinstall"
@@ -54,9 +54,9 @@ source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
   $pkgname-$pkgver.tar.gz.sig::$url/releases/download/$pkgver/$pkgname-$pkgver.tar.gz.sig
 )
-sha512sums=('2e6e2ffdba097a004ae2ac94178c09a47084a67d778d6ca522aa1b5109647d425b58da8841249f1c3989a0fbe8631d9ab27d0b1b7fa3e7806667544aeb129f55'
+sha512sums=('a012149e4fb8abc567372780f05bde75553b54c60e93bc4d5b371a13c597e3b8100a473415d792ea1fa61dc6982d79fe167ac0b280017008fff93b0ce0e82016'
             'SKIP')
-b2sums=('405216a1635d42e5629815973acbf2455d28483f4d6e9f080052799f7d672af146a297606453638363647637b7b1b08151863d31f32c4ed51e1cfca8525c2b2d'
+b2sums=('3994bf62f57922c671133d6a5891068afa1ef4819c38ca690737c61422d69a7801a38efed7ffa517576a87c7806227d12749cfa0499525b66fc5a0efaca5716c'
         'SKIP')
 validpgpkeys=('8AA2213C8464C82D879C8127D4B58E897A929F2E') # torxed@archlinux.org
 
@@ -69,11 +69,6 @@ check() {
 build() {
   cd $pkgname-$pkgver
   
-  # Applying patch https://github.com/archlinux/archinstall/pull/3540/files
-  # This wil be include in the next version, but the next version is blocked
-  # due to breaking backwards compatability, so patching here for now:
-  sed -i 's/grub-btrfs.service/grub-btrfsd.service/g' archinstall/lib/installer.py
-
   python -m build --wheel --no-isolation
   PYTHONDONTWRITEBYTECODE=1 make man -C docs
 }
