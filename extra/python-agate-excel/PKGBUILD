@@ -5,7 +5,7 @@
 _pyname=agate-excel
 pkgname=python-$_pyname
 pkgver=0.4.1
-pkgrel=4
+pkgrel=5
 pkgdesc='Adds read support for Excel files (xls and xlsx) to agate'
 arch=(any)
 url="https://$_pyname.readthedocs.org"
@@ -13,8 +13,6 @@ license=(MIT)
 _pydeps=(agate
          olefile
          openpyxl
-         six
-         sphinx-furo
          xlrd)
 depends=(python
          "${_pydeps[@]/#/python-}")
