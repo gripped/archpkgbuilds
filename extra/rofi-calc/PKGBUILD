@@ -1,36 +1,25 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=rofi-calc
-pkgver=2.3.1
+pkgver=2.3.2
 pkgrel=1
 pkgdesc="Do calculations in rofi"
 arch=('x86_64')
 url="https://github.com/svenstaro/rofi-calc"
 license=(MIT)
-depends=('rofi' 'libqalculate')
+depends=(rofi libqalculate)
+makedepends=(meson)
 install=$pkgname.install
 source=($pkgname-$pkgver.tar.gz::https://github.com/svenstaro/rofi-calc/archive/v${pkgver}.tar.gz)
-sha512sums=('62adfc420f9e7f5c1c55ffb70e4a11a37b8df7fde5f3f7ce06a9194da686003e42a489ff471c8ff2a3b6ba0c9b7fb9c22ba1a3677cf28f3913f2e48d1612b643')
-
-prepare() {
-  cd "$srcdir/$pkgname-$pkgver"
-
-  autoreconf -i
-  mkdir build
-}
+sha512sums=('ddf454bcaff78cb8a36d5227d3ee1f5e57e4bab6f4a8bed4b2df550c8f3412eed179ca9e482af9b48789aa06bc21cd46357a1f0b9c5f29909a0342cc2e895b4e')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver/build"
-
-  ../configure --prefix=/usr
-  make
+  arch-meson rofi-calc-$pkgver build
+  meson compile -C build
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver/build"
-
-  make DESTDIR="$pkgdir/" install
-
-  install -Dm644 ../LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+  install -Dm644 rofi-calc-$pkgver/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 # vim:set ts=2 sw=2 et:
