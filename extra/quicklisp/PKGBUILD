@@ -2,7 +2,7 @@
 
 pkgname=quicklisp
 pkgver=20150128
-pkgrel=2
+pkgrel=3
 pkgdesc='A library manager for Common Lisp'
 arch=('any')
 url='https://www.quicklisp.org'
@@ -10,7 +10,7 @@ license=('MIT')
 install=quicklisp.install
 source=(
   'https://beta.quicklisp.org/quicklisp.lisp'{,.asc}
-  'LICENSE'
+  'license-from-upstream'
   'README.md'
   'FAQ.md'
 )
@@ -33,5 +33,5 @@ package() {
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" ./*.md
 
   # license
-  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" license-from-upstream
 }
