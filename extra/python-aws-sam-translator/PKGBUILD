@@ -1,41 +1,57 @@
-# Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-aws-sam-translator
-# https://github.com/aws/serverless-application-model/releases
-pkgver=1.97.0
+_pkgname=serverless-application-model
+pkgver=1.98.0
 pkgrel=1
 pkgdesc='AWS Serverless Application Model (AWS SAM) prescribes rules for expressing Serverless applications on AWS'
 arch=(any)
 url='https://github.com/aws/serverless-application-model'
-# https://github.com/aws/serverless-application-model/blob/v1.84.0/setup.py#L59
 license=('Apache-2.0')
-depends=(python python-botocore python-boto3 python-jsonschema python-pydantic python-typing_extensions)
-makedepends=(python-build python-installer python-setuptools python-wheel)
-# python-yaml is needed by samtranslator.yaml_helper, while the latter is used in tests only
-checkdepends=(python-pytest python-pytest-rerunfailures python-yaml python-parameterized)
-source=("https://github.com/aws/serverless-application-model/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('a8f574015cf6f93fb39f86da3165061b2f8357df2621b2004b56a3434019305a')
+depends=(
+  python
+  python-boto3
+  python-botocore
+  python-jsonschema
+  python-pydantic
+  python-typing_extensions
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-parameterized
+  python-pytest
+  python-pytest-rerunfailures
+  # python-yaml is needed by samtranslator.yaml_helper, while the latter is
+  # used in tests only
+  python-yaml
+)
+source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha256sums=('84c1e6c25759f1881c131a3d1d9a384d7cb1cf1d2f4c08405d0645857de1c9f0')
 
 prepare() {
-  cd serverless-application-model-$pkgver
-  # skip pytest-coverage
-  sed -i -r 's#--cov\S*\s+\S+##g' pytest.ini
+  cd $_pkgname-$pkgver
   # Avoid very verbose testing logs
   sed -i -r 's#log_cli\s*=\s*1#log_cli = 0#' pytest.ini
 }
 
 build() {
-  cd serverless-application-model-$pkgver
+  cd $_pkgname-$pkgver
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd serverless-application-model-$pkgver
-  # See https://github.com/aws/serverless-application-model/blob/v1.52.0/Makefile#L9
-  AWS_DEFAULT_REGION=us-east-1 PYTHONPATH="$PWD" pytest tests
+  cd $_pkgname-$pkgver
+  AWS_DEFAULT_REGION=us-east-1 PYTHONPATH="$PWD" pytest tests \
+    --override-ini="addopts="
 }
 
 package() {
-  cd serverless-application-model-$pkgver
+  cd $_pkgname-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
