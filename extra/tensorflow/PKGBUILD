@@ -7,14 +7,19 @@ pkgbase=tensorflow
 pkgname=(tensorflow tensorflow-opt tensorflow-cuda tensorflow-opt-cuda python-tensorflow python-tensorflow-opt python-tensorflow-cuda python-tensorflow-opt-cuda)
 pkgver=2.19.0
 _pkgver=2.19.0
-pkgrel=2
+pkgrel=3
+# The following are hermetic versions of CUDA and CUDNN. Use the latest versions
+# that tensorflow currently supports. See the following link (adjust the tag according to $pkgver):
+# https://github.com/tensorflow/tensorflow/blob/v2.19.0/third_party/gpus/cuda/hermetic/cuda_redist_versions.bzl
+_cuda_ver=12.8.0
+_cudnn_ver=9.7.0
 pkgdesc="Library for computation using data flow graphs for scalable machine learning"
 url="https://www.tensorflow.org/"
-license=('APACHE')
+license=(Apache-2.0)
 arch=('x86_64')
 depends=('c-ares' 'pybind11' 'openssl' 'libpng' 'curl' 'giflib' 'icu' 'libjpeg-turbo' 'intel-oneapi-openmp'
          'intel-oneapi-compiler-shared-runtime-libs')
-makedepends=('bazel' 'cuda' 'nvidia-utils' 'nccl' 'git' 'cudnn' 'openmp'
+makedepends=('bazel' 'git' 'gcc14' 'openmp'
              'python-installer' 'patchelf' 'libxcrypt-compat' 'clang' 'lld')
 optdepends=('tensorboard: Tensorflow visualization toolkit')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/tensorflow/tensorflow/archive/v${_pkgver}.tar.gz"
@@ -22,20 +27,31 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/tensorflow/tensorflow/archi
         tensorflow-2.18.0-clang19-compat.patch
         tensorflow-2.18.0-python-3.13-API.patch
         tensorflow-2.18.0-add-python-3.13-requirements-lock-file.patch
-        tensorflow-2.19.0-cudnn-9.8.patch
-        https://github.com/bazelbuild/bazel/releases/download/6.5.0/bazel_nojdk-6.5.0-linux-x86_64)
+        https://github.com/bazelbuild/bazel/releases/download/6.5.0/bazel_nojdk-6.5.0-linux-x86_64
+        tensorflow-2.19.0-tf-runtime-workspace.patch
+        tf-runtime-forward-decls.patch
+        tensorflow-2.19.0-matmul-it-unused-result.patch
+)
 sha512sums=('f9647621c93b6a7d3c43d92b7cfa0ec481de0f43e4936c0d946e305b440aa1caa72a48cbf4ccef7efc270f1e6d7926c2c327dfd2af9f649707e52bb10bd86235'
             'e561bd4198658a2c8b33ef59992d5d78838e2d5b937e4e49eca836d26e0d243fad42dfc9f5b106cb39ce9945e7afa23589f0d93ec002c79ce887ad2b3c473ebc'
             'd17893b4fc56960d7d4a6a8cd906186018045f103a6712b45a0cdb238ec3e5c9c51e233db24d79918f5991884858f4ac5feabd55c6e7279047afe10549b8d09f'
             'a9aaee9a8b98438ea78808634a491ab5f52e230cef6c80c1f2ea26e7ed32159b398420632d2ce3c8291b23158ef94503c2e162c26fa50a6cdf6bb2a750ca2b62'
             '757726d348239633adb2ebb332d7906d2749b260afe20b1eef60ee776b0afcc872ea6876603ece028e06498ee2f8e8c5df4882904b8be1748615ccab7bc6fc23'
-            'dfe4e2ab47c867ccfe36b50f20ebc0c7292e62a7d8778df8a0530a9683ffa0af9dc9b591414932c1eda58ec269c639578c82a2d2c4e249d1157416f93c4b8682'
-            'd3789f0ecd354468f2e24d98501041430ae99c173320fa9c3eb02f225c08ed298fd1ad259e4ad9bb70b6ae89d84cd87460aaa720de3486d40b30777a8fe45453')
+            'd3789f0ecd354468f2e24d98501041430ae99c173320fa9c3eb02f225c08ed298fd1ad259e4ad9bb70b6ae89d84cd87460aaa720de3486d40b30777a8fe45453'
+            '27a07c1f5ab3898e049717e3f56498577c62840416b425e582a308d22112c0341b26a69d419daa0f80fac5be53cee122122b1b8200fc885ae5f7346b8e3ecb10'
+            'b3ac22ede074decdb751adbc8f0324f4b729ffb4927fddcc67250e2f2a2812d2ed6ff515ed98cb3eaf5c1e4b755d6b780f5515181b6f10f046dbaa91e0eb1964'
+            'e5856d277edcef6ab655e8b641f1ec8fe9823264221d687c9938bb00d5acee626a2a05b46cfd97fbad8551f270332ed09b73848bf9784137317fee47ad64c80e')
 
 # consolidate common dependencies to prevent mishaps
 _common_py_depends=(python-termcolor python-astor python-gast python-numpy python-protobuf absl-py
                     python-h5py python-keras python-opt_einsum python-wrapt
                     python-astunparse python-pasta python-flatbuffers python-typing_extensions python-ml-dtypes)
+
+# The build currently uses hermetic CUDA which is downloaded by the build system.
+# Building against Arch packages usually does not work :-(
+#_cuda_depends=(cuda cudnn nccl)
+_cuda_depends=()
+makedepends+=("${_cuda_depends[@]}")
 
 get_pyver () {
   python -c 'import sys; print(str(sys.version_info[0]) + "." + str(sys.version_info[1]))'
@@ -63,7 +79,7 @@ check_dir() {
 }
 
 prepare() {
-  # Since Tensorflow is currently imcompatible with our version of Bazel, we're going to use
+  # Since Tensorflow is currently incompatible with our version of Bazel, we're going to use
   # their exact version of Bazel to fix that. Stupid problems call for stupid solutions.
   install -Dm755 "${srcdir}"/bazel_nojdk-6.5.0-linux-x86_64 bazel/bazel
   export PATH="${srcdir}/bazel:$PATH"
@@ -80,10 +96,12 @@ prepare() {
   patch -Np1 -i ../tensorflow-2.18.0-python-3.13-API.patch -d tensorflow-${_pkgver}
   patch -Np1 -i ../tensorflow-2.18.0-add-python-3.13-requirements-lock-file.patch -d tensorflow-${_pkgver}
 
-  # [GPU] Add cuDNN 9.8.0.
-  # Based on https://github.com/tensorflow/tensorflow/commit/de44c6098d70eed1af5eebef0aaf20639d30685f
-  # (backported path changed in https://github.com/tensorflow/tensorflow/commit/40998f44c0c500ce0f6e3b1658dfbc54f838a82a)
-  patch -Np1 -i ../tensorflow-2.19.0-cudnn-9.8.patch -d tensorflow-${_pkgver}
+  # Custom patch for the @tf_runtime external dependency
+  patch -Np1 -i ../tensorflow-2.19.0-tf-runtime-workspace.patch -d tensorflow-${_pkgver}
+  cp tf-runtime-forward-decls.patch tensorflow-${_pkgver}/third_party/tf_runtime/forward_decls.patch
+
+  # Custom patch for error: ignoring return value of function declared with 'nodiscard' attribute [-Werror,-Wunused-result]
+  patch -Np1 -i ../tensorflow-2.19.0-matmul-it-unused-result.patch -d tensorflow-${_pkgver}
 
   # Get rid of hardcoded versions. Not like we ever cared about what upstream
   # thinks about which versions should be used anyway. ;) (FS#68772)
@@ -92,6 +110,10 @@ prepare() {
   # prevent configure.py prompting for paths for 'LOCAL_CUDA_PATH', 'LOCAL_CUDNN_PATH' and 'LOCAL_NCCL_PATH'
   # Setting the variables as empty but defined does not prevent prompting by configure.py
   sed -i "/set_cuda_local_path(environ_cp, '/d" tensorflow-${_pkgver}/configure.py
+
+  # Disable rule that overrides our HERMETIC_CUDA_COMPUTE_CAPABILITIES (configure.py writes the proper
+  # HERMETIC_CUDA_COMPUTE_CAPABILITIES to .bazelrc for the build:cuda config but we use build:cuda_clang)
+  sed -i 's/^build:cuda_clang --repo_env=HERMETIC_CUDA_COMPUTE_CAPABILITIES/#&/' tensorflow-${_pkgver}/.bazelrc
 
   cp -r tensorflow-${_pkgver} tensorflow-${_pkgver}-opt
   cp -r tensorflow-${_pkgver} tensorflow-${_pkgver}-cuda
@@ -120,28 +142,31 @@ prepare() {
   export TF_SYSTEM_LIBS="boringssl,curl,cython,gif,icu,libjpeg_turbo,nasm,png,zlib"
   export TF_SET_ANDROID_WORKSPACE=0
   export TF_DOWNLOAD_CLANG=0
-  export TF_NCCL_VERSION=$(pkg-config nccl --modversion | grep -Po '\d+\.\d+')
   export NCCL_INSTALL_PATH=/usr
   # Does tensorflow really need the compiler overridden in 5 places? Yes.
   # https://github.com/tensorflow/tensorflow/issues/60577
   export CC=gcc
   export CXX=g++
-  export GCC_HOST_COMPILER_PATH="${NVCC_CCBIN/++/cc}"
-  export HOST_C_COMPILER="${NVCC_CCBIN/++/cc}"
-  export HOST_CXX_COMPILER="$NVCC_CCBIN"
+  export GCC_HOST_COMPILER_PATH=/usr/bin/gcc-14 #"${NVCC_CCBIN/++/cc}"
+  export HOST_C_COMPILER=/usr/bin/gcc-14 #"${NVCC_CCBIN/++/cc}"
+  export HOST_CXX_COMPILER=/usr/bin/g++-14 #"$NVCC_CCBIN"
   export TF_CUDA_CLANG=0  # Clang currently disabled because it's not compatible at the moment.
   export CLANG_CUDA_COMPILER_PATH=/usr/bin/clang
   export TF_CUDA_PATHS=/opt/cuda,/usr/lib,/usr
   #  export LOCAL_CUDA_PATH="/opt/cuda"
   #  export LOCAL_CUDNN_PATH="/usr/lib"
   #  export LOCAL_NCCL_PATH="/usr/lib"
-  export HERMETIC_CUDA_VERSION=$(/opt/cuda/bin/nvcc --version | sed -n 's/\(release [^.]\+.[^.]\+\),/\1.0,/;s/^.*release \(.*\),.*/\1/p')
-  export HERMETIC_CUDNN_VERSION="$(sed -n 's/^#define CUDNN_MAJOR\s*\(.*\).*/\1/p' /usr/include/cudnn_version.h).$(sed -n 's/^#define CUDNN_MINOR\s*\(.*\).*/\1/p' /usr/include/cudnn_version.h).$(sed -n 's/^#define CUDNN_PATCHLEVEL\s*\(.*\).*/\1/p' /usr/include/cudnn_version.h)"
+  #export HERMETIC_CUDA_VERSION=$(/opt/cuda/bin/nvcc --version | sed -n 's/\(release [^.]\+.[^.]\+\),/\1.0,/;s/^.*release \(.*\),.*/\1/p')
+  #export HERMETIC_CUDNN_VERSION="$(sed -n 's/^#define CUDNN_MAJOR\s*\(.*\).*/\1/p' /usr/include/cudnn_version.h).$(sed -n 's/^#define CUDNN_MINOR\s*\(.*\).*/\1/p' /usr/include/cudnn_version.h).$(sed -n 's/^#define CUDNN_PATCHLEVEL\s*\(.*\).*/\1/p' /usr/include/cudnn_version.h)"
+  export HERMETIC_CUDA_VERSION=$_cuda_ver
+  export HERMETIC_CUDNN_VERSION=$_cudnn_ver
   # https://github.com/tensorflow/tensorflow/blob/1ba2eb7b313c0c5001ee1683a3ec4fbae01105fd/third_party/gpus/cuda_configure.bzl#L411-L446
   # according to the above, we should be specifying CUDA compute capabilities as 'sm_XX' or 'compute_XX' from now on
   # add latest PTX for future compatibility
   # Valid values can be discovered from nvcc --help
-  export HERMETIC_CUDA_COMPUTE_CAPABILITIES=sm_52,sm_53,sm_60,sm_61,sm_62,sm_70,sm_72,sm_75,sm_80,sm_86,sm_87,sm_89,sm_90,sm_90a,sm_100,sm_100a,sm_101,sm_101a,sm_120,sm_120a,compute_120
+  # NOTE: tensorflow's configure.py does not support architecture-specific compute-capabilities (sm_XXa)
+  #       and falls back to its default in that case
+  export HERMETIC_CUDA_COMPUTE_CAPABILITIES=sm_52,sm_53,sm_60,sm_61,sm_62,sm_70,sm_72,sm_75,sm_80,sm_86,sm_87,sm_89,sm_90,sm_100,sm_101,sm_120,compute_120
   export TF_PYTHON_VERSION=$(get_pyver)
   export PYTHON_BIN_PATH=/usr/bin/python$(get_pyver)
   export USE_DEFAULT_PYTHON_LIB_PATH=1
@@ -291,7 +316,7 @@ package_tensorflow-opt() {
 
 package_tensorflow-cuda() {
   pkgdesc="Library for computation using data flow graphs for scalable machine learning (with CUDA)"
-  depends+=(cuda cudnn nccl)
+  depends+=("${_cuda_depends[@]}")
   conflicts=(tensorflow)
   provides=(tensorflow)
 
@@ -301,7 +326,7 @@ package_tensorflow-cuda() {
 
 package_tensorflow-opt-cuda() {
   pkgdesc="Library for computation using data flow graphs for scalable machine learning (with CUDA and AVX CPU optimizations)"
-  depends+=(cuda cudnn nccl)
+  depends+=("${_cuda_depends[@]}")
   conflicts=(tensorflow)
   provides=(tensorflow tensorflow-cuda)
 
@@ -328,7 +353,7 @@ package_python-tensorflow-opt() {
 
 package_python-tensorflow-cuda() {
   pkgdesc="Library for computation using data flow graphs for scalable machine learning (with CUDA)"
-  depends+=(tensorflow-cuda cuda cudnn nccl python-pycuda "${_common_py_depends[@]}")
+  depends+=(tensorflow-cuda "${_cuda_depends[@]}" python-pycuda "${_common_py_depends[@]}")
   conflicts=(python-tensorflow)
   provides=(python-tensorflow)
 
@@ -338,7 +363,7 @@ package_python-tensorflow-cuda() {
 
 package_python-tensorflow-opt-cuda() {
   pkgdesc="Library for computation using data flow graphs for scalable machine learning (with CUDA and AVX CPU optimizations)"
-  depends+=(tensorflow-opt-cuda cuda cudnn nccl python-pycuda "${_common_py_depends[@]}")
+  depends+=(tensorflow-opt-cuda "${_cuda_depends[@]}" python-pycuda "${_common_py_depends[@]}")
   conflicts=(python-tensorflow)
   provides=(python-tensorflow python-tensorflow-cuda)
 
