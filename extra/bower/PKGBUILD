@@ -1,27 +1,25 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
-# Contributor: Micha Alt <micha.tucker@gmail.com> 
+# Contributor: Micha Alt <micha.tucker@gmail.com>
 # Contributor: FadeMind <fademind@gmail.com>
 # Contributor: Tom Vincent <http://tlvince.com/contact>
 
 pkgname=bower
 pkgver=1.8.14
-pkgrel=2
+pkgrel=3
 pkgdesc='A package manager for the web'
 arch=('any')
 url='https://bower.io/'
 license=('MIT')
 depends=('nodejs' 'semver' 'uglify-js')
 makedepends=('npm' 'git')
-source=(https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz
-        LICENSE)
+source=(https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz)
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('f11ab4e7c143f75abd370b61ca1c3495af5fce9073d22c194ebb79d4b5a5fb0f8f9c981993d27ee70a779e26ec25c2143e094c617af835105a47e4d48f43a405'
-            'a932f56639679947f1ce67ca7c27855ae08257876880864079077db825fa402ac7d544a192e02683d38de60ed9ac708a366e05c81bd350ace1440c1588086bc1')
+sha512sums=('f11ab4e7c143f75abd370b61ca1c3495af5fce9073d22c194ebb79d4b5a5fb0f8f9c981993d27ee70a779e26ec25c2143e094c617af835105a47e4d48f43a405')
 
 package() {
   npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
-
-  install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  tar xf $pkgname-$pkgver.tgz package/LICENSE
+  install -Dm644 package/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 
   # Experimental dedup
   cd "$pkgdir"/usr/lib/node_modules/$pkgname/lib/node_modules
