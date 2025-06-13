@@ -2,7 +2,7 @@
 
 pkgname=python-pycares
 _name=${pkgname#python-}
-pkgver=4.8.0
+pkgver=4.9.0
 pkgrel=1
 pkgdesc='Python interface for c-ares'
 arch=(x86_64)
@@ -25,7 +25,7 @@ checkdepends=(
 )
 optdepends=(python-idna)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('a2621038ad9e2ba043c7b6082362eb8ac90cbce83ffa783cd208a3a494c4f42283b3a9931a02960241248e7046fdb7e9d03d0a9fd75e307bf3efa80e859fc14d')
+b2sums=('39866782254fe95d25dcd60837155ddb1ea717af0cb55c362ab1ceb0e63e1b142e05843e2be677748c037e9c2f136cd282601b7a060cccc63c27b653f48c1abf')
 
 build() {
   cd "$_name"
@@ -50,7 +50,7 @@ check() {
 package() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
-  ln -s "$site_packages"/"$_name"-$pkgver.dist-info/LICENSE \
+  ln -s "$site_packages"/"$_name"-$pkgver.dist-info/licenses/LICENSE \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 
   cd "$_name"
