@@ -2,7 +2,7 @@
 
 pkgname=python-aiodns
 _name=${pkgname#python-}
-pkgver=3.4.0
+pkgver=3.5.0
 pkgrel=1
 pkgdesc='Simple DNS resolver for asyncio'
 arch=(any)
@@ -22,7 +22,7 @@ checkdepends=(
   python-uvloop
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('1afbaf4405f2548977d6f4e430e2c97694e0590420e06316b07d1e6c4604d0608fbb78e45167196f5ae94c0afac619bb0a3e92b23d23ea581175f5eb59f38608')
+b2sums=('86503334ff9b0f3c60b7b18ba2200d9ee7144fd49c79651376822635f941e0e70cedb1ca6191404b8fb63c0b7426088232b43ff108cb7c5f923ad482840054fb')
 
 build() {
   cd "$_name"
