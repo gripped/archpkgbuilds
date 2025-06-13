@@ -2,22 +2,21 @@
 
 pkgname=babel-core
 pkgver=7.21.4
-pkgrel=2
+pkgrel=3
 pkgdesc="A compiler for writing next generation JavaScript"
 arch=('any')
 url="https://babeljs.io/"
 license=('MIT')
 depends=('nodejs' 'semver')
 makedepends=('npm')
-source=("$pkgname-$pkgver.tgz::https://registry.npmjs.org/@babel/core/-/core-$pkgver.tgz"
-        LICENSE)
+source=("$pkgname-$pkgver.tgz::https://registry.npmjs.org/@babel/core/-/core-$pkgver.tgz")
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('aadfd8575e3d2666a7ffa01f9a5c49d382cc22ef1b328ca5dd107dd724c5af142681bad2bd0332edc23c43ad851f1d6df3027c0797eed140e82f01c0854a3540'
-            'fc5471459770967e2632efb110b8370caa3424b7d87c1180f49605f7e6b1593746888b6c99c713c0c3046c5833c01c1a15bf3d549a343eaa077885bcc9f3d4e3')
+sha512sums=('aadfd8575e3d2666a7ffa01f9a5c49d382cc22ef1b328ca5dd107dd724c5af142681bad2bd0332edc23c43ad851f1d6df3027c0797eed140e82f01c0854a3540')
 
 package() {
   npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  tar xf $pkgname-$pkgver.tgz package/LICENSE
+  install -Dm644 package/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 
   rm -r "$pkgdir"/usr/lib/node_modules/@babel/core/node_modules/{,.bin/}semver
 
