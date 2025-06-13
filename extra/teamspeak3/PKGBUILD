@@ -4,7 +4,7 @@
 
 pkgname=teamspeak3
 pkgver=3.6.2
-pkgrel=4
+pkgrel=5
 pkgdesc="TeamSpeak is software for quality voice communication via the Internet"
 url="http://www.teamspeak.com"
 license=('custom')
@@ -14,7 +14,7 @@ optdepends=('libpulse')
 arch=('x86_64')
 source=('teamspeak3.desktop'
         'teamspeak3.png'
-        'LICENSE'
+        'license-from-upstream'
         "https://files.teamspeak-services.com/releases/client/${pkgver}/TeamSpeak3-Client-linux_amd64-${pkgver}.run")
 sha512sums=('0f915a5a9d67389305c7e643177ee799bae8087a07512db933810cc128746e6f303aa55ce08920fac356a001344c4838dea4cea1329622850fba2a1b6344a3be'
             '386bc45ef92d3de1ab0dc2f68c80ed22018326e5a3e92dfdfd30afe907dbf9862e39a2cc52a8e5ccf40cbe94ca16f508fbba10f07e2e99d8a5d520ae42c4f020'
@@ -39,7 +39,7 @@ package() {
 
   install -D -m644 "${srcdir}"/teamspeak3.desktop "${pkgdir}"/usr/share/applications/teamspeak3.desktop
   install -D -m644 "${srcdir}"/teamspeak3.png "${pkgdir}"/usr/share/pixmaps/teamspeak3.png
-  install -D -m644 "${srcdir}"/LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+  install -D -m644 "${srcdir}"/license-from-upstream "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
   ln -s /opt/teamspeak3/ts3client_runscript.sh "${pkgdir}"/usr/bin/teamspeak3
 
   # Fix a weird change that TS3 did which broke symlinks.
