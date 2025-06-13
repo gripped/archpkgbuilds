@@ -5,7 +5,7 @@
 
 pkgname=broot
 pkgver=1.46.5
-pkgrel=1
+pkgrel=3
 pkgdesc='Fuzzy Search + tree + cd'
 arch=('x86_64')
 url=https://github.com/Canop/broot
@@ -23,7 +23,7 @@ prepare() {
 build() {
   cd $pkgname-$pkgver
   export LIBGIT2_NO_VENDOR=1
-  cargo build --release --frozen --features clipboard
+  cargo build --release --frozen --features clipboard,trash
 }
 
 check() {
