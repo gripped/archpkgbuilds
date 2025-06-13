@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=qrtool
-pkgver=0.11.8
+pkgver=0.12.0
 pkgrel=1
 pkgdesc="An utility for encoding or decoding QR code"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT' 'Apache-2.0' 'CC-BY-4.0')
 depends=('gcc-libs')
 makedepends=('cargo' 'asciidoctor')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('a3b0d2378283ce63ba1790513a98b721b2159b58a7dd12658e638b342fb3277f0b22fd5b22da980052d1ebaaa8c9d230a815ad39cbf19b4a55384ae78be8b819')
+sha512sums=('ee24cd9de7ede1bdaa1fdbe46eac82ea7709c11d32d787e4bd78010d1c69e857dc8f83f79612dc5c31e3ad41f80f8b38378970cfa9b708682da07482fe7e2776')
 options=('!lto')
 
 prepare() {
@@ -23,7 +23,7 @@ prepare() {
 build() {
   cd "$pkgname-$pkgver"
   cargo build --release --frozen
-  local compgen="target/release/$pkgname --generate-completion"
+  local compgen="target/release/$pkgname completion"
   $compgen bash >"completions/$pkgbase"
   $compgen elvish >"completions/$pkgbase.elv"
   $compgen fish >"completions/$pkgbase.fish"
@@ -31,7 +31,7 @@ build() {
   asciidoctor -b manpage "docs/man/man1/$pkgname.1.adoc"
   asciidoctor -b manpage "docs/man/man1/$pkgname-encode.1.adoc"
   asciidoctor -b manpage "docs/man/man1/$pkgname-decode.1.adoc"
-  asciidoctor -b manpage "docs/man/man1/$pkgname-help.1.adoc"
+  asciidoctor -b manpage "docs/man/man1/$pkgname-completion.1.adoc"
 }
 
 check() {
@@ -52,7 +52,7 @@ package() {
   install -Dm644 "docs/man/man1/$pkgname.1" -t "$pkgdir/usr/share/man/man1/"
   install -Dm644 "docs/man/man1/$pkgname-encode.1" -t "$pkgdir/usr/share/man/man1/"
   install -Dm644 "docs/man/man1/$pkgname-decode.1" -t "$pkgdir/usr/share/man/man1/"
-  install -Dm644 "docs/man/man1/$pkgname-help.1" -t "$pkgdir/usr/share/man/man1/"
+  install -Dm644 "docs/man/man1/$pkgname-completion.1" -t "$pkgdir/usr/share/man/man1/"
 }
 
 # vim: ts=2 sw=2 et:
