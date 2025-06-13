@@ -2,13 +2,13 @@
 
 pkgbase=nvhpc
 pkgname=(nvhpc nvhpc-comm-libs nvhpc-compilers)
-_cuda_ver=12.8
+_cuda_ver=12.9
 _hpcx_ver=2.22.1
-_nccl_ver=2.25
+_nccl_ver=2.26.5
 _openmpi_ver=4.1.5
 _rel_year=2025
-pkgver=25.3
-pkgrel=2
+pkgver=25.5
+pkgrel=1
 pkgdesc="NVIDIA HPC SDK"
 arch=(x86_64)
 url="https://docs.nvidia.com/hpc-sdk/index.html"
@@ -24,14 +24,14 @@ install=nvhpc.install
 _archive=nvhpc_${_rel_year}_${pkgver//.}_Linux_${arch}_cuda_${_cuda_ver}
 source=(
   https://developer.download.nvidia.com/hpc-sdk/$pkgver/$_archive.tar.gz
-  $pkgname-EULA.pdf::https://docs.nvidia.com/hpc-sdk/archive/$pkgver/pdf/EULA.pdf
+  $pkgname-$pkgver-EULA.pdf::https://docs.nvidia.com/hpc-sdk/archive/$pkgver/pdf/EULA.pdf
   EULA.txt
   activate.in
   nvhpc-compilers.conf.in
   nvhpc-compilers.sh.in
 )
-b2sums=('aa0e17be6f55026216ec22e6a405d7a4daa65114239ac173ca8e07a7cc44084a3c456a106ae0518438aea7ee1c6d12646e935c6bde849c17933a65da54aa4af9'
-        '505804fa27a3add2beb68011c4baab7ffc1497834fcbf4ac06fce5e07b51b99df1b42203e1126087424fcaea660e752bd24c6ea77e1e3dbad9eeb27d927d4071'
+b2sums=('65ab1f012e5d0d2a41c3b8be5340ac4ccd6052ed60b05fb1d4d3cf7295a033245fa6674b919f59dfb85adf206dda8355981509265ca6ad6e676e013f27d482fa'
+        '1e8bde6e88f7ab6f672d6d5bba496601bd4a046b28e0184ac7b6c56bbf329ff062591cafe815cc2b799f94e6f60415411453ed9cbcd53a8780c2ed115d033247'
         '83dbff1adbb72c10300038e816445abbad7d826ffd28c7e61ec3069e2ceb8858e6e180416c268731ea0b7a98bbba26ccd177f0b40d9d131763a7dfa68286e95f'
         '40546862e00688b8d1e1428260a79b9e6eda38be461db3cab1b30b62abdc1875a332b7d3557b7eb94bfddc79849b95c9e7bd43ad93a20f93548331ec1bb5111c'
         '4bd2ac804d6d344823078435e30b3a75989db0c752d021de326d972f3efb95d7f3ea02728ae0a4f7f1875ddec7b934ddd0574105c7afe37c1d5372120863a2ca'
@@ -143,7 +143,7 @@ package_nvhpc() {
 
   # Install licenses
   install -vDm 644 EULA.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
-  install -vDm 644 $pkgname-EULA.pdf "$pkgdir"/usr/share/licenses/$pkgname/EULA.pdf
+  install -vDm 644 $pkgname-$pkgver-EULA.pdf "$pkgdir"/usr/share/licenses/$pkgname/EULA.pdf
 
   # Install script to activate nvhpc in the environment
   install -vDm 644 <(sed "s/@version@/$pkgver/" activate.in) "$pkgdir"/opt/nvidia/hpc_sdk/activate
