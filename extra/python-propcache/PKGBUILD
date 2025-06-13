@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-propcache
-pkgver=0.3.1
+pkgver=0.3.2
 pkgrel=1
 pkgdesc='Fast property caching'
 arch=(x86_64)
@@ -21,7 +21,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$url/archive/v$pkgver/${pkgname#python-}-$pkgver.tar.gz")
-sha512sums=('5909d348537aadea28a56fac0330e2469dd6bb0e86410f548e39578656dcaf2c82aa86759abaa84c244e6f9f2f000e849b914c994ad0367908bac099ca3194f7')
+sha512sums=('8b169fc528bff0d45f1948a2b76a146b34d7be968ba567fee37243c6804e9cd0012736023f0580b5fd28b69f1e6778cfda44d92db3edb93ff0dc8b116042c055')
 
 build() {
   cd ${pkgname#python-}-$pkgver
