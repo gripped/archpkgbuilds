@@ -4,7 +4,7 @@
 
 _pyname=NSKeyedUnArchiver
 pkgname=python-nskeyedunarchiver
-pkgver=1.5.1
+pkgver=1.5.2
 pkgrel=1
 pkgdesc="Library for decoding Apple's text or binary plist files"
 arch=(any)
@@ -15,7 +15,7 @@ makedepends=('python-'{build,installer,wheel}
              'python-setuptools')
 _archive="${_pyname,,}-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
-sha512sums=('45a7d542f169d89899cc1c78240c4567b1eda9248d60a3755fc092851641b8fd53aa055be51a71435792ed9de097c68ff6840080cabe34fc3f9ac0fb24bb667c')
+sha512sums=('308ba33ad890a39f2f7419651cd4e14e01a274a81b83194d638e5a4a61fd76f846ccf7325ee49a7bbd8ca361fbe1e4868b310624f0ed97741a9df460a4057213')
 
 build() {
   cd "$_archive"
