@@ -1,3 +1,7 @@
 [simh]
-source = "cmd"
-cmd = '''wget -qO- http://simh.trailing-edge.com/ | grep -oP "SIMH V\\d+.\\d+-\\d+" | tail -c+7 | tr "-" "."'''
+source = "regex"
+url = "http://simh.trailing-edge.com/"
+regex = 'SIMH V\d+\.\d+-\d+'
+prefix = "SIMH V"
+from_pattern = "-"
+to_pattern = "."
