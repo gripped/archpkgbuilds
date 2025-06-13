@@ -3,7 +3,7 @@
 
 pkgname=hunspell-el
 pkgver=0.9
-pkgrel=10
+pkgrel=11
 
 pkgdesc="Greek hunspell dictionary"
 url="https://www.elspell.gr/"
@@ -14,12 +14,10 @@ optdepends=('hunspell: the spell checking libraries and apps')
 makedepends=('qt6-webengine')
 provides=('hunspell-dictionary')
 
-source=("http://elspell.math.upatras.gr/files/ooffice/el_GR-$pkgver.zip" LICENSE)
+source=("http://elspell.math.upatras.gr/files/ooffice/el_GR-$pkgver.zip")
 
-sha1sums=('c1b2539b3e18d78f7408db820bf834aaffff21ea'
-          'b50c7273708dfaec427414edaeb090fe80870fa4')
-sha256sums=('638984ed883a313ee1633bfe87ba6260b4c7771f22c1a0113d3d49138be8eead'
-            '3feaf8c21b28727d4c39580c0389e79cf8cc873e5b38d98ecdb14076ff2c1254')
+sha1sums=('c1b2539b3e18d78f7408db820bf834aaffff21ea')
+sha256sums=('638984ed883a313ee1633bfe87ba6260b4c7771f22c1a0113d3d49138be8eead')
 
 package() {
 	install -dm755 "$pkgdir"/usr/share/hunspell
@@ -36,8 +34,7 @@ package() {
 
 	# docs
 	install -Dm644 README_el_GR.txt "$pkgdir"/usr/share/doc/"$pkgname"
-	install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/"$pkgname"/LICENSE
-
+	sed -n '/^The new Licence:/,$p' README_el_GR.txt | install -vDm644 /dev/stdin "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
         # Install webengine dictionaries
         install -d "$pkgdir"/usr/share/qt{,6}/qtwebengine_dictionaries/
 	/usr/lib/qt6/qwebengine_convert_dict "$pkgdir"/usr/share/hunspell/el_GR.dic \
