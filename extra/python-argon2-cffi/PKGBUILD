@@ -1,38 +1,50 @@
-# Maintainer:
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Balló György <ballogyor+arch at gmail dot com>
 
-_pipname=argon2-cffi
-pkgname=python-$_pipname
-pkgver=23.1.0
-pkgrel=3
+pkgname=python-argon2-cffi
+pkgver=25.1.0
+pkgrel=1
 pkgdesc='Secure password hashing algorithm for Python'
 arch=(any)
 url='https://github.com/hynek/argon2-cffi'
 license=(MIT)
-depends=(python-argon2-cffi-bindings)
-makedepends=(git python-build python-hatch-fancy-pypi-readme python-hatch-vcs python-installer)
-checkdepends=(python-hypothesis python-pytest)
+depends=(
+  python
+  python-argon2-cffi-bindings
+)
+makedepends=(
+  git
+  python-build
+  python-hatch-fancy-pypi-readme
+  python-hatch-vcs
+  python-installer
+)
+checkdepends=(
+  python-hypothesis
+  python-pytest
+)
 conflicts=(python-argon2_cffi)
 provides=("python-argon2_cffi=$pkgver")
 replaces=(python-argon2_cffi)
-source=("git+https://github.com/hynek/$_pipname.git?signed#tag=$pkgver")
-sha256sums=(b5cbd90c2f4782604e5e2571f8aaf6818d7466460fe8d63cc2db8ddbc06dd34d)
-validpgpkeys=(C2A04F86ACE28ADCF817DBB7AE2536227F69F181) # Hynek Schlawack
+source=("git+$url.git#tag=$pkgver")
+sha256sums=('f1b010d1a201d9b4a358dbf9ee828ac63be6914c31c159d894a51522de34d264')
+# Upstream signs releases with SSH instead of PGP key since 25.1.0
+# validpgpkeys=(C2A04F86ACE28ADCF817DBB7AE2536227F69F181) # Hynek Schlawack
 
 build() {
-  cd $_pipname
+  cd ${pkgname#python-}
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $_pipname
+  cd ${pkgname#python-}
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m pytest
 }
 
 package() {
-  cd $_pipname
+  cd ${pkgname#python-}
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
