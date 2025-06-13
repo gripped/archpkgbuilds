@@ -1,7 +1,7 @@
 pkgbase = eclib
 	pkgdesc = Includes mwrank (for 2-descent on elliptic curves over Q) and modular symbol code used to create the elliptic curve database
 	pkgver = 20250530
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/JohnCremona/eclib/
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -14,6 +14,8 @@ pkgbase = eclib
 	depends = ntl
 	depends = pari
 	source = git+https://github.com/JohnCremona/eclib#tag=v20250530
+	source = flint-3.3.patch
 	sha256sums = 224ea94b14d3cefd4802de8b7cde7dabd89de2339e4d50ebdb15cd03cf96bc5b
+	sha256sums = f89bbe31108fdfcd3b5b6829ed1f5e80c851a36b1851cd0230587af904df5e44
 
 pkgname = eclib
