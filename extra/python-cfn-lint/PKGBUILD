@@ -2,7 +2,7 @@
 # Contributor: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-cfn-lint
-pkgver=1.35.3
+pkgver=1.35.4
 pkgrel=1
 pkgdesc='CloudFormation Linter'
 arch=(any)
@@ -32,6 +32,7 @@ checkdepends=(
   python-junit-xml
   python-pydot
   python-pytest
+  python-pytest-xdist
   python-sarif-om
 )
 optdepends=(
@@ -41,7 +42,7 @@ optdepends=(
   'python-sarif-om: for sarif formatter'
 )
 source=("git+$url.git#tag=v$pkgver")
-sha256sums=('c0a449c15d06f0230db45a2027be2a027401bc92429e4b279bd2173dd565c644')
+sha256sums=('91686eca6114a6f03d1b7deb1990d7ad13f2a8a5611b5f3b75748153406f9ea8')
 
 build() {
   cd ${pkgname#python-}
@@ -52,7 +53,7 @@ check() {
   cd ${pkgname#python-}
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  PATH=$PWD/test-env/bin:$PATH test-env/bin/python -m pytest
+  PATH=$PWD/test-env/bin:$PATH test-env/bin/python -m pytest -n auto
 }
 
 package() {
