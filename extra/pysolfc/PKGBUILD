@@ -4,7 +4,7 @@
 
 pkgname=pysolfc
 pkgver=3.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="PySol (Fan Club edition) is an exciting collection of more than 1000 solitaire games"
 arch=('any')
 url="http://pysolfc.sourceforge.net/"
@@ -17,7 +17,6 @@ depends=(
   'python-pillow'
   'python-pygame'
   'python-pysol_cards'
-  'python-six'
   'tk'
 )
 makedepends=(
