@@ -2,7 +2,7 @@
 
 _pyname=pycrdt
 pkgname=python-$_pyname
-pkgver=0.12.20
+pkgver=0.12.21
 pkgrel=1
 pkgdesc='CRDTs based on Yrs'
 arch=(x86_64)
@@ -23,7 +23,7 @@ checkdepends=(python-anyio
               python-trio
               python-y-py)
 source=(git+https://github.com/jupyter-server/pycrdt#tag=$pkgver)
-sha256sums=('3234194f14afdc4a565198b34cdf21af1a2d644b9befaf1a23f85fd87a0e971a')
+sha256sums=('8568979076f1bcde7df674dc774fc6af61b6010f8adcdc2d97aed32ab686967e')
 
 build() {
   cd $_pyname
