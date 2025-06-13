@@ -2,8 +2,8 @@
 # Contributor: JustKidding <jk@vin.ovh>
 
 pkgname=ueberzugpp
-pkgver=2.9.6
-pkgrel=8
+pkgver=2.9.7
+pkgrel=1
 pkgdesc="Command line utility which allows to display images in the terminal, written in C++"
 arch=('x86_64')
 url="https://github.com/jstkdng/ueberzugpp"
@@ -14,7 +14,7 @@ makedepends=("cmake" "cli11" "nlohmann-json" "wayland-protocols" "extra-cmake-mo
 depends=("opencv" "libvips" "glib2" "libxcb" "xcb-util-image" "libsixel" "openssl" "spdlog" "libglvnd"
   "fmt" "chafa" "wayland" "onetbb" "glibc" "gcc-libs" "xcb-util-errors")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/jstkdng/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('29cca04404c5883510aebf02846f608cfbf5892176bf4a48099e5167d5ef9d95')
+sha256sums=('fcf4b35e2a38a42a9ea6665f2168a1f778008424b14817bcd381dbb7b5cc54b7')
 
 build() {
   # -DENABLE_TURBOBASE64=ON \
