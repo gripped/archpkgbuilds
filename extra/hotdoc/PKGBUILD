@@ -3,7 +3,7 @@
 
 pkgname=hotdoc
 pkgver=0.17.4
-pkgrel=2
+pkgrel=3
 pkgdesc="The tastiest API documentation system"
 url="https://github.com/hotdoc/hotdoc"
 arch=(x86_64)
@@ -64,7 +64,9 @@ prepare() {
   git config submodule.hotdoc/hotdoc_bootstrap_theme.url "$srcdir/hotdoc_bootstrap_theme"
   git -c protocol.file.allow=always submodule update
 
-  sed -e '/CMP0048/d' -i cmark/CMakeLists.txt # Fix build with cmake 4
+  sed -e '/CMP0048/d' -i cmark/CMakeLists.txt # Fix build with CMake 4
+
+  git cherry-pick -n adf8518431fafb78c9b47862a0a9a58824b6a421 # Fix build with GCC 15
 }
 
 build() {
