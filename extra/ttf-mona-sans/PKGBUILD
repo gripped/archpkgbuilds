@@ -1,15 +1,15 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=ttf-mona-sans
-pkgver=1.0.1
-pkgrel=2
+pkgver=2.0
+pkgrel=1
 pkgdesc='Mona Sans, a variable font from GitHub'
 url='https://github.com/github/mona-sans'
 arch=(any)
 license=('OFL-1.1')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/github/mona-sans/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('cfae255e703d4dbc6d831be6cb1f7297eb738bfef2e767586e94ecf89dec1401')
-b2sums=('48a5e8c6edcc4eba55b06b7f7bf170d489ddec7d32b323e0ac80e1c99f720ce88782dd29d895486303fed1a0c5213d4c0d3aac86a64881348eeaece9e6b2fdc4')
+sha256sums=('837d97faf768519d8511705167faf81b4c4a2c309b6950daba09bba73e5b04ab')
+b2sums=('2c9316138c2f100fd15b0945ab41cb9229280c74fa440ec6692563cbcbf000fc8057e5fba50d1e71d334d38082dd397cf00214093973b7e9407f1bcdff60d19f')
 
 package() {
   cd mona-sans-${pkgver}
