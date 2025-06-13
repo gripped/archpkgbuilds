@@ -1,23 +1,31 @@
+# Maintainer: 
 # Contributor: damir <damir@archlinux.org>
-# Maintainer: Gaetan Bisson <bisson@archlinux.org>
+# Contributor: Sungjoon Moon <sumoon at seoulsaram dot org>
+# Contributor: Gaetan Bisson <bisson@archlinux.org>
 
 pkgname=libhangul
-pkgver=0.1.0
-pkgrel=5
+pkgver=0.2.0
+pkgrel=1
 pkgdesc='Input method library for Korean'
-url='http://code.google.com/p/libhangul/'
+url='https://github.com/libhangul/libhangul'
 license=('LGPL')
 arch=('x86_64')
-source=("https://kldp.net/hangul/release/3442-${pkgname}-${pkgver}.tar.gz")
-sha512sums=('cf84850bf7a41e743457300513c5efdf7b3e18d168f4fdc324aaa8e1be78743752fcb98385764f94c707777ab82cc9444e076808e61fdbd915c9c0d7ea93c534')
+makedepends=('git')
+source=("git+https://github.com/libhangul/libhangul.git#tag=${pkgname}-${pkgver}")
+sha512sums=('5632fe9fcf3439ce5ba70cc3dedf424f26a8b373df3ac3a12b4f361d6867f5e2cf1eb8d407bfe2c3181d920c3d847bb2763a4089cfed669fcc149cfe62d574d4')
+
+prepare() {
+  cd ${pkgname}
+  ./autogen.sh
+}
 
 build() {
-	cd "${srcdir}/${pkgname}-${pkgver}"
-	./configure --prefix=/usr
-	make
+  cd ${pkgname}
+  ./configure --prefix=/usr
+  make
 }
 
 package() {
-	cd "${srcdir}/${pkgname}-${pkgver}"
-	make DESTDIR="${pkgdir}" install
+  cd ${pkgname}
+  make DESTDIR="${pkgdir}" install
 }
