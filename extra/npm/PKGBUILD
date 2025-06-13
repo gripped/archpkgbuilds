@@ -2,7 +2,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=npm
-pkgver=11.4.1
+pkgver=11.4.2
 pkgrel=1
 pkgdesc='JavaScript package manager'
 arch=(any)
@@ -14,14 +14,18 @@ depends=(
   nodejs-nopt
   semver
 )
-makedepends=(git)
+makedepends=(
+  git
+  jq
+)
 optdepends=("git: for dependencies using Git URL's")
 source=("npm-cli::git+https://github.com/npm/cli.git#tag=v$pkgver")
-b2sums=('8c5c20e6063b64f6648ffc59cfd47feed8fccbb2e59aa308c6e226533902fd6e7fa82f3fe6c3e2d32dbffbe19cf89e47d8920bc2b15f6b1f59317498f165b327')
+b2sums=('223f4ba1e54ad96939d493f425fa0f9ca02f4a4cead055439ca9a9ac8aa2263a86b7f31dd437c635ca15040d9b394b243827680abe536ed6a3f120579d5a6eff')
 
 build() {
   cd npm-cli
   node scripts/resetdeps.js
+  node . run build -w docs
 }
 
 check() {
@@ -35,17 +39,20 @@ check() {
 package() {
   local mod_dir=/usr/lib/node_modules/$pkgname
 
-  install -d "$pkgdir"/usr/share/{bash-completion/completions,licenses/$pkgname}
+  install -d "$pkgdir"/{usr/{bin,share/{bash-completion/completions,licenses/$pkgname}},$mod_dir}
+  ln -s $mod_dir/bin/$pkgname-cli.js "$pkgdir"/usr/bin/$pkgname
+  ln -s $mod_dir/bin/npx-cli.js "$pkgdir"/usr/bin/npx
   ln -s $mod_dir/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 
   cd npm-cli
-  node . install -g --prefix="$pkgdir/usr" "$(node . pack --ignore-scripts | tail -1)"
+  mapfile -t mod_files < <(node . pack --ignore-scripts --dry-run --json | jq -r .[].files.[].path)
+  cp --parents -a "${mod_files[@]}" "$pkgdir"/$mod_dir
   node . completion > "$pkgdir"/usr/share/bash-completion/completions/npm
   echo 'globalconfig=/etc/npmrc' > "$pkgdir"/$mod_dir/npmrc
 
   cd "$pkgdir"/$mod_dir
   # Remove superfluous scripts
-  rm -r {bin/{node-gyp-bin,np{m,x}{,.{cmd,ps1}}},node_modules/.bin}
+  rm -r bin/{node-gyp-bin,np{m,x}{,.{cmd,ps1}}}
 
   # Experimental dedup
   rm -r node_modules/{node-gyp,nopt,semver}
