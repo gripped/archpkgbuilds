@@ -3,14 +3,14 @@
 
 pkgname=autossh
 pkgver=1.4g
-pkgrel=3
+pkgrel=4
 pkgdesc="Automatically restart SSH sessions and tunnels"
 arch=('x86_64')
 url="https://www.harding.motd.ca/autossh/"
 license=('custom')
 depends=('libnsl' 'openssh')
 source=("https://www.harding.motd.ca/autossh/$pkgname-$pkgver.tgz"
-	"LICENSE")
+        license-from-upstream)
 sha512sums=('499b560d978736f4e764d5d828282fdaba1cbf94811ae6be0be5434d9c1cdc6ca5513d728b6372aa243843cb1b91e61cfc5fdeb77ddb0b6a7ce027218ba67466'
             'cdbdf804eb6e6480cc2be8a9b170f77f6c58e4ae2a741871cd29308ff10a1d391759bed2576b5f072aa878f9c4ae5ef7e6f9c8f38560b3ebbe4591a7220582f7')
 
@@ -35,5 +35,5 @@ package() {
   install -D -m644 autossh.host "$pkgdir"/usr/share/autossh/examples/autossh.host
   install -D -m644 rscreen "$pkgdir"/usr/share/autossh/examples/rscreen
   install -D -m644 autossh.1 "$pkgdir"/usr/share/man/man1/autossh.1
-  install -D -m644 "$srcdir"/LICENSE "$pkgdir"/usr/share/licenses/${pkgname}/LICENSE
+  install -D -m644 "$srcdir"/license-from-upstream "$pkgdir"/usr/share/licenses/${pkgname}/LICENSE
 }
