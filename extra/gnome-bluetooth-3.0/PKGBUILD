@@ -5,13 +5,14 @@
 
 pkgname=gnome-bluetooth-3.0
 pkgver=47.1
-pkgrel=1
+pkgrel=2
 pkgdesc="GNOME Bluetooth Subsystem"
 url="https://wiki.gnome.org/Projects/GnomeBluetooth"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
   bluez
+  bluez-obex
   gcc-libs
   glib2
   glibc
@@ -32,13 +33,23 @@ makedepends=(
   python
   systemd
 )
-checkdepends=(python-dbusmock)
+checkdepends=(
+  python-dbusmock
+  python-gobject
+)
 provides=(libgnome-bluetooth{,-ui}-3.0.so)
-source=("git+https://gitlab.gnome.org/GNOME/gnome-bluetooth.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('f769aa01ce530f6cc69e87477e9ebd86d4e5a984b2b785d57da1ade3a5728e87aaef2c6480d4a8378b0cb5894ac82efba482c07d8f6b743c4bfd4b39711b7043')
+source=(
+  "git+https://gitlab.gnome.org/GNOME/gnome-bluetooth.git#tag=${pkgver/[a-z]/.&}"
+  0001-tests-Support-PyGObject-3.52.patch
+)
+b2sums=('f769aa01ce530f6cc69e87477e9ebd86d4e5a984b2b785d57da1ade3a5728e87aaef2c6480d4a8378b0cb5894ac82efba482c07d8f6b743c4bfd4b39711b7043'
+        'fce98d0355c8b45cc36d264c2b6def51e073ff320cbf4ce18c37bf3f22b76e01755060e695fa1391a9f72e93c9863569f562246302f7ebab28bbcaa6b26518f5')
 
 prepare() {
   cd gnome-bluetooth
+
+  # Fix tests with python-gobject 3.52
+  git apply -3 ../0001-tests-Support-PyGObject-3.52.patch
 }
 
 build() {
