@@ -2,18 +2,16 @@
 # Contributor: Maarten de Vries <maarten@de-vri.es>
 
 pkgname=libopensmtpd
-pkgver=0.7
-pkgrel=3
+pkgver=1.0
+pkgrel=1
 pkgdesc="Library for creating OpenSMTPD filters"
 license=(BSD)
 url="https://imperialat.at/dev/libopensmtpd/"
 arch=(x86_64)
 depends=(libevent)
 makedepends=(gzip mandoc)
-source=(https://distfiles.sigtrap.nl/${pkgname}-${pkgver}.tar.gz
-        LICENSE)
-sha512sums=('53153eea5ed85309434316fa9bbba032aba9cac30744a6c228892b5fdf67f9df7e05c25832f16845c603892a255dfcf67d432e2a43ec6228f3103cf92ba2394f'
-            '24ffeb515e767416728adf4f02aac9b6305447ff4ce8acdfb1ecb8321f76e261e5a536b20df9acec90542e3c3f30e259c0d11cd99d401eb154fd5faf89a6e125')
+source=(https://src.imperialat.at/releases/${pkgname}-${pkgver}.tar.gz)
+sha512sums=('e42bfcc6ec5c8b54c397c7b8e7200cfb515ac3c1e4f47634b68bebb7600c15c84a47c9d2d89ea6c987ab506fe26e12f29e6c665ccd326ea9f21462760f5a4d18')
 
 build() {
   cd ${pkgname}-${pkgver}
@@ -23,5 +21,5 @@ build() {
 package() {
   cd ${pkgname}-${pkgver}
   make -f Makefile.gnu DESTDIR="${pkgdir}" install
-  install -Dm644 ../LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install -Dm644 LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
