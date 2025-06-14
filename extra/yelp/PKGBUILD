@@ -2,8 +2,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=yelp
-pkgver=42.2
-pkgrel=4
+pkgver=42.3
+pkgrel=1
 pkgdesc="Get help with GNOME"
 url="https://apps.gnome.org/Yelp"
 license=(GPL-2.0-or-later)
@@ -24,54 +24,34 @@ depends=(
   yelp-xsl
 )
 makedepends=(
-  appstream-glib
-  autoconf-archive
   git
   glib2-devel
   itstool
+  meson
 )
 optdepends=('man-db: View manual pages')
 provides=(libyelp.so)
 groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/yelp.git#tag=$pkgver"
-  0001-Remove-gtk-doc.patch
-  0002-CVE-2025-3155.patch
 )
-b2sums=('16a45eedd3444a9817298ffd63ba0f4ed286b1a21c54bfd51fcab6e253d73b7fbf59e82e833c82e45d7a4189bea97ba7b186844073e2b9d225207aa2faeda6f6'
-        '5b530dcd424619ca17ff45f5e2ec6140fe998251c0f6bc96aebb22f2b89a076b7f2a38ff9d13cd1512e4c687d5797cead23b65324b083aabda2b4e93a2afa4cf'
-        'e36ea4c361d8968a47343a1b6455f0c036628afeca1e63edbe70337ae8867b82eadca4cf2639e5c09a72f2e5dfe519718baeb251a17b8ddf36f4d1c668c25720')
+b2sums=('e571f5ab96e2b5ce78c5cdc9c835441e1bc10bcfc81d65c5d7b82209a50094662c4fe07f2eb732c60e15fa4172d7141026d4cecbe47897003ad5989239a02ed1')
 
 prepare() {
   cd yelp
-
-  # Remove vestiges of docs build to allow building without gtk-doc
-  git apply -3 ../0001-Remove-gtk-doc.patch
-
-  # https://blogs.gnome.org/mcatanzaro/2025/04/15/dangerous-arbitrary-file-read-vulnerability-in-yelp-cve-2025-3155/
-  git apply -3 ../0002-CVE-2025-3155.patch
-
-  NOCONFIGURE=1 ./autogen.sh
 }
 
 build() {
-  local configure_options=(
-    --prefix=/usr
-    --sysconfdir=/etc
-    --localstatedir=/var
-    --enable-compile-warnings=minimum
-    --disable-static
-  )
+  arch-meson yelp build
+  meson compile -C build
+}
 
-  cd yelp
-  ./configure "${configure_options[@]}"
-  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-  make
+check() {
+  meson test -C build --print-errorlogs
 }
 
 package() {
-  cd yelp
-  make DESTDIR="$pkgdir" install
+  meson install -C build --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
