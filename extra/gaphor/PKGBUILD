@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=gaphor
-pkgver=3.0.0
-pkgrel=6
+pkgver=3.1.0
+pkgrel=1
 pkgdesc='Simple UML and SysML modeling tool'
 arch=(any)
 url='https://apps.gnome.org/Gaphor/'
@@ -41,39 +41,15 @@ makedepends=(
 source=(
   "git+https://github.com/gaphor/gaphor.git#tag=$pkgver"
   gaphor-gaphas5.patch
-  gaphor-greeter-option.patch
-  gaphor-main-window.patch
 )
-b2sums=(
-  6175cd7de4b854e79c1c29ecf9dca34f5bac75c5caf9787612171400dd12e397d323dfab4466fe8debccaf7984b525e8ab0e93ac82b5dad60a07641c9a53f5ef
-  5f5667625b0c240c1d85e958580a0e98abebe1d970659efeeebbec393d3636ac0ef5f18558a7671bd33cf736068dc4c815c01276bb42a9ac64184bdbdac89843
-  f029aacd69028b433f679c94f05d3ba799f6559b7c6ee7ad01a6b081266f01b08360d40a35312ee3323391c96feae606591e26b59daeb56687d8975d3eebcef7
-  0c33b3ff8fcba0663be324fc01c5d1d4cf55366d5deadcf77a8d0c9881bf6d7ae781c8f01d8844ca69ac7d6e0023fdebbf9c14038929abe84b604885b5e66dfb
-)
+b2sums=('2ae31a7f21478baa4f131b686473a124174f6f73cb21b76d322ba802423f282b50a9b8fa8fc963f5b92e6539cd60babd1c96215fd2892f06fad40b481872dbc7'
+        '5f5667625b0c240c1d85e958580a0e98abebe1d970659efeeebbec393d3636ac0ef5f18558a7671bd33cf736068dc4c815c01276bb42a9ac64184bdbdac89843')
 
 prepare() {
   cd $pkgname
 
   # Port to Gaphas 5
   git apply -3 ../gaphor-gaphas5.patch
-
-  # https://github.com/gaphor/gaphor/pull/3811
-  git cherry-pick -n dfbed49993b985937dee66a3f4ca38df41abd4c4
-
-  # https://github.com/gaphor/gaphor/pull/3810
-  git cherry-pick -n 0532e0e9116531e56aaca9d0e67dabe518744231
-
-  # https://github.com/gaphor/gaphor/pull/3816
-  git cherry-pick -n 08864864064ecfc770921aaa684747bebbae2696
-
-  # https://github.com/gaphor/gaphor/pull/3839
-  git cherry-pick -n a29597a52b935e49d4afc0ad2b5ba1ba48267174
-
-  # https://github.com/gaphor/gaphor/pull/3820
-  git apply -3 ../gaphor-greeter-option.patch
-
-  # https://github.com/gaphor/gaphor/pull/3842
-  git apply -3 ../gaphor-main-window.patch
 }
 
 build() {
