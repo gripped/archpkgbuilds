@@ -3,7 +3,7 @@
 _name=myMPD
 pkgname=mympd
 pkgver=21.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A standalone and lightweight web-based MPD client"
 arch=(x86_64)
 url="https://github.com/jcorporation/myMPD"
@@ -35,10 +35,13 @@ build() {
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
     -D MYMPD_ENABLE_FLAC=ON
+    -D MYMPD_BUILD_TESTING=ON
     -S $_name-$pkgver
     -W no-dev
   )
 
+  # CMAKE_BUILD_TYPE=None does not automatically disable compiling in debug mode, so we do this specifically
+  CFLAGS+=" -DNDEBUG"
   cmake "${cmake_options[@]}"
   cmake --build build --verbose
 }
