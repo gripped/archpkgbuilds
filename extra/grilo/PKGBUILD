@@ -1,46 +1,45 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=grilo
-pkgver=0.3.16
+pkgver=0.3.19
 pkgrel=1
 pkgdesc="Framework that provides access to various sources of multimedia content"
 url="https://wiki.gnome.org/Projects/Grilo"
 arch=(x86_64)
-license=(LGPL)
+license=(LGPL-2.1-or-later)
 depends=(
-  liboauth
+  gcc-libs
+  glib2
+  glibc
   libsoup3
   libxml2
   totem-pl-parser
 )
 makedepends=(
   git
+  glib2-devel
   gobject-introspection
   gtk-doc
-  gtk3
   meson
   vala
 )
 optdepends=(
   'grilo-plugins: Plugins for grilo'
-  'gtk3: Test UI'
 )
 provides=(libgr{ilo,lnet,lpls}-0.3.so)
-_commit=923397361b36e95ddd57cff70ba7b0a8cb8d5e8c  # tags/grilo-0.3.16^0
-source=("git+https://gitlab.gnome.org/GNOME/grilo.git#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd grilo
-  git describe --tags | sed 's/^grilo-//;s/[^-]*-g/r&/;s/-/+/g'
-}
+source=("git+https://gitlab.gnome.org/GNOME/grilo.git#tag=grilo-$pkgver")
+b2sums=('0738ab5280c709a2bdeb3e704d41d698f66ce0a63d61c69aeec81c162ed7513dc85b5ed866554446df8209801880477e2ba9cbcf1b4efe7e9e7f4637ea8342fc')
 
 prepare() {
   cd grilo
 }
 
 build() {
-  arch-meson grilo build
+  local meson_options=(
+    -D enable-test-ui=false
+  )
+
+  arch-meson grilo build "${meson_options[@]}"
   meson compile -C build
 }
 
