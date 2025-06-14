@@ -2,7 +2,7 @@
 
 _pkgname=tox-current-env
 pkgname=python-$_pkgname
-pkgver=0.0.14
+pkgver=0.0.16
 pkgrel=1
 pkgdesc='tox plugin to run tests in current Python environment'
 arch=('any')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('python' 'python-tox')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('ba4df20c94761b85c8d213424c92712d5254cbd2fd46c36193b0198870a3995e0773a91bfd07b4c76ac8ceedda753feda3ae2c22645e9c5b7d2dbc9c0670bd08')
+sha512sums=('272d6866fbca16efdbb3b4ae034e7dc1bb68c467590998bdf2de152a091e029821b4002e6db001a92aafba063582fe0f4d1f40b43e06a7ecc62aa75dc16e6c45')
 
 build() {
   cd $_pkgname-$pkgver
