@@ -2,7 +2,7 @@
 
 pkgname=python-speg
 pkgver=0.3
-pkgrel=14
+pkgrel=15
 pkgdesc="A PEG-based parser interpreter with memoization"
 arch=('any')
 url="https://pypi.org/project/speg/"
@@ -10,12 +10,12 @@ license=('MIT')
 depends=('python')
 makedepends=('python-setuptools')
 source=(https://pypi.io/packages/source/s/speg/speg-$pkgver.zip
-        LICENSE)
+        ${pkgname}-license::https://raw.githubusercontent.com/avakar/speg/d8cf0f1daee48c6f906b48dd750a68bc68a63ea2/LICENSE)
 sha256sums=('10cbef47e168dfc62f14db575cf1c428037a2b881cee6c3cfceda0439c243e71'
             '37d897f62a4324d8d2f313d7d1b98cd26f872d2ae598b7eb9a69b1c129bcc135')
 
 package_python-speg() {
   cd "$srcdir"/speg-${pkgver}
   python setup.py install --root="${pkgdir}"
-  install -D -m644 "$srcdir"/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -D -m644 "$srcdir"/${pkgname}-license "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
