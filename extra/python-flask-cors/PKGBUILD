@@ -3,7 +3,7 @@
 # Contributor: Johannes Löthberg <johannes@kyriasis.com>
 
 pkgname=python-flask-cors
-pkgver=6.0.0
+pkgver=6.0.1
 pkgrel=1
 pkgdesc='A Flask extension adding a decorator for CORS support'
 url='https://github.com/corydolphin/flask-cors'
@@ -21,17 +21,11 @@ makedepends=(
   'python-setuptools'
   'python-wheel'
 )
-source=(
-  "git+$url.git#tag=$pkgver"
-  "$pkgname-remove-failing-test.patch"
-)
-sha256sums=('ce7d040aa7aa6f74c514aeac389f299aeca4dcbc585ab56aa3b33d6207016415'
-            '5bfe6eda0a101b6ee333ab37740ce751e8982bd5ee981719eb56c3476140f7ef')
+source=("git+$url.git#tag=$pkgver")
+sha256sums=('a0cabd6b5856d45b7c976edac9c7d54da0f16410938cc7342991ef7108f5c7b7')
 
 prepare() {
 	cd ${pkgname#python-}
-  patch -Np1 < ../$pkgname-remove-failing-test.patch
-
 	# Write versions following upstream release workflow
 	# https://github.com/corydolphin/flask-cors/blob/5.0.1/.github/workflows/on-release-main.yml#L20-L21
 	local RELEASE_VERSION=$pkgver
