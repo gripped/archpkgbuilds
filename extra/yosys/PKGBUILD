@@ -3,27 +3,33 @@
 # Contributor: killruana <killruana@gmail.com>
 
 pkgname=yosys
-pkgver=0.44
-pkgrel=3
+pkgver=0.54
+pkgrel=1
 pkgdesc='A framework for RTL synthesis'
 arch=('x86_64')
 url='https://yosyshq.net/yosys/'
 license=('custom:ISC')
 depends=('abc' 'bash' 'boost-libs' 'tcl' 'libffi' 'python' 'protobuf')
 makedepends=('boost' 'git')
-checkdepends=('iverilog')
+checkdepends=('iverilog' 'gtkwave')
 optdepends=('graphviz: Schematics display support'
             'xdot: Display netlists'
             'yices: default solver for yosys-smtbmc'
             'cvc4: alternative solver for yosys-smtbmc'
             'z3: alternative solver for yosys-smtbmc')
 options=('!lto') # getting SIGSEGV when running the tests with LTO
-source=(git+https://github.com/YosysHQ/yosys#tag=yosys-$pkgver)
-sha512sums=('5cb36e49e3394a1ba67d98a9fcf9120ec4092c4859a6939aae9473f6143bf6fad9c61d8b00b804004a7828c31c9efc0e4f2d90905e0094f5f1361c5b9335d5f4')
+source=(git+https://github.com/YosysHQ/yosys#tag=v$pkgver
+        git+https://github.com/jarro2783/cxxopts)
+sha512sums=('f9f1698f493855d537e72de0c7c7b13f409f0bdfbad3be0019449e98bec2dd98b1a1cdd0d7d74f978287a28733d84564120a624d297eb9c8be4388f2f48e074c'
+            'SKIP')
 
 prepare() {
   cd yosys
-  git cherry-pick -n fe79a77e398fab8dc962e49556eec5803aa3be74 # Fix build with GCC 15
+  git submodule init
+  git submodule set-url libs/cxxopts "$srcdir"/cxxopts
+  git -c protocol.file.allow=always submodule update libs/cxxopts
+
+  sed -e '/cp yosys-abc/d' -i Makefile # Fix Makefile trying to install yosys-abc even if using system one
 }
 
 _make() {
