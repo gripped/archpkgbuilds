@@ -1,7 +1,7 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
 
 pkgname=arduino-cli
-pkgver=1.1.1
+pkgver=1.2.2
 pkgrel=1
 arch=('x86_64')
 pkgdesc='Arduino command line interface'
@@ -11,7 +11,7 @@ groups=('arduino')
 depends=('glibc')
 makedepends=('go' 'git')
 source=("git+$url.git#tag=v$pkgver")
-sha512sums=('4625e0d79519271d32311b41c6cc858d541f06a2b03d75655ada322ee076d956c0910e05cd486dee82047a13bacd6dd00fa2df8ae1b44fd2d4dabb2995cd7679')
+sha512sums=('a7a58ac7f7376f22ed056ec2674c9ac5859f433cb24aa7706337ecbf45a05724a5dd04c2a3c9d35d66a69f6a17455fd298e1506395e4c2e9e313b798a45d5717')
 
 build(){
   cd $pkgname
