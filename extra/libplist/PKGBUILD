@@ -4,8 +4,8 @@
 # Contributor: Gabriel Martinez < reitaka at gmail dot com >
 
 pkgname=libplist
-pkgver=2.6.0
-pkgrel=2
+pkgver=2.7.0
+pkgrel=1
 pkgdesc='Library to handle Apple Property List files'
 arch=(x86_64)
 url='https://libimobiledevice.org/'
@@ -21,7 +21,7 @@ makedepends=(
 )
 optdepends=('python: Python bindings')
 source=("git+https://github.com/libimobiledevice/libplist.git#tag=$pkgver")
-b2sums=(b122bd4ec6f0b88cf1e7159f8beff6d702d755f47624765a324c2ffb8011d834d81ff422433e87f72d3ace67f7909e9197a263dc82428e2f38d31315fc0ff2d2)
+b2sums=('11c3255893c3ccc1f7aa3538d3b6cda6180aafdcd46a40c2d41bf160c738d67516e151317cfb68e4b400b1a1865b81400451df1e1378497c49fff10dad164c62')
 
 prepare() {
   cd $pkgname
