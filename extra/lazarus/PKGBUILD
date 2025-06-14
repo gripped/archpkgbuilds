@@ -6,7 +6,7 @@ pkgbase=lazarus
 pkgname=('lazarus' 'lazarus-gtk3' 'lazarus-qt5' 'lazarus-qt6')
 _lazarus_tag=4_0
 pkgver=4.0
-pkgrel=1
+pkgrel=2
 url='http://www.lazarus.freepascal.org/'
 license=('GPL-2.0-or-later' 'LGPL-2.1-or-later' 'MPL-1.1')
 arch=('x86_64')
@@ -98,9 +98,6 @@ package_lazarus-gtk3() {
   ln -s /usr/lib/lazarus/lazarus "$pkgdir"/usr/bin/lazarus
   ln -s /usr/lib/lazarus/startlazarus "$pkgdir"/usr/bin/startlazarus
 
-  # make 'desktop-file-validate' happy and fix missing .png icon
-  sed -e 's|\(Categories\).*|\1=IDE;Development;|' \
-    -e 's|\.png|\.xpm|' -i install/lazarus.desktop
   install -Dm644 install/lazarus.desktop "$pkgdir"/usr/share/applications/lazarus.desktop
   install -Dm644 images/ide_icon48x48.png "$pkgdir"/usr/share/pixmaps/lazarus.png
 
