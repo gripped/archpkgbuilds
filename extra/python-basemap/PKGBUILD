@@ -6,16 +6,14 @@
 pkgbase=python-basemap
 pkgname=('python-basemap' 'python-basemap-common')
 pkgver=1.4.1
-pkgrel=5
+pkgrel=6
 arch=('x86_64')
 url="https://matplotlib.org/basemap/"
 license=('MIT')
 makedepends=('cython' 'python-setuptools' 'python-matplotlib' 'geos' 'shapelib'
-             'python-numpy' 'python-pyproj')
-source=($pkgname-$pkgver.tar.gz::https://github.com/matplotlib/basemap/archive/v${pkgver}.tar.gz
-        LICENSE)
-sha256sums=('730b1e2ff5eb31c73680bd8ebabc6b11adfc587cfa6832c528a8a82822e5a490'
-            '0deac85afb0740df7626b6d8d7aa4b8814bbe9a412fb1a0e5962895d17e63add')
+             'python-numpy' 'python-pyproj' 'python-pip')
+source=($pkgname-$pkgver.tar.gz::https://github.com/matplotlib/basemap/archive/v${pkgver}.tar.gz)
+sha256sums=('730b1e2ff5eb31c73680bd8ebabc6b11adfc587cfa6832c528a8a82822e5a490')
 
 prepare() {
   pushd "${srcdir}"/basemap-${pkgver}/packages/basemap
@@ -41,7 +39,7 @@ package_python-basemap() {
   cd "${srcdir}"/basemap-${pkgver}/packages/basemap
 
   python setup.py install -O1 --skip-build --root="${pkgdir}" --prefix=/usr
-  install -Dm644 "${srcdir}"/LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+  install -Dm644 ../../LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
 }
 
 package_python-basemap-common() {
@@ -51,5 +49,5 @@ package_python-basemap-common() {
   cd "${srcdir}"/basemap-${pkgver}/packages/basemap_data
 
   python setup.py install -O1 --skip-build --root="${pkgdir}" --prefix=/usr
-  install -Dm644 "${srcdir}"/LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
+  install -Dm644 ../../LICENSE "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE
 }
