@@ -2,7 +2,7 @@
 
 _pkgname=auditwheel
 pkgname=python-$_pkgname
-pkgver=6.1.0
+pkgver=6.4.0
 pkgrel=1
 pkgdesc='Auditing and relabeling cross-distribution Linux wheels'
 arch=('any')
@@ -12,18 +12,7 @@ depends=('python' 'python-wheel' 'python-pyelftools' 'unzip' 'patchelf')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm' 'python-wheel')
 #checkdepends=('python-pytest' 'python-jsonschema' 'python-pretend' 'python-docker')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('f75fe43665a929d3858b7c52ff2fa8ae3301d3ffa66c8fd19e1bc6ba9d4a1a52f15c85b48a6941627c2dbf6023732da8fc67d425998c1ea838dec3cb71d6ea5b')
-
-prepare() {
-  cd $_pkgname-$pkgver
-
-  # replace the vendored wheel module with the one on the system
-  find -type f -name '*.py' -exec \
-      sed -i 's|\._vendor\.wheel|wheel|' '{}' \+
-
-  # remove vendored wheel module
-  rm -rf auditwheel/_vendor
-}
+sha512sums=('7acbfc217dfe57092204bffd83cba8933200b927085f984c6912584aa534a9974bb6476a4e56270ff6d048bbba33e651d8c6de6bd6de257d623b3c0fc4cd79ae')
 
 build() {
   cd $_pkgname-$pkgver
