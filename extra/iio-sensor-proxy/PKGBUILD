@@ -5,7 +5,7 @@
 # Contributor: Pablo Lezeta <prflr88@gmail.com>
 
 pkgname=iio-sensor-proxy
-pkgver=3.6
+pkgver=3.7
 pkgrel=1
 pkgdesc='IIO accelerometer sensor to input device proxy'
 arch=('x86_64')
@@ -15,7 +15,7 @@ depends=('systemd' 'libgudev' 'glib2' 'polkit')
 makedepends=('gtk3' 'meson')
 checkdepends=('python-gobject' 'python-dbusmock' 'python-psutil' 'umockdev')
 source=("$url/-/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('f9d1c19b74cb1e6c478ee51d31952a00e66dbbe29ce8b37a3a09ab168052d22e54ef438bf554af7f080c035cef2e8bb1e049ea653fc49f498a22680784c59ca6')
+sha512sums=('637cefbb1c9929514f2d9d195c54db76a57252b4037efb01006b8eb6631ccbeebf8a520044b22443e9dcef62d9f2ee610fd7477e55f2fb1e13c4b83c6cdc55c4')
 
 build() {
   mkdir $pkgname-$pkgver/build
