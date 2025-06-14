@@ -2,7 +2,7 @@
 
 pkgname=limesuite
 pkgver=23.11.0
-pkgrel=5
+pkgrel=7
 pkgdesc='Driver and GUI for LMS7002M-based SDR platforms (LimeSDR, etc.)'
 arch=('x86_64')
 url='https://github.com/myriadrf/LimeSuite'
@@ -25,6 +25,7 @@ build() {
   mkdir -p LimeSuite-$pkgver/build
   cd LimeSuite-$pkgver/build
 
+  CFLAGS+=" -std=gnu17" \
   cmake .. \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
@@ -44,7 +45,8 @@ build() {
     -DENABLE_GUI=True \
     -DENABLE_OCTAVE=True \
     -DENABLE_API_DOXYGEN=True \
-    -DLIME_SUITE_EXTVER=$pkgver
+    -DLIME_SUITE_EXTVER=$pkgver \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 #    -DENABLE_EVB7COM=True \
 #    -DENABLE_REMOTE=True \
