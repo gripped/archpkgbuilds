@@ -2,8 +2,8 @@
 
 _pkgname=treelib
 pkgname=python-$_pkgname
-pkgver=1.6.4
-pkgrel=4
+pkgver=1.7.1
+pkgrel=1
 pkgdesc='An efficient implementation of tree data structure'
 arch=('any')
 url='https://github.com/caesar0301/treelib'
@@ -12,7 +12,7 @@ depends=('python' 'python-six')
 makedepends=('python-setuptools')
 checkdepends=('python-pytest')
 source=("https://pypi.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz")
-sha512sums=('09524d43c4ed732c73e33dcf5d8da73cffaabd30ec35007f87820d1f6aea75f68249c6bdb0e264b58601ba8af51396cecfe8e7399654517add3b64d57e04c56d')
+sha512sums=('493803588501df20c38d409451ad26442f205d15b1460b38d5e76c3994d5db7ca9f85a84aa47b8db638ed73e42160cdf45a7531b429396d41f1238ad985ee288')
 
 build() {
   cd $_pkgname-$pkgver
