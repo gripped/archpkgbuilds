@@ -7,7 +7,7 @@
 pkgname=lua
 pkgver=5.4.8
 _majorver=${pkgver%.*}
-pkgrel=1
+pkgrel=2
 pkgdesc='Powerful lightweight programming language designed for extending applications'
 arch=('x86_64')
 url='https://www.lua.org/'
@@ -18,7 +18,7 @@ source=(https://www.lua.org/ftp/lua-$pkgver.tar.gz
         liblua.so.patch
         paths.patch
         lua.pc
-        LICENSE)
+        license-from-upstream)
 sha256sums=('4f18ddae154e793e46eeab727c59ef1c0c0c2b744e7b94219710d76f530629ae'
             '644fba6f3e03c4d0c394d241149fc558da79d0114e7816c2a597097304249cb7'
             '6bb84383498a96514d4c7deb79fd45bf484fa5e3253a1574a3311ee0bb7c24fa'
@@ -64,7 +64,7 @@ package() {
 
   install -d "$pkgdir"/usr/share/doc/$pkgname
   install -m644 doc/*.{gif,png,css,html} "$pkgdir"/usr/share/doc/$pkgname
-  install -Dm644 ../LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  install -Dm644 ../license-from-upstream "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 
   cd ../lua++-$pkgver
   make \
