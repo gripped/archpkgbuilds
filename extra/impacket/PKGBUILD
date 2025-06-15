@@ -3,8 +3,8 @@
 # Contributor: Paolo Giangrandi <peoro.noob@gmail.com>
 
 pkgname=impacket
-pkgver=0.11.0
-pkgrel=3
+pkgver=0.12.0
+pkgrel=1
 pkgdesc='Collection of classes for working with network protocols'
 url='https://github.com/CoreSecurity/impacket'
 arch=(any)
@@ -33,8 +33,8 @@ checkdepends=(
   python-pytest
 )
 source=(https://github.com/CoreSecurity/impacket/archive/impacket_${pkgver//./_}.tar.gz)
-sha256sums=('005b42b9c39515bfe15403b79d341b637dc621e327c2cabd859459b12618a010')
-sha512sums=('bda52a44701af633b6ba5eab9f8fba120903398da40c17a3669332f71b883497ace7c5112dcf4d61ea40912323b7363662f8f36a904391faf2ead099863512f0')
+sha256sums=('1c41951a29c03a03ff749ad68caa0f050072873850c09d7a7f1bca75c41fd66c')
+sha512sums=('3d30209f6ef73dd002fb5619af3366cc403c9a3d8ce7bc47b88f33facb1bc752266c148c8c7389fbd5720a10adf60f0d90334c33687a49a7d9a8051987648e63')
 
 build() {
   cd ${pkgname}-${pkgname}_${pkgver//./_}
