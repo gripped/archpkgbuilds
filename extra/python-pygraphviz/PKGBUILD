@@ -5,7 +5,7 @@
 pkgname=python-pygraphviz
 _name=${pkgname#python-}
 pkgver=1.14
-pkgrel=1
+pkgrel=2
 pkgdesc='Python interface to Graphviz'
 arch=(x86_64)
 url=https://pygraphviz.github.io
@@ -21,12 +21,19 @@ makedepends=(
   python-setuptools
   python-wheel
 )
-source=("git+https://github.com/$_name/$_name.git#tag=$_name-$pkgver")
-b2sums=('9013cd96ab59fed0dca920b1c70294fd12654f82ca4c167c24bbe6c6ed76ec50c10eab5e082f7eb77ec0cfea31a120d03f1771a3ae4b0dacf5b95a1585dfb0a2')
+source=("git+https://github.com/$_name/$_name.git#tag=$_name-$pkgver"
+         graphviz-13.patch)
+b2sums=('9013cd96ab59fed0dca920b1c70294fd12654f82ca4c167c24bbe6c6ed76ec50c10eab5e082f7eb77ec0cfea31a120d03f1771a3ae4b0dacf5b95a1585dfb0a2'
+        'e7b968f9d32aa7cee8aa33e51401a20ca69ebd9b81c441975c8ffdfa99ee0024354a7ebc0cd0b49c3fd2eb67bb390270156314b9914b95823a4043ede67e2c6f')
+
+prepare() {
+  cd $_name
+  patch -p1 -i ../graphviz-13.patch # Fix build with graphviz 13
+}
 
 build() {
   cd "$_name"
-  python -m build --wheel --skip-dependency-check --no-isolation
+  python -m build --wheel --skip-dependency-check --no-isolation  
 }
 
 package() {
