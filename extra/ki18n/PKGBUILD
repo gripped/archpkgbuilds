@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=ki18n
-pkgver=6.14.0
+pkgver=6.15.0
 pkgrel=1
 pkgdesc='Advanced internationalization framework'
 arch=(x86_64)
@@ -17,13 +17,12 @@ makedepends=(doxygen
              extra-cmake-modules
              python
              qt6-declarative
-             qt6-doc
              qt6-tools)
 optdepends=('python: to compile .ts files'
             'qt6-declarative: ktranscript plugin and QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('2a5135412caf0a07eba4eeb60867ac6929df1c83c145ae757a6a1230f842e669'
+sha256sums=('1897755d9fde5a1bea6f7d71244c2662b9911b4b8894cc53740bfe38b4d5d91d'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
@@ -32,8 +31,7 @@ validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
