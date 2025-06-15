@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kcompletion
-pkgver=6.14.0
+pkgver=6.15.0
 pkgrel=1
 pkgdesc='Text completion helpers and widgets'
 arch=(x86_64)
@@ -17,11 +17,10 @@ depends=(gcc-libs
          qt6-base)
 makedepends=(doxygen
              extra-cmake-modules
-             qt6-doc
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('d3ae6a9a365f13d1dae4040bb4c97ce86a74865ca6ed21f908111598a2138136'
+sha256sums=('938cad318dcaa2fca8b8b8d4853fa3f7abd833dcf03b51e19a174e6195ccc27d'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
@@ -30,8 +29,7 @@ validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
