@@ -3,7 +3,7 @@
 _gemname='slim'
 pkgname="ruby-${_gemname}"
 pkgver=5.2.1
-pkgrel=4
+pkgrel=5
 pkgdesc='A template language whose goal is reduce the syntax to the essential parts without becoming cryptic'
 arch=('any')
 url="https://github.com/slim-template/${_gemname}"
@@ -22,7 +22,10 @@ checkdepends=(
   ruby-kramdown
   ruby-minitest
   ruby-rack-test
-  ruby-sassc
+  ruby-rake
+# Upstream has disabled sass tests for now
+# https://github.com/slim-template/slim/commit/bd9d4601cd8142aa9fdbc0d87c9f9132a9a56cda
+#  ruby-sass-embedded
   ruby-sinatra
 )
 options=('!emptydirs')
