@@ -2,8 +2,8 @@
 
 _pyname=pysmt
 pkgname=python-${_pyname}
-pkgver=0.9.5
-pkgrel=5
+pkgver=0.9.6
+pkgrel=1
 pkgdesc='Solver-agnostic library for SMT Formulae manipulation and solving'
 url='https://github.com/pysmt/pysmt'
 license=('Apache-2.0')
@@ -13,17 +13,9 @@ makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools
 checkdepends=('python-pytest')
 source=(
   "${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
-  $pkgname-0.9.5-python_312_support.patch
 )
-sha512sums=('d1e3b4f9f7bc90c15ddcfbcf87e4d487acff9613ae48d56a91bd83ab1c929af8c15ced29f6b097a599f91b41bbfadcf89e4601edba2bdff36c80c41b7c5165bb'
-            '24c873a099e784aaaf2cca2af3d0641a3f19269d63df1ecfa25e85ceccf17127523b39834fd64a594a9ee119d1315a154227c95711342484519d3236bed72d4b')
-b2sums=('0716c6b5e66a50072947f2e959ab5dfd92494b4d9bb92a11cf6250e9b8a9940591a64af0382e173230da31fd7d7178904da9bd4d424ab53ee217ccc49186234a'
-        'd49106096f08cf4139f987f7eac9cae3b1b7696513724eb05ab7995c3d3fa66e561fa9a72fc6977d60e10b2f97f3ce9523dabb9f76fcf0516690e64b1e28d6d4')
-
-prepare() {
-  # backport of: https://github.com/pysmt/pysmt/pull/770
-  patch -Np1 -d $_pyname-$pkgver -i ../$pkgname-0.9.5-python_312_support.patch
-}
+sha512sums=('499e1df2c3d9c7a550a02aa0f05fed90b0f8bb3f74f155f9466e11779d81d2e024d26a0dcfa4e0cc6b6b8d57ef7f99a66ae7dd7b7449b9d226d082c672416379')
+b2sums=('3ccfc4264acb1a5958c2cccbf77fcdc31b1b4eb22a0d3bafa9666a3edc2d22d6ae0f6ed74aaa79d5a2816c40cfea7a54f170202aa02980cf4f23770085d9cb3a')
 
 build() {
   cd ${_pyname}-${pkgver}
