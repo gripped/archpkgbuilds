@@ -2,7 +2,7 @@
 
 _pyname=ailment
 pkgname=python-${_pyname}
-pkgver=9.2.134
+pkgver=9.2.158
 pkgrel=1
 pkgdesc='The angr intermediate language'
 url='https://github.com/angr/ailment'
@@ -12,8 +12,8 @@ depends=('python' 'python-claripy' 'python-pyvex' 'python-pypcode')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 checkdepends=('python-pytest' 'python-archinfo')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('5845ce5b4a93f6216a709849c748e6095d0ce999d0f47aeaf96aeadbea6c65165f56bccd00c570ebf258fa512eeadf8772dfd20089a390f5dd6240fa433570a5')
-b2sums=('f449b8ab9c2c6b0b48f0a232707c90e1689da7c58d597f85215f5ea8814aefa83d94768c705c91bd1d2180695768aa342a04d18334d8a3f9b39339f84a5f76dc')
+sha512sums=('b2608a831d67dee397ea4586a0900d81aefa75a597956cf284feac935ab3e256dfa12b8ebdb0e6a6f9753b63eb4b85288319c3163a885b86ab2c8c0b4107dc8d')
+b2sums=('61783a54fd5b62d5fa9bde67b4a0f5de93708ea37dfa49530a79e2e7537ea05b777f6c1c7074612c3d7b673ea436293bb0a554b857510c931e3823329c56b6cf')
 
 build() {
   cd ${_pyname}-${pkgver}
