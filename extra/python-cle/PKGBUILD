@@ -3,9 +3,9 @@
 
 _pyname=cle
 pkgname=python-${_pyname}
-pkgver=9.2.123
+pkgver=9.2.160
 _testbinaries_ver=9.2.123
-pkgrel=2
+pkgrel=1
 pkgdesc='Loads binaries and their libraries, resolves imports and provides an abstraction of process memory'
 url='https://github.com/angr/cle'
 arch=('any')
@@ -22,9 +22,9 @@ makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools
 checkdepends=('python-pytest' 'python-minidump' 'python-pyxbe' 'python-arpy' 'python-claripy' 'python-pyaxmlparser' 'python-cart')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "https://github.com/angr/binaries/archive/v${_testbinaries_ver}/angr-binaries-${_testbinaries_ver}.tar.gz")
-sha512sums=('79720a1017a15576803d5284827f5308b520c1261e61ee3735b4d908d200a4cbd54e5947baa110ebd4c7c7fbcc82b121d57f36445cb908d8565676b420fe5411'
+sha512sums=('65751ddcf94d1b59acf885f259ea54b8367a2296b1fcdb9b5647910402818adcd90d3ac1ec237dc8c733af160956d32c7a9fdb1527bde22e7773454b5bedb7a0'
             '5f88c4fb5e811426d83fcb7c75fcb666ecd634abdd32e30d458d2cdf1f4cfabf4a16ec6794129c719e0bdd245363f2693a008ba414bb1bddd0d4c4defda36f89')
-b2sums=('17558ea60665310c55f0814282952954ebe7e581adb3668acca5b1cbd59fd6a66ec7cb5cf2347f034493e7e2398864d25aac123485652932b11023697017da3c'
+b2sums=('01f69cbdfecf55ed795eb26713f0ecd0864e707c28930a734ae395ca622697dc385cb4764e0c52113b128b3c9efe1c1a33e0460795e50e1beb395ff3fd09e6a3'
         'd8f2d5287f4c5eb8c06ab2a2429fd951998a3a5a6dcb4a1fa3867598c1076cc32461940e92fe281ae8843ad856fc382cd3343ede9153372ccad724cacccd0b6d')
 
 prepare() {
