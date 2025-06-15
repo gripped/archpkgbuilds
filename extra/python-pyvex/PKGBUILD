@@ -2,8 +2,8 @@
 
 _pyname=pyvex
 pkgname=python-${_pyname}
-pkgver=9.2.123
-pkgrel=2
+pkgver=9.2.160
+pkgrel=1
 pkgdesc="Python bindings for Valgrind's VEX IR"
 url='https://github.com/angr/pyvex'
 license=('BSD')
@@ -13,7 +13,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
 source=("git+${url}.git#commit=v${pkgver}"
         git+https://github.com/angr/vex.git)
-sha512sums=('81ba098f209304425b2f02466461f1dbfc8152287fbaa2a92d03f33c28ea0d5e378ee39e93720050bc0ea9cd5937aec0aee258d6a0e124fe3e1390aefeb43d7b'
+sha512sums=('785021aa203a0226ea579dfd96d71f98534c57bd7425b45b45307e6ed9fa029874ad826740575b9587694358821a2b17d6b0cd9e48c1735a4e12bd27efd37f1f'
             'SKIP')
 
 prepare() {
