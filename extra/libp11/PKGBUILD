@@ -5,27 +5,21 @@
 # Contributor: Rene Pärts <rene87@hot.ee>
 
 pkgname=libp11
-pkgver=0.4.14
-pkgrel=2
+pkgver=0.4.15
+pkgrel=1
 pkgdesc="A library implementing a small layer on top of the PKCS11 API"
 arch=('x86_64')
 url="https://github.com/OpenSC/libp11/wiki"
 license=('LGPL-2.1-or-later')
 depends=('openssl')
-source=("https://github.com/OpenSC/${pkgname}/releases/download/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.gz"{,.asc}
-        'util-h.patch::https://github.com/OpenSC/libp11/commit/fd8cbb43e9d98764d3f3b861a435cd0441cb7a58.patch')
-sha256sums=('652ae2ac0732ec1eb998e8a99409eec6a00d5b47717f973b6bfb6c50f7a0ac60'
-            'SKIP'
-            '6642ad35457ed74c52bba157632fb79b3bbafe5b804bfe260954830a60cb2e1a')
+source=("https://github.com/OpenSC/${pkgname}/releases/download/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.gz"{,.asc})
+sha256sums=('4867d9048f984a08e218f9946526b4dc70bc3921793f7b26685f8e00b1146a08'
+            'SKIP')
 validpgpkeys=('AC915EA30645D9D3D4DAE4FEB1048932DD3AAAA3')
-
-prepare() {
-  cd "$pkgname-$pkgver"
-  patch -p1 -i ../util-h.patch
-}
 
 build() {
   cd "$pkgname-$pkgver"
+  autoreconf -f
   automake
   ./configure --prefix=/usr --disable-static
   make
