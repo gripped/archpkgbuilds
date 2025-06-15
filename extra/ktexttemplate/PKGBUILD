@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=ktexttemplate
-pkgver=6.14.0
+pkgver=6.15.0
 pkgrel=1
 pkgdesc='Library to allow application developers to separate the structure of documents from the data they contain'
 arch=(x86_64)
@@ -13,11 +13,10 @@ depends=(gcc-libs
          qt6-declarative)
 makedepends=(doxygen
              extra-cmake-modules
-             qt6-doc
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('65a908aa573e40cf9884a9d42a4b8d5574baf2f402a19764cda2cccde27c897a'
+sha256sums=('5c652ebae5d32d1b84fa438ad94cc621621d31e0abcfef3b0a511a586d697a84'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
@@ -26,8 +25,7 @@ validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
