@@ -3,8 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kwallet
-pkgver=6.14.1
-pkgrel=3
+pkgver=6.15.0
+pkgrel=1
 pkgdesc='Secure and unified container for user passwords'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
@@ -30,13 +30,12 @@ makedepends=(doxygen
              extra-cmake-modules
              kdoctools
              kservice
-             qt6-doc
              qt6-tools)
 optdepends=('kwalletmanager: Configuration GUI')
 provides=(org.freedesktop.secrets)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('ef482be2d5211f711d578aa1d1f37f71e641a6a52fd37e11327e19915fd42127'
+sha256sums=('fdbac44c2525b12e24b3ba5971912a2ffd91fdfea79c3a124bce89621735893c'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
@@ -45,8 +44,7 @@ validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
