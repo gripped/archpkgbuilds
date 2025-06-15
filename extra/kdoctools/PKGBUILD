@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kdoctools
-pkgver=6.14.0
+pkgver=6.15.0
 pkgrel=1
 pkgdesc='Documentation generation from docbook'
 arch=(x86_64)
@@ -20,11 +20,10 @@ makedepends=(doxygen
              extra-cmake-modules
              ki18n
              perl-uri
-             qt6-doc
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('acb9c761e8e10c30f2c32061f64096965459a0513250edf4432f40831a0f536e'
+sha256sums=('430be5905b0bf6dfb4b7e0e2c0aeb75986eef0a30f13320d9d4cab907fd6bef7'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
@@ -34,7 +33,6 @@ validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.
 build() {
   cmake -B build -S $pkgname-$pkgver \
     -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON \
     -DDocBookXSL_DIR=/usr/share/xml/docbook/xsl-stylesheets-nons
   cmake --build build
 }
