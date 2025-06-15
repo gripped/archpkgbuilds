@@ -3,7 +3,7 @@
 # Contributor: fauno <fauno@parabola.nu>
 
 pkgname=miniupnpd
-pkgver=2.3.7
+pkgver=2.3.9
 pkgrel=1
 pkgdesc='Lightweight UPnP IGD daemon'
 url='https://miniupnp.tuxfamily.org/'
@@ -11,27 +11,25 @@ arch=('x86_64')
 license=('BSD')
 backup=('etc/miniupnpd/miniupnpd.conf')
 depends=('iptables' 'util-linux' 'util-linux-libs' libuuid.so 'libcap-ng' libcap-ng.so)
-makedepends=('lsb-release' 'procps-ng')
-source=(https://miniupnp.tuxfamily.org/files/${pkgname}-${pkgver}.tar.gz{,.sig}
+makedepends=('git' 'lsb-release' 'procps-ng')
+source=(git+https://github.com/miniupnp/miniupnp.git#tag=${pkgname}_${pkgver//./_}
         miniupnpd.service)
-sha512sums=('7409bd6777c2a572ea501d47be604d9b09c09b1451c0f4150acd2313e3a5b4f7f3567559324a6c634c11a2b7c0ff56886a85217d1b056d5402916d0a8a3408e8'
-            'SKIP'
+sha512sums=('78cb68ea7e09a3d8550bf76783e717fddd7596678e55c81a032b87be217f4ad9898ad02c6d1d57361921ca58b3098228593b09f7b7efa059eed324c67c616ff8'
             '6387f646d91257e50159f66c5168830c5c845e1de739e52cc86647baafaa96ed3a5d00b6c7e46080c3dd998a486d81183c3c11ce9bf32e2f6d9fdd40b0ea8bef')
-b2sums=('9d7cbe04644c6811950328f402e4666fc8d51cf022a3ec40e4cc76c0f8a1c89b6703fe4ebe8d5eca7f6cef20acad7efbc47503dad4391d1519a6774ae6b26afd'
-        'SKIP'
+b2sums=('ecd96aeab7f3706ac67bfae6129ddc00278abe57a1c957f4e3eedeeec6225021e36086c5ef3b5d165af8dcd5b6ae98d787bc0e56471c741903b8feafa8bd3b46'
         '3db5bae2f4624f436a509dfda79183468b7d2112b5351b70f972319f3223722b1d2b5ac44516bb8f76995f04af0bb76b1e3a19e9afe011f5b104aae5f2058638')
 validpgpkeys=(
   '751E9FF6944A3B36A5432216DB511043A31ACAAF' # miniupnp (miniupnp !) <miniupnp@free.fr>
 )
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd miniupnp/${pkgname}
   sed '/gzip/d' -i Makefile.linux
   sed 's|/sbin/sysctl|sysctl|g' -i configure
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd miniupnp/${pkgname}
   ./configure \
     --ipv6 \
     --leasefile
@@ -40,12 +38,12 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd miniupnp/${pkgname}
 
   make DESTDIR="${pkgdir}" PREFIX=/ INSTALLPREFIX=/usr SBININSTALLDIR=/usr/bin -f Makefile.linux install
 
   install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
-  install -Dm 644 ../miniupnpd.service -t "${pkgdir}/usr/lib/systemd/system"
+  install -Dm 644 ${srcdir}/miniupnpd.service -t "${pkgdir}/usr/lib/systemd/system"
 
   sed -i 's:/s\?bin/iptables:/usr/bin/iptables:
           s:eth0:"`cat /etc/miniupnpd/miniupnpd.conf | '"awk -F= '/^ext_ifname/ { print \$2 }'"'`":' "${pkgdir}"/etc/miniupnpd/*.sh
