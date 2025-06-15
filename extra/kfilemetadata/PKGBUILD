@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kfilemetadata
-pkgver=6.14.0
+pkgver=6.15.0
 pkgrel=1
 pkgdesc='A library for extracting file metadata'
 arch=(x86_64)
@@ -30,11 +30,10 @@ makedepends=(catdoc
              extra-cmake-modules
              kdegraphics-mobipocket
              libappimage
-             qt6-doc
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('925a9db27176519099d24625070bf7ebc1600fae7e7d06ae4eee3279a67d31e5'
+sha256sums=('d1e62ce1b7fd65e848a81a211bb5cb1126cce1354f70312a0104c09c03dd6542'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
@@ -43,8 +42,7 @@ validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
