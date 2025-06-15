@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kwidgetsaddons
-pkgver=6.14.0
+pkgver=6.15.0
 pkgrel=1
 pkgdesc='Addons to QtWidgets'
 arch=(x86_64)
@@ -17,12 +17,11 @@ makedepends=(doxygen
              pyside6
              python-build
              python-setuptools
-             qt6-doc
              qt6-tools)
 optdepends=('pyside6: Python bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('602720bc3e86cba2384f0f45e16c8524a1974796a3d5b7c5c1ed90e768cf121f'
+sha256sums=('23557e83da5d49bf1722aad07846015a1fcecc10a70342ac9cb54b7acff88435'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D  # Jonathan Esk-Riddell <jr@jriddell.org>
@@ -30,8 +29,7 @@ validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
