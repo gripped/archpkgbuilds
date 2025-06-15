@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kauth
-pkgver=6.14.0
+pkgver=6.15.0
 pkgrel=1
 pkgdesc='Abstraction to system policy and authentication features'
 arch=(x86_64)
@@ -17,11 +17,10 @@ depends=(gcc-libs
          qt6-base)
 makedepends=(doxygen
              extra-cmake-modules
-             qt6-doc
              qt6-tools)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('f5a16e489f26b5741d3f11bf6b203fd99a84ecaae798eb6b0eaa0d71c88f6645'
+sha256sums=('19c7b598a780ba5befd30f25de694536811a46a5622c4a2c28892f2f3ba5a617'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
@@ -31,8 +30,7 @@ validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.
 build() {
   cmake -B build -S $pkgname-$pkgver \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
