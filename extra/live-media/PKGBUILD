@@ -3,7 +3,7 @@
 # Contributor: Gilles CHAUVIN <gcnweb@gmail.com>
 
 pkgname=live-media
-pkgver=2024.04.19
+pkgver=2025.05.24
 pkgrel=1
 pkgdesc='Set of C++ libraries for multimedia streaming'
 url='http://live555.com/liveMedia'
@@ -11,8 +11,8 @@ arch=('x86_64')
 license=('LGPL')
 depends=('gcc-libs' 'openssl')
 source=(http://live555.com/liveMedia/public/live.$pkgver.tar.gz)
-sha256sums=('e6c2ebfec6772c1f37084271e4e5236abc7f0e1fc4489f9869763440200ddcc2')
-sha512sums=('62aeacea8f987731237c5924097a2aa4f650629f44d190637b2c960425f295b1360fa27ecdfe96636e7f29a23385ed872f54b66b402c38e3e76f6564f3cdc38f')
+sha256sums=('e6185902c4bfe9235067a0bc80ec9a5f8a95956d9d07525ce169f3f9753afb0a')
+sha512sums=('4b2053ac83cceedf05dd778d56ee63b77e41a8a3dac086365bf8b91a7c9758c2eedc6d6ee5468fac3cec8e33b7b070cfa7401a4ec37f87346c940f56d4af63ac')
 
 prepare() {
   cd live
