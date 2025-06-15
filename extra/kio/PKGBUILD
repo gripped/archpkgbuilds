@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kio
-pkgver=6.14.0
+pkgver=6.15.0
 pkgrel=1
 pkgdesc='Resource and network access abstraction'
 arch=(x86_64)
@@ -38,7 +38,6 @@ depends=(acl
 makedepends=(doxygen
              extra-cmake-modules
              kdoctools
-             qt6-doc
              qt6-tools)
 optdepends=('kded: proxy management and cookie storage'
             'kdoctools: for the help kioslave'
@@ -47,7 +46,7 @@ optdepends=('kded: proxy management and cookie storage'
             'switcheroo-control: hybrid GPU support')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('9b03746fd008504a96f569f37ad8ff902cc71495e7e123daa3c6de79ff2acc45'
+sha256sums=('2d4ccc5bf070abcbc945a208ecbf2017b3b195fa99e4ceb5eb9950888f77c1a9'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
@@ -57,8 +56,7 @@ validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.
 build() {
   cmake -B build -S $pkgname-$pkgver \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_QCH=ON
+    -DBUILD_TESTING=OFF
   cmake --build build
 }
 
