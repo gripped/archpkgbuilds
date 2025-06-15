@@ -2,8 +2,8 @@
 # Maintainer: Mantas M. <grawity@gmail.com>
 
 pkgname=sssd
-pkgver=2.10.2
-pkgrel=3
+pkgver=2.11.0
+pkgrel=1
 pkgdesc="System Security Services Daemon"
 arch=('x86_64')
 url="https://github.com/SSSD/sssd"
@@ -48,7 +48,7 @@ install=sssd.install
 backup=('etc/logrotate.d/sssd')
 source=("https://github.com/SSSD/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.gz"{,.asc}
         "sssd-perms.tmpfile")
-sha512sums=('14ad222802e5426b0959ee32602e04ce24b3eb8d3bdd5e188cf29e3c7d32e0631b41c386fdbd129acf281317538460015d35410a688ea48dd546f9ae28522eac'
+sha512sums=('cf273853170ff8fa8767eb7f760ee205d7b0b9c725f81de51c44463b96b66b509c5e257a4e9c9a633bd7080fde42b11164579291664de4629654ffa9989352fb'
             'SKIP'
             '21646ea5900340c1b0a69c79fc72b0d3e360d56e04dc0daf7947024a420d214a931365e684e8f7cfd37c959327e6909ad4c0d6c3a8186153bca870f508dad486')
 validpgpkeys=('C13CD07FFB2DB1408E457A3CD3D21B2910CF6759')
@@ -93,7 +93,6 @@ build() {
     --without-python2-bindings                    \
     --with-python3-bindings                       \
     --with-syslog=journald                        \
-    --with-files-provider                         \
     --with-sssd-user=sssd                         \
     --with-subid                                  \
     --with-passkey                                \
