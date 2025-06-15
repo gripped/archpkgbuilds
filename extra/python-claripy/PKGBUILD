@@ -2,8 +2,8 @@
 
 _pyname=claripy
 pkgname=python-${_pyname}
-pkgver=9.2.101
-pkgrel=2
+pkgver=9.2.160
+pkgrel=1
 pkgdesc='Abstraction layer for constraint solvers'
 url='https://github.com/angr/claripy'
 license=('custom:BSD2')
@@ -13,6 +13,7 @@ depends=(
   'python-cachetools'
   'python-decorator'
   'python-pysmt'
+  'python-typing_extensions'
   'python-z3-solver'
 )
 makedepends=(
@@ -23,13 +24,8 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('2750dce8d24a20b71c43f5230077814c3cf2516504abfd6a9a0e76c10656b9f61ef77ac45bed43b5685890eef31f884ef323af8f3e3bb982261da982312bb7f6')
-b2sums=('ab8792c63fba9baca3e53fa45af3d2c128181f688b90783c3413eeeea3455718d8ba491c53ab6aa11bdb3eae2d2458358941ad3ce1be5050d455cddce7e353ce')
-
-prepare() {
-  # we don't support version pinning
-  sed -e 's/==/>=/' -i $_pyname-$pkgver/setup.cfg
-}
+sha512sums=('7bb1a6b3c50fb9cc2d0e7b9174ef06f5eb119cb2fedcb9fc7482177022953160ff1837e23a28f70910b62ab2185e7c96e7d2ab8d2afbf72e21778220da7a6249')
+b2sums=('7060d03e881a3b65bc53b0b220067e9ede5d08c380af6ac8bf54e6664d7d7914397994f3472866b1973f570241231253eecedcd55122f7b524e2aafa7fa92b7a')
 
 build() {
   cd ${_pyname}-${pkgver}
