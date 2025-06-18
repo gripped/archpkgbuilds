@@ -3,29 +3,29 @@
 
 _pyname=fakeredis
 pkgname=python-fakeredis
-pkgver=2.29.0
+pkgver=2.30.0
 pkgrel=1
 pkgdesc='Fake implementation of redis API (redis-py) for testing purposes'
 arch=(any)
-url="https://github.com/dsoftwareinc/${_pyname}-py"
-license=(BSD MIT)
+url="https://github.com/dsoftwareinc/$_pyname-py"
+license=(BSD-3-Clause)
 depends=(python-redis
          python-sortedcontainers)
 makedepends=(python-{build,installer,wheel}
-             python-packaging
+             python-hatchling
              python-lupa
-             python-poetry-core)
-checkdepends=(python-pytest
+             python-packaging)
+checkdepends=(python-hypothesis
+              python-pytest
               python-pytest-asyncio
-              python-pytest-mock
-              python-hypothesis)
+              python-pytest-mock)
 optdepends=('python-packaging: for aioredis support'
             'python-lupa: for lua scripting support')
 # _archive="$_pyname-py-$pkgver"
 # source=("$url/archive/v$pkgver/$_archive.tar.gz")
 _archive="$_pyname-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
-sha256sums=('159cebf2c53e2c2bd7d18220fa93aa5f1d7152f6b6dd7896c46234d674342398')
+sha256sums=('77ca04d4925daa0569ff000a960f47e49de15a4bd37facafe4f3f3ecc66bb3ef')
 
 build(){
 	cd "$_archive"
