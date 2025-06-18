@@ -2,7 +2,7 @@
 
 _pkg=xarray
 pkgname=python-${_pkg}
-pkgver=2025.04.0
+pkgver=2025.06.1
 pkgrel=1
 pkgdesc="N-D labeled arrays and datasets in Python"
 arch=(any)
@@ -36,6 +36,7 @@ checkdepends=(
   python-pint
   python-pyarrow
   python-pytest
+  python-pytest-xdist
   python-scipy
   python-seaborn
 )
@@ -63,7 +64,7 @@ optdepends=(
   'python-pint: units of measure support'
 )
 source=("https://github.com/pydata/xarray/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('2985d371fddf3d8fa57c75584419b3307adf7d0048989418028ff0c48e17cfb2')
+sha256sums=('8574add36c377b2e0f75e2be64771cca205d4c3b4218469dcd5e14bc19cbe933')
 
 build() {
   cd ${_pkg}-${pkgver}
@@ -73,14 +74,18 @@ build() {
 check() {
   cd ${_pkg}-${pkgver}
   local pytest_args=(
-    --override-ini "addopts="
-    -W ignore::pytest.PytestDeprecationWarning
+    --override-ini="addopts="
+    -n=auto
+    -W=ignore::pytest.PytestDeprecationWarning
+
     # Segfaults with python-h5py installed
     --deselect=xarray/tests/test_backends.py::TestDask::test_save_mfdataset_compute_false_roundtrip
+
     # Fails with:
     # E   RuntimeError: NetCDF: Filter error: undefined filter encountered: (variable 'var2', group '/')
     --deselect=xarray/tests/test_backends.py::TestNetCDF4Data::test_compression_encoding
     --deselect=xarray/tests/test_backends.py::TestNetCDF4ViaDaskData::test_compression_encoding
+
     # Fails with:
     # E       Failed: DID NOT RAISE <class 'ValueError'>
     --deselect=xarray/tests/test_groupby.py::test_dask_da_groupby_quantile
