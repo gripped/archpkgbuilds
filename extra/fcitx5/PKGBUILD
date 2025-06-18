@@ -2,7 +2,7 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5
-pkgver=5.1.12
+pkgver=5.1.13
 _dictver=20121020
 pkgrel=1
 pkgdesc="Next generation of fcitx"
@@ -13,11 +13,11 @@ conflicts=('fcitx')
 groups=('fcitx5-im')
 depends=('cairo' 'enchant' 'iso-codes' 'libgl' 'libxkbcommon-x11' 'pango' 'systemd' 'wayland'
          'xcb-imdkit' 'xcb-util-wm' 'libxkbfile' 'gdk-pixbuf2' 'json-c')
-makedepends=('git' 'extra-cmake-modules' 'ninja' 'wayland-protocols' 'fmt')
+makedepends=('git' 'extra-cmake-modules' 'ninja' 'wayland-protocols')
 source=("git+https://github.com/fcitx/fcitx5.git#tag=$pkgver?signed"
         "https://download.fcitx-im.org/data/en_dict-$_dictver.tar.gz")
 noextract=("en_dict-$_dictver.tar.gz")
-sha512sums=('d0829fa66c549ac2415b2e2a1387f089f5c3f746d661606e70a6eb9e68f881de9f22d9d00d5b27207609f096e405701c65b552e64bdc5f55e2639f0d7032f521'
+sha512sums=('d1afa1cff76de3eaa0895043146fbe3e53250422ea5b515367fd0a99ee0ca9668974bf718eaa7b3eb80f7800179e2d1ea44f209815c25412fc579663b7d552c7'
             '8418bd02492bfd786c0fab93be4400ef027ec8e9fac02220cc1f653f5eb67f54573a6a84a15baba19bb34ab892745c87df16499d6304ea75009131e2ab3b97f2')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
