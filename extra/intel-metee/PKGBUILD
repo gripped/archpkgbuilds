@@ -3,7 +3,7 @@
 
 pkgbase=intel-metee
 pkgname=(intel-metee intel-metee-doc)
-pkgver=5.0.0
+pkgver=6.0.0
 pkgrel=1
 pkgdesc="Access library for Intel CSME HECI interface"
 arch=(x86_64)
@@ -11,12 +11,7 @@ url="https://github.com/intel/metee/"
 license=(Apache-2.0)
 makedepends=(cmake doxygen graphviz)
 source=(${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('b18810875ab2e13ffe10afed54f99974ad75fbed536c680d7d1950bb90b20d68')
-
-prepare() {
-    # remove obselete doxygen tags
-    doxygen -u metee-${pkgver}/include/Doxyfile.in
-}
+sha256sums=('cf604756f78da6f66a79f6ae7a1c2fa6833495316036a97824bce40483fee9f4')
 
 build() {
   # fix error: "_FORTIFY_SOURCE" redefined [-Werror]
