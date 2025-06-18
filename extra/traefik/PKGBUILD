@@ -3,7 +3,7 @@
 
 pkgname=traefik
 pkgver=3.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Modern reverse proxy written in Go"
 arch=('x86_64')
 url="https://github.com/traefik/traefik"
@@ -21,10 +21,12 @@ source=(
   "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
   "traefik.service"
   "traefik.sysusers"
+  "traefik.tmpfiles"
 )
 sha512sums=('d5ffb6130624d79afdef338b3b4aef0a3e0ff2619f42c2506c1137582070cf543600a253663d2e4c5c027d1e9dce773546af531893ae13f84f3ef69ed55c2882'
             '8a068799588d8982cfcafe994254af1f29b4aa0065e5d29de0b7acf89e442ff43723adf9519654822d7d44dc6c6a46025f514768f0d3ec0e34a434576a9f4d45'
-            '48d4ae18774ee3c4a3cbd76951aac90a98281c96e8696c3ebc0bff3bf6e726fe44cf303e11cb7391b29b958c30ca3013a0f3926c3e43537e60926ff429ce17bc')
+            '48d4ae18774ee3c4a3cbd76951aac90a98281c96e8696c3ebc0bff3bf6e726fe44cf303e11cb7391b29b958c30ca3013a0f3926c3e43537e60926ff429ce17bc'
+            '4b4200188bb1803e8068c0369a53621a64bbdf37962c6153dafb46e3babcc47061412d65d596e23072ed07dabeccc38779af7724c9f50191e67870710a76722c')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -83,7 +85,6 @@ package() {
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.md
   install -vDm644 -t "$pkgdir/usr/lib/systemd/system" "$srcdir/traefik.service"
   install -vDm644 "$srcdir/traefik.sysusers" "$pkgdir/usr/lib/sysusers.d/traefik.conf"
+  install -vDm644 "$srcdir/traefik.tmpfiles" "$pkgdir/usr/lib/tmpfiles.d/traefik.conf"
   install -vDm644 traefik.sample.yml "$pkgdir/etc/traefik/traefik.yml"
-  # Create empty acme.json file, otherwise the service file will fail.
-  install -vDm644 /dev/null "$pkgdir/etc/traefik/acme.json"
 }
