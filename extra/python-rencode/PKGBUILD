@@ -3,37 +3,39 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=python-rencode
-pkgver=1.0.6
-pkgrel=10
+pkgver=1.0.8
+pkgrel=1
 pkgdesc="A Module similar to bencode from the BitTorrent project"
 url="https://github.com/aresch/rencode"
-license=('GPL')
+license=('GPL-3')
 arch=('x86_64')
 depends=('python')
-makedepends=('cython' 'python-setuptools')
+makedepends=('git' 'cython' 'python-build' 'python-installer' 'python-poetry-core' 'python-setuptools')
 checkdepends=('python-pytest')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/aresch/rencode/archive/v$pkgver.tar.gz"
-        remove-wheel.patch)
-sha512sums=('f04de4d3a83aed916bdc4b7a8ca772655e9324d0531ee882cb7d2a1e92b397bdcec8497bf02939e0a806886ecc62ed2e7319dfee054dad1b69052157f0959e8f'
-            '3062866d4fc890a2df8c8c261a5f67604c9fca67afb5526a24b599332d65ab093253e67c3a117a118f85144e3e32caf939c307f32668795f2eb7a7087572c1a8')
+source=("git+https://github.com/aresch/rencode.git#tag=v$pkgver")
+sha512sums=('974d3efb1e1f7a54902c3772663a5d122399b2e825592634cc88ba1f1a51ebf97470c368e6891d9e52af8a700a50749d428d273de2c5b21b6334fa456f664443')
 
 prepare() {
-  cd "$srcdir"/rencode-$pkgver
-  patch -Np1 -i ../remove-wheel.patch
+  cd rencode
+  # build.py seems to be a special name, and it prevents building of a wheel
+  mv build.py cython_build.py
+  sed -i 's/build.py/cython_build.py/' pyproject.toml
 }
 
 build() {
-  cd "$srcdir"/rencode-$pkgver
-  python setup.py build
+  cd rencode
+  python cython_build.py
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$srcdir"/rencode-$pkgver
-  local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
-  PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$python_version" py.test
+  cd rencode
+  python -m venv --system-site-packages testenv
+  testenv/bin/python -m installer dist/*.whl
+  testenv/bin/python -m pytest
 }
 
 package() {
-  cd rencode-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1
+  cd rencode
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
