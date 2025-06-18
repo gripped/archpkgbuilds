@@ -9,7 +9,7 @@ pkgname=(
   'woodpecker-cli'
 )
 pkgver=3.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A simple CI engine with great extensibility'
 arch=('x86_64')
 url='https://woodpecker-ci.org'
@@ -93,7 +93,7 @@ package_woodpecker-server() {
   install -vDm644 server-systemd.service "$pkgdir/usr/lib/systemd/system/$pkgname.service"
   install -vDm644 server-sysusers.conf "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
   install -vDm644 server-tmpfiles.conf "$pkgdir/usr/lib/tmpfiles.d/$pkgname.conf"
-  install -vDm644 server.env -t "$pkgdir/etc/woodpecker"
+  install -vDm640 server.env -t "$pkgdir/etc/woodpecker"
 
   cd "$pkgbase"
 
@@ -113,7 +113,7 @@ package_woodpecker-agent() {
   install -vDm644 agent-systemd.service "$pkgdir/usr/lib/systemd/system/$pkgname.service"
   install -vDm644 agent-sysusers.conf "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
   install -vDm644 agent-tmpfiles.conf "$pkgdir/usr/lib/tmpfiles.d/$pkgname.conf"
-  install -vDm644 agent.env -t "$pkgdir/etc/woodpecker"
+  install -vDm640 agent.env -t "$pkgdir/etc/woodpecker"
 
   cd "$pkgbase"
 
