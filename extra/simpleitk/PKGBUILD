@@ -11,7 +11,7 @@ pkgname=(
   ruby-simpleitk
   tcl-simpleitk
 )
-pkgver=2.5.0
+pkgver=2.5.2
 pkgrel=1
 pkgdesc="A simplified layer built on top of ITK"
 arch=(x86_64)
@@ -40,7 +40,7 @@ makedepends=(
   tk
 )
 source=($pkgbase::git+$url.git#tag=v$pkgver)
-b2sums=('b144120c0211160cef997d1211cea580158f35520744c086a02baee93c63f3d75d1a77a8f1d4409036487c25492340f31c1abacd1cdd7786233f0f021290340e')
+b2sums=('1e06f8483456662e936da9b055b1e25a12528fc8a82df5069afee11bc7061355d8e29e8e96e489a8c078dfa1aa8c82550035b46b719c0a59f2c23647bfc5c60b')
 
 build() {
   local cmake_options=(
