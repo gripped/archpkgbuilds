@@ -1,37 +1,37 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-latex2mathml
-pkgver=3.77.0
-pkgrel=3
+pkgver=3.78.0
+pkgrel=1
 pkgdesc="Pure Python library for LaTeX to MathML conversion"
 url="https://github.com/roniemartinez/latex2mathml"
 license=('MIT')
 arch=('any')
 depends=('python')
-makedepends=('python-build' 'python-installer' 'python-poetry-core')
+makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core')
 checkdepends=('python-pytest' 'python-multidict' 'python-xmljson')
-source=("https://github.com/roniemartinez/latex2mathml/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('1f7b7f383e75017720d07518b665ffba0b9a6803f771ece64245b6cc12803f0b2ec5aa9a79c030a1735aa09225825edd14a522d90e65bc52c28c8bd4b7066e31')
+source=("git+https://github.com/roniemartinez/latex2mathml.git#tag=$pkgver")
+sha512sums=('8d48965a16c58bc525609a302e3454836e9ed897ec98bf399dd99a2a822dff97e43f072775dc377d664b25b3697f5f533a8c3c0adea88cff8846ce378f4f87e1')
 
 prepare() {
-  cd latex2mathml-$pkgver
+  cd latex2mathml
   sed -i '/--cov/d' pyproject.toml
 }
 
 build() {
-  cd latex2mathml-$pkgver
+  cd latex2mathml
   python -m build -nw
 }
 
 check() {
-  cd latex2mathml-$pkgver
-  python -m installer -d tmp_install dist/*.whl
-  local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
-  PYTHONPATH="$PWD/tmp_install/usr/lib/python${python_version}/site-packages" pytest
+  cd latex2mathml
+  python -m venv --system-site-packages testenv
+  testenv/bin/python -m installer dist/*.whl
+  testenv/bin/python -m pytest
 }
 
 package() {
-  cd latex2mathml-$pkgver
+  cd latex2mathml
   python -m installer -d "$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
