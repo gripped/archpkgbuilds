@@ -4,8 +4,8 @@
 # Contributor: Mathieu Wespthal <mathieu.westphal+aur@gmail.com>
 
 pkgname=f3d
-pkgver=3.0.0
-pkgrel=4
+pkgver=3.1.0
+pkgrel=2
 pkgdesc='A fast and minimalist 3D viewer'
 arch=('x86_64')
 url="https://github.com/${pkgname}-app/${pkgname}"
@@ -28,6 +28,7 @@ depends=('alembic'
          'verdict'
          'vtk')
 makedepends=('cmake'
+             'cuda'
              'eigen'
              'fast_float'
              'help2man'
@@ -38,18 +39,8 @@ makedepends=('cmake'
              'python'
              'strip-nondeterminism'
              'utf8cpp')
-source=("https://github.com/$pkgname-app/$pkgname/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz"
-        ignore_gzip_timestamps.patch)
-sha256sums=('7ea83830d1c8158a1f01e5ac9edd00b81de3e0b4cbdbc4a4bb60a113728b7b7a'
-            '8d634d8f9db0d1977e61b3ac296fb8b40485cab7b5c311a717b62c57a7cd528d')
-
-prepare(){
-  cd "$pkgname-$pkgver"
-  # Patch to ignore timestamps recording in gzip metadata
-  # This is required for reproducible builds
-  # See https://github.com/f3d-app/f3d/pull/1982
-  patch -Np1 -i "$srcdir/ignore_gzip_timestamps.patch"
-}
+             source=("https://github.com/$pkgname-app/$pkgname/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz")
+             sha256sums=('93ba23078133122e929d9c1e2946c86da1f08fe56b9ffae40ebfd8185e91380a')
 
 build() {
   cd "$pkgname-$pkgver"
@@ -62,7 +53,6 @@ build() {
     -D F3D_BINDINGS_JAVA=ON \
     -D F3D_BINDINGS_PYTHON=ON \
     -D F3D_LINUX_GENERATE_MAN=ON \
-    -D F3D_MODULE_EXTERNAL_RENDERING=ON \
     -D F3D_MODULE_RAYTRACING=ON \
     -D F3D_MODULE_EXR=ON \
     -D F3D_PLUGINS_STATIC_BUILD=ON \
