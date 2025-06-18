@@ -1,7 +1,7 @@
 # Maintainer: Brett Cornwall <ainola@archlinux.org>
 
 pkgname=chrono-date
-pkgver=3.0.3
+pkgver=3.0.4
 pkgrel=1
 pkgdesc="A date and time library based on the C++11/14/17 <chrono> header"
 arch=(x86_64)
@@ -17,7 +17,7 @@ provides=(
 source=("$pkgname-$pkgver.tar.gz::https://github.com/HowardHinnant/date/archive/v$pkgver.tar.gz"
         "538-output-date-pc-for-pkg-config.patch::https://patch-diff.githubusercontent.com/raw/HowardHinnant/date/pull/538.patch"
         "disable_buggy_libstdc++_tests.patch")
-sha256sums=('30de45a34a2605cca33a993a9ea54e8f140f23b1caf1acf3c2fd436c42c7d942'
+sha256sums=('56e05531ee8994124eeb498d0e6a5e1c3b9d4fccbecdf555fe266631368fb55f'
             'c881ae3ae08b46a2137b987e593469d030669c37c9423921a1fac7de512676f3'
             'bd770b44554790c8854dd433aa670ecb8071a69bbeb2855c97dc66570d442165')
 
