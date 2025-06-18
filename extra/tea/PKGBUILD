@@ -2,7 +2,7 @@
 # Contributor: John K. Luebs <jkl at johnluebs dot tld>
 
 pkgname=tea
-pkgver=0.9.2
+pkgver=0.10.1
 pkgrel=1
 pkgdesc='A command line tool to interact with Gitea servers'
 arch=('x86_64')
@@ -12,15 +12,9 @@ depends=('glibc')
 makedepends=('git' 'go')
 replaces=('gitea-tea')
 options=('!lto')
-_commit='fff1af1029a1c63c078e058c9a5c4d3ac7054594'
-source=("$pkgname::git+$url#commit=$_commit")
-b2sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('8b32be890e1a9fe022459ed52e61f328e0ab1955e4f4566142e75ec452fd4f49904e8a2fbcf825048b70c7a3081479ba1b37ef6925211efd5258c31bd01b9b84')
+b2sums=('8b50335c5fc35a3f6ae23085e07ce83b146cc8c23a56ab8178ccf783ffd47179a453adea1041fbc9854c6d74249038376c4df69640bc3c846fe1019302a032e1')
 
 prepare() {
   cd "$pkgname"
@@ -51,7 +45,7 @@ build() {
     -modcacherw \
     -ldflags "-compressdwarf=false \
     -linkmode external \
-    -extldflags ${LDFLAGS} \
+    -extldflags '${LDFLAGS}' \
     -X main.Version=${pkgver} \
     -X main.Tags=${TAGS}" \
     -o build \
