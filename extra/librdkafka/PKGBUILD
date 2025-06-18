@@ -5,7 +5,7 @@
 # Contributor: Alim Gokkaya <alimgokkaya at gmail dot com>
 
 pkgname=librdkafka
-pkgver=2.10.0
+pkgver=2.10.1
 pkgrel=1
 pkgdesc='The Apache Kafka C/C++ library'
 arch=(x86_64)
@@ -37,7 +37,7 @@ source=(
   "$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
   "remove-failing-tests.patch"
 )
-sha256sums=('004b1cc2685d1d6d416b90b426a0a9d27327a214c6b807df6f9ea5887346ba3a'
+sha256sums=('75f59a2d948276504afb25bcb5713a943785a413b84f9099d324d26b2021f758'
             '23c8d030179724d13a91f13cf566b045b195d64a3219eb2c5122d06e1e1c6fd1')
 
 prepare() {
