@@ -4,8 +4,8 @@
 # Contributor: Javier Tiá <javier dot tia at gmail dot com>
 
 pkgname=visidata
-pkgver=3.1.1
-pkgrel=3
+pkgver=3.2
+pkgrel=1
 pkgdesc='Terminal spreadsheet multitool for discovering and arranging data'
 arch=(any)
 url="https://www.$pkgname.org"
@@ -64,7 +64,7 @@ _archive="$pkgname-$pkgver"
 # pypi sources don’t have scripts to generate completions
 # source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/$pkgname/$_archive.tar.gz")
 source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('9e693d72d516adca2c52348531af98fef099ab6f09e6523976286b555a7599ee')
+sha256sums=('5fa6c165aff3074cce0c06c37e1a2d9a6ad618c9950f5b7ed3fc78b51021ae43')
 
 build() {
 	cd "$_archive"
