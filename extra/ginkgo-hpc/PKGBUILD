@@ -3,8 +3,8 @@
 _pkgname=ginkgo
 pkgbase=ginkgo-hpc
 pkgname=(ginkgo-hpc ginkgo-hpc-docs ginkgo-hpc-cuda ginkgo-hpc-hip)
-pkgver=1.9.0
-pkgrel=4
+pkgver=1.10.0
+pkgrel=1
 pkgdesc="Numerical linear algebra software package"
 arch=(x86_64)
 url=https://ginkgo-project.github.io/
@@ -14,6 +14,7 @@ depends=(
   glibc
   hwloc
   openmpi
+  yaml-cpp
 )
 # FIXME: system 'rapidjson' does not work due to some C++ issues
 # (see the 'declared protected here' error in https://github.com/Tencent/rapidjson/issues/1338#issuecomment-449849215 )
@@ -43,8 +44,8 @@ source=(
   "$_pkgname-$pkgver.tar.gz::https://github.com/ginkgo-project/ginkgo/archive/refs/tags/v$pkgver.tar.gz"
   split_cuda_library.patch
 )
-b2sums=('4a95910f712c21b316f9f155baef5defefeeeab50f154d0b43391c1a2844eb6e0db9b4930330020afe2f4ba8f253b557f611f0cba3f6f9b2d8b65b2b79bdfc41'
-        '3dd2558f399a4e9e7176021415b53e8f06e41c328df920ed254890ffc4c2a430344162c5054bb8d8f4ef2c53ae4029084fd85f89f46a047ebf5707a70fb6d7fe')
+b2sums=('863f6a2f465427b2c79ae8816805ddffbab00b8e94471af94f6bc817b50a4487f5b6237f5f1f7cdf7f18adc26d758b1955edbe7301b4268888c87ba8bb9ec44e'
+        '1d7c35edb141a4d9cf5aa1ca51aec6e923e09c5353d7ef05bdb576fc1b4fceb59204162f66b3c63a550a682c953922ee4ae9b24bf87ba9ba7555465a1b3c53ec')
 
 prepare() {
   # Ginkgo is too big to build all CUDA archs into a single library, we need to split it
