@@ -4,7 +4,7 @@
 pkgname=airspy
 _pkgname=airspyone_host
 pkgver=1.0.10
-pkgrel=3
+pkgrel=4
 pkgdesc="Host code for Airspy SDR"
 arch=(x86_64)
 url="https://www.airspy.com"
@@ -29,10 +29,12 @@ prepare() {
 
 build() {
   cd $_pkgname-$pkgver
+  export CMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake -S . -B build \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -Wno-dev
+    -Wno-dev \
+    -DCMAKE_C_STANDARD=17
   cmake --build build
 }
 
@@ -40,5 +42,5 @@ package() {
   cd $_pkgname-$pkgver
   DESTDIR="$pkgdir" cmake --install build
   install -vDm644 -t "$pkgdir/usr/lib/udev/rules.d" airspy-tools/52-airspy.rules
-  install -vDm644 -t "$pkgdir/etc/modprobe.d" "$srcdir/airspy.conf"
+  install -vDm644 -t "$pkgdir/usr/lib/modprobe.d" "$srcdir/airspy.conf"
 }
