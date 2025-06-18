@@ -7,7 +7,7 @@
 _name=urwid
 pkgname=python-urwid
 pkgver=2.6.16
-pkgrel=1
+pkgrel=2
 pkgdesc='Curses-based user interface library'
 arch=('any')
 url='https://urwid.org/'
@@ -16,6 +16,7 @@ depends=(
   'glib2'
   'python'
   'python-wcwidth'
+  'python-typing_extensions'
 )
 makedepends=(
   'python-build'
