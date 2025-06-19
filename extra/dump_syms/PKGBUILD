@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=dump_syms
-pkgver=2.3.4
+pkgver=2.3.5
 pkgrel=1
 pkgdesc="Symbol dumper for Firefox"
 url="https://github.com/mozilla/dump_syms"
@@ -17,23 +17,23 @@ makedepends=(
 )
 options=(!lto)
 source=("git+$url#tag=v$pkgver")
-b2sums=('3dfcbb3ca017cca4d4ce2b2f3be7dd1bdcebd56ba618b3766fa8ccee0999ecaaaabbcdda9c1679386a2af1e6e2aaa00d996d3392ad59ea42f19394793ef15b2f')
+b2sums=('35c32ec25d2f034add690a9eec6aabefe63e824e2ed3741de426922aab8b032660048e1362ddc7de43c299bb794f60591c445a630c6c08915b10b9b135a05370')
 
 prepare() {
   cd $pkgname
-  cargo fetch --locked --target x86_64-unknown-linux-gnu
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
   cd $pkgname
 
   # Use debug
-  export CARGO_PROFILE_RELEASE_DEBUG=2
+  export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
 
   # Use LTO
   export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
-  cargo build --release --frozen --all-targets
+  cargo build --release --frozen
 }
 
 check() {
