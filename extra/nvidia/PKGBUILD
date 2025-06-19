@@ -3,14 +3,14 @@
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
 pkgname=nvidia
-pkgver=575.57.08
-pkgrel=5
+pkgver=575.64
+pkgrel=1
 pkgdesc="NVIDIA kernel modules"
 arch=('x86_64')
 url="https://www.nvidia.com/"
 makedepends=('linux-headers' "nvidia-dkms=$pkgver")
 provides=('NVIDIA-MODULE')
-license=('custom')
+license=('LicenseRef-custom')
 options=('!strip')
 
 build() {
