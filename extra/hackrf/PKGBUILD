@@ -4,7 +4,7 @@
 
 pkgname=hackrf
 pkgver=2024.02.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Driver for HackRF, allowing general purpose software defined radio (SDR)"
 arch=(x86_64)
 url="https://github.com/greatscottgadgets/hackrf"
@@ -30,6 +30,7 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
+  export CMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake -S host -B build \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -44,5 +45,5 @@ package() {
   for file in firmware-bin/*.{bin,dfu}; do
     install -vDm644 -t "$pkgdir/usr/share/hackrf" "$file"
   done
-  install -vDm644 -t "$pkgdir/etc/modprobe.d" "$srcdir/hackrf.conf"
+  install -vDm644 -t "$pkgdir/usr/lib/modprobe.d" "$srcdir/hackrf.conf"
 }
