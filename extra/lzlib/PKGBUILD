@@ -1,33 +1,38 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Christoph Zeiler <archNOSPAM_at_moonblade.dot.org>
 
 pkgname=lzlib
-pkgver=1.14
+pkgver=1.15
 pkgrel=1
 pkgdesc="A library providing in-memory LZMA compression and decompression functions"
-arch=('i686' 'x86_64')
+arch=('x86_64')
 url="http://www.nongnu.org/lzip/lzlib.html"
-license=('BSD')
-depends=('gcc-libs')
-options=('!emptydirs')
+license=('BSD-2-Clause')
+depends=('glibc')
 source=(https://download.savannah.gnu.org/releases/lzip/$pkgname/$pkgname-$pkgver.tar.gz{,.sig})
-validpgpkeys=('1D41C14B272A2219A739FA4F8FE99503132D7742') # Antonio Diaz Diaz
-sha256sums=('5acac8714ed4f306020bae660dddce706e5f8a795863679037da9fe6bf4dcf6f'
+sha256sums=('4afab907a46d5a7d14e927a1080c3f4d7e3ca5a0f9aea81747d8fed0292377ff'
             'SKIP')
+validpgpkeys=('1D41C14B272A2219A739FA4F8FE99503132D7742') # Antonio Diaz Diaz
 
 build() {
-  cd "${srcdir}"/$pkgname-$pkgver
-
-  ./configure --prefix=/usr --enable-shared
+  cd $pkgname-$pkgver
+  ./configure \
+    --prefix=/usr \
+    --enable-shared \
+    CFLAGS="$CFLAGS" \
+    LDFLAGS="$LDFLAGS"
   make
 }
 
+check() {
+  cd $pkgname-$pkgver
+  make check
+}
+
 package() {
-  cd "${srcdir}"/$pkgname-$pkgver
-
-  make DESTDIR="${pkgdir}" install{,-man}
-
-  install -Dm755 minilzip "${pkgdir}"/usr/bin/minilzip
-  
-  install -Dm644 COPYING "${pkgdir}"/usr/share/licenses/$pkgname/COPYING
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install{,-man}
+  install -vDm755 -t "$pkgdir/usr/bin" minilzip
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" COPYING
 }
