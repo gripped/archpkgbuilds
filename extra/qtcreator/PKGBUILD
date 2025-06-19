@@ -9,8 +9,8 @@
 pkgbase=qtcreator
 pkgname=(qtcreator
          qtcreator-devel)
-pkgver=16.0.2
-pkgrel=4
+pkgver=17.0.0
+pkgrel=1
 pkgdesc='Lightweight, cross-platform integrated development environment'
 arch=(x86_64)
 url='https://www.qt.io'
@@ -55,7 +55,7 @@ optdepends=('qt6-doc: integrated Qt documentation'
 source=(git+https://code.qt.io/qt-creator/qt-creator#tag=v$pkgver
         git+https://code.qt.io/qt-creator/perfparser
         git+https://code.qt.io/playground/qlitehtml)
-sha256sums=('e5274998c96b003a161608ab877f903790cd5255e9dc37bed118d75c4e0e3769'
+sha256sums=('724ed21d2d48406bd3d3d925c537183efc480aa9edb991f0f9e5363612be3137'
             'SKIP'
             'SKIP')
 options=(docs)
@@ -87,7 +87,7 @@ package_qtcreator() {
 # Install docs
   cp -r build/share/doc "$pkgdir"/usr/share
 
-  install -Dm644 qt-creator/LICENSE.GPL3-EXCEPT "$pkgdir"/usr/share/licenses/qtcreator/LICENSE.GPL3-EXCEPT
+  install -Dm644 qt-creator/LICENSES/* -t "$pkgdir"/usr/share/licenses/qtcreator
 }
 
 package_qtcreator-devel() {
