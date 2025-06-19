@@ -3,15 +3,15 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=nvidia-lts
-pkgver=575.57.08
-pkgrel=3
+pkgver=575.64
+pkgrel=1
 epoch=1
 pkgdesc="NVIDIA drivers for linux-lts"
 arch=('x86_64')
 url="https://www.nvidia.com/"
 makedepends=('linux-lts-headers' "nvidia-dkms=$pkgver")
 provides=('NVIDIA-MODULE')
-license=('custom')
+license=('LicenseRef-custom')
 options=('!strip')
 
 build() {

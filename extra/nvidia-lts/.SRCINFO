@@ -1,17 +1,17 @@
 pkgbase = nvidia-lts
 	pkgdesc = NVIDIA drivers for linux-lts
-	pkgver = 575.57.08
-	pkgrel = 3
+	pkgver = 575.64
+	pkgrel = 1
 	epoch = 1
 	url = https://www.nvidia.com/
 	arch = x86_64
-	license = custom
+	license = LicenseRef-custom
 	makedepends = linux-lts-headers
-	makedepends = nvidia-dkms=575.57.08
+	makedepends = nvidia-dkms=575.64
 	provides = NVIDIA-MODULE
 	options = !strip
 
 pkgname = nvidia-lts
 	depends = linux-lts
-	depends = nvidia-utils=575.57.08
+	depends = nvidia-utils=575.64
 	depends = libglvnd
