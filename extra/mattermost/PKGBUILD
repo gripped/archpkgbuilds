@@ -5,7 +5,7 @@
 
 pkgbase=mattermost
 pkgname=($pkgbase mmctl)
-pkgver=10.9.0
+pkgver=10.9.1
 pkgrel=1
 pkgdesc="Open source Slack-alternative in Golang and React"
 arch=(x86_64)
@@ -25,7 +25,7 @@ source=(https://github.com/$pkgname/$pkgname-server/archive/v$pkgver/$_archive.t
         $pkgname.service
         $pkgname.sysusers
         $pkgname.tmpfiles)
-sha256sums=('06dac02af4c0ad15574c6c7f58a40b798aa1d9bb22c7ca8ba60f73b8fcdb5e12'
+sha256sums=('b660efa723992ebf3edf24fc2d7024b5deae57a165f0c02ae27b4a4c41413408'
             '9e73dc5e9ab9a95049352bd504fb4e0d6becbd5c715026d8c1df4f515d258b68'
             'f7bd36f6d7874f1345d205c6dcb79af1804362fc977a658db88951a172d1dfa0'
             '8dfeee28655b91dc75aca2317846284013ac3d5a837d360eba9641e9fbcf3aa2')
@@ -45,7 +45,7 @@ prepare() {
     # Don’t embed a precompiled mmctl
     sed '/@#Download MMCTL/,+2d' -i build/release.mk
 
-    # Remove platform specific precompiled plugin downloads
+    # Remove platform specific prec/ompiled plugin downloads
     sed '/# Download prepackaged plugins/,+8d' -i build/release.mk
 
     cd ../webapp
