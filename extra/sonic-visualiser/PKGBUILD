@@ -4,7 +4,7 @@
 
 pkgname=sonic-visualiser
 pkgver=5.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A viewer and analyser of music audio files."
 arch=(x86_64)
 url="https://www.sonicvisualiser.org/"
@@ -40,9 +40,16 @@ makedepends=(
   sord
 )
 provides=(vamp-host)
-source=(https://github.com/$pkgname/$pkgname/releases/download/sv_v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('27bd8528a9b75b0bc11ead82447b2ce48c6ea8cfc527df6b3d057792a40b78e7bd29d895e30782016385a98bec5c2d976d08d24bb79898ba6732248c2c49601c')
-b2sums=('3176d336d7aeaab98c7bae4783e8b8ade6bcbf4a13242843a8b271a7b285bc2a961806dff448fe0de301bd1a1b5bef4c0aa8cade1dc01dc1761bf3c56f0e3623')
+source=(https://github.com/$pkgname/$pkgname/releases/download/sv_v$pkgver/$pkgname-$pkgver.tar.gz
+        sonic-visualiser-5.2.1-fix-build-with-qt69.patch)
+sha512sums=('27bd8528a9b75b0bc11ead82447b2ce48c6ea8cfc527df6b3d057792a40b78e7bd29d895e30782016385a98bec5c2d976d08d24bb79898ba6732248c2c49601c'
+            'dc3b5da4107f164f7413e2299be75a2349414cea43f38bda9b98a08b49d5e45d01fbb76e6b1a993fcaafda194178904245332272d48ea44d6db69509fe7cecb8')
+b2sums=('3176d336d7aeaab98c7bae4783e8b8ade6bcbf4a13242843a8b271a7b285bc2a961806dff448fe0de301bd1a1b5bef4c0aa8cade1dc01dc1761bf3c56f0e3623'
+        'e07549a4ad76e083f5be12ec3cd106cde8deea02e44b5599c9606f6bee4ca8d63a71f0fb13345d86efad7f2c95a7fbd9546599db986278cb23baad3858605f3f')
+
+prepare() {
+  patch -d $pkgname-$pkgver/svcore -Np1 < "${srcdir}/sonic-visualiser-5.2.1-fix-build-with-qt69.patch"
+}
 
 build() {
   arch-meson build $pkgname-$pkgver
