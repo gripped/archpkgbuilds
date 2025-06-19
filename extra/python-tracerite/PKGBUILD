@@ -1,17 +1,22 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-tracerite
-pkgver=1.1.1
-_commit=4417b7018d61987293c1d4604654dfb4223489de
-pkgrel=4
+pkgver=1.1.2
+pkgrel=2
 pkgdesc='Pythonic HTML generation/templating (no template files)'
 arch=("any")
 url='https://github.com/sanic-org/tracerite'
-license=(MIT)
-depends=(python python-setuptools python-html5tagger)
-makedepends=(git python-setuptools-scm)
-source=("git+https://github.com/sanic-org/tracerite#commit=$_commit")
-sha256sums=('SKIP')
+license=(Unlicense)
+depends=(python python-html5tagger)
+makedepends=(git python-setuptools python-setuptools-scm)
+source=("git+https://github.com/sanic-org/tracerite#tag=v$pkgver")
+sha256sums=('3cb4442ee200854d89fe37ce731582d9b3e46f26072a533c81154eaccb3c82c9')
+
+prepare() {
+    cd tracerite
+    # Fix Python 3.x compatibility
+    git cherry-pick -n fc23bb14e6b36719d003bf45e03d891c6c1024aa
+}
 
 build() {
     cd tracerite
