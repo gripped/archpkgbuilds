@@ -4,7 +4,7 @@
 
 _base=pack
 pkgname=pack-cli
-pkgver=0.37.0
+pkgver=0.38.0
 pkgrel=1
 pkgdesc="CLI for building apps using Cloud Native Buildpacks"
 depends=('glibc')
@@ -13,7 +13,7 @@ arch=('x86_64')
 url="https://buildpacks.io/"
 license=('Apache-2.0')
 source=("git+https://github.com/buildpacks/${_base}.git#tag=v${pkgver}")
-sha512sums=('050fd0a812681f62f703d1384f24a8ed9d17c9680315459ff4d58fb83ead3368a890f64880d05c0d6ffa3e18b57446d1dcf4baca734378284ef15e60f3e393d8')
+sha512sums=('d50ad06926d4331924d22f6f9af9f0f297651e521da6cf5b1e30404b062ed81b247d44a758d9b13cbc7437fd9a6b6e1ba4ecb5d4cc94a15e60540547392db2ba')
 
 prepare() {
   cd ${_base}
@@ -29,8 +29,7 @@ build() {
     -mod=readonly \
     -modcacherw \
     -ldflags "-linkmode external -extldflags \"${LDFLAGS}\" ${_BUILDINFO}" \
-    -o "dist/${_base}" \
-    -a ./cmd/pack
+    -o "dist/${_base}"
 }
 
 # Seems like it needs docker
