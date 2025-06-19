@@ -3,7 +3,7 @@
 
 _pkgname=lupa
 pkgname=python-lupa
-pkgver=2.4
+pkgver=2.5
 pkgrel=1
 pkgdesc='Python wrapper around Lua and LuaJIT'
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(cython
              python-setuptools)
 _archive="$_pkgname-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pkgname::1}/$_pkgname/$_archive.tar.gz")
-sha256sums=('5300d21f81aa1bd4d45f55e31dddba3b879895696068a3f84cfcb5fd9148aacd')
+sha256sums=('69c6a89f2b7b08a3040d7ed2a1eeccba37a31ddc92fa199339c53a2ae3c48c34')
 
 build() {
 	cd "$_archive"
