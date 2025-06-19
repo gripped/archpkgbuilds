@@ -1,7 +1,7 @@
 # Maintainer:
 
 pkgname=freetds
-pkgver=1.5.2
+pkgver=1.5.3
 pkgrel=1
 pkgdesc='Library for accessing Sybase and MS SQL Server databases'
 url='https://www.freetds.org'
@@ -17,7 +17,7 @@ backup=(etc/freetds/freetds.conf
         etc/freetds/locales.conf
         etc/freetds/pool.conf)
 source=(https://www.freetds.org/files/stable/$pkgname-$pkgver.tar.bz2)
-sha256sums=('7100a723bef1c0866f0a12c7081b410447959c8b9cc7500196c5c5d64042c056')
+sha256sums=('5cb66c46a60a83b8a2855e466148b6fa27962c7fd1dcb3f6e5d0ab17ec5ff6dd')
 
 build() {
   cd $pkgname-$pkgver
