@@ -1,33 +1,39 @@
-# Maintainer: Vesa Kaihlavirta <vegai@iki.fi>
+# Maintainer: Jürgen Hötzel <juergen@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Vesa Kaihlavirta <vegai@iki.fi>
 # Contributor: Michael Baehr <usemike@spamblocked.com>
 
 pkgname=ffcall
-pkgver=2.4
-pkgrel=3
+pkgver=2.5
+pkgrel=1
 pkgdesc="C library for implementing foreign function calls in embedded interpreters"
 arch=('x86_64')
 url="https://www.gnu.org/software/libffcall/"
-license=('GPL2')
+license=('GPL-2.0-or-later')
 depends=('glibc')
-options=('!makeflags' 'staticlibs')
-source=(https://ftp.gnu.org/gnu/libffcall/libffcall-${pkgver}.tar.gz)
-sha256sums=('8ef69921dbdc06bc5bb90513622637a7b83a71f31f5ba377be9d8fd8f57912c2')
+options=('!makeflags')
+source=("https://ftp.gnu.org/gnu/libffcall/libffcall-${pkgver}.tar.gz"{,.sig})
+sha256sums=('7f422096b40498b1389093955825f141bb67ed6014249d884009463dc7846879'
+            'SKIP')
+validpgpkeys=("9001B85AF9E1B83DF1BDA942F5BE8B267C6A406D") # Bruno Haible (Open Source Development) <bruno@clisp.org>
 
 build() {
-  cd "${srcdir}/lib${pkgname}-${pkgver}"
-  [ "$CARCH" = "x86_64" ] && CONFIGFLAG="--with-pic"
+  cd "lib${pkgname}-${pkgver}"
   CFLAGS+=" -ffat-lto-objects" \
-  ./configure --prefix=/usr --mandir=/usr/share/man $CONFIGFLAG
+    ./configure \
+    --prefix=/usr \
+    --mandir=/usr/share/man \
+    --with-pic \
+    --disable-static
   make
 }
 
 check() {
-  cd "${srcdir}/lib${pkgname}-${pkgver}"
+  cd "lib${pkgname}-${pkgver}"
   make check
 }
 
 package() {
-  cd "${srcdir}/lib${pkgname}-${pkgver}"
-  install -d "${pkgdir}"/usr/share/{man,doc/ffcall}
+  cd "lib${pkgname}-${pkgver}"
   make DESTDIR="${pkgdir}" htmldir=/usr/share/doc/ffcall install
 }
